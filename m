@@ -1,50 +1,74 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4714248C8;
-	Thu, 20 Aug 2026 11:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B523DAAC6
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:17:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224589; cv=none; b=EFF3sSkxB6ur5ZNYVp/L3ppp4uVZZabkh0+Tx0amPNvnpMwNANRSoOiHaHbb21DkHTTky3lgzlsXh15heoNgC377lleJdL1iuA1cLgI+EnrtUSMvFWokKYgwSONIkFvYGpQrRDpenTjN4bxxiaHBfV3bFXrb5POVp4duGitYYHQ=
+	t=1787224653; cv=none; b=R7DwYvo5HPXczkS368tK57pnxIwq4uplIXUuAVeAMtCCLMRUxTZo5DEANmoApIl9EtsHHHmZx8SHKBf3NoTbwzKVAUEONn9GdtnBMZB7cx7On52799cu/edsDLdzybhTi/V8SS1SqyJL5sNkH8KsOI7urZgligSZ/n4QBI3fCBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224589; c=relaxed/simple;
-	bh=DNfK/5YTWMuhE6vG0H6dQxOVy/hb2P4VlH+EzBuF/Ng=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QVY7++ONzcLfyUJpTCd8Vcasxan74cQH772UZK2n90p9Jw1QsstSSVyisNvAq9Zp27xxg3JxOolHTgDMLtBy5KqGP9LfGqYefAiwq3t5AgC+1xi0HXt1msgcJIM6ssjoniE2Yb4yRRyIWhGZmtDDTWPTIJjCAO+zgyasOr8dRFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=MMWIknHB; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+	s=arc-20240116; t=1787224653; c=relaxed/simple;
+	bh=hJkDm3W+fV7ZpBCUJIAmMowzdA2NGP/qVikG0lIhhuo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S0vKp88S7ZPm1vobEGXz7BYLGd/kG+PO7Wv1jy4jOoEQawPhj7jbUFPWK2bBj5iPrkbd5ud0iohCDw23kdAa7dfyYehHKlGcTcn2N/WbnQB5tDM/fquzpMOcNLu/RmW5UG9VpumTNcsSDBlOfD5P24YaGocW6oCoDhyhaXAC/yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IYhBugEs; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="MMWIknHB"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IYhBugEs"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso1203997f8f.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 04:17:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1787224584; x=1787483784;
-	bh=jgdK7kRhSX2y/N1DUJ1hdSSiBvEekYXI93e3DnBsE1g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=MMWIknHBW0hRBZuXTD/OKWHfDkJM4XMRdmsSk+vZAHEvv+aMVbXSbwHGZ/rgOYBPo
-	 DAsHZlRueYkcfqgn+3OolKlfa+Di7hZsiCJvnEXx0p/nuSJoZ2P+TuZ0gTWPQKWuei
-	 dylaqvrXe5z0mxVGubjkSBa3DQzGZNpWecbVyi78BvMN4IpJ2Iihd8Fsqn0tD0OasT
-	 fDwzwfXgPW8mN8cIyl7WgxOnZ5gC9b9PfXKq+uOBYps3TIp0grzE+yEAknk/G1Z4Mu
-	 6ZwsmVDcK3j4k0MZm2plEuXKq94HUmC7lN668xlCGZNXxNs8c61YfSa8JxmynvoRVp
-	 0/+adkgtAa77g==
-X-Pm-Submission-Id: 4hQgqS4Pqwz2SchM
-From: Natasha Klaus <natalie.klaus@runtimeverification.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Cc: ribalda@chromium.org,
-	noambs2999@gmail.com,
-	david.laight.linux@gmail.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        d=gmail.com; s=20251104; t=1787224646; x=1787829446; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o/+XjvBzWoD2MQbLHFqUD6b0gTe8eLRAGn6npcOPS8I=;
+        b=IYhBugEsjgG2ts7uUHamFNSjeJwcgbAkMzSBmmSOzY/siiFzBVlLQmMthstqNu2lSw
+         tDOOQOEnC4wsj/D/qfwwiHEWczJjZ/VhpHv/sYq4/uQePt1YYjLjJLFJ7wuSD5xvbWHZ
+         1WTAlB0rlQSiYClUIpZv23Xha38nXdxr9HT6x8qFaWnCY/F1SXCcbHIFpWnELxBYHFpI
+         GxBCtIrgVq5i3OaiAI3h+c8cN8OTf0iA06K8ixhB9bdAVZgVtg3FDtgid7XuOdjx1beV
+         pH2TxLAXneY6gjxQ3GNVzHIq2shx2LyYaUaZsTEqWrx3VlvvvriyK36rdD/Z5DxvDEvV
+         j1Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787224646; x=1787829446;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o/+XjvBzWoD2MQbLHFqUD6b0gTe8eLRAGn6npcOPS8I=;
+        b=CQUpFAAULG77+5KRfsl5M0OMchXK3QXxjMMOeSllTyAGi/Rq0RGrDrfrlPybydabZ9
+         Hys/ey5aY9JNYq/9tu5OpDTpH8Kdt6G7KepkamMW9NozFklPdcW9sEEx6BNkAVxU3jbx
+         /WD3M7zavcPGND5cwd68sBneYLMs3vRvwprGFZQOgtBsKr0UPncVzxP5OLCp+pi558TL
+         vq7nw7+t1FaxVzWy6b30JzSB1Y+YkekDEFalX8xhZ0jpb71Xi7bL+ypLNyaW7tGG3ACw
+         MAVnbA3jm+obi/mzlcmQvAeywQevBS/7+dO6kn7+Yz3qrZQCnH+jd7GObV4yjU5n7Q37
+         H26A==
+X-Forwarded-Encrypted: i=1; AHgh+RqMNpNtR/6y2O+noUOG9j/jo015jCp3wBXgyXiiBVesLVyQS6l59V2T4KcR0U3v0Vh8G9ujZcM=@vger.kernel.org
+X-Gm-Message-State: AFuF++llpFQIyZVc9LQoBssKFL4nUx8truQFZJUlZHl1zsr0CI8HqIUu
+	cGJxUEifjzp4odzWdyeOeruZPR4WK44yiiozhDYRd4hmxCdfjJzfaboytVtmoQ==
+X-Gm-Gg: AR+sD11uCdRDYGjZudz2eReqSSitfIYnryRtsUh85/2Sn2WsFXIlnjSjIBy3KzGX5yO
+	n3eFKfmVBB14EN2uhQn8yeVOjo8OVum17KxFmX9n9uuiiRnhW0cJ0O2rg/34h8mI+oRfDb6k+kG
+	h+OZsuUachQFw3LIbOu5HYMrFmCglkrSJhiSHc0N5eT6ZcFaErw2F2eIFbwZmhb6Hw7rkI+u5ZS
+	3C3uBOyGTzQYRTn7Xal0XbfBCIVMFFP8ku5p7k+XAAPy6CsgAsbWFx0/g0UekhxuAS//85pDP6q
+	qVDi7iaiDoduZ/M2YBvLHlRFJbnGDJzU8U9P2lAYM2UL3JRuCW0GBk1SGhuIEjdoaLQa6864drJ
+	PKdHaRm8WtEp/o2amXspnqBIHwXCrImscY5m0v8FGazxjbulo9Wu8hIw5jYEt48ddFAw7xMnsr+
+	xiEJCTUSewStI0UZOiagbY6dhbV5AnvoUCAevzdFiYmatcayefZ9Twu4jh/Ql7adikgBdf75CWs
+	Cqiz+N+SzE1h9Cb6S65f5qjgTbv3AO+brKw+nMZw1Jw6mBx
+X-Received: by 2002:a05:6000:41c7:b0:481:5167:abda with SMTP id ffacd0b85a97d-482b1e9e2a8mr21500418f8f.9.1787224645446;
+        Thu, 20 Aug 2026 04:17:25 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482b14b8050sm12957987f8f.19.2026.08.20.04.17.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 04:17:24 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	stable@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH v3 2/3] media: uvcvideo: Fix integer overflow in frame buffer size calculation
-Date: Thu, 20 Aug 2026 14:15:55 +0300
-Message-Id: <20260820111556.232652-3-natalie.klaus@runtimeverification.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260820111556.232652-1-natalie.klaus@runtimeverification.com>
-References: <20260820111556.232652-1-natalie.klaus@runtimeverification.com>
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH v3] media: v4l2-isp: reject zero-sized parameter blocks
+Date: Thu, 20 Aug 2026 12:17:22 +0100
+Message-ID: <20260820111722.1233915-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,131 +77,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Noam Ben Shimon <noambs2999@gmail.com>
+v4l2_isp_params_validate_buffer() walks the blocks of a parameters
+buffer by adding block->size to the current offset, but never bounds
+that size from below. A block with size 0 is not caught by the
+block->size > buffer_size test, and the comparison against info->size
+passes as well when the driver's type_info[] entry is an uninitialised
+hole, both sizes being 0. The walk then makes no forward progress and
+loops forever.
 
-In the function uvc_parse_frame(), it recomputes
-dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
-around devices that report it wrong:
+Drivers build their type_info[] arrays with designated initialisers
+indexed by their block type enumeration, so an enumerator left without
+an entry leaves a zeroed hole rather than failing the build. Drivers
+call the validator from vb2 .buf_prepare, so such a hole turns a
+VIDIOC_QBUF on the parameters video device into an unkillable task
+spinning with the queue mutex held.
 
-	frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
-					 * frame->wHeight / 8;
+Reject a block smaller than its own header. A block's size includes its
+header, so anything below that is malformed whatever the driver table
+contains, and rejecting it is what keeps the walk moving. Blocks
+carrying only a header to disable a block are exactly that size and
+still pass.
 
-These three arguments originate from the device's own descriptors, and
-therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
-u16. The expression is evaluated in int, and the maximum value is
-255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
-A device that declares large dimensions therefore overflows a signed
-int here.
-The kernel is built using -fno-strict-overflow, so this wraps rather
-than being miscompiled, but the wrapped value (which is often negative)
-is then divided by 8 and stored in a u32 used as a size.
+An empty type info entry can then no longer stall the walk, but a block
+matched against it is only constrained by that header size check. Reject
+such a block explicitly: the driver does not implement the type and
+cannot tell whether the block content is meaningful, and accepting it
+silently would leave that content unconstrained until a later kernel
+implements the type and starts validating it.
 
-Two examples for this (using legal field values):
-
-  - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
-    INT_MIN. After division and conversion to u32 the field has the
-    value 4026531840 rather than 268435456.
-
-  - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
-    The field holds 0, rather than the correct 536870912.
-
-I don't think memory corruption is a consequence of this. The value
-reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
-decode path is bounded by buf->length, which uvc_buffer_prepare() gets
-from vb2_plane_size() rather than this field. What a wrapped value does
-instead is make the driver describe the stream inconsistently.
-For an uncompressed format uvc_fixup_video_ctrl() copies it into
-ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
-sizeimage reported by VIDIOC_G_FMT. This is while width, height and
-bytesperline continue to describe the full frame.
-This also makes uvc_video_validate_buffer() mark error on all frames,
-because it is comparing bytesused against the same number.
-
-Compute the size in 64-bit, and if the result does not fit in the u32
-field then skip the frame descriptor. An uncompressed frame this large
-is probably not a real device, and skipping it leaves the rest of the
-format and the streaming interface usable.
-
-The rounding also changes from truncation to round-up. Truncation is
-pre-existing rather than introduced here: the original expression used
-integer division, so it has rounded a partial trailing byte away since
-the driver was merged. Rounding up is the right direction for a buffer
-size, and DIV_ROUND_UP() against BITS_PER_BYTE is what the rest of the
-media tree uses for this computation, including uvc_parse_format()
-itself for the FORCE_BPP quirk.
-
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+Fixes: 3cb6de6fafb8 ("media: v4l2-core: Introduce v4l2-isp.c")
 Cc: stable@vger.kernel.org
-Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Tested-by: Noam Ben Shimon <noambs2999@gmail.com>
-Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Suggested-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
-Changes from Noam's v2:
-- Rebased onto patch 1/3; this patch no longer applies standalone.
-- Diagnostic changed from uvc_dbg(dev, DESCR, ...) to dev_warn() on
-  &streaming->intf->dev, reworded to begin "UVC non compliance: " and to
-  say the frame is skipped. The explicit device and interface numbers are
-  dropped from the message text because dev_warn() already identifies the
-  interface. (The original could not be kept as-is in any case: patch 1/3
-  removes the local alts variable it referenced.)
-- bpp, wWidth and wHeight added to the message text (David Laight), matching
-  the wording of the diagnostic in 3/3.
-- The >> 3 replaced with DIV_ROUND_UP() against BITS_PER_BYTE (David Laight),
-  so a partial trailing byte is no longer dropped. The overflow check is
-  applied to the rounded-up value.
-- The return value is still -EINVAL; what changed is its meaning, which
-  patch 1/3 redefines as "skip this frame descriptor" rather than "fail the
-  whole streaming interface".
-- Last paragraph of the commit message reworded from "reject the frame
-  descriptor ... rejection is consistent with the other checks over
-  malformed-descriptors in this function" to describe skipping instead, and
-  a paragraph added on the rounding change.
-- Ricardo Ribalda's Reviewed-by dropped, as it was given on the unmodified
-  v2.
-- Submitter's Signed-off-by added.
-- Fixes: and Cc: stable lines unchanged.
-- DIV_ROUND_UP changed to DIV_ROUND_UP_ULL per Ricardo's review.
+v3:
+- reject a block whose type info entry is empty instead of skipping
+  it, so a type the driver does not implement cannot become
+  unconstrained uAPI (Jacopo)
 
-Rounding up also moves the U32_MAX boundary: two inputs within the field
-limits (bpp=79 at 10077x43161 and bpp=237 at 3359x43161) landed exactly on
-U32_MAX with the old truncation and are now rejected, since the rounded-up
-size is not representable.
+v2:
+- skip an empty type info entry instead of matching the block against
+  a zeroed one
+- reworded the commit message, which no longer leans on rppx1
 
-Build tested on x86_64; see the cover letter for Noam's gadget testing.
+ drivers/media/v4l2-core/v4l2-isp.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
- drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index b94fe5366e55..d7d71418f875 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -295,9 +295,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 	 * information. For uncompressed formats this can be fixed by computing
- 	 * the value from the frame size.
- 	 */
--	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
--		frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
--						 * frame->wHeight / 8;
-+	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
-+		u64 bufsize;
-+
-+		bufsize = DIV_ROUND_UP_ULL((u64)format->bpp * frame->wWidth *
-+					   frame->wHeight, BITS_PER_BYTE);
-+		if (bufsize > U32_MAX) {
-+			dev_warn(&streaming->intf->dev,
-+				 "UVC non compliance: FRAME %u computed buffer size overflows (%ux%u, %u bpp), skipping it.\n",
-+				 frame->bFrameIndex, frame->wWidth,
-+				 frame->wHeight, format->bpp);
+diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
+index 1eb46e080afa..efe994b4c4d7 100644
+--- a/drivers/media/v4l2-core/v4l2-isp.c
++++ b/drivers/media/v4l2-core/v4l2-isp.c
+@@ -84,6 +84,13 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+ 			return -EINVAL;
+ 		}
+ 
++		if (block->size < sizeof(*block)) {
++			dev_dbg(dev,
++				"Invalid block size %u at offset %zu\n",
++				block->size, block_offset);
 +			return -EINVAL;
 +		}
 +
-+		frame->dwMaxVideoFrameBufferSize = bufsize;
-+	}
+ 		if (block->size > buffer_size) {
+ 			dev_dbg(dev, "Premature end of parameters data\n");
+ 			return -EINVAL;
+@@ -99,12 +106,25 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+ 			return -EINVAL;
+ 		}
  
- 	/*
- 	 * Clamp the default frame interval to the boundaries. A zero
++		/*
++		 * An empty type info entry denotes a block type the driver
++		 * does not support. Reject the buffer instead of ignoring the
++		 * block: accepting it silently would let userspace fill it
++		 * with data that a later kernel, once it implements the type,
++		 * would validate and possibly reject.
++		 */
++		info = &type_info[block->type];
++		if (!info->size) {
++			dev_dbg(dev, "Unsupported block type %u at offset %zu\n",
++				block->type, block_offset);
++			return -EINVAL;
++		}
++
+ 		/*
+ 		 * Match the block reported size against the type info provided
+ 		 * one, but allow the block to only contain the header in
+ 		 * case it is going to be disabled.
+ 		 */
+-		info = &type_info[block->type];
+ 		if (block->size != info->size &&
+ 		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
+ 		    block->size != sizeof(*block))) {
 -- 
-2.34.1
+2.55.0
 
