@@ -1,89 +1,45 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF27B37EFFE
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 21:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFDFD3DD87B;
+	Thu, 20 Aug 2026 21:14:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787260408; cv=none; b=rQ+B0lpzP3ZTsBqtK+6KBuCmQuRq2sl8SsS3VpcbvbDmMms50B51IRstv+q9hYltDYeT4xCgiLjjrP0ox/Qw4aNnGCD+uh0ttgzPt6cjUrEBSAgBdTUi2S6JMz8KczZ0RCn7HixfoeVzfwrsykeZIZIsSxOPvWjAKc0y4pqObXQ=
+	t=1787260481; cv=none; b=KUXgc59HKOZRZkKpsEREroDJNqTipqyvAz0H/uxJROopWbkJMpJzlxpKp5ylgBaEA1F6xwSSjcD0vFOCIdeIPKf8sEFw0+pXOlK2jglUl+T/47JkelGWV4QIHaufLgYUNNhhXuxMSGTRV8M8HMU5KDEW2edpQ0LbCytGHUEOy64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787260408; c=relaxed/simple;
-	bh=FBkoHbnBpCFZvPSFxK+guNXnNiRJjA4cBZij8IaL6/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Keglq4UNSMY1NhzkO7X1bjfr7hphbWoEVgsymWGgPLJHtqBTm4RIV2Qkkwo9cRsElZVraRO8rD6dw+EFqTfjy7vsjIsh3Qn7UNOQChWWiOsUu+bowArBa6eDEPEAm7yetXhbaWvL36IQDw3E9cTAMPjdYBFbHgVxF7UwKaJExFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QGktlWfA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DsLiAFbc; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787260481; c=relaxed/simple;
+	bh=stkbopTI1vtZm3RSXs41CcEU4yW8JbdiXRQG0a2vfMo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pyjcfGhHq+pDPh/kMTPW4IsCkMNG5QUvrjZVULoWBG3cyvs96rc8d9Dap2EZPc5fXykWqM0l309Sv2Rvy6moIlx7c7JNuq4wnSML/JKjWkYEvFUJK7yxY+v5r23b5+WeZDHPbgnN7SMrU6x+XL5bTIZ0AMXRtLZSFuPBDJoZglo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=hx+ZQsw2; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QGktlWfA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DsLiAFbc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787260405;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=iALMLjNa5SNcOPSPrNeVDGsUnkRgdfi+5UonJPZ+nEo=;
-	b=QGktlWfAgKW2Ziq4iaBz9SJC0bLPm9hA6piMhHtGHuQYokhR3Imwmqot6C9Fpgz9Bb2vPG
-	kt5IX3TEqerwTECjhY8FDfFkK37vu4I7O4fIFOBLX434F618msqYs05kr5oI7+1oBLgjUj
-	F2AUh1kJVG8+67xCOeaj5qFmEQSCvWY=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-124-2PeYSJ_ZO3Cq_7MjS0QUeQ-1; Thu, 20 Aug 2026 17:13:14 -0400
-X-MC-Unique: 2PeYSJ_ZO3Cq_7MjS0QUeQ-1
-X-Mimecast-MFC-AGG-ID: 2PeYSJ_ZO3Cq_7MjS0QUeQ_1787260394
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a7c64fbbc6so529905b6e.2
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:13:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787260394; x=1787865194; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iALMLjNa5SNcOPSPrNeVDGsUnkRgdfi+5UonJPZ+nEo=;
-        b=DsLiAFbc6mcDQBqfL3kpK0tNSykVxl4NfRjSgDNb0DuYq/KdbHyvcVQ5XqBJhEjBtE
-         rhL4YdSKiLQQ9UnFPMy+FAf4SvZUW9CpjM2cPFNxVwSqtuVs9O11TPKG/BuUtCI7REsX
-         xVWznpb/RfvSRrDbKN6SMWOGgNAWhbEqoiD577ZJEsmgAm6Tc29fs4/2zBxL+k3PCzRl
-         cnzpUsmVREoUhBsnAnFSuwCUpZBKPOMYEV+Vz9tJWK+MhA1miJw1IOj6bD91EVe/0AER
-         PlXFuyPdY2Wz/wZc6jUayexbtiIpIkJ4eKGna+lOIEXt3drFdC1OSOi1ahaYSS9+uN8N
-         BMOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787260394; x=1787865194;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iALMLjNa5SNcOPSPrNeVDGsUnkRgdfi+5UonJPZ+nEo=;
-        b=F3Pq9JNcClzaxOHjLLWbPCUNXwk8rOMiZf2+gNfBq+KaoZ1BOsvmLuzR45SIgV1G8Y
-         nvWRY8rfMZsJaOmKLbVBA/jku9oXiJCJlSbgc8GdXPmMewlyfyjBBQNRFTKzAmRxjwjn
-         NpGwc4HHb/rqfISD5JZAtJNm94cuQJ8HStV/lI3Lfc7YKWXu4N7Dp3IjGQi1sv/ckQYV
-         nAT5tvtn1hLSuRSkOBNt8tONroHbU9ExSOoOPgIhf7di3Kv2dI5TEzANrQN0bQR1FScO
-         WiVgoCL2sD1E6cxQzRcL32yj7B5HUbELp6zeO/dvdELr+yW02PAOpnHEA/My4EYtPBt/
-         aR1w==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/SfLKba9+L8AIWQTLGsA8t9fDOvxoVVWxU1vQS3AGjm1zduoLqNDDymDJmwz/rMo3lxaz9a8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxh6CXlKg/kSZAJYgbGj8T7SGiI+nZzomMCWij5HIVRGH+xaBGH
-	icpSD5HzkoSnVXzfRHwTFNqsufrGwZD+UlhjNbF1cIu95mtH3gbRHc5XzSHMv2GHyXdsoyyjZRu
-	yWfj592kzYWpa3UJ0p0GOxl9y13V8JNfzemr8YFd3jVUgtBm8cITSGCBA+w==
-X-Gm-Gg: AR+sD13INDRig7cZ4DMwEEN1Y8aGKO5RtbjMO5IfyuCDGFM4q9Qv8OCHlwSEsDcH0vi
-	eDa6xNUM11T0PvRdxpjDFZKzG07vRkdKmqj1pMcCC5McsMUfrrHlbkZZ9VLkJYa4EqsTA2NiVCR
-	FHoabASkHUkvrBQpgadrKklu4esDFM3jT0b+lAjDiB0pkpwACM2myAkUwq4MNJs+bBEsfULgtRg
-	FXLzpeoLulyTgrhuSI7Dh32QTz/TJiP2GV3KZmC2fGUQ0VtrcLN2szllOeOrzJz89kQmtnFRm9K
-	vPUHwVs0S8Aj8oULTH4WclUSBf65rhmDuxkewSCltI2usRcr+hqtcDmoCDIcX8HXvNkdCF1e61D
-	gH4weehk5VungKQOG62tFw4ZYFTGxwEYC9ovpoaQOEehBCSMfJ543ftS52GMp+SV4ew==
-X-Received: by 2002:a05:6808:13c2:b0:4b2:6ca6:9cd8 with SMTP id 5614622812f47-4b2ef25db7bmr1099578b6e.1.1787260393745;
-        Thu, 20 Aug 2026 14:13:13 -0700 (PDT)
-X-Received: by 2002:a05:6808:13c2:b0:4b2:6ca6:9cd8 with SMTP id 5614622812f47-4b2ef25db7bmr1099547b6e.1.1787260393363;
-        Thu, 20 Aug 2026 14:13:13 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b2d6711e15sm2957409b6e.1.2026.08.20.14.13.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 14:13:12 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org
-Cc: pc@manguebit.org,
-	linkinjeon@kernel.org,
-	stable@vger.kernel.org,
-	David Howells <dhowells@redhat.com>
-Subject: [PATCH] cifs: call pagecache_isize_extended() in cifs_setsize() when extending
-Date: Thu, 20 Aug 2026 16:13:10 -0500
-Message-ID: <20260820211310.1471930-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="hx+ZQsw2"
+Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 72B9C20B7128;
+	Thu, 20 Aug 2026 14:13:58 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 72B9C20B7128
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1787260438;
+	bh=JtR5TctMcS/Ts6F1E1F0hudbmG1QYLKTHTLiSiZGywI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=hx+ZQsw27LQPmT/Dkvggt87AYxEvv/YuAqHP74xH4WRNPSHOw6fsjGvlol+cAp4fV
+	 MzqnaGun4KlzFkGQ4+X/vsKMkuGahBrtOtM7EjxOFjSe4qC6M54Tph/V944GkTU8E/
+	 eC2R4duOnm6OqaxJCzKgzSeWcVxN/3tRMF/s6wGw=
+From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+To: stable@vger.kernel.org
+Cc: steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	raminwo0202@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	apais@linux.microsoft.com
+Subject: [PATCH V1] xfrm: prevent policy_hthresh.work from racing with netns teardown
+Date: Thu, 20 Aug 2026 14:14:18 -0700
+Message-ID: <20260820211418.1409602-1-taherafahimi@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,39 +48,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cifs_setsize() calls truncate_pagecache() but skips
-pagecache_isize_extended() on extension.  truncate_setsize() shows
-the correct pattern:
+[ Upstream commit 29fe3a61bcdce398ee3955101c39f89c01a8a77e ]
 
-  i_size_write(inode, newsize);
-  if (newsize > oldsize)
-      pagecache_isize_extended(inode, oldsize, newsize);
-  truncate_pagecache(inode, newsize);
+An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
+policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
+retrieves the enclosing struct net from the work item, so the callback
+can dereference freed memory if it runs after net namespace teardown.
 
-pagecache_isize_extended() zeroes the tail of the page straddling old
-EOF.  Without it, dirty bytes in that region can be written back to
-the server, exposing stale data in the newly extended range.
+Upstream prevents this race with disable_work_sync(), which blocks new
+queueing attempts and synchronizes pending or running work. Linux 6.6
+does not provide that workqueue API, and cancel_work_sync() alone is not
+sufficient because another request could queue the work after it returns.
 
-Cc: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Provide the same guarantee with an XFRM-local work_disabled flag. Protect
+the flag and schedule_work() with the existing policy_hthresh seqlock so
+teardown can atomically stop new queueing attempts. Then use
+cancel_work_sync() to synchronize work that was queued before the flag was
+set. This ensures policy_hthresh.work cannot outlive its struct net.
+
+Fixes: 880a6fab8f6b ("xfrm: configure policy hash table thresholds by netlink")
+Assisted-by: GitHub-Copilot:GPT-5.6 Sol
+Signed-off-by: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+Reviewed-by: Allen Pais <apais@linux.microsoft.com>
 ---
- fs/smb/client/inode.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/net/netns/xfrm.h |  1 +
+ net/xfrm/xfrm_policy.c   | 19 ++++++++++++++++++-
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index d459b6f602ca..a5aa1ae23c5f 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3059,6 +3059,8 @@ void cifs_setsize(struct inode *inode, loff_t offset)
- 		inode->i_blocks = blocks;
- 	spin_unlock(&inode->i_lock);
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
-+	if (offset > old_size)
-+		pagecache_isize_extended(inode, old_size, offset);
- 	truncate_pagecache(inode, offset);
- 	netfs_wait_for_outstanding_io(inode);
+diff --git a/include/net/netns/xfrm.h b/include/net/netns/xfrm.h
+index 423b52eca908d..99eb5c2ff888b 100644
+--- a/include/net/netns/xfrm.h
++++ b/include/net/netns/xfrm.h
+@@ -23,6 +23,7 @@ struct xfrm_policy_hash {
+ struct xfrm_policy_hthresh {
+ 	struct work_struct	work;
+ 	seqlock_t		lock;
++	bool			work_disabled;
+ 	u8			lbits4;
+ 	u8			rbits4;
+ 	u8			lbits6;
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index 00d9693c13ae7..cc8f4d4b70875 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -1384,7 +1384,10 @@ static void xfrm_hash_rebuild(struct work_struct *work)
+ 
+ void xfrm_policy_hash_rebuild(struct net *net)
+ {
+-	schedule_work(&net->xfrm.policy_hthresh.work);
++	write_seqlock(&net->xfrm.policy_hthresh.lock);
++	if (!net->xfrm.policy_hthresh.work_disabled)
++		schedule_work(&net->xfrm.policy_hthresh.work);
++	write_sequnlock(&net->xfrm.policy_hthresh.lock);
  }
+ EXPORT_SYMBOL(xfrm_policy_hash_rebuild);
+ 
+@@ -4181,6 +4184,7 @@ static int __net_init xfrm_policy_init(struct net *net)
+ 	net->xfrm.policy_hthresh.rbits6 = 128;
+ 
+ 	seqlock_init(&net->xfrm.policy_hthresh.lock);
++	net->xfrm.policy_hthresh.work_disabled = false;
+ 
+ 	INIT_LIST_HEAD(&net->xfrm.policy_all);
+ 	INIT_LIST_HEAD(&net->xfrm.inexact_bins);
+@@ -4206,6 +4210,19 @@ static void xfrm_policy_fini(struct net *net)
+ 	unsigned int sz;
+ 	int dir;
+ 
++	/* Prevent new policy hash rebuilds before draining the work item.
++	 *
++	 * The upstream fix uses disable_work_sync(), which is unavailable
++	 * in v6.6. Protecting work_disabled and schedule_work() with the
++	 * same seqlock closes the check-to-queue race, while the subsequent
++	 * cancel_work_sync() drains work that was queued or running before
++	 * teardown disabled it.
++	 */
++	write_seqlock(&net->xfrm.policy_hthresh.lock);
++	net->xfrm.policy_hthresh.work_disabled = true;
++	write_sequnlock(&net->xfrm.policy_hthresh.lock);
++	cancel_work_sync(&net->xfrm.policy_hthresh.work);
++
+ 	flush_work(&net->xfrm.policy_hash_work);
+ #ifdef CONFIG_XFRM_SUB_POLICY
+ 	xfrm_policy_flush(net, XFRM_POLICY_TYPE_SUB, false);
 -- 
-2.55.0
+2.43.0
 
