@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2283C367B68;
-	Thu, 20 Aug 2026 14:48:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370E235E949;
+	Thu, 20 Aug 2026 14:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787237318; cv=none; b=teb6NhUBon0DZfI4Km/cjfddWDbhuIAlrF2TN6gzhj/GqqUrayyILEzkGJjavbULnqRMjgjcfff4ksoP7hM+AScSiEgDf/herP78LB6DdY5p9pGeIiz2wtII4bbbz+F8ucel8mAEDnxFGjwhNe6c5mVaLHzh2QyKDKdc8OfPMWA=
+	t=1787237335; cv=none; b=d9NWdwlU1P2rEoj8X3JU3hNfT8J58ufhRnwmPiIcD3RCorbw5Y97Ids8zTbwymJqQ+PjpaWjAEwWNuXEsAVCIn4DGC9rBWgeWqWo0yWgceZ9mXBNUFzY5Mw/khqEWdlPqgORP2/dX+j9zgdzB550VWNCgpTiPibDO4cVvS9o9yI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787237318; c=relaxed/simple;
-	bh=OsBkTeNrbunJLFzESNPCWKOTIUFMhDbMa+60GRaExeg=;
+	s=arc-20240116; t=1787237335; c=relaxed/simple;
+	bh=WruTjFVIfltARxvXQqQCPggZZVMjB3zCsVWzV1mvcQI=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UPVBkd+LbpxrcDycePv4cCXB76mNFbcM6J8KE+88V27VRiNq1hO6CkC3EKA4WFJbU93vVIwUS9bSibK8yf/vP2D/haln8bNJ/fkAH/jqmTiWVtN8VRPvBaEuEK1KFQFQ6LfyxykgvcVCzgt3jD7Iyk5ghEnZ7ZefBV4MreW+TrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aeJInlIx; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=R1VNsFF4khGgBK8q12unbEN9uaKj68Ek4BRlbTFLJkYgcNfJD9SVGo0xZCgihqJpIvn4iDhf5k8/qbfYqe/gcKMWPlPI4WffV4ubta5ngeXrITE9jfsb9vr5AxVZP20oZ7Ll0MkWsJDqANkx9LE9RjLRUHRkbrSk5IqG1FH5pGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlzIt9PC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aeJInlIx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0411F000E9;
-	Thu, 20 Aug 2026 14:48:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlzIt9PC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDDA1F000E9;
+	Thu, 20 Aug 2026 14:48:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787237313;
-	bh=kFyHRqu+JaNhGqZzmEuwxYZUBHvHFHl1vgQXkY2YlIU=;
+	s=k20260515; t=1787237333;
+	bh=ulG6ymSiANqVe7ic8z62FKuk43mKNWdcmzAZBJPzj0M=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=aeJInlIxxUpCnltkIF5i//8tvfpmKdcBizMmAbhsLTaUmu1ivAQVErhniQZ1xuQ2a
-	 3KizNjpyU4ReOCdSXiuuBFWpCNfwIqWhFMQEhUAke1LZLa9hCwCmQrmMtxlZg399Nc
-	 W2gdo3xMVbfVHrXLRIZr8OCU40dYZTwR3Ur0VMqRY6AGk/kQ64b6+OyATiALy+o4Ri
-	 Wo2RDcRuayDgHrHyWKkCafuyPNEgGj5PmRnL/p4XszAk3tM9FvpfaRx32hrgge41jy
-	 vkdzE112KST09TeuPLUoiqPmjojNvNcbNG7Q4FCAu+hUPM5Ax8OUwjnmuc9eKzw3Iw
-	 s7BTIBGfw/Z2A==
-Message-ID: <0d9ba848-bef1-4171-ba1d-edc73e65ac51@kernel.org>
-Date: Thu, 20 Aug 2026 16:48:30 +0200
+	b=GlzIt9PCgvcGWEYEFbSttqoT37YyQx0g4T+GZ8RisfPohDie1WdptM7OUptnlsDgk
+	 SsQwnHeU+SGeamfLBrCKHGxMFRdJ9e4CTz6EhfsA3baR6jMwDUwmrD3cXv8G3KXPeE
+	 HkTbsIK93HpdtO2lmZwsGqK4HRwabyQKMibpO51rJmHn2gESeK49pPq6odkuiMJJuc
+	 lkYZOvT4gUnaghUFXfJXppYDB+huz2WWxD2nS2dQqAO/31Gq7WPMT5YJpQMZv7OO9x
+	 CXbWuE6zUt5uz39Cn5sjlDhxm+sB2hATPk2oFqkW21dhl1+5WmpaNpvHdfw+A37jsn
+	 Hn6GkIHqfZWWw==
+Message-ID: <4c21c057-a928-4723-86dd-2caffc7b0800@kernel.org>
+Date: Thu, 20 Aug 2026 16:48:47 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,14 +36,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] i2c: mv64xxx: fix autosuspend cleanup
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Gregory CLEMENT <gregory.clement@bootlin.com>,
- Andi Shyti <andi.shyti@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org,
+Subject: Re: [PATCH] hwrng: cctrng: fix usage_count leak when
+ autosuspend_delay is negative
+To: Guangshuo Li <lgs201920130244@gmail.com>, Hadar Gat <hadar.gat@arm.com>,
+ Olivia Mackall <olivia@selenic.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, linux-crypto@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20260812085808.3313948-1-lgs201920130244@gmail.com>
+References: <20260808064145.2615010-1-lgs201920130244@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -88,36 +88,29 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260812085808.3313948-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808064145.2615010-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/08/2026 10:58, Guangshuo Li wrote:
-> mv64xxx_i2c_probe() calls pm_runtime_use_autosuspend(), but the probe
-> failure and remove paths do not call the matching
+On 08/08/2026 08:41, Guangshuo Li wrote:
+> cc_trng_pm_init() calls pm_runtime_use_autosuspend(), but
+> cc_trng_pm_fini() does not call the matching
 > pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 > 
 > If the autosuspend delay is set to a negative value while autosuspend
 > is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without undoing the autosuspend setting during
-> teardown, this reference is not dropped and usage_count remains
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count remains
 > unbalanced.
 > 
-> Call pm_runtime_dont_use_autosuspend() in both the probe failure and
-> remove paths before disabling runtime PM to properly undo the
-> autosuspend setting.
+> Add the missing pm_runtime_dont_use_autosuspend() call before disabling
+> runtime PM.
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: e5c02cf54154 ("i2c: mv64xxx: Add runtime PM support")
+> Fixes: a583ed310bb6 ("hwrng: cctrng - introduce Arm CryptoCell driver")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/i2c/busses/i2c-mv64xxx.c | 2 ++
->  1 file changed, 2 insertions(+)
-
-Srsly, one more separate I2C posting, just like you did for dma, crypto,
-drm and everywhere else. You seriously waste our time.
 
 You sent vast amount of patches, all separate, making it very difficult
 to track and respond in efficient way. Do not do that.
