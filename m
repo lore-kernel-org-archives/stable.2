@@ -1,100 +1,101 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CE923ED60;
-	Thu, 20 Aug 2026 08:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A3D3DDDD1;
+	Thu, 20 Aug 2026 08:55:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787216119; cv=none; b=ldHgOO8spprxO0A6dfN3d4KFPlT9zoZQgIPQxgH9A5uhnExPSo23gDpXLVXUAg1J45aVjaBgVSguIyOuGAa+aVa1DJu+zeTIpNrkHKbdSBlrbQw7EEREGcKIMOM0M63EAtpkk/kmg7eUAr83w0NWvBRDH4MYSzijuMhJIV6A+Qg=
+	t=1787216140; cv=none; b=sNvk6R3Iq0b8wqt00ZK4enmbyKrQ1qc5OpDAwPyp6cP/bplibXD0tJjrKuSzCEnf+dOj55v0ZiMF7/6QmwNUydCnOdsmHKlegljDb0jvKHDhcNxohIWwCSCETOhcVL+ZjmUiwhyRO25CnpOOyBtBghNuRDbUv7wR+i650cxxGDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787216119; c=relaxed/simple;
-	bh=2dHpovJRuIPpyFvRKNb2g/87fsfOyd4qaCANK448KAo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lrYEs1K8thTo6tY4KfqvsElJX81dquyfNuNIHhQ+qFB8OCAV6V0CXEEBAKt5I+h/BRaVi/E7zX+01Wwv0DkMOMFz5sqIpsW3zREVS4O/LpWn38Lwlf0mTNY/9cTZ30K5PR5K7njLcunXcgDeV9qFw5B6fqx3cEetvje+FI6IX24=
+	s=arc-20240116; t=1787216140; c=relaxed/simple;
+	bh=UihTdHI6l9UbD3yGyq9GDngt/s1heLl9kIX6GK1Ady0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VboJABSntLjJF6vgoAmA8aGdtUi/X5zN6yL6sHv14hii8VRfOLMCNKbk9skYyfk3ZFLOqkd34du1j8xyGP0cGiFzQw+5qyTknlvCmjA2KIoNp37ENHekq/xflifiHg/MKyPZEAt4ADF4l6Iiw3Xkw2naAhVUJ04hyZhFLd9TKMc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d7fa5be69c7411f19a56ed5b684f684d-20260820
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_TXT
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_PRE_RE, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
-	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
-	DMARC_NOPASS, UD_TRUSTED, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF
-	GTI_FG_BS, GTI_C_CI, GTI_FG_IT, GTI_RG_INFO, GTI_C_BU
-	AMN_GOOD, ABX_MISS_RDNS
+X-UUID: e586b99e9c7411f19a56ed5b684f684d-20260820
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2d148b48-3ec6-4666-8803-a364987f67b4,IP:15,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:15
-X-CID-INFO: VERSION:1.3.19,REQID:2d148b48-3ec6-4666-8803-a364987f67b4,IP:15,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:15
-X-CID-META: VersionHash:7db8b62,CLOUDID:5b2cc51f1a065d8843a5b9d12d3b3499,BulkI
-	D:260820165510OS6TMSDL,BulkQuantity:0,SF:10|64|66|78|80|81|82|83|102|127|8
-	17|841|850|865|898,TC:nil,Content:-10|-8|-5|14|50,EDM:-3,IP:-2,URL:99|1,Fi
-	le:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
-	DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.19,REQID:d7a9de21-bb99-4eb0-aafa-0ce9b53b145f,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:38c983c4a0b25c0e6a7507c1e3a04a15,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d7fa5be69c7411f19a56ed5b684f684d-20260820
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
+X-UUID: e586b99e9c7411f19a56ed5b684f684d-20260820
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1316331338; Thu, 20 Aug 2026 16:55:07 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: vadim.fedorenko@linux.dev
-Cc: 13667453960@163.com,
-	andrew+netdev@lunn.ch,
-	ariele@broadcom.com,
-	davem@davemloft.net,
-	dmitry@broadcom.com,
-	edumazet@google.com,
-	eilong@broadcom.com,
-	kuba@kernel.org,
+	with ESMTP id 611031109; Thu, 20 Aug 2026 16:55:30 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	manishc@marvell.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	sashiko-bot@kernel.org,
-	skalluru@marvell.com,
-	stable@vger.kernel.org,
-	yijiangshan@kylinos.cn,
-	yuvalmin@broadcom.com
-Subject: Re: Re: [PATCH v2] bnx2x: fix NULL pointer dereference in bnx2x_free_mem_bp()
-Date: Thu, 20 Aug 2026 16:54:38 +0800
-Message-Id: <20260820085438.148916-1-yijiangshan@kylinos.cn>
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs3: add permission checks for NTFS system attributes
+Date: Thu, 20 Aug 2026 16:55:26 +0800
+Message-Id: <20260820085526.169144-1-zenghongling@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <d88017c7-7089-4e85-b56e-21175310db93@linux.dev>
-References: <d88017c7-7089-4e85-b56e-21175310db93@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Please, review netdev contribution rules at
-> https://docs.kernel.org/process/maintainer-netdev.html
->
-> Especially patch formatting and 24h cool-down period
+ntfs3_setxattr() allows system.dos_attrib, system.ntfs_attrib, and
+system.ntfs_attrib_be to update NTFS file attributes without permission
+checks. These attributes affect the inode mode because the READONLY flag
+is mapped to write permission bits, allowing unprivileged users to bypass
+file access controls.
 
-Hi Vadim,
+system.ntfs_security allows modifying NTFS security descriptors which
+control access control. Similar to POSIX ACLs where file owners can
+modify access permissions, require inode owner or CAP_FOWNER for these
+NTFS system attributes.
 
-Thank you for the review and the pointers.
+Fixes: 4534a70b7056 ("fs/ntfs3: Add headers and misc files")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs3/xattr.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-I will remove the Suggested-by tag in the next version. I also appreciate
-you directing me to the netdev contribution rules — I will carefully read
-through https://docs.kernel.org/process/maintainer-netdev.html and make
-sure to follow the patch formatting guidelines and respect the 24h
-cool-down period for subsequent submissions.
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index 7a81369a1173..4e41aca0d5c7 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -868,6 +868,22 @@ static noinline int ntfs_setxattr(const struct xattr_handler *handler,
+ 	struct ntfs_inode *ni = ntfs_i(inode);
+ 	enum FILE_ATTRIBUTE new_fa;
+ 
++	/*
++	 * system.dos_attrib and system.ntfs_attrib affect file permissions
++	 * because the READONLY flag is mapped to write permission bits.
++	 * system.ntfs_security controls NTFS security descriptors.
++	 *
++	 * Require the caller to own the inode or hold CAP_FOWNER before allowing
++	 * these NTFS system attributes to be changed.
++	 */
++	if (!strcmp(name, SYSTEM_DOS_ATTRIB) ||
++	    !strcmp(name, SYSTEM_NTFS_ATTRIB) ||
++	    !strcmp(name, SYSTEM_NTFS_ATTRIB_BE) ||
++	    !strcmp(name, SYSTEM_NTFS_SECURITY)) {
++		if (!inode_owner_or_capable(idmap, inode))
++			return -EPERM;
++	}
++
+ 	/* Dispatch request. */
+ 	if (!strcmp(name, SYSTEM_DOS_ATTRIB)) {
+ 		if (sizeof(u8) != size)
+-- 
+2.25.1
 
-Best regards,
-Jiangshan Yi
