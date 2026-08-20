@@ -1,133 +1,117 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476EC2F1FC3
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9B73D9DC9;
+	Thu, 20 Aug 2026 09:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787219871; cv=none; b=fTlhog31uV2wlPzo4uz+9sGCtuswKTBngPebdXyZEQhh14cBhuXGbYznYAzytZ8X1a8CiRuM/nsbc9brn9CSt7bMLueKNAckkNdrsO4chhl+IYHLlTewidHXd6cNGyE23mo3todv5nN8SFPN2svmOmUKtezt+9xiEaMP/yRpvUw=
+	t=1787219891; cv=none; b=ZBVENDo3uaqFYlHziqg0fXsi1K7De+DFQTyy9tllic7OplPaTEyb782+RwfvZaZ3k2lEx0IhD0xNvfeyizIUSre0rtfuFdL+wt/quH4N6ih/ceTakfL6ZPLr+BFxURoTvxfj0GEZWye2BwE7Oy00dGa1bpVxWu6JgOjothJh9RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787219871; c=relaxed/simple;
-	bh=15Cw9oblK/D1vb486tpmsk9GW0qXeom/MxvsqfjbR04=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=syKx+E0X8bMNhnADj9+R7/fFPlPDmxST1Y64sZFay2KwvDldtJaBLZn3gypS+j0X8uJ5KE9Q3ZmmteFZ6hxgDx8txJVaIsV9kVTAftpXa5DUaOrM9rsMPTBrs9U2M6oJJ6IVfShqEhHZRWpH2Dntg63IIRHWUe4dRDpxfUDAruU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=rseub10l; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1787219891; c=relaxed/simple;
+	bh=hZCBSCVqYSqJjG/RYe4s9Chfzr/JZMEG/Narie0NAv8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i2HTugRJzRToTutbBTLvEmos2kp8yN5lYjxvurBIiRw+/T434FUTq/vu1hMO+tb1lGuvAu7PNEanWkyf+JVA7TVd7y/4MxRJZww0PjiZg3GfsXH2nTXlRrzxqOUZEVExP3WcsKgtZ/Vy+IUAWuvDd7rppY7xTC+GNM6dVqlfP5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Krd+q4og; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="rseub10l"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90c50c2a257so21958206d6.1
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 02:57:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787219868; x=1787824668; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yWiRk4eGbnJIOLSDci/J7Dj9lG9H1Q4ou0ubiJm1Mow=;
-        b=rseub10lS0f0Y8gtYUfKPx9WxIHqL/psU1Z/DPU/GbBHh9lHt3Je8B+nYTTEgUyQZ7
-         ab4ZXd67lFmBnbpHcHyvtCLCVXd6Ie29YMiHleOExr9KotFwjVqCms//tgUicyNTITcU
-         Yt/wvmWzXTlPUvu99T767L8M4RSdfITIXkAfY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787219868; x=1787824668;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yWiRk4eGbnJIOLSDci/J7Dj9lG9H1Q4ou0ubiJm1Mow=;
-        b=o3clCEG2/PH4ePds1m7PCvythp7CgsxMBaXXU5+WSS6oB1DtEcXKeJBoDs++LV3ZQt
-         Ju1+KCDtwEPr59fEOET3BaZLVDo6CTlRw1dkGso8fBMHnCvNdnSHIgUXuhGFSgKWeULO
-         FvpoPoQuPuxQu/Kco6jnu7lGNQpzX77t5vjx3X9U+d+98Rbi2rTI827mJ84uxIkoO0Cu
-         1MPhE1NMcTOuWyv9dUgt2tII7qCxph+NP8zjY122xizDWUxRlMfh3VjdNdcnKbSp0YR7
-         GYjMCjc3Zz9r2N3iu3XNTSU3torDAtvz1/DqpadXCSWmzWkCmFDs60zKIkpBFjrUlmGV
-         UwMA==
-X-Forwarded-Encrypted: i=1; AHgh+RpFVVBf/zt5dZHcTpUalI+HaR3pfcoemnhIsX6Ciz66DzODzwENBQiS528mY2EGFWTeLLo5mW0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6LV/oYSSwYCmfJ7h4yP94pwfKS71oGlnbpkd3PPzXoak1tDDq
-	0HMnQbjtHbNjCvCYMtPB40nLOv+ixl09hLVfZ7Pkwlj78KlIaFUHWvmI7FUpDRmHBA==
-X-Gm-Gg: AR+sD112JF7J3XsmavzderZYs21HVy6gGFeCh2qyKUk2QxDT7DyKokq0YOIpU95LgV7
-	1sdZmFn4QfMsfDHdewM+refDinxuQlJtqGOhcxR4ca5UYsBIAsqlZvLYmT3DYZGR0BCgPI8x/+F
-	WAITvr7ho2yEXUHt68RotDVqF7V5rDYDYbHzR3Srx9TJpJoEY5jO/vF62BvPFZdGp7WtrfhlCbb
-	7k6AvIx61AZhkM5w/AmgJDEtJEPpxLXj9bGJXmnIN67P8j+bcfBqVQ4D344x8cutgP0JOW8YIGt
-	JR1GAMGL584iVZY82DSLJ6mgY+MUv895r9Fic/K0CpF8Vfcfcafafv+/dAFBZ9GOTMXkZ0DnJOL
-	6OMKSlIxqzjzH1IIWRhwn2qGwu9FW+W3xMbe3LTDaF/pz3nvmSGXDkUnejGb0BTGKcWLePM7a3W
-	xSM80doe61Rv6Oo17dApb5YnGdtfnN9ynBqlBQiPlDDD5Ttq0sOCcTElizeT+ZPy8skNxp51cyT
-	GAVENSvWA6L1UqPA6ulPgQX8NzioimwT+ZJpcQTBput3Q==
-X-Received: by 2002:a05:6214:4016:b0:8f0:2c80:caa5 with SMTP id 6a1803df08f44-90c5eb91f13mr95769106d6.23.1787219867923;
-        Thu, 20 Aug 2026 02:57:47 -0700 (PDT)
-Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5f2b8164sm34565336d6.48.2026.08.20.02.57.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 02:57:47 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	stable@vger.kernel.org,
-	vega@nebusec.ai,
-	"Victor Nogueira" <victor@mojatatu.com>
-Subject: [PATCH net 2/2] selftests: tc-testing: add pfifo_fast ring cap regression test
-Date: Thu, 20 Aug 2026 05:57:42 -0400
-Message-Id: <20260820095742.68511-2-jhs@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260820095742.68511-1-jhs@mojatatu.com>
-References: <20260820095742.68511-1-jhs@mojatatu.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Krd+q4og"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40C001F000E9;
+	Thu, 20 Aug 2026 09:58:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787219889;
+	bh=iT4z9T84RIeL6znb2/fBeakb7emJXAOiqhHr7wV3+08=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Krd+q4og/0fB1kW3rdAds+20Ego7Xb5YM5StBDwPpduUeo9LwpUy/cJFL5V/aWuZx
+	 p4f3Puwj+qIiRnE4TyEDdp0Ie696AYRcmtGrWgN+waGe2iptja5P1lfVc+v0mVVQj7
+	 HwZVv0bfz0mPqZqwN/G0o48G7FX/6CIgwpFnuMKPBXPEfKYB3mqLVuCaeolwj8hvEy
+	 iv3F3JqXatm6RYexRHTvpH9+BmPTrGRVpbOmP7bnMfROXAbAKeDk2qLOJcUfv2pDyj
+	 sxjRfry++bNCbT7ngzeMQuNBe6OFDSCX4YloKFYtsSrBugOopjLrAT3p3dik8wz+3o
+	 m/sMbaN0iGeag==
+Message-ID: <23e039b9-2c7a-440c-b3dc-3274788d18b2@kernel.org>
+Date: Thu, 20 Aug 2026 11:58:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] extcon: lc824206xa: Use devm_work_autocancel() for detect
+ work
+To: Fan Wu <fanwu01@zju.edu.cn>, myungjoo.ham@samsung.com,
+ cw00.choi@samsung.com
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260805050841.7990-1-fanwu01@zju.edu.cn>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260805050841.7990-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add a tdc test case (0249) that sets a huge tx_queue_len (100000000)
-on a dummy device and attaches pfifo_fast. On the fixed kernel the
-ring is internally capped to 65535 entries, so the qdisc is created
-successfully (exit 0). On the unfixed kernel the 100M-entry ring
-allocation (~2.4GB) fails, causing the qdisc add to fail (exit 2).
+Hi,
 
-Fixes: c5ad119fb6c0 ("net: sched: pfifo_fast use skb_array")
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- .../tc-tests/qdiscs/pfifo_fast.json           | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+On 5-Aug-26 07:08, Fan Wu wrote:
+> The detect work is re-armed by the threaded IRQ handler but nothing drains
+> it on detach: devm frees the IRQ before kfree(data) without flushing the
+> workqueue, so a pending work item can run after data is freed, leading to a
+> use-after-free.
+> 
+> Use devm_work_autocancel() so devm LIFO order frees the IRQ before the work
+> is cancelled. Register it after the regulator, extcon and power_supply
+> the work callback dereferences, so those are not freed before the cancel
+> either.
+> 
+> This issue was found by an in-house static analysis tool.
+> Compile-tested only; runtime testing is appreciated.
+> 
+> Fixes: 9e1897cb9568 ("extcon: Add LC824206XA microUSB switch driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/pfifo_fast.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/pfifo_fast.json
-index 30da27fe8806..2cbe9738d699 100644
---- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/pfifo_fast.json
-+++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/pfifo_fast.json
-@@ -105,5 +105,28 @@
-         "teardown": [
-             "$TC qdisc del dev $DUMMY handle 1: root"
-         ]
-+    },
-+    {
-+        "id": "0249",
-+        "name": "Create pfifo_fast with huge tx_queue_len (ring cap regression)",
-+        "category": [
-+            "qdisc",
-+            "pfifo_fast"
-+        ],
-+        "plugins": {
-+            "requires": "nsPlugin"
-+        },
-+        "setup": [
-+            "$IP link set dev $DUMMY txqueuelen 100000000"
-+        ],
-+        "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root pfifo_fast",
-+        "expExitCode": "0",
-+        "verifyCmd": "$TC qdisc show dev $DUMMY",
-+        "matchPattern": "qdisc pfifo_fast 1: root",
-+        "matchCount": "1",
-+        "teardown": [
-+            "$IP link set dev $DUMMY txqueuelen 1000",
-+            "$TC qdisc del dev $DUMMY handle 1: root"
-+        ]
-     }
- ]
--- 
-2.43.0
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Regards,
+
+Hans
+
+
+
+> ---
+>  drivers/extcon/extcon-lc824206xa.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/extcon/extcon-lc824206xa.c b/drivers/extcon/extcon-lc824206xa.c
+> index 56938748aea8..adcea69ac221 100644
+> --- a/drivers/extcon/extcon-lc824206xa.c
+> +++ b/drivers/extcon/extcon-lc824206xa.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/bits.h>
+>  #include <linux/delay.h>
+>  #include <linux/device.h>
+> +#include <linux/devm-helpers.h>
+>  #include <linux/extcon-provider.h>
+>  #include <linux/i2c.h>
+>  #include <linux/interrupt.h>
+> @@ -424,7 +425,6 @@ static int lc824206xa_probe(struct i2c_client *client)
+>  		return -ENOMEM;
+>  
+>  	data->client = client;
+> -	INIT_WORK(&data->work, lc824206xa_work);
+>  	data->cable = EXTCON_NONE;
+>  	data->previous_cable = EXTCON_NONE;
+>  	data->usb_type = POWER_SUPPLY_USB_TYPE_UNKNOWN;
+> @@ -463,6 +463,11 @@ static int lc824206xa_probe(struct i2c_client *client)
+>  	if (IS_ERR(data->psy))
+>  		return dev_err_probe(dev, PTR_ERR(data->psy), "registering power supply\n");
+>  
+> +	/* After all resources lc824206xa_work() derefs; before the IRQ producer. */
+> +	ret = devm_work_autocancel(dev, &data->work, lc824206xa_work);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = devm_request_threaded_irq(dev, client->irq, NULL, lc824206xa_irq,
+>  					IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+>  					KBUILD_MODNAME, data);
 
