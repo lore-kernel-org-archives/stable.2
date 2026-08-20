@@ -1,93 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEF8392C50;
-	Thu, 20 Aug 2026 18:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658113932CA
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787250465; cv=none; b=PJitFOnPNZ2qzHfpWrdqlZDttEuzm/JktuhPpvp8se63+fO/34mLUlRHIhTRbdjy64DOAsy53SjjN5xu2sgx7NUMZi2FYk7eIZHDqJA4jvQjWXhdhVeoWukCGKu/acznDt0CBwy1rxBAoc34MTjryVtDSZlq1ySAyDITx31ZKq4=
+	t=1787250517; cv=none; b=S8sRvRreE9fQjBgqqN5MMTUsg4M2EXeS2jEMrwlyUvxXzNc2vhTc6OC33VYfEDkby5YuNJx+ynKcq6m6J/ZQlsdj3iRo70Jwimm/YeqnyF8YfpG9G/qn/uptIfRpG8LZMVXyvi4ZvnPlZjId3JwrnvN8fmp297n8p7F+zVk4onM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787250465; c=relaxed/simple;
-	bh=wOiDV+jQCpPAcRx+Yu245WzQwVmiIzrh+jvFMUipWf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rZqTc9AoP7IOVPXyYca1U6KW23JX0AuGeUaP/LSkC6ztgpfZ6cED7F6RlLdrsbKXPrkoYF9h30ZxUR4uAE/PaF1ebkCuMO8Qn40ZDdVZnat/uPRIQw/21xVGJcZuotqY/Jhw45fna93pluESHjavclZnYyoWGDlX27XG1DmAOrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DtgAp7Pd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787250517; c=relaxed/simple;
+	bh=K62eQ1yWB1U2ESSd/iefWVhvrDEsPea2Q4oOaQaWyCQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YqPa0rq8ynLlkmxC61QXsOUi21OlA4W5MUfh30x/VaLj1Gf2yrT1zzotpEjLD0AxW20Q66WLIBOV0OSYZ/cT9mF0JEFW108t8vfDEb8/YlWSUQmawCVLThifW9lpecec7MYiUwIXwHhmtLkD3zOpmEZJrbngpHSl6J+pU8iwOHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AZ04TffS; arc=none smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DtgAp7Pd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 981AD1F00A3D;
-	Thu, 20 Aug 2026 18:27:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787250463;
-	bh=AgLNeNi5euhDeFde3JpbiO8thnW+lPNsPaFu+Vg8n3g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DtgAp7PdB+BewxMTWb1RY9hrHeRb28zCmBj1H26a+XZC6L5NyNNWrJqfsVPxywSC+
-	 BEVPFEdUYXuUlRl0T6x2TUSv/KFryO3WMLqWHqLJpyTwbh71vTVrXT47IpSr5JIyQv
-	 WEUVuQ+aSY2zJq3cyS1OM6w5ZUvpUE0XUTRtiEeD/n6TtTmJlF1KatYlO4Gfy9v1/t
-	 jNiI3Y02WP9X2RlwH1l3+DJGqQ3IXiSZeyeAUATLxTAOn47S5hpqm5gbrmVgsG+5ZZ
-	 KJ5VhRbe3V3JP5s5qg4KkE/QDHe6/Gz27xDVXkgnXamqY/RB/+1buDu+sKW9A7XC7h
-	 z5/6qssEscTEQ==
-Date: Thu, 20 Aug 2026 19:27:39 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	david.ward@ll.mit.edu, vega@nebusec.ai, victor@mojatatu.com,
-	zhanxusheng1024@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: sched: fix 32-bit backlog wrap in gred,
- bfifo and plug enqueue
-Message-ID: <20260820182739.GC265046@horms.kernel.org>
-References: <20260818095927.15901-1-jhs@mojatatu.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AZ04TffS"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8edda5d56a5so2103876d6.3
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:28:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787250515; x=1787855315; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7KHPib1wqWSdOYjSbO474SAuPKQRkPz+9y+jPIA9olg=;
+        b=AZ04TffSzhZTNnyPMR/s8B895tKjPMqfrEw/SPbseNKqlAUamH7sZS9Tc8U6NFSG1P
+         yji1cTQACa2bHTQEvtBvVclngx9qESLJMUOkj7ItLPwjDSgtwYnsSz3nGxa1hZgDvcP7
+         Zoj5oh9/S5mMkgY2v5olGk4ReIC8IQB58UTkyqs5XG8PWouEXHGqGwJQT1wUG7+iKOHA
+         S/JXuJB59qieJCr1X3wAqiNeFVFuChHW1vqge52L9Iuh4EsXG2RVF7VgUdNybq+Rt2k9
+         oLm1b9RBjz1uokupQUqqlVfEpRajWK72LCw/nkHDoP0DLwRnaXQWOLuLBJE/bLYZjQy2
+         t2jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787250515; x=1787855315;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7KHPib1wqWSdOYjSbO474SAuPKQRkPz+9y+jPIA9olg=;
+        b=eCSq6oTDkFX9jXbogW+vMWnRQBn5LBQLhzMbA79NenUqsYBGFPjQqs9RTaEOsqBGix
+         p2JQMJASHwb7ISv3uczrQ1ANRylqkvsDXT8kisYFGQh/rTYM7696AUzynbGz50eWgsZr
+         83URwWwTnSUhVrNEt5nl+zTlBbO96k7UXx/7vDlrhrok95TetDEeElEKH52sC3Z3W9p+
+         kZxxJrxOJqt5L8NOojwreZIcXhgkrykTkYEgVAE08u2MJSuiY5KW+rAgb+wKmCNnx8vt
+         JLwi3TBaaQ5HdngyivOyesZcF/TBVW1CLiSleWs+tNn4jd4yORIE4cXtv5oCY7VJpGTD
+         iGfQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/xb0AEDJIAc+kC9AfIzYmhgV0ZCiQ+YATlAZP6dTG8N9By4I1QqK7tlCHRKoSctKuvazi1tU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2wZc/z8DlHT4rM4VYHFvVExzdj88sUDC5b1gbyT7UaIkiZ/et
+	j715y45k01eI378nk2xLQEcD885/z2dXrZv7wh+/O8Xb/4EPg0OlNwz5
+X-Gm-Gg: AR+sD11elRAzJZP8gGhTFfmY7qeEHGPYHRA3TrDAf6mtwQtK4PYZgXYkuXeQDF+UEun
+	ZZ8kEoNaEsudeaY2B/KAGl2GdADtMJduHIolmioKlxnCfmOTB7P4RkVEs2HxqEr4s4x7jWcIOUW
+	DMw/9tbUtD+3ZqBsA4ZaIMVWnZ6jpNyAIUeLn5pKrhQeSZSJiEGCEEiwJNP9S0ngtZh3TDXPOKJ
+	7Q9KyjKnq2W3yaXnTeAntuuwZx5tXxYXZ12WO/8moJbelzd0NVxM0lDwLTg8rg6g/L9O1qBH7AE
+	fBndr3NSXgW3cupfcCH0iyWo5oZj4p5KAS0Sx2/gGsdSJKGR6lZzcDEtsOtFYrrdvbIV0RVaQ0V
+	JUFMAxwVcSFnoNX2zuKqPTRYqhqJ5IsyBTPXIFFN+c7uZph0D2iR8csA15lVLjMmGntWvzLGnrs
+	5X8h2BBtQh6+vt6cLH1T4bsiUBVNqD+ru8K2EQTUbxRXhwY2ABsASmw1MrgsZEqTo6knBoq2Ifs
+	hF0PRwmU0YJOVk=
+X-Received: by 2002:a05:6214:c49:b0:8f1:d3ee:a8f5 with SMTP id 6a1803df08f44-90c80df8b32mr1076996d6.26.1787250515072;
+        Thu, 20 Aug 2026 11:28:35 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5f2b5ccesm44072686d6.46.2026.08.20.11.28.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 11:28:34 -0700 (PDT)
+Message-ID: <bc48a982-e8db-49fb-914d-ed8751570c5e@gmail.com>
+Date: Thu, 20 Aug 2026 11:28:31 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818095927.15901-1-jhs@mojatatu.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 000/303] 6.1.184-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260820145253.200766705@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260820145253.200766705@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 18, 2026 at 05:59:27AM -0400, Jamal Hadi Salim wrote:
-> gred_enqueue(), bfifo_enqueue() and plug_enqueue() admit a packet when the
-> current backlog plus the packet length fits within the queue limit:
+On 8/20/26 07:52, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.184 release.
+> There are 303 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
->   sch->qstats.backlog + qdisc_pkt_len(skb) <= sch->limit (gred default VQ)
->   gred_backlog+qdisc_pkt_len(skb) <= q->limit  (gred configured VQ)
->   sch->qstats.backlog + qdisc_pkt_len(skb) <= sch->limit (bfifo)
->   sch->qstats.backlog + skb->len <= q->limit             (plug)
+> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
+> Anything received after that time might be too late.
 > 
-> sch->qstats.backlog and q->backlog are u32, and qdisc_pkt_len()/skb->len
-> are unsigned int, so all sums are computed in 32 bits and wrap at 2^32.
-> Once the true backlog exceeds 4 GiB the wrapped sum becomes small and
-> admission keeps succeeding, so the queue grows without bound and the kernel
-> can be driven to OOM.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.184-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
 > 
-> Promote the sums to u64 so admission stops once the true backlog exceeds
-> the limit.  The limit is u32, so the bounded queue stays below 2^32 and
-> the stored u32 backlog never wraps.
+> thanks,
 > 
-> The bug can only be reproduced as root (albeit with ridiculous setup):
->  attach a gred (or bfifo/plug) qdisc with a limit near 4 GiB,
->  leaving the default VQ unconfigured (for gred), and drive >4 GiB of
->  queued traffic (e.g. via a size table / stab to inflate qdisc_pkt_len,
->  or sustained high-rate traffic). The u32 backlog+len sum wraps at 2^32,
->  admission keeps succeeding, and the queue grows unboundedly to OOM.
-> 
-> Fixes: a3eb95f891d6 ("net_sched: gred: add TCA_GRED_LIMIT attribute")
-> Reported-by: vega@nebusec.ai
-> Tested-by: Victor Nogueira <victor@mojatatu.com>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> ---
-> v1->v2:
-> 
-> 1. Added bfifo+plug into the same patch as gred since it is the same
->    pattern. Flagged by Zhan Xusheng and Sashiko[1][2].
-> 2. Starting this patch, and for the rest of AI found bugs,  i will start
->    adding the conditions required to reproduce the patch (see the
->    above commentary "The bug can only be reproduced as root...").
-> 
-> [1] https://sashiko.dev/#/patchset/20260809091657.879929-1-jhs@mojatatu.com
-> [2] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809091657.879929-1-jhs@mojatatu.com
+> greg k-h
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
