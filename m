@@ -1,168 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B614457AD
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A51B3ED3C3
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787230110; cv=none; b=oMqFxGJHNhAG/FDSBZujGsuwpZSU04XCmQDiXEN7lQ/kVlYme9Qdz+LgljnlS5l7TANdQCzRGHBrGIxnkU3H1Mcd6diNvzzCPA8bECuJ+t8KBUfYpg1rKL/rx98Q8LpegUVayuVu3ZTPU1ioQK3e3DowKdIoGIUlzLJuidPMZL8=
+	t=1787230248; cv=none; b=mhN246RWvEz+qeoIiUzMeqdEiodSVIQFoSx5xcrENTLfnNT58wRlnwEg8Ys5GgGt/SHCO30TSPNz6oFyo3Rrj3l57RgfUa4I/6S/+TCbCkmdrepmSJcgNKx0a5AtT/GsVOCoCZY0W+PwoyrK7o6oxuYTtMJ69aDaogAL1/q2wa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787230110; c=relaxed/simple;
-	bh=ax/Y0f+sYXHR58uixAKRP4rvpPhIEmhUwHkO2C5biRo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jBRKGnApfv1YTHKTEyLHikS4pipJywKBNN1nXgSYQ1YqKcWzUG8SjkHvANDbpJfSx2l8aXnYLdL56t4/aHCPyDLNRKzHeZaIhHtKnrJQSpuAc0yO+wdJh5T1vcHoqH6X6vEyE2Nlu7ntBxZQh3h6EzzCVmjG7ytmWza3FwLWTmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ux0yoAa6; arc=none smtp.client-ip=198.175.65.18
+	s=arc-20240116; t=1787230248; c=relaxed/simple;
+	bh=vIuzLiY7OxCmfcl5opyGG5r8wQFHqJEDnbfBxie1K74=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FZzyEOLjADALYOJ4FaPMWZwLqiJ9rteYTOa8t0G4CK6uOAqRZTkvQv/KscZr67zaXixjQw/W5oTL/ikti0nwiPyWU/8/98yw6vB22upqKlEzkMW32HgahlIwjc2gx5cXso9RBO7dkrmMcVG4PrycnRUt0DTxmx4MPxQ63YQ0/aY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k5Q2lW96; arc=none smtp.client-ip=198.175.65.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ux0yoAa6"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k5Q2lW96"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787230108; x=1818766108;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ax/Y0f+sYXHR58uixAKRP4rvpPhIEmhUwHkO2C5biRo=;
-  b=Ux0yoAa6iluXPy411WIPDuAqkyzBw4KDqIYhF3xuu3T6lc2XZ4Fopo7m
-   saiKzRM/DD+AB7fP4UB+bQvW+zSkgkn0+uZxRqeJtcXRFgqM8QGCSz4XV
-   Hov1wxlNP8gdif2JscrWknWtWjtMgiYhw/norjqcdWf1oZj7T8NYHouBu
-   4rgSmObMz/7hxjYWFH3HJzF+4vjAR/XVxom3bB7JTbzE603qDx7VCbMHv
-   WNEKBqiArO+OYYrbt1DYAhFpWBDvaLpezkInQp8zGIZhoHorcfId363Ca
-   Q0thA1d5Te1ss0YXJ2NvPqHteZSnH94SyeTRBr16JzGTY7xYbYiDnKevf
-   Q==;
-X-CSE-ConnectionGUID: UI0uGHaBRhit2uL2lx9bRw==
-X-CSE-MsgGUID: AgIh5ciTTJ2sZbl6MthqqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87823451"
+  t=1787230247; x=1818766247;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=vIuzLiY7OxCmfcl5opyGG5r8wQFHqJEDnbfBxie1K74=;
+  b=k5Q2lW96eobz84bqDlS9nKGxQHXKCHLm7MF6X4/1Q0uO7VJVKe+Uz29U
+   S/kAPsH+ikdeP9kbfaYC6ddd9msnGdcETGZgs49edGKgbgLOYwDdBHkKU
+   10SSx9vaPfsVgVt673f4mDNpWONnXzXMj49U88T1nU8VasVvG6FMH21Xz
+   LVUP7S4upvry40iaeUxiilm4h1/QChcfhT0/cP0ThE8EeKr0wFZBy/YwB
+   hPCN8BDV5YlpDtdx7R3IYcRjVY7nTcacDYF70fFHgsCNQuXSYPws9sHHl
+   KAi9pEYV4E8IoUtsGrd81G/cFJ8gbcQbGXTlniUUVuMZVd5hJYHyB7ifh
+   A==;
+X-CSE-ConnectionGUID: s52HmidCS9WXj69dFig57w==
+X-CSE-MsgGUID: oxOjjAAeTyuGOIOcqJtNvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="91441897"
 X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
-   d="scan'208";a="87823451"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 05:48:27 -0700
-X-CSE-ConnectionGUID: lUuKI2E/SDa0kJ4GxfIGSg==
-X-CSE-MsgGUID: SAZYvVwZS7yHLako0JXbzA==
+   d="scan'208";a="91441897"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 05:50:46 -0700
+X-CSE-ConnectionGUID: ricorxZrRCuTHae6yrJGRA==
+X-CSE-MsgGUID: 5iNnPi6uTPqSr4fUcTw9wQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
-   d="scan'208";a="265525067"
-Received: from szadworn-mobl.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.124])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 05:48:25 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	peter.ujfalusi@linux.intel.com,
-	broonie@kernel.org,
-	kai.vehmanen@linux.intel.com,
-	liam.r.girdwood@intel.com
-Subject: [PATCH 7.1.y] ASoC: SOF: ipc4-topology: Refresh copier IPC payload before widget setup
-Date: Thu, 20 Aug 2026 15:48:24 +0300
-Message-ID: <20260820124824.22018-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082016-frisk-riches-3e59@gregkh>
-References: <2026082016-frisk-riches-3e59@gregkh>
+   d="scan'208";a="261765027"
+Received: from szadworn-mobl.ger.corp.intel.com (HELO [10.245.246.124]) ([10.245.246.124])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 05:50:43 -0700
+Message-ID: <6e773e06-ab3a-40fd-aeb2-f411ed51e412@linux.intel.com>
+Date: Thu, 20 Aug 2026 15:50:42 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: FAILED: patch "[PATCH] ASoC: SOF: ipc4-topology: Refresh copier
+ IPC payload before" failed to apply to 7.1-stable tree
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: broonie@kernel.org, kai.vehmanen@linux.intel.com,
+ liam.r.girdwood@intel.com, stable@vger.kernel.org
+References: <2026082016-frisk-riches-3e59@gregkh>
+ <1142f719-4f26-4a2f-be99-af4822cd78b1@linux.intel.com>
+ <2026082057-sulfite-daunting-34da@gregkh>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <2026082057-sulfite-daunting-34da@gregkh>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The ipc_config_data buffer for copier widgets is built once during
-ipc_prepare (called from sof_pcm_setup_connected_widgets) and cached
-for reuse. For host copiers this buffer contains the copier_data with
-gtw_cfg.node_id (host DMA ID). For DAI copiers it additionally includes
-a dma_config_tlv trailer with stream_id and dma_channel_id for HDA link
-DMA.
 
-On suspend/resume, both host and link DMA streams are released and
-re-allocated with potentially different stream tags. The underlying
-copier_data and dma_config_tlv structures are correctly updated by
-host_config and sdw_hda_dai_hw_params respectively. However, since the
-widget list (spcm->stream[].list) persists across suspend,
-sof_pcm_hw_params skips sof_pcm_setup_connected_widgets and ipc_prepare
-never runs again to rebuild ipc_config_data. The stale cached payload
-is then sent to firmware with boot-time DMA channel assignments, causing
-DMA channel conflicts that lead to firmware errors and crashes.
 
-Fix this by refreshing copier_data and dma_config_tlv portions of
-ipc_config_data in sof_ipc4_widget_setup right before the IPC message
-is sent. This ensures the payload always reflects the current DMA state
-regardless of whether ipc_prepare ran.
+On 20/08/2026 14:49, Greg KH wrote:
+> On Thu, Aug 20, 2026 at 02:45:30PM +0300, Péter Ujfalusi wrote:
+> I see major conflicts here:
+> 
+> Applying patch asoc-sof-ipc4-topology-refresh-copier-ipc-payload-before-widget-setup.patch
+> patching file sound/soc/sof/ipc4-topology.c
+> Hunk #1 succeeded at 3167 (offset -37 lines).
+> Hunk #2 FAILED at 3221.
+> Hunk #3 FAILED at 3229.
+> 2 out of 3 hunks FAILED -- rejects in file sound/soc/sof/ipc4-topology.c
+> Patch asoc-sof-ipc4-topology-refresh-copier-ipc-payload-before-widget-setup.patch does not apply (enforce with -f)
 
-For DAI copiers, the gtw_cfg.config_length in copier_data is temporarily
-inflated to include the TLV size (matching the ipc_config_data layout)
-before copying, then restored, mirroring what
-sof_ipc4_prepare_copier_module does when first building the buffer.
+I see no such conflicts on top of 7.1.9 tag, checking the original and
+picked patch with -U20 I don't see any difference in the surrounding either.
 
-Fixes: e9c6b118de1a ("ASoC: SOF: make dma_config_tlv be an array")
-Cc: stable@vger.kernel.org
-Link: https://github.com/thesofproject/sof/issues/10700
-Link: https://github.com/thesofproject/sof/issues/10955
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Link: https://patch.msgid.link/20260730054822.5913-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-(cherry picked from commit 0c0e418dbcf0582bf80d8dbfd9b306607c065992)
----
- sound/soc/sof/ipc4-topology.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+I have sent my version of cherry-pick as per instructions in original mail.
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 76812d8fb567..64e65cd2d08c 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -3151,6 +3151,15 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		ipc_size = ipc4_copier->ipc_config_size;
- 		ipc_data = ipc4_copier->ipc_config_data;
- 
-+		/*
-+		 * Refresh copier_data in ipc_config_data for host copiers.
-+		 * The node_id may have been updated by host_config after
-+		 * ipc_prepare, e.g. when host stream tags change after a
-+		 * suspend/resume cycle.
-+		 */
-+		if (swidget->id != snd_soc_dapm_buffer)
-+			memcpy(ipc_data, &ipc4_copier->data, sizeof(ipc4_copier->data));
-+
- 		msg = &ipc4_copier->msg;
- 		break;
- 	}
-@@ -3159,6 +3168,9 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 	{
- 		struct snd_sof_dai *dai = swidget->private;
- 		struct sof_ipc4_copier *ipc4_copier = dai->private;
-+		struct sof_ipc4_copier_data *copier_data;
-+		u32 gtw_cfg_config_length;
-+		u32 tlv_size;
- 
- 		pipeline = pipe_widget->private;
- 		if (pipeline->use_chain_dma)
-@@ -3167,6 +3179,27 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
- 		ipc_size = ipc4_copier->ipc_config_size;
- 		ipc_data = ipc4_copier->ipc_config_data;
- 
-+		/*
-+		 * Refresh copier_data and dma_config_tlv in ipc_config_data.
-+		 * These may have been updated after ipc_prepare, e.g. when
-+		 * link DMA stream tags change after a suspend/resume cycle.
-+		 *
-+		 * copier_data->gtw_cfg.config_length does not include the
-+		 * TLV size (it was restored after sof_ipc4_prepare_copier_module),
-+		 * so temporarily inflate it to match the ipc_config_data layout.
-+		 */
-+		copier_data = &ipc4_copier->data;
-+		gtw_cfg_config_length = copier_data->gtw_cfg.config_length * 4;
-+		tlv_size = ipc_size - sizeof(*copier_data) - gtw_cfg_config_length;
-+
-+		copier_data->gtw_cfg.config_length += tlv_size / 4;
-+		memcpy(ipc_data, copier_data, sizeof(*copier_data));
-+		copier_data->gtw_cfg.config_length = gtw_cfg_config_length / 4;
-+
-+		if (tlv_size)
-+			memcpy(ipc_data + sizeof(*copier_data) + gtw_cfg_config_length,
-+			       &ipc4_copier->dma_config_tlv, tlv_size);
-+
- 		msg = &ipc4_copier->msg;
- 		break;
- 	}
 -- 
-2.55.0
+Péter
 
