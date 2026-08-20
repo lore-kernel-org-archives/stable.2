@@ -1,484 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD2B38D014;
-	Thu, 20 Aug 2026 10:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ACC40BCA0
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787221584; cv=none; b=eiHVI0tK0t7XA1aoIPUIPCc7gqX1AZ8ZPFhlXcZXrEBpS2E/M+YSwSA5R57meLSL470O7DF2ihgdo8f7mNm9hXZwt3WgXot+944/oTINJA84n1nxhcUNhuzuIC8p+9UXxRXTh9dmIXLNAzIbhWSZp9Z1M4u5EfwR3HMOpugjEt4=
+	t=1787221601; cv=none; b=ILG3L8YYHAFlRv0kxx4LaPG5cgHgZcqyLuN8jO9wRvudP8AjAjp81aLwZdTSe7ZeiC6MAPbZneETamKHD1FpBm0Xx1M62fzib2V5e5kmcKZkbKM3pG97VXmwHZ4B76yO/UfEKqnehcIINFF88sktX9BR8oWYfqv0KvyRni6uYeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787221584; c=relaxed/simple;
-	bh=Z3UD4cMLGxCHHERUqy4i/FsndVnARFAUMQk2BYjQehU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NO70d6KcCaBNPZs0VV3DmWHmceXLoGjezIj8Y4UXNGpMFzG3DX61a77VO4oHntqV9A67Vo05VQInv8UpPam4i6xiwbgdiF0jv/goHfkvYXV0fLMZ3zXEwkOqKoEXL6xbbW2eSaLzj1c5HZ0EnnJpDwnggTWgqu+tGUxJwtCyh84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qzVomX4U; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787221601; c=relaxed/simple;
+	bh=f4pxdxOm5KSlcTwOg7yLOGvkui7bGHcXbIihBrSAEi0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KisGwi1hw7+gzRzfOeXx5mj8o0G5Jix3+KyItXGVZhq6l9ZJEvViYzXcf6bmGrygcpLAYGwRPiijGIQ1KYbp0LzE76GACughiN05XqDt55PdEp1Kk0yKYV+t2dYijaETvSfM2PixeE9kZQAW41xkcVxfIwXADgAtXcaEmmcZqOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YoQi9zMQ; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qzVomX4U"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7DE40C2BCB3;
-	Thu, 20 Aug 2026 10:26:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787221584;
-	bh=Z3UD4cMLGxCHHERUqy4i/FsndVnARFAUMQk2BYjQehU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=qzVomX4UgkMA1mdh0f2dj8eoq4raWDkuh7i+ohBfjyY41veKKcqXxhCvMlPwSCCPV
-	 dS93B7cnBLysF5h44LBFuIlAIUAsmym6VNHLVP99wCS02xWF4exodOuvfOm33tbar4
-	 b0w4xSyDN6ODEMyQMnIxRdN7Y4xOd0jIB6gRjFydr8fTiBa3ShJPyn/k7Okxe2gRlN
-	 uav/eoIrJggaVHIHOH6mmqWYAKhRfhxyVZh+WbA/YkFlbIIW7kKjIF34NSR4kCxHEe
-	 kLC+0uJ6oaKi0pxIW7sRG0f6emPlJT6nGustY6nqAz40htl6BsycK38MxTdkgYOhht
-	 WF2oBZDaNtCkw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69B95C5DF87;
-	Thu, 20 Aug 2026 10:26:24 +0000 (UTC)
-From: Pawel Laszczak via B4 Relay <devnull+pawell.cadence.com@kernel.org>
-Date: Thu, 20 Aug 2026 12:45:31 +0200
-Subject: [PATCH v3] usb: cdnsp: fix wakeup from S3 after controller context
- loss
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YoQi9zMQ"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a3819e8be8so2043378a12.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:26:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1787221595; x=1787826395; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JK3RPI3X6wjjizw2T6NiDoaTiSUZOw5BuBJ76PSCVyg=;
+        b=YoQi9zMQG7Uq5Sru9o7LChM7SkyAD2VoqfHNrmm2tZjjByAJK3nKC8zxvvatbP2EJ7
+         LqQMGrUYogKe/NqdOOtvcAfGlv+U1yZJf8UxnlgALwAJrL2qn2KUzQYVN8oAgez5nLHI
+         jx8yeq+5ZwMKl14lqeJtA2kIePyjzrA+x6GIo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787221595; x=1787826395;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JK3RPI3X6wjjizw2T6NiDoaTiSUZOw5BuBJ76PSCVyg=;
+        b=hCoiOUsRetuZnu6tsy7pEWPdyyD9Mnt8ntLQ5GGBGkTwLcbuZelMVxmN6nc4mekzpD
+         0JUn6htIowg3gXL0C836IHg3/p7Rh8frzT3exB2pqDjwuAwFhp3VCF+zqsLOvZcqCVtH
+         Cat+yCwhBDO/BL0srhWbfpfJXG25n6BlsqshwdlOL+iAQesRRvEhp10LYsZeLRHtHzVd
+         ZuuGMRh732NgCBfF19oC8ztN9zlPP5HNZJug2tJJsWaOc5aabtsBwao4dxfmjd3qt/zG
+         JZFFSrFUEiZfqbKAXM+QG3Gv15WZ6nbg7gumHX4/DDkPn8JUplWYp6oC22dNs3spaprn
+         TzyQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqTLsgyZRcXu7S8nJL+R7ln38Bjk4ljUnkA5Kn9a+AA7e4lJohsJ6NgvQ23HuZ7i7sre+kTaRY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCyjp0xQ2dsT4EchgFym80P+9E10eozWg1RroAlZi6uuJLHMLs
+	clM39Fb8qdMDUlyi/lKgHzld0C3bHPLY9BZOQyXLe/Q4SrNl7LHm+Jstn2JenJMpSZvN0Lkyl9C
+	2Q5NBSA==
+X-Gm-Gg: AR+sD117f0S3htXfPQwjOth06rByR3MBf4+dyMcPi0NNYtgmAS+FHI62pd92Tq3HLeb
+	ou5+NhxDQngrcL7f1lqzFr1Le1rmE1XIUjB4Oe2aOP22KzIU0671Mw/xfmJGzFNhjg3Ku/Zw5Xg
+	GMOILdqAkluQFAtcv3p70fkBjlh+6mpjaSZs7pDJzUYZx7uqjrNfX480QVUimNsOd6NUxvcfcKH
+	Mhi79Y8NDf9WNZBvECui8LdPyBd1foxehgUjqD0YFRrWq1ftycRKWSIV5g/ut6IZQ1G16rP8QI5
+	xKRBDrnHsuBGH1YSwaNBi+Zi35EMnAhqkzVQ+yImWyfaYoVWwCG9BCi7vcQSeEGw2pGsvXnd5zZ
+	vIjA+R/OdVZKdi0GrpG8nZVMrecCVDAAV+d17a3YYZVV1wivY1VuN6tGPV5xzKa/cfQ5tsVEQn7
+	TFo4xciwm/ZD3qGWpxiVqOm3ODQ+uSijlv/d/40d3tf1uAdGdy0uCA46BxZQx5f+oBY1YKVtyHo
+	Liza0iSleExHsN1y8rcgBVZzw==
+X-Received: by 2002:a05:6402:8c4:b0:695:4916:b97c with SMTP id 4fb4d7f45d1cf-6a41133589dmr2788147a12.8.1787221594812;
+        Thu, 20 Aug 2026 03:26:34 -0700 (PDT)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff1565fesm2183134a12.17.2026.08.20.03.26.34
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 03:26:34 -0700 (PDT)
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c169ae1cb26so163963766b.1
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:26:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpxzFQeYeDkHauaxdyD1uxPfmVdGBQAH1HOn8Pab6zOpivis2qQBMxAqHBWkCKkZ5nqDaJtnpU=@vger.kernel.org
+X-Received: by 2002:a17:907:3e89:b0:c21:7c98:d9ec with SMTP id
+ a640c23a62f3a-c244d6349a2mr384527466b.5.1787221593000; Thu, 20 Aug 2026
+ 03:26:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-suspend_resume_fix-v3-1-5a713098b977@cadence.com>
-X-B4-Tracking: v=1; b=H4sIAMrahmoC/32N0QqCMBSGXyV23WKbmtpV7xEhczvLBU7Z0VGI7
- 95mFxFEl9/hP9+3EARvAclptxAPwaIdXIRsvyOqk+4G1OrIRDBxZKXIKM44gtONB5x7aIx90Nb
- oIhOlLoSUJD6OHuJ5k16ub8a5vYOakiktOovT4J9bNfC0+xsInHKquJAMKpDGqLOSGpyCgxp6k
- hJBfCQVr35KRJTkZcFYzes80+Zbsq7rC4CPFuENAQAA
-X-Change-ID: 20260723-suspend_resume_fix-bfd5327d52aa
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Peter Chen <peter.chen@kernel.org>, gary.yang@cixtech.com
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Pawel Laszczak <pawell@cadence.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787222749; l=13692;
- i=pawell@cadence.com; h=from:subject:message-id;
- bh=2TNaPdhGZITfHVIm9Q6cmOFISCzQeaMUAmB/4I1gQp0=;
- b=WAurovXFDpk83GqqaJOwT/4ZbOB1/QDDQHGPbW7wfMNcdt0H+9ZHCciaHYHTPg4t0JLb4f1f0
- gW2mKbG7b6QBfs9kgaEEE0w7i6UTHEbokxfvevdA8IIM7mUDD0T1Y5T
-X-Developer-Key: i=pawell@cadence.com; a=ed25519;
- pk=EUPBvLO9CDg7j6defeDl2iqi+z5Ivqu4Z46aiqe7dYc=
-X-Endpoint-Received: by B4 Relay for pawell@cadence.com/default with
- auth_id=707
-X-Original-From: Pawel Laszczak <pawell@cadence.com>
-Reply-To: pawell@cadence.com
+References: <20260820095626.111196-1-natalie.klaus@runtimeverification.com> <20260820095626.111196-3-natalie.klaus@runtimeverification.com>
+In-Reply-To: <20260820095626.111196-3-natalie.klaus@runtimeverification.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 20 Aug 2026 12:26:18 +0200
+X-Gmail-Original-Message-ID: <CANiDSCv5pt6sNx9T8jt4K6MSn5YqyNHiPG7SPU=EZ8MQoOJysw@mail.gmail.com>
+X-Gm-Features: AcwNN1Uj5RCmBRRL7so-rkJNHS9RjWVt2a2XT2d0yKtksHempvS34a_tprO4CM4
+Message-ID: <CANiDSCv5pt6sNx9T8jt4K6MSn5YqyNHiPG7SPU=EZ8MQoOJysw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] media: uvcvideo: Fix integer overflow in frame buffer
+ size calculation
+To: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
+	noambs2999@gmail.com, david.laight.linux@gmail.com, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Pawel Laszczak <pawell@cadence.com>
+Hi Natasha
 
-CDNSP controller may lose its runtime register programming across S3
-suspend/resume, depending on SoC power domain configuration. After
-resume the operational and interrupter registers may contain reset
-values, which prevents the gadget side from recovering correctly and
-breaks wakeup from S3.
+On Thu, 20 Aug 2026 at 11:57, Natasha Klaus
+<natalie.klaus@runtimeverification.com> wrote:
+>
+> From: Noam Ben Shimon <noambs2999@gmail.com>
+>
+> In the function uvc_parse_frame(), it recomputes
+> dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
+> around devices that report it wrong:
+>
+>         frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
+>                                          * frame->wHeight / 8;
+>
+> These three arguments originate from the device's own descriptors, and
+> therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
+> u16. The expression is evaluated in int, and the maximum value is
+> 255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
+> A device that declares large dimensions therefore overflows a signed
+> int here.
+> The kernel is built using -fno-strict-overflow, so this wraps rather
+> than being miscompiled, but the wrapped value (which is often negative)
+> is then divided by 8 and stored in a u32 used as a size.
+>
+> Two examples for this (using legal field values):
+>
+>   - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
+>     INT_MIN. After division and conversion to u32 the field has the
+>     value 4026531840 rather than 268435456.
+>
+>   - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
+>     The field holds 0, rather than the correct 536870912.
+>
+> I don't think memory corruption is a consequence of this. The value
+> reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
+> decode path is bounded by buf->length, which uvc_buffer_prepare() gets
+> from vb2_plane_size() rather than this field. What a wrapped value does
+> instead is make the driver describe the stream inconsistently.
+> For an uncompressed format uvc_fixup_video_ctrl() copies it into
+> ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
+> sizeimage reported by VIDIOC_G_FMT. This is while width, height and
+> bytesperline continue to describe the full frame.
+> This also makes uvc_video_validate_buffer() mark error on all frames,
+> because it is comparing bytesused against the same number.
+>
+> Compute the size in 64-bit, and if the result does not fit in the u32
+> field then skip the frame descriptor. An uncompressed frame this large
+> is probably not a real device, and skipping it leaves the rest of the
+> format and the streaming interface usable.
+>
+> The rounding also changes from truncation to round-up. Truncation is
+> pre-existing rather than introduced here: the original expression used
+> integer division, so it has rounded a partial trailing byte away since
+> the driver was merged. Rounding up is the right direction for a buffer
+> size, and DIV_ROUND_UP() against BITS_PER_BYTE is what the rest of the
+> media tree uses for this computation, including uvc_parse_format()
+> itself for the FORCE_BPP quirk.
+>
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
+> Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+> ---
+> Changes from Noam's v2:
+> - Rebased onto patch 1/3; this patch no longer applies standalone.
+> - Diagnostic changed from uvc_dbg(dev, DESCR, ...) to dev_warn() on
+>   &streaming->intf->dev, reworded to begin "UVC non compliance: " and to
+>   say the frame is skipped. The explicit device and interface numbers are
+>   dropped from the message text because dev_warn() already identifies the
+>   interface. (The original could not be kept as-is in any case: patch 1/3
+>   removes the local alts variable it referenced.)
+> - bpp, wWidth and wHeight added to the message text (David Laight), matching
+>   the wording of the diagnostic in 3/3.
+> - The >> 3 replaced with DIV_ROUND_UP() against BITS_PER_BYTE (David Laight),
+>   so a partial trailing byte is no longer dropped. The overflow check is
+>   applied to the rounded-up value.
+> - The return value is still -EINVAL; what changed is its meaning, which
+>   patch 1/3 redefines as "skip this frame descriptor" rather than "fail the
+>   whole streaming interface".
+> - Last paragraph of the commit message reworded from "reject the frame
+>   descriptor ... rejection is consistent with the other checks over
+>   malformed-descriptors in this function" to describe skipping instead, and
+>   a paragraph added on the rounding change.
+> - Ricardo Ribalda's Reviewed-by dropped, as it was given on the unmodified
+>   v2.
+> - Submitter's Signed-off-by added.
+> - Fixes: and Cc: stable lines unchanged.
+>
+> Rounding up also moves the U32_MAX boundary: two inputs within the field
+> limits (bpp=79 at 10077x43161 and bpp=237 at 3359x43161) landed exactly on
+> U32_MAX with the old truncation and are now rejected, since the rounded-up
+> size is not representable.
+>
+> Build tested on x86_64 only. gcc-multilib was not available in my
+> environment, so the 32-bit code generation for the DIV_ROUND_UP() on a u64
+> was not verified; the divisor is the power-of-two constant BITS_PER_BYTE, so
+> I expect a shift rather than a libgcc 64-bit division helper, but I have not
+> confirmed it. No hardware and no UVC gadget were used.
+>
+>  drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index 0cc0e351d139..eb7177ea291d 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -295,9 +295,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
+>          * information. For uncompressed formats this can be fixed by computing
+>          * the value from the frame size.
+>          */
+> -       if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
+> -               frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
+> -                                                * frame->wHeight / 8;
+> +       if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
+> +               u64 bufsize;
+> +
+> +               bufsize = DIV_ROUND_UP((u64)format->bpp * frame->wWidth *
+> +                                      frame->wHeight, BITS_PER_BYTE);
 
-Fix this by detecting whether the controller lost its register context
-after resume and handling both cases:
-- If context was lost (CFG_3XPORT_U1_PIPE_CLK_GATE_EN set or power
-  lost): reset the controller and reprogram the state required for
-  normal operation, including the command ring, DCBAA pointer, doorbell
-  base, event ring, ERST base/size and event ring dequeue pointer.
-- If context was retained: restart the controller directly without
-  reprogramming registers. Issue a wakeup if the link was in U3 before
-  suspend.
+I believe this should be DIV_ROUND_UP_ULL. Eventhough BITS_PER_BYTE is
+a power-of-2, some compilers might have brain damage and complain
+about 64 bit division.
 
-Move the basic controller register programming out of the one-time memory
-initialization path and make it reusable from the resume path. Also
-separate ring allocation from ring initialization so that rings can be
-reinitialized without reallocating DMA memory.
+> +               if (bufsize > U32_MAX) {
+> +                       dev_warn(&streaming->intf->dev,
+> +                                "UVC non compliance: FRAME %u computed buffer size overflows (%ux%u, %u bpp), skipping it.\n",
+> +                                frame->bFrameIndex, frame->wWidth,
+> +                                frame->wHeight, format->bpp);
+> +                       return -EINVAL;
+> +               }
+> +
+> +               frame->dwMaxVideoFrameBufferSize = bufsize;
+> +       }
+>
+>         /*
+>          * Clamp the default frame interval to the boundaries. A zero
+> --
+> 2.34.1
+>
+With that change, feel free to add my:
 
-Always perform the full suspend sequence regardless of the current link
-state. Previously, if the device was already in U3, the suspend callback
-returned early without stopping the controller, which could lead to
-commands being issued on a disabled slot during resume.
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
 
-Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pawel Laszczak <pawell@cadence.com>
----
-Changes in v3:
-- Remove CSS/CRS sequences: not applicable to the device controller.
-- Remove cdnsp_save_registers(), cdnsp_restore_registers() and
-  struct cdnsp_s3_save, now unused.
-- Remove STS_CNR polling from the power-retained resume path: it was
-  not present before this fix and is not required.
-- Move __cdnsp_gadget_wakeup() call to the power-retained path only,
-  where the link state is meaningful.
-
-Changes in v2:
-- Clarify commit message to reflect SoC-dependent context loss behavior
-- Removed in_lpm from cdnsp_irq_handler - the code is unnecessary
-- Fix suspend: always perform full suspend sequence regardless of link state
----
- drivers/usb/cdns3/cdnsp-gadget.c | 111 +++++++++++++++++++++++++++++++++++++--
- drivers/usb/cdns3/cdnsp-gadget.h |   1 +
- drivers/usb/cdns3/cdnsp-mem.c    |  98 ++++++++++++----------------------
- 3 files changed, 142 insertions(+), 68 deletions(-)
-
-diff --git a/drivers/usb/cdns3/cdnsp-gadget.c b/drivers/usb/cdns3/cdnsp-gadget.c
-index a5275c2fb43b..63f605de068b 100644
---- a/drivers/usb/cdns3/cdnsp-gadget.c
-+++ b/drivers/usb/cdns3/cdnsp-gadget.c
-@@ -1338,7 +1338,6 @@ static int cdnsp_run(struct cdnsp_device *pdev,
- 
- 	cdnsp_gadget_ep0_desc.wMaxPacketSize = cpu_to_le16(512);
- 
--
- 	ret = cdnsp_start(pdev);
- 	if (ret) {
- 		ret = -ENODEV;
-@@ -1837,6 +1836,82 @@ static void cdnsp_get_rev_cap(struct cdnsp_device *pdev)
- 		 readl(&pdev->rev_cap->tx_buff_size));
- }
- 
-+static void cdnsp_set_event_deq(struct cdnsp_device *pdev)
-+{
-+	dma_addr_t deq;
-+	u64 temp;
-+
-+	deq = cdnsp_trb_virt_to_dma(pdev->event_ring->deq_seg,
-+				    pdev->event_ring->dequeue);
-+
-+	/* Update controller event ring dequeue pointer */
-+	temp = cdnsp_read_64(&pdev->ir_set->erst_dequeue);
-+	temp &= ERST_PTR_MASK;
-+
-+	/*
-+	 * Don't clear the EHB bit (which is RW1C) because
-+	 * there might be more events to service.
-+	 */
-+	temp &= ~ERST_EHB;
-+
-+	cdnsp_write_64(((u64)deq & (u64)~ERST_PTR_MASK) | temp,
-+		       &pdev->ir_set->erst_dequeue);
-+}
-+
-+static void cdnsp_add_interrupter(struct cdnsp_device *pdev)
-+{
-+	u64 erst_base;
-+	u32 erst_size;
-+
-+	/* Set ERST count with the number of entries in the segment table. */
-+	erst_size = readl(&pdev->ir_set->erst_size);
-+	erst_size &= ERST_SIZE_MASK;
-+	erst_size |= ERST_NUM_SEGS;
-+	writel(erst_size, &pdev->ir_set->erst_size);
-+
-+	/* Set the segment table base address. */
-+	erst_base = cdnsp_read_64(&pdev->ir_set->erst_base);
-+	erst_base &= ERST_PTR_MASK;
-+	erst_base |= (pdev->erst.erst_dma_addr & (u64)~ERST_PTR_MASK);
-+	cdnsp_write_64(erst_base, &pdev->ir_set->erst_base);
-+
-+	/* Set the event ring dequeue address. */
-+	cdnsp_set_event_deq(pdev);
-+}
-+
-+/* Set up basic CDNSP registers */
-+static void cdnsp_init(struct cdnsp_device *pdev)
-+{
-+	unsigned int val;
-+	u64 val_64;
-+
-+	val = readl(&pdev->op_regs->config_reg);
-+	val |= ((val & ~MAX_DEVS) | CDNSP_DEV_MAX_SLOTS) | CONFIG_U3E;
-+	writel(val, &pdev->op_regs->config_reg);
-+
-+	/* Initialize the Command ring */
-+	cdnsp_ring_init(pdev, pdev->cmd_ring);
-+
-+	/* Set the address in the Command Ring Control register */
-+	val_64 = cdnsp_read_64(&pdev->op_regs->cmd_ring);
-+	val_64 = (val_64 & (u64)CMD_RING_RSVD_BITS) |
-+		 (pdev->cmd_ring->first_seg->dma & (u64)~CMD_RING_RSVD_BITS) |
-+		 pdev->cmd_ring->cycle_state;
-+	cdnsp_write_64(val_64, &pdev->op_regs->cmd_ring);
-+
-+	/* Set Device Context Base Address Array pointer */
-+	cdnsp_write_64(pdev->dcbaa->dma, &pdev->op_regs->dcbaa_ptr);
-+
-+	/* Set Doorbell array pointer */
-+	val = readl(&pdev->cap_regs->db_off);
-+	val &= DBOFF_MASK;
-+	pdev->dba = (void __iomem *)pdev->cap_regs + val;
-+
-+	/* Initialize the Primary interrupter */
-+	cdnsp_ring_init(pdev, pdev->event_ring);
-+	cdnsp_add_interrupter(pdev);
-+}
-+
- static int cdnsp_gen_setup(struct cdnsp_device *pdev)
- {
- 	int ret;
-@@ -1902,6 +1977,8 @@ static int cdnsp_gen_setup(struct cdnsp_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	cdnsp_init(pdev);
-+
- 	/*
- 	 * Software workaround for U1: after transition
- 	 * to U1 the controller starts gating clock, and in some cases,
-@@ -2031,9 +2108,6 @@ static int cdnsp_gadget_suspend(struct cdns *cdns, bool do_wakeup)
- 	struct cdnsp_device *pdev = cdns->gadget_dev;
- 	unsigned long flags;
- 
--	if (pdev->link_state == XDEV_U3)
--		return 0;
--
- 	spin_lock_irqsave(&pdev->lock, flags);
- 	cdnsp_disconnect_gadget(pdev);
- 	cdnsp_stop(pdev);
-@@ -2047,12 +2121,38 @@ static int cdnsp_gadget_resume(struct cdns *cdns, bool lost_power)
- 	struct cdnsp_device *pdev = cdns->gadget_dev;
- 	enum usb_device_speed max_speed;
- 	unsigned long flags;
-+	bool context_lost;
-+	u32 val;
- 	int ret;
- 
- 	if (!pdev->gadget_driver)
- 		return 0;
- 
- 	spin_lock_irqsave(&pdev->lock, flags);
-+	val = readl(&pdev->port3x_regs->mode_2);
-+	context_lost = !!(val & CFG_3XPORT_U1_PIPE_CLK_GATE_EN) || lost_power;
-+
-+	if (context_lost) {
-+		cdnsp_halt(pdev);
-+		cdnsp_set_apb_timeout_value(pdev);
-+
-+		/* Reset the internal controller memory state and registers. */
-+		ret = cdnsp_reset(pdev);
-+		if (ret)
-+			goto unlock;
-+
-+		val = readl(&pdev->port3x_regs->mode_2);
-+		val &= ~CFG_3XPORT_U1_PIPE_CLK_GATE_EN;
-+		writel(val, &pdev->port3x_regs->mode_2);
-+
-+		cdnsp_clear_cmd_ring(pdev);
-+
-+		memset(pdev->event_ring->first_seg->trbs, 0,
-+		       sizeof(union cdnsp_trb) * (TRBS_PER_SEGMENT));
-+
-+		cdnsp_init(pdev);
-+	}
-+
- 	max_speed = pdev->gadget_driver->max_speed;
- 
- 	/* Limit speed if necessary. */
-@@ -2060,9 +2160,10 @@ static int cdnsp_gadget_resume(struct cdns *cdns, bool lost_power)
- 
- 	ret = cdnsp_run(pdev, max_speed);
- 
--	if (pdev->link_state == XDEV_U3)
-+	if (!context_lost && pdev->link_state == XDEV_U3)
- 		__cdnsp_gadget_wakeup(pdev);
- 
-+unlock:
- 	spin_unlock_irqrestore(&pdev->lock, flags);
- 
- 	return ret;
-diff --git a/drivers/usb/cdns3/cdnsp-gadget.h b/drivers/usb/cdns3/cdnsp-gadget.h
-index c44bca348a41..c3ae5040f9cc 100644
---- a/drivers/usb/cdns3/cdnsp-gadget.h
-+++ b/drivers/usb/cdns3/cdnsp-gadget.h
-@@ -1510,6 +1510,7 @@ int cdnsp_endpoint_init(struct cdnsp_device *pdev,
- int cdnsp_ring_expansion(struct cdnsp_device *pdev,
- 			 struct cdnsp_ring *ring,
- 			 unsigned int num_trbs, gfp_t flags);
-+void cdnsp_ring_init(struct cdnsp_device *pdev, struct cdnsp_ring *ring);
- struct cdnsp_ring *cdnsp_dma_to_transfer_ring(struct cdnsp_ep *ep, u64 address);
- int cdnsp_alloc_stream_info(struct cdnsp_device *pdev,
- 			    struct cdnsp_ep *pep,
-diff --git a/drivers/usb/cdns3/cdnsp-mem.c b/drivers/usb/cdns3/cdnsp-mem.c
-index 5d8cdc91927d..0be917f52bbb 100644
---- a/drivers/usb/cdns3/cdnsp-mem.c
-+++ b/drivers/usb/cdns3/cdnsp-mem.c
-@@ -394,13 +394,6 @@ static struct cdnsp_ring *cdnsp_ring_alloc(struct cdnsp_device *pdev,
- 	if (ret)
- 		goto fail;
- 
--	/* Only event ring does not use link TRB. */
--	if (type != TYPE_EVENT)
--		ring->last_seg->trbs[TRBS_PER_SEGMENT - 1].link.control |=
--			cpu_to_le32(LINK_TOGGLE);
--
--	cdnsp_initialize_ring_info(ring);
--	trace_cdnsp_ring_alloc(ring);
- 	return ring;
- fail:
- 	kfree(ring);
-@@ -603,6 +596,7 @@ int cdnsp_alloc_stream_info(struct cdnsp_device *pdev,
- 		if (!cur_ring)
- 			goto cleanup_rings;
- 
-+		cdnsp_ring_init(pdev, cur_ring);
- 		cur_ring->stream_id = cur_stream;
- 		cur_ring->trb_address_map = &stream_info->trb_address_map;
- 
-@@ -696,6 +690,8 @@ static int cdnsp_alloc_priv_device(struct cdnsp_device *pdev)
- 	if (!pdev->eps[0].ring)
- 		goto fail;
- 
-+	cdnsp_ring_init(pdev, pdev->eps[0].ring);
-+
- 	/* Point to output device context in dcbaa. */
- 	pdev->dcbaa->dev_context_ptrs[1] = cpu_to_le64(pdev->out_ctx.dma);
- 	pdev->cmd.in_ctx = &pdev->in_ctx;
-@@ -989,6 +985,8 @@ int cdnsp_endpoint_init(struct cdnsp_device *pdev,
- 	if (!pep->ring)
- 		return -ENOMEM;
- 
-+	cdnsp_ring_init(pdev, pep->ring);
-+
- 	pep->skip = false;
- 
- 	/* Fill the endpoint context */
-@@ -1094,28 +1092,6 @@ void cdnsp_mem_cleanup(struct cdnsp_device *pdev)
- 	pdev->active_port = NULL;
- }
- 
--static void cdnsp_set_event_deq(struct cdnsp_device *pdev)
--{
--	dma_addr_t deq;
--	u64 temp;
--
--	deq = cdnsp_trb_virt_to_dma(pdev->event_ring->deq_seg,
--				    pdev->event_ring->dequeue);
--
--	/* Update controller event ring dequeue pointer */
--	temp = cdnsp_read_64(&pdev->ir_set->erst_dequeue);
--	temp &= ERST_PTR_MASK;
--
--	/*
--	 * Don't clear the EHB bit (which is RW1C) because
--	 * there might be more events to service.
--	 */
--	temp &= ~ERST_EHB;
--
--	cdnsp_write_64(((u64)deq & (u64)~ERST_PTR_MASK) | temp,
--		       &pdev->ir_set->erst_dequeue);
--}
--
- static void cdnsp_add_in_port(struct cdnsp_device *pdev,
- 			      struct cdnsp_port *port,
- 			      __le32 __iomem *addr)
-@@ -1224,6 +1200,36 @@ static int cdnsp_setup_port_arrays(struct cdnsp_device *pdev)
- 	return 0;
- }
- 
-+static void cdnsp_initialize_ring_segments(struct cdnsp_device *pdev, struct cdnsp_ring *ring)
-+{
-+	struct cdnsp_segment *seg;
-+
-+	/* Only event ring does not use link TRB. */
-+	if (ring->type == TYPE_EVENT)
-+		return;
-+
-+	seg = ring->first_seg;
-+
-+	while (seg) {
-+		struct cdnsp_segment *next = seg->next;
-+
-+		cdnsp_link_segments(pdev, seg, next, ring->type);
-+		if (next == ring->first_seg)
-+			break;
-+
-+		seg = next;
-+	}
-+
-+	ring->last_seg->trbs[TRBS_PER_SEGMENT - 1].link.control |= cpu_to_le32(LINK_TOGGLE);
-+}
-+
-+void cdnsp_ring_init(struct cdnsp_device *pdev, struct cdnsp_ring *ring)
-+{
-+	cdnsp_initialize_ring_segments(pdev, ring);
-+	cdnsp_initialize_ring_info(ring);
-+	trace_cdnsp_ring_alloc(ring);
-+}
-+
- /*
-  * Initialize memory for CDNSP (one-time init).
-  *
-@@ -1235,10 +1241,8 @@ int cdnsp_mem_init(struct cdnsp_device *pdev)
- {
- 	struct device *dev = pdev->dev;
- 	int ret = -ENOMEM;
--	unsigned int val;
- 	dma_addr_t dma;
- 	u32 page_size;
--	u64 val_64;
- 
- 	/*
- 	 * Use 4K pages, since that's common and the minimum the
-@@ -1246,10 +1250,6 @@ int cdnsp_mem_init(struct cdnsp_device *pdev)
- 	 */
- 	page_size = 1 << 12;
- 
--	val = readl(&pdev->op_regs->config_reg);
--	val |= ((val & ~MAX_DEVS) | CDNSP_DEV_MAX_SLOTS) | CONFIG_U3E;
--	writel(val, &pdev->op_regs->config_reg);
--
- 	/*
- 	 * Doorbell array must be physically contiguous
- 	 * and 64-byte (cache line) aligned.
-@@ -1261,8 +1261,6 @@ int cdnsp_mem_init(struct cdnsp_device *pdev)
- 
- 	pdev->dcbaa->dma = dma;
- 
--	cdnsp_write_64(dma, &pdev->op_regs->dcbaa_ptr);
--
- 	/*
- 	 * Initialize the ring segment pool.  The ring must be a contiguous
- 	 * structure comprised of TRBs. The TRBs must be 16 byte aligned,
-@@ -1288,17 +1286,6 @@ int cdnsp_mem_init(struct cdnsp_device *pdev)
- 	if (!pdev->cmd_ring)
- 		goto destroy_device_pool;
- 
--	/* Set the address in the Command Ring Control register */
--	val_64 = cdnsp_read_64(&pdev->op_regs->cmd_ring);
--	val_64 = (val_64 & (u64)CMD_RING_RSVD_BITS) |
--		 (pdev->cmd_ring->first_seg->dma & (u64)~CMD_RING_RSVD_BITS) |
--		 pdev->cmd_ring->cycle_state;
--	cdnsp_write_64(val_64, &pdev->op_regs->cmd_ring);
--
--	val = readl(&pdev->cap_regs->db_off);
--	val &= DBOFF_MASK;
--	pdev->dba = (void __iomem *)pdev->cap_regs + val;
--
- 	/* Set ir_set to interrupt register set 0 */
- 	pdev->ir_set = &pdev->run_regs->ir_set[0];
- 
-@@ -1315,21 +1302,6 @@ int cdnsp_mem_init(struct cdnsp_device *pdev)
- 	if (ret)
- 		goto free_event_ring;
- 
--	/* Set ERST count with the number of entries in the segment table. */
--	val = readl(&pdev->ir_set->erst_size);
--	val &= ERST_SIZE_MASK;
--	val |= ERST_NUM_SEGS;
--	writel(val, &pdev->ir_set->erst_size);
--
--	/* Set the segment table base address. */
--	val_64 = cdnsp_read_64(&pdev->ir_set->erst_base);
--	val_64 &= ERST_PTR_MASK;
--	val_64 |= (pdev->erst.erst_dma_addr & (u64)~ERST_PTR_MASK);
--	cdnsp_write_64(val_64, &pdev->ir_set->erst_base);
--
--	/* Set the event ring dequeue address. */
--	cdnsp_set_event_deq(pdev);
--
- 	ret = cdnsp_setup_port_arrays(pdev);
- 	if (ret)
- 		goto free_erst;
-
----
-base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
-change-id: 20260723-suspend_resume_fix-bfd5327d52aa
-
-Best regards,
---  
-Pawel Laszczak <pawell@cadence.com>
-
-
+-- 
+Ricardo Ribalda
