@@ -1,220 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0991CCA6F;
-	Thu, 20 Aug 2026 20:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A2D3D9DAC;
+	Thu, 20 Aug 2026 20:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787259271; cv=none; b=Z0/wX0JEvrtIxFhItO6bsAqRoiwWDErT0C5Al86ZY8WpAyqCDCvHGQUw7ifxjL890tsnNRleAg65pMNujmVrCYbF0Z2JYhRF6uQ5/Vwl12yUTTwg1MBic0jRq3MN5YQ+C4ILSOm0uRTz/8O785IHcpkGn7M/oVLL0knz2bAJ3qw=
+	t=1787259318; cv=none; b=Hh7wHmt0ycpNJ2u9+ftUUsMg5HRKg3B7CQ7XCYVaTWTaOm/nYWz7/OaPpS0aC2QTGqTdq9gN2haZJD4XaeofmW6r/mDYaXuys7MbyCS9rx2FkBByZuVb4ucdjCGij/fjiQY6xTVoF2j2FMDHAlkYxYSAQtOo24H+2QqV6wCeO74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787259271; c=relaxed/simple;
-	bh=gjYv/sZPpauPPsmtrhwR2+Knfusl5yB+2Mm+ivh5DrE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=BrIX8yQT6rAch/UHgoRSzXIAZfYF+c89YllSVVVtx7OS8kqxK9vA+ocrheCe1/1yW1bT3R65QjWsL6lg9MwU7oph32hGF2X8t8+pq8xrzA11rQt0wbvhLpKlr2hjiLasKmQ557MncxWTWW8WAc6c7P7xscfXyDyLSUdJiH/F0cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BudRnSVp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787259318; c=relaxed/simple;
+	bh=VaDYhMvwCgRJNgtbHvUcrXvZBbhA9Q/v9V1dKjBxYxU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bzCzGbJVa/3IBzSCnYOwgy6orgeHuUKQRHJT2xTiy4XCw2WQsSdGcgp96Fb2Gf4PurV3KpAymuHd4YMssIWTdnjxeofKiuilsKoytLT1bBjUbK6YjJyZzvYI1T7zf36c62xLQGtoI37mFxstgDA6LEq0fwyXpkzNl1V/kUzz+r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JYpLIWkk; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BudRnSVp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3C5A1F000E9;
-	Thu, 20 Aug 2026 20:54:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787259269;
-	bh=+HEwizpIpYAsid9ngnnSHJ6MVcdntbVQLVVhuYpw6sc=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=BudRnSVplWNziID8uR4R1sNnzd3z9n16lGH1iJxaHdKx9llucyWsio5R+/bDIffZv
-	 6TNTbkGmCY0X0GjtrkIZNWqzsWbHkL/MfhRfgmMKnWi+8F591+MvjXMEuArrw4vmMR
-	 NnfLqw4gm80oDk9HoWWgkb4DZBR3kckFc12Jw/hF6ZXOJ5MAlBxQp0VxqA2o2PylsF
-	 sksMNu58wtvRPRRD6u7HPhr7bvGFOga50oclJAgMG9/mQUEXTanzLEvOHsCJ4ysvg+
-	 4YEdtI5tmGWtEtg1qnZjT/6deFnNyy1s8hL/cQJziurh5+ThSRZpVKNjEPY/HbzmmJ
-	 bo/Og7+FW9t7g==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JYpLIWkk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787259317; x=1818795317;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VaDYhMvwCgRJNgtbHvUcrXvZBbhA9Q/v9V1dKjBxYxU=;
+  b=JYpLIWkkxcwgOgdWfHep0IyyCfc+nfOxAc6BsVg7nxpDqRroiJFVMWuu
+   Iz+gXK6QY9zYxa0y3ILKuhYcm68bB6i+F/ZqTmJ4BKeu6LsDFG+3RykwQ
+   UjRuqLW3hzvgRRCqpPRFF3837IVtzk0b7NuBBO5umuZn25tj5yUkbtcHD
+   3FHHP0bJtNv8ZhVz3oKNrLKEr7bauN/M+1LzaJVWgRmMa7Sm3FoRqeNKZ
+   VkInVKvnQizsYQJeUTxfMhFTDN4eI7nS8Z6I+HTV7heStZdtwm4apssO2
+   sscHYtSQC8azDSFSFu/rVMhCqaz0KV5jHdA9Pu2l5S6sudQGbKwBC6RK7
+   w==;
+X-CSE-ConnectionGUID: NjNeEt6+RcKVD7pO39DyDw==
+X-CSE-MsgGUID: gQl+qX32TEW1e6FwWCyWWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87823249"
+X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
+   d="scan'208";a="87823249"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 13:55:17 -0700
+X-CSE-ConnectionGUID: Ls/vOV09SWmhG8gY94x9BA==
+X-CSE-MsgGUID: 5nhwvTplSjSmi9fY2emQwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
+   d="scan'208";a="266189130"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.149])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 13:55:14 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 745A711FA3A;
+	Thu, 20 Aug 2026 23:55:21 +0300 (EEST)
+Date: Thu, 20 Aug 2026 23:55:21 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	chris.packham@alliedtelesis.co.nz, daniel@zonque.org,
+	andriy.shevchenko@linux.intel.com, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] uio: uio_pdrv_genirq: restore UIO name without the unit
+ address
+Message-ID: <aodpuQzLJlB30UYf@kekkonen.localdomain>
+References: <20260820140119.1546932-1-maciej.andrzejewski@m-works.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 20 Aug 2026 22:54:26 +0200
-Message-Id: <DKU2J83B6IX6.2CG1WOB66WC39@kernel.org>
-Subject: Re: [PATCH v4] driver core: avoid klist_remove() on unattached
- knode_driver
-Cc: "Nguyen Quang Le Kien" <khiemtranzo532001@gmail.com>,
- <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <syzbot+87188222c77c0dbbdb4d@syzkaller.appspotmail.com>,
- <stable@vger.kernel.org>, <linux-usb@vger.kernel.org>
-To: "Alan Stern" <stern@rowland.harvard.edu>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <2026082042-coma-moody-5b4e@gregkh>
- <20260820084557.129908-1-khiemtranzo532001@gmail.com>
- <DKTWKZFYC6TL.2ZESRE0NWAV2T@kernel.org>
- <0198b9fe-4bc0-4e12-b788-85aa2c9f8162@rowland.harvard.edu>
-In-Reply-To: <0198b9fe-4bc0-4e12-b788-85aa2c9f8162@rowland.harvard.edu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820140119.1546932-1-maciej.andrzejewski@m-works.net>
 
-On Thu Aug 20, 2026 at 7:22 PM CEST, Alan Stern wrote:
-> On Thu, Aug 20, 2026 at 06:14:37PM +0200, Danilo Krummrich wrote:
->> (Cc: linux-usb)
->>=20
->> On Thu Aug 20, 2026 at 10:45 AM CEST, Nguyen Quang Le Kien wrote:
->> > Fixes: 94e7b1c5ff20 ("[PATCH] Add a klist to struct device_driver for =
-the devices bound to it.")
->>=20
->> This is not the correct commit to reference, this commit seems fine.
->>=20
->> > diff --git a/drivers/base/dd.c b/drivers/base/dd.c
->> > index 60c005223..4154b4499 100644
->> > --- a/drivers/base/dd.c
->> > +++ b/drivers/base/dd.c
->> > @@ -1354,7 +1354,8 @@ static void __device_release_driver(struct devic=
-e *dev, struct device *parent)
->> >  		device_unbind_cleanup(dev);
->> >  		device_links_driver_cleanup(dev);
->> > =20
->> > -		klist_remove(&dev->p->knode_driver);
->> > +		if (device_is_bound(dev))
->> > +			klist_remove(&dev->p->knode_driver);
->>=20
->> This looks like band-aid for the underlying design tension in the USB co=
-re
->> (which we should address instead) and does not belong in the driver core=
-.
->>=20
->> It's not visible from the above diff, but with this patch the control fl=
-ow
->> becomes:
->>=20
->> 	if (dev->driver) {
->> 		if (device_is_bound(dev))
->> 			klist_remove(&dev->p->knode_driver);
->> 		...
->> 	}
->>=20
->> but dev->driver already indicates that the device is bound to dev->drive=
-r in
->> this context.
->>=20
->> The reason we "need" this check regardless is that usb_driver_claim_inte=
-rface()
->> (ab)uses dev->driver to indicate that a certain USB driver claimed, or r=
-ather
->> reserved, this device.
->>=20
->> There are two cases in usb_driver_claim_interface():
->>=20
->>   (1) The device to claim is already registered with the driver core, in=
- which
->>       case device_bind_driver(dev) is called and dev->driver is correctl=
-y set
->>       during the bind attempt.
->>=20
->>   (2) The device to claim was not yet registered with the driver core. T=
-his can
->>       happen when the USB interface the driver actually binds to is regi=
-stered
->>       (and hence probed) before the additional interface the driver want=
-s to
->>       claim is registered. The USB core sets dev->driver independent of =
-the bind
->>       state to indicate it has reserved the interface.
->>=20
->> The first case is perfectly fine, but the issue with the second case is =
-that now
->> dev->driver is semantically overloaded:
->>=20
->> The USB core treats it as "dev is reserved for dev->driver" and the driv=
-er core
->> treats it as "dev is currently binding or bound to dev->driver", but tha=
-t's not
->> actually the case yet, since device_bind_driver() hasn't been called yet=
-.
->>=20
->> IOW, dev->driver should only be set under the device lock before calling
->> device_bind_driver(), and, in case of failure, should be cleared after
->> device_bind_driver() with the device lock still held.
->>=20
->> Besides the reported crash, another implication of this is that all othe=
-r
->> functions from device_release_driver() are called as well, even though
->> device_bind_driver() was never called before, and there is no guarantee =
-that
->> this does not cause other unexpected side effects already or in the futu=
-re.
->>=20
->> I think one solution could be to add a new claimed field to struct usb_i=
-nterface
->> to indicate that the interface is reserved for a certain driver and make
->> usb_device_match() reject the device if ever probed otherwise.
->>=20
->> Another solution (but that's a bit more work) would be to separate inter=
-face
->> registration from interface probing in usb_set_configuration(). Of cours=
-e that
->> needs help from the driver core as well, but it would also get us rid of=
- the
->> slightly odd situation that a driver may operate a claimed device alread=
-y, even
->> though it is not yet registered with the driver core.
->>=20
->> I'd suggest going for a claimed field in struct usb_interface first to f=
-ix the
->> immediate problem and then take it from there.
->>=20
->> That said, I wonder if there's more to think about with the
->> usb_driver_claim_interface() / usb_driver_release_interface() API.
->>=20
->> After having a brief look it seems that drivers have invented various di=
-fferent
->> approaches to protect against the case where userspace could write the c=
-laimed
->> interface's name to:
->>=20
->> 	/sys/bus/usb/drivers/<driver>/unbind
->>=20
->> I think this could be much cleaner if the driver core would support "cla=
-imed"
->> devices" natively. OTH, there's only ~20 drivers across USB and PnP thou=
-gh, so
->> probably not worth.
->
-> I don't object to the idea of adding a "claimed" field to usb_interface. =
-=20
->
-> However, isn't it true that the driver core has always supported the=20
-> idea of a driver being associated with a device before binding?  In=20
-> particular, __device_attach() specifically checks for dev->driver being=
-=20
-> already set.  If it is, the match and probe steps are skipped.
+Hi Maciej,
 
-Ah, I also wanted to add a comment about this, but forgot about it, sorry.
+On Thu, Aug 20, 2026 at 04:01:23PM +0200, Maciej Andrzejewski ICEYE wrote:
+> Commit 90fa0280553a ("uio_pdrv_genirq: convert to use device_property
+> APIs") switched the driver to the device_property API so that a UIO
+> device can also be described through an ACPI overlay. As part of that
+> conversion the default name handed to userspace changed from "%pOFn" to
+> "%pfwP".
+> 
+> The two specifiers are not interchangeable. The printk format
+> documentation defines %pfwP as the node name including an address if
+> there is one, while %pOFn prints the device tree node name with the unit
+> address stripped. A node named "dma@a0000000" therefore appeared in
+> /sys/class/uio/uioN/name as "dma" up to v6.9 and as "dma@a0000000" from
+> v6.10 onwards.
+> 
+> That name is the only stable handle userspace has for a UIO device,
+> because the uioN index follows probe order. Applications that resolve a
+> device by name, for instance through the libuio uio_find_by_uio_name()
+> helper, stop finding it.
+> 
+> Nothing in the conversion suggests the rename was intended.
+> Documentation/driver-api/uio-howto.rst still states that the node's name
+> without the unit address is exposed as the name for the UIO device in
+> userspace, and uio_dmem_genirq still builds its name with %pOFn. The
+> "linux,uio-name" property added by commit b0297622a972 ("uio:
+> uio_pdrv_genirq: Make UIO name controllable via DT node property")
+> already lets a board distinguish several identically named nodes, so the
+> default does not need to carry the unit address.
+> 
+> fwnode has no equivalent of the %pOFn name-only modifier, which is
+> likely why the closest specifier was picked. Print device tree nodes
+> through %pOFn and leave every other firmware node type on %pfwP. This
+> driver could not be probed from ACPI before 90fa0280553a, so ACPI
+> naming is unaffected.
+> 
+> Should the unit address in the default name turn out to be wanted after
+> all, then uio-howto.rst is the file that needs the change instead, and I
+> am happy to send that patch rather than this one.
+> 
+> Fixes: 90fa0280553a ("uio_pdrv_genirq: convert to use device_property APIs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
 
-This was added ~25 years ago to be able to hardwire a system device to a
-specific driver, which less than a year after was replaced entirely by some=
-thing
-else and later converted back to a bus with proper match() logic. But the
-dev->driver special case in __device_attach() was never removed.
+The original patch indeed appears to intend no changes on existing users.
 
-So, I guess it is fair to say it was always there, but the driver core does=
- not
-really handle dev->driver being set "randomly" outside of the bind/unbind
-lifecycle in general. It is expected that it is only set when the driver is
-actually bound (or binding).
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-One example is __device_release_driver(), if device_bind_driver() (or
-really_probe()) wasn't called, we should also not land within the
-if (dev->driver) conditional of __device_release_driver().
+Ideally we would have an 'n' specifier for printing a less full name of a
+node, i.e. %pfwn. I wouldn't try to backport that so this patch makes sense
+as-is.
 
-Also note that usb_driver_claim_interface() is the only callsite in the ker=
-nel
-that does set dev->driver without a subsequent device_bind_driver() while
-holding the device lock.
+The '@' character doesn't have such significance on ACPI as it does have on
+DT so I think 'n' would probably be best behaving as 'f' on ACPI. This
+would probably mean a new fwnode op.
 
-(Well, actually, after a thorough check, there's w1, which hardwires the
-w1_slave_driver, where it should actually use a trivial match() callback.)
+> ---
+> 
+> Notes:
+>     Found on a Zynq UltraScale+ platform where FPGA blocks are exposed
+>     through generic-uio nodes. Userspace uses libuio and resolves those
+>     devices by name, so the applications stopped finding them after a move
+>     from 4.19 to 6.12.
+> 
+>     The single generic-uio node in tree is renamed the same way:
+>     uio@d0000000 in arch/arc/boot/dts/vdk_axs10x_mb.dtsi reads back as "uio"
+>     before v6.10 and as "uio@d0000000" after it.
+> 
+>     Build tested on x86_64 with W=1 and CONFIG_UIO_PDRV_GENIRQ=m, once with
+>     CONFIG_OF=y and once with CONFIG_OF=n. No warnings either way.
+> 
+>  drivers/uio/uio_pdrv_genirq.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/uio/uio_pdrv_genirq.c b/drivers/uio/uio_pdrv_genirq.c
+> index 0c8d73e7be52..27268c8d1b94 100644
+> --- a/drivers/uio/uio_pdrv_genirq.c
+> +++ b/drivers/uio/uio_pdrv_genirq.c
+> @@ -128,6 +128,9 @@ static int uio_pdrv_genirq_probe(struct platform_device *pdev)
+> 
+>  		if (!device_property_read_string(&pdev->dev, "linux,uio-name", &name))
+>  			uioinfo->name = devm_kstrdup(&pdev->dev, name, GFP_KERNEL);
+> +		else if (is_of_node(node))
+> +			uioinfo->name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
+> +						       "%pOFn", to_of_node(node));
+>  		else
+>  			uioinfo->name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
+>  						       "%pfwP", node);
 
-In general, matching should be done through the match() callback.
+-- 
+Kind regards,
 
-> Are you saying that this code path should be removed as well?
-
-Yes, I think we should remove it. It's a rather error prone special case th=
-at
-can easily be handled with normal match() logic.
+Sakari Ailus
