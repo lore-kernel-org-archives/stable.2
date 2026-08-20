@@ -1,185 +1,194 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DC53D45C1;
-	Thu, 20 Aug 2026 10:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025313C2BA8
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:03:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787220187; cv=none; b=IL5s2TjCoGqs0kZtJyZnuq09r+PwujG2cshdcPxDjJ9sghiRzKV/UZ/5sSE1ctOtPa3coev9i8SZnyEl8QBPVOEVDZRY5W04S/WxiUmWthcShILF96l29Mk6hqXJJKZ75nsApOvgJTrh0odyGH4kAOgylchaG2SCsieH1tPUeKw=
+	t=1787220231; cv=none; b=pmwD9R7iLP4IOxUv9PtiiCu02yUvAjp7IORV+0EZqPdlKXH3NKgBDkFxC/964cjZ/eiJPFuI4SHWLzcXL8DDwyGj02RWB/k5bE1YiPEHBzp8IfZ6DX6xfc80qzVGe9LLmZsAM9XtV1n3QrsuqPnX02E46keD0mjH24nM3dtGgHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787220187; c=relaxed/simple;
-	bh=yjRzldArbYODxSvNEvZ7dRry3VO1egD2am5/cK5Vqt8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Bd4HTGzSo9UPSko7QBv1g9Dmk6wbC7b+IkbqfsFHbNE2vum1aJFzafF+9REy1fKr+K4yGuLIacmLgL8IUqLPvFi5jYyS7tz8zGay4n8Acy83jl73qqGGgX7d7BCyzw55osIOROKZqIENk0wRSeCe3kQbMgX9s+lfglf7NubCryc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mL0uwQLc; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787220231; c=relaxed/simple;
+	bh=eXffEAGKjk5hZBWJl6zMi/+attHYcgNZsIbemDFtAZA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Bq34Ctpo1NpyP43oZoo35cg1i+DSIiA/Hbh/Q4A0I8tOXHVZNytbnWT8MlkrXrq8QhRSK8iB01XIJia7KihsvUZTs4Vs1qHsM+8G0MC4QckxanMbs3uO0B86S8bLZrlSKZJalQGDPYOVJSMo7YA8zcAhxQptWQbeyuPeUpdBnK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GrUWv8E1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VMb62xFU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mL0uwQLc"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BF9C61A1768;
-	Thu, 20 Aug 2026 10:02:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9114D602B8;
-	Thu, 20 Aug 2026 10:02:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0D61711C760F1;
-	Thu, 20 Aug 2026 12:02:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787220169; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=J9IkcMn3tZqQRLkfuwau8kV3b82A8qd50t+xwVLTmcs=;
-	b=mL0uwQLcWjES7km3xswrfFIgO3kPR+28koBeAY093sSHY69/2uCC36acHPlX0QHae4QzdI
-	Nqy8HXu2SuKY6A8kgETxqJRRwkFAmti7afRrYrE+SDzWUmy2RyIxWXf6n9cJucsDJ84z0f
-	a0QHXnAsMauSFXkh9PG5dSC+bdo4oAjK/5ko8l7E24c3yGm0b7atzi9gBuOPoDtNWBJz11
-	PAjNBiP/lNRHC+i6ssOdJ7Myz3egTse1iH07x7d/RrLCaq8n2S5EzLq8cRwR6jFHOcqNBi
-	SPGSkgtUbgu43uZHD+lGbqK8xaoAqNpvkmrzXSy00rgSGIJFWv2f2gxhKcgKoQ==
-From: Miguel Gazquez <miguel.gazquez@bootlin.com>
-Date: Thu, 20 Aug 2026 12:02:10 +0200
-Subject: [PATCH 6.12.y] ipv4: start using dst_dev_rcu()
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GrUWv8E1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VMb62xFU"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K8jd782529517
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:03:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iPSkuOEchbemDS4U9crqf2tId0yJsRdyzuUVxXq7JPk=; b=GrUWv8E1JzQPRNt2
+	g+UHy/wFYB6/Emh1fS4On/siAWE2XU8nd8XmNCtn4F3S3G7N+Vj7e8uaiqiQzumf
+	Uw48HTxrOFwMdzq9UmulYBxsNgHga1Z1NvveN2GmDqO1Q2ySo9XlD9lPV1HNoKGW
+	rricXfDqlvNeXCJr9qeYJKOrjN50RBiSN6NzRzMQOcSV59z/Q353HeJspIA82D9D
+	kvtUZvk2YScboJZk20pXxMMu6LaswLpvxJtrWPvpbJu0rzhZ+hTTvezMqKdGYXjR
+	nQTjUdVEj4K5SrFWEo+DtsN1G6hzuaCF+8Xe17pzLn2QZIN7HkelcmZtacFb1y1R
+	wZj4xw==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5xbv89xn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:03:48 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-ca8aee88725so2821878a12.3
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:03:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787220228; x=1787825028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iPSkuOEchbemDS4U9crqf2tId0yJsRdyzuUVxXq7JPk=;
+        b=VMb62xFUcVrgewbRSXphIjDpyyau6Tk0j4gPcrx2EhobMoEa251AtqlY/y9wkrC978
+         4e0PMN7GiDdo/1YV4SWBzpuCjJutZdfJJjNCLVdZs6WtJFA3PAYXcSj/GIHlbxzKNjkY
+         Av19n6vLItXw6qxPUUMG0k8cdWW88Npdt/Nhu4gJ8QuWQfsLP8ArbzYnZPKkuCeYhQuz
+         9NL289uOPbGtb/d8pePgot8eINsSkvi4aw3J0YqXAa/MD80f0Ch53HU2HJbPSRbT46Ji
+         0e217MaJIIg1S25Ol7n21Fqup/axqC7FTMqFn6h+HfT0L+Fr32H/dtkwIr3d4D7brVPb
+         KvPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787220228; x=1787825028;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iPSkuOEchbemDS4U9crqf2tId0yJsRdyzuUVxXq7JPk=;
+        b=hCrSra3omVQV+1kAzF+s5jNTyrB38fukmc398hkDYvFMf7Mlk8V7hF8Sy9eYeF50Xx
+         Ng5E+aen3MSnJtyVB8oyF0NyGOM63eSSJaAf6Mx3w8saY8bNGLhpY3RAPYhyWCdQkl0u
+         e2RQrgkBCrTIDlNQBvVGOM11Dd/fo10j/Csf9x8byUYiHxsCa+57cTtv+QY+gpGBls5I
+         hhJL7VPgeQyFH5nnRgcz4WuNGU3z0X+qau6ZrpGZeeLL3pFXUkj9y6rtAjDxOhvuGVLr
+         oaHTLIfskvKqTR6MJ8fSHrJxR7PSm13Mm2DWVrt53+MpG9/f82BQLwvYVjRq5KiaNXRB
+         C3Ww==
+X-Forwarded-Encrypted: i=1; AHgh+RpctHSF6YTv8KvmtwgjDtmhE7SpjCGgF6hjxXyyUG/tMAtObZlmeAjUKQVFTTtyqlU+aRyis1k=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrGOnkRDGAFB49Q6c8j/Wi6jLC5m2YB8v8Sm3YNQW4+7QphKyk
+	g4I8lh2LKmyr9gUQays5IKdbBYYQs51TEWNaBR+dqEnBqg8jNO0DLxyBm9AtmZ+CJyQEhRbJkby
+	jU2J+zIvoWZjUsWRnGU7PShPuDSWmLr4CUHDDQhC6wewtTwgndahTwO/FPQM=
+X-Gm-Gg: AR+sD134ZHuAKKSKQtuA04LeC+G+v7lPgWRUiYLixRljIZ9w4SS+2IVWVc/CUXAWCNo
+	qdBHBoTa8NvXMl1tQT2zQNfFAH75Xj8gmJHjW6tQ5gvYeZWk9oEDcZeMdPvU7/0DWLMdY3nHCxM
+	2sGDTRegKxZ0f8g2fC2Uy5qfhfnFicDnnYfyUfWJ5MygNuU7CfL5RRGnA0fUiGEM2VPz6RTV0bu
+	IxgjTbMtSoi0IXVLQDKbkj8Gr6F03IQT5dD5yw+id5dc+2d8agpa14d9yWg4EQ/R0OpgchKQ/21
+	zW7MdXm5pyfdTW3deDLaVVDE2QYyN9R0DJ9UdEQlc8nSTYtSw/d1EypVhyXuBoPLbtjFinQcubB
+	ZhqNCgUibWS/u8qiefJ27AN0oRn5JEz1V4eqUswlNciT2uLw959/3JJkCS42K3a9UUY0ccdFD
+X-Received: by 2002:aa7:88c8:0:b0:847:9015:e68c with SMTP id d2e1a72fcca58-851d3953ac9mr17929937b3a.17.1787220227633;
+        Thu, 20 Aug 2026 03:03:47 -0700 (PDT)
+X-Received: by 2002:aa7:88c8:0:b0:847:9015:e68c with SMTP id d2e1a72fcca58-851d3953ac9mr17929843b3a.17.1787220227125;
+        Thu, 20 Aug 2026 03:03:47 -0700 (PDT)
+Received: from [10.133.33.222] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d33627ddsm1488181b3a.10.2026.08.20.03.03.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 03:03:46 -0700 (PDT)
+Message-ID: <e07d3a93-390f-405e-85ec-21e5ad9a6738@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 18:03:41 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] cpufreq: loongson3: Adjust the width of id and val in
+ smc_message
+To: Huacai Chen <chenhuacai@loongson.cn>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Huacai Chen <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Xuerui Wang <kernel@xen0n.name>,
+        Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org,
+        Hongliang Wang <wanghongliang@loongson.cn>,
+        zhongqiu.han@oss.qualcomm.com
+References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
+ <20260818123921.3600606-3-chenhuacai@loongson.cn>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20260818123921.3600606-3-chenhuacai@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-cve-2025-40074-v1-1-f045d5f74950@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3bJdilIfBXjgdZV1wOaFomE8
- O5WPX6TzL8iazLNOFQrks6W7TEWuF2FeBvGq5KdiyEsHffCFGelgpY8895TkNBHbhsvg0M5PZN
- e7P0LHtHVTuoFp/+eX+GucfrWsG0flmFy3noAAAA=
-X-Change-ID: 20260820-cve-2025-40074-b2b8c05342a1
-To: stable@vger.kernel.org, Eric Dumazet <edumazet@google.com>, 
- "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>, 
- Wei Wang <weiwan@google.com>
-Cc: thomas.petazzoni@bootlin.com, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Miguel Gazquez <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787220165; l=3915;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=tyMQo+nHOrlj15/tqkrNb1JIaPH5z08HC5uc4TA6Tk8=;
- b=dedXycg5ejqcSSYocRIam//aOLzLxuxfN576X/Cn/Jm2461iKnd6u9G4/1IhaYk+xtkkpH62g
- eu2PCB8S7sxBN0d3+687/gB+GPwYJAoC7tsfwYngO2FlDCkaFuvXfzF
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+X-Authority-Analysis: v=2.4 cv=AMKAkK6n c=1 sm=1 tr=0 ts=6a86d104 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=2sVyCrUYgtLBleu_eicA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA3NCBTYWx0ZWRfX3a1VIcDCziTA
+ XlTGp9RV1niEuqkPVDJgDjPcO6roACDF/Vr/DqdsTioCvT4K4kYeNfWT2eY4sQimScH8L5O+ebO
+ M4dxLDkzHerbf1Lv6QP7pr8j0w9KmiSdCLE6RPrrrfhfl5dlYeKkh0pddxmfURHDGJD0BJ1yN5r
+ 8dmIjCHukvG1eNBByE2eR3UYN/NEQlapwBb+qQpbjdjfon54Bw0c5Jy0nCFC5Yxht8IMkxIdo72
+ lqXLPxSyMmv+l2dlbytQYwmKBw8vjXkRietLUkWYMENDNJzoiRtOzK+HEidyaektdVscmVQfjhT
+ D1OwrSejEmLasX0Bs+P5km4MPoWz6FeUg+woYD7P439bHlajFba2W/UhkyXtj1LsqHBMKerF0kB
+ ykICbNxLSwlgBjch7frNHYv1DRUy4+l4GOhBQGUZlfntMQ9pP6kDC0JijLhVgult3lIlpR39C6l
+ KZWAW0ftxzMFazFDjXA==
+X-Proofpoint-GUID: bnVSRNwKOXZibu14eiTc-Aewt326tCJy
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA3NCBTYWx0ZWRfX6mqx3XcIOjwz
+ D+t0x5cvbQG/ro9JKR8aHxMa8uh6oBB+hDuHSBIiBxwx2j/7LwgBKF6ErCtAn4htwVQMfIr9Z4p
+ NJ0KsPJ1xBlPCxQsRJH+xWb+cYbjAkc=
+X-Proofpoint-ORIG-GUID: bnVSRNwKOXZibu14eiTc-Aewt326tCJy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 suspectscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200074
 
-From: Eric Dumazet <edumazet@google.com>
+Hi Huacai,
 
-[ Upstream commit 6ad8de3cefdb6ffa6708b21c567df0dbf82c43a8 ]
+Please feel free to comment on the question below, or simply ignore it
+if you do not think it is worth addressing from an architectural
+perspective.
 
-Change icmpv4_xrlim_allow(), ip_defrag() to prevent possible UAF.
+On 8/18/2026 8:39 PM, Huacai Chen wrote:
+> The id field of smc_message is usually stand for the CPU ID. In the past
+> this driver was only tested for desktop and laptop productions so 4-bits
+> are enough. But now we have servers that can have as many as 256 cores,
+> so we need 8-bits CPU ID.
+> 
+> On the other hand, the val field is usually stand for CPU frequency so
+> 12-bits are enough to represent 4GHz, and for higher frequencies there
+> is an extra bit to extend (enough for 8GHz).
 
-Change ipmr_prepare_xmit(), ipmr_queue_fwd_xmit(), ip_mr_output(),
-ipv4_neigh_lookup() to use lockdep enabled dst_dev_rcu().
+The extra bit appears to be unused in the current implementation.
+Perhaps it would be better to enforce the limit explicitly for id and
+val bits, for example by using FIELD_MAX().
 
-Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20250828195823.3958522-9-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ minor modifications to fix conflict ]
-Signed-off-by: Miguel Gazquez <miguel.gazquez@bootlin.com>
----
- net/ipv4/icmp.c        | 6 +++---
- net/ipv4/ip_fragment.c | 6 ++++--
- net/ipv4/ipmr.c        | 4 ++--
- net/ipv4/route.c       | 4 ++--
- 4 files changed, 11 insertions(+), 9 deletions(-)
+> 
+> In theory, this is a incompatible change, but fortunately the old SMC
+> firmwares are not widely shipped and can be updated on the air, thus we
+> can safely adjust the widths.
 
-diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
-index c7af8b914e13..1fc967a60bb9 100644
---- a/net/ipv4/icmp.c
-+++ b/net/ipv4/icmp.c
-@@ -320,17 +320,17 @@ static bool icmpv4_xrlim_allow(struct net *net, struct rtable *rt,
- 		return true;
- 
- 	/* No rate limit on loopback */
--	dev = dst_dev(dst);
-+	rcu_read_lock();
-+	dev = dst_dev_rcu(dst);
- 	if (dev && (dev->flags & IFF_LOOPBACK))
- 		goto out;
- 
--	rcu_read_lock();
- 	peer = inet_getpeer_v4(net->ipv4.peers, fl4->daddr,
- 			       l3mdev_master_ifindex_rcu(dev));
- 	rc = inet_peer_xrlim_allow(peer,
- 				   READ_ONCE(net->ipv4.sysctl_icmp_ratelimit));
--	rcu_read_unlock();
- out:
-+	rcu_read_unlock();
- 	if (!rc)
- 		__ICMP_INC_STATS(net, ICMP_MIB_RATELIMITHOST);
- 	else
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index d3abc84a6c02..790df2c5f747 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -483,13 +483,15 @@ static int ip_frag_reasm(struct ipq *qp, struct sk_buff *skb,
- /* Process an incoming IP datagram fragment. */
- int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
- {
--	struct net_device *dev = skb->dev ? : skb_dst_dev(skb);
--	int vif = l3mdev_master_ifindex_rcu(dev);
-+	struct net_device *dev;
- 	struct ipq *qp;
-+	int vif;
- 
- 	__IP_INC_STATS(net, IPSTATS_MIB_REASMREQDS);
- 
- 	/* Lookup (or create) queue header */
-+	dev = skb->dev ? : skb_dst_dev_rcu(skb);
-+	vif = l3mdev_master_ifindex_rcu(dev);
- 	qp = ip_find(net, ip_hdr(skb), user, vif);
- 	if (qp) {
- 		int ret;
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index de0d9cc7806a..ad0b922ebc73 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1906,7 +1906,7 @@ static void ipmr_queue_xmit(struct net *net, struct mr_table *mrt,
- 		goto out_free;
- 	}
- 
--	encap += LL_RESERVED_SPACE(dev) + rt->dst.header_len;
-+	encap += LL_RESERVED_SPACE(dst_dev_rcu(&rt->dst)) + rt->dst.header_len;
- 
- 	if (skb_cow(skb, encap)) {
- 		ip_rt_put(rt);
-@@ -1943,7 +1943,7 @@ static void ipmr_queue_xmit(struct net *net, struct mr_table *mrt,
- 	 * result in receiving multiple packets.
- 	 */
- 	NF_HOOK(NFPROTO_IPV4, NF_INET_FORWARD,
--		net, NULL, skb, skb->dev, dev,
-+		net, NULL, skb, skb->dev, dst_dev_rcu(&rt->dst),
- 		ipmr_forward_finish);
- 	return;
- 
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 4dce0de6ab89..0f31ae4da3d9 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -413,11 +413,11 @@ static struct neighbour *ipv4_neigh_lookup(const struct dst_entry *dst,
- 					   const void *daddr)
- {
- 	const struct rtable *rt = container_of(dst, struct rtable, dst);
--	struct net_device *dev = dst_dev(dst);
-+	struct net_device *dev;
- 	struct neighbour *n;
- 
- 	rcu_read_lock();
--
-+	dev = dst_dev_rcu(dst);
- 	if (likely(rt->rt_gw_family == AF_INET)) {
- 		n = ip_neigh_gw4(dev, rt->rt_gw4);
- 	} else if (rt->rt_gw_family == AF_INET6) {
+Not sure if using CMD_GET_VERSION check can avoid such incompatible
+issue?
 
----
-base-commit: 7155f3c7a69b8480e785f2a4252d31df95daa8d1
-change-id: 20260820-cve-2025-40074-b2b8c05342a1
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> ---
+>   drivers/cpufreq/loongson3_cpufreq.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loongson3_cpufreq.c
+> index 1e8715ea1b77..630f679aa739 100644
+> --- a/drivers/cpufreq/loongson3_cpufreq.c
+> +++ b/drivers/cpufreq/loongson3_cpufreq.c
+> @@ -21,9 +21,9 @@
+>   union smc_message {
+>   	u32 value;
+>   	struct {
+> -		u32 id		: 4;
+> +		u32 id		: 8;
+>   		u32 info	: 4;
+> -		u32 val		: 16;
+> +		u32 val		: 12;
+>   		u32 cmd		: 6;
+>   		u32 extra	: 1;
+>   		u32 complete	: 1;
 
-Best regards,
---  
-Miguel Gazquez <miguel.gazquez@bootlin.com>
 
+-- 
+Thx and BRs,
+Zhongqiu Han
