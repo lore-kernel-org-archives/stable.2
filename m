@@ -1,241 +1,152 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DA33B635F
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 07:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787212227; cv=pass; b=TrvkzUbse05l8RuAAgu/b0FtrbACiH6A2+5ZV23w26BdpAF64lJUz4tQEyG4nJHJXPkhgKtZrg1jL6oQm+7wSU4/dU8qthZ7ut+u3TX1O+pBzME1tNlsfRXH6WcyfURyOXXocbunIubzwrNKCj1Eu7pNZqCJiamYjtoZcyo8KA4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787212227; c=relaxed/simple;
-	bh=/xEwob/gybZt/V2Uua4aPALijOLg3lbe/x/lAhgXJ5Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s5eIb7CTS34ldCCWRg0hxhaXnY9dxxKJ8B+alhb8u5TAWtK5fepxqspPwFPFfi2Hq9R+ddz5N1eNDU+tJu16UrXC9Tw7n+qg1UXkZeZwWPDoaB3NGbsr2xLbaRb2fYs9umnYmpw+6mag3J5/7p41adf10QX/EHZSVWGJA7Hg6QI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X+NozPVT; arc=pass smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A21C3D952F
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 08:13:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787213619; cv=none; b=pcXZf6eJxHyFP0muyYZ/Ze3hCnSCQAC7+pnMIA76SSk5K89yxKdpPqQBTVvpEjzkT+911XrZPJspSXUIfnMbeD5r7YPK6apQlfFM8SL85pbFJldlRsWb5N9qnX+7BXER8/kiL5pM8S8/Eg4EQeyTwYEEWyla/V4XhjarOSNeVuo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787213619; c=relaxed/simple;
+	bh=o7y9i/st/OyyyYHXaxy+xTSHPCgHCDfViDGCUPeHkco=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B/C7axd6aajJgE8zr0othLIc/MzyLv9n+M7e+ZIu8Y5/TqCA+kvs0MDJB3K3utURxzmN7V4X7bWK7P4C07Kd70S3Kl5rBrkGxmg7oDinw76ytO0BRC8gacq6uaUmPG/dt5xtpHXzmrrb91YqxaaV+EeYwlsVONuQh2l0eDL3O5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YSPhujlZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FwblgcuV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X+NozPVT"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39c8e65e3f5so17968031fa.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 00:50:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787212223; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a8bTj/CztG97VHLdYvPSDCWrmi88zTCHGa+1kRVEk/A+3E/08v0mFna5/HfBzVns+c
-         F1DkoxOOvZPbUfIFTVbaGQMsXBvxhkesJms4HGQ6ptD/hMQqRjElxCKt6pRoImv0URWi
-         hqKjlgUQR4GO9BKzDgSvJhFw/b508b99b2+JsyuFGMeeSDYdoaOKOraxgnqzzip6OmRO
-         tQvt8qK4oqPmVIkWxAazB9SlHgw2wlfeKZPq+UA/bUeYd+rRa66lwKfzzjlgX9xvVOk5
-         wZscC9wbCahIIaso0gzOa/uVluDZqhhk4xqjcXNd/9vPKL75WN7LqehSWhqoyYd9tNi+
-         K+Yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0TAyv372/LEkCsLr0cT5JC02uRbKUvvVi2UV1V38EE0=;
-        fh=Lk0Qb/9i09W+pueB1s5lRZa5DYMnqmZM5+2W2zwTX9A=;
-        b=m2GhdQczNRoqPJYdPuMYV1HNjJ+I4mX/2p1cNHv4vQmG9yxbvLliVstx/7lMe/X5oT
-         g4Emwi43xp9HItUeYZfNBY3HXe4m9j3x6DeeukKkhqwe0Azsgdgi4qKLNSWbCe88DNKf
-         H4gTf+UbiqXVL67UoabwIAVHwwoBAXrKjYGsdDogmM2iiz87h7U8Ja0uzCQqGBRg0GAP
-         24jaozIlPT7sy//j2oEuwNsBa3vEmNk5XgoPD2NrkVRmOv/LURVRLEco02BOgSfD+XJ5
-         g4ecID3aXK2qShIrQMuaF4u8Y1Bz8XUQKkmMzNFsQhHFm96lhft7zrlSbdYmZNN1S03p
-         gVkA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YSPhujlZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FwblgcuV"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K6Qmwo490474
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 08:13:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lSlQVMQM26yZB8tC7ntmn6PmxjJjFOHICmalvEJDy5E=; b=YSPhujlZn/CFkduG
+	MianceK8oKZICwNFFGRvwFaz+DONxfSjDtxJ7j/OgqpS8PSPIvIujWVGgsY33r+a
+	bDrWaTPijECg1tKLYMlv8RXiWpzHZmPGxti4XqSZNThpoSJBX+DxyPufMz2sX05/
+	GVk8/rb4tVOmRtPQSY8QDV4ypI2a7TmFXcH8+z948l7N+mzT0deoDRRkqgIIL5yc
+	+ka4Ftjdi365jXGSmLfLxTdCwMbf60ZyDtLut9LxH2G1NL+2/+lZ5rafH1yNVPQ1
+	mbWRhHMn0F6ufWubwcVLmbzuo+oeUQmsaXKXvsSkONrEaZ5RdU1TZMd6iNuK5D32
+	CbSneA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5ervkwvx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 08:13:37 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51e9d892f0dso1093451cf.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 01:13:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787212223; x=1787817023; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0TAyv372/LEkCsLr0cT5JC02uRbKUvvVi2UV1V38EE0=;
-        b=X+NozPVThnjNcOMBrbFHG4dbjIRWL3hwUxoinz/yUAvk5BcVnYnO+RFqmEIg6O4sNZ
-         dV/V0PhANjitd3hWX8YeX6AGcFlG7LkLrs48R8CPDkOeRTqkjCfdNkKg7OFjEzkWabg7
-         bHGcfQSSCOTqSL40ew7j/V7YNa+a2sBjZ54c8qlCHFGDyRJx5lcZ0nj0cZ0qWggeGsk1
-         T1uOqy/xehSxEeA7enyke3rTS5i47u5Mu5oMWZHC0N2c+MWW6LQX4DFW3P5uhdc+4mUL
-         0BoFYC/R5PnkZzHolGT/Swon1fzFDfPoEOt5edA013XiI9L73vWYwbXopEsdCJsG6s5j
-         WFPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787212223; x=1787817023;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1787213616; x=1787818416; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0TAyv372/LEkCsLr0cT5JC02uRbKUvvVi2UV1V38EE0=;
-        b=cHlui/TQVEHPNq2F57LZGdEQFlLfKmAuDwyQju/Nm76/4jSnOUWSW163dE1Wh0LLhj
-         Bkoh3FIgrPUfU43BQIhBuUg7JQ27QOezWmssCKxoBP+U9SE3zqmCDGKp6wrBaDdHU86x
-         BYKcB5HATnMYHDsHwX3se2SlLwT/aKOzJ6VbNLiyjAKpQ0LpgwZw9ryT2oasW1L40PRA
-         6/Pc75tSjP5iY1Edx7Ehy71uj/Ki5HoEwWe9QiFbJZywCznV7or/n+zsZND2GQdFwaOH
-         J8ndRnQV51CbeeNmiD0nqWKzgp0h4wTKLo3P4cOhLNfO9sxm8Ou8Kq+x5L8VGXNLInQ0
-         jQcw==
-X-Forwarded-Encrypted: i=1; AHgh+RopCAL+49P8nqbUcR8+C+Er4qJm5QJJQ1YnEL4PPXcee0SKpDY7IwP3YJH9er/Ju0gECpw4+2w=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwT8u5iTppY0lt6x0lbAX+QfbYK+4/gOKfGWtR2i+lP6glvcwYG
-	IQfb0WRRfKfSsGkIRjiY+CwvjrzAr6GulaJRpL7B/OVLuOA1HqbN/PnD7iVHO9XYJi9ZRTS8bC9
-	T2R7qH7e1eZQasT7dNgunRJvGIPpFiRo=
-X-Gm-Gg: AR+sD12+GgwuEqUJtoXIcT3W3Qgw0xx2viZYn0+UwSonDDRIkM7uU1v+VkyrhBwLhSS
-	3D7nue8hveRDPaz13ydurIkpCvyxUpR+16Y8i4kN6F0Y7QlGrYiRhmxo7mXl1gYCxKcpPG59KVP
-	r7c+HqwmfnnYITND3NHWVAznq3Tgfm10N/kxbKszDEuwfgassut/nGT53/SXe/i7SzBtoXK1B4i
-	zJY85zDHaEbil3SDTOR4EAwGq0bIlctCLXs4ETOeaQxdt0w5bLuog7qUgIOw57kaQ7JjfZmFUg3
-	W7Aaf9e1S9Ntjq7h9zcBZBjRNdDSbLQnHXUJAq2A07ezgVRjtIFoX/CH3lmSOFMyc/MCkk5cdM1
-	rBcq1fdISio9oq1/BVDdZh2xSxw==
-X-Received: by 2002:a05:651c:199f:b0:3a1:1d3b:67f1 with SMTP id
- 38308e7fff4ca-3a1896d9d67mr21587801fa.7.1787212223022; Thu, 20 Aug 2026
- 00:50:23 -0700 (PDT)
+        bh=lSlQVMQM26yZB8tC7ntmn6PmxjJjFOHICmalvEJDy5E=;
+        b=FwblgcuVf+AQwXkQANeYAxGnJhXtdGU8OnX/mBtT3/jGLVnduuSE/NulLhUOLpA0hj
+         nujjgQyogOvQhfRUskbPCElUPuZ8Z0ZOQ9wULJN3qoHrGoiKU27NB8e1OcPmatD1NZAk
+         AErKAMBg3jeSL5cWP9gPbW/gszxj5voTF83W7zGDqOZ9X0O354GcXRDleTATxI/fG4PJ
+         X9Kk23jTvujBjC8IymRReZklhZABKjv/IYdgAtgi4ra9P/MshaPB5k4kqbRSCGxdSvdu
+         JRNcwoZbQ9s609lI476QuowsswEu7nxPFI7MaV2JHSroyNlPVvLlrK6/WWLx/d64oOEg
+         zhhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787213616; x=1787818416;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lSlQVMQM26yZB8tC7ntmn6PmxjJjFOHICmalvEJDy5E=;
+        b=qBP4GmXy/QqqkbnmE2rTMrep5XrWlKwsG+F5Yay//S+ZxPkcfZUb0uRyHjUXcBn3lH
+         uIk110n2gD9cRgoxDpbmxehi5749C5B20VzVwiSNuEzEbDgxyTWMrISgke+wtYoUHdI3
+         HL8VEEN3KWopaEfSJAX5h1ARwpqsEXVdjhob800C89SNnM9nNzXihcfip3bnNs+bjR1b
+         GGPEwiUziW43k6Y1aCUETORHKs5yhQCoReye8HjclhmSRWsYmt5puClPX2vaG0kKIoqW
+         LsktO7KiFV/cfZTe/RyeDb0PXxLPwneBZJOQ4IcNNymB/7bAfl4ECKg1Dj1pvne8SUPc
+         q+7w==
+X-Forwarded-Encrypted: i=1; AHgh+RrC8Nyo4BFeEh40NVfIx0LW5BF2TMdSPpvvggnaLtKGsr3A/mT+yueHZIKXUFl5gvm/KC8xfGw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPp08Xo4fYiUm7VaFqVlP+w7ROVYvBqSZJDOPhGCljKOEIf2LG
+	AbTM5yHStTjWx2rzVqfM6xEPRumEbDx/vm+1U5kjpX0p3r9JxWaQFCiGi7okTH5fIGno6qsX1AW
+	YjgW5i7LPc+gVuHwHOLopuy7SCnUkeEz2f2UIuOogQ2sDkzlQZFsfo1NL3dA=
+X-Gm-Gg: AR+sD12ZTimeJB/7QnKG4lHK71W7g/TnKHFDiu8a9IfTik9OmXiOE0PRkgely5SAIg0
+	oAoG6ahmCi9cnWkyIAG9XAGgiDo3WlBEWvvFKf480lo+2+6BL12c/ttNan6GXwSsXDy4pq9PxtN
+	tQ4td3kR4YZ6YN/dA8MBkhw/kXPHx4HaXvIryM+KdbE0uDc+8wFtni5kNCuoylcR1PXmBgSMCT2
+	Tsg1JkOFyRw9ru9JN1y5WXP6LYP4kUdifpzjFRroUEPx/QzNHTp4MKCLmX9CW2g+WfMCVQagyDl
+	EMHYU+dag9y2N4Av6b9hnHf1J78epiNhMNwv1rIPOgW3OcbcsQa73mJ9+3LPTYxaianWzgnBSkh
+	od9dGeM7QvlfCX9Zx/Wu2gqKj
+X-Received: by 2002:a05:622a:588:b0:50f:a53b:9d5 with SMTP id d75a77b69052e-52dd5771811mr72169631cf.2.1787213616676;
+        Thu, 20 Aug 2026 01:13:36 -0700 (PDT)
+X-Received: by 2002:a05:622a:588:b0:50f:a53b:9d5 with SMTP id d75a77b69052e-52dd5771811mr72169191cf.2.1787213615953;
+        Thu, 20 Aug 2026 01:13:35 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2459223b93sm38324266b.61.2026.08.20.01.13.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 01:13:35 -0700 (PDT)
+Message-ID: <e06004a4-4ed8-46f4-a949-8cece1348ddb@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 10:13:33 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
- <20260817215428.84740-1-gvalkov@gmail.com> <20260819-generous-nickel-dalmatian-b6bb08@quoll>
- <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
- <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org> <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
- <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org>
-In-Reply-To: <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 20 Aug 2026 10:50:10 +0300
-X-Gm-Features: AcwNN1UED2d-bg9Uini4u4mWy-mvYyG-FuFnU3Li4w7hQPYNR666nZuf3FB7ICo
-Message-ID: <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
-To: Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
-	krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com, 
-	kees@kernel.org, miriam.rachel.korenblit@intel.com, rafael.beims@toradex.com, 
-	avraham.stern@intel.com, error27@gmail.com, s.kerkmann@pengutronix.de, 
-	gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com, robh@kernel.org, 
-	conor+dt@kernel.org, Frank.Li@nxp.com, chunfan.chen@gmail.com, 
-	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: typec: qcom-pmic-typec: disable cc_debounce_dwork on
+ stop
+To: Fan Wu <fanwu01@zju.edu.cn>, linux-usb@vger.kernel.org
+Cc: bryan.odonoghue@linaro.org, heikki.krogerus@linux.intel.com,
+        gregkh@linuxfoundation.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260819161950.77858-1-fanwu01@zju.edu.cn>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260819161950.77858-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: S3j-lDC8ZeyAxFm0YVE3KO9846Hpy63L
+X-Authority-Analysis: v=2.4 cv=VZ3H+lp9 c=1 sm=1 tr=0 ts=6a86b731 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=ywe33jvvH3eccHNFifsA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA1OCBTYWx0ZWRfXx6zZqw0ER/mW
+ yOmoJ+Zct4MguJ3U5Xq/GDciRl4TfxEcOVevjs9O6aUVTxpF3fDNXfXZRUYx9sD1akCBXKXEBqc
+ wp9iYdKca8qCsSm4Mu1M+7m+ZUdwsxIlhuY6KScjOxQDPV/BfC6AxvnNruuzpBoARopi9Bu6HqA
+ UnCmUiRVfSFos9i/x0jc2s2UcNOJGvzgzJynq4DNebMxS9prfoPV+ytwBix7QZNkh78pXSKvHnP
+ NcosM6Z7YqQ8NldksMPr8TJkOzAymbXfcIm1VCDBqAI/10UOi4Lpy7toknc/kUlVp7gabCyjDhD
+ hfiAxVSoQo5OcSz+v/oeiuHMuiIX1srmRI8tvzqUJjB664uNV9Gglm9wll8WPPuLANQsAa+YF1Z
+ 2+mCkwcFjOy8jkEXZg7XzDJbnpMjUTZyRH325/rGab5yBmGjb59j8BFZry027qE0huDowRLIozt
+ h19AM2UfkI2vqXllNVQ==
+X-Proofpoint-ORIG-GUID: S3j-lDC8ZeyAxFm0YVE3KO9846Hpy63L
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA1OCBTYWx0ZWRfXwE8DWIfOIdPm
+ 6oz4vq4olZXzx8bFxOlyhC6QyTLR02y4qlLmQRfMVZsLY9azgTvAL1l8ukuqDqV2oA3wa1WvlBE
+ rc9EHAs7U2twCI/nY3ZFlXWq4zs9ygg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608200058
 
-On Thu, 20 Aug 2026 at 09:53, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 20/08/2026 08:42, Chen-Yu Tsai wrote:
-> > On Wed, Aug 19, 2026 at 8:27=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
-l.org> wrote:
-> >>
-> >> On 19/08/2026 13:42, George Valkov wrote:
-> >>> On Wed, 19 Aug 2026 at 12:42, Krzysztof Kozlowski <krzk@kernel.org> w=
-rote:
-> >>>>
-> >>>> On Tue, Aug 18, 2026 at 12:54:26AM +0300, Georgi Valkov wrote:
-> >>>>>
-> >>>>> diff --git a/Documentation/devicetree/bindings/net/wireless/marvell=
-,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd878=
-7.yaml
-> >>>>> index 930b700b73d0..5f235cb9f3e5 100644
-> >>>>> --- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787=
-.yaml
-> >>>>> +++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787=
-.yaml
-> >>>>> @@ -59,6 +59,12 @@ properties:
-> >>>>>      description: Calibration data for sub-band 3 in the 5GHz band.
-> >>>>>      maxItems: 502
-> >>>>>
-> >>>>> +  marvell,ignore-regulatory-hint:
-> >>>>> +    $ref: /schemas/types.yaml#/definitions/flag
-> >>>>> +    description:
-> >>>>> +      Ignore an incorrect regulatory hint from ROM,
-> >>>>> +      so userspace can set the correct regulatory domain.
-> >>>>> +
-> >>>>
-> >>>> Same comments, so you just ignored entire feedback?
-> >>>
-> >>> Do you mean this feedback? I already replied to it:
-> >>>>> Anyway, property looks like SW choice. You must describe hardware
-> >>>>> instead.
-> >>>>
-> >>>> I am sorry, I do not understand what you want me to do?
-> >>>> Can you please send a diff or a clear description suitable for peopl=
-e
-> >>>> who have way less experience than you?
-> >>>
-> >>>
-> >>>> Again: you need to describe the hardware, in commit msg, in property
-> >>>> name and in description. You cannot tell SW what to do, that's not t=
-he
-> >>>> purpose of bindings.
-> >>>
-> >>> I still don't understand what I should do?
-> >>> Can you please show me an example of the changes you want?
-> >>> Else I'm likely to make a wrong guess and implement it. That obviousl=
-y
-> >>> won't help.
-> >>>
-> >>> The commit message already describes the issue with WRT3200ACM and WR=
-T32x.
-> >>>
-> >>> About the description, do you want me to do something like this?
-> >>>     description:
-> >>>       Ignore an incorrect regulatory hint from ROM,
-> >>>       so userspace can set the correct regulatory domain.
-> >>> +    WRT3200ACM and WRT32x are known to need this.
-> >>>
-> >>> About the property name or flag, do you want me to add a separate fla=
-g
-> >>> for each affected hardware device?
-> >>> - wrt3200acm,ignore-regulatory-hint
-> >>> - wrt3200x,ignore-regulatory-hint
-> >>> - the list may grow if someone decides to add other devices
-> >>> - and the driver will need to support all of them
-> >>> - that doesn't make sense, because it isn't scalable
-> >>
-> >> You need to describe the actual problem in the hardware or firmware, a=
-nd
-> >> then name the property and description accordingly. "Ignore regulatory
-> >> hint" is clear instruction to the OS what it should do - ignore the
-> >> wireless-regdb package/instruction etc.
-> >
-> ChenYu:
-> > You probably have it backwards. The driver is taking the hint from the
-> > hardware ROM, which is fixed and thus wrong once someone carries the
-> > device to a different country. I.e. it is a quirk saying the _hardware_
-> > region should not be used.
+On 8/19/26 6:19 PM, Fan Wu wrote:
+> cc_debounce_dwork lives on the system workqueue but is armed from
+> tcpm callbacks (set_cc/start_toggling).  Those callbacks run on tcpm's
+> kthread worker which is only destroyed by tcpm_unregister_port(), after
+> port_stop() has already returned, opening a potential race window where
+> tcpm's worker flush re-arms the work.
 
-Almost. I bought the router in Bulgaria and I am in Bulgaria.
-The ROM hint is US. More details below.
+[...]
 
+> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> @@ -694,6 +694,8 @@ static void qcom_pmic_typec_port_stop(struct pmic_typec *tcpm)
+>  
+>  	for (i = 0; i < pmic_typec_port->nr_irqs; i++)
+>  		disable_irq(pmic_typec_port->irq_data[i].irq);
+> +
+> +	disable_delayed_work_sync(&pmic_typec_port->cc_debounce_dwork);
 
-Krzysztof:
-> regulatory-hint for me means usually regdb, but even with your meaning
-> you tell SW what to do - ignore hardware regulatory information.
-> Property should not tell what SW should do with hardware. Property
-> should tell what is happening here in the hardware. In this case: what
-> is the reason behind.
->
-> IOW, why user of a board in country X, where regulatory data says X,
-> should have the correct regulatory data ignored?
+Doesn't this make disable_irq() get called undesirably?
 
-Because users in X buy a board for X and the regulatory data says U.
-
-Indeed when the ROM regulatory hint is set to US and the driver
-reports this to the OS, the wireless-regdb restrictions for US are
-applied. This would normally be fine, however the third radio in
-WRT3200ACM and WRT32x, reports US on all models including those sold
-in the EU and other non US markets. This creates a conflict with
-radios 0 and 1, which report FR and also with my correct setting: BG.
-With the wireless-regdb restrictions for US, FR and BG applied, radio
-0 refuses to start.
-
-Would you approve any of these or suggest a better name for the flag?
-Should ROM be in upper or lower case?
-I omitted 'in-ROM' to keep it short, because the driver check line is
-already longer than 80 characters.
-- marvell,ignore-regulatory-hint (current)
-- marvell,ignore-regulatory-hint-in-ROM
-- marvell,invalid-regulatory-hint-in-ROM
-- marvell,invalid-regulatory-hint
-- marvell,invalid-regulatory-ROM
-- marvell,invalid-reg-hint-in-ROM
-
-Krzysztof:
-> Do not attach (thread) your patchsets to some other threads (unrelated
-> or older versions). This buries them deep in the mailbox and might
-> interfere with applying entire sets.
-
-I used these flags to keep everything in the same conversation:
---thread --in-reply-to
-The documentation states I should always start a new thread for
-multi-patch series. Note taken. Thank you for the links!
-
-Kind regards,
-Georgi Valkov
+Konrad
