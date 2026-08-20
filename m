@@ -1,79 +1,50 @@
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17213A2544
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:52:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFE33DA7FF;
+	Thu, 20 Aug 2026 09:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787219571; cv=none; b=SISMQ2dk4SfRbUehf5O3zaMQXkoXEwV8sFZ8bdEFdkUh9HSWdRrPYIpSWbU6dCz+5ZIIrknAc5MbP2Jouy+PvgTgE4pg5mF+N4gUYBmfxdW8N3yYAHQLPFN2MeTz3BqrzC4tjbtcsvzPsqfbCfxgq90TVEliwgh8bVkCogsG+Ys=
+	t=1787219820; cv=none; b=KH4uxx+Q6XuZxQe8pLhcR+yeVcsglwE79NJ1YrUur6JDdyMrDV9PRFT8urKVK9eyKsbK4YpBTV7wfNaillz0k1SwrvjWXzi0DaVQCMfWO8bgwtoYIAKuPN3CLQ5015ic/8+u2hT8vlvHCNJFpLyqYcC6OFFvJrqwlyOEvPgcVUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787219571; c=relaxed/simple;
-	bh=pO9xKGT1TX4gkcjXNXA04rB1EhLzc1LoY04P9xUuGmo=;
+	s=arc-20240116; t=1787219820; c=relaxed/simple;
+	bh=brLAUlIgqXAA9xUmFpKE5vSctqUbZtB1Ig6g5p2n/xQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=umjklJ2nFDJfnNeggAHDixKO+g9TcveKxlhgzXZTnJOFOv+fgDC1Qu8TMdMVDIqD35IU5Do3teNHIfAhss/dSzD9LHOlVi5m8T7QCgmh4/m4gQjS3+7jH8OlyN3oxyiztOBW+z2sL63TwHjvHvbRmAj3y/4G2oe8e4gPEbxLsQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=bHfEc/JM; arc=none smtp.client-ip=209.85.160.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	 MIME-Version; b=WNduJl1WFWDEPYypeaEVwIMwDzqHZNUjxMlW/YV2ai1LvGQIaR0HPXcBGaImZYInPfIpFl0fGL6irwWPC9BzdlvVtCMdqDtcUpUXT93eogadssLD8tw/4Je4uUWDThov3IblCBJwk9lv6xFb7iM4kvnmJ4Pg4NZCL3kuXj4ta78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=b2vIFa3s; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="bHfEc/JM"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-462df62f872so709087fac.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 02:52:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="b2vIFa3s"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787219566; x=1787824366; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DGQ4lHm/pwFE2eJnKjB8iU5lTL8Lwpsi6psSrL49/Ks=;
-        b=bHfEc/JMrDhpeMeTSoFCQbz3s64f8b+u112t5ufl5MxDFwMUpzLXu+tSgQLZQJGNfF
-         UwlT3fMH48bw3xE299c578eaEAtGwyL6h31NcjLUCQoxuvSvLsv+vGpP4fumSCqNFOKR
-         YVXzlb9ze/hu7EEWnfFTlcQOSmObiyePMY6vE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787219566; x=1787824366;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DGQ4lHm/pwFE2eJnKjB8iU5lTL8Lwpsi6psSrL49/Ks=;
-        b=Ob/uQsiPsPP3zD8VHU3reb3xvmowX5s/jdiaQxlNQu1hwqZbebn84J3LfeZpdTvhL0
-         nqgvch2k3PEUo8LYP7wat2WgtGrY5qOXkiKGRCfYedNACdDypZeiZhzXQsdGc8d3yuC6
-         JxcT01VT8VotHrLlZQ1u6J+Z+8CStUT/b6SWqv1I+Ws5CSzFNYrJWuBh/XJ+r1LlTc3w
-         SzTwOpU/dFrq3kKBaH2f27OU/LYoCsjb0HeqS9YkJZOOVPfmK9ZvuRmTQjHsBAXKKvUH
-         x6BPaXHVQbBw0J9/rAz8RR3qv/B1bm8gflAaUuJFQwAXOq30IHOGiL8Kd2kZ0HZwBiGC
-         1a9w==
-X-Forwarded-Encrypted: i=1; AHgh+RoMOR8lW++0X+nPFNiFypaGSE2hjvuArXZoZEOFP3TzpwjvQDothr9M3AN/QVGA+DnnLkFngFA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfVeUmX4scoabSODTwHlDW3PwA9CskEyoXQxTqkqfzfHR2QjQl
-	jdpFQq5odSmh1D9AVkNyAwETCzsKnJijtcj/EU3flMl0oXSW9DOAkJkF5F0jhu1LAg==
-X-Gm-Gg: AR+sD12+7r5CvbiSKVwEkbCIMZuP2aQRuNp+A3NAfnDmuwFJLCNaPZfcVqKfROPwVVQ
-	CBxzbWZWHrA1zgVnle0RbXYYUOEhi8Oe/zA1LgHrsCghGsFftffJ1C6UNNHng38nID5EY9Tc1AN
-	rZkyiyJ7evAJBRZYR88b+90LHcd4BVVw+nZjWZ1XcgAak57w5pTFQV1TDt6gkNz+yqg+vY8FOXH
-	85XcF2H7KnuYcygCi7PAA6auQSoDdlsDtjk/7b/+MH3bDQvFTFiIDX/Ckj/0HTLgKpMUUVPUDgB
-	S/UsUKFPzmxSMq62HRuNR45yXlBXre/mbEsFJjzhQ8Mc8Gf2Hz7VTeWWHsXoNJCYdCgU2yddPJ9
-	cKp89envF9ATMOyuFpa4+aQ5kYTYjGuTHJ3s7q7pJwfSD5qgJnCNxEy3byil7bXuV6XfrLPiatk
-	3G+pP6ngh5enKq4XU/ZRkO5OV34hFr/XY0UOzXeJbmjuHqWYqGFo2xziVKudJG6Dr5EJKld9/T+
-	38sMxiFcJDWLX/nvjktiaYACRrm2bhVFjdM6snup65h5w==
-X-Received: by 2002:a05:6808:b3a:b0:4b2:8dbe:fff3 with SMTP id 5614622812f47-4b2cd80bee2mr4070622b6e.0.1787219566045;
-        Thu, 20 Aug 2026 02:52:46 -0700 (PDT)
-Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b2d6d34c8esm1286981b6e.13.2026.08.20.02.52.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 02:52:45 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	stable@vger.kernel.org,
-	vega@nebusec.ai,
-	"Victor Nogueira" <victor@mojatatu.com>
-Subject: [PATCH net 2/2] selftests: tc-testing: add u32 node ID pool exhaustion test
-Date: Thu, 20 Aug 2026 05:52:36 -0400
-Message-Id: <20260820095236.68390-2-jhs@mojatatu.com>
+	d=runtimeverification.com; s=protonmail; t=1787219809; x=1787479009;
+	bh=DVX85waZSypvAQXmlDJIDX8nSLj5KISJWV4+AF3As0s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=b2vIFa3sVBagVD/GMQkaifBjITJZqrBMyXHyQEM+wljAlBwe6YEYcm9f7RziuUY9n
+	 Qj2W/rGVViBcqM+mZ0Gzm/c+mPOeFFrFKyWH3qkdyWvbbZeOVjrxN4ZRDhYHYJP88o
+	 XIM1mflxUvz7K1C8uTs3dRNh3eDQFYuOJ0ggThrtLuLej/OgNAUP3TCt83ORtaz3Gg
+	 0Dwm093ZlrNbK594jNxSCRSSo1r2xA3mJ6NrJI9mP36jD2hC9QN4ze9lA9a5dIvYlp
+	 DBAiINnJmqSthlj4UiouRyagFMv/qQgsCz0ZczJtvb/afoBASxLBMHhme8vwIAoeI2
+	 WlMVJILOFlHEA==
+X-Pm-Submission-Id: 4hQf3c3gZLz2Sccw
+From: Natasha Klaus <natalie.klaus@runtimeverification.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org,
+	mchehab@kernel.org
+Cc: ribalda@chromium.org,
+	noambs2999@gmail.com,
+	david.laight.linux@gmail.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Natasha Klaus <natalie.klaus@runtimeverification.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] media: uvcvideo: Let uvc_parse_frame() report a skipped frame
+Date: Thu, 20 Aug 2026 12:56:24 +0300
+Message-Id: <20260820095626.111196-2-natalie.klaus@runtimeverification.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260820095236.68390-1-jhs@mojatatu.com>
-References: <20260820095236.68390-1-jhs@mojatatu.com>
+In-Reply-To: <20260820095626.111196-1-natalie.klaus@runtimeverification.com>
+References: <20260820095626.111196-1-natalie.klaus@runtimeverification.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,50 +53,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a tdc test case (7ec8) that fills the u32 node ID space with 4095
-auto-generated handles, then attempts to add a 4096th. On the fixed
-kernel the 4096th filter is rejected with ENOSPC (exit 2). On the
-unfixed kernel it silently succeeds with a duplicate handle.
+uvc_parse_frame() returns the descriptor length on success and a
+negative error code on failure, and uvc_parse_format() treats every
+negative value as fatal for the whole streaming interface. There is no
+way for the parser to say "this frame descriptor is unusable, but the
+rest of the format is fine".
 
-Fixes: e7614370d6f04 ("net_sched: use idr to allocate u32 filter handles")
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Change the return convention so it can. Return 0 on success and let the
+caller advance by buffer[0], which is the value the function returned
+anyway. Report a truncated descriptor with -ENODATA, which stays fatal,
+and leave every other negative value to mean "skip this frame descriptor
+and carry on with the next one".
+
+-ENODATA is currently the only error the function can return, so the
+skip path is unreachable until later patches add checks that use it. The
+one behavioural change is the truncated-descriptor diagnostic, which
+moves from uvc_dbg() to dev_warn() so a malformed descriptor is reported
+without the DESCR debug flag. That leaves the local alts variable
+unused, and the kernel builds -Wunused-variable as an error, so it goes
+too.
+
+Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+Link: https://lore.kernel.org/linux-media/CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
 ---
- .../tc-testing/tc-tests/filters/u32.json      | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+The Cc: stable line is present without a Fixes: tag because this patch is
+a prerequisite for 2/3 rather than a fix in its own right. Stable needs
+both or neither: backported alone, 2/3's -EINVAL would revert to meaning
+"discard the whole streaming interface".
 
-diff --git a/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json b/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json
-index b2ca9d4e991b..b9019b14d05c 100644
---- a/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json
-+++ b/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json
-@@ -353,5 +353,28 @@
-         "teardown": [
-             "$TC qdisc del dev $DEV1 parent root drr"
-         ]
-+    },
-+    {
-+        "id": "7ec8",
-+        "name": "Add u32 filter when node ID pool is exhausted (4096th filter rejected)",
-+        "category": [
-+            "filter",
-+            "u32"
-+        ],
-+        "plugins": {
-+            "requires": "nsPlugin"
-+        },
-+        "setup": [
-+            "$TC qdisc add dev $DUMMY clsact",
-+            "yes 'filter add dev $DUMMY ingress prio 1 protocol ip u32 match u8 0 0 at 0' | head -n 4095 | $TC -b -"
-+        ],
-+        "cmdUnderTest": "$TC filter add dev $DUMMY ingress prio 1 protocol ip u32 match u8 0 0 at 0",
-+        "expExitCode": "2",
-+        "verifyCmd": "$TC filter show dev $DUMMY ingress",
-+        "matchPattern": "pref 1 u32",
-+        "matchCount": "4095",
-+        "teardown": [
-+            "$TC qdisc del dev $DUMMY clsact"
-+        ]
-     }
- ]
+ drivers/media/usb/uvc/uvc_driver.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..0cc0e351d139 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -230,7 +230,6 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 			   u32 **intervals, u8 ftype, int width_multiplier,
+ 			   const unsigned char *buffer, int buflen)
+ {
+-	struct usb_host_interface *alts = streaming->intf->cur_altsetting;
+ 	unsigned int maxIntervalIndex;
+ 	unsigned int interval;
+ 	unsigned int i, n;
+@@ -243,10 +242,10 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 	n = n ? n : 3;
+ 
+ 	if (buflen < 26 + 4 * n) {
+-		uvc_dbg(dev, DESCR,
+-			"device %d videostreaming interface %d FRAME error\n",
+-			dev->udev->devnum, alts->desc.bInterfaceNumber);
+-		return -EINVAL;
++		dev_warn(&streaming->intf->dev,
++			 "UVC non compliance: FRAME descriptor is %d bytes, expected at least %u.\n",
++			 buflen, 26 + 4 * n);
++		return -ENODATA;
+ 	}
+ 
+ 	frame->bFrameIndex = buffer[3];
+@@ -329,7 +328,7 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 
+ 	*intervals += n;
+ 
+-	return buffer[0];
++	return 0;
+ }
+ 
+ static int uvc_parse_format(struct uvc_device *dev,
+@@ -492,11 +491,12 @@ static int uvc_parse_format(struct uvc_device *dev,
+ 			ret = uvc_parse_frame(dev, streaming, format, frame,
+ 					      intervals, ftype, width_multiplier,
+ 					      buffer, buflen);
+-			if (ret < 0)
++			if (!ret)
++				format->nframes++;
++			if (ret == -ENODATA)
+ 				return ret;
+-			format->nframes++;
+-			buflen -= ret;
+-			buffer += ret;
++			buflen -= buffer[0];
++			buffer += buffer[0];
+ 		}
+ 	}
+ 
 -- 
-2.43.0
+2.34.1
 
