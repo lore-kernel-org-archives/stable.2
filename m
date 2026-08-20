@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABC5455166;
-	Thu, 20 Aug 2026 14:02:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EAB46C830;
+	Thu, 20 Aug 2026 14:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787234543; cv=none; b=gUVmGvmiMy6/amYwXq3vs1OyvZs8jaNq3jTDPVjRBd+XQIqx8o5COqNPs9ydSQa4cDZMnZYkvBg3+cs58L7wSUX6StsoLFTFA6tuHdKLagJCq7pcDICN5+J5wnS5UJQoPzjlT1CQuDescLLAXDtJPFsC5CDguVXycx6i69z+MVc=
+	t=1787234588; cv=none; b=Juck62FARE6bsyKKAJC7NdJ6X6gt1J8+mgy3MpK2TVKXVFxTSKngxFLnZ+7GtadSKsLqZWETnFvgjRvAdW4CWr5FfHGf9ZzKMFkF4yRTBfdLCFE5o5+U2Bg/59yISPe1P/OS3lW6a6NS9wbeqQIlvNikwvu+2fwufiYtBHn/zqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787234543; c=relaxed/simple;
-	bh=p+BM9sQZIGea0kaxrRTh1HWCb4ehxgCYeqHApcQLau8=;
+	s=arc-20240116; t=1787234588; c=relaxed/simple;
+	bh=Na69ziPsRsqFwUXG6SifxjzBGuTBDF4WMUAsZv5ufpA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZIJC7djzN5TRKkgn56lcSlV2iNnXM3AJkVUHjnIEC7nxHEymYGSkM4zU5PSwF4uxidCx17gMnDBRHvxRMy3sNp4pA7guJgkYkLmoCylO8k/xqFg4mVGPL5Pz/7DZojmtAStoe6LPHGiYP+BnVRbDtziq6xMaT2IlZ3aMxc165uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPe3hluC; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=PoNG0EkhJbNPhKqmd3iJs+h66jVD8MTnhOy8Fy9NDZM09T67615ReGwaFC8+i5C4BB1oM52pFMyidcw11a6C0T8D/39gR+hyjt0svx0ev4jyaDmTRmJjtlgmLBZNlsZ8pKCURchc4yGBlXOJF+ulLiLpCutsOsLpxkQQQ0m/kEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijUyUkup; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPe3hluC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E261F00A3A;
-	Thu, 20 Aug 2026 14:02:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijUyUkup"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1485E1F000E9;
+	Thu, 20 Aug 2026 14:03:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787234541;
-	bh=FKoP7/iRScaGCla0KLoQxkwR9emkq604HHkB1smPXIo=;
+	s=k20260515; t=1787234587;
+	bh=O+olGW8sSAne5ztFBKekd93eZ1M4z5SDcIB1vPTjF88=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HPe3hluCuNwsve4vVDy06hd2/M2NxY3NzfeZXhvYCpdqvJesxCobuI+Aeb7K+y8Ho
-	 XcSrb2jhfjx0cB/Ea573N8Zf7stTd88+Ix//qzHgxyIlE8QVdtpus+IbOgmsMIyi3Y
-	 keJZWt77KtMyo4iXBE9ArHS3PGmVIkoiBa2Q0maXDIdsKRHemAnUW1J5ao1/qBKP4W
-	 zCJAlAVTkOGBb1neAHqYMTlXVYH0I1Q17+U2ZZqESGMT4ZKiyCwiV46ZAp8C6bPQV3
-	 Eu9grxB3Qa6/xLvYD1uyBHGLa7ltdDLSHJjK2QUVfhnTz3okC1zNxASdaTisPbCuMc
-	 Y1g1H/E5FATXw==
-Message-ID: <df0f9c8a-07f8-4305-91ef-2b9840294436@kernel.org>
-Date: Thu, 20 Aug 2026 16:02:16 +0200
+	b=ijUyUkupX2Xi+zBawxZ8mENBiIsdbIagiS+NTzvYrIWv+GUDl/jQsxc8WqLTBEYbb
+	 2Dl90auPBMXHpxpEx0Ct7ND0nSM/8P+EWscQJRbDAyQ9hQA8zw8jesQeREs5IqQthV
+	 X9uoPygiyqrdKFlbOtW/lCC7hrCrvqfCroKqdMU0w5tX8E2uVBxDX+Dt7uLN5Z4s4z
+	 WcAcujsqHnUpwwy1pEMTam5xRQP7pJr4xUUZvMJe44a+buv+kIqIa+Lwmmvpmy+pZL
+	 Qx7Ncg+AJOHt842a9ak1Bf1Do83qfwW+iiyROp0R/R0YgEpmhk1JfHGjNdYxbUOkzg
+	 di1W9v+rO0eSg==
+Message-ID: <2d997800-b7b5-4700-919c-c4b6e5e926aa@kernel.org>
+Date: Thu, 20 Aug 2026 16:03:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,19 +35,14 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
+Subject: Re: [PATCH] crypto: ccree: fix autosuspend cleanup during teardown
 To: Guangshuo Li <lgs201920130244@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ Gilad Ben-Yossef <gilad@benyossef.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
+References: <20260808091734.2727295-1-lgs201920130244@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,14 +88,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260808131624.2854412-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808091734.2727295-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/08/2026 15:16, Guangshuo Li wrote:
-> adreno_gpu_init() calls pm_runtime_use_autosuspend(), but
-> adreno_gpu_cleanup() does not call the matching
-> pm_runtime_dont_use_autosuspend() during teardown.
+On 08/08/2026 11:17, Guangshuo Li wrote:
+> init_cc_resources() calls pm_runtime_use_autosuspend(), but neither
+> the probe failure path nor cleanup_cc_resources() calls the matching
+> pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 > 
 > If the autosuspend delay is set to a negative value while autosuspend
 > is enabled, the runtime PM core increments usage_count to prevent
@@ -108,20 +103,14 @@ On 08/08/2026 15:16, Guangshuo Li wrote:
 > during teardown, this reference is not dropped and usage_count remains
 > unbalanced.
 > 
-> The documentation for pm_runtime_use_autosuspend() also notes that it
-> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> driver exit time, unless runtime PM was initially enabled with
-> devm_pm_runtime_enable().
-> 
-> Add the missing pm_runtime_dont_use_autosuspend() call to
-> adreno_gpu_cleanup().
+> Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+> probe failure and device cleanup paths before disabling runtime PM.
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: eeb754746b14 ("drm/msm/gpu: use pm-runtime")
+> Fixes: 4c3f97276e15 ("crypto: ccree - introduce CryptoCell driver")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
 
 You sent vast amount of patches, all separate, making it very difficult
 to track and respond in efficient way. Do not do that.
@@ -130,7 +119,6 @@ Group your work per subsystem.
 
 You were asked to clarify and respond to incorrect fixes statement. I do
 not see how you clarified and responded at all.
-
 
 Best regards,
 Krzysztof
