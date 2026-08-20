@@ -1,48 +1,48 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368E5446C18
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 13:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61AA446848
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 13:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787231501; cv=none; b=kALb5QhmKHMhCe+0uvycZ9TKqwxNHDNGOj58wTn/tQwXrYXcvH3zEYqvtW2lP1ugnbujpUyhOlIZW/DNV1Nox7VqwlTa04trpHMc6OTqnxCHiaLHN68+nfWSMrBoWTKtCEu07NMM6QhqlLpGhKAS+chkZv/j4AhhNbpvLLk7Keg=
+	t=1787231595; cv=none; b=egoMQWRjmS5CGiDQs6wO4qCKnKft9OLAPeJIw1Ee2/NVPL+8O0uuT+b886FfpV6ONr9PQdXMz7Oodq+OorSFn+2n2S965GqS5BxSeOQyrXvFkkC3crbq1ryZoajhAWMq5iPhFsSqyg9tJxrOEwvHpGAwXyHQL/fuDf2IFltZ80A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787231501; c=relaxed/simple;
-	bh=TQMec3z/O0R8XyFKraa2sKKSDzakq+vuL8zZy5ijA7s=;
+	s=arc-20240116; t=1787231595; c=relaxed/simple;
+	bh=b+G+qb83KAdGhxn2xQVfnTvhCFpyFg/MzkkP8sWrDE0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NH5p3HrQM5a8fIu0k6aadbsEGzogS/O5CMNHIPfblL/gtCZR9tkk0gbqh72/lR4bfmON8FmPFT57t6L4KErx50vLJQzG1XRNrvPLpKkI6ckblOo8BhZQXDCPyJec7zCEI5xJ2v88d1FpTV3U9FL3ArAgnJZkfTX99kUYqXIGPkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MUxLZJF/; arc=none smtp.client-ip=198.175.65.10
+	 MIME-Version; b=oRm7lv2Jek+FzHWvz8cG/FW/QfsZ6QgmvwFndF0x+rTijbLs5XZWbcLwfjprtu3rPS4aS8FkvebqiooEdmfb09aP6Vf6gNrA8PiBQDj71K7mg2bhbN6u9MhJa1F5otsqYvM0eO+aoMFLypIzHfFT4ntz/1uufPOv6JaN3a1GU2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MhbMgkBF; arc=none smtp.client-ip=198.175.65.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MUxLZJF/"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MhbMgkBF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787231497; x=1818767497;
+  t=1787231594; x=1818767594;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=TQMec3z/O0R8XyFKraa2sKKSDzakq+vuL8zZy5ijA7s=;
-  b=MUxLZJF/J8H073PTob14D2GRQ8yO4HZyddUz88yV0UFhEylePEgyiJKD
-   +3onO7+sCnggvYwu7DzQ0grjebW+gT8qSnITgpQqF8lzTH5WWm428k60l
-   rHjfP53jMriKJXiOqnubkvORby7V4iTLdji2C4Pcypp0VFHyRfeL8Hfnv
-   DNv5gf2QGJ1+ckMwxTwkY2BBQ4AbwgeAH3I3ABI0EIG5rcA4sfNnrSQjI
-   4/ukKHWQ2qFsgv74YvmN+SUTbj2emAhTZyfc6yrqIpFqgzFP4RafwJ3TM
-   L9/x0tZqar2XAwWznHmcizzDvxLtTr7XSJjiYMf5T2dGayioC4KOKCdlj
-   A==;
-X-CSE-ConnectionGUID: swYrpe7WSS2P+s2ZQeVm2Q==
-X-CSE-MsgGUID: 9VUCVJ7RTLCybsucinGR6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="105146516"
+  bh=b+G+qb83KAdGhxn2xQVfnTvhCFpyFg/MzkkP8sWrDE0=;
+  b=MhbMgkBFLgW8HfZzozB8GIaGzJ0YbbQMue/TkcM+tX+wrvh4N9uOMCu4
+   1eAezNkrWjSuQULgLvKIyrSxTeGGzRcWPL/WICfipNqxPaFgU1fwbtZZa
+   ovegj2QARy7/Um6lpOpJo5HgnG+YD5Tr6RbwjGeI6npiOOZigJxCqxe/k
+   W/Id8GDZzmPcuyYyHPy6vgClzEZjDcaaeKVvUaoWAcJJIBQCBfTrMjWiu
+   cyqTGTphA2Zfa/uGyqiNGitlNmTplRbTI96Wbearq/i5VNIpWmlok5YHZ
+   6vp+reJF8dx/ONCzVr6CIYTeCjAoTQIisO+M+rBxi8rEIq9lZtOrPU9L6
+   w==;
+X-CSE-ConnectionGUID: 0pOuhxQIRoqXslzAmc2iOQ==
+X-CSE-MsgGUID: IZIylTTAQsaK5OxQkbJKEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="98098301"
 X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
-   d="scan'208";a="105146516"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 06:11:35 -0700
-X-CSE-ConnectionGUID: gK7jZfKqQIyg/fLfxxksBQ==
-X-CSE-MsgGUID: Vhqmftn4RZ6ma21x6uT5CQ==
+   d="scan'208";a="98098301"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 06:13:13 -0700
+X-CSE-ConnectionGUID: o8Lsoex5QzuAMtJMsm3A2Q==
+X-CSE-MsgGUID: gmyqMPrKQVmUqud38As9Qw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; 
-   d="scan'208";a="289523391"
+   d="scan'208";a="262712683"
 Received: from szadworn-mobl.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.124])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 06:11:33 -0700
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Aug 2026 06:13:10 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -50,12 +50,12 @@ Cc: gregkh@linuxfoundation.org,
 	broonie@kernel.org,
 	kai.vehmanen@linux.intel.com,
 	liam.r.girdwood@intel.com
-Subject: [PATCH 6.18.y] ASoC: SOF: ipc4-topology: Refresh copier IPC payload before widget setup
-Date: Thu, 20 Aug 2026 16:11:31 +0300
-Message-ID: <20260820131131.24981-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 6.12.y] ASoC: SOF: ipc4-topology: Refresh copier IPC payload before widget setup
+Date: Thu, 20 Aug 2026 16:13:10 +0300
+Message-ID: <20260820131310.25431-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082017-slum-regalia-c26e@gregkh>
-References: <2026082017-slum-regalia-c26e@gregkh>
+In-Reply-To: <2026082017-backspace-rectify-6ec7@gregkh>
+References: <2026082017-backspace-rectify-6ec7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -106,10 +106,10 @@ Signed-off-by: Mark Brown <broonie@kernel.org>
  1 file changed, 33 insertions(+)
 
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index d74567d6afc4..5701e4d1ac13 100644
+index 1aba13a90973..fabd364d3316 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -3007,6 +3007,15 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+@@ -2654,6 +2654,15 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
  		ipc_size = ipc4_copier->ipc_config_size;
  		ipc_data = ipc4_copier->ipc_config_data;
  
@@ -125,7 +125,7 @@ index d74567d6afc4..5701e4d1ac13 100644
  		msg = &ipc4_copier->msg;
  		break;
  	}
-@@ -3015,6 +3024,9 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+@@ -2662,6 +2671,9 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
  	{
  		struct snd_sof_dai *dai = swidget->private;
  		struct sof_ipc4_copier *ipc4_copier = dai->private;
@@ -135,7 +135,7 @@ index d74567d6afc4..5701e4d1ac13 100644
  
  		pipeline = pipe_widget->private;
  		if (pipeline->use_chain_dma)
-@@ -3023,6 +3035,27 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+@@ -2670,6 +2682,27 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
  		ipc_size = ipc4_copier->ipc_config_size;
  		ipc_data = ipc4_copier->ipc_config_data;
  
