@@ -1,44 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC496442FDF
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:38:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAAF443A96
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:39:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787229509; cv=none; b=M77x1kZ6jAu3ui8iSd+VsBckfTYpAfoHCWPGdiNB9O/rlj7bEqXW7E/lOLKert0ZIxhNbN5gLMZMYLjf30JmwBShvNP/Q7fAFxqpczi6sbQzU4ouHxXAyLPK/5QBdtTISQQPcZ2RIXI1nHe8YGjUNgel73iV4Nprwlucg8yiAmU=
+	t=1787229551; cv=none; b=kXLzIAsuzPihFuf6cixcbZsvVL0NDfcp4JiFRVpNsXZODKWp7EMNVtGdqKhZKdPWF3PhIw03+gkFhcr9nPghW5vn+SAeHgGIPmCTmwsaMvbVPzEPPn/SFd+SV2X3o3mMooh4DDP7zOyI72ITNGIegBcq22+yfuX18tjtLbDOaps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787229509; c=relaxed/simple;
-	bh=IdLMn1y8nUBb/72xmMofI6HJP3p+LMShwAEOpHhXX7I=;
+	s=arc-20240116; t=1787229551; c=relaxed/simple;
+	bh=VsrsgX0XVbih11I8qBjlCtygTBIJtNt7aZvRQqbVhYc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dnZJc3y4o9mWBLHQU5adCMsr314UhU1H2idZ0rgPARlAGWX1uNlxapA5/b9ZP3Fy6/1p56RJc+OTcIgnJtaKmV8tI3ZrT7wPNGVfUtjWkJ7ktOlVYgSQMldJgAgPJsUtf8ftNqfg8ovG9qZs94j0vpIjmCLIgWv3lVE/PK4wSZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=elwn/JUU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PzFXt14Znug5z6Dm1MoYiqlqMsyxTBikNRnLiVP3HmG2b910wxP7eMd+nnwbeeLTRb6tZflex4TZwZ9dCT7rad6GeB1BUCHX4P29lAQZK5ATU0QH5fitYyCFd+Gfm+/4l5ATJlV+FZdDG1xEccvqLjdTFE94fFVBg9bTOntcPbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJYSMSJV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="elwn/JUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797121F000E9;
-	Thu, 20 Aug 2026 12:38:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJYSMSJV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5301D1F000E9;
+	Thu, 20 Aug 2026 12:39:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787229508;
-	bh=BjLVDj33rT1xtrlY8UjmP/Z1gTJO4YkLVYeYNgH1r5k=;
+	s=k20260515; t=1787229549;
+	bh=cI2Oqf2F/+PQAs6kXdJqLCXHijrhUf32IMiPKKgHZU0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=elwn/JUUKH0yb8geWrPqXkB2FBvBDutzb9xZP9E8cusvbHRe3Y8xQ58mRLJyuQmA2
-	 cmHYO2jZDERwxDezkmplLEvhbn04CqbeV7Vw9L1vTwRyP1+DAL79mFQ4OgPyfN9uPq
-	 976aExX9QfEuCNAIhVxUNj8uwk/jMnzqipM/BGE9o8eWislfpsmPwYSSe8vYp17usJ
-	 TjLkFi7y1uHsVg1V/e2fwdxjuyoKutsFLIH5hsngz9QPk1otmdWrn7vHiQGNJeckZS
-	 /UtQXU8VBH1/vVutZtMZ7F0sJW6qwaV0UJOkUUlgIGcQOfSvSfIIQGNHmxAyGfNt3n
-	 l4Od6le2uQxwg==
+	b=eJYSMSJV6MM2QTmhSDwFGV88Jx0IxMwH5L/rKth3RHhzqIDhpJILyKTER6WO+IWwc
+	 9C3sfJYLxckqHE6CWvKCfp/LbQVrCSd47ATR0wc2/zw5NiuTM9EmAkpybAaJ4sLTcn
+	 lWkyTIxMWpyB0hnw2JgE5oCU0GklWM7BThjTsj7ps9DOWENJr+M4Ars4yVNARbyVaq
+	 QNHzDv1GEvEtxRy8cJJs3eb4bGEeFNxwfIP5Rg0DOIQD+hNFXCtazS5hvceoQMVqka
+	 MfREuOWozuxLk3OOq5zJSN9XE0/t6a9HLPVadTHUCe/m90ozIxxmdtzfSjTn3cFj2j
+	 GRM+O2bX/dsPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yangyu Chen <cyy@cyyself.name>,
-	Sukhdeep Singh <sukhdeeps@marvell.com>,
-	Mina Almasry <almasrymina@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Hengbin Zhang <uqbarz@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Hugh Dickins <hughd@google.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <npache@redhat.com>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Yang Shi <shy828301@gmail.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: atlantic: free stranded TX buffers on ring deinit
-Date: Thu, 20 Aug 2026 08:38:25 -0400
-Message-ID: <20260820123825.1614065-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/huge_memory: fix huge_zero_pfn race
+Date: Thu, 20 Aug 2026 08:39:05 -0400
+Message-ID: <20260820123905.1614913-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081729-unengaged-tremor-0888@gregkh>
-References: <2026081729-unengaged-tremor-0888@gregkh>
+In-Reply-To: <2026081754-outsource-trapping-d56b@gregkh>
+References: <2026081754-outsource-trapping-d56b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,109 +60,261 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yangyu Chen <cyy@cyyself.name>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 452636ea5410a96e02ebaaf80b21e3620b98e0dd ]
+[ Upstream commit 33192a26cddea7a7e4ca66e5c3eebd36fa8be2bb ]
 
-aq_vec_deinit() drains the TX rings with a single aq_ring_tx_clean()
-call, which frees at most AQ_CFG_TX_CLEAN_BUDGET (256) descriptors and
-stops at hw_head, which no longer moves once aq_vec_stop() has stopped
-the hardware and NAPI. Completed descriptors beyond the budget and
-everything still posted in [hw_head, sw_tail) keep their skb or
-xdp_frame when the interface goes down: aq_vec_ring_free() then frees
-the buffer ring and the references are lost for good.
+Patch series "mm/huge_memory: fix huge_zero_pfn race", v2.
 
-Today this is a silent memory leak on every interface down under
-TX/XDP_TX load. With the conversion of the RX path to page_pool posted
-for net-next it becomes much more visible: XDP_TX frames carry fragment
-references on the RX ring's page_pool, so a single stranded frame keeps
-the pool's inflight count above zero forever. page_pool_destroy() then
-never completes, the pool is leaked together with its pages, and
-"page_pool_release_retry() stalled pool shutdown" is warned every 60
-seconds from that point on, on every ifdown, XDP detach or ring resize
-under XDP_TX load.
+There is a subtle race in the reference-counted huge_zero_folio
+implementation.
 
-Bring back aq_ring_tx_deinit() as it was before the removal and use it
-for teardown again, with one extension: TX rings can hold xdp_frames
-nowadays, so release those too. They are returned with
-xdp_return_frame() since this runs in process context.
+The fast path atomic logic fails to account for the fact that the shrinker
+(which drops the final huge_zero_refcount pin) can overwrite huge_zero_pfn
+with the ~0UL sentinel value in shrink_huge_zero_folio_scan() after a
+racing get_huge_zero_folio() installed a valid value there.
 
-Fixes: eb36bedf28be ("net: aquantia: remove function aq_ring_tx_deinit")
-Cc: stable@vger.kernel.org # v4.11+
-Reviewed-by: Sukhdeep Singh <sukhdeeps@marvell.com>
-Signed-off-by: Yangyu Chen <cyy@cyyself.name>
-Acked-by: Mina Almasry <almasrymina@google.com>
-Link: https://patch.msgid.link/tencent_EEDC35FAF2750A3A6A0B39BAE0E2C484860A@qq.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Dropped the XDP frame arm from the new teardown loop since `buff->xdpf` and `xdp_return_frame()` don't exist in 5.15, and omitted the `aq_xdp_xmit()` context line in the header hunk. ]
+This results in huge_zero_folio being correctly set but huge_zero_pfn
+being set incorrectly and thus is_huge_zero_pfn() and consequently
+is_huge_zero_pmd() will misidentify the huge zero folio as being an
+ordinary THP folio.
+
+This can result in the huge zero folio being split and otherwise treated
+incorrectly.
+
+The solution to this is very subtle as there is an atomic fast path, and
+thus ordering in weakly ordered architectures has to be treated very
+carefully.
+
+The first commit fixes the issue by introducing a spinlock around
+huge_zero_[pfn, folio, refcount] write, with careful consideration paid to
+load/store ordering in the fast path.  It is placed first and kept as
+small as possible so that it can be backported on its own.
+
+The second commit is a pure cleanup which reworks the
+CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic to better separate the persistent
+logic from the dynamically allocated one.
+
+This patch (of 2):
+
+If !CONFIG_PERSISTENT_HUGE_ZERO_FOLIO, the huge_zero_folio is refcounted
+by huge_zero_refcount and returned by mm_get_huge_zero_folio().
+
+When the caller is done with the huge zero page, its reference count is
+decremented.  Only a shrinker can set the reference count to zero.
+
+A race can unfortunately occur between a shrinker decrementing the
+reference count to zero and a concurrent page fault.
+
+This is because shrink_huge_zero_folio_scan() might, if very unlucky, be
+preempted between setting huge_zero_refcount to zero and writing an
+invalid value.
+
+During this time get_huge_zero_folio() could write to huge_zero_pfn before
+shrink_huge_zero_folio_scan() resumes.
+
+In this event the huge zero folio will be persistently misidentified
+causing the THP code path to be entered inappropriately for the huge zero
+folio:
+
+                CPU 0                                   CPU 1
+=======================================|=================================
+shrink_huge_zero_folio_scan()          |
+   atomic_cmpxchg() sets refcount to 0 |
+   xchg() sets huge_zero_folio to NULL | get_huge_zero_folio()
+                 |                     |    atomic_inc_not_zero() -> zero
+      preempted for a long time        |    Allocate new huge zero folio
+                 |                     |    Write valid huge_zero_folio
+                 v                     |    Write valid huge_zero_pfn
+  Overwrite huge_zero_pfn with ~0UL   <--- Invalid overwrite!
+
+This results in is_huge_zero_pfn() and is_huge_zero_pmd() incorrectly
+returning false for a huge zero page which could result in issues like the
+huge zero folio being incorrectly split.
+
+Note that the issue is with huge_zero_pfn not huge_zero_folio, as
+get_huge_zero_folio() uses cmpxchg() gated on huge_zero_folio being NULL
+with a retry loop and shrink_huge_zero_folio_scan() uses xchg() to set
+huge_zero_folio.
+
+Fix the issue by introducing a spinlock, huge_zero_lock, to prevent
+concurrent write of huge_zero_folio, huge_zero_pfn and huge_zero_refcount.
+
+There needs to be significant care taken here to ensure correctness:
+
+The fast path in get_huge_zero_folio() uses atomic_inc_not_zero(), which
+is outside of the critical section, and means huge zero allocation is
+gated on zero huge_zero_refcount.
+
+The fast path doesn't use huge_zero_lock, so the critical section is
+irrelevant to it.
+
+So invariants are required - huge_zero_refcount MUST:
+
+* Only be set in the huge_zero_lock critical section to ensure
+  serialisation of huge_zero_pfn, huge_zero_folio and huge_zero_refcount
+  writes.
+
+* Be set non-zero only AFTER huge_zero_[pfn, folio] are set to valid values
+  so installation of the huge zero folio on read page fault ensures
+  concurrent is_huge_zero_*() calls correctly identify the huge zero folio.
+
+* Be set zero only BEFORE huge_zero_[pfn, folio] are set to NULL and ~0UL
+  respectively, and atomically.
+
+Establish these by:
+
+* Only setting huge_zero_refcount to zero or an absolute value in the
+  huge_zero_lock critical section in get_huge_zero_folio() and
+  shrink_huge_zero_folio_scan(), and always updating atomically there
+  and elsewhere.
+
+* Using atomic_set_release(&huge_zero_refcount) in get_huge_zero_folio()
+  after huge_zero_[pfn, folio] are set. This is paired with
+  atomic_inc_not_zero() to ensure atomic_inc_not_zero() only observes a
+  non-zero value if huge_zero_[pfn, folio] are set.
+
+* Using atomic_cmpxchg() in shrink_huge_zero_folio_scan() (as before) to
+  ensure that it is set zero only when equal to 1 and set atomically.
+
+* atomic_cmpxchg() being fully ordered ensures this is done prior to
+  huge_zero_[folio, pfn] being set to NULL and ~0UL respectively.
+
+Eliminate the retry loop in get_huge_zero_folio() as the atomic_cmpxchg()
+in shrink_huge_zero_folio_scan() is now performed under the lock, and
+replace with an equally locked atomic_inc() to set the reference count
+should the caller be raced on huge zero folio installation.
+
+folio_put() naturally implies a full memory barrier so its ordering is
+maintained correctly.
+
+The huge zero folio also cannot be released except when the shrinker does
+so as it is non-LRU and non-rmappable.
+
+Note that only the huge zero shrinker (via shrink_huge_zero_folio_scan())
+can actually set huge_zero_refcount to zero, which is the count of mm's
+which have at least one huge zero folio installed plus one shrinker pin.
+
+Additionally convert a BUG_ON() to a VM_WARN_ON_ONCE().
+
+Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-0-c5d8a41b317f@kernel.org
+Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-1-c5d8a41b317f@kernel.org
+Fixes: 3b77e8c8cde5 ("mm/thp: make is_huge_zero_pmd() safe and quicker")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Hengbin Zhang <uqbarz@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260727154001.4102341-1-uqbarz@gmail.com/
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hannes Reinecke <hare@suse.de>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Pankaj Raghav <p.raghav@samsung.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Yang Shi <shy828301@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted folio API (`huge_zero_folio`, `folio_pfn`, `folio_put`) to pre-6.11 page naming (`huge_zero_page`, `page_to_pfn`, `__free_pages`) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net/ethernet/aquantia/atlantic/aq_ring.c  | 25 +++++++++++++++++++
- .../net/ethernet/aquantia/atlantic/aq_ring.h  |  1 +
- .../net/ethernet/aquantia/atlantic/aq_vec.c   |  2 +-
- 3 files changed, 27 insertions(+), 1 deletion(-)
+ mm/huge_memory.c | 43 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-index 4063d4a6f47e1..685fb78846c66 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-@@ -314,6 +314,31 @@ bool aq_ring_tx_clean(struct aq_ring_s *self)
- 	return !!budget;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index ff95a802d1582..7ab6779849243 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -38,6 +38,7 @@
+ #include <linux/sched/sysctl.h>
+ #include <linux/memory-tiers.h>
+ #include <linux/compat.h>
++#include <linux/cleanup.h>
+ 
+ #include <asm/tlb.h>
+ #include <asm/pgalloc.h>
+@@ -69,6 +70,7 @@ unsigned long transparent_hugepage_flags __read_mostly =
+ static struct shrinker deferred_split_shrinker;
+ 
+ static atomic_t huge_zero_refcount;
++static DEFINE_SPINLOCK(huge_zero_lock);
+ struct page *huge_zero_page __read_mostly;
+ unsigned long huge_zero_pfn __read_mostly = ~0UL;
+ 
+@@ -144,7 +146,8 @@ bool hugepage_vma_check(struct vm_area_struct *vma, unsigned long vm_flags,
+ static bool get_huge_zero_page(void)
+ {
+ 	struct page *zero_page;
+-retry:
++
++	/* Paired with atomic_set_release(). */
+ 	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
+ 		return true;
+ 
+@@ -154,17 +157,22 @@ static bool get_huge_zero_page(void)
+ 		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
+ 		return false;
+ 	}
+-	preempt_disable();
+-	if (cmpxchg(&huge_zero_page, NULL, zero_page)) {
+-		preempt_enable();
++
++	/* Paired with critical section in shrink_huge_zero_page_scan(). */
++	spin_lock(&huge_zero_lock);
++	if (huge_zero_page) {
++		/* Somebody else already installed it. */
++		atomic_inc(&huge_zero_refcount);
++		spin_unlock(&huge_zero_lock);
+ 		__free_pages(zero_page, compound_order(zero_page));
+-		goto retry;
++		return true;
+ 	}
++	WRITE_ONCE(huge_zero_page, zero_page);
+ 	WRITE_ONCE(huge_zero_pfn, page_to_pfn(zero_page));
++	/* Paired with atomic_inc_not_zero(). +1 for shrinker pin. */
++	atomic_set_release(&huge_zero_refcount, 2);
++	spin_unlock(&huge_zero_lock);
+ 
+-	/* We take additional reference here. It will be put back by shrinker */
+-	atomic_set(&huge_zero_refcount, 2);
+-	preempt_enable();
+ 	count_vm_event(THP_ZERO_PAGE_ALLOC);
+ 	return true;
  }
- 
-+void aq_ring_tx_deinit(struct aq_ring_s *self)
-+{
-+	if (!self)
-+		return;
+@@ -208,15 +216,22 @@ static unsigned long shrink_huge_zero_page_count(struct shrinker *shrink,
+ static unsigned long shrink_huge_zero_page_scan(struct shrinker *shrink,
+ 				       struct shrink_control *sc)
+ {
+-	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
+-		struct page *zero_page = xchg(&huge_zero_page, NULL);
+-		BUG_ON(zero_page == NULL);
++	struct page *zero_page;
 +
-+	for (; self->sw_head != self->sw_tail;
-+		self->sw_head = aq_ring_next_dx(self, self->sw_head)) {
-+		struct aq_ring_buff_s *buff = &self->buff_ring[self->sw_head];
-+		struct device *ndev = aq_nic_get_dev(self->aq_nic);
++	/* Paired with critical section in get_huge_zero_page(). */
++	scoped_guard(spinlock, &huge_zero_lock) {
++		/* Paired with atomic_inc_not_zero() in get_huge_zero_page(). */
++		if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) != 1)
++			return 0;
 +
-+		if (buff->is_mapped) {
-+			if (buff->is_sop) {
-+				dma_unmap_single(ndev, buff->pa, buff->len,
-+						 DMA_TO_DEVICE);
-+			} else {
-+				dma_unmap_page(ndev, buff->pa, buff->len,
-+					       DMA_TO_DEVICE);
-+			}
-+		}
-+
-+		if (buff->is_eop && buff->skb)
-+			dev_kfree_skb_any(buff->skb);
-+	}
-+}
-+
- static void aq_rx_checksum(struct aq_ring_s *self,
- 			   struct aq_ring_buff_s *buff,
- 			   struct sk_buff *skb)
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.h b/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
-index 93659e58f1ce1..3be56a4fc5bb0 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
-@@ -182,6 +182,7 @@ void aq_ring_update_queue_state(struct aq_ring_s *ring);
- void aq_ring_queue_wake(struct aq_ring_s *ring);
- void aq_ring_queue_stop(struct aq_ring_s *ring);
- bool aq_ring_tx_clean(struct aq_ring_s *self);
-+void aq_ring_tx_deinit(struct aq_ring_s *self);
- int aq_ring_rx_clean(struct aq_ring_s *self,
- 		     struct napi_struct *napi,
- 		     int *work_done,
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_vec.c b/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
-index 6ab1f3212d246..2d77554d1b819 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
-@@ -270,7 +270,7 @@ void aq_vec_deinit(struct aq_vec_s *self)
- 
- 	for (i = 0U; self->tx_rings > i; ++i) {
- 		ring = self->ring[i];
--		aq_ring_tx_clean(&ring[AQ_VEC_TX_ID]);
-+		aq_ring_tx_deinit(&ring[AQ_VEC_TX_ID]);
- 		aq_ring_rx_deinit(&ring[AQ_VEC_RX_ID]);
++		zero_page = huge_zero_page;
++		VM_WARN_ON_ONCE(!zero_page);
++		WRITE_ONCE(huge_zero_page, NULL);
+ 		WRITE_ONCE(huge_zero_pfn, ~0UL);
+-		__free_pages(zero_page, compound_order(zero_page));
+-		return HPAGE_PMD_NR;
  	}
  
+-	return 0;
++	__free_pages(zero_page, compound_order(zero_page));
++	return HPAGE_PMD_NR;
+ }
+ 
+ static struct shrinker huge_zero_page_shrinker = {
 -- 
 2.53.0
 
