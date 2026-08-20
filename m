@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506F743847C
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:37:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FDE43846D
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787225844; cv=none; b=p+qxzBcdm3oJFciP15aTkjKPZgqNJsR2BxmifU/pHRGcEuihXdt8ZhjCCLM9zvhCdHOH3B3yWZW9uXnX9YnPcOzUJOJJ3DPvzFZeR6urW3BJ7LDCB0queuRSx3aUOJ4/Cn10gq8zTYaA85gIaaIQtvdaVOujoOKdujzmGBPh6v4=
+	t=1787225846; cv=none; b=dgVZXFMaTGY17/cKHFMw22hzMPY8Ocsf6uIqWj7rlcXkWTGBSXZ/3DxizWUZIpAynEmjImIQS+JGM/rEQ4m5BjB2dYmTtHNYzWdnFhVBh7JO6nvunFoGgFZwimMoUOh0uF6FDaw8VQZd6rdm0NDoURFoiRrx5FXS4BQJ/hx/P6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787225844; c=relaxed/simple;
-	bh=VEu7Hhbd93pE7fib4GDK6pHwLsAf4Vep4ozL0x1zVu8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iT+Shp2tE3y13IFqlyAvXpDQ1X/LU44x1Yq0bJ6YqlzMbykyAJowq12llgU28SP1WnTbNODch+gC3Ds4+begXE5qPd60flFOlT0Obd4VzDQ5ZIeSpVdPm0TYFKS/j/nPW5KEeEBaMKRX2/Y6WSIBDP6OIQj1QTAwJ3j5hh7MKKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ur0IcdaY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787225846; c=relaxed/simple;
+	bh=lfgjzts1oov4E1TaSXCkF8t4x75nRBqFKzKLDGjtkDU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lJXxLRvTj5+ixIvbJzGsIeLowSqEIQgBlppZnbbnrw0yz3WKJ49ui/h7dxF2QNDkfUtiycMdd1vz/jR6pISA7kZmD5OqaSrvGGNUNhaZzbwaa48sWdfW7mmIriiT8KxVdF9RbYoWJaTz7wIwBiGDuKZYs6vbhIhAW8xQrzqz974=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tDtnoxmq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ur0IcdaY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A321F00ACA;
-	Thu, 20 Aug 2026 11:37:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tDtnoxmq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460421F000E9;
+	Thu, 20 Aug 2026 11:37:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787225837;
-	bh=3KYkfnthF23WHHCpOkHyzDs6E9FtQVDRIdgayk6deF4=;
+	s=korg; t=1787225842;
+	bh=xj30L98p2e7KCaqljNrXNG2MQuxPN6/L9UrUWe+izc8=;
 	h=Subject:To:Cc:From:Date;
-	b=ur0IcdaY4aIXjDwxu80nP6DFdWkgBXJfZodhhb1ho+suIpKoF51Ez0MmdcUGBhSXN
-	 fa1bmrCT5TzR3MAMeo30gwPQCbVddySh78eneenNuPbTK38SCCkIuxZ7Rkk43i6i1z
-	 1PgtasZ2St1SjZoNUv8nVgcVAJSGM7YsSfXZUfCk=
-Subject: FAILED: patch "[PATCH] s390/vfio_ccw: Cancel existing workqueues" failed to apply to 5.15-stable tree
-To: farman@linux.ibm.com,borntraeger@linux.ibm.com,mjrosato@linux.ibm.com
+	b=tDtnoxmqOQtVLddyW73BA7JxQspCIJFc9S9Q8YZnKBORh86NWJPRqNRyJbWitoBt9
+	 PI6h2UoEruNGSeSGoyCOWuPm49rnyNccvbc4P26SJ3seOw6IyXOGKhGTs+zW+Z8VKL
+	 NgUKj3sopIGs25+frEcxAIsoSK3kw0J/7UWxJr0s=
+Subject: FAILED: patch "[PATCH] s390/vfio_ccw: Ensure index for read/write regions are within" failed to apply to 5.10-stable tree
+To: farman@linux.ibm.com,borntraeger@linux.ibm.com,cohuck@redhat.com,mjrosato@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:22:41 +0200
-Message-ID: <2026082041-rifling-motor-b6eb@gregkh>
+Date: Thu, 20 Aug 2026 13:22:55 +0200
+Message-ID: <2026082055-vacant-utility-43fc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 79c60b2c61105368dcc8444eb45847e21734f7c4
+git cherry-pick -x 9f5f9a78fedc45bc29d6a0a64e3a3472361afae5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082041-rifling-motor-b6eb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082055-vacant-utility-43fc@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,148 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 79c60b2c61105368dcc8444eb45847e21734f7c4 Mon Sep 17 00:00:00 2001
+From 9f5f9a78fedc45bc29d6a0a64e3a3472361afae5 Mon Sep 17 00:00:00 2001
 From: Eric Farman <farman@linux.ibm.com>
-Date: Tue, 28 Jul 2026 05:30:19 +0200
-Subject: [PATCH] s390/vfio_ccw: Cancel existing workqueues
+Date: Tue, 28 Jul 2026 05:30:18 +0200
+Subject: [PATCH] s390/vfio_ccw: Ensure index for read/write regions are within
+ range
 
-The initialization of the io_work and crw_work workqueues begs the
-question of whether they should be un-initialized. Add the corresponding
-cleanup tags in _release_dev to ensure work isn't dispatched after
-the private struct is free'd.
+The introduction of the capability chain rightly clamped the
+region indexes to the range of the capabilities itself, but
+neglected to do so for the existing read/write regions which
+should also be enforced.
 
-Suggested-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Fixes: e5f84dbaea59 ("vfio: ccw: return I/O results asynchronously")
-Fixes: 3f02cb2fd9d2 ("vfio-ccw: Wire up the CRW irq and CRW region")
+Fixes: db8e5d17ac03 ("vfio-ccw: add capabilities chain")
 Cc: stable@vger.kernel.org
+Cc: Cornelia Huck <cohuck@redhat.com>
 Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
 Signed-off-by: Eric Farman <farman@linux.ibm.com>
 Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
 
+diff --git a/drivers/s390/cio/vfio_ccw_async.c b/drivers/s390/cio/vfio_ccw_async.c
+index 420d89ba7f83..4aff0b58fa5d 100644
+--- a/drivers/s390/cio/vfio_ccw_async.c
++++ b/drivers/s390/cio/vfio_ccw_async.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/vfio.h>
++#include <linux/nospec.h>
+ 
+ #include "vfio_ccw_private.h"
+ 
+@@ -24,11 +25,20 @@ static ssize_t vfio_ccw_async_region_read(struct vfio_ccw_private *private,
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&private->io_mutex);
++
++	if (i >= private->num_regions) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
++	i = array_index_nospec(i, private->num_regions);
+ 	region = private->region[i].data;
+ 	if (copy_to_user(buf, (void *)region + pos, count))
+ 		ret = -EFAULT;
+ 	else
+ 		ret = count;
++
++out_unlock:
+ 	mutex_unlock(&private->io_mutex);
+ 	return ret;
+ }
+@@ -48,6 +58,12 @@ static ssize_t vfio_ccw_async_region_write(struct vfio_ccw_private *private,
+ 	if (!mutex_trylock(&private->io_mutex))
+ 		return -EAGAIN;
+ 
++	if (i >= private->num_regions) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
++	i = array_index_nospec(i, private->num_regions);
+ 	region = private->region[i].data;
+ 	if (copy_from_user((void *)region + pos, buf, count)) {
+ 		ret = -EFAULT;
+diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_chp.c
+index 38c176cf6295..f3015132d4b5 100644
+--- a/drivers/s390/cio/vfio_ccw_chp.c
++++ b/drivers/s390/cio/vfio_ccw_chp.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <linux/slab.h>
++#include <linux/nospec.h>
+ #include <linux/vfio.h>
+ #include "vfio_ccw_private.h"
+ 
+@@ -26,6 +27,13 @@ static ssize_t vfio_ccw_schib_region_read(struct vfio_ccw_private *private,
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&private->io_mutex);
++
++	if (i >= private->num_regions) {
++		ret = -EINVAL;
++		goto out;
++	}
++
++	i = array_index_nospec(i, private->num_regions);
+ 	region = private->region[i].data;
+ 
+ 	if (cio_update_schib(sch)) {
+@@ -97,6 +105,12 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+ 		list_del(&crw->next);
+ 
+ 	mutex_lock(&private->io_mutex);
++	if (i >= private->num_regions) {
++		ret = -EINVAL;
++		goto out;
++	}
++
++	i = array_index_nospec(i, private->num_regions);
+ 	region = private->region[i].data;
+ 
+ 	if (crw)
+@@ -109,6 +123,7 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+ 
+ 	region->crw = 0;
+ 
++out:
+ 	mutex_unlock(&private->io_mutex);
+ 
+ 	kfree(crw);
 diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
-index 032a1cdf4df7..d361d1fde3a0 100644
+index 45ec722d25ea..032a1cdf4df7 100644
 --- a/drivers/s390/cio/vfio_ccw_ops.c
 +++ b/drivers/s390/cio/vfio_ccw_ops.c
-@@ -131,6 +131,13 @@ static void vfio_ccw_mdev_release_dev(struct vfio_device *vdev)
- 		container_of(vdev, struct vfio_ccw_private, vdev);
- 	struct vfio_ccw_crw *crw, *temp;
+@@ -243,6 +243,7 @@ static ssize_t vfio_ccw_mdev_read(struct vfio_device *vdev,
+ 		return vfio_ccw_mdev_read_io_region(private, buf, count, ppos);
+ 	default:
+ 		index -= VFIO_CCW_NUM_REGIONS;
++		index = array_index_nospec(index, private->num_regions);
+ 		return private->region[index].ops->read(private, buf, count,
+ 							ppos);
+ 	}
+@@ -295,6 +296,7 @@ static ssize_t vfio_ccw_mdev_write(struct vfio_device *vdev,
+ 		return vfio_ccw_mdev_write_io_region(private, buf, count, ppos);
+ 	default:
+ 		index -= VFIO_CCW_NUM_REGIONS;
++		index = array_index_nospec(index, private->num_regions);
+ 		return private->region[index].ops->write(private, buf, count,
+ 							 ppos);
+ 	}
+@@ -338,11 +340,8 @@ static int vfio_ccw_mdev_ioctl_get_region_info(struct vfio_device *vdev,
+ 		    VFIO_CCW_NUM_REGIONS + private->num_regions)
+ 			return -EINVAL;
  
-+	/*
-+	 * Ensure these work items are fully drained, so none can
-+	 * fire after being released.
-+	 */
-+	cancel_work_sync(&private->io_work);
-+	cancel_work_sync(&private->crw_work);
-+
- 	list_for_each_entry_safe(crw, temp, &private->crw, next) {
- 		list_del(&crw->next);
- 		kfree(crw);
-@@ -202,6 +209,14 @@ static void vfio_ccw_mdev_close_device(struct vfio_device *vdev)
- 		container_of(vdev, struct vfio_ccw_private, vdev);
+-		info->index = array_index_nospec(info->index,
+-						 VFIO_CCW_NUM_REGIONS +
+-						 private->num_regions);
+-
+ 		i = info->index - VFIO_CCW_NUM_REGIONS;
++		i = array_index_nospec(i, private->num_regions);
  
- 	vfio_ccw_fsm_event(private, VFIO_CCW_EVENT_CLOSE);
-+
-+	/*
-+	 * Ensure these work items are drained, in the event the
-+	 * device is re-opened instead of released.
-+	 */
-+	cancel_work_sync(&private->io_work);
-+	cancel_work_sync(&private->crw_work);
-+
- 	vfio_ccw_unregister_dev_regions(private);
- }
- 
+ 		info->offset = VFIO_CCW_INDEX_TO_OFFSET(info->index);
+ 		info->size = private->region[i].size;
 
