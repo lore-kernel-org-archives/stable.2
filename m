@@ -1,189 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917E51714AA;
-	Thu, 20 Aug 2026 06:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 604B01714AA;
+	Thu, 20 Aug 2026 06:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787208797; cv=none; b=lx6WQZSSV8e8JMDIgTJOOYXRdp937sg3m3XvU/d2/xSd7kP16iMJsK+SJQX2GaDO97mcTEtwbyO/m5sPfgRfd0gomdhqohCIiwTBDya1J4WRx9iUNZhn5zI0CgKyl83xm02eGEIPoNau/LfJyiStCNPgDcQag+6p7lC3cZR7l/E=
+	t=1787208843; cv=none; b=pw59dYHtgx/PDl+Xu/qOTqlLXe0GcOFvUaYiLWgcNrhl7k5maYNlyOyKgjnix6mS4otvZjWspn13YVXz/e9/FHih/3f4gizdXFMitSSLc7fk8DPeZ+HRIPYTFnt7mXQ4clxNkFT0nbyqwxZsjLnwT7GLxZ5kbkiS7xQC0nVvPiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787208797; c=relaxed/simple;
-	bh=xeq9p691pnd92mUwraaZ/J+eDzqTgp5lT7ixsE5zmN8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Su3xqxVWc9UNZv6Ag9R/SZbZikgjcMpHHkSe+rWNZDesmB7TTdOqS6izUdiLf3LAGt6b/itflR8AKwQKe2GbE4MnZE4FGgjIbnW98XBDPo9EgJjMlWbWxCtfht8z4Y8A2BKG7cqzGyztrzP2L6LYQ4n2sNi2zbCIf9doIqVyKCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEswjnAB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEswjnAB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71EA81F000E9;
-	Thu, 20 Aug 2026 06:53:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787208796;
-	bh=Poo+wRHDIip4zFS2Z6wipcWfPxZPSybxfz0z1X3UKa8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FEswjnABEnurvbzXM7CvNA7SC/fvhsMIpReccYftYu+5Y6fg76sxkv8e5EiZf0BCP
-	 +9Zf5FWuz7KQedwlYvqlifF1/JI9z0uoiDKzNCrjyAhQFVvzg0NS/ugcPjnkPkpHpr
-	 +BuHkN9KYvPCwmcgZpSXPrY0hytgIkUSpufFjNA1H1m/J18tqTQOBW65nv846h69EG
-	 8ZL60cRgehsQSxOAyP7Dz0d0A0eEbMf9c/GlJSq2qUh7pQV66C+O9m9FsCc/dhVbHh
-	 83mda/FW6eu0rYz4wl1J5dGPHX1yyfKpfeL2osKkX3vqRMm7xalsDwOB+89p9iuclX
-	 6N+1bh92gflUQ==
-Message-ID: <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org>
-Date: Thu, 20 Aug 2026 08:53:05 +0200
+	s=arc-20240116; t=1787208843; c=relaxed/simple;
+	bh=0P/PA7Id22qKU77FALfOINJAeUDFVfM3Cye6rbcBpgw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H/4rVopwUr0TnJyqRfDbzRormznTWXJ2EZRjKFzDXgTw9H5ACbxu83P7NdHbHcISiwAQqO8K1RnMOQi0PeMqFHVml6EalV2AeBW80RNptJ5oC4doEdbcM7Ppy5ziDArERmKAsq4oUSzaqwt2uGqJ7gIwtHkVp0RqOOVMrl5fXU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wD3_y97pIZqQW+sAA--.2727S3;
+	Thu, 20 Aug 2026 14:53:48 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgC3BZ56pIZq6LYCBA--.31554S2;
+	Thu, 20 Aug 2026 14:53:47 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: agruenba@redhat.com
+Cc: swhiteho@redhat.com,
+	gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] gfs2: Add rcu_barrier() before free_sbd() in fill_super() error path
+Date: Thu, 20 Aug 2026 06:52:51 +0000
+Message-Id: <20260820065251.88719-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag
- marvell,ignore-regulatory-hint
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: George Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
- johannes@sipsolutions.net, andrew@lunn.ch, krzk+dt@kernel.org,
- francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
- miriam.rachel.korenblit@intel.com, rafael.beims@toradex.com,
- avraham.stern@intel.com, error27@gmail.com, s.kerkmann@pengutronix.de,
- gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com,
- robh@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
- chunfan.chen@gmail.com, linux-arm-kernel@lists.infradead.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, stable@vger.kernel.org
-References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
- <20260817215428.84740-1-gvalkov@gmail.com>
- <20260819-generous-nickel-dalmatian-b6bb08@quoll>
- <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
- <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org>
- <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgC3BZ56pIZq6LYCBA--.31554S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?cO2JdQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBFfFt0bGohL8E29ILBJeWu5VXnR1NJ95UAX55X4hcKqH16j
+	lqWgsXGU0+VYJX3OYfbN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cw47GrWDXFyDJF4fAr47GFX_yoW8AFWDpr
+	ZrAF17KFWDKry7uw4kA3Zag3W8t3y5uFsrCrW0gw4YqrnxXw12k34ktr42qrWYg397A3s8
+	Xw1qg347XFWDWFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Xo7JUUUUU==
 
-On 20/08/2026 08:42, Chen-Yu Tsai wrote:
-> On Wed, Aug 19, 2026 at 8:27 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 19/08/2026 13:42, George Valkov wrote:
->>> On Wed, 19 Aug 2026 at 12:42, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>
->>>> On Tue, Aug 18, 2026 at 12:54:26AM +0300, Georgi Valkov wrote:
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
->>>>> index 930b700b73d0..5f235cb9f3e5 100644
->>>>> --- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
->>>>> +++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
->>>>> @@ -59,6 +59,12 @@ properties:
->>>>>      description: Calibration data for sub-band 3 in the 5GHz band.
->>>>>      maxItems: 502
->>>>>
->>>>> +  marvell,ignore-regulatory-hint:
->>>>> +    $ref: /schemas/types.yaml#/definitions/flag
->>>>> +    description:
->>>>> +      Ignore an incorrect regulatory hint from ROM,
->>>>> +      so userspace can set the correct regulatory domain.
->>>>> +
->>>>
->>>> Same comments, so you just ignored entire feedback?
->>>
->>> Do you mean this feedback? I already replied to it:
->>>>> Anyway, property looks like SW choice. You must describe hardware
->>>>> instead.
->>>>
->>>> I am sorry, I do not understand what you want me to do?
->>>> Can you please send a diff or a clear description suitable for people
->>>> who have way less experience than you?
->>>
->>>
->>>> Again: you need to describe the hardware, in commit msg, in property
->>>> name and in description. You cannot tell SW what to do, that's not the
->>>> purpose of bindings.
->>>
->>> I still don't understand what I should do?
->>> Can you please show me an example of the changes you want?
->>> Else I'm likely to make a wrong guess and implement it. That obviously
->>> won't help.
->>>
->>> The commit message already describes the issue with WRT3200ACM and WRT32x.
->>>
->>> About the description, do you want me to do something like this?
->>>     description:
->>>       Ignore an incorrect regulatory hint from ROM,
->>>       so userspace can set the correct regulatory domain.
->>> +    WRT3200ACM and WRT32x are known to need this.
->>>
->>> About the property name or flag, do you want me to add a separate flag
->>> for each affected hardware device?
->>> - wrt3200acm,ignore-regulatory-hint
->>> - wrt3200x,ignore-regulatory-hint
->>> - the list may grow if someone decides to add other devices
->>> - and the driver will need to support all of them
->>> - that doesn't make sense, because it isn't scalable
->>
->> You need to describe the actual problem in the hardware or firmware, and
->> then name the property and description accordingly. "Ignore regulatory
->> hint" is clear instruction to the OS what it should do - ignore the
->> wireless-regdb package/instruction etc.
-> 
-> You probably have it backwards. The driver is taking the hint from the
-> hardware ROM, which is fixed and thus wrong once someone carries the
-> device to a different country. I.e. it is a quirk saying the _hardware_
-> region should not be used.
-> 
-> Whether one should override the certified settings, or be able to do that,
-> is a whole different discussion.
-> 
+Commit f9c9ec2c319f ("gfs2: fix use-after-free in gfs2_qd_dealloc")
+added an rcu_barrier() before free_sbd() in gfs2_put_super() so that
+RCU callbacks which dereference the superblock through qd->qd_sbd have
+run before the superblock is freed.  The error path of fill_super()
+frees the superblock through the same free_sbd() call, but without
+waiting for those callbacks.
 
-regulatory-hint for me means usually regdb, but even with your meaning
-you tell SW what to do - ignore hardware regulatory information.
-Property should not tell what SW should do with hardware. Property
-should tell what is happening here in the hardware. In this case: what
-is the reason behind.
+Quota objects can be alive while a mount is failing:
+gfs2_make_fs_rw() runs gfs2_quota_init(), which creates quota data
+objects for the entries of the quota change file; if reading the file
+fails part way, gfs2_quota_init() itself calls gfs2_quota_cleanup(),
+and a withdrawn filesystem makes gfs2_make_fs_rw() call it as well.
+Both dispose of quota objects via gfs2_qd_dispose(), which ends with
+call_rcu(&qd->qd_rcu, gfs2_qd_dealloc); gfs2_qd_dealloc() then
+decrements sdp->sd_quota_count and may wake sdp->sd_kill_wait after
+free_sbd() has already released the superblock.
 
-IOW, why user of a board in country X, where regulatory data says X,
-should have the correct regulatory data ignored?
+Mirror the unmount path and wait for pending RCU callbacks before
+free_sbd() in the fill_super() error path.
 
-Best regards,
-Krzysztof
+This issue was found by an in-house static analysis tool.
+
+Fixes: a475c5dd16e5 ("gfs2: Free quota data objects synchronously")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ fs/gfs2/ops_fstype.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fs/gfs2/ops_fstype.c b/fs/gfs2/ops_fstype.c
+index 718e0da7dfce..7425720697ef 100644
+--- a/fs/gfs2/ops_fstype.c
++++ b/fs/gfs2/ops_fstype.c
+@@ -1314,6 +1314,7 @@ static int gfs2_fill_super(struct super_block *sb, struct fs_context *fc)
+ fail_iput:
+ 	iput(sdp->sd_inode);
+ fail_free:
++	rcu_barrier();
+ 	free_sbd(sdp);
+ 	return error;
+ }
+
