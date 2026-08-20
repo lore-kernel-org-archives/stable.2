@@ -1,62 +1,64 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EDF3E3D95
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBA7420470
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224569; cv=none; b=X1Q8q8nijl0VqCyxMFq8tDfwR2prUKdAvgFt8ITO1d7s4Dq8MeF0/UPZ14dRZYyQAFabqwzHWBXaGP7TRDLlCnSOhevz6sZ3HC7kP73pBvw2wQhNCAWNBavO0psRx+Xkft0CcseWACniWZkzn2EXRBPw1HZA5CyhX32vQvXpboc=
+	t=1787224575; cv=none; b=Op6yggtmSIJZ9lnkjk4l/k2snGlfjdy7zdua0VsUh9ULzrF8NhF/SkYnB7JRz2iF8I9UmQRIAilMcNMuOKI/LrzoDTIaORhH87zvhexRG78wFkWLLVb1YCuQLp0XN12e2U9d/R1LCt2LLC+Bu7Ug2w4VX6cd+IBH28zQyap0Xlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224569; c=relaxed/simple;
-	bh=B2/If2I8PT0MSdA8a4FuUWeodlBgQY7ugY/SpyNFLlI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aQ3O5mQhCrQ5GNHHNTGwPKPk0RZWnaubYztDXHaYj27KsSTf4enSeyNPa3zPvDVUyC7NwN1FZ8vZZccBBH7G5X+WlchcPq5lBieycyjaEedMgJbXq5M942fvueHXArbotblqs88NqoeLLBOD666jOCXyMICkwMSSRle+GcWsjus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hqW2n1pg; arc=none smtp.client-ip=209.85.215.172
+	s=arc-20240116; t=1787224575; c=relaxed/simple;
+	bh=rHwP4XfA9jRj+RHRKEKyTJXOCcW4DcDGXwa8aSdNjkQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=i3EYwt6zuFGS5S+VvPLGKp6UDHvVfxdBpBY4sQKCDSEe5WJmqVIMwLw3yklNlErfwqjVrChGI0fpvh4MvfIK4jLJMDhcafn2P2lIOWyc9k7rcb8cInyNN4Knd/sGJ6bIUUwdCqjm8gZFXD8KKpfcPbaqiGcA5HV1WD6hQWrOnco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K74blQIr; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hqW2n1pg"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so2118629a12.2
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 04:16:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K74blQIr"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84a2c90e383so553310b3a.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 04:16:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787224567; x=1787829367; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yAh4nZneSYIANizSSGNJIh+YCcQ7YFBZyVxQrfrQA4k=;
-        b=hqW2n1pg31AI0Amj5etSUQUPtbuE+qKh/x3SQcWiBiBC8t24HnPp7xKqBux7wX/riP
-         np2uFwQcAlaY0IhbfOF9z5cnzYNzON1vlsCnmVzg9OHZoAWQmSCGUoKpGn3zJGiO2On/
-         8esrPHdCn3N7AUdxoQdorvTy6d9UXN9mMmYPJmZmPGmeuQegfck0Pgnuo5cJOWuhDb3Z
-         N+PyKwy/LqYF89lpxoe7uG7NVmgTrMolpkzeTEEnY1fgnq5J6PjCu1qh5lL1h5w2i74I
-         VnHKTgBFHWtRm0pLneEK5FZBb5Ok24+PmGJLWatHWx5y3RBNJsNTkeyjfe1pwqMyQxzT
-         /S/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787224567; x=1787829367;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787224573; x=1787829373; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yAh4nZneSYIANizSSGNJIh+YCcQ7YFBZyVxQrfrQA4k=;
-        b=BB7JMQ7lhXgVvJT8nGIbpbQ3aTaY56rKqOpmOiZu1krZjBO1z7FPOPtdvrsjmsYQwI
-         Ih5nVYoNsn5rCdrsdQHKwPeZpSjNoh+1CkhBD7YJIJYLnIWkabd4rPvzNA5yyUvdJgXs
-         qx/B7Pg7JFcOu/HjxYUHLBlje5N3tcYzeYt0cUXxsYz66cTapfGaxVaA3fG707PHyf9g
-         8fZVmIgWrS3rLzDfl0ODY0OgCCg6DTQ9xZzLR8gXB1xm9e1MhelWN12r/lqG3vSZLqpb
-         C3PM9dxBEHL+PGfRafgHVVYRfPeWBYbRd/64FfTf57s2GRpZDph+7EHe0107AP8TlENO
-         A5EA==
-X-Forwarded-Encrypted: i=1; AHgh+RqEPA1pS8FTqJ957K4AXHFtZDy9LBe9LeZakej5pGdQTaRexy2SmGwPXbKsN03zT7BRKWdqKZI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn8gNPTyC5qfyt8LHvSd7TgqYCQPi7th9UsRG++bf5C188iM29
-	Ou8jtZeSqC12W13RdxpYzxd7SVraeWxBwevQsAYVYtaDXqIqZBRTOUNsxPCk5huW
-X-Gm-Gg: AR+sD13XYB2H1tshxBWuCQw+Xpytbn1QRssICrmxYqsFK0a6slmtIsGsf6CLZScA8or
-	SunfGOTgEuEiBr3zEHD/oNehkNEIf95PzmelYgGVKJLLSTiiaTJNZ59zofToAVuzaNNgYaimE03
-	ah771zI9wz1gVqeaKc2cFAuUbKxStU9tKilGLuvIWf1ML01WLiKQ4Nf/lLWCC9c9lljNRubz3PZ
-	E4fPcwC2OqBqvCksr76JWH4gVkS9wC5UwWIF295HujxiXnuhJraKEKRt9nxbhK9fBfs6uSDApGM
-	hmhbnVnMnebNz18Co3C8dxY0GYvUtGxobFpQ42Vgm2tnhqtCpyMPl6I4FA0euGVrI6lWcaJCi+6
-	+Nrc8dyaVgXK8np0JU1pa8BMU+LdYU8Ev/s2sSoOfzHt3pKxx1G+33ZYecZYwl3nYua3uC6KsID
-	eYfCzEB0Gmdt+I4TM4bojmxFEISe2uvS1ltKUqzYg3UjSyKwrDEbkS0rwRqgjM6ecywe0xpqNM1
-	aF/5e3wCKhkCDowaXrPos69QX5julWN48ZSbmzEFtzjOFJPM58Soth59OTKqpzW
-X-Received: by 2002:a05:6a21:99a3:b0:3cc:faf3:331a with SMTP id adf61e73a8af0-3cd011b5342mr21398409637.10.1787224566967;
-        Thu, 20 Aug 2026 04:16:06 -0700 (PDT)
+        bh=aUdHCBJZOHM/va9FiVML/hn1mg9LRuKeIIYVF8glt60=;
+        b=K74blQIrSh/UssZZ78uXjrRKNv6N4HumxwusJgVzth8os3kIaWSSK6acGE4r5pvzJe
+         vwP0p/vTY/pSabEANau6VfbXMCkAgLIgTVCE3aaUOwmwDP/qQAAQj5Ml9X7/scGUOsCj
+         q880YiiRqOo5sS4mKU/2tHf7neZJgSfBiS5mfrFT/sdQ/Eo6d7RrrdJ4WnvvzqZS2K0r
+         JSSEBHzuD08UXA2FqXVZIdgX7GcrKlL2QuPsXBcxYCKWKVgot0zpHxRIIgf1oWyR7WNd
+         a7mQE3QWSO/K3dQ7lXR4yv/c0gVtrYqUdqzz+0oUaHc6Ym7Vfjo38ZMhRXN5VTTId5q8
+         G9mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787224573; x=1787829373;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aUdHCBJZOHM/va9FiVML/hn1mg9LRuKeIIYVF8glt60=;
+        b=oIMJFd4nvDf52C1dyYc1DmSB25N/fbWcsT7qmZciv89LxjfsgJLweueDX3mTa2uwP7
+         eMlD1yJSI5+Qf5MslSeH8D0SGTA1FyfE2iv1FOgTkDutc/uCkjYfcBAwkCUsOS7OGfmZ
+         O7EZAIoZxP9ihiQLirJa0BckYj8AEyznoNtU+1/LdgGoccQ2Ukd2FLbtr7aQFNdq5wvX
+         274wz2iJAtp33PltsK2mS5bYnl74Z5+RWjsicTQv2wg3YmL16qaGm4/hVa5tHmaO1a0U
+         qzlSKPiayJpjDtobcdOpi9FQ2MUthvrrjAAqeQFMQPInCMgqZoUfZfVNWYKk9Fq9p2RF
+         mtdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqiVHQDK91s1pMvv4d/wX+DGTcDM3sqMGgjKxWdS9Kr7o7ksGHD1F3KAw6DK8OgE2GJ1I5DiME=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/Xx4e2sUHqUa2l8I+Al0nWpv1QOCc7hPPvVtSqzPGpCf+lqS1
+	TLL7LEdRUSYU6TRidwmx5XHWAo3/JdQ4/w57v/HLI5Hr/7BPS3TNk4j1FJ7WZfNN
+X-Gm-Gg: AR+sD13S8dVSMYhYDAJEIkCVvoF0IgUYEjyLKgnmR1ForAPgk9jHh7O5uXBZi+1aSAF
+	+7xk9xHtIM9lnloeLshweQ2TNL6EYRbfuoJTNZ8b7I+YvwzoNwfeJdXyBTBX7n7uzSYKf7ma3rz
+	Md/QdMM8LuQvjnWHdpDva7u2iCybyOnZ1iwyd3ttEr96cp+acZGBN8PhpafDExt/BTcvCsBSjp/
+	ZpLKD7tpf8QJiMB7e8PWOJISmn83pZ4l5CO2LsBKbxNRCKVwHkzsr1z24gZbAgEHApUBLebXWXP
+	5CVpbZ4YHFT6eT0p3XkUKUax8pA3SpFlP5sxVihSkNvGJw0nKMFAZOG2ggk3GBq+UeanrDaIBFI
+	xPXgCJZVmomD3iWN25diPApGGjGd4xScJypfHBn2nZNzUvSUOBNw32VK+XjQ1UA3uEkNrM09V+U
+	lkFcrOBNigTCMjyM7w6uZ2ZgrLC7U/2jWRs1wa1cK9naOHls1Rl6gwFWsv5wVuTsUg6ynS/iD1J
+	Cub5i/CCvN+VPQWU+kEVMkqJm418gUq2prp+ZhlA0t3bEoJXhLhE+z/8QleKvDs
+X-Received: by 2002:a05:6a21:6f11:b0:39b:bc11:9ec5 with SMTP id adf61e73a8af0-3cd14faf56emr7432453637.13.1787224572709;
+        Thu, 20 Aug 2026 04:16:12 -0700 (PDT)
 Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc15cada6fesm1236455a12.27.2026.08.20.04.16.03
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc15cada6fesm1236455a12.27.2026.08.20.04.16.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 04:16:05 -0700 (PDT)
+        Thu, 20 Aug 2026 04:16:11 -0700 (PDT)
 From: HyeongJun An <sammiee5311@gmail.com>
 To: Even Xu <even.xu@intel.com>,
 	Xinpeng Sun <xinpeng.sun@intel.com>,
@@ -66,10 +68,12 @@ Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 0/2] HID: intel-thc-hid: intel-quickspi: two DMA buffer overflows
-Date: Thu, 20 Aug 2026 20:15:56 +0900
-Message-ID: <20260820111558.475304-1-sammiee5311@gmail.com>
+Subject: [PATCH 1/2] HID: intel-thc-hid: intel-quickspi: size the input buffer for the DMA
+Date: Thu, 20 Aug 2026 20:15:57 +0900
+Message-ID: <20260820111558.475304-2-sammiee5311@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260820111558.475304-1-sammiee5311@gmail.com>
+References: <20260820111558.475304-1-sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,32 +82,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two heap overflows on the QuickSPI receive path, both from a controller
-that declares one length and sends another.
+quickspi_alloc_report_buf() sizes input_buf from max_input_len, but the
+RXDMA2 channel it feeds is programmed with ALIGN(max_input_len, SZ_4K):
+quickspi_dma_init() passes the raw value and dma_set_max_packet_size()
+rounds it up.  setup_dma_buffers() maps that rounded size and
+read_dma_buffer() bounds the message against it, so a controller
+reporting max_input_len 64 and rep_desc_len 600 gets a 600 byte buffer
+behind a 4096 byte DMA.  thc_rxdma_read() has no capacity argument, so
+nothing downstream can catch it.
 
-The first is the DMA landing buffer, sized from the device descriptor while
-the THC DMA rounds its packet size up to 4K.  The second is the GET REPORT
-response, whose length is checked against what the DMA delivered and never
-against report_buf.  Each has a sibling in-tree that already gets it right,
-named in the patch.
+The intel-quicki2c sibling floors its input buffer at SZ_4K for this
+reason, with the comment "give default 4K buffer to avoid DMA buffer
+overrun".  Round up the same way the DMA does.
 
-Neither was reproduced on hardware.  Both turned up while working on
-commit 035ec4a71cb8 ("HID: intel-thc-hid: intel-quickspi: bound GET_REPORT
-response to the caller buffer"), which covers neither.
+Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC QuickSPI driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+ drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-A fuller fix for the first would give thc_rxdma_read() a capacity argument,
-but that changes a shared API and touches intel-quicki2c, so this keeps to
-the driver.
-
-HyeongJun An (2):
-  HID: intel-thc-hid: intel-quickspi: size the input buffer for the DMA
-  HID: intel-thc-hid: intel-quickspi: bound the GET REPORT response to
-    report_buf
-
- .../hid/intel-thc-hid/intel-quickspi/pci-quickspi.c  |  9 +++++++--
- .../intel-thc-hid/intel-quickspi/quickspi-protocol.c | 12 ++++++++++--
- 2 files changed, 17 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index 89226f5ce45e..9ef33574c202 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -9,6 +9,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/irqreturn.h>
+ #include <linux/pci.h>
++#include <linux/sizes.h>
+ #include <linux/pm_runtime.h>
+ 
+ #include <linux/gpio/consumer.h>
+@@ -549,8 +550,12 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
+ 	if (!qsdev->report_descriptor)
+ 		return -ENOMEM;
+ 
+-	max_input_len = max(le16_to_cpu(qsdev->dev_desc.rep_desc_len),
+-			    le16_to_cpu(qsdev->dev_desc.max_input_len));
++	/*
++	 * thc_dma_set_max_packet_sizes() rounds the RXDMA2 packet size up to
++	 * 4K, so the DMA can hand back more than max_input_len bytes.
++	 */
++	max_input_len = max_t(size_t, le16_to_cpu(qsdev->dev_desc.rep_desc_len),
++			      ALIGN(le16_to_cpu(qsdev->dev_desc.max_input_len), SZ_4K));
+ 
+ 	qsdev->input_buf = devm_kzalloc(qsdev->dev, max_input_len, GFP_KERNEL);
+ 	if (!qsdev->input_buf)
 -- 
 2.43.0
 
