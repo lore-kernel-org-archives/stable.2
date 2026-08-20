@@ -1,122 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7821A262D;
-	Thu, 20 Aug 2026 22:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD8B25B08E
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 22:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787265441; cv=none; b=efj7wqKb73a4Xy3entawoyQe6RkkbavyH1PLb6GbW5X9/Cif7fwxA547qfN0xFTgn3le2O9GuLz9FUd9t8cq5Ku6ykdMlrcCth7lYWrOwZHtSZGab+F7m5KeEIeY80i9B9T/bBS8nB0JXtSN6EiZIkJhA8bC6C+dAjaSBxWJFBY=
+	t=1787266748; cv=none; b=roJeXlHZDCQJ7CBrAKyNYw9HXl1h+JYBr1+Aao7/riL/xWen2GaxNXEI5hDPcuSsc1p2EKxQenoN1kmn+77PuCkc5wVcIVChTQUZJHKyFCq+9oihSx2axJEO5Jy/ZqULL5MILnAJFOU/VEM6gmWgdFVbjvYM9VN3OQCbdh3ELk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787265441; c=relaxed/simple;
-	bh=GNh1oKIqh1hYIXNfY62No/2QEQy26mL/OGvmGJICiHM=;
-	h=Date:To:From:Subject:Message-Id; b=RB8EjKk7bNh3C7RN2fILG2yi5QN5Qv3wSGukqAj5GA4tU5MYFww10cJGN+X1sO4rwO3CB8jca0M+QaZn3ngtGQUXHb/KEcbjroVxJ4Unx27zaqKAUmHMMiMl12g66kn3MOlEeSSlEVLEHC5U19CRXD5Z9qbHWXwmAtNqzkheokc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xK/zJ4wz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787266748; c=relaxed/simple;
+	bh=ngByA10emgdxM5UHa+RxRnlSjddvX5xzkeSS1kMjDqo=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=KXabdUqgNXYteBQgGB3kTZ2JrJuhWBA/WouzVV8/u7RQuSFw7Cxjc5YuSaLLmyOGbgYhCcA7+0KZtqEGuGIrM/i2p/ptaJ7/Z7+bsTfeQXROah7XQU7zRtMmVjVBcoICpI2cqVTwzghNNl7vRD9UmEoHGKhukhUkMkZjz7Y8LFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=izQmt5uj; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xK/zJ4wz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A3C1F000E9;
-	Thu, 20 Aug 2026 22:37:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="izQmt5uj"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso226503a91.3
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 15:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787265439;
-	bh=aR7QFhU2qyyqWdWg7WWSdTugbKcWOxnWP7sqGWbushs=;
-	h=Date:To:From:Subject;
-	b=xK/zJ4wztatdgR/B8NQbYzjbFu//GilTvJbqL0RCpTWt7Dxo0g6OZs35knQzUjgcd
-	 0S1CCwc/TGBkBg7VMeTM3IkMBCeK2AdkfwrIOYVnl0WAXtMTfD22kxYOfyy24OKEjL
-	 CRWh9uE6yNnhcj52utOIANrvoYUm3JM+BXStF6HU=
-Date: Thu, 20 Aug 2026 15:37:19 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stern@rowland.harvard.edu,stable@vger.kernel.org,gregkh@linuxfoundation.org,ziy@nvidia.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + usb-gadgetfs-do-not-warn-about-excessively-large-memory-allocations.patch added to mm-nonmm-unstable branch
-Message-Id: <20260820223719.A4A3C1F000E9@smtp.kernel.org>
+        d=kernelci.org; s=google; t=1787266745; x=1787871545; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qVhhbTAHPzZGUGcmSE3WnC31BC/4bNVQtIpJ4+qTvoc=;
+        b=izQmt5ujbA7hmhnMCJgO/1Vx4Hw+7xsVHTfFUes+F8SY08lnTC6oGziTK6IyBYpcW3
+         8k7GuaDQ0UpvhLv/U/Nk4DQeBz6Yr+183FGtBg96c37JXliW+MHbxuolTEAr645GMIRV
+         pn7aNHUk5PSdJVqr2a7o0y//jeio4bpJ+uEmzSDQjQcpnyZ+tHHeGoSTtcdyvVNY+Ay/
+         bRl9VOPc7nu/TgvUz7xh1G4g6bFjMWtndoDsOXIakeVgofXaB1XoLiW6yZVthqtZVaiv
+         cN6EvvEKwo2h3P6YmJppKNrqHpiZIFjB6A+pOXx3DCxDMjzM2hO9dgPieqYwgL5Y0BRZ
+         2cxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787266745; x=1787871545;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qVhhbTAHPzZGUGcmSE3WnC31BC/4bNVQtIpJ4+qTvoc=;
+        b=qZyf9g8X/1eF8zf3PJgAUmKmmOudGs4ZK8t82cJOOdJlL/zYmmRMt6d3vOe7Ok5ox7
+         YGIjobUMK5d3InWRo0QhTA0ILcdwIJnZg1zQ5dLvYdV3pZhK3gaJ23WM4rs6P91RXN1D
+         VgfiE/r8X1K8COyxwXbjglJtcFPb+kMzlEF/Nwjg3DoueV3/qb7MUYAqLFOFOVAffc4W
+         EblMIniUOAsFWWCoEAnibNUTXLlUC8qLkkp8bn6WYOixG9ELDfvLspCCocxaNHdzCy0O
+         9k4gEHslaH9UEf4JBLvVl12bXrnqtpcnhKgugHeRvPuI9m+EV5TClQ9D/z6Zjl1YJtOd
+         od9A==
+X-Gm-Message-State: AFuF++kYovNxP8UECzcFkJj0aItkYazRJhRXDoYbXRe1pKCOVCwChSZy
+	ia2fGrzk7zhOIzJYJm2Evx9pSXC4eSmufDeC9BNATfTX6804QN8eamD63mD6FgpGPVw=
+X-Gm-Gg: AR+sD12zWe9ZcIzcWLgowr6w5BBZpcZZ7XMJV4nF8wvbFQndGEJ/kf96191vNTDfFB/
+	cgiXcaUf+FIUzY6d89lKXBlb7VQ+MKJCoWuNCKPymlFUId1yD4k3kzmO1jQBzChBGWXbAlI/b0z
+	KVUHB2dCBQpwJ+p2qMDwGrbTCrd+4oNG7WZHAr7n1BXOmyozblqPjxdHbv8mSOT2ugqWq73tehP
+	g9isw1DmbZZlouWaNi4xhj5zh3XJYeSaiFjNEz+VjM/np0O0SEpsDOaDqhlSkCKVz7PatVAzTh0
+	rmjucs+SimnJFEyFK7Mu3bBj8ymafr8n4gfNi1iW+6xXvBm+9A6lN8Z/8js8gGtz7rDV7mclBzk
+	aAindATgtbQDSv+iC5Fm7CEp1WkcyHjkeE48NCu8dfiS2bE8S3yKpNeH5dAIDyi/XYN0Duq6WKo
+	eanswiEdIRFFuF3uKlRGiFFYfET6LgfC5V0KwDEQgwUkw2CPZ2lct2
+X-Received: by 2002:a17:90b:2c87:b0:392:7f74:58c9 with SMTP id 98e67ed59e1d1-395c3a43766mr3258455a91.15.1787266745294;
+        Thu, 20 Aug 2026 15:59:05 -0700 (PDT)
+Received: from b455de3d9de8 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ad69638sm18248948c88.7.2026.08.20.15.59.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 15:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-7.1.y: (build) stack frame size (2096)
+ exceeds
+ limit (2048) in 'dml314_ModeSuppor...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Thu, 20 Aug 2026 22:59:03 -0000
+Message-ID: <178726674343.934.9433374333508551644@kernelci.org>
 
+New build issue found on stable-rc/linux-7.1.y:
 
-The patch titled
-     Subject: USB: gadgetfs: do not WARN about excessively large memory allocations
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     usb-gadgetfs-do-not-warn-about-excessively-large-memory-allocations.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/usb-gadgetfs-do-not-warn-about-excessively-large-memory-allocations.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Zi Yan <ziy@nvidia.com>
-Subject: USB: gadgetfs: do not WARN about excessively large memory allocations
-Date: Thu, 20 Aug 2026 09:19:12 -0400
-
-GadgetFS passes an excessively large user input len to kmalloc and kmalloc
-gives a WARN (see below for details).  Suppress it by passing __GFP_NOWARN
-to kmalloc used by both ep_write_iter() and ep_read_iter().  Follow the
-same method as commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about
-excessively large memory allocations").
-
-kmalloc is used to allocate physically contiguous memory for kernel
-allocations.  For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc
-uses the page allocator and can only support up to KMALLOC_MAX_SIZE.  For
-request sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a
-WARN because kmalloc allocates an order greater than MAX_PAGE_ORDER.
-
-Link: https://lore.kernel.org/DKTTMAS94IMH.2C6ERY0ZIVWVZ@nvidia.com
-Fixes: b3c466ce5129 ("page allocator: do not sanity check order in the fast=
- path")
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@googl=
-e.com/
-Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+ stack frame size (2096) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than] in drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.o (drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
- drivers/usb/gadget/legacy/inode.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Log excerpt:
+=====================================================
+/tmp/kci/linux/drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.c:3892:6: error: stack frame size (2096) exceeds limit (2048) in 'dml314_ModeSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+ 3892 | void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
+      |      ^
+1 error generated.
 
---- a/drivers/usb/gadget/legacy/inode.c~usb-gadgetfs-do-not-warn-about-excessively-large-memory-allocations
-+++ a/drivers/usb/gadget/legacy/inode.c
-@@ -604,7 +604,7 @@ ep_read_iter(struct kiocb *iocb, struct
- 		return -EBADMSG;
- 	}
- 
--	buf = kmalloc(len, GFP_KERNEL);
-+	buf = kmalloc(len, GFP_KERNEL | __GFP_NOWARN);
- 	if (unlikely(!buf)) {
- 		mutex_unlock(&epdata->lock);
- 		return -ENOMEM;
-@@ -666,7 +666,7 @@ ep_write_iter(struct kiocb *iocb, struct
- 		return -EBADMSG;
- 	}
- 
--	buf = kmalloc(len, GFP_KERNEL);
-+	buf = kmalloc(len, GFP_KERNEL | __GFP_NOWARN);
- 	if (unlikely(!buf)) {
- 		mutex_unlock(&epdata->lock);
- 		return -ENOMEM;
-_
+=====================================================
 
-Patches currently in -mm which might be from ziy@nvidia.com are
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
-mm-huge_memory-use-folios-memcg-inside-__folio_split.patch
-xarray-honor-xa_flags_account-in-xas_split_alloc.patch
-usb-gadgetfs-do-not-warn-about-excessively-large-memory-allocations.patch
+Reported-by: kernelci.org bot <bot@kernelci.org>
 
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:2318f8492f6acdd68704ab04516d4812b0caff15
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  89a96476cd72dc1e1fc0e617e4fad9f5f68546a9
+
+# Builds where the incident occurred:
+
+## x86_64_defconfig+kselftest+x86-board on (x86_64):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6a87162962f33761c0f0cae3
+
+#kernelci issue maestro:2318f8492f6acdd68704ab04516d4812b0caff15
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
