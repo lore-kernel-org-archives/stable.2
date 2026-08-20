@@ -1,190 +1,272 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012048.outbound.protection.outlook.com [52.101.53.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055A11F8AC5
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 05:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787204402; cv=none; b=aLvwA9S7XBtiUpjVXz9GZxNAb6OS+PF7b1Xd/fGDSQ8D3bOxp1F/PQkAotua4kqMFxi/tKY4sXH5ysmi8bSk35SDF2EF4VjEYciWlO2ilebn+6wfqsAmwYeDJ/hhVBZ4NpmY2HbU06McmJ9/MTiOkldFohQUUQfVGpi7WUmgTTA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787204402; c=relaxed/simple;
-	bh=sp37ocaCCvh8mEqRApDXVrf0uLcNlKjOJsf8ZDK0AHo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UO0Vf636HMbq5l7aZcOeDJdauwilBt4nSI93dliviZ+DR6QC/uY91Z4eESELsh34e22G07/eECzWDw200RYZiCxYA7jn0TQ4YqenOeayMaF0HRFGM1vTrz7YuciYPbqxyci4c6EpuaGJEmYhvqBI/3P/u14DgHvKMQXWr7wWXaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=his1vNIR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aiI1QpJ5; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FE73803E1;
+	Thu, 20 Aug 2026 05:49:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787204958; cv=fail; b=G5Ap8ZTEr66vNCx3LlLcqOJpN/Lg3Ly+XAJuLpzgf4qQMVTMo+WYVvKkti3kL690wjMGaRvIUrpFqaNoYfbIu45FvWiYtrcixaACml4n/YWsScqSHGZHRcj5ANuCrUwVbPy1UiuiqPWGdc0oVAqUly89d/fHkx44aJhVdpWcp4E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787204958; c=relaxed/simple;
+	bh=IEVi4NTm+GnFk+jFbGCey049+nEnji8TcjklkO57fdk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D2A/2zj2DTFqLEsbK+sVuW7171rs4PyHRX6fPyQTD+9rQWDYxFrjm+4pFLnRoyjMmI/0vae2qKbH/6sRJPZUyHYIe8jU/JcwPShdSoqf1pm6b4LvEs+30BsqfnD5ybTKuE+ju5cpgu/s2ETAOFEKrgEiOTnWuAIdPqjSJDS5xJM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4JQjSFYW; arc=fail smtp.client-ip=52.101.53.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="his1vNIR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aiI1QpJ5"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K5ZDCW490916
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 05:40:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yr0+nommJTYT2OfeS5drPEQCv0SxAJnJA6eqUOoAqvE=; b=his1vNIRL81fFQ5W
-	WGjoaYBN9WHeotrO6UdjbO5nrnHYbJb11Zwf4TsdUPfOpnprQm5ExqZ9+Rxt9sOg
-	lu/KbJW+2LBvWRjZb4tIMe131XrqJxHeGoSvfEt5clDDkiMutXpZUfsStxwKT9h5
-	Megs24ykqR/owF0H9OH332lZmU+TYBfSRW93ZhRzlLvs5n0tDq3OfAxuIFeTfWKL
-	sAZsMzq7mSa7edPDKCZasvXZSjYM5Nw4OPDs0rmkHt+RIBbaWBk1uDEs0IqLBG3e
-	TLCSjvr41ueHnTe7Edjnqpd2F7qJsjec8Gw+SG7VRzMqWDWNuQNU6A/9RYG5eKx6
-	4/rFYA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5ervkc0w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 05:39:59 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so1526762a12.0
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 22:39:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787204399; x=1787809199; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yr0+nommJTYT2OfeS5drPEQCv0SxAJnJA6eqUOoAqvE=;
-        b=aiI1QpJ5uNPE6NJvMJOypeQYj4lbZ2IXpGS7GdHgkDFXNQqVnPPjlU/eIGfYfC064X
-         A//ZNMIu0xbjcGKDD3cIbUZFaDrEy0W+BVvxqG7vx5E5PIOItmTTA0eLEOsD+R+6MJWt
-         VVJe3ci0TA6DQnX1e6ijhME1TZsH/xk41IAPWbFBUfD9QCs0vmqzVTi46BriTReDTb0J
-         IwAffCdUlYsdze1Ia+FGq9p2NMqIt8q+INbnECjnuqo0z22moo2yZD+NoMrlrr6QIQFF
-         TkTHdNph/XS9lbZ231DisVK59mstItlBqZlL14NTy4cr7qpCMlAfhxUxdVT6rPgLPqEg
-         0hIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787204399; x=1787809199;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yr0+nommJTYT2OfeS5drPEQCv0SxAJnJA6eqUOoAqvE=;
-        b=pQXiwuvh/1MXYntEe0qILt+MBvWGmO8CGC7ks8HSmijRIHsvl+EgbkV06uIFuoBR3h
-         QP0PU540z/B2fl+EEwDIVqjzw2BfEWkK2kWQ6GFdmIAyEX6MAioJnOXm+F8SqjQ08Axm
-         0N1DTMKdB29d+47AyqhqFgtPE69c4Msgbr+brNIEL0sCJk/zbjLu2B2d5RZ8j68c57oi
-         jOQI9Gh9ivjrEeOvdPTEEkFpNw/KRiUuygKuXN6BhQQ6kuXNaOsoOMRqJocw2IP/9VTi
-         31c0e0v9Q1Kh06hKnNIdldS7uIr2q7A/cWakNSyFLKExSViQ52+MXioC1Lj8zZZoFeRM
-         OFWA==
-X-Forwarded-Encrypted: i=1; AHgh+RrukCN176aZwIlrkc9M44pbbiUHxICEccdeBg3+VVU9A9tfBpZxKeqso/1050lwhdwkX5VX8l0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTU09zqSu/LvUQubH9kb/MGiyFYpzlW5aijp3dcnba4BTCFH2Z
-	b81RxL8PNR59sd7r81NLJKgn6f/MbdHCTll4NEJYvRzduW3SE1h2XBfpKFTzUlGWOLYvhMpgqf/
-	RwbhMeBzWO4XvqVwlLBRodNfgpYVl2m+yZTMR5LJjCpannByNo603/vGxdcc=
-X-Gm-Gg: AR+sD13XHsqkcSabdKYcvDKt+5Ypr34LZ6wBc9kdYUzKXM88rMSgXkLTleofpvl7eRH
-	0Y0yetEH3zu5ARh+NwXsXEvplSnzCz5wCGMpsyMWxFM7Ew4P2boONxCslzd0rwM2EV/i3OyGB37
-	stA+RHRtmQG0dX58qdFy8QjoT04fw8LTDAoHPRbpV8jIsM68gwaLB7BjMleI1edobAJnAyZs+Rd
-	JzQZSRPPln8Zke82hL0gVcqXyKR8JvipwstwlI81lu0Qd5TrLhHmvLN0+bEvoC+9oO43TCOZXiq
-	8LsU5jFi+acTqSPMUrsjEaBeNkNiNNJKtUToldDOGtnQkhIB/WLtkGdMbDtavvsh2yPByvnp49Z
-	ZVg8tDv39sZsuMxgzsHmx5Z88J6IH73zVj04A9PfjbjRBjS9TOQ7CnuI7M/y7UOIy
-X-Received: by 2002:a05:6a21:3a85:b0:3cc:a18c:b6d1 with SMTP id adf61e73a8af0-3cd019dc603mr20385937637.17.1787204399322;
-        Wed, 19 Aug 2026 22:39:59 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3a85:b0:3cc:a18c:b6d1 with SMTP id adf61e73a8af0-3cd019dc603mr20385857637.17.1787204398872;
-        Wed, 19 Aug 2026 22:39:58 -0700 (PDT)
-Received: from [10.133.33.27] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc15523b579sm1412666a12.3.2026.08.19.22.39.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 22:39:58 -0700 (PDT)
-Message-ID: <181944c2-2484-4384-9c91-45cc87f31955@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 13:39:52 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4JQjSFYW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QWkniQbuelPGsuJJQAnnmIiiFV7BslD9dPHnWTyGfNEFJnPZ7NvIu2WiNuKrdXR4NDmFIr4KTcCmtw/sS43MJbnLRujBam6Sh9ZnrSjPnWlhBqkI57IALOlnhYwK4NH322fh3lRbP4R7uPKEC8yb3B3IgN0auc84ow8F/08dI5tR2fL0DFIGI3Lb8jcJyOcmHkXBzvabE/eDmn8KU5k7C+sJUt11p/9n35U6Bk6cw1oKCXhN7CtXewnaD7YbkpysGGzeSuQPHDAxTOoqdmjUpQB/HeWlQXB2lY7p5NLusrdQNY03otkiDBNmI3J+o7WRHD0VKTXYkng3MGDBiN8tPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hfCPAFZ8SSnbEJSQvvFyLacH5EfAin/mhLyXqhnmhx8=;
+ b=cCUl6pjV5GL2IcnztqW4O3jcPnGf7qg5Ht55uO+dkpPGCT+JC0AYQ4JLPrg6vDtZBax1xzY6Ugcc0Xd3EjLLCDcCvfwl+sNYkdN6vtFpeh0a0KM2vaa2Oxfxxj/Tp6d2AhUkTef9zemvisihqW7yzX113cEkhAOzVUELDBve+8oBO8kMUfwqiX5D7ypjAfbHLpR8vM5f8XsnadXtFaynEaXmktxDzMrUy3F8Wo+HHzOFrk7dnRvPowisLm+lQi2Ts0p6A5kTNI+ch7Ys/yukjnlujkT+XTtqVO72Vd0Ppuq3E/cKjUmntTCVrTHSkiOHjM9uQXI7sC8OhZ4D4xCrGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=rong.moe smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hfCPAFZ8SSnbEJSQvvFyLacH5EfAin/mhLyXqhnmhx8=;
+ b=4JQjSFYWa++2MClSwU0fDfx4WDX1nM6adCguS+X0HshhUzc7Ph2xh8sP8l6bcsTH7eWSoJSPm3H4dkvWVakJXx4CxhSgJhQI3wpuQDeUtNzWTIjz9XQCJyJ7rCOkFqks5zBgZ6XBI9KlXqWnrxfyqlsafN95NcEbvIr64CzboAk=
+Received: from MN2PR11CA0001.namprd11.prod.outlook.com (2603:10b6:208:23b::6)
+ by DSVPR12MB999259.namprd12.prod.outlook.com (2603:10b6:8:423::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.9; Thu, 20 Aug
+ 2026 05:49:11 +0000
+Received: from BN3PEPF0000B06A.namprd21.prod.outlook.com
+ (2603:10b6:208:23b:cafe::9b) by MN2PR11CA0001.outlook.office365.com
+ (2603:10b6:208:23b::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Thu, 20
+ Aug 2026 05:49:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B06A.mail.protection.outlook.com (10.167.243.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.0 via Frontend Transport; Thu, 20 Aug 2026 05:49:11 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 20 Aug
+ 2026 00:49:09 -0500
+Received: from amd.com (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 20 Aug 2026 00:49:07 -0500
+Date: Thu, 20 Aug 2026 05:48:59 +0000
+From: Ankit Soni <Ankit.Soni@amd.com>
+To: Rong Zhang <i@rong.moe>
+CC: "Joerg Roedel (AMD)" <joro@8bytes.org>, Suravee Suthikulpanit
+	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
+ Deacon" <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Joerg Roedel
+	<jroedel@suse.de>, Huang Rui <ray.huang@amd.com>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH 0/2] iommu/amd: Do not request ACS when IOMMU is not
+ going to be initialized
+Message-ID: <sv2id4b3qz34q2tueg4mswgagoh2xr7tsk2eafxcxsqz2z4lkd@qs2hxx5cjcyl>
+References: <20260811-amd-iommu-fix-acs-v1-0-d64e2172408d@rong.moe>
+ <zm24u35jq6ruz5teu6sevoe447esrqim3gn24s4bdb7kvncz6z@rmhomnfqzwht>
+ <c5dc4cae4f4f33c98ee96d4d15da446b9fbf1f59.camel@rong.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
- enabled
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Stanislaw Pal <kuncy7@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-        Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20260730191353.557494-1-kuncy7@gmail.com>
- <aeeeebf9-dbd4-4f57-847a-5f495b3236a2@oss.qualcomm.com>
- <20260803091003.15285-1-kuncy7@gmail.com>
- <8af46926-fecc-4396-973e-2290ae285998@oss.qualcomm.com>
- <cd5a25ed-76a3-4f1f-b924-06bb685ff426@oss.qualcomm.com>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <cd5a25ed-76a3-4f1f-b924-06bb685ff426@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: H-kdybX0GCpjcaLu_zf70rZViO8jKk0P
-X-Authority-Analysis: v=2.4 cv=VZ3H+lp9 c=1 sm=1 tr=0 ts=6a869330 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=BrIDYzEHq6298WO724AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAzOSBTYWx0ZWRfX0dngovOrV9Yu
- NnseNYoAqFX3pR+Z2PPL96PMo6oMt23YgO3ghcAZPrY204p/ROVYQwz3GJBLi0WdJCmSR+JJQ3v
- /Y8hLPzPKHqh1HMIsRbzNG6+4RkKsC3ebWoXucDDxvYXP8YBeJSXMNGO6ga3UX8E5YF4XFlT9bS
- 7qUXoClxoPjYI6F//cGH78cr+0ZjGFXdZsST0tsDoU7L296rTgkAwjL4BlCQy9nJvxLseHOrtof
- kYHxk3KkaCAHx/2+liRWdkUt2AbJVCoykzMY95m0eCzIGQVgL1Prp0Ka3yCo/+XSboz7GtGyo93
- J6cww+v6Fp/ITN/qqsbKnrh8sVZNe6oOU3/qenJu80blsX8hK6C4VBgweBNSRk+SZtbMqyzIGA7
- zc8Wq1oM3CLEYn0RjfZMot/sKQLQ9M859K8112EoD02XJGqdIorZgI2W3EcoG0V4RlDJ2f1yZTW
- grXxpRxpKxdlzSNfjyw==
-X-Proofpoint-ORIG-GUID: H-kdybX0GCpjcaLu_zf70rZViO8jKk0P
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAzOSBTYWx0ZWRfXz/tcDY/q71HE
- HK+ycps4VC1PKZBobWL5cA6RGwznUdTWPDvdl5rZPxryQyKAozHzIJYCNra0HGg/ULPPWZPxwzj
- FaEDOVW8fE0pwBebtrgwxre6gwu3hsc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608200039
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <c5dc4cae4f4f33c98ee96d4d15da446b9fbf1f59.camel@rong.moe>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06A:EE_|DSVPR12MB999259:EE_
+X-MS-Office365-Filtering-Correlation-Id: e26fd843-edf8-44c0-60a0-08defe7ec230
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|11063799006|4143699003|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	RfstU6CLnI5kxwBJI2rfCFIrS2FaVGaj0vGI+5PNPdNO61UfEvL3YZMdxi8C/CohBx8mToFCqircJX+yma+E8WCRl+4B+DGCr7DV0K15BK7lviq2PvOf+ktmKv6ifhfJUNn26VBWOOCvd+waj1GfiPtg9QR2YthH5L3e56mKFLjSef17nCpE1Q6OBEWHbSgv+ilcezyGviTVAGR6qO8ze+Q2OOXEWMXtcl6dVJlfwZ9YxCUJjOf8NPWDFm+lTF2GmFXTaZfbg78FrtgqA+8N94Jh6a+A3h2QFQRVMnNsEy5NipHarZYm/UgolPiw/pme5RZL+QEaJpCshVI7o5IG74KN1BdbIKwgogQ2VSLa1NUzt6P/mVFzhAI1oUOUpOenvfH3pQBBI4eauhOw3i+7SCrjyyDOmAv4PQVmbhg5/PPoitkeHqgUcK3+YKfxLmELk/j0fhGN2hUX2MznF5/3syUav7XA743ZQ7fO7OZZtI3CalDurS282EZlKhf6wE3yVcPEE+xFgbEQaJOh16JYHhPO+8e9FWi+8X/Fz3isi1ERi+rLE7P6y+gEF+zicfqPwvEnY2vatpkps+NZNzgk/BXFT0POJx885pi5lJFhUikChGbwLd+QaTfbtI6d0BPm+1fHz7E5fN6dPXxyL6sPv2DfVnZpNt4dNE4gB/la2M5R0vnNOfTzlWLjzCURHgEARfeySJzdxQP5VYsK/GMBxQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(11063799006)(4143699003)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PU2t9q1D/Ekj16Ee8WpE17biMuoSk7nWVit2Vvmm34GI9SMKtDRGkZjGTBAeKinxSkcEzJA5qVodPGpaGJv+/NGseyIjj2yBDm5fJ6pMe2mrGhEkd4m7XafL5Z5MLK9AnLYnKEnzfa+A64kC7uOv1iaVi3nKjwVpSZLaU/z8pPWtjKtf5pbQHuMQsXK5LPvumU6Q843jQXgWhiCBmDguRna2IEXD9z5Xrmr1rdM5Dw6Bajk/qaigFqDRXA1QK3lMHB9yEW0sWHph3nyon/Q/1d7z21elhUWqhXix3507zgfoCVMJb99Rk73CkYmOQHkxksSZn2miEKcjh7RwaqMQ8PN/kchDNlgM6dcFow68OXWw9B2Vp5hs+kNbwUUez7sYlBH3KgGFVzdnx276qY9jz4PYNlQJQjDU/KkiTLGUX7RonuRK9nKvw7/z/y4ilHhX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 05:49:11.0033
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e26fd843-edf8-44c0-60a0-08defe7ec230
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B06A.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999259
 
-
-
-On 8/19/2026 9:00 PM, Konrad Dybcio wrote:
-> On 8/4/26 1:03 PM, Jie Luo wrote:
->>
->>
->> On 8/3/2026 5:10 PM, Stanislaw Pal wrote:
->>>> The CMN PLL AHB/SYS clocks will remain enabled as long as a downstream
->>>> consumer of the CMN PLL clocks is active — this behaviour was confirmed
->>>> experimentally on the IPQ9574 platform as example.
->>> That is exactly the mechanism - and it is exactly what IPQ5018 does not
->>> have. On IPQ9574 the nsscc node consumes the CMN PLL outputs in DT:
->>>
->>>   ipq9574.dtsi:
->>>     nsscc: clock-controller@39b00000 {
->>>         clocks = <&xo_board_clk>,
->>>                  <&cmn_pll NSS_1200MHZ_CLK>,
->>>                  <&cmn_pll PPE_353MHZ_CLK>, ...
->>>
->>> so the device link holds the supplier active, which is what your
->>> insmod/devmem experiment shows.
->>>
->>> On IPQ5018 there is no such consumer: nothing in ipq5018.dtsi references
->>> any cmn_pll output clock - the only occurrences of the phandle are the
->>> provider node itself and its own assigned-clocks. The actual users of
->>> the CMN outputs on this SoC (the internal GE PHY and the uniphy blocks)
->>> take them directly in hardware, with no DT linkage, so no device link
->>> ever holds the provider active. A few ms after probe the autosuspend
->>> gates the AHB/SYS clocks, and the box dies on the next bus access -
->>> which is the measured behaviour the patch description quotes.
->>
->> The CMN PLL output clocks do not depend on the AHB or SYS clocks. They
->> continue to operate correctly at the fixed rates even when the AHB
->> and SYS clocks are disabled. Therefore, once the CMN PLL module is
->> loaded, its output clocks are expected to operate at the correct
->> frequencies.
+On Thu, Aug 20, 2026 at 01:38:35AM +0800, Rong Zhang wrote:
+> Hi Ankit,
 > 
-> Linux sees there's no consumers for the clocks the CMN PLL provides
-> and gates them, subsequently also gating the PLL itself as all of
-> its children become offline.
+> Thanks for your review.
 > 
-> I can't find the docs that would show me what IPs consume this block,
-> could you please help out here Jie?
+> On Wed, 2026-08-19 at 10:32 +0000, Ankit Soni wrote:
+> > On Tue, Aug 11, 2026 at 04:36:17AM +0800, Rong Zhang wrote:
+> > > The AMD IOMMU Initialization State Machine has the following state
+> > > transition diagram (only the very first states are showed, and the
+> > > `IOMMU_' prefix is omitted):
+> > > 
+> > >    START_STATE
+> > >         |
+> > >         v
+> > > [0] detect_ivrs() --> NOT_FOUND
+> > >         | ok
+> > >         v
+> > >   IVRS_DETECTED
+> > >         |
+> > >         v
+> > > [1] amd_iommu_disabled? (amd_iommu=off) --> IOMMU_CMDLINE_DISABLED
+> > >         | no
+> > >         v
+> > > [2] early_amd_iommu_init()
+> > >         |
+> > >         +-- [3] amd_iommu_detected? (!iommu=off && ...) -+
+> > >         | yes                                            |   
+> > >         +-- ... --> IOMMU_INIT_ERROR <-------------------+
+> > >         | ok
+> > >         v
+> > > IOMMU_ACPI_FINISHED
+> > >         |
+> > >         v
+> > >        ...
+> > > 
+
+../..
+
+> > > ---
+> > > Rong Zhang (2):
+> > >       iommu/amd: Do not request ACS when IOMMU is not going to be initialized
+> > >       iommu/amd: Remove ad-hoc checks that are never true
+> > 
+> > Hi,
+> > 
+> > Thanks for the cleanup, and the analysis of the ACS call paths matches what I see.
+> > Two things worth a look before this goes in.
+> > 
+> > 1. Patch 2: I don't think the !amd_iommu_detected check in
+> >    early_amd_iommu_init() is unreachable. pci_iommu_alloc() returns early for
+> >    xen_pv_domain() before calling amd_iommu_detect(), but Xen PV still sets
+> > 
+> > 	x86_init.irqs.intr_mode_init = x86_64_probe_apic;
+> > 
+> >    so x86_64_probe_apic() -> enable_IR_x2apic() -> irq_remapping_prepare() ->
+> >    amd_iommu_prepare() enters the state machine anyway, and none of the new
+> >    IOMMU_START_STATE conditions are true. That check looks like
+> >    the only thing currently stopping early_amd_iommu_init() from running
+> >    there. Could you double-check that case before dropping it?
 > 
+> This has been resolved by PATCH 1, where the checks have been embedded
+> into the state machine.
 
-On IPQ5018, the CMN PLL provides a 50 MHz output clock that is used as
-the reference clock for the connected Ethernet device.
+Agreed on patch 1 - the state machine is the right place for those checks and
+I have no objection to it. My concern is only patch 2 dropping the
+"amd_iommu_detected" check.
 
-> Konrad
+> 
+> I did some quick tests by commenting out the call to amd_iommu_detect()
+> in pci_iommu_alloc(), and adding a debug WARN() to iommu_go_to_state().
+> When I booted a VM with emulated IOMMU (-device amd-iommu) and with
+> either `amd_iommu=off' or `iommu=off':
+> 
+> [    0.081948] APIC: Switch to symmetric I/O mode setup
+> [    0.082553] ------------[ cut here ]------------
+> [    0.083144] init_state: 0 => 9, ret: -22
+> [    0.083617] WARNING: drivers/iommu/amd/init.c:3506 at iommu_go_to_state+0xf18/0x1c00, CPU#0: swapper/0/0
+> [    0.084809] Modules linked in:
+> [    0.085122] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-02579-ge0f12714fa53-dirty #38 PREEMPT(lazy)
+> [    0.086124] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+> [    0.087076] RIP: 0010:iommu_go_to_state+0xf23/0x1c00
+> [    0.087629] Code: 1b e7 2c 00 eb 12 c7 05 0f e7 2c 00 06 00 00 00 eb 03 90 0f 0b 45 31 f6 48 8d 3d e8 90 b6 ff 8b 15 fa e6 2c 00 44 89 f1 89 de <67> 48 0f b9 3a 45 85 f6 0f 84 f4 f0 ff ff e8 8a c0 73 fe 48 8b 05
+> [    0.089556] RSP: 0000:ffffffff93a03e40 EFLAGS: 00010202
+> [    0.090039] RAX: 00000000fffffff9 RBX: 0000000000000000 RCX: 00000000ffffffea
+> [    0.090677] RDX: 0000000000000009 RSI: 0000000000000000 RDI: ffffffff93d17440
+> [    0.091338] RBP: ffff8fbd47fd5c80 R08: 3fffffffffffdfff R09: ffffffff93b20aa8
+> [    0.092025] R10: 0000000000000002 R11: 0000000000000002 R12: 000000000000001b
+> [    0.092662] R13: 0000000000000000 R14: 00000000ffffffea R15: 0000000000014770
+> [    0.093319] FS:  0000000000000000(0000) GS:ffff8fbdb3634000(0000) knlGS:0000000000000000
+> [    0.094055] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    0.094572] CR2: ffff8fbd4728f000 CR3: 0000000006844000 CR4: 00000000000100b0
+> [    0.095214] Call Trace:
+> [    0.095437]  <TASK>
+> [    0.095628]  amd_iommu_prepare+0x15/0x40
+> [    0.096025]  irq_remapping_prepare+0x43/0x60
+> [    0.096406]  enable_IR_x2apic+0x22/0x190
+> [    0.096759]  x86_64_probe_apic+0xa/0x50
+> [    0.097130]  apic_intr_mode_init+0x70/0xd0
+> [    0.097495]  x86_late_time_init+0x28/0x40
+> [    0.097858]  start_kernel+0x6f9/0x7a0
+> [    0.098209]  x86_64_start_reservations+0x24/0x30
+> [    0.098629]  x86_64_start_kernel+0xd1/0xe0
+> [    0.099016]  common_startup_64+0x13e/0x158
+> [    0.099393]  </TASK>
+> [    0.099595] ---[ end trace 0000000000000000 ]---
+> [    0.100266] x2apic enabled
+> [    0.100758] APIC: Switched APIC routing to: physical x2apic
+> 
+> ...where 0 is IOMMU_START_STATE and 9 is IOMMU_CMDLINE_DISABLED.
 
+Commenting out amd_iommu_detect() is right way to emulate this, and the trace 
+confirms the entry path. But the boot options are what make it
+come out clean: amd_iommu=off / iommu=off set amd_iommu_disabled / no_iommu,
+so IOMMU_START_STATE bails on its first if - that's the 0 => 9., which
+is clearly visible above.
+
+But,
+Xen's own iommu= sits on the hypervisor command line and goes to Xen's parser,
+not to Linux's iommu_setup(), and there no one sets no_iommu or amd_iommu_disabled.
+
+The wider point is that amd_iommu_detect() never running is the platform mean
+Linux does not own this IOMMU - Xen opts out of pci_iommu_alloc() and installs
+xen_swiotlb_dma_ops instead. 'amd_iommu_detected' was the only thing making the
+irq-remapping entry path honour that, so without it (i.e. patch 2 removes it) 
+early_amd_iommu_init() proceeds on hardware the hypervisor owns.
+
+-Ankit
+
+> 
+> Therefore, embedding the checks into the state machine ensures the checks
+> are done in all initialization paths and makes replicating the same
+> checks in state transition methods unnecessary.
+> 
+> > 
+> > 2. Patch 1 Fixes: 9f81ca8d1fd6 doesn't look right - it only moved the
+> >    amd_iommu_disabled check ahead of early_amd_iommu_init() and left
+> >    IOMMU_START_STATE and detect_ivrs() alone, so ACS was requested with
+> >    amd_iommu=off both before and after it. The commit that actually put
+> >    pci_request_acs() on the detect path is 1adb7d31b051 ("iommu/amd: Fix
+> >    pci_request_acs() call-place"). I'd drop Fixes: and Cc: stable and post
+> >    this as a cleanup.
+> 
+> Makes sense. Will drop them when resubmitting. I will defer to your
+> opinion on my explanation to the first question before resubmitting :)
+> 
+> Thanks,
+> Rong
+> 
+> > 
+> > -Ankit
+> > 
+> > > 
+> > >  drivers/iommu/amd/init.c | 36 ++++++++++++++----------------------
+> > >  1 file changed, 14 insertions(+), 22 deletions(-)
+> > > ---
+> > > base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> > > change-id: d58d0f31-amd-iommu-fix-acs-8f3d4aba8183
+> > > 
+> > > Thanks,
+> > > Rong
+> > > 
