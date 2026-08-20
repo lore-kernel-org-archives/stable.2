@@ -1,136 +1,159 @@
-Received: from gw2.atmark-techno.com (gw2.atmark-techno.com [35.74.137.57])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15AA5CDF1
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 00:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.74.137.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BD8149DF1
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 01:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787187469; cv=none; b=Kir7yLhO3nLgwloWFEXJxYwZLglciRGfPA32+aqGJYvqpWg6TObBry6SDWQudVXY5JjlXlBWCQ4i6VkkkrooPznI3cj8v3ZACjs/kKCuNRhgVuZrmoWGyef9OhDw3s3CB/Vn/OYqgZSQitkZwb4kpFKE6CYKZqBF47Gg+ZejiEg=
+	t=1787188531; cv=none; b=jGLrN7T02NC4K/KMQWV4zWzQZGSA00yWqbXU2jIQW4s7Ld/KBJZrJRMWTuGndcIHFYu91mRg7X5k4ffyKmc/sEtGlfeC9wD6fR7vyHJfuXKFjOce1PEJx3Y61R2uAPDGfcBUYzPtxYjtgL/1DKMLARiAfFXxXOcqhDTYVyil3mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787187469; c=relaxed/simple;
-	bh=f1gTDTn04xgBULfPAqs1+jut3p06CVvDRSRfJVLfUC4=;
+	s=arc-20240116; t=1787188531; c=relaxed/simple;
+	bh=KgpEoJCO3Eql8ygiswoOd4H8Lz4ky8d1ZHRA9p6pq5M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ICene/gzZZQkN/Wo1MPvg+fI81XtQcOCiCWc04CCqxWBIQhyOYeSicqExLHp55aO6klPz2tgf381xEHZUt2Vn5sqrLLmvm+APP7JsscR70W4dt19ECWWZP/rabr+UYgiGTTvcdiNXSaUVGSYzp62Ha7YxLwopVVdzzzTQFiUyas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com; spf=pass smtp.mailfrom=atmark-techno.com; dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b=T4G509fk; arc=none smtp.client-ip=35.74.137.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=atmark-techno.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atmark-techno.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kGRLURXemBmeEEZY3eLDvgFFRQ/mylYfuji9bdKa1MkLeeOrXkrRUHdM4kb1LntWiEOHwcuLwXOJ+/tcsJvbKdD7FbuBjDrAoAWAhs2NsE2NdW/GskqpwrmTV5d+F8sGvBQ0924AMRfpYxUWefFYsWtp+UQcB08C7RCBDQtV2o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MeKx6M3q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=We7l0jZu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=atmark-techno.com header.i=@atmark-techno.com header.b="T4G509fk"
-Authentication-Results: gw2.atmark-techno.com;
-	dkim=pass (2048-bit key; unprotected) header.d=atmark-techno.com header.i=@atmark-techno.com header.a=rsa-sha256 header.s=google header.b=T4G509fk;
-	dkim-atps=neutral
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by gw2.atmark-techno.com (Postfix) with ESMTPS id E44251F0
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:57:40 +0900 (JST)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce7dff6253so4282135ad.1
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 17:57:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MeKx6M3q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="We7l0jZu"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JL7Xa21438659
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 01:15:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=MS9HKp5HNfB/B1jknKQleKYL
+	L0pHPk+xwxCKcprCl8k=; b=MeKx6M3qvHSHWxmCQEEMJUEe08q1oSBR/aAEnlDy
+	6tGwOF6rXdSOmGyUnMuL+CEGSlE1zepnyDUPT0gmGnBC9ncYD9uodcuD+Vg9L9iz
+	TKTThhaDyTdJmJGxEbsJrKKwZHd5oZs213CKsWfElgUkNAhS7qnPAthDzJBdr5bL
+	ssEqv93PHkszioOLbY2r20RheHiWxx1yhLLVrunDyFIS82kyVVD7IkrP3OcCIHnb
+	sMlnPHa21mP82AXczK30qeOoyQRd22pvyDZedZkwpIgQQUWOLD6bxt9+Uu3eMugg
+	LgCy9o4KWLp8l0dMnpHqAaDecVlF3Fzq1BZFiITJ6Ybj8w==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5daa2x16-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 01:15:29 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38dde0df80bso3052551a91.3
+        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 18:15:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=atmark-techno.com; s=google; t=1787187460; x=1787792260; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1787188528; x=1787793328; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xZ6vy4VTfKURcQxXwGAZYevGuvbsABfheCK7MjM4YOw=;
-        b=T4G509fkE3Ig6taijHKLmoxfWe+5DNhGSe1WWZJQGwebkrnkUB4Zlh60Vecj4CxAj5
-         HwCao9INLGDWAxaoz2DPA8wtLkAmcOK7XfBZbxK+5Yc7f40hsp7Vr65xzeqXAH3lR9Rn
-         L6+dPiwIvkkOLC8WFe0hg86HF6/csaGPa68qsSRWlIxxOPyITTnhrarGzmzxwRNidbpy
-         o0jMVS/+G7SPktu8o/PksIRnC+rLH64LipbJGj0PCjvI0HH+37XhEZmYhcEb6PEAuQJS
-         fIziLwmua25RkPml7CIT9/OpyHAiPBgJcMnpyLY/ERxyqprrGn/GrD1jV6xviieDabw3
-         DC6w==
+        bh=MS9HKp5HNfB/B1jknKQleKYLL0pHPk+xwxCKcprCl8k=;
+        b=We7l0jZu1/TNkxK+0BJ867Xd0QIkbIH2NkKOtYlFRCbfCusWJ3ZXx4EVIx2xhm0KY7
+         D5/MKk1uyOMMvxh4MrFuQeWbwUmnWBVPXMqjbIzvhirLiSUWRGcoccE9LIPp4v4/gMSJ
+         iZ7d8XHJrJ7z8yGatgEIxpRBvKKWztOLYE0GqM+s/HQ7tw8dloAuUwhhu8NFhZLwdbU7
+         8kYIIdnUrKI22eo2uiOnBPK4mQSWIq7NieCo1+9gnUsQjJRCT305EL6Unm3FwvznwQ2k
+         DwkWJutomvXn2CVLdMfEq18t+ISIfnpsYK0UZiFbTD/16vFRxn0C7nDpwiar/9q3ktX0
+         9fSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787187460; x=1787792260;
+        d=1e100.net; s=20251104; t=1787188528; x=1787793328;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xZ6vy4VTfKURcQxXwGAZYevGuvbsABfheCK7MjM4YOw=;
-        b=IWOJ/hYPejpo8oLHe2U3pqqvu7zVaVm5H7/GWWXn5juKuOPZcFH98GH2Qpgi1MetxJ
-         p/cjLmmVpS6HD/n6iK9gksokAW+Dt6eNU+P7rLUtYkjWF7CxLJzxNCN9hOnrq68xMghu
-         S9K2mf1iaR/xVGCdGmFQ9YWAWwJKGX7AiqZ9tQUQzLZoaZUsWRR+MUI3W0L3YhbBTpr1
-         5apuIMu2xV3hMIGHalW8JYlTgFufM9edOHJKsTv3D3BRyQZRv9lcSt0bMW5UvoTedwKh
-         DFk4hrVRbzz+Y32uwKR3e05JWDe/agn2DiMKqGtUzRdGTnckoI+TbVZjZP9zgsLIG+6a
-         YAaw==
-X-Gm-Message-State: AFuF++mTyHXERFTg3Mw//GZ2IzRByrGufdtEXKdgM0gSLGZCOH28do3r
-	FHc9gUYAfGNFwcxsrY8x+JYmdroIcD/8WJPk4oP4Cz+FgW/UIJh181FhDd4conjWO8ZMRfk2NND
-	gzhtmB1MmuiSpLnmRv0tBUOkGR2utGGJLI4TI9kHrIxQMIikywIYtwvw9Qh0=
-X-Gm-Gg: AR+sD13mTNls/6021brP3xPGVf7G4FcXz7SE3dKY/AJCx/WeTr49Nv6DudBF5dnagnu
-	GU6dn9wd+quasqNTd4+IaILYKI0/NFtpTIpCg5NbXjMShMnvs/nX8vxSyA5GOywTbnvspsy3JEl
-	PDtLpeRAn4zn3RiBa3KgEL28yjiH1vdsq9+dDivaxqtiR3SxNJafNsSu/Hn5kLra45qcFKfgROc
-	ItgPViRR5YVmufisgFR3iPmqc2FvFJnhSFrZs4IT5M/RtEYZLfE9W8LD5H4ahNeemRpTBRryjwB
-	/cfAUTkteQv2QS2fea1jLoNnpBMBrLIDyFGxpABk095U1Eb1US9WzTbxr1qu+XybhnnkWcRCuW5
-	nkjaYJottMa8uqsmeOHVdIwHWxTz8TK2VfCIfbpmJEXMfzHse
-X-Received: by 2002:a17:902:c944:b0:2d2:72b6:556b with SMTP id d9443c01a7336-2d61a1a54f5mr33599495ad.13.1787187459829;
-        Wed, 19 Aug 2026 17:57:39 -0700 (PDT)
-X-Received: by 2002:a17:902:c944:b0:2d2:72b6:556b with SMTP id d9443c01a7336-2d61a1a54f5mr33599065ad.13.1787187459368;
-        Wed, 19 Aug 2026 17:57:39 -0700 (PDT)
-Received: from localhost (sodcd-04p2-40.ppp11.odn.ad.jp. [203.139.65.40])
-        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-2d62d588035sm499445ad.23.2026.08.19.17.57.38
+        bh=MS9HKp5HNfB/B1jknKQleKYLL0pHPk+xwxCKcprCl8k=;
+        b=TAsePxCi8870/oI2PQRItshMUCropfJ76PDSEKpCZEJpTF3rsgmiTW0q5HxZBRkE2n
+         XoUgH3qQkFDtn3Nthmz98iZUl3KO8lL5uwAeZhNTzV7FUVP2j9ASJckw7r6t2FyntUYF
+         sJ+G9ebU+HJxvwTwxU1qCAPeyDQhGhfkyCQ7F+z8VQe/34/VJIYct7MseL4Ys5oPif84
+         V513BJDJ7bHipYM859Dj5WkEZ4hVb1c5JvIq+/JZGaEWdQChacSpn10GEhVMW9UqevM2
+         CVLiosjCetzLKp8Jg5M6PdlLgs2P6d2APDbfvqSs7pS4SNCCyA+WFCqvTa1Pgusivkf1
+         eKbw==
+X-Forwarded-Encrypted: i=1; AHgh+RqLalLqYfA94YCYLhufd/LzMPEa5/4cBHZq3SNRMPp7A1pONqxPotfkPS/K/gTxb0M6Vk05hFE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYNCl7o0R0ySK1U8ynELOfYKN9ivTjxgfL6sBUGNPDUgtYmdTq
+	8qRfkuhAlMM4SshqWS7vPhZvpTGQ3ucnYNeYLpSEa/KIUN76baC/oM2QedpkhGa2aJawnikbNzw
+	TZh+sJBNzykUj7ifSXc+cbeVSVtsnNTwUxxsf8fTX5502/XX/lKsneApuCtU=
+X-Gm-Gg: AR+sD10CpxeHqUotOu/QvaPSKzpB4WpPs/vRAmdzx/UBsrOjAA7jL2jRsDu6Clwyg7z
+	rx/Kuj+hDSiKBzW+ghO2c4Mn8OD6cwkUoV/m1RnQwTRjrkmbq9M1+lSo5sy80kHDBQdvFHpnaq6
+	jR+ttO1vJgU1+OVBPiDzPJYhGLAU+RDYp/GZWMQ5R3ln1FumUWpqeTN7f/MvZ2yUaWsMLuES3/z
+	3ymP3oIHq6M1JYLIMAt2zKHttoYfNd9XjeIk4VSuTpb2R7fNhoomyUwXNru7H8p2O+ROvbmbqM2
+	X4fHcbRPV8m33fxmXYS5vvVRyYBDRdC/91h3KIbX7jJ151tAXiYJcmO8BmhcSuShuwIqhTatd5X
+	KorLyB/KvaLdWrKjQ1J37FRWg5X/F5ZeFSSjtGURl6dw=
+X-Received: by 2002:a17:90b:3bcd:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39580accbebmr16841137a91.5.1787188528303;
+        Wed, 19 Aug 2026 18:15:28 -0700 (PDT)
+X-Received: by 2002:a17:90b:3bcd:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39580accbebmr16841065a91.5.1787188527782;
+        Wed, 19 Aug 2026 18:15:27 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ae5f1ffsm18684875c88.13.2026.08.19.18.15.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 17:57:38 -0700 (PDT)
-Date: Thu, 20 Aug 2026 09:57:27 +0900
-From: Dominique Martinet <dominique.martinet@atmark-techno.com>
-To: Richard Weinberger <richard@nod.at>
-Cc: stable <stable@vger.kernel.org>, chengzhihao1 <chengzhihao1@huawei.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	linux-mtd <linux-mtd@lists.infradead.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Cheng Ming Lin <chengminglin@mxic.com.tw>,
-	Liyuan Pang <pangliyuan1@huawei.com>
-Subject: Re: [PATCH 0/2] Backport fixes for UBI
-Message-ID: <aoZQ90HBGlM-SL8K@atmark-techno.com>
-References: <20260818-ubi-backports-v1-0-324d6816d2ae@atmark-techno.com>
- <1200997805.161072.1787136508436.JavaMail.zimbra@nod.at>
+        Wed, 19 Aug 2026 18:15:27 -0700 (PDT)
+Date: Thu, 20 Aug 2026 09:15:21 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair
+ functions
+Message-ID: <aoZVKWTtdCQSSvaH@QCOM-aGQu4IUr3Y>
+References: <20260819152356.904023-1-shengchao.guo@oss.qualcomm.com>
+ <000076bd-b3fd-42dc-bd43-96ee9492a638@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1200997805.161072.1787136508436.JavaMail.zimbra@nod.at>
+In-Reply-To: <000076bd-b3fd-42dc-bd43-96ee9492a638@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=fv3sol4f c=1 sm=1 tr=0 ts=6a865531 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=ScvHTCLV6CLG8ETh_pMA:9 a=CjuIK1q_8ugA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: GCUrGMSFiGmdys5VLgFfu7Ndp2Tlrp5X
+X-Proofpoint-ORIG-GUID: GCUrGMSFiGmdys5VLgFfu7Ndp2Tlrp5X
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAwNiBTYWx0ZWRfX8+wG0LFvaWJS
+ 449IA9Q0qQgzAoD1nuGtG0nMKxI8sD/HHuiPCafX0Yk1naJz7WmMu3byH90mOj/CQfpaD4ob9Mi
+ Ia7fj7kTLVpcghQGYuf81Vzpa0bAsKs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAwNiBTYWx0ZWRfX2k8edokJEgt+
+ xOKJaA5fsu/YBFUjfMlynzj3+boVgSp0K0GGERq4vK5VZQ0hLyIVRKb9B5FGgK0juc3ReyI6Pd8
+ D96GZTW2BrN4CD4oB50P7SadXbmLxK2gUtcvHkh8rBPJ8AHkFOYcLBE4qWGhOaDIuKnCYGyc7vy
+ pOkW73MX4cgVuqZSCbQko7rtSb+REc6QQ+YSZOhcrUcbJ+cnCL3vohzA11JYtMsEqAQk768Y0h4
+ zBSBH9r2CylXPwAkKOrAKnuVYAIXkVKxTFnVzl78oJv37d2X9ZTwkXtQtfeeSTyOCOF2xn1cpWj
+ dOikjsTSG4Gtse7pRL+nlRAVTEUgC2QwQI5bNoduwgiH7slZa+dosSg8PpYI19Zd74tqYG5bnW0
+ ikCE2saAyOKFQ8Cw+fa01hZsTInZ793RqahisKcEOpEsCji1qONsoFJZyzCeq3N5vu5sENjQafS
+ FbP+JPg9Dwy1G/DBvEw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
+ impostorscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608200006
 
-Richard Weinberger wrote on Wed, Aug 19, 2026 at 12:48:28PM +0200:
-> While porting these back is not wrong, I have a hard time to see how the
-> current stables rules apply here.
+On Wed, Aug 19, 2026 at 05:27:34PM +0200, Konrad Dybcio wrote:
+> On 8/19/26 5:23 PM, Shawn Guo wrote:
+> > QUP1 SE2 and SE3 pack all four of their lanes pair-wise onto only two
+> > pins each: lanes 0/1 (I2C SDA/SCL) at mux value 2 and lanes 2/3 (UART
+> > TX/RX) at mux value 1, on gpio127/gpio128 and gpio129/gpio130
+> > respectively.
+> 
+> [...]
+> 
+> > +	msm_mux_qup1_se2_01,
+> 
+> other drivers where this is necessary stick an 'l' before the
+> lane indices, e.g. se2_l2, let's keep this 
 
-Thank you for looking into this!
+I can see that for single lane function. But for lane-pair function,
+it's not a new thing with nord, and the naming convention seems to be
+without 'l', based on what I see from shikra, eliza, hawi and maili
+drivers.
 
-I'm honestly fuzzy on stable backport "rules", but in practice I see all
-sort of things get in (admitely sometimes new features/refactor just
-because it makes an actual fix easier to backport, but also quite a few
-leaks on failures like the second patch and other general improvements),
-so after noticing someone else submitted 6.12 contiguous read
-improvements recently[1] so I assumed such backports would be welcome...
-But ultimately I think it's up to you, so happy to see the patches
-dropped if you prefer.
+> 
+> The bindings change must be separate
 
-[1] https://lore.kernel.org/r/20260811161342.533280-1-frieder@fris.de
+I understand that's mandatory for new feature changes, but for such
+a bug fix where both binding and driver changes are closely coupled,
+it seems more reasonable to not split.
 
-> "mtd: ubi: skip programming unused bits in ubi headers" does not fix anything.
-> It's a pure optimization for future flashes, UBI worked since ever without this
-> change.
-
-I might have misunderstood something about this patch, but while UBI
-works fine I believe this would increase the longevity of more than just
-"future flashes"
-
-I've burned out 2 times 1MB (4 erase blocks) from the NAND I have on
-hand (winbond W25N04LW) using either random data + erase (nandtest) or a
-patched version writing zeroes + erase, and writing many zeroes failed
-the erase blocks about 40-50% faster (85 thousands cycles vs 132
-thousands until the first erase failure, 121/175 until erase stopped
-working with many retries)
-
-This obviously is a tiny sample size and not concrete proof, and this
-patch won't have such a big impact because the area is small, but I
-believe this patch will still improve the endurance a tiny bit for at
-least our model, which was the motivation for me to pick this up.
-
-Of course, there's also a chance that something breaks from it so I
-can perfectly understand if you prefer not to backport it; you're in a
-much better place than me to draw the line.
-
-
-Thanks,
--- 
-Dominique Martinet | Asmadeus
+Shawn
