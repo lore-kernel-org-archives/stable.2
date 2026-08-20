@@ -1,104 +1,75 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 612BA3D3332;
-	Thu, 20 Aug 2026 12:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F5443E076
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:21:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787227980; cv=none; b=h7lPR3+/Cr0vzeuH8OKoo9+xmTAP92PKDzPaB6DshM6uKRmFk3CsuuGliLhKjbVdKPuevrLFu4fqXszFCpJvaNafsrgTBjXRuYMjPgB7LUlx0ARdPw8CMkPt2h8V0letl8z1bPlpQpLvj3lHUaeNL1jrgCYfTQ2XW/ClBGBRHTY=
+	t=1787228475; cv=none; b=P+0s6czJhNLJOJw52U9RNY7Prj02umWbOZo6nNDcgcwnNCPknuHV5kWLwo3Mz6/5SB8hiRnbSy97BfYBcH9wWz6PEZ6xwB3RfI/gZq5UhEwGjjZdZ5q5P/YHrJZ5TeU0cFoFZAeMcrkujLcV8ppD8MFnuVkf6BSV/n2DobLmhOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787227980; c=relaxed/simple;
-	bh=5Qtba8SWNI25D2cw00ROmV2pdRUvLXmQ5rmzKJbhORs=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=u7j7JN2PeWOgmd6jeTIgYJVK+cPFzlolXai7z1yUaHF01I04DQ0Y+WiqBIS/qQhskMIXJrWKXguEAq8MWc2vKbX9nPvwuCNRjJIWdgfl68I7k2ma8NLyGEmosRKLDKRO+x3o1/J7rh3gZg4YWnbLgzDtFdk/ZuR87F9HhUYWjpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.97.62.103])
-	by mtasvr (Coremail) with SMTP id _____wCHnnw674Zq_rmtAA--.5449S3;
-	Thu, 20 Aug 2026 20:12:43 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.97.62.103])
-	by mail-app1 (Coremail) with SMTP id yy_KCgDno5s674ZqHEIEBA--.8347S2;
-	Thu, 20 Aug 2026 20:12:42 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1787228475; c=relaxed/simple;
+	bh=KzQpZScLIGIAjmvsBiyPR3hNhm0W/xMBso9h2Z49aC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ciHxX1DMtgshxwxArd9FPTBu4kITslf4bvZXUysZW0OKGHC5Ahv2ji4bRdHRfSSGIlG8boJyKngU7L4Uuz5rjMY+8xkNWu3+UIRFlvy3PM/MT//dmsFFojGSRPWwMLnX4ZbGVDeIWJnM6Xnwbvl0U+mTCqAb3LPrRVNLMng6+60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x0SXNnes; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x0SXNnes"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E55F1F000E9;
+	Thu, 20 Aug 2026 12:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787228474;
+	bh=79UrSvjUu30ipOJbFRGGGpKjoqk+Gh0FUlxAdtpX/s4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=x0SXNnes0k0iGyKrDKMI1APj8kKtlVPYHKWu41u93KJ/2aFRlotV2S2tLGohIbNax
+	 d1snCpFSJNXiTkLTZVY1/tDAA7m4JAaRMcBsySqWLNbGi2if1x1Po5Zd6aHJHJd8HF
+	 7AKTG3PtCfvdTLyYDvFH9GBsrp0eDVKcIi2ucS5w=
+Date: Thu, 20 Aug 2026 14:18:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Matthias Merz <linux@merz-ka.de>
+Cc: stable@vger.kernel.org, Dong Chenchen <dongchenchen2@huawei.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>
+Subject: Re: [6.12.y] Please backport 8045c0df98d4 ("xfrm: Fix dev
+ use-after-free in xfrm async resumption")
+Message-ID: <2026082030-google-authentic-ad63@gregkh>
+References: <anXqAxQBTgPtQSXT@C-25H12I214949.jacob.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] ext4: fix discard work use-after-free on failed mount
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <ao3hudzjy2ljujygifsf7bcbffnfhp4uhxln3qkzdbszih3mjf@cqcopsdlkpnw>
-Date: Thu, 20 Aug 2026 20:12:32 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- tytso@mit.edu,
- adilger.kernel@dilger.ca,
- libaokun@linux.alibaba.com,
- ojaswin@linux.ibm.com,
- ritesh.list@gmail.com,
- yi.zhang@huawei.com,
- linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <07DD13A9-C435-4F85-936A-1F587AE386D7@zju.edu.cn>
-References: <20260820052102.4616-1-fanwu01@zju.edu.cn>
- <ao3hudzjy2ljujygifsf7bcbffnfhp4uhxln3qkzdbszih3mjf@cqcopsdlkpnw>
-To: Jan Kara <jack@suse.cz>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:yy_KCgDno5s674ZqHEIEBA--.8347S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?5cHGgwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBHBveKz7IdZn/dIsL83LI4Y+NpLLomzr14EaNv0CGxYmGem
-	BE6pmMLWy8OsxaK3qP8=
-X-Coremail-Antispam: 1Uk129KBj93XoW7AF4rtF1fKFW8uF15uFykZwc_yoW8Jw4Dpr
-	4rCw47K3yDZFWvy3ZFqw47WryIvr45KayrJryIgr1DC3y5Jw18ArW7tayFgFsxGrsYyw4j
-	vw48Xw17GrWrZ3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anXqAxQBTgPtQSXT@C-25H12I214949.jacob.local>
 
-Hello, Jan
+On Fri, Aug 07, 2026 at 04:21:55PM +0200, Matthias Merz wrote:
+> Hello,
+> 
+> Please apply upstream commit 8045c0df98d4 ("xfrm: Fix dev use-after-free
+> in xfrm async resumption") also to 6.12.y. Stable 7.1.5 contains this in
+> 63a300151999.
+> 
+> It fixes 1c428b038400 ("xfrm: hold dev ref until after transport_finish
+> NF_HOOK"), which is present in 6.12.y since 6.12.94. On our IPsec
+> gateways using xfrm interfaces this issue underflows the interface
+> refcount and hangs unregister_netdevice() on tunnel teardown, rekey or
+> system shutdown:
+> 
+>   unregister_netdevice: waiting for xfrm-<ifname> to become free. Usage count = -381
+> 
+> This leads to a complete drop of our VPN links after some hours, and
+> stalls the reboot for a couple of minutes waiting for devices to become
+> free (I remember waiting 10-15 minutes for the shutdown when remote
+> rebooting a gateway without physical access)
+> 
+> known affected: 6.12.96 and 6.12.96, known unaffected 6.12.90
+> Fixed in 7.1.5 via 63a300151999.
+> 
+> Maybe you could also consider having a look at the other longterm
+> releases, but I have no insight where it might apply.
 
-On 26-08-20 19:08, Jan Kara wrote:
-> Yes, I think orphan replay is the easiest way how to have running
-> transaction in the journal in this shutdown path.
+Please provide a working version of the backport for 6.12.y and 6.18.y
+and we will be glad to apply it as it does not apply cleanly as-is.
 
-Understood, thanks =E2=80=94 I'll describe the trigger in terms of =
-orphan
-replay in v2.
-
-> I think failed_mount6 should just force the commit to flush out the
-> running transaction before mballoc will be shut down and
-> ext4_mb_release() can also use disable_work() after flush_work() to
-> make sure no new s_discard_work can be queued as a safety measure.
-
-Agreed =E2=80=94 keeping the journal shutdown at its existing point is =
-safer.
-I'll send a v2 that calls ext4_force_commit() at failed_mount6 before
-ext4_mb_release(), and adds disable_work() after the existing
-flush_work() in ext4_mb_release().
-
-One detail I noticed while checking the ordering: jbd2 publishes
-j_commit_sequence before invoking the commit callback, so
-ext4_force_commit() can return before that callback has finished.  The
-callback can therefore queue s_discard_work after flush_work() returns.
-disable_work() cancels such a queued instance, but does not wait if it
-has already started executing in that small window.  I have kept
-disable_work() as you suggested; please let me know if you would prefer
-disable_work_sync() for that case.
-
-Thanks for the review!
-Fan=
-
+thanks,
+greg k-h
