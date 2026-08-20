@@ -1,138 +1,141 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD0347ECD7;
-	Thu, 20 Aug 2026 16:46:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08F9480DD6;
+	Thu, 20 Aug 2026 16:46:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787244375; cv=none; b=XSJOLNcetFZBeXKU5xYi3CDU5AJi6V7YBKHule/lbOJC7N2gs9uSyX5iF0F7G2AKlGw4hn83CearlKTZfNnFs0JlYpU3u0RgjBQ99lo24AhAdtCqkR1I3/xFnFCkcTRD2qto09DlbgbQ061U/wGKHaGxAWIFjAlHq6fZusmLg9Q=
+	t=1787244376; cv=none; b=HLN7wzRhRcII92SWzGUdliCJrei4IUs9JQHQViVduGXvXOi0fT15snQQ4dvzgGG9pHI8nuDB3zP0RN9FLXy6mZxRyx49nYfy0quFyGgJs1sDQxnRPF1mG3lU8KMrxS5letBa+AAInhoNYSggOxNjvnMxr9eRQhSdMotp1rvzkIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787244375; c=relaxed/simple;
-	bh=z/MYQwRoX8bnJdtLNfnYbGBYn1BFWTGbNo45Tnqiu4c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=n/t3AmpMRTI0aBAYmu1rw86TGBfiRooUjsttOMyQVgf8Ge/xLS3GMpI+krjKRNEsfUtmtJvAkvyQixmTI3R0nT2jW3qOKRNw0eCOxnB7NLtNvgBDggHIdhb/ISq1fIEJfaIJ6Y7vWiGnaeFPutn1adOlgY5sTovzNa2OaB82Jsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AsTdC1FR; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787244376; c=relaxed/simple;
+	bh=YBDu3ACtJL/TnCmTf19yJT1AZ6Ib3FVx1qetwCQtDkw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=urp1q6DYF0L5BDNqhl/fCFymarwVlHQGpNzXL+6iYiA5VD7K4VU6v8ZTNw5qYUdqEH9X3uF5wHk6Mh5xMdxhBkiOSTeiJzG+UPaIewl57Sc9N2mI9jRtyMzJoOT20kmeu8z1RCqTCn+E+QnNh1PtmtyfaIDJ9P5f74G3c2A/GmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=twKHvfJf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AsTdC1FR"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 638701A1771;
-	Thu, 20 Aug 2026 16:46:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 366375FF59;
-	Thu, 20 Aug 2026 16:46:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A5B3011C7654E;
-	Thu, 20 Aug 2026 18:45:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787244363; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=HB3hKEAR0K/Zlz38CcIUi9gTa02tRgfVSqPhOWzML+Y=;
-	b=AsTdC1FRPpGzKUvw+2grQR1QEniKg1ucNMvHt3UEiEMuhwdafwbHWanUXkno+7UB4UmspS
-	fHHpHlgH6KBySOZ5BlECWoX7RvxUqbwy30bBQxWZOWZEzN9gNinEVYq++8tLdgGNA7pgYJ
-	nozEfo1T7tvAu4o90kHTT28+UL4XIVN6T/kDKBQWeHom6mkIwuP1J76TE3qONabti4paTR
-	mPTg/k5p7tQf92Ba/+hereu3b4EC0G/MxuUB314R2/L2qtm8U3Lrbw/aQmAAnz125UJdw9
-	9p8PU7/UuOb4Oa/WSC57u8XPofmmy8mZOzovTSRVr0GfZkzuObBtXYYdCUnKuw==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Thu, 20 Aug 2026 18:45:47 +0200
-Subject: [PATCH 6.1.y] iomap: adjust read range correctly for
- non-block-aligned positions
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="twKHvfJf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F066B1F000E9;
+	Thu, 20 Aug 2026 16:46:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787244374;
+	bh=X8EHAgjT1gdM51sc3iI9607ULqxlv1fz1leU0+GtFyU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=twKHvfJfaqNRmW4ufkltDHQz3YfqIImcLM6/1LDZKNiGiT+xPFwBLkVHjadLrz1m0
+	 hAuNbxgCUDJTJ/zKlv+kXZThWSt2ZQgvKeJDfAi2KZlo7IkIlCBuxeqmvIxsE2j2IZ
+	 kxr6kP8K5eePVdYmwj5Roygyph/NRD+Rm61RNgFE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Ashutosh Desai <ashutoshdesai993@gmail.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 148/235] drm/dp/mst: fix OOB reads on 2-byte fields in sideband reply parsers
+Date: Thu, 20 Aug 2026 16:56:24 +0200
+Message-ID: <20260820145220.930499351@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260820145216.426568665@linuxfoundation.org>
+References: <20260820145216.426568665@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-cve-2025-68794-v1-1-361e41b0a66b@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3bJ0sC2+CrGg5ZV1wOaVgmE8
- O5WPX6TzL8iazLN2Fcrkk6W7TEWNLsK8XYar0o2FMOxEw6OKU5KBR1J8H1L3Iah69k78YJyeia
- 92PwLHiB1Uy84/uf8Pt81vr4xbNsHQnxuK3kAAAA=
-X-Change-ID: 20260820-cve-2025-68794-048d59072676
-To: stable@vger.kernel.org, Christoph Hellwig <hch@infradead.org>, 
- "Darrick J. Wong" <djwong@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joanne Koong <joannelkoong@gmail.com>, 
- syzbot@syzkaller.appspotmail.com, Brian Foster <bfoster@redhat.com>, 
- Christoph Hellwig <hch@lst.de>, Christian Brauner <brauner@kernel.org>, 
- Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787244359; l=2380;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=GuQBm+40zn8HQ8wMdHhVHzOjSRd6QlWZ4HdqZv19bw0=;
- b=S3Glc+Cmr1OykvXx5Hq2JdUEVNSKQFmtYlMZMNPQ6kq5/Zok7450XUiHthNaRHk2TUrnJ/wBm
- MuuRblD3VyCCV2I3hbEeqftBNlbPBZceKOJmP1kkVHxFW2LR6bcFgc4
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 7aa6bc3e8766990824f66ca76c19596ce10daf3e ]
+------------------
 
-iomap_adjust_read_range() assumes that the position and length passed in
-are block-aligned. This is not always the case however, as shown in the
-syzbot generated case for erofs. This causes too many bytes to be
-skipped for uptodate blocks, which results in returning the incorrect
-position and length to read in. If all the blocks are uptodate, this
-underflows length and returns a position beyond the folio.
+From: Ashutosh Desai <ashutoshdesai993@gmail.com>
 
-Fix the calculation to also take into account the block offset when
-calculating how many bytes can be skipped for uptodate blocks.
+[ Upstream commit 6b89ba3dba2f583626fb693e47e951ffb8bf591f ]
 
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Tested-by: syzbot@syzkaller.appspotmail.com
-Reviewed-by: Brian Foster <bfoster@redhat.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
+Three sideband reply parsers read 16-bit fields as:
+
+  val = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+
+and check bounds only after the fact. When idx == raw->curlen,
+raw->msg[idx+1] reads one byte past the received message data into
+the following struct fields (curchunk_len, curchunk_idx, curlen).
+
+Affected functions:
+ - drm_dp_sideband_parse_enum_path_resources_ack()
+   full_payload_bw_number and avail_payload_bw_number fields
+ - drm_dp_sideband_parse_allocate_payload_ack()
+   allocated_pbn field
+ - drm_dp_sideband_parse_query_payload_ack()
+   allocated_pbn field
+
+Fix by using a single combined check (idx + 2 > curlen) before each
+2-byte read. Since the check is strictly tighter than idx > curlen,
+no separate step is needed.
+
+Fixes: ad7f8a1f9ced ("drm/helper: add Displayport multi-stream helper (v0.6)")
+Cc: <stable@vger.kernel.org> # v3.17+
+Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+[added fixes tag]
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260510203128.2884846-1-ashutoshdesai993@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/iomap/buffered-io.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_dp_mst_topology.c |   17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 243cb2ec76ed..d0cfc4c3389c 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -107,17 +107,24 @@ static void iomap_adjust_read_range(struct inode *inode, struct folio *folio,
- 	 * to avoid reading in already uptodate ranges.
- 	 */
- 	if (iop) {
--		unsigned int i;
-+		unsigned int i, blocks_skipped;
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -920,16 +920,13 @@ static bool drm_dp_sideband_parse_enum_p
+ 	repmsg->u.path_resources.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	repmsg->u.path_resources.fec_capable = raw->msg[idx] & 0x1;
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.path_resources.full_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+ 	idx += 2;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.path_resources.avail_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("enum resource parse length fail %d %d\n", idx, raw->curlen);
+@@ -947,12 +944,9 @@ static bool drm_dp_sideband_parse_alloca
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.vcpi = raw->msg[idx];
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("allocate payload parse length fail %d %d\n", idx, raw->curlen);
+@@ -966,12 +960,9 @@ static bool drm_dp_sideband_parse_query_
  
- 		/* move forward for each leading block marked uptodate */
--		for (i = first; i <= last; i++) {
-+		for (i = first; i <= last; i++)
- 			if (!test_bit(i, iop->uptodate))
- 				break;
--			*pos += block_size;
--			poff += block_size;
--			plen -= block_size;
--			first++;
-+
-+		blocks_skipped = i - first;
-+		if (blocks_skipped) {
-+			unsigned long block_offset = *pos & (block_size - 1);
-+			unsigned bytes_skipped =
-+				(blocks_skipped << block_bits) - block_offset;
-+
-+			*pos += bytes_skipped;
-+			poff += bytes_skipped;
-+			plen -= bytes_skipped;
- 		}
-+		first = i;
- 
- 		/* truncate len if we find any trailing uptodate block(s) */
- 		for ( ; i <= last; i++) {
+ 	repmsg->u.query_payload.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.query_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx + 1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("query payload parse length fail %d %d\n", idx, raw->curlen);
 
----
-base-commit: 7e6e670547210424443261b2d54d2acfff85a37c
-change-id: 20260820-cve-2025-68794-048d59072676
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
