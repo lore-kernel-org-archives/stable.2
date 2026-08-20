@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A09D331EDF
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6FB4749CD
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 14:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787235634; cv=none; b=fy9ra3Op/IfMzMsu1S5S0iyF9rT1sZaxjI51wOz84oi+n32x0PdETAwA7qiBeJ2DOdtkJ32olR6yMb/DeWwYhr7cNRN+T+0GL9ez5+lVJ0Wttjoc8s+uDGvDeMYzOh7wrHym/FiGuzXUaRK0lSUeGdIHC8xCJl+OIQ+uTZmqpVc=
+	t=1787235667; cv=none; b=FEwQGOlKEi7gTVLSbh7TovvRiOwT2TOU956wu2dtX1PlRsPmVG8A3YFzL7mPntGrTvfrIDKdMGCRgBu+4bTBANoN3cqN0Dbpa9FMTasXkfWwdNpW+yqGywF8q3JJ139zZM6h3/ZIyGlHJCHz/gywuCScaHStw6e7paWwabwjAIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787235634; c=relaxed/simple;
-	bh=q03sFoJeAoIYcf4U3B52nQhVmwGMgJh828VsF5pk1Bc=;
+	s=arc-20240116; t=1787235667; c=relaxed/simple;
+	bh=2fe6/7eiHicbbA/ix/MRAeBQ4apQGOmaLpxprrcuk/k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t+wrHHilgGu9XIXce532VKiukLp8hIGiKI/tZs8JMoNkTvOjryEcp33yteAJKPFX+Y/9rD82RtjiIVyjvxHywrdkIAA+Yw7yuDVK3+nb6PRpvX7UNIcxsWIyRv4HaB1vSZdCSz4tnJXeWT9nH7lG5mXYzKdDI/pmTGwcB4HCY/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGfqIxlD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WCwzlQ3s+x6mWGJeZQ1xr0cyqorudxv/bKtQMCvT2Olq7qZero46vUvyzlb58n5NEL4DDZF6roZEjI/l4vuX9kT69ltWPAXk9vn45ChLefcl80RCF5GJmoUl5e4JNAg/SFa44zQbjQ5ES2J1r1L95/9ds3broiZb/vmvA2Cygs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DQjG+Lp9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGfqIxlD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3F81F000E9;
-	Thu, 20 Aug 2026 14:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DQjG+Lp9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48E91F000E9;
+	Thu, 20 Aug 2026 14:21:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787235630;
-	bh=f8tMhsq7PwvzR0ZmEH73mV0Fq5pGu5VdYecnTQtz+UI=;
+	s=k20260515; t=1787235664;
+	bh=wKOpy0Ho8wpxP82OA8Sqjb0mfbSN++LnpuYjwxwt9ac=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XGfqIxlDLnw7JgxkkazBMrfPwIo968DoC5smsP17Z4aLcBxGxkKcvsovkk+35Q7rV
-	 OJOXMcpp6O6tyJKu2W/in2VS/bfkyjQ6jj28JcssCR1WoOnB7IGjKE76NMiYgxs7pp
-	 D93jBjHC9rUm5kO6ueG6KfpqOeakB8kVXRbpNsdcUy1yZt7ZqKRxlDB1z5NJtb8gdQ
-	 Ktl5o2d0f8D0wwJKOfGQELPg8aPaq4fQD67ZIeK9eeWuBx7+E2rIUr+Jg1JGtqgeL0
-	 EhIzW2hi6ZRRwfgWYXGoi+bux+t0er8xlY9GROAHAYsw56JxHbqF67a9L81q83sNlg
-	 lwSgaH52O4WJA==
+	b=DQjG+Lp9cK4qGWmEaVUaXHHnCJuLrh726yQMUOturLogqCxuKWU6UozfbRMeoHg9Z
+	 ZqRXAwL9l+yncLigt+SAsRmUJ/CsJL2/oh6k3qVj0994cw4FqR/QSbxaO/7UXJUboV
+	 353GjqdGcxNEFE0zRxL6FzHyp7CGHP3A+bZNHM+q0qSW+PAgGNeRfUgLHgQMKeUG4n
+	 4f4idobT1meYpFxKxuW4lJp9W7aOMNqXPwNfDYXTnnP+lI/60Ek/sGOT5Uh2P760SW
+	 aTegzMsgVJYc1bAc4qdP5NCPod8j7M7m5PvMluf6qTH/XCvEwxHPc+zMpK/DA4hbGv
+	 ZfSVVWNEKIX7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baul Lee <baul.lee@xbow.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net/x25: fix use-after-free of the socket by its timers
-Date: Thu, 20 Aug 2026 10:20:28 -0400
-Message-ID: <20260820142028.1881723-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] perf: Unify perf_event_free_task() / perf_event_exit_task_context()
+Date: Thu, 20 Aug 2026 10:21:01 -0400
+Message-ID: <20260820142102.1884457-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081743-unopened-dweller-e5b3@gregkh>
-References: <2026081743-unopened-dweller-e5b3@gregkh>
+In-Reply-To: <2026081729-cruelty-pouch-23ea@gregkh>
+References: <2026081729-cruelty-pouch-23ea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,160 +45,179 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Baul Lee <baul.lee@xbow.com>
+From: Peter Zijlstra <peterz@infradead.org>
 
-[ Upstream commit 2195424c3da2ef1829a63b807e3a900a90e57d85 ]
+[ Upstream commit 90661365021a6d0d7f3a2c5046ebe33e4df53b92 ]
 
-The x25 timers are armed with mod_timer() and cancelled with
-timer_delete(), so a pending timer holds no reference on the socket and a
-cancel does not wait for a callback already running on another CPU.
+Both perf_event_free_task() and perf_event_exit_task_context() are
+very similar, except perf_event_exit_task_context() is a little more
+generic / makes less assumptions.
 
-x25_heartbeat_expiry() also rearms unconditionally, so it can reinstall
-sk->sk_timer after __x25_destroy_socket() has passed its cancel point.
-The following __sock_put() frees the socket while the timer is still
-queued, and the next expiry uses freed memory.  KASAN reports a
-slab-use-after-free on the kmalloc-2k object freed by close().
-
-timer_delete_sync() cannot be used here: x25_heartbeat_expiry() and
-x25_timer_expiry() both reach the cancels from inside the timer they
-would wait on, through __x25_destroy_socket() and x25_disconnect().
-
-Arm the timers with sk_reset_timer() and cancel them with sk_stop_timer()
-so that an armed timer owns a reference, and release it in both expiry
-handlers.  Rearm the heartbeat only while sk_hashed(sk) is still true,
-since __x25_destroy_socket() unlinks the socket before dropping it.  Arm
-the deferred destroy timer the same way and drop its reference in
-x25_destroy_timer().
-
-Reproduced on net with KASAN, with the heartbeat period shortened so the
-window recurs.  With this patch the reproducer no longer triggers a
-report and /proc/net/x25 drains.
-
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
-Link: https://patch.msgid.link/20260726220342.47245-1-baul.lee@xbow.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adjusted context due to `del_timer()` not yet renamed to `timer_delete()` ]
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Ravi Bangoria <ravi.bangoria@amd.com>
+Link: https://lkml.kernel.org/r/20250307193723.274039710@infradead.org
+Stable-dep-of: 42c5ca1f0a28 ("perf/core: Fix group leader use-after-free after sibling detach")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/x25/af_x25.c    |  4 ++--
- net/x25/x25_timer.c | 25 ++++++++++++++++---------
- 2 files changed, 18 insertions(+), 11 deletions(-)
+ kernel/events/core.c | 93 ++++++++++++--------------------------------
+ 1 file changed, 25 insertions(+), 68 deletions(-)
 
-diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
-index cdc5b4bf5b436..2076f9b5bf3e3 100644
---- a/net/x25/af_x25.c
-+++ b/net/x25/af_x25.c
-@@ -362,6 +362,7 @@ static void x25_destroy_timer(struct timer_list *t)
- 	struct sock *sk = from_timer(sk, t, sk_timer);
- 
- 	x25_destroy_socket_from_timer(sk);
-+	sock_put(sk);
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index da77f856e1c83..8e2629d5305e6 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -13522,13 +13522,11 @@ perf_event_exit_event(struct perf_event *event,
+ 	perf_event_wakeup(event);
  }
  
- /*
-@@ -397,9 +398,8 @@ static void __x25_destroy_socket(struct sock *sk)
- 
- 	if (sk_has_allocations(sk)) {
- 		/* Defer: outstanding buffers */
--		sk->sk_timer.expires  = jiffies + 10 * HZ;
- 		sk->sk_timer.function = x25_destroy_timer;
--		add_timer(&sk->sk_timer);
-+		sk_reset_timer(sk, &sk->sk_timer, jiffies + 10 * HZ);
- 	} else {
- 		/* drop last reference so sock_put will free */
- 		__sock_put(sk);
-diff --git a/net/x25/x25_timer.c b/net/x25/x25_timer.c
-index 9376365cdcc9b..2afa8ecaf509a 100644
---- a/net/x25/x25_timer.c
-+++ b/net/x25/x25_timer.c
-@@ -36,45 +36,45 @@ void x25_init_timers(struct sock *sk)
- 
- void x25_start_heartbeat(struct sock *sk)
+-static void perf_event_exit_task_context(struct task_struct *child)
++static void perf_event_exit_task_context(struct task_struct *child, bool exit)
  {
--	mod_timer(&sk->sk_timer, jiffies + 5 * HZ);
-+	sk_reset_timer(sk, &sk->sk_timer, jiffies + 5 * HZ);
+ 	struct perf_event_context *child_ctx, *clone_ctx = NULL;
+ 	struct perf_event *child_event, *next;
+ 
+-	WARN_ON_ONCE(child != current);
+-
+ 	child_ctx = perf_pin_task_context(child);
+ 	if (!child_ctx)
+ 		return;
+@@ -13551,7 +13549,8 @@ static void perf_event_exit_task_context(struct task_struct *child)
+ 	 * in.
+ 	 */
+ 	raw_spin_lock_irq(&child_ctx->lock);
+-	task_ctx_sched_out(child_ctx, NULL, EVENT_ALL);
++	if (exit)
++		task_ctx_sched_out(child_ctx, NULL, EVENT_ALL);
+ 
+ 	/*
+ 	 * Now that the context is inactive, destroy the task <-> ctx relation
+@@ -13560,7 +13559,7 @@ static void perf_event_exit_task_context(struct task_struct *child)
+ 	RCU_INIT_POINTER(child->perf_event_ctxp, NULL);
+ 	put_ctx(child_ctx); /* cannot be last */
+ 	WRITE_ONCE(child_ctx->task, TASK_TOMBSTONE);
+-	put_task_struct(current); /* cannot be last */
++	put_task_struct(child); /* cannot be last */
+ 
+ 	clone_ctx = unclone_ctx(child_ctx);
+ 	raw_spin_unlock_irq(&child_ctx->lock);
+@@ -13573,13 +13572,31 @@ static void perf_event_exit_task_context(struct task_struct *child)
+ 	 * won't get any samples after PERF_RECORD_EXIT. We can however still
+ 	 * get a few PERF_RECORD_READ events.
+ 	 */
+-	perf_event_task(child, child_ctx, 0);
++	if (exit)
++		perf_event_task(child, child_ctx, 0);
+ 
+ 	list_for_each_entry_safe(child_event, next, &child_ctx->event_list, event_entry)
+ 		perf_event_exit_event(child_event, child_ctx, 0);
+ 
+ 	mutex_unlock(&child_ctx->mutex);
+ 
++	if (!exit) {
++		/*
++		 * perf_event_release_kernel() could still have a reference on
++		 * this context. In that case we must wait for these events to
++		 * have been freed (in particular all their references to this
++		 * task must've been dropped).
++		 *
++		 * Without this copy_process() will unconditionally free this
++		 * task (irrespective of its reference count) and
++		 * _free_event()'s put_task_struct(event->hw.target) will be a
++		 * use-after-free.
++		 *
++		 * Wait for all events to drop their context reference.
++		 */
++		wait_var_event(&child_ctx->refcount,
++			       refcount_read(&child_ctx->refcount) == 1);
++	}
+ 	put_ctx(child_ctx);
  }
  
- void x25_stop_heartbeat(struct sock *sk)
- {
--	del_timer(&sk->sk_timer);
-+	sk_stop_timer(sk, &sk->sk_timer);
- }
- 
- void x25_start_t2timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t2);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t2);
- }
- 
- void x25_start_t21timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t21);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t21);
- }
- 
- void x25_start_t22timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t22);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t22);
- }
- 
- void x25_start_t23timer(struct sock *sk)
- {
- 	struct x25_sock *x25 = x25_sk(sk);
- 
--	mod_timer(&x25->timer, jiffies + x25->t23);
-+	sk_reset_timer(sk, &x25->timer, jiffies + x25->t23);
- }
- 
- void x25_stop_timer(struct sock *sk)
- {
--	del_timer(&x25_sk(sk)->timer);
-+	sk_stop_timer(sk, &x25_sk(sk)->timer);
- }
- 
- unsigned long x25_display_timer(struct sock *sk)
-@@ -108,7 +108,7 @@ static void x25_heartbeat_expiry(struct timer_list *t)
- 			     sock_flag(sk, SOCK_DEAD))) {
- 				bh_unlock_sock(sk);
- 				x25_destroy_socket_from_timer(sk);
--				return;
-+				goto out;
- 			}
- 			break;
- 
-@@ -120,8 +120,14 @@ static void x25_heartbeat_expiry(struct timer_list *t)
- 			break;
+@@ -13607,7 +13624,7 @@ void perf_event_exit_task(struct task_struct *child)
  	}
- restart_heartbeat:
--	x25_start_heartbeat(sk);
-+	/* Do not rearm once __x25_destroy_socket() has unlinked the socket:
-+	 * it is past its cancel point and owns the teardown from there on.
-+	 */
-+	if (sk_hashed(sk))
-+		x25_start_heartbeat(sk);
- 	bh_unlock_sock(sk);
-+out:
-+	sock_put(sk);
+ 	mutex_unlock(&child->perf_event_mutex);
+ 
+-	perf_event_exit_task_context(child);
++	perf_event_exit_task_context(child, true);
+ 
+ 	/*
+ 	 * The perf_event_exit_task_context calls perf_event_task
+@@ -13618,25 +13635,6 @@ void perf_event_exit_task(struct task_struct *child)
+ 	perf_event_task(child, NULL, 0);
  }
  
+-static void perf_free_event(struct perf_event *event,
+-			    struct perf_event_context *ctx)
+-{
+-	struct perf_event *parent = event->parent;
+-
+-	if (WARN_ON_ONCE(!parent))
+-		return;
+-
+-	mutex_lock(&parent->child_mutex);
+-	list_del_init(&event->child_list);
+-	mutex_unlock(&parent->child_mutex);
+-
+-	raw_spin_lock_irq(&ctx->lock);
+-	perf_group_detach(event);
+-	list_del_event(event, ctx);
+-	raw_spin_unlock_irq(&ctx->lock);
+-	put_event(event);
+-}
+-
  /*
-@@ -166,4 +172,5 @@ static void x25_timer_expiry(struct timer_list *t)
- 	} else
- 		x25_do_timer_expiry(sk);
- 	bh_unlock_sock(sk);
-+	sock_put(sk);
+  * Free a context as created by inheritance by perf_event_init_task() below,
+  * used by fork() in case of fail.
+@@ -13646,48 +13644,7 @@ static void perf_free_event(struct perf_event *event,
+  */
+ void perf_event_free_task(struct task_struct *task)
+ {
+-	struct perf_event_context *ctx;
+-	struct perf_event *event, *tmp;
+-
+-	ctx = rcu_access_pointer(task->perf_event_ctxp);
+-	if (!ctx)
+-		return;
+-
+-	mutex_lock(&ctx->mutex);
+-	raw_spin_lock_irq(&ctx->lock);
+-	/*
+-	 * Destroy the task <-> ctx relation and mark the context dead.
+-	 *
+-	 * This is important because even though the task hasn't been
+-	 * exposed yet the context has been (through child_list).
+-	 */
+-	RCU_INIT_POINTER(task->perf_event_ctxp, NULL);
+-	WRITE_ONCE(ctx->task, TASK_TOMBSTONE);
+-	put_task_struct(task); /* cannot be last */
+-	raw_spin_unlock_irq(&ctx->lock);
+-
+-
+-	list_for_each_entry_safe(event, tmp, &ctx->event_list, event_entry)
+-		perf_free_event(event, ctx);
+-
+-	mutex_unlock(&ctx->mutex);
+-
+-	/*
+-	 * perf_event_release_kernel() could've stolen some of our
+-	 * child events and still have them on its free_list. In that
+-	 * case we must wait for these events to have been freed (in
+-	 * particular all their references to this task must've been
+-	 * dropped).
+-	 *
+-	 * Without this copy_process() will unconditionally free this
+-	 * task (irrespective of its reference count) and
+-	 * _free_event()'s put_task_struct(event->hw.target) will be a
+-	 * use-after-free.
+-	 *
+-	 * Wait for all events to drop their context reference.
+-	 */
+-	wait_var_event(&ctx->refcount, refcount_read(&ctx->refcount) == 1);
+-	put_ctx(ctx); /* must be last */
++	perf_event_exit_task_context(task, false);
  }
+ 
+ void perf_event_delayed_put(struct task_struct *task)
 -- 
 2.53.0
 
