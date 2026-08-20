@@ -1,96 +1,78 @@
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C803B42E7
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B54367B85;
+	Thu, 20 Aug 2026 19:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787255134; cv=none; b=RxITATW48Fi1o/S/sfK/PrR2BGNNTMQ+lO/IknwWSAI63+Mg2HRYbtF4KKVIuIKS8g4uBZjDmuc5Tx39dKvPx4aNjll9Ua33xAiJQFocXR03nnG8A4QX3j3B/vm56cNiQp+ES13sUpF6rUhBhPYsFomxyau5xvqddZ7aeWDlgMo=
+	t=1787255460; cv=none; b=GlMmRsWvGUKlMXvL1wYTD5Tj90CWK5a5AZeNZuIjzQBDqoEnhs3rl9aLNW+L8uu4QUCNd6wio5tXoTnUSBQYXXXdSRZXZZBDOni81PV+4yFMIhOIBISp2J2Va0asKoKplMxwXMNDLvhLosjIV4eHWYGkEPdD9iSuQKatbo2amfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787255134; c=relaxed/simple;
-	bh=OC516aLBGgP7OfSMr8hlKfRcSB86Rj37vkXzqqMuCP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bsfb4O4xTaj1Q9T2ZtF+rtr8wjEC6Nzr4qg/RWTfshLLPoM49+u+O3mOUH20zQ01RRbDKFIy1nf9aQ8Vk6Qgdcs+eM2ggorYewXrpX6bLz9WLMPuZtmupFpZHJ2rwjdAYuLb92M2WhI9MaVe45VV7dR31APitkB50cNR366pA+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=EF6/dsnA; arc=none smtp.client-ip=209.85.160.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1787255460; c=relaxed/simple;
+	bh=jfVC4X26EOAPXcnHKlMWJa+fPkEB2CWXZz1cAomQzpI=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=L6+iCb8aSMD2RrfrMKeSa9KQx6THbZvVy8eVclix8SlkBKzf9D2CikGCppgyWU610TztaFH4/ksx70woL5lq1PXRijtvFjU1aheyxiK/eMptFuhfEeAnka6QInbEpBi3MCFISlPsq7vANL6bCpN1XKaFbbcAosKy6SON2IFjtHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MMg32WZx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="EF6/dsnA"
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-45ef699308eso93725fac.2
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:45:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1787255131; x=1787859931; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BxQ9hW+X3+brrrwHxhFqtuGXtqhzMYPhRXGIT5cef34=;
-        b=EF6/dsnA1aLL0PNFTtD7Rwv1p/f+Y+L2rSVmcrmlD1jGW59eLV4FWUuCnyWgH+/b/Q
-         PCfc9ZDSWz6Zw1o5BwAd8l+uh9Z9Z27CyY6On0sxu9ZLdPWBVclglFkDyyOKFHagut5s
-         1WG1W5oPZO09iaaFI8R+SoLK4cd57yD0AB9Po=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787255131; x=1787859931;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BxQ9hW+X3+brrrwHxhFqtuGXtqhzMYPhRXGIT5cef34=;
-        b=NvMPr/dcdn3uLmas7SOPjk/AdieOI4tpAc2iZfr8rnuunnlErVoUFVbQzy3hjDIWFP
-         zf6EQPAc6aSEfKMTQPLq83VrUwFE1l2l2uzbgPlid5wekwySdYYzO6kE5LKvxitfo4oE
-         +QVqm55sELjMR70g95TxV4dhsRkyMA3ISkXebz0NyqCr1SxP3ItwdM3OF1IuH/jRQ/Uv
-         Ws5DpDaB4aff18FIDNexJg9/FcGiVK9AtCFQG9bNz3gEOa/5gViuHOARlV1CjIJo+9Kg
-         151KwIZ1/0KkI+qvHYlqycw8HZy637OyiCCmb69NixaSCzLCuM8BCPDTggy0bQgnfZ2N
-         CDHQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoYP9PoT9Roc1UvkjKPVkw6x6HUADJoh3Cba9KqKIvRDhbpRaYJQE8Zt0qX+Jvvqa5l49TIlYM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUC4aJGI2OPUgqkWqDOnxM2YQB9/v1TSfjd+Ti/RJcYZ5Rhgkx
-	irkB1UckmMw3nlfEmZDfDsp85iEI8eYOhwlglM3FwVbnHkkfYRfHLzj/ydLiNoASh+o=
-X-Gm-Gg: AR+sD12eZDtot2ubnNGdd2CqJj08d0uRq8rPsNVN3bkZ3H/LLofXIQzEs/GS2kY6KK4
-	JHwchV28nhdj7Z+PgabsdP9+FDYrQz5DoN4jB+A8VjezH56WjhBuvi3lliT1hFqQtTzFrkWDHYq
-	mpqQJH0Ro+/YQu/sI4l7pwYfhuhu0PCeXD/36TQ4fy4K2MW384mWn6YelfwiBqQ5XllaabIfhGK
-	n9J9TY4EzfsDZqwi+6FfHLHizijFh+ujjP4YOrA6sStXXAunvog63Y5Q/6Upyd4/c5/yjfHpsLO
-	nhjQN+31rdNtWFsrxoVS04/6JFmOA+W5GOnxZY/vuiZBRpTRtb9Zsz3e0lvS3wVLfYtacAzfcxn
-	yPSPGg+y+DueW3XcnS2FSccV0sbWnYdPvOUlC0chxaqsp+DKIqVBoos70mdBcc/9Wh/lpL19ge+
-	IHOAqoIKiiiOrv8EcSzo76yzePEq1ooqa/SDRpVPuSeEf9PEeVdXjRvRlaq200EL9V1BmgJXXxL
-	uM1x6C91XrnuQhrCnJqS79gCBgBCq47ekrajRbolK0=
-X-Received: by 2002:a05:6808:13c2:b0:4b2:6ca6:9cd8 with SMTP id 5614622812f47-4b2ef25db7bmr543975b6e.1.1787255130643;
-        Thu, 20 Aug 2026 12:45:30 -0700 (PDT)
-Received: from com-75606 ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b2d6ce0c3dsm2392184b6e.11.2026.08.20.12.45.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 12:45:30 -0700 (PDT)
-Date: Thu, 20 Aug 2026 12:45:26 -0700
-From: Kyle Zeng <kylebot@openai.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Muhammad_Hazley_SAMSUDIN_from.TP@tech.gov.sg,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net/packet: defer vmalloc TX_RING free until skbs
- finish
-Message-ID: <aodZVp2PqHnEiLV8@com-75606>
-References: <20260816235646.76500-1-kylebot@openai.com>
- <20260820124253.1fd25425@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MMg32WZx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677631F000E9;
+	Thu, 20 Aug 2026 19:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787255459;
+	bh=Zgd8g2CWWh75vQo+lLUqyOpuffa/PY2Xc8KWOvYEbiQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MMg32WZxzL/KqI4y2Qpgd8FwKHofIJvqYhGjhbQmEkAw5i+UvnoCjv9QV+PTgJtgC
+	 NtMh51R69u3IkeUF1jSYn20V73h/7Ybb4v07h79iAoP/D1b6ImwIlNr/ZPSw3R/3oH
+	 ZPgi1zvPLxc6ESMjYPpuLtt43yXJvFRQ+74l/Xmc2OqCu4Pv5EVm2ziha/0lrxXJcH
+	 vijbMhNYefWTkytPVdRZ0fg2CPyIPLd2lO1U6nJNMlMXqtk2yS/PTESvJBsrmKWVxY
+	 HnHSJUNxS3k9GMpo8+pbWpLGWoJO5lkClrnfrQfMjLtucaR+LSzAzPLL1pzBmb8aQb
+	 PQYn6fGNHRxQA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0C06392445B;
+	Thu, 20 Aug 2026 19:50:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820124253.1fd25425@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] bnx2x: fix double free in bnx2x_init_firmware() error
+ path
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178725540964.453960.11612397406517093275.git-patchwork-notify@kernel.org>
+Date: Thu, 20 Aug 2026 19:50:09 +0000
+References: <20260815122149.951215-1-yijiangshan@kylinos.cn>
+In-Reply-To: <20260815122149.951215-1-yijiangshan@kylinos.cn>
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: skalluru@marvell.com, manishc@marvell.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ vladz@broadcom.com, eilong@broadcom.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 13667453960@163.com, stable@vger.kernel.org
 
-On Thu, Aug 20, 2026 at 12:42:53PM -0700, Jakub Kicinski wrote:
-> On Sun, 16 Aug 2026 16:56:46 -0700 Kyle Zeng wrote:
-> > Fixes: b013840810c2 ("packet: use percpu mmap tx frame pending refcount")
-> > Cc: stable@vger.kernel.org
-> > Link: https://lore.kernel.org/netdev/20260721015824.45829-1-kylebot@openai.com/
-> > Suggested-by: Eric Dumazet <edumazet@google.com>
-> > Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-> > Assisted-by: Codex:gpt-5.6-sol
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sat, 15 Aug 2026 20:21:49 +0800 you wrote:
+> bnx2x_init_firmware() frees bp->init_ops, bp->init_data and
+> bp->init_ops_offsets in its error path without setting them to NULL.
+> The cleanup function bnx2x_release_firmware() frees the same three
+> pointers unconditionally, so if init_firmware fails and
+> release_firmware is later called (e.g. from __bnx2x_remove or through
+> the function state machine), all three are freed a second time.
 > 
-> Kyle, we're missing your sign-off tag here.
+> [...]
 
-Apologies, here is the tag:
+Here is the summary with links:
+  - bnx2x: fix double free in bnx2x_init_firmware() error path
+    https://git.kernel.org/netdev/net/c/d2796ffe38cb
 
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
