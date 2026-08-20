@@ -1,282 +1,196 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B36539B94F
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787252846; cv=none; b=qKLhXyf2hxkx9DdqQ92rdid7vr0ohlr74F/PUFXwH3lM2OzrnP6JvfmBTIjoHYYQwJ/v1oHzS3JGImkzSdQ/nzgOO3J9eiTZWoW0zNhcjk7B2QD0gHf3D15oMPu5rAfefrk2toLpY/8igvs8/JXnsRS6xV+cTAapTTqAC+zn1vY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787252846; c=relaxed/simple;
-	bh=UO5kRI9gaVVRfGzqNdDRrX1886a60IbaK2fX2j+yrlg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nwohCkIN3Exybxf8dTyrDshRiAl4beUNEVDuLnqNA4aWKdZBxQaXvdOu2yUd7codtWjOBuRZICHqNcA3EbsnInK2JbGkeqTmS8kZ4/YNkpieMMX5uGH07zvjOGxdWs/oc7rNV4AnG/Vne/xehkWcZHlTgIqMtoZysmDSE0abMT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qXqEle7g; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC68D3A6F19
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787253181; cv=pass; b=fE2ftmcQ/Z+TIhZTTRRA4/i2LK8/UZRvof3bV0J0+ZlE3pXOQBQVDCxMhMogL4igEW1pgrj/DfXBt4GgeulYOtHQqW6boQaKfWZqckJc5vl6smtIQOZP08XiVAoLcmlEC1YTHdC8xUYuPaHpaiOAkT1hFKEBPJXg+diKwhFSbbY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787253181; c=relaxed/simple;
+	bh=EBJqidiCcHqzIqgjqJGYqBp8ou/sDr6lv1shRSRmZ0k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n2S3kXlKnLyuUjhs9mRZteDq6XvzUwCfnggS2PUXJSWOpETCCw+qYfzmj5ld6q5PQAq8FC8t58Vh5qVB6VXfEuC4o+Knybe7nN8SZA8RW/r8OQoihCuDppJKZyPQhmn5TIVu+cIseL6CU+PHdEZv7V3WUJfvzFKWqlugVzZgPtI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HjtxiRk/; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qXqEle7g"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KIVvOB3370449
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:07:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=gEnJhDNwb/MJrwckE
-	18no0h3PbMjRYMfgXtUEbJZ0fk=; b=qXqEle7gXyRGZuC7IvN+guQjtZJv6t4lC
-	kF4yNHFQ8MO1ZlelXHjRJCoPKehGhs++GMLBjMNTmkEdaOfDdK+qKwRpJ2whQIKV
-	DNd5dpflqO8cpPW2KeFjcvMu8I4ieFokyWPpZJHlPRA01ijTTfKwF5gqOiSfMfGV
-	cy91w2YDjzQz5JSLaNvSRjgPrB06hbVseYq665LIMbg04YyP+JZ3FGX1vEPUSwYL
-	aCHTtOf5MTNC+HFNbMr8uSM9hRbKADtstdGy+EWnpYWpFY9XcnvP+cRWPd0DuTy4
-	VWs6ZyRHkKQ/pe4Axa2pdCbdBC0C5EdQk054dq/yPlRztkQUzEbDg==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g4yu4capu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:07:20 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67KIuJY4002124
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:07:19 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g32eqghsf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:07:19 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67KJ7IBL27787994
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 20 Aug 2026 19:07:18 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6413E5805A;
-	Thu, 20 Aug 2026 19:07:18 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E124F58052;
-	Thu, 20 Aug 2026 19:07:17 +0000 (GMT)
-Received: from li-479af74c-31f9-11b2-a85c-e4ddee11713b.ibm.com.com (unknown [9.61.78.161])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 20 Aug 2026 19:07:17 +0000 (GMT)
-From: Eric Farman <farman@linux.ibm.com>
-To: stable@vger.kernel.org
-Cc: Eric Farman <farman@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Farhan Ali <alifm@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>
-Subject: [PATCH 6.6.y] s390/vfio_ccw: Implement a crw lock
-Date: Thu, 20 Aug 2026 15:07:09 -0400
-Message-ID: <20260820190709.2690605-1-farman@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082010-pliable-disparity-1208@gregkh>
-References: <2026082010-pliable-disparity-1208@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HjtxiRk/"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-698ae09e356so499957a12.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:12:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787253178; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MU4TE/yHk29qBKDs3SPlcyoQpULVT+SfU9Hl1nKfDUWCpPwE1ZZXHFh9gC8Gtvmkmr
+         aEg/85J/OTVpJrF6CISrvo5y80PnsfG+0xIOeRurNitWOrGxOG7/VJdwetUtoYX4w0/p
+         1BBarT2EcMOtatfnbJFfO4dfaBlPPmtbAbXZi+Oxzhh/7iU/tvz+CEyMCzHVC206uc5F
+         nhDKK7SicoqYVV9JuQwTJr93zsRRjdbx8WO/YE7q6k+nkWyocV1CedF22o+G4NgQz+lI
+         dk8IaJtwk0QRuq64ScfJ6Fr0i+NUQodTpda2IqjqTwzEbytX1mnjocR9RHWCgD7shMJA
+         eUmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u+vZFL9QCUrHQWNeywdrmX/CGS7XIPcGZmcJEdaeksA=;
+        fh=25Ek/L3iyqnyyHevkuOxQ0OTvYCDQxLKcZhq2LQA9mM=;
+        b=Gh8t8m648Azan4FzrY2ppMuFMXi3z7XAgEHHeisQEdti8bfamVm3hlko9zRcXAwgA5
+         XS4pVXdKo7m8v+4vdmMxMyVBPWBvWAtDyBLikl0+mICvRRod5QlNUBkN0GZ4p9rS9W/C
+         /Mjv8t4WuScxie6tknC+HvMn9p0d7unpC3uWnRnkCrw+WA9QQshvCvIYvK3L0+vBpiMp
+         FDXja3zH9NBNDXtOlKSoh7qVO/CB6BLUgXo4y0Ug6IF9qBIVgFSk7l9L6kzW7b29xLq1
+         dHu1Gcvja61LOFzWRBfwXSEhYGR5pkHyl0u6ywoYlTjJeU5VHurCblkhtPM6K2SU1xGI
+         mmbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787253178; x=1787857978; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u+vZFL9QCUrHQWNeywdrmX/CGS7XIPcGZmcJEdaeksA=;
+        b=HjtxiRk/0YfnOV09MlXe0Pfo0XYkO8wCmAN59X9bYO1GQi35prQemChY4NLZhVlLw2
+         HVS/N+fvbYBhFREreghfMAHH1z0MxyrHc3oeDxHPPXpPf/S9kp7qIXnxxqDeNK9hSu3u
+         65FwLR7TslEzv/zupeh3ceQTAZTxoNnJGWq5LNx0sJB02AlKQzX0cTPs/c3fg1Z3QpRg
+         dXhB9r46Pwvse5Qn2o3mQJfFsqtEA4i7BK+sw1zQqntH5xe9IDvwgHTW3ftE+3wIMVoz
+         EMTEH82F4xWv0qD2sq8SsqlugnnMo7DhPN8twOZ1PemNCDBYnHrU5xwzEhF4jrdisLS3
+         uP/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787253178; x=1787857978;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u+vZFL9QCUrHQWNeywdrmX/CGS7XIPcGZmcJEdaeksA=;
+        b=p8pOGgPC8AEZsjXuR8mq/04l/Ub9AtOaeb/e/MPrhGgG/G2H6zcOK+xFUsgGA8ar9d
+         ynLrgeq5EvOGNSyJq5h1QiKcZxC0EmjLtuHh6kDUtBK9PpXnG6RCPegzFoXN84KphDZN
+         sFlxcRomlMrPmvFNRTYv9ugxDym0NbCYayau0AweKOCfr/mJYD5HpT/fb+qdC6/a+Grm
+         JLT1mkF4IsmwOUaSx9DyLez+mkDoiIQXv0j4TdT/PHD4uJTwjbsQIa67uypqRZ8+ujzj
+         lkt69MA2S6nDDzxboyCmAryf1JXSSIs7i5ov5WVBI1HCYRsIYKXkNZc0yUJ0Qht72duM
+         x5gg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2ZFJph9HMfC60pi0I8hd82dnfEUoMRLV1g56IVCx1wAJ2F3gqKNp/umoVhiXwC2c3u/IbHbc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYIahOScpv5GNqsjzk9XQWniHESR88+FQjTJZ/HOjmYPiNP9A6
+	Tm0d5bp8tXU4+Z5M184M+noCLLar6QygHkSliozi1UJlYgyaHv0kJUh3FChqMjO7XUApIxbOFIF
+	DoM9bos4kkJj5W2lx9/ToeCiWH07JZBY=
+X-Gm-Gg: AR+sD12Ix/p91Wg9+obNnMneFRYg1RbsD+Lzo1YzTr6kEyPCT+YMAn9n9xoRIfdoXjI
+	2hw8mbMt82eig3jMHbkAgq+dH7d2cTVowFmjObHq/NwdNILWgg/nS6dBJM9fOTnFRC3zgFYnnwy
+	i/l7BZ6QlAv5e1da2MXGCw4W8qXR5sgytvvYYrxKJpZC+aon+HIOmoqubqcKQPC49/C9AdjqCQO
+	PuNK9SEzLMgqrBixSEv/cAfSCZTtb2nbPom76TK4/GVMA5/IXCMZ/C962YtLz5EFO+ycD5NX6Vo
+	MFGUi3gYQVKGbv3VNFQiBed/IhOi7FjcJhNnntR2M+cOww==
+X-Received: by 2002:a05:6402:e09:b0:6a1:f95b:8cff with SMTP id
+ 4fb4d7f45d1cf-6a42f14d945mr881033a12.1.1787253177867; Thu, 20 Aug 2026
+ 12:12:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=CpuPtH4D c=1 sm=1 tr=0 ts=6a875068 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=5HEjZEaU-qRc82GsN3sA:9
-X-Proofpoint-ORIG-GUID: deoCZvU7HSGXwkEXXJjaQ8fn5vQzHlAG
-X-Proofpoint-GUID: deoCZvU7HSGXwkEXXJjaQ8fn5vQzHlAG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDE0MyBTYWx0ZWRfX4Iw5sokMwu+J
- M0OKMvV5YOpZyoPw5zUneWegRoy2CtEcg5GQ5A8igXFwa8ouDY/3qrH1aQa/FrinnxrTz8hYmUR
- Xo/K2zk7piRe2yW68yZQxnOy+iDh7ns=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDE0MyBTYWx0ZWRfXwYvL/3Ewxb63
- RfIoGiQP4wWISsmY3MB+nqrOGUwT34sJacX7JvaeTYN+Nk0FE952ERrPEgRayLGe4W/D2A4XODz
- 2t3A+x/KF2Ucvxqx0iAGM3YvEa96vF7IbvHVwt04+azUoPdO2TYOCxD/KLmAH8vooJwjTUskoGF
- +WKxmogPonQzCDc3f/WwC6mb91rBjXAMnL5Y8AvXr6baM5pLjPRqOKR/ybH76q+9DxA+3YnrBbO
- alWDVEuGhFVE1UEUw9QXLRvwCQDhYSjoWZJMGKu2jtPlHMmiYHY5BdQr6hNYgOPh6sCJ38QuI/O
- gHXjAo4zHZFpWbV1jQ/aLsclemU5qu6WQa63hueu5iirwVTJ5tzOQV1RTkjgsT0KL09sSvaCQZI
- NdwAJlnjO98VRR2Qx93muCjTJyYpupzotbKdaq0SKA+5IrY9pAM8Noqh6tj98CfPWy2u8jvbGr4
- GMXTgS7tiy8lFX2rRmg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-20_01,2026-08-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608200143
+References: <20260820175832.44512-1-kmehltretter@gmail.com>
+In-Reply-To: <20260820175832.44512-1-kmehltretter@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 20 Aug 2026 21:12:44 +0200
+X-Gm-Features: AcwNN1VoTb8-Y4yAhAEdExFUOY6_E29SmGdgjuOoDLFC6HRxDrS8gXBvh8R9q5E
+Message-ID: <CAOQ4uxj+uFAR3YjE+XX98iJAdxNNqnaM6pptsqPaXnqJk4OXWg@mail.gmail.com>
+Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: selinux@vger.kernel.org, Paul Moore <paul@paul-moore.com>, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Unlike the channel_program struct, which covers synchronous I/O
-submissions and asynchronous interrupts, the CRW region relies
-exclusively on asynchronous events coming from hardware.
+On Thu, Aug 20, 2026 at 7:58=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
+l.com> wrote:
+>
+> SELinux saves the user file SID in a backing-file security blob so it
+> remains available after mmap() replaces vma->vm_file with a backing file.
+>
+> For nested backing files (overlayfs over overlayfs, or FUSE passthrough
+> backed by overlayfs), user_file may itself be a backing file.  Its
+> fsec->sid is the SID of the mounter that opened it, rather than the user
+> that opened the top-level file.  mprotect() then checks fd { use } agains=
+t
+> the mounter SID.  This can incorrectly deny access without a domain
+> transition, or check the wrong target SID after one.
+>
+> Copy the saved user SID when user_file is a backing file.  Keep using the
+> regular file SID for the first backing layer.
+>
+> With two nested overlayfs mounts and SELinux enforcing,
+> mprotect(PROT_READ) returns EACCES with an fd { use } denial against the
+> mounter SID.  With this change, mprotect() succeeds.
+>
+> Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access=
+ checks")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Implement a lock to manage the list of those payloads, to ensure
-they are read cohesively.
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
-Fixes: 3f02cb2fd9d2 ("vfio-ccw: Wire up the CRW irq and CRW region")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-(cherry picked from commit 16b0798024c0e9117e395829ddbbe70981c79d9c)
-[farman@linux.ibm.com: resolved merge conflict]
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
----
- drivers/s390/cio/vfio_ccw_chp.c     | 26 ++++++++++++++++----------
- drivers/s390/cio/vfio_ccw_drv.c     |  6 ++++++
- drivers/s390/cio/vfio_ccw_ops.c     |  4 ++++
- drivers/s390/cio/vfio_ccw_private.h |  4 ++++
- 4 files changed, 30 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_chp.c
-index 3284b6763347..a518234d0753 100644
---- a/drivers/s390/cio/vfio_ccw_chp.c
-+++ b/drivers/s390/cio/vfio_ccw_chp.c
-@@ -93,18 +93,13 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
- 	loff_t pos = *ppos & VFIO_CCW_OFFSET_MASK;
- 	struct ccw_crw_region *region;
- 	struct vfio_ccw_crw *crw;
-+	unsigned long flags;
- 	int ret;
- 
- 	if (pos + count > sizeof(*region))
- 		return -EINVAL;
- 
- 	mutex_lock(&private->io_mutex);
--	crw = list_first_entry_or_null(&private->crw,
--				       struct vfio_ccw_crw, next);
--
--	if (crw)
--		list_del(&crw->next);
--
- 	if (i >= private->num_regions) {
- 		ret = -EINVAL;
- 		goto out;
-@@ -113,6 +108,16 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
- 	i = array_index_nospec(i, private->num_regions);
- 	region = private->region[i].data;
- 
-+	spin_lock_irqsave(&private->crw_lock, flags);
-+	crw = list_first_entry_or_null(&private->crw,
-+				       struct vfio_ccw_crw, next);
-+
-+	if (crw)
-+		list_del(&crw->next);
-+
-+	/* Drop CRW lock while copying to userspace */
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
-+
- 	if (crw)
- 		memcpy(&region->crw, &crw->crw, sizeof(region->crw));
- 
-@@ -122,15 +127,16 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
- 		ret = count;
- 
- 	region->crw = 0;
--
--out:
--	mutex_unlock(&private->io_mutex);
--
- 	kfree(crw);
- 
- 	/* Notify the guest if more CRWs are on our queue */
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	if (!list_empty(&private->crw) && private->crw_trigger)
- 		eventfd_signal(private->crw_trigger, 1);
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
-+
-+out:
-+	mutex_unlock(&private->io_mutex);
- 
- 	return ret;
- }
-diff --git a/drivers/s390/cio/vfio_ccw_drv.c b/drivers/s390/cio/vfio_ccw_drv.c
-index 884e2e5e4104..e3e91aa10682 100644
---- a/drivers/s390/cio/vfio_ccw_drv.c
-+++ b/drivers/s390/cio/vfio_ccw_drv.c
-@@ -118,11 +118,14 @@ void vfio_ccw_sch_io_todo(struct work_struct *work)
- void vfio_ccw_crw_todo(struct work_struct *work)
- {
- 	struct vfio_ccw_private *private;
-+	unsigned long flags;
- 
- 	private = container_of(work, struct vfio_ccw_private, crw_work);
- 
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	if (!list_empty(&private->crw) && private->crw_trigger)
- 		eventfd_signal(private->crw_trigger, 1);
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
- }
- 
- void vfio_ccw_notoper_todo(struct work_struct *work)
-@@ -286,6 +289,7 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
- 			       unsigned int rsid)
- {
- 	struct vfio_ccw_crw *crw;
-+	unsigned long flags;
- 
- 	/*
- 	 * If unable to allocate a CRW, just drop the event and
-@@ -303,7 +307,9 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
- 	crw->crw.erc = erc;
- 	crw->crw.rsid = rsid;
- 
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	list_add_tail(&crw->next, &private->crw);
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
- 	queue_work(vfio_ccw_work_q, &private->crw_work);
- }
- 
-diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
-index 67acfa2533ee..d1c17969cb98 100644
---- a/drivers/s390/cio/vfio_ccw_ops.c
-+++ b/drivers/s390/cio/vfio_ccw_ops.c
-@@ -55,6 +55,7 @@ static int vfio_ccw_mdev_init_dev(struct vfio_device *vdev)
- 	INIT_WORK(&private->io_work, vfio_ccw_sch_io_todo);
- 	INIT_WORK(&private->crw_work, vfio_ccw_crw_todo);
- 	INIT_WORK(&private->notoper_work, vfio_ccw_notoper_todo);
-+	spin_lock_init(&private->crw_lock);
- 
- 	private->cp.guest_cp = kcalloc(CCWCHAIN_LEN_MAX, sizeof(struct ccw1),
- 				       GFP_KERNEL);
-@@ -132,6 +133,7 @@ static void vfio_ccw_mdev_release_dev(struct vfio_device *vdev)
- 	struct vfio_ccw_private *private =
- 		container_of(vdev, struct vfio_ccw_private, vdev);
- 	struct vfio_ccw_crw *crw, *temp;
-+	unsigned long flags;
- 
- 	/*
- 	 * Ensure these work items are fully drained, so none can
-@@ -147,10 +149,12 @@ static void vfio_ccw_mdev_release_dev(struct vfio_device *vdev)
- 	cancel_work_sync(&private->crw_work);
- 	flush_work(&private->notoper_work);
- 
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	list_for_each_entry_safe(crw, temp, &private->crw, next) {
- 		list_del(&crw->next);
- 		kfree(crw);
- 	}
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
- 
- 	kmem_cache_free(vfio_ccw_crw_region, private->crw_region);
- 	kmem_cache_free(vfio_ccw_schib_region, private->schib_region);
-diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_ccw_private.h
-index 0e30497da600..7c16cd570043 100644
---- a/drivers/s390/cio/vfio_ccw_private.h
-+++ b/drivers/s390/cio/vfio_ccw_private.h
-@@ -98,6 +98,8 @@ struct vfio_ccw_parent {
-  * @cp: channel program for the current I/O operation
-  * @irb: irb info received from interrupt
-  * @scsw: scsw info
-+ * @crw_lock: serialization of CRW list information
-+ * @crw: list of Channel Report Word elements
-  * @io_trigger: eventfd ctx for signaling userspace I/O results
-  * @crw_trigger: eventfd ctx for signaling userspace CRW information
-  * @req_trigger: eventfd ctx for signaling userspace to return device
-@@ -120,6 +122,8 @@ struct vfio_ccw_private {
- 	struct channel_program	cp;
- 	struct irb		irb;
- 	union scsw		scsw;
-+
-+	spinlock_t		crw_lock;
- 	struct list_head	crw;
- 
- 	struct eventfd_ctx	*io_trigger;
--- 
-2.55.0
-
+> ---
+> Changes in v2:
+> - Add selinux_file_user_sid() helper instead of open-coding the lookup
+>   (Amir).
+>
+> Tested on arm64 QEMU at fd6e2388a3ea with SELinux enforcing and two
+> nested overlayfs mounts. The policy omitted only
+> base_t -> mounter_t:fd { use } among the relevant cross-domain allows:
+>
+>   baseline: mprotect(PROT_READ) returned EACCES with that denial
+>   patched:  mprotect(PROT_READ) succeeded; test exited 0
+>
+> This patch fixes SID propagation only. backing_file_user_path() still
+> resolves to the middle layer for a nested mapping, so the audit path and
+> inode do not correspond to uf_sid, and that layer's mounter is not
+> re-checked. Preserving the full user path likely needs a VFS-side change,
+> such as having backing_file_open() store file_user_path(user_file).
+>
+>  security/selinux/hooks.c          | 9 ++++++++-
+>  security/selinux/include/objsec.h | 2 +-
+>  2 files changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index 1ead2eee1944..171b90412ff1 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(struct fil=
+e *file)
+>         return 0;
+>  }
+>
+> +static inline u32 selinux_file_user_sid(const struct file *file)
+> +{
+> +       if (unlikely(file->f_mode & FMODE_BACKING))
+> +               return selinux_backing_file(file)->uf_sid;
+> +       return selinux_file(file)->sid;
+> +}
+> +
+>  static int selinux_backing_file_alloc(struct file *backing_file,
+>                                       const struct file *user_file)
+>  {
+>         struct backing_file_security_struct *bfsec;
+>
+>         bfsec =3D selinux_backing_file(backing_file);
+> -       bfsec->uf_sid =3D selinux_file(user_file)->sid;
+> +       bfsec->uf_sid =3D selinux_file_user_sid(user_file);
+>
+>         return 0;
+>  }
+> diff --git a/security/selinux/include/objsec.h b/security/selinux/include=
+/objsec.h
+> index 3c0a16ec978b..853f7266ed18 100644
+> --- a/security/selinux/include/objsec.h
+> +++ b/security/selinux/include/objsec.h
+> @@ -87,7 +87,7 @@ struct file_security_struct {
+>  };
+>
+>  struct backing_file_security_struct {
+> -       u32 uf_sid; /* associated user file fsec->sid */
+> +       u32 uf_sid; /* top-level user file fsec->sid */
+>  };
+>
+>  struct superblock_security_struct {
+>
+> base-commit: fd6e2388a3ea55e58cbbbef840c1d8aa2067dbb3
+> --
+> 2.39.5 (Apple Git-154)
