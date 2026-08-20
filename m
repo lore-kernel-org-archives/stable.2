@@ -1,211 +1,106 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCB8415B90;
-	Thu, 20 Aug 2026 11:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603B640D58B
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224136; cv=none; b=oFAFacSwCQ5CcndOj3MGAgX3xKGp3o6UtfBWTWqUcydlDbbEhQOxWfZQU2GFD8nKWqrNODxp7VkNqBR9qZ3vAChSoFTukjrzHP4/O8r06cOkZbHqJknL+y11QMDIirIheT0GtWBW1LzEPbsZPvMwfxPngaltJWvOFAEXfI8/cac=
+	t=1787224204; cv=none; b=ZlnqgvAWm7tQjk2Ftq5DMFRPK/mDuiqbqay0lIbDcLjd9OrarNQf+ve9/uFF6cfbw1TPSOGh0abrsHpON/RzFUXfljo8+ADycAL6m9VnsqqTnqDRe0ItnOo/4agdUMzS1SuyhiI/MsYVuW7I6/3AXV+i8JVobW3AfCPLo0tj+zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224136; c=relaxed/simple;
-	bh=bPRBdUpzIm2s1eAZpnihewwZArgWvnaE23s61UeiAKk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X3SA/m6xHh+CduX/Vjt9N/YEwApyBcoYQg5eK+yWU3pvILgyh4T7UOXZUdMUwrXTlZzqfXU2wP3LTqEsMPRfrLlPJdgymwuEdYpPalmOjC6tptvJTh9voacnUPY766CDtmgzyLD8gNyQ1mrF7ilQeu9gVwelFqV8ZXCiIF304oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=RwCMhpQc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=JBB7nnB2; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TGSfZHWb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=udR+D2Ql; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1787224204; c=relaxed/simple;
+	bh=zxcAEsXpAFIMud6rEKDnszVIcn4z550JU4YT1RfBj4M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VCD+9o2ftcD4x8zqE2JzDUTW7gDzNUA3aFHSnSttjYDMSiGtDBAd/ZsGxUP9VUW14gCw91Df1sk24Lb30PUqSad1xODkUWt7ymPTT3wqZT73ikfcqQZ8e0ByVbSsUbrOrB3XmqjHnjZSIeZlIFRHy/lJGiTKqaToN48c6uMjN2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gCIaZFUV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="RwCMhpQc";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="JBB7nnB2";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TGSfZHWb";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="udR+D2Ql"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A66113EB1;
-	Thu, 20 Aug 2026 11:08:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787224126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yfQe8qCXafeY/v3YQtv2qR39nOFKrbAjyfJEMwLvSHk=;
-	b=RwCMhpQch0YgPVp+fkRqEXyfyXYlXPTo7fBi3KU87LWiDNEet9on4dwPVhyE8DqmyC/Nog
-	/AeJQbAU2QL3/SxzNuFRT7T5LR7BZxn4mfk+b+2nKcszHJARw72KP0hD6oes1R41yv3/Mt
-	ROq7rtcn1eT8jzY8K8HLuZeMggPvexg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787224126;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yfQe8qCXafeY/v3YQtv2qR39nOFKrbAjyfJEMwLvSHk=;
-	b=JBB7nnB2gmADZ4VQGLnJ48PwBjk8zljIBN4fUS2kWP/sGcWY9ZW+i0i0xzKKdhiqMEK/RD
-	MkooGfHRinbX2iBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787224122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yfQe8qCXafeY/v3YQtv2qR39nOFKrbAjyfJEMwLvSHk=;
-	b=TGSfZHWb6ZRWXR/ugBXOuWxbLo2bgMXWvcSZhadFTWB6E/lUvI6uQfp6+k7L9ANTqT3MtS
-	NGLF4tBKKD6JDtM1h/pI5dr2IvFVsEWuBQlWQns41j6ffDoHfIo4oNg2hIm+1KQzQ7oVxM
-	w06iLY/jeZb4kF8ALw8eQIy09NmsuZ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787224122;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yfQe8qCXafeY/v3YQtv2qR39nOFKrbAjyfJEMwLvSHk=;
-	b=udR+D2Ql+bvdaFqThhtHHnAqALxty00d0n5Oyxyod7br+0E98Ri/i/ueXe7E6hcC93DvPE
-	G81BTJhxvAtPGNDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9C8CB27A8;
-	Thu, 20 Aug 2026 11:08:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id TK8yJjrghmrBJwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 20 Aug 2026 11:08:42 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 3BC9AA13B9; Thu, 20 Aug 2026 13:08:42 +0200 (CEST)
-Date: Thu, 20 Aug 2026 13:08:42 +0200
-From: Jan Kara <jack@suse.cz>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: fix discard work use-after-free on failed mount
-Message-ID: <ao3hudzjy2ljujygifsf7bcbffnfhp4uhxln3qkzdbszih3mjf@cqcopsdlkpnw>
-References: <20260820052102.4616-1-fanwu01@zju.edu.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gCIaZFUV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B731F000E9;
+	Thu, 20 Aug 2026 11:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787224202;
+	bh=X4jFQyG6W+qHvx5p24ZnXQQZH+Io+2CWGNUo4C7KKOE=;
+	h=Subject:To:Cc:From:Date;
+	b=gCIaZFUVrqtb9BIbZGdZj9X/EIH+cubHVwP9H2m+xwC5Igzzv/q8QSdv6Oh2EyzUS
+	 pb30hDi0Nsi4CrdlpNgwBRysChF0NaNp+/J0oVVqLudzz1CU5ut/U4//TnPFIK7/XI
+	 aZNIwDQ4Ekm6nidMa9vuPUCDvCE+pRm11SfzaZg8=
+Subject: FAILED: patch "[PATCH] gve: fix zero-length skb frag with header-split" failed to apply to 6.12-stable tree
+To: jordanrhee@google.com,hramamurthy@google.com,kuba@kernel.org,pkaligineedi@google.com,ziweixiao@google.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 20 Aug 2026 13:09:58 +0200
+Message-ID: <2026082058-encrypt-lividly-0296@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820052102.4616-1-fanwu01@zju.edu.cn>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hello!
 
-On Thu 20-08-26 05:21:02, Fan Wu wrote:
-> ext4_put_super() destroys the journal before it calls
-> ext4_mb_release(), but the failure unwind of __ext4_fill_super() runs
-> the two steps in the opposite order: failed_mount6 calls
-> ext4_mb_release(), and the journal is destroyed only later, just above
-> failed_mount3a.
-> 
-> ext4_mb_release() flushes sbi->s_discard_work before releasing the
-> mballoc structures, a drain made unconditional in commit 9ee29d20aab2
-> ("ext4: always drain queued discard work in ext4_mb_release()").  With
-> -o discard, the journal destroy that runs afterwards re-arms that work
-> after the flush: ext4_journal_destroy() calls ext4_force_commit(), and
-> the commit callback, registered once mballoc is initialized, queues
-> s_discard_work whenever the discard option is set, even with an empty
-> freed-data list.  A quota-enabled mount reaches this with a live
-> transaction (ext4_enable_quotas() failing into failed_mount8,
-> ext4_quotas_off() on the failed_mount9 path), so the final force
-> commit is not a no-op.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Yes, I think orphan replay is the easiest way how to have running
-transaction in the journal in this shutdown path.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> Nothing drains s_discard_work after that point: failed_mount3 flushes
-> only s_sb_upd_work and the s_err_report timer, and ext4_fill_super()
-> then frees sbi with a plain kfree() through ext4_free_sbi().  If the
-> system_dfl_wq worker is delayed across the rest of the unwind,
-> ext4_discard_work() then accesses the freed sbi, first through
-> sbi->s_sb and then while taking sbi->s_md_lock.
-> 
-> This is the pattern fixed for the s_err_report timer in commit
-> 0ce160c5bdb6 ("ext4: fix timer use-after-free on failed mount"):
-> async state armed after the unwind's last drain point.
-> 
-> Destroy the journal at failed_mount6, before ext4_mb_release().  This
-> restores the ext4_put_super() order, so the final commit re-arms
-> s_discard_work before the flush_work() in ext4_mb_release() drains
-> it.  The journal destroy further down the unwind still covers paths
-> that enter below failed_mount6; on the failed_mount6..failed_mount9
-> paths it does nothing, because ext4_journal_destroy() clears
-> sbi->s_journal.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 55cdd0af2bc5 ("ext4: get discard out of jbd2 commit kthread contex")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 6bf14575c65569dcded90ef78afb8a6d57323f04
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082058-encrypt-lividly-0296@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Thanks for the analysis and the patch. I agree the problem exists and your
-patch fixes it but I just don't like the solution. Firstly, it looks very
-suspicious both failed_mount6 and failed_mount4 labels would be shutting
-down the journal. It makes me even more nervous that only failed_mount4a
-does:
-        dput(sb->s_root);
-        sb->s_root = NULL;
+Possible dependencies:
 
-which drops the root directory inode reference and with your change you'd
-already have shutdown journal by that time which could cause problems in
-some corner cases. Normal fs unmount path drops sb->s_root reference even
-before calling ext4_put_super() BTW...
 
-So to summarize I don't think we should really shutdown the journal
-earlier. I think failed_mount6 should just force the commit to flush out
-the running transaction before mballoc will be shut down and
-ext4_mb_release() can also use disable_work() after flush_work() to make
-sure no new s_discard_work can be queued as a safety measure.
 
-								Honza
+thanks,
 
-> diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-> index 4b6112e5d6c5..58b210637b57 100644
-> --- a/fs/ext4/super.c
-> +++ b/fs/ext4/super.c
-> @@ -5761,6 +5761,12 @@ failed_mount8: __maybe_unused
->  failed_mount7:
->  	ext4_unregister_li_request(sb);
->  failed_mount6:
-> +	/*
-> +	 * The last commit can re-arm s_discard_work, so destroy the
-> +	 * journal before ext4_mb_release() flushes it.
-> +	 */
-> +	if (sbi->s_journal)
-> +		ext4_journal_destroy(sbi, sbi->s_journal);
->  	ext4_mb_release(sb);
->  	ext4_flex_groups_free(sbi);
->  failed_mount5:
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 6bf14575c65569dcded90ef78afb8a6d57323f04 Mon Sep 17 00:00:00 2001
+From: Jordan Rhee <jordanrhee@google.com>
+Date: Fri, 7 Aug 2026 22:43:14 +0000
+Subject: [PATCH] gve: fix zero-length skb frag with header-split
+
+When header split is enabled and a header-only packet is
+received such as a pure TCP ACK, GVE will indicate an
+RX SKB with a zero-length fragment. If this SKB is then
+hairpinned and sent back out, the GVE TX path will emit
+a zero-length descriptor. Hardware considers this
+an illegal descriptor and stops the queue, causing a
+TX timeout and interface reset.
+
+Fix it by not adding the zero-length skb frag.
+
+Cc: stable@vger.kernel.org
+Fixes: 5e37d8254e7f ("gve: Add header split data path")
+Suggested-by: Praveen Kaligineedi <pkaligineedi@google.com>
+Co-developed-by: Ziwei Xiao <ziweixiao@google.com>
+Signed-off-by: Ziwei Xiao <ziweixiao@google.com>
+Signed-off-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Link: https://patch.msgid.link/20260807224315.234152-2-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 8271f731a91f..0ece2f6fdffb 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -886,6 +886,11 @@ static int gve_rx_dqo(struct napi_struct *napi, struct gve_rx_ring *rx,
+ 		rx->rx_hsplit_unsplit_pkt += unsplit;
+ 		rx->rx_hsplit_bytes += hdr_len;
+ 		u64_stats_update_end(&rx->statss);
++
++		if (!buf_len) {
++			gve_free_buffer(rx, buf_state);
++			return 0;
++		}
+ 	} else if (!rx->ctx.skb_head && rx->dqo.page_pool &&
+ 		   netmem_is_net_iov(buf_state->page_info.netmem)) {
+ 		/* when header split is disabled, the header went to the packet
+
