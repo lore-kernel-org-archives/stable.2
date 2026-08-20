@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15BC26056C
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E65A39F165
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:35:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787254519; cv=none; b=Q/ofDePa4ETDVV57YcVnSSD9a/+LKxVzinhB5CFfyQYmW7mVlknVu/mQFtWRzvtTg1a9+trvcYbRtEfK3xW5HXrF1CcE7rUTbQxsri4nF9HY9yRU1mZWNU2ZzDF2lb6r+jZlPW1WUw6NMzgEcdwxi9uPtfceeROfhlQQcF2Z5ks=
+	t=1787254542; cv=none; b=LKuYCBCMKU10rwH8YYFMwCnJwXFAP7phSJQqz9V5/Y2e3dLnmprKP9H/iWo4LlUpyIU8u7SsLypBTVsmxW9/8oTef2kPa+/w+C+0/xAcH+UNt/pfjBRTB5WZSMuYikL2W0shzp/tubItNZoWCLnc2u3nuUwcD/FVeWR54OPX5Go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787254519; c=relaxed/simple;
-	bh=4KL6H7LGIyRlRkm5f1vK/G/tftgHSDk4pi2rScosg1E=;
+	s=arc-20240116; t=1787254542; c=relaxed/simple;
+	bh=PBZI1CGt1j3aTefLzoyJYI/2EAo0XVXJmkp9nhuk4Hs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pvvn/uPKWS0rGIR9eLq9phexwH2Ip00589R+tZc7qcWsZ85nYJ+gSs+fT6hQ7iNvDlXma/ChyP/rtMQhMicWlHYJPpnqTARWiNuiafPqvPDZBmRvOrFetQ7Arv6mtMT7lM+zzGCIm3dQVyH0uZpQhNIOt9rj+aLfY2nGixOP/D4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4jkSso5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AsrWJUn6fd8P40BbKVcVQ0FDwNGgJsL+VfHU5LiSN3auFrCPW4Fr72NFfUHdPY9ZuANi0pOgFesT5Ljmfm9tsnHT4o+nPek3Ed3MErtGTGMthfQlP3fv3k3ARNqJncLnYwiR6qPFjTZbrqq0wPzSOwoOBywYWdVo4Uqys1wwnrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2r+e04x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4jkSso5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144791F000E9;
-	Thu, 20 Aug 2026 19:35:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2r+e04x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9606F1F000E9;
+	Thu, 20 Aug 2026 19:35:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787254518;
-	bh=84zJFq2mzwUUk2XoeUSloOODbudjlUws4LI44R9GWic=;
+	s=k20260515; t=1787254540;
+	bh=EGkuq2Mh4ir7eXmJjKJAm5IPsA/E4QIUTMsS9VfoL6Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J4jkSso5CO8UjxehxGDd1xbeG/WeBkOvckX6nJB7nXGBkLhUpx2kQMw1hgyrbfmb9
-	 lb/xO8YVznx4O5VwiLsWkHUEpqqHI8Wi+I+P5Ao72S43siyqwp1LduyW1PxUHWVP42
-	 7m/n1siEBW+ljs9gfHjpUuag2iQEFoJIbtzS74vQOadpk5ybUieM9POOFqXfDaozaU
-	 2/3tnKppJAKqkD9a04bDV5/wmHJtliWNI+MloqeiCne/7ss9tK3v5f2EpnWsFd9vDk
-	 Z6T9hx7ZCT/fs4gqi/9qhbC5Mr7S1sGkZFKP2tn2QEr1NCgVqkZjH1uxodMgwpKw4F
-	 oHHrVlWKa/tXw==
+	b=B2r+e04xpMElC0O9PZuXBMmoivqDmBzL1do5Rx1S5psgjczN0pjBJpXk5AaAa7ML9
+	 zTCscIF1Ao7DWvfHaUJeu3jiA5TqmuOepx1P/k6Bvr9e8NDOrM9xOrue8+3TqhcvqE
+	 xDlH8/SgFjhgHyRlw0xN0TIwumQCQN0OJU8ZU9Qn7xsk2lsO8iZ1gJ1GaONVDY900/
+	 TXu6sa9pMpYQqnPWIqUfeYKMQwjSl3yEdjG1qgFFKgaEXVBl1+9OamKrPCjQrjbAhe
+	 CgeiTYWspVFdEpepK+pdPCEDiwVjrwNgmrh0XlgorKC1FYhTzXqQMP0DgbdYkOte1K
+	 BxS/sD3vfiTJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] NTB: ntb_netdev: Preserve RX queue depth on allocation failure
-Date: Thu, 20 Aug 2026 15:35:15 -0400
-Message-ID: <20260820193515.2272594-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] serial: amba-pl011: synchronize DMA teardown
+Date: Thu, 20 Aug 2026 15:35:37 -0400
+Message-ID: <20260820193537.2273472-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081709-chump-underhand-f0fd@gregkh>
-References: <2026081709-chump-underhand-f0fd@gregkh>
+In-Reply-To: <2026081744-cosponsor-neon-92d7@gregkh>
+References: <2026081744-cosponsor-neon-92d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +46,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit d2121faf133ac3bf9531b53a7e21273649a08517 ]
+[ Upstream commit 440915499231e9db1c361aa45bb702e8fd3b4a32 ]
 
-ntb_netdev_rx_handler() hands the received skb to the network stack
-before allocating its replacement. If the allocation fails, nothing is
-reposted. Every failure therefore takes one buffer out of the RX queue
-while the interface remains up, and enough failures eventually stall
-reception.
+dmaengine_terminate_all() does not wait for a running callback, so the TX
+callback can still touch the TX buffer after it is freed. The RX poll
+timer reads the RX buffers without the port lock.
 
-A retry path could refill the queue later, but ntb_netdev has none.
-Allocate the replacement first instead. If that fails, drop the packet
-and repost the same skb. This keeps the queue full and lets packet
-delivery resume as soon as memory is available again.
+Switch to dmaengine_terminate_sync() and delete the RX timer before
+freeing the buffers.
 
-Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://patch.msgid.link/20260806032537.3526498-1-den@valinux.co.jp
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ kept HEAD's `struct net_device *ndev = qp_data;` declaration instead of the per-queue context variables, adding only `new_skb` to the existing `skb` declaration ]
+Fixes: ead76f329f77 ("ARM: 6763/1: pl011: add optional RX DMA to PL011 v2")
+Cc: stable <stable@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260731085915.326775-4-fanwu01@zju.edu.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ changed upstream's `timer_delete_sync()` deletion to match this tree's `del_timer_sync()` spelling at the old call site ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ntb_netdev.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/tty/serial/amba-pl011.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
-index ef6df0e37bea5..05bd6ad9c88fe 100644
---- a/drivers/net/ntb_netdev.c
-+++ b/drivers/net/ntb_netdev.c
-@@ -100,7 +100,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 				  void *data, int len)
- {
- 	struct net_device *ndev = qp_data;
--	struct sk_buff *skb;
-+	struct sk_buff *skb, *new_skb;
- 	int rc;
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index 3713b23536dcc..8934fbdb0cf98 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -1171,7 +1171,7 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
  
- 	skb = data;
-@@ -115,6 +115,12 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		goto enqueue_again;
+ 	if (uap->using_tx_dma) {
+ 		/* In theory, this should already be done by pl011_dma_flush_buffer */
+-		dmaengine_terminate_all(uap->dmatx.chan);
++		dmaengine_terminate_sync(uap->dmatx.chan);
+ 		if (uap->dmatx.queued) {
+ 			dma_unmap_single(uap->dmatx.chan->device->dev,
+ 					 uap->dmatx.dma, uap->dmatx.len,
+@@ -1184,12 +1184,12 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
  	}
  
-+	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
-+	if (!new_skb) {
-+		ndev->stats.rx_dropped++;
-+		goto enqueue_again;
-+	}
-+
- 	skb_put(skb, len);
- 	skb->protocol = eth_type_trans(skb, ndev);
- 	skb->ip_summed = CHECKSUM_NONE;
-@@ -127,12 +133,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		ndev->stats.rx_bytes += len;
+ 	if (uap->using_rx_dma) {
+-		dmaengine_terminate_all(uap->dmarx.chan);
++		if (uap->dmarx.poll_rate)
++			timer_delete_sync(&uap->dmarx.timer);
++		dmaengine_terminate_sync(uap->dmarx.chan);
+ 		/* Clean up the RX DMA */
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_a, DMA_FROM_DEVICE);
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_b, DMA_FROM_DEVICE);
+-		if (uap->dmarx.poll_rate)
+-			del_timer_sync(&uap->dmarx.timer);
+ 		uap->using_rx_dma = false;
  	}
- 
--	skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
--	if (!skb) {
--		ndev->stats.rx_errors++;
--		ndev->stats.rx_frame_errors++;
--		return;
--	}
-+	skb = new_skb;
- 
- enqueue_again:
- 	rc = ntb_transport_rx_enqueue(qp, skb, skb->data, ndev->mtu + ETH_HLEN);
+ }
 -- 
 2.53.0
 
