@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FBD37AA6D;
-	Thu, 20 Aug 2026 14:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5665379C46;
+	Thu, 20 Aug 2026 14:50:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787237428; cv=none; b=bK/XIyDTvb0uQstpZWks9cAvHCAIltxRtSRKZfTFctDQoQahojeR1YP/o4vUZTVpXtiMwLA6Ii/5lIEDfOfk8CCU0/AKufObGlrIYcbTThLwDbq1+6cgqloaMdGjjDJYvUvZOd3ItcYAh2mNu2J1Zk595J1uxtjvFD6cjETAzvk=
+	t=1787237433; cv=none; b=Fp8TtR1sTl+MSw8nVtvUMGo1QYSF/xCPQ5lsBR7bJd7igRYr1xkzo8ue8orANq6ebTUn1aWRQY5xQ42419CHN/rFlSu2tNlYONTjb/6lPkh85ZW1dvWWw1UH2Y5JVaIJLbBQbmaq442i64enRSPc2CncM4DMXrJ2duRI6d2rHfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787237428; c=relaxed/simple;
-	bh=Rx40lFGgnSAPwcS4SnQ4IRexueivRGxfHUbfZiRWUSE=;
+	s=arc-20240116; t=1787237433; c=relaxed/simple;
+	bh=9rSfFZLLIReuha5b7zTo8uIUfQRF+HuyzerzVQdr6vs=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=aog5334PQ6zPRK+xHrArfdOlIUaEIUl/nrq4f6W76oC6IvoZ+lIFqHdqMeDkCAp2yUjHP4jXi68k2XFPPlbFaKvUI/hkaMujcQX/jqUyshtHWRZqYU1CroTwCrRtUZvJzxIDAfjgN/GbMoGr36io62dc6quyAsR0FDSeLBymBTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAiwKZLJ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=EWQuKeMX7b6jXNhGQJ6bEKSxKiX6xhVWFUC9mk5dL84BpFIqPCRdA2gAHwmMTt/99INtTSeVs2220SsKKxx6TLLD2IYSw9boOUc8147+StVRQAr24f8lGuNU7xeh96NOgzi5KwenKj5tyqwt8Ci1gCzWRxrJXSok/XX2rRpBDMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhQ6gXhH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAiwKZLJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404E41F00A3A;
-	Thu, 20 Aug 2026 14:50:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhQ6gXhH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5AE01F00A3E;
+	Thu, 20 Aug 2026 14:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787237427;
-	bh=DNOIl3+u2z53rU54/TYMH+dTGhcjs3yyBgOByIotuaw=;
+	s=k20260515; t=1787237431;
+	bh=Gx8jdoPcWq/cVLP63o8RIIoH4DRJ45rPwE7EB0sK2rQ=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=aAiwKZLJqadwMghUM2PI9Y0FdHoCrJEVs8/lywMgzve9sPsshA1zWKllHf1TbOyUn
-	 8b4dQAzabgL247WMsX6cXEP6a+P/nshHyjcmX4g1wsDxDl1R1XR/w5IFVbA8aTIjuX
-	 //nUnRuRIA7o7oRZF0QehK7rpdsSvZVwZS1dUyXY+nVNKy5hB6/GqupXCm2c1/vAeq
-	 a+Y+Z5MzOYQXL4/oMJPiVszOLctLWzNak6hMHVMHRBatCafjnjhsrF3Z+4Hbv8DEjN
-	 C1q+Il5UUtTP2GDU91Bt/YGPZGlhDvcnX5xc9kTEL69bKjCZ/gMVCVBa+OIwcXKs7z
-	 QKPF9VidMvrkQ==
-Message-ID: <400c3d0a-97ca-4c76-909c-0c09d534cd41@kernel.org>
-Date: Thu, 20 Aug 2026 16:50:17 +0200
+	b=bhQ6gXhHRJmgACf0idHqcEbiiBErDEEOvbhC2KShYLVkozDG1fycwUvLU5WBsruqn
+	 NGiBerMuf32t4i0DjS8TY2PESQGjUjBQO/0Cj2hM5L8iLp0+t08bAGj9JPEdLjuTAH
+	 BI/ieEY21BiEas8TneQx7iaogUlpQqb7zlN0KpTeqL0fVBqsUnqt9kGpKKejFDoQ/0
+	 U/0ZSWbs/O02raHlP0XbqzK6ZTnzQ+W3H+RVOkPQpT+dFDXS5XAqff9hvHbiqIapLx
+	 8US+xFzlXU8j0ngt5UaLt8raHUOWH4m06c00oN9rGQxOa8zrDDvTwC66PHAQWi1TF3
+	 y2hkOtIceyQnw==
+Message-ID: <e2b658d5-e846-4ce3-a42f-16f86acbf3e3@kernel.org>
+Date: Thu, 20 Aug 2026 16:50:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,15 +36,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] drm/tegra: gr3d: fix autosuspend cleanup during teardown
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: intel-thc-hid: intel-quickspi: fix autosuspend
+ cleanup during teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>, Even Xu <even.xu@intel.com>,
+ Xinpeng Sun <xinpeng.sun@intel.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, "Danny D."
+ <d3z.the.dev@gmail.com>, Abhishek Tamboli <abhishektamboli9@gmail.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20260808142217.2893936-1-lgs201920130244@gmail.com>
+References: <20260808151736.2934050-1-lgs201920130244@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -89,14 +92,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260808142217.2893936-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808151736.2934050-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/08/2026 16:22, Guangshuo Li wrote:
-> gr3d_probe() calls pm_runtime_use_autosuspend(), but gr3d_remove()
-> does not call the matching pm_runtime_dont_use_autosuspend() during
-> teardown.
+On 08/08/2026 17:17, Guangshuo Li wrote:
+> quickspi_probe() calls pm_runtime_use_autosuspend(), but
+> quickspi_remove() does not call the matching
+> pm_runtime_dont_use_autosuspend() during teardown.
 > 
 > If the autosuspend delay is set to a negative value while autosuspend
 > is enabled, the runtime PM core increments usage_count to prevent
@@ -113,9 +116,10 @@ On 08/08/2026 16:22, Guangshuo Li wrote:
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: 62fa0a985e2c ("drm/tegra: Enable runtime PM during probe")
+> Fixes: 6912aaf3fd24 ("HID: intel-thc-hid: intel-quickspi: Add PM implementation")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
 
 You sent vast amount of patches, all separate, making it very difficult
 to track and respond in efficient way. Do not do that.
