@@ -1,233 +1,296 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ACC40BCA0
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787221601; cv=none; b=ILG3L8YYHAFlRv0kxx4LaPG5cgHgZcqyLuN8jO9wRvudP8AjAjp81aLwZdTSe7ZeiC6MAPbZneETamKHD1FpBm0Xx1M62fzib2V5e5kmcKZkbKM3pG97VXmwHZ4B76yO/UfEKqnehcIINFF88sktX9BR8oWYfqv0KvyRni6uYeo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787221601; c=relaxed/simple;
-	bh=f4pxdxOm5KSlcTwOg7yLOGvkui7bGHcXbIihBrSAEi0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFC440862D
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 10:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787221800; cv=pass; b=oK/g2NJ/nGrcrRgVQnWk5bP+bXVvkMSXskprp1dhpce1UCSgXTAOYTK1/ZJSRIrSRZHcWV42vDchxzsVMpvwy0Zo9OXUz/lM6U9wdwyh5OFYq3ZL0/2I9DqMQnaKHlwRUpES+QHqeHuY3xRtit3F+PRPN8NpzQ9aBzyC+AzGk4o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787221800; c=relaxed/simple;
+	bh=ilYAz4FnkicbNJ4PjalFroSEFvj7gvAVONxsroYezKw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KisGwi1hw7+gzRzfOeXx5mj8o0G5Jix3+KyItXGVZhq6l9ZJEvViYzXcf6bmGrygcpLAYGwRPiijGIQ1KYbp0LzE76GACughiN05XqDt55PdEp1Kk0yKYV+t2dYijaETvSfM2PixeE9kZQAW41xkcVxfIwXADgAtXcaEmmcZqOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YoQi9zMQ; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=Mp/aOZoj9x1/l8FE0Bx7ow1z4kLvSl/cQmhZt7DpgkpsOEgefP7QezG/QUOEfcSFvllme2zVHKE3I6Z8MN2kUCdLiwIbB2JT+vnX9joaXH3lH7kq+7Nty+JzbfE8DBauprFnFq0coVDQFHw7y8sUojocvEFuvJ2CmjDIwxDEHW4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dQzrHf77; arc=pass smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YoQi9zMQ"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a3819e8be8so2043378a12.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:26:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dQzrHf77"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39ca300db70so21383611fa.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:29:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787221796; cv=none;
+        d=google.com; s=arc-20260327;
+        b=by0Gfu8aKt/FU7RtFLJLRj293i/ACReP7NYX/KRl8DftBKanVOhsZDYgo1VHLTqlp/
+         oz3FzIlsVPWrdD+7gaFN3E/u+eOESWdUPXICDAbqupwMoX3lspUtOOIiRtCkT0m2SuhP
+         eG2gptQxlBOAYh9q2O8GnTir9VPKWI9zpcydsPER2vqgOiCaQR4WFRcc07v27294SgeE
+         5bg18pFY+wnQlgedRs1/uTUn3QbVpQBsbQVSJBNpg9UjZgrAEw3j01fDdqHk1WNiPiIp
+         fKL281K7agRjJQafdqVEeBXl1IcuWNJnXH6EusmlcxoiZiYgHCqzhAHNK++OitQExDGp
+         jn4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gHTtDnXZCHKa5y8EGgqexs176ovYBZq6I1x2ikTmc/A=;
+        fh=SI/BfW0jQkaFBN0GrijovW6D1l3pyF3Q6txFzC7m35o=;
+        b=K/u70wuTnt652s/rP/Yn31Ji0zsmzRG6Aipk88eUMZlsrhqOfcOjNJwg9RlBDudsIU
+         P2+30Dg070iJlISbfV8+x13w5Hgyu26DS6R1z4+K7avoW2/n/JfDVNnHX2xVpcOjyWMm
+         I/66KWE7L8+8+wP1m4vtc3pJIo9VfJQ3wQUUBELW/QIsVZ1JUICSqgaAHk6QizMdXViF
+         5lootqdjLvST3EBeLcPW89lHk7d4k+omOQuIypvr6hZOpH20zrtOLzN/PreTu3BxRh4Q
+         +TDtpbWrNWsTHsV2zhahVnOKlNMrNFkO4XervmjvrBudO6U/ttBaT4hoo/oDCS6tlBQ4
+         WcPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787221595; x=1787826395; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787221796; x=1787826596; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JK3RPI3X6wjjizw2T6NiDoaTiSUZOw5BuBJ76PSCVyg=;
-        b=YoQi9zMQG7Uq5Sru9o7LChM7SkyAD2VoqfHNrmm2tZjjByAJK3nKC8zxvvatbP2EJ7
-         LqQMGrUYogKe/NqdOOtvcAfGlv+U1yZJf8UxnlgALwAJrL2qn2KUzQYVN8oAgez5nLHI
-         jx8yeq+5ZwMKl14lqeJtA2kIePyjzrA+x6GIo=
+        bh=gHTtDnXZCHKa5y8EGgqexs176ovYBZq6I1x2ikTmc/A=;
+        b=dQzrHf77UWW74LrS3gqqEkzgy3KecO6UTzP8+fVaq61CJNiv9qHywqmfHwDlMP8CL3
+         D9+4ebWusZKwQqFXVMdk3bfIp9lY8Rar3dsn3UplApmg+67X+9Os9n5v7fmpX3WIU6Ye
+         1t3+hv6o5gK1meQG3peayFDTyHLHWT/idgjN3GSWeqnPqjAMYcOtA0sd59Ow+kuiVCbs
+         f21mjYCGgu3uu6dzjln37hrSoGaEY2duhX7tiomoBhs4GnD7z2vwjhhNXkN76Q8eSUZL
+         ON/pYxL+dP0hcBQ+iAjKglJ04lhXOqLzb7yeYCXwxAhVTfmLEcoJ0JiHJo3JNJfwjw07
+         bUCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787221595; x=1787826395;
+        d=1e100.net; s=20251104; t=1787221796; x=1787826596;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=JK3RPI3X6wjjizw2T6NiDoaTiSUZOw5BuBJ76PSCVyg=;
-        b=hCoiOUsRetuZnu6tsy7pEWPdyyD9Mnt8ntLQ5GGBGkTwLcbuZelMVxmN6nc4mekzpD
-         0JUn6htIowg3gXL0C836IHg3/p7Rh8frzT3exB2pqDjwuAwFhp3VCF+zqsLOvZcqCVtH
-         Cat+yCwhBDO/BL0srhWbfpfJXG25n6BlsqshwdlOL+iAQesRRvEhp10LYsZeLRHtHzVd
-         ZuuGMRh732NgCBfF19oC8ztN9zlPP5HNZJug2tJJsWaOc5aabtsBwao4dxfmjd3qt/zG
-         JZFFSrFUEiZfqbKAXM+QG3Gv15WZ6nbg7gumHX4/DDkPn8JUplWYp6oC22dNs3spaprn
-         TzyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqTLsgyZRcXu7S8nJL+R7ln38Bjk4ljUnkA5Kn9a+AA7e4lJohsJ6NgvQ23HuZ7i7sre+kTaRY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCyjp0xQ2dsT4EchgFym80P+9E10eozWg1RroAlZi6uuJLHMLs
-	clM39Fb8qdMDUlyi/lKgHzld0C3bHPLY9BZOQyXLe/Q4SrNl7LHm+Jstn2JenJMpSZvN0Lkyl9C
-	2Q5NBSA==
-X-Gm-Gg: AR+sD117f0S3htXfPQwjOth06rByR3MBf4+dyMcPi0NNYtgmAS+FHI62pd92Tq3HLeb
-	ou5+NhxDQngrcL7f1lqzFr1Le1rmE1XIUjB4Oe2aOP22KzIU0671Mw/xfmJGzFNhjg3Ku/Zw5Xg
-	GMOILdqAkluQFAtcv3p70fkBjlh+6mpjaSZs7pDJzUYZx7uqjrNfX480QVUimNsOd6NUxvcfcKH
-	Mhi79Y8NDf9WNZBvECui8LdPyBd1foxehgUjqD0YFRrWq1ftycRKWSIV5g/ut6IZQ1G16rP8QI5
-	xKRBDrnHsuBGH1YSwaNBi+Zi35EMnAhqkzVQ+yImWyfaYoVWwCG9BCi7vcQSeEGw2pGsvXnd5zZ
-	vIjA+R/OdVZKdi0GrpG8nZVMrecCVDAAV+d17a3YYZVV1wivY1VuN6tGPV5xzKa/cfQ5tsVEQn7
-	TFo4xciwm/ZD3qGWpxiVqOm3ODQ+uSijlv/d/40d3tf1uAdGdy0uCA46BxZQx5f+oBY1YKVtyHo
-	Liza0iSleExHsN1y8rcgBVZzw==
-X-Received: by 2002:a05:6402:8c4:b0:695:4916:b97c with SMTP id 4fb4d7f45d1cf-6a41133589dmr2788147a12.8.1787221594812;
-        Thu, 20 Aug 2026 03:26:34 -0700 (PDT)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff1565fesm2183134a12.17.2026.08.20.03.26.34
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 03:26:34 -0700 (PDT)
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c169ae1cb26so163963766b.1
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 03:26:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpxzFQeYeDkHauaxdyD1uxPfmVdGBQAH1HOn8Pab6zOpivis2qQBMxAqHBWkCKkZ5nqDaJtnpU=@vger.kernel.org
-X-Received: by 2002:a17:907:3e89:b0:c21:7c98:d9ec with SMTP id
- a640c23a62f3a-c244d6349a2mr384527466b.5.1787221593000; Thu, 20 Aug 2026
- 03:26:33 -0700 (PDT)
+        bh=gHTtDnXZCHKa5y8EGgqexs176ovYBZq6I1x2ikTmc/A=;
+        b=kRKbbIHM0u72GxaFC3FI/pUwUQy4b2VLQqWJsOxV7eYJnyEofTxUhg/bLMP8CtHQUS
+         AqwL+z+PLC6oN3Mx7wpjKF2jp4lqVy/6WNvd1+yEWXmy0DMpEHEE11P2GpFCr9hc2bJ8
+         KeT4up/spjGImIdZ3m2U6gv4Hp49b0+x856nzBY6aYZWSTxnylXuFGFtPweH/kK2H0RF
+         OkkNhmPYIvlFxdYMpk+avkPNaqWCaIs373N/gZU1y0HfqLXhB2YBJiQI+hSgkHlVZjFe
+         TRAjQgDXHIP2ucHAg1p2HKtCTMYar4dzhM22gyIQOiwWIU5Iw8wSFWg0Z6qqRY2g2ibp
+         l7+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqkABxCOyyapv8DgxULg+/cbXZHtVJj5EPvQh0ePrXHIhrL9mR0Dm3xSxjwbtx94Z8iJf3R1lE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRVaP3lJCMCHGtxCxEeaYLuH84317r5ro/enkEt3vdrBMyv08j
+	O8z3uKwoR3YHmLxln5X8Q4gvzoiD5uGeMYE3R9ARXxJc/xLR2AvgL352XVJ3NRvdav4PpvsnAYX
+	cOub/piPnk48Tyn1b5fEOKB3Wy0jrEjY=
+X-Gm-Gg: AR+sD10cR8StLrdb9f9ck4BPyNYVT4ym6PzFw7AEW3aIvkU+E9p3RRIt/tk0oz1+aEU
+	JwPCsSBvkhMLmmdQCY+DUPOvvPkyozT1Pd1xhGNw4dXLzLymZYx0UEbJL1rEj4kvDOcBNzOKoT/
+	FM5q0nNz+LLo4RTnf1WHJunYW5P41O5k05NT4yJ0t7kcsgn5/DIO7HtWdzixI6+HcpNQgEfEy6U
+	X3ZbJ7QWukrdxLILKeR+hoLS8cesQShCvKNH7hEiqOUujfZybR0viVLWBQHs0+EZGb3E+nNsatc
+	Ly70sFvP0A/97ocUoe4oP1FvcEJVrQXll3hYW2r1BZkWuAzEZUFfg69ieQF5yXNtPBXD2pqrUq0
+	AMtbGB8x7YEYCKz/3sjeNMi4=
+X-Received: by 2002:a05:651c:a105:20b0:396:7e66:45ba with SMTP id
+ 38308e7fff4ca-3a1899c93d3mr20170021fa.8.1787221795510; Thu, 20 Aug 2026
+ 03:29:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820095626.111196-1-natalie.klaus@runtimeverification.com> <20260820095626.111196-3-natalie.klaus@runtimeverification.com>
-In-Reply-To: <20260820095626.111196-3-natalie.klaus@runtimeverification.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 20 Aug 2026 12:26:18 +0200
-X-Gmail-Original-Message-ID: <CANiDSCv5pt6sNx9T8jt4K6MSn5YqyNHiPG7SPU=EZ8MQoOJysw@mail.gmail.com>
-X-Gm-Features: AcwNN1Uj5RCmBRRL7so-rkJNHS9RjWVt2a2XT2d0yKtksHempvS34a_tprO4CM4
-Message-ID: <CANiDSCv5pt6sNx9T8jt4K6MSn5YqyNHiPG7SPU=EZ8MQoOJysw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] media: uvcvideo: Fix integer overflow in frame buffer
- size calculation
-To: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
-	noambs2999@gmail.com, david.laight.linux@gmail.com, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+References: <CADOrJmbTyrGGkq+9OJDXCgTa2HvNo8BWxoE6yjafcrOq7WNamw@mail.gmail.com>
+ <20260817215428.84740-1-gvalkov@gmail.com> <20260819-generous-nickel-dalmatian-b6bb08@quoll>
+ <CADOrJmYfBe3ADun_kFjFSH6YOSTX7Vu3UsFsL57yuRdaQ=eJCA@mail.gmail.com>
+ <e554c007-67e3-4fbf-b85e-5de02f649e83@kernel.org> <CAGXv+5H7AhZgZ06r9KO3HLZ9Cymkai+Cv9SgVTuSC1PjgGf8hg@mail.gmail.com>
+ <d6c8f19e-f154-4b57-9101-cf3b73e9794f@kernel.org> <CADOrJmYxKTyDkKPaKCpH37RsyyZJZ+4uReE--+uvnHmEdNJVOw@mail.gmail.com>
+ <c38cb98e-0746-4b28-b0c9-ce59e8338048@kernel.org> <CADOrJmb8CTkjRFp7OjynfQSFm3fHT87wemUM4X5yJjTtS=C7tA@mail.gmail.com>
+In-Reply-To: <CADOrJmb8CTkjRFp7OjynfQSFm3fHT87wemUM4X5yJjTtS=C7tA@mail.gmail.com>
+From: George Valkov <gvalkov@gmail.com>
+Date: Thu, 20 Aug 2026 13:29:42 +0300
+X-Gm-Features: AcwNN1W--3JEaqfbnjrk9l_aNGSOT-_KL7O3smYd-mfsUY6q4R3owlstmMzx5Og
+Message-ID: <CADOrJmYdg6_BLdgY3yEDkn5ugBDwUNUyArffrCB7GWJkHqQRwA@mail.gmail.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: net: wireless: add flag marvell,ignore-regulatory-hint
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, briannorris@chromium.org, johannes@sipsolutions.net, 
+	andrew@lunn.ch, krzk+dt@kernel.org, francesco@dolcini.it, 
+	johannes.berg@intel.com, kees@kernel.org, miriam.rachel.korenblit@intel.com, 
+	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
+	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
+	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
+	Frank.Li@nxp.com, chunfan.chen@gmail.com, 
+	linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Natasha
+On Thu, 20 Aug 2026 at 12:33, George Valkov <gvalkov@gmail.com> wrote:
+>
+> On Thu, 20 Aug 2026 at 11:14, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >
+> > On 20/08/2026 09:50, George Valkov wrote:
+> > >
+> > >
+> > > Krzysztof:
+> > >> regulatory-hint for me means usually regdb, but even with your meaning
+> > >> you tell SW what to do - ignore hardware regulatory information.
+> > >> Property should not tell what SW should do with hardware. Property
+> > >> should tell what is happening here in the hardware. In this case: what
+> > >> is the reason behind.
+> > >>
+> > >> IOW, why user of a board in country X, where regulatory data says X,
+> > >> should have the correct regulatory data ignored?
+> > >
+> > > Because users in X buy a board for X and the regulatory data says U.
+> > >
+> > > Indeed when the ROM regulatory hint is set to US and the driver
+> > > reports this to the OS, the wireless-regdb restrictions for US are
+> > > applied. This would normally be fine, however the third radio in
+> > > WRT3200ACM and WRT32x, reports US on all models including those sold
+> > > in the EU and other non US markets. This creates a conflict with
+> > > radios 0 and 1, which report FR and also with my correct setting: BG.
+> > > With the wireless-regdb restrictions for US, FR and BG applied, radio
+> > > 0 refuses to start.
+> >
+> > So if you move with your router to US, you would need to change DTB?
+> > IOW, the DTB is per user? This is obviously wrong... What if one device
+> > has correct regulatory data written and you ignore it? Why would you
+> > ignore it? If you decide to ignore correct regulatory data, then you can
+> > as well ignore it unconditionally and this property is not needed.
+>
+> All radios on these devices operate according to their certified
+> region. The firmware for all radios is closed source, locked-down and
+> there is no API to change any regional settings or affect TX power. By
+> design, the regulatory information for this platform is configured
+> from the devinfo partition mtd3:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts?h=v7.2#n106
+>
+> cat /dev/mtd3
+> admin1_passphrase=[...]
+> admin2_passphrase=[...]
+> cert_region=EU
+> default_passphrase=[...]
+> default_ssid=Linksys07770
+> deviceType=urn:home-linksys-com:device:Router:1
+> devinfo_version=20160121.1
+> hw_mac_addr=[...]
+> hw_revision=1
+> hw_version=48SAM203.0GA
+> manufacturer=Linksys, LLC
+> manufacturerURL=http://www.linksys.com
+> manufacturer_date=2017/12/26
+> mfg_data_version=1
+> modelDescription=Simultaneous Dual-Band Wireless-AC Gigabit Router
+> modelNumber=WRT3200ACM-EU
+> serial_number=[...]
+> sw_version=v1.0.0
+> tc_passphrase=[...]
+> tc_ssid=[...]
+> uuid_key=[...]
+> wps_device_pin=[...]
+>
+> The intent of these patch series is not to make the radios operate in
+> a region other than the one they are certified for, that's obviously
+> not possible. As described in the commit description, the goal is to
+> allow the platform to use the correct region, which is stored in the
+> devinfo partition. The hard-coded region in the ROM of radio 2
+> conflicts with the platform region and should be ignored, otherwise
+> radio 0 and 2 won't even start. And yes this applies to the case where
+> the user bought the device in Europe and has configured their correct
+> country.
+>
+> With routes that allow the region to be changed, a user can move from
+> EU to US, set the region to US and use their device.
+> This is not the case with this model. The radios refuse region change
+> so the user should not use it in other regions.
+> For models sold on the US market, all 3 radios report US. The platform
+> also enforces the US region from the devinfo partition. Even if we
+> ignore the ROM hint from all radios, the platform will still use US. I
+> don't see any regression. My changes are carefully scoped to a
+> particular device which needs them and do not affect any other
+> devices.
+>
+> > > Would you approve any of these or suggest a better name for the flag?
+> > > Should ROM be in upper or lower case?
+> > > I omitted 'in-ROM' to keep it short, because the driver check line is
+> > > already longer than 80 characters.
+> > > - marvell,ignore-regulatory-hint (current)
+> > > - marvell,ignore-regulatory-hint-in-ROM
+> > > - marvell,invalid-regulatory-hint-in-ROM
+> > > - marvell,invalid-regulatory-hint
+> > > - marvell,invalid-regulatory-ROM
+> > > - marvell,invalid-reg-hint-in-ROM
+> >
+> > The point is that the regulatory hint is NOT INVALID. One device was
+> > sold in US with US data, so how could it be invalid?
+>
+> US devices have no issues, because all radios report US.
+> I would love to ask Linksys the same question.
+> My router was sold in Bulgaria and radio 3 reports US. Others bought
+> it from the UK, DE, etc - same thing. Please allow me some time to
+> install a clean firmware and I will post the output from
+> iw reg get
+> so you can see the incorrect regulatory hint and mix of three regions.
+> This will take some time, and I will be left without a working Wi-Fi
+> until I recover using UART.
 
-On Thu, 20 Aug 2026 at 11:57, Natasha Klaus
-<natalie.klaus@runtimeverification.com> wrote:
->
-> From: Noam Ben Shimon <noambs2999@gmail.com>
->
-> In the function uvc_parse_frame(), it recomputes
-> dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
-> around devices that report it wrong:
->
->         frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
->                                          * frame->wHeight / 8;
->
-> These three arguments originate from the device's own descriptors, and
-> therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
-> u16. The expression is evaluated in int, and the maximum value is
-> 255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
-> A device that declares large dimensions therefore overflows a signed
-> int here.
-> The kernel is built using -fno-strict-overflow, so this wraps rather
-> than being miscompiled, but the wrapped value (which is often negative)
-> is then divided by 8 and stored in a u32 used as a size.
->
-> Two examples for this (using legal field values):
->
->   - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
->     INT_MIN. After division and conversion to u32 the field has the
->     value 4026531840 rather than 268435456.
->
->   - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
->     The field holds 0, rather than the correct 536870912.
->
-> I don't think memory corruption is a consequence of this. The value
-> reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
-> decode path is bounded by buf->length, which uvc_buffer_prepare() gets
-> from vb2_plane_size() rather than this field. What a wrapped value does
-> instead is make the driver describe the stream inconsistently.
-> For an uncompressed format uvc_fixup_video_ctrl() copies it into
-> ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
-> sizeimage reported by VIDIOC_G_FMT. This is while width, height and
-> bytesperline continue to describe the full frame.
-> This also makes uvc_video_validate_buffer() mark error on all frames,
-> because it is comparing bytesused against the same number.
->
-> Compute the size in 64-bit, and if the result does not fit in the u32
-> field then skip the frame descriptor. An uncompressed frame this large
-> is probably not a real device, and skipping it leaves the rest of the
-> format and the streaming interface usable.
->
-> The rounding also changes from truncation to round-up. Truncation is
-> pre-existing rather than introduced here: the original expression used
-> integer division, so it has rounded a partial trailing byte away since
-> the driver was merged. Rounding up is the right direction for a buffer
-> size, and DIV_ROUND_UP() against BITS_PER_BYTE is what the rest of the
-> media tree uses for this computation, including uvc_parse_format()
-> itself for the FORCE_BPP quirk.
->
-> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
-> Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
-> ---
-> Changes from Noam's v2:
-> - Rebased onto patch 1/3; this patch no longer applies standalone.
-> - Diagnostic changed from uvc_dbg(dev, DESCR, ...) to dev_warn() on
->   &streaming->intf->dev, reworded to begin "UVC non compliance: " and to
->   say the frame is skipped. The explicit device and interface numbers are
->   dropped from the message text because dev_warn() already identifies the
->   interface. (The original could not be kept as-is in any case: patch 1/3
->   removes the local alts variable it referenced.)
-> - bpp, wWidth and wHeight added to the message text (David Laight), matching
->   the wording of the diagnostic in 3/3.
-> - The >> 3 replaced with DIV_ROUND_UP() against BITS_PER_BYTE (David Laight),
->   so a partial trailing byte is no longer dropped. The overflow check is
->   applied to the rounded-up value.
-> - The return value is still -EINVAL; what changed is its meaning, which
->   patch 1/3 redefines as "skip this frame descriptor" rather than "fail the
->   whole streaming interface".
-> - Last paragraph of the commit message reworded from "reject the frame
->   descriptor ... rejection is consistent with the other checks over
->   malformed-descriptors in this function" to describe skipping instead, and
->   a paragraph added on the rounding change.
-> - Ricardo Ribalda's Reviewed-by dropped, as it was given on the unmodified
->   v2.
-> - Submitter's Signed-off-by added.
-> - Fixes: and Cc: stable lines unchanged.
->
-> Rounding up also moves the U32_MAX boundary: two inputs within the field
-> limits (bpp=79 at 10077x43161 and bpp=237 at 3359x43161) landed exactly on
-> U32_MAX with the old truncation and are now rejected, since the rounded-up
-> size is not representable.
->
-> Build tested on x86_64 only. gcc-multilib was not available in my
-> environment, so the 32-bit code generation for the DIV_ROUND_UP() on a u64
-> was not verified; the divisor is the power-of-two constant BITS_PER_BYTE, so
-> I expect a shift rather than a libgcc 64-bit division helper, but I have not
-> confirmed it. No hardware and no UVC gadget were used.
->
->  drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index 0cc0e351d139..eb7177ea291d 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -295,9 +295,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
->          * information. For uncompressed formats this can be fixed by computing
->          * the value from the frame size.
->          */
-> -       if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
-> -               frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
-> -                                                * frame->wHeight / 8;
-> +       if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
-> +               u64 bufsize;
-> +
-> +               bufsize = DIV_ROUND_UP((u64)format->bpp * frame->wWidth *
-> +                                      frame->wHeight, BITS_PER_BYTE);
+iw reg get
+global
+country 98: DFS-UNSET
+(2400 - 2472 @ 40), (N/A, 20), (N/A)
+(5150 - 5250 @ 100), (N/A, 23), (N/A), NO-OUTDOOR, AUTO-BW
+(5250 - 5350 @ 100), (N/A, 20), (0 ms), NO-OUTDOOR, DFS, AUTO-BW
+(5470 - 5725 @ 160), (N/A, 24), (0 ms), DFS
+(5725 - 5730 @ 5), (N/A, 13), (0 ms), DFS
+(5730 - 5850 @ 80), (N/A, 13), (N/A)
+(5850 - 5875 @ 25), (N/A, 13), (N/A), NO-OUTDOOR, PASSIVE-SCAN
+(5945 - 6425 @ 320), (N/A, 12), (N/A), NO-OUTDOOR, PASSIVE-SCAN
+(57240 - 71000 @ 2160), (N/A, 40), (N/A)
 
-I believe this should be DIV_ROUND_UP_ULL. Eventhough BITS_PER_BYTE is
-a power-of-2, some compilers might have brain damage and complain
-about 64 bit division.
+phy#2
+country US: DFS-FCC
+(902 - 904 @ 2), (N/A, 30), (N/A)
+(904 - 920 @ 16), (N/A, 30), (N/A)
+(920 - 928 @ 8), (N/A, 30), (N/A)
+(2400 - 2472 @ 40), (N/A, 30), (N/A)
+(5150 - 5250 @ 80), (N/A, 23), (N/A), AUTO-BW
+(5250 - 5350 @ 80), (N/A, 24), (0 ms), DFS, AUTO-BW
+(5470 - 5730 @ 160), (N/A, 24), (0 ms), DFS
+(5730 - 5850 @ 80), (N/A, 30), (N/A), AUTO-BW
+(5850 - 5895 @ 40), (N/A, 27), (N/A), NO-OUTDOOR, AUTO-BW, PASSIVE-SCAN
+(5925 - 7125 @ 320), (N/A, 12), (N/A), NO-OUTDOOR, PASSIVE-SCAN
+(57240 - 71000 @ 2160), (N/A, 40), (N/A)
 
-> +               if (bufsize > U32_MAX) {
-> +                       dev_warn(&streaming->intf->dev,
-> +                                "UVC non compliance: FRAME %u computed buffer size overflows (%ux%u, %u bpp), skipping it.\n",
-> +                                frame->bFrameIndex, frame->wWidth,
-> +                                frame->wHeight, format->bpp);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               frame->dwMaxVideoFrameBufferSize = bufsize;
-> +       }
->
->         /*
->          * Clamp the default frame interval to the boundaries. A zero
-> --
-> 2.34.1
->
-With that change, feel free to add my:
+phy#1
+country FR: DFS-ETSI
+(2400 - 2483 @ 40), (N/A, 20), (N/A)
+(5150 - 5250 @ 80), (N/A, 23), (N/A), NO-OUTDOOR, AUTO-BW
+(5250 - 5350 @ 80), (N/A, 20), (0 ms), NO-OUTDOOR, DFS, AUTO-BW
+(5470 - 5725 @ 160), (N/A, 26), (0 ms), DFS
+(5725 - 5875 @ 80), (N/A, 13), (N/A)
+(5945 - 6425 @ 320), (N/A, 23), (N/A), NO-OUTDOOR
+(57000 - 71000 @ 2160), (N/A, 40), (N/A)
 
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+phy#0
+country FR: DFS-ETSI
+(2400 - 2483 @ 40), (N/A, 20), (N/A)
+(5150 - 5250 @ 80), (N/A, 23), (N/A), NO-OUTDOOR, AUTO-BW
+(5250 - 5350 @ 80), (N/A, 20), (0 ms), NO-OUTDOOR, DFS, AUTO-BW
+(5470 - 5725 @ 160), (N/A, 26), (0 ms), DFS
+(5725 - 5875 @ 80), (N/A, 13), (N/A)
+(5945 - 6425 @ 320), (N/A, 23), (N/A), NO-OUTDOOR
+(57000 - 71000 @ 2160), (N/A, 40), (N/A)
 
--- 
-Ricardo Ribalda
+global: country 98: DFS-UNSET
+phy#0: country FR: DFS-ETSI
+phy#1: country FR: DFS-ETSI
+phy#2: country US: DFS-FCC
+
+- phy0 does not start
+- phy1 works
+- phy2 works
+
+And my country is set to BG
+# /etc/config/wireless
+config wifi-device 'radio0'
+    option type 'mac80211'
+    option path 'soc/soc:pcie/pci0000:00/0000:00:01.0/0000:01:00.0'
+    option require_mode 'ac'
+    option cell_density '3'
+    option legacy_rates '0'
+    option htmode 'VHT80'
+    option hwmode '11a'
+    option country 'BG'
+    option channel '100'
+    option disabled '0'
+
+Other users report the same:
+https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+
+You can also search: WRT3200ACM DFS, there are endless comments.
+
+Greetings!
+Georgi Valkov
