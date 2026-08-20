@@ -1,132 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25547443A96
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 12:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFD3442375;
+	Thu, 20 Aug 2026 12:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787229560; cv=none; b=GyMXTebBJZNbZPl/stTFrLzMFuESBKsvKwrco2aoBCWiaOlutTKHRHXj9/9vkar2D6ZSV2YvggnK4KVB73nFRZzxVyuQoc9wEijCPEm/Sg7TNnUR9dsnWBxpLPJ3e9iEUQS/9UGCvWtYV09dvhkVIjI8PFiQpKwEYAyPy4Uf088=
+	t=1787229641; cv=none; b=ENqFsQ2jgXsYPxHlg0IMmxZ+iwK2bdD5m4EqO7v/Gi0KwtTtTeWH2fJMTkIncB/FY4FmjzALCUTygr8/4idwmbkyOPjQCcM9S7djZSxOe4R466EaysgCAWB0hvgbJ3kUbPjJULMRxd8ROevx9RfwdjSylitAkoE0Y888YGg3hos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787229560; c=relaxed/simple;
-	bh=z9FygIuKxU14dZKl9fA8Rk3lkYSVbb8FjnTr17YcsL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pn+F0U9hWILIe9FUGNhg0BBIIeDpTHBtiG/NQEdSWh5iKicoS1bU3JkzG9a0JtFvbxNLSVHGDKIaWF5CTCW2AOtU7usSr/FqSKepRBh984v+iueSlFTdzTjDHzT3riGJApFJNgC6QDXbh6qlBAw8IqQE65X8M5LqCBB94dv4O78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bSH7s9z8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787229641; c=relaxed/simple;
+	bh=+CLrnI6QozE3Chi0jE1AKG2QhdYDt9tGJmR+l0Tqqps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gjq31noa5pCAYgw3qQxxkDYMHmYXYFGeAwgKs7R+rIyKIB0YrG+swzpyjlIHh+kYaclnkFOV+GXoK/rIMuIJ+hJnNM/PmVlWXHgNzT1nl/rcFO+aAHNz8ACdGJ3o6hJA8OAK/rxMP4C+T3YwgVK1sndgM0Sa3Llr3VxUymI3RqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=Oio3762m; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZWs22ZRG; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bSH7s9z8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A5F1F000E9;
-	Thu, 20 Aug 2026 12:39:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787229557;
-	bh=TdNhxPWEpp8B9DoZmO2TFYO1xwfI3e2Cw+t5gyyWBAQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bSH7s9z8l1zaB0tENnxf+xhztsLfkPhWuAvTCRDuKF1zKE5w8nsNwU/GLOEkCfVJ9
-	 2pI49iWCMhJ3DTg3xpgrsTuhj74/O5qI9d8b4cczViwA78D+sXgqEVAd6iz4nTVTaJ
-	 D5RmY8tgv1QzV8GJco24115N+agDXjKq4F6hGLZ406UrIe5H6JZtoje345s4a0x6GH
-	 IMLmhcepvDAgkZzz1rKcwiHHT5FsDlZA5yoPJk6cr5ex8N9zb8vUKAKrShqzTw4uaH
-	 xAylFLmzMZKV8Jw8DNl5NQVtT+JOMOXFVu4Ro5rjyal6aZTKi14hkcGwemFwgp/a1D
-	 SuK0gnwpxal9g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daming Li <d4n.for.sec@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Xiao Liu <lx24@stu.ynu.edu.cn>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] net: smc: fix splice entry lifetime imbalance in smc_rx_splice
-Date: Thu, 20 Aug 2026 08:39:14 -0400
-Message-ID: <20260820123914.1615169-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260820123914.1615169-1-sashal@kernel.org>
-References: <2026081710-untie-barn-6dcc@gregkh>
- <20260820123914.1615169-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="Oio3762m";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZWs22ZRG"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 1883C140019E;
+	Thu, 20 Aug 2026 08:40:38 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Thu, 20 Aug 2026 08:40:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1787229638; x=1787316038; bh=HHkMYMnPke
+	eakbHaqDKa97BPRup14XFlGkMtZPGbznU=; b=Oio3762m+xJE6Vou0Y1Z9Eo82M
+	p7/zBFTKmbr1LgM8GtAsPcdxwoxgaWz/51qusLRlTj19A6dZ4G87P21TRrnirR/O
+	74y5Uf5BUN2uiB9IV6C6T9IhGJ5JJcsDyzpRt3nxEw2hc0txd/fq3bXscJj5zho6
+	MLHfV2pGQVXejDtDYu7iq7IZO86Ff5v/H38xn4mniYsnF/PmRvzu91dJGFRby7PB
+	ofvpdyTtJC6dbIqYu8Qf3qULETFavQQt3Mpm/TKW1I/j69KPexGPId7UKkR76112
+	aYIoJ58heXnHRc9EhWP1aBxIdM5d16I0AWL/8SoFVC5SmoC0soS36HPB7ILQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1787229638; x=1787316038; bh=HHkMYMnPkeeakbHaqDKa97BPRup14XFlGkM
+	tZPGbznU=; b=ZWs22ZRGrhQI7GxltBC79wqrZ64c9jOqXS2cEvJzI3fpOXAqpES
+	uVTdYC5H088nGus/IEcn8xEvAcCbIucZZfbr0lFxPlEqPkWRwLZ/IGvbrNWJYvph
+	w6pHNSSyQAVsoD/W7gFddc/kWbJSnLnM2RwHO4DszanY5UaHZahJqpN5wxO5ARJr
+	w4ProwuTRISDpC1ZmzJINzzw/3+ptK0EGvehE2DZCce20NUukuAdXRHcU/RJCqov
+	/N8OSqMxyeUxBlfSe4z1yIQQxhZ35Bbzh93zmvrsCD2YGrp6BTg8u7say5yblP+i
+	0kxZ26TjV4x5xk4xBAMoOv6KJwal2/diM5Q==
+X-ME-Sender: <xms:xfWGatRxgT523weMose7njlNqJywhDjBDVCcxeDagsHpCYi5TX4Fqg>
+    <xme:xfWGairCtqc_vmzDwwOdwX2qZ9rOBuc1O1dFJoykK8wI1e-ROArgjEln6Nt_TxwVx
+    Gri_rwgnvp5hyhiNYAnVXmIxaVcgjrZLdrrLSotqA_6-k609oo>
+X-ME-Received: <xmr:xfWGav2CxdX-jjEV8abNzwSM7imLl0TyNSy-mrwhEdWihEhN-hlbDD3qTX3OzOStNROvXyZ5ZZDoscajfh6octsGXWOhp8GIrAmRH26nnJI>
+X-ME-Proxy-Cause: dmFkZTEhFlgN6PeITnv6jMsb0ROMIICe2s9VxzKVNf0KZZeawpQRU2MmHCbwl5HSl4rjm3
+    UoZ784peHLIV8y62ZWHO+szmj9FZhOFaGQoGec7yTzPIr1HiMc2l7NIP7AMwmfq2tcZqHC
+    dpf0gcadd6eiALfSc7lbJ3YQrhNCz4+aRFz3N9soV9i+H1QrGbvJTLY1tmOLHKm+X502Fr
+    6lB3yoVs5PWkSOrHIigY2a5QjKmodkgqnhbg2pdagK5zDs2Jj6OuAJRdqf/w0pQ8sE0KuE
+    lHUio9vqJ19KtQ+LowA6fe7YK2pCno95B4j4bh3s8PE2LV0Fp6zHSGWJQtR/sLqcV9ymMc
+    ML7g9xVsbBwkdVnGzYDzXJxgKQ4qW+2XVLimgvZ0bET/Qkt+pVAYH1iJv5slxAujoeYEiO
+    6qdv6fZopRfCaEu+roSH5aF8aODvtI9HjHdHdz9m6OUqIvAzEt52ZkaEniJPGJNAjfld+I
+    340P66xwBSE2Zp39ucqVW/EXu4BD2pbaFCpEoGAS1EXPOX/Mr06T6bW9e/+Kb/GbuEGKf8
+    nmnYhxcbQEgLHyd8FJn+H24mTMza5bx7OtorGBtbA5pW5xShDI60AZPlM78DG1wkLCXTtW
+    HNuDhkWXoweL0k8QUH0hO/2X60FGH3ODIZo6KMlPVr1KYWt+hWIhczz6pbIw
+X-ME-Proxy: <xmx:xfWGap5-NV04D_k2Q-KEO6Qr00lS6nNzPp8Y4TjXojuqf8l2yBbQNw>
+    <xmx:xfWGarQWgkXsr2sAHrOKwZjGnVgPOd7ToDPBFF9fa9Kr1CWRDGpahg>
+    <xmx:xfWGauWfZ7G6EjvDzAuF66hyiIJq1gnHDPbG0vHHe72r_b4wha7m1A>
+    <xmx:xfWGagFpbeZ5K9BvzvviM9tpj-8gx9oZeJxSuXNir2hdGrMxl-xJrA>
+    <xmx:xvWGakdNaTbQ2hzKYjAW4I_V8qfOiLNaefajEhboJAKRBtlNn5bfd-LV>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 20 Aug 2026 08:40:36 -0400 (EDT)
+Date: Thu, 20 Aug 2026 14:32:14 +0200
+From: Greg KH <greg@kroah.com>
+To: Artem Dinaburg <artem@trailofbits.com>
+Cc: stable@vger.kernel.org, Xiang Mei <xmei5@asu.edu>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH 6.1.y] net: bonding: fix use-after-free in
+ bond_xmit_broadcast()
+Message-ID: <2026082028-curled-try-e7c5@gregkh>
+References: <20260819165924.1184-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260819165924.1184-1-artem@trailofbits.com>
 
-From: Daming Li <d4n.for.sec@gmail.com>
+On Wed, Aug 19, 2026 at 12:59:22PM -0400, Artem Dinaburg wrote:
+> From: Xiang Mei <xmei5@asu.edu>
+> 
+> Please queue the attached backport of upstream commit 2884bf72fb8f. It fixes
+> CVE-2026-31419 in 6.1.y.
+> 
+> An unprivileged user can create a broadcast bond and dummy slaves in a user
+> and network namespace. Racing ordinary packet sends with slave release makes
+> `bond_xmit_broadcast()` give the same skb to two transmitters. I reproduced a
+> KASAN use-after-free in `skb_clone()` on v6.1.182.
+> 
+> The attached one-line upstream fix applies cleanly to v6.1.182. The same
+> workload completed over one million sends and 299 slave mutations with the
+> patched module and no sanitizer, oops, lock, or BUG output.
+> 
+> The fix is already released in 6.6.143, 6.12.95, 6.18.22, and 6.19.12, but no
+> corresponding fix is present in 6.1.y.
+> 
+> Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 
-[ Upstream commit 5d9686af2976741bbd79b150d1c9e60b81e7f12e ]
+You stripped off all of the original commit changelog info :(
 
-smc_rx_splice() passes pages to splice_to_pipe() before taking the
-references that cover the lifetime of each splice entry. In the
-VM-backed RMB path, splice_to_pipe() may drop unqueued entries through
-smc_rx_spd_release(), while queued entries are released later via the
-pipe buffer callback.
+thanks,
 
-The old post-splice accounting also derives the number of queued VM pages
-from an offset mutated while building the descriptor, and a multi-page
-splice pairs one sock_hold() with multiple sock_put() calls.
-
-Take the page and socket references for every candidate entry before
-splice_to_pipe(), and drop the matching private state, page reference,
-and socket reference from smc_rx_spd_release() for entries that never
-get queued. This fixes a refcount imbalance that can underflow page
-refcounts and trigger a use-after-free.
-
-Fixes: 9014db202cb7 ("smc: add support for splice()")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Co-developed-by: Xiao Liu <lx24@stu.ynu.edu.cn>
-Signed-off-by: Xiao Liu <lx24@stu.ynu.edu.cn>
-Signed-off-by: Daming Li <d4n.for.sec@gmail.com>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
-Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
-Link: https://patch.msgid.link/20260730145552.360287-2-enjou1224z@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ collapsed the multi-page get_page()/sock_hold() loop to a single get_page()/sock_hold() pair and dropped the trailing kfree() calls, as 5.15 lacks the multi-page pages[]/partial[]/priv[] arrays ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/smc/smc_rx.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/net/smc/smc_rx.c b/net/smc/smc_rx.c
-index 3468c58bbeebe..33b5bcafdec7d 100644
---- a/net/smc/smc_rx.c
-+++ b/net/smc/smc_rx.c
-@@ -145,7 +145,12 @@ static const struct pipe_buf_operations smc_pipe_ops = {
- static void smc_rx_spd_release(struct splice_pipe_desc *spd,
- 			       unsigned int i)
- {
-+	struct smc_spd_priv *priv = (struct smc_spd_priv *)spd->partial[i].private;
-+	struct sock *sk = &priv->smc->sk;
-+
-+	kfree(priv);
- 	put_page(spd->pages[i]);
-+	sock_put(sk);
- }
- 
- static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
-@@ -165,6 +170,8 @@ static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
- 	partial.len = len;
- 	partial.private = (unsigned long)priv;
- 
-+	get_page(smc->conn.rmb_desc->pages);
-+	sock_hold(&smc->sk);
- 	spd.nr_pages_max = 1;
- 	spd.nr_pages = 1;
- 	spd.pages = &smc->conn.rmb_desc->pages;
-@@ -173,11 +180,8 @@ static int smc_rx_splice(struct pipe_inode_info *pipe, char *src, size_t len,
- 	spd.spd_release = smc_rx_spd_release;
- 
- 	bytes = splice_to_pipe(pipe, &spd);
--	if (bytes > 0) {
--		sock_hold(&smc->sk);
--		get_page(smc->conn.rmb_desc->pages);
-+	if (bytes > 0)
- 		atomic_add(bytes, &smc->conn.splice_pending);
--	}
- 
- 	return bytes;
- }
--- 
-2.53.0
-
+greg k-h
