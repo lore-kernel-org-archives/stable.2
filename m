@@ -1,82 +1,56 @@
-Received: from unicom145.biz-email.net (unicom145.biz-email.net [210.51.26.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C222F0C74;
-	Thu, 20 Aug 2026 04:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.51.26.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CEB215075;
+	Thu, 20 Aug 2026 04:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787198711; cv=none; b=VRHUuQemc9zS+toMcXBtyxEmpH+wav7R+scOz1tw/sFg8IynDSAnicu6QZO98KVQvNAqzzgWaOHMTJyB3pi7CcLZjz6ccY+moWD7QbLw8Fh4gQzAkJ1H/Ueib7vunaWl4mz2JDwXlr4erO6NFhiXnDnCSNfcgonbphDfXsNN/iU=
+	t=1787199573; cv=none; b=X8mk6W7lBlpUjopwp/wRQFc9Xy4kwaiXNDEDGmMlqt93tD9Pr2P4SBWUmF3dxfaIbtgYT0HTwaeyRVrHsLnBcIfn1uk4YTjThljfJAO/wtzDYAvDTNgNDNA/nTotan61MF+G3iQXA9IVLhfSjURHB5/ByOiPoD8JrKLMWhhkEa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787198711; c=relaxed/simple;
-	bh=IncoSXmiVEgh1NOXkvOrRs+CKvgnr4mEUn5Wgd8xDO8=;
-	h=Content-Type:MIME-Version:From:To:CC:Subject:Date:Message-ID; b=KDWRdSnBSnIBXanP22A24TEb9JUTODjPZUr80qMf/aKzlX8SxMVCFfGoIwmXepiHQFtu7vWnxbPqngvP/EA6E51lYHB3QmMhgUQj95o4gklJR3Xyd1fTO5+qbJA4J1soUj0aJtG5IU3y6whxEXO7fkyuMHaBZVDzEEOT1f2SdOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com; spf=pass smtp.mailfrom=longcheer.com; arc=none smtp.client-ip=210.51.26.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=longcheer.com
-Received: from mailsrv01.LongCheer.net
-        by unicom145.biz-email.net ((D)) with ESMTP (SSL) id 202608201203457171;
-        Thu, 20 Aug 2026 12:03:45 +0800
-Received: from [127.0.1.1] (172.16.9.238) by mailsrv01.LongCheer.net
- (172.16.8.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.33; Thu, 20 Aug
- 2026 12:03:45 +0800
-Content-Type: multipart/mixed;
-	boundary="===============0251864241573272842=="
+	s=arc-20240116; t=1787199573; c=relaxed/simple;
+	bh=+zEdKcdFV5hOUqxqQ+H0YXHTzHEfsJcEo3Xvz4vc4xI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rxSaCwLFVdetDD6UXWu25Afr/tONZxR6+IDVBgMi83MtcwjQ2lZEpIM+2FsjB4IXpWtEnzTR2gG4MS9qdytXPATDfga1Gdf/GpbHORVv2yhMHMLELVLjia5SwOa8lF3Xgw8oGmIQiUwWi1+/rHR/BId4WS4hSOMCaICKK8CpFHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DOPN3EWH; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DOPN3EWH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3BD1F000E9;
+	Thu, 20 Aug 2026 04:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787199572;
+	bh=51lpfH0rR8sTn3GoVVHxtb1YdxF3rlY2WzMd44ux8mQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DOPN3EWHNxX55yMB2utflKf6ncRJEhRXo4oreHCdjxsmA0a2SAbMeyN3xPfv4oMYA
+	 NUQ5/JXbD2P6AUrVgk3wwgD9dNPZCh7QOBBKucSjj9sho7mJlmEwraQmu2HLHHDzAK
+	 7E6d+yuMi/7/vcJuMxLdyy0qb7CcnH/ubuYj7gssSJ8Wyep8GqXG74vjPdXgYu0HYd
+	 xJxHDyNc7sqftqgw0dA2V+Lfqj1nEWhPCB1lX5a570gj+X165OQpn74y6g5I/JyflU
+	 5qvuQL6H2PbdGciBxb5UR0ZnMcb3aKr4/JogFcOuMlzSEXYp+jEBLT+6Mcna6JRbkk
+	 uQhdC8Bx3PpQw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	linux-fscrypt@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: Re: [PATCH 5.15] fscrypt: use the mount idmap for the owner check in fscrypt_ioctl_set_policy()
+Date: Thu, 20 Aug 2026 00:19:22 -0400
+Message-ID: <20260820040907.1@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260818184052.80142-1-ebiggers@kernel.org>
+References: <20260818184052.80142-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: liuqi <liuqi@longcheer.com>
-To: <gregkh@linuxfoundation.org>
-CC: <linux-usb@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH] usb-storage: prevent concurrent URB submission in usb_stor_msg_common
-Date: Thu, 20 Aug 2026 12:03:45 +0800
-Message-ID: <870f2627-aeaa-400e-9b6d-ee77eac42be6@mailsrv01.LongCheer.net>
-X-ClientProxiedBy: mailsrv01.LongCheer.net (172.16.8.231) To
- mailsrv01.LongCheer.net (172.16.8.231)
-tUid: 20268201203451a44a568158615ebba493432f5cb11cd
-X-Abuse-Reports-To: service@corp-email.com
-Abuse-Reports-To: service@corp-email.com
-X-Complaints-To: service@corp-email.com
-X-Report-Abuse-To: service@corp-email.com
+Content-Transfer-Encoding: 8bit
 
---===============0251864241573272842==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+On Tue, Aug 18, 2026 at 11:40:52AM -0700, Eric Biggers wrote:
+> commit cf6c993c0feca7984797e634deba3c80342e199a upstream.
 
-RnJvbSAwNTRlZDU1YWFhMGQ4MGVkYzkzZDI1ZTQ3NTBkNjdlOTA2NGJiNzdmIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBsaXVxaSA8bGl1cWlAbG9uZ2NoZWVyLmNvbT4KRGF0ZTogVGh1
-LCAyMCBBdWcgMjAyNiAxMToyODo0MyArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIHVzYi1zdG9yYWdl
-OiBwcmV2ZW50IGNvbmN1cnJlbnQgVVJCIHN1Ym1pc3Npb24gaW4KIHVzYl9zdG9yX21zZ19jb21t
-b24KCnVzYl9zdG9yX21zZ19jb21tb24oKSBvbmx5IGNoZWNrcyB0aGUgQUJPUlRJTkcgZmxhZyBi
-ZWZvcmUgc3VibWl0dGluZwp0aGUgVVJCLCBidXQgZG9lcyBub3QgZ3VhcmQgYWdhaW5zdCBjb25j
-dXJyZW50IHN1Ym1pc3Npb25zIHdoZW4gYQpwcmV2aW91cyBVUkIgaXMgc3RpbGwgaW4tZmxpZ2h0
-IChlLmcuLCBmcm9tIGEgQlVMS19NQVhfTFVOIHByb2JlCnJ1bm5pbmcgaW4gc2Nhbl9kd29yayB3
-aGlsZSBzY3NpX2VoIGFsc28gaW52b2tlcyB0aGUgc2FtZSBmdW5jdGlvbikuCgpUaGlzIGxlYWRz
-IHRvICJVUkIgc3VibWl0dGVkIHdoaWxlIGFjdGl2ZSIgd2FybmluZ3MgYW5kIC1FSU5QUk9HUkVT
-UwpyZXR1cm5zIHdoZW4gdXNiX3N1Ym1pdF91cmIoKSBkZXRlY3RzIGFuIGFscmVhZHktcXVldWVk
-L2luLWZsaWdodCBVUkIuCgpGaXggYnkgdXNpbmcgdGVzdF9hbmRfc2V0X2JpdCgpIG9uIFVTX0ZM
-SURYX1VSQl9BQ1RJVkUgdG8gbXV0dWFsbHkKZXhjbHVkZSBjb25jdXJyZW50IHN1Ym1pc3Npb25z
-LiBJZiBhIFVSQiBpcyBhbHJlYWR5IGFjdGl2ZSwgcmV0dXJuCi1FQUdBSU4gdG8gdGhlIGNhbGxl
-ci4KClJlcG9ydGVkLWJ5OiBzeXpib3QrMjJlYTIwZWYzYWZiNjc4NWIxMjJAc3l6a2FsbGVyLmFw
-cHNwb3RtYWlsLmNvbQpTaWduZWQtb2ZmLWJ5OiBsaXVxaSA8bGl1cWlAbG9uZ2NoZWVyLmNvbT4K
-LS0tCiBkcml2ZXJzL3VzYi9zdG9yYWdlL3RyYW5zcG9ydC5jIHwgMTAgKysrKysrKysrKwogMSBm
-aWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3VzYi9z
-dG9yYWdlL3RyYW5zcG9ydC5jIGIvZHJpdmVycy91c2Ivc3RvcmFnZS90cmFuc3BvcnQuYwppbmRl
-eCBmNzliNDQ5ZDAuLmZmYjE0NTlkMCAxMDA2NDQKLS0tIGEvZHJpdmVycy91c2Ivc3RvcmFnZS90
-cmFuc3BvcnQuYworKysgYi9kcml2ZXJzL3VzYi9zdG9yYWdlL3RyYW5zcG9ydC5jCkBAIC0xMjIs
-NiArMTIyLDE2IEBAIHN0YXRpYyBpbnQgdXNiX3N0b3JfbXNnX2NvbW1vbihzdHJ1Y3QgdXNfZGF0
-YSAqdXMsIGludCB0aW1lb3V0KQogCWlmICh0ZXN0X2JpdChVU19GTElEWF9BQk9SVElORywgJnVz
-LT5kZmxhZ3MpKQogCQlyZXR1cm4gLUVJTzsKIAorCS8qCisJICogUHJldmVudCBjb25jdXJyZW50
-IHN1Ym1pc3Npb25zIG9mIHRoZSBzYW1lIFVSQi4KKwkgKiBJZiBhIFVSQiBpcyBhbHJlYWR5IGlu
-LWZsaWdodCAoZS5nLiwgZnJvbSBhIHByZXZpb3VzCisJICogQlVMS19NQVhfTFVOIHByb2JlIHJ1
-bm5pbmcgaW4gc2Nhbl9kd29yayB3aGlsZSBzY3NpX2VoCisJICogYWxzbyBpbnZva2VzIHRoZSBz
-YW1lIGZ1bmN0aW9uKSwgcmVqZWN0IG5ldyBzdWJtaXNzaW9ucy4KKwkgKi8KKwlpZiAodGVzdF9h
-bmRfc2V0X2JpdChVU19GTElEWF9VUkJfQUNUSVZFLCAmdXMtPmRmbGFncykpCisJCXJldHVybiAt
-RUFHQUlOOworCisKIAkvKiBzZXQgdXAgZGF0YSBzdHJ1Y3R1cmVzIGZvciB0aGUgd2FrZXVwIHN5
-c3RlbSAqLwogCWluaXRfY29tcGxldGlvbigmdXJiX2RvbmUpOwogCi0tIAoyLjQzLjAKCg==
+Queued for 5.15, thanks.
 
---===============0251864241573272842==--
+-- 
+Thanks,
+Sasha
