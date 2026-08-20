@@ -1,191 +1,378 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A231C5D72
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 00:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1991E9B1A
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 00:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787185321; cv=none; b=mcbLzmqYnga7XgP4w8tQW/egnNHKcQkT0iCbkp/EDSsQ/sEFZWtNXt68UuG2NWUYVnhb/vxo5Ee4LxWRqzMZ6xiwylgqkQsTftiN658Z2KfexkCTK+xsA76Y7B66yINZZ/cPleySubj3MXA1exkXFCPjmmvaHSufsSxKWnGvm+U=
+	t=1787187134; cv=none; b=ge/IucDrbnnioq/LpylWxJl8fzfmITSFCIqng3lpHzukPyuVhhYKxc5rwVq9zZJWOfCTl9rueg9ky/5zN7rSnzmdOyBgbsDbYtWuu1GqmTpU6Ko1aZhckp+eZuIWbU3YJsJbPXGMgm/Z+x2siSN0zlGbr5uS8y58r1cc3Fm97Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787185321; c=relaxed/simple;
-	bh=vaY0P3hjZGMlXKCzaJyIxaJwtL7yg0HdeDCgjEEBY0c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rJkfLxf31eJRIfZ6tNcMjClAPnu+8voDL11NVY1T1sQjXyCla/gNxu+pj5AxWVbufcm93EJSlwLaYNFV6nnyO4huzjWYYRSQU70cHH6VQS1bgR7ZmHcvFSLmnHzV7cJ2+4WvuOoWC6okxcBW7/tm6OMBuRBBaYfy4iqa10DtetA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anthonyvardaro.com; spf=none smtp.mailfrom=anthonyvardaro.com; dkim=pass (2048-bit key) header.d=anthonyvardaro-com.20251104.gappssmtp.com header.i=@anthonyvardaro-com.20251104.gappssmtp.com header.b=XrH5T264; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anthonyvardaro.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=anthonyvardaro.com
+	s=arc-20240116; t=1787187134; c=relaxed/simple;
+	bh=W1CJx4mpvTxeMRfM3r72nkrczXnLqwaeUwQq310Ggtw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eCy7czPVga2uBZfKmUG154pD9DUJJZfLT3/37b6B7aQ6jXd19Yt+CG8II2g1MQhOfC79IsaM+zT5ueVaTigvkupO3XDre6FkB4a3ymoRXfwjgm5I8H3O46S1dBzqcu02CQXS7fXK6cdwIHshBkLjKH9bHcBxUptLv1NV52qkSGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WFPUFWBS; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=anthonyvardaro-com.20251104.gappssmtp.com header.i=@anthonyvardaro-com.20251104.gappssmtp.com header.b="XrH5T264"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ce7d2adef4so21168865ad.3
-        for <stable@vger.kernel.org>; Wed, 19 Aug 2026 17:22:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=anthonyvardaro-com.20251104.gappssmtp.com; s=20251104; t=1787185319; x=1787790119; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=APwF6PUHOqN1JhIA+m2g5MAL7aCXBL5aOcOFSVNm7oo=;
-        b=XrH5T264dJm0XaXbJGaXsNYcFq/7v5oGusxGeo9UgbTB19fx+DZpltZKLeSuMHST6k
-         O7dyntksTMVC070VSKrBnMBuW3Mcy5dX5Xwcqrhx0UdvCCR4OQBAPvjF31gZEdqrTDKW
-         I+DA/XWN3dV2SiCT3PaRbsbP5gEr6EFerlbc6Kl220N52QcuvBXyugsOTzQgl7l1KtWA
-         HJCOcG8FUk0anqjYWQ/s4/qoi2W3Hz4WwZveULAjbDwRH6R3tDx3FeLbn8ATt2f+ay1W
-         G8P0Pmnly2q7D3OUjwwzsYko77Lz4Fp0MlsiLXsvEi+7WdDqfEWtrN2LVejiJc5eODx/
-         9vbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787185319; x=1787790119;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=APwF6PUHOqN1JhIA+m2g5MAL7aCXBL5aOcOFSVNm7oo=;
-        b=r90rX/RJMWXZXOmt5axy2EkNxPq+00vwff1rYkhg1YQkSrGJHlGxjXF6CWON0UJD70
-         A5t03IShjsOWXz2PuNVxwN7enUnfLGJC52irxT98QX3ysBfUnD1tyKdtd8kItIksjwxA
-         QEy/ruhDvA6PpsKu1j+MJ0+MO3owPqDWf2od0YNemumWr90lpToGejTNIPMNAforiXRp
-         szF25Dx++9FUAv/l519wzRMsxWf5TdxPd8R5WpYGgRfzPc9Wjk1B0bFIDe+uO/PcCK8I
-         aLDYd/WqzG2O4Mz/V3gT1bzq0QM/AFaao9lL2NQ86rqiqRE6F3kAp/I1KgKsemqpOmbW
-         5F/g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7to0qsmJNVP3sQyv7zC4K6glG0sG+Pi+4V0gDRHArtzbaRXBQhJLydOuvyrdNBpZMUl/urGk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l58iPU+S/UztborPDg/urrSER47nEOA1PYFjyqDbhSQi5H8Qnl
-	h/5HlTwz47XRXE7V2hk+n0UO3x04lIo+J2qa9N2PGWIbVxMSRdsPpI+kxL3Px4x7mSg=
-X-Gm-Gg: AR+sD12rDUubmLBxp4/xqL4dJGid3QKN014wHgafeY6d0sPOVVfsrEcsT8Aw0vf5Fiu
-	sPJzOmHPHEEmpcWmRnhOoI8vKcT402WRaTmkOklspvwOXIh115XR8uHymsW+lrBV4p2oj6OTrn5
-	BT3ejlhIdzkW5a0YYzPnNNbMnl4sUUORoJk/bEQ9Yjfx3chjnSekzP4Qo83NDIoJvt3noA8ke92
-	lALXBCr1cW+oOWwEEx5DwdAQoYVbftfelt1kh+8Nx0ydCXaszuU3TF8RDCdgKvycLjVuqz4yBfU
-	7LhiuMC6Dqum6kEzb3AqcV3MjBfOqQ2vX0QdoAe8HG1BagPtt07RLuNc3yXvXK2TbmsXtleLR44
-	gOl9qaLpiiGlNmpSn78Q5/ZH/ZkqcPtYn/uNPnVw/f9rS8ohMWloj9PSdTMt1EX+VDUlT+rUTLB
-	xaU3dgMNtx8nMhfUv7WoFC8DJiuIQxl3pf1tmBrDuhK5cj4y0EfyH8SXZc18Yw6o12gwpKE4QNO
-	lMj+L8Tucs0zSDBS2Fe/v4uayQmftagvFK0Xy2tsAz9X31/0Ndedu9ZXS5N+4dNS2hU44aKpKxq
-	/D6YrEQDl493jQfqQ7JgTUU/UJb6EF96psLPEN0AFEUC+7taRuy5BuTelsaRlQM8cOWiXnXcm0/
-	IKeyuPCSZvGEfJLphtjDLYK8=
-X-Received: by 2002:a17:902:c950:b0:2d6:2901:6265 with SMTP id d9443c01a7336-2d629016342mr11412075ad.2.1787185319472;
-        Wed, 19 Aug 2026 17:21:59 -0700 (PDT)
-Received: from coder-vardaro-vardaro-2-0.coder-vardaro-vardaro-2.remote-dev.svc.cluster.local (ec2-16-145-69-213.us-west-2.compute.amazonaws.com. [16.145.69.213])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d62e3d27basm229915ad.79.2026.08.19.17.21.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 17:21:58 -0700 (PDT)
-From: "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>
-Date: Thu, 20 Aug 2026 00:21:38 +0000
-Subject: [PATCH] xfs: revalidate cached COW fork mappings during writeback
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WFPUFWBS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787187131; x=1818723131;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=W1CJx4mpvTxeMRfM3r72nkrczXnLqwaeUwQq310Ggtw=;
+  b=WFPUFWBSB0s954lwLe05UmI+9vFxQPCZyS1qxvxHwo5Uey0+W52JBll9
+   IHPM3+2GWdYdhcfpjnzvDAh8gpYKDFkMeCCDiHL7owG/+g3J6rQj8OIYV
+   WsyXuN3DTTN6igqyIO8O78MbX1pk4OEYxi5V1ZdWqNNUuAOUynCw7HtQb
+   2jmNkEcVurOZHTBSYKeIktxt3SFAIe9jZhQg1G0nMWg8KBhrrk5CAJIKg
+   0FfRaiPEYztoZzfICAbm8C71aPo9C6q4Z8tk/tAv+X58y7JQB8voGJgDt
+   xW8BmdnUNLTrZEjHqVqSs8aNe/bH4hjUK+Zos7kkeNMsTDdxTWjwaBI3r
+   Q==;
+X-CSE-ConnectionGUID: oZKJvXIwSreHCQVtz7hStQ==
+X-CSE-MsgGUID: oREJODwaSa6gr9RCr4flfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="91524254"
+X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; 
+   d="scan'208";a="91524254"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 17:52:11 -0700
+X-CSE-ConnectionGUID: kc4/KrlOQnycyhcFx5I9yg==
+X-CSE-MsgGUID: t9vMTmQCRfqG4FeO5dHIug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; 
+   d="scan'208";a="266370907"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by orviesa009.jf.intel.com with ESMTP; 19 Aug 2026 17:52:07 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wwr0n-00000000hBR-126e;
+	Thu, 20 Aug 2026 00:52:05 +0000
+Date: Thu, 20 Aug 2026 08:51:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: dayou5941@163.com, akpm@linux-foundation.org, david@kernel.org,
+	ljs@kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, ziy@nvidia.com,
+	linux-mm@kvack.org, Li Youhong <liyouhong@kylinos.cn>,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] mm/memory-failure: fix concurrent access issue in
+ min_order_for_split()
+Message-ID: <202608200820.y1lwo7dj-lkp@intel.com>
+References: <20260805084224.2597547-1-dayou5941@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260820-b4-xfs-cow-wb-revalidate-v1-1-8a19080799ea@anthonyvardaro.com>
-X-B4-Tracking: v=1; b=H4sIAJFIhmoC/22Nyw6DIBBFf8XMuhMBjTb9lcYFj6HSGjBgq4nx3
- wt22+WZO/fcHRJFRwlu1Q6RPi654DPwSwV6lP5B6ExmEEx07MobVC1uNqEOK64Kc0VOzsiFkLW
- iN9yqpjM95PocybrtVN+HH6e3epJeiq98KJkIVZRej+U0zXW2hviiWJ/R3x04ji90XxSgtQAAA
- A==
-X-Change-ID: 20260813-b4-xfs-cow-wb-revalidate-0427d1fb36d7
-To: Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805084224.2597547-1-dayou5941@163.com>
 
-Writeback can write a folio through a cached COW fork mapping after the
-blocks behind it have been freed. Since commit d9252d526ba6 ("xfs:
-validate writeback mapping using data fork seq counter") a cached data
-fork mapping is dropped when the fork changes, but a COW fork mapping is
-accepted on range alone, and since commit 3b3508980730 ("xfs: remove
-superfluous writeback mapping eof trimming") nothing trims it to EOF. So
-when close() or truncate frees the post-EOF COW blocks and the file is
-then appended, the same writeback pass writes the new folio into blocks
-the inode no longer owns. fsync() returns 0 and the range reads back as
-zeroes, or the data lands in another file.
+Hi,
 
-Check cow_seq against the COW fork if_seq for COW mappings as well, and
-only sample cow_seq where the mapping is built so a failed conversion
-cannot pair a stale mapping with a fresh sequence number.
+kernel test robot noticed the following build errors:
 
-This costs one extent lookup and one cancelled transaction per
-invalidation: about 5% more fsync time on random 4k overwrites of a
-reflinked file, nothing measurable on sequential writeback.
+[auto build test ERROR on akpm-mm/mm-everything]
 
-Fixes: d9252d526ba6 ("xfs: validate writeback mapping using data fork seq counter")
-Cc: stable@vger.kernel.org # v5.1
-Assisted-by: Claude:unspecified
-Signed-off-by: Anthony Vardaro (Anthropic) <me@anthonyvardaro.com>
----
-An fstests case for this, using the wb_delay_ms error injection knob,
-follows separately.
+url:    https://github.com/intel-lab-lkp/linux/commits/dayou5941-163-com/mm-memory-failure-fix-concurrent-access-issue-in-min_order_for_split/20260805-164224
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20260805084224.2597547-1-dayou5941%40163.com
+patch subject: [PATCH v3] mm/memory-failure: fix concurrent access issue in min_order_for_split()
+config: x86_64-kexec (https://download.01.org/0day-ci/archive/20260820/202608200820.y1lwo7dj-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260820/202608200820.y1lwo7dj-lkp@intel.com/reproduce)
 
-Backport note: kernels before v6.2 do not have
-trace_xfs_wb_cow_iomap_invalid() (added by commit c2beff99eb03), so
-drop that call there. Kernels before v5.5 test wpc->fork ==
-XFS_COW_FORK instead of IOMAP_F_SHARED and have no XFS_WPC().
----
- fs/xfs/xfs_aops.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608200820.y1lwo7dj-lkp@intel.com/
 
-diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-index 2a0c54256..c043e5bad 100644
---- a/fs/xfs/xfs_aops.c
-+++ b/fs/xfs/xfs_aops.c
-@@ -304,12 +304,22 @@ xfs_imap_valid(
- 	    offset >= wpc->iomap.offset + wpc->iomap.length)
- 		return false;
- 	/*
--	 * If this is a COW mapping, it is sufficient to check that the mapping
--	 * covers the offset. Be careful to check this first because the caller
--	 * can revalidate a COW mapping without updating the data seqno.
-+	 * A COW mapping is only valid while the COW fork is unchanged. After a
-+	 * change, the blocks behind the mapping can already be freed, for
-+	 * example by the post-EOF trim on close. Do this check before the
-+	 * data fork check, because the caller can revalidate a COW mapping
-+	 * without updating the data seqno.
- 	 */
--	if (wpc->iomap.flags & IOMAP_F_SHARED)
-+	if (wpc->iomap.flags & IOMAP_F_SHARED) {
-+		if (!ip->i_cowfp)
-+			return false;
-+		if (XFS_WPC(wpc)->cow_seq != READ_ONCE(ip->i_cowfp->if_seq)) {
-+			trace_xfs_wb_cow_iomap_invalid(ip, &wpc->iomap,
-+					XFS_WPC(wpc)->cow_seq, XFS_COW_FORK);
-+			return false;
-+		}
- 		return true;
-+	}
- 
- 	/*
- 	 * This is not a COW mapping. Check the sequence number of the data fork
-@@ -359,9 +369,8 @@ xfs_map_blocks(
- 	/*
- 	 * COW fork blocks can overlap data fork blocks even if the blocks
- 	 * aren't shared.  COW I/O always takes precedent, so we must always
--	 * check for overlap on reflink inodes unless the mapping is already a
--	 * COW one, or the COW fork hasn't changed from the last time we looked
--	 * at it.
-+	 * check for overlap on reflink inodes unless the COW fork hasn't
-+	 * changed from the last time we looked at it.
- 	 *
- 	 * It's safe to check the COW fork if_seq here without the ILOCK because
- 	 * we've indirectly protected against concurrent updates: writeback has
-@@ -394,16 +403,14 @@ xfs_map_blocks(
- 	    xfs_iext_lookup_extent(ip, ip->i_cowfp, offset_fsb, &icur, &imap))
- 		cow_fsb = imap.br_startoff;
- 	if (cow_fsb != NULLFILEOFF && cow_fsb <= offset_fsb) {
--		XFS_WPC(wpc)->cow_seq = READ_ONCE(ip->i_cowfp->if_seq);
- 		xfs_iunlock(ip, XFS_ILOCK_SHARED);
--
- 		whichfork = XFS_COW_FORK;
- 		goto allocate_blocks;
- 	}
- 
- 	/*
--	 * No COW extent overlap. Revalidate now that we may have updated
--	 * ->cow_seq. If the data mapping is still valid, we're done.
-+	 * No COW extent overlap. If the data mapping is still valid, we're
-+	 * done.
- 	 */
- 	if (xfs_imap_valid(wpc, ip, offset)) {
- 		xfs_iunlock(ip, XFS_ILOCK_SHARED);
+All errors (new ones prefixed by >>):
 
----
-base-commit: 0877338ade31b825884a744e03f27c8de300f101
-change-id: 20260813-b4-xfs-cow-wb-revalidate-0427d1fb36d7
+>> mm/memory-failure.c:2517:13: error: cannot assign to variable 'new_order' with const-qualified type 'const int'
+    2517 |                 new_order = min_order_for_split(folio);
+         |                 ~~~~~~~~~ ^
+   mm/memory-failure.c:2513:13: note: variable 'new_order' declared const here
+    2513 |                 const int new_order;
+         |                 ~~~~~~~~~~^~~~~~~~~
+   mm/memory-failure.c:2873:13: error: cannot assign to variable 'new_order' with const-qualified type 'const int'
+    2873 |                 new_order = min_order_for_split(folio);
+         |                 ~~~~~~~~~ ^
+   mm/memory-failure.c:2870:13: note: variable 'new_order' declared const here
+    2870 |                 const int new_order;
+         |                 ~~~~~~~~~~^~~~~~~~~
+   2 errors generated.
 
-Best regards,
---  
-Anthony Vardaro (Anthropic) <me@anthonyvardaro.com>
 
+vim +2517 mm/memory-failure.c
+
+  2360	
+  2361	/**
+  2362	 * memory_failure - Handle memory failure of a page.
+  2363	 * @pfn: Page Number of the corrupted page
+  2364	 * @flags: fine tune action taken
+  2365	 *
+  2366	 * This function is called by the low level machine check code
+  2367	 * of an architecture when it detects hardware memory corruption
+  2368	 * of a page. It tries its best to recover, which includes
+  2369	 * dropping pages, killing processes etc.
+  2370	 *
+  2371	 * The function is primarily of use for corruptions that
+  2372	 * happen outside the current execution context (e.g. when
+  2373	 * detected by a background scrubber)
+  2374	 *
+  2375	 * Must run in process context (e.g. a work queue) with interrupts
+  2376	 * enabled and no spinlocks held.
+  2377	 *
+  2378	 * Return:
+  2379	 *   0             - success,
+  2380	 *   -ENXIO        - memory not managed by the kernel
+  2381	 *   -EOPNOTSUPP   - hwpoison_filter() filtered the error event,
+  2382	 *   -EHWPOISON    - the page was already poisoned, potentially
+  2383	 *                   kill process,
+  2384	 *   other negative values - failure.
+  2385	 */
+  2386	int memory_failure(unsigned long pfn, int flags)
+  2387	{
+  2388		struct page *p;
+  2389		struct folio *folio;
+  2390		struct dev_pagemap *pgmap;
+  2391		int res = 0;
+  2392		unsigned long page_flags;
+  2393		bool retry = true;
+  2394	
+  2395		if (!sysctl_memory_failure_recovery)
+  2396			panic("Memory failure on page %lx", pfn);
+  2397	
+  2398		mutex_lock(&mf_mutex);
+  2399	
+  2400		if (!(flags & MF_SW_SIMULATED))
+  2401			hw_memory_failure = true;
+  2402	
+  2403		p = pfn_to_online_page(pfn);
+  2404		if (!p) {
+  2405			res = arch_memory_failure(pfn, flags);
+  2406			if (res == 0)
+  2407				goto unlock_mutex;
+  2408	
+  2409			if (!pfn_valid(pfn) && !arch_is_platform_page(PFN_PHYS(pfn))) {
+  2410				/*
+  2411				 * The PFN is not backed by struct page.
+  2412				 */
+  2413				res = memory_failure_pfn(pfn, flags);
+  2414				goto unlock_mutex;
+  2415			}
+  2416	
+  2417			if (pfn_valid(pfn)) {
+  2418				pgmap = get_dev_pagemap(pfn);
+  2419				put_ref_page(pfn, flags);
+  2420				if (pgmap) {
+  2421					res = memory_failure_dev_pagemap(pfn, flags,
+  2422									 pgmap);
+  2423					goto unlock_mutex;
+  2424				}
+  2425			}
+  2426			pr_err("%#lx: memory outside kernel control\n", pfn);
+  2427			res = -ENXIO;
+  2428			goto unlock_mutex;
+  2429		}
+  2430	
+  2431	try_again:
+  2432		res = try_memory_failure_hugetlb(pfn, flags);
+  2433		/*
+  2434		 * -ENOENT means the page we found is not hugetlb, so proceed with normal page handling
+  2435		 */
+  2436		if (res != -ENOENT)
+  2437			goto unlock_mutex;
+  2438	
+  2439		if (TestSetPageHWPoison(p)) {
+  2440			res = -EHWPOISON;
+  2441			if (flags & MF_ACTION_REQUIRED)
+  2442				res = kill_accessing_process(current, pfn, flags);
+  2443			if (flags & MF_COUNT_INCREASED)
+  2444				put_page(p);
+  2445			action_result(pfn, MF_MSG_ALREADY_POISONED, MF_FAILED);
+  2446			goto unlock_mutex;
+  2447		}
+  2448	
+  2449		/*
+  2450		 * We need/can do nothing about count=0 pages.
+  2451		 * 1) it's a free page, and therefore in safe hand:
+  2452		 *    check_new_page() will be the gate keeper.
+  2453		 * 2) it's part of a non-compound high order page.
+  2454		 *    Implies some kernel user: cannot stop them from
+  2455		 *    R/W the page; let's pray that the page has been
+  2456		 *    used and will be freed some time later.
+  2457		 * In fact it's dangerous to directly bump up page count from 0,
+  2458		 * that may make page_ref_freeze()/page_ref_unfreeze() mismatch.
+  2459		 */
+  2460		res = get_hwpoison_page(p, flags);
+  2461		switch (res) {
+  2462		case 0:
+  2463			if (is_free_buddy_page(p)) {
+  2464				if (take_page_off_buddy(p)) {
+  2465					page_ref_inc(p);
+  2466					res = MF_RECOVERED;
+  2467				} else {
+  2468					/* We lost the race, try again */
+  2469					if (retry) {
+  2470						ClearPageHWPoison(p);
+  2471						retry = false;
+  2472						goto try_again;
+  2473					}
+  2474					res = MF_FAILED;
+  2475				}
+  2476				res = action_result(pfn, MF_MSG_BUDDY, res);
+  2477			} else {
+  2478				res = action_result(pfn, MF_MSG_KERNEL_HIGH_ORDER, MF_IGNORED);
+  2479			}
+  2480			goto unlock_mutex;
+  2481		case 1:
+  2482			/* Got a refcount on a handlable page. */
+  2483			break;
+  2484		case -ENOTRECOVERABLE:
+  2485			/*
+  2486			 * Stable unhandlable kernel-owned page (PG_reserved,
+  2487			 * slab, page tables, large-kmalloc).
+  2488			 * No recovery possible.
+  2489			 */
+  2490			res = action_result(pfn, MF_MSG_KERNEL, MF_IGNORED);
+  2491			goto unlock_mutex;
+  2492		default:
+  2493			/* Transient lifecycle race with the page allocator. */
+  2494			res = action_result(pfn, MF_MSG_GET_HWPOISON, MF_IGNORED);
+  2495			goto unlock_mutex;
+  2496		}
+  2497	
+  2498		folio = page_folio(p);
+  2499	
+  2500		/* filter pages that are protected from hwpoison test by users */
+  2501		folio_lock(folio);
+  2502		if (hwpoison_filter(p)) {
+  2503			ClearPageHWPoison(p);
+  2504			folio_unlock(folio);
+  2505			folio_put(folio);
+  2506			res = -EOPNOTSUPP;
+  2507			goto unlock_mutex;
+  2508		}
+  2509	
+  2510		folio_unlock(folio);
+  2511	
+  2512		if (folio_test_large(folio)) {
+  2513			const int new_order;
+  2514			int err;
+  2515	
+  2516			folio_lock(folio);
+> 2517			new_order = min_order_for_split(folio);
+  2518			folio_unlock(folio);
+  2519	
+  2520			/*
+  2521			 * The flag must be set after the refcount is bumped
+  2522			 * otherwise it may race with THP split.
+  2523			 * And the flag can't be set in get_hwpoison_page() since
+  2524			 * it is called by soft offline too and it is just called
+  2525			 * for !MF_COUNT_INCREASED.  So here seems to be the best
+  2526			 * place.
+  2527			 *
+  2528			 * Don't need care about the above error handling paths for
+  2529			 * get_hwpoison_page() since they handle either free page
+  2530			 * or unhandlable page.  The refcount is bumped iff the
+  2531			 * page is a valid handlable page.
+  2532			 */
+  2533			folio_set_has_hwpoisoned(folio);
+  2534			err = try_to_split_thp_page(p, new_order, /* release= */ false);
+  2535			/*
+  2536			 * If splitting a folio to order-0 fails, kill the process.
+  2537			 * Split the folio regardless to minimize unusable pages.
+  2538			 * Because the memory failure code cannot handle large
+  2539			 * folios, this split is always treated as if it failed.
+  2540			 */
+  2541			if (err || new_order) {
+  2542				/* get folio again in case the original one is split */
+  2543				folio = page_folio(p);
+  2544				res = -EHWPOISON;
+  2545				kill_procs_now(p, pfn, flags, folio);
+  2546				put_page(p);
+  2547				action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+  2548				goto unlock_mutex;
+  2549			}
+  2550			VM_BUG_ON_PAGE(!page_count(p), p);
+  2551			folio = page_folio(p);
+  2552		}
+  2553	
+  2554		/*
+  2555		 * We ignore non-LRU pages for good reasons.
+  2556		 * - PG_locked is only well defined for LRU pages and a few others
+  2557		 * - to avoid races with __SetPageLocked()
+  2558		 * - to avoid races with __SetPageSlab*() (and more non-atomic ops)
+  2559		 * The check (unnecessarily) ignores LRU pages being isolated and
+  2560		 * walked by the page reclaim code, however that's not a big loss.
+  2561		 */
+  2562		shake_folio(folio);
+  2563	
+  2564		folio_lock(folio);
+  2565	
+  2566		/*
+  2567		 * We're only intended to deal with the non-Compound page here.
+  2568		 * The page cannot become compound pages again as folio has been
+  2569		 * splited and extra refcnt is held.
+  2570		 */
+  2571		WARN_ON(folio_test_large(folio));
+  2572	
+  2573		/*
+  2574		 * We use page flags to determine what action should be taken, but
+  2575		 * the flags can be modified by the error containment action.  One
+  2576		 * example is an mlocked page, where PG_mlocked is cleared by
+  2577		 * folio_remove_rmap_*() in try_to_unmap_one(). So to determine page
+  2578		 * status correctly, we save a copy of the page flags at this time.
+  2579		 */
+  2580		page_flags = folio->flags.f;
+  2581	
+  2582		/*
+  2583		 * __munlock_folio() may clear a writeback folio's LRU flag without
+  2584		 * the folio lock. We need to wait for writeback completion for this
+  2585		 * folio or it may trigger a vfs BUG while evicting inode.
+  2586		 */
+  2587		if (!folio_test_lru(folio) && !folio_test_writeback(folio))
+  2588			goto identify_page_state;
+  2589	
+  2590		/*
+  2591		 * It's very difficult to mess with pages currently under IO
+  2592		 * and in many cases impossible, so we just avoid it here.
+  2593		 */
+  2594		folio_wait_writeback(folio);
+  2595	
+  2596		/*
+  2597		 * Now take care of user space mappings.
+  2598		 * Abort on fail: __filemap_remove_folio() assumes unmapped page.
+  2599		 */
+  2600		if (!hwpoison_user_mappings(folio, p, pfn, flags)) {
+  2601			res = action_result(pfn, MF_MSG_UNMAP_FAILED, MF_FAILED);
+  2602			goto unlock_page;
+  2603		}
+  2604	
+  2605		/*
+  2606		 * Torn down by someone else?
+  2607		 */
+  2608		if (folio_test_lru(folio) && !folio_test_swapcache(folio) &&
+  2609		    folio->mapping == NULL) {
+  2610			res = action_result(pfn, MF_MSG_TRUNCATED_LRU, MF_IGNORED);
+  2611			goto unlock_page;
+  2612		}
+  2613	
+  2614	identify_page_state:
+  2615		res = identify_page_state(pfn, p, page_flags);
+  2616		mutex_unlock(&mf_mutex);
+  2617		return res;
+  2618	unlock_page:
+  2619		folio_unlock(folio);
+  2620	unlock_mutex:
+  2621		mutex_unlock(&mf_mutex);
+  2622		return res;
+  2623	}
+  2624	EXPORT_SYMBOL_GPL(memory_failure);
+  2625	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
