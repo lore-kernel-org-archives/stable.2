@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5812A43B6EE
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C2443BDBF
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787226546; cv=none; b=LQ8ng6YQMBWrEK7YAzZGqWHAWGXvdxjIlGV72adOJ7J+omS4ZwqC1lHTNeDxDONsoigiORjv/f9ir/EzsiwYnvvYvEj+nAy/g0BQiNX9ZT23Tevh7UwoRqp04hjmKM2juhzuv3lS2n43WZOXjWk5B4Jdu3ZXK68s4nL5BwB2Gxs=
+	t=1787226554; cv=none; b=P39r5w4exqRxB7SghcalJC9FEshwjS473OwL2DuHUwL5D+xqpoBA3HV6ehecseoWcplAAfo8iHhSqBGsM/FuZa5Hrb0SqTzMlSWpX1q9oremrgAoWrXsW4ZH1l+yWlEgPdgGXhktsu+mry+3zZ1PVc1GBYqPoXwqbsIju+eShac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787226546; c=relaxed/simple;
-	bh=1T2MUL1/N9WjWIfS2WIx6ShW8S0+Segb8Genkkmqvpw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LqsSyCXLfT3pt1EH1daYaB7S3DQSyYIQ3oWGG68vnqfxsKFHXVIPDbkb0hdsK7RJiSjhtJQMZIgjXtYMKUHHlZ80gJa1EP4+zaelQsNF+mxFn7aVBJillhL1ADqYf5ldnRFsvFWvzteUURsDguRX5JdkxrAG7QJGUEUhNaPyVp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2nEwD6pt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787226554; c=relaxed/simple;
+	bh=gWXn1MNZRfh09/A2Mq/5qIlYKRWg92iEr2FXPUe6T24=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uAUvMN+Y6dH+5m2deVd0DEnX5JKCFSVr2RCZ5YIhvsK9+61VicG+hKM2aveuSQrevDvvtXMRbMp7qodAN1+s3jX491JUdl1wji+XMosq9N9UCbwUwMc+I93OKq5MhzItzFcKm6Gxo7c2WPh9e4ZpA640G6t3LcBs7VFRHKdNkI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tEsZOIrN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2nEwD6pt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71CF31F000E9;
-	Thu, 20 Aug 2026 11:49:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tEsZOIrN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3701F000E9;
+	Thu, 20 Aug 2026 11:49:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787226545;
-	bh=GNyB74qEbLsakxvTzEowyaiqE/How1yVmLAU59VtY5s=;
+	s=korg; t=1787226548;
+	bh=CP392cVD/bU/k3IoI9fH4zAVfERk2KuhsuRp9dPB8t8=;
 	h=Subject:To:Cc:From:Date;
-	b=2nEwD6ptyON8Bxk48ESJoQMVquzrrPat0s6GSU2Z/sD08110dTLsIS4GSR5MRn3hV
-	 Vy034sa3GbRmHZXmLAG9YGA9blvqs7/qUeYfbAfaUGAKbe1MZm+0C6VMNPvKskryow
-	 2+LWBlQJLZ0rmdtTN6zXhTCKHgmah4bD5TMaaTZw=
-Subject: FAILED: patch "[PATCH] xfs: rtsummary scrub should treat rtbitmap corruption errors" failed to apply to 6.18-stable tree
+	b=tEsZOIrN63bm+VlLsyAyTKzEnk8mjA74HZzLJ30RR4y0K7OoxcpXGy8J1lPwJwDnj
+	 d+HhkMBr8nUyI8ngyYmK2iS7NrqnR8IqmyD3nfuuGDRQF0V3+2OwGRtcCNHWYPuxyO
+	 dxfeYxax50DAJLyc/s/83wJ0fpYy/D/FFvnRH5DE=
+Subject: FAILED: patch "[PATCH] xfs: don't livelock in scrub on a circular unlinked list" failed to apply to 6.18-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:37:38 +0200
-Message-ID: <2026082038-basis-zookeeper-14ec@gregkh>
+Date: Thu, 20 Aug 2026 13:37:43 +0200
+Message-ID: <2026082043-rely-pentagram-07de@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8ed78104722b57df69478b0b1608a408c1036085
+git cherry-pick -x 527eaaefddb6ec5c83a06c9a1559960dd6361753
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082038-basis-zookeeper-14ec@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082043-rely-pentagram-07de@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,34 +62,182 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8ed78104722b57df69478b0b1608a408c1036085 Mon Sep 17 00:00:00 2001
+From 527eaaefddb6ec5c83a06c9a1559960dd6361753 Mon Sep 17 00:00:00 2001
 From: "Darrick J. Wong" <djwong@kernel.org>
-Date: Mon, 20 Jul 2026 20:24:17 -0700
-Subject: [PATCH] xfs: rtsummary scrub should treat rtbitmap corruption errors
- as an xref error
+Date: Sun, 26 Jul 2026 22:24:48 -0700
+Subject: [PATCH] xfs: don't livelock in scrub on a circular unlinked list
 
-LOLLM notes the discrepancy between the comment saying that this is an
-xref error and the code, which marks a (non-xref) corruption error.
-This appears to be a regression.
+LOLLM points out that online fsck can livelock if an unlinked inode list
+contains a loop.  Use a bitmap to detect cycles.
 
-Cc: stable@vger.kernel.org # v6.13
-Fixes: e3088ae2dcae3c ("xfs: move RT bitmap and summary information to the rtgroup")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+Cc: stable@vger.kernel.org # v4.15
+Fixes: a12890aebb8959 ("xfs: scrub the AGI")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
 
-diff --git a/fs/xfs/scrub/rtsummary.c b/fs/xfs/scrub/rtsummary.c
-index 78f72a046887..546b335ade13 100644
---- a/fs/xfs/scrub/rtsummary.c
-+++ b/fs/xfs/scrub/rtsummary.c
-@@ -358,7 +358,7 @@ xchk_rtsummary(
- 		 * EFSCORRUPTED means the rtbitmap is corrupt, which is an xref
- 		 * error since we're checking the summary file.
- 		 */
--		xchk_ip_set_corrupt(sc, rbmip);
-+		xchk_ip_xref_set_corrupt(sc, rbmip);
- 		return 0;
+diff --git a/fs/xfs/scrub/agheader.c b/fs/xfs/scrub/agheader.c
+index cecf034ef989..1fa66aa68e16 100644
+--- a/fs/xfs/scrub/agheader.c
++++ b/fs/xfs/scrub/agheader.c
+@@ -18,6 +18,8 @@
+ #include "xfs_inode.h"
+ #include "scrub/scrub.h"
+ #include "scrub/common.h"
++#include "scrub/bitmap.h"
++#include "scrub/agino_bitmap.h"
+ 
+ int
+ xchk_setup_agheader(
+@@ -935,7 +937,8 @@ xchk_agi_xref(
+ /*
+  * Walk the incore unlinked list for a particular AGI bucket to construct
+  * the unlinked inode bitmap for later reconstruction of the unlinked list.
+- * Returns 1 if we should keep checking, or 0 to stop checking.
++ * Returns 1 if we should keep checking, 0 to stop checking, or a negative
++ * errno.
+  */
+ static int
+ xchk_iunlink_bucket(
+@@ -943,36 +946,57 @@ xchk_iunlink_bucket(
+ 	unsigned int			bucket,
+ 	xfs_agino_t			agino)
+ {
++	struct xagino_bitmap		seen;
++	int				ret;
++
++	xagino_bitmap_init(&seen);
++
+ 	while (agino != NULLAGINO) {
+ 		struct xfs_inode	*ip;
++		unsigned int		len = 1;
+ 
+ 		if (agino % XFS_AGI_UNLINKED_BUCKETS != bucket) {
+ 			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+-			return 0;
++			goto bad;
++		}
++
++		if (xagino_bitmap_test(&seen, agino, &len)) {
++			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
++			goto bad;
+ 		}
+ 
+ 		ip = xfs_iunlink_lookup(sc->sa.pag, agino);
+ 		if (!ip) {
+ 			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+-			return 0;
++			goto bad;
+ 		}
+ 
+ 		if (!xfs_inode_on_unlinked_list(ip)) {
+ 			xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+-			return 0;
++			goto bad;
+ 		}
+ 
++		ret = xagino_bitmap_set(&seen, agino, 1);
++		if (ret)
++			goto out_bitmap;
++
+ 		agino = ip->i_next_unlinked;
  	}
- 	if (error)
++	ret = 1;
+ 
+-	return 1;
++out_bitmap:
++	xagino_bitmap_destroy(&seen);
++	return ret;
++bad:
++	ret = 0;
++	goto out_bitmap;
+ }
+ 
+ /*
+  * Check the unlinked buckets for links to bad inodes.  We hold the AGI, so
+  * there cannot be any threads updating unlinked list pointers in this AG.
+  */
+-STATIC void
++STATIC int
+ xchk_iunlink(
+ 	struct xfs_scrub	*sc,
+ 	struct xfs_agi		*agi)
+@@ -985,8 +1009,10 @@ xchk_iunlink(
+ 		ret = xchk_iunlink_bucket(sc, i,
+ 				be32_to_cpu(agi->agi_unlinked[i]));
+ 		if (ret < 1)
+-			return;
++			return ret;
+ 	}
++
++	return 0;
+ }
+ 
+ /* Scrub the AGI. */
+@@ -1073,7 +1099,9 @@ xchk_agi(
+ 	if (pag->pagi_freecount != be32_to_cpu(agi->agi_freecount))
+ 		xchk_block_set_corrupt(sc, sc->sa.agi_bp);
+ 
+-	xchk_iunlink(sc, agi);
++	error = xchk_iunlink(sc, agi);
++	if (error)
++		goto out;
+ 
+ 	xchk_agi_xref(sc);
+ out:
+diff --git a/fs/xfs/scrub/agheader_repair.c b/fs/xfs/scrub/agheader_repair.c
+index 2554494847ff..13074d5e319c 100644
+--- a/fs/xfs/scrub/agheader_repair.c
++++ b/fs/xfs/scrub/agheader_repair.c
+@@ -1080,18 +1080,22 @@ xrep_iunlink_walk_ondisk_bucket(
+ 	struct xrep_agi		*ragi,
+ 	unsigned int		bucket)
+ {
++	struct xagino_bitmap	seen;
+ 	struct xfs_scrub	*sc = ragi->sc;
+ 	struct xfs_agi		*agi = sc->sa.agi_bp->b_addr;
+ 	xfs_agino_t		prev_agino = NULLAGINO;
+ 	xfs_agino_t		next_agino;
+ 	int			error = 0;
+ 
++	xagino_bitmap_init(&seen);
++
+ 	next_agino = be32_to_cpu(agi->agi_unlinked[bucket]);
+ 	while (next_agino != NULLAGINO) {
+ 		xfs_agino_t	agino = next_agino;
++		unsigned int	len = 1;
+ 
+ 		if (xchk_should_terminate(ragi->sc, &error))
+-			return error;
++			goto out_bitmap;
+ 
+ 		trace_xrep_iunlink_walk_ondisk_bucket(sc->sa.pag, bucket,
+ 				prev_agino, agino);
+@@ -1099,15 +1103,24 @@ xrep_iunlink_walk_ondisk_bucket(
+ 		if (bucket != agino % XFS_AGI_UNLINKED_BUCKETS)
+ 			break;
+ 
++		if (xagino_bitmap_test(&seen, agino, &len))
++			break;
++
+ 		next_agino = xrep_iunlink_next(sc, agino);
+ 		if (!next_agino)
+ 			next_agino = xrep_iunlink_reload_next(ragi, prev_agino,
+ 					agino);
+ 
++		error = xagino_bitmap_set(&seen, agino, 1);
++		if (error)
++			goto out_bitmap;
++
+ 		prev_agino = agino;
+ 	}
+ 
+-	return 0;
++out_bitmap:
++	xagino_bitmap_destroy(&seen);
++	return error;
+ }
+ 
+ /* Decide if this is an unlinked inode in this AG. */
 
