@@ -1,158 +1,108 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C4547D95F
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 16:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787244148; cv=pass; b=Oco/KNIIBXBN+N25wHC/4LvP0RoSrcfvqUicQc0MzgsaWctJkwLwYvf7F24oP7Ar0DdxBf91Yp3I2Myasf/ALeuteRZOPrvpjux4Ck6C0VlfDjLHfgQYFM/dbmcOt+YUPHNazMmntIxMg6Z8QYnXdGb79eJKXX5OztWbKRYg8KI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787244148; c=relaxed/simple;
-	bh=IDBX8VXLQ9hx2WC8woOhAZSlbEQbCQWrld8aiY2TGYc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bHP6SJEak32IQ/7TJzcLirx6OC7/kKRYBz4ClfWnYILWlGKE4Fz/ySqTB8+nwIL4ieVeIGL5MGB1QLQvH/mEQwHiAwEoXfxo0Kyc9ybg/MKCu5X7/TfIZfcsEu+vKoNLJnwVGkgYRJwEfpvEyn+1wJf0NEHEGPe0DV9om6mBPuE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=Z7vboocO; arc=pass smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABD947DD77;
+	Thu, 20 Aug 2026 16:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787244149; cv=none; b=YeMukUPngiGTx2lbCP5PAzZ2LtVBSdQOQtkaoCFVyMBZiDZTZYFNuZhuRxSPeQUWumuvCdRkCSkNmwUY7xjtrOmcAMymC4Z9nXacd0PpqfWnmK7CaRR8oqrNwTQSecebcVLOluDKYEsWHPJjoV9+Csf3JYJm1MxfBlFFMRFPJok=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787244149; c=relaxed/simple;
+	bh=Yy1Jaq+lnKj10+dE045dcPjRmkJTu7qSCzjoFEhrQbU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=p3YFL1Db9WDsUQHedr6cHG9xQ6mFB9wDArpfWgrLqsoI+ve6S4Pfz7srwLcLw8diN/BESBnZMnusI4OexyFs63/vb+gjEeQem76NgIV+EGlEWe3068Uou36XWITrRPDqFOLoi33FITwQVK+Y9tOTf2byIJhgHKx2KEs0JQoA7mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n9g18bq9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="Z7vboocO"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84864086bfeso6577b3a.1
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:42:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787244146; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kEnRGjegCt0lXWaZ+v+BdhFVs7cC240OlnnjxU4ZjgrZmtYTNhDlqifd9oz+jVhjrD
-         VbkuGtTQUrkTq/c3JXw7CXW71Vd4Kdn3T+BXO+V7Ni8aM3xotAN33xixqXjLFC6LeIwI
-         siPNAwilql7lBzRdblZWmG5syooHSU2ecbRSh02E4ACeqZkHxd5abir46y3AWVo355jj
-         HwumujRyNrBxDs6Y2iZ+2uPsHqg3uwN/ORmJVT1Wv0snMUo5Syc8wpq9RZCtOnNxcRpv
-         tfa7jGoeXe1hXp9nNWwQ5VCcpZyB0vh+yqH1a3NZs7aLofzq+p9g8Oj5bwVSx/TheAlF
-         LjYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=f2yiP+LhZhC/qZnEWNXj41fXpS/L9buScLyFoFglz2o=;
-        fh=oa9PKHMrnX72pT4cacHT0/PlTTwXyDDFBKyPFP76/7w=;
-        b=Dkb1QxL5AK20ehsBWGkQBm+Gm51mMAiu8q/QOxjeUvUzVmkCQv8qSW7H3sURRvPSa6
-         633OTpFj6LAbMgzdzlCFTTf5oLdz9xj6/QiFtb/nvQ+sePwMGSZEnPZU1IGyRkOv+MWh
-         Zrc7t9f55sQAcZ3DD3JjY7f8E8L2gCUIm4rucZYZcie+UvWPPnDxyXAAcnaZwuqZRayq
-         J8vv8Li5ttcWATax/T9J28pjkL+k8LRvwsK3rZUp56OtFRriMO/+ZTzuN3Np/D3Xcdur
-         NluouYznN2gWiyIErW2FhMdca5CudYOSrzkvR94QVA/eKbF+ATMnRJmnLqYEYTXI9O/+
-         EHDA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787244146; x=1787848946; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f2yiP+LhZhC/qZnEWNXj41fXpS/L9buScLyFoFglz2o=;
-        b=Z7vboocOBuJHP/N28j13IKnXK1QJUSsVZWZADKbDIhcl28w3ixc09A+iQmLB6y4RF0
-         pIbUx1kUyN9umAoUWWXLsybYAM5+65N449BnACPx4gMAhSwySW7EGw6s3Mvubx+axIdY
-         A7k0FsZgQgMh0JAofd80VyLEPlxi2l57N5doA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787244146; x=1787848946;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f2yiP+LhZhC/qZnEWNXj41fXpS/L9buScLyFoFglz2o=;
-        b=O+Ul4dElXSCu477ePPUK65K0zv6Mpu/dG8YKMNxyMmv8tz4ri/py5lCR65eRuv7Jcf
-         r1++oZQGvGXRC5ybNsNaObkRmiQKFWhxGbYsBIE+jDDVOXK1uRHMR9t8x/J6b40bdojg
-         sl0lG5oy7pqyYjHji521SNKSEil6EQdHCTBuWN1KWy+i2wKYhcXi6mbVysFWKEI+zu0i
-         qAVAkG8z+U5G2Ae3eP2jTYI2Lhn8qlh4QwG9Rso3F82OslDFTbRhNxF84m0+OXYpMyMK
-         T6epr9cv6KiczV54bYOoi0gsY65CH2+j7uKoBQsuVvLQq2QrVnfWw8kuEAKyZs+3fdLZ
-         QAtA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3ZT2pZHfC96WmMuc/3G1Tdf68N8kb980jVNh6l3Hiso56tLhG5fHahNq0Ge7viwMpKijQ/oo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwHMuXrqLrhmS15k242flHaKOHs/cphB+lNYowatOUb3UIdCa3K
-	/ZpayF43Gen8FrxhR/+9XBoUPP5gVlVBu1nRmaDZ4/o9I0wsxMeLFV3zmLAct0cPxmgXTnXaWv9
-	9EbEhlvjoE8X+Z7A7Cx8vacIl1s7LDG11wHg8xJSz
-X-Gm-Gg: AR+sD12cn5vX3sEeiOlr7wyGoVIbD3mSF7PT+jZ57wDnIuHZIerLD56SzfgnxBATbOr
-	gmfB/ZsRhnKwfI4je9FiIleobCnSIUyg1t+kXkuB2gQWMJ81b0RBxn8O6A95Zx2ULz5LYUsstzD
-	rgt6F4v9TeSrQLE0CZzVuS581czwhXYk8ZJa53ZT5f/pKYOZWXtl+0whjhhzhuu/1geEPUiXf6o
-	b9UZi3T4gyCAIukjhH+udXiSJdAs++75IKLSR6R3fZLbtWIyyzx35D1fGGj9j0kts7j2/IMcLqw
-	NOEHnNh1So4htR+alL0N5vzPTS1u3v1UQmhguS0ZzA==
-X-Received: by 2002:a05:6a00:848:b0:84a:2c46:3fdb with SMTP id
- d2e1a72fcca58-851d3862b92mr23921664b3a.5.1787244146053; Thu, 20 Aug 2026
- 09:42:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n9g18bq9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F26F1F000E9;
+	Thu, 20 Aug 2026 16:42:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787244148;
+	bh=w1PBbTEvP5lg6DhgUiXhJRERtclwdvl3bMIX1btWKB8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=n9g18bq9eg83ih/9guIEFLWdOiTEhEtY69Rr/XOLAtLb1nH2ygac2oFa4Ha8dDaY5
+	 pNP7po3yQ5AkH8AMiy8bxlS8+FaGkIugY0c13wpfeYkc3k8A1oPJQwt4HIaT89vLd/
+	 564bWPZ7Mog+p4z4ovkLdA3cqJ80sq0f2LDnIv6E=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	=?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 069/235] ASoC: mediatek: mt8183: Check runtime resume during probe
+Date: Thu, 20 Aug 2026 16:55:05 +0200
+Message-ID: <20260820145218.537601558@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260820145216.426568665@linuxfoundation.org>
+References: <20260820145216.426568665@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820095236.68390-1-jhs@mojatatu.com> <20260820095236.68390-2-jhs@mojatatu.com>
-In-Reply-To: <20260820095236.68390-2-jhs@mojatatu.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Thu, 20 Aug 2026 12:42:14 -0400
-X-Gm-Features: AcwNN1U6Kw-V4I0kWZuvf6ET2mei_Yx6Hn09_R_W7mFlT7Gfj3HR77holbziYwY
-Message-ID: <CAM0EoMkRjG0-ssck6b39JA_439U3N=s3nEt3Av1PVZzvcA_E1w@mail.gmail.com>
-Subject: Re: [PATCH net 2/2] selftests: tc-testing: add u32 node ID pool
- exhaustion test
-To: netdev@vger.kernel.org
-Cc: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, stable@vger.kernel.org, vega@nebusec.ai, 
-	Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 20, 2026 at 5:52=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> Add a tdc test case (7ec8) that fills the u32 node ID space with 4095
-> auto-generated handles, then attempts to add a 4096th. On the fixed
-> kernel the 4096th filter is rejected with ENOSPC (exit 2). On the
-> unfixed kernel it silently succeeds with a duplicate handle.
->
-> Fixes: e7614370d6f04 ("net_sched: use idr to allocate u32 filter handles"=
-)
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> ---
->  .../tc-testing/tc-tests/filters/u32.json      | 23 +++++++++++++++++++
->  1 file changed, 23 insertions(+)
->
-> diff --git a/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json=
- b/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json
-> index b2ca9d4e991b..b9019b14d05c 100644
-> --- a/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json
-> +++ b/tools/testing/selftests/tc-testing/tc-tests/filters/u32.json
-> @@ -353,5 +353,28 @@
->          "teardown": [
->              "$TC qdisc del dev $DEV1 parent root drr"
->          ]
-> +    },
-> +    {
-> +        "id": "7ec8",
-> +        "name": "Add u32 filter when node ID pool is exhausted (4096th f=
-ilter rejected)",
-> +        "category": [
-> +            "filter",
-> +            "u32"
-> +        ],
-> +        "plugins": {
-> +            "requires": "nsPlugin"
-> +        },
-> +        "setup": [
-> +            "$TC qdisc add dev $DUMMY clsact",
-> +            "yes 'filter add dev $DUMMY ingress prio 1 protocol ip u32 m=
-atch u8 0 0 at 0' | head -n 4095 | $TC -b -"
-> +        ],
-> +        "cmdUnderTest": "$TC filter add dev $DUMMY ingress prio 1 protoc=
-ol ip u32 match u8 0 0 at 0",
-> +        "expExitCode": "2",
-> +        "verifyCmd": "$TC filter show dev $DUMMY ingress",
-> +        "matchPattern": "pref 1 u32",
-> +        "matchCount": "4095",
-> +        "teardown": [
-> +            "$TC qdisc del dev $DUMMY clsact"
-> +        ]
->      }
->  ]
-> --
-> 2.43.0
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-Some of our long running tests have failed because primarily of the
-tdc test in this set. Will resend with a renewed tdc test. Hopefully
-my attempt at this pw-bot thing works.
+------------------
 
---
-pw-bot: cr
+From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+
+[ Upstream commit f0334fbfd107682d0c95f3f71e25f6127038e2b9 ]
+
+The MT8183 AFE probe uses pm_runtime_get_sync() before reading hardware
+defaults into the regmap cache, but does not check whether runtime resume
+failed. If regmap_reinit_cache() then fails, the temporary runtime PM
+usage count is also not released.
+
+Use pm_runtime_resume_and_get() so resume failures abort probe without
+leaking a usage count, and release the temporary reference before
+handling the regmap cache result.
+
+Fixes: a94aec035a12 ("ASoC: mediatek: mt8183: add platform driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+Link: https://patch.msgid.link/20260527-asoc-mt8183-probe-cleanup-v1-2-4f4f5593c8d1@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c |   12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+--- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
++++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+@@ -1143,17 +1143,21 @@ static int mt8183_afe_pcm_dev_probe(stru
+ 
+ 	/* enable clock for regcache get default value from hw */
+ 	afe_priv->pm_runtime_bypass_reg_ctl = true;
+-	pm_runtime_get_sync(&pdev->dev);
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret) {
++		afe_priv->pm_runtime_bypass_reg_ctl = false;
++		goto err_pm_disable;
++	}
+ 
+ 	ret = regmap_reinit_cache(afe->regmap, &mt8183_afe_regmap_config);
++	pm_runtime_put_sync(dev);
++	afe_priv->pm_runtime_bypass_reg_ctl = false;
++
+ 	if (ret) {
+ 		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
+ 		goto err_pm_disable;
+ 	}
+ 
+-	pm_runtime_put_sync(&pdev->dev);
+-	afe_priv->pm_runtime_bypass_reg_ctl = false;
+-
+ 	regcache_cache_only(afe->regmap, true);
+ 	regcache_mark_dirty(afe->regmap);
+ 
+
+
