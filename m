@@ -1,139 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155F237CD41
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE9941DED0
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:15:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787224472; cv=none; b=muhgRwChEXQMkNdzjpuTFJV0LM+G7lp/xTz6ksjrII1EI+m7IsWHhv3Y+FoVS91uMW2dcUleW7REHIHpyReVGDHbL9UhTOLiv4FNDX2edXBAcCymWdau5BOGr1MbLxWCdj95N/7GyvS1q+08yA3EEHWOA4aITvtEfJZvwmafdlk=
+	t=1787224532; cv=none; b=CTRvrQyU1PZFBJzMI78GOO4HwKS58jmiO2J/aa9w7ppYzuJ3sxcFSDv+j4i9UenkPbnFITE/WPC6ZVlIKkCi7BkFikiYbn9QPsPz8rd+7FcAvtlG5PAxH8qcDbvK+IFt3fPEjGZHmlt/HPX/+AUzQIxmezqH7E3x8JaGOquKF0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787224472; c=relaxed/simple;
-	bh=d45z2NbdkI4HgbICHA4WBqWATbN/4y3tHRW7pNW+J/g=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DxNng0F/d3Yxbtr0hoVK9gefmnbtFuxI9UjtOeCvvM34fgVRSwdOfBI4eeB2zc9b5ZElf31mzrdX3BqymUyZyTsnXOqSSViOrEMLJBsxFNCJVdEowGNmh9Zm+//3K/HQP2kxj9M1007qfGNZ/PxaIVS80oAian1T/mOlaAemsSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=osn8v45A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787224532; c=relaxed/simple;
+	bh=l0pNZJFfzkYWFJzl8/RiEC49jZiTv++D5qRrBJM8U8E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iMKARhVY5lE70XDD2vMeh8u7woapITA5bVDwdjlyAjCkn5TYfHyDoXHsO05gCT18BPE718w41kiS0HsTohkjm55pam942CqM14d1kzTIoPYOClNPIKoJeKd/SB3lfC/UygwzyzQoBCr72HszBBgsG+mO8E9aVegmOnwc9JDX/WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dpUUIA4Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="osn8v45A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2A281F000E9;
-	Thu, 20 Aug 2026 11:14:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787224470;
-	bh=8tJulBFkl/uc0lTM/6j+H5lrP8oX4t/n92Q0PMPO4/8=;
-	h=Subject:To:Cc:From:Date;
-	b=osn8v45A3CoIOpSzjuATZZV8QHaWe8ZbA12W3C0QFf2VN5/SI6SxRihPB/x1bJsQm
-	 u+NuVaYv9mmZHkkA3iwrKfgOeuB1wSkL2ZQlpsc0ROzWXabnzY45rSNFPkiFtAb/9I
-	 a/g350pMvA6KCJmMzAEEdHbv90BHxuughY3GE59U=
-Subject: FAILED: patch "[PATCH] drm/xe: Fix DPT allocation paths." failed to apply to 6.12-stable tree
-To: dev@lankhorst.se,matthew.auld@intel.com,matthew.brost@intel.com,stable@vger.kernel.org,thomas.hellstrom@linux.intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 20 Aug 2026 13:14:05 +0200
-Message-ID: <2026082005-postbox-draw-4d80@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dpUUIA4Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CA01F00AC4
+	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 11:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787224529;
+	bh=l0pNZJFfzkYWFJzl8/RiEC49jZiTv++D5qRrBJM8U8E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dpUUIA4ZJ8i3dkniOPbQxgtf+nw97tifq1TDA7RqRhUHo1M/DiCEBo8DismL5xLqZ
+	 UmUWaDbRjSkxlqwGngs753xnipTJdzEdFP8CS3v7A4N9JC7E6m9X1MdoJzo/8ZQk5Q
+	 OZOrf33Q9arTMS+TpKwZVGeRTtrm6yNH90WBfOeW3a4HIsWZV8QTrdJgl1QBuHFHHp
+	 nT7vbGbyzyIOD8NCRXDA58c8tk7Jn8ZOlgJ7T2D7AUSa/OViY6cNyppiBaRG0hVmPW
+	 cNbA9qOtaaLAhq6yJpaUPr44tDkkXhTsxahXkKNWY622pLr0qZmBdz115AVdGyJDEy
+	 GKoNioGacgAMw==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so3688365a12.2
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 04:15:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqE6hCxUTO+Qi+kANtdwV5HviFrDYZ27K/skEzceM3rCmauF8hkNwkLchr+lNgDkJZPoOv0/fo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1eXoz9QBv+0Hm/dfHAnSpMBMU8lSMOfVh77YpM0bly+hihDAv
+	nuXzOjQWkov0dFcWJ12QT91lDeT5s3OPxARRxUMAM2ZPzPqrDO6RncKfENl4r05gMDKrhgPyO5r
+	jpm/zqcNDLxTKb9qiBZ2hPOSmyvo6aEs=
+X-Received: by 2002:a05:6402:e0e:b0:6a3:6d83:ba44 with SMTP id
+ 4fb4d7f45d1cf-6a403297189mr8751598a12.2.1787224527918; Thu, 20 Aug 2026
+ 04:15:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260820081410.152325-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260820081410.152325-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 20 Aug 2026 20:15:15 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9K-foqh6sd6ncmG-vKObkw7Gy8V7XRABMQ7YOCtcLnFg@mail.gmail.com>
+X-Gm-Features: AcwNN1WmSpEV-t6mtjK2pddGFCb184unB7f03c-gYwRT5QfLjUmBrcwO1o5Jo2Y
+Message-ID: <CAKYAXd9K-foqh6sd6ncmG-vKObkw7Gy8V7XRABMQ7YOCtcLnFg@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix resource leak in ntfs_new_attr_flags
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x fc648757908304aedbad74f74bf58192aec383db
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082005-postbox-draw-4d80@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From fc648757908304aedbad74f74bf58192aec383db Mon Sep 17 00:00:00 2001
-From: Maarten Lankhorst <dev@lankhorst.se>
-Date: Tue, 30 Jun 2026 15:55:20 +0200
-Subject: [PATCH] drm/xe: Fix DPT allocation paths.
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Remove the fallback for VRAM to system memory, I tested it and that
-doesn't work at all, only a black screen with pipe fault errors were
-observed.
-
-On systems with media GT, extra latency is added when accessing stolen
-memory when the GT is in MC6. Since we additionally aren't counting how
-much memory is used for stolen and we could in theory fill up the
-entire stolen area with DPT's, avoid using stolen and only use the
-default memory region.
-
-Using stolen may also result in random system hangs under load.
-
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
-Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
-Cc: <stable@vger.kernel.org> # v6.12+
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260630135523.1775379-2-dev@lankhorst.se
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Acked-by: Matthew Brost <matthew.brost@intel.com> #teams
-(cherry picked from commit a196406a3831291598fe8e73245914f7acffdfe0)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-
-diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
-index 5f4a0cd8deca..73469ea5f333 100644
---- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
-+++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
-@@ -164,31 +164,14 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
- 		dpt_size = ALIGN(intel_rotation_info_size(&view->rotated) * 8,
- 				 XE_PAGE_SIZE);
- 
--	if (IS_DGFX(xe))
--		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
--						   dpt_size, ~0ull,
--						   ttm_bo_type_kernel,
--						   XE_BO_FLAG_VRAM0 |
--						   XE_BO_FLAG_GGTT |
--						   XE_BO_FLAG_PAGETABLE,
--						   pin_params->alignment, false);
--	else
--		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
--						   dpt_size,  ~0ull,
--						   ttm_bo_type_kernel,
--						   XE_BO_FLAG_STOLEN |
--						   XE_BO_FLAG_GGTT |
--						   XE_BO_FLAG_PAGETABLE,
--						   pin_params->alignment, false);
--	if (IS_ERR(dpt))
--		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
--						   dpt_size,  ~0ull,
--						   ttm_bo_type_kernel,
--						   XE_BO_FLAG_SYSTEM |
--						   XE_BO_FLAG_GGTT |
--						   XE_BO_FLAG_PAGETABLE |
--						   XE_BO_FLAG_FORCE_WC,
--						   pin_params->alignment, false);
-+	dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
-+					   dpt_size,  ~0ull,
-+					   ttm_bo_type_kernel,
-+					   XE_BO_FLAG_VRAM_IF_DGFX(tile0) |
-+					   XE_BO_FLAG_GGTT |
-+					   XE_BO_FLAG_PAGETABLE |
-+					   XE_BO_FLAG_FORCE_WC,
-+					   pin_params->alignment, false);
- 	if (IS_ERR(dpt))
- 		return PTR_ERR(dpt);
- 
-
+On Thu, Aug 20, 2026 at 5:14=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
+.cn> wrote:
+>
+> When handling resident attributes that don't need sparse/compressed
+> changes, ntfs_new_attr_flags() returns 0 directly at line 678 without
+> calling unmap_mft_record() or ntfs_attr_put_search_ctx(). This leaks
+> the MFT record mapping and attribute search context.
+>
+> An unprivileged user can cause a denial of service by repeatedly
+> calling setxattr(2) with system.ntfs_attrib on files with resident
+> attributes, eventually exhausting kernel memory.
+>
+> Fix by replacing the direct return with goto err_out to ensure proper
+> cleanup of resources via the existing cleanup code.
+>
+> Fixes: e791930240a5 ("ntfs: fix resident conversion in ntfs_new_attr_flag=
+s")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
