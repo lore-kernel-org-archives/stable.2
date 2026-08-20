@@ -1,124 +1,138 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF8E47DD42
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 16:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB140478846;
+	Thu, 20 Aug 2026 17:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787245149; cv=none; b=I2xvJtvtxQOyg2QrbQRtJlloar9YMrM7HlmCyfpbaVhFKqMzTjc62ME4dVu8DJWfn24VK+gckUVguUS+w3J5Bjjzn483f6JDxwzrdjwML2W9pdbwhio8uRChaDiatjkGYJMHI5q4KZlf4DsI8C/HEQUQqDC8F+5NauKoJH8Aexg=
+	t=1787245398; cv=none; b=nY6so56Ipohm8CBcdu//6jeAY8T5m6/hoV2WymAL+to5NJBxfZHcwQlcfEbf5WWLlu5gkoNY2DYGK28vCeOWL/txSqH8O2Jdy6KTeTUTRKmd1deh6uygRJTNavISvFsO9YAzn919YGA1yLCEtoaNbIVLARZtRKWBsjDuGkUO9ZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787245149; c=relaxed/simple;
-	bh=pl9cPDBkc945LcOwNA4lhkiqOrN4cvkgaIG78A9S6tU=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=ne2oRV1r3Iv88rRznMVSkVhONC2Dxf3S/kJANgerCnHjiFnMNDKAqXnzok0uGHfxLMKyZ2IBCsMjmiqe09rDpZxAj22hLJX2mYIR0Fxa6ezOzIzsTjEX+fI76u2UWZQ7VfwTJJRxnez+KqFDVJeomM+xCbf3f9VDUw7HIs/C8xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=V83U6FL/; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1787245398; c=relaxed/simple;
+	bh=UL5olmBLz4vCpi4CTfdNdOVt35NDxiRVlv14PKj30f4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dSffe8XU/c5JHTRUGWYlthKN0Txb/ToPgGFezWTwWNXrCrTVEmzqzavTLhM0M4CqRju+l1lzI0QEJVUvBM+dxLimfX2rnVS4uPqKKSWF6nvu5CUhspspFfaS1rcY02LcZyaV63Vr1IPM4wG55afeOcsJggiY7WFUBRx+D2w5eB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Zh+zStUK; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="V83U6FL/"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d049069377so1377045ad.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 09:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1787245147; x=1787849947; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Jk8bVdqhjSO3gpYoSvjFvOD7cOC8eQdlfxTl8+km7pU=;
-        b=V83U6FL/S4uT6GObMgfvx3zw3HsmEf8SP83q3Y3wZ3mwmAOppCwhn4hHnegGi5X9cg
-         yMobZ92DR+CtYeEuK1qITBWgd9jQRJm6NQvn/mutY984w3spPe0jIfV3pCdl9LBPVlvE
-         lM1JA8h1819N02IkS5zuuz3jd2STJPwrS7KJCoAEOoQRtx8GvFYdhFjg4r1KEc5w74Nc
-         oypFl/dCmy8+v1MHz80NG8QtV1qDCq+lo8BCJQmjW5ALQ9/Ih/COXExQpAtDyVPNzBPG
-         dbJu17m9NGV1mA/QoGe/3+29q91dwn//9+RHIEVpSUViK3VqtdNxOyOPB0tdT9CnpZdP
-         z5cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787245147; x=1787849947;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jk8bVdqhjSO3gpYoSvjFvOD7cOC8eQdlfxTl8+km7pU=;
-        b=KgKIx09gHSJjE2FHAO7GYIyYWlCX6+99IWBdWMVxshgmMkuER3aCie+1gxiIj6PM16
-         6yfbe6MPjyq/rGBEIoyiUb7oBPMZqkRxmaIGINs9TPwWT1ippZOgwn86uw1yOMFL2BMH
-         UOlPsPfqStd6ApggxC2qBvT1LsvrTyop5RVKEihXmYhHxpua+7jCstRxOynBP+RL1Jj4
-         WrKI20LHTIQyXcVmT8m4PCiPjfmDbhNwyiK1ByBvpMnmnFD2febTk++NLvst9xY26R35
-         KsqAZMmed6MUxEJVwOIlKYFJEeqivSnS8hh+bYrwrNAmjj3sf3x5sttpqOlGEgF2PB70
-         ceDw==
-X-Gm-Message-State: AFuF++m7OIsr5zTJf5jLHUkQtUCBtJLr8yMZIEVGZBh9fJWZKbeXYeSV
-	2HKK9fldZDTA8n7BkQeE035sPo+Fbe/JMUFB67zWMJQJ1Yt0N8rZw9VJGrrHTNevtbx92/nfX96
-	eN+Ro
-X-Gm-Gg: AR+sD13U+rsFR4IDI9Z8yv/EytJWvNh370wvPbWPPPvMtcO63GchF0QuHj7Zzg4XJIN
-	/yWkPh6PfLyI50Iu5rK8QSkpHxRtH0up0BQu1hr147X2UwhqzKm5dyDLN4gvxRs46qgdQnDDt7d
-	J/zkylIlO2Er0Sz9oTl8jCRjQlcgsaMNTVYCdcxZAyMK+xk0N9/gh9TIwtfm+jwQA+JxKPPKI1F
-	L6iWvrPBXznnMCi73lMocuHY0s1/5tPZtfuOkYVC4AlSl5AvM4oOtuY3sWaTgsArAGLqU8LY0TA
-	0TMXddmvoWYkqPonFRNA6z9T0LADSSY89s6HOQKPM8uYY17rk0TQoj8PPLScrku0hR512d3iUNS
-	5V3yQni2zOrte7L//JKPcz2p1QHkXdjHgEkb6aXqCpadgfVyK9PTg/ug3FxchoTyO4OEijcLPLA
-	/LpPx7eQXm3CQz52kxV1jO6N5X7sAwyRiDdDBA6JySvjK3Vv5pe/Iv
-X-Received: by 2002:a17:90b:3b83:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-39580a4d117mr24258402a91.1.1787245147284;
-        Thu, 20 Aug 2026 09:59:07 -0700 (PDT)
-Received: from b455de3d9de8 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef3bb5csm20420167eec.2.2026.08.20.09.59.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 09:59:06 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Zh+zStUK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 29FD71A1771;
+	Thu, 20 Aug 2026 17:03:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D97385FF59;
+	Thu, 20 Aug 2026 17:03:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0129211C76574;
+	Thu, 20 Aug 2026 19:03:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787245391; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=dzpDPpSnAM2uONOW9dmectfOGf7mS7OXVGaVHm+mTHA=;
+	b=Zh+zStUKsoTQ14HSj68/KZzX5U8fCX5OXTe7NJwgpbvcWVhSzToGds53ZMrg3UhD0Kmfub
+	5NIJnuAdmXR1nzyTgC+5ZojvLLM8Bqm11JiVNkadHetkkAn3MGltA62jAZ0JnByIfJT1kS
+	3vG/yvRtWKSE6Mky8yM9CFII58TT7mspbtxk1cXwY0XZZR/QCZb9142Nhak9OubBkeylqw
+	qWqY38luPuIpDp8N1eJbIBkBxOTAlOg91cjwvsJntQDFMFDTWiJBZVHcpdpfH0w++lIAFn
+	44K1x9DkuuX8Fd2XUGkTOD8ntvHuaKH0wuy+kAC1mLvmEKnpn3ZmspD3LyMKqg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Thu, 20 Aug 2026 19:03:07 +0200
+Subject: [PATCH 5.10.y] iomap: adjust read range correctly for
+ non-block-aligned positions
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.1.y: (build) no member named 'bh_work'
- in
- 'struct atmel_mci' in drivers/mmc/hos...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Thu, 20 Aug 2026 16:59:06 -0000
-Message-ID: <178724514547.764.4063567812744277543@kernelci.org>
+Message-Id: <20260820-cve-2025-68974-5-10-v1-1-26ff0db1f8e8@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBCF4VchZ+2QaUO5+CrGBW1HHRdoWiQSw
+ rtbdfmd5PwbsiSVjGO1IcmiWR9TgTlUCLdxugppLIZl23JvmcIiVOCo7YeuIUeGKUrn/TDGENm
+ gPJ9JLvr+VU9wteF6xfm/55e/S5i/Sez7B3eYEP1/AAAA
+X-Change-ID: 20260820-cve-2025-68974-5-10-de7bb9adcd01
+To: stable@vger.kernel.org, Christoph Hellwig <hch@infradead.org>, 
+ "Darrick J. Wong" <darrick.wong@oracle.com>, linux-xfs@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-kernel@vger.kernel.org, Joanne Koong <joannelkoong@gmail.com>, 
+ syzbot@syzkaller.appspotmail.com, Brian Foster <bfoster@redhat.com>, 
+ Christoph Hellwig <hch@lst.de>, Christian Brauner <brauner@kernel.org>, 
+ Sasha Levin <sashal@kernel.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787245388; l=2376;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=CNtMEBmJPiIKjl+lDDc5UbR9iCo9r73AmjrCfA5GqX0=;
+ b=naMS4CUhlormixQdBh0yb08DTrCcZpVVcAB/BehBV+7ddR7RbtjBr6y58AENKmZrKwsq7uZWJ
+ lSmH4iCUL7WB38bsfrwn7z+Kh0E3EdvaCgtWWhyZWTwe47Xo2ivlzFw
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-New build issue found on stable-rc/linux-6.1.y:
+From: Joanne Koong <joannelkoong@gmail.com>
+
+[ Upstream commit 7aa6bc3e8766990824f66ca76c19596ce10daf3e ]
+
+iomap_adjust_read_range() assumes that the position and length passed in
+are block-aligned. This is not always the case however, as shown in the
+syzbot generated case for erofs. This causes too many bytes to be
+skipped for uptodate blocks, which results in returning the incorrect
+position and length to read in. If all the blocks are uptodate, this
+underflows length and returns a position beyond the folio.
+
+Fix the calculation to also take into account the block offset when
+calculating how many bytes can be skipped for uptodate blocks.
+
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Tested-by: syzbot@syzkaller.appspotmail.com
+Reviewed-by: Brian Foster <bfoster@redhat.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+ fs/iomap/buffered-io.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 219f9e1a2643..5ad3bf906b35 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -103,17 +103,24 @@ iomap_adjust_read_range(struct inode *inode, struct iomap_page *iop,
+ 	 * to avoid reading in already uptodate ranges.
+ 	 */
+ 	if (iop) {
+-		unsigned int i;
++		unsigned int i, blocks_skipped;
+ 
+ 		/* move forward for each leading block marked uptodate */
+-		for (i = first; i <= last; i++) {
++		for (i = first; i <= last; i++)
+ 			if (!test_bit(i, iop->uptodate))
+ 				break;
+-			*pos += block_size;
+-			poff += block_size;
+-			plen -= block_size;
+-			first++;
++
++		blocks_skipped = i - first;
++		if (blocks_skipped) {
++			unsigned long block_offset = *pos & (block_size - 1);
++			unsigned bytes_skipped =
++				(blocks_skipped << block_bits) - block_offset;
++
++			*pos += bytes_skipped;
++			poff += bytes_skipped;
++			plen -= bytes_skipped;
+ 		}
++		first = i;
+ 
+ 		/* truncate len if we find any trailing uptodate block(s) */
+ 		for ( ; i <= last; i++) {
 
 ---
- no member named 'bh_work' in 'struct atmel_mci' in drivers/mmc/host/atmel-mci.o (drivers/mmc/host/atmel-mci.c) [logspec:kbuild,kbuild.compiler.error]
----
+base-commit: 2a3da1f4966798b0b48ce302944ad356b2c98b5d
+change-id: 20260820-cve-2025-68974-5-10-de7bb9adcd01
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/drivers/mmc/host/atmel-mci.c:2631:26: error: no member named 'bh_work' in 'struct atmel_mci'
- 2631 |         cancel_work_sync(&host->bh_work);
-      |                           ~~~~  ^
-1 error generated.
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:a12dbce60b33151d5d4570b5c088fec74199a78e
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  c7885103099f7a40cdf84b4810e6283f866d7dd6
-
-# Builds where the incident occurred:
-
-## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a8712e762f33761c0f0b728
-
-## multi_v7_defconfig on (arm):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a871eb862f33761c0f10447
-
-#kernelci issue maestro:a12dbce60b33151d5d4570b5c088fec74199a78e
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
