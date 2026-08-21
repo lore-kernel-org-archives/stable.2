@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0034C47279B
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:00:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA67B47F2C8
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787310014; cv=none; b=bezrc8kIpna7zRrCbfAw5P3wj1MuvNnwS5yIAH1k9jJZ16UE4iAZM+LUueLa1Hh7ovlhx2aohhPWHcDIeO1zYw8tL3X6g4TqMrsyBNKGm7Sv/dCSKC/rce3sBbQEAmgPvQKkKZ4fg3TiBnaVRwuxBxh5G9G7t1UJ2aZlKGLn+Zs=
+	t=1787310015; cv=none; b=WB7NAFbEHc9knOH5GAnxZWXYXM8AZutglNikNokMDVgUWN4uLtsSW2B5uvmuJiQvMyLYlN8ZAJvvRw3OPLLOuvvgjTFXTMToj6pGmB7gZA3u9A80KzWmm0Ouu43pm7uxfklS369XNhHAQmoKbJN6lZEn/z5gVr6fFXqi6I4OZ20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787310014; c=relaxed/simple;
-	bh=SMEguYm24Q19aXT54w20dOC+Q5iWUio1kmDT7m06O90=;
+	s=arc-20240116; t=1787310015; c=relaxed/simple;
+	bh=feZBZbP2krK0y+LfcjOENcp4mqctyGoPSTOHkEnsfQY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PAbXsFRWvCNTc72IqgkI+wyvKb27IBhuriIxkCPYqQwAAUgKV7dNxrOTrn8yeWzkTyI5PzmS0qM65uilElsMslNuKbkCYHCFNl4lR6qFVbG+pb5BiP4wIe45Bup5Jp/Ql7UZvY3tCc+EYvnN6mg3yhbuo5yHTx0IxE2Wbl8EIss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5PAd3sU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=vELTUaw8Iimg3alXQnKPowmKnpbk2xp1DjU7U8DQ/giT6KQHdXkw7TEU4iyMgHl7OF1TvTNyeAYJ8FnamZMSQtE8uYwEWV2tt4GsLgSQdZ85cDNmCY1J962bsKSIzA3S35gI25Y0RoFtFOK+HzJgVeVmK79f3fRkPpQIkVH+QL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aG78Jl+W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5PAd3sU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22D761F00A3A;
-	Fri, 21 Aug 2026 11:00:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aG78Jl+W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD9D1F00A3D;
+	Fri, 21 Aug 2026 11:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787310011;
-	bh=NHe+yrR+9zPLJXXiCWiYcZd+C+DenGaoJhP9Clgxc/Q=;
+	s=k20260515; t=1787310013;
+	bh=sNSztu9GmNjjZkXsWuEsA+QKLZ/UiHWcK27d12aif+A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l5PAd3sUbX2AcAdZ/nW9Ofwwt2eWtNOvi6Cdt+XLmjJxCZ7/J+8kIoD+v+OwG5w7T
-	 +WSbgm/T8Bw6SjUgAx5ukaypU2h5fkUAR3NQ8y50SpbpO+m1/LmHbLIymds+lAb87w
-	 ffwtncQSvCZgUP8fPS5oYkA3+k8az7jlSIZc8gYbyb0S0q861UXyaeWwmLChKppDs0
-	 Alg6i597Ui9H0XNW0pcXBYEajSit6ANQJfF8fI5N7hGKy7IVqG+8X5Guq5R0WtFlCB
-	 IgJ/kLPN1why/wP6bod0n6rM/E3CJExbgYOahDfvlogO92waX1mZaH//SWeh3RcQ8v
-	 w58tBSDKDXAPg==
+	b=aG78Jl+WzwJPiO8ls5ACLb5KfEpFn6KSjMjEKtsOOtrUk32IZ8PM3SLH4trkZafWx
+	 ISOKya2RU5mKOGFlfvE82MWEWxobM1yyZ7+MqFJqJ0MticfZDnZvzKVKs++U8FybD7
+	 zZJ8PP4qXthi0D9pw+GpZcCwQ+uJo82mTkyoMrZSzyrmzPbsbTnDSJ1Z9NMqEc6g0n
+	 Z9E6gqzltx97vh5qRMUBD2BbT4jDnkaRm1H1bFztejnStLvmwh1pwVoVIH2Nb2f7W4
+	 pSaMu7Vrd2bawzvfk4FVysc1C8DEUCpjVjIUtbKTP7ElAPFJ2TQBcbpOIvhyfG8GDc
+	 nul4cxHMIo9dg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lech Perczak <lech.perczak@camlingroup.com>,
-	Andy Shevchenko <andy@kernel.org>,
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/5] serial: sc16is7xx: convert bitmask definitions to use BIT() macro
-Date: Fri, 21 Aug 2026 07:00:05 -0400
-Message-ID: <20260821110008.2816500-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/5] serial: sc16is7xx: use guards for simple mutex locks
+Date: Fri, 21 Aug 2026 07:00:07 -0400
+Message-ID: <20260821110008.2816500-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260821110008.2816500-1-sashal@kernel.org>
 References: <2026081755-absence-womanlike-85b3@gregkh>
@@ -47,316 +46,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lech Perczak <lech.perczak@camlingroup.com>
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-[ Upstream commit d2e8590fd1048c5c0dba160edc6a48ee8305a1f0 ]
+[ Upstream commit 0f4f88bfd7e7bf3f3293045fffdc63586b0a889f ]
 
-Now that bit definition comments were cleaned up, convert bitmask
-definitions to use BIT() macro for clarity.
-Convert SC16IS7XX_IIR_ID_MASK to use GENMASK() macro -
-- while at that, realign comments.
-Compose SC16IS7XX_LSR_BRK_ERROR_MASK using aforementioned constants,
-instead of open-coding it, and remove now unneeded comments.
+Guards can help to make the code more readable, so use them wherever they
+do so.
 
-Signed-off-by: Lech Perczak <lech.perczak@camlingroup.com>
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-Link: https://lore.kernel.org/r/8b45a01e-7cc5-4d53-b467-c6680bc51ef4@camlingroup.com
+In sc16is7xx_port_irq(), labels and 'rc' locals are eliminated completely.
+
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://patch.msgid.link/20251027142957.1032073-6-hugo@hugovil.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 246ac114f485 ("serial: sc16is7xx: enable THRI before filling TX FIFO")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 176 +++++++++++++++++----------------
- 1 file changed, 91 insertions(+), 85 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 23 ++++++++---------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index 693eb933fb323..df21f6eb7726a 100644
+index 694e3d78d6e78..d73bd07c864f1 100644
 --- a/drivers/tty/serial/sc16is7xx.c
 +++ b/drivers/tty/serial/sc16is7xx.c
-@@ -9,6 +9,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+@@ -10,6 +10,7 @@
  
  #include <linux/bitops.h>
-+#include <linux/bits.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
  #include <linux/clk.h>
  #include <linux/delay.h>
  #include <linux/device.h>
-@@ -73,52 +74,52 @@
- #define SC16IS7XX_XOFF2_REG		(0x07) /* Xoff2 word */
+@@ -791,18 +792,15 @@ static void sc16is7xx_update_mlines(struct sc16is7xx_one *one)
  
- /* IER register bits */
--#define SC16IS7XX_IER_RDI_BIT		(1 << 0) /* Enable RX data interrupt */
--#define SC16IS7XX_IER_THRI_BIT		(1 << 1) /* Enable TX holding register
-+#define SC16IS7XX_IER_RDI_BIT		BIT(0)   /* Enable RX data interrupt */
-+#define SC16IS7XX_IER_THRI_BIT		BIT(1)   /* Enable TX holding register
- 						  * interrupt */
--#define SC16IS7XX_IER_RLSI_BIT		(1 << 2) /* Enable RX line status
-+#define SC16IS7XX_IER_RLSI_BIT		BIT(2)   /* Enable RX line status
- 						  * interrupt */
--#define SC16IS7XX_IER_MSI_BIT		(1 << 3) /* Enable Modem status
-+#define SC16IS7XX_IER_MSI_BIT		BIT(3)   /* Enable Modem status
- 						  * interrupt */
+ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
+ {
+-	bool rc = true;
+ 	unsigned int iir, rxlen;
+ 	struct uart_port *port = &s->p[portno].port;
+ 	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
  
- /* IER register bits - write only if (EFR[4] == 1) */
--#define SC16IS7XX_IER_SLEEP_BIT		(1 << 4) /* Enable Sleep mode */
--#define SC16IS7XX_IER_XOFFI_BIT		(1 << 5) /* Enable Xoff interrupt */
--#define SC16IS7XX_IER_RTSI_BIT		(1 << 6) /* Enable nRTS interrupt */
--#define SC16IS7XX_IER_CTSI_BIT		(1 << 7) /* Enable nCTS interrupt */
-+#define SC16IS7XX_IER_SLEEP_BIT		BIT(4)   /* Enable Sleep mode */
-+#define SC16IS7XX_IER_XOFFI_BIT		BIT(5)   /* Enable Xoff interrupt */
-+#define SC16IS7XX_IER_RTSI_BIT		BIT(6)   /* Enable nRTS interrupt */
-+#define SC16IS7XX_IER_CTSI_BIT		BIT(7)   /* Enable nCTS interrupt */
+-	mutex_lock(&one->lock);
++	guard(mutex)(&one->lock);
  
- /* FCR register bits */
--#define SC16IS7XX_FCR_FIFO_BIT		(1 << 0) /* Enable FIFO */
--#define SC16IS7XX_FCR_RXRESET_BIT	(1 << 1) /* Reset RX FIFO */
--#define SC16IS7XX_FCR_TXRESET_BIT	(1 << 2) /* Reset TX FIFO */
--#define SC16IS7XX_FCR_RXLVLL_BIT	(1 << 6) /* RX Trigger level LSB */
--#define SC16IS7XX_FCR_RXLVLH_BIT	(1 << 7) /* RX Trigger level MSB */
-+#define SC16IS7XX_FCR_FIFO_BIT		BIT(0)   /* Enable FIFO */
-+#define SC16IS7XX_FCR_RXRESET_BIT	BIT(1)   /* Reset RX FIFO */
-+#define SC16IS7XX_FCR_TXRESET_BIT	BIT(2)   /* Reset TX FIFO */
-+#define SC16IS7XX_FCR_RXLVLL_BIT	BIT(6)   /* RX Trigger level LSB */
-+#define SC16IS7XX_FCR_RXLVLH_BIT	BIT(7)   /* RX Trigger level MSB */
+ 	iir = sc16is7xx_port_read(port, SC16IS7XX_IIR_REG);
+-	if (iir & SC16IS7XX_IIR_NO_INT_BIT) {
+-		rc = false;
+-		goto out_port_irq;
+-	}
++	if (iir & SC16IS7XX_IIR_NO_INT_BIT)
++		return false;
  
- /* FCR register bits - write only if (EFR[4] == 1) */
--#define SC16IS7XX_FCR_TXLVLL_BIT	(1 << 4) /* TX Trigger level LSB */
--#define SC16IS7XX_FCR_TXLVLH_BIT	(1 << 5) /* TX Trigger level MSB */
-+#define SC16IS7XX_FCR_TXLVLL_BIT	BIT(4)   /* TX Trigger level LSB */
-+#define SC16IS7XX_FCR_TXLVLH_BIT	BIT(5)   /* TX Trigger level MSB */
+ 	iir &= SC16IS7XX_IIR_ID_MASK;
  
- /* IIR register bits */
--#define SC16IS7XX_IIR_NO_INT_BIT	(1 << 0) /* No interrupts pending */
--#define SC16IS7XX_IIR_ID_MASK		0x3e     /* Mask for the interrupt ID */
--#define SC16IS7XX_IIR_THRI_SRC		0x02     /* TX holding register empty */
--#define SC16IS7XX_IIR_RDI_SRC		0x04     /* RX data interrupt */
--#define SC16IS7XX_IIR_RLSE_SRC		0x06     /* RX line status error */
--#define SC16IS7XX_IIR_RTOI_SRC		0x0c     /* RX time-out interrupt */
--#define SC16IS7XX_IIR_MSI_SRC		0x00     /* Modem status interrupt
--						  * - only on 75x/76x
--						  */
--#define SC16IS7XX_IIR_INPIN_SRC		0x30     /* Input pin change of state
--						  * - only on 75x/76x
--						  */
--#define SC16IS7XX_IIR_XOFFI_SRC		0x10     /* Received Xoff */
--#define SC16IS7XX_IIR_CTSRTS_SRC	0x20     /* nCTS,nRTS change of state
--						  * from active (LOW)
--						  * to inactive (HIGH)
--						  */
-+#define SC16IS7XX_IIR_NO_INT_BIT	0x01		/* No interrupts pending */
-+#define SC16IS7XX_IIR_ID_MASK		GENMASK(5, 1)	/* Mask for the interrupt ID */
-+#define SC16IS7XX_IIR_THRI_SRC		0x02		/* TX holding register empty */
-+#define SC16IS7XX_IIR_RDI_SRC		0x04		/* RX data interrupt */
-+#define SC16IS7XX_IIR_RLSE_SRC		0x06		/* RX line status error */
-+#define SC16IS7XX_IIR_RTOI_SRC		0x0c		/* RX time-out interrupt */
-+#define SC16IS7XX_IIR_MSI_SRC		0x00		/* Modem status interrupt
-+							 * - only on 75x/76x
-+							 */
-+#define SC16IS7XX_IIR_INPIN_SRC		0x30		/* Input pin change of state
-+							 * - only on 75x/76x
-+							 */
-+#define SC16IS7XX_IIR_XOFFI_SRC		0x10		/* Received Xoff */
-+#define SC16IS7XX_IIR_CTSRTS_SRC	0x20		/* nCTS,nRTS change of state
-+							 * from active (LOW)
-+							 * to inactive (HIGH)
-+							 */
- /* LCR register bits */
--#define SC16IS7XX_LCR_LENGTH0_BIT	(1 << 0) /* Word length bit 0 */
--#define SC16IS7XX_LCR_LENGTH1_BIT	(1 << 1) /* Word length bit 1
-+#define SC16IS7XX_LCR_LENGTH0_BIT	BIT(0)   /* Word length bit 0 */
-+#define SC16IS7XX_LCR_LENGTH1_BIT	BIT(1)   /* Word length bit 1
- 						  *
- 						  * Word length bits table:
- 						  * 00 -> 5 bit words
-@@ -126,7 +127,7 @@
- 						  * 10 -> 7 bit words
- 						  * 11 -> 8 bit words
- 						  */
--#define SC16IS7XX_LCR_STOPLEN_BIT	(1 << 2) /* STOP length bit
-+#define SC16IS7XX_LCR_STOPLEN_BIT	BIT(2)   /* STOP length bit
- 						  *
- 						  * STOP length bit table:
- 						  * 0 -> 1 stop bit
-@@ -134,11 +135,11 @@
- 						  *      word length is 5,
- 						  *      2 stop bits otherwise
- 						  */
--#define SC16IS7XX_LCR_PARITY_BIT	(1 << 3) /* Parity bit enable */
--#define SC16IS7XX_LCR_EVENPARITY_BIT	(1 << 4) /* Even parity bit enable */
--#define SC16IS7XX_LCR_FORCEPARITY_BIT	(1 << 5) /* 9-bit multidrop parity */
--#define SC16IS7XX_LCR_TXBREAK_BIT	(1 << 6) /* TX break enable */
--#define SC16IS7XX_LCR_DLAB_BIT		(1 << 7) /* Divisor Latch enable */
-+#define SC16IS7XX_LCR_PARITY_BIT	BIT(3)   /* Parity bit enable */
-+#define SC16IS7XX_LCR_EVENPARITY_BIT	BIT(4)   /* Even parity bit enable */
-+#define SC16IS7XX_LCR_FORCEPARITY_BIT	BIT(5)   /* 9-bit multidrop parity */
-+#define SC16IS7XX_LCR_TXBREAK_BIT	BIT(6)   /* TX break enable */
-+#define SC16IS7XX_LCR_DLAB_BIT		BIT(7)   /* Divisor Latch enable */
- #define SC16IS7XX_LCR_WORD_LEN_5	(0x00)
- #define SC16IS7XX_LCR_WORD_LEN_6	(0x01)
- #define SC16IS7XX_LCR_WORD_LEN_7	(0x02)
-@@ -149,58 +150,63 @@
- 								* reg set */
+@@ -842,10 +840,7 @@ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
+ 		break;
+ 	}
  
- /* MCR register bits */
--#define SC16IS7XX_MCR_DTR_BIT		(1 << 0) /* DTR complement
-+#define SC16IS7XX_MCR_DTR_BIT		BIT(0)   /* DTR complement
- 						  * - only on 75x/76x
- 						  */
--#define SC16IS7XX_MCR_RTS_BIT		(1 << 1) /* RTS complement */
--#define SC16IS7XX_MCR_TCRTLR_BIT	(1 << 2) /* TCR/TLR register enable */
--#define SC16IS7XX_MCR_LOOP_BIT		(1 << 4) /* Enable loopback test mode */
--#define SC16IS7XX_MCR_XONANY_BIT	(1 << 5) /* Enable Xon Any
-+#define SC16IS7XX_MCR_RTS_BIT		BIT(1)   /* RTS complement */
-+#define SC16IS7XX_MCR_TCRTLR_BIT	BIT(2)   /* TCR/TLR register enable */
-+#define SC16IS7XX_MCR_LOOP_BIT		BIT(4)   /* Enable loopback test mode */
-+#define SC16IS7XX_MCR_XONANY_BIT	BIT(5)   /* Enable Xon Any
- 						  * - write enabled
- 						  * if (EFR[4] == 1)
- 						  */
--#define SC16IS7XX_MCR_IRDA_BIT		(1 << 6) /* Enable IrDA mode
-+#define SC16IS7XX_MCR_IRDA_BIT		BIT(6)   /* Enable IrDA mode
- 						  * - write enabled
- 						  * if (EFR[4] == 1)
- 						  */
--#define SC16IS7XX_MCR_CLKSEL_BIT	(1 << 7) /* Divide clock by 4
-+#define SC16IS7XX_MCR_CLKSEL_BIT	BIT(7)   /* Divide clock by 4
- 						  * - write enabled
- 						  * if (EFR[4] == 1)
- 						  */
+-out_port_irq:
+-	mutex_unlock(&one->lock);
+-
+-	return rc;
++	return true;
+ }
  
- /* LSR register bits */
--#define SC16IS7XX_LSR_DR_BIT		(1 << 0) /* Receiver data ready */
--#define SC16IS7XX_LSR_OE_BIT		(1 << 1) /* Overrun Error */
--#define SC16IS7XX_LSR_PE_BIT		(1 << 2) /* Parity Error */
--#define SC16IS7XX_LSR_FE_BIT		(1 << 3) /* Frame Error */
--#define SC16IS7XX_LSR_BI_BIT		(1 << 4) /* Break Interrupt */
--#define SC16IS7XX_LSR_BRK_ERROR_MASK	0x1E     /* BI, FE, PE, OE bits */
--#define SC16IS7XX_LSR_THRE_BIT		(1 << 5) /* TX holding register empty */
--#define SC16IS7XX_LSR_TEMT_BIT		(1 << 6) /* Transmitter empty */
--#define SC16IS7XX_LSR_FIFOE_BIT		(1 << 7) /* Fifo Error */
-+#define SC16IS7XX_LSR_DR_BIT		BIT(0)   /* Receiver data ready */
-+#define SC16IS7XX_LSR_OE_BIT		BIT(1)   /* Overrun Error */
-+#define SC16IS7XX_LSR_PE_BIT		BIT(2)   /* Parity Error */
-+#define SC16IS7XX_LSR_FE_BIT		BIT(3)   /* Frame Error */
-+#define SC16IS7XX_LSR_BI_BIT		BIT(4)   /* Break Interrupt */
-+#define SC16IS7XX_LSR_BRK_ERROR_MASK \
-+	(SC16IS7XX_LSR_OE_BIT | \
-+	 SC16IS7XX_LSR_PE_BIT | \
-+	 SC16IS7XX_LSR_FE_BIT | \
-+	 SC16IS7XX_LSR_BI_BIT)
-+
-+#define SC16IS7XX_LSR_THRE_BIT		BIT(5)   /* TX holding register empty */
-+#define SC16IS7XX_LSR_TEMT_BIT		BIT(6)   /* Transmitter empty */
-+#define SC16IS7XX_LSR_FIFOE_BIT		BIT(7)   /* Fifo Error */
+ static irqreturn_t sc16is7xx_irq(int irq, void *dev_id)
+@@ -875,9 +870,8 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
+ 	    (port->rs485.delay_rts_before_send > 0))
+ 		msleep(port->rs485.delay_rts_before_send);
  
- /* MSR register bits */
--#define SC16IS7XX_MSR_DCTS_BIT		(1 << 0) /* Delta CTS Clear To Send */
--#define SC16IS7XX_MSR_DDSR_BIT		(1 << 1) /* Delta DSR Data Set Ready
-+#define SC16IS7XX_MSR_DCTS_BIT		BIT(0)   /* Delta CTS Clear To Send */
-+#define SC16IS7XX_MSR_DDSR_BIT		BIT(1)   /* Delta DSR Data Set Ready
- 						  * or (IO4)
- 						  * - only on 75x/76x
- 						  */
--#define SC16IS7XX_MSR_DRI_BIT		(1 << 2) /* Delta RI Ring Indicator
-+#define SC16IS7XX_MSR_DRI_BIT		BIT(2)   /* Delta RI Ring Indicator
- 						  * or (IO7)
- 						  * - only on 75x/76x
- 						  */
--#define SC16IS7XX_MSR_DCD_BIT		(1 << 3) /* Delta CD Carrier Detect
-+#define SC16IS7XX_MSR_DCD_BIT		BIT(3)   /* Delta CD Carrier Detect
- 						  * or (IO6)
- 						  * - only on 75x/76x
- 						  */
--#define SC16IS7XX_MSR_CTS_BIT		(1 << 4) /* CTS */
--#define SC16IS7XX_MSR_DSR_BIT		(1 << 5) /* DSR (IO4)
-+#define SC16IS7XX_MSR_CTS_BIT		BIT(4)   /* CTS */
-+#define SC16IS7XX_MSR_DSR_BIT		BIT(5)   /* DSR (IO4)
- 						  * - only on 75x/76x
- 						  */
--#define SC16IS7XX_MSR_RI_BIT		(1 << 6) /* RI (IO7)
-+#define SC16IS7XX_MSR_RI_BIT		BIT(6)   /* RI (IO7)
- 						  * - only on 75x/76x
- 						  */
--#define SC16IS7XX_MSR_CD_BIT		(1 << 7) /* CD (IO6)
-+#define SC16IS7XX_MSR_CD_BIT		BIT(7)   /* CD (IO6)
- 						  * - only on 75x/76x
- 						  */
- #define SC16IS7XX_MSR_DELTA_MASK	0x0F     /* Any of the delta bits! */
-@@ -236,19 +242,19 @@
- #define SC16IS7XX_TLR_RX_TRIGGER(words)	((((words) / 4) & 0x0f) << 4)
+-	mutex_lock(&one->lock);
++	guard(mutex)(&one->lock);
+ 	sc16is7xx_handle_tx(port);
+-	mutex_unlock(&one->lock);
+ }
  
- /* IOControl register bits (Only 750/760) */
--#define SC16IS7XX_IOCONTROL_LATCH_BIT	(1 << 0) /* Enable input latching */
--#define SC16IS7XX_IOCONTROL_MODEM_A_BIT	(1 << 1) /* Enable GPIO[7:4] as modem A pins */
--#define SC16IS7XX_IOCONTROL_MODEM_B_BIT	(1 << 2) /* Enable GPIO[3:0] as modem B pins */
--#define SC16IS7XX_IOCONTROL_SRESET_BIT	(1 << 3) /* Software Reset */
-+#define SC16IS7XX_IOCONTROL_LATCH_BIT	BIT(0)   /* Enable input latching */
-+#define SC16IS7XX_IOCONTROL_MODEM_A_BIT	BIT(1)   /* Enable GPIO[7:4] as modem A pins */
-+#define SC16IS7XX_IOCONTROL_MODEM_B_BIT	BIT(2)   /* Enable GPIO[3:0] as modem B pins */
-+#define SC16IS7XX_IOCONTROL_SRESET_BIT	BIT(3)   /* Software Reset */
+ static void sc16is7xx_reconf_rs485(struct uart_port *port)
+@@ -944,9 +938,8 @@ static void sc16is7xx_ms_proc(struct kthread_work *ws)
+ 	struct sc16is7xx_port *s = dev_get_drvdata(one->port.dev);
  
- /* EFCR register bits */
--#define SC16IS7XX_EFCR_9BIT_MODE_BIT	(1 << 0) /* Enable 9-bit or Multidrop
-+#define SC16IS7XX_EFCR_9BIT_MODE_BIT	BIT(0)   /* Enable 9-bit or Multidrop
- 						  * mode (RS485) */
--#define SC16IS7XX_EFCR_RXDISABLE_BIT	(1 << 1) /* Disable receiver */
--#define SC16IS7XX_EFCR_TXDISABLE_BIT	(1 << 2) /* Disable transmitter */
--#define SC16IS7XX_EFCR_AUTO_RS485_BIT	(1 << 4) /* Auto RS485 RTS direction */
--#define SC16IS7XX_EFCR_RTS_INVERT_BIT	(1 << 5) /* RTS output inversion */
--#define SC16IS7XX_EFCR_IRDA_MODE_BIT	(1 << 7) /* IrDA mode
-+#define SC16IS7XX_EFCR_RXDISABLE_BIT	BIT(1)   /* Disable receiver */
-+#define SC16IS7XX_EFCR_TXDISABLE_BIT	BIT(2)   /* Disable transmitter */
-+#define SC16IS7XX_EFCR_AUTO_RS485_BIT	BIT(4)   /* Auto RS485 RTS direction */
-+#define SC16IS7XX_EFCR_RTS_INVERT_BIT	BIT(5)   /* RTS output inversion */
-+#define SC16IS7XX_EFCR_IRDA_MODE_BIT	BIT(7)   /* IrDA mode
- 						  * 0 = rate upto 115.2 kbit/s
- 						  *   - Only 750/760
- 						  * 1 = rate upto 1.152 Mbit/s
-@@ -256,15 +262,15 @@
- 						  */
+ 	if (one->port.state) {
+-		mutex_lock(&one->lock);
+-		sc16is7xx_update_mlines(one);
+-		mutex_unlock(&one->lock);
++		scoped_guard(mutex, &one->lock)
++			sc16is7xx_update_mlines(one);
  
- /* EFR register bits */
--#define SC16IS7XX_EFR_AUTORTS_BIT	(1 << 6) /* Auto RTS flow ctrl enable */
--#define SC16IS7XX_EFR_AUTOCTS_BIT	(1 << 7) /* Auto CTS flow ctrl enable */
--#define SC16IS7XX_EFR_XOFF2_DETECT_BIT	(1 << 5) /* Enable Xoff2 detection */
--#define SC16IS7XX_EFR_ENABLE_BIT	(1 << 4) /* Enable enhanced functions
-+#define SC16IS7XX_EFR_AUTORTS_BIT	BIT(6)   /* Auto RTS flow ctrl enable */
-+#define SC16IS7XX_EFR_AUTOCTS_BIT	BIT(7)   /* Auto CTS flow ctrl enable */
-+#define SC16IS7XX_EFR_XOFF2_DETECT_BIT	BIT(5)   /* Enable Xoff2 detection */
-+#define SC16IS7XX_EFR_ENABLE_BIT	BIT(4)   /* Enable enhanced functions
- 						  * and writing to IER[7:4],
- 						  * FCR[5:4], MCR[7:5]
- 						  */
--#define SC16IS7XX_EFR_SWFLOW3_BIT	(1 << 3)
--#define SC16IS7XX_EFR_SWFLOW2_BIT	(1 << 2)
-+#define SC16IS7XX_EFR_SWFLOW3_BIT	BIT(3)
-+#define SC16IS7XX_EFR_SWFLOW2_BIT	BIT(2)
- 						 /*
- 						  * SWFLOW bits 3 & 2 table:
- 						  * 00 -> no transmitter flow
-@@ -277,8 +283,8 @@
- 						  *       XON1, XON2, XOFF1 and
- 						  *       XOFF2
- 						  */
--#define SC16IS7XX_EFR_SWFLOW1_BIT	(1 << 1)
--#define SC16IS7XX_EFR_SWFLOW0_BIT	(1 << 0)
-+#define SC16IS7XX_EFR_SWFLOW1_BIT	BIT(1)
-+#define SC16IS7XX_EFR_SWFLOW0_BIT	BIT(0)
- 						 /*
- 						  * SWFLOW bits 1 & 0 table:
- 						  * 00 -> no received flow
-@@ -311,9 +317,9 @@ struct sc16is7xx_devtype {
- 	int	nr_uart;
- };
- 
--#define SC16IS7XX_RECONF_MD		(1 << 0)
--#define SC16IS7XX_RECONF_IER		(1 << 1)
--#define SC16IS7XX_RECONF_RS485		(1 << 2)
-+#define SC16IS7XX_RECONF_MD		BIT(0)
-+#define SC16IS7XX_RECONF_IER		BIT(1)
-+#define SC16IS7XX_RECONF_RS485		BIT(2)
- 
- struct sc16is7xx_one_config {
- 	unsigned int			flags;
+ 		kthread_queue_delayed_work(&s->kworker, &one->ms_work, HZ);
+ 	}
 -- 
 2.53.0
 
