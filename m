@@ -1,72 +1,76 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F26493643;
-	Fri, 21 Aug 2026 16:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF2B358389;
+	Fri, 21 Aug 2026 16:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787330875; cv=none; b=V5SXnmsklh9yQF+MqXmH5ncPQz/9J99ePO+lH8vTBcf3d+TY5QdfgkVQIYDWCoycJ+nsGD6pdNysTBdg6bljprZcA7HGOYsW6dEXwHgHcNg1NoKhTpVcZiampp1LjkxNA8AGduHQuPXE7l4l4zpyqCybdRu1Qmcq5WdRDBnjik8=
+	t=1787331099; cv=none; b=OPTMEi22tftcNkH8NzWVBavFIZ76M9kVm4ywlOtFY3WfxXYjTU2LXUzT0vf33/KcHMBkx2nYY/25cDDSMBD35hPyR7NSRtV82+NyBKxWnxqUaR0oahkmRBYertjKWuR9fVUx/EZlKTf+IUi0f6c4rZBxFO81s4o83FUo/3vPstY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787330875; c=relaxed/simple;
-	bh=z2ulub9dl8THI2owkOVjoaL6xhY9CbVV0Fk0tHOZiJo=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=ZYgHa4PMd6fq+Jn2b5wPOlhpMYuw+0c8TbUGuXW9QPtx9GU8dp9EdwINuqMZFuBr2bKDgOXXMtWggxqs9w5l6wfsvfHXi8fBXV4X4u0D6uwxAJGcThMsWCv3cX4L7DYCdYLJE1lx0jE33uySVkAC8Jj985Ar3NZDlqHtGenbldk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=0S/mbdek; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1787331099; c=relaxed/simple;
+	bh=8i0+iayn1ff/hcvqpicQXQW034U6CBPSK4X3gL2DQQI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AhYdhChR/wfcQ9L9glg8B8kNiVOkdJn6MObws9rFJIaSPnBa4DLH6531Bf5spMG7Wir52XYfzSCi8/ApXntFU7KPUpf+nq4WkESW3XrfbuvX9ns/loRKu0O7mpq5K4VmXXK0ACHrrp9WZXgHiOsTO4QMmHd9oJG8bmxjN7Ep7/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bV0TukEZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="0S/mbdek"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JKm4YX0Sqba6IPbbN5YY9Mx6kuql9H2JQdt3dH6Ixfs=; b=0S/mbdek9+frFNgI5PuZDYeg/L
-	bR6Sqr01L9KUBGOnu+RSQszPG164dZGuovJ9qrjyKibmbIFU4++Kx9zaV799c3UQjFyJ3MOPxcS1a
-	62p9w3k5PLS4iNxlxiB7PfC49o6gw+TLu1F0h417zSv1JBSjL2ZLk11Hm2wY0CBFYifejVSxvX7sJ
-	4XAkA9r/UHzPT79PbB+Vq3sFxHBwa6zCFRp/0KgJS7mxFZwN8p4vF03GTsXt71hsSy/+jF15cAmTm
-	XYeDsBn1bBJGMgr+E0/97cvmEAAU85X+rLoi+508wRnrkgFVnL19+FArQ2MLlFRghXY0Vx75eeda/
-	+12/btNA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1wxSPH-00000000Pet-1Rrh;
-	Fri, 21 Aug 2026 13:47:51 -0300
-Message-ID: <7bdd71d4092fe74f58bedc74e0e316f9@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Frank Sorenson <sorenson@redhat.com>, linux-cifs@vger.kernel.org,
- stfrench@microsoft.com
-Cc: stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.com>
-Subject: Re: [PATCH v2 1/3] cifs: clear tcon after cifsFileInfo_put() in
- cifs_file_set_size()
-In-Reply-To: <20260807024158.3707995-2-sorenson@redhat.com>
-References: <20260807024158.3707995-1-sorenson@redhat.com>
- <20260807024158.3707995-2-sorenson@redhat.com>
-Date: Fri, 21 Aug 2026 13:47:51 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bV0TukEZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0921F01563;
+	Fri, 21 Aug 2026 16:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787331095;
+	bh=BR5zYiNJdXr6C2m+J2G1H7O6xxMqbyOxUq+18dZg24c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bV0TukEZP52QSFc9DvBOiNABjgsyZF1ROEYwu8fK5NqRO2722oVh/Vul+0lb+ak7t
+	 vcnMI+soWDvo3dz3179bBYqh7O4srm08Ga95YwR2VMx7VJJ4GBlKNCcISAvcl967SR
+	 7Fo4sbe5YCS9UbgEudwyAGVrBH25WKMO/G+1b8Ge+a1O+g7DQdgrkecgY8OWiPoePp
+	 92vGX2IE5l+C0EYNo1CUwDzOW/sxJEDcZ9WG+ZcHSK1YnJHU8wQRCLu/2Z3fo3G0aU
+	 oHTcPWXgRforv4gCugIizwZLbfpUYwUvM6Q7Bhm3d228TRRHr8rQFQEWZ+yupvkVtI
+	 En7chIlaulvNw==
+From: Sasha Levin <sashal@kernel.org>
+To: Miguel Gazquez <miguel.gazquez@bootlin.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	patches@lists.linux.dev,
+	Eric Dumazet <edumazet@google.com>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH 6.12 189/220] ipv4: start using dst_dev_rcu()
+Date: Fri, 21 Aug 2026 12:51:31 -0400
+Message-ID: <20260821152000.rc-ipv4-dst-dev-rcu@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <9342b269-9362-49ba-b9c8-a0df9ff1102e@bootlin.com>
+References: <20260820145223.480031205@linuxfoundation.org> <20260820145229.195230707@linuxfoundation.org> <9342b269-9362-49ba-b9c8-a0df9ff1102e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Frank Sorenson <sorenson@redhat.com> writes:
-
-> When the else branch of cifs_file_set_size() finds a writable file handle
-> via find_writable_file(), it borrows tcon and server from the handle's
-> tlink, attempts the handle-based set_file_size() RPC, and then releases
-> the handle with cifsFileInfo_put().
+On Fri, Aug 21, 2026 at 11:45:50AM +0200, Miguel Gazquez wrote:
+> > +	dev = skb->dev ? : skb_dst_dev_rcu(skb);
+> > +	vif = l3mdev_master_ifindex_rcu(dev);
 >
-> If set_file_size() fails, execution falls through to the path-based
-> fallback, which reuses the borrowed tcon and server under the
-> "if (tcon == NULL)" guard.  Since tcon is not NULL at that point, the
-> guard is skipped.  If cifsFileInfo_put() dropped the last reference on a
-> tlink that was already removed from the tlink tree (TCON_LINK_IN_TREE
-> cleared, as happens during reconnection or session teardown),
-> cifs_put_tlink() will have freed tcon; the subsequent set_path_size()
-> call is then a use-after-free.
->
-> Setting tcon = NULL after cifsFileInfo_put() causes the existing guard
-> to take the cifs_sb_tlink() path, which acquires a fresh reference for
-> the path-based operation or fails cleanly if the session is gone.
-> ...
+> Here, the upstream version has a `rcu_read_lock();` that I think should
+> be added. I will send an updated version.
 
-Applied.
+Agreed, and confirmed here. Upstream that hunk lands after the
+rcu_read_lock() introduced by ca0359df45a5 ("inet: frags: save a pair of
+atomic operations in reassembly", v6.15), which isn't in 6.12 - so as
+backported, ip_defrag() reaches skb_dst_dev_rcu() -> dst_dev_rcu() ->
+rcu_dereference() with no RCU read-side critical section of its own,
+where the pre-patch 6.12 code used skb_dst_dev() -> READ_ONCE() and had
+no such requirement.
+
+In practice every in-tree ip_defrag() caller already runs under RCU
+(netfilter hooks or the NAPI receive path), so this is a lockdep /
+correctness defect rather than a guaranteed CONFIG_PROVE_RCU splat, but
+it does defeat the point of the conversion.
+
+Dropped from the 6.12 queue, thanks - please do send the v2.
+
+-- 
+Thanks,
+Sasha
