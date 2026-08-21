@@ -1,50 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DB52F0C74;
-	Fri, 21 Aug 2026 04:33:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925EA2F0C74;
+	Fri, 21 Aug 2026 04:33:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787286820; cv=none; b=OZCAw3np1CCnKuyn7zr8w0KiS+NYp6ffcmcfnYFTXcoqZFr2MqBCB6Rpqu62bwJexc5xl8Tvx3XBrd81ei+5wMR3GlbuOe+XdQZjtIkUyiD/DDYlsYQ2OyYb4N0MyNWMMZibjgT/2F9cTtyumDIO7NijZqEnJBdpHtc72vKqDos=
+	t=1787286821; cv=none; b=NjOvRhSoRYSTy55L+ihf8u6iGSTLMXTZ0rskgIFovVPaXD6AD7LAPchPlH9WUvMYC6PzhrztkuEbVjoxslZcd1RusH3+ouKUTjnoRzRHgDQWppD8AXyfQuRBHRCTIyEH+3LWdIwzqXC13ZvnJqAodO+LN+WjuuJmjmCurc4+F+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787286820; c=relaxed/simple;
-	bh=Gr3ZX2BA5WpdSO9+jnMVJZgf5Qw5eTXU5pz5oE6TpWE=;
+	s=arc-20240116; t=1787286821; c=relaxed/simple;
+	bh=d3HnTQ+G6Bw1s9rFTegW6T+jKyqytuaxadcnsSGLwvQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=isjCEk91MmDYorviPVNWn5WIhFY7ri52cegqtt+yn5jeB2PDtgenwHEJ/EAqwlI5U06xBNpalL7UnHJxMxsvKQ6b62ijSySwHj8tbMYBh8NDJsTNqYPYTHr56KeZ08GSw4Cm7p9Py/tE5/KAYS/rxzvL8seQBoxmUruF8eBsbgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=baNruVKH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jTyTgPQ1erqhboIUodN2oAXe+2C8BWBOvf3J0h/fO6i9MXgWi0gVDzfnX0JsS6etzkDu29e1tK1mhAMxSKNiqWtNm1N/X3qhgkZZvVCTanMxvLzjaQBA1CVGklojAD6x5Kql5MKv0q/hU71FUDbvM4og3IGa4uubgZZTO8QZvnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OcQpex6+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="baNruVKH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32EB1F000E9;
-	Fri, 21 Aug 2026 04:33:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OcQpex6+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC531F00A3D;
+	Fri, 21 Aug 2026 04:33:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787286818;
-	bh=oy1yCFjQ9RYkoArPZBcTtRBXm8YsvFi0SIMdimDtM/c=;
+	s=k20260515; t=1787286820;
+	bh=Xir3wmqyora5o8sBqjd0Gc58yA0omfx3/tE8bLags90=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=baNruVKHHtyXslcuyfnCzi4kupWXocmqMCJL/AOD31pG7SVdKxpaYgbvyP6lG0Lsi
-	 zIbcqPxcuslge8twR9BTKIwgg6kDavBykE6/8hOjziocI00d73AiZDcna1YQUdxtc7
-	 u0dShI8Q1jW2TA5AJi/nsUrzLnFdTKtxn4yu/tcLbxyp65tcQmZ2XBR30W94HJ2Duu
-	 IuzsZmZUeN6ANsuBjlBOeokSLrKLP3hOJJMZu+QJJ6eCvOGBrs48x9HUVx27oNeFNS
-	 yoma14VKBl1bNMTd3HyfsYIj9DZ9jY5Cm5X1B8BxbIu2/0Gyz8F0ZnNh7JCb/sBdEq
-	 Wg8t9j+hny+Ng==
+	b=OcQpex6+VzMyIZGL5CBJQlEwrE+uaGeVqn9CBXWz65UfMtlTLtZRLp7WUnX9jzao/
+	 Q19PmleK3HhosROya2OwbTjyicra99QUZT155g8WwhSGTT0k8cPMZ1KBFHiwZpCc6r
+	 ejK4DVMXvgokezpv77a6gR3wzTA1yj9x3yVB4x2YxZcPxZGQM4i0X9AqbmO9xk6Epm
+	 QyK+b1GH2n1oQKMxzBZnnV6W0xFF+uTB1I7NeJE5lP1el4EksIuB9UHTz+WZumYqSL
+	 gyynPiiUPGYfejN7XXAAzUyrjBKF/zahrJrQFIKcZbCjRcoAW0KeMGD6iX+Nny3hgm
+	 1hoMVFjURFwnA==
 From: Sasha Levin <sashal@kernel.org>
-To: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	liam.merwick@oracle.com,
-	vegard.nossum@oracle.com,
-	Sean Christopherson <seanjc@google.com>
-Subject: Re: [PATCH 6.12 111/181] KVM: SVM: Add support to initialize SEV/SNP functionality in KVM
-Date: Fri, 21 Aug 2026 00:33:32 -0400
-Message-ID: <20260821-stable-item001-snp-builtin-kvm@kernel.org>
+	Daniil Iskhakov <dish@amicon.ru>,
+	Achim Leubner <achim_leubner@adaptec.com>,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Agalakov Daniil <ade@amicon.ru>,
+	Roman Razov <rrv@amicon.ru>,
+	lvc-project@linuxtesting.org
+Subject: Re: [PATCH 5.10] scsi: gdth: ensure event string is NUL-terminated
+Date: Fri, 21 Aug 2026 00:33:33 -0400
+Message-ID: <20260821-stable-item008-scsi-gdth@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aoXZohqTkyXQmteX@google.com>
-References: <aoXZohqTkyXQmteX@google.com>
+In-Reply-To: <20260819093542.23409-1-dish@amicon.ru>
+References: <20260819093542.23409-1-dish@amicon.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,24 +53,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> > > 435b344a7042 ("crypto: ccp: Add external API interface for PSP module
-> > > initialization")
-> > > 44e70718df4f ("KVM: SVM: Ensure PSP module is initialized if KVM module
-> > > is built-in")
-> > > 409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in")
->
-> Yes, we should also backport the above fixes to 6.12.y.
+> No upstream commit exists for this patch. GDT driver was removed from
+> kernel in commit 0653c358d2dc ("scsi: Drop gdth driver").
+[...]
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-The first two are queued for 6.12.
+Since this driver has been gone for the past few years, a maintainer ack will
+be appreciated before we pull this in.
 
-409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in") does
-not apply there. 6.12 predates the segmented-RMP rework, so snp_rmptable_init()
-still uses probed_rmp_base/memremap() and the commit needs seven prerequisites,
-six of them the v6.14-rc1 segmented-RMP/RMPREAD series. That is hardware
-enablement, not stable material, so I don't want to pull it in as a dependency.
-
-Could someone send a tested 6.12.y-specific backport of 409f45387c93? I'll hold
-6.12 until it shows up.
+Does anyone even care?
 
 -- 
 Thanks,
