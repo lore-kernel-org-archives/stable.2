@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE42E45C71B
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF44B47F76C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:00:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787310016; cv=none; b=LOlCn1FLXlrAarO7w9wlYMVOJ/8mt/QyeMUSrEvfke554OKT4Licf7Y0Sm7nGMK08+wQAQTnyvOg9MZMr0zUozFsu6SvCoifoIKDcsWDEk8OH8ovxh0IS2PNOxXTuLElSagJ8bpuJBZeitO4HSHuD37HG/9n4DwvpANXk2PHRQY=
+	t=1787310021; cv=none; b=jsg0+1ohA3orVpqIYFRUlRssH/jbPqwhD1PaTaooWa8rLs5uf5GGijLq6fH8yS5RrJ00mQgURPFhIG1UPg7+C5JC7MC6wXZzCF/ArWovTmPvjRnh6NlQ7poFKl5Tg7GDQAsDuR8Hgir0j5dA1RtlJ4zV/RpfJpbI8yrZBGE8cyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787310016; c=relaxed/simple;
-	bh=fLOYKOLQCXqn4fnYcGLYwLShMHwQSFkVJDxOcHWBhpU=;
+	s=arc-20240116; t=1787310021; c=relaxed/simple;
+	bh=DqsE5c/YWBG7t/1JHY3IDnI4SpdIlT0ceuaiKE58Nq0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R50B285luBbyNOR0BWFufOl+8Os2B+cXfTmCefFriV9HFzh7jStCRNpU5i4wbSKGc1y9SYgoMGSlyPwGwSVp+jaShGI2+8BVPM6hFtNRYmwAOuv7CgLTAZ60nSP95gTZVYpkJXgp5M9QIyj3nWGe+g52C8+G8bbix/QHlG2yfFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=htt7EyGp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Hn52e5oQsgPW2gdVs0Uy7S32Jjw+XxYE3+4WIv52icNqk+OsgSwwXvIvmc7g/qNbAGKtoFWg7i2CJft23vMxesLyAWT6b2sxuivDCrxe7HHQNxWqY9hoN4ms0Jx86qD0V4ARDfOsUu142+b36sOAd9wL2598DMoZZc8SJB3b4dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrRB3HHW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="htt7EyGp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4DC1F00ACA;
-	Fri, 21 Aug 2026 11:00:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrRB3HHW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99131F000E9;
+	Fri, 21 Aug 2026 11:00:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787310014;
-	bh=HfZSrHAF28KRWRRUQoG9WQrHJFQt9Fy2iK0AqFlJL+A=;
+	s=k20260515; t=1787310019;
+	bh=DuWRtTasKAUJimBvf0cusZvhxh40GNTsnGhe5+w8ZFo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=htt7EyGpJiOBh6oasMd0CxpcRrcdvhBIg1iR4tCz8o+IaIzbSWIGYv5ec7WxrN6Bw
-	 DFGZbJb1+2EqAsne/f3jFGFWR6Pnz0jHUnvSdNs1uIV7PQ4r8FaVlngn2HAxbl/n+9
-	 1OxD9hsNNHwbFlIdEwL5Av3NBNUi/4E2f2u+OV23UyP369bCfh/DmtdhaeomncaONI
-	 gzzdQx3Hy/0h7/Jq9L1pgdDNnNEfsRwcOlfjwQ2xVqRGfiAnvWSGBqgA0bcB3acr6I
-	 d/HyirPP8knXEn+GzT11fpDEx/j4jMVMq1t44KKeAWco3ht5zdxfvbtakqc4sObeFG
-	 L+dXgJGysbfcQ==
+	b=nrRB3HHWS5sDIncHQ2QJCupdlsRBRjCRmLunRK7OGM03Zy85KqNCQz2vxUlXTv4Hq
+	 KtaU286l6IAvDC4+vVTqqUOitSNi3KEOFc8CGRn2Ch6sUvhF0/LIxj8XbJMZRh3Zq0
+	 1Y3yCuu/0TIYC8m8HcEGIO5Kgd80QI1/OShOiRd7ON7fAcFHQ4KnzUqtnCce2BVZk0
+	 ru8AladikzquuQAO4ErVJSBJxHV1oJ8RXSQV51fQN8fbHMAeHSYyRjqwuzddSTV6as
+	 DMwe22tSOZF2Slu/iGvLm+hIeKnB97ERY04JPPsRErA1ZzuT5ryPYDCqxEXJ4UtPX1
+	 hiRXx2nrTqXPg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luca Fresi <luca.fresi@bithiatec.com>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Qihang Tang <q.h.hack.winter@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/5] serial: sc16is7xx: enable THRI before filling TX FIFO
-Date: Fri, 21 Aug 2026 07:00:08 -0400
-Message-ID: <20260821110008.2816500-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] packet: use consistent hard_header_len in non-ring send paths
+Date: Fri, 21 Aug 2026 07:00:16 -0400
+Message-ID: <20260821110017.2816998-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821110008.2816500-1-sashal@kernel.org>
-References: <2026081755-absence-womanlike-85b3@gregkh>
- <20260821110008.2816500-1-sashal@kernel.org>
+In-Reply-To: <2026081745-brisket-pastime-f9bb@gregkh>
+References: <2026081745-brisket-pastime-f9bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,50 +46,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luca Fresi <luca.fresi@bithiatec.com>
+From: Qihang Tang <q.h.hack.winter@gmail.com>
 
-[ Upstream commit 246ac114f485c2affb454240f3ea4fabfce22456 ]
+[ Upstream commit 03390aa32e669cc4ecd7d34108e2e1afc13d689d ]
 
-sc16is7xx_handle_tx() currently requests the THRI enable only after it has
-filled the TX FIFO. The request is asynchronous because the IER update is
-performed later by reg_work.
+packet_snd() reads dev->hard_header_len multiple times while allocating
+and constructing an skb. Device reconfiguration can change this value
+concurrently, for example through bonding device type changes.
 
-The SC16IS7xx generates a THRI interrupt when the TX FIFO crosses its
-trigger level. If the FIFO drains past that level before reg_work enables
-THRI, the chip does not generate a new interrupt. Characters remain queued
-indefinitely even though the hardware FIFO is empty.
+For SOCK_RAW, packet_snd() can save a larger value in reserve and later
+allocate headroom using a smaller value. Moving skb->data back by reserve
+then places it before skb->head, and the following copy from userspace can
+attempt an out-of-bounds write.
 
-This was observed on an SC16IS752 while both UART channels were active.
-During the stall the software TX buffer remained non-empty while TXLVL
-reported 64 bytes free, LSR reported THR and transmitter empty, IER had
-THRI enabled, and IIR reported no interrupt pending.
+packet_sendmsg_spkt() has the same issue because it calculates its
+reservation and header offset from separate reads before dropping the RCU
+read lock to allocate the skb.
 
-Enable THRI synchronously before filling the FIFO so the threshold crossing
-cannot be missed.
+Add LL_RESERVED_SPACE_EX() for callers that already saved a header length.
+Read hard_header_len once in packet_snd() and use it for allocation and
+construction. In packet_sendmsg_spkt(), preserve the allocation-time value
+through the device lookup retry.
 
-Fixes: cc4c1d05eb10 ("sc16is7xx: Properly resume TX after stop")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Luca Fresi <luca.fresi@bithiatec.com>
-Link: https://patch.msgid.link/20260721222404.204746-1-luca.fresi@bithiatec.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+The separate SOCK_DGRAM consistency problem between hard_header_len and
+header_ops->create is not addressed here.
+
+Fixes: b84bbaf7a6c8 ("packet: in packet_snd start writing at link layer allocation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260805125729.19220-3-q.h.hack.winter@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 21b5953e7494 ("packet: use consistent hard_header_len in TX_RING send path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 3 +++
- 1 file changed, 3 insertions(+)
+ include/linux/netdevice.h |  6 ++++--
+ net/packet/af_packet.c    | 26 ++++++++++++++++----------
+ 2 files changed, 20 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index d73bd07c864f1..02b74a695c8e0 100644
---- a/drivers/tty/serial/sc16is7xx.c
-+++ b/drivers/tty/serial/sc16is7xx.c
-@@ -871,6 +871,9 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
- 		msleep(port->rs485.delay_rts_before_send);
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 5b2b19287dc1b..37c1109bf1543 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -293,9 +293,11 @@ struct hh_cache {
+  * We could use other alignment values, but we must maintain the
+  * relationship HH alignment <= LL alignment.
+  */
+-#define LL_RESERVED_SPACE(dev) \
+-	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom)) \
++#define LL_RESERVED_SPACE_EX(dev, hlen) \
++	((((hlen) + READ_ONCE((dev)->needed_headroom)) \
+ 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
++#define LL_RESERVED_SPACE(dev) \
++	LL_RESERVED_SPACE_EX(dev, (dev)->hard_header_len)
+ #define LL_RESERVED_SPACE_EXTRA(dev,extra) \
+ 	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom) + (extra)) \
+ 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 64843368bf10a..3130c4bf3f5b5 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2008,8 +2008,9 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 	struct net_device *dev;
+ 	struct sockcm_cookie sockc;
+ 	__be16 proto = 0;
+-	int err;
++	int hard_header_len;
+ 	int extra_len = 0;
++	int err;
  
- 	guard(mutex)(&one->lock);
-+	sc16is7xx_port_update(port, SC16IS7XX_IER_REG,
-+			      SC16IS7XX_IER_THRI_BIT,
-+			      SC16IS7XX_IER_THRI_BIT);
- 	sc16is7xx_handle_tx(port);
- }
+ 	/*
+ 	 *	Get and verify the address.
+@@ -2052,14 +2053,18 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 		extra_len = 4; /* We're doing our own CRC */
+ 	}
+ 
++	/* Keep the allocation-time header length across retry. */
++	if (!skb)
++		hard_header_len = READ_ONCE(dev->hard_header_len);
++
+ 	err = -EMSGSIZE;
+-	if (len > dev->mtu + dev->hard_header_len + VLAN_HLEN + extra_len)
++	if (len > dev->mtu + hard_header_len + VLAN_HLEN + extra_len)
+ 		goto out_unlock;
+ 
+ 	if (!skb) {
+-		size_t reserved = LL_RESERVED_SPACE(dev);
++		size_t reserved = LL_RESERVED_SPACE_EX(dev, hard_header_len);
+ 		int tlen = dev->needed_tailroom;
+-		unsigned int hhlen = dev->header_ops ? dev->hard_header_len : 0;
++		unsigned int hhlen = dev->header_ops ? hard_header_len : 0;
+ 
+ 		rcu_read_unlock();
+ 		skb = sock_wmalloc(sk, len + reserved + tlen, 0, GFP_KERNEL);
+@@ -2089,7 +2094,7 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 		err = -EINVAL;
+ 		goto out_unlock;
+ 	}
+-	if (len > (dev->mtu + dev->hard_header_len + extra_len) &&
++	if (len > (dev->mtu + hard_header_len + extra_len) &&
+ 	    !packet_extra_vlan_len_allowed(dev, skb)) {
+ 		err = -EMSGSIZE;
+ 		goto out_unlock;
+@@ -3005,7 +3010,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	int offset = 0;
+ 	struct packet_sock *po = pkt_sk(sk);
+ 	bool has_vnet_hdr = false;
+-	int hlen, tlen, linear;
++	int hard_header_len, hlen, tlen, linear;
+ 	int extra_len = 0;
+ 
+ 	/*
+@@ -3046,8 +3051,9 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 			goto out_unlock;
+ 	}
+ 
++	hard_header_len = READ_ONCE(dev->hard_header_len);
+ 	if (sock->type == SOCK_RAW)
+-		reserve = dev->hard_header_len;
++		reserve = hard_header_len;
+ 	if (packet_sock_flag(po, PACKET_SOCK_HAS_VNET_HDR)) {
+ 		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr);
+ 		if (err)
+@@ -3069,10 +3075,10 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 		goto out_unlock;
+ 
+ 	err = -ENOBUFS;
+-	hlen = LL_RESERVED_SPACE(dev);
++	hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
+ 	tlen = dev->needed_tailroom;
+ 	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
+-	linear = max(linear, min_t(int, len, dev->hard_header_len));
++	linear = max(linear, min_t(int, len, hard_header_len));
+ 	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
+ 			       msg->msg_flags & MSG_DONTWAIT, &err);
+ 	if (skb == NULL)
+@@ -3088,7 +3094,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	} else if (reserve) {
+ 		skb_reserve(skb, -reserve);
+ 		if (len < reserve + sizeof(struct ipv6hdr) &&
+-		    dev->min_header_len != dev->hard_header_len)
++		    dev->min_header_len != hard_header_len)
+ 			skb_reset_network_header(skb);
+ 	}
  
 -- 
 2.53.0
