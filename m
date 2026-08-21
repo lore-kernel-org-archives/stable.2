@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE13743B6C4
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 10:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0048547F76C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:00:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787309951; cv=none; b=jnfW0iwPLPVA8/xtJWAB72j9eutPTH7LSU/GxBlft0vNkE3dheSi8t5oBEb14Y7CKFewHX4sLR8j01qCAtsNl+NgsRNIYWI0ssiKDoYbTmJQOsUfcLTG2rgqxYTuxzzrMxOcxA5xjj79g1NNx9P0Wa1LAnXxjuP+9f3p4nbDhys=
+	t=1787310014; cv=none; b=BiJ9Et9AG0X2jW+DcU/0nioNnfiOkfMsPWJvAUcYp10IyhD7fSyg7TjH+9evCbzyS3kOY4dy4+jjdH6niHEncJB9pInSORDw52dCCUxHfXGYpnWffe3bwmeC2ublsIt4NQWhV3q5C9I9eQ9VWzdN/Z1F1VMQPGo4uOoOdndZvHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787309951; c=relaxed/simple;
-	bh=sv8v4PyMGrkePS4v/wbKnHUjDum188YLl/JYPkfwHDE=;
+	s=arc-20240116; t=1787310014; c=relaxed/simple;
+	bh=VQhxU4cza1yuKOCFnRJiRA9T9OBbX+wdUpdPhil/3i8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kyZ2CgY3VNsNpKOGZFsJVb3kEcVyo6oaVVG7++YjJFzfbUfklFbnx9qOC+G5mPDl1m+Yb0I0sesJiQ1f2fby4uIXyLc3JIsC1w/s/zqka2nrEWl3/qOoOIjqG1rVcnjL3oMwvLUDo1oqQI69lrObF+6ydRfbflJDqkuZ3mEGhnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cg3GGsvt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eELPzh1afPaaFIIj4Ha0XG7e/oXaSo5H3inrZZu3GE/GJOW+ii0IqnGFT6Gtjs2JKiDp6qz9xQ6rHy6p9ar+0HHwr8n/ao3SroQQKfUr76+iTZIi+AvAcPI0z4TbqvbEUjs7fXr7GfQWKDa3U0mBBi7ouLKASf6eomx6OU206+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MhM8jySs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cg3GGsvt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5CA1F000E9;
-	Fri, 21 Aug 2026 10:59:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MhM8jySs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5F91F000E9;
+	Fri, 21 Aug 2026 11:00:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787309947;
-	bh=UT3rJSiVtSOe7QlrlWN1mWEpV9J37EOkgNiuBEcd6y8=;
+	s=k20260515; t=1787310010;
+	bh=u02JDu4h20OengrWWPruusvdoG9lgAR54HbZMUD6Dzs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cg3GGsvtZKRyUihPruPef086C80QvcEgdzEcVccI8CoWoFKJTzdmjE6/dX/Z6qKr9
-	 5v6EDoTGh3HIEUOtatr6zASfA1tRY8WYQmXLQI4XHqCgHzd3c1D4oRo4YR2lU+rKrT
-	 +L7t80Z8VZO9mKRiMV/2oP945gMYmWCdBOtYeKaEzzMm737yvjzMo/cL3hiAAli9Hy
-	 dVt3WFG1zSTqWnx4702nM4tZdvtRLHPgePfuXyTKXVaqZQOKfJEL05woxO3AUlFO6l
-	 EzoDRD3ji9yMYvylENN3UxnNcRZRVrAbk9NtlcQapwqWFGKrpKGAuqYzZdgiLQtDID
-	 Mmr7Cywqfu/8w==
+	b=MhM8jySsO2FsNx+E710sVAtUNDQs7nJPVHIx5c/Z2ISuXGKaijtdB2g3bj7bhrLYx
+	 +5ZW1MVIQvscQqW0n9UHFYSwt9PHuMK687LIQx8oPzGwVRbB9usa08huVa6PfArGRK
+	 au4+xmadutCBSd01F/E4r4qMFuhV+vu3L+iTfdE6x5r+VNww3ab6mamdb0KBbOkxgn
+	 oRyswsX7gu02L7X8W66mw/99J5xVcr/o8cIlH7IWfebs+CsS0L/HJpeBreUV7J1Riz
+	 PLLLZqI0nzs5QCpiRSUaCNGaPmQ3NENziJoPJ5VoRhR8vLfSPIMqI7r9Am1KpovE8p
+	 uGEjbMyARkCXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Lech Perczak <lech.perczak@camlingroup.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] NTB: ntb_netdev: Preserve RX queue depth on allocation failure
-Date: Fri, 21 Aug 2026 06:59:05 -0400
-Message-ID: <20260821105905.2811977-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] serial: sc16is7xx: fix copy-paste errors in EFR_SWFLOWx_BIT constants
+Date: Fri, 21 Aug 2026 07:00:04 -0400
+Message-ID: <20260821110008.2816500-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081711-stipulate-scone-4ee3@gregkh>
-References: <2026081711-stipulate-scone-4ee3@gregkh>
+In-Reply-To: <2026081755-absence-womanlike-85b3@gregkh>
+References: <2026081755-absence-womanlike-85b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +46,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+From: Lech Perczak <lech.perczak@camlingroup.com>
 
-[ Upstream commit d2121faf133ac3bf9531b53a7e21273649a08517 ]
+[ Upstream commit eccdb0fd1c340155666533f5c60c5229d370baab ]
 
-ntb_netdev_rx_handler() hands the received skb to the network stack
-before allocating its replacement. If the allocation fails, nothing is
-reposted. Every failure therefore takes one buffer out of the RX queue
-while the interface remains up, and enough failures eventually stall
-reception.
+Comments attached to bits 0 and 1 incorrectly referenced bits 2 and 3,
+which don't match the datasheet - fix them.
+At the same time remove comments for individual constants, as they add
+nothing to the definitions themselves.
 
-A retry path could refill the queue later, but ntb_netdev has none.
-Allocate the replacement first instead. If that fails, drop the packet
-and repost the same skb. This keeps the queue full and lets packet
-delivery resume as soon as memory is available again.
-
-Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://patch.msgid.link/20260806032537.3526498-1-den@valinux.co.jp
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ kept HEAD's `struct net_device *ndev = qp_data;` declaration instead of the per-queue context variables, adding only `new_skb` to the existing `skb` declaration ]
+Signed-off-by: Lech Perczak <lech.perczak@camlingroup.com>
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Link: https://lore.kernel.org/r/2986a485-935d-4ab2-9a16-4a85288aa15a@camlingroup.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 246ac114f485 ("serial: sc16is7xx: enable THRI before filling TX FIFO")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ntb_netdev.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
-index b701ee83e64a8..7e562751d6ddc 100644
---- a/drivers/net/ntb_netdev.c
-+++ b/drivers/net/ntb_netdev.c
-@@ -100,7 +100,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 				  void *data, int len)
- {
- 	struct net_device *ndev = qp_data;
--	struct sk_buff *skb;
-+	struct sk_buff *skb, *new_skb;
- 	int rc;
- 
- 	skb = data;
-@@ -115,6 +115,12 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		goto enqueue_again;
- 	}
- 
-+	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
-+	if (!new_skb) {
-+		ndev->stats.rx_dropped++;
-+		goto enqueue_again;
-+	}
-+
- 	skb_put(skb, len);
- 	skb->protocol = eth_type_trans(skb, ndev);
- 	skb->ip_summed = CHECKSUM_NONE;
-@@ -127,12 +133,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		ndev->stats.rx_bytes += len;
- 	}
- 
--	skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
--	if (!skb) {
--		ndev->stats.rx_errors++;
--		ndev->stats.rx_frame_errors++;
--		return;
--	}
-+	skb = new_skb;
- 
- enqueue_again:
- 	rc = ntb_transport_rx_enqueue(qp, skb, skb->data, ndev->mtu + ETH_HLEN);
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 6c9a96a72059a..693eb933fb323 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -263,9 +263,9 @@
+ 						  * and writing to IER[7:4],
+ 						  * FCR[5:4], MCR[7:5]
+ 						  */
+-#define SC16IS7XX_EFR_SWFLOW3_BIT	(1 << 3) /* SWFLOW bit 3 */
+-#define SC16IS7XX_EFR_SWFLOW2_BIT	(1 << 2) /* SWFLOW bit 2
+-						  *
++#define SC16IS7XX_EFR_SWFLOW3_BIT	(1 << 3)
++#define SC16IS7XX_EFR_SWFLOW2_BIT	(1 << 2)
++						 /*
+ 						  * SWFLOW bits 3 & 2 table:
+ 						  * 00 -> no transmitter flow
+ 						  *       control
+@@ -277,10 +277,10 @@
+ 						  *       XON1, XON2, XOFF1 and
+ 						  *       XOFF2
+ 						  */
+-#define SC16IS7XX_EFR_SWFLOW1_BIT	(1 << 1) /* SWFLOW bit 2 */
+-#define SC16IS7XX_EFR_SWFLOW0_BIT	(1 << 0) /* SWFLOW bit 3
+-						  *
+-						  * SWFLOW bits 3 & 2 table:
++#define SC16IS7XX_EFR_SWFLOW1_BIT	(1 << 1)
++#define SC16IS7XX_EFR_SWFLOW0_BIT	(1 << 0)
++						 /*
++						  * SWFLOW bits 1 & 0 table:
+ 						  * 00 -> no received flow
+ 						  *       control
+ 						  * 01 -> receiver compares
 -- 
 2.53.0
 
