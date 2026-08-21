@@ -1,111 +1,132 @@
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BD1429028
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1EB42848B
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323929; cv=none; b=YFcpPtaT0wyCPaIkQW/4X66Sv6+b9dwQDAPBWy/7O5dAj6AN45cUlqQwkbb4GH7sA++BboGRa3gGMq5P4fpnADTM1N0/6GAYwkhUUQwi8G4pBhy/wAZHb684rlfJ/HgsQTeXCDBbA8KW+6jhW7WinT07cgWdkw6hyEsswFG07BM=
+	t=1787323937; cv=none; b=RfpQw93xzKBkxKsltNrQ+d5N3BqI6gQvNYs6DeUKBgQa5iZlcy3xSPumkbrlot92F/S48SZZdcCflv/RQtdNFYFtMFzhuHAwupCyCEsZPhrVVYQaZ3bvSMzl2wLo9X+TLTRLvJd2f+zzIr3zgvCdGauLTD0YTK1CkK4PCF0wRE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323929; c=relaxed/simple;
-	bh=VTcM92vj44+5XCO8TjP5rjlfBncjyI8PP1vsSAHNuvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u/BB9nGhWtDTk2d+ynAf6qhD1VWLoOPynp7hm9FNy/SUm2t+RsbcQZE+QFzbbNh93SeE6UJ7rJzItN7PMPMpkmYNTP5hmYbSyZ8dW6yK+uBKTjQOAxE4Ye3PDRRRkg63fPcFV0Ul6ebVPe6n8fzft8MyyR8K4uLw6ixuknqrNMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZhVhhA+d; arc=none smtp.client-ip=209.85.167.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1787323937; c=relaxed/simple;
+	bh=bJ6I4X7RSLqQ9Pjm2NDdixe48SEQeISssbIgfDk4x94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XAP4ejsnjfsPYDwp1BJCY+EyZqycUpU6W9wD6MKbz0Vr1JzpQfhdrcYWwFjIJKAAgn/Hl8u7297e+7RCMcOad1enLgozwh1jNiUca5boFlCu+S37Bx1vUARJVBdzIR0E0sOjzIS1oaj+v5OnHN1f0orsg33NH+F1JGxHwhZJvR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OtGzqWXI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZhVhhA+d"
-Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-497e6956acfso930114b6e.1
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 07:52:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1787323926; x=1787928726; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4Da3i+pZee9b7u3Za9DGDENY+ryDfxHSaO86YOiio4c=;
-        b=ZhVhhA+dzsi0qaF35Bp3bskOx54A76ZxJbN0kW8il0SH0E61a2nXxjkYny/Os28P75
-         snqes6BmWfJwFyGDX15av08MSCNbw47k02dq4iFIUNpEiXkRNWTq+Z75Yp0joSR4VyOw
-         Lc622igHogH149q4oQafFv8lP68Bf44ymB4A8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787323926; x=1787928726;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4Da3i+pZee9b7u3Za9DGDENY+ryDfxHSaO86YOiio4c=;
-        b=R9zZOdfbBIwbusvpHMqadBlUrCxyDYEben7/uVqg1d/ouJNbZXIb87+JSIhZfM/kDJ
-         edoksyrN/ZKOBemE/gGESD9LekrYbj8sXZybSYk/KipRSc1coMP5UQUrg/rH0RVP/A53
-         Bzp+4A5SnwnkD3NbbYyChH03gPe+BPvGOwUgNueJbQc8Gz8oQ9PqPEMK8JCqFf8B2fAB
-         Ap6iDwVtnXKCWc3fBpxP/baFgqfvpmpbAlg2ljnpY35fiBotA3Cl+wSPaO+kKT5iXgyW
-         fM202EYBsl0zKoL2Q/96+I9S1I+jJuWXNGJTM+IsmkgMSMHyGCJLFUSvaGPfO/UAuue2
-         4MzQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpbHZ5Wq9W4Y0/hWe2ojTndI96J/lVSxxbdxPdUvFJ2AVyp5OMYkYxPqj1SzpAS/a62fi7oeCY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfFMAAfG4uGelCyTmkDdKivbwEPmaBaohEq+tqHeSDEpSMs/tg
-	zV/9kpx1MXGk7ce11sJXqHiMTz702JctF4DSZvaHfzmdcYHkP5/mZ5wRgJIY8jeJKFo=
-X-Gm-Gg: AR+sD11bBRiwmGZzu6urJgRj5MfQji1SnE5RJjGKkstrQ0Br3TH00KL6H6zJapitFQE
-	FEd3PLpwLiFSRVU8yCCe9dH+8XFjJ1/tbSFfeS/MwbWWQFRCsqVQAmV36ZXRDvsfkz8p8bfOvK1
-	gLpvuEq/VJ2G4oo6TqhwGnoFG3Wjhv+ui1AcBxClCqY02DVArxTyVm24nvcJyRPTLAHSgcJ61+V
-	QbCpcxYxxeqOHq/Q6m1ef/Skhtvm6q2YEfTut3b57eWZ5RmAkPznF1yw767HRoLzdHjFch6zOvj
-	a1ZSiDWywoNLS5nkBDIiZj8dgosb9OtzKpQ5u2ozpJqBQ+Gba8xdUkkda95pOphkybG7BLCCvPX
-	FxvJhVRBGsb8kLTl24Ge//A7fPu9M/D26l9MUDH4sbFh2JtY7EEkxQqN1gzx07Yozg5FZ3u4u2i
-	XCccwKhYlpSkC5CCfrJTrlOFh5+wFnruXP0vCcf8eW1gKSqAghDpIkxQixP5k4Buzs51atyw==
-X-Received: by 2002:a05:6808:6b47:b0:4af:9364:b5a9 with SMTP id 5614622812f47-4b2cdbca4b5mr13366176b6e.6.1787323925935;
-        Fri, 21 Aug 2026 07:52:05 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b2d6711e15sm4996967b6e.1.2026.08.21.07.52.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Aug 2026 07:52:05 -0700 (PDT)
-Message-ID: <b3a59904-0c4c-478f-acd9-e56397d3e51d@linuxfoundation.org>
-Date: Fri, 21 Aug 2026 08:52:03 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OtGzqWXI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5621F000E9;
+	Fri, 21 Aug 2026 14:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787323934;
+	bh=FPu5Ba2vxN4Ehz3rN3o5OsmHEpKoOzM4c7NaX06s4FY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OtGzqWXIkeaR5FSG5F7bYwRURCKd7DWxtYmco7qx4ZVPmZvomi/Af1/ssrxmniXnI
+	 3z3Wdw8LMKIdIPNpw79aeHfZmRyChtOVVCHVNx03QFemJ9qL+ZwwJEnasj6q9HPlQ6
+	 e+vp1NhS7gAx/NIOKzD7XRbwfq/z2+0tzUb+lOQfhpOolkYIYgzpoGUFi3bZhphNmX
+	 YUuW2FsE0iumd0bDOAYTMI5G27Kzfng2qCyoSG5gTSdDm+RpSpPtph7zxKvfF+deeD
+	 /CLP6YoNowctv6Awrr2PpraNd9DReMaaSI59tRa+ESjjwRHFQdVGtcTICO20pTxSus
+	 Ge+mU2Kr18iLw==
+Date: Fri, 21 Aug 2026 16:52:10 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org, 
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Chris Wilson <chris@chris-wilson.co.uk>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/gt: Use signalers_lock to prevent starvation of
+ irq_work.
+Message-ID: <aohKIjZZ6Qjy8qGQ@zenone.zhora.eu>
+References: <20260821114508.25669-1-dev@lankhorst.se>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/220] 6.12.105-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260820145223.480031205@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260820145223.480031205@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821114508.25669-1-dev@lankhorst.se>
 
-On 8/20/26 08:53, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.105 release.
-> There are 220 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.105-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+Hi Maarten,
 
-Compiled and booted on my test system. No dmesg regressions.
+...
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+> @@ -208,13 +209,13 @@ static void signal_irq_work(struct irq_work *work)
+>  	if (!signal && READ_ONCE(b->irq_armed) && list_empty(&b->signalers))
+>  		intel_breadcrumbs_disarm_irq(b);
+>  
+> -	rcu_read_lock();
+> -	atomic_inc(&b->signaler_active);
+> -	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+> +	spin_lock(&b->signalers_lock);
+> +	list_for_each_entry_safe(ce, next, &b->signalers, signal_link) {
 
-thanks,
--- Shuah
+without converting rcu lists to normal lists, can't we simply use
+spinlocks around this for_each to avoid PREEMPT_RT starvation?
+
+>  		struct i915_request *rq;
+> +		bool release;
+>  
+> -		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
+> -			bool release;
+> +		spin_lock(&ce->signal_lock);
+> +		while ((rq = list_first_entry_or_null(&ce->signals, typeof(*rq), signal_link))) {
+>  
+>  			if (!__i915_request_is_complete(rq))
+>  				break;
+
+...
+
+> @@ -427,30 +424,87 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
+>  		return true;
+>  
+>  	spin_lock(&ce->signal_lock);
+> +	b = READ_ONCE(rq->engine)->breadcrumbs;
+> +
+>  	if (test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags))
+> -		insert_breadcrumb(rq);
+> +		add_context = insert_breadcrumb(rq, b);
+> +
+> +	if (add_context && spin_trylock(&b->signalers_lock)) {
+> +		add_signaling_context(b, ce);
+> +		spin_unlock(&b->signalers_lock);
+> +		add_context = false;
+> +	}
+>  	spin_unlock(&ce->signal_lock);
+>  
+> +	if (add_context) {
+> +		/*
+> +		 * Fast trylock didn't work, use slow locking.
+> +		 *
+> +		 * Dropping the lock to solve the inversion is safe, since
+> +		 * no race is possible against remove_signaling_context()
+> +		 * without being added as signaling context.
+> +		 */
+> +		spin_lock(&b->signalers_lock);
+> +		spin_lock(&ce->signal_lock);
+> +		add_signaling_context(b, ce);
+> +		spin_unlock(&ce->signal_lock);
+> +		spin_unlock(&b->signalers_lock);
+
+If I want to be a bit paranoic, a new request can be added in
+between the two locking blocks and "add_context" is not valid
+anymore.
+
+add_signaling_context() already checks for ce->signals, but it
+does not check whether ce->signal_link is already linked. Should
+we also check !list_empty(&ce->signal_link)?
+
+Thanks,
+Andi
+
+> +	}
+> +
+> +	/*
+> +	 * Defer enabling the interrupt to after HW submission and recheck
+> +	 * the request as it may have completed and raised the interrupt as
+> +	 * we were attaching it into the lists.
+> +	 */
+> +	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
+> +		irq_work_queue(&b->irq_work);
+> +
+>  	return true;
+>  }
