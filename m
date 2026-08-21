@@ -1,42 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E783793B6
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:52:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84AD3803DF
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:52:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787331127; cv=none; b=tquKcnGlyO7kavoT6xipTz0UUMucZVTv0ni+/gl4ba1KG4ddiXwNIwa6vZ6G7S381paIbJKCXQy8XCe8BKTQU+7QSLOk1YtokW33/HhiutO+3+LqBamxw7uAasPsl8ZR5Mq61TnPV9DqSKBq8n6o3JJPAP9ngFkjyuBGDHA8h2M=
+	t=1787331135; cv=none; b=kMDAdPgMYsmn8koQ/4x9yqWkGMhsYimarjQPsxZ7kyS3kCo4CbsbXL6tRrYqkoZSLh2/OGTOZtm7w0r5Gn54AdZpTh3i7T1LE05dJsSOohCU/fv6HcYk5/LlH2TxP1M5HmtO2pmfH/vYYoXhokN3Qq/Qi/osXjXmcPpD/OwMZqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787331127; c=relaxed/simple;
-	bh=jWkFIkHo1xWz2Z7Eh6EpEzcX45PHIvimZ6TkGZGZKt4=;
+	s=arc-20240116; t=1787331135; c=relaxed/simple;
+	bh=tvpOysi4s6JiB83ll8PrrJQzuaeHN4OlRYMmW/lXaaE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B9FWkeYivDdghgH9v5ZkH/5SVQK/wbx72S3/37uWH5udUC47cx2803bvpfomWztga7HUgFssmdJSQJB09NOSwJKx2xXkhCcP29gc7rQm09tR+JqbyyjzyU7m1RzaelPIHMtMeM1mMGeNjIbS3dnv8yxiF+NLDPRGYVkuZx8Q2w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2o9X6Kj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=j9RGUh2YGewe/aGsjKQher3vQuBZNSi70xawaVWf9VlCf6/9bMKh3hMmkS4ubFEhb0oZdvHAOxRXTrzJUcB8ymdjCZK9zPBa6Z4bF4B+6FeCizlpOTY6SgyLXk5m8IplcSMOGt1grjcS8yRaxJm0o8Y8eak6Vyzu30TJcISlySk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiZF+WDa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2o9X6Kj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9791F01564;
-	Fri, 21 Aug 2026 16:52:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiZF+WDa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC281F00ACF;
+	Fri, 21 Aug 2026 16:52:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787331122;
-	bh=PfTrkBM2bY8W3ffcfbOrFc5ZLCnTvZMnJKJ4A1lzYaA=;
+	s=k20260515; t=1787331123;
+	bh=7fGMFSaobBFDo5y3kS5bUQ0HUJnpyZUhaUg6L5LxziA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T2o9X6KjtxoNG68eSBMNQofk20iVK+J0JX5OMsyveSLHR4mlxmX5/p1bvOchHnV2c
-	 SNgKXxjZIuQpKNyKh98OEuO7V2PVu1c6/s76wfQpoP+Hs1LOLPXDrnnwq+1cXZL47i
-	 IRm1Jo7EpdAf07X0u3GUEYVSrMGUHlJUiVEwZAlk7opg9R/uxpTcxhfWG5+pnao3Qa
-	 Lcp8URAmnhKcleHBQFjSi89jksHa1wo7gOjX+gXbLqyEa5gTW+oPBvJSMvlxnekYH+
-	 WRlfDQ5s76f44AJu9ozb298e1qRUoYo0Df7a7hFXQCQZ5a+2evcub+k4sp8333epAg
-	 zGsGJZqoWwdXw==
+	b=OiZF+WDa0+ZoS8EnuGiW2vhL60Sqvth2TezHpyNyiYU7za9oxqYltALQNZ05iwdso
+	 adzy98pYJRVY2CFz5ZJdJAGVah7U7HXokWZUkAmW/IH4MUgf4WAIfsQpg4bI2reexl
+	 6Uxsgz+BUEHbemSrMPSjo+l77AJP0JmBaQCt788DQgEQB2YtqHe8fCOtZn2xmn68/a
+	 bSzZzupbsOiJlCp6JvIfrEvl/hm2aQYApYS/M60W7dW3UmGJ4Q6likJcLuyFZLvq4f
+	 gpUyLSacSr4XRQz48RGycSaqfOcIEeiWDGlLbGo+daTA5TLZXX9+XZCXy0tA3h0F0B
+	 tApkWw2epYdRw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Julian Anastasov <ja@ssi.bg>,
-	Florian Westphal <fw@strlen.de>,
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
+	Julian Anastasov <ja@ssi.bg>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] rculist_bl: add hlist_bl_for_each_entry_continue_rcu
-Date: Fri, 21 Aug 2026 12:51:55 -0400
-Message-ID: <20260821165157.3593656-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] ipvs: separate destination availability state
+Date: Fri, 21 Aug 2026 12:51:56 -0400
+Message-ID: <20260821165157.3593656-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081759-provoke-trickle-ead1@gregkh>
+In-Reply-To: <20260821165157.3593656-1-sashal@kernel.org>
 References: <2026081759-provoke-trickle-ead1@gregkh>
+ <20260821165157.3593656-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,110 +52,225 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Julian Anastasov <ja@ssi.bg>
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-[ Upstream commit 1ac252ad036cdb18f5fb7f76bb6061adfed9cedf ]
+[ Upstream commit cdcc4e46180df8161f4d2f3c6fd6beaf6990133d ]
 
-Change the old hlist_bl_first_rcu to hlist_bl_first_rcu_dereference
-to indicate that it is a RCU dereference.
+IPVS configuration paths update destination availability while connection
+accounting updates destination overload state. The two independent states
+share dest->flags, so their read-modify-write updates can race and lose one
+another.
 
-Add hlist_bl_next_rcu and hlist_bl_first_rcu to use RCU pointers
-and use them to fix sparse warnings.
+Keep OVERLOAD in flags, where the preceding patch serializes its updates
+with dst_lock, and move AVAILABLE to cflags. This keeps configuration-
+controlled availability out of the scheduler hot cacheline until a
+scheduler needs to check it. It also prevents availability updates from
+clobbering overload state.
 
-Add hlist_bl_for_each_entry_continue_rcu.
+The destination status bits are not exposed through the IPVS sockopt or
+netlink interfaces, so keep their definitions in the internal IPVS header.
 
-Signed-off-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Florian Westphal <fw@strlen.de>
-Stable-dep-of: cdcc4e46180d ("ipvs: separate destination availability state")
+Readers can still observe stale destination state; this does not provide a
+cross-field snapshot.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Link: https://lore.kernel.org/all/8913381c-1e02-35c7-0ec4-61de5a12fd35@ssi.bg/
+Assisted-by: Claude-Code:GLM-5.2
+Suggested-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Acked-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+[ Dropped the two ip_vs_xmit.c hunks and trimmed absent trailing context from the ip_vs.h hunk, since `IP_VS_DEST_F_AVAILABLE` checks and the hash-table limit defines don't exist in this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/rculist_bl.h | 49 +++++++++++++++++++++++++++++++-------
- 1 file changed, 40 insertions(+), 9 deletions(-)
+ include/net/ip_vs.h              | 7 +++++++
+ include/uapi/linux/ip_vs.h       | 6 ------
+ net/netfilter/ipvs/ip_vs_conn.c  | 4 ++--
+ net/netfilter/ipvs/ip_vs_core.c  | 6 +++---
+ net/netfilter/ipvs/ip_vs_ctl.c   | 4 ++--
+ net/netfilter/ipvs/ip_vs_dh.c    | 4 ++--
+ net/netfilter/ipvs/ip_vs_lblc.c  | 2 +-
+ net/netfilter/ipvs/ip_vs_lblcr.c | 8 ++++----
+ 8 files changed, 21 insertions(+), 20 deletions(-)
 
-diff --git a/include/linux/rculist_bl.h b/include/linux/rculist_bl.h
-index 0b952d06eb0b0..36363b876e53d 100644
---- a/include/linux/rculist_bl.h
-+++ b/include/linux/rculist_bl.h
-@@ -8,21 +8,31 @@
- #include <linux/list_bl.h>
- #include <linux/rcupdate.h>
+diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
+index b65009a226e05..94dfc3a265ee5 100644
+--- a/include/net/ip_vs.h
++++ b/include/net/ip_vs.h
+@@ -34,6 +34,12 @@
+ #define IP_VS_HDR_INVERSE	1
+ #define IP_VS_HDR_ICMP		2
  
-+/* return the first ptr or next element in an RCU protected list */
-+#define hlist_bl_first_rcu(head)	\
-+	(*((struct hlist_bl_node __rcu **)(&(head)->first)))
-+#define hlist_bl_next_rcu(node)	\
-+	(*((struct hlist_bl_node __rcu **)(&(node)->next)))
++/* Destination Server Flags */
++#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
 +
- static inline void hlist_bl_set_first_rcu(struct hlist_bl_head *h,
- 					struct hlist_bl_node *n)
++/* Destination Server Config Flags */
++#define IP_VS_DEST_CF_AVAILABLE	0x0001		/* server is available */
++
+ /* Generic access of ipvs struct */
+ static inline struct netns_ipvs *net_ipvs(struct net* net)
  {
- 	LIST_BL_BUG_ON((unsigned long)n & LIST_BL_LOCKMASK);
- 	LIST_BL_BUG_ON(((unsigned long)h->first & LIST_BL_LOCKMASK) !=
- 							LIST_BL_LOCKMASK);
--	rcu_assign_pointer(h->first,
-+	rcu_assign_pointer(hlist_bl_first_rcu(h),
- 		(struct hlist_bl_node *)((unsigned long)n | LIST_BL_LOCKMASK));
- }
+@@ -725,6 +731,7 @@ struct ip_vs_dest {
+ 	volatile unsigned int	flags;		/* dest status flags */
+ 	atomic_t		conn_flags;	/* flags to copy to conn */
+ 	atomic_t		weight;		/* server weight */
++	unsigned long		cflags;		/* config flags */
+ 	atomic_t		last_weight;	/* server latest weight */
+ 	__u16			tun_type;	/* tunnel type */
+ 	__be16			tun_port;	/* tunnel port */
+diff --git a/include/uapi/linux/ip_vs.h b/include/uapi/linux/ip_vs.h
+index 1ed234e7f2513..2c37c6ac7525a 100644
+--- a/include/uapi/linux/ip_vs.h
++++ b/include/uapi/linux/ip_vs.h
+@@ -28,12 +28,6 @@
+ #define IP_VS_SVC_F_SCHED_SH_FALLBACK	IP_VS_SVC_F_SCHED1 /* SH fallback */
+ #define IP_VS_SVC_F_SCHED_SH_PORT	IP_VS_SVC_F_SCHED2 /* SH use port */
  
--static inline struct hlist_bl_node *hlist_bl_first_rcu(struct hlist_bl_head *h)
--{
--	return (struct hlist_bl_node *)
--		((unsigned long)rcu_dereference_check(h->first, hlist_bl_is_locked(h)) & ~LIST_BL_LOCKMASK);
--}
-+#define hlist_bl_first_rcu_dereference(head)				\
-+({									\
-+	struct hlist_bl_head *__head = (head);				\
-+									\
-+	(struct hlist_bl_node *)					\
-+	((unsigned long)rcu_dereference_check(hlist_bl_first_rcu(__head), \
-+					      hlist_bl_is_locked(__head)) & \
-+					      ~LIST_BL_LOCKMASK);	\
-+})
- 
- /**
-  * hlist_bl_del_rcu - deletes entry from hash list without re-initialization
-@@ -73,7 +83,7 @@ static inline void hlist_bl_add_head_rcu(struct hlist_bl_node *n,
- {
- 	struct hlist_bl_node *first;
- 
--	/* don't need hlist_bl_first_rcu because we're under lock */
-+	/* don't need hlist_bl_first_rcu* because we're under lock */
- 	first = hlist_bl_first(h);
- 
- 	n->next = first;
-@@ -93,9 +103,30 @@ static inline void hlist_bl_add_head_rcu(struct hlist_bl_node *n,
-  *
+-/*
+- *      Destination Server Flags
+- */
+-#define IP_VS_DEST_F_AVAILABLE	0x0001		/* server is available */
+-#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
+-
+ /*
+  *      IPVS sync daemon states
   */
- #define hlist_bl_for_each_entry_rcu(tpos, pos, head, member)		\
--	for (pos = hlist_bl_first_rcu(head);				\
-+	for (pos = hlist_bl_first_rcu_dereference(head);		\
- 		pos &&							\
- 		({ tpos = hlist_bl_entry(pos, typeof(*tpos), member); 1; }); \
--		pos = rcu_dereference_raw(pos->next))
-+		pos = rcu_dereference_raw(hlist_bl_next_rcu(pos)))
-+
-+/**
-+ * hlist_bl_for_each_entry_continue_rcu - continue iteration over list of given
-+ *   type
-+ * @tpos:	the type * to use as a loop cursor.
-+ * @pos:	the &struct hlist_bl_node to use as a loop cursor.
-+ * @member:	the name of the hlist_bl_node within the struct.
-+ *
-+ * Continue to iterate over list of given type, continuing after
-+ * the current position which must have been in the list when the RCU read
-+ * lock was taken.
-+ * This would typically require either that you obtained the node from a
-+ * previous walk of the list in the same RCU read-side critical section, or
-+ * that you held some sort of non-RCU reference (such as a reference count)
-+ * to keep the node alive *and* in the list.
-+ */
-+#define hlist_bl_for_each_entry_continue_rcu(tpos, pos, member)		\
-+	for (pos = rcu_dereference_raw(hlist_bl_next_rcu(&(tpos)->member)); \
-+	     pos &&							\
-+	     ({ tpos = hlist_bl_entry(pos, typeof(*tpos), member); 1; }); \
-+	     pos = rcu_dereference_raw(hlist_bl_next_rcu(pos)))
+diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
+index e42fed876596a..7da11628073b9 100644
+--- a/net/netfilter/ipvs/ip_vs_conn.c
++++ b/net/netfilter/ipvs/ip_vs_conn.c
+@@ -759,7 +759,7 @@ int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
+ 	 * Checking the dest server status.
+ 	 */
+ 	if ((dest == NULL) ||
+-	    !(dest->flags & IP_VS_DEST_F_AVAILABLE) ||
++	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE) ||
+ 	    expire_quiescent_template(ipvs, dest) ||
+ 	    (cdest && (dest != cdest))) {
+ 		IP_VS_DBG_BUF(9, "check_template: dest not available for "
+@@ -1408,7 +1408,7 @@ void ip_vs_expire_nodest_conn_flush(struct netns_ipvs *ipvs)
+ 				continue;
  
- #endif
+ 			dest = cp->dest;
+-			if (!dest || (dest->flags & IP_VS_DEST_F_AVAILABLE))
++			if (!dest || (dest->cflags & IP_VS_DEST_CF_AVAILABLE))
+ 				continue;
+ 
+ 			if (atomic_read(&cp->n_control))
+diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
+index d121ea3d16bc9..1f62ca2f73309 100644
+--- a/net/netfilter/ipvs/ip_vs_core.c
++++ b/net/netfilter/ipvs/ip_vs_core.c
+@@ -124,7 +124,7 @@ ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
+ 	struct ip_vs_dest *dest = cp->dest;
+ 	struct netns_ipvs *ipvs = cp->ipvs;
+ 
+-	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 		struct ip_vs_cpu_stats *s;
+ 		struct ip_vs_service *svc;
+ 
+@@ -160,7 +160,7 @@ ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
+ 	struct ip_vs_dest *dest = cp->dest;
+ 	struct netns_ipvs *ipvs = cp->ipvs;
+ 
+-	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 		struct ip_vs_cpu_stats *s;
+ 		struct ip_vs_service *svc;
+ 
+@@ -2030,7 +2030,7 @@ ip_vs_in_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state
+ 	}
+ 
+ 	/* Check the server status */
+-	if (cp && cp->dest && !(cp->dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++	if (cp && cp->dest && !(cp->dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 		/* the destination server is not available */
+ 		if (sysctl_expire_nodest_conn(ipvs)) {
+ 			bool old_ct = ip_vs_conn_uses_old_conntrack(cp, skb);
+diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
+index 5dea5a14e85f9..c0257ef4d8b03 100644
+--- a/net/netfilter/ipvs/ip_vs_ctl.c
++++ b/net/netfilter/ipvs/ip_vs_ctl.c
+@@ -1058,7 +1058,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
+ 	}
+ 
+ 	/* set the dest status flags */
+-	dest->flags |= IP_VS_DEST_F_AVAILABLE;
++	dest->cflags |= IP_VS_DEST_CF_AVAILABLE;
+ 
+ 	if (READ_ONCE(dest->u_threshold) != udest->u_threshold ||
+ 	    READ_ONCE(dest->l_threshold) != udest->l_threshold) {
+@@ -1325,7 +1325,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
+ 				struct ip_vs_dest *dest,
+ 				int svcupd)
+ {
+-	dest->flags &= ~IP_VS_DEST_F_AVAILABLE;
++	dest->cflags &= ~IP_VS_DEST_CF_AVAILABLE;
+ 
+ 	/*
+ 	 *  Remove it from the d-linked destination list.
+diff --git a/net/netfilter/ipvs/ip_vs_dh.c b/net/netfilter/ipvs/ip_vs_dh.c
+index 75f4c231f4a02..f04d2530a093a 100644
+--- a/net/netfilter/ipvs/ip_vs_dh.c
++++ b/net/netfilter/ipvs/ip_vs_dh.c
+@@ -220,8 +220,8 @@ ip_vs_dh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
+ 
+ 	s = (struct ip_vs_dh_state *) svc->sched_data;
+ 	dest = ip_vs_dh_get(svc->af, s, &iph->daddr);
+-	if (!dest
+-	    || !(dest->flags & IP_VS_DEST_F_AVAILABLE)
++	if (!dest ||
++	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE)
+ 	    || atomic_read(&dest->weight) <= 0
+ 	    || is_overloaded(dest)) {
+ 		ip_vs_scheduler_err(svc, "no destination available");
+diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
+index 156181a3bacd7..9bb1e05063dc4 100644
+--- a/net/netfilter/ipvs/ip_vs_lblc.c
++++ b/net/netfilter/ipvs/ip_vs_lblc.c
+@@ -503,7 +503,7 @@ ip_vs_lblc_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
+ 		 */
+ 
+ 		dest = en->dest;
+-		if ((dest->flags & IP_VS_DEST_F_AVAILABLE) &&
++		if ((dest->cflags & IP_VS_DEST_CF_AVAILABLE) &&
+ 		    atomic_read(&dest->weight) > 0 && !is_overloaded(dest, svc))
+ 			goto out;
+ 	}
+diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
+index a021e6aba3d7b..1a53c1254fe57 100644
+--- a/net/netfilter/ipvs/ip_vs_lblcr.c
++++ b/net/netfilter/ipvs/ip_vs_lblcr.c
+@@ -170,8 +170,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
+ 		if (least->flags & IP_VS_DEST_F_OVERLOAD)
+ 			continue;
+ 
+-		if ((atomic_read(&least->weight) > 0)
+-		    && (least->flags & IP_VS_DEST_F_AVAILABLE)) {
++		if ((atomic_read(&least->weight) > 0) &&
++		    (least->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 			loh = ip_vs_dest_conn_overhead(least);
+ 			goto nextstage;
+ 		}
+@@ -187,8 +187,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
+ 
+ 		doh = ip_vs_dest_conn_overhead(dest);
+ 		if (((__s64)loh * atomic_read(&dest->weight) >
+-		     (__s64)doh * atomic_read(&least->weight))
+-		    && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++		     (__s64)doh * atomic_read(&least->weight)) &&
++		    (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 			least = dest;
+ 			loh = doh;
+ 		}
 -- 
 2.53.0
 
