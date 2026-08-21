@@ -1,116 +1,115 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F071B78F3;
-	Fri, 21 Aug 2026 22:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB043624CF
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 22:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787351447; cv=none; b=eMrTKA6SludnFF4XKb012AWp1FvziQo3EnFZViK3h5gU9qktDFUqZBVoAJYmqdwz6In6X0qhzEJC6WNA4tCq1rByC/+RGuFwo7E83C00kgNaIm1EKnS+gkeE2YMNXe2FPxuO21IEMef+d8PVP7cFLMEaHUC1B4KUg++YgGENBzk=
+	t=1787351871; cv=none; b=rSjU5+pYjjygNMslvTfjT8CGeKG5PIwgJQfAJqzFrZzmif5d6ICu0WKxoclDg3HESFxLn9foqjWBrOGp50pn+mRlxdDB8ADR9ig9/l0An0/RicPhcvzj+znhFPjw7AKkODyHARPlHN+icUdXddSfU3om3Tzl5OtzP8gIl87FkBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787351447; c=relaxed/simple;
-	bh=SktehEt/+fCtLHeuJbZyO62rajg0B2bxkz5egzx+Nwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tk6rYjByK92VyWqoL4t7/+Sgkp1gWjO3b+LYm6NN8Oag7ClC2UwfWAvR/baQNGi/Rk9CPVN2B/gnrhvim5QwutVWoaQwxVObQCiRrtOp5Z2IR7G8JSIxHW5YvgXmt8cfNbIS9lPqKf/lHU0fuAdBgWXhlSg9ZwnEDyOHP9jwdoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EqWbMjjd; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787351871; c=relaxed/simple;
+	bh=DQylWsC7gmpTuji71C8X3tELRa4TAbn02WonvLZ73PY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o83K15MM3DXV1SkAiPwRleZiVF+f9y+cHF/Tj9n5Wr0ezHwd9TCFoRjKzVl+CgnYg7HI4sdmtsPry07VjU+gXlGrJ7rAgIkhg84kAjlgWKm3TAs6x4QpgzdAqnKEaxt1w/+SASfGxqvUSgolNmznCnqZMpfSDraxX9MysxfdNa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=dqHCocIG; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EqWbMjjd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787351445; x=1818887445;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=SktehEt/+fCtLHeuJbZyO62rajg0B2bxkz5egzx+Nwo=;
-  b=EqWbMjjdVFxDydzxrqJh9ciJhpPeMzeVmxyi27rxZgLSE8iG6MVFJ1+D
-   C5d6g4UXTDisH31RgYwkQgh8xitJ24zYZCFJnrRk0XFtV/+rNyKspkwvQ
-   65avrXIMgG5/bz83ijX+IBWSBLHaxctDPkPVAVdsROIwZuLG8fXESy14j
-   Sq8SubKIlXGB9nz/jNj9uPIiwv2JHdbgg30BNxGLls2PCo1Xa0zEU7jMU
-   gwvFssn6Jw9KAuImGgSCRN5hfBsnQMVt9Z4sPjMir45lItknMDRl8OHso
-   dPEbZXOdXI9taBaQVlHfe7W+SY7m2Cbork3tDUrk7xPFD0rEs49LNmq2j
-   A==;
-X-CSE-ConnectionGUID: U5xAmAAvRVOAgUtYYaEx4w==
-X-CSE-MsgGUID: KNTy1kNtSiWcrKF3lEqy3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="88032557"
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="88032557"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 15:30:44 -0700
-X-CSE-ConnectionGUID: UTbHwndFRQWfOs0ReG6BIQ==
-X-CSE-MsgGUID: kJa9PSjaSSim0kZj0k6B7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="271679724"
-Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 15:30:44 -0700
-From: Zide Chen <zide.chen@intel.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org,
-	Andi Kleen <ak@linux.intel.com>,
-	Jim Mattson <jmattson@google.com>,
-	Stephane Eranian <eranian@google.com>,
-	linux-kernel@vger.kernel.org,
-	Mingwei Zhang <mizhang@google.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Das Sandipan <Sandipan.Das@amd.com>,
-	Shukla Manali <Manali.Shukla@amd.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 01/23] perf/x86/intel: Guard counter masks against zero counters
-Date: Fri, 21 Aug 2026 15:19:40 -0700
-Message-ID: <20260821222002.54907-2-zide.chen@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821222002.54907-1-zide.chen@intel.com>
-References: <20260821222002.54907-1-zide.chen@intel.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="dqHCocIG"
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id xWijwgl0zhJKMxXrxwPhwc; Fri, 21 Aug 2026 22:37:49 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id xXrwwikXslkAWxXrxw2Phq; Fri, 21 Aug 2026 22:37:49 +0000
+X-Authority-Analysis: v=2.4 cv=dbGA3WXe c=1 sm=1 tr=0 ts=6a88d33d
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=9znkghA2arZQ6fEvHFMA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=xRp1Dla8OnY8ywg018hTRPXAsoGhfh4jls4UZl0vPVA=; b=dqHCocIGVmmAPnYhbW9dwGCtxt
+	tfYTaES74I9TFtD1DZcQMVnruvpSqb76jFWhsM+708DSpBvY0K6FkR0fXlDCKyEoN6oY4yYItGhrp
+	KdMlHcxIgKlcrtnsg5bzNGhl7ZQh4Hilog4OOZd2sCOMD5s3fb033nQBahuSKjFn9iGokuhXeLDkg
+	Fbev9wYVoj4V3oVFN9ND1pLu1hluPur/yUhmAsFQJRnV3XeBy6QlWYb0O+Z3d2QcvTwNDV5T2qgGM
+	etenvM9eHxxzgF5kzRiw1hytcfLqwTqDV1blmOg0Eq6cEfjDBeqeOpfNbKkEPTiqmt7mgS5Wr6QXi
+	6+JGOk6w==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:39194 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1wxXrw-00000002G4Y-0RNa;
+	Fri, 21 Aug 2026 16:37:48 -0600
+Message-ID: <1e1c06eb-4931-4a05-a39c-81724df2a807@w6rz.net>
+Date: Fri, 21 Aug 2026 15:37:46 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 000/228] 7.1.10-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260820145244.450574346@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260820145244.450574346@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wxXrw-00000002G4Y-0RNa
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:39194
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLuuvk/+kVVddk852N891/vVQDCLbkdXqNu8oI6x7AkdRD8vQf4T8Yp4tdWAidUxQ8xrNQz6F8Ivn/22jadnW45qSafVu5bKsPTU1JJPUcKF1EH6GJp+
+ Wk9LHWnnCz7WPvhWl1CK07Bxm92OWZZgEU4KzIOv3D+c7B1azjRtDX7p+azefcAnWHDpkNi5+pjeSg==
 
-When running as a guest with a vPMU exposed, the host may expose zero
-general-purpose counters or zero fixed counters. In that case,
-GENMASK_ULL() is called with a negative high-bit argument, resulting
-in an out-of-range shift and undefined behavior.
+On 8/20/26 07:52, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.10 release.
+> There are 228 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.10-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-On systems with PMU partitioning enabled, this configuration is more
-likely. Change GENMASK_ULL() to BIT_ULL() to guard mask generation
-against zero counters.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Fixes: 722e42e45c2f ("perf/x86: Support counter mask")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zide Chen <zide.chen@intel.com>
----
- arch/x86/events/intel/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 2b35483e2b70..8b13bcc5259c 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -7905,7 +7905,7 @@ __init int intel_pmu_init(void)
- 		x86_pmu = intel_pmu;
- 
- 	x86_pmu.version			= version;
--	x86_pmu.cntr_mask64		= GENMASK_ULL(eax.split.num_counters - 1, 0);
-+	x86_pmu.cntr_mask64		= BIT_ULL(eax.split.num_counters) - 1;
- 	x86_pmu.cntval_bits		= eax.split.bit_width;
- 	x86_pmu.cntval_mask		= (1ULL << eax.split.bit_width) - 1;
- 
-@@ -7924,7 +7924,7 @@ __init int intel_pmu_init(void)
- 		int assume = 3 * !boot_cpu_has(X86_FEATURE_HYPERVISOR);
- 
- 		x86_pmu.fixed_cntr_mask64 =
--			GENMASK_ULL(max((int)edx.split.num_counters_fixed, assume) - 1, 0);
-+			BIT_ULL(max((int)edx.split.num_counters_fixed, assume)) - 1;
- 	} else if (version >= 5)
- 		x86_pmu.fixed_cntr_mask64 = fixed_mask;
- 
--- 
-2.55.0
+Tested-by: Ron Economos <re@w6rz.net>
 
