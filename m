@@ -1,123 +1,282 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98800426D09
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 15:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2684248DC
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 15:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787325183; cv=none; b=SJgbUiKjiHLGLdOleV0YA53NX4QyVPOgvt0J+NJUskzXLkSFjm4XTbIqASEO4T4R1weGVFy2WlC2+zIi2oou+O+9MLMWjI+fksLPbDl8q/ZOmRsVw7LS7hYo0yfT1ePy0Iuh1wbVB3bMvmugRFMObOA/5fZhdKzcf/hHj/vcVng=
+	t=1787325443; cv=none; b=VZCNx34qQSmXO1zBUrbV+MlUFotx3GZVtwKLQFK+xTJNJY3i0lkItFXPizeVZCPFxJPtbijGPhnljVWrC41BpP186NzVas4vzC5i1pI9trdk0eCQFlxaD/XFagCEE+Mdz7LDVKHGkQOj7q1RuXb0qjRT7JhbJufefvYVt+q9rzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787325183; c=relaxed/simple;
-	bh=7PyrRMw9wW7xV59ftszCky4TbauN3P/DgotHc8GcRJk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tTtK6rSubwRebC1x9BlifWOlrJiXr8Eh7SuTDnB2daCP8Ap0ECPgnLOuIjwRxEN3OPnkG3J9Q8XqtRh9wT2scGWJrP1DBa4JhwamQ/66+Utxpgq2NsBVwJHaw94oTVNc1AJj6HVdIYkn1eXW6PXYrZpN0Z8z69h0SqcOxC/rQxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=LI0hDo9I; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1787325443; c=relaxed/simple;
+	bh=rAti/Zn6DkTzycBF1dJWEf3z6/b/B89LYvt8bIarUos=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=Io5pdenT5Ov3G7ChK1W3aOPHyoXG+lQ48Crf2QPNX9vijN406ehh+djoOsAVTaNfTeSjmSwSUD9cxU+tp4WxZX265CD7WKE7Vo4uVmmpT4ew/q62F3IvqjCa8j+Ed/XaB3yXAmYy1wNNyU1vGWwVG0Idawve4YQ5A+cUvVv70h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jMRmZ+ub; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="LI0hDo9I"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-902e4af2d9dso14831216d6.0
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 08:13:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1787325180; x=1787929980; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BcMxKm5nDd1kF3AkEvyGfAsjqHkfBXm/NNZRhfLOvTU=;
-        b=LI0hDo9IiOUAW8S6kepvUJEJE3TgNyDaXJhnA1cd/vKxsfeCX2KD+u+XBhaKjADS0n
-         dd25ep8eRFjwCWWM9I6VPrdF1zCoPDydvMD+OT8R+YlQuK2yjtDKS1dKVEfcT24vF0Qi
-         2+/34rvuKkwdrFZjZ2kHcNUnzt4791/suW8qI0OurV+6vIPoRsuPqxATUXVBYWVgl+IK
-         hNqrhJnf6bJZtKZbGX7c8uM/QbQcLRSQWmIgSqhJob5giiDWZ8DQrNXW8aZPD09J3s8Z
-         L8yXczZ2O6Gjjcod5cOVCNFWbnL3eamBIq2DBqv8nAKYkF6v69J4iTD3fnltM+2GOLZv
-         R5hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787325180; x=1787929980;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BcMxKm5nDd1kF3AkEvyGfAsjqHkfBXm/NNZRhfLOvTU=;
-        b=ItW64vHr/5+WFxs9SLEuZRoauVm1gGWKRjYjudoqaeJXxgYXomx4UiGUrN+fnwg/ig
-         Z4gCK4y5JjEBLjF4nU8jtM/U3SsG/bv7Qzv5htlb3amDuCXdyPPWIxecAB53owtytgXN
-         faTm4PSqhr7r3ktcWS2zGC+3AztmcW+LKD3pYOjVICVFFgM+bMNZ3ZFdL56y08dVKxK2
-         ZEtkm52c3IzOVxmL2elESNbOf5kDM4SLJJVz4nKofNsUoTLjyFSVDXZELbfmK46IHjDv
-         N0BbUSWALopKScFGW56bh+/JZ37JyG5KcNCOhF+2IhyhXfJPD/rnZ3hkfudNHuECAt0b
-         r4Qg==
-X-Forwarded-Encrypted: i=1; AHgh+RrWMakkWF1hI0FJ+DjbwmgZBlVj7H/dOYB5ufKalilrooKhd5LioLufYW7vSUrn7fiMYmbw/m8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUGGus+5InabNJcqilQgUR3i7PePPeNKwS+eY0bcCastmkywHm
-	CCzcxTs1G9HLtsvVrt4q28OMaiScKyxuAh4fH3UIhXQRMwMpsPQ3OMMOQ8fPklnELw==
-X-Gm-Gg: AR+sD10IOv2EQ/fvLg7AMzvk0v54D9/6ycJ7TvLDlePPzWJWskBnnvNjfz+mh3kG+yt
-	PzqNpXS+HECY6OJ3ax9+NQ0wn/I3h/M/kmErpkLWtkPlPUPCx/Nfjqc3SszgAWj4OIfH6mxb/Dv
-	42VgFp7TQMvN5EESv+2EJVBKjwgKy+pDXTDF7kK0pwBRRGLCzHbHecYsxhzC+UpNG4cyYGhA7PW
-	cAX/HWP+efS7LKAqLPdJnYXlLjHARPaULj6E7Z7TowvtxZOA2JFwi/wwqetHpjCV7hBa/vP2MH2
-	4O28UTrniAvozCXN3swWGNt7iKa3JR/fM2OY8A4Ki1mZ13wnVTToYHz700dnrql45MslqmtpWxz
-	uboUlgd7TgQJ5pk2yg3jrk6yGqfNlB4TGZ7X+CKRVVNpW4Y2gh9QmqBhRAa6yHJKHLjdpM98xdo
-	UPl2+FAAfRvlh7pafJXQD2LS1PCUYwXoe2FhP8jI3KCqgzdyJ860HN6TEivcf8+A==
-X-Received: by 2002:a05:6214:2f0c:b0:907:bf1e:f888 with SMTP id 6a1803df08f44-90c6ac0dab2mr151739786d6.17.1787325178792;
-        Fri, 21 Aug 2026 08:12:58 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::dfd8])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c5f2905d6sm64457626d6.29.2026.08.21.08.12.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 08:12:58 -0700 (PDT)
-Date: Fri, 21 Aug 2026 11:12:55 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Liu Qi <liuqi@longcheer.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+22ea20ef3afb6785b122@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] usb-storage: ene_ub6250: fix race between scan work
- and probe
-Message-ID: <586aa82d-73c8-4cf7-ae74-4568f97f68db@rowland.harvard.edu>
-References: <20260821090416.1247127-1-liuqi@longcheer.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jMRmZ+ub"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A521F00A3D;
+	Fri, 21 Aug 2026 15:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787325441;
+	bh=m1VXekkZt6ZWgEF8dmC/B7eTTxTwM6mm+nxnhnetuwU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=jMRmZ+ubU4kuYcCyegwI9p/YKLya83cRvb0eRZWBQG1ITNXLIRWVxyaiTN3yVTRlK
+	 Xih+V2BW0MeRmrot6HHwrdsaC68YPA80hBPo2wsbJOrdp2F/6/48WzIdWgfNW0+TT3
+	 nmc3hpUBaesKu8q0EjGSMo6nSjl4rzQ/T5krD1ogQZiTKzFtTKYjMTYCKzjqDX0dX6
+	 5h6vhMNRGDicqf3wfAmxYqxIsBxSZBRio9ENsznzso0FWIKMY5UnQfo8JBaSjhkrdm
+	 1hd09tZOdGWMBUTZ0L91EqqkVgxKnoXz7c2tDUcVQpGFngIwcXZd0kydL3OETrzMgR
+	 UEkc22VYzb3hg==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 5DEBBF40068;
+	Fri, 21 Aug 2026 11:17:20 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Fri, 21 Aug 2026 11:17:20 -0400
+X-ME-Sender: <xms:AGyIaniqX1uhbZoftz2KKM2C6NPCfLDQ2RNHQd_6M-ZqYJcsxHpJeg>
+    <xme:AGyIau04Eu3wcfXSAFfrMihAacq_t_elP6sMKpkhywiwKgpjZQgljHVhMAR-UxdRN
+    w1wQG2Vw_1jLBVlXePL44S3o4fuz3RksJtVcrKiSWYP6nO8gpRzXbzv>
+X-ME-Proxy-Cause: dmFkZTGk045WuMFe57NUgwfAI6Uo3r7ggHdXMlZFoeaae06Efvdqao9l1eF3ew9kDXhMMI
+    jGwUN3ovKWRWnrHu/byEbyQSbRWVb461kKnVsXslIcF4FHhj4QszFN+FckR18I2lQY/hXA
+    LumT2I/5K2hkWuyI+sAxhWQHjkHJC5hyRFVPs+szzqyS2PhxBR+RczDuQ1HCt66L+p+yJt
+    NCL1KGQRSqLXRYzH44bnFnFUxTcUC8uw2Lnxg7t09PxXLiRZ1Ost+46afk6fmpuFv/RIF5
+    Ny0jxDNNoqp3Y8kKm+OkLCgB4HBYRd5bhHqWlmWIf7J9BzkCgGj7lEh9Fb5OoaIiQ6IQGa
+    EUWgLJFQJYTvcX9cKtmazXVOXyLTVSr0GwNnRYaDp04U031rKAVtJlAOaWAtH+MdJ85NTF
+    aZwGt3sBE3lBkvJxptw+jJ3h1rqND5MA8xkCoaI6uAEJmTKHyrQ2vwQML0RbqkmxHXBN6N
+    H6kxl/gcXNQffitD6yHx/R/aWEJDVu2lRthDsWhgctuffzQ0AfGbdGIImznBrkw+hTZ+fV
+    Zxk9xKadhFt+4D9EP44rHm+gW4mtsfLwopAeytGeUVuqZ6BR2ELZ7v+CPdzp7FxhErUQMI
+    3mLIExHjom35XutqFVdB83IEnq0NvPAEy1MdRjA9uoKmIUeLlKmFgJlXNFyA
+X-ME-Proxy: <xmx:AGyIagySRZiBY02LFDgB7EXx_kxn9sv6Bqy3Il7VBplx-5XzaZHY0g>
+    <xmx:AGyIakuth3Oy0IaxFpITEN0TBxJ3AlH0JeGHnRGc-zua2YOaKkFtIA>
+    <xmx:AGyIajAnoapjdKFwuapK7RxW_UIv8ajh6lEcl_B5XwYBS59kBubv9A>
+    <xmx:AGyIamG23qewPdd2p_PW6QVSu6EVuBLfovF2KInbVlOS2Vu4NqBv8A>
+    <xmx:AGyIajAGwUSXKquFtPRUBLhS96OSMDsRwaD_gh7FFils9gJN8hC9vbK7>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 30CA17811F0; Fri, 21 Aug 2026 11:17:20 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821090416.1247127-1-liuqi@longcheer.com>
+X-ThreadId: AWMsfxfueHdw
+Date: Fri, 21 Aug 2026 11:17:00 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Tim Menninger" <tmenninger@everpuredata.com>,
+ "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>
+Cc: "Tom Talpey" <tom@talpey.com>, linux-nfs@vger.kernel.org,
+ stable@vger.kernel.org, slingappa@everpuredata.com, ebadger@everpuredata.com,
+ jcurley@everpuredata.com
+Message-Id: <aa454838-8574-404e-94c8-cca6b15a796c@app.fastmail.com>
+In-Reply-To: <20260820211700.318824-1-tmenninger@everpuredata.com>
+References: <20260818122825.2347594-1-tmenninger@purestorage.com>
+ <20260820211700.318824-1-tmenninger@everpuredata.com>
+Subject: Re: [PATCH v2] xprtrdma: serialize unmap_sync with xprt_disconnect
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 21, 2026 at 05:04:16PM +0800, Liu Qi wrote:
-> ene_ub6250_probe() calls usb_stor_probe2(), which starts the usb-storage
-> infrastructure and schedules the delayed scan work.  The driver then
-> calls ene_get_card_type(), which sends an ENE command through
-> ene_send_scsi_cmd() and the usb-storage bulk transfer helpers.
-> 
-> Both the delayed scan work, through usb_stor_Bulk_max_lun(), and
-> ene_get_card_type() use us->current_urb.  The scan work serializes this
-> access with us->dev_mutex, but the ENE card-type probe does not.  If the
-> scan work runs while ene_get_card_type() is still using us->current_urb,
-> usb_submit_urb() warns that the URB is already active.
-> 
-> Serialize ene_get_card_type() with us->dev_mutex, matching the locking
-> used by the scan path.
-> 
-> Reported-by: syzbot+22ea20ef3afb6785b122@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=22ea20ef3afb6785b122
-> Assisted-by: Qwen:Qwen3.6
-> Signed-off-by: Liu Qi <liuqi@longcheer.com>
-> ---
+Hey Tim -
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+I didn't find any correctness issues in this one.
 
->  drivers/usb/storage/ene_ub6250.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
-> index 2cffc559a..13b332d1d 100644
-> --- a/drivers/usb/storage/ene_ub6250.c
-> +++ b/drivers/usb/storage/ene_ub6250.c
-> @@ -2358,7 +2358,9 @@ static int ene_ub6250_probe(struct usb_interface *intf,
->  		return result;
->  
->  	/* probe card type */
-> +	mutex_lock(&us->dev_mutex);
->  	result = ene_get_card_type(us, REG_CARD_STATUS, info->bbuf);
-> +	mutex_unlock(&us->dev_mutex);
->  	if (result != USB_STOR_XFER_GOOD) {
->  		usb_stor_disconnect(intf);
->  		return USB_STOR_TRANSPORT_ERROR;
-> -- 
-> 2.43.0
+Nits: A few comments were made stale, and a layering change.
+
+
+On Thu, Aug 20, 2026, at 5:17 PM, Tim Menninger wrote:
+> diff --git a/net/sunrpc/xprtrdma/frwr_ops.c b/net/sunrpc/xprtrdma/frwr_ops.c
+> index e5c71cf705a3..77aff9c0533a 100644
+> --- a/net/sunrpc/xprtrdma/frwr_ops.c
+> +++ b/net/sunrpc/xprtrdma/frwr_ops.c
+
+[ ... ]
+
+> @@ -538,40 +541,62 @@ static void frwr_wc_localinv(struct ib_cq *cq, struct ib_wc *wc)
+
+[ ... ]
+
+>  /**
+> - * frwr_unmap_sync - invalidate memory regions that were registered for @req
+> + * frwr_unmap_sync - synchronously invalidate MRs registered for @req
+>   * @r_xprt: controlling transport instance
+> - * @req: rpcrdma_req with a non-empty list of MRs to process
+> + * @req: request whose registered MRs are to be invalidated
+>   *
+> - * Sleeps until it is safe for the host CPU to access the previously mapped
+> - * memory regions. This guarantees that registered MRs are properly fenced
+> - * from the server before the RPC consumer accesses the data in them. It
+> - * also ensures proper Send flow control: waking the next RPC waits until
+> - * this RPC has relinquished all its Send Queue entries.
+> + * If @req still owns registered MRs after synchronizing with transport
+> + * disconnect, post a chain of LOCAL_INV Work Requests and wait for the
+> + * final completion. This fences the mapped regions from remote access
+> + * and preserves Send Queue flow control.
+> + *
+> + * A concurrent disconnect can reset @req while this function waits for
+> + * the read side. In that case the MRs have already been released and no
+> + * LOCAL_INV Work Requests are posted.
+>   */
+
+The rewritten block drops the sleeping behavior the old text carried:
+
+  * Sleeps until it is safe for the host CPU to access the previously mapped
+  * memory regions.
+
+frwr_unmap_sync() now also takes and releases a transport-wide rwsem.
+Both facts belong in a Context: section.
+
+	 * Context: Process context. Takes and releases
+	 *	    @r_xprt->rx_unmap_rwsem for read. May sleep.
+
+[ ... ]
+
+> @@ -598,37 +623,44 @@ void frwr_unmap_sync(struct rpcrdma_xprt *r_xprt, struct rpcrdma_req *req)
+
+[ ... ]
+
+>  	if (bad_wr != first)
+> -		wait_for_completion(&mr->mr_linv_done);
+> -	if (!rc)
+> -		return;
+> +		wait_for_completion(&req->rl_linv_done);
+>
+> -	/* On error, the MRs get destroyed once the QP has drained. */
+> -	trace_xprtrdma_post_linv_err(req, rc);
+> +	if (rc) {
+> +		/* On error, the MRs get destroyed once the QP has drained. */
+> +		trace_xprtrdma_post_linv_err(req, rc);
+>
+> -	/* Force a connection loss to ensure complete recovery.
+> -	 */
+> -	rpcrdma_force_disconnect(ep);
+> +		/* Force a connection loss to ensure complete recovery.
+> +		 */
+> +		rpcrdma_force_disconnect(ep);
+> +	}
+> +
+> +	if (rpcrdma_ep_put(ep))
+> +		rdma_destroy_id(id);
+
+This is not a defect, but it makes frwr_ops.c the only file outside
+verbs.c that destroys a CM ID.  The other three teardowns are all in
+verbs.c: rpcrdma_create_id() on its error path, rpcrdma_ep_create() on
+its error path, and rpcrdma_xprt_disconnect().
+
+The rule that a nonzero return obliges the caller to destroy the CM ID
+lives in a comment above rpcrdma_ep_put():
+
+net/sunrpc/xprtrdma/verbs.c {
+	/*
+	 *     %0 if @ep still has a positive kref count, or
+	 *     %1 if @ep was destroyed successfully.
+	 */
+	noinline int rpcrdma_ep_put(struct rpcrdma_ep *ep)
+	{
+		return kref_put(&ep->re_kref, rpcrdma_ep_destroy);
+	}
+}
+
+A small helper in verbs.c would carry that rule instead of open coding
+the idiom in a second file.
+
+	void rpcrdma_ep_release(struct rpcrdma_ep *ep)
+	{
+		struct rdma_cm_id *id = ep->re_id;
+
+		if (rpcrdma_ep_put(ep))
+			rdma_destroy_id(id);
+	}
+
+That exports rpcrdma_ep_get() and rpcrdma_ep_release() rather than the
+get/put pair.  The local id then goes away, because ib_post_send() can
+read ep->re_id->qp directly while the read side is still held.
+
+[ ... ]
+
+> diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
+> index 04b286223b24..193a90c97f7a 100644
+> --- a/net/sunrpc/xprtrdma/verbs.c
+> +++ b/net/sunrpc/xprtrdma/verbs.c
+
+[ ... ]
+
+> @@ -580,18 +578,22 @@ int rpcrdma_xprt_connect(struct rpcrdma_xprt *r_xprt)
+>   */
+>  void rpcrdma_xprt_disconnect(struct rpcrdma_xprt *r_xprt)
+>  {
+> -	struct rpcrdma_ep *ep = r_xprt->rx_ep;
+> +	struct rpcrdma_ep *ep;
+>  	struct rdma_cm_id *id;
+>  	int rc;
+>
+> +	down_write(&r_xprt->rx_unmap_rwsem);
+> +
+> +	ep = r_xprt->rx_ep;
+
+rpcrdma_xprt_disconnect() now holds rx_unmap_rwsem for write across the
+QP drain and all of the resource teardown.  Its kernel-doc still records
+only the caller-side rule:
+
+  * Caller serializes. Either the transport send lock is held,
+  * or we're being called to destroy the transport.
+
+The rwsem belongs there as well.
+
+The same block goes on to say:
+
+  * On return, @r_xprt is completely divested of all hardware
+  * resources and prepared for the next ->connect operation.
+
+The first half of that no longer holds.  A concurrent frwr_unmap_sync()
+holds an endpoint reference across its completion wait, so
+rpcrdma_ep_put() below returns 0.  The QP, both completion queues, the
+PD and the CM ID then outlive this return.
+
+[ ... ]
+
+> diff --git a/net/sunrpc/xprtrdma/xprt_rdma.h b/net/sunrpc/xprtrdma/xprt_rdma.h
+> index 4cbc941e4a3e..e50b0af5adf8 100644
+> --- a/net/sunrpc/xprtrdma/xprt_rdma.h
+> +++ b/net/sunrpc/xprtrdma/xprt_rdma.h
+
+[ ... ]
+
+> @@ -449,6 +450,12 @@ struct rpcrdma_xprt {
+>  	struct delayed_work	rx_connect_worker;
+>  	struct rpc_timeout	rx_timeout;
+>  	struct rpcrdma_stats	rx_stats;
+> +
+> +	/*
+> +	 * Read side protects sampling rx_ep and posting synchronous LOCAL_INV
+> +	 * WRs; disconnect holds the write side across QP drain and teardown.
+> +	 */
+> +	struct rw_semaphore	rx_unmap_rwsem;
+>  };
+
+This is not a defect, but the comment claims more than the lock
+delivers.  rx_ep is sampled without this rwsem in frwr_mr_init(),
+frwr_map(), frwr_send(), frwr_unmap_async(), frwr_wp_create(),
+rpcrdma_xprt_drain(), rpcrdma_mrs_create(), rpcrdma_mrs_refresh(),
+rpcrdma_rep_create(), rpcrdma_rep_resize() and rpcrdma_post_recvs().
+
+What the read side establishes is narrower: it orders
+frwr_unmap_sync()'s LOCAL_INV submission ahead of the QP drain in
+rpcrdma_xprt_disconnect().  Something closer to:
+
+	/*
+	 * Orders frwr_unmap_sync()'s LOCAL_INV submission ahead of the
+	 * QP drain.  Disconnect holds the write side across the drain
+	 * and resource teardown.
+	 */
+
+> @@ -479,6 +486,8 @@ extern unsigned int xprt_rdma_memreg_strategy;
+>   * Endpoint calls - xprtrdma/verbs.c
+>   */
+>  void rpcrdma_force_disconnect(struct rpcrdma_ep *ep);
+> +void rpcrdma_ep_get(struct rpcrdma_ep *ep);
+> +int rpcrdma_ep_put(struct rpcrdma_ep *ep);
+
+Nothing here says that a return of 1 leaves the CM ID for the caller to
+destroy, which is the rule the frwr_unmap_sync() hunk above open codes.
+
+-- 
+Chuck Lever
