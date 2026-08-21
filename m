@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3410037CD33
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:51:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB8D37C93C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:51:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787331117; cv=none; b=Y7m8R7hOq0u6CPU5D/Xh+tD50uhF+s7FuUD8vCMBSq8PtS2j9ZVoAlhWOh8+WWploYW1ou8bOuQ4ZUTNIJSHNwDLhHvi8p9nIOxihNPzfyu3pJNy+gjbHVkFwFBNmOf5EM3JT3LgLkIc+nPJsQB8RqVziy0rGYK+W6Evv8RlY1M=
+	t=1787331119; cv=none; b=EObJex/0oasFiVSFizFc9QI78agj/3yWgB0EfwG6LSuOTd40/MZrioq91bzBk1rGHJmsq+YgfbjfgRIwdYOPrr3g2KNaYeJxVe6BYCbizZyJ8JiUMKDBLauuxJtqMXvYHlCXDQ/84BruUT4ZGZMMyj/kDmngISga03SnrbvFo/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787331117; c=relaxed/simple;
-	bh=hEkynuIvk3OXG4Q+Tlsea3ooc39dWwcISUtGWIBKOy0=;
+	s=arc-20240116; t=1787331119; c=relaxed/simple;
+	bh=UXNR+cxkzU2vBSEa6t8+6u5gPxGf1pYLdNIgqS0EGXU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KXt2JyKigNmyzTxuMbahznY0L7vIMXMH7fcs1TwFaGBYl2CebI2kHLoD08q1r8lAiNrN4taus0OsHgQPxhTxQxrb/4YaAluFOQbHmblu07U9BJ8chrk4LHpzkDJqjgDi5zdjZa94gOa5gQXWRvlPegX1eU4u+vXdmUpWpb9vlFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcgN5PDC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RTiIrdo8BRVcKjRbCMFFVc7GjMmB90AUi4yF1b6HX+GNnBOl7SP/NiSIyT0Hk6SgR/+uQQcrZJIAfFE5qCdlUheJxyOTy/h3gdwAQ+NzcnyW5Q9tkE3P0J7/z1FXQv3ejPG4jVnEevDLySWvbpHmXLlVSGgijSz8L+ix6JRuDdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Anrjx85E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcgN5PDC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7971F00ADB;
-	Fri, 21 Aug 2026 16:51:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Anrjx85E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E131F0155D;
+	Fri, 21 Aug 2026 16:51:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787331110;
-	bh=ElLTtLn9ZFAbK7mh1bSiYO1k6xo+yebS/r+hkt6Vqp4=;
+	s=k20260515; t=1787331109;
+	bh=DOyrmDmSLqx5mo/S7Mp1ZqmlvXiZ9+LLgMBgPuRZ35Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fcgN5PDCuussMkZtjjWtZP8/xiFUqfBtiQsnpp0KHTiupFi9L5yhsPI/KgkVWYru8
-	 fJK2hZ9ZFYOMfVde4P8VwlagI76ZzhJeVRUFuL2ag6ujvzf1f5rznYZF5pLqmJe7A1
-	 ld5eLsRmvMmW5nnOli5bTJKz67OpNgPwZI5tLaZTWNSCDdMyXBGjD9Xw4oLaD/o+cn
-	 gqHJiRNeZn1KjkC9YirtwvOAOYWoRR84vTTXRnPsze0cO6FV5IETbDzYRVEdJ9558r
-	 n404mRVMLucPg8HdCq10vxmXJMWgr63ShfdaMnk0WB/tY4g+756euyMVQ/HCyaxeYl
-	 JuoNvM+j1s9QA==
+	b=Anrjx85EyDUtAfh1BEWUL6SeAL1wTQMrMH8S3v5fDlxEMIcVHDsJPq4q4flT4GSYK
+	 rZSyKXJN5XkRzgXnHz+MkhnNuycEBaWK8u0VHkZHSgJK3egsH23yu4+QrPJxh6mYnH
+	 OvjPrNDBzjNTL8OUClK9Qu1ScLpJNdWLTMQAHbNXeXDGoqvcrmd7Vy07iaFfWlfBNw
+	 sNif4rOIqb8nr+nSyGY6beamW4TnXgKsCKzgb5uMT3d+dKnrc4dq/NfDeTnYioBctG
+	 h99jxghu3MgBqe9DHZQDlBiVQSGmOORKW7KrBTcZ7RjhaHCZYD22kcQMvwFdFogsGt
+	 4UU69K1TcjShg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/5] inet: frags: change inet_frag_kill() to defer refcount updates
-Date: Fri, 21 Aug 2026 12:51:45 -0400
-Message-ID: <20260821165147.3593301-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] inet: frags: add inet_frag_putn() helper
+Date: Fri, 21 Aug 2026 12:51:43 -0400
+Message-ID: <20260821165147.3593301-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821165147.3593301-1-sashal@kernel.org>
+In-Reply-To: <2026081750-scion-darkened-b02a@gregkh>
 References: <2026081750-scion-darkened-b02a@gregkh>
- <20260821165147.3593301-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,433 +47,174 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit eb0dfc0ef195a04e519b15d73cf25d8c25ee8df7 ]
+[ Upstream commit ae2d90355aa5592b0e99c8bbb4c3fa1d8e205f1b ]
 
-In the following patch, we no longer assume inet_frag_kill()
-callers own a reference.
+inet_frag_putn() can release multiple references
+in one step.
 
-Consuming two refcounts from inet_frag_kill() would lead in UAF.
+Use it in inet_frags_free_cb().
 
-Propagate the pointer to the refs that will be consumed later
-by the final inet_frag_putn() call.
+Replace inet_frag_put(X) with inet_frag_putn(X, 1)
 
 Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20250312082250.1803501-4-edumazet@google.com
+Link: https://patch.msgid.link/20250312082250.1803501-2-edumazet@google.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Stable-dep-of: 653d7ddf6cba ("inet: frags: publish queues before arming timer")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/inet_frag.h                 |  2 +-
- include/net/ipv6_frag.h                 |  2 +-
- net/ieee802154/6lowpan/reassembly.c     | 17 ++++++++------
- net/ipv4/inet_fragment.c                | 12 +++++-----
- net/ipv4/ip_fragment.c                  | 30 ++++++++++---------------
- net/ipv6/netfilter/nf_conntrack_reasm.c | 21 +++++++++--------
- net/ipv6/reassembly.c                   | 18 ++++++++-------
- 7 files changed, 53 insertions(+), 49 deletions(-)
+ include/net/inet_frag.h                 | 4 ++--
+ include/net/ipv6_frag.h                 | 3 ++-
+ net/ieee802154/6lowpan/reassembly.c     | 7 ++++---
+ net/ipv4/inet_fragment.c                | 3 +--
+ net/ipv4/ip_fragment.c                  | 2 +-
+ net/ipv6/netfilter/nf_conntrack_reasm.c | 3 ++-
+ net/ipv6/reassembly.c                   | 4 ++--
+ 7 files changed, 14 insertions(+), 12 deletions(-)
 
 diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
-index 433d72ebb9d66..365925c9d2628 100644
+index fcabb34fff35d..433d72ebb9d66 100644
 --- a/include/net/inet_frag.h
 +++ b/include/net/inet_frag.h
-@@ -126,7 +126,7 @@ int fqdir_init(struct fqdir **fqdirp, struct inet_frags *f, struct net *net);
- void fqdir_pre_exit(struct fqdir *fqdir);
- void fqdir_exit(struct fqdir *fqdir);
+@@ -133,9 +133,9 @@ struct inet_frag_queue *inet_frag_find(struct fqdir *fqdir, void *key);
+ void inet_frag_queue_flush(struct inet_frag_queue *q,
+ 			   enum skb_drop_reason reason);
  
--void inet_frag_kill(struct inet_frag_queue *q);
-+void inet_frag_kill(struct inet_frag_queue *q, int *refs);
- void inet_frag_destroy(struct inet_frag_queue *q);
- struct inet_frag_queue *inet_frag_find(struct fqdir *fqdir, void *key);
+-static inline void inet_frag_put(struct inet_frag_queue *q)
++static inline void inet_frag_putn(struct inet_frag_queue *q, int refs)
+ {
+-	if (refcount_dec_and_test(&q->refcnt))
++	if (refs && refcount_sub_and_test(refs, &q->refcnt))
+ 		inet_frag_destroy(q);
+ }
  
 diff --git a/include/net/ipv6_frag.h b/include/net/ipv6_frag.h
-index ff5644fa976eb..41d9fc6965f9a 100644
+index df61b98b52153..ff5644fa976eb 100644
 --- a/include/net/ipv6_frag.h
 +++ b/include/net/ipv6_frag.h
-@@ -75,7 +75,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
- 		goto out;
+@@ -66,6 +66,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
+ {
+ 	struct net_device *dev = NULL;
+ 	struct sk_buff *head;
++	int refs = 1;
  
- 	fq->q.flags |= INET_FRAG_DROP;
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, &refs);
+ 	rcu_read_lock();
+ 	spin_lock(&fq->q.lock);
+@@ -112,7 +113,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
+ 	spin_unlock(&fq->q.lock);
+ out_rcu_unlock:
+ 	rcu_read_unlock();
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ }
  
- 	/* Paired with the WRITE_ONCE() in fqdir_pre_exit(). */
- 	if (READ_ONCE(fq->q.fqdir->dead)) {
+ /* Check if the upper layer header is truncated in the first fragment. */
 diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
-index 3c988faa48ec2..755847504e72e 100644
+index 26506dd4b357d..3c988faa48ec2 100644
 --- a/net/ieee802154/6lowpan/reassembly.c
 +++ b/net/ieee802154/6lowpan/reassembly.c
-@@ -31,7 +31,8 @@ static const char lowpan_frags_cache_name[] = "lowpan-frags";
- static struct inet_frags lowpan_frags;
- 
- static int lowpan_frag_reasm(struct lowpan_frag_queue *fq, struct sk_buff *skb,
--			     struct sk_buff *prev,  struct net_device *ldev);
-+			     struct sk_buff *prev, struct net_device *ldev,
-+			     int *refs);
- 
- static void lowpan_frag_init(struct inet_frag_queue *q, const void *a)
+@@ -45,6 +45,7 @@ static void lowpan_frag_expire(struct timer_list *t)
  {
-@@ -54,7 +55,7 @@ static void lowpan_frag_expire(struct timer_list *t)
- 	if (fq->q.flags & INET_FRAG_COMPLETE)
- 		goto out;
+ 	struct inet_frag_queue *frag = from_timer(frag, t, timer);
+ 	struct frag_queue *fq;
++	int refs = 1;
  
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, &refs);
+ 	fq = container_of(frag, struct frag_queue, q);
+ 
+@@ -56,7 +57,7 @@ static void lowpan_frag_expire(struct timer_list *t)
+ 	inet_frag_kill(&fq->q);
  out:
  	spin_unlock(&fq->q.lock);
- 	inet_frag_putn(&fq->q, refs);
-@@ -83,7 +84,8 @@ fq_find(struct net *net, const struct lowpan_802154_cb *cb,
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
  }
  
- static int lowpan_frag_queue(struct lowpan_frag_queue *fq,
--			     struct sk_buff *skb, u8 frag_type)
-+			     struct sk_buff *skb, u8 frag_type,
-+			     int *refs)
- {
- 	struct sk_buff *prev_tail;
- 	struct net_device *ldev;
-@@ -144,7 +146,7 @@ static int lowpan_frag_queue(struct lowpan_frag_queue *fq,
- 		unsigned long orefdst = skb->_skb_refdst;
+ static inline struct lowpan_frag_queue *
+@@ -302,13 +303,13 @@ int lowpan_frag_rcv(struct sk_buff *skb, u8 frag_type)
  
- 		skb->_skb_refdst = 0UL;
--		res = lowpan_frag_reasm(fq, skb, prev_tail, ldev);
-+		res = lowpan_frag_reasm(fq, skb, prev_tail, ldev, refs);
- 		skb->_skb_refdst = orefdst;
- 		return res;
- 	}
-@@ -163,11 +165,12 @@ static int lowpan_frag_queue(struct lowpan_frag_queue *fq,
-  *	the last and the first frames arrived and all the bits are here.
-  */
- static int lowpan_frag_reasm(struct lowpan_frag_queue *fq, struct sk_buff *skb,
--			     struct sk_buff *prev_tail, struct net_device *ldev)
-+			     struct sk_buff *prev_tail, struct net_device *ldev,
-+			     int *refs)
- {
- 	void *reasm_data;
- 
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, refs);
- 
- 	reasm_data = inet_frag_reasm_prepare(&fq->q, skb, prev_tail);
- 	if (!reasm_data)
-@@ -306,7 +309,7 @@ int lowpan_frag_rcv(struct sk_buff *skb, u8 frag_type)
- 		int ret, refs = 1;
+ 	fq = fq_find(net, cb, &hdr.source, &hdr.dest);
+ 	if (fq != NULL) {
+-		int ret;
++		int ret, refs = 1;
  
  		spin_lock(&fq->q.lock);
--		ret = lowpan_frag_queue(fq, skb, frag_type);
-+		ret = lowpan_frag_queue(fq, skb, frag_type, &refs);
+ 		ret = lowpan_frag_queue(fq, skb, frag_type);
  		spin_unlock(&fq->q.lock);
  
- 		inet_frag_putn(&fq->q, refs);
+-		inet_frag_put(&fq->q);
++		inet_frag_putn(&fq->q, refs);
+ 		return ret;
+ 	}
+ 
 diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 5b38b414702a7..cfe3b6f585f51 100644
+index 00a4a7ac0d322..5b38b414702a7 100644
 --- a/net/ipv4/inet_fragment.c
 +++ b/net/ipv4/inet_fragment.c
-@@ -260,10 +260,10 @@ void fqdir_exit(struct fqdir *fqdir)
- }
- EXPORT_SYMBOL(fqdir_exit);
- 
--void inet_frag_kill(struct inet_frag_queue *fq)
-+void inet_frag_kill(struct inet_frag_queue *fq, int *refs)
- {
- 	if (del_timer(&fq->timer))
--		refcount_dec(&fq->refcnt);
-+		(*refs)++;
- 
- 	if (!(fq->flags & INET_FRAG_COMPLETE)) {
- 		struct fqdir *fqdir = fq->fqdir;
-@@ -278,7 +278,7 @@ void inet_frag_kill(struct inet_frag_queue *fq)
- 		if (!READ_ONCE(fqdir->dead)) {
- 			rhashtable_remove_fast(&fqdir->rhashtable, &fq->node,
- 					       fqdir->f->rhash_params);
--			refcount_dec(&fq->refcnt);
-+			(*refs)++;
- 		} else {
- 			fq->flags |= INET_FRAG_HASH_DEAD;
- 		}
-@@ -397,9 +397,11 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
- 	*prev = rhashtable_lookup_get_insert_key(&fqdir->rhashtable, &q->key,
- 						 &q->node, f->rhash_params);
- 	if (*prev) {
-+		int refs = 2;
-+
- 		q->flags |= INET_FRAG_COMPLETE;
--		inet_frag_kill(q);
--		inet_frag_destroy(q);
-+		inet_frag_kill(q, &refs);
-+		inet_frag_putn(q, refs);
- 		return NULL;
+@@ -145,8 +145,7 @@ static void inet_frags_free_cb(void *ptr, void *arg)
  	}
- 	return q;
+ 	spin_unlock_bh(&fq->lock);
+ 
+-	if (refcount_sub_and_test(count, &fq->refcnt))
+-		inet_frag_destroy(fq);
++	inet_frag_putn(fq, count);
+ }
+ 
+ static LLIST_HEAD(fqdir_free_list);
 diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 28798cf7faea2..903b99cd0d5a9 100644
+index 66bd7e29f4c71..42a1f6b7acac2 100644
 --- a/net/ipv4/ip_fragment.c
 +++ b/net/ipv4/ip_fragment.c
-@@ -76,7 +76,8 @@ static u8 ip4_frag_ecn(u8 tos)
- static struct inet_frags ip4_frags;
+@@ -112,7 +112,7 @@ static void ip4_frag_free(struct inet_frag_queue *q)
  
- static int ip_frag_reasm(struct ipq *qp, struct sk_buff *skb,
--			 struct sk_buff *prev_tail, struct net_device *dev);
-+			 struct sk_buff *prev_tail, struct net_device *dev,
-+			 int *refs);
- 
- 
- static void ip4_frag_init(struct inet_frag_queue *q, const void *a)
-@@ -107,14 +108,6 @@ static void ip4_frag_free(struct inet_frag_queue *q)
- 		inet_putpeer(qp->peer);
+ static void ipq_put(struct ipq *ipq)
+ {
+-	inet_frag_put(&ipq->q);
++	inet_frag_putn(&ipq->q, 1);
  }
  
--/* Kill ipq entry. It is not destroyed immediately,
-- * because caller (and someone more) holds reference count.
-- */
--static void ipq_kill(struct ipq *ipq)
--{
--	inet_frag_kill(&ipq->q);
--}
--
- static bool frag_expire_skip_icmp(u32 user)
- {
- 	return user == IP_DEFRAG_AF_PACKET ||
-@@ -147,7 +140,7 @@ static void ip_expire(struct timer_list *t)
- 		goto out;
- 
- 	qp->q.flags |= INET_FRAG_DROP;
--	ipq_kill(qp);
-+	inet_frag_kill(&qp->q, &refs);
- 
- 	/* Paired with WRITE_ONCE() in fqdir_pre_exit(). */
- 	if (READ_ONCE(qp->q.fqdir->dead)) {
-@@ -265,7 +258,7 @@ static int ip_frag_reinit(struct ipq *qp)
- }
- 
- /* Add new segment to existing queue. */
--static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb)
-+static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb, int *refs)
- {
- 	struct net *net = qp->q.fqdir->net;
- 	int ihl, end, flags, offset;
-@@ -285,7 +278,7 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb)
- 	if (!(IPCB(skb)->flags & IPSKB_FRAG_COMPLETE) &&
- 	    unlikely(ip_frag_too_far(qp)) &&
- 	    unlikely(err = ip_frag_reinit(qp))) {
--		ipq_kill(qp);
-+		inet_frag_kill(&qp->q, refs);
- 		goto err;
- 	}
- 
-@@ -369,10 +362,10 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb)
- 		unsigned long orefdst = skb->_skb_refdst;
- 
- 		skb->_skb_refdst = 0UL;
--		err = ip_frag_reasm(qp, skb, prev_tail, dev);
-+		err = ip_frag_reasm(qp, skb, prev_tail, dev, refs);
- 		skb->_skb_refdst = orefdst;
- 		if (err)
--			inet_frag_kill(&qp->q);
-+			inet_frag_kill(&qp->q, refs);
- 		return err;
- 	}
- 
-@@ -389,7 +382,7 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb)
- 	err = -EINVAL;
- 	__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
- discard_qp:
--	inet_frag_kill(&qp->q);
-+	inet_frag_kill(&qp->q, refs);
- 	__IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
- err:
- 	kfree_skb_reason(skb, reason);
-@@ -403,7 +396,8 @@ static bool ip_frag_coalesce_ok(const struct ipq *qp)
- 
- /* Build a new IP datagram from all its fragments. */
- static int ip_frag_reasm(struct ipq *qp, struct sk_buff *skb,
--			 struct sk_buff *prev_tail, struct net_device *dev)
-+			 struct sk_buff *prev_tail, struct net_device *dev,
-+			 int *refs)
- {
- 	struct net *net = qp->q.fqdir->net;
- 	struct iphdr *iph;
-@@ -411,7 +405,7 @@ static int ip_frag_reasm(struct ipq *qp, struct sk_buff *skb,
- 	int len, err;
- 	u8 ecn;
- 
--	ipq_kill(qp);
-+	inet_frag_kill(&qp->q, refs);
- 
- 	ecn = ip_frag_ecn_table[qp->ecn];
- 	if (unlikely(ecn == 0xff)) {
-@@ -489,7 +483,7 @@ int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
- 
- 		spin_lock(&qp->q.lock);
- 
--		ret = ip_frag_queue(qp, skb);
-+		ret = ip_frag_queue(qp, skb, &refs);
- 
- 		spin_unlock(&qp->q.lock);
- 		inet_frag_putn(&qp->q, refs);
+ /* Kill ipq entry. It is not destroyed immediately,
 diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
-index ef07689cfb2a2..9f935fa1d3126 100644
+index aee6d8eee8c9f..ef07689cfb2a2 100644
 --- a/net/ipv6/netfilter/nf_conntrack_reasm.c
 +++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
-@@ -124,7 +124,8 @@ static void __net_exit nf_ct_frags6_sysctl_unregister(struct net *net)
- #endif
+@@ -449,6 +449,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	struct frag_hdr *fhdr;
+ 	struct frag_queue *fq;
+ 	struct ipv6hdr *hdr;
++	int refs = 1;
+ 	u8 prevhdr;
  
- static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
--			     struct sk_buff *prev_tail, struct net_device *dev);
-+			     struct sk_buff *prev_tail, struct net_device *dev,
-+			     int *refs);
+ 	/* Jumbo payload inhibits frag. header */
+@@ -491,7 +492,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	}
  
- static inline u8 ip6_frag_ecn(const struct ipv6hdr *ipv6h)
- {
-@@ -168,7 +169,8 @@ static struct frag_queue *fq_find(struct net *net, __be32 id, u32 user,
- 
- 
- static int nf_ct_frag6_queue(struct frag_queue *fq, struct sk_buff *skb,
--			     const struct frag_hdr *fhdr, int nhoff)
-+			     const struct frag_hdr *fhdr, int nhoff,
-+			     int *refs)
- {
- 	unsigned int payload_len;
- 	struct net_device *dev;
-@@ -222,7 +224,7 @@ static int nf_ct_frag6_queue(struct frag_queue *fq, struct sk_buff *skb,
- 			 * this case. -DaveM
- 			 */
- 			pr_debug("end of fragment not rounded to 8 bytes.\n");
--			inet_frag_kill(&fq->q);
-+			inet_frag_kill(&fq->q, refs);
- 			return -EPROTO;
- 		}
- 		if (end > fq->q.len) {
-@@ -288,7 +290,7 @@ static int nf_ct_frag6_queue(struct frag_queue *fq, struct sk_buff *skb,
- 		unsigned long orefdst = skb->_skb_refdst;
- 
- 		skb->_skb_refdst = 0UL;
--		err = nf_ct_frag6_reasm(fq, skb, prev, dev);
-+		err = nf_ct_frag6_reasm(fq, skb, prev, dev, refs);
- 		skb->_skb_refdst = orefdst;
- 
- 		/* After queue has assumed skb ownership, only 0 or
-@@ -302,7 +304,7 @@ static int nf_ct_frag6_queue(struct frag_queue *fq, struct sk_buff *skb,
- 	return -EINPROGRESS;
- 
- insert_error:
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, refs);
- err:
- 	skb_dst_drop(skb);
- 	return -EINVAL;
-@@ -316,13 +318,14 @@ static int nf_ct_frag6_queue(struct frag_queue *fq, struct sk_buff *skb,
-  *	the last and the first frames arrived and all the bits are here.
-  */
- static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
--			     struct sk_buff *prev_tail, struct net_device *dev)
-+			     struct sk_buff *prev_tail, struct net_device *dev,
-+			     int *refs)
- {
- 	void *reasm_data;
- 	int payload_len;
- 	u8 ecn;
- 
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, refs);
- 
- 	ecn = ip_frag_ecn_table[fq->ecn];
- 	if (unlikely(ecn == 0xff))
-@@ -374,7 +377,7 @@ static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
- 	return 0;
- 
- err:
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, refs);
- 	return -EINVAL;
+ 	spin_unlock_bh(&fq->q.lock);
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ 	return ret;
  }
- 
-@@ -485,7 +488,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
- 
- 	spin_lock_bh(&fq->q.lock);
- 
--	ret = nf_ct_frag6_queue(fq, skb, fhdr, nhoff);
-+	ret = nf_ct_frag6_queue(fq, skb, fhdr, nhoff, &refs);
- 	if (ret == -EPROTO) {
- 		skb->transport_header = savethdr;
- 		ret = 0;
+ EXPORT_SYMBOL_GPL(nf_ct_frag6_gather);
 diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
-index 8969b61779fc0..ab24d8ca3b134 100644
+index 225a23f7fefa7..8969b61779fc0 100644
 --- a/net/ipv6/reassembly.c
 +++ b/net/ipv6/reassembly.c
-@@ -68,7 +68,8 @@ static u8 ip6_frag_ecn(const struct ipv6hdr *ipv6h)
- static struct inet_frags ip6_frags;
+@@ -380,7 +380,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
+ 	fq = fq_find(net, fhdr->identification, hdr, iif);
+ 	if (fq) {
+ 		u32 prob_offset = 0;
+-		int ret;
++		int ret, refs = 1;
  
- static int ip6_frag_reasm(struct frag_queue *fq, struct sk_buff *skb,
--			  struct sk_buff *prev_tail, struct net_device *dev);
-+			  struct sk_buff *prev_tail, struct net_device *dev,
-+			  int *refs);
+ 		spin_lock(&fq->q.lock);
  
- static void ip6_frag_expire(struct timer_list *t)
- {
-@@ -105,7 +106,7 @@ fq_find(struct net *net, __be32 id, const struct ipv6hdr *hdr, int iif)
- 
- static int ip6_frag_queue(struct frag_queue *fq, struct sk_buff *skb,
- 			  struct frag_hdr *fhdr, int nhoff,
--			  u32 *prob_offset)
-+			  u32 *prob_offset, int *refs)
- {
- 	struct net *net = dev_net(skb_dst(skb)->dev);
- 	int offset, end, fragsize;
-@@ -220,7 +221,7 @@ static int ip6_frag_queue(struct frag_queue *fq, struct sk_buff *skb,
- 		unsigned long orefdst = skb->_skb_refdst;
- 
- 		skb->_skb_refdst = 0UL;
--		err = ip6_frag_reasm(fq, skb, prev_tail, dev);
-+		err = ip6_frag_reasm(fq, skb, prev_tail, dev, refs);
- 		skb->_skb_refdst = orefdst;
- 		return err;
- 	}
-@@ -238,7 +239,7 @@ static int ip6_frag_queue(struct frag_queue *fq, struct sk_buff *skb,
- 	__IP6_INC_STATS(net, ip6_dst_idev(skb_dst(skb)),
- 			IPSTATS_MIB_REASM_OVERLAPS);
- discard_fq:
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, refs);
- 	__IP6_INC_STATS(net, ip6_dst_idev(skb_dst(skb)),
- 			IPSTATS_MIB_REASMFAILS);
- err:
-@@ -254,7 +255,8 @@ static int ip6_frag_queue(struct frag_queue *fq, struct sk_buff *skb,
-  *	the last and the first frames arrived and all the bits are here.
-  */
- static int ip6_frag_reasm(struct frag_queue *fq, struct sk_buff *skb,
--			  struct sk_buff *prev_tail, struct net_device *dev)
-+			  struct sk_buff *prev_tail, struct net_device *dev,
-+			  int *refs)
- {
- 	struct net *net = fq->q.fqdir->net;
- 	unsigned int nhoff;
-@@ -262,7 +264,7 @@ static int ip6_frag_reasm(struct frag_queue *fq, struct sk_buff *skb,
- 	int payload_len;
- 	u8 ecn;
- 
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, refs);
- 
- 	ecn = ip_frag_ecn_table[fq->ecn];
- 	if (unlikely(ecn == 0xff))
-@@ -320,7 +322,7 @@ static int ip6_frag_reasm(struct frag_queue *fq, struct sk_buff *skb,
- 	rcu_read_lock();
- 	__IP6_INC_STATS(net, __in6_dev_stats_get(dev, skb), IPSTATS_MIB_REASMFAILS);
- 	rcu_read_unlock();
--	inet_frag_kill(&fq->q);
-+	inet_frag_kill(&fq->q, refs);
- 	return -1;
- }
- 
-@@ -386,7 +388,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
- 
- 		fq->iif = iif;
- 		ret = ip6_frag_queue(fq, skb, fhdr, IP6CB(skb)->nhoff,
--				     &prob_offset);
-+				     &prob_offset, &refs);
+@@ -389,7 +389,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
+ 				     &prob_offset);
  
  		spin_unlock(&fq->q.lock);
- 		inet_frag_putn(&fq->q, refs);
+-		inet_frag_put(&fq->q);
++		inet_frag_putn(&fq->q, refs);
+ 		if (prob_offset) {
+ 			__IP6_INC_STATS(net, __in6_dev_get_safely(skb->dev),
+ 					IPSTATS_MIB_INHDRERRORS);
 -- 
 2.53.0
 
