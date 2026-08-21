@@ -1,125 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21FF4A33ED;
-	Fri, 21 Aug 2026 14:19:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75555367B8C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787321987; cv=none; b=THVjQvpFnozQ488p7oySoYMMvHpKHhO2+MPc1yydMI2hvY2UtUETfnEHKfWms3rAcfh8D6UAdF927Z1dzBZBJmwMRgAWYhCVExYOlAfZaku5BRHuUDyT2pv7zA2sBW1Ie6pgb8y5ScA7i9GEVE1M69LeuDl0zLZU9rMqh+yFnPE=
+	t=1787322018; cv=none; b=c0a1nP/ThVVWl03IhyOgJTFmYZt7gWj7gTPlKyh7snLZDkveyR+Sd7CXOordiKP+b0ZXjoxPa5tdSUQZQk7DE+68uCiW5SB22+YaYmyfMOzrjgx7CzuFMghuIry5WdGjAW8fSVOPdGT4YpsMETLBEFoBT19zxQm1o/cqT+7c8XQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787321987; c=relaxed/simple;
-	bh=z8iAxAemn/0JgPj6PTSNSzKHXE5ttv1nlKOgH4UXlm8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E5XECGy5kDE7sB1MaE8/5wyVKBDza5rzXyGcA5VgRrtvdagfuTkoznQaqRsN+Vk56XMwGHNzf8N9xMkOghTCyisisesPBlOyRkbjX6JY55zR6LTSPJuQZF0g+JOFvu1337Fakep1uWDeRVQkzE6MNtDJOlb9UaYUVHbFHTJQvfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=By29JeCu; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787322018; c=relaxed/simple;
+	bh=r1X4q7hNDd9s5za+Q46XiIr36j0y78vJqBuoYCKMvgM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ef5jwHoazZoP/H52RPEULg1afcGUTl1JohWFURmUK+g5L7CpoNNnE6yQcoJ15jX3njJu1vDi73XMKgmNAdBTNt+3fS0XNg+JIoJBtSYqJuw2IpZEHR4ZVkg1HWXWMyR14HTdMIeL9LKVRhYnWwFV2+TLjtATP+B/3Vdel3V7W0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GJXcNE2J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="By29JeCu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787321983; x=1818857983;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=z8iAxAemn/0JgPj6PTSNSzKHXE5ttv1nlKOgH4UXlm8=;
-  b=By29JeCuRTobaYhar3chWXsfBir37LIYmJCTSzVBaP6eGj9ODygjQgML
-   tfEeUb0DxuDH9Io2yfeDakVSBD2MW6xcK8rbgGf2L36Y+Rh/iT0SmCakM
-   2+VrwuFIfnWqnojW9zip2EpfLq1k0KfaKxhojHT9BQm+y8evrZonctT2F
-   uYcabk4gJ8pNCgcxz8v54B+0u/k6pv5QX6qzqG+G7pRlvqKUGfeTAnfN0
-   7J4Lv+GLrov5YqyvxX/sa+BBQIsKuPoAVcRPk+Es784NoQfzYWLaXWegb
-   8tEadEONvVp2Ujgr+jCW8ZPaZaWKyNCfR5BR+g7xC+TISsn20rPV9Y6Yr
-   Q==;
-X-CSE-ConnectionGUID: E4RcGwZQS9+Kqrx/DExk5Q==
-X-CSE-MsgGUID: HMVzLKmvTnmUDslp7CXLRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="99227885"
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="99227885"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 07:19:41 -0700
-X-CSE-ConnectionGUID: Z41FSKHpRRClrP8NuXTugg==
-X-CSE-MsgGUID: JRl2iDgJTUeeglFRpLcyOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="269840184"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.20])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 07:19:37 -0700
-Date: Fri, 21 Aug 2026 17:19:33 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Chang =?utf-8?B?Smlvbmco5bi454KvKQ==?= <xspeed1989@gmail.com>,
-	intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	=?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
-	"open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS" <intel-xe@lists.freedesktop.org>,
-	"open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/i915/cdclk: Don't force cd2x pipe select on Xe3
- in bxt_sanitize_cdclk()
-Message-ID: <aohedWm6CXXBWf-G@intel.com>
-References: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
- <20260816062344.796615-1-xspeed1989@gmail.com>
- <c4dead5d0527e305f44ddb943f95e9967ec1911f@intel.com>
- <c779c8e8fc78c68aea12c2022b2d8c64541ca173@intel.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GJXcNE2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4501F000E9;
+	Fri, 21 Aug 2026 14:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787322015;
+	bh=cWhz1jqwo9x40ES2BI9XXAe2fdtpdgqRmdh/co/rV1c=;
+	h=Subject:To:Cc:From:Date;
+	b=GJXcNE2JObDQsPTnoSWK48asPPiNBAPggQL5SjHhGpp9h2bBescWw4Az6C7JZneMZ
+	 n59wRyeq/Ww9e7ZHxYVxD+iSi0Ae7pVH++xTWRHEDf0g4ouJttnG6PdINSnW9U1NCc
+	 G21sFOPC7xj6QmXpL2CK7F3phmW6SYrxHgXxxFfo=
+Subject: FAILED: patch "[PATCH] mmc: atmel-mci: Fix use-after-free in atmci_remove due to" failed to apply to 6.1-stable tree
+To: xiaopei01@kylinos.cn,ulfh@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 21 Aug 2026 16:09:48 +0200
+Message-ID: <2026082147-enable-juggling-0745@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c779c8e8fc78c68aea12c2022b2d8c64541ca173@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-On Wed, Aug 19, 2026 at 12:33:56PM +0300, Jani Nikula wrote:
-> On Tue, 18 Aug 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> > On Sun, 16 Aug 2026, Chang Jiong(常炯) <xspeed1989@gmail.com> wrote:
-> >> Since commit 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
-> >> without a full PLL re-enable") bxt_sanitize_cdclk() normalizes the
-> >> CD2X pipe select field of the CDCLK_CTL readback to PIPE_NONE before
-> >> comparing against the expected value.
-> >>
-> >> However bxt_cdclk_ctl() does not include the CD2X pipe select field
-> >> at all on DISPLAY_VER() >= 30, so on Xe3 (PTL) the normalized
-> >> readback (pipe field forced to the PIPE_NONE encoding, 0b111) can
-> >> never match the expected value (pipe field 0). The comparison now
-> >> fails on every boot and we always take the full CDCLK PLL
-> >> disable+re-enable path with the BIOS framebuffer actively scanning
-> >> out - exactly what this code was trying to avoid. On a Panther Lake
-> >> laptop (Arc B390, 8086:b080, eDP 3120x2080@120) this causes
-> >> "CPU pipe A FIFO underrun" during probe and persistent full-screen
-> >> scanout corruption for the first KMS client (the SDDM greeter);
-> >> the corruption lasts until the next full modeset.
-> >>
-> >> Only normalize the CD2X pipe select field on platforms where
-> >> bxt_cdclk_ctl() actually programs it, mirroring its DISPLAY_VER()
-> >> check.
-> >>
-> >> Fixes: 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Chang Jiong(常炯) <xspeed1989@gmail.com>
-> >
-> > Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8550
-> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8569
-> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8901
-> >
-> > The first one has a patch from Ville that is identical to this one.
-> >
-> > I'll try to kick CI to get this tested before merging.
-> 
-> Okay, the patch is against some stable kernel, not against the current
-> development tree. Please rebase on top of the drm-tip branch of the
-> drm-tip repository.
 
-I pushed my original fix and closed the other bugs as duplicates.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
--- 
-Ville Syrjälä
-Intel
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x c125ee35a49a0518521b52b27631eef061b8719a
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082147-enable-juggling-0745@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From c125ee35a49a0518521b52b27631eef061b8719a Mon Sep 17 00:00:00 2001
+From: Pei Xiao <xiaopei01@kylinos.cn>
+Date: Mon, 3 Aug 2026 17:48:21 +0800
+Subject: [PATCH] mmc: atmel-mci: Fix use-after-free in atmci_remove due to
+ race condition
+
+In atmci_probe, &host->bh_work is bound with atmci_work_func, and
+atmci_interrupt, atmci_timeout_timer and atmci_dma_complete can all
+queue this work on system_bh_wq.
+
+If we remove the module, atmci_remove makes cleanup and the memory
+allocated for host with devm_kzalloc() is released after the remove
+callback returns, while the work mentioned above may still be pending
+or running. The sequence of operations that may lead to a UAF bug is
+as follows:
+
+CPU0                                      CPU1
+
+                                          | atmci_interrupt
+                                          | queue_work(system_bh_wq,
+                                          |            &host->bh_work)
+atmci_remove                              |
+atmci_cleanup_slot(...)                   |
+atmci_writel(host, ATMCI_IDR, ~0UL)       |
+timer_delete_sync(&host->timer)           |
+dma_release_channel(host->dma.chan)       |
+free_irq(platform_get_irq(pdev, 0), host) |
+                                          | atmci_work_func
+                                          | // use host
+// devm resources released after          |
+// remove returns, host is freed          |
+                                          | // use host (use-after-free)
+
+Fix it by canceling the work after all the sources that can schedule
+it (IRQ handler, timeout timer and DMA completion callback) have been
+stopped, and before proceeding with the remaining cleanup in
+atmci_remove.
+
+Fixes: 7d2be0749a59 ("atmel-mci: Driver for Atmel on-chip MMC controllers")
+Assisted-by: Codex:deepseek-v4-flash
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+
+diff --git a/drivers/mmc/host/atmel-mci.c b/drivers/mmc/host/atmel-mci.c
+index 3b4928f5b9b2..8f4df250a77a 100644
+--- a/drivers/mmc/host/atmel-mci.c
++++ b/drivers/mmc/host/atmel-mci.c
+@@ -2610,6 +2610,8 @@ static void atmci_remove(struct platform_device *pdev)
+ 
+ 	free_irq(platform_get_irq(pdev, 0), host);
+ 
++	cancel_work_sync(&host->bh_work);
++
+ 	clk_disable_unprepare(host->mck);
+ 
+ 	pm_runtime_disable(dev);
+
