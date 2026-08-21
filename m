@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97B23793CA
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 03:59:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEDD25CC57
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 03:59:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787284767; cv=none; b=kgrL1TscB17mmpHi6fIhXXcxJrmzhSzOekbxvEX2D5N0ZrQRG0wtnlO07D61/bPxCJCbn7ly23Ym5m5c5dEbGzOC2I98bfYAv5Gc9kuWHSiPRCG5oxIYCCtJU/aonAAHSOPYtXqjU9THqC4j6sS03ja7Mm+PuvVHqazco40Y1go=
+	t=1787284772; cv=none; b=hTlcRnS/E4R/qj4vPzMWpi8dFAqwihE051tCXgwEkinpVYVBSgXmezn1YQu3oq+sH9kWrMNQ7RfuJirb1VioumLTEEDZyq0QT1EqHFIe5XiHxQeD+zVwkfPrqBfDoy3fDesoVOdQmz1IcsDiPUO7K3mWagRbiY63J0iB0/ogyoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787284767; c=relaxed/simple;
-	bh=4Wtl1RzQrMxWyavuiKdH8xAPYp3a8DCOPHpUl6bnH54=;
+	s=arc-20240116; t=1787284772; c=relaxed/simple;
+	bh=+URIo7SY8jj0awB/+nehKTXenK8Ep2W1PuFZZckzNL0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CJXHu4dUYn2YuzpGPGlN7Qg1vcpexQ/2+FSe2s2d7ScBPbFAXy/t22arz+aqwB36Zu80UTIeyYfB7oZkfyMq4eP2kSSgSH0T4NaYa+N7cfzpNLTifrgRAQUGfbiB1XXVkyLSQ6Oi/ZWhwDZUzYPeE+3Cb0a2WWYJCLpebfObiMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbbA4D9o; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=R4mY88DLRagW+Jb+aZ51KpgZ5QoNPcgN9Yi4U0CcWw4gfLyiSl+72YtWiDrzzykbS839SeSIEX8pMLWHBhdXIm0DJwEueaQ7d8pHeWU+rqB1fCc+KqCUej+4vQkROePUMdOQEQcD17E+qe83aSWgWeZlgclgYZIWeED8/KVeLYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MT8Pw3n3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbbA4D9o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086801F000E9;
-	Fri, 21 Aug 2026 03:59:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MT8Pw3n3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047421F000E9;
+	Fri, 21 Aug 2026 03:59:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787284765;
-	bh=m9Nr9wXlw9a3vi6KoxWVegao87dTdIzNN+bYmW5ZJ+g=;
+	s=k20260515; t=1787284770;
+	bh=/C/53UmG6ykE579riarMg3eMXTn05RkTlHbmRQVx0EY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RbbA4D9oOTAKOmHXlC4QRoyw2aMwEabFJE/DrP98TFl+Rt/mTB/9SFnBqvrBVrP53
-	 32fPXF2ZKN7d2PEuSJmzc14ooGrW2YbNqne+8x3BdUcD0dkrmcb015xQv1D4kM/swP
-	 3jFX/l9eVCemDx8ItJetnOujat/PutY2+assEC74vZIUWU0gOqnuIuwwjLgfAundxe
-	 2wjmx2b5pM/lnke1qgUXwkSjRz5YcGRlcPLiZaFnf+JXmLF22cVJSch1OeO8DPd44x
-	 2DdJAOTAX780fp5E69YCRDeWw0A7p9+NHhPE4Bu8Pq4m5r6nHaLDhVnnhLOCo6dHQZ
-	 bygTbVEfkK7Dg==
+	b=MT8Pw3n39BiQwjSlygxxssxTdv2I/LsE6caVLXoqqkOL9z6zQIqXAJuZ9okEwbfoG
+	 mEBlgLYyE6dOJchlPkwmXpg3ihplE/a1lnm1ufeMUf/gaE+fZk4PhB4qEvFPkWVaB7
+	 LbkgnQsInotYAxoiXhmVwyPVT55zego2AYfPk+MyUNtqUb0CEoZn6AnO27GLXcU+k8
+	 cQKtyZkVJdyEeBL75WCw6Bkikerb4FJrupyjnT033/71hP7r3iAU43iCc/tYtY4jIb
+	 31tBYd3uD0cJzx9ZYKFKMCRWBj+L2fbERaUzFmV9SPgiySsKn3tz4qhxPc/yrgjRkb
+	 kshaFL7KeMhrA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Amit Cohen <amcohen@nvidia.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] NTB: ntb_netdev: Preserve RX queue depth on allocation failure
-Date: Thu, 20 Aug 2026 23:59:23 -0400
-Message-ID: <20260821035923.2524987-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] net: ipv4: Publish fib_nlmsg_size()
+Date: Thu, 20 Aug 2026 23:59:27 -0400
+Message-ID: <20260821035928.2525228-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081710-dwindling-extenuate-15ef@gregkh>
-References: <2026081710-dwindling-extenuate-15ef@gregkh>
+In-Reply-To: <2026081713-siesta-mute-edca@gregkh>
+References: <2026081713-siesta-mute-edca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +47,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+From: Amit Cohen <amcohen@nvidia.com>
 
-[ Upstream commit d2121faf133ac3bf9531b53a7e21273649a08517 ]
+[ Upstream commit 1e7bdec6bbc7816cdc6a093374f4bf4e732c3d44 ]
 
-ntb_netdev_rx_handler() hands the received skb to the network stack
-before allocating its replacement. If the allocation fails, nothing is
-reposted. Every failure therefore takes one buffer out of the RX queue
-while the interface remains up, and enough failures eventually stall
-reception.
+Publish fib_nlmsg_size() to allow it to be used later on from
+fib_alias_hw_flags_set().
 
-A retry path could refill the queue later, but ntb_netdev has none.
-Allocate the replacement first instead. If that fails, drop the packet
-and repost the same skb. This keeps the queue full and lets packet
-delivery resume as soon as memory is available again.
+Remove the inline keyword since it shouldn't be used inside C files.
 
-Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://patch.msgid.link/20260806032537.3526498-1-den@valinux.co.jp
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ kept HEAD's `struct net_device *ndev = qp_data;` declaration instead of the per-queue context variables, adding only `new_skb` to the existing `skb` declaration ]
+Signed-off-by: Amit Cohen <amcohen@nvidia.com>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 4ff9548d8494 ("ipv4: Fix fib_nlmsg_size() for RTA_VIA nexthops")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ntb_netdev.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ net/ipv4/fib_lookup.h    | 1 +
+ net/ipv4/fib_semantics.c | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
-index 535dc5b2901fc..95193a4ab0912 100644
---- a/drivers/net/ntb_netdev.c
-+++ b/drivers/net/ntb_netdev.c
-@@ -100,7 +100,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 				  void *data, int len)
+diff --git a/net/ipv4/fib_lookup.h b/net/ipv4/fib_lookup.h
+index f8fe0da3d9af6..becc52d9f3ac4 100644
+--- a/net/ipv4/fib_lookup.h
++++ b/net/ipv4/fib_lookup.h
+@@ -44,6 +44,7 @@ int fib_dump_info(struct sk_buff *skb, u32 pid, u32 seq, int event,
+ 		  struct fib_rt_info *fri, unsigned int flags);
+ void rtmsg_fib(int event, __be32 key, struct fib_alias *fa, int dst_len,
+ 	       u32 tb_id, const struct nl_info *info, unsigned int nlm_flags);
++size_t fib_nlmsg_size(struct fib_info *fi);
+ 
+ static inline void fib_result_assign(struct fib_result *res,
+ 				     struct fib_info *fi)
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index e0370462293c1..e82cae18e4aa5 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -460,7 +460,7 @@ int ip_fib_check_default(__be32 gw, struct net_device *dev)
+ 	return -1;
+ }
+ 
+-static inline size_t fib_nlmsg_size(struct fib_info *fi)
++size_t fib_nlmsg_size(struct fib_info *fi)
  {
- 	struct net_device *ndev = qp_data;
--	struct sk_buff *skb;
-+	struct sk_buff *skb, *new_skb;
- 	int rc;
- 
- 	skb = data;
-@@ -115,6 +115,12 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		goto enqueue_again;
- 	}
- 
-+	new_skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
-+	if (!new_skb) {
-+		ndev->stats.rx_dropped++;
-+		goto enqueue_again;
-+	}
-+
- 	skb_put(skb, len);
- 	skb->protocol = eth_type_trans(skb, ndev);
- 	skb->ip_summed = CHECKSUM_NONE;
-@@ -127,12 +133,7 @@ static void ntb_netdev_rx_handler(struct ntb_transport_qp *qp, void *qp_data,
- 		ndev->stats.rx_bytes += len;
- 	}
- 
--	skb = netdev_alloc_skb(ndev, ndev->mtu + ETH_HLEN);
--	if (!skb) {
--		ndev->stats.rx_errors++;
--		ndev->stats.rx_frame_errors++;
--		return;
--	}
-+	skb = new_skb;
- 
- enqueue_again:
- 	rc = ntb_transport_rx_enqueue(qp, skb, skb->data, ndev->mtu + ETH_HLEN);
+ 	size_t payload = NLMSG_ALIGN(sizeof(struct rtmsg))
+ 			 + nla_total_size(4) /* RTA_TABLE */
 -- 
 2.53.0
 
