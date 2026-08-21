@@ -1,177 +1,188 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA8E379C34
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 04:00:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F210029E0E5
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 04:23:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787284808; cv=none; b=okLGYf8Lw0ixtwF58K7S3IM4GvPgT3VmjFHYUo/hNsx8qz/8PG1jttwHmComySBNS+9u42f5Lu1OTareYJn5d/+UlT2ZAilYFwTBC/aC1/V8d8eWaKjBfPjFLeAfEnp8vmlMnFObSniI4VDSwsOr+BKBcJ5TryQpAbDqJk+sCo4=
+	t=1787286223; cv=none; b=QoLNOLmDMP00yZLmYGr2wAHWDFyI1rT+BuSkZCZQ+YW0lWws+BF+Q/aWalsniGYl+ovzHlsYXxCVUtGrF4e5bisvHxpTIc6KXJ8oN188gOvpco8Cf/j+PO6mmMO/GZilU4QAUiZly+Kxqnn0OU8Tthbn3Hlfq/X1xGzxZSGcdLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787284808; c=relaxed/simple;
-	bh=iUuEP922s/t8x9dQOi252tbFCF04RM/WK/j+CDL6NjU=;
+	s=arc-20240116; t=1787286223; c=relaxed/simple;
+	bh=AjReH63Wp7hU0HenNbUkBd1986hNkzxrbEAQSxSutCc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DixwNt1Tr2yK2FmOTW/lZB7rvUm6DDw+BInR7unX/Uby60z4JuWQSNMqjH9joOKnATV/55exTn84gQ/AEctM8qB/Isd39ezvpqgVjtiAPKtxQyLfM2Gu4GUal+kKdCE0dkv7tag2IdpOHbyTqvR68v4SBFCsgmnu8zn2POQU6co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etbx0egW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cpnPSJwnCPIdP5iRWwyym6MJ/jNfaiCVNUCohezffrBatCfhcuJz2AK+RHcJI8zeOBVaISsBMt6uVGUKq1ma8O7fer5E6npal7goM00nfUhzX7+9tP1eSDb4rInWrT431by28D5dwpwy6F/ZQmZLtGnBaT9d3kYZPkeypE1RKtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNZvbrsv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etbx0egW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34AC91F000E9;
-	Fri, 21 Aug 2026 04:00:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNZvbrsv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E07161F000E9;
+	Fri, 21 Aug 2026 04:23:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787284806;
-	bh=vCLv6mVC3RiSASFeSpxNxW0e9vnP65exErg3U4Dz/pg=;
+	s=k20260515; t=1787286221;
+	bh=AJ7QvM5NyJFnKvZrU/+wmlL6G/FIT8QbSfwqGziZxQg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=etbx0egW1VfvSTbtHsEtWO+F4H9h/xy9iuyk2Ze8KqaVixvtNeRUHDNexrQRYC5nu
-	 hnHRD85eFK5Yc2sT6eXDzX/zF7ojA4XKYm0BxVz81Jo6t061ttew45tku33SPCYY0V
-	 5f5aY3KAkriXPthqKNTTIOwUI45DOLrSb29QWQYeijlVz2IQkxTHkQGvyhKe1rem79
-	 89CkIjj9Mv+4Z44kdCkhoGGQMxj/iZ1aD7FW2YFVae92B/jeHxIt4+0WPNdLFbhZJ4
-	 Hg82Qze61oBCMHBsVNpt4aKmSWzCO+rfrok1NbAAAY1Yz57di8ayCT6rQknUKNKXqR
-	 hO9SRKWD2OImg==
+	b=XNZvbrsvnqZeYe0gqaNWVTgqjR5serP8DjwA9OTLokQeYTf0j64+hWEk/ZoStUORA
+	 3ADE8nV4nEFW0aSXB9XgH08JzWZHAg34HdSQvVSlp6QVnil7V+q6TdsE0CdrZjRXmQ
+	 yGw6YDH2DhwVBDytoa9dtTYZMu/sSveupC51m/avJ+ctZiC+ixIsm5+tcwSzw4t+A8
+	 y+lOF3LpSc7oZ9mvQtZlxSf3OvEKDqXApPQxZnnKuWPsc0T/evuHi81EklcpaFrbP1
+	 gjKMqythYtZCqnK7p1LPplXiE1y6BxKa3/oluvBk5iQF0+tWjRdA8JRa6AktOztqGc
+	 HNC55em2eus3w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>,
-	stable <stable@kernel.org>,
-	Praveen Talari <praveen.talari@oss.qualcomm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	Leo Yan <leo.yan@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] serial: qcom-geni: fix TX DMA buffer flush
-Date: Fri, 21 Aug 2026 00:00:04 -0400
-Message-ID: <20260821040004.2527826-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] perf/core: Fix child_total_time_enabled accounting bug at task exit
+Date: Fri, 21 Aug 2026 00:23:36 -0400
+Message-ID: <20260821042339.2534361-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081743-aghast-resisting-a8ca@gregkh>
-References: <2026081743-aghast-resisting-a8ca@gregkh>
+In-Reply-To: <2026081731-publisher-ship-c8bd@gregkh>
+References: <2026081731-publisher-ship-c8bd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jan Sebastian Götte <linux@jaseg.de>
+From: Yeoreum Yun <yeoreum.yun@arm.com>
 
-[ Upstream commit e3c04834ae1ab5e9cfbe8ac54ec734aa4774249d ]
+[ Upstream commit a3c3c66670cee11eb13aa43905904bf29cb92d32 ]
 
-When transmit flushing a qcom-geni UART during an ongoing TX DMA, the
-UART gets stuck infinitely repeating corrupted TX DMA frames.
+The perf events code fails to account for total_time_enabled of
+inactive events.
 
-The DMA-mode uart_ops does not provide a flush_buffer callback, so an
-in-flight transfer can complete after serial core has reset the transmit
-kfifo, underflowing its length and resubmitting page-sized transfers
-indefinitely. Add one that stops the transfer and clears tx_remaining
-and tx_queued.
+Here is a failure case for accounting total_time_enabled for
+CPU PMU events:
 
-The stop path was also broken: it unmapped the buffer while the serial
-engine could still read it, and never reset the TX DMA state machine.
-Cancel the main sequencer command first, then reset the state machine
-and wait for it before unmapping. Drop the early return so a pending
-mapping is also cleaned up when the main command is inactive.
+  sudo ./perf stat -vvv -e armv8_pmuv3_0/event=0x08/ -e armv8_pmuv3_1/event=0x08/ -- stress-ng --pthread=2 -t 2s
+  ...
 
-The bug can be triggered from userspace with a large write immediately
-followed by TCOFLUSH. A following tcdrain will hang forever. The bug was
-reproduced and this fix was validated on Arduino Uno Q (QRB2210)
-using /dev/ttyHS1.
+  armv8_pmuv3_0/event=0x08/: 1138698008 2289429840 2174835740
+  armv8_pmuv3_1/event=0x08/: 1826791390 1950025700 847648440
+                             `          `          `
+                             `          `          > total_time_running with child
+                             `          > total_time_enabled with child
+                             > count with child
 
-Assisted-by: Claude:claude-5-opus Codex:gpt-5
-Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
-Fixes: 2aaa43c70778 ("tty: serial: qcom-geni-serial: add support for serial engine DMA")
-Cc: stable <stable@kernel.org>
-Reviewed-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260729174105.21838-2-git@jaseg.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Inlined `__qcom_geni_serial_cancel_tx_cmd()` as the existing open-coded cancel/abort block and dropped the `flush_buffer`→`flush_buffer_fifo` rename and `tx_queued` reset, which don't exist in this tree. ]
+  Performance counter stats for 'stress-ng --pthread=2 -t 2s':
+
+       1,138,698,008      armv8_pmuv3_0/event=0x08/                                               (94.99%)
+       1,826,791,390      armv8_pmuv3_1/event=0x08/                                               (43.47%)
+
+The two events above are opened on two different CPU PMUs, for example,
+each event is opened for a cluster in an Arm big.LITTLE system, they
+will never run on the same CPU.  In theory, the total enabled time should
+be same for both events, as two events are opened and closed together.
+
+As the result show, the two events' total enabled time including
+child event is different (2289429840 vs 1950025700).
+
+This is because child events are not accounted properly
+if a event is INACTIVE state when the task exits:
+
+  perf_event_exit_event()
+   `> perf_remove_from_context()
+     `> __perf_remove_from_context()
+       `> perf_child_detach()   -> Accumulate child_total_time_enabled
+         `> list_del_event()    -> Update child event's time
+
+The problem is the time accumulation happens prior to child event's
+time updating. Thus, it misses to account the last period's time when
+the event exits.
+
+The perf core layer follows the rule that timekeeping is tied to state
+change. To address the issue, make __perf_remove_from_context()
+handle the task exit case by passing 'DETACH_EXIT' to it and
+invoke perf_event_state() for state alongside with accounting the time.
+
+Then, perf_child_detach() populates the time into the parent's time metrics.
+
+After this patch, the bug is fixed:
+
+  sudo ./perf stat -vvv -e armv8_pmuv3_0/event=0x08/ -e armv8_pmuv3_1/event=0x08/ -- stress-ng --pthread=2 -t 10s
+  ...
+  armv8_pmuv3_0/event=0x08/: 15396770398 32157963940 21898169000
+  armv8_pmuv3_1/event=0x08/: 22428964974 32157963940 10259794940
+
+   Performance counter stats for 'stress-ng --pthread=2 -t 10s':
+
+      15,396,770,398      armv8_pmuv3_0/event=0x08/                                               (68.10%)
+      22,428,964,974      armv8_pmuv3_1/event=0x08/                                               (31.90%)
+
+[ mingo: Clarified the changelog. ]
+
+Fixes: ef54c1a476aef ("perf: Rework perf_event_exit_event()")
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Tested-by: Leo Yan <leo.yan@arm.com>
+Link: https://lore.kernel.org/r/20250326082003.1630986-1-yeoreum.yun@arm.com
+Stable-dep-of: 42c5ca1f0a28 ("perf/core: Fix group leader use-after-free after sibling detach")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/qcom_geni_serial.c | 51 +++++++++++++++++----------
- 1 file changed, 33 insertions(+), 18 deletions(-)
+ kernel/events/core.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-index ab5b4c6c29de0..91c502e833e16 100644
---- a/drivers/tty/serial/qcom_geni_serial.c
-+++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -144,6 +144,7 @@ static const struct uart_ops qcom_geni_uart_pops;
- static struct uart_driver qcom_geni_console_driver;
- static struct uart_driver qcom_geni_uart_driver;
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 156221bd56615..4557bd86e0edb 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -2446,6 +2446,7 @@ group_sched_out(struct perf_event *group_event,
+ #define DETACH_GROUP	0x01UL
+ #define DETACH_CHILD	0x02UL
+ #define DETACH_DEAD	0x04UL
++#define DETACH_EXIT	0x08UL
  
-+static void qcom_geni_serial_stop_tx_dma(struct uart_port *uport);
- static int qcom_geni_serial_port_setup(struct uart_port *uport);
- 
- static inline struct qcom_geni_serial_port *to_dev_port(struct uart_port *uport)
-@@ -597,35 +598,48 @@ static unsigned int qcom_geni_serial_tx_empty(struct uart_port *uport)
- 	return !readl(uport->membase + SE_GENI_TX_FIFO_STATUS);
- }
- 
-+static void qcom_geni_serial_flush_buffer_dma(struct uart_port *uport)
-+{
-+	struct qcom_geni_serial_port *port = to_dev_port(uport);
-+
-+	qcom_geni_serial_stop_tx_dma(uport);
-+	port->tx_remaining = 0;
-+}
-+
- static void qcom_geni_serial_stop_tx_dma(struct uart_port *uport)
+ /*
+  * Cross CPU call to remove a performance event
+@@ -2459,6 +2460,7 @@ __perf_remove_from_context(struct perf_event *event,
+ 			   struct perf_event_context *ctx,
+ 			   void *info)
  {
- 	struct qcom_geni_serial_port *port = to_dev_port(uport);
- 	bool done;
++	enum perf_event_state state = PERF_EVENT_STATE_OFF;
+ 	unsigned long flags = (unsigned long)info;
  
--	if (!qcom_geni_serial_main_active(uport))
--		return;
-+	if (qcom_geni_serial_main_active(uport)) {
-+		geni_se_cancel_m_cmd(&port->se);
-+
-+		done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
-+						 M_CMD_CANCEL_EN, true);
-+		if (!done) {
-+			geni_se_abort_m_cmd(&port->se);
-+			done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
-+							 M_CMD_ABORT_EN, true);
-+			if (!done)
-+				dev_err_ratelimited(uport->dev, "M_CMD_ABORT_EN not set");
-+			writel(M_CMD_ABORT_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
-+		}
-+
-+		writel(M_CMD_CANCEL_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
+ 	if (ctx->is_active & EVENT_TIME) {
+@@ -2470,16 +2472,19 @@ __perf_remove_from_context(struct perf_event *event,
+ 	 * Ensure event_sched_out() switches to OFF, at the very least
+ 	 * this avoids raising perf_pending_task() at this time.
+ 	 */
+-	if (flags & DETACH_DEAD)
++	if (flags & DETACH_EXIT)
++		state = PERF_EVENT_STATE_EXIT;
++	if (flags & DETACH_DEAD) {
+ 		event->pending_disable = 1;
++		state = PERF_EVENT_STATE_DEAD;
 +	}
+ 	event_sched_out(event, cpuctx, ctx);
++	perf_event_set_state(event, min(event->state, state));
+ 	if (flags & DETACH_GROUP)
+ 		perf_group_detach(event);
+ 	if (flags & DETACH_CHILD)
+ 		perf_child_detach(event);
+ 	list_del_event(event, ctx);
+-	if (flags & DETACH_DEAD)
+-		event->state = PERF_EVENT_STATE_DEAD;
  
- 	if (port->tx_dma_addr) {
-+		writel(1, uport->membase + SE_DMA_TX_FSM_RST);
-+		if (!qcom_geni_serial_poll_bit(uport, SE_DMA_TX_IRQ_STAT,
-+					       TX_RESET_DONE, true))
-+			dev_err_ratelimited(uport->dev, "TX DMA reset failed");
-+		writel(TX_RESET_DONE | TX_DMA_DONE,
-+		       uport->membase + SE_DMA_TX_IRQ_CLR);
-+
- 		geni_se_tx_dma_unprep(&port->se, port->tx_dma_addr,
- 				      port->tx_remaining);
- 		port->tx_dma_addr = 0;
--		port->tx_remaining = 0;
--	}
--
--	geni_se_cancel_m_cmd(&port->se);
--
--	done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
--					 M_CMD_CANCEL_EN, true);
--	if (!done) {
--		geni_se_abort_m_cmd(&port->se);
--		done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
--						 M_CMD_ABORT_EN, true);
--		if (!done)
--			dev_err_ratelimited(uport->dev, "M_CMD_ABORT_EN not set");
--		writel(M_CMD_ABORT_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
+ 	if (!ctx->nr_events && ctx->is_active) {
+ 		if (ctx == &cpuctx->ctx)
+@@ -13046,12 +13051,7 @@ perf_event_exit_event(struct perf_event *event, struct perf_event_context *ctx)
+ 		mutex_lock(&parent_event->child_mutex);
  	}
--
--	writel(M_CMD_CANCEL_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
- }
  
- static void qcom_geni_serial_start_tx_dma(struct uart_port *uport)
-@@ -1600,6 +1614,7 @@ static const struct uart_ops qcom_geni_uart_pops = {
- 	.request_port = qcom_geni_serial_request_port,
- 	.config_port = qcom_geni_serial_config_port,
- 	.shutdown = qcom_geni_serial_shutdown,
-+	.flush_buffer = qcom_geni_serial_flush_buffer_dma,
- 	.type = qcom_geni_serial_get_type,
- 	.set_mctrl = qcom_geni_serial_set_mctrl,
- 	.get_mctrl = qcom_geni_serial_get_mctrl,
+-	perf_remove_from_context(event, detach_flags);
+-
+-	raw_spin_lock_irq(&ctx->lock);
+-	if (event->state > PERF_EVENT_STATE_EXIT)
+-		perf_event_set_state(event, PERF_EVENT_STATE_EXIT);
+-	raw_spin_unlock_irq(&ctx->lock);
++	perf_remove_from_context(event, detach_flags | DETACH_EXIT);
+ 
+ 	/*
+ 	 * Child events can be freed.
 -- 
 2.53.0
 
