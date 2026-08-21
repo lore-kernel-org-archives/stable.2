@@ -1,439 +1,226 @@
-Received: from lankhorst.se (unknown [141.105.120.124])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8761F30D407
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.105.120.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787313569; cv=none; b=JTM2Z456CjiEsbGuZmHGFUxksn6nOy7MwtUZjVqVcy2yTfX1OzbetwpAkzibIxy9Pa+xHLMpxE2iGeO1SRQ2YlReBaI/ezdRePrP09ULQ00up2WIFFY+quUa/A49Emj3Ulmk8nWGh3+wyeQ7FPLXi2jXkVr6iZcCDpyYtz9wuxw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787313569; c=relaxed/simple;
-	bh=JSg3/Azt7phnjbIiq+JJGiUiPr6JZ4M0ueuETB5Eg0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z1i3od8DZVbkzz03OUN/KtvSZAYi9MQaEpr1dXVIE7q/rYnF4FqFt2uFR5Q0qm5RuvsY2RJ9uNipBxNm+9ILq1F4I+r9DlbfhAMuQiRaEc7ULGh8RteYuaQDi5XrIfBXRW6ZgXmYm2iJzuuOERX8pB1LrJ2sYBhWhHtXeZx1h88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lankhorst.se; spf=pass smtp.mailfrom=lankhorst.se; dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.b=bHsNwskp; arc=none smtp.client-ip=141.105.120.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lankhorst.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lankhorst.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9557B48F847;
+	Fri, 21 Aug 2026 12:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787313777; cv=fail; b=Od5vFXZ9e6d+15hTEeAXQuWMLNckGAuP76tbuBR+qxNqak3gkEF+5KKGNE6x2JSZGKC5u/zGdcuFfa4JWb8aKDZ7fy4szYXYsK+3+5gxedG4B4dIS7OvsxXj4q/TZRqdELRFMRvSpjVgU4XOsDyiQHxQmTyEuRxzLod8KNcISN4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787313777; c=relaxed/simple;
+	bh=Zqwr2cPu7P3ZIb7duEoDyhO2068dmT3Y/cWpZjTT/Nw=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=u+lvISQEOsf+lVPzXrXNukChVrbAaI+E9Awoz9nluoiZ2zHzTCDmbMB9llp/7Gg941IbquCDZI6q+SyFMl7b6ohI45J4WNfBtMV9sgaKykc9n9SMsRd4H2OWput0r0T7BQRJkAbfiWa90z4Gk2XBWOr6L4v2Y4i0yS+vCaMYUJo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=N3hgQcHk; arc=fail smtp.client-ip=52.101.53.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lankhorst.se header.i=@lankhorst.se header.b="bHsNwskp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
-	s=default; t=1787313145;
-	bh=JSg3/Azt7phnjbIiq+JJGiUiPr6JZ4M0ueuETB5Eg0M=;
-	h=From:To:Cc:Subject:Date:From;
-	b=bHsNwskpGZJNUqGm5OGd0RAzOcS/lTO/AUJHz+aY/hAnEZ4xMDhaoXXlwWlun4PB3
-	 z4bvYzGSbaB4f9tfVph8sSwtvA0yiPd1SBSi8rv8NnyNk4X7/ld37Dhh9x45FAu305
-	 pSuMo+pWnKX7LZRsTaLs7tr1r/Rom0t8wcCDlBe0JQXKUD2Ip7Rrqj8TfLVG6tkbL1
-	 B7wugSlCNLHP3juxAxsAv8Xh4MxpAA5Awce31gNKWKCX65uCCp/a/p0ruFfvR8NkHJ
-	 1ErmEu86W5GkfMgSn8+d0n1h7MTDHHLbsG/w4KVHGkHlHTVvbZZNg7+8U/MndFOPYv
-	 laTxsIwASKIuA==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org
-Cc: Maarten Lankhorst <dev@lankhorst.se>,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Chris Wilson <chris@chris-wilson.co.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: Use signalers_lock to prevent starvation of irq_work.
-Date: Fri, 21 Aug 2026 13:45:08 +0200
-Message-ID: <20260821114508.25669-1-dev@lankhorst.se>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="N3hgQcHk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GcuAo1Rl+kLTqoS2HxSWgpyOamzcBbQ9N4J9Jl1e9OoPZmy8SCcdaclF3nHHv4KX1fMx0NqYRkTRg4Jfbh0p1iwOQUR09zD5iSAiXCuUOY3/UdXRXYjdIdhwd+VlKsZVdI0gg6ovp/oHx5yq94wyO1PQt87oy3NsmpWMoymjHYH40OpgptTRfSzWDphtHyOmczUuFqcA9+gnK0zyVsX3jWyeJFCCyYOcKOdjz1B4VQ0TPhE+735L7uaXQwxkym3dcQ3wW5ZMSF04VneqAQpAjFK39qi7OaiPUaXF8Jz8gL9bl4EhNORHN34edCfYPBBJd66SdX3rFPoJO42n1+6V0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Sv6w0DSGzxhUaxP2iLlSR8zZnU6CnGi3NvQufHULswg=;
+ b=p4Chm21C6GeiqyDeY5AkzSa6+KMf2QfJaTpX+NHpiwhrqx1RYKFSdqWtOuvBsZcIq3Eb9ubzZ72jfYSEIfNqE8KBnMBM8ak0XVuciEb+Iger5Kdm+N2KrmNVDmPlbSm2ftuP2GwCawAGXx8mrM2h6kHNpPNDZv2Fj5ZBP/Im+aADzX0asWPvIizPRn89dUPkf8WZu05MdLIi4DEZWZP7W+JcCjFi+b1M8pLf3wawmR2NJNkVkMrSoZxXuSd1hZlb+VhhhhdyD4L/3GiIeT+0+M9GZPSlKRoIKD4UOVLE3yQuKAaGI9cRlRex27hGLTosFMW64ZZVJbLEvk8SWgnD+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Sv6w0DSGzxhUaxP2iLlSR8zZnU6CnGi3NvQufHULswg=;
+ b=N3hgQcHkvQJzlVbYbDLj61kwhgRimABcSrfRYBETVRA7fBj3bWNaxDU+a0wrARhcmE6PipC3gmM+LP6n8uaJEtH55VPll3sr2c2XmRfrGrQzU13LykZW5TCWDPJ72IF1R98sYq265eVa1bD/omeO+9pWBa9f1NdhB7H+p8JyfUfm9dQJrZaxeR2Sio6vhbVXS5UZKNu1bEz+z1OfTROUp+NGV7Q8xTxcItwY1o5hJYIVB4SlHAV7DFegbJeOIH08pLvdB+AsQk56oRoz13lckcBOeCX1cPAnDWG19Nba8MnNwcIBn9PxlL4PJ3ZUBb4MeB23fxExQMmNth4+s10iRw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by IA1PR12MB6089.namprd12.prod.outlook.com (2603:10b6:208:3ef::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 12:02:50 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0339.007; Fri, 21 Aug 2026
+ 12:02:49 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 21 Aug 2026 21:02:45 +0900
+Message-Id: <DKULUOXLCWCH.6RUE2BRSAOCT@nvidia.com>
+To: "Younes Akhouayri via B4 Relay" <devnull+git.younes.io@kernel.org>
+Cc: <git@younes.io>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <rust-for-linux@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v3] rust: num: restrict bool conversion to unsigned
+ Bounded
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260815-fix-rust-bounded-from-bool-submit-v3-1-fdca23008397@younes.io>
+In-Reply-To: <20260815-fix-rust-bounded-from-bool-submit-v3-1-fdca23008397@younes.io>
+X-ClientProxiedBy: TY4PR01CA0033.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bd::14) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA1PR12MB6089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c435449-e65d-4d20-4c0d-08deff7c1ee7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|10070799003|366016|22082099003|18002099003|56012099006|6133799003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	hrexfpC3zrP4ZlFtF9v2U+/8Hn+wcY3Hqh5SEZ1V41GGf9vzd3XHSGb4Eso4L2okWY1uFzDPYn+1sZ70r67REo7k2rWZZyiYJwtoP8h2n4T6JCG0KRDvYfRfDMnVFn4NIF34g4GtqA7GBRB8834fsw/HvLQ7irzI+LwOUMK5hc9zLTpycFL8R73ixPlPuRKnS2jHPwhBeOVdI5/wn2X8huGCpP9RhQZcFiNfbLR9jEm8yHcZtVgELd9q3mdjSKT5o5errFCf3ngBYd8OAbklMrIGMdTVxdkXQGjUdaZ0I9NGkVlSyBbXbNI7hyg9a7ws1jAMHTcSf9YlgUqs7L5hh7WbiVQbyXRUo+cB1IDHS+lhkz3OLHtVBIGy5FRACxD+A69teDCSFQXf118H5wEkNmXCvrrE5B+WA1rhqWpCO3LRbMm5QLfftG4499Oas1GbvZbvtdbJQ5UOhD0iuUBhF0llyH2HWJgKQKmEgE/u4jubmZqnvpIAzRFwkBJ/bBJ3Aus6siiQ9+T0vlrMyw97Wk8A8K10s6GJCJs0U7BEGZPYObunW/eLueEJliUxFGl2bKKdtWMfjzgN4vCZA/JNZ01dNKvtRhIVUSHefXIyUs/hDv4tOGxxX7h6Nnx7KoYOVxDdCn1FbV0Vn1hfy7Ihnbq8unJ2OHi1xKhPy5D2K9E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(10070799003)(366016)(22082099003)(18002099003)(56012099006)(6133799003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejluWVFJUDl2RUhJd3M2UWdSL3owa0pJaC8wUjQrVHhKbThiQVo1VFphNS9F?=
+ =?utf-8?B?VlYwZmZ5RU1aRFVLQ2pIWVNFM0FmMHpvaHZTTzdPUGZkcEFSaXFHUndZbi9B?=
+ =?utf-8?B?Y3RJNUJuZ0hoV2FoMEt0Tmdielc2RUNYeDRBZnpocFZ4ckl2Tm9YNG00SjFL?=
+ =?utf-8?B?bGIxcnNzUG1xVzVsb3J1TDVEM3MvbFJTOE42bDBTN2ozZXYxVTlsZU1CNHgr?=
+ =?utf-8?B?Y1h0S2t0WlJNajVpMUtBQ2htZFIvSUV6RGNRNnpvNUU1VDVZODJ4bUgzU05S?=
+ =?utf-8?B?NUZYQ0Y5bDA0NWdYcnZKT2prRk93RldBTkNzWHBQNXd1VHdFdmg5UmtXZ1RO?=
+ =?utf-8?B?M1lwUGtrN0VnZzU4RTN2L2pCcDlHNXRiNTdiTis3dVpNSGFCUGM5aDJOaUtm?=
+ =?utf-8?B?WEdrZ3Uwc2RqNkNqUDZPekwrS2dWM0grSUtBanhad1FRbHAyaXJOTGhDbnpo?=
+ =?utf-8?B?bU00OHRsenU3bjFmcUNtN0hkNXpzcC9xcjI1SXNmMVhXTkt4YzJWeHlNQ1Fp?=
+ =?utf-8?B?d1lVWVQ5R28wcUdjNzlGY2pzSnlLMzJnd3pjOXNBTWZwSDJVNFMvTU1rZnEy?=
+ =?utf-8?B?aDI0SHpwemYyblYzNlBKL2ZNdDJabDd4d2s5ZHcvOWExcHhPT1RIeE5kQkd0?=
+ =?utf-8?B?MEFnbmdMZDdJem9IUGg1NVg0T0FpWXVLdnhHNGVXakFjQjJvOTZnUUZZZ1M3?=
+ =?utf-8?B?TFZoWVg0aW10RWRsVnEzcnNHTHFQWEROSGFseVVOYXFVbTlmTHZzQ25wY0hG?=
+ =?utf-8?B?VnhwYW1Xdk1tUHN1RVNVdEltSkRlMUkzZ3M4RUZEOFVxaWlMNmphRXgwNGdW?=
+ =?utf-8?B?MVFicmZkUlF0Wm93L2xUZnpOWkpUY1hzczBCMk5pNk9XM05Qc1dQWnQrSmFh?=
+ =?utf-8?B?R2Z6aHVrV09XMmZYV05IV2N4aURWVi9PRUxlYjU2bC9xOGpyS2p3ZFFkV296?=
+ =?utf-8?B?VkNZUkFGQXZqQnBSK1hRYWxnZUpwek9lUmpFcHNWQURweVh6NTlDd3hHL0kz?=
+ =?utf-8?B?MEFEYTFZOHpXWmFFZEtmMitoR29ObVNCc0IrdldUQ2lZRXh6eFRtZDkxYjhk?=
+ =?utf-8?B?aGo4KzEvZFYxWThpTlFDd1preHVqdGFYRDZ1MU44UTl3Q1RNeDQ3Z3p5VlpG?=
+ =?utf-8?B?LytaTlZzcHp0QUl1aW12aG1vbkViMkZONWdoa0N3QVZXR09nVHZ4QkJoR0lq?=
+ =?utf-8?B?MTIzbWZGQkUzTU4zZTgvV0JRUkdsVUhqT0JQM0FGbE5HVGtVRWtxNTluUHNi?=
+ =?utf-8?B?KzBQMFNUR04rMk1ZVU41UW5zODBnMnMyYW82bVpaU1RlTUFhcnpmVVFLRXhw?=
+ =?utf-8?B?d3QxNWM3eFBlMjl3ZU5sZjRVcGthSUtDN29JUlMxZHN0VDluK1QwYlkzbXRm?=
+ =?utf-8?B?R2psVkhsSzIydG1kdndVUXFQeklocGRTd25yR2ZqaVhIQ3BzYmplQkdId0dM?=
+ =?utf-8?B?MmFJdGE1cnpvdHF2TCs4UDloVGlINGE2VCs4bHdyMVVBSnBEcHovVFdrRTlW?=
+ =?utf-8?B?ZzE3Qk1sSUlOVTMzWVZmRXEvZkZVeDloSkMxT09TNjFoc2p4eUVSUmpGdmY1?=
+ =?utf-8?B?cytBZnIwS0oyTEdObVR1Vzh4RjBubSs1OUlzRFg3WTRuK3lzM0lPa1VhNlpW?=
+ =?utf-8?B?b3M3RkFNQWNqQ3cyYmk2QWhaK1NuU1VIb2Z5Q3FFN2ZPdlZHd2x4K0tRU3o5?=
+ =?utf-8?B?SncvY3FKUStTN0picVREYTBGNWRMOTZJNzY0d01TM3lzMTdSOEJwVVhqcitm?=
+ =?utf-8?B?YUNyTmtLWWRXYUJoOWxwY1VMRG80OUswTWFmMFZrNWtqQmQwNmhsS25waTQx?=
+ =?utf-8?B?cUpHUlUrU2lIMExXbG9DMDlqUmNQd21WNjlYL00xUGdDK2ErTnhQTC84R1RY?=
+ =?utf-8?B?cGprK1c2a09VZUNBMHRDeHZoc1ZSRkducy80eEw4RkhweUpqVjFKWEtVQ3ZO?=
+ =?utf-8?B?bFNEMjQyb0tyNWNxVU96c25PMllOTE1OUGFFRUdJYlgwUndKWkNibnFDVTJa?=
+ =?utf-8?B?d2FZdW8ra3ZNYTJ1OFR2ZUVuTDB4aWRQOG5UQkY1WU9lSEhXbHR3NS9mYXhZ?=
+ =?utf-8?B?VkVIeXJ5QzM2WnRQWjV5VzMwSGJmdWxjd0FhdHFqNXBXZjkvM0lscHNJWS9a?=
+ =?utf-8?B?UHdPd21uR05teS82MWRBSmJLbkdiYTE4L3ZES3N5NTBpNCt1bWEvbmNwMElv?=
+ =?utf-8?B?UEwxQVorN3VRZmZLd1ZWa01oZjFjMWhjOEdLODZwc2o2VjRwZExObEdibG0x?=
+ =?utf-8?B?OGRNSFFpZ0cvMnRWanRGUGR4dmJBQ050RTZySlNxalRnd095dmljZzBCNW9X?=
+ =?utf-8?B?czBsZ0xNckw5SWNJdXJuZ1FsWHRUY0Z5dHBGNzBsVnYwYkY1ckd2MWd5dEhT?=
+ =?utf-8?Q?HHVYYKMQ4oF/nA8kMcd8S2L1x+9/Cu+rM5cG4HiPhB3xZ?=
+X-MS-Exchange-AntiSpam-MessageData-1: icsmkcsEfqokqA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c435449-e65d-4d20-4c0d-08deff7c1ee7
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 12:02:49.5194
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1nAiOAYOyRcxSETfC+wpdFO18REyJCwZO+fpDExbgeTATeCOW+ZI5VGAsvPBGYmugiFXW+UpauclvmohF2J2ZA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6089
 
-IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
-and the interrupt will poll on signaler_active while the irq-work can't
-make progress.
+On Sun Aug 16, 2026 at 5:12 AM JST, Younes Akhouayri via B4 Relay wrote:
+> From: Younes Akhouayri <git@younes.io>
+>
+> From<bool> turns true into 1. A signed Bounded with N =3D 1 can hold
+> only -1 and 0. The current implementation can therefore create a value
+> that breaks Bounded's invariant. Deref relies on that invariant and
+> calls unreachable_unchecked() when it is broken, so safe Rust can reach
+> undefined behavior.
+>
+> The other primitive conversions require the source and destination to
+> have the same signedness. Treat bool as an unsigned one-bit value and
+> allow this conversion only for unsigned Bounded types.
+>
+> Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+> Closes: https://lore.kernel.org/rust-for-linux/OzuVxu0--J-9@younes.io/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Younes Akhouayri <git@younes.io>
 
-Solve this by adding a global spinlock to prevent starvation and force
-completion.
+Thanks, I think this looks good and limiting the conversion to unsigneds
+is reasonable. If a signed Bounded is needed, the caller can always
+perform another conversion step.
 
-The existing RCU handling gets in the way on PREEMPT_RT, and would likely
-require conversion to raw spinlock to take them inside a
-rcu_read_lock(), so remove RCU as well.
+Just one question below.
 
-This also fixes a case where we dereference the context after freeing
-it, as reported by Shuangpeng Bai:
+> ---
+> Only allow From<bool> for unsigned Bounded types.
+> ---
+> Changes in v3:
+> - Restrict From<bool> to unsigned Bounded types, matching the other
+>   primitive conversions.
+> - Remove the BoolFits helper and signed-width list.
+> - Link to v2: https://lore.kernel.org/rust-for-linux/20260815-fix-rust-bo=
+unded-from-bool-submit-v2-1-aa35bb2c22d1@younes.io/
+>
+> Changes in v2:
+> - Use vertical formatting for the nested `num` import.
+> - Link to v1: https://lore.kernel.org/rust-for-linux/20260815-fix-rust-bo=
+unded-from-bool-submit-v1-1-882227bf40ba@younes.io/
+> ---
+>  rust/kernel/num/bounded.rs | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
+>
+> diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
+> index d192610a687d..f2413dc7458b 100644
+> --- a/rust/kernel/num/bounded.rs
+> +++ b/rust/kernel/num/bounded.rs
+> @@ -13,7 +13,10 @@
+>  };
+> =20
+>  use kernel::{
+> -    num::Integer,
+> +    num::{
+> +        Integer,
+> +        Unsigned, //
+> +    },
+>      prelude::*, //
+>  };
+> =20
+> @@ -174,13 +177,16 @@ fn fits_within<T: Integer>(value: T, num_bits: u32)=
+ -> bool {
+>  /// // `u8` (regardless of the passed value).
+>  /// // let _ =3D Bounded::<u32, 6>::from(10u8);
+>  ///
+> -/// // Booleans can be converted into single-bit `Bounded`s.
+> +/// // Booleans can be converted into unsigned `Bounded`s.
+>  ///
+>  /// let v =3D Bounded::<u64, 1>::from(false);
+>  /// assert_eq!(v.get(), 0);
+>  ///
+>  /// let v =3D Bounded::<u64, 1>::from(true);
+>  /// assert_eq!(v.get(), 1);
+> +///
+> +/// // This does not build because `i8` is signed.
+> +/// // let _ =3D Bounded::<i8, 2>::from(true);
+>  /// ```
+>  ///
+>  /// Infallible conversions from a [`Bounded`] to a primitive integer are=
+ also supported, and
+> @@ -1109,7 +1115,7 @@ fn from(value: Bounded<T, N>) -> $type {
+>      i8 i16 i32 i64 isize
+>  );
+> =20
+> -// Single-bit `Bounded`s can be converted from/to a boolean.
+> +// Single-bit `Bounded`s can be converted to a boolean.
 
-"The existing RCU loop removes rq from ce->signals and may then call
-i915_request_put(rq). If that is the final reference, the request can be
-released and its SLAB_TYPESAFE_BY_RCU slot reused before
-list_for_each_entry_rcu() advances and reads rq->signal_link.next. The
-RCU read-side critical section does not provide a stable reference to the
-same request object in this cache.
-
-The v4 conversion to signalers_lock/ce->signal_lock and the
-list_first_entry_or_null() loop removes this post-put dereference, so it
-also covers this UAF path.
-
-This is independent of the PREEMPT_RT irq_work starvation trigger. I can
-reach the sequence in a diagnostic run, although KASAN does not reliably
-report it because i915_request uses a SLAB_TYPESAFE_BY_RCU cache.
-
-Since this also removes a request lifetime UAF from the common signaling
-path, it may be worth considering the relevant fix for stable kernels once
-the series is accepted."
-
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Fixes: c744d50363b7 ("drm/i915/gt: Split the breadcrumb spinlock between global and contexts")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: <stable@vger.kernel.org> # v5.12+
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 172 +++++++++++-------
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 -
- drivers/gpu/drm/i915/gt/intel_context.c       |   1 +
- 3 files changed, 112 insertions(+), 62 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index c10ac0ab3bfa8..0ae7759dc74a3 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -88,24 +88,25 @@ static void add_signaling_context(struct intel_breadcrumbs *b,
- 				  struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->signal_lock);
-+	lockdep_assert_held(&b->signalers_lock);
- 
--	spin_lock(&b->signalers_lock);
--	list_add_rcu(&ce->signal_link, &b->signalers);
--	spin_unlock(&b->signalers_lock);
-+	if (list_empty(&ce->signals))
-+		return;
-+
-+	intel_context_get(ce);
-+	list_add(&ce->signal_link, &b->signalers);
- }
- 
- static bool remove_signaling_context(struct intel_breadcrumbs *b,
- 				     struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->signal_lock);
-+	lockdep_assert_held(&b->signalers_lock);
- 
--	if (!list_empty(&ce->signals))
-+	if (!list_empty(&ce->signals) || list_empty(&ce->signal_link))
- 		return false;
- 
--	spin_lock(&b->signalers_lock);
--	list_del_rcu(&ce->signal_link);
--	spin_unlock(&b->signalers_lock);
--
-+	list_del_init(&ce->signal_link);
- 	return true;
- }
- 
-@@ -174,7 +175,7 @@ static void signal_irq_work(struct irq_work *work)
- 	struct intel_breadcrumbs *b = container_of(work, typeof(*b), irq_work);
- 	const ktime_t timestamp = ktime_get();
- 	struct llist_node *signal, *sn;
--	struct intel_context *ce;
-+	struct intel_context *ce, *next;
- 
- 	signal = NULL;
- 	if (unlikely(!llist_empty(&b->signaled_requests)))
-@@ -208,13 +209,13 @@ static void signal_irq_work(struct irq_work *work)
- 	if (!signal && READ_ONCE(b->irq_armed) && list_empty(&b->signalers))
- 		intel_breadcrumbs_disarm_irq(b);
- 
--	rcu_read_lock();
--	atomic_inc(&b->signaler_active);
--	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
-+	spin_lock(&b->signalers_lock);
-+	list_for_each_entry_safe(ce, next, &b->signalers, signal_link) {
- 		struct i915_request *rq;
-+		bool release;
- 
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
--			bool release;
-+		spin_lock(&ce->signal_lock);
-+		while ((rq = list_first_entry_or_null(&ce->signals, typeof(*rq), signal_link))) {
- 
- 			if (!__i915_request_is_complete(rq))
- 				break;
-@@ -228,15 +229,9 @@ static void signal_irq_work(struct irq_work *work)
- 			 * spinlock as the callback chain may end up adding
- 			 * more signalers to the same context or engine.
- 			 */
--			spin_lock(&ce->signal_lock);
--			list_del_rcu(&rq->signal_link);
--			release = remove_signaling_context(b, ce);
--			spin_unlock(&ce->signal_lock);
--			if (release) {
--				if (intel_timeline_is_last(ce->timeline, rq))
--					add_retire(b, ce->timeline);
--				intel_context_put(ce);
--			}
-+			list_del(&rq->signal_link);
-+			if (list_empty(&ce->signals) && intel_timeline_is_last(ce->timeline, rq))
-+				add_retire(b, ce->timeline);
- 
- 			if (__dma_fence_signal(&rq->fence))
- 				/* We own signal_node now, xfer to local list */
-@@ -244,9 +239,13 @@ static void signal_irq_work(struct irq_work *work)
- 			else
- 				i915_request_put(rq);
- 		}
-+
-+		release = remove_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		if (release)
-+			intel_context_put(ce);
- 	}
--	atomic_dec(&b->signaler_active);
--	rcu_read_unlock();
-+	spin_unlock(&b->signalers_lock);
- 
- 	llist_for_each_safe(signal, sn, signal) {
- 		struct i915_request *rq =
-@@ -347,14 +346,15 @@ static void irq_signal_request(struct i915_request *rq,
- 		irq_work_queue(&b->irq_work);
- }
- 
--static void insert_breadcrumb(struct i915_request *rq)
-+static bool insert_breadcrumb(struct i915_request *rq,
-+			      struct intel_breadcrumbs *b)
- {
--	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
- 	struct list_head *pos;
-+	bool ret;
- 
- 	if (test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
--		return;
-+		return false;
- 
- 	/*
- 	 * If the request is already completed, we can transfer it
-@@ -363,14 +363,15 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	 */
- 	if (__i915_request_is_complete(rq)) {
- 		irq_signal_request(rq, b);
--		return;
-+		return false;
- 	}
- 
- 	if (list_empty(&ce->signals)) {
--		intel_context_get(ce);
--		add_signaling_context(b, ce);
-+		ret = true;
- 		pos = &ce->signals;
- 	} else {
-+		ret = false;
-+
- 		/*
- 		 * We keep the seqno in retirement order, so we can break
- 		 * inside intel_engine_signal_breadcrumbs as soon as we've
-@@ -395,23 +396,19 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	}
- 
- 	i915_request_get(rq);
--	list_add_rcu(&rq->signal_link, pos);
-+	list_add(&rq->signal_link, pos);
- 	GEM_BUG_ON(!check_signal_order(ce, rq));
- 	GEM_BUG_ON(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &rq->fence.flags));
- 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
- 
--	/*
--	 * Defer enabling the interrupt to after HW submission and recheck
--	 * the request as it may have completed and raised the interrupt as
--	 * we were attaching it into the lists.
--	 */
--	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
--		irq_work_queue(&b->irq_work);
-+	return ret;
- }
- 
- bool i915_request_enable_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_context *ce = rq->context;
-+	struct intel_breadcrumbs *b;
-+	bool add_context = false;
- 
- 	/* Serialises with i915_request_retire() using rq->lock */
- 	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &rq->fence.flags))
-@@ -427,30 +424,87 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
- 		return true;
- 
- 	spin_lock(&ce->signal_lock);
-+	b = READ_ONCE(rq->engine)->breadcrumbs;
-+
- 	if (test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags))
--		insert_breadcrumb(rq);
-+		add_context = insert_breadcrumb(rq, b);
-+
-+	if (add_context && spin_trylock(&b->signalers_lock)) {
-+		add_signaling_context(b, ce);
-+		spin_unlock(&b->signalers_lock);
-+		add_context = false;
-+	}
- 	spin_unlock(&ce->signal_lock);
- 
-+	if (add_context) {
-+		/*
-+		 * Fast trylock didn't work, use slow locking.
-+		 *
-+		 * Dropping the lock to solve the inversion is safe, since
-+		 * no race is possible against remove_signaling_context()
-+		 * without being added as signaling context.
-+		 */
-+		spin_lock(&b->signalers_lock);
-+		spin_lock(&ce->signal_lock);
-+		add_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		spin_unlock(&b->signalers_lock);
-+	}
-+
-+	/*
-+	 * Defer enabling the interrupt to after HW submission and recheck
-+	 * the request as it may have completed and raised the interrupt as
-+	 * we were attaching it into the lists.
-+	 */
-+	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
-+		irq_work_queue(&b->irq_work);
-+
- 	return true;
- }
- 
-+
-+static void unlock_context_remove_signaling(struct intel_context *ce,
-+					    struct intel_breadcrumbs *b,
-+					    unsigned long flags)
-+{
-+	bool release = false, retry = false;
-+
-+	if (list_empty(&ce->signals)) {
-+		if (spin_trylock(&b->signalers_lock)) {
-+			release = remove_signaling_context(b, ce);
-+			spin_unlock(&b->signalers_lock);
-+		} else {
-+			retry = true;
-+		}
-+	}
-+	spin_unlock_irqrestore(&ce->signal_lock, flags);
-+
-+	if (retry) {
-+		spin_lock_irqsave(&b->signalers_lock, flags);
-+		spin_lock(&ce->signal_lock);
-+		release = remove_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		spin_unlock_irqrestore(&b->signalers_lock, flags);
-+	}
-+
-+	if (release)
-+		intel_context_put(ce);
-+}
-+
- void i915_request_cancel_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
--	bool release;
-+	unsigned long flags;
- 
--	spin_lock(&ce->signal_lock);
-+	spin_lock_irqsave(&ce->signal_lock, flags);
- 	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags)) {
--		spin_unlock(&ce->signal_lock);
-+		spin_unlock_irqrestore(&ce->signal_lock, flags);
- 		return;
- 	}
- 
--	list_del_rcu(&rq->signal_link);
--	release = remove_signaling_context(b, ce);
--	spin_unlock(&ce->signal_lock);
--	if (release)
--		intel_context_put(ce);
-+	list_del(&rq->signal_link);
-+	unlock_context_remove_signaling(ce, b, flags);
- 
- 	if (__i915_request_is_complete(rq))
- 		irq_signal_request(rq, b);
-@@ -462,7 +516,6 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 				      struct intel_breadcrumbs *b)
- {
- 	struct i915_request *rq, *rn;
--	bool release = false;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&ce->signal_lock, flags);
-@@ -476,39 +529,36 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 					&rq->fence.flags))
- 			continue;
- 
--		list_del_rcu(&rq->signal_link);
-+		list_del(&rq->signal_link);
- 		irq_signal_request(rq, b);
- 		i915_request_put(rq);
- 	}
--	release = remove_signaling_context(b, ce);
- 
- unlock:
--	spin_unlock_irqrestore(&ce->signal_lock, flags);
--	if (release)
--		intel_context_put(ce);
--
--	while (atomic_read(&b->signaler_active))
--		cpu_relax();
-+	unlock_context_remove_signaling(ce, b, flags);
- }
- 
- static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
- {
- 	struct intel_context *ce;
- 	struct i915_request *rq;
-+	unsigned long flags;
- 
- 	drm_printf(p, "Signals:\n");
- 
--	rcu_read_lock();
--	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link)
-+	spin_lock_irqsave(&b->signalers_lock, flags);
-+	list_for_each_entry(ce, &b->signalers, signal_link) {
-+		spin_lock(&ce->signal_lock);
-+		list_for_each_entry(rq, &ce->signals, signal_link)
- 			drm_printf(p, "\t[%llx:%llx%s] @ %dms\n",
- 				   rq->fence.context, rq->fence.seqno,
- 				   __i915_request_is_complete(rq) ? "!" :
- 				   __i915_request_has_started(rq) ? "*" :
- 				   "",
- 				   jiffies_to_msecs(jiffies - rq->emitted_jiffies));
-+		spin_unlock(&ce->signal_lock);
- 	}
--	rcu_read_unlock();
-+	spin_unlock_irqrestore(&b->signalers_lock, flags);
- }
- 
- void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index bdf09fd67b6e7..648e5600587b4 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -39,7 +39,6 @@ struct intel_breadcrumbs {
- 	spinlock_t signalers_lock; /* protects the list of signalers */
- 	struct list_head signalers;
- 	struct llist_head signaled_requests;
--	atomic_t signaler_active;
- 
- 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
- 	struct irq_work irq_work; /* for use from inside irq_lock */
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index b1b8695ba7c97..b938ff5be7b80 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -409,6 +409,7 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- 	/* NB ce->signal_link/lock is used under RCU */
- 	spin_lock_init(&ce->signal_lock);
- 	INIT_LIST_HEAD(&ce->signals);
-+	INIT_LIST_HEAD(&ce->signal_link);
- 
- 	mutex_init(&ce->pin_mutex);
- 
--- 
-2.55.0
-
+Since the `From` direction is now limited to unsigned `Bounded`s, maybe
+this conversion should as well?
