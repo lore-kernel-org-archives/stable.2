@@ -1,79 +1,78 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A214D3451DA
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 15:11:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB0743B6DA
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 15:12:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787325086; cv=none; b=SrtZR6wq/U8X7a8ST0v2PwxVaK5dWGg1LRP/oy9jkDN/MBAU4WaxcrfK9XzDi/LX7UF1AqmfM5mffAw1Ruvd7dJKOM0iXGoSzyk6WiclA5j97xn3IoOx9yvH25a3gVivr2swhmYe8B4DeCfYHDz86wToGgNzQOVoeJX7b8m12/I=
+	t=1787325176; cv=none; b=Mu6xa5W777r4A+O/Ji/CS855OiGjb8tJV0u/X4+/d9KNX8ZEplLAg43gpFil3mTWYsDyktgbI5wipuOfxPW7WzFr1zJb3n7qkOIEXaLfmnxudJbOAiIi6tZexrGJZH78HbLv/nuZ38RIfiIFyD/O8Hhq2qG2lHcdvPzdr6c0NyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787325086; c=relaxed/simple;
-	bh=uLmj3KkSrxFi6oZNFdb76IGaznhYQT7Sz8Hem0vXFeE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ClWZzRwzIx3aEZBWH1ys6J3wbHHpJBqoTnKOY1ScFJ1Gf1oqA9+hTxyol9UnW060AQkT3hoHMmA2+YDswzDU07OA6i9nOTyZo4cAaeTJaP/dY9fkFiwB+gqaXPEoIToey6qBj3kL2y8T93ab1UUdeDAg+TWj/3aY5Lq8f5kDAq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Om0n+XBv; arc=none smtp.client-ip=209.85.214.172
+	s=arc-20240116; t=1787325176; c=relaxed/simple;
+	bh=fSnUC/Uevm5Vbrih7n+FM4vcyD9bqX8J6oiWP1kp/DY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bmVrqKIlLZp4kysnoWP+J7q/2gh5Aq8NtTeEV9b8KDjzJGbhGiaDP4k7NRlbwBN2gqWcZr9l3YC/IVaGiWoZs6Yd4K73fMeOZ5lCHFwzwYu8JoVI3l4xl0Q2f/S92CsAOGG1xpPsFhg186EBDIloMfBiabtI0iJ35IPlE4Pyk2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IiODAYOF; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Om0n+XBv"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cf50c6f235so13794905ad.0
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 08:11:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IiODAYOF"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cee9b74ee1so8633705ad.3
+        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 08:12:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787325085; x=1787929885; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r8HVOP/ZZ67PrjnRM0sx3QubuBlJCUlFS75mhhYnPKM=;
-        b=Om0n+XBvPkns2XUklLo1aokQzsdRHGLgEiY8IsWZ/kK82I1Mk8RyiBoXSneYYHasRf
-         0EoymffsvaK3E1aLEdWXt9JJ4NcdEgFck4M1tVH6+fuGa3qd2qZfdPc3YmSiBNCG/MlF
-         ZWmxifBXQiVWoByQDoZuR2wHXTa9dgQanu3ieir4kICS0z50omnsPbM2fbx6AnPvcJC0
-         AuvYzE1ypQwNiZHtG2Ck9b9+OwGVbEvEHEFSAQchCKbRgSQs1V4eR7WkTLK9vpxW2zGf
-         lr44VLgKCgq0Dvh4wG5TNgpoWridkPdQfG6xV9jIPC4z5tW4kksF/LtVwUGfO1TYznjV
-         VKfg==
+        d=gmail.com; s=20251104; t=1787325174; x=1787929974; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1HavqBuvOK9+7hkcuCpVB9Cv/dvjoerCr3RPaWhvFOI=;
+        b=IiODAYOFsOAuQ+eSZReAYZUaTNXQWZALnaBvKwIDVH30t38bppy74aLAeoNNTKF06n
+         DdLU5XcpDM9/YPfN3/Ke1KZNauX3HVCdE1fuiIwbeTQoEtrMz3oTh1u+aGx/R/zSq5RB
+         7UgwcXkIQDO+T8cnyOMb6GknloyxQVu9oYsZAWjiqioTlo1lM5QLVdKS9ci+CNNXEeHk
+         Ncqex42KIVoilAmso27QhYTStVCgoFvfpGoFY34bRPrmgnq3YZCZzy/1+Je3ajyCkoD2
+         6aAAqsKb1d1LOa82TEdidgT4t7vaP0NiDEuFWQTl/y7jN0OgfiLkMxPsPw4yasPpXd1F
+         0sYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787325085; x=1787929885;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r8HVOP/ZZ67PrjnRM0sx3QubuBlJCUlFS75mhhYnPKM=;
-        b=AI+ZFMASpTAdEQl3dL9U1z6kd/g1a21BMqO3C8KVnCzAwGkE2tGJFi0H5v5dfnGzev
-         tRjJ7hj8RkXVYCh4d7ktya+Pid87VOLbIbKHzINwn56l2pyb9R33uXDS9imyMybU4poz
-         Ms6x+8F7illG18X4qeJ1K5aD4A7CHK5p++HHfhiWkGN7FcIrC9LqcWhzSwc7l4rq7Bgg
-         6Em25HNiGShWlKa+9pZ/RfdiiRDS4SCvJRLVUxCI4qHi+KCK8yUzD3oXpLV3z1Mq4iun
-         eTmCzTt9G+38+t6fK2Ki5/1poW5aroKqlAKlQQGzFvvuhGGcVBoy//QG8vNx/vghk3/1
-         eVQQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoUPfcW5Aj9VzL3VpsRFf3UXESaco2F4csgr5EoVTVJh3rfwmirIcF1eFy+sqabC8UNM6sr0p4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lD9nCppxX1+t5rYxQIC2mmxw3aFEC38007H8xp5JuuWBqpUAYv
-	N8zAN0bM06VhXCfETd/p13SNbmkuIaNta+JcGhO4ytOisMfHabzULu9kUcWyhw==
-X-Gm-Gg: AR+sD1046+wdCulFzoMpB0/pwYHe7uj6GY0imEeKL812OOv1vOkKk5Ss9dAw+STMkNK
-	WrY1RYZdmC9DCVBNjiHgLn0B20nz7hDJJ7UOvaEB5xS/z+Y3NfUTYYaHmPO4plmpO64QZFzhbdG
-	EWKO2KYlpCr+KB9oR+3YyBWjHscpd4aMBi+x8yLBTjfsuoWMdmnZh6QUGDjfCwZpkM/WBZhuHIz
-	wdLfPHlzB0e6r1VY5RugH8FAWbI60+iB2Ia4s3iNLqLzVm59vnq1k/18/Bw4XQBVWe5Q610Zvyk
-	tq18fnd6sa3JEjpYLXwmNlA/kulYkZ28vgjAWLG9/1nwnPKL4dR7GUz4xW7uUdFiX9zL7clVE8q
-	b9sjSOmOcfzXSLfROuxCY+Yge9oHgGws6F/PtpYJba9TnYTSK2ishlpsIhmmYuuj9sU85aT+juL
-	BNcYui6wH1Qq93wvs+mtrZp9Jp77wZmk/dcxHLo/EN0Ve7dtYsUHDquvqe3qFloYpnSQ==
-X-Received: by 2002:a17:902:e785:b0:2ca:6eca:492f with SMTP id d9443c01a7336-2d64b0e2c7fmr151543345ad.14.1787325084889;
-        Fri, 21 Aug 2026 08:11:24 -0700 (PDT)
-Received: from Default ([2409:40f4:1002:57cc:6b4b:100d:637b:da22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf10ca5csm27897760eec.17.2026.08.21.08.11.19
+        d=1e100.net; s=20251104; t=1787325174; x=1787929974;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1HavqBuvOK9+7hkcuCpVB9Cv/dvjoerCr3RPaWhvFOI=;
+        b=U3BHNI9HT5RNXpzC/LmFf81UmEYYJj9x8gC2gfYquih5YibGDnw0vbShJc0Wb1X81G
+         x+a59mqjqQ6lczD4cSA5lAuLcqfE4GR8eUexleV7EkZGS2qc1LyZaEbdI9Ewx4e3gaj4
+         /EGuLseTEFNVBBVppOOjB+6mhLPZnfUGAUTwxGUiZGm0+vTzZK8o5jPrD/Oi23SRnv/W
+         9t9QHCVLnVb8ZiXfduXLpXO9BdeFdnvTv/6fxiZQD+uPAIMaFRi4tNrk24HM0RK0II39
+         H/MtNfRvH7VIFNBisCyBg6DDUxm5ZaTZWqGCPb8K1cGc2YVlGiqUG6unnyNAM26JuW3z
+         tBag==
+X-Forwarded-Encrypted: i=1; AHgh+RpTDTQmw3EAXNG1he/NPXYpmdAgO4tPkvDoEThut9wHa9J9rkOLgymtUZ7Q0BxBlKOHJsOdBWw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAGf8DKm5BmjiRKM2MXZahcHdpKTxeCxrMq2MIXSUEOTOmMivG
+	8I8XRD2BXu6cNZlIM0+ew4ZaJq7kqGPAOXwtTKrXoVDoNvta0yyyO7mPST/34DQb
+X-Gm-Gg: AR+sD10MwI77fAWNlgtM5N1cVOaS8d95X4OnAMSNibiVtLlLwgUSJgEl0xd62XfF8R+
+	GQJOh8DsGcHbpbCStfer6OBLGuL4qWddJLg83KiXZm31k9w+mNnqufobwVOkmYvo578TnbxQKPv
+	5ancGsJEnMcLEqeQk/rdXaRFSHUq9MSqrRmXTiEuxulE6BX037DcMKFMKcC2qiv87ATmWvE/vMj
+	GgodLBCncyS4JUNmag9a2AzXFpbqoIrIuPu1q9A4sRsk+P0SZBwrK9gc710rcMSBWahnjIiAVSW
+	nKjjtZN//DZehxm9IEJX/bRQ6icSC42jyNIAPOoyulWyHhpqpDhQtzwF36EDwKLu5Ic2NUfS/EM
+	ifD3aTlnMb8c8178Jibldz4/FSbnOQYCXYjzl6YEIZb7wLJm9qFTOX0ajF6qiCiw1mB3MddM6XL
+	X5NG1TAzSZrTvu5c+bBpFKZPs+a2z8YaFnoi96plAIpVVFtg6qlIBs+D+oCHTjIBDGZj3BrwRFT
+	LjUqwpT
+X-Received: by 2002:a17:90b:4c0a:b0:38f:de97:b06 with SMTP id 98e67ed59e1d1-395c351386amr12380816a91.5.1787325174270;
+        Fri, 21 Aug 2026 08:12:54 -0700 (PDT)
+Received: from kernel ([103.219.206.63])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c4be666bsm3779132a91.11.2026.08.21.08.12.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 08:11:24 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: heikki.krogerus@linux.intel.com,
-	jeffinphilip14@gmail.com,
+        Fri, 21 Aug 2026 08:12:53 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: clabbe@baylibre.com,
+	herbert@gondor.apana.org.au,
+	davem@davemloft.net
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	mika.westerberg@linux.intel.com,
-	stable@vger.kernel.org,
-	syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com,
-	syzbot+520d7648a0d934061fb0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: typec: fix null-pointer-dereference in wcove_typec_probe()
-Date: Fri, 21 Aug 2026 20:41:07 +0530
-Message-ID: <20260821151107.19945-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082125-getting-upstroke-a146@gregkh>
-References: <2026082125-getting-upstroke-a146@gregkh>
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] crypto: amlogic: Fix IRQ handler return value and fallthrough logic
+Date: Fri, 21 Aug 2026 20:42:43 +0530
+Message-ID: <20260821151243.8125-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,16 +81,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 21 Aug 2026 17:00:12 +0200, Greg KH wrote:
->How can a platform device NOT have a parent device?  WHat system is this
->broken in?  Why not fix the platform definition properly instead as
->something is really wrong here if this is a "root" platform device as
->that should never happen.
+In irqreturn_t_meson_irq_handler(), when an interrupt matches a flow
+but the status register is empty, the driver prints an error but
+doesn't return. It falls through the loop and incorrectly prints an
+`unknown irq` message.
 
-As seen in the Closes: tag, this is a syzbot issue. It used driver_override()
-to bind it in an unnatural way. So, I don't think it is possible in a real system.
-We could atleast validate pmic like other functions using dev_get_drvdata() or it
-could be left alone as is.
+Fix this by returning IRQ_HANDLED immediately after the error print.
 
-Thanks,
-Jeffin. 
+Additionally, the handler returns IRQ_HANDLED for genuinely unknown
+interrupts. This masks false interrupts and prevents the kernel from
+detecting interrupts. Return IRQ_NONE instead for unhandled
+interrupts.
+
+Cc: stable@vger.kernel.org
+Fixes: 48fe583fe5417 ("crypto: amlogic - Add crypto accelerator for amlogic GXL")
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+---
+ drivers/crypto/amlogic/amlogic-gxl-core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
+index 6cb33949915f..302b398405e2 100644
+--- a/drivers/crypto/amlogic/amlogic-gxl-core.c
++++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+@@ -38,11 +38,12 @@ static irqreturn_t meson_irq_handler(int irq, void *data)
+ 				return IRQ_HANDLED;
+ 			}
+ 			dev_err(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
++			return IRQ_HANDLED; 
+ 		}
+ 	}
+ 
+ 	dev_err(mc->dev, "%s %d from unknown irq\n", __func__, irq);
+-	return IRQ_HANDLED;
++	return IRQ_NONE;
+ }
+ 
+ static struct meson_alg_template mc_algs[] = {
+-- 
+2.53.0
+
