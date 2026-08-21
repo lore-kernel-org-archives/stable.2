@@ -1,73 +1,106 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from aer-iport-4.cisco.com (aer-iport-4.cisco.com [173.38.203.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DF63AFD17
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 21:28:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA786379C4A;
+	Fri, 21 Aug 2026 21:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.38.203.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787347735; cv=none; b=Qq0u/3XWlDRSqACR+2BcGTi799INBTBkM5ZuojKYryRCDBXn2yO2TFTRVnu59ZHXS6SX2ais/amEh4N+v1jEai4UhZ6SfQkEwIqhaAPx4hpHfYq3I8ffcGpKhW/MukyOfwCKL1P3QwZQKh35uDgErUaQ9Db3W2mg43LvTFcUIc0=
+	t=1787348330; cv=none; b=jHXEo3XyzzxTbts69ZOLZwmZB0GSthXMv+N+0tgOs+ySo7c7SNJFerllSEH7fAmnizNzC5tBvRxdt1pI/mUtxJ7kytBc43R6JbW2Jvl4A3ifVRNU61USblCm4+bp/Pwbxz/cOPdKUsfxZXM6MEXsWCSiAVZurk2Stjp6bMejyF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787347735; c=relaxed/simple;
-	bh=iW5v4cPa+jY4BUhIVqaq+GenRgtpAr+S8n1Qt7BhIyc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SuwjAqU7i27MdIymAkGoN5SEzP6W1kA2pf+FtZ9BEvpOODrd4Eckhh1fx+4nbFCs770ie5rjrIWla5VWcyDJEki0WZFou0fz0959cemtAOagLvJ+OSCvxoY76hdw9sxvufkQZsPYGFlamjTk09PffLbvVvLb4FjrPvWORWS0zF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j8fwmwSs; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787348330; c=relaxed/simple;
+	bh=hojht42JMT+PGkSMDEWuPCKapKpcOBYvf1/BjTYzvRY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jEUwuyZPzmw42iTkVmHvowCOVjLSjfiJbSed+8JFpRhaCNP9xHSv8h9OGOKzXbANfY6d9kx6ROVkJIHm68Sy3rMMn22vlqrM8PKKHn10lk5/HU+l0/qSMIKmNRCaZftytEXgFOMIxn808+I9JYAE59lK68H69AVVUzKRmvibRys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com; spf=pass smtp.mailfrom=cisco.com; dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b=e3UcctRR; arc=none smtp.client-ip=173.38.203.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j8fwmwSs"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495437bb891so8715895e9.1
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:28:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b="e3UcctRR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787347732; x=1787952532; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cUXEtXgpHp+az+q2AbTUR3kHFspQTU4Js/4VE5CWhoE=;
-        b=j8fwmwSspKKgt+d3r4IEs8E/CFFqDFvzQR1bnvW3n1rsYqkDF1SlBtGWPcsJhS3wBu
-         P0AniAV+9t4I0O0PO14t9uLx7Gd6LNhG4le3rFJwiExaAuOEKitnw1PYrt/yOTXB4mRP
-         I+oD8Q0TEutYKU3Ehsvraie8YUbkDfhO8oCdKSWgmZR0hcKHkYoloNvUtvVhBwd7YkG0
-         dJJnie2J+qwrgo3mwK9OA76ISRQa/BKX0O69RwWEnLo39zfJAK1HS2PJQdAI5iejO6Lm
-         aXBQ6AVrlTqyck/vUgFC2SAPKNz4Q7TzWFL6YK4gHP3brJuoaUZhuMv1FcidoE+Ji9Ss
-         tA9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787347732; x=1787952532;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cUXEtXgpHp+az+q2AbTUR3kHFspQTU4Js/4VE5CWhoE=;
-        b=lOwY0qdxzxsHyFO6IaLz7bwJabnJ4ALZbHESvbiHoBvDtVDsy6xpP1GJWPhlUAVW+r
-         yLFw8f99BxzqRfcfPB7g8gmeDMsw0T2T16KdJXQOMsS7ahfejviO9heQsXqqxKtx2NgK
-         ON/Jn9+DWsd6/uyJRDtCiBsZf2JFa7Nk2go9VO1CWLsWgHgMD0YTeAd21EIran9O9UuE
-         xQuXGikoTHrZG8GeEVA0SGnOLdzi/XirzcCSTJekVC4kfJ5LZ5TE8ode+3mIJQGWG5TJ
-         jALOIVvqNpZWrHqJfZBNu2Lt0jeFD+bNyASCekNgq0aDtUhngZEAbl1dtX+RUJyy9NUq
-         akGw==
-X-Forwarded-Encrypted: i=1; AHgh+RpK+HnTqsozf5VudAHfcmSwyB+0yUXPsYAMGHy5ZvkHgx/qvd1bqsrBZAfjkSFnSmI4NedhvAQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQkD6QULhRn0ODBeC2X5sHXIgCOCyL4m5hgvRGsWSNQAFIIlf1
-	YyYsj25ZZb0JimgnHkY7NO6ABZh4qqY7hmYxL6iPyeepaGp0TyXkPXa7
-X-Gm-Gg: AR+sD10NWjeAjr0hnk8oCbxXjzhAU0VGS6sAYA5t91mzmDENMhpoVRWR+l/ms4MWVck
-	dLLAfZMHvpeOdcJ/MDfvJFlS31hsWI7MEo1vX9Zpq9rVSMwhG3vkptCiSLt0OmzJs0cL19KaHgx
-	ub4XtrD4tx1zVyL7iqI/yJz5Bgfhxf0o0QogIjIizBpBbcG3eSrAEAXIipUmJQM2bSoNZ3ZQLgb
-	173wz6xHGP9svqwz6DCPoSvTP3GSd3Oaz7KzM0YbqRtq/ahP9o/kYsyd9+U3hqcWo9RYfGfZSmx
-	jPc79SjHLgQPFdYjfAQGcwWLhPaRj0raZSu1D7BIOMQm0aDo4t6lXVpFCDapH8WksDVtc+xhOO3
-	RUVWa+1wGf+6whMoyOW6Bs+o3aQbxkSxJK2G/2vSq1S5a/geocajIKQiXdxx7g/AYa4zs6m+nBb
-	EtX4VrLQXQ4dB+Un0eSyNYjt36vThoOCAdeGWNlrt2qfoLT644GA/CsKcb7cwO61Oa5oFwG4jw4
-	k+kbsskGmfCzpo+S2BeYlb0mAeP1IXKnsoaMAMQivi8WAHYdsjaV4HiBvM=
-X-Received: by 2002:a05:600c:78f:b0:493:e543:1dd9 with SMTP id 5b1f17b1804b1-499b071ce49mr167339025e9.9.1787347732215;
-        Fri, 21 Aug 2026 14:28:52 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482c9b78ebfsm147415f8f.12.2026.08.21.14.28.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 14:28:50 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Keke Li <keke.li@amlogic.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	linux-media@vger.kernel.org,
+  d=cisco.com; i=@cisco.com; l=2300; q=dns/txt;
+  s=iport01; t=1787348328; x=1788557928;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=oo4Ghg49LSL5eqjdbN4ni4qah3Rkl5L/1LDW+1nZDxU=;
+  b=e3UcctRRZV6PGhQtZR+50z+RfpTKvDkcqkHSJ1PcXBzqjrUbMUVgsdoo
+   cVXKlLMyfbgYQg2OGLpFJpVTgtT/xeon8f51jPgNJdkdPt6Nb0h8DmeCQ
+   OGWQPEfzKTx77gzbqXLNOh4u6NR39yBHu2nrSQAF5pWnutL4tu3w8erKn
+   SnZRm/AUzZCha1H+yz4dTNsRjc1tK9JMHEW8royFNGVVYcZTsfSgnOv4+
+   eAdBNW6d1d5CFfuVAgjRZkIZqHcH64Jm5/xDWMisIVvDq8TN+MZfmT0bq
+   tk6wbmb411xGkUiu1C1KqJy3ZtGzNg07K9BX4ybCxqXkB58SyJn+TGnKb
+   w==;
+X-CSE-ConnectionGUID: uoYTs9TlTOWU2SyZjJFnIg==
+X-CSE-MsgGUID: ho+xN08KQmCayyBAnWcGzw==
+X-IPAS-Result: =?us-ascii?q?A0AdAwCGw4hq/9VK/pBaglkCghY/gVJDSZQpgiGBFp0Ig?=
+ =?us-ascii?q?X4PAQEBD1EEAQGFBQKNbAImNAkOAQIEAwIDAQEBAQEBAQEBAQELAQEFAQEBA?=
+ =?us-ascii?q?gEHBYEOE4ZcSQEMAYYEAgEDJwsBRhBRVhmDAoJ1A8FWgXkzgQHeR4FmAQsUA?=
+ =?us-ascii?q?YE4jWF2hHwnG4FJRIEVMoJBB2+FEIV4BIMuk1dIgR4DWSwBVRMNCgsHBYFmA?=
+ =?us-ascii?q?zUSKhUyPDIdgSM+F4ENGwYFgR1ZT4QQIxk2eoEJXoErKWABEheBCYIHAoJag?=
+ =?us-ascii?q?gUCAUlDDgdIIgsYDUgRLDcUGQQ+bgeOXh+CTAExIjEKFIEyKVEFk0oBgyqwI?=
+ =?us-ascii?q?4QooXYzl1+TDZkIpCOFIIFoPIFZMxoIGxWDIlMZD44tFoEUAQLOZEUyPQEBB?=
+ =?us-ascii?q?wIHDgMLgWiIZYkZAQE?=
+IronPort-Data: A9a23:lRaxR62Q2/hxarLE2/bD5Rtxkn2cJEfYwER7XKvMYLTBsI5bpzBSm
+ 2pJDWqGa/+MYDf9eot1OYXn9k4HsZ/Sn9ZjT1Rl3Hw8FHgiRegpqji6wuYcGwvIc6UvmWo+t
+ 512huHodZ5yFjmH4E/xbtANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq8wIDqtYAbeORXUXX5
+ Lsen+WFYAX7g24uazpNg06+gEoHUMra6WtwUmMWPZinjHeG/1EJAZQWI72GLneQauF8Au6gS
+ u/f+6qy92Xf8g1FIovNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ajs7XAMEhhXJ/0F1lqTzeJ
+ OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXcG7lyX7n3XQL/pGEUYHAZZJxuJLJl5zr
+ 8cJGjIvQBaiiLfjqF67YrEEasULJcTxeYdasXZ6wHSAV7AtQIvIROPB4towMDUY35wSW6yDO
+ 4xGNXw1NU+ojx5nYj/7DLo8gOCsgnTjWzZZs1mS46Ew5gA/ySQsgee0b4GOKrRmQ+1VmQWIg
+ DqW3F38KRgLJfa2zwWO3WCz07qncSTTHdh6+KeD3vJjnlCW7mAaFhATUVy1vb+/h1LWc8lTJ
+ WQa/S8vpqg/6gquQ7HVXRq4pjiKtwUAUtBdFeES5wSEy66S6AGcbkAJQiNEYc4rqOc5Qjsl0
+ lLPlNTsbRRjubuURHa197CboDqoMy8Fa2kPeUcsRBAZy9ruuoc+ilTIVNkLOK68kd7dGjzqx
+ T2O6i8kiN07jtMB3o248ErBjjbqoYLGJiY84AnNU33m6A5laIO7T4i1716d5vYoBIqFR0Wcu
+ HUNs86A7ewPBNeGkynlaOEAG7ez4N6DLjzQgFcpFJ4knxyo8XqkdoB45i9/KEZgdM0DfFfBe
+ 0betA9UzJlNPXerZOl8ZIfZI9gj16n5CfzjSPHYb9MIaZ90HCef9StjY0+4xW3hkEEw16o4P
+ P+ze96iJWgVBL4hzzesQeoZl7gxyUgWwWLVWIC+zBm917eaTGCaRK1DM1aUaO09qqSer2399
+ 9dZKtvP0RlaWcXgbSTNt40eN1YHKT48H5+eg8paauKOPCJ4F2w7Tfzc27Usf8pihas9vvzU9
+ 3u5V2dGx1flw37KMwOHbjZkcryHYHpkhXs2J2koeF2vwXVmONzp56YEfJxxdr4inAB+8cNJo
+ zA+U53oKpxypv7volzxsbGVQFReSSmW
+IronPort-HdrOrdr: A9a23:ML7EMqEvGMsk3OCdpLqEyMeALOsnbusQ8zAXPo5KJSC9Ffbo8/
+ xG88506faZslwssTQb6LO90cq7MBbhHPxOgLX5VI3KNGLbUSmTXeNfBODZrAEIdReSygck78
+ ddWpk7LsHsBl5nisu/ygy5H9E8hOSjysmT9IDjJ7MHd3ASV0mmhD0JbDqmLg==
+X-Talos-CUID: =?us-ascii?q?9a23=3AwZN4UWh0tGDX7SpGMS8CiVsGjzJub3rs8GyBH0u?=
+ =?us-ascii?q?ELllUEoaEe12y1qVFnJ87?=
+X-Talos-MUID: 9a23:0ehjEAqix/tCM1QUbycezzFld9dOu/SNMUUmmIQXkeCCCidfKSjI2Q==
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.25,235,1779148800"; 
+   d="scan'208";a="59717338"
+Received: from aer-l-core-12.cisco.com ([144.254.74.213])
+  by aer-iport-4.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 21 Aug 2026 21:37:34 +0000
+Received: from localhost (unknown [10.189.108.235])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by aer-l-core-12.cisco.com (Postfix) with ESMTPS id 4C7FB18000227;
+	Fri, 21 Aug 2026 21:37:34 +0000 (GMT)
+From: Jerome Tollet <jtollet@cisco.com>
+To: netdev@vger.kernel.org
+Cc: saeedm@nvidia.com,
+	tariqt@nvidia.com,
+	mbloch@nvidia.com,
+	leonro@nvidia.com,
+	dtatulea@nvidia.com,
+	daniel@iogearbox.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	ast@kernel.org,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
+	bpf@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] media: amlogic-c3: Fix out-of-bounds read of metering zone coordinates
-Date: Fri, 21 Aug 2026 22:28:48 +0100
-Message-ID: <20260821212848.214982-1-devnexen@gmail.com>
+Subject: [PATCH net v3 1/2] net/mlx5e: Prevent stale XSK buffer release on refill retry
+Date: Fri, 21 Aug 2026 23:37:31 +0200
+Message-ID: <797fe2396b60f69e2bc79575ba43a29a45b26218.1787347981.git.jtollet@cisco.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1787347981.git.jtollet@cisco.com>
+References: <20260820151558.11015-1-jtollet@cisco.com> <cover.1787347981.git.jtollet@cisco.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,57 +108,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Outbound-Client-TLS: ANONYMOUS;unknown [10.189.108.235];TLSv1.3;TLS_AES_256_GCM_SHA384;256
+X-Outbound-SMTP-Client: 10.189.108.235, [10.189.108.235]
+X-Outbound-Node: aer-l-core-12.cisco.com
 
-The AWB, AE and AF coordinate loops bound themselves by
-max(horiz_zones_num, vert_zones_num) + 1. Both counts are u8 values
-taken verbatim from userspace, so the bound reaches 256 while the
-coordinate arrays hold 18 entries (AE, AF) or 33 (AWB). An AF block
-placed last in a full payload reads 474 bytes past the parameters
-buffer.
+When an XDP redirect to an AF_XDP socket fails because its RX ring is
+full, the XSK core frees the buffer. During the subsequent batched refill
+of a legacy cyclic RQ, mlx5e also releases the WQE's XSK buffer before
+allocating a replacement. If that refill succeeds only partially, a WQE
+left without a replacement retains its old buffer pointer.
 
-Clamp the point count to the array size, as the zone weight loops
-already do.
+The buffer can meanwhile be allocated to another WQE. A later refill
+retry can then free the live buffer through the stale pointer and publish
+the same UMEM frame twice.
 
+Mark the WQE as released immediately after the driver-side free. The flag
+is already cleared when a replacement buffer is assigned, so refill
+retries no longer release stale pointers.
+
+The failure is silent and produces no kernel warning or splat. A
+standalone legacy cyclic-RQ zero-copy libxsk reproducer, using 64-byte UDP
+traffic offered at 12 Mpps, detected it: stock stopped after 2,854,914
+packets in 4.094 seconds, with 4,542 xdp_rx_ring_full events and 64
+ownership/double-publication errors. With this change it processed
+356,904,225 packets in 30 seconds despite 571,405 xdp_rx_ring_full events,
+with no ownership or data errors.
+
+Fixes: 3f93f82988bc ("net/mlx5e: RX, Defer page release in legacy rq for better recycling")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Suggested-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Signed-off-by: Jerome Tollet <jtollet@cisco.com>
 ---
- drivers/media/platform/amlogic/c3/isp/c3-isp-params.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/mellanox/mlx5/core/en_rx.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c b/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
-index ae0777a20bda..f2396e2c6640 100644
---- a/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
-+++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-params.c
-@@ -139,7 +139,8 @@ static void c3_isp_params_awb_cood(struct c3_isp_device *isp,
- 	unsigned int max_point_num;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+index 206cf9db3..7bd0606a5 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+@@ -410,8 +410,11 @@ static inline void mlx5e_free_rx_wqe(struct mlx5e_rq *rq,
  
- 	/* The number of points is one more than the number of edges */
--	max_point_num = max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1;
-+	max_point_num = min(max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1,
-+			    C3_ISP_AWB_MAX_PT_NUM);
+ static void mlx5e_xsk_free_rx_wqe(struct mlx5e_wqe_frag_info *wi)
+ {
+-	if (!(wi->flags & BIT(MLX5E_WQE_FRAG_SKIP_RELEASE)))
+-		xsk_buff_free(*wi->xskp);
++	if (wi->flags & BIT(MLX5E_WQE_FRAG_SKIP_RELEASE))
++		return;
++
++	xsk_buff_free(*wi->xskp);
++	wi->flags |= BIT(MLX5E_WQE_FRAG_SKIP_RELEASE);
+ }
  
- 	/* Set the index address to 0 position */
- 	c3_isp_write(isp, ISP_AWB_IDX_ADDR, 0);
-@@ -258,7 +259,8 @@ static void c3_isp_params_ae_cood(struct c3_isp_device *isp,
- 	unsigned int max_point_num;
- 
- 	/* The number of points is one more than the number of edges */
--	max_point_num = max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1;
-+	max_point_num = min(max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1,
-+			    C3_ISP_AE_MAX_PT_NUM);
- 
- 	/* Set the index address to 0 position */
- 	c3_isp_write(isp, ISP_AE_IDX_ADDR, 0);
-@@ -316,7 +318,8 @@ static void c3_isp_params_af_cood(struct c3_isp_device *isp,
- 	unsigned int max_point_num;
- 
- 	/* The number of points is one more than the number of edges */
--	max_point_num = max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1;
-+	max_point_num = min(max(cfg->horiz_zones_num, cfg->vert_zones_num) + 1,
-+			    C3_ISP_AF_MAX_PT_NUM);
- 
- 	/* Set the index address to 0 position */
- 	c3_isp_write(isp, ISP_AF_IDX_ADDR, 0);
+ static void mlx5e_dealloc_rx_wqe(struct mlx5e_rq *rq, u16 ix)
 -- 
 2.55.0
 
