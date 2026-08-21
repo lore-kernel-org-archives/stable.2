@@ -1,168 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75C53603DB;
-	Fri, 21 Aug 2026 23:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9527434406
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 23:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787355113; cv=none; b=j4NbqLsNwjA70YYhwi9PrAb2YH7wlsnrNmd1GuPVdJ5QknHYfdfLcmQuhY43Z5zNe7qraP9TITVa/24S4ktjfnOM8Qrlq7IeryR0PibI/QaYtV6yawJMjTqesxtwXDV7yYvpjfZWdu7b+u7i0U1aOZbnFNY241xhikuYpNyQv3s=
+	t=1787355357; cv=none; b=Ltpn3Ara2Pv+cK1o5gqjflcfCIVbyd1YzM68zus/Vky3V8iS8GRAhP1mhHRFiVAXUUuZNu1fyBUwT+2lOfuBQ4/XQDysKOSW5FF3lY+uF/m1s9pcXAL/bF5Xr/Z6h7wnC0dmxL/4heWv7SCQBLet4yNBdQUfA4RgmxBj9p8VMkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787355113; c=relaxed/simple;
-	bh=j5UpYRHlqi7sh0mnbdgsDL/S7j546To1ben8m5Rsn0w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LMgunbKgq+lAAxF+9uWxkX8lCC8Z60sXrsYbwkT00MU1OOpS9TeI+NQWVmg66mDW79gp7qQu6ES3kMEahIxOAvVox5X3ckfAQpsRg7xtHRY1kU0Z7UCeGd+arA+dzCqUgGWlWYuuWUfPDZfbxnLH48AaVd1EIAyml0gP2jiEz1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVdz7RXm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787355357; c=relaxed/simple;
+	bh=asd0oGe+4nzxMKLWV335XwiZaTgrY2kiFB5C2LrFQuE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZINlfwIGPWiZrfHnr6RCKndJcxUgU1FaGWv789L/iJ725/4/PqR3G1/e/0N6bUo/85L9W2cxrbsnRsp5p43rrjZufEd4p0AfFxuNSTCMsFSXMCqf3nCeP2WU3ORnDysBt+zcvPNZzV3ditMbY1iYHiEQ1TdVglweKB/WLQPPRRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=Ub0Jmlk/; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVdz7RXm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B8A1F000E9;
-	Fri, 21 Aug 2026 23:31:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787355111;
-	bh=rCp/jY0222VSJZl4mUd75jNTGtXAjtUuGODwa389Jvw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lVdz7RXmwiQxPdZ8EpKvdYh2XjQbhfGvMiNoylnXHdUp5+SMOfmIGPpOQXsg/s6OQ
-	 xFWDueT4IHRgyucqkHqPnlIubMTFt0l/oq9d8ibunWANUwVO3Irr9JdC1WK0oLFEQo
-	 h9tNuFkpjpIvwfnuD4UO9yxghLDkcu3F8q5DtGikMBjPvUI8huPeoydGar+TBfd4bR
-	 dtkpJTh1vCmdq1+I554k1hJbfPycvx8xmMMG7EVsmErQQbBPAOyRHvLEtLTAwj07U2
-	 EK/AhCwaoJGx0v8uWWcdsYLvsuTX5iAXdn2rvUPAe6sCUe0EPUvSldhRHvNHm//8yn
-	 yULw49NT/Gd9w==
-Date: Sat, 22 Aug 2026 00:31:46 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, shuaijie wang
- <wangshuaijie@awinic.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: aw96103: validate firmware data length
-Message-ID: <20260822003146.4962e329@jic23-huawei>
-In-Reply-To: <20260802192134.32a0349d@jic23-huawei>
-References: <20260801193700.57457-1-acharyalaxman8848@gmail.com>
-	<20260802192134.32a0349d@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="Ub0Jmlk/"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84874b52eabso2009976b3a.0
+        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:35:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787355355; x=1787960155; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I2COMEyacsFGYmJ08hxh+ysp07Ov7pN7X0HAy5vh28A=;
+        b=Ub0Jmlk/pVPpFun5EP+0W014uqr+/Ihzi3pAp/Ksx8mGweHGoTySJgrETjHOLG92vs
+         OqJh8qDHdv96s8yuG5TRIAsym/5Y2wdWEoLMZOGHfeuhMbG4dbP9LcMett22qz5v21X2
+         rKRYw34Ak/tMhhqNUjRcSzhzdM4B6vaA/Lg9PSBXUChY52V38SBCfzRJ0dhpb7pP1e88
+         5QVP5s92BgTBjhASS++ruL/261PTbaNKANKpNs6ajzGTfJ7ReKztRMZ/OpICd17tA/KC
+         o39jxKmhtJTorfJrzJ6EJVfnWcZ2xiagmjitS82drD9zhefAXHpiQYKZdLLdM3Uijy7e
+         5cHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787355355; x=1787960155;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I2COMEyacsFGYmJ08hxh+ysp07Ov7pN7X0HAy5vh28A=;
+        b=HGH5ZW9Awq/Hhjj8JGyqVwnUBix/PPCnKXTetMaeuXdZP4e9UTiZo9UdMRq5qkrVJA
+         DEWb1RW0pqEvPL24P2gHQPdBkmycQsI7otcrXPN2T1CekM2qbl9YhsQOfLD5ckjQU8rI
+         rIrCdFjAC8XMI8fDmKc2NJIm8Dyrl/NdpAQI2DXYcOoT/RZklYComubzAsGzeheOfK8U
+         t+dOOrnKkyc0kxCduY3UsKtc+O6rwd1x+HBd05Krlcqm+Zn27d8xhdvSKnzVH/mZZS8w
+         V07Ejip6lRTKe46pFfQrTWLj4IRITtG8Q5DBtoNbWPdHK51auA0pnWXiAywDD4HJRcoB
+         i6YA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqd3/Da5qsjVtMdpL4XUWze1dIKOtSKv/K4q2+5/ibXpSVa5Uy0+obT+iI49172PlWWwCGZLTk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUptepfae7znjmaDnzGF2fuWc+D8HoNfNt2BOgp+GQ7IV4+Qi6
+	BUaZGbgEuPa4MVOSZsI08BSFnnzgmn5x1Ia6IvL6cuIJv5ue6Ci1fEmhuGnxifqTDl4=
+X-Gm-Gg: AR+sD10mI7zEK4ArpbiABlpjrjvHNkqqYerRYj85fwBWoo/BE/vecZOpbhvpcCIhXup
+	quyNdpr8s4s3jfGOlZmhMYayVHQ38nFLBt1sMx3bGNQ3K4d3o8swi+umk8LiywcX7dceZxRRoFo
+	z/66MW0+bPh1k3lod/UEmbObkf7QtdOePXcC+kFE9y448f/5YnLkUVrQG+4aKmYut5h//39oc2m
+	tNMJJo3cAIwspUcTgjo/oUWufxLC4bUu7NUg+2UXBbJPmOKUwMRwdDqRV/lJjANT4sSTi52oP+b
+	cf3vBepcAqTNWIQvAxM9iQ542Ec1fF8qxm7c2zr76b4URkygKqFFZrDiyrO//YKOpcPr7KEzzVY
+	sg5R01E1cfpDWvP6pJIM/PsE03g0iisXDudHUHeAxM1UC//kjC8JUDxLmFkpQNES5nkWHfP2Lay
+	2kGg1tDEO75C8agjnbZM6lQfxQw2p3IP85OQVvCVqnXg==
+X-Received: by 2002:a05:6a00:a225:b0:847:8b11:5966 with SMTP id d2e1a72fcca58-851f9a8e890mr12978803b3a.1.1787355355122;
+        Fri, 21 Aug 2026 16:35:55 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:58::])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc15523b579sm3637919a12.3.2026.08.21.16.35.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Aug 2026 16:35:54 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+	Colin Winegarden <colin.winegarden@broadcom.com>
+Cc: horms@kernel.org,
+	rukhsana.ansari@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Joe Damato <joe@dama.to>,
+	stable@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH net] bnxt_en: Bound SW TPA IDs to prevent crashes
+Date: Fri, 21 Aug 2026 16:35:48 -0700
+Message-ID: <20260821233549.3134699-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2 Aug 2026 19:21:34 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+TPA IDs are generated by FW and can be up to 1024. bnxt_alloc_agg_idx is
+intended to wrap the FW ID to a value in the range of [0, 255] and
+generate a mapping between FW IDs and the wrapped software ID.
 
-> On Sun,  2 Aug 2026 01:22:00 +0545
-> Laxman Acharya Padhya <acharyalaxman8848@gmail.com> wrote:
-> 
-> > The firmware parser reads a length from the binary header and then uses
-> > it to walk six-byte register/value entries. A truncated firmware image
-> > can make the parser read beyond the copied firmware buffer. A value
-> > smaller than the four-byte count field also underflows, producing a very
-> > large length.
-> > 
-> > Read the little-endian field with get_unaligned_le32(), as previously
-> > proposed by David Lechner. Validate the header size, reject an
-> > underflowed length, ensure the resulting payload is contained in the
-> > firmware image, and require it to contain whole register/value entries.
-> > 
-> > Fixes: 07b241262dca ("iio: proximity: aw96103: Add support for aw96103/aw96105 proximity sensor")
-> > Link: https://lore.kernel.org/r/20260314-iio-proximity-aw96103-fix-firmware-read-v1-1-c74fe9ccd82b@baylibre.com
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>  
-> Looks fine to me, but I'll leave it on list a little while so others
-> have time to take a look, ideally including Shuaijie Wang
+On a 57608 with firmware version 233, the firmware advertises 32
+concurrent TPAs. As of the commit under fixes, bp->max_tpa on this NIC
+is set to 32.
 
-Long enough - applied to the fixes-togreg branch of iio.git.
+If the software ID from bnxt_alloc_agg_idx is above 31, this results in
+an invalid address being loaded on this line:
 
-Note, I'll be rebasing on rc1 before sending this out so there is
-still time for additional feedback.
+  tpa_info = &rxr->rx_tpa[agg_id];
 
-Thanks,
+because rx_tpa is allocated with only bp->max_tpa (32) entries. Writes
+to tpa_info later in the code are out of bounds.
 
-Jonathan
+This bug results in a crash at boot:
 
-> 
-> Thanks
-> 
-> Jonathan
-> 
-> > ---
-> >  drivers/iio/proximity/aw96103.c | 30 ++++++++++++++++++++++++------
-> >  1 file changed, 24 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/iio/proximity/aw96103.c b/drivers/iio/proximity/aw96103.c
-> > index 8fbb755dc..8352d51e5 100644
-> > --- a/drivers/iio/proximity/aw96103.c
-> > +++ b/drivers/iio/proximity/aw96103.c
-> > @@ -24,6 +24,7 @@
-> >  #define AW96103_BIN_VALID_DATA_OFFSET		64
-> >  #define AW96103_BIN_DATA_LEN_OFFSET		16
-> >  #define AW96103_BIN_DATA_REG_NUM_SIZE		4
-> > +#define AW96103_BIN_REG_SIZE			6
-> >  #define AW96103_BIN_CHIP_TYPE_SIZE		8
-> >  #define AW96103_BIN_CHIP_TYPE_OFFSET		24
-> >  
-> > @@ -229,14 +230,27 @@ static const struct aw_chip_info aw_chip_info_tbl[] = {
-> >  	},
-> >  };
-> >  
-> > -static void aw96103_parsing_bin_file(struct aw_bin *bin)
-> > +static int aw96103_parsing_bin_file(struct aw_bin *bin)
-> >  {
-> > +	u32 data_len;
-> > +
-> > +	if (bin->len < AW96103_BIN_VALID_DATA_OFFSET)
-> > +		return -EINVAL;
-> > +
-> > +	data_len = get_unaligned_le32(bin->data + AW96103_BIN_DATA_LEN_OFFSET);
-> > +	if (data_len < AW96103_BIN_DATA_REG_NUM_SIZE)
-> > +		return -EINVAL;
-> > +
-> > +	bin->valid_data_len = data_len - AW96103_BIN_DATA_REG_NUM_SIZE;
-> > +	if (bin->valid_data_len > bin->len - AW96103_BIN_VALID_DATA_OFFSET ||
-> > +	    bin->valid_data_len % AW96103_BIN_REG_SIZE)
-> > +		return -EINVAL;
-> > +
-> >  	bin->valid_data_addr = AW96103_BIN_VALID_DATA_OFFSET;
-> > -	bin->valid_data_len =
-> > -		*(unsigned int *)(bin->data + AW96103_BIN_DATA_LEN_OFFSET) -
-> > -		AW96103_BIN_DATA_REG_NUM_SIZE;
-> >  	memcpy(bin->chip_type, bin->data + AW96103_BIN_CHIP_TYPE_OFFSET,
-> >  	       AW96103_BIN_CHIP_TYPE_SIZE);
-> > +
-> > +	return 0;
-> >  }
-> >  
-> >  static const struct regmap_config aw96103_regmap_confg = {
-> > @@ -500,7 +514,7 @@ static int aw96103_bin_valid_loaded(struct aw96103 *aw96103,
-> >  	int ret;
-> >  
-> >  	for (i = 0; i < aw_bin_data_s->valid_data_len;
-> > -	     i += 6, start_addr += 6) {
-> > +	     i += AW96103_BIN_REG_SIZE, start_addr += AW96103_BIN_REG_SIZE) {
-> >  		reg_addr = get_unaligned_le16(aw_bin_data_s->data + start_addr);
-> >  		reg_data = get_unaligned_le32(aw_bin_data_s->data +
-> >  					      start_addr + 2);
-> > @@ -550,6 +564,8 @@ static int aw96103_para_loaded(struct aw96103 *aw96103)
-> >  static int aw96103_cfg_all_loaded(const struct firmware *cont,
-> >  				  struct aw96103 *aw96103)
-> >  {
-> > +	int ret;
-> > +
-> >  	if (!cont)
-> >  		return -EINVAL;
-> >  
-> > @@ -561,7 +577,9 @@ static int aw96103_cfg_all_loaded(const struct firmware *cont,
-> >  	aw_bin->len = cont->size;
-> >  	memcpy(aw_bin->data, cont->data, cont->size);
-> >  	release_firmware(cont);
-> > -	aw96103_parsing_bin_file(aw_bin);
-> > +	ret = aw96103_parsing_bin_file(aw_bin);
-> > +	if (ret)
-> > +		return ret;
-> >  
-> >  	return aw96103_bin_valid_loaded(aw96103, aw_bin);
-> >  }  
-> 
-> 
+Oops: general protection fault, kernel NULL pointer dereference 0x8: 0000 [#1] SMP NOPTI
+RIP: 0010:bnxt_rx_pkt+0xc0/0x1560
+RSP: 0018:ffffc900009b8c78 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: 0000000000000048 RCX: 0000000206682516
+RDX: ffffc900009b8db4 RSI: 0000000000000000 RDI: 01ffffff038fe1c0
+RBP: ffffc9006e687480 R08: ffffc9006e687000 R09: 0000000000003048
+R10: 0000000000000480 R11: ffff8881c6083900 R12: 0000000006682516
+R13: ffff8881c6095400 R14: 0000000000000016 R15: ffff8881c6b66680
+FS:  0000000000000000(0000) GS:ffff88fef3c77000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fc8bda40584 CR3: 000000807c812001 CR4: 0000000008772ef0
+PKRU: 55555554
+Call Trace:
+ <IRQ>
+ ? __netif_receive_skb_list_core+0x1ca/0x250
+ __bnxt_poll_work+0x152/0x280
+ bnxt_poll_p5+0x1cd/0x480
+ __napi_poll+0x30/0x180
+ net_rx_action+0x20b/0x3b0
+ ? note_gp_changes+0x53/0xe0
+ ? tick_setup_sched_timer+0x180/0x180
+ ? __napi_schedule+0x9a/0xb0
+ ? bnxt_msix+0x24/0x30
+ handle_softirqs+0xdd/0x2c0
+ __irq_exit_rcu.llvm.3171231171502365008+0x47/0xf0
+ common_interrupt+0x85/0x90
+ </IRQ>
+ <TASK>
+ asm_common_interrupt+0x22/0x40
+
+This stack trace is from a crash triggered when an out of bounds rx_tpa
+is dereferenced. The invalid write mentioned above is silent in this
+particular crash.
+
+Fix this by adjusting bnxt_alloc_agg_idx so that any SW index greater
+than or equal to bp->max_tpa goes through the collision logic and picks
+the first available bit. Adjust the collision logic to only provide bits
+within the range of [0, bp->max_tpa).
+
+Fixes: 54c28fab2fa5 ("bnxt_en: Set bp->max_tpa according to what the FW supports")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Damato <joe@dama.to>
+---
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index d3cb25abb632..f348fb93047d 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -1517,14 +1517,15 @@ static int bnxt_discard_rx(struct bnxt *bp, struct bnxt_cp_ring_info *cpr,
+ 	return 0;
+ }
+ 
+-static u16 bnxt_alloc_agg_idx(struct bnxt_rx_ring_info *rxr, u16 agg_id)
++static u16 bnxt_alloc_agg_idx(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
++			      u16 agg_id)
+ {
+ 	struct bnxt_tpa_idx_map *map = rxr->rx_tpa_idx_map;
+ 	u16 idx = agg_id & MAX_TPA_P5_MASK;
+ 
+-	if (test_bit(idx, map->agg_idx_bmap)) {
+-		idx = find_first_zero_bit(map->agg_idx_bmap, MAX_TPA_P5);
+-		if (idx >= MAX_TPA_P5)
++	if (idx >= bp->max_tpa || test_bit(idx, map->agg_idx_bmap)) {
++		idx = find_first_zero_bit(map->agg_idx_bmap, bp->max_tpa);
++		if (idx >= bp->max_tpa)
+ 			return INVALID_HW_RING_ID;
+ 	}
+ 	__set_bit(idx, map->agg_idx_bmap);
+@@ -1589,7 +1590,7 @@ static void bnxt_tpa_start(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
+ 
+ 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
+ 		agg_id = TPA_START_AGG_ID_P5(tpa_start);
+-		agg_id = bnxt_alloc_agg_idx(rxr, agg_id);
++		agg_id = bnxt_alloc_agg_idx(bp, rxr, agg_id);
+ 		if (unlikely(agg_id == INVALID_HW_RING_ID)) {
+ 			netdev_warn(bp->dev, "Unable to allocate agg ID for ring %d, agg 0x%x\n",
+ 				    rxr->bnapi->index,
+
+base-commit: 4e15e89faac9f308baeb01f46c13a051814d2449
+-- 
+2.53.0-Meta
 
