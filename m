@@ -1,127 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DA8427F8B
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AAE429CEC
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323819; cv=none; b=trzIyiRPTqcOE3t8+X1zWlrVTHm2052bsR5Qz4DtROfvtO+fjgtr9fDi4M0TPKTleriJNQFPI+Sy66rQTEXPxWTs0e9JMdIk8nrGY+72kEFWF5N904vd8Pd/eR4YUGd/5zs7bxm/AopSHxC6FmzQOuwiwEVMsOZ8qEVexVsGKG4=
+	t=1787323829; cv=none; b=uX8bBM4UqHlGOM1agDaZmVTprIrYBo+pAXt5jOiTCiUy4KwrVABsvtX6g1FPotIjiFm1yHbXAdRMYGd7zYQcJrsfVz6hnw926BPZNI/ci8pdl/r3oJdNNa8sAERMy2ISGS/yvJ01hAs9n7Bj4rIvxqYwT3LlGimkssxZ9+FPT94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323819; c=relaxed/simple;
-	bh=1+f6099av0ZbQ5n2zYPKax3BUBLHsgZRMcPjgN88OhY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S88BdGpJF/rTWIFB5SieLKXCgcibJauy9Hjs7XfzQOA3tIg4J4neOHLqQq1rXULTSS0uYhKrf+a6MZkWkwX7Jvu5ZHmtKu6WC5hooWVdrxaZP9Ho8L4ZoddMomd8QIy7v9mAm0BkWIZP6PidIUY183yW089V+Sjv5395Mj7Xp3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QNIS3OdV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787323829; c=relaxed/simple;
+	bh=V5y9o7NMk30ephKJdJV+5n9ytvSBXHDxANwEOdnD+vA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eWoVuz/slCLYudJtvsNRktNTrm8opkB475m5joc6CiU2NgqdYOMrQ97nZQ0e7b644eUVkxiEuE6r73Jci1z7sTdK5D57oGN9VolvQ00njptWM7TUp0SadwvCPIaVyn9fBiLRghBJhxUEmqAAvwtv6q0JCTcLf+gShcksetSE51Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ql4FWsdI; arc=none smtp.client-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QNIS3OdV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2621F000E9;
-	Fri, 21 Aug 2026 14:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787323812;
-	bh=siMjJsuO3Vt3IG2tSKDuiiFGm8n6ZsK71TtvvIEE+eQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QNIS3OdV8QGNkdbChUKORt85bzNlSzKjaR6nd7ac5O1B6/5WwbDu7Yvzvi0/2E+1r
-	 ClbB5XR3KVvmJQNcqELuf875ug30ZI/8d7LSRmSNzpyDXZRYdF/FbwgaUQHJfZXFQz
-	 NCWiaJ9d7IL1TcrruiXs9aCMKUDU0Rc7jCbSrvjSO6jgpHXVHWDAbN65eJbioGq15V
-	 mv1eLKCPSrdDwVOxfzLsl3uGPsM/suHJbVz/YSKNEJAvbsMJie1vDtL6r9iJyNgORd
-	 aUPVPOQQDqwgusDwfjotwPQRsM1S81pbcvCCfBUNtxZyb3TG3JKP/pNcGa73DN/UcS
-	 nncDPD3feHM4w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zijie Huang <milkory@outlook.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net/sched: reject overly deep qdisc hierarchies
-Date: Fri, 21 Aug 2026 10:50:10 -0400
-Message-ID: <20260821145010.3430526-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081713-crushed-deftly-56ac@gregkh>
-References: <2026081713-crushed-deftly-56ac@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ql4FWsdI"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-44cf70de986so708223fac.0
+        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 07:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1787323826; x=1787928626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I32wmWttHHzW4Q6gfxtgpGyjxKkIWFyf2W71REhQGbs=;
+        b=Ql4FWsdI/k8WAOIKGSjgKDlws8hd3i8uFjmfPMy10ry+ozA7FJ+m0SANE/I9AKFXky
+         kWzxsnWsKTUl+siJDjgxOyodPl15dyqaM57nJfPa0y70kwO3MSDHoiH2CAiRVEgFecvy
+         fkc0SqKMb1MAwHmmnkNKjjedFZnj9tC5dZj6I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787323826; x=1787928626;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I32wmWttHHzW4Q6gfxtgpGyjxKkIWFyf2W71REhQGbs=;
+        b=r2Ih5eQLLRCT0eoq0O7qqlu11CUrv9m8B7omOff9nKopmrHkWI8byRTXJSCMWy2ROc
+         aCqnjO7QixrmhQ8YedAx60z7hI2hRrLzJaPxFzjUXCiLQ5+edG79FyfosD1kRJxS6LIN
+         2duNs5m7OyPpuL37fyyJxwZOIYfDth4GY8ejMLKqtpvVc3MGhROvjkQ1mfqqxyk4y+q1
+         32iadwJifLMIorWVWoNYTWuQWjojVSjbhR1rJHkSKzLvoKEQBYuSn5+xOO6M7Drsc1Io
+         dELTerJN72189dHwScxx3DEvzRiOBch1Wgn/E9c6ZkYEIHSEmraSLmYq5F+CBdoXixB7
+         oStg==
+X-Forwarded-Encrypted: i=1; AHgh+RqVk1cR6WYV7zavCOzPnvfLDZrKAgQ7Rp22rTyMrvxwdrF1BiuHZN6I0MQCoTDGhwJO5/4u1eA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnDOGJVrXZ3NudneXBqAoqmss8ZHi9eQbjabiXLlV0aIcuOnme
+	4R9Q36xwd8q4xr7JyOVvw4j01QsOka/WK55xAEozI1dMfEs3u42E4k4uQNs7lBnix4U=
+X-Gm-Gg: AR+sD12tjCjAqbyZEv820cObLhp6R2vrCzD9w82jgCCsf5H3orGqgoD7Fmy1XWA0sz0
+	oh0uqA1JFPQinykEYab/ZYeE7xysYCHz6YlFrCtYkq12JX7ehyHT33yFJD4WN9oOogKogyjqPWu
+	V0QI6A3LV/p1SAdmxbpJdOs5D3zgKR3QVkFZj5XyBHuhbX+R5As6J1cQJWB9zS5D/g/UY47qjjL
+	m2wv/YO9Jx2QhXeyFF+z7mQQjAG1D/hK0c14P/ql/ek4uU0mrCHyCm/TZ8Ed9vtUQa2cCp+oXnn
+	k27+Q8c93z1AXwsLiIFugIUFrB7ALOaCd75JIWuT5tjJgc+kV2UMfcpSttdNEY6adzlmCPRgOeu
+	vwojfOOLwcHlm3topSCXy05MpKlU6Sw219VdG/XknoSnfC7m+0BkVNa1V7st8qdNDAF/qq+f9jB
+	P/rNycVk1/qh/Ac3bF+L8Aad+c1iRAJsuvt+1qG41fGfcXf/MMcUfIkoUvHUlTDC4rUil9FvQCM
+	uS+N99v
+X-Received: by 2002:a05:6820:a511:10b0:6b1:4250:6a43 with SMTP id 006d021491bc7-6b159411a9bmr5136915eaf.17.1787323826434;
+        Fri, 21 Aug 2026 07:50:26 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b13cb557c1sm8758083eaf.2.2026.08.21.07.50.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Aug 2026 07:50:25 -0700 (PDT)
+Message-ID: <86155abc-5a4c-4f48-b49c-54d7f005089b@linuxfoundation.org>
+Date: Fri, 21 Aug 2026 08:50:22 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 000/228] 7.1.10-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260820145244.450574346@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260820145244.450574346@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Zijie Huang <milkory@outlook.com>
+On 8/20/26 08:52, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.10 release.
+> There are 228 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.10-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-[ Upstream commit dedd34b0f2310e28c5f6d4875cfbf4b7ed821c01 ]
+Compiled and booted on my test system. No dmesg regressions.
 
-Deep qdisc hierarchies can lead to excessive recursion in qdisc tree
-walkers and exhaust the kernel stack. The existing loop check does not
-cover the create-and-graft path, so a hierarchy can still be extended by
-creating a new child qdisc below an already deep parent.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Store the hierarchy depth in struct Qdisc and update it when qdiscs are
-grafted. Reject new child qdiscs once the parent is already at the maximum
-allowed depth.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Suggested-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zijie Huang <milkory@outlook.com>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Link: https://patch.msgid.link/1e9ab39597423fd5d13cfaaf52279b8ee3d9fc3c.1785434373.git.milkory@outlook.com
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ Dropped the `extack` argument from the `notify_and_destroy()` context line to match 5.15's 6-parameter version. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/sch_generic.h | 1 +
- net/sched/sch_api.c       | 9 +++++++++
- 2 files changed, 10 insertions(+)
-
-diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
-index dd6203f3f0a5e..42238e7accb36 100644
---- a/include/net/sch_generic.h
-+++ b/include/net/sch_generic.h
-@@ -93,6 +93,7 @@ struct Qdisc {
- 	struct hlist_node       hash;
- 	u32			handle;
- 	u32			parent;
-+	int			depth;
- 
- 	struct netdev_queue	*dev_queue;
- 
-diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
-index c9f7e793a375b..a962fe61c3494 100644
---- a/net/sched/sch_api.c
-+++ b/net/sched/sch_api.c
-@@ -1031,6 +1031,9 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
- 		unsigned int i, num_q, ingress;
- 		struct netdev_queue *dev_queue;
- 
-+		if (new)
-+			new->depth = 0;
-+
- 		ingress = 0;
- 		num_q = dev->num_tx_queues;
- 		if ((q && q->flags & TCQ_F_INGRESS) ||
-@@ -1110,9 +1113,15 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
- 			NL_SET_ERR_MSG(extack, "STAB not supported on a non root");
- 			return -EINVAL;
- 		}
-+		if (new && parent->depth >= 7) {
-+			NL_SET_ERR_MSG(extack, "Qdisc hierarchy is too deep");
-+			return -E2BIG;
-+		}
- 		err = cops->graft(parent, cl, new, &old, extack);
- 		if (err)
- 			return err;
-+		if (new)
-+			new->depth = parent->depth + 1;
- 		notify_and_destroy(net, skb, n, classid, old, new);
- 	}
- 	return 0;
--- 
-2.53.0
-
+thanks,
+-- Shuah
