@@ -1,122 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A44490C00
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336004C6EFA;
+	Fri, 21 Aug 2026 14:20:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787322028; cv=none; b=Brlg6eQ3PWVP3PLDRpRUU7HdsN2xjqJrxdiAlVhWULBD9hdb9Q90wFqbwGEYNjuNACiWg93FiVtD2CHeJi8ppHT/D3v1rwiviTRzBGsw2WeYbivs55sDN3hNGqvS1BI5v+cazvTgWYXZXlqiHJcdhE0wNazJ2IAqWYwh8EaqksE=
+	t=1787322043; cv=none; b=VQbId9ONkh4CDGA4EqyvwH0Ur97OrQNDHGsM9M3Qd/uJxbG1++PYx7CfSDOh/5KqQ5ZbE0YXQhyHsLZMaIcBJZQ1LJggRLMGv+MXr/vCBcYR5BHskQFWoKwnr464+UFrlKZPe1Fx4+WYeGYV7IbQAzpcRdg8WEUuDZyrFBzrmcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787322028; c=relaxed/simple;
-	bh=7N+cB+eVLGM40S/TKm2/JEFRCS1qwpFMCijIuEKdGLg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ph1oT6fuPGe7Pir4D2qEXZbgpLU294WNheWfo5NN6qCOg7Kivt2tTrvCbxZDPf1HvgQxI5xGSgcjttNCsvwcX8csNc7kb8xJACqcZj6hBX3abwo6wWjCt93t6iVpBnVC4c9v/cTxsKFFx3hxC8894SuXMRcpcrPbycBn/lJtpsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kEW37nSm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787322043; c=relaxed/simple;
+	bh=0U3/f5b00kw7nXIkU0Hv6D7WvLN+mktvkX3z94mdOhg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TSZ4cVUDU56BQ8VxI3tiJ3SeMMBeSxH5hrSB/5vqIGOyBbM/RPJHHfozRvasZxRcE880JrHSUK7f4L8Ww/41CsDt6GzFNTJnwF8+SdxLhv8EwOlp5HhH9YGpbAUUd3Tvy2JF7WLE/drWxZXHZoHxJHsMBtozP1gltQYJQXkEV6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Wq7qh/Ig; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kEW37nSm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FC61F000E9;
-	Fri, 21 Aug 2026 14:20:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Wq7qh/Ig"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B231F000E9;
+	Fri, 21 Aug 2026 14:20:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787322023;
-	bh=TZ4ttv+Seejg+NrCrDQ3YAgXH04aEscuIQR36ilwRC0=;
-	h=Subject:To:Cc:From:Date;
-	b=kEW37nSmY06ecq/nVcCiw/oSY+QjasoR1aMv9vYNK3nQQ3G2MSCEZDAj9MyAVuVlo
-	 NZ5sJnOGIG9uiijjhJP0qvP0VKT9DKS57LqoJr3vqLGJxFC94+UyVLdSMqaIdJKvXT
-	 H7/LoigZl6kSEUInq0h0wK+paK2sJd73Aqb/r3Ic=
-Subject: FAILED: patch "[PATCH] mmc: atmel-mci: Fix use-after-free in atmci_remove due to" failed to apply to 6.6-stable tree
-To: xiaopei01@kylinos.cn,ulfh@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Fri, 21 Aug 2026 16:10:43 +0200
-Message-ID: <2026082143-ranting-roamer-c99d@gregkh>
+	s=korg; t=1787322040;
+	bh=qCpXDdlxaC1gGXEpRtu6HUDEEXqnvY7+5iVWElsVzsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wq7qh/IgP8d8Q5Vx+iU0QvjJ+SRUv7rWrdVuxEErd4IlqKYRkMYoMjUgJ51TzlzIz
+	 Sw8Y+gBN2rOWTCDk/ziMAA6xh0OMASH/IQvx4to64F6fBcSJE7OV6mOnbUseoVTf2y
+	 slYZS6reZ9bLofxUSxhEqNKpx3zCPjq4qy4Se0dg=
+Date: Fri, 21 Aug 2026 16:20:37 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Pavel Machek <pavel@nabladev.com>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com,
+	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+Subject: Re: [PATCH 6.1 000/303] 6.1.184-rc1 review
+Message-ID: <2026082127-pacific-eatery-3ad3@gregkh>
+References: <20260820145253.200766705@linuxfoundation.org>
+ <aodHg8XQDxFP8VDp@duo.ucw.cz>
+ <ac05ec20-03ef-4fc3-9821-c79ffadb3172@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ac05ec20-03ef-4fc3-9821-c79ffadb3172@nvidia.com>
 
+On Fri, Aug 21, 2026 at 12:36:22AM +0100, Jon Hunter wrote:
+> 
+> 
+> On 20/08/2026 19:29, Pavel Machek wrote:
+> > Hi!
+> > 
+> > > This is the start of the stable review cycle for the 6.1.184 release.
+> > > There are 303 patches in this series, all will be posted as a response
+> > > to this one.  If anyone has any issues with these being applied, please
+> > > let me know.
+> > 
+> > We see failure here, too:
+> > 
+> > drivers/mmc/host/atmel-mci.c: In function 'atmci_remove':
+> > 4522
+> > 15:52:00
+> > drivers/mmc/host/atmel-mci.c:2631:31: error: 'struct atmel_mci' has no member named 'bh_work'
+> > 4523
+> > 15:52:00
+> >   2631 |         cancel_work_sync(&host->bh_work);
+> > 4524
+> > 15:52:00
+> >        |                               ^~
+> > 4525
+> > 15:52:00
+> > make[4]: *** [scripts/Makefile.build:250: drivers/mmc/host/atmel-mci.o] Error 1
+> > 4526
+> > 15:52:00
+> > make[4]: *** Waiting for unfinished jobs....
+> > 
+> > ..looks same as 5.15 problem.
+> > 
+> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2776654125
+> 
+> I am seeing the same failure as well for v5.10, v5.15 and v6.1 FWIW.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x c125ee35a49a0518521b52b27631eef061b8719a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082143-ranting-roamer-c99d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
+Now fixed for all of these, AND for 6.6, thanks.
 
 greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From c125ee35a49a0518521b52b27631eef061b8719a Mon Sep 17 00:00:00 2001
-From: Pei Xiao <xiaopei01@kylinos.cn>
-Date: Mon, 3 Aug 2026 17:48:21 +0800
-Subject: [PATCH] mmc: atmel-mci: Fix use-after-free in atmci_remove due to
- race condition
-
-In atmci_probe, &host->bh_work is bound with atmci_work_func, and
-atmci_interrupt, atmci_timeout_timer and atmci_dma_complete can all
-queue this work on system_bh_wq.
-
-If we remove the module, atmci_remove makes cleanup and the memory
-allocated for host with devm_kzalloc() is released after the remove
-callback returns, while the work mentioned above may still be pending
-or running. The sequence of operations that may lead to a UAF bug is
-as follows:
-
-CPU0                                      CPU1
-
-                                          | atmci_interrupt
-                                          | queue_work(system_bh_wq,
-                                          |            &host->bh_work)
-atmci_remove                              |
-atmci_cleanup_slot(...)                   |
-atmci_writel(host, ATMCI_IDR, ~0UL)       |
-timer_delete_sync(&host->timer)           |
-dma_release_channel(host->dma.chan)       |
-free_irq(platform_get_irq(pdev, 0), host) |
-                                          | atmci_work_func
-                                          | // use host
-// devm resources released after          |
-// remove returns, host is freed          |
-                                          | // use host (use-after-free)
-
-Fix it by canceling the work after all the sources that can schedule
-it (IRQ handler, timeout timer and DMA completion callback) have been
-stopped, and before proceeding with the remaining cleanup in
-atmci_remove.
-
-Fixes: 7d2be0749a59 ("atmel-mci: Driver for Atmel on-chip MMC controllers")
-Assisted-by: Codex:deepseek-v4-flash
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-
-diff --git a/drivers/mmc/host/atmel-mci.c b/drivers/mmc/host/atmel-mci.c
-index 3b4928f5b9b2..8f4df250a77a 100644
---- a/drivers/mmc/host/atmel-mci.c
-+++ b/drivers/mmc/host/atmel-mci.c
-@@ -2610,6 +2610,8 @@ static void atmci_remove(struct platform_device *pdev)
- 
- 	free_irq(platform_get_irq(pdev, 0), host);
- 
-+	cancel_work_sync(&host->bh_work);
-+
- 	clk_disable_unprepare(host->mck);
- 
- 	pm_runtime_disable(dev);
-
