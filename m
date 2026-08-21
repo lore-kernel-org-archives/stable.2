@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD0837F31F
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:52:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260EB493632
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:52:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787331144; cv=none; b=lzrSdlyfKhn3Dkqi2Q0XBl2H8+85MMIDm6M4M91QeNFpTnWUSf3SZiGsL4h+i4NdcphAOVuWS2uZTISCl6v7KQhvOPAO0nv1yqD7PqopEXhxD8ukvPQrZ4SKxGn8kkM5Jw52BaHnDxxWN2CZMl2dEHFMVcRMfERttvuSToJszJA=
+	t=1787331145; cv=none; b=WGSz1PqZnTwPaiqlGh1Y8tafTiTE0pI8caXEfkdNblIndeI3a4BVuIoZCY3mx7d+7FlgjY+QpYYCsAlM/D7HVV6pvGPJmud98ph7ZTeraglYHXxG2j2HzWWshJVMKQVB1eYa+BMQ4HsYHBpWjbOwFKa43vq66q5od5eNyfHeYI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787331144; c=relaxed/simple;
-	bh=YTwScUhN+LubpHVKquEYiJFWozDGjq9CJpg2FVRj9C8=;
+	s=arc-20240116; t=1787331145; c=relaxed/simple;
+	bh=zZlzygQTT0XGbCzinNQHZJprtQkevB+z/ame0qjhy6U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qg+pPsF9kPrqCuDIAabBhzcUrQXChBllQPdnunksxo6uxTAeRRF7HZj5ma90ApjBI34eiSwocnLtY/jkwoJumH19VLqAU9LrzOz5HPFnYlI08jglg4slG+ARWfuBeVZ7nvvgEdJOwQdyY2Z5uS3e8sCtsCrnGKjNeF5SuMaUgvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gLSvXfT3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IysAqW2beCvousDoA2Og7EmGOtcj9KiJNZnssSVr74W7pG97LUNU3ETAE5EN4IT6MmXs6YY5eSRD99U1ocuMRtTeAZc4qZIeN17qW4IKOtXTdKDPbmkBJvBLvMx6G0Xv7Gjs0WJOBYFxDaEf67kMC+hXoGNTO0DQNUEI4hbuDdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CchGmMHj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gLSvXfT3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1327F1F00ADE;
-	Fri, 21 Aug 2026 16:52:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CchGmMHj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCED1F00ADF;
+	Fri, 21 Aug 2026 16:52:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787331141;
-	bh=6V05y94ls0cIgv89KCJ6oncij+VQGzLraH2YuVQLR6U=;
+	s=k20260515; t=1787331139;
+	bh=yB4WDEcXwpcBZfIAPphCHx/VqdhfkvgPlwpOBDU8hbE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gLSvXfT3Fte8te0d6XDWUurDpLgQ9WdKNerUy4efInVy/OnM2hSVF3IjWWUhqx9JT
-	 nmLqjCI3szw6rrxbYmhosmtPueNJ4FO9ZOCINNCSE74a+lPY1BbCTBq+MYI855qFYL
-	 d5/NHBItuGbLdKoASsbFHblhCYfypFKEnDmh0al3wfrSHObJdescjR8ORQ9841kREU
-	 EZbn59yBiPbsJV/BxvGYpeDfidj1NoYT1yTE8Jjbs4iv1dxFUyzn6W+FmMKIzv/629
-	 f+9q1XHfv6ZSxMCCyiULTIBmsTkvBjtWU9k67pUhsnJSYUvTmubFMgGXQ0yN4GZvTM
-	 xRT31TCqpVPwg==
+	b=CchGmMHj1C0TpKzF1T8YbWxUvhYCy6N7Fc/8P4uPBjrRdk81rTTbCTqnR0YMajvcs
+	 0zz5gX4ZPoM7tL9HrCr2aAEtEXR3VxuBrbG2R86HIoA24v60iLs1gEwfhlfBMjmjfq
+	 NkJwsgZjJv9bYn+Z5Jx5RS/mPLRgLH673Dz+M4aBLLZEp+YJ6CIDGoVU7jLsSxkR3K
+	 4ju4EqAX+3UsxuD+w9egwmAVqfvP/z9L9bHtxUgtPlQzu+D8uB4t9I4bNE6Xhf5ETb
+	 bVavdMxcvyqmi3tTR2K7M+Bft3N/yqRECP3fL7xjppXwsTxYVlMaD3QlJ2Tot2fnL5
+	 ewzbHCUG5KQdw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Qihang Tang <q.h.hack.winter@gmail.com>,
 	Willem de Bruijn <willemb@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] packet: use consistent hard_header_len in non-ring send paths
-Date: Fri, 21 Aug 2026 12:52:18 -0400
-Message-ID: <20260821165219.3595277-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] packet: use consistent hard_header_len in non-ring send paths
+Date: Fri, 21 Aug 2026 12:52:16 -0400
+Message-ID: <20260821165216.3594952-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081746-clarinet-enrage-8399@gregkh>
-References: <2026081746-clarinet-enrage-8399@gregkh>
+In-Reply-To: <2026081702-transfer-unmanned-da14@gregkh>
+References: <2026081702-transfer-unmanned-da14@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,7 +77,7 @@ Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
 Reviewed-by: Willem de Bruijn <willemb@google.com>
 Link: https://patch.msgid.link/20260805125729.19220-3-q.h.hack.winter@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 21b5953e7494 ("packet: use consistent hard_header_len in TX_RING send path")
+[ Kept 5.15's `bool has_vnet_hdr` / 3-arg `packet_snd_vnet_parse()` spelling instead of the upstream `vnet_hdr_sz` form when applying the `hard_header_len` changes. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  include/linux/netdevice.h |  6 ++++--
@@ -85,10 +85,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 20 insertions(+), 12 deletions(-)
 
 diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index b847c45c45c82..d3a2234c736c3 100644
+index ae79df28174e1..a08e187e056a0 100644
 --- a/include/linux/netdevice.h
 +++ b/include/linux/netdevice.h
-@@ -269,9 +269,11 @@ struct hh_cache {
+@@ -274,9 +274,11 @@ struct hh_cache {
   * We could use other alignment values, but we must maintain the
   * relationship HH alignment <= LL alignment.
   */
@@ -103,10 +103,10 @@ index b847c45c45c82..d3a2234c736c3 100644
  	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom) + (extra)) \
  	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
 diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index f73e2c3b813d9..4aa1976695a8a 100644
+index 2c1a0c5e6df1f..c1c345dd2ee3b 100644
 --- a/net/packet/af_packet.c
 +++ b/net/packet/af_packet.c
-@@ -1968,8 +1968,9 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+@@ -1972,8 +1972,9 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
  	struct net_device *dev;
  	struct sockcm_cookie sockc;
  	__be16 proto = 0;
@@ -117,7 +117,7 @@ index f73e2c3b813d9..4aa1976695a8a 100644
  
  	/*
  	 *	Get and verify the address.
-@@ -2012,14 +2013,18 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+@@ -2016,14 +2017,18 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
  		extra_len = 4; /* We're doing our own CRC */
  	}
  
@@ -139,7 +139,7 @@ index f73e2c3b813d9..4aa1976695a8a 100644
  
  		rcu_read_unlock();
  		skb = sock_wmalloc(sk, len + reserved + tlen, 0, GFP_KERNEL);
-@@ -2049,7 +2054,7 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+@@ -2053,7 +2058,7 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
  		err = -EINVAL;
  		goto out_unlock;
  	}
@@ -148,7 +148,7 @@ index f73e2c3b813d9..4aa1976695a8a 100644
  	    !packet_extra_vlan_len_allowed(dev, skb)) {
  		err = -EMSGSIZE;
  		goto out_unlock;
-@@ -2962,7 +2967,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+@@ -2966,7 +2971,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
  	int offset = 0;
  	struct packet_sock *po = pkt_sk(sk);
  	bool has_vnet_hdr = false;
@@ -157,7 +157,7 @@ index f73e2c3b813d9..4aa1976695a8a 100644
  	int extra_len = 0;
  
  	/*
-@@ -3003,8 +3008,9 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+@@ -3007,8 +3012,9 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
  			goto out_unlock;
  	}
  
@@ -168,7 +168,7 @@ index f73e2c3b813d9..4aa1976695a8a 100644
  	if (po->has_vnet_hdr) {
  		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr);
  		if (err)
-@@ -3026,10 +3032,10 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+@@ -3030,10 +3036,10 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
  		goto out_unlock;
  
  	err = -ENOBUFS;
@@ -181,7 +181,7 @@ index f73e2c3b813d9..4aa1976695a8a 100644
  	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
  			       msg->msg_flags & MSG_DONTWAIT, &err);
  	if (skb == NULL)
-@@ -3045,7 +3051,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+@@ -3049,7 +3055,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
  	} else if (reserve) {
  		skb_reserve(skb, -reserve);
  		if (len < reserve + sizeof(struct ipv6hdr) &&
