@@ -1,209 +1,110 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD9A2F8E85;
-	Fri, 21 Aug 2026 12:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8918939099C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 13:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787316919; cv=none; b=c7WqViKdBtoU1U2DjcI5J/mwR3IjB43wSlJ1Je73P2thux4jxwLPT+x5qa0fD/EyIty3VYlRxKhl1/pz+plIHD88zTxP8Y+V/jwNUeUnuctNfiSfA6Wl0eR5mn7NNYUkCbCeNcgYrOHtzG/Rs7kQePtF7YImDg5E6lyvSRXmRbc=
+	t=1787318521; cv=none; b=N7xk92dzd0vCvTRphP0HxnKSrdKBUfkR2qvm241FCFNzX1HQiNlwtJQzXBq+try7rRdRcCtjom/UBm97sutPjp8XC+2ac4E5M6u2fDJ4kLHn5jsznHt45uXDQDdrkLVrXP+wYhmrhAD11lnapMzunhOyq2hmBHiCz7K5yMkJ7+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787316919; c=relaxed/simple;
-	bh=s9wTT/4lNifGl9E4TI/nvgm+jvsQwa1y0ghbn9UC5eE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YY/SHqM5PzWnLItDPcuitsFd+3JPb9zabMaIGfP09AZN3v2n1ptnqk1wluk/cUSWqix3NKjEilyeALIkmmefR81666fN6Lyzb1RFfkFzrNyzZDbGLKqHf/dww0k/3ZMqP/BDlZXbgzywsVwMNbte8AkluvU+aBFEMUO3nOPWtXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XCAqtlvV; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787318521; c=relaxed/simple;
+	bh=RQg3xA6rwb9np995dLqi+teIPepo7EW4N1UEpxqVX14=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NafHpoy8Wl3btOLJSxGtkD8Lfwj+SevSgYlQHSlPuB6Jqwcb1jsMqQQsA+cobnXTasnzKuPO53Q89J+kGE5tLRzUsgcn0lIV42X4V9bLEomr/Obv1/iD7i+sFixstHryiXnficBf7ct81qf/avr0N4iq6Sap2uIv0IMFggUZJ3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=nZM+QD0J; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XCAqtlvV"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67LC1Y131391506;
-	Fri, 21 Aug 2026 12:55:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=8ZYQmLaslDy51WJETmPI5hkKfhql9GlfRjpJ+/+VE
-	LY=; b=XCAqtlvVywQ9nlesTyEjumV1wfkKGVV8pacWLtqgSZzc+x1oQlnjo3YrN
-	KMCFUufH9qj6HretOgstanRA+VL9iFqPJDXNUlTkl1HC5dS92jVP2B2trnaH3kLP
-	uXUzaPN7ruf9+/fX5TogXidfK3maVcAX77RqCiXWdCrvRRidxg7mYkBs6A9xCwbx
-	NQVW17z+Zsaf7zLQ8DlKl3kKj4B9/416YSveUuwP4vZ48vl0JS/SGy28RZTp4iQn
-	PwoZ/XbjRiOWPjPlE61k9JbyOSmqrrkaHgR8ChukF9fx8wj49Wd7xkCt8PLqq4qC
-	qRmUE+baVaBmfI2vV3P3FdDVBNuvQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g4yu1sf6p-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 21 Aug 2026 12:55:06 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67LCkwMa027060;
-	Fri, 21 Aug 2026 12:55:05 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g33xhmpw6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 21 Aug 2026 12:55:05 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67LCt1X229032740
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 21 Aug 2026 12:55:01 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6706120043;
-	Fri, 21 Aug 2026 12:55:01 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2F2A02004D;
-	Fri, 21 Aug 2026 12:55:01 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Fri, 21 Aug 2026 12:55:01 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
-	id 1A8521618E7; Fri, 21 Aug 2026 14:55:01 +0200 (CEST)
-From: Alexandra Winter <wintera@linux.ibm.com>
-To: Bryam Vargas <hexlabsecurity@proton.me>,
-        David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: Hidayath Khan <hidayath@linux.ibm.com>,
-        Aswin Karuvally <aswin@linux.ibm.com>,
-        Thorsten Winkler <twinkler@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
-        stable@vger.kernel.org
-Subject: [PATCH net] net/iucv: filter frames in afiucv_hs_rcv() by ingress device
-Date: Fri, 21 Aug 2026 14:55:01 +0200
-Message-ID: <20260821125501.3718748-1-wintera@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="nZM+QD0J"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1c50c1e29bso159362566b.3
+        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 06:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1787318512; x=1787923312; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G3lUMoCTXIuvo/lvc/TnhyCBtsYQ1ZJf5IigNILfKr8=;
+        b=nZM+QD0Jn/99M5lyleKlVHvAfXlR2TPgPhQbaFx3eUctyZKfz08dQEmV4FJ6p7dF8b
+         FKPrd7lcNscYgJmKCZO4mPA+GO5LOqX9PfeRrorlecIcOl6CTJTUXaEdfnCGrAGPU8fV
+         3ZYBwLGuBj30l7HAityUbVXJLKgJTqUdhOf13sH0Q2X6yt65mqC6a9m6rQPcaJB9PzWZ
+         yTd9GVk1AaF5Sj97C3mGfZIXr03EUY3toBKRd7vCATgEzsb57SZ+/aXP+30YJtAyscqx
+         RPrth8eW0ZaBo5OUNnRuRLLsMko0hIRRf7kH0B9PRjBLZIAJW97w3iULn64jTPaR9IyC
+         dQsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787318512; x=1787923312;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G3lUMoCTXIuvo/lvc/TnhyCBtsYQ1ZJf5IigNILfKr8=;
+        b=T3JqDpVmapUdej+ClcOmafqVLDWgd8SFLmvD5uaIBn6DqG0M0iACsZs4yvKcNQr0Th
+         qT2gnksDyWLnMnzEojh83JWDAETpDwK5uys0QC4jSCSOA/qIGikkzKWGXL8vOqHgKL/5
+         rat029KBYZCCxDsmQ8gxykN13LtwRjLQGYIJ2XB8vyJxatUUYX1v5VeXi8w6SMtQo0mJ
+         HB9GPHDWwjmoSUhoaC5qkXJFsrrcUsPAELE4UXZTq3wgWnjU+pAwvMc14pmc0C95IMpF
+         gbSGav4gwmQAG59RiMn3xBMtOTvDeFbavIuYOgaDSwwYM4evkVAYpOuf2TVp4zUweKGs
+         oDYA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrh1L8ji4DKwZxPJ946AtjoIQrzdqXXAvMJX2ZNTjYYTWmjOYjYMA8KmZ+7KPTve3bx4Vo7vTs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mO9sTs7Zvk3VE7lJCXo8daifyTKf495zd2hfXjg0a+wowsBB3y
+	ybI3zV6E+Qx81549xgR3SEQ+gYI5tQMSaSOOFLjIFJEHr1+T2gSGAgA=
+X-Gm-Gg: AR+sD128aZWQBJHAywD3Mu4VDct8iJCejSPz5WlRHyuMKH7533bzH/bQGsCTa5i+MKt
+	tJ1uODo3W7GrnRj1uw2FScI+hHMm2Gl0LXhJ1uMPFZw+I0o5zmdGE25Kcg3dP/hG/oUwqnC+t54
+	StiORA9i3f9j4B+aWkjXMwAv4WJA2MSx5Vv29o1m4XnlU6IPI4baDdSVJfDukvBBluTS/dYav6k
+	UOcWWy7z7jMwn3qnk4gis64AFSZ50yGvlNy2bhdxaBvnXXR+l2YhLfWLnaJFwB8UUBR9aJs+iu1
+	ST/OTE+1S2ksmAcYlF7PdvF4iTa1M3d3z9RqKeTOqz6AQgOuyW+T98PRpzAsPrHvi3DAYqPkCH8
+	gXCm4LivryLBAAw6mn0He3FB07LstV5ohzDEengfTeb2PppAwvqt7VxVcqmGfk/eNI35NssFGzk
+	l7Cv5FX4zzpKUaGj/X2r5qNniRhD6tGUV5bcpwoAkfkPusrG5CSqV1QQCztyrEHbM0Ts6ekdp28
+	q5xVZ1Z0W5StIFX3tddxoB3QUo7G8GoGOq3ShOIxA==
+X-Received: by 2002:a17:907:6d26:b0:c15:dcc6:d06d with SMTP id a640c23a62f3a-c2469f9cbb0mr613567566b.0.1787318512095;
+        Fri, 21 Aug 2026 06:21:52 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ac6d4.dip0.t-ipconnect.de. [91.42.198.212])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2458b09349sm465679566b.19.2026.08.21.06.21.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Aug 2026 06:21:51 -0700 (PDT)
+Message-ID: <3a42c3c7-cd23-46d4-bec5-ad54e74028ae@googlemail.com>
+Date: Fri, 21 Aug 2026 15:21:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=LsCiDHdc c=1 sm=1 tr=0 ts=6a884aab cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=V0ECBEa9ytxByMJEgYQA:9
-X-Proofpoint-GUID: j3Am_HH4ZpSvOLxCmNTwgXRBWF4qS-Tf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIxMDA5NiBTYWx0ZWRfXwAy+YYoq/gjN
- nQHh2gF60kik9liLO8tafRYHN/3UrPI9CJWLzfdUhQRzr8GnMxrWvrSFXQ8+DlJYlT3pKhH+Bc6
- dhZuy5x1xFfmPb4DdmXrQkmHv6OgBRw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIxMDA5NiBTYWx0ZWRfXzaFeNnlEmbQY
- lt31O6L4bBCrK05b2gS53IlTaZR7GWz7yriwZ6WGQh4/2Z7FFUSFX6CmELiwiR5FyNatLf6g17B
- 2D2N0He6IJy1e4vMcI0VcT7uZ2wsHzLZrXzn6VwgKXagYrKteg3bTLFIuY8twn36v0pS773JVXA
- wUfzO5JII/9GmSa4uLatIpLJPg76lgem29iBQkSQBE6A//PjTv/TxQdOym5cTlNIy5Zq3Ejz8sx
- Kh9SXAn3mYDeS4brIu4oR+pxFCJ8ZSX3aBlOqjNhaG/R84A7yNQMwSxvTK5kw1owHB3MJHgWDVx
- Hr83LioMqXw9H1qcCmh9+AXWQLiVMEbj4L9W/To4T3BAmLjmb7Tnrwd1iJK8kY04jZVZ4ZUgLHJ
- /n2HECdfWnncsa6HjsmkCoECiASezruDunmLoW/TxySHlS7Q7DzeHMBj5T0fOx1dDCc4J65BmDL
- XK/EJOuuyabpwiCtfjQ==
-X-Proofpoint-ORIG-GUID: f_8LTHksoZc0d8X8YX23OSctkrjJ3xZN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-21_04,2026-08-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- adultscore=0 suspectscore=0 impostorscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608210096
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/217] 6.18.46-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260820145237.531699751@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260820145237.531699751@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-afiucv_hs_rcv() selects a socket from iucv_sk_list by matching four 8-byt=
-e
-name fields in the transport header alone. No check is made against the
-net_device the frame arrived on.
+Am 20.08.2026 um 16:52 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.46 release.
+> There are 217 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-This can cause a frame arriving on any netdev to be delivered to an AF_IU=
-CV
-socket. Three problems follow.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-First, a frame arriving over HiperSockets can be delivered to a socket
-bound to the classic z/VM IUCV transport, which has iucv->hs_dev =3D=3D N=
-ULL.
-iucv_sock_bind() takes the classic path whenever the requested userid
-matches iucv_userid, even on a guest that also has a HiperSockets device
-carrying the same identifier. The child socket created by
-afiucv_hs_callback_syn() for such a match inherits hs_dev =3D NULL and
-transport =3D AF_IUCV_TRANS_HIPER, so the first send() on it returns -ENO=
-DEV.
-The socket delivered to accept() is unusable.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Second, a frame arriving on one netdev can be delivered to a socket bound
-to a different IQD device. Which can lead to
-- Accept-queue exhaustion (DoS)
-- Attacker-controlled peer identity in the child socket
-- Data injection into existing sockets
-- Fabric noise on the IQD fabric, where bogus replies are sent
-- killing established connections
 
-Third, all AF_IUCV sockets live in init_net, as iucv_sock_alloc() calls
-sk_alloc(&init_net, ...). But even frames arriving on netdev devices in a
-namespace can be delivered to an IUCV socket. So a process in an
-unprivileged user and network namespace holding only the CAP_NET_RAW
-capability valid within that namespace can send a raw ETH_P_AF_IUCV frame
-on its own lo device and have it matched against init_net sockets.
+Beste Grüße,
+Peter Schneider
 
-Fix all three by skipping any socket whose hs_dev does not match the
-ingress device. A classic z/VM IUCV socket has hs_dev =3D=3D NULL; the in=
-gress
-dev is never NULL, so classic sockets are skipped automatically. An unbou=
-nd
-HIPER socket also has hs_dev =3D=3D NULL and is skipped. A bound HIPER so=
-cket
-is only reachable from the exact IQD device it was bound to. Because hs_d=
-ev
-is always a device in init_net (iucv_sock_bind() scans
-for_each_netdev_rcu(&init_net, ...) exclusively), a frame whose ingress
-device belongs to another namespace never matches any socket.
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-Note that AF_IUCV over HiperSockets provides no per-connection
-authentication: no sequence numbers, no TLS, no nonce. The four name fiel=
-ds
-identifying a connection are exchanged in plaintext on the shared
-HiperSockets segment (VCHID). Any host on the same HiperSockets segment
-could spoof any frame type against an existing connection. That is a
-protocol-level property unchanged by this patch. The fix reduces the atta=
-ck
-surface to peers present on the same HiperSockets segment.
-
-Fixes: 3881ac441f64 ("af_iucv: add HiperSockets transport")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bryam Vargas <hexlabsecurity@proton.me>
-Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
----
-I think this fix covers the issues adressed by [1] and [2], and
-further reduces the attack surface.
-
-Bryam, would you accept a Co-developed-by, as you did the analysis
-and you proposed to add checks in afiucv_hs_rcv()?
-
-[1] [PATCH net] net/iucv: only deliver HiperSockets frames to HiperSocket=
-s sockets
-Link: https://lore.kernel.org/netdev/20260813-b4-disp-60433a46-v1-1-509e1=
-200533e@proton.me/ [1]
-[2] [PATCH net 1/2] net/iucv: drop HiperSockets frames from other network=
- namespaces
-Link: https://lore.kernel.org/netdev/20260815-b4-disp-dc82fde4-v1-1-e83b1=
-0b22ce9@proton.me/ [2]
-
----
- net/iucv/af_iucv.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
-index ea047bab65e7..4e5cc9da6e06 100644
---- a/net/iucv/af_iucv.c
-+++ b/net/iucv/af_iucv.c
-@@ -2079,6 +2079,8 @@ static int afiucv_hs_rcv(struct sk_buff *skb, struc=
-t net_device *dev,
- 	sk =3D NULL;
- 	read_lock(&iucv_sk_list.lock);
- 	sk_for_each(sk, &iucv_sk_list.head) {
-+		if (iucv_sk(sk)->hs_dev !=3D dev)
-+			continue;
- 		if (trans_hdr->flags =3D=3D AF_IUCV_FLAG_SYN) {
- 			if ((!memcmp(&iucv_sk(sk)->src_name,
- 				     trans_hdr->destAppName, 8)) &&
---=20
-2.53.0
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
