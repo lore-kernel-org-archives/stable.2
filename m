@@ -1,110 +1,103 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC705489897
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED733803E1;
+	Fri, 21 Aug 2026 11:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787312672; cv=none; b=m7T/nLt4Yh67ZXg4TqhZMGsMvMnRvS+Ye1on0EAjN71hBS0GAMMfILzBNM/UuDrZ4jHYPDCABhHGTuUobXNnSqr2WN8tNmt0rl8DJV0Il44gVMF34DatAMz8VlBv/6VFDjfBOyNuhJP3DMGaQa7FpNsy6GUPW5ckFAfHY9YdG+8=
+	t=1787313051; cv=none; b=fkA8yRKKsPhAIcph3QO+X8sMkL7z0OpB0N0SyyRQZI7GMW0PJmESn6Tdebu+Vpa6agUgmfsJ6u85+//iKO6nU6mdqNUVoNeBsRma7KuKjtgeJb5P/XLSjMN29O1JDg+6YhZKcSu2aukZiusSxr8QA15e6/Ui8diIe6R+jLOgZyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787312672; c=relaxed/simple;
-	bh=LmDPFx1UL4AROAAMd322NCliYydVlmAMUsKtVspDbvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LETEH+Dz2fUkFIzsqvzdm78e2w4tVZyQ3p/P9SFkROn/JjAHrf+jIsQ6tRZitFUe3880H7nXSDgKpm8U37vAxgUkxSd4+UgGJCKcsUEylRv0Wzh0VpjvSGyMb4UqasAVi76gFxe+8TIpIxSEAL7mvJzk7/6IHHGapZ3QtSm3StA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Fmilef9g; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1787313051; c=relaxed/simple;
+	bh=gGWt3N0H9V/r0Pd5vV/j3m0yDiezfwviuAyqs9hnxEI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hvVvDYyWIZQBKsqqsBXqPcGAoeczxM6QygixwGI0Lyv9csKvryKiz4Sc4RUQwVxpjDzjshjgtG1jop+8MIEnA8vHuAVslbF6QtRnquwDvOOGhQSgD7SOjccZKe2kaPAziKRTXz9URR6Zx16uuxs/dp9KJrAL9DEUJBtTR7D5uTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=kb2QotSG; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Fmilef9g"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a1542cdb53so1216898a12.2
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 04:44:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1787312669; x=1787917469; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cEr5jaJTXZMLUGmJfVMOczKqi9W46Dxw+6JK717Muy4=;
-        b=Fmilef9gEINRSLS4g8TprYKYk6AfO5h8MkwDNXu0jSpaPT5d3xGWKm3f8OBEapdxYa
-         iMF0/uqZPG7a6ZLFpHVjDp4b3G7Sa6dNH05ucIVVoBCiqm4ZuzFBkZ9vp5Go4c6W3cf/
-         IfqynDsxdLK1o2wC4osY4m5vd7GuwNAUtCCghk3Ajm+IhEoU6T3Ba6VcXsT8EGYOMwUO
-         uZXFoQzAVAGFxwzBTaWvyD56Q9ll/d6SFKLTgp7qpcbLGu/PojBPcZjVsKVFlACeo2zb
-         8I9/EXlocsndW0fHrA7x/dzg/W4CFY3UabghL5x0uv1fNxuiHY/9rbk1eWyL+pRhXWiF
-         OyXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787312669; x=1787917469;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cEr5jaJTXZMLUGmJfVMOczKqi9W46Dxw+6JK717Muy4=;
-        b=VQcCPQEvdyGDjeIBBtKVYt+P6peYwGp0O6a9DMNfGlO3ws4Gmlgz5/HXrukopihyw9
-         hMfJRLjwvd/oT8CfZD73NN7/DCfdKYLM2TBv84fNWZiUKvEyCnLP7DmLcsGrvwHuIeav
-         Ro/X1gq4gsxqhc0EezV2odlVTfv9UlZ2sy8haQbgTj8fPH1Ov639u3IdylUvK8Q5LK5q
-         WRDJzY8MaBuZ/x/fp9DPkh2f0s3L5QSFoPy+km+NjN53loRmv+2CzDjWRAZXj+5+oA2K
-         V2tWWR3rf/gKLR8HgxyYFN6qu2jvoGrqCr5kSqDle877/Rq/du+NN8ltw0rdwAfuVbjC
-         0M6g==
-X-Forwarded-Encrypted: i=1; AHgh+Rqvm0Srt2jGH1s4sPpV7QGs1PFj7zx0ulX4yYMJyaf9bSPV7FQedSiflENRO6bjo7NLEQY05i0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKdyF92EvVQoeFeFe2NoKj9to7Chnhrul6fAaWKcGE/EDgWDyI
-	oUOYQPrPqCJO0Fpyy4NiIHjtbXVHsWtdVq4yfh+m9PJPrKfOITwh8rssXFz/
-X-Gm-Gg: AR+sD12X66rfpLtnN79BNq7HaSr+GdDyUCnimUscAus3eiThi0BasBvlGDtPPpwo9Dm
-	NEzpJaSYwe1cFTj/8wtl0/Y+O/7uaxpi3BVXRDE9rSmsZ1H4vcN/oqF2mBqLZCFhEkGZj7BfrUr
-	vsudIc4ea7hI4BVcSfbUbBwayn7sYSckYMbVv3ruAfu4aQ99uHWkw6ssM6CgVzkHRQ1lOFHQEMS
-	VWbHuVsVD4wxhHsMSvqH+fzIYCEp0ZU+MsZAeLvGlTaSIBFXFGYcqNJzgVqpVeRQWQWZ0hhcLNc
-	R2yFHNSmmdXdjzWb28NAx1tGNak1yzaCXAzLXiMuJ57PR50053NRyNI6K/yhrWlRzpsLGjjSIrh
-	oCweiW9gT6H+KFwyrZYL6LxN4u31C/WVir0OSf0FkLZUT6qVXpw1XbkQ5zd4CetVX1lmE3xzvXg
-	Zl8g1vZQcZcTkNKEvPfCplzUBv0AwFknPpMtQINrhZPJp7JlFj01lfUuZW275OeILkt+JoUKAsv
-	O8NxNgZ5NA/RotALDT/6GYfX2uru9hNOHA+bv7q4Q==
-X-Received: by 2002:a05:6402:eaa:b0:698:6620:d988 with SMTP id 4fb4d7f45d1cf-6a42f28e8e8mr6183687a12.15.1787312668724;
-        Fri, 21 Aug 2026 04:44:28 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ac6d4.dip0.t-ipconnect.de. [91.42.198.212])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff170601sm5960585a12.25.2026.08.21.04.44.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Aug 2026 04:44:28 -0700 (PDT)
-Message-ID: <91cd689c-b9d1-40e9-bf8f-e2c12941d8f5@googlemail.com>
-Date: Fri, 21 Aug 2026 13:44:27 +0200
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="kb2QotSG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=59zBv3Eri2T8plmV6KBEXNjHzEh3l9vZRamhccgqmnE=; t=1787313050; x=1788522650; 
+	b=kb2QotSGGZfbCeHnZtJiG4dSwBvgQH85rwRTFVsTFAebndWEUfKjJvQi6/qy+6blTF4j3D/bOpC
+	3DQ6svFZO4cWvXB+2bo3YfE5nEptap+9kJSj7sUfXPQj1qvjbADxsvP98lCMzbSH2kCTnKjlIY5d7
+	0OqXrnHBj6wK6dd63tzXtwVaE1fM1vmH6YKHsyDRDPtaYkz4lDmC3W+uOq2CX7NS7vT5wgwSeNyYQ
+	kufT7Sy2/6jtPYx36pv4nQV351cAb1cBF7SI+QnIYo1tWn2BoiKwsTN36O0p2VndDncK1kjvi976f
+	QBhwDIRzQEc/s1EqWbXumyxyjI4uyZ+ioUsQ==;
+Date: Fri, 21 Aug 2026 13:48:26 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: =?UTF-8?B?0JbQsNC80LHQsNC60LjQtdCyINCg0LDQtNC40Lkg0KDQuNC60LDRgNC00Lg=?=
+ =?UTF-8?B?0L3QvtCy0LjRhw==?= <r.zhambakiev@prosoftsystems.ru>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, "Tony Lindgren"
+ <tony@atomide.com>, Lee Jones <lee@kernel.org>, Grygorii Strashko
+ <grygorii.strashko@ti.com>, Marcin Niestroj <m.niestroj@grinn-global.com>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "mfd@lists.linux.dev" <mfd@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
+ <lvc-project@linuxtesting.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH 2/2] mfd: tps65217: Check return value when masking
+ interrupt sources
+Message-ID: <20260821134826.7b545130@kemnade.info>
+In-Reply-To: <20260821075331.131315-3-r.zhambakiev@prosoftsystems.ru>
+References: <20260821075331.131315-1-r.zhambakiev@prosoftsystems.ru>
+	<20260821075331.131315-3-r.zhambakiev@prosoftsystems.ru>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 000/166] 6.6.153-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260820145211.194104353@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260820145211.194104353@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Am 20.08.2026 um 16:54 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.6.153 release.
-> There are 166 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, 21 Aug 2026 07:54:02 +0000
+=D0=96=D0=B0=D0=BC=D0=B1=D0=B0=D0=BA=D0=B8=D0=B5=D0=B2 =D0=A0=D0=B0=D0=B4=
+=D0=B8=D0=B9 =D0=A0=D0=B8=D0=BA=D0=B0=D1=80=D0=B4=D0=B8=D0=BD=D0=BE=D0=B2=
+=D0=B8=D1=87 <r.zhambakiev@prosoftsystems.ru> wrote:
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+> tps65217_irq_init() ignores the error returned by
+> tps65217_set_bits() when masking all interrupt sources. A failed
+> register write leaves the driver's software mask out of sync with the
+> hardware and may result in spurious interrupts.
+>=20
+> Check the return value and propagate the error to the caller.
+>=20
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+>=20
+> Fixes: 6556bdacf646fcaa ("mfd: tps65217: Add support for IRQs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 
+> ---
+>  drivers/mfd/tps65217.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
+> index 2d04d9e0ae29..9a1528456ffc 100644
+> --- a/drivers/mfd/tps65217.c
+> +++ b/drivers/mfd/tps65217.c
+> @@ -155,8 +155,13 @@ static int tps65217_irq_init(struct tps65217 *tps, i=
+nt irq)
+> =20
+>  	/* Mask all interrupt sources */
+>  	tps->irq_mask =3D TPS65217_INT_MASK;
+> -	tps65217_set_bits(tps, TPS65217_REG_INT, TPS65217_INT_MASK,
+> -			  TPS65217_INT_MASK, TPS65217_PROTECT_NONE);
+> +	ret =3D tps65217_set_bits(tps, TPS65217_REG_INT, TPS65217_INT_MASK,
+> +				TPS65217_INT_MASK, TPS65217_PROTECT_NONE);
+> +	if (ret) {
+> +		dev_err(tps->dev, "Failed to mask interrupt sources: %d\n",
+> +			ret);
+> +		return ret;
+> +	}
+> =20
+>  	tps->irq_domain =3D irq_domain_create_linear(dev_fwnode(tps->dev), TPS6=
+5217_NUM_IRQ,
+>  						   &tps65217_irq_domain_ops, tps);
 
-Beste Grüße,
-Peter Schneider
-
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
-
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
