@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75555367B8C
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:20:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D3E4BC005
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:20:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787322018; cv=none; b=c0a1nP/ThVVWl03IhyOgJTFmYZt7gWj7gTPlKyh7snLZDkveyR+Sd7CXOordiKP+b0ZXjoxPa5tdSUQZQk7DE+68uCiW5SB22+YaYmyfMOzrjgx7CzuFMghuIry5WdGjAW8fSVOPdGT4YpsMETLBEFoBT19zxQm1o/cqT+7c8XQ=
+	t=1787322019; cv=none; b=nDIdL+NccptjtwOvVJnguXT4CFAYW8sJGKSeVMJO7HQkSEtxOlNflHCDt3LJue2mlT2c0myIxPBsLddshMwgzEM1Xi62BQLOmGPnAjnnJofgH8yHn98nokAPcc/n/V9bzgKtmP+pajIFG4f13JSRi00BkJGsz+50CBLuvhKkJlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787322018; c=relaxed/simple;
-	bh=r1X4q7hNDd9s5za+Q46XiIr36j0y78vJqBuoYCKMvgM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ef5jwHoazZoP/H52RPEULg1afcGUTl1JohWFURmUK+g5L7CpoNNnE6yQcoJ15jX3njJu1vDi73XMKgmNAdBTNt+3fS0XNg+JIoJBtSYqJuw2IpZEHR4ZVkg1HWXWMyR14HTdMIeL9LKVRhYnWwFV2+TLjtATP+B/3Vdel3V7W0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GJXcNE2J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787322019; c=relaxed/simple;
+	bh=BBXxh2UIzImKjSsHFM+YgUGNDLiL144pefAuXwCSHw0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TEkyPlmfSzg1i+BeEeSuv12V3q8inlukQ5YRJgpZfo16qjkLljty8kmbHhxZwSc8P389dTHUp1IU09BgjC1U3FiEm17KSNhhHdfr8QikBfrbZitlRntaFynGzWg8Fb/SlJKDEa4ilaeuAdVuwY2Z8fMX9fZoiDTf6DF9odk4Y3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K5c7zQF8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GJXcNE2J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4501F000E9;
-	Fri, 21 Aug 2026 14:20:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K5c7zQF8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840871F00A3D;
+	Fri, 21 Aug 2026 14:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787322015;
-	bh=cWhz1jqwo9x40ES2BI9XXAe2fdtpdgqRmdh/co/rV1c=;
+	s=korg; t=1787322018;
+	bh=MMTjFj/mdJVaOczmZ/uVa2Cg6mP+kzcCj+JGTBKiPuM=;
 	h=Subject:To:Cc:From:Date;
-	b=GJXcNE2JObDQsPTnoSWK48asPPiNBAPggQL5SjHhGpp9h2bBescWw4Az6C7JZneMZ
-	 n59wRyeq/Ww9e7ZHxYVxD+iSi0Ae7pVH++xTWRHEDf0g4ouJttnG6PdINSnW9U1NCc
-	 G21sFOPC7xj6QmXpL2CK7F3phmW6SYrxHgXxxFfo=
-Subject: FAILED: patch "[PATCH] mmc: atmel-mci: Fix use-after-free in atmci_remove due to" failed to apply to 6.1-stable tree
+	b=K5c7zQF81coifmJa52SUfZLYHHpZWX9hHu0Ry9Aa30rt9+IgxZX2kci4g2135uGGD
+	 Fm1YjJa8nNyoBSuZp4zm8rJ7qbEz3gc2jVasmrDFdCi4q7P2b8C+E9aIw7j/PXdiNh
+	 oruikzEJmdk26fJC0z+PKnOIpvxLramP8kHwU/Vs=
+Subject: FAILED: patch "[PATCH] mmc: atmel-mci: Fix use-after-free in atmci_remove due to" failed to apply to 5.15-stable tree
 To: xiaopei01@kylinos.cn,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 21 Aug 2026 16:09:48 +0200
-Message-ID: <2026082147-enable-juggling-0745@gregkh>
+Date: Fri, 21 Aug 2026 16:10:03 +0200
+Message-ID: <2026082103-dominoes-petal-0463@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x c125ee35a49a0518521b52b27631eef061b8719a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082147-enable-juggling-0745@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082103-dominoes-petal-0463@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
