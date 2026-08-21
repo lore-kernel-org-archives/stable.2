@@ -1,195 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BBD435504
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 23:11:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75C53603DB;
+	Fri, 21 Aug 2026 23:31:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787353888; cv=none; b=ngmTLBLBrWONsrLev55LGEgylpx2ACw+D73T2x8mCfiyKIs7PUl4gJ96mUrHolG7DapWezuD71UMvsx2c0XAY8OwOQn9Ms9EBJvKzGjhevbfio3S3Qp78QcZsFtTeKBRn5zKVEnasuQLnm9GCUNaLksq9xXBW0w3lz2+clkRy6Y=
+	t=1787355113; cv=none; b=j4NbqLsNwjA70YYhwi9PrAb2YH7wlsnrNmd1GuPVdJ5QknHYfdfLcmQuhY43Z5zNe7qraP9TITVa/24S4ktjfnOM8Qrlq7IeryR0PibI/QaYtV6yawJMjTqesxtwXDV7yYvpjfZWdu7b+u7i0U1aOZbnFNY241xhikuYpNyQv3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787353888; c=relaxed/simple;
-	bh=6qe1iAGAsLrYt2MjeIu0rGq9Jwn+VYrMKSyy84PHn7c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qyXlmVWkzpzv7q4rQAAwjgllgVC8GHqXNqz1JKoqxihp8ieHWbuHhwrKYuVVIfCAE+Dcg/uEFUQTAAQORGGK/HQ6DxPQUJbGSs60kGTDDA+80fYrFhwi+NXhnKAX3n2NEIf64b96EDV5Ow7B2RJZ2RcpsFXjHbSDHmG2Og0FxNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBeF0OqT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787355113; c=relaxed/simple;
+	bh=j5UpYRHlqi7sh0mnbdgsDL/S7j546To1ben8m5Rsn0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LMgunbKgq+lAAxF+9uWxkX8lCC8Z60sXrsYbwkT00MU1OOpS9TeI+NQWVmg66mDW79gp7qQu6ES3kMEahIxOAvVox5X3ckfAQpsRg7xtHRY1kU0Z7UCeGd+arA+dzCqUgGWlWYuuWUfPDZfbxnLH48AaVd1EIAyml0gP2jiEz1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVdz7RXm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBeF0OqT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496BA1F00A3D;
-	Fri, 21 Aug 2026 23:11:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVdz7RXm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B8A1F000E9;
+	Fri, 21 Aug 2026 23:31:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787353885;
-	bh=dwXc0V/saIdyS/qoEzPFV/AKuQrwLIXRr+5xzdY2BQg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OBeF0OqTBkp8PuxZTujhp8SCYRf1CDfegW+0WOOiovN8U4du+k8mAUCSe1RfuGbsp
-	 M9DHb5L6byRj1JXC7BFZ9uTo1OlaaI8OGuAP2MW3w8kTht3Bjg2ALSLwj5FKQYAIV0
-	 nqzske4kNgRViStk4SOyTw3U5vGjKH0dQDhUqthecy9ZzD29uyTnvinVnMmdkmE5mI
-	 ThYmp96KVD5mEspuJKL6PRiqr6OxM93CG+8igpi45ljrUiGtRFE9Gf5/Mad2SQdE2P
-	 bSx61soNBh5ghbtStCyOeFazhzrBrFedOz+x828odrdubHeRZRB2LpRwdkxnDQz1lp
-	 Jhtij64zVwPLw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qihang Tang <q.h.hack.winter@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] packet: use consistent hard_header_len in non-ring send paths
-Date: Fri, 21 Aug 2026 19:11:24 -0400
-Message-ID: <20260821231124.123510-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081702-flagstone-product-2e6e@gregkh>
-References: <2026081702-flagstone-product-2e6e@gregkh>
+	s=k20260515; t=1787355111;
+	bh=rCp/jY0222VSJZl4mUd75jNTGtXAjtUuGODwa389Jvw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lVdz7RXmwiQxPdZ8EpKvdYh2XjQbhfGvMiNoylnXHdUp5+SMOfmIGPpOQXsg/s6OQ
+	 xFWDueT4IHRgyucqkHqPnlIubMTFt0l/oq9d8ibunWANUwVO3Irr9JdC1WK0oLFEQo
+	 h9tNuFkpjpIvwfnuD4UO9yxghLDkcu3F8q5DtGikMBjPvUI8huPeoydGar+TBfd4bR
+	 dtkpJTh1vCmdq1+I554k1hJbfPycvx8xmMMG7EVsmErQQbBPAOyRHvLEtLTAwj07U2
+	 EK/AhCwaoJGx0v8uWWcdsYLvsuTX5iAXdn2rvUPAe6sCUe0EPUvSldhRHvNHm//8yn
+	 yULw49NT/Gd9w==
+Date: Sat, 22 Aug 2026 00:31:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, shuaijie wang
+ <wangshuaijie@awinic.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: aw96103: validate firmware data length
+Message-ID: <20260822003146.4962e329@jic23-huawei>
+In-Reply-To: <20260802192134.32a0349d@jic23-huawei>
+References: <20260801193700.57457-1-acharyalaxman8848@gmail.com>
+	<20260802192134.32a0349d@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Qihang Tang <q.h.hack.winter@gmail.com>
+On Sun, 2 Aug 2026 19:21:34 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-[ Upstream commit 03390aa32e669cc4ecd7d34108e2e1afc13d689d ]
+> On Sun,  2 Aug 2026 01:22:00 +0545
+> Laxman Acharya Padhya <acharyalaxman8848@gmail.com> wrote:
+> 
+> > The firmware parser reads a length from the binary header and then uses
+> > it to walk six-byte register/value entries. A truncated firmware image
+> > can make the parser read beyond the copied firmware buffer. A value
+> > smaller than the four-byte count field also underflows, producing a very
+> > large length.
+> > 
+> > Read the little-endian field with get_unaligned_le32(), as previously
+> > proposed by David Lechner. Validate the header size, reject an
+> > underflowed length, ensure the resulting payload is contained in the
+> > firmware image, and require it to contain whole register/value entries.
+> > 
+> > Fixes: 07b241262dca ("iio: proximity: aw96103: Add support for aw96103/aw96105 proximity sensor")
+> > Link: https://lore.kernel.org/r/20260314-iio-proximity-aw96103-fix-firmware-read-v1-1-c74fe9ccd82b@baylibre.com
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>  
+> Looks fine to me, but I'll leave it on list a little while so others
+> have time to take a look, ideally including Shuaijie Wang
 
-packet_snd() reads dev->hard_header_len multiple times while allocating
-and constructing an skb. Device reconfiguration can change this value
-concurrently, for example through bonding device type changes.
+Long enough - applied to the fixes-togreg branch of iio.git.
 
-For SOCK_RAW, packet_snd() can save a larger value in reserve and later
-allocate headroom using a smaller value. Moving skb->data back by reserve
-then places it before skb->head, and the following copy from userspace can
-attempt an out-of-bounds write.
+Note, I'll be rebasing on rc1 before sending this out so there is
+still time for additional feedback.
 
-packet_sendmsg_spkt() has the same issue because it calculates its
-reservation and header offset from separate reads before dropping the RCU
-read lock to allocate the skb.
+Thanks,
 
-Add LL_RESERVED_SPACE_EX() for callers that already saved a header length.
-Read hard_header_len once in packet_snd() and use it for allocation and
-construction. In packet_sendmsg_spkt(), preserve the allocation-time value
-through the device lookup retry.
+Jonathan
 
-The separate SOCK_DGRAM consistency problem between hard_header_len and
-header_ops->create is not addressed here.
-
-Fixes: b84bbaf7a6c8 ("packet: in packet_snd start writing at link layer allocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260805125729.19220-3-q.h.hack.winter@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Kept 5.15's `bool has_vnet_hdr` / 3-arg `packet_snd_vnet_parse()` spelling instead of the upstream `vnet_hdr_sz` form when applying the `hard_header_len` changes. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/netdevice.h |  6 ++++--
- net/packet/af_packet.c    | 26 ++++++++++++++++----------
- 2 files changed, 20 insertions(+), 12 deletions(-)
-
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index b847c45c45c82..d3a2234c736c3 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -269,9 +269,11 @@ struct hh_cache {
-  * We could use other alignment values, but we must maintain the
-  * relationship HH alignment <= LL alignment.
-  */
--#define LL_RESERVED_SPACE(dev) \
--	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom)) \
-+#define LL_RESERVED_SPACE_EX(dev, hlen) \
-+	((((hlen) + READ_ONCE((dev)->needed_headroom)) \
- 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
-+#define LL_RESERVED_SPACE(dev) \
-+	LL_RESERVED_SPACE_EX(dev, (dev)->hard_header_len)
- #define LL_RESERVED_SPACE_EXTRA(dev,extra) \
- 	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom) + (extra)) \
- 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index f73e2c3b813d9..4aa1976695a8a 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -1968,8 +1968,9 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
- 	struct net_device *dev;
- 	struct sockcm_cookie sockc;
- 	__be16 proto = 0;
--	int err;
-+	int hard_header_len;
- 	int extra_len = 0;
-+	int err;
- 
- 	/*
- 	 *	Get and verify the address.
-@@ -2012,14 +2013,18 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
- 		extra_len = 4; /* We're doing our own CRC */
- 	}
- 
-+	/* Keep the allocation-time header length across retry. */
-+	if (!skb)
-+		hard_header_len = READ_ONCE(dev->hard_header_len);
-+
- 	err = -EMSGSIZE;
--	if (len > dev->mtu + dev->hard_header_len + VLAN_HLEN + extra_len)
-+	if (len > dev->mtu + hard_header_len + VLAN_HLEN + extra_len)
- 		goto out_unlock;
- 
- 	if (!skb) {
--		size_t reserved = LL_RESERVED_SPACE(dev);
-+		size_t reserved = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 		int tlen = dev->needed_tailroom;
--		unsigned int hhlen = dev->header_ops ? dev->hard_header_len : 0;
-+		unsigned int hhlen = dev->header_ops ? hard_header_len : 0;
- 
- 		rcu_read_unlock();
- 		skb = sock_wmalloc(sk, len + reserved + tlen, 0, GFP_KERNEL);
-@@ -2049,7 +2054,7 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
- 		err = -EINVAL;
- 		goto out_unlock;
- 	}
--	if (len > (dev->mtu + dev->hard_header_len + extra_len) &&
-+	if (len > (dev->mtu + hard_header_len + extra_len) &&
- 	    !packet_extra_vlan_len_allowed(dev, skb)) {
- 		err = -EMSGSIZE;
- 		goto out_unlock;
-@@ -2962,7 +2967,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 	int offset = 0;
- 	struct packet_sock *po = pkt_sk(sk);
- 	bool has_vnet_hdr = false;
--	int hlen, tlen, linear;
-+	int hard_header_len, hlen, tlen, linear;
- 	int extra_len = 0;
- 
- 	/*
-@@ -3003,8 +3008,9 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 			goto out_unlock;
- 	}
- 
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
- 	if (sock->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
-+		reserve = hard_header_len;
- 	if (po->has_vnet_hdr) {
- 		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr);
- 		if (err)
-@@ -3026,10 +3032,10 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 		goto out_unlock;
- 
- 	err = -ENOBUFS;
--	hlen = LL_RESERVED_SPACE(dev);
-+	hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 	tlen = dev->needed_tailroom;
- 	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
--	linear = max(linear, min_t(int, len, dev->hard_header_len));
-+	linear = max(linear, min_t(int, len, hard_header_len));
- 	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
- 			       msg->msg_flags & MSG_DONTWAIT, &err);
- 	if (skb == NULL)
-@@ -3045,7 +3051,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 	} else if (reserve) {
- 		skb_reserve(skb, -reserve);
- 		if (len < reserve + sizeof(struct ipv6hdr) &&
--		    dev->min_header_len != dev->hard_header_len)
-+		    dev->min_header_len != hard_header_len)
- 			skb_reset_network_header(skb);
- 	}
- 
--- 
-2.53.0
+> 
+> Thanks
+> 
+> Jonathan
+> 
+> > ---
+> >  drivers/iio/proximity/aw96103.c | 30 ++++++++++++++++++++++++------
+> >  1 file changed, 24 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/iio/proximity/aw96103.c b/drivers/iio/proximity/aw96103.c
+> > index 8fbb755dc..8352d51e5 100644
+> > --- a/drivers/iio/proximity/aw96103.c
+> > +++ b/drivers/iio/proximity/aw96103.c
+> > @@ -24,6 +24,7 @@
+> >  #define AW96103_BIN_VALID_DATA_OFFSET		64
+> >  #define AW96103_BIN_DATA_LEN_OFFSET		16
+> >  #define AW96103_BIN_DATA_REG_NUM_SIZE		4
+> > +#define AW96103_BIN_REG_SIZE			6
+> >  #define AW96103_BIN_CHIP_TYPE_SIZE		8
+> >  #define AW96103_BIN_CHIP_TYPE_OFFSET		24
+> >  
+> > @@ -229,14 +230,27 @@ static const struct aw_chip_info aw_chip_info_tbl[] = {
+> >  	},
+> >  };
+> >  
+> > -static void aw96103_parsing_bin_file(struct aw_bin *bin)
+> > +static int aw96103_parsing_bin_file(struct aw_bin *bin)
+> >  {
+> > +	u32 data_len;
+> > +
+> > +	if (bin->len < AW96103_BIN_VALID_DATA_OFFSET)
+> > +		return -EINVAL;
+> > +
+> > +	data_len = get_unaligned_le32(bin->data + AW96103_BIN_DATA_LEN_OFFSET);
+> > +	if (data_len < AW96103_BIN_DATA_REG_NUM_SIZE)
+> > +		return -EINVAL;
+> > +
+> > +	bin->valid_data_len = data_len - AW96103_BIN_DATA_REG_NUM_SIZE;
+> > +	if (bin->valid_data_len > bin->len - AW96103_BIN_VALID_DATA_OFFSET ||
+> > +	    bin->valid_data_len % AW96103_BIN_REG_SIZE)
+> > +		return -EINVAL;
+> > +
+> >  	bin->valid_data_addr = AW96103_BIN_VALID_DATA_OFFSET;
+> > -	bin->valid_data_len =
+> > -		*(unsigned int *)(bin->data + AW96103_BIN_DATA_LEN_OFFSET) -
+> > -		AW96103_BIN_DATA_REG_NUM_SIZE;
+> >  	memcpy(bin->chip_type, bin->data + AW96103_BIN_CHIP_TYPE_OFFSET,
+> >  	       AW96103_BIN_CHIP_TYPE_SIZE);
+> > +
+> > +	return 0;
+> >  }
+> >  
+> >  static const struct regmap_config aw96103_regmap_confg = {
+> > @@ -500,7 +514,7 @@ static int aw96103_bin_valid_loaded(struct aw96103 *aw96103,
+> >  	int ret;
+> >  
+> >  	for (i = 0; i < aw_bin_data_s->valid_data_len;
+> > -	     i += 6, start_addr += 6) {
+> > +	     i += AW96103_BIN_REG_SIZE, start_addr += AW96103_BIN_REG_SIZE) {
+> >  		reg_addr = get_unaligned_le16(aw_bin_data_s->data + start_addr);
+> >  		reg_data = get_unaligned_le32(aw_bin_data_s->data +
+> >  					      start_addr + 2);
+> > @@ -550,6 +564,8 @@ static int aw96103_para_loaded(struct aw96103 *aw96103)
+> >  static int aw96103_cfg_all_loaded(const struct firmware *cont,
+> >  				  struct aw96103 *aw96103)
+> >  {
+> > +	int ret;
+> > +
+> >  	if (!cont)
+> >  		return -EINVAL;
+> >  
+> > @@ -561,7 +577,9 @@ static int aw96103_cfg_all_loaded(const struct firmware *cont,
+> >  	aw_bin->len = cont->size;
+> >  	memcpy(aw_bin->data, cont->data, cont->size);
+> >  	release_firmware(cont);
+> > -	aw96103_parsing_bin_file(aw_bin);
+> > +	ret = aw96103_parsing_bin_file(aw_bin);
+> > +	if (ret)
+> > +		return ret;
+> >  
+> >  	return aw96103_bin_valid_loaded(aw96103, aw_bin);
+> >  }  
+> 
+> 
 
