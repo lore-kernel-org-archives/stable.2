@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B6D435A86
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250CC31194C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323773; cv=none; b=plU37w76oBIuxE3IZxf7xK2RW8PVATz4J3gjCUsJOg9nlLynpaoAeOupk0LK7/eMkYvRCEeBdX/5ogkGJSHc5W5xmceRKqHut+hT0ZSYJhAhmCjfaNDJ1RV+pIxO7gIcPjZ8qlUBbT0kBc6cCjuM6y4GcFtYmvkGJyduAtBh+ck=
+	t=1787323778; cv=none; b=RgRTVoRAz5FIOk1/znd0gj/fDwH61XEqRJDLZ8xJXQQDueCco7KNRVwd7eylAvxEnwL3kk2NiN0zBjPZkXm2C17PPiv4j4RnFWhRdga9IkncASsL1SKCXESQn3rViOkCagGGH/9M91G3nWLsfqDV3NMEWnjt5zte7zup2NX+2iU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323773; c=relaxed/simple;
-	bh=LaoK5OEGPkOSEEcfzoMlGxZ7EWTDGGzll7JVV2hyF70=;
+	s=arc-20240116; t=1787323778; c=relaxed/simple;
+	bh=U4RN1KxNCP1TbIm79RgJNQVFDWefazjS0aSqFGdM24Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dT07kFwnOPxdTOzG3Cbq2ScumrdQd0XtEo5k73PjyNvUbh3M4utkLClpX5a3OoRYHd9vg58iXcDI+aIIUIMZ8H6owlgf6vaoliyIqsTrfB0ocLsHJpas95+4EQTh6N7kWIj894eZ7f2hV2aUnyBmgsdfIjkMyVl372mj8Hb1EM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tvo+ixdk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GpP1KS1yAGOCYfOVBwuRBW8H7V6O4Phm/KFKvuqXWnfoZ5X+x1CZYK4ecnt8p0qrk6K7se040TUwo05TOnrSNt8JwtgZR1+1w7bAbIjCcJ4DNpIYZpT01h5tLBEAsLMaGomdxlq4T5cZyhW2evAaVPZ2lSh01qayqANXJzLSpek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IRImmBTW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tvo+ixdk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8031F00A3F;
-	Fri, 21 Aug 2026 14:49:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IRImmBTW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3201F000E9;
+	Fri, 21 Aug 2026 14:49:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787323771;
-	bh=3lzc6WatVGbl8HErMDooca8nNzQzUBBhSXedVzojiMY=;
+	s=k20260515; t=1787323776;
+	bh=+2OJsg4l0PkUH6Nwc3/E/YHvJIrpkNOHikCDMDxDNnE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tvo+ixdk1vecxsy9XId79F+uIxcfulKoE4LsTvdQZ/9oHx5bAA5aIx7AzgVWOCtEw
-	 /mXhyWt5yExtetrNJJe3ai6SSe6NXLTxDvFLZXMlU2K/Jvrz/87DktqBw3CG9xXJhH
-	 YTG/Q+wvIx4DLlFjSWbJcjkhSuJ6EjGdohAFWqyNC7Fo87aIfbpY5Q0XaauGo4p33p
-	 uBI5ebM47voL7BR88HdisGj2hCKovA135GgSfffbK7KtYNnE1aYbHLw2m4SnwwvM5R
-	 NSBSQLipGxkfxVwKiJf7CnUJpMvHXXVjJdl3IjK9ZvzlKW/3EUrl5sNksX0/F+Von9
-	 r80NkKFmTWkZA==
+	b=IRImmBTW952iO/oSBXWUF3OMs2vKV94AqvGOswnpzyZL3a2BYw6FzX22J8LNSNlDu
+	 Aill++xci3TzNwp9hfriDjdXddDYtZ+inznI/MfX3shqRtmP5mCHUuFLj9QsvxN2lH
+	 9P8xb+45RFip1UCtXIfS4noWrpPATompZSdFrhtcidjc+e00DnY/fz2QZyN37tQnRz
+	 sIkYye8VGx2C4pa1W3yfnylVHOdgkCcKxw1+2DDqmSfisXzr2TbPTUUlGH8II7po3h
+	 mDzXhCKxiBCNtHUfH48eiOwKG0Qaq58RP/Ji15as0cz8K0eKHR/Nzix7b6fhHtgEAM
+	 6NTBMFcxlzmrw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Lech Perczak <lech.perczak@camlingroup.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 5/5] inet: frags: publish queues before arming timer
-Date: Fri, 21 Aug 2026 10:49:26 -0400
-Message-ID: <20260821144926.3428433-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/5] serial: sc16is7xx: fix copy-paste errors in EFR_SWFLOWx_BIT constants
+Date: Fri, 21 Aug 2026 10:49:30 -0400
+Message-ID: <20260821144934.3428649-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821144926.3428433-1-sashal@kernel.org>
-References: <2026081749-cash-armed-755d@gregkh>
- <20260821144926.3428433-1-sashal@kernel.org>
+In-Reply-To: <2026081755-unbaked-recycled-24ab@gregkh>
+References: <2026081755-unbaked-recycled-24ab@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,68 +46,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Lech Perczak <lech.perczak@camlingroup.com>
 
-[ Upstream commit 653d7ddf6cba867777a3d14c4f83ace008c5ad13 ]
+[ Upstream commit eccdb0fd1c340155666533f5c60c5229d370baab ]
 
-inet_frag_create() arms the fragment queue timer before inserting the
-queue into the fqdir rhashtable. If the namespace fragment timeout is
-zero or negative, the timer can run before the queue is published.
+Comments attached to bits 0 and 1 incorrectly referenced bits 2 and 3,
+which don't match the datasheet - fix them.
+At the same time remove comments for individual constants, as they add
+nothing to the definitions themselves.
 
-The timer callback then marks the queue complete, tries to remove a node
-that is not in the hash table yet, and drops the anticipated hash
-reference. Creation can subsequently publish the completed queue without
-restoring that reference, leaving a stale hash node after the caller drops
-the remaining reference.
-
-Publish the queue first and arm the timer while holding the queue lock.
-This makes timer expiry wait until the queue is visible in the hash table,
-so inet_frag_kill() can remove the node and balance the hash reference.
-
-Fixes: 648700f76b03 ("inet: frags: use rhashtables for reassembly units")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Link: https://patch.msgid.link/bf66785e7c0c139d7a1900e2f01faeeab344b960.1784948849.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Lech Perczak <lech.perczak@camlingroup.com>
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Link: https://lore.kernel.org/r/2986a485-935d-4ab2-9a16-4a85288aa15a@camlingroup.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 246ac114f485 ("serial: sc16is7xx: enable THRI before filling TX FIFO")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/inet_fragment.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 91e598e0a6dca..ea3f15f59c723 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -393,8 +393,8 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
- 		*prev = ERR_PTR(-ENOMEM);
- 		return NULL;
- 	}
--	mod_timer(&q->timer, jiffies + fqdir->timeout);
- 
-+	spin_lock_bh(&q->lock);
- 	*prev = rhashtable_lookup_get_insert_key(&fqdir->rhashtable, &q->key,
- 						 &q->node, f->rhash_params);
- 	if (*prev) {
-@@ -402,13 +402,13 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
- 		 * we need to cancel what inet_frag_alloc()
- 		 * anticipated.
- 		 */
--		int refs = 1;
--
- 		q->flags |= INET_FRAG_COMPLETE;
--		inet_frag_kill(q, &refs);
--		inet_frag_putn(q, refs);
-+		spin_unlock_bh(&q->lock);
-+		inet_frag_putn(q, 2);
- 		return NULL;
- 	}
-+	mod_timer(&q->timer, jiffies + fqdir->timeout);
-+	spin_unlock_bh(&q->lock);
- 	return q;
- }
- 
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 34abce41f92d2..d2469eb026f25 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -263,9 +263,9 @@
+ 						  * and writing to IER[7:4],
+ 						  * FCR[5:4], MCR[7:5]
+ 						  */
+-#define SC16IS7XX_EFR_SWFLOW3_BIT	(1 << 3) /* SWFLOW bit 3 */
+-#define SC16IS7XX_EFR_SWFLOW2_BIT	(1 << 2) /* SWFLOW bit 2
+-						  *
++#define SC16IS7XX_EFR_SWFLOW3_BIT	(1 << 3)
++#define SC16IS7XX_EFR_SWFLOW2_BIT	(1 << 2)
++						 /*
+ 						  * SWFLOW bits 3 & 2 table:
+ 						  * 00 -> no transmitter flow
+ 						  *       control
+@@ -277,10 +277,10 @@
+ 						  *       XON1, XON2, XOFF1 and
+ 						  *       XOFF2
+ 						  */
+-#define SC16IS7XX_EFR_SWFLOW1_BIT	(1 << 1) /* SWFLOW bit 2 */
+-#define SC16IS7XX_EFR_SWFLOW0_BIT	(1 << 0) /* SWFLOW bit 3
+-						  *
+-						  * SWFLOW bits 3 & 2 table:
++#define SC16IS7XX_EFR_SWFLOW1_BIT	(1 << 1)
++#define SC16IS7XX_EFR_SWFLOW0_BIT	(1 << 0)
++						 /*
++						  * SWFLOW bits 1 & 0 table:
+ 						  * 00 -> no received flow
+ 						  *       control
+ 						  * 01 -> receiver compares
 -- 
 2.53.0
 
