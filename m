@@ -1,121 +1,87 @@
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+Received: from unicom146.biz-email.net (unicom146.biz-email.net [210.51.26.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A6A3F7A9A;
-	Fri, 21 Aug 2026 05:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9B1374E60;
+	Fri, 21 Aug 2026 05:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.51.26.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787291604; cv=none; b=pTQCop744ZBuY3TwQ8XKFKANhAEWTlp6KfYPtWu7exIdiDTdzqH50CjleAMywtKU0CNzGeUPY+DtNdUGcgVHznPWqCYBkWUk22zyT1Pymz650xRXC/h/Ee5UmaHnDC1QQaojWlZuUHuAja/PATOVBOdusJRGsMfvSuSbhMLRSNs=
+	t=1787291647; cv=none; b=a/GkY/gxnGRE17mGqmHrApxlMIRhLTO+rsUl9ojc/Atdi0uwgeGxTju1C6AD27+0NNPyEPgLnZ8SBxXyCTgdVunEHkAqANIcDSF+KjWTbwiiyp6DcNUtBdxDdmYzlJoQv3sr+HeV4OSpv7zp/S8km04qfXesS9ra1yB7lz/m4j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787291604; c=relaxed/simple;
-	bh=QqumwZAJdrooyjSmYSUOC8S0ewwAdTrLXE4BPeIlF0Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WY7LQ9BX6S6e9ihdXHWKwkAhxClTT3v8k84YARIlVxGkX7P/89eYnl3e3eq/n76f9kEsEDc8IAmXGLesJtI9SQiBqey0BF4qk+YJixeWKGuXLz0X1fqBd8i3CnveUHNPQeCC8OfDk92Lq3lCZryg3plNvD7zOn3EFw45p658fCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=TMOFTLxh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=f+vAt2WN; arc=none smtp.client-ip=103.168.172.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="TMOFTLxh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="f+vAt2WN"
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfout.phl.internal (Postfix) with ESMTP id 9DA6AEC0229;
-	Fri, 21 Aug 2026 01:53:22 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-11.internal (MEProxy); Fri, 21 Aug 2026 01:53:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787291602;
-	 x=1787378002; bh=KKK0f/eajc62CvVmRT3Zk2MKXPO+xjtACFQUyq1IDfE=; b=
-	TMOFTLxh5zqspeAd7a05gV9lZgr4vhgaXeF+7nWGOFBoKtrnD94tLEMs52jOGOwE
-	FouumOocu+JTkSRvFYuwYZ91mvnkZaRWj5Lvzd8UWh0zuiPu6nNnCOqzRuqV8LCf
-	gr0kZ60cl+lISd2Hm7yycl6cWCWogpKM8EtPulPEk70W5qdigfbqObAIv6sdQRtt
-	rAfBYHdoaRAwYzfz+MnM+YQWbgvJMkvjSVFzjcLeNwmF+smF5ygh4cpe5dNcVZ0T
-	Uuu/3kTAJkpbFrO/Gh8ISspX2XcbQwMdNKiL8DcTGyh9ikAi5FBgIqbA5OystAuz
-	2MTxqmLO2KGHnacD95Qe6Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787291602; x=
-	1787378002; bh=KKK0f/eajc62CvVmRT3Zk2MKXPO+xjtACFQUyq1IDfE=; b=f
-	+vAt2WNsm4JiQwbQ+0F2Vdz6wlqzZNSUX4iU9d01AcbACLr5DE9JqZm4e2KjdNlP
-	YgK0IlA9w6wS6CovYChDXZAAqw/qg/d7HPhiLxGpjOOXcMq9VAdptl/z7yFl7G8l
-	10WgfA+Qt7Ve6WNpNaCv6fLgzvCPkfqIfkp+JBB7aduJv3KjL/p1S0NVriPr4mrT
-	Jr7/778MDxaqEOQssuPMsuU/HW8tT7qFNogi+3XCfy/gdLE5I3ZBAuhQOx6W49jW
-	6WE7SQ6PX8g0m3NW0w/7BPplfrB7w6OsG1lK/qPsED2HRVei4edSwlJhNagPuWvE
-	FU3usmtNddQKn5tOGIwQA==
-X-ME-Sender: <xms:0ueHagDEQ_4VYlDBmwi0pS-q0SvC2rEJeChcSO8_gUrZAv9XuLvzLg>
-    <xme:0ueHaubC9bC-Et5zChwp26VR3ZfthmCqfK5O35YxAegW0hk6RoVMZlaHmiyroNSal
-    vQXI06CfmKmNvoSIr0n-YeE2OrMe6NgBEFYtofd-pRlKk5bXBUUFLUQ>
-X-ME-Received: <xmr:0ueHavGG2k4RAHk8QbVE_wfib90KNSe1a4PrXdrBfvJwxUgtbhCEzD8A1HPzyUR_exbRhiWq0DJd9zC09LQUqTwhbGYOo-wg>
-X-ME-Proxy-Cause: dmFkZTEHS9bQ5EvDTfr4nvvYo+mDRwCceTwQCxn4t+BrO8sW5Tjtod1/+UgsuECY8kZFNn
-    zreFp7IAHSP7YJfcUwzeQHdNjBoefb0qdPb+dQPACPGExGIVwA/P6KWkudRgIdsQbi4x7j
-    Yv6HVxovaE7rXU1S8zQ06/vnb+HuE2MvRZ6cWOWZcz227n1BTZXq7WJz8BTce+TRIeO3Zi
-    5A5iD4BLA/Aa1c1kECVf++AREhFgj7P1EYPxFwEK0Xxs6FBOHhfwboemsoqQNwg4WaM0DG
-    5o5YAbsCLPy5CQSuuzcFUSgvCQ/Er3QjAuUkXpA9OIiChjw6Dq53nOJAa8WRs1pMT7NMl9
-    67PonGXlp5h40V9D//55M6U6SvbKwVGSu3bnPjjDzvpsYoPRs7VlZW919xpDZhEek1irMj
-    fL4yeGmWq9ws3drPVMg6rudZwu6NmfZP2/je9q2oXlyzvbW7oR88Rb5FvaquKxdlMCNjO1
-    WSondLf47oIgqQLSqho3Smm69FVD4e1jLzD7p6rNXMDBAQXl7OIEqbNubutFxTxPZOnWp5
-    sFL8TMb+gfprVo256a3Pv3dI/EC0AiBBkk5tehAe+DzcDJ9HpezFeXnbMm5UDJIVdFrWYm
-    zUjpqcl+fiNrlq0wX3lzO/B2VThvvmRZ/CsE18q1PchoPOgx8Y/p/ldglSqA
-X-ME-Proxy: <xmx:0ueHaqvk5p_QN72bURlwcjhu4c1_h2ZNkHdOt1JSky8AVg5pUQQs0w>
-    <xmx:0ueHatK30BlWhLhgd1-ltwOKh0U8YxNZ_2i4Maag65UtoCOrhjbCvw>
-    <xmx:0ueHagOH-NQRM5_qoYNZTaZfEXTAh2pNaBvm_7uJuqBzmGKBnLOKXA>
-    <xmx:0ueHatZPrBGoKLGNbqwugO2wSJsZ1YhnZBYZ2Kpl_9SnX--VjfAnuw>
-    <xmx:0ueHagJ10tXqp5PDAm8iefwjoIV6y0jnwqC7XzjwugG--3_EXGcs9TrT>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 21 Aug 2026 01:53:19 -0400 (EDT)
-Message-ID: <6174efa8-a7ca-4716-8dde-2a9ea95ab870@pobox.com>
-Date: Thu, 20 Aug 2026 22:53:19 -0700
+	s=arc-20240116; t=1787291647; c=relaxed/simple;
+	bh=EQYy2ReQS8Q4cqPhMkoXfvKOv1etXmUZoox7amO9ng4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rLctAs0UFgezCsAkwlssOBO44Yi2pXNpRqBWG3oCFi8wupl9KEVteibBMCe6Vnpj2dARwcCjkJ2Q6xkLvOJ6biLVNd8uZSdpkslHcPOWhho04XxV7acD2Jyzs4obzMNtEgvqGZPmTT7rB8fr1xYAS5LkxDejHcH7ikF2pvcxVi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com; spf=pass smtp.mailfrom=longcheer.com; arc=none smtp.client-ip=210.51.26.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=longcheer.com
+Received: from mailsrv03.LongCheer.net
+        by unicom146.biz-email.net ((D)) with ESMTP (SSL) id 202608211353543256;
+        Fri, 21 Aug 2026 13:53:54 +0800
+Received: from longcheer.com (172.16.9.238) by mailsrv03.LongCheer.net
+ (172.16.8.233) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.33; Fri, 21 Aug
+ 2026 13:53:58 +0800
+From: liuqi <liuqi@longcheer.com>
+To: <gregkh@linuxfoundation.org>
+CC: liuqi <liuqi@longcheer.com>, <linux-usb@vger.kernel.org>,
+	<stable@vger.kernel.org>,
+	<syzbot+22ea20ef3afb6785b122@syzkaller.appspotmail.com>
+Subject: [PATCH] usb-storage: ene_ub6250: serialize card type probe with scan work
+Date: Fri, 21 Aug 2026 13:53:58 +0800
+Message-ID: <20260821055358.1058653-1-liuqi@longcheer.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/272] 5.15.217-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260820145231.229664293@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260820145231.229664293@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: mailsrv01.LongCheer.net (172.16.8.231) To
+ mailsrv03.LongCheer.net (172.16.8.233)
+tUid: 20268211353549b8d585b014ed617134708a235b549f3
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
 
-On 8/20/26 7:53 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.217 release.
-> There are 272 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.217-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+usb_stor_probe2() starts the usb-storage infrastructure and schedules
+the delayed scan work. The probe then calls ene_get_card_type(), which
+sends a command through ene_send_scsi_cmd() and the usb-storage bulk
+transfer helpers. These helpers use us->current_urb.
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+The delayed scan work also uses us->current_urb when issuing GET_MAX_LUN
+through usb_stor_Bulk_max_lun(). The scan path is serialized with
+us->dev_mutex, but the post-usb_stor_probe2() ENE card-type probe is not.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+If the ENE card-type command is still in flight when the delayed scan
+work runs, the scan work can try to submit the same URB again, and
+usb_submit_urb() warns that the URB is already active.
 
+Serialize ene_get_card_type() with us->dev_mutex, matching the locking
+used by the scan path.
+
+Reported-by: syzbot+22ea20ef3afb6785b122@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=22ea20ef3afb6785b122
+Signed-off-by: liuqi <liuqi@longcheer.com>
+---
+ drivers/usb/storage/ene_ub6250.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
+index 2cffc559a..13b332d1d 100644
+--- a/drivers/usb/storage/ene_ub6250.c
++++ b/drivers/usb/storage/ene_ub6250.c
+@@ -2358,7 +2358,9 @@ static int ene_ub6250_probe(struct usb_interface *intf,
+ 		return result;
+ 
+ 	/* probe card type */
++	mutex_lock(&us->dev_mutex);
+ 	result = ene_get_card_type(us, REG_CARD_STATUS, info->bbuf);
++	mutex_unlock(&us->dev_mutex);
+ 	if (result != USB_STOR_XFER_GOOD) {
+ 		usb_stor_disconnect(intf);
+ 		return USB_STOR_TRANSPORT_ERROR;
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.0
+
