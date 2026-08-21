@@ -1,117 +1,117 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C66A47A889
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 10:33:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26834394785;
+	Fri, 21 Aug 2026 10:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787308416; cv=none; b=tyqTyjecnf+oqTjIdKOwlsM/mJHCWsUnAYxyhRQMsndojFVl9BaFN+pzrsTFalnHXAnWpID3M4dtyWymW2ntxBabwAvaulzBtVDOs6LvwR+AMhli+K09YaOa+gZdMn6KSMtmBNldN6MTbB47BrRG9LDdA7sUDqSD6m34xC7DOMk=
+	t=1787308941; cv=none; b=jNNLPQ+wCi9KqrE2XvAPpTtm2gQ3Pkqp0lYLPO48qtKlxiQaCwW4ygKlIp5I1F6umOtOFTgMffHHLllLeGTD+PMKFPiil2owQpophKTpVKRbumC3VZIropUL2vQAtxKVbNpJEgoFrbQQsLqsLxpdr3FolGZVCLaoil2+fMCZ7DM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787308416; c=relaxed/simple;
-	bh=jczjUbzDAl6jpxRWnP0Bypt820sjeIHGu2zY1M2ntdE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aSwDzHYbTD5hMvowl9tAsJ7BvaD/09KmsnPepwyEL4ZBQGIpX/45cMGSOjpXN7TUTIe9yYm3YrlL5CTNwwA2r52PtIxOiCnsVV+xG3xglBACk7i3Nb82iHVbbeXjFf9kX/pUIVYt0fkwvlS3pl8LKR30NX2KASHQfDdUD27/e+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QLda/S9P; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787308941; c=relaxed/simple;
+	bh=GPEWFCAe8jABWoqqPSwt04wAt6/qFOkQHvs5cY7nNdo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OCl9wxL3I5UKibRKEfx72ZEKFGHQtEai3Uar8PJNsh8a624Ud6GiEvIeQvmv3lNWCaaGIsvy8cVDgG0+Bh9zRpe6XPhYDhewc9y9NajMMZXDW5TkJpyvMCPrDYD/TXq/nX9++QEY7Zt2+xth6m6ifdIvu1iXPPXM51CL9xdbm3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CUSP9EIE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QLda/S9P"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbb7926836eso620138a12.3
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 03:33:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787308404; x=1787913204; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ocsm7hINWtOwY+nJRxPAD45OZz1hNH2OpiWJbIaIUKg=;
-        b=QLda/S9PO9BfJvPsXXp2y+yNk4GH02CsQQc0DlZ6VgW5SEXBRvVK+JycvaGuMzddEK
-         pM053/dHgCdBkqlXEFBY6ElFltCOQw64LNsqyZXJAyTsBNdAYYSeoMLSz/Tc4Nw5+egu
-         kQhlrFJ1KqDSRGuPc5icEeLyodThOwMKxDUWCH0PCpOvJOvGloUXuaCjYA9FOB7Tv132
-         i1Z04J/Sf6O4BS1599i97+LDwnwSa88zotH/8/iyQpHSEhh7nk4BJEYlM+e0Y4Bnad0y
-         syNifiUdo1/BrSwMhvWFKucAxFFrx5bk2LaJOjN/rcNrtDk3kwme69+8Wiv7WRSMgd6Q
-         4IcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787308404; x=1787913204;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ocsm7hINWtOwY+nJRxPAD45OZz1hNH2OpiWJbIaIUKg=;
-        b=haJqhp3OXBgRQYku5b73PQlYp2SG7LGUZjQ9hsGNdmPEyWP1AP1PujEVXRfDorYIyz
-         u9xQuDDIIXR0zCw9d0vvVsGp1H6u18+LiFRc4I0qXgAMieKmdd44RYLSt3ZqtSkRuyY6
-         9SpbqujFZWtYcNB6NEKy8QdiwriY3EPb2FY/+oRJM4IkRhL5YpBYOPg6jPtepCvpVIEb
-         ZifpYZbwvsqRp+eWeyqETC8y8O70SQo68+U5FMFlqoUTru76/4Skd/ML/oTEbgA0idg8
-         34jy3/Nf6+sxPv4pEQ0mMJRa157e+EVF6jxvApmzdaZPHlgdaa7dcbjBRvvINXVFiWvK
-         X0KQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq8bV24BYKV9GSTwNbgigaQ66JHkTcHiuyq0Bj7oSCqIEv1eZWbfbr92yfNlpKaKZ06FdKHMhQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/KGTvPUdsKzOgAZ21SV0TPtv5kLXuVgGQ2ToI0elXcB1OYWDo
-	nmnh5EoLVLsbOVXDuzV2xXsZRcLn5Wh0cgTUMSxsWxEegKpMNLlYtlwzAItqFg==
-X-Gm-Gg: AR+sD10kN0KNkpLPDuIqyO2b5sKhiTsm2veTvyW5NDfNcYI6v4ejgUWN+h5Aoo9UfIC
-	cQ0wLyqFMfeAS4+JGBIeXaZNaeJ4OtkHRou3gPTl0+IiiX1dPYwRj2FFlIcP1+TWisA3fuEAfnT
-	4qg6ahXoonJQyUB7Ee6XSUZd7CwaRR2buPDuKnpHacU+HHN53J/YbViKS08EHfIX2a+MSC+hB75
-	YYD9HRjMMD3z08nuHclctlZIdBhPtCsepMs6DQG3rgLKHMdssPV+W4npdfxuBG42hxvdBt+Qunn
-	TpjMwXGU6Vr3/YpX1dcph6yv9yzsYIR/vS5dkEHePwIlIlHnITNorNoB+xTJ3Gjh4RwJrzGpK/I
-	fvg+YAMEzI9TCcJTT9vfAFE4Q/pTnV9590B7Yep6/eM30ASZe9w/c8bfAMFTjo3gn20asQFLTZW
-	FJb7zYFEUDTWNtoGt+DJwbuNdQDwXV5+oI0yL4RH6+9qPREwuUi9R6X0DKH2oT3QPEnkFE7aRJv
-	PGkHy33EfpTZPjrUZAaUpEubCU4wHi6mBwOHotRHlWNT6wpE8/FU7dp42/hKIsIFmCb6XrraDfm
-	3m3sNpKdlAywKa2dfVPQ/2nKblnCeayVTD6CjJOXI0egV5KYDIoIKjz0DR82blJjKaN1JdeIPC4
-	ZdZ3vj62hLF33WnHg0huDoFYiUpI7r1NK86bgz5h88UM31Is=
-X-Received: by 2002:a05:6a21:e081:b0:3c8:f342:132c with SMTP id adf61e73a8af0-3cd3000a342mr9446232637.11.1787308404443;
-        Fri, 21 Aug 2026 03:33:24 -0700 (PDT)
-Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1416ae48761sm23237958c88.12.2026.08.21.03.33.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 21 Aug 2026 03:33:24 -0700 (PDT)
-From: Laxman Acharya <acharyalaxman8848@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CUSP9EIE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60BBA1F000E9;
+	Fri, 21 Aug 2026 10:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787308934;
+	bh=GX9FyFmbJrKH4U9jR8X9bA/nC9XnQujMg5M2OVoplLk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CUSP9EIEHGwIWb9aQ1TdnsRNod7xv/XY/5fh7Pi6nQnkgfBylwcPfxZy8+1PYtSKT
+	 1PFZ4nD/ixGkGHb8sSTTfG4h+H3n2KaZeVzcQPdxKlJga5GjVhjlULfUQJ20/dsAsT
+	 zMFsSE/EFhrvH2WbXtnoJ3L9+oXPg29JlbijE8SDa7Mq5Jt0jFKINfrhQx/mWaXCX6
+	 gVsGKsRdpVntMXWAKtmPEwxfO8gYx79K/S3yRVWcE2rwHOegsskSMF6ylPmmpo2pho
+	 kK4Cd4YF90NG8jvSQZDjqiZa6qYHEZFoPQQ68kccBuhOOYHkX8OArD+/9WY9F/UIBC
+	 GQebispCbUT9A==
+Date: Fri, 21 Aug 2026 12:42:10 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ben Dooks <ben-linux@fluff.org>, 
+	Dirk Brandewie <dirk.brandewie@gmail.com>, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH] io_uring/query: cap user size passed to copy_struct_to_user
-Date: Fri, 21 Aug 2026 16:18:17 +0545
-Message-ID: <20260821103317.91437-1-acharyalaxman8848@gmail.com>
-X-Mailer: git-send-email 2.51.2
+Subject: Re: [PATCH] i2c: designware-pci: fix autosuspend cleanup during
+ teardown
+Message-ID: <aogiXF11b7z16U2G@zenone.zhora.eu>
+References: <20260809073055.2980971-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260809073055.2980971-1-lgs201920130244@gmail.com>
 
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Hi Guangshuo,
 
-io_handle_query_entry() clamps hdr.size for the inbound copy_from_user()
-but keeps the original user value as usize. copy_struct_to_user() uses
-that usize and, when it is larger than the kernel result, clear_user()s
-the trailing bytes.
+On Sun, Aug 09, 2026 at 03:30:55PM +0800, Guangshuo Li wrote:
+> i2c_dw_pci_probe() calls pm_runtime_use_autosuspend(), but
+> i2c_dw_pci_remove() does not call the matching
+> pm_runtime_dont_use_autosuspend() during teardown.
+> 
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped.
+> 
+> The documentation for pm_runtime_use_autosuspend() also notes that it
+> is important to undo it with pm_runtime_dont_use_autosuspend() at
+> driver exit time, unless runtime PM was initially enabled with
+> devm_pm_runtime_enable().
+> 
+> Add the missing pm_runtime_dont_use_autosuspend() call to the driver
+> remove path.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 18dbdda89f5c ("i2c-designware: Add runtime power management support")
 
-As hdr.size is a __u32, a query can request nearly 4 GiB of zeroing,
-including on the error path where res_size stays 0. The interface is
-reachable without a ring via IORING_REGISTER_QUERY.
+This Fixes: is wrong because there was no autosuspend here. Maybe
+you are referring to:
 
-Reject sizes larger than PAGE_SIZE, as recommended for copy_struct_*
-interfaces.
+Fixes: 43452335224b ("i2c-designware: switch to use runtime PM autosuspend")
+Cc: <stable@vger.kernel.org> # v3.10+
 
-Fixes: c265ae75f900 ("io_uring: introduce io_uring querying")
-Cc: stable@vger.kernel.org # 6.18+
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
----
- io_uring/query.c | 3 +++
- 1 file changed, 3 insertions(+)
+?
 
-diff --git a/io_uring/query.c b/io_uring/query.c
-index 88a325736992..f2b5e19e5af6 100644
---- a/io_uring/query.c
-+++ b/io_uring/query.c
-@@ -76,6 +76,9 @@ static int io_handle_query_entry(union io_query_data *data, void __user *uhdr,
- 
- 	if (copy_from_user(&hdr, uhdr, sizeof(hdr)))
- 		return -EFAULT;
-+	/* copy_struct_to_user() zeros up to usize bytes */
-+	if (hdr.size > PAGE_SIZE)
-+		return -E2BIG;
- 	usize = hdr.size;
- 	hdr.size = min(hdr.size, IO_MAX_QUERY_SIZE);
- 	udata = u64_to_user_ptr(hdr.query_data);
--- 
-2.51.2
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/i2c/busses/i2c-designware-pcidrv.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/i2c/busses/i2c-designware-pcidrv.c b/drivers/i2c/busses/i2c-designware-pcidrv.c
+> index 468287922363..f1f4955f9a3f 100644
+> --- a/drivers/i2c/busses/i2c-designware-pcidrv.c
+> +++ b/drivers/i2c/busses/i2c-designware-pcidrv.c
+> @@ -300,6 +300,7 @@ static void i2c_dw_pci_remove(struct pci_dev *pdev)
+>  
+>  	i2c_dw_disable(dev);
+>  
+> +	pm_runtime_dont_use_autosuspend(device);
+
+If I haven't missed anything, pm_runtime_dont_use_autosuspend()
+can drop the reference and trigger a suspend, which then calls
+i2c_dw_runtime_suspend() and eventually i2c_dw_disable() for the
+second time.
+
+If this is correct, pm_runtime_dont_use_autosuspend() should be
+moved towards the end, followed by i2c_dw_disable(), which would
+then need to become the final cleanup step.
+
+Intel folks need to verify the order anyway.
+
+Thanks,
+Andi
+
+>  	pm_runtime_forbid(device);
+>  	pm_runtime_get_noresume(device);
+>  
+> -- 
+> 2.43.0
+> 
