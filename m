@@ -1,127 +1,192 @@
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from e234-52.smtp-out.ap-northeast-1.amazonses.com (e234-52.smtp-out.ap-northeast-1.amazonses.com [23.251.234.52])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A118049219A;
-	Fri, 21 Aug 2026 12:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D80E30D407
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 12:38:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787315866; cv=none; b=OjDtlYNle0bwb/n+SC/QzGktF1bb14Cy84AwNfnk38/N1wvp8mRfi/JSxnpe5hHuRZrcrCSsWALmNLIVQ+cyVxgQUsHofsO/lbN99nC4rH+rIj2c/vjAWvbYul6miqFJn3U36S9RDZWDehtCCcXQj76yy4MPsOraSbsniYd2K2g=
+	t=1787315932; cv=none; b=ntZ8715CY7WriqTu9wl4WHbRseU+9wtCI6VRpRPNKpJOx/l2byaDRlh4EG3KAV/6dNHcjdaAR+MWK3O8e48q7yKE15qXB/uh7AYTPknY2Fwi068tDQd8mBKlEhqoo4Qt15iPCiT+WUSftuVjeEjx76KWz+ruQhtWEuUA3lhRiRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787315866; c=relaxed/simple;
-	bh=QQjm2GmHpBVqtboSSE+zHgs3EJOLNgHB8rTbdRvO7R0=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:References:
-	 In-Reply-To:MIME-Version; b=SDQw07jLxx7XklzH0+1J0mvBMVkOFGEc3GI9lCST5zsJA+5O02jxFpF9xZbG81cct1G9pJJBP5Qp3zgce6rhilDuQeJpDvBn0ztIowRX+oDLc6N1380gewLG63O2GWE/xkLQd8hOvjsluEPRSXra3u0WlpfV2+ltYJYSSLmfnvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=rRjLcQMb; arc=none smtp.client-ip=46.48.77.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
+	s=arc-20240116; t=1787315932; c=relaxed/simple;
+	bh=ysBNO3Ue3SovkIU74+VCoeihzO2p2re0zO2gAsms+10=;
+	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type; b=TKWCWne3UbPdOJWUIO1xxLhx2qkjb7hrimvPcTlLyxkmIMWEaYHX0dxbeH2RQheedCxkZxS4PF8yILXx1+uFtADxY4/nc5umLi5DiLW9EnfwboUsCXDuxOdO2caSQJ0QkPoEwRw49sT1+w9SZePMqQqdyuJb5oE3X8A1oTccfVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=send.mgml.me; dkim=pass (1024-bit key) header.d=mgml.me header.i=@mgml.me header.b=mT+DkWrv; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=IGpUrxsw; arc=none smtp.client-ip=23.251.234.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.mgml.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="rRjLcQMb"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="koi8-r"
+	dkim=pass (1024-bit key) header.d=mgml.me header.i=@mgml.me header.b="mT+DkWrv";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="IGpUrxsw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=mgml.me; t=1787315929;
+	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=ysBNO3Ue3SovkIU74+VCoeihzO2p2re0zO2gAsms+10=;
+	b=mT+DkWrvHsVMQ+Wipo1zDDygl89bduD1OK083gtDrZAKaQBn1V0EVvN+nkbRV8qt
+	1PcoSSa9FLtdFuzGC6XAAOHEe6LVk9aD33EjEEZjc4MbJaFF/47b67qrnRgjtx7NTTC
+	+RQUsFjU0+d4XyhzhTMW0pth4qhw6o+UusO6hk8o=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1787315929;
+	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=ysBNO3Ue3SovkIU74+VCoeihzO2p2re0zO2gAsms+10=;
+	b=IGpUrxswim+Iss/GffVua0xHPPifu6aaSZAcfU4DQeqx4bd90zQAFuIZIJvr3YSK
+	G38iSvQPZWfR+MjIgNwNS7ntn/LAAUYhftLasYEDAR91+dVW0q8p/FFJjhodDYn1pfo
+	Lu2TzXwkjqm+MHE73yoilMHhr+XjyROxpRTUVVoU=
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+In-Reply-To: <20260730192933.3123642-6-sashal@kernel.org>
+From: Kenta Akagi <k@mgml.me>
+To: sashal@kernel.org, stable@vger.kernel.org
+Cc: dmatlack@google.com, isaku.yamahata@intel.com, pbonzini@redhat.com
+Subject: Re: [PATCH 5.15.y 6/6] KVM: x86/mmu: Rename __direct_map() to
+ direct_map()
+Message-ID: <010601a02454bfc0-33fc8bd0-1233-4be1-a122-da1f9490105d-000000@ap-northeast-1.amazonses.com>
 Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1787315844; h=from:to:date:message-id:subject;
-	bh=pVyg+sRmLUiXHUrQAB7im6I5hG/9jBXuIklitVVFzW4=;
-	b=rRjLcQMb+M7y5EW5C6T6eOpEoVyXBuCvA/dKSafe4JjujDj0aM7n0tE0Za7C9GpWhJclCettgMy
-	5Mj+Iga27mmAGa87JcUPYxRVhkwThNxqyS5ZbfilYVZ8tmvmPTvoMNcNALJtCHYjrQFW0f79YQ9jZ
-	5cz+1v+OVtCje8dQRhDa7dw9sWF+pHH+lcArfeZqTqt6YdeZzHIEjBb1IGqDOmEEQwftdgKwSZMi/
-	P1E+j4ECEbomC0FI5do9KX7z6fBmavjt30Tsq6YgyoVQQl4t5Z5qWDV/fkrj6PvJLZPWBOhYnD7Xm
-	RzgRmCwIUtQGrH0jGWTZXNAgr3bUQNdd6WYA==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 21 Aug
- 2026 17:37:24 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 21 Aug 2026 17:37:24 +0500
-Received: from echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed]) by
- echo-2.prosoft.ural.ru ([fe80::8f12:4f85:56d8:13ed%17]) with mapi id
- 15.02.1748.039; Fri, 21 Aug 2026 17:37:24 +0500
-From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>
-CC: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>, Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, "Tony
- Lindgren" <tony@atomide.com>, Lee Jones <lee@kernel.org>, Marcin Niestroj
-	<m.niestroj@grinn-global.com>, Grygorii Strashko <grygorii.strashko@ti.com>,
-	"linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
-	"mfd@lists.linux.dev" <mfd@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
-	<lvc-project@linuxtesting.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: [PATCH v2 4/4] mfd: tps65217: Fix NULL pointer dereference in remove
- callback
-Thread-Topic: [PATCH v2 4/4] mfd: tps65217: Fix NULL pointer dereference in
- remove callback
-Thread-Index: AQHdMWnRS8V7I03LlU+ecIp2Xsdc7Q==
-Date: Fri, 21 Aug 2026 12:37:24 +0000
-Message-ID: <20260821123712.260443-5-r.zhambakiev@prosoftsystems.ru>
-References: <20260821123712.260443-1-r.zhambakiev@prosoftsystems.ru>
-In-Reply-To: <20260821123712.260443-1-r.zhambakiev@prosoftsystems.ru>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+Date: Fri, 21 Aug 2026 12:38:49 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.SskAFE1oaJ7KCjyyJFCV37nkSRmUZttpeGoevLE2CszduPSq19CK0OWqrkMmPMemkYWmFvQfvS6+lCR9ETv8vDWvEFaQZtUQ69n4DuGGNbGH4U7i+CnKWCHWm/HpilUFxPcCpCRFiQTHPHnKlfimqanQj7AjyJ2y8XQuaQGs83Sl+MS5tJ/lS6+Uh2zwyhRo:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
+X-SES-Outgoing: 2026.08.21-23.251.234.52
 
-When the device is probed without an interrupt, tps65217_irq_init() is
-never called and tps->irq_domain remains NULL. The remove callback
-still looks up IRQ mappings and calls irq_domain_remove(), which
-dereferences the NULL domain and crashes the kernel. The mapping
-lookup with a NULL domain falls back to the default IRQ domain and can
-dispose mappings belonging to other devices.
+Hi Sasha,
 
-Quiesce the parent interrupt before tearing down the domain: the
-devres-managed interrupt is only freed after the remove callback
-returns, so an interrupt firing in that window would run the threaded
-handler with a NULL irq_domain. Also call disable_irq_wake() to balance
-the enable_irq_wake() done in tps65217_irq_init().
+On 2026/07/31 4:29, Sasha Levin wrote:
+> From: David Matlack =
+<dmatlack@google.com>
+>=20
+> [ Upstream commit 6c882ef4fc7bd99b67ad152e7542=
+8b669281c521 ]
+>=20
+> Rename __direct_map() to direct_map() since the =
+leading underscores are
+> unnecessary. This also makes the page fault =
+handler names more
+> consistent: kvm_tdp_mmu_page_fault() calls =
+kvm_tdp_mmu_map() and
+> direct_page_fault() calls direct_map().
+>=20
+> Opportunistically make some trivial cleanups to comments that had to be
+> modified anyway since they mentioned __direct_map(). Specifically, use
+> "()" when referring to functions, and include kvm_tdp_mmu_map() among
+> the various callers of disallowed_hugepage_adjust().
+>=20
+> No functional change intended.
+>=20
+> Signed-off-by: David Matlack =
+<dmatlack@google.com>
+> Reviewed-by: Isaku Yamahata <isaku.yamahata@intel.=
+com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> Message-Id: <20220921173546.2674386-11-dmatlack@google.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> Stable-dep-of: 2abd5287f083 ("KVM: x86: Check for invalid/obsolete root =
+*after* making MMU pages available")
 
-Fixes: 6556bdacf646fcaa ("mfd: tps65217: Add support for IRQs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
----
- drivers/mfd/tps65217.c | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
+Maybe I'm missing something, but =
+commit 2abd5287f083 ("KVM: x86: Check for
+invalid/obsolete root *after* =
+making MMU pages available") cannot be backported
+as-is. It depends on =
+is_page_fault_stale(), introduced by commit a955cad84cda
+("KVM: x86/mmu: Retry page fault if root is invalidated by memslot update")=
+,
+which is missing in 5.15.y.
 
-diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
-index d535d140c2e9..9f4afbaa6524 100644
---- a/drivers/mfd/tps65217.c
-+++ b/drivers/mfd/tps65217.c
-@@ -403,17 +403,20 @@ static int tps65217_probe(struct i2c_client *client)
- static void tps65217_remove(struct i2c_client *client)
- {
- 	struct tps65217 *tps =3D i2c_get_clientdata(client);
--	unsigned int virq;
--	int i;
-=20
--	for (i =3D 0; i < TPS65217_NUM_IRQ; i++) {
--		virq =3D irq_find_mapping(tps->irq_domain, i);
--		if (virq)
--			irq_dispose_mapping(virq);
--	}
-+	if (!tps->irq_domain)
-+		return;
-=20
--	irq_domain_remove(tps->irq_domain);
--	tps->irq_domain =3D NULL;
-+	/*
-+	 * The interrupt is only freed by devres after this callback
-+	 * returns, so make sure no handler can run while the domain
-+	 * is being torn down.
-+	 */
-+	disable_irq(tps->irq);
-+	synchronize_irq(tps->irq);
-+	disable_irq_wake(tps->irq);
-+
-+	tps65217_irq_cleanup(tps);
- }
-=20
- static const struct i2c_device_id tps65217_id_table[] =3D {
---=20
-2.53.0
+Furthermore, a955cad84cda is required to fix=
+ a regression in 5.15.y when
+applying the CVE-2026-46113 and CVE-2026-53359=
+ fixes, but its backport remains
+pending [1][2].
+
+I plan to send a manual =
+backport of a955cad84cda and 2abd5287f083.
+In doing so, the interface of =
+is_page_fault_stale() will end up incompatible
+with mainline. While not =
+ideal, making the interface compatible requires=20
+struct kvm_page_fault =
+and its 50+ prerequisite commits.
+
+[1] https://lore.kernel.=
+org/all/20260626174620.1819772-7-pbonzini@redhat.com/
+[2] https://lore.kernel.org/all/CABgObfaKqT0gMUB_XRP5DW5HmpgaoTgmD-A8_zQVG2=
+Vp5xZE4g@mail.gmail.com/
+
+Thanks,
+akagi
+
+> Signed-off-by: Sasha Levin =
+<sashal@kernel.org>
+> ---
+>  arch/x86/kvm/mmu/mmu.c | 20 =
+++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+> index 04e814816b17..c274ab0ceff9 100644
+> --- a/arch/x86/kvm/mmu/mmu.c
+> +++ b/arch/x86/kvm/mmu/mmu.c
+> @@ -2991,11 +2991,11 @@ void =
+disallowed_hugepage_adjust(u64 spte, gfn_t gfn, int cur_level,
+>  	    is_shadow_present_pte(spte) &&
+>  	    !is_large_pte(spte)) {
+>  		/*
+> -		 * A small SPTE exists for this pfn, but FNAME(fetch)
+> -		 * and __direct_map would like to create a large PTE
+> -		 * instead: just force them to go down another level,
+> -		 * patching back for them into pfn the next 9 bits of
+> -		 * the address.
+> +		 * A small SPTE exists for this pfn, but =
+FNAME(fetch),
+> +		 * direct_map(), or kvm_tdp_mmu_map() would like to =
+create a
+> +		 * large PTE instead: just force them to go down another =
+level,
+> +		 * patching back for them into pfn the next 9 bits of the
+> +		 * address.
+>  		 */
+>  		u64 page_mask =3D KVM_PAGES_PER_HPAGE(level)=
+ -
+>  				KVM_PAGES_PER_HPAGE(level - 1);
+> @@ -3004,9 +3004,9 @@ void =
+disallowed_hugepage_adjust(u64 spte, gfn_t gfn, int cur_level,
+>  	}
+>  }
+> =20
+> -static int __direct_map(struct kvm_vcpu *vcpu, gpa_t gpa, u32 =
+error_code,
+> -			int map_writable, int max_level, kvm_pfn_t pfn,
+> -			bool prefault, bool is_tdp)
+> +static int direct_map(struct kvm_vcpu =
+*vcpu, gpa_t gpa, u32 error_code,
+> +		      int map_writable, int =
+max_level, kvm_pfn_t pfn,
+> +		      bool prefault, bool is_tdp)
+>  {
+>  	bool nx_huge_page_workaround_enabled =3D is_nx_huge_page_enabled();
+>  	bool write =3D error_code & PFERR_WRITE_MASK;
+> @@ -4037,8 +4037,8 @@ =
+static int direct_page_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u32 =
+error_code,
+>  	if (r)
+>  		goto out_unlock;
+> =20
+> -	r =3D =
+__direct_map(vcpu, gpa, error_code, map_writable, max_level, pfn,
+> -			 prefault, is_tdp);
+> +	r =3D direct_map(vcpu, gpa, error_code, =
+map_writable, max_level, pfn,
+> +		       prefault, is_tdp);
+> =20
+>  out_unlock:
+>  	write_unlock(&vcpu->kvm->mmu_lock);
+> --=20
+> 2.53.0
+>=20
+>=20
+>=20
+
