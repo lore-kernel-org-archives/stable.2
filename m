@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11F23C343C
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1895C3BF66B
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:33:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787310410; cv=none; b=bKeta/QNr5vmLahyrG5bXyNOxB3sTewVCYDCZ1GKqUBEeRxJjInfZVOFSyxXSAKpV/cuHTTNH7U//xgoRpffAgZhUpwaSSrmbwVs77GqhMuGeP2y5HoiVUdTcjGfI7DKxsqRoowMznnvm7QUbnj0ucZiGDxWJwHJ9fotIR4O7FE=
+	t=1787311997; cv=none; b=BtR9eH1AcG6XXBFMn5K/MruYibsr2gQ2eiX7c6KXmCqrcL4djU78u7hI+H4GVRBCus7R5rTngIn/upyU75lVYKse6FYb0bHIM2yW2fD+zSGb+6UTqFmvE6NdedRpe0LClAKassMUXUFQBhHwoXGwZxOuat7m6DOP2302/ATeSkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787310410; c=relaxed/simple;
-	bh=MySHS/kDWV3jUAPesfFVI5cIQ7RrHiIzWBsw4ihVSuA=;
+	s=arc-20240116; t=1787311997; c=relaxed/simple;
+	bh=rgvQZBfpWaOfnE3uz/47jT/zuN+CgD70rt83EV5t4Hs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WJ5YalBa4jtRxUlTgFCk8Vq5PLl8khyh1qL+vLn4BdiwNcjhtrCCEBZk7Lgf2ZU4CiMgWKfGn4vZrOrZFQuD3seXr1xxYsp9dPtbjnKBubaOUymGt2aQR11iO7pu1bDHRGRvt556n0TYa7YxmakNXRKhWuWQSba0DEPHy/BSXMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mOx9p8f+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PdQhqkXaDjqeh/bgSbGeOswM6UQAJp0x4MudqBkf7nZe3FS4odE504fAw4BLG4Yvj1Xycp6syHIM47aIrx6rGtJTHRBTVVmRPRj/7bqXclCK9GDzrRP1q1Z8KbNZODfvC8/mkoLLjZigw5M8v1wbZXxZCi7m7mwuTKebgiTgVlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJvWWeTG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mOx9p8f+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3F01F000E9;
-	Fri, 21 Aug 2026 11:06:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJvWWeTG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B0C1F000E9;
+	Fri, 21 Aug 2026 11:33:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787310408;
-	bh=4ScHzvHLXl57ZU+Hbogf8cR4KWoixxA5+QhdOPpcW5g=;
+	s=k20260515; t=1787311995;
+	bh=N/BcEjuym6YhSurCgbZX3xAFrXgoZP9aIu8XyJy2Os0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mOx9p8f+DUrod3le4QjUH5PMooHbC8RQtJjCJx5PpJ9UdQpouAtQB5F04ZSCedL7n
-	 yu8Qnj4y0FRwQs+2qNzouif3omyOJx2iceYQ2C6Zl/jfyUdUnO6RWzTHuZPplJYqzZ
-	 q5hV7JB6Sn9nvJP0aU6KXwl5Kz1pka6Sug21MZ7q2DGx1gdKievr2jRwqPr7BTNFv1
-	 9ERoc8r6Lm1wj2YbudRIjdE1kpEH4kG769gBeLdpOl1Sw3bVjnd9FFB6COzARslJCF
-	 ER7T3DdmnlFWHRY0DdCiim6WRZ8O+APOaSXu1JK23I+Pk+DJyjwbj6RgC9NYHY09H5
-	 /3EoKTlKLMgAw==
+	b=GJvWWeTGBXP4xuWRYQklfG5sAecF7CkrRIn9NUu4u4prkQopNxUJXUdNUg1x33x49
+	 Al2jMJrAObGnFa+7QWxagyeX6vYpWSLAU/mhmqUr7UEGZ102d42P4bd04b6gUCgDN1
+	 9GaEh2OLmwhvenwqXxJCcq24yNFek8BimiwAtlmF06fl82mZ3SIKWNa6fSmy94ZSvU
+	 d85hUlokw25ovCl+LsCtJNlrMC2UPXcHu7WlB+aMUl2z/kBJVAnQSJgA93xpP+vXBP
+	 UopDu8hLBK8EVn5nOHhTOwBty33xiCYBcBpSaO1NUfa0Eaa7nqEULxVsTJuhTFhLWB
+	 mevVg2ttLmbLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Leo Yan <leo.yan@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] serial: amba-pl011: synchronize DMA teardown
-Date: Fri, 21 Aug 2026 07:06:45 -0400
-Message-ID: <20260821110645.2848076-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] perf: Fix cgroup state vs ERROR
+Date: Fri, 21 Aug 2026 07:33:07 -0400
+Message-ID: <20260821113309.2981106-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081746-trump-freeness-2c22@gregkh>
-References: <2026081746-trump-freeness-2c22@gregkh>
+In-Reply-To: <2026081732-unmixed-crudely-500c@gregkh>
+References: <2026081732-unmixed-crudely-500c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,58 +45,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Peter Zijlstra <peterz@infradead.org>
 
-[ Upstream commit 440915499231e9db1c361aa45bb702e8fd3b4a32 ]
+[ Upstream commit 61988e36dc5457cdff7ae7927e8d9ad1419ee998 ]
 
-dmaengine_terminate_all() does not wait for a running callback, so the TX
-callback can still touch the TX buffer after it is freed. The RX poll
-timer reads the RX buffers without the port lock.
+While chasing down a missing perf_cgroup_event_disable() elsewhere,
+Leo Yan found that both perf_put_aux_event() and
+perf_remove_sibling_event() were also missing one.
 
-Switch to dmaengine_terminate_sync() and delete the RX timer before
-freeing the buffers.
+Specifically, the rule is that events that switch to OFF,ERROR need to
+call perf_cgroup_event_disable().
 
-Fixes: ead76f329f77 ("ARM: 6763/1: pl011: add optional RX DMA to PL011 v2")
-Cc: stable <stable@kernel.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260731085915.326775-4-fanwu01@zju.edu.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ changed upstream's `timer_delete_sync()` deletion to match this tree's `del_timer_sync()` spelling at the old call site ]
+Unify the disable paths to ensure this.
+
+Fixes: ab43762ef010 ("perf: Allow normal events to output AUX data")
+Fixes: 9f0c4fa111dc ("perf/core: Add a new PERF_EV_CAP_SIBLING event capability")
+Reported-by: Leo Yan <leo.yan@arm.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://lkml.kernel.org/r/20250605123343.GD35970@noisy.programming.kicks-ass.net
+Stable-dep-of: 42c5ca1f0a28 ("perf/core: Fix group leader use-after-free after sibling detach")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/amba-pl011.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ kernel/events/core.c | 56 ++++++++++++++++++++++++--------------------
+ 1 file changed, 30 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index ab68892a8b1c7..500f46bb06c85 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -1196,7 +1196,7 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index c9cd1f622a1fc..756152374a3b9 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -2145,14 +2145,13 @@ perf_aux_output_match(struct perf_event *event, struct perf_event *aux_event)
+ }
  
- 	if (uap->using_tx_dma) {
- 		/* In theory, this should already be done by pl011_dma_flush_buffer */
--		dmaengine_terminate_all(uap->dmatx.chan);
-+		dmaengine_terminate_sync(uap->dmatx.chan);
- 		if (uap->dmatx.queued) {
- 			dma_unmap_single(uap->dmatx.chan->device->dev,
- 					 uap->dmatx.dma, uap->dmatx.len,
-@@ -1209,12 +1209,12 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
- 	}
+ static void put_event(struct perf_event *event);
+-static void event_sched_out(struct perf_event *event,
+-			    struct perf_cpu_context *cpuctx,
+-			    struct perf_event_context *ctx);
++static void __event_disable(struct perf_event *event,
++			    struct perf_event_context *ctx,
++			    enum perf_event_state state);
  
- 	if (uap->using_rx_dma) {
--		dmaengine_terminate_all(uap->dmarx.chan);
-+		if (uap->dmarx.poll_rate)
-+			timer_delete_sync(&uap->dmarx.timer);
-+		dmaengine_terminate_sync(uap->dmarx.chan);
- 		/* Clean up the RX DMA */
- 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_a, DMA_FROM_DEVICE);
- 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_b, DMA_FROM_DEVICE);
--		if (uap->dmarx.poll_rate)
--			del_timer_sync(&uap->dmarx.timer);
- 		uap->using_rx_dma = false;
+ static void perf_put_aux_event(struct perf_event *event)
+ {
+ 	struct perf_event_context *ctx = event->ctx;
+-	struct perf_cpu_context *cpuctx = __get_cpu_context(ctx);
+ 	struct perf_event *iter;
+ 
+ 	/*
+@@ -2181,8 +2180,7 @@ static void perf_put_aux_event(struct perf_event *event)
+ 		 * state so that we don't try to schedule it again. Note
+ 		 * that perf_event_enable() will clear the ERROR status.
+ 		 */
+-		event_sched_out(iter, cpuctx, ctx);
+-		perf_event_set_state(event, PERF_EVENT_STATE_ERROR);
++		__event_disable(iter, ctx, PERF_EVENT_STATE_ERROR);
  	}
  }
+ 
+@@ -2236,21 +2234,6 @@ static inline struct list_head *get_event_list(struct perf_event *event)
+ 	return event->attr.pinned ? &ctx->pinned_active : &ctx->flexible_active;
+ }
+ 
+-/*
+- * Events that have PERF_EV_CAP_SIBLING require being part of a group and
+- * cannot exist on their own, schedule them out and move them into the ERROR
+- * state. Also see _perf_event_enable(), it will not be able to recover
+- * this ERROR state.
+- */
+-static inline void perf_remove_sibling_event(struct perf_event *event)
+-{
+-	struct perf_event_context *ctx = event->ctx;
+-	struct perf_cpu_context *cpuctx = __get_cpu_context(ctx);
+-
+-	event_sched_out(event, cpuctx, ctx);
+-	perf_event_set_state(event, PERF_EVENT_STATE_ERROR);
+-}
+-
+ static void perf_group_detach(struct perf_event *event)
+ {
+ 	struct perf_event *leader = event->group_leader;
+@@ -2286,8 +2269,15 @@ static void perf_group_detach(struct perf_event *event)
+ 	 */
+ 	list_for_each_entry_safe(sibling, tmp, &event->sibling_list, sibling_list) {
+ 
++		/*
++		 * Events that have PERF_EV_CAP_SIBLING require being part of
++		 * a group and cannot exist on their own, schedule them out
++		 * and move them into the ERROR state. Also see
++		 * _perf_event_enable(), it will not be able to recover this
++		 * ERROR state.
++		 */
+ 		if (sibling->event_caps & PERF_EV_CAP_SIBLING)
+-			perf_remove_sibling_event(sibling);
++			__event_disable(sibling, ctx, PERF_EVENT_STATE_ERROR);
+ 
+ 		sibling->group_leader = sibling;
+ 		list_del_init(&sibling->sibling_list);
+@@ -2494,6 +2484,15 @@ static void perf_remove_from_context(struct perf_event *event, unsigned long fla
+ 	}
+ }
+ 
++static void __event_disable(struct perf_event *event,
++			    struct perf_event_context *ctx,
++			    enum perf_event_state state)
++{
++	event_sched_out(event, __get_cpu_context(ctx), ctx);
++	perf_cgroup_event_disable(event, ctx);
++	perf_event_set_state(event, state);
++}
++
+ /*
+  * Cross CPU call to disable a performance event
+  */
+@@ -2510,13 +2509,18 @@ static void __perf_event_disable(struct perf_event *event,
+ 		update_cgrp_time_from_event(event);
+ 	}
+ 
++	/*
++	 * When disabling a group leader, the whole group becomes ineligible
++	 * to run, so schedule out the full group.
++	 */
+ 	if (event == event->group_leader)
+ 		group_sched_out(event, cpuctx, ctx);
+-	else
+-		event_sched_out(event, cpuctx, ctx);
+ 
+-	perf_event_set_state(event, PERF_EVENT_STATE_OFF);
+-	perf_cgroup_event_disable(event, ctx);
++	/*
++	 * But only mark the leader OFF; the siblings will remain
++	 * INACTIVE.
++	 */
++	__event_disable(event, ctx, PERF_EVENT_STATE_OFF);
+ }
+ 
+ /*
 -- 
 2.53.0
 
