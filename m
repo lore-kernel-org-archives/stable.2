@@ -1,74 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A57731D362
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 23:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6373290BD
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 00:00:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787269999; cv=none; b=RvVIWLr4LnnFczQ6x01Fv83GRsLYQIB3CTmZI/HBnTOMhcqDG78IJfXgKX39YZYXOF5bMyOBLftorZiOP2XNqEHXWEpaKhG+lHAfOfmeeaIdfOsMg2z8Vh4S7G82tVokVb7sbQTCSAr26B/C3IgUWefKXUVpg2WGmZlHlCauvK8=
+	t=1787270436; cv=none; b=Nm6/2+kEeUWuV5mcSo8JRPlN2eo9wHCyxmNzEYoBzChws4I7Yn8LALrQIIzCvAA65b5SJ9APhsVxtpxjEiz9dq1TE5/H2SbvWeEo8u1YosOhoFqwTcNMgXpHBggOCfZTAFQFhbpp/8zG0Kwdu2gTi9/caf5a0I+vermc0ZfnQYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787269999; c=relaxed/simple;
-	bh=xM6r3AhSMBzvr0yPEMj2z3NZo3h7skMDAXZ8rfJsd4M=;
+	s=arc-20240116; t=1787270436; c=relaxed/simple;
+	bh=7ZbhctULEkmBi6avWi9Q0mrJ4lPpk3O74RsjhAXpTM8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YvL2P4ShE+iwuJEijOCuGaxl4R8uc6e/Gw4w2MJGrkR8yypp9WvESUMmxv3NoY8bB39q39SeEmFurgCvrC1r+d7ksscP4S6q1LsSvyMDj3gd+3w+vRjnElGpXjgMSw8LGo09ZNoZJxyswqpAkxoNzKoYEcOUfQSr4c4b/1/a6Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2igLnz+; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=R8zMGFiqizEEGdnHpgCQcMuG+gtisW5k8lOgEuhUIDdPwS8/qEu0oBxQZ9mW9sjekwwpBD05IABYbZveezknD+UY6QWRO8N+AukjXfZurmV1VykhbfUR0tUFkMm7SGT39gAUmiv1bdwLHfMLw8rmpH4Pwpdd/RR2VCHNWWmtvv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODlmHXyB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2igLnz+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4561F00A3D
-	for <stable@vger.kernel.org>; Thu, 20 Aug 2026 23:53:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODlmHXyB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67361F00A3E
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 00:00:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787269998;
-	bh=xM6r3AhSMBzvr0yPEMj2z3NZo3h7skMDAXZ8rfJsd4M=;
+	s=k20260515; t=1787270431;
+	bh=cDda+IRPjA3xmacgMMSmSkvOlzTi/NyOElFby2f5zsw=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=j2igLnz+lbz5IqAJeBmMlPgs49w9QclKkVSrLiG9Myd+m/KWIFxiTTQJAh6cckPpE
-	 9wghjxPzUCEkrhd6hxzOW7L/UJKAXixjdte9YkCmwRKXUn9p6krxmZJEFtRHPgE0lo
-	 x2+JWfyPv8cKhZcNRDMWtO9V5lFeruH2T145xZj8Lo01OG7pahZzn3A5g/yBKos7tL
-	 ouH3QvRENGbO5XE/NR03saxE1OBGFYZgM8BTaz6ETgDg/nidOktiuFGurv/Wp+V010
-	 0D9FagNbQCR4JnCbRJxg9NKEZdOIhEom9HcpWdGUyIwLudQk10GF0ZqDQqnEgVDSkF
-	 NaY4IjCJ1l+wA==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c197eaaab00so76501166b.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 16:53:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrbYZK0QnkhoegG1I6czFuUyUjZwzq7693gQetD/6Esp+ysZERnUjfsxJXkBKt2kUMyoSxxWOw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfmchVKxxiTWGCIqVSui9WMa8WZ65VIhx+2YmQIxz81Y0eky22
-	DMl/kJcuiKnk3pYtJaS/w7fVvMPYLbY4faK5Bpbm450G2FEOUD0YdDw6L0c8P3pNe61Smxr8Fl3
-	qxl+mI91ea/Cq38KAopx+LGheGXKcWto=
-X-Received: by 2002:a17:906:4787:b0:c24:6f60:3f7e with SMTP id
- a640c23a62f3a-c246f60404cmr140093166b.2.1787269996927; Thu, 20 Aug 2026
- 16:53:16 -0700 (PDT)
+	b=ODlmHXyBRF984PhO+dFamE54b/kue6FZARpAU+a7HWj7OR3M9zybyMeSFL6PALs+a
+	 uF50e/OO1K/3GYKRVL/q9fI27gj2m03pNJgiGWnrbzOEDjdfYdtznfr6k0+wItL3rI
+	 tW3ejSFKkKCNflrQDXakOr658+yeQHbIktcYY7YTfcijhUpQZNmJfzXO2VAe27FApc
+	 SHSiYBf+9SlbdQH1y4oGVNxVmB8o+vyPf4AUazmnlihJKMwIH0K0wjg0CzQVlSy+zA
+	 BXS/v8d3KQ/QCTPUSkjF+wYA3B5qUDYhb+36TRAymgaLTlFo6z57M3VqoqNAtjAX3Q
+	 QER5Wi/Irda9g==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a41191c9a9so1025101a12.3
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 17:00:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqzfjlKHZJTz/mLZA4ydV2+AB3PJoo19VnWmYnMXSEmO672ef9ZWKrBqkHGjOjG3EVJL92K0xw=@vger.kernel.org
+X-Gm-Message-State: AFuF++necWMeOGfL9hrzMGZBxzC0UmDNuJU0PgI28R3kSoxD54PV892c
+	fI4ejFC4+kKD7FwwmPC6wbKPYTzycjbhyzeCbNT6tFf9RK4UogDdjkFFYYHtaLe1DmQVR8+LgZJ
+	ggY/Y3WoweTvZcxUdzXXnEDtb2OF24Yg=
+X-Received: by 2002:a05:6402:20da:b0:6a3:ff14:ebc9 with SMTP id
+ 4fb4d7f45d1cf-6a42f1bcdd1mr2149119a12.11.1787270430476; Thu, 20 Aug 2026
+ 17:00:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820212210.1475817-1-sorenson@redhat.com>
-In-Reply-To: <20260820212210.1475817-1-sorenson@redhat.com>
+References: <20260820211310.1471930-1-sorenson@redhat.com>
+In-Reply-To: <20260820211310.1471930-1-sorenson@redhat.com>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 21 Aug 2026 08:53:04 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-a3phtwshP_x-q7ppK7tkQP2ohGvGicDXyLp25xo6sTQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XSAjHTO3R7PTZA26cvzfMVbadR_GcjRszqLSYC5QKgGinY425FE8P4PFU
-Message-ID: <CAKYAXd-a3phtwshP_x-q7ppK7tkQP2ohGvGicDXyLp25xo6sTQ@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: fix copy-paste error in WSL EA length
- accounting for $LXDEV
+Date: Fri, 21 Aug 2026 09:00:17 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9HApK3UYwfiak-CbLELePWspyrEpuVFhOAfzo92yz1iQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Wm5agKh3RqtHnuU8tXyz9My3Iz_-7bFvHsOIDrqoXCu1eeY9wKvygTEZM
+Message-ID: <CAKYAXd9HApK3UYwfiak-CbLELePWspyrEpuVFhOAfzo92yz1iQ@mail.gmail.com>
+Subject: Re: [PATCH] cifs: call pagecache_isize_extended() in cifs_setsize()
+ when extending
 To: Frank Sorenson <sorenson@redhat.com>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 21, 2026 at 6:22=E2=80=AFAM Frank Sorenson <sorenson@redhat.com=
+On Fri, Aug 21, 2026 at 6:13=E2=80=AFAM Frank Sorenson <sorenson@redhat.com=
 > wrote:
 >
-> The LXDEV block in cifs_query_path_info() uses SMB2_WSL_XATTR_MODE_SIZE
-> (4) instead of SMB2_WSL_XATTR_DEV_SIZE (8), undercounting eas_len by 4
-> bytes per $LXDEV EA.
+> cifs_setsize() calls truncate_pagecache() but skips
+> pagecache_isize_extended() on extension.  truncate_setsize() shows
+> the correct pattern:
 >
-> eas_len is used only as a zero/non-zero presence flag so there is no
-> current functional impact, but the value is incorrect and misleading.
+>   i_size_write(inode, newsize);
+>   if (newsize > oldsize)
+>       pagecache_isize_extended(inode, oldsize, newsize);
+>   truncate_pagecache(inode, newsize);
 >
-> Fixes: 97db41604555 ("smb: client: parse uid, gid, mode and dev from WSL =
-reparse points")
+> pagecache_isize_extended() zeroes the tail of the page straddling old
+> EOF.  Without it, dirty bytes in that region can be written back to
+> the server, exposing stale data in the newly extended range.
+>
 > Cc: stable@vger.kernel.org
-> Cc: Paulo Alcantara <pc@manguebit.org>
+> Cc: David Howells <dhowells@redhat.com>
 > Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Thanks!
+Thanks.
