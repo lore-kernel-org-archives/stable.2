@@ -1,168 +1,235 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11023141.outbound.protection.outlook.com [40.93.196.141])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0EA352019;
-	Fri, 21 Aug 2026 17:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787332151; cv=fail; b=W0edbRhQ69C2KYBgEA/WBAmHIaXI4mQgvBLYf4Mutt5vwi+SY+Sb6XTgKsNJPYjRTNsAtaUKCcFKu+ZfxpW4yqPiWKvo3v5RpF9SIcCnIS5zr1K2jm5fDt0dtC5LYbD8PFy7VZwlfS1JwN674uUNxYwwmZsJUQZnYd+Oj0d83XM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787332151; c=relaxed/simple;
-	bh=rClzwTKQd7h0m9dm63i5V/DDDApv/n47TuV2Oyxufz0=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 Content-Type:MIME-Version; b=iFvYUnBghvcbK5Muc5+CHhr3N3baEQElHFA62DK/KIHurx2TfotiiUS0TigH2UvQ6B+gzXImoS9V8Puszm7X31+nMwH0zt8z+iiGTtsdw0V4OK+9Uk6RlOndQflYGDcsPXpirb5+sHuRDz0M6hCzzwoJUWWqG60XN7e6sVO47P0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=talpey.com; spf=pass smtp.mailfrom=talpey.com; arc=fail smtp.client-ip=40.93.196.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=talpey.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=talpey.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iZ4nwCW7JlsKxUD8THEtEVRulZg8w5PwT5w6cS8B7MfnorqQRzegpiSup6+6yxzVjAsfogxXWusX4yIkImQG6krP5S3f5g3DQmzhfkq1I6q6XHCRkAwC8OycxOYvUdTygLrsEUYoLp74OI+f9tSaQA+58VAlIg2TloIZrYwLHS/cU9ERgfZs0JGFxEvPKJn685o7gq3mpdN7jYV//ncMgl8D057pvuJAX9UREbxonuJeKNiWD4L2SyMmHXr6Bf/FMNKd3gkaMXk4NMsdknlTVav1xGvgS0NSRXTKWifFr6dkNRUtLmsx3RUMks0L/tE+4GLjhm3PeBAlguIwqKbFZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rClzwTKQd7h0m9dm63i5V/DDDApv/n47TuV2Oyxufz0=;
- b=Gsf8uUuxvXRWaqzpH1eEQ3UySaXBPjFKO9u2VJKvjipec+C/1Wusqj7FchXNtQZ3w7H41bg4eUU6wPp6uqLYPd7ESxLY4r96QJ4CoxNJ67yv+YSRkD/bRnolFExiXLUF2tsDWxdiA/vDfhQE2xUyHjF26jgS/g4yZroJ81gU3HweHsBd+2QX0VBl48AmMRoVbbQlotucI6Kof6Jh5uQ+1ywoRAUzwsbtsNv/NRc7n5Dx3OoeidzzcHYmKZmhB3KzLZQbPkpaxaJJ1Y4rE0/NIPAbFbh86u7BXyeSdHIpWdEp8d0d44bl7YRnHwXogeFcTue53SVMq0NHI8EHDl5lRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=talpey.com; dmarc=pass action=none header.from=talpey.com;
- dkim=pass header.d=talpey.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=talpey.com;
-Received: from MW4PR01MB6338.prod.exchangelabs.com (2603:10b6:303:7b::15) by
- IA6PR01MB755614.prod.exchangelabs.com (2603:10b6:208:5e9::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.11; Fri, 21 Aug 2026 17:09:06 +0000
-Received: from MW4PR01MB6338.prod.exchangelabs.com
- ([fe80::e7ad:d8fa:59db:4761]) by MW4PR01MB6338.prod.exchangelabs.com
- ([fe80::e7ad:d8fa:59db:4761%2]) with mapi id 15.21.0339.010; Fri, 21 Aug 2026
- 17:09:05 +0000
-Date: Fri, 21 Aug 2026 13:08:52 -0400
-From: Tom Talpey <tom@talpey.com>
-To: Frank Sorenson <sorenson@redhat.com>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, linkinjeon@kernel.org,
-	stable@vger.kernel.org
-Message-ID: <32cea692-1aa7-4eac-8f6f-eb39db63777a@talpey.com>
-In-Reply-To: <20260821142946.1728452-1-sorenson@redhat.com>
-References: <20260821142946.1728452-1-sorenson@redhat.com>
-Subject: Re: [PATCH] smb: client: fix OOB array access in __smb2_calc_size()
- on unknown Command
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <32cea692-1aa7-4eac-8f6f-eb39db63777a@talpey.com>
-X-ClientProxiedBy: BN9P223CA0011.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:408:10b::16) To MW4PR01MB6338.prod.exchangelabs.com
- (2603:10b6:303:7b::15)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED77CA6F;
+	Fri, 21 Aug 2026 17:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787332178; cv=none; b=HYxEXq2mMx0Nnp4nl+dSyBr/VZx1qMsrOUEub/1BBeqsIXV6l1J5Yux62oISzEiNmM/Orpd0Na2Ooe9Z5/Juo2m+m7octRd8UFOnfUWtCq0a4KXw/wBVIvJdiLZOvlDPAcIA78k0lSqFbWEYe9QDcZstuQKbH0dllr01PW/MMCs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787332178; c=relaxed/simple;
+	bh=7GXr0u+OQ0oLrxHT8t+RWzO5wtKMLnVNPS3p8JwoadQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OujXsCm8dvSBqS8VIhzNVfn2GPtR7CuvlJEYA1+LDVCOSXp7jD1LpOwHicK6X4a9hiNna9Y1JpDeIYeXhtETZOZN/dUZ8cgkA2UeF3chs36DPAAdg4va+1LdPJLXPr76W310y2qBiw+Fqp0vAV5188aaTYp76bwfAYYZhW8M8uM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBDi66cJ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBDi66cJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388E11F000E9;
+	Fri, 21 Aug 2026 17:09:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787332177;
+	bh=SXhsSgD+So1KYv0opzbteQ7Y/GTNQS0Ot83166ZvllE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DBDi66cJgAuWcv90XqfOjUMXdJYHjk6ICIrClqQjw3fx0PiQ+i6Q1mAYoFtRdzpiP
+	 IpgWFLgdtU/zNuaznv4wKX+6cujfcChcyjf3Fxwly2ZqSwCHpO4FHasgjSCEtuXIJI
+	 Vcc+9Fes6TFXSxN1oFkXQ86OwFZ/OUubeu9T/WTu9Km13yuzFBkW3sdAKBIuBYZOi8
+	 V3gAIIKftBQ10fLj/1kIYtQoTE+cHU95+VP9lCt/6tV0k0r0Ujr55eTko9Kr5y5n9+
+	 0btgFaMOEAOIjSmyTCc16eWkpEkBF2yUpl1OJrpasgS1hq6sAoQB8QWQYiJFtxWoKJ
+	 Uksb5L6i67JFA==
+Date: Fri, 21 Aug 2026 18:09:30 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
+	usama.arif@linux.dev, zokeefe@google.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] mm: khugepaged: fix swap entry value to
+ folio_pfn()
+Message-ID: <aoiDTwCf6320fedN@gremlin>
+References: <20260815051924.194810-1-vernon2gm@gmail.com>
+ <20260815051924.194810-2-vernon2gm@gmail.com>
+ <aoMs79VDCnYvA9S7@lucifer>
+ <aoMzkN8EfFllT5zH@lucifer>
+ <aedcacce-4880-41b0-a4a6-d892465fff57@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR01MB6338:EE_|IA6PR01MB755614:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2736f091-eea2-4c96-3445-08deffa6e81d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|52116014|376014|1800799024|3023799007|10067099003|56012099006|22082099003|38350700014|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	e7mhA5JIyWF9ubWAEutnyZvvdltY82A/GfHV1NWqVJ4DoyrBuYOmxJzKwVYBpJGF3ddFa6gAnPVF+g+N2Qxj8zxKpJioOJVa1/WZWr8HOEaOEE5l4KIF5bDOqdm0QYJ51SvVCFJqVcs30Me4DqKUsmMtt2w97EZVOCn9hS/CFghyIqekjCUSEjy+WnvAk6whrVYivSUR0a/ECCySCPajPsJx5jXrcDd9saLMPdv+LgZMh7DivFGZkvbUb1jhn32HgC+mja95TTUUjGLB1PWGOuxOqGTnE96B5Hg5Qof/odiETkJcNM64QCRnJBAnNgTTIrXP8noQ9MFRFz9oSsy7zQMdAgqozAVnWAhzW1SFLi4dfnEwANT5kB/Yo7Nehe86LX6B6mOZCwiyMZFzBfs9GlN84abVgOiY7aaX1L6f/m+eZP0h/029lyJw8R7ayQl2FIWnSwqXBcn2Z1DhXeyuiGubrJ9Pt6XLopV9spMkXuBTvcSz1rheH1fuCvySS13a32UrwDKTM3ahrBZMIc3g6x25BLS7Ad0Gt4memKlQPGf+0POxjQZq2d3OfsRYH0iuCeQdLER5NGw81kLg5WpVcK/PyR/mEK+A4G7Ntg+W9dRcG8fDxsi3ajOpIQ87fOVuT/DrVzQ/EZ4cS7nJa2FFQLvSzrYpGrvHoC9BzEagRLAhxW9/ZlbFYwxTNvM3ktp4eMOcjaCcf6gUXFISwevreFLu0ycyK/X73BoLB041mbc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR01MB6338.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(52116014)(376014)(1800799024)(3023799007)(10067099003)(56012099006)(22082099003)(38350700014)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cVkyalpaNlFBcWZBREp4elI3NWw2UFBJOGdQZmlvaEFpZzFBdkdJVWsvVjhV?=
- =?utf-8?B?cG9PSTNyY3dmd205WHNEODlQdmZkRFExWmFqRm9VdWRGTEpZT1ZQRkk3K1Ns?=
- =?utf-8?B?b2pFNVpRTXFIK1dNN1UvdElhNEZXWEJmMm5pOFZXOElqSXlFSFY0eXQraXBz?=
- =?utf-8?B?SDFNTmtpR1MxeHpGd2NOdEtzSTJrNk5UYnl6WTFPam5PZjF1Tmw0UjdQS1Fk?=
- =?utf-8?B?QVVoOE0vVFdWazFzbjZka3BJQkxVelBMRzRKMXNYU2dzRGhYMGFhbnJvbWM0?=
- =?utf-8?B?Und4WjE3ZXNNZ25TQ3BLdmVSUkZPb2RZS1F2ckJWUGRxNktiMEt0aUlWbUVi?=
- =?utf-8?B?aFNjK3l2dDJhUGtPL3YzZWZJWlhSelFhRXJZc2NTeWQ0bUpybzdtZjU4R1JJ?=
- =?utf-8?B?ZWlvVzNGckl2aGQ3YTcydDVLd2ZuM3lERXNFclUrTytyNlJFMFc2M1pUUjB1?=
- =?utf-8?B?ZTA1S0lvSXkxUmovSGkyV2lsN1ZPRHMzQTY0WEFKRWtGNERHdU1Md0NkVHJi?=
- =?utf-8?B?R25Zdm5VazBwclNJRndRQmphaHFNMGwzczJoWnRxYzRNWExaVHJJRDQ2N2Vr?=
- =?utf-8?B?NW80Vm96cDZXUzhLY3hLS00xWmRVK3JJdE4xNTZMYXovWTFMVXh0OWZWN0p0?=
- =?utf-8?B?L0o2NmI1ck9BRVlOL250NVB3TE95eFZhZVlEbFk5UDBUejdJMmNDTkRmUlVy?=
- =?utf-8?B?cU9BRWtlcDBCS2dPdzUxZGoxS3pkb0tNM2ZyT1VickxYcmhrbGFTV1hXS0RL?=
- =?utf-8?B?czBZY0h3YUhiaHdwblQ2SFdSd3pOUDUvb2doTW4xMUgvQmVVOFhrbWNaQ01Z?=
- =?utf-8?B?VnByU01hZXZ1YUVRNTdVNXN4Z0pWOGlLU1pGUThKd2U4eVlSb1dqeVVLdTZJ?=
- =?utf-8?B?SnR2cmI4UE5GRVZJSEhkblRUaVFKeE1NaXJScHFYa2lFVjgrY3VSOGQvbVJv?=
- =?utf-8?B?SGVXekhPa251bTZodWFVY0s3QW5XWnV1LzkwUVd1VlAvZGdjSjVDRVlld0kz?=
- =?utf-8?B?S0VSc1A2YWxCLzNTZkR3UDIwUEtydWozeHJPQytockg4V3lqWWcrekF2bEpF?=
- =?utf-8?B?ejFhM3h1YUI2akpwV1N2Qll4UFlVMUplR2tSNi9YOEt2OHhUY000TXRad2J2?=
- =?utf-8?B?SUtZeGI5NjREZUVBZXRpSlhKdnFGK042WFhPRXNjdDV5RUxEdVJha1pldWhL?=
- =?utf-8?B?RjFGMytjYmEyYm1SWVkySTVyOElWT3phWGNOeXJKL2xsQllOdFo3bUQ3M1lH?=
- =?utf-8?B?cHR3RFZtdGJBZ3FQLzhiUEpFOEl5LzVWOWo2RGRuUGxKS0ZNMHFnRXZGUHNm?=
- =?utf-8?B?dkR5d1U5c3FDamJlMWdhaTgwRlhIWkIzOW0rVThzYkNUUGVINktzN0J1TkF1?=
- =?utf-8?B?WTdtSlhtVG1MMGF0NGxNYUVORVpnY3dMTVRTcHZUcmRadjIyTTFLK29JaUoz?=
- =?utf-8?B?Q09rb0hsOXRxcEFndXBiUDVod1pyZGE5V1AzSkhXVjhCZ3ZHZG5BWTlvbWFz?=
- =?utf-8?B?Y1B6Qkx5V25NbE41Q0RpbGRvTWM3anJpSGVZRFdQMnlESGJwRGFLQ2cwWEd2?=
- =?utf-8?B?Y3E5N0ptUVZ1RHNsZG9IY2p1MnFpTVZBbXZ3RHRHMWhGa3h2akdQTTlKSkov?=
- =?utf-8?B?ZnIrY3lDMVo1NTN3RDk1bnU2VWo1bThyQlB2OG5SU00yM0doT3pmYmtpdGdm?=
- =?utf-8?B?cEwvZm9zaE40VTNEMnY3Q0x6c1p0UmVwb2VlWGNNcUdSYnE2aEsvL1huamRJ?=
- =?utf-8?B?dDQ3TWFLTHFRZXAvb0lzRVR3QytuM3E3WE4zMDBHZnk4N1d6dUo0d1U3bkpl?=
- =?utf-8?B?aVFDaC9YZVJxM0poRisrVnNwNFl1UjlneTF6Sm54OFVKWEVjWkU4L3hEQ3Zt?=
- =?utf-8?B?Y2tQTGpQYWxEUjBOYTBUNGJOenRZQWUwb2RFRnVpdTUxVzhxYTBueVAzWFVh?=
- =?utf-8?B?OThBWEhwaFRuNU5xVDJjU2lSOHVhSmFwaHQ4Q1JUa0FMR0p5MzJUR2FlbWRa?=
- =?utf-8?B?MzZaclJKOWZnQUdpczVPT3I5RWhSZ0ZyVmZjVndCS25YWEFoWFJrWjFNUzZR?=
- =?utf-8?B?b3k0c2dhZEdJMHJuYnpFSnN0Zm1mUVRnbTNFMTAzaVJtNGxpTlYzcjBCZDN3?=
- =?utf-8?B?aUVtaDZrOWZkbzBzQ0xpSXFnaWpSSzhEQmcyTXhRS1R0bUlLL2MyK0EwRTNv?=
- =?utf-8?B?RWNKZHhoRkJTM2gzb1oyenUza2IwWkQ1YWQ2K2lndzl0UC8ycFlCbXd0Slgx?=
- =?utf-8?B?UHdSQUZzd3ZveUZNdFpuOTU5aG9nejI5cVRpdTYvQTlFcEVIWlV2UVMxNnRD?=
- =?utf-8?Q?VapDt+Nwt1hYYhoH7x?=
-X-OriginatorOrg: talpey.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2736f091-eea2-4c96-3445-08deffa6e81d
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR01MB6338.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 17:09:05.8393
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 2b2dcae7-2555-4add-bc80-48756da031d5
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /2HeCGg+FOOJuqa+UXJE97bUmCNBYFoWCKnRl+utJuHgrrvNhPYHLJJpWArh62Tf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR01MB755614
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aedcacce-4880-41b0-a4a6-d892465fff57@gmail.com>
 
-The SMB3 protocol often specifies closing the connection on invalid message=
-s, is there some reason you are opting to ignore this field?
+On Fri, Aug 21, 2026 at 04:17:55PM +0800, Vernon Yang wrote:
+> On Mon, Aug 17, 2026 at 05:23:30PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Mon, Aug 17, 2026 at 05:10:39PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > On Sat, Aug 15, 2026 at 01:19:22PM +0800, Vernon Yang wrote:
+> > > > From: Vernon Yang <yanglincheng@kylinos.cn>
+> > > >
+> > > > When the swap entries found exceed max_ptes_swap, the loop is left via
+> > > > break with folio still holding the xarray value that encodes the swap
+> > > > entry, not valid folio pointer.
+> > > >
+> > > > That value is passed to trace_mm_khugepaged_scan_file(), which feeds it
+> > > > to folio_pfn(). On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is
+> > > > plain pointer arithmetic, so the trace event merely prints bogus
+> > > > scan_pfn. On classic SPARSEMEM, the page_to_pfn() reads page->flags,
+> > > > dereferencing the tiny encoded integer and oopsing khugepaged whenever
+> > > > the trace event is enabled.
+> > >
+> > > Hmm I seem to recall that we were no longer spporting !VMEMMAP SPARSEMEM, but
+> > > maybe I was imagining that :)
+> >
+> > OK seems some museum piece architectures are causing us issues again, fun times
+> > (parisc and some mips).
+> >
+> > >
+> > > But this needs fixing in general anyway.
+> > >
+> > > >
+> > > > So when folio is the swap entry value, simply set pfn to -1, just like
+> > > > exhausted scan naturally.
+> > > >
+> > > > And the folio_put() has maybe dropped the last reference of folio. The
+> > > > trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.
+> > > > so using the folio_pfn() before dropping the reference, closing
+> > > > use-after-free window.
+> > > >
+> > > > Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> > > > ---
+> > > >  include/trace/events/huge_memory.h |  6 +++---
+> > > >  mm/khugepaged.c                    | 14 +++++++++-----
+> > > >  2 files changed, 12 insertions(+), 8 deletions(-)
+> > > >
+> > > > diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+> > > > index 291fae364c62..d3572d4ef453 100644
+> > > > --- a/include/trace/events/huge_memory.h
+> > > > +++ b/include/trace/events/huge_memory.h
+> > > > @@ -178,10 +178,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
+> > > >
+> > > >  TRACE_EVENT(mm_khugepaged_scan_file,
+> > > >
+> > > > -	TP_PROTO(struct mm_struct *mm, struct folio *folio, struct file *file,
+> > > > +	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
+> > > >  		 int present, int swap, int result),
+> > > >
+> > > > -	TP_ARGS(mm, folio, file, present, swap, result),
+> > > > +	TP_ARGS(mm, pfn, file, present, swap, result),
+> > > >
+> > > >  	TP_STRUCT__entry(
+> > > >  		__field(struct mm_struct *, mm)
+> > > > @@ -194,7 +194,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+> > > >
+> > > >  	TP_fast_assign(
+> > > >  		__entry->mm = mm;
+> > > > -		__entry->pfn = folio ? folio_pfn(folio) : -1;
+> > > > +		__entry->pfn = pfn;
+> > >
+> > > I wonder how easy it is for people to interpret that this is a PFN of something
+> > > only in the case of an early exit.
+> > >
+> > > It's a bit of a mess that we're exposing internal implementation details like
+> > > this, quite honestly.
+> > >
+> > > I hope there is no expectation of this being there indefinitely.
+> > >
+> > > >  		__assign_str(filename);
+> > > >  		__entry->present = present;
+> > > >  		__entry->swap = swap;
+> > > > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> > > > index 617bca76db49..e7830761d3a2 100644
+> > > > --- a/mm/khugepaged.c
+> > > > +++ b/mm/khugepaged.c
+> > > > @@ -2683,6 +2683,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+> > > >  	int present, swap;
+> > > >  	int node = NUMA_NO_NODE;
+> > > >  	enum scan_result result = SCAN_SUCCEED;
+> > > > +	unsigned long pfn;
+> > >
+> > > See below I think we should drop it.
+> >
+> > OK we can't because of museum piece architectures that will actually deref the
+> > folio to get the PFN...
+> >
+> > I'd startr by initialising this to -1 then since I guess in theory it's possible
+> > xas_for_each() could just not do anything is it? (folio is being set to NULL so
+> > that suggests so).
+> >
+> > >
+> > > >
+> > > >  	present = 0;
+> > > >  	swap = 0;
+> > > > @@ -2720,27 +2721,23 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+> > > >  			 * PMD-sized THP implies that we can only try
+> > > >  			 * retracting the PTE table.
+> > > >  			 */
+> > > > -			folio_put(folio);
+> >
+> > I still hate the idea of moving these outside of the loop, it's just asking for trouble.
+> >
+> > So I guess instead:
+> >
+> > 	xas_for_each(&xas, folio, start + HPAGE_PMD_NR - 1) {
+> > 		pfn = -1;
+> > 		...
+> > 		if (xa_is_value(folio)) {
+> > 			...
+> > 		}
+> > 		pfn = folio_pfn(folio);
+> > 		...
+> > 	}
+> > 	...
+> > 	trace_mm_khugepaged_scan_file(mm, pfn, file, present, swap, result);
+> >
+> > That way you avoid the horror or moving the folio put somewhere deeply
+> > unintuitive and inconsistent, and maintain pfn lifetime for some arches nobody
+> > uses.
+>
+> Thank you for the reference solution. After studying the overall
+> process, I found that the above solution still has two issues:
+>
+> - When `!folio_try_get(folio)` or `folio != xas_reload(&xas)`, if the
+>   next `xas_for_each()` iteration happens to terminate, pfn will be
+>   incorrect, which is inconsistent with previous versions.
 
-Tom.
+Ah you're right of course!
 
-Aug 21, 2026 10:45:35 AM Frank Sorenson <sorenson@redhat.com>:
+> - when the `xas_for_each()` iteration to terminate and the folio
+>   operation preceding is normal. but pfn will be incorrect, also same
+>   issue.
 
-> has_smb2_data_area[] is indexed by the server-supplied shdr->Command
-> with no bounds check:
->=20
-> =C2=A0=C2=A0=C2=A0 if (has_smb2_data_area[le16_to_cpu(shdr->Command)] =3D=
-=3D false)
->=20
-> The array has NUMBER_OF_SMB2_COMMANDS (0x13) entries; any Command value
->> =3D 0x13 reads past the end into adjacent read-only data.
->=20
-> Add an upper-bound check before the lookup; commands outside the valid
-> range have no data area, so treat them as false.
->=20
-> Fixes: 093b2bdad322 ("CIFS: Make demultiplex_thread work with SMB2 code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-> ---
-> fs/smb/client/smb2misc.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
-> index 9068175e57cd..26b41ea3b72b 100644
-> --- a/fs/smb/client/smb2misc.c
-> +++ b/fs/smb/client/smb2misc.c
-> @@ -451,7 +451,8 @@ __smb2_calc_size(void *buf, bool *have_data, bool *da=
-ta_area_overlap)
-> =C2=A0=C2=A0=C2=A0=C2=A0 */
-> =C2=A0=C2=A0=C2=A0 len +=3D le16_to_cpu(pdu->StructureSize2);
->=20
-> -=C2=A0=C2=A0 if (has_smb2_data_area[le16_to_cpu(shdr->Command)] =3D=3D f=
-alse)
-> +=C2=A0=C2=A0 if (le16_to_cpu(shdr->Command) >=3D ARRAY_SIZE(has_smb2_dat=
-a_area) ||
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !has_smb2_data_area[le16_to_cpu(shd=
-r->Command)])
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto calc_size_exit;
->=20
-> =C2=A0=C2=A0=C2=A0 smb2_get_data_area_len(&offset, &data_length, shdr);
-> --=20
-> 2.55.0
+Yeah... :)
+
+>
+> To keep it simple, I modified it as follows. Is this OK?
+>
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 79effd3f3da4..00337405c0e0 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -2689,6 +2689,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  	int present, swap;
+>  	int node = NUMA_NO_NODE;
+>  	enum scan_result result = SCAN_SUCCEED;
+> +	unsigned long pfn;
+>
+>  	present = 0;
+>  	swap = 0;
+> @@ -2719,6 +2720,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  			continue;
+>  		}
+>
+> +		pfn = folio_pfn(folio);
+>  		if (is_pmd_order(folio_order(folio))) {
+>  			result = SCAN_PTE_MAPPED_HUGEPAGE;
+>  			/*
+> @@ -2779,7 +2781,8 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  		}
+>  	}
+>
+> -	trace_mm_khugepaged_scan_file(mm, folio, file, present, swap, result);
+> +	trace_mm_khugepaged_scan_file(mm, (!folio || xa_is_value(folio)) ? -1 : pfn,
+> +				      file, present, swap, result);
+>  	return result;
+>  }
+
+OK looks reasonable, thanks! :)
+
+>
+> --
+> Cheers,
+> Vernon
+>
