@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C220525CC57
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 03:59:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCE1379C34
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 03:59:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787284786; cv=none; b=bd5pV0X5ykpNM4psOufAgdCoOWFDxrCHRJkNlnMTPagvC7uD3L4wWFMV4tHZqax7oFmm2szOtoe36fFRUEA3Oyi9WnhY/YwUAqu/UqjCk0EehqZvqJR2avBQQTtSbJ5cW2cPsLPa6J6swIQe5+jFsM80XF6eQqUHjeOiTJuCgWs=
+	t=1787284787; cv=none; b=oTUL2USRdRU2OOHW4YO9qv7JoL0uysbrYIKa+76jEbi0GB7i/GOGuExpwDEJoccj001uO0bd8Q5qWbfPofasKmCOFZ2mV3hrTFM5LLmnzisNTDLURfF3iYhSfvftEuYkrlsueQlokieraP/IhCx3qUBYqTQPbspVk0Wp7v9gQcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787284786; c=relaxed/simple;
-	bh=STdYgz1HW4viaXIzk0KaNmqV960HUo7uoAynv6acxr0=;
+	s=arc-20240116; t=1787284787; c=relaxed/simple;
+	bh=lTYYdX52RliNn8e5ODujcj4q8fWebf+WauQn/gnxh3E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lvy3cZLf6IEEXm2AFNPQVsIP5OdRz3NtMStFOkuOGx+1OqwMfkxHw65A1y8TN5E2Hg0CWWi6jL/h4/dq8bMBs8k8ov1lPdemo4+EnlINXPdh5M6+mTFfzKBdsMMzjbu4jufOUxo47LB4AGMbcQ72vdHzwjgLeO/dDCMub0Ox6CM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doP25P98; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=X2tzL3Qa6OQFaHZkCjALJn5TZA+l17LwUfeLIi4x1JcAWSu959frINxkfiY6I4HBIPp57RsLk7vNpjCV5pTGP0HU6FVxvBmmaWHIdxgmagKEYNSTDvVEBmcxjiUxnvqf6xPyb5JbpAGdovnO9eTYw2izqm3DS7iLeqrdqi38yS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFHufSPl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doP25P98"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E53D1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFHufSPl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1351F00A3E;
 	Fri, 21 Aug 2026 03:59:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787284785;
-	bh=GByhQVq5JmmDLgsbUG/oIDPUgEeU94vnv62IJgY7sJk=;
+	s=k20260515; t=1787284786;
+	bh=CdjM3HUzHzcHcimz9z+4HjOpr5hhvWlYDkpe+2oE5gw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=doP25P98d/UQBDRwkjdyNOFqSa1XNqC+RWYS/KlwCvCA4ZnGRfGhq+CCXMM/aZSsj
-	 xFaUYCNv3NiJZV7+WauyRli/PZqCHwiDHH7zNCn+b1wWrIYY+lVpa3KnH5Kmr09TdD
-	 NNZ3zzDiTTLcFGz38h/2psOhcnfRr7P3tjpYHrT+SpecHyKIruqxclKS69FXLC9zPh
-	 VhR2ENclP5FMx6RPvehBvbnYRnRRNUWsocK/CHGylluxJdPVhULUCPzP6yaXRtLv4l
-	 SaRmnf3tRPkfF3Rdy/c/d0RbX8wj+VznW5g0wPVhw9mCDfe3ixDivsGLcElrIYqpIS
-	 Y2gHuXf6oVTRw==
+	b=hFHufSPlaqmedDDF+2enQAmhW4sHqDDkft8Hl1Xal3CtcBd2/z9pV19h54UK/Emhe
+	 4EfSsFAbyNaeJvcz5+RUgdN2pg0Z3UjrWgiUvWKGl/V2vHP7DSvVdKqA+2d9qtm5k1
+	 +aIwZYmEUWPF/aRd7ZYuh5/2vecePfruWiO9s2FUdq6fa97ACMgxWPfAZBmIlU2DrI
+	 2AZbqaokO73Cjo4MRWQmdiVJ2At59lOpGfwc4RqaSUHNaTdR7x/eHjKBFgr6KDZYJD
+	 9rTs2EwR6fSY4IPXxnrFfN8Cyb5LoCpgR/Ee9KtTuVJi/zCta2cEP7/BVmmbQZjwdM
+	 8UaB7LdeVkdAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+Cc: Aditya Chillara <aditya.chillara@oss.qualcomm.com>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	David Wang <00107082@163.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] perf: Fix dangling cgroup pointer in cpuctx
-Date: Thu, 20 Aug 2026 23:59:39 -0400
-Message-ID: <20260821035940.2526518-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] perf/core: Fix group leader use-after-free after sibling detach
+Date: Thu, 20 Aug 2026 23:59:40 -0400
+Message-ID: <20260821035940.2526518-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260821035940.2526518-1-sashal@kernel.org>
 References: <2026081730-distance-sherry-000f@gregkh>
@@ -47,62 +47,181 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yeoreum Yun <yeoreum.yun@arm.com>
+From: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
 
-[ Upstream commit 3b7a34aebbdf2a4b7295205bf0c654294283ec82 ]
+[ Upstream commit 42c5ca1f0a288a52878bd72a5595b08261057438 ]
 
-Commit a3c3c6667("perf/core: Fix child_total_time_enabled accounting
-bug at task exit") moves the event->state update to before
-list_del_event(). This makes the event->state test in list_del_event()
-always false; never calling perf_cgroup_event_disable().
+perf_group_detach() handles leader and sibling detach differently. When the
+group leader is detached, all siblings are promoted to singleton events and
+their group_leader pointer is reset to themselves. When a sibling is
+detached, it is removed from the leader's sibling_list, but its
+group_leader pointer is left pointing at the old leader.
 
-As a result, cpuctx->cgrp won't be cleared properly; causing havoc.
+That is harmless when the sibling is being closed and freed immediately, as
+in the DETACH_DEAD path. It is not safe when the sibling is detached but
+kept alive, such as during CPU hotplug with DETACH_GROUP. In that case the
+sibling is removed from the context, while its file descriptor can still
+keep it alive.
 
-Fixes: a3c3c6667("perf/core: Fix child_total_time_enabled accounting bug at task exit")
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+A typical failing sequence is:
+
+  - A group contains leader L and sibling S.
+  - CPU hot-unplug detaches S with DETACH_GROUP, removing it from
+    L->sibling_list but leaving S->group_leader == L.
+  - L is later closed and freed.
+  - A PERF_IOC_FLAG_GROUP ioctl on S follows S->group_leader and
+    dereferences the freed leader.
+
+This was reproduced by running the perf event fuzzer, CPU hotplug, and a
+stress workload concurrently:
+
+  Unable to handle kernel paging request at virtual address 006b6b6b6b6b6cdb
+  CPU: 2 PID: 12489 Comm: perf_fuzzer 6.18.7 PREEMPT
+  pc : perf_ioctl+0x34c/0xc68
+  x20: ffffff89a3fa2c70 x8 : 6b6b6b6b6b6b6b6b
+  Code: 943c4a0e 340047a0 f9404a94 f9411e88 (f940b908)
+  Call trace:
+  perf_ioctl+0x34c/0xc68 (P)
+  __arm64_sys_ioctl+0xa0/0xf4
+  invoke_syscall+0x58/0xe4
+  el0_svc_common+0xa8/0xdc
+  do_el0_svc+0x1c/0x28
+  el0_svc+0x40/0xc0
+  el0t_64_sync_handler+0x68/0xdc
+  el0t_64_sync+0x1c4/0x1c8
+
+The fault happened in perf_ioctl(), where perf_event_for_each() follows
+the stale group_leader pointer and perf_event_for_each_child() then
+dereferences the freed leader's context.
+
+Fix the use-after-free by promoting the detached sibling to a singleton.
+Also fix __event_disable() cgroup accounting and event state change.
+
+Fixes: 8a49542c0554 ("perf_events: Fix races in group composition")
+Assisted-by: PatchWise:gpt-5.5
+Signed-off-by: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Tested-by: David Wang <00107082@163.com>
-Link: https://lore.kernel.org/all/aD2TspKH%2F7yvfYoO@e129823.arm.com/
-Stable-dep-of: 42c5ca1f0a28 ("perf/core: Fix group leader use-after-free after sibling detach")
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260807-fix-group-leader-uaf-v3-1-b0c2310c9a0d@oss.qualcomm.com
+[ adjusted `event_sched_out()` calls to the older three-argument form taking `cpuctx` and kept the existing `event->pending_disable = 1;` in the DETACH_DEAD path ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/core.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ kernel/events/core.c | 65 +++++++++++++++++++++++++-------------------
+ 1 file changed, 37 insertions(+), 28 deletions(-)
 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index cdbcc5a29b063..1ba4c5e5e4fbf 100644
+index 1ba4c5e5e4fbf..a0bb33854c4a9 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -2031,18 +2031,6 @@ list_del_event(struct perf_event *event, struct perf_event_context *ctx)
- 	if (event->group_leader == event)
- 		del_event_from_groups(event, ctx);
- 
--	/*
--	 * If event was in error state, then keep it
--	 * that way, otherwise bogus counts will be
--	 * returned on read(). The only way to get out
--	 * of error state is by explicit re-enabling
--	 * of the event
--	 */
--	if (event->state > PERF_EVENT_STATE_OFF) {
--		perf_cgroup_event_disable(event, ctx);
--		perf_event_set_state(event, PERF_EVENT_STATE_OFF);
--	}
--
- 	ctx->generation++;
+@@ -2136,6 +2136,34 @@ static inline struct list_head *get_event_list(struct perf_event *event)
+ 	return event->attr.pinned ? &ctx->pinned_active : &ctx->flexible_active;
  }
  
-@@ -2396,6 +2384,10 @@ __perf_remove_from_context(struct perf_event *event,
++/* @sibling must already be unlinked from its old leader's sibling_list. */
++static void perf_promote_sibling_to_leader(struct perf_event *sibling,
++					   struct perf_event_context *ctx,
++					   int group_caps)
++{
++	/*
++	 * Events that have PERF_EV_CAP_SIBLING require being part of
++	 * a group and cannot exist on their own, schedule them out
++	 * and move them into the ERROR state. Also see
++	 * _perf_event_enable(), it will not be able to recover this
++	 * ERROR state.
++	 */
++	if (sibling->event_caps & PERF_EV_CAP_SIBLING)
++		__event_disable(sibling, ctx, PERF_EVENT_STATE_ERROR);
++
++	sibling->group_leader = sibling;
++	sibling->group_caps = group_caps;
++
++	if (sibling->attach_state & PERF_ATTACH_CONTEXT) {
++		add_event_to_groups(sibling, ctx);
++
++		if (sibling->state == PERF_EVENT_STATE_ACTIVE)
++			list_add_tail(&sibling->active_list, get_event_list(sibling));
++	}
++
++	perf_event__header_size(sibling);
++}
++
+ static void perf_group_detach(struct perf_event *event)
+ {
+ 	struct perf_event *leader = event->group_leader;
+@@ -2159,8 +2187,9 @@ static void perf_group_detach(struct perf_event *event)
+ 	 */
+ 	if (leader != event) {
+ 		list_del_init(&event->sibling_list);
+-		event->group_leader->nr_siblings--;
+-		event->group_leader->group_generation++;
++		leader->nr_siblings--;
++		leader->group_generation++;
++		perf_promote_sibling_to_leader(event, ctx, event->event_caps);
+ 		goto out;
+ 	}
+ 
+@@ -2170,32 +2199,14 @@ static void perf_group_detach(struct perf_event *event)
+ 	 * to whatever list we are on.
+ 	 */
+ 	list_for_each_entry_safe(sibling, tmp, &event->sibling_list, sibling_list) {
+-
+-		/*
+-		 * Events that have PERF_EV_CAP_SIBLING require being part of
+-		 * a group and cannot exist on their own, schedule them out
+-		 * and move them into the ERROR state. Also see
+-		 * _perf_event_enable(), it will not be able to recover this
+-		 * ERROR state.
+-		 */
+-		if (sibling->event_caps & PERF_EV_CAP_SIBLING)
+-			__event_disable(sibling, ctx, PERF_EVENT_STATE_ERROR);
+-
+-		sibling->group_leader = sibling;
+ 		list_del_init(&sibling->sibling_list);
+ 
+ 		/* Inherit group flags from the previous leader */
+-		sibling->group_caps = event->group_caps;
+-
+-		if (sibling->attach_state & PERF_ATTACH_CONTEXT) {
+-			add_event_to_groups(sibling, event->ctx);
+-
+-			if (sibling->state == PERF_EVENT_STATE_ACTIVE)
+-				list_add_tail(&sibling->active_list, get_event_list(sibling));
+-		}
++		perf_promote_sibling_to_leader(sibling, ctx, event->group_caps);
+ 
+ 		WARN_ON_ONCE(sibling->ctx != event->ctx);
+ 	}
++	event->nr_siblings = 0;
+ 
+ out:
+ 	for_each_sibling_event(tmp, leader)
+@@ -2383,12 +2394,9 @@ __perf_remove_from_context(struct perf_event *event,
+ 		event->pending_disable = 1;
  		state = PERF_EVENT_STATE_DEAD;
  	}
- 	event_sched_out(event, cpuctx, ctx);
-+
-+	if (event->state > PERF_EVENT_STATE_OFF)
-+		perf_cgroup_event_disable(event, ctx);
-+
- 	perf_event_set_state(event, min(event->state, state));
+-	event_sched_out(event, cpuctx, ctx);
+ 
+-	if (event->state > PERF_EVENT_STATE_OFF)
+-		perf_cgroup_event_disable(event, ctx);
++	__event_disable(event, ctx, state);
+ 
+-	perf_event_set_state(event, min(event->state, state));
  	if (flags & DETACH_GROUP)
  		perf_group_detach(event);
+ 	if (flags & DETACH_CHILD)
+@@ -2450,8 +2458,9 @@ static void __event_disable(struct perf_event *event,
+ 			    enum perf_event_state state)
+ {
+ 	event_sched_out(event, __get_cpu_context(ctx), ctx);
+-	perf_cgroup_event_disable(event, ctx);
+-	perf_event_set_state(event, state);
++	if (event->state > PERF_EVENT_STATE_OFF)
++		perf_cgroup_event_disable(event, ctx);
++	perf_event_set_state(event, min(event->state, state));
+ }
+ 
+ /*
 -- 
 2.53.0
 
