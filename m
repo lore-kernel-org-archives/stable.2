@@ -1,296 +1,140 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011048.outbound.protection.outlook.com [40.107.208.48])
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34433DE438;
-	Fri, 21 Aug 2026 18:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787338208; cv=fail; b=leFuqYMeu1qoATK6LQKAEkKFz2BJOKtZ4t6Fm2DNrTW4zvCaCvFk8v81q/D/f6YsVXKP6QqMOoE2mT/BrT6Yr1/pWJh7tqLTm198nxmEYYLKrvZ5t9PECSUGaJ71KAkmC/Fl2tyXIwYxJZjYl7zqDxuwn9rcdP5nLht1SKHwNm8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787338208; c=relaxed/simple;
-	bh=t+jTiCfaHtcW9EWYnGyvnFqVj+gS8bGkmUPtxR1Vr8c=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OBkjWQHvfhGFL3y/je1tUj3t01CczBlm/x0BkbTMIv5+PBC1SMhsruJy222VygLpCAc1fVReojVmA+UOC7MLCcMEJptI+w7iUK9ejkLsEmPbwNl036JgRwYVnd8K26vptgtgpXB9votoH8FIi9HaSjcv/EHIDiXTj31q6jhym0Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Bx662vOt; arc=fail smtp.client-ip=40.107.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF833E122D;
+	Fri, 21 Aug 2026 18:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787338704; cv=none; b=cX921L/DgUk2d+5qMWWuRvGycmaBp20um+QhGraf0YQ6JvJx+fcKsP2FWzc9/8NYRjKOyoLN5ixdLNXqu6vyl/qMI8mxIcE2q1xrXoMbjCJh1dWvp4IGHBOsGkhRa7bRCW0eVggDOVAePYRkQf+4PI2LJiJ3QrF0gtnqbv26wEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787338704; c=relaxed/simple;
+	bh=vi1uZjue0uyZHjCEutf1Bu3+T14eZwAUOFQt47DDIWY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nNyzBrG32hbm/xwRKflWtMIr8hwXyKmJ5mogSWypQLLikp3RUaRE/zLLx4sOoH3jdEI7na1hgbNYxKuw+s6fNI9SzfMHxp1vx13kRUWWzXSmhZmShG7cxwr7Zsf5sAOaJAMpaTlfdH/5elZ2WinkBKEpClrA9SDhfI5q/DjXb5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=EpKaJ6hy; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Bx662vOt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LRUApVcmOc3rC1cod/gRsXb+bW9OCiB65/zx4jOGO05TZRmMdHGe2oYaQBNexoV/zLYfOeykm/hR3XKzPlwY7j+KGkyoYJkHI0C3kIXzke35UwaFH9o4cyjZUchRkTTHOwKkBC21IinYhrBtDVAO2kBwfTg5CEAns3G8p/fM7dCVjlT4tagp52mKEBDHLWwVRbILJ7qQNT+/bWN2aB/2ZRfvb+N6Wqj1WeA/oxSbK8Fj0nJaIQ6Dr1bxDf9G4EU67rBRVmz161NGS/yRytZ+Yg17cpqPxtKkRPQF7lKK8g4qhokZ9KteGgetQFZUQmzsVXh0J/4FKc7pP8jDw5IPeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NMR1UunReqvAkwRHZ8n4Qed02Bobc1lklx9KtbkRgG0=;
- b=KmwlHwTV2BuWcJiuCojXZzpbJbSCmkrXj9M6GHRkPgXyW87rDBVME48n9IBIWF3wpnfXQEkDUANVvCFa1GKxgyuVGnRSlTASBSyyNuyyokEW8fCdXGvpUbKFCQ8fsOKYVkHlmcLkrRyQvyf++1Q/jwe9EJiFXJxfSHz2YBOWpWEDE7faggkTr1MXcG9amoD1Lo8HGAONR2AfUnlQ+FC+RhQQMgLQXTPwuZMN/04++Uaifr9jSyIOra/YYYiCOjG2UglqPV+1CFF/X1/Lqupi5gpWqiHOm2/2VhsR35f4xhJupV3noInzShPWv4KgsnOtKr7jK1f/fz5T4DH8BM92ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NMR1UunReqvAkwRHZ8n4Qed02Bobc1lklx9KtbkRgG0=;
- b=Bx662vOt1PED40GA4G7OGuESqLGtDSbx+4/EOrwH78w+ftBnJFZhPVc77il59z3SXRU3OztvrF+OeDa8B8HSRYTkJlOXCCVogea8qYMk4JAzOrQpdKCAPaAGaeOaNVd2G5duv8n28uU46w2mSal4R+zFiGj2zpEFlvGi22O47Tg=
-Received: from BN1PR14CA0026.namprd14.prod.outlook.com (2603:10b6:408:e3::31)
- by CH3PR12MB8971.namprd12.prod.outlook.com (2603:10b6:610:177::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 18:49:55 +0000
-Received: from BN3PEPF0000B076.namprd04.prod.outlook.com
- (2603:10b6:408:e3:cafe::25) by BN1PR14CA0026.outlook.office365.com
- (2603:10b6:408:e3::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 18:49:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B076.mail.protection.outlook.com (10.167.243.121) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 18:49:55 +0000
-Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 13:49:52 -0500
-From: Vishal Badole <Vishal.Badole@amd.com>
-To: <tglx@kernel.org>, <akpm@linux-foundation.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <bp@alien8.de>, <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
-	<tim.c.chen@linux.intel.com>, <dan.liang@intel.com>, Vishal Badole
-	<Vishal.Badole@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v3] lib/group_cpus: Snapshot cluster masks to keep grouping hotplug invariant
-Date: Sat, 22 Aug 2026 00:19:23 +0530
-Message-ID: <20260821184923.2462575-1-Vishal.Badole@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="EpKaJ6hy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787338600;
+	bh=gfp426rClgrRARODXDTZsXb3WsMN4S0MxVUsFp+3eso=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=EpKaJ6hywEIWqyAaKWv6OKVOkHGTYE1w54DFbo2DvysQJtU8HS0VM7IZ0wISn0C3v
+	 f0E/v2Jfl5iPS8A9ykVnxMviHOQ06whCDU4NkOfiHR+KyalAwKLTvcIFxGAxFPhYB0
+	 hFtfOO1/Ubtisa8X9o56MWG32h9rx59vpSVzWYaY=
+X-QQ-mid: zesmtpsz6t1787338594tb3b9d28b
+X-QQ-Originating-IP: qWPptjxjFrzvRafst1u8kYT73qeCR6cKQmBnsisQjRY=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 22 Aug 2026 02:56:30 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 11226042413714028733
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.6 000/166] 6.6.153-rc1 review
+Date: Sat, 22 Aug 2026 02:56:27 +0800
+Message-Id: <20260821185627.3499541-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260820145211.194104353@linuxfoundation.org>
+References: <20260820145211.194104353@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B076:EE_|CH3PR12MB8971:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0da59b1e-47a2-4f41-a0d4-08deffb4fdd5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|18002099003|13003099007|3023799007|56012099006|10067099003|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	W8Gz4pXF4VqXCIrwU3CZIe6O8o95EuS934crUvKgf+5XoQPVpgI4fKDQsS414Ntw6z7+uDDgOnheREVfMzyTFNJQN20uU3NHSjVbyvANP1WFjUebPKCI9p0oi4dQ7VVJEkSCXlXKACPndN/s5ToRVeTGZEWRp3KUlphpa4kxJwLtR3CUDt+xkW+JMXqKdAd0UHOiIr/fHtE32bQ+FGULWHfHZK8W37NRLLfiLKNJivtlE4KD1G7ajdcEUdnT8hBPSih9TVW3Y2N4yK6kGKmNxFzpilP8W5DIU5qVJhRtF40E00WURu08kEnsBWt9tCwIvB5RcTAHJlRoaZsIKUyMfJA2zxYtpWKZaes9r4wgL4tnAv2IoTzm8l1yFHPKUBokTMM79KygLff/cuOMy0NZbAquqdWQavrYNf28MDSkYrk1R8OIEwXMT9Hb+3Nu38W1wTRu4IFLwHRPfMvQC4TSEaFtAnhWhguGgU1bIJUxQTmarPbqNq0kjVq8IuPWuMqPgRiJ67VJwpVQKRDUOnqq8lECxTfn8v46nbQE2Z5IlX8nH4agrPkXPAsVMpgMATvDSNqx2H2jhkD07sQttXBHhj/RtGoV+AiXQV0VIF5LYII+z+AO/JJEZdN3gg3Bg5w3Lx/HcbmP6cDJ+SHd6SKZ9+LiCzHiU1sJraSbItEiTBz+yC9gvg6Oe1ptK5aZKk1ilHrWTAnPDtn1xzSgFKYEWQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(18002099003)(13003099007)(3023799007)(56012099006)(10067099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fgXq290eHuhSCPvgqIIir32kCbXbnvCLa5tfZ7HGgwp4rAk1apdLAX23U96eFU+P6lUyrA7dkhSu8wKOn5NF2uMXEhh+XY4TWthHP1j2RWplavDkNICJDA0J67MkFDBUecCgOs21n7OjRUllThwLjlAxBWzEL0H0zVD3EbiynHvN+OXpH+gjHCAti6vjL1SFi67fRisKkzNSWjAFpKXdMdAknMkz4NT2kfQI3cRfVOPCUTlhraH6ZpL5yNToRcF0JtdVd00TcuLA26bmI4Huu6exGnAjMAXn42jRYe/xbhl6DA6XMBJG2HL4gVt4ra1mmMKPelpKqjtGj54YBYYS+zIf5Tj8+wfPIRowGXu139UTGMRk5L8VMew3XhCDycOjCdhU+FiRs70JPu8bF/6Q7vGnnupdmlcWlXOSPTwMGg4lShOTT9WPurtjAJcTx/4L
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 18:49:55.0575
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0da59b1e-47a2-4f41-a0d4-08deffb4fdd5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B076.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8971
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MX+1SEN3H+wApG6KIYG0gxZYJpI3rtMnSC+ZOJ9kCZMvRogRXPQSwmC0
+	0x0Q31WI7pHPXLkM/ofnF5uFISuL2VBQP5I9kQPBdaJT/Qr+ewISJhllri5WLDEySdeozhz
+	7w2vP5gmqpSvBBAXezz0tzpuesumFWNssKg2DdRVM+k5eq89rBeH/EU0rumuUOqkU7wlQHZ
+	J5fNRdLzGimBM/HPCI/fiGnGgL3JKDYGOu4ihRrBffKt2bmL0IwE8rhkULADWu4QPXJJhhB
+	m8ZNEvGGrSo4IZA3gaxCTSqOx07S+4DogecEYgtbvRQG+MCdKOzJ+G4AgJOjvTOaY8Eopo0
+	oFeyds+LwcGXKl6Ahw+O0X/vIjyU0NCfU9WiY3a5gEr61si03ck8wyC/BCvqrW+NNryJdcS
+	m5fRInV1E51V2uq0m7UOhjpkTmowFO3i7GiRYN1ESHt49NrpBpWzPpCGgLihbqtIpHlN9Ib
+	ngbAm0AugHpBetUiI2LhkxA6k4FF6i8/V318kCoeaHWydlu5OparEP2RUQBuMD84aYZDv8c
+	lOopm1NSfpBfouhOg3G+ebf3BCAFEs8n4KfhaY8bSkiqjiR767MH+ZVSbYTJDEecBQIz8ha
+	MiTjGiWRzHMLBAycmBo8nOkzH+KaU9oSA8DwK8lVffpdDdcoTy40qluM4OHujqSTQAj/FhL
+	fP0/yGfIvXldjZjNXgC6e+cjPP1196bzkZMNobfx3MfeKo+RzabSyYvC+/jOWHxbjpN+N2F
+	Hw92sWy3bJZoaSWaI9NnthnSeoSZ0EW7VfGRc6nRBeZ6ZNcQIVWb6I0Svde1Xtv8wbnWKZL
+	S07E7b8cAfmG04ij86yLVUZ4RNpAYi9iVoCCfLlbj93ldgqntHd0uucgKDkQe/c630xsxhd
+	ODab5I/3u3AIZ5QadnAzQc4UGQw+A9u28TpMh4wRCOURPPQ4rEt5D8EquYIlLePpp73WNvy
+	X/izJf5JXsnr8KvjLoqzu4KbIuxTiYrvrjS701HRGit8mea86MgUxWxrFBGFQumxkdygRyg
+	05NqQ+5q6+/Ks0fwTaL6wCguxsa59abICfZq+fWJYaiRbEYWLXegc5TBfkPJ7e1i5zTmy0Y
+	w==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-group_cpus_evenly() builds the managed-IRQ affinity spread used by
-multi-queue devices such as NVMe. That spread is meant to be a property
-of the static CPU topology: it walks cpu_present_mask and then
-cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-including CPUs that are offline at the time. A driver depends on that
-partition staying stable across re-computation - the CPUs a queue is
-given at probe must still describe the same queue after the device is
-later reset and its affinity recomputed.
+Hi,
 
-On an AMD system that stability breaks across an s2idle cycle. With CPUs
-3-11 offlined and only CPUs 0-2 left online, the machine is suspended to
-s2idle and resumed. The NVMe controller uses the simple-suspend quirk, so
-resume fully re-initialises it and recomputes the affinity spread. The
-system then hangs for roughly two minutes and stays sluggish afterwards,
-the controller only making progress through its command-timeout poll:
+Same build error:
+  CC      drivers/net/ethernet/stmicro/stmmac/stmmac_tc.o
+drivers/net/ethernet/intel/ice/ice_switch.c: In function ‘ice_aq_alloc_free_vsi_list’:
+drivers/net/ethernet/intel/ice/ice_switch.c:1816:23: error: implicit declaration of function ‘__struct_size’; did you mean ‘struct_size’? [-Werror=implicit-function-declaration]
+ 1816 |         u16 buf_len = __struct_size(sw_buf);
+      |                       ^~~~~~~~~~~~~
+      |                       struct_size
+  CC [M]  drivers/net/ethernet/intel/ice/ice_vf_vsi_vlan_ops.o
 
-  nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
-  nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
+As Ron Economos wrote:
+> This can be fixed by reverting commits:
+>
+> "overflow: Change DEFINE_FLEX to take __counted_by member" a5c50a3af39c74eef1a15c39924b0e1f4c6a43a6
+>
+> "ice: make use of DEFINE_FLEX() in ice_switch.c" 858a287aeaf8a690fd3c769e0ee2247f40e44b62
+>
+> Unfortunately, the Bluetooth commits have to be reverted also (because they
+> depend on "overflow: Change DEFINE_FLEX to take __counted_by member").
+>
+> "Bluetooth: hci_sync: Fix advertising data UAFs" 50d4431fab38c15c9ef405b6c7e13c0491f29928
+>
+> "Bluetooth: eir: Fix possible crashes on eir_create_adv_data" c4fedbbb5b925228321a359b8a3949b207cc0a62
+>
+> "Bluetooth: hci_core: Fix not handling hdev->le_num_of_adv_sets=1" cf931b0c0a6a5b8b70da339101c0df17cc068488
+>
+> "Bluetooth: hci_conn, hci_sync: Use __counted_by() to avoid -Wfamnae warnings" 88dd9093e398c68467d8e9c8b7fb630aab05be05
 
-QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-was recomputed. "completion polled" means the commands did finish in
-hardware, but their interrupts were never delivered to a CPU that was
-watching the queue, so nothing reaped them until the timeout fired.
+After reverted,
 
-It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-cluster aware") derives the cluster groups from topology_cluster_cpumask(),
-which lists only the cluster siblings that are online when it is called.
-The resulting partition therefore depends on the transient online mask
-rather than on the topology alone. Recomputed on resume while the non-boot
-CPUs are still offline, it no longer matches the boot-time partition, and a
-queue is left with an affinity that does not cover the CPU it is meant to
-serve once that CPU comes back online. The dependence is on the online
-mask, not on any AMD-specific behaviour, so the same stall is reproducible
-on Intel platforms as well.
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Make the cluster grouping depend on the complete cluster topology rather
-than on whichever CPUs happen to be online. Snapshot the cluster masks
-once while every present CPU is online and reuse that view for every
-later spread. Every spread then groups from the same masks, so the
-partition computed when the controller is reset matches the one computed
-at probe and each queue's IRQ still covers the CPUs it serves. If the
-snapshot was never taken, the cluster path is skipped and the plain
-present/possible spread is used.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-Fixes: 89802ca36c96 ("lib/group_cpus: make group CPU cluster aware")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
----
-Changes in v3:
-- Take the snapshot under cpus_read_trylock() to avoid a torn view.
-- Link to v2: https://lore.kernel.org/all/20260814123402.3170161-1-Vishal.Badole@amd.com/
+Best Regards
+Wentao Guan
 
-Changes in v2:
-- Gate the snapshot on cpu_present_mask instead of cpu_possible_mask.
-- Reword the changelog and the code comments. No other change.
-- Link to v1: https://lore.kernel.org/all/20260807073612.3711269-1-Vishal.Badole@amd.com/
----
- lib/group_cpus.c | 91 ++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 89 insertions(+), 2 deletions(-)
-
-diff --git a/lib/group_cpus.c b/lib/group_cpus.c
-index e6e18d7a49bb..1406d32dae8b 100644
---- a/lib/group_cpus.c
-+++ b/lib/group_cpus.c
-@@ -6,6 +6,7 @@
- #include <linux/kernel.h>
- #include <linux/slab.h>
- #include <linux/cpu.h>
-+#include <linux/mutex.h>
- #include <linux/sort.h>
- #include <linux/group_cpus.h>
- 
-@@ -286,6 +287,81 @@ static void assign_cpus_to_groups(unsigned int ncpus,
- 	}
- }
- 
-+/*
-+ * topology_cluster_cpumask() only lists the cluster siblings that are online,
-+ * so group_cpus_evenly() would compute a different managed-IRQ partition when
-+ * recomputed with CPUs offline (e.g. an NVMe reset across s2idle), steering a
-+ * queue's IRQ away from the CPU it serves.
-+ *
-+ * Snapshot the cluster masks once, on the first spread seen with every
-+ * present CPU online, and reuse it so the grouping stays stable. If no
-+ * snapshot exists (partial boot via maxcpus=/nosmp, or allocation failure)
-+ * the cluster path is skipped and the plain present/possible spread is
-+ * used. Only the cluster path is stabilised; grp_spread_init_one()'s
-+ * sibling mask is unchanged. The snapshot lives for the system lifetime
-+ * and is not refreshed for CPUs hot-added after boot.
-+ */
-+static cpumask_var_t *cluster_snapshot;
-+static bool cluster_snapshot_ready;
-+static DEFINE_MUTEX(cluster_snapshot_lock);
-+
-+static void capture_cluster_snapshot(void)
-+{
-+	cpumask_var_t *snapshot;
-+	unsigned int cpu;
-+
-+	/* Pairs with the smp_store_release() below. */
-+	if (smp_load_acquire(&cluster_snapshot_ready))
-+		return;
-+
-+	/* Only capture when all present CPUs are online. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask)))
-+		return;
-+
-+	mutex_lock(&cluster_snapshot_lock);
-+	if (cluster_snapshot_ready)
-+		goto out;
-+
-+	snapshot = kcalloc(nr_cpu_ids, sizeof(*snapshot), GFP_KERNEL);
-+	if (!snapshot)
-+		goto out;
-+
-+	for_each_possible_cpu(cpu) {
-+		if (!zalloc_cpumask_var(&snapshot[cpu], GFP_KERNEL)) {
-+			while (cpu--)
-+				free_cpumask_var(snapshot[cpu]);
-+			kfree(snapshot);
-+			goto out;
-+		}
-+	}
-+
-+	/* Trylock: a caller may hold a lock the hotplug writer needs. */
-+	if (!cpus_read_trylock())
-+		goto free_snapshot;
-+
-+	/* Recheck under the lock, which also pins the cluster masks. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask))) {
-+		cpus_read_unlock();
-+		goto free_snapshot;
-+	}
-+
-+	for_each_possible_cpu(cpu)
-+		cpumask_copy(snapshot[cpu], topology_cluster_cpumask(cpu));
-+	cpus_read_unlock();
-+
-+	cluster_snapshot = snapshot;
-+	/* Publish the filled snapshot before the ready flag. */
-+	smp_store_release(&cluster_snapshot_ready, true);
-+	goto out;
-+
-+free_snapshot:
-+	for_each_possible_cpu(cpu)
-+		free_cpumask_var(snapshot[cpu]);
-+	kfree(snapshot);
-+out:
-+	mutex_unlock(&cluster_snapshot_lock);
-+}
-+
- static int alloc_cluster_groups(unsigned int ncpus,
- 				unsigned int ngroups,
- 				struct cpumask *node_cpumask,
-@@ -299,6 +375,17 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	const struct cpumask **clusters;
- 	struct node_groups *cluster_groups;
- 
-+	/*
-+	 * Capture on the first spread with every present CPU online (normally
-+	 * the first device probe); later spreads reuse it. Sample the ready
-+	 * flag once so both loops below use one consistent source.
-+	 */
-+	capture_cluster_snapshot();
-+
-+	/* Pairs with the smp_store_release() in capture_cluster_snapshot(). */
-+	if (!smp_load_acquire(&cluster_snapshot_ready))
-+		goto no_cluster;
-+
- 	cpumask_copy(msk, node_cpumask);
- 
- 	/* Probe how many clusters in this node. */
-@@ -307,7 +394,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 		if (cpu >= nr_cpu_ids)
- 			break;
- 
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		if (!cpumask_weight(cluster_mask))
- 			goto no_cluster;
- 		/* Clean out CPUs on the same cluster. */
-@@ -331,7 +418,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	cpumask_copy(msk, node_cpumask);
- 	for (n = 0; n < ncluster; n++) {
- 		cpu = cpumask_first(msk);
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		nc = cpumask_weight_and(cluster_mask, node_cpumask);
- 		clusters[n] = cluster_mask;
- 		cluster_groups[n].id = n;
--- 
-2.34.1
+Log:
+Linux version 6.6.153-rc1-arm64-desktop-hwe-g0ce9d61969cf-dirty (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.6.153-rc1-arm64-desktop-hwe-g0ce9d61969cf-dirty (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sat Aug 22 02:08:37 CST 2026
+Linux version 6.6.153-rc1-loong64-desktop-hwe-g0ce9d61969cf-dirty (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.6.153-rc1-loong64-desktop-hwe-g0ce9d61969cf-dirty (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #5 SMP PREEMPT Sat Aug 22 02:26:01 CST 2026
+Linux version 6.6.153-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP
+Linux version 6.6.153-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #6 SMP Sat Aug 22 02:41:52 CST 2026
+Linux version 6.6.153-rc1-amd64-desktop-hwe-g0ce9d61969cf-dirty (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.6.153-rc1-amd64-desktop-hwe-g0ce9d61969cf-dirty (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sat Aug 22 01:47:48 CST 2026
 
