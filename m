@@ -1,62 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D9F2D7398;
-	Fri, 21 Aug 2026 15:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AF9234994
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 15:27:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787325549; cv=none; b=uCEcMebmcRI47IzuftyV8ep1Di20FU9rvcI9q4yGC/XA7Rq11i164pr/cCppTHegNqJIzVG7VW3O9rB7gI5waKABAKki1AcmMZEJCtQotV6ICGYmPTFlmlsnUTkqPxTSb345bn/1qtRrxbTcIRevT0aqJobCRzpHNK0ZD7Rb3rw=
+	t=1787326032; cv=none; b=mfPX6Sj9AnmvjHEeOn7h/pTCnE6awYA03NUfnRZ0ohQPJRE4HOofqSIv2zGl3rmTNDJJDJdJzCx4o2nSKWV6IqVu9oClrfJO2V80eoASO21rjdSz7bHi/oQIY7WWhmNrOWAI/LvYptL4oFcbyvqGpjlVK3pRKlY2DPfuFJvF6Wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787325549; c=relaxed/simple;
-	bh=E3Rwjvw7g1nO61izb2mt5xQsxkEgH60UFktpJZImOnk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KfUfW4RNYk+bf6GenmUx7+iMmoYOOA8wfgV73BuASKidv/EHWGTH9KfB9Zcdjgkt5KV3uAD4K3U/Zi36ZNvy7mr2A3m2IEUAZPxqztVSb3fgQkYQbyBANT9VlBQqFbBCAdny3dVz8cA2TQIQJwCmjJkgDcyp3zPUQ80484pjuQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lSMf3q6u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787326032; c=relaxed/simple;
+	bh=OkYrRKIJtK3XNjxfrkfFfe7z95McGGNgCLA+0RoOTRA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DrDTFByYr+xTCu1fI1fEOKi244FW4vawJ+JyjxJqKxhvjobroHSW8MEZOQzpagda9btFXEsVk7STJljAx8I2gOZ8uf2JJRq/RyhsTvcpuovWJtoEVOH06ueBvZI+CG1ZelFKo5dgBcine8vTeWX10M7Qt8oAp7KvMnCPTRzTcxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=b31V6a7k; arc=none smtp.client-ip=91.218.175.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lSMf3q6u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAEBD1F000E9;
-	Fri, 21 Aug 2026 15:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787325548;
-	bh=bfrXkGCXq7n0RPlebNTIuLeRaHZj4JieCGVh3d/AQ10=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lSMf3q6uhd71x2D8nU4Y1uL2OzVh171PE2Tes8DDLNpWUcHpcu+Wk2Tw8kC07tz+1
-	 FCLHF/REDFwZ7iWPcQfjbC1OJdZrx/GZN//FgZUJQciQ0IntF7xubNbDYrTxJiUoV+
-	 znYcVGau8oaQZvRPpAxN/moqSkak+2PQipSa+/8s=
-Date: Fri, 21 Aug 2026 17:19:05 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: heikki.krogerus@linux.intel.com, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, mika.westerberg@linux.intel.com,
-	stable@vger.kernel.org,
-	syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com,
-	syzbot+520d7648a0d934061fb0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: typec: fix null-pointer-dereference in
- wcove_typec_probe()
-Message-ID: <2026082137-obscurity-french-4a2f@gregkh>
-References: <2026082125-getting-upstroke-a146@gregkh>
- <20260821151107.19945-1-jeffinphilip14@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="b31V6a7k"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OkYrRKIJtK3XNjxfrkfFfe7z95McGGNgCLA+0RoOTRA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787326025; v=1; x=1787930825;
+ b=b31V6a7kXsW20BrNoN1Gtgd79dipHOxHJhuUil4nnBTcsPg3ScaNgKe/pFXVHVYWwBNme4SV
+ 5M4+V9pdT8Lj7730vFpECJ0i5NA3pRAhJE7JssjN4328NI6yO20w0w8KONqJs8S6gSKTmtGzEuv
+ 2i/qaUIcPbZ+7aPFR16tb0v0=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a04:ee41:4:15d4:8934:f21b:2683:d2a4] (2a04:ee41:4:15d4:8934:f21b:2683:d2a4)
+	by smtp.migadu.com with ESMTPS id 76576405c15bdc62;
+	Fri, 21 Aug 2026 15:26:55 +0000
+X-Mizu-Trace-ID: 76576405c15bdc62
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cab4d5b8-7813-4f63-900f-e6ef6f93cf72@linux.dev>
+Date: Fri, 21 Aug 2026 17:26:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821151107.19945-1-jeffinphilip14@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RDMA/siw: Fix CEP use-after-free in siw_connect()
+To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>, jgg@ziepe.ca,
+ leon@kernel.org
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260816022619.3629422-1-shuangpeng.kernel@gmail.com>
+From: Bernard Metzler <bernard.metzler@linux.dev>
+In-Reply-To: <20260816022619.3629422-1-shuangpeng.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 21, 2026 at 08:41:07PM +0530, Jeffin Philip wrote:
-> On Fri, 21 Aug 2026 17:00:12 +0200, Greg KH wrote:
-> >How can a platform device NOT have a parent device?  WHat system is this
-> >broken in?  Why not fix the platform definition properly instead as
-> >something is really wrong here if this is a "root" platform device as
-> >that should never happen.
+On 16.08.2026 04:26, Shuangpeng Bai wrote:
+> siw_connect() publishes a newly allocated CEP through qp->cep and gives
+> the QP an association reference.
 > 
-> As seen in the Closes: tag, this is a syzbot issue. It used driver_override()
-> to bind it in an unnatural way. So, I don't think it is possible in a real system.
-> We could atleast validate pmic like other functions using dev_get_drvdata() or it
-> could be left alone as is.
+> If connection setup fails while the QP is being destroyed, QP teardown
+> can clear qp->cep and drop that reference first. The error path
+> nevertheless drops what it assumes is the association reference. This
+> consumes the local allocation reference and frees the CEP before the
+> error path updates cep->state and releases cep->in_use, causing a
+> use-after-free.
+> 
+Was that use-after-free encountered?
 
-If you call bind on a device, you have to know what you are doing, as it
-can easily crash as you see here.  Just fix syzbot please.
+Can we see a stack trace?
+
+> Serialize CEP association and error-side detachment with qp->state_lock.
+> Only drop the association reference when qp->cep still points to the CEP
+> being cleaned up, leaving the local reference valid until cleanup is
+> complete.
+> 
+> Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> ---
+>   drivers/infiniband/sw/siw/siw_cm.c | 15 ++++++++++-----
+>   1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
+> index 87c79527ac09..7b32158ea49f 100644
+> --- a/drivers/infiniband/sw/siw/siw_cm.c
+> +++ b/drivers/infiniband/sw/siw/siw_cm.c
+> @@ -1467,11 +1467,13 @@ int siw_connect(struct iw_cm_id *id, struct iw_cm_conn_param *params)
+>   	siw_cep_set_inuse(cep);
+>   
+>   	/* Associate QP with CEP */
+> +	down_write(&qp->state_lock);
+
+What could destroy the QP at this point, so
+that we need a lock? The RDMA core should serialize
+any user initiated QP destroy during the connect.
+
+>   	siw_cep_get(cep);
+>   	qp->cep = cep;
+>   
+>   	/* siw_qp_get(qp) already done by QP lookup */
+>   	cep->qp = qp;
+> +	up_write(&qp->state_lock);
+>   
+>   	id->add_ref(id);
+>   	cep->cm_id = id;
+> @@ -1564,16 +1566,19 @@ int siw_connect(struct iw_cm_id *id, struct iw_cm_conn_param *params)
+>   		siw_socket_disassoc(s);
+>   		sock_release(s);
+>   
+> -		cep->qp = NULL;
+> -
+>   		cep->cm_id = NULL;
+>   		id->rem_ref(id);
+>   
+> -		qp->cep = NULL;
+> -		siw_cep_put(cep);
+> -
+>   		cep->state = SIW_EPSTATE_CLOSED;
+>   
+
+What can destroy the QP at this point?
+
+The only possibility I see is a connection
+drop from peer side, which races with the current
+connect() processing. Having a lock at the cep
+is sufficient to serialize that.
+We hold the cep lock via siw_cep_set_inuse(),
+which releasedonly the th every end of the
+connect via siw_cep_set_free() (success), or
+siw_cep_set_free_and_put() (failure.
+
+
+> +		down_write(&qp->state_lock);
+> +		cep->qp = NULL;
+> +		if (qp->cep == cep) {
+> +			qp->cep = NULL;
+> +			siw_cep_put(cep);
+> +		}
+> +		up_write(&qp->state_lock);
+> +
+>   		siw_cep_set_free_and_put(cep);
+>   
+>   	} else if (s) {
+
