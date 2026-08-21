@@ -1,227 +1,173 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724B3359A6D
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 18:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DEC388873;
+	Fri, 21 Aug 2026 18:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787336139; cv=none; b=NZmv5LIK8as3q/+wIbiL1ah9/GK8nwEuaAQvvdjrUOlC95yMlIustNIRARRu7IqJxkFBTZvL1RPHPGgAfjfL2ZzI0xfx4C3dZWdjAh3lu7VmZcwBoIEhOR3Lrb6ENkzVC7t+RCj8EBmfeNccok31nyOtcvXD3PXtPhMwGiJjYac=
+	t=1787336154; cv=none; b=nPH95Ws81QfWWvr1FmPN6E6BWhizmn6Wg6dijPYVcEE0rwRXR+lcjlRmw4uYworpLacZu2YkZrab0yRsC22l00TMPMLWAu0NHOHyOApdU/9e/TEwzS8zxD9ZJMpXdEyqQ98Ucew1m+cM147X8RJzharxANwlc3x51LDRHCBpGqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787336139; c=relaxed/simple;
-	bh=+QtaQlqdrXF+kJGQQeRm8B2Z7cAP2PBEeiptRiE/PCI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G9pnppTALjbrEykIEar3wgpk1FOM/cXdG+qAwqKLG8g3l8q7PkNwV380U9FhoQcm/AqYBzAklWPD2kDwziKwlSfWfJhv/i+Fq0X7nwQYr7XagJED2Z7QeKEodSeXbmtxR8vEEo+B4AmWYmZIEWnK88Ih96SdGuLpwaBPDoVT9Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=gULsf39u; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1787336154; c=relaxed/simple;
+	bh=+99XM01RcrT4lcPtGr0SsrKGPUdEPI6dT2JeqiRU4DU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ReaLoqd7tus0ZAhVDtMNQodwWQ+0lwioUBgLkGJJ0qXyYM5P9bK5+D30vGFrqCu8TAh2MDnlFI5PYBkxLC14nstNKz5AyY7Le5puSu5gyy2+Y9wdQ9C/JiH6fnLwclSsdyKM1oHZtjHUvvykY5e5YxCXlepPTBg56+VFKfdidIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QYIUd8ZR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="gULsf39u"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2caced6038eso13787985ad.0
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:15:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1787336135; x=1787940935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+qHlaVMR+JfksZ0WCBWjvvW7EzCzRa+QuV5LJF7L6Jk=;
-        b=gULsf39uq5Fic4Z+gTZ3LctXQZi7isZVskrlz5EWWVlwsM1ISBA4BG+UnFN5afdPFu
-         TXVhKyGVWUehbyOivry7C4zsTE+ddcozfxIW9Cm7JS0fZFB3HQv3GcZ6YYXn9k3FIzdH
-         PVF6fWqtL0rrOzhqzdVdUXqtsY13HYZq6o8enlHCZpuzD0p0ymkIts3R0XFl9cUdJAUc
-         5T4lazEcWw/6945xiwngk3ls88RtOvS4D4rXUhrc6/YbangByuaRdfZcrgv4xkPlS82p
-         jxiKYDVth3R/cgiGWA8890ReS+hsB2jpdY8bwZOVPzLNuJ6QlqnQDOD47/GLx+QX/fL1
-         4ZGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787336135; x=1787940935;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+qHlaVMR+JfksZ0WCBWjvvW7EzCzRa+QuV5LJF7L6Jk=;
-        b=sp5Cg6id44RsHLyKzludOl+GIdKuCzXajIIpLi0POJZpiyzHMh9A2kPcjWqP6lA50a
-         JBA689g+pYw7HSvIC3CfRU0yMSrxgU5xJE2hZcXHjmNzL+t/bn2f/QMualdTUbB4W2w4
-         y13mGKpUHZOLuIQ4RhPwmWQsm7RZkgX4Xt9IslphfvkKBI3fZ5HuVvWZTaXtr1jnv2/1
-         Y1BbD7siZEz1JkIZOjFZ00DboORQ4bAoRT4aA9ilmaQRkwoMcjMhzIl0MRa5MJeNYCgz
-         QUx0UZyUtP0LgEq0OahHXU3zArG9V1kHOLYaUTv9cFyHroxSFjXFA6i6mUw5qlm8TWtc
-         Efjg==
-X-Forwarded-Encrypted: i=1; AHgh+RrUyvKzAzyh46fu5brxkjfvNrRchYAODJkz/P7AfwIFppIpIEZYRojVRu9zT/ppECaXerYPaQU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9ht5/v5WkrYOTDs/wxWlZXAKU0sFOAIufFggJWhBNZTIMqqi9
-	TPxV/DVGusYNcuN9q92De0WQHY754anvxLX1S3VwR9lmqOIP/Y/128nzgrpEgA+aonk=
-X-Gm-Gg: AR+sD10qxmbJupL9z/fhOmc3lzHMm4skg/DDvcM6rICwEFhJ6ocsBGSfixhMcTgmzhj
-	Luopfdpv1I8HFIU7HprifP0JnAa8k5SXefWLGni4dbHMTSNzWh+g8JmmyIEWk6s1kLL8r2cW12N
-	oPmdgE7cx9kte5S6zBcp5NpDVA+G0vdwUBqClRwHFmj3Y/9PQe20YVMcDSZamuMVUQN7vpqRNd3
-	CaM/zTkgI905zxlGbqB4K2RnWLBugj0gQEtqWt4gjiKQ7YfgwJMiWp7juUTiyLvgKM6s+trWy4J
-	Vm4A/tLR3mCQUcrSMq+Uc7ZdIIiKZvz+ayjnYyy2biHOjL6kSQ9aOeTAHqFqLvwpw3/peJgzFod
-	/n6aEyOi47DH10b76vExL4L87lnGeDz93ZFAAFmVEZsrsEYkdXRGF50TWBwDetJUzAv0yRUjniE
-	gvBVEvAESEsoXrXls70FqZ7fn6OxTQyoZHEK6S1RKoGeVUV8btAQ60iOB0ijucGYRhLUSN30qBH
-	5X3NM1TYCg0xtK/rUTEYFiE6SI=
-X-Received: by 2002:a17:903:b45:b0:2ce:a6a4:451b with SMTP id d9443c01a7336-2d61a183641mr64217725ad.11.1787336135438;
-        Fri, 21 Aug 2026 11:15:35 -0700 (PDT)
-Received: from dev-mliang.dev.purestorage.com ([208.88.159.128])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bef77fc0sm51475654eec.8.2026.08.21.11.15.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 11:15:34 -0700 (PDT)
-From: Michael Liang <mliang@purestorage.com>
-To: akinobu.mita@gmail.com,
-	akpm@linux-foundation.org
-Cc: dennis.dalessandro@cornelisnetworks.com,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	vbabka@kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Michael Liang <mliang@purestorage.com>
-Subject: [PATCH] fault-inject: fix dentry leak
-Date: Fri, 21 Aug 2026 12:15:27 -0600
-Message-Id: <20260821181527.3271414-1-mliang@purestorage.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QYIUd8ZR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A111F000E9;
+	Fri, 21 Aug 2026 18:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787336151;
+	bh=Ha7VqklCByafbMscCYK5sdSaBdyQHFxscjntKch3xYg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QYIUd8ZRyIYZtnSUpGlYCZBdotfIv/c9uZQV/LJbOq3p5eaUgBdw4PvhPgyKATm/A
+	 CnrGasr7GX8WJBcdTCmcu5ftVt4g5W15eCCrTqJRgk/pixnO1+oYIZmYczpjcvsFR5
+	 Gi3s3zZD/Cne2LZONbqO/vkBW9Yr9z6lQJFVTbdxldafnKRQwaviFjUu1ge4+7YgHI
+	 egEAPOYD2viQixM/JK5ujpl5yyukDnlQZEvPPeH4DbDCyJ1En3YyV13xkfSrkI6DZu
+	 jnAY+mLEsIxbgAQuiYeqJSF2JNHO7TWURQ/Ae7B4/s8JToBTJe4MjJRPsyh2sYlNLT
+	 8VP2mMzcIqa3A==
+Date: Fri, 21 Aug 2026 19:15:45 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Steffen Eiden <seiden@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Oliver Upton <oupton@kernel.org>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Shen Yongchao <grayhat@foxmail.com>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	Wei-Lin Chang <weilin.chang@arm.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] KVM: arm64: nv: Delay freeing of shadow S2
+ structures until VM destruction
+Message-ID: <aoiQuVs5jzB5La4i@gremlin>
+References: <20260821161829.1032561-1-maz@kernel.org>
+ <20260821161829.1032561-3-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821161829.1032561-3-maz@kernel.org>
 
-fault_create_debugfs_attr() has always taken an extra dentry reference
-on the created directory (attr->dname = dget(dir)) so that fail_dump()
-could print the name via %pd from any context.  Nothing anywhere in the
-tree ever calls dput() on attr->dname.
+On Fri, Aug 21, 2026 at 05:18:29PM +0100, Marc Zyngier wrote:
+> We free the shadow S2 structures from kvm_arch_flush_shadow_all(), which
+> is a Bad Idea(tm). Freeing the page tables is fair game (this is what
+> this callback is for), but freeing the container that could still be
+> referenced by another part of the system is not great.
 
-For callers with a matching teardown, that unmatched reference causes
-one dentry plus its attached inode to leak per fault_create_debugfs_attr
-/ debugfs_remove_recursive cycle.  simple_recursive_removal() drops
-debugfs's own +1 ref on the child dentry, but the dget()'d ref keeps
-its refcount at 1: the dentry ends up unhashed but pinned, and its
-inode is never freed.
+Yes.
 
-Boot-once callers (mm/failslab, block/blk-core, etc.) leak exactly once
-at init and never destroy the tree, so the impact there is bounded.
-But per-lifecycle callers (drivers/nvme, drivers/infiniband/hw/hfi1,
-drivers/mmc, drivers/iommu/iommufd, drivers/media, drivers/misc,
-drivers/gpu/drm/msm, drivers/crypto, net/sunrpc) leak on every
-create/destroy cycle.
+>
+> Instead, grow separate destructors that gets called when we tear the VM
+> down for good. From there, we can nuke both the individual MMUs as well
+> as the global array that points to them, safe in the knowledge that the
+> vcpus themselves have been destroyed already.
+>
+> Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
 
-We observed this in production: an NVMe/RDMA host repeatedly
-reconnecting to a target that rejected the CRTO Property Get went
-through ~50 nvme controller create/destroy cycles per second, and
-dentry and inode_cache grew by ~13k pinned objects per 240 s --
-unrecoverable through drop_caches.  Byte math matched a per-cycle
-1-dentry / 1-inode leak from the "fault_inject" directory dentry.
+LGTM so:
 
-Fix this by not holding any external reference in fault_attr.  Embed
-the directory name as a fixed-size char array (FAULT_ATTR_DNAME_LEN,
-64 bytes) inside struct fault_attr, copied by strscpy() at
-fault_create_debugfs_attr() time.  fail_dump() prints it via %s.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Advantages of an embedded array over kstrdup() + kfree() paired with a
-new destroy API:
+A couple thoughts/questions below.
 
-  - Zero API footprint.  No new export and no caller changes required:
-    callers already own their fault_attr's memory and free it when
-    they are done, and now that suffices.
-  - No allocation on the create path.
-  - fault_create_debugfs_attr() cannot fail from the name-copy step.
-  - No lifetime coupling between attr->dname and debugfs; the string
-    is valid for exactly as long as the containing struct.
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/include/asm/kvm_nested.h |  1 +
+>  arch/arm64/kvm/arm.c                |  4 ++--
+>  arch/arm64/kvm/nested.c             | 15 ++++++++++-----
+>  3 files changed, 13 insertions(+), 7 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+> index 5b8edb2e8a87d..586026e859030 100644
+> --- a/arch/arm64/include/asm/kvm_nested.h
+> +++ b/arch/arm64/include/asm/kvm_nested.h
+> @@ -67,6 +67,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
+>  extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
+>  extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
+>  extern int kvm_init_nested(struct kvm *kvm);
+> +extern void kvm_destroy_nested(struct kvm *kvm);
+>  extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
+>  extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
+>  extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 7607173c1a40c..2b069c6440669 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -269,7 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+>
+>  err_uninit_mmu:
+>  	kvm_uninit_stage2_mmu(kvm);
+> -	kvfree(kvm->arch.nested_mmus);
+> +	kvm_destroy_nested(kvm);
+>  err_free_cpumask:
+>  	free_cpumask_var(kvm->arch.supported_cpus);
+>  err_unshare_kvm:
+> @@ -327,7 +327,7 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
+>
+>  	kvm_unshare_hyp(kvm, kvm + 1);
+>
+> -	kvfree(kvm->arch.nested_mmus);
+> +	kvm_destroy_nested(kvm);
+>  	kvm_arm_teardown_hypercalls(kvm);
+>  }
+>
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index 05266f8b87304..00580ba6e8ba0 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -55,6 +55,15 @@ int kvm_init_nested(struct kvm *kvm)
+>  	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
+>  }
+>
+> +void kvm_destroy_nested(struct kvm *kvm)
+> +{
+> +	for (int i = 0; i < kvm->arch.nested_mmus_size; i+= S2_MMU_PER_VCPU)
+> +		kvfree(kvm->arch.nested_mmus[i]);
+> +
+> +	kvm->arch.nested_mmus_size = 0;
+> +	kvfree(kvm->arch.nested_mmus);
+> +}
+> +
+>  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+>  {
+>  	/*
+> @@ -1310,16 +1319,12 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+>
+>  void kvm_arch_flush_shadow_all(struct kvm *kvm)
+>  {
+> -	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
+> +	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
 
-The 64-byte length accommodates every in-tree caller with generous
-headroom (the longest current name is "fail_dma_array_full", 19
-chars).
+Hmm why this was in reverse before? :) I guess some product of the
+kvfree() bit or maybe something else?
 
-The user-visible fail_dump() format changes from "name %pd" to
-"name %s", but the printed content is identical -- %pd on the created
-directory renders the same string that was passed in as @name.
+>  		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+>
+>  		if (!WARN_ON(atomic_read(&mmu->refcnt)))
+>  			kvm_free_stage2_pgd(mmu);
 
-drivers/infiniband/hw/hfi1/fault.c drops a now-invalid
-"attr.dname = NULL" statement; the surrounding kzalloc() already
-zero-initialises the array.
+Yeah I think the mmu write lock taken by the function and the fact mmus are
+marked invalid here (VTTBR_CNP_BIT set kvm_free_stage2_pgd() ->
+kvm_init_nested_s2_mmu()) makes this entirely fine to do here, as you say.
 
-Fixes: 6adc4a22f20b ("fault-inject: add ratelimit option")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michael Liang <mliang@purestorage.com>
----
- drivers/infiniband/hw/hfi1/fault.c |  1 -
- include/linux/fault-inject.h       | 10 ++++++++--
- lib/fault-inject.c                 |  7 +++++--
- 3 files changed, 13 insertions(+), 5 deletions(-)
+> -
+> -		if ((i % S2_MMU_PER_VCPU) == 0)
+> -			kvfree(mmu);
+>  	}
+> -	kvm->arch.nested_mmus_size = 0;
 
-diff --git a/drivers/infiniband/hw/hfi1/fault.c b/drivers/infiniband/hw/hfi1/fault.c
-index 4ab72ef03ba1..941a0b96590b 100644
---- a/drivers/infiniband/hw/hfi1/fault.c
-+++ b/drivers/infiniband/hw/hfi1/fault.c
-@@ -216,7 +216,6 @@ int hfi1_fault_init_debugfs(struct hfi1_ibdev *ibd)
- 	ibd->fault->attr.interval = 1;
- 	ibd->fault->attr.require_end = ULONG_MAX;
- 	ibd->fault->attr.stacktrace_depth = 32;
--	ibd->fault->attr.dname = NULL;
- 	ibd->fault->attr.verbose = 0;
- 	ibd->fault->enable = false;
- 	ibd->fault->opcode = false;
-diff --git a/include/linux/fault-inject.h b/include/linux/fault-inject.h
-index 58fd14c82270..5c74748a53f3 100644
---- a/include/linux/fault-inject.h
-+++ b/include/linux/fault-inject.h
-@@ -18,6 +18,13 @@ enum fault_flags {
- #include <linux/configfs.h>
- #include <linux/ratelimit.h>
- 
-+/*
-+ * Length of the debugfs directory name embedded in struct fault_attr.
-+ * Chosen to accommodate every in-tree caller of fault_create_debugfs_attr()
-+ * (the longest is "fail_dma_array_full", 19 chars) with generous headroom.
-+ */
-+#define FAULT_ATTR_DNAME_LEN	64
-+
- /*
-  * For explanation of the elements of this struct, see
-  * Documentation/fault-injection/fault-injection.rst
-@@ -37,7 +44,7 @@ struct fault_attr {
- 
- 	unsigned long count;
- 	struct ratelimit_state ratelimit_state;
--	struct dentry *dname;
-+	char dname[FAULT_ATTR_DNAME_LEN];
- };
- 
- #define FAULT_ATTR_INITIALIZER {					\
-@@ -47,7 +54,6 @@ struct fault_attr {
- 		.stacktrace_depth = 32,					\
- 		.ratelimit_state = RATELIMIT_STATE_INIT_DISABLED,	\
- 		.verbose = 2,						\
--		.dname = NULL,						\
- 	}
- 
- #define DECLARE_FAULT_ATTR(name) struct fault_attr name = FAULT_ATTR_INITIALIZER
-diff --git a/lib/fault-inject.c b/lib/fault-inject.c
-index 999053fa133e..02916ef2761c 100644
---- a/lib/fault-inject.c
-+++ b/lib/fault-inject.c
-@@ -5,6 +5,7 @@
- #include <linux/debugfs.h>
- #include <linux/sched.h>
- #include <linux/stat.h>
-+#include <linux/string.h>
- #include <linux/types.h>
- #include <linux/fs.h>
- #include <linux/export.h>
-@@ -64,7 +65,7 @@ static void fail_dump(struct fault_attr *attr)
- {
- 	if (attr->verbose > 0 && __ratelimit(&attr->ratelimit_state)) {
- 		printk(KERN_NOTICE "FAULT_INJECTION: forcing a failure.\n"
--		       "name %pd, interval %lu, probability %lu, "
-+		       "name %s, interval %lu, probability %lu, "
- 		       "space %d, times %d\n", attr->dname,
- 		       attr->interval, attr->probability,
- 		       atomic_read(&attr->space),
-@@ -261,7 +262,9 @@ struct dentry *fault_create_debugfs_attr(const char *name,
- 	debugfs_create_xul("reject-end", mode, dir, &attr->reject_end);
- #endif /* CONFIG_FAULT_INJECTION_STACKTRACE_FILTER */
- 
--	attr->dname = dget(dir);
-+	if (strscpy(attr->dname, name, sizeof(attr->dname)) == -E2BIG)
-+		pr_warn("FAULT_INJECTION: name '%s' truncated to '%s'\n",
-+			name, attr->dname);
- 	return dir;
- }
- EXPORT_SYMBOL_GPL(fault_create_debugfs_attr);
--- 
-2.34.1
+And, neatly, this makes the patch simply take away the bad bits to do here and
+to do them in the correct place.
 
+>  	kvm_uninit_stage2_mmu(kvm);
+>  }
+>
+> --
+> 2.47.3
+>
+
+--
+Cheers, Lorenzo
