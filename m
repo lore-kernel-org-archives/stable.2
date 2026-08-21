@@ -1,174 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79383A9635;
-	Fri, 21 Aug 2026 22:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F071B78F3;
+	Fri, 21 Aug 2026 22:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787350817; cv=none; b=HU9KRQxtqnbDcjPUu0HR+0l2/6zpfk2eF0nzQmb0tIFPcUnEzW78PEnL7zFTxnxs9Y/cFaIDi/2sxieh1KxXWkpvTRs6CGHrh9mgYi+5VbM05BoM7uQWHO9NguNtlpwThGbkdynHOToHU6cGDBH1Y2GFbPFALbp3ueiRxRSihP8=
+	t=1787351447; cv=none; b=eMrTKA6SludnFF4XKb012AWp1FvziQo3EnFZViK3h5gU9qktDFUqZBVoAJYmqdwz6In6X0qhzEJC6WNA4tCq1rByC/+RGuFwo7E83C00kgNaIm1EKnS+gkeE2YMNXe2FPxuO21IEMef+d8PVP7cFLMEaHUC1B4KUg++YgGENBzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787350817; c=relaxed/simple;
-	bh=RUvF+1ZQvjubaa5vPe7qI4BVpNavFri+/1Rsr8o9Zck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PIcGdFint9taUQq1kSlxE8VyH0EQFgrvg+fyhbOXBgumS+wRFP8bcUMYY1Lox8j50b77Irm1Qe+pLAfGlVDGD/ftHSHk4dRbuUa6JSYL8VhmzlQo3Mrd4bVJCgAmVGia7inM1uZJZQolXgpillD71obGOeSuW/H8cx+Hh/EGi9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYhBnCNE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787351447; c=relaxed/simple;
+	bh=SktehEt/+fCtLHeuJbZyO62rajg0B2bxkz5egzx+Nwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Tk6rYjByK92VyWqoL4t7/+Sgkp1gWjO3b+LYm6NN8Oag7ClC2UwfWAvR/baQNGi/Rk9CPVN2B/gnrhvim5QwutVWoaQwxVObQCiRrtOp5Z2IR7G8JSIxHW5YvgXmt8cfNbIS9lPqKf/lHU0fuAdBgWXhlSg9ZwnEDyOHP9jwdoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EqWbMjjd; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYhBnCNE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FCD41F000E9;
-	Fri, 21 Aug 2026 22:20:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787350814;
-	bh=uK2hKM9vaLjBixO/WCDlJAXWhYvcTU7mSMuiKUtfzFo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kYhBnCNERk+J4lROvqtSW0Jrx+9dwe3BACWpwtns1sH0+RVe9AEr/u9hGFm/7doJR
-	 kzbOohtKjJbHGOaS3UEl3FclkITGFZ9dEAtXC+HyKdj8yEXPUo72zM/MZBnP1jjNie
-	 Rm4rS3IDHmirZ1guUs6MlA4amMIOESUmzcd61XtIeiVTBx96g4SqY8q2qLv6Y853XJ
-	 Vbnuc2gfRWX7husdsn3Cl0IZNxNdRkOU0TINWzVLEBNPBYV0xTLeOUq7szvCqk5a8V
-	 wP4SIyqxWy0dVQ6OG5q8bUtDDufsLE1IJMhkIKaglWOHS+HbRNFViSbFYeVm4Q7vZ8
-	 44K0z/cZ9+EBQ==
-Date: Sat, 22 Aug 2026 08:20:05 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>,
-	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: revalidate cached COW fork mappings during writeback
-Message-ID: <aojPFYhD4SNPv30o@dread>
-References: <20260820-b4-xfs-cow-wb-revalidate-v1-1-8a19080799ea@anthonyvardaro.com>
- <20260820161123.GH6072@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EqWbMjjd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787351445; x=1818887445;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=SktehEt/+fCtLHeuJbZyO62rajg0B2bxkz5egzx+Nwo=;
+  b=EqWbMjjdVFxDydzxrqJh9ciJhpPeMzeVmxyi27rxZgLSE8iG6MVFJ1+D
+   C5d6g4UXTDisH31RgYwkQgh8xitJ24zYZCFJnrRk0XFtV/+rNyKspkwvQ
+   65avrXIMgG5/bz83ijX+IBWSBLHaxctDPkPVAVdsROIwZuLG8fXESy14j
+   Sq8SubKIlXGB9nz/jNj9uPIiwv2JHdbgg30BNxGLls2PCo1Xa0zEU7jMU
+   gwvFssn6Jw9KAuImGgSCRN5hfBsnQMVt9Z4sPjMir45lItknMDRl8OHso
+   dPEbZXOdXI9taBaQVlHfe7W+SY7m2Cbork3tDUrk7xPFD0rEs49LNmq2j
+   A==;
+X-CSE-ConnectionGUID: U5xAmAAvRVOAgUtYYaEx4w==
+X-CSE-MsgGUID: KNTy1kNtSiWcrKF3lEqy3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="88032557"
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
+   d="scan'208";a="88032557"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 15:30:44 -0700
+X-CSE-ConnectionGUID: UTbHwndFRQWfOs0ReG6BIQ==
+X-CSE-MsgGUID: kJa9PSjaSSim0kZj0k6B7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
+   d="scan'208";a="271679724"
+Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 15:30:44 -0700
+From: Zide Chen <zide.chen@intel.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org,
+	Andi Kleen <ak@linux.intel.com>,
+	Jim Mattson <jmattson@google.com>,
+	Stephane Eranian <eranian@google.com>,
+	linux-kernel@vger.kernel.org,
+	Mingwei Zhang <mizhang@google.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Das Sandipan <Sandipan.Das@amd.com>,
+	Shukla Manali <Manali.Shukla@amd.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 01/23] perf/x86/intel: Guard counter masks against zero counters
+Date: Fri, 21 Aug 2026 15:19:40 -0700
+Message-ID: <20260821222002.54907-2-zide.chen@intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260821222002.54907-1-zide.chen@intel.com>
+References: <20260821222002.54907-1-zide.chen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820161123.GH6072@frogsfrogsfrogs>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 20, 2026 at 09:11:23AM -0700, Darrick J. Wong wrote:
-> On Thu, Aug 20, 2026 at 12:21:38AM +0000, Anthony Vardaro (Anthropic) wrote:
-> > Writeback can write a folio through a cached COW fork mapping after the
-> > blocks behind it have been freed. Since commit d9252d526ba6 ("xfs:
-> > validate writeback mapping using data fork seq counter") a cached data
-> > fork mapping is dropped when the fork changes, but a COW fork mapping is
-> > accepted on range alone, and since commit 3b3508980730 ("xfs: remove
-> > superfluous writeback mapping eof trimming") nothing trims it to EOF. So
-> > when close() or truncate frees the post-EOF COW blocks and the file is
-> > then appended, the same writeback pass writes the new folio into blocks
-> > the inode no longer owns. fsync() returns 0 and the range reads back as
-> > zeroes, or the data lands in another file.
+When running as a guest with a vPMU exposed, the host may expose zero
+general-purpose counters or zero fixed counters. In that case,
+GENMASK_ULL() is called with a negative high-bit argument, resulting
+in an out-of-range shift and undefined behavior.
 
-Have you reproduced this and tested that it the change actually
-fixes the supposed bug?
+On systems with PMU partitioning enabled, this configuration is more
+likely. Change GENMASK_ULL() to BIT_ULL() to guard mask generation
+against zero counters.
 
-> > Check cow_seq against the COW fork if_seq for COW mappings as well, and
-> > only sample cow_seq where the mapping is built so a failed conversion
-> > cannot pair a stale mapping with a fresh sequence number.
-> > 
-> > This costs one extent lookup and one cancelled transaction per
-> > invalidation: about 5% more fsync time on random 4k overwrites of a
-> > reflinked file, nothing measurable on sequential writeback.
-> > 
-> > Fixes: d9252d526ba6 ("xfs: validate writeback mapping using data fork seq counter")
-> > Cc: stable@vger.kernel.org # v5.1
-> > Assisted-by: Claude:unspecified
-> > Signed-off-by: Anthony Vardaro (Anthropic) <me@anthonyvardaro.com>
-> > ---
-> > An fstests case for this, using the wb_delay_ms error injection knob,
-> > follows separately.
-> > 
-> > Backport note: kernels before v6.2 do not have
-> > trace_xfs_wb_cow_iomap_invalid() (added by commit c2beff99eb03), so
-> > drop that call there. Kernels before v5.5 test wpc->fork ==
-> > XFS_COW_FORK instead of IOMAP_F_SHARED and have no XFS_WPC().
-> > ---
-> >  fs/xfs/xfs_aops.c | 29 ++++++++++++++++++-----------
-> >  1 file changed, 18 insertions(+), 11 deletions(-)
-> > 
-> > diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-> > index 2a0c54256..c043e5bad 100644
-> > --- a/fs/xfs/xfs_aops.c
-> > +++ b/fs/xfs/xfs_aops.c
-> > @@ -304,12 +304,22 @@ xfs_imap_valid(
-> >  	    offset >= wpc->iomap.offset + wpc->iomap.length)
-> >  		return false;
-> >  	/*
-> > -	 * If this is a COW mapping, it is sufficient to check that the mapping
-> > -	 * covers the offset. Be careful to check this first because the caller
-> > -	 * can revalidate a COW mapping without updating the data seqno.
-> > +	 * A COW mapping is only valid while the COW fork is unchanged. After a
-> > +	 * change, the blocks behind the mapping can already be freed, for
-> > +	 * example by the post-EOF trim on close. Do this check before the
-> > +	 * data fork check, because the caller can revalidate a COW mapping
-> > +	 * without updating the data seqno.
-> >  	 */
-> > -	if (wpc->iomap.flags & IOMAP_F_SHARED)
-> > +	if (wpc->iomap.flags & IOMAP_F_SHARED) {
-> > +		if (!ip->i_cowfp)
-> > +			return false;
-> > +		if (XFS_WPC(wpc)->cow_seq != READ_ONCE(ip->i_cowfp->if_seq)) {
-> 
-> The buffered write path has similar data/cow fork sequence counter
-> revalidation code, so would it be a better idea to adapt the writeback
-> path to sample the sequence counter via xfs_iomap_inode_sequence in
-> xfs_map_blocks, and re-check that in xfs_imap_valid()?
+Fixes: 722e42e45c2f ("perf/x86: Support counter mask")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zide Chen <zide.chen@intel.com>
+---
+ arch/x86/events/intel/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Hmmmm - looking at the rest of the function, I think that using
-xfs_iomap_inode_sequence() will potentially introduce a new bug...
-
-The code 10 lines below for non-shared iomap validity
-unconditionally checks the COW fork sequence number  if
-xfs_inode_has_cow_data() returns true.
-
-The code above is essentially makes it:
-
-	if (IOMAP_F_SHARED) {
-		if (!xfs_inode_has_cow_data())
-			return false;
-		/* check cow sequence */
-		return ....
-	}
-
-	/* check data sequence */
-
-	if (xfs_inode_has_cow_data())
-		/* check cow sequence */
-
-	return ...
-
-IOWs, adding the seqeunce check to the SHARED iomap means we
--always- check the COW_FORK sequence number now if
-xfs_inode_has_cow_data() returns true. i.e.
-
-	if (xfs_inode_has_cow_data()) {
-		/* check cow sequence */
-	}
-	if (IOMAP_F_SHARED)
-		return false;
-
-	/* check data sequence */
-
-And with this, it should be obvious now why using I suspect
-xfs_iomap_inode_sequence() could introduce new problems - it only
-encodes the cow fork sequence number if IOMAP_F_SHARED is set.
-
-However, looking at the reworked logic above, I think this uncovers
-another bug, this one in xfs_map_blocks(). That is, xfs_map_blocks()
-never samples the COW fork sequence number on pure data fork
-writeback on xfs_inode_has_cow_data() inodes. Hence the "always
-check the cow-fork sequence" on pure data overwrites -always- fails
-on inodes with mixed data/cow overwrites, even when the cached
-extent is still valid.....
-
-So, before a fix is made, we need to decide what the correct
-behaviour is for writeback on mixed mode inodes. Given the imapct of
-getting this wrong, I think that should be unconditionally tossing
-the cached iomap if either the cow fork or data fork changes. That
-makes for simple logic, and it covers all cases where a racing
-change could potentially cause an issue....
-
--Dave.
+diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+index 2b35483e2b70..8b13bcc5259c 100644
+--- a/arch/x86/events/intel/core.c
++++ b/arch/x86/events/intel/core.c
+@@ -7905,7 +7905,7 @@ __init int intel_pmu_init(void)
+ 		x86_pmu = intel_pmu;
+ 
+ 	x86_pmu.version			= version;
+-	x86_pmu.cntr_mask64		= GENMASK_ULL(eax.split.num_counters - 1, 0);
++	x86_pmu.cntr_mask64		= BIT_ULL(eax.split.num_counters) - 1;
+ 	x86_pmu.cntval_bits		= eax.split.bit_width;
+ 	x86_pmu.cntval_mask		= (1ULL << eax.split.bit_width) - 1;
+ 
+@@ -7924,7 +7924,7 @@ __init int intel_pmu_init(void)
+ 		int assume = 3 * !boot_cpu_has(X86_FEATURE_HYPERVISOR);
+ 
+ 		x86_pmu.fixed_cntr_mask64 =
+-			GENMASK_ULL(max((int)edx.split.num_counters_fixed, assume) - 1, 0);
++			BIT_ULL(max((int)edx.split.num_counters_fixed, assume)) - 1;
+ 	} else if (version >= 5)
+ 		x86_pmu.fixed_cntr_mask64 = fixed_mask;
+ 
 -- 
-Dave Chinner
-dgc@kernel.org
+2.55.0
+
