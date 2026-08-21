@@ -1,59 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB1A47140C;
-	Fri, 21 Aug 2026 11:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11F23C343C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787310213; cv=none; b=uOq11Bt2ktoiN/p49Nhx6V8WZvKwoyc1rj1q1lfRXC45T/5Esv1ILqb/yJxzyu5u3xzeYDoddf6924hkDgH9Rt1sEpJ2ZsOFrbw3KPjlddbbs7tT7SBU3P0R+ekbqEUQWTvu2NuqjlvjJovMVo+vF5pTbov5Nnk+aYiP+ZJFqOA=
+	t=1787310410; cv=none; b=bKeta/QNr5vmLahyrG5bXyNOxB3sTewVCYDCZ1GKqUBEeRxJjInfZVOFSyxXSAKpV/cuHTTNH7U//xgoRpffAgZhUpwaSSrmbwVs77GqhMuGeP2y5HoiVUdTcjGfI7DKxsqRoowMznnvm7QUbnj0ucZiGDxWJwHJ9fotIR4O7FE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787310213; c=relaxed/simple;
-	bh=Lm06Daj5kPSYGLot9X9AG68Bj5jRdiIATasytFPvjyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cZOtsqE0UFYMg/7pSDzyH8R7goJXMmnKnkB+oSNWmsSEr93DpVeAfe54Du7fVp44tk9WJuGr/pbVxJZyikDSs+U6MuoXCG0Q9cqqUzLZOjydkHObrT9HQdpUBwL/F0+wx0RAYJ3Sr3MGeHIqZIEfPxQ316CRSQ7K97z3234v+hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aMc569/t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787310410; c=relaxed/simple;
+	bh=MySHS/kDWV3jUAPesfFVI5cIQ7RrHiIzWBsw4ihVSuA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WJ5YalBa4jtRxUlTgFCk8Vq5PLl8khyh1qL+vLn4BdiwNcjhtrCCEBZk7Lgf2ZU4CiMgWKfGn4vZrOrZFQuD3seXr1xxYsp9dPtbjnKBubaOUymGt2aQR11iO7pu1bDHRGRvt556n0TYa7YxmakNXRKhWuWQSba0DEPHy/BSXMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mOx9p8f+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aMc569/t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0995C1F000E9;
-	Fri, 21 Aug 2026 11:03:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787310211;
-	bh=wA2wbGLun6laLPhp2sEn9Hl8sjQ7hB/dtKnvF58mhGs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aMc569/tByTuOSy9waB86WPcrHqcroE3i38thBGi/VYW+8FX2eVpev0VxrvXtopXU
-	 HUj7fhMdIMqU9RJcdqoKU9He8I4K2nI4XY78JezFg6i4PeGQOK4+MLgRQisKO11lGS
-	 G6LF/IvIA5aJi1eapjQpA3LgxqPb2P7KWx9nH3Jw=
-Date: Fri, 21 Aug 2026 13:01:52 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] scsi: pmcraid: shut down command timers before reuse
-Message-ID: <2026082119-italics-dice-ffe2@gregkh>
-References: <20260821062351.72658-1-runyu.xiao@seu.edu.cn>
- <20260821081902.131862-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mOx9p8f+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3F01F000E9;
+	Fri, 21 Aug 2026 11:06:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787310408;
+	bh=4ScHzvHLXl57ZU+Hbogf8cR4KWoixxA5+QhdOPpcW5g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mOx9p8f+DUrod3le4QjUH5PMooHbC8RQtJjCJx5PpJ9UdQpouAtQB5F04ZSCedL7n
+	 yu8Qnj4y0FRwQs+2qNzouif3omyOJx2iceYQ2C6Zl/jfyUdUnO6RWzTHuZPplJYqzZ
+	 q5hV7JB6Sn9nvJP0aU6KXwl5Kz1pka6Sug21MZ7q2DGx1gdKievr2jRwqPr7BTNFv1
+	 9ERoc8r6Lm1wj2YbudRIjdE1kpEH4kG769gBeLdpOl1Sw3bVjnd9FFB6COzARslJCF
+	 ER7T3DdmnlFWHRY0DdCiim6WRZ8O+APOaSXu1JK23I+Pk+DJyjwbj6RgC9NYHY09H5
+	 /3EoKTlKLMgAw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] serial: amba-pl011: synchronize DMA teardown
+Date: Fri, 21 Aug 2026 07:06:45 -0400
+Message-ID: <20260821110645.2848076-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081746-trump-freeness-2c22@gregkh>
+References: <2026081746-trump-freeness-2c22@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821081902.131862-1-runyu.xiao@seu.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 04:19:02PM +0800, Runyu Xiao wrote:
-> On Fri, Aug 21, 2026 at 02:23:51PM +0800, Greg Kroah-Hartman wrote:
-> > How was this found and tested?
-> 
-> The issue was found by a static-analysis check and then confirmed by
-> tracing the command ownership and timer lifetime in pmcraid.c. The v1
-> patch was generated by an LLM from that finding.
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-Then you need to use the Assisted-by tag.
+[ Upstream commit 440915499231e9db1c361aa45bb702e8fd3b4a32 ]
 
-thanks,
+dmaengine_terminate_all() does not wait for a running callback, so the TX
+callback can still touch the TX buffer after it is freed. The RX poll
+timer reads the RX buffers without the port lock.
 
-greg k-h
+Switch to dmaengine_terminate_sync() and delete the RX timer before
+freeing the buffers.
+
+Fixes: ead76f329f77 ("ARM: 6763/1: pl011: add optional RX DMA to PL011 v2")
+Cc: stable <stable@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260731085915.326775-4-fanwu01@zju.edu.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ changed upstream's `timer_delete_sync()` deletion to match this tree's `del_timer_sync()` spelling at the old call site ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tty/serial/amba-pl011.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index ab68892a8b1c7..500f46bb06c85 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -1196,7 +1196,7 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
+ 
+ 	if (uap->using_tx_dma) {
+ 		/* In theory, this should already be done by pl011_dma_flush_buffer */
+-		dmaengine_terminate_all(uap->dmatx.chan);
++		dmaengine_terminate_sync(uap->dmatx.chan);
+ 		if (uap->dmatx.queued) {
+ 			dma_unmap_single(uap->dmatx.chan->device->dev,
+ 					 uap->dmatx.dma, uap->dmatx.len,
+@@ -1209,12 +1209,12 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
+ 	}
+ 
+ 	if (uap->using_rx_dma) {
+-		dmaengine_terminate_all(uap->dmarx.chan);
++		if (uap->dmarx.poll_rate)
++			timer_delete_sync(&uap->dmarx.timer);
++		dmaengine_terminate_sync(uap->dmarx.chan);
+ 		/* Clean up the RX DMA */
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_a, DMA_FROM_DEVICE);
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_b, DMA_FROM_DEVICE);
+-		if (uap->dmarx.poll_rate)
+-			del_timer_sync(&uap->dmarx.timer);
+ 		uap->using_rx_dma = false;
+ 	}
+ }
+-- 
+2.53.0
+
