@@ -1,28 +1,28 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010055.outbound.protection.outlook.com [52.101.85.55])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010042.outbound.protection.outlook.com [52.101.56.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3796932C302;
-	Fri, 21 Aug 2026 15:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FF636B90A;
+	Fri, 21 Aug 2026 15:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787326720; cv=fail; b=K5AWvG76KD+29fPPJHg7iJ3tpyG0InyeyYVFWGZ1ywFWjJwR76RJnhY8vPUt9mAm1KnPaAmYMWEQGXsTcc6QzdtEUz7uz50VlHfnbCkyUa3nYzHKnvr/OPViqSkLM24qe+gcpM+hD0hRxq+DIuAi0SZCepxpWXLIE2X+aKiV9ts=
+	t=1787326721; cv=fail; b=ADeYj3KbRjy3yXGKDFMRQQ0qb2kSZ0env76ci/aIDXzCtYJn3cVEiFAkNav4gTJwgYYY1Af4qh9h957O9qCTDCRxGwRUZtO3roxjXG4GL6NORHmSWqQ8ehlJARA1l8supinoEaqz31cNS5Z+RLmnTCibtozOx7cJ2bCDtu7/DaA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787326720; c=relaxed/simple;
-	bh=UvuIbYgN1O+5Ih69QwFRUs1YLGEbrJdYhzAQAXOfDDo=;
+	s=arc-20240116; t=1787326721; c=relaxed/simple;
+	bh=mGbaSlD2z9xi1XNmSoXX6OobwTTHMv4zlGzhwx+h+o0=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=b8o2Sk8xlkNDo0XZZN2DNO/4ApJOWeENkZeSxnS8QkGpZv8kNnUQwlY8RkId7DFHYG3OM4f8Y2JC0TuRpbt/nlRtcscFQ2jVtyf7tSrXO5Y7matuXFMmOuPNS7hyIvTFNw8PZGtP88fDJohIWPEixETmv1TVhtR6iHglaeHsors=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rQBpxdpb; arc=fail smtp.client-ip=52.101.85.55
+	 MIME-Version:Content-Type; b=OogcHeVQOC5m6QToOOKz+L8hilDAaWrYiEEXPFBiBvhqG+baERXNn61rY0GSbvXXcSVrmKsK20+BlzR1LKU5laxz2NeeT25ndkKJJiGeOm2LQVmqRxti030VUQx5vLxRl5Ru/pRYb2pGM/CSldl0pCWSgnAha0DPLzXQoeItv5M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Sx7R87r/; arc=fail smtp.client-ip=52.101.56.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rQBpxdpb"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Sx7R87r/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V+JuOO1zwR7gwrywACI5vIcsRACX0g9rvNTctCzKxwQmsuXojIAMGeex6IGn8ctQAeQStwKc8CZ9yUyhgntygkLKoHTWXkgaK0h3oqeo3yNcZUOxZrCRMN6oSHxrMxW3HuHHHVrgUw20ABXMgAJoRNkxbrI/LLFwrU4L6Ip0HoARA9wxNqPYR06VCYfs+xnRR1xzP79xsT1S7+h/XWC/91RaFlBrYU95wTORbBVmZQSklYHEIEUT5PW83dCRJhYhmzBW0s4iBWFnM9R+CE3bCVuDCRJuxSxi27Txlipf+b1wQaj20xEKaEF6lPnSG1OGeZ3AMB05+O1nRCaKi7WO6Q==
+ b=G6IpB26F5laC/Cc9u1Hphr8LvxZYDQl5wpcLHS0TVZTuoavjMkyowJ5p4jGKokLpWuQkA7WZj69s2IeKI5L9FjGzWh6aU2KqguuvV6nTo7rMZ+U0EPLQTOCoTC1by/BhhlFNACMqSm9DtkaOfjj+mxPwU/YObWoX523Yfe+WUKD8WESujHfUIeHKtq3xMy+5254smLIATHe6apls2OMTCRw+s3NmQ/7KiAt3j+ydXueOQUxU5YeIM18ynGjQNSU8FtEEQCmS0dAAFIhGJVXldi3KEJQELbaLxTGYdsTw4WgQ22Wgj8un+wMGjWawkJ8jov1zRr3pvLlunlEKW1Soow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hweOGX02xGnPps0wqcMytK2dRCJRYUB3Oe/KemvFpTQ=;
- b=pWeP9land/wka//vPpZjWl4DRIkOiMmRBi9AW6q7UghWeLus1+5vpwFWmFJfR/Bqf8d4qTHfAeoFov1jAdGt8ddbWfiV+mDKZ2oeQq4kcP9BMpvBRhjXzuEP1x333U7wrJkAhbXVLL51SMr1mYo0EreGIsIbqfgpotMvR/s63dWpe0UmLDDPt5/KLspGSx/dQ7p06EEN9JEE7/qfuvpJOYUsdZIRcpPI8ImCVEcHOZur2lt/UIRq6OxpghswIFoQyt8jpsEZkIMyJn6OvqXTBmdyD5LpUQd8Ef9dFIdNYr1V0Qum4I8/K4+jjBFvQmiL/HANkh8JEBduTiP4MKr6mA==
+ bh=9iKR1/5yf5sCaryF+yL7y5zphgui5Gsa5gnKbTKHF48=;
+ b=gGbdDAhkat+pwY+j6rMDjswWIaVz/uPJHmUrLtgTlYmT8XVS6LbN7g7B5DP65a41ExkWghr+FKuPIdYovorTxZv9DSYPqy1yJLXdmIvmfgiD1H2btfsXSoQv4YFpuMCTTX4cJqAhvtBkqVEallVwU9+97oiRQes75tua/9wzeNREY8tQrT1PdR4IBe8RASPIhM2chKkZubaSNakrVm7G6J72UZ4QQZEZ4b9Gx0kWGlYeaIJJNCVUAphPao1Q5o+c0E2RiKIkIC/aBUm4ZLLrnISBWyRYe8T0mvnHpoGH4ek8iaOssRjFypK5rCYppo8/TRza16I9tWCxGHB+DbIvhA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hweOGX02xGnPps0wqcMytK2dRCJRYUB3Oe/KemvFpTQ=;
- b=rQBpxdpbms7HTVcRd1fAPt8KUmd2ZISgaj2VdmBIgWfObmclH1infHlw4ECOWpaPex/cX2ctcybyumhGsnXvOc/vX4zHRV4hGxyV1Fwt/hSLIBzCte7vNaPW7nf9TJGIwzwv6YBC/mqtWD1Vzx6TccU4wvBH8AxZ4xyn203irQnns2bmQC3hU2/m1hcrp9Hk4YcsExSbsN+Zy+uw9o3tyoLo3aiGoCTzXQaMZaChK2P7u6D9ZH6yb4VlhZsDXI14cxrqu5PY0KwKRiRPcXZ3KxO8YJdWG/tWxOQCB4ZiFAuYcxGIx/b+7TWy2ruLNyn9aWiOzrHw52yxExNVo/ODUw==
-Received: from BN1PR13CA0011.namprd13.prod.outlook.com (2603:10b6:408:e2::16)
- by BY5PR12MB4212.namprd12.prod.outlook.com (2603:10b6:a03:202::8) with
+ bh=9iKR1/5yf5sCaryF+yL7y5zphgui5Gsa5gnKbTKHF48=;
+ b=Sx7R87r/ZpEj9a9QCD+nWUgD+mFNZJ/i9eDxlL+4+9ghtTVyyPgflxM0mWMWRS8KfyPQYHuIKXlilYAwk3rYd/I6xhCOZrUiGkx1656xfuN05ZDbo1jtIsdp9qPoPF3p+4AkEMnCI2duaN4/gBaaElBFck95W+332ZadfxUREKc66EV5YGzk4epN0N6l22YP05/mTjl+Wkr5JkXv8wbVnCdZcQX3r/HUCjHVAGj3/9Vc9hO9yAyrHtz05f8Y9D6qdRtcoD6xpD27BvtK0cd6nwna91p2GQFJv29KSVK9F5kbbjHJrjmyIf277EH3uCVNcjXWFFAyxNS4117Cq4tahw==
+Received: from BN0PR04CA0113.namprd04.prod.outlook.com (2603:10b6:408:ec::28)
+ by CH2PR12MB4037.namprd12.prod.outlook.com (2603:10b6:610:7a::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 15:38:34 +0000
-Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:408:e2:cafe::7a) by BN1PR13CA0011.outlook.office365.com
- (2603:10b6:408:e2::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.4 via Frontend Transport; Fri, 21
- Aug 2026 15:38:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 21 Aug
+ 2026 15:38:30 +0000
+Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
+ (2603:10b6:408:ec:cafe::3f) by BN0PR04CA0113.outlook.office365.com
+ (2603:10b6:408:ec::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
+ 21 Aug 2026 15:38:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,17 +49,17 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
+ MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 15:38:34 +0000
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 15:38:29 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 21 Aug
- 2026 08:38:07 -0700
+ 2026 08:38:04 -0700
 Received: from moonraker.nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
  (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 21 Aug
- 2026 08:38:04 -0700
+ 2026 08:38:01 -0700
 From: Jon Hunter <jonathanh@nvidia.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Thierry
@@ -67,9 +67,9 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	<peter.ujfalusi@linux.intel.com>
 CC: <linux-sound@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Jon Hunter
 	<jonathanh@nvidia.com>, <stable@vger.kernel.org>
-Subject: [PATCH 4/4] ASoC: tegra: Sort MBDRC register defaults
-Date: Fri, 21 Aug 2026 16:37:34 +0100
-Message-ID: <20260821153734.158426-5-jonathanh@nvidia.com>
+Subject: [PATCH 3/4] ASoC: tegra: Sort ADMAIF register defaults
+Date: Fri, 21 Aug 2026 16:37:33 +0100
+Message-ID: <20260821153734.158426-4-jonathanh@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260821153734.158426-1-jonathanh@nvidia.com>
 References: <20260821153734.158426-1-jonathanh@nvidia.com>
@@ -86,111 +86,289 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|BY5PR12MB4212:EE_
-X-MS-Office365-Filtering-Correlation-Id: be958255-5107-4521-4553-08deff9a42bb
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|CH2PR12MB4037:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a66eed1-3d19-4d6b-92b2-08deff9a4036
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|56012099006|11063799006|10067099003|3023799007|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|10067099003|6133799003|56012099006|11063799006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	EjdO3xkTaEieLowYiNRaQQ5SzxlrQR0O12tzaxDZBOlwrJpXeg4a1XaodNlz0bUvIASiN9p4un3wjUBELo7tkT73jW53YdN3F5aZeGoWwKydzoEq+af7o//6Vz/qIn6LLGhd1VBZ5Mri52QvP6bRwSaWVmxLCrWxeoeOHqyDAV1HTh8oIVmCDoxEVJZz8zP/X7VxYyQWeUmve0oa+9zdTXjI5sV3i/qVLy2GGL+nZr8JlO5AsqtAAS0Wv/BBJ/7dRZMm8zMAwKIv7+wdJ20Rf3nmtpmMmwf10l8TbuGwlAVxCvFQjpoN1SKkuc/kO+gEMllaWY0SX3qnAOjrT+1fwPZ9Xg6gx+oExXWOBLbR1DkgThlQOQ0pl427rF3i5OQ/eApg8675isjy0940cBfkgrF+928kAZ1qg+whXg41xMNQwjZcE7mCZoouPB/VDAi7nS1qwRfG0JGP/KdHy3ukG2UCHQAvreHgrH+QMODN9uHakW7/HgCaNd4pD2k7hQGzXiDu+M45saYNBm01XnbLPvTP5CBOCrYxd5YKx5GWtWe9dUTrlMRLW+A8z9Ip5Ec+Xfi4y7DjSgibt09CbkbI92Cq1bYsOc0MI9PR4F7TBXrvBDKgmAWbhm+D1c3Y93TfjBtAGxPi7QRyiU3VfC6I5Yimdmgt/kHCO1WDGyhVswbfq++1ZzbMUb2y7pJnAtljcQMWzkbAFxquNT1lnQ/YVA==
+	YWfXfx4cAb1LqGhA0UHSu1cFjLad6GR9tATPIMLTRs7ZF+lZhR8vU5zTfTA4LNWVW4jF2uZpfzjiUmwLof7ctiNAzJmGykufSJSCVPsL3CZJP+53gWJmTETqfRNFjlPAfOjzHq1hcT2klQxrD4j0npZaXSHIMhR8eT8p6kwc1Vfy3Rn8Lrclpb8ljC0Yf117eXqov9BRzjVGW7uhFwtYPysHxUisj6HVt+qO9Nme/UQekfyx4GPjaNcBdc6EmoNvwMRzJYDQU1bSAdtJDHhUeTVwbtfTCoAkAoDbIIy1pRG4NZCTvhzjiA4EswFjXzo1UTSthgjHUPGWxZPuqnOcDzqvq4TgrAfCsOlyMg3UZt0Zmc6hIFXP4YAeJNsVWaNVlTkcc8bzIj5C7s0WW/zAwHySDYVtFSagT4Hi7Ow9yRJqemlD80ES4csEOthkflON449CsiiWC54cNdSNgBRp0XNpPYquizH4JZEE5hVLaEbq/ArUs7LgsnqRbkZCbXNZVfOVTnTzrOH8P1T4c/fwPm+ogHwPPxLr9UcKLECzs3Y3xY7julMWqmzyUTNhRkFQs9Km14FZ2KT8JNCryPtOzB7qJ9k6V5YYJeZ+t964gPkUNiHFRlig+KG29nlNW8i1U+94W58z2Bh/EbW0SnBo5I5JCFJiZkxVq4AVXwGiwrxewjjYDbspOhRD7dGmCvHqJSpGNJYJ6SJhfFGoEM20+A==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(56012099006)(11063799006)(10067099003)(3023799007)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(10067099003)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	dmUwxHI0cYPfNtJyx87Tog57mc66TD1NZosBGxHnWZ9ib1/P5CY0+zEqJPsQ6NY04gpaitmwA9jIiQkyKpuekrwD+WHv4ozroVCYvxFmFw3YS+zm8R5bPxxRR1+mle2aPPsH2hRcUyZXiklpZACc85aCkx0apnAj/PrED0i/XB7DDawkZENjQEhmIs1Jy/dL1YThGvF+KVDi44J81/QL5v+x1RUePRLww3Tou8o24T4MpPjEK9IFvM8Dbe9gqvOysOVHtmtjAFHS+vqRZbh0o5kYLkgFFi2//ViAiAI8phml6gJXmxKwz+ShK1jGE26cefBxmc2RGppHz1m5X0z/NJ4xjYMmnRgHXtVFAW/uELocH1xJ8BNdSoPFf7k9QUUl7Cwbn479xT3X7MhpYutRHM2rxbkm8siHY3+0HRE2IPB1w2A/FM2T5q4p93G5clt9
+	1fDqO45D+Xeznr+qWD2TeLajTQZmfbDaGiXKYjG5Pfgs2umYMMy7hwuEJftwjJpo86xFB9Bl6DTNd02D5BYxriuOVR5+Fnax44oxEhgJOcNv58PLk4oM59sCmgp6gXOCM2d7QOb1NblqmQZn6FS391umjvhtxLrFIAeXZ6R2cb1c8GKChhVM9m5XBWA42gmgR7foLb0ahpQmJGt28MmSxrwN44BhWCJxHOQ7ROb8lziTPE8e9iybELzKTSrnnvNxWlKp/fRCUxJcHV1WWuCYn9kn/JkhPdPkAWfAUFeDI86iiK54OgQNjU2OGudoYciPd+LYmj/WjlhK0/T2/+2ZC3i5GZJHluqKikNFrhb/CBdtbLiMxIn0BFF2RKluAKdRfA8rr6uk0Nr8sPyMLscCPPc5KYYKXq9PgI5ShWzK/61fy2ZvNyxf5qtmxNzjPOz2
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 15:38:34.0838
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 15:38:29.9025
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be958255-5107-4521-4553-08deff9a42bb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a66eed1-3d19-4d6b-92b2-08deff9a4036
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD4.namprd02.prod.outlook.com
+	MN1PEPF0000ECD6.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4212
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4037
 
 Commit 4b05ccb17f92 ("regcache: Sort the local copy of an unsorted
-reg_defaults array") exposed an issue with the Tegra MBDRC driver and
-now the following warning is observed:
+reg_defaults array") exposed an issue in the Tegra ADMAIF driver and now
+the following warning is observed:
 
- tegra210-ope 2908000.processing-engine: Driver needs fixing: Unsorted
+ tegra210-admaif 290f000.admaif: Driver needs fixing: Unsorted
   reg_defaults, sorting the copy
 
-This warning occurs because register defaults in the structure
-tegra210_mbdrc_reg_defaults are not specified in ascending order which
-is required by regmap. Fix this by sorting the register defaults
-according to their address. Note that in order to do this it is
-necessary to replace the macro MBDRC_FILTER_REG_DEFAULTS with a per
-register macro MBDRC_FILTER_PARAM_REG_DEFAULTS.
+This warning occurs because register defaults in the structures
+tegra186_admaif_reg_defaults and tegra264_admaif_reg_defaults are not
+specified in ascending order which is required by regmap. Fix this by
+sorting the register defaults according to their address. Note that in
+order to do this it is necessary to split the macro ADMAIF_REG_DEFAULTS
+into separate RX and TX macros to the RX and TX registers.
 
-Fixes: 7358a803c778 ("ASoC: tegra: Add Tegra210 based OPE driver")
+Fixes: f74028e159bb ("ASoC: tegra: Add Tegra210 based ADMAIF driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
 ---
- sound/soc/tegra/tegra210_mbdrc.c | 42 ++++++++++++++++----------------
- 1 file changed, 21 insertions(+), 21 deletions(-)
+ sound/soc/tegra/tegra210_admaif.c | 208 ++++++++++++++++++++----------
+ 1 file changed, 138 insertions(+), 70 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra210_mbdrc.c b/sound/soc/tegra/tegra210_mbdrc.c
-index f5d4a93dd6f1..1d78b4c1cc88 100644
---- a/sound/soc/tegra/tegra210_mbdrc.c
-+++ b/sound/soc/tegra/tegra210_mbdrc.c
-@@ -20,33 +20,33 @@
- #define MBDRC_FILTER_REG(reg, id)					    \
- 	((reg) + ((id) * TEGRA210_MBDRC_FILTER_PARAM_STRIDE))
+diff --git a/sound/soc/tegra/tegra210_admaif.c b/sound/soc/tegra/tegra210_admaif.c
+index 7299c6bfcf15..87e898cc35e4 100644
+--- a/sound/soc/tegra/tegra210_admaif.c
++++ b/sound/soc/tegra/tegra210_admaif.c
+@@ -26,94 +26,162 @@
  
--#define MBDRC_FILTER_REG_DEFAULTS(id)					    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IIR_CFG, id), 0x00000005},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IN_ATTACK, id), 0x3e48590c},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IN_RELEASE, id), 0x08414e9f},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_FAST_ATTACK, id), 0x7fffffff},    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_IN_THRESHOLD, id), 0x06145082},   \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_OUT_THRESHOLD, id), 0x060d379b},  \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_1ST, id), 0x0000a000},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_2ND, id), 0x00002000},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_3RD, id), 0x00000b33},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_4TH, id), 0x00000800},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_RATIO_5TH, id), 0x0000019a},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_MAKEUP_GAIN, id), 0x00000002},    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_INIT_GAIN, id), 0x00066666},	    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_GAIN_ATTACK, id), 0x00d9ba0e},    \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_GAIN_RELEASE, id), 0x3e48590c},   \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_FAST_RELEASE, id), 0x7ffff26a},   \
--	{ MBDRC_FILTER_REG(TEGRA210_MBDRC_CFG_RAM_CTRL, id), 0x4000}
-+#define MBDRC_FILTER_PARAM_REG_DEFAULTS(reg, val)			    \
-+	{ MBDRC_FILTER_REG(reg, 0), val},				    \
-+	{ MBDRC_FILTER_REG(reg, 1), val},				    \
-+	{ MBDRC_FILTER_REG(reg, 2), val}
+ #define CH_RX_REG(reg, id) CH_REG(admaif->soc_data->rx_base, reg, id)
  
- static const struct reg_default tegra210_mbdrc_reg_defaults[] = {
- 	{ TEGRA210_MBDRC_CFG, 0x0030de51},
- 	{ TEGRA210_MBDRC_CHANNEL_MASK, 0x00000003},
- 	{ TEGRA210_MBDRC_FAST_FACTOR, 0x30000800},
+-#define REG_DEFAULTS(id, rx_ctrl, tx_ctrl, tx_base, rx_base, cif_ctrl)	       \
++#define RX_REG_DEFAULTS(id, rx_ctrl, rx_base, cif_ctrl)			       \
+ 	{ CH_REG(rx_base, TEGRA_ADMAIF_RX_INT_MASK, id), 0x00000001 },	       \
+ 	{ CH_REG(rx_base, TEGRA_ADMAIF_CH_ACIF_RX_CTRL, id), cif_ctrl },     \
+-	{ CH_REG(rx_base, TEGRA_ADMAIF_RX_FIFO_CTRL, id), rx_ctrl },	       \
++	{ CH_REG(rx_base, TEGRA_ADMAIF_RX_FIFO_CTRL, id), rx_ctrl }
++
++#define TX_REG_DEFAULTS(id, tx_ctrl, tx_base, cif_ctrl)			       \
+ 	{ CH_REG(tx_base, TEGRA_ADMAIF_TX_INT_MASK, id), 0x00000001 },	       \
+ 	{ CH_REG(tx_base, TEGRA_ADMAIF_CH_ACIF_TX_CTRL, id), cif_ctrl },     \
+ 	{ CH_REG(tx_base, TEGRA_ADMAIF_TX_FIFO_CTRL, id), tx_ctrl }
  
--	MBDRC_FILTER_REG_DEFAULTS(0),
--	MBDRC_FILTER_REG_DEFAULTS(1),
--	MBDRC_FILTER_REG_DEFAULTS(2),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IIR_CFG, 0x00000005),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IN_ATTACK, 0x3e48590c),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IN_RELEASE, 0x08414e9f),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_FAST_ATTACK, 0x7fffffff),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_IN_THRESHOLD, 0x06145082),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_OUT_THRESHOLD, 0x060d379b),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_1ST, 0x0000a000),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_2ND, 0x00002000),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_3RD, 0x00000b33),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_4TH, 0x00000800),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_RATIO_5TH, 0x0000019a),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_MAKEUP_GAIN, 0x00000002),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_INIT_GAIN, 0x00066666),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_GAIN_ATTACK, 0x00d9ba0e),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_GAIN_RELEASE, 0x3e48590c),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_FAST_RELEASE, 0x7ffff26a),
-+	MBDRC_FILTER_PARAM_REG_DEFAULTS(TEGRA210_MBDRC_CFG_RAM_CTRL, 0x4000),
+-#define ADMAIF_REG_DEFAULTS(id, chip)					       \
+-	REG_DEFAULTS((id) - 1,						       \
++#define ADMAIF_RX_REG_DEFAULTS(id, chip)				       \
++	RX_REG_DEFAULTS((id) - 1,					       \
+ 		chip ## _ADMAIF_RX ## id ## _FIFO_CTRL_REG_DEFAULT,	       \
++		chip ## _ADMAIF_RX_BASE,				       \
++		chip ## _ADMAIF_CIF_REG_DEFAULT)
++
++#define ADMAIF_TX_REG_DEFAULTS(id, chip)				       \
++	TX_REG_DEFAULTS((id) - 1,					       \
+ 		chip ## _ADMAIF_TX ## id ## _FIFO_CTRL_REG_DEFAULT,	       \
+ 		chip ## _ADMAIF_TX_BASE,				       \
+-		chip ## _ADMAIF_RX_BASE,				       \
+ 		chip ## _ADMAIF_CIF_REG_DEFAULT)
+ 
+ static const struct reg_default tegra186_admaif_reg_defaults[] = {
+-	{(TEGRA_ADMAIF_GLOBAL_CG_0 + TEGRA186_ADMAIF_GLOBAL_BASE), 0x00000003},
+-	ADMAIF_REG_DEFAULTS(1, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(2, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(3, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(4, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(5, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(6, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(7, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(8, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(9, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(10, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(11, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(12, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(13, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(14, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(15, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(16, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(17, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(18, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(19, TEGRA186),
+-	ADMAIF_REG_DEFAULTS(20, TEGRA186)
++	ADMAIF_RX_REG_DEFAULTS(1, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(2, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(3, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(4, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(5, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(6, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(7, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(8, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(9, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(10, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(11, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(12, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(13, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(14, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(15, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(16, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(17, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(18, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(19, TEGRA186),
++	ADMAIF_RX_REG_DEFAULTS(20, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(1, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(2, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(3, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(4, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(5, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(6, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(7, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(8, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(9, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(10, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(11, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(12, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(13, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(14, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(15, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(16, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(17, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(18, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(19, TEGRA186),
++	ADMAIF_TX_REG_DEFAULTS(20, TEGRA186),
++	{(TEGRA_ADMAIF_GLOBAL_CG_0 + TEGRA186_ADMAIF_GLOBAL_BASE), 0x00000003}
  };
  
- /* Default MBDRC parameters */
+ static const struct reg_default tegra210_admaif_reg_defaults[] = {
+-	{(TEGRA_ADMAIF_GLOBAL_CG_0 + TEGRA210_ADMAIF_GLOBAL_BASE), 0x00000003},
+-	ADMAIF_REG_DEFAULTS(1, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(2, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(3, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(4, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(5, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(6, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(7, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(8, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(9, TEGRA210),
+-	ADMAIF_REG_DEFAULTS(10, TEGRA210)
++	ADMAIF_RX_REG_DEFAULTS(1, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(2, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(3, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(4, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(5, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(6, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(7, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(8, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(9, TEGRA210),
++	ADMAIF_RX_REG_DEFAULTS(10, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(1, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(2, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(3, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(4, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(5, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(6, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(7, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(8, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(9, TEGRA210),
++	ADMAIF_TX_REG_DEFAULTS(10, TEGRA210),
++	{(TEGRA_ADMAIF_GLOBAL_CG_0 + TEGRA210_ADMAIF_GLOBAL_BASE), 0x00000003}
+ };
+ 
+ static const struct reg_default tegra264_admaif_reg_defaults[] = {
+-	{(TEGRA_ADMAIF_GLOBAL_CG_0 + TEGRA264_ADMAIF_GLOBAL_BASE), 0x00000003},
+-	ADMAIF_REG_DEFAULTS(1, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(2, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(3, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(4, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(5, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(6, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(7, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(8, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(9, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(10, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(11, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(12, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(13, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(14, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(15, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(16, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(17, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(18, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(19, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(20, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(21, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(22, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(23, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(24, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(25, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(26, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(27, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(28, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(29, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(30, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(31, TEGRA264),
+-	ADMAIF_REG_DEFAULTS(32, TEGRA264)
++	ADMAIF_RX_REG_DEFAULTS(1, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(2, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(3, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(4, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(5, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(6, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(7, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(8, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(9, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(10, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(11, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(12, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(13, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(14, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(15, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(16, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(17, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(18, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(19, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(20, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(21, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(22, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(23, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(24, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(25, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(26, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(27, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(28, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(29, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(30, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(31, TEGRA264),
++	ADMAIF_RX_REG_DEFAULTS(32, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(1, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(2, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(3, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(4, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(5, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(6, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(7, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(8, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(9, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(10, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(11, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(12, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(13, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(14, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(15, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(16, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(17, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(18, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(19, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(20, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(21, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(22, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(23, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(24, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(25, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(26, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(27, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(28, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(29, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(30, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(31, TEGRA264),
++	ADMAIF_TX_REG_DEFAULTS(32, TEGRA264),
++	{(TEGRA_ADMAIF_GLOBAL_CG_0 + TEGRA264_ADMAIF_GLOBAL_BASE), 0x00000003}
+ };
+ 
+ static bool tegra_admaif_wr_reg(struct device *dev, unsigned int reg)
 -- 
 2.43.0
 
