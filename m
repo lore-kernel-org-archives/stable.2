@@ -1,121 +1,137 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B117717A300;
-	Fri, 21 Aug 2026 02:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A498E353EEB
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 02:29:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787279311; cv=none; b=tmvQTBilwXZViMejGP092kMYHeoAUY0c9oP9DYal20fD+mMD++FcJuvKB/7wWDRaY5WDnPlaMVyOAQm4+J63xiyFTRqds/XGIKien+A/k8tsM2WQ1Y30oSlCCo/7lrZgGvVAGMO67kdE7joVnReLzgoLWDArsfkFfk9ZNBCvO1s=
+	t=1787279350; cv=none; b=nk0d8POK0BPw2uTKcug/4EUsUr3c3EaveCKafCmj93UT4PbKglelqxLfg0L3wwtCLlV5b2piRjbYnRvhQuwvrrQStkz3p48iCJFJo865VfckYqTShP4EDNglzXBzLXOwl5bu4PTQKLEG4a5BJNiCdte/0e+Sg4P4vePjAtt7G1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787279311; c=relaxed/simple;
-	bh=uVbTszhy/sicK/W0rN/nh1U0aZ2Y9QoDoUjpvmj0X1c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KC6C0YbEv9fGAaUaxZ47RiKH/sGz7FxlmPZw8Xs2tYHMEk5Ccgbj2wjWXeNyz0iEhe57fRG0U2/qAmJsNCDfqy9XD7xfeCwcyHg7VJ/iIE8PycdeihQkXZ4OEDxUKYotj0Qp8Q3qKRnPa1fcq+T4pATPsLyMAT6QoZr8SMw+sJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=B/cAuSvW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E2aypVeU; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1787279350; c=relaxed/simple;
+	bh=vry3klap9u4GjQNVsbX+2L8vo2NtkD7sLGYczUDYo14=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g/P0wBDft6R1Vgoy9nXTjwI1mZn+6ZmhTR3YrHhPZ2UhSz043Gc4RoTeum2RyqVJxcgQbDpnMYyY2UWKOIXEyyuntL/xA8S3yNedfjp7WdFltg7fphmRR62a80za4arrlAjC+b7Sqy09vOZPFGU08gT5Zk/ZsnpHSGXMFzoZ4xU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0SEWAHX; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="B/cAuSvW";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E2aypVeU"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id BEDAF14001BE;
-	Thu, 20 Aug 2026 22:28:28 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Thu, 20 Aug 2026 22:28:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787279308;
-	 x=1787365708; bh=GYMlclfuemkvAEFbiHuln3ygQZ/s06pz/qvWBLeBhvM=; b=
-	B/cAuSvW+lGzaIZRKg7Ra+Y7OmWEVHuB+hmNkCB09ZOmNmid811JMgkYoFkA5IUo
-	dUvr/oDSXeY54+oG2I6zYGTqIlKiL5pk4tv5B5hecLRzZjhxrVVH033xmEI5YYy9
-	VlqiGExsr3idcuvBn8SgooTCcnTfjfZfx01/zFWAaz0l7Axyshk7uGDFPyEiFw0O
-	5eGgO3q0BwBVYvOHwNBg5TPk9hu/y/w3H4ki+AhL0l/Z/YWvXVk9NsIYt0dBU3Z+
-	y09j+bScrPLArtYh1c6syigA7qEY9cuQkLEi72fC73AZI+n/5fCJi/DWaIEAv9+g
-	7l5GXel5eo2RUqsOartGiQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787279308; x=
-	1787365708; bh=GYMlclfuemkvAEFbiHuln3ygQZ/s06pz/qvWBLeBhvM=; b=E
-	2aypVeU8BsMceR8B62UEi84rfbbHBBKI67zF0SDXLWFjgYMQ36AsFzML5EBQju2q
-	5JMQa4AfuHKbSs3wTIC3NzkUvYWH/DTLV8kmBvh+RGDEZxpC/5UMmeCfMLfSVNDk
-	E6v3jvqfc10hD5LZjcsTxdME4mPXsrABiTQL4uIeHGdx2V1CtxZE5HlvrhKDMOyF
-	KD3rgXsIRoWDIIqeSaKoOGotyav+8TSbn2QtWXiV51Fa3crrD639xIdo88ROaNgm
-	+9I7+nlUYCGRCMK0axqdtVgMDUiiVaLwOYM+QPv9SX5ACmSTP/7l6X9gzJ6KXzZV
-	PTQc9DI3G6UsoR4erKS/Q==
-X-ME-Sender: <xms:zLeHalpPKo804Ln9unrACB_ywXj29IawWRfcLwC3d00c0cxa4EmcYQ>
-    <xme:zLeHajj0SQfuVf-yiXIKeT4n9xwULxtnyQpJZZHtCSl6aB7QeibYHl4eUcNXaA75Q
-    dgmmTIzKhizpkPycbzm8b0ZB9tL97XFdCI5XVLLHH1hAsL_9Ja8NGE>
-X-ME-Received: <xmr:zLeHatsym0iNx9HRkDxF8tdrig1xAFtwhg4H4qyPtRwTsxQ22Ip3BsD2wAkcJ-kISqS7rCD9jUwPfP7sgDiSKzx15uzeUh89>
-X-ME-Proxy-Cause: dmFkZTEcTfs7ETc3YcRCSWPc8bvUFI/O9x3PyeIqu1VN/NDnn2SuW6cSjLcvV5Xd/6f7V/
-    x3t5GA+oe/cYmCwkNY6xwH9c9JWT6ULWnl8uL7Aq7JmLnAxTqY5W7Xhf8tzhLAO5iHK5De
-    MT37T2P9s5KB20lEcYLsBJb+JlU9VPG2PwxhpKQYOadfgWzSxdfTBFZKKP8eXi1kPaplkA
-    81iM99KQg4877ENqNNKvS+QbhNbM7FLKvUYaYDhhNhXykXLfTVJ9q7JQtQDu6cJwc2LZCS
-    k/GjKzdc/VRVXxo7/sVa/lJmzNSwFcMHBrvjwtYWbhCg++N1w9ObgiPpVAsptIcOP9DIdy
-    GWqaCEVH5ECTNrD/JCwPgVXbcFS10aOLiAq2h7mb4UqXeA2BD+OHmJWKpqCAOBEtxfRxfH
-    at+gVWjWgCsOWYCM/YyiIYuP8QtnMh4g/lR8J8CR0xZpOt/0fsh7rdzX5o0uNmcZ9hjiUl
-    GILjSv1FhqZ8b3JDBhbJJPGdM3AbsfsBI3opxQoSfAzrXi0lZ6vgezoHeO4aegDB+3e3VQ
-    uMqGxfVimf/6kBYC39oLNWufHdVivmmI3zfWPdyJgwTFx7umLc1dzgV0V6ttsfBAa2vlG3
-    2Cpz7G/4tS/sEORtV/UNgRBsBkWDilLNjCHx0ZY3kREt3JBLDuVSkQODthkg
-X-ME-Proxy: <xmx:zLeHak1THHnuWzXS-5OcPeQN530uCH91Kb6E1CIJtIw5roeM2HY0LA>
-    <xmx:zLeHasxeThBkeGFbAR61nG3gie1FkgboNePEL_x5wxvW3f7DEDE1lA>
-    <xmx:zLeHanU79WbO3hg3GD9bNuJFAaCN5KIuccVseVxahWFA04XCOv9gKA>
-    <xmx:zLeHamCQe3l1lGqNfb7x4ggnaNL8zPLlIJEuwhh2AuSNGN1LmSiNkg>
-    <xmx:zLeHajQdUOn6OMSQXi4EYjVkSSxu6p903rEBzaBM2gNOlwyNAsATbp43>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 20 Aug 2026 22:28:25 -0400 (EDT)
-Message-ID: <92488daa-2f80-4a35-ad86-3de4c2e06204@pobox.com>
-Date: Thu, 20 Aug 2026 19:28:23 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0SEWAHX"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d58efc7356so6433695ad.1
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 19:29:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787279348; x=1787884148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=45NBjTXP85L2NWWZj0GIgJ+kRVkTLutBHdaU4FJg9VE=;
+        b=o0SEWAHXsr3fNSZ+/Ut3M1/tTfe4xNFddBn4aGuvyArZTEGK486wHuQIyI8Irb/WDU
+         NG1XwMdF+1ndQzRdtHmGzOEtwbXerNvex2m3Q9w8CpDF18rJwiiHMnzl8EIXLtWhhhv5
+         Smu5npESZc/D03KeLodjNIkuxQT5VeUewyxQX2AyFE1OtPgm3qhn1HwpocUoY0jqxkaI
+         3RbSFofv1E7WBRMt3XNcooHcsHOYZU91qmmVzW17WzxA7CML3Jk4+dd/A3nQmv65Sa8m
+         7VBC42P07JRHx1Gu0EGFgEtFaihyD+c1hKAmFcfsuxjLL5Q4gubAys1TtZSfOph8wRgb
+         1fDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787279348; x=1787884148;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=45NBjTXP85L2NWWZj0GIgJ+kRVkTLutBHdaU4FJg9VE=;
+        b=W1tnzhyHGoAk1PZtCgTmwV7x3EUm+pY/cGpEEmCfwhX+9d6tPmCPu4mIfvVsU7SVNP
+         rc2KVRpvDvP+KMBsywWmmnzMlZzTuXpjgJz7PA2/LhPXCFnfP2iY2eJgsid2il6ftZSw
+         KB+GZnPszKiw7pOhqlEJkbiw7adGNAgRWmS9zAbTQv8W0ufnTaWvYW6OdcYVR1TfZZit
+         gMPMpYVuHjfs3O+Sf6TRN3DVg4eNkeBaSiZeT2TiTHEJ7VaoTHn8kK+mK93FhacY3MXb
+         V6VDfLlcSGGk3IBwzIE0hvJm3xjQ/YyRc753c/epstmcoj9yQiYjPXNRmpZGA7OLdd8w
+         UFmw==
+X-Forwarded-Encrypted: i=1; AHgh+RqihpDEPvd7XwYSv9SeG8O8qTuw+wrDw3jpyzEX9vBfNLvWf7ZPIcoz3jIGCrHXxsBjNAwuNdI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YywLw89CfO7us47f+NxVxl2IAmJiIVdjdkBV9bXY13fuRtD76Sb
+	tt86XAkKcRKhdMf9sb1Uw4s3+PFNDxezpp3J0h7ZKq/BiaAhBOvqJZr4
+X-Gm-Gg: AR+sD10+8s0Zbhoe5P69A/HrxffLPio4FDT+txgFQEPQFs+NnbPvljVZ9qZTtDwnzDv
+	DLLVMQfPXLPDL+yvMSzeJsbR8alevXyRD57DvQeszCNgNzwIjxlR2L6UNe0WTOtCPbzfgkngEpA
+	d6KzGAhKg5zbyeqfdeSB1Upn9O37OhVOBU/diRfA1z1bQSubW0CExs8q10vOk10hCndbGu+/FDz
+	M8RD3JmrikGksaVy/XDKPxtIEp8X39MlnW1W6dMycuLkfQn5FIBBqaqHU0V3BO2UFKfjxgRWb3K
+	RZbbG0EchyqNt0l+lsBIXtZZnEsNFG70KL8UUOg4gT1HK7808/RYxAbYvL0ms7B7Cx3ICNqoKPP
+	BKHQ74vc52K2VV1gb54oUgsEYdnDPn+VxAi01sypLNFxk2lz5ueb+f2TebQWj5DERHmfg47orG0
+	S6KHbssq16s2I5n5+y8rDec0zpPCRO3lClh5d8O/FV4CocUncSdoNbwh/ipjGW75xYim3ZRGISs
+	0mnrlwX1RMkv2hdoiednbtVTB4=
+X-Received: by 2002:a17:903:388d:b0:2d5:c099:16e2 with SMTP id d9443c01a7336-2d64b0b8244mr63255175ad.13.1787279347785;
+        Thu, 20 Aug 2026 19:29:07 -0700 (PDT)
+Received: from localhost.localdomain ([43.132.141.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d62e3a19a7sm13135725ad.55.2026.08.20.19.29.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 20 Aug 2026 19:29:07 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: gfs2@lists.linux.dev
+Cc: aahringo@redhat.com,
+	teigland@redhat.com,
+	linux-kernel@vger.kernel.org,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] dlm: fix RCOM_LOOKUP length underflow
+Date: Fri, 21 Aug 2026 10:28:42 +0800
+Message-ID: <20260821022846.56812-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/217] 6.18.46-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260820145237.531699751@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260820145237.531699751@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/20/26 7:52 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.46 release.
-> There are 217 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.46-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Aohan Mei <henrymei@tencent.com>
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+receive_rcom_lookup() derives the resource name length from the
+peer-supplied 16-bit h_length header field:
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+    int len = le16_to_cpu(rc_in->rc_header.h_length) -
+              sizeof(struct dlm_rcom);
 
+The 3.1 receive path only bounds h_length to the range
+[sizeof(struct dlm_header), DLM_MAX_SOCKET_BUFSIZE] in
+dlm_validate_incoming_buffer(), and the RCOM case in
+dlm_midcomms_receive_buffer_3_1() performs no further length check
+despite its "length already checked" comment.  A peer can therefore
+send an RCOM_LOOKUP message whose h_length is smaller than
+sizeof(struct dlm_rcom) (48).  The subtraction is evaluated in size_t
+arithmetic and wraps, and the result is assigned to an int as a
+negative value.
+
+Both consumers of that length only guard the upper bound
+(len > DLM_RESNAME_MAXLEN), which a negative len passes as a signed
+comparison:
+
+- with rc_id == 0xffffffff, len reaches dlm_dump_rsb_name() ->
+  dlm_search_rsb_tree(), where memcpy() converts it to a huge size_t
+  and overflows the on-stack 64-byte key buffer;
+- otherwise len reaches dlm_master_lookup() -> _dlm_master_lookup(),
+  where jhash() converts it to a huge u32 and reads out of bounds.
+
+Drop the message when the computed name length falls outside
+[0, DLM_RESNAME_MAXLEN], which is exactly the range valid lookups
+use.
+
+Fixes: e7fd41792fc0 ("[DLM] The core of the DLM for GFS2/CLVM")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+---
+ fs/dlm/rcom.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/dlm/rcom.c b/fs/dlm/rcom.c
+index be1a71a6303a..14d5ab658f60 100644
+--- a/fs/dlm/rcom.c
++++ b/fs/dlm/rcom.c
+@@ -385,6 +385,9 @@ static void receive_rcom_lookup(struct dlm_ls *ls,
+ 	int len = le16_to_cpu(rc_in->rc_header.h_length) -
+ 		sizeof(struct dlm_rcom);
+ 
++	if (len < 0 || len > DLM_RESNAME_MAXLEN)
++		return;
++
+ 	/* Old code would send this special id to trigger a debug dump. */
+ 	if (rc_in->rc_id == cpu_to_le64(0xFFFFFFFF)) {
+ 		log_error(ls, "receive_rcom_lookup dump from %d", nodeid);
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.7
+
