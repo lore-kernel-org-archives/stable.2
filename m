@@ -1,101 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-of-o58.zoho.eu (sender-of-o58.zoho.eu [136.143.169.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E528C3FC5B7;
-	Fri, 21 Aug 2026 19:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787340115; cv=none; b=mfb9wXJxg3n3MAkcvVuEKMWtYXq+r+CqEGdnHjs4/BBoQ8eOcojgMWPwT5utwuQFxAby3M7SeiD7MFfpYesZOCRYkyY+muuBl4LhyTWUHOyENDvRNaRW6KO2+I4M4qmtmQrmmLMIPA4Wkys2hTGzy2Iebc98eaGu9raRL1HGAMo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787340115; c=relaxed/simple;
-	bh=gXF8iz+wYQgG10FLsZh6CYRv3Btle9XR/JcIBYOH+8A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sGWYGvIOTULt14Lai/Eg4LD8s8WjOVGk85STu39JojQFfihonUk1SqCMx2xl5MaOXHPEut/0AJQk90SlarSMlYXFyDQ7311IPnuA+T5nk4HMGXoGoqiTx9yHGXIhqRmwle+9ZNcIw/L04PjbHd/seftrsDNRKG583eE3aBToBjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYHYML7l; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014283F20FC;
+	Fri, 21 Aug 2026 19:23:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787340193; cv=pass; b=oEh0GgIDDkbWPTSpBuLy2S+YwW/a2o9lSKr/XPv6I0BE9cuhUPBVfPSfD82q3tsNDcSWzk3znSl8uUa66klHiVhFuL01PQjHvUNGSNnjuUjUoWAGsB/Su7ZYH28ncrWXx71rt9KgkM0Fgz8MZ5blTy5RIsdndc4pfKOU5ClPqNI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787340193; c=relaxed/simple;
+	bh=a+OmqHoz+56WAK4EZHTDiztgQUS33R2kagA93v0wHgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A2ivOxLOHC3QBmE8p3O0Mc2sDkXQNKHrO8wHOLGlJ2Ei0tzOkmkZK5a+NZICPkrX6LTNuxdRj09pT0wCIHQzQtM5h+EoIWWBiKt9ASXLEzLwgtmc+S0+HsJK70XSzXgNP7SqHvax9GIP4TJKQ2f1eE73nkzi3BrdIzfzEs79pko=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=L9QhiZ98; arc=pass smtp.client-ip=136.143.169.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYHYML7l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614E41F000E9;
-	Fri, 21 Aug 2026 19:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787340113;
-	bh=6vODyF6CYY5aRNRATW9aqTUa410IgP9lF5ROlWTn/X0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JYHYML7l1Hh3xeJyrzxBfvFPGoErp6qKVwslT8FxMcWkqsHJjv1jL6A9kKgYmn+R7
-	 vb+G/lKFXgInA1DdW9tyYVlOq2qKVq+s/rnKE/WlL0lEIe24Yq6/+DtlVh93ASK8PI
-	 e9osd+/ZFwJz4X+UWwnbTICjtYVC1O2MjWoNIgEIt971BM17SIW5T3cvScd3wv1QK5
-	 1zsrSzrfx33IcndEp2u2lc9Y9zsHRzbHUQYz0KWnjkzJf8ecGtzwJXamdagFfqafQI
-	 spakg7lqRNtoO2sNKgB0dHtvxwRDzbL1jTIkCFMdTS1b8qtBXDyt/AfwYQfqS7RDb+
-	 Ln2vlxie5ohrA==
-Date: Fri, 21 Aug 2026 09:21:52 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: gregkh@linuxfoundation.org, chenridong@huawei.com,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="L9QhiZ98"
+ARC-Seal: i=1; a=rsa-sha256; t=1787340152; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=dxAl0xTyEjph3VfT5EZUxiEroCzde3FLVZHrOGwlDFSlFBkm8JCCzKl9Y4t3ImQ3SmGyBI2if3/nckUwq3PivXkuEMGezZRjt0VSQTz+n00MLNdLInmRW9DZTPSSmagPZXKtWZyPwDxjKT+wX9WEc6EV41IUDDZlD+r6EUW8K4Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1787340152; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=a+OmqHoz+56WAK4EZHTDiztgQUS33R2kagA93v0wHgI=; 
+	b=Z/088s5Y1BapfODW9CXtuwQ5T6dPQg6TpEsl0ZHAhkt7+4U6m/GCVgP6vMW19Wu5dSWQa1qlu+pU89WhVjO7o23HATyOq3t2giI+rldTgybYEQFEzf0GyQSXNz6eDcBtjit8m1uxd/u9pydQEMuWhDSGktXK5dtLIPRAFlOElow=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787340152;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=a+OmqHoz+56WAK4EZHTDiztgQUS33R2kagA93v0wHgI=;
+	b=L9QhiZ98tOKnJxtX514I2C9iG7WvZBZ08wPzsuoU9JbvWtAUL43pygaZ5qwVyZ5P
+	OjRweEhqek5Z6vYsnoedv+zIV4C/3/nnaeVw1elNzR3B7r3VF2vB3pezjrOjVK4+mNa
+	LniFlQbxwJGFGkwhyp2Z/LF9dpqGqpG91KrEGVXk=
+Received: by mx.zoho.eu with SMTPS id 1787340149493295.698898550316;
+	Fri, 21 Aug 2026 21:22:29 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Jiale Yao <yaojiale02@163.com>,
+	SeungJu Cheon <suunj1331@gmail.com>,
+	Tim Bird <tim.bird@sony.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] kernfs: recheck of->released after acquiring the
- active reference
-Message-ID: <aoilUIPIPAzHPuhO@slm.duckdns.org>
-References: <aoc9XplwfHGjQym4@slm.duckdns.org>
- <20260821050720.14848-1-fanwu01@zju.edu.cn>
+Subject: Re: [PATCH] Bluetooth: RFCOMM: serialize session teardown
+Date: Fri, 21 Aug 2026 19:21:51 +0000
+Message-ID: <20260821192217.725793-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260821174514.3034851-1-nicoyip.dev@gmail.com>
+References: <20260821174514.3034851-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821050720.14848-1-fanwu01@zju.edu.cn>
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Fri, Aug 21, 2026 at 05:07:20AM +0000, Fan Wu wrote:
-> kernfs_get_active_of(), added by commit 3c9ba2777d6c ("kernfs: Fix UAF
-> in polling when open file is released"), tests @of->released before
-> acquiring the active reference on @of->kn.  A hide/drain/show cycle can
-> run between those steps: the drain path releases the open file, and the
-> reactivation lets kernfs_get_active() succeed again.  Any entry guarded
-> by kernfs_get_active_of() can consequently run its file operation on an
-> already released open file; on the cgroup pressure files, the poll
-> callback dereferences of->priv while forming &ctx->psi.trigger and can
-> hit either stale, freed memory or NULL.
-> 
->   CPU 0 (kernfs_fop_poll)       CPU 1 (echo 0/1 > cgroup.pressure)
->   -------------------------     ---------------------------------
->   of->released == false         kernfs_show(kn, false)
->   ... preempted ...               kernfs_drain()
->                                    kernfs_release_file()
->                                      ->release(of)  (frees of->priv)
->                                      of->released = true
->                                 kernfs_show(kn, true)
->                                   kernfs_activate_one(kn)
->   kernfs_get_active(of->kn)
->   ops->poll(of)
-> 
-> The cycle needs the file operation to be delayed between the two
-> steps, but kernfs_show() cycles like the one above are fully
-> userspace driven.
-> 
-> Acquire the active reference first and re-check @of->released after
-> it.  While the reference is held, @kn cannot be drained: kernfs_drain()
-> waits for kn->active to reach KN_DEACTIVATED_BIAS before draining open
-> files, and the only other kernfs_release_file() caller,
-> kernfs_fop_release(), is serialized against in-flight file operations
-> by the VFS, so the re-read settles whether @of was released for good.
-> The re-check needs no lock: @of->released is only ever set to true,
-> the drain which sets it precedes the reactivation under kernfs_rwsem,
-> and the fully-ordered RMW on @kn->active in kernfs_get_active() then
-> orders the read after that reactivation.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 3c9ba2777d6c ("kernfs: Fix UAF in polling when open file is released")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Hi,
 
-Acked-by: Tejun Heo <tj@kernel.org>
+On Sat, Aug 22, 2026 at 01:45:14AM +0800, Chengfeng Ye wrote:
+> rfcomm_kill_listener() walks session_list and deletes every session
+> without holding rfcomm_mutex.
 
-Thanks.
+I agree with that observation but I don't think this race is reachable. I
+also could not reproduce the reported splat.
 
--- 
-tejun
+I tested 7.2-rc5 with KASAN and RFCOMM as a module. An open RFCOMM socket
+keeps rfcomm.ko pinned so the module cannot be unloaded while connect() is
+running. Even with forced unloads and a widened add/drop window, I only
+hit execution from freed module text. I never saw a UAF in
+rfcomm_session_del().
+
+The splat also looks like it came from a built-in RFCOMM build. The
+missing module tag and the way rfcomm_exit() works in that case make the
+reported path unlikely.
+
+Could you send the full report and the reproducer? In particular the
+"buggy address" block and both full stacks would help. faddr2line on your
+vmlinux should also show which traversal the offset points to.
+
+The locking itself is safe but I don't think the changelog currently
+describes a reachable race. There may be a more relevant unlocked
+session_list access in rfcomm_security_cfm().
