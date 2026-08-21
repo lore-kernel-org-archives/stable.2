@@ -1,112 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F6748CD54
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 13:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B8E46EC81;
+	Fri, 21 Aug 2026 13:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787318531; cv=none; b=lLnvlsfJskvCviTZyRUPmly1aqiNzBeDY68KGgi5sBar3LhL2wjTS9SorlkPkPFhlH9B0c0u0EzOq5Mw8z6qF7aZjoP0IWJ7OnrtkDeZrkeQfApUQSRpbyLQiGk2o15ydTMBqmvJyvqKi63smZ/EP0+uTeVZjvkeoCOoHEOFE0c=
+	t=1787318670; cv=none; b=TVnaagzFujw0fthITfjnYkyTeP8ogmKDE9H5Hf+IVopanJ8S5MBkIq3vuViej21oa6IviMjkuUHEtFsebTgqtUha26jYqGrsBiwSb5Sk+q6T7jOOxoOCQQqhUYT4yX5djKBrhfO3Quo3/yBHoeJ2oq4T1py5cwldsiktCY0x6hA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787318531; c=relaxed/simple;
-	bh=EvClbgTnvs8sWY2KlA6L4typMqzEiX5/tBFZBYYvbSw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lrwEDc4WdWih6hRxpGNzvSYs+85DAyWOXMZleFNkHIojGenPb3mewqGhJMXVMSS0I+Bu5a1dZF84ht5XZ9JOytVhYQ/e9gpNP0XqrEPm6E7dKeADTbrIjstIJPa2WB7DnH+x4TpR6VJQ6M6cYyxfI1XXbRXkw3ieBqzApu6x/GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RY619KRc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787318670; c=relaxed/simple;
+	bh=0KeAh2yZQ4/JEBjlAjH72kjPeo27SYU2lWuAvxRubTk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lcqEqfWAoES5/Z06Bvkrj4HD1O4+tjzGnzwzb/ntnfyQ5lMzlVqTv1ZsBdvBFu41FMU7BuV2ksDITfKcUAM+8jn1QlMv14rfNI2x0GG6zROXlWcFm77QcVA/6nw+qLurZCojS6lxtJn6adB6RX29PnliEnHsyCuTBRbpG5frZL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=mZQVCZY4; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OArAfgxF; arc=none smtp.client-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RY619KRc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4539E1F000E9;
-	Fri, 21 Aug 2026 13:21:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787318522;
-	bh=0GDzKsrHgVhSxZzd+pFpFNj20qNgk+pfXZJaooIhNe8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RY619KRcLC6fpCuc6d72jrD8/WBTmvGmXXJwKWnv79acxt+7w85JLwyv/rU6xFcNT
-	 Y2w8qQS8fqDS0XleD6h+XqyO+Kk8XffY0AUzEFcTiNhDC1/DA55rJa8enmPJsWl7sG
-	 1einMkdT1EfpTld8bW1zq37CPhEnQkmAC4CjRcOWST15F+Vemzk7Hu4JFskCRWq/2R
-	 U16J5ws/D4GqYwmSzz+kgQfjQM/r4XAZ1q+MTCeque86a+1PI6DGKs0321tCvzQMHI
-	 7mEAB4q3C6CSoR+MFWsdEfEXyQmhxSWwAQC5zAng5TcqAyfjW6cMpx/y4oGdu+zcPu
-	 H/sSt0t9VY1Hw==
-Date: Fri, 21 Aug 2026 15:21:56 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Keith Busch <kbusch@kernel.org>
-Cc: Rihyeon Kim <rihyeon8648@gmail.com>, justin.tee@broadcom.com,
-	nareshgottumukkala83@gmail.com, paul.ely@broadcom.com,
-	axboe@kernel.dk, hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
-	stable@vger.kernel.org,
-	syzbot+f58e57380a6083c4041d@syzkaller.appspotmail.com,
-	linux-nvme@lists.infradead.org
-Subject: Re: [PATCH] nvme-fc: fix double free of fabrics options when
- nvme_add_ctrl() fails
-Message-ID: <aohQ9NcuMtSqWvvd@ryzen>
-References: <20260814143833.1953415-2-cassel@kernel.org>
- <20260817061815.154794-1-rihyeon8648@gmail.com>
- <aoMkX_davK7TWlaj@ryzen>
- <aoXLiFruG5s1nKch@kbusch-mbp>
- <aoX2wcyhpakryWHX@ryzen>
- <aocb3ogg34WWtRSB@kbusch-mbp>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="mZQVCZY4";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OArAfgxF"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 269F07A009B;
+	Fri, 21 Aug 2026 09:24:13 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-05.internal (MEProxy); Fri, 21 Aug 2026 09:24:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787318653;
+	 x=1787405053; bh=3OcZOneH84uMUHuqcJlM3UioXw3CQO4uTwxF3T77Seo=; b=
+	mZQVCZY4qviuTBoOdYtXqQzF5wUEkiD7WhlA5QzFAGW4I7AUb2p3frJXqKiMtRef
+	GrtlNvtpyw0UXB4gWQ+xGqA0R9knWU0X0jMGQ74qmjbJ/hQt8vVmFSXHl7YMlrW0
+	McJGJJY6FhlFj7D7YYt6/n/g3BnFbrE7B5wuk7OfNotXCYyxz/YtSKkuFnTQW919
+	NywzHXoNcC6hcek9W4xgjBqGv1brlWy2yEg6iivhi6qMsQW9Slygm6I0quYBBYid
+	sv7Cx2IC2UJ+xDKEPRFgKxSktpw5dEPghOUWpv2qlMMob88oYevZrHcGLhCjYTI7
+	1FEtHMeGbbtxWTA+ncrEbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787318653; x=
+	1787405053; bh=3OcZOneH84uMUHuqcJlM3UioXw3CQO4uTwxF3T77Seo=; b=O
+	ArAfgxF4JWESUNhDM0wbyyknxvJtVZRpwg2GC2wAH4Qe6vhF6L2t9oMetFTyYLFr
+	tLUguikGSgaHo9e2e0TockB9hWLM7G4/hd+bZ5pNavpFosFEntd5P2ClkXjM9E7B
+	JmbtVNrZKYQO6OAGew5e3p3pXwYuYc35j1k0yCjnCm6qgmafJ+XxeKytlu5ZgUfg
+	5Wd4Slm5H9PpN9sQiSYvg6ZLs/oZ8ZRbBEZu58yrccHLUB9I+PHloOtHfac5Z+ig
+	/KeF3WypcJTQ1eilAvZV0b8CsTpuDFNU7xgZ9wEcT2W60R4wb3QcFGDULeWRArY1
+	4d+YorkaH562XynDRpxmQ==
+X-ME-Sender: <xms:fFGIar9E2V8y1rGj6wCEQtEo3XYlHS3orw02_Ebk2QuDiGILhJQ_KQ>
+    <xme:fFGIajkuXeHGacvM3LyZIZ8lul07kWToD1hgS7rJmhCXK9qx-xiIXI1pc8sxr-n9V
+    eddX8HUWxGpAMUVvBkUbdYSd1kCAD_GiI5pv4FVkqAMinSoHUw5qs0>
+X-ME-Received: <xmr:fFGIakjL078fQZ6FnGLa9Ko4XelZE5j-v1KJsfbhc3UmVEFYk538wBRv2v1pNwL15aS13AjLTw_oJeven_fMw7vWeC9kEJl6>
+X-ME-Proxy-Cause: dmFkZTE0dgeGrkFtExipsGvFxrlukiTCyhW8juZDcRxWB7HruDPtRi+cEjF5fpNXhqEfLy
+    1POzEkpwnLbp2TKo2DROkP5fzezrNae41A/uihjcK/n8j+KCxZlX+3k1wH15SdzbimQ+4L
+    jaGMKRb2qVAePcD0awLL7x+O3ARamG9258V09IO2PD/zG2wusSk9WuSJlf1w0Ld7J13hul
+    JPVapoSS2jyiH2/pHqXTGTw5oXEQGL+uM2omTLHNgWOVLp5sgIk033NiDmxAgajhKmmvuv
+    iVKNGD5OxJDn+8ebSZYsbmnBBmANQb3SRFbrkS0qVAn8JmWAJ4yqXp7xhCLeTfP1xRYlcb
+    OF/frTo7oZ7KV9RZCKNGV8m9h/axT4kN0ixIJ4wFxHgqE49ou4YTaftOnG8o6QkGqgWhv+
+    GnG1OBp53KXOfny9RO4TFE782IFlz63iCDD8Qv+tkxqrC7FFil1RnMbiOBkgRSuoxg/Yu0
+    48sr1HXsabkVRHicDSyRe09NBjAQmjF4UbWphb6BCfcjgQ/6ee4oxA2qbhfEysUgF4P6B4
+    wdUo6HQKmaIrw21QYmAj6oEmxHu18w2JLGefoPzReWjbjlMobPMkxDoNg/WFWPMghi7/ti
+    jWWGMtZ5L6koFAm9TtL5bmWfVLJVasj+uhlQXVoKF71M2b2+Ta7QwpSEIR3A
+X-ME-Proxy: <xmx:fFGIarYnox8eW1OyYEdLrag-zyeUo6rd3DByIopOsreDWXl9tEWBtw>
+    <xmx:fFGIaoElWfmXe2hS-e8_C_jC6h-LPOsbI6nTTPSZwtanVe84rSj1hA>
+    <xmx:fFGIaoZ07nPSuwIbgBMqk-uiLaUdYu6PVTuoYuFyGHk6C8SQetg3zw>
+    <xmx:fFGIap0iikKgzOtK1s14KQXaTd2py_gxGymOyoBXfn_EMa7or8tUEQ>
+    <xmx:fVGIajxbcTDRremBExfynunYN0E9uDB1SxPujFgS_Hy8Kc85IUA4HJNK>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 21 Aug 2026 09:24:10 -0400 (EDT)
+Message-ID: <00aa6275-65cc-45b1-98cb-ed2fa84c8603@pobox.com>
+Date: Fri, 21 Aug 2026 06:24:09 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aocb3ogg34WWtRSB@kbusch-mbp>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 000/166] 6.6.153-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260820145211.194104353@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260820145211.194104353@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 20, 2026 at 09:23:10AM -0600, Keith Busch wrote:
-> On Wed, Aug 19, 2026 at 08:32:33PM +0200, Niklas Cassel wrote:
-> > 
-> > I am not following.
-> > 
-> > The options is freed in two different places, depending on if the
-> > ops->create_ctrl(dev, opts) call in fabrics.c:nvmf_create_ctrl() was
-> > successful or not.
+On 8/20/26 7:54 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.153 release.
+> There are 166 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Oh, not that path. You mentioned previously that ctrl->ops is
-> dereferenced in other places. I thought this means we can successfully
-> add the controller, which means the attributes are visible, but then
-> fail something else later that causes the opts to free. Since the
-> attribute was visible, something can open it before the device exporting
-> is torn down, and access it after the opts were freed.
+> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.153-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Sashiko flagged another NULL pointer defererence from the sysfs attributes:
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-"While the sysfs attributes are still fully accessible, an unprivileged user
-could concurrently read an attribute like hostnqn, causing a NULL pointer
-dereference.":
-https://sashiko.dev/#/patchset/20260811125310.165487-1-rihyeon8648%40gmail.com
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-This comment was on Rihyeon Kim's patch proposal.
-
-I assume that this is because the fc.c driver (both before and after
-Rihyeon patch) force set ctrl->ops = NULL before nvme_free_ctrl() was
-called, so a user reading the sysfs attributes at the same time as the
-controller was tearing down, could most likely crash the kernel.
-(Note that neither rdma.c,tcp.c,loop.c does this, so this problem does
-not exist for them.)
-
-sysfs_remove_link() is called before ctrl->ops->free_ctrl(ctrl);
-
-
-My proposal removes the "force set ctrl->ops = NULL", i.e. makes fc.c
-look more like rdma.c,tcp.c,loop.c, so AFAICT these NULL pointer
-dereferences in the sysfs accessors are no longer possible.
-
-I assume that the sysfs accessors can be accessed until
-sysfs_remove_link() has been called, and that they can be accessed
-as long as the ctrl object has been created (i.e. the sysfs attributes
-do not care if the ctrl object is on the linked list or not).
-
-In both the success case and the failure case, the options are always
-freed after sysfs_remove_link().
-
-I hope that explains why we are not accessing freed memory.
-
-Removing the ugly force setting of "ctrl->ops = NULL" that existed in fc.c
-(and fc.c only) was a big motivation why I wrote this patch in the first
-place.
-
-
-Kind regards,
-Niklas
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
