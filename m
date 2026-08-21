@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA67B47F2C8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7F247F77F
 	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787310015; cv=none; b=WB7NAFbEHc9knOH5GAnxZWXYXM8AZutglNikNokMDVgUWN4uLtsSW2B5uvmuJiQvMyLYlN8ZAJvvRw3OPLLOuvvgjTFXTMToj6pGmB7gZA3u9A80KzWmm0Ouu43pm7uxfklS369XNhHAQmoKbJN6lZEn/z5gVr6fFXqi6I4OZ20=
+	t=1787310016; cv=none; b=WalSZ9o8JXDZcgAixyHkKz33frlDy9SKe7IxxsiyCmyqBYOHOnpeYMITvWvQSwfd1mCXjk3Pg9tkXEt1kztNlcren6kwWDH6OCUoRAoAkuQeWUxdBl78H082SZwZC27QGAxwkwLbYUuHSsBSG/5qgl8kvdH6n6HdwKQYbaiKIA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787310015; c=relaxed/simple;
-	bh=feZBZbP2krK0y+LfcjOENcp4mqctyGoPSTOHkEnsfQY=;
+	s=arc-20240116; t=1787310016; c=relaxed/simple;
+	bh=i6u7nGtwKbXisB7jB2NFMPJCWpuEMivpoD5vbT2YV88=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vELTUaw8Iimg3alXQnKPowmKnpbk2xp1DjU7U8DQ/giT6KQHdXkw7TEU4iyMgHl7OF1TvTNyeAYJ8FnamZMSQtE8uYwEWV2tt4GsLgSQdZ85cDNmCY1J962bsKSIzA3S35gI25Y0RoFtFOK+HzJgVeVmK79f3fRkPpQIkVH+QL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aG78Jl+W; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uqSX7V2Vla2p+auRxmrPc/syNgCOsWrMVWg6yKiewVnNw2+i29UwB6Z9fCHg3MXJHwWqmJZ8Y9Y9RIkowVUHnrztv4HlI3hIgrPilr9BjBTi66uebyhY3dw9JgHaP21FKDrgaa0DuoOzfSFY7YYPQNlsJ9El8zM+XE6K5VGSOS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhZrPFnG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aG78Jl+W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD9D1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhZrPFnG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E12D21F00A3F;
 	Fri, 21 Aug 2026 11:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787310013;
-	bh=sNSztu9GmNjjZkXsWuEsA+QKLZ/UiHWcK27d12aif+A=;
+	bh=mmR7SQKaCHL9LO4vmfdpAn++SNhFHunf0Xhw5x7xvCI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aG78Jl+WzwJPiO8ls5ACLb5KfEpFn6KSjMjEKtsOOtrUk32IZ8PM3SLH4trkZafWx
-	 ISOKya2RU5mKOGFlfvE82MWEWxobM1yyZ7+MqFJqJ0MticfZDnZvzKVKs++U8FybD7
-	 zZJ8PP4qXthi0D9pw+GpZcCwQ+uJo82mTkyoMrZSzyrmzPbsbTnDSJ1Z9NMqEc6g0n
-	 Z9E6gqzltx97vh5qRMUBD2BbT4jDnkaRm1H1bFztejnStLvmwh1pwVoVIH2Nb2f7W4
-	 pSaMu7Vrd2bawzvfk4FVysc1C8DEUCpjVjIUtbKTP7ElAPFJ2TQBcbpOIvhyfG8GDc
-	 nul4cxHMIo9dg==
+	b=mhZrPFnGPficUMKMgjCLbdsLSIQfSryHdvEYfDwk5hF5vdFBfgUZ8X25K1dS3crlf
+	 hnadRXZNDtBmX3fc55vllTVBzn3s+xjAG60gJPJYTrFYtyZ8GoKBIkINPZ39eekoLp
+	 JRqV/Av/ljYEmPaBhQD6pBjhJwB1qlufYZHDmXHuNDnFuZ0yEl3cnam30PLWFcvKSX
+	 2wM9xvs7dIjnU2EMOMyCikDqSnsZvS7E19av1RAaO7sx61GTywbWHw5FIvUhFHn/pm
+	 Wxd354RZEFJ4jgYGW48Ru+An7l9c94td3/cBDGeSAKsBFS/7Gdqrvy7bw6PWOQAcWa
+	 lfxT4SUn+c+3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	stable <stable@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/5] serial: sc16is7xx: use guards for simple mutex locks
-Date: Fri, 21 Aug 2026 07:00:07 -0400
-Message-ID: <20260821110008.2816500-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y] serial: amba-pl011: synchronize DMA teardown
+Date: Fri, 21 Aug 2026 07:00:11 -0400
+Message-ID: <20260821110011.2816711-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821110008.2816500-1-sashal@kernel.org>
-References: <2026081755-absence-womanlike-85b3@gregkh>
- <20260821110008.2816500-1-sashal@kernel.org>
+In-Reply-To: <2026081746-unbridle-client-7ffc@gregkh>
+References: <2026081746-unbridle-client-7ffc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,93 +46,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 0f4f88bfd7e7bf3f3293045fffdc63586b0a889f ]
+[ Upstream commit 440915499231e9db1c361aa45bb702e8fd3b4a32 ]
 
-Guards can help to make the code more readable, so use them wherever they
-do so.
+dmaengine_terminate_all() does not wait for a running callback, so the TX
+callback can still touch the TX buffer after it is freed. The RX poll
+timer reads the RX buffers without the port lock.
 
-In sc16is7xx_port_irq(), labels and 'rc' locals are eliminated completely.
+Switch to dmaengine_terminate_sync() and delete the RX timer before
+freeing the buffers.
 
-Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://patch.msgid.link/20251027142957.1032073-6-hugo@hugovil.com
+Fixes: ead76f329f77 ("ARM: 6763/1: pl011: add optional RX DMA to PL011 v2")
+Cc: stable <stable@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260731085915.326775-4-fanwu01@zju.edu.cn
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 246ac114f485 ("serial: sc16is7xx: enable THRI before filling TX FIFO")
+[ changed upstream's `timer_delete_sync()` deletion to match this tree's `del_timer_sync()` spelling at the old call site ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 23 ++++++++---------------
- 1 file changed, 8 insertions(+), 15 deletions(-)
+ drivers/tty/serial/amba-pl011.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index 694e3d78d6e78..d73bd07c864f1 100644
---- a/drivers/tty/serial/sc16is7xx.c
-+++ b/drivers/tty/serial/sc16is7xx.c
-@@ -10,6 +10,7 @@
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index c881d4413b899..82d5b49194099 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -1198,7 +1198,7 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
  
- #include <linux/bitops.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -791,18 +792,15 @@ static void sc16is7xx_update_mlines(struct sc16is7xx_one *one)
- 
- static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
- {
--	bool rc = true;
- 	unsigned int iir, rxlen;
- 	struct uart_port *port = &s->p[portno].port;
- 	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
- 
--	mutex_lock(&one->lock);
-+	guard(mutex)(&one->lock);
- 
- 	iir = sc16is7xx_port_read(port, SC16IS7XX_IIR_REG);
--	if (iir & SC16IS7XX_IIR_NO_INT_BIT) {
--		rc = false;
--		goto out_port_irq;
--	}
-+	if (iir & SC16IS7XX_IIR_NO_INT_BIT)
-+		return false;
- 
- 	iir &= SC16IS7XX_IIR_ID_MASK;
- 
-@@ -842,10 +840,7 @@ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
- 		break;
+ 	if (uap->using_tx_dma) {
+ 		/* In theory, this should already be done by pl011_dma_flush_buffer */
+-		dmaengine_terminate_all(uap->dmatx.chan);
++		dmaengine_terminate_sync(uap->dmatx.chan);
+ 		if (uap->dmatx.queued) {
+ 			dma_unmap_single(uap->dmatx.chan->device->dev,
+ 					 uap->dmatx.dma, uap->dmatx.len,
+@@ -1211,12 +1211,12 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
  	}
  
--out_port_irq:
--	mutex_unlock(&one->lock);
--
--	return rc;
-+	return true;
- }
- 
- static irqreturn_t sc16is7xx_irq(int irq, void *dev_id)
-@@ -875,9 +870,8 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
- 	    (port->rs485.delay_rts_before_send > 0))
- 		msleep(port->rs485.delay_rts_before_send);
- 
--	mutex_lock(&one->lock);
-+	guard(mutex)(&one->lock);
- 	sc16is7xx_handle_tx(port);
--	mutex_unlock(&one->lock);
- }
- 
- static void sc16is7xx_reconf_rs485(struct uart_port *port)
-@@ -944,9 +938,8 @@ static void sc16is7xx_ms_proc(struct kthread_work *ws)
- 	struct sc16is7xx_port *s = dev_get_drvdata(one->port.dev);
- 
- 	if (one->port.state) {
--		mutex_lock(&one->lock);
--		sc16is7xx_update_mlines(one);
--		mutex_unlock(&one->lock);
-+		scoped_guard(mutex, &one->lock)
-+			sc16is7xx_update_mlines(one);
- 
- 		kthread_queue_delayed_work(&s->kworker, &one->ms_work, HZ);
+ 	if (uap->using_rx_dma) {
+-		dmaengine_terminate_all(uap->dmarx.chan);
++		if (uap->dmarx.poll_rate)
++			timer_delete_sync(&uap->dmarx.timer);
++		dmaengine_terminate_sync(uap->dmarx.chan);
+ 		/* Clean up the RX DMA */
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_a, DMA_FROM_DEVICE);
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_b, DMA_FROM_DEVICE);
+-		if (uap->dmarx.poll_rate)
+-			del_timer_sync(&uap->dmarx.timer);
+ 		uap->using_rx_dma = false;
  	}
+ }
 -- 
 2.53.0
 
