@@ -1,144 +1,220 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3EF429CEC
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1F1429CEC
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323744; cv=none; b=iDRIaJp1yRaAVsJSATCVgvc1VC59fFgsxpIcCiouIJi8XCFTVtO5djZswCeju2iAZew+ZeF+PtFcX/obCm9nxyE95yqACRhaO6Jq2MvPCzY8N0FRB0xydOcOCsomCGL8D4NS07z0oBb7ckK3Jp+NIAEYv02ill4Ure/Qg+gh0eE=
+	t=1787323770; cv=none; b=Wg3rsuDdNhWuhifgvIsiFApGfl+U00tSAVCYOGzs0EC0HJh3gQgns/P7KllQ6A5256wdCU2bGrti+S++0uqVJHJ/xYKWJ3qLBvNQkrmu9i0yjvKzj7zKQchAgeA/alP8BF6kM1jHH6gJEaA3DmGGv0+oTY9yZcrkAEZSdhchAzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323744; c=relaxed/simple;
-	bh=INT1Vtti3BreOEpeqwcIP3LbJxbbfHxuT+kCBc19nBk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ei2NBuzUqAvrqgOp3P/I/aYAqsDSFGnkMi2U2d6bVT6SSbQVDsZgxx9mfxtxP6sID+n5Neb8Jn+DTIa/rsvSGXzSWA89rb2RBsRGEpJ4PB2FaSJtldtMGSDyD0tuqSC1z62P/4h8jmzdw2hw2/LaM7gEQyc2v+7FzEVlLuFHOXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jd1mxG0E; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787323770; c=relaxed/simple;
+	bh=KGAEf+d+aj7nIMgOGQBTi4+8jWGvfuPho969+miyuiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZGlCmyv9aS9X5+4xHQ78Lz4S0HQkmUNATgwI7GeKdaVBPQorGPB/Zydnebtz3jOmA2kgnToIyWncTeaUMjoxQJ1glrkjdxS461vIkvxTsXmlsYXfELOokiXxpla1XpdJK4IA/8txAf6muCXJ2XEus9XdvAfPUUJfYWL0RSR4A6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S7AEZnzZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jd1mxG0E"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso7447485e9.0
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 07:49:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787323741; x=1787928541; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RySDzNgFwOZt+mpqx8aHwP46Unuo6yoVJSd8AB2W69Q=;
-        b=Jd1mxG0EQoCfxnqNlou3th/dzKvBYDx2vwi359akBmUsvv7n4AQhNUWVdVdcAmu4Kr
-         iDRyfuAj89Xsx6BZzdcl+wbI4eSIWMaBaLSd60xCLD7XxR/F3kWNvSYZLM9wO6Yhfq99
-         e784neFqjrQXrArk68fvn1OYJqmB/PCgxC3bsD484uzxStibLwbxhX5NUMq+gwd5ckUO
-         QjiDOMRZGFB47NgQBSsGQLppQ3XHKnLZ/AaDnMrynEULs6VwQ+U+HvKzisSXCj9NoOHE
-         jG8d5+RXDx1cN8jBci7SxiU5GImFvdfD/tbCiYlQ9h9zUYR6Wnt4izHEHOhw2u7xGfWB
-         3FSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787323741; x=1787928541;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RySDzNgFwOZt+mpqx8aHwP46Unuo6yoVJSd8AB2W69Q=;
-        b=o/9gZmPi1J3ptZ7uxCVpmxuHl5yJsNqXo2LBDcpYWVli/+c8v/RZ7jh44gg3w61J75
-         7mTcBZOz6gNFfqio4mh5yYgN4fSet08uZLk5xN5kq68RHJjOmlQKc9xYa7YTdmp/FLuI
-         F3KwqnYkk5IGr5V+odjC09w0gqjLA4wz8oQbmmN9+65DZRj85xg0YACg/A7Sn6pwwluE
-         901/NR8dLqZBoOQ1/VSYj23h07zJ7Fi0t4vJMONEZWYPRZLt5NVk7xpAqfA0uDnld07D
-         QWQWuzlUHrDDQz83+p1JsP1D8KxntXAsT1CDod8gSBAFR6mnpA9ApPTzGOKQv29QcHNl
-         SH2w==
-X-Forwarded-Encrypted: i=1; AHgh+RrdYhmkp/9WNYNJylX3fxbPjSHlmtOAUCaias2h0QA4Z7MWn5C8wHRzDZpyySaKfo5n8V42Co8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLb27atA81hyHPTR0/CaePmiWk/s5v7N6sdAA/lfHpOH8BVLMK
-	RGlhPNyLo3/s/fHvGL3cW0ZOkAbHSJFX5dks86PpdF+sOMjPyPfe2ks/
-X-Gm-Gg: AR+sD13xjUCstilHObDd2AacFbBC9gR/my2cwBXx2TfEKE3ZeGuUYQDPwkPfDTtjJ2D
-	UUdCpdJTgbjq4uKwfpJDcyt+dWa5WGk22bUuOSDDg5Zqd/pF5YbX2e9OysjzQgYw0sW6Yt3JqpV
-	X+s6O0ajydG3zrgaVQSkf0zCChZWciT/ObqhA+e9Maj5PvroISEpinXJNIkG+3yK5TPi+pNzWZq
-	7YVpa/JwZW6CwNwTXxZHPP0AjUglSKrQPX9e6RDsX8UBA8BTAo9yKu6rIyDTntJix5cJ5FBMX0M
-	WY5XMy4xu8nva9nyxQ9zTTVUwgRjdbjeRmgBwbhE4YDfXK9C9ouItTkAoTCudK8j7hIwu3J1xp5
-	3iZ7pX5x3zd/8t2IY1Z4p2OX9vZcv4kyy2c99R57mgduPM2ZZGKUcp/Fj4FOhji2gHeuzhT2MgR
-	J4M3h8AhdQ7qAbKQp2QD7dk0rqYppuKngvzrMAyUU22ToOugiE13TDAgpF8SSMFeyrrq+yPAsWZ
-	O/lMfSOosaf9zIl474HgILDdA==
-X-Received: by 2002:a05:600c:4f87:b0:499:5a50:b022 with SMTP id 5b1f17b1804b1-499b830d220mr94399405e9.3.1787323740952;
-        Fri, 21 Aug 2026 07:49:00 -0700 (PDT)
-Received: from [192.168.1.10] (212.pool95-21-2.static.orange.es. [95.21.2.212])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499be3a3e2esm10640175e9.1.2026.08.21.07.48.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Aug 2026 07:49:00 -0700 (PDT)
-Message-ID: <3b85e6e2-29d0-43ea-abe2-246f1148939a@gmail.com>
-Date: Fri, 21 Aug 2026 16:48:58 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S7AEZnzZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF0E1F000E9;
+	Fri, 21 Aug 2026 14:49:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787323768;
+	bh=cY/bCTs/ytFP0GgR833XxTA8YY8eu9KHttaiqH7sjvY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=S7AEZnzZxZOyFKPkcahw3UQXEiArmccUtbQ9lw8QU3Wj+TuhYBiOMRg0mW0QvFQSc
+	 stSzdzZwkPZzejrV8kGz6uINK6SwCwELICv6CifozwFKrqdt1fPTq1rDjXAx0pPFOc
+	 LyYWl/zT7EsS4PUz6x089lafUR0j3gI7WBK4ta/b4Yi3jCh1k3oOhNynphxN+H8m4H
+	 M1BzXQkm51JaUcO1CG+3e2JLfY1ll3erlbwrYRA4df+esRVra8Ydyy7nj1vlT9CWXL
+	 C1y54WuGzG0jK54pHEO1jNiNdyEEBmYZf+NW7sQnfzwGuMnnPglueAd36HXFldYgbx
+	 SkfuTInDNq/SQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/5] inet: frags: add inet_frag_putn() helper
+Date: Fri, 21 Aug 2026 10:49:22 -0400
+Message-ID: <20260821144926.3428433-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081749-cash-armed-755d@gregkh>
+References: <2026081749-cash-armed-755d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] Memory leak error in qxl unbind
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
- stable@vger.kernel.org
-References: <20260809165326.164763-1-megia.oscar@gmail.com>
- <2026080941-edge-lurk-2146@gregkh>
-Content-Language: en-US, es-ES
-From: =?UTF-8?Q?Oscar_Megia_L=C3=B3pez?= <megia.oscar@gmail.com>
-In-Reply-To: <2026080941-edge-lurk-2146@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 8/9/26 20:19, Greg KH wrote:
-> On Sun, Aug 09, 2026 at 06:53:14PM +0200, Óscar Megía López wrote:
->> I discovered an OOM after run the script below
->> (I updated it and added a sleep to allow enough time for the cache to
->> recover):
->>
->> while [ 1 -eq 1 ]; do\
->>    i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
->>    if (($i%1000==0)); then\
->>      echo i=$i; free;\
->>      grep nr_free_pages /proc/vmstat;\
->>      grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
->>      sync; echo 3 > /proc/sys/vm/drop_caches;\
->>      echo 1 > /proc/sys/vm/compact_memory;\
->>      sleep 10s;\
->>      free;\
->>      grep nr_free_pages /proc/vmstat;\
->>      grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
->>      uptime;\
->>    fi;\
->>    echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
->>   done
->>
->> The OOM isn't just a simple leak; it's a refcount corruption which renders
->> the list_lru fix dead code after the first mid-init failure.
->>
->> Here's the chain:
->>
->> Bug 1: ttm_pool_type_init() does not check return from list_lru_init().
->>
->> Fix: Check the return value from list_lru_init() and propagate the error.
->>
->> Bug 2: ttm_pool_fini() does not destroy list lru with list_lru_destroy().
->>
->> Fix: Add list_lru_destroy() after ttm_pool_type_fini().
->>
->> Bug 3: ttm_pool_mgr_init() does not check ttm_pool_type_init() return
->> and does not free pool if returns error.
->>
->> Fix: Move up shrinker_alloc(), check ttm_pool_type_init() return and free
->> pool types and shrinker if non-zero and return error.
->>
->> Bug 4: ttm_pool_mgr_fini() does not destroy the list_lru.
->>
->> Fix: Add list_lru_destroy() after ttm_pool_type_fini().
->>
->> Fixed check for an empty shrinker_list.
-> Why is this not 4 different patches as part of a series?
->
->> This patch depends on patch ("[PATCH v3] drm/qxl: fix use-after-free in
->> qxl_irq_handler on PCI"), link [1] below.
-> That's not going to age well in a changelog text :(
-I'm a newbie. What's the best way to add a patch it depends on?
->
-> thanks,
->
-> greg k-h
+From: Eric Dumazet <edumazet@google.com>
+
+[ Upstream commit ae2d90355aa5592b0e99c8bbb4c3fa1d8e205f1b ]
+
+inet_frag_putn() can release multiple references
+in one step.
+
+Use it in inet_frags_free_cb().
+
+Replace inet_frag_put(X) with inet_frag_putn(X, 1)
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20250312082250.1803501-2-edumazet@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: 653d7ddf6cba ("inet: frags: publish queues before arming timer")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/inet_frag.h                 | 4 ++--
+ include/net/ipv6_frag.h                 | 3 ++-
+ net/ieee802154/6lowpan/reassembly.c     | 7 ++++---
+ net/ipv4/inet_fragment.c                | 3 +--
+ net/ipv4/ip_fragment.c                  | 2 +-
+ net/ipv6/netfilter/nf_conntrack_reasm.c | 3 ++-
+ net/ipv6/reassembly.c                   | 4 ++--
+ 7 files changed, 14 insertions(+), 12 deletions(-)
+
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index fcabb34fff35d..433d72ebb9d66 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -133,9 +133,9 @@ struct inet_frag_queue *inet_frag_find(struct fqdir *fqdir, void *key);
+ void inet_frag_queue_flush(struct inet_frag_queue *q,
+ 			   enum skb_drop_reason reason);
+ 
+-static inline void inet_frag_put(struct inet_frag_queue *q)
++static inline void inet_frag_putn(struct inet_frag_queue *q, int refs)
+ {
+-	if (refcount_dec_and_test(&q->refcnt))
++	if (refs && refcount_sub_and_test(refs, &q->refcnt))
+ 		inet_frag_destroy(q);
+ }
+ 
+diff --git a/include/net/ipv6_frag.h b/include/net/ipv6_frag.h
+index df61b98b52153..ff5644fa976eb 100644
+--- a/include/net/ipv6_frag.h
++++ b/include/net/ipv6_frag.h
+@@ -66,6 +66,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
+ {
+ 	struct net_device *dev = NULL;
+ 	struct sk_buff *head;
++	int refs = 1;
+ 
+ 	rcu_read_lock();
+ 	spin_lock(&fq->q.lock);
+@@ -112,7 +113,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
+ 	spin_unlock(&fq->q.lock);
+ out_rcu_unlock:
+ 	rcu_read_unlock();
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ }
+ 
+ /* Check if the upper layer header is truncated in the first fragment. */
+diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
+index 867d637d86f08..2df1a027e68a1 100644
+--- a/net/ieee802154/6lowpan/reassembly.c
++++ b/net/ieee802154/6lowpan/reassembly.c
+@@ -45,6 +45,7 @@ static void lowpan_frag_expire(struct timer_list *t)
+ {
+ 	struct inet_frag_queue *frag = from_timer(frag, t, timer);
+ 	struct frag_queue *fq;
++	int refs = 1;
+ 
+ 	fq = container_of(frag, struct frag_queue, q);
+ 
+@@ -56,7 +57,7 @@ static void lowpan_frag_expire(struct timer_list *t)
+ 	inet_frag_kill(&fq->q);
+ out:
+ 	spin_unlock(&fq->q.lock);
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ }
+ 
+ static inline struct lowpan_frag_queue *
+@@ -302,13 +303,13 @@ int lowpan_frag_rcv(struct sk_buff *skb, u8 frag_type)
+ 
+ 	fq = fq_find(net, cb, &hdr.source, &hdr.dest);
+ 	if (fq != NULL) {
+-		int ret;
++		int ret, refs = 1;
+ 
+ 		spin_lock(&fq->q.lock);
+ 		ret = lowpan_frag_queue(fq, skb, frag_type);
+ 		spin_unlock(&fq->q.lock);
+ 
+-		inet_frag_put(&fq->q);
++		inet_frag_putn(&fq->q, refs);
+ 		return ret;
+ 	}
+ 
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 21a002750e163..61fb0c04d3bd3 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -145,8 +145,7 @@ static void inet_frags_free_cb(void *ptr, void *arg)
+ 	}
+ 	spin_unlock_bh(&fq->lock);
+ 
+-	if (refcount_sub_and_test(count, &fq->refcnt))
+-		inet_frag_destroy(fq);
++	inet_frag_putn(fq, count);
+ }
+ 
+ static LLIST_HEAD(fqdir_free_list);
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index d3abc84a6c02e..b3c5ca0ad156e 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -112,7 +112,7 @@ static void ip4_frag_free(struct inet_frag_queue *q)
+ 
+ static void ipq_put(struct ipq *ipq)
+ {
+-	inet_frag_put(&ipq->q);
++	inet_frag_putn(&ipq->q, 1);
+ }
+ 
+ /* Kill ipq entry. It is not destroyed immediately,
+diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
+index fbcc8af7435c1..483f3541b1e59 100644
+--- a/net/ipv6/netfilter/nf_conntrack_reasm.c
++++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
+@@ -448,6 +448,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	struct frag_hdr *fhdr;
+ 	struct frag_queue *fq;
+ 	struct ipv6hdr *hdr;
++	int refs = 1;
+ 	u8 prevhdr;
+ 
+ 	/* Jumbo payload inhibits frag. header */
+@@ -490,7 +491,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
+ 	}
+ 
+ 	spin_unlock_bh(&fq->q.lock);
+-	inet_frag_put(&fq->q);
++	inet_frag_putn(&fq->q, refs);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(nf_ct_frag6_gather);
+diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
+index a48be617a8ab5..5d56a8e5166bc 100644
+--- a/net/ipv6/reassembly.c
++++ b/net/ipv6/reassembly.c
+@@ -380,7 +380,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
+ 	fq = fq_find(net, fhdr->identification, hdr, iif);
+ 	if (fq) {
+ 		u32 prob_offset = 0;
+-		int ret;
++		int ret, refs = 1;
+ 
+ 		spin_lock(&fq->q.lock);
+ 
+@@ -389,7 +389,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
+ 				     &prob_offset);
+ 
+ 		spin_unlock(&fq->q.lock);
+-		inet_frag_put(&fq->q);
++		inet_frag_putn(&fq->q, refs);
+ 		if (prob_offset) {
+ 			__IP6_INC_STATS(net, __in6_dev_get_safely(skb->dev),
+ 					IPSTATS_MIB_INHDRERRORS);
+-- 
+2.53.0
+
