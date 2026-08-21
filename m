@@ -1,195 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD24E337107
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 20:06:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCC31F12F8
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 20:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787342781; cv=none; b=Enr60vkrG4yZoBIMvJXoyQQ32Tz38ryb++vYQD7Uiy+gSATqaRlqRtYQ07KILvaWc2EjM85uN215Ic/sq+5jZ0YVIYhKmwnqiATQj1sZ9hbELBKtc6fj6yNYVE2BDR/Pyw/c8rZIGTMLaCpzeC7LclHLZb7a8PoUR8XWfKCpt6o=
+	t=1787343032; cv=none; b=YVump7l0KQ6r2HUDyIIOUBPbowat+reN7PgxJNQW7kvBiyiiCSZBfutCLop4flN/hqDmQ3KKkWwdVK30HKCSHvgVgakcPQ9uZyLAb912sw9oHad0gr+gMFI+TLLCpq4kQnllFlb6ov+68i/6l8gp/uB5V0yiw9SJZ1w9KoSieH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787342781; c=relaxed/simple;
-	bh=Deysu6za0mBKUURfnCfq0+2INVdFgYbsn4st/YxRJwk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C8gRN/nzgSyNSSmkBZ+nebACSCVycwB2EDlRkRsJenSgklOuYmgGPZr89ttIgJsFFQf+x8DNBTPAeri1EHwR7IPNmtV4lB5nMEgcHsxehxEim8Ink1PW0gJR7QRfNBjBxpE4+Zj840uDijsKEAjpieAqAbU7kfIYrVwXYDu/7Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SKqeQt7r; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787343032; c=relaxed/simple;
+	bh=djlscI6Z+LF0NxjXAdGB78RNFzhAuQB+OJNtld4lLeQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FQSvL7uz+otH5CcsIkAq2Fn8+AbwTqhYP8ixfVyjagqA1PGYtnONotMowRjZqtOQeLQXWGel+NScSkhR5OGSd9IPshhAWkhzDCrgvW0KVwf1Bvi2XPhncS9JChPwo8cjIQ7eieU+ktpFicCOLTTc0ggIxkdUU/4nGqAe7lV70d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=PyjNmz4R; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=X7nFTDDq; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SKqeQt7r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787342776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=4Edr5cAtYcXCdnLa7oLzVihOqQYUUfcaDCBdJd9wwpE=;
-	b=SKqeQt7r9u2Hwpdqy74j1P8YOY7vnVw5n3LJ6chbm6KTrK1BB2sCp2PeOA1VJvbREGmefF
-	yztd/FEPtYvj7FoD7HKavDRLOSLSR8HDFihP2Pcj5wEWC29sW9yEFQoyTAidC5WmWEOy8h
-	hYYpo9uWXPwu/1IbDy4pjgWM97bKPDY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-180-A8Al9uYjPEyH8ezlI4yzgQ-1; Fri,
- 21 Aug 2026 16:06:15 -0400
-X-MC-Unique: A8Al9uYjPEyH8ezlI4yzgQ-1
-X-Mimecast-MFC-AGG-ID: A8Al9uYjPEyH8ezlI4yzgQ_1787342773
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 28AEB1956073;
-	Fri, 21 Aug 2026 20:06:13 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.80.7])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 702DA426;
-	Fri, 21 Aug 2026 20:06:11 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Timur Tabi <ttabi@nvidia.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Ryan Brue <ryanbrue.dev@gmail.com>,
-	stable@vger.kernel.org,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2] pci: Add broken-GPE quirk for Lenovo Legion 16APH8 and 16AHP9 Nvidia GPUs
-Date: Fri, 21 Aug 2026 16:04:51 -0400
-Message-ID: <20260821200607.621341-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="PyjNmz4R";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="X7nFTDDq"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 05BDE1D00143;
+	Fri, 21 Aug 2026 16:10:27 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Fri, 21 Aug 2026 16:10:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1787343027; x=
+	1787429427; bh=wOJEIZey0XAYRKNTuh9QZxO5M2cSQKFK7Ri8O1Gr/Ck=; b=P
+	yjNmz4RWrXyFl4XXHXFWPz6MKeyQhST1bAuDlDS9YwXEbtO37MIFmOibEeT/duSl
+	3nSw6gdy+NAMF1y7GaBBZfn17qLnyB5GkpLqLkx322/1yKqSpPK6W5DNjImErCWK
+	yBOu4LBGvpm7DE5g8Y24dZRaOly4xrOrl2zX2JmG9EL4BupQfdsfW1jQSMeEAUbn
+	KVC/RsqCaz9ejdGr/Upl61Agh3a/T0GpFBYB3tPW3QOaMixQn/rLe1xLUPQANRm0
+	yaFoxQ6+H8yJpTHWnmwNkcx718TmiuluyO4xnaSAPwNMsL6ypE+TQjMizTkDhS6U
+	aoyxK+tzgvI9WUGfthTgQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1787343027; x=1787429427; bh=wOJEIZey0XAYRKNTuh9QZxO5M2cSQKFK7Ri
+	8O1Gr/Ck=; b=X7nFTDDq49j5b1jVPly6mWIdgreVdkqd4qXOmKCj+RullKQ+OgU
+	ZHgZ9+3cXH76wm/txmTsV83hKkEjFaTaT/mnnSsyd29QgqaSgaOtOuHheg7HgDK0
+	tWWJ48wCErAzhqsiToPOqutKVBv5s3VrrBgenbHxuvfL+9SC0lnXFubkdmLzvVuY
+	yuwy+nEwinZLWLYlXEFhzfZuL+gRR9HjZXYYsDK5RtgJEukIgBsdg7JkEXiMLhgY
+	NYs6wjgCeDxNGOBqHaaSSxplZi/kCgAdXJaAChWXQNl/k+IY9keQbK+zhz2Ycfyf
+	cCk7ePUnfR2Y0FDKATn+8X0sELM/FtSBs/w==
+X-ME-Sender: <xms:s7CIald8RpWQZ3uJWu9ZMmv9LdxAstiTNY55lCKfugWZqMTRo7cKJg>
+    <xme:s7CIaqoSv6aWBwF6eLTjIHcLjgplwgx6Q4vdxE6zkToMXuhE12Vne4Sxcn2LlHcfM
+    _xq3h2lU3aN8MYIdvuUGL1kAJtTtfGwGMBGmOTA5ArkDZlwINVQXes>
+X-ME-Received: <xmr:s7CIar62VX_AdXos_IkWNZjGD2_S8XCl6IK5ftAlZXSFzlHmDnTUxbDbpKM>
+X-ME-Proxy-Cause: dmFkZTFMXdD8pPxOO+OgipmaLQB0QqO2bRxUCbwo0tA6AaZ0A/jpc64I78R6vhMH07Vkm/
+    UJaI8VGmbMOk+EYO35MT/YRbLbgEHySU9zdAcaGf77o4+Ruunk05aquNKm7uBWSIRLosfR
+    iPGAg/dhDUUO2r7uKw/R/ah7QK38ymu6RQtWPCmQbNma3Ttn+6YjtXFXGQkpYY8N+QIkyw
+    H167RWh6/7WKF/coInQF3U6SlltnLe+ecP8kWIHYZLCComCDGOKy4qjjcfIaV4DhhBACnD
+    696QT6G+x/cLGEIavBViC0cq30jS+IB7J1thzxVJAM413bFJCWuQEpggPIwYrJGObVb3Bu
+    OlEB1pl50A7cFQFgJGDdL3mFbbGy9JmHAzd5MdgOQRb4nMrk2j001qm22giN+ynSZGOpxM
+    XXtk6xhBsJMdmLcys4NFr4oipI2J1lEhRDVPgVe7U2vOxGIN/eYSdDev8aP9O4BU/CdjMU
+    STfpKaL84SQTW6ZY0izUK8bjwfTQ43t1Vid8a5KSTFYkKBX6DsftfgBnTRmW5YSc1mW45K
+    tn6dfXuIFJQBkKirfzNHwLhmaWMTjA3wDeTyvBSOU2X6byjbtPC4cTWPoCoxpDBzqEMpdk
+    k0l6zeZTOT3J7fiyHtl2Xrv+MF+8pbWPniE/gXlG37ucybD8Hurk8uwYac/w
+X-ME-Proxy: <xmx:s7CIaooGoF1Um2Gm4sw1Tzct8YQG0yxXcdcLi_iJOUIq4PionfSUKg>
+    <xmx:s7CIalhAnMDAfU_pSHp36LRNk6BeZokRQh-zPFxtUGV7s0JZL2cKrw>
+    <xmx:s7CIaqL2BxAsXcSVQKhu5HF4PfWg_8Onl-VZ5VmazXDUBMb4Bgrnxg>
+    <xmx:s7CIatCYJELtUKCPBkQiPGzGk3Elr1Oge0piCOGeGaLblGtLtZcNEg>
+    <xmx:s7CIan7SN6cwujcVFv0wrVy5dnEnFn5LSGLvjRM_PPXhdvxhQo3Vw30b>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 21 Aug 2026 16:10:26 -0400 (EDT)
+Date: Fri, 21 Aug 2026 22:10:25 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [PATCH 6.12.y 1/2] selftests: tls: add rekey tests
+Message-ID: <aoiwsTDosFh5fe2N@krikkit>
+References: <2026081717-verbalize-stylist-2627@gregkh>
+ <20260819113944.3620902-1-sashal@kernel.org>
+ <aoXJfMDP52O9vZVY@krikkit>
+ <20260821152000.rc-tls-rekey@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260821152000.rc-tls-rekey@kernel.org>
 
-On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
-firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
-GPU enters D3Cold. This means that every time the GPU is runtime suspended,
-ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
-the GPU. Once it falls asleep again, the cycle repeats.
+2026-08-21, 12:51:30 -0400, Sasha Levin wrote:
+> On Wed, Aug 19, 2026 at 05:19:24PM +0200, Sabrina Dubroca wrote:
+> > All of those rekey tests are going to fail if you don't take the rekey
+> > implementation as well (which I hope isn't getting backported to any
+> > stable kernels). You probably don't want that.
+> 
+> You're right, and thanks for catching it.
+> 
+> To be unambiguous about what this actually affected: the 6.12.y series
+> you're replying to here was never queued, so there was nothing to drop
+> on 6.12. The same selftest had, however, already been queued for 6.6
+> from a separate 6.6.y posting, and that is what I've now dropped. Three
 
-See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
+Right. I saw something for 6.6 and kind of assumed that replying to
+6.12 would be enough since it should be the exact same situation
+there. I won't assume next time.
 
-Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
-nova as well, and it even seems possible for this to happen without any
-driver loaded.
+> patches came out of the 6.6 queue:
+> 
+>   - selftests: tls: add rekey tests (555f0edb9ff0)
+>   - selftests: tls: add test with a partially invalid iov (dc54b813df63)
+>   - tls: rx: restore msg_iter before TLS 1.3 optimistic retry (1c8629651cb5)
 
-This seems to simply be a bug. Luckily, there is nothing that we actually
-need ACPI wakeup events for on the GPU. Events such as display connector
-hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
-affected by this quirk.
+Sounds ok. I guess you could still backport the retry fix, you would
+just get a trivial conflict on the selftest because the context
+changed, but it's a minor behavioral bug.
 
-Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Co-authored-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: stable@vger.kernel.org
-Fixes: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
+> On 6.6 it's worse than the tests failing - the selftest doesn't even
+> build. tls_crypto_info_init() only grew its key_generation argument in
+> b2e584aa3c71, which isn't in 6.6, so the ~20 four-argument call sites
 
----
-V2:
-* Don't forget to actually use parent_adev with acpi_remove_pm_notifier()
-* Check if parent_adev is NULL (could happen if booted with acpi=off), just
-  consider it a no-op if it is.
-* Base the patch off Linux master instead, I based it off drm-misc-next by
-  mistake because I'm too used to working on DRM drivers :).
+Yes, that was also part of the rekey series.
 
- drivers/pci/quirks.c | 79 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+> the rekey patch adds fail to compile, and __test_passed() (69fe8ec4f673,
+> v6.9) is missing from 6.6's kselftest_harness.h. And of course the rekey
+> implementation itself (0471b1093e3a, 47069594e67e, 510128b30f2d) isn't
+> there, so tls_main.c still returns -EBUSY on the second setsockopt()
+> that every rekey test expects to succeed.
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index b09f27f7846fc..b6d8ba5e4c2a6 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6165,6 +6165,85 @@ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x13b1,
- 			      PCI_CLASS_DISPLAY_VGA, 8,
- 			      quirk_reset_lenovo_thinkpad_p50_nvgpu);
- 
-+#ifdef CONFIG_ACPI
-+#ifdef CONFIG_DMI
-+static const struct dmi_system_id nvidia_dgpu_broken_gpe_quirk_table[] = {
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "16APH8"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "16AHP9"),
-+		},
-+	},
-+	{}
-+};
-+
-+/*
-+ * On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
-+ * firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
-+ * GPU enters D3Cold. This means that every time the GPU is runtime suspended,
-+ * ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
-+ * the GPU. Once it falls asleep again, the cycle repeats.
-+ *
-+ * See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
-+ *
-+ * Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
-+ * nova as well, and it even seems possible for this to happen without any
-+ * driver loaded.
-+ *
-+ * This seems to simply be a bug. Luckily, there is nothing that we actually
-+ * need ACPI wakeup events for on the GPU. Events such as display connector
-+ * hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
-+ * affected by this quirk.
-+ *
-+ * So, workaround this by disabling wakeup events for the parent PCIe port of
-+ * the GPU.
-+ */
-+static void quirk_nvidia_dgpu_broken_gpe(struct pci_dev *pdev)
-+{
-+	struct acpi_device *parent_adev;
-+	struct device *parent_dev;
-+	int ret;
-+
-+	/* Just to be extra safe and make sure we don't try this on an eGPU */
-+	if (pci_is_thunderbolt_attached(pdev))
-+		return;
-+
-+	ret = dmi_check_system(nvidia_dgpu_broken_gpe_quirk_table);
-+	if (ret == 0)
-+		return;
-+
-+	pci_info(pdev, FW_BUG "GPU PCIe port has broken wakeup events, disabling\n");
-+
-+	parent_dev = pci_physfn(pdev)->dev.parent;
-+	if (!parent_dev) {
-+		pci_err(pdev,
-+			"Can't find PCIe parent? Your Nvidia GPU will have broken runtime PM\n");
-+		return;
-+	}
-+
-+	parent_adev = ACPI_COMPANION(parent_dev);
-+	if (!parent_adev) /* No ACPI? That means no GPE, and nothing to do here. */
-+		return;
-+
-+	/* The spurious GPEs will be sent from the ACPI device for the PCIe port this GPU is
-+	 * connected to, so remove our PM notifier to turn them into a no-op.
-+	 */
-+	ret = acpi_remove_pm_notifier(parent_adev);
-+	if (ACPI_FAILURE(ret))
-+		pci_err(pdev, "Removing PM notifier failed: %d\n", ret);
-+}
-+DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x28e0,
-+			      PCI_CLASS_DISPLAY_VGA, 8,
-+			      quirk_nvidia_dgpu_broken_gpe);
-+#endif
-+#endif
-+
- /*
-  * Device [1b21:2142]
-  * When in D0, PME# doesn't get asserted when plugging USB 3.0 device.
+Thanks.
 
-base-commit: 2be02a7c996aa733bb36e29e07715621b0de9736
 -- 
-2.55.0
-
+Sabrina
