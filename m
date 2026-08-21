@@ -1,127 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41588389473;
-	Fri, 21 Aug 2026 18:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787337376; cv=none; b=FbnzYYWsKTws/lH85UsXlGoBNNC24YCOxMZwBMMtRV0dx/5P/nWK3rNXS5ObYiQtDNIJQZMK7pSRDpqDhWytKrjzxMjv4mhDoSay68k2AQfp3dG65PgX50bpOo+Oeu2F489CHYshO35iD0kYiDIYkaJCYlKGErjOSLMrvLKnUO0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787337376; c=relaxed/simple;
-	bh=cCjfNaLYwXJJ5NuRIOTwji6zpxQP6tWEArGHuW1h3AA=;
-	h=Date:To:From:Subject:Message-Id; b=YcNHOOq0eTM291aRfESQtXNI818t+Hxrz8xuz0nN4HzqYng3KrssJF9hZ4K0Qt5/X97uqi686MJtwUrl3nVYRTH+fu8pSfXZfatULXcOwSbFNRN382pdzSRa007UOzUjVL5uwC8SHpDNJ/YrRejg5uUeDUF7YO4IylW7CRT6eB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Orumuhkd; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E1B39CD14
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 18:39:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787337583; cv=pass; b=B+VWF++OI3TA5X0GlVRCnb7TtO1qFQjIxeNLvzXpvBnMWPrzDlpnIlXVl72xQRlVJR2o9j9/QzezjNPzL89J7RzMor6u6tyB5c7PC5o6uOKMDn0lqDEZmI1+UfEZ6DZ5AlVh0ZfQLTTXxQgIcNn6Q5Os6M/ookhU8IvernoDj2Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787337583; c=relaxed/simple;
+	bh=H5ipRC5ikWPs4GHwCKt6WGiprEkcyH6ySvuXZqumRdI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uVmfD2nh7uA5tE8RZrQuRCzuGB2GdnpXpauGZtMetNwBHpylcE+73d8CX5NQ2KaC4+phSVqnQWnnBszQq3zeVQEu7aJkIhVbKalAxRNiL183RJttSWYsT5KaaatgMeZUH3vxhvtFvzf2wl8cS8R8xS8XQmBYfu/drllz+KceQaI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AxsouX6A; arc=pass smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Orumuhkd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6646C1F000E9;
-	Fri, 21 Aug 2026 18:36:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AxsouX6A"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-908934450cdso10235746d6.1
+        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:39:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787337574; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FPzJWmk+WZDoYDThIlgGUwrdFg+v8iG8/Nr929WotiECcxa/tdb3y88RPjEM8bTDuS
+         QjSC+zC8327DjC5KN6dGLP11lxm9P4ijRU1DUDhiHqsbIghxLo2PW1wulHEZw8VE8ZTI
+         QfbahvgyiCAaxsACDjcT9z+iOn4E3IKfvZ04rcYFxKNUNJN6fvOHTWNH7fCAlDfjho7v
+         aLGDLqnDcAYTSbOQ5Cp0blDaeJk5CceySdHgNYv0eNDgmc4CW/PZcGSQBSERwMXvhTxZ
+         Ab3yCaY76VXyxhG6xZKNHDBAajVR7ffHsONMG08WVr+zmRmoyqB2IX1l34nSfIEcTYUs
+         EoZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7IThE4nMDn/1KYzHCuK6EXhKBsZ+s3+Zdwpu521vHb0=;
+        fh=nVKF1BQyjYFzmqY4HrkTqNSCmMJWYaTaqVAhP3FZQRg=;
+        b=H4nX/yNp6vwMzBXbf0vDEqSCpoi9n+SiMhHDoT5FgeIRmz3cxRujkm6gXZUmVqdWGX
+         0rXW7rwewCE6zfx2BN+565A67gU8KSEu9pfANb5XQC6EQOjKZtP0uRXTonpiKdMNYfbP
+         dR4M56UW3pZ/Q/WfKiBYldTUgxU/cxU2Ktpj2xC4tuCO661MY33S4vIBoc8LVBmXCAlv
+         VcHoG8dfs8EPnbB23TT21IzbjLFXEZhsauOoUTnvwjwWeHiuJMccoERf3Ta6sLDdd6EW
+         4gofNxOeuw0TzsHdcbpLBcRAwbpTGlTCZolyHhmmux5LgW/M2RtceSF+ywui0cL3rImo
+         gkUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787337373;
-	bh=XQxaU1vWKgjENkU9EpWsz8KK+8s1eCGf4bLaKnLTrBs=;
-	h=Date:To:From:Subject;
-	b=Orumuhkdo0B0jQmBfvSEgO6KF5GssEk/vLibQpegzGf5bWVlDC0BSAslU63BeraWC
-	 RLqwzNHUGT+OdfWtK/UN1vdB16qbQxTT8GzGAQsYdu7gMr5hhAyQ8nXdOFLF+7Npna
-	 /k6hf6nz1i7phzXIDnWPUgYJzmMXs9SMNm2zHX5k=
-Date: Fri, 21 Aug 2026 11:36:12 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,kees@kernel.org,include@grrlz.net,broonie@kernel.org,bhelgaas@google.com,akpm@linux-foundation.org,drj19981414013@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + resource-fix-lost-wakeup-when-waiting-for-a-muxed-region.patch added to mm-nonmm-unstable branch
-Message-Id: <20260821183613.6646C1F000E9@smtp.kernel.org>
+        d=google.com; s=20251104; t=1787337574; x=1787942374; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7IThE4nMDn/1KYzHCuK6EXhKBsZ+s3+Zdwpu521vHb0=;
+        b=AxsouX6Am1z6mIFATKB2wf+1uiSg6Jz4ujyimlTx0P3DvvvAQd4IKX0wlLY5pcPnwI
+         Z8H0CHDan5XbRuiT0x/3bnYE6fkWSb2kGpek4eIjQKn29FhojK+keY2B9F+uYI/95Ep0
+         bns8vtmE88fJdYBNq4f9g5dSdbtYvJs1bDdWZWa2v0bVqXPDGBULcv1qURl+ltp/lJDX
+         YFw/l6mczIZRSYHHPvf8fqo1YkOqZZYsQuP/yH6jD8zbOnvoT7f1XSX3g5zAdI3KsonS
+         H5frOTCBNb+FPo/ybRy6sfwYHcq8dFW3s8k4MfiuAhn1lU4G4NAcKZgG5dBE4h8QiR+/
+         FFIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787337574; x=1787942374;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7IThE4nMDn/1KYzHCuK6EXhKBsZ+s3+Zdwpu521vHb0=;
+        b=tR3vyFzT9LZgS7NPWqwcIHr3rhixRbplC8bQ7tbsLLvVycIPi9tPCOV2PXWfc1107L
+         scFax3LRif4bXofDcJSrWN+zKFn843enav7GQtzlhG+ziFWM4gv39Fnah4XHlDOIn/vP
+         FsIbk+UyT8s3JVvNfDwDLQnGBmZQyl+OUNNtRdOz5w1S7GDDIa9QpwENKY5A2jGzPimd
+         +hu43AKjuTYBx6lXpu2yKAgG66ta+NIQDGkThblWZpKuMCt9RgMhuLajjLYvUztPtG0Z
+         0RowiTs34GwytdHliZT3r5bPM12RpD6XIHiiXia6pO6QBiLR8rKIhWyimEHRrszSDHZz
+         sLcA==
+X-Forwarded-Encrypted: i=1; AHgh+RromJehmLcJrnBNXN0zpw30xbyfTNEOw/sSgOGcUHSGy5NfUTTQN3Fwj5wwZRmoodLrB9BvAl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kykFWyylh2ZFq4h8SPlcXlVex9hv7Qx0wp1bxaCWcsVF24M4R8
+	VBelo/WqovxFRSZyz+0vxn5XSRBhZUFMnIl9Ws0IuWv1BFYm14jYNrS4r9fPh69FKXcxTir7f82
+	a4iklJ2xwju8cs/moEp6F6fNd6/0pPFd9/BS6Zi6y
+X-Gm-Gg: AR+sD11hpWtsbve4RmXcC5IklwI2nB2gfNY95DoWgvJLq2giSlI7ILRhliPRJDZmLU4
+	SD1tY2eOVtCu/Oy75GwcsqROt2Iace0rvtjF5Jt8YblB+Pzw/71SE/6W2iaXmHRDInqokLlAwxH
+	Jr0dF2h6GqTa/d/CCH3SAdEPby0Mq4ujRat+wnpfMh5BoWdQLUW9NYu9njx91Nyy4HBOLCsg2jY
+	sdD3aNHqFZckypWKeQrxal0Uuk9HA8+HibH3kEbdfdABwKy8YAhBKJRI/lwL5ppzvHv7uFL5NYe
+	ZYzs8DfB1TQCnvdoD/URmF01Fk8zcoQnFQ4Ni+GpaQVI3Nf+ch2AraDt85uXYYTVc/QhLVI3Irs
+	rspAnFCmkJHW8E2OU8g09Dfap+pSu083DKbgyyiaZbf8SKO0sT/kQXjADtw==
+X-Received: by 2002:a05:622a:229f:b0:52d:8679:ba91 with SMTP id
+ d75a77b69052e-52e09baceb0mr2165411cf.8.1787337573580; Fri, 21 Aug 2026
+ 11:39:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260821182449.79785-1-blbllhy@gmail.com> <20260821182449.79785-3-blbllhy@gmail.com>
+In-Reply-To: <20260821182449.79785-3-blbllhy@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Fri, 21 Aug 2026 20:39:21 +0200
+X-Gm-Features: AcwNN1Uzk2tJZgFXNwH3oaoWgTa7_Y-gFylOUpo_j5d9Jt50Dmca5FeLa3OmU_Q
+Message-ID: <CANn89iKr1ypEFeL+7te3xWoNaK5AFyYQmr+pDh2zSZAxfgNKjw@mail.gmail.com>
+Subject: Re: [PATCH net 2/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CC_INFO)
+To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+Cc: ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, kuniyu@google.com, horms@kernel.org, yhs@fb.com, 
+	kafai@fb.com, andriin@fb.com, ast@kernel.org, netdev@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu, 
+	tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Aug 21, 2026 at 8:25=E2=80=AFPM Cen Zhang (Microsoft) <blbllhy@gmai=
+l.com> wrote:
+>
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops and dereferences the
+> get_info function pointer without rcu_read_lock(). With BPF struct_ops
+> congestion control, ca_ops can point to dynamically allocated memory
+> that is freed concurrently, resulting in a use-after-free when the
+> kernel dereferences or calls through the stale pointer.
+>
+>   BUG: KASAN: slab-use-after-free in do_tcp_getsockopt+0x2037/0x23e0
+>   Read of size 8 at addr ffff888013701258 by task exploit/149
+>    do_tcp_getsockopt+0x2037/0x23e0 (net/ipv4/tcp.c:4564)
+>    tcp_getsockopt+0x91/0xf0
+>    __sys_getsockopt+0xf7/0x170
+>
+> Fix this by wrapping the ca_ops load and get_info call within
+> rcu_read_lock()/rcu_read_unlock().
+>
+> Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
+> Reported-by: AutonomousCodeSecurity@microsoft.com
+> Reported-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
+> ---
+> The unsynchronized icsk_ca_ops load also constitutes a data race.
+> READ_ONCE()/WRITE_ONCE() annotations are intentionally left to a
+> separate change; related TCP annotation work is available at:
+> https://lore.kernel.org/all/20260416200319.3608680-1-edumazet@google.com/
 
 
-The patch titled
-     Subject: resource: fix lost wakeup when waiting for a muxed region
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     resource-fix-lost-wakeup-when-waiting-for-a-muxed-region.patch
+I don't understand.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/resource-fix-lost-wakeup-when-waiting-for-a-muxed-region.patch
+This patch is incomplete. Please fix the remaining issues in a single
+patch or series.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+We have limited time; we don't want to revisit the same area  in one month.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: DAI RENJIE <drj19981414013@gmail.com>
-Subject: resource: fix lost wakeup when waiting for a muxed region
-Date: Fri, 21 Aug 2026 14:08:17 +0000
-
-A task waiting for a muxed region can sleep forever in
-TASK_UNINTERRUPTIBLE even though the region it waits for is already free. 
-__request_region_locked() queues itself on muxed_resource_wait and drops
-resource_lock before setting TASK_UNINTERRUPTIBLE, while
-__release_region() wakes the queue after dropping the same lock.  A wakeup
-landing in between finds TASK_RUNNING, does not match TASK_NORMAL and is
-discarded; callers hold a muxed region only across a bounded transaction,
-so no further release is coming.  The task is unkillable and its caller
-never returns.
-
-The window is one store wide, but an interrupt is enough to hold the
-waiter in it, and the machine this was seen on runs PREEMPT_DYNAMIC in its
-voluntary default.  Since v6.11 spd5118 exports the DDR5 sensors of AMD
-boards through i2c-piix4, which takes a muxed region per SMBus
-transaction; a third of the in-tree users of request_muxed_region() are
-hwmon drivers, so reading a world-readable attribute is all an
-unprivileged user needs to drive the contention.  The blocked task sleeps
-holding the i2c adapter bus lock, and 27 more piled up behind it.
-
-Reproduced by building a kernel with the two orderings selectable at
-runtime and a 2ms delay inside the window.  Switching only that knob, a
-two-thread barriered reproducer loses the wakeup 200 times out of 200
-before the fix and 0 out of 200 after it; without the delay it goes 20000
-times through the wait path and loses none.
-
-Fix it by setting the task state before dropping resource_lock, as
-prepare_to_wait() does: the releasing side needs resource_lock to unlink
-the resource, so it cannot reach the wakeup before the state is published.
-
-Link: https://lore.kernel.org/20260821-b4-resource-muxed-lost-wakeup-v1-1-37eb6473a76c@gmail.com
-Fixes: 8b6d043b7ee2 ("resource: shared I/O region support")
-Signed-off-by: DAI RENJIE <drj19981414013@gmail.com>
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-Assisted-by: Claude:claude-opus-5
-Reviewed-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- kernel/resource.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/kernel/resource.c~resource-fix-lost-wakeup-when-waiting-for-a-muxed-region
-+++ a/kernel/resource.c
-@@ -1350,8 +1350,8 @@ static int __request_region_locked(struc
- 		}
- 		if (conflict->flags & flags & IORESOURCE_MUXED) {
- 			add_wait_queue(&muxed_resource_wait, &wait);
--			write_unlock(&resource_lock);
- 			set_current_state(TASK_UNINTERRUPTIBLE);
-+			write_unlock(&resource_lock);
- 			schedule();
- 			remove_wait_queue(&muxed_resource_wait, &wait);
- 			write_lock(&resource_lock);
-_
-
-Patches currently in -mm which might be from drj19981414013@gmail.com are
-
-resource-fix-lost-wakeup-when-waiting-for-a-muxed-region.patch
-
+pw-bot: cr
