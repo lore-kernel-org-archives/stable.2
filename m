@@ -1,76 +1,74 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8382313E00
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 08:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38E13AE6F5
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 08:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787302353; cv=none; b=s8W3pDOaXMq9DCNh7BLYH+rYdUkFFbl7blpIWk95OtnPppQzF+fUZ0pDpRxtrJi+JvS7jLCWzKKD3YMm5I3/eCYpWuuOveunjs7rE+qPZY9D1FIcUTfRnNDo653G1iHJzb5Q3mEuBbsH39WTCFry3bZtddLHtybwT9/3t/5APvQ=
+	t=1787302499; cv=none; b=j8XkqqeKVQ/YHvof0Ils9HzmnL0ubjkDOtLNmPyfuldvfcWcWqLbxCyJ2vbs308INwryf1OlGRitQca6kFTtghI/AnQOnUVRkfQia4/yahS1NyozacEJSyGfp1VKfZ8vOEUPd0dXQ23nQ8r9HuPj98H53TH7/zQn4ramSqHmo08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787302353; c=relaxed/simple;
-	bh=suf3ilXnFVcB0B7dyiKD6iVLmpNkm+fyipEddhfzl1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q2Ag65E1Zv250Lc1I1u80CeMokI7EYXUPQu2IwzhfTVuIu3+lMeJNVEuBkSvkh/X6nFaK2FmbW3NgH9ZcgBwa+HHZylUkgwak+EDFeOKU2ixNPHDVgvlnW4reqog6GO46LXFbbpqq5HrT363UPMdb2LFVGyEWWlVP57dQwZc2so=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=br24S1WN; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787302499; c=relaxed/simple;
+	bh=ZzXyLvXgNXKSd0Is+uAXDYIe209T0A4xpMCAhmt73Uo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E97OcuVz8NC0IidcghdWdRh2arO8MiAa7EloJ6cYkfW5ID4GESSkIISsSQqRVlYoSbEiIGp7Rbhoyc/tkYyFSu6klDbQJCj6HgfwuB5hyHtVY2ke7VhHGLEexaXE+4YcYfxtAiN6V9bRR2cWM/A2oS43JbLRsNHvNCsySfaqJvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b=Y1n5Z+Dk; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="br24S1WN"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso1527821a12.0
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 01:52:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b="Y1n5Z+Dk"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a1a546a6bbso1541381a12.1
+        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 01:54:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787302350; x=1787907150; darn=vger.kernel.org;
+        d=linbit-com.20251104.gappssmtp.com; s=20251104; t=1787302496; x=1787907296; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wxIJbdtHu5EFzZttDmDXTiKHDXuSlZ7X22WCTLQoMi0=;
-        b=br24S1WN3Al6RADHPDZ9qKgFjrI6scZvQHGkM6aimyKLfRklW8MU/zr5bcEYumTv+M
-         4n9JktfnnVTEVe/TQ41w0opYMgNsE7B+LUJwlIH64cN53tLDlVL+KMe9Zqpbci+3zKyV
-         HvJHH/CK/fkB/Pzazwhp4pLK/Si2LJztAmyi8ZNVVyRL7qfn+wMiVeBZLnMFO0mZu7wm
-         x5sTUviFX1bVX26egd0iKEyXZFDEnw6MGdkxfXoFxBSZSYgSoQoHNj6GwBhUFWNhKJ8X
-         WtlxmP7CMo1Ui8K+PUiHQUjOrHYi5acLzT3OA8TY+d8YJJ1Hf8BethzVJZ/BZ/82YkWq
-         EK3g==
+        bh=kVmSaJddfKw7maiY0Ul23B+CdDc5RGqdzGtXSntORqo=;
+        b=Y1n5Z+DkV1VGE7fLQxlwhSOc8bQRRvOoCESiuCFCuSt1OenrZ+cw093cvE2RI59SA5
+         +DiD5pSfJd0/5uMP2y9xBnTpRGqWkvwNOZ7aJ3XVkFteBc7DQndWMmKndT5nDTtQ1Peb
+         1JDfpXgJnXLKUIeFMO0k55DYfFu4Y8sjKmoXOf5+R4WrYsbZ7yc1vxPq7ZM15yittMxm
+         CViirIRluBDO+WkhBQ+00qN3gvgyAw1HONpXoaGPDDh2l+KqMaL/BaRAWET5moAi/tOi
+         qbLHuBStdoQqeaIJeFNtbswkusoOsxBSkV1st+LFD0vSX3AnUB65t97m9VwVmnjFmW6d
+         dkHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787302350; x=1787907150;
+        d=1e100.net; s=20251104; t=1787302496; x=1787907296;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wxIJbdtHu5EFzZttDmDXTiKHDXuSlZ7X22WCTLQoMi0=;
-        b=nv69SGPcF/3l+wd9CCWfhP7aCSBsLVMS++LRXB3E7WTzFMbB+HPcTZq9PMqRRwXhpr
-         7NhsTF2Afuqzpqy++Ll3fsQCANmNyCAD1+oqG2cz/cLw/mvPcdlQFEHNlN6k6tJq6Pv6
-         TSEiwMrAkeypcFxa6ZHQ1MxWNWa9zU2KTSkbo/tvlbkoO3nBL0p9YDUs//VxxktjztKc
-         nGlwuVQESspH6ISXbVqj90qCFwfM+KXLYcn5Su/OilmvW9j1sNeWawJYKDH2JYlGUak+
-         7OvO0r3wljsAD/fJCz61G+sWNJTrdERg65TE5NJFuxAJ6hu3MTQbUqL04Blpdvd1XlpQ
-         wFvA==
-X-Gm-Message-State: AFuF++mhQPZQiTjpP8ertwYn4IzdE3m73zzRqOiZInLQiXOLiQciqXpT
-	g27tpOnWsl2lkgBxYo+83hBG6Rmtq3umSLB6gHeya3609LiTWAutlktn
-X-Gm-Gg: AR+sD13QoynHl9+lcoZrkUoQC3jSr6Bo6DVzwppP6ZczWiGoqjKa63XjHXnQ6ydpa2N
-	pQ44Xrq887cBx9GRTZAuIpluFDTL1kjg1mz9S6q+Y1MSyrPaQy4UHWlKtZfzFBDdX8MxvDwUQT5
-	FFm01mTVsZ8PxpLh00S3TFlTtPn/xa84Bu+Tbp/NO/uAOUur6ZocXT1xe83q1L7se1BHyZls3rN
-	OY3x3lXOnKHRGGPukjNj+iM+yfjQFPIEXGmjIFWrRIejky/CQ6Ti37ve8BH2D6RK5oSBWp8mNJK
-	5qIymjN0hzEpQ4C2hB3AIVAnj4cf6eZjZQkVBOkJKbbzT7JTaFVUNnz6UcdLHadk1rK52Dui8dv
-	CwnW1Y5h31ZRcOh82YBP0iGJztFYZcNPzOETe3DVYWa3S3Xom9yRBtxyfAJ98+J+YPvPFoZt/gp
-	kaNeDcGx8PTs8QlvqGGL24PMn/nYOUKxXspKUWvPSstsCTxToLuzBY+xXddqZvB8YoEgP8z2m+V
-	uDSCg==
-X-Received: by 2002:a17:907:94d2:b0:c19:473b:dc8f with SMTP id a640c23a62f3a-c246a2eb99amr471049166b.3.1787302349629;
-        Fri, 21 Aug 2026 01:52:29 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain ([95.236.20.157])
-        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c2458b096d9sm422551466b.20.2026.08.21.01.52.27
+        bh=kVmSaJddfKw7maiY0Ul23B+CdDc5RGqdzGtXSntORqo=;
+        b=EA9ZHC3kWj8XkCe3/wxoQbhfgD8F4rnUwmqCCzHGJ8gmd1N7kirPciptiBmI/KDkGp
+         niClOS6Gdg4d7pm0Toe/AlX+z8sB9MxHaOhNCKn72Q60gk07EMru+Ye2NF6FuLLMhvi3
+         lzR9oOxRWAkWl68g8fjiYA7RYcirzDxOCKdewNEE3hDTctPZdF1eUh+/fNOtLGExrcts
+         jXpA0doY2XSYrbnKxaiUZshz7bkIajZHdhYKluzvb/Erys/KYTOqFgyvfD6oNv2T2Pau
+         LLS1xOEAI6VLA16l8sSU8s9YXfVD6BivfoOI6x7OlTFk4IKu/3YMHMUK3i8KjDniIbDX
+         Czpw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro78IYXxJOdImMsI5fweOyuHI0U2xrupHoxAwHdRMuSSmvY2VZPj+fpD2xEpY/BWZUY8Lk8AN4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kI2DxyDQL8fALvZPUzQ1O1pR4DULlcJQXU6IDo2K60ATLlahPb
+	Fc0i7ET5xWEzoRaU8lYCjr+1rzkL0y5dTej29EqudClmuB8aoTrAEPgHgJOoC07cf9A=
+X-Gm-Gg: AR+sD12S8upqoZuDQiZZQcIlg99d5+Hvc1SbvNK/yjQ59Ombr5YHXac/tbkynaW4ImJ
+	kO1Emh3E0nHapoJpK2/7UGmsPLTUSSkut2koZ5q3GxQ+MZdm0gqoXZh9HIQZgjZ8SLrYNu7wuyV
+	GZYt1nZ8kD87rRbVQXBsoayQaJUPvnkaN8KGUnJuGqHa0H7Osi4ykCT/vBqFo5Q0v/9Lb/Szt55
+	IBZKy6Th7ek72sVM/ScKXWftkfmnjWETYMJKGcsPlWfh2rOd5UXUldSLiw+/rjKPltaX09qR2L3
+	9dTxePj33bJhjFpcqAlivpCU/hL8J/KqyJahqRQH9XeH0477c8z9T8lF+zEnR1b1m/lU531vY9b
+	07qwXkGwGfWYMibTxw7OafjrKyye+MetarGkEtCDTxVKCllvn76K09smVI/g8DU1IaU1JIbFSsS
+	DXZDlMDI0W6YefLVMonZTHDyv0LYb9l7QkKa/C2TbkiJFkEZoPkLKikICBEaHMNQnAzkwZ8Zo7k
+	JBv2kgW0gTEgLcZEDrYD0xIjIJXDjQB3AJaUiwi/Q==
+X-Received: by 2002:a05:6402:2186:b0:6a1:2400:baea with SMTP id 4fb4d7f45d1cf-6a42f18a70cmr4367579a12.10.1787302496033;
+        Fri, 21 Aug 2026 01:54:56 -0700 (PDT)
+Received: from x1-carbon.home (212-197-167-60.hdsl.highway.telekom.at. [212.197.167.60])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3feec9c9dsm5676008a12.4.2026.08.21.01.54.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 01:52:28 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-pm@vger.kernel.org,
+        Fri, 21 Aug 2026 01:54:55 -0700 (PDT)
+From: Moritz Tanner <moritz.tanner@linbit.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] pmdomain: airoha: fix unselectable AIROHA_CPU_PM_DOMAIN kconfig
-Date: Fri, 21 Aug 2026 10:52:15 +0200
-Message-ID: <20260821085222.140633-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Moritz Tanner <moritz.tanner@linbit.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fs: don't return -EINVAL for successful nested thaw
+Date: Fri, 21 Aug 2026 10:54:51 +0200
+Message-ID: <20260821085451.65206-1-moritz.tanner@linbit.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,42 +77,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AIROHA_CPU_PM_DOMAIN config was wrongly guarded under the Mediatek PM
-Domains menu and was unselectable.
+Commit 7366f8b6fc6a ("fs: handle freezing from multiple devices")
+replaced the freeze_holders bitmask with per-holder counters to allow
+nested freezes. In the bitmask version, a thaw that released a shared
+hold while another holder remained returned 0. Since the rework,
+thaw_super_locked() drops the freeze reference via freeze_dec() but
+then returns -EINVAL when other freezers remain, misinforming the
+caller: the thaw did succeed, the superblock just stays frozen for the
+remaining holders.
 
-Move it outside the menu so it's now visible and correctly selectable by
-default on Airoha SoC.
+This breaks bdev-initiated freezing. When a filesystem is frozen with
+FIFREEZE and additionally frozen via bdev_freeze() -- which nests by
+design, see fs_bdev_freeze() -- the subsequent bdev_thaw() receives
+-EINVAL from the holder op although its freeze reference was dropped,
+and therefore keeps bd_fsfreeze_count elevated. Then device-mapper's
+unlock_fs() ignores bdev_thaw()'s return value, so nothing rebalances
+the count. After the user's FITHAW and umount, the block device can
+never be mounted again:
 
-Cc: stable@vger.kernel.org
-Fixes: 82e703dd438b ("pmdomain: airoha: Add Airoha CPU PM Domain support")
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    dm-1: Can't mount, blockdev is frozen
+
+There is no way for userspace to drop the leaked count; only
+destroying the block device (or a reboot) recovers the device.
+
+Reproducer (any kernel since v6.8):
+
+    dmsetup create dut --table "0 $(blockdev --getsz "$DEV") linear $DEV 0"
+    mkfs.ext4 /dev/mapper/dut
+    mount /dev/mapper/dut /mnt
+    fsfreeze --freeze /mnt      # freeze_ucount == 1
+    dmsetup suspend dut         # bd_fsfreeze_count == 1, ucount == 2
+    dmsetup resume dut          # ucount 2 -> 1, but thaw_super()
+                                # returns -EINVAL, so bdev_thaw()
+                                # keeps bd_fsfreeze_count at 1
+    fsfreeze --unfreeze /mnt    # filesystem thaws fine
+    umount /mnt
+    mount /dev/mapper/dut /mnt  # EBUSY, forever
+
+The same happens with fsfreeze held across an LVM snapshot of the
+origin volume.
+
+fs_bdev_thaw()'s documentation already describes the intended
+semantics: "If this function returns zero it doesn't mean that the
+filesystem is unfrozen as it may have been frozen multiple times".
+Restore them by returning 0 when a nested thaw drops its hold while
+other freezers remain. Thawing without holding a freeze still fails
+with -EINVAL as may_unfreeze() rejects that case before the reference
+count is touched.
+
+Fixes: 7366f8b6fc6a ("fs: handle freezing from multiple devices")
+Cc: <stable@vger.kernel.org> # needs adjustments for < 6.17 (no may_unfreeze())
+Signed-off-by: Moritz Tanner <moritz.tanner@linbit.com>
 ---
- drivers/pmdomain/mediatek/Kconfig | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/super.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pmdomain/mediatek/Kconfig b/drivers/pmdomain/mediatek/Kconfig
-index 8923e6516441..a2eb704a773c 100644
---- a/drivers/pmdomain/mediatek/Kconfig
-+++ b/drivers/pmdomain/mediatek/Kconfig
-@@ -43,9 +43,12 @@ config MTK_MFG_PM_DOMAIN
- 	  This driver is required for the Mali GPU to work at all on MT8196 and
- 	  MT6991.
+diff --git a/fs/super.c b/fs/super.c
+index 05e443173038..01db6124e409 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -2369,11 +2369,14 @@ static int thaw_super_locked(struct super_block *sb, enum freeze_holder who,
+ 		goto out_unlock;
  
-+endmenu
-+
- config AIROHA_CPU_PM_DOMAIN
- 	tristate "Airoha CPU power domain"
- 	default ARCH_AIROHA
-+	depends on ARCH_AIROHA || COMPILE_TEST
- 	depends on HAVE_ARM_SMCCC
- 	depends on PM
- 	select PM_GENERIC_DOMAINS
-@@ -54,5 +57,3 @@ config AIROHA_CPU_PM_DOMAIN
+ 	/*
+-	 * All freezers share a single active reference.
+-	 * So just unlock in case there are any left.
++	 * All freezers share a single active reference. If other freezers
++	 * remain, drop our hold and report success; the superblock stays
++	 * frozen until the last holder thaws it.
+ 	 */
+-	if (freeze_dec(sb, who))
++	if (freeze_dec(sb, who)) {
++		error = 0;
+ 		goto out_unlock;
++	}
  
- 	  CPU frequency and power is controlled by ATF with SMC command to
- 	  set performance states.
--
--endmenu
+ 	if (sb_rdonly(sb)) {
+ 		sb->s_writers.frozen = SB_UNFROZEN;
 -- 
-2.53.0
+2.55.0
 
