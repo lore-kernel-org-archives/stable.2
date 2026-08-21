@@ -1,115 +1,107 @@
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DA7434E55
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 23:10:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81797433054
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 23:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787353836; cv=none; b=rNISCjvs7/S32FI7v1vQoSj8bCDaaq7Cpuj/uGTUQJ5GmtRMFOswTISH5rIa1fUA2e45MCpVxz2YltPU13GCgep7FppEYrKaP74ZjqtEEkLvTc8scgCnmNv9X+NwTHjv+6tJzBvPbJHUkgE2JxvTAw4kV1gzg/HUck3MGxLhg4Q=
+	t=1787353880; cv=none; b=P6ocBx8uqND1FbmdbdH88PdmWIXd0W5iDAYV4nZGrYqAh/1s92YSFY+YTP/V5hDj/Rs3jfo1+GISiD1+VZqUUWf53u/n/5gNTjERHqW0qruwxEdHwxWdw8yXbSb6x66NpBkvESVddwjPR0dI0oHUj8cC6U1oqtutgPgT0rxMO4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787353836; c=relaxed/simple;
-	bh=Xep87mApWHzd6PbNdGYErtvDfuTFljrhRU4oL34+25k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VCcT00tannmh+iVEGupF3Im8G9PFB0fe4RzTvLBSoY/dDgbJexC4ewWzh7Hx+JgYghxBYXASYVtBwsh82FF72Mh92CfmHx+YIOn9YNc5fCmEm1RTQmaA/mRlzTp0HuD4Bla6a2R8LWgJwGyC6QZVlh9eACGPlqWve8PHFM5Y83A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=ESuRtsV7; arc=none smtp.client-ip=35.89.44.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1787353880; c=relaxed/simple;
+	bh=0YoGUHJt53txSCfLNZxO/qBLfy6n5wbG/uqyrmis09s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WNdUuOJS5Mpa7bda5pPrTK5Dpi5Y/gpH9AmJ4fxzIdgkAru39IvhOEwOTpBS1uDSxfg9Nv0K2ayeG73XKWc0dm25LM+j5d29kQJNNlIeXZxLdoXD0DYjnYTuGjGwdGHhFX8rwdAMijrXL7jK2uPfpphTjsS5o8pjjWOqZzxom+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BImcIW7q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="ESuRtsV7"
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id xYDUwROBHv0ndxYNfwdJEH; Fri, 21 Aug 2026 23:10:35 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id xYNewNp5UBj6gxYNewsVPY; Fri, 21 Aug 2026 23:10:34 +0000
-X-Authority-Analysis: v=2.4 cv=GfgXnRXL c=1 sm=1 tr=0 ts=6a88daea
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=wW6ImR35bRNOjldo0A8A:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=SdAFuoOiN4r9DUvE0TkoTWOeZqmSJCBJ5YTLT0mQ88c=; b=ESuRtsV7KQZE0wWZ6SvpwPep1O
-	RkRYvWG4VqXD7Y1fRTOYGysdBfW28BdDva3fwtKzb/Z6dqeVrzmV+NHB/ZiSVVgwOuSmp1wYo7vos
-	nwkIs3FdCt7HVLFZ7xlzvtZsJJSLcJ9nxNtrwQTV9nA/Ma8UgQ+6fpluafnyuMIZCQH68dF0fPTxN
-	5WfXKinIzDVJMPL/7pjPpq+KJUw5xr/l38X4xsEhYOS6GK4moeUaNgkdpZe0MOSfvVukoma09nwtk
-	iphYPAisDyuhYLhqHx2hOU0wL15vrw4zfjOFdb3m1yRId1tfgA42KUbRLPmEJqqne4AKrM5BNLJ0+
-	riVTBiFg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:45276 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1wxYNd-00000002ZaN-32q0;
-	Fri, 21 Aug 2026 17:10:33 -0600
-Message-ID: <565ad2e5-a2c4-43f4-9703-7232a6be31b0@w6rz.net>
-Date: Fri, 21 Aug 2026 16:10:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BImcIW7q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077001F00A3A;
+	Fri, 21 Aug 2026 23:11:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787353876;
+	bh=i2HizyISJIJCFeKWMiMI34O8r6MQGgiqMKeqv9NKdsc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BImcIW7qq20ZK8wEfqcNmJlawLSFZr8vRD5TOC1NfOB30dA+ejigyYm/N9iC3EEG7
+	 ONlsrffJINvRMcCZ1db9kYb2iOjcSeSiS9a6yOh0CShB3zrDrF/r1KwEAF/hEphmlY
+	 98ycWjaipMWh9RUD9HnjDd695NKAOouQnanX512qGSq2yZzECcEAyfD/uE+tw4fi4t
+	 I9j4/X0qDhJkgB5oyYCzU7nSejg5vcjfouDT35ZJ44qIk6Gp8A1TlgLApoVjckteLI
+	 RdpgHD3MvpFTiD3JTPcGmxOUhAlsxWQfA67vFoLr5r9cb8mufhMVCZrT43QlLWGjYs
+	 YRmRyi2mPxvvw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <enjou1224z@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] inet: frags: publish queues before arming timer
+Date: Fri, 21 Aug 2026 19:11:14 -0400
+Message-ID: <20260821231114.122739-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081750-caterer-unwound-67c4@gregkh>
+References: <2026081750-caterer-unwound-67c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/272] 5.15.217-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260820145231.229664293@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260820145231.229664293@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wxYNd-00000002ZaN-32q0
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:45276
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 39
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOpD43WI6JQXukai0/mNJ4rmKzoOpVDjo9+ruZGF1V9sBfHt+KK5gJSRRQ8B4ebL8ozSDoSNp9rogFrc/FPSHLj+uX/9ZlINrnPOlvMWviKe3gpDTXTS
- vXuHra6wIf/DFppnsFPe6JDU+q57TUA42PV8EUNGDatRqPPWNXxBxnvdXzzYwPw5LDgRLnEKD6UNxg==
+Content-Transfer-Encoding: 8bit
 
-On 8/20/26 07:53, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.217 release.
-> There are 272 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.217-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+[ Upstream commit 653d7ddf6cba867777a3d14c4f83ace008c5ad13 ]
 
-Tested-by: Ron Economos <re@w6rz.net>
+inet_frag_create() arms the fragment queue timer before inserting the
+queue into the fqdir rhashtable. If the namespace fragment timeout is
+zero or negative, the timer can run before the queue is published.
+
+The timer callback then marks the queue complete, tries to remove a node
+that is not in the hash table yet, and drops the anticipated hash
+reference. Creation can subsequently publish the completed queue without
+restoring that reference, leaving a stale hash node after the caller drops
+the remaining reference.
+
+Publish the queue first and arm the timer while holding the queue lock.
+This makes timer expiry wait until the queue is visible in the hash table,
+so inet_frag_kill() can remove the node and balance the hash reference.
+
+Fixes: 648700f76b03 ("inet: frags: use rhashtables for reassembly units")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Link: https://patch.msgid.link/bf66785e7c0c139d7a1900e2f01faeeab344b960.1784948849.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/inet_fragment.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 834cdc57755f7..0cfad7ab9f96d 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -339,16 +339,18 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
+ 		*prev = ERR_PTR(-ENOMEM);
+ 		return NULL;
+ 	}
+-	mod_timer(&q->timer, jiffies + fqdir->timeout);
+ 
++	spin_lock_bh(&q->lock);
+ 	*prev = rhashtable_lookup_get_insert_key(&fqdir->rhashtable, &q->key,
+ 						 &q->node, f->rhash_params);
+ 	if (*prev) {
+ 		q->flags |= INET_FRAG_COMPLETE;
+-		inet_frag_kill(q);
++		spin_unlock_bh(&q->lock);
+ 		inet_frag_destroy(q);
+ 		return NULL;
+ 	}
++	mod_timer(&q->timer, jiffies + fqdir->timeout);
++	spin_unlock_bh(&q->lock);
+ 	return q;
+ }
+ 
+-- 
+2.53.0
 
