@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A88731194C
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96053DDAF4
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323784; cv=none; b=LfSpyVI5oD2/5arN4nS3bwwYJ6NgReSFG4TQ/bVUZv0qbdY21qjGCgJjnGq0LX5zecz1yFQ74sE62bRZ3RU3kBQdELVjLQxtLi9gW9Cbxsb9LrecltMPvtlJdm63rXZhRPzouqPwixkD0Sx8U6jOZ/gZiGzhhNIan/K24yC75JI=
+	t=1787323785; cv=none; b=VtiQLYlrB8TlEhBVz0MVQVZJfADcfwkt+WjquOVuIYUgLLcqucCqNDKGpaTjHvg+8kb4nn88tNYQu1H74WD0sfmOfrSkvIR0pbuR21B4cn9JAkVlUgMYbWgRp9oWzyzhGqx5Z2ScE+Gbui8drYNqSoBDNbBj52APNjw6sZo7zt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323784; c=relaxed/simple;
-	bh=Nv6f7fsOIcWSaNDeZrXF87r+eyttkgIxD8Nr7ZgtlN8=;
+	s=arc-20240116; t=1787323785; c=relaxed/simple;
+	bh=nkwKh07Oy6sZnXe+LTAxrtL2dfiW1sBTE159eHjkFCQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UVY4+svJ/6p3bf9l7uTEfIKr3Zoiey4boA9rcWCuLfp9WbkzkUdyxDnFHuXnwjNYQ04WsxphuRioKeEui53vEGgeqjwOm468HOm98lw66UOURtOp9ACbXwvt5R/XGbr7PaoWRZGF370EznfxXjGfFI5fut2k9olHEkioOb/X1Tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMwsVcB8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TopEfrJ7lJzJ4flA09AKt3T3kVidAk8SXxqYeoDtos7YCjMeTW/hI9AkcCGXUXd6IshNjqamWdjHLEkMwa1yUeJ7JxxIeA3SJu0On4DUWAUqvyn7ptmx2zuCWTQD3L+TyEO7Y0QHroO+BhlRrUFDHCftd207DFhp6566xeucRX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bs6uV4n5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMwsVcB8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB231F000E9;
-	Fri, 21 Aug 2026 14:49:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bs6uV4n5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A27F1F00A3A;
+	Fri, 21 Aug 2026 14:49:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787323782;
-	bh=bCGKdP37AhNVRXqOALnTvU4ODq08BbJag5Ayphdqi0Q=;
+	s=k20260515; t=1787323783;
+	bh=uP1CAYLz0XB5GzQcHHM5X0OjdyWARjTxijjtHl405qs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PMwsVcB8rIRmE15d1c2bVcQtxFLCIcKncp92w+nzJtVKKBCTnTpuoiSuW/xLpHZ++
-	 dc23pFQKMSv7mQCQW5CxludMJk1PTypG2+ePgvyO/r+xxDNyJS/XJrCtWbkIGCntYM
-	 s6Z6pCceUp4Bc063oZ3Rv/D7Cd+aVrHfnzGLoWvI9GEIh0/h575iZzQHjxYeQPrOsT
-	 v5yplwS/4qAWUJIsWtDt8GTxMWGn/YeQrDkWbqGIegNBdDxZHbEWxcTBTbtk80XNHm
-	 WzZEwB/ogaB475ZwD7bUJEy8oZL+4xg/XH7d3M8phPqD4zN/1Z8hTBNUhDpfXrOHjb
-	 NBjkJVrLBnLiA==
+	b=Bs6uV4n54fB2HmWeplT8MDfxqAQSTcf8yI/IWLPES9YlngkLyjZCrMDA9ZnrvrYv/
+	 r1PR6k7KEb7QSaOhJ4MbQeQtXurH8xZuCBJRnMowWAwvQZKIuHlFdv44csXJUFIT8g
+	 exo4u9muUO0P1jGNcJdJrzqac5dpYt/Xoe+zcJLFM62ebnGF6YGAMBztwm4tud/K/T
+	 6KVXPCZ16VMevC1TQL4G7d6UbXR9pbiV55VRTLZ3P56o7Hizw9lmZoqrgdP3olTlWd
+	 NuSDAy6knKU7Aa48SjguppeLHor/Z7MD7QOYBgaeOGPCeSjSocPg43IDEW5j2J9fY4
+	 ou6zCkybU0XBA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] net/packet: convert po->pressure to an atomic flag
-Date: Fri, 21 Aug 2026 10:49:39 -0400
-Message-ID: <20260821144940.3429010-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] packet: synchronize pressure clearing with ring reconfiguration
+Date: Fri, 21 Aug 2026 10:49:40 -0400
+Message-ID: <20260821144940.3429010-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081734-marrow-captive-bde1@gregkh>
+In-Reply-To: <20260821144940.3429010-1-sashal@kernel.org>
 References: <2026081734-marrow-captive-bde1@gregkh>
+ <20260821144940.3429010-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,85 +47,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Zihan Xi <zihanx@nebusec.ai>
 
-[ Upstream commit 791a3e9f1a86fe8eb09173c9788493b8b5c957f4 ]
+[ Upstream commit 1a35da325cac4d5bcad76a2aa943408a6f1d9000 ]
 
-Not only this removes some READ_ONCE()/WRITE_ONCE(),
-this also removes one integer.
+packet_set_ring() updates the RX ring state under sk_receive_queue.lock,
+but used to publish the tpacket receive mode through po->prot_hook.func
+after releasing that lock. packet_poll() and packet_recvmsg() can then
+run the pressure clearing path after the ring has been cleared while
+still seeing tpacket_rcv, causing __packet_rcv_has_room() to dereference
+stale or NULL ring storage.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Stable-dep-of: 1a35da325cac ("packet: synchronize pressure clearing with ring reconfiguration")
+Move the existing receive hook assignment into the same
+sk_receive_queue.lock section as the ring state update. Keep the
+assignment otherwise unchanged, including on TX ring reconfiguration, to
+avoid adding behavior changes that are not required for the fix.
+
+Serialize packet_recvmsg() pressure clearing with the same queue lock
+only after PACKET_SOCK_PRESSURE has been observed. If the flag is clear
+and the socket has moved away from tpacket_rcv, packet_set_ring() has
+already detached the socket and waited for synchronize_net(), so no new
+packet input can set the flag again.
+
+packet_poll() already holds sk_receive_queue.lock, so it uses the new
+unlocked helper directly.
+
+Fixes: 2ccdbaa6d55b ("packet: rollover lock contention avoidance")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: Codex:gpt-5.4
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Link: https://patch.msgid.link/f90b5688311fa278d1361ea8c6be0bf25967d591.1785247446.git.zihanx@nebusec.ai
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/packet/af_packet.c | 14 ++++++++------
- net/packet/internal.h  |  2 +-
- 2 files changed, 9 insertions(+), 7 deletions(-)
+ net/packet/af_packet.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 64843368bf10a..0738fef357350 100644
+index 0738fef357350..55b9af053e026 100644
 --- a/net/packet/af_packet.c
 +++ b/net/packet/af_packet.c
-@@ -1358,22 +1358,23 @@ static int __packet_rcv_has_room(const struct packet_sock *po,
- 
- static int packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
- {
--	int pressure, ret;
-+	bool pressure;
-+	int ret;
- 
- 	ret = __packet_rcv_has_room(po, skb);
- 	pressure = ret != ROOM_NORMAL;
- 
--	if (READ_ONCE(po->pressure) != pressure)
--		WRITE_ONCE(po->pressure, pressure);
-+	if (packet_sock_flag(po, PACKET_SOCK_PRESSURE) != pressure)
-+		packet_sock_flag_set(po, PACKET_SOCK_PRESSURE, pressure);
- 
+@@ -1370,13 +1370,25 @@ static int packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
  	return ret;
  }
  
- static void packet_rcv_try_clear_pressure(struct packet_sock *po)
+-static void packet_rcv_try_clear_pressure(struct packet_sock *po)
++static void __packet_rcv_try_clear_pressure(struct packet_sock *po)
  {
--	if (READ_ONCE(po->pressure) &&
-+	if (packet_sock_flag(po, PACKET_SOCK_PRESSURE) &&
+ 	if (packet_sock_flag(po, PACKET_SOCK_PRESSURE) &&
  	    __packet_rcv_has_room(po, NULL) == ROOM_NORMAL)
--		WRITE_ONCE(po->pressure,  0);
-+		packet_sock_flag_set(po, PACKET_SOCK_PRESSURE, false);
+ 		packet_sock_flag_set(po, PACKET_SOCK_PRESSURE, false);
  }
  
++static void packet_rcv_try_clear_pressure(struct packet_sock *po)
++{
++	struct sock *sk = &po->sk;
++
++	if (!packet_sock_flag(po, PACKET_SOCK_PRESSURE))
++		return;
++
++	spin_lock_bh(&sk->sk_receive_queue.lock);
++	__packet_rcv_try_clear_pressure(po);
++	spin_unlock_bh(&sk->sk_receive_queue.lock);
++}
++
  static void packet_sock_destruct(struct sock *sk)
-@@ -1462,7 +1463,8 @@ static unsigned int fanout_demux_rollover(struct packet_fanout *f,
- 	i = j = min_t(int, po->rollover->sock, num - 1);
- 	do {
- 		po_next = pkt_sk(rcu_dereference(f->arr[i]));
--		if (po_next != po_skip && !READ_ONCE(po_next->pressure) &&
-+		if (po_next != po_skip &&
-+		    !packet_sock_flag(po_next, PACKET_SOCK_PRESSURE) &&
- 		    packet_rcv_has_room(po_next, skb) == ROOM_NORMAL) {
- 			if (i != j)
- 				po->rollover->sock = i;
-diff --git a/net/packet/internal.h b/net/packet/internal.h
-index 9e50bf06131f2..9097fb5d7f2e2 100644
---- a/net/packet/internal.h
-+++ b/net/packet/internal.h
-@@ -117,7 +117,6 @@ struct packet_sock {
- 	spinlock_t		bind_lock;
- 	struct mutex		pg_vec_lock;
- 	unsigned long		flags;
--	int			pressure;
- 	int			ifindex;	/* bound device		*/
- 	__be16			num;
- 	struct packet_rollover	*rollover;
-@@ -146,6 +145,7 @@ enum packet_sock_flags {
- 	PACKET_SOCK_TP_LOSS,
- 	PACKET_SOCK_HAS_VNET_HDR,
- 	PACKET_SOCK_RUNNING,
-+	PACKET_SOCK_PRESSURE,
- };
+ {
+ 	skb_queue_purge(&sk->sk_error_queue);
+@@ -4330,7 +4342,7 @@ static __poll_t packet_poll(struct file *file, struct socket *sock,
+ 			TP_STATUS_KERNEL))
+ 			mask |= EPOLLIN | EPOLLRDNORM;
+ 	}
+-	packet_rcv_try_clear_pressure(po);
++	__packet_rcv_try_clear_pressure(po);
+ 	spin_unlock_bh(&sk->sk_receive_queue.lock);
+ 	spin_lock_bh(&sk->sk_write_queue.lock);
+ 	if (po->tx_ring.pg_vec) {
+@@ -4570,14 +4582,14 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ 		rb->frame_max = (req->tp_frame_nr - 1);
+ 		rb->head = 0;
+ 		rb->frame_size = req->tp_frame_size;
++		po->prot_hook.func = (po->rx_ring.pg_vec) ?
++						tpacket_rcv : packet_rcv;
+ 		spin_unlock_bh(&rb_queue->lock);
  
- static inline void packet_sock_flag_set(struct packet_sock *po,
+ 		swap(rb->pg_vec_order, order);
+ 		swap(rb->pg_vec_len, req->tp_block_nr);
+ 
+ 		rb->pg_vec_pages = req->tp_block_size/PAGE_SIZE;
+-		po->prot_hook.func = (po->rx_ring.pg_vec) ?
+-						tpacket_rcv : packet_rcv;
+ 		skb_queue_purge(rb_queue);
+ 		if (atomic_long_read(&po->mapped))
+ 			pr_err("packet_mmap: vma is busy: %ld\n",
 -- 
 2.53.0
 
