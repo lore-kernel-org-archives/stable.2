@@ -1,121 +1,111 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B8E46EC81;
-	Fri, 21 Aug 2026 13:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D5B2BE02C;
+	Fri, 21 Aug 2026 13:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787318670; cv=none; b=TVnaagzFujw0fthITfjnYkyTeP8ogmKDE9H5Hf+IVopanJ8S5MBkIq3vuViej21oa6IviMjkuUHEtFsebTgqtUha26jYqGrsBiwSb5Sk+q6T7jOOxoOCQQqhUYT4yX5djKBrhfO3Quo3/yBHoeJ2oq4T1py5cwldsiktCY0x6hA=
+	t=1787319252; cv=none; b=OYxKdfmYTNjbFaYaAsbee3jR5CHl+pCG1ptn7/nYncAqMLTafsL0nF/pEykc2tlD8DGjpQgDGMmW1+XAHQVPW4lwo4fMJ1nuedRMPAlJEssnlvz1GoHTsQfNpxtldnNAud+mBKT6FI0ZTsZe1m7coqlnXAWYEgdxIPb1ULYWi7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787318670; c=relaxed/simple;
-	bh=0KeAh2yZQ4/JEBjlAjH72kjPeo27SYU2lWuAvxRubTk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lcqEqfWAoES5/Z06Bvkrj4HD1O4+tjzGnzwzb/ntnfyQ5lMzlVqTv1ZsBdvBFu41FMU7BuV2ksDITfKcUAM+8jn1QlMv14rfNI2x0GG6zROXlWcFm77QcVA/6nw+qLurZCojS6lxtJn6adB6RX29PnliEnHsyCuTBRbpG5frZL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=mZQVCZY4; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OArAfgxF; arc=none smtp.client-ip=202.12.124.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1787319252; c=relaxed/simple;
+	bh=bAdbSU41Z/vBmC+QsvGL2nnUK1uHasaCpMfmR5D0HMk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AMr9oXBzbvSHDQjjR/yuN5GfhhYqdEcv7rGoeu5E0HkJvVqhMNvXDl3Y8PbLVzzRczd2uHgitcsaLs41hE3F2UefVaIbKUDbgVhtToM8sozUYVlMeSYGhp8Z/eLfJgJADayPbgRFbPNWM6YwmHwvh388bl890wTPwelhMUCfpT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=r7kCHm7F; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="mZQVCZY4";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OArAfgxF"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 269F07A009B;
-	Fri, 21 Aug 2026 09:24:13 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-05.internal (MEProxy); Fri, 21 Aug 2026 09:24:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787318653;
-	 x=1787405053; bh=3OcZOneH84uMUHuqcJlM3UioXw3CQO4uTwxF3T77Seo=; b=
-	mZQVCZY4qviuTBoOdYtXqQzF5wUEkiD7WhlA5QzFAGW4I7AUb2p3frJXqKiMtRef
-	GrtlNvtpyw0UXB4gWQ+xGqA0R9knWU0X0jMGQ74qmjbJ/hQt8vVmFSXHl7YMlrW0
-	McJGJJY6FhlFj7D7YYt6/n/g3BnFbrE7B5wuk7OfNotXCYyxz/YtSKkuFnTQW919
-	NywzHXoNcC6hcek9W4xgjBqGv1brlWy2yEg6iivhi6qMsQW9Slygm6I0quYBBYid
-	sv7Cx2IC2UJ+xDKEPRFgKxSktpw5dEPghOUWpv2qlMMob88oYevZrHcGLhCjYTI7
-	1FEtHMeGbbtxWTA+ncrEbg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787318653; x=
-	1787405053; bh=3OcZOneH84uMUHuqcJlM3UioXw3CQO4uTwxF3T77Seo=; b=O
-	ArAfgxF4JWESUNhDM0wbyyknxvJtVZRpwg2GC2wAH4Qe6vhF6L2t9oMetFTyYLFr
-	tLUguikGSgaHo9e2e0TockB9hWLM7G4/hd+bZ5pNavpFosFEntd5P2ClkXjM9E7B
-	JmbtVNrZKYQO6OAGew5e3p3pXwYuYc35j1k0yCjnCm6qgmafJ+XxeKytlu5ZgUfg
-	5Wd4Slm5H9PpN9sQiSYvg6ZLs/oZ8ZRbBEZu58yrccHLUB9I+PHloOtHfac5Z+ig
-	/KeF3WypcJTQ1eilAvZV0b8CsTpuDFNU7xgZ9wEcT2W60R4wb3QcFGDULeWRArY1
-	4d+YorkaH562XynDRpxmQ==
-X-ME-Sender: <xms:fFGIar9E2V8y1rGj6wCEQtEo3XYlHS3orw02_Ebk2QuDiGILhJQ_KQ>
-    <xme:fFGIajkuXeHGacvM3LyZIZ8lul07kWToD1hgS7rJmhCXK9qx-xiIXI1pc8sxr-n9V
-    eddX8HUWxGpAMUVvBkUbdYSd1kCAD_GiI5pv4FVkqAMinSoHUw5qs0>
-X-ME-Received: <xmr:fFGIakjL078fQZ6FnGLa9Ko4XelZE5j-v1KJsfbhc3UmVEFYk538wBRv2v1pNwL15aS13AjLTw_oJeven_fMw7vWeC9kEJl6>
-X-ME-Proxy-Cause: dmFkZTE0dgeGrkFtExipsGvFxrlukiTCyhW8juZDcRxWB7HruDPtRi+cEjF5fpNXhqEfLy
-    1POzEkpwnLbp2TKo2DROkP5fzezrNae41A/uihjcK/n8j+KCxZlX+3k1wH15SdzbimQ+4L
-    jaGMKRb2qVAePcD0awLL7x+O3ARamG9258V09IO2PD/zG2wusSk9WuSJlf1w0Ld7J13hul
-    JPVapoSS2jyiH2/pHqXTGTw5oXEQGL+uM2omTLHNgWOVLp5sgIk033NiDmxAgajhKmmvuv
-    iVKNGD5OxJDn+8ebSZYsbmnBBmANQb3SRFbrkS0qVAn8JmWAJ4yqXp7xhCLeTfP1xRYlcb
-    OF/frTo7oZ7KV9RZCKNGV8m9h/axT4kN0ixIJ4wFxHgqE49ou4YTaftOnG8o6QkGqgWhv+
-    GnG1OBp53KXOfny9RO4TFE782IFlz63iCDD8Qv+tkxqrC7FFil1RnMbiOBkgRSuoxg/Yu0
-    48sr1HXsabkVRHicDSyRe09NBjAQmjF4UbWphb6BCfcjgQ/6ee4oxA2qbhfEysUgF4P6B4
-    wdUo6HQKmaIrw21QYmAj6oEmxHu18w2JLGefoPzReWjbjlMobPMkxDoNg/WFWPMghi7/ti
-    jWWGMtZ5L6koFAm9TtL5bmWfVLJVasj+uhlQXVoKF71M2b2+Ta7QwpSEIR3A
-X-ME-Proxy: <xmx:fFGIarYnox8eW1OyYEdLrag-zyeUo6rd3DByIopOsreDWXl9tEWBtw>
-    <xmx:fFGIaoElWfmXe2hS-e8_C_jC6h-LPOsbI6nTTPSZwtanVe84rSj1hA>
-    <xmx:fFGIaoZ07nPSuwIbgBMqk-uiLaUdYu6PVTuoYuFyGHk6C8SQetg3zw>
-    <xmx:fFGIap0iikKgzOtK1s14KQXaTd2py_gxGymOyoBXfn_EMa7or8tUEQ>
-    <xmx:fVGIajxbcTDRremBExfynunYN0E9uDB1SxPujFgS_Hy8Kc85IUA4HJNK>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 21 Aug 2026 09:24:10 -0400 (EDT)
-Message-ID: <00aa6275-65cc-45b1-98cb-ed2fa84c8603@pobox.com>
-Date: Fri, 21 Aug 2026 06:24:09 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="r7kCHm7F"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9EF681A168D;
+	Fri, 21 Aug 2026 13:34:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6FB8D604AA;
+	Fri, 21 Aug 2026 13:34:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AB14C11C7714B;
+	Fri, 21 Aug 2026 15:33:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787319241; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=zW+S1lFLlEZ8r/53t/D9PI+ul66jA+3Kp+sHgvAr+/w=;
+	b=r7kCHm7FWgieHBMibFsZedfMtdS736rojrERN7LviZCgayDbUyYjDVyCc3aQq725kI+1by
+	yAnf4w2NK2zH+U6epwNMvNqvsMfjCFwSMC5nk/2U05WkJebnfjer2ZSJmX7mFS0i1U6kF4
+	HCiYcp8nGKnhHqhUfGuk+TNxQl0VXq2GwA2/PbXuks8p/uI2PnS/Go44lhgdmb/tFzX/i+
+	JZL4ipXEdmwsCxCQZE0/4ZBkRaMJ9qvWN9wAno8e9Tot9q063I8nvXdyVu3T23jlMM+ISU
+	S1Eu7Woy6pDLK7wBvQ/DfORBIkSJZykkSZAzJGTaHiqCaycs1I6DNuSf9OU95w==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: [PATCH 0/4] ipv4: start using dst_dev_rcu()
+Date: Fri, 21 Aug 2026 15:33:34 +0200
+Message-Id: <20260821-cve-2025-40074-6-1-v1-0-cad5cf499b76@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/166] 6.6.153-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260820145211.194104353@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260820145211.194104353@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3bJttIqvIrhAHXR9YCm1UZCe
+ HerHr9J5l+RJKokdNWKKFmT3ucCs6sQrsN8EdJzMSxbz0fLFLJQgaOG+dCQJ0OtC47Fj+0w7VG
+ OjyiTvn/RE7KvTb2g/+/pNd4kPL9FbNsHx3Hk9H4AAAA=
+X-Change-ID: 20260820-cve-2025-40074-6-1-95c50e6b9af3
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Wei Wang <weiwan@google.com>, 
+ Martin KaFai Lau <kafai@fb.com>, 
+ Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, 
+ David Ahern <dsahern@kernel.org>, 
+ Steffen Klassert <steffen.klassert@secunet.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, Miguel Gazquez <miguel.gazquez@bootlin.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787319234; l=1466;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=bAdbSU41Z/vBmC+QsvGL2nnUK1uHasaCpMfmR5D0HMk=;
+ b=olU9DwrBVWSMkioHfKwGPrq0oLqinw/QYpzOKDRXs31MmmfhIOU7GTNoh+QXx0L6SzUhHm7Q6
+ +R710KwyYW9AKQuBYQWMKHfixeWGrYDririy8MNXii/4khh3/61IRWx
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/20/26 7:54 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.153 release.
-> There are 166 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.153-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Three other patches are required to be able to apply cleanly the final patch.
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Signed-off-by: Miguel Gazquez <miguel.gazquez@bootlin.com>
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+---
+Eric Dumazet (4):
+      net: dst: add four helpers to annotate data-races around dst->dev
+      ipv4: adopt dst_dev, skb_dst_dev and skb_dst_dev_net[_rcu]
+      net: dst: introduce dst->dev_rcu
+      ipv4: start using dst_dev_rcu()
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+ include/net/dst.h             | 34 ++++++++++++++++++++++++++++++----
+ include/net/inet_hashtables.h |  2 +-
+ include/net/ip.h              | 11 ++++++-----
+ include/net/route.h           |  2 +-
+ net/core/dst.c                |  4 ++--
+ net/core/sock.c               |  6 +++---
+ net/ipv4/icmp.c               | 28 +++++++++++++++-------------
+ net/ipv4/igmp.c               |  2 +-
+ net/ipv4/ip_fragment.c        |  9 +++++++--
+ net/ipv4/ip_output.c          |  4 ++--
+ net/ipv4/ip_vti.c             |  4 ++--
+ net/ipv4/ipmr.c               |  2 +-
+ net/ipv4/netfilter.c          |  4 ++--
+ net/ipv4/route.c              | 10 +++++-----
+ net/ipv4/tcp_fastopen.c       |  4 +++-
+ net/ipv4/tcp_ipv4.c           |  3 ++-
+ net/ipv4/tcp_metrics.c        |  8 ++++----
+ net/ipv4/xfrm4_output.c       |  2 +-
+ 18 files changed, 88 insertions(+), 51 deletions(-)
+---
+base-commit: 7e6e670547210424443261b2d54d2acfff85a37c
+change-id: 20260820-cve-2025-40074-6-1-95c50e6b9af3
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+
