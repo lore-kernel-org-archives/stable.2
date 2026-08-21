@@ -1,227 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCE1379C34
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 03:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA8E379C34
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 04:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787284787; cv=none; b=oTUL2USRdRU2OOHW4YO9qv7JoL0uysbrYIKa+76jEbi0GB7i/GOGuExpwDEJoccj001uO0bd8Q5qWbfPofasKmCOFZ2mV3hrTFM5LLmnzisNTDLURfF3iYhSfvftEuYkrlsueQlokieraP/IhCx3qUBYqTQPbspVk0Wp7v9gQcU=
+	t=1787284808; cv=none; b=okLGYf8Lw0ixtwF58K7S3IM4GvPgT3VmjFHYUo/hNsx8qz/8PG1jttwHmComySBNS+9u42f5Lu1OTareYJn5d/+UlT2ZAilYFwTBC/aC1/V8d8eWaKjBfPjFLeAfEnp8vmlMnFObSniI4VDSwsOr+BKBcJ5TryQpAbDqJk+sCo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787284787; c=relaxed/simple;
-	bh=lTYYdX52RliNn8e5ODujcj4q8fWebf+WauQn/gnxh3E=;
+	s=arc-20240116; t=1787284808; c=relaxed/simple;
+	bh=iUuEP922s/t8x9dQOi252tbFCF04RM/WK/j+CDL6NjU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X2tzL3Qa6OQFaHZkCjALJn5TZA+l17LwUfeLIi4x1JcAWSu959frINxkfiY6I4HBIPp57RsLk7vNpjCV5pTGP0HU6FVxvBmmaWHIdxgmagKEYNSTDvVEBmcxjiUxnvqf6xPyb5JbpAGdovnO9eTYw2izqm3DS7iLeqrdqi38yS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFHufSPl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DixwNt1Tr2yK2FmOTW/lZB7rvUm6DDw+BInR7unX/Uby60z4JuWQSNMqjH9joOKnATV/55exTn84gQ/AEctM8qB/Isd39ezvpqgVjtiAPKtxQyLfM2Gu4GUal+kKdCE0dkv7tag2IdpOHbyTqvR68v4SBFCsgmnu8zn2POQU6co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=etbx0egW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFHufSPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1351F00A3E;
-	Fri, 21 Aug 2026 03:59:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="etbx0egW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34AC91F000E9;
+	Fri, 21 Aug 2026 04:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787284786;
-	bh=CdjM3HUzHzcHcimz9z+4HjOpr5hhvWlYDkpe+2oE5gw=;
+	s=k20260515; t=1787284806;
+	bh=vCLv6mVC3RiSASFeSpxNxW0e9vnP65exErg3U4Dz/pg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hFHufSPlaqmedDDF+2enQAmhW4sHqDDkft8Hl1Xal3CtcBd2/z9pV19h54UK/Emhe
-	 4EfSsFAbyNaeJvcz5+RUgdN2pg0Z3UjrWgiUvWKGl/V2vHP7DSvVdKqA+2d9qtm5k1
-	 +aIwZYmEUWPF/aRd7ZYuh5/2vecePfruWiO9s2FUdq6fa97ACMgxWPfAZBmIlU2DrI
-	 2AZbqaokO73Cjo4MRWQmdiVJ2At59lOpGfwc4RqaSUHNaTdR7x/eHjKBFgr6KDZYJD
-	 9rTs2EwR6fSY4IPXxnrFfN8Cyb5LoCpgR/Ee9KtTuVJi/zCta2cEP7/BVmmbQZjwdM
-	 8UaB7LdeVkdAg==
+	b=etbx0egW1VfvSTbtHsEtWO+F4H9h/xy9iuyk2Ze8KqaVixvtNeRUHDNexrQRYC5nu
+	 hnHRD85eFK5Yc2sT6eXDzX/zF7ojA4XKYm0BxVz81Jo6t061ttew45tku33SPCYY0V
+	 5f5aY3KAkriXPthqKNTTIOwUI45DOLrSb29QWQYeijlVz2IQkxTHkQGvyhKe1rem79
+	 89CkIjj9Mv+4Z44kdCkhoGGQMxj/iZ1aD7FW2YFVae92B/jeHxIt4+0WPNdLFbhZJ4
+	 Hg82Qze61oBCMHBsVNpt4aKmSWzCO+rfrok1NbAAAY1Yz57di8ayCT6rQknUKNKXqR
+	 hO9SRKWD2OImg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Aditya Chillara <aditya.chillara@oss.qualcomm.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+Cc: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>,
+	stable <stable@kernel.org>,
+	Praveen Talari <praveen.talari@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] perf/core: Fix group leader use-after-free after sibling detach
-Date: Thu, 20 Aug 2026 23:59:40 -0400
-Message-ID: <20260821035940.2526518-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y] serial: qcom-geni: fix TX DMA buffer flush
+Date: Fri, 21 Aug 2026 00:00:04 -0400
+Message-ID: <20260821040004.2527826-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821035940.2526518-1-sashal@kernel.org>
-References: <2026081730-distance-sherry-000f@gregkh>
- <20260821035940.2526518-1-sashal@kernel.org>
+In-Reply-To: <2026081743-aghast-resisting-a8ca@gregkh>
+References: <2026081743-aghast-resisting-a8ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
+From: Jan Sebastian Götte <linux@jaseg.de>
 
-[ Upstream commit 42c5ca1f0a288a52878bd72a5595b08261057438 ]
+[ Upstream commit e3c04834ae1ab5e9cfbe8ac54ec734aa4774249d ]
 
-perf_group_detach() handles leader and sibling detach differently. When the
-group leader is detached, all siblings are promoted to singleton events and
-their group_leader pointer is reset to themselves. When a sibling is
-detached, it is removed from the leader's sibling_list, but its
-group_leader pointer is left pointing at the old leader.
+When transmit flushing a qcom-geni UART during an ongoing TX DMA, the
+UART gets stuck infinitely repeating corrupted TX DMA frames.
 
-That is harmless when the sibling is being closed and freed immediately, as
-in the DETACH_DEAD path. It is not safe when the sibling is detached but
-kept alive, such as during CPU hotplug with DETACH_GROUP. In that case the
-sibling is removed from the context, while its file descriptor can still
-keep it alive.
+The DMA-mode uart_ops does not provide a flush_buffer callback, so an
+in-flight transfer can complete after serial core has reset the transmit
+kfifo, underflowing its length and resubmitting page-sized transfers
+indefinitely. Add one that stops the transfer and clears tx_remaining
+and tx_queued.
 
-A typical failing sequence is:
+The stop path was also broken: it unmapped the buffer while the serial
+engine could still read it, and never reset the TX DMA state machine.
+Cancel the main sequencer command first, then reset the state machine
+and wait for it before unmapping. Drop the early return so a pending
+mapping is also cleaned up when the main command is inactive.
 
-  - A group contains leader L and sibling S.
-  - CPU hot-unplug detaches S with DETACH_GROUP, removing it from
-    L->sibling_list but leaving S->group_leader == L.
-  - L is later closed and freed.
-  - A PERF_IOC_FLAG_GROUP ioctl on S follows S->group_leader and
-    dereferences the freed leader.
+The bug can be triggered from userspace with a large write immediately
+followed by TCOFLUSH. A following tcdrain will hang forever. The bug was
+reproduced and this fix was validated on Arduino Uno Q (QRB2210)
+using /dev/ttyHS1.
 
-This was reproduced by running the perf event fuzzer, CPU hotplug, and a
-stress workload concurrently:
-
-  Unable to handle kernel paging request at virtual address 006b6b6b6b6b6cdb
-  CPU: 2 PID: 12489 Comm: perf_fuzzer 6.18.7 PREEMPT
-  pc : perf_ioctl+0x34c/0xc68
-  x20: ffffff89a3fa2c70 x8 : 6b6b6b6b6b6b6b6b
-  Code: 943c4a0e 340047a0 f9404a94 f9411e88 (f940b908)
-  Call trace:
-  perf_ioctl+0x34c/0xc68 (P)
-  __arm64_sys_ioctl+0xa0/0xf4
-  invoke_syscall+0x58/0xe4
-  el0_svc_common+0xa8/0xdc
-  do_el0_svc+0x1c/0x28
-  el0_svc+0x40/0xc0
-  el0t_64_sync_handler+0x68/0xdc
-  el0t_64_sync+0x1c4/0x1c8
-
-The fault happened in perf_ioctl(), where perf_event_for_each() follows
-the stale group_leader pointer and perf_event_for_each_child() then
-dereferences the freed leader's context.
-
-Fix the use-after-free by promoting the detached sibling to a singleton.
-Also fix __event_disable() cgroup accounting and event state change.
-
-Fixes: 8a49542c0554 ("perf_events: Fix races in group composition")
-Assisted-by: PatchWise:gpt-5.5
-Signed-off-by: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260807-fix-group-leader-uaf-v3-1-b0c2310c9a0d@oss.qualcomm.com
-[ adjusted `event_sched_out()` calls to the older three-argument form taking `cpuctx` and kept the existing `event->pending_disable = 1;` in the DETACH_DEAD path ]
+Assisted-by: Claude:claude-5-opus Codex:gpt-5
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+Fixes: 2aaa43c70778 ("tty: serial: qcom-geni-serial: add support for serial engine DMA")
+Cc: stable <stable@kernel.org>
+Reviewed-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260729174105.21838-2-git@jaseg.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Inlined `__qcom_geni_serial_cancel_tx_cmd()` as the existing open-coded cancel/abort block and dropped the `flush_buffer`→`flush_buffer_fifo` rename and `tx_queued` reset, which don't exist in this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/core.c | 65 +++++++++++++++++++++++++-------------------
- 1 file changed, 37 insertions(+), 28 deletions(-)
+ drivers/tty/serial/qcom_geni_serial.c | 51 +++++++++++++++++----------
+ 1 file changed, 33 insertions(+), 18 deletions(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 1ba4c5e5e4fbf..a0bb33854c4a9 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -2136,6 +2136,34 @@ static inline struct list_head *get_event_list(struct perf_event *event)
- 	return event->attr.pinned ? &ctx->pinned_active : &ctx->flexible_active;
+diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
+index ab5b4c6c29de0..91c502e833e16 100644
+--- a/drivers/tty/serial/qcom_geni_serial.c
++++ b/drivers/tty/serial/qcom_geni_serial.c
+@@ -144,6 +144,7 @@ static const struct uart_ops qcom_geni_uart_pops;
+ static struct uart_driver qcom_geni_console_driver;
+ static struct uart_driver qcom_geni_uart_driver;
+ 
++static void qcom_geni_serial_stop_tx_dma(struct uart_port *uport);
+ static int qcom_geni_serial_port_setup(struct uart_port *uport);
+ 
+ static inline struct qcom_geni_serial_port *to_dev_port(struct uart_port *uport)
+@@ -597,35 +598,48 @@ static unsigned int qcom_geni_serial_tx_empty(struct uart_port *uport)
+ 	return !readl(uport->membase + SE_GENI_TX_FIFO_STATUS);
  }
  
-+/* @sibling must already be unlinked from its old leader's sibling_list. */
-+static void perf_promote_sibling_to_leader(struct perf_event *sibling,
-+					   struct perf_event_context *ctx,
-+					   int group_caps)
++static void qcom_geni_serial_flush_buffer_dma(struct uart_port *uport)
 +{
-+	/*
-+	 * Events that have PERF_EV_CAP_SIBLING require being part of
-+	 * a group and cannot exist on their own, schedule them out
-+	 * and move them into the ERROR state. Also see
-+	 * _perf_event_enable(), it will not be able to recover this
-+	 * ERROR state.
-+	 */
-+	if (sibling->event_caps & PERF_EV_CAP_SIBLING)
-+		__event_disable(sibling, ctx, PERF_EVENT_STATE_ERROR);
++	struct qcom_geni_serial_port *port = to_dev_port(uport);
 +
-+	sibling->group_leader = sibling;
-+	sibling->group_caps = group_caps;
-+
-+	if (sibling->attach_state & PERF_ATTACH_CONTEXT) {
-+		add_event_to_groups(sibling, ctx);
-+
-+		if (sibling->state == PERF_EVENT_STATE_ACTIVE)
-+			list_add_tail(&sibling->active_list, get_event_list(sibling));
-+	}
-+
-+	perf_event__header_size(sibling);
++	qcom_geni_serial_stop_tx_dma(uport);
++	port->tx_remaining = 0;
 +}
 +
- static void perf_group_detach(struct perf_event *event)
+ static void qcom_geni_serial_stop_tx_dma(struct uart_port *uport)
  {
- 	struct perf_event *leader = event->group_leader;
-@@ -2159,8 +2187,9 @@ static void perf_group_detach(struct perf_event *event)
- 	 */
- 	if (leader != event) {
- 		list_del_init(&event->sibling_list);
--		event->group_leader->nr_siblings--;
--		event->group_leader->group_generation++;
-+		leader->nr_siblings--;
-+		leader->group_generation++;
-+		perf_promote_sibling_to_leader(event, ctx, event->event_caps);
- 		goto out;
+ 	struct qcom_geni_serial_port *port = to_dev_port(uport);
+ 	bool done;
+ 
+-	if (!qcom_geni_serial_main_active(uport))
+-		return;
++	if (qcom_geni_serial_main_active(uport)) {
++		geni_se_cancel_m_cmd(&port->se);
++
++		done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
++						 M_CMD_CANCEL_EN, true);
++		if (!done) {
++			geni_se_abort_m_cmd(&port->se);
++			done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
++							 M_CMD_ABORT_EN, true);
++			if (!done)
++				dev_err_ratelimited(uport->dev, "M_CMD_ABORT_EN not set");
++			writel(M_CMD_ABORT_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
++		}
++
++		writel(M_CMD_CANCEL_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
++	}
+ 
+ 	if (port->tx_dma_addr) {
++		writel(1, uport->membase + SE_DMA_TX_FSM_RST);
++		if (!qcom_geni_serial_poll_bit(uport, SE_DMA_TX_IRQ_STAT,
++					       TX_RESET_DONE, true))
++			dev_err_ratelimited(uport->dev, "TX DMA reset failed");
++		writel(TX_RESET_DONE | TX_DMA_DONE,
++		       uport->membase + SE_DMA_TX_IRQ_CLR);
++
+ 		geni_se_tx_dma_unprep(&port->se, port->tx_dma_addr,
+ 				      port->tx_remaining);
+ 		port->tx_dma_addr = 0;
+-		port->tx_remaining = 0;
+-	}
+-
+-	geni_se_cancel_m_cmd(&port->se);
+-
+-	done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
+-					 M_CMD_CANCEL_EN, true);
+-	if (!done) {
+-		geni_se_abort_m_cmd(&port->se);
+-		done = qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
+-						 M_CMD_ABORT_EN, true);
+-		if (!done)
+-			dev_err_ratelimited(uport->dev, "M_CMD_ABORT_EN not set");
+-		writel(M_CMD_ABORT_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
  	}
- 
-@@ -2170,32 +2199,14 @@ static void perf_group_detach(struct perf_event *event)
- 	 * to whatever list we are on.
- 	 */
- 	list_for_each_entry_safe(sibling, tmp, &event->sibling_list, sibling_list) {
 -
--		/*
--		 * Events that have PERF_EV_CAP_SIBLING require being part of
--		 * a group and cannot exist on their own, schedule them out
--		 * and move them into the ERROR state. Also see
--		 * _perf_event_enable(), it will not be able to recover this
--		 * ERROR state.
--		 */
--		if (sibling->event_caps & PERF_EV_CAP_SIBLING)
--			__event_disable(sibling, ctx, PERF_EVENT_STATE_ERROR);
--
--		sibling->group_leader = sibling;
- 		list_del_init(&sibling->sibling_list);
- 
- 		/* Inherit group flags from the previous leader */
--		sibling->group_caps = event->group_caps;
--
--		if (sibling->attach_state & PERF_ATTACH_CONTEXT) {
--			add_event_to_groups(sibling, event->ctx);
--
--			if (sibling->state == PERF_EVENT_STATE_ACTIVE)
--				list_add_tail(&sibling->active_list, get_event_list(sibling));
--		}
-+		perf_promote_sibling_to_leader(sibling, ctx, event->group_caps);
- 
- 		WARN_ON_ONCE(sibling->ctx != event->ctx);
- 	}
-+	event->nr_siblings = 0;
- 
- out:
- 	for_each_sibling_event(tmp, leader)
-@@ -2383,12 +2394,9 @@ __perf_remove_from_context(struct perf_event *event,
- 		event->pending_disable = 1;
- 		state = PERF_EVENT_STATE_DEAD;
- 	}
--	event_sched_out(event, cpuctx, ctx);
- 
--	if (event->state > PERF_EVENT_STATE_OFF)
--		perf_cgroup_event_disable(event, ctx);
-+	__event_disable(event, ctx, state);
- 
--	perf_event_set_state(event, min(event->state, state));
- 	if (flags & DETACH_GROUP)
- 		perf_group_detach(event);
- 	if (flags & DETACH_CHILD)
-@@ -2450,8 +2458,9 @@ static void __event_disable(struct perf_event *event,
- 			    enum perf_event_state state)
- {
- 	event_sched_out(event, __get_cpu_context(ctx), ctx);
--	perf_cgroup_event_disable(event, ctx);
--	perf_event_set_state(event, state);
-+	if (event->state > PERF_EVENT_STATE_OFF)
-+		perf_cgroup_event_disable(event, ctx);
-+	perf_event_set_state(event, min(event->state, state));
+-	writel(M_CMD_CANCEL_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
  }
  
- /*
+ static void qcom_geni_serial_start_tx_dma(struct uart_port *uport)
+@@ -1600,6 +1614,7 @@ static const struct uart_ops qcom_geni_uart_pops = {
+ 	.request_port = qcom_geni_serial_request_port,
+ 	.config_port = qcom_geni_serial_config_port,
+ 	.shutdown = qcom_geni_serial_shutdown,
++	.flush_buffer = qcom_geni_serial_flush_buffer_dma,
+ 	.type = qcom_geni_serial_get_type,
+ 	.set_mctrl = qcom_geni_serial_set_mctrl,
+ 	.get_mctrl = qcom_geni_serial_get_mctrl,
 -- 
 2.53.0
 
