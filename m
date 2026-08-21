@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96053DDAF4
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E80C31194C
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787323785; cv=none; b=VtiQLYlrB8TlEhBVz0MVQVZJfADcfwkt+WjquOVuIYUgLLcqucCqNDKGpaTjHvg+8kb4nn88tNYQu1H74WD0sfmOfrSkvIR0pbuR21B4cn9JAkVlUgMYbWgRp9oWzyzhGqx5Z2ScE+Gbui8drYNqSoBDNbBj52APNjw6sZo7zt4=
+	t=1787323792; cv=none; b=KygVXLRVZwilMhvpD1Ad18Xujh6UtsQBpENaXbRCEe1YQbOvmtGu+KIGNnqizORhnpK7z3qDzwhSL+t3xTomOPkyhv94cC7+vpzzyuZq44gH0GPnQsZyHvQ9ulPfvIo0VqQBD+N1iGn+29GizvD01tmr9k5ng3i0TF7JYdI0/F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787323785; c=relaxed/simple;
-	bh=nkwKh07Oy6sZnXe+LTAxrtL2dfiW1sBTE159eHjkFCQ=;
+	s=arc-20240116; t=1787323792; c=relaxed/simple;
+	bh=Ab03zc6sIBIrRznSQ075BOd4VmQx1hAEVSarJf2Y1JE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TopEfrJ7lJzJ4flA09AKt3T3kVidAk8SXxqYeoDtos7YCjMeTW/hI9AkcCGXUXd6IshNjqamWdjHLEkMwa1yUeJ7JxxIeA3SJu0On4DUWAUqvyn7ptmx2zuCWTQD3L+TyEO7Y0QHroO+BhlRrUFDHCftd207DFhp6566xeucRX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bs6uV4n5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oMj/PbZuEy4So5IGv7bnXJxvtV1GJrcS3N/izgaBFcVqVwT1QcTXrCtmdbsm/ld9BN7WPO/nxExgo0KswCyNewKrau10R3Yvheea8szHWgsOgZOFQVoMofxk6BfSTpVJU3osGh0gCD73MYk+FQdZf8ZBHANu38XIg6A6qS3XDdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7HQO1oC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bs6uV4n5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A27F1F00A3A;
-	Fri, 21 Aug 2026 14:49:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7HQO1oC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99561F000E9;
+	Fri, 21 Aug 2026 14:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787323783;
-	bh=uP1CAYLz0XB5GzQcHHM5X0OjdyWARjTxijjtHl405qs=;
+	s=k20260515; t=1787323790;
+	bh=cNBre7rSmZLEa7fcm31851O5959P2E6OJPX2aOX67Tw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bs6uV4n54fB2HmWeplT8MDfxqAQSTcf8yI/IWLPES9YlngkLyjZCrMDA9ZnrvrYv/
-	 r1PR6k7KEb7QSaOhJ4MbQeQtXurH8xZuCBJRnMowWAwvQZKIuHlFdv44csXJUFIT8g
-	 exo4u9muUO0P1jGNcJdJrzqac5dpYt/Xoe+zcJLFM62ebnGF6YGAMBztwm4tud/K/T
-	 6KVXPCZ16VMevC1TQL4G7d6UbXR9pbiV55VRTLZ3P56o7Hizw9lmZoqrgdP3olTlWd
-	 NuSDAy6knKU7Aa48SjguppeLHor/Z7MD7QOYBgaeOGPCeSjSocPg43IDEW5j2J9fY4
-	 ou6zCkybU0XBA==
+	b=M7HQO1oCbBt6sftyCohWBPVs5Uw2H8mLkeU12jFu4echw1MCJRoQoz2C7lnmtK8Ud
+	 062VCBTAs88XgBkJatAKLWu2nXZ+gz3fUSf8/sf8tIEQ2W846oswyezP1TBeVkpUtb
+	 UO5yYOEzxcv3MLYIO+eHQtmF30oU0KlCHDefWyFtY6DK8pjEwsrpREc3DhmUGeKqmv
+	 PTFgHbf4QD+PD/JYKpYO9CC8oNboCjT2WpOPSBJSKwOun7o+IdR8CfvEWqKDoPk5wf
+	 MwXvgr3kTYjrCot9ZfLL7K3ybrpscLABYDCSXj/jd0fiFyxNHxGnGiqvdKm8c5mxza
+	 0xoO8jSexH4mg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Qihang Tang <q.h.hack.winter@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] packet: synchronize pressure clearing with ring reconfiguration
-Date: Fri, 21 Aug 2026 10:49:40 -0400
-Message-ID: <20260821144940.3429010-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] packet: use consistent hard_header_len in non-ring send paths
+Date: Fri, 21 Aug 2026 10:49:48 -0400
+Message-ID: <20260821144948.3429217-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821144940.3429010-1-sashal@kernel.org>
-References: <2026081734-marrow-captive-bde1@gregkh>
- <20260821144940.3429010-1-sashal@kernel.org>
+In-Reply-To: <2026081701-education-monument-ba42@gregkh>
+References: <2026081701-education-monument-ba42@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,100 +46,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+From: Qihang Tang <q.h.hack.winter@gmail.com>
 
-[ Upstream commit 1a35da325cac4d5bcad76a2aa943408a6f1d9000 ]
+[ Upstream commit 03390aa32e669cc4ecd7d34108e2e1afc13d689d ]
 
-packet_set_ring() updates the RX ring state under sk_receive_queue.lock,
-but used to publish the tpacket receive mode through po->prot_hook.func
-after releasing that lock. packet_poll() and packet_recvmsg() can then
-run the pressure clearing path after the ring has been cleared while
-still seeing tpacket_rcv, causing __packet_rcv_has_room() to dereference
-stale or NULL ring storage.
+packet_snd() reads dev->hard_header_len multiple times while allocating
+and constructing an skb. Device reconfiguration can change this value
+concurrently, for example through bonding device type changes.
 
-Move the existing receive hook assignment into the same
-sk_receive_queue.lock section as the ring state update. Keep the
-assignment otherwise unchanged, including on TX ring reconfiguration, to
-avoid adding behavior changes that are not required for the fix.
+For SOCK_RAW, packet_snd() can save a larger value in reserve and later
+allocate headroom using a smaller value. Moving skb->data back by reserve
+then places it before skb->head, and the following copy from userspace can
+attempt an out-of-bounds write.
 
-Serialize packet_recvmsg() pressure clearing with the same queue lock
-only after PACKET_SOCK_PRESSURE has been observed. If the flag is clear
-and the socket has moved away from tpacket_rcv, packet_set_ring() has
-already detached the socket and waited for synchronize_net(), so no new
-packet input can set the flag again.
+packet_sendmsg_spkt() has the same issue because it calculates its
+reservation and header offset from separate reads before dropping the RCU
+read lock to allocate the skb.
 
-packet_poll() already holds sk_receive_queue.lock, so it uses the new
-unlocked helper directly.
+Add LL_RESERVED_SPACE_EX() for callers that already saved a header length.
+Read hard_header_len once in packet_snd() and use it for allocation and
+construction. In packet_sendmsg_spkt(), preserve the allocation-time value
+through the device lookup retry.
 
-Fixes: 2ccdbaa6d55b ("packet: rollover lock contention avoidance")
+The separate SOCK_DGRAM consistency problem between hard_header_len and
+header_ops->create is not addressed here.
+
+Fixes: b84bbaf7a6c8 ("packet: in packet_snd start writing at link layer allocation")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Link: https://patch.msgid.link/f90b5688311fa278d1361ea8c6be0bf25967d591.1785247446.git.zihanx@nebusec.ai
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260805125729.19220-3-q.h.hack.winter@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ kept 6.1's `has_vnet_hdr` bool and 3-arg `packet_snd_vnet_parse()` instead of the newer `vnet_hdr_sz` local when applying the `hard_header_len` snapshot lines ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/packet/af_packet.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ include/linux/netdevice.h |  6 ++++--
+ net/packet/af_packet.c    | 26 ++++++++++++++++----------
+ 2 files changed, 20 insertions(+), 12 deletions(-)
 
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 5b2b19287dc1b..37c1109bf1543 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -293,9 +293,11 @@ struct hh_cache {
+  * We could use other alignment values, but we must maintain the
+  * relationship HH alignment <= LL alignment.
+  */
+-#define LL_RESERVED_SPACE(dev) \
+-	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom)) \
++#define LL_RESERVED_SPACE_EX(dev, hlen) \
++	((((hlen) + READ_ONCE((dev)->needed_headroom)) \
+ 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
++#define LL_RESERVED_SPACE(dev) \
++	LL_RESERVED_SPACE_EX(dev, (dev)->hard_header_len)
+ #define LL_RESERVED_SPACE_EXTRA(dev,extra) \
+ 	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom) + (extra)) \
+ 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
 diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 0738fef357350..55b9af053e026 100644
+index 64843368bf10a..3130c4bf3f5b5 100644
 --- a/net/packet/af_packet.c
 +++ b/net/packet/af_packet.c
-@@ -1370,13 +1370,25 @@ static int packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
- 	return ret;
- }
+@@ -2008,8 +2008,9 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 	struct net_device *dev;
+ 	struct sockcm_cookie sockc;
+ 	__be16 proto = 0;
+-	int err;
++	int hard_header_len;
+ 	int extra_len = 0;
++	int err;
  
--static void packet_rcv_try_clear_pressure(struct packet_sock *po)
-+static void __packet_rcv_try_clear_pressure(struct packet_sock *po)
- {
- 	if (packet_sock_flag(po, PACKET_SOCK_PRESSURE) &&
- 	    __packet_rcv_has_room(po, NULL) == ROOM_NORMAL)
- 		packet_sock_flag_set(po, PACKET_SOCK_PRESSURE, false);
- }
- 
-+static void packet_rcv_try_clear_pressure(struct packet_sock *po)
-+{
-+	struct sock *sk = &po->sk;
-+
-+	if (!packet_sock_flag(po, PACKET_SOCK_PRESSURE))
-+		return;
-+
-+	spin_lock_bh(&sk->sk_receive_queue.lock);
-+	__packet_rcv_try_clear_pressure(po);
-+	spin_unlock_bh(&sk->sk_receive_queue.lock);
-+}
-+
- static void packet_sock_destruct(struct sock *sk)
- {
- 	skb_queue_purge(&sk->sk_error_queue);
-@@ -4330,7 +4342,7 @@ static __poll_t packet_poll(struct file *file, struct socket *sock,
- 			TP_STATUS_KERNEL))
- 			mask |= EPOLLIN | EPOLLRDNORM;
+ 	/*
+ 	 *	Get and verify the address.
+@@ -2052,14 +2053,18 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 		extra_len = 4; /* We're doing our own CRC */
  	}
--	packet_rcv_try_clear_pressure(po);
-+	__packet_rcv_try_clear_pressure(po);
- 	spin_unlock_bh(&sk->sk_receive_queue.lock);
- 	spin_lock_bh(&sk->sk_write_queue.lock);
- 	if (po->tx_ring.pg_vec) {
-@@ -4570,14 +4582,14 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 		rb->frame_max = (req->tp_frame_nr - 1);
- 		rb->head = 0;
- 		rb->frame_size = req->tp_frame_size;
-+		po->prot_hook.func = (po->rx_ring.pg_vec) ?
-+						tpacket_rcv : packet_rcv;
- 		spin_unlock_bh(&rb_queue->lock);
  
- 		swap(rb->pg_vec_order, order);
- 		swap(rb->pg_vec_len, req->tp_block_nr);
++	/* Keep the allocation-time header length across retry. */
++	if (!skb)
++		hard_header_len = READ_ONCE(dev->hard_header_len);
++
+ 	err = -EMSGSIZE;
+-	if (len > dev->mtu + dev->hard_header_len + VLAN_HLEN + extra_len)
++	if (len > dev->mtu + hard_header_len + VLAN_HLEN + extra_len)
+ 		goto out_unlock;
  
- 		rb->pg_vec_pages = req->tp_block_size/PAGE_SIZE;
--		po->prot_hook.func = (po->rx_ring.pg_vec) ?
--						tpacket_rcv : packet_rcv;
- 		skb_queue_purge(rb_queue);
- 		if (atomic_long_read(&po->mapped))
- 			pr_err("packet_mmap: vma is busy: %ld\n",
+ 	if (!skb) {
+-		size_t reserved = LL_RESERVED_SPACE(dev);
++		size_t reserved = LL_RESERVED_SPACE_EX(dev, hard_header_len);
+ 		int tlen = dev->needed_tailroom;
+-		unsigned int hhlen = dev->header_ops ? dev->hard_header_len : 0;
++		unsigned int hhlen = dev->header_ops ? hard_header_len : 0;
+ 
+ 		rcu_read_unlock();
+ 		skb = sock_wmalloc(sk, len + reserved + tlen, 0, GFP_KERNEL);
+@@ -2089,7 +2094,7 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 		err = -EINVAL;
+ 		goto out_unlock;
+ 	}
+-	if (len > (dev->mtu + dev->hard_header_len + extra_len) &&
++	if (len > (dev->mtu + hard_header_len + extra_len) &&
+ 	    !packet_extra_vlan_len_allowed(dev, skb)) {
+ 		err = -EMSGSIZE;
+ 		goto out_unlock;
+@@ -3005,7 +3010,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	int offset = 0;
+ 	struct packet_sock *po = pkt_sk(sk);
+ 	bool has_vnet_hdr = false;
+-	int hlen, tlen, linear;
++	int hard_header_len, hlen, tlen, linear;
+ 	int extra_len = 0;
+ 
+ 	/*
+@@ -3046,8 +3051,9 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 			goto out_unlock;
+ 	}
+ 
++	hard_header_len = READ_ONCE(dev->hard_header_len);
+ 	if (sock->type == SOCK_RAW)
+-		reserve = dev->hard_header_len;
++		reserve = hard_header_len;
+ 	if (packet_sock_flag(po, PACKET_SOCK_HAS_VNET_HDR)) {
+ 		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr);
+ 		if (err)
+@@ -3069,10 +3075,10 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 		goto out_unlock;
+ 
+ 	err = -ENOBUFS;
+-	hlen = LL_RESERVED_SPACE(dev);
++	hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
+ 	tlen = dev->needed_tailroom;
+ 	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
+-	linear = max(linear, min_t(int, len, dev->hard_header_len));
++	linear = max(linear, min_t(int, len, hard_header_len));
+ 	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
+ 			       msg->msg_flags & MSG_DONTWAIT, &err);
+ 	if (skb == NULL)
+@@ -3088,7 +3094,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	} else if (reserve) {
+ 		skb_reserve(skb, -reserve);
+ 		if (len < reserve + sizeof(struct ipv6hdr) &&
+-		    dev->min_header_len != dev->hard_header_len)
++		    dev->min_header_len != hard_header_len)
+ 			skb_reset_network_header(skb);
+ 	}
+ 
 -- 
 2.53.0
 
