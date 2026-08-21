@@ -1,84 +1,119 @@
-Received: from ssh247.corpemail.net (ssh247.corpemail.net [210.51.61.247])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D1A34DB56;
-	Fri, 21 Aug 2026 05:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.51.61.247
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787289333; cv=none; b=S8eANFpbek5JAHWWLQPfGtLsJqgstR1BqvanRuD3jirh101Lh1ZvhzV7LJmMbjzHHLL+VeLFcVfSo7bnC2rGW26zCnmR0I76/KSxGwp4f+lZooUza6LIITkdvN192QQu/j0+p/dkrFYhRurGUJPd1AUoeoaQfh00iaW+9r91rGw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787289333; c=relaxed/simple;
-	bh=RzCA8Q5r6PCYwGE5ii3tF9ssY3PwmRTb3QhHCA0wOWA=;
-	h=Content-Type:MIME-Version:From:To:CC:In-Reply-To:References:
-	 Subject:Date:Message-ID; b=IVIHr1C8o78KpxuZXJC3hicy6KS6xzdWap1ERAque1ff9jycyMsTwHoUTgy8A1AJwjHnXd/ztI8a82py47+AFxeCbR2JBRwOz0mnDvq6/jNhd1E8sAz/9cj13vRzoH4bCEfpINaArkX9gzszPxeRh+ubgpSQiXMNCBl5LuEKqQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com; spf=pass smtp.mailfrom=longcheer.com; arc=none smtp.client-ip=210.51.61.247
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=longcheer.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=longcheer.com
-Received: from mailsrv01.LongCheer.net
-        by ssh247.corpemail.net ((D)) with ESMTP (SSL) id 202608211314114182;
-        Fri, 21 Aug 2026 13:14:11 +0800
-Received: from [127.0.1.1] (172.16.9.238) by mailsrv01.LongCheer.net
- (172.16.8.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.33; Fri, 21 Aug
- 2026 13:14:11 +0800
-Content-Type: multipart/mixed;
-	boundary="===============8284776919896818264=="
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9370315D53
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 05:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787289465; cv=pass; b=D5X1s6jFM096ahPCGjM1NRl0Eih6wmt/OKzDa/Xlgb2zAagQVeux/zaB/U6mxAxWglewxTqeIaI/II4LJ0gxLD2D0dnKe0bGnt19QEQsF9mjlpvwePQWyAg+1hkd/STchdQG6ePAXxpb7Kn0e4WLhNs+uFqt17LrsUrQkzhMrQM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787289465; c=relaxed/simple;
+	bh=13mpJllH/Zvzc6cEE176TorQISQiQzdps6jTNyvGa88=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tltelSOHx6Vfr3YE5SSThFO1oqT7KLR09qiS5aqQrs43WFIbsktV+o8umHA/iROTqWplsmSTGs3DLT+oYTjcUzLrg9OevG9rkZFuzy06fd7VH0TUvPgopfJlj0ubTPp4vpu/fkgvpI3Rl1EPZIXSwZ6gwi2jlZmQu2wA0D4GMF8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=mriWnuoM; arc=pass smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="mriWnuoM"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso13916795e9.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 22:17:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787289462; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Y7p9iwaq4PvS1f61VWcA5f1zHp/8PvRlSDLBkD9nEYaC84v/fHdZEGbpx0QE8CfL4Y
+         vZSU9VY+1MJnLO1MRJb9ckGPuNTyHpps6Illg05fE/QuGS7rnGyudzbxVou13I7wl4ai
+         V/EUomDvClBetnLmuP28tU6mhAPGU21myT4Z/9XlJA8P4GY2KcKR0B7cI6GGI+qBcvcz
+         qLJydYYDlmKx+k7ggDKfrGQd/t5Yrmd3nJwp95ss33dpz7lUIg7xzW8f5ryq6NHLfXzN
+         oCZyrkF+XtzXstwbL+TPyl+/32R+heYSB6uPtuFDYLk0ElzyqfxxUa6juMI5gpXd+gE4
+         bj3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=13mpJllH/Zvzc6cEE176TorQISQiQzdps6jTNyvGa88=;
+        fh=Qbu5IHqzSy5OwlKMLhDhJUHtxtL269Ye+IkvBncDibA=;
+        b=oXExpA+qLUYL1kFPBVw57+fFYzJl9VNC1a+LQtq/MA7FLI1kZQlnfEnThnKyb12x/T
+         7GRnTTVP9sOWkAQMHDFu5hRasp3/aIEaVi+TCiy3h9DUg9FOv+Y2fqD4wd+Q2eAt538d
+         uHcW3cUh5Elpr34+O7xKHG1MF4HJ/DNMPQDV6nGjgR11yR4tFrE9NTXjpD9OSztiQg6w
+         94pp+DxAUy9QMv5nQCpUQeCu7Bh++O1xVlGi2/nbiDs8JdmVSEbqcbykrBxxBplXdgU+
+         aozwmydnbe671Qegv53xPoLcWq9DdSXQaxsTUuDyxi7SLGeD3Vwq5UnnBrqrRSPSvNur
+         OtMg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault.org; s=google; t=1787289462; x=1787894262; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=13mpJllH/Zvzc6cEE176TorQISQiQzdps6jTNyvGa88=;
+        b=mriWnuoMN0TktLIEBPQp48uKY8GRxvlwq56t98AIndzWS5NbacpAxyyFaSoz7HV+Mb
+         h2Ya9kT6j34XuTq6n8NUzV0UncBWQfPOhJ+G4iz9OMZd2UYqI3jQABX19+FUPoppdjiD
+         BvRIGCmsdUVNnzt43ZFwJ2K/vNIeT7GKi3hX32XYtwh37fe/8ftzxYiTOXBtx7ppZ00l
+         aLb4WNRWPyR3RnaZQl0NWsuWzG63v3YjzhpOVyAuT8+m4ve0L1st/yR+sZ1Xqo1ycxNA
+         X5kfBKBJfq/t4R/8uwHnqopgcAYlGBfh1oecS3OEuhOlwsdVukwNy/+FhlZhKkZpeEa2
+         5QwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787289462; x=1787894262;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=13mpJllH/Zvzc6cEE176TorQISQiQzdps6jTNyvGa88=;
+        b=Xmu4cTqhoFKcUoc+zDxPE1tetlUsYO0NjkyKeVqb5UwFWz6jTqBvWH4zqul8yr6XC9
+         yO9JnLmwwxR9aJsTJgJEIhhhv9SPZFye0U07k/DG2bHkt7Xy4IBV28B6whAB1U3kTFdn
+         ugbYrI3Zh3JEyB/OCGkCXVSiXJVpB587tuU6EhmtqulTyntTJoMOBXOK4mDm/iELK3oM
+         BPoyK+SRZPsP4RQBWcrb++Q1RVciEBd0zXzhrtmYRewDGVUrsOklNICmoWzdqI27knS5
+         HIAuOj2IQ8OywNM37qoTjLAu3ivGIS6BSPb+3bepsEZIQMbXFKUvAUlOtGdbRhZF7WIO
+         ku+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpYh5qDXl/85ipOQ2jyFDY/yIQGIxyJwu4GCJybI7uP6g/N2J79/jiVDWAJTwV8L+drKh+hvB8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWiG4pK/FCU1I0+gYgq5t3P+b6fNHsLKl6hoDkx5EqhB/axK+5
+	/1ITW46pPGqu+OZeapiFtjXGfH+36opvwr30GXAoD4MwBuThcQlzdSCz95RtLDuwcmHy2WoSGD1
+	7G1X/SpckiWbEJ6J0MUgkwLx6D46CmtVhineIo/DzOw==
+X-Gm-Gg: AR+sD10XMcD7ncgliD+lf8Gdu9jQ9dTJHPMzermmJjiV9xPo/ni3sorI+XPvGqz81FG
+	bT0Et9bwWBSEQekcG1tSGWPUyeRUINIcoXK6TElnVazlijwhivcQWLZMPNCPWKPgbG6YOr4N9R0
+	dWwPMpLF+37HGGWEpEiR+Jk6nCAgUWhBKQa5KPvCvwvboMD/DSWlUcIyl0vZAzVWm8q2xi78dFz
+	xQZXVZbw6t7KQTXziqhzEqNMlRxR6gf2YbSsKuUwvIZNNVMUmMnt1GSYc78/r6nQ4Sdk40+aKg+
+	jahDoEcKrzPaKHpz3R12YiGyiDbMdMwuS4nA2iG23D9BxsX9zajH1tRw9SPwUjQoIRWzWIO1oRG
+	9xIgHxb3L/egvk3eE2CzI1nvSkjviNE34lk1QjPDwrEwQcdXfm/6ECa5ah3Ebay0=
+X-Received: by 2002:a05:600c:8b63:b0:499:7f37:cb74 with SMTP id
+ 5b1f17b1804b1-499b06a36demr94909825e9.1.1787289462039; Thu, 20 Aug 2026
+ 22:17:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: liuqi <liuqi@longcheer.com>
-To: <gregkh@linuxfoundation.org>
-CC: <linux-usb@vger.kernel.org>, <stable@vger.kernel.org>
-In-Reply-To: <870f2627-aeaa-400e-9b6d-ee77eac42be6@mailsrv01.LongCheer.net>
-References: <870f2627-aeaa-400e-9b6d-ee77eac42be6@mailsrv01.LongCheer.net>
-Subject: Re: [PATCH] usb-storage: prevent concurrent URB submission in usb_stor_msg_common
-Date: Fri, 21 Aug 2026 13:14:11 +0800
-Message-ID: <08b595fd-215e-400c-b090-df030f8f0ff8@mailsrv01.LongCheer.net>
-X-ClientProxiedBy: mailsrv01.LongCheer.net (172.16.8.231) To
- mailsrv01.LongCheer.net (172.16.8.231)
-tUid: 202682113141257a998b9ef768ad2cfedb3704c4a103d
-X-Abuse-Reports-To: service@corp-email.com
-Abuse-Reports-To: service@corp-email.com
-X-Complaints-To: service@corp-email.com
-X-Report-Abuse-To: service@corp-email.com
+References: <20260721073612.137259-1-xb@ultrarisc.com> <CAAhSdy3kDmRxcT_+dOpcUVAkvZ-F0kWdQett+mTy93gPDkwS+Q@mail.gmail.com>
+ <178728288861.534500.12009100192281293732@ultrarisc.com>
+In-Reply-To: <178728288861.534500.12009100192281293732@ultrarisc.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Fri, 21 Aug 2026 10:47:28 +0530
+X-Gm-Features: AcwNN1VyOTE5mxX9-Emhx7eOr0LfPk9cSJYrSJElhptVzuqH563CP-bjvH7fuKc
+Message-ID: <CAAhSdy1shnw8-4yNVtsO8tJdebGYdX9n2mJyhoMQ9KpuitsMoA@mail.gmail.com>
+Subject: Re: [PATCH] RISC-V: KVM: Serialize IMSIC attributes with vCPU migration
+To: Xie Bo <xb@ultrarisc.com>
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---===============8284776919896818264==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+On Fri, Aug 21, 2026 at 8:58=E2=80=AFAM Xie Bo <xb@ultrarisc.com> wrote:
+>
+> Hi Anup,
+>
+> The issue reported by Sashiko has been addressed in v2 by using
+> mutex_lock_killable() and returning -EINTR when the lock acquisition is
+> interrupted.
+>
+> v2:
+> https://lore.kernel.org/r/20260810-imsic-attr-race-v2-1-00ed95ad321e@ultr=
+arisc.com
+>
 
-RnJvbSAyMTA0ZmM1N2FhY2M3NDE5N2FhODFhNzJkMjgzY2FkMzM1MWU1OWY5IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBsaXVxaSA8bGl1cWlAbG9uZ2NoZWVyLmNvbT4KRGF0ZTogRnJp
-LCAyMSBBdWcgMjAyNiAxMzowODoxNiArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIHVzYi1zdG9yYWdl
-OiBzZXJpYWxpemUgZW5lX2dldF9jYXJkX3R5cGUoKSB3aXRoIGRldl9tdXRleApUbzogZ3JlZ2to
-QGxpbnV4Zm91bmRhdGlvbi5vcmcKQ2M6IGxpbnV4LXVzYkB2Z2VyLmtlcm5lbC5vcmcsCiAgICBz
-dGFibGVAdmdlci5rZXJuZWwub3JnCgpJbiBlbmVfdWI2MjUwX3Byb2JlKCksIHRoZSBjYXJkLXR5
-cGUgcHJvYmUgKGVuZV9nZXRfY2FyZF90eXBlKCkpIHVzZXMgdGhlCnVzYi1zdG9yYWdlIGJ1bGsg
-dHJhbnNmZXIgaGVscGVycyB3aGljaCByZXVzZSB1cy0+Y3VycmVudF91cmIuIEhvd2V2ZXIsCnVz
-Yl9zdG9yX3Byb2JlMigpIHNjaGVkdWxlcyBhIGRlbGF5ZWQgc2NhbiB3b3JrIChzY2FuX2R3b3Jr
-KSB0aGF0IGFsc28KdXNlcyBjdXJyZW50X3VyYiBmb3IgQnVsa19tYXhfbHVuKCkuIFRoZSBzY2Fu
-IHdvcmsgaXMgc2VyaWFsaXplZCB3aXRoCnVzLT5kZXZfbXV0ZXgsIGJ1dCB0aGUgcHJvYmUncyBl
-bmVfZ2V0X2NhcmRfdHlwZSgpIGNhbGwgaXMgbm90LgoKVGhpcyBsZWFkcyB0byAiVVJCIHN1Ym1p
-dHRlZCB3aGlsZSBhY3RpdmUiIHdhcm5pbmdzIHdoZW4gdGhlIGRlbGF5ZWQKc2NhbiBmaXJlcyBk
-dXJpbmcgdGhlIHByb2JlJ3MgZW5lX2dldF9jYXJkX3R5cGUoKSBleGVjdXRpb24uIFRoZSB3YXJu
-aW5nCnRyaWdnZXIgaXM6CgogIHVzYl9zdG9yX0J1bGtfbWF4X2x1bigpIC0+IHVzYl9zdG9yX21z
-Z19jb21tb24oKSAtPiB1c2Jfc3VibWl0X3VyYigpCgpObyBzY3NpX2VoIGludm9sdmVtZW50IHdh
-cyBvYnNlcnZlZCBpbiBzeXpib3QgbG9ncy4KCkZpeCBieSBzZXJpYWxpemluZyBlbmVfZ2V0X2Nh
-cmRfdHlwZSgpIHdpdGggdXMtPmRldl9tdXRleC4KClNpZ25lZC1vZmYtYnk6IGxpdXFpIDxsaXVx
-aUBsb25nY2hlZXIuY29tPgotLS0KIGRyaXZlcnMvdXNiL3N0b3JhZ2UvZW5lX3ViNjI1MC5jIHwg
-MiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvdXNiL3N0b3JhZ2UvZW5lX3ViNjI1MC5jIGIvZHJpdmVycy91c2Ivc3RvcmFnZS9lbmVfdWI2
-MjUwLmMKaW5kZXggMmNmZmM1NTlhLi4xM2IzMzJkMWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvdXNi
-L3N0b3JhZ2UvZW5lX3ViNjI1MC5jCisrKyBiL2RyaXZlcnMvdXNiL3N0b3JhZ2UvZW5lX3ViNjI1
-MC5jCkBAIC0yMzU4LDcgKzIzNTgsOSBAQCBzdGF0aWMgaW50IGVuZV91YjYyNTBfcHJvYmUoc3Ry
-dWN0IHVzYl9pbnRlcmZhY2UgKmludGYsCiAJCXJldHVybiByZXN1bHQ7CiAKIAkvKiBwcm9iZSBj
-YXJkIHR5cGUgKi8KKwltdXRleF9sb2NrKCZ1cy0+ZGV2X211dGV4KTsKIAlyZXN1bHQgPSBlbmVf
-Z2V0X2NhcmRfdHlwZSh1cywgUkVHX0NBUkRfU1RBVFVTLCBpbmZvLT5iYnVmKTsKKwltdXRleF91
-bmxvY2soJnVzLT5kZXZfbXV0ZXgpOwogCWlmIChyZXN1bHQgIT0gVVNCX1NUT1JfWEZFUl9HT09E
-KSB7CiAJCXVzYl9zdG9yX2Rpc2Nvbm5lY3QoaW50Zik7CiAJCXJldHVybiBVU0JfU1RPUl9UUkFO
-U1BPUlRfRVJST1I7Ci0tIAoyLjQzLjAKCg==
+Sure, I will consider this as fix for 7.3
 
---===============8284776919896818264==--
+Regards,
+Anup
