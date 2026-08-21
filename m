@@ -1,155 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD6847728F
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 11:00:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB1A47140C;
+	Fri, 21 Aug 2026 11:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787310021; cv=none; b=VyFr9VJG9jHkU0LKK+ENQp9GeC/zu3fLO7lI3RE8ebX477Giwe4a9JfDdxlJz/tRxQH77U5CuXS+QFFRMtYfmFWsK9yK1dBeeKO7ETboa/48sUL1JSyy1myrxSMrFY//BilGm2Vr1oOsAA4MbkyferE8SLwAnLbF4JP3bcKnZ1M=
+	t=1787310213; cv=none; b=uOq11Bt2ktoiN/p49Nhx6V8WZvKwoyc1rj1q1lfRXC45T/5Esv1ILqb/yJxzyu5u3xzeYDoddf6924hkDgH9Rt1sEpJ2ZsOFrbw3KPjlddbbs7tT7SBU3P0R+ekbqEUQWTvu2NuqjlvjJovMVo+vF5pTbov5Nnk+aYiP+ZJFqOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787310021; c=relaxed/simple;
-	bh=WlqR5pr15Tl9F5iX8LWyDw4u/41qm0GBtdQJL0iMc6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u0AO2mjU8rmzoyPybkpeUeOENNisfwdsgmqoEXKq7RWrKxMZUaFecIlSQYUfVt3AMa+pkArYsS3+H2JIAmYOvW69By2xqFqRmqhZQXqUB6SrKpP3NAJpBu/EcD3KtD53daSJbLl2QGNr9abjOUgBB6QBaf/2lcDrd4NF70z/Ih0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oepWJUwk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787310213; c=relaxed/simple;
+	bh=Lm06Daj5kPSYGLot9X9AG68Bj5jRdiIATasytFPvjyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cZOtsqE0UFYMg/7pSDzyH8R7goJXMmnKnkB+oSNWmsSEr93DpVeAfe54Du7fVp44tk9WJuGr/pbVxJZyikDSs+U6MuoXCG0Q9cqqUzLZOjydkHObrT9HQdpUBwL/F0+wx0RAYJ3Sr3MGeHIqZIEfPxQ316CRSQ7K97z3234v+hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aMc569/t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oepWJUwk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6B1A1F00A3A;
-	Fri, 21 Aug 2026 11:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787310020;
-	bh=4YcZ3J8DNez4g5fJgfVAlkSU+69c3k6726xpdCjY7KQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oepWJUwkEOiie8EriUUijhGIKTxoBcly7EEausMFNz1fjIEPBOgWz3aWFNc+eihbF
-	 6hkmhYRklEMszD7yKZWDn7vsUrH4Ck40pke/zip6GM6Savy+iNlozk+3Ea+5yPrjbd
-	 Awinwwv6b45OeCffC+xN/02CeHyiGsqfltWsuzZsjRDfcZydXSEc/hQv3xZ7Q0Xv1F
-	 e5rK6qyqkhDqFUxF88jF/vQpVuoTuc04nmF9S6Dj80IAapS2KbK1r2JblVkhoOngZj
-	 AmLrbYDsPWTXZW6rWw1V7UNpLoY8nxgnjcbLLZPE0V0AeD4yyCTbaytO5kmjesHc6O
-	 76wP/W5iKIFcg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qihang Tang <q.h.hack.winter@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] packet: use consistent hard_header_len in TX_RING send path
-Date: Fri, 21 Aug 2026 07:00:17 -0400
-Message-ID: <20260821110017.2816998-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821110017.2816998-1-sashal@kernel.org>
-References: <2026081745-brisket-pastime-f9bb@gregkh>
- <20260821110017.2816998-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aMc569/t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0995C1F000E9;
+	Fri, 21 Aug 2026 11:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787310211;
+	bh=wA2wbGLun6laLPhp2sEn9Hl8sjQ7hB/dtKnvF58mhGs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aMc569/tByTuOSy9waB86WPcrHqcroE3i38thBGi/VYW+8FX2eVpev0VxrvXtopXU
+	 HUj7fhMdIMqU9RJcdqoKU9He8I4K2nI4XY78JezFg6i4PeGQOK4+MLgRQisKO11lGS
+	 G6LF/IvIA5aJi1eapjQpA3LgxqPb2P7KWx9nH3Jw=
+Date: Fri, 21 Aug 2026 13:01:52 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] scsi: pmcraid: shut down command timers before reuse
+Message-ID: <2026082119-italics-dice-ffe2@gregkh>
+References: <20260821062351.72658-1-runyu.xiao@seu.edu.cn>
+ <20260821081902.131862-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821081902.131862-1-runyu.xiao@seu.edu.cn>
 
-From: Qihang Tang <q.h.hack.winter@gmail.com>
+On Fri, Aug 21, 2026 at 04:19:02PM +0800, Runyu Xiao wrote:
+> On Fri, Aug 21, 2026 at 02:23:51PM +0800, Greg Kroah-Hartman wrote:
+> > How was this found and tested?
+> 
+> The issue was found by a static-analysis check and then confirmed by
+> tracing the command ownership and timer lifetime in pmcraid.c. The v1
+> patch was generated by an LLM from that finding.
 
-[ Upstream commit 21b5953e7494c16a42e6cd8cf110e18d13ae4a6b ]
+Then you need to use the Assisted-by tag.
 
-tpacket_snd() reads dev->hard_header_len independently for skb
-allocation and header construction in tpacket_fill_skb(). Concurrent
-netdevice reconfiguration can therefore make the reserved headroom
-smaller than the amount later pushed, or make copylen - hard_header_len
-negative.
+thanks,
 
-Snapshot hard_header_len once before processing ring frames and use it
-for the frame limit, headroom allocation, copy length, and skb
-construction. Pass the snapshot to tpacket_fill_skb().
-
-The separate SOCK_DGRAM consistency problem between hard_header_len and
-header_ops->create is not addressed here.
-
-Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260805125729.19220-4-q.h.hack.winter@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/packet/af_packet.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 3130c4bf3f5b5..76ddf808e0a7b 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2624,6 +2624,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
- static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 		void *frame, struct net_device *dev, void *data, int tp_len,
- 		__be16 proto, unsigned char *addr, int hlen, int copylen,
-+		int hard_header_len,
- 		const struct sockcm_cookie *sockc)
- {
- 	union tpacket_uhdr ph;
-@@ -2655,8 +2656,8 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 	} else if (copylen) {
- 		int hdrlen = min_t(int, copylen, tp_len);
- 
--		skb_push(skb, dev->hard_header_len);
--		skb_put(skb, copylen - dev->hard_header_len);
-+		skb_push(skb, hard_header_len);
-+		skb_put(skb, copylen - hard_header_len);
- 		err = skb_store_bits(skb, 0, data, hdrlen);
- 		if (unlikely(err))
- 			return err;
-@@ -2786,7 +2787,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 	void *data;
- 	int len_sum = 0;
- 	int status = TP_STATUS_AVAILABLE;
--	int hlen, tlen, copylen = 0;
-+	int hard_header_len, hlen, tlen, copylen = 0;
- 	long timeo;
- 
- 	mutex_lock(&po->pg_vec_lock);
-@@ -2833,8 +2834,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_put;
- 	}
- 
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
- 	if (po->sk.sk_socket->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
-+		reserve = hard_header_len;
- 	size_max = po->tx_ring.frame_size
- 		- (po->tp_hdrlen - sizeof(struct sockaddr_ll));
- 
-@@ -2872,7 +2874,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto tpacket_error;
- 
- 		status = TP_STATUS_SEND_REQUEST;
--		hlen = LL_RESERVED_SPACE(dev);
-+		hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 		tlen = dev->needed_tailroom;
- 		if (packet_sock_flag(po, PACKET_SOCK_HAS_VNET_HDR)) {
- 			data += sizeof(vnet_hdr);
-@@ -2890,10 +2892,10 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 						    vnet_hdr.hdr_len);
- 			has_vnet_hdr = true;
- 		}
--		copylen = max_t(int, copylen, dev->hard_header_len);
-+		copylen = max_t(int, copylen, hard_header_len);
- 		skb = sock_alloc_send_skb(&po->sk,
- 				hlen + tlen + sizeof(struct sockaddr_ll) +
--				(copylen - dev->hard_header_len),
-+				(copylen - hard_header_len),
- 				!need_wait, &err);
- 
- 		if (unlikely(skb == NULL)) {
-@@ -2903,7 +2905,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_status;
- 		}
- 		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
--					  addr, hlen, copylen, &sockc);
-+					  addr, hlen, copylen, hard_header_len,
-+					  &sockc);
- 		if (likely(tp_len >= 0) &&
- 		    tp_len > dev->mtu + reserve &&
- 		    !packet_sock_flag(po, PACKET_SOCK_HAS_VNET_HDR) &&
--- 
-2.53.0
-
+greg k-h
