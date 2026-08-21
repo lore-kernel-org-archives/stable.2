@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84AD3803DF
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:52:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83871379998
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 16:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787331135; cv=none; b=kMDAdPgMYsmn8koQ/4x9yqWkGMhsYimarjQPsxZ7kyS3kCo4CbsbXL6tRrYqkoZSLh2/OGTOZtm7w0r5Gn54AdZpTh3i7T1LE05dJsSOohCU/fv6HcYk5/LlH2TxP1M5HmtO2pmfH/vYYoXhokN3Qq/Qi/osXjXmcPpD/OwMZqE=
+	t=1787331137; cv=none; b=CjT+uu6nCBRy982d9iHSfCMPxw16iUQkcwlcW9OjvO7XFKGC5sLA89QStXlpiRIqDzmpwJ4vrEP9yYFL6lCojVXHkqwBM/MgGnEbpK2aCUYzIrcL9mqUGT+V26pIi5wWomZfgUiGoDT9+M0xAS7ItRr0Fi1tNqTugaXTn0VGh/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787331135; c=relaxed/simple;
-	bh=tvpOysi4s6JiB83ll8PrrJQzuaeHN4OlRYMmW/lXaaE=;
+	s=arc-20240116; t=1787331137; c=relaxed/simple;
+	bh=Et3NwNDKQZv/ZkkkA/7upZcAE9cLpM7P5A2hv41/qOo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j9RGUh2YGewe/aGsjKQher3vQuBZNSi70xawaVWf9VlCf6/9bMKh3hMmkS4ubFEhb0oZdvHAOxRXTrzJUcB8ymdjCZK9zPBa6Z4bF4B+6FeCizlpOTY6SgyLXk5m8IplcSMOGt1grjcS8yRaxJm0o8Y8eak6Vyzu30TJcISlySk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiZF+WDa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mvQmltgNk1C2jjv8U0G1llHGe8Ff1kyXfY3kJ5l942iLGTMDZCuoIx0NVeSC4/5ALUaiFGKG3btCXuqE4CnFZbRMQQw6AR6Wb+FpmKIUyCurIulNoxpSOf7iBJoe99Ld4c+lB2ZTof/ltQ04FsGM/DmQsCZXzXMq9yD+53cr3pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/oQCZE1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiZF+WDa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC281F00ACF;
-	Fri, 21 Aug 2026 16:52:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/oQCZE1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09DB1F00AC4;
+	Fri, 21 Aug 2026 16:52:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787331123;
-	bh=7fGMFSaobBFDo5y3kS5bUQ0HUJnpyZUhaUg6L5LxziA=;
+	s=k20260515; t=1787331130;
+	bh=YbTiLA0h3C0tppaLZ5DCg1jUbpE8wf6/akxXR2YurvY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OiZF+WDa0+ZoS8EnuGiW2vhL60Sqvth2TezHpyNyiYU7za9oxqYltALQNZ05iwdso
-	 adzy98pYJRVY2CFz5ZJdJAGVah7U7HXokWZUkAmW/IH4MUgf4WAIfsQpg4bI2reexl
-	 6Uxsgz+BUEHbemSrMPSjo+l77AJP0JmBaQCt788DQgEQB2YtqHe8fCOtZn2xmn68/a
-	 bSzZzupbsOiJlCp6JvIfrEvl/hm2aQYApYS/M60W7dW3UmGJ4Q6likJcLuyFZLvq4f
-	 gpUyLSacSr4XRQz48RGycSaqfOcIEeiWDGlLbGo+daTA5TLZXX9+XZCXy0tA3h0F0B
-	 tApkWw2epYdRw==
+	b=l/oQCZE1E2SPWZjG19Aiut2IIfIW7+UkbmCEE5VjPNYWjBfZOBQHfQyHuODxLlmRQ
+	 +xV6/D8PsYtbUmzrY61LVwi4M48oxUqq6pQnjC8Nq0ckBybd+eGkyqECNXD42Ympb2
+	 UUvv6LK0C7oTPdoJxH25uZJMr8X+aGf37+QAUc+C6OzSaE4eCV+3RFRZEE1tfw5763
+	 XIatuuU13n1aEwnIj3uEKeyU+0FKH4C+1Gc0eU6CNVXQZDaiAZi2SozJGPoT8oYW85
+	 jMwz1V4LdM3c0AZPwsMoQb3TJKy2dEdq97tHBjWor70uREVw6pikCDJcTTJAFJkkqa
+	 bvbuLyWOu4fhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ipvs: separate destination availability state
-Date: Fri, 21 Aug 2026 12:51:56 -0400
-Message-ID: <20260821165157.3593656-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] packet: synchronize pressure clearing with ring reconfiguration
+Date: Fri, 21 Aug 2026 12:52:07 -0400
+Message-ID: <20260821165207.3594396-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821165157.3593656-1-sashal@kernel.org>
-References: <2026081759-provoke-trickle-ead1@gregkh>
- <20260821165157.3593656-1-sashal@kernel.org>
+In-Reply-To: <2026081735-transpire-shining-9653@gregkh>
+References: <2026081735-transpire-shining-9653@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,225 +46,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+From: Zihan Xi <zihanx@nebusec.ai>
 
-[ Upstream commit cdcc4e46180df8161f4d2f3c6fd6beaf6990133d ]
+[ Upstream commit 1a35da325cac4d5bcad76a2aa943408a6f1d9000 ]
 
-IPVS configuration paths update destination availability while connection
-accounting updates destination overload state. The two independent states
-share dest->flags, so their read-modify-write updates can race and lose one
-another.
+packet_set_ring() updates the RX ring state under sk_receive_queue.lock,
+but used to publish the tpacket receive mode through po->prot_hook.func
+after releasing that lock. packet_poll() and packet_recvmsg() can then
+run the pressure clearing path after the ring has been cleared while
+still seeing tpacket_rcv, causing __packet_rcv_has_room() to dereference
+stale or NULL ring storage.
 
-Keep OVERLOAD in flags, where the preceding patch serializes its updates
-with dst_lock, and move AVAILABLE to cflags. This keeps configuration-
-controlled availability out of the scheduler hot cacheline until a
-scheduler needs to check it. It also prevents availability updates from
-clobbering overload state.
+Move the existing receive hook assignment into the same
+sk_receive_queue.lock section as the ring state update. Keep the
+assignment otherwise unchanged, including on TX ring reconfiguration, to
+avoid adding behavior changes that are not required for the fix.
 
-The destination status bits are not exposed through the IPVS sockopt or
-netlink interfaces, so keep their definitions in the internal IPVS header.
+Serialize packet_recvmsg() pressure clearing with the same queue lock
+only after PACKET_SOCK_PRESSURE has been observed. If the flag is clear
+and the socket has moved away from tpacket_rcv, packet_set_ring() has
+already detached the socket and waited for synchronize_net(), so no new
+packet input can set the flag again.
 
-Readers can still observe stale destination state; this does not provide a
-cross-field snapshot.
+packet_poll() already holds sk_receive_queue.lock, so it uses the new
+unlocked helper directly.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 2ccdbaa6d55b ("packet: rollover lock contention avoidance")
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Link: https://lore.kernel.org/all/8913381c-1e02-35c7-0ec4-61de5a12fd35@ssi.bg/
-Assisted-by: Claude-Code:GLM-5.2
-Suggested-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Acked-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ Dropped the two ip_vs_xmit.c hunks and trimmed absent trailing context from the ip_vs.h hunk, since `IP_VS_DEST_F_AVAILABLE` checks and the hash-table limit defines don't exist in this tree. ]
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: Codex:gpt-5.4
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Link: https://patch.msgid.link/f90b5688311fa278d1361ea8c6be0bf25967d591.1785247446.git.zihanx@nebusec.ai
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ Replaced `packet_sock_flag(po, PACKET_SOCK_PRESSURE)` with `READ_ONCE(po->pressure)` since the flag conversion isn't in this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/ip_vs.h              | 7 +++++++
- include/uapi/linux/ip_vs.h       | 6 ------
- net/netfilter/ipvs/ip_vs_conn.c  | 4 ++--
- net/netfilter/ipvs/ip_vs_core.c  | 6 +++---
- net/netfilter/ipvs/ip_vs_ctl.c   | 4 ++--
- net/netfilter/ipvs/ip_vs_dh.c    | 4 ++--
- net/netfilter/ipvs/ip_vs_lblc.c  | 2 +-
- net/netfilter/ipvs/ip_vs_lblcr.c | 8 ++++----
- 8 files changed, 21 insertions(+), 20 deletions(-)
+ net/packet/af_packet.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-index b65009a226e05..94dfc3a265ee5 100644
---- a/include/net/ip_vs.h
-+++ b/include/net/ip_vs.h
-@@ -34,6 +34,12 @@
- #define IP_VS_HDR_INVERSE	1
- #define IP_VS_HDR_ICMP		2
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 2c1a0c5e6df1f..95c46c15219a2 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1333,13 +1333,25 @@ static int packet_rcv_has_room(struct packet_sock *po, struct sk_buff *skb)
+ 	return ret;
+ }
  
-+/* Destination Server Flags */
-+#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
-+
-+/* Destination Server Config Flags */
-+#define IP_VS_DEST_CF_AVAILABLE	0x0001		/* server is available */
-+
- /* Generic access of ipvs struct */
- static inline struct netns_ipvs *net_ipvs(struct net* net)
+-static void packet_rcv_try_clear_pressure(struct packet_sock *po)
++static void __packet_rcv_try_clear_pressure(struct packet_sock *po)
  {
-@@ -725,6 +731,7 @@ struct ip_vs_dest {
- 	volatile unsigned int	flags;		/* dest status flags */
- 	atomic_t		conn_flags;	/* flags to copy to conn */
- 	atomic_t		weight;		/* server weight */
-+	unsigned long		cflags;		/* config flags */
- 	atomic_t		last_weight;	/* server latest weight */
- 	__u16			tun_type;	/* tunnel type */
- 	__be16			tun_port;	/* tunnel port */
-diff --git a/include/uapi/linux/ip_vs.h b/include/uapi/linux/ip_vs.h
-index 1ed234e7f2513..2c37c6ac7525a 100644
---- a/include/uapi/linux/ip_vs.h
-+++ b/include/uapi/linux/ip_vs.h
-@@ -28,12 +28,6 @@
- #define IP_VS_SVC_F_SCHED_SH_FALLBACK	IP_VS_SVC_F_SCHED1 /* SH fallback */
- #define IP_VS_SVC_F_SCHED_SH_PORT	IP_VS_SVC_F_SCHED2 /* SH use port */
+ 	if (READ_ONCE(po->pressure) &&
+ 	    __packet_rcv_has_room(po, NULL) == ROOM_NORMAL)
+ 		WRITE_ONCE(po->pressure,  0);
+ }
  
--/*
-- *      Destination Server Flags
-- */
--#define IP_VS_DEST_F_AVAILABLE	0x0001		/* server is available */
--#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
--
- /*
-  *      IPVS sync daemon states
-  */
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index e42fed876596a..7da11628073b9 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -759,7 +759,7 @@ int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
- 	 * Checking the dest server status.
- 	 */
- 	if ((dest == NULL) ||
--	    !(dest->flags & IP_VS_DEST_F_AVAILABLE) ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE) ||
- 	    expire_quiescent_template(ipvs, dest) ||
- 	    (cdest && (dest != cdest))) {
- 		IP_VS_DBG_BUF(9, "check_template: dest not available for "
-@@ -1408,7 +1408,7 @@ void ip_vs_expire_nodest_conn_flush(struct netns_ipvs *ipvs)
- 				continue;
- 
- 			dest = cp->dest;
--			if (!dest || (dest->flags & IP_VS_DEST_F_AVAILABLE))
-+			if (!dest || (dest->cflags & IP_VS_DEST_CF_AVAILABLE))
- 				continue;
- 
- 			if (atomic_read(&cp->n_control))
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index d121ea3d16bc9..1f62ca2f73309 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -124,7 +124,7 @@ ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -160,7 +160,7 @@ ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -2030,7 +2030,7 @@ ip_vs_in_hook(void *priv, struct sk_buff *skb, const struct nf_hook_state *state
- 	}
- 
- 	/* Check the server status */
--	if (cp && cp->dest && !(cp->dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (cp && cp->dest && !(cp->dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		/* the destination server is not available */
- 		if (sysctl_expire_nodest_conn(ipvs)) {
- 			bool old_ct = ip_vs_conn_uses_old_conntrack(cp, skb);
-diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-index 5dea5a14e85f9..c0257ef4d8b03 100644
---- a/net/netfilter/ipvs/ip_vs_ctl.c
-+++ b/net/netfilter/ipvs/ip_vs_ctl.c
-@@ -1058,7 +1058,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
- 	}
- 
- 	/* set the dest status flags */
--	dest->flags |= IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags |= IP_VS_DEST_CF_AVAILABLE;
- 
- 	if (READ_ONCE(dest->u_threshold) != udest->u_threshold ||
- 	    READ_ONCE(dest->l_threshold) != udest->l_threshold) {
-@@ -1325,7 +1325,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
- 				struct ip_vs_dest *dest,
- 				int svcupd)
++static void packet_rcv_try_clear_pressure(struct packet_sock *po)
++{
++	struct sock *sk = &po->sk;
++
++	if (!READ_ONCE(po->pressure))
++		return;
++
++	spin_lock_bh(&sk->sk_receive_queue.lock);
++	__packet_rcv_try_clear_pressure(po);
++	spin_unlock_bh(&sk->sk_receive_queue.lock);
++}
++
+ static void packet_sock_destruct(struct sock *sk)
  {
--	dest->flags &= ~IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags &= ~IP_VS_DEST_CF_AVAILABLE;
- 
- 	/*
- 	 *  Remove it from the d-linked destination list.
-diff --git a/net/netfilter/ipvs/ip_vs_dh.c b/net/netfilter/ipvs/ip_vs_dh.c
-index 75f4c231f4a02..f04d2530a093a 100644
---- a/net/netfilter/ipvs/ip_vs_dh.c
-+++ b/net/netfilter/ipvs/ip_vs_dh.c
-@@ -220,8 +220,8 @@ ip_vs_dh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 
- 	s = (struct ip_vs_dh_state *) svc->sched_data;
- 	dest = ip_vs_dh_get(svc->af, s, &iph->daddr);
--	if (!dest
--	    || !(dest->flags & IP_VS_DEST_F_AVAILABLE)
-+	if (!dest ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE)
- 	    || atomic_read(&dest->weight) <= 0
- 	    || is_overloaded(dest)) {
- 		ip_vs_scheduler_err(svc, "no destination available");
-diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
-index 156181a3bacd7..9bb1e05063dc4 100644
---- a/net/netfilter/ipvs/ip_vs_lblc.c
-+++ b/net/netfilter/ipvs/ip_vs_lblc.c
-@@ -503,7 +503,7 @@ ip_vs_lblc_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 		 */
- 
- 		dest = en->dest;
--		if ((dest->flags & IP_VS_DEST_F_AVAILABLE) &&
-+		if ((dest->cflags & IP_VS_DEST_CF_AVAILABLE) &&
- 		    atomic_read(&dest->weight) > 0 && !is_overloaded(dest, svc))
- 			goto out;
+ 	skb_queue_purge(&sk->sk_error_queue);
+@@ -4292,7 +4304,7 @@ static __poll_t packet_poll(struct file *file, struct socket *sock,
+ 			TP_STATUS_KERNEL))
+ 			mask |= EPOLLIN | EPOLLRDNORM;
  	}
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index a021e6aba3d7b..1a53c1254fe57 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -170,8 +170,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
- 		if (least->flags & IP_VS_DEST_F_OVERLOAD)
- 			continue;
+-	packet_rcv_try_clear_pressure(po);
++	__packet_rcv_try_clear_pressure(po);
+ 	spin_unlock_bh(&sk->sk_receive_queue.lock);
+ 	spin_lock_bh(&sk->sk_write_queue.lock);
+ 	if (po->tx_ring.pg_vec) {
+@@ -4532,14 +4544,14 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ 		rb->frame_max = (req->tp_frame_nr - 1);
+ 		rb->head = 0;
+ 		rb->frame_size = req->tp_frame_size;
++		po->prot_hook.func = (po->rx_ring.pg_vec) ?
++						tpacket_rcv : packet_rcv;
+ 		spin_unlock_bh(&rb_queue->lock);
  
--		if ((atomic_read(&least->weight) > 0)
--		    && (least->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		if ((atomic_read(&least->weight) > 0) &&
-+		    (least->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			loh = ip_vs_dest_conn_overhead(least);
- 			goto nextstage;
- 		}
-@@ -187,8 +187,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
+ 		swap(rb->pg_vec_order, order);
+ 		swap(rb->pg_vec_len, req->tp_block_nr);
  
- 		doh = ip_vs_dest_conn_overhead(dest);
- 		if (((__s64)loh * atomic_read(&dest->weight) >
--		     (__s64)doh * atomic_read(&least->weight))
--		    && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		     (__s64)doh * atomic_read(&least->weight)) &&
-+		    (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			least = dest;
- 			loh = doh;
- 		}
+ 		rb->pg_vec_pages = req->tp_block_size/PAGE_SIZE;
+-		po->prot_hook.func = (po->rx_ring.pg_vec) ?
+-						tpacket_rcv : packet_rcv;
+ 		skb_queue_purge(rb_queue);
+ 		if (atomic_long_read(&po->mapped))
+ 			pr_err("packet_mmap: vma is busy: %ld\n",
 -- 
 2.53.0
 
