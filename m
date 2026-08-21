@@ -1,111 +1,142 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3B5435A9E
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F5042668B
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 14:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787324110; cv=none; b=JbsIi83i62RTTFxekZrIIoJGtZ5c2aalDjPNetddVdSrnMhOiD+evjBSGMs/tCulHU3AZctNXJoNbHwJG0MGGLy2kGpofii/k1eRZV9wAqRM0P1v3ZeLYATV99VoenneL3f1BI5gru8RiSBhARxkaTwlpbBD0/KvcaIRXMcS9e4=
+	t=1787324175; cv=none; b=pGZuKhDL1fUYm7QhAJL+PVBTbNbtNj6eI5TXXlEqdH5YgT3/WEsF/QEkK6bSGQ93rs7OcGOam5+/dqK7j3OvckhrAvSh8sv4pQQ8+SnlHX78MvPz+nWToHO0tfNztibf4yDAK6Hcw+TOJnY4uozpmnzZQcbElj8fdNeIzM7Ba58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787324110; c=relaxed/simple;
-	bh=WlII++3uV9xkwc7N++Z05mAds6dpc2dOKTEgBDqPksw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PXgl3eJo9pgpY4Q4O77s7+33tdVaqELJXs0TgaPSQg3vz77o/4asgczpOEDO4Tv2Ts6sFOrSqKqEdZ1I8jBsfmLf7hDpRVKSRXI6TFcbBhPA2h8x2tQwlCKIjeu954GXrVR27JP5/DoyK9yCQqr/6GS3EFrJSPvY99joWzPaOmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SUQXO2kR; arc=none smtp.client-ip=209.85.210.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1787324175; c=relaxed/simple;
+	bh=WoI3+0MYrsmkofpBQ8BACEAARxTBIas6F3cSLUKb2DE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QFKRU+blh/hO3r40GETW5qoz0R3j9Esrd9ehVrb7Vz9HSGUByYRQGtKTpga1HAFNrbL63L7MoKQCxjJpe+2CQ57aAwAddJDE5QB6ZyK0OJGwFSQxmFL2TqBbIaHEFjrvkLPzacbSdF0GhcoVyKEald5lA/qHxHSOHAWXAU4NsWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f0uRC0P4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SUQXO2kR"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7f3fd905828so1059102a34.1
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 07:55:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1787324107; x=1787928907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wAvKZiD5KByJeDCeOU37FeBtAgTWUBB1aLiIutgJAhU=;
-        b=SUQXO2kRtgXNKlsLs/hqmy3NZdXoxIFoXWYPHZXs+5GCQkRS+KWSQkn6KDs+b+DCcZ
-         KlsZ7kUWJ16k0JKJ1fRcHQetHDlU3FHwWgxY/FjGDQ/9FLs7gMli3SfVhQ0bfMqPWaNg
-         y3lVep+WodBQkreipyEMvSi70YnQjPbvvFosA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787324107; x=1787928907;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wAvKZiD5KByJeDCeOU37FeBtAgTWUBB1aLiIutgJAhU=;
-        b=VK0MKTUgPYnwHRu4S6Th403a7LYoIGTp0xOfPFEhoY8aRObFi+qfRag/i46a91vnLm
-         tNLswQEHcl9eGo8HDNi9wI3BYSs6oMeXKT/I5p1E4kZdK1Ro1wjJ6cSohEPoZsyrr2Ix
-         oWvgUReuOEe3zL5PTJYbyNEv6ER0TkCnrVHSVtLo4ibRpyrxLxV4jl72w9ZJc/KmhPlK
-         3l4HVokfxCYMTnsBYeeZWZalzXszXMyM04H+C+9hM8B+hbcU7O5UCi6KsXhzal4zDMmU
-         i+foPF04Co+LdICiFrFk+SZ+Mu5jQ3K/fMPalApaxh8wuZkWd1DYvfL7ZLmBJkC5hJQs
-         6mRA==
-X-Forwarded-Encrypted: i=1; AHgh+RpymepDk+VQXp1WrC2kuOGOYcskC8cRqrVcflr+iAbFiw3eqXHuwSjAW7Dkym9+B9/zgLk7uwI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzpb5LGdUE+cZU6bmQdxPYpkzaGTAADnrUt2w2ujQPSwHDjrYaH
-	+vKjJVkjRUf96KXJL4SFP6V8qncc2mJ5YVgXteWqUKJ3YXrPi0ylkRnUZUqVflAFc3Q=
-X-Gm-Gg: AR+sD11UAyWqXlyrCQe7CcuCSTKRd2Fj0M7qgsTW3yWY0zh8wUzXDSTplcJTYsJOf43
-	0SHQexJ/UXYNASXHzBVt63TFbIEIjvI3SHZreNBrAUnCiHiuaG9eoVlMyCOuVOc6raj5uGgt25p
-	HN0xyDcRnHcVlxG4GjPBSLPQG6PFSRR0/i6Qi4vs+f5V3fHRGE6UU/n04KtjpY3acjMVuE4dOlh
-	/sJ62NuXXryggmPgrFzluXnE49pFeh/Jt28/SBpD1+mHrljWyqLjIuzqXxZqO4EQZ0++DxVOk+r
-	dKgh4O6pBIdqcy56T7PGmbLKUrSmTsgVu7nF5+6gaMS81PTxDPbCOYOK5RkaxvX7tSdcGbi43CV
-	Fal9neE2YTM0xRajQaWy5+NAoIcjn1ZH4792h18o2Vt1TM2lDaESx5Q82q2krimw3PMi76878r5
-	OoayESmnL9LfD3f/Nv8k98DYBAZhLTwZOJn43M/nAPAIv7UzIQMxm8gcYnU7NqPrIL19A+jA==
-X-Received: by 2002:a05:6830:370f:b0:7dc:c4ae:a679 with SMTP id 46e09a7af769-7f461408acdmr8596894a34.9.1787324107685;
-        Fri, 21 Aug 2026 07:55:07 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f43fe70786sm8005724a34.4.2026.08.21.07.55.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Aug 2026 07:55:06 -0700 (PDT)
-Message-ID: <c1034097-fedf-4c3e-80a4-ea0d29b72cdb@linuxfoundation.org>
-Date: Fri, 21 Aug 2026 08:55:03 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f0uRC0P4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1501F000E9;
+	Fri, 21 Aug 2026 14:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787324172;
+	bh=RhTaW9/NmoyAYVT4VQizYgX9sdot2itK/I65qUFWNe0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f0uRC0P4hdkLNc5TrBsqs/fvsbuUWmJuB3QpL7ZiTg3vcpTe/EkeLVL9DotfJpgsq
+	 K9ApCLvcXaA8vJgSdgeKMLzaSALfEOd5qxi7kNWX7ypCR3Al0w9jmiUhjhSHNn6ePo
+	 2v/xqr/tlIj0c3N4fY+yR3YXVuuZRNh9q41pTTRZmbWSm8goQ0J5e5EPV4ElahTRUz
+	 xDDKh6DD+XO4pDSpgSqhMM53Wia4Jy0H00gvii2bRln78Prvggwk7h69Keuw2x+yrM
+	 kxjSvmGa3fEw8z7fKu+BnMO74Wxqg5HBoHl59SqZ6wvTnArO+yODYKYi2q2C8IxvjP
+	 LK845Lv7b+kRQ==
+Date: Fri, 21 Aug 2026 16:56:07 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Rihyeon Kim <rihyeon8648@gmail.com>, justin.tee@broadcom.com,
+	nareshgottumukkala83@gmail.com, paul.ely@broadcom.com,
+	axboe@kernel.dk, hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
+	stable@vger.kernel.org,
+	syzbot+f58e57380a6083c4041d@syzkaller.appspotmail.com,
+	linux-nvme@lists.infradead.org
+Subject: Re: [PATCH] nvme-fc: fix double free of fabrics options when
+ nvme_add_ctrl() fails
+Message-ID: <aohnB2sC2nspmqmH@ryzen>
+References: <20260814143833.1953415-2-cassel@kernel.org>
+ <20260817061815.154794-1-rihyeon8648@gmail.com>
+ <aoMkX_davK7TWlaj@ryzen>
+ <aoXLiFruG5s1nKch@kbusch-mbp>
+ <aoX2wcyhpakryWHX@ryzen>
+ <aocb3ogg34WWtRSB@kbusch-mbp>
+ <aohQ9NcuMtSqWvvd@ryzen>
+ <aoheN_L3iJNU3Ji6@kbusch-mbp>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/272] 5.15.217-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260820145231.229664293@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260820145231.229664293@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoheN_L3iJNU3Ji6@kbusch-mbp>
 
-On 8/20/26 08:53, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.217 release.
-> There are 272 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, Aug 21, 2026 at 08:18:31AM -0600, Keith Busch wrote:
+> On Fri, Aug 21, 2026 at 03:21:56PM +0200, Niklas Cassel wrote:
+> > On Thu, Aug 20, 2026 at 09:23:10AM -0600, Keith Busch wrote:
+> > > On Wed, Aug 19, 2026 at 08:32:33PM +0200, Niklas Cassel wrote:
+> > > > 
+> > > > I am not following.
+> > > > 
+> > > > The options is freed in two different places, depending on if the
+> > > > ops->create_ctrl(dev, opts) call in fabrics.c:nvmf_create_ctrl() was
+> > > > successful or not.
+> > > 
+> > > Oh, not that path. You mentioned previously that ctrl->ops is
+> > > dereferenced in other places. I thought this means we can successfully
+> > > add the controller, which means the attributes are visible, but then
+> > > fail something else later that causes the opts to free. Since the
+> > > attribute was visible, something can open it before the device exporting
+> > > is torn down, and access it after the opts were freed.
+> > 
+> > Sashiko flagged another NULL pointer defererence from the sysfs attributes:
+> > 
+> > "While the sysfs attributes are still fully accessible, an unprivileged user
+> > could concurrently read an attribute like hostnqn, causing a NULL pointer
+> > dereference.":
+> > https://sashiko.dev/#/patchset/20260811125310.165487-1-rihyeon8648%40gmail.com
+> > 
+> > This comment was on Rihyeon Kim's patch proposal.
+> > 
+> > I assume that this is because the fc.c driver (both before and after
+> > Rihyeon patch) force set ctrl->ops = NULL before nvme_free_ctrl() was
+> > called, so a user reading the sysfs attributes at the same time as the
+> > controller was tearing down, could most likely crash the kernel.
+> > (Note that neither rdma.c,tcp.c,loop.c does this, so this problem does
+> > not exist for them.)
+> > 
+> > sysfs_remove_link() is called before ctrl->ops->free_ctrl(ctrl);
 > 
-> Responses should be made by Sat, 22 Aug 2026 14:51:11 +0000.
-> Anything received after that time might be too late.
+> When ops->create_ctrl() fails, the opts are freed from
+> nvmf_create_ctrl(). We can still fail ops->create_ctrl() after a
+> successful nvme_add_ctrl(), so the handle will be visible to user space
+> for a moment.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.217-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
+> I think you're relying on nvme_fc_init_ctrl's nvme_put_ctrl() error case
+> to be the final reference, but it might not be if the character device
+> was created and someone opened it. If so then:
 > 
-> thanks,
+>   out_put_ctrl:
+>      nvme_put_ctrl()   -> refcount 1, NOT zero
 > 
-> greg k-h
-> 
+> So now when nvme_free_ctrl is called sometime after nvmf_create_ctrl()
+> freed the opts, the ctrl is pointing to freed memory.
 
-Compiled and booted on my test system. No dmesg regressions.
+Yes, if someone called open() without calling close() for a long time,
+then I agree that refcount will be 1 in at this label, and that
+nvme_free_ctrl() will run after nvmf_create_ctrl() freed the opts.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+I guess that is how whoever designed nvmf_create_ctrl() implemented things...
 
-thanks,
--- Shuah
+AFAICT, this problem is there for rdma.c,tcp.c,loop.c, so it is not a fc.c
+specific problem.
+
+The unconditional NULL pointer dereference in nvme_auth_free() was specific
+to fc.c, and was solved by this patch.
+
+So while the patch does solve an unconditional fc.c specific NULL pointer
+dereference in nvme_auth_free() (if DHCAP is used), it does not solve a
+potential NULL pointer dereference that can happen to: rdma.c,tcp.c,loop.c
+(+fc.c after my patch) if someone is very quick to grab a reference in the
+short window between creation and a failure during creation.
+
+fc.c was not affected by this bug, because of the force setting of ctrl->ops
+to NULL.
+
+I still think this patch makes sense, since it brings the fc.c driver in
+line with the other fabrics drivers, and avoids the dereference in
+nvme_auth_free().
+
+But yes, someone should probably do a follow up series that cleans up the
+options handling for all fabrics drivers to solve the problem you just
+described. At least the options handling will be uniform after this patch,
+so hopefully that cleanup will be easier to implement because of this.
+
+
+Kind regards,
+Niklas
