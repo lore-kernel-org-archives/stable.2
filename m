@@ -1,108 +1,90 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A25363C55
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 20:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFCB309F08;
+	Fri, 21 Aug 2026 20:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787345366; cv=none; b=tI/n5xPtJP/c+icwPnAMHMC1ljC94wN87QsHAUTx3AOk9j/zrYe5rVdgG7by4MeE85+Vt0ukcd8OjvnG5/zprMXqzelVxgi+4u2j4dbVEmfGm2iSjChZm39crQqrtWIzWNvZXp1rczum1cPm7D/8FoR+ZglJczU2z/FFXgXddtA=
+	t=1787345534; cv=none; b=nHxua+eYUX0JhpJvHgwtCmrCPrzgbr5tkLDu6aN70esCEKO1kPQm115nqN44wWXaEQ0CQeRbu1gIjKoYPghBaxA9ufxuyj6kVHDB7lOazrisq96PBe/sesBrJtiaUt7GKeuhvLpLwDs5UDUsRGhheUlQuGQtvRW8WGMz1sfI1t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787345366; c=relaxed/simple;
-	bh=kqSSIILac7u1pKPNOUJ/EuEid7Kx/XiiY4lOm0AmR9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D84cr3R21dHleTv1OZXpxgf3kERjPYnQywBnFW5HNVKkwa0B28KT7VmhUDuFtTXPnQVQkCTKxBMF529kOmELE1LVcGuRM1N5LijEoX0jDKclyD7EMWFa0sp72GHNSRMmaYylFeMB5CQKs5NLyF1vAG/1AWnDnMZAtQHmPzxGofE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anthonyvardaro.com; spf=none smtp.mailfrom=anthonyvardaro.com; dkim=pass (2048-bit key) header.d=anthonyvardaro-com.20251104.gappssmtp.com header.i=@anthonyvardaro-com.20251104.gappssmtp.com header.b=pxNlgQO9; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anthonyvardaro.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=anthonyvardaro.com
+	s=arc-20240116; t=1787345534; c=relaxed/simple;
+	bh=iOqH32fLIga+ET+v5Yf6kVIvtpvzNvuXR4wOCzzgIC8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RYJng5kzrCcBMTmKJn0m9u3yGUeIaEHf1PBm8QlXc2yOR1iDNVIWDNMemFCXBLObiFLBNBk1eaNcXpFDdWvjJ2bFqvXXjW1TeZSkhXvXB6fqTEcgEi/ywQ3PGtx6HflQ5SQkeaPxbH3NeSZyYrkfE2QM2ElqL4SC4DxCWMXfa9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0LxTIuM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=anthonyvardaro-com.20251104.gappssmtp.com header.i=@anthonyvardaro-com.20251104.gappssmtp.com header.b="pxNlgQO9"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e041ea211so1311899a91.0
-        for <stable@vger.kernel.org>; Fri, 21 Aug 2026 13:49:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=anthonyvardaro-com.20251104.gappssmtp.com; s=20251104; t=1787345365; x=1787950165; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kqSSIILac7u1pKPNOUJ/EuEid7Kx/XiiY4lOm0AmR9M=;
-        b=pxNlgQO9mm++xzF4oXrefkBI65NmRj4cE0PEedeGWceXW7ZZqIwefKR8zJTqWW49pU
-         vivmGkd3PuuoukiW21eRFTEM7xAUsAQt0Ej2guG4g3I7iUHnprHcwz5wKp1fSZ0GHW5z
-         xGC7EXSYdCBIO2gkBV/eOcrggfcIHRgDw5dNp3rmTldysedffpxbUKAvqm72xFMBJO0o
-         Fue3GwRV1Ag9amZ7js9v93rD8a1zIkdAPa4mhXIPCdy2YclpWWExTvsafOwo7AYPn0FF
-         CvlNUtZXMvQhFOEweheJZFbgY7F2to6+7n8juJbTlHhkJeufngmMyA/3UZIpJBUkkoC6
-         wd5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787345365; x=1787950165;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kqSSIILac7u1pKPNOUJ/EuEid7Kx/XiiY4lOm0AmR9M=;
-        b=cEDV50P+80WxgQJ+bkKdqrj7OYHMlIiLsSs+MN6mkukrIdG4PwhWgbncQXGlREyMcd
-         xWfjJ+4ifr0/cJuaeg8jJDmhJoTDlgRjbLf+PujIOEVW+X2uyOQ2iQd7FJv6hma5gMjO
-         ifqC+b7T2Rn3uDOeNjDG9iMK5VFGjfQzzAnXGlVHwMWosUyUtZbJn4xCate429k/Prj5
-         yb/X/DALYR8slFcMlH+KmLQL098uncIrJcAafnZIT0y04uud/P3reH8uPT86PsFV9eNn
-         lPgjqQqUUcrdZniilGYTnWaEaWD07g8pg3FpJJpNm5gcd79An1yRbEJu1Z59ZLQFLXw7
-         3RVg==
-X-Forwarded-Encrypted: i=1; AHgh+RqopSni5dd3GWd/nwaRVQgbKNa9U6SrYPLVDRzaqGE3Sqw/8ugT6TJJIX8RzpCp/JWk2N2DXms=@vger.kernel.org
-X-Gm-Message-State: AFuF++khTbzmz0sSFe9OAD1ufuVHYQiY8bQQzMnVJgOpY7YA2aYkPYdC
-	Ls4htIIp8fQnqc4cA4N08GBOf9wmZlUmwVQX33ThGv4ZOsDnQG3KKiEVaV7QkvFC5ds=
-X-Gm-Gg: AR+sD11LIjANp/Y0moQmMcC5VXpsM+Elw8t3Qncbh5O/X1aq+mwBIukYW2gPOFAQFaG
-	9Ccf7g/HVr3LhCXMnQeXmHNHOYpfO+NITrBZ5VB3YnKlulkFVCdTLmujhuL9X+/HsMh43zc/5FY
-	TLspVMobvf8Hv4LqbMhEOK4/GNhv2fbIeOk9TYnxSQsYmff3Mc2FNDlc/kl6Fbpqh5D2pT21ltv
-	svOLthLjE+/aGl1Erxv1L6pwX2NzNqnx++UIrM2RQrhnGesaePRNpvGVxjeXICiQdCyzLloeD8n
-	RevAWiY3gmebeedbhfpgrIXdz/cMsjEM35owU54G7RDs9LpdvjOY7cniP2Oyp2IzsOijgtp/s00
-	+jYLtQbJwnpGcB5u9l4Rysj3l8Rf8czY+S5SHeRU0Ea6oHol36IWfYuYQUAbJvwpkU3Gc9Y/zH5
-	AW/ozi3HYpwLnRr2J7W7WqkjcOSv5x/G0fSVnCBpUvqUBYmr+y7Ku+x1pcAChMwmaHos3ZJDKJX
-	AZEuwDAwDO2y8DfI2gKmHnzW8x9EP6sQgIOWnAjs2CRQ4C3isZNrVXHeLpfVb1med8O62/6MCwk
-	wZzCwz2agPYZrSC80Xwe0ETJpes9efH2RC35CgAgOkYj17BvszY=
-X-Received: by 2002:a17:90b:6cb:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-395c2f13243mr17933317a91.0.1787345364660;
-        Fri, 21 Aug 2026 13:49:24 -0700 (PDT)
-Received: from coder-vardaro-vardaro-2-0.tail2dda0.ts.net (ec2-16-145-69-213.us-west-2.compute.amazonaws.com. [16.145.69.213])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395e4b2af01sm101253a91.14.2026.08.21.13.49.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 21 Aug 2026 13:49:24 -0700 (PDT)
-From: "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: revalidate cached COW fork mappings during writeback
-Date: Fri, 21 Aug 2026 20:48:43 +0000
-Message-ID: <20260821204843.3223395-1-me@anthonyvardaro.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260820161123.GH6072@frogsfrogsfrogs>
-References: <20260820-b4-xfs-cow-wb-revalidate-v1-1-8a19080799ea@anthonyvardaro.com> <20260820161123.GH6072@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0LxTIuM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440D11F000E9;
+	Fri, 21 Aug 2026 20:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787345532;
+	bh=DuzWbq6Hw4BKCs0wVHsd3ZxMem9mh0J6/r8iLMFHiq4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=K0LxTIuMP2pyhKld6xjot+7cNM0+qB/e75rlq11hwDIQFuhDQvRC97CaxXHT6Z1lu
+	 Ifz+ua9KgqjZkjB8TIWr7lnmKrThVYrs1Y7ZwrcUvGf/UykcYxCb2fx+nN5Om7AQek
+	 ZCfU3lnw9ylsqVQEw3UhO2cBBKvMHk3mJMa6WENplSV2P69sXIzE4fAVEF9ur6wCJM
+	 yZRsX8mWlkoLeT/U6FMgrZJMZjwYeV2tI3upQR9YEHHtFyq7ZxOTv2t7OYMx4swL5Z
+	 HQjLJGfcrrgSSY6IiNhEPcQ3wnOjRNr6b9LtautwcIDguASlJgVvpKiydJX7f6qga+
+	 rB482PFt4cxqA==
+Message-ID: <95146b5a-80d2-4e91-855d-6577f2f31f0e@kernel.org>
+Date: Fri, 21 Aug 2026 15:52:10 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: pci-quirks: always assert xHCI OS ownership
+Content-Language: en-US
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Rishabh Jain <rishabh.jain1198@gmail.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260815014534.77850-1-rishabh.jain1198@gmail.com>
+ <69fdc442-a4f2-42e0-80f6-6b35cbc207bf@kernel.org>
+ <20260816220306.64c615f2.michal.pecio@gmail.com>
+ <2d13e2ae-f5da-4951-bbe4-be7bb0b296cf@kernel.org>
+ <20260819001511.45b3621b.michal.pecio@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260819001511.45b3621b.michal.pecio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 20, 2026 at 09:11:23AM -0700, Darrick J. Wong wrote:
-> The buffered write path has similar data/cow fork sequence counter
-> revalidation code, so would it be a better idea to adapt the writeback
-> path to sample the sequence counter via xfs_iomap_inode_sequence in
-> xfs_map_blocks, and re-check that in xfs_imap_valid()?
->
-> I weakly hinted at this a few years ago when we were adapting the
-> buffered write path, see [1].
->
-> [1] https://lore.kernel.org/linux-xfs/Y2mcOCpKiDb4nf1X@magnolia/
+On 8/18/26 17:15, Michal Pecio wrote:
+> On Sun, 16 Aug 2026 16:00:47 -0500, Mario Limonciello wrote:
+>> On 8/16/26 15:03, Michal Pecio wrote:
+>>> Not sure if this has anything to do with PROM21, or if some BIOS
+>>> is just trying to use the xHC at resume because it's permitted to.
+>>> Then it makes too many changes for Restore State to still work.
+>>>
+>>> Potentially, such bugs may have happened and been left unsolved or
+>>> "solved" with RESET_ON_RESUME quirks and other hacks.
+>>
+>> What do you think about making this a series with each of those
+>> quirks dropped one-by-one?  The head patch (a variation of this one)
+>> could go to stable and the rest of the commits dropping those can go
+>> to linux-next.
+> 
+> Hard to tell. All we have is a wild theory. I couldn't even test what
+> happens when the BIOS claims an unclaimed xHC during resume from S3,
+> because my BIOS doesn't do that even when I clear the "OS owned" bit
+> before suspending.
+> 
+> Those quirks may be wrong in the sense that they weren't specific to
+> the particular PCI IDs, but to some particular buggy BIOSes or kernels
+> in the past. Maybe those problems don't exist, maybe they still do.
+> 
+> I have completely disabled RESET_ON_RESUME on my test system with no
+> apparent ill efects so far.
+> 
+> OTOH, I tried disabling the "broken streams (UAS)" quirk on ASM1042.
+> While the kernel crash which those chips used to cause has been fixed
+> long ago, it turns out they just don't work correctly (Set TR Deq is
+> a No-Op with streams). So I'm not rushing to remove this quirk.
+> 
+> Regards,
+> Michal
 
-I think that's reasonable. It's mostly deletion since
-xfs_bmapi_convert_one_delalloc() already fills
-wpc->iomap.validity_cookie. I'd still like 1/2 to stay the small
-private cow_seq check so it can go to older stable trees, which don't
-have validity_cookie or xfs_iomap_inode_sequence().
-
-So for v2 I'll send two patches: 1/2 for this fix, Cc stable; 2/2
-samples xfs_iomap_inode_sequence() in xfs_map_blocks(), compares the
-cookie in xfs_imap_valid(), and removes data_seq/cow_seq, with the cost
-measured again.
-
-Anthony
+So maybe we try with dropping RESET_ON_RESUME quirks only in this go around.
