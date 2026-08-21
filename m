@@ -1,123 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DB71F5821
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 01:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA6A3112A5
+	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 01:08:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787274147; cv=none; b=tmB/8tJiGijyHoDSycqt5XVAv687Grhlx+2PtvxK9fwicuNpn+KCfwLucbwy++o+jUmuBECQas+UFWJiA3BhpFuR7VvjfxFIg0qMerqB7s+uMZUXm/pgmUMC90n21exwsvZFQe4X0SY6nrHsQlE2LUAYXczjSGV5LSkqJwmubFo=
+	t=1787274508; cv=none; b=QHIWNYUvFRBfUA901Hzc225p7X0N5/J0oYEuQ+SPGvHfLx1CU/Asg269t81pWMoeMGwOn2V4B6jvqY9ZsgJW/XHlSx2lm2M7E32yhdQI5gVemgdvUjw8MxHo59UCv6P7AXxpgDykiEA+H7MpmzEM9WhxdpEd8fcbbLJBgffhyNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787274147; c=relaxed/simple;
-	bh=j4aVP/O/W2/08y9n5IJmtt486PyHueY1gGAM5ACsKfA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nRmyTRlXkJyG7rPGE5OE13pXuKf/q5ixi7z2Ptq+b+TcNZ1W8XoBI156B8B3W9n82lZhD/rY376CGLPGFF6EyNy4r0JimlJaKNi1KLoDjR48gN6Q8ubprxxNlwBvTIlqctEWraSlap5urXPiKgG9zqfjGhsy9/xtzbHHkWRMv8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BMWp7ymQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787274508; c=relaxed/simple;
+	bh=Gw68RLwPeS7/BlwRqQdc8VJmyhFkGLZeBDVhjRX8BkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=szdzavxtaOUsgGzCYWmE0GLGZLfw9SuDVM8v2LuyEhGgoYv/gG1rYSzObaODT3CcgR2b0mQGX5P3VYtyGqq3KFEFLy9mC2x4a1LpA62IXkx1SPZu72sKsAHk/iZ5RnJu05FqVTl6KVZYIfiF7tf+deX1PXRc/PIZ9T5V2nEkoVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsqkw+Iq; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BMWp7ymQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A75F1F00A3D
-	for <stable@vger.kernel.org>; Fri, 21 Aug 2026 01:02:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787274145;
-	bh=bIwuEqezA9Y4sF4h0xhJBpZ039oEmYkcD9hpugZLGqU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BMWp7ymQ5WWaFFn0PUofJOVKpdh3lxDBCIx4h6zhvxbsrYyctu1UQiS4QGEECVWxU
-	 OT+tWq9lpoE7GaMfFlwj7YdLmG+xSrsFXwf++eE15oB1BM5uG2ao3bzJxIYM/hpHCl
-	 wFPsZxq6TkVXULosLMMiahARSeuU1zH8LnJGGBl9Reg6JKJZIyyW5VPOz5hYZ2B22g
-	 DsN5TQmsV2QaPELuw2ik8v/dOHklTCd3Cz7F87EhuG2oymlHO3sD6gKiYNM2za1bhs
-	 WlbiaxwdNzkYgez8McNKML7iQGgPSWwE0sJk9LAqPsjLl3xLgD6mZiWPSy36cWQFr0
-	 5ofHudjEeL6eA==
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so968347a12.2
-        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:02:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rol5Wpl5OlLEWNXK4xaS8x3xNaEc/0t78F2TR10jaybAaN3CcRRk15pOKefRAItiVWxn6DSOdE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwUI3Gy5C3YsZicySqxxb+eLZeE/d/h/HuzHG+BlEzBx+0uz2N
-	XCRxvDxEvKp9FqUJppoOSnbjcdEJSOqwqzngE3qc99vi24xCiYsGyqc5z7fHPR03CHLD0mQg9Au
-	R27FSGMW/KLhylPHw7ZE9hfOa0YiIesE=
-X-Received: by 2002:a05:6402:44d4:b0:6a1:854:e75e with SMTP id
- 4fb4d7f45d1cf-6a42f26e30cmr2311594a12.15.1787274144173; Thu, 20 Aug 2026
- 18:02:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsqkw+Iq"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a144c8eea2so1027901a12.0
+        for <stable@vger.kernel.org>; Thu, 20 Aug 2026 18:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787274505; x=1787879305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NAuxUNTNCwVmj4WdPIptKNiVBZM+Hp/Ts4jpkKyFySI=;
+        b=lsqkw+IqNGPlvT2O2bq8dy5bj6dLGioNHgKOJLISOLq+jw83tEz6jstxwmqdjcW7E9
+         eZCVCg8Go46xQpCbunMza0aQERWPOf8FvV7UYNmLDdEQIK9bun2eJBG999a7mkNxM/am
+         +3Ip1tkHOkE1Xjzf22rytPauMa9LSuP/TynasLlKUd1Syu07APyQ2v6ukWVGe+GrNcpI
+         SOedee9Y66xm7F4qrKFXBjGa2duHCAHKs4kfWFwmJNvTvqzA203eoGtn/nExkVbILnHi
+         eYARwkzHoncD7b3RNC19siTwoWAAFTpPJeIlf3uX9VqhsFDhG83FElPOBipgCAXVBVoe
+         KhUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787274505; x=1787879305;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NAuxUNTNCwVmj4WdPIptKNiVBZM+Hp/Ts4jpkKyFySI=;
+        b=jowpdg0+eEVxL9fjTbwDlMba/MHl9YAit9fU5QcdP8VmeAv5YUwOuvrwJnHPgKiivG
+         CMLPt2/NecVx4AzBkmmoMgjt7hSmafVg//ZxN9N0A5LUmPDPxRazt6kpPua2jkOdOVX5
+         QpQCHJCGm9R1BOBng2tYktAwz7oKGhI1301SZcxfaK97kQakgBXhJpdlPDzmokq1e/tU
+         xvPWkaVuEJZgEG2Z4xEwr5O7zYyS6Q14dnebM5pv2pruxMdmElujB+cLESOlc0TSTSgY
+         TZKEUeSsPz/BRqc2hhPUaybw8kxDBjU+ed6VE6+MkDuBbbZvLY8gsXzCzNZ5Rb/7ugfn
+         DNFg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrs95/J96OLZbt8ktGEOftYCcHPztVWJIGSVSzyJG6/HYOwCK5etOzQh0A0+DmpqwmJ9abRH4s=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9HjTYGypxO1UjxafEIZw7GwPydKmrhZlJ4fGkzpUpOpBngRDC
+	67g1TmeS1TJ6WUr3sV+G0Fxn6X6xYu8B2ZsxSqBnWb6YxKwRYcAWhq7H
+X-Gm-Gg: AR+sD11k6YG+CCEUdD6BA3LnwCU2rfRkSx37dcrI7iTga3TbI8IGmAP/2EIs7ar/fm/
+	fcZ9ICaeTXl+t8wqPIizX4eRS1k4G9TOsf0oOD1biJDwVQ/E0Qil+FT43wrDykkKztoPd4sAXPg
+	KK/Y6j5TiolugQwzvx9e0Mv6DoC9WbMvp8OdiYsHXlD6T/LekOmhWCH7v9g8PMQYKNMHFxKjCAz
+	11jXISZrZm4bfCZUpz+GcwoBu1NJqsS6woLfo9X0BW/xcH81u+neqU7pUmCmPecQBRax6LfR/FE
+	ZiEh18cqJSS7ivC0WQsRQZ6DBKLeOwgYrK1HnQYBw/1OojQfj7zZmX4nfme/8ktPnP7RyD+OAbn
+	/GjKjxk4b2B7iQg6tYTkuXeC7Nix74d6Roc0QQbCJkEpP2bUkNHBqzdfq1zXQe/ItIztFQWYpY0
+	kMMw386R+WFCX+9dWMP7xozsWf9HFOY71/FBgdvGEg0ILtgWJuo7NjX/W+ls5eHWv47g0OZ3Zpc
+	zSfo+pH9iwmrV77ZpL4YnXhr7cFLORDx33mw9ovfZ1CWD4POIPWTVfyWCcP7xxgoQ==
+X-Received: by 2002:a05:6402:3242:b0:698:3469:fa99 with SMTP id 4fb4d7f45d1cf-6a42eeaf740mr2519534a12.0.1787274505008;
+        Thu, 20 Aug 2026 18:08:25 -0700 (PDT)
+Received: from localhost.localdomain ([151.251.247.22])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff1563c5sm3913104a12.14.2026.08.20.18.08.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 18:08:24 -0700 (PDT)
+From: Georgi Valkov <gvalkov@gmail.com>
+To: briannorris@chromium.org,
+	johannes@sipsolutions.net,
+	andrew@lunn.ch,
+	krzk+dt@kernel.org
+Cc: francesco@dolcini.it,
+	johannes.berg@intel.com,
+	kees@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	wenst@chromium.org,
+	rafael.beims@toradex.com,
+	avraham.stern@intel.com,
+	error27@gmail.com,
+	s.kerkmann@pengutronix.de,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	chunfan.chen@gmail.com,
+	arend.vanspriel@broadcom.com,
+	peddolla.reddy@oss.qualcomm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	stable@vger.kernel.org,
+	gvalkov@gmail.com
+Subject: [PATCH v6 1/3] dt-bindings: net: wireless: add flag marvell,invalid-reg-hint-in-rom
+Date: Fri, 21 Aug 2026 04:07:26 +0300
+Message-ID: <20260821010728.45065-1-gvalkov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820211443.1472310-1-sorenson@redhat.com>
-In-Reply-To: <20260820211443.1472310-1-sorenson@redhat.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 21 Aug 2026 10:02:12 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8xbGTc8ADKqR1VMw1SETLDvFwrbnahp+4pWFTamZLB=w@mail.gmail.com>
-X-Gm-Features: AcwNN1WKqWTLEdvNSWjb5-Zf9b7P5pbJkFXXCVeB3e6Vr5pDSc9ajvTvOtvQSqg
-Message-ID: <CAKYAXd8xbGTc8ADKqR1VMw1SETLDvFwrbnahp+4pWFTamZLB=w@mail.gmail.com>
-Subject: Re: [PATCH] cifs: fix i_size inconsistency in smb2_duplicate_extents()
- on FSCTL failure
-To: Frank Sorenson <sorenson@redhat.com>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 6:14=E2=80=AFAM Frank Sorenson <sorenson@redhat.com=
-> wrote:
->
-> smb2_duplicate_extents() pre-extends the target file before sending
-> FSCTL_DUPLICATE_EXTENTS_TO_FILE.  If the FSCTL fails (e.g. ENOSPC,
-> byte-range lock conflict, unsupported file combination), the server
-> and client i_size are left reflecting the larger size while the data
-> in the extended range was never cloned.
->
-> Save the original i_size before pre-extension and restore it on FSCTL
-> failure.  If rollback fails, force revalidation instead.
->
-> Fixes: cfc63fc8126a ("smb3: fix cached file size problems in duplicate ex=
-tents (reflink)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-> ---
->  fs/smb/client/smb2ops.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-> index 7d6738ffcb80..38bd344a9740 100644
-> --- a/fs/smb/client/smb2ops.c
-> +++ b/fs/smb/client/smb2ops.c
-> @@ -2200,6 +2200,7 @@ smb2_duplicate_extents(const unsigned int xid,
->         struct duplicate_extents_to_file dup_ext_buf;
->         struct timespec64 ts;
->         struct cifs_tcon *tcon =3D tlink_tcon(trgtfile->tlink);
-> +       loff_t orig_size;
->         u64 asize;
->
->         /* server fileays advertise duplicate extent support with this fl=
-ag */
-> @@ -2218,7 +2219,8 @@ smb2_duplicate_extents(const unsigned int xid,
->                                trgtfile->fid.volatile_fid, tcon->tid,
->                                tcon->ses->Suid, src_off, dest_off, len);
->         inode =3D d_inode(trgtfile->dentry);
-> -       if (inode->i_size < dest_off + len) {
-> +       orig_size =3D i_size_read(inode);
-> +       if (orig_size < dest_off + len) {
->                 rc =3D smb2_set_file_size(xid, tcon, trgtfile, dest_off +=
- len, false);
->                 if (rc)
->                         goto duplicate_extents_out;
-> @@ -2235,6 +2237,23 @@ smb2_duplicate_extents(const unsigned int xid,
->         if (ret_data_len > 0)
->                 cifs_dbg(FYI, "Non-zero response length in duplicate exte=
-nts\n");
->
-> +       if (rc && i_size_read(inode) > orig_size) {
-> +               int rrc;
-> +
-> +               /*
-> +                * FSCTL failed after we pre-extended the file.  Attempt =
-to
-> +                * restore the original size so the caller sees a consist=
-ent
-> +                * file rather than a larger file with uncloned content.
-> +                */
-> +               rrc =3D smb2_set_file_size(xid, tcon, trgtfile, orig_size=
-, false);
-orig_size is only the locally cached size, and
-lock_two_nondirectories() does not prevent another SMB client from
-modifying the file. If the FSCTL fails, this rollback may truncate the
-server-side file to a stale, smaller size and delete data written by
-that client.
+WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+from the mwifiex ROM, which conflicts with the platform regulatory
+configuration on units sold outside the US market. For example:
+- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
+
+When the system boots, it detects a conflict between the user selected
+region and the radios, e.g. BG FR US, and applies extreme restrictions,
+preventing phy0 from starting on any DFS channel. phy2 works.
+
+Add a device-tree flag, which allows affected devices, where the radio
+conflicts with the platform to ignore the incorrect regulatory hint in
+the ROM of the radio, so the platform regulatory domain can be used.
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
+
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+---
+v6:
+Rename flag:
+marvell,ignore-regulatory-hint -> marvell,invalid-reg-hint-in-rom
+
+Clarify commit description:
+The patch series allows affected devices, where the radio conflicts with
+the platform to ignore the incorrect regulatory hint in the ROM of the
+radio, so the platform regulatory domain can be used.
+
+This does not allow the user to change the regulatory configuration of
+any radio. It only allows phy0 to start and operate according to its
+certified configuration.
+
+The change affects only platforms which explicitly define this flag, and
+helps overcome the incorrect behaviour of proprietary radio firmware.
+
+Rearrange patches so that the flag is implemented in the driver, before
+being added to the board for WRT3200ACM.
+
+Link:
+https://lore.kernel.org/linux-wireless/20260728103536.25012-1-gvalkov@gmail.com/T/#u
+
+v5:
+1. description: remove tag Tested-on
+2. add #address-cells = <1>, #size-cells = <0> to fix a warning:
+arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts:183.3-13:
+Warning (reg_format): /soc/internal-regs/sdhci@d8000/wifi@1:reg:
+property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)
+
+3. description: add info about testing
+
+v4:
+1. Add binding documentation for flag marvell,ignore-regulatory-hint
+2. Add dt for sd8897 and move the flag there, I used sample from docs
+3. Use device_property_read_bool in the driver
+
+v3:
+I implemented and tested a better approach with no board specific code:
+1. check for a device-tree flag in mwifiex_register_cfg80211in()
+  !of_property_read_bool(of_root, "marvell,ignore-regulatory-hint")
+2. add this flag to the root device tree of each affected board
+Currently this affects only armada-385-linksys-rango.dts,
+because Linux has no dts for venom. OpenWrt will take care of that.
+This approach is more flexible and scalable, because the flag can
+also be used in other drivers, e.g. mwlwifi (not part of Linux).
+
+v2:
+Replace the compatible device names, which are currently only available on
+OpenWrt with board names which are available on both Linux and OpenWrt.
+
+ .../devicetree/bindings/net/wireless/marvell,sd8787.yaml    | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+index 930b700b73d0..9f905ef5c2c0 100644
+--- a/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+@@ -59,6 +59,12 @@ properties:
+     description: Calibration data for sub-band 3 in the 5GHz band.
+     maxItems: 502
+ 
++  marvell,invalid-reg-hint-in-rom:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      The regulatory hint in ROM conflicts with platform configuration.
++      It should be ignored, so the platform regulatory domain can be used.
++
+   marvell,wakeup-pin:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
+-- 
+2.55.0
+
