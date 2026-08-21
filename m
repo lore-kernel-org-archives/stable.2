@@ -1,68 +1,75 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A8A3655DA;
-	Fri, 21 Aug 2026 03:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34C6337189C;
+	Fri, 21 Aug 2026 03:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787281985; cv=none; b=FOSKsvqZD2Y+L7lMjsOC+LIhFhDeCjRbKeX06NCPz+7sCZMmLF6hqONd3l9pWVxppWJI4QPdy7wkrxXutOmq3S4zlr8NNeXmqgdZG/JW/zfY+lmCRMbNovqJrue7FEFIZgrx5bhEydylY+b72iX63z+fqKEHMZMRIaQ1rxrhBgc=
+	t=1787282912; cv=none; b=OuEK5RpP81o/75xkgk7SJd+wfgE27Y9rK3vA1Rpe5FoG7xOPQp81O6xd1q+UzDmEf2QfRGV7C8Ub1Mb3o3sVClWHs8iG4z/QNYZpKV1AJ7cg3Wx/P0NWD/Bce7n/pnqlCDdGQCunmR4N4eeg/Yp4Go6zY4i9PJXAoms9em+TF6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787281985; c=relaxed/simple;
-	bh=9zS/2feqMiv79UKOVzQeNFiSXCLysMoiQeH4/+8878g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AMQonm9shFqVqEQsVirwXTFdrxinFuNZDJDJjtx3ftismxFfAV0MWUpAfo+JVQlwpstcQoQbAXTVdHvgkIIb0tUL/Dr0rJJW8YGKfw/Gy6yOCbIsRBUYSeH+H6qIeJSBGvaDby3GLXklSCgtw3ykkwP23hA8RKaBC/qWLdbUIbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 2f4f0a9c9d0e11f19a56ed5b684f684d-20260821
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:6cf76035-92f0-4f5e-b684-00ec14b7a182,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:1a790a648c11cc52d3ac3ef1976b3b02,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50,ED
-	M:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2f4f0a9c9d0e11f19a56ed5b684f684d-20260821
-X-User: gonglinkai@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <gonglinkai@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 888229237; Fri, 21 Aug 2026 11:12:47 +0800
-From: Linkai Gong <gonglinkai@kylinos.cn>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Remi Buisson <remi.buisson@tdk.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: inv_icm45600: clamp FIFO packet count to buffer size
-Date: Fri, 21 Aug 2026 11:12:44 +0800
-Message-Id: <20260821031244.364478-1-gonglinkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260821025105.4739d76b@jic23-huawei>
-References: <20260820070208.3891851-1-gonglinkai@kylinos.cn> <20260821025105.4739d76b@jic23-huawei>
+	s=arc-20240116; t=1787282912; c=relaxed/simple;
+	bh=SgIDj/Qoiw9IbD1da5NE7BBzdU3bJqbcJYLHQ4+hgrQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID; b=fXmX8tKfvIY6IYagQesFp69x3uV13pmeu6XnWhzb78mI5baRNfw8/fIHJ75dX32Fa8H4riaZpR6B0PdGrc1rYtN6J+uTftSgjZhJ+dsOfpq7sw1n2ubC/Tk0tjDhYMH+1b4s0yXNOJ/Sn++UKkZ3OBqXiSfo8FLON2BUUJoTjHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=k4T1yIyy; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="k4T1yIyy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:
+	In-Reply-To:References:Date:Message-ID; bh=SgIDj/Qoiw9IbD1da5NE7
+	BBzdU3bJqbcJYLHQ4+hgrQ=; b=k4T1yIyyM+Nje8nZ3tl6IMPNaaK79nwJZAHr9
+	3OP7a2ZBrBJdeoQIA+/ERJajI4BXxuYSZj+bZnmsEdV0iBeDP8ib4t9SRBRv+kIR
+	42aZ2lkeHv7U4PPbUOYK+h47Pkqpo+bFca7erta/oQz6yX2t7xJiLLSAGdpOMjCe
+	Q572EQ=
+Received: from [127.0.1.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwCXxs3XxYdqA6EAAA--.189S2;
+	Fri, 21 Aug 2026 11:28:23 +0800 (CST)
+From: Xie Bo <xb@ultrarisc.com>
+To: Anup Patel <anup@brainfault.org>
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Xie Bo <xb@ultrarisc.com>
+Subject:
+ Re: [PATCH] RISC-V: KVM: Serialize IMSIC attributes with vCPU migration
+In-Reply-To:
+ <CAAhSdy3kDmRxcT_+dOpcUVAkvZ-F0kWdQett+mTy93gPDkwS+Q@mail.gmail.com>
+References: <20260721073612.137259-1-xb@ultrarisc.com>
+	<CAAhSdy3kDmRxcT_+dOpcUVAkvZ-F0kWdQett+mTy93gPDkwS+Q@mail.gmail.com>
+Date: Fri, 21 Aug 2026 11:28:08 +0800
+Message-ID: <178728288861.534500.12009100192281293732@ultrarisc.com>
+X-CM-TRANSID:AQAAfwCXxs3XxYdqA6EAAA--.189S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYL7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
+	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
+	cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
+	CY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
+	5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeV
+	CFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxG
+	xcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I
+	0En4kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
+	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
+	xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWx
+	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbE_M3UUUUU==
+X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAGB2qGcfoAPQAFsf
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Jonathan
+Hi Anup,
 
-On Fri, 21 Aug 2026 02:51:05 +0100, Jonathan Cameron wrote:
-> I believe this is fixed in the iio tree (and shortly upstream), though
-> in a slightly different way.
+The issue reported by Sashiko has been addressed in v2 by using
+mutex_lock_killable() and returning -EINTR when the lock acquisition is
+interrupted.
 
-Sorry, I missed that. I'll drop this patch.
+v2:
+https://lore.kernel.org/r/20260810-imsic-attr-race-v2-1-00ed95ad321e@ultrarisc.com
 
-Thanks,
-Linkai
+Regards,
+Xie Bo
+
