@@ -1,274 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34EB385D74
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 14:10:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D3D3563CD;
+	Sat, 22 Aug 2026 14:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787407841; cv=none; b=TQ15DFhwJcF+Xri3QEJFdxO9ljMKfi9R0XY94HyYaDn6fAMZLSiGO3DacPEZm8Nbx4lvr9gyskIu7f9MTbP/5jArLGGxwd5vUzQ1Ej/yG+6KCHksHswODa/RSKI0u0/csRpfsx2oDf8BkapGHJCspeHFvRdlIwJk2MxW96v2iyk=
+	t=1787408804; cv=none; b=QKRPy1hO9yo5qPscUHuP4YyXXg7sZIeafQfDLOzb34CLEnzU55MdGXoSmQ0T94kQHGrVQzWywE29J/YsDkXSy8cVl8s7g4RYD9CjvIkOeDfNycpWdWrp9D9vuFNDtDE9P/4NJOrokw4EsmlsZ2xLksFMAnr9j7FPCIQYu+GXTgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787407841; c=relaxed/simple;
-	bh=/6s4T0oFgejqLgN8vloMk+2HKFY3U1KlBDRGEgjXkTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sdp8hLIvniNCArTIi3DLWlX/YYXk341hGBNXYv5t9rux2HKJrtPzUga5mbanFw8glbrO7cQ3Rfe2EylBSWAvqP8wNT5tdqPBlyBFIaK113WXvFr508ydltLX6LyaRidnFmQUfhJ5+Momc0Hx90XbKR333B27zViiXQrCTelgdDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWPihncQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787408804; c=relaxed/simple;
+	bh=js0FkFkqiKp8QwqOs2NW86sBkl9Up9ciGXAN21SCalw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YTEwKLCGvFiigkJ/L3Ai5csiOCizmZaOgIITdKdvmiMTEgKcwwMufqtMIMPSXAPzTvWweZutqGVUQg+11VNP8AhmpqCOUN5Eke/Qxer9EyRIBBcv7R8IneT2324NBBrDL1pdBBP4amwDvidwvZ+hMe91Qi80CtfDkb/JGYFxgT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FuKRZhu3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWPihncQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0401F00A3A;
-	Sat, 22 Aug 2026 14:10:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FuKRZhu3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB771F000E9;
+	Sat, 22 Aug 2026 14:26:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787407839;
-	bh=fg2yZVJoGkTI0uwnw5Zk+6q7K23YdlULJFpnIWBOAbo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dWPihncQgWBYR/NS/OARjMJk6edrlRifoWIy6pRXmrVZ4R2fBaC1ECSILTdGn04sU
-	 w/FGvKPCMf5VzLQvvLFYvuofvr6F/jjeXKCtz+QXwrMvGpdu+JccAD7x7hQYeg9zB5
-	 u38lCMymly+40X0mKOHxwrg2/W8bMHuZfJZnhw4R951ATyDWieX0fgdrTL7bXGynZ0
-	 VpyRBT2jpYrtlqc4Ah+OOdbApR6h2HWaQPtLuxQbLrkWe0nqOL5xQzTwqR4xYBa7DG
-	 FpgTQOAjDcL44IDI1p+5KUL+hHTzfeysb9jpD1aa5qZZgtQW8eA3tBmwLyMoYIbaaP
-	 h7/xFmMyMUkTg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	Julian Anastasov <ja@ssi.bg>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ipvs: separate destination availability state
-Date: Sat, 22 Aug 2026 10:10:36 -0400
-Message-ID: <20260822141036.2489961-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026081701-fable-dedicate-3459@gregkh>
-References: <2026081701-fable-dedicate-3459@gregkh>
+	s=k20260515; t=1787408793;
+	bh=EZ6C0Isq4P3g9HCeDb2DCK4xJJyRP1XpM/O6f7kjrf0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FuKRZhu3u7sHEKjTJsJSyY192beLDzTRq2ZCTupKepDO7+Pqmz67aqtuhRIdme8fX
+	 goDZEVsdTyzm1PRecpMxydmcOr7Z1k3d8jda7PS/XtOROWbYelZe26m5xwsWl+TMbJ
+	 1bbMfV3KKRpJJQzMz2YOpAyXXRKepZ2IEL6VS3G7eEYs11d/jRE4gBp+PhkqSewbuX
+	 YAsQz1oFUjtgXpkzkVflCU/JZUVNw6Qq3NVCdlIDA7sE8dwYKOzKB13NVaoI3zigVt
+	 qgjhwIXUUT/xU76BkjdMLv+zWx3aZLSeXoXmP8EOWL+Q1r3Ie4GHs7wirI4CC+fNi5
+	 WzYmQYmX+3dLg==
+Date: Sat, 22 Aug 2026 15:26:25 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Jintack Lim <jintack.lim@linaro.org>, Christoffer Dall <christoffer.dall@linaro.org>, 
+	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] KVM: arm64: nv: Fix null ptr deref in
+ kvm_nested_s2_unmap() on S2 teardown
+Message-ID: <aomxdiB1gXnUZAz5@gremlin>
+References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
+ <20260812-kvm-arm-nested-virt-fix-v1-2-4ad883f1b6a5@kernel.org>
+ <86y0dy4nm3.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86y0dy4nm3.wl-maz@kernel.org>
 
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+On Sat, Aug 22, 2026 at 08:32:04AM +0100, Marc Zyngier wrote:
+> On Wed, 12 Aug 2026 14:31:21 +0100,
+> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> >
+> > Commit 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU
+> > notifiers") introduced VNCR_EL2 invalidation in kvm_nested_s2_unmap().
+> >
+> > However at the point of this being performed concurrent stage 2 teardown of
+> > a nested guest can cause kvm->arch.mmu.pgt to be set to NULL.
+> >
+> > This happens in kvm_flush_shadow_all() -> kvm_arch_flush_shadow_all() ->
+> > kvm_free_stage2_pgd() and is performed under the kvm->mmu_lock.
+> >
+> > Commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
+> > tables") introduced the teardown of the entire nested MMU range, which then
+> > invokes stage2_apply_range() with resched=true:
+> >
+> > mmu_notifier_invalidate_range_start()
+> >   -> ... -> kvm_mmu_notifier_invalidate_range_start()
+> >     -> kvm_mmu_unmap_gfn_range()
+> >       -> kvm_unmap_gfn_range()
+> >         -> kvm_nested_s2_unmap()
+> >           -> kvm_stage2_unmap_range()
+> >             -> __unmap_stage2_range()
+> >                 -> stage2_apply_range()
+> >
+> > This means that stage2_apply_range() can drop the kvm->mmu_lock and thus
+> > concurrent progress can be made in lockstep with
+> > kvm_arch_flush_shadow_all().
+> >
+> > If kvm_arch_flush_shadow_all() advances ahead of stage2_apply_range() and
+> > completes its operation it guarantees a NULL pointer deref.
+> >
+> > Since kvm_free_stage2_pgd() is performed under the kvm->mmu_lock this will
+> > either be observed NULL or not and serialised against
+> > kvm_free_stage2_pgd().
+> >
+> > Resolve the issue by explicitly checking for a NULL value. Since this
+> > shouldn't be possible if blocking is not allowed, raise a warning if it is
+> > ever NULL in this case.
+> >
+> > Fixes: 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  arch/arm64/kvm/nested.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > index 17123f0b6dab..9fc0b1696dcb 100644
+> > --- a/arch/arm64/kvm/nested.c
+> > +++ b/arch/arm64/kvm/nested.c
+> > @@ -1295,7 +1295,11 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
+> >  			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
+> >  	}
+> >
+> > -	kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
+> > +	/* NULL pgt should only be possible if raced when mmu_lock dropped. */
+> > +	if (kvm->arch.mmu.pgt)
+> > +		kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
+> > +	else
+> > +		WARN_ON(!may_block);
+>
+> I don't think the WARN_ON() should be here. We already have one at the
+> iterator level, which will fire in the same conditions.
 
-[ Upstream commit cdcc4e46180df8161f4d2f3c6fd6beaf6990133d ]
+Ack, was an abundance of caution, will take out on respin.
 
-IPVS configuration paths update destination availability while connection
-accounting updates destination overload state. The two independent states
-share dest->flags, so their read-modify-write updates can race and lose one
-another.
+>
+> Thanks,
+>
+> 	M.
+>
+> --
+> Without deviation from the norm, progress is not possible.
 
-Keep OVERLOAD in flags, where the preceding patch serializes its updates
-with dst_lock, and move AVAILABLE to cflags. This keeps configuration-
-controlled availability out of the scheduler hot cacheline until a
-scheduler needs to check it. It also prevents availability updates from
-clobbering overload state.
-
-The destination status bits are not exposed through the IPVS sockopt or
-netlink interfaces, so keep their definitions in the internal IPVS header.
-
-Readers can still observe stale destination state; this does not provide a
-cross-field snapshot.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Link: https://lore.kernel.org/all/8913381c-1e02-35c7-0ec4-61de5a12fd35@ssi.bg/
-Assisted-by: Claude-Code:GLM-5.2
-Suggested-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Acked-by: Julian Anastasov <ja@ssi.bg>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/ip_vs.h              | 7 +++++++
- include/uapi/linux/ip_vs.h       | 6 ------
- net/netfilter/ipvs/ip_vs_conn.c  | 4 ++--
- net/netfilter/ipvs/ip_vs_core.c  | 6 +++---
- net/netfilter/ipvs/ip_vs_ctl.c   | 4 ++--
- net/netfilter/ipvs/ip_vs_dh.c    | 4 ++--
- net/netfilter/ipvs/ip_vs_lblc.c  | 2 +-
- net/netfilter/ipvs/ip_vs_lblcr.c | 8 ++++----
- 8 files changed, 21 insertions(+), 20 deletions(-)
-
-diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-index 7d32968f2b133..2e3ef3980c01f 100644
---- a/include/net/ip_vs.h
-+++ b/include/net/ip_vs.h
-@@ -33,6 +33,12 @@
- #define IP_VS_HDR_INVERSE	1
- #define IP_VS_HDR_ICMP		2
- 
-+/* Destination Server Flags */
-+#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
-+
-+/* Destination Server Config Flags */
-+#define IP_VS_DEST_CF_AVAILABLE	0x0001		/* server is available */
-+
- /* Generic access of ipvs struct */
- static inline struct netns_ipvs *net_ipvs(struct net* net)
- {
-@@ -664,6 +670,7 @@ struct ip_vs_dest {
- 	volatile unsigned int	flags;		/* dest status flags */
- 	atomic_t		conn_flags;	/* flags to copy to conn */
- 	atomic_t		weight;		/* server weight */
-+	unsigned long		cflags;		/* config flags */
- 	atomic_t		last_weight;	/* server latest weight */
- 	__u16			tun_type;	/* tunnel type */
- 	__be16			tun_port;	/* tunnel port */
-diff --git a/include/uapi/linux/ip_vs.h b/include/uapi/linux/ip_vs.h
-index 4102ddcb4e14e..9e4a762f31d83 100644
---- a/include/uapi/linux/ip_vs.h
-+++ b/include/uapi/linux/ip_vs.h
-@@ -28,12 +28,6 @@
- #define IP_VS_SVC_F_SCHED_SH_FALLBACK	IP_VS_SVC_F_SCHED1 /* SH fallback */
- #define IP_VS_SVC_F_SCHED_SH_PORT	IP_VS_SVC_F_SCHED2 /* SH use port */
- 
--/*
-- *      Destination Server Flags
-- */
--#define IP_VS_DEST_F_AVAILABLE	0x0001		/* server is available */
--#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
--
- /*
-  *      IPVS sync daemon states
-  */
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index b850c254b9588..73361a4df43b4 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -759,7 +759,7 @@ int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
- 	 * Checking the dest server status.
- 	 */
- 	if ((dest == NULL) ||
--	    !(dest->flags & IP_VS_DEST_F_AVAILABLE) ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE) ||
- 	    expire_quiescent_template(ipvs, dest) ||
- 	    (cdest && (dest != cdest))) {
- 		IP_VS_DBG_BUF(9, "check_template: dest not available for "
-@@ -1402,7 +1402,7 @@ void ip_vs_expire_nodest_conn_flush(struct netns_ipvs *ipvs)
- 				continue;
- 
- 			dest = cp->dest;
--			if (!dest || (dest->flags & IP_VS_DEST_F_AVAILABLE))
-+			if (!dest || (dest->cflags & IP_VS_DEST_CF_AVAILABLE))
- 				continue;
- 
- 			if (atomic_read(&cp->n_control))
-diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
-index 99cc39036c4e9..aaad3ccb0bb5d 100644
---- a/net/netfilter/ipvs/ip_vs_core.c
-+++ b/net/netfilter/ipvs/ip_vs_core.c
-@@ -124,7 +124,7 @@ ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -160,7 +160,7 @@ ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
- 	struct ip_vs_dest *dest = cp->dest;
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
--	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		struct ip_vs_cpu_stats *s;
- 		struct ip_vs_service *svc;
- 
-@@ -2084,7 +2084,7 @@ ip_vs_in(struct netns_ipvs *ipvs, unsigned int hooknum, struct sk_buff *skb, int
- 	}
- 
- 	/* Check the server status */
--	if (cp && cp->dest && !(cp->dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+	if (cp && cp->dest && !(cp->dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 		/* the destination server is not available */
- 		if (sysctl_expire_nodest_conn(ipvs)) {
- 			bool old_ct = ip_vs_conn_uses_old_conntrack(cp, skb);
-diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-index 025512d76db06..2ded17b67819a 100644
---- a/net/netfilter/ipvs/ip_vs_ctl.c
-+++ b/net/netfilter/ipvs/ip_vs_ctl.c
-@@ -961,7 +961,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
- 	}
- 
- 	/* set the dest status flags */
--	dest->flags |= IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags |= IP_VS_DEST_CF_AVAILABLE;
- 
- 	if (READ_ONCE(dest->u_threshold) != udest->u_threshold ||
- 	    READ_ONCE(dest->l_threshold) != udest->l_threshold) {
-@@ -1240,7 +1240,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
- 				struct ip_vs_dest *dest,
- 				int svcupd)
- {
--	dest->flags &= ~IP_VS_DEST_F_AVAILABLE;
-+	dest->cflags &= ~IP_VS_DEST_CF_AVAILABLE;
- 
- 	/*
- 	 *  Remove it from the d-linked destination list.
-diff --git a/net/netfilter/ipvs/ip_vs_dh.c b/net/netfilter/ipvs/ip_vs_dh.c
-index 5e6ec32aff2b1..6d88bb4bf4ae8 100644
---- a/net/netfilter/ipvs/ip_vs_dh.c
-+++ b/net/netfilter/ipvs/ip_vs_dh.c
-@@ -220,8 +220,8 @@ ip_vs_dh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 
- 	s = (struct ip_vs_dh_state *) svc->sched_data;
- 	dest = ip_vs_dh_get(svc->af, s, &iph->daddr);
--	if (!dest
--	    || !(dest->flags & IP_VS_DEST_F_AVAILABLE)
-+	if (!dest ||
-+	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE)
- 	    || atomic_read(&dest->weight) <= 0
- 	    || is_overloaded(dest)) {
- 		ip_vs_scheduler_err(svc, "no destination available");
-diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
-index 7ac7473e3804c..e2480f33a1963 100644
---- a/net/netfilter/ipvs/ip_vs_lblc.c
-+++ b/net/netfilter/ipvs/ip_vs_lblc.c
-@@ -503,7 +503,7 @@ ip_vs_lblc_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
- 		 */
- 
- 		dest = en->dest;
--		if ((dest->flags & IP_VS_DEST_F_AVAILABLE) &&
-+		if ((dest->cflags & IP_VS_DEST_CF_AVAILABLE) &&
- 		    atomic_read(&dest->weight) > 0 && !is_overloaded(dest, svc))
- 			goto out;
- 	}
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index 77c323c36a889..7469547c8a440 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -170,8 +170,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
- 		if (least->flags & IP_VS_DEST_F_OVERLOAD)
- 			continue;
- 
--		if ((atomic_read(&least->weight) > 0)
--		    && (least->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		if ((atomic_read(&least->weight) > 0) &&
-+		    (least->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			loh = ip_vs_dest_conn_overhead(least);
- 			goto nextstage;
- 		}
-@@ -187,8 +187,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
- 
- 		doh = ip_vs_dest_conn_overhead(dest);
- 		if (((__s64)loh * atomic_read(&dest->weight) >
--		     (__s64)doh * atomic_read(&least->weight))
--		    && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
-+		     (__s64)doh * atomic_read(&least->weight)) &&
-+		    (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
- 			least = dest;
- 			loh = doh;
- 		}
--- 
-2.53.0
-
+--
+Cheers, Lorenzo
