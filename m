@@ -1,131 +1,77 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975911E7C02;
-	Sat, 22 Aug 2026 11:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC401E7C02
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 11:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787398903; cv=none; b=cm5RfRoNVxv8P0xgH8UIlgOhrf8JPWSLX01VtwvqIlCqkbQY3K+aIgFE8AjFvKpbqn60q2pEoMlF5KSNDW7gM2ysCGj5Jcb6uPWuDZklH9D/D2NzBUTX3edi+OD7YkH/nGPCpvKxFdUyhiMWnmRYbAIvr/vf44CN28lbSQ3SpQo=
+	t=1787399097; cv=none; b=ZqM1Cce28Q0bEFFc/XpJEZbK+pcERfGshfu7dBA74JmaWFFmeSIMD6ipc7bAoaphIpUt2DsMufH0N2dLLkUGKbLK7Px+G8XXuFc4H/9+OtgBlW/rREFuVJcMcM8uLyhKMapbo4XMQ/40LMGG4GNmiIOqtPHM6wVVsz+oS4tDros=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787398903; c=relaxed/simple;
-	bh=uFLutO+WbkRh+7JG/1fSmRCatUA5qR0sRjp6VRo4ALo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SUnhXwr7gahTVQHD7U+cxwO9gX24ZwganKbLnQlbaqCT0llgvLtwSQgR02La1kXa6QbxR6o3Mj41Q7YlOMd0w1Os3T35chV/m4kfg7CUHBsi3uy6ijyBAVjkyDM3+LxEFM74AgNbynvAnZCPhSQ32sBeEP2Uxdx5tEwkhSV7vu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=wjspKXsO; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1787399097; c=relaxed/simple;
+	bh=e3c2pNiPJ/ucxFwoh4RbuGG9QPDSc7IEhMPinMg5MnI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uo7cReaOriSk6KGMsf1C4UTl/P14q/mKkBSRDeCYohiXAU+g4mN1nrN8jKM6bg1XU3OXgpVQB/U5Tmap38e9TgxXc1hDv2Zq8lKyDj3bARf3Mb6ZWkhrdJY8FmlWrseCdiKYjH+Lp4iKMFO4WLmKqIP14XMCQnfdphrO/RfkSFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTyh2C+K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="wjspKXsO"
-Received: by dvalin.narfation.org (Postfix) id 48AD01FDD3;
-	Sat, 22 Aug 2026 11:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1787398896;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TekJJ3/G2DEyN7x0ZmtuopZ8f9leW9D0loLPGanNg+Y=;
-	b=wjspKXsO4PXEzuo3No0hIEv5kvB0qg9rdoz0W6VJ6NrcJSr6UfnNesrM3TLWwExPQHIJTC
-	iFqBA6JaqrzFAJwrrdmdvSJjbUosmDFUWOabZYEdKgqFZmvwTEozYmVSnwnxd3nRCytQ5j
-	kxIp2h3+xr//6zr5zRvIrtAMQBLgLBM=
-From: Sven Eckelmann <sven@narfation.org>
-To: netdev@vger.kernel.org, Simon Wunderlich <sw@simonwunderlich.de>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- b.a.t.m.a.n@lists.open-mesh.org, stable@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, Simon Wunderlich <sw@simonwunderlich.de>
-Subject:
- Re: [PATCH net 8/9] batman-adv: mcast: linearize skbuff for packet generation
-Date: Sat, 22 Aug 2026 13:41:34 +0200
-Message-ID: <3908873.MHq7AAxBmi@sven-desktop>
-In-Reply-To: <20260821094813.201800-9-sw@simonwunderlich.de>
-References:
- <20260821094813.201800-1-sw@simonwunderlich.de>
- <20260821094813.201800-9-sw@simonwunderlich.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTyh2C+K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98AD1F00A3E
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 11:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787399095;
+	bh=SsPrlUp1VBSXNjdAaPg7irxjSfCBSqbWEGD0DLyRgc8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eTyh2C+K7icB/b2oKBEKbcHr02yE7+Zn2X8PgxKUdkorqZkKKTl8Jc+hxpp5QvHt4
+	 q5GWFlDXaUmfnXoUvEWWewwe42V0Hl9iGW2LpoNRSMDLb23lTjbByc1YnqB+ivsvAJ
+	 iS/k543yH/pimPTlQsBsOMYUKGcxPL/C+8+ScP0KfJ49yBqDzsm7ls9ueencs6qQqR
+	 85DtFnyNmYBIA9Pqr6QuopliJaQqJvxTPD/Vqtg9lXrGNjB4/vjY+0fb0UyCbGA4qp
+	 ha+zIklZdPnYbJVqM/CBhRyfDTae+Y6tjvN/sauCOQ4xot4zVDIO65WNvDr+QJEcmj
+	 TGPyxcrbWBw8g==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a0a4a28cbdso3468430a12.3
+        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 04:44:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RozV7PzkkDil+YNjqLyKSmSNSTKawvujWPrq4u7HXSDE6Z5qcp870l5UuKGv64nk6tRo96cmlo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGgQcr2lvY1Dn2+DuxLJu/HX5yHqf9YUe/753hMuYKIGC6VqSH
+	AzQEyE04rHZ+pnu5PyLnuSRlZbd4vQOGigKeqAED5k/RbtlMKQWKP0s38FTirxKZMVln6ZHUioY
+	yXQ7eXOK2RdjT0TZSZYEaAwfZH27KLuA=
+X-Received: by 2002:a17:907:97c4:b0:c20:af9d:454a with SMTP id
+ a640c23a62f3a-c2492621bf8mr532232266b.16.1787399094444; Sat, 22 Aug 2026
+ 04:44:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart2016828.taCxCBeP46";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
+References: <20260821184109.1834871-1-sorenson@redhat.com> <20260821184109.1834871-3-sorenson@redhat.com>
+In-Reply-To: <20260821184109.1834871-3-sorenson@redhat.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 22 Aug 2026 20:44:41 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-_CGXiYTo7OXQ=Lmo-tCv+gmi3HYOmyVkZ_GURoyJhnA@mail.gmail.com>
+X-Gm-Features: AcwNN1XopdI5sUtgOwCwGnrfVD-Rt38W0QvNSpEDx_GKk6J45HS77lduwMb2vGs
+Message-ID: <CAKYAXd-_CGXiYTo7OXQ=Lmo-tCv+gmi3HYOmyVkZ_GURoyJhnA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] cifs: fix loff_t underflow in cifs_remap_file_range()
+ when len == 0
+To: Frank Sorenson <sorenson@redhat.com>
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
---nextPart2016828.taCxCBeP46
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Sven Eckelmann <sven@narfation.org>
-To: netdev@vger.kernel.org, Simon Wunderlich <sw@simonwunderlich.de>
-Date: Sat, 22 Aug 2026 13:41:34 +0200
-Message-ID: <3908873.MHq7AAxBmi@sven-desktop>
-In-Reply-To: <20260821094813.201800-9-sw@simonwunderlich.de>
-MIME-Version: 1.0
+> @@ -1415,8 +1415,15 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
+>          */
+>         lock_two_nondirectories(target_inode, src_inode);
+>
+> -       if (len == 0)
+> -               len = src_inode->i_size - off;
+> +       if (len == 0) {
+> +               loff_t src_size = i_size_read(src_inode);
+> +
+> +               if (off > src_size) {
+> +                       rc = -EINVAL;
+> +                       goto unlock;
+> +               }
+> +               len = src_size - off;
+I have checked __generic_remap_file_range_prep(). Shouldn't this treat
+off == src_size && len == 0 as a successful no-op ?
 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260821094813.201800-1=
-=2Dsw%40simonwunderlich.de?part=3D8
-
-[...]
-> Discovered by: gpt-5-6-sol, opus-5 =C2=B7 Missed by: sashiko-gemini
-> This isn't a bug introduced by this patch, but the new comment states a
-> whole-skb requirement that the existing kernel-doc contradicts.
->=20
-> batadv_mcast_forw_scrape() documents only a prefix requirement:
->=20
->  * Caller needs to ensure that the region from the skb data's start up
->  * to/including the to be removed bytes are linearized.
->=20
-> while its body asserts the entire skb is linear:
->=20
-> 	SKB_LINEAR_ASSERT(skb);
->=20
-> with, in include/linux/skbuff.h:
->=20
-> 	#define SKB_LINEAR_ASSERT(skb)  BUG_ON(skb_is_nonlinear(skb))
->=20
-> Similarly, batadv_mcast_forw_packet()'s kernel-doc lists the caller
-> obligations (set network/transport header, free the skb) but does not
-> mention linearity at all; only the in-body comment mentions it, and it
-> also understates the assert:
->=20
-> 	/* (at least) TVLV part needs to be linearized */
-> 	SKB_LINEAR_ASSERT(skb);
->=20
-> Should the kernel-doc of batadv_mcast_forw_scrape() and
-> batadv_mcast_forw_packet() be updated to say the whole skb must be linear?
->=20
-> Along the same lines, the invariant this patch establishes is not recorded
-> at either interface boundary: batadv_mcast_forw_push()'s kernel-doc does
-> not mention that on success the skb is linear, and neither the
-> batadv_mcast_forw_mcsend() kernel-doc nor its declaration in
-> net/batman-adv/multicast.h mentions the precondition that
-> batadv_mcast_forw_packet() enforces with BUG_ON().
->=20
-> No in-tree caller violates this today: batadv_recv_mcast_packet() unshares
-> and linearizes, and the batadv_mcast_forw_mcsend() path is now covered by
-> the skb_linearize() added here. Would documenting the requirement help
-> avoid a future caller reintroducing the BUG()?=20
-
-Will definitely not deal with this documentation work this bugfix patch. Li=
-nus=20
-or anyone else interested can work on it: https://www.open-mesh.org/issues/=
-468
-
-Regards,
-	Sven
---nextPart2016828.taCxCBeP46
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCaomK7gAKCRBND3cr0xT1
-y0dHAQDkkm6Ghk24ASYO7aRNwmGivKGlfgreBB+LR5M7otgeqQEAq/Vslc4Hbk7p
-/GrkDJ3rDWy41cTXnSztK3BMHLH8xAQ=
-=lW4r
------END PGP SIGNATURE-----
-
---nextPart2016828.taCxCBeP46--
-
-
-
+                    if (!len) {
+                         rc = 0;
+                         goto unlock;
+                   }
