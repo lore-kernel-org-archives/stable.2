@@ -1,175 +1,179 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0702D876A;
-	Sat, 22 Aug 2026 19:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AD32F6920
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 19:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787428475; cv=none; b=f96eh0gxu2COB85nZ8bBsou8yHnC/9P2BXqq6aDmb9iAm5g1XtBS0a/ex6SEwDBqeJrCmrCUvgcU86ckBRdBqk3Utu/zyu7VY7Jke+YSDo39nq3fty5TTP7OTM2Vff+vub8eD+8DQWOEb4Pjt/vXqVaGF9KI9v2ub7vmD896y34=
+	t=1787428528; cv=none; b=jgTPQ1cmV65tSBUVcDy/HI5a8njUWAKf0lgjD9aV+uxWKhrXVkMcVWl9a7F8P+r0ENXLKu4TqnhclrPsTnN2JmZuJu5GW0DQmg0FmxyR+BCytF6Aep6fPPA5EpRwcBH5j85oBWccNe7S8P8sYnJ8xQr6G/tp6YoSq7BXZGLd4Go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787428475; c=relaxed/simple;
-	bh=oC0m2aVmuluMDJHzqSlSyukSsSeeaOAZ+1l9yuhIinc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gqcWs2XJesoW4vp059dV3/TFLBZr0VlPepxKFSxaEh9NmgmdgtGWOI+imEzBHsXKH4w2aiukG1pXOEL5AD1FtMmrtDvidduXxAYqlIb9Yx8ODYNZJsSrHSl/sV21MKKhyU3xU4bPmg7ZvqmEgkZ5oPLDfydUGfKfjp8RarsZ9yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=T6/GK7x8; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1787428528; c=relaxed/simple;
+	bh=OuinkhGiY9Wlt0SjaWtdAlRrZ8kDjoV+1Q94FTYUtWo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EQOfn+wCTJm08pPi0F2edaXrTbV649kL3IgmEveJXJjdSEceUSBChXgzQ6EYyxiuOqaegDCZIlBXqEEvSMAYsSHPvBNVGb9ENFrKMM4v0tFdxZHWmAWSgD1FVqA6Ke6uWwnuz6HTwtLG/nB0A8KVzg2J+CJDZcll0flA6aXjRyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=AfMso72E; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="T6/GK7x8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DeaaWX1ouakkcNaKozCGuM3FyQea1VdOoTXNpsxvZMc=; b=T6/GK7x8daDmjTIhhuJdakugFd
-	u7Sc7g4itfX3T8oyRt69Mi0c5BqmafQ47rpExNKShdb7iwNrpStR/OSQ9E05iJs0wTQjvGO+FAft9
-	x+NrHhL/ea/6HZf/x5mIy+zuPCkpXG2Ot1uZ83LizlZGiHrWBUYrWWJZO28Dq2Qjc/jS77idsLC+n
-	UYXRUW3Vpr3zawqUybI4xhGzOf723p0UPUB+QM6SSsAMTAspZ80WPek0IbsdUvTcu003SEk1C5JZ7
-	DURbGM2VLeAR5Lg6G5OnbPmqtGqZEh+lkZ9q1S3jVKVkpnHg8QydXU4yKFgQErU8APehke3XQGF0u
-	94bsmKlQ==;
-Received: from [151.115.150.205] (port=58538 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1wxrnU-00000001KTo-1srE;
-	Sat, 22 Aug 2026 21:54:31 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	mgorman@suse.de
-Cc: include@grrlz.net,
-	bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	kees@kernel.org,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	rostedt@goodmis.org,
-	vschneid@redhat.com,
-	linux-trace-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] fork: initialize function graph state before copy_exec_state()
-Date: Sat, 22 Aug 2026 19:53:22 +0000
-Message-ID: <20260822195321.962383-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="AfMso72E"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-934944f2d22so120250785a.0
+        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 12:55:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1787428525; x=1788033325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pks3+xNByEla+xxq2SjPUPd0B0r/fsFaUQdyItrSd30=;
+        b=AfMso72EMoGMPLge0ZJSJ/n+PK6PelfXJHZ+PkBpfJE0X3gshHFQzNpoOO4OsTt58+
+         lsR2UDq+taAEGESMzJrhJZ8rGsaoxXU/A0ALQe5DwqyYdAC9+PsddOEkDNhXz3TVesvM
+         aJ7qTUvpi/ANNt9ZmH8HuxphcLiCJn+1fRr20=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787428525; x=1788033325;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pks3+xNByEla+xxq2SjPUPd0B0r/fsFaUQdyItrSd30=;
+        b=fKMlaqTRC144Q3mB/x1QA2Hsaz8RDduhqJ69nxDi9Sh/pLVoBNMXiF3L5VwImcs76P
+         VmifgOaY4oeT9SbQ8XJj5fTn5d9Vf1vRyTJq+cKaaoHEPAQVi9PmQo6sAzk9Rw8E0p/6
+         4OQTXy96E1m4AAjC0r0Hahi4yZIbxd37IU+0zW29p0gre9POnt4UTGui7jmYI0aHjzdV
+         cdQXzU7ITP20blM3dZKVmzO+F2HRhbUS6IYctRMmtylmwUvdQZaLw71Y2zSF5dqSUeog
+         PFr811Dr+95bTxc2/cBD/UY8tK/pMzOz3BQ/ZwdMdoremdhrJKMw215T6wKQLlxwqIIP
+         o8AQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpEZe7RRJ2loJy+Pali2oLLUhIqEZyPLXbmOV0oB3cDlJS+H+Nf7qp+x+eXk0CCtbkzr1m3X60=@vger.kernel.org
+X-Gm-Message-State: AFuF++naQFDDXDlLSXAYshCyp9ZT08YgijzcWnoNdztFzRrMLEwX7XzO
+	R9cwDcK/XxfJgW6ZbT7GCze/CE0ThuT2cokOHv3gsheBRElQYoXbI0H9NGAkDZBS5w==
+X-Gm-Gg: AR+sD11/2kl+y1sSgxI561IIqmg/T4NzDkVJ1mqmpd5/Up7ieIg4RE0PndV7OZMEYLj
+	f+R3uKZYlyJJMgNsMWzS/i7kh9bYsafB9En1qA7RdKK96yoMXyPJFFpYGKhnavWAFSgwJfMxu67
+	aIxGZWlsi9HLiyXWDHhS/dLLWmySZoM2OE4rS/xKjFNEmPEsh2TSh73i/PNpAVQqY8JccUCTnHc
+	hN0y3gEQgavTroTKepuskU+qAMLvNislj/3PwB7UsnDvzaP/ceSnr7uQ8yZmttteFrnnIV4yJ61
+	3/GxtJJcltnJ6bK7t/jwckWLQVfaszT/nZ0sNgW3ILX34JMyzwOUhLEBSh4nO/zgMqde7r43eyr
+	2aMde0IyyXqshbm7y9k004NJpuhz0hiTF3FsNs9/zM5wsspLIsICj3+Xq7BVA06eYXla531uTlb
+	WySi06IkWA9X/Y2XQ3qQ3uAQ/kGPdURAk4aN4+Z4s5AcXAH8SfdKCK
+X-Received: by 2002:a05:620a:942:b0:936:ae3c:bc99 with SMTP id af79cd13be357-9373939a61cmr1035660585a.0.1787428525510;
+        Sat, 22 Aug 2026 12:55:25 -0700 (PDT)
+Received: from majuu.waya ([184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93749adef4csm172997385a.11.2026.08.22.12.55.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Aug 2026 12:55:24 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	"Mohit P. Tahiliani" <tahiliani@nitk.edu.in>,
+	"Sachin D . Patil" <sdp.sachin@gmail.com>,
+	"V. Saicharan" <vsaicharan1998@gmail.com>,
+	Mohit Bhasi <mohitbhasi1998@gmail.com>,
+	Leslie Monis <lesliemonis@gmail.com>,
+	Gautam Ramakrishnan <gautamramk@gmail.com>,
+	Terry Lam <vtlam@google.com>,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	Victor Nogueira <victor@mojatatu.com>
+Subject: [PATCH net v3 0/6] net: sched: fix quantum/mtu overflow in fq, fq_codel, sch_codel, fq_pie, hhf, sfq
+Date: Sat, 22 Aug 2026 15:55:03 -0400
+Message-Id: <20260822195509.112717-1-jhs@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-dup_task_struct() copies the parent's task_struct, including ret_stack.
-ftrace_graph_init_task() clears the copied function graph state, but it
-currently runs after copy_exec_state().
+Several qdiscs derive their per-flow quantum or CoDel mtu from
+psched_mtu() without an overflow or zero clamp, which can drive the
+dequeue/credit-refill loop into a soft lockup or silently disable the
+AQM. vega@nebusec.ai provided reports and PoCs for the following qdiscs:
+sch_fq, sch_fq_codel, sch_fq_pie, sch_hhf, and sch_sfq.
 
-For non-CLONE_VM forks, copy_exec_state() allocates a new task_exec_state.
-If that allocation fails, copy_process() reaches bad_fork_free and
-free_task() calls ftrace_graph_exit_task(). Since the child still carries
-the parent's ret_stack pointer, the unwind frees the parent's active
-function graph return stack. The parent subsequently accesses freed memory
-from function_graph_enter_regs().
+sch_codel was found by inspection for the same pattern. It's TheLinuxWay
+(i.e cutnpaste code from somewhere for your new feature) and the AIs
+are having a lot of fun finding patterns. We must overcome!
 
-KASAN reports:
+Clamp the quantum (and, for the codel family, the cparams/params mtu)
+to a sane range at init/change time so the dequeue loops terminate and
+the AQM stays armed. The clamps live in the init/change paths, not the
+per-packet fast path, so no hot-path cost is added for a configuration
+issue.
 
-[   22.190920] ==================================================================
-[   22.195899] BUG: KASAN: slab-use-after-free in function_graph_enter_regs+0xa76/0xb90
-[   22.200747] Write of size 8 at addr ff110000054dc0a8 by task repro/1
-[   22.205134]
-[   22.210770] CPU: 0 UID: 0 PID: 1 Comm: repro Not tainted 7.2.0-07732-g9328b3b03bdc-dirty #3 PREEMPT(lazy)
-[   22.212576] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   22.213750] Call Trace:
-[   22.215271]  <TASK>
-[   22.216242]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.217774]  dump_stack_lvl+0x4e/0x70
-[   22.220531]  print_report+0x157/0x4b4
-[   22.223202]  ? fixup_red_left+0x9/0x30
-[   22.224407]  ? complete_report_info+0x83/0x110
-[   22.226679]  ? function_graph_enter_regs+0xa76/0xb90
-[   22.228084]  kasan_report+0xce/0x100
-[   22.230109]  ? function_graph_enter_regs+0xa76/0xb90
-[   22.232860]  ? stack_trace_save+0x4/0xd0
-[   22.234156]  function_graph_enter_regs+0xa76/0xb90
-[   22.236090]  ? kasan_save_stack+0x30/0x50
-[   22.237752]  ? __pfx_function_graph_enter_regs+0x10/0x10
-[   22.238694]  ? ring_buffer_lock_reserve+0x345/0xf80
-[   22.239628]  ? stack_trace_save+0x4/0xd0
-[   22.242121]  ? stack_trace_save+0x4/0xd0
-[   22.243588]  ftrace_graph_func+0xda/0x160
-[   22.245362]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.246520]  0xffffffffa0000095
-[   22.250528]  ? stack_trace_save+0x9/0xd0
-[   22.251757]  ? ring_buffer_unlock_commit+0x11d/0x5c0
-[   22.253152]  stack_trace_save+0x9/0xd0
-[   22.254264]  kasan_save_stack+0x30/0x50
-[   22.273631]  kasan_save_track+0x14/0x30
-[   22.276763]  kasan_save_free_info+0x3b/0x70
-[   22.278296]  __kasan_slab_free+0x43/0x70
-[   22.280157]  kmem_cache_free+0xbf/0x3b0
-[   22.282963]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.284001]  free_task+0xa2/0x160
-[   22.285699]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.286752]  copy_process+0x2aae/0x7bc0
+This series depends on "net/sched: bound qdisc_pkt_len to prevent qdisc
+soft lockup", which caps qdisc_pkt_len() at GSO_MAX_SIZE in
+__qdisc_calculate_pkt_len(). That cap closes the fq_codel TCA_STAB
+backlog-wrap vector (qdisc_pkt_len inflated to ~1 GiB wrapping the u32
+per-flow backlog to 0 and NULL-derefing in fq_codel_drop()); with it
+upstream this series no longer needs the fq_codel_drop() hardening hunk
+that the earlier respin carried. The five quantum/mtu fixes here are
+psched_mtu()-driven and orthogonal to the qdisc_pkt_len() cap.
 
-Initialize the child function graph state immediately after
-dup_task_struct(), before the first fallible operation.
+Q: Why not bound the MTU at the source instead? dummy's max_mtu == 0 is
+intentional (dev_validate_mtu() treats 0 as unbounded), other drivers
+can legitimately advertise large MTUs, and qdiscs must not trust
+psched_mtu() regardless.
 
-Fixes: 6b1c66c9cca9 ("exec_state: relocate dumpable information")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Conditions to recreate the bug: a device whose MTU (plus
+hard_header_len) wraps 2 * psched_mtu() or psched_mtu() into the sign
+bit (e.g. a dummy device with max_mtu == 0 accepting a huge MTU).
+Requires CAP_NET_ADMIN in a user namespace.
+
 ---
-Resending v2 as requested by adding Cc: linux-trace-kernel@vger.kernel.org
+v2 to v3
+General: Feeback from Eric and Sashiko and one addtional qdisc from
+inspection.
+1. Split into one patch per file (Eric Dumazet).
+2. Clamp to a range [256, FQ_CODEL_QUANTUM_MAX], not just a lower
+   bound, in fq_codel/fq_pie init (Sashiko).
+3. Clamp psched_mtu() before multiplying in fq_init() (Sashiko).
+4. Move hhf clamp before hhf_change() (Sashiko).
+5. Fold fq_codel cparams.mtu clamp: same unclamped psched_mtu() six
+   lines below q->quantum disables codel; hoist one clamped mtu.
+6. New patch 3: add sch_codel -- same params.mtu issue.
+7. Drop the fq_codel_drop() hardening hunk: the qdisc_pkt_len() cap
+   in the posted "bound qdisc_pkt_len" dependency closes the TCA_STAB
+   backlog wrap at the source, making the empty-flow fallback unreachable.
+8. Switch sfq to clamp_t(..., 256, 1 << 20) - all patches now 
+   have same pattern.
+9. Drop the stale TCA_FQ_INITIAL_QUANTUM narrowing: .max = INT_MAX was
+   set deliberately by 7041101ff6c3 and already guarantees f->credit
+   stays non-negative; lowering it would reject working configs.
 
-Changes in v2:
-- Add the KASAN report excerpt to the commit message.
-- Add a comment documenting why ftrace_graph_init_task() must run before
-  fallible initialization.
+v1 to v2
+Changes based on feedback from Eric and Sashikos on V1.
 
-v1: https://lore.kernel.org/all/20260821102207.3626491-2-Jeremy.Jean@oss.cyber.gouv.fr/
+1. Drop the fast-path changes in fq_dequeue() (Eric).
+2. Clamp to a range, not just a lower bound (Eric); upper bound 1M
+   matches fq_change()'s TCA_FQ_QUANTUM cap, not Eric's 16M.
+3. Dropped the TCA_FQ_INITIAL_QUANTUM policy narrowing (see v2 to v3
+   note 9 for why).
+4. Fold fq_codel_init() quantum clamp (Sashiko).
+5. Fold fq_pie_init()/fq_pie_change() quantum clamp (Sashiko).
+6. Reword the hhf/sfq comments (Sashiko).
 
- kernel/fork.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Sashiko links:
+  https://sashiko.dev/#/patchset/20260818101130.16203-1-jhs@mojatatu.com
+  https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260818101130.16203-1-jhs@mojatatu.com
+  https://sashiko.dev/#/patchset/20260819143136.57350-1-jhs@mojatatu.com
+  https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260819143136.57350-1-jhs@mojatatu.com
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 1e68404bd773..0d1ad92e2d33 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2139,6 +2139,11 @@ __latent_entropy struct task_struct *copy_process(
- 	p = dup_task_struct(current, node);
- 	if (!p)
- 		goto fork_out;
-+	/*
-+	 * Must run before the first fallible op, so error paths never
-+	 * free the parent's ret_stack.
-+	 */
-+	ftrace_graph_init_task(p);
- 	retval = copy_exec_state(clone_flags, p);
- 	if (retval)
- 		goto bad_fork_free;
-@@ -2165,8 +2170,6 @@ __latent_entropy struct task_struct *copy_process(
- 	 */
- 	p->clear_child_tid = (clone_flags & CLONE_CHILD_CLEARTID) ? args->child_tid : NULL;
- 
--	ftrace_graph_init_task(p);
--
- 	rt_mutex_init_task(p);
- 	raw_spin_lock_init(&p->blocked_lock);
- 
--- 
-2.47.3
+---
+Jamal Hadi Salim (6):
+  net/sched: fq: add overflow bounds to quantum and initial quantum
+  net/sched: fq_codel: clamp default quantum and mtu
+  net/sched: sch_codel: clamp default mtu to avoid disabling CoDel
+  net/sched: fq_pie: clamp default quantum to avoid signed overflow
+  net/sched: hhf: clamp quantum before hhf_change() to avoid overflow
+  net/sched: sfq: clamp quantum to avoid signed overflow soft lockup
+
+ net/sched/sch_codel.c    |  2 +-
+ net/sched/sch_fq.c       |  6 ++++--
+ net/sched/sch_fq_codel.c |  6 ++++--
+ net/sched/sch_fq_pie.c   |  3 ++-
+ net/sched/sch_hhf.c      |  4 ++++
+ net/sched/sch_sfq.c      |  3 ++-
+ 6 files changed, 17 insertions(+), 7 deletions(-)
+
+--
+2.43.0
