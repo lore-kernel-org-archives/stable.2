@@ -1,83 +1,132 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2EF38AC78;
-	Sat, 22 Aug 2026 08:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F13248867;
+	Sat, 22 Aug 2026 08:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787386003; cv=none; b=YBJpTFdtobCY8FpXmh0Q+1FmiW6vBh7uD2xMCvlM+TIOJZq6736c0IA9pOBiQkNGxykBrYt65evKlfWRLcwHhZ1dHPNBH7aLTbmKq1/tc5zqoEXc5i5kQ+pe/cYqh0Z8dV2mnAxgTGJ83CJvmgiYLamedS3k8OqCA4T3nFMFIHg=
+	t=1787386356; cv=none; b=k5OC+qOkIinYV9jDHLr6aTnhbiGu4X80bS/ETW0lordUZo33uHkLd7B+xUoZU581si4OOk2mKaO1ik9Bi0RaOLIK5izbgaZfRTs8mqgropicStnfSYsomJjPKyBek7Gi9bt4tHCN7+VHm+tAioabOMvTHqQ0ZIVlyeOw8gyO9qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787386003; c=relaxed/simple;
-	bh=6ClyeeOBoL6+kFHFMqy1AFNbQvMMepYkuXuRBkyJL54=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fU2A3eCqxPCjTTXuBaCL7y+m8rVnekI/CjmR3jUKgD6uVq4oUf22QzMCRoCufzZW3KPjjJ3cvg3l3iUKFVW3SieKLQatJVGsAUfgfS1u3pWsy1SU3M3QAsOH+2NE7mekCvi+x1jc9+Q2cHnAA2KG5OQ/yShW14Yi5gbjNSnaGNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=g+MhuVhV; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787386356; c=relaxed/simple;
+	bh=W5JCDvufSnsJc+KVV+3ui5Q5ovF7xEP2/gALCQD6KKQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KSe7HqY165zpRsqlSbu/PTxag95X7mlr5fVUR+QshGBstcNqhdLuIICDNEI1q39OkNHqBjWYJgyHUvXdGSzoGYY5nhNRTaB1CBq+pxohKtdJsIzJa2GVjqt+KC22SPU+jEYMqD7bkVzanCIEi7ORYKvYJGeuzORWHYZIf0HfbAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzsFlLlZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="g+MhuVhV"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 69245118FDF;
-	Sat, 22 Aug 2026 10:06:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787385995;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=jCwh8xNxdzRiIF4fIfO5lO+8y8fSkbAZsHzuhzc4330=;
-	b=g+MhuVhVf1YfhIjLCZgDsWM9rFrQH8ihTRGK5615Z/lCio+JL1tXMdBOL2qjaexVa1r60P
-	q4Jo66Tvp9/lg5W6sMgD8VkkyN9JO7srePls/Bkp2kxedo2Q2Q+jUaE9iWhQNmGmZ4Z4vB
-	rNwW7d7SzqupE2niUTOVeKqDaz8DHRx4KhY4MeZhoEtNUJTpYVeaFy3qObSe7LQXc0SMeX
-	KYqLfKQlfutP4pJlTlWwK+kwXOXnqouiKa97HDD/dWksFxhGl+Ojnd13F5dImxvNWTdAhN
-	4Eb1AZd7RlcSo86FxhpRvSYXpF01oLkaS1U9pfLBMxoT833mhJzgkCuD8FwfkA==
-Message-ID: <472aba70-5216-46d0-8b9a-0a322d1d968e@nabladev.com>
-Date: Sat, 22 Aug 2026 10:06:31 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzsFlLlZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAFD1F000E9;
+	Sat, 22 Aug 2026 08:12:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787386354;
+	bh=XJ1sRYzSe5gmp5y69f27mpBK8RaS1RNxeM0V94UPPv8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VzsFlLlZyTQaI+HK8Ko3rj3I/ZeYtiIgyEfqtFLzRZ67OtlQZjiop54B44PP5wcJO
+	 eoId8gVC+ctFYjtwC9ThjbOO/5RpXNupkZK8dgmUAo5gKl0+4boQVJSRwj6GvA49vW
+	 kdiTQHyzX7MwNCHl6RD23j/zNK8ApoomHiyc0v1MZZOcxyMxKtceBd9UURagUO8XDK
+	 VsYjYH8uguYdPAK9VV48NfhkAaYnHSeCnPdjQYnJA2YJNy73MTbX+Ko4eWY5J07axK
+	 1Pld7LM5Ld+dKiZxIieNz8I9mQUac6Td54S2lJg/8AOFb45IjB0N/Y9p7TqO6DVY+c
+	 gHKJ+EVKc9nRw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wxgq8-00000000ECd-2A2P;
+	Sat, 22 Aug 2026 08:12:32 +0000
+Date: Sat, 22 Aug 2026 09:12:32 +0100
+Message-ID: <86v7924lqn.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Shen Yongchao <grayhat@foxmail.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] KVM: arm64: nv: Delay freeing of shadow S2 structures until VM destruction
+In-Reply-To: <aoiQuVs5jzB5La4i@gremlin>
+References: <20260821161829.1032561-1-maz@kernel.org>
+	<20260821161829.1032561-3-maz@kernel.org>
+	<aoiQuVs5jzB5La4i@gremlin>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: typec: mux: avoid duplicated mux switches
-To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
- linux-usb@vger.kernel.org
-Cc: stable@vger.kernel.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- kernel@dh-electronics.com, linux-kernel@vger.kernel.org
-References: <20260822072556.490594-1-marex@nabladev.com>
- <ef89a8ba-af41-425a-90e5-77061fec3f9f@oldschoolsolutions.biz>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <ef89a8ba-af41-425a-90e5-77061fec3f9f@oldschoolsolutions.biz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ljs@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, grayhat@foxmail.com, kmehltretter@gmail.com, weilin.chang@arm.com, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 8/22/26 9:47 AM, Jens Glathe wrote:
-
-Hello Jens,
-
-> On 8/22/26 09:24, Marek Vasut wrote:
->> This is a re-application of b145c3f29d62 ("usb: typec: mux: avoid
->> duplicated mux switches"), with fix derived from usb: typec: mux:
->> Fix typec_switch_match() .
->>
->> Fixes: f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux 
->> switches"")
->> - Extensive test by Jens https://lore.kernel.org/ 
->> all/8bdf6062-8ec2-4c30-8463-0368d3a0f1ce@oldschoolsolutions.biz/
->>
-> I applied both patches and compared to my tip of tree, same except for a 
-> newline. Also did a test on the Lenovo X13s (sc8280xp, gpio mux). 
-> Therefore justified:
+On Fri, 21 Aug 2026 19:15:45 +0100,
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 > 
-> Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> On Fri, Aug 21, 2026 at 05:18:29PM +0100, Marc Zyngier wrote:
+> > We free the shadow S2 structures from kvm_arch_flush_shadow_all(), which
+> > is a Bad Idea(tm). Freeing the page tables is fair game (this is what
+> > this callback is for), but freeing the container that could still be
+> > referenced by another part of the system is not great.
 > 
-> with best regards
+> Yes.
+> 
+> >
+> > Instead, grow separate destructors that gets called when we tear the VM
+> > down for good. From there, we can nuke both the individual MMUs as well
+> > as the global array that points to them, safe in the knowledge that the
+> > vcpus themselves have been destroyed already.
+> >
+> > Fixes: 4f128f8e1aaac ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> 
+> LGTM so:
+> 
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Thank you !
+Thanks.
+
+> A couple thoughts/questions below.
+
+[...]
+
+> > @@ -1310,16 +1319,12 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+> >
+> >  void kvm_arch_flush_shadow_all(struct kvm *kvm)
+> >  {
+> > -	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
+> > +	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> 
+> Hmm why this was in reverse before? :) I guess some product of the
+> kvfree() bit or maybe something else?
+
+We allocate s2_mmus in S2_MMU_PER_VCPU chunks. Which means that it
+complicates the freeing of the these structures, as they can only be
+freed once all S2 PTs of that chunk have been freed. We have three
+options:
+
+- scan forward, and use complicated logic to work out that you have
+  freed the last PTs of a chunk, freeing with a negative offset from
+  the current point in the loop. Works, but hard to reason about in
+  fewer than 3 seconds.
+
+- scan backward, use simpler logic to ensure you have reached the
+  beginning of a chunk, nuke it.
+
+- have two loops, one for the PTs, one for the MMUs. That's what we
+  end-up with due to the different garbage collection phases.
+
+Cheers,
+
+	M.
 
 -- 
-Best regards,
-Marek Vasut
+Without deviation from the norm, progress is not possible.
