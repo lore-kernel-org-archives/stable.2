@@ -1,75 +1,119 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369D03ACA5A;
-	Sat, 22 Aug 2026 09:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1C026E165;
+	Sat, 22 Aug 2026 10:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787392538; cv=none; b=n2KYjnLk/S0ey9LtxS72v+ccrbRnrgN7OjZ6rvokkfXdkkAExEJCay4suUUXZ25p+stdjvM3Z2RGgMDNVa0+d6W2RWjQKWjlsw6kI30HIJvqp+zO2UgpqfABrk5cBI2NroB7W0K3dxQ8QSTGzEPnHuPvbR+AwAxY5UqKJn4roTQ=
+	t=1787396307; cv=none; b=hTE5EWUaE9cREYIDOvNkqt5zX64+bCRXQoyuYINsgExlLi/Y48/7EWhDSFGankmqsz/ys31sUlQFKLYsdNmAa98mgIn5H5daDDR6XPpLkBC9InGecJ5qppquU1TFkkS0s51+Pv/Dt3ZXVVCsGQXpR0F4nzJsudF0qY3ooouGaUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787392538; c=relaxed/simple;
-	bh=IE8vZ3j0rlM8nPup3d1lLQhzbsgNkYUDt59oBX1zYW0=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=Bjrec14XKFXICVmpSbLwnOG8t5WcHT008s4yw5bejpXxT/fJYnfh4qrzeQp+eDFUBhpO1BU4MKpFENFNs/9EZquh9DMyTzh6xagvV94rYMp5pCVECN9tlEQQSzP1yCMwR3X4quGxrAKzGwvdclqPxzfOoQh66kRBuAB1hIxXg6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=T6abYMGR; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1787396307; c=relaxed/simple;
+	bh=JuWVe47qRIGTgRlg9FCVuX3FTKhcBf/0J6MeFd90aKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KVw2hkL1LgLkVTPBUy2OSaUWuqcLS/cPGhOS/rWeDcu2U318NmQLwEi/Cbfp6uiqo/+rxHnwqku2lb/PtE5fBfTGzh2S8OjxSAaYDSEefTQrYQJt9z6DkSd8SnHMtwUh4r4W0SdWFaaDxPTgykjx3b9EpXemXbKrmrbCp2vnLF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=oF1RaNNu; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="T6abYMGR"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7GrDTnwMJgIVOmi7Xgbu4x5oIHUvk450gb1DGhX98Xk=;
-	b=T6abYMGR4QiK7AVAlIzU4PyVqn23QXBlFdp79AF5KHnccYLZSIvo/MBLyYrE3//wAZHBMfaDn
-	BeicWSfCYzwZp28RL6Qvgzt6mLfSf5Uo8mQQb4+DTnoo+cugIhgQ7fdaCN/WPNtzXpB/8Xq7AXy
-	QcYt0EYZfwxx1mdd5gOBs3o=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hRshw1DRTzmV7C;
-	Sat, 22 Aug 2026 17:44:48 +0800 (CST)
-Received: from dggpemf500002.china.huawei.com (unknown [7.185.36.57])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7B3D14057A;
-	Sat, 22 Aug 2026 17:55:31 +0800 (CST)
-Received: from [10.174.179.24] (10.174.179.24) by
- dggpemf500002.china.huawei.com (7.185.36.57) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Sat, 22 Aug 2026 17:55:30 +0800
-Subject: Re: [PATCH] Revert "irqchip/mbigen: Fix mbigen node address layout"
-To: caina <caina@uniontech.com>, <tglx@kernel.org>, <maz@kernel.org>,
-	<radu@rendec.net>, <zouyipeng@huawei.com>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-	<kernel@uniontech.com>
-References: <8633w854yk.wl-maz@kernel.org>
- <20260821091720.16665-1-caina@uniontech.com>
-From: Hanjun Guo <guohanjun@huawei.com>
-Message-ID: <49ae6e21-2ee3-8dba-f731-7ef17f793dd5@huawei.com>
-Date: Sat, 22 Aug 2026 17:55:30 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="oF1RaNNu"
+Received: by dvalin.narfation.org (Postfix) id E8ABC1FD5A;
+	Sat, 22 Aug 2026 10:52:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1787395952;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+A9ZO54T8rgnZj0kI1FqPmdnRVqmVtuZBXPeZ734HvM=;
+	b=oF1RaNNun07Hg8VSm0t9AS/rH5mQiJWCnhcDHS7wH6yTT7/Ls+k2mK8IjCrjXzz5K/G3l0
+	iB8S0ZPlXyFRbDbYLmgnatUovVTPsUNZ1C+e4wjIVPtmWIeF/iklcWmkv/2cqpy+R4UWVO
+	oGVjSP+hu/fEWSNTOy18QPkpWPAJn7Q=
+From: Sven Eckelmann <sven@narfation.org>
+To: netdev@vger.kernel.org, Simon Wunderlich <sw@simonwunderlich.de>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ b.a.t.m.a.n@lists.open-mesh.org, Zhiling Zou <zhilinz@nebusec.ai>,
+ stable@vger.kernel.org, Vega <vega@nebusec.ai>,
+ Simon Wunderlich <sw@simonwunderlich.de>
+Subject:
+ Re: [PATCH net 1/9] batman-adv: fix stale receive device on merged fragments
+Date: Sat, 22 Aug 2026 12:52:24 +0200
+Message-ID: <6299903.lOV4Wx5bFT@sven-desktop>
+In-Reply-To: <20260821094813.201800-2-sw@simonwunderlich.de>
+References:
+ <20260821094813.201800-1-sw@simonwunderlich.de>
+ <20260821094813.201800-2-sw@simonwunderlich.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260821091720.16665-1-caina@uniontech.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- dggpemf500002.china.huawei.com (7.185.36.57)
+Content-Type: multipart/signed; boundary="nextPart5127734.31r3eYUQgx";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-Hi caina, Marc,
+--nextPart5127734.31r3eYUQgx
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Sven Eckelmann <sven@narfation.org>
+To: netdev@vger.kernel.org, Simon Wunderlich <sw@simonwunderlich.de>
+Date: Sat, 22 Aug 2026 12:52:24 +0200
+Message-ID: <6299903.lOV4Wx5bFT@sven-desktop>
+In-Reply-To: <20260821094813.201800-2-sw@simonwunderlich.de>
+MIME-Version: 1.0
 
-On 2026/8/21 17:17, caina wrote:
-> This reverts commit 6be6cba9c4371d27f78d900ccfe34bb880d9ee20.
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260821094813.201800-1-sw%40simonwunderlich.de?part=1
+
+> --- Patch [1]: [PATCH net 1/9] batman-adv: fix stale receive device on merged fragments ---
+[...]
+> On the receive side, batadv_bla_rx() is called from batadv_interface_rx()
+> only after skb->dev has already been replaced:
 > 
-> Commit 6be6cba9c437 ("irqchip/mbigen: Fix mbigen node address layout")
-> appears to cause a regression on Hi1616.
+> net/batman-adv/mesh-interface.c:batadv_interface_rx() {
+> 	...
+> 	/* skb->dev & skb->pkt_type are set here */
+> 	skb->protocol = eth_type_trans(skb, mesh_iface);
+> 	...
+> 	if (batadv_bla_rx(bat_priv, skb, vid, packet_type))
+> 	...
+> }
+> 
+> and batadv_bla_rx() does not call batadv_bla_process_claim() at all.
+> 
+> That leaves batadv_arp_get_type() in
+> net/batman-adv/distributed-arp-table.c as the only consumer that can see
+> the stale receive device of a merged fragment:
+> 
+> 	if (unlikely(!pskb_may_pull(skb, hdr_size + ETH_HLEN +
+> 				    arp_hdr_len(skb->dev))))
+> 
+> reached via batadv_dat_snoop_incoming_arp_request()/_reply() from
+> batadv_recv_unicast_packet()/batadv_recv_bcast_packet(), and only when
+> CONFIG_BATMAN_ADV_DAT is built and bat_priv->distributed_arp_table is
+> enabled.
+> 
+> Since this carries Cc: stable, would it be worth restating the affected
+> path as DAT only, and mentioning that reaching it depends on DAT being
+> compiled in and enabled?
 
-This will break the new hardware :(
+No
 
-Sorry for the incompatible issue, but please wait for a while, Yipeng is
-working on this now.
+Kind regards,
+	Sven
+--nextPart5127734.31r3eYUQgx
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-Thanks
-Hanjun
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCaol/aAAKCRBND3cr0xT1
+y2djAQC6Wcf+fKhb5XLEoQF748sDkzw3gj9qR81Mv7zdNacwmQEAn86vSlxpETyb
+Q1tMEOwhO8ckdU3MvbSB74WU/JWNQwM=
+=Cj/H
+-----END PGP SIGNATURE-----
+
+--nextPart5127734.31r3eYUQgx--
+
+
+
