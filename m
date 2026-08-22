@@ -1,49 +1,44 @@
-Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA32224D6
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 02:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95A22248AF
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 03:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787366836; cv=none; b=ObNFqHsGtL8nOWJ1XLjOgw85smZUvetrQ3khSFhKfu6V0Dv0FLoEdtptywQUWji3hUk3Kc/rDSmg9qu+pzDObwcUaG44QbGRyt+WYk8lTwj8zWEmmMFt078VsX9FTLHRWtSD7DO4gJ7v2VgLQ6XF7SsYK1aQnbkY6cqt8b2+l1U=
+	t=1787370625; cv=none; b=lWoYjRmVe9ieS/KAqbF7yfc1w61lee9hGJeyOihy3U1X4iBrv8LFqDrrkbeuQkGl/Pakujjf2TJbzdrEbQnpGWpMerrdokXG04MKwKzckgB1pPuN1igTm4Jwpc1LGBgcJa2/IMT7nJAAgLkiHXp+UnAc3kORnc8RbANOWCk+3CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787366836; c=relaxed/simple;
-	bh=eVVRhhBLN/+FkM0gx4duUnqi0A2acoQjl/ZnvoeEHME=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CbERlDYno4JA03lUMvqxVe++JBhcPSoh6FsiBdLftuOo427tRSY+saLe885ckdTtX0AYfEylTH1jZ8mppYaHQa472cClLEqaLE2bGZEdwIGVstmyS0mHe+JLMlGqEE/sWN/9xGepzk/hp+MUrlC5ri4AXPlaaETQSTP8FuDGONE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lqVB10cV; arc=none smtp.client-ip=91.218.175.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787370625; c=relaxed/simple;
+	bh=T2i9mOof3HpXds4ZHpc/Wv0uMvpPRYlp0zN/XQNR0Zg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TCrlZ33SEY1vmTytUa68vNMdIfc1jP5Xjo+bfwogNHLKgeSiHujDUHqZx3zvAXsBITL6T05CJznN2wBMIzTPkjwmc4QWPb9xQR+oFj4CVmppXTYrddx6fzRrQJuH1fnDi8m62ZtL/SPDIQkwzdBpl813K6m91E858tR08lIlLYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D36DUYJ3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lqVB10cV"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eVVRhhBLN/+FkM0gx4duUnqi0A2acoQjl/ZnvoeEHME=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787366831; v=1; x=1787971631;
- b=lqVB10cV/0I09rsOoX2UOcBenzqrIxZLUBBqBOL2v7clgHT7CsP/YcDrbgJ0Gzk7/nzGyJbT
- wX3FgKFXO4pPViU5ZrIO+qDefmKgmCIzz1i2RtqSiNgUJeLbETg35QcN7RNsi6PgNHmpSwQl9Kx
- XbVs4kdTRrPEJdSlbARr0fAk=
-X-Envelope-To: stable@vger.kernel.org
-Received: from localhost (2a03:2880:10ff:5c::)
-	by smtp.migadu.com with ESMTPS id 07ae24895d946565;
-	Sat, 22 Aug 2026 02:47:11 +0000
-X-Mizu-Trace-ID: 07ae24895d946565
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] memcg: move LRU size accounting on reparenting instead of copying it
-Date: Fri, 21 Aug 2026 19:47:07 -0700
-Message-ID: <20260822024707.77192-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D36DUYJ3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF491F000E9;
+	Sat, 22 Aug 2026 03:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787370624;
+	bh=Q7eHsotbxSSVZIAYm5fbO2JkwQLOaDcvyA26PediPJU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D36DUYJ3V29yGefcsyTLIm7DtZFTqhvRkSoxCtKrs6A9HGclAOE7OlFhoH1o4Ow7d
+	 RMUwDaP3YtKFefnxkMDaDo5AQpqkKi46UnsZdmjER9lS8GnADtX0tRe2pVTyk1t/2M
+	 eJpGcnKrNxUrD1Lqhjb8rQahyH3VgHSFiUS9GQ+oRoIwh28U6V6hqKwk7TLmt8/1Y6
+	 E6og5tbs7HCnoP1bpvwrfu5G2T2wwYHI0MsPMiQuUM7TN1+w1Zvflz3YWs+m7Jceph
+	 f26Gq2sLQkijdbJOenYqYbL/aUm2QWpYQ9+obULrjsyYiImeGEN9a1Cs1qjB6BgP7W
+	 mYNw6skqqfaeQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <enjou1224z@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] inet: frags: publish queues before arming timer
+Date: Fri, 21 Aug 2026 23:50:21 -0400
+Message-ID: <20260822035021.1113240-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081751-obstruct-mystified-44d6@gregkh>
+References: <2026081751-obstruct-mystified-44d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,95 +47,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a memory cgroup is offlined its LRU folios are reparented to the
-parent.  lruvec_reparent_lru() splices the child's lists into the
-parent's and credits the parent with the child's per-zone
-lru_zone_size[], but never clears the child's copy, so the size is
-copied rather than moved.  lru_gen_reparent_memcg() does the same for
-MGLRU.
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-The parent is left correct, credited with exactly the folios it took
-over.  The stale value sits on the child and nothing will correct it:
-folio->memcg_data now resolves to the parent, so every later
-update_lru_size() for those folios goes there.
+[ Upstream commit 653d7ddf6cba867777a3d14c4f83ace008c5ad13 ]
 
-Dying cgroups are not freed immediately and mem_cgroup_iter() still
-walks them, so shrink_lruvec() keeps being called on them.
-get_scan_count() reads the phantom counter through lruvec_lru_size() and
-the scan loop then grinds through nr[] in SWAP_CLUSTER_MAX steps against
-an empty list, for as long as the dead cgroup lives.  Under MGLRU the
-MGLRU scanner runs instead, but count_shadow_nodes() sums all of
-NR_LRU_LISTS through lruvec_lru_size() and over-budgets the shadow node
-limit just the same.
+inet_frag_create() arms the fragment queue timer before inserting the
+queue into the fqdir rhashtable. If the namespace fragment timeout is
+zero or negative, the timer can run before the queue is published.
 
-On one 251 GiB host a sweep of every mz->lru_zone_size[] found 380
-counters describing folios on no list at all: 124777314 pages, 476 GiB,
-1.89x the machine's RAM, across 57 cgroups.  All were on memcgs with
-CSS_DYING set and CSS_ONLINE clear, and parent/child pairs reported
-byte-identical sizes.
+The timer callback then marks the queue complete, tries to remove a node
+that is not in the hash table yet, and drops the anticipated hash
+reference. Creation can subsequently publish the completed queue without
+restoring that reference, leaving a stale hash node after the caller drops
+the remaining reference.
 
-LRU_UNEVICTABLE needs its size moved too.  Its list is deliberately not
-spliced because lruvec_init() poisons the head - the unevictable LRU is
-imaginary and folios are never threaded on it - but the size is kept by
-lruvec_add_folio()/lruvec_del_folio() and those folios account to the
-parent from here on.
+Publish the queue first and arm the timer while holding the queue lock.
+This makes timer expiry wait until the queue is visible in the hash table,
+so inet_frag_kill() can remove the node and balance the hash reference.
 
-This depends on commit bf4ade7dbd76 ("memcg: keep folio's objcg same as
-its node") and must not be backported ahead of it.  Without that
-invariant a folio's objcg can belong to another node, so a folio already
-spliced onto the parent's list can still resolve to the child's lruvec
-until the objcg's node is reparented in a later iteration of
-memcg_reparent_objcgs(); clearing the child's counter early then lets
-lruvec_del_folio() underflow it and trip the WARN_ONCE()/VM_BUG_ON() in
-mem_cgroup_update_lru_size().
-
-Fixes: 07a6e9a2c199 ("mm: vmscan: prepare for reparenting traditional LRU folios")
-Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
-Cc: <stable@vger.kernel.org> # After: bf4ade7dbd76: memcg: keep folio's objcg same as its node
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Fixes: 648700f76b03 ("inet: frags: use rhashtables for reassembly units")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Link: https://patch.msgid.link/bf66785e7c0c139d7a1900e2f01faeeab344b960.1784948849.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/folio.c  | 9 +++++++++
- mm/vmscan.c | 5 +++++
- 2 files changed, 14 insertions(+)
+ net/ipv4/inet_fragment.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/mm/folio.c b/mm/folio.c
-index 59c477120b9a..c02dcea9c03c 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -1130,7 +1130,16 @@ static void lruvec_reparent_lru(struct lruvec *child_lruvec,
- 	for_each_managed_zone_pgdat(zone, NODE_DATA(nid), zid, MAX_NR_ZONES - 1) {
- 		unsigned long size = mem_cgroup_get_zone_lru_size(child_lruvec, lru, zid);
- 
-+		if (!size)
-+			continue;
-+
-+		/*
-+		 * The folios are accounted to the parent from now on, so the
-+		 * size has to be moved, not just copied. Leaving it behind
-+		 * makes the dying child describe folios it no longer owns.
-+		 */
- 		mem_cgroup_update_lru_size(parent_lruvec, lru, zid, size);
-+		mem_cgroup_update_lru_size(child_lruvec, lru, zid, -(long)size);
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index 7e38170111999..7922b10f360ee 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -339,16 +339,18 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
+ 		*prev = ERR_PTR(-ENOMEM);
+ 		return NULL;
  	}
+-	mod_timer(&q->timer, jiffies + fqdir->timeout);
+ 
++	spin_lock_bh(&q->lock);
+ 	*prev = rhashtable_lookup_get_insert_key(&fqdir->rhashtable, &q->key,
+ 						 &q->node, f->rhash_params);
+ 	if (*prev) {
+ 		q->flags |= INET_FRAG_COMPLETE;
+-		inet_frag_kill(q);
++		spin_unlock_bh(&q->lock);
+ 		inet_frag_destroy(q);
+ 		return NULL;
+ 	}
++	mod_timer(&q->timer, jiffies + fqdir->timeout);
++	spin_unlock_bh(&q->lock);
+ 	return q;
  }
  
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index fe7f0c52a18c..561eeec5628c 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4635,7 +4635,12 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
- 		for_each_managed_zone_pgdat(zone, NODE_DATA(nid), zid, MAX_NR_ZONES - 1) {
- 			unsigned long size = mem_cgroup_get_zone_lru_size(child_lruvec, lru, zid);
- 
-+			if (!size)
-+				continue;
-+
-+			/* Move the accounting, do not duplicate it. */
- 			mem_cgroup_update_lru_size(parent_lruvec, lru, zid, size);
-+			mem_cgroup_update_lru_size(child_lruvec, lru, zid, -(long)size);
- 		}
- 	}
- }
 -- 
-2.53.0-Meta
+2.53.0
 
