@@ -1,91 +1,143 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6179E242D67;
-	Sat, 22 Aug 2026 07:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CCF493652;
+	Sat, 22 Aug 2026 07:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787383657; cv=none; b=B6ntIbk62O0WbpMfBPOkQfeLBx1sXc2eGW9vLFUkTwIS+ddjdTJEPS6QXP65EyJu0zKIkVfM8TGBOwxU/2YgW3FnZ5aHDbMnWHb9izMh1N8e3R7aGn7uMtaFVjyxq3ru97YEhA8hUG0OqbETMjhSHFmCXtR1ibht90p+FsyWYGc=
+	t=1787383928; cv=none; b=SmUDEJyMkgp4Z+8xYPPXUScIMtLTUhkHQVKRHHStnFV1MRaO9ZLv0vt/hsdqtuM7vZgjgEBP5RTeAPZWB44hnwlzCag6paL8RbaDDJyyvnunvYp54Q0YIOv8TDZgV2PwHLv94WEclQfncIi0q7cHtaVni0VVACFi3NPr1uhP24A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787383657; c=relaxed/simple;
-	bh=bZ+8K8moF/xhkQZUa9W7qKgwkPBkm6VkpbP9ct4r2zA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mus8U3y2B6f1znqLz8/7thIJopS5A73v+cHjFbSUhgA/ndVZhhVLwQVTjxezl47QnjQiNJFUPxl9Ht4qQVZUy589JNniTX0+wSsFVIHSszIddxl+i7mG14rOwvu4BpddqXrCHtWADuUGkuqYW13XiGuVm+CIQq5eg2tPw14oTME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=kRhkf5A9; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1787383928; c=relaxed/simple;
+	bh=ro48hLvs90KHt1NnusK7STw1kcatbqrL3/ee3Q62b04=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hGTpjluAwgxvPAlteLSmo6PDNlJGx5TmsOs+R/f2ETxk0MfkJC7wSv4K05pugPLSA0xDBxYmngnc0+hLP6zxW9yPlr4PSnQv5i6iUyz/Htk8ls5ND22eHSrHwU/eHz3zgAnhd7VQ6dthcjdDP0q9SX/tQzr7spz2gJK7CTp91ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2ahLVo7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="kRhkf5A9"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EF14B11BFED;
-	Sat, 22 Aug 2026 09:27:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1787383650;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=VI7q7G8yrGn302joTFqpsFX5cLv1APrnDTVCO6Dyevc=;
-	b=kRhkf5A9Q83jInKZJ4Cix9tqR3Axh0+2WtZ8dtJSNTUxb7kSUUqy/YQbKDa8i6pYgnqL02
-	r3VflU7/b5DysF7CgFfgMCNcoKwnRmXwVMh/NKYUKdmVjhJjqJLBXOyHbxsEj6PKtRu8MV
-	yKpRKGTxQGIp1A2dmxlq8XyY2Zxg2Xx/8kU4vlNWnhMuSQydeoVDUofhFHodDksDOi9Jwe
-	Ceu8Z2iZ2CbsFkXUQdxf2HrWAZS1NQ33m4S8UX9saa31zS5VHgOsFRKkaL8r3gQOudt+eB
-	m4Hob3h8qP+yLnuhbPFOCyaCcFqbCaJYsEmfZjoQNJ/D4eYBLpIK0nRvRzc4Bg==
-Message-ID: <cb989d6a-19e6-47f9-b656-9790c19ad875@nabladev.com>
-Date: Sat, 22 Aug 2026 09:27:28 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2ahLVo7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDCC71F000E9;
+	Sat, 22 Aug 2026 07:32:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787383926;
+	bh=7EEflvdgZQe7OvkOracGJyX6vR4Npi3B22FWFR0VKLU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=V2ahLVo7vaGqAGyqKtSSqu/dWNmdSL5N1EWqpBPVbDqfrabVuuj2kE1hdyTxZj88f
+	 W72c+CparEppW9iw8s7MYdnnAu5f77KKOCVq1PQeIXNQbwO3hKGlhVyNVKkSdvc3t8
+	 AdD5nHMfmhaMUkNFWR3RYnJzDAUmKeUnPHdfVOXVFqQ4CIZD/E/m8RSwNB+5iixPpJ
+	 LrP57PdfhPWhqa6iPqHZVlNIitIzGD7HYX4ItdZuVKmi/TxLlU+m2buzU0njW/+lJ2
+	 FyPt1poIYh5V0cWNqhYAx4OMo8jaM596jyzhnKseTgDYiQ2+1V5ERDbPYRXiXqAfTm
+	 Q+XK7jLr+ABaw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wxgCy-00000000Dbx-3uWw;
+	Sat, 22 Aug 2026 07:32:05 +0000
+Date: Sat, 22 Aug 2026 08:32:04 +0100
+Message-ID: <86y0dy4nm3.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Jintack Lim <jintack.lim@linaro.org>,
+	Christoffer Dall <christoffer.dall@linaro.org>,
+	Christoffer Dall <christoffer.dall@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] KVM: arm64: nv: Fix null ptr deref in kvm_nested_s2_unmap() on S2 teardown
+In-Reply-To: <20260812-kvm-arm-nested-virt-fix-v1-2-4ad883f1b6a5@kernel.org>
+References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
+	<20260812-kvm-arm-nested-virt-fix-v1-2-4ad883f1b6a5@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: typec: mux: Fix typec_switch_match()
-To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- kernel@dh-electronics.com, linux-kernel@vger.kernel.org
-References: <20260817182302.146546-1-marex@nabladev.com>
- <aoSFjbydIiu4KyW0@venus> <dfac3134-920e-498e-a59b-720a6c51b82a@nabladev.com>
- <1aeaa585-79f2-4f43-87b1-2ae3925b176c@oldschoolsolutions.biz>
- <71fca17d-9b6b-4c9d-b595-ebd1dc6605de@nabladev.com>
- <8bdf6062-8ec2-4c30-8463-0368d3a0f1ce@oldschoolsolutions.biz>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <8bdf6062-8ec2-4c30-8463-0368d3a0f1ce@oldschoolsolutions.biz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ljs@kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, jintack.lim@linaro.org, christoffer.dall@linaro.org, christoffer.dall@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 8/21/26 9:20 PM, Jens Glathe wrote:
+On Wed, 12 Aug 2026 14:31:21 +0100,
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> 
+> Commit 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU
+> notifiers") introduced VNCR_EL2 invalidation in kvm_nested_s2_unmap().
+> 
+> However at the point of this being performed concurrent stage 2 teardown of
+> a nested guest can cause kvm->arch.mmu.pgt to be set to NULL.
+> 
+> This happens in kvm_flush_shadow_all() -> kvm_arch_flush_shadow_all() ->
+> kvm_free_stage2_pgd() and is performed under the kvm->mmu_lock.
+> 
+> Commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
+> tables") introduced the teardown of the entire nested MMU range, which then
+> invokes stage2_apply_range() with resched=true:
+> 
+> mmu_notifier_invalidate_range_start()
+>   -> ... -> kvm_mmu_notifier_invalidate_range_start()
+>     -> kvm_mmu_unmap_gfn_range()
+>       -> kvm_unmap_gfn_range()
+>         -> kvm_nested_s2_unmap()
+>           -> kvm_stage2_unmap_range()
+>             -> __unmap_stage2_range()
+>                 -> stage2_apply_range()
+> 
+> This means that stage2_apply_range() can drop the kvm->mmu_lock and thus
+> concurrent progress can be made in lockstep with
+> kvm_arch_flush_shadow_all().
+> 
+> If kvm_arch_flush_shadow_all() advances ahead of stage2_apply_range() and
+> completes its operation it guarantees a NULL pointer deref.
+> 
+> Since kvm_free_stage2_pgd() is performed under the kvm->mmu_lock this will
+> either be observed NULL or not and serialised against
+> kvm_free_stage2_pgd().
+> 
+> Resolve the issue by explicitly checking for a NULL value. Since this
+> shouldn't be possible if blocking is not allowed, raise a warning if it is
+> ever NULL in this case.
+> 
+> Fixes: 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  arch/arm64/kvm/nested.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index 17123f0b6dab..9fc0b1696dcb 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -1295,7 +1295,11 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
+>  			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
+>  	}
+>  
+> -	kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
+> +	/* NULL pgt should only be possible if raced when mmu_lock dropped. */
+> +	if (kvm->arch.mmu.pgt)
+> +		kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
+> +	else
+> +		WARN_ON(!may_block);
 
-Hello Jens,
+I don't think the WARN_ON() should be here. We already have one at the
+iterator level, which will fire in the same conditions.
 
->>> I will test that one with the f576c75f95a5 reverted on the x1p and 
->>> sc8280xp boxes I have here, let's see. T14s G6 shouldn't be affected 
->>> either way.
->>>
->>> with best regards
->> Thank you
-> 
-> I did the test: switch patch, revert f576c75f95a5, mux patch. Afterwards 
-> let it run on the zoo here... ps883x devices are unaffected and work 
-> well, and your proposed mux patch appears to fix the problem with the 
-> gpio-sbu-mux, too. So it would be a good idea to do this instead of 
-> f576c75f95a5.
-> 
-> Tested on:
-> 
-> Lenovo IdeaCeentre mini 01q8x10 (ps8833)
-> 
-> Lenovo Thinkpad T14s G6 21N1 (ps8830)
-> 
-> Lenovo Ideapad Slim5 14q8x9 (gpio mux)
-> 
-> Lenovo Ideapad 5 2in1 14q8x9 (gpio mux)
-> 
-> Microsoft Windows Dev Kit 2023 (sc8280xp, gpio mux)
-> 
-> Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Thank you for testing , I have submitted:
+Thanks,
 
-https://lore.kernel.org/linux-usb/20260822072556.490594-1-marex@nabladev.com/
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
