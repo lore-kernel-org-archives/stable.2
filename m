@@ -1,160 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE2A2AD16;
-	Sat, 22 Aug 2026 23:40:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E435246781;
+	Sat, 22 Aug 2026 23:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787442031; cv=none; b=R3GCEMpYWk6YBYcqV8nEGdqajgZD9YiVamtb/GF3j2WEb50yhPqfuvhp+/gV+80GMkFuaTWFXA9WXgHesk7yBJGYMr+Gr0PnWmkyrb0CxSKJOwZJos0JNO25/SzSZhaKb+ep07rcTBRXlfu/0rc0gNnA3DTm+aWnxFG1hpCjOWY=
+	t=1787442385; cv=none; b=jqE0YTLXsTuFf4v9ObMn0ngc4cCpFva+RaSxI34MSos91Vah33OCXsPQJWR/IJZiUKZ9U065ZDDE2LCJrAnkD8RxvXsa+AOTYNTbJDI5468xUjzotpRPl1tmCe5t6sXxik6awsaJLXnog+Pcscp+EX5aN4BGvlhsdW+OzUJXLFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787442031; c=relaxed/simple;
-	bh=tF8pbehjvMr0dbmBxgUWBZ9fGWUHNSadv/jjbzYHTCA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PV8NFNsThEhJCXoxi5BNe7wcbkoVYxtlidlN2zN8gkK/K5+BUkxS5RSxSZXfjya2DrQyq7rDFjqbLZtjs95eZxLpOz035zoQASMMmnjRRqmhYtJYyp9Bhf12kxOjlMNosev+Hh7dRvVbfMydJdlhYvU2wcW8j+omaCYcgUW6Dcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJBAfv5d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787442385; c=relaxed/simple;
+	bh=UAPzIN7w023OtzD8hFszURq+goZ5BiuC6fV3FakAarY=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=P++mDDy6d9ZehuxEGcJPfivR3gyvGgbapI8pI9NwzDZQyvxY05AuWmFrajfNgCv15WfzSiT11uVR74JINpdz10ZyrBV+i5zmN8lI4VYt/sIIx/3d5Wdn6bOvLUKn2UOEiSfrFct0s9lJf+d+zVwIV6L7CFLQ0yhTrsQrVgpg0lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NcdPn/9m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJBAfv5d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216941F000E9;
-	Sat, 22 Aug 2026 23:40:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NcdPn/9m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF891F000E9;
+	Sat, 22 Aug 2026 23:46:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787442030;
-	bh=HROfVkva7hHBdqL3WqOpsBymtuCEZV9xgp7Kerg19h0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CJBAfv5dV+ntxDmL8j+YnvPltI722v47VzipMerU4gw6r2YwQbCBTplsw+HXeuzKF
-	 /kWUx48HWjhP+ZovEJSN0qimFjB/3uWvODCTsqPOFwRjlMDaPVGxI41pD6TptVO5ew
-	 GtCT1eaJZfloc5s/FsdJbMUWH2rYY3sRTWV7snhY883MFqpKk2yCB1s1kJBkTsX7Dp
-	 dSWJ5SCPaxEWL0oX4cqH1RJXj/RhWhBbxhKDa4m5ss2GnEtGw/bAWggLmBosEwI3D1
-	 H8nBj1ncKtMADL8u2NeYSPQ6w/5zg41K3jrhQz/9XOgrwPcSb4f5bwNtsN+BF+5lCz
-	 tDAWKxN8geZUA==
-Date: Sun, 23 Aug 2026 00:40:24 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Esben Haabendal <esben@geanix.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>, Maslov Dmitry
- <maslovdmitry@seeed.cc>, Kuppuswamy Sathyanarayanan
- <sathyanarayanan.kuppuswamy@linux.intel.com>, Thomas Gleixner
- <tglx@kernel.org>, Pan Chuang <panchuang@vivo.com>, Yangtao Li
- <frank.li@vivo.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>, stable@vger.kernel.org, Andy
- Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v5 0/8] iio: light: ltr501: Add ltr329 support
-Message-ID: <20260823004024.015d66bf@jic23-huawei>
-In-Reply-To: <20260817-liteon-ltr329-v5-0-6f71ab2b0588@geanix.com>
-References: <20260817-liteon-ltr329-v5-0-6f71ab2b0588@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1787442383;
+	bh=dmdY0rRVY96lqwDqBiPyoFiRonX3ZZ/mephexaiP38Q=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=NcdPn/9mAPucJCBHN/9YxRhyr/89/pUwiGfgj05i2yKrR04/j2wtvmfUNuEbQbbm2
+	 1f0GqJZwafXVTyMKXthAnB0Rbwck0ADrQxx0zVixAjbLxa9HaAaAq4OVWYl7SMYjpj
+	 j2dxiQ+qWwr6hGaco348ynRRcy0jcEpPwLT4YENt+HRM9IrucVC6ZN4CYxooqNQwja
+	 /PqC5oy0NWEI6RuobswCWB2q8/y5B8OWW8H6qyei2LkV/TgTxv9RSxZ3B6qh0UJfYK
+	 ABQwPRjPOqnMUFW/IfahLMpNxz3P8RYr5KTX4r1qcmGKbpfpvck1R6tkoz7WmniDJ7
+	 okTHCAgplS7lA==
+Content-Type: multipart/mixed; boundary="===============2076503959956051201=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <541d85c3ca72e8955c562df851c52a6a0d364d95d1efb9fa6a584ed4d826fb01@mail.kernel.org>
+In-Reply-To: <20260822225444.2774461-2-simon@swine.de>
+References: <20260822225444.2774461-2-simon@swine.de>
+Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable programs
+From: bot+bpf-ci@kernel.org
+To: simon@swine.de,bpf@vger.kernel.org
+Cc: simon@swine.de,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,tj@kernel.org,yonghong.song@linux.dev,stable@vger.kernel.org,andrii.nakryiko@gmail.com,olsajiri@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Sat, 22 Aug 2026 23:46:23 +0000 (UTC)
 
-On Mon, 17 Aug 2026 19:08:49 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+--===============2076503959956051201==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> The LiteON LTR-329ALS-01 chip is similar to the LTR-303ALS-01, except for
-> interrupt support and related registers, which LTR-329ALS-01 does not hav=
-e.
->=20
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-With tweaks to patch 4 and dropping 5, applied to the testing branch of iio=
-.git
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 5e37ca75e5c4..038753ef07a9 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -5237,6 +5237,15 @@ static enum priv_stack_mode bpf_enable_priv_stack(struct bpf_prog *prog)
+>  	if (!bpf_jit_supports_private_stack())
+>  		return NO_PRIV_STACK;
+>
+> +	/*
+> +	 * Sleepable programs can be preempted, allowing another task to run
+> +	 * the same program on the same CPU. Since private stack is per-CPU
+> +	 * and per-program, the second invocation would corrupt the first's
+> +	 * stack. Disable private stack for sleepable programs.
+> +	 */
 
-thanks,
+Is this comment accurate for all the program types below?
 
-Jonathan
+For BPF_PROG_TYPE_TRACING / LSM / STRUCT_OPS, private stack is only
+granted when bpf_prog_check_recur(prog) holds, and that same predicate
+makes bpf_trampoline_enter() install __bpf_prog_enter_sleepable_recur(),
+which bumps the per-CPU prog->active counter under migrate_disable() and
+skips the nested invocation.
 
-> ---
-> Changes in v5:
-> - Changed error handling of interrupt being configured for ltr329 device =
-to
->   just print a warning message and get on with life.
-> - Mark interrupt properties as invalid for liteon,ltr329 bindings.
-> - Changed patch 5 to not claim to be a fix.
-> - Link to v4: https://patch.msgid.link/20260810-liteon-ltr329-v4-0-8bd3df=
-d15280@geanix.com
->=20
-> Changes in v4:
-> - Split the duplicate error message removal into separate patch.
-> - Removed uneeded enum =3D0 assignment.
-> - Use dev_err_probe() instead of plain dev_err().
-> - Link to v3: https://patch.msgid.link/20260804-liteon-ltr329-v3-0-c6b768=
-c7c745@geanix.com
->=20
-> Changes in v3:
-> - Removed duplicated error message on devm_request_threaded_irq() failure.
-> - Added Fixes: and Cc: stable tags to fix for error handling of
->   devm_request_threaded_irq() failure.
-> - Added no_irq_support boolean to simplify checking for chip irq support.
-> - Moved check for no_irq_support from ltr501_read_intr_prst() and
->   ltr501_write_intr_prst() to callers. Note: event functions are not
->   registered for no_irq_support devices.
-> - Moved #include <linux/array_size.h> into its place according to
->   alphabetical sorting order (although the rest is not really wel sorted).
-> - Restored alphanumerical ordering of compatible list in bindings
->   documentation.
-> - Ordered device arrays and enum values according to alphanumerical sorti=
-ng
->   order.
-> - Link to v2: https://patch.msgid.link/20260715-liteon-ltr329-v2-0-d18af5=
-5edab5@geanix.com
->=20
-> Changes in v2:
-> - Fixed error handling when irq is defined for a chip that does not suppo=
-rt
->   irq, powering the chip down again.
-> - Added simlar fix to error handling of devm_request_threaded_irq() error
->   handling, powering the chip down again on failure.
-> - Added explicit #include <linux/array_size.h>.
-> - Link to v1: https://patch.msgid.link/20260715-liteon-ltr329-v1-0-31f027=
-051594@geanix.com
->=20
-> To: Jonathan Cameron <jic23@kernel.org>
-> To: David Lechner <dlechner@baylibre.com>
-> To: Nuno S=C3=A1 <nuno.sa@analog.com>
-> To: Andy Shevchenko <andy@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Nikita Travkin <nikita@trvn.ru>
-> To: Maslov Dmitry <maslovdmitry@seeed.cc>
-> To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.co=
-m>
-> To: Thomas Gleixner <tglx@kernel.org>
-> To: Pan Chuang <panchuang@vivo.com>
-> To: Yangtao Li <frank.li@vivo.com>
-> Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-> Cc: linux-iio@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
->=20
-> ---
-> Esben Haabendal (8):
->       dt-bindings: iio: light: ltr501: Sort compatible enum array
->       dt-bindings: iio: light: ltr501: Add missing ltr303 compatible
->       dt-bindings: iio: light: ltr501: Add ltr329 compatible
->       iio: light: ltr501: Power down chip if request irq fails
->       iio: light: ltr501: Drop duplicated error message
->       iio: light: ltr501: Add ltr329 driver support
->       iio: light: ltr501: Fix sorting order of device arrays
->       dt-bindings: iio: light: ltr501: Make proximity-near-level conditio=
-nal
->=20
->  .../bindings/iio/light/liteon,ltr501.yaml          |  32 +++++-
->  drivers/iio/light/ltr501.c                         | 114 +++++++++++++--=
-------
->  2 files changed, 101 insertions(+), 45 deletions(-)
-> ---
-> base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-> change-id: 20260711-liteon-ltr329-a3eb12414866
->=20
-> Best regards,
-> -- =20
-> Esben Haabendal <esben@geanix.com>
->=20
+Similarly, the sleepable raw-tracepoint runner __bpf_trace_run() calls
+bpf_prog_get_recursion_context().
 
+The statement "the second invocation would corrupt the first's stack"
+would be true for sleepable uprobe programs run via uprobe_prog_run(),
+which takes no recursion context. Could the comment explain why the check
+is placed before the switch rather than in the case arm that actually
+needs it?
+
+> +	if (prog->sleepable)
+> +		return NO_PRIV_STACK;
+> +
+
+Does placing this check before the prog-type switch have unintended
+consequences?
+
+The check strips the private stack from BPF_PROG_TYPE_TRACING / LSM /
+STRUCT_OPS even though those paths are already protected. For these types,
+bpf_trampoline_enter() consults bpf_prog_check_recur(prog):
+
+kernel/bpf/trampoline.c:bpf_trampoline_enter() {
+    if (bpf_prog_check_recur(prog))
+            return sleepable ? __bpf_prog_enter_sleepable_recur :
+                    __bpf_prog_enter_recur;
+
+and __bpf_prog_enter_sleepable_recur() does migrate_disable() and then
+bpf_prog_get_recursion_context(prog), which uses a per-CPU prog->active
+counter. A second task entering the same program on the same CPU sees
+active != 1 and is skipped, so it can never reach the private stack.
+
+The real hole appears to be below the new check: BPF_PROG_TYPE_KPROBE /
+TRACEPOINT / PERF_EVENT / RAW_TRACEPOINT return PRIV_STACK_ADAPTIVE
+unconditionally. For sleepable uprobes (the only sleepable case allowed by
+can_be_sleepable()), the uprobe runner takes no recursion context:
+
+kernel/trace/bpf_trace.c:uprobe_prog_run() {
+    if (sleepable)
+            rcu_read_lock_trace();
+    ...
+    migrate_disable();
+    err = bpf_prog_run(link->link.prog, regs);
+
+so a sleepable uprobe can genuinely be re-entered on the same CPU.
+
+Moving the check into the case arm (BPF_PROG_TYPE_KPROBE through
+BPF_PROG_TYPE_RAW_TRACEPOINT) would close the uprobe hole without taking
+the private stack away from the trampoline types that already handle
+re-entry.
+
+There's also a user-visible side effect: priv_stack_mode decides how
+check_max_stack_depth_subprog() budgets stack. PRIV_STACK_ADAPTIVE checks
+each subprog on its own against MAX_BPF_STACK; NO_PRIV_STACK accumulates
+depth += subprog_depth across bpf2bpf frames and checks the combined total
+against MAX_BPF_STACK (512).
+
+Any existing sleepable program whose bpf2bpf subtree exceeds 512 bytes
+total - SEC("fentry.s/..."), SEC("fexit.s/..."), SEC("fmod_ret.s/..."),
+SEC("uprobe.s/...") - now fails to load with -EACCES and "combined stack
+size of %d calls is %d. Too large", where it verified fine before. The
+selftest at tools/testing/selftests/bpf/progs/verifier_private_stack.c:86
+("Private stack, subtree > MAX_BPF_STACK", 512-byte main + 32-byte
+subprog, __success) has exactly this shape; it only survives because it
+uses the non-sleepable SEC("kprobe"). With Cc: stable@vger.kernel.org,
+this would break working programs on a stable update.
+
+>  	/* bpf_prog_check_recur() checks all prog types that use bpf trampoline
+>  	 * while kprobe/tp/perf_event/raw_tp don't use trampoline hence checked
+>  	 * explicitly.
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/32604492082
+--===============2076503959956051201==--
