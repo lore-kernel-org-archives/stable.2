@@ -1,164 +1,175 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012022.outbound.protection.outlook.com [40.93.195.22])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9062739792B;
-	Sat, 22 Aug 2026 19:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787426553; cv=fail; b=CGLBPROxgvuNoj9hX2JWd4NdhFT69euoJDjgs1993x4TCpdI5aVVRh2pVVzPeaE7DhGEq8JndZsvzr0MhSjXBB81K+B/zUVQfg1pbuWPrBfLrYNSUjV5W2fiksZT3urmnRBIGkCYcXeKt1DEKv19G3SdMcu25Fry0WPApFVxgNY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787426553; c=relaxed/simple;
-	bh=xaddx9darcAdVHfugBdf0HJWW1q15PBK4nA8kesfv6w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=DUG8qW4Ju4MXrtbEMHiyYmyrq6h8XqNyQmaIlQHjHAD9xzfvVMguh+42AuZr8Ki5UQ3b6BbaVSuMY/R7egwkeztydvYvWKxaadwN+uLN6RTHQnEwCOlBLr+PK+w/1IQbZtuqIEzGi3iB28uc/HCSQx8PtvRv+GsHluStoKmMaR0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jqEO3c1E; arc=fail smtp.client-ip=40.93.195.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0702D876A;
+	Sat, 22 Aug 2026 19:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787428475; cv=none; b=f96eh0gxu2COB85nZ8bBsou8yHnC/9P2BXqq6aDmb9iAm5g1XtBS0a/ex6SEwDBqeJrCmrCUvgcU86ckBRdBqk3Utu/zyu7VY7Jke+YSDo39nq3fty5TTP7OTM2Vff+vub8eD+8DQWOEb4Pjt/vXqVaGF9KI9v2ub7vmD896y34=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787428475; c=relaxed/simple;
+	bh=oC0m2aVmuluMDJHzqSlSyukSsSeeaOAZ+1l9yuhIinc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gqcWs2XJesoW4vp059dV3/TFLBZr0VlPepxKFSxaEh9NmgmdgtGWOI+imEzBHsXKH4w2aiukG1pXOEL5AD1FtMmrtDvidduXxAYqlIb9Yx8ODYNZJsSrHSl/sV21MKKhyU3xU4bPmg7ZvqmEgkZ5oPLDfydUGfKfjp8RarsZ9yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=T6/GK7x8; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jqEO3c1E"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ugr1fQmERoqilBbAW1oxHTJLQdRbqfAjb9ArDOb12Cq/emQdhq6eM/nb9wfN+4Xv6DE2G59OiDT+4Hicnf+5Us+2PFxq8Co7pageLkBv8IzDqjRUS0MbK9oVh0BFsCjhiwz/BY9XCTh+dtSyE7hQtE13SCNWs1ujnpHxhPikzgqIll/wKGRgHxoxSjyAbhIQdUeT73fGy9+ge3SPbHK9/oDn/UGvVQe84TAZT5HNMHY4KKAdJSLix3VFQjZh6BwR2cxCV0CwLv2pLrHpyIuGhnTJc0aoTrvHdGzxEZfegCkGDg0U11bVbQ/5ZSyM8H9PZhP7awgjq+CepKeA7D+Ylw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b6F4GljtMV39yrVvUontfkiNdu2jUcNC6286tynCZqU=;
- b=mNeJJdDHqw/ij20oVDRS6ZvrDu1srOBYDeSmbbSrl0qWsyx1zctov8x3FdUmaCHh76VQnNqhQwJgU782MXRw6YCJB3n3gwzxEdI0KY4HO/uQxU3d87Jh2dwxHJLGshbo15PezvG0k1YxtpljY1FwlDEGJseJ+mDabPuZPQ6jbZH3HU+IhNCx4kARk5epsRgw0cmBwYMgIJ7abTbjmA42kjxCk5RfV2WsVHHsJZ8hD2GjxbxaASY+llhtNZbzYSrDj5zP2zjz62sYA/P7gnoO3N/YIka3W29EMjfeZOnPl6IYAlFXKhYZ2xbaJBi2xwFm0qQhpJlohGZbFULVAynzWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b6F4GljtMV39yrVvUontfkiNdu2jUcNC6286tynCZqU=;
- b=jqEO3c1EB5DANN8s/Wd7X163IO9bGythbPZ+EilcQi865nqe13S++OnZBPI50sPF76L8GfXQz96vDbUajKxfaNBZrbzlTBq8Ksjbe7KHrZVuAkZS2afCukfJCQXlDGWr+1MtwaBwavGxPAUsbvgDJ7zwZOyVTJZ/ZDBS77x+TTQ=
-Received: from SJ0PR13CA0194.namprd13.prod.outlook.com (2603:10b6:a03:2c3::19)
- by IA0PR12MB9012.namprd12.prod.outlook.com (2603:10b6:208:485::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Sat, 22 Aug
- 2026 19:22:27 +0000
-Received: from BY1PEPF0001AE1A.namprd04.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::55) by SJ0PR13CA0194.outlook.office365.com
- (2603:10b6:a03:2c3::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.5 via Frontend Transport; Sat, 22
- Aug 2026 19:22:27 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF0001AE1A.mail.protection.outlook.com (10.167.242.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Sat, 22 Aug 2026 19:22:26 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 22 Aug
- 2026 14:22:23 -0500
-From: Shivank Garg <shivankg@amd.com>
-Date: Sat, 22 Aug 2026 19:22:06 +0000
-Subject: [PATCH v5 4/4] dmaengine: wait for RCU readers before releasing
- dma_device
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="T6/GK7x8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=DeaaWX1ouakkcNaKozCGuM3FyQea1VdOoTXNpsxvZMc=; b=T6/GK7x8daDmjTIhhuJdakugFd
+	u7Sc7g4itfX3T8oyRt69Mi0c5BqmafQ47rpExNKShdb7iwNrpStR/OSQ9E05iJs0wTQjvGO+FAft9
+	x+NrHhL/ea/6HZf/x5mIy+zuPCkpXG2Ot1uZ83LizlZGiHrWBUYrWWJZO28Dq2Qjc/jS77idsLC+n
+	UYXRUW3Vpr3zawqUybI4xhGzOf723p0UPUB+QM6SSsAMTAspZ80WPek0IbsdUvTcu003SEk1C5JZ7
+	DURbGM2VLeAR5Lg6G5OnbPmqtGqZEh+lkZ9q1S3jVKVkpnHg8QydXU4yKFgQErU8APehke3XQGF0u
+	94bsmKlQ==;
+Received: from [151.115.150.205] (port=58538 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1wxrnU-00000001KTo-1srE;
+	Sat, 22 Aug 2026 21:54:31 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	mgorman@suse.de
+Cc: include@grrlz.net,
+	bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	kees@kernel.org,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	rostedt@goodmis.org,
+	vschneid@redhat.com,
+	linux-trace-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] fork: initialize function graph state before copy_exec_state()
+Date: Sat, 22 Aug 2026 19:53:22 +0000
+Message-ID: <20260822195321.962383-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260822-dmaengine-kref-fix-v5-4-d4a4ee47d927@amd.com>
-References: <20260822-dmaengine-kref-fix-v5-0-d4a4ee47d927@amd.com>
-In-Reply-To: <20260822-dmaengine-kref-fix-v5-0-d4a4ee47d927@amd.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, "Logan
- Gunthorpe" <logang@deltatee.com>, Andrew Morton <akpm@linux-foundation.org>
-CC: <stable@vger.kernel.org>, <dmaengine@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Shivank Garg <shivankg@amd.com>, Sashiko
-	<sashiko-bot@kernel.org>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787426532; l=2079;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=xaddx9darcAdVHfugBdf0HJWW1q15PBK4nA8kesfv6w=;
- b=NWq/cpEP4qvVM7Jq5FO+NAZJx+9fOlrBfiefbcsOXHD9wbEjGnTrlYWq0DTcIqNmWIR/U3yxu
- Fe1bGr3IrouAFd4Hl4TFGYgMFUOsMFu6or9P8hKJ8WpHJByL4Kb5Uf3
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1A:EE_|IA0PR12MB9012:EE_
-X-MS-Office365-Filtering-Correlation-Id: f36ff150-c11f-4a99-b658-08df0082b3b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|56012099006|10067099003|22082099003|18002099003|11063799006|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	ZK18RBJ+0+YELM4TimoV1AtAgTVYsy7RWNaNO1oNnEDbshZ1sVswywwRPbE3OSl4tN57+jlV3F98aERltzQfRuWa+xj6UgiVnOA2IL8bX0cF9OUol4yBx133J4AOIol1qEo/ftgTauSOjx7VGYcbxVJ1G6u0L4aCpbftvrdeczhA1ms0iR3MYsLK0um5zBfSoSL0oRD7pYyW4vBcZyZanEOwQGqTXY43LGhkgSqIUCtp1TLfj3BAhenqvUrqQbpvjoy/5ddOaL0ptVJBRi8LmFeioUVZZpClcivWns3K2wrGcC5Zxfn9FEPUCog3I/RiyV7I4/1q4qJ9UjH+2TwGqUdecZUNCasfBjwK3ZIi8KyK4ofcAQvF2dCkzVoeuqKhHdGIFyM98+mOeLw+26GkeGdNn0CjsDIVVp9hEJ/wOOt5myDVYNRbJMdS8up7Cw9bkfJgkZc5S6uxjmpOZYG7VvK3GV/xIa7yC4bfCsrCgzOB7GxXgMtqT1Wnyt7c4pTsHoGv0fVrF/K1lap3LzKk2f4j1EqTJHSCwaU4mgj4LqVuqYicwDY0tpXQUEl5iHZpIODJTse2a9BTNe4lfUomYF1Qpys7icmf8e2t53Ljw2kJlGAWKr52P+h9CP5iC+aqbOKfQMCfXMHCZymDOvBFUw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	u7PZQ4vapYiiPjIVH+bDnYxsvf0G6CQZa67iWtcIjruljAOYHpgpGOQW0cqyM4KTPujjjXdjgDmbO2aUnN0COSTKxQj8qzwV8Fj+cGZa3sUcFpOLpO9VZAE5+d5UzqdLh1fogVi7mIR3NOj5DF969ybAN9mi93XtZEaEghw9DXDXo/J8dK7yvdn66iV0Gk5G2g04luuQR9An/0GahX+mrSPPogCem4FsLmkz4CbwJZfYoehfVS/fDqoaxn3d4XEvsavbUSS9cBB6ZQX1WizZTBlVYA8gRcxxrO+NZdtI9WFbECyDg156DM5vCHozwCl18bJGQSTBIFclOphZ9omyuAY0Cl/utgd32/LCz5FBsZ0EptRNqAIHPlmK9Xbs78tRiutwxvxODkyYXS/n3vhDfCETBePJI+RC/c9qUWuq3LHAcnS+8psAUupYNlKHOapN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2026 19:22:26.9159
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f36ff150-c11f-4a99-b658-08df0082b3b1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE1A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9012
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-dma_issue_pending_all() walks the dma_device_list with
-list_for_each_entry_rcu() under rcu_read_lock(). dma_device_release()
-unlinks the device with list_del_rcu() and then calls
-device->device_release() (which in many drivers, such as plx_dma.c,
-directly calls kfree()).
+dup_task_struct() copies the parent's task_struct, including ret_stack.
+ftrace_graph_init_task() clears the copied function graph state, but it
+currently runs after copy_exec_state().
 
-Because there is no grace period between unlinking the device and
-freeing it, concurrent RCU readers in dma_issue_pending_all() can
-access the device after it has been freed.
+For non-CLONE_VM forks, copy_exec_state() allocates a new task_exec_state.
+If that allocation fails, copy_process() reaches bad_fork_free and
+free_task() calls ftrace_graph_exit_task(). Since the child still carries
+the parent's ret_stack pointer, the unwind frees the parent's active
+function graph return stack. The parent subsequently accesses freed memory
+from function_graph_enter_regs().
 
-The lockless walk originally relied on clients holding a dmaengine
-reference to pin the provider module, and therefore the device, for as
-long as they might traverse the list. Commit 8ad342a86359 ("dmaengine:
-Add reference counting to dma_device struct") decoupled the dma_device
-lifetime from the module reference, so the device can now be released
-while a reader is still walking the list.
+KASAN reports:
 
-Add synchronize_rcu() before the device is freed, so RCU readers are
-guaranteed to have finished. Keep it unconditional: providers that do
-not implement device_release() free the device themselves once
-dma_async_device_unregister() returns. This call will delay for a grace
-period with dma_list_mutex held, which is safe and only teardown path is
-delayed.
+[   22.190920] ==================================================================
+[   22.195899] BUG: KASAN: slab-use-after-free in function_graph_enter_regs+0xa76/0xb90
+[   22.200747] Write of size 8 at addr ff110000054dc0a8 by task repro/1
+[   22.205134]
+[   22.210770] CPU: 0 UID: 0 PID: 1 Comm: repro Not tainted 7.2.0-07732-g9328b3b03bdc-dirty #3 PREEMPT(lazy)
+[   22.212576] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   22.213750] Call Trace:
+[   22.215271]  <TASK>
+[   22.216242]  ? ftrace_stub_direct_tramp+0x10/0x10
+[   22.217774]  dump_stack_lvl+0x4e/0x70
+[   22.220531]  print_report+0x157/0x4b4
+[   22.223202]  ? fixup_red_left+0x9/0x30
+[   22.224407]  ? complete_report_info+0x83/0x110
+[   22.226679]  ? function_graph_enter_regs+0xa76/0xb90
+[   22.228084]  kasan_report+0xce/0x100
+[   22.230109]  ? function_graph_enter_regs+0xa76/0xb90
+[   22.232860]  ? stack_trace_save+0x4/0xd0
+[   22.234156]  function_graph_enter_regs+0xa76/0xb90
+[   22.236090]  ? kasan_save_stack+0x30/0x50
+[   22.237752]  ? __pfx_function_graph_enter_regs+0x10/0x10
+[   22.238694]  ? ring_buffer_lock_reserve+0x345/0xf80
+[   22.239628]  ? stack_trace_save+0x4/0xd0
+[   22.242121]  ? stack_trace_save+0x4/0xd0
+[   22.243588]  ftrace_graph_func+0xda/0x160
+[   22.245362]  ? ftrace_stub_direct_tramp+0x10/0x10
+[   22.246520]  0xffffffffa0000095
+[   22.250528]  ? stack_trace_save+0x9/0xd0
+[   22.251757]  ? ring_buffer_unlock_commit+0x11d/0x5c0
+[   22.253152]  stack_trace_save+0x9/0xd0
+[   22.254264]  kasan_save_stack+0x30/0x50
+[   22.273631]  kasan_save_track+0x14/0x30
+[   22.276763]  kasan_save_free_info+0x3b/0x70
+[   22.278296]  __kasan_slab_free+0x43/0x70
+[   22.280157]  kmem_cache_free+0xbf/0x3b0
+[   22.282963]  ? ftrace_stub_direct_tramp+0x10/0x10
+[   22.284001]  free_task+0xa2/0x160
+[   22.285699]  ? ftrace_stub_direct_tramp+0x10/0x10
+[   22.286752]  copy_process+0x2aae/0x7bc0
 
-Fixes: 2ba05622b8b1 ("dmaengine: provide a common 'issue_pending_all' implementation")
-Suggested-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260526-dmaengine-kref-fix-v2-0-3df60afac01d@amd.com
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-Signed-off-by: Shivank Garg <shivankg@amd.com>
+Initialize the child function graph state immediately after
+dup_task_struct(), before the first fallible operation.
+
+Fixes: 6b1c66c9cca9 ("exec_state: relocate dumpable information")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- drivers/dma/dmaengine.c | 1 +
- 1 file changed, 1 insertion(+)
+Resending v2 as requested by adding Cc: linux-trace-kernel@vger.kernel.org
 
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index 9214b9272a55..f9bc3e69fe58 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -428,6 +428,7 @@ static void dma_device_release(struct kref *ref)
- 
- 	list_del_rcu(&device->global_node);
- 	dma_channel_rebalance();
-+	synchronize_rcu();
- 
- 	if (device->device_release)
- 		device->device_release(device);
+Changes in v2:
+- Add the KASAN report excerpt to the commit message.
+- Add a comment documenting why ftrace_graph_init_task() must run before
+  fallible initialization.
 
+v1: https://lore.kernel.org/all/20260821102207.3626491-2-Jeremy.Jean@oss.cyber.gouv.fr/
+
+ kernel/fork.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 1e68404bd773..0d1ad92e2d33 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2139,6 +2139,11 @@ __latent_entropy struct task_struct *copy_process(
+ 	p = dup_task_struct(current, node);
+ 	if (!p)
+ 		goto fork_out;
++	/*
++	 * Must run before the first fallible op, so error paths never
++	 * free the parent's ret_stack.
++	 */
++	ftrace_graph_init_task(p);
+ 	retval = copy_exec_state(clone_flags, p);
+ 	if (retval)
+ 		goto bad_fork_free;
+@@ -2165,8 +2170,6 @@ __latent_entropy struct task_struct *copy_process(
+ 	 */
+ 	p->clear_child_tid = (clone_flags & CLONE_CHILD_CLEARTID) ? args->child_tid : NULL;
+ 
+-	ftrace_graph_init_task(p);
+-
+ 	rt_mutex_init_task(p);
+ 	raw_spin_lock_init(&p->blocked_lock);
+ 
 -- 
-2.43.0
-
+2.47.3
