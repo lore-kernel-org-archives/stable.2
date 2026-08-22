@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3609E2C0268;
-	Sat, 22 Aug 2026 20:37:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389EB3546EB;
+	Sat, 22 Aug 2026 20:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787431043; cv=none; b=B375a8+nb3j1OS4KBZtIP7w6XUp4kQx/Rul7FGI44xfIXXaztaWbcGr5pojTsh0BKjAZ/kRzrYSkmyIPq/V/ZfXzaOmCKFXgW3fC57SuqtAGRWLJZ96M2jeMNP2+S0D4tVObERFVGQ/CG6cFAkTROKU+A7vvATLB0Jx+23+ddW8=
+	t=1787431444; cv=none; b=J63S/r1aEEfl4Dd1w3I34fa9vd94SVIGsIvoCK4fI9OQvsmNYmpI49enAcSnP+ZRopjzhAgYYcildhN2a33hRbVBegKszBznxJx77qq3Q14V62pCJO1FWPfiSVrP4Q5y+BRfFNtIrUSsTdwKR1TOXHwUk2AiSqhbDRTm/tOZvOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787431043; c=relaxed/simple;
-	bh=zlDUVsMmOrOYxoGdnBHNhjXPYYdtbU1wVYTyRoyvuyI=;
+	s=arc-20240116; t=1787431444; c=relaxed/simple;
+	bh=pE8em5ESimq7kEnbnIQn70TryphkT/GM8iNNxBxf+uo=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FZouQhfm1DUpqJF5Hjz9TGy/DpgWEHATTzBgO+Z599E98s7ojhsP9wISHklRoz4CAa8W5UpHN0fobYWLfgiK8CmlpuCvxmzaDh+tqXvVf76oXqG0dvIxru/Fafy/2QT5wchMDhvGgoAltSn1bsfJFRay2bP5p2fiSQyxctFPn4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QN9JZsED; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Af4bfT2AgU8XiJYAk9QpAFFfepaIdiqsUuNrH0mOsT1LmjuUOt+iS0WfK781fpDp4R7i9br+hL2qrxg+TYFoqQHhNreeZFWAhADgowRoxDbbsS0nl2OA9ApuRMxwb7susj0jOVIAD9Khwot6rR50ucN6NkIc0E81SO3aiRfkEgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCaghFYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QN9JZsED"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563211F000E9;
-	Sat, 22 Aug 2026 20:37:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCaghFYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6058A1F000E9;
+	Sat, 22 Aug 2026 20:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787431041;
-	bh=zlDUVsMmOrOYxoGdnBHNhjXPYYdtbU1wVYTyRoyvuyI=;
+	s=k20260515; t=1787431442;
+	bh=Vvmofg7n35kucFRZzzYsmckgLsmxC+unu3ShITZiohw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QN9JZsEDXgupC6P5xT4AEXuNs0WP2HzAgCVSBgTRsbqO5Svx1NCGCOO0xDO8URVgX
-	 C+QoCCn/3/AbcXi4IQ6ytcnFoclF9R7fiu+gUGCO8xjXsL8u/95vkOv0FY43uDmYBV
-	 2dZeZ1qcIwVI4MK5U04KdW514PMCjnkpOaqGA/uyXkccg7O3ic/ykivq0yMQKgCPFD
-	 X8WjdbaaJzwL3zVPYeYSTQw+ruXZWT7RIPgjHKL+JGp/gEGWBFP0XIQ+VSnzt1xhn1
-	 odfMHLH1r5MEhxbjFbwTnCQ5R0cw/DliDQw1DXlq1/wbqUx51+qIG4gvQYFG1AZMQ0
-	 8BYGC3v8gXoRA==
-Date: Sat, 22 Aug 2026 13:37:20 -0700
+	b=PCaghFYklys7Ri5/HUtvzxJYBjO1PheJgWcdUGbPI9dyq3L16RwV/PG1npbwL7DVN
+	 +HB7pjJd3eAOtveNrsigEnvSVPyNpF51XWJARJFmwXVkyd56YyP0Sn7SJy8QPIDKcl
+	 NSB6zLPQyZzYTMdkS6KouDpDiG2Tee0zrArxQdDzX0E37ABGBhl9m/FWHaWS0jqfHG
+	 KdBoAIR6XNI52Mx5+3C0Vr3NYdGL0Av14rVWrVk9mGxYT0TFtHGcNOZ+4p8b3EGHFH
+	 JdWS/iKgsXsKYWZCNFK2sCNLG4mPB+nzqncqfc2HuRIrMhb07bBG7oFTj+dVYIrRn5
+	 Rr1Expq8ekHZQ==
+Date: Sat, 22 Aug 2026 13:44:01 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- stable@vger.kernel.org, vega@nebusec.ai, victor@mojatatu.com,
- takis@issaris.org, ast@kernel.org, daniel@iogearbox.net
-Subject: Re: [PATCH net] net/sched: account classifier filter allocations to
- memcg
-Message-ID: <20260822133720.6651596a@kernel.org>
-In-Reply-To: <CAM0EoM=OeG2DUcy9TzUxYWwCr2AAeQbOVz1v21SFtOB02wuM9A@mail.gmail.com>
-References: <20260819143733.57538-1-jhs@mojatatu.com>
-	<20260822200222.2211875-1-kuba@kernel.org>
-	<CAM0EoM=OeG2DUcy9TzUxYWwCr2AAeQbOVz1v21SFtOB02wuM9A@mail.gmail.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, John Fastabend
+ <john.fastabend@gmail.com>, stable@vger.kernel.org, vega@nebusec.ai,
+ "Victor Nogueira" <victor@mojatatu.com>
+Subject: Re: [PATCH net 1/2] net/sched: pfifo_fast: cap ring size and
+ account to memcg
+Message-ID: <20260822134401.6545e4eb@kernel.org>
+In-Reply-To: <20260820095742.68511-1-jhs@mojatatu.com>
+References: <20260820095742.68511-1-jhs@mojatatu.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,9 +48,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sat, 22 Aug 2026 16:24:21 -0400 Jamal Hadi Salim wrote:
-> I have a list of follow-up items for this patch - mostly pre-existing
-> issues and others pointing to similar patterns identified by the
-> sashikos.
+On Thu, 20 Aug 2026 05:57:41 -0400 Jamal Hadi Salim wrote:
+> +	if (qlen > 65535) {
+> +		pr_warn_ratelimited("pfifo_fast: capping ring size %u to 65535 for dev %s\n",
+> +				    qlen, qdisc_dev(qdisc)->name);
+> +		qlen = 65535;
+> +	}
 
-roger
+Why not a hard cap? We do that all over the place, once in a release we
+pick a value too small and someone quickly sends us a fix up to bump
+the number. No problem.
