@@ -1,60 +1,60 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360F13537E5
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 19:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D42368D47
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 19:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787428533; cv=none; b=WvxGs5FxXvtTnMFeHXzsy3oHGe0h+kP+IfIdjaEWZrq809tONrJxD4uprNK6fbKHlhVSK+jGeWW7mPWMhnP/vLZnL19wEBM1TCieffd72FYI+FTfjJakcDYYVENwy0em7UeWdtm04nvKHQ2cv1J9qc6lX7o7PWjDl7tBg2z/QXA=
+	t=1787428535; cv=none; b=eOKHp6Ref1iRgvhvqXCLQhAuSg724feg1rwaws1TWK6SHz1mDM9JTBN6eeKrepC6Zlj6w1Fsu7O/6BDNQfZmyoZG/SOHhRbgWKWiAODykf2qJkm9OlVWruzg8+c/XTxnCKJsFL932Yb88h0rlg95BXBm96kk1wVEBjRo+TjHGMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787428533; c=relaxed/simple;
-	bh=XULh9vnOQQxofPHcp+wpiYKwoZPe7LEJcJEC1nn4dhk=;
+	s=arc-20240116; t=1787428535; c=relaxed/simple;
+	bh=+jlwYghC4ExY3ERsnA0RO1DbLAH1xLhGCcjcB80hAqc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Y9TCZXiVLjD99BQ8wzI5XwNAtyE0rV0gmP+p97LlyRbxgm3l1N6YSnT2H2n12LbBVO9k3aGqjj04zB9/xIMUHZ+qhj/HA5OJnbMu8/aYb7KhZly+PIK5P7wu1cTFmz5rJA3XSKLY/MbKNS8+sMfRK8hvqpDNBNJW0TKjqj2OpAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=cwEASL8R; arc=none smtp.client-ip=209.85.222.180
+	 MIME-Version; b=fui1ClpF5Dvm/aPybHFhkptAVTnQMXEB6ngCmhRXCaGLIxETIP8VlfLFV19FDts7+KlFNzjycU/ejKALIPn9yMuSgRh3HjnBWqPK3lY2f5JNxvS2oqiWMSEvLN+4cILdtSEBduG8h5H3WHuigrfH+/6Sw09MinnY9nF2HiMdDT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=TEEnlxS6; arc=none smtp.client-ip=209.85.222.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="cwEASL8R"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92ed3993c1eso109732085a.1
-        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 12:55:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="TEEnlxS6"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e6c4a867cso129211085a.0
+        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 12:55:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787428530; x=1788033330; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1787428533; x=1788033333; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0AyFrhapJd40MP1pWAYBkgGThK8NBGiFdWJpr4BC+80=;
-        b=cwEASL8RQAPesmB1usjzdHmy+e+93OTExNfLPCI1qDNjjjGjushSOmFhVczGpvQdgT
-         LXcgjD80wCdkXoNZ58E5Ma5sMpNg75VLPgK85scczvC8QmphsUXLpze5vTJ5xDDBFnMU
-         314/CYz6EHDnusAt8l6lZwwNOldf9JkCJPEFw=
+        bh=zlRU7IbJKL/9+tg8sRrGYCHYJbXO8RJqk3wUbHTfj0Q=;
+        b=TEEnlxS6eLGCPxxO8Ir5J+8h2lzy4XMvQpPf3Ts9dW4UaZM7J7BFifGpihoAqnrYIn
+         4MPK/F8+KEx51exo2DgyNLEPzUSh2XtX1yaVanSL/ClvhB/VaEMrQOx3XEsWsknlh3Lt
+         FG6es8SrS0qzVn5+FwppOTSXvi6d1bCm65q0I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787428530; x=1788033330;
+        d=1e100.net; s=20251104; t=1787428533; x=1788033333;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0AyFrhapJd40MP1pWAYBkgGThK8NBGiFdWJpr4BC+80=;
-        b=tEk/+sWwTxYe/NgRj2k+PXsWfXXvbNVzUopuZ0G2MFKjdZBK9DFzENrizFezfAwnc+
-         gPVxix2SeblLr5nkubw/xURW0q02UeM8+Fbt64EZIbMn9u/ce2NgEygpYIcJSETE2JB8
-         RJANITC/e9cFRfynREM8lKtpRsGPKYlppCjDr8r9nBcivgMZTh+3wsirk8vT89C7JVXn
-         iZS9VafwX2RlSX3XmW3sDN5uUd4/AmymVqmxqbX+XPwPW4ER4y8l1UUTJ6cpHmy1YbeM
-         4gEJM67B8VJN8jJE4OWEqnx1x9n/anSFhlqGPaWXx0DWveggww1fVRN+JVEbbkbOhE75
-         mGNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqBAlyv7c6cVeC6gAtWfjc0QCbMOzcRkaT/qBTMofjTkobyKn+UVFfiTy5DmghXL79nMu19tsQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lII+yg4MW9EqkPHLY5NJeLGS4gSZBKulQwBBTW0xdRkW05w01+
-	dt46IiRU0PYrcdVf8rsepMB5GUU0MQAv/lmrE2AcemGJD9hB0mDI4f1sMOXxOcUyHQ==
-X-Gm-Gg: AR+sD109AQ4yNbG0kdi7nKzd0B4v1s+I4WI/O/ARZOZdrblKFcJ2UgGHcCCJBQTeKuI
-	wivv0+lwwou3ZH9EIQZwbO5JrI25tMoVZxhYwENtXV8J+kKG9XoufnJ5bbhF0gvlw5kvkiI8jJ6
-	Ofhq20hyFcq2N9yFDFWxEBNKjvrGnVHKKP7pBjf7vGKuNLXyl/5hu1T7+AJckEk24ELNhIz5GrI
-	jhxvoAlqukV8ZTAjNWWHYc+P07OXxAO4Km1en0y10ZfP9yHP3750AV9+/sBEWxKQxUMove+I14I
-	QxBN0ZV9c8HQHLf3kod+C/RVHTFdd6NEAJf1SGqs8m/Jg4wFmCsJkbaoLzKhdhqbNhrawvduwup
-	1lCKdclaVHzRh4/+pdM9nQvNKJNA6H5+HDGZhHrhH/Yzpq8P4K6m5tWGrGDgG8xqraIEVUKGFd+
-	ATlf2uzuHQ0wmcVbPwJvkYW8tDa64eK/d4t8x2QjMYD0CNEERiX4SS
-X-Received: by 2002:a05:620a:2546:b0:92f:279:5953 with SMTP id af79cd13be357-93739531fa0mr1331078785a.27.1787428530185;
-        Sat, 22 Aug 2026 12:55:30 -0700 (PDT)
+        bh=zlRU7IbJKL/9+tg8sRrGYCHYJbXO8RJqk3wUbHTfj0Q=;
+        b=Dg6YmhMnEaZDpzEqU7Mx1jgjdQCMgoyeINC1rJCi45o0ohriIJtRV9SpF5S7BFOzp/
+         N/E5tE/SynjhdH6yxHVn/ApoE3GoV+ZR2eIuCAP7n7REa9KJPcXc+CccjfKj+bFS8NAl
+         QaBMos0N4q3cj54a27X0MheYEZ7miIRi+mnppHCld7lXXbrehSpHjBfJQKldL7ROZonK
+         Ga6PrdaW4T0ywRINeDve2H30lXQhKIoqJIOUmhy0y4dSXJepuVd0hcSfHnlXPdNTunsS
+         pt1LfbjxcE8zvhoZBzoatEA2c9oKS1wDYrXUI6G8PMRTkihnFXSU/8AKRV0OozKgRLxr
+         nITw==
+X-Forwarded-Encrypted: i=1; AHgh+RoSVNBYR2QM1yC4ix5xN3Xuhn/TFWUsR3ZmNKOznGUUZ8yR40t2Wq5YOYbUIcVKdx46rvht0h0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWJBFD6yKFP6vF6jvG3yQMpLkaWhCWSnk5im0PxnNnJH0TJZ4T
+	XGjCP90IoWlC5Rf517k/v8oTz5GOc4yvbasx7r4sY7U73XTXZ/2vlCFQf8Z94fIU1w==
+X-Gm-Gg: AR+sD12zz4qoSZEajortfRcH8V13rmBm+KKbYVnd9rOu4Q4Mh6ERqlJK0IxnUwzNau4
+	FepXjZa8bSTd77pzIL8jvMOCrap7pGTRTFh74XVBHLNUu96Z/UaMmcCeEx2VnM86D/bMSv6XNyi
+	XZ99irI1BQTmT3RzAqNd2cQg+opYT18B9FuJxFpUQSvAgfy2l2IwhuIcHIoECOMvHmOU9VBAW2a
+	9MI6bbjlN05/EKuXixD8YhvB4TkDXvWzzqmTs5arP1wtIGodkJSOkcOr+L6GoSNZwF/oFNR5K34
+	pxzhPWQBzhaYmZl/GV1hilr+px8uqJeTjEkcFcy42w+gsmQJR/6X4l5LFLCrO4l07rNemVkIhTb
+	7Hvb4FI7ELgmxjYc12jdQ0nIwyjTDL4eVFl0J/zg2QQoTHWbr629RDKXFcC1fw6hjmFpmsuSQP+
+	KTen1O3YV6tY3G0xjm96agkP+/ikLvspvkZQ7jtAmHDKM9vI2vZI0wZrxRMfmM36g=
+X-Received: by 2002:a05:620a:44d6:b0:92e:6c8a:2a39 with SMTP id af79cd13be357-937394750cfmr1369602785a.13.1787428532875;
+        Sat, 22 Aug 2026 12:55:32 -0700 (PDT)
 Received: from majuu.waya ([184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93749adef4csm172997385a.11.2026.08.22.12.55.27
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93749adef4csm172997385a.11.2026.08.22.12.55.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 12:55:28 -0700 (PDT)
+        Sat, 22 Aug 2026 12:55:31 -0700 (PDT)
 From: Jamal Hadi Salim <jhs@mojatatu.com>
 To: netdev@vger.kernel.org
 Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
@@ -67,9 +67,9 @@ Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
 	stable@vger.kernel.org,
 	vega@nebusec.ai,
 	Victor Nogueira <victor@mojatatu.com>
-Subject: [PATCH net v3 2/6] net/sched: fq_codel: clamp default quantum and mtu
-Date: Sat, 22 Aug 2026 15:55:05 -0400
-Message-Id: <20260822195509.112717-3-jhs@mojatatu.com>
+Subject: [PATCH net v3 3/6] net/sched: sch_codel: clamp default mtu to avoid disabling CoDel
+Date: Sat, 22 Aug 2026 15:55:06 -0400
+Message-Id: <20260822195509.112717-4-jhs@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260822195509.112717-1-jhs@mojatatu.com>
 References: <20260822195509.112717-1-jhs@mojatatu.com>
@@ -81,63 +81,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fq_codel_init() sets q->quantum = psched_mtu(qdisc_dev(sch)) without
+codel_init() sets q->params.mtu = psched_mtu(qdisc_dev(sch)) without
 clamping. A device with a huge MTU (e.g. dummy with max_mtu == 0
-accepting MTU 2147483634) makes psched_mtu() return 0x80000000, which
-overflows the signed flow->deficit to INT_MIN in fq_codel_dequeue(),
-causing an infinite loop and soft lockup. Emulate fq_codel_change()
-and constrain to [256, FQ_CODEL_QUANTUM_MAX].
-
-The same unclamped psched_mtu() is assigned to q->cparams.mtu a bit
-below, and fq_codel_change() never updates it. codel_should_drop()
-tests "*backlog <= params->mtu"; with mtu == 0x80000000 (~2 GiB) and
-the default 32 MiB memory_limit, the test is always true, so CoDel is
-silently and completely disabled (no drops, no ECN). Declare a single
-clamped mtu and assign both q->quantum and q->cparams.mtu from it,
-which also removes the double psched_mtu() call.
+accepting MTU 2147483634) makes psched_mtu() return 0x80000000. In
+codel_should_drop() the test "*backlog <= params->mtu" then compares
+the backlog against ~2 GiB; with the default sch->limit of
+DEFAULT_CODEL_LIMIT (1000) packets the backlog can never reach it, so
+the test is always true and CoDel is silently and completely disabled
+i.e no drops, no ECN marking, codel degrades to a tail-drop FIFO.
+codel_change() never updates params.mtu, so the init path is the only
+place to clamp it. Constrain to [256, 1 << 20], matching the fq_codel
+bound; 256 is a sane floor that only makes CoDel slightly more willing
+to act on very small queues, which is the safe direction.
 
 Conditions to recreate the bug: a device whose MTU (plus
 hard_header_len) wraps psched_mtu() into the sign bit (e.g. a dummy
 device with max_mtu == 0 accepting MTU 2147483634). Requires
 CAP_NET_ADMIN in a user namespace.
 
-Fixes: 4b549a2ef4be ("fq_codel: Fair Queue Codel AQM")
+Fixes: 76e3cc126bb2 ("codel: Controlled Delay AQM")
 Reported-by: vega@nebusec.ai
 Tested-by: Victor Nogueira <victor@mojatatu.com>
 Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- net/sched/sch_fq_codel.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ net/sched/sch_codel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/sched/sch_fq_codel.c b/net/sched/sch_fq_codel.c
-index 6cce86ba383c..969b2510b0b8 100644
---- a/net/sched/sch_fq_codel.c
-+++ b/net/sched/sch_fq_codel.c
-@@ -509,6 +509,7 @@ static int fq_codel_init(struct Qdisc *sch, struct nlattr *opt,
- 			 struct netlink_ext_ack *extack)
- {
- 	struct fq_codel_sched_data *q = qdisc_priv(sch);
-+	u32 mtu;
- 	int i;
- 	int err;
- 
-@@ -516,13 +517,14 @@ static int fq_codel_init(struct Qdisc *sch, struct nlattr *opt,
- 	q->flows_cnt = 1024;
- 	q->memory_limit = 32 << 20; /* 32 MBytes */
- 	q->drop_batch_size = 64;
--	q->quantum = psched_mtu(qdisc_dev(sch));
-+	mtu = clamp_t(u32, psched_mtu(qdisc_dev(sch)), 256, FQ_CODEL_QUANTUM_MAX);
-+	q->quantum = mtu;
- 	INIT_LIST_HEAD(&q->new_flows);
- 	INIT_LIST_HEAD(&q->old_flows);
- 	codel_params_init(&q->cparams);
- 	codel_stats_init(&q->cstats);
- 	q->cparams.ecn = true;
--	q->cparams.mtu = psched_mtu(qdisc_dev(sch));
-+	q->cparams.mtu = mtu;
+diff --git a/net/sched/sch_codel.c b/net/sched/sch_codel.c
+index cacf5244958e..6aa5829d6961 100644
+--- a/net/sched/sch_codel.c
++++ b/net/sched/sch_codel.c
+@@ -205,7 +205,7 @@ static int codel_init(struct Qdisc *sch, struct nlattr *opt,
+ 	codel_params_init(&q->params);
+ 	codel_vars_init(&q->vars);
+ 	codel_stats_init(&q->stats);
+-	q->params.mtu = psched_mtu(qdisc_dev(sch));
++	q->params.mtu = clamp_t(u32, psched_mtu(qdisc_dev(sch)), 256, 1 << 20);
  
  	if (opt) {
- 		err = fq_codel_change(sch, opt, extack);
+ 		int err = codel_change(sch, opt, extack);
 -- 
 2.43.0
 
