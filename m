@@ -1,124 +1,77 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3F324DCF9
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 15:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787411800; cv=pass; b=pxe+8L2R/nP29ppGj/JE2yD06dnjlfTMTFuOHD5jMZsdyQQV5t/m5avQ/3YY82a22xUaTKH8RyJGyTnpTZwEFDFz8NDjkYo/sNpH1YaIxjR1QBsR5SoSNmkss0rvNTPhPA+lLHYtXv68bTLPVkNsKfb7TrC/qvL9HdCeoy38TSs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787411800; c=relaxed/simple;
-	bh=8zNH43rr1DSYn7UO0sfax8rfxVo3/kIv7q+UAeXPF2g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VPDNRQRuZFvoaAp7piKJdonm+OoWjiB3qO5ebJA4c6M2yag3HeJcYcSNXI/8CcBLgk+SCoEWRbYevMrIfJM8Nv747QojIegxWwW8rkW1ogjfLc/Dl0wNVGFrK96lYl4hZ5NqXZf7A+YCp8BIHTfxElH6VmQLluuiZnZHCjaPAcs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pVAm84wZ; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4B537755C;
+	Sat, 22 Aug 2026 15:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787412210; cv=none; b=TIcBii6vNiWtEzVjyFo9iR/G2xzd/sytVbI2t9N5xOgY//gh9CDnNDtC75C9F8GTSybvSAPCyrB54yxHMjVyVGqtsUt9UpnAnKQo6KdxHXBs4iSEOxmXcHELpiKxmgZvm9E8CqXlcy5ab1prRqv5QstxQlKfTM7ulsHwnOq3reA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787412210; c=relaxed/simple;
+	bh=WrJatvS+dpsgvexrFJw28Fc/KzpHX/g5DZqmk0x10VM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Yjli5pmJHZ9/Mol9NvX9zbM+RqsZjnf9FEU2Qt1Jyal5rQ11SXGO8+RauCV2arwtlCD6bB5cWgRPFUXsj5N+F6QWStFp8vZk8x8IRJM466P5eW3/9qLL1h0A2mZgkm+iSkDdJLTYP0jXy9hHhKulkDrPU2oyU/MrhWkkoOna2BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=LU3Tlu5E; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pVAm84wZ"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69f4acf7047so345226a12.3
-        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 08:16:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787411797; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hZFblVpIiYtoOR6fCicYZppDG3G0HFsSshOyIA3cGDvkdtOhI5XnwCmeIlpy3Nd9tu
-         AZ8q45tZygXYXVazeCHA4eC9fdsi8z4j6oiX/p/2ePlr0cBGXzUGnY1RC5lBkqOK1k8I
-         i5bbXqIOzeK86YhVw0+yVljxuiLUh6k4kQZGZVyM4eaQSrYmJPrOtx9Pvu7rOomp+rqj
-         GbaQPrUPWF+JJXE/1z63ZAqe7j5i9Hvlwaf6Nw6Mys0FiR6lpeRARqT50BGMxJn2ZCSH
-         Z2fG/exiUXpPTkP38+bbPlfakwk3Fbd5xMnSWTxAHgHSnXResXfHKX65NqJr10n+vTo8
-         95Tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8zNH43rr1DSYn7UO0sfax8rfxVo3/kIv7q+UAeXPF2g=;
-        fh=8JoaHba4BmbSn8yMtG02FfJwHNPrpwAv4+71Ja5ayHE=;
-        b=AB9h5Q4qOKGFWXMZGScS706m52nhCVfMHt/hK8yU3c0kqgdRfnCBzStO4WVoOg95R0
-         xVcY+Fxq0iP/JlmsyB2e1hp/eh/h5tNVggn1ufbHbYSeOB4Ya7bQqzTK5Rg0u+hJ41sy
-         wVVNs0XzqYmmn63YWfXV6DCYBn4lsNajWTNlpS/hSianEYxnXh0yXjgFr6UL4lI5lHMH
-         1ium48oJ1frLa7wa7BgnFEGC5sGcrBGNWC8rN+ViBNq6LJwSlI/lwKURGUUGLlvjeii3
-         L0ipfKdI9c64hQk9XqzGwVcKevkZfk0qxNpCkZvvdz5JBAky0O5womgd66hiUCGL03Dt
-         RvHw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787411797; x=1788016597; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8zNH43rr1DSYn7UO0sfax8rfxVo3/kIv7q+UAeXPF2g=;
-        b=pVAm84wZmrJwlyiX8tS5hiV+64Xg3VQ+RalyggtWA2yMrbTJhBD2lGZfiLIcb4qRJq
-         QQwyHS9vVIz2aR1ZzWjug8swTtKGLWt/dloN8uMJ+vT9G5pSkstB2+aKGpcWM6CCMVVH
-         sxERNyIpxxyB76VQqEMIzpU0B3peFOScatQUwU7qsYa04BB5DS8Mw3jK/G0By2sj33Lk
-         rja5id5rJnlkl8ANFuOkBtDNVifpvtgM46JGBx3sGfduOwbe0Ji7takJGa4AcffTrNWg
-         6mbn6/aHKexxgSk2nRjKc9KqyGftB1kcsEj4dI3wHp9R3lTeOhJ6IMM7FdRAVnaXdrTg
-         txmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787411797; x=1788016597;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8zNH43rr1DSYn7UO0sfax8rfxVo3/kIv7q+UAeXPF2g=;
-        b=TSgL+4UyyFvkdwOAnT4utaFiFo3QS33sxLfcpV0cXWFVcn2YBSYt4fg5ixuYGHPj73
-         MPRWeCwqkY4ob6YWjDKt2rZBAU34Z8jmLch1cXXW2NAIOqlmDGDcZX9/XhYydxV9kqDx
-         TqjbeUfr+QspQMwxMKvj8Wq+bCPWogb2syDA27wBj0xEfJOhKmAsDKMYjIgfkDI/fxgC
-         YdRaQIe52g8LfIIJ8dMfIHJG4rNsJAXp0fQak5RhfB+gC9AwkF8dOX5FCjdaMhobF4d2
-         vo7Etny8MSaAoxTm0A6NQuvLnP2t1kaqtT5nJwSY+blaMy3XsI+Zves1RM3kj9OQEBCF
-         SaXA==
-X-Forwarded-Encrypted: i=1; AHgh+RrBaV9EcskDh0YuzkdSblAfErWkN+eFPizumTB+bpB5WgGY3QT2ZFQxe4zm4Rex6B0ej0xSGxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE0gBBoQBxIMJzeBDXtCoVypWCHrnQpecw0Yr/hmO+AZ8Mxlgl
-	kBKLR9XeLMWs43bh/be85VRO7tZwjcoyfIheFSdDt6xs7+k4seRDtM3RRoXT+Gs4MgDsniBOEoM
-	FDAvTIHyQ0y+ye8pja1yAUBbE7EM1zN4=
-X-Gm-Gg: AR+sD10tyiR8oAUNiZtAMROlLGWWNMJvDFK+4P6VKcIew3VQ2K2u6jfPUuN3Mra3DTq
-	EoB6NtRg+o0sGVoaH7M/AwdU9uhwkF0Gz8ZvlsGt1UFSth/Em9twyJ9LbUI4F6dw0+2Y+yCWlJV
-	WC+oo1NHsRAIeXrIIjCR8TycOJ8FsqeM7SNEX8n4OGHLbq+74LFhaSz7tAPpYo/vJaYzRQqk4dd
-	aZWO+kYeE36EvLhGPRONlOcAk2TYRAsEMLn2udFgm3SSvbQ/nlnohU4cqzyqZaZX0puXJ14GwmU
-	4Zrgle8gwZTglSINjE3rFUG+D9CkPA4ifLHZwZY5/QI5eMsYRVCdOgGVy6VAnXe1RojZbvPNag=
-	=
-X-Received: by 2002:a05:6402:5d0:b0:6a1:de1:f739 with SMTP id
- 4fb4d7f45d1cf-6a42f21945emr8149275a12.2.1787411797281; Sat, 22 Aug 2026
- 08:16:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="LU3Tlu5E"
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id DD4DF1A019A;
+	Sat, 22 Aug 2026 15:23:20 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 64C072002C;
+	Sat, 22 Aug 2026 15:23:04 +0000 (UTC)
+Date: Sat, 22 Aug 2026 11:22:48 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: =?UTF-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, mgorman@suse.de, include@grrlz.net,
+ bsegall@google.com, dietmar.eggemann@arm.com, kees@kernel.org,
+ kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ vschneid@redhat.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] fork: initialize function graph state before
+ copy_exec_state()
+Message-ID: <20260822112248.1b7e1b1d@fedora>
+In-Reply-To: <20260822084927.547141-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260822084927.547141-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821174514.3034851-1-nicoyip.dev@gmail.com>
- <CAAo+4rUJomK9jJ6nHC6LU0AHiR0LhO_Wwp4-Z8iJOo=Za1JR2g@mail.gmail.com> <20260822083054.913656-1-ali@iusegentoo.com>
-In-Reply-To: <20260822083054.913656-1-ali@iusegentoo.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sat, 22 Aug 2026 23:16:25 +0800
-X-Gm-Features: AcwNN1WNrizOShYdt95GyUZ5UOsmbuiQCjNYS5AmdMYaJmyfyAXxqJ-2vGOXJh4
-Message-ID: <CAAo+4rUi3o=sTx_ZjD32qYWoYm_EcFv9UZsSeCFaL=oQM6vBTQ@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: RFCOMM: serialize session teardown
-To: Ali Ahmet Memis <ali@iusegentoo.com>
-Cc: Pauli Virtanen <pav@iki.fi>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Kees Cook <kees@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Jiale Yao <yaojiale02@163.com>, 
-	SeungJu Cheon <suunj1331@gmail.com>, Tim Bird <tim.bird@sony.com>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Stat-Signature: ajshg4cetoi7kmjm6yugn1ah3akmwne5
+X-Rspamd-Server: rspamout06
+X-Rspamd-Queue-Id: 64C072002C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/qlZgXADOrmF5uNiwy2VX4iR+37QC+ua0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=WrJatvS+dpsgvexrFJw28Fc/KzpHX/g5DZqmk0x10VM=; b=LU3Tlu5E9WSgJxSNWsL/2vPXgUhe5EFm0BYPSVPu6drm7C50bC8/L89hVt2/9AlzA+Yks7JGZ4GdAiJkNwrwO2dpI/ms/oa77mR9N7/ygFttYOV0twgNAzf7sEcRDB5BTXcb7D1mr8kHnAzLL8VjlxN1I4eN7aIXBnDAn+TPqXQ=
+X-HE-Tag: 1787412184-401758
+X-HE-Meta: U2FsdGVkX1/EQPw/mJTjICcbGMkIafRXyWn0hFafPUl7sXG2e1khZHtjupHcjqNglVg48miZ0LvxnwKP5Wd1l2RYRGTOPx0Jhs6zNAfz5mi+0gVIRFydJJBtShVAm6z0N1E5BxBpbu4Fxa64G9l2HoCnbqkZFEeTYbpzcwQitm6cLbzZtiXVeWOkRhdwIq2JeFoKn65Bou4/Zinu6QOwvKmRtTAV+iAeowY+75dy6mrVgL0D4LfRWQpIsjJT3yjIdxMXM5gfZBIPcmGp7e1T8+iDcndX9bZGSvlcE1/wbPHtGj54C0brJr4aYF7RlK21GqpbuskWc+u5qPYHDYasoFUuhVQghrIg
 
-Hi all,
+On Sat, 22 Aug 2026 08:49:27 +0000
+J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
 
-Thanks for your review and feedback, the v2 is just sent:
-https://lore.kernel.org/linux-bluetooth/20260822150619.3684599-1-nicoyip.de=
-v@gmail.com/T/#u
+> dup_task_struct() copies the parent's task_struct, including ret_stack.
+> ftrace_graph_init_task() clears the copied function graph state, but it
+> currently runs after copy_exec_state().
+>=20
+> For non-CLONE_VM forks, copy_exec_state() allocates a new task_exec_state.
+> If that allocation fails, copy_process() reaches bad_fork_free and
+> free_task() calls ftrace_graph_exit_task(). Since the child still carries
+> the parent's ret_stack pointer, the unwind frees the parent's active
+> function graph return stack. The parent subsequently accesses freed memory
+> from function_graph_enter_regs().
+>=20
 
-On Sat, Aug 22, 2026 at 4:31=E2=80=AFPM Ali Ahmet Memis <ali@iusegentoo.com=
-> wrote:
-> rfcomm_security_cfm() -> rfcomm_session_get() is the one I'd worry about.
-> It runs from the hci_cb callback with only hci_cb_list_lock held, while
-> krfcommd can free the same session under rfcomm_mutex. I haven't tried to
-> reproduce that one.
+As this effects function_graph tracing, please resend and Cc:
+linux-trace-kernel@vger.kernel.org so that it gets to the proper
+patchwork. It will need to go through my tree so that it gets the
+proper testing.
 
-You are right on that, actually I have a reproducer for that UAF and
-just have not yet been able to send a patch for it as I am afraid
-sending too many patches in a short period will introduce a high
-review workload. That one is a real security issue as it can be
-reachable from unprivileged users, as it is now raised in the public
-maillist, I will send a patch for it soon.
+Thanks,
 
-Best regards,
-Chengfeng
+-- Steve
