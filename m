@@ -1,68 +1,89 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5FF7493634;
-	Sat, 22 Aug 2026 21:41:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF08355F57;
+	Sat, 22 Aug 2026 21:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787434893; cv=none; b=su8tgPlsBkFX5D10/zJQR1fnCz25gcQRrBO0/ljUkh6kuyKMb6T6UfOBZ/fsocW1d8qYtre7Q/rnHNqSX5dKYLDiDwJzFQ1rAmEBBOn9lstfflbTUahaSBI0FKcwpJmQXda57yOePAaPRWdNOQ/EgVs+WtsnrD4t46HYPGMGVF4=
+	t=1787435116; cv=none; b=UJAqWl1oCsr4cFfBUPTx2gByssucaYjbnkSvXrHR9GfcXRcaCK4CtXzHlvwxd35xIO0Oaje+1wXUeNybiFYcoqiKrcKLwq+ZZWoc88dD3EAraHOMrCbbufkSXIYzbk8Lt5ZVAwUB/j5MmL8zNAGHFAQbs2v/X7gDpmCtsMpMJwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787434893; c=relaxed/simple;
-	bh=dtSe3C1Tc4gxt6nN885cuKTw/xAqg6X+Lj8V/W6XzFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DRkc+/Nl6o2mH09e4CAeQeUilFkGjfZT9eQp3SLeSX4r9VIijtxkLYTdsrqUjS0L7or49BceAHtZZ8GL065YEl1EQdR1kTasgPHeG6DNxpEfu5O0YI8B+KiRPFKg7lFVhv0kmPHHlxRpgkBN3E7UG3LS4xdSkx6tRnKSrNWLfEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=MPnoNiz8; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1787435116; c=relaxed/simple;
+	bh=k7Zpof6h9WUghRySCG8oO/6HIOjE3Odp9G6NzBkNCz0=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Lv1+IcvbOVlVlb7l2+Nvn/sJ7C0DhrTzFbgoUYk8zvYA9VKYNlq4N96tNCGebtqxPUMx3J1YBRXavOuLp73FRoHnCkV9JZp7SNrKS3fuc7BeeTDFofIymj2PXREs53DOFnkds4FgM7biBfMTbsnHL1ED9Q5gR+l3t7mf7L9YtIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=bR4OGgq0; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="MPnoNiz8"
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 70EAC1C0C8D;
-	Sat, 22 Aug 2026 21:41:22 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id A9CFA2F;
-	Sat, 22 Aug 2026 21:41:06 +0000 (UTC)
-Date: Sat, 22 Aug 2026 17:40:53 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: =?UTF-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-Cc: Bradley Morgan <include@grrlz.net>, mingo@redhat.com,
- peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- mgorman@suse.de, bsegall@google.com, dietmar.eggemann@arm.com,
- kees@kernel.org, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, vschneid@redhat.com,
- linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] fork: initialize function graph state before
- copy_exec_state()
-Message-ID: <20260822174053.26aa2f56@fedora>
-In-Reply-To: <603183e5d6abcae2229c61b8e266e60c@oss.cyber.gouv.fr>
-References: <20260822195321.962383-2-Jeremy.Jean@oss.cyber.gouv.fr>
-	<4E2240F5-1211-47CE-AF04-24E1F0BC4707@grrlz.net>
-	<20260822170928.1acba2cc@fedora>
-	<603183e5d6abcae2229c61b8e266e60c@oss.cyber.gouv.fr>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="bR4OGgq0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=a6yB+qzAG/fefKb5xEioOXx7BujJfnt8y4wf/YqoL6s=; b=bR4OGgq0nlQCiOglFm1QMCpvir
+	Q91FI5EgnseTCk4WtNMXB61n8sgDRkGhrQ6EXNI+Mnl4/RMI7IxmkT98VJ8FdCeOsdzu7x1nKFMss
+	a8Wj5uG/ayJke4ULp0C4/gi0kdka24/TSeE7sePHbRZu82EjpTPGtB4jhNGyNTVOdWv+FFrnHJJ7s
+	7SvWXRVKzomOfSsNQEYjVCPbHc/D1Vtr4MS/P8xegwk6r8O1pkXllTVDwYIjOWvC3NIQonIROq2Qb
+	VVz8qYuf3u4PVbgBEL5G2vdSetNXN3LMhH6UiNrIXLjwh5qzzUT5hJv+K+2kXv0YenGbShyGNhDY/
+	PkykvK1A==;
+Received: from [::1] (port=35504 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1wxtWc-00000002qTp-0EFF;
+	Sat, 22 Aug 2026 23:45:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: A9CFA2F
-X-Stat-Signature: qz1pi3axyizt7u4bd14d7z88nseecyie
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19BMXAzeE7Pvu0yytgC++z47nFrOeJ74ek=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=dtSe3C1Tc4gxt6nN885cuKTw/xAqg6X+Lj8V/W6XzFA=; b=MPnoNiz8iaLPu+lNvzqdC+gYu2ZbtLvWJQTMz4QR06+RJZ7Gi8fhIgWPB21btFeWC3kayltX0OdCqN5Bknio6vGmHekRjxWHlm6xIZwx0rsunIPotv7INM14WrVIv+u5LrJhi/zjCV7YROL6kxja9lpXVnTpJ8p00g1gotTx29o=
-X-HE-Tag: 1787434866-292068
-X-HE-Meta: U2FsdGVkX19z+F/YeVL02ioTYmPD+aS75hp0rzfxU80zUVnxchF90tHh5jg4ATMUGvaWfzMOYjQktfE+vO5ogejJtU9HLYuFoffslp/90B23PGlakWB2fj6spMaAkv2ZFUQs9pU6wI1s4W0kc+IaO96YlPdU7DvwwokOhY19neUdLwp7ESgFWBvH9hr5Etcy1z9QYaf9g1MiwegSs0g7HVv5/lJgRKXbgohkH1OKpDQLsEUtLLgrsdnK6DPWpmi0o43JCFyTN/VCt7z4/6yRyGjAEJV2MdkOfRyGuI2Lquc2JqXETLFOwaI2mSo7Ocv6ivlAoElfzg4/MIXxPjoPn6/WyK4m9/S740fqJbXygm+YTFfpCb4MNNTwyxVdUEgv
+Date: Sat, 22 Aug 2026 23:45:12 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Bradley Morgan <include@grrlz.net>, mingo@redhat.com,
+ peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ mgorman@suse.de, bsegall@google.com, dietmar.eggemann@arm.com,
+ kees@kernel.org, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, vschneid@redhat.com, linux-trace-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3] fork: initialize function graph state before
+ copy_exec_state()
+In-Reply-To: <20260822174053.26aa2f56@fedora>
+References: <20260822195321.962383-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <4E2240F5-1211-47CE-AF04-24E1F0BC4707@grrlz.net>
+ <20260822170928.1acba2cc@fedora>
+ <603183e5d6abcae2229c61b8e266e60c@oss.cyber.gouv.fr>
+ <20260822174053.26aa2f56@fedora>
+User-Agent: Roundcube Webmail/1.6.18
+Message-ID: <795312df1b22220991e828497b56cf3f@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Sat, 22 Aug 2026 23:12:35 +0200
-J=C3=A9r=C3=A9my Jean <jeremy.jean@oss.cyber.gouv.fr> wrote:
+On 2026-08-22 23:40, Steven Rostedt wrote:
+> On Sat, 22 Aug 2026 23:12:35 +0200
+> Jérémy Jean <jeremy.jean@oss.cyber.gouv.fr> wrote:
+> 
+>> Oops, I did not know that, sorry.
+>> Do you want me to resend once more, or that's okay?
+> 
+> No need. It's in patchwork and I'll manually add Bradley's R-B tag and
+> start testing it.
 
-> Oops, I did not know that, sorry.
-> Do you want me to resend once more, or that's okay?
+Noted, thanks Steve.
 
-No need. It's in patchwork and I'll manually add Bradley's R-B tag and
-start testing it.
-
--- Steve
+Regards,
+Jérémy
