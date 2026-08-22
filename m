@@ -1,212 +1,93 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A21196C7C
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 18:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B420030AAA9;
+	Sat, 22 Aug 2026 18:55:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787424439; cv=none; b=Ti3gpGFW4s7GIHYk4yazdITOQNaPxzWuPpN9JD3LqnerUWzHzg+W/G7zp8xmlwtggaxUZ3JEJQxdda0pe3GIIIFH2jjqCAyrKKiQfdzzIvtTRKzbdJ94eDd2NAkvnBweNUT1qJNOT/8zeDPZApNnkKbo61tbPn4k2KbYJk9AyPU=
+	t=1787424955; cv=none; b=FQ7by8iM84LuGSt/4B0JTRtGU3S7QLuVlX1DqLYpKWX9v9aECdpQYeLB0mYTZ9jGMA/MJOY54sLDW6n/pv0mK8F1wjW0a/U5R5XqZ0wcXC73NFhTCHSZPukTGE3NPo23LvG6tiTy2L4jLki/ckfXeQsYea7s4tUuvqoVUkNpl1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787424439; c=relaxed/simple;
-	bh=5G43uPiVL/j+Dzwm9QTc44uc3K3VaXP56vy3ld8EoOE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=igyXz07yluaCuoDTfXptBrJ3Ruj/UHwtENCrxlqVdvponNW5iQldkLgwbMwKX1W9ZMo/h2DwMFwfZ4qNfjXgyF3vR9GmR1KZydHnZDH/PnBMRP6Qa0vM9e3A0y7vmXtBzKPHZm4Xtt93TOssy1P9uzoM5kVwdplyCdnKysEgpDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfMgf1F+; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787424955; c=relaxed/simple;
+	bh=0gkSJt4mCje9oNoaV1+NwFKtwQ2nlw/SO3gy3CulEPI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d8sR832EiknSd+mjjtHWO0wYZPArcchZajv+83MCuafsxmxwvOJlRF549YWYfbgXrCmNqLNvrd1/7+F3eAHtLZLxmQm9JkDgUokPDmAniE0j0lQQIIHZk5/9mckgr4fGzHLCo7hrYDf1I4ecvUgld1YLRPjYzb9gb+GNeqB3npE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DnUgW/OE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfMgf1F+"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cbedf082ba2so230301a12.1
-        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 11:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787424437; x=1788029237; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r6krEZZrAdPiGjprMWBKZfrQRUv9wjYiRrwTo40Vuek=;
-        b=OfMgf1F+Vxyq+yV3XHsyCTTLvHGVdO9N2BEk2bI0Cg/SdKLPaG1cxRuI2tqTWTvXCV
-         Y3SQRzlLUu12A0F8mGV2EFw0H+ibPj2q4JPDAS2u14w7PXHzRl2QXka2LO9uNYoq2fU0
-         nOEb8EJr7lC6PnsAdjhuE/7u/t03Da/tvvJlZD39+Ru/MGF9Znl9zGLVkL3jxyzCCc04
-         DkYV2YtMu6q2hlM9Nf4mKfnE9LN25anbFu2cAa4utOJ1Q66ou8LLvdWrilANCDtX2nKk
-         OajxTqC6tuo3QMfiPKKfvyhi7kiMxybM+FqZaTSzVZBA96ZmnXCrolRKh0KKLWjvrgQQ
-         C4wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787424437; x=1788029237;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r6krEZZrAdPiGjprMWBKZfrQRUv9wjYiRrwTo40Vuek=;
-        b=WtP92WV2lmIHFYNeEMu44XeP9wr6TAKM8HYRkn0JqBx3Vpw+EczSb4y006T8I8/oOp
-         SoxZePj6x0q7LumHND4YsoF9Brfa7LSxLymSUK4K21b4sLzpLMi5kIqI4yi34MEpypst
-         jIh/t0HtKHTX9gN+OcktYuaoQ0uhwJa/0AQIVHfYUkmcfEteH0wEvZDzWKqg8WXVQsTW
-         GZcauImX8DTiDp9z8680YB5uF5Eguc+WyAbbcyvKhqMa5KAXuJTifnG/HrRTSNy0qEg5
-         1iE0gGMrSQvtugKFMLnToI+d660lhtgz1p8M4CHPDXWfG97iDw0N6hxNiqMMPJrotcAY
-         MrVg==
-X-Forwarded-Encrypted: i=1; AHgh+RqZjp9nNf3LI+b5QMBlfpwLgvNneK6gOIDNVG7ZYqEdnp+b/XJl4tVO2aivwjeGD/UaRmqjpuA=@vger.kernel.org
-X-Gm-Message-State: AFuF++meyl9IPZyrCdZxxREkZq0t6SszPuXhnTbiy3stZhTF7eaL2nkD
-	MZQIA94KqD9VrDLdoZZFup/iC7+tlQH/+KbKg09T9lSIChAHXBrE2yllFILUsRxgzzo=
-X-Gm-Gg: AR+sD11sSvP/7/RRuwLzzOd/oS3k2hBP1CnIBWCTluwx3I+L1/HzkDAkCk5/ou6rQ2C
-	OyLRdrJURvB5TTO7vddirNLQQK+0y9EkDHM+qJbJAPcpAWEFK5ibrJ/y+MpPK8H2+/zR72IYVMN
-	te7zw2Q/huNozxJNM2SPaE4g7ZA7COd2cRDZfU+jmsPpLVLb2dgk2wn0LUni7dugYXg1aysnfFc
-	P80p+lJfWx2HsatolYFxws/6/m2DTpBcYiq01TqJ9kce6PyNkOWuErf3uvnQTSWNzhtL5VVvYoC
-	GcTCZhutSQz6r09sJEcyZP0d387Eigf6CJwH0iJqhWoYuNQOb26soVCFRsmAJ9Y7sJyzNH4Lr/x
-	xxPqCBMM8cn1l652WlJ7tmJ+OYBimJu/gEDnMrV9ll4wZqAs6X0pfKscgjReBSUNemTfSsJDzds
-	dEuFdDOLB7Hlgbc0ZayplWt1uMSh3nsIYqmDOpHc4RrbAFzGaZBFjccKmdYep/n3cJ4lgDJSmc5
-	qZ6eioXkSf51JQe/R0rq7VUbI9RQho+TBE9ycUwF3TgnwLFbbsejX0=
-X-Received: by 2002:a17:902:fc4e:b0:2d3:aecd:51f7 with SMTP id d9443c01a7336-2d64ae3a7c7mr135100305ad.1.1787424437214;
-        Sat, 22 Aug 2026 11:47:17 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f9209fafsm16623681eec.23.2026.08.22.11.47.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 11:47:16 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Gao feng <gaofeng@cn.fujitsu.com>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] netfilter: nf_log: clear per-net loggers on unregister
-Date: Sun, 23 Aug 2026 02:46:58 +0800
-Message-ID: <20260822184658.3787672-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnUgW/OE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485601F000E9;
+	Sat, 22 Aug 2026 18:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787424948;
+	bh=78SBByw6W5epz7cVxeuu6l+8VUwUHF/hNkVnqoTyScQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DnUgW/OEk1K5xfMoFU0brDWSz2iUuUROqMrQbohZNa6W65TeH+nyrXq5F9vu3mmZz
+	 JbIGV8v7KWb7Tl8EfnNa98qitCYoWyHVBEsTnlC5gNY8khyp82h9G98GdIooq173Gp
+	 uWa8f31tYwduZ4uKGZY6z/gsP1YvqPNbHFt+NMiMnaTvRjkdvJv/f+KcJ1MHjOaeJY
+	 0JGLgT3MuzUy03AEYH291WJP+YcCIaLhlz2Er+rtuHC6V10HlS0jg0LME7nXknFCLo
+	 2vkHT27XAbrnBrr7ARz3E9a8LS6acqWqlL5ulsvzt8RN9lFDQyqwUBFEknCkcGyA/J
+	 2PgDnnn6barQg==
+Date: Sat, 22 Aug 2026 19:55:28 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	James Bottomley <James.Bottomley@hansenpartnership.com>, Hagen Paul Pfeifer <hagen@jauu.net>, 
+	Pedro Falcato <pfalcato@suse.de>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org, 
+	Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/secretmem: properly account locked pages
+Message-ID: <aonwNh4vsmyp5o1K@lucifer>
+References: <20260814-secretmem-accounting-v1-1-d2f8c677980b@kernel.org>
+ <178706447572.2799959.13846195033539124794.b4-review@b4>
+ <aoRx-VLojNCSBPUj@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoRx-VLojNCSBPUj@lucifer>
 
-Logger backends unregister their per-network namespace operations before
-unregistering their global logger. This leaves a window where a sysctl or
-netlink writer can rebind a per-net logger after the old per-net
-selection was cleared, but before the global logger registration is
-removed.
+On Tue, Aug 18, 2026 at 04:27:48PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Aug 18, 2026 at 05:47:55PM +0300, Mike Rapoport wrote:
+> > > diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
+> > > index aac4f795c327..626e7033b72f 100644
+> > > --- a/tools/testing/selftests/mm/memfd_secret.c
+> > > +++ b/tools/testing/selftests/mm/memfd_secret.c
+...
+> > > +static void test_mlock_limit(void)
+> > >  {
+> > >  	size_t len;
+> > >  	char *mem;
+> > > +	int fd;
+> > > +
+> > > +	/* Locked pages have an inode lifetime, so need a new fd. */
+> > > +	fd = memfd_secret(0);
+> > > +	if (fd < 0) {
+> > > +		fail("memfd_secret failed: %s\n", strerror(errno));
+> > > +		return;
+> > > +	}
+> > > +
+> > > +	if (ftruncate(fd, mlock_limit_max * 2)) {
+> > > +		fail("ftruncate failed: %s\n", strerror(errno));
+> > > +		goto out_close;
+> > > +	}
+> >
+> > Can't we ftruncate to this size in main and be done?
+>
+> I think we should be able to, will change unless it's somehow a problem.
 
-The race looks like this:
+OK no, I have to do it here as there needs to be a new fd since keeping the same
+fd would mean all future tests would have secretmem that exceeded the rlimit
+quota (since it's per inode now), so have to set up new fd, configure it, tear
+it down just for this test :)
 
-  CPU 0                                 CPU 1
-  ----                                  ----
-  unregister_pernet_subsys()
-    nf_log_unset(net, logger)
-      net->nf.nf_loggers[pf] = NULL
-
-                                        lock nf_log_mutex
-                                        find logger in loggers[][]
-                                        net->nf.nf_loggers[pf] = logger
-                                        unlock nf_log_mutex
-
-  nf_log_unregister(logger)
-    lock nf_log_mutex
-    loggers[pf][type] = NULL
-    unlock nf_log_mutex
-    synchronize_rcu()
-  module exit returns
-  module core frees backend memory
-
-Later, a sysctl read or nf_log_packet() reads net->nf.nf_loggers[pf]
-and dereferences the stale logger.
-
-nf_log_unregister() only removes the backend from the global logger
-table. It does not clear matching net->nf.nf_loggers[] entries that were
-rebound by CPU 1 after per-net teardown. Once module unload completes,
-those per-net pointers can still reference static data from the unloaded
-logger backend, and later readers can dereference freed module memory.
-
-The kernel reported:
-
-  BUG: unable to handle page fault for address: fffffbfff806d2f4
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:nf_log_proc_dostring+0x2aa/0x4d0
-  Call Trace:
-   proc_sys_call_handler+0x325/0x540
-   vfs_read+0x6e1/0xa20
-   ksys_read+0xf7/0x1c0
-   do_syscall_64+0xf9/0x520
-  Modules linked in: [last unloaded: nf_log_syslog]
-
-Fix this by clearing matching per-net logger selections in every live
-network namespace while holding nf_log_mutex after removing the global
-registrations. Writers that run before this pass are covered by the
-per-net clears, and writes that run later can no longer find the logger
-in loggers[][]. The existing synchronize_rcu() then covers readers of
-both the global and per-net pointers before module memory is released.
-
-Fixes: 5b023fc8d8e0 ("netfilter: enable per netns support for nf_loggers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- net/netfilter/nf_log.c | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
-
-diff --git a/net/netfilter/nf_log.c b/net/netfilter/nf_log.c
-index f4d80654dfe6..442c69f544a1 100644
---- a/net/netfilter/nf_log.c
-+++ b/net/netfilter/nf_log.c
-@@ -42,6 +42,18 @@ static struct nf_logger *__find_logger(int pf, const char *str_logger)
- 	return NULL;
- }
- 
-+static void __nf_log_unset(struct net *net, const struct nf_logger *logger)
-+{
-+	const struct nf_logger *log;
-+	int i;
-+
-+	for (i = 0; i < NFPROTO_NUMPROTO; i++) {
-+		log = nft_log_dereference(net->nf.nf_loggers[i]);
-+		if (log == logger)
-+			RCU_INIT_POINTER(net->nf.nf_loggers[i], NULL);
-+	}
-+}
-+
- int nf_log_set(struct net *net, u_int8_t pf, const struct nf_logger *logger)
- {
- 	const struct nf_logger *log;
-@@ -62,15 +74,8 @@ EXPORT_SYMBOL(nf_log_set);
- 
- void nf_log_unset(struct net *net, const struct nf_logger *logger)
- {
--	int i;
--	const struct nf_logger *log;
--
- 	mutex_lock(&nf_log_mutex);
--	for (i = 0; i < NFPROTO_NUMPROTO; i++) {
--		log = nft_log_dereference(net->nf.nf_loggers[i]);
--		if (log == logger)
--			RCU_INIT_POINTER(net->nf.nf_loggers[i], NULL);
--	}
-+	__nf_log_unset(net, logger);
- 	mutex_unlock(&nf_log_mutex);
- }
- EXPORT_SYMBOL(nf_log_unset);
-@@ -112,6 +117,7 @@ EXPORT_SYMBOL(nf_log_register);
- void nf_log_unregister(struct nf_logger *logger)
- {
- 	const struct nf_logger *log;
-+	struct net *net;
- 	int i;
- 
- 	mutex_lock(&nf_log_mutex);
-@@ -120,6 +126,10 @@ void nf_log_unregister(struct nf_logger *logger)
- 		if (log == logger)
- 			RCU_INIT_POINTER(loggers[i][logger->type], NULL);
- 	}
-+	rcu_read_lock();
-+	for_each_net_rcu(net)
-+		__nf_log_unset(net, logger);
-+	rcu_read_unlock();
- 	mutex_unlock(&nf_log_mutex);
- 	synchronize_rcu();
- }
--- 
-2.43.0
+--
+Cheers, Lorenzo
