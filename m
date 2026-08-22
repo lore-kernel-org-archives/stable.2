@@ -1,79 +1,84 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA947080D
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 16:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F05E339361
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 16:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787417038; cv=none; b=dPpRh8S95I396jZAKF4VgudqNQFZAQo0G//uO77RElRFvfEqqwDFl3ztzvB7TaAR/IHpytNekw6Hm2weDLKZh8Asz874zwmjdl2Eyu2sLfB+qtQXPFsmh//jb14Y6UjdbYfNbwwMXnL1C8TZ3wTROZIDfxf7s3ny82T/hKYAWg0=
+	t=1787417171; cv=none; b=ROTZyxQdJeX8MX8UBXM8YCeuSzioW3c7dEmUKi8kKi4h0TVa6zqBibGptgI28Ti6MVkRe1VhIJ0+J/MBt46FArzoRizc068Z/1f2VqllPwlBec5+Sqa5rLjiN1tZLI9nP/ji6ToNClrogjnw3VP6i0UBBjo9LsZOGsukiziglZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787417038; c=relaxed/simple;
-	bh=mwQAzqbsY34MJJJ//jyRmVtC88MoO19pi+kZvnQm+bw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YwHCRdoJUS7fF+yuKWOwogm1GK+CzMfgXFsPuLPWoB8FZxrzrRGhgcd3+ojn/WDHC1vgqHbgAvUMrvrw1lTUBivAJLBLdF+MeggoTOvoHwQblCV7WjvsHQA95smkR550PETfcVqskbjL8IR8nqpPTos3JHpnOrTJ3Mr7d5krSwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BKSGbup5; arc=none smtp.client-ip=209.85.216.44
+	s=arc-20240116; t=1787417171; c=relaxed/simple;
+	bh=RZnSBXG7H5IfVESK5dV+papTZf4bB2+5pFdMF6y80Cc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bf+l2iofdgzq9WYpk+ZZAE8cKaqBrXtHT/NISuUGBpeGzSrV+mr+ipx4z3XK6kSzZSXVYbK48kdS3qGBihoyv14rUEM//2aMC1NeILs/8J4YghIF5eA7As36Tl9gszGzXZe2lG8UWymatUEvxOmJuM/Il2/rMTf/amBUji4LoTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o50PTwrJ; arc=none smtp.client-ip=209.85.215.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BKSGbup5"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-384c94c9423so226350a91.2
-        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 09:43:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o50PTwrJ"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cbe4c537ad6so239582a12.0
+        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 09:46:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787417034; x=1788021834; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787417165; x=1788021965; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QqQxHcVBopXEQ06zq5Skt24LbTPkQa3qzjdve2v5WwY=;
-        b=BKSGbup5VgXRKacbKtm4fajZg+qXV8xw79abf67R6tZehbRksAP1JTLJuejQhjJqmY
-         5muyjXzgpAEfo86gRamCsNtC7ldeNmL1NDIzY6vYIths5rt9w9fLRZLFVkZMmF1iDWKs
-         a8dKU/+3ubFFgrzSh3ugTSAXS7Z060Q89ibH4dT7GgAyTsrbXnNZt2CuRW9Kx8J8EnGa
-         u5iP6XKtBsO3Pd3lhKOVlMM0qyJSX6KSJo+9MAtX6FUktMOa2gc3ns5MJcsgaMPzaA9d
-         5vZcVoqhKXrTW7hauH7hB7EEXRT3wJh0rnmdyBD4Hp+e4aplrY/P0vNh1FHkkZPtUc02
-         yjTg==
+        bh=zxjo65j0/PC8LNmS95fdZuou6hT1feMI3IHbQQyBjIE=;
+        b=o50PTwrJBuwau13sNGF5h4O3fMo5o27/5Sy3+pjsyIesNKORDx6wwWGX0kKBL83BrD
+         BsYaVVmDe0VuuL2boO8nOBgHnqTnEdua0MNVB3TzccDP0QAuj+qPb7Xrje2h+HJS0ZLv
+         ofHR9qgWj564C/ap9pb13IqRfveb0K4H+d3xJ0sE1VMiE1y8Xre3g5ObJjvhjac7IqHZ
+         dk240TvBQjk2PUZNlz97PlBdO3qF4kAFNJIGmWLpyeZMkoaxJ5gf2qbX7HaNVEJhiJIu
+         Qot6JYoE6473NJg8I+1091cFGPiL1fDaz/Pt81NyEO0VKIE+zJqapI5Mxis4pT9IJwH4
+         5iCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787417034; x=1788021834;
+        d=1e100.net; s=20251104; t=1787417165; x=1788021965;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QqQxHcVBopXEQ06zq5Skt24LbTPkQa3qzjdve2v5WwY=;
-        b=qj2iVBcic8RbnbGaMU3K4rw1xrq3Vmnku0WzjZ7BhdWCUgc5JYgboix7G7ge1t6sl+
-         QpZpaNEAWwm32MTc+2+B/kFSkMeJZiU6hIITWCodmUlrhGE9n+sgRkutvSZV5SZKG2Z3
-         I6ZHLSwAPN/5yTYoeu78IQWAO+Q7iQYT5IZF2iGCdaaICoxu1mkVN97j5t280SN+o4Xe
-         /Jj6rNjE1asenvADR6E1GJ5VsQ42uG85EwFwo7BSpYICsDIsv3QQF9fCuq0PQRc/I8la
-         mPYqliqcdY/f67mrxpE31XcfCYQzGnv2oigOmTHrI3lCGK25YVyrEIW72Aq2xZPavhvz
-         K3Dw==
-X-Forwarded-Encrypted: i=1; AHgh+RpTHo9SRXWZsQLh0F6uVrAVqmIzZLVNaCMQvYuabu81dwjFyk+fCm/zbOEhp7NtK+FuFwYHtfY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzGBKtyoDklUduqDB73TmHC3LUuzo4C+b6zs9WymlD2sNKeEzB
-	NXsGHl/X8/T/iZe9dVDBZisavjnbkMy7sCouIvmcQqyzws5zII1ZuFBr
-X-Gm-Gg: AR+sD11/ng85wYsit7Wz4jI6JSAd/5tTf9PQP5fIu8c0LQPZqbiqv+5LECycuBuoJaQ
-	X95bDekluIllWRty8ZkVaG8wT/lUJO8sBvNuycIZv/0H6Ta4hi7TCqx3OU5cEiN5wQS4C17RIyW
-	1OtiGfIBSP4akwe6OtbeVHvR+KsHwWj1NpgYb4QBzfkMfJ2nBx531V1r+v9SLJLDma1uUejzZkf
-	FviVfGfdQg2F1mQXYm+IWfE4L7q5xc6h6dH/j18aBwFZXP8nwXoEQezx2un12Q25NUdOOxpdKzU
-	cbnvW6GXswfSW+LhCtjrA5fr2rthMjgW2NDu+8EZQZOWI+zfdI2BXYUOYf2Ai5cvmUVkIJH+yMT
-	RNhEM09EQdGQ9jqqfcAgxHE7xaIkSCBSVOw3mbOfX/vxVYuueHnlS6t9aIwWfcnZniZndLTZGaR
-	xvGGi4C6D0l0Aimpx5WfsRBKpUVn76vw7i1iv6C8/A/+dGxrkhlheFw0V8W9quhQUsnR942oiRK
-	itkADN5I51PSRM7HVizG1fhdh5QGwASBSwL2RpxwRXVGZd8SuOvc44=
-X-Received: by 2002:a17:903:1b65:b0:2d5:3f09:4126 with SMTP id d9443c01a7336-2d64b13195dmr134623425ad.4.1787417033874;
-        Sat, 22 Aug 2026 09:43:53 -0700 (PDT)
+        bh=zxjo65j0/PC8LNmS95fdZuou6hT1feMI3IHbQQyBjIE=;
+        b=PokUedt0WyMngSOyEvzpUmKs2kwtd0fHME6J0fnRnBMQkOYQSF1QmFAcLKGqjXfcli
+         bgy92IgBR89/+lF1U/gbB0Gfe11eV9z8Ln3IfvU0/XIxF4LUyxfisQtS2G82K3CkeNpG
+         CYRsAVmzBnEQKP9E5oWnsBZUDgQiwDpu/O7e5t8YZjAr3onNRYSz4UAij71eaXxcSLuk
+         BfQFlNfrSwEi9HrLkmt3sa4COhLUOjIu9XjxElpdyIDOiSn6VySVG4o9h9nHtQ290EeG
+         B33Y/PGroZKlj6qIWdDfSQ+7JBYX2EGeUeU9UAs5a5gMvlyuUeCY0ZLg5wxo7lvWppBu
+         81VQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrY/72gaksoyMfwt4u+7VvUW+fbggyP48WfsLrPSX27i9l1mHaS4/ZnKUWFdGDqZ6odLILRe2A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEptoEIZFMxOx83fl5dNNXwLwiG3jov3mO/mkFHTy8Bob6CDUC
+	F8coKp52s47vBoQXhrnm02PrgDwi5mlqLb49OLqLSe62bDyRA5M4BWMM
+X-Gm-Gg: AR+sD12latoJ4y83OrlDF7ZO9lDPSeKpOrd0p/zDbn9luQOuYvmb1aWqaoCYBOObmom
+	gD/B8e3vpGOJ008B98Vs+GvdzT4TxYRkmKqctvvnYxeot1VxtSoItMHfdSQYqYTvXGxuJRcXvIP
+	RTSc1UMe45TZMJ+CW4H5MOVgraefr8jL/33rjGKYER3wmHEjYKyjMCYmJ00lBO5n6R1H1I/1LhI
+	w2800tgCW76LVRExtKPKmIwom5O94rjWPusqIkkTzz052c8PmYCJZVTahzBr7Tg02BWeeq4c2fc
+	nJPTGqRPgP15MLtRkF2IOWo/KE5hiutQOMIIhxFrGz0pBn5+J5dz5Zq9iVL7qtiuN2Cv6KWSPSY
+	UBf7TYcNfW0NnZcZpZBSYAJXuoa2qE+t/mkn15EVLa45H/YQP/Wd7U+nD0aZ8adL1fr3HrHCDL5
+	7O1rBwb2i6PjCBpEcUVYOR9j4RbhsbslzYP0XuGyaNFLNrPkPJD21eSFolXs+4F+6W7aSWy9IA5
+	1h67CTKbHSSUSzsP4qzAGObBIpY7ge8jbwpK/VjPBs8Me7SDJ09GEI=
+X-Received: by 2002:a17:903:b43:b0:2d2:a952:2628 with SMTP id d9443c01a7336-2d64b0d7b26mr129424855ad.2.1787417164695;
+        Sat, 22 Aug 2026 09:46:04 -0700 (PDT)
 Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f90c0dd3sm8622622eec.7.2026.08.22.09.43.50
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f9209fafsm15623986eec.23.2026.08.22.09.46.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 09:43:53 -0700 (PDT)
+        Sat, 22 Aug 2026 09:46:04 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Kees Cook <kees@kernel.org>,
+To: Stefan Hajnoczi <stefanha@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Ali Ahmet Memis <ali@iusegentoo.com>,
-	Tim Bird <tim.bird@sony.com>,
-	SeungJu Cheon <suunj1331@gmail.com>,
-	Gustavo Padovan <gustavo.padovan@collabora.co.uk>,
-	Dean Jenkins <Dean_Jenkins@mentor.com>
-Cc: linux-bluetooth@vger.kernel.org,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Asias He <asias@redhat.com>
+Cc: kvm@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: RFCOMM: serialize security confirmation handling
-Date: Sun, 23 Aug 2026 00:43:41 +0800
-Message-ID: <20260822164341.3750491-1-nicoyip.dev@gmail.com>
+Subject: [PATCH net] vsock/virtio: flush works in dependency order
+Date: Sun, 23 Aug 2026 00:45:56 +0800
+Message-ID: <20260822164556.3750959-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -83,83 +88,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rfcomm_security_cfm() looks up a session on session_list and then walks
-its DLC list without holding rfcomm_mutex. Since RFCOMM session teardown
-uses rfcomm_mutex, krfcommd can close and free the same session and DLCs
-concurrently:
+virtio_vsock_remove() stops the virtqueues and then flushes each work
+item before freeing the enclosing virtio_vsock.  The current order does
+not account for dependencies between those items: tx_work may queue
+send_pkt_work, and send_pkt_work may queue rx_work.
 
-  hci_rx_work                    krfcommd
-  -----------                    ---------
-  rfcomm_session_get()
-                                 rfcomm_lock()
-                                 rfcomm_session_close()
-                                   rfcomm_dlc_unlink()
-                                   rfcomm_session_del()
-                                     kfree(s)
-                                 rfcomm_unlock()
-  walk s->dlcs
-
-The callback can then read a freed session list head and touch freed DLCs
-while updating their flags or timers.
-
-Serialize the session lookup and DLC traversal in rfcomm_security_cfm()
-with rfcomm_mutex. This matches the existing RFCOMM session lifetime
-rules and prevents concurrent rfcomm_session_del() / rfcomm_dlc_unlink()
-from tearing the objects down while the callback is using them.
+In particular, send_pkt_work can set restart_rx and release tx_lock.
+The remove path can then stop the queues and flush rx_work before
+send_pkt_work queues it.  Although the later send_pkt_work flush waits
+for that producer to finish, nothing waits for the newly queued rx_work,
+so kfree(vsock) can race with it.
 
 KASAN reported:
 
-  BUG: KASAN: slab-use-after-free in rfcomm_security_cfm+0x41c/0x440
-  Read of size 8 at addr ffff888111fb3960 by task kworker/u17:1/89
-  Workqueue: hci0 hci_rx_work
+  BUG: KASAN: slab-use-after-free in
+  virtio_transport_rx_work+0x487/0x4b0
+  Read of size 8 at addr ffff888114c2b008 by task kworker/1:1/47
+  Workqueue: virtio_vsock virtio_transport_rx_work
   Call Trace:
-   rfcomm_security_cfm+0x41c/0x440
-   hci_encrypt_cfm+0x139/0x590
-   hci_encrypt_change_evt+0x37b/0xc40
-   hci_event_packet+0x71b/0xb20
-   hci_rx_work+0x293/0x730
-  Allocated by task 69:
-   rfcomm_session_add+0x9e/0x2f0
-   rfcomm_run+0x44b/0x41e0
-  Freed by task 69:
+   virtio_transport_rx_work+0x487/0x4b0
+   process_one_work+0x688/0x1120
+   worker_thread+0x45b/0xd10
+  Allocated by task 1:
+   virtio_vsock_probe+0xef/0x6b0
+  Freed by task 84:
    kfree+0x131/0x3c0
-   rfcomm_session_del+0x188/0x220
-   rfcomm_run+0x1985/0x41e0
+   virtio_vsock_remove+0xd1/0x100
 
-Fixes: 08c30aca9e698faddebd34f81e1196295f9dc063 ("Bluetooth: Remove RFCOMM session refcnt")
+Flush the works in producer-to-consumer order.  virtio_vsock_vqs_del()
+has already disabled the queue callbacks and cleared the run flags, so
+after tx_work and send_pkt_work are drained, no source remains that can
+queue rx_work after its flush.
+
+Fixes: 0ea9e1d3a9e3 ("VSOCK: Introduce virtio_transport.ko")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- net/bluetooth/rfcomm/core.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ net/vmw_vsock/virtio_transport.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
-index 9cdfea666a2c..5d150e8623d5 100644
---- a/net/bluetooth/rfcomm/core.c
-+++ b/net/bluetooth/rfcomm/core.c
-@@ -2213,9 +2213,13 @@ static void rfcomm_security_cfm(struct hci_conn *conn, u8 status, u8 encrypt)
+diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+index 96c9fe8d357c..4f9aa9c4c3aa 100644
+--- a/net/vmw_vsock/virtio_transport.c
++++ b/net/vmw_vsock/virtio_transport.c
+@@ -872,10 +872,10 @@ static void virtio_vsock_remove(struct virtio_device *vdev)
+ 	/* Other works can be queued before 'config->del_vqs()', so we flush
+ 	 * all works before to free the vsock object to avoid use after free.
+ 	 */
+-	flush_work(&vsock->rx_work);
+ 	flush_work(&vsock->tx_work);
+ 	flush_work(&vsock->event_work);
+ 	flush_work(&vsock->send_pkt_work);
++	flush_work(&vsock->rx_work);
  
- 	BT_DBG("conn %p status 0x%02x encrypt 0x%02x", conn, status, encrypt);
- 
-+	rfcomm_lock();
-+
- 	s = rfcomm_session_get(&conn->hdev->bdaddr, &conn->dst);
--	if (!s)
-+	if (!s) {
-+		rfcomm_unlock();
- 		return;
-+	}
- 
- 	list_for_each_entry_safe(d, n, &s->dlcs, list) {
- 		if (test_and_clear_bit(RFCOMM_SEC_PENDING, &d->flags)) {
-@@ -2247,6 +2251,8 @@ static void rfcomm_security_cfm(struct hci_conn *conn, u8 status, u8 encrypt)
- 			set_bit(RFCOMM_AUTH_REJECT, &d->flags);
- 	}
- 
-+	rfcomm_unlock();
-+
- 	rfcomm_schedule();
- }
+ 	mutex_unlock(&the_virtio_vsock_mutex);
  
 -- 
 2.43.0
