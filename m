@@ -1,113 +1,178 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from latitanza.investici.org (latitanza.investici.org [185.218.207.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EFC3921F6
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 11:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787397826; cv=pass; b=EZZyce0PtI8GQpsNKEDwtXO0fzR0OZ+Q8c8mXPkIzFxiRzezzQcnBQhoxUHmrHiEMFZMiaeObpbHVeCyOyPhaF32Mof30siNkCcRh4KzR2yeJypgjfllHRecoe2PJ/RXNwH9+ln9g/ROpqgg4Y8IzvVYgdINYpekoizfkGo3ln0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787397826; c=relaxed/simple;
-	bh=KsycAkx9ZIocqaOJ3xoXKL4wv70MFfNTe1zuqSRoU68=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ILHLxBSym02xhtcSkiJR8z+Xe3hadarTb0qQHG+gDmLlBAQIDXlPKuJZbOq8R2UFShITpyBSFJAQE8j9aHCthPYPQ3pC4yp0zL/hsaWSLxKwZzNxuYaaVfC54EKDYhh82dNgVkqTb+UIQgee1ALx8Y/HoNviQMVUH89xl/T3yAU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in; spf=none smtp.mailfrom=rajagiritech.edu.in; dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b=jPpSo4Yz; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=rajagiritech.edu.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B8F49364E;
+	Sat, 22 Aug 2026 11:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.218.207.228
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787398450; cv=none; b=sK8tjeG/qDApBmHXLxfIcprOz8L/ySalNv5PyCoZcmEpPVSHX6HKrW/J6WwHas7xTp2mQY+RbIyrA18mbwIJ9Kt69Rwq9ruvT5KlkFLbzqLr1T8/GY96lo+/yzzdslj6mztAabTsIREQnOkKLdfc9JHMkda/CAXexiXk1IauV6U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787398450; c=relaxed/simple;
+	bh=BeEQDRK5kvzoxQya7wjOGqUv/zUe80AGzaNawRrsI/U=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=N444SSeduKqSncFGf/MQEm2UJPvYKRviCS/4ttao9UsDZmQ43uTk5jL5XAVOOikWpa2vTJ7MCIPch9kZQ5tZV83DSJCQvsUp2qUw/En7l9dTo3IwQ5TolsiYVZyA9QRa+gIBjk9FYg1/6DwE5ym0HpbrAkJhhXd/sceRFWToWpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=g3XcHBIG; arc=none smtp.client-ip=185.218.207.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b="jPpSo4Yz"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15d111ca99so220342666b.0
-        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 04:23:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787397823; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PLgtqUB6CjFytkQmtFOmVgIlQSbi22+I/aGMS131its6zHbnrAfECsDUeAjFbOtQ2w
-         neNIQD0o7Y/Z66KmnmuVJsuvi39LhT1Q7pwYuk58v9c5O9MCa10dX7LaDMzTj4Ikd5H5
-         OPtxQ58xW10S3NUbZlg/GdIBWHCs/vt+UUTJmfpWiX5jiHqh4wgPHsGifCFAgob9E7Rw
-         8yfWNwhoAk+VdR19nk7JrEMnm5zJE8cptzQYF0Psjj3WEWvtHo2gmjAbMpIUJncAL8ND
-         qtpwPOGHUYg2uSULN4n8laJvyyiwe9UoGL4EC1fZkxvBsvlEJVyS1mBCXSwP3ApfL+S1
-         U7iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+oioSyEnPpQforztpGv2/Sue2PGm2iOMt0YGvkfoWek=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=ZQRMI4rItLCOC3bERMfBHgWbQ0Ri0euBMonCsdkcLqrixApy2yylO/VczvvwPlfzPW
-         G/DvS6iH5YZ3ayVXPE4oLEousUdIiSsfEVQTtZicbsk82ZYPP03p6p/MtpNuBOkqTvoZ
-         K0oq2Q6ULAKAUmqfsV5u0yd0X79oUp+2PDtvds8L4i6UVL+J8U/4U++JH+oqdGhqQq74
-         e8ZK0q2BG55437a+bziBBAHcBeQaeTLdwEuWID33fnh3zftkuWjLQZgvgQ+Z1huqMM+r
-         DjIISYtQTrsSs6AJhRtbywYRkVWholOII721OQCKdMDciE2x2vF55HRrzfO7lRj3IsIP
-         UXNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rajagiritech-edu-in.20251104.gappssmtp.com; s=20251104; t=1787397823; x=1788002623; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+oioSyEnPpQforztpGv2/Sue2PGm2iOMt0YGvkfoWek=;
-        b=jPpSo4YzeMk5OaE1u1i1XXSgy/SLbbOh0nNT6n8lQIxqiabbPh3AnUk7ant6YsLw8k
-         b/i98Zv9GBz17XlBay7jcCwF2yFpjSxoyGuIZcgcRXrsrNJZRFaNXbsp51ZXTLx5awRF
-         NbzRfWdOyS3dhbvCcxOwTrmlKEllOr7HMzCrgdlowgYoph1iHoQxR5aGldbHvQwWHhSr
-         kMbBwUC5x/s3rtnI+0ZLKsAZ/pVafLcdvYk5wGh0v9vIJ7pMIdMxxEirJJPdah2rgm6S
-         X2XMigZRBMSeYzGtOqyNWaSpMFqvuL0QOljDM9l0GdwOxWa6AT+s5kmH675ubBrCBlCJ
-         ymKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787397823; x=1788002623;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+oioSyEnPpQforztpGv2/Sue2PGm2iOMt0YGvkfoWek=;
-        b=HQBx7HTo1BmCdzEPDU2zRQKz6WV7vnZdP3ygSfw0dSds0jqH6Nj1BKBJYTXHWNr9TU
-         oUUeqL5p0u3CKMkMJcNbgJHkMLjSyupBGTpJyTqRu/SMk+QtX1m5XEZeIgxQFYFNSpzk
-         cmd9vuUl+iY76tU282npWkwfPrmTZnhc/LKLR+vkhS3WyMyBMPLdB4I1S9jeYFzyZ6LT
-         hUBCMEEBXxsMf9LtnSZ/TkrvzLpHxJyzR9UrXprRoqvb8fWY33e92KwO2N6a5ZNdINgK
-         vD8kmGv99rXCasxIj4SJZOfTx09LrKpVLtIc8+qAr2LQDH1dW9e3Ebz2dHUjDzhOhwO7
-         8n4A==
-X-Gm-Message-State: AFuF++lfTxZj8J8s5ayie0JED3O5TF0rLTDHJNfjw2kkkAc8XUvbRzTe
-	8C9yGbxqte4COoEKlXQXYEBsqoQwtGjYzJbNumprp2icM7Bm0FALTj89SiSsT8B+YBweq1XozgO
-	5lExpwWVnPbC53vOnk4CEvsDQUHwT05wrI5mLwZzPfQ==
-X-Gm-Gg: AR+sD13TmU0Qk05hcClWenChrUvGWIAUglG9ZQIPkGysRz2CLhIvZGH2tlgsmhQuPrZ
-	eRv3oFmhViiV2QHdgIahJ1YbPH96Nrb3kALzqNAszzQinM2k01uQ+9v6iHau7I+NSanN7nBKfYQ
-	brVeSOeVBf7gxHPRT0zd7prk1m4hNZWdctAHZ0egLPcbzBjs2JyT9AOQz5PvobTjwYi9ezVnzvT
-	7OjhEbE+Dc7gyBgponT2t1pk8/W4007/TcISJTlzC/N5+7Cg4c9aieK9BboRk2Ol9jxv5O89aHV
-	bypAC0UsJ663YNMZgLiWtEv5pzVPiA4RWHD2DPy/iqBRVpO+dl1/jhgtlVotbXFaT0XyLX0WxcD
-	vG7gLXw/NJ4HOX1C7sCiUP3d4NMl7hwG1hewhWureUqUlNpSykZww36C8NjLLWlgGbEiDOBNu1N
-	H4wCljHKVFj2pUvvlQZ3nv2v3R
-X-Received: by 2002:a17:907:944b:b0:c20:23fb:bb05 with SMTP id
- a640c23a62f3a-c24926a1cbdmr566541166b.15.1787397823424; Sat, 22 Aug 2026
- 04:23:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="g3XcHBIG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
+	s=stigmate; t=1787398443;
+	bh=GNwyVkbrl/IZdn/NaEk3v2rcVEw/q2TX5VaMaY7Fz6A=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=g3XcHBIGCwsDyRRltTA0CXu6mdQ3t4HGha31MglU1M7NlMpj/jeh0+kFAcIgLu9os
+	 193Cse5ZjVk1d2pXg1/47VABuzinLhWeN43czqHojC4XvKbDwSj6UGUzVv30+mZnhD
+	 RQ3hmNlvcrmak+RJg0vPnvx4j7dPlq/eKzMvi9nc=
+Received: from mx3.investici.org (unknown [127.0.0.1])
+	by latitanza.investici.org (Postfix) with ESMTP id 4hRw6z52rGzGpCY;
+	Sat, 22 Aug 2026 11:34:03 +0000 (UTC)
+Received: by mx3.investici.org (Postfix) id 4hRw6z1sVRzGpCG;
+	Sat, 22 Aug 2026 11:34:03 +0000 (UTC)
+Date: Sat, 22 Aug 2026 12:28:17 +0100
+From: Bradley Morgan <include@grrlz.net>
+To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, mgorman@suse.de
+CC: bsegall@google.com, dietmar.eggemann@arm.com, kees@kernel.org,
+ kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ rostedt@goodmis.org, vschneid@redhat.com, stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_fork=3A_initialize_functi?=
+ =?US-ASCII?Q?on_graph_state_before_copy=5Fexec=5Fstate=28=29?=
+In-Reply-To: <20260822084927.547141-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260822084927.547141-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Message-ID: <E33C59B8-755C-403F-A06C-7B7DE3F81926@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820145244.450574346@linuxfoundation.org>
-In-Reply-To: <20260820145244.450574346@linuxfoundation.org>
-From: Jeffrin Thalakkottoor <jeffrin@rajagiritech.edu.in>
-Date: Sat, 22 Aug 2026 16:53:05 +0530
-X-Gm-Features: AcwNN1WGeBnoYhB_lqBVMGt6wzNqX-2N3ScSbhRcQjjFZWrFEibQEHqoPnk7yQU
-Message-ID: <CAG=yYwk8bW=5u8GUU+m8J9ZJBAAxFoTMHR-+G3WNU0YcN8L34g@mail.gmail.com>
-Subject: Re: [PATCH 7.1 000/228] 7.1.10-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-  hello,
+On 22 August 2026 09:49:27 BST, "Jérémy Jean"
+<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+>dup_task_struct() copies the parent's task_struct, including ret_stack.
+>ftrace_graph_init_task() clears the copied function graph state, but it
+>currently runs after copy_exec_state().
+>
+>For non-CLONE_VM forks, copy_exec_state() allocates a new task_exec_state.
+>If that allocation fails, copy_process() reaches bad_fork_free and
+>free_task() calls ftrace_graph_exit_task(). Since the child still carries
+>the parent's ret_stack pointer, the unwind frees the parent's active
+>function graph return stack. The parent subsequently accesses freed memory
+>from function_graph_enter_regs().
+>
 
- Compiled and booted  7.1.10-rc1 (using qemu-system-x86_64)
-
-No new typical dmesg regressions .
-
-Tested-by: Jeffrin Jose T <jeffrin@rajagiritech.edu.in>
+Wow! Real life use case?
 
 
---
-software engineer
-rajagiri school of engineering and technology
+>KASAN reports:
+>
+>[   22.190920]
+>==================================================================
+>[   22.195899] BUG: KASAN: slab-use-after-free in
+>function_graph_enter_regs+0xa76/0xb90
+>[   22.200747] Write of size 8 at addr ff110000054dc0a8 by task repro/1
+>[   22.205134]
+>[   22.210770] CPU: 0 UID: 0 PID: 1 Comm: repro Not tainted
+>7.2.0-07732-g9328b3b03bdc-dirty #3 PREEMPT(lazy)
+>[   22.212576] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+>1.16.3-debian-1.16.3-2 04/01/2014
+>[   22.213750] Call Trace:
+>[   22.215271]  <TASK>
+>[   22.216242]  ? ftrace_stub_direct_tramp+0x10/0x10
+>[   22.217774]  dump_stack_lvl+0x4e/0x70
+>[   22.220531]  print_report+0x157/0x4b4
+>[   22.223202]  ? fixup_red_left+0x9/0x30
+>[   22.224407]  ? complete_report_info+0x83/0x110
+>[   22.226679]  ? function_graph_enter_regs+0xa76/0xb90
+>[   22.228084]  kasan_report+0xce/0x100
+>[   22.230109]  ? function_graph_enter_regs+0xa76/0xb90
+>[   22.232860]  ? stack_trace_save+0x4/0xd0
+>[   22.234156]  function_graph_enter_regs+0xa76/0xb90
+>[   22.236090]  ? kasan_save_stack+0x30/0x50
+>[   22.237752]  ? __pfx_function_graph_enter_regs+0x10/0x10
+>[   22.238694]  ? ring_buffer_lock_reserve+0x345/0xf80
+>[   22.239628]  ? stack_trace_save+0x4/0xd0
+>[   22.242121]  ? stack_trace_save+0x4/0xd0
+>[   22.243588]  ftrace_graph_func+0xda/0x160
+>[   22.245362]  ? ftrace_stub_direct_tramp+0x10/0x10
+>[   22.246520]  0xffffffffa0000095
+>[   22.250528]  ? stack_trace_save+0x9/0xd0
+>[   22.251757]  ? ring_buffer_unlock_commit+0x11d/0x5c0
+>[   22.253152]  stack_trace_save+0x9/0xd0
+>[   22.254264]  kasan_save_stack+0x30/0x50
+>[   22.273631]  kasan_save_track+0x14/0x30
+>[   22.276763]  kasan_save_free_info+0x3b/0x70
+>[   22.278296]  __kasan_slab_free+0x43/0x70
+>[   22.280157]  kmem_cache_free+0xbf/0x3b0
+>[   22.282963]  ? ftrace_stub_direct_tramp+0x10/0x10
+>[   22.284001]  free_task+0xa2/0x160
+>[   22.285699]  ? ftrace_stub_direct_tramp+0x10/0x10
+>[   22.286752]  copy_process+0x2aae/0x7bc0
+>
+
+I see.
+
+>Initialize the child function graph state immediately after
+>dup_task_struct(), before the first fallible operation.
+>
+>Fixes: 6b1c66c9cca9 ("exec_state: relocate dumpable information")
+
+Ack.
+
+>Cc: stable@vger.kernel.org
+>Assisted-by: Codex:gpt-5
+
+Good, declared AI.
+
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+
+
+>Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>---
+>Changes in v2:
+>- Add the KASAN report excerpt to the commit message.
+>- Add a comment documenting why ftrace_graph_init_task() must run before
+>  fallible initialization.
+>
+>v1: https://lore.kernel.org/all/20260821102207.3626491-2-Jeremy.Jean@oss.cyber.gouv.fr/
+>
+> kernel/fork.c | 7 +++++--
+> 1 file changed, 5 insertions(+), 2 deletions(-)
+>
+>diff --git a/kernel/fork.c b/kernel/fork.c
+>index 1e68404bd773..0d1ad92e2d33 100644
+>--- a/kernel/fork.c
+>+++ b/kernel/fork.c
+>@@ -2139,6 +2139,11 @@ __latent_entropy struct task_struct *copy_process(
+> 	p = dup_task_struct(current, node);
+> 	if (!p)
+> 		goto fork_out;
+>+	/*
+>+	 * Must run before the first fallible op, so error paths never
+>+	 * free the parent's ret_stack.
+>+	 */
+
+Used my suggestion, good.
+
+↓ good fix.
+
+>+	ftrace_graph_init_task(p);
+> 	retval = copy_exec_state(clone_flags, p);
+> 	if (retval)
+> 		goto bad_fork_free;
+>@@ -2165,8 +2170,6 @@ __latent_entropy struct task_struct *copy_process(
+> 	 */
+> 	p->clear_child_tid = (clone_flags & CLONE_CHILD_CLEARTID) ? args->child_tid : NULL;
+> 
+>-	ftrace_graph_init_task(p);
+>-
+> 	rt_mutex_init_task(p);
+> 	raw_spin_lock_init(&p->blocked_lock);
+> 
+>
+
+Thanks!
