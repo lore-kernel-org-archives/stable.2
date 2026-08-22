@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0903515FB;
-	Sat, 22 Aug 2026 20:10:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2DE371889;
+	Sat, 22 Aug 2026 20:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787429460; cv=none; b=spgSlfqah/OOEfRGqSaEwekGMX7of62krMGGMUUp0onmkWs+8BTJ+20GEfwyDCg64IYF6KbHT2QLVy1ywZfvlSWBS7lOICBkOCoNvLrzDbaPVHTw8qB8E0SASt+q88fnFNLI5DmO8FYFNz8EVRkk3Wywk4mLw3SFfRd86u+uR3o=
+	t=1787429461; cv=none; b=q8JGC3UR6kKZIzr59cYrsjiRMXfrN05vD/jV2BZ10oDPlpSoHUlR2MAmwqC4Wsi5eaBIFmkPZCUwmTLfymOyxAF0DkXjRJIulJK170UzAienJEmKq55OshPjMmsQz/WHrk1At52AEQ18fzZyFSH5ZNvya40p+22dJhXmkOThrYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787429460; c=relaxed/simple;
-	bh=5khJHWdcWYIACRK41K3hC600pm5yYsM61DIkK0NeQtk=;
+	s=arc-20240116; t=1787429461; c=relaxed/simple;
+	bh=0R2BMXhX+R9RwwWcjmbOQBJgA6wnoEe1TfkypnUzjfA=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=OqmaVZPiQZArSNlrby6Tmslvme29rP+12tNvkNsJSFdF0aeL4lnwr/RTDmlTYvvXsMuvP9vnTV1zhErKzD1rILE1dthSRAxABmXYnoXzdAsYAZDmcAxL8WgW0+tDXysQIyayc+4Mm0UJ8GHWOedyRgVDG+Ouu1vr/LMM74NS35I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzPAg69A; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=caO3X/2iA/q+Ts5aV9n29V4q/vI9hTNpGpqtoY304d1zA5X1Qe5yRtkGBGgf0qN1qxF7gLi1UVwh7WNDJyZn6JTdTOAPGz54gexAuORdyZi8XDoX8ubWbJtHay3wOIvL2EIgSWPx+9UIvr+2NAHZlV6+Dhvt/5jxDUJO3hRHTag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhmdYvvT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzPAg69A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 531C41F000E9;
-	Sat, 22 Aug 2026 20:10:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhmdYvvT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD54F1F00A3A;
+	Sat, 22 Aug 2026 20:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787429458;
-	bh=L84wfsmH/CALgLVUn56gri7GrPoqM/XZHImyKHDI0uo=;
+	s=k20260515; t=1787429459;
+	bh=/P+ttF8JkD4mftaRqgP45/jEc51+WCm8e6WATTMbhx0=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=VzPAg69AdzgXh0Vhw/RLXyDyLIfvSc/z3UP/o9lh0Kb66T+66hMlITfOvLFEmNg9M
-	 12a07bQ6+wx2CCPfDpMZdpcvwqul8fWuzvtWW7o/s+wFNxRZ7VmQuDElGXiPTPMR8e
-	 xB2HLIxYniLOaGUspjIGGiC7M5Ov5ADorCRmY6p7GUWun9IciE4wQtyt7RoEjrkuBd
-	 OhqbPsX4dx0tvlF2mkNIl9QzKafkj/fo9QhPKo+f+auL5r0i9YI07Nrf6T9QAuBc8J
-	 pihud91TZMEl5lmzzgHELGb6OvbKO/plDJ4AJVUR6RID2Jmf0WRVe4vo6pgc1T0qIY
-	 S3rzgi2pX807Q==
+	b=lhmdYvvTZwgjcNSCfw7NWRHtwyyDQDV+TdtF3w28yrgRdcs4afw5RqRESl1siYgLC
+	 HCSrejvNny7bTPy54Q+nYx5vdEKA/lxGHbrJGHVf8Zb4n+YHu/LrFr/nxuhUm/0aOz
+	 q15XU3thMHWSQjcNZGPuesdt1drafcQPR209x+/+Kn6fm6OZ+39PTvcGbW/ibR1e27
+	 ViZJoHGg1FuUj//3xEGgPpbYFBCn1pkYPnYfbUMGfvBbHffPOahu/50iESJOcd0Tuo
+	 Q92IXCMfeMzRtXZWS/8PQiRRIAEtUDHOcLd/yTgywQGju0o03puPTgeOv9FOwcf+G1
+	 aiw9gyUSuObdg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569C7380CEF9;
-	Sat, 22 Aug 2026 20:10:08 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09C3380CEF9;
+	Sat, 22 Aug 2026 20:10:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,39 +37,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net/sched: account classifier filter allocations to
- memcg
+Subject: Re: [PATCH net] ipip: fix skb leak in collect_md mode when
+ metadata_dst
+ allocation fails
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178742940689.1814690.7978395844526546815.git-patchwork-notify@kernel.org>
-Date: Sat, 22 Aug 2026 20:10:06 +0000
-References: <20260819143733.57538-1-jhs@mojatatu.com>
-In-Reply-To: <20260819143733.57538-1-jhs@mojatatu.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- stable@vger.kernel.org, vega@nebusec.ai, victor@mojatatu.com,
- takis@issaris.org, ast@kernel.org, daniel@iogearbox.net
+ <178742940838.1814690.12298036275271719275.git-patchwork-notify@kernel.org>
+Date: Sat, 22 Aug 2026 20:10:08 +0000
+References: <20260819104338.432631-2-littlesmilingcloud@gmail.com>
+In-Reply-To: <20260819104338.432631-2-littlesmilingcloud@gmail.com>
+To: Anton Danilov <littlesmilingcloud@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
+ idosch@nvidia.com, ast@kernel.org, tgraf@suug.ch, daniel@iogearbox.net,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, 19 Aug 2026 10:37:33 -0400 you wrote:
-> Allocations in the tc classifier *_change() paths (filter objects,
-> per-CPU counters, and per-filter aux data) use plain GFP_KERNEL without
-> __GFP_ACCOUNT, allowing unprivileged users to pin kernel memory outside
-> memcg charging. The shared tcf_exts_init_ex() action array allocation in
-> cls_api.c was also uncharged; this patch closes it along with the
-> per-classifier filter-object/percpu/aux allocations that remain
-> unaccounted.
+On Wed, 19 Aug 2026 13:43:39 +0300 you wrote:
+> In collect_md mode ipip_tunnel_rcv() returns 0 without freeing the skb
+> when ip_tun_rx_dst() fails to allocate the metadata_dst. ipip_rcv() and
+> mplsip_rcv() are registered as xfrm_tunnel handlers, so tunnel4_rcv()
+> and tunnelmpls4_rcv() read the zero return as "the packet has been
+> consumed" and do not free it either. The skb is leaked.
+> 
+> The other tunnel drivers all dispose of the packet at this point:
+> ip6_tunnel.c jumps to its drop label, ip_gre.c and ip6_gre.c return
+> PACKET_REJECT, which makes gre_rcv() free the skb. Only ipip returns 0.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net/sched: account classifier filter allocations to memcg
-    https://git.kernel.org/netdev/net/c/1beb81947eb4
+  - [net] ipip: fix skb leak in collect_md mode when metadata_dst allocation fails
+    https://git.kernel.org/netdev/net/c/6776efe4a52f
 
 You are awesome, thank you!
 -- 
