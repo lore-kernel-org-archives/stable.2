@@ -1,58 +1,58 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352A53932D8
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 09:12:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056ED2F1FED
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 09:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787389977; cv=none; b=MN3T2G7rJImrITkaBezZKL/fg7HkXOstTBqt81bVOh5l5bUQ4DUWlMRj8dZe5abNAZIHqwsvBMN75a6Vt42jltaWWaiq+o3OZIlFpfrDQ5XCGHKPwCZYGUoZKWr8LC1Nafq1qGAWAx7bCiQvEIbiqlWrgOMSsLA/7kmylv7b3qU=
+	t=1787390002; cv=none; b=LiXo1tKuARnRR94WfCzk3JmChWErZMgYljfOBZ8H1TJmOOgQlrrZXxff3A0AcOVGu5Yv0lBO0VvH9z2eVsixy72bDLjuNfEcOc5IdIw5Kw9eJJuvhtuFjDq0uWVCGp8AJxkSh2eSD4sMFmHWnj606h05EDK4jnbjoVP1FDyG0rU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787389977; c=relaxed/simple;
-	bh=mY14hElPEDSPJXcxp7Tw/vjeXRGbNm7nLbq2HqX62Po=;
+	s=arc-20240116; t=1787390002; c=relaxed/simple;
+	bh=x7ii4Qzgpcau6qHESjjMT3rssPKPvGlt/yr5LMwEQHA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dMBiFOCwUjJicgn3cjhKXDXVOT3f0ncykWUaTk3wMDZ52Vg7EqaHXpWTJTmPEADy9iRkbWawpJuef7lsNs4WX+0nQDHTZigUQHnSPRGgThPfX4YCCTgIEa1fR9rqv6+poSmk8tFEiI48f4dEaODdsqSrFRcGd8k6GpBU3iqxDz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MY+Pee4s; arc=none smtp.client-ip=192.198.163.13
+	 MIME-Version; b=pV4I3kdNVol501HQRIg59IB/41rNjuGXUmuXmvc3C5yc0LFXy+nO4InUn09qZFZ1CrG68uB/BeqGBbBxJ37PGuccuFumA1QlZAxYFDeDuJlCfHkmqX3cwCP5fyCsbP6Hwdifta+cvNhgXZhyD3b7FbtwPjWVNoGpFnmRZrCnr50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W91yr/oP; arc=none smtp.client-ip=192.198.163.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MY+Pee4s"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W91yr/oP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787389975; x=1818925975;
+  t=1787390000; x=1818926000;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=mY14hElPEDSPJXcxp7Tw/vjeXRGbNm7nLbq2HqX62Po=;
-  b=MY+Pee4ssGhb5nlRSmpzs7LGzZrI14j+TiRsKro0/HINVbTMMQsjBiDh
-   ONe91E2mslw2u5VvUd9us0uOUgOSAKT4fhvKJTLGFrClyfqZkm9nwxK6A
-   9IOfGUTdHKxTpGy85oT3/UC9ENYInnIp/fhjb+mq/jL7026Rzv3CiZ7pZ
-   FWoRcxphiarT1eUt9+JoCG8nKDrPhIUGbzifeiqXskwJ/PHlNLZOynDFR
-   +yl/6sLrwq/pswNNbRFul0trrI6l6/tYqr/3eNRadYrSDP6+tjyuopMbk
-   Q7BqZBue55XFpJzdIbR2RJpNDq3hqqSnQBWgVaCLKesNEDggdmcvXArdb
-   A==;
-X-CSE-ConnectionGUID: Yd8io7OKRtmMukGUlrPNTA==
-X-CSE-MsgGUID: o2FhBIUUQ9Or/lTjV1QIxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="90438479"
+  bh=x7ii4Qzgpcau6qHESjjMT3rssPKPvGlt/yr5LMwEQHA=;
+  b=W91yr/oPVzvMyJX/yhYOTTE+xqfJ1vqWn2+0UsnVzMoqrxK1JamZcNh5
+   TNhLluf8rynhB/5bMYzjniSXkt2s08HPQaOkUL1md0uFvrc1vgoPL73Jk
+   lK0Wkqee++OZp4+f7TvnW1fL5ErfCvr3i5Rk+a8grKM36AL7U9ekmFM1f
+   QVaJ8znU22P3WaLbG581gubIwf/JEv/5U8sHNg6lIf5fmbeneA1Kk0P16
+   e6DmQf972lPUqswZZISijmUA6YJsnx16/iyLwUqee9UC9jpjcMExrq4UY
+   PJ87hY6Y+UWYwm1KBw0HcDAu4HGEjXVqTVZ17VedNWDk+oLTv89MCz+46
+   Q==;
+X-CSE-ConnectionGUID: /SiTSYMRTaCIt7pcjck4Jw==
+X-CSE-MsgGUID: GMrlWlTsQ5arkLcIuykN4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="90438487"
 X-IronPort-AV: E=Sophos;i="6.25,236,1779174000"; 
-   d="scan'208";a="90438479"
+   d="scan'208";a="90438487"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Aug 2026 02:12:55 -0700
-X-CSE-ConnectionGUID: Zseuke1NTmy561I3pTC+2w==
-X-CSE-MsgGUID: 9QYxVaIoRt+UumJOJbxjXA==
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Aug 2026 02:13:20 -0700
+X-CSE-ConnectionGUID: RzQi63fRTeiivp3qg4LxpQ==
+X-CSE-MsgGUID: Odp7+NP6SqOja4+00mB+0g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,236,1779174000"; 
-   d="scan'208";a="263919065"
+   d="scan'208";a="263919134"
 Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Aug 2026 02:12:53 -0700
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Aug 2026 02:13:18 -0700
 From: Junjie Cao <junjie.cao@intel.com>
 To: stable@vger.kernel.org
 Cc: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 6.1.y] gpio: ml-ioh: use raw_spinlock_t for the register lock
-Date: Sat, 22 Aug 2026 17:12:50 +0800
-Message-ID: <20260822091250.301722-1-junjie.cao@intel.com>
+Subject: [PATCH 5.15.y] gpio: ml-ioh: use raw_spinlock_t for the register lock
+Date: Sat, 22 Aug 2026 17:13:15 +0800
+Message-ID: <20260822091315.301739-1-junjie.cao@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026082011-harddisk-capitol-82ef@gregkh>
-References: <2026082011-harddisk-capitol-82ef@gregkh>
+In-Reply-To: <2026082011-tint-thievish-c622@gregkh>
+References: <2026082011-tint-thievish-c622@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -95,7 +95,7 @@ Signed-off-by: Junjie Cao <junjie.cao@intel.com>
  1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpio/gpio-ml-ioh.c b/drivers/gpio/gpio-ml-ioh.c
-index 48e3768a830e..470994282844 100644
+index efa9acdc320a..83c2fd4f21e5 100644
 --- a/drivers/gpio/gpio-ml-ioh.c
 +++ b/drivers/gpio/gpio-ml-ioh.c
 @@ -84,7 +84,7 @@ struct ioh_gpio {
@@ -115,9 +115,9 @@ index 48e3768a830e..470994282844 100644
 +	raw_spin_lock_irqsave(&chip->spinlock, flags);
  	reg_val = ioread32(&chip->reg->regs[chip->ch].po);
  	if (val)
- 		reg_val |= BIT(nr);
+ 		reg_val |= (1 << nr);
 @@ -103,7 +103,7 @@ static void ioh_gpio_set(struct gpio_chip *gpio, unsigned nr, int val)
- 		reg_val &= ~BIT(nr);
+ 		reg_val &= ~(1 << nr);
  
  	iowrite32(reg_val, &chip->reg->regs[chip->ch].po);
 -	spin_unlock_irqrestore(&chip->spinlock, flags);
@@ -131,11 +131,11 @@ index 48e3768a830e..470994282844 100644
  
 -	spin_lock_irqsave(&chip->spinlock, flags);
 +	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->regs[chip->ch].pm);
- 	pm &= BIT(num_ports[chip->ch]) - 1;
- 	pm |= BIT(nr);
+ 	pm = ioread32(&chip->reg->regs[chip->ch].pm) &
+ 					((1 << num_ports[chip->ch]) - 1);
+ 	pm |= (1 << nr);
 @@ -134,7 +134,7 @@ static int ioh_gpio_direction_output(struct gpio_chip *gpio, unsigned nr,
- 		reg_val &= ~BIT(nr);
+ 		reg_val &= ~(1 << nr);
  	iowrite32(reg_val, &chip->reg->regs[chip->ch].po);
  
 -	spin_unlock_irqrestore(&chip->spinlock, flags);
@@ -149,9 +149,9 @@ index 48e3768a830e..470994282844 100644
  
 -	spin_lock_irqsave(&chip->spinlock, flags);
 +	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->regs[chip->ch].pm);
- 	pm &= BIT(num_ports[chip->ch]) - 1;
- 	pm &= ~BIT(nr);
+ 	pm = ioread32(&chip->reg->regs[chip->ch].pm) &
+ 				((1 << num_ports[chip->ch]) - 1);
+ 	pm &= ~(1 << nr);
  	iowrite32(pm, &chip->reg->regs[chip->ch].pm);
 -	spin_unlock_irqrestore(&chip->spinlock, flags);
 +	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
@@ -183,7 +183,7 @@ index 48e3768a830e..470994282844 100644
 -	spin_lock_irqsave(&chip->spinlock, flags);
 +	raw_spin_lock_irqsave(&chip->spinlock, flags);
  	ien = ioread32(&chip->reg->regs[chip->ch].ien);
- 	ien &= ~BIT(d->irq - chip->irq_base);
+ 	ien &= ~(1 << (d->irq - chip->irq_base));
  	iowrite32(ien, &chip->reg->regs[chip->ch].ien);
 -	spin_unlock_irqrestore(&chip->spinlock, flags);
 +	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
@@ -197,23 +197,23 @@ index 48e3768a830e..470994282844 100644
 -	spin_lock_irqsave(&chip->spinlock, flags);
 +	raw_spin_lock_irqsave(&chip->spinlock, flags);
  	ien = ioread32(&chip->reg->regs[chip->ch].ien);
- 	ien |= BIT(d->irq - chip->irq_base);
+ 	ien |= 1 << (d->irq - chip->irq_base);
  	iowrite32(ien, &chip->reg->regs[chip->ch].ien);
 -	spin_unlock_irqrestore(&chip->spinlock, flags);
 +	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
  }
  
  static irqreturn_t ioh_gpio_handler(int irq, void *dev_id)
-@@ -438,7 +438,7 @@ static int ioh_gpio_probe(struct pci_dev *pdev,
+@@ -439,7 +439,7 @@ static int ioh_gpio_probe(struct pci_dev *pdev,
  		chip->base = base;
  		chip->reg = chip->base;
  		chip->ch = i;
 -		spin_lock_init(&chip->spinlock);
 +		raw_spin_lock_init(&chip->spinlock);
  		ioh_gpio_setup(chip, num_ports[i]);
- 		ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
+ 		ret = gpiochip_add_data(&chip->gpio, chip);
  		if (ret) {
-@@ -482,9 +482,9 @@ static int __maybe_unused ioh_gpio_suspend(struct device *dev)
+@@ -525,9 +525,9 @@ static int __maybe_unused ioh_gpio_suspend(struct device *dev)
  	struct ioh_gpio *chip = dev_get_drvdata(dev);
  	unsigned long flags;
  
@@ -225,7 +225,7 @@ index 48e3768a830e..470994282844 100644
  
  	return 0;
  }
-@@ -494,11 +494,11 @@ static int __maybe_unused ioh_gpio_resume(struct device *dev)
+@@ -537,11 +537,11 @@ static int __maybe_unused ioh_gpio_resume(struct device *dev)
  	struct ioh_gpio *chip = dev_get_drvdata(dev);
  	unsigned long flags;
  
