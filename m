@@ -1,33 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012007.outbound.protection.outlook.com [52.101.53.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6AC7363C5E;
-	Sat, 22 Aug 2026 19:14:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787426083; cv=none; b=ZqhH888Kf8DsmngoRt0DzDq/+6XjT8sWaaIY2lzzaiD5loLUeLB8FLRSi4ICsWcoQQkkt5NoeRSE1FmlYYTPJ4oWbr8e1s9MoFaWaQjRqE65mhLoOq3u2IY0Ghdtx+VqVe1o230milAjpFpwdsL8u6U2cHkg5wGrPAVxdhflick=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787426083; c=relaxed/simple;
-	bh=p97ofeXu3cJL9HMeC0WK95ngz7z/l0sxVqXEkU2VVag=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g/o9sy1e+M/XRsiwMlF3qe8I+zchkBwl1ta8fOPgFtFwWa6YH4Lcl2bT0/8tMJXwliIN+hUejSSNEgK9Byzwmas1aNnDEoGT/mgwS/INVLr/IJyQPyZyVl9zGn/x74IiPeFjRr8LW0QIv4/8SE+BM6j0LrdQPe3+0vWjJbb7gl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHhD3My+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A5914A4CC;
+	Sat, 22 Aug 2026 19:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787426544; cv=fail; b=dtzGoIcqUB5Voaquu01Cu6MA6tLZKm2Tkg1yBUEcfLwUxqZKR7BUO8KHyvSr3AEgYSfX0oZkGapSiPBIfeqNgkxHj5EE+GlgZKsiLhQCAnwScwaSN2xi9aN39NYvlVqAvmxYQZkSQPfJLWP5e0a23Bik1Z5bERPbJWU+VD+DE8U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787426544; c=relaxed/simple;
+	bh=hlsyf3j+P7lpKw+7pYO4vG8Yav4CqXH1vos11c5536U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=QDvVvrh2r6bZyDZOQJG3qNUsyOMtEuk4hKIgc1hojHFk0NoPhlWSU7PGcgj/UMWNUdiMHgVmwpjNQXb1j98oHyMNwkuWIyFWtBt0LyvFVuT+TnM+euqPM6zgcS2WreRAOG464WMV9sxLlF4l3lOxPgSWlzCld6w8LnM16X5TZqc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Hir9uj5S; arc=fail smtp.client-ip=52.101.53.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHhD3My+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7251F000E9;
-	Sat, 22 Aug 2026 19:14:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787426081;
-	bh=Ea6Z/PmroI0x87AWLnDQmNurQhRxmSEuWDOruKz5qfc=;
-	h=From:Date:Subject:To:Cc;
-	b=SHhD3My+ZVsezLwvxqor0U5e91ykfaJWAQh9AeQ94LS8NdjMzixJIfrPBqvoIVK6o
-	 P3ugDRGnjz/w7tp8P6lsKlGLS7OMXStIW8mLqtB3rPF5DunKkalB6qNDY/dhXsxhgg
-	 VJ8uhFE9Zs6tp4VM1etrm6fVqFu0Uun9uQQHSBwtodS0QmbawPLV5ZRH3l113/90zJ
-	 YkzDvSY8RHeNcEqVGXTx8A0iKQ1JNWGLEXG4c+TBI786/utdsW0mdz8Dhxy8ChgNOQ
-	 YdvEkPjXDIdWEo3qcgNfeNmMiBu0eqKluzJOXKX+txPjDml8/ddGulU5IHdqQsJ8wo
-	 K0zNej4LM+1bQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 22 Aug 2026 20:14:02 +0100
-Subject: [PATCH v2] mm/secretmem: properly account locked pages
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Hir9uj5S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wp2nUSXwYFba6JgagodDGNsf7Kk/UT5qrQbHpVIlkqCZK1QmzcZKako/lo8zohVESYtc6n1gCYi1sA12cjYQRJ4jayennEd2OC3MOqYEd2+4JRmU3iXU/cthwA8LmxreZgwVb/kAGUeBrQ5bkCfwMHaJsoa3s1mSuNVBqbuDALOb93I22VhH2QtCwzv9g0LmhYyBYmioSnbLBm+riDZf89C8fblveQ2ZxpEXnfEh+tflG8tIyacmZHNX7Cv1m3qlbAVwr7RTlr8q9PR7KcijyGdsoqFlXDlpCEtn3OA4O2IjpyZQrODNJmrnitRoZ5OgAieyp3PG+tAmSB9fe28Axg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CFClWmvBuJa5Sezv2T9fA3JCEBXS8r5KDnUdwthY8mY=;
+ b=MmbPyrvdB0TEsFnsc/MfNQWxaENuoBxXFJoX8vPRmd6KL7PTV0Ta9A4zeBzOpSEzNkBRY40tWesKgQ8AXasZTzBfnWHeqoANSgIK9Fgpi8NcBmMfOPLCNuXyReSSNAWU+YG0uEKXXRjNrWiBEShQCLhDHG1mbFhT24+/NzecD/n6JHVo7xziOVWFG+lnZclGWA4lnUTTmbGvEVSFoGZFyBJvnrnkl9Lqnk8ABUQvvG0EoGP27kPeoZpbcMaFPgNpQ/3n2zZ31wc7HjxFkeG6JsQfktPxt31dDj+PKtF0O+iHVNdoJPQwGhMn/eLMnwpbQs0STxHf6mgV2w4G6gSI9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CFClWmvBuJa5Sezv2T9fA3JCEBXS8r5KDnUdwthY8mY=;
+ b=Hir9uj5SViwYM3fd1bbOUrhRHidb4DRGHJhzOKAepBaJGJiJiOcIX9/l18CMOJA0IShvGQwr+x65TuMLK22pwoyIcAirm0ntH+72MrjRSvHz0hHIWmyR6jTCmNZNyQHIpgx7wjOZuR4TNxFz6SBgrgGqfDLiojseLNvwDluDJvY=
+Received: from SJ0PR03CA0286.namprd03.prod.outlook.com (2603:10b6:a03:39e::21)
+ by SN7PR12MB6744.namprd12.prod.outlook.com (2603:10b6:806:26c::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Sat, 22 Aug
+ 2026 19:22:18 +0000
+Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::a2) by SJ0PR03CA0286.outlook.office365.com
+ (2603:10b6:a03:39e::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Sat,
+ 22 Aug 2026 19:22:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Sat, 22 Aug 2026 19:22:18 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 22 Aug
+ 2026 14:22:15 -0500
+From: Shivank Garg <shivankg@amd.com>
+Date: Sat, 22 Aug 2026 19:22:03 +0000
+Subject: [PATCH v5 1/4] dmaengine: add dma_device_get() helper
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,538 +66,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAPn0iWoC/4WNQQ6CMBBFr0JmbQ1tmgKuvIdhUcoAo9KaaSEaw
- t0FPIDLl7z//gIRmTDCJVuAcaZIwW+gThm4wfoeBbUbg8qVyUupRUTHmEYchXUuTD6R74VtjdX
- aqKqRFWzTF2NH7yN7q38cp+aOLu2t3RgopsCf43eWu/fnYpZCilZ1pTNFUZV5c30ge3yeA/dQr
- +v6BaXuPfjLAAAA
-X-Change-ID: 20260814-secretmem-accounting-ad6a44629b19
-To: ljs@kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org, 
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Shuah Khan <shuah@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Hagen Paul Pfeifer <hagen@jauu.net>, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, 
- bpf@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15483; i=ljs@kernel.org;
- h=from:subject:message-id; bh=p97ofeXu3cJL9HMeC0WK95ngz7z/l0sxVqXEkU2VVag=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI6v/LoNZ4oeit6yFWzOUYp1GHdaX2VXNU+a2c209Cgy
- wvOTP/aUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgInYzmT476i+eYrQzbapzOmv
- v2j3rvtcJKxe//n1dW47xa7HmVsyVjH8lStP2xO642xq3sX3kXEG05q8FitzaB8se1T9Ivfampf
- 5fAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-ID: <20260822-dmaengine-kref-fix-v5-1-d4a4ee47d927@amd.com>
+References: <20260822-dmaengine-kref-fix-v5-0-d4a4ee47d927@amd.com>
+In-Reply-To: <20260822-dmaengine-kref-fix-v5-0-d4a4ee47d927@amd.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, "Logan
+ Gunthorpe" <logang@deltatee.com>, Andrew Morton <akpm@linux-foundation.org>
+CC: <stable@vger.kernel.org>, <dmaengine@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Shivank Garg <shivankg@amd.com>, Frank Li
+	<Frank.Li@nxp.com>
+X-Mailer: b4 0.15-dev-47d62
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787426532; l=1311;
+ i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
+ bh=hlsyf3j+P7lpKw+7pYO4vG8Yav4CqXH1vos11c5536U=;
+ b=CsWPKRnfc9176OGGbUjskMHIt3ugwbexP9J50FJNvy/rzUS7mR/z4Jzln0XvjlLdnN4YfenjX
+ NbOstzER8iRA2rdkuKqBxCu2VBgtBY3HFrtIzdpeqQu4SpI34rBqulp
+X-Developer-Key: i=shivankg@amd.com; a=ed25519;
+ pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|SN7PR12MB6744:EE_
+X-MS-Office365-Filtering-Correlation-Id: 235eccb7-6cad-48fe-9c2b-08df0082ae60
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|18002099003|22082099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	G/iZP4JsJn4gic4FH99zY1ZpCsJaK2Q3K9boQTj0AMix7diYyLP0OJ9p51Qp8ObAXzBULjiTk/sPCDHHsXcTkJfSq5ZxghecMwJ/nqAGrEPQoM/qrrwfzCFvdMXFMQjzWjEE/s5Vpbt5OsEIBECo/iW7uro6oE1AAz6IJUKw5OTC/ViOFDcqwgFHSwXCPZBb0vl8a5pDQHYWO/azolkeq1H0mJu3QSqbxsUKnHkY+gFXxISu6hbLQ7BuvPGXVpsH8BRFVtqzog38U743syPN5Cw2YbQkB/LNCmsCDN4G7zIO1vESIuxfgji21T3/NK710oJSuXeu23wORPZkPiHbV6k+PkdkVXIjBNzs0dMoE3YkvcZswFVWI570cHjn0sIWaPgsouvxEU5BB7wBAWI5solAVLnvkEH1x5u37X5o6SvxM6Y33p7U+j4C60wOyLCPL23FGMo0Ez+cC/OabYiaiJSpaH9G+ufXriG4zrBw4PtXaiGod7s2GyfklQPd56eljPE4DHAeCmfrZuyFWaiG/7f2Qsvehw1aovU8ivn3Zp5Z2KzzSJO58Giyzv0x4qEQaybm+z+C/pW6wIFugh1mbCfwb8+YRbcOFMvZ5R4GJ3FU49+Z8bIQcP/UjUio3wA3aCZY5RBmgiRhl/IokSEJrCXYeK2iuTBtQ7bo0ohXcQrqJ4gQCc4HSHVQAXJ5cwNQjxGpulD1XfJLcnbjh2b7WA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	XbuKqlpC0Zsrn7KUYjEd77w8VpRwmPsK7TptZl02MCV3IYaVvTY1i3Q3g8w31J3WSybpegIoKe7y3Ip+LLcgd22WiSivcOemO3kYrl7fioXX3lx90amcApClcytYfHYeWL29y106bYivQoYreNsSp84kUj8+yv1N6uthCC9wF3ndZAooRq65TsIFc/gddicVNXIOtNzyxQDRbPDJ+O+4aZ1yuQ6SdsTeJVsrLzxZosBnWOsD3cWFljPRks7wQj65T/sxq6j7FwaV1a2Z3tTLfb67MFnl7TSUNmKhs2lChf8pFP/IrN8Jd5ghhG17xGelH1FRpF1Rvxfph7SGU7Ti4jNN46K51In8BulAwul7ShX9CEJzsx4N++IpcuPOyv0rEnjSD1KQqb49r+az3u5g6J4hMCex1MdTv6U5aOkVw3GGCOJCrBycXURPXP/hxs2P
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2026 19:22:18.0505
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 235eccb7-6cad-48fe-9c2b-08df0082ae60
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE19.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6744
 
-secretmem has a relatively laissez-faire attitude to accounting the folios
-it allocates.
+Add dma_device_get() helper to match dma_device_put() to make code
+symmetric. It wraps open-coded kref_get_unless_zero() and asserts that
+dma_list_mutex is held, matching its put counterpart.
 
-The intention is that the memory is treated as if it were mlock()'d and
-thus is limited by the RLIMIT_MEMLOCK limit if the CAP_IPC_LOCK capability
-is not in place (which broadly allows unlimited ranges of mlock()'d
-memory).
+No functional change intended.
 
-The lifecycle for memfd accounting against this limit is - account on map,
-unaccount on unmap but the lifecycle of memfd folios is allocate on fault,
-deallocate on inode eviction.
-
-This mismatch is problematic because the folios are unevictable and remain
-so until the inode is evicted (set using mapping_set_unevictable()).
-
-This is problematic as it eliminates usual mlock() semantics - mapping
-folios then unmapping them does not clear their unevictable state, since it
-depends on AS_UNEVICTABLE, not PG_mlocked.
-
-A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
-map then unmap and VmLck no longer counts the secretmem range (or more
-involved - fork which also achieves the same thing).
-
-Worse - they are not accounted in the process's RSS even if mapped again,
-meaning the OOM killer won't know to kill the process.
-
-A user without the CAP_IPC_LOCK capability can therefore repeatedly
-map/unmap (or map/fork) and consume all available system memory with
-unevictable folios and cause system instability.
-
-A secretmem fd can be passed between processes and over fork so a
-per-process limit simply does not make sense.
-
-So follow the precedent set by io_uring, perf, skbuff, iommufd and xdp -
-track the number of locked pages in user_struct->locked_vm.
-
-Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
-applies per-user not per-process. Also given the change in scope it doesn't
-make sense to bypass for users with CAP_IPC_LOCK, so remove it.
-
-There is simply no reason to carry on marking the mapping as mlock()'d
-since it's misleading and the lifecycle is now correctly handled, so remove
-this too.
-
-Additionally, fix the selftest which checks the limit as this now must
-assert SIGBUS on limit violation on fault-in.
-
-__secretmem_account_pages() is more or less a duplicate of the code that
-io_uring etc. use, but since this is a bug fix that needs backporting,
-defer any de-duplication efforts to a follow-up.
-
-Reported-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
-Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Suggested-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Signed-off-by: Shivank Garg <shivankg@amd.com>
 ---
-v2:
-- Tried to put the commit message on a diet, as per Mike.
-- Moved secretmem_init_inode_[priv, destroy]() nearer their callers as per
-  Mike.
-- Removed CAP_IPC_LOCK check as per discussion with Mike.
-- Removed redundant GFP_KERNEL in kzalloc_obj() call as per Mike.
-- Updated to consistently use goto err style in secretmem_file_create() as
-  per Mike.
-- Updated test_mlock_limit() to consistently use goto cleanup style as per
-  Mike.
-- Added a comment describing why we are capping the mlock limit in the
-  secretmem tests, as per Mike.
-- Set inode->i_priv to NULL after destroy.
+ drivers/dma/dmaengine.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-v1:
-https://patch.msgid.link/20260814-secretmem-accounting-v1-1-d2f8c677980b@kernel.org
-
-To: Andrew Morton <akpm@linux-foundation.org>
-To: Mike Rapoport <rppt@kernel.org>
-To: David Hildenbrand <david@kernel.org>
-To: "Liam R. Howlett" <liam@infradead.org>
-To: Vlastimil Babka <vbabka@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-To: Michal Hocko <mhocko@suse.com>
-To: Shuah Khan <shuah@kernel.org>
-To: Alexei Starovoitov <ast@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: "David S. Miller" <davem@davemloft.net>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Jesper Dangaard Brouer <hawk@kernel.org>
-To: John Fastabend <john.fastabend@gmail.com>
-To: Stanislav Fomichev <sdf@fomichev.me>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Hagen Paul Pfeifer <hagen@jauu.net>
-Cc: ljs@kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org
-Cc: linux-kselftest@vger.kernel.org
-Cc: netdev@vger.kernel.org
-Cc: bpf@vger.kernel.org
----
- include/linux/sched/user.h                |   3 +-
- mm/secretmem.c                            | 117 +++++++++++++++++++++++++++---
- tools/testing/selftests/mm/memfd_secret.c |  96 ++++++++++++++++++++++--
- 3 files changed, 198 insertions(+), 18 deletions(-)
-
-diff --git a/include/linux/sched/user.h b/include/linux/sched/user.h
-index 4cc52698e214..8d7e5521f7cd 100644
---- a/include/linux/sched/user.h
-+++ b/include/linux/sched/user.h
-@@ -25,7 +25,8 @@ struct user_struct {
- 
- #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
- 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
--	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
-+	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
-+	defined(CONFIG_SECRETMEM)
- 	atomic_long_t locked_vm;
- #endif
- #ifdef CONFIG_WATCH_QUEUE
-diff --git a/mm/secretmem.c b/mm/secretmem.c
-index d29865075b6e..b7c8b2057e81 100644
---- a/mm/secretmem.c
-+++ b/mm/secretmem.c
-@@ -18,6 +18,8 @@
- #include <linux/secretmem.h>
- #include <linux/set_memory.h>
- #include <linux/sched/signal.h>
-+#include <linux/sched/user.h>
-+#include <linux/cred.h>
- 
- #include <uapi/linux/magic.h>
- 
-@@ -47,10 +49,70 @@ bool secretmem_active(void)
- 	return !!atomic_read(&secretmem_users);
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index 9049171df857..cb3b7bccce1f 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -433,6 +433,12 @@ static void dma_device_release(struct kref *ref)
+ 		device->device_release(device);
  }
  
-+struct secretmem_inode_state {
-+	struct user_struct	*user;
-+	atomic_long_t		nr_pages_accounted;
-+};
-+
-+static bool __secretmem_account_pages(struct user_struct *user,
-+		unsigned long nr_pages)
++static int __must_check dma_device_get(struct dma_device *device)
 +{
-+	unsigned long page_limit, cur_pages, new_pages;
-+
-+	if (!nr_pages)
-+		return true;
-+
-+	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
-+
-+	cur_pages = atomic_long_read(&user->locked_vm);
-+	do {
-+		new_pages = cur_pages + nr_pages;
-+		if (new_pages > page_limit)
-+			return false;
-+	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
-+					  &cur_pages, new_pages));
-+	return true;
++	lockdep_assert_held(&dma_list_mutex);
++	return kref_get_unless_zero(&device->ref);
 +}
 +
-+static bool secretmem_account_folio(struct secretmem_inode_state *state,
-+		const struct folio *folio)
-+{
-+	unsigned long nr_pages;
-+
-+	nr_pages = folio_nr_pages(folio);
-+	if (!__secretmem_account_pages(state->user, nr_pages))
-+		return false;
-+
-+	atomic_long_add(nr_pages, &state->nr_pages_accounted);
-+	return true;
-+}
-+
-+static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
-+		unsigned long nr_pages)
-+{
-+	atomic_long_sub(nr_pages, &state->user->locked_vm);
-+	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
-+}
-+
-+static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
-+		struct folio *folio)
-+{
-+	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
-+}
-+
-+static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
-+{
-+	unsigned long nr_pages_accounted;
-+
-+	nr_pages_accounted = atomic_long_read(&state->nr_pages_accounted);
-+	__secretmem_unaccount_pages(state, nr_pages_accounted);
-+}
-+
- static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ static void dma_device_put(struct dma_device *device)
  {
- 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
- 	struct inode *inode = file_inode(vmf->vma->vm_file);
-+	struct secretmem_inode_state *state = inode->i_private;
- 	pgoff_t offset = vmf->pgoff;
- 	gfp_t gfp = vmf->gfp_mask;
- 	unsigned long addr;
-@@ -72,8 +134,15 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- 			goto out;
- 		}
+ 	lockdep_assert_held(&dma_list_mutex);
+@@ -460,8 +466,7 @@ static int dma_chan_get(struct dma_chan *chan)
+ 	if (!try_module_get(owner))
+ 		return -ENODEV;
  
-+		if (!secretmem_account_folio(state, folio)) {
-+			folio_put(folio);
-+			ret = VM_FAULT_SIGBUS;
-+			goto out;
-+		}
-+
- 		err = set_direct_map_invalid_noflush(folio_page(folio, 0));
- 		if (err) {
-+			secretmem_unaccount_folio(state, folio);
- 			folio_put(folio);
- 			ret = vmf_error(err);
- 			goto out;
-@@ -82,6 +151,7 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- 		__folio_mark_uptodate(folio);
- 		err = filemap_add_folio(mapping, folio, offset, gfp);
- 		if (unlikely(err)) {
-+			secretmem_unaccount_folio(state, folio);
- 			/*
- 			 * If a split of large page was required, it
- 			 * already happened when we marked the page invalid
-@@ -112,22 +182,30 @@ static const struct vm_operations_struct secretmem_vm_ops = {
- 	.fault = secretmem_fault,
- };
- 
-+static void secretmem_destroy_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state = inode->i_private;
-+
-+	secretmem_unaccount_all_folios(state);
-+	free_uid(state->user);
-+	kfree(state);
-+	inode->i_private = NULL;
-+}
-+
- static int secretmem_release(struct inode *inode, struct file *file)
- {
- 	atomic_dec(&secretmem_users);
-+	secretmem_destroy_inode_priv(inode);
-+
- 	return 0;
- }
- 
- static int secretmem_mmap_prepare(struct vm_area_desc *desc)
- {
--	const unsigned long len = vma_desc_size(desc);
--
- 	if (!vma_desc_test_any(desc, VMA_SHARED_BIT, VMA_MAYSHARE_BIT))
- 		return -EINVAL;
- 
--	vma_desc_set_flags(desc, VMA_LOCKED_BIT, VMA_DONTDUMP_BIT);
--	if (!mlock_future_ok(desc->mm, /*is_vma_locked=*/ true, len))
--		return -EAGAIN;
-+	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT);
- 	desc->vm_ops = &secretmem_vm_ops;
- 
- 	return 0;
-@@ -187,20 +265,40 @@ static const struct inode_operations secretmem_iops = {
- 
- static struct vfsmount *secretmem_mnt;
- 
-+static int secretmem_init_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	state->user = get_uid(current_user());
-+	inode->i_private = state;
-+	return 0;
-+}
-+
- static struct file *secretmem_file_create(unsigned long flags)
- {
- 	struct file *file;
- 	struct inode *inode;
- 	const char *anon_name = "[secretmem]";
-+	int err;
- 
- 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
- 	if (IS_ERR(inode))
- 		return ERR_CAST(inode);
- 
-+	err = secretmem_init_inode_priv(inode);
-+	if (err)
-+		goto err_free_inode;
-+
- 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
- 				 O_RDWR | O_LARGEFILE, &secretmem_fops);
--	if (IS_ERR(file))
--		goto err_free_inode;
-+	if (IS_ERR(file)) {
-+		err = PTR_ERR(file);
-+		goto err_free_priv;
-+	}
- 
- 	mapping_set_gfp_mask(inode->i_mapping, GFP_USER);
- 	mapping_set_unevictable(inode->i_mapping);
-@@ -215,10 +313,11 @@ static struct file *secretmem_file_create(unsigned long flags)
- 	atomic_inc(&secretmem_users);
- 
- 	return file;
--
-+err_free_priv:
-+	secretmem_destroy_inode_priv(inode);
- err_free_inode:
- 	iput(inode);
--	return file;
-+	return ERR_PTR(err);
- }
- 
- SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
-diff --git a/tools/testing/selftests/mm/memfd_secret.c b/tools/testing/selftests/mm/memfd_secret.c
-index aac4f795c327..26d2a4a527da 100644
---- a/tools/testing/selftests/mm/memfd_secret.c
-+++ b/tools/testing/selftests/mm/memfd_secret.c
-@@ -15,6 +15,8 @@
- #include <sys/resource.h>
- #include <sys/capability.h>
- 
-+#include <setjmp.h>
-+#include <signal.h>
- #include <stdlib.h>
- #include <string.h>
- #include <unistd.h>
-@@ -22,6 +24,8 @@
- #include <stdio.h>
- #include <fcntl.h>
- 
-+#include <sys/mman.h>
-+
- #include "kselftest.h"
- 
- #define fail(fmt, ...) ksft_test_result_fail(fmt, ##__VA_ARGS__)
-@@ -31,6 +35,11 @@
- #ifdef __NR_memfd_secret
- 
- #define PATTERN	0x55
-+/*
-+ * Set 8 MiB as a reasonable mlock limit so users with unlimited or absurdly
-+ * high RLIMIT_MEMLOCK don't cause us to overflow in the tests.
-+ */
-+#define MLOCK_LIMIT_CAP	(8UL << 20)
- 
- static const int prot = PROT_READ | PROT_WRITE;
- static const int mode = MAP_SHARED;
-@@ -39,6 +48,13 @@ static unsigned long page_size;
- static unsigned long mlock_limit_cur;
- static unsigned long mlock_limit_max;
- 
-+static sigjmp_buf fault_env;
-+
-+static void sigbus_handler(int sig)
-+{
-+	siglongjmp(fault_env, 1);
-+}
-+
- static int memfd_secret(unsigned int flags)
- {
- 	return syscall(__NR_memfd_secret, flags);
-@@ -57,10 +73,31 @@ static void test_file_apis(int fd)
- 		pass("file IO is blocked as expected\n");
- }
- 
--static void test_mlock_limit(int fd)
-+/* GUP disallows automatic fault-in of secretmem, so do it manually. */
-+static bool fault_in_secretmem(char *mem, size_t len)
-+{
-+	if (sigsetjmp(fault_env, 1))
-+		return false;
-+	memset(mem, PATTERN, len);
-+	return true;
-+}
-+
-+static void test_mlock_limit(void)
- {
- 	size_t len;
- 	char *mem;
-+	int fd;
-+
-+	/* Locked pages have an inode lifetime, so need a new fd. */
-+	fd = memfd_secret(0);
-+	if (fd < 0) {
-+		fail("memfd_secret failed: %s\n", strerror(errno));
-+		return;
-+	}
-+	if (ftruncate(fd, mlock_limit_max * 2)) {
-+		fail("ftruncate failed: %s\n", strerror(errno));
-+		goto out_close;
-+	}
- 
- 	len = mlock_limit_cur;
- 	if (len % page_size != 0)
-@@ -69,19 +106,50 @@ static void test_mlock_limit(int fd)
- 	mem = mmap(NULL, len, prot, mode, fd, 0);
- 	if (mem == MAP_FAILED) {
- 		fail("unable to mmap secret memory\n");
--		return;
-+		goto out_close;
-+	}
-+
-+	if (!fault_in_secretmem(mem, len)) {
-+		fail("unable to fault in secret memory\n");
-+		goto out;
+-	ret = kref_get_unless_zero(&chan->device->ref);
+-	if (!ret) {
++	if (!dma_device_get(chan->device)) {
+ 		ret = -ENODEV;
+ 		goto module_put_out;
  	}
--	munmap(mem, len);
- 
-+	munmap(mem, len);
- 	len = mlock_limit_max * 2;
- 	mem = mmap(NULL, len, prot, mode, fd, 0);
--	if (mem != MAP_FAILED) {
--		fail("unexpected mlock limit violation\n");
--		munmap(mem, len);
--		return;
-+
-+	if (mem == MAP_FAILED) {
-+		fail("unable to mmap secret memory\n");
-+		goto out_close;
-+	}
-+
-+	if (fault_in_secretmem(mem, len)) {
-+		fail("mlock limit is not respected\n");
-+		goto out;
-+	}
-+
-+	munmap(mem, len);
-+	len = page_size;
-+
-+	/* map a page past the limit to assert inode scope. */
-+
-+	mem = mmap(NULL, page_size, prot, mode, fd,
-+		   mlock_limit_max & ~(page_size - 1));
-+	if (mem == MAP_FAILED) {
-+		fail("unable to mmap secret memory\n");
-+		goto out_close;
-+	}
-+
-+	if (fault_in_secretmem(mem, page_size)) {
-+		fail("mlock limit is not respected\n");
-+		goto out;
- 	}
- 
- 	pass("mlock limit is respected\n");
-+out:
-+	munmap(mem, len);
-+out_close:
-+	close(fd);
- }
- 
- static void test_vmsplice(int fd, const char *desc)
-@@ -292,6 +360,12 @@ static void prepare(void)
- 	if (page_size > mlock_limit_max)
- 		mlock_limit_max = page_size;
- 
-+	/* Clamp huge or unlimited. */
-+	if (mlock_limit_max > MLOCK_LIMIT_CAP)
-+		mlock_limit_max = MLOCK_LIMIT_CAP;
-+	if (mlock_limit_cur > mlock_limit_max)
-+		mlock_limit_cur = mlock_limit_max;
-+
- 	if (set_cap_limits(mlock_limit_max))
- 		ksft_exit_fail_msg("Unable to set mlock limit: %s\n",
- 				   strerror(errno));
-@@ -301,6 +375,7 @@ static void prepare(void)
- 
- int main(int argc, char *argv[])
- {
-+	struct sigaction sa = { .sa_handler = sigbus_handler };
- 	int fd;
- 
- 	prepare();
-@@ -316,10 +391,15 @@ int main(int argc, char *argv[])
- 			ksft_exit_fail_msg("memfd_secret failed: %s\n",
- 					   strerror(errno));
- 	}
-+
-+	sigemptyset(&sa.sa_mask);
-+	if (sigaction(SIGBUS, &sa, NULL))
-+		ksft_exit_fail_msg("Cannot set up SIGBUS handler");
-+
- 	if (ftruncate(fd, page_size))
- 		ksft_exit_fail_msg("ftruncate failed: %s\n", strerror(errno));
- 
--	test_mlock_limit(fd);
-+	test_mlock_limit();
- 	test_file_apis(fd);
- 	/*
- 	 * We have to run the first vmsplice test before any secretmem page was
 
----
-base-commit: e737cebb8de0d38e8f64584a8bbfbcf9176c7537
-change-id: 20260814-secretmem-accounting-ad6a44629b19
-
-Cheers,
 -- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+2.43.0
 
