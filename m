@@ -1,132 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D3D3563CD;
-	Sat, 22 Aug 2026 14:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175AC3F0A81
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 14:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787408804; cv=none; b=QKRPy1hO9yo5qPscUHuP4YyXXg7sZIeafQfDLOzb34CLEnzU55MdGXoSmQ0T94kQHGrVQzWywE29J/YsDkXSy8cVl8s7g4RYD9CjvIkOeDfNycpWdWrp9D9vuFNDtDE9P/4NJOrokw4EsmlsZ2xLksFMAnr9j7FPCIQYu+GXTgo=
+	t=1787409223; cv=none; b=H2m5E47o5pBwSIWIaypoP1UEpIQJGpVn9gL9IZA7nKkqSPilMBWx0pZXv6a3xw+YOCU6BKNRkMCHgaYk942gzAXQHXsJVrlgV54AFeBu7MQBA5+BsUZgHlT3Be2sXZ48IqgidHuvdz+QKqK3YQVgcbUa0AQlH1oq2SAS4u6ZFBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787408804; c=relaxed/simple;
-	bh=js0FkFkqiKp8QwqOs2NW86sBkl9Up9ciGXAN21SCalw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YTEwKLCGvFiigkJ/L3Ai5csiOCizmZaOgIITdKdvmiMTEgKcwwMufqtMIMPSXAPzTvWweZutqGVUQg+11VNP8AhmpqCOUN5Eke/Qxer9EyRIBBcv7R8IneT2324NBBrDL1pdBBP4amwDvidwvZ+hMe91Qi80CtfDkb/JGYFxgT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FuKRZhu3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787409223; c=relaxed/simple;
+	bh=YGXWoJ4LhhhkF7EWbP81eYh61/pNV08G4d7PwdAEWO4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FX2dny99RS7s/yUsOYxO5WI4MtBfvY6l4HYgaB1WXf5B1IcnW9cyi/lqnnTQyc0y08Ac/IPPzqUXi9F2b3GgRJd3iExpiIJAcJFMvxT2JXB0nHT4P8lcJ57UBD6GifruFmmmAHAUSZff88myDroA/ay23IcuF2z48h5INPFL3R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SbfRkvK6; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FuKRZhu3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB771F000E9;
-	Sat, 22 Aug 2026 14:26:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787408793;
-	bh=EZ6C0Isq4P3g9HCeDb2DCK4xJJyRP1XpM/O6f7kjrf0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FuKRZhu3u7sHEKjTJsJSyY192beLDzTRq2ZCTupKepDO7+Pqmz67aqtuhRIdme8fX
-	 goDZEVsdTyzm1PRecpMxydmcOr7Z1k3d8jda7PS/XtOROWbYelZe26m5xwsWl+TMbJ
-	 1bbMfV3KKRpJJQzMz2YOpAyXXRKepZ2IEL6VS3G7eEYs11d/jRE4gBp+PhkqSewbuX
-	 YAsQz1oFUjtgXpkzkVflCU/JZUVNw6Qq3NVCdlIDA7sE8dwYKOzKB13NVaoI3zigVt
-	 qgjhwIXUUT/xU76BkjdMLv+zWx3aZLSeXoXmP8EOWL+Q1r3Ie4GHs7wirI4CC+fNi5
-	 WzYmQYmX+3dLg==
-Date: Sat, 22 Aug 2026 15:26:25 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Jintack Lim <jintack.lim@linaro.org>, Christoffer Dall <christoffer.dall@linaro.org>, 
-	Christoffer Dall <christoffer.dall@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: nv: Fix null ptr deref in
- kvm_nested_s2_unmap() on S2 teardown
-Message-ID: <aomxdiB1gXnUZAz5@gremlin>
-References: <20260812-kvm-arm-nested-virt-fix-v1-0-4ad883f1b6a5@kernel.org>
- <20260812-kvm-arm-nested-virt-fix-v1-2-4ad883f1b6a5@kernel.org>
- <86y0dy4nm3.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SbfRkvK6"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c16794450aeso275251666b.2
+        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 07:33:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787409218; x=1788014018; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/FlxrXjQiw5bnwrdA7FzNpOb5hdE68uhQMeRmlYnIxQ=;
+        b=SbfRkvK6GjbkzxcKu1MzCjYv/ng3EyqKSr4Iqn9crkFP+MynNlhjpI+6Zupsp/EXIV
+         Y/S81JNvSimbru4VDwRnCE8Om6WEOLV2nwaGwI7Jak3lzJuIbwbmCW+HeBHnVlnqHlH0
+         NgczhhZ5Ti+YsmHze6lVxOWkO1L3qls9iXJ6jT5fyz8u5DtLrEE2F2jiCZf23ZI0lMwM
+         AefZsQK8NsUZLW4jT0degFgo05zy3UW8FuYG1O47l5m9n5fadOCvY5IPUqvi8GUCOAf6
+         FgL5Dykm7z6qM4Idr44JuELES+M8Pjp+T5uUWqnhKENS5WErjDTeM22vatAagbjUJBcZ
+         DGVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787409218; x=1788014018;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/FlxrXjQiw5bnwrdA7FzNpOb5hdE68uhQMeRmlYnIxQ=;
+        b=MWJW5MCfrqE8JBn+jjgJGxQ+BV4W8EWJdzzPFyf8p5xGnA/BgHSYuCTS0PdaHU893t
+         oUNZXGG76YmNOk1WDB0ErZkFA6Qir5O1KY9Yg8/s1JphPRAN4q2XjDWaigRL2PNkPfXQ
+         KJn9uzdn0ae8aT2JF3REehS3q7TqSLLgGg4RMGC2Udz1zDrJXncP7Pyep0jgQPIUTo+p
+         oHL621FXqEfPkjRYuEclKPlII4PmJEBbmZzt6i4szE0MHrsO7Mxk7eWhKZIB50ByqmIv
+         BDrNumC9F1ym7kyPq1GK/Qil+73p8Khci7b9bpzSNPfolx7Ap2NHUBMVZrLiR2dp9Ats
+         zNKA==
+X-Forwarded-Encrypted: i=1; AHgh+RrrF0m9oJ0RXrjyi9UJiLHBqEXamedfvGoKGDLLR9G/eHKBzDlXi1HvoQo9uxpW8Ztz1msncLE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk/VQnoP2w9suw/eY0D11JS6bt823SvqD5YTAI0aljjMX1I/9C
+	Ww2QVnNPHOSGS6dKdx74ZQ5wCPSCkIJvdHZu2aRRKg88U1cpFSAjoiT3
+X-Gm-Gg: AR+sD13JbjxyxmlStDi4XvDB5nDCCaD7YqGPIQOOAYZfQQEVMLKQr6sVvJAWZChFWlj
+	hshjX+URiu9bo3iRA75pc/NUWKumAMizU2FI6FB2OCM1cihaKpZTSRYKYq2xv/mCw8PIvTV4YOd
+	dfgQ5FVciaDtGyzRRmmTcZv/UBO2U3A4E26V4cAwMBlJzIepAnEfo/TD2xda+XnC7iAriQJcA2g
+	w979jRzgyKPQt666Z7pyPyqQxBgtTNRljfiVSggny3UMKH+hnfw64JUFf7FZXYXPCavsJDdTXdm
+	1Oj4rzQx3af4rhw6gpe0R0QRVVAW6TdEpOgllyouVUL6R2OE3ry1+zRS28F9fjzvk6fn5pMU6T3
+	DVqWoTjENBP7EYm1OaUvRpPIM3qnPbCtfDsZJhTsM0SGF8dINpncUR873hIRrPVBB0AYmlu/SWw
+	izfVR/nqjf7XWsyjivqVT7wM6jfx6YIorFxxpREiFn5+7nsyNCTnj1MELeUGYmwLRg398n6AJvN
+	tmNEjqVEw1vCRH59fPxo6Qqi6zBue6eTeHzYoBwEyM1MPyYa4YDrmX9ox6Rj9XYm8KhJUi8kXqt
+	IrN/MRxMbaU9J0V6F58HBMrT8MhEQZjkqaNzp9LCGkWLXv35/M9gpJwJxv6JbpXrjEyf1dusTPg
+	YWkw=
+X-Received: by 2002:a17:907:9603:b0:c07:43ed:1b3e with SMTP id a640c23a62f3a-c2469f9a365mr1597208466b.0.1787409217798;
+        Sat, 22 Aug 2026 07:33:37 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a0f5-8c01-3de3-cd62-aa6f-2fb0.310.pool.telefonica.de. [2a02:3100:a0f5:8c01:3de3:cd62:aa6f:2fb0])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24967459aesm326597666b.48.2026.08.22.07.33.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 22 Aug 2026 07:33:37 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Phillip Lougher <phillip@squashfs.org.uk>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] squashfs: fix fragment index table sizing overflow on 32-bit
+Date: Sat, 22 Aug 2026 16:33:27 +0200
+Message-Id: <20260822143328.68867-2-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260822143328.68867-1-kmehltretter@gmail.com>
+References: <20260822143328.68867-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86y0dy4nm3.wl-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 22, 2026 at 08:32:04AM +0100, Marc Zyngier wrote:
-> On Wed, 12 Aug 2026 14:31:21 +0100,
-> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> >
-> > Commit 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU
-> > notifiers") introduced VNCR_EL2 invalidation in kvm_nested_s2_unmap().
-> >
-> > However at the point of this being performed concurrent stage 2 teardown of
-> > a nested guest can cause kvm->arch.mmu.pgt to be set to NULL.
-> >
-> > This happens in kvm_flush_shadow_all() -> kvm_arch_flush_shadow_all() ->
-> > kvm_free_stage2_pgd() and is performed under the kvm->mmu_lock.
-> >
-> > Commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
-> > tables") introduced the teardown of the entire nested MMU range, which then
-> > invokes stage2_apply_range() with resched=true:
-> >
-> > mmu_notifier_invalidate_range_start()
-> >   -> ... -> kvm_mmu_notifier_invalidate_range_start()
-> >     -> kvm_mmu_unmap_gfn_range()
-> >       -> kvm_unmap_gfn_range()
-> >         -> kvm_nested_s2_unmap()
-> >           -> kvm_stage2_unmap_range()
-> >             -> __unmap_stage2_range()
-> >                 -> stage2_apply_range()
-> >
-> > This means that stage2_apply_range() can drop the kvm->mmu_lock and thus
-> > concurrent progress can be made in lockstep with
-> > kvm_arch_flush_shadow_all().
-> >
-> > If kvm_arch_flush_shadow_all() advances ahead of stage2_apply_range() and
-> > completes its operation it guarantees a NULL pointer deref.
-> >
-> > Since kvm_free_stage2_pgd() is performed under the kvm->mmu_lock this will
-> > either be observed NULL or not and serialised against
-> > kvm_free_stage2_pgd().
-> >
-> > Resolve the issue by explicitly checking for a NULL value. Since this
-> > shouldn't be possible if blocking is not allowed, raise a warning if it is
-> > ever NULL in this case.
-> >
-> > Fixes: 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  arch/arm64/kvm/nested.c | 6 +++++-
-> >  1 file changed, 5 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> > index 17123f0b6dab..9fc0b1696dcb 100644
-> > --- a/arch/arm64/kvm/nested.c
-> > +++ b/arch/arm64/kvm/nested.c
-> > @@ -1295,7 +1295,11 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
-> >  			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-> >  	}
-> >
-> > -	kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
-> > +	/* NULL pgt should only be possible if raced when mmu_lock dropped. */
-> > +	if (kvm->arch.mmu.pgt)
-> > +		kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
-> > +	else
-> > +		WARN_ON(!may_block);
->
-> I don't think the WARN_ON() should be here. We already have one at the
-> iterator level, which will fire in the same conditions.
+SQUASHFS_FRAGMENT_BYTES() multiplies the on-disk fragment count (an
+unsigned int) by sizeof(struct squashfs_fragment_entry), a size_t. On
+a 32-bit kernel that product is 32-bit and can wrap.
 
-Ack, was an abundance of caution, will take out on respin.
+squashfs_read_fragment_index_table() sizes the fragment index table
+from it, but squashfs_frag_lookup() bounds the fragment number against
+msblk->fragments, the unwrapped superblock value. The two disagree: an
+image declaring 0x10000001 fragments wraps the product to 16, so a
+single index entry is allocated, yet the lookup still accepts fragment
+0x0fffffff:
 
->
-> Thanks,
->
-> 	M.
->
-> --
-> Without deviation from the norm, progress is not possible.
+	if (fragment >= msblk->fragments)
+		return -EIO;
+	block = SQUASHFS_FRAGMENT_INDEX(fragment);
+	...
+	start_block = le64_to_cpu(msblk->fragment_index[block]);
 
---
-Cheers, Lorenzo
+block is then 524287 and the read lands ~4MB past an 8-byte
+allocation. On a 32-bit build KASAN catches it when the crafted image
+is mounted and the file is stat'd.
+
+Cast to u64 in the macro so the multiplication is 64-bit on all
+targets. After conversion to index-table entries,
+SQUASHFS_FRAGMENT_INDEX_BYTES() is at most 64 MiB for any u32 count,
+so it fits both the unsigned int local and the int argument it feeds.
+64-bit builds are unchanged.
+
+Fixes: ffae2cd73a9e ("Squashfs: header files")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ fs/squashfs/squashfs_fs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/squashfs/squashfs_fs.h b/fs/squashfs/squashfs_fs.h
+index a955d9369749f..93436c7d80c97 100644
+--- a/fs/squashfs/squashfs_fs.h
++++ b/fs/squashfs/squashfs_fs.h
+@@ -136,7 +136,7 @@ static inline int squashfs_block_size(__le32 raw)
+ 
+ /* fragment and fragment table defines */
+ #define SQUASHFS_FRAGMENT_BYTES(A)	\
+-				((A) * sizeof(struct squashfs_fragment_entry))
++			((u64)(A) * sizeof(struct squashfs_fragment_entry))
+ 
+ #define SQUASHFS_FRAGMENT_INDEX(A)	(SQUASHFS_FRAGMENT_BYTES(A) / \
+ 					SQUASHFS_METADATA_SIZE)
+-- 
+2.53.0
