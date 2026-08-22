@@ -1,153 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72821C5799;
-	Sat, 22 Aug 2026 17:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A21196C7C
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 18:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787420837; cv=none; b=rkYbLoPn8ty+a5AtQuu7oUubWUoD/eo4R3TkaJ18PZbeRB+d0kiUs6Me5uxQQG66OIbBraJ21QSUIeUMJdHzkMEK8CeCt2HgIJ7LIxtcKcpxDBJwVgHF8aXd9azdXeeKFyp9I3uYETn62k9BvdbyWo0IVIzmhQ6itzoSrL7zM2Q=
+	t=1787424439; cv=none; b=Ti3gpGFW4s7GIHYk4yazdITOQNaPxzWuPpN9JD3LqnerUWzHzg+W/G7zp8xmlwtggaxUZ3JEJQxdda0pe3GIIIFH2jjqCAyrKKiQfdzzIvtTRKzbdJ94eDd2NAkvnBweNUT1qJNOT/8zeDPZApNnkKbo61tbPn4k2KbYJk9AyPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787420837; c=relaxed/simple;
-	bh=Eb8dLW3qlXvE3hOr7x9ioTlXIH5wQvzQRfxLt2LHvbI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WuBYFLGGQ8ezyNGjPmJZkHZhn1w5xwTOW/D9WsakpcXvq5kXypXc2XVmNKPGeVEhfgT+nAxzRuNMX8Dvt4YP8uUcfpo/H4b2C+12YTWptOwujXEaWgJk6P/a/NAcVj1EFvuT/7nNjMAi2V1kFHnrcpwq3u5qN8MGsZLwKJOl7oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XyaJzhz1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787424439; c=relaxed/simple;
+	bh=5G43uPiVL/j+Dzwm9QTc44uc3K3VaXP56vy3ld8EoOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=igyXz07yluaCuoDTfXptBrJ3Ruj/UHwtENCrxlqVdvponNW5iQldkLgwbMwKX1W9ZMo/h2DwMFwfZ4qNfjXgyF3vR9GmR1KZydHnZDH/PnBMRP6Qa0vM9e3A0y7vmXtBzKPHZm4Xtt93TOssy1P9uzoM5kVwdplyCdnKysEgpDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OfMgf1F+; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XyaJzhz1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D158E1F00A3D;
-	Sat, 22 Aug 2026 17:47:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787420835;
-	bh=EPVp8qZRnMZeXfq+RBn+odqsFRrtbi3iJaeDsI8T0DI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=XyaJzhz1f5ZToAy441FKAL1IE9zcbbdkuRQj1HEkomOe8RT/sac9G+KJOvisADX7b
-	 RgpWqx2xx/bVFwvbKG2jznZllGCspd6lEf73lpJnlF0z9fNI3MIRr6/eGE2+UfHdAG
-	 LEoissisbQ1P1ZCdTFp+XOprFGHmCxRvoNKdxFYv5EHLLW9D4Z74GoWIn+qnzUvXlM
-	 rbiTdnKA/qjJ3i2ePHSh6/vPkR7DguyBWqzrEMLj4YbsMesDOo2dYeNO9rg3aBqb3m
-	 n0qrFY84Y2xnBRwtToqSaYnLkc1flfyEpqSrQ+ks8pRlCGi81vjKomhr/C1w3F5YW3
-	 UxWHsrcl69iAQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 22 Aug 2026 18:46:54 +0100
-Subject: [PATCH v2 2/2] KVM: arm64: nv: Fix null ptr deref on nested
- wp/unmap, teardown race
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OfMgf1F+"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cbedf082ba2so230301a12.1
+        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 11:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787424437; x=1788029237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r6krEZZrAdPiGjprMWBKZfrQRUv9wjYiRrwTo40Vuek=;
+        b=OfMgf1F+Vxyq+yV3XHsyCTTLvHGVdO9N2BEk2bI0Cg/SdKLPaG1cxRuI2tqTWTvXCV
+         Y3SQRzlLUu12A0F8mGV2EFw0H+ibPj2q4JPDAS2u14w7PXHzRl2QXka2LO9uNYoq2fU0
+         nOEb8EJr7lC6PnsAdjhuE/7u/t03Da/tvvJlZD39+Ru/MGF9Znl9zGLVkL3jxyzCCc04
+         DkYV2YtMu6q2hlM9Nf4mKfnE9LN25anbFu2cAa4utOJ1Q66ou8LLvdWrilANCDtX2nKk
+         OajxTqC6tuo3QMfiPKKfvyhi7kiMxybM+FqZaTSzVZBA96ZmnXCrolRKh0KKLWjvrgQQ
+         C4wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787424437; x=1788029237;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r6krEZZrAdPiGjprMWBKZfrQRUv9wjYiRrwTo40Vuek=;
+        b=WtP92WV2lmIHFYNeEMu44XeP9wr6TAKM8HYRkn0JqBx3Vpw+EczSb4y006T8I8/oOp
+         SoxZePj6x0q7LumHND4YsoF9Brfa7LSxLymSUK4K21b4sLzpLMi5kIqI4yi34MEpypst
+         jIh/t0HtKHTX9gN+OcktYuaoQ0uhwJa/0AQIVHfYUkmcfEteH0wEvZDzWKqg8WXVQsTW
+         GZcauImX8DTiDp9z8680YB5uF5Eguc+WyAbbcyvKhqMa5KAXuJTifnG/HrRTSNy0qEg5
+         1iE0gGMrSQvtugKFMLnToI+d660lhtgz1p8M4CHPDXWfG97iDw0N6hxNiqMMPJrotcAY
+         MrVg==
+X-Forwarded-Encrypted: i=1; AHgh+RqZjp9nNf3LI+b5QMBlfpwLgvNneK6gOIDNVG7ZYqEdnp+b/XJl4tVO2aivwjeGD/UaRmqjpuA=@vger.kernel.org
+X-Gm-Message-State: AFuF++meyl9IPZyrCdZxxREkZq0t6SszPuXhnTbiy3stZhTF7eaL2nkD
+	MZQIA94KqD9VrDLdoZZFup/iC7+tlQH/+KbKg09T9lSIChAHXBrE2yllFILUsRxgzzo=
+X-Gm-Gg: AR+sD11sSvP/7/RRuwLzzOd/oS3k2hBP1CnIBWCTluwx3I+L1/HzkDAkCk5/ou6rQ2C
+	OyLRdrJURvB5TTO7vddirNLQQK+0y9EkDHM+qJbJAPcpAWEFK5ibrJ/y+MpPK8H2+/zR72IYVMN
+	te7zw2Q/huNozxJNM2SPaE4g7ZA7COd2cRDZfU+jmsPpLVLb2dgk2wn0LUni7dugYXg1aysnfFc
+	P80p+lJfWx2HsatolYFxws/6/m2DTpBcYiq01TqJ9kce6PyNkOWuErf3uvnQTSWNzhtL5VVvYoC
+	GcTCZhutSQz6r09sJEcyZP0d387Eigf6CJwH0iJqhWoYuNQOb26soVCFRsmAJ9Y7sJyzNH4Lr/x
+	xxPqCBMM8cn1l652WlJ7tmJ+OYBimJu/gEDnMrV9ll4wZqAs6X0pfKscgjReBSUNemTfSsJDzds
+	dEuFdDOLB7Hlgbc0ZayplWt1uMSh3nsIYqmDOpHc4RrbAFzGaZBFjccKmdYep/n3cJ4lgDJSmc5
+	qZ6eioXkSf51JQe/R0rq7VUbI9RQho+TBE9ycUwF3TgnwLFbbsejX0=
+X-Received: by 2002:a17:902:fc4e:b0:2d3:aecd:51f7 with SMTP id d9443c01a7336-2d64ae3a7c7mr135100305ad.1.1787424437214;
+        Sat, 22 Aug 2026 11:47:17 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f9209fafsm16623681eec.23.2026.08.22.11.47.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Aug 2026 11:47:16 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Gao feng <gaofeng@cn.fujitsu.com>
+Cc: netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] netfilter: nf_log: clear per-net loggers on unregister
+Date: Sun, 23 Aug 2026 02:46:58 +0800
+Message-ID: <20260822184658.3787672-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260822-kvm-arm-nested-virt-fix-v2-2-ac4059a0eaa6@kernel.org>
-References: <20260822-kvm-arm-nested-virt-fix-v2-0-ac4059a0eaa6@kernel.org>
-In-Reply-To: <20260822-kvm-arm-nested-virt-fix-v2-0-ac4059a0eaa6@kernel.org>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
- Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Christoffer Dall <christoffer.dall@arm.com>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, 
- Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3164; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Eb8dLW3qlXvE3hOr7x9ioTlXIH5wQvzQRfxLt2LHvbI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLI6H8xKLJm5SaLl/Zsoqad8n5+0vff8f1Pii3R5+MNVp
- +9+uX+7paOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQAT2WXF8M844dTn7q3LLi8R
- v6FaK7fw47NVr9fafpGenzuj0+sex5Z4hv8uTH5TWto0v5gn+/oInstSm/vOYOGlCdKbqvTFfHX
- YSrkB
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-Commit 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU
-notifiers") introduced VNCR_EL2 invalidation in both kvm_nested_s2_unmap()
-and kvm_nested_s2_wp().
+Logger backends unregister their per-network namespace operations before
+unregistering their global logger. This leaves a window where a sysctl or
+netlink writer can rebind a per-net logger after the old per-net
+selection was cleared, but before the global logger registration is
+removed.
 
-However at the point of this being performed concurrent stage 2 teardown of
-a nested guest can cause kvm->arch.mmu.pgt to be set to NULL.
+The race looks like this:
 
-This happens in kvm_flush_shadow_all() -> kvm_arch_flush_shadow_all() ->
-kvm_free_stage2_pgd() and is performed under the kvm->mmu_lock.
+  CPU 0                                 CPU 1
+  ----                                  ----
+  unregister_pernet_subsys()
+    nf_log_unset(net, logger)
+      net->nf.nf_loggers[pf] = NULL
 
-Commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
-tables") introduced the teardown of the entire nested MMU range, which then
-invokes stage2_apply_range() with resched=true:
+                                        lock nf_log_mutex
+                                        find logger in loggers[][]
+                                        net->nf.nf_loggers[pf] = logger
+                                        unlock nf_log_mutex
 
-mmu_notifier_invalidate_range_start()
-  -> ... -> kvm_mmu_notifier_invalidate_range_start()
-    -> kvm_mmu_unmap_gfn_range()
-      -> kvm_unmap_gfn_range()
-        -> kvm_nested_s2_unmap()
-          -> kvm_stage2_unmap_range()
-            -> __unmap_stage2_range()
-                -> stage2_apply_range()
+  nf_log_unregister(logger)
+    lock nf_log_mutex
+    loggers[pf][type] = NULL
+    unlock nf_log_mutex
+    synchronize_rcu()
+  module exit returns
+  module core frees backend memory
 
-This means that stage2_apply_range() can drop the kvm->mmu_lock and thus
-concurrent progress can be made in lockstep with
-kvm_arch_flush_shadow_all().
+Later, a sysctl read or nf_log_packet() reads net->nf.nf_loggers[pf]
+and dereferences the stale logger.
 
-If kvm_arch_flush_shadow_all() advances ahead of stage2_apply_range() and
-completes its operation it guarantees a NULL pointer deref.
+nf_log_unregister() only removes the backend from the global logger
+table. It does not clear matching net->nf.nf_loggers[] entries that were
+rebound by CPU 1 after per-net teardown. Once module unload completes,
+those per-net pointers can still reference static data from the unloaded
+logger backend, and later readers can dereference freed module memory.
 
-Since kvm_free_stage2_pgd() is performed under the kvm->mmu_lock this will
-either be observed NULL or not and serialised against
-kvm_free_stage2_pgd().
+The kernel reported:
 
-Resolve the issue by abstracting the invalidation to a new function,
-kvm_invalidate_vncr_ipa_all(), and check that the pgt is non-NULL before
-dereferencing it.
+  BUG: unable to handle page fault for address: fffffbfff806d2f4
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:nf_log_proc_dostring+0x2aa/0x4d0
+  Call Trace:
+   proc_sys_call_handler+0x325/0x540
+   vfs_read+0x6e1/0xa20
+   ksys_read+0xf7/0x1c0
+   do_syscall_64+0xf9/0x520
+  Modules linked in: [last unloaded: nf_log_syslog]
 
-Fixes: 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
+Fix this by clearing matching per-net logger selections in every live
+network namespace while holding nf_log_mutex after removing the global
+registrations. Writers that run before this pass are covered by the
+per-net clears, and writes that run later can no longer find the logger
+in loggers[][]. The existing synchronize_rcu() then covers readers of
+both the global and per-net pointers before module memory is released.
+
+Fixes: 5b023fc8d8e0 ("netfilter: enable per netns support for nf_loggers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- arch/arm64/kvm/nested.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ net/netfilter/nf_log.c | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 17123f0b6dab..f69722e1592a 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -1260,6 +1260,17 @@ void kvm_handle_s1e2_tlbi(struct kvm_vcpu *vcpu, u32 inst, u64 val)
- 	invalidate_vncr_va(vcpu->kvm, &scope);
+diff --git a/net/netfilter/nf_log.c b/net/netfilter/nf_log.c
+index f4d80654dfe6..442c69f544a1 100644
+--- a/net/netfilter/nf_log.c
++++ b/net/netfilter/nf_log.c
+@@ -42,6 +42,18 @@ static struct nf_logger *__find_logger(int pf, const char *str_logger)
+ 	return NULL;
  }
  
-+static void kvm_invalidate_vncr_ipa_all(struct kvm *kvm)
++static void __nf_log_unset(struct net *net, const struct nf_logger *logger)
 +{
-+	struct kvm_pgtable *pgt = kvm->arch.mmu.pgt;
++	const struct nf_logger *log;
++	int i;
 +
-+	lockdep_assert_held_write(&kvm->mmu_lock);
-+
-+	/* if the mmu lock was dropped, pgt teardown may have raced. */
-+	if (pgt)
-+		kvm_invalidate_vncr_ipa(kvm, 0, BIT(pgt->ia_bits));
++	for (i = 0; i < NFPROTO_NUMPROTO; i++) {
++		log = nft_log_dereference(net->nf.nf_loggers[i]);
++		if (log == logger)
++			RCU_INIT_POINTER(net->nf.nf_loggers[i], NULL);
++	}
 +}
 +
- void kvm_nested_s2_wp(struct kvm *kvm)
+ int nf_log_set(struct net *net, u_int8_t pf, const struct nf_logger *logger)
  {
+ 	const struct nf_logger *log;
+@@ -62,15 +74,8 @@ EXPORT_SYMBOL(nf_log_set);
+ 
+ void nf_log_unset(struct net *net, const struct nf_logger *logger)
+ {
+-	int i;
+-	const struct nf_logger *log;
+-
+ 	mutex_lock(&nf_log_mutex);
+-	for (i = 0; i < NFPROTO_NUMPROTO; i++) {
+-		log = nft_log_dereference(net->nf.nf_loggers[i]);
+-		if (log == logger)
+-			RCU_INIT_POINTER(net->nf.nf_loggers[i], NULL);
+-	}
++	__nf_log_unset(net, logger);
+ 	mutex_unlock(&nf_log_mutex);
+ }
+ EXPORT_SYMBOL(nf_log_unset);
+@@ -112,6 +117,7 @@ EXPORT_SYMBOL(nf_log_register);
+ void nf_log_unregister(struct nf_logger *logger)
+ {
+ 	const struct nf_logger *log;
++	struct net *net;
  	int i;
-@@ -1276,7 +1287,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
- 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
+ 
+ 	mutex_lock(&nf_log_mutex);
+@@ -120,6 +126,10 @@ void nf_log_unregister(struct nf_logger *logger)
+ 		if (log == logger)
+ 			RCU_INIT_POINTER(loggers[i][logger->type], NULL);
  	}
- 
--	kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
-+	kvm_invalidate_vncr_ipa_all(kvm);
++	rcu_read_lock();
++	for_each_net_rcu(net)
++		__nf_log_unset(net, logger);
++	rcu_read_unlock();
+ 	mutex_unlock(&nf_log_mutex);
+ 	synchronize_rcu();
  }
- 
- void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
-@@ -1295,7 +1306,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
- 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
- 	}
- 
--	kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
-+	kvm_invalidate_vncr_ipa_all(kvm);
- }
- 
- void kvm_nested_s2_flush(struct kvm *kvm)
-
 -- 
-2.55.0
-
+2.43.0
