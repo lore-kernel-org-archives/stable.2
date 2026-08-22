@@ -1,178 +1,180 @@
-Received: from latitanza.investici.org (latitanza.investici.org [185.218.207.228])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B8F49364E;
-	Sat, 22 Aug 2026 11:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.218.207.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68B249364E;
+	Sat, 22 Aug 2026 11:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787398450; cv=none; b=sK8tjeG/qDApBmHXLxfIcprOz8L/ySalNv5PyCoZcmEpPVSHX6HKrW/J6WwHas7xTp2mQY+RbIyrA18mbwIJ9Kt69Rwq9ruvT5KlkFLbzqLr1T8/GY96lo+/yzzdslj6mztAabTsIREQnOkKLdfc9JHMkda/CAXexiXk1IauV6U=
+	t=1787398513; cv=none; b=S03rUujJC6ShX504pblwbZ/QbOTCj9WKeBRXIW+wlohzsWq1RKz7dRCgZH7FD6LaOsBFegNOhY6U8EOKD/KdyXmNRNq/tKNbb7q0DgkZneVgE+f5aOZ19/QnCUBUsJRrt2BaeYMAduR7wJhvUYqfUagjYrYqtFjW+Tidie0ZNeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787398450; c=relaxed/simple;
-	bh=BeEQDRK5kvzoxQya7wjOGqUv/zUe80AGzaNawRrsI/U=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=N444SSeduKqSncFGf/MQEm2UJPvYKRviCS/4ttao9UsDZmQ43uTk5jL5XAVOOikWpa2vTJ7MCIPch9kZQ5tZV83DSJCQvsUp2qUw/En7l9dTo3IwQ5TolsiYVZyA9QRa+gIBjk9FYg1/6DwE5ym0HpbrAkJhhXd/sceRFWToWpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=grrlz.net; dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b=g3XcHBIG; arc=none smtp.client-ip=185.218.207.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grrlz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grrlz.net
+	s=arc-20240116; t=1787398513; c=relaxed/simple;
+	bh=Lmv0RBam7gF2jzthrWoAzLPwdTgxPiFyVRoa+sVeICQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uW72s2CcraZ/oZxsSd2G5pr9TwgDKjvuHcgZ5iAfWI4OxmCM09R2+4t/3XFpkU5DAFUJuuSiSrISNabf6sdWK0S/DUmYtXD1cJLK9s9KJZcKGNTrSAQr89OcMcITDoKANTm4ONn7SdfeEmZnEiKhoubcWommIhkRuyjjXaCGO1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=vN0HVntM; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=grrlz.net header.i=@grrlz.net header.b="g3XcHBIG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grrlz.net;
-	s=stigmate; t=1787398443;
-	bh=GNwyVkbrl/IZdn/NaEk3v2rcVEw/q2TX5VaMaY7Fz6A=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=g3XcHBIGCwsDyRRltTA0CXu6mdQ3t4HGha31MglU1M7NlMpj/jeh0+kFAcIgLu9os
-	 193Cse5ZjVk1d2pXg1/47VABuzinLhWeN43czqHojC4XvKbDwSj6UGUzVv30+mZnhD
-	 RQ3hmNlvcrmak+RJg0vPnvx4j7dPlq/eKzMvi9nc=
-Received: from mx3.investici.org (unknown [127.0.0.1])
-	by latitanza.investici.org (Postfix) with ESMTP id 4hRw6z52rGzGpCY;
-	Sat, 22 Aug 2026 11:34:03 +0000 (UTC)
-Received: by mx3.investici.org (Postfix) id 4hRw6z1sVRzGpCG;
-	Sat, 22 Aug 2026 11:34:03 +0000 (UTC)
-Date: Sat, 22 Aug 2026 12:28:17 +0100
-From: Bradley Morgan <include@grrlz.net>
-To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, mgorman@suse.de
-CC: bsegall@google.com, dietmar.eggemann@arm.com, kees@kernel.org,
- kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- rostedt@goodmis.org, vschneid@redhat.com, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_fork=3A_initialize_functi?=
- =?US-ASCII?Q?on_graph_state_before_copy=5Fexec=5Fstate=28=29?=
-In-Reply-To: <20260822084927.547141-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260822084927.547141-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Message-ID: <E33C59B8-755C-403F-A06C-7B7DE3F81926@grrlz.net>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="vN0HVntM"
+Received: by dvalin.narfation.org (Postfix) id 03B081FDD3;
+	Sat, 22 Aug 2026 11:35:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1787398505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WOiom71t1by/uQEF/Udcx0yVbE8LR7SZNYRLdPXyC0w=;
+	b=vN0HVntMQ+37Vkra/uFtyrDuTSrdaGw6U2iiSUA8+VWf0hXZIFzpaBDvFFSA2uOKbGfVec
+	eP968BzuVvCcWxY0g+vJiDz9GuG9DX3Dhy7/g7aPS+6Qi8zRXAcfmu8CPan0OYu8PAXP1M
+	k0d+7RiwmdCjHKoBx1X8ZcetRW53k2w=
+From: Sven Eckelmann <sven@narfation.org>
+To: netdev@vger.kernel.org, Simon Wunderlich <sw@simonwunderlich.de>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ b.a.t.m.a.n@lists.open-mesh.org, stable@vger.kernel.org,
+ Simon Wunderlich <sw@simonwunderlich.de>
+Subject:
+ Re: [PATCH net 6/9] batman-adv: fix TX priority extraction for
+ BATADV_FORW_MCAST
+Date: Sat, 22 Aug 2026 13:34:57 +0200
+Message-ID: <1972590.CQOukoFCf9@sven-desktop>
+In-Reply-To: <20260821094813.201800-7-sw@simonwunderlich.de>
+References:
+ <20260821094813.201800-1-sw@simonwunderlich.de>
+ <20260821094813.201800-7-sw@simonwunderlich.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="nextPart24491166.6Emhk5qWAg";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
 
-On 22 August 2026 09:49:27 BST, "Jérémy Jean"
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->dup_task_struct() copies the parent's task_struct, including ret_stack.
->ftrace_graph_init_task() clears the copied function graph state, but it
->currently runs after copy_exec_state().
->
->For non-CLONE_VM forks, copy_exec_state() allocates a new task_exec_state.
->If that allocation fails, copy_process() reaches bad_fork_free and
->free_task() calls ftrace_graph_exit_task(). Since the child still carries
->the parent's ret_stack pointer, the unwind frees the parent's active
->function graph return stack. The parent subsequently accesses freed memory
->from function_graph_enter_regs().
->
+--nextPart24491166.6Emhk5qWAg
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Sven Eckelmann <sven@narfation.org>
+To: netdev@vger.kernel.org, Simon Wunderlich <sw@simonwunderlich.de>
+Date: Sat, 22 Aug 2026 13:34:57 +0200
+Message-ID: <1972590.CQOukoFCf9@sven-desktop>
+In-Reply-To: <20260821094813.201800-7-sw@simonwunderlich.de>
+MIME-Version: 1.0
 
-Wow! Real life use case?
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260821094813.201800-1=
+=2Dsw%40simonwunderlich.de?part=3D6
+
+[...]
+> > @@ -338,6 +340,9 @@ static netdev_tx_t batadv_interface_tx(struct sk_bu=
+ff *skb,
+> > =20
+> >  send:
+> >  		if (do_bcast && !is_broadcast_ether_addr(ethhdr->h_dest)) {
+> > +			/* WARNING batadv_mcast_forw_mode might add more headers
+> > +			 * in front of the skb. and might even reallocate the skb
+> > +			 */
+> >  			forw_mode =3D batadv_mcast_forw_mode(bat_priv, skb, vid,
+> >  							   &mcast_is_routable);
+>=20
+> Discovered by: opus-5 =C2=B7 Missed by: gpt-5-6-sol, sashiko-gemini =C2=
+=B7 Confirmed by: gpt-5-6-sol
+> This isn't a bug introduced by this patch, but would it make sense to put
+> this warning into the kernel-doc of the callee instead of (or in addition
+> to) the call site?
+>=20
+> Today only batadv_mcast_forw_push() carries the contract in
+> net/batman-adv/multicast_forw.c:
+>=20
+>   * Warning: This function may reallocate the skb data buffer via
+>   * batadv_mcast_forw_expand_head()/... Any pointer into the skb data (e.=
+g.
+>   * obtained from skb->data or eth_hdr()) before this call must be
+>   * considered invalid afterwards and has to be reacquired.
+>=20
+> The two callers=20
+
+What are the two callers? I only find batadv_mcast_forw_mode_by_count()
+
+> in net/batman-adv/multicast.c do not mention it.
+> batadv_mcast_forw_mode_by_count() only says:
+>=20
+>   * For a multicast packet with multiple destination originators, checks =
+which
+>   * mode to use. For BATADV_FORW_MCAST it also encapsulates the packet wi=
+th a
+>   * complete batman-adv multicast header.
+>=20
+> and the exported entry point batadv_mcast_forw_mode() (declared in
+> net/batman-adv/multicast.h) documents only:
+>=20
+>   * Return: The forwarding mode as enum batadv_forw_mode.
+>=20
+> Since batadv_mcast_forw_mode() is the exported symbol, wouldn't a future
+> caller reading its kernel-doc have no way to know that skb->data was push=
+ed
+> or that the buffer may have been reallocated?
+
+Will not modify this patch for this request. Linus (or anyone else) can dea=
+l=20
+with it: https://www.open-mesh.org/issues/466
+
+>=20
+> Related to that: batadv_interface_tx() does not re-acquire ethhdr after
+> batadv_mcast_forw_mode() returns, even though the new comment warns about
+> reallocation. The only later use, is_broadcast_ether_addr(ethhdr->h_dest),
+> is evaluated before the call,=20
+
+The later use is before? This is crazy
+
+> so nothing is dereferenced stale right now.
+> Is it worth re-acquiring it anyway, or noting in the comment that ethhdr
+> must not be used past this point?
+
+Will not modify the patch for this.
+
+>=20
+> >  			switch (forw_mode) {
+>=20
+> [ ... ]
+>=20
+> > @@ -355,8 +360,6 @@ static netdev_tx_t batadv_interface_tx(struct sk_bu=
+ff *skb,
+> >  		}
+> >  	}
+> > =20
+> > -	batadv_skb_set_priority(skb, 0);
+> > -
+> >  	/* ethernet packet should be broadcasted */
+> >  	if (do_bcast) {
+> >  		primary_if =3D batadv_primary_if_get_selected(bat_priv);
+>=20
+> Discovered by: opus-5 =C2=B7 Missed by: gpt-5-6-sol, sashiko-gemini =C2=
+=B7 Confirmed by: gpt-5-6-sol
+> This is a pre-existing issue and not caused by this patch, but while the
+> priority handling is being looked at: should the multicast forwarding path
+> also set skb->priority?
+
+This is a feature (or maybe minor bugfix) request. Will definitely not deal=
+=20
+with it here. Documented it at https://www.open-mesh.org/issues/467
+
+Regards,
+	Sven
+--nextPart24491166.6Emhk5qWAg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCaomJYQAKCRBND3cr0xT1
+yzw5AP469c4z36X+byxIhnBaFmyRFiC/GpvlzlbsdL78KzUgSAD/aOU0xoOo4kkb
+LAvboFcaIx0WGERyigppjmQ/N0r+kA8=
+=gQlZ
+-----END PGP SIGNATURE-----
+
+--nextPart24491166.6Emhk5qWAg--
 
 
->KASAN reports:
->
->[   22.190920]
->==================================================================
->[   22.195899] BUG: KASAN: slab-use-after-free in
->function_graph_enter_regs+0xa76/0xb90
->[   22.200747] Write of size 8 at addr ff110000054dc0a8 by task repro/1
->[   22.205134]
->[   22.210770] CPU: 0 UID: 0 PID: 1 Comm: repro Not tainted
->7.2.0-07732-g9328b3b03bdc-dirty #3 PREEMPT(lazy)
->[   22.212576] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
->1.16.3-debian-1.16.3-2 04/01/2014
->[   22.213750] Call Trace:
->[   22.215271]  <TASK>
->[   22.216242]  ? ftrace_stub_direct_tramp+0x10/0x10
->[   22.217774]  dump_stack_lvl+0x4e/0x70
->[   22.220531]  print_report+0x157/0x4b4
->[   22.223202]  ? fixup_red_left+0x9/0x30
->[   22.224407]  ? complete_report_info+0x83/0x110
->[   22.226679]  ? function_graph_enter_regs+0xa76/0xb90
->[   22.228084]  kasan_report+0xce/0x100
->[   22.230109]  ? function_graph_enter_regs+0xa76/0xb90
->[   22.232860]  ? stack_trace_save+0x4/0xd0
->[   22.234156]  function_graph_enter_regs+0xa76/0xb90
->[   22.236090]  ? kasan_save_stack+0x30/0x50
->[   22.237752]  ? __pfx_function_graph_enter_regs+0x10/0x10
->[   22.238694]  ? ring_buffer_lock_reserve+0x345/0xf80
->[   22.239628]  ? stack_trace_save+0x4/0xd0
->[   22.242121]  ? stack_trace_save+0x4/0xd0
->[   22.243588]  ftrace_graph_func+0xda/0x160
->[   22.245362]  ? ftrace_stub_direct_tramp+0x10/0x10
->[   22.246520]  0xffffffffa0000095
->[   22.250528]  ? stack_trace_save+0x9/0xd0
->[   22.251757]  ? ring_buffer_unlock_commit+0x11d/0x5c0
->[   22.253152]  stack_trace_save+0x9/0xd0
->[   22.254264]  kasan_save_stack+0x30/0x50
->[   22.273631]  kasan_save_track+0x14/0x30
->[   22.276763]  kasan_save_free_info+0x3b/0x70
->[   22.278296]  __kasan_slab_free+0x43/0x70
->[   22.280157]  kmem_cache_free+0xbf/0x3b0
->[   22.282963]  ? ftrace_stub_direct_tramp+0x10/0x10
->[   22.284001]  free_task+0xa2/0x160
->[   22.285699]  ? ftrace_stub_direct_tramp+0x10/0x10
->[   22.286752]  copy_process+0x2aae/0x7bc0
->
 
-I see.
-
->Initialize the child function graph state immediately after
->dup_task_struct(), before the first fallible operation.
->
->Fixes: 6b1c66c9cca9 ("exec_state: relocate dumpable information")
-
-Ack.
-
->Cc: stable@vger.kernel.org
->Assisted-by: Codex:gpt-5
-
-Good, declared AI.
-
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-
-
->Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->---
->Changes in v2:
->- Add the KASAN report excerpt to the commit message.
->- Add a comment documenting why ftrace_graph_init_task() must run before
->  fallible initialization.
->
->v1: https://lore.kernel.org/all/20260821102207.3626491-2-Jeremy.Jean@oss.cyber.gouv.fr/
->
-> kernel/fork.c | 7 +++++--
-> 1 file changed, 5 insertions(+), 2 deletions(-)
->
->diff --git a/kernel/fork.c b/kernel/fork.c
->index 1e68404bd773..0d1ad92e2d33 100644
->--- a/kernel/fork.c
->+++ b/kernel/fork.c
->@@ -2139,6 +2139,11 @@ __latent_entropy struct task_struct *copy_process(
-> 	p = dup_task_struct(current, node);
-> 	if (!p)
-> 		goto fork_out;
->+	/*
->+	 * Must run before the first fallible op, so error paths never
->+	 * free the parent's ret_stack.
->+	 */
-
-Used my suggestion, good.
-
-↓ good fix.
-
->+	ftrace_graph_init_task(p);
-> 	retval = copy_exec_state(clone_flags, p);
-> 	if (retval)
-> 		goto bad_fork_free;
->@@ -2165,8 +2170,6 @@ __latent_entropy struct task_struct *copy_process(
-> 	 */
-> 	p->clear_child_tid = (clone_flags & CLONE_CHILD_CLEARTID) ? args->child_tid : NULL;
-> 
->-	ftrace_graph_init_task(p);
->-
-> 	rt_mutex_init_task(p);
-> 	raw_spin_lock_init(&p->blocked_lock);
-> 
->
-
-Thanks!
