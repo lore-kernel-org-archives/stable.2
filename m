@@ -1,77 +1,48 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAAF2FD694
-	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 14:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34EB385D74
+	for <stable@vger.kernel.org>; Sat, 22 Aug 2026 14:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787407270; cv=none; b=PaKv3pclbyHJpTD7TFC25rQy7XF5x0Wq2ZO3PY8jgVk6z3qa0H4isPQ9CpPqLlCcUWr9QwvrEA0Mt195b/QQ2Kzj9Q6Nl1G91R47gR1OeMy2jWQXXdsKYS9EsysX3SQYh2OdAVybbbPOGtOt5EZukZ1nXmwmYfE/FUvivb5Uv1Y=
+	t=1787407841; cv=none; b=TQ15DFhwJcF+Xri3QEJFdxO9ljMKfi9R0XY94HyYaDn6fAMZLSiGO3DacPEZm8Nbx4lvr9gyskIu7f9MTbP/5jArLGGxwd5vUzQ1Ej/yG+6KCHksHswODa/RSKI0u0/csRpfsx2oDf8BkapGHJCspeHFvRdlIwJk2MxW96v2iyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787407270; c=relaxed/simple;
-	bh=ItAPIJfq+jxhLD6TN4Ax4mr21FpxALWDPXzcFTXc3IE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GDqmX1ullf3+nH6GEKSAWWOzIZY9fowRm1N9oZlp4yQI8fZHqhyDB0EKVvcD+/6ElY/GyXEWGgTfyRAnjid+eFJtEXyekGCIKXFr4pg98+fUBzG9ulzAM1RWyI9PmIc2VkbVmwsF6Wm35Zpw8Gbbpal60Pzc6yJ0IAtk5PMY0sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TnJMfj2O; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787407841; c=relaxed/simple;
+	bh=/6s4T0oFgejqLgN8vloMk+2HKFY3U1KlBDRGEgjXkTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sdp8hLIvniNCArTIi3DLWlX/YYXk341hGBNXYv5t9rux2HKJrtPzUga5mbanFw8glbrO7cQ3Rfe2EylBSWAvqP8wNT5tdqPBlyBFIaK113WXvFr508ydltLX6LyaRidnFmQUfhJ5+Momc0Hx90XbKR333B27zViiXQrCTelgdDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWPihncQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TnJMfj2O"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7ec49608332so2215647a34.3
-        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 07:01:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787407268; x=1788012068; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RAu2d0iA448dCKNC/0dAOo9eNJ/v3Puws2Lutq5hDZo=;
-        b=TnJMfj2OInsCpAILIlo2YhMTOXwmMP3OPhvXepJDO6e/kp2VqQeYoT0bjxlle416s4
-         TSf2mWyAQ2ajk9YfqSLDeurwqMieKl2cN8I7XBxjEmSg6XQs2H7ykWc0e5MEFwRMelHx
-         9VM5jBmwZlgXMAPbGPDSWmvEXbbc2W3NCtAlQnssoiOK81CefZcHpqNq+GTZ+hChHcN1
-         WBcKD86OTFGDhiAfMazrRVSLVrVsoW2lukhQVR93lK3Bz1It2LCpj7uxy1yZKmB08Ufz
-         1J/g47PJXkvKRXemGNixdRXQ1Phklju5bOlJi/p6hiFqdoclwRX0YHNsecdhWn3rb6G9
-         7Q0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787407268; x=1788012068;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RAu2d0iA448dCKNC/0dAOo9eNJ/v3Puws2Lutq5hDZo=;
-        b=Z5W0+qSwIlYRf9jRRH9Ya56ltDALVYchQQxRt77AIMy4qh2+oS0Z8ksE140zpk9T/e
-         sJ6f1QZQKPcziGixN0vCsKJNoVHtjnUs97phDNK7ZVXy5FH6Lql+7cwQ0x76qj5pQOJt
-         nOackYK3Pwo0jMTx4SfKAhNN2N8pGuW2dSTfNJBAHfHt4pQbmvYVeHHooX573efYiM/b
-         aerKLkbRzMCstV1I797ZVsjwOseasgxlszJlxhcAy+uwMStN023Q/uFO7+1NNQls6lsv
-         lw1xCjH7RhDvTMkVdla1nS4arCoYA1wRi0z1SpRp9CvESqsEbLazLTXRx6KCreVYzTJE
-         2zHw==
-X-Forwarded-Encrypted: i=1; AHgh+RqCxBa8LToHpv2oC44sg0fUBqaLknSEoVQXuTW2hSj8wt2lYzkKahYEuwaKbujc7mSfRd0cg/M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqJgA1/5tEPZbf6lbNCl+903XEKKtS+3hSluSaPtqyB6acUBIN
-	minbPRhk+BOv7P6HuXSkco09bc/VboZBU52GwxR/6NXb4EnLfD7YHaQe
-X-Gm-Gg: AR+sD10uBGwYUZ5Mn3z/hQS7qhu/YlmXAbfZknflLy91kjk6fMpvMp5OWu+kxzfUCrh
-	zYBpQYrLXdb9f5ayww76X7vrgLw4gpeU3qzq+STl3sdc0gLbMhmIruksfcPgj14zjRlYOPFiXGw
-	azFLOyJ35kl55eQagtteeLUX1cPswd7P5W3Q1yEojbk7SXMUm6fD6xbL7r9i6vP087YzzY+cD0Q
-	T9jBnR5SuTaDKCWnP1KuiWANphVM9QSAjFMDLMOAxXCw3Z1B9hGYyhTuVqJkIFrMGTwPGMUCwWA
-	3WC3MBKdBP5WPe8LT90lFequRGJdmRB4Pr8u+56H+Sl015dx2wdQxFHJKG2laAkf/Tiy21AzF35
-	RBbb4LNFOtRV+XYJ0kMPWwrzGEq/PoMjOOmao3SyPHvSzUBBIfgLzPD6b9EpR8i3OJEHdHO8xnw
-	Fe+y0/WPl7Ita80p+Be5ClswbIfzYXsWduuXb79VNVsCtxJvL1Q09bIcLRZYV78YxG/36chRz26
-	0eLfU54H5+RcguK
-X-Received: by 2002:a05:6820:1686:b0:6b1:6462:7e4a with SMTP id 006d021491bc7-6b164629665mr9378701eaf.13.1787407267786;
-        Sat, 22 Aug 2026 07:01:07 -0700 (PDT)
-Received: from White.tail445f11.ts.net ([45.127.44.104])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1418619d6ecsm7614856c88.14.2026.08.22.07.01.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 07:01:07 -0700 (PDT)
-From: Nikhil Gurudasani <nikhilgurudasani314@gmail.com>
-To: xiang@kernel.org,
-	chao@kernel.org
-Cc: zbestahu@gmail.com,
-	jefflexu@linux.alibaba.com,
-	dhavale@google.com,
-	hongbohbli@tencent.com,
-	guochunhai@vivo.com,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] erofs: skip sufficiently large global buffers when resizing
-Date: Sat, 22 Aug 2026 19:30:17 +0530
-Message-ID: <20260822140017.8119-1-nikhilgurudasani314@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWPihncQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0401F00A3A;
+	Sat, 22 Aug 2026 14:10:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787407839;
+	bh=fg2yZVJoGkTI0uwnw5Zk+6q7K23YdlULJFpnIWBOAbo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dWPihncQgWBYR/NS/OARjMJk6edrlRifoWIy6pRXmrVZ4R2fBaC1ECSILTdGn04sU
+	 w/FGvKPCMf5VzLQvvLFYvuofvr6F/jjeXKCtz+QXwrMvGpdu+JccAD7x7hQYeg9zB5
+	 u38lCMymly+40X0mKOHxwrg2/W8bMHuZfJZnhw4R951ATyDWieX0fgdrTL7bXGynZ0
+	 VpyRBT2jpYrtlqc4Ah+OOdbApR6h2HWaQPtLuxQbLrkWe0nqOL5xQzTwqR4xYBa7DG
+	 FpgTQOAjDcL44IDI1p+5KUL+hHTzfeysb9jpD1aa5qZZgtQW8eA3tBmwLyMoYIbaaP
+	 h7/xFmMyMUkTg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
+	Julian Anastasov <ja@ssi.bg>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ipvs: separate destination availability state
+Date: Sat, 22 Aug 2026 10:10:36 -0400
+Message-ID: <20260822141036.2489961-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026081701-fable-dedicate-3459@gregkh>
+References: <2026081701-fable-dedicate-3459@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,42 +51,224 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-z_erofs_gbuf_nrpages is advanced only after every global buffer has been
-grown. If a resize fails after some buffers were enlarged, a retry
-revisits those enlarged buffers.
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-Retrying the same size then returns -ENOMEM because alloc_pages_bulk()
-has no pages to add and the unchanged return value is treated as a
-failure. Retrying an intermediate size allocates a temporary pointer
-array smaller than gbuf->nrpages and copies more existing pointers than
-the array can hold.
+[ Upstream commit cdcc4e46180df8161f4d2f3c6fd6beaf6990133d ]
 
-Skip buffers that already satisfy the request. Once all remaining
-buffers have caught up, advancing z_erofs_gbuf_nrpages again describes
-the guaranteed minimum size across the pool.
+IPVS configuration paths update destination availability while connection
+accounting updates destination overload state. The two independent states
+share dest->flags, so their read-modify-write updates can race and lose one
+another.
 
-Fixes: d6db47e571dc ("erofs: do not use pagepool in z_erofs_gbuf_growsize()")
-Cc: stable@vger.kernel.org # 6.10+
-Signed-off-by: Nikhil Gurudasani <nikhilgurudasani314@gmail.com>
+Keep OVERLOAD in flags, where the preceding patch serializes its updates
+with dst_lock, and move AVAILABLE to cflags. This keeps configuration-
+controlled availability out of the scheduler hot cacheline until a
+scheduler needs to check it. It also prevents availability updates from
+clobbering overload state.
+
+The destination status bits are not exposed through the IPVS sockopt or
+netlink interfaces, so keep their definitions in the internal IPVS header.
+
+Readers can still observe stale destination state; this does not provide a
+cross-field snapshot.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Link: https://lore.kernel.org/all/8913381c-1e02-35c7-0ec4-61de5a12fd35@ssi.bg/
+Assisted-by: Claude-Code:GLM-5.2
+Suggested-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Acked-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/erofs/zutil.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/net/ip_vs.h              | 7 +++++++
+ include/uapi/linux/ip_vs.h       | 6 ------
+ net/netfilter/ipvs/ip_vs_conn.c  | 4 ++--
+ net/netfilter/ipvs/ip_vs_core.c  | 6 +++---
+ net/netfilter/ipvs/ip_vs_ctl.c   | 4 ++--
+ net/netfilter/ipvs/ip_vs_dh.c    | 4 ++--
+ net/netfilter/ipvs/ip_vs_lblc.c  | 2 +-
+ net/netfilter/ipvs/ip_vs_lblcr.c | 8 ++++----
+ 8 files changed, 21 insertions(+), 20 deletions(-)
 
-diff --git a/fs/erofs/zutil.c b/fs/erofs/zutil.c
-index a0ce9226b..6b9bfa2ef 100644
---- a/fs/erofs/zutil.c
-+++ b/fs/erofs/zutil.c
-@@ -79,6 +79,8 @@ int z_erofs_gbuf_growsize(unsigned int nrpages)
+diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
+index 7d32968f2b133..2e3ef3980c01f 100644
+--- a/include/net/ip_vs.h
++++ b/include/net/ip_vs.h
+@@ -33,6 +33,12 @@
+ #define IP_VS_HDR_INVERSE	1
+ #define IP_VS_HDR_ICMP		2
  
- 	for (i = 0; i < z_erofs_gbuf_count; ++i) {
- 		gbuf = &z_erofs_gbufpool[i];
-+		if (gbuf->nrpages >= nrpages)
-+			continue;
- 		tmp_pages = kzalloc_objs(*tmp_pages, nrpages);
- 		if (!tmp_pages)
++/* Destination Server Flags */
++#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
++
++/* Destination Server Config Flags */
++#define IP_VS_DEST_CF_AVAILABLE	0x0001		/* server is available */
++
+ /* Generic access of ipvs struct */
+ static inline struct netns_ipvs *net_ipvs(struct net* net)
+ {
+@@ -664,6 +670,7 @@ struct ip_vs_dest {
+ 	volatile unsigned int	flags;		/* dest status flags */
+ 	atomic_t		conn_flags;	/* flags to copy to conn */
+ 	atomic_t		weight;		/* server weight */
++	unsigned long		cflags;		/* config flags */
+ 	atomic_t		last_weight;	/* server latest weight */
+ 	__u16			tun_type;	/* tunnel type */
+ 	__be16			tun_port;	/* tunnel port */
+diff --git a/include/uapi/linux/ip_vs.h b/include/uapi/linux/ip_vs.h
+index 4102ddcb4e14e..9e4a762f31d83 100644
+--- a/include/uapi/linux/ip_vs.h
++++ b/include/uapi/linux/ip_vs.h
+@@ -28,12 +28,6 @@
+ #define IP_VS_SVC_F_SCHED_SH_FALLBACK	IP_VS_SVC_F_SCHED1 /* SH fallback */
+ #define IP_VS_SVC_F_SCHED_SH_PORT	IP_VS_SVC_F_SCHED2 /* SH use port */
+ 
+-/*
+- *      Destination Server Flags
+- */
+-#define IP_VS_DEST_F_AVAILABLE	0x0001		/* server is available */
+-#define IP_VS_DEST_F_OVERLOAD	0x0002		/* server is overloaded */
+-
+ /*
+  *      IPVS sync daemon states
+  */
+diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
+index b850c254b9588..73361a4df43b4 100644
+--- a/net/netfilter/ipvs/ip_vs_conn.c
++++ b/net/netfilter/ipvs/ip_vs_conn.c
+@@ -759,7 +759,7 @@ int ip_vs_check_template(struct ip_vs_conn *ct, struct ip_vs_dest *cdest)
+ 	 * Checking the dest server status.
+ 	 */
+ 	if ((dest == NULL) ||
+-	    !(dest->flags & IP_VS_DEST_F_AVAILABLE) ||
++	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE) ||
+ 	    expire_quiescent_template(ipvs, dest) ||
+ 	    (cdest && (dest != cdest))) {
+ 		IP_VS_DBG_BUF(9, "check_template: dest not available for "
+@@ -1402,7 +1402,7 @@ void ip_vs_expire_nodest_conn_flush(struct netns_ipvs *ipvs)
+ 				continue;
+ 
+ 			dest = cp->dest;
+-			if (!dest || (dest->flags & IP_VS_DEST_F_AVAILABLE))
++			if (!dest || (dest->cflags & IP_VS_DEST_CF_AVAILABLE))
+ 				continue;
+ 
+ 			if (atomic_read(&cp->n_control))
+diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
+index 99cc39036c4e9..aaad3ccb0bb5d 100644
+--- a/net/netfilter/ipvs/ip_vs_core.c
++++ b/net/netfilter/ipvs/ip_vs_core.c
+@@ -124,7 +124,7 @@ ip_vs_in_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
+ 	struct ip_vs_dest *dest = cp->dest;
+ 	struct netns_ipvs *ipvs = cp->ipvs;
+ 
+-	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 		struct ip_vs_cpu_stats *s;
+ 		struct ip_vs_service *svc;
+ 
+@@ -160,7 +160,7 @@ ip_vs_out_stats(struct ip_vs_conn *cp, struct sk_buff *skb)
+ 	struct ip_vs_dest *dest = cp->dest;
+ 	struct netns_ipvs *ipvs = cp->ipvs;
+ 
+-	if (dest && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++	if (dest && (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 		struct ip_vs_cpu_stats *s;
+ 		struct ip_vs_service *svc;
+ 
+@@ -2084,7 +2084,7 @@ ip_vs_in(struct netns_ipvs *ipvs, unsigned int hooknum, struct sk_buff *skb, int
+ 	}
+ 
+ 	/* Check the server status */
+-	if (cp && cp->dest && !(cp->dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++	if (cp && cp->dest && !(cp->dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 		/* the destination server is not available */
+ 		if (sysctl_expire_nodest_conn(ipvs)) {
+ 			bool old_ct = ip_vs_conn_uses_old_conntrack(cp, skb);
+diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
+index 025512d76db06..2ded17b67819a 100644
+--- a/net/netfilter/ipvs/ip_vs_ctl.c
++++ b/net/netfilter/ipvs/ip_vs_ctl.c
+@@ -961,7 +961,7 @@ __ip_vs_update_dest(struct ip_vs_service *svc, struct ip_vs_dest *dest,
+ 	}
+ 
+ 	/* set the dest status flags */
+-	dest->flags |= IP_VS_DEST_F_AVAILABLE;
++	dest->cflags |= IP_VS_DEST_CF_AVAILABLE;
+ 
+ 	if (READ_ONCE(dest->u_threshold) != udest->u_threshold ||
+ 	    READ_ONCE(dest->l_threshold) != udest->l_threshold) {
+@@ -1240,7 +1240,7 @@ static void __ip_vs_unlink_dest(struct ip_vs_service *svc,
+ 				struct ip_vs_dest *dest,
+ 				int svcupd)
+ {
+-	dest->flags &= ~IP_VS_DEST_F_AVAILABLE;
++	dest->cflags &= ~IP_VS_DEST_CF_AVAILABLE;
+ 
+ 	/*
+ 	 *  Remove it from the d-linked destination list.
+diff --git a/net/netfilter/ipvs/ip_vs_dh.c b/net/netfilter/ipvs/ip_vs_dh.c
+index 5e6ec32aff2b1..6d88bb4bf4ae8 100644
+--- a/net/netfilter/ipvs/ip_vs_dh.c
++++ b/net/netfilter/ipvs/ip_vs_dh.c
+@@ -220,8 +220,8 @@ ip_vs_dh_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
+ 
+ 	s = (struct ip_vs_dh_state *) svc->sched_data;
+ 	dest = ip_vs_dh_get(svc->af, s, &iph->daddr);
+-	if (!dest
+-	    || !(dest->flags & IP_VS_DEST_F_AVAILABLE)
++	if (!dest ||
++	    !(dest->cflags & IP_VS_DEST_CF_AVAILABLE)
+ 	    || atomic_read(&dest->weight) <= 0
+ 	    || is_overloaded(dest)) {
+ 		ip_vs_scheduler_err(svc, "no destination available");
+diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
+index 7ac7473e3804c..e2480f33a1963 100644
+--- a/net/netfilter/ipvs/ip_vs_lblc.c
++++ b/net/netfilter/ipvs/ip_vs_lblc.c
+@@ -503,7 +503,7 @@ ip_vs_lblc_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
+ 		 */
+ 
+ 		dest = en->dest;
+-		if ((dest->flags & IP_VS_DEST_F_AVAILABLE) &&
++		if ((dest->cflags & IP_VS_DEST_CF_AVAILABLE) &&
+ 		    atomic_read(&dest->weight) > 0 && !is_overloaded(dest, svc))
  			goto out;
-
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+ 	}
+diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
+index 77c323c36a889..7469547c8a440 100644
+--- a/net/netfilter/ipvs/ip_vs_lblcr.c
++++ b/net/netfilter/ipvs/ip_vs_lblcr.c
+@@ -170,8 +170,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
+ 		if (least->flags & IP_VS_DEST_F_OVERLOAD)
+ 			continue;
+ 
+-		if ((atomic_read(&least->weight) > 0)
+-		    && (least->flags & IP_VS_DEST_F_AVAILABLE)) {
++		if ((atomic_read(&least->weight) > 0) &&
++		    (least->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 			loh = ip_vs_dest_conn_overhead(least);
+ 			goto nextstage;
+ 		}
+@@ -187,8 +187,8 @@ static inline struct ip_vs_dest *ip_vs_dest_set_min(struct ip_vs_dest_set *set)
+ 
+ 		doh = ip_vs_dest_conn_overhead(dest);
+ 		if (((__s64)loh * atomic_read(&dest->weight) >
+-		     (__s64)doh * atomic_read(&least->weight))
+-		    && (dest->flags & IP_VS_DEST_F_AVAILABLE)) {
++		     (__s64)doh * atomic_read(&least->weight)) &&
++		    (dest->cflags & IP_VS_DEST_CF_AVAILABLE)) {
+ 			least = dest;
+ 			loh = doh;
+ 		}
 -- 
-2.43.0
+2.53.0
 
