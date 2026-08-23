@@ -1,120 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210E64AEEF;
-	Sun, 23 Aug 2026 07:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B6433F5A7
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 08:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787471464; cv=none; b=LY2XHZSQOu4U4DILHqWBvEbgszh5hUvmTPftstrI0ZtkRwKwPxP5vpQtmcktHYeMPiM9iuN4PQou+BrFtEnZWSCU3aBl0IXJabSXvv949scWjoGO7gQZxP9u+EgSCcaMN6TSmy0CGXTySfGyn3eNW4wSuDA97jnOFN/l5wB8V3M=
+	t=1787474909; cv=none; b=XUcs+uXbm9zs1p+0JP6cIRI+qZrG2+14dQf7SMsmM32/w8Pb6CDd3EVQHQDuyCw1pPaDRDg0OFcgnVYOAZKh0QebbKBewzoOps0sF8AztXiBoQC7NTw8KljH8qevO6fcLJlJ+t+G/IwmDZcBzPFFP0CDEQBBViqzAifX/KZupX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787471464; c=relaxed/simple;
-	bh=ZLORkb6qqgyCDskvJMYpim/9TqST1rT4BNtTNgmSe3s=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AHunlPpu51IagEuR3BvOZRPBushEUlbu0gphgh94IhIsHPTYq3mMyWFEsL74SVWk69GNzJfCyJLA16BkpZg+HZIZ1BwnoCZ7hgIsOkRxUnDYUpdCB5AoDAAKym0dMHGwem5cTCM4WUFT+o5vFQ7QkwOm3EQWBVNEhe7eB9eHrfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQcpZfEi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787474909; c=relaxed/simple;
+	bh=PSCBVmmedtupM0Evsq4E+CnpTnQMX5Q7LwYqzY8evGE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k14hUlTeKInmU6OJM0uxKqXinrCjE8vtRbwz1YbJUYoYiXZP90QPE4FDScdQal4bdviJl+pWZFuUKnxIGsdxkl2LCsd1Saln5uUvWUSGRQdA3E1bI7ZlTvOCRiQ/uc63Z04rjfbuFBeziSt/2EIZc27nDEyDS0mJcL/kYvSIMf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kJXE9JbA; arc=none smtp.client-ip=95.215.58.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQcpZfEi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B04B1F000E9;
-	Sun, 23 Aug 2026 07:51:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787471462;
-	bh=3DIEEbwz6PHcPkpp1UT7HF1ofN3OEvJ90bHzV9iEJXw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jQcpZfEiS6+cwHQ6IbXiCpOmUF3Ik2OYTaiKQ0E4XMoV4J+s9mi7uN/D21utY1vyC
-	 B2LeV/550wDICtyUannmRKF8t7WiUqQY3Oui81RhPsxSmfC8au+lfTWPQBSShj/PQS
-	 01YrLJeXjXHDzIQ8/BR5yyG3am75louqHIn7rpBDPmxWLM9uZ2nMWfGKkrIsHWZcMD
-	 SYgfvb4PKgWs2wIUEVVhI6kfChs94ZruzET9M3x4r0qOR3zoq44uVfkOsXVKv3Vgzn
-	 PqG1yrDF4+INochMXIqLCktuDFH4hhD0lRkAVHfHedPtsFH2SdMJd1X4JonrXUW1rq
-	 xJVTuqhKKY26A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wy2yp-00000000NkD-3aq5;
-	Sun, 23 Aug 2026 07:50:59 +0000
-Date: Sun, 23 Aug 2026 08:53:31 +0100
-Message-ID: <87tsolnuh0.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Christoffer Dall <christoffer.dall@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] KVM: arm64: Fix spurious warn, null ptr deref on S2 teardown race
-In-Reply-To: <20260822-kvm-arm-nested-virt-fix-v2-0-ac4059a0eaa6@kernel.org>
-References: <20260822-kvm-arm-nested-virt-fix-v2-0-ac4059a0eaa6@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kJXE9JbA"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PSCBVmmedtupM0Evsq4E+CnpTnQMX5Q7LwYqzY8evGE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787474904; v=1; x=1788079704;
+ b=kJXE9JbAFBE9SttziK7U4TywOm0Pl07tyiEow/z3g7TNPqZrGR/Y8Y1VV58YdN46KH7g+9/B
+ ahb2YfIxN/xUuCrvfSQmi7+V0nFoeQz02Dl3Tb34sVTS9/WS3RPgkcPQSiGU6l08bjhH8SHqz0T
+ CLMrKxse+a+cb1ZOTQxZmK74=
+X-Envelope-To: stable@vger.kernel.org
+Received: from localhost.localdomain (147.136.157.0)
+	by smtp.migadu.com with ESMTPS id 851454baa9ca0c56;
+	Sun, 23 Aug 2026 08:48:14 +0000
+X-Mizu-Trace-ID: 851454baa9ca0c56
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	stable@vger.kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ilya Lesokhin <ilyal@mellanox.com>,
+	Aviad Yehezkel <aviadye@mellanox.com>,
+	Boris Pismenny <borisp@mellanox.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v1] tls: device: fix out-of-bounds write in tls_append_frag()
+Date: Sun, 23 Aug 2026 16:47:56 +0800
+Message-ID: <20260823084758.20936-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: ljs@kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, christoffer.dall@arm.com, weilin.chang@arm.com, yaoyuan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 22 Aug 2026 18:46:52 +0100,
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> 
-> When GFNs are invalidated in L0 an MMU notifier triggers
-> kvm_unmap_gfn_range() which tears down all of the stage 2 shadow page
-> tables for nested guests via kvm_nested_s2_unmap().
-> 
-> To avoid lockup, the kvm->mmu_lock is dropped while doing this and the task
-> rescheduled once for each block of physical address space (32 MiB for 16
-> KiB page size), with the lock being reacquired once the task is scheduled
-> again.
-> 
-> This results in a potential race between this L0 tear down and tear down of
-> the guest itself in kvm_flush_shadow_all(), a race which has been observed
-> on real hardware.
-> 
-> When this race occurs it causes an invalid kernel warning when the PGT of a
-> nested MMU is cleared by kvm_flush_shadow_all() ->
-> kvm_arch_flush_shadow_all() -> kvm_free_stage2_pgd().
-> 
-> Patch 1 fixes this by having stage2_apply_range() no longer return an error
-> when it has experienced a benign race with pgt teardown when it drops the
-> lock.
-> 
-> Patch 2 addresses something more serious - bad timing can turn this spurious
-> warning into a NULL pointer dereference.
-> 
-> kvm_arch_flush_shadow_all() calls kvm_uninit_stage2_mmu() which calls
-> kvm_free_stage2_pgd() on the canonical kvm->arch.mmu for that guest's S2
-> mappings, making it NULL.
-> 
-> This is problematic if it happens before stage2_apply_range() reacquires
-> the kvm->mmu_lock, as it ultimately returns to kvm_nested_s2_unmap() which
-> dereferences kvm->arch.mmu.pgt with the mmu lock held under the incorrect
-> assumption that it means it's valid, resulting in a NULL pointer
-> dereference.
-> 
-> Fix that by checking if kvm->arch.mmu.pgt is NULL before dereferencing it
-> in kvm_nested_s2_unmap() and kvm_nested_s2_wp().
+Found with syzkaller and a local syzbot instance running on top of a
+netdevsim TLS offload emulation; tls_device.c is otherwise only reachable
+on a machine with a NIC that implements the offload.
 
-With the commit message for patch #1 trimmed to something that fits on
-a couple of standard terminal screens ;-) :
+tls_push_data() only checks whether the open record still has room for
+another frag at the bottom of its loop, and the MSG_MORE early break
+skips that check.  The record survives to the next syscall with the frag
+count it already had, and tls_append_frag() does not check either, so
+with TLS_TX_ZEROCOPY_RO every splice(SPLICE_F_MORE) of a byte or two adds
+a non-coalescing pipe page and num_frags walks off the end of
+tls_record_info.frags[MAX_SKB_FRAGS].  Once the record is pushed,
+tls_push_record() runs the same index over sg_tx_data[MAX_SKB_FRAGS] and
+the sg_set_page() writes land on the destruct_work that follows it, which
+the workqueue then calls.
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+The byte limit is fine because copy drops to 0 and the loop falls through
+to the same check; the frag count has no such feedback.
 
-	M.
+Push the record rather than keep a full one open, which is what a plain
+TCP socket does - tcp_sendmsg_locked() uses tcp_mark_push() and
+new_segment in both the copy and the MSG_SPLICE_PAGES paths, and tls_sw
+already sets full_record when the sk_msg ring fills up, MSG_MORE or not.
 
+  BUG: KASAN: slab-out-of-bounds in tls_append_frag ( net/tls/tls_device.c:269)
+  Write of size 8 at addr ffff8881104d1530 by task tls_oob/450
+
+  CPU: 2 UID: 0 PID: 450 Comm: tls_oob Not tainted 7.2.0-rc7+ #329 PREEMPT
+  Call Trace:
+   <TASK>
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   tls_append_frag (net/tls/tls_device.c:269)
+   tls_push_data (net/tls/tls_device.c:518)
+   tls_device_sendmsg (net/tls/tls_device.c:583)
+   inet_sendmsg (net/ipv4/af_inet.c:865)
+   sock_sendmsg (net/socket.c:775 net/socket.c:790 net/socket.c:813)
+   splice_to_socket (fs/splice.c:884)
+   do_splice (fs/splice.c:936 fs/splice.c:1349)
+   __do_splice (fs/splice.c:1431)
+   __x64_sys_splice (fs/splice.c:1634 fs/splice.c:1616)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+   </TASK>
+
+and, once the record is pushed:
+
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:300:24
+  index 18 is out of range for type 'skb_frag_t [17]'
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:301:41
+  index 18 is out of range for type 'scatterlist [17]'
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:302:39
+  index 18 is out of range for type 'scatterlist [17]'
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:307:38
+  index 26 is out of range for type 'scatterlist [17]'
+
+  kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+  BUG: unable to handle page fault for address: ffffea000411a680
+  #PF: supervisor instruction fetch in kernel mode
+  #PF: error_code(0x0011) - permissions violation
+  Oops: Oops: 0011 [#1] SMP KASAN PTI
+  Workqueue: ktls_device_destruct 0xffffea000411a680
+  RIP: 0010:0xffffea000411a680
+  Call Trace:
+   <TASK>
+   worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+   </TASK>
+
+Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+
+---
+Hope to get capture attention
+
+netdevsim + tls (revised a lot locally):
+https://lore.kernel.org/netdev/20260728125658.390500-1-jiayuan.chen@linux.dev/
+---
+ net/tls/tls_device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index 37bb06a8e8f5..f11d0528fc43 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -531,7 +531,8 @@ static int tls_push_data(struct sock *sk,
+ 		if (!size) {
+ last_record:
+ 			tls_push_record_flags = flags;
+-			if (flags & MSG_MORE) {
++			if ((flags & MSG_MORE) &&
++			    record->num_frags < MAX_SKB_FRAGS - 1) {
+ 				more = true;
+ 				break;
+ 			}
 -- 
-Jazz isn't dead. It just smells funny.
+2.43.0
+
