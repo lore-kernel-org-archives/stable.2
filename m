@@ -1,440 +1,297 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34DF13CA497
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 11:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FCB3C9456;
+	Sun, 23 Aug 2026 12:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787485509; cv=pass; b=jhW8EOoCTj2LozR5eo75X6ub5ucWWCmulq8pWOqYiK7m+P4ZHT1lBDvJkjGacYmgYkNxsF6kb83mAkX5Humx4f86Gg28Yw/Y9Qh7Cts/cZV0CEGBETRpyyiYbnh1jmbAbzGhUkqcwra7w3JtA9sXc4/9+j47UtvjpaSoPWmyvp0=
+	t=1787487805; cv=fail; b=hU5wI3IsUsYBlE003aCWgbuWyHu7kkMnqWbvJMVWUCNUpsGNTdX7rrsATW3e8Hv4hcg3iZ6LLehba78CueJDuyvz6fPZyZme+WCqf/a//gecgOpSz8smM2UGNH3hhRJq/ZqBZX7C+9W+yASg+tVnXODi9Sl1+6axtap/D9d8VIA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787485509; c=relaxed/simple;
-	bh=L3zRUhfKWIDxeDi1dPCc0Ayy7qAEWPOx8Eml9mT11e4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ioip0EBcRLRvXQ5iwZSYb2SOcK2xcdboQTCkZ9/0eA6dEGMT2dtf/X4QNO2PHQ6DVkheOph/I7hlx4jvLrGl/SKdrDrBh3ZAhkv0F0+p5GKsxjbBPykzkgAX/OGAbChKnK/hThUz77WAfFK0SiJlXYgpRxs+Ogzn37FsPCytpms=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L4cwc0ou; arc=pass smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787487805; c=relaxed/simple;
+	bh=c3YUNIW1dp8Nw/vorYUAYZBxZ3JuvL2RKX/HMxryo/M=;
+	h=Date:From:To:CC:Subject:Message-ID:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=N+IKPdx5ruXPZUX8C622lRPRTIy5ZN0dnONmGYChsaCTsShLagjtRSjwBY7E16AFcXUgE475MrD4ZrKutK/MWCQ6rpaYqkXvG38il3hjS4Uwo5XBHczFjNLVYGCS0ckJAiJR7l/eNLfCVAfudBtCxr8rllrmY9oN7v28KCzo+Ik=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Kh4f/nf4; arc=fail smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L4cwc0ou"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so24423461fa.1
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 04:45:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787485505; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CR8AHZMAXCkoG7tkkJ17rnJEpDJ56eozwbnQL++UjUNO9h/J1vgMwLGeznsXo7YJI1
-         MwQLdtuIOGE7XygD9JUs/ePGIIOyLWSQnZufzg8vcpW5t/S88Sds1jjqvmWxfs6vbODe
-         NwHqjfW4zkAZLK+MkEtm7I5GppbLsdxoDP+5Pr8VgZq2gAGtU+xtmdXoT8S91El6AMMk
-         sGfvqgXhqOVa3efH0aaI6kFUt+2Pw8kftAQUPwHBrL8DThmohNAUTzPYlzrEsGdtBI9U
-         6Fhk2gJxuOPuF6s/LHCOY01CHJSHCOL8JYkJloy1RGS4OaEk/dfrM0imIQvCqD699K0G
-         k3NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lLWUar7CbdYKGZb3FGkxL0X2Mwo3sxR4Wu68UThs0tE=;
-        fh=RgxSM25yyqWb/DSkD40s+yUwJc0wV6iMeke8G93KCXQ=;
-        b=KiB5cBNuBMbr+kcHuuK+GTKwyjayPIKCjch+z8XqhZbHLnf6yiH11WEub9Bt40gX78
-         4NzRO4gRxlm6XFeE0ZewPVc0bma2gm5sF7KqKiUNXKlVBTA9N85p3xmFXpLWlReBEixy
-         TJ4Js7bQJnsdTU5wYXaywKmDK58Mkrup02b209PPcPbPEwlVjiH/Owy6Sre8vUzuDNJg
-         2BixAEhgsBK0vTkt9aac22uxWaIfTG6RcEi+IW1JbL+y4Mwk1R+h7fHMugCKjr+K5fDb
-         UY7XMhHt1+4nW7iuFy1w2Ivj1sOsLXilhv2ugM9Li3hGGXqt7kDU0Xkvq9uytigZuCUu
-         JCOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787485505; x=1788090305; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lLWUar7CbdYKGZb3FGkxL0X2Mwo3sxR4Wu68UThs0tE=;
-        b=L4cwc0ou8rbvaEJtf+d5Gg2UOhpVQsmHEoRMh/bWzRGObRvR1zYw+hUazyfRxZKXb2
-         UZkBm8Yzx9wila8TJbuZkLJ0tHrO1uSL0bWCXk8rvvliSgCJifozSNrfWxCsA+aMrKGu
-         MjVtfjD1+/6S7FqWdwQI5SE5XkaQ5fWUP7DIOC1XUixvplYfO+PZ1SUF/RdcM7Rw2gMa
-         dltKpu8V13GDVYgRHEb9UQtlecaNUaY09sDavvgytbu57mzH0VSyyP3hmf3z8dI9ot3o
-         jmQwIlTMavxDS5iaHOaX31OHAs3CDNp/OaFvBdqS+2QHF5qSRKXTLT21XRP0wBuTggu9
-         HSng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787485505; x=1788090305;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lLWUar7CbdYKGZb3FGkxL0X2Mwo3sxR4Wu68UThs0tE=;
-        b=foysJdzyLuchNlNebSuUlAzr96sLUlY+lwUpg2cSLWavBeZ8AT/E8jrYTxzkiXzJSE
-         vyYjU29UCFDAAnnabmvnnqq6YJrHGxyDd7vEwYMeNZ7FfAbzvTJCrYuDZ1JMurH2QGhR
-         rKU5pLIWBpUE5W8okniSy8Ms6Voz0HNJ3Qz6ZdiedKWH5xd2LIC60D8aLLivaVoV3fRa
-         Cr0FGfSkLRoFN8Rfah7P2UfJYx47Rc+UfsvVezYdKwkC9abgl+9L9xE01/wyKOjnqWT6
-         0WxTmhKV4zk4VFPF8s2oztpjYjhyjVaTLPD7tGICTiyT74Z3ZtK/+Ue4MoDSa3W37tsl
-         0ZfA==
-X-Forwarded-Encrypted: i=1; AHgh+RoNe6BInRlFjUhwqwgxesELBY6NXR6M7E3dZ44wF4kjgmZqZ8cPl7dGu56/MzrgzNehFoXtms8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lstV7N62e/LGO3Y8htUCJ+YSt7wTFTK0zNwyKrNMh+SSl1VC9O
-	cGhuHgG/B/DwIYrGP1dN7Rjq7JJjfyqLAkf18JSj478V3mM/xx7g9HNM/SWU9KouIEmogySh9UL
-	mkFxOeHnNnpyYRzcSE7nwHdGLQPk9jtI=
-X-Gm-Gg: AR+sD10kD4G3zVYWiCuzzomlZWzYwu0X1NTkXbCgyPRXfuzEGTxNBdUUEmw8Y3us+9w
-	VzaNPXHwZcb5j9gIrd3CMDjBcqMmdhEwGkTdbMRId2fh9V2985dLIxYEWbVI6RNEieagIaLZZrf
-	fK9idAnLydZuka2zAgK4UXGIaRdc6jfSsKwA20RL5RJ8/aoqD0bhSf9lLuYFJh0OnAMAfYz+euw
-	jiUpkFePAeVX+RkX9NOq0tEvDF3bFEPZeQUqok6YITiAGOCJE8ZDJPjuPqyigXmlcmRWTNrnol1
-	CgPtXEkAgdmAuTEiCQodUEPBqrxYoeYr6Zgt2OD67BaktLIU0ciQr8yaegphMUH5Hp/KXJfABnr
-	/
-X-Received: by 2002:a2e:be2b:0:b0:39c:93ff:3672 with SMTP id
- 38308e7fff4ca-3a1aec6b889mr42036251fa.9.1787485504882; Sun, 23 Aug 2026
- 04:45:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Kh4f/nf4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787487804; x=1819023804;
+  h=date:from:to:cc:subject:message-id:in-reply-to:
+   mime-version;
+  bh=c3YUNIW1dp8Nw/vorYUAYZBxZ3JuvL2RKX/HMxryo/M=;
+  b=Kh4f/nf4utoQQJSr9S4efSMgt48W4aamJGioBCyfoNwngOL8p0f+xxsX
+   8NqNAf+SPnRcqkzQGeClqOq7y6yKlX3z57svHdFf1SYhGTkIln8OAZpbm
+   4rfwXJQ6fJN1WOUaXFfw//+18v4TigID7rpFZRw3VYj4AWpUzbEcACYFp
+   vK2hTYN+rTq0wCQn8zonH+ltpKui2+Lx997KmVUARtJWjWuvbxPjkhRBo
+   k0wNnfhDqoX3Bml8tvs5Y7Is70Xd8eXh+9mVMy4SjxLzcNd8TvE4DwiDa
+   NIJP7cH1uHVwSNEc8gPyOVqSrN5G2kLIwK3Vc/z5Awsz64DJfadg3B4oh
+   w==;
+X-CSE-ConnectionGUID: 2G6hWSI6SQKAH6dlYnUcqQ==
+X-CSE-MsgGUID: KmheZO1hR6+jFjEeUNfFxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11883"; a="87830425"
+X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
+   d="scan'208";a="87830425"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 05:23:24 -0700
+X-CSE-ConnectionGUID: q+pJkKfzS6Sz5ugb8K9vLg==
+X-CSE-MsgGUID: BPlQl23YQM6ljczJIdCqbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
+   d="scan'208";a="270572142"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 05:23:24 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 23 Aug 2026 05:23:23 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Sun, 23 Aug 2026 05:23:23 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.66) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 23 Aug 2026 05:23:23 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U3jT+5cWRrSaxpXoeQXUU8nLlwKc/YqItI5MHt1w313gGUumTkxb3MamYewcxfMuwjzVWO/JNM6xQBi/ttiRBcyffP73MYPHUGXHIKfxz1v7urxDa9z1VH52JpfA+iHFp5RZ56XTVk3AvkNnSxZE1VO/Yu5E0VmWShoIFiodBuUWjEJkqXKi2pI9faWfrELgYUucf7JAiutB7dBHRDgm+VDmIVXgfUAXjHse3/aPSVbWlCTePlBIZIWFx7kfGE+3nrWewnU7ZLI72BIkJNC06RumaOwgmq1ruDrkjpV5S9J/P0/88ROQXVlF4rAeAlkox/c92JBxF3sIBlt6oT9k/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TCKdmKNUYb9Ll+fT+G9oIQeGbJvlOmWjt2t4oBBagn4=;
+ b=r+M/tUZdDDTzliLJgtvhgScQW/mXXYKjOhF2lZDxllgVJ3rU3rAOVm4LlVw2SqPQVhg8SZBpZaQROX7jKGQzjzdO6jG2ttavd9QrKPAxD0W4T3OYTezGtTecmMRHvj/JgCGWzGa2yC4HMEI1um9iEspRfmaGseE0oIYaA8wPp36N01ip3CLX36IpGB0/WUzozexhjOLUGwMNK1dLryv7vZ6HQEo1h5ZmZ5YdVNfz0s1iaCC4x+09b4KsaAHsmGSBseHtGRWw2gheZ/Q6u1JMfI4639OSAcYMOvgbfyiJxzE0vnKuvPqjgbRJxUrffgzHktVKF1iXhdVbcoobDwDJzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ0PR11MB5214.namprd11.prod.outlook.com (2603:10b6:a03:2df::22)
+ by MW4PR11MB7053.namprd11.prod.outlook.com (2603:10b6:303:221::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Sun, 23 Aug
+ 2026 12:23:16 +0000
+Received: from SJ0PR11MB5214.namprd11.prod.outlook.com
+ ([fe80::5926:3836:4212:8640]) by SJ0PR11MB5214.namprd11.prod.outlook.com
+ ([fe80::5926:3836:4212:8640%4]) with mapi id 15.21.0339.012; Sun, 23 Aug 2026
+ 12:23:16 +0000
+Date: Sun, 23 Aug 2026 20:23:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Frank Sorenson <sorenson@redhat.com>, <linux-cifs@vger.kernel.org>
+CC: <llvm@lists.linux.dev>, <oe-kbuild-all@lists.linux.dev>,
+	<pc@manguebit.org>, <linkinjeon@kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] cifs: fix i_size inconsistency in
+ smb2_duplicate_extents() on FSCTL failure
+Message-ID: <202608230943.9VnBMLk2-lkp@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260820211443.1472310-1-sorenson@redhat.com>
+X-ClientProxiedBy: KU2P306CA0054.MYSP306.PROD.OUTLOOK.COM
+ (2603:1096:d10:3d::8) To SJ0PR11MB5214.namprd11.prod.outlook.com
+ (2603:10b6:a03:2df::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
- <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
- <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com> <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
-In-Reply-To: <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
-From: Mathieu Fluhr <mathieu.fluhr@gmail.com>
-Date: Sun, 23 Aug 2026 13:44:53 +0200
-X-Gm-Features: AcwNN1USDXY6BZ3QVJnKPjKNwKTbggFPbEprInzjcDg0VrWNuS71PJD3swwcjl0
-Message-ID: <CAPyJwA-eNSbVGV0uhy0-2w2_Gs0dWdOeJLRpBSLVO_a01-ZPxg@mail.gmail.com>
-Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
- triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
- (bisected to aec11e5f9c45)
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>, linux-usb@vger.kernel.org, 
-	regressions@lists.linux.dev, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>, 
-	Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>, 
-	Michal Pecio <michal.pecio@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR11MB5214:EE_|MW4PR11MB7053:EE_
+X-MS-Office365-Filtering-Correlation-Id: 764c5cae-7297-4236-502e-08df01114f00
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: DLTWkUpT/fefe6jnk53WsozhUvhcEhT4+zXMrsbpCdrFb+EnN6vUjC1zVgL9iU8zrIv8Xq6dgP8Kg1bBQxJQsBArNF3vbB5APreafEmrXvv5J9k34XDB0xq0eNT2KjGe2i1m6sCmUJtq0JvXCgyZemwPJ8MyvUSBiILGjhIAApPN++HnaYj3Z6sn2LUktczTnrK+BwT1DRN8BpOwKj/722QCM6HnXjkFCTBMinz6k8BJgAOHwrhuffRmR/AhSTGFBuK2stMLhsKM1xv2X4V9MyoGS3r9OpbLjog/aXcof8DWF4jqrCc/xm+fqIou6h2jJeap2j4FdHYjtFB7p/Fjj4IYfDT0rWPctdEP+jIwdAGkxP12npZaKorRSrp4oiXkcZmiUNS4apRzBc4/k0v8tGdAN0dmc1cfxm50CJVbE095k00mkqsBXeKcG2JXzwhmFl+Mu3ha5Crj5zdmy1D+YfvAZxIezK97oVEqpvyo2PPp2iSzO8S4ZSYjCLqERRFQQxpdhka51VyEnf8bVOqYk6YWdeqeXoOwIQHC/bSYMaJVimm82uq3m18SY72Qhk2/ZzEdXMK6YtXPlskZbQZBngRoSV0UchzQKa0bUBifgKtYzxBkcPlGeNu+auDsw4P9
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5214.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?krkxENkyOk0UYsgGZvvYHOa0ZiezeH5tVERKtXN5+Npt0xSXd7YakVX6HAH+?=
+ =?us-ascii?Q?/5dFSs+7AfiOQFEjoGydCum1gj6YMu1m2t8ysdUxRV7QHysVWxBb5KFWeZKh?=
+ =?us-ascii?Q?9iJqZ2RkCfdXggHZypAPa8h0PSdtUkF7aPbedTBTlNT7VC3Opa1HXQXM4f2H?=
+ =?us-ascii?Q?ms3Uui6mxm4RFZPeqpyJYEkPyF5gdMyUNzvhKQzPhrRygX7reVJyLrd6DBb5?=
+ =?us-ascii?Q?9rD4T6JFFlCEfZN0+p4AW0fxSohY8YDd5r47iCiw2zU7MIxfjjy5/RaKNwUt?=
+ =?us-ascii?Q?s9X/Q/z3BM6ItKO8gqJ4f9geudJuLTpNmTXfgIK3g47xkL1VdT2vD8xRet+O?=
+ =?us-ascii?Q?6fCFgmd30g75uxI5PGCujSs02EXDI6N0qt1Gij5vQ4KQzoSmoXCvoZt0j8Gd?=
+ =?us-ascii?Q?LjNqU+tfZfZjkVY3FTjDnqHoX/xwdsWvtIQRUidG12EGZUfj1KgPZri73xK1?=
+ =?us-ascii?Q?VlUJCg3RcaMnQgEcxtF6Ed+rcWahDwy3qZSj8xc+KHz4Ih8k7YPthsJlKNDn?=
+ =?us-ascii?Q?ZtWC0OPYmWdTwEP2/2ZdcqbmJ5LHbO+/3kjnCXc5Jo9+br+r3tzAPawLq6ym?=
+ =?us-ascii?Q?7byPQdwJkh1zgzqHlPc7TDFiSsxa/pZf9klXffVSCDJX8Bh9FAeodQQ81qSx?=
+ =?us-ascii?Q?vpCNWXAyZKUEA5IMNeFmXIw4l/JAMpZI10l7XDVXDLlt5D1f+hWip3isE5pT?=
+ =?us-ascii?Q?z286iqXZNEtAasadQdkEI/O8Przbvmzan+SpWOPCrHXDsD9Qks5KOY4eRn6O?=
+ =?us-ascii?Q?l8XJuoyyNQOuUEUvRxbs65H4ll1V7J/xy4d51yMMZjf8YFWKuVeAhsJE/ZYJ?=
+ =?us-ascii?Q?As6cz2Q5DIvAzozig5F2jIELnPYXV9I4lsBQCWzAAmTpJmDLIGDDlWcKZ5o9?=
+ =?us-ascii?Q?zJX1dFFEBvtE9JrS3ljCvtLF8mG7p+V5LU49WdEvPJNEP5pSedQQsyx22UbI?=
+ =?us-ascii?Q?USR8BbuPg+cK2d/usci5tbyBtKPBbRBtBIyCYn9bNvAIKKqYZvOiyywdiLn7?=
+ =?us-ascii?Q?4P/fomqAlWckpXkHN9dKXOHgfPJ8aCwhw0RBaww6Srb8YlTsqrwJtC31IK2V?=
+ =?us-ascii?Q?sMaVpaabYvZikV+YP8g1wRcopPgRamLfwyI1mqA2m3R62bdX3+QsyR+tcghc?=
+ =?us-ascii?Q?/C/q7Yz2SpaEa5C3tip4N9BxYjA4XHNabLKKJC3zyd4mAm8ssBnT05pCT4KV?=
+ =?us-ascii?Q?VGgp5Qjyog/LjvkuRoFpWpmqF7NM1qHAAF8+rrAGT3beEo4ht4d+a6j15mNr?=
+ =?us-ascii?Q?DoMUE1WBwwxTjZ8eVJ87SeoWv2nOow2AVnP1vIxfgY8P7oLGpPm/sFn9SXBS?=
+ =?us-ascii?Q?DvvEdDPT/Ffk0Qsao44omy8RaVX5X0cmNAIK2ZceAUczhQ3pgIxSerAhEyR3?=
+ =?us-ascii?Q?IbY+EfLz07ueNlE7mUuGxBtN8reOkhYYInQSJHBdJ0iZBGk05r9YAhkgWIHw?=
+ =?us-ascii?Q?3B4sFC7jKEOkBEqay/9yZAcbQDc8OsZaTJluFyu9L6VkXRPZbCiv+5hi6cLi?=
+ =?us-ascii?Q?XsUek7s5EQPqM59fZz8CWlc35EyyRrAvEQRzhobyJ06O89W10B8pFmasUMZ0?=
+ =?us-ascii?Q?sXm8n4hR4cHbsJh+2uJXX5Sferx19f32ow1DiHUwo4qUrpZn86D3jaNfJ2p6?=
+ =?us-ascii?Q?G3knMJS/blqvfpND+RwYQjqffQubDosTB3H3r8MXL65eXBzBzXa5D9q+Btnw?=
+ =?us-ascii?Q?QwO1bCOLWDbWvbzZbN5TLaNgIe5eO9WbbwjTYBqP7e0SLZP0IPOTnBYfIh3Q?=
+ =?us-ascii?Q?Qm7TbudySQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: fjKKA7pLF6W7yeu+EPqzReqs2qUY4DRDminQhSOcib26TkyrmFBW1VxuyVfxLBAaETil1sX9BZ19H8u54EkEsjtcCZJhaUWN2gBHTcgLoJ9Eys9HUq6F+UwfPIMFw+CxkYtQP5TN7PGweSxvYM3aK7sNHGQS3D9QM6TBlqz8Skyj86wkVjkWg12W4nrFjOJFLKuAjverBrm9+PIL1hXeFATN1MOiUrVCkDL7+Fno5Yr+KNcxzlmqC1QoR5v83d70de9DYAyr6TvF2dhM/WS3Xb0EBrtlsl7stRoTJ43dNkZ8c00W3zmr0rTblP5HlAjluaEbrJZt/7w6SVTJ48uIOg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 764c5cae-7297-4236-502e-08df01114f00
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5214.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2026 12:23:16.3968
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3pbEPil28tVKO/kAaJQBXPpaMLwURgwnUwY8gYU75Y0EDRGoiX1wYqiyTOWuddkS0An9wk72P5yFsxXPXMPeZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB7053
+X-OriginatorOrg: intel.com
 
-On Sun, Aug 23, 2026 at 12:37=E2=80=AFPM Thorsten Leemhuis
-<regressions@leemhuis.info> wrote:
->
-> On 8/23/26 12:15, Mathieu Fluhr wrote:
-> Thx for the report. Side note: mentioning the essence at the top before
-> explaining backstory and details is usually the way better approach to
-> get people interested in a bug report, especially if it's more that one
-> or two paras.
+Hi Frank,
 
-Point taken :)
+kernel test robot noticed the following build errors:
 
-> Anyway, as you mentioned later and quoted below, your problems are
-> caused by a 6.12.y backport of 8f5b7e2bec1c36 ("usb: hub: fix detection
-> of high tier USB3 devices behind suspended hubs") [v6.16-rc5 (2025-07-06
-> 23:10:26)], authored by Mathias Nyman (now CCed).
->
-> There were at least three earlier reports about problems caused by that
-> commit, all mentioning adb (which I assume you use, too):
+[auto build test ERROR on brauner-vfs/vfs.all]
+[also build test ERROR on cifs/for-next linus/master v7.2 next-20260821]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Yes, looking at the reports, this looks definitely related.
-What is happening when the emulator starts is that it also starts adbd
-if not running on the Linux side, to communicate with the emulator
-later on.
+url:    https://github.com/intel-lab-lkp/linux/commits/Frank-Sorenson/cifs-fix-i_size-inconsistency-in-smb2_duplicate_extents-on-FSCTL-failure/20260820-161443
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git vfs.all
+patch link:    https://lore.kernel.org/r/20260820211443.1472310-1-sorenson%40redhat.com
+patch subject: [PATCH] cifs: fix i_size inconsistency in smb2_duplicate_extents() on FSCTL failure
+config: x86_64-kexec (https://download.01.org/0day-ci/archive/20260823/202608230943.9VnBMLk2-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260823/202608230943.9VnBMLk2-lkp@intel.com/reproduce)
 
-So, this could perfectly explain the persistent state after the
-"Android 15 priming": Since the Android 15 repo contains a more recent
-ADB, where the issue has been eventually wored around, it is started
-firs, and later, when 11 starts, it does not kill it, restarting its
-older adbd, but instead keep the new one running.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608230943.9VnBMLk2-lkp@intel.com/
 
-So, long story short, on my side, I was still looking at the "wrong
-side" of the problem, trying to find what QEMU was doing wrong, where
-in the end, it was more the interactions that adb was doing with the
-USB bus during C2 state that was causing the issue.
+All errors (new ones prefixed by >>):
 
->
-> https://lore.kernel.org/all/qc0nhk9c6l0a08bkfeplrm3qjssgrjkvkp@sonic.net/
-> https://lore.kernel.org/all/CAGQo=3DTJXef-QzbkFEpTcJ138j0k6WYnV4=3DtNY8Q7=
-s3U7DUOY+Q@mail.gmail.com/
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D221103
->
-> FWIW, https://bugzilla.kernel.org/show_bug.cgi?id=3D221103#c16 mentions
-> the workaround you apparently found, too. The patch Mario (now CCed,
-> just like the authors of the two mailed reports linked above; and
-> Michael, too, who seems to be involved) proposed in the last comment of
-> that ticket apparently didn't help. And no other fix is in sight, or am
-> I missing something?
->
-> Mathias reverting the culprit in mainline a option to resolve this (I
-> assume it is not, but I'm asking just to be sure)?
+>> fs/smb/client/smb2ops.c:2251:4: error: call to undeclared function 'cifs_resize_file_locked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    2251 |                         cifs_resize_file_locked(inode, orig_size);
+         |                         ^
+   1 error generated.
 
-Ok, here you lost me a little: Looking to all the links provided, yes,
-this looks very similar to what I am experiencing. But (and correct me
-if I am wrong)
-1. reverting the "bad commit" is not really an option, since it was
-originally authored for a specific purpose (other than annoying AMD
-owners :)
-2. the patch that Mario proposed is very recent, and would address the
-issue not on the USB but on the PCI level?
 
-Thanks again for the swift answer here and all the informative links!
-I must admit that I researched a lot debugging this issue, but I never
-thought about looking to the USB side of the problem, focusing more on
-the CPU side.
+vim +/cifs_resize_file_locked +2251 fs/smb/client/smb2ops.c
 
-Kind Regards,
-Mathieu
+  2188	
+  2189	static int
+  2190	smb2_duplicate_extents(const unsigned int xid,
+  2191				struct cifsFileInfo *srcfile,
+  2192				struct cifsFileInfo *trgtfile, u64 src_off,
+  2193				u64 len, u64 dest_off)
+  2194	{
+  2195		int rc;
+  2196		int qrc;
+  2197		unsigned int ret_data_len;
+  2198		struct inode *inode;
+  2199		struct smb2_file_all_info file_inf;
+  2200		struct duplicate_extents_to_file dup_ext_buf;
+  2201		struct timespec64 ts;
+  2202		struct cifs_tcon *tcon = tlink_tcon(trgtfile->tlink);
+  2203		loff_t orig_size;
+  2204		u64 asize;
+  2205	
+  2206		/* server fileays advertise duplicate extent support with this flag */
+  2207		if ((le32_to_cpu(tcon->fsAttrInfo.Attributes) &
+  2208		     FILE_SUPPORTS_BLOCK_REFCOUNTING) == 0)
+  2209			return -EOPNOTSUPP;
+  2210	
+  2211		dup_ext_buf.VolatileFileHandle = srcfile->fid.volatile_fid;
+  2212		dup_ext_buf.PersistentFileHandle = srcfile->fid.persistent_fid;
+  2213		dup_ext_buf.SourceFileOffset = cpu_to_le64(src_off);
+  2214		dup_ext_buf.TargetFileOffset = cpu_to_le64(dest_off);
+  2215		dup_ext_buf.ByteCount = cpu_to_le64(len);
+  2216		cifs_dbg(FYI, "Duplicate extents: src off %lld dst off %lld len %lld\n",
+  2217			src_off, dest_off, len);
+  2218		trace_smb3_clone_enter(xid, srcfile->fid.volatile_fid,
+  2219				       trgtfile->fid.volatile_fid, tcon->tid,
+  2220				       tcon->ses->Suid, src_off, dest_off, len);
+  2221		inode = d_inode(trgtfile->dentry);
+  2222		orig_size = i_size_read(inode);
+  2223		if (orig_size < dest_off + len) {
+  2224			rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
+  2225			if (rc)
+  2226				goto duplicate_extents_out;
+  2227			netfs_resize_file(netfs_inode(inode), dest_off + len, true);
+  2228			cifs_setsize(inode, dest_off + len);
+  2229		}
+  2230		rc = SMB2_ioctl(xid, tcon, trgtfile->fid.persistent_fid,
+  2231				trgtfile->fid.volatile_fid,
+  2232				FSCTL_DUPLICATE_EXTENTS_TO_FILE,
+  2233				(char *)&dup_ext_buf,
+  2234				sizeof(struct duplicate_extents_to_file),
+  2235				CIFSMaxBufSize, NULL,
+  2236				&ret_data_len);
+  2237	
+  2238		if (ret_data_len > 0)
+  2239			cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
+  2240	
+  2241		if (rc && i_size_read(inode) > orig_size) {
+  2242			int rrc;
+  2243	
+  2244			/*
+  2245			 * FSCTL failed after we pre-extended the file.  Attempt to
+  2246			 * restore the original size so the caller sees a consistent
+  2247			 * file rather than a larger file with uncloned content.
+  2248			 */
+  2249			rrc = smb2_set_file_size(xid, tcon, trgtfile, orig_size, false);
+  2250			if (rrc == 0)
+> 2251				cifs_resize_file_locked(inode, orig_size);
+  2252			else {
+  2253				CIFS_I(inode)->time = 0; /* force reval */
+  2254				cifs_invalidate_cache(inode, 0);
+  2255			}
+  2256		}
+  2257	
+  2258		if (rc == 0) {
+  2259			qrc = SMB2_query_info(xid, tcon, trgtfile->fid.persistent_fid,
+  2260					      trgtfile->fid.volatile_fid, &file_inf);
+  2261			spin_lock(&inode->i_lock);
+  2262			if (qrc == 0) {
+  2263				asize = le64_to_cpu(file_inf.AllocationSize);
+  2264				CIFS_I(inode)->time = jiffies;
+  2265				if (file_inf.LastWriteTime) {
+  2266					ts = cifs_NTtimeToUnix(file_inf.LastWriteTime);
+  2267					inode_set_mtime_to_ts(inode, ts);
+  2268				}
+  2269				if (file_inf.ChangeTime) {
+  2270					ts = cifs_NTtimeToUnix(file_inf.ChangeTime);
+  2271					inode_set_ctime_to_ts(inode, ts);
+  2272				}
+  2273				if (file_inf.LastAccessTime) {
+  2274					ts = cifs_NTtimeToUnix(file_inf.LastAccessTime);
+  2275					inode_set_atime_to_ts(inode, ts);
+  2276				}
+  2277				inode->i_blocks = CIFS_INO_BLOCKS(asize);
+  2278			} else {
+  2279				CIFS_I(inode)->time = 0; /* force reval */
+  2280			}
+  2281			spin_unlock(&inode->i_lock);
+  2282		}
+  2283	
+  2284	duplicate_extents_out:
+  2285		if (rc)
+  2286			trace_smb3_clone_err(xid, srcfile->fid.volatile_fid,
+  2287					     trgtfile->fid.volatile_fid,
+  2288					     tcon->tid, tcon->ses->Suid, src_off,
+  2289					     dest_off, len, rc);
+  2290		else
+  2291			trace_smb3_clone_done(xid, srcfile->fid.volatile_fid,
+  2292					      trgtfile->fid.volatile_fid, tcon->tid,
+  2293					      tcon->ses->Suid, src_off, dest_off, len);
+  2294		return rc;
+  2295	}
+  2296	
 
->
-> Ciao, Thorsten
->
-> >>> As an AOSP developer I am compiling daily different versions of AOSP =
-on it,
-> >>> mostly building an Android (Automotive) emulator for quick "code-buil=
-d-test"
-> >>> runs. I use Ubuntu 24.04 LTS for that, updating to the latest HWE ker=
-nels that
-> >>> Ubuntu provide there (6.8, 6.11, 6.14 etc. until 7.0 recently), with =
-no manual
-> >>> modifications applied.
-> >>>
-> >>> 3 weeks ago, I needed to analyze and issue happening inside Android 1=
-1,
-> >>> building an emulator for a simple Android phone [1]. But when I start=
-ed using
-> >>> this emulator, first with the latest 7.0 kernel I noticed several har=
-d crashes,
-> >>> sometimes just freezing my workstation (with fans full on, but someti=
-mes fans
-> >>> full off), but also sometimes automatically rebooting it.
-> >>>
-> >>> After a few days of deep investigations (To be honest, I first suspec=
-ted an
-> >>> issue with the nivida driver), I found out that a pattern to reproduc=
-e this
-> >>> quickly was to let the computer idle with the emulator running. The c=
-rash was
-> >>> always occurring under 20/25 minutes, most of the time letting it idl=
-e for less
-> >>> than 10 was even sufficient.
-> >>>
-> >>> This made me a bit curious, and looking a bit deeper (and with a litt=
-le help
-> >>> of AI) I was able to find a workaround. forbidding my CPU to enter C2=
- state,
-> >>> using "processor.max_cstate=3D1" argument. Using this, I was not able=
- to
-> >>> reproduce the crash for more than an hour, but I did not pursue there=
- very
-> >>> much: As a developer I hate workarounds :)
-> >>>
-> >>> I instead started to get "back in time" on a clean and up-to-date fre=
-sh Ubuntu
-> >>> 24.04 install, reverting back to "good old" kernel versions, since I =
-could not
-> >>> convince myself that first my CPU was dying and second that the issue=
- has always
-> >>> been there. I confirmed that 6.8 and 6.11 (again Ubuntu HWE packages)=
- work
-> >>> fine, but the crash was reproducible using 6.14 and above.
-> >>>
-> >>> I then got my hands dirty, and started to test different mainline ker=
-nel
-> >>> prebuilt packages up to a point where I confirmed that 6.12.35 worked=
- fine, but
-> >>> 6.12.40 not. I then bisected both versions, ensuring a good case mean=
-t the
-> >>> emulator was idling without any crash for 1 hour minimum. This lead a=
-t the end
-> >>> to the following commit:
-> >>>
-> >>>   aec11e5f9c452ef64e2c113637ab89a67a5ceb62
-> >>>   ("usb: hub: fix detection of high tier USB3 devices behind suspende=
-d hubs")
-> >>>   [mainline: 8f5b7e2bec1c36578fdaa74a6951833541103e27]
-> >>>
-> >>> Being quite astonished that something related to C2 state was trigger=
-ed by an
-> >>> USB patch, I then tested the latest 7.0 kernel, this time using the
-> >>> "usbcore.autosuspend=3D-1" argument instead. To my surprise, I could =
-not
-> >>> reproduce the crash, even with the exact same emulator idling for 2 h=
-ours.
-> >>>
-> >>> Also, something very astonishing, that I still cannot fully understan=
-d today:
-> >>>  1. "priming" my system with a 30 seconds (!) run of a modern Android
-> >>>      emulator [2] cleared the issue: After closing the 15 emulator an=
-d starting
-> >>>      the 11, I could let it idle for again more than an hour. It seem=
-s even not
-> >>>      be related to the 'kvm' kernel modules, since removing the modul=
-e and
-> >>>      re-inserting it between both emulator did not change a thing.
-> >>>  2. A few times (I did not really invest debugging this TBH), the cra=
-sh even
-> >>>     occurred shortly (2-3 minutes) after I closed the Android 11 emul=
-ator.
-> >>>
-> >>> Now, the technical details of my setup...
-> >>>
-> >>> Hardware / software
-> >>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>>
-> >>> CPU:        AMD Ryzen Threadripper 7970X (Storm Peak, family 19h)
-> >>> Microcode:  0x0a10810c
-> >>> Board:      ASUS Pro WS TRX50-SAGE WIFI, BIOS 1203 and 1317 (both aff=
-ected)
-> >>> Memory:     128 GB DDR5 ECC RDIMM @ 4800 MT/s (JEDEC, no XMP/EXPO)
-> >>> GPU:        NVIDIA RTX 3080 Ti (also reproduced with RTX 5080)
-> >>> Distro:     Ubuntu 24.04 and 26.04 with 595-open NVIDIA driver
-> >>> USB:        8 onboard xHCI controllers; only a USB keyboard and mouse
-> >>>             attached
-> >>>
-> >>> Error signature
-> >>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>>
-> >>> On the boot following each crash I could always see the following lin=
-es in
-> >>> the dmesg logs:
-> >>> ---8<----------------------------------------------------------------=
----------
-> >>>   x86/amd: Previous system reset reason [0x88000800]: an uncorrected
-> >>>            error caused a data fabric sync flood event
-> >>>   x86/amd: Previous system reset reason [0x88000800]: a software sync
-> >>>            flood event occurred
-> >>> ---8<----------------------------------------------------------------=
----------
-> >>>
-> >>> When I was fortunate enough and had an automatic reboot, this was als=
-o inside:
-> >>> ---8<----------------------------------------------------------------=
----------
-> >>>   [Hardware Error]: event severity: fatal
-> >>>   [Hardware Error]:   section_type: IA32/X64 processor error
-> >>>   [Hardware Error]:    Error Structure Type: cache error
-> >>>   [Hardware Error]:    Check Information: 0x000000000602001f
-> >>>   [Hardware Error]:     Transaction Type: 2, Generic
-> >>>   [Hardware Error]:     Level: 0
-> >>>   [Hardware Error]:     Processor Context Corrupt: true
-> >>>   [Hardware Error]:     Uncorrected: true
-> >>>   mce: [Hardware Error]: CPU 34: Machine Check: 0 Bank 5: aea00000000=
-00108
-> >>>   mce: [Hardware Error]: TSC 0 ADDR 1ffffff98e8ee38 MISC d0150fff0000=
-0000
-> >>>        SYND 4d000000 IPID 500b020049b00
-> >>> ---8<----------------------------------------------------------------=
----------
-> >>>
-> >>> The signature is bit-identical across every occurrence except for the
-> >>> reporting CPU, which varies (observed on CPUs 1, 3, 7, 16, 32, 34, 35=
-).
-> >>>
-> >>>
-> >>> Reproducer
-> >>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>>
-> >>> 1. Boot an affected kernel with default idle settings (C2 available,
-> >>>    no max_cstate restriction).
-> >>> 2. Start an old and/or 32/64-bit Android emulator (QEMU/KVM guest) an=
-d leave it
-> >>>    idle on the launcher screen. Nothing else running.
-> >>> 3. System hard-resets within 20 minutes.
-> >>>
-> >>> Under sustained CPU load the fault never occurs; it requires the syst=
-em to be
-> >>> idle. turbostat confirms ~99% C2 residency across all cores in the cr=
-ashing
-> >>> condition.
-> >>>
-> >>>
-> >>> Bisection
-> >>> =3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>>
-> >>> ---8<----------------------------------------------------------------=
----------
-> >>> git bisect start
-> >>> # status: waiting for both good and bad commits
-> >>> # good: [783cd2c3dca8b6c434e955b84c20c8940588dc68] Linux 6.12.35
-> >>> git bisect good 783cd2c3dca8b6c434e955b84c20c8940588dc68
-> >>> # status: waiting for bad commit, 1 good commit known
-> >>> # bad: [d90ecb2b1308b3e362ec4c21ff7cf0a051b445df] Linux 6.12.40
-> >>> git bisect bad d90ecb2b1308b3e362ec4c21ff7cf0a051b445df
-> >>> # good: [3ce57d493dd81ecc27033c7a918cc0d0ddaa8edc] ata: libata-acpi:
-> >>> Do not assume 40 wire cable if no devices are enabled
-> >>> git bisect good 3ce57d493dd81ecc27033c7a918cc0d0ddaa8edc
-> >>> # good: [bbd385b65f9e56cab1243e753510a99a59110083] net/mlx5e: Add new
-> >>> prio for promiscuous mode
-> >>> git bisect good bbd385b65f9e56cab1243e753510a99a59110083
-> >>> # good: [2a76bc2b24ed889a689fb1c9015307bf16aafb5b] smb: client: fix
-> >>> use-after-free in crypt_message when using async crypto
-> >>> git bisect good 2a76bc2b24ed889a689fb1c9015307bf16aafb5b
-> >>> # good: [95a13b0a6b042ac5333b67f59af1dffe7b71137b] riscv:
-> >>> traps_misaligned: properly sign extend value in misaligned load
-> >>> handler
-> >>> git bisect good 95a13b0a6b042ac5333b67f59af1dffe7b71137b
-> >>> # good: [40b5b4ba8ed87c0bfb6268c10589777652ebde4c] drm/mediatek: Add
-> >>> wait_event_timeout when disabling plane
-> >>> git bisect good 40b5b4ba8ed87c0bfb6268c10589777652ebde4c
-> >>> # bad: [affb46db59f908474a211f23953c3b9109f0d647] net: libwx: fix
-> >>> multicast packets received count
-> >>> git bisect bad affb46db59f908474a211f23953c3b9109f0d647
-> >>> # good: [ee56da95f8962b86fec4ef93f866e64c8d025a58] btrfs: fix block
-> >>> group refcount race in btrfs_create_pending_block_groups()
-> >>> git bisect good ee56da95f8962b86fec4ef93f866e64c8d025a58
-> >>> # bad: [bf71baa3cfe754c6e99ad62711b9fb3e3da33517] usb: hub: Fix
-> >>> flushing of delayed work used for post resume purposes
-> >>> git bisect bad bf71baa3cfe754c6e99ad62711b9fb3e3da33517
-> >>> # bad: [e11359640090ab26e4153cce583f50e0b8979f0d] usb: hub: Fix
-> >>> flushing and scheduling of delayed work that tunes runtime pm
-> >>> git bisect bad e11359640090ab26e4153cce583f50e0b8979f0d
-> >>> # bad: [aec11e5f9c452ef64e2c113637ab89a67a5ceb62] usb: hub: fix
-> >>> detection of high tier USB3 devices behind suspended hubs
-> >>> git bisect bad aec11e5f9c452ef64e2c113637ab89a67a5ceb62
-> >>> # first bad commit: [aec11e5f9c452ef64e2c113637ab89a67a5ceb62] usb:
-> >>> hub: fix detection of high tier USB3 devices behind suspended hubs
-> >>> ---8<----------------------------------------------------------------=
----------
-> >>>
-> >>> (Please note that I did not perform a full "revert test", since the a=
-ec11e5f9c45
-> >>> commit could not be cleanly reverted on both 6.12.40 and 7.0.0)
-> >>>
-> >>>
-> >>> Workarounds
-> >>> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>>
-> >>> Either of these prevents the crash on an affected kernel:
-> >>>   usbcore.autosuspend=3D-1     (disables USB runtime PM)
-> >>>   processor.max_cstate=3D1     (prevents C2 entry)
-> >>>
-> >>>
-> >>> Ruled out
-> >>> =3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>>
-> >>> - GPU/driver: reproduced with RTX 5080 (595-open module) and RTX 3080=
- Ti
-> >>>               (both 595-open and 595 proprietary modules)
-> >>> - ASUS USB4 PCIe add-in card: reproduces in ~5 min with the card phys=
-ically
-> >>>                               removed
-> >>> - AVIC: kvm_amd avic=3DN on both good and bad kernels
-> >>> - TSA mitigation: tsa=3Doff verified applied
-> >>>   (/sys/devices/system/cpu/vulnerabilities/tsa =3D "Vulnerable"), sti=
-ll crashes
-> >>> - Memory: stock JEDEC 4800, no XMP/EXPO, no ECC errors logged
-> >>>   (ras-mc-ctl reports zero CE/UE)
-> >>> - Thermal/power: ~47-50 C at time of crash, system idle; 1600W Season=
-ic PSU
-> >>> - Hardware health: multi-hour AOSP compiles (all 64 threads, heavy ca=
-che
-> >>>   load) and repeated GPU stress runs complete without error
-> >>>
-> >>>
-> >>> I hope this gives you enough details to start looking at what could c=
-ause this
-> >>> weird behavior. Just FYI, when asked about hardware damage, AI sugges=
-ted more
-> >>> something like "a CPU-level microcode erratum in the deep-idle path o=
-n this
-> >>> platform", but being old-school, I tend to always triple-check what A=
-I tells
-> >>> before claiming it myself :)
-> >>>
-> >>> Thanks and Kind Regards,
-> >>> Mathieu
-> >>>
-> >>> ------
-> >>> [1] using android-11.0.0_r46 release tag and "sdk_phone_x86_64" as lu=
-nch target
-> >>> [3] using android-15.0.0_r32 release tag and "sdk_phone64_x86_64" as =
-lunch
-> >>>     target this time, since Google only releases 64-bit only today
-> >
->
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
