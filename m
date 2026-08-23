@@ -1,159 +1,152 @@
-Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B6433F5A7
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 08:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFEC3644D1
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 09:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787474909; cv=none; b=XUcs+uXbm9zs1p+0JP6cIRI+qZrG2+14dQf7SMsmM32/w8Pb6CDd3EVQHQDuyCw1pPaDRDg0OFcgnVYOAZKh0QebbKBewzoOps0sF8AztXiBoQC7NTw8KljH8qevO6fcLJlJ+t+G/IwmDZcBzPFFP0CDEQBBViqzAifX/KZupX8=
+	t=1787477221; cv=none; b=MRq4iMI+6J+BRrvyM2XWBicqmivjuz4tbgX0X+pjO1NGN7oBS/oI3IjGT6BXQQv/EO1ftTFgs0w4sR8IRtf06a2M1En2ruvrXF9cgfCKlV8RtWDGJoQbdFOulHUtMO9Ud0b/IyrXArAKAFKDi1aL4E3stljQoI3i7SzvaZ2l450=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787474909; c=relaxed/simple;
-	bh=PSCBVmmedtupM0Evsq4E+CnpTnQMX5Q7LwYqzY8evGE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k14hUlTeKInmU6OJM0uxKqXinrCjE8vtRbwz1YbJUYoYiXZP90QPE4FDScdQal4bdviJl+pWZFuUKnxIGsdxkl2LCsd1Saln5uUvWUSGRQdA3E1bI7ZlTvOCRiQ/uc63Z04rjfbuFBeziSt/2EIZc27nDEyDS0mJcL/kYvSIMf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kJXE9JbA; arc=none smtp.client-ip=95.215.58.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787477221; c=relaxed/simple;
+	bh=t0sZ979wz/Kzf3He4S0uIarjFp1HP9gkH0S80Fo68GY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X6Gcvg1Va2zycJcuTxuyg2IsVAVkvW75VBUc4Vxb5ELB2YYUsuqtjAq4kdFui2uPrf4bHxETbJ4RbpPY5zFfV3ksJEAvflSIryKX0IGOBZvXs49zg7Rbz0sU3kf3+J7dMQqGieqqe8LGI3fUS1bJFoLeQlMwP5bUin2vbzR+DLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYuiCQbQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kJXE9JbA"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PSCBVmmedtupM0Evsq4E+CnpTnQMX5Q7LwYqzY8evGE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787474904; v=1; x=1788079704;
- b=kJXE9JbAFBE9SttziK7U4TywOm0Pl07tyiEow/z3g7TNPqZrGR/Y8Y1VV58YdN46KH7g+9/B
- ahb2YfIxN/xUuCrvfSQmi7+V0nFoeQz02Dl3Tb34sVTS9/WS3RPgkcPQSiGU6l08bjhH8SHqz0T
- CLMrKxse+a+cb1ZOTQxZmK74=
-X-Envelope-To: stable@vger.kernel.org
-Received: from localhost.localdomain (147.136.157.0)
-	by smtp.migadu.com with ESMTPS id 851454baa9ca0c56;
-	Sun, 23 Aug 2026 08:48:14 +0000
-X-Mizu-Trace-ID: 851454baa9ca0c56
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	stable@vger.kernel.org,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ilya Lesokhin <ilyal@mellanox.com>,
-	Aviad Yehezkel <aviadye@mellanox.com>,
-	Boris Pismenny <borisp@mellanox.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v1] tls: device: fix out-of-bounds write in tls_append_frag()
-Date: Sun, 23 Aug 2026 16:47:56 +0800
-Message-ID: <20260823084758.20936-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYuiCQbQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3B91F000E9;
+	Sun, 23 Aug 2026 09:26:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787477219;
+	bh=e5yPIQh3O3nq2q0KgfeAefC247ZtIWn5Bcanl1rzdX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DYuiCQbQBkk13k5SkPxxfC5cQJKMQuwY5by9p14ykAbO+zUT+LHa/ezN3DhWGT8ZF
+	 9o7MRNEK3UV6DbJfHJt3h+IA0SXPwHSBGr5tg2mtY+/41/ByT8jd0nKF9INUPWtON9
+	 5YSEYcnfEjsGg4/IYs6LAWqbArrblQOGvqoIBOU2Hyo6cSochwM2YkMddPlp/EBGLu
+	 jGo+kKtJNKo0Ie8CoD9dWlcmveie7/p+l5Z8HlHXDWsbjs7d/MoBUyuIzsKmZupVyU
+	 AEjAoGzVdWKl/jdKh4Ak3w2CVhFQkHoCMpltsX9n1ajORcCLnlw3LO4MVY9mNa/0R6
+	 6++WnQ3AWX33w==
+Date: Sun, 23 Aug 2026 11:26:55 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Tien Phan <tienpp@gmail.com>, security@kernel.org,
+	Greg KH <greg@kroah.com>, Chuck Lever <chuck.lever@oracle.com>,
+	NeilBrown <neil@brown.name>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] nfsd: fix use-after-free of DRC slot in
+ nfsd4_sequence()
+Message-ID: <aoq83x-evWFqvOC_@gmail.com>
+References: <20260819054326.1265334-1-tienpp@gmail.com>
+ <20260819074701.1312702-1-tienpp@gmail.com>
+ <d12a1f09d718f4b7ba7a8101806f858f2a6140bd.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d12a1f09d718f4b7ba7a8101806f858f2a6140bd.camel@kernel.org>
 
-Found with syzkaller and a local syzbot instance running on top of a
-netdevsim TLS offload emulation; tls_device.c is otherwise only reachable
-on a machine with a NIC that implements the offload.
 
-tls_push_data() only checks whether the open record still has room for
-another frag at the bottom of its loop, and the MSG_MORE early break
-skips that check.  The record survives to the next syscall with the frag
-count it already had, and tls_append_frag() does not check either, so
-with TLS_TX_ZEROCOPY_RO every splice(SPLICE_F_MORE) of a byte or two adds
-a non-coalescing pipe page and num_frags walks off the end of
-tls_record_info.frags[MAX_SKB_FRAGS].  Once the record is pushed,
-tls_push_record() runs the same index over sg_tx_data[MAX_SKB_FRAGS] and
-the sg_set_page() writes land on the destruct_work that follows it, which
-the workqueue then calls.
+* Jeff Layton <jlayton@kernel.org> wrote:
 
-The byte limit is fine because copy drops to 0 and the loop falls through
-to the same check; the frag count has no such feedback.
+> I think this problem is already fixed (and more comprehensively) by
+> this patch in Chuck's nfsd-testing branch:
+> 
+>     f5d22e372f4a nfsd: don't free session slots that are still in use
 
-Push the record rather than keep a full one open, which is what a plain
-TCP socket does - tcp_sendmsg_locked() uses tcp_mark_push() and
-new_segment in both the copy and the MSG_SPLICE_PAGES paths, and tls_sw
-already sets full_record when the sk_msg ring fills up, MSG_MORE or not.
+Commit/patch attached below for convenience - and it's now upstream
+as well already.
 
-  BUG: KASAN: slab-out-of-bounds in tls_append_frag ( net/tls/tls_device.c:269)
-  Write of size 8 at addr ffff8881104d1530 by task tls_oob/450
+Thanks,
 
-  CPU: 2 UID: 0 PID: 450 Comm: tls_oob Not tainted 7.2.0-rc7+ #329 PREEMPT
-  Call Trace:
-   <TASK>
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   tls_append_frag (net/tls/tls_device.c:269)
-   tls_push_data (net/tls/tls_device.c:518)
-   tls_device_sendmsg (net/tls/tls_device.c:583)
-   inet_sendmsg (net/ipv4/af_inet.c:865)
-   sock_sendmsg (net/socket.c:775 net/socket.c:790 net/socket.c:813)
-   splice_to_socket (fs/splice.c:884)
-   do_splice (fs/splice.c:936 fs/splice.c:1349)
-   __do_splice (fs/splice.c:1431)
-   __x64_sys_splice (fs/splice.c:1634 fs/splice.c:1616)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-   </TASK>
+	Ingo
 
-and, once the record is pushed:
+=========================>
+# From f5d22e372f4ac3eb287037a488c29691d52a6330 Mon Sep 17 00:00:00 2001
+From: Jeff Layton <jlayton@kernel.org>
+Date: Tue, 26 May 2026 12:24:48 -0400
+Subject: [PATCH] nfsd: don't free session slots that are still in use
 
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:300:24
-  index 18 is out of range for type 'skb_frag_t [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:301:41
-  index 18 is out of range for type 'scatterlist [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:302:39
-  index 18 is out of range for type 'scatterlist [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:307:38
-  index 26 is out of range for type 'scatterlist [17]'
+nfsd4_sequence() can free the very slot it is currently processing.
+When the session shrinker has reduced se_target_maxslots below
+se_fchannel.maxreqs, the shrink path checks three conditions before
+calling free_session_slots():
 
-  kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
-  BUG: unable to handle page fault for address: ffffea000411a680
-  #PF: supervisor instruction fetch in kernel mode
-  #PF: error_code(0x0011) - permissions violation
-  Oops: Oops: 0011 [#1] SMP KASAN PTI
-  Workqueue: ktls_device_destruct 0xffffea000411a680
-  RIP: 0010:0xffffea000411a680
-  Call Trace:
-   <TASK>
-   worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-   </TASK>
+  1. se_target_maxslots < maxreqs  (shrink was advertised)
+  2. slot->sl_generation == se_slot_gen  (slot is up-to-date)
+  3. seq->maxslots <= se_target_maxslots  (client acknowledges)
 
-Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+However, seq->slotid is never checked against se_target_maxslots.
+A client using a slot in the range [se_target_maxslots, maxreqs) can
+satisfy all three conditions: its slot has the current generation
+(set by a prior SEQUENCE), and it sends sa_highest_slotid <=
+se_target_maxslots to acknowledge the reduction.
+
+free_session_slots() then kfrees every slot at index >=
+se_target_maxslots, including the caller's own slot. The function
+continues to write sl_seqid, sl_flags, sl_generation, and stores the
+dangling pointer in cstate->slot. Later, nfsd4_store_cache_entry()
+copies up to maxresp_cached bytes of the compound reply into the freed
+sl_data[] array, corrupting whatever slab object now occupies that
+address.
+
+Additionally, a concurrent thread processing SEQUENCE on a different
+high-numbered slot can have its slot freed out from under it.
+NFSD4_SLOT_INUSE is set under nn->client_lock before the lock is
+released, so any concurrent thread past SEQUENCE will have its slot
+marked. However, free_session_slots() does not check NFSD4_SLOT_INUSE
+before freeing.
+
+Fix both problems by:
+ 1. Checking that the current request's slotid is below the shrink
+    boundary.
+ 2. Scanning slots in the to-be-freed range for NFSD4_SLOT_INUSE and
+    deferring the shrink if any are active.
+
+Fixes: fc8738c68d0b ("nfsd: add support for freeing unused session-DRC slots")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260526-nfsd4_sequence_shrink_uaf_on_loaded_slot-v2-1-74a89db0639e@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 ---
-Hope to get capture attention
+ fs/nfsd/nfs4state.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-netdevsim + tls (revised a lot locally):
-https://lore.kernel.org/netdev/20260728125658.390500-1-jiayuan.chen@linux.dev/
----
- net/tls/tls_device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-index 37bb06a8e8f5..f11d0528fc43 100644
---- a/net/tls/tls_device.c
-+++ b/net/tls/tls_device.c
-@@ -531,7 +531,8 @@ static int tls_push_data(struct sock *sk,
- 		if (!size) {
- last_record:
- 			tls_push_record_flags = flags;
--			if (flags & MSG_MORE) {
-+			if ((flags & MSG_MORE) &&
-+			    record->num_frags < MAX_SKB_FRAGS - 1) {
- 				more = true;
- 				break;
- 			}
--- 
-2.43.0
-
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 8f90fba53357..0d6a7440a4e2 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -4496,6 +4496,19 @@ static void nfsd4_construct_sequence_response(struct nfsd4_session *session,
+ 		seq->status_flags |= SEQ4_STATUS_ADMIN_STATE_REVOKED;
+ }
+ 
++static bool nfsd4_slots_inuse(struct nfsd4_session *ses, int from)
++{
++	int i;
++
++	for (i = from; i < ses->se_fchannel.maxreqs; i++) {
++		struct nfsd4_slot *slot = xa_load(&ses->se_slots, i);
++
++		if (slot->sl_flags & NFSD4_SLOT_INUSE)
++			return true;
++	}
++	return false;
++}
++
+ __be32
+ nfsd4_sequence(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 		union nfsd4_op_u *u)
+@@ -4575,7 +4588,9 @@ nfsd4_sequence(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 
+ 	if (session->se_target_maxslots < session->se_fchannel.maxreqs &&
+ 	    slot->sl_generation == session->se_slot_gen &&
+-	    seq->maxslots <= session->se_target_maxslots)
++	    seq->maxslots <= session->se_target_maxslots &&
++	    seq->slotid < session->se_target_maxslots &&
++	    !nfsd4_slots_inuse(session, session->se_target_maxslots))
+ 		/* Client acknowledged our reduce maxreqs */
+ 		free_session_slots(session, session->se_target_maxslots);
+ 
