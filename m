@@ -1,124 +1,175 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FF33346BE
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C7D23EA84
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787504733; cv=none; b=plusiNygIVCVPiq5jm+Menu3al9NEOX/EgIWyEXpVZLXskDNae+pmu+tU6kIZzdOxafNxlmXQQHmqT3C5YGBkhVEScW1BqpB/VbeF2SomtM96eNgP0saSz4IKqLj8CcDTJn0mewiZUBq/E27cRq3RYRnmJpDKYhIoL4a4/sGmHc=
+	t=1787504762; cv=none; b=CEOp85zib4h/ftEBY7NR+8UqmFZqujmXWrO1tH48ZboiP7ecfLsdCdEsezZBFL/LHkDekMMkTZ6ZQ4Kc9DOlrsrKJf4glCjHNjq9JU84ZvOZ83Q/crHTl0PKRd7tIaf/xA+M+U4FESEDyjs+Wwr9nStAQFvS6hqeV8Apf8l+1yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787504733; c=relaxed/simple;
-	bh=tZ3kOiXAkP3ZajzR9DGtBNJIg33EF2ByFAZEw7fsQVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y/jgUJzNNomui+iOLFvc54Sztfsw214Q+5mBtNJKoh1K9lEh5tuPs4qL2KcW20/EzJdUTSQ7TIu1XBF2ottp6dT66++zWk4hT1d7cvFco1rcDCUdBWqxq7JVoCfTXDc9tYmPL4Vb+UrUmyCzoEz2Ta/6TSy6iANoHZbWZkWQGnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IMBzUQdt; arc=none smtp.client-ip=209.85.214.175
+	s=arc-20240116; t=1787504762; c=relaxed/simple;
+	bh=MOSoskfPWCJYTRcElhbU7017zaNB/Jrp/HctCMM0yCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kq721No4uHcvEZjvBs0u2WYUWis2V/5W4i1t/yQ9umb8JWC1F/Cl73JWzTnCRGr9PAWghCoeu+3BcISsXJVw9YEcnJRQyrauJptmvlxIJKxQYVqKOsu0a4ZPIZLtQG88dCgwsh7Kt/ljIcGqt5bBZ6jt/BFympbdeyMjpupBphs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jfE6OZiZ; arc=none smtp.client-ip=74.125.224.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IMBzUQdt"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc61541f8cso38755005ad.0
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:05:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jfE6OZiZ"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66c70effc23so293647d50.1
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:05:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787504729; x=1788109529; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pYrUZlO7IqIkRYhROYYB/AOAuFYaRX4X5UCYzj5mFMc=;
-        b=IMBzUQdtLJ+6V/GO1zZOcwtv+iGs3xmZT8AZUqYbjDExUonMHcjuWfklNcJecR2BCg
-         Jd1KnLrhRjGmE+PslLtYNI9i/yra8VGUFzc31aF2fSJjqm1Jj+Si3ZK8EGf5PNuPFfWM
-         MGsw2hRPyLol20NDBQXIN8SvBl//QMbW0eoBmB+DuuS91oQk9iqgQ/o6ys3D2a+6NMUz
-         1lqtYjVpW17z5oWqM+F+EIS1ofXj1n6fPH4HnZcha8MApRnVavJ9G7YroDQfL1Q3WD/G
-         Xfs+Wo1E4fE3vaZsQ/ng3CLyqZeSDuiqHyTBSZ1aeJrZNvIpGZPHcz46V6jT8i71BXUH
-         e1ZA==
+        d=gmail.com; s=20251104; t=1787504754; x=1788109554; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=esjqTaDB5DT6wtV4Y9AzgjqpTCrwMQJOjGYCKVsLIlo=;
+        b=jfE6OZiZqfBaNW0nhyP/lZjc7Vog5R1/gxYLbRc13QdcVBI7eds/P9Pb5JpKM0zngZ
+         /3frcuK4JN0d1jA+BOqHB7fcUqsGngxxSre8z5e6OjZyydlAWnE4E2ygbVYSnAnYUKOn
+         S8Ft960HzFsHi64gLVrXkpGWcN6osyWlz2g5E3WmgvVwVeEilwBaXJtSCDpTIm2wp1H0
+         J8z7KF90hfu7q9M3M/v5zu4UzYivx8f/CMp8sB7jUGDCSxabchvfkpTyUZOOLUbRaQ69
+         FRs7kOiAyZWpmY40cE2ybtpDJ8oJLma6BKZucmO/wozU2lEQoQXQw4ZajemHcbuNHUEL
+         5wig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787504729; x=1788109529;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pYrUZlO7IqIkRYhROYYB/AOAuFYaRX4X5UCYzj5mFMc=;
-        b=K9YJIbPd/Sx+bhYIEX72P5lOf7lk3ej26HFrpFMStTRSfavuHIW9cpPMrGgjvicah6
-         hxwL7dQjvlUqQV63OLqvPkTIDR3zZAFqSymW3LasukQxE5laFY25meYxus80/Yl37zkP
-         /r1p7hd2KD23yQd1LH4+i4RSZ0ZbLzta7ZZD53bUBXr57Vdldtzc6yBzXrGHP/IgPws5
-         6xyTM+LHoxrHfpAbXCYKyMA13sA0aTGOPBiLQhrnHG1f0Lht5d4dQPLprCv/8LPnPVDF
-         IWd8VzsVQoOcSKtdzF1RZudw87NOnml6KX7OU7NOrN5dM9d+Fc+MOHcdVYH4M2CO+RFn
-         t/4w==
-X-Forwarded-Encrypted: i=1; AHgh+RpAgPUvRyWOHdUNj4dmtsj0+GrPHIxynR5/PxpAuTc8bdSxRkatZ15zprH+aMj0rwj3WtylTzU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqce7+PUUpSqiCVM+nghxpFkZey7nbR1A9I2CrbK73i1d6C3+r
-	cPFl833eK8NZkM4eGWB1IbUtatYXxhe/2ovQYKDsTqgh1jsV2gqP+RVT
-X-Gm-Gg: AR+sD13NsDCAQV52wjdkRCX8ZrPfvVjvlzZPie2nQtvHyI/sy8cIwwLQrN3M7lP0Gq1
-	vLc0ywpjWlx/aN0/UGy1/l2gPYxPudYNFa+8CjMvT+uX7cc6jcefN7mrEj/Au79ZS7AC0wtogTi
-	apjvCGgbS6hrbhIrqj2wM+j6ipo9EXRN8/kw9hxvCOCSz3+KGK9oVDm2WYFv0rG+plHlra84mD4
-	MU7URybELhGN9eSSdOyqRutvS+OqZhzIZD3C/B8Rh0v8D2nRZlFVqvVMgUK9NIJT5MMkn0DbeY6
-	8F50Fhq++yGfCzRUzjOssbAmYLNAcDBkP0SsOggETso3HG5B3qj/dq51IESVtYhtDHeAMUHdQJr
-	4LZyZ+c8YYXfOyWvVdUzvcRkJvUnE2Q2aU/EoKjxH7vnahhBU4fQU0Ek3uqBC3Hz2+hyWSMN1yJ
-	N583Cz5kvw+cdUB19Ex4Gvn7PCiMluPeD/KMaIdnl/07o6Ggc0ERCoZRBeZvLmuRV+CazZ31P3R
-	tgDm3YxiUZi3vifjjZ8mf7ugOCB
-X-Received: by 2002:a17:903:b45:b0:2ce:a6a4:451b with SMTP id d9443c01a7336-2d61a183641mr202719365ad.11.1787504729357;
-        Sun, 23 Aug 2026 10:05:29 -0700 (PDT)
-Received: from localhost ([2409:40c4:35d:a0d7:1d3:cd30:d9bc:b5a9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d36f9sm26172029eec.16.2026.08.23.10.05.27
+        d=1e100.net; s=20251104; t=1787504754; x=1788109554;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=esjqTaDB5DT6wtV4Y9AzgjqpTCrwMQJOjGYCKVsLIlo=;
+        b=Caa87gqOywP3JJleXKQ3WhpuUs1dflY22iDqxcfHImI5g1/mm4c3evVn1pfO2Bt/28
+         N+nJSIfnaLYuWShhvs2UkUqqqR79kkNJKi9BxYRbsVO+jTpsCnk04eIv9ZrXeGm/mURO
+         Wp0I0IZnF27u5fvuIPpV0RrgVIVYHjOE+w1I2W810l799yjA/ngfQy6pxVuya3U0xUBg
+         0ZD9+jO7NJhMiCpcy0KuI+Prc243iNXQm10gyhsiwBD5P68er3RyDjXT0WWrFOST5Bwa
+         x591KFdOxakch7RnV/r5KNbe7hFFjEeBl9DWUAH1+RipTiKXEwTIg5Dvb9gIwmoV4ItN
+         mxhg==
+X-Forwarded-Encrypted: i=1; AHgh+RqR36VEZdVDZuA00Ey8ZUpcxHQVXKBDb8Ow5qfoQsx3gAbOwlNeIsKuzkSV2/nQBZ0e1kZ2fqs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3S3vjMlgpVPv+dMGSxJaP322O/U5WCJUwIw58sP6lqeOYj0yB
+	HpP1ovJSXfIguCRmijMb86BDLLXfGq09knILdYLP1bO++DeCW5/mTu9r
+X-Gm-Gg: AR+sD12SkfqCMTWGaZR3bUAx03laa2MTR6e58oPGfYYI3gmw+5ld1MUluwkSY7XEM1I
+	/stc54mXA+BrmFJcCgjUECo7r32I4VuLPMsjTu1X2x+VqkLZnnGOigtGC/K+Ujf2tt8L88n6RJx
+	iLqStDxahHSvDjunuV+mYr5ff+sciJe6EZm885++OcNeRmJEdbP16UDTo6QvftjUjzrH7sx4cj9
+	jLC3tOFJoc9lEaMJux4eEpfD3Tpcv6s5l/0ow76HT6z4GGkHaOtwJdqpV93kYnIt4WNaCO+74Kx
+	5/kZ6mk2umPu+1fORgA28bYGM/q9fpRJe1RiWG/Asun7fkVqX27hBHr312EhFrHEPC7FONRpHXn
+	DdvN4BJG7h3COhWqUesAn5OuHkr5T7kv90gWjh0ZTdETVGClzUTBCHi9oGKvFW1da+nNIDqdQ18
+	pJ4fc2kkUyUUgrkzxK+F91yeZjenSi5adi+jJtO5lsDVmf9ySugBJ4dy3+4TSkWWcQ7FQgrlmBu
+	aVwJRX6K9i7v6L1FxCdKue5HUCRGacR8KSoev+xPlDMJWHZvVvbO2Q=
+X-Received: by 2002:a05:690e:4849:b0:668:99ce:a033 with SMTP id 956f58d0204a3-66ce4a9b51fmr4978933d50.2.1787504753689;
+        Sun, 23 Aug 2026 10:05:53 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66cf4a2c3c2sm2333298d50.17.2026.08.23.10.05.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 10:05:28 -0700 (PDT)
-Date: Sun, 23 Aug 2026 22:35:24 +0530
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>, 
-	Mathias Nyman <mathias.nyman@linux.intel.com>, linux-usb@vger.kernel.org, regressions@lists.linux.dev, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mario Limonciello <mario.limonciello@amd.com>, Forest <forestix@gaga.casa>, 
-	Slavik Dev <developer.slavik@gmail.com>, Mathieu Fluhr <mathieu.fluhr@gmail.com>
-Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
- triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
- (bisected to aec11e5f9c45)
-Message-ID: <aoser8dLytrwqBC2@eggarch>
-References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
- <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
- <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
- <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
- <aosGtkE_diwVJJtB@eggarch>
- <20260823174059.46fec036.michal.pecio@gmail.com>
+        Sun, 23 Aug 2026 10:05:52 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Gao feng <gaofeng@cn.fujitsu.com>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] netfilter: nf_log: unregister loggers before per-net teardown
+Date: Mon, 24 Aug 2026 01:05:38 +0800
+Message-ID: <20260823170538.3856770-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260823174059.46fec036.michal.pecio@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 23, 2026 at 05:40:59PM +0200, Michal Pecio wrote:
-> But I'm not sure what you mean by "1Hz stress loop" and why is slowing
-> down the suspend/resume cycles or moving suspend from close() call into
-> a work supposed to create problems?
-> 
-> I would naively think that doing things *too fast* is more likely to
-> trigger races and break the HW. The whole issue smells like a HW bug,
-USB2 roothubs still do 30 ms cycles and are harmless, only stretched SS
-ones kill the box. So if speed were the issue the faster ones would be
-dying first and pre regression kernels ran fine.
+nf_log_syslog and nfnetlink_log unregister their per-network namespace
+operations before unregistering their global logger backends. This
+leaves a window where a sysctl or netlink writer can rebind the still-
+registered logger after the per-net pre-exit callback cleared the old
+selection.
 
-About 1Hz, adb scans the bus once a second,
-every open resumes the root hub and host controller out of D3 and close
-puts it back this existed before regression too but with 30 ms of
-close() and slept for rest of the second and now it keeps it
-in D0 well after close(), the suspend itself happening later from the
-delayed work, so this d3 - d0 - d3 trip of ~230ms repeats on
-each scan. That's the loop I meant.
+The race looks like this:
 
-> Can it not become a problem for external hubs, under other workloads?
-Possibly yes, but nobody reported that so I'd rather scope where the
-harm is proven.
+  CPU 0                                 CPU 1
+  ----                                  ----
+  unregister_pernet_subsys()
+    nf_log_unset(net, logger)
+      net->nf.nf_loggers[pf] = NULL
 
-> Also, what if we connect a downstream SS hub to the root hub? Will this
-> not cause the root hub to stay awake for 200ms again? Problem is back?
-The root hub itself skips the hold since the check is on its own parent,
-but it will be kept awake anyway while the downstream hub or devices are
-in use which is normal activity based PM.
-If heavy polling behind a real hub ever causes trouble that's probably a
-xhci/platform level fix anyways since real hubs can't really just drop
-the hold.
+                                        lock nf_log_mutex
+                                        find logger in loggers[][]
+                                        net->nf.nf_loggers[pf] = logger
+                                        unlock nf_log_mutex
 
-Regards,
-Lovekesh
+  nf_log_unregister(logger)
+    lock nf_log_mutex
+    loggers[pf][type] = NULL
+    unlock nf_log_mutex
+    synchronize_rcu()
+  module exit returns
+  module core frees backend memory
+
+Later, a sysctl read or packet logging operation can dereference the
+stale per-net logger pointer.
+
+Fix this by unregistering the global logger backends before tearing down
+per-net state. Once the global registrations are gone, later writers can
+no longer rebind the logger. unregister_pernet_subsys() already waits
+for an RCU grace period after the pre-exit callback clears the per-net
+selection, while nf_log_unregister() continues to cover readers of the
+global logger table.
+
+Apply this ordering fix to both nf_log backends that combine per-net
+teardown with global logger registration.
+
+Fixes: 5b023fc8d8e0 ("netfilter: enable per netns support for nf_loggers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v2:
+- Rework the fix around backend teardown ordering instead of clearing
+  per-net bindings from nf_log_unregister().
+- Apply the ordering fix to both nf_log_syslog and nfnetlink_log.
+- Drop the redundant trailing synchronize_rcu().
+
+Link: https://lore.kernel.org/netdev/20260822184658.3787672-1-nicoyip.dev@gmail.com/ [v1]
+---
+ net/netfilter/nf_log_syslog.c | 2 +-
+ net/netfilter/nfnetlink_log.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/netfilter/nf_log_syslog.c b/net/netfilter/nf_log_syslog.c
+--- a/net/netfilter/nf_log_syslog.c
++++ b/net/netfilter/nf_log_syslog.c
+@@ -1073,12 +1073,12 @@
+ 
+ static void __exit nf_log_syslog_exit(void)
+ {
+-	unregister_pernet_subsys(&nf_log_syslog_net_ops);
+ 	nf_log_unregister(&nf_ip_logger);
+ 	nf_log_unregister(&nf_arp_logger);
+ 	nf_log_unregister(&nf_ip6_logger);
+ 	nf_log_unregister(&nf_netdev_logger);
+ 	nf_log_unregister(&nf_bridge_logger);
++	unregister_pernet_subsys(&nf_log_syslog_net_ops);
+ }
+ 
+ module_init(nf_log_syslog_init);
+diff --git a/net/netfilter/nfnetlink_log.c b/net/netfilter/nfnetlink_log.c
+--- a/net/netfilter/nfnetlink_log.c
++++ b/net/netfilter/nfnetlink_log.c
+@@ -1233,8 +1233,8 @@
+ {
+ 	nfnetlink_subsys_unregister(&nfulnl_subsys);
+ 	netlink_unregister_notifier(&nfulnl_rtnl_notifier);
+-	unregister_pernet_subsys(&nfnl_log_net_ops);
+ 	nf_log_unregister(&nfulnl_logger);
++	unregister_pernet_subsys(&nfnl_log_net_ops);
+ }
+ 
+ MODULE_DESCRIPTION("netfilter userspace logging");
+-- 
+2.43.0
