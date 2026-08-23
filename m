@@ -1,27 +1,27 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAEA3CA497;
-	Sun, 23 Aug 2026 12:44:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5017A3D75C9;
+	Sun, 23 Aug 2026 12:45:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787489099; cv=none; b=SKr6G6kZLjRCDrRzp3x6zC3+aJbas0f+Otj9zWLl+S/WUCFko4SvKJbLhnSH4x8XIK+mTpign54kj7jWaaiR3DGygycsuyOGg6HQAXSbvhRU6hpaNY732QNpkJok8DcTPEFyPSJO8oTkX1rrDbFU1t7da3GZFAELe6UuqMGcFGM=
+	t=1787489111; cv=none; b=Cp2Pl2wHY4yvrRwKPGBrytr+qc5mj1YcoEN1hFRaHKuk8nA64FNjtCY7du7KwRozPu4NqjNVavzRlNirHrMG/xNOjOypy4SHuXit3evnNxcG9M6CvZWTZAz7fFYvEcuwwHURfpkpL5Rb1dW7A536Lk5G95uBI2w6vA23bcGIp3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787489099; c=relaxed/simple;
-	bh=S2xcbqOQanp53GLnFRNN6TSbiQIqm2HDmWRQ2QruCVw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rOuW6q6u4lpoWvW0VBovIGus0E894wtZ8eAb9NT9PnK524/bwE16KQKX5vt+gCRB5gfzVpKrzCiF0OOJj2EZ13qlC2BcLxvCocyoIDPk0KMjCIlnhU2U/D03QCEBdSkpZKPPAlK9Wx5UU961G/P/6X3EKkUknJT0bTUzeND03FE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CzcuzhpC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787489111; c=relaxed/simple;
+	bh=wpP0JX3lrwQa0kCraHwnc4Dg/MYwsHeFNgDsnPEl3tA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gw/sM/iOuTF6os+h5IevEnal2GPVoo1+hFN/C45HPZLo9euo1KrdnFsfwqbINofhg+Mf+zO6lHAX2KJa7DKyiT++pfpu8HH3IGtwCTiKR06hCNoddqkVRlfT03Lnug3ydv+s73quW2KCLTClNFV42Ro9Wlzx56sY91itHAIDUXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bO7kv3Av; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CzcuzhpC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F9D1F00A3A;
-	Sun, 23 Aug 2026 12:44:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bO7kv3Av"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345BC1F00A3E;
+	Sun, 23 Aug 2026 12:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787489097;
-	bh=6wFLNx1hkPiYRVwXvOv+zdVTJr2RX6jIXGFkaTi95Bo=;
+	s=korg; t=1787489107;
+	bh=CvrWaD2/WO9hDwk8Pzt8ssoIY4J2ugNIhAfwveVnzks=;
 	h=From:To:Cc:Subject:Date;
-	b=CzcuzhpCEQGNPb50QgZ4seOXAIL8ieuGaqIJ6U1dF/yhHYgXzbm9dEwdIga9DQjDx
-	 GFVHz7A6oiR2JmV/QP98PXzESJKj/UOBUMWK3TDaCKFl2c8amRTKx8CFfOoA7WoYON
-	 lXKHsCT/YCxf4kOC5j3YKjAPRIlyUud3zm4I+dOg=
+	b=bO7kv3AvwpwTx8nU3GCuJwdIXCxNY6itzk3NdNANo9WVbhQ5sbG5rXPjX2aCQU7Z9
+	 Vg16rcpExbeMYJVBaIJnbtAocRQ3ZaZeO1tHescVw82VPIT4KV+yq4nLAlrMzpdUR1
+	 tdixbs+FttGDxvCgksTHOiV13Cr7a3CXKpygkZR8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -30,9 +30,9 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Linux 5.10.266
-Date: Sun, 23 Aug 2026 14:43:12 +0200
-Message-ID: <2026082312-bribe-scalping-3ef9@gregkh>
+Subject: Linux 6.1.184
+Date: Sun, 23 Aug 2026 14:43:18 +0200
+Message-ID: <2026082319-prowess-overhand-63a4@gregkh>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -43,12 +43,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-I'm announcing the release of the 5.10.266 kernel.
+I'm announcing the release of the 6.1.184 kernel.
 
-All users of the 5.10 kernel series must upgrade.
+All users of the 6.1 kernel series must upgrade.
 
-The updated 5.10.y git tree can be found at:
-	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-5.10.y
+The updated 6.1.y git tree can be found at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-6.1.y
 and can be browsed at the normal kernel.org git web browser:
 	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
 
@@ -67,282 +67,434 @@ greg k-h
  arch/powerpc/kvm/powerpc.c                                |    2 
  arch/powerpc/platforms/pseries/lparcfg.c                  |    2 
  arch/powerpc/platforms/pseries/pci.c                      |    2 
+ arch/riscv/include/asm/pgtable-32.h                       |    3 
+ arch/riscv/include/asm/pgtable.h                          |    1 
+ arch/riscv/kvm/vcpu.c                                     |    2 
+ arch/riscv/mm/init.c                                      |   11 
+ arch/s390/include/asm/cpu_mcf.h                           |  112 ---
+ arch/s390/kernel/Makefile                                 |    2 
+ arch/s390/kernel/perf_cpum_cf.c                           |  272 ++++++++-
+ arch/s390/kernel/perf_cpum_cf_common.c                    |  233 -------
+ arch/s390/kernel/perf_pai_ext.c                           |    2 
  arch/s390/kvm/kvm-s390.c                                  |    2 
- arch/x86/include/asm/kvm_host.h                           |    3 
+ arch/s390/kvm/pci.c                                       |   86 ++
+ arch/s390/kvm/pci.h                                       |    2 
  arch/x86/kernel/cpu/resctrl/rdtgroup.c                    |   12 
- arch/x86/kvm/lapic.c                                      |   41 -
- arch/x86/kvm/lapic.h                                      |    3 
- arch/x86/kvm/svm/avic.c                                   |    4 
- arch/x86/kvm/svm/svm.h                                    |    2 
- arch/x86/kvm/vmx/vmx.c                                    |    9 
- arch/x86/kvm/x86.c                                        |   19 
+ arch/x86/kvm/lapic.c                                      |    2 
+ arch/x86/kvm/svm/sev.c                                    |   34 -
+ arch/x86/kvm/svm/svm.h                                    |    1 
+ arch/x86/kvm/x86.c                                        |    4 
+ block/genhd.c                                             |   12 
  crypto/ccm.c                                              |    2 
- drivers/base/property.c                                   |   29 
- drivers/char/tpm/tpm_tis_core.c                           |   38 -
+ drivers/ata/libata-core.c                                 |   18 
+ drivers/ata/libata-scsi.c                                 |    2 
+ drivers/ata/libata.h                                      |    9 
+ drivers/bluetooth/btmrvl_main.c                           |    9 
+ drivers/bluetooth/btrsi.c                                 |    1 
+ drivers/bluetooth/btsdio.c                                |    8 
+ drivers/bluetooth/btusb.c                                 |    5 
+ drivers/bluetooth/hci_ldisc.c                             |    6 
+ drivers/bluetooth/hci_serdev.c                            |    5 
+ drivers/bluetooth/hci_uart.h                              |    1 
+ drivers/bluetooth/hci_vhci.c                              |   10 
+ drivers/bluetooth/virtio_bt.c                             |    2 
+ drivers/char/ipmi/ipmi_msghandler.c                       |    8 
  drivers/crypto/qce/core.c                                 |    2 
- drivers/dma-buf/dma-resv.c                                |    8 
  drivers/dma-buf/udmabuf.c                                 |   21 
- drivers/dma/dw-edma/dw-edma-core.c                        |   77 +-
- drivers/dma/dw-edma/dw-edma-core.h                        |   20 
- drivers/dma/dw-edma/dw-edma-pcie.c                        |  180 +++-
- drivers/dma/dw-edma/dw-edma-v0-core.c                     |   76 +-
  drivers/fpga/dfl-afu-main.c                               |    3 
+ drivers/gpio/gpio-mt7621.c                                |    2 
+ drivers/gpio/gpio-mvebu.c                                 |    4 
+ drivers/gpio/gpio-pxa.c                                   |    4 
  drivers/gpio/gpio-tegra.c                                 |   18 
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c          |    4 
+ drivers/gpio/gpio-vf610.c                                 |    4 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c                    |   30 -
  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c                   |   21 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c               |   30 -
  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c                   |   11 
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c                    |    2 
  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c                     |   26 
- drivers/gpu/drm/amd/pm/amdgpu_pm.c                        |   14 
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                       |   27 
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                        |   16 
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h                   |    6 
+ drivers/gpu/drm/bridge/cdns-dsi.c                         |   11 
  drivers/gpu/drm/drm_connector.c                           |   12 
- drivers/gpu/drm/drm_dp_mst_topology.c                     |   32 
- drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c              |    2 
- drivers/gpu/drm/i915/display/intel_hdcp.c                 |    7 
- drivers/gpu/drm/i915/i915_vma.c                           |    2 
- drivers/gpu/drm/lima/lima_gem.c                           |    2 
- drivers/gpu/drm/msm/msm_gem_submit.c                      |    2 
- drivers/gpu/drm/nouveau/nouveau_fence.c                   |    2 
- drivers/gpu/drm/qxl/qxl_release.c                         |    2 
+ drivers/gpu/drm/i915/display/intel_display_core.h         |    3 
+ drivers/gpu/drm/i915/display/intel_hdcp.c                 |   22 
+ drivers/gpu/drm/i915/display/intel_vrr.c                  |   10 
+ drivers/gpu/drm/i915/i915_driver.c                        |    3 
  drivers/gpu/drm/radeon/radeon_kms.c                       |    1 
- drivers/gpu/drm/radeon/radeon_vm.c                        |    2 
  drivers/gpu/drm/tegra/fb.c                                |    8 
- drivers/gpu/drm/ttm/ttm_bo.c                              |    4 
- drivers/gpu/drm/ttm/ttm_execbuf_util.c                    |    4 
- drivers/gpu/drm/vc4/vc4_gem.c                             |    2 
- drivers/gpu/drm/vgem/vgem_fence.c                         |    2 
- drivers/gpu/drm/virtio/virtgpu_drv.h                      |    1 
- drivers/gpu/drm/virtio/virtgpu_gem.c                      |   17 
- drivers/gpu/drm/virtio/virtgpu_plane.c                    |    5 
- drivers/gpu/drm/virtio/virtgpu_vq.c                       |    9 
- drivers/hwmon/npcm750-pwm-fan.c                           |   11 
  drivers/i2c/busses/i2c-bcm-iproc.c                        |   11 
  drivers/i2c/busses/i2c-davinci.c                          |    4 
- drivers/i2c/busses/i2c-imx.c                              |  126 ++-
- drivers/i2c/i2c-core-base.c                               |    2 
- drivers/i2c/i2c-core-smbus.c                              |   15 
- drivers/i2c/i2c-smbus.c                                   |    5 
- drivers/infiniband/ulp/rtrs/rtrs-srv.c                    |    5 
+ drivers/i2c/busses/i2c-imx.c                              |  126 ++--
+ drivers/infiniband/sw/siw/siw_qp_tx.c                     |   17 
  drivers/input/joystick/iforce/iforce-packets.c            |   11 
  drivers/input/joystick/iforce/iforce-usb.c                |    3 
  drivers/input/joystick/psxpad-spi.c                       |    1 
  drivers/input/keyboard/atkbd.c                            |    8 
- drivers/input/misc/ims-pcu.c                              |    7 
+ drivers/input/misc/ims-pcu.c                              |    5 
  drivers/input/mouse/focaltech.c                           |    2 
- drivers/input/rmi4/rmi_f54.c                              |   43 -
+ drivers/input/rmi4/rmi_f54.c                              |   43 +
  drivers/input/rmi4/rmi_f55.c                              |    4 
- drivers/input/touchscreen/mms114.c                        |    6 
+ drivers/input/touchscreen/mms114.c                        |   21 
  drivers/input/touchscreen/sur40.c                         |   23 
- drivers/md/dm-integrity.c                                 |    4 
- drivers/md/dm-verity-target.c                             |   12 
+ drivers/iommu/amd/iommu.c                                 |    3 
+ drivers/md/dm-bufio.c                                     |    9 
+ drivers/md/dm-cache-metadata.c                            |    6 
+ drivers/md/dm-cache-policy-internal.h                     |    3 
+ drivers/md/dm-cache-policy-smq.c                          |    2 
+ drivers/md/dm-cache-target.c                              |   12 
+ drivers/md/dm-crypt.c                                     |   20 
+ drivers/md/dm-era-target.c                                |   10 
+ drivers/md/dm-flakey.c                                    |    4 
+ drivers/md/dm-integrity.c                                 |  182 +++---
+ drivers/md/dm-io.c                                        |   27 
+ drivers/md/dm-ioctl.c                                     |   18 
+ drivers/md/dm-kcopyd.c                                    |    2 
+ drivers/md/dm-log.c                                       |    6 
+ drivers/md/dm-mpath.c                                     |    3 
+ drivers/md/dm-rq.c                                        |    2 
+ drivers/md/dm-snap-persistent.c                           |   23 
+ drivers/md/dm-snap.c                                      |   10 
+ drivers/md/dm-stats.c                                     |   22 
+ drivers/md/dm-stripe.c                                    |   10 
+ drivers/md/dm-sysfs.c                                     |    1 
+ drivers/md/dm-table.c                                     |    3 
+ drivers/md/dm-thin-metadata.c                             |    5 
+ drivers/md/dm-thin.c                                      |    5 
+ drivers/md/dm-verity-target.c                             |   24 
  drivers/md/dm-verity.h                                    |    2 
+ drivers/md/dm-writecache.c                                |   54 +
+ drivers/md/persistent-data/dm-array.c                     |    4 
+ drivers/md/persistent-data/dm-bitset.c                    |    1 
+ drivers/md/persistent-data/dm-block-manager.c             |    7 
+ drivers/md/persistent-data/dm-btree-internal.h            |    1 
+ drivers/md/persistent-data/dm-btree-remove.c              |    5 
+ drivers/md/persistent-data/dm-btree-spine.c               |    6 
+ drivers/md/persistent-data/dm-btree.c                     |   10 
+ drivers/md/persistent-data/dm-space-map-common.c          |    6 
+ drivers/md/persistent-data/dm-space-map-disk.c            |   12 
+ drivers/md/persistent-data/dm-space-map-metadata.c        |    3 
+ drivers/md/persistent-data/dm-transaction-manager.c       |    1 
  drivers/media/i2c/imx219.c                                |   47 -
- drivers/media/platform/aspeed-video.c                     |    1 
- drivers/media/platform/marvell-ccic/cafe-driver.c         |    1 
- drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c     |    5 
- drivers/media/v4l2-core/v4l2-async.c                      |    8 
- drivers/media/v4l2-core/v4l2-fwnode.c                     |    7 
+ drivers/misc/mei/bus.c                                    |   16 
  drivers/mmc/host/omap_hsmmc.c                             |    2 
  drivers/mmc/host/sdhci.c                                  |   16 
  drivers/mmc/host/sdhci.h                                  |    2 
- drivers/mmc/host/vub300.c                                 |   36 
+ drivers/mmc/host/vub300.c                                 |   36 -
  drivers/mtd/maps/vmu-flash.c                              |    8 
- drivers/mtd/spi-nor/Makefile                              |    2 
- drivers/mtd/spi-nor/core.c                                |  406 -----------
- drivers/mtd/spi-nor/core.h                                |    5 
- drivers/mtd/spi-nor/intel.c                               |   16 
- drivers/mtd/spi-nor/sst.c                                 |   30 
- drivers/mtd/spi-nor/swp.c                                 |  426 +++++++++++
- drivers/net/can/usb/gs_usb.c                              |    2 
- drivers/net/ethernet/aquantia/atlantic/aq_ring.c          |   25 
- drivers/net/ethernet/aquantia/atlantic/aq_ring.h          |    1 
- drivers/net/ethernet/aquantia/atlantic/aq_vec.c           |    2 
+ drivers/net/bonding/bond_main.c                           |    2 
+ drivers/net/can/rcar/rcar_canfd.c                         |  177 +++--
+ drivers/net/can/usb/gs_usb.c                              |    4 
+ drivers/net/ethernet/cadence/macb_main.c                  |   22 
  drivers/net/ethernet/intel/ice/ice_ethtool.c              |   10 
- drivers/net/ethernet/intel/ice/ice_virtchnl_pf.c          |   48 +
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c      |   13 
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_vf.c      |    8 
- drivers/net/ethernet/mellanox/mlxsw/spectrum.c            |  109 ++-
- drivers/net/ethernet/mellanox/mlxsw/spectrum.h            |    4 
- drivers/net/ethernet/mellanox/mlxsw/spectrum_router.c     |   31 
- drivers/net/ethernet/ti/am65-cpsw-nuss.c                  |  139 ++-
- drivers/net/ethernet/ti/am65-cpsw-nuss.h                  |    4 
- drivers/net/ipa/ipa_smp2p.c                               |   30 
+ drivers/net/ethernet/intel/ice/ice_vf_lib.c               |   27 
+ drivers/net/ethernet/intel/ice/ice_vf_lib_private.h       |    1 
+ drivers/net/ethernet/intel/ice/ice_virtchnl.c             |   21 
+ drivers/net/ethernet/intel/igc/igc_main.c                 |    1 
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.c           |   14 
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.h           |    1 
+ drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c     |    9 
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c      |   14 
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_vf.c      |   13 
+ drivers/net/ethernet/mellanox/mlxsw/spectrum.c            |   92 +++
+ drivers/net/ethernet/microsoft/mana/mana_en.c             |   13 
+ drivers/net/ethernet/ti/am65-cpsw-nuss.c                  |    2 
+ drivers/net/ipa/ipa_smp2p.c                               |   30 -
+ drivers/net/ipvlan/ipvlan_main.c                          |    4 
+ drivers/net/macvlan.c                                     |    4 
  drivers/net/thunderbolt.c                                 |    8 
+ drivers/net/veth.c                                        |   78 +-
  drivers/net/wireless/ath/ath6kl/txrx.c                    |    2 
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c |   13 
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c |   16 
  drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h    |    6 
  drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c   |   45 +
  drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c   |    6 
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c   |    6 
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c   |    8 
  drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h   |    1 
  drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c    |    3 
  drivers/net/wireless/marvell/libertas_tf/main.c           |    2 
- drivers/pci/pci.c                                         |   30 
+ drivers/pinctrl/cirrus/pinctrl-lochnagar.c                |    2 
+ drivers/pinctrl/core.c                                    |   15 
+ drivers/pinctrl/intel/pinctrl-cherryview.c                |    4 
+ drivers/pinctrl/intel/pinctrl-intel.c                     |    4 
+ drivers/pinctrl/intel/pinctrl-lynxpoint.c                 |    4 
+ drivers/pinctrl/mediatek/pinctrl-moore.c                  |    4 
+ drivers/pinctrl/mediatek/pinctrl-mtk-common.c             |    4 
+ drivers/pinctrl/mediatek/pinctrl-paris.c                  |    4 
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c                 |    4 
+ drivers/pinctrl/pinctrl-as3722.c                          |    4 
+ drivers/pinctrl/pinctrl-axp209.c                          |    2 
+ drivers/pinctrl/pinctrl-ingenic.c                         |   11 
+ drivers/pinctrl/pinctrl-ocelot.c                          |    4 
+ drivers/pinctrl/pinctrl-rk805.c                           |    4 
+ drivers/pinctrl/pinctrl-st.c                              |    4 
+ drivers/pinctrl/renesas/gpio.c                            |    4 
+ drivers/pinctrl/stm32/pinctrl-stm32.c                     |    4 
+ drivers/pinctrl/vt8500/pinctrl-wmt.c                      |    4 
+ drivers/remoteproc/qcom_common.c                          |   31 -
+ drivers/remoteproc/qcom_common.h                          |    5 
+ drivers/remoteproc/qcom_q6v5_pas.c                        |   20 
+ drivers/s390/cio/vfio_ccw_async.c                         |   16 
+ drivers/s390/cio/vfio_ccw_chp.c                           |   15 
  drivers/s390/cio/vfio_ccw_cp.c                            |   17 
+ drivers/s390/cio/vfio_ccw_ops.c                           |    7 
  drivers/s390/net/qeth_core_main.c                         |    3 
  drivers/s390/net/qeth_l3_main.c                           |    5 
- drivers/scsi/lpfc/lpfc_init.c                             |    3 
- drivers/scsi/scsi_debug.c                                 |   27 
- drivers/scsi/sd.h                                         |    5 
- drivers/scsi/sd_zbc.c                                     |   79 +-
- drivers/target/target_core_fabric_lib.c                   |  144 +++
- drivers/target/target_core_internal.h                     |    5 
- drivers/target/target_core_pr.c                           |   54 -
- drivers/thunderbolt/domain.c                              |   30 
- drivers/thunderbolt/icm.c                                 |    5 
- drivers/thunderbolt/switch.c                              |   14 
- drivers/thunderbolt/tb.c                                  |   58 -
- drivers/thunderbolt/tb.h                                  |    2 
- drivers/thunderbolt/xdomain.c                             |   71 +
- drivers/tty/serial/8250/8250_mid.c                        |    6 
+ drivers/soc/imx/imx8m-blk-ctrl.c                          |   27 
+ drivers/thunderbolt/xdomain.c                             |   40 +
  drivers/tty/serial/max310x.c                              |   20 
- drivers/tty/serial/sc16is7xx.c                            |  192 ++++-
- drivers/usb/gadget/function/f_tcm.c                       |  192 ++++-
+ drivers/usb/gadget/function/f_tcm.c                       |  192 +++++-
  drivers/usb/gadget/function/tcm.h                         |   13 
- drivers/usb/gadget/udc/bdc/bdc_core.c                     |   20 
- drivers/usb/gadget/udc/bdc/bdc_udc.c                      |    7 
- drivers/usb/serial/keyspan_pda.c                          |  463 ++++++------
+ drivers/usb/musb/omap2430.c                               |   25 
+ drivers/usb/typec/ucsi/ucsi.c                             |   95 ++-
+ drivers/usb/typec/ucsi/ucsi.h                             |    1 
+ drivers/vdpa/vdpa_user/iova_domain.c                      |  163 +++--
+ drivers/vdpa/vdpa_user/iova_domain.h                      |   13 
+ drivers/vdpa/vdpa_user/vduse_dev.c                        |   16 
+ drivers/video/fbdev/core/bitblit.c                        |  124 ++--
+ drivers/video/fbdev/core/fbcon.c                          |  420 ++++++--------
+ drivers/video/fbdev/core/fbcon.h                          |    6 
+ drivers/video/fbdev/core/fbcon_ccw.c                      |  148 ++--
+ drivers/video/fbdev/core/fbcon_cw.c                       |  148 ++--
+ drivers/video/fbdev/core/fbcon_rotate.c                   |   44 -
+ drivers/video/fbdev/core/fbcon_rotate.h                   |    6 
+ drivers/video/fbdev/core/fbcon_ud.c                       |  164 ++---
+ drivers/video/fbdev/core/softcursor.c                     |   18 
+ drivers/video/fbdev/core/tileblit.c                       |   28 
  fs/9p/vfs_inode.c                                         |    9 
  fs/binfmt_elf.c                                           |    4 
  fs/binfmt_elf_fdpic.c                                     |    4 
  fs/binfmt_misc.c                                          |   14 
- fs/ceph/addr.c                                            |   24 
+ fs/ceph/addr.c                                            |   20 
  fs/ceph/cache.c                                           |    2 
- fs/ceph/caps.c                                            |   53 -
- fs/ceph/dir.c                                             |   20 
+ fs/ceph/caps.c                                            |   70 +-
+ fs/ceph/debugfs.c                                         |    4 
+ fs/ceph/dir.c                                             |   24 
  fs/ceph/export.c                                          |   10 
- fs/ceph/file.c                                            |   33 
- fs/ceph/inode.c                                           |   20 
+ fs/ceph/file.c                                            |   35 -
+ fs/ceph/inode.c                                           |   14 
  fs/ceph/ioctl.c                                           |    8 
- fs/ceph/mds_client.c                                      |   11 
- fs/ceph/mds_client.h                                      |    2 
- fs/ceph/mdsmap.c                                          |    2 
+ fs/ceph/mds_client.c                                      |   51 +
+ fs/ceph/mds_client.h                                      |    5 
+ fs/ceph/mdsmap.c                                          |    5 
+ fs/ceph/snap.c                                            |   18 
  fs/ceph/super.c                                           |   22 
- fs/ceph/super.h                                           |    8 
- fs/ceph/xattr.c                                           |    8 
- fs/cifs/smb2ops.c                                         |    4 
+ fs/ceph/super.h                                           |   13 
+ fs/ceph/xattr.c                                           |   12 
+ fs/crypto/policy.c                                        |    2 
+ fs/erofs/Kconfig                                          |   15 
+ fs/erofs/decompressor_lzma.c                              |    3 
+ fs/erofs/fscache.c                                        |   44 -
+ fs/erofs/internal.h                                       |   87 +-
  fs/exec.c                                                 |    6 
  fs/f2fs/data.c                                            |    2 
- fs/jbd2/journal.c                                         |   10 
- fs/namei.c                                                |   42 +
- fs/overlayfs/copy_up.c                                    |   14 
+ fs/namei.c                                                |   43 +
+ fs/ntfs3/index.c                                          |   44 +
+ fs/overlayfs/copy_up.c                                    |   12 
+ fs/smb/server/auth.c                                      |    4 
+ fs/smb/server/connection.c                                |   23 
+ fs/smb/server/connection.h                                |    5 
+ fs/smb/server/oplock.c                                    |    8 
+ fs/smb/server/smb2pdu.c                                   |   78 +-
+ fs/smb/server/smb2pdu.h                                   |    9 
+ fs/smb/server/smb_common.c                                |   43 +
+ fs/smb/server/smb_common.h                                |   15 
+ fs/smb/server/smbacl.c                                    |   27 
  fs/super.c                                                |   19 
  fs/xfs/libxfs/xfs_sb.c                                    |    4 
+ fs/xfs/xfs_dquot.c                                        |    3 
+ fs/xfs/xfs_dquot_item_recover.c                           |    2 
  include/drm/drm_connector.h                               |    6 
  include/drm/drm_displayid.h                               |    2 
- include/linux/audit.h                                     |   18 
+ include/linux/audit.h                                     |    6 
+ include/linux/audit_arch.h                                |   12 
  include/linux/bootconfig.h                                |    3 
  include/linux/bpf_lsm.h                                   |    4 
  include/linux/ceph/ceph_debug.h                           |   38 +
- include/linux/dma-resv.h                                  |    2 
- include/linux/dma/edma.h                                  |    2 
+ include/linux/ceph/mdsmap.h                               |    5 
  include/linux/firmware.h                                  |    3 
- include/linux/fs.h                                        |   28 
- include/linux/i2c-smbus.h                                 |    6 
- include/linux/jbd2.h                                      |    9 
+ include/linux/fs.h                                        |   33 +
  include/linux/kvm_host.h                                  |    1 
  include/linux/lsm_hooks.h                                 |    1 
+ include/linux/mm.h                                        |   12 
+ include/linux/mmc/sdio_ids.h                              |    2 
  include/linux/namei.h                                     |    1 
- include/linux/pci.h                                       |    1 
- include/linux/property.h                                  |    1 
- include/linux/skbuff.h                                    |    2 
+ include/linux/overflow.h                                  |   68 ++
+ include/linux/pinctrl/consumer.h                          |   13 
+ include/linux/sched/user.h                                |    2 
  include/linux/thunderbolt.h                               |    3 
- include/media/v4l2-async.h                                |    9 
- include/net/act_api.h                                     |   20 
- include/net/ip_tunnels.h                                  |    3 
+ include/linux/vfio_pci_core.h                             |   13 
+ include/net/bluetooth/hci.h                               |  114 ---
+ include/net/bluetooth/hci_core.h                          |   48 -
+ include/net/bluetooth/hci_sync.h                          |    4 
+ include/net/gro.h                                         |    1 
  include/net/ip_vs.h                                       |    7 
- include/trace/events/rxrpc.h                              |    2 
+ include/net/netfilter/nf_tables.h                         |   11 
+ include/net/netfilter/nft_fib.h                           |    4 
+ include/net/netfilter/nft_meta.h                          |    3 
+ include/net/netfilter/nft_reject.h                        |    3 
  include/uapi/linux/ip_vs.h                                |    6 
+ include/uapi/linux/netfilter/nf_tables.h                  |   10 
+ include/uapi/linux/virtio_bt.h                            |    1 
  init/main.c                                               |   39 -
  kernel/audit.c                                            |    2 
- kernel/audit.h                                            |   32 
+ kernel/audit.h                                            |   32 -
  kernel/audit_fsnotify.c                                   |   39 -
  kernel/audit_tree.c                                       |    2 
  kernel/audit_watch.c                                      |   42 -
  kernel/auditfilter.c                                      |   17 
  kernel/auditsc.c                                          |    6 
- kernel/bpf/bpf_inode_storage.c                            |   10 
- kernel/sched/psi.c                                        |    6 
- kernel/taskstats.c                                        |   67 -
- kernel/trace/ftrace.c                                     |   21 
+ kernel/bpf/bpf_inode_storage.c                            |    9 
+ kernel/fork.c                                             |   20 
+ kernel/locking/spinlock_rt.c                              |   27 
+ kernel/taskstats.c                                        |   67 +-
+ kernel/trace/ftrace.c                                     |    6 
  kernel/trace/ring_buffer.c                                |   23 
- lib/bootconfig.c                                          |   65 +
+ kernel/trace/trace_osnoise.c                              |    4 
+ kernel/trace/trace_probe.c                                |    2 
+ kernel/user.c                                             |    1 
+ lib/bootconfig.c                                          |   65 ++
  lib/compat_audit.c                                        |   12 
- mm/memory_hotplug.c                                       |   15 
- mm/pagewalk.c                                             |    8 
- mm/ptdump.c                                               |    7 
- net/9p/client.c                                           |    2 
- net/bluetooth/hidp/core.c                                 |   25 
+ mm/huge_memory.c                                          |   43 -
+ mm/internal.h                                             |    4 
+ mm/madvise.c                                              |    3 
+ mm/migrate_device.c                                       |   42 -
+ mm/mincore.c                                              |    3 
+ mm/mm_init.c                                              |  150 +++++
+ mm/page_alloc.c                                           |  160 -----
+ mm/pagewalk.c                                             |   10 
+ mm/sparse-vmemmap.c                                       |    3 
+ mm/vmalloc.c                                              |   69 ++
+ net/bluetooth/hci_conn.c                                  |   24 
+ net/bluetooth/hci_core.c                                  |  145 ----
+ net/bluetooth/hci_event.c                                 |  150 -----
+ net/bluetooth/hci_sock.c                                  |   11 
+ net/bluetooth/hci_sync.c                                  |  365 +++++-------
+ net/bluetooth/l2cap_core.c                                |   21 
+ net/bluetooth/mgmt.c                                      |  367 ++++++------
+ net/bluetooth/mgmt_util.c                                 |   47 -
+ net/bluetooth/mgmt_util.h                                 |    8 
+ net/bridge/netfilter/nft_reject_bridge.c                  |    3 
  net/ceph/cls_lock_client.c                                |   21 
+ net/ceph/decode.c                                         |   18 
  net/ceph/osdmap.c                                         |    9 
+ net/core/gro.c                                            |   31 +
  net/core/pktgen.c                                         |   43 -
- net/core/skbuff.c                                         |   28 
- net/ipv4/ip_tunnel_core.c                                 |   35 
- net/ipv4/ipip.c                                           |   41 -
- net/ipv6/ip6_tunnel.c                                     |   40 -
- net/ipv6/sit.c                                            |   38 -
- net/mptcp/options.c                                       |   21 
- net/mptcp/protocol.c                                      |    4 
- net/mptcp/protocol.h                                      |   14 
- net/mptcp/subflow.c                                       |   12 
+ net/ipv4/netfilter/nft_dup_ipv4.c                         |    4 
+ net/ipv4/tcp_bpf.c                                        |   21 
+ net/ipv4/udp_offload.c                                    |   29 
+ net/ipv6/ip6_tunnel.c                                     |    3 
+ net/ipv6/netfilter/nft_dup_ipv6.c                         |    4 
+ net/mptcp/options.c                                       |    8 
+ net/mptcp/pm.c                                            |    9 
+ net/mptcp/pm_netlink.c                                    |   29 
+ net/mptcp/pm_userspace.c                                  |   87 +-
+ net/mptcp/protocol.h                                      |    6 
+ net/netfilter/ipset/ip_set_bitmap_gen.h                   |    2 
  net/netfilter/ipset/ip_set_core.c                         |   19 
- net/netfilter/ipset/ip_set_list_set.c                     |    7 
+ net/netfilter/ipset/ip_set_list_set.c                     |   10 
  net/netfilter/ipvs/ip_vs_conn.c                           |    4 
  net/netfilter/ipvs/ip_vs_core.c                           |    6 
  net/netfilter/ipvs/ip_vs_ctl.c                            |    4 
  net/netfilter/ipvs/ip_vs_dh.c                             |    4 
  net/netfilter/ipvs/ip_vs_lblc.c                           |    2 
  net/netfilter/ipvs/ip_vs_lblcr.c                          |    8 
+ net/netfilter/nf_conntrack_proto.c                        |    6 
+ net/netfilter/nf_conntrack_proto_sctp.c                   |   48 -
+ net/netfilter/nf_conntrack_proto_tcp.c                    |  132 ++--
  net/netfilter/nf_conntrack_sip.c                          |   10 
  net/netfilter/nf_flow_table_core.c                        |    7 
+ net/netfilter/nf_tables_api.c                             |    6 
  net/netfilter/nf_tables_offload.c                         |    2 
+ net/netfilter/nft_bitwise.c                               |   38 -
+ net/netfilter/nft_byteorder.c                             |    2 
+ net/netfilter/nft_cmp.c                                   |    6 
+ net/netfilter/nft_compat.c                                |    6 
+ net/netfilter/nft_ct.c                                    |    2 
+ net/netfilter/nft_dup_netdev.c                            |    2 
+ net/netfilter/nft_dynset.c                                |    4 
+ net/netfilter/nft_exthdr.c                                |    2 
+ net/netfilter/nft_fib.c                                   |    3 
+ net/netfilter/nft_flow_offload.c                          |    3 
+ net/netfilter/nft_fwd_netdev.c                            |    9 
+ net/netfilter/nft_hash.c                                  |    2 
+ net/netfilter/nft_immediate.c                             |    3 
+ net/netfilter/nft_lookup.c                                |    5 
+ net/netfilter/nft_masq.c                                  |    7 
+ net/netfilter/nft_meta.c                                  |    8 
+ net/netfilter/nft_nat.c                                   |   11 
+ net/netfilter/nft_objref.c                                |   41 +
+ net/netfilter/nft_osf.c                                   |    3 
+ net/netfilter/nft_payload.c                               |    2 
+ net/netfilter/nft_queue.c                                 |    5 
+ net/netfilter/nft_range.c                                 |    2 
+ net/netfilter/nft_redir.c                                 |    7 
+ net/netfilter/nft_reject.c                                |    3 
+ net/netfilter/nft_reject_inet.c                           |    3 
+ net/netfilter/nft_reject_netdev.c                         |    3 
+ net/netfilter/nft_rt.c                                    |    3 
+ net/netfilter/nft_set_pipapo.c                            |  253 +++++---
+ net/netfilter/nft_set_pipapo.h                            |    8 
+ net/netfilter/nft_socket.c                                |    3 
+ net/netfilter/nft_synproxy.c                              |    3 
+ net/netfilter/nft_tproxy.c                                |    7 
+ net/netfilter/nft_xfrm.c                                  |    3 
+ net/openvswitch/conntrack.c                               |   39 -
  net/packet/af_packet.c                                    |    7 
- net/rxrpc/call_accept.c                                   |   28 
- net/rxrpc/call_object.c                                   |   27 
- net/rxrpc/recvmsg.c                                       |   23 
- net/sched/act_gact.c                                      |    5 
- net/sched/act_police.c                                    |    6 
+ net/rxrpc/call_accept.c                                   |   27 
+ net/sched/act_ct.c                                        |   41 +
+ net/sched/cls_u32.c                                       |    3 
  net/sched/sch_api.c                                       |   24 
+ net/sched/sch_cake.c                                      |    2 
  net/sched/sch_taprio.c                                    |   12 
  net/sctp/protocol.c                                       |   20 
  net/sctp/sysctl.c                                         |    9 
- net/smc/af_smc.c                                          |    3 
- net/smc/smc_rx.c                                          |   12 
- net/smc/smc_tx.c                                          |   17 
+ net/smc/smc_tx.c                                          |    6 
  net/tipc/socket.c                                         |    6 
- net/xfrm/espintcp.c                                       |   32 
+ net/tls/tls_device.c                                      |    4 
+ net/tls/tls_sw.c                                          |    5 
+ net/x25/af_x25.c                                          |    4 
+ net/x25/x25_timer.c                                       |   25 
+ net/xfrm/espintcp.c                                       |   42 -
  security/apparmor/include/net.h                           |    6 
  security/apparmor/lsm.c                                   |   38 -
+ security/apparmor/net.c                                   |    2 
  security/bpf/hooks.c                                      |    3 
- security/security.c                                       |  506 ++++++++------
- security/selinux/hooks.c                                  |   91 +-
+ security/security.c                                       |   47 +
+ security/selinux/hooks.c                                  |   95 +--
  security/selinux/include/objsec.h                         |    5 
  security/selinux/netlabel.c                               |   23 
- security/selinux/ss/policydb.c                            |   31 
+ security/selinux/ss/policydb.c                            |   31 +
  security/selinux/ss/services.c                            |    4 
  security/smack/smack.h                                    |    5 
- security/smack/smack_lsm.c                                |   66 -
- security/smack/smack_netfilter.c                          |    8 
- sound/core/seq/seq_timer.c                                |   13 
+ security/smack/smack_lsm.c                                |   70 +-
+ security/smack/smack_netfilter.c                          |    4 
  sound/hda/hdac_regmap.c                                   |    4 
+ sound/pci/hda/patch_conexant.c                            |    3 
+ sound/pci/hda/patch_hdmi.c                                |   48 +
+ sound/soc/codecs/cs35l41-lib.c                            |    2 
  sound/soc/codecs/cs4265.c                                 |    4 
+ sound/soc/codecs/lpass-wsa-macro.c                        |    8 
+ sound/soc/fsl/fsl_sai.c                                   |   29 
  sound/soc/mediatek/mt8183/mt8183-afe-pcm.c                |   12 
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c                |  118 +--
+ sound/soc/sof/ipc3-control.c                              |   34 -
  sound/soc/xilinx/xlnx_formatter_pcm.c                     |   10 
- sound/usb/usx2y/usX2Yhwdep.c                              |   10 
- sound/usb/usx2y/usbus428ctldefs.h                         |    2 
- sound/usb/usx2y/usbusx2y.c                                |    2 
- sound/usb/usx2y/usx2yhwdeppcm.c                           |   15 
+ tools/testing/selftests/net/mptcp/mptcp_join.sh           |    4 
  virt/kvm/kvm_main.c                                       |    3 
- 274 files changed, 4173 insertions(+), 2363 deletions(-)
-
-Abdun Nihaal (1):
-      scsi: lpfc: Fix memory leak in lpfc_sli4_driver_resource_setup()
-
-Akhil R (2):
-      device property: Add fwnode_irq_get_byname
-      i2c: smbus: Use device_*() functions instead of of_*()
+ 424 files changed, 5759 insertions(+), 4185 deletions(-)
 
 Aldo Ariel Panzardo (1):
       net/sched: serialize qdisc_rtab_list against concurrent get/put
+
+Alex Williamson (1):
+      vfio/pci: Fix racy bitfields and tighten struct layout
+
+Alexander Usyskin (1):
+      mei: bus: access mei_device under device_lock on cleanup
+
+Alexandre Ghiti (1):
+      riscv: Don't use PGD entries for the linear mapping
 
 Alexey Velichayshiy (1):
       netfilter: nf_tables_offload: suppress WARN_ON_ONCE for ENOMEM in abort path
@@ -354,36 +506,43 @@ Amir Goldstein (2):
       fsnotify: opt-in for permission events at file open time
       fs: don't block write during exec on pre-content watched files
 
-Andy Shevchenko (3):
-      serial: 8250_mid: Remove unneeded test for ->setup() presence
+Andrei Kuchynski (2):
+      usb: typec: ucsi: Fix race condition and ordering in port unregistration
+      usb: typec: ucsi: Correct teardown ordering in ucsi_init() error path
+
+Andy Shevchenko (1):
       libceph: Amend checking to fix `make W=1` build breakage
-      i2c: smbus: Check for parent device before dereference
 
-Ashutosh Desai (3):
-      drm/dp/mst: fix buffer overflows in sideband chunk accumulation
-      drm/dp/mst: fix OOB reads on 2-byte fields in sideband reply parsers
-      drm/dp/mst: fix OOB reads in remote DPCD/I2C sideband reply parsers
+Aneesh Kumar K.V (1):
+      mm/vmemmap/devdax: fix kernel crash when probing devdax devices
 
-Bart Van Assche (1):
-      scsi: sd: sd_zbc: Improve source code documentation
+AngeloGioacchino Del Regno (3):
+      ASoC: mediatek: mt8192-afe-pcm: Convert to devm_pm_runtime_enable()
+      ASoC: mediatek: mt8192-afe-pcm: Simplify with dev_err_probe()
+      ASoC: mediatek: Use common mtk_afe_pcm_platform with common probe cb
+
+Bartosz Golaszewski (1):
+      treewide: rename pinctrl_gpio_direction_input_new()
 
 Baul Lee (1):
-      ALSA: usx2y: bound the hwdep mmap fault offset
+      net/x25: fix use-after-free of the socket by its timers
+
+Biju Das (1):
+      can: rcar_canfd: Use devm_clk_get_optional() for RAM clk
 
 Breno Leitao (3):
       9p: skip nlink update in cacheless mode to fix WARN_ON
       bootconfig: move xbc_snprint_cmdline() to lib/bootconfig.c
       bootconfig: fix NULL-pointer arithmetic in xbc_snprint_cmdline()
 
-Bryam Vargas (8):
+Bryam Vargas (7):
       selinux: require every boolean value to be defined
       selinux: reject a class permission count below its inherited common
       selinux: do not cancel a policy conversion that never started
       Input: synaptics-rmi4 - bound the F54 report size to the allocated buffer
       Input: mms114 - reject an oversized device packet size
-      scsi: target: Bound PR-OUT TransportID parsing to the received buffer
       net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked
-      drm/virtio: bound EDID block reads to the response buffer
+      ata: libata-core: Reject an invalid concurrent positioning ranges count
 
 Candice Li (1):
       drm/amdgpu: validate GEM_CREATE domain combinations
@@ -394,53 +553,59 @@ Casey Schaufler (1):
 Cen Zhang (1):
       usb: gadget: f_tcm: synchronize delayed set_alt with teardown
 
-Chaitanya Kulkarni (1):
-      scsi: target: core: pr: Initialize arrays at declaration time
+Chancel Liu (1):
+      ASoC: fsl_sai: Fix spurious BCLK on resume by clearing BYP
+
+Chao Shi (1):
+      block: stop the timeout timer when releasing a never added disk
 
 Chao Yu (1):
       f2fs: fix UAF issue in f2fs_merge_page_bio()
 
-Chengfeng Ye (1):
-      net: pktgen: fix proc entry use-after-free
+ChenXiaoSong (3):
+      smb/server: rename include guard in smb_common.h
+      smb/server: fix minimum SMB1 PDU size
+      smb/server: fix minimum SMB2 PDU size
 
-Chenguang Zhao (1):
-      mptcp: decrement subflows counter on failed passive join
+Chengfeng Ye (2):
+      Bluetooth: hci_sync: Fix advertising data UAFs
+      net: pktgen: fix proc entry use-after-free
 
 Christian Brauner (3):
       super: fix emergency thaw deadlock on frozen block devices
       binfmt_misc: restore write access when removing an entry
       binfmt_misc: use exe_file_deny_write_access() for the interpreter clone
 
-Christian König (1):
-      dma-buf/drivers: make reserving a shared slot mandatory v4
-
 Christoph Hellwig (1):
       xfs: check v5 superblock features early
 
-Chunfeng Yun (1):
-      usb: gadget: bdc: fix checkpatch.pl spacing error
+Christophe JAILLET (1):
+      Bluetooth: Remove usage of the deprecated ida_simple_xx() API
 
-Cássio Gabriel (1):
+Chuck Lever (1):
+      net/tls: Fail tls_sw_splice_read() after a failed async decrypt
+
+Crystal Wood (1):
+      tracing/osnoise: Call synchronize_rcu() when unregistering
+
+Cássio Gabriel (2):
       ASoC: mediatek: mt8183: Check runtime resume during probe
-
-Damien Le Moal (3):
-      scsi: sd: sd_zbc: Use logical blocks as unit when querying zones
-      scsi: sd: sd_zbc: Return early in sd_zbc_check_zoned_characteristics()
-      scsi: scsi_debug: Rename zone type constants
-
-Daming Li (1):
-      net: smc: fix splice entry lifetime imbalance in smc_rx_splice
+      ASoC: mediatek: mt8192: Check runtime resume during probe
 
 Daniel Hodges (1):
       wifi: ath6kl: fix use-after-free in aggr_reset_state()
 
 David Carlier (1):
-      media: aspeed: fix missing of_reserved_mem_device_release() on probe failure
+      igc: remove napi_synchronize() in igc_down()
 
-David Howells (3):
-      rxrpc: Fix recv-recv race of completed call
-      rxrpc: Fix notification vs call-release vs recvmsg
-      rxrpc: Fix socket notification race
+David Hildenbrand (1):
+      mm/migrate_device: page_remove_rmap() -> folio_remove_rmap_pte()
+
+David Howells (4):
+      tcp_bpf: Inline do_tcp_sendpages as it's now a wrapper around tcp_sendmsg
+      espintcp: Inline do_tcp_sendpages()
+      siw: Inline do_tcp_sendpages()
+      tcp_bpf, smc, tls, espintcp, siw: Reduce MSG_SENDPAGE_NOTLAST usage
 
 David Matlack (1):
       KVM: Introduce vcpu->wants_to_run
@@ -461,11 +626,14 @@ Dawei Feng (2):
 Dawid Osuchowski (1):
       ice: fix VF interrupts cleanup
 
-Deepanshu Kartikey (1):
-      drm/virtio: use uninterruptible resv lock for plane updates
+Dawid Wróbel (1):
+      ASoC: codecs: lpass-wsa-macro: Fix enum kcontrol accesses
 
-Dmitry Osipenko (1):
-      drm/virtio: Return proper error codes instead of -1
+Dexuan Cui (1):
+      net: mana: Validate the packet length reported by the NIC
+
+Diogo Ivo (1):
+      usb: typec: ucsi: Only enable supported notifications
 
 Dmitry Torokhov (9):
       Input: synaptics-rmi4 - fix F55 transmitter electrode count typo
@@ -474,73 +642,118 @@ Dmitry Torokhov (9):
       Input: synaptics-rmi4 - propagate F54 worker errors to V4L2 queue
       Input: sur40 - fix input device registration ordering
       Input: sur40 - fix V4L error path cleanup
-      Input: ims-pcu - fix race condition in reset_device sysfs callback
+      Input: mms114 - fix touch indexing for MMS134S and MMS136
       firmware_loader: introduce __free() cleanup hanler
       Input: ims-pcu - fix firmware leak in async update
 
-Eric Dumazet (1):
+Dr. David Alan Gilbert (1):
+      Bluetooth: MGMT: Remove unused mgmt_pending_find_data
+
+Edward Adam Davis (1):
+      Bluetooth: hci_sock: Prevent race in socket write iter and sock bind
+
+Eric Dumazet (3):
+      ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
+      macvlan: inherit needed_headroom and needed_tailroom from lowerdev
       af_packet: Don't send zero-byte data in tpacket_snd().
 
-Eric Farman (1):
+Eric Farman (2):
+      s390/vfio_ccw: Ensure index for read/write regions are within range
       s390/vfio_ccw: Fix out of bounds check on CCW array
 
-Fan Wu (2):
-      usb: gadget: udc: bdc: free IRQ and drain func_wake_notify before teardown
+Eugenio Pérez (2):
+      vduse: remove unused vaddr parameter of vduse_domain_free_coherent
+      vduse: take out allocations from vduse_dev_alloc_coherent
+
+Fan Wu (1):
       wifi: brcmfmac: drain bus_reset work on device removal
+
+Farhan Ali (3):
+      KVM: s390: pci: Fix memory accounting for pinned/unpinned pages
+      KVM: s390: pci: Fix missing error codes and memory unaccounting
+      KVM: s390: pci: Fix resource leak on IRQ registration failure
+
+Felix Fietkau (1):
+      net: move skb_gro_receive_list from udp to core
+
+Fernando Fernandez Mancera (1):
+      netfilter: nft_objref: validate objref and objrefmap expressions
+
+Ferry Meng (1):
+      ksmbd: fix SID memory leak in set_posix_acl_entries_dacl() on overflow
 
 Florian Fuchs (1):
       mtd: maps: vmu-flash: fix fault in unaligned fixup
 
-Florian Westphal (2):
+Florian Westphal (14):
+      netfilter: nft_set_pipapo: use GFP_KERNEL for insertions
+      netfilter: nft_set_pipapo: move prove_locking helper around
+      netfilter: nft_set_pipapo: make pipapo_clone helper return NULL
+      netfilter: nft_set_pipapo: prepare walk function for on-demand clone
+      netfilter: nft_set_pipapo: merge deactivate helper into caller
+      netfilter: nft_set_pipapo: prepare pipapo_get helper for on-demand clone
+      netfilter: nft_set_pipapo: move cloning of match info to insert/removal path
+      netfilter: nft_set_pipapo: don't leak bad clone into future transaction
       netfilter: nf_conntrack_sip: remove net variable shadowing
+      netfilter: nf_tables: pass context structure to nft_parse_register_load
+      netfilter: nf_tables: drop unused 3rd argument from validate callback ops
+      netfilter: conntrack: sctp: use nf log infrastructure for invalid packets
       netfilter: ipset: fix list type element drift bug
+      netfilter: ipset: let destroy callbacks adjust ext mem size
 
-Frank Li (2):
-      dmaengine: dw-edma: Remove unused irq field in struct dw_edma_chip
-      dmaengine: dw-edma: Add spinlock to protect DONE_INT_MASK and ABORT_INT_MASK
+Gang Yan (1):
+      selftests: mptcp: join: mark tests with data corruption as failed
 
-Fredric Cover (1):
-      smb: client: use kvzalloc() for megabyte buffer in simple fallocate
+Gao Xiang (2):
+      erofs: tidy up internal.h
+      erofs: fix EROFS_FS_ZIP_LZMA_DEFAULT_MAX_STREAMS on some UP platforms
 
-Fullway Wang (1):
-      media: mtk-vcodec: potential null pointer deference in SCP
+Geert Uytterhoeven (2):
+      can: rcar_canfd: Invert reset assert order
+      can: rcar_canfd: Extract rcar_canfd_global_{,de}init()
+
+Geliang Tang (4):
+      mptcp: pm: avoid code duplication to lookup endp
+      mptcp: add mptcp_userspace_pm_lookup_addr helper
+      mptcp: pm: use addr entry for get_local_id
+      mptcp: pm: userspace: fix use-after-free in get_local_id
 
 George Wilson (2):
       powerpc/pseries: pci - logic bug
       powerpc/pseries: lparcfg - fix kbuf[] underflow
 
+Gokul Sivakumar (1):
+      wifi: brcmfmac: fix 43752 SDIO FWVID incorrectly labelled as Cypress (CYW)
+
 Greg Kroah-Hartman (1):
-      Linux 5.10.266
+      Linux 6.1.184
 
 Gregory Price (1):
       mm/vmstat: fold stranded per-cpu node stats when a node comes online
 
-Grygorii Strashko (3):
-      net: ethernet: ti: am65-cpsw: move ale selection in pdata
-      net: ethernet: ti: am65-cpsw: move free desc queue mode selection in pdata
-      net: ethernet: ti: am65-cpsw: add multi port support in mac-only mode
-
-Guangguan Wang (1):
-      net/smc: rdma write inline if qp has sufficient inline space
-
 Guangshuo Li (3):
       drm/radeon: fix autosuspend cleanup during teardown
       mmc: vub300: fix use-after-free on probe failure
-      media: marvell-cam: fix missing pci_disable_device() on remove
+      usb: musb: omap2430: Do not put borrowed of_node in probe
 
-Gustavo Pimentel (2):
-      PCI: Add pci_find_vsec_capability() to find a specific VSEC
-      dmaengine: dw-edma: Improve the linked list and data blocks definition
+Gustavo A. R. Silva (1):
+      Bluetooth: hci_conn, hci_sync: Use __counted_by() to avoid -Wfamnae warnings
 
 Haibo Chen (1):
       mmc: sdhci: make tuning_err a signed int
+
+Haofeng Li (1):
+      ksmbd: validate num_subauth when copying ACE in set_ntacl_dacl
 
 Haoxiang Li (2):
       i2c: davinci: Unregister cpufreq notifier on probe failure
       net: ipa: fix SMEM state handle leaks in SMP2P init
 
-Harshad Shirwadkar (1):
-      jbd2: add a helper to find out number of fast commit blocks
+Heinz Mauelshagen (4):
+      dm: fix trailing statements
+      dm crypt: correct 'foo*' to 'foo *'
+      dm: add missing empty lines
+      dm: remove unnecessary braces from single statement blocks
 
 Herbert Xu (1):
       crypto: ccm - Set rfc4309 maxauthsize from child
@@ -548,58 +761,47 @@ Herbert Xu (1):
 Hidayath Khan (1):
       s390/qeth: validate user buffer length in SNMP and ARP query ioctls
 
-Hongyan Xu (1):
-      hwmon: (npcm750-pwm-fan): stop fan timer on device detach
-
-Hugo Villeneuve (4):
+Hugo Villeneuve (1):
       serial: max310x: replace bare use of 'unsigned' with 'unsigned int' (checkpatch)
-      serial: sc16is7xx: remove obsolete out_thread label
-      serial: sc16is7xx: fix regression with GPIO configuration
-      serial: sc16is7xx: implement gpio get_direction() callback
 
 Hyunjung Ko (1):
-      net/sched: act_gact, act_police: range check the fallback control action
-
-Ibrahim Hashimov (1):
-      scsi: scsi_debug: Fix REPORT ZONES alloc_len underflow OOB write
-
-Ido Schimmel (1):
-      mlxsw: spectrum: Apply RIF configuration when joining a LAG
-
-Ilpo Järvinen (1):
-      serial: sc16is7xx: Fill in rs485_supported
+      net/sched: act_ct: fix sk_buff leak when the header checks reject a packet
 
 Jai Luthra (1):
       media: i2c: imx219: Rename VTS to FRM_LENGTH
 
-Jani Nikula (2):
+Jani Nikula (4):
       drm/displayid: fix Tiled Display Topology ID size
+      drm/i915/vrr: require valid min/max vfreq for VRR
       drm/i915/hdcp: require monotonically increasing seq_num_v
+      drm/i915/hdcp: check streams[] bounds before overflow
 
-Jarkko Sakkinen (1):
-      tpm: tpm_tis_spi: Use wait_woken() in wait_for_tmp_stat()
+Jann Horn (1):
+      bpf,fork: wipe ->bpf_storage before bailouts that access it
 
-Jason Gunthorpe (1):
+Jason Gunthorpe (2):
+      kernel/user: Allow user_struct::locked_vm to be usable for iommufd
       udmabuf: Do not create malformed scatterlists
+
+Jason Wang (1):
+      VDUSE: avoid leaking information to userspace
 
 Jeff Layton (1):
       audit: widen ino fields to u64
 
-Jiangshan Yi (1):
-      serial: 8250_mid: Fix NULL function pointer dereference on DNV/ICX-D/SNR platforms
+Jeremy Sowden (1):
+      netfilter: bitwise: rename some boolean operation functions
 
-Jiasheng Jiang (1):
-      media: mediatek: vcodec: Fix a resource leak related to the scp device in FW initialization
+Jiacheng Yu (1):
+      fbcon: Use correct type for vc_resize() return value
 
-Johan Hovold (8):
+Jingbo Xu (1):
+      erofs: maintain cookies of share domain in self-contained list
+
+Johan Hovold (3):
       mmc: vub300: fix use-after-free on disconnect
       mmc: vub300: rename probe error labels
-      USB: serial: keyspan_pda: refactor write-room handling
-      USB: serial: keyspan_pda: fix write implementation
-      USB: serial: keyspan_pda: add write-fifo support
-      USB: serial: keyspan_pda: clean up comments and whitespace
-      USB: serial: keyspan_pda: fix data loss on receive throttling
-      USB: serial: keyspan_pda: fix information leak
+      usb: musb: omap2430: clean up probe error handling
 
 Jon Hunter (1):
       arm64: tegra: Add EL2 virtual timer interrupt for Tegra194
@@ -611,10 +813,25 @@ Josh Poimboeuf (1):
       ftrace: Fix off-by-one fentry site disable in ftrace_free_mem()
 
 Junrui Luo (1):
-      jbd2: fix integer underflow in jbd2_journal_initialize_fast_commit()
+      octeontx2-af: cn10k: restrict VF LMTLINE sharing to its own PF
 
 Jérémy Jean (1):
       netfilter: flowtable: publish GC-visible tuple last
+
+Kai Vehmanen (1):
+      ALSA: hda: codecs: hdmi: disable keep-alive before audio format change
+
+Kees Cook (1):
+      overflow: Change DEFINE_FLEX to take __counted_by member
+
+Kefeng Wang (1):
+      mm: migrate_device: fix pte_pfn/pte_dirty called on non-present PTE
+
+Kefu Chai (1):
+      libceph: tolerate addrvecs with multiple entries of the same type
+
+Konstantin Komarov (1):
+      fs/ntfs3: Undo critial modificatins to keep directory consistency
 
 Laurent Pinchart (1):
       media: i2c: imx219: Drop IMX219_VTS_* macros
@@ -625,22 +842,31 @@ Li Daming (1):
 Li Xiasong (1):
       tipc: restrict socket queue dumps in enqueue tracepoints
 
+LiangCheng Wang (1):
+      wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
+
 Linmao Li (1):
       Input: psxpad-spi - set driver data before use
 
-Liu Jian (1):
-      net: Add helper function to parse netlink msg of ip_tunnel_encap
+Long Li (2):
+      xfs: fix ilock leak on error in xfs_dq_get_next_id
+      xfs: don't swallow dquot recovery verification errors
 
-Lorenzo Stoakes (ARM) (1):
-      mm/ptdump: always stabilise against page table freeing using init_mm
+Lorenzo Stoakes (ARM) (2):
+      mm/vmalloc: acquire init_mm lock on huge vmap to avoid ptdump UAF
+      mm/huge_memory: fix huge_zero_pfn race
 
-Luiz Augusto von Dentz (1):
-      skbuff: introduce skb_pull_data
+Luiz Augusto von Dentz (6):
+      Bluetooth: HCI: Remove HCI_AMP support
+      Bluetooth: hci_sync: Introduce hci_cmd_sync_run/hci_cmd_sync_run_once
+      Bluetooth: MGMT: Fix not generating command complete for MGMT_OP_DISCONNECT
+      Bluetooth: MGMT: Protect mgmt_pending list with its own lock
+      Bluetooth: hci_core: Fix not handling hdev->le_num_of_adv_sets=1
+      Bluetooth: hci_sync: Fix not using correct handle
 
-Maoyi Xie (4):
+Maoyi Xie (3):
       net: thunderbolt: Fix frags[] overflow by bounding frame_count
       wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
-      net: ipip: require CAP_NET_ADMIN in the device netns for changelink
       net: ip6_tunnel: require CAP_NET_ADMIN in the device netns for changelink
 
 Marc Kleine-Budde (1):
@@ -649,66 +875,80 @@ Marc Kleine-Budde (1):
 Matt Bobrowski (1):
       bpf: Reject BPF_MAP_TYPE_INODE_STORAGE creation if BPF LSM is uninitialized
 
+Matt Fleming (1):
+      veth: convert frag_list skbs before running XDP
+
+Matthew Rosato (1):
+      KVM: s390: pci: Fix aisb calculation
+
 Matthieu Baerts (NGI0) (1):
       mptcp: options: reset DSS fields in case of unexpected size
-
-Maurizio Lombardi (1):
-      scsi: target: core: Generate correct identifiers for PR OUT transport IDs
 
 Max Kellermann (2):
       ceph: avoid fs reclaim while using current->journal_info
       ceph: fix hanging __ceph_get_caps() with stale mds_wanted
 
-Michael Bommarito (2):
+Michael Bommarito (3):
+      ntfs3: validate split-point offset in indx_insert_into_buffer
       thunderbolt: Prevent XDomain delayed work use-after-free on disconnect
-      mptcp: only set DATA_FIN when a mapping is present
+      erofs: cap LZMA stream pool size
 
-Michael Walle (3):
-      mtd: spi-nor: sst: remove global protection flag
-      mtd: spi-nor: intel: remove global protection flag
-      mtd: spi-nor: Fix spi_nor_try_unlock_all()
-
-Mika Westerberg (2):
-      thunderbolt: Keep XDomain reference during the lifetime of a service
-      thunderbolt: Remove XDomain from the bus without holding tb->lock
+Mike Rapoport (IBM) (1):
+      mm: move most of core MM initialization to mm/mm_init.c
 
 Mikhail Gavrilov (1):
       dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning
 
-Mikulas Patocka (2):
+Mikulas Patocka (3):
+      dm-verity: avoid double increment of &use_bh_wq_enabled
       dm-integrity: don't increment hash_offset twice
       dm-verity: make error counter atomic
 
-Miquel Raynal (1):
-      mtd: spi-nor: swp: Improve locking user experience
+Muchun Song (1):
+      mm/mm_init: fix uninitialized struct pages for ZONE_DEVICE
 
-Mirela Rabulea (1):
-      media: v4l2-fwnode: Fix subdev owner overwritten in v4l2_async_register_subdev_sensor()
+Mukesh Ojha (2):
+      remoteproc: qcom: replace kstrdup with kstrndup
+      remoteproc: qcom: fix sparse warnings
 
 Myeonghun Pak (1):
       mmc: sdhci: unmap the bounce buffer before device release
 
+Namjae Jeon (4):
+      ksmbd: rename smb2_get_msg to smb_get_msg
+      ksmbd: validate minimum PDU size for transform requests
+      ksmbd: conn lock to serialize smb2 negotiate
+      ksmbd: reject repeated SMB2 NEGOTIATE requests
+
 NeilBrown (1):
       VFS/audit: introduce kern_path_parent() for audit
-
-Norbert Szetei (1):
-      ALSA: seq: close a re-opened queue timer in the destructor
 
 Oleg Nesterov (1):
       taskstats: fill_stats_for_tgid: use for_each_thread()
 
-Ondrej Mosnacek (1):
-      lsm: use default hook return value in call_int_hook()
-
 Pablo Neira Ayuso (1):
       netfilter: nf_conntrack_sip: validate skb_dst() before accessing it
 
-Paolo Abeni (1):
-      mptcp: fix subflow accounting on close
+Palmer Dabbelt (1):
+      RISC-V: Provide pgtable_l5_enabled on rv32
+
+Paolo Bonzini (1):
+      KVM: SVM: Serialize accesses to the owner and mirror list with separate lock
+
+Pauli Virtanen (2):
+      Bluetooth: hci_sync: call destroy in hci_cmd_sync_run if immediate
+      Bluetooth: mgmt: fix locking in unpair_device/disconnect_sync
 
 Pavitra Jha (2):
       libceph: fix multiple unsafe decodes in decode_locker()
       libceph: fix two unsafe bare decodes in decode_lockers()
+
+Pedro Falcato (2):
+      mm: do file ownership checks with the proper mount idmap
+      RDMA/siw: Fix the sendmsg byte count in siw_tcp_sendpages
+
+Peng Fan (1):
+      pmdomain: imx: Fix i.MX8MP power notifier
 
 Pengpeng Hou (1):
       Input: iforce - validate input packet lengths
@@ -716,11 +956,16 @@ Pengpeng Hou (1):
 Peter Seiderer (1):
       net: pktgen: fix code style (WARNING: Block comments)
 
-Peter Ujfalusi (1):
+Peter Ujfalusi (3):
       ASoC: cs4265: sort the register default table
+      ASoC: cs35l41: sort the register default table
+      ASoC: SOF: ipc3-control: Fix heap overflow in bytes_ext put/get
 
 Petr Machata (1):
       mlxsw: spectrum: On port enslavement to a LAG, join upper's bridges
+
+Pierre-Eric Pelloux-Prayer (1):
+      drm/amdgpu: move debug_vm handling to amdgpu_cs_parser_fini
 
 Raphael Zimmer (1):
       libceph: Avoid using invalid osd indices from primary_temp
@@ -752,20 +997,20 @@ Runyu Xiao (3):
 Sabrina Dubroca (1):
       espintcp: use sk_msg_free_partial to fix partial send
 
-Sakari Ailus (2):
+Sakari Ailus (1):
       media: imx219: Fix maximum frame length in lines
-      media: v4l: async: Set owner for async sub-devices
-
-Sangho Lee (1):
-      Bluetooth: HIDP: reject frames without a transaction header
-
-Sean Christopherson (3):
-      KVM: x86: Drop @vcpu parameter from kvm_x86_ops.hwapic_isr_update()
-      KVM: x86: Check for in-kernel xAPIC when querying APICv for directed yield
-      KVM: x86: Move "apicv_active" into "struct kvm_lapic"
 
 Sebastian Alba Vives (1):
       fpga: dfl-afu: validate DMA mapping length in afu_dma_map_region()
+
+Sergey Senozhatsky (1):
+      usb: typec: ucsi: split connector lock classes
+
+Sergio Paracuellos (1):
+      gpio: mt7621: avoid corruption of shared interrupt trigger state
+
+Sheng Zhao (1):
+      vduse: Use fixed 4KB bounce pages for non-4KB page size
 
 Shiming Cheng (1):
       net: gro: fix double aggregation of flush-marked skbs
@@ -776,6 +1021,9 @@ Siddharth Vadapalli (1):
 Souvik Banerjee (1):
       ovl: use linked upper dentry in copy-up tmpfile
 
+Stanislav Fomichev (1):
+      veth: Introduce veth_xdp_buff wrapper for xdp_buff
+
 Stefan Eichenberger (1):
       i2c: imx: separate atomic, dma and non-dma use case
 
@@ -785,74 +1033,112 @@ Steven Rostedt (1):
 Subbaraya Sundeep (1):
       octeontx2: Annotate mmio regions as __iomem
 
-Takashi Iwai (1):
-      ALSA: usx2y: Fix potential leaks of uninitialized memory
+Sumanth Korikkar (1):
+      s390/perf_cpum_cf: Add missing array_index_nospec() to __hw_perf_event_init()
+
+Sun Jian (1):
+      veth: fix skb length accounting after XDP frag adjustment
+
+Suraj Kandpal (1):
+      drm/i915/hdcp: Move to using intel_display in intel_hdcp
+
+Tang Bin (1):
+      ASoC: mediatek: mt8192-afe-pcm: Simplify probe() with local dev variable
 
 Tapio Reijonen (1):
       serial: max310x: implement gpio_chip::get_direction()
 
-Tejun Heo (1):
-      sched/psi: Shut down rtpoll_timer in psi_cgroup_free()
-
-Tengda Wu (2):
-      ftrace: Add global mutex to serialize trace_parser access
+Tengda Wu (1):
       ring-buffer: Use current_context for safe per-CPU buffer swap
 
-Thomas Zimmermann (1):
+Thomas Gleixner (1):
+      locking/rt: Fix the incorrect RCU protection in rt_spin_unlock()
+
+Thomas Richter (4):
+      s390/cpum_cf: move cpum_cf_ctrset_size()
+      s390/cpum_cf: move stccm_avail()
+      s390/cpum_cf: remove in-kernel counting facility interface
+      s390/cpum_cf: merge source files for CPU Measurement counter facility
+
+Thomas Zimmermann (2):
+      fbcon: Rename struct fbcon_ops to struct fbcon_par
       drm/tegra: fbdev: Remove offset into framebuffer memory
 
 Thorsten Blum (1):
       crypto: qce - fix error path in devm_qce_register_algs
 
-Tomasz Moń (1):
-      sc16is7xx: Properly resume TX after stop
+Théo Lebrun (1):
+      net: macb: drop in-flight Tx SKBs on close
+
+Timur Kristóf (1):
+      drm/amdgpu: Respect placement requirements in amdgpu_gtt_mgr functions
 
 Tristan Madani (1):
       selinux: avoid sk_socket dereference in selinux_sctp_bind_connect()
 
-Tudor Ambarus (1):
-      mtd: spi-nor: Move Software Write Protection logic out of the core
+Tu Nguyen (1):
+      can: rcar_canfd: change the initializing flow for clocks and resets
 
-Vasiliy Kovalev (1):
-      net/9p: fix infinite loop in p9_client_rpc on fatal signal
+Uladzislau Rezki (Sony) (1):
+      tracing: Rename kvfree_rcu() to kvfree_rcu_mightsleep()
 
 Venkatesh Srinivas (1):
       KVM: x86: Only reset TSC Deadline Timer in apic_timer_expired on KVM_RUN
 
+Ville Syrjälä (1):
+      drm/i915/vrr: Check HAS_VRR() first in intel_vrr_is_capable()
+
 Vincent Jardin (1):
       i2c: imx: fix locked bus on SMBus block-read of 0 (atomic)
+
+Vitor Soares (1):
+      drm/bridge: cdns-dsi: Replace deprecated UNIVERSAL_DEV_PM_OPS()
 
 Vladimir Oltean (1):
       net/sched: taprio: avoid calling child->ops->dequeue(child) twice
 
+Wasim Nazir (1):
+      remoteproc: qcom: Fix leak when custom dump_segments addition fails
+
 Wei Fang (1):
       net: packet: fix wrong transport_header when sending VLAN-tagged frame
 
-Wentao Liang (1):
+Weinan Liu (1):
+      iommu/amd: Don't split flush for amd_iommu_domain_flush_all()
+
+Wentao Guan (1):
+      ksmbd: restore DACL size on check_add_overflow() to avoid malformed ACL
+
+Wentao Liang (2):
       mlxsw: fix refcount leak in mlxsw_sp_port_lag_join()
+      ipmi: fix refcount leak in i_ipmi_request()
 
 Wolfram Sang (1):
       i2c: bcm-iproc: remove printout on handled timeouts
 
 Xiang Mei (2):
-      net/smc: reject CHID-0 ACCEPT that matches an empty ism_dev slot
+      net: bonding: fix use-after-free in bond_xmit_broadcast()
       libceph: bound pg_{temp,upmap,upmap_items} length to CEPH_PG_MAX_SIZE
 
 Xiang Mei (Microsoft) (1):
       netfilter: ipset: fix refcount race between list:set GC and swap
 
-Xiubo Li (2):
+Xin Long (3):
+      openvswitch: use skb_ip_totlen in conntrack
+      net: sched: use skb_ip_totlen and iph_totlen
+      openvswitch: move key and ovs_cb update out of handle_fragments
+
+Xiubo Li (3):
       libceph: add doutc and *_client debug macros support
+      ceph: pass the mdsc to several helpers
       ceph: rename _to_client() to _to_fs_client()
 
 Xu Rao (1):
       ALSA: hda: Fix cached processing coefficient verbs
 
-Yang Wang (1):
+Yang Wang (2):
       drm/amd/pm: fix torn gpu metrics reads
-
-Yangyu Chen (1):
-      net: atlantic: free stranded TX buffers on ring deinit
+      drm/amd/pm: fix pptable use-after-free
 
 Yiming Zhu (1):
       ceph: fix MDS random selection readiness predicate
@@ -863,18 +1149,31 @@ Yiyang Chen (1):
 Yizhou Zhao (1):
       ipvs: separate destination availability state
 
-Zhan Xusheng (1):
+Yogesh Lal (1):
+      remoteproc: qcom: pas: Adjust the phys addr wrt the mem region
+
+Yue Haibing (1):
+      netfilter: nf_tables: Remove unused nft_reduce_is_readonly()
+
+Zhan Xusheng (2):
+      fscrypt: use the mount idmap for the owner check in fscrypt_ioctl_set_policy()
       mmc: omap_hsmmc: fix busy_timeout overflow in ns conversion on 32-bit
 
 Zhang Changzhong (1):
-      net: ethernet: ti: am65-cpsw: fix error handling in am65_cpsw_nuss_probe()
+      net/sched: cls_u32: skip hash tables in u32_bind_class()
+
+Zhang Heng (1):
+      ALSA: hda: conexant: Remove mic bias threshold override
 
 Zhefu Zhang (1):
       Input: atkbd - skip deactivate for Xiaomi Book Pro 14's internal keyboard
 
-Zhenhao Wan (1):
-      RDMA/rtrs-srv: Bound RDMA-Write length to chunk size in rdma_write_sg
-
 Zhiling Zou (1):
       sctp: avoid auth_enable sysctl UAF during netns teardown
+
+Zihan Xi (4):
+      net/sched: act_ct: preserve tc_skb_cb across defragmentation
+      Bluetooth: mgmt: fix UAF in pair command cancellation
+      netfilter: nf_conntrack: defer invalid log until after unlock
+      Bluetooth: mgmt: fix pending command UAF in EIR updates
 
