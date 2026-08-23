@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6D938C438;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4A338D3E2;
 	Sun, 23 Aug 2026 16:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787501415; cv=none; b=L5G2afXTzBK43jgaimOhKYJAeg+RnnF+O0AZ9iTX9B6PbSufVmN2Hcor6ItIY5ohg+aUU6rvgsv7i0GSB9gTKL0MxlBy1ZWjcffdVy4Cz0WkYfXLujwl5hw97T/s0lBeYK9WyUCUp2Adg54+Gj/zX5zACbFeztdT46UK8qAFIJ4=
+	t=1787501415; cv=none; b=sy33iEOLicgeQigKXsT8Yu3AvcErC+ddphoQQ+PjZ7Lbh+0qEju+kTbV2L2pVgiC6kO2/S/qZ0FtM0EGuRh736qe86Kip16/+BzdWrOw6b1KLsZb/NEMtc9QyXy06yd1fKs6fM7nXeSEtbySkSJc/nnzWJuxI/ibLXcojbuJRnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787501415; c=relaxed/simple;
-	bh=Gf7s+iDVEY9i7s48leCOPqnKX0wFtaHwnlaLaAMjjTI=;
+	bh=gM3ljiZ7OeI79gnw2yBh74ko5W+e/3qUprdtBSuU7QU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f14nvGzw36YyTm/8+yA8F2Rk8ogeu+owt3EtlHBucLLkUxhCLc+x4NkVJximcsqFizCj3/M4AMIMnVbaI5R6xhr6F2r2ZBu+Uvvx8NpdAynlCFuh54F3IjncZnW+wk7A2zpDb9IknvcTq8GTFMKUo5Lcpm5Qc+gUNF/Il9Z6okk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9kEyPLF; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=BxmryeswNCbpyQQyf6edFiXOin3cZr/XG1ZWPpdhmDeDwfh7HLUM9aSWY/3pYQtpqFPWk8y5esaqvLS4eSg8N1kI+t23hJRH4jY/ZzT7nksn+2GxGy9M9RnuNys9nOCW7dJty33wEX5YSIBNvCb8wLJ1wBaMnhJVEIZ/0y6OJEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JB+X6rFQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9kEyPLF"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D6E8C2BCFF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JB+X6rFQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 97477C2BD04;
 	Sun, 23 Aug 2026 16:10:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787501415;
-	bh=Gf7s+iDVEY9i7s48leCOPqnKX0wFtaHwnlaLaAMjjTI=;
+	bh=gM3ljiZ7OeI79gnw2yBh74ko5W+e/3qUprdtBSuU7QU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=P9kEyPLFU5Bk7v2yu0OReo2urXS75n8PFY0UZH5S5wd5hI4MYMMHlx+5o5HIYS92J
-	 r5lwUYcwlNDa7+6qKgnR5238NE4fxnZ+wSIPU3VlLZz2b+DWjJ3oR5JO/BVIJ7o6f8
-	 FW9sFCLw3qvC/sfKwTkvJvgTa1Ycb6HZLJQ5AbInCtQgsH8FI9Ox6t5rG5TWPafwH7
-	 BgM2gCbcISANYZBMrVIzXVKev3B7dYPwwziVRUCimtDWj6ANpOYN1u/VJbNUMpYfVK
-	 asBrFEuFSFnLU5zvT09xp8xblmcKf/qKzd/smMhh4t02W1ZFn5gmFIliSHPDEaXbF9
-	 O/Oz7M5A5QqRw==
+	b=JB+X6rFQB2twuQ/dHmEj9yp0yOkdPinwMzFDVC9/BhVyhHRQ7KxsUyVvd8TzVHyqj
+	 UFVM/54kXN5zCcu7IZ43syuFSep8n7Fn3owdNOI1VT6dGj5p6X4ejcvxEKPFCCjCen
+	 Qf89AMLUCZTACkqcpeYVwMOPUITY1v5fUPYEs8+oeHeIbRSKAok5G1uZD4vF6MHs10
+	 /zruOhcyd2If3+lBMUoVCZWH2f+N/NiTi3Jk5BP7MNcB0kdT39M4oq8U8jZFo+DwB6
+	 uS8YkHSEYzoij7sIhAyBNj4u5VRcODkwlSS6QVT1rTbnjtizs+spSHb3T6BJe/PTCN
+	 zAKPCdaX+KFsQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B677C5DF97;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82164C5DF9C;
 	Sun, 23 Aug 2026 16:10:15 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Date: Sun, 23 Aug 2026 18:09:18 +0200
-Subject: [PATCH v2 5/7] thunderbolt: Mark discovered tunnels as active
+Date: Sun, 23 Aug 2026 18:09:19 +0200
+Subject: [PATCH v2 6/7] thunderbolt: Tear down inactive DP tunnels when the
+ domain is stopped
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260823-b4-tbt-fixes-v2-5-26a18a426c9f@kernel.org>
+Message-Id: <20260823-b4-tbt-fixes-v2-6-26a18a426c9f@kernel.org>
 References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
 In-Reply-To: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
 To: Andreas Noever <andreas.noever@gmail.com>, 
@@ -51,59 +52,64 @@ Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
  linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1478; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2083; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=Gf7s+iDVEY9i7s48leCOPqnKX0wFtaHwnlaLaAMjjTI=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ1a3dOIBW5fuoJ+bOxYy9C49tkM96Oy5pZ3zTIQX/74vG
- XSBZXNlRykLgxgXg6yYIsv2/famTx6+EVy66dJ7mDmsTCBDGLg4BWAiJg0M/91+/I1fI8E7TyZA
- 1uqYn8//7+YPZy0zXs76dPMSEfe9N28z/E/mvPpG7K/4qxOLO+Wfvf8QoNIptGeHy/2odUYzN2i
- d4ecGAA==
+ bh=gM3ljiZ7OeI79gnw2yBh74ko5W+e/3qUprdtBSuU7QU=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ1a3dNJ3hvKdM2vehJtY7ggJibjsWzBlSvrhTIGrAef7O
+ xVE6k53lLIwiHExyIopsmzfb2/65OEbwaWbLr2HmcPKBDKEgYtTACZyeRXDX9Gku7ODwj1fHXH/
+ sbzpU+SdK/YvFOL6bmudKHuV0sp0m5vhr4zU/8mztE4UTdnjfJ3t5KPH3RWGv6Lipm6aVPnoini
+ JLi8A
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-Discovered tunnels that have been activated by whatever was running
-before us stay in TB_TUNNEL_INACTIVE until hibernation restore such that
-anything depending on tb_tunnel_is_active() skips them. Mark them active
-during discovery instead. These now also emit TUNNEL_EVENT=activated
-uevents during discovery.
+tb_stop only tears down DMA tunnels so a DP tunnel that is still
+waiting for dprx_work to complete keeps that work queued while the
+routers are removed and the control channel is stopped. The work only
+stops once the DPRX timeout has passed and because it requeues itself
+until then the flush_workqueue in tb_domain_remove won't wait for its
+final run. The callback then runs against a domain that is already torn
+down. A reference to that domain is kept so the completion waiting for
+that domain to disappear in unbind will block until the timeout is
+eventually reached.
+
+Tear down DP tunnels that are not active yet as well which also cancels
+that work. Tunnels for displays that are already alive are untouched and
+keep working.
 
 Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
 Cc: stable@vger.kernel.org
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- drivers/thunderbolt/tunnel.c | 3 +++
- 1 file changed, 3 insertions(+)
+I also didn't run into this but noticed it when fixing the hop alloc thing
+and think it makes sense to fix it anyway.
+---
+ drivers/thunderbolt/tb.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
-index 5f536635908f..3785e29cf92b 100644
---- a/drivers/thunderbolt/tunnel.c
-+++ b/drivers/thunderbolt/tunnel.c
-@@ -507,6 +507,7 @@ struct tb_tunnel *tb_tunnel_discover_pci(struct tb *tb, struct tb_port *down,
- 		goto err_deactivate;
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index 088323cd876d..921adba3544f 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -2958,12 +2958,14 @@ static void tb_stop(struct tb *tb)
+ 	/* tunnels are only present after everything has been initialized */
+ 	list_for_each_entry_safe(tunnel, n, &tcm->tunnel_list, list) {
+ 		/*
+-		 * DMA tunnels require the driver to be functional so we
+-		 * tear them down. Other protocol tunnels can be left
+-		 * intact.
++		 * DMA tunnels and DP tunnels which are not yet active require
++		 * the driver to be functional so we tear them down.
++		 * Other protocol tunnels can be left intact.
+ 		 */
+ 		if (tb_tunnel_is_dma(tunnel))
+ 			tb_tunnel_deactivate(tunnel);
++		else if (tb_tunnel_is_dp(tunnel) && !tb_tunnel_is_active(tunnel))
++			tb_tunnel_deactivate(tunnel);
+ 		tb_tunnel_put(tunnel);
  	}
- 
-+	tb_tunnel_set_active(tunnel, true);
- 	tb_tunnel_dbg(tunnel, "discovered\n");
- 	return tunnel;
- 
-@@ -1671,6 +1672,7 @@ struct tb_tunnel *tb_tunnel_discover_dp(struct tb *tb, struct tb_port *in,
- 
- 	tb_dp_dump(tunnel);
- 
-+	tb_tunnel_set_active(tunnel, true);
- 	tb_tunnel_dbg(tunnel, "discovered\n");
- 	return tunnel;
- 
-@@ -2299,6 +2301,7 @@ struct tb_tunnel *tb_tunnel_discover_usb3(struct tb *tb, struct tb_port *down,
- 			tb_usb3_reclaim_available_bandwidth;
- 	}
- 
-+	tb_tunnel_set_active(tunnel, true);
- 	tb_tunnel_dbg(tunnel, "discovered\n");
- 	return tunnel;
- 
+ 	tb_switch_remove(tb->root_switch);
 
 -- 
 2.55.0
