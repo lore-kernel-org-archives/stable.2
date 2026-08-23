@@ -1,38 +1,84 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A972DF144;
-	Sun, 23 Aug 2026 09:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787477415; cv=none; b=SHNyj1xRlzX+7sa3fFq2dwf9oruptZSfWHAPFuw91herozRJWeXLo1+vrNOwxKJKSWuvRPmGrcazMDRtbDzwH4E6VeH8x+R4tAUb3xYskhCx4GGfX/Nd123NLIC8oqu3lHm6jW1WEiOiHxK2WCCXdADEHicVs37Afz7W96QBGAM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787477415; c=relaxed/simple;
-	bh=655xFNDjwdaRJw2DcZRdJ/eQ8Vf6i6wGHetWsHK0bB4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FT4Gx4zPRYKnZ/WVnt+ClLc2sD+T+UqiIIJk0Qy66SHVjVAwIFp1uy5/jdUFblg9DbrE9Bo7o32UI/zfeq1S54ArPouqOFhLC8FYmnP3vyqZNjeaaRw2crbesTzIzK4MRdbz2g1mA9pumPs5PTu4oaSDYHlDLUfTqlNGvURuhVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=eW+pI3Mr; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7D218A93F;
+	Sun, 23 Aug 2026 09:36:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787477768; cv=pass; b=aKRhwKjyiqaQ/f4z9Tzjmq050gB5j43MqiRnvv3NEHgBYb2NA38r/8OgTtBodz1aJTTeQgjxytVXru/p9gKivEw+jUc4uQfaPjSvXFO/DY6fm9aUFeKJpBTnHqt2/0lYysLckShAYrE+XVW/cTP6MTpOEabuU3rPPcLCYhrfV+4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787477768; c=relaxed/simple;
+	bh=66SEFEfjhYil5CHVMTD9XOV4KPuqVrQl3ukW+9UnnNY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZYGtE6KX3kfnHMaLZZyrEvaXhldXlPHJOHuP7KiUVdIRo/hOSH/wS/VuvOW6ygdnr5+VCDpJPhP12NkFcqNvlQOHlMeMBql/nD7AxLfkp5e0O3ApMbxFnpKy7KHSuLY9JoARp1xvbmM2uAjaMHXZ3JrFvRiWi7Ad5niMKab6zHg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=U0Z5a6PU; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=2EzpCXhj; arc=pass smtp.client-ip=85.215.255.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="eW+pI3Mr"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4af9abbbe;
-	Sun, 23 Aug 2026 17:29:59 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="U0Z5a6PU";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="2EzpCXhj"
+ARC-Seal: i=1; a=rsa-sha256; t=1787477398; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=m0bpjBXTbSVHO1hEMMSMtGbwHuvMNhU5pRR78iUumhS2wIcQqT6kEf0tI5KyZHJkp6
+    SDd+bB+QjD+NcnCnze7DvJ1smopg7eKENu/dZyefLYsXaUfWuT2/D5/8AuRDMde7gi1i
+    qR91TEB4/CYYFxl2M/l+w/pNzIZbUSze6qYAhJMmKs/zBG+SY9zhoMs1Xkbxn84PoBRp
+    yqsEdDno9xx7RCCpKkX+UAQNMX6HmHdtVAgHeZD/lSAODEuv98flS6xtHPYNH6kr+g9L
+    lxjs62p4YdMXI7DjY9LU8akz4ZrfCVtheBMkBE+9lWGg/Raj+IEHpYLSDRB8KH8DhNKt
+    qc1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787477398;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=GCILg7d45RMRE8YNTXah1jL4z2iDWGmWYyDATUxfxUM=;
+    b=hQyDg8pk2Yte6uzBGT0YZrLlYQ79N5S9B+ZoWSyH2fbVuFFSrMUSq0QOUuGcN8zpSN
+    qSRCHLBHS32IiEYE/7pOjiwo1T33K3ssBc9hOvc46OSIVrNu46L4mY7voaAj44NFq5wo
+    xo/6etHIeHvuaRsPYkWKj2nxANXX1VAd+G9zvIUJ+gjQQoOwl4p0qeHGsJkAlPw7WF8Q
+    H+hoFkOAypUYMCvoa1/IIdQ0DKaOIKaaA+pCzV8L3hV7xWsOy4DwDI9ki+JbSN7vCsMV
+    DyxkplvYyrbf2capfl/Ln3KSI31jW0J4gPcERlXGO6qC11CWInJFi1eTz/dk2drBX1s7
+    hi8w==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787477398;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=GCILg7d45RMRE8YNTXah1jL4z2iDWGmWYyDATUxfxUM=;
+    b=U0Z5a6PUJjxOBIgpA39Y3LAx7CtpughSEDUmCWg+A/4nojG4BDoZiS2LVGVTffy4AM
+    Lm3sdXCInY69tGI3CSPAbhr/cBejLZj8SAX78aw5RLNprwKt8GPp3o7IHQmzNrgLNcdL
+    wT814e2CAsZDRy2s9xbE9FwTUORIhVjAy4TFYAWjRDxEmbG+FfK1wXcbW5rwOlRueS++
+    Fo392ObBkn3pfoOKnKGhyMTRPs6H9ofQudiPW0wAyBGRpeT1KRd9ySaYmz2MWNoR7Pex
+    tY5ouKbwbUN/ZUaaFmtmitT0G2HqJOE4tYo7zRQzCW6+U1ZLoDvgpOckJvBndkVyS1Pn
+    xeEg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787477398;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=GCILg7d45RMRE8YNTXah1jL4z2iDWGmWYyDATUxfxUM=;
+    b=2EzpCXhjEVVD0OalOGWZ1y2gHfTOkJvzzHQJ2tYb7GM1kFZ/MHHojZcthEwjhf048f
+    zStus1B0UvHFlTwwPCDw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25oKnciHHK5OAyYE8yLD5e6WBWpu+g6xSmk="
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id Qfefb327N9TvWi2
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 23 Aug 2026 11:29:57 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
+	Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] drm/amdgpu: return reserve errors from amdgpu_gfx_kiq_init()
-Date: Sun, 23 Aug 2026 17:29:36 +0800
-Message-Id: <20260823092936.992430-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	letux-kernel@openphoenux.org,
+	wbx@openadk.org,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/ingenic: fix bridge allocation
+Date: Sun, 23 Aug 2026 11:29:52 +0200
+Message-ID: <400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,48 +86,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa02df497e303a1kunm6a20afce1f1049
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTk8YVkhNQxhIT0NLHRpPTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=eW+pI3Mrp1r5JMSqBpNa3D4T4dbvWhTTDQaGT0NyzTgARDKDi68gASyeAnsFWVOylz+9y8Ncfre/p7bit68wZL2gBFcyLDVe3J1sgYEucfMDB1kwxOIxRvJWbxWPelJk/lotEiECsEFmxeYLFfsGvxTstDhkKJQX9vG7GNGcxnA=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=DZCF195lvOLI9A+UGOu/tEfVuLdJBg6brLP10koFIis=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="us-ascii"
 
-amdgpu_gfx_kiq_init() reserves kiq->eop_obj after mapping the buffer.
-If amdgpu_bo_reserve() fails, the code still unmaps and unreserves the
-BO and then returns success.
+Bridge allocation API has changed and ingenic/drm was broken
+leading to
 
-Return the reserve error, but keep the kunmap cleanup. Only call
-amdgpu_bo_unreserve() on the successful-reservation path.
+[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
+[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
+[   55.904136] ------------[ cut here ]------------
+[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
+[   55.917538] refcount_t: addition on 0; use-after-free.
+...
+[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+...
 
-Fixes: 71c37505e7ea ("drm/amdgpu/gfx: move more common KIQ code to amdgpu_gfx.c")
+Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Cc: Waldemar Brodkorb <wbx@openadk.org>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 24 +++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index c5aa465231c4..630d0fd9ac13 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -241,8 +241,11 @@ int amdgpu_gfx_kiq_init(struct amdgpu_device *adev,
- 	memset(hpd, 0, hpd_size);
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 42c86f195c66b3..0a284502b0d3fe 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -122,7 +122,7 @@ struct ingenic_drm {
  
- 	r = amdgpu_bo_reserve(kiq->eop_obj, true);
--	if (unlikely(r != 0))
-+	if (unlikely(r != 0)) {
- 		dev_warn(adev->dev, "(%d) reserve kiq eop bo failed\n", r);
-+		amdgpu_bo_kunmap(kiq->eop_obj);
-+		return r;
-+	}
- 	amdgpu_bo_kunmap(kiq->eop_obj);
- 	amdgpu_bo_unreserve(kiq->eop_obj);
+ struct ingenic_drm_bridge {
+ 	struct drm_encoder encoder;
+-	struct drm_bridge bridge, *next_bridge;
++	struct drm_bridge *bridge, *next_bridge;
  
+ 	struct drm_bus_cfg bus_cfg;
+ };
+@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+-				 &ib->bridge, flags);
++				 bridge, flags);
+ }
+ 
+ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+@@ -1314,10 +1314,26 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
++		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
++						   base, &ingenic_drm_bridge_funcs);
++		if (IS_ERR(ib->bridge)) {
++			ret = PTR_ERR(ib->bridge);
++			goto err_drvdata;
++		}
++
++		ib->bridge->of_node = priv->dev->of_node;
+ 		ib->next_bridge = bridge;
+ 
+-		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
++		ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
++		ib->bridge->interlace_allowed = true;
++
++		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
++		if (ret) {
++			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+ 			dev_err(dev, "Unable to attach bridge\n");
 -- 
-2.34.1
+2.55.0
+
