@@ -1,197 +1,135 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF303515C2
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:37:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37267378D93
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787506670; cv=none; b=M2vRD39cFc5diElrd2FtlSh+vX+4DHz3vXXjGWVQYYEFJKZYxovF10l1s9mW/cBSYWYLvJmOeN5JX56H8EdIzXHTWBn3OKjgMR8IXoeeG2XzJVrZppfb1sj35JP5Ed/FS0NTipUxlGevqlBpLJQ6vtoXwsyuq5bTFJEhg6hifwo=
+	t=1787507953; cv=none; b=XCNFGYtLcIZuc1xNF7SH7J0jaHLkbk5UUmBwVS2Gq2aWMEV+UGNm3xoIy7zmU9tOuJ089MmasmYk6r7MkvBTExxLDvv6Gs0YSbYFdwCDi/KW76B4hqvtWzDeKG29OyPshYuZQYD/jZc5EVT5iUuVGU7n3vBzNjgUhfrAyex5rJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787506670; c=relaxed/simple;
-	bh=vDzC1lXQTX20zA2uT4KvproTMpd8ikDZ7Uz9qaUggPI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Lpfr+SXxjhK045JmX2fQSiGHtylP997W/DZGV7BQ4cqmsTLGjX8t8deyECYT1qlInAlPyHhyIqpViWbBBfdAH+EcOtdV4LbwlzhUYl3g5spzJoO53DvP3cBeM9XNZREOsTZKPFxu444DUiyUpU/xoDPsr3/dePEyVkEpTlawyWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pQacU6NX; arc=none smtp.client-ip=209.85.218.46
+	s=arc-20240116; t=1787507953; c=relaxed/simple;
+	bh=3TgrgwT+3TQqyh+mokvZkeL6QOBygWorjWWJ1gx7cXM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W7xX8b6NYZN9Jjti+zNdO4yh4Hai3bDTjdpO0kwye5aCWXzrZvj5J3Nx/BFkSV1+rzRy8YXLWalc7b6cpOAjo2Ar45cEXjoc/+BV6QaG/gGFvoEhFxPmDgxZnYlVZi6IwhDHDFdvUO/0dDw8OoasOjJgMrs0QDPYeyrjhHOeCCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DQV8WgpI; arc=none smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pQacU6NX"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1c50c1e29bso431431566b.3
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:37:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DQV8WgpI"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a36982a875so4051348a12.0
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787506667; x=1788111467; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WzxtLwRD92+TCzzKKRXbUxryNiIrjmzaSY4Z8wvm3PE=;
-        b=pQacU6NXgdwzVgaamRqgbVzWhlcLvjBztie4RtyJLUrQHp2L4NKw616g3JngzNBDd8
-         25xUYQDJJylCNt7sGiw9GPtMC/GwThJq0CIft1otleNIrBCyZf0Ia69O2vHYymJk6jJ4
-         Jvh/wiCbT/D2aIJDPjAI6YRsopbagDb2yK9XzGI6O7EUtKbqdJfK/IYTZSqSsmiahIpA
-         Ibck/zQu4+RTs78ZOMJdB72aSEJ/3CVk7BqYx/Q8kPCNvryXfdNUl84XpeJKQ1qq3XEg
-         drO100RRuPdI9swX012HwWiz9FqP0zCYc8orybXc7Sowl/B+3p/z25NS6v24ku5xakzX
-         jKpg==
+        d=gmail.com; s=20251104; t=1787507947; x=1788112747; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Sjq/3IUGZ/SVynU7JLmiVVao524iN6L5MfR/udlZ7+k=;
+        b=DQV8WgpIUutXFj8D2pDLixvkMyjEjXAtL1P6M3sdYHwbJYj4gCKAcOze7yKHX3gEKT
+         +u2YwDPFzvtIadX6hKC/iZYbyMyWC7RScJwuKSfhKLNVS6VR7bhKINd4b8WZ8HasN1EO
+         4p0VYQh02kKLf/yhqlaVwEyB8N8/M8IHnGqFk9dPmO9ZRgpbzEOgV446/COhalYDNSAn
+         5Vz5j7CFAjlUzXXrGMcrow6os8K09WzqV/hD8+atFpREHuddPwNmwTJxL6yYrpgYDNxr
+         inv/ir8rulc3v45r0pX8fNBqiHG9SXiU4FvYko6e1+ii2KO2dzQ1nPhIcrmM1sa/QzZ1
+         vY4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787506667; x=1788111467;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WzxtLwRD92+TCzzKKRXbUxryNiIrjmzaSY4Z8wvm3PE=;
-        b=DShjmis3iRyqTPbPcAJ1SxjEN90peyGn8/a3oFVLgpZVVgRvikcFoBpioOAw3eV7Ni
-         YwfQdxkZXOVmHeaD2Fp1tzJFtW+4f3RwpeeRvfXTP/204/Oyi5aEImX1hJPzlWqdWOXg
-         vQbMpAzXGnJaaxX2U5m3z73q/VfStWFSKBcYcU7g5OcWSCpcbhp01tZ6PsPnMzX6mXaE
-         x+AH/L8HACqVLvE3pJBx//+xulNLgbrQ+wt6BBsOFH63KgDmQCRAsq7YBeWk56dQVXN4
-         +A6UTvL8Z0WNCQc0ekeMWG4EdpRsnVgsBK70rTO6MD+81yMCr8IqS77KwQ3uulkJE7ef
-         3yiA==
-X-Forwarded-Encrypted: i=1; AHgh+RrtJBJlw8WTfkkXZHIp7SCAVohaYaHNZKbzz5RAUQ3CA69745vKGN6szdu16tvcY1EnNBi96VA=@vger.kernel.org
-X-Gm-Message-State: AFuF++loxys6vnMBs0Us4Um4HOejFdsB9pi8WAsrAJR8skk/q587gM6b
-	7c061gdLKntq8k74kjpGyWZDdUh2yRmlhvrBo/Rw5x6g+TDsy7rd96GY
-X-Gm-Gg: AR+sD12QKvN0DqfnihoBtbU8eJRgWMg4gqDojJ2YHcrIHbHglNSiE9bTUx6sDBhDJz4
-	5cc+4VpmCFW25z3aTwZFkW70Pxh0dFSUf6UVXdAdB0fJZfdPlFFIDinv/8wGAlsSix+boxxYYb2
-	1v6OL9iNWkll2ry6yBuEvLJX+HnLILDH5b2yq9oXoGKjHW9/9PStF7IQQYYvvjY5rfZK42IL0QZ
-	Z9dKJkrOkpkdY43kel9YPUckwcnAasF+RwOSEqDg+dzYMP5b+rONFbRKvSuOQm607UyQSR4i6o3
-	Kep7IIBdJym2T8uuXW4b1fGREpq/IKpeDe5TbgC5B6Vpr+2426dzpkGXRCbN0CecOAhjSa53B1C
-	q+uGri27DIPLPCFoEcCd9deDD1dVPve/VhFQ3FZnX7hlQ7LKQJxxu0Cswo6VNeIXBNTetEPcGvS
-	iXyyflSdbSihgjttfXmtl9eoraLQW0Lc95xEj16kRGhuN9IXGZ+5x0v25pefNKDDAQrbDJQR+sc
-	Y/EY20op32Mup38QXHGGhbwmx+6igw3PYtVghgQoe51MBp4ZdEXbe86+Z6NUEjaPM3NYx63ly2s
-	FmHA0MDr4+Qpj0wTxe9DJES8cCcztqZrzkHyHDnetSt2lSOXWLrcDcWU4+Rpm7hp983ImMlEXw=
-	=
-X-Received: by 2002:a17:907:7b83:b0:c20:fe93:a86 with SMTP id a640c23a62f3a-c246a62b495mr2653594366b.18.1787506666570;
-        Sun, 23 Aug 2026 10:37:46 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b027-cd01-554a-ffde-5279-f351.310.pool.telefonica.de. [2a02:3100:b027:cd01:554a:ffde:5279:f351])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249689fa1dsm791239266b.56.2026.08.23.10.37.45
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 23 Aug 2026 10:37:46 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	linux-sound@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/vc4: hdmi: Unregister the ASoC card on unbind
-Date: Sun, 23 Aug 2026 19:37:40 +0200
-Message-Id: <20260823173740.2983-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1787507947; x=1788112747;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Sjq/3IUGZ/SVynU7JLmiVVao524iN6L5MfR/udlZ7+k=;
+        b=XhiE9mZoGkbQH4iZ1fxn8ijN/oAIHLLqeghpTCcixURFavFcO7rD+wgzcGv9Fz+gNc
+         bIJajS9oFk73Tjo7hABFMT+iNPEUka0syqlGI1zCMN+rneEujxt1PFLlcokJvhPSgkgG
+         MIHe1RiwIoLZDMQui5PEULez7vKKA7IJTJlsJzgq0CHR7DjdmjS/GXQJ2b845ZoVPvs1
+         hyacguuUHkn8vohT71d199BIshL7DHerWH8hxtdVNGWejkXhFegOttoXNGeOgesgDkaW
+         JOoU60A7NpN6kPhl2irpdv7S0y13dikditI3MhwsGD9/3LhA+Ts4KJ2M820hG1/XSnsD
+         /kYw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrxs0q0sMX1pG/AyRfCbJd0R+UV8zc+C/6KHJngX4lQHvYa2CpeuwXXMk/5lgNuomWhpOSpXr8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLtyNICDgRh67Z4uVwAtMS2rgy++mmJdtkVjjCLyChOsQGNdqZ
+	vncOI3Ia0PE0g5Dz06L3BndBR2sSP0C+caYk9Bq/vSUMYkD3zA1qViJ8
+X-Gm-Gg: AR+sD13y9S5glHJ83dD8oFEjq8cx5MuP2ITe3UHjFsFvI8AEElDA0rKNGJBIsCu33oQ
+	V3HOcy0Igv0mlwLy5k6zYmaV42P+k/WHb0d6XgrI6lx4HU6EyjvewALVqDrizPKj2b+E0Z9hm5u
+	sqvENZpy5lm5ZB+u+5EOYc53GZTJafcDydUygNI37hZumfoVvkQ4byhFyR+Q6HsBk0eO9XA5uLD
+	XuruZpdViMsTyv0kIVQPYLoRMccJs+UABJ5i2SBhlVyVZ/vJ4AAYORr3LDI0BHBFLteuFmMwYZP
+	exSfFnPtEkrZ7JpHs+A+d1oecIC+rf0st6C81SAy7Gofdryg/ruSnV6k0OQ1/TogK1EQJgr/Fzv
+	1wWeKpQ1AZHlqzEVarwguHL8TgYXimDfzE8+yyw7oOzvt26UihreZ57f0zxQjbFgwR4r3HwVSDE
+	dWw0PSzQZagqMr+ZUewAwYn88n6wrNQ8TlDSZxnlKsqyAxXGeTiTzofFcDZEG50B65j2dM9dJkm
+	W6C9g==
+X-Received: by 2002:a05:6402:321a:b0:6a3:f3dc:d7f3 with SMTP id 4fb4d7f45d1cf-6a42f216053mr25270642a12.16.1787507946853;
+        Sun, 23 Aug 2026 10:59:06 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:148:9afb:38d7:b606:f380:289e])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e199cb8sm4153933a12.16.2026.08.23.10.59.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Aug 2026 10:59:06 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Subject: [PATCH v2 0/4] hwmon: chipcap2: various bug fixes
+Date: Sun, 23 Aug 2026 19:59:00 +0200
+Message-Id: <20260823-chipcap2_locks-v2-0-6a26c8e9e2fc@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOU0i2oC/13MwQrCMAzG8VcZOVtpo8jw5HvIkCzrtuC2lnYUZ
+ fTdrQMvktM/8P02iDaIjXCtNgg2SRS3lMBDBTzSMlglXWlAjRddo1Y8imfy+JgcP6NibbQ5EZ5
+ JM5SRD7aX1w7em9KjxNWF9+4n8/3+KPNPJaPKdTUztT2bFm/DTDId2c3Q5Jw/EOXfl6wAAAA=
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787507945; l=1997;
+ i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
+ bh=3TgrgwT+3TQqyh+mokvZkeL6QOBygWorjWWJ1gx7cXM=;
+ b=v35qConihnxbkJFI9UxHBD/4b0tniOfkuY1qF5kSgsZf29DXLkxUzuJFir5ip/dcNME8F5ppn
+ Fj87w4pVmTPDd6974UKZ/s0QvnFlMwfbdd0uFEjXMC0S67OzcRpP5pz
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-vc4_hdmi, including the embedded ASoC card, is DRM-managed and freed
-with the DRM device when the aggregate device is torn down. The card is
-registered with devm_snd_soc_register_card() on the HDMI platform device
-from the component bind callback, so its devres node starts out in the
-component's devres group and used to be released at component unbind,
-while vc4_hdmi is still alive.
+The original issue (race condition for the alarms) was found by Sashiko[1]
+when an unrelated patch affected chipcap2.c. The issue is real as the
+access to the variables is not protected by any locking mechanism
+although 2 different sources (threaded interrupts and sysfs) could
+modify them.
 
-Whenever an ASoC component is registered, the core retries every card
-waiting for components. For a devm-managed card, each retry destroys and
-re-adds its devres node. Because snd_soc_bind_card() requeues the card and
-converts -EPROBE_DEFER to success, even a retry that still defers can move
-the node outside the now-closed component devres group. It is then only
-released at platform driver detach, after vc4_hdmi has been freed:
+After sending the fix, Sashiko found new issues[2] that have been added to
+the series:
+- Wrong channel number in hwmon_notify_event(): pass 0 as the channel
+  number.
+- IRQ teardown ordering: split the current implementation to provide the
+  available interrupts before registering the hwmon device, and register
+  the IRQs after the hwmon device has been registered.
+- Enable IRQ processing when the regulator is already enabled.
 
-  # modprobe vc4; rmmod vc4
-  BUG: KASAN: slab-use-after-free in snd_soc_unregister_card
-  Read of size 1 at addr ffff0000456a8450 by task rmmod/262
-   devm_card_bind_release / devres_release_all / driver_detach
-  Allocated by task 171: drmm_kmalloc / vc4_hdmi_bind
-  Freed by task 262 (rmmod): drm_dev_put / component_del
+The fixes have been validated on real hardware with an Amphenol
+ChipCap 2 CC2D23S sensor.
 
-Register the card without devm and unregister it from a component unbind
-callback, where the HDMI device resources and the DRM-managed structure
-are both still alive, regardless of where the card got bound.
+[1] Link: https://lore.kernel.org/linux-hwmon/20260625162114.417EA1F000E9@smtp.kernel.org/
+[2] Link: https://lore.kernel.org/linux-hwmon/20260821093706.D1EB11F000E9@smtp.kernel.org/
 
-Fixes: 42d99857d6f0 ("ASoC: core: Move all users to deferrable card binding")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
+Changes in v2:
+- Add fixes to the new issues reported by Sashiko.
+- Use hwmon subsystem lock.
+- Link to v1: https://lore.kernel.org/r/20260821-chipcap2_locks-v1-1-1d8ccabfc1b2@gmail.com
+
 ---
-v2:
-- Preserve the existing ASoC component-lifetime comment and document at
-  the card registration site how deferrable binding can move the card's
-  devres node outside the component devres group.
-- Point Fixes at the deferrable card binding change.
-- Add the ASoC maintainers and linux-sound recipients, add the stable
-  trailer, and update Assisted-by to the current format.
+Javier Carrasco (4):
+      hwmon: chipcap2: fix channels in humidity alarm notifications
+      hwmon: chipcap2: fix IRQ teardown ordering
+      hwmon: chipcap2: enable IRQ processing when regulator is already enabled
+      hwmon: chipcap2: serialize access to low/high_alarm indicators
 
-Tested on a Raspberry Pi 400 (BCM2711), v7.2-11658-g26260251022f, with
-KASAN: report gone, rmmod/insmod loop clean.
+ drivers/hwmon/chipcap2.c | 76 ++++++++++++++++++++++++------------------------
+ 1 file changed, 38 insertions(+), 38 deletions(-)
+---
+base-commit: 388b607d107c07aaade04c7f22f344cab6bdccd3
+change-id: 20260820-chipcap2_locks-c01013a24a0c
 
- drivers/gpu/drm/vc4/vc4_hdmi.c | 24 +++++++++++++++++++++---
- drivers/gpu/drm/vc4/vc4_hdmi.h |  1 +
- 2 files changed, 22 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 17c8635c5afa..7e312932488a 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -2422,12 +2422,18 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *vc4_hdmi)
- 	 * snd_soc_card_get_drvdata() if needed.
- 	 */
- 	snd_soc_card_set_drvdata(card, vc4_hdmi);
--	ret = devm_snd_soc_register_card(dev, card);
-+
-+	/*
-+	 * Deferred card binding can move a devm registration outside the
-+	 * component devres group, so unregister the card explicitly at unbind.
-+	 */
-+	ret = snd_soc_register_card(card);
- 	if (ret)
--		dev_err_probe(dev, ret, "Could not register sound card\n");
-+		return dev_err_probe(dev, ret, "Could not register sound card\n");
- 
--	return ret;
-+	vc4_hdmi->audio.card_registered = true;
- 
-+	return 0;
- }
- 
- static irqreturn_t vc4_hdmi_hpd_irq_thread(int irq, void *priv)
-@@ -3345,8 +3351,20 @@ err_put_runtime_pm:
- 	return ret;
- }
- 
-+static void vc4_hdmi_unbind(struct device *dev, struct device *master,
-+			    void *data)
-+{
-+	struct vc4_hdmi *vc4_hdmi = dev_get_drvdata(dev);
-+
-+	if (vc4_hdmi->audio.card_registered) {
-+		snd_soc_unregister_card(&vc4_hdmi->audio.card);
-+		vc4_hdmi->audio.card_registered = false;
-+	}
-+}
-+
- static const struct component_ops vc4_hdmi_ops = {
- 	.bind   = vc4_hdmi_bind,
-+	.unbind = vc4_hdmi_unbind,
- };
- 
- static int vc4_hdmi_dev_probe(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
-index 29d461d4ee49..444c73513d86 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.h
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
-@@ -106,6 +106,7 @@ struct vc4_hdmi_audio {
- 	struct snd_soc_dai_link_component platform;
- 	struct snd_dmaengine_dai_dma_data dma_data;
- 	bool streaming;
-+	bool card_registered;
- };
- 
- /* General HDMI hardware state. */
+Best regards,
 -- 
-2.39.5 (Apple Git-154)
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
