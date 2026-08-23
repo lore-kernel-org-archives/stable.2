@@ -1,67 +1,69 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37267378D93
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EF32ECD1D
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787507953; cv=none; b=XCNFGYtLcIZuc1xNF7SH7J0jaHLkbk5UUmBwVS2Gq2aWMEV+UGNm3xoIy7zmU9tOuJ089MmasmYk6r7MkvBTExxLDvv6Gs0YSbYFdwCDi/KW76B4hqvtWzDeKG29OyPshYuZQYD/jZc5EVT5iUuVGU7n3vBzNjgUhfrAyex5rJw=
+	t=1787507953; cv=none; b=r9RS89WxUnRMOJ8hNhfR7spXuPM24t0Bb73bX7hte15F4vZlXRMpB/Fpbm4JfXag0ppP+qd3SeY/UuAUMt4Bif1VyF6/mvECBeyTVePdZVqfbCqJPOWX4BaZasGUvj9DBDCu5jBzwX8cNigMAnaWS/70+hzHQW6GiqlaugS1Al0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787507953; c=relaxed/simple;
-	bh=3TgrgwT+3TQqyh+mokvZkeL6QOBygWorjWWJ1gx7cXM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W7xX8b6NYZN9Jjti+zNdO4yh4Hai3bDTjdpO0kwye5aCWXzrZvj5J3Nx/BFkSV1+rzRy8YXLWalc7b6cpOAjo2Ar45cEXjoc/+BV6QaG/gGFvoEhFxPmDgxZnYlVZi6IwhDHDFdvUO/0dDw8OoasOjJgMrs0QDPYeyrjhHOeCCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DQV8WgpI; arc=none smtp.client-ip=209.85.208.48
+	bh=fLQQ4JIzzuT4Vt7XQPvCoVjlsMWHJ7PoqIP957VnMqs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NmVLLNdNHSMmRbn9mmKtFVHWeI6rtKoTDOwn2iDKIOjvHoANHGsY3rYqrnElGkcFyHZhrJVPTH2WV/+EmHO3VYDr/OMKraujxI6cCCvPxs6dw+FrsKIptvvPr0fhjccSEYFz9t2sqfRVfMEcKJH7H2Tw+uVUHJ3DKNuInIBRJTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=inNZalsl; arc=none smtp.client-ip=209.85.208.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DQV8WgpI"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a36982a875so4051348a12.0
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:59:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="inNZalsl"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso4771919a12.0
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:59:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787507947; x=1788112747; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Sjq/3IUGZ/SVynU7JLmiVVao524iN6L5MfR/udlZ7+k=;
-        b=DQV8WgpIUutXFj8D2pDLixvkMyjEjXAtL1P6M3sdYHwbJYj4gCKAcOze7yKHX3gEKT
-         +u2YwDPFzvtIadX6hKC/iZYbyMyWC7RScJwuKSfhKLNVS6VR7bhKINd4b8WZ8HasN1EO
-         4p0VYQh02kKLf/yhqlaVwEyB8N8/M8IHnGqFk9dPmO9ZRgpbzEOgV446/COhalYDNSAn
-         5Vz5j7CFAjlUzXXrGMcrow6os8K09WzqV/hD8+atFpREHuddPwNmwTJxL6yYrpgYDNxr
-         inv/ir8rulc3v45r0pX8fNBqiHG9SXiU4FvYko6e1+ii2KO2dzQ1nPhIcrmM1sa/QzZ1
-         vY4w==
+        d=gmail.com; s=20251104; t=1787507949; x=1788112749; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I19+PjIQNnODooxQ97qMirgzt/rnck5BIrQXPDznt18=;
+        b=inNZalsl0ANHa0i+w0ICoAxv26GI6qIZPMzA6KRbd3R3jgUMQuYdi0CGDsSiJ0SLek
+         nyZOfRfhBNZCFJradEUCw3c+UCBPiqhpy1yJeUSNac6VlwfLEZoRad4aPfOIrMSg84oV
+         9Si0OT6kIpP2jee34x/Gfj984q6L70wnvKk2O5tuRNz6u2p7ektcOkgMwbszSEg6a8Yq
+         46IbboLnDni+S3ciQic8n7Tp2alKQpzb8xQGcndO1yiqZlFQbhlDKqFcKfJXebVprt8O
+         Me5evxPyY18InEREs+FrM6Fq7IWYixJTlL4ovBnSYDNJX/0nOqbJ5+MOBq17re0CLfsA
+         azFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787507947; x=1788112747;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Sjq/3IUGZ/SVynU7JLmiVVao524iN6L5MfR/udlZ7+k=;
-        b=XhiE9mZoGkbQH4iZ1fxn8ijN/oAIHLLqeghpTCcixURFavFcO7rD+wgzcGv9Fz+gNc
-         bIJajS9oFk73Tjo7hABFMT+iNPEUka0syqlGI1zCMN+rneEujxt1PFLlcokJvhPSgkgG
-         MIHe1RiwIoLZDMQui5PEULez7vKKA7IJTJlsJzgq0CHR7DjdmjS/GXQJ2b845ZoVPvs1
-         hyacguuUHkn8vohT71d199BIshL7DHerWH8hxtdVNGWejkXhFegOttoXNGeOgesgDkaW
-         JOoU60A7NpN6kPhl2irpdv7S0y13dikditI3MhwsGD9/3LhA+Ts4KJ2M820hG1/XSnsD
-         /kYw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrxs0q0sMX1pG/AyRfCbJd0R+UV8zc+C/6KHJngX4lQHvYa2CpeuwXXMk/5lgNuomWhpOSpXr8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLtyNICDgRh67Z4uVwAtMS2rgy++mmJdtkVjjCLyChOsQGNdqZ
-	vncOI3Ia0PE0g5Dz06L3BndBR2sSP0C+caYk9Bq/vSUMYkD3zA1qViJ8
-X-Gm-Gg: AR+sD13y9S5glHJ83dD8oFEjq8cx5MuP2ITe3UHjFsFvI8AEElDA0rKNGJBIsCu33oQ
-	V3HOcy0Igv0mlwLy5k6zYmaV42P+k/WHb0d6XgrI6lx4HU6EyjvewALVqDrizPKj2b+E0Z9hm5u
-	sqvENZpy5lm5ZB+u+5EOYc53GZTJafcDydUygNI37hZumfoVvkQ4byhFyR+Q6HsBk0eO9XA5uLD
-	XuruZpdViMsTyv0kIVQPYLoRMccJs+UABJ5i2SBhlVyVZ/vJ4AAYORr3LDI0BHBFLteuFmMwYZP
-	exSfFnPtEkrZ7JpHs+A+d1oecIC+rf0st6C81SAy7Gofdryg/ruSnV6k0OQ1/TogK1EQJgr/Fzv
-	1wWeKpQ1AZHlqzEVarwguHL8TgYXimDfzE8+yyw7oOzvt26UihreZ57f0zxQjbFgwR4r3HwVSDE
-	dWw0PSzQZagqMr+ZUewAwYn88n6wrNQ8TlDSZxnlKsqyAxXGeTiTzofFcDZEG50B65j2dM9dJkm
-	W6C9g==
-X-Received: by 2002:a05:6402:321a:b0:6a3:f3dc:d7f3 with SMTP id 4fb4d7f45d1cf-6a42f216053mr25270642a12.16.1787507946853;
-        Sun, 23 Aug 2026 10:59:06 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787507949; x=1788112749;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I19+PjIQNnODooxQ97qMirgzt/rnck5BIrQXPDznt18=;
+        b=Vm839k3wxfkX0PLXeP2f5KMOQdOrw6J3FSFDF3a4tY1wj49SQB8wZ7wU27fsFrlu78
+         TZ+ZrlmMGo3aAQFFoPl+GlzyHh5FZnWikWT1nPqNTgNzUbbU2f/Xe3SEfLZh7cWqjpBd
+         p/EZhHxvWwpOi+01Iu/TFuvCUAgGW7XLhKSxT6mh/IamqWoiri6yY4VbhQAekt62qoSS
+         V4RN1I/1+yuJiQT2/JOoAecPsXJMR+QH5ikQFFydVs7gH11Rz0DVl50404MllQ8GSr/s
+         S1BR91hSgI42yg1WcEHULcBFQMnK6/4YZTodxWG4CV76R3yjjkwSO2/z88efN6GZIWzS
+         eQYA==
+X-Forwarded-Encrypted: i=1; AHgh+RoaVq/ISq1uho7v7GquZHpS5AUjvSX3ECYrvtFt8iUyHnqjuVcHi6Dxfr8llLCAufutzUatQkQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrwhmZkzKQ6GN/zh4fAH1Fixriz5WtCYQoc4pR7IMUxmm+Xqpv
+	+v/jOTl4bRuJM50d6f8hZD5lTZ3fIQ8kC28Ug1dXICMZk2Rfsed+eqWoU5pjiA==
+X-Gm-Gg: AR+sD110ipOjheF/HZ9m3JBfPI5TgTkSubDNVnUxa/OtV5elQHbxKaiHz8M8t8PRwV1
+	BvKWDcaDluOBsOcKtfMeSVFyDmu5wNiEDpR5oxnA8DQsqjp3LHOH5P86+WrkqnsJ3XCl7pijVe1
+	8ZkYctoaRqf2Pqo5dHhd4UP4zMMNqBV6YtR/PMelHijW3YmhOMa7FMsYhcAiTLT4N1vSq7NV+oK
+	iMO/YEFUZ2toIVIs/NmSGHHanFLuUxvTYgLrY0dqqX8qR26BmtbxGVUkI9dZIcwnP1DmTfEQUm4
+	e2D9vlsKqKiB341GRZ2aenCuxjN674PpF8LNJOYzYxmQvXKLecPOX3S+w8ZJR884PWiWYhom7Gv
+	TxetdWmxJc7eFU2ut7Gml6zERsdHa+KQgHPbcika8x8H2DesBLjj7+ehgmVLWVV850BqQy+Vly7
+	0UgVF6k+wQITgcP/Jr3xfs1t6PNO2hzflXb5RSqekHb6xTExGi64k1mqudhMP2s2/DYpaNW6/o9
+	Pb8xw==
+X-Received: by 2002:a05:6402:50c8:b0:6a3:87b7:b516 with SMTP id 4fb4d7f45d1cf-6a582b25777mr12416486a12.6.1787507948478;
+        Sun, 23 Aug 2026 10:59:08 -0700 (PDT)
 Received: from [127.0.1.1] ([2001:4bb8:148:9afb:38d7:b606:f380:289e])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e199cb8sm4153933a12.16.2026.08.23.10.59.05
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e199cb8sm4153933a12.16.2026.08.23.10.59.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 10:59:06 -0700 (PDT)
+        Sun, 23 Aug 2026 10:59:07 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Subject: [PATCH v2 0/4] hwmon: chipcap2: various bug fixes
-Date: Sun, 23 Aug 2026 19:59:00 +0200
-Message-Id: <20260823-chipcap2_locks-v2-0-6a26c8e9e2fc@gmail.com>
+Date: Sun, 23 Aug 2026 19:59:01 +0200
+Subject: [PATCH v2 1/4] hwmon: chipcap2: fix channels in humidity alarm
+ notifications
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,66 +72,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOU0i2oC/13MwQrCMAzG8VcZOVtpo8jw5HvIkCzrtuC2lnYUZ
- fTdrQMvktM/8P02iDaIjXCtNgg2SRS3lMBDBTzSMlglXWlAjRddo1Y8imfy+JgcP6NibbQ5EZ5
- JM5SRD7aX1w7em9KjxNWF9+4n8/3+KPNPJaPKdTUztT2bFm/DTDId2c3Q5Jw/EOXfl6wAAAA=
+Message-Id: <20260823-chipcap2_locks-v2-1-6a26c8e9e2fc@gmail.com>
+References: <20260823-chipcap2_locks-v2-0-6a26c8e9e2fc@gmail.com>
+In-Reply-To: <20260823-chipcap2_locks-v2-0-6a26c8e9e2fc@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>
 Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Javier Carrasco <javier.carrasco.cruz@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787507945; l=1997;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787507945; l=1798;
  i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
- bh=3TgrgwT+3TQqyh+mokvZkeL6QOBygWorjWWJ1gx7cXM=;
- b=v35qConihnxbkJFI9UxHBD/4b0tniOfkuY1qF5kSgsZf29DXLkxUzuJFir5ip/dcNME8F5ppn
- Fj87w4pVmTPDd6974UKZ/s0QvnFlMwfbdd0uFEjXMC0S67OzcRpP5pz
+ bh=fLQQ4JIzzuT4Vt7XQPvCoVjlsMWHJ7PoqIP957VnMqs=;
+ b=9DUBcEZ9MfS/ltCluXensv7cQ6cP7LfZorGh88txRsFUX+EwvMAMqF2RGAFz/vH3vAEqb42Zd
+ RGRLru7TivxAIWPl1JUrYOhqOOpzQoBtyAkat3Mxk0WO0XMFGsXdH3/
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-The original issue (race condition for the alarms) was found by Sashiko[1]
-when an unrelated patch affected chipcap2.c. The issue is real as the
-access to the variables is not protected by any locking mechanism
-although 2 different sources (threaded interrupts and sysfs) could
-modify them.
+hwmon_notify_event() expects the channel number as its last argument,
+taken into account with the type parameter that it is a humidity sensor
+type. Given that this device only provides one humidity channel, 0 must
+be passed. The custom construct to enumerate the channels makes wrong
+assumptions by listing all types together (temperature and humidity).
 
-After sending the fix, Sashiko found new issues[2] that have been added to
-the series:
-- Wrong channel number in hwmon_notify_event(): pass 0 as the channel
-  number.
-- IRQ teardown ordering: split the current implementation to provide the
-  available interrupts before registering the hwmon device, and register
-  the IRQs after the hwmon device has been registered.
-- Enable IRQ processing when the regulator is already enabled.
+Remove the custom channel enumeration and pass the right channel to
+hwmon_notify_event() for hwmon_humidity_min_alarm and
+hwmon_humidity_max_alarm.
 
-The fixes have been validated on real hardware with an Amphenol
-ChipCap 2 CC2D23S sensor.
-
-[1] Link: https://lore.kernel.org/linux-hwmon/20260625162114.417EA1F000E9@smtp.kernel.org/
-[2] Link: https://lore.kernel.org/linux-hwmon/20260821093706.D1EB11F000E9@smtp.kernel.org/
-
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
+Cc: stable@vger.kernel.org
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-
-Changes in v2:
-- Add fixes to the new issues reported by Sashiko.
-- Use hwmon subsystem lock.
-- Link to v1: https://lore.kernel.org/r/20260821-chipcap2_locks-v1-1-1d8ccabfc1b2@gmail.com
-
 ---
-Javier Carrasco (4):
-      hwmon: chipcap2: fix channels in humidity alarm notifications
-      hwmon: chipcap2: fix IRQ teardown ordering
-      hwmon: chipcap2: enable IRQ processing when regulator is already enabled
-      hwmon: chipcap2: serialize access to low/high_alarm indicators
+ drivers/hwmon/chipcap2.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
- drivers/hwmon/chipcap2.c | 76 ++++++++++++++++++++++++------------------------
- 1 file changed, 38 insertions(+), 38 deletions(-)
----
-base-commit: 388b607d107c07aaade04c7f22f344cab6bdccd3
-change-id: 20260820-chipcap2_locks-c01013a24a0c
+diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
+index 086571d556b7..9bef767b589e 100644
+--- a/drivers/hwmon/chipcap2.c
++++ b/drivers/hwmon/chipcap2.c
+@@ -92,11 +92,6 @@ struct cc2_data {
+ 	bool process_irqs;
+ };
+ 
+-enum cc2_chan_addr {
+-	CC2_CHAN_TEMP = 0,
+-	CC2_CHAN_HUMIDITY,
+-};
+-
+ /* %RH as a per cent mille from a register value */
+ static long cc2_rh_convert(u16 data)
+ {
+@@ -499,7 +494,7 @@ static irqreturn_t cc2_low_interrupt(int irq, void *data)
+ 
+ 	if (cc2->process_irqs) {
+ 		hwmon_notify_event(cc2->hwmon, hwmon_humidity,
+-				   hwmon_humidity_min_alarm, CC2_CHAN_HUMIDITY);
++				   hwmon_humidity_min_alarm, 0);
+ 		cc2->rh_alarm.low_alarm = true;
+ 	}
+ 
+@@ -512,7 +507,7 @@ static irqreturn_t cc2_high_interrupt(int irq, void *data)
+ 
+ 	if (cc2->process_irqs) {
+ 		hwmon_notify_event(cc2->hwmon, hwmon_humidity,
+-				   hwmon_humidity_max_alarm, CC2_CHAN_HUMIDITY);
++				   hwmon_humidity_max_alarm, 0);
+ 		cc2->rh_alarm.high_alarm = true;
+ 	}
+ 
 
-Best regards,
 -- 
-Javier Carrasco <javier.carrasco.cruz@gmail.com>
+2.43.0
 
