@@ -1,106 +1,121 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881C030E0D5
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 20:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B21837702E
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 20:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787515420; cv=none; b=pt58urGodHI02NTL5qgVb2YUwJpc6V8Ow43iBFrNJVB9mPDkC0nKtZ1IDlt9Zz+1c5ZIPnSdbYtWsQsCmhUx1/GeMFQ0UQnpRYP2+bKUvhLDTr8KOGq5dImJS2XvU7tHbu/2o/UYH6ToLKKqsXc9879lMQdySIvHDFNSFEffUx8=
+	t=1787518483; cv=none; b=XunPmS3svrW57CZn9fkIs5uFFdOwMJAhHSzb3byx+AqXV9gaM12tbz1yWHZRELMWJicCkUSCx8yem3iaP7Qc0xT5BjzfpdvA0CJCfaFOqeIDBJf2gzT57jkHt1amgkgyG5+Fyi4QZsmf8UBRf7CU88SwT5lGLdqT2QCOfOjeEwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787515420; c=relaxed/simple;
-	bh=uDcwtqP9rNC/ypOOCxMk03DNsKczo8BBWweebMLzcn0=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=ELRbEjbbEse31Ohq0RwLPhR4mYXBVj2Lj1NFVFfDBMpb1VuZhuZZm/zgyAA5cEG4MLuStd2XKoYsV7EuAXcJZ+r1nXIhpplsyJOjIS4PNk9/Cn8QELlfi0/tCk73MzipfYLYs75vxsiQvEmRH37T544Yd+D+hq1y0JdlInw9Sio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P0Cxqhkk; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787518483; c=relaxed/simple;
+	bh=NQ3gSn7f4Sc9GWPgOARPeIhfgUQO1XOcAQm+A2lDw1o=;
+	h=Message-Id:Cc:Date:Mime-Version:Content-Type:To:From:Subject; b=Qn5+dqfch70n/0Tvo+b2fSPIFgJonPMpl7m8Yvqa08Fa3pCaZ8iIq/hCyA0XhNXXkgDCOHkeVFrwDIeOiBhYwbtR4WQ9OyXLhn0QHjIB7g+HzR/U73kYEQYefDf/bwFDs63Y/GLXGXnyhSaB/8u9w/khGLe3y2hi8gTvjBiYaD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=aZ7I1tQB; arc=none smtp.client-ip=71.18.227.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P0Cxqhkk"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d032846c95so33277605ad.1
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 13:03:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787515419; x=1788120219; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=uDcwtqP9rNC/ypOOCxMk03DNsKczo8BBWweebMLzcn0=;
-        b=P0CxqhkkUmBy/qbfPRQCpp6znjKZzmlDnhIWBRU4eDB2MeuHpPHcP/baT59FFc4pLy
-         4RhjMIgP2RnVRXgtL2RWG4T1p+OBzNiO25QmGzymTxXNwXUeEsayet5ZzD8z4e5vLZTR
-         o57O92Mwi4RO9xqOIGsvfIkxgAs8gd3rU14bYdAjdu1TClamlj26U4sFajCEcouEriom
-         zCxheQ9WumVSYe0d1/waG/BS57L5cib47CWGZ97qxe1LBxCTJfaaA2IX1ele+sSp42zr
-         JmZTCtDOliDTJPkf4F7LIRbQNl3ugObYjDbOB9GLInSAHd6lYxdughFuxgGWIv66JDYM
-         cg6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787515419; x=1788120219;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uDcwtqP9rNC/ypOOCxMk03DNsKczo8BBWweebMLzcn0=;
-        b=UhbLZClpEK1WmJj9exKye80qWXt6PjIDWGPPElCmW3vqLuxy40iLftvqXnDLu5wUA4
-         lJsHirX2NoEyjjs5e39bn3F6Mk4c2WZaI5zJxIN8aeGoVLCeehgi8iplT7E0RNVY1vSR
-         L6V9eBelkdi2QR5J9tNaiPWWVhWzbaso4VYgavPyhqGdSxSXJGZ9Rj53OWTtOKwfn++G
-         B2nglcxHgAlBidBMxuos8FcHoez7vKWy1uyHd/Z5GTKMX+624popofj4W+JzJSggjti3
-         l21yfcLiPoyt1ROJ7yJkyTgkiHF8+sCfMyOh+fQA4ET8B2S8etGL3r0Hj/vYyaCejuRn
-         hRGQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpmA6isdLn2I0QotdYzXh5JjNg/c0Zzb3zbqsXjYkz/ygejG5PJ6X4E/A9euyY2JRpIpN2N8AI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgeQBLK5oC9uhlTo19xgHjmP9Apc5NUrNRhJxCTfGeiK8dA5bI
-	yT8ZxmcMXPqJ0Mic+zy4PaYyH3Y6ML/xQjyQHgHJQXaPuqzOE0xsGCdP
-X-Gm-Gg: AR+sD11n2gBPRkXuV4eQrxM1QigiaTCNxgRfqMIydTl/SRC0StiqWRIpruxAd9ys8rK
-	rdR32dfRYlHPWgAIVJRLeC/E2kR4cCF6Wff9MwP25wvg1T6BKDgFfp1J3HH3R1TwEDC3G5tVb0G
-	6/BAfkis4NlY/qN1mGJYWccAF2nuaKWe0ehJOMlTSsah5urO14v4s3l/v0dXjCOEpJg0G/brSt9
-	6NpFD1WxwTcDToXjf9JlDkwYZxB+CC+JZa/0diOcNEJSwvD5uq9gTfLbq7cW59Ue8/ShoXN8DhX
-	Hg8tmB/AY1OztGtvqGbyzcGivEut5wcKldC8f6Me7BDWby6dXmXCuupBaOBgz2+P0CMAgBcH5dK
-	Ts28wjRJfthJlSbsvD1CKAKDaUSIAjtZ/1P6kYhLL3iGoOmTlOCPyFV/wVHEww7cawLRke7sLeS
-	4UzNr3sX56QC8xfS1cjvOxjjqkhD3CDL1c5oaYJ79mS7d1Pq+3yfeYFHSrlSTQpn4W7jL97+3DF
-	fuEYejVa/KuX572ISO33ZNL8rFnVtkrCVRlWwsMU4g62Of+lbNS4iMumW4=
-X-Received: by 2002:a17:902:ebcd:b0:2ca:481:de45 with SMTP id d9443c01a7336-2d64afa4e37mr413363595ad.6.1787515418856;
-        Sun, 23 Aug 2026 13:03:38 -0700 (PDT)
-Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3280d116cb1sm7851302eec.10.2026.08.23.13.03.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 23 Aug 2026 13:03:38 -0700 (PDT)
-Date: Sun, 23 Aug 2026 13:03:35 -0700
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-To: Shengzhuo Wei <me@cherr.cc>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
-CC: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- Zhouwang Huang <honjow311@gmail.com>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] HID: hid-oxp: fix UAF on pending work in remove()
-User-Agent: Thunderbird for Android
-In-Reply-To: <aotPsVYWXXt-X3mN@pve>
-References: <20260804-oxp-fix-v2-1-b2d56e4c8a2c@cherr.cc> <anJGWjlmRxNMoVLG@pve> <CAFqHKT=AEy0-AZsUmcFGbo1iQ00J+ZMdY_9dNJp64wq1QSk6Gw@mail.gmail.com> <anK_oQqFpZLwCA-a@google.com> <anLtyBB-Vq2D6REw@pve> <aotPsVYWXXt-X3mN@pve>
-Message-ID: <3C5BB154-A1A9-47DA-876F-635569AEF6C9@gmail.com>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="aZ7I1tQB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787518472; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=qFO7/IC8gRg2zShor8n25aOk34rPV5Z9xdvOOakIZuw=;
+ b=aZ7I1tQB6fxcVuzMpTqnF5brz4fWK/mKcI4zg3SUDJBHajZD+BWTmEmIjYAtaz9wvRyqZq
+ njfIgmtXfZu3cUGIdz7sC00rGPxihCVpNyOIMxamRxDU5h15cxnAeFRWUF2mdVrYjKgu2O
+ kByG72HlMp9DNXd6cnagoY1jXinU2BI6QueTsBWhRI/uJik/EpHhKJhutaW+5voriFVLYw
+ qVydX3ZNom2uRrJYeMHRGygFzZ/n2VdLNEhnhr5IwSGr5/KWc7Fap0n9+as7YXHWmf5HF/
+ YI2bu1pewp5iJ9V8Q8FXLhdj2DBRP9lLce57xcrBy0A0bMPbAMazcXR6wAvDtw==
+Received: from [192.168.9.107] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Mon, 24 Aug 2026 04:54:30 +0800
+X-Lms-Return-Path: <lba+26a8b5e07+92e10a+vger.kernel.org+me@cherr.cc>
+Message-Id: <20260824-oxp-fix-v3-1-599b12c91a77@cherr.cc>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20260804-oxp-fix-879390c5e47f
+Cc: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, 
+	<linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+Date: Mon, 24 Aug 2026 04:54:23 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+To: "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	"Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>, 
+	"Zhouwang Huang" <honjow311@gmail.com>
+From: "Shengzhuo Wei" <me@cherr.cc>
+X-Mailer: b4 0.14.2
+Subject: [PATCH v3] HID: hid-oxp: fix UAF on pending work in remove()
+X-B4-Tracking: v=1; b=H4sIAP5di2oC/3WMQQ6CMBBFr0JmbU1bSltceQ/jAofBzgZIaxoM4 e4WVibG5fv5762QKDIluFQrRMqceBoL1KcKMHTjkwT3hUFLbaWXRkzLLAZehHdt3UpsyLgBynu OVOajdLsXDpxeU3wf4az29beRlVCiUZ0ZyHmnrLtioBjPiLAnsv6j6aI9dN9YMug7jV/atm0f6 fFowtQAAAA=
 
-On August 23, 2026 12:53:21 PM PDT, Shengzhuo Wei <me@cherr=2Ecc> wrote:
->Hi Derek, Dmitry,
->
->Friendly ping on the question above -- is there a version of this fix
->you'd like from me? (A minimal v3 reverting to
->cancel_delayed_work_sync() and dropping v2's probe change, or should I
->leave the whole thing to Derek?)
->
->Happy to go either way, I just didn't want the thread to go stale=2E
->
+oxp_cfg_probe() arms drvdata.oxp_mcu_init to run 50 ms after probe, and
+oxp_mcu_init_fn() dereferences drvdata.hdev to issue MCU output reports
+(hid_hw_output_report() followed by msleep(200)). The oxp_rgb_queue and
+oxp_btn_queue workers are wired up the same way. oxp_hid_remove()
+cancels all three with the non-synchronising cancel_delayed_work(), so a
+worker already running is not waited for; removing the device while a
+worker is asleep then frees the hid_device underneath it, leaving
+drvdata.hdev stale -- a use-after-free when the worker wakes.
 
-Hi Shengzhuo,
+Drain all three works with cancel_delayed_work_sync() in oxp_hid_remove()
+so they have exited before the hid_device is freed.
 
-I have some other priorities currently, so it would be best to have some p=
-rogress on fixing the outstanding issues=2E A minimal v3 would be great, an=
-d will also ensure you get the deserved credit for the change=2E
+Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
+Fixes: e4c850a6e750 ("HID: hid-oxp: Add Button Mapping Interface")
+Fixes: 2f424f28fb39 ("HID: hid-oxp: Add Second Generation Gamepad Mode Switch")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+Same delayed-work use-after-free class as the 7.2-rc6 sweep
+(hid-lenovo-go, hid-lenovo-go-s, hid-lg-g15, hid-appleir, hid-letsketch);
+hid-oxp was missed.
+---
+Changes in v3:
+- Revert to cancel_delayed_work_sync() and drop v2's probe-change
+  reordering: with the driver's static global drvdata,
+  disable_delayed_work_sync() would permanently disable the works when
+  any interface of the device is unbound (Derek J. Clark). The re-arm
+  hardening and the per-device drvdata rework will be handled separately
+  by the driver maintainer.
+- Link to v2: https://lore.kernel.org/r/20260804-oxp-fix-v2-1-b2d56e4c8a2c@cherr.cc
 
-Thanks,
-Derek=20
+Changes in v2:
+- Use disable_delayed_work_sync() instead of cancel_delayed_work_sync()
+  so the works cannot be re-armed (e.g. via oxp_rgb_brightness_set())
+  while the device is being torn down (Dmitry Torokhov).
+- Arm oxp_mcu_init only after devm_device_add_group() succeeds, so a
+  probe failure can no longer leave it pending to fire on a freed
+  hid device (sashiko).
+- Link to v1: https://lore.kernel.org/r/20260804-oxp-fix-v1-1-51a4fe787167@cherr.cc
+---
+ drivers/hid/hid-oxp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
->Thanks,
->Shengzhuo
+diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
+index 20a54f337220dc2aee3483a14d542b66c487bd60..d8fb6a69d40d43f2595179df1067d42b4b3e166a 100644
+--- a/drivers/hid/hid-oxp.c
++++ b/drivers/hid/hid-oxp.c
+@@ -1552,9 +1552,9 @@ static int oxp_hid_probe(struct hid_device *hdev,
+ 
+ static void oxp_hid_remove(struct hid_device *hdev)
+ {
+-	cancel_delayed_work(&drvdata.oxp_rgb_queue);
+-	cancel_delayed_work(&drvdata.oxp_btn_queue);
+-	cancel_delayed_work(&drvdata.oxp_mcu_init);
++	cancel_delayed_work_sync(&drvdata.oxp_rgb_queue);
++	cancel_delayed_work_sync(&drvdata.oxp_btn_queue);
++	cancel_delayed_work_sync(&drvdata.oxp_mcu_init);
+ 	hid_hw_close(hdev);
+ 	hid_hw_stop(hdev);
+ }
 
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260804-oxp-fix-879390c5e47f
+
+Best regards,
+-- 
+Shengzhuo Wei <me@cherr.cc>
