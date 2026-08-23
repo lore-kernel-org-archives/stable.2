@@ -1,95 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768063CFF46;
-	Sun, 23 Aug 2026 12:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762573D3008;
+	Sun, 23 Aug 2026 12:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787487819; cv=fail; b=rUwpdQ3kQBkN/nlhAtxGUwGU1hcrwHlG13G9u6PSzrTYJnaoPm77qqqEm05VA4d1YUX63HSHSxV/aZluLKMGj8Ewql8yWo9IqEVIJtHMbB9U5TNvqQutX5irzhszXsm/RJavqvceQR8o/ZASMIRTm4vebH+ZLk7Ga53Kym/Tx88=
+	t=1787488047; cv=fail; b=YCFuOHazVWkRKyf8lp/J0OxGyQOw7ATtrUHRaJWgB17Tkr47AH5bR+uDw2l5e9jzbr+u0jZlnsBq81NfZmXahrtrVPEdY9cLGCr48zmAvIF5L9Uos3jh0fTWKmequHu80C/pCEYmVJoJDDnyvQ7o2WE9gp8wQxSQjKtcEivW6tU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787487819; c=relaxed/simple;
-	bh=fyDQ+AfePCA8dstnrlTJ8YuxqlELQwUZsIZlJmKfZE0=;
+	s=arc-20240116; t=1787488047; c=relaxed/simple;
+	bh=sKoqwNnBI7e3gom9LMqXPBk14iflS2fqNUD9nnxaIbA=;
 	h=Date:From:To:CC:Subject:Message-ID:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=SuRdODsrdRaBSc//Y2tDrnt72/xws9t8Y8GcQsRYQBTzZZCBsn3NGeT1kE/YfWe4v1L/mD6mPFTri8+mlgaEFo2kv3fpftjQsWeZ6JR+7MYcPUx2oeNZsJ4Q+m1n1hm7CCEPggW0idIdh1jv2fsPWwfkjxk7sR56KRVivNFgnEc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XkzD3VhM; arc=fail smtp.client-ip=198.175.65.17
+	 Content-Disposition:In-Reply-To:MIME-Version; b=G4dmQCjja5ITyEcZGV/P3mxd2oaH+qanc942aY07EDC1QDEs5b6sRu3c6NQfccGh4NAI7ZZvRDgWs74fyuwZxF9AIJqLHfXwsLoOJT29gV9c6YBaiynBr5t5g5qY5Va/hdkScEY7109yVoxSyTVwRFc5+W9LGohqp4KyVBNJhhM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jexJWrO9; arc=fail smtp.client-ip=192.198.163.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XkzD3VhM"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jexJWrO9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787487817; x=1819023817;
+  t=1787488045; x=1819024045;
   h=date:from:to:cc:subject:message-id:in-reply-to:
    mime-version;
-  bh=fyDQ+AfePCA8dstnrlTJ8YuxqlELQwUZsIZlJmKfZE0=;
-  b=XkzD3VhMPSy7ST/QghzmsX6N4eWWf3NrzAAoYYW/dFke6KGmvfML0Jz8
-   lvetPvagPp7DPHK5W/cSoKlWEHQ2RuDquNlai7LB6OB5l9SD7sMDKUtzq
-   nsQvQkozHx2Z0UrshkvL17UMvrX2y957nM0fyOuqpchm6ZLbTzgO2MoaL
-   UNhbKsyRz50fZTSbyaUTyeMXp4mQwBbHzpTLjQb5UJOL895zrs304xTgM
-   mHrVTYDE6Af0NgdCcyUgHOmWYL6QzpNgRUmkwp7tMU44vH6jlRY7d6B7o
-   Jh2HDvzkWDfojyp0Z+JKDDdzsTFuI270sJ7rZiPBKZC38CFdeEzAykxc+
-   g==;
-X-CSE-ConnectionGUID: nHA6E1QsSJ+NpHuAw2QjjA==
-X-CSE-MsgGUID: qc2k1Ly+Txy2F5MF8xNLEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11883"; a="87974658"
+  bh=sKoqwNnBI7e3gom9LMqXPBk14iflS2fqNUD9nnxaIbA=;
+  b=jexJWrO9rRmqNWxpdbupcCzZ5zgeVqQmxT+KOuKzGSpWCns3O0yems6q
+   LvqvaeaGegLgsLms4m+WMd02uChf0on6W4gZmr+P4GBOObad81O0RVV81
+   dmVDqQCUc/ZwwpcDFHI4kgs4M025JwN24z4xVsx1T1OrsFHxsnDBcVID4
+   Gn9uY+mxW4VrdC0ymNAVErK+2Tz6cPPrQ0gwCJal0X398vcih0NR5Yk76
+   qKFet3hcQvOGCS2x75gTsBbi69yEMOWAhJnTtK06fn8i2pODSP9RBeo5x
+   ZppPRSjGPv9eYa9kA1dpweDZOqiqfa+KxDXVcsjN18s+5VsCGycpojdRh
+   Q==;
+X-CSE-ConnectionGUID: 1Rddb4YBS/epadISkoXZ4A==
+X-CSE-MsgGUID: Fcsj2FLdR86wbcsEoI3L3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11883"; a="87981824"
 X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
-   d="scan'208";a="87974658"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 05:23:37 -0700
-X-CSE-ConnectionGUID: 93jiBLguSn2A2XGxCISpUA==
-X-CSE-MsgGUID: 4Jbp4cb5Q6mFmwXDdjjBFQ==
+   d="scan'208";a="87981824"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 05:27:25 -0700
+X-CSE-ConnectionGUID: B1V1D/ZcT2y+hd3qrjYmEQ==
+X-CSE-MsgGUID: w0LrHkzCTpu+nDK1rQ+24g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
-   d="scan'208";a="264992863"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 05:23:37 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+   d="scan'208";a="304954696"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 05:27:25 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sun, 23 Aug 2026 05:23:36 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ 15.2.2562.45; Sun, 23 Aug 2026 05:27:24 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Sun, 23 Aug 2026 05:23:36 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.51) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ 15.2.2562.45 via Frontend Transport; Sun, 23 Aug 2026 05:27:24 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.12) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sun, 23 Aug 2026 05:23:36 -0700
+ 15.2.2562.45; Sun, 23 Aug 2026 05:27:24 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xANbD3u9j164krKsHiP/NsoT/TxagAaE9DEUgMHdIbTFFlZm7IwP5MfdFpgQl9N8dCRLg6xSv+YPGzsr4CgXpt/rOos2eJ32omVYEnDUDAC9ibCbTKzlT6zrDWoD/9vq/31TJ6aKg3z3P6lc/5+4JNOFqLAzr8D3mKZRBco6SvVlTf9KJYIKWxkKn3BUZm8Ts29/231Q1Crit7JG7RKR4lCVcgmVOw+S9PmJaGUS5RZhQw4/0yIgUTAMGFDejHK6DRSVwSiFSuJWs6i+v7P+hJVNGg6gqdOWgBaBIFbcbkxfeDiiKS1nPhMixKw6kzy6iwBde9XfCOD0xqGYpjLt2g==
+ b=dr0JAnZ3FufUJ6VpZOA6gBn7+OmJ5r3kR+Z3mlgvGEBtSvj6pqvhnE2Zrg/0m/UCwtV+KPQDNijxyvSzgnOsFor2CkLLFr+mmuRvqMabGwwH4IAgvWof7R4jOyF1MtsFONpR7M7D11H3fAVn8d7iOmbuS7lFNxEvR78t1CboCIaediGyLI3zcsAXo7E1BI3AhjXjd0MGTXdfoXseyqYZATvLMiO8+KOwzLFMVlxWugbfUUYvK6CPMOi24J4+hWMbIqkCZp8yLAqzOoaMm81g+U2XlvzkEk7Y7wIyYQ50N+CIagw9mPF8nikhcGNwo3CJCSM/pMNUviC3GFC87sXK8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L1jycrBpxe9CSgbERJy3fn2cTGpI7GXtt17OfsXlnUE=;
- b=ANsTzbbbD1MNMEqAw+5KzC+gMJVxGmSESGkoBWdUrgPKuuCUqRpPnsxfWXa+rbGJFLf6PPCSPh4Nf+fGPpuN5RYsyQgLgPbFZZFJmctY3r6k0V+GCu0szyjyUdSm4oF/Ko/MmnODrWlXgj2aROYPQc3wLYiX67scUlVJruPkWhs4d6Jmdwn7oQzYVKlzi+oyy7meVnCAspw07XU6Gp0J0Bieh+GKo85XDCg+CH3DRZzM0plHpFnYZ/yozctwccBDzx6OD1S/mRgO+cKVOrx7UO84JU07+S6cx4NgLcExLN/En2N6pawtJeZgzkLhiDN5NtsIB1lp3FSbeSsb567MQw==
+ bh=rxayC9lWTZxkpYnEVLweFg/VUFDjexa3cX2KjAeLGRg=;
+ b=I8FTOM28E9c6yuMcbR0LpsDrAbaEr3NYpwfiH2A6Tf40mGHQ3aK8dJPO+qdpr65bVy0j7jZdJuyXJtVizaosT+l9rRhrJHV9N91149FcA3f9/Pwjq8oFxCyI1Hs1G3gq3cof8rLYnGDf3TcZuWyMUmnx/UYMlmHnAXUF5h9OvXJQVCVlOzj3M3PhbY3bPZQH+7rbaVulVlfYsCtrvt3YbrTg9nUg3nVEvg6uDiS2E+KjR65PxCx5WdXxFSZ9BYuGdcvoehOljKP2acu0UhVNB8Az+ybsNeosepjEk4mTN+idA/ptaeI11UNaKJfANh6VYiPdTSOEvqTjvAntZU3rYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from SJ0PR11MB5214.namprd11.prod.outlook.com (2603:10b6:a03:2df::22)
- by MW4PR11MB7053.namprd11.prod.outlook.com (2603:10b6:303:221::7) with
+ by IA4PR11MB9324.namprd11.prod.outlook.com (2603:10b6:208:569::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Sun, 23 Aug
- 2026 12:23:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Sun, 23 Aug
+ 2026 12:27:21 +0000
 Received: from SJ0PR11MB5214.namprd11.prod.outlook.com
  ([fe80::5926:3836:4212:8640]) by SJ0PR11MB5214.namprd11.prod.outlook.com
  ([fe80::5926:3836:4212:8640%4]) with mapi id 15.21.0339.012; Sun, 23 Aug 2026
- 12:23:31 +0000
-Date: Sun, 23 Aug 2026 20:23:23 +0800
+ 12:27:21 +0000
+Date: Sun, 23 Aug 2026 20:27:12 +0800
 From: kernel test robot <lkp@intel.com>
-To: Frank Sorenson <sorenson@redhat.com>, <linux-cifs@vger.kernel.org>
-CC: <oe-kbuild-all@lists.linux.dev>, <pc@manguebit.org>,
-	<linkinjeon@kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] cifs: fix i_size inconsistency in
- smb2_duplicate_extents() on FSCTL failure
-Message-ID: <202608230427.RQarhMR6-lkp@intel.com>
+To: Fan Wu <fanwu01@zju.edu.cn>, <gregkh@linuxfoundation.org>, <tj@kernel.org>
+CC: <oe-kbuild-all@lists.linux.dev>, <chenridong@huawei.com>,
+	<driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>, Fan Wu
+	<fanwu01@zju.edu.cn>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] kernfs: recheck of->released after acquiring the
+ active reference
+Message-ID: <202608230052.ZXfVhNjk-lkp@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260820211443.1472310-1-sorenson@redhat.com>
-X-ClientProxiedBy: TP0P295CA0033.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::14) To SJ0PR11MB5214.namprd11.prod.outlook.com
- (2603:10b6:a03:2df::22)
+In-Reply-To: <20260821050720.14848-1-fanwu01@zju.edu.cn>
+X-ClientProxiedBy: SI2P153CA0028.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::9)
+ To SJ0PR11MB5214.namprd11.prod.outlook.com (2603:10b6:a03:2df::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -98,199 +98,297 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR11MB5214:EE_|MW4PR11MB7053:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7d80f04-7b5e-4d50-b60d-08df011157fe
+X-MS-TrafficTypeDiagnostic: SJ0PR11MB5214:EE_|IA4PR11MB9324:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9dfdd12-b457-494a-ca03-08df0111e146
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: jTVuqJ33cKW52uPdzU4rQmtUmenPQ548V/CqW/Lp1ko8q6w7ojEfoVeVC4H9SstsaxI1aOKsMFJADiH5i7aDe8lYhjPNyEwdIPGR//1JorZfJ8Q9zLimQQVN+SuvbD/+I44viWHTZ30ORJymVFwviKlkqjFLe6DDwk16Z5pIIikcRAvc0CZRQBx7LyNghUjGs1nhLhWuq79Nr5kguVu9Ji4VOGZXTczLa7Cn4dRCnS+Bpel5LyHokLt0DI3/i4jzuDsgavxehEkBnwxw9WSZwRvsGZS0AhTeQ2kwrEyyGiw302vxoDQuThTA0OhN/iT7gLZZrnKNvYF4P987liWQQ+k+ygNSB+VulFCbtLmUDodNhFqAxsRoupYhlnevJr/h8ip3NfMzf/61b9vpdUs782h6slZL5SJPhejdlCLhe8lAAag5a9e9bJErnceyke/6ME6k5T9RFrqb2feIOoJ/2E4d4/ItTq/uusVg71cZ5au+RwB4+s6ku6zgw6qOTpMo0A7zK7on9k6moYnYiYExociN3oCsKny4ldiJK3YPJtsHbQEi0J5dYBiuufTXymWD8hAK04yQjkfkTZ/rwyAlTDbN5gDuZfchbm5mlBYoz1Y9R4s/UX/pdGJKUHeZeQae
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5214.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|18002099003|22082099003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: I5qDTnWvyBzTJPqJ3DxexxBLxMydohMVRgwy2286+D73ISm4OI0NfLVgjbUDfGT576R36bdRVuWAVAIQlQ6u6kVZGJMe5RoTiHJOrCwrJSIv9b8rA1ij+FfoItVku/beXmhnTfzxzfLLSRL2VzUDuaX/cspSPk4N0ZBq2WjHFHK77vRzmKMZqw3a5sakBJ4oZX5r3mHu8ZqUq7eGdLjyjhCmASvlmAtxTCYkC7BPvRRhmYgY+ZkPzNVLPalwjKljTYqMJ8fOLH2JSF/lrfCAUWdE1oOLHq1lUWm8rGfJZrRCiFEhas+KyW5ig581MqVwn9IHaEqCpaIVgD3qKX9RHCDj7qEDxqhylB7HWdz2WKzn4a29clv5f8/VpfFZNbX5DRElzxtF+2qM9Ww+VaaQF9CuYuneY0m5kCtWf4RuMVW/cIlkfmY46VPU21wb3cEjdx99zrmtRvDcL9N2G7MfmAMpDS3d3yZuUqcqpqxM4liVhKK8luePntXF4MqWQ5sAiFiaZvTML1IeCFESrb3td3r/yQFQ7ie6kKwwb5W0HN6GfaIBCBdvbF75yYx5ACRWnZAtHrMLRrPgd0VmgfrS7zcX2TC0fcPq4lGrZE726R6zZEIwIfAFUP6S4tPAd7Ue
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5214.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?o4hsFPVhhh47+erp0pMaCW0c1DTpY41lHyHyJAq5J3mBqxl8UvLC0HSOXaL8?=
- =?us-ascii?Q?RzyQaYY8fPuI7ntIIDL3owPZa5M9NVZtY17ah1O585TgwW6wkU5InFSebODt?=
- =?us-ascii?Q?sD1QYAjvyHt1x3AhS/mj2Kk3rbE50or2vM/2YjL6jMwi0MlHtbyipiTO3wO/?=
- =?us-ascii?Q?ITmxzm1nl9cL9Gca+LP2e7yGzrEGY+X2ADt/Q08Aha6+KBBWwhOXfGQAODjo?=
- =?us-ascii?Q?4tK1ovJ6Cjc/uKVXu7wYeFPiUwNRakbXFuXC1Pql8wwICr2JxPNSKy4eFEOO?=
- =?us-ascii?Q?C3T7cN9nf7CB2YHAOl9MKV7CumMu44HLDBZ+WMkWC1LHHMFSt1inX4XPZHoE?=
- =?us-ascii?Q?8kmMisKxTE7ZL/P6es3NwyE1j16M2IX4LFgkfBxpAcQU6z6y+u+J/o+9vv6H?=
- =?us-ascii?Q?xO6o3triQTMDwDPmfzTwUwDj9Z7vemoEHef17n/v06P4ujWM69Mgve7JwjkG?=
- =?us-ascii?Q?mq4qX7UW2yTRH0Z5Rs9GcDHXG+STLLGCKcTxW6WziZca2qTWHVACLsL6ngPq?=
- =?us-ascii?Q?yHZO3f8OYbT+ixYMcsfMTyC9BKWrajRy5rXiN7//zhu7+/Ksb6N6XVVobmmp?=
- =?us-ascii?Q?LFQslOkdOeNDyBiUarB4HtRyQgZjiqGNwLSLt8pl75avQb/CFpT72a4Ub8si?=
- =?us-ascii?Q?yqUsqOmTLDvydEJzlzo2tkTE/q7RAFqLj/umeX/W9cK9H9Gl+EQB0tPoNVHG?=
- =?us-ascii?Q?Cg0o5kykURxmSjHGm3eIJlURA37NMYejmDRdDe/qE/8NxLud+yBG6/Zv/tM5?=
- =?us-ascii?Q?jhO4c1sEYkPCMs2+Mq5sDo4UrQE95oxK7cSg1H1Moia1P2kpe+BtI8jLaAhF?=
- =?us-ascii?Q?WfFdUYaRJjkuyx4JfpL7Ai22/eJz2XtqVVqBbKbU7uJkdDiP091qLgcYMdUZ?=
- =?us-ascii?Q?jky99kfYnSxtobeL7N1R5LglvmU6IaosIHyFkXBE0ecusSFMEH2gk1zcmEHw?=
- =?us-ascii?Q?1KzP756ZhHbQoUiuT2+HnGIlog4fj5vFJma+cspH4TpO2JtcJKmCzkv2yGVw?=
- =?us-ascii?Q?NY1/RUrEIPDRsqcBAd5zHrRI4tltNb1L636pEb3B2SoRKHZ8Sq2RA2Bfe4KW?=
- =?us-ascii?Q?NOdakrEcVVNSYHU9oOtN7eJTst/9IgnZ78Ok3yc4UpZpzAGP6I0usit/+mv2?=
- =?us-ascii?Q?kqSMhr4bWX61pggaTGTFd1lbuCtHFUsPzbntxx4UIfr6CTM2pVBNpA5uzdts?=
- =?us-ascii?Q?rsU6etswmRF0qB7zNUbmpil9uCVm44NWBIP7qijrDQDo62TbSxiymU+I4rNR?=
- =?us-ascii?Q?VCPM1GVzeoqwOtB5BtEKUWXCJoZmEAHJ9RVLqhVhfKcME36JVCtY6kKOibkU?=
- =?us-ascii?Q?qYumMJYLcCmLMMdXEmvjGck9ttULPpDTg9uQyslS2fGYFpgiTOkW4AP5dhj7?=
- =?us-ascii?Q?PgjF2yEzg9jmUUn6bgyw8mtxhazo/WCsHY2Sl49sRuv9eu2R4Ym+KDI9cZak?=
- =?us-ascii?Q?GIrnleEBjWcScNiKTpVr3Fh45OqNleYUXDEvBsFtVVXnv4UxevzC1uUVIbwf?=
- =?us-ascii?Q?uUOAw/BV4oEpMhDvXOVXUZW7i5Y4dPC9waaKhP+A1jbuiwWx0u062vbBa0cq?=
- =?us-ascii?Q?3m979/f0AuWjL+VEBIY9RtmBNg2gqwOLN89dfdTf+TY/7vOe3H2ABBBFRFdq?=
- =?us-ascii?Q?xnykCBTMIHAcOXZjTKwWERvtSZrZVXNSm3i/Xv3DjCboHBXEUXTKl6sZbX/1?=
- =?us-ascii?Q?fOp2wovYjgMs6Q00zzE4Qhwt6hiVmnmumWsIgelpc0tg1/YGLbWvt3Itcsw5?=
- =?us-ascii?Q?FJNOKbfL9w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: J/l2z2pZ/MgUuhS/XJQEGj0Fb02ZnFT4VDlMaEcBu6f9QIoFSyiBWv/4XgHzfsUUPVDNpylFKN/k7eZ7hbV7EHKMiXLaxI64JgOktMR2Ho1yqOIKjlRJVj0EdRxjusLc2gtsKB0D9OjKPltmLco9IwXJHI2JEab3zaqP/RB9+hYqhLU0bJcUc7F4o34awDrLWj4wrbzymEeHyrh4yojBjkNbSE0u/BG71lkijLmcdtxXZU7RYDd3xh7+DwQge+CZyaDDCUSHZRFhZSv8yb+OfI5WFBUq9itDaJm6gROvsQqECMpc5tz8JFm+gxhmYyaJVM4FRCuS3v9o5nYk6Fz9PQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7d80f04-7b5e-4d50-b60d-08df011157fe
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ElG1iV6UGMPAy0UsuohlhXT2x/UReppWCk9kLwH79SO0PjD1RfLrFEsKW/uK?=
+ =?us-ascii?Q?PRD5QrnA9/1mf3kU4dwMM2/qQnfEO55U+0enrgOeoM7xM8js7kSEoKZqUWld?=
+ =?us-ascii?Q?cS83+wgjQXkw7RQ6Wz9gQCjvoW/K3uoX42Tdz0FKRgb9VXYkE2vb8J/aPEoO?=
+ =?us-ascii?Q?EDiawteD7XPlCHaC6JEU1xKC4SugaT473c5cEcI2W3tZiFIdENznucnWEIsH?=
+ =?us-ascii?Q?SQaIm2NxR17mxYEgEXdFRkAPvf/aT+Q12JcCa0fQ5OklW1QKOauUYILZBEku?=
+ =?us-ascii?Q?lA33A3xRDev8JiE+YPl2IsxJ2d3osm7xaTmyHSqBC5JyGGVxs7GkQmxJnNZl?=
+ =?us-ascii?Q?rsv3vKtH3AFSF1zhWPyV6ceZlCWIy9rMd/rdROTLqRYfHPqCiNNj+jiOZlnp?=
+ =?us-ascii?Q?wFnMfvXRZvsATrbCLUt2megw6CYNePZM0XgMNW5fNyLkX64PLM9kzlrQCwdw?=
+ =?us-ascii?Q?t+a09oUT0zL+juOKfjfKrEirrLP0Z2Pj/lE5j2xAyHAJxs4x/cJjDQiy22Yv?=
+ =?us-ascii?Q?M4mPPkSZH8XeNhml1eTrP8fR5yECSg1tgIeC2Or1af7gtHMJU+xqm9dTxez1?=
+ =?us-ascii?Q?VPnELPuIxWSFZIYS1qh1MsD6Fk8c0v5sC91GPSrnmyHYXN/njXADweIQ+Ims?=
+ =?us-ascii?Q?bsUnjQ9FZdek8U5PUeFHgmehZ8KXGeR7iZnY+ydCJN2UV6Vut8elbbcIvpKW?=
+ =?us-ascii?Q?Bo5J63Ug/K+M6F/7t9lVnzB9NV91rtsEpOlVvrnxy6wuB6I31jooJousLDYF?=
+ =?us-ascii?Q?EdQwcsdD0DkepygRK3ygq4WanlBvLB9rz7NaAnpxCjLP6eNz/UqwzcKLYLkS?=
+ =?us-ascii?Q?yYQwP+t1J7RYQChDTm6ST3pVp0mspfE4Ma4syzmH5azgq3gqnubkmYkxd7zk?=
+ =?us-ascii?Q?IDD7YhtbdToh6Mgz21IMT1HLp8MYAoe9tEYfl4qRw/FCrG8W8F17xfAjHs7x?=
+ =?us-ascii?Q?W+5KSSiKQJDWfIW8MPt9ddvR5TP0fmhNBtYx3IP3/r1PbN5bpYgEHWnHKiDK?=
+ =?us-ascii?Q?yo6M60ui5iZcwcfjtltN9ZrB8aQn3G0eXOUh/hyH3Gs8stxA/MY+p4J9U6hd?=
+ =?us-ascii?Q?6p5EF+7ZCPzPpvkNNN9U67BKwa8u+uHicvlt0O3V1d1Pr+On8F+bTN8pmat8?=
+ =?us-ascii?Q?1NiMTPfCDETM/Ulbd+81LfP8I4a5mi+5AtvwwMqrplD0VidwZ9lUv4De8IL4?=
+ =?us-ascii?Q?GqRDGeM/dHUtR/4u9LtNraCZmc7RldSyMzGPmYHnnfE8M/fc6mPkJGmYHl7A?=
+ =?us-ascii?Q?RfXVOpFlx0zLomGkBjHvz8ge++UuLCWsOHgdSh+BHtt7lCt/40F9NvVkOFSS?=
+ =?us-ascii?Q?7tfuLR5GHNytHV+Va6Y+cLr/U+uoyQKiQfmYTnLXH6QdYtBXvpO3MpIqlN/7?=
+ =?us-ascii?Q?qQIa8omPE9isoU0nVNMzD9SO/pp8QlPBV/BG+qn68J73RIbfUY2hA+7nH/h2?=
+ =?us-ascii?Q?Zk0XpZJaYivrQYK7XswIvyrmf8XJaBBwpQnr9VrERm9wZrfVZ1P58jxTcfps?=
+ =?us-ascii?Q?uw9XpEG0IeRt69ZGPAKYgldl4vzFlGNQW9ybeflI02AJOi7t2BgZTtKfZCbA?=
+ =?us-ascii?Q?VTYLvAj7wOWg5gF4jVyF9zr86KuJAOGnXS8r+ifJPv+89sb/+N3BWY4MSkri?=
+ =?us-ascii?Q?LKfl0jzufNuNXFVQcuPPSnQHT0eGosjWJ9n6HNxyvwg0m0hK0VwE2xKSXDGU?=
+ =?us-ascii?Q?TqhGw4ogWXY0M9MgkDgtk6jO9DqS/QfibO0EqR7GU981Ogk+0sHMGTNoTOfM?=
+ =?us-ascii?Q?cAQY+nm0XQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: ZMwB44vZSvlp0gd3p+41zdqQ1wwrpSHaM7npR3pGihCjN8vKRFkX7AUvXgpBp7tNExdwxZQX33BCb/FLZ5dwOLA1x5r0D4OD6FPNzuzjjS+WyFojKzPOx017TdQvhRhBR7GLubvWv6SL0n0o3TZ7lS9sOcav3vBgXXoK8Nvtfb6gakkpU54klxrG9njCHMMmvkMWoLOIroF8Xl7XKgQFIUcjFRUyy72B+Xl18Y6JxSgkWtzW047yzz4fUaJSCck1ykXISkfdSbd7G7+9tQPoTTUB+PV8/WZNed916o3r4549Dhsn3g7ubU9ZnECrza0YUo1Qe3cXbJ9HO/QutFVdHQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9dfdd12-b457-494a-ca03-08df0111e146
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5214.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2026 12:23:31.4291
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2026 12:27:21.8113
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TvlOnVdaNvZkDaoao2zt+zfUVXmnbTG3Qa8sxD3ysF5wE4z9GGbgytaNOFO57mvO8zi30lindH1AOFWsetPCNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB7053
+X-MS-Exchange-CrossTenant-UserPrincipalName: hvM8l/FcsvNpYWVfCSs/cCXrShqeIpPaGcaA9BA4ltEdFicF/MXyjUPcnGy/k/KyQxt5HmnNb7/Bhv4Bqjm9DQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9324
 X-OriginatorOrg: intel.com
 
-Hi Frank,
+Hi Fan,
 
 kernel test robot noticed the following build errors:
 
-[auto build test ERROR on brauner-vfs/vfs.all]
-[also build test ERROR on cifs/for-next linus/master v7.2 next-20260821]
+[auto build test ERROR on driver-core/driver-core-testing]
+[also build test ERROR on driver-core/driver-core-next driver-core/driver-core-linus linus/master v7.2 next-20260821]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Frank-Sorenson/cifs-fix-i_size-inconsistency-in-smb2_duplicate_extents-on-FSCTL-failure/20260820-161443
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git vfs.all
-patch link:    https://lore.kernel.org/r/20260820211443.1472310-1-sorenson%40redhat.com
-patch subject: [PATCH] cifs: fix i_size inconsistency in smb2_duplicate_extents() on FSCTL failure
-config: parisc-defconfig (https://download.01.org/0day-ci/archive/20260823/202608230427.RQarhMR6-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260823/202608230427.RQarhMR6-lkp@intel.com/reproduce)
+url:    https://github.com/intel-lab-lkp/linux/commits/Fan-Wu/kernfs-recheck-of-released-after-acquiring-the-active-reference/20260821-050720
+base:   driver-core/driver-core-testing
+patch link:    https://lore.kernel.org/r/20260821050720.14848-1-fanwu01%40zju.edu.cn
+patch subject: [PATCH v2] kernfs: recheck of->released after acquiring the active reference
+config: nios2-allnoconfig (https://download.01.org/0day-ci/archive/20260823/202608230052.ZXfVhNjk-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260823/202608230052.ZXfVhNjk-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608230427.RQarhMR6-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608230052.ZXfVhNjk-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   fs/smb/client/smb2ops.c: In function 'smb2_duplicate_extents':
->> fs/smb/client/smb2ops.c:2251:25: error: implicit declaration of function 'cifs_resize_file_locked' [-Wimplicit-function-declaration]
-    2251 |                         cifs_resize_file_locked(inode, orig_size);
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~
+   In file included from include/asm-generic/div64.h:27,
+                    from ./arch/nios2/include/generated/asm/div64.h:1,
+                    from include/linux/math.h:6,
+                    from include/linux/math64.h:6,
+                    from include/linux/time.h:6,
+                    from include/linux/stat.h:19,
+                    from include/linux/fs_dirent.h:5,
+                    from include/linux/fs/super_types.h:5,
+                    from include/linux/fs/super.h:5,
+                    from include/linux/fs.h:5,
+                    from fs/kernfs/file.c:10:
+   fs/kernfs/file.c: In function 'kernfs_get_active_of':
+>> include/linux/compiler_types.h:663:16: error: 'sizeof' applied to a bit-field
+     663 |         (sizeof(t) == sizeof(char) || sizeof(t) == sizeof(short) || \
+         |                ^
+   include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+         |                                             ^
+   include/linux/compiler_types.h:690:9: note: in expansion of macro '__compiletime_assert'
+     690 |         __compiletime_assert(condition, msg, prefix, suffix)
+         |         ^~~~~~~~~~~~~~~~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |                            ^~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
+      49 |         compiletime_assert_rwonce_type(x);                              \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/kernfs/file.c:76:22: note: in expansion of macro 'READ_ONCE'
+      76 |         if (unlikely(READ_ONCE(of->released))) {
+         |                      ^~~~~~~~~
+   include/linux/compiler_types.h:663:45: error: 'sizeof' applied to a bit-field
+     663 |         (sizeof(t) == sizeof(char) || sizeof(t) == sizeof(short) || \
+         |                                             ^
+   include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+         |                                             ^
+   include/linux/compiler_types.h:690:9: note: in expansion of macro '__compiletime_assert'
+     690 |         __compiletime_assert(condition, msg, prefix, suffix)
+         |         ^~~~~~~~~~~~~~~~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |                            ^~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
+      49 |         compiletime_assert_rwonce_type(x);                              \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/kernfs/file.c:76:22: note: in expansion of macro 'READ_ONCE'
+      76 |         if (unlikely(READ_ONCE(of->released))) {
+         |                      ^~~~~~~~~
+   include/linux/compiler_types.h:664:16: error: 'sizeof' applied to a bit-field
+     664 |          sizeof(t) == sizeof(int) || sizeof(t) == sizeof(long))
+         |                ^
+   include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+         |                                             ^
+   include/linux/compiler_types.h:690:9: note: in expansion of macro '__compiletime_assert'
+     690 |         __compiletime_assert(condition, msg, prefix, suffix)
+         |         ^~~~~~~~~~~~~~~~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |                            ^~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
+      49 |         compiletime_assert_rwonce_type(x);                              \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/kernfs/file.c:76:22: note: in expansion of macro 'READ_ONCE'
+      76 |         if (unlikely(READ_ONCE(of->released))) {
+         |                      ^~~~~~~~~
+   include/linux/compiler_types.h:664:44: error: 'sizeof' applied to a bit-field
+     664 |          sizeof(t) == sizeof(int) || sizeof(t) == sizeof(long))
+         |                                            ^
+   include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+         |                                             ^
+   include/linux/compiler_types.h:690:9: note: in expansion of macro '__compiletime_assert'
+     690 |         __compiletime_assert(condition, msg, prefix, suffix)
+         |         ^~~~~~~~~~~~~~~~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |                            ^~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
+      49 |         compiletime_assert_rwonce_type(x);                              \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/kernfs/file.c:76:22: note: in expansion of macro 'READ_ONCE'
+      76 |         if (unlikely(READ_ONCE(of->released))) {
+         |                      ^~~~~~~~~
+>> include/asm-generic/rwonce.h:36:54: error: 'sizeof' applied to a bit-field
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |                                                      ^
+   include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+         |                                             ^
+   include/linux/compiler_types.h:690:9: note: in expansion of macro '__compiletime_assert'
+     690 |         __compiletime_assert(condition, msg, prefix, suffix)
+         |         ^~~~~~~~~~~~~~~~~~~~
+   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
+     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
+      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
+         |         ^~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
+      49 |         compiletime_assert_rwonce_type(x);                              \
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/kernfs/file.c:76:22: note: in expansion of macro 'READ_ONCE'
+      76 |         if (unlikely(READ_ONCE(of->released))) {
+         |                      ^~~~~~~~~
+>> include/linux/compiler_types.h:626:17: error: 'typeof' applied to a bit-field
+     626 |                 _Generic((x),                                           \
+         |                 ^~~~~~~~
+   include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+         |                                             ^
+   include/asm-generic/rwonce.h:44:43: note: in expansion of macro '__unqual_scalar_typeof'
+      44 | #define __READ_ONCE(x)  (*(const volatile __unqual_scalar_typeof(x) *)&(x))
+         |                                           ^~~~~~~~~~~~~~~~~~~~~~
+   include/asm-generic/rwonce.h:50:9: note: in expansion of macro '__READ_ONCE'
+      50 |         __READ_ONCE(x);                                                 \
+         |         ^~~~~~~~~~~
+   fs/kernfs/file.c:76:22: note: in expansion of macro 'READ_ONCE'
+      76 |         if (unlikely(READ_ONCE(of->released))) {
+         |                      ^~~~~~~~~
+>> include/asm-generic/rwonce.h:44:71: error: cannot take address of bit-field 'released'
+      44 | #define __READ_ONCE(x)  (*(const volatile __unqual_scalar_typeof(x) *)&(x))
+         |                                                                       ^
+   include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+      77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+         |                                             ^
+   include/asm-generic/rwonce.h:50:9: note: in expansion of macro '__READ_ONCE'
+      50 |         __READ_ONCE(x);                                                 \
+         |         ^~~~~~~~~~~
+   fs/kernfs/file.c:76:22: note: in expansion of macro 'READ_ONCE'
+      76 |         if (unlikely(READ_ONCE(of->released))) {
+         |                      ^~~~~~~~~
 
 
-vim +/cifs_resize_file_locked +2251 fs/smb/client/smb2ops.c
+vim +/sizeof +663 include/linux/compiler_types.h
 
-  2188	
-  2189	static int
-  2190	smb2_duplicate_extents(const unsigned int xid,
-  2191				struct cifsFileInfo *srcfile,
-  2192				struct cifsFileInfo *trgtfile, u64 src_off,
-  2193				u64 len, u64 dest_off)
-  2194	{
-  2195		int rc;
-  2196		int qrc;
-  2197		unsigned int ret_data_len;
-  2198		struct inode *inode;
-  2199		struct smb2_file_all_info file_inf;
-  2200		struct duplicate_extents_to_file dup_ext_buf;
-  2201		struct timespec64 ts;
-  2202		struct cifs_tcon *tcon = tlink_tcon(trgtfile->tlink);
-  2203		loff_t orig_size;
-  2204		u64 asize;
-  2205	
-  2206		/* server fileays advertise duplicate extent support with this flag */
-  2207		if ((le32_to_cpu(tcon->fsAttrInfo.Attributes) &
-  2208		     FILE_SUPPORTS_BLOCK_REFCOUNTING) == 0)
-  2209			return -EOPNOTSUPP;
-  2210	
-  2211		dup_ext_buf.VolatileFileHandle = srcfile->fid.volatile_fid;
-  2212		dup_ext_buf.PersistentFileHandle = srcfile->fid.persistent_fid;
-  2213		dup_ext_buf.SourceFileOffset = cpu_to_le64(src_off);
-  2214		dup_ext_buf.TargetFileOffset = cpu_to_le64(dest_off);
-  2215		dup_ext_buf.ByteCount = cpu_to_le64(len);
-  2216		cifs_dbg(FYI, "Duplicate extents: src off %lld dst off %lld len %lld\n",
-  2217			src_off, dest_off, len);
-  2218		trace_smb3_clone_enter(xid, srcfile->fid.volatile_fid,
-  2219				       trgtfile->fid.volatile_fid, tcon->tid,
-  2220				       tcon->ses->Suid, src_off, dest_off, len);
-  2221		inode = d_inode(trgtfile->dentry);
-  2222		orig_size = i_size_read(inode);
-  2223		if (orig_size < dest_off + len) {
-  2224			rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
-  2225			if (rc)
-  2226				goto duplicate_extents_out;
-  2227			netfs_resize_file(netfs_inode(inode), dest_off + len, true);
-  2228			cifs_setsize(inode, dest_off + len);
-  2229		}
-  2230		rc = SMB2_ioctl(xid, tcon, trgtfile->fid.persistent_fid,
-  2231				trgtfile->fid.volatile_fid,
-  2232				FSCTL_DUPLICATE_EXTENTS_TO_FILE,
-  2233				(char *)&dup_ext_buf,
-  2234				sizeof(struct duplicate_extents_to_file),
-  2235				CIFSMaxBufSize, NULL,
-  2236				&ret_data_len);
-  2237	
-  2238		if (ret_data_len > 0)
-  2239			cifs_dbg(FYI, "Non-zero response length in duplicate extents\n");
-  2240	
-  2241		if (rc && i_size_read(inode) > orig_size) {
-  2242			int rrc;
-  2243	
-  2244			/*
-  2245			 * FSCTL failed after we pre-extended the file.  Attempt to
-  2246			 * restore the original size so the caller sees a consistent
-  2247			 * file rather than a larger file with uncloned content.
-  2248			 */
-  2249			rrc = smb2_set_file_size(xid, tcon, trgtfile, orig_size, false);
-  2250			if (rrc == 0)
-> 2251				cifs_resize_file_locked(inode, orig_size);
-  2252			else {
-  2253				CIFS_I(inode)->time = 0; /* force reval */
-  2254				cifs_invalidate_cache(inode, 0);
-  2255			}
-  2256		}
-  2257	
-  2258		if (rc == 0) {
-  2259			qrc = SMB2_query_info(xid, tcon, trgtfile->fid.persistent_fid,
-  2260					      trgtfile->fid.volatile_fid, &file_inf);
-  2261			spin_lock(&inode->i_lock);
-  2262			if (qrc == 0) {
-  2263				asize = le64_to_cpu(file_inf.AllocationSize);
-  2264				CIFS_I(inode)->time = jiffies;
-  2265				if (file_inf.LastWriteTime) {
-  2266					ts = cifs_NTtimeToUnix(file_inf.LastWriteTime);
-  2267					inode_set_mtime_to_ts(inode, ts);
-  2268				}
-  2269				if (file_inf.ChangeTime) {
-  2270					ts = cifs_NTtimeToUnix(file_inf.ChangeTime);
-  2271					inode_set_ctime_to_ts(inode, ts);
-  2272				}
-  2273				if (file_inf.LastAccessTime) {
-  2274					ts = cifs_NTtimeToUnix(file_inf.LastAccessTime);
-  2275					inode_set_atime_to_ts(inode, ts);
-  2276				}
-  2277				inode->i_blocks = CIFS_INO_BLOCKS(asize);
-  2278			} else {
-  2279				CIFS_I(inode)->time = 0; /* force reval */
-  2280			}
-  2281			spin_unlock(&inode->i_lock);
-  2282		}
-  2283	
-  2284	duplicate_extents_out:
-  2285		if (rc)
-  2286			trace_smb3_clone_err(xid, srcfile->fid.volatile_fid,
-  2287					     trgtfile->fid.volatile_fid,
-  2288					     tcon->tid, tcon->ses->Suid, src_off,
-  2289					     dest_off, len, rc);
-  2290		else
-  2291			trace_smb3_clone_done(xid, srcfile->fid.volatile_fid,
-  2292					      trgtfile->fid.volatile_fid, tcon->tid,
-  2293					      tcon->ses->Suid, src_off, dest_off, len);
-  2294		return rc;
-  2295	}
-  2296	
+d15155824c5014 Will Deacon      2017-10-24  611  
+dee081bf8f824c Will Deacon      2019-12-19  612  /*
+dee081bf8f824c Will Deacon      2019-12-19  613   * __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
+dee081bf8f824c Will Deacon      2019-12-19  614   *			       non-scalar types unchanged.
+1fd76043ecb04b Marco Elver      2020-05-27  615   */
+fd69b2f7d5f4e1 Peter Zijlstra   2026-01-16  616  #ifndef USE_TYPEOF_UNQUAL
+1fd76043ecb04b Marco Elver      2020-05-27  617  /*
+6ec4476ac82512 Linus Torvalds   2020-07-08  618   * Prefer C11 _Generic for better compile-times and simpler code. Note: 'char'
+1fd76043ecb04b Marco Elver      2020-05-27  619   * is not type-compatible with 'signed char', and we define a separate case.
+1fd76043ecb04b Marco Elver      2020-05-27  620   */
+1fd76043ecb04b Marco Elver      2020-05-27  621  #define __scalar_type_to_expr_cases(type)				\
+1fd76043ecb04b Marco Elver      2020-05-27  622  		unsigned type:	(unsigned type)0,			\
+1fd76043ecb04b Marco Elver      2020-05-27  623  		signed type:	(signed type)0
+1fd76043ecb04b Marco Elver      2020-05-27  624  
+1fd76043ecb04b Marco Elver      2020-05-27  625  #define __unqual_scalar_typeof(x) typeof(				\
+1fd76043ecb04b Marco Elver      2020-05-27 @626  		_Generic((x),						\
+1fd76043ecb04b Marco Elver      2020-05-27  627  			 char:	(char)0,				\
+1fd76043ecb04b Marco Elver      2020-05-27  628  			 __scalar_type_to_expr_cases(char),		\
+1fd76043ecb04b Marco Elver      2020-05-27  629  			 __scalar_type_to_expr_cases(short),		\
+1fd76043ecb04b Marco Elver      2020-05-27  630  			 __scalar_type_to_expr_cases(int),		\
+1fd76043ecb04b Marco Elver      2020-05-27  631  			 __scalar_type_to_expr_cases(long),		\
+1fd76043ecb04b Marco Elver      2020-05-27  632  			 __scalar_type_to_expr_cases(long long),	\
+1fd76043ecb04b Marco Elver      2020-05-27  633  			 default: (x)))
+fd69b2f7d5f4e1 Peter Zijlstra   2026-01-16  634  #else
+fd69b2f7d5f4e1 Peter Zijlstra   2026-01-16  635  #define __unqual_scalar_typeof(x) __typeof_unqual__(x)
+fd69b2f7d5f4e1 Peter Zijlstra   2026-01-16  636  #endif
+c06cd66387da92 Thomas Gleixner  2026-06-02  637  
+c06cd66387da92 Thomas Gleixner  2026-06-02  638  #include <asm/percpu_types.h>
+c06cd66387da92 Thomas Gleixner  2026-06-02  639  
+fd69b2f7d5f4e1 Peter Zijlstra   2026-01-16  640  #endif /* !__ASSEMBLY__ */
+dee081bf8f824c Will Deacon      2019-12-19  641  
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  642  /*
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  643   * __signed_scalar_typeof(x) - Declare a signed scalar type, leaving
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  644   *			       non-scalar types unchanged.
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  645   */
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  646  
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  647  #define __scalar_type_to_signed_cases(type)				\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  648  		unsigned type:	(signed type)0,				\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  649  		signed type:	(signed type)0
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  650  
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  651  #define __signed_scalar_typeof(x) typeof(				\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  652  		_Generic((x),						\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  653  			 char:	(signed char)0,				\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  654  			 __scalar_type_to_signed_cases(char),		\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  655  			 __scalar_type_to_signed_cases(short),		\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  656  			 __scalar_type_to_signed_cases(int),		\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  657  			 __scalar_type_to_signed_cases(long),		\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  658  			 __scalar_type_to_signed_cases(long long),	\
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  659  			 default: (x)))
+38a68b982dd0b1 Peter Zijlstra   2025-11-27  660  
+d15155824c5014 Will Deacon      2017-10-24  661  /* Is this type a native word size -- useful for atomic operations */
+815f0ddb346c19 Nick Desaulniers 2018-08-22  662  #define __native_word(t) \
+815f0ddb346c19 Nick Desaulniers 2018-08-22 @663  	(sizeof(t) == sizeof(char) || sizeof(t) == sizeof(short) || \
+815f0ddb346c19 Nick Desaulniers 2018-08-22  664  	 sizeof(t) == sizeof(int) || sizeof(t) == sizeof(long))
+815f0ddb346c19 Nick Desaulniers 2018-08-22  665  
 
 --
 0-DAY CI Kernel Test Service
