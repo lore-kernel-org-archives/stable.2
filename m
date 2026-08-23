@@ -1,151 +1,509 @@
-Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazolkn19011061.outbound.protection.outlook.com [52.103.72.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458852931FC;
-	Sun, 23 Aug 2026 06:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787464982; cv=fail; b=SWy2+kGlOrt8sl24qJKew482O5OIB7uOgXDOczm/m68gOrMdIpRlHipvS/z8yaIKaeNRZhtNKQhOr1URv95sXFSlfYdv1KPjNRqPPIk4IWzvaiSfQ/nQ7DvNDClmzDxuhP8q6Fnd9K6OPce/PIpjio2MVX2Xb8pWy5jQct/+XXs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787464982; c=relaxed/simple;
-	bh=q5KqYUPK2tdgnReA/QEBCLbPZim0MF7lSIRAYOHRDvg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=abBSWAaH3Swtlh4xeTELK9uRTcpCD0XKSouMYRQ3XDvYTSJQ0zB+BQyvULZUCaW+b8vi2Wu0bSTWbJX1D2WLyyDmF5ix1iKzLPLCztyqR+8n52TxgecVl1/4UUyGlyIPkIFxTIpAcKAYYxpAwPtSN8wlpqY5yqOF2tpZ0MDI0bE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=hhNY/fhE; arc=fail smtp.client-ip=52.103.72.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1CE196C7C
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 07:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787469594; cv=none; b=dhx44/MkRyWYngbMw12tl/CvybJGVSJfprFMV0umAI7tKM6/SpLU9cyuK4cqcoeDNBjmJnNGRKvDTBXCwgUr1W7fRqowuMzKJYAG1NcwzTByI3W16ubMHeQ/PnvX3/6AcaJy+3T9hWPQDGqBo7EF0/7xI0AJOXELE2mUvuqwLes=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787469594; c=relaxed/simple;
+	bh=soPX9URTqu+PEA5vsxlPEJtSFHBOiIVK5TIIyiXZW9g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ngV43vfXsYxpquekeIMJTF4lzezGNM6lTVsg1MWeEwTiH924kfLGwXdCOV0BwvAffRRiP0Ew8TrI0UUQOpLwhmCyG7VrVDViKPUtLEUAKd4Q3TGVlyNOSkQPf6lvoDzaDb0UMwgbrr/6O2Y79OeOm6fcCG6kH059G5JkiqjE/4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FO1+ab+i; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="hhNY/fhE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BOMnlIGxV3AWxGQZ8KdYz2GzwzEc2H8KyJJ9fxAVX36Edwcuoy913HhmJ/mXgURVOsIJze3e6x7WXmvc+uTnJQzTWwJTgOTpnuf9MKvC6+HMLh+m896HPVjTGF3YFeZIrf05qVrDbSKaXsiYPvyOOXcEZqPHVQHne3kQa1e/75Jj7ibquBs3q/QAzMpUy/TS/5VT0TbRtNY8azT9HL+/ZmWTxfn254Z0/LzxOL4t+Mu10zIwJqAsqJIVGrRGDUdswyQrRV6IYMqmcSndjLDwvy+NTCyLkJTORws0czYQwSs+CBRUHT5T87uCgYeLO/7TqShrnIFjG6HxYCtGtxzMRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R3Z8QCq7E53i7N3daN21JovYbarERvP9V5yDdCECa2g=;
- b=sNalv1CmrH05C2OnkmGwBNA9jiXHZ9IRGHqw7VHj5KC2CO/lPLakSJOgK6Hu22pZ2hPD+m7XV5k/pA8J+B4kGGtF7mzw08lLhH7wzyqg8RvQysJu4sdtCs2QM7ILa32CI0c50b9absPhwl51Ckyfw8IddiJxNUKDALJO7ZZM26vuf2wK0TksqZMgFKYEbkwSSJutz4ME/peHj8MmCnfhfheXtP0MhSFJZQrGpXK96yk9ABOfQMA9EmThEQZWfhjh4/FTZ8waFOw0wy54MtXHvCsSINeRjTcLI/IP3ZyQ3lop41BqReU7zawXqhMRX49cH1IUY6DX9L6umlvVYMykOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R3Z8QCq7E53i7N3daN21JovYbarERvP9V5yDdCECa2g=;
- b=hhNY/fhElUwGAnGlF4bwpe9TXt0Z0p1Nhkds0Cw/UBdYonMxDHiGCDtlOutr6z3fmxWzom9ni6MdXqhczjQZa3Gisshm2pUivIosQG73J+rfehW+GX/kDk3XNR+gBfO1NrcBdfv1jtGYpXnC3QBb7qptOhgAqGVe/rnbap52EBO5iIqdlrFQNjXU0rEazrm0jmM1LS2fN65iC/EcA0ydFTNiUSMNvD6lW/LfJ3SGqjORukdnjREbBdjp6wGvf1Jvj3c0a9gnsOn2cwlqpC5nDFpVaY8VXt7yNWdDj8j9YqKej+D+NMhnSQf1EksZDuIsxsqwyxH46wDFD2AHohqgTA==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by SY9PR01MB9816.ausprd01.prod.outlook.com (2603:10c6:10:307::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Sun, 23 Aug
- 2026 06:02:54 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%7]) with mapi id 15.21.0339.010; Sun, 23 Aug 2026
- 06:02:53 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
-CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit
- Semwal <sumit.semwal@linaro.org>, Sunil Khatri <sunil.khatri@amd.com>,
-	"Jesse.Zhang" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
-	<amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linaro-mm-sig@lists.linaro.org"
-	<linaro-mm-sig@lists.linaro.org>, Yuhao Jiang <danisjiang@gmail.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu/userq: hold the doorbell xa lock during
- hang reset
-Thread-Topic: [PATCH 2/2] drm/amdgpu/userq: hold the doorbell xa lock during
- hang reset
-Thread-Index: AQHdLZnnNFUgxINI1E+0OyQiNx/eE7arLcmA
-Date: Sun, 23 Aug 2026 06:02:52 +0000
-Message-ID: <88BAF3AF-0334-41CF-9954-66AD5E0DA823@outlook.com>
-References: <20260817-amdgpu-fixes-v1-0-36d5298da646@outlook.com>
- <20260817-amdgpu-fixes-v1-2-36d5298da646@outlook.com>
-In-Reply-To: <20260817-amdgpu-fixes-v1-2-36d5298da646@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|SY9PR01MB9816:EE_
-x-ms-office365-filtering-correlation-id: eb121cf2-928f-4936-11cf-08df00dc2b06
-x-microsoft-antispam:
- BCL:0;ARA:14566002|31061999003|15080799012|19110799012|8060799015|8062599012|39105399006|25010399006|4140399003|21061999006|24121999003|22091999003|24021099003|55001999006|22141099003|440099028|3412199025|102099032|41105399003|40105399003|2607281247196008;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?bxpQ05YtDOhcdw8JoFByoS2OznBtVsFtFLYrIYxm/HrPM30v8SVSucfNn4?=
- =?iso-8859-1?Q?AW/3UqmEGMQH2TVw2xnxPNhygseST6r+8Cc3P2OIX9r3AZLzThmEWqlB5b?=
- =?iso-8859-1?Q?2et36ae0JM1RcwdNPrfNAcDDQEVVW22oS7E2D4R+3FqnUu2+GHXgAUPdTH?=
- =?iso-8859-1?Q?qfGxuo5Teqn7TMj986KhX42UnQxgrlhTttWWIubzARPLfyyfiqtWDOArHz?=
- =?iso-8859-1?Q?ochHs3oJBm2ROEY9VuIxC1+RWkQ38b20/DS761QlSvQNxDSGYEAvjCLu+B?=
- =?iso-8859-1?Q?cwEJNQpQh6Fco2H50cGoWkFjKn4rmG27iyAA2X2mxyOGVLyCkjI8FUEu0r?=
- =?iso-8859-1?Q?IvgyvRyWWsT7IC29LLL6op9UFywK52yq7iilHx7vq8WjUJ6kfL2OnrI3W7?=
- =?iso-8859-1?Q?YHN3taSxgXnonRgCa5Ipq4NGldKMuy2W04tYXltg05AX21IzbuEiHrSZyI?=
- =?iso-8859-1?Q?SoF+aV+JsKlfMKzP6/HF4/L3oP+lB+eY+zSd0ERPs4UNrcFFpAYRNI5Ijz?=
- =?iso-8859-1?Q?yyKYgFzeaGkb2pFVvkFKbQW5rAqNmGkUAizb1hZOtpInEc3pT/6VXsutG5?=
- =?iso-8859-1?Q?kebo+A6nktAXIBdwVjeXN0cm47G5MCfGQFUIWZ294hOgPg7UNnyZBwxuEa?=
- =?iso-8859-1?Q?aD/gCgu6KkbtrfeT/aen9a63WLGm9zH/c0wwyXhsaPqYNNVeq9olMbeswb?=
- =?iso-8859-1?Q?HOx7R+OOPkBd+IVDMg59QsVhpqmZFRmjRoXF8/Ouovb63RStPnvxO32CpA?=
- =?iso-8859-1?Q?Sx6r1tNXTBKJRa1b0GqJqAuf0Upz8eYFEHcsIIbuEZcH4XrOtLElv/EYy2?=
- =?iso-8859-1?Q?CHM9ziYKd3zAfwR6TREumcp02CZJ+y7IJVZMOiZvAR4SjZvM9Uz7NM2Zgy?=
- =?iso-8859-1?Q?MWJc3Zdb2oQSl6GrkAM4i7O5Gei5ahFEfuiwYpwgnk2BeMciA1AxbKzdJv?=
- =?iso-8859-1?Q?v/OD8CjdyTymQ9ATbwCzggLCcLZQSsfLiyJYDOnKMLZbeAo90HPqu8Iwkg?=
- =?iso-8859-1?Q?u3ePP7b4ij8tu2phVPxSnKiwt70k0oImAeQugTrXveXS1bh+D3YoZaj0VC?=
- =?iso-8859-1?Q?DDJ+mDjCegAy5ygH8DzN5JhRTYE9GHYCVe4EhrAlUAO9lYaOFuJ601Ta+M?=
- =?iso-8859-1?Q?2z0LJrZbadtwJBgSOrxPnFs1oM601k8Xemy9ynzzuH/zeUp3gk?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?scXToJndnCu1lSEhcVB/99d6EzokimnMffX503ny2AK4fYqGMOAm55QG6w?=
- =?iso-8859-1?Q?XinRpoVelsiAufgIQ1gLS2u1dUZTn3M8IHnmNZTaQTlNzAh8YPTXjkiYQa?=
- =?iso-8859-1?Q?l+aPtCuqnEa5B7M7w+usPiWVvz6wjHqjEcDEWoiYBsloT9ALHbgfiu66EU?=
- =?iso-8859-1?Q?RlsvCeOvD5EaMkIXVDoKQ5VqaAOydfBEcaeEfASaTtu4fvaHKLIUtl6Nq3?=
- =?iso-8859-1?Q?lesFYuyHcwyizxGN0/uUR/GXgIJHYffis3l/3uENbuNUqqcFe0TVxtuOdY?=
- =?iso-8859-1?Q?lhEsSd1Knl0VkyuvOsgqONDWdmJVA58xEb6HvdKbtxMOH0Iyp+D/G9kvyY?=
- =?iso-8859-1?Q?1s8MaCqLH08lB2HP9Zjhx1yTI7tv9GSrx84cN2ZvE3TGmOrmUBZkJuKmiP?=
- =?iso-8859-1?Q?0PBXzcz1+XLA4dhk7tTOj1d9RtLNlNlqbcMldgW/zlL2MjEMCOTt66hF38?=
- =?iso-8859-1?Q?BHDINgTDrY/d9wiyjtzioRV/Y8VPlUi4zGqQNVJKrpnBNv+YuInp6uSYEg?=
- =?iso-8859-1?Q?D8WpbGaYCvNLZRw2Gsh3A3yagIKUflH5Yzsl8SPd216dd4wA3rwznjEgc+?=
- =?iso-8859-1?Q?BMixJUMUH+FU93/9wDt/hX/3jSqqy+nCcEdYfKyOJEZSAn0we7VYCvhKSB?=
- =?iso-8859-1?Q?t/pIuccmDAEZiwtRK9Kv5OBiMfcF3Yu0w5YX+oFiOJtsLwWZ1eSzRQUWyJ?=
- =?iso-8859-1?Q?Yr//OWZYQyp0sKlqzzxNTyZwppVaY8ZjdhO2Po/+xaj2JrhIOZrs30rkAw?=
- =?iso-8859-1?Q?x5QH6s1NFymNK9R4t7/IlC1bgSLbV4Qyu4H48aF1RIqrT88vHz5vGrXbOk?=
- =?iso-8859-1?Q?KMmSoX6cuYCyO7hzcaKNsvPC8+UVV5GptNdxkulfaH0N71CM8SVjJO6FQi?=
- =?iso-8859-1?Q?+DECIIzZ4GHuzkz5OUr0xvL051PvGb81qhwi6wWQcFI6UFcHg4ZwZBI/Xj?=
- =?iso-8859-1?Q?Xx5hgbA2fg3bK/my0YJ1szXmXVgr0Q/txrgia2/6Nib8SxvUrPWZqZ2gll?=
- =?iso-8859-1?Q?97FT5yFZuZEDIOIBFT3/wu7OReW2FsqZYvJo8aFpVsiUrVFccjjWuSaOQx?=
- =?iso-8859-1?Q?I+3BtNVhTUxODqioC60woVqUKqTKBD++ZzoT8+gpHNl8uQD1k13IYVjZ/8?=
- =?iso-8859-1?Q?QoHMi7zECgq008sBxI93Egtfu/l4LaOuy5A0ZDN4qRTWD0YxatA4oOiRa7?=
- =?iso-8859-1?Q?H1JTmf3K8OBlg/A59t5xD4XxF7dzRftwENv2D4LOd5pEl98/3L+uDZnO1Q?=
- =?iso-8859-1?Q?nLJbAzBHEN3+cuc72bKAZl/DZuD4CXpVLflmRy8XMio49gpFq/OEv+tiL8?=
- =?iso-8859-1?Q?xF7PK6GKmz+Y9ccfgEgvc5aKyN3k73BH74cepZG5w6txG+6aYNXMP+B/BL?=
- =?iso-8859-1?Q?OrFAt/BuG6km8xumKD29Jwf3ensKQmjo6G1+aUaLu3C21yvKaBtiXkPkaH?=
- =?iso-8859-1?Q?5q7lb37MaP3KneRJ2hufbgOeAlQIK3LZV7/V8w=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <E1C349F27181214AAA52CD3D435C7275@ausprd01.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FO1+ab+i"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cbe827e3cb4so2800869a12.3
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 00:19:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787469593; x=1788074393; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DrGHq8r3D01YmLa3ynPoRNi1Se8roY1+DBnK05JQYrk=;
+        b=FO1+ab+iJhJJGYLgrHlAECVDIQ1nGs7P0su931NS5IcIR7MnKcXXFMi79edtV7jReh
+         t1b7vDOP/In0xd6H80svk2cDoy512vHFa9I3N74YVjHOJqtIcDz4AnSREUdtllEA21Ri
+         /RdwkOO9oPjAaOGhdft4nNEr5k4eNlZCb+rpNFI7W32CHdXl1jvslD1pQQGbh9xom2LI
+         VJhzwPu4wCDTTfkDgz9FWNqnmrtwPF/4jsFkcYCQZRE0KO2IDJrZgeS18HSNyYf0ljuw
+         3lG8/Y1NJ+CSKT0HNu7IhEsNS28MfpnIlCj+yuLRV73hQRw8MBS7iAaTX0qB3bWySNF8
+         oAjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787469593; x=1788074393;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DrGHq8r3D01YmLa3ynPoRNi1Se8roY1+DBnK05JQYrk=;
+        b=IufFhlw3DXq6l95SPwZNoLV98v0+BhcNVlQAzaGiX6F9jj4evNyR4sGVfdWRMo/zR/
+         v6wlaahk++O3NOcbGa0sCnp+Psg5jg8npAzm1GFcaey8WQFUb2cgnQRQ3Y33EqPsr62u
+         ASjCw2DPBeWBO7qHTSU9VASbmWINfJamuAvovtpVAFbWUj83Bh4odPjiECIYSLjy2VUK
+         8tvqRiKY12e4SohCBYtQcqqe5K0g2ASl4U6x9edEC9l8QV+MA0Xam1BQ8MfhyMyHuQgA
+         WWBBPw66ktNKGrYaOPNCFIz6V2xSz2uroG0baics8h8tTV0QYNa0INWUUNOUAS5Pwt+J
+         kb7A==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9VqmWw6aZHuXnDo232qxMeFhCqyhyxAWz8ZThni6vpG+gzcrPzIDKaFhsedB2L3Nqze1UdtA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKobYQ4NW5jCVrzSwgbzgR1aIPNifZfVgLTX28IPmK9W+tvFJx
+	JRlfd1OwudCMIjSI2O/Ich75RmvZ6/Q36LEFsBj+5XSbaE4TU2TQMFFe
+X-Gm-Gg: AR+sD116p8uUBpLa4vta82yRUWNCOOmryTCjGAYEPtCYkCA4ujohC51SznvMfOg+7ir
+	ea7MTAgTI4I3mYmk1G38pGccZ9ChLgLPTzv4okuTcwkAWSbOn2IJ2cTauBHYXxfds/6iCGytsGD
+	2yr7DxPyXeyylQbTKzzTIa1MtiPtDDOH3+sHLOzwfmPc4F+HKuORqsJ7/d5kVFguu8IksO3WCA6
+	q/0jOJ5LOVYFxL3Lepcx2sk5yK7fDgijnEXK+msPdObWv9cEyCJV2jCz2F+MEVj3JI+CoQU6jh/
+	s30lSt/HDsSFXOvqkSBghmRlP6NnLp4e9gJvZu5zHRnrvj3rcnIyzyeY4LGzhbBSO20bKsKb1U0
+	Oq+LIkBlr1jsYJFzppOKQYLQS8wqU+79HMDGujkASX6fUmnZ8IINQkSjLF0aRqf3syggvmWpDV5
+	v1n88gvxzazq1iRgdjlyMb0wEg8QE3W2z0X0vpehylg9u4eGxUylEc1kEeWMZHcIU1Ys1Asa4IY
+	eVz/MSwshnFSNs/k13ARJmhkKnAoZdEOgQSRtropN6abMg94/9NVqSqDYre6XoNXiyzwtk/Oznk
+	YzneYVQ=
+X-Received: by 2002:a05:6a21:1644:b0:3bf:ba48:ca88 with SMTP id adf61e73a8af0-3cd3011c9e3mr35880462637.15.1787469592503;
+        Sun, 23 Aug 2026 00:19:52 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([45.135.228.94])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f9209f51sm22644122eec.22.2026.08.23.00.19.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Aug 2026 00:19:51 -0700 (PDT)
+From: Qi Zhang <marsy12010123@gmail.com>
+To: alibuda@linux.alibaba.com,
+	dust.li@linux.alibaba.com,
+	sidraya@linux.ibm.com,
+	mjambigi@linux.ibm.com
+Cc: tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	nicoyip.dev@gmail.com,
+	Qi Zhang <marsy12010123@gmail.com>
+Subject: [PATCH net v2] net/smc: prevent device removal during connection setup
+Date: Sun, 23 Aug 2026 15:19:08 +0800
+Message-ID: <20260823071908.93212-1-marsy12010123@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb121cf2-928f-4936-11cf-08df00dc2b06
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Aug 2026 06:02:52.4234
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY9PR01MB9816
+Content-Transfer-Encoding: 8bit
 
-Hi Christian, Alex,
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-Sorry for the ping.  No need to look at the patch itself.
+smc_pnet_determine_gid() stores an smc_ib_device pointer in connection
+initialization data while holding smc_ib_devices.mutex. Connection setup
+keeps using the pointer after releasing the mutex, but device removal only
+waits for links which have already incremented lnk_cnt.
 
-I would just be grateful for a quick word on whether the issue it describes
-is a real one.  If not, I will drop it; if it is, should I send a v2?
+This permits the following interleaving:
 
-Thanks for your time,
-Junrui Luo
+  connection setup                 device removal
+  ----------------                 --------------
+  select smcibdev
+  store ini->smcrv2.ib_dev_v2
+  mutex_unlock()
+                                   remove smcibdev from the device list
+                                   observe lnk_cnt == 0
+                                   return from the remove callback
+                                   kfree(smcibdev)
+  copy smcibdev->pnetid
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in smc_conn_create+0x1330/0x2680
+  Read of size 16 at addr ffff888112dbd934 by task smc_bug86/97
+  Call Trace:
+   __asan_memcpy
+   smc_conn_create
+   __smc_connect
+   smc_connect
+   __sys_connect
+  Allocated by task 93:
+   smc_ib_add_dev
+   add_client_context
+   ib_register_device
+   nldev_newlink
+  Freed by task 98:
+   kfree
+   remove_client_context
+   __ib_unregister_device
+   nldev_dellink
+
+Hold a lifetime reference on every SMCR device selected for connection
+setup. The reference also pins the underlying ib_device, but does not make
+device removal wait for the peer-controlled CLC handshake.
+
+Before turning the selection into a link, check under
+smc_ib_devices.mutex that the device is still registered. Track only the
+short local interval between that check and publishing the new link group.
+Device removal waits for this interval before terminating links, ensuring
+that it cannot miss a link being created concurrently. Keep the lifetime
+reference until after the final counter decrement and wakeup, and serialize
+begin/end with device delisting so no thread touches a freed smcibdev.
+
+This change is limited to the reported SMCR lifetime race. SMC-D device
+selection has a similar pre-existing borrowed-pointer lifetime issue and
+requires a separate fix.
+
+Fixes: a046d57da19f ("smc: CLC handshake (incl. preparation steps)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
+---
+Changes in v2:
+- Replace the handshake-long removal wait with a lifetime reference that
+  defers object release without blocking device removal.
+- Revalidate the selected device and wait only while a new link is being
+  published, so the removal-side termination pass cannot miss it.
+- Keep a lifetime reference across the final publication-counter decrement
+  and wakeup, and serialize begin/end with device delisting to close the
+  reviewed wake-after-free window.
+- Explicitly scope this patch to SMC-R; the analogous pre-existing SMC-D
+  borrowed-pointer lifetime issue requires a separate fix.
+- Rebase onto net/main at 7cbfb180945c and preserve the intervening LLC
+  qentry lifetime fixes.
+
+v1: https://lore.kernel.org/r/20260804123418.2214979-1-marsy12010123@gmail.com
+Review: https://lore.kernel.org/r/20260805151051.GV51943@horms.kernel.org
+
+ net/smc/af_smc.c   | 11 +++++++----
+ net/smc/smc_core.c | 29 ++++++++++++++++++++++++----
+ net/smc/smc_core.h |  3 +++
+ net/smc/smc_ib.c   | 47 +++++++++++++++++++++++++++++++++++++++++++++-
+ net/smc/smc_ib.h   |  9 +++++++++
+ net/smc/smc_llc.c  |  8 +++++---
+ net/smc/smc_pnet.c |  8 ++++++++
+ 7 files changed, 103 insertions(+), 12 deletions(-)
+
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index e9f93b3ab435..d781dee1b329 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -1225,7 +1225,7 @@ void smc_fill_gid_list(struct smc_link_group *lgr,
+ 	       SMC_GID_SIZE);
+ 
+ out:
+-	kfree(alt_ini);
++	smc_init_info_free(alt_ini);
+ }
+ 
+ static int smc_connect_rdma_v2_prepare(struct smc_sock *smc,
+@@ -1596,14 +1596,14 @@ static int __smc_connect(struct smc_sock *smc)
+ 	SMC_STAT_CLNT_SUCC_INC(sock_net(smc->clcsock->sk), aclc);
+ 	smc_connect_ism_vlan_cleanup(ini);
+ 	kfree(buf);
+-	kfree(ini);
++	smc_init_info_free(ini);
+ 	return 0;
+ 
+ vlan_cleanup:
+ 	smc_connect_ism_vlan_cleanup(ini);
+ 	kfree(buf);
+ fallback:
+-	kfree(ini);
++	smc_init_info_free(ini);
+ 	return smc_connect_decline_fallback(smc, rc, version);
+ }
+ 
+@@ -2344,7 +2344,10 @@ static void smc_find_rdma_v2_device_serv(struct smc_sock *new_smc,
+ 
+ not_found:
+ 	ini->smcr_version &= ~SMC_V2;
++	if (ini->smcrv2.ib_dev_v2_ref)
++		smc_ibdev_put(ini->smcrv2.ib_dev_v2);
+ 	ini->smcrv2.ib_dev_v2 = NULL;
++	ini->smcrv2.ib_dev_v2_ref = false;
+ 	ini->check_smcrv2 = false;
+ }
+ 
+@@ -2588,7 +2591,7 @@ static void smc_listen_work(struct work_struct *work)
+ 	smc_listen_decline(new_smc, rc, ini ? ini->first_contact_local : 0,
+ 			   proposal_version);
+ out_free:
+-	kfree(ini);
++	smc_init_info_free(ini);
+ 	kfree(buf);
+ }
+ 
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index 181647982490..d97bc7323106 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -55,6 +55,17 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft);
+ 
+ static void smc_link_down_work(struct work_struct *work);
+ 
++void smc_init_info_free(struct smc_init_info *ini)
++{
++	if (!ini)
++		return;
++	if (ini->ib_dev_ref)
++		smc_ibdev_put(ini->ib_dev);
++	if (ini->smcrv2.ib_dev_v2_ref)
++		smc_ibdev_put(ini->smcrv2.ib_dev_v2);
++	kfree(ini);
++}
++
+ /* return head of link group list and its lock for a given link group */
+ static inline struct list_head *smc_lgr_list_head(struct smc_link_group *lgr,
+ 						  spinlock_t **lgr_lock)
+@@ -793,14 +804,21 @@ int smcr_link_init(struct smc_link_group *lgr, struct smc_link *lnk,
+ 	int rc;
+ 
+ 	if (lgr->smc_version == SMC_V2) {
+-		lnk->smcibdev = ini->smcrv2.ib_dev_v2;
++		smcibdev = ini->smcrv2.ib_dev_v2;
+ 		lnk->ibport = ini->smcrv2.ib_port_v2;
+-		lnk->wr_rx_sge_cnt = lnk->smcibdev->ibdev->attrs.max_recv_sge < 2 ? 1 : 2;
++	} else {
++		smcibdev = ini->ib_dev;
++		lnk->ibport = ini->ib_port;
++	}
++	rc = smc_ibdev_init_begin(smcibdev);
++	if (rc)
++		return rc;
++	lnk->smcibdev = smcibdev;
++	if (lgr->smc_version == SMC_V2) {
++		lnk->wr_rx_sge_cnt = smcibdev->ibdev->attrs.max_recv_sge < 2 ? 1 : 2;
+ 		lnk->wr_rx_buflen = smc_link_shared_v2_rxbuf(lnk) ?
+ 			SMC_WR_BUF_SIZE : SMC_WR_BUF_V2_SIZE;
+ 	} else {
+-		lnk->smcibdev = ini->ib_dev;
+-		lnk->ibport = ini->ib_port;
+ 		lnk->wr_rx_sge_cnt = 1;
+ 		lnk->wr_rx_buflen = SMC_WR_BUF_SIZE;
+ 	}
+@@ -882,6 +900,7 @@ int smcr_link_init(struct smc_link_group *lgr, struct smc_link *lnk,
+ 	if (!atomic_dec_return(&smcibdev->lnk_cnt))
+ 		wake_up(&smcibdev->lnks_deleted);
+ 	smc_lgr_put(lgr); /* lgr_hold above */
++	smc_ibdev_init_end(smcibdev);
+ 	return rc;
+ }
+ 
+@@ -997,6 +1016,8 @@ static int smc_lgr_create(struct smc_sock *smc, struct smc_init_info *ini)
+ 	spin_lock_bh(lgr_lock);
+ 	list_add_tail(&lgr->list, lgr_list);
+ 	spin_unlock_bh(lgr_lock);
++	if (!ini->is_smcd)
++		smc_ibdev_init_end(lnk->smcibdev);
+ 	return 0;
+ 
+ free_wq:
+diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
+index 5c18f08a4c8a..9f5a69a30cb3 100644
+--- a/net/smc/smc_core.h
++++ b/net/smc/smc_core.h
+@@ -403,6 +403,7 @@ struct smc_init_info_smcrv2 {
+ 
+ 	/* Output fields when saddr is set */
+ 	struct smc_ib_device	*ib_dev_v2;
++	bool			ib_dev_v2_ref; /* owns an smc_ibdev reference */
+ 	u8			ib_port_v2;
+ 	u8			ib_gid_v2[SMC_GID_SIZE];
+ 
+@@ -438,6 +439,7 @@ struct smc_init_info {
+ 	u8			peer_mac[ETH_ALEN];
+ 	u8			peer_systemid[SMC_SYSTEMID_LEN];
+ 	struct smc_ib_device	*ib_dev;
++	bool			ib_dev_ref; /* owns an smc_ibdev reference */
+ 	u8			ib_gid[SMC_GID_SIZE];
+ 	u8			ib_port;
+ 	u32			ib_clcqpn;
+@@ -594,6 +596,7 @@ void smc_rtoken_set2(struct smc_link_group *lgr, int rtok_idx, int link_id,
+ void smc_sndbuf_sync_sg_for_device(struct smc_connection *conn);
+ void smc_rmb_sync_sg_for_cpu(struct smc_connection *conn);
+ int smc_vlan_by_tcpsk(struct socket *clcsock, struct smc_init_info *ini);
++void smc_init_info_free(struct smc_init_info *ini);
+ 
+ void smc_conn_free(struct smc_connection *conn);
+ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini);
+diff --git a/net/smc/smc_ib.c b/net/smc/smc_ib.c
+index 9bb495707445..d858453c64d9 100644
+--- a/net/smc/smc_ib.c
++++ b/net/smc/smc_ib.c
+@@ -934,6 +934,44 @@ void smc_ib_ndev_change(struct net_device *ndev, unsigned long event)
+ 	mutex_unlock(&smc_ib_devices.mutex);
+ }
+ 
++static void smc_ibdev_release(struct smc_ib_device *smcibdev)
++{
++	put_device(&smcibdev->ibdev->dev);
++	kfree(smcibdev);
++}
++
++void smc_ibdev_get(struct smc_ib_device *smcibdev)
++{
++	refcount_inc(&smcibdev->refcnt);
++}
++
++void smc_ibdev_put(struct smc_ib_device *smcibdev)
++{
++	if (refcount_dec_and_test(&smcibdev->refcnt))
++		smc_ibdev_release(smcibdev);
++}
++
++int smc_ibdev_init_begin(struct smc_ib_device *smcibdev)
++{
++	int rc = 0;
++
++	mutex_lock(&smc_ib_devices.mutex);
++	if (list_empty(&smcibdev->list))
++		rc = -ENODEV;
++	else
++		atomic_inc(&smcibdev->init_cnt);
++	mutex_unlock(&smc_ib_devices.mutex);
++	return rc;
++}
++
++void smc_ibdev_init_end(struct smc_ib_device *smcibdev)
++{
++	mutex_lock(&smc_ib_devices.mutex);
++	if (atomic_dec_and_test(&smcibdev->init_cnt))
++		wake_up(&smcibdev->init_wait);
++	mutex_unlock(&smc_ib_devices.mutex);
++}
++
+ /* callback function for ib_register_client() */
+ static int smc_ib_add_dev(struct ib_device *ibdev)
+ {
+@@ -949,7 +987,11 @@ static int smc_ib_add_dev(struct ib_device *ibdev)
+ 		return -ENOMEM;
+ 
+ 	smcibdev->ibdev = ibdev;
++	get_device(&ibdev->dev);
++	refcount_set(&smcibdev->refcnt, 1);
+ 	INIT_WORK(&smcibdev->port_event_work, smc_ib_port_event_work);
++	atomic_set(&smcibdev->init_cnt, 0);
++	init_waitqueue_head(&smcibdev->init_wait);
+ 	atomic_set(&smcibdev->lnk_cnt, 0);
+ 	init_waitqueue_head(&smcibdev->lnks_deleted);
+ 	mutex_init(&smcibdev->mutex);
+@@ -1000,11 +1042,14 @@ static void smc_ib_remove_dev(struct ib_device *ibdev, void *client_data)
+ 	mutex_unlock(&smc_ib_devices.mutex);
+ 	pr_warn_ratelimited("smc: removing ib device %s\n",
+ 			    smcibdev->ibdev->name);
++	if (atomic_read(&smcibdev->init_cnt))
++		wait_event(smcibdev->init_wait,
++			   !atomic_read(&smcibdev->init_cnt));
+ 	smc_smcr_terminate_all(smcibdev);
+ 	smc_ib_cleanup_per_ibdev(smcibdev);
+ 	ib_unregister_event_handler(&smcibdev->event_handler);
+ 	cancel_work_sync(&smcibdev->port_event_work);
+-	kfree(smcibdev);
++	smc_ibdev_put(smcibdev);
+ }
+ 
+ static struct ib_client smc_ib_client = {
+diff --git a/net/smc/smc_ib.h b/net/smc/smc_ib.h
+index ef8ac2b7546d..d32547350e8b 100644
+--- a/net/smc/smc_ib.h
++++ b/net/smc/smc_ib.h
+@@ -15,6 +15,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/if_ether.h>
+ #include <linux/mutex.h>
++#include <linux/refcount.h>
+ #include <linux/wait.h>
+ #include <rdma/ib_verbs.h>
+ #include <net/smc.h>
+@@ -51,6 +52,9 @@ struct smc_ib_device {				/* ib-device infos for smc */
+ 	struct work_struct	port_event_work;
+ 	unsigned long		port_event_mask;
+ 	DECLARE_BITMAP(ports_going_away, SMC_MAX_PORTS);
++	refcount_t		refcnt;		/* object lifetime */
++	atomic_t		init_cnt;	/* unpublished link initializations */
++	wait_queue_head_t	init_wait;	/* wait for links to be published */
+ 	atomic_t		lnk_cnt;	/* number of links on ibdev */
+ 	wait_queue_head_t	lnks_deleted;	/* wait 4 removal of all links*/
+ 	struct mutex		mutex;		/* protect dev setup+cleanup */
+@@ -59,6 +63,11 @@ struct smc_ib_device {				/* ib-device infos for smc */
+ 	int			ndev_ifidx[SMC_MAX_PORTS]; /* ndev if indexes */
+ };
+ 
++void smc_ibdev_get(struct smc_ib_device *smcibdev);
++void smc_ibdev_put(struct smc_ib_device *smcibdev);
++int smc_ibdev_init_begin(struct smc_ib_device *smcibdev);
++void smc_ibdev_init_end(struct smc_ib_device *smcibdev);
++
+ static inline __be32 smc_ib_gid_to_ipv4(u8 gid[SMC_GID_SIZE])
+ {
+ 	struct in6_addr *addr6 = (struct in6_addr *)gid;
+diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
+index c9ccd8480369..e16aaa514368 100644
+--- a/net/smc/smc_llc.c
++++ b/net/smc/smc_llc.c
+@@ -1108,6 +1108,7 @@ int smc_llc_cli_add_link(struct smc_link *link, struct smc_llc_qentry *qentry)
+ 	rc = smcr_link_init(lgr, lnk_new, lnk_idx, ini);
+ 	if (rc)
+ 		goto out_reject;
++	smc_ibdev_init_end(lnk_new->smcibdev);
+ 	smc_llc_save_add_link_info(lnk_new, llc);
+ 	lnk_new->link_id = llc->link_num;	/* SMC server assigns link id */
+ 	smc_llc_link_set_uid(lnk_new);
+@@ -1143,7 +1144,7 @@ int smc_llc_cli_add_link(struct smc_link *link, struct smc_llc_qentry *qentry)
+ out_reject:
+ 	smc_llc_cli_add_link_reject(qentry);
+ out:
+-	kfree(ini);
++	smc_init_info_free(ini);
+ 	kfree(qentry);
+ 	return rc;
+ }
+@@ -1217,7 +1218,7 @@ static void smc_llc_cli_add_link_invite(struct smc_link *link,
+ 	smc_llc_send_add_link(link, ini->ib_dev->mac[ini->ib_port - 1],
+ 			      ini->ib_gid, NULL, SMC_LLC_REQ);
+ out:
+-	kfree(ini);
++	smc_init_info_free(ini);
+ 	kfree(qentry);
+ }
+ 
+@@ -1487,6 +1488,7 @@ int smc_llc_srv_add_link(struct smc_link *link,
+ 	if (rc)
+ 		goto out;
+ 	link_new = &lgr->lnk[lnk_idx];
++	smc_ibdev_init_end(link_new->smcibdev);
+ 
+ 	rc = smcr_buf_map_lgr(link_new);
+ 	if (rc)
+@@ -1544,7 +1546,7 @@ int smc_llc_srv_add_link(struct smc_link *link,
+ 	}
+ out:
+ 	kfree(qentry);
+-	kfree(ini);
++	smc_init_info_free(ini);
+ 	if (send_req_add_link_resp)
+ 		smc_llc_send_req_add_link_response(req_qentry);
+ 	return rc;
+diff --git a/net/smc/smc_pnet.c b/net/smc/smc_pnet.c
+index 63e286e2dfaa..be1f5137c8ee 100644
+--- a/net/smc/smc_pnet.c
++++ b/net/smc/smc_pnet.c
+@@ -980,14 +980,22 @@ static int smc_pnet_determine_gid(struct smc_ib_device *ibdev, int i,
+ 	if (!ini->check_smcrv2 &&
+ 	    !smc_ib_determine_gid(ibdev, i, ini->vlan_id, ini->ib_gid, NULL,
+ 				  NULL)) {
++		if (ini->ib_dev_ref)
++			smc_ibdev_put(ini->ib_dev);
++		smc_ibdev_get(ibdev);
+ 		ini->ib_dev = ibdev;
++		ini->ib_dev_ref = true;
+ 		ini->ib_port = i;
+ 		return 0;
+ 	}
+ 	if (ini->check_smcrv2 &&
+ 	    !smc_ib_determine_gid(ibdev, i, ini->vlan_id, ini->smcrv2.ib_gid_v2,
+ 				  NULL, &ini->smcrv2)) {
++		if (ini->smcrv2.ib_dev_v2_ref)
++			smc_ibdev_put(ini->smcrv2.ib_dev_v2);
++		smc_ibdev_get(ibdev);
+ 		ini->smcrv2.ib_dev_v2 = ibdev;
++		ini->smcrv2.ib_dev_v2_ref = true;
+ 		ini->smcrv2.ib_port_v2 = i;
+ 		return 0;
+ 	}
+-- 
+2.25.1
+
