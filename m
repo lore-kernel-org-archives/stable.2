@@ -1,171 +1,196 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
+Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch [109.224.244.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4516F2494D8;
-	Sun, 23 Aug 2026 13:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787491194; cv=pass; b=tbj2AxbduaW2z/jwW1QngVCB76dBifFUL0zZSLt2ImmCYyaaiQ/6+oWhp0NZhX++1B8VoCEPgcODvzzj8koKr7iKC9CUzRM1LYpP7r8o/WiYP7ybKgTDDqapGsjfhtO7K3Td9vIeGxn+ZSPQtLYgahCFZCVOcNjcKkv92E6jrUQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787491194; c=relaxed/simple;
-	bh=F77TIlrH5jg5omDfZ6mV7ngxrkDjIqT9xs0/aDx+oG8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Jr86UfB/G1nkCcY9zti88i0gOKBRIa4U4QWAYnoy0pEZfA/5AzJa72hWMdAIokOMJFt/E5+0guEPiK/2tPgjPjvHvroBJ3lrKVmce9rL44m+l5SzMuyxXg0Vpo1NC6MzSYliFRmoH4sNz/0PRGCL3jg48mMoWMaTK8H1xeZk28I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=oOM1N+cf; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=3tb96ryA; arc=pass smtp.client-ip=85.215.255.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF5D26B2DA;
+	Sun, 23 Aug 2026 13:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.24
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787491588; cv=none; b=mlB58FfBJCGoP9BbYuchTNvsk2sw1GafMDuArkmT1SnJZOoI9Y6CVPZLFG9NIIYoGQ234dq54r58V/x2wipLc5gH6u0ByO52qm1do5D3iNcoGcKLWPv/jECm1HzOVLwKxDXL3D6Ku9mk5btXnplckvAPd9hCH7NttBWVHrPVQws=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787491588; c=relaxed/simple;
+	bh=LLil3BNrOwS4oB/WO/7UZRwGmFvoxGfKyZC6rJ6cgiI=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=OWLh037WOPc1EFIH80WBqnt3xXSG40GSjxPc7K7m2vwrvA5l5IPIeRkU2EgrZX4xmhDjRNOPwciHr1likAN66pZYKKf17H3e49nFDNBN6N7G3QszhUQHaz6hhvXlpqTMr0rm70MJWpOqmPFVBzMvC+a9+hkhsBOFWUMxb63X9Es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=GuVTYcX1; arc=none smtp.client-ip=109.224.244.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="oOM1N+cf";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="3tb96ryA"
-ARC-Seal: i=1; a=rsa-sha256; t=1787491156; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=hvlkDMLjA/M0zPOn32U043+j1tFE14nKERob1IkX2lE78gVER5EtImXC4xeRQrAriE
-    f7OhycjoG9Dj3E8gUlM3IwzGbQhIQNcYdRrKtg7RSO47yqqTUumX4N4tPIQnlp+pq22+
-    K8m7ULvflbttb6SLejxIdXkL/PBm1p9iAmb9294+42f4dRY75Nv1CL1ik1oH8oWBw0vX
-    7M9393ICFiwfJlLCKRKbuRAIfGnanq2LyXNb8tIzfHVb7Pt8zoZhLPSCL1QHbccP9pVo
-    L5j0asQ0PAsmXiLZGqNH+I8ekUBya78bP0G41vm3o+fYv7h8fSZNCUmoWfA/VCLYXHVT
-    zMXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787491156;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=cZZjI4eLpLnix7X9ZVP8dmFoM/H1s5Z0L0LHnAMxqQk=;
-    b=gFbFYns5YhpMeig95/vAADWwQnq2OKJ79VMumsoDGmDHyIP9TmN4yJIEqkOqqXGAIi
-    Aij3i1f6fkgVVPsB+kzX0pYKeHsDjyH5MA3Jcfft+C63SNZry8gMnThcuXXDoAr/otBr
-    7GEjZhI6lxOo2nkvUKJ2miqCgayCHe24zlnbkGc5Ic7v0aSpiqn7Eq4hHPomIAbvLxnW
-    qoFGhG8FVF6KHYo0IJawQk4NwXCGXS3hVObwKVkJYm8m0hz9LW5WgAmAujrOhPiPDHAI
-    4C+ejNFT1yZey1mTkhjym4tdylED2dlD08s2QdLhanXDHaaQp2bSyMNs2NaEYuurfHWo
-    Hs4w==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787491156;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=cZZjI4eLpLnix7X9ZVP8dmFoM/H1s5Z0L0LHnAMxqQk=;
-    b=oOM1N+cfKuIoblEiiaHQs26eSMYiawgIE9yKLeIo+svehR53E7qZaaybtyeEhShuX3
-    TbtT6fgiwrr4MWcBDdgvZDekncdq0DqlQ/xFP4AfbZbLS/7ZEfsUVxkt/S81riWW8Wxb
-    utF3ND4R8AietOgj9duTtACA74bxR3GSmivnU0GCOzXoOZ0dUDhEgPz8wY7mPvnooDS4
-    BlSzOmMOf+i5TBflmeQiXytaGxVAfJBV956uLJUa8GlvTzsqn3eSdDTx539q7SjL9NE8
-    DX8AdQVLXe4ii2hxj5bzvJzDjwzw/FQWsqJ2S6ojuCbJxs8caHl+39ZMCYRN+o9a2hiI
-    FSYA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787491156;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=cZZjI4eLpLnix7X9ZVP8dmFoM/H1s5Z0L0LHnAMxqQk=;
-    b=3tb96ryALPZJyXYTlbHJHzY3wOMdrgX3suIzTV6vhB6F4wqxGW4NF5b/0kBUmpKWb7
-    VLWGpCdLiTRHc7SDDsDQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25oKnciHHK5OAyYE8yLD5e6WBWpu+g6xSmk="
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id Qfefb327NDJEX8V
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 23 Aug 2026 15:19:14 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Paul Cercueil <paul@crapouillou.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: linux-mips@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	wbx@openadk.org,
-	kernel@pyra-handheld.com,
-	"H. Nikolaus Schaller" <hns@goldelico.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/ingenic: fix bridge allocation
-Date: Sun, 23 Aug 2026 15:19:06 +0200
-Message-ID: <5db9a2ad762f1515431fff714fc7d6d93363ccb2.1787491144.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="GuVTYcX1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=s6ujjyzbpzcbdbrf3uxbov4fcq.protonmail; t=1787491576; x=1787750776;
+	bh=YJeSJxmCxXY6wg5YkJ7iwTOO+NmlAZCtpTdM7AlaSH0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=GuVTYcX19akfodFHVV5Aj+NxxZ7WptFBorOyrkViSXw6Ojxp+D9H5VJUfYIrJegOu
+	 rxZzCsjdsUGbIFAnShjDulyYcPGerMFuWA5D+XToIwM8Y7PUokQAbi547TO9O4jaoy
+	 OzKtQ53NsXrFwb3WAyEap3AlZ5S6whbZ/BaayroGTqhp0ykrsiy4NdbZwwIARhuoNA
+	 /qboijB1bs4MzMvwUoX+aFstfHwBfMxG0gHYpSL0eg9aptCjU4lverSfGR5mWJUEpe
+	 ekXK6K12JqPZ1/nuWOY6iFnQlvnmnqJ9QKDIZVtdLNP4OByLjFjSjhsUtvTOFJj7/5
+	 Zi50O83g2yBVw==
+Date: Sun, 23 Aug 2026 13:26:09 +0000
+To: "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>, "arnd@arndb.de" <arnd@arndb.de>, "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: nirbhayykumarr@proton.me
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "w@1wt.eu" <w@1wt.eu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: [PATCH] misc: mei: fix race condition between client teardown and read completion
+Message-ID: <mFnbLgz6MmxRv7Vo5F8dRB1xDjHWEORPoX9BEIpeevk-ptyMfVaw-WDBSZq-4i4g8eR2HpVF9QNvtbxRcAxJE621Ji2caOLa-9xmEMmpIiw=@proton.me>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: 5fda7c15271162e9122b5e4aad4c05ef3f1e87fc
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/mixed;
+ boundary="b1=_6aGEWYnXA4YCd2X7XBB112FT7dVczYYh6hc0pQUw5g"
 
-Bridge allocation API has changed and ingenic/drm was broken
-leading to
+--b1=_6aGEWYnXA4YCd2X7XBB112FT7dVczYYh6hc0pQUw5g
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
-[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
-[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
-[   55.904136] ------------[ cut here ]------------
-[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
-[   55.917538] refcount_t: addition on 0; use-after-free.
-...
-[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
-...
+In mei_release(), a host client is torn down upon close(). During this
+teardown sequence, mei_cl_disconnect() is invoked, which releases
+dev->device_lock while waiting for the firmware response.
 
-Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
-Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-Cc: Waldemar Brodkorb <wbx@openadk.org>
+If an in-flight read request was previously submitted, an incoming
+completion interrupt processed concurrently by the MEI interrupt
+handler can add a completed callback into cl->rd_completed via
+mei_cl_add_rd_completed().
+
+Because mei_cl_flush_queues(cl, NULL) was invoked before mei_cl_unlink(cl),
+an incoming completion callback can slip into cl->rd_completed after the
+flush has completed but before the client is unlinked from dev->file_list.
+When mei_cl_unlink() is subsequently called, the invariant check at
+drivers/misc/mei/client.c:698 triggers:
+
+  WARN_ON(!list_empty(&cl->rd_completed) ||
+          !list_empty(&cl->rd_pending) ||
+          !list_empty(&cl->link));
+
+Call trace:
+  WARNING: CPU: 2 PID: 5056 at drivers/misc/mei/client.c:698 mei_cl_unlink+=
+0xaa/0x140 [mei]
+  RIP: 0010:mei_cl_unlink+0xaa/0x140 [mei]
+  Call Trace:
+   <TASK>
+   mei_release+0x202/0x270 [mei]
+   __fput+0x105/0x2e0
+   __x64_sys_close+0x90/0x140
+   do_syscall_64+0xaa/0x660
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+
+Immediately following mei_cl_unlink(), mei_release() calls kfree(cl).
+If any remaining or deferred callback references the freed client, a
+use-after-free occurs.
+
+Fix this by flushing queues after unlinking the client from dev->file_list
+inside mei_cl_unlink(), preventing concurrent IRQ completions from
+populating the client's completed queue during teardown.
+
+Reported-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
+Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
 Cc: stable@vger.kernel.org
 ---
+Thanks to Willy Tarreau and Greg Kroah-Hartman for their review and guidanc=
+e
+on the initial report.
 
-Notes:
-    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
-        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
+Note: Sent via webmail; I have also attached the raw .patch file as a backu=
+p
+in case webmail clients introduce any subtle whitespace wrapping.
 
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ drivers/misc/mei/client.c | 2 ++
+ drivers/misc/mei/main.c   | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 42c86f195c66b3..fb78bdef8ec9e8 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -122,7 +122,7 @@ struct ingenic_drm {
- 
- struct ingenic_drm_bridge {
- 	struct drm_encoder encoder;
--	struct drm_bridge bridge, *next_bridge;
-+	struct drm_bridge *bridge, *next_bridge;
- 
- 	struct drm_bus_cfg bus_cfg;
- };
-@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
- 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
- 
- 	return drm_bridge_attach(encoder, ib->next_bridge,
--				 &ib->bridge, flags);
-+				 bridge, flags);
- }
- 
- static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
-@@ -1314,10 +1314,26 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 
- 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
- 
--		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
-+		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
-+						   base, &ingenic_drm_bridge_funcs);
-+		if (IS_ERR(ib->bridge)) {
-+			ret = PTR_ERR(ib->bridge);
-+			goto err_drvdata;
-+		}
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 643b003..38b5792 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -695,6 +695,8 @@ int mei_cl_unlink(struct mei_cl *cl)
+ =09cl->state =3D MEI_FILE_UNINITIALIZED;
+ =09cl->writing_state =3D MEI_IDLE;
+=20
++=09mei_cl_flush_queues(cl, NULL);
 +
-+		ib->bridge->of_node = priv->dev->of_node;
- 		ib->next_bridge = bridge;
- 
- 		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
-+		ib->bridge->interlace_allowed = true;
-+
-+		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
-+		if (ret) {
-+			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
-+			goto err_drvdata;
-+		}
-+
-+		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
- 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret) {
- 			dev_err(dev, "Unable to attach bridge\n");
--- 
+ =09WARN_ON(!list_empty(&cl->rd_completed) ||
+ =09=09!list_empty(&cl->rd_pending) ||
+ =09=09!list_empty(&cl->link));
+diff --git a/drivers/misc/mei/main.c b/drivers/misc/mei/main.c
+index 4fbf0b3..9e14ab4 100644
+--- a/drivers/misc/mei/main.c
++++ b/drivers/misc/mei/main.c
+@@ -148,7 +148,6 @@ static int mei_release(struct inode *inode, struct file=
+ *file)
+ =09=09goto out;
+ =09}
+=20
+-=09mei_cl_flush_queues(cl, NULL);
+ =09cl_dbg(dev, cl, "removing\n");
+=20
+ =09mei_cl_unlink(cl);
+--=20
 2.55.0
+--b1=_6aGEWYnXA4YCd2X7XBB112FT7dVczYYh6hc0pQUw5g
+Content-Type: text/x-patch; name=0001-misc-mei-fix-race-condition-between-client-teardown.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=0001-misc-mei-fix-race-condition-between-client-teardown.patch
+
+RnJvbSAwYzg2ZTk2Nzk5NmU0OWNmNjgxOGI2NDNlNDFkZmY2NjUwNGM3ZjA3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBOaXJiaGF5IEt1bWFyIDxuaXJiaGF5eWt1bWFyckBwcm90b24u
+bWU+CkRhdGU6IFN1biwgMjMgQXVnIDIwMjYgMTg6Mzc6NTMgKzA1MzAKU3ViamVjdDogW1BBVENI
+XSBtaXNjOiBtZWk6IGZpeCByYWNlIGNvbmRpdGlvbiBiZXR3ZWVuIGNsaWVudCB0ZWFyZG93biBh
+bmQKIHJlYWQgY29tcGxldGlvbgoKSW4gbWVpX3JlbGVhc2UoKSwgYSBob3N0IGNsaWVudCBpcyB0
+b3JuIGRvd24gdXBvbiBjbG9zZSgpLiBEdXJpbmcgdGhpcwp0ZWFyZG93biBzZXF1ZW5jZSwgbWVp
+X2NsX2Rpc2Nvbm5lY3QoKSBpcyBpbnZva2VkLCB3aGljaCByZWxlYXNlcwpkZXYtPmRldmljZV9s
+b2NrIHdoaWxlIHdhaXRpbmcgZm9yIHRoZSBmaXJtd2FyZSByZXNwb25zZS4KCklmIGFuIGluLWZs
+aWdodCByZWFkIHJlcXVlc3Qgd2FzIHByZXZpb3VzbHkgc3VibWl0dGVkLCBhbiBpbmNvbWluZwpj
+b21wbGV0aW9uIGludGVycnVwdCBwcm9jZXNzZWQgY29uY3VycmVudGx5IGJ5IHRoZSBNRUkgaW50
+ZXJydXB0CmhhbmRsZXIgY2FuIGFkZCBhIGNvbXBsZXRlZCBjYWxsYmFjayBpbnRvIGNsLT5yZF9j
+b21wbGV0ZWQgdmlhCm1laV9jbF9hZGRfcmRfY29tcGxldGVkKCkuCgpCZWNhdXNlIG1laV9jbF9m
+bHVzaF9xdWV1ZXMoY2wsIE5VTEwpIHdhcyBpbnZva2VkIGJlZm9yZSBtZWlfY2xfdW5saW5rKGNs
+KSwKYW4gaW5jb21pbmcgY29tcGxldGlvbiBjYWxsYmFjayBjYW4gc2xpcCBpbnRvIGNsLT5yZF9j
+b21wbGV0ZWQgYWZ0ZXIgdGhlCmZsdXNoIGhhcyBjb21wbGV0ZWQgYnV0IGJlZm9yZSB0aGUgY2xp
+ZW50IGlzIHVubGlua2VkIGZyb20gZGV2LT5maWxlX2xpc3QuCldoZW4gbWVpX2NsX3VubGluaygp
+IGlzIHN1YnNlcXVlbnRseSBjYWxsZWQsIHRoZSBpbnZhcmlhbnQgY2hlY2sgYXQKZHJpdmVycy9t
+aXNjL21laS9jbGllbnQuYzo2OTggdHJpZ2dlcnM6CgogIFdBUk5fT04oIWxpc3RfZW1wdHkoJmNs
+LT5yZF9jb21wbGV0ZWQpIHx8CiAgICAgICAgICAhbGlzdF9lbXB0eSgmY2wtPnJkX3BlbmRpbmcp
+IHx8CiAgICAgICAgICAhbGlzdF9lbXB0eSgmY2wtPmxpbmspKTsKCkNhbGwgdHJhY2U6CiAgV0FS
+TklORzogQ1BVOiAyIFBJRDogNTA1NiBhdCBkcml2ZXJzL21pc2MvbWVpL2NsaWVudC5jOjY5OCBt
+ZWlfY2xfdW5saW5rKzB4YWEvMHgxNDAgW21laV0KICBSSVA6IDAwMTA6bWVpX2NsX3VubGluaysw
+eGFhLzB4MTQwIFttZWldCiAgQ2FsbCBUcmFjZToKICAgPFRBU0s+CiAgIG1laV9yZWxlYXNlKzB4
+MjAyLzB4MjcwIFttZWldCiAgIF9fZnB1dCsweDEwNS8weDJlMAogICBfX3g2NF9zeXNfY2xvc2Ur
+MHg5MC8weDE0MAogICBkb19zeXNjYWxsXzY0KzB4YWEvMHg2NjAKICAgZW50cnlfU1lTQ0FMTF82
+NF9hZnRlcl9od2ZyYW1lKzB4NzcvMHg3ZgogICA8L1RBU0s+CgpJbW1lZGlhdGVseSBmb2xsb3dp
+bmcgbWVpX2NsX3VubGluaygpLCBtZWlfcmVsZWFzZSgpIGNhbGxzIGtmcmVlKGNsKS4KSWYgYW55
+IHJlbWFpbmluZyBvciBkZWZlcnJlZCBjYWxsYmFjayByZWZlcmVuY2VzIHRoZSBmcmVlZCBjbGll
+bnQsIGEKdXNlLWFmdGVyLWZyZWUgb2NjdXJzLgoKRml4IHRoaXMgYnkgZmx1c2hpbmcgcXVldWVz
+IGFmdGVyIHVubGlua2luZyB0aGUgY2xpZW50IGZyb20gZGV2LT5maWxlX2xpc3QKaW5zaWRlIG1l
+aV9jbF91bmxpbmsoKSwgcHJldmVudGluZyBjb25jdXJyZW50IElSUSBjb21wbGV0aW9ucyBmcm9t
+CnBvcHVsYXRpbmcgdGhlIGNsaWVudCdzIGNvbXBsZXRlZCBxdWV1ZSBkdXJpbmcgdGVhcmRvd24u
+CgpSZXBvcnRlZC1ieTogTmlyYmhheSBLdW1hciA8bmlyYmhheXlrdW1hcnJAcHJvdG9uLm1lPgpT
+aWduZWQtb2ZmLWJ5OiBOaXJiaGF5IEt1bWFyIDxuaXJiaGF5eWt1bWFyckBwcm90b24ubWU+CkNj
+OiBzdGFibGVAdmdlci5rZXJuZWwub3JnCi0tLQpUaGFua3MgdG8gV2lsbHkgVGFycmVhdSBhbmQg
+R3JlZyBLcm9haC1IYXJ0bWFuIGZvciB0aGVpciByZXZpZXcgYW5kIGd1aWRhbmNlCm9uIHRoZSBp
+bml0aWFsIHJlcG9ydC4KCk5vdGU6IFNlbnQgdmlhIHdlYm1haWw7IEkgaGF2ZSBhbHNvIGF0dGFj
+aGVkIHRoZSByYXcgLnBhdGNoIGZpbGUgYXMgYSBiYWNrdXAKaW4gY2FzZSB3ZWJtYWlsIGNsaWVu
+dHMgaW50cm9kdWNlIGFueSBzdWJ0bGUgd2hpdGVzcGFjZSB3cmFwcGluZy4KCiBkcml2ZXJzL21p
+c2MvbWVpL2NsaWVudC5jIHwgMiArKwogZHJpdmVycy9taXNjL21laS9tYWluLmMgICB8IDEgLQog
+MiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL21pc2MvbWVpL2NsaWVudC5jIGIvZHJpdmVycy9taXNjL21laS9jbGllbnQu
+YwppbmRleCA2NDNiMDAzLi4zOGI1NzkyIDEwMDY0NAotLS0gYS9kcml2ZXJzL21pc2MvbWVpL2Ns
+aWVudC5jCisrKyBiL2RyaXZlcnMvbWlzYy9tZWkvY2xpZW50LmMKQEAgLTY5NSw2ICs2OTUsOCBA
+QCBpbnQgbWVpX2NsX3VubGluayhzdHJ1Y3QgbWVpX2NsICpjbCkKIAljbC0+c3RhdGUgPSBNRUlf
+RklMRV9VTklOSVRJQUxJWkVEOwogCWNsLT53cml0aW5nX3N0YXRlID0gTUVJX0lETEU7CiAKKwlt
+ZWlfY2xfZmx1c2hfcXVldWVzKGNsLCBOVUxMKTsKKwogCVdBUk5fT04oIWxpc3RfZW1wdHkoJmNs
+LT5yZF9jb21wbGV0ZWQpIHx8CiAJCSFsaXN0X2VtcHR5KCZjbC0+cmRfcGVuZGluZykgfHwKIAkJ
+IWxpc3RfZW1wdHkoJmNsLT5saW5rKSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL21pc2MvbWVpL21h
+aW4uYyBiL2RyaXZlcnMvbWlzYy9tZWkvbWFpbi5jCmluZGV4IDRmYmYwYjMuLjllMTRhYjQgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvbWlzYy9tZWkvbWFpbi5jCisrKyBiL2RyaXZlcnMvbWlzYy9tZWkv
+bWFpbi5jCkBAIC0xNDgsNyArMTQ4LDYgQEAgc3RhdGljIGludCBtZWlfcmVsZWFzZShzdHJ1Y3Qg
+aW5vZGUgKmlub2RlLCBzdHJ1Y3QgZmlsZSAqZmlsZSkKIAkJZ290byBvdXQ7CiAJfQogCi0JbWVp
+X2NsX2ZsdXNoX3F1ZXVlcyhjbCwgTlVMTCk7CiAJY2xfZGJnKGRldiwgY2wsICJyZW1vdmluZ1xu
+Iik7CiAKIAltZWlfY2xfdW5saW5rKGNsKTsKLS0gCjIuNTUuMA==
+
+--b1=_6aGEWYnXA4YCd2X7XBB112FT7dVczYYh6hc0pQUw5g--
 
