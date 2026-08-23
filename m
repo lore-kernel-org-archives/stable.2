@@ -1,144 +1,124 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4708133F383
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 16:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787503249; cv=pass; b=ChB7voJYYLxIPDq3V0FmsubhP9pa6fW82qieYtJss3ne5EKk+mTSEF3/boTxNxlhIs8KyYHUgPtMdUD6tDbP3jI8XQHyvkvnrG1neKlBsD8gtuHyPniZMTJkZjp3TM1jaMN9ca37WEsMxekHL1Q3YY/NLr5qf/mQhLwI5+bscyw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787503249; c=relaxed/simple;
-	bh=2qrJ07HmFhMiDarJWqhbEJyNsikA2+xhGbEddsDBpHk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L697GcdILahpajlcgjCmCqDLtu/grlJTU9/vhWK7aKoZfyO1EKWO4GezmkU4/uqx9bCiezZbcCnT8umXHfuAO/paU+sy9SWovyvKa04Kk3VRKO5hB0KdDOG+qq2RftEHRSZK6UW+deMx+BqVqfm1kq+Y6sBSVpeT6qkilApHpUw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AMdamEA6; arc=pass smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FF33346BE
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787504733; cv=none; b=plusiNygIVCVPiq5jm+Menu3al9NEOX/EgIWyEXpVZLXskDNae+pmu+tU6kIZzdOxafNxlmXQQHmqT3C5YGBkhVEScW1BqpB/VbeF2SomtM96eNgP0saSz4IKqLj8CcDTJn0mewiZUBq/E27cRq3RYRnmJpDKYhIoL4a4/sGmHc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787504733; c=relaxed/simple;
+	bh=tZ3kOiXAkP3ZajzR9DGtBNJIg33EF2ByFAZEw7fsQVU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y/jgUJzNNomui+iOLFvc54Sztfsw214Q+5mBtNJKoh1K9lEh5tuPs4qL2KcW20/EzJdUTSQ7TIu1XBF2ottp6dT66++zWk4hT1d7cvFco1rcDCUdBWqxq7JVoCfTXDc9tYmPL4Vb+UrUmyCzoEz2Ta/6TSy6iANoHZbWZkWQGnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IMBzUQdt; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AMdamEA6"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1676648c1eso13833766b.0
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 09:40:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787503244; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ntUtWGNXYGyFQQWv3MgvgiM+80nEHg2lHJCy7YTbwZnq2rklTMKHSBFYAlWLywF1W4
-         iWNYnzx9IMkuInCriOlNpb34AS7dbHFCyCGn/UZynBNGFisJ48m6D9IGFm/gK1jnbxVr
-         8iY/6zhLZVDLwsW00niG2jf0uFSy5/iLuy72QnNIKjPKq6c0AIoyPedC5hDx2OpTK8fO
-         A4ZTAWd2KCQKN8AJFsOhf7WFp7bRVk9yw8w3kXzsoAB/l/sjvFvbJExRDdnoFeIE6uV7
-         YvvsgdxagGyLU2vPnR6RXQdfK7Ym4u0vLVgRPvsuwZVnHLoNDdE8hFa3g85sV2PgbCUG
-         /Q3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m/sDxPalhg584dD1gtugx9nNfFRP6hf2NhTD5B4YszU=;
-        fh=rzC1ZcxhnsCuYS7fMlJ9favGI340JV5pxnNwKirFXvY=;
-        b=HCE7+frYUJwrhilrkbj6tCLezyybV+lmDyqVS3JsHw/vMU0u5uVEzRlDmeZeIMqyfB
-         3wXSGpR1F+GFcT2QF1Iuf84FVAE5BsFfRbjkz7hqrW6TsDFMD0/TthDNyBZkjzyE9RQD
-         XlqHdlhdFoKVyaftRF6VAEGWbgFDVOGPDHmhWc3JRRsK4HdwDbPL/EFfEzqWzjAmNjMw
-         s1vmu6FUoAbVnKZ2adz51hO/PisdSmO6w9tp1gX1PFY89L5GqJr2ZSXDIKgcM0yGma01
-         YWN4Xi4yieLNR6lcaCH3Bq1LX1TixLSwYoR0JDvXaCmOueMZewOzWfiUzN1KQkbNhjkQ
-         754A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IMBzUQdt"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc61541f8cso38755005ad.0
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:05:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787503244; x=1788108044; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1787504729; x=1788109529; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=m/sDxPalhg584dD1gtugx9nNfFRP6hf2NhTD5B4YszU=;
-        b=AMdamEA67Y2pefFwgzzT1EqkPGd0eUCauP2Ytvmu2kR3FE0W413s/JHoqavNimSNZD
-         NcuTIy0XImGP5o16PxCuT+bhCdyOxanR9OaWZyct2NOmJpQYKaNXL4MT84aIw5rgVElP
-         ioBR+1IAA7f8bwpEnOlWrgrQmVaWIko5hSZmEMR/6Wuha96S4DdSzy/nSxdGuX81UvaM
-         vtKT72LEuj0yl8ifX6EQMecUMlgXR5yH2d0nytp3Loc7NNpU1w8ZUwdJGsEpzLyKbC9z
-         EXJZQqWlmQ5CQpcJOLxrxNOnLgSWdd+31gwthJAUFVSwsnOgcdQoPtYtOKXN5kf+nB8V
-         nc/w==
+        bh=pYrUZlO7IqIkRYhROYYB/AOAuFYaRX4X5UCYzj5mFMc=;
+        b=IMBzUQdtLJ+6V/GO1zZOcwtv+iGs3xmZT8AZUqYbjDExUonMHcjuWfklNcJecR2BCg
+         Jd1KnLrhRjGmE+PslLtYNI9i/yra8VGUFzc31aF2fSJjqm1Jj+Si3ZK8EGf5PNuPFfWM
+         MGsw2hRPyLol20NDBQXIN8SvBl//QMbW0eoBmB+DuuS91oQk9iqgQ/o6ys3D2a+6NMUz
+         1lqtYjVpW17z5oWqM+F+EIS1ofXj1n6fPH4HnZcha8MApRnVavJ9G7YroDQfL1Q3WD/G
+         Xfs+Wo1E4fE3vaZsQ/ng3CLyqZeSDuiqHyTBSZ1aeJrZNvIpGZPHcz46V6jT8i71BXUH
+         e1ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787503244; x=1788108044;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787504729; x=1788109529;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m/sDxPalhg584dD1gtugx9nNfFRP6hf2NhTD5B4YszU=;
-        b=UORtG1h4FqyA4Cw867PkXtmyi8SzqCPYGK2CRDJXXJzHhJ2beu1oe+kRN1h2I3SmV8
-         wz5Tg4E3vQRD/pdfeziEBw9sTWd3Z7tWO6eivy7gjSeeS2xR3Hj+zJmmDrlzviz7Awc0
-         rdndqZJWZ0FRNYmDGoZ1jMG19I2L/FbmuYBiBenGd7l+Yh3G0/Dvd+gWQvmiOW6JVfVz
-         q1Y0lcJhUL2m4xfD7vaXlJ2vHz8graiKUjUw4fMaAFFP2b3WFQSUEJhEZs5qSQtLODCu
-         xtwzICVSmlM0XCqheu3XSZE9nivnY6OJJZe7sZZrN2up126uOSTg88knbjiRfDmwhJI+
-         Tzew==
-X-Forwarded-Encrypted: i=1; AHgh+RpWoaluQpWnAu+49RhOFfGujd+sYOUc2GVRvwDwJ7UZzKbd/iLlkzmCtrhZQqfVplnq5xoI+wE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mctdUUtFE+h9LrdbcFDsJSrJtR+GGKpZg+v9xCqWomj960wdEm
-	mU8bt82/xPhXc84CVXy275TNH6n28koIQvySZoNqMUMYoCVkeROCZkfED9141lIxHxrYpcmxIKz
-	OprZBQWYMhrynE+ljW97IC5XP39KFmXM=
-X-Gm-Gg: AR+sD101UURJ3PTveS0uWCvxZW/j2JQ3czJ9jY0ZEvP7J36ec/E6G2hSnhyUp2itzUQ
-	r1cZrvPBZuI9N7LxIOVEkO226sSV7T/2PhXlLxp5VjcSIAmmz8ZCQrDILwQXTV6mAQCqHk5OT0p
-	/dtJF50iMO95QeI6dRwZyAdPX/iFmcmqZrJG19CqJIfdAmZhNKRFD1GzewRkAHNXDV6Xmtgj/Cx
-	W+JEWii1yfFMecHtGnXgd74GFUpQnqiLLzLrmmOflITtUHc7MjmE1Q9/1iC/rhq8bLQ/eTJGzh4
-	bibL/yG8IT338LiQ7sxv1jq9ZvvxYc/Gy9WoUmPUgMiR/RFI8LPkUFw6bpZrSaHVX1rXPSNCEqG
-	BP+2CQqGs
-X-Received: by 2002:a05:6402:450d:b0:6a1:f95b:8cfa with SMTP id
- 4fb4d7f45d1cf-6a42f1b47d8mr12742404a12.1.1787503243685; Sun, 23 Aug 2026
- 09:40:43 -0700 (PDT)
+        bh=pYrUZlO7IqIkRYhROYYB/AOAuFYaRX4X5UCYzj5mFMc=;
+        b=K9YJIbPd/Sx+bhYIEX72P5lOf7lk3ej26HFrpFMStTRSfavuHIW9cpPMrGgjvicah6
+         hxwL7dQjvlUqQV63OLqvPkTIDR3zZAFqSymW3LasukQxE5laFY25meYxus80/Yl37zkP
+         /r1p7hd2KD23yQd1LH4+i4RSZ0ZbLzta7ZZD53bUBXr57Vdldtzc6yBzXrGHP/IgPws5
+         6xyTM+LHoxrHfpAbXCYKyMA13sA0aTGOPBiLQhrnHG1f0Lht5d4dQPLprCv/8LPnPVDF
+         IWd8VzsVQoOcSKtdzF1RZudw87NOnml6KX7OU7NOrN5dM9d+Fc+MOHcdVYH4M2CO+RFn
+         t/4w==
+X-Forwarded-Encrypted: i=1; AHgh+RpAgPUvRyWOHdUNj4dmtsj0+GrPHIxynR5/PxpAuTc8bdSxRkatZ15zprH+aMj0rwj3WtylTzU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqce7+PUUpSqiCVM+nghxpFkZey7nbR1A9I2CrbK73i1d6C3+r
+	cPFl833eK8NZkM4eGWB1IbUtatYXxhe/2ovQYKDsTqgh1jsV2gqP+RVT
+X-Gm-Gg: AR+sD13NsDCAQV52wjdkRCX8ZrPfvVjvlzZPie2nQtvHyI/sy8cIwwLQrN3M7lP0Gq1
+	vLc0ywpjWlx/aN0/UGy1/l2gPYxPudYNFa+8CjMvT+uX7cc6jcefN7mrEj/Au79ZS7AC0wtogTi
+	apjvCGgbS6hrbhIrqj2wM+j6ipo9EXRN8/kw9hxvCOCSz3+KGK9oVDm2WYFv0rG+plHlra84mD4
+	MU7URybELhGN9eSSdOyqRutvS+OqZhzIZD3C/B8Rh0v8D2nRZlFVqvVMgUK9NIJT5MMkn0DbeY6
+	8F50Fhq++yGfCzRUzjOssbAmYLNAcDBkP0SsOggETso3HG5B3qj/dq51IESVtYhtDHeAMUHdQJr
+	4LZyZ+c8YYXfOyWvVdUzvcRkJvUnE2Q2aU/EoKjxH7vnahhBU4fQU0Ek3uqBC3Hz2+hyWSMN1yJ
+	N583Cz5kvw+cdUB19Ex4Gvn7PCiMluPeD/KMaIdnl/07o6Ggc0ERCoZRBeZvLmuRV+CazZ31P3R
+	tgDm3YxiUZi3vifjjZ8mf7ugOCB
+X-Received: by 2002:a17:903:b45:b0:2ce:a6a4:451b with SMTP id d9443c01a7336-2d61a183641mr202719365ad.11.1787504729357;
+        Sun, 23 Aug 2026 10:05:29 -0700 (PDT)
+Received: from localhost ([2409:40c4:35d:a0d7:1d3:cd30:d9bc:b5a9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d36f9sm26172029eec.16.2026.08.23.10.05.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Aug 2026 10:05:28 -0700 (PDT)
+Date: Sun, 23 Aug 2026 22:35:24 +0530
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>, 
+	Mathias Nyman <mathias.nyman@linux.intel.com>, linux-usb@vger.kernel.org, regressions@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mario Limonciello <mario.limonciello@amd.com>, Forest <forestix@gaga.casa>, 
+	Slavik Dev <developer.slavik@gmail.com>, Mathieu Fluhr <mathieu.fluhr@gmail.com>
+Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
+ triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
+ (bisected to aec11e5f9c45)
+Message-ID: <aoser8dLytrwqBC2@eggarch>
+References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
+ <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
+ <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
+ <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
+ <aosGtkE_diwVJJtB@eggarch>
+ <20260823174059.46fec036.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260822184658.3787672-1-nicoyip.dev@gmail.com> <aosW-q9G-rQlIXwu@strlen.de>
-In-Reply-To: <aosW-q9G-rQlIXwu@strlen.de>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Mon, 24 Aug 2026 00:40:32 +0800
-X-Gm-Features: AcwNN1U2ZcUxHGp8iN_ot6HPNtjh2GGRM3ivt46qhGCudofB78avg11NKAz3uLM
-Message-ID: <CAAo+4rU8b1H3NFBm_OHqmkr-086w2ZAzrWoFZYvbifBk+358rA@mail.gmail.com>
-Subject: Re: [PATCH] netfilter: nf_log: clear per-net loggers on unregister
-To: Florian Westphal <fw@strlen.de>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Gao feng <gaofeng@cn.fujitsu.com>, netfilter-devel@vger.kernel.org, 
-	coreteam@netfilter.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260823174059.46fec036.michal.pecio@gmail.com>
 
-On Sun, Aug 23, 2026 at 11:51=E2=80=AFPM Florian Westphal <fw@strlen.de> wr=
-ote:
->
-> Chengfeng Ye <nicoyip.dev@gmail.com> wrote:
-> > Logger backends unregister their per-network namespace operations befor=
-e
-> > unregistering their global logger. This leaves a window where a sysctl =
-or
-> > netlink writer can rebind a per-net logger after the old per-net
-> > selection was cleared, but before the global logger registration is
-> > removed.
-> >
-> > The race looks like this:
-> >
-> >   CPU 0                                 CPU 1
-> >   ----                                  ----
-> >   unregister_pernet_subsys()
-> >     nf_log_unset(net, logger)
-> >       net->nf.nf_loggers[pf] =3D NULL
-> >
-> >                                         lock nf_log_mutex
-> >                                         find logger in loggers[][]
-> >                                         net->nf.nf_loggers[pf] =3D logg=
-er
-> >                                         unlock nf_log_mutex
-> > Later, a sysctl read or nf_log_packet() reads net->nf.nf_loggers[pf]
-> > and dereferences the stale logger.
-> >
-> > nf_log_unregister() only removes the backend from the global logger
-> > table. It does not clear matching net->nf.nf_loggers[] entries that wer=
-e
-> > rebound by CPU 1 after per-net teardown. Once module unload completes,
-> > those per-net pointers can still reference static data from the unloade=
-d
-> > logger backend, and later readers can dereference freed module memory.
->
-> Why can't this be fixed by unregistering in reverse order?
+On Sun, Aug 23, 2026 at 05:40:59PM +0200, Michal Pecio wrote:
+> But I'm not sure what you mean by "1Hz stress loop" and why is slowing
+> down the suspend/resume cycles or moving suspend from close() call into
+> a work supposed to create problems?
+> 
+> I would naively think that doing things *too fast* is more likely to
+> trigger races and break the HW. The whole issue smells like a HW bug,
+USB2 roothubs still do 30 ms cycles and are harmless, only stretched SS
+ones kill the box. So if speed were the issue the faster ones would be
+dying first and pre regression kernels ran fine.
 
-Right, that would be much more clean, I will send the v2 right away.
+About 1Hz, adb scans the bus once a second,
+every open resumes the root hub and host controller out of D3 and close
+puts it back this existed before regression too but with 30 ms of
+close() and slept for rest of the second and now it keeps it
+in D0 well after close(), the suspend itself happening later from the
+delayed work, so this d3 - d0 - d3 trip of ~230ms repeats on
+each scan. That's the loop I meant.
 
-Best,
-Chengfeng
+> Can it not become a problem for external hubs, under other workloads?
+Possibly yes, but nobody reported that so I'd rather scope where the
+harm is proven.
+
+> Also, what if we connect a downstream SS hub to the root hub? Will this
+> not cause the root hub to stay awake for 200ms again? Problem is back?
+The root hub itself skips the hold since the check is on its own parent,
+but it will be kept awake anyway while the downstream hub or devices are
+in use which is normal activity based PM.
+If heavy polling behind a real hub ever causes trouble that's probably a
+xhci/platform level fix anyways since real hubs can't really just drop
+the hold.
+
+Regards,
+Lovekesh
