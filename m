@@ -1,175 +1,102 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C7D23EA84
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 17:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4D233D6FD;
+	Sun, 23 Aug 2026 17:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787504762; cv=none; b=CEOp85zib4h/ftEBY7NR+8UqmFZqujmXWrO1tH48ZboiP7ecfLsdCdEsezZBFL/LHkDekMMkTZ6ZQ4Kc9DOlrsrKJf4glCjHNjq9JU84ZvOZ83Q/crHTl0PKRd7tIaf/xA+M+U4FESEDyjs+Wwr9nStAQFvS6hqeV8Apf8l+1yk=
+	t=1787505082; cv=none; b=sWqX87V0PrDv1A6NxUnXjH5EGwXLLbbIDrAHe4+EPI8QyxvWnfDIEmQqelfgOT1gg718HfiPqa66JkN7uO9m02qqYqnUP8qLaeQ1xVfI8YSD3JE85gFheUCcOwVhQbZpHWmYKhVs97vfG6/JqyjEG57dRCad2Jaa7VHe5U01b9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787504762; c=relaxed/simple;
-	bh=MOSoskfPWCJYTRcElhbU7017zaNB/Jrp/HctCMM0yCU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kq721No4uHcvEZjvBs0u2WYUWis2V/5W4i1t/yQ9umb8JWC1F/Cl73JWzTnCRGr9PAWghCoeu+3BcISsXJVw9YEcnJRQyrauJptmvlxIJKxQYVqKOsu0a4ZPIZLtQG88dCgwsh7Kt/ljIcGqt5bBZ6jt/BFympbdeyMjpupBphs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jfE6OZiZ; arc=none smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787505082; c=relaxed/simple;
+	bh=7mX9PizEn4BZBFTfMs11ZtWUExKS+vK30Dasv8dMVI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NLQ8S9rnp79a/BAtlzs1v+z2DmvSkZ9tckFaD0cCzjsNkbQIMW+qc0D3Xf6CKkgvaS3zhkA5rwJI9XkK+mDr5C/8rdRAXIdhcUCFFBGMNBKrcJDsSOBID4lg9DqR6bjCdk/XpQM3u6ZJeOHI9AWMQOxpzp75rSlDtd6yWfBijA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jLFOPMAe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jfE6OZiZ"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66c70effc23so293647d50.1
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 10:05:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787504754; x=1788109554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=esjqTaDB5DT6wtV4Y9AzgjqpTCrwMQJOjGYCKVsLIlo=;
-        b=jfE6OZiZqfBaNW0nhyP/lZjc7Vog5R1/gxYLbRc13QdcVBI7eds/P9Pb5JpKM0zngZ
-         /3frcuK4JN0d1jA+BOqHB7fcUqsGngxxSre8z5e6OjZyydlAWnE4E2ygbVYSnAnYUKOn
-         S8Ft960HzFsHi64gLVrXkpGWcN6osyWlz2g5E3WmgvVwVeEilwBaXJtSCDpTIm2wp1H0
-         J8z7KF90hfu7q9M3M/v5zu4UzYivx8f/CMp8sB7jUGDCSxabchvfkpTyUZOOLUbRaQ69
-         FRs7kOiAyZWpmY40cE2ybtpDJ8oJLma6BKZucmO/wozU2lEQoQXQw4ZajemHcbuNHUEL
-         5wig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787504754; x=1788109554;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=esjqTaDB5DT6wtV4Y9AzgjqpTCrwMQJOjGYCKVsLIlo=;
-        b=Caa87gqOywP3JJleXKQ3WhpuUs1dflY22iDqxcfHImI5g1/mm4c3evVn1pfO2Bt/28
-         N+nJSIfnaLYuWShhvs2UkUqqqR79kkNJKi9BxYRbsVO+jTpsCnk04eIv9ZrXeGm/mURO
-         Wp0I0IZnF27u5fvuIPpV0RrgVIVYHjOE+w1I2W810l799yjA/ngfQy6pxVuya3U0xUBg
-         0ZD9+jO7NJhMiCpcy0KuI+Prc243iNXQm10gyhsiwBD5P68er3RyDjXT0WWrFOST5Bwa
-         x591KFdOxakch7RnV/r5KNbe7hFFjEeBl9DWUAH1+RipTiKXEwTIg5Dvb9gIwmoV4ItN
-         mxhg==
-X-Forwarded-Encrypted: i=1; AHgh+RqR36VEZdVDZuA00Ey8ZUpcxHQVXKBDb8Ow5qfoQsx3gAbOwlNeIsKuzkSV2/nQBZ0e1kZ2fqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3S3vjMlgpVPv+dMGSxJaP322O/U5WCJUwIw58sP6lqeOYj0yB
-	HpP1ovJSXfIguCRmijMb86BDLLXfGq09knILdYLP1bO++DeCW5/mTu9r
-X-Gm-Gg: AR+sD12SkfqCMTWGaZR3bUAx03laa2MTR6e58oPGfYYI3gmw+5ld1MUluwkSY7XEM1I
-	/stc54mXA+BrmFJcCgjUECo7r32I4VuLPMsjTu1X2x+VqkLZnnGOigtGC/K+Ujf2tt8L88n6RJx
-	iLqStDxahHSvDjunuV+mYr5ff+sciJe6EZm885++OcNeRmJEdbP16UDTo6QvftjUjzrH7sx4cj9
-	jLC3tOFJoc9lEaMJux4eEpfD3Tpcv6s5l/0ow76HT6z4GGkHaOtwJdqpV93kYnIt4WNaCO+74Kx
-	5/kZ6mk2umPu+1fORgA28bYGM/q9fpRJe1RiWG/Asun7fkVqX27hBHr312EhFrHEPC7FONRpHXn
-	DdvN4BJG7h3COhWqUesAn5OuHkr5T7kv90gWjh0ZTdETVGClzUTBCHi9oGKvFW1da+nNIDqdQ18
-	pJ4fc2kkUyUUgrkzxK+F91yeZjenSi5adi+jJtO5lsDVmf9ySugBJ4dy3+4TSkWWcQ7FQgrlmBu
-	aVwJRX6K9i7v6L1FxCdKue5HUCRGacR8KSoev+xPlDMJWHZvVvbO2Q=
-X-Received: by 2002:a05:690e:4849:b0:668:99ce:a033 with SMTP id 956f58d0204a3-66ce4a9b51fmr4978933d50.2.1787504753689;
-        Sun, 23 Aug 2026 10:05:53 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66cf4a2c3c2sm2333298d50.17.2026.08.23.10.05.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 10:05:52 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Gao feng <gaofeng@cn.fujitsu.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] netfilter: nf_log: unregister loggers before per-net teardown
-Date: Mon, 24 Aug 2026 01:05:38 +0800
-Message-ID: <20260823170538.3856770-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jLFOPMAe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135A91F000E9;
+	Sun, 23 Aug 2026 17:11:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787505074;
+	bh=Psn+UspIbe63v0GM9aBlRSuGV80cPOLwd7BYXzOO3QU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jLFOPMAeAmUaF+YbMOVS5KIhTkzD7zG3428o8nmOmF6e4PBbwlp/YQ/6x79QOT2Cm
+	 veCBvfm6t0YGADDGU6nSTqUiXSBdBNalsBf3BmgCZNXiaKO7vKxwzr9Wk1Z+VWecAh
+	 QTYjIAx4varUkVVicXZ0GPOZgLPq2Dbs5EuWJJ8U=
+Date: Sun, 23 Aug 2026 19:09:34 +0200
+From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+To: nirbhayykumarr@proton.me
+Cc: "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>,
+	"arnd@arndb.de" <arnd@arndb.de>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"w@1wt.eu" <w@1wt.eu>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] misc: mei: fix race condition between client teardown
+ and read completion
+Message-ID: <2026082330-saint-relearn-1244@gregkh>
+References: <mFnbLgz6MmxRv7Vo5F8dRB1xDjHWEORPoX9BEIpeevk-ptyMfVaw-WDBSZq-4i4g8eR2HpVF9QNvtbxRcAxJE621Ji2caOLa-9xmEMmpIiw=@proton.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <mFnbLgz6MmxRv7Vo5F8dRB1xDjHWEORPoX9BEIpeevk-ptyMfVaw-WDBSZq-4i4g8eR2HpVF9QNvtbxRcAxJE621Ji2caOLa-9xmEMmpIiw=@proton.me>
 
-nf_log_syslog and nfnetlink_log unregister their per-network namespace
-operations before unregistering their global logger backends. This
-leaves a window where a sysctl or netlink writer can rebind the still-
-registered logger after the per-net pre-exit callback cleared the old
-selection.
+On Sun, Aug 23, 2026 at 01:26:09PM +0000, nirbhayykumarr@proton.me wrote:
+> In mei_release(), a host client is torn down upon close(). During this
+> teardown sequence, mei_cl_disconnect() is invoked, which releases
+> dev->device_lock while waiting for the firmware response.
+> 
+> If an in-flight read request was previously submitted, an incoming
+> completion interrupt processed concurrently by the MEI interrupt
+> handler can add a completed callback into cl->rd_completed via
+> mei_cl_add_rd_completed().
+> 
+> Because mei_cl_flush_queues(cl, NULL) was invoked before mei_cl_unlink(cl),
+> an incoming completion callback can slip into cl->rd_completed after the
+> flush has completed but before the client is unlinked from dev->file_list.
+> When mei_cl_unlink() is subsequently called, the invariant check at
+> drivers/misc/mei/client.c:698 triggers:
+> 
+>   WARN_ON(!list_empty(&cl->rd_completed) ||
+>           !list_empty(&cl->rd_pending) ||
+>           !list_empty(&cl->link));
+> 
+> Call trace:
+>   WARNING: CPU: 2 PID: 5056 at drivers/misc/mei/client.c:698 mei_cl_unlink+0xaa/0x140 [mei]
+>   RIP: 0010:mei_cl_unlink+0xaa/0x140 [mei]
+>   Call Trace:
+>    <TASK>
+>    mei_release+0x202/0x270 [mei]
+>    __fput+0x105/0x2e0
+>    __x64_sys_close+0x90/0x140
+>    do_syscall_64+0xaa/0x660
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>    </TASK>
+> 
+> Immediately following mei_cl_unlink(), mei_release() calls kfree(cl).
+> If any remaining or deferred callback references the freed client, a
+> use-after-free occurs.
+> 
+> Fix this by flushing queues after unlinking the client from dev->file_list
+> inside mei_cl_unlink(), preventing concurrent IRQ completions from
+> populating the client's completed queue during teardown.
+> 
+> Reported-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
+> Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
 
-The race looks like this:
+No need for Reported-by as you authored and signed off on this.
 
-  CPU 0                                 CPU 1
-  ----                                  ----
-  unregister_pernet_subsys()
-    nf_log_unset(net, logger)
-      net->nf.nf_loggers[pf] = NULL
+And did you forget an Assisted-by: tag?
 
-                                        lock nf_log_mutex
-                                        find logger in loggers[][]
-                                        net->nf.nf_loggers[pf] = logger
-                                        unlock nf_log_mutex
+and what commit id does this fix?
 
-  nf_log_unregister(logger)
-    lock nf_log_mutex
-    loggers[pf][type] = NULL
-    unlock nf_log_mutex
-    synchronize_rcu()
-  module exit returns
-  module core frees backend memory
+Also, no need to attach this at all, just send it using git send-email
+as-is.
 
-Later, a sysctl read or packet logging operation can dereference the
-stale per-net logger pointer.
+thanks,
 
-Fix this by unregistering the global logger backends before tearing down
-per-net state. Once the global registrations are gone, later writers can
-no longer rebind the logger. unregister_pernet_subsys() already waits
-for an RCU grace period after the pre-exit callback clears the per-net
-selection, while nf_log_unregister() continues to cover readers of the
-global logger table.
-
-Apply this ordering fix to both nf_log backends that combine per-net
-teardown with global logger registration.
-
-Fixes: 5b023fc8d8e0 ("netfilter: enable per netns support for nf_loggers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v2:
-- Rework the fix around backend teardown ordering instead of clearing
-  per-net bindings from nf_log_unregister().
-- Apply the ordering fix to both nf_log_syslog and nfnetlink_log.
-- Drop the redundant trailing synchronize_rcu().
-
-Link: https://lore.kernel.org/netdev/20260822184658.3787672-1-nicoyip.dev@gmail.com/ [v1]
----
- net/netfilter/nf_log_syslog.c | 2 +-
- net/netfilter/nfnetlink_log.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/net/netfilter/nf_log_syslog.c b/net/netfilter/nf_log_syslog.c
---- a/net/netfilter/nf_log_syslog.c
-+++ b/net/netfilter/nf_log_syslog.c
-@@ -1073,12 +1073,12 @@
- 
- static void __exit nf_log_syslog_exit(void)
- {
--	unregister_pernet_subsys(&nf_log_syslog_net_ops);
- 	nf_log_unregister(&nf_ip_logger);
- 	nf_log_unregister(&nf_arp_logger);
- 	nf_log_unregister(&nf_ip6_logger);
- 	nf_log_unregister(&nf_netdev_logger);
- 	nf_log_unregister(&nf_bridge_logger);
-+	unregister_pernet_subsys(&nf_log_syslog_net_ops);
- }
- 
- module_init(nf_log_syslog_init);
-diff --git a/net/netfilter/nfnetlink_log.c b/net/netfilter/nfnetlink_log.c
---- a/net/netfilter/nfnetlink_log.c
-+++ b/net/netfilter/nfnetlink_log.c
-@@ -1233,8 +1233,8 @@
- {
- 	nfnetlink_subsys_unregister(&nfulnl_subsys);
- 	netlink_unregister_notifier(&nfulnl_rtnl_notifier);
--	unregister_pernet_subsys(&nfnl_log_net_ops);
- 	nf_log_unregister(&nfulnl_logger);
-+	unregister_pernet_subsys(&nfnl_log_net_ops);
- }
- 
- MODULE_DESCRIPTION("netfilter userspace logging");
--- 
-2.43.0
+greg k-h
