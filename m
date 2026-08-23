@@ -1,90 +1,90 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7624C1BD9C9
-	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 18:58:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF32E3A3E98
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 18:58:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787511521; cv=none; b=QxfX9Q4Z5U4bDETlQ6B3KfRmzijkuaaaSczEddS0OS3cjlIWyvTZHX3u/eDq8+UqV3638JsF5/5GcMH7pr6dFfNcPB613l9pQ5TDFgLrW4d0pHW04j08rC/T7bhvMP4PAhwW1muLaRVmyQ7gfD3j93WWp7TTmAzI1HlEh4s3NRk=
+	t=1787511523; cv=none; b=SkRONboYkuCsvKVuu0EwwVu9zLQ88GEWvB3upGJlO2jRvHwnXc5rTVGOVuecAW0F8vlMZp0SX4LBYOqLCNMWAV9cSE97275/jLNuCsRfhF44CFgmLq4R/LYbUVbQfH/dp4l/wPRIw1d4oMeA+X1+JQlP4ukHIpzr5MVFJQl4BYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787511521; c=relaxed/simple;
-	bh=cz//MR6BCZ92O7ntoCM5s9znOTvSVl5Y2EGxYEP/01o=;
+	s=arc-20240116; t=1787511523; c=relaxed/simple;
+	bh=ymkOB8UMUk5U/Tsy8K8fpcj6cIsBZ2uNEJoBCL7v9V4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JJlq4Q814Z0f9lrzQ5DraKGjG1N8KkIJTDU3iLtnEyvzMtrOowea14/ozi62Cu6zCAyQIvYT7mZdfJqOJGzwj1IsJmtYXxOMmEH2Nfr1zfd23wqevMmDNRnESBAjszpbo+FN6D2Z44f19od/CLXV3fY+iqC8DqnZzrt3NkuD3aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GkZdcJ41; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WGDn49wU; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=dg3NoeNlUI6geSq7tVek66KuueqyeuEfjeyFxW091tIm0O4PNYK9p4xkgou81Ch5Uygdj7G+YAbgJiy02OvX8ut9FXEUZMKEhubSdAcI3wNCZJJOf7kkL+t17TZW8sZNbWGdVW9icT2leE6ZwPnJLMkpmxIsdWDlwWrssXYk7k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UldmXxuh; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PwAQuhIp; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GkZdcJ41";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WGDn49wU"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UldmXxuh";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PwAQuhIp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787511519;
+	s=mimecast20190719; t=1787511520;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i+4uO3I8DglwSkcrqXQh9lvjjvP5CVMo2VnfzN++ifA=;
-	b=GkZdcJ412dV65w3War7FP+AasrFRjUmf6ZYRbxTdBG69Oi2glMHTWZwNkhL5x+kDhvSUrz
-	3hhN46bKKa9SYBmTfy3dtnjLJSZKl/DBRW77kRUCWhDN8U5T9cHTloQL8ndlFWmOwAS7zi
-	MA8B4Vc1KbY6T1SQRtEBTBjRx/N+o5I=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=00oADfE3L0pXKHn0B52AvTIT7U/c7rXCUL5afdTYVxk=;
+	b=UldmXxuhSNOBoNOlsFysd2CCqZQMgMqY36DGJNlM3mSCQQZYZzvYD5U5Ma+dF+jIii80I2
+	Wps7J/w9T6obykAUrxZVTqwD1FuV3oGkF4OAHC5xKPkh0AdWQs+NVtcGgJZzKywARAMh0G
+	dE9JIsg7wpom1+DNUh7oOfo8m2PwE+8=
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-527-nTvk79xQOEybb7ucU9SlBg-1; Sun, 23 Aug 2026 14:58:37 -0400
-X-MC-Unique: nTvk79xQOEybb7ucU9SlBg-1
-X-Mimecast-MFC-AGG-ID: nTvk79xQOEybb7ucU9SlBg_1787511517
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7eb6a8c61deso2581791a34.3
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 11:58:37 -0700 (PDT)
+ us-mta-377-nyfR7MBwMi2wmbB9psimDw-1; Sun, 23 Aug 2026 14:58:39 -0400
+X-MC-Unique: nyfR7MBwMi2wmbB9psimDw-1
+X-Mimecast-MFC-AGG-ID: nyfR7MBwMi2wmbB9psimDw_1787511519
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e99ff505c2so5555342a34.1
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 11:58:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787511517; x=1788116317; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1787511519; x=1788116319; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i+4uO3I8DglwSkcrqXQh9lvjjvP5CVMo2VnfzN++ifA=;
-        b=WGDn49wUVAEapCiYneNwFWSXhtq4Kj5X5Gb8O/7wRjsvafspWKwwd3hUBEbyNOK34t
-         E+fanHUKujVTgXBxY+TafBcX/KFny6757MDZ9AgG7bCq+2NgxeOmtavE5PWMhY/84k7F
-         jVBOBcxfkWPek74wtlCoPyYFbsdmowLTF2suoxMD6b0IK3D+/DFIEdhQoZBTVbqyjNou
-         NL+//D3uqWjvYiHEJKVwqMG/ACGG3arh991JzPlFwfjDWFmK4ypd5KZHng+FgSONky7v
-         rxCkrslG0BW6nqb0gQV6w1Rul0jVW5iSMXe8jAAjOoi3BmcJZHhh1VAQGhwwGmTfEnGU
-         M5bw==
+        bh=00oADfE3L0pXKHn0B52AvTIT7U/c7rXCUL5afdTYVxk=;
+        b=PwAQuhIpI9cK+r1OTqNBQmbUKM2BOoOThtTdTxphTYsIZGpWW7zPdYFLq8YwotVUYS
+         zQDXtR/vBpUTERQy8xR06nLa/eUtQ8JZv1GhJ7QT9Lxt6PCd6oByd1948BbqS4ynMDqu
+         qb51/CYt9+z3pqnW5wktMM6P/QiyW6K34F0AH6ZrFNbAaW3Vva1h4rmNuKU/2IZoySGe
+         KPrPt9RYJYreHaIPrNh9xTbUKuvDhl+Z/yPBxEH2J1LyM1oxrljEVZeujF3GwYf/Fn28
+         QKFIam7SROmHUBfGN1XFum9T9f1wkXPPBqgkAD6S+STB82YZJ8ufawpIVkwcimbAb1Lq
+         y/Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787511517; x=1788116317;
+        d=1e100.net; s=20251104; t=1787511519; x=1788116319;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i+4uO3I8DglwSkcrqXQh9lvjjvP5CVMo2VnfzN++ifA=;
-        b=CNGlUYhFTZw5XGxzc8+OPZwnuvQKm3OAbaIL9mWoejHQEuXJFrN09QLhC9fmkxeZQV
-         Vg1LRRV5j5hHrtuu/boqNdzYh2G7SzZJwQd/2OOiuwhd+uOVXIESycC38R/aqa6cmNIu
-         xCMd3xZqdH+RUaywKnIb6VRIloGETYc2pvar+gm2n5kWq5qaegrJEfLtRQpROxxYGm3Z
-         ZtA+J37zeGTtMWR8eh8IiRR3AEJL9F3qFMWszNtFoD5VkXOFdXhnEbUDGbm28POlaE/t
-         zxyB6VW4UzYyCAcqPIhpicnTpt0KWL8znEyh35xTwob3VmJf4kd5vzUPwOB8Uy0ILfH6
-         Dq7g==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6TN600GyVYpkubLSbpzgcETSm4MAYILZb8gyPzZH3psAlgPSafr4ezZjYf20rvhJZi+SYH5w=@vger.kernel.org
-X-Gm-Message-State: AFuF++noKaRsz5wbwnoSNMMw5e0/YlRvZmSPYWhdWqJP41zBKn5hhdl2
-	KUvLTPgSxGFf2md8o2ER/GwvVwKIIODrJU5FPdNVO2E7w00TU7DFALBtlS2T+W3GfvPhe32WgNi
-	6a9EqM3au6phGKCbGxN3T3aMs6JPgbDhGh4i1/nRw1djzWB6pYSL7Nh+Jrg==
-X-Gm-Gg: AR+sD12s1Eiu/th9RynTutbp4zMyy5eUKjWV9mIjMEoICGW3dQgZ7/0+MUboniYGVI6
-	icxr+vzdQCkl7i8AnhZrruuS+/rurY1Ybd4/tKSs8Ys0MLdfGgfjrBvEC13aU9hIxMBn/XiiJFc
-	ZfjBRxUlg6Xp45qNM4t/zfxrKrn5UPfRRvfHpHzO4yEsPyUPcuxyst6AieMj3UJ7hx/usVbNKww
-	LaDuqF6swAlTb8p7sLz//XhzOKqITon48ggEo5Sw3XZ2tvLY8z/bO7zA8mhAawUcTKnVvsQMKgg
-	GAqW/xKsg0QX8kPclqJ5/wOJGQXMsbPTaLoGrz5A0xab7aaUBYrAAh07K1JZorO23ulZqHIBtxY
-	lITJV8c+aNMXfzD1f7ONWsaEfH5p0yRoAYA6cl2+g4CAD4ajPWw4Vsw5XDHN2OyDjHA==
-X-Received: by 2002:a05:6820:2d4a:b0:6b0:fcdd:2da7 with SMTP id 006d021491bc7-6b16b1f9ba0mr13644585eaf.7.1787511516890;
-        Sun, 23 Aug 2026 11:58:36 -0700 (PDT)
-X-Received: by 2002:a05:6820:2d4a:b0:6b0:fcdd:2da7 with SMTP id 006d021491bc7-6b16b1f9ba0mr13644560eaf.7.1787511516494;
-        Sun, 23 Aug 2026 11:58:36 -0700 (PDT)
+        bh=00oADfE3L0pXKHn0B52AvTIT7U/c7rXCUL5afdTYVxk=;
+        b=Sv47Yg8+ivKThfA9JxN8t30YH5N6er0jHburQvv0M2DOPAMJQVdZ/0CUg52vrHpRKz
+         /N72bQ2SmLvW5+4BQMHTovpUvhxUr5f0/txtrxVoziiO/Lgcq7Yvrcrl7BmpDE2UacfK
+         udAsSuGcN+3IoL01iNKt4oBh9Z6IbQfGXmBajIScDDflTjmez88N1oFGTXqUcwYjjBGM
+         X92ysHeJRqCDq+ghaOoJgAYsApyHVUNbpmQwJb2I5Q3Dv1XV02wuJBRrUvGIgztjNkMC
+         s4SwvsBhVr6Nqz0BOYE0XiW1DYCjLt5BQ15xa6OjNIgWPag2Ee+To3sfsMVIgOJClZ/r
+         08pQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqhkBYTcNPCDavWiv+6wQ3fDFWPp7cDpyTbQI6Hc2k/2uGDJ01BATSDIj/PYsn7rVQDtV4RCzw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwZnjn/uR+q1hETjcLfcJVKbDVTeiqcU7lICgsdfl7hYs90PX3
+	PIi7d6t6sZsIsvILRhrCM/fu3xVLB3mAeP34noB2wfa7NFVfJXcopTyTolUDIpM0KgdaYvRf35x
+	VdY9Ortu0KCa7nVg5jehQkgTP3OsZSVc4SNDIfpafXfaNIyYKIaUV/hOKpq2ZRuh+ow==
+X-Gm-Gg: AR+sD13XGaLQOjnmYM7M4vJLE5RUkBrRV3AVQfx+19aFXKVtix9zwDLUNAK9dzemXrM
+	m0U4hthANQKgRF2qJ9Rm7gluIo86HIcGMhWdykf+/lNasGXgIk1GgL2Z/7DMSEuXKfOCSZhdiYs
+	Bzm74APe2E8zxoWbhEDFPyyquCvX5oDjGZ/rYBm4unXU6KiivGHCPoPV51+hfwGn5mghNb+adqK
+	P4gCPH/LcDOfqDdv/oJ+oYHPgFbaOps7jAUTNHUXScrWMjf9Oomli7x9kfDlctUC+7Wt4mncsJV
+	0uuLPnlusfGobY1Y0E/oQIzmqfbAfyIQy5kTDkkuYmmgz6VYqil3OeFsyLC6BR9PnGFbYRMiecU
+	DJZA2y7FhoS1d458cgW+aiDtdzhHqIssSEhIHluj7kkb+tGN95jasdSHhumCQSBzJeg==
+X-Received: by 2002:a05:6830:3590:b0:7e7:76f:3ec0 with SMTP id 46e09a7af769-7f4615ccd5fmr25283740a34.15.1787511518679;
+        Sun, 23 Aug 2026 11:58:38 -0700 (PDT)
+X-Received: by 2002:a05:6830:3590:b0:7e7:76f:3ec0 with SMTP id 46e09a7af769-7f4615ccd5fmr25283718a34.15.1787511518292;
+        Sun, 23 Aug 2026 11:58:38 -0700 (PDT)
 Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f48fb1db63sm2518710a34.12.2026.08.23.11.58.35
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f48fb1db63sm2518710a34.12.2026.08.23.11.58.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 11:58:35 -0700 (PDT)
+        Sun, 23 Aug 2026 11:58:37 -0700 (PDT)
 From: Frank Sorenson <sorenson@redhat.com>
 To: linux-cifs@vger.kernel.org
 Cc: pc@manguebit.org,
 	linkinjeon@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 03/11] smb: client: fix server->total_read not tracking sub-PDU size in receive_encrypted_standard()
-Date: Sun, 23 Aug 2026 13:57:59 -0500
-Message-ID: <20260823185807.3115901-4-sorenson@redhat.com>
+Subject: [PATCH 04/11] smb: client: fix missing lower-bound check on DFS referral string offsets
+Date: Sun, 23 Aug 2026 13:58:00 -0500
+Message-ID: <20260823185807.3115901-5-sorenson@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260823185807.3115901-1-sorenson@redhat.com>
 References: <20260823185807.3115901-1-sorenson@redhat.com>
@@ -96,49 +96,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-receive_encrypted_standard() processes compound encrypted frames by
-iterating sub-PDUs, decrementing pdu_length by NextCommand on each
-hop but leaving server->total_read at the original full-frame size.
-cifs_handle_standard() passes server->total_read as len to
-smb2_check_message(), so every length guard in smb2_check_message()
-(smb2_rsp_struct_sizes[], smb2_min_pdu_len[]) operates on the
-full-frame size rather than the current sub-PDU.
+parse_dfs_referrals() checks DfsPathOffset and NetworkAddressOffset
+against the buffer end but not against sizeof(*ref).  An offset smaller
+than sizeof(struct dfs_referral_level_3) places the derived pointer
+inside the referral header, causing cifs_strndup_from_utf16() to read
+struct fields as string data.
 
-A malicious server can craft a compound encrypted frame where any
-non-last sub-PDU is shorter than the fixed response struct it
-declares.  The oversized len bypasses both guards, smb2_get_data_area_len()
-reads struct fields at offsets past the received data, and the
-data-area length arithmetic produces a spurious pointer into
-uninitialized slab content or the next sub-PDU, which a rogue server
-controls.
+Require each offset to be at least sizeof(*ref).
 
-At the top of each iteration, pdu_length is the full remaining
-compound tail (current sub-PDU + all subsequent ones), not the current
-sub-PDU alone.  For a non-last sub-PDU, server->total_read must be
-derived from next_cmd, not pdu_length.  Read next_cmd before assigning
-server->total_read, then use `next_cmd ? next_cmd : pdu_length` so
-that smb2_check_message() sees the actual per-sub-PDU extent on every
-pass through the loop.
-
-Fixes: b24df3e30cbf ("cifs: update receive_encrypted_standard to handle compounded responses")
+Fixes: 4ecce920e13a ("CIFS: move DFS response parsing out of SMB1 code")
 Cc: stable@vger.kernel.org
 Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 ---
- fs/smb/client/smb2ops.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/smb/client/misc.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index e75420dbe950..1bc3f8266eda 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -5248,6 +5248,7 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
- one_more:
- 	shdr = (struct smb2_hdr *)buf;
- 	next_cmd = le32_to_cpu(shdr->NextCommand);
-+	server->total_read = next_cmd ? next_cmd : pdu_length;
+diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
+index 46e1382e8e04..bc7cccebf387 100644
+--- a/fs/smb/client/misc.c
++++ b/fs/smb/client/misc.c
+@@ -787,7 +787,11 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
+ 		node->ref_flag = le16_to_cpu(ref->ReferralEntryFlags);
  
- 	if (*num_mids >= MAX_COMPOUND) {
- 		cifs_server_dbg(VFS, "too many PDUs in compound\n");
+ 		/* copy DfsPath */
+-		if (le16_to_cpu(ref->DfsPathOffset) > data_end - (char *)ref) {
++		if (le16_to_cpu(ref->DfsPathOffset) < sizeof(*ref) ||
++		    le16_to_cpu(ref->DfsPathOffset) > data_end - (char *)ref) {
++			cifs_dbg(VFS, "%s: DfsPathOffset %u out of range [%zu, %td]\n",
++				 __func__, le16_to_cpu(ref->DfsPathOffset),
++				 sizeof(*ref), data_end - (char *)ref);
+ 			rc = -EINVAL;
+ 			goto parse_DFS_referrals_exit;
+ 		}
+@@ -801,7 +805,11 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
+ 		}
+ 
+ 		/* copy link target UNC */
+-		if (le16_to_cpu(ref->NetworkAddressOffset) > data_end - (char *)ref) {
++		if (le16_to_cpu(ref->NetworkAddressOffset) < sizeof(*ref) ||
++		    le16_to_cpu(ref->NetworkAddressOffset) > data_end - (char *)ref) {
++			cifs_dbg(VFS, "%s: NetworkAddressOffset %u out of range [%zu, %td]\n",
++				 __func__, le16_to_cpu(ref->NetworkAddressOffset),
++				 sizeof(*ref), data_end - (char *)ref);
+ 			rc = -EINVAL;
+ 			goto parse_DFS_referrals_exit;
+ 		}
 -- 
 2.55.0
 
