@@ -1,134 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9E520ED;
-	Sun, 23 Aug 2026 00:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F7D5A79B
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 00:24:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787443344; cv=none; b=oq2lZQVt4TVGMGtV3dbiLokpRYL9Ws4dPX+SWv2ZNWkELjdI4rtJhBNMss9b7G6y9VX91hIMNTnIjBt1burQwXy4zGPUBkY4AYL9cz+RR628UWBkVfDYFVBVW8LvQAZYDSynWF5XNAsXNYDI32QRNcvWqW+Wx8ix2GS+9pcE2hY=
+	t=1787444659; cv=none; b=WLCwMgh6fMT/29WSvVPxDx5SARPkOy4/uO17pnVp0vJ0XSdncaLMrQZJD4cy1rOOsnS/SlNp3VWFohzhLPMWkLSxeTPJdNb65s9eVCaMEw1/aE+qWHqIYy9DzGd8ZUUkpbNIzMLoShdHtPQPOZI6BEOYs0c+EFFuov5ZS5mbF+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787443344; c=relaxed/simple;
-	bh=maI3tUHD+hoXVjL3auN0or5mQUIotod85ObaWGgjwdg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s11Ffyc+eFqrx/76amrWIsM1vRdeTWsnnjNsHRSuK9QLtpvI69WQI8Lx/MrcfehfBEsOSIKovq3+YKgL2PpAJjdZ9WNL0GJjGPET+ufjbEmcZpuGdfTqe8zbzzLEx6BV/s82E3z99BzcV+62QKdgMS1iI8zABOlCGI/bg5w+DPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b85/OyjA; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b85/OyjA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B811F000E9;
-	Sun, 23 Aug 2026 00:02:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787443342;
-	bh=yvgQsT8yTLuQg4LiEdcB7T89pTbq9anF5jbupzQnmPQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=b85/OyjAcsj+mozBiBbM4ejv8hMZ93SMlYeo9hD6Md+1EwFYVGlq65Cepwmnsc1GU
-	 QnTQ3OZojDL70+wv9eVTG+XK9AISbXPgO1KcZaCrWbhjakYCzJX55io8b86fKT2MaR
-	 2k4wJFK2W8wVZfObEP/57MQNzIVNNGCEG5s0BYGZ4xCGeAA2we9K3aq+LzsnuxSJQ7
-	 9dDcT4WlUe0AitV0ra3RzXRsEmrmNgJMk8BWvKt6BfnA/KA3Mhe/TxWbE1KQi7//7O
-	 ICA0P7Yz/yN4lZRXjpTaLKiHGy8kB25FOaX9BaFsHBTiYA1GAkTvw1tMSGESE3kove
-	 zOKwO6HxXU/wQ==
-Date: Sun, 23 Aug 2026 01:02:16 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, David
- Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jianhao Xu
- <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH v2] iio: admv1013: initialize callback mutex before
- registering notifier
-Message-ID: <20260823010216.76eaaee2@jic23-huawei>
-In-Reply-To: <20260819141751.44223-1-runyu.xiao@seu.edu.cn>
-References: <20260819014611.18db8689@jic23-huawei>
-	<20260819141751.44223-1-runyu.xiao@seu.edu.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1787444659; c=relaxed/simple;
+	bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pEC44lFpOn6zGwlgFYvERnw0qNUDgZuEKdK/P3f53/kinTj/pRHF2H6C5VoCQQD6xapGq8pdU8s8sf7dPUcdlDi4HRzd7R4yoYzZZ6Pie85GJ6vOfr8SAkk5RgT8+n43URTqHVdreg+7BfJ966bcpUn3aVTdlcE57F5+APAgbRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15d3cd51b2so353137566b.3
+        for <stable@vger.kernel.org>; Sat, 22 Aug 2026 17:24:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787444656; x=1788049456;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
+        b=aMfUSaFrW8oUgVpcUu/+C3c8f9Sn9SjzeXR+hFxZnsWGURu7dUF74U2yScL06x0DS/
+         3eaYp5XHl301Ta1YsbcNmRh5aqOfimCw/nMwz0TsnrvyqnVNlx6Lth1NDPBHhDOvv8Zf
+         Iz4RqP6Vlx3zhOvaGfuhkX2V2bKuzbhEHZtIgsF6UjkgXnqWhM8c4iEMtcjf5es4VYws
+         Ex1W68FediQuTafp0GhsHJMPTS+ZL75BG6FA8wY5iGvw5PyFDQxOPC4Y38IKluRAfPje
+         25R0fOPKA0milJMmVVA9kIUQYdPfgzXkWtTJneraJnxAUmBV19WNMsknv6ppe/ZGfsVZ
+         z1gw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpsm9wxWunacvfOupQv12iIFoxl4LyuBOeSou45U8ltfdU4WBa4FO9LET2dN8aTlXwqe30EoKs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqpr2xgUG3at+DVuEW+0XlwMATPMB/2wRUi3YPitBLggfNE/tz
+	8MP/RCxXuovzkx55LyrtjZOFlT3eU+/TQ4cvzUB5H4Ws2MhMpiAL4WWL3dE/RA==
+X-Gm-Gg: AR+sD10S67tLVkac20W82NjPCjcrWWT9/bkgO5n1M7UytALThFBpBMPPa6HNSvlFt6N
+	MAAVeADwkPPXcHXLt6qOGZQRixKwo3FVRJ9k5vJBZub1ZnCP3XXzWKdjeip2kcDe1ybWOOzKnda
+	ncoqMfj7Taa99N92/SeqsYMrl1U0i91DzdneHa+Y5axPnCg0TMpNSui2WgW6jGcA56ma8JEEGZ2
+	/ebJvNVBCUQg0SHfFcOUt6nD+BcrGfblcP7ETlzrXpYJ/lvekon8YSewkKkxm9/xqeEaNW2nkaZ
+	CmUOsRf+pNgNNGdWA+/WX6PzNT9iwgk/IQv3HnsVFzuZR/kUqk4ndtD/oqpvgTppmgV5WQEQZoJ
+	dvyKFjVX9ZoeuhPMjjMc229UP5klhqq5dFAIJqi7dQ2JZG3Zs8XyvT/JUuuwQMx1HYIB+32Cko9
+	0ydigmn6jTIh461TnhTXXb84uFdMbCQ3/uG3U9C8PZwYai0e/z8wq3ITQAqWRMRX0H30v94YZln
+	IgDd3Ima7CZUXYYbuWrQmQ=
+X-Received: by 2002:a17:907:60ca:b0:c24:6985:d7a1 with SMTP id a640c23a62f3a-c24924b79ebmr990876366b.7.1787444656275;
+        Sat, 22 Aug 2026 17:24:16 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-65-240.bb.netvision.net.il. [89.138.65.240])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24968a2e42sm438723466b.59.2026.08.22.17.24.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 22 Aug 2026 17:24:15 -0700 (PDT)
+Message-ID: <3d1c6882-9ac0-444e-80e6-9d2bbade8d64@grimberg.me>
+Date: Sun, 23 Aug 2026 03:24:14 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] fs: configfs: add helper to identify configfs
+ paths
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Christoph Hellwig <hch@lst.de>
+Cc: Chaitanya Kulkarni <kch@nvidia.com>, Keith Busch <kbusch@kernel.org>,
+ Logan Gunthorpe <logang@deltatee.com>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Jianhao Xu <jianhao.xu@seu.edu.cn>
+References: <20260817143714.1344255-1-runyu.xiao@seu.edu.cn>
+ <20260819155228.84938-1-runyu.xiao@seu.edu.cn>
+ <20260819155228.84938-2-runyu.xiao@seu.edu.cn>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260819155228.84938-2-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 19 Aug 2026 22:17:51 +0800
-Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
-
-> admv1013_probe() registers a clock notifier whose callback takes st->lock
-> on POST_RATE_CHANGE. Initialize the mutex before
-> devm_clk_notifier_register() so the callback cannot observe an
-> uninitialized lock during probe.
-> 
-> Use devm_mutex_init() so the lock lifetime is tied to the device and
-> cleanup stays paired with the rest of the managed probe resources.
-> 
-> Fixes: da35a7b526d9 ("iio: frequency: admv1013: add support for ADMV1013")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-
-The code has changed a bit, so what I applied to the fixes-togreg branch of
-iio.git ended up as:
-
-diff --git a/drivers/iio/frequency/admv1013.c b/drivers/iio/frequency/admv10
-index b852378b3f68..e86b59bf23fd 100644                                     
---- a/drivers/iio/frequency/admv1013.c                                      
-+++ b/drivers/iio/frequency/admv1013.c                                      
-@@ -602,11 +602,14 @@ static int admv1013_probe(struct spi_device *spi)     
-                                     "failed to get the LO input clock\n"); 
-
-        st->nb.notifier_call = admv1013_freq_change;
--       ret = devm_clk_notifier_register(dev, st->clkin, &st->nb);          
-+                                                                           
-+       ret = devm_mutex_init(dev, &st->lock);                              
-        if (ret)
-                return ret;
-
--       mutex_init(&st->lock);                                              
-+       ret = devm_clk_notifier_register(dev, st->clkin, &st->nb);          
-+       if (ret)                                                            
-+               return ret;                                                 
-
-        ret = admv1013_init(st, vcm_uv);
-        if (ret)
-
-
-It will need a manual backport as a result if we want this to
-go to stable.
-
-Note it wasn't a particularly recent change. Make sure your patches
-apply on linux-next or the appropriate subsystem tree.
-
-Also, please don't reply to an earlier version when sending an
-updated one.  It didn't matter here but for more complex threads
-they can become very hard to follow + your email ends up way
-back in people's email history so may not get much review.
-
-Thanks
-
-Jonathan
-
-> ---
->  drivers/iio/frequency/admv1013.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/frequency/admv1013.c b/drivers/iio/frequency/admv1013.c
-> index d8e8d541990f..ff599b5c88ef 100644
-> --- a/drivers/iio/frequency/admv1013.c
-> +++ b/drivers/iio/frequency/admv1013.c
-> @@ -594,11 +594,13 @@ static int admv1013_probe(struct spi_device *spi)
->  				     "failed to get the LO input clock\n");
->  
->  	st->nb.notifier_call = admv1013_freq_change;
-> -	ret = devm_clk_notifier_register(&spi->dev, st->clkin, &st->nb);
-> +	ret = devm_mutex_init(&spi->dev, &st->lock);
->  	if (ret)
->  		return ret;
->  
-> -	mutex_init(&st->lock);
-> +	ret = devm_clk_notifier_register(&spi->dev, st->clkin, &st->nb);
-> +	if (ret)
-> +		return ret;
->  
->  	ret = admv1013_init(st, vcm_uv);
->  	if (ret) {
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 
