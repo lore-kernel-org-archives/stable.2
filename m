@@ -1,233 +1,361 @@
-Received: from mx0a-00154904.pphosted.com (mx0a-00154904.pphosted.com [148.163.133.20])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4757E792;
-	Sun, 23 Aug 2026 11:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.133.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787485394; cv=none; b=fXAoUgdRTqIGx6tYr1El/hpX6HXDsMr8eHSqdTE+Ls/WyV5t1ToA5U/EktKA3kumqPV7U8iiAqZEug8t6D+D+1P04ZpFdOetgiZ1tnM/3fpHqDmWIE6nDxGQsqd73B7usRu/Rr3TQiUbq8zuhz/4+hOfxa0znKiNRWZsXq3+gCg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787485394; c=relaxed/simple;
-	bh=KeLPilb3CjKp2bgd3ia8SlPD6Pu3zciG+ibulvSu1Jo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pfVQNk7SkgfcnRWwzYHoZ/tJi+P/+3NA6c9IeigrFNj3ABkoHrJWLy0mteyoKE2pCvrSbCdbriiRVyGwGjwDvhWdTChtCfvjuejklXJfNR+i0nZGat8Zh96fXcRwmAA9O/RLfvxQNLvIdfeuEz+fnrAE80DWUyYpcWT/kJLGRSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dell.com; spf=pass smtp.mailfrom=dell.com; dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b=MveLJHFF; dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b=qkBygdcR; arc=none smtp.client-ip=148.163.133.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843F53128AB;
+	Sun, 23 Aug 2026 11:43:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787485397; cv=fail; b=j9DZa4EyD3JqVNyoOFSMsFTINHgp+Z63sjSfja0uwgxBJU5JsH2d87p9dM3kYIHPBtooBWy49nkgcfEl23HtfdBMF/YIToxOlk4jvPVsqOsinzbg9sQ/XNtyQYdwcCVr4MVdI3ERPDE3Y2P2jFf72q4TSKM6tZolA9ljW6e/86M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787485397; c=relaxed/simple;
+	bh=Y43iwx82gLxHBKd7hLLfXhzx+C1dMVji6a4aP7xJSK8=;
+	h=Date:From:To:CC:Subject:Message-ID:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Yu4JpIktUEzp7UXMqcki+CavojMgQC84QKMpAYM3/evmsijUAub/LPNADZeMu5Qd9mOS6LK6zz2knLpcMK2WikuElPv71jZafXTS5Uej1ze+8qnM8OyNg/UWmnEPlaWJR6ogL5n4wfzHLXKllWxh6pxeUJTjnd8W1AgtAq7UUL4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N4yvEs2V; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b="MveLJHFF";
-	dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com header.b="qkBygdcR"
-Received: from pps.filterd (m0170392.ppops.net [127.0.0.1])
-	by mx0a-00154904.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67NA9RUP316059;
-	Sun, 23 Aug 2026 07:43:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dell.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=smtpout1; bh=u3SC7M7vaxBx
-	QLrtLqS0QHIyGtg400DJe1A2GuGT6hg=; b=MveLJHFFWNnZ3V7AD67wEXbQ2dIC
-	NOqsRpQ0doNrwyTveNC3WNq0mOrv+RHRg8nvnAQgOCNwHHtoyqZr8yH938PseQXe
-	nj6SYXegjtLeCwyBbL08xrTc0VWEV/PxgRqxKgv8Lkzivz7T90zMG5zrrvlkQJBK
-	C9g69xNVNNiuX0kfKRCHa8kq0DikVJWzcUifIuV/A+4ejstEBSqNFuBhrBSx4ULp
-	snbpS2P5AQTMeflfBYIAtLaFr5CQLnNWWjx0Ctxf0SIFOBauQRDT85NOPtuTMbMi
-	T2pSLde8oX2cGEgMw5G9GMeOBlTi9syNZRGXluHjqqq/JuB4kitEiweo4w==
-Received: from mx0a-00154901.pphosted.com (mx0a-00154901.pphosted.com [67.231.149.39])
-	by mx0a-00154904.pphosted.com (PPS) with ESMTPS id 4g76xctjsb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 23 Aug 2026 07:43:06 -0400 (EDT)
-Received: from pps.filterd (m0142693.ppops.net [127.0.0.1])
-	by mx0a-00154901.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67NAA2RT370768;
-	Sun, 23 Aug 2026 07:43:06 -0400
-Received: from esapsmtpat01.us.dell.com (esapsmtpat01.us.dell.com [143.166.211.146])
-	by mx0a-00154901.pphosted.com (PPS) with ESMTPS id 4g7wevhp69-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Sun, 23 Aug 2026 07:43:05 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=dell.com; i=@dell.com; q=dns/txt; s=smtpdev1;
-  t=1787485386; x=1819021386;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=u3SC7M7vaxBxQLrtLqS0QHIyGtg400DJe1A2GuGT6hg=;
-  b=qkBygdcRAGcPnbv0+nH1HdITq1tofQT21qsyD3OuExTQLLoa6TTSKy1a
-   i4HszVEFDNQBYU9tzM5SJricHzivlwyjq9qDIJXShF7R3HDxV/p2gF439
-   5Igzj48tOW9HrhgoV76tVAzfr30+mR2nmxDSTLZb9D0m1FfM09tITaFCC
-   hTuLhAub1nHdM9qtz/wJL5FcyGcsRUdt7Iw4ak6jywNLi5lHVdjfhJbry
-   /GjhK5GfmrMEl4QmVgLY7oT2ze6dP5Kmm5q+Xp8TnyyjkiD6BrBUab7iD
-   3yJoBeswHx3AIY3HNhKZWH0t9RwknUemrv7wKn6/sFp7+kWtbKLxpNWnA
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N4yvEs2V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787485395; x=1819021395;
+  h=date:from:to:cc:subject:message-id:in-reply-to:
+   mime-version;
+  bh=Y43iwx82gLxHBKd7hLLfXhzx+C1dMVji6a4aP7xJSK8=;
+  b=N4yvEs2V0QwU2Xyq+OUm/QcuLCRHegBvNNUirv2P2SKeqE0n6li5BteC
+   h3QHfxG/nDFn/G/vRyvqPUdJoPq3wfPi73SVNW2CHOdoP2LlSgGKsIlf2
+   xXMgpytk7yJiEy8A8oykWL2YSMvoa+lgiv3wPaw7Uw77IFvXznILFjSWz
+   jtY1tp/X1W65nDQaZELvYmfP16HgNg0AJePIcfbEa3pv/gVJwXSncsFfS
+   lGahvUE4i5GUO8417HcO3q2hVHszHEKeSb38KQIHr0CRdc1yGxAhnS+Ym
+   5Dqtf5K4JewKQex5qZytdO39A3VXWMOXwk+cmfxRfSzoi6iXpPUzz75v+
    g==;
-X-CSE-ConnectionGUID: 2jQa3kHbQGCAFi7aDTKn/w==
-X-CSE-MsgGUID: /y4oOkebTaKXGJKfIP7jzg==
-X-LoopCount0: from 10.17.189.166
-X-MS-Exchange-CrossPremises-AuthAs: Internal
-Received: from unknown (HELO W-96J1TH4.blr.amer.dell.com) ([10.17.189.166])
-  by esapsmtpat01.us.dell.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 23 Aug 2026 11:43:03 +0000
-From: Prabhakar Pujeri <prabhakar.pujeri@dell.com>
-To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org, Prabhakar Pujeri <prabhakar.pujeri@dell.com>,
-        stable@vger.kernel.org
-Subject: [PATCH 1/4] NFS: validate pNFS data server port octets
-Date: Sun, 23 Aug 2026 11:42:41 +0000
-Message-ID: <20260823114244.3883-2-prabhakar.pujeri@dell.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260823114244.3883-1-prabhakar.pujeri@dell.com>
-References: <20260823114244.3883-1-prabhakar.pujeri@dell.com>
+X-CSE-ConnectionGUID: o+JtdZmJTCSgxO65VsHwuA==
+X-CSE-MsgGUID: e6kPfluJSRSO9evcaK2e3A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11883"; a="90473352"
+X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
+   d="scan'208";a="90473352"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 04:43:15 -0700
+X-CSE-ConnectionGUID: c5ZVX/5JTQiNI8QZUBQ48A==
+X-CSE-MsgGUID: P/8602j0Sk6nXcZsk0F4cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,238,1779174000"; 
+   d="scan'208";a="296664317"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Aug 2026 04:43:14 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 23 Aug 2026 04:43:14 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Sun, 23 Aug 2026 04:43:14 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.52) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sun, 23 Aug 2026 04:43:13 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oqIw366Tiaz6mBiYN75G1r2wDTAqFM7Cm9CqHecLHs+gtiJSdiHi77ztgpi76OyRaXXrwTUPQKtfuUCMFz6I0NAInEcRz8bxTadiJkLIuvZb/fE65mdtS52LFAPG2S1XQqW6BIPbroG1WaFQ1vDYMIc1l3l1FXNvFHKjlS8J20AY+BzO6uWby4EelgLWDnSUH7LVsuw1L4S9Ql8WrPOlT1LcxXTrV1eafLunVpdG2hDrxlWPtXsYou+py/0o79YydP35W/FguqOryBJA/z1g11lM6N135yM0oOWnYxrY6R+qoruo2Da2RfOMdJaV0EpZ2ksrvyzzwB5OI4+SKkx+wA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=13DlSLLeFxAr5yPw3J+PvCurt3W2S/0cQIdBBiwLTks=;
+ b=x6rAdwzAR1TFVZyNRf0uiyFgNNbztts1RFuWCjZweoVI/iT/JuRyCWKXly8IPq0MIyK0Oj0/TXWOObUrNL8szvZO1TvAcfglKcYaqOxW2La8Xj5rBFkK9wCJk6nsOLat7BbhKGVOrREWAaqyrH//kG0RJxEBiBpTbfujo6kVzYVKIDloMB/CyGGEkR2J97gZJARba1c5QkxP67bydt5f8sHUbYH8fVk6rUOPv3cgGzSaOLDutVuntbK6dEkByPRBMFArwBBSEP3fQzt8DCfXcCxfUxNObZzep32/Uku/r2ik9JIJq3bOKN8DB0NSofhwmBLEmTKQ6EDDOQCWRDKxmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ0PR11MB5214.namprd11.prod.outlook.com (2603:10b6:a03:2df::22)
+ by MW4PR11MB6786.namprd11.prod.outlook.com (2603:10b6:303:20b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Sun, 23 Aug
+ 2026 11:43:10 +0000
+Received: from SJ0PR11MB5214.namprd11.prod.outlook.com
+ ([fe80::5926:3836:4212:8640]) by SJ0PR11MB5214.namprd11.prod.outlook.com
+ ([fe80::5926:3836:4212:8640%4]) with mapi id 15.21.0339.012; Sun, 23 Aug 2026
+ 11:43:10 +0000
+Date: Sun, 23 Aug 2026 19:43:00 +0800
+From: lkp <lkp@intel.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, "Martin K . Petersen"
+	<martin.petersen@oracle.com>
+CC: <oe-kbuild-all@lists.linux.dev>, Nicholas Bellinger <nab@linux-iscsi.org>,
+	Lee Duncan <lduncan@suse.com>, <linux-scsi@vger.kernel.org>,
+	<target-devel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Runyu Xiao <runyu.xiao@seu.edu.cn>, Jianhao Xu
+	<jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v2] scsi: target: pin db_root for metadata writes
+Message-ID: <202608231112.vQxAhOxi-lkp@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260818051442.1523210-1-runyu.xiao@seu.edu.cn>
+X-ClientProxiedBy: SI1PR02CA0003.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::20) To SJ0PR11MB5214.namprd11.prod.outlook.com
+ (2603:10b6:a03:2df::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-23_04,2026-08-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 clxscore=1011 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608230106
-X-Proofpoint-GUID: U5ED2HErl4OkRJ9Lq7STxf9t1T_vGZUc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIzMDEwNiBTYWx0ZWRfXz2h5IvvTnLWA
- sk3zoI17bMqOIpCjmceIYwAzNTpZYpbzbKu/09umex4d6NjeJMs3ovSv/cr4Kgk+WvcSBjFJPvt
- 9eg+Yxxff9dazgW3N3aW98uoc2UzkGZkXIjG8x1h/n1HPZdaUp3gkRUtzhf1wGKawkBOOzn7n2e
- eW/7QSwCzVcfJuHrerB2p7+ihO3mjglOxoFohAG5dGDdWPWdQsXNV+XiAiWG6nFNS89/5jWhVCi
- 7YoC0xzzWY3QA4bIwgl8uNw5p0gZrBokbOEHDDEgg0XuiHAThseMCPBgONhUDAZ7Gku/I1GUB3i
- WQ3KAKo+150kIKdC3b5CX+uNV/UJQ+jv3h/zmpMsUACxP5WKqh2gFvGfkKd3aVWj5cRhOZ4jqxO
- oTQzw1GsQLFOhyZc2M1Y4Rrvzl5Nh+gxkeooGSUUmqMWz8Ppb8Mbfdd+3Gv8zNvHuBWyuUv9oMs
- dOTM+z5HxOjmMVDRufA==
-X-Proofpoint-ORIG-GUID: U5ED2HErl4OkRJ9Lq7STxf9t1T_vGZUc
-X-Authority-Analysis: v=2.4 cv=A79c+aWG c=1 sm=1 tr=0 ts=6a8adcca cx=c_pps
- a=j0++y401J6f/BxNAf5EDow==:117 a=MDsIxxkBee3CUfGUG3hQZw==:17
- a=b3DhMmMkJVNBYjixYE3i3TbOsPs=:19 a=Sv0fKeRqtYgA:10 a=ke5jqHz-1hQA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=6gNNCFAoQcIphELLPWWu:22 a=m3zZTHMLHbwB7Lmtoed2:22
- a=VwQbUJbxAAAA:8 a=iLNU1ar6AAAA:8 a=VZJtwKKvAAAA:8 a=NxIssioeBxkeEXFklJ4A:9
- a=gbU3OgOOxF9bX48Letew:22 a=vzdIw8kzLcqZOxdJCU6L:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIzMDEwNiBTYWx0ZWRfX3pJ1xuqp3kz+
- oYTL8Fi2o9YV8ocxT235ZdOTyQC5BGRrC70HCLr6Eng7+QungN+XVD88/t1X/o63qP6CSfujmxc
- qJ6G5I8wrx7z9TV6ARDLY6c26y+22To=
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 clxscore=1011 suspectscore=0 lowpriorityscore=0
- malwarescore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608230106
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR11MB5214:EE_|MW4PR11MB6786:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48478ebc-85c6-4dd4-6a40-08df010bb511
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|42112799006|7416014|376014|23010399003|1800799024|366016|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 5iL/yVWnLwopw66Lgnmz3ZGQeLKHs7hnSfXONM3nuOsV1pha9hzYpzHSv/360k0rlDNBJR7D4OjgHINdokcrRGH/eEl8WO8w5o+i5grfXmcyGAnO/tZ8SnLrAOYzISP8oSIzMiAjWCM/H7qGswPCLhO763nrPBQX58f3sgA/GpqmbTJFsU5avHVL+vlxw+tH74P80njYzFjA1GmjhcoLjnk1+J/plw5cHTOKlCd5zli4dT7B+w6uUzG4fwwxxQ4zgZW8b5wBeJrrFKVoST9WAjUd50Xen3BCABs3vfslEsW8wTdq3OsVPn40pNGzYnOvoUqzl7zMPUA0DPZSaPOXn/QcXMhBDNrGm4yQNzYfqn66c4ONYppuRB6uUQpyGni99QPNtTxZHTfXyHu6GiFMutZAmuYj0K/x84xHZD/9pUsOgRiWYND36+EzjUH5Fk6tZKtI/PDBzYiqIRsA+2mY4bEqnC/O6+lO5Og1rfZj4LBuLdsYWJd7kCpBNhLxhOk5WBs2Ki1lfeXY9sN2r2anPboLwd6TANzqgUdtvAxh0n+bFyw4gpT4cJPRlGIKdme17hafA3dEG2SyAluwbdhkmDDxmmtFDQvi/MAbDMoLveidvJ6NoevzuCoby9bAvcks
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5214.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(7416014)(376014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?W2UeEFgRKNgVYOykjh16MW2gjSQldOT8TXd8cfliWmh9ugTdml020leQLdnJ?=
+ =?us-ascii?Q?Bh7aa+dDMJMAAWhlxIb5WYQ86fy1A3fNiMH9S1Pby9dkCqviMRWhjpvjBzyb?=
+ =?us-ascii?Q?p3MX3y2k4V5/2WVnc4HdoDFeRqOxw63tP4ubpUuADfGnk1+T+K5lNJQr7zIX?=
+ =?us-ascii?Q?1yF8ad6LdHez6LjVEhs4G7r0hu/GhUCEoV6gqcAZZggAVC5Eoh1HteJ/CZU2?=
+ =?us-ascii?Q?nxo2accE9WfIIGTCDwnAMw9un0GLCqN3DT6Nw9CzdfZuMG9M4b+5KM0aeZxm?=
+ =?us-ascii?Q?vex1IIFk4EQFzKGVp+EU/YCJO6mOnY60zWXLaEe6K/OHWZnlEPGWDt5rHwB7?=
+ =?us-ascii?Q?sYqod18n0u6NOkRIafwOt2sEUG1NQSuQE5oxTIZsqkOz8xKs4hYcQtXVNQCy?=
+ =?us-ascii?Q?bxNQo5eKdiAtLX/xVWlfEMCw1vJ7lu5JK/9/UzkkG8TUTobPBdrjFmxJfEAd?=
+ =?us-ascii?Q?7YDdmA8LCW4iCimilFFeKgnAHgdDLZslnDPbBSQKg+0iRZtqgvtaDo3RiipO?=
+ =?us-ascii?Q?eyGEPRj/ok8vu/JmCGvGyWvDwqwZlAlVSV4D5CHPyCjI7muHMcguhkCAMxAL?=
+ =?us-ascii?Q?5XyfkBy4MrVKTO0xbaq8kfA1HN3wgekhoQHPZfypSF7iLdy5F1OBkbDvfNVW?=
+ =?us-ascii?Q?IpMad9AETBzom1/C6gz8Ogx0L2zUmXf8J0mtsV82G2y1j10xvqMmqmIBkv3P?=
+ =?us-ascii?Q?tjCa2TcBCD+wySildYRLqtaGW9vlE+z5PjBEX/JQfNevqa0WDMiBtVXwuqed?=
+ =?us-ascii?Q?l/4qjU1cEwY1TWdPHLROk9oKbnPMZlTr1TcOlbsGNVnCHJtH5XtdJOj1fG2r?=
+ =?us-ascii?Q?O9xk6lGw52+KFCepujpeLp3MdQomcCCGMboxS13x6KM7EiSypTGjmNkzsxnR?=
+ =?us-ascii?Q?v8PbMArWFS1seN3IM3sBbOyjdT7PgI23JBBKqdFoMGq+mgsxLbE06L568zD8?=
+ =?us-ascii?Q?5dngSgbg11HbfoB9sFLa1bKT0kGYH97WYfsI5rTxONon8gMDsqRYUFfU4LlW?=
+ =?us-ascii?Q?q1xt1uAh0my27murXoppi2nyMwYijghuuZPw/OI8tCbvaWFTkzG9+KToiyx4?=
+ =?us-ascii?Q?gj0PilneDkRbe/r2wFtBaD89+AZHpZabLYdmxoS3C6vaQFz+dbN+3NtakOeb?=
+ =?us-ascii?Q?5ymcLRlmndTTTszeKblGfcsRPM/svkcKP8yUBOh9IAd814eZtLfblHbksISv?=
+ =?us-ascii?Q?WM++M4edn09C+PkJtMeNxcfz4mWpGT0uVebFA6dHJotPY7w5vnBItfcBLwno?=
+ =?us-ascii?Q?1CA0xBU1Q74Y7cwovdsFuaMYsjwXHr4YjEIjlOWoH7jdRoJexUQwy+mFUV65?=
+ =?us-ascii?Q?KF+3TmHdRET23rcoVn3zCVu9bLnhzBlij7TF6O2ALtVo594hUaMg/wBC2Agx?=
+ =?us-ascii?Q?QbLtgQq/rFZA8BqIWTo1yiYGHsgZJY3+SmwkWvcyzlA+U7o/XsoMPCkf4WOs?=
+ =?us-ascii?Q?nyTGdRllIwf/swsjZTlmCtibw0/71OBaPWrQRJp4gbkw2SMH8m9qn3PIiVy1?=
+ =?us-ascii?Q?YNi1LJBpdCxrLQaBJn2MNgMezyPxaJ+gMdirbRdseY6FzuXRqCdUmS9zuog6?=
+ =?us-ascii?Q?BiyO2qhKF8/p42G7CCWp/EIvQAFE0OyffNPfzOv5eHe5dWUMmHIC+jiGbhLv?=
+ =?us-ascii?Q?V9gGH0bR9O+SAcvqxWjTt4FfzEz/Ec0/LLElmb+XOP3eAJGnQ3sdyC1Kl/F4?=
+ =?us-ascii?Q?5uypQIt5Ume1XF+2JBrwbBhFipAxwfb3Q/JYMsSMe7Rmp06HQKqag+O2QW76?=
+ =?us-ascii?Q?d7AXN6gMGA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: mMQWTX5hL0XS6ctf8hV50gehJZyrd7Fct+7eQrhfNHmiToUkf3Uq63hYGSVbTC2CMTslq2mTXMnw181DE6DiwZeoGqYwvuZgUCQVEb6Z5fX7H/2gJbOMdYXM56dHvEJ5oiyG2NJL3cHhWETUsZZFDWhEmpcoy7Nyu//ufO2mA2D0sQsnAaAtgzUWsevK3klGs5lXbXG5aAxxoKCHMmdTZ4VzzGA1x4YOGAJey7+LLC9IuSP2MCvUtkYe1/m5eotrAWba/WuysFf26wRKGPH0WxcXGsXm63XCsTNz8IY0AiWG+Yv+AIu6aXH4PrB6m6y4r0z4x3jdiJDHVV1Avy095A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48478ebc-85c6-4dd4-6a40-08df010bb511
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5214.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2026 11:43:10.7517
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AplOereal9lpgACd/nXYHQbw+Dq1fdYLyQKFgIO3x3dEP/mQmcY7wJYmzHGgc/33sfGkuBHBEOwMKORc01PkOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6786
+X-OriginatorOrg: intel.com
 
-nfs4_decode_mp_ds_addr() parses the two decimal port octets in a
-server-provided universal address with an unchecked sscanf(). A missing
-or non-numeric field leaves part of the temporary array uninitialized,
-while values outside the octet range are silently folded into the
-resulting port.
+Hi Runyu,
 
-Split the two port fields at their delimiters and parse each with
-kstrtou8(). This rejects missing fields, trailing garbage, integer
-overflow, and values outside 0 through 255 before constructing the data
-server socket address.
+kernel test robot noticed the following build errors:
 
-Fixes: 6b7f3cf96364 ("nfs41: pull decode_ds_addr from file layout to generic pnfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Prabhakar Pujeri <prabhakar.pujeri@dell.com>
----
- fs/nfs/pnfs_nfs.c | 47 ++++++++++++++++++++++++++++-------------------
- 1 file changed, 28 insertions(+), 19 deletions(-)
+[auto build test ERROR on mkp-scsi/for-next]
+[also build test ERROR on v7.2]
+[cannot apply to linus/master next-20260821]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/fs/nfs/pnfs_nfs.c b/fs/nfs/pnfs_nfs.c
-index b539e1a44d26..0c8c50eab4ad 100644
---- a/fs/nfs/pnfs_nfs.c
-+++ b/fs/nfs/pnfs_nfs.c
-@@ -8,6 +8,7 @@
-  * Tom Haynes <loghyr@primarydata.com>
-  */
- 
-+#include <linux/ctype.h>
- #include <linux/nfs_fs.h>
- #include <linux/nfs_page.h>
- #include <linux/sunrpc/addr.h>
-@@ -1059,6 +1060,19 @@ int nfs4_pnfs_ds_connect(struct nfs_server *mds_srv, struct nfs4_pnfs_ds *ds,
- }
- EXPORT_SYMBOL_GPL(nfs4_pnfs_ds_connect);
- 
-+static int
-+nfs4_parse_port_octet(const char *str, u8 *port)
-+{
-+	const char *p;
-+
-+	if (!*str)
-+		return -EINVAL;
-+	for (p = str; *p; p++)
-+		if (!isdigit(*p))
-+			return -EINVAL;
-+	return kstrtou8(str, 10, port);
-+}
-+
- /*
-  * Currently only supports ipv4, ipv6 and one multi-path address.
-  */
-@@ -1066,10 +1080,10 @@ struct nfs4_pnfs_ds_addr *
- nfs4_decode_mp_ds_addr(struct net *net, struct xdr_stream *xdr, gfp_t gfp_flags)
- {
- 	struct nfs4_pnfs_ds_addr *da = NULL;
--	char *buf, *portstr;
-+	char *buf, *portsep;
- 	__be16 port;
- 	ssize_t nlen, rlen;
--	int tmp[2];
-+	u8 porthi, portlo;
- 	char *netid;
- 	size_t len;
- 	char *startsep = "";
-@@ -1089,37 +1103,33 @@ nfs4_decode_mp_ds_addr(struct net *net, struct xdr_stream *xdr, gfp_t gfp_flags)
- 	if (unlikely(rlen <= 0))
- 		goto out_free_netid;
- 
--	/* replace port '.' with '-' */
--	portstr = strrchr(buf, '.');
--	if (!portstr) {
--		dprintk("%s: Failed finding expected dot in port\n",
--			__func__);
-+	/* Parse the low port octet and remove it from the address string. */
-+	portsep = strrchr(buf, '.');
-+	if (!portsep || nfs4_parse_port_octet(portsep + 1, &portlo)) {
-+		dprintk("%s: Failed parsing low port octet\n", __func__);
- 		goto out_free_buf;
- 	}
--	*portstr = '-';
-+	*portsep = '\0';
- 
--	/* find '.' between address and port */
--	portstr = strrchr(buf, '.');
--	if (!portstr) {
--		dprintk("%s: Failed finding expected dot between address and "
--			"port\n", __func__);
-+	/* Parse the high port octet and terminate the address string. */
-+	portsep = strrchr(buf, '.');
-+	if (!portsep || nfs4_parse_port_octet(portsep + 1, &porthi)) {
-+		dprintk("%s: Failed parsing high port octet\n", __func__);
- 		goto out_free_buf;
- 	}
--	*portstr = '\0';
-+	*portsep = '\0';
- 
- 	da = nfs4_pnfs_ds_addr_alloc(gfp_flags);
- 	if (unlikely(!da))
- 		goto out_free_buf;
- 
--	if (!rpc_pton(net, buf, portstr-buf, (struct sockaddr *)&da->da_addr,
-+	if (!rpc_pton(net, buf, portsep - buf, (struct sockaddr *)&da->da_addr,
- 		      sizeof(da->da_addr))) {
- 		dprintk("%s: error parsing address %s\n", __func__, buf);
- 		goto out_free_da;
- 	}
- 
--	portstr++;
--	sscanf(portstr, "%d-%d", &tmp[0], &tmp[1]);
--	port = htons((tmp[0] << 8) | (tmp[1]));
-+	port = htons((porthi << 8) | portlo);
- 
- 	switch (da->da_addr.ss_family) {
- 	case AF_INET:
-@@ -1226,4 +1236,3 @@ pnfs_nfs_generic_sync(struct inode *inode, bool datasync)
- 	return pnfs_layoutcommit_inode(inode, true);
- }
- EXPORT_SYMBOL_GPL(pnfs_nfs_generic_sync);
--
--- 
-2.54.0
+url:    https://github.com/intel-lab-lkp/linux/commits/Runyu-Xiao/scsi-target-pin-db_root-for-metadata-writes/20260818-131442
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git for-next
+patch link:    https://lore.kernel.org/r/20260818051442.1523210-1-runyu.xiao%40seu.edu.cn
+patch subject: [PATCH v2] scsi: target: pin db_root for metadata writes
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260823/202608231112.vQxAhOxi-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260823/202608231112.vQxAhOxi-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608231112.vQxAhOxi-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from arch/powerpc/include/asm/paca.h:16,
+                    from arch/powerpc/include/asm/current.h:13,
+                    from include/linux/thread_info.h:23,
+                    from include/asm-generic/preempt.h:5,
+                    from arch/powerpc/include/asm/preempt.h:5,
+                    from include/linux/preempt.h:79,
+                    from include/linux/spinlock.h:56,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/umh.h:4,
+                    from include/linux/kmod.h:9,
+                    from include/linux/module.h:18,
+                    from drivers/target/target_core_configfs.c:16:
+   drivers/target/target_core_configfs.c: In function 'target_init_dbroot':
+>> drivers/target/target_core_internal.h:169:33: error: passing argument 2 of 'sized_strscpy' makes pointer from integer without a cast [-Wint-conversion]
+     169 | #define DB_ROOT_LEN             4096
+         |                                 ^~~~
+         |                                 |
+         |                                 int
+   include/linux/string.h:80:28: note: in definition of macro '__strscpy1'
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+         |                            ^~~
+   drivers/target/target_core_configfs.c:3757:9: note: in expansion of macro 'strscpy'
+    3757 |         strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
+         |         ^~~~~~~
+   drivers/target/target_core_configfs.c:3757:32: note: in expansion of macro 'DB_ROOT_LEN'
+    3757 |         strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
+         |                                ^~~~~~~~~~~
+   In file included from include/linux/string.h:383:
+   include/linux/fortify-string.h:227:83: note: expected 'const char *' but argument is of type 'int'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                            ~~~~~~~~~~~~~~~~~~~~~~~^
+>> include/linux/string.h:80:60: error: passing argument 3 of 'sized_strscpy' makes integer from pointer without a cast [-Wint-conversion]
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+   include/linux/args.h:25:24: note: in expansion of macro '__strscpy1'
+      25 | #define __CONCAT(a, b) a ## b
+         |                        ^
+   include/linux/args.h:26:27: note: in expansion of macro '__CONCAT'
+      26 | #define CONCATENATE(a, b) __CONCAT(a, b)
+         |                           ^~~~~~~~
+   include/linux/string.h:111:9: note: in expansion of macro 'CONCATENATE'
+     111 |         CONCATENATE(__strscpy, COUNT_ARGS(__VA_ARGS__))(dst, src, __VA_ARGS__)
+         |         ^~~~~~~~~~~
+   drivers/target/target_core_configfs.c:3757:9: note: in expansion of macro 'strscpy'
+    3757 |         strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
+         |         ^~~~~~~
+   include/linux/fortify-string.h:227:93: note: expected 'long unsigned int' but argument is of type 'char *'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                                                      ~~~~~~~^~~~
+>> drivers/target/target_core_internal.h:169:33: error: passing argument 2 of 'sized_strscpy' makes pointer from integer without a cast [-Wint-conversion]
+     169 | #define DB_ROOT_LEN             4096
+         |                                 ^~~~
+         |                                 |
+         |                                 int
+   include/linux/string.h:80:28: note: in definition of macro '__strscpy1'
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+         |                            ^~~
+   drivers/target/target_core_configfs.c:3760:17: note: in expansion of macro 'strscpy'
+    3760 |                 strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_DEFAULT);
+         |                 ^~~~~~~
+   drivers/target/target_core_configfs.c:3760:40: note: in expansion of macro 'DB_ROOT_LEN'
+    3760 |                 strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_DEFAULT);
+         |                                        ^~~~~~~~~~~
+   include/linux/fortify-string.h:227:83: note: expected 'const char *' but argument is of type 'int'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                            ~~~~~~~~~~~~~~~~~~~~~~~^
+>> include/linux/string.h:80:60: error: passing argument 3 of 'sized_strscpy' makes integer from pointer without a cast [-Wint-conversion]
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+   include/linux/args.h:25:24: note: in expansion of macro '__strscpy1'
+      25 | #define __CONCAT(a, b) a ## b
+         |                        ^
+   include/linux/args.h:26:27: note: in expansion of macro '__CONCAT'
+      26 | #define CONCATENATE(a, b) __CONCAT(a, b)
+         |                           ^~~~~~~~
+   include/linux/string.h:111:9: note: in expansion of macro 'CONCATENATE'
+     111 |         CONCATENATE(__strscpy, COUNT_ARGS(__VA_ARGS__))(dst, src, __VA_ARGS__)
+         |         ^~~~~~~~~~~
+   drivers/target/target_core_configfs.c:3760:17: note: in expansion of macro 'strscpy'
+    3760 |                 strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_DEFAULT);
+         |                 ^~~~~~~
+   include/linux/fortify-string.h:227:93: note: expected 'long unsigned int' but argument is of type 'char *'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                                                      ~~~~~~~^~~~
+--
+   In file included from arch/powerpc/include/asm/paca.h:16,
+                    from arch/powerpc/include/asm/current.h:13,
+                    from include/linux/thread_info.h:23,
+                    from include/asm-generic/preempt.h:5,
+                    from arch/powerpc/include/asm/preempt.h:5,
+                    from include/linux/preempt.h:79,
+                    from include/linux/spinlock.h:56,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/umh.h:4,
+                    from include/linux/kmod.h:9,
+                    from include/linux/module.h:18,
+                    from target/target_core_configfs.c:16:
+   target/target_core_configfs.c: In function 'target_init_dbroot':
+   target/target_core_internal.h:169:33: error: passing argument 2 of 'sized_strscpy' makes pointer from integer without a cast [-Wint-conversion]
+     169 | #define DB_ROOT_LEN             4096
+         |                                 ^~~~
+         |                                 |
+         |                                 int
+   include/linux/string.h:80:28: note: in definition of macro '__strscpy1'
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+         |                            ^~~
+   target/target_core_configfs.c:3757:9: note: in expansion of macro 'strscpy'
+    3757 |         strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
+         |         ^~~~~~~
+   target/target_core_configfs.c:3757:32: note: in expansion of macro 'DB_ROOT_LEN'
+    3757 |         strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
+         |                                ^~~~~~~~~~~
+   In file included from include/linux/string.h:383:
+   include/linux/fortify-string.h:227:83: note: expected 'const char *' but argument is of type 'int'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                            ~~~~~~~~~~~~~~~~~~~~~~~^
+>> include/linux/string.h:80:60: error: passing argument 3 of 'sized_strscpy' makes integer from pointer without a cast [-Wint-conversion]
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+   include/linux/args.h:25:24: note: in expansion of macro '__strscpy1'
+      25 | #define __CONCAT(a, b) a ## b
+         |                        ^
+   include/linux/args.h:26:27: note: in expansion of macro '__CONCAT'
+      26 | #define CONCATENATE(a, b) __CONCAT(a, b)
+         |                           ^~~~~~~~
+   include/linux/string.h:111:9: note: in expansion of macro 'CONCATENATE'
+     111 |         CONCATENATE(__strscpy, COUNT_ARGS(__VA_ARGS__))(dst, src, __VA_ARGS__)
+         |         ^~~~~~~~~~~
+   target/target_core_configfs.c:3757:9: note: in expansion of macro 'strscpy'
+    3757 |         strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_PREFERRED);
+         |         ^~~~~~~
+   include/linux/fortify-string.h:227:93: note: expected 'long unsigned int' but argument is of type 'char *'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                                                      ~~~~~~~^~~~
+   target/target_core_internal.h:169:33: error: passing argument 2 of 'sized_strscpy' makes pointer from integer without a cast [-Wint-conversion]
+     169 | #define DB_ROOT_LEN             4096
+         |                                 ^~~~
+         |                                 |
+         |                                 int
+   include/linux/string.h:80:28: note: in definition of macro '__strscpy1'
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+         |                            ^~~
+   target/target_core_configfs.c:3760:17: note: in expansion of macro 'strscpy'
+    3760 |                 strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_DEFAULT);
+         |                 ^~~~~~~
+   target/target_core_configfs.c:3760:40: note: in expansion of macro 'DB_ROOT_LEN'
+    3760 |                 strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_DEFAULT);
+         |                                        ^~~~~~~~~~~
+   include/linux/fortify-string.h:227:83: note: expected 'const char *' but argument is of type 'int'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                            ~~~~~~~~~~~~~~~~~~~~~~~^
+>> include/linux/string.h:80:60: error: passing argument 3 of 'sized_strscpy' makes integer from pointer without a cast [-Wint-conversion]
+      80 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
+   include/linux/args.h:25:24: note: in expansion of macro '__strscpy1'
+      25 | #define __CONCAT(a, b) a ## b
+         |                        ^
+   include/linux/args.h:26:27: note: in expansion of macro '__CONCAT'
+      26 | #define CONCATENATE(a, b) __CONCAT(a, b)
+         |                           ^~~~~~~~
+   include/linux/string.h:111:9: note: in expansion of macro 'CONCATENATE'
+     111 |         CONCATENATE(__strscpy, COUNT_ARGS(__VA_ARGS__))(dst, src, __VA_ARGS__)
+         |         ^~~~~~~~~~~
+   target/target_core_configfs.c:3760:17: note: in expansion of macro 'strscpy'
+    3760 |                 strscpy(db_root_stage, DB_ROOT_LEN, DB_ROOT_DEFAULT);
+         |                 ^~~~~~~
+   include/linux/fortify-string.h:227:93: note: expected 'long unsigned int' but argument is of type 'char *'
+     227 | __FORTIFY_INLINE ssize_t sized_strscpy(char * const POS p, const char * const POS q, size_t size)
+         |                                                                                      ~~~~~~~^~~~
+
+
+vim +/sized_strscpy +169 drivers/target/target_core_internal.h
+
+adf653f92f38e8 Christoph Hellwig 2015-05-25  167  
+a96e9783e05851 Lee Duncan        2016-04-14  168  /* target_core_configfs.c */
+a96e9783e05851 Lee Duncan        2016-04-14 @169  #define DB_ROOT_LEN		4096
+a96e9783e05851 Lee Duncan        2016-04-14  170  #define	DB_ROOT_DEFAULT		"/var/target"
+78a6295c71cb27 Lee Duncan        2018-04-06  171  #define	DB_ROOT_PREFERRED	"/etc/target"
+a96e9783e05851 Lee Duncan        2016-04-14  172  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
