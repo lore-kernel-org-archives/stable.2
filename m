@@ -1,106 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFA8392C2A;
-	Sun, 23 Aug 2026 19:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787513757; cv=none; b=BnECSMULYWHhxgMEnZBFooKokfH/swystKld98EWEIeTjmeJsmZOrDgHv86alojK5Ym2cWMnzpNwtbdx1PMBQyBMqTN5fvCzv0msvBNWzXdF/j9MzscESAIlShN6H1ZZdbwSIFC25IUKZxh3EJg63OUkaS5cQKopHSLHbUIWlc8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787513757; c=relaxed/simple;
-	bh=B0EHy5luBwpbyVkzNvJNHLHYVgfhcpDnZmTQmLL3YP4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uJHpoJrHwMUnYqJplCFXzZx9MKWNbVsCFza0gsQZ1XiAQpv7fi/nwNONTeza89zJL2nH3vS5Rk0+wE55ClPolw8nczTup5uA6E9Vcv6WDAVkh08+O2t7Nwf2C5oOoYxiIJEwNp6kSM+mOtUk+5RxI9PxXFIplHKVjGfOHM3YYqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmPHkESJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134E82D3A75
+	for <stable@vger.kernel.org>; Sun, 23 Aug 2026 19:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787515024; cv=pass; b=HKddLZUzVc2mGmwLCVmKfT27jq7OgQrVmSkPb7xFAzVVg/m3X5D6ZOMQZw7wjo0QLPYUWSvwvwURKT6sQ1OySQS6sapoBbJtyvEy9W+0XUdBIqPm6BDF4Lk5UlwDmcwH5H7wBUbxyNbBtOfM/6OKDYYOeGST/MD5BxPZsiV7Fek=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787515024; c=relaxed/simple;
+	bh=e2YoJilRz/kvEUdFVBsJmCEXRlY5jUYdOLcC6Jc4EhE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cBYdd34HL4z9Tyfe1964hWWZkwri3/NDUSUptYxksSVXQk3RRewYxYFisqBckmK8k7YbMsezzY/mLEJK2k66PAhNIQOfM9z4pjBrcZUmQXGWD9FQFSRWlMpA2hhvBB6oYtItELV3F3Ybs61u6zREqn0nsXhZdxr2bUN9MsyN7zA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=busaXdU1; arc=pass smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmPHkESJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4112A1F000E9;
-	Sun, 23 Aug 2026 19:35:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787513755;
-	bh=GyaiaqYBOLAIDvcsIPioUD4VrBP8Th+NKRAqNY6Pp3o=;
-	h=From:To:Cc:Subject:Date;
-	b=nmPHkESJSxbNFBvzH/Tdk5p7a431mlLs9C60STZAfwyo+p94T6D/DyPLyqPRhzl/e
-	 QU/NfvGanAFLhFFX3t9MeWoGvJRyVjA6z0oKEFGqDqEd5xIjcN9gWSdLBxeNdWIwlX
-	 e7Nsg9NIlpWpvDbvVDFtvk3JLp8WB7ZJUf4zjC9wHumjMkaAc1mNa4RV0eUwkQWlnm
-	 RYJPmjoZnlQ5aSgcPMqViNgVDcHPx4wxKisXoFWMK9mfivA6dkjlv9Z289gXcqdYDD
-	 kzZQ9syfGR3LiLG63LQJpHak6gkYpG1pXwbGaxz7rtQUcRYaVTFRmILPU6RIOM8McH
-	 F/HJY621U5wAQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Antoni Boucher <bouanto@zoho.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] rust: kbuild: disambiguate `zerocopy_derive` for `rusttest`
-Date: Sun, 23 Aug 2026 21:35:29 +0200
-Message-ID: <20260823193529.156066-1-ojeda@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="busaXdU1"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-384caf7b168so243403a91.1
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 12:57:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787515022; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O3k9yAkDzUzdLOyPdRB8KkSgWc0l+/yOcqczbK8BMedqoUxcJxgpUhpYEtN9AELCsN
+         CxJNj+l+hiGQYZ7/n3Mke1JwgYhd+J7gadr42LTYdD3UgGlfKMyNY76ZbxGT/XD6bo36
+         Mn+a41SzpGBTf8RLRAjrJWwXsu5gnqbn+RzFSXYc5GCENZeWytirX7dhgVzhY88hIhwo
+         hY2PK+G1rloitjxBvBQ7/jP1I/xWN0rjqm531N2ibi0FuKZ40ZsTJzbBnCe6yWdh2mAe
+         Z/hnm0M18XkkAiw7hA4U7iUWfWXf1bL0XKF8Q66YXDmh+WOOGIPpZ2hXl1aGnCFrtOrA
+         6YUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ii9pPTvyH4snmu+QWWQwVRnHwnpxENjOJQSzf5Bngrs=;
+        fh=15MYDy3sTa4j6+UN6hUM2gmnpHNbqUIulQWsUWx9Jes=;
+        b=ff31ECXPqO0F5FBBuc28gPs+KELusE5+s53TzNXwtNbWG//sB6oAvhx4m1wWXEHUMl
+         SvplS1E6gA0fgMgnFOmRuuc9eLq9spFJppHX29JOT3X5FaPUVdGLZ3r/CTCQX4ungVAx
+         I4W1TRMHqfgIFWaTZuI4JBxhZphHuA8D4nTSMCaZPWInnEsK2C0KiC0ZLb38U7DrJ8gR
+         Y6VPGuXs6hKtIB02rcanDadGgFnbrNLspq0wJiE3hZ3fzxMFBNL5YlAgMW+eQ+Bshzcz
+         JzvKTsUbl6iQA6waaAcd6qhThdf2iJq6WGl0999Qrfxzeb1zz2Ubpfr7tOf2UHnxAJKL
+         gYag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787515022; x=1788119822; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ii9pPTvyH4snmu+QWWQwVRnHwnpxENjOJQSzf5Bngrs=;
+        b=busaXdU12amokEa1z7GPjwEqrrGJg3WCxP2rmsrTsQcvYwLDWvOWXXoLGldLwnXkbu
+         tztqr2z06nhpXzhKgYWiGi/hqWJGtLcoRDssp9hnqzpkMht78DrGrPqd2k5IB7BSOVG7
+         Xu8J8KlFGg5/Pj0x1Ti7Pd58vhxrqNavEhUhETD1wx2fqqHPOdKOiMvKjUSH3XLthcf6
+         xSRIhAa/pr8MZ0LZGSkqiB/z3DGvp8slLEjkEXpxel5a1Qt0nLXDslXdWXF/IF/9rVdM
+         stYrg8+4xsmdZwJaAIeHYj5VtHpnTb345bS7XJVKZX2ccN20lM/JVwNhxiSARtuzO47l
+         HwEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787515022; x=1788119822;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ii9pPTvyH4snmu+QWWQwVRnHwnpxENjOJQSzf5Bngrs=;
+        b=IzvNnmhgXgRr6Iy84WqZyyCwbe2WAwrgNyFfidsKm7uAkNaDXid/SO2bZUl5RO3fjR
+         95ymESWmQj4bn9RCwU8cnhP9HTwkLnMUNWpoOfe8lQZhF0cEKMMGXcsWdKAskaMa1Xb5
+         Cxmdp+Cm+OyrfSOevNcHpcqeTralcwgIZRUYxp/6vKL35tJ4JtUbztWIgUMyHKXFiCk5
+         PgvrjZ3dUYSpc7x5Nn4rpJT1KP0xzB1ibyqY0xQuHxYkiaQgfUUwjVccUqBo5zivjd9D
+         c3aWrzBI91Y4oUjJSxC7MhvW/Zv/l0oOcLx4+lGFoaelqVr5wZh8ZB6qs6H5AwxuOEBp
+         h6PQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqzGTsfnB664JHZLmnHu3SziFOWRDh58vyeyizr8hk5WbgtpFOqXHViRm3KY/ysZLbs8WNn0qI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAWJl8lolRCkCiRjMFqdeCbdEMctIWPa/nomC4eTrK/AzJg24y
+	+5/kunvXh8yW+mAOb0EHwiwoxR3LhD5Miw3Z6956LCFpmiDLhrtiyLRi24jriK0+OynYXNV/4wc
+	sLCw/kLzrixwnM9ZYDjHqJ61Sin6SD5X3s39dYdU=
+X-Gm-Gg: AR+sD11hNF8hF8UYVahwHPFjP5b82wTms7fpUOyY1QI1UD/Fs8dnjj5pxwvvq2dsgH4
+	7Ro0XwtueDRb0ghCBWjdGD0TLnlzxEiGl3kuD/Eo28uPI1eRM5+Fv8EyDnZSQZh7QBVvOrvLykY
+	ZHImDTEO7G2yMwr2mNMlFwy6r5ZcU/CZjVvh5FuK2cWB8vqEa0eRGSbrWFvpxAWyWQLnNk5kW5w
+	wsDO9crMmvKE5iYrGhyOYTOXvNwn0JvlKpp4F6UqbrCvqY616JNhUECBDHKv1iDGCzTBKo22zYj
+	wOnvVgDaAE3oe6N/bNSzztWnTSxJKBYlahi9jOFJVEXuPRwyfFjG4zBwDOW870GRR5iC1REyd7T
+	xzdL95Jlk19vWuy2PtZ3iW1aZaFzG0Tv0KI2pThz6LZOmwN6Gwqg8yzoUILgaUo216NvUQqcu
+X-Received: by 2002:a17:90b:4a08:b0:38f:57f0:1f51 with SMTP id
+ 98e67ed59e1d1-395c2f26693mr17048624a91.0.1787515022455; Sun, 23 Aug 2026
+ 12:57:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260823193529.156066-1-ojeda@kernel.org>
+In-Reply-To: <20260823193529.156066-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 23 Aug 2026 21:56:49 +0200
+X-Gm-Features: AcwNN1V-x1COeybQxjem4PQWjBSL_WsHxSqMe08yuK5ZTBwEtWVtjAsz2JYB8h4
+Message-ID: <CANiq72mj854XkMk_urvfcJtuiktMTHMU4kYiE=suF3YKM94_gg@mail.gmail.com>
+Subject: Re: [PATCH] rust: kbuild: disambiguate `zerocopy_derive` for `rusttest`
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	Antoni Boucher <bouanto@zoho.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The `rustc-dev` components for Rust 1.82.0 through 1.87.0 include a
-precompiled `zerocopy_derive` procedural macro in the sysroot. This
-range includes Rust 1.85.0, our minimum supported version.
+On Sun, Aug 23, 2026 at 9:35=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> +    --extern zerocopy_derive=3D$(objtree)/$(obj)/test/libzerocopy_derive=
+.so
 
-This makes `rusttest` fail because the compiler finds both the sysroot
-copy and the copy built in `rust/test`:
+This should be:
 
-    error[E0464]: multiple candidates for `dylib` dependency `zerocopy_derive` found
-      --> rust/kernel/prelude.rs:70:9
-       |
-    70 | pub use zerocopy_derive::{
-       |         ^^^^^^^^^^^^^^^
-       |
-       = note: candidate #1: .../lib/rustlib/x86_64-unknown-linux-gnu/lib/libzerocopy_derive-54d2b38896fa6bc5.so
-       = note: candidate #2: .../rust/test/libzerocopy_derive.so
+    ... test/$(libzerocopy_derive_name)
 
-Commit fe39a233ea52 ("rust: kbuild: disambiguate `zerocopy` for
-`rusttest`") fixed the equivalent ambiguity for `zerocopy`.
+as Sashiko mentions, for the macOS support, of course.
 
-Thus point to the dependency explicitly in this case too.
-
-Cc: Antoni Boucher <bouanto@zoho.com>
-Cc: stable@vger.kernel.org
-Fixes: 506054980429 ("rust: zerocopy-derive: enable support in kbuild")
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
- rust/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/rust/Makefile b/rust/Makefile
-index fbe0accc51a3..a346a01bb3eb 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -350,7 +350,8 @@ rusttestlib-pin_init: $(src)/pin-init/src/lib.rs rusttestlib-macros \
- rusttestlib-kernel: private rustc_target_flags = --extern ffi \
-     --extern build_error --extern macros --extern pin_init \
-     --extern bindings --extern uapi \
--    --extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib --extern zerocopy_derive
-+    --extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
-+    --extern zerocopy_derive=$(objtree)/$(obj)/test/libzerocopy_derive.so
- rusttestlib-kernel: $(src)/kernel/lib.rs rusttestlib-bindings rusttestlib-uapi \
-     rusttestlib-build_error rusttestlib-pin_init $(obj)/$(libmacros_name) \
-     $(obj)/bindings.o rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
-
-base-commit: d24f5cdbeff8b6a063fca92d0a1f94122a799b59
--- 
-2.55.0
-
+Cheers,
+Miguel
