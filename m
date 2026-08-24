@@ -1,89 +1,76 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216F4155757;
-	Mon, 24 Aug 2026 04:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFC72C21E8;
+	Mon, 24 Aug 2026 04:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787544060; cv=none; b=n+0ly59SWMO1PYQ1aY+uEkfWY0Yi1gJKNlOYjVbuPB25QD7MbMfuuT/8ZA3xTkqAQh1xMB7Sa6ccHNUnfc7Dxb14GEsjVk62gOFKa/pW0mWUD+0icR8gvDcEQZ/KmNjLzjtYW0iXKI9DdHGqZmisSksq92FyADoxtZtBuyoTxNc=
+	t=1787545347; cv=none; b=usjLUpRQnQZdMY7SSFJxOStmFJnW94chsoAupPh+0YfcNEjhXccOiu1bp6CtGtPbvFcbmCoY5Xhh5NaamxL58lWZMIaHq72OIeYOzPywKn4J3vnG47aDiOgIbVm6rSsK17koHZxAl6ortaB1j5K2BmdkvvGUyAyKIekt5qNQdF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787544060; c=relaxed/simple;
-	bh=7SFbWN+6wWJSTq7w8WSG/y/A0lrYdNv3GaPbdlxM1AU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VG48gzUHFI1hd6Qsglgxr0Js0tL1WsjxqgBJcbw3HBjzaaFM9QDAnNmha7Wy9YPa+R5hSu+9M+sLmPUo4Nz35oCWMe1s0p/AKLvXBHoqf/mA0PC/KzXujrYZzcYwUfkXoMMdGE0rjsbUQ4f1OJImmzwyhY5EKrHQ1j5Ygig6UFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=6It6lyAt; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1787545347; c=relaxed/simple;
+	bh=7Udjr4MTX/FOk00kOVX0N+MizWRUJyVWmSQxnC2oz2s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e2MOTB2c7qxFUEgF0Z7jKomNt948hfPDOhbsPUpQzywcK5ctTMNLxM3JRuxOQDTJjZLTtJfKnwU7Cv2938FgMp3CvUwMeKTyoQsIW7y5fSmpJ4uGyAiViGY6mMFAy3lJ+7A0NrDdp34ywe6HuUjLWQrBjBBNUZ6aD/JEdng5vM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=ggNemzTO; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="6It6lyAt"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=TqdonImzbWfKbjV2qUASp4Goc0MmeY75l3/0kCBSS4Q=;
-	b=6It6lyAtst6TdjkO1asH9rqAGOwu8AtRigrIwHLFKIq9TM5lFA9PlyYfz6wDyxXPISY49eCxG
-	EO8EwAZ0BfR1pqOEzNrPUJ+LwPVlF1X0Vc8CC7dYnb6n6wAutz4spG9bndtnKhGp0jjDJfOsv1i
-	vBcojRZnAoJVzounJo2F2zI=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hSxkg6yDvz1prQc;
-	Mon, 24 Aug 2026 11:50:03 +0800 (CST)
-Received: from dggpemf100018.china.huawei.com (unknown [7.185.36.183])
-	by mail.maildlp.com (Postfix) with ESMTPS id 31E134058C;
-	Mon, 24 Aug 2026 12:00:50 +0800 (CST)
-Received: from [10.67.111.115] (10.67.111.115) by
- dggpemf100018.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 24 Aug 2026 12:00:49 +0800
-Message-ID: <dab9d7f2-d208-4dfc-b25f-8f46d6d44bf9@huawei.com>
-Date: Mon, 24 Aug 2026 12:00:42 +0800
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ggNemzTO"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4b09d569d;
+	Mon, 24 Aug 2026 12:22:17 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] drm/amdgpu: return reserve errors from amdgpu_gfx_kiq_init()
+Date: Mon, 24 Aug 2026 12:21:54 +0800
+Message-Id: <20260824042154.1720968-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260823092936.992430-1-runyu.xiao@seu.edu.cn>
+References: <20260823092936.992430-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "irqchip/mbigen: Fix mbigen node address layout"
-To: Hanjun Guo <guohanjun@huawei.com>, caina <caina@uniontech.com>,
-	<tglx@kernel.org>, <maz@kernel.org>, <radu@rendec.net>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-	<kernel@uniontech.com>, "liaochang (A)" <liaochang1@huawei.com>, Ruan Jinjie
-	<ruanjinjie@huawei.com>, <wangwudi@hisilicon.com>
-References: <8633w854yk.wl-maz@kernel.org>
- <20260821091720.16665-1-caina@uniontech.com>
- <49ae6e21-2ee3-8dba-f731-7ef17f793dd5@huawei.com>
-Content-Language: en-US
-From: Yipeng Zou <zouyipeng@huawei.com>
-In-Reply-To: <49ae6e21-2ee3-8dba-f731-7ef17f793dd5@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- dggpemf100018.china.huawei.com (7.185.36.183)
+X-HM-Tid: 0aa032013e2b03a1kunm9c9c385021612f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHR1KVkJMT09OTxkZGU8fQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=ggNemzTOmri2HozeoaZul+Kvn+Sxz8uJa9Xlrm/MF6/uBXuz0yE7W7docIX7u97CXBWFy4WcObDo6Byy0RND2Ga891aAct6q6PMmQ9JPqErTiPcAn6rtrbNgldIqffUBK8uH4HQX2VCMa2jtKOk/uTYfwz3OH0+4iUaYrmbUwWc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=slTYeHhnsF4LJMK9bqKlF4AjIQDkMkQFY+4RCApACV8=;
+	h=date:mime-version:subject:message-id:from;
 
-  Hi all,
+Thanks for the review.
 
-     I’ll send a patch for this soon. I have a fix ready, but I need a 
-bit more time for testing.
+Before preparing a resend, I rechecked the reservation path:
 
-Thanks.
+  amdgpu_bo_reserve(bo, true)
+    -> ttm_bo_reserve(bo, false, false, NULL)
+    -> dma_resv_lock(...)
 
-在 2026/8/22 17:55, Hanjun Guo 写道:
-> Hi caina, Marc,
->
-> On 2026/8/21 17:17, caina wrote:
->> This reverts commit 6be6cba9c4371d27f78d900ccfe34bb880d9ee20.
->>
->> Commit 6be6cba9c437 ("irqchip/mbigen: Fix mbigen node address layout")
->> appears to cause a regression on Hi1616.
->
-> This will break the new hardware :(
->
-> Sorry for the incompatible issue, but please wait for a while, Yipeng is
-> working on this now.
->
-> Thanks
-> Hanjun
+This is an uninterruptible, blocking lock acquisition without a ww acquire
+context. Under the current locking semantics, contention is waited out and
+the call cannot normally return -EINTR, -EBUSY, -EDEADLK, or -EALREADY.
 
--- 
-Regards,
-Yipeng Zou
+The reserve-failure path targeted by this patch is therefore not reachable
+under the current locking semantics, and this patch does not address a
+currently triggerable bug.
 
+I am withdrawing the patch and will not send a v2. Thanks for catching this.
+
+Runyu Xiao
