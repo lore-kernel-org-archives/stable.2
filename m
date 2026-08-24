@@ -1,69 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B48E37E310;
-	Mon, 24 Aug 2026 21:49:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F3F2EA75E
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:52:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787608195; cv=none; b=gb+OADucYLLIEqxKENW7nHXhnTI5Pj9UQeUr9APQQdan2KVMOxkKcv/S/xym56nlc6805W2EkxltwSoIWVjy8YtopzxQ9wHJJ7zFMieaz2ZQz9sW/HFLdAl4dL83ztWgSRAdMQO4gfXTpr0DyQxTErD7XxuQUS8OzF7fQK6sE0U=
+	t=1787608363; cv=none; b=i8lLTSJQ68cRPbOJrFi58J6WLCEcw5D9sAcY0Zc7zcJBK82LyhigIEkUKO2qX6PVTHd42wyFro8OuN77SYJ0YcUfQEbzsMxSkNZq8TdlSdxR6zyHmMo8mszyXT/euxLRqyjIZjqq/RPjQV5ieHddTuOta+XNMzEDvOsk04b06tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787608195; c=relaxed/simple;
-	bh=56xfdz7PwV1Y5Ku8/e6bO66IS0u8QipkU0I0VeqnkrE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b+WWIdqCz1Q+ROozLzFyCfl4twpmKMiXesdDB+Sm+6hNyqEKk7JZo2V0yiusuT5zkiReB5KSQwIDaIYqn4n3/OyHnOE/kAP/mRIlatPv04B84MauFVvsxkhtiN+GnF8PXJcPJkJKotBcDAwK8tr9i2tKcnnhW2bL5iqdUPuPg1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTJfD7JP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787608363; c=relaxed/simple;
+	bh=WWOVjaEsOe46DVclho86R/4sAuJiPaOHlp92XiZMY00=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KaSpxmNbDsAqXJ36f7Os/hiCKPJw83BQP/2vwjD9cbZvD5SViwgoMv1gk152D/BdZgW0x63qfAVA3yuyeW9CTlcUxz0uurUqH8LitLcRp+MTwhnuHToT5KlJPZ7vQ2iB62AOePJsaB3IhMcMOfA5Fe8D4eATyz1cQpJ8QGr+ZgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhdD1CDu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTJfD7JP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3843B1F000E9;
-	Mon, 24 Aug 2026 21:49:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhdD1CDu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A546A1F000E9;
+	Mon, 24 Aug 2026 21:52:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787608194;
-	bh=8Y8tZ2yPkr4eQp29NxFMS96y/9nHRbndwJB2IImZV/I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jTJfD7JPczCoAwBQ/gC69/NBh6dq7TxqxsLBOnFlpNuChbA0lUnPGmLyUK6ofWnQ3
-	 nligsvcnPjWoDWiw8TBtD/ma/+DK4i8amIpv1k9z+tWvzwfoouRV0vTHYxd+FjqHS7
-	 Lk513FEK8mv8nrX0Ots+A8lYMO7vSa7CeUbb0Bsw3sBOAsLrUnwHMwHynUX3YhDGQ6
-	 +Zs3WWfF2zedV+wJkmWSWe93r7LbVyo+jrpqbwG9DTG/Qgg2kMGA3Xi41vzQ8uLY1k
-	 HswIq9e3dGyXwiDWQ2M+dfkiuZgRbHYjugYv30IRKabfYKjkj600uNiQD8337iaDcz
-	 Q3fEBzj9s8wUA==
-Date: Mon, 24 Aug 2026 16:49:53 -0500
-From: Rob Herring <robh@kernel.org>
-To: zhaoguohan@kylinos.cn
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, dri-devel@lists.freedesktop.org,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] accel/ethosu: check MMIO mapping errors in probe
-Message-ID: <20260824214953.GB50486-robh@kernel.org>
-References: <20260716065219.931088-1-zhaoguohan@kylinos.cn>
+	s=k20260515; t=1787608362;
+	bh=5B0/TVuHEjYvTCvrEEd0eeTPEG0juzxIcvx1UF/FkmM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AhdD1CDurkWkLJKpvK9Z40J9RP7MjEDewKDkyL0mVgUiOhjI0SgONiZJQDbpT8i9/
+	 L69zady/I3swiDK7pjptCzKUGdhrTO0PfaBpJbBKPqkaWMLtJWcZXUZlk9UMTwF2PF
+	 pnqJ9mSYaqXqdImhJG1/832+4ggF5sg1utffUpCiXgG+5wLx+ysTbKM52LCgL7nvsZ
+	 juJ+ouhPrj8QUCEFC88trGxCDtIqsTWQZs9+FqkrGY62ZqGru7SwBKQKkImNizPzaz
+	 AEw/q2EBTOi795uOHoKrd09x7NKffWC6BgCQiG51eTO7/CjmzCB8pAW2BO0hfB4Axz
+	 cCyiD/R7QUw4Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Dawid=20Wro=CC=81bel?= <me@dawidwrobel.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
+Date: Mon, 24 Aug 2026 17:52:40 -0400
+Message-ID: <20260824215240.429752-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082032-chlorine-handful-d6b4@gregkh>
+References: <2026082032-chlorine-handful-d6b4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260716065219.931088-1-zhaoguohan@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 16, 2026 at 02:52:19PM +0800, zhaoguohan@kylinos.cn wrote:
-> From: GuoHan Zhao <zhaoguohan@kylinos.cn>
-> 
-> devm_platform_ioremap_resource() returns an error pointer when the register
-> resource cannot be mapped. ethosu_probe() stores it and continues until
-> initialization dereferences it through MMIO accessors.
-> 
-> Return the mapping error before initializing the device.
-> 
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: GuoHan Zhao <zhaoguohan@kylinos.cn>
-> ---
->  drivers/accel/ethosu/ethosu_drv.c | 2 ++
->  1 file changed, 2 insertions(+)
+From: Dawid Wróbel <me@dawidwrobel.com>
 
-Applied, thanks.
+[ Upstream commit 1ba381759e45d5d0442452cfa5c42e836191a568 ]
 
-Rob
+The "DEC0 MODE" to "DEC7 MODE" controls are enumerated, but
+tx_macro_dec_mode_get() and tx_macro_dec_mode_put() access their
+value through ucontrol->value.integer.value[0] (a long) instead of
+ucontrol->value.enumerated.item[0] (an unsigned int).
+
+This same pattern was fixed in the sibling drivers by
+commit bcfe5f76cc40 ("ASoC: codecs: rx-macro: fix accessing array
+out of bounds for enum type") and
+commit 0ea5eff7c606 ("ASoC: codecs: va-macro: fix accessing array
+out of bounds for enum type"), but tx-macro was missed.
+
+On 64-bit kernels built with CONFIG_SND_CTL_DEBUG, the elem value
+sanity check catches the 4 bytes written past the enumerated item
+and every read of these controls fails with -EINVAL:
+
+  snd-sm8250 sound: control 2:0:0:DEC0 MODE:0: access overflow
+
+Fixes: c39667ddcfc5 ("ASoC: codecs: lpass-tx-macro: add support for lpass tx macro")
+Assisted-by: Claude:claude-fable-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260730-worktree-lpass-tx-macro-enum-fix-v2-1-6d091c736116@dawidwrobel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ kept `snd_soc_kcontrol_component()` context line instead of upstream's renamed `snd_kcontrol_chip()` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/lpass-tx-macro.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index c7d4dc553e6aa..8cf8a9b687961 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -1075,7 +1075,7 @@ static int tx_macro_dec_mode_get(struct snd_kcontrol *kcontrol,
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	int path = e->shift_l;
+ 
+-	ucontrol->value.integer.value[0] = tx->dec_mode[path];
++	ucontrol->value.enumerated.item[0] = tx->dec_mode[path];
+ 
+ 	return 0;
+ }
+@@ -1084,7 +1084,7 @@ static int tx_macro_dec_mode_put(struct snd_kcontrol *kcontrol,
+ 				 struct snd_ctl_elem_value *ucontrol)
+ {
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+-	int value = ucontrol->value.integer.value[0];
++	int value = ucontrol->value.enumerated.item[0];
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	int path = e->shift_l;
+ 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
+-- 
+2.53.0
 
