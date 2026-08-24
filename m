@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EA8340A6F;
-	Mon, 24 Aug 2026 16:48:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF2446D09D;
+	Mon, 24 Aug 2026 16:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787590124; cv=none; b=BPl9qB0ghq7ZNOuiNFX9u4vsuQHrCDLBdXaOOYx3Kaab2j24eni2qQCj/PTTzPjzUhi3IDIMZwXP6w5U3mvQqbOL8UNgUr3UjjIIXIKLjnOe6CiIZOyMt0O0jlq+rvgr+nmACtLrWo4AAv/zqj/wmmYn1I521EoVwWuoHqZBD60=
+	t=1787590127; cv=none; b=Blhy4xtlBLy/YLcMb8t5zCR/LPz6u65+PLDDpeC/bpMUNEl/8ZM+VBjuk6s8gWJZx6IKV1X+xcsX0Ynh9r1sXiqrmLX15WB2LnQh5ljFPYHK3A6yVf5pp6c0lHF3+cPvDuKPnNIq+1jryzZAolZC8Gh+gN/JVd0jxA242j9YTsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787590124; c=relaxed/simple;
-	bh=OdzcroVIBks3JFTSAjW6CRoFsw9jd2L4sObexLqmZhE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jnNVJ/VD8H+116t84isMgFITXT6d4uGw1FxptGuuwXhkE39QAstF8qxjMaKqut4DgAt7wPfZEYkJ1yEFICBfWnAqGw+HjgTwbhqlf3H8wOVJiGp7VgZNv0rIDWFlTBeRMIwAljapBY/nbw3chngxuWLRuGmBinyVecUqobNteIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZlRnYzT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787590127; c=relaxed/simple;
+	bh=lGgTHG2ZKEPZWmH7Q6U/4MSgDPOsDPE5Cb4PbcyuAZA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JOKNovjFoSaHW7c/rTXDir2D2DJ98LeuOp8JFJjbgz7Ufheyp3sY1JQStyG7PNd2jVI0tJDarCcJLaIgVA7QB4Ad+2oO4G5bvQ2mp5Euwh44pvd0LFz3JF5w95Mfpe88STQWfpynUuE1Hr4bWQ+fIl5lxfvoh95DeVYNT9FWdiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aOTcdwTB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZlRnYzT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504941F000E9;
-	Mon, 24 Aug 2026 16:48:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aOTcdwTB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26EC1F00A3A;
+	Mon, 24 Aug 2026 16:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787590123;
-	bh=7eG18ALqGrAc0R4jlhNdqf4NA5blrLBjDEioLV0nwrU=;
-	h=From:Subject:Date:To:Cc;
-	b=DZlRnYzTLz9SKJeKspWhnZ0AYyPKwx72K4WF1EivckXKFRMM6eZRvIg1EYmo71apE
-	 yYWxXUFS9ePCaECM/dIr5qe8Id1vKP+ttoZvmyZjMyFqYWbSXUKiZNSUoi6Yk5gcv3
-	 xos0HLFMX0nWo1btBj4G0Qk1Lyf3RH/0yeq7yiFI66QL7pqLwa+oHG+PJi+xL7x8m1
-	 VIETsoZnvYcGDs0eojoV9ym9hhb1lHLaiyEEr6o63eIqMD9v98tJpa4Bgl40h7RI6z
-	 sO1SSWAVywYSGLVY0tSv8XJ7VR00S5wyXMbaBppu1CPVwGogisQOg3GoyyGEsilLnG
-	 1fC7yOZHFphgg==
+	s=k20260515; t=1787590125;
+	bh=/OB3yD8YAWHEh42zk3dmZQtCDJh8aZqs6rUdBIApURs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=aOTcdwTBm2O4d8Gh0CpHK5KlkCrjxHBAJO022aPHlJ+bwkPlPhqZSO6T2PkeOLFMp
+	 sJ8wjxCHc2bftd/LK4G7HvUyUKmvos5Q6sST/J94+aXEYWC/1mxCNC3i9dMuln68XF
+	 n1deSidvlIzaNlY2NNF8CHPBSCl9WBO+RE38uvBT5wleWMWztGD+9UaoV1lzjF8hvo
+	 IMUU+XpQdp+9DTywh2p3nF6XITZiDMop6xs6KexxS4lcE2jYc5lwu0tlKrjvX7VVpr
+	 N4+Vhmo0nAei9w4Cu8HJXtsJUN/6JRSdyiZ3TMwxD3/u55JBpIH/PxdwENJwNSImS5
+	 x0rV/3wXZDxmA==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Subject: [PATCH net 00/14] mptcp: misc fixes for v7.3-rc1
-Date: Mon, 24 Aug 2026 18:48:20 +0200
-Message-Id: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-0-a92309d121ca@kernel.org>
+Date: Mon, 24 Aug 2026 18:48:21 +0200
+Subject: [PATCH net 01/14] mptcp: do not reschedule the RTX timer for
+ fallback sockets
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,116 +38,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAxFf2Xk2cCalSr+ivgws6gRVkvTiTD27
- 0Z9PJd7zgomVcXg2K1Q5aWmz+wQdh3wfcw3QZ2cgXpK/YEiZmk4l8YFZzXGq77FcI8DVg6Yxjg
- lokE4BvBEqfI7eOEEbsL5P9pyeQi3bxi27QMCBTl0hQAAAA==
-X-Change-ID: 20260824-net-mptcp-misc-fixes-7-3-rc1-6a4d6223ec41
+Message-Id: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-1-a92309d121ca@kernel.org>
+References: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-0-a92309d121ca@kernel.org>
+In-Reply-To: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-0-a92309d121ca@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- stable@vger.kernel.org, Florian Westphal <fw@strlen.de>, 
- Kalpan Jani <kalpan.jani@mpiricsoftware.com>, 
- syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com, 
- Tao Cui <cuitao@kylinos.cn>, Gang Yan <yangang@kylinos.cn>, 
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
- Qing Luo <luoqing@kylinos.cn>, Kishen Maloor <kishen.maloor@intel.com>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Keita Morisaki <kmta1236@gmail.com>, 
- Jakub Sitnicki <jakub@cloudflare.com>
+ stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3308; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=OdzcroVIBks3JFTSAjW6CRoFsw9jd2L4sObexLqmZhE=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJ6Su9yWSu4fZ6+asvuiDjGi1svaqeXl8zV81O6Wr7X+
- ttF4Vf1HaUsDGJcDLJiiizSbZH5M59X8ZZ4+VnAzGFlAhnCwMUpABO5qs3wT+s6Z9zyz5UzL3bP
- tT3p3ifT4iFZ3NUidHu6iIrgdu/gHQz/3QsWT8h3ebgq6FDQIruv9m9eyHjKOR/b72UZst8xzKy
- dAQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2484; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=li4fJ4c7IBN9TnNAIhpMPUAd5KkV635EL4tWRzXLfIY=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJ6Su9Fey4MNhUtZHnVcLzT+/l2TZWz98Llpjp/lA/f2
+ cOZUL+zo5SFQYyLQVZMkUW6LTJ/5vMq3hIvPwuYOaxMIEMYuDgFYCLnwxgZzk+XWnH38rNf/r7t
+ P4NWTk72uMFZWnxQOnVzTHNrZKXTZUaGP073XNeGzHPkS6+cdqNyxp76D9lptXrL7N9eezPX8+V
+ RbgA=
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-Here are various unrelated fixes:
+From: Paolo Abeni <pabeni@redhat.com>
 
-- Patch 1: Do not reschedule the RTX timer for sockets that fell back to
-  TCP. A fix for v5.7.
+On fallback socket the retrans timer is a quite convoluted no-op, but
+currently nothing prevents the MPTCP core to keep rescheduling it.
 
-- Patch 2: Avoid copying thmac which will not be used and could be
-  uninitialised. A fix for v5.7.
+Additionally gate RTX timer reset to the msk not being fallen back to
+TCP yet. To avoid adding multiple tests in fast-path, use a new flags
+bit for such condition.
 
-- Patch 3: Re-set the request backup flag when SYN cookies are used. A
-  fix for v5.9.
-
-- Patch 4: Drop pending ADD_ADDR when removing ID0, and avoid a WARN. A
-  fix for v5.13.
-
-- Patch 5: Handle invalid suboptions where the checksum is requested in
-  the MP_CAPABLE 4th ACK with data, but not added in the option. A fix
-  for v5.14.
-
-- Patch 6: Fix a use-after-free in the selftests that could lead to
-  false positive. A fix for v5.17.
-
-- Patch 7: Limit new addresses with the userspace PM to avoid an address
-  ID overflow. A fix for v5.19.
-
-- Patch 8: Reset the ADD_ADDR retransmission counter when the timer is
-  reused. A fix for v5.19.
-
-- Patch 9: Remove unneeded and confusing READ_ONCE() annotations. A fix
-  for v6.13.
-
-- Patches 10-11: Get nstat counters for the current test, not since the
-  creation of the netns. A fix for v6.19.
-
-- Patch 12: Fix an uninit-value in mptcp_write_data_fin for a corner
-  case now that only a part of the tcp_out_options struct is reset. A
-  fix for v7.1.
-
-- Patches 13-14: Two follow-up patches addressing minor comments
-  discovered after the human review. A fix for v7.3-rc0.
-
+Fixes: b51f9b80c032 ("mptcp: introduce MPTCP retransmission timer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-Gang Yan (1):
-      selftests: mptcp: fix an UAF in mptcp_connect.c
+ net/mptcp/protocol.c | 11 ++++++++---
+ net/mptcp/protocol.h |  1 +
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-Kalpan Jani (1):
-      mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index b474d03620a7..23dde0b7144b 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -95,6 +95,7 @@ bool __mptcp_try_fallback(struct mptcp_sock *msk, int fb_mib)
+ 
+ 	msk->allow_subflows = false;
+ 	set_bit(MPTCP_FALLBACK_DONE, &msk->flags);
++	set_bit(MPTCP_RTX_DISABLED, &msk->flags);
+ 	__MPTCP_INC_STATS(net, fb_mib);
+ 	spin_unlock_bh(&msk->fallback_lock);
+ 	return true;
+@@ -1084,13 +1085,14 @@ static bool mptcp_rtx_timer_pending(struct sock *sk)
+ 
+ static void mptcp_reset_rtx_timer(struct sock *sk)
+ {
++	struct mptcp_sock *msk = mptcp_sk(sk);
+ 	unsigned long tout;
+ 
+-	/* prevent rescheduling on close */
+-	if (unlikely(inet_sk_state_load(sk) == TCP_CLOSE))
++	/* Prevent rescheduling on close and in case of fallback. */
++	if (test_bit(MPTCP_RTX_DISABLED, &msk->flags))
+ 		return;
+ 
+-	tout = mptcp_sk(sk)->timer_ival;
++	tout = msk->timer_ival;
+ 	sk_reset_timer(sk, &sk->mptcp_retransmit_timer, jiffies + tout);
+ }
+ 
+@@ -3324,6 +3326,9 @@ void mptcp_set_state(struct sock *sk, int state)
+ 		 * transition from TCP_SYN_RECV to TCP_CLOSE_WAIT.
+ 		 */
+ 		break;
++	case TCP_CLOSE:
++		set_bit(MPTCP_RTX_DISABLED, &mptcp_sk(sk)->flags);
++		fallthrough;
+ 	default:
+ 		if (oldstate == TCP_ESTABLISHED || oldstate == TCP_CLOSE_WAIT)
+ 			MPTCP_DEC_STATS(sock_net(sk), MPTCP_MIB_CURRESTAB);
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index 06a107d4e839..6c00a80344f9 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -116,6 +116,7 @@
+ #define MPTCP_WORK_RTX		1
+ #define MPTCP_FALLBACK_DONE	2
+ #define MPTCP_WORK_CLOSE_SUBFLOW 3
++#define MPTCP_RTX_DISABLED	4
+ 
+ /* MPTCP socket release cb flags */
+ #define MPTCP_PUSH_PENDING	1
 
-Matthieu Baerts (NGI0) (7):
-      mptcp: subflow: no need to copy thmac during ulp_clone
-      mptcp: syncookies: remember the request backup flag
-      mptcp: options: handle MPC data + csum reqd + no csum
-      mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
-      selftests: mptcp: lib: dump nstat for the right test
-      selftests: mptcp: lib: get counters for the right test
-      mptcp: options: fix uninit-value in mptcp_write_data_fin
-
-Paolo Abeni (4):
-      mptcp: do not reschedule the RTX timer for fallback sockets
-      mptcp: remove unneeded READ_ONCE() annotation
-      mptcp: being below memory limit is a likely() condition
-      mptcp: avoid pruning for OoW data
-
-Qing Luo (1):
-      mptcp: pm: userspace: fix address ID overflow
-
- net/mptcp/options.c                               |  8 ++++---
- net/mptcp/pm.c                                    |  2 +-
- net/mptcp/pm_kernel.c                             |  8 +++++++
- net/mptcp/pm_userspace.c                          | 18 ++++++++++----
- net/mptcp/protocol.c                              | 29 +++++++++++++----------
- net/mptcp/protocol.h                              |  1 +
- net/mptcp/subflow.c                               |  1 -
- net/mptcp/syncookies.c                            |  5 +++-
- tools/testing/selftests/net/mptcp/mptcp_connect.c |  4 +++-
- tools/testing/selftests/net/mptcp/mptcp_lib.sh    | 26 +++++++++++---------
- 10 files changed, 68 insertions(+), 34 deletions(-)
----
-base-commit: 7cbfb180945ce529608e4d4e24a6d483699fab1e
-change-id: 20260824-net-mptcp-misc-fixes-7-3-rc1-6a4d6223ec41
-
-Best regards,
---  
-Matthieu Baerts (NGI0) <matttbe@kernel.org>
+-- 
+2.53.0
 
