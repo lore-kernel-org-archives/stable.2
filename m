@@ -1,125 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch [109.224.244.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D8B407CEF
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 10:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0045A49365C;
+	Mon, 24 Aug 2026 11:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787569017; cv=none; b=QrOCFRtseIqUD2qzx3FNTft6SVK78HXdESfn2hZ3fspVfeIudrV3o9rIfR9W8C3DXdbD2K8vARE5PlSEkJuq7OcsbXWFKleBpqMYb3vKshgtN5mpP90h8Eh3oI7imHEOxS9xRhA5zqgwzdTmJ1l2ZM+Atho7VzdLsmAEFI5lUUM=
+	t=1787569228; cv=none; b=DM1hDL/q1MaL16jQRP49BAKm9gqOI6+GZSR2I9e9LsLei7XHZXq1SEmAMwt4QwR7I66w09PzEnd2yhHnzejkr8hWTe6jai9UT9l/twCkwl99cC7kIOqhT/qROtVIQ/RVj23kU0vSJ64ruRyIUcog+ncIfpzi8OV8qzCR5tmtGUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787569017; c=relaxed/simple;
-	bh=ZNgYR+gU5uUQKLWVySwu31oirYyPWAMwRJA0QEayVC4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PTk6tt0cn8DdbJRHF1Rbfq2Jl7W/DWs7IjcNYM4JlHZCAvoGapSBehswfjHQD2UYM/8H05nUu2ZAJPXQuK5XSjzalrA5F+voG6BzkLd+faPTbizI+tdZ/gDEUxIHk8ZELtXCcqTpSZKXdnSa3MrHCMTE/Zv8fwPT3RdeJZh5EFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=edDCt0eb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787569228; c=relaxed/simple;
+	bh=AE/GYNDmPO64JSgx6/zT48l/9P6AenBcx8poL6MX2Q4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lbp76DlBgCwjSeizX2w0kGlCoGvS3lWoqjATq9vmxf/92toyY+66yTsWXvaOqQPK/O1edU2ES7N08kx9mcDgzCLj9wZk1UyrD3VW/3FKK7CM3/rMSAtD9gB6OI7PRc9SrQ56ciGXXfcFKr8WFBdKwFvT++JxSbAWFdvx3MXoZ2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=N6FkMMsG; arc=none smtp.client-ip=109.224.244.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="edDCt0eb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4E91F000E9;
-	Mon, 24 Aug 2026 10:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787569016;
-	bh=j3adGMfO2wNj50YWMQ2hts4SDaifGpvl2C3HiTcnrKI=;
-	h=Subject:To:Cc:From:Date;
-	b=edDCt0ebGX1RDnizbDZAJTML2fhrwQLVQEIl9zdypn5y1x2WE9JAf27ReV6pzWjfq
-	 E7bdP3Kbr6aRCHdNnKLfP3YsutmhsWTfK8mVe1mrYn1OWI/dhC1Xsad9+cOOKnuPBx
-	 RtmSN6Q3Bj9CyKuTUEwDNpW0X8/ZBWgIg4iJ/KRg=
-Subject: FAILED: patch "[PATCH] futex/pi: Reject cross-mm private futex owners" failed to apply to 6.18-stable tree
-To: kylebot@openai.com,peterz@infradead.org,tglx@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 12:56:50 +0200
-Message-ID: <2026082450-shoplift-anew-8412@gregkh>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="N6FkMMsG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1787569219; x=1787828419;
+	bh=Z8/gyZvq1K/bBhlZ6sGYTHpFeJ3lOrpPEPV9gdmTfXA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=N6FkMMsGFmSwNpXYvMYTch+rKN9KJQFrlJ7FAXQz4U3kmTvmGvoPijT8TTAMYEZZW
+	 R0EJhHLeYIA4mNYD3OP9iIMhPDHWKeRKRhqGxbl6U8J+SN8d+wy1e9wlFJ4r98gmnk
+	 +b5Aguzw12U0Um/uaw5g5wRsi24bmm8oeI9+fOzLku0PJO4cCdRLT340+AMqR+abfc
+	 hIy9MzTLgr6OJWO5BKXzdBM449LIVfUMMxiKWyXWoUoz6spHv7BlmBncqFiAYLUeBY
+	 oyCQy6zkZ8j0A50jFNXUX9NXNkrPR78vFCH6blH5DKp5nsrMLohAl4/KnISLr40bDg
+	 OLJbw83SRRUVw==
+Date: Mon, 24 Aug 2026 11:00:15 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: nirbhayykumarr@proton.me
+Cc: "arnd@arndb.de" <arnd@arndb.de>, "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>, "w@1wt.eu" <w@1wt.eu>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v3] misc: mei: fix race condition between client teardown and read completion
+Message-ID: <nAKQ1OCohroK1IDDGOCNsI3rhxnpOt-dQp4PRQUgdPCJ13DjUIXHdp_mmdu_juNtAn5AgqR-hkQnMY0vllSuVDRyIGyzk-K-FOgOUmC8h1o=@proton.me>
+In-Reply-To: <2026082401-spoken-nag-acf7@gregkh>
+References: <2oKLyY1tm4g6xwyvmh7loQ1t1EBr1rNjMzfiXN-b0q8BbO_4vjW0xcxR_aTEielTWx5ma4f1NCO4Y5LG98PRKseN6WLUbnXR9zGtcQVR9zY=@proton.me> <2026082401-spoken-nag-acf7@gregkh>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: 09f3c15f341ef96f7a43e7b2fd37cb89fbd0cfa7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi Greg,
+
+To answer your first question directly: Yes, I used an LLM to help polish m=
+y changelog and commit description, and learn the strict kernel mailing lis=
+t etiquette. This is my very first kernel contribution, and I used it to he=
+lp navigate the patching process. However, the core technical work, finding=
+ the bug, root causing it, writing the C patch, and testing it is entirely =
+my own.
+
+Regarding how this was found: This came out of a broader research project c=
+entered around systematic fuzzing and interface testing of /dev/mei0. As pa=
+rt of testing various subsystem boundaries, I wrote a custom multi-threaded=
+ C stress utility that rapidly hammers the driver, more specifically, one t=
+hread streaming asynchronous MKHI requests while a second thread concurrent=
+ly drives rapid open/close/reconnect cycles.
+
+During this stress test, dmesg caught the WARNING at drivers/misc/mei/clien=
+t.c:698 (mei_cl_unlink) because cl->rd_completed was not empty. Then I trac=
+ed the driver source code in drivers/misc/mei/ to understand why rd_complet=
+ed was non-empty at unlink time: mei_release() called mei_cl_flush_queues()=
+ before mei_cl_disconnect(), but mei_cl_disconnect() temporarily drops dev-=
+>device_lock while waiting for firmware response. During that lock-drop win=
+dow, deferred read completions on the interrupt thread re-populated cl->rd_=
+completed before mei_cl_unlink() ran. Moving the queue flush inside mei_cl_=
+unlink() under the link state lock resolved the race and silenced the WARN_=
+ON.
+
+And my colleague simply helped me sanity check the trace to ensure it was a=
+ legitimate kernel driver bug and not a misunderstanding on my end before r=
+eporting it.
+
+Thanks,
+Nirbhay Kumar
 
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+On Monday, August 24th, 2026 at 3:10 PM, gregkh@linuxfoundation.org <gregkh=
+@linuxfoundation.org> wrote:
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 59b3732f95dda1fbd2234514d35f4fb6b5bb6d85
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082450-shoplift-anew-8412@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 59b3732f95dda1fbd2234514d35f4fb6b5bb6d85 Mon Sep 17 00:00:00 2001
-From: Kyle Zeng <kylebot@openai.com>
-Date: Fri, 7 Aug 2026 17:07:03 +0200
-Subject: [PATCH] futex/pi: Reject cross-mm private futex owners
-
-A private futex key borrows the waiter's mm without taking an mm_users
-reference. Nevertheless, attach_to_pi_owner() currently accepts an owner
-from a different address space and copies the private key into the owner's
-PI state.
-
-When that owner exits, exit_pi_state_list() uses the saved key to find the
-hash bucket and acquires a reference to the waiter's private hash. If the
-last user of the waiter's mm exits concurrently, futex_hash_free() frees
-the hash while the owner still uses its bucket and reference.
-
-Prevent this by validating in attach_to_pi_owner() that, for private
-futexes, the owner mm and waiter mm are the same. Perform the check with
-the owner's pi_lock held and after validating owner::futex::state to
-serialize against a concurrent PI-state exit cleanup.
-
-[ tglx: Amended comment ]
-
-Fixes: 80367ad01d93 ("futex: Add basic infrastructure for local task local hash")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Acked-by: Peter Zijlstra <peterz@infradead.org>
-Assisted-by: Codex:gpt-5.6-sol
-Cc: stable@vger.kernel.org
-
-diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
-index 795011ea1202..3e277ef155cd 100644
---- a/kernel/futex/pi.c
-+++ b/kernel/futex/pi.c
-@@ -465,6 +465,26 @@ static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
- 		return ret;
- 	}
- 
-+	/*
-+	 * If the owner is about to exit() or exec() and tries to modify
-+	 * p::futex::exit_state it is serialized against this code by
-+	 * p::pi_lock.
-+	 */
-+	if (IS_ENABLED(CONFIG_MMU) && futex_key_is_private(key)) {
-+		/*
-+		 * A private futex key holds a pointer to the waiter's mm
-+		 * without holding a reference on it. So it must not be attached
-+		 * to an owner in a different address space. Otherwise that
-+		 * owner's exit cleanup could access the private hash after the
-+		 * key's mm is freed.
-+		 */
-+		if (unlikely(p->mm != key->private.mm)) {
-+			raw_spin_unlock_irq(&p->pi_lock);
-+			put_task_struct(p);
-+			return -EPERM;
-+		}
-+	}
-+
- 	__attach_to_pi_owner(p, key, ps);
- 	raw_spin_unlock_irq(&p->pi_lock);
- 
-
+> On Mon, Aug 24, 2026 at 09:32:27AM +0000, nirbhayykumarr@proton.me wrote:
+> > In mei_release(), a host client is torn down upon close(). During this
+> > teardown sequence, mei_cl_disconnect() is invoked, which releases
+> > dev->device_lock while waiting for the firmware response.
+> >
+> > If an in-flight read request was previously submitted, an incoming
+> > completion interrupt processed concurrently by the MEI interrupt
+> > handler can add a completed callback into cl->rd_completed via
+> > mei_cl_add_rd_completed().
+> >
+> > Because mei_cl_flush_queues(cl, NULL) was invoked before mei_cl_unlink(=
+cl),
+> > an incoming completion callback can slip into cl->rd_completed after th=
+e
+> > flush has completed but before the client is unlinked from dev->file_li=
+st.
+> > When mei_cl_unlink() is subsequently called, the invariant check at
+> > drivers/misc/mei/client.c:698 triggers:
+> >
+> >   WARN_ON(!list_empty(&cl->rd_completed) ||
+> >           !list_empty(&cl->rd_pending) ||
+> >           !list_empty(&cl->link));
+> >
+> > Call trace:
+> >   WARNING: CPU: 2 PID: 5056 at drivers/misc/mei/client.c:698 mei_cl_unl=
+ink+0xaa/0x140 [mei]
+> >   RIP: 0010:mei_cl_unlink+0xaa/0x140 [mei]
+> >   Call Trace:
+> >    <TASK>
+> >    mei_release+0x202/0x270 [mei]
+> >    __fput+0x105/0x2e0
+> >    __x64_sys_close+0x90/0x140
+> >    do_syscall_64+0xaa/0x660
+> >    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> >    </TASK>
+> >
+> > Immediately following mei_cl_unlink(), mei_release() calls kfree(cl).
+> > If any remaining or deferred callback references the freed client, a
+> > use-after-free occurs.
+> >
+> > Fix this by flushing queues after unlinking the client from dev->file_l=
+ist
+> > inside mei_cl_unlink(), preventing concurrent IRQ completions from
+> > populating the client's completed queue during teardown.
+> >
+> > Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
+> > Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
+> > Cc: stable@vger.kernel.org
+> > ---
+> > v3:
+> >  - Removed non-standard Helped-by tags.
+> >  - Omitted Assisted-by: No AI or co-authors were used. The "we" in my o=
+riginal report referred to a colleague who merely verified and confirmed th=
+e bug.
+>=20
+> Just to confirm, the original bug report, and test program, and this
+> hugely long changelog were not generated by any sort of LLM at all?
+>=20
+> So how was this issue found?  What tool was used to poke around on the
+> mei codebase?
+>=20
+> thanks,
+>=20
+> greg k-h
+> 
