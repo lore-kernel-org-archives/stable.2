@@ -1,90 +1,185 @@
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75185356770
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787585371; cv=none; b=HbGo1nLnqhJhLS+u9OCsfESrnbltvieaWDllyYHKHDAYG5cKkwqn/Ce5tQ5jAcIjOmuxX/+qaeQM/Qx08Z3d2PREdQ86KUfGOX0CGLY2GKU5niKodXYDXwG26eU7/rZ1q6YtQ75eXFucEiOE+ljzjSkyV3Ar/qlS4jI9foPw3X0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787585371; c=relaxed/simple;
-	bh=TQM9PhntWAt2lt8k5M4COgt8bAYljmeqxXab3pR2gKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eb+Qn6dcmndXIs7zvTOmlnURvbixdDZv6/4p5oTgOjKhpiXUA26hKF0FRQSF0a9lYM5wAFj00cH+rJkNd2NilTmLXHTpEFJFR4k/QtyLUhKOvUnEJQAU92HRfXIbgKVkn4Psj2SqOT/N3Y6ge+NuGPU/G1FFiPMYazlpB/jNI8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=Mzc9KSv1; arc=none smtp.client-ip=91.218.175.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA449370AEC
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787585518; cv=pass; b=hmSbXGhxhhF00NeboSaqHY7WzdCSfiV4qXYAsV/CguRd82eH4qnZFuy1pd7G/V1uPWW9X1wP9sD576K1wC9zS2s0SV49z9hljAO4N9PjIgzq/cISiQYxrm2U2Pu006YN0uikjcRPzYc1B6HhlpDZpPn0C1SDAcxiQ3dm149T03g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787585518; c=relaxed/simple;
+	bh=6cibgC5Kqhomu5ObIzPSmO5OQgWZgOkrevI2tgyQYGA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ljaHJFofolct9W+WNHNYrF8sQ8gbLWSerK9cj38sLmuHqdIHvypjkOuDaJFi2cNKg5SCWE7keK9posUvEZUdP/pWnuvSGVfqY73jLWq26J3nyK/Qf5WJ4aGnIvP5EH2JNtQnbYV3A01Dse4XsoOM78hEcyOOg71h7beNdfJKSeE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=miuSdYTq; arc=pass smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="Mzc9KSv1"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TQM9PhntWAt2lt8k5M4COgt8bAYljmeqxXab3pR2gKM=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787585366; v=1; x=1788190166;
- b=Mzc9KSv1VfILqHx514JQz3jdmGroENQ1JGup43sLcf3smmh/iZvr9M3ItDWHU1/fJuTl/gGo
- P7mUsO0BCmmkpBxYnelnWLQUkB+1qzl3o6wnYo5yrP0lOF3HyMomfJBJkT4Y9fpLCKTYqIsy1zw
- LOuI6sEyPIOwu8vP4H+RvqaFhl1SGoZ/R9tlEHbbYiUFKfyTCJ1zUtaBAxqBudRgmFCx0q7TzK+
- nZTa6wYK9TKZvGB7bR9ARv25oWlzrD54uU0p1Pk8WGWpYQCGMD7oQe2oPXjEkkZF7+9xSnb26/I
- 76m1r5qRE5ThQbbiidpNqqGxLnHUZkYyUTyOpbfBjqItg==
-X-Envelope-To: stable@vger.kernel.org
-Received: from fedora (2001:569:be59:c500:b340:3f2c:4486:21c1)
-	by smtp.migadu.com with ESMTPS id abc171f7b01dda4c;
-	Mon, 24 Aug 2026 15:29:25 +0000
-X-Mizu-Trace-ID: abc171f7b01dda4c
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Eason Lai <eason.lai@mediatek.com>
-Cc: nbd@nbd.name,
-	lorenzo@kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	kun.wu@mediatek.com,
-	deren.wu@mediatek.com,
-	sean.wang@mediatek.com,
-	quan.zhou@mediatek.com,
-	ryder.lee@mediatek.com,
-	leon.yen@mediatek.com,
-	litien.chang@mediatek.com,
-	jb.tsai@mediatek.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] wifi: mt76: refine USB/SDIO TX path error handling
-Date: Mon, 24 Aug 2026 08:29:18 -0700
-Message-ID: <20260824152918.11268-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260819082129.1062282-1-eason.lai@mediatek.com>
-References: <20260819082129.1062282-1-eason.lai@mediatek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="miuSdYTq"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-836cda225c1so50842497b3.2
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 08:31:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787585516; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Rw9Nl4DYUk3S7aUlbPF/v7l4wObjC95ouD5cHVjG5hZyT2r7MdI591mxmbKfQrYViY
+         J3wbSpsUc8bByKtmHSXCzhoJ6I9EmP8FPu3aNsfwFUJuPTjfjQlikyPj8JcJWjBW5IdR
+         grlzDCBHUnxAvM8XbDiBBZ5+2slk/ZV4/4bNWG0k2a8zJRmfNTOIyBUwpp7ESLAcmHgQ
+         St2iMJa6wpmvuaW5Tz5SJpgIcx2nMW7B4Gqa2niqANclpJqfpbdzffQOEaEdHHYHZH3w
+         EHaqgUERYosCTb/2Z8FvfUwPFW0ZL83I2rZIGAKMvFXD+SlVl8t98EqCuIr6Tm8RuKMx
+         Pkbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cBlBG7m5w/OxgVHjTqJeo0x+CeFBP55NY7fQpbKTqZA=;
+        fh=zRZ8YvcbRNSw8JEZeYZ55dKPpNRXLjrE7OlYB2b/JPc=;
+        b=l7vFfH43tsObIjEN0OiVKLTAKs7q6XLGV2jk2EOYxR5qALLqyjESNUGpbKXOxZzwV/
+         wwEWq+1ZzqoWoiDNed/QJOgT2ND/vz775iLKS0w/dLDcrMpCy6WM7+vK2HYYD4YxJoMl
+         uylR7kLvPHn0V1Vx0/TS9WAa8uBuyZmyNYZp97veIsbsSs47h2EKYhcyzi5EiMaVgOlT
+         IhQeoPPVoQIVMNN2KgcwYSVVKw+lAXgD0v+f19jvW7hcEMRaEIODEu9JeQ1r27KAPNOr
+         trSNeBfKffdY/uGSE5q8SbM2P7NlEZ9CxEnllBewF0Qs2WrK4kCpsPdwOchpOKjZDNid
+         y6Lg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787585516; x=1788190316; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cBlBG7m5w/OxgVHjTqJeo0x+CeFBP55NY7fQpbKTqZA=;
+        b=miuSdYTqkxNCiwJuuAkoCyPamVG2LrSEImMIiuUobbMn6/IXEc9zkWai69jmn1BtqR
+         vSEw9CgM4Dn9a3qT80yVDcIgBma0d7jXEbOXdM9AJleM95Ce0ysLQfZLNM2Sc5UfOPqP
+         DdG0Qqw8P8QNOjwvkS3fCVUg5Cooj1bS6UoMWHegbChGAU+ZEtsyAOTiQ1/NPhoKc6Ia
+         /vgnyz9NVEsE8sNhrlsY5SoL/GkKGHt1y6qWiyMwJ2M099DwfU/DKNuWqlCtnNUzcwPM
+         vcWs2sg+x6D1eXD2j+7OyCxEE8F3A+G6Pcynx+sGwFAgSbZEtmOjk1iyLjLk9Xhe0Ekb
+         aGqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787585516; x=1788190316;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cBlBG7m5w/OxgVHjTqJeo0x+CeFBP55NY7fQpbKTqZA=;
+        b=Qgg4aqb6X/81qg/ELpg2jYj2VjKsBw+VZIPjK1SSzI9kyI/GrMJC4clCJ/D7Qva+fF
+         TWGA2XAMeLmi9QG/YdZoRTV9u+5xEEVaBLB9Bzy+JX9M7OKfNYADOyQsXfebbBGWiiKm
+         bb+Ewgybhm5e0WfK1uWQD6ZaZP5HQWct2JP40dx4LJSNoCBpGTsd8mIEGBZ3F/x3fk7L
+         iZSTbDD/17i5dfaTW+ZRkz/L95erf/Lv5Sr+KU0fCn93PFGYCI8O7CXkd/3VnWaBOcH5
+         tjg3O6kiVYbU4vjekz2H2TN8MO1SaPeCb1J9z16VEQOU393pYbTc50OKddEzN1Rc8pCl
+         i6Ww==
+X-Forwarded-Encrypted: i=1; AHgh+RolXwlmwCn07btfdshBLO3WN8RqEbO1MCE+Td/HRDEX89i+X8+SXQVsHJA+dBImgMTPwy8IA34=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPikPK3HBaRsFBv5T4qwSTPJtuwqKr8VgdzAmVOB2CbFHXDvdi
+	qA0X7Z840FnAXHQHqSTc4sHMaqxE/phmesNMV1dK8jCp3GSL4fhGpK7KqLN6AL40xjqZbJadrOs
+	8UMqAXfxTbP2vQCzVoszes4ktgpXWau4=
+X-Gm-Gg: AR+sD10DwN92i0j+Lb9hcRbpDfOlHM8jVHMh3BFtcdI6FcrPwS619JXAidQaV6ZGKIJ
+	ZDxlYWU8CHYmfYw4wTBm9yJ2aMNavpfBjxIGrGAaLkHeFoA+uB2VsB4j0GD7Wr7phLJwheNGobI
+	n1ChG+0doBMubp7dQpefjmL4EBuPg/DBxtVKqqJMgyH6ZvyspoK1nP1X0F8xghKzEJs4GhMJDtA
+	rNHh5MTZN9SNpVv1zywoyJgGQ1DPWhSrYDxT2X9cd19hk6chd/Vkp/qR9es5FqdSl0RI8L1+KFe
+	qczmlSlX5v69q86TP6zl1BpdpItu1qs65voe0EMaw84T5zTxDkQ5AUZM+rK+rOsF3YdmNLT8/c8
+	yjGZFtJqUzD4uUbU1FfbuOMHdlIdVTgI=
+X-Received: by 2002:a05:690e:4090:b0:66d:c8b:7a3f with SMTP id
+ 956f58d0204a3-66d0c8b7cc5mr1403347d50.10.1787585514807; Mon, 24 Aug 2026
+ 08:31:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260823161638.32348-1-acharyalaxman8848@gmail.com>
+ <CABBYNZ+h-m9YQCim5Zm2_sgARZh+jM=POFYX_zTQ=xYUdxz-vw@mail.gmail.com>
+ <20260824144051.50010-1-acharyalaxman8848@gmail.com> <CABBYNZKJ10anQiThzYturqWyRxhnKY-xOMKhKHF5ysx37VmHkQ@mail.gmail.com>
+ <20260824152029.51492-1-acharyalaxman8848@gmail.com>
+In-Reply-To: <20260824152029.51492-1-acharyalaxman8848@gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Mon, 24 Aug 2026 11:31:43 -0400
+X-Gm-Features: AcwNN1XczF39o0A7vrGeYMV1ixP8GZ98t523rpCKBGJOS0onrtI26gHpY_aCQks
+Message-ID: <CABBYNZJxXFt3N-hNQ-RPSe379uw9qfwvKL9yncQ4a034_9d6hQ@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: hci_codec: validate vendor codec count length
+To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-08-19 at 16:21 +0800, Eason Lai wrote:
-> This series fixes a UAF in the SDIO TX path when out of memory and
-> a memory leak in the USB TX path.
+Hi Laxman,
 
-Thanks for turning that around so fast, and for taking all of it. The
-code reads right to me now.
+On Mon, Aug 24, 2026 at 11:20=E2=80=AFAM Laxman Acharya Padhya
+<acharyalaxman8848@gmail.com> wrote:
+>
+> Hi Luiz,
+>
+> Thanks for looking at this.  Sorry that my earlier wording was unclear.
+> I agree that the uses of p inside sizeof() and __must_be_array() are
+> unevaluated, and that sizeof(vnd_codecs->num) is a compile-time value of
+> one.
+>
+> The runtime access comes from the third macro argument, count.  Here that
+> argument is the expression vnd_codecs->num.  Since it is not a constant
+> expression, __builtin_choose_expr() selects the size_mul() branch, which
+> effectively evaluates:
+>
+>         size_mul(vnd_codecs->num, sizeof(*vnd_codecs->codec))
 
-One thing to sort out before it lands. 2/2 is marked for stable and 1/2
-is not, but the two only work together. The padding helper frees the skb
-itself when it fails, which is fine today because the caller returns
-without touching it. 2/2 changes that, and starts reporting the prepare
-failure with a skb that is already gone. 1/2 is what stops the helper
-freeing. So a stable tree that takes 2/2 on its own gets a use after
-free where there is no bug today.
+Opps, yeah that indeed access the ->num.
 
-It will not get caught on the way through, either. 2/2 applies and
-passes without 1/2, because the frame returns before the padding runs.
+> Evaluating the first argument reads vnd_codecs->num before the result is
+> compared with skb->len.  Therefore, if no byte remains after the standard
+> codec array, the read is already out of bounds.  The issue is this count
+> load, rather than any evaluation of the sizeof() operands.
+>
+> I also verified this with a minimal reproducer using the same macro
+> expansion: the compiler emits a byte load from vnd_codecs, and ASan
+> reports a one-byte out-of-bounds read when the pointer is at the end of
+> the buffer.
+>
+> Changing the trailing sizeof(vnd_codecs->num) to sizeof(*vnd_codecs)
+> would give the same size, but it would not prevent the earlier count
+> load.  The added check ensures that the count byte is present before
+> flex_array_size() uses it.
 
-Marking 1/2 for stable is all it takes. The stable rules say you do not
-have to list a prerequisite that is already in the same series, but only
-if that patch is itself marked for stable.
+That said I rather use skb_pull_data then:
 
-The Closes line did not make it onto either patch:
+diff --git a/net/bluetooth/hci_codec.c b/net/bluetooth/hci_codec.c
+index 5bc5003c387c..fdc9652dad29 100644
+--- a/net/bluetooth/hci_codec.c
++++ b/net/bluetooth/hci_codec.c
+@@ -145,11 +145,12 @@ void hci_read_supported_codecs(struct hci_dev *hdev)
 
-https://github.com/morrownr/mt76/issues/83
+        skb_pull(skb, sizeof(rp->status));
 
-Devin
+-       std_codecs =3D (void *)skb->data;
++       std_codecs =3D skb_pull_data(skb, sizeof(*std_codecs));
++       if (!std_codecs)
++               goto error;
+
+        /* validate codecs length before accessing */
+-       if (skb->len < flex_array_size(std_codecs, codec, std_codecs->num)
+-           + sizeof(std_codecs->num))
++       if (skb->len < flex_array_size(std_codecs, codec, std_codecs->num))
+                goto error;
+
+        /* enumerate codec capabilities of standard codecs */
+@@ -161,15 +162,14 @@ void hci_read_supported_codecs(struct hci_dev *hdev)
+                                            LOCAL_CODEC_ACL_MASK |
+LOCAL_CODEC_SCO_MASK, &caps);
+        }
+
+-       skb_pull(skb, flex_array_size(std_codecs, codec, std_codecs->num)
+-                + sizeof(std_codecs->num));
++       skb_pull(skb, flex_array_size(std_codecs, codec, std_codecs->num));
+
+-       vnd_codecs =3D (void *)skb->data;
++       vnd_codecs =3D skb_pull_data(skb, sizeof(*vnd_codecs));
++       if (!vnd_codecs)
++               goto error;
+
+        /* validate vendor codecs length before accessing */
+-       if (skb->len <
+-           flex_array_size(vnd_codecs, codec, vnd_codecs->num)
+-           + sizeof(vnd_codecs->num))
++       if (skb->len < flex_array_size(vnd_codecs, codec, vnd_codecs->num))
+                goto error;
+
+        /* enumerate vendor codec capabilities */
+
+
+--=20
+Luiz Augusto von Dentz
