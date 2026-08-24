@@ -1,44 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5991117A586
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A5B3F3273
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787570126; cv=none; b=iHy+XDBMU0UmjSNfAETTzp99QmYIFToH8ds1h5uBE1PjOA2cMO5Vqt+nx9I3ymIKDT4mD5u25warpqwg7uHKc0bIKMqFePxHENZjReUViawsBTyoJO2JC3oU0O0N/dbpdXLOcpiy2O0e3JE1QCJIlGaqM8VYB/HYI5W2N0kOaH8=
+	t=1787570228; cv=none; b=kOsm6gF7+J3yyM5dLZKB7ctmzgkjhNOXMFBEY0swi7xRatuTDIaeaoBSxo41oxVt6tcxNd6QAa7hOIrhLxC6g6qYhA59KVXCdFeWEEiJMZZDRg2flCZgjAboeD+B1bIreU4eFgDwHB+sQu5qNz+HkIoEMHpNIYJE7y59TTAZtew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787570126; c=relaxed/simple;
-	bh=oQM7ns456EmqWWekx6KcLjuz45/dT38oO8GStHjDQMI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZXLKKRdDTN+3YtD4Bp84gaamm5S1KrSLiJ0NUfYP1qrXEzkdzv1uorhscasrjbVtWoSU+qnNqX4AX7N/nH6AgUUp8fg0/Ke1IWKUKp1vdG/cWZilkuE8r1OIOOL3IQmVCemCVxgKvxLXMU/pgdpg07Gm2FWzisvcxht+EIpB+90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5RqKDVS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787570228; c=relaxed/simple;
+	bh=h84y8IY73k8HDgDFbEOYAH4dnXdhVJJgku0CDx6klyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hs6ILiZoQDLT+nHF9sZdPyFeV7Cv3IorTTpftnUEnkrRGDS6aqn2IXP305i8wBz0ufmTTVIU0mmKVLwVBt1K40ORolWasDQ3yrsPZU8p52eEJEk0HpDgVcyZwSs/uLES3OZ8GtwIVuDEaniKGK5K5r+SJph1VAOjm5NJyTixmXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R0ZDX0v2; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5RqKDVS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65ADD1F000E9;
-	Mon, 24 Aug 2026 11:15:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787570124;
-	bh=fW8qMpa1GMUwi9+TJXem/MesCRQ7OruunVAAklLNWkk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J5RqKDVSVwFMIGp/nT6WppqJnaOKqKzvUE7/usdO7eHfPTsG21ilZPvOBBC5xzJ9m
-	 J2vqpNxwcx189ha9PxijWCLbswY1AlkxFiPr8RVE304Z2ZTQDWXpY2yu1+ylnoneUV
-	 daqEfU+X1pbKDna8NFtcC4QFE10ejn+Koq+5HHrJbsVbbbM/9XIW7YyogQ6UZrF3zp
-	 mk1H+aq3U0WJUEw1TGduqdWI+EkBofmKaI7ojXEoe6HeykltpcqwiKUftZ0hzpvkn5
-	 2R5na8sZeDKMg7JKolMRPIffS9rHYULNfBo/QWRFkL73ipLfBqS9wy9qOs8aKuJ+fy
-	 dZkLcZCxbjSRA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ibrahim Hashimov <security@auditcode.ai>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] xfs: bounds-check buffer log item's dirty bitmap
-Date: Mon, 24 Aug 2026 07:15:21 -0400
-Message-ID: <20260824111521.304665-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082046-courier-bottling-21bc@gregkh>
-References: <2026082046-courier-bottling-21bc@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R0ZDX0v2"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso3569391a91.3
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 04:17:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787570226; x=1788175026; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AWFyETnr9mq+FduhbKFRct19A7NzPMjqIJldSASGEJw=;
+        b=R0ZDX0v2O7+AAunwhoulRU+ABxtj9hYPybsqIGu59n0/hAKF+qzgev2pzm+00awCvp
+         g3WlQIi+mGFMRazzLFoVE4TU2HWzX8Qzr9dQHy+A1uxXedzQiX4iuWMM+oWf0vtlKKQd
+         Loj89xjBpq4SN1GDBj9dqrpvqWp3ntStd8+PEETJKHXttVjq4QJVaVCbMcIwGD3LV7oR
+         ujPW/ffEi+1ek9eDYEOM1vHSbsQFJATp8bVZremwEQXhAvdYHXGP5X4Of6SbhY3zhlBO
+         1NGBtLOViNuaBZ4/kv4459BnS4b2Eifjr3T1Cij3f/6a758urDabhuCa4+g1/oZAywwT
+         DQZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787570226; x=1788175026;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AWFyETnr9mq+FduhbKFRct19A7NzPMjqIJldSASGEJw=;
+        b=p8urweCa3DbrHrZpy8lbRdDVbK3XSx40A4l65Jgv9JNlpDK3Sy1XFDNOYfUY4ErT/z
+         b9bboyEqOgUMKia9ZBN8+xuG1DQZE249Xj2MHdZRB+kAyKTV3aJ0lycDy5QPuoext/b0
+         Nwy7SaH/4Halt/oWqB8CQHL3RLocs6G2ZrS861/xof+q0yPEDayujQvyGJdOhDNLk/u7
+         qk0Kj0R7IYCNHHSd8/iFysie7Uwka61rDxDZ2hi/hlMhOH4tvSiBcDIZYR3ky1+KrfYV
+         yQIlMHplO69gk962jFtcl4VGGOXPlipSZyDCsETxY1PVjpIIue3zrCVYA+ZCVHEeQgx6
+         N9hw==
+X-Forwarded-Encrypted: i=1; AHgh+RooDCX3ziW4s3SE/Gyu+PquuaUQNnUkbTihWxwSNWScyNd593iOGFsqqEAT/pfyRXgY6mcf4Z0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBIl/Lo42KN0NIPBrHugTfqDwLNz6jFyuHhORWWT5cNBuWGzR5
+	bOAEx2+p4GRmGsezjETy5pww5mAH2vYJu9cpg6NCtvVVkDK3KAPYZ/Ki
+X-Gm-Gg: AR+sD13DYSWuryiHlnXJ4so1h40ARkeb9ZBVEKYdackckv7Rdq6juRvc3RJgmCZ6UkN
+	CyjNRoc/FRKQPypLM0BrXd/xQCWuiB18BVAK5tJvGfiDekQM1koG3cJdjTv802jLdvpV9AXMyeK
+	NwGNdX/GpwFXaUliRzdyZKIarDrC2sznBGtHmftHZXsMkKWvy+uSmkTXJwwSRBwhHLSbOKJSocH
+	wgIDiMpIsPHGrlkc4Qwzi0RCTz69PZgLCjGN8nBJVFYQhLsHzk3BJZzbzNEXeJmAX10/Ij/7VFT
+	ZNS11duh+BxUVmaPeDLv21bWal9JH7ahrDsgDIygSvEhC7GCj2wfvK4VUph54osjV2MDiVfbYTf
+	cLKdK7I+lhLTSAldR1jzstUttEq+14D5Kks2RDkBP4jFbmlZUmckj8AQpR9Y0Ll7lmGdVaPjex0
+	V8oDi7GkVqPWSs/i3BlZomH5ltn82y1N429mQz0knWsCaKbQKpsYIgBZtTuZ0CiETQT3rZppuxj
+	V0FArFVs3USg/OG+1m8xE3G+eY=
+X-Received: by 2002:a17:90b:4a81:b0:38e:6f90:eabd with SMTP id 98e67ed59e1d1-395c355c570mr44450182a91.5.1787570226249;
+        Mon, 24 Aug 2026 04:17:06 -0700 (PDT)
+Received: from localhost.localdomain ([180.101.244.72])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395e4996691sm9650165a91.6.2026.08.24.04.17.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 04:17:05 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Allison Henderson <achender@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: rds: fix uninitialized trans dereference in CM event handler
+Date: Mon, 24 Aug 2026 19:17:01 +0800
+Message-ID: <20260824111701.2979194-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,166 +79,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ibrahim Hashimov <security@auditcode.ai>
+From: Aohan Mei <henrymei@tencent.com>
 
-[ Upstream commit 813f8136a2ce1fee266d02a7df73db6e8a541604 ]
+rds_rdma_cm_event_handler_cmn() assigns trans only when the RDMA
+device is an InfiniBand CA (RDMA_NODE_IB_CA).  On any other device
+type, e.g. an iWARP RNIC such as siw, trans stays uninitialized, but
+the event switch dereferences it: unconditionally in the
+RDMA_CM_EVENT_CONNECT_REQUEST case via trans->cm_handle_connect(),
+and (with a connection context) in the ROUTE_RESOLVED and
+ESTABLISHED cases.
 
-xlog_recover_do_reg_buffer() replays each dirty region described by a
-buffer log item's bitmap into the buffer read for that item:
+An RDS listener on an iWARP device therefore crashes the kernel as
+soon as a connect request arrives: with CONFIG_INIT_STACK_ALL_ZERO
+the wild load becomes a NULL dereference at offset 0xa0
+(&trans->cm_handle_connect) in the iw_cm_wq workqueue.
 
-	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
-		item->ri_buf[i].iov_base,
-		nbits << XFS_BLF_SHIFT);
+GCC masks the bug in default builds by folding the uninitialized
+load into &rds_ib_transport; Clang-built kernels take the real
+uninitialized path and oops.
 
-The destination offset (bit/nbits, from the logged dirty bitmap) and the
-buffer size (from the logged blf_len) are both attacker-controlled and
-otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
-which compiles away on production kernels. A crafted image logging a
-small blf_len together with a bitmap bit past the end of that buffer
-drives the memcpy() past the buffer's allocation, corrupting adjacent
-kernel heap during mount-time log recovery. This is reachable by anyone
-who can get a crafted image mounted -- the malicious-filesystem threat
-model XFS already guards against elsewhere.
+Reject events that arrive on device types without an RDS transport:
+initialize trans to NULL and bail out before the event switch when
+no transport matched.
 
-Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
-of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
-idiom already used in xlog_recover_do_inode_buffer() and
-xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
-STATIC int and its three callers propagate the error.
-
-Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
-image trips a slab-out-of-bounds write before this change and fails
-recovery cleanly with -EFSCORRUPTED after it.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: dcdede0406d3 ("RDS: Drop stale iWARP RDMA transport")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Brian Foster <bfoster@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ adapted `ri_buf[]` field names `iov_base`/`iov_len` to 5.15's `i_addr`/`i_len` and dropped the hunks for the absent `xlog_recover_do_primary_sb_buffer()` and primary-SB branch while keeping the `error = 0` reset ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
 ---
- fs/xfs/xfs_buf_item_recover.c | 53 +++++++++++++++++++++++++----------
- 1 file changed, 38 insertions(+), 15 deletions(-)
+ net/rds/rdma_transport.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-index 31cbe7deebfaf..63cb5b60b6248 100644
---- a/fs/xfs/xfs_buf_item_recover.c
-+++ b/fs/xfs/xfs_buf_item_recover.c
-@@ -441,7 +441,7 @@ xlog_recover_validate_buf_type(
-  * given buffer.  The bitmap in the buf log format structure indicates
-  * where to place the logged data.
-  */
--STATIC void
-+STATIC int
- xlog_recover_do_reg_buffer(
- 	struct xfs_mount		*mp,
- 	struct xlog_recover_item	*item,
-@@ -469,8 +469,24 @@ xlog_recover_do_reg_buffer(
- 		ASSERT(nbits > 0);
- 		ASSERT(item->ri_buf[i].i_addr != NULL);
- 		ASSERT(item->ri_buf[i].i_len % XFS_BLF_CHUNK == 0);
--		ASSERT(BBTOB(bp->b_length) >=
--		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
-+		/*
-+		 * The bitmap is only trustworthy to the extent that it
-+		 * describes a region that actually fits inside the buffer we
-+		 * read in based on the (attacker-controlled) blf_len.  Do not
-+		 * rely on an ASSERT() for this -- it compiles away entirely on
-+		 * non-DEBUG kernels, which is exactly where this matters, so
-+		 * validate it for real and abort recovery of this buffer rather
-+		 * than copying past the end of it.
-+		 */
-+		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
-+				((uint)bit << XFS_BLF_SHIFT) +
-+				(nbits << XFS_BLF_SHIFT))) {
-+			xfs_alert(mp,
-+	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
-+				bit, nbits, BBTOB(bp->b_length),
-+				xfs_buf_daddr(bp));
-+			return -EFSCORRUPTED;
-+		}
- 
- 		/*
- 		 * The dirty regions logged in the buffer, even though
-@@ -524,6 +540,7 @@ xlog_recover_do_reg_buffer(
- 	ASSERT(i == item->ri_total);
- 
- 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
-+	return 0;
- }
- 
- /*
-@@ -532,10 +549,10 @@ xlog_recover_do_reg_buffer(
-  * (ie. USR or GRP), then just toss this buffer away; don't recover it.
-  * Else, treat it as a regular buffer and do recovery.
-  *
-- * Return false if the buffer was tossed and true if we recovered the buffer to
-- * indicate to the caller if the buffer needs writing.
-+ * Return 0 if the buffer was not recovered (tossed), 1 if it was recovered and
-+ * needs writing, or a negative errno if recovery of the buffer failed.
-  */
--STATIC bool
-+STATIC int
- xlog_recover_do_dquot_buffer(
- 	struct xfs_mount		*mp,
- 	struct xlog			*log,
-@@ -544,6 +561,7 @@ xlog_recover_do_dquot_buffer(
- 	struct xfs_buf_log_format	*buf_f)
+diff --git a/net/rds/rdma_transport.c b/net/rds/rdma_transport.c
+index b15cf316b23a..ad9244a09848 100644
+--- a/net/rds/rdma_transport.c
++++ b/net/rds/rdma_transport.c
+@@ -52,7 +52,7 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_cm_id *cm_id,
  {
- 	uint			type;
-+	int			error;
- 
- 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
- 
-@@ -551,7 +569,7 @@ xlog_recover_do_dquot_buffer(
- 	 * Filesystems are required to send in quota flags at mount time.
- 	 */
- 	if (!mp->m_qflags)
--		return false;
-+		return 0;
- 
- 	type = 0;
- 	if (buf_f->blf_flags & XFS_BLF_UDQUOT_BUF)
-@@ -564,10 +582,12 @@ xlog_recover_do_dquot_buffer(
- 	 * This type of quotas was turned off, so ignore this buffer
- 	 */
- 	if (log->l_quotaoffs_flag & type)
--		return false;
-+		return 0;
- 
--	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
--	return true;
-+	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
-+	if (error)
-+		return error;
-+	return 1;
- }
- 
- /*
-@@ -962,13 +982,16 @@ xlog_recover_buf_commit_pass2(
- 			goto out_release;
- 	} else if (buf_f->blf_flags &
- 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
--		bool	dirty;
--
--		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
--		if (!dirty)
-+		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
-+		if (error <= 0)
- 			goto out_release;
-+		/* write dirty buffer */
-+		error = 0;
- 	} else {
--		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-+		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
-+						   current_lsn);
-+		if (error)
-+			goto out_release;
+ 	/* this can be null in the listening path */
+ 	struct rds_connection *conn = cm_id->context;
+-	struct rds_transport *trans;
++	struct rds_transport *trans = NULL;
+ 	int ret = 0;
+ 	int *err;
+ 	u8 len;
+@@ -80,6 +80,14 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_cm_id *cm_id,
+ 		}
  	}
  
- 	/*
++	/* No RDS transport exists for this device type (e.g. iWARP RNIC),
++	 * so trans was never assigned; reject instead of dereferencing it.
++	 */
++	if (!trans) {
++		ret = 1;
++		goto out;
++	}
++
+ 	switch (event->event) {
+ 	case RDMA_CM_EVENT_CONNECT_REQUEST:
+ 		ret = trans->cm_handle_connect(cm_id, event, isv6);
 -- 
-2.53.0
+2.43.7
 
