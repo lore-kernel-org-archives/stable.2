@@ -1,150 +1,116 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17AE40DB4A
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A396D13957E
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573574; cv=none; b=uFtmwAQHjAWVQOQG/l9GYRXS0ZQbHHIsxDhP+RmOTp6uu+tB6u/mcem4BK+haAER8PQ96etUfVUcOUTAKoSMOY3ttzQ7qSDxs0MVdr0ZlGLNYtw3JU+9dClIcCx0wEEHAel6z6pMfUKclhi+Iug99YUVMHYLgWJPMamYQ7f4S2w=
+	t=1787573908; cv=none; b=lH3d/reepAwNXaiD+vSOpcvXvwc+AUM5N+kARy2f6CRKUDIilUjgMouUeADIFmyf9Wx0U4OQzfPRYh2WZy2UEW0YHOALDmUUnp5hXgGmjKJavbj/M5u63n36jyYD5Y+ZELrPVb8xAFs/cVQYfLQdTMErriYIM+1PUqbvdzhPJ4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787573574; c=relaxed/simple;
-	bh=qTuo0XGpd3/TJoBr7VlydNUS5gAgjPvXjtLTX//eAj0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F1CCQMaF9ksWdl3iFyXff433eN5eGVHCzLJBkZOMRv+zbhG7bLVXGfJ738V27GoofYUT8a5PvzvzbwqVvzLBNwrRkj1mxePa1Mvmk3qdJUMubGU5CkYEo9dKuW7iwa4Zj/jMDrBtQWQ716jHks+zYE8Klh95SHCFMCGd+APB8To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dNKg45UB; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787573908; c=relaxed/simple;
+	bh=vpopAWWqeWGo2twmVnXbk2mZI/8FvoPv7mxpz0o8bQ0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pB2hoXJ6Lf8o7XcbxFlsBveaTjNFhpq3cMGDYhRsTBh35H3gviBE/PDbMp9QGw7QIPG62Vk1YazuIsWrzQkrrJLEpcIy6Vd2dNfR0P7xh49b8PcRInyi6etahF89ASWqzvKV/gWM3G9/OsAc/NhquRFkMsV2I2bad86NsdnYVyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0qydL/nR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dNKg45UB"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbe4592c193so287389a12.3
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 05:12:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787573572; x=1788178372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y0ppQhbiQcCeg1OqwKrv6XM0T1yzd97yREoqT41AZzU=;
-        b=dNKg45UBwquvACLINh3/RMXrzf4oSej41PPI3JJj5vaZgrYeloEC/zX6biqvwbfN4V
-         /35WCX8AuyFZGh4Dj0Qd7Zzx5ljA5HrUAzSax5pQMj4Zo9FGaiQcPAAZgQWhYl7iuoGZ
-         /YLcSLe+VuZ82vJGSI3aMV0OGGYXAMMigDmoTlTLVBD7Ej1TIuPLPy5YXELoxte4YqjC
-         m1tJjYcoIb1PHwr17zYtqPiQGA2fGCE1pJrO2ks9WZ4lrX9IWD+GbDKM/J2GpuRy94bY
-         p5smS55RvvU647vD3qoOQqLl7nCTbhtoZyHs4MQVq1pcNiimRYUPytvt2ztg9m6tsz0g
-         OUGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787573572; x=1788178372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y0ppQhbiQcCeg1OqwKrv6XM0T1yzd97yREoqT41AZzU=;
-        b=Wf747gc5n21Gw2HuuT6p+szTHS6GnwbWVH4b/GlYPlLc7QWNmdtc85cV57ug8I1Rkh
-         ScoQsurqomNzKT+lk4JbcCkA37nVplUFxsV63mGgZPLnYzNSqMONsS4JDPW/XPUXg0Y+
-         2Us8kndC5xQpQjKkOLZ9dqZeHslzlEXav/X4/qfIEJHB9MniWUfXYUFgDbdtM3q4R2bK
-         XzFYZwHDt4dXBxH7d9oDpvAMqxqz+zXQdBdiab0WcRuSB5CZsClX3yzmXcrpb1EJVmkg
-         cG3kiwsl41GA5wnqW+JG11nVzfUQ66qlnyIw65mryrfHt1THDEBwspJu/zOMoT72uFj/
-         33Yg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpx4MsuOhbN/BbzdDiRg/WGxTGlev535Yweh6FXi1NiGPURCkB/UG+XsdL+xgZxsZBoBgQU9Ig=@vger.kernel.org
-X-Gm-Message-State: AFuF++knbDGOzbTeepg8AVD3lf0g/fRh8ao59Y6qDyItXwaqwxOIQ0BQ
-	EnEP83HNXrxPk1HJ48E1jwyGYak6jq7PsIA6Bc8Ykep0hC/HeFvZmLsh
-X-Gm-Gg: AR+sD10DkmADu1eEi1pDMR4s1zbiBzOYrge+W5E+JEXxkwfYpjiwGm69ba/l/qV5mbM
-	WCKXL4zQam9D6Xba+Tq7oGtZvqvy9WMbMLMXJrP4Ezgynv3NuMSLgDrXZcd+trlNSXakJCOoGy4
-	FCOdDRKFOj8JW100FvDfOZywJYdi1/FUQ25m0EXYX+SUIJuNt6AiE+qw9bX2ub8LJGbu7ttjANs
-	Zqu1B2GvgrRpYI3HYhGNLfHP7emh0lE7Aevit30Rx3HiLkIAHxK51J3uN2waxABbE9tGNppxDXx
-	eTSOsYFwiE37bCt3lU9bzrPeNWATGvH2K6jmnJbGt2Nu5eR6gsA4uJ64RfUFJElRN1+3U7w389P
-	29CmGTQ446NqluEltFrX2fBGF8dM6GVwMt9p0akubNwXteue0x9r4OeIkYRDBEL5OYcwY8UjyAU
-	78WafPcHIAUbgJAYGtdhuQ4lQK4YYSiJqAV0oYHlHj/7XS8hKJFVr6HcY4UlXG77dkrzuta7WMo
-	bz9YH31fo+gkUVcjtvu7V3jH09gi9tCBJzEEKDCgiDQA5Oob1Nfp2A=
-X-Received: by 2002:a17:903:3b84:b0:2cc:f4d4:29a0 with SMTP id d9443c01a7336-2d64b0a908emr230320855ad.3.1787573571971;
-        Mon, 24 Aug 2026 05:12:51 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3280d116cb1sm16516298eec.10.2026.08.24.05.12.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 05:12:51 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netfilter: cttimeout: prevent UAF during module unload
-Date: Mon, 24 Aug 2026 20:12:38 +0800
-Message-ID: <20260824121238.205812-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0qydL/nR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86A71F000E9;
+	Mon, 24 Aug 2026 12:18:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787573907;
+	bh=m4e951+PyOq8Qtcom3sLTYexVWx63vtO5hXnFIN9LqA=;
+	h=Subject:To:Cc:From:Date;
+	b=0qydL/nRsZ15Kwt37GMR9U1m1R1kXFCL1mqXA78vjeo3vaI7ZR/cRWWe4eeYUI/UO
+	 aa4pCNOzRuxCwcbM4DjDldWZqV3m260GdPCSrlhlA8shB7ABolLp/C7sRky+QzsJDO
+	 1SC5KVtErRc12q5lGYGGdvVNY+498DhLU56hcdRc=
+Subject: FAILED: patch "[PATCH] io_uring/io-wq: fix worker accounting when canceling creation" failed to apply to 6.12-stable tree
+To: vrazdan@openai.com,axboe@kernel.dk,krisman@suse.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 24 Aug 2026 14:18:22 +0200
+Message-ID: <2026082422-frivolous-grab-47d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-nf_ct_set_timeout() protects the timeout hook dereference and policy lookup
-with rcu_read_lock(). cttimeout_exit(), however, unregisters the per-net
-operations before it clears the hook.
 
-This allows the following interleaving:
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-  CPU 0                              CPU 1
-  cttimeout_exit()                   nf_ct_set_timeout()
-    unregister_pernet_subsys()         rcu_read_lock()
-      kfree(pernet)                     h = nf_ct_timeout_hook
-                                        h->timeout_find_get()
-                                          nfct_timeout_pernet()
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The hook still points to ctnl_timeout_find_get() when CPU 1 looks up the
-already freed per-net timeout list. KASAN reported:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 297b5ccea4acacaa47c150f043bce695202afbf1
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082422-frivolous-grab-47d6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-  BUG: KASAN: slab-use-after-free in ctnl_timeout_find_get
-  Read of size 8 by task poc/90
-  Call Trace:
-   ctnl_timeout_find_get+0x271/0x2a0 [nfnetlink_cttimeout]
-   nf_ct_set_timeout+0x7b/0x3c0
-   xt_ct_tg_check+0x724/0xb20
-   xt_check_target+0x234/0xa90
-   do_ipt_set_ctl+0x570/0x1270
-  Allocated by task 89:
-   __kmalloc_noprof+0x16e/0x460
-   ops_init+0x6d/0x420
-   register_pernet_operations+0x2f6/0x670
-  Freed by task 91:
-   kfree+0x131/0x390
-   ops_undo_list+0x3d4/0x730
-   unregister_pernet_operations+0x232/0x490
-   unregister_pernet_subsys+0x1c/0x30
-   cttimeout_exit+0x52/0x970 [nfnetlink_cttimeout]
+Possible dependencies:
 
-Clear the hook and wait for existing readers before unregistering the
-per-net operations. This blocks new policy lookups and ensures readers that
-observed the hook finish before the per-net storage is freed.
 
-Fixes: ebfbe67568a7 ("netfilter: cttimeout: use net_generic infra")
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 297b5ccea4acacaa47c150f043bce695202afbf1 Mon Sep 17 00:00:00 2001
+From: Vishnu Razdan <vrazdan@openai.com>
+Date: Tue, 11 Aug 2026 00:01:27 -0700
+Subject: [PATCH] io_uring/io-wq: fix worker accounting when canceling creation
+ callbacks
+
+create_worker_cb() reserves an io-wq worker slot only after its
+task-work callback runs. If the callback is canceled before then,
+io_worker_cancel_cb() still decrements acct->nr_workers. When an
+existing worker retires with its creation callback pending, that
+worker has already decremented the same account's worker count.
+
+The resulting undercount permits worker creation beyond the account's
+configured limit. On an AST2600 OpenBMC system, an unchanged sensor
+daemon reached 4,291 threads with the original kernel. With an
+equivalent downstream fix, 25 passive samples under its normal
+workload showed 6-9 threads.
+
+Decrement nr_workers only when the canceled callback is not
+create_worker_cb(). Continuation callbacks still release their reserved
+slot, and both callback types retain the existing running-count,
+reference-count, and create-state cleanup.
+
+Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- net/netfilter/nfnetlink_cttimeout.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 
-diff --git a/net/netfilter/nfnetlink_cttimeout.c b/net/netfilter/nfnetlink_cttimeout.c
-index 66c2016f6049..132c02ac7c4e 100644
---- a/net/netfilter/nfnetlink_cttimeout.c
-+++ b/net/netfilter/nfnetlink_cttimeout.c
-@@ -652,9 +652,9 @@ static void __exit cttimeout_exit(void)
- {
- 	nfnetlink_subsys_unregister(&cttimeout_subsys);
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index be8d75731d24..2ca223e47d41 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -212,9 +212,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
+ 	struct io_wq *wq = worker->wq;
  
--	unregister_pernet_subsys(&cttimeout_ops);
- 	RCU_INIT_POINTER(nf_ct_timeout_hook, NULL);
- 	synchronize_net();
-+	unregister_pernet_subsys(&cttimeout_ops);
- }
- 
- module_init(cttimeout_init);
--- 
-2.43.0
+ 	atomic_dec(&acct->nr_running);
+-	raw_spin_lock(&acct->workers_lock);
+-	acct->nr_workers--;
+-	raw_spin_unlock(&acct->workers_lock);
++	/* create_worker_cb() has not reserved a worker slot yet. */
++	if (worker->create_work.func != create_worker_cb) {
++		raw_spin_lock(&acct->workers_lock);
++		acct->nr_workers--;
++		raw_spin_unlock(&acct->workers_lock);
++	}
+ 	io_worker_ref_put(wq);
+ 	clear_bit_unlock(0, &worker->create_state);
+ 	io_worker_release(worker);
 
