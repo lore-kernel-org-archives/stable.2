@@ -1,116 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200012BD022
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:31:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9119E24BBEE
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787581912; cv=none; b=NYCwwt5g3HL3FpjumQFCksUi97zE2CKjdRUosbDigmS0EhE0KGF9rBuk8KlqDQt1B3PZvjKEvo3D18Xr9gk7vATdXqI9yBkpehQ4j89m3xsiA1xsb/s0lZ313wjoV5ev9/yPvi1gMlhIcyAApQFC+MLuLuFs3IyFln+UTkx6CiM=
+	t=1787581961; cv=none; b=RLbQyNXf+/voyCUNXRKhnGHXJRCPTXJi5w4nfPjrxoVONjVhf0gwa8XSZLoIlY/63MFFMdRFDc4lQngL7tbugmxQjQYkDRwZDNcb0dlMs2jbmwX6HyvbIA/IxiFOgUqGvnpMNdX0Nnn+edx5b38DCeZiM7nJyJTtDGpDSrE37cU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787581912; c=relaxed/simple;
-	bh=IuLiBBEZlusXU1gKfm9cL2SjwhV2C2bnuqkLUGdujCg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fA8CR6CdMvowk2PAyDyMZ4fTN5/Gq209F8sFLIjQMMB/+OkjK7vGFlYze3X+PavRIQFgEudZoY/wCrlfV2QMq+FZAcMpDbQvDYlPdjYNaQAh6IPHM/C/6b20Hsx6YzXczbPN/v9O4jcYguuqJ8nLnxcXIlO9J9aImH+aYVo7E1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHLgGmq2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787581961; c=relaxed/simple;
+	bh=jHckoklhFIgNQ3KRP8JNstw2U/aL4fV2GempOj3JSMk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=uuIIo07iz/WSKtWvJLWD/bK+Kd0IvWVx0zSkUvOb0Sgcux4nka9B4CJQmkosklCRjKkN69nhEfs/v70akUkE/iFmOZL0a9U/5ANvcNlj8gUU+MDxAopMmCiA9KTFxddlWgIhQp9Genbc++hEdJXLZlD+HT3vg0vBH3IZDuvfNs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=eFhpxblD; arc=none smtp.client-ip=185.70.43.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHLgGmq2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3881E1F000E9;
-	Mon, 24 Aug 2026 14:31:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787581910;
-	bh=1z9HiI7zqL51b8ondIELkFrtmRMkxdgCXcHXw5rmGwo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aHLgGmq2jTXvtuzMS9yrycAKQypJaNoFTGRpmQkNEgONWNrfHAFT/qn1Kat4t/XRv
-	 +bjs0eDNZk9FX3zDR+wRBVV8dsP+nITGbyUyMOtY+XbhYKsvR6TNZ2hMgoUiRzY90V
-	 xdxwPumnx8Rr5LD3iiY2E+o7F9htz5eiFgfdp+l6qxjGEK7V+xJJKgXjV6NXasrQwX
-	 RPEK1EkITLkb6qDs+mkoZu/OqraNxaoOqTOl3nPSgjnh8KTFDzGRLj1tHuDPMAKm1f
-	 w/vaC8wnE79RCsiFkqa9SoTtR7JX6SCSmzQtFLB2qh9EtFpjXIjng7ysAdKedn5JI3
-	 wmiIqZYHMzSMA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Pavitra Jha <jhapavitra98@gmail.com>,
-	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] libceph: fix OOB read in decode_watchers() via missing bounds check
-Date: Mon, 24 Aug 2026 10:31:47 -0400
-Message-ID: <20260824143147.3387960-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082057-aviator-unglazed-0547@gregkh>
-References: <2026082057-aviator-unglazed-0547@gregkh>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="eFhpxblD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1787581950; x=1787841150;
+	bh=A3wwR3oTd+5Q2Tv8TFn8AY+Nb5hdderYWsWgxvfswLY=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eFhpxblD8IBw9Y1+MxKnNT2LGy+3bCQ8FV63lIErT4A+yrb2uQw93rIkUb2K1fgsg
+	 0j83WusYNpJemAGUA5k8awwSNeyT5kx6dDH3BMxTj8b8YShtd2gtpsk1ErHuAQvLsX
+	 vq/+h3FU1+d3nAB1uM6+Ukv+xxDNz4+Yx92+hShAzeTmyvINbGncS+gkY6t02o8obx
+	 Z7zeJrv3rG+HM1AdR21Hn4G6YYdgkN2OpK9JbUj7oe0pe0S6dz1KGp9oazO6uLyi+z
+	 GoE0za8CF8k29aGWYEYShdB/F4GeA4ik7pPYwm0CjrzeZcWB4sRHCG2YlDx58yNGWi
+	 EwXSNBtQe5pcQ==
+Date: Mon, 24 Aug 2026 14:32:25 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>, "arnd@arndb.de" <arnd@arndb.de>
+From: nirbhayykumarr@proton.me
+Cc: "w@1wt.eu" <w@1wt.eu>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: [PATCH v4] misc: mei: fix race condition between client teardown and read completion
+Message-ID: <ftGV8Hp-LYTtUVnxctTg6RSMnglJf1Dkgx65y7bRorozRtAeBBPU3zTQNG8Bmj-wNjNl0hTO5m2hyGMw8TktWQ2bijbJzdmGsRmlv-XLk3A=@proton.me>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: 73ea16c688187fae6cd415c4a4467ced2cdf9d35
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Pavitra Jha <jhapavitra98@gmail.com>
+This issue was discovered using a custom multi-threaded C fuzzer
+designed to stress-test HECI client lifecycles over /dev/mei0. By
+running one thread that streams asynchronous MKHI requests while a
+second thread concurrently drives rapid open/close/reconnect cycles,
+a race condition is triggered during client teardown.
 
-[ Upstream commit 00ead17c7de137a692edee59f2772e6af687e8eb ]
+In mei_release(), a host client is torn down upon close(). During this
+sequence, mei_cl_disconnect() is invoked, which temporarily releases
+dev->device_lock while waiting for the firmware response.
 
-ceph_start_decoding() validates that struct_len bytes remain in the
-buffer after the encoding header, but accepts struct_len=0 as valid:
-ceph_decode_need(p, end, 0, bad) always passes. When a malicious or
-compromised OSD sends an obj_list_watch_response_t reply with
-struct_len=0, ceph_start_decoding() returns success with p == end,
-leaving zero bytes guaranteed for subsequent reads.
+If an in-flight read request was previously submitted, an incoming
+completion interrupt processed concurrently by the MEI interrupt
+handler can add a completed callback into cl->rd_completed via
+mei_cl_add_rd_completed().
 
-The immediately following ceph_decode_32(p) in decode_watchers() has
-no preceding bounds check. With p == end this is a 4-byte read past
-the validated buffer boundary. The garbage value is then passed
-directly to kzalloc_objs() as the watcher count.
+Because mei_cl_flush_queues(cl, NULL) was invoked before
+mei_cl_unlink(cl), an incoming completion callback can slip into
+cl->rd_completed after the flush has completed but before the client
+is unlinked from dev->file_list. When mei_cl_unlink() is subsequently
+called, the invariant check at drivers/misc/mei/client.c:698 triggers:
 
-The sibling function decode_watcher() already uses the safe variants
-(ceph_decode_copy_safe, ceph_decode_64_safe, ceph_decode_skip_32)
-after its own ceph_start_decoding() call. decode_watchers() is the
-only site that uses the bare variant, confirming an oversight.
+  WARN_ON(!list_empty(&cl->rd_completed) ||
+          !list_empty(&cl->rd_pending) ||
+          !list_empty(&cl->link));
 
-Fix by replacing ceph_decode_32(p) with ceph_decode_32_safe(p, end,
-*num_watchers, bad), consistent with the established pattern.
+Call trace:
+  WARNING: CPU: 2 PID: 5056 at drivers/misc/mei/client.c:698 mei_cl_unlink+=
+0xaa/0x140 [mei]
+  RIP: 0010:mei_cl_unlink+0xaa/0x140 [mei]
+  Call Trace:
+   <TASK>
+   mei_release+0x202/0x270 [mei]
+   __fput+0x105/0x2e0
+   __x64_sys_close+0x90/0x140
+   do_syscall_64+0xaa/0x660
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
-deployment (e.g. cloud) can trigger this against any kernel client
-that calls CEPH_OSD_OP_LIST_WATCHERS, without any further privileges
-beyond OSD session establishment.
+Immediately following mei_cl_unlink(), mei_release() calls kfree(cl).
+If any remaining or deferred callback references the freed client, a
+use-after-free occurs.
 
-[ idryomov: trim changelog ]
+Fix this by flushing queues after unlinking the client from
+dev->file_list inside mei_cl_unlink(), preventing concurrent IRQ
+completions from populating the completed queue during teardown.
 
+Note: An LLM was used solely to assist with the proper phrasing and=20
+formatting of this commit message. The vulnerability discovery,=20
+fuzzer development, and code fix are entirely original author's work.
+
+Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
+Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
 Cc: stable@vger.kernel.org
-Fixes: a4ed38d7a180 ("libceph: support for CEPH_OSD_OP_LIST_WATCHERS")
-Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ kept the tree's `kcalloc()` context line instead of upstream's `kzalloc_objs()` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ceph/osd_client.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+v4:
+ - Added the fuzzer methodology to the commit message per maintainer reques=
+t.
+ - Documented LLM usage for Changelog formatting in the commit message.
+ - Manually wrapped commit message lines to 72 characters.
+v3:
+ - Removed non-standard Helped-by tags.
+v2:
+ - Removed redundant Reported-by tag.
+ - Added Fixes tag pointing to commit f35fe5f47ed0.
 
-diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
-index 94edea03b0cb2..25f25e026d8b5 100644
---- a/net/ceph/osd_client.c
-+++ b/net/ceph/osd_client.c
-@@ -4995,7 +4995,7 @@ static int decode_watchers(void **p, void *end,
- 	if (ret)
- 		return ret;
- 
--	*num_watchers = ceph_decode_32(p);
-+	ceph_decode_32_safe(p, end, *num_watchers, bad);
- 	*watchers = kcalloc(*num_watchers, sizeof(**watchers), GFP_NOIO);
- 	if (!*watchers)
- 		return -ENOMEM;
-@@ -5009,6 +5009,9 @@ static int decode_watchers(void **p, void *end,
- 	}
- 
- 	return 0;
+ drivers/misc/mei/client.c | 2 ++
+ drivers/misc/mei/main.c   | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 643b003..38b5792 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -695,6 +695,8 @@ int mei_cl_unlink(struct mei_cl *cl)
+ =09cl->state =3D MEI_FILE_UNINITIALIZED;
+ =09cl->writing_state =3D MEI_IDLE;
+=20
++=09mei_cl_flush_queues(cl, NULL);
 +
-+bad:
-+	return -EINVAL;
- }
- 
- /*
--- 
-2.53.0
-
+ =09WARN_ON(!list_empty(&cl->rd_completed) ||
+ =09=09!list_empty(&cl->rd_pending) ||
+ =09=09!list_empty(&cl->link));
+diff --git a/drivers/misc/mei/main.c b/drivers/misc/mei/main.c
+index 4fbf0b3..9e14ab4 100644
+--- a/drivers/misc/mei/main.c
++++ b/drivers/misc/mei/main.c
+@@ -148,7 +148,6 @@ static int mei_release(struct inode *inode, struct file=
+ *file)
+ =09=09goto out;
+ =09}
+=20
+-=09mei_cl_flush_queues(cl, NULL);
+ =09cl_dbg(dev, cl, "removing\n");
+=20
+ =09mei_cl_unlink(cl);
+--=20
+2.55.0
