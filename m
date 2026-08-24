@@ -1,169 +1,91 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9E4370D63;
-	Mon, 24 Aug 2026 10:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787566184; cv=pass; b=uOCwFWyN1U+tR6NS3XbY9cSW87xneGNklePJW0QA8hDpB+cljYmodLJNJFiRZbcgZl64McgFdOT7q8Gjyy4VF72w8RL5NMSN4FNaVst/cLZvrItEa2x7zrxWfyuoWJ/QN33YKAry0Czj2M9pVObaPRohci1ABiz7wjly8GHddmo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787566184; c=relaxed/simple;
-	bh=0YYg7IQTGy+rKywdudt+mfK9V6s+24t2npqVUenU6Bw=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=B+rwAY0Q26LJpeUB5C4TREVecln9EwFr50sgV//GVL0WYJFdDHyZ5Zl/i8ZDXAQm+uGg0WLmd8LKn7WUO25kIgfz8u6wd38Ly6SOPj4jvSRbKAzwmuYXxmb5hnqwPoM6cslzwS/W4UT3dN9yh1dSlLy1wh+kOp1QgRspeh3Ha4U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=ido/t3AN; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=ShhGPoFF; arc=pass smtp.client-ip=85.215.255.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77F030E821;
+	Mon, 24 Aug 2026 10:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787566624; cv=none; b=uiTbnAxsVV/LRR6DfBBima5rx/bO7OBKXo9pPCa6E1eUH33FwhDuk5sWaEs0JNdxT1obUhMmsgFi/yoKV0yD3Ez/EwHntGgw809OS9E8xSpYNllgBZTWGFRYFmfSEL5HH1NyRo+v1HkI7oHcusXJ6k82LNBjVa1VsyB1fG2Wwlk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787566624; c=relaxed/simple;
+	bh=8TEDn0L9YJc81TjqcHlJYZbCeP9SnSOzlsd8ZIQVikU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=asbCrM1Bt+bS/LdD9VyBWIS8TBxw1I0QslCoe9w6YT8tVQQS5LTXQ6ZN9nQ3bPM+JPRYrg5NIH1fLb3XqV9h+wQ6uqxX0Em86YHT1dxU6WchXi6kdZmJkswU/0cpXz83uA0juMtNbvBs5uMOxctpYdoCdzNn4OuhTqLxllyxzMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=hMbjnnov; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="ido/t3AN";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="ShhGPoFF"
-ARC-Seal: i=1; a=rsa-sha256; t=1787565989; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=aw3LS/ZdKUmC7d4PMwTFio7mCRQRE8euZuGIHexXTZhvK04rPCm8P5sroI2UOqUWzk
-    /xmM7gXQ+Q8Osf4lE2ZEd05orEM3bfCqg52kRztCniYfnEZQqZC1jmBuL2qmm0lCU0UK
-    bTE5ML2RlWxLGsHSvQGkOKu8H1Hdu12RqB0sTEL4leDN2mtlytLPVWh702xnpY4OS1HG
-    jaK2wiFVNUUJaFxPVywIDSCCETytlZ3yGsLkdht8zR6oodO+Ixu6GSB1EDuiGBRmHO6C
-    GVlBswDnC5Ynvp3NYVG8CWDktSXn49xsIpjjqEy/ox0ksmnH3wE+RKAauXjEAzwg6Hl3
-    DSyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787565989;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=BZNS6yonFZhtqNirDSAgAz29wmJOTQK+KRlmTy8iYlo=;
-    b=bQVByvzhWtn1jerJU5K+JPP6QP0lWdzc1Acang1HQjcwixA2P3kUrLbF+MxxzJ32O3
-    mdTvDQAwbVZHKWQvrDkgH7XIPKZCVZSPAYxUgH3npj7XPGv+EFfB4cPBGzXX56liDa5f
-    hCkcPgNbTNNA/EbCGvEePSt/BySrRcQ/1ToaEvMC3Xq9U9fOD9tEIew/bJSzROdBfzwM
-    TFnDdhxZfJG4vI/M9GKbPEvjLL4Kf9piZGyZ2wp4q6nx8Fw5Y6WPUXkD9PVNrVXdo6Jl
-    dBjFgfr1f402ZL06tL7uUzor8h/YT72WEY2ZNhAYIxDbsZRQrs9V28ym7A3L+8yEVrx5
-    TlKg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787565989;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=BZNS6yonFZhtqNirDSAgAz29wmJOTQK+KRlmTy8iYlo=;
-    b=ido/t3ANj8QUjkNRI6zQM8I95un7c73eYl1hPwVHnNcgi5ldiQ/HX46Ts/etzwztB9
-    /bbDtT9EfKQ+o+7WpBhfuYcJ6SZuk8dki7yPwOicTiOmuCNugdSSike/oNMWCyr59i02
-    c0bL3YnpyTNOeM2jB49z5TNqsZc/5aiKSiaYMWsOp1f9ptENnEyeZDUsUvfO0Nj0kjiq
-    AS1qn/ru6c381/R/yXWVbs0D/Jcn0F8S0d17ZHiEplHF/HjY1MBYiCSOz5S525wa0srF
-    aekil2m4vu2l4a2NnspPSbXeTXhQJ72BPK8TnSmlG3Z1SCNqXU0kJ0FmvMTN4jjozdNP
-    qeJw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787565989;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=BZNS6yonFZhtqNirDSAgAz29wmJOTQK+KRlmTy8iYlo=;
-    b=ShhGPoFF8lgTgMR69JejgWCHR+Ms9RU+2EnUz8SwpDBJK2RtJMB1V39wDi4PnMo8x6
-    gwAzDtpQrJEkbTtXGICQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQipoOy8iN9EQCaJvpc3APUCy9LxWOnfZGxS9c"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id Qfefb327OA6Sa21
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Mon, 24 Aug 2026 12:06:28 +0200 (CEST)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="hMbjnnov"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787566550;
+	bh=8TEDn0L9YJc81TjqcHlJYZbCeP9SnSOzlsd8ZIQVikU=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=hMbjnnovXuqUXIrPS+U0fmJb5QaVsqp8KpRNyRzNYOhBIo3DR61SJlaH7Uckj35gO
+	 vEuHh7OYMzDoep2OlHp3AB1ykEcb4TgyytgNEmxqMAvowNs9t8pwI+CFHj8b+ZN4oS
+	 4je03shnjFuTyxqifcSxBQSTBf1dxcq/e4/rkZj4=
+X-QQ-mid: zesmtpsz4t1787566533tf085f725
+X-QQ-Originating-IP: GsJl8b/moBOILElwvEn5lFB1pCOHyvYgMWRUTSbLMxU=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 24 Aug 2026 18:15:31 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 1917715364105345114
+EX-QQ-RecipientCnt: 7
+From: Wentao Guan <guanwentao@uniontech.com>
+To: chenhuacai@kernel.org
+Cc: guanwentao@uniontech.com,
+	kernel@xen0n.name,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	stable@vger.kernel.org,
+	yangtiezhu@loongson.cn
+Subject: Re: [PATCH v2] LoongArch: rethook: Do not restore percpu base register in trampoline
+Date: Mon, 24 Aug 2026 18:15:30 +0800
+Message-Id: <20260824101530.3827834-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <CAAhV-H7dO4V_McOvX-KyPXEwGHvu8n1inMcdVFyKLof7_Qfh3A@mail.gmail.com>
+References: <CAAhV-H7dO4V_McOvX-KyPXEwGHvu8n1inMcdVFyKLof7_Qfh3A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH v3] drm/ingenic: fix bridge allocation
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <0cf9366ba1a217ad743fd7f49d00813b32f104f2.camel@crapouillou.net>
-Date: Mon, 24 Aug 2026 12:06:18 +0200
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- linux-mips@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org,
- wbx@openadk.org,
- kernel@pyra-handheld.com,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A09A1723-95E2-4562-8B08-8C3232A25051@goldelico.com>
-References: <a3b64245250cd092776cf23cddffe18318b48995.1787494377.git.hns@goldelico.com>
- <0cf9366ba1a217ad743fd7f49d00813b32f104f2.camel@crapouillou.net>
-To: Paul Cercueil <paul@crapouillou.net>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OTnfJ5NUztydNjUc3qG8ywIbebaoyu/UtY+e9cX9QWm+C4PBoR0SEcSq
+	/HJXi+h1TvM8FwGMu/bxJERphCz+2+CkGpUrh0zmXVkhchRTN951MuPldx3sGzjPppxqnq+
+	p3qHUf0oL/5LzsLJHv44XpjBVtaVXCJNutj9GXBmr4Nx2JJYDOGXLSEuyu7TLs2A3/JjkhP
+	NiUJWN/bNdRR5rLXBegQbVqDblcnpER1lcamOkXQZVePL7jfyAdhllYO2GYcz9lRpb/yd1n
+	Kir9q77fQa0XvaupS5AtqPJJgaUGnK4UhoQmnDcKJZWSxZ5TnJGj/8dYEP47yDbfIKpTiZQ
+	8EHnMSfQeWksbKdKxRwuIIFErM7vCiBiFdq2+O9SXtjaaU4p4/LpKDwx7jx0G0xEIOUvela
+	aCSs9Xu+xplcHZHQdvmalWrQanTYSE9ibZkc3pGrJCKuasBGxGVUEtUHuHTz7aWEq8WbKg/
+	3nBjrL5IGNPSLLsDOFwWKxFmos3LjLj7441BLAiCN+V2s39xlYPylj1qZwvU3PrH10+h7CI
+	m2YV3sdQZ7jnzu+M5tVozvwoNwztsvGbz/3epYJaWTxGmISWjc/+LDt9MqdDHyUqDsRAtGm
+	S6xYZsoOWvhlJIXdmd+x41XKiwTZAbhPVWvdZS9EgEUE0E26ZCBqw79wNszNiTOPUq6EzEE
+	EBnqd2278wiLW3erDreemC2qcOKomnk/fOTw9VHmiuQaSR1DaipZJs7sSOIo2ZAYYCjhlTP
+	mPtBUzApDxyh6rx3SA8hhZdsPgeR3JiZFVBVfqMaQ7FQ9IEwtWyT4E5+5e1ctry9fpWxp7b
+	9FZXeNhz1SWR95UPUDj8eebqyGmIPvDS5KTZjnI6L73BljCyohc9EtCR9IVyHRwmLZfN0Ty
+	0JZr0yJWg5eHjRvJO64ATwA3Jl+yCMBINuo5PClGzmnEQy5TWdWQHrXjsgBN6ROSeIvgxDT
+	ohFvR0wBJ6YjOxhC3c1FgwV+4nYBwnflDCxnxbPDSOB9uP0V6qDlPGJ13BNv5iQpCIVs5b6
+	FGa7e6fm2A9yEA/o9vmoOTUs3t7ZtswdyIxuNSlpA5A8tcPqylz16LJtYDwDlwpw2AV/dsN
+	E8C2uqkcfXmTDfMpZ85p+kcMJopkZOLrqma496fAMWEwByVBI0yazFncMia9yKVhehUFgS3
+	nK6rGAnYhMLQUbweHGOOThbBH9a1Dh2yjK1d
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-Hi Paul,
+> > ---
+> > changelog v2:
+> > according sashiko report, keep cfi_st u0, PT_R21
+> > Link: https://sashiko.dev/#/patchset/20260824082524.3801394-1-guanwentao%40uniontech.com
+> I don't think AI is correct here, if "leaking" a random stack value is
+> unacceptable, then "leaking" $r21 is better?
 
-> Am 24.08.2026 um 11:56 schrieb Paul Cercueil <paul@crapouillou.net>:
->=20
-> Hi Nikolaus,
->=20
-> Le dimanche 23 ao=C3=BBt 2026 =C3=A0 16:12 +0200, H. Nikolaus Schaller =
-a =C3=A9crit :
->> Bridge allocation API has changed and ingenic/drm was broken
->> leading to
->>=20
->> [   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X
->> controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
->> [   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare
->> HDMI I2C bus driver
->> [   55.899132] [drm] DRM bridge corrupted or not allocated by
->> devm_drm_bridge_alloc()
->> [   55.904136] ------------[ cut here ]------------
->> [   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c
->> [drm], CPU#0: kworker/u4:2/36
->> [   55.917538] refcount_t: addition on 0; use-after-free.
->> ...
->> [   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
->> ...
->>=20
->> Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using
->> neither devm_drm_bridge_alloc() nor drm_bridge_add()")
->> Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
->> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
->> Cc: Waldemar Brodkorb <wbx@openadk.org>
->> Cc: stable@vger.kernel.org
->> ---
->>=20
->> Notes:
->>     v3: fixed a malformed diff
->>    =20
->>     v2: removed ib->bridge->ops =3D DRM_BRIDGE_OP_EDID |
->> DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
->>       =20
->> =
-https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.17=
-87477392.git.hns@goldelico.com?part=3D1
->>=20
->>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 23 +++++++++++++++++++--
->> --
->>  1 file changed, 19 insertions(+), 4 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->> index 42c86f195c66b3..8d7979a7859332 100644
->> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
->> @@ -122,7 +122,7 @@ struct ingenic_drm {
->> =20
->> =20
->> - ret =3D drm_bridge_attach(encoder, &ib->bridge, NULL,
->> + ib->bridge->interlace_allowed =3D true;
->=20
-> That one line feels like it doesn't belong here, but in its own patch.
+So, 1. v3a back to dropping both or 2. v3b keeping the frame deterministic
+via st.d zero, sp, PT_R21 or 3. v3c keep store RT_R21 for just a completeness
+stack image?
 
-You are right, it is not a fix but adds a feature.
-
-I'll send a v4 asap.
-
->=20
-> Cheers,
-> -Paul
-
-BR,
-Nikolaus
-
+BRs
+Wentao Guan
