@@ -1,151 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52D1397923
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E227397923
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:22:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787570524; cv=none; b=K5YgqaqM/J0csWOHhyJJfqB25vIfar7zLZZmgO7pxAQDxtQhvza8G9n1j9jY3COVo8uUNXcaZY7UzpT1u8/+D85bRLqwkTwE48ELNmjZE3jRG58wNQ87cZuheS0Qst3j8vD30jWVW7CMCx2SvOfSSUMVdGKDzNtylbjHdJdqRbE=
+	t=1787570536; cv=none; b=fYEEXfwMqS7EJMqfOLbrxvSVkEzuETzkij33DGyCIYa/pjGyqBxlZr5RpYQjq4iLup3o5NgE3DgDBjvOowJwJ6qDOfBSgBH1k2tjX45MFgXFc4/BvHcKIhdnfWosynBUm7stGU2KENh5VJnv2wmRpNJSgIwKdWUehalyx8D8Fug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787570524; c=relaxed/simple;
-	bh=lNoeHQCUHzm0okwiBl+FM1Uu7m/etESKbDynINrk3ZU=;
+	s=arc-20240116; t=1787570536; c=relaxed/simple;
+	bh=YVcTr6WyqZJpo7TWWgUNdNZYRejc3QmYNe9nI6WCHwc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ma5WjnusEDS2QGzSBENJL4DhC1g+Kq9pBBMBkL2aYWbI32u9kyLH1rOhjqCWhfy8tEmDswUZ6h7kHsTP7Kq9AgKnlpHvFSGlS8Hy++ggciQfLkF7qB8hoqAbnvBtPZ+ClvGq+yChHTZnvMUYwqX34TDkBS9zpuFid/tMa/y+8H8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAXOcGC8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=HiH3Ra5I5xGQPYx5SUNmSCYo6CO84DNx8PO1/2njZzhR+xXDWzfndeC+byXda+uUqbYgyPjueR0djCKzjGbvVaAEB3TYnoCUsHF0PJQ/+JkdoYMZ/EtccrjgJm0xrjex0SSlxc32otPu2uWpJxzAAppSzsvujdID5QEfAYJSLCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oz1IHVE2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAXOcGC8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3EC1F00A3A;
-	Mon, 24 Aug 2026 11:22:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oz1IHVE2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6901F000E9;
+	Mon, 24 Aug 2026 11:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787570523;
-	bh=zHC3NFdn9Uyyg8HZA0OrfrrwbWyjuBpnBZja2BW/1IU=;
+	s=k20260515; t=1787570534;
+	bh=Oird/leDCQ2evECbnoEADW/UwU42r7p3PM+9ujTpPp4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LAXOcGC8HYd03nYzKMyZgen/Y6mrkVBhZPeTeq5/d4t/0/OSXzA3iVUj8TYzfcTFM
-	 K/Q04nYomqO9IfUTnBAxYsAlCtSUZSuzJk2WRwJyAXn3C8yA7fapCnO8a+ZQgh2Xtd
-	 lyrKxpmidjKrWoWxOuTYUl6mtIYYgy6pM07kXU8vjRaSvS9JUcgKlXJ1NBiXDE+iEO
-	 CsIuu5S5mOSHHkFi6oPTAIYi4bB7y5jmx9zcvRKmOya9TAIVJtgNb2Y6XdqtXEU/4i
-	 /SYQETydQDgPK6zANkP1T5pxz5HV8Q4wDlvWPmPiIRpUNDrguYCOuVB9btO+fKiqiO
-	 eVMmYt970StXg==
+	b=oz1IHVE287zvF0s9Ju4LJK5OrceU2GiBirU5SwQhCNPQBDUhtQ+cv4mJg5tMVraSf
+	 IGPgzZ/SYwR0JTPEKs7PUWDWQo+EUHL9mWXQBeQmVhgTmel4Jr2IB+Nphls9GAFyiK
+	 TfnnzJzI0+LWING+fIicdyOQ+or4oGmEZpeU1RfrCVwgdEwFf6ReHkmVIRjxerUh7N
+	 AQfWEAoyfIRXtgjalaSEL6CQmH/XhIGHicQZ4v2OSKzrMd3FQcn+yJo5aJmRp9Eg/x
+	 aiiXkk1dz+Q2uJXIlXhXXiKMsdKOL5VAvTeN+rM9x3v7vMDhKfEbqpp7QxWZ3jBTDc
+	 qgGZ4/9IMcz0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>,
-	Hawking Zhang <Hawking.Zhang@amd.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Jani Nikula <jani.nikula@intel.com>,
+	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amdgpu: check ASPM on the dGPU host link
-Date: Mon, 24 Aug 2026 07:21:59 -0400
-Message-ID: <20260824112159.414999-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/4] drm/i915/pin: s/dev_priv/i915/ and drop struct drm_device usage
+Date: Mon, 24 Aug 2026 07:22:08 -0400
+Message-ID: <20260824112212.417899-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082029-grading-pelvis-81de@gregkh>
-References: <2026082029-grading-pelvis-81de@gregkh>
+In-Reply-To: <2026082003-mountain-flaccid-179a@gregkh>
+References: <2026082003-mountain-flaccid-179a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yang Wang <kevinyang.wang@amd.com>
+From: Jani Nikula <jani.nikula@intel.com>
 
-[ Upstream commit 2a9c5154a5650c09ad44ff5e1dff74754e15a3c6 ]
+[ Upstream commit 3823bf019d3b31ccd3e79860b7a3e20c719a1db4 ]
 
-dGPUs with an internal PCIe switch expose graphics functions below the
-switch downstream port. The automatic ASPM check uses the display
-endpoint and evaluates the internal link instead of the host link.
+Improve consistency within i915_fb_pin.c by replacing dev_priv naming
+with i915, and dropping struct drm_device usage.
 
-Use the switch upstream port for the check and report the selected
-link.
-
-Fixes: 0ab5d711ec74 ("drm/amd: Refactor `amdgpu_aspm` to be evaluated per device")
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 4e0d6f2876e704fff707b18c40dbd383aea4a1c9)
-Cc: stable@vger.kernel.org
-[ Dropped the upstream APU and `amdgpu_device_aspm_support_quirk(adev)` context lines, keeping 6.1's old-signature quirk helper untouched. ]
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://patch.msgid.link/3a4ac0a732a561a487e46838bde6327cff5ccb38.1775556190.git.jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Stable-dep-of: fc6487579083 ("drm/xe: Fix DPT allocation paths.")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50 +++++++++++++++++++++-
- 1 file changed, 49 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_fb_pin.c | 24 ++++++++++-----------
+ 1 file changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 45636d3118c48..55d869ea718a7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1375,6 +1375,31 @@ bool amdgpu_device_pcie_dynamic_switching_supported(void)
- 	return true;
- }
- 
-+/*
-+ * Some dGPUs expose their display endpoint below an internal PCIe switch.
-+ * Use the switch upstream port to query the host-facing link.
-+ */
-+static struct pci_dev *amdgpu_device_get_aspm_pdev(struct amdgpu_device *adev)
-+{
-+	struct pci_dev *swds, *swus;
-+
-+	swds = pci_upstream_bridge(adev->pdev);
-+	if (!swds ||
-+	    (swds->vendor != PCI_VENDOR_ID_ATI &&
-+	     swds->vendor != PCI_VENDOR_ID_AMD) ||
-+	    pci_pcie_type(swds) != PCI_EXP_TYPE_DOWNSTREAM)
-+		return adev->pdev;
-+
-+	swus = pci_upstream_bridge(swds);
-+	if (!swus ||
-+	    (swus->vendor != PCI_VENDOR_ID_ATI &&
-+	     swus->vendor != PCI_VENDOR_ID_AMD) ||
-+	    pci_pcie_type(swus) != PCI_EXP_TYPE_UPSTREAM)
-+		return adev->pdev;
-+
-+	return swus;
-+}
-+
- /**
-  * amdgpu_device_should_use_aspm - check if the device should program ASPM
-  *
-@@ -1387,6 +1412,9 @@ bool amdgpu_device_pcie_dynamic_switching_supported(void)
-  */
- bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display/intel_fb_pin.c
+index 738d77a1468a5..c003b4c3c4cbe 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
++++ b/drivers/gpu/drm/i915/display/intel_fb_pin.c
+@@ -29,9 +29,8 @@ intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
+ 		    unsigned long *out_flags,
+ 		    struct intel_dpt *dpt)
  {
-+	struct pci_dev *aspm_pdev, *parent;
-+	bool enabled;
-+
- 	switch (amdgpu_aspm) {
- 	case -1:
- 		break;
-@@ -1397,7 +1425,27 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
- 	default:
- 		return false;
- 	}
--	return pcie_aspm_enabled(adev->pdev);
-+
-+	/*
-+	 * pcie_aspm_enabled() checks the link between its argument and
-+	 * the immediate upstream bridge. Use SWUS for dGPUs with an
-+	 * internal switch so that this is the host-facing link.
-+	 */
-+	aspm_pdev = amdgpu_device_get_aspm_pdev(adev);
-+	parent = pci_upstream_bridge(aspm_pdev);
-+	if (!parent) {
-+		dev_dbg(adev->dev, "ASPM: no upstream PCIe link for %s\n",
-+			pci_name(aspm_pdev));
-+		return false;
-+	}
-+
-+	enabled = pcie_aspm_enabled(aspm_pdev);
-+	/* Report the exact link used for the automatic ASPM decision. */
-+	dev_dbg(adev->dev, "ASPM: link %s <-> %s is %s\n",
-+		pci_name(parent), pci_name(aspm_pdev),
-+		enabled ? "enabled" : "disabled");
-+
-+	return enabled;
- }
+-	struct drm_device *dev = fb->dev;
+-	struct intel_display *display = to_intel_display(dev);
+-	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct intel_display *display = to_intel_display(fb->dev);
++	struct drm_i915_private *i915 = to_i915(fb->dev);
+ 	struct drm_gem_object *_obj = intel_fb_bo(fb);
+ 	struct drm_i915_gem_object *obj = to_intel_bo(_obj);
+ 	struct i915_address_space *vm = i915_dpt_to_vm(dpt);
+@@ -43,7 +42,7 @@ intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
+ 	 * We are not syncing against the binding (and potential migrations)
+ 	 * below, so this vm must never be async.
+ 	 */
+-	if (drm_WARN_ON(&dev_priv->drm, vm->bind_async_flags))
++	if (drm_WARN_ON(&i915->drm, vm->bind_async_flags))
+ 		return ERR_PTR(-EINVAL);
  
- bool amdgpu_device_aspm_support_quirk(void)
+ 	if (WARN_ON(!i915_gem_object_is_framebuffer(obj)))
+@@ -56,7 +55,7 @@ intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
+ 		if (ret)
+ 			continue;
+ 
+-		if (HAS_LMEM(dev_priv)) {
++		if (HAS_LMEM(i915)) {
+ 			unsigned int flags = obj->flags;
+ 
+ 			/*
+@@ -118,9 +117,8 @@ intel_fb_pin_to_ggtt(const struct drm_framebuffer *fb,
+ 		     bool uses_fence,
+ 		     unsigned long *out_flags)
+ {
+-	struct drm_device *dev = fb->dev;
+-	struct intel_display *display = to_intel_display(dev);
+-	struct drm_i915_private *dev_priv = to_i915(dev);
++	struct intel_display *display = to_intel_display(fb->dev);
++	struct drm_i915_private *i915 = to_i915(fb->dev);
+ 	struct drm_gem_object *_obj = intel_fb_bo(fb);
+ 	struct drm_i915_gem_object *obj = to_intel_bo(_obj);
+ 	struct ref_tracker *wakeref;
+@@ -129,10 +127,10 @@ intel_fb_pin_to_ggtt(const struct drm_framebuffer *fb,
+ 	unsigned int pinctl;
+ 	int ret;
+ 
+-	if (drm_WARN_ON(dev, !i915_gem_object_is_framebuffer(obj)))
++	if (drm_WARN_ON(&i915->drm, !i915_gem_object_is_framebuffer(obj)))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	if (drm_WARN_ON(dev, alignment && !is_power_of_2(alignment)))
++	if (drm_WARN_ON(&i915->drm, alignment && !is_power_of_2(alignment)))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	/*
+@@ -163,7 +161,7 @@ intel_fb_pin_to_ggtt(const struct drm_framebuffer *fb,
+ 	ret = i915_gem_object_lock(obj, &ww);
+ 	if (!ret && phys_alignment)
+ 		ret = i915_gem_object_attach_phys(obj, phys_alignment);
+-	else if (!ret && HAS_LMEM(dev_priv))
++	else if (!ret && HAS_LMEM(i915))
+ 		ret = i915_gem_object_migrate(obj, &ww, INTEL_REGION_LMEM_0);
+ 	if (!ret)
+ 		ret = i915_gem_object_pin_pages(obj);
+@@ -264,7 +262,7 @@ intel_plane_fb_vtd_guard(const struct intel_plane_state *plane_state)
+ int intel_plane_pin_fb(struct intel_plane_state *plane_state,
+ 		       const struct intel_plane_state *old_plane_state)
+ {
+-	struct intel_display *display = to_intel_display(plane_state);
++	struct drm_i915_private *i915 = to_i915(plane_state->uapi.plane->dev);
+ 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+ 	const struct intel_framebuffer *fb =
+ 		to_intel_framebuffer(plane_state->hw.fb);
+@@ -308,7 +306,7 @@ int intel_plane_pin_fb(struct intel_plane_state *plane_state,
+ 		 * The DPT object contains only one vma, and there is no VT-d
+ 		 * guard, so the VMA's offset within the DPT is always 0.
+ 		 */
+-		drm_WARN_ON(display->drm, i915_dpt_offset(plane_state->dpt_vma));
++		drm_WARN_ON(&i915->drm, i915_dpt_offset(plane_state->dpt_vma));
+ 	}
+ 
+ 	/*
 -- 
 2.53.0
 
