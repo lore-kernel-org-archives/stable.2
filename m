@@ -1,198 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7250F392C4C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD77F23EAB3
 	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 22:00:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787608827; cv=none; b=sBg3tqmccbyy/LjxiNiDVoj/vdtXvIb9Z6UpwnSLDp4PH2acxCtbPK8fuujbDA5xxZPv0kPFYhpyHZPz1vgFikOWe4Nbg7IJU8BL/CbdGP+DA4YkBpKa7YEoha+/A5p2WPrIeye1PGGIz48R3uSQydCgIr8SNxVBLhEKOsFZjic=
+	t=1787608827; cv=none; b=vBD4T98qubb78P49O9vliaZH2L8Ut1ApWl2KAOtzElcij7zQsvWGaG/e9zguqLMTS7yz+Arybom9iYQtkYlBMzrEPvtEXGfGSC+6nNMxTuGSdXcKidu0Zv0k+rAwt/Dg1V/yijDbtOcays3GIVZ2CU1VUFzx1/aPqCb6+QeFMNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787608827; c=relaxed/simple;
-	bh=yigL6lCZyezAAyq68Vqcslqig3BLoasKzFbK9tEH1Ps=;
+	bh=r9dfZQfmkbmIoqkC9G4kTvE8y34Z/3Kwek8LEoScRAg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uQIoibH3FgtjOb+Ly7CvZnksOAo/Oqi9g9ogWjnc224ewdG6wazL6VzrNMdZx2gqEzzaqe7srd8gqmBP0bEabSWResIaABecATPcVvi/ykDnhDEb+V9b/3wgINE0ALbcYRZzq2zYwyV6YTFzicjMOrEoJe3l2/QoTvQYR7zpe9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YkL3SZB2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EDd5Uh+Iywywn7aqlhljN3JlFQ3ts254OvmuDEY72oHoIUYJDhLahK/7mF79vLL0seNJ6BjQB0BWzKsQgYPQHqJVwmSnAZ2arPPGGbsKqDt5duQnhEo43d5jD2jY7zsGkZ0a+v6bvFmBrZpjvM4VogkTs/JuBB1EFvbyLGs508U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvSYk2OX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YkL3SZB2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92A4C1F00A3A;
-	Mon, 24 Aug 2026 22:00:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvSYk2OX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 189E41F00A3E;
+	Mon, 24 Aug 2026 22:00:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787608826;
-	bh=auPQb3oL2ziFrivLiW328n5au6xfLlKXBqk9t8FmV1A=;
+	bh=9+d+Okn2MfJYMQcoDuByIXIVhqv1n6lMPoCOv0a43ys=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YkL3SZB2LhtojK3lXzZU2kQBOpY0LVvLRA8NnTc6tjtOemDxwv7MgqnEXl1wme0pE
-	 X4WvVo/h3hYJXJFwBY4BEntgSoUxi6l/irvJHK79r9EaY5m/6e7YAPXujmCEo1YARJ
-	 uPymNw95TOGRXPUHBObmcAtLydaakaqE4fT1vHuERkuqeND++AB0nIOhasVkxATPXq
-	 7N/hsO411DKxFS9cQ+Ru2Bmj18h6JkrNCRHe4f3Cacl34IDFO2ZTYkUdOjHtXOfEOE
-	 Icko+Qb0IZWIp6qRA5Cri8aA6McbH1nfkOd4+pFgyhwQ5nSDag7d2X7vKwCVsO4Njc
-	 k/an/OzGDlJmw==
+	b=KvSYk2OX45RgffziRmOQNWVXtNP1iFqlofdVDxhFVmRtSNFPvsE1BXSYATNfJzHNe
+	 sdl74keKNrnoDbZvSuH+5sQDfKnfx641jbJNwB38gBCSxDcyjPittZ6sInTnmRmD75
+	 5AIHmg7PDv1DUvEuraCw6zQCA3NiT2dlB7Dj5zhjFxUJ0y+DBvo8lzFF5E3/Vyr68m
+	 E8/yv2l7EzXX3f2nLWWlBTDrWjy6BPEaGuJfwQjU3s5FpvWuAkMydro8xHKQ1RBkWe
+	 iGQ9LRqNv5+PhN4gds0gRHcTHoiVihK1zw2ssn5E9/MsEa3lD+s/T5lKv9e/0QKsLI
+	 xojM19ubpGkWw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
+Cc: =?UTF-8?q?Dawid=20Wro=CC=81bel?= <me@dawidwrobel.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] selinux: require a class's permission values to cover its permission count
-Date: Mon, 24 Aug 2026 18:00:22 -0400
-Message-ID: <20260824220022.435960-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
+Date: Mon, 24 Aug 2026 18:00:24 -0400
+Message-ID: <20260824220024.436002-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824220022.435960-1-sashal@kernel.org>
-References: <2026082020-deputize-mosaic-579e@gregkh>
- <20260824220022.435960-1-sashal@kernel.org>
+In-Reply-To: <2026082033-conductor-script-8c45@gregkh>
+References: <2026082033-conductor-script-8c45@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Dawid Wróbel <me@dawidwrobel.com>
 
-[ Upstream commit b98a8ac50775540f3804397ed08f61ef9910bcab ]
+[ Upstream commit 1ba381759e45d5d0442452cfa5c42e836191a568 ]
 
-security_get_permissions() sizes an array by the class's permissions.nprim
-and fills it at value - 1, from the inherited common's permission table and
-then the class's own. A value no permission defines leaves a NULL that
-sel_make_perm_files() passes to d_alloc_name(), an oops inside
-sel_write_load() that strands selinux_state.policy_mutex and leaves every
-later load in uninterruptible sleep; two permissions sharing a value
-overwrite the first kstrdup(). Bounding each value by nprim catches
-neither, and neither would a count: the symbol table is keyed on the
-permission name, so duplicates pass.
+The "DEC0 MODE" to "DEC7 MODE" controls are enumerated, but
+tx_macro_dec_mode_get() and tx_macro_dec_mode_put() access their
+value through ucontrol->value.integer.value[0] (a long) instead of
+ucontrol->value.enumerated.item[0] (an unsigned int).
 
-Track the values each permission table claims and require them to cover
-exactly what its count declares, rejecting a count no value can reach.
-Conforming policies are unaffected.
+This same pattern was fixed in the sibling drivers by
+commit bcfe5f76cc40 ("ASoC: codecs: rx-macro: fix accessing array
+out of bounds for enum type") and
+commit 0ea5eff7c606 ("ASoC: codecs: va-macro: fix accessing array
+out of bounds for enum type"), but tx-macro was missed.
 
+On 64-bit kernels built with CONFIG_SND_CTL_DEBUG, the elem value
+sanity check catches the 4 bytes written past the enumerated item
+and every read of these controls fails with -EINVAL:
+
+  snd-sm8250 sound: control 2:0:0:DEC0 MODE:0: access overflow
+
+Fixes: c39667ddcfc5 ("ASoC: codecs: lpass-tx-macro: add support for lpass tx macro")
+Assisted-by: Claude:claude-fable-5
 Cc: stable@vger.kernel.org
-Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260730-worktree-lpass-tx-macro-enum-fix-v2-1-6d091c736116@dawidwrobel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ kept `snd_soc_kcontrol_component()` context line instead of upstream's renamed `snd_kcontrol_chip()` ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/selinux/ss/policydb.c | 51 ++++++++++++++++++++++++++++++----
- 1 file changed, 46 insertions(+), 5 deletions(-)
+ sound/soc/codecs/lpass-tx-macro.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index fac3b61bfa202..ef7f767a682b3 100644
---- a/security/selinux/ss/policydb.c
-+++ b/security/selinux/ss/policydb.c
-@@ -1139,7 +1139,18 @@ int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 150ed10c8377a..4f40eace3a0ee 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -1019,7 +1019,7 @@ static int tx_macro_dec_mode_get(struct snd_kcontrol *kcontrol,
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	int path = e->shift_l;
+ 
+-	ucontrol->value.integer.value[0] = tx->dec_mode[path];
++	ucontrol->value.enumerated.item[0] = tx->dec_mode[path];
+ 
  	return 0;
  }
- 
--static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
-+/*
-+ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
-+ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
-+ * fits in a u32 and the callers reject an nprim past that width.
-+ */
-+static u32 perm_claimed_mask(u32 nprim)
-+{
-+	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
-+}
-+
-+static int perm_read(struct policydb *p, struct symtab *s,
-+		     struct policy_file *fp, u32 *claimed)
+@@ -1028,7 +1028,7 @@ static int tx_macro_dec_mode_put(struct snd_kcontrol *kcontrol,
+ 				 struct snd_ctl_elem_value *ucontrol)
  {
- 	char *key = NULL;
- 	struct perm_datum *perdatum;
-@@ -1171,6 +1182,10 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	/* indexes an nprim-sized array in security_get_permissions() */
- 	if (perdatum->value > s->nprim)
- 		goto bad;
-+	/* two permissions cannot share one slot of that array */
-+	if (*claimed & (1U << (perdatum->value - 1)))
-+		goto bad;
-+	*claimed |= 1U << (perdatum->value - 1);
- 
- 	return 0;
- bad:
-@@ -1183,7 +1198,7 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	char *key = NULL;
- 	struct common_datum *comdatum;
- 	__le32 buf[4];
--	u32 i, len, nel;
-+	u32 i, len, nel, claimed = 0;
- 	int rc;
- 
- 	comdatum = kzalloc(sizeof(*comdatum), GFP_KERNEL);
-@@ -1205,17 +1220,28 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	if (rc)
- 		goto bad;
- 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (comdatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
- 		goto bad;
- 
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &comdatum->permissions, fp);
-+		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
- 	}
- 
-+	rc = -EINVAL;
-+	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
-+		pr_err("SELinux:  common %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
-+
- 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
- 
- 	rc = symtab_insert(s, key, comdatum);
-@@ -1351,7 +1377,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	char *key = NULL;
- 	struct class_datum *cladatum;
- 	__le32 buf[6];
--	u32 i, len, len2, ncons, nel, val;
-+	u32 i, len, len2, ncons, nel, val, claimed = 0, inherited = 0;
- 	int rc;
- 
- 	cladatum = kzalloc(sizeof(*cladatum), GFP_KERNEL);
-@@ -1379,6 +1405,10 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	if (rc)
- 		goto bad;
- 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (cladatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	ncons = le32_to_cpu(buf[5]);
- 
-@@ -1413,11 +1443,22 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 		}
- 	}
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &cladatum->permissions, fp);
-+		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
- 	}
- 
-+	/* the class's own permissions must claim the slots the common leaves */
-+	if (cladatum->comdatum)
-+		inherited = cladatum->comdatum->permissions.nprim;
-+	rc = -EINVAL;
-+	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
-+			~perm_claimed_mask(inherited))) {
-+		pr_err("SELinux:  class %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
-+
- 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
- 
- 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+-	int value = ucontrol->value.integer.value[0];
++	int value = ucontrol->value.enumerated.item[0];
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	int path = e->shift_l;
+ 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
 -- 
 2.53.0
 
