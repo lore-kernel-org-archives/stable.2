@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EEB3F7AB8
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814DE15A85A
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:20:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574041; cv=none; b=iBq/2V3LvdJHQA5l7qHdY9uOnnDKery3k13atJ39cta0cwAQDF/6/U93qzkLOycCjhY36jx0qaJJQIN1hove7xOeEH8QzRxKMhApmser3Wt49mBzyAOUchfey8SFhq+D1CQH6HqEDT43ZM1QqnKYV58Y2vvmPuJzheR4sOYq83o=
+	t=1787574058; cv=none; b=TCJAoGFVF+M0Uj93Z8oBWl7DFIhBre2AGgkEmPj4uZGR4vRsGLDGJTyPJhLbMdrTMQMOYiQYOAjGNKipzHbtMq4ibyUN6bI5ArnnTnEL++QLMHmKBkH1swx42Il2pZu6UnQo5bgOVv/tgRFIOvCTaAfEocqTGiPMOAnPcRE5ppE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574041; c=relaxed/simple;
-	bh=dvf+vsD5PI3JabGhEX+bRVFVamTPzwL/NEXqqBZI9PE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oHCBw89DBgUAoqpBUS7wq6J5+iPrNIiGTxrzXeaPn1c+O4bLUMGjRLOds2m3KCOYhJ7B2gOxl64jxyVYV72ADBfrZ0NCNV6yoFxgx6LsKQ4W361fFLqc4jsC3IUe+JUUvUuNjkgWz3ghoBnw/jPy/xSixxEXiGdisaCxgHuqEDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d/KUB8JD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787574058; c=relaxed/simple;
+	bh=i4XN5MR65A0orFj4cdN5zuA2kRhM8uJPvh3vRpUT7xc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oOSxa652tlUGWGLauQulDMJNZU8xfMA0KccAoBSScYKo+O3OgUsdA5zUJ6NAB5FJKQ+psSUD3lxdGjloIkxaB1zB8v9rGIRTWle+nIzd7fSkfgVE8IboPsnvXQ25Gm9anqfswRSEGTmUFGdbE20wrOGbmRRXYoeusHVWuiA5iMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dBCgVv64; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d/KUB8JD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A6C1F000E9;
-	Mon, 24 Aug 2026 12:20:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dBCgVv64"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826E21F000E9;
+	Mon, 24 Aug 2026 12:20:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787574039;
-	bh=dUBsLc8A3r2ApfS1GlqS2aoDJwTjtKKV3xbj0LTyDi8=;
+	s=korg; t=1787574057;
+	bh=4aC8zbUuJ7k3WeCU5EuarsDBOom2E/6GxI1NVmCApcM=;
 	h=Subject:To:Cc:From:Date;
-	b=d/KUB8JDe8gAZo4rXyHjGZl/0HMSOqIf+hwG5XqKMoXMUo2sf3zmNt01iasETjlSu
-	 dtOBdtUQS9LTc6ICkWRhFWDoih1Ar3jTOmwD4duRPnfb5PUM+3gm/mZjsJb0m4fTl7
-	 0hC8zPLPmz1cM+baaz4IqHSyDTKfp1JpA9BHoyFA=
-Subject: FAILED: patch "[PATCH] kcov: fix data corruption and race conditions on PREEMPT_RT" failed to apply to 5.10-stable tree
-To: penguin-kernel@I-love.SAKURA.ne.jp,akpm@linux-foundation.org,andreyknvl@gmail.com,bigeasy@linutronix.de,broonie@kernel.org,dvyukov@google.com,elver@google.com,glider@google.com,gregkh@linuxfoundation.org,hch@infradead.org,roman.gushchin@linux.dev,stable@vger.kernel.org,stern@rowland.harvard.edu,williams@redhat.com
+	b=dBCgVv64fJQkhXc2rurmc/U3T4+1fm2mN87Q8vgIK0KsQT3FQGQ+gliAk+Flw9W1D
+	 j8MUzHpvpY/xBVO57uZjKDhnEgJkr6Ga4q96x164QO3WxLE8qxi9sz7B3oOtOAEeTz
+	 5JVbTB+AtgXXHXQpIkBdnFPdNorr2jjKf9WkGvLA=
+Subject: FAILED: patch "[PATCH] nilfs2: reject invalid block index in GC ioctl" failed to apply to 6.12-stable tree
+To: konishi.ryusuke@gmail.com,slava@dubeyko.com,wuyankun@uniontech.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 14:20:28 +0200
-Message-ID: <2026082428-tribute-transport-b499@gregkh>
+Date: Mon, 24 Aug 2026 14:20:53 +0200
+Message-ID: <2026082453-comply-latticed-5cc3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2eed77fdcb0cc48e8eccb2bcd4b7f2c6d650e84c
+git cherry-pick -x a1735eae55448bc79c2da6593455791e886f6ed8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082428-tribute-transport-b499@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082453-comply-latticed-5cc3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,293 +62,85 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2eed77fdcb0cc48e8eccb2bcd4b7f2c6d650e84c Mon Sep 17 00:00:00 2001
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Date: Thu, 16 Jul 2026 08:01:29 +0900
-Subject: [PATCH] kcov: fix data corruption and race conditions on PREEMPT_RT
+From a1735eae55448bc79c2da6593455791e886f6ed8 Mon Sep 17 00:00:00 2001
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Fri, 3 Jul 2026 01:07:19 +0900
+Subject: [PATCH] nilfs2: reject invalid block index in GC ioctl
 
-syzbot is reporting KCOV state corruption on PREEMPT_RT kernels, for the
-temporary storage used for saving/restoring remote KCOV state is currently
-allocated as the per-CPU area.
+Syzbot reported list corruption caused by a double list_add_tail() call on
+bh->b_assoc_buffers within nilfs_lookup_dirty_data_buffers().
 
-On PREEMPT_RT kernels, softirq handlers run as preemptible task threads
-(e.g., ksoftirqd). If a softirq context preempts a task running a remote
-KCOV session, it safely saves the task's state into the per-CPU area.
-However, if that softirq thread is subsequently preempted by a higher-
-priority softirq thread on the same CPU, the second softirq will overwrite
-the same per-CPU area, permanently destroying the original task's KCOV
-state.
+Analysis revealed that the root cause was the insertion of a page/folio
+with a page index of ULONG_MAX into the page cache via the GC ioctl.
+filemap_get_folios_tag(), called by nilfs_lookup_dirty_data_buffers(),
+repeatedly detects a dirty folio with a page index of ULONG_MAX due to
+index wrap-around, leading to duplicate processing of dirty buffers.
 
-Fix this data corruption by moving the temporary storage from the per-CPU
-area to the per-thread area. Since each softirq thread now owns its own
-task context, nested softirq preemption no longer causes data overwrites.
+As a preparatory step, the GC ioctl loads the page/folio of the block to
+be moved during GC and inserts it into the page cache based on information
+in the nilfs_vdesc structure passed as an argument.  Normally, this does
+not cause issues because the user-space GC library configures the
+nilfs_vdesc structure properly.  However, since there is no range check on
+the parameters determining the page index, a request with artificially
+crafted parameters -- such as those generated by Syzbot -- can result in a
+page/folio being inserted with a page index of ULONG_MAX, triggering the
+above problem.
 
-Note that while the temporary storage is now on a per-thread basis, the
-per-CPU kcov_percpu_data.lock must be retained, for we need to ensure that
-kcov_remote_start() and kcov_remote_stop() operate atomically without
-racing against asynchronous interrupts that manipulate the current task's
-KCOV state.
+This resolves the issue by checking the ranges of 'vd_offset' and
+'vd_vblocknr' in the nilfs_vdesc structure that determine the page index,
+thereby preventing the invalid page/folio insertions.
 
-It is likely that GFP_KERNEL allocation by vmalloc_node() in kcov_init()
-has already called panic() before returning NULL, for there will be no
-OOM-killable userspace processes when __init function of built-in module
-runs. But this patch also fixes crashing the kernel when vmalloc_node()
-in kcov_init() returned NULL, for kcov_init() left per-CPU irq_area == NULL
-but kcov_remote_start() depends on per-CPU irq_area != NULL, resulting in
+Reported-by: syzbot+c37bed40868932d790e9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c37bed40868932d790e9
+Fixes: 7942b919f732 ("nilfs2: ioctl operations")
+Cc: wuyankun <wuyankun@uniontech.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 
-  (1) doing vmalloc() in kcov_remote_start() despite !in_task() context
-
-  (2) out-of-array-bounds access if (1) succeeded but
-      kcov->remote_size < CONFIG_KCOV_IRQ_AREA_SIZE
-
-  (3) always leak memory allocated by (1), eventually killing all
-      OOM-killable userspace processes
-
-problems.
-
-Link: https://lore.kernel.org/43552d09-2ce2-4b19-b0d3-a2d1ab952145@I-love.SAKURA.ne.jp
-Reported-by: syzbot+3f51ad7ac3ae57a6fdcc@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3f51ad7ac3ae57a6fdcc
-Reported-by: syzbot+47cf95ca1f9dcca872c8@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=47cf95ca1f9dcca872c8
-Reported-by: syzbot+8a173e13208949931dc7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8a173e13208949931dc7
-Reported-by: syzbot+90984d3713722683112e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=90984d3713722683112e
-Analyzed-by: AI Mode in Google Search (no mail address)
-Fixes: 5ff3b30ab57d ("kcov: collect coverage from interrupts")
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Reviewed-by: Alexander Potapenko <glider@google.com>
-Cc: Alan Stern <stern@rowland.harvard.edu>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Christoph Hellwig <hch@infradead.org>
-Cc: Clark Williams <williams@redhat.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Marco Elver <elver@google.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 373bcc0598d1..7a53c15cecb5 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1543,6 +1543,14 @@ struct task_struct {
+diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
+index b73f2c5d10f0..0957316e58b8 100644
+--- a/fs/nilfs2/ioctl.c
++++ b/fs/nilfs2/ioctl.c
+@@ -527,6 +527,7 @@ static int nilfs_ioctl_get_bdescs(struct inode *inode, struct file *filp,
+  * Return: 0 on success, or one of the following negative error codes on
+  * failure:
+  * * %-EEXIST	- Block conflict detected.
++ * * %-EINVAL	- Invalid virtual block descriptor.
+  * * %-EIO	- I/O error.
+  * * %-ENOENT	- Requested block doesn't exist.
+  * * %-ENOMEM	- Insufficient memory available.
+@@ -536,15 +537,30 @@ static int nilfs_ioctl_move_inode_block(struct inode *inode,
+ 					struct list_head *buffers)
+ {
+ 	struct buffer_head *bh;
++	__u64 limit_blkidx = (__u64)inode->i_sb->s_maxbytes >> inode->i_blkbits;
+ 	int ret;
  
- 	/* Collect coverage from softirq context: */
- 	unsigned int			kcov_softirq;
+-	if (vdesc->vd_flags == 0)
++	/*
++	 * vblocknr 0 is reserved as an invalid pointer.  Also, limit_blkidx
++	 * ensures that the page index converted from vd_vblocknr never
++	 * overflows the page cache limit and respects the architecture's bmap
++	 * key width.
++	 */
++	if (unlikely(vdesc->vd_vblocknr == 0 ||
++			vdesc->vd_vblocknr >= limit_blkidx))
++		return -EINVAL;
 +
-+	/* Temporary storage for preempting remote coverage collection: */
-+	unsigned int			kcov_saved_mode;
-+	unsigned int			kcov_saved_size;
-+	void				*kcov_saved_area;
-+	struct kcov			*kcov_saved_kcov;
-+	int				kcov_saved_sequence;
++	if (vdesc->vd_flags == 0) {
++		if (unlikely(vdesc->vd_offset >= limit_blkidx))
++			return -EINVAL;
 +
- #endif
+ 		ret = nilfs_gccache_submit_read_data(
+ 			inode, vdesc->vd_offset, vdesc->vd_blocknr,
+ 			vdesc->vd_vblocknr, &bh);
+-	else
++	} else {
+ 		ret = nilfs_gccache_submit_read_node(
+ 			inode, vdesc->vd_blocknr, vdesc->vd_vblocknr, &bh);
++	}
  
- #ifdef CONFIG_MEMCG_V1
-diff --git a/kernel/kcov.c b/kernel/kcov.c
-index 1df373fb562b..a7514303eff3 100644
---- a/kernel/kcov.c
-+++ b/kernel/kcov.c
-@@ -86,17 +86,12 @@ struct kcov_remote {
- 
- static DEFINE_SPINLOCK(kcov_remote_lock);
- static DEFINE_HASHTABLE(kcov_remote_map, 4);
--static struct list_head kcov_remote_areas = LIST_HEAD_INIT(kcov_remote_areas);
-+static struct list_head kcov_remote_areas[2] = {
-+	LIST_HEAD_INIT(kcov_remote_areas[0]), LIST_HEAD_INIT(kcov_remote_areas[1])
-+};
- 
- struct kcov_percpu_data {
--	void			*irq_area;
- 	local_lock_t		lock;
--
--	unsigned int		saved_mode;
--	unsigned int		saved_size;
--	void			*saved_area;
--	struct kcov		*saved_kcov;
--	int			saved_sequence;
- };
- 
- static DEFINE_PER_CPU(struct kcov_percpu_data, kcov_percpu_data) = {
-@@ -132,12 +127,13 @@ static struct kcov_remote *kcov_remote_add(struct kcov *kcov, u64 handle)
- }
- 
- /* Must be called with kcov_remote_lock locked. */
--static struct kcov_remote_area *kcov_remote_area_get(unsigned int size)
-+static struct kcov_remote_area *kcov_remote_area_get(unsigned int size, bool irq)
- {
- 	struct kcov_remote_area *area;
- 	struct list_head *pos;
-+	struct list_head *list = &kcov_remote_areas[irq];
- 
--	list_for_each(pos, &kcov_remote_areas) {
-+	list_for_each(pos, list) {
- 		area = list_entry(pos, struct kcov_remote_area, list);
- 		if (area->size == size) {
- 			list_del(&area->list);
-@@ -149,11 +145,11 @@ static struct kcov_remote_area *kcov_remote_area_get(unsigned int size)
- 
- /* Must be called with kcov_remote_lock locked. */
- static void kcov_remote_area_put(struct kcov_remote_area *area,
--					unsigned int size)
-+				 unsigned int size, bool irq)
- {
- 	INIT_LIST_HEAD(&area->list);
- 	area->size = size;
--	list_add(&area->list, &kcov_remote_areas);
-+	list_add(&area->list, &kcov_remote_areas[irq]);
- 	/*
- 	 * KMSAN doesn't instrument this file, so it may not know area->list
- 	 * is initialized. Unpoison it explicitly to avoid reports in
-@@ -390,6 +386,12 @@ void kcov_task_init(struct task_struct *t)
- 	kcov_task_reset(t);
- 	t->kcov_remote = NULL;
- 	t->kcov_handle = current->kcov_handle;
-+	t->kcov_softirq = 0;
-+	t->kcov_saved_mode = 0;
-+	t->kcov_saved_size = 0;
-+	t->kcov_saved_area = NULL;
-+	t->kcov_saved_kcov = NULL;
-+	t->kcov_saved_sequence = 0;
- }
- 
- static void kcov_reset(struct kcov *kcov)
-@@ -836,17 +838,16 @@ static inline bool kcov_mode_enabled(unsigned int mode)
- static void kcov_remote_softirq_start(struct task_struct *t)
- 	__must_hold(&kcov_percpu_data.lock)
- {
--	struct kcov_percpu_data *data = this_cpu_ptr(&kcov_percpu_data);
- 	unsigned int mode;
- 
- 	mode = READ_ONCE(t->kcov_mode);
- 	barrier();
- 	if (kcov_mode_enabled(mode)) {
--		data->saved_mode = mode;
--		data->saved_size = t->kcov_size;
--		data->saved_area = t->kcov_area;
--		data->saved_sequence = t->kcov_sequence;
--		data->saved_kcov = t->kcov;
-+		t->kcov_saved_mode = mode;
-+		t->kcov_saved_size = t->kcov_size;
-+		t->kcov_saved_area = t->kcov_area;
-+		t->kcov_saved_sequence = t->kcov_sequence;
-+		t->kcov_saved_kcov = t->kcov;
- 		kcov_stop(t);
- 	}
- }
-@@ -854,17 +855,15 @@ static void kcov_remote_softirq_start(struct task_struct *t)
- static void kcov_remote_softirq_stop(struct task_struct *t)
- 	__must_hold(&kcov_percpu_data.lock)
- {
--	struct kcov_percpu_data *data = this_cpu_ptr(&kcov_percpu_data);
--
--	if (data->saved_kcov) {
--		kcov_start(t, data->saved_kcov, data->saved_size,
--				data->saved_area, data->saved_mode,
--				data->saved_sequence);
--		data->saved_mode = 0;
--		data->saved_size = 0;
--		data->saved_area = NULL;
--		data->saved_sequence = 0;
--		data->saved_kcov = NULL;
-+	if (t->kcov_saved_kcov) {
-+		kcov_start(t, t->kcov_saved_kcov, t->kcov_saved_size,
-+			   t->kcov_saved_area, t->kcov_saved_mode,
-+			   t->kcov_saved_sequence);
-+		t->kcov_saved_mode = 0;
-+		t->kcov_saved_size = 0;
-+		t->kcov_saved_area = NULL;
-+		t->kcov_saved_sequence = 0;
-+		t->kcov_saved_kcov = NULL;
- 	}
- }
- 
-@@ -927,17 +926,17 @@ void kcov_remote_start(u64 handle)
- 	sequence = kcov->sequence;
- 	if (in_task()) {
- 		size = kcov->remote_size;
--		area = kcov_remote_area_get(size);
-+		area = kcov_remote_area_get(size, false);
- 	} else {
- 		size = CONFIG_KCOV_IRQ_AREA_SIZE;
--		area = this_cpu_ptr(&kcov_percpu_data)->irq_area;
-+		area = kcov_remote_area_get(size, true);
- 	}
- 	spin_unlock(&kcov_remote_lock);
- 
--	/* Can only happen when in_task(). */
-+	/* Allocate new buffer if we can sleep. */
- 	if (!area) {
- 		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
--		area = vmalloc(size * sizeof(unsigned long));
-+		area = in_task() ? vmalloc(size * sizeof(unsigned long)) : NULL;
- 		if (!area) {
- 			kcov_put(kcov);
- 			return;
-@@ -1079,11 +1078,9 @@ void kcov_remote_stop(void)
- 		kcov_move_area(kcov->mode, kcov->area, kcov->size, area);
- 	spin_unlock(&kcov->lock);
- 
--	if (in_task()) {
--		spin_lock(&kcov_remote_lock);
--		kcov_remote_area_put(area, size);
--		spin_unlock(&kcov_remote_lock);
--	}
-+	spin_lock(&kcov_remote_lock);
-+	kcov_remote_area_put(area, size, !in_task());
-+	spin_unlock(&kcov_remote_lock);
- 
- 	local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 
-@@ -1129,14 +1126,21 @@ static void __init selftest(void)
- 
- static int __init kcov_init(void)
- {
--	int cpu;
-+	int cpu = num_possible_cpus();
-+
-+#ifdef CONFIG_PREEMPT_RT
-+	/* Allocate some extra buffers in order to prepare for softirq preemption. */
-+	cpu = cpu >= 4 ? cpu * 2 : cpu + 4;
-+#endif
-+	while (cpu--) {
-+		void *area = vmalloc(CONFIG_KCOV_IRQ_AREA_SIZE * sizeof(unsigned long));
-+		unsigned long flags;
- 
--	for_each_possible_cpu(cpu) {
--		void *area = vmalloc_node(CONFIG_KCOV_IRQ_AREA_SIZE *
--				sizeof(unsigned long), cpu_to_node(cpu));
- 		if (!area)
- 			return -ENOMEM;
--		per_cpu_ptr(&kcov_percpu_data, cpu)->irq_area = area;
-+		spin_lock_irqsave(&kcov_remote_lock, flags);
-+		kcov_remote_area_put(area, CONFIG_KCOV_IRQ_AREA_SIZE, true);
-+		spin_unlock_irqrestore(&kcov_remote_lock, flags);
- 	}
- 
- 	/*
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 009968c44de1..2a6be1af94a3 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2247,10 +2247,11 @@ config KCOV_INSTRUMENT_ALL
- config KCOV_IRQ_AREA_SIZE
- 	hex "Size of interrupt coverage collection area in words"
- 	depends on KCOV
-+	range 0x80 0x1000000
- 	default 0x40000
- 	help
--	  KCOV uses preallocated per-cpu areas to collect coverage from
--	  soft interrupts. This specifies the size of those areas in the
-+	  KCOV uses preallocated areas to collect coverage from soft
-+	  interrupts. This specifies the size of those areas in the
- 	  number of unsigned long words.
- 
- config KCOV_SELFTEST
+ 	if (unlikely(ret < 0)) {
+ 		if (ret == -ENOENT)
 
