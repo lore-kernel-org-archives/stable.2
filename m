@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292B6349CEF
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 13:56:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D27349CEF
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 13:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787579776; cv=none; b=GOw1aQKfb+smbdwI4gTulVWHTMvcibzvmdedl69Q7qTdztxpXkiUHLyOSBYBv8QHbc2SC1RHXrvvea8lE+TRx1FCadrZagF87mJW/GuTuOPxi5M0bry58sDO1yHUtFj/3OR/XfSMODivrNVp/HLd14fTsQRqYd4EJ7be8ujgYpc=
+	t=1787579782; cv=none; b=QMU0b12DFC8lTFgiovyT4RzKqOLNPjWNCrSXFlEe2LlV4qOZslBEeK7kdgzccX21Nv/wGH45UEmpkGR3MdoI0Bdr6SaZg+HomcXzfOQYfHd2rGXJ43ERtZbO+2L9eq6rHynhh6MnHU/3IDhB1rfzlzk4UIIGJY73Utn3RdHOXx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787579776; c=relaxed/simple;
-	bh=xUHB98uzPXUNFK1gfi5+QSRH7WCGhWJQFWx0+ify2Yw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JvFiMYRUpPruPSRygrijDf3D/spRlQTpQLQANFWCVpu/ER9xEqecTZieRnS1e1JCwQdgvd5EVs8w8zDq6852gcFf9U8cTvjGC75WfLV5QiRxBCYY0hI7Mcjno54GWsnT1arvEXIgqpmOyUtUZHpjuhWQztIJU+WrgOHZthtoc2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f9OhH7EC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787579782; c=relaxed/simple;
+	bh=R4LheTB8H+yd3eXJ8K3Mg6V3c8kGBnC0FJux5QRiPbU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lEOjn/y0knf1+04rG6eiv5DJFUu3KwrFrpY2AoZt4+kjydybvoYKD77iWShGyd4fGb17f8oyuQyQDFxNU+Tmn8b54c2NU+Yp3ZgYBAeQsF8ckTUEZEgrTCBFFDS51Kr4jg0U5e2hCMNJNJGMV4NbkliDiAwQTc23dF1ecx1lsMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=P7JNS5uh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f9OhH7EC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8152E1F000E9;
-	Mon, 24 Aug 2026 13:56:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P7JNS5uh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4907C1F000E9;
+	Mon, 24 Aug 2026 13:56:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787579775;
-	bh=zBpjy95tbjN2JdojjsK4WBEj1lIRr+c71Xwba0/bRLM=;
+	s=korg; t=1787579780;
+	bh=L5O3yEioq1wPKzW5XsiFVxQi2dgKmfUk+zwvywLsRq0=;
 	h=Subject:To:Cc:From:Date;
-	b=f9OhH7EC1DYLb0zWv5yHi5tNd2HZ8WQhf3Zclr2mr8rFomLK14/qVZdiPy6pU1+y1
-	 XvM9bojVbrUeUW6WV3vDU/y941TycybZkFb8KP7Gj+HjcWO0zoLeAVqd/wQJWNqvnF
-	 vJrd4/EkU9v0rjQUK81JZ/ltJFbaJVlI+T82gkJI=
-Subject: FAILED: patch "[PATCH] nfc: nci: add data_len bound checks to activation parameter" failed to apply to 5.10-stable tree
-To: hexlabsecurity@proton.me,david@ixit.cz
+	b=P7JNS5uhnAwiiQju+QWEByG68VbROnXE6O/hEQO1gGCyOl0wTvChdCqJtEbpw9UoO
+	 DfRfMnQQDlg37S1co0flYmVJscaX+LcuKQJmEedzdRgMeJ0hjDEG0EsjFHee0d6BG+
+	 1BQp0WpDWmHm+jJyGgdM5RRXy4eTcxwD3BfeHIIM=
+Subject: FAILED: patch "[PATCH] nfc: nci: fix uninit-value in the RF discover/activated NTF" failed to apply to 5.10-stable tree
+To: sam@bynar.io,david@ixit.cz
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 15:55:56 +0200
-Message-ID: <2026082456-cyclist-thirteen-0fc9@gregkh>
+Date: Mon, 24 Aug 2026 15:56:17 +0200
+Message-ID: <2026082417-repent-kilometer-e0ba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0428fa2c22e2ba0cff766d3b80d461e149102045
+git cherry-pick -x 8cbe06c1e699c0a165dae5093a2550e65f914818
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082456-cyclist-thirteen-0fc9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082417-repent-kilometer-e0ba@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,129 +62,69 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0428fa2c22e2ba0cff766d3b80d461e149102045 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 12 Jun 2026 12:50:25 -0500
-Subject: [PATCH] nfc: nci: add data_len bound checks to activation parameter
- extractors
+From 8cbe06c1e699c0a165dae5093a2550e65f914818 Mon Sep 17 00:00:00 2001
+From: Samuel Page <sam@bynar.io>
+Date: Fri, 26 Jun 2026 10:03:01 +0100
+Subject: [PATCH] nfc: nci: fix uninit-value in the RF discover/activated NTF
+ handlers
 
-nci_extract_activation_params_iso_dep() and
-nci_extract_activation_params_nfc_dep() read an inner length byte from
-the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
-kernel buffers, but neither function receives the caller-validated
-activation_params_len.  A crafted NCI notification with
-activation_params_len=1 and an inner length byte of up to 20 (NFC-A) or
-50 (NFC-B) causes memcpy() to read that many bytes past the one valid
-byte in the activation params region -- a slab out-of-bounds read of
-kernel memory adjacent to the NCI skb.
+nci_rf_discover_ntf_packet() and nci_rf_intf_activated_ntf_packet() each
+parse a notification into an on-stack struct (nci_rf_discover_ntf /
+nci_rf_intf_activated_ntf) that is not initialised. The RF
+technology-specific parameters are only extracted when
+rf_tech_specific_params_len is non-zero, so a notification that reports a
+zero length leaves the rf_tech_specific_params union uninitialised - and
+both handlers then pass it to nci_add_new_protocol(), which reads it:
 
-The sibling nci_extract_rf_params_*() family was given equivalent
-protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
-validation for packet data"), but the two activation parameter
-extractors were not updated at that time.
+ - discover:  nci_add_new_target() -> nci_add_new_protocol();
+ - activated: nci_target_auto_activated() -> nci_add_new_protocol().
 
-Add a data_len parameter to both functions, guard against an empty
-region before consuming the inner length byte, decrement the remaining
-count after consuming it, and clamp the copy length to what is actually
-available.  Update both call sites to pass ntf.activation_params_len,
-which is already validated against the skb at ntf.c:801.
+nci_add_new_protocol() uses nfca_poll->nfcid1_len as both a branch
+condition and a memcpy() length and copies nfcid1/sens_res/sel_res into
+ndev->targets, which is later exposed to user space via NFC_CMD_GET_TARGET.
 
+  BUG: KMSAN: uninit-value in nci_add_new_protocol+0x624/0x6c0
+   nci_add_new_protocol+0x624/0x6c0
+   nci_ntf_packet+0x25b2/0x3c30
+   nci_rx_work+0x318/0x5d0
+   process_scheduled_works+0x84b/0x17a0
+   worker_thread+0xc10/0x11b0
+   kthread+0x376/0x500
+  Local variable ntf.i created at:
+   nci_ntf_packet+0xbc2/0x3c30
+
+Zero-initialise both on-stack notifications so the union reads back as
+zero when no technology-specific parameters are present.
+
+Fixes: 019c4fbaa790 ("NFC: Add NCI multiple targets support")
 Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
+Link: https://lore.kernel.org/netdev/20260623172109.1105965-2-horms@kernel.org/
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Link: https://patch.msgid.link/20260612-b4-disp-6d52d8b0-v3-1-e26221f8826d@proton.me
+Assisted-by: Bynario AI
+Signed-off-by: Samuel Page <sam@bynar.io>
+Link: https://patch.msgid.link/20260626090301.2139500-1-sam@bynar.io
 Signed-off-by: David Heidelberg <david@ixit.cz>
 
 diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index c96512bb8653..8bc3adbc5b6b 100644
+index 87f76a29f0ec..f5c9a8ab7ec1 100644
 --- a/net/nfc/nci/ntf.c
 +++ b/net/nfc/nci/ntf.c
-@@ -525,15 +525,19 @@ static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
- 
- static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
+@@ -440,7 +440,7 @@ void nci_clear_target_list(struct nci_dev *ndev)
+ static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
+ 				      const struct sk_buff *skb)
  {
- 	struct activation_params_nfca_poll_iso_dep *nfca_poll;
- 	struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
+-	struct nci_rf_discover_ntf ntf;
++	struct nci_rf_discover_ntf ntf = {};
+ 	const __u8 *data;
+ 	bool add_target = true;
  
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfca_poll = &ntf->activation_params.nfca_poll_iso_dep;
- 		nfca_poll->rats_res_len = min_t(__u8, *data++, NFC_ATS_MAXSIZE);
-+		data_len--;
-+		nfca_poll->rats_res_len = min_t(__u8, nfca_poll->rats_res_len, data_len);
- 		pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
- 		if (nfca_poll->rats_res_len > 0) {
- 			memcpy(nfca_poll->rats_res,
-@@ -542,8 +546,12 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 		break;
- 
- 	case NCI_NFC_B_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfcb_poll = &ntf->activation_params.nfcb_poll_iso_dep;
- 		nfcb_poll->attrib_res_len = min_t(__u8, *data++, 50);
-+		data_len--;
-+		nfcb_poll->attrib_res_len = min_t(__u8, nfcb_poll->attrib_res_len, data_len);
- 		pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
- 		if (nfcb_poll->attrib_res_len > 0) {
- 			memcpy(nfcb_poll->attrib_res,
-@@ -562,7 +570,7 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 
- static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
+@@ -710,7 +710,7 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
+ 					    const struct sk_buff *skb)
  {
- 	struct activation_params_poll_nfc_dep *poll;
- 	struct activation_params_listen_nfc_dep *listen;
-@@ -570,9 +578,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
- 	case NCI_NFC_F_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		poll = &ntf->activation_params.poll_nfc_dep;
- 		poll->atr_res_len = min_t(__u8, *data++,
- 					  NFC_ATR_RES_MAXSIZE - 2);
-+		data_len--;
-+		poll->atr_res_len = min_t(__u8, poll->atr_res_len, data_len);
- 		pr_debug("atr_res_len %d\n", poll->atr_res_len);
- 		if (poll->atr_res_len > 0)
- 			memcpy(poll->atr_res, data, poll->atr_res_len);
-@@ -580,9 +592,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 	struct nci_conn_info *conn_info;
+-	struct nci_rf_intf_activated_ntf ntf;
++	struct nci_rf_intf_activated_ntf ntf = {};
+ 	const __u8 *data;
+ 	int err = NCI_STATUS_OK;
  
- 	case NCI_NFC_A_PASSIVE_LISTEN_MODE:
- 	case NCI_NFC_F_PASSIVE_LISTEN_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		listen = &ntf->activation_params.listen_nfc_dep;
- 		listen->atr_req_len = min_t(__u8, *data++,
- 					    NFC_ATR_REQ_MAXSIZE - 2);
-+		data_len--;
-+		listen->atr_req_len = min_t(__u8, listen->atr_req_len, data_len);
- 		pr_debug("atr_req_len %d\n", listen->atr_req_len);
- 		if (listen->atr_req_len > 0)
- 			memcpy(listen->atr_req, data, listen->atr_req_len);
-@@ -806,12 +822,14 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
- 		switch (ntf.rf_interface) {
- 		case NCI_RF_INTERFACE_ISO_DEP:
- 			err = nci_extract_activation_params_iso_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_NFC_DEP:
- 			err = nci_extract_activation_params_nfc_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_FRAME:
 
