@@ -1,134 +1,64 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D8041D21F
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:53:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED5D41D223;
+	Mon, 24 Aug 2026 12:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787576030; cv=none; b=ewOZ4QOK3JZv9EfFxk34YwJjaAJnSLkAvGGQcxV9BPrWt7PjRp6R8fu6WFz0BHgZjZsAur2EsYloI3S2++yACNC/2APUDt8w0RtjakeTWXG8EJufSnIOgsCg7aCCVvI1FhHz0ic7iBvru6V/Q3vhVWjHuSKndTx9BnWw2uWLKN0=
+	t=1787576105; cv=none; b=qfyJTvqVDMdiBWyNSanFJBAasdbmotsgI49e69jGkUuDIo6pUhMhDvFTV/HLs6gGE8Knf6CVr2dXTYXodp+x7Qr8YB8E+wSZxrvq6z5+zUQZlmAxcaVvw4KuPcqp6drLhgT3teJ3MLpjO3soOOI9+AXFuXoQosCJ3wYZxLMhfTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787576030; c=relaxed/simple;
-	bh=hQOCZQiQWVV5A4rMwrEaIRzRYQ6fIzgr7nYUd02QFAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VFVj34uuvKI+vtw7OSVkQMw0/rpdXWLJxQVzBUMX2vQfU6SvgldrzwD9U+lMgfot+f99Zn7NCdvQXdCCKKRtDjOf2ypkbls6pvetNIvlArQoZY6V3UBFdcuawWlypaU+TyGTIQTBMe/c+Aem6LMePac0WzTXv40yoyz8KonAu+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XeHf5Onf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=xkjPY9AA; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1787576105; c=relaxed/simple;
+	bh=ZlM6xsIiViLJz7owZRxtVA3Y/seJp36RqcP3jOyJbMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pzwrUYZa+96bhgoxi23bbK4KT8cEHjBKW36gnAkExP4IbIqumzS4dzQo2CFowRGDz3xcFcxJyyVMgTz8RR7wpQ/HmDFWIr2XDY+MmziSytumSeR56i5hi1SQvBldvE2uGV6tE+oE3+VJ7k4PheB6eiAgd70LSLvL16VKM8uTAQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=y0jPZCAH; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XeHf5Onf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xkjPY9AA"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 53A631F46E;
-	Mon, 24 Aug 2026 12:52:07 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1787575927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KTrzt/jaZvN9VkFIcS6JMzdZ6BhpAj1Od+S6kV1K9r0=;
-	b=XeHf5OnfwEUyRrANU2SOcH4VgZOYIRChRYa4Bt21YmCBQVoFKA2wbGarCnW22i3e18dmXJ
-	A5oEliuPyhPQAam7qYvnkKUW3oW8bdUUiSVhk4XZuJ+MlTRFR7c9gssgrDZSpOWVImnHVS
-	C4WAFM/On3lSiZIf0/gWWaFlHpxRMVA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1787575927;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KTrzt/jaZvN9VkFIcS6JMzdZ6BhpAj1Od+S6kV1K9r0=;
-	b=xkjPY9AAgwbSSPohSquaRXhP7KTmucKrsraDn8dcLqCZWslkIXf5yj1/m1WgTFPZApgqwt
-	BLOKw6QC9IiWFXBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BD986133CF;
-	Mon, 24 Aug 2026 12:52:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2H7RLHY+jGpyNwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 24 Aug 2026 12:52:06 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com,
-	javierm@redhat.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	geert@linux-m68k.org,
-	rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	nouveau@lists.freedesktop.org,
-	linux-renesas-soc@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	sashiko-reviews@lists.linux.dev,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 02/13] drm/panic: Test address from kmap op for NULL
-Date: Mon, 24 Aug 2026 14:43:33 +0200
-Message-ID: <20260824125201.218863-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824125201.218863-1-tzimmermann@suse.de>
-References: <20260824125201.218863-1-tzimmermann@suse.de>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="y0jPZCAH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=HyVKkr1W6tET6ztDc79VEHgMX8JlNF0ks0TWdenQgiw=; b=y0jPZCAHfhE4AMGIegRoJkA8ba
+	W9hn5Y3DVq2W9TpY149lmG9ydEadX3EI8Jd7uLDjYRW75mMO5FvkItqM1oG7frsnX2lUUdUGlwSRM
+	n/TTkX2LKAHI3TQ8fP8Xp8K69W87awnn2alH10hm7fszjzzqsqQUmKvH8UHjQAUB4cKM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wyUCN-001Ea0-85; Mon, 24 Aug 2026 14:54:47 +0200
+Date: Mon, 24 Aug 2026 14:54:47 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, linux-kernel@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH net v1] net: phy: fix NULL deref in IRQ handler after
+ unbind
+Message-ID: <e289a01b-d0a5-4296-b8b1-9b5935ee6854@lunn.ch>
+References: <20260824120703.107412-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -4.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 53A631F46E
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Pre-Result: action=no action;
-	module=replies;
-	Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Action: no action
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824120703.107412-1-xuanqiang.luo@linux.dev>
 
-Do nothing if kmap_local_page_try_from_panic() returns NULL. This is
-not likely to hapen, as the previous page from the same memory area
-has been mapped successfully.
+> The IRQ is requested at attach time and released by phy_disconnect(),
+> so phy_remove() cannot free it without a later double-free.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 23437509a694 ("drm/panic: Fix 24bit pixel crossing page boundaries")
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.18+
+So this sounds wrong.
+
+If you unbind the PHY, you need to also unbind the MAC, since a MAC
+without a PHY is useless. When the MAC unloads, it will call
+phy_remove() so everything unwinds in the correct order.
+
+    Andrew
+
 ---
- drivers/gpu/drm/drm_panic.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index ba21df4be338..d28ce8878e05 100644
---- a/drivers/gpu/drm/drm_panic.c
-+++ b/drivers/gpu/drm/drm_panic.c
-@@ -178,6 +178,8 @@ static void drm_panic_write_pixel24_xpage(void *vaddr, struct page *next_page,
- 	u8 *p = vaddr + offset;
- 
- 	vaddr2 = kmap_local_page_try_from_panic(next_page);
-+	if (!vaddr2)
-+		return;
- 
- 	*p++ = color & 0xff;
- 	color >>= 8;
--- 
-2.55.0
-
+pw-bot: cr
+	     
