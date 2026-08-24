@@ -1,64 +1,64 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2611A394462
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 22:56:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8217395ACF
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 22:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787612206; cv=none; b=Ne6YsR7g8E5qZUEhBZMn71OayY+rWeb8KROWoR/J2cB8a0ulrNC0RHXKIguFr7GXNzYkRIJ2Hq5THpy7ijX5djLigjGwhKD5t1C0dovP9B2NAW3JKemucCVRj8BwRDD/DVKi5ZHMw4Bu6YktMXyNgyjzoZfeVNU4JAyJKEYuS1k=
+	t=1787612218; cv=none; b=dn6iXH9ItYZ7o35ZuubH5JXK2z06nRITYGyy0AgJZ1ZcKtm7KcAOkR6vq7v+z99Vcg8l1QNzNV7+siSTmIJ3EybY39k/RGyQi8XXQQYgOiWKQ06U2E1r4dQlD4P4dPTUrRPPA7XtIO8L+sojworKnuFdXBbtbw1dnSM7W24q1W4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787612206; c=relaxed/simple;
-	bh=bZ4mr1I+U3yQOcHz6Hb3G8cgJFdB2crR9bfGO93EcxQ=;
+	s=arc-20240116; t=1787612218; c=relaxed/simple;
+	bh=elKExN1J7zD4RfHDPagIeby5Ykxf3Fr0hY9ChnwLDDg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q1M6gZissVMOOhzksK6NeT/XGWxWg+dsJLJAFoFmDOexiahEa+UCAMnaurnZ4FbUsxyCe7bZUgGTuq29czcyffnUUaynaJ9VqDFp884V0HvNJq4nJfzjaP2V9M/QouCpMX00ZynxzVWhfzsxMV8eL6zjxQBE5zkVig8MdpfqnnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DTD6BGVV; arc=none smtp.client-ip=209.85.214.180
+	 MIME-Version; b=esFWxUoFqNru/Smj0k9y/ZEcw8Nl37uRnlXB74jYRUCB5omhYTV8K0dEgD0rPLzcLPSmGPt/uPBHCN3GuWDEKwrgYXKHhgJH8Xvvyv+3Ki2Tca+aUp65hubtt/mmwQpVRdQUvHzJqb3NCFLQPtVAnjNjbZ0y3OEF23tbYlPSOLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sGtqFYBK; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DTD6BGVV"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2caed617615so40778905ad.3
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:56:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sGtqFYBK"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c9eefcf9175so4131967a12.3
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:56:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787612204; x=1788217004; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787612215; x=1788217015; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/9Tw605kJhO/LEd8BNi1zuUQuVwSe01S9ZMwxtVDwiw=;
-        b=DTD6BGVVBaztfIxvOtHQiNN6sf6RmZxqmXpCGTSejrbPhEBYrRQaeTMdRg3cYndJLY
-         2DwThrpbCYCgDlHXvODNrHhLvFgSseTVTeYGwzK4MQwpHmggHg9wauY8SIlpU2OaPmr4
-         gou72JIPt3RsOfGrgYZ5qLOfYckuftaigV/ciipdR+mFl8qZd6UoEBakNj8IfEF3v5nh
-         WFtnIG8qFAJrK1KLB5yUQbiogLLRhKLpgdyc4vpMyRITtC3RspFAuNz5YTY2LZesGK7E
-         ZvRrz0WLXBuINsqcfMWz7/yYxjYEETiIMt2flMLeTKDv5O0PB08Cs1WfCUn3EMb16jz/
-         XyYg==
+        bh=Sl4hvJNpXpXY2ovKfwEbjj0KIAJXLs4vfK9AJ7noW9U=;
+        b=sGtqFYBKD0axA6KAC+B/WOYKi4bJCy8kJoCqy74OkN+AyuNQtK7qiul4kSsGPfWjZR
+         vlrDdMDycVA2llXdHSrb5Ewnj1wOAYwMWBxTDspWEMWT3kK6ACx6luTLJbLrc4sFPq+5
+         9cKFNbvuvjkRkYzoNRpf0zxhvTQrG/lT3+XtstNFRG57GR60MonZGOM42Cy3oUpacVXp
+         nGyaHMaEvElgNbqQ+xiV3EvwGckAYTxWQz+VYHt/oP6rZksTE5ysTWAEq4gTGDvlWVoE
+         ETgwpfWZcUbULHUaxDDq1AP1O6skAb7y/s9H8S+KEJiCNQpC/CvHYa1jBGsMR4Lllr/X
+         CS5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787612204; x=1788217004;
+        d=1e100.net; s=20251104; t=1787612215; x=1788217015;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/9Tw605kJhO/LEd8BNi1zuUQuVwSe01S9ZMwxtVDwiw=;
-        b=kHobzve0a1lOdoPMjFJhMb6ajhunJjOVLScAUiJCqK60qSSkj3asCZusroXragfqPD
-         idf4KnGlUIdO90VUtThe3E1qW0kRZtG6YhG06z7YACzD2z/y5hMcyJgVBrJP7rq0NTrM
-         Np//VZ89Y7L/S7XDTDh5aFs7V94hlUfkv6IGbRgOVxUY4sMpb43Efa6cK5RIuejUEhff
-         1DZnZCD22VjAkLtCzcnb0DclxRpyj0QSpVyNLg4v3C8c2LNKP79/XnleOQDYckPnhn3L
-         e8teXdgY51yrRtFGnriuY1aqoT5wm4bRW8/ifXAvuQEqviojHl7aIW4SfNHg84Aun/AQ
-         Jp6w==
-X-Forwarded-Encrypted: i=1; AHgh+RotIanR7YgjpvNXs/qTbH1kZDGS3/1Y6E3rq1pNhIzaR1ppGvc8haKtmtIWjM9pK1lO+Yig7Go=@vger.kernel.org
-X-Gm-Message-State: AFuF++mo5CZg7mI+xHer24N7gR8yk5a0JM3WHE5TCd+kDCyUf3+laeWo
-	xjxJv9hiLAClXsDAWTkI+l7sYjkwvoVRYnFqGMiZm1cvcGmWCSOE17bn
-X-Gm-Gg: AR+sD13NIszbRpsOyBYWmIsHqgynTVbIA7yQDwuJtS3lsZ5mp6b7uw3Xn9uTstLOn7l
-	CQhcCdgeTDCqVRIsEPF+c6jv3EkziqxIUcDzXI61oLHuXaVlLVVigIXhKjjEujTLHAwPcaweHXG
-	3UJOhEgU6lAlHlyZA5ZWZyLUfzFVjBXvvc7lnrDlSwZisM4rC2Uq0yAbO562m6t0D3oWXlvOpow
-	XVMQfaPuxxUYoS+e4vv3G6gzCJeOEE1486i9IzgtSckloj+NurFps/z19JAR3sv7tSLtQAo6U6a
-	PH3KkmtfCU2HHRpUfKI1RcE3EUePS/+LPvaI2W7Z7ehEi6ERY8adEuEo8fZtD6i+5NTEMdHskJU
-	5Aku+jdGJvndjwlrqLFBKNemIuKnwdLJSmvhvz8/qrgQoWddut7PjAHRbsfH3zCO8WZqSjQLrEB
-	tm+TFeVre2nqrAoquZuFMXoxyJVxokZ7YQriIzGPXZzU5nk+z5L8YL8B0sxnRQSkSk/dAYJgUnS
-	bLto2UHNwfSl1ZoGrvijzFRN2gk7JM3Kniv9LjEbyc+WnmS0GzH
-X-Received: by 2002:a17:90b:39ab:b0:393:19a3:4e5 with SMTP id 98e67ed59e1d1-395df686f1dmr38241564a91.16.1787612204546;
-        Mon, 24 Aug 2026 15:56:44 -0700 (PDT)
+        bh=Sl4hvJNpXpXY2ovKfwEbjj0KIAJXLs4vfK9AJ7noW9U=;
+        b=aY8A6Ol9WUN4OUFqjDU0UckT05aBrleMWKXxyPTG/q+hygFLIxJaNzGOEhOSHfMQKq
+         t1NtUGpodFQG0xreHH43xo7eonc6STZMGnUosPaSwHO/1bsR5rqPoRBLb/bN3fSpOByl
+         CxYVNHw20nHPWb4v7lO5qJDrONBdvYyzEjHXg9YhnR9JG+VxXE+QOZT72Dwg8wrRcfSZ
+         QBLn/26RgJwqy0qxKn5pw2F/FY1wm4V7QjuTFIFzozZyKcew+Na0dUITxCISFDy4J9qe
+         ZfsfS4OY5wus0iUbw/uBg4WMMoJkEy3TBskMJLlkvLPjEX2cEl01/TM4Q/7y/CTw+RQW
+         zzbA==
+X-Forwarded-Encrypted: i=1; AHgh+RqpDIXtdc5P1qhDi91QdA2Tme9jW+xkjySgOPvTsUJc2LYpn7diVvQkQB9pkPCSv6KZaUjYpgs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEx0yJedZiof7SxLhgA52WGWmnVghMNKYFGyOyVvEMYNGI/od1
+	9j9MgW38ghY5t15mxpWLXjybkkoWO7keVtcDwJcyciDfyga6Rx3fLJD6
+X-Gm-Gg: AR+sD10QS0YzWWX9L2HIoFmtP4BvurWbNYWzGzob6pwPuH0OiNLH4ZW69ywgJleC4U1
+	jYiwhTxbICORTJUv4by/uTI4p33Xp55fANOjE0JXDv+RTMZT1Uwcf022/mCu8Wgh2X2vl/ST2a8
+	XfTA23RFaKyHa6mJnQrznYO8wMC+HJfT41k41G3r36gxPru6hO8n0Dr9L9BLrpBBTVj4QvXoXNU
+	OrbLr4qyIA+s0p0adN4FnONqTAOf3uYhkbdBtObdBOvyNNL8aadvRQFX+d1Y33cv/OFUnxTvcKO
+	8HnyugAzAh4kceFOaRGQZc0lCb8q/lQb+Tu5zvbzvzO2XywX1GAYTmBxWONGah1c/uSLybBs4i6
+	Z1BdlNKP2g49dY1CdoqrTU7F0ONfbv8n8n8knwivmI5pvtkOBpnbx0FKtrGpajJ7eVJjpmDP+9V
+	GrDV+hqKOnbzXYxSl/6mDAM3JttzAkT9DglGKstYf/9t614uObWJZBlKS8gqDRkU0rpUwDDuKL3
+	TyAWEWnWgiOWyPD4gZsUTI2dq8mDYhIiqRF0TE/XA==
+X-Received: by 2002:a05:6a21:320b:b0:3c8:e10b:7a9b with SMTP id adf61e73a8af0-3cd91367d07mr4264614637.16.1787612215051;
+        Mon, 24 Aug 2026 15:56:55 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328272232besm1527287eec.21.2026.08.24.15.56.35
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328272232besm1527287eec.21.2026.08.24.15.56.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 15:56:44 -0700 (PDT)
+        Mon, 24 Aug 2026 15:56:54 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: jorge.lopez2@hp.com,
 	hansg@kernel.org,
@@ -68,9 +68,9 @@ Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH 1/2] platform/x86: hp-bioscfg: fix OOB read in hp_get_integer_from_buffer() on unaligned input
-Date: Tue, 25 Aug 2026 03:56:09 +0500
-Message-ID: <20260824225610.18471-2-meatuni001@gmail.com>
+Subject: [PATCH 2/2] platform/x86: hp-bioscfg: fix heap OOB read and buffer desync in hp_get_string_from_buffer()
+Date: Tue, 25 Aug 2026 03:56:10 +0500
+Message-ID: <20260824225610.18471-3-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260824225610.18471-1-meatuni001@gmail.com>
 References: <20260824225610.18471-1-meatuni001@gmail.com>
@@ -82,71 +82,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hp_get_integer_from_buffer() aligns the read pointer before dereferencing
-it:
+hp_get_string_from_buffer() has several buffer boundary and memory
+safety bugs when parsing UTF-16 strings from WMI BIOS buffers:
 
-  int *ptr = PTR_ALIGN((int *)*buffer, sizeof(int));
+First, the loop that counts how many characters will need backslash-
+escaping uses the same variable as both the accumulator and the loop
+bound:
 
-When *buffer is not 4-byte aligned, PTR_ALIGN() advances ptr forward by
-1-3 bytes to reach the next aligned address. The bounds check that
-follows does not account for that advance:
+  size = src_size / sizeof(u16);
+  ...
+  for (i = 0; i < size; i++)
+          if (src[i] == '\\' || src[i] == '\r' ||
+              src[i] == '\n' || src[i] == '\t')
+                  size++;
 
-  if (*buffer_size < sizeof(int))
-          return -EINVAL;
+Each escape character found extends size, which is also what i is
+compared against, so the loop keeps going past the buffer's true
+character count once any escape character is seen at or near the end
+of the valid range. Every escape character found causes one additional
+out-of-bounds src[i] read.
 
-This only confirms 4 bytes remain from the original *buffer, not from
-the aligned ptr. If *buffer is unaligned and *buffer_size is between 4
-and (pad + 3) bytes, *(ptr++) reads up to 3 bytes past the end of the
-buffer.
+Second, once conv_dst_size is computed, the conversion call passes the
+byte length instead of the character count:
 
-*buffer_size is also under-decremented on every call, aligned or not:
+  utf16s_to_utf8s(src, src_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
 
-  *buffer_size -= sizeof(int);
+utf16s_to_utf8s()'s inlen parameter is a count of u16 units: its main
+loop decrements inlen once and advances the source pointer by one
+wchar_t per character consumed. src_size here is a byte count (the
+code's own preceding comment, "size value in u16 chars", computes the
+true character count separately as src_size / sizeof(u16)), so passing
+it directly makes the conversion loop walk up to twice as many u16
+units as the source buffer actually holds whenever maxout does not
+run out first.
 
-*buffer is advanced to the aligned, post-read position, but
-*buffer_size only accounts for the 4 bytes of the integer itself, not
-the alignment padding skipped to reach it. Each unaligned read leaves
-*buffer_size overstating the true remaining space by the pad amount,
-an error that compounds across repeated calls against the same buffer
-(hp_get_common_data_from_buffer() calls this in a sequence), making
-later bounds checks against *buffer_size progressively less reliable.
+Third, the bounds check 'if (*buffer_size < src_size)' is checked after
+src++ has already stepped over the 2-byte prefix. If *buffer_size equals
+src_size, only src_size - 2 bytes remain, so reading src_size bytes
+reads 2 bytes past the end of the input buffer.
 
-Compute the padding explicitly, check for it, and account for it when
-advancing *buffer_size, so the pointer and the remaining-length count
-stay consistent with each other.
+Finally, at the end of the function, the pointer and remaining buffer
+size are adjusted using the escape-inflated size rather than the actual
+number of input bytes consumed from the WMI buffer (sizeof(u16) +
+src_size), causing the buffer pointer and remaining length to drift out
+of sync for subsequent property parsers.
+
+Fix these by:
+- Keeping the true, unmodified character count in a separate orig_size
+  variable.
+- Checking *buffer_size against sizeof(u16) + src_size before reading.
+- Accurately advancing *buffer and *buffer_size by sizeof(u16) + src_size.
 
 Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 29 +++++++++++---------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 0edc6e7cfa9a..32b99a862082 100644
+index 32b99a862082..dd453a9b962f 100644
 --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
 +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -39,14 +39,18 @@ struct kobj_attribute common_display_langcode =
- int hp_get_integer_from_buffer(u8 **buffer, u32 *buffer_size, u32 *integer)
- {
- 	int *ptr = PTR_ALIGN((int *)*buffer, sizeof(int));
-+	u32 pad = (u8 *)ptr - *buffer;
+@@ -60,6 +60,7 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 	u16 *src = (u16 *)*buffer;
+ 	u16 src_size;
  
--	/* Ensure there is enough space remaining to read the integer */
--	if (*buffer_size < sizeof(int))
-+	/*
-+	 * Ensure there is enough space remaining to read the integer,
-+	 * including any padding PTR_ALIGN() introduced to reach it.
-+	 */
-+	if (*buffer_size < pad + sizeof(int))
++	u16 orig_size;
+ 	u16 size;
+ 	int i;
+ 	int conv_dst_size;
+@@ -67,17 +68,16 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 	if (*buffer_size < sizeof(u16))
  		return -EINVAL;
  
- 	*integer = *(ptr++);
- 	*buffer = (u8 *)ptr;
--	*buffer_size -= sizeof(int);
-+	*buffer_size -= pad + sizeof(int);
+-	src_size = *(src++);
+-	/* size value in u16 chars */
+-	size = src_size / sizeof(u16);
+-
+-	/* Ensure there is enough space remaining to read and convert
+-	 * the string
+-	 */
+-	if (*buffer_size < src_size)
++	src_size = *src;
++	if (*buffer_size < sizeof(u16) + src_size)
+ 		return -EINVAL;
  
- 	return 0;
+-	for (i = 0; i < size; i++)
++	src++;
++	/* size value in u16 chars */
++	orig_size = src_size / sizeof(u16);
++	size = orig_size;
++
++	for (i = 0; i < orig_size; i++)
+ 		if (src[i] == '\\' ||
+ 		    src[i] == '\r' ||
+ 		    src[i] == '\n' ||
+@@ -93,9 +93,12 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 		conv_dst_size = dst_size - 1;
+ 
+ 	/*
+-	 * convert from UTF-16 unicode to ASCII
++	 * Convert from UTF-16 unicode to ASCII. utf16s_to_utf8s() counts
++	 * its length argument in u16 units, not bytes, so pass the
++	 * original character count rather than src_size (bytes) or the
++	 * escape-inflated size.
+ 	 */
+-	utf16s_to_utf8s(src, src_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
++	utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
+ 	dst[conv_dst_size] = 0;
+ 
+ 	for (i = 0; i < conv_dst_size; i++) {
+@@ -121,8 +124,8 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+ 		src++;
+ 	}
+ 
+-	*buffer = (u8 *)src;
+-	*buffer_size -= size * sizeof(u16);
++	*buffer += sizeof(u16) + src_size;
++	*buffer_size -= sizeof(u16) + src_size;
+ 
+ 	return size;
  }
 -- 
 2.55.0
