@@ -1,85 +1,114 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EECA405C3F;
-	Mon, 24 Aug 2026 11:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06D840B104;
+	Mon, 24 Aug 2026 11:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787571408; cv=none; b=VXIHtPMrcG5StH+7MyXBXng+INUaXdIoJGJhbuYU0RU1s/QNrYQ9pM9+hH7v4TIwTVSTBY4i6QpX5c/+/61bkJI7NMIF1YnR27DeD4CpnxR92iOPAthYijxAVRcnh1jFM0i6nWbrrNd0rAY33eSKD2WExSCVWSJyngTYkWjElbA=
+	t=1787571485; cv=none; b=HvAaFUVCNcn1Pt/67jk4TO14FBmRkmG5Gm0UZmixHA+P6BUSsfOFSj61QA87A3LQGsMqFXzsGOnmtth4thYuon1R/x3ALpogg3EDc++2FNtZbI8P22H4b19Q4mQVPy2x/hVxM1pVk9zAOACdolbSRALXbpgWqkMDZ2Fx8XJZEXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787571408; c=relaxed/simple;
-	bh=T3Mw4IxXHQGlq00EaitD6+1dpV/KL4PbSWsaZvO22+Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TyzJ/gdIHHwM47xjVWdO5i2v4wQSJrj/eDi98+XPb5j5tqU3dZ5lnFWnAUu4Hy9pjc47mz+PJWPWMHDbvBc8z/c0XtRgzI36t+PF3G3tGsUIENWwVY0yGH//l8GkleD70QlfJ7BZM6xIb67tlA7A3iJ/9y98dVDU/RQejFKmzI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=dHv6Q43V; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1787571485; c=relaxed/simple;
+	bh=eaRibzZOI4YUd0JJtNw6YOBGcNU3+xlM6gRdCa+m2Qs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VsA9SFi1iF5CPL8LYuh/Iowe2UR+U5kXlMIqEtPD6zmnxxWmtP1S2WUBkCwYFkGdVDEuDJK1QQxOkab2hXmIhWgxIeM0Coj0Jc9fMr/n0REjLt01rwaTXYjUrXfMaizn/cu4dfOQPuFle42mS5OcCrjrvzAyM/7y9/4vbGcUcps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aXlMMzXi; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="dHv6Q43V"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4b1a0b505;
-	Mon, 24 Aug 2026 19:36:34 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jack Wang <jinpu.wang@cloud.ionos.com>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] scsi: pm8001: use rollback index when freeing MSI-X vectors
-Date: Mon, 24 Aug 2026 19:36:18 +0800
-Message-Id: <20260824113618.2239100-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aXlMMzXi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787571483; x=1819107483;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eaRibzZOI4YUd0JJtNw6YOBGcNU3+xlM6gRdCa+m2Qs=;
+  b=aXlMMzXiQKHRNvubvjAdMnaLWbCX9pjmZi60+qAMzrKgZpGkBYUsJGhY
+   oD3AYJfWRUvH+dphSuxnuu+DUOWHNyeO9u0qCWx5SZRXJnn7TboRBQRXv
+   pB/8T25goCp7pndr/yaOQ0cqWsbrhkkyO6QPgcKCs0TFGpRN3+qBJ+8Qi
+   SdMyAHATbXsm+SoIMH2+loAtAwG4lpWBm5QuA9jVlTT0eGRyFTz2DdCrV
+   LdKuxyNyesD0gd52KcbvEa+ltDT14Sj8+Zgs0qnE9hLiDZ0evghCsfz6E
+   ePVcM0IKSTorj2R2r6Zzl73t+bRn48uU6hh3yEiPWpJagb2KylJRmm+e6
+   Q==;
+X-CSE-ConnectionGUID: Xr/OCrlDT5WiXR9ncNPeUA==
+X-CSE-MsgGUID: dF3RLXeeQGS1XygMsNUcLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="113552970"
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="113552970"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 04:38:02 -0700
+X-CSE-ConnectionGUID: O1u0tRQxSMKyOcwPk2GUZw==
+X-CSE-MsgGUID: 1rOKWyhnR7+fhkdOnNJoIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="290500688"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 24 Aug 2026 04:38:00 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id A77EE99; Mon, 24 Aug 2026 13:37:59 +0200 (CEST)
+Date: Mon, 24 Aug 2026 13:37:59 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Konrad Dybcio <konradybcio@kernel.org>, asahi@lists.linux.dev,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] thunderbolt: Hold a router reference for each
+ path hop
+Message-ID: <20260824113759.GH893316@black.igk.intel.com>
+References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
+ <20260823-b4-tbt-fixes-v2-1-26a18a426c9f@kernel.org>
+ <20260824104237.GF893316@black.igk.intel.com>
+ <295cce78-47d2-4a6e-af90-696edb60a05d@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0338ed97303a1kunmba8a283c2268a9
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTR9OVkJLGh5PTE1NSxhPTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=dHv6Q43VKxoJWkitp02IIMoP/mI2zr0Bw7SzDLU8VrtE+E63XKSGisl/7FyWuMKXjK8VKexoaJurV7xDA9ISjGSmPC0+t/+JvgOC701nxK8d/f5zqDysTGTBhqxfH9AuLpmdWzG6ewY7BMFzIayoIZvS7MwdMhGbbGT6dfYou6M=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=TwSXypq6xqOYTYG42OhR27zQHgxYnkbkRhwp4/mvE/k=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <295cce78-47d2-4a6e-af90-696edb60a05d@kernel.org>
 
-pm8001_request_msix() unwinds previously registered handlers with
-free_irq() when request_irq() fails. The rollback loop uses the
-failing index i for every iteration instead of the already
-registered vector index j.
+Hi,
 
-That passes the wrong IRQ/dev_id pair to free_irq() and leaves the
-earlier handlers installed. Use j for both pci_irq_vector() and the
-matching irq_vector entry in the rollback loop.
+On Mon, Aug 24, 2026 at 01:06:12PM +0200, Sven Peter wrote:
+> So unfortunately the entire USB hardware is best described as horribly
+> broken :(
 
-Fixes: a76037ff3479 ("scsi: pm8001: switch to pci_irq_alloc_vectors")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/scsi/pm8001/pm8001_init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+:-(
 
-diff --git a/drivers/scsi/pm8001/pm8001_init.c b/drivers/scsi/pm8001/pm8001_init.c
-index e93ea76b565e..21419e46c16d 100644
---- a/drivers/scsi/pm8001/pm8001_init.c
-+++ b/drivers/scsi/pm8001/pm8001_init.c
-@@ -1029,8 +1029,8 @@ static u32 pm8001_request_msix(struct pm8001_hba_info *pm8001_ha)
- 			&(pm8001_ha->irq_vector[i]));
- 		if (rc) {
- 			for (j = 0; j < i; j++) {
--				free_irq(pci_irq_vector(pm8001_ha->pdev, i),
--					&(pm8001_ha->irq_vector[i]));
-+				free_irq(pci_irq_vector(pm8001_ha->pdev, j),
-+					 &pm8001_ha->irq_vector[j]);
- 			}
- 			pci_free_irq_vectors(pm8001_ha->pdev);
- 			break;
--- 
-2.34.1
+> For USB2 already we only ever receive a single hotplug interrupt in dwc3. If
+> the first device is unplugged and another one plugged in nothing happens.
+> The only way around that is to tear down dwc3/xhci and the PHY completely,
+> assert all external reset lines and then bring them up again.
+> Upstream drivers/usb/dwc3/dwc3-apple.c contains more details in the very
+> first comment at the top.
+> 
+> With USB4 this gets a bit worse: There's a block called "ACIO" (Apple
+> Converged I/O) which can only be brought up correctly after the PHY has been
+> switched to Thunderbolt/USB4 mode. This block has a co-processor which then
+> exposes the host router, NHI, IOMMU, etc. to our address space.
+> We then have to write cable information into a vendor-specific capabilities
+> register and only then do we get the hotplug event and the link comes up.
+> This register appears to be effectively write-once after each boot of the
+> co-processor. If I try to write 0 that still works but trying to write the
+> value for the next connection then crashes the co-processor with a very
+> helpful message along the lines of "assert 4357 violated".
+> So there's no way around first tearing everything down, then shutting down
+> the co-processor and the entire ACIO block and then finally bringing it all
+> up again after the next cable is connected. I've tried to find ways around
+> this but didn't succeed without documentation and could only reproduce what
+> XNU does.
+
+Thanks for sharing the interesting details! I totally understand the pain
+of reverse engineering things. The initial USB4/TB driver was also result
+of a huge reverse engineering effort by Andreas Noever, but it was and
+still is functional, and we still support Apple TB1/2 hardware (although
+not too much testing is done these days, I fire up my Cactus Ridge based
+Mac maybe once a year).
+
+But okay it does not sound like the PC ACPI hotplug "solution" we had at
+least. It's just a much more complex subsystem with many interactions that
+need to be done in certain order which is not documented anywhere ;-)
