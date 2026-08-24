@@ -1,101 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D43435966
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 00:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F3A8632B
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 00:12:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787530331; cv=none; b=JhxMTmljR2F2K+oxJXOS4uP650dc4OMF4KbPYC4GZpJA6KA1NLfO49KEIq26o91kBWsDNYNyZYBJfy+y6LdGnyhszIR7eeBSS/7o+ME/kf5KUCJnBuwjFE/t6Me+56ZMM7/hZA0Fj19Ao8vlhlNQGPgYTW6DYk2GW5W4vkHqEHQ=
+	t=1787530342; cv=none; b=M8nuoOnSbbR55alpG18SdHzFcqNHKcKA/AV+28ZCWjISnikKjOsqYKNEYfnlsd6EzXMO22BMLRytM6pkcWVKi2kjiw/KrOT4Pork5s05RnyrJAotqASljyhoKZXPwY9myBXui6J/hrG0JcTdCu8N5kk8fNGzpBxwn9RxIGRCjEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787530331; c=relaxed/simple;
-	bh=2y2RqOEvLot05OQfzLAzSN+n8QDNXDlZnMoziXTE2d0=;
+	s=arc-20240116; t=1787530342; c=relaxed/simple;
+	bh=9ScvAJ7WCU5L0bxlTLKPLkcEbhVh3a/Wc0KNfTzrGDU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uT9YYGaB9phSpO4Og6320r1bhlMrFMKy5R1IaU1NRGeffTGNnGARRN1kL23G+vXcROLMs7UISqZBiDuQpOiOeFBRTgyq3FHzTm4sWCNoUNW0SRzqBmh5RJf6xdiBlos7pRsfQWFMgS+jdqlmYx+6iBpdy8QRiiO1kxbaxVmYS34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IasS7Yhk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GoKU58hOG0OxQVvjO9RQITB2Fy9Iwsp+q/meephnforj8Fyui0BMi4SrKrMOV282m3IJhzhmkvX/+lB2G82I9qM/HjFMiRC/gu41XzdN2f6Prd8ApLBqBbgmTX3nodyQw+fgdrb0CtZqXqAL9mpaMHva1+fuB6RWtOIml6qbaOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdFHeqWY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IasS7Yhk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C4D1F000E9;
-	Mon, 24 Aug 2026 00:12:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdFHeqWY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E69E1F000E9;
+	Mon, 24 Aug 2026 00:12:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787530329;
-	bh=K02lCec2Sz8Au8IMXQD+6aVgFgwIbvtld0117/JzNso=;
+	s=k20260515; t=1787530340;
+	bh=ID5G77nnDjzw69+a2rbNSAzK9TLQ32+DTQgBG3Bvddc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IasS7YhkB9oIhhKSAz7+SZ+E82ZJPUVIenivykIkPUhyR/Ngqb0ynAyHM8oLAYxTV
-	 clafi5KEaSrGRRvvlz63+Ydnq/71VMFW7ns6odHIfS8p7c5lspz4753lANg0CaI7/q
-	 O4/RS6ESHZ86x8GXXpnkpnoci3VbUC1/aRLIjBJ2+zGmzJluo+ENJldKn4dsyDQEOH
-	 c3KUuqKA+/4QxI1XxEXur2+B9fRB14wwdilmFjJae5MYLiad5a1Nm7L9EbWzZfF0L1
-	 1a3fJPpABMB8yHs55sScxG8XYgkHuBsPjjLFkh8S5Eqmwslgetq6e7NZjdqGAbJAl1
-	 XGr1QCoAeAh7A==
+	b=UdFHeqWYkMJ4N4XxFdDyMIvvWtceqqU7tZcQmFswUE98JB3kkdvxwQza9Dvlmcbx1
+	 xDAZig+xKaiFrDC15Pyrvk82uKR0YVj5+QoLiLSNp5BaW0bBqu3xc1ycHOZnW/FVc/
+	 7j5+QocNELfZHQ1oHF0J8P5DturQLfGKrnZfed2AEEILjiIamWSFtdBzT0/VDOqWF/
+	 0W0srvbPtstK6nGq35Ptwn+W5qIOpci1MAgrdGf7wv6QMQeaa/YgDy+joSZVngkN5/
+	 RpCrsQgDzW//QiJI8HKeYE6HNDS/tOd6Omyi336r6dRqCbhIzfVSpF4RDDzPtCI0FQ
+	 nXbHn8ljyrRhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Junrui Luo <moonafterrain@outlook.com>,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Eric Farman <farman@linux.ibm.com>,
+	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amdgpu: disallow multiple FENCE chunks in one submit
-Date: Sun, 23 Aug 2026 20:12:07 -0400
-Message-ID: <20260824001207.2687378-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] s390/vfio_ccw: Cancel existing workqueues
+Date: Sun, 23 Aug 2026 20:12:18 -0400
+Message-ID: <20260824001218.2687907-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082049-refocus-deviator-76f3@gregkh>
-References: <2026082049-refocus-deviator-76f3@gregkh>
+In-Reply-To: <2026082041-rifling-motor-b6eb@gregkh>
+References: <2026082041-rifling-motor-b6eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Junrui Luo <moonafterrain@outlook.com>
+From: Eric Farman <farman@linux.ibm.com>
 
-[ Upstream commit 931cd1d1baeae68e8eb2c23bc1f3d8934dca6241 ]
+[ Upstream commit 79c60b2c61105368dcc8444eb45847e21734f7c4 ]
 
-amdgpu_cs_pass1() dispatches on chunk_id once per chunk without
-rejecting repeated ids. p->uf_bo is a single-slot field, so a
-submission carrying two AMDGPU_CHUNK_ID_FENCE chunks runs
-amdgpu_cs_p1_user_fence() twice, and the second run overwrites
-p->uf_bo with a freshly referenced BO without dropping the reference
-taken by the first.
+The initialization of the io_work and crw_work workqueues begs the
+question of whether they should be un-initialized. Add the corresponding
+cleanup tags in _release_dev to ensure work isn't dispatched after
+the private struct is free'd.
 
-amdgpu_cs_parser_fini() only unrefs the final p->uf_bo, so every FENCE
-chunk but the last leaks a BO reference. The leaked BO outlives handle
-close and process exit.
-
-Reject duplicate FENCE chunks the same way commit fec5f8e8c6bc
-("drm/amdgpu: disallow multiple BO_HANDLES chunks in one submit") did
-for p->bo_list.
-
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
+Suggested-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Fixes: e5f84dbaea59 ("vfio: ccw: return I/O results asynchronously")
+Fixes: 3f02cb2fd9d2 ("vfio-ccw: Wire up the CRW irq and CRW region")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 665b1fc2a1845206408f9a2c6da67101789edb82)
-[ adapted `p->uf_bo` to the pre-drm_exec field spelling `p->uf_entry.tv.bo` ]
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Eric Farman <farman@linux.ibm.com>
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+[ dropped the `vfio_ccw_mdev_release_dev()` hunk since 5.15 lacks the embedded `vfio_device` release callback, keeping only the `close_device()` drain ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/s390/cio/vfio_ccw_ops.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index dcf7cd290b889..e9d51002001a4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -247,6 +247,10 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 			if (size < sizeof(struct drm_amdgpu_cs_chunk_fence))
- 				goto free_partial_kdata;
+diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
+index 7f540ad0b568b..f3958e31dad87 100644
+--- a/drivers/s390/cio/vfio_ccw_ops.c
++++ b/drivers/s390/cio/vfio_ccw_ops.c
+@@ -207,6 +207,14 @@ static void vfio_ccw_mdev_close_device(struct mdev_device *mdev)
+ 	}
  
-+			/* Only a single user fence is allowed to simplify handling. */
-+			if (p->uf_entry.tv.bo)
-+				goto free_partial_kdata;
+ 	cp_free(&private->cp);
 +
- 			ret = amdgpu_cs_p1_user_fence(p, p->chunks[i].kdata,
- 						      &uf_offset);
- 			if (ret)
++	/*
++	 * Ensure these work items are drained, in the event the
++	 * device is re-opened instead of released.
++	 */
++	cancel_work_sync(&private->io_work);
++	cancel_work_sync(&private->crw_work);
++
+ 	vfio_ccw_unregister_dev_regions(private);
+ 	vfio_unregister_notifier(mdev_dev(mdev), VFIO_IOMMU_NOTIFY,
+ 				 &private->nb);
 -- 
 2.53.0
 
