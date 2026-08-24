@@ -1,173 +1,147 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506EC402428
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACD136E47A;
+	Mon, 24 Aug 2026 11:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787571799; cv=none; b=mk1IVn8Ak67voOt3YHm2hMBctrZ7m5cJZluN1ZzPOnUJG1XbSBPkEOVnmBFxLB+eOv7b7JDGqwyJyh5N4LqB2EJKOqih/t5Xv/nf0tC7/NoX8zh1e/NqrPhK292OYHkvS3onp2zbJZuQaVAl8oIDQB1dkkvuQccYsWS9t9y9YuI=
+	t=1787571866; cv=none; b=lK7KUhAJ/PJVxJXRQHnEMq3tBg2pknp7nRyQMada3bXAViuR/W/H6c3uVyPVVryOi9PetFxizLfi5QnfcXFz5xSk1EEtiheKTsUsVsgya1/JgspIgS9l+Vsd199rrolqNZizeYE5QM3DDduu9oD71WoM+m8DIn6mhaVALLCnV7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787571799; c=relaxed/simple;
-	bh=X0INS0+9ZIi+6B7TKaex45BPys5YvJC4MTr9fnoNny0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qe128zohkqc0zkjVi+EARmJyTT8St8WY81EF2tBR5zftEbStVQk3SIcvqARC9mfaE3VLBNwrGTkcE0Dfhji/QsqT3fhz6Nlf8rEmvJG93RGOgZsmRSbFjVZCP5UOOfefhuntIEZrVhSmEU3fJ3tHb6NG5KN6PLmu+MPJeDYt9so=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K4+1CrRh; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787571866; c=relaxed/simple;
+	bh=8dMroJ6R4SVI3fX5UOq5PtSj2MZW8u6Wq0GtJPp5ERs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T/a5zHTS14SbhSChkjyxtCUNCe+ozjaD6J/ha7GYx1rTcsJq4l+jsh6pIz7mN/UY3W2ocjO/rAX76aiNtGfBPRDknC7HZqCY/uG6x199PlM1vHx1vCQMR1GUush9hKjutiVhe+856y8CBHXLfr/rMCIKyVydIjUluVyKFG8OojU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dBTSqZYt; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K4+1CrRh"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d319b84213so4358105ad.1
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 04:43:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787571798; x=1788176598; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=npJ1wlMR/wnROhe9/hNtOlEPg6MBfWz9mLakFDeeZlU=;
-        b=K4+1CrRhTXhuV5QLt4A04p2qjitYFmCit8RfZEX0PUdDuH+m83+AGONxh8T2mxiBWV
-         TdksCCdtLF39UfnqRHBPGkr355jxSDmLypUx6wYAvEeF6P8TyvZ1Sqoka2z9fFjLNUQg
-         7Y11/ODA+jKAQvPH0oQlaDjfhQBSbe51n0PpL31udhiHt9qJXg10p5ydZjL4/BR+pGKP
-         XvE9sjy48A5B882VzLIKyz7rTkrhm6ACFuQcy2IEWuPKlA8u7O4lb1S5ImDlb23Jn5UP
-         MiBpFhRi5FIw22W+sEXzltWoShRCGDi7Kp5xSi9JaUFFi6Nij5W+FXgpkkySUnzmq9/6
-         jYTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787571798; x=1788176598;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=npJ1wlMR/wnROhe9/hNtOlEPg6MBfWz9mLakFDeeZlU=;
-        b=XH7VSdQ1tn4YGqx1l80aawwl1jSZksjcFdNBrMYD7bmXLp/LXw+2FSXDKyrox+uvmC
-         q7EiN6htR4e7hqE1rlCq5aN7e8CJStkNANgfBAwrBtnRjbkrwyzNfUR055aF90BzUTkO
-         7auA/BnPYC/9Jf+Tg9kLM550Rv9pTV3f81SWfyv4T1/wnxzwFDENhF037q2DYG7RBfj7
-         5fayLR2W6Hppj8s76Xw6rJAK6IMjO92yH/KeImM2TdQ6seCLhGBRt4F7bSnJWAcW295g
-         qicZ1acz59j6jxwXszkJ3+9MJHIAazG6GnBXUIr3qL4R/P/uBCE6Wuw0ZHx3siuhnyOH
-         /WlA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5NcrPf1qKLu938sz0ucQsvV5jetiKewCY6bFKFPL2b3dRJOnzHeW756fId/a24bSUGXa2wik=@vger.kernel.org
-X-Gm-Message-State: AFuF++kr/waNfHENdDBrX9++IeyrbZOZi18vTAKqfA92uUHc8UvfyLhb
-	Ell9698LK1ALKodd+QxidY8tLPUcSeiTFSz/40602hN9KaxjeYGeCuWY
-X-Gm-Gg: AR+sD10y0cVJkjvAZmFL3PWfKHxtqNcXzB82Ou0st0Aaq30UPQJRK0Qpmtr05dg762u
-	TXXaJKuspw2cOMqu7PdFyYva2Z7U7yBeA3jmW+9Ee3ixn2YJ20TTxeHTuehvbiaa9x5+gsdUs9G
-	HeGCZfVlHqAMhb79BShHcueDzQKBcwb2LHy/YhsedGZUDx+7ZzJ+12u0d8iy48jM/gnu00Uvr4d
-	E64w6vBJzc1OMNXTJ95Mv2Jxrc0+sIZvX3Qnb17nF5H8gkIIpPca3v1cvLPYCYM6ntJ11u8qEh/
-	AodhzwpkISxf/NIDQfWM3TXHsGJrolLcsUZn1vewyZNDWagumRqVZdDCo8xwzMXNkYN0ACleHfE
-	smBiffpYTSTaUoPbbxpybXgmHMGf8BZxM+2l/Mf9wGzx9YktHIQIx5VSpSmMlaP4/T5BRUbVQN9
-	/AQ7oMIuQGubbYbBHnMUb2XuDWM95W32/7pN9uKFQKUqm+q9h4xCAb0pfIV+LV9/32D/S0fA1FK
-	/vgy2US24UOfyJ5XjhJTLVNk881LqQi/g9oDfCQ/C97PQ==
-X-Received: by 2002:a17:903:110e:b0:2d6:3c1a:85ef with SMTP id d9443c01a7336-2d64b2f5865mr218029055ad.4.1787571797589;
-        Mon, 24 Aug 2026 04:43:17 -0700 (PDT)
-Received: from localhost.localdomain ([14.216.85.214])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d67676170fsm16908915ad.6.2026.08.24.04.43.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 04:43:17 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: dwmw2@infradead.org,
-	paul@xen.org,
-	seanjc@google.com,
-	pbonzini@redhat.com
-Cc: tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	boris.ostrovsky@oracle.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>
-Subject: [PATCH] KVM: x86/xen: Fix data race on poll event channel
-Date: Mon, 24 Aug 2026 19:43:05 +0800
-Message-ID: <20260824114305.198732-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dBTSqZYt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787571863; x=1819107863;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8dMroJ6R4SVI3fX5UOq5PtSj2MZW8u6Wq0GtJPp5ERs=;
+  b=dBTSqZYtyC7k//0EYa9hyCiOxqo7gdN3BXqQ1nqijsCEuMO78pYUQCu0
+   1wQZN6ihHXGW4DLii0KpYZekEAUys8MX1HZ4rzhGCAjGNIsshXZ337oyD
+   SQ+fMGDB4tIb1yk65TNvuC8kfBEZ+rr+7y36ZrQ9QaecN6fvicXz9zt2B
+   UyCwBBK19FnFR/gZa2wJl65pDdKhbOkKXatk4h9wuzJLrC6x+07R/YXhy
+   EjX+19zriuPauMfnugdBgjKVCN7mypn+uT0BtiG43bA2WRQuV956tNQf7
+   7Gd0bJMioakMnOXdMY5N7YJsdh3Pe2hdJQ5dYBTclgmSHSQF6GPj0tu/I
+   g==;
+X-CSE-ConnectionGUID: bKLezaaFRHSNZe9bjQvh/Q==
+X-CSE-MsgGUID: qCArPhcAQtKh+2u+RA6e0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="87880139"
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="87880139"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 04:44:22 -0700
+X-CSE-ConnectionGUID: IGlGSQ5RRz2Rjl+6R/EQiA==
+X-CSE-MsgGUID: N3CdhxTyQ9CxxCgpHwUjYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="291821322"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 24 Aug 2026 04:44:20 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 0D26699; Mon, 24 Aug 2026 13:44:19 +0200 (CEST)
+Date: Mon, 24 Aug 2026 13:44:19 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	kernel@dh-electronics.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: mux: Fix typec_switch_match()
+Message-ID: <aowuk3WwJW2Jomz8@black.igk.intel.com>
+References: <20260817182302.146546-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817182302.146546-1-marex@nabladev.com>
 
-Use READ_ONCE() and WRITE_ONCE() for runtime accesses to poll_evtchn.
-This marks the intentionally concurrent scalar accesses and prevents the
-compiler from splitting, merging, or inventing accesses.
+On Mon, Aug 17, 2026 at 08:22:39PM +0200, Marek Vasut wrote:
+> The fwnode_typec_switch_get() sporadically returns NULL instead of an
+> -EPROBE_DEFER for orientation-switch described in DT. This makes it
+> impossible to discern whether the DT does describe an orientation-switch
+> which did not probe yet, or whether the DT does not describe the switch.
+> This happens with gpio-sbu-mux connected to an I2C GPIO expander.
+> 
+> The class_find_device() on typec_switch_match() may return NULL in case
+> the mux did not probe just yet early on boot. The sw_devs[] array can be
+> empty on boot as well. If these two conditions occur, then the conditional
+> if (to_typec_switch_dev(dev) == sw_devs[i]) evaluates to true and the match
+> function returns NULL, which propagates to fwnode_typec_switch_get() which
+> makes it look as if the orientation-switch was not described in DT.
+> 
+> This is incorrect, because the mux driver will probe a bit later on, but
+> at that point, the caller of fwnode_typec_switch_get() already got the
+> NULL return value. The NULL return value also does not trigger IS_ERR(),
+> therefore the caller driver interprets this as if the orientation-switch
+> is not described in DT, and does not return -EPROBE_DEFER to try again,
+> even if it should.
+> 
+> Fix this by checking the class_find_device() return value, and return
+> -EPROBE_DEFER if it is NULL right away. If the return value is not NULL,
+> perform the deduplication test, and if that test passes, consider the
+> return value to be already non-NULL.
+> 
+> Fixes: a53b4f9c51a9 ("usb: typec: mux: avoid duplicated orientation switches")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-kvm_xen_schedop_poll() publishes the single port, or -1 for multiple
-ports, before setting poll_mask and halting the vCPU.  Event delivery can
-call kvm_xen_check_poller() on another CPU while the vCPU thread publishes
-that value or resets the field to zero after returning from
-kvm_vcpu_halt():
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-  vCPU thread                         event delivery thread
-  -----------                         ---------------------
-  poll_evtchn = port
-  set_bit(poll_mask)
-  kvm_vcpu_halt()
-                                      poll_evtchn = READ
-  poll_evtchn = 0
-  clear_bit(poll_mask)
+> ---
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Cc: kernel@dh-electronics.com
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-usb@vger.kernel.org
+> ---
+> NOTE: A similar change was reverted in
+>       f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux switches"")
+>       Maybe the orientation switch commit also needs a revert ?
+>       Or the mux switch revert can be undone and fixed using this NULL check ?
+> ---
+>  drivers/usb/typec/mux.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
+> index 9b908c46bd7df..2bc7e8edb3cbd 100644
+> --- a/drivers/usb/typec/mux.c
+> +++ b/drivers/usb/typec/mux.c
+> @@ -56,17 +56,19 @@ static void *typec_switch_match(const struct fwnode_handle *fwnode,
+>  	 * function "defers probe" for now.
+>  	 */
+>  	dev = class_find_device(&typec_mux_class, NULL, fwnode,
+>  				switch_fwnode_match);
+> +	if (!dev)
+> +		return ERR_PTR(-EPROBE_DEFER);
+>  
+>  	/* Skip duplicates */
+>  	for (i = 0; i < TYPEC_MUX_MAX_DEVS; i++)
+>  		if (to_typec_switch_dev(dev) == sw_devs[i]) {
+>  			put_device(dev);
+>  			return NULL;
+>  		}
+>  
+> -	return dev ? to_typec_switch_dev(dev) : ERR_PTR(-EPROBE_DEFER);
+> +	return to_typec_switch_dev(dev);
+>  }
+>  
+>  /**
+>   * fwnode_typec_switch_get - Find USB Type-C orientation switch
+> -- 
+> 2.53.0
 
-The plain read and writes therefore race.  KCSAN reported:
-
-  BUG: KCSAN: data-race in kvm_xen_hypercall / kvm_xen_set_evtchn_fast
-
-  read to 0xffff888112f55af0 of 4 bytes by task 98:
-   kvm_xen_set_evtchn_fast+0x204/0x7c0
-   kvm_xen_hvm_evtchn_send+0xab/0x100
-   kvm_arch_vm_ioctl+0xb31/0xd90
-   kvm_vm_ioctl+0xf42/0x16c0
-
-  write to 0xffff888112f55af0 of 4 bytes by task 96:
-   kvm_xen_hypercall+0xd8d/0xf50
-   kvm_emulate_hypercall+0x157/0x1d0
-   vmx_handle_exit+0x40f/0xae0
-   vcpu_run+0x137f/0x27d0
-   kvm_arch_vcpu_ioctl_run+0x5a5/0x970
-
-The field is an aligned int on x86.  Access annotations preserve the
-existing matching, callback, and poll-mask control flow while making the
-single-copy access requirement explicit.
-
-Fixes: 1a65105a5aba ("KVM: x86/xen: handle PV spinlocks slowpath")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- arch/x86/kvm/xen.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
-index eae17141773a..cd15d2379616 100644
---- a/arch/x86/kvm/xen.c
-+++ b/arch/x86/kvm/xen.c
-@@ -1536,9 +1536,9 @@ static bool kvm_xen_schedop_poll(struct kvm_vcpu *vcpu, bool longmode,
- 	}
- 
- 	if (sched_poll.nr_ports == 1)
--		vcpu->arch.xen.poll_evtchn = port;
-+		WRITE_ONCE(vcpu->arch.xen.poll_evtchn, port);
- 	else
--		vcpu->arch.xen.poll_evtchn = -1;
-+		WRITE_ONCE(vcpu->arch.xen.poll_evtchn, -1);
- 
- 	set_bit(vcpu->vcpu_idx, vcpu->kvm->arch.xen.poll_mask);
- 
-@@ -1557,7 +1557,7 @@ static bool kvm_xen_schedop_poll(struct kvm_vcpu *vcpu, bool longmode,
- 		kvm_set_mp_state(vcpu, KVM_MP_STATE_RUNNABLE);
- 	}
- 
--	vcpu->arch.xen.poll_evtchn = 0;
-+	WRITE_ONCE(vcpu->arch.xen.poll_evtchn, 0);
- 	*r = 0;
- out:
- 	/* Really, this is only needed in case of timeout */
-@@ -1773,7 +1773,7 @@ int kvm_xen_hypercall(struct kvm_vcpu *vcpu)
- 
- static void kvm_xen_check_poller(struct kvm_vcpu *vcpu, int port)
- {
--	int poll_evtchn = vcpu->arch.xen.poll_evtchn;
-+	int poll_evtchn = READ_ONCE(vcpu->arch.xen.poll_evtchn);
- 
- 	if ((poll_evtchn == port || poll_evtchn == -1) &&
- 	    test_and_clear_bit(vcpu->vcpu_idx, vcpu->kvm->arch.xen.poll_mask)) {
-
-base-commit: 388b607d107c07aaade04c7f22f344cab6bdccd3
 -- 
-2.43.0
-
+heikki
