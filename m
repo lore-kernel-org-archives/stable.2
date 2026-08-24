@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F3F2EA75E
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F7C3812EF
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787608363; cv=none; b=i8lLTSJQ68cRPbOJrFi58J6WLCEcw5D9sAcY0Zc7zcJBK82LyhigIEkUKO2qX6PVTHd42wyFro8OuN77SYJ0YcUfQEbzsMxSkNZq8TdlSdxR6zyHmMo8mszyXT/euxLRqyjIZjqq/RPjQV5ieHddTuOta+XNMzEDvOsk04b06tk=
+	t=1787608536; cv=none; b=PXG7yatdI1R5Re5+sIEXNkY4NnnTgGSKxQbFjc3zLDNZXp98SEpo4MprrYql6Y52J1+HzP0gEcQSg5/lxyDncWKOw8eOwFIpPmB6o5LwrgjU2qdSJttmgXcaAdne/Pg33O8rZQan6gVXISmrX7/GsI6wvMzw2WfNEA2LS2XQac8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787608363; c=relaxed/simple;
-	bh=WWOVjaEsOe46DVclho86R/4sAuJiPaOHlp92XiZMY00=;
+	s=arc-20240116; t=1787608536; c=relaxed/simple;
+	bh=tbfxa1MbLOvcoVXdTdzy2Tg440BspMHTfhS0DtzVp0M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KaSpxmNbDsAqXJ36f7Os/hiCKPJw83BQP/2vwjD9cbZvD5SViwgoMv1gk152D/BdZgW0x63qfAVA3yuyeW9CTlcUxz0uurUqH8LitLcRp+MTwhnuHToT5KlJPZ7vQ2iB62AOePJsaB3IhMcMOfA5Fe8D4eATyz1cQpJ8QGr+ZgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhdD1CDu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Y2QO7EwLeP3JuKxdRFDNFXnccPb+tB2VHFdBMUJ6MmkP41fIMeQ/Z9fcqYFI6kDmZyNC2NdD5JajAqr30IekvcllyTZLNByGNF00hKi2z3qAZ0GKJbNtk51C2BrJSUruIR7Eo1YJMZbj2ZP6kAqxey6i3frbyf8fFf476cSijos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XW9OST6F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhdD1CDu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A546A1F000E9;
-	Mon, 24 Aug 2026 21:52:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XW9OST6F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580671F000E9;
+	Mon, 24 Aug 2026 21:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787608362;
-	bh=5B0/TVuHEjYvTCvrEEd0eeTPEG0juzxIcvx1UF/FkmM=;
+	s=k20260515; t=1787608534;
+	bh=eoK+j8LnT2CqJwCF1q7J61/rxtioAbnf3JYjVZ8uxtY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AhdD1CDurkWkLJKpvK9Z40J9RP7MjEDewKDkyL0mVgUiOhjI0SgONiZJQDbpT8i9/
-	 L69zady/I3swiDK7pjptCzKUGdhrTO0PfaBpJbBKPqkaWMLtJWcZXUZlk9UMTwF2PF
-	 pnqJ9mSYaqXqdImhJG1/832+4ggF5sg1utffUpCiXgG+5wLx+ysTbKM52LCgL7nvsZ
-	 juJ+ouhPrj8QUCEFC88trGxCDtIqsTWQZs9+FqkrGY62ZqGru7SwBKQKkImNizPzaz
-	 AEw/q2EBTOi795uOHoKrd09x7NKffWC6BgCQiG51eTO7/CjmzCB8pAW2BO0hfB4Axz
-	 cCyiD/R7QUw4Q==
+	b=XW9OST6F0RQ4TbzyzWEnp+8F3EWABd2upY6dDOLs/Z8Kr7a1bu4YMzfHzT+GOB99s
+	 l4pXh9hsokmlranexyP8T1KQIYRVojTNO2OkwH0aycwuRdesWAvZ6+b4jiyfsKlZPU
+	 dza36EViaNMsZP5A2rzChXSfoh4dX9g7AZ/KkKqBxxsZhzypxsg4krA7xJXeqxp0wB
+	 EsZQFTzce9S2eqqK65MUSKoAjYWxhusi+blKVl6tlKVz/T3nX/UUvzfPXFWucEWFwb
+	 F6GPHhR94PxfbdsC/luA+agiiur4GMAjp5eqoroBCnzlvorBtvW/ZnP9OwsJmqXtRn
+	 cRUChJ/9IROnQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Dawid=20Wro=CC=81bel?= <me@dawidwrobel.com>,
 	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
-Date: Mon, 24 Aug 2026 17:52:40 -0400
-Message-ID: <20260824215240.429752-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
+Date: Mon, 24 Aug 2026 17:55:32 -0400
+Message-ID: <20260824215532.431365-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082032-chlorine-handful-d6b4@gregkh>
-References: <2026082032-chlorine-handful-d6b4@gregkh>
+In-Reply-To: <2026082033-cardigan-abide-dec1@gregkh>
+References: <2026082033-cardigan-abide-dec1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,10 +82,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index c7d4dc553e6aa..8cf8a9b687961 100644
+index ae1a3be268372..e28d7274fb0b4 100644
 --- a/sound/soc/codecs/lpass-tx-macro.c
 +++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -1075,7 +1075,7 @@ static int tx_macro_dec_mode_get(struct snd_kcontrol *kcontrol,
+@@ -1076,7 +1076,7 @@ static int tx_macro_dec_mode_get(struct snd_kcontrol *kcontrol,
  	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
  	int path = e->shift_l;
  
@@ -94,7 +94,7 @@ index c7d4dc553e6aa..8cf8a9b687961 100644
  
  	return 0;
  }
-@@ -1084,7 +1084,7 @@ static int tx_macro_dec_mode_put(struct snd_kcontrol *kcontrol,
+@@ -1085,7 +1085,7 @@ static int tx_macro_dec_mode_put(struct snd_kcontrol *kcontrol,
  				 struct snd_ctl_elem_value *ucontrol)
  {
  	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
