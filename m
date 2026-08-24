@@ -1,114 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06D840B104;
-	Mon, 24 Aug 2026 11:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787571485; cv=none; b=HvAaFUVCNcn1Pt/67jk4TO14FBmRkmG5Gm0UZmixHA+P6BUSsfOFSj61QA87A3LQGsMqFXzsGOnmtth4thYuon1R/x3ALpogg3EDc++2FNtZbI8P22H4b19Q4mQVPy2x/hVxM1pVk9zAOACdolbSRALXbpgWqkMDZ2Fx8XJZEXY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787571485; c=relaxed/simple;
-	bh=eaRibzZOI4YUd0JJtNw6YOBGcNU3+xlM6gRdCa+m2Qs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VsA9SFi1iF5CPL8LYuh/Iowe2UR+U5kXlMIqEtPD6zmnxxWmtP1S2WUBkCwYFkGdVDEuDJK1QQxOkab2hXmIhWgxIeM0Coj0Jc9fMr/n0REjLt01rwaTXYjUrXfMaizn/cu4dfOQPuFle42mS5OcCrjrvzAyM/7y9/4vbGcUcps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aXlMMzXi; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C3140912B
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787571567; cv=pass; b=WAQ9ye4Ago4qRwTSRXx717HcwucXuk7msiCloaTFPC26DwtxXwh0JuAP5LhqcJUvQoXHfuVsnUUAiU3c4ItqDDE6N6oQRV/yCtFIczNLo4nH05PNoYVttG9L1/4bqwyUafdphbsByyU8lBXpHkceBqiSuBaEwTEEEs7pBqiytWU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787571567; c=relaxed/simple;
+	bh=IyHVcCjbrLsnikGSohgZ0HEcX226iRTLlWG+U7qEqvg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oIfLmFZa0Trw4O5SWKIi6Lqh/bpcY6+Ej75AKGRwsXD71ixW3uVqcWrEQ04dm9AwXcJ4GpW6TrvG5CnlLUwK/Zo/8Y1KDoEATjwTnND/iQAzx/RDFMA8Mcx4zQ/MZotV3rJt8N5ATR2YhJVetKIs3u/KUhN0k9uiJU/HxW34ieY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E9rTIKCb; arc=pass smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aXlMMzXi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787571483; x=1819107483;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eaRibzZOI4YUd0JJtNw6YOBGcNU3+xlM6gRdCa+m2Qs=;
-  b=aXlMMzXiQKHRNvubvjAdMnaLWbCX9pjmZi60+qAMzrKgZpGkBYUsJGhY
-   oD3AYJfWRUvH+dphSuxnuu+DUOWHNyeO9u0qCWx5SZRXJnn7TboRBQRXv
-   pB/8T25goCp7pndr/yaOQ0cqWsbrhkkyO6QPgcKCs0TFGpRN3+qBJ+8Qi
-   SdMyAHATbXsm+SoIMH2+loAtAwG4lpWBm5QuA9jVlTT0eGRyFTz2DdCrV
-   LdKuxyNyesD0gd52KcbvEa+ltDT14Sj8+Zgs0qnE9hLiDZ0evghCsfz6E
-   ePVcM0IKSTorj2R2r6Zzl73t+bRn48uU6hh3yEiPWpJagb2KylJRmm+e6
-   Q==;
-X-CSE-ConnectionGUID: Xr/OCrlDT5WiXR9ncNPeUA==
-X-CSE-MsgGUID: dF3RLXeeQGS1XygMsNUcLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="113552970"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="113552970"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 04:38:02 -0700
-X-CSE-ConnectionGUID: O1u0tRQxSMKyOcwPk2GUZw==
-X-CSE-MsgGUID: 1rOKWyhnR7+fhkdOnNJoIQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="290500688"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa002.fm.intel.com with ESMTP; 24 Aug 2026 04:38:00 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id A77EE99; Mon, 24 Aug 2026 13:37:59 +0200 (CEST)
-Date: Mon, 24 Aug 2026 13:37:59 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Konrad Dybcio <konradybcio@kernel.org>, asahi@lists.linux.dev,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/7] thunderbolt: Hold a router reference for each
- path hop
-Message-ID: <20260824113759.GH893316@black.igk.intel.com>
-References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
- <20260823-b4-tbt-fixes-v2-1-26a18a426c9f@kernel.org>
- <20260824104237.GF893316@black.igk.intel.com>
- <295cce78-47d2-4a6e-af90-696edb60a05d@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E9rTIKCb"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cf49dc28ccso4824915ad.0
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 04:39:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787571565; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bVil1iPNoee5YjbB8/R666WX2MVAcESYP/I8ld63IUo47LaqgbybhOyPtAJ7hkmXtJ
+         1Vj9iy8IJKwtVOlEw3aIdiXq4hs6swrRbliZX73vKCSL5TJwf5rwTVkSkfDqmNIqy+O+
+         2JzSczlQxbWIZ1YO5+nydPz1XKFhSpF0T3EbwAn9pKLiWq4VRRrp+1OzrWTwbfX2VZ9q
+         fSQIYenY6HZniRhxgtz+Z5IDzZem9+DTuyE7dI0NSzkMNvTHuVGXFTRlBrk1cPCSVqpm
+         cENFcF13EUXXvZ4Jws8EGxQxSVnBy6+WP36OpD2peAe1TtLyoDIOSq3hnEUE1W/70Nmc
+         CEVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IyHVcCjbrLsnikGSohgZ0HEcX226iRTLlWG+U7qEqvg=;
+        fh=x5E6MiUP9JXDiFL+hFvrbqRrkIyt+Dfdk317nOjOMjw=;
+        b=NoKVi/Z5KIbmwsi5UlNIZdZIEL2FpwWWFx8NNkBYYC0YSf4ODyt2n3qS+esT9Tbi3r
+         Fko0lPSljCzOxdwxdb8hn97xN2O5E0omoV7uTsU5ctJxGKJ6xo6zE0dg0gUioNKcyZGO
+         cI9XoO7Qnw6jAy2qPNmmgkoV0n1SJi38V88ga27M5t3UtBiA4Np5NLB534KWZ647qaBP
+         OtnT6BvxGf0ZosFwnvmBh0FYcrThxeSD+yqGmifbapryFNyuyt0z3MadAEJN1GOUql5N
+         k4giIFtkCqrbObH2tSalbMzoaGhQCsR5QtCvwDyUaz4UmWATypLfUd31F48pLijAPY7m
+         L9uA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787571565; x=1788176365; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IyHVcCjbrLsnikGSohgZ0HEcX226iRTLlWG+U7qEqvg=;
+        b=E9rTIKCbiUja8Rm2ds9mmHC6jiJmoLXzhHNYSY9fKwC5g3aRjhjgMIWxtn7h5mtSSB
+         7u/O+yPrlJatNt7z9Vs0wPLACBxR1vUMWf04AXN3GM5Smk8oiw8IMz4r5CNiDf56sBdG
+         2UTgOMXih+MvJffWJ6rpVokQRVDk/C13WCKS75gY9P5s7sY3VwJTHzUUbaLtQQEQvpEh
+         OnYDcxT9xPl7Dn8yXyaYpqVmeHzymUSClV6xksSPzCIlvEpBMS19olb45fqrGdvvlwJY
+         JvWGf/8enAqjCofCbsYtdZEezgmtUi/fPa3biGUUOu9QB2szjBuCFkkKqlUZrGn9kH4T
+         w7SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787571565; x=1788176365;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IyHVcCjbrLsnikGSohgZ0HEcX226iRTLlWG+U7qEqvg=;
+        b=Udg7n0bufYLW+gu6twpTiiqDVstkhKNXx6icGEm+Z1DV2Je8rEZsoVUvvfBUxxWfTs
+         CocnwgKdFLIJ0lP5wILASgORDq7TtbWqkQU5HLITzEWfy3UXXnI1G2oGwjLYfPTStR/q
+         RMTiQgIQvtA4TU9wBrCo16zmWfhsbQHzkog9YhA4ndyI3Du2prkZqbgs/QoTL5cuUyBU
+         TVB/e4TsjZzRhPiNLSrZ1XW15ranRiH2Q+LsPvFkVGI6GtcWt0qrcZV9Tyzlu1XMd8ll
+         AxtOXJknlWz3Y6iVIG84aNfalLoRI3sh0LvtiVI4MWhrwTdQ36aNsKD+qIs2NCROwM/k
+         r9Tw==
+X-Forwarded-Encrypted: i=1; AHgh+RrzAUNFXqrbWmtjRhrKnF3rAVomN7/lYK3qGXuCuK/tXNJGYiC1h39KdtjL5sNUzN4RUFZXaFs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMWIxEnqTBxXVYKrKLIY0TLRY2FcSrBhlYMYc2YPAJ/fPFslxM
+	j6zHSuEzLvzA2ZAlWtJVyi/RdAOCHA/mPrTYDNH3/npSRCKgy5Y6fvkDUgJuxzSCsKHqwFZGbOs
+	V/sIf4RpR4uEV9lb3zDDhSs5yii+aWWA=
+X-Gm-Gg: AR+sD11ifSL96xpnjIHk+Y1HGz7sWS8Dv07sq3IfBUx9X3QJ9QSMeC0pq1ULV4lyFrI
+	T2Ww0fU6jPxTxO30ySP4LY0ZUfhz3rXTvlg/+MvydV2ZoaOGadDuOtsRJrMH/0IumK+MQYf6ve7
+	CQzZGmbHElXMuyJh6wqA97POKcKEpZnBPAih4A7a5nCIALhGESMuUJIUvYvYSWi8wLTknFa4glQ
+	92M3vVUB7T3xq9efKPL30UFsTY4Q0vFyKxH+HPMfCsVZ9YS6LZsb9u00r2m7lFVd9DGC8SyPgNJ
+	d2/HOxOOdgzFK5SS8bPq+yWySmD049ljE2rKFB4fByOPTVFfiKBD8D8/94zNQ2aSRUEH9+1bmMW
+	BFb86rgll/qJhSXhVK6ud1ZhMGYMnyG5B/5PLVP0+EG/vzCWIkiCaBW4m6nwdcw==
+X-Received: by 2002:a17:902:f709:b0:2c9:d298:6c0a with SMTP id
+ d9443c01a7336-2d64b047823mr241046625ad.2.1787571565146; Mon, 24 Aug 2026
+ 04:39:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <295cce78-47d2-4a6e-af90-696edb60a05d@kernel.org>
+References: <20260824111227.742645-1-springbreeze@stu.pku.edu.cn>
+In-Reply-To: <20260824111227.742645-1-springbreeze@stu.pku.edu.cn>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 24 Aug 2026 13:39:10 +0200
+X-Gm-Features: AcwNN1V9wg3yKVAh9_mN_zlYKlheXes7kkLSKf2mSnLOgXogC2B09BSq1Bgm5ns
+Message-ID: <CANiq72nArSN90SWmPiKxYvnQUxuebJ-W8OiYqXmq2SZEfJnGGg@mail.gmail.com>
+Subject: Re: [PATCH net v2] rust: net: phy: fix off-by-one bit positions in
+ device status accessors
+To: Chunfeng Song <springbreeze@stu.pku.edu.cn>
+Cc: rust-for-linux@vger.kernel.org, netdev@vger.kernel.org, 
+	fujita.tomonori@gmail.com, ojeda@kernel.org, boqun@kernel.org, andrew@lunn.ch, 
+	hkallweit1@gmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Aug 24, 2026 at 1:12=E2=80=AFPM Chunfeng Song
+<springbreeze@stu.pku.edu.cn> wrote:
+>
+> Link: https://lore.kernel.org/netdev/20231123050412.1012252-1-fujita.tomo=
+nori@gmail.com/ # v8 cover letter
+> Link: https://lore.kernel.org/rust-for-linux/20260823103644.342849-1-spri=
+ngbreeze@stu.pku.edu.cn/ # v1
 
-On Mon, Aug 24, 2026 at 01:06:12PM +0200, Sven Peter wrote:
-> So unfortunately the entire USB hardware is best described as horribly
-> broken :(
+Not sure why the cover letter is linked (if there is a good reason,
+please keep it), but at least for the second line above: we don't
+usually link to previous versions within the commit message unless
+there is a good reason.
 
-:-(
+i.e. if it is just for changelog purposes (which is good!), then it
+should be placed alongside the changelog between versions after the
+`---` line.
 
-> For USB2 already we only ever receive a single hotplug interrupt in dwc3. If
-> the first device is unplugged and another one plugged in nothing happens.
-> The only way around that is to tear down dwc3/xhci and the PHY completely,
-> assert all external reset lines and then bring them up again.
-> Upstream drivers/usb/dwc3/dwc3-apple.c contains more details in the very
-> first comment at the top.
-> 
-> With USB4 this gets a bit worse: There's a block called "ACIO" (Apple
-> Converged I/O) which can only be brought up correctly after the PHY has been
-> switched to Thunderbolt/USB4 mode. This block has a co-processor which then
-> exposes the host router, NHI, IOMMU, etc. to our address space.
-> We then have to write cable information into a vendor-specific capabilities
-> register and only then do we get the hotplug event and the link comes up.
-> This register appears to be effectively write-once after each boot of the
-> co-processor. If I try to write 0 that still works but trying to write the
-> value for the next connection then crashes the co-processor with a very
-> helpful message along the lines of "assert 4357 violated".
-> So there's no way around first tearing everything down, then shutting down
-> the co-processor and the entire ACIO block and then finally bringing it all
-> up again after the next cable is connected. I've tried to find ways around
-> this but didn't succeed without documentation and could only reproduce what
-> XNU does.
+I hope that clarifies!
 
-Thanks for sharing the interesting details! I totally understand the pain
-of reverse engineering things. The initial USB4/TB driver was also result
-of a huge reverse engineering effort by Andreas Noever, but it was and
-still is functional, and we still support Apple TB1/2 hardware (although
-not too much testing is done these days, I fire up my Cactus Ridge based
-Mac maybe once a year).
-
-But okay it does not sound like the PC ACPI hotplug "solution" we had at
-least. It's just a much more complex subsystem with many interactions that
-need to be done in certain order which is not documented anywhere ;-)
+Cheers,
+Miguel
