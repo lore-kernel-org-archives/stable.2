@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CA046C847;
-	Mon, 24 Aug 2026 16:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB7546E002;
+	Mon, 24 Aug 2026 16:51:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787590264; cv=none; b=UoxQ2PYUvxHDVMt4BdcILStRwTrxXanzZGI/82pZNGN/8ZPCG/D9PHx4aukKViBiyCN8nH+pz8eOhwkp9HZDYBBX+otn/W5rZZaMsN03fKWSxrZXgffuFxLe4/WCj7BmqPWsAgDRQT8zdYZTH1oUnOZ/uOgSLU4dT+MQIIZ3lII=
+	t=1787590268; cv=none; b=jEwmxZB0lb+oFHMVoGT8xWWHuNTWr/X4tLU/6TvZVEJF+zY4DBUNs5gC/rRJHiIX5Tm5WXdGIQ+TgFWjhiIi3ZjAngtySYLg2/MoUYllUKID77UZiJeBKwJt4ZinxarVvxjKCYzvmLGVBXKtUBAbuY8Qk8ZSRZYirNdaPCa/zEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787590264; c=relaxed/simple;
-	bh=SXsX/EIm3gnCBZwNm6uHPm8S2fRnNY3XmvWqWnfj3xM=;
+	s=arc-20240116; t=1787590268; c=relaxed/simple;
+	bh=BE0jL4ik1HAZPbcNkv3o+tJrXgHy7UNKNVOByIRoncA=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=FugYWMIyi79lkHyXXmsx2q1IkNfMjUmhBB17kiBGxhTxYysC1yGfLDvH+N2tW3iUznHlEZ0G5p+2/VyOQtxT8NXiHYYs6p/Di2yUOwiNrR/Xf5YdsEm6o1ixEzMFvJEBiQg1END+urGiaOyyydkDkmabp0n1cu7u5QpSk8+4QNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i177Ruln; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=CjfnCpV01akCPZKA4FwvPqDLBGJcZh7PlZg6hPTn5mfCLt1l0NaS/hM6wuUbYZ2gPr4u+1K8ewu3W2IZ8fTlFmV4GZctC30eDlgrEXWXsLW8H6hGUr3dQxNfrKVfdG4rxR0KWe+6Rd3R8JNy4eu6Gfl2zAbVfsx1A4HsIl0WXLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fa7B2Xot; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i177Ruln"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51FEA1F00A3A;
-	Mon, 24 Aug 2026 16:51:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fa7B2Xot"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FB321F00A3D;
+	Mon, 24 Aug 2026 16:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787590261;
-	bh=dcJ9eGwTufyPuZGfIoQs/6brY3popS9qR1vvr2CuF3I=;
+	s=k20260515; t=1787590264;
+	bh=o9DM9p8kHTRfmwXvkHwgp8dNOQD92bDHRYyRFwOKfpU=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=i177Ruln1SVmgiBGBCI+6mMAQHsY2sK43iWwjfCXg2ZIakEe+c/fn+AhwWWMYMee3
-	 dTV94GcADDlwGUQrN1Ip9wCQvhvH76T/VzToNjL0KQXZtLeBNjAMPmXP3cRO9m8MHv
-	 g4OToweKDl1e2tGXuf8hPoHo+gYIVo65gHWpQw8oHhxwIrGKdZbH6uyCpGcaW7FAQr
-	 PYrast+V1hQLB+8sb2v7E7POriX19Q91/WR3ehq+SWs4XkhfVnFKGetDYWHLDVYsSW
-	 fioOAQansQRyAEAZRwUTktusssAvMlbKXr2t1wfDcpVCVsVP6CZ7THW9apjh5Tbp1c
-	 /PiFI740FkaBg==
+	b=fa7B2XotEUKPpxqqJOOKwqrb0uXC1gxaPGcpL+hIn36hZe+r0RKOdX7eujUpO06KK
+	 maupBDLE20DJB88PRLiaeKJZwVh619CIlOlkkuRfQ+//2kSt+pJ06jIf2y0MoO4BS1
+	 nz+wRgyDamXpOUe3/AiR/cQ9Mj8LdNOvpDThRhJbxEt4KW2Bfm3C1eJ6ulro8o4oPO
+	 kZ+jxtK6BLnVHVZnobzg+rMD0t80y6+XILVAsNIBG8OLsl9RWWOrFEF8PInnt+WRtm
+	 Efq+YTxKeB0kCTSfxrvWRsqAvDQXqYkhdLfQ0gaq2U1RAANz0lbrrTL0jzeD5LH+i6
+	 DJ89AVI8k6T4A==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198303924478;
-	Mon, 24 Aug 2026 16:50:10 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D33953924478;
+	Mon, 24 Aug 2026 16:50:12 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,18 +37,19 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to
- 0bda:a728
+Subject: Re: [PATCH] Bluetooth: RFCOMM: serialize security confirmation
+ handling
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <178759020863.3014491.13354284194463299863.git-patchwork-notify@kernel.org>
-Date: Mon, 24 Aug 2026 16:50:08 +0000
-References: <20260824053227.317496-1-junjie.cao@intel.com>
-In-Reply-To: <20260824053227.317496-1-junjie.cao@intel.com>
-To: Junjie Cao <junjie.cao@intel.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ <178759021163.3014491.6954824460297136867.git-patchwork-notify@kernel.org>
+Date: Mon, 24 Aug 2026 16:50:11 +0000
+References: <20260822164341.3750491-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20260822164341.3750491-1-nicoyip.dev@gmail.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, kees@kernel.org,
+ kuba@kernel.org, ali@iusegentoo.com, tim.bird@sony.com, suunj1331@gmail.com,
+ gustavo.padovan@collabora.co.uk, Dean_Jenkins@mentor.com,
  linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- alexej@sidorenko.cz, regressions@lists.linux.dev, sashal@kernel.org,
  stable@vger.kernel.org
 
 Hello:
@@ -56,23 +57,19 @@ Hello:
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Mon, 24 Aug 2026 13:32:27 +0800 you wrote:
-> Commit 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE
-> extended scan") set HCI_QUIRK_BROKEN_EXT_SCAN for every CHIP_ID_8761B
-> device to cure repeated 0x2042 failures on an 0bda:a728 dongle. The
-> brokenness is per-dongle, not per-chip: on a TP-Link UB500 (2357:0604,
-> RTL8761BU, fw 0xdfc6d922) extended scan works, and the legacy scan
-> path the quirk forces is what is broken -- LE Set Scan Enable (0x200c)
-> times out with -110 about 30 s after firmware load, btusb resets the
-> device, and the adapter re-enumerates in an endless loop (382 firmware
-> reloads in one boot). 7.1.8, which predates the stable backport, runs
-> clean on this unit; 7.1.9 loops.
+On Sun, 23 Aug 2026 00:43:41 +0800 you wrote:
+> rfcomm_security_cfm() looks up a session on session_list and then walks
+> its DLC list without holding rfcomm_mutex. Since RFCOMM session teardown
+> uses rfcomm_mutex, krfcommd can close and free the same session and DLCs
+> concurrently:
+> 
+>   hci_rx_work                    krfcommd
 > 
 > [...]
 
 Here is the summary with links:
-  - Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728
-    https://git.kernel.org/bluetooth/bluetooth-next/c/0c9d2588a514
+  - Bluetooth: RFCOMM: serialize security confirmation handling
+    https://git.kernel.org/bluetooth/bluetooth-next/c/40c621391de9
 
 You are awesome, thank you!
 -- 
