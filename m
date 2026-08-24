@@ -1,78 +1,82 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACD336A352
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629593EFFBA
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:23:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787584869; cv=none; b=fFLQEtGrYrJObwjTtimYwQpiwkSkRPVPboxpvs8fVjiWwUSdzyJyDZpGtrncbpzKLT2B4+otTGnEA5I3InGQfFPRrClkPeTB+qC0drPJi0499TgaZN8kbfC0z8kdGuyyhPspEOel7uQHmn4MXZKHA49OeIVqdHyAMTq7TSrRPiw=
+	t=1787585021; cv=none; b=lbVcetvC9gjN3paTeFYtBFnyFkeyBrnB70vwy1wfpGF/kU4upK/cqoEGfEDCHmgp1KGlvwf6/hxOW07MMpHen3vXjidRmHG8KUuzOFNKEQMm+5zHUpOr8+vTTGknVO1prtk2ecvMlpeB6TEDbfu0Vdz3RiU2q647INtTDj3HBik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787584869; c=relaxed/simple;
-	bh=XY2OgZaePqMnmpH5RREj5/3sAFhLh/26g3/Ol4N3ewo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d5UuxgKJlTc95Qa0MJUGoCne2bSC2VwUvSz9gyD6JutrmaLmVggE7vSnRSQShxvwuNGF0cy/1LtgLSvJtUDk5j0nx+FdkrUyJMdtU9D0pNY7eORB3jYILSUDljSl7u72MxIG+HP3QH+6oRFKS9rZV4QqK7tf7eKr1pHJoNFVfqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RALPA1WH; arc=none smtp.client-ip=209.85.128.177
+	s=arc-20240116; t=1787585021; c=relaxed/simple;
+	bh=hYw7cY7OvliXTsXG2DhqQQpoKZ04lNep+PHc/o1u//s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cWjoYYsRLvgXIVvdvim0Dnff9CorlxlWcYqhXKD0udrzOWKrG1uKyfqg3pJ9VfUkTRKypcHT5KXlB+mAd36Lswb5Olg2u7T1O9bBppJ58sKRFPPekiMAsxRxFjf4A7rhRnTeDcbpkhRAy2gnBCXzG79L/X9ZKQTZc3C5TBPBR+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e8fz4OEx; arc=none smtp.client-ip=74.125.224.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RALPA1WH"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-847ffc4fb1fso1920247b3.1
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 08:21:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e8fz4OEx"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-669bcef451aso395701d50.2
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 08:23:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787584865; x=1788189665; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787585019; x=1788189819; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d5uQFclyHynCG/0FLEAf23P/Cd+g9q80jm8OGZqPvec=;
-        b=RALPA1WHSXLP1JkVHUcJDsei1iEPqgWD0iiFuxtwm4WM7nrvQXlWkNENjFaObGAzSU
-         r9McLzOd33bgGf5Uc2yr1VeqDSrKWLl/zluKCrSCZe9P5vddqgYi7nr9PvUnE94oI1et
-         1XF8IGUEnIM8vhD3GOXE3/B/Bl/Q6XTMN2f1/cUvATabIkVV3Wjd7XVdiPfqukfUOB4w
-         lTHL5V+mYlFz5a2Ci6vJmCIXsAq6TBdk6y4CEMhk80TMsMRSXJ4GmUGxtI6skml9jjG5
-         1s7J7nHMoGC2hDnntkL0h3EpCQ9oytzOU9JL+TqUyxmTs9aRTb/fmsOZTf99Lh0j0tzb
-         MzTA==
+        bh=ApOsiVTZO2JtdB21Z6pP35hGptW3NA1WFLKYP2hHn7c=;
+        b=e8fz4OExPhrQpoLn3q3MmA6nw/X+OJPmzd7JtS1SI8dGWdAkUGd1MS+XPWoQzbpfPd
+         TaKn6cvR2BqqmNO7EsDF2WBZNCciq/QrdMMCjJaDxClAmYdFs1CtB9UeBrPBx6XPuCnk
+         +Ray11mrTzbruMD9GLQwtCq5fIJKo7OBitNVYcWhsZkwu3P9jZ8dyPs6QcRyF+rSvboe
+         FMF74xxUKlW9LADegKDY6wIzqkuFGxAZm9uyWJYNaSHcHhs2XW/pxF2SwwiwXt2cV8UL
+         jIXKOtrNATNqKpq/qvCUOgzcesM1Vwn5SkiZrR9QBGUy0DNieH8YpIk0hKyPs5XAVFPC
+         q8kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787584865; x=1788189665;
+        d=1e100.net; s=20251104; t=1787585019; x=1788189819;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d5uQFclyHynCG/0FLEAf23P/Cd+g9q80jm8OGZqPvec=;
-        b=KbhtX66hG8pWICDPhEbQ946Mpm7/yQ5DYxx/BdAOqDNoTGxXNw/HoJZNknhLRYakZ6
-         Eem1nVF5K5p+RgwOwn/FNhBroKDK4GqYOHhbTDEW08I9S7QjGxDFbQWZFZ0TklZ41BaB
-         q+fER8H03Pl6Kazxa4kiL+MzR4HDMRGEPhYpwJT2aG2BXCHciiNgSEnz9dtSL6mmeL+u
-         xOVm6Mo35Oq9dsxFEe5lEpD3zaIgMlh23KJJyjkolqWL/j//bFNSvywLKjVM1Phmg7tC
-         1pBCJqZc7Il/RwD0cNBRcCgeS70eHxMDStCCHXACO6UU1DkTZDr3UWM2loxkijRlhvUJ
-         /Ztw==
-X-Forwarded-Encrypted: i=1; AHgh+Roz55mZecpLDHFmxw8+TpdijD9XSEp0JIfIUrfnovNnD2jzmZW+EV8EGY4acL/qmfY6lsEw2g8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEW9xoLf81bBtjNzFiAg1N/6rpzlSkOEnmg7JtdkWBULE3P06s
-	rki9DKa1f0fpDjfdXXoMkzmWuLAi29XUu25JsEmCS8xrT41j9AI+Bo3t
-X-Gm-Gg: AR+sD12wmmvrnGALSjAM8JVRw+p5jjmeD0JKdiejJZmUOwQ04yx4tylqey0pDRhlTaL
-	Cda6PeE34peqNrI/mGX1ce7dekQjpBR/TjnZp1yjphM5KQrPPEijxN4xvEu529xBKHZiQRyUJ+0
-	I5PXN2D1vg433M09a92/GzCFNvaxirKsAQ/E3vKP4g4HQwPRdjtXGt7BFh0ek3k5Q+R/CR1ou5Z
-	DSCmMSogsLHsEESe7F4XPIhKW3I9UFPwJqtxP6mIrlOa3AAHBh4Mu/U+KqyOAIv9OlpRV30TLvG
-	QK+Fp9dDEgTboyTOGInjMxIpxcHOBnSY+S8/nYThZitP6Jy5oQZePAX6A59dlJnnVWvMwHOx0nD
-	jgwdA1gqyFwFziKkL9pd1VBjQYzCryJ6B/4reUseRFjvsaOmmkLQI03e29Obdwr9B3W4ismaZy1
-	9oAJv70HvZ8HV2cE3fkV0+HOfHtl8yNJPYwiocs5HzrVIvm5WI0hYjx4Ops0gvQvZ5hSQIWHJ9b
-	OhMN7JU0ZEqjJXFFtZbG3zojd17gFBlxyQsRWJa6y39i2WZAosp23NCYe2TjhgRGw==
-X-Received: by 2002:a05:690c:4f82:10b0:853:bc96:d834 with SMTP id 00721157ae682-853bc96ea4emr10826257b3.2.1787584864959;
-        Mon, 24 Aug 2026 08:21:04 -0700 (PDT)
+        bh=ApOsiVTZO2JtdB21Z6pP35hGptW3NA1WFLKYP2hHn7c=;
+        b=A6Nui5HnTLSKkXl/cOSlaVLo8ce1plTRYysQKJ0U23s0gCijFtZet9zrbnkTjGkqeP
+         nJZbQQo10zsmFFNNZaUtg0FgXIwJQWD1tDOTx7j+i5LVUjbFb55epou2Tz2mLkSuDwR2
+         4uW05ipZWDWrsMbLcPPHhFOzxxLQZlekCquf4WlsmjAXGAJ0BLdrhttAkMnkxbIT46G6
+         Gtjb8At/j87acAgDl7/xSO9BLn84YPeVkwHigoElvjbZikkbjgxpAtAzBwBYKydKnvxp
+         EbLjfacaspa/VsXaGlI3Tsvbkfp9qGpqm27tNZbinTW7LRoNWhiNPafZs//j0x1MURQV
+         q6cA==
+X-Forwarded-Encrypted: i=1; AHgh+RpcAsxOHeWoNti92mPw6iyOirBYdmj6QNRUzkAgfyxyIzTvJ3M/a2Lw7utI4a6FsPmdGbyPYrE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMxGxArpk/4Ucjuk0586Jh1vyTj5ncbpl+VuGuXCcnLW9xPWYA
+	sV9aDG5+nN/88q5S4W/G0TL8MOwTErAw0dfS1B+SSmFFG3UrHIVWmIm1
+X-Gm-Gg: AR+sD11moE4g10Bf/jpReZk3wXnNbUfs6HTyrDOPD3b/RcBqmnzIjne6RCliL3pdU7N
+	0F2ptqzQxG6gwUNVow5pMVxa4Iua7V7R41enqzW1S4u+p8/5DJDPO0T8HAeuMhzVJlRvZqx4lB5
+	56gai9qlbn96LUzc65Ud2hDjd+VuNgYXMWlC68AA8MfIgsAZEjQazurWohOH3x5ZBB2mafX0cOG
+	WHhTC7xvDfFSWXAuQey8vScOogDjbZ61HqtcpzjkX+Xl8s7WwjtsX6c+lI4XhDM2cFpPvkR8Gyt
+	wlhwDWC1rNPwricX0p5HgNOyb5GuIlWM4vaWLHyuW93ciKTYe/VPbE4380L5ER59Hk9xVv7lcpP
+	f5y/i0gQ5KzF7S8mBW8ifArhoXP6ujh6fBRYSDx9Z4ghfJeJabYx5TrRhGGtUGcMvUDRJhP01hl
+	eRQZFFU7y0PAD/PqYbVP7SIGn4FNHOeUPV70cX6OPJefkEZFIdz98H1Q1nV2FmraxtgyI88Gevm
+	yKZljSvyApb+VLMzczDyGY16CxrdtkRZ3fIHZs+Au150DROotUFqs2mbe3S
+X-Received: by 2002:a05:690e:80d:10b0:66b:2964:eb0a with SMTP id 956f58d0204a3-66ce4ae6f92mr6238565d50.3.1787585019068;
+        Mon, 24 Aug 2026 08:23:39 -0700 (PDT)
 Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-84cacac4e25sm35572937b3.47.2026.08.24.08.21.01
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66cfb3671f5sm3062475d50.15.2026.08.24.08.23.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 08:21:04 -0700 (PDT)
+        Mon, 24 Aug 2026 08:23:38 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
+To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
-	Florian Westphal <fw@strlen.de>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Qi Zhang <marsy12010123@gmail.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Alice Mikityanska <alice.kernel@fastmail.im>,
+	Florian Westphal <fw@strlen.de>,
+	Jesper Dangaard Brouer <hawk@kernel.org>
 Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net] xfrm: retry inexact policy lookup after node reinsertion
-Date: Mon, 24 Aug 2026 23:20:57 +0800
-Message-ID: <20260824152057.216329-1-nicoyip.dev@gmail.com>
+Subject: [PATCH net] net: pktgen: keep device lookup under RCU protection
+Date: Mon, 24 Aug 2026 23:23:31 +0800
+Message-ID: <20260824152331.216494-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -82,83 +86,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a newly inserted inexact policy covers multiple existing nodes,
-xfrm_policy_inexact_node_merge() removes each policy from the old node with
-hlist_del_rcu(). xfrm_policy_inexact_list_reinsert() then immediately adds
-the same bydst node to another hlist. hlist_del_rcu() leaves ->next intact
-for readers already at the removed entry, but the add overwrites it before
-an RCU grace period.
+pktgen_find_dev() releases its RCU read-side critical section before
+returning pkt_dev. __pktgen_NN_threads() then sets removal_mark through
+that unprotected pointer.
 
-This permits the following interleaving:
+The worker can concurrently remove the device and queue it for RCU
+freeing:
 
-  CPU 0                                  CPU 1
-  -----                                  -----
-  reach policy P in the old hlist
-                                         delete P from the old hlist
-                                         add P to the new hlist
-  follow P->next into the new hlist
+  CPU 0 (netdevice unregister)     CPU 1 (kpktgend)
+  rcu_read_lock()
+  find pkt_dev
+  rcu_read_unlock()
+                                   list_del_rcu(&pkt_dev->list)
+                                   kfree_rcu(pkt_dev, rcu)
+                                   RCU grace period ends
+  pkt_dev->removal_mark = 1
 
-The lookup can then skip a matching policy and make an incorrect IPsec
-decision.
+The mutex held by CPU 0 does not cover the worker and does not delay an
+RCU grace period, so the final write can access freed memory. KASAN
+reported:
 
-During concurrent policy insertion and route lookup, KCSAN reported:
+  BUG: KASAN: slab-use-after-free in __pktgen_NN_threads+0x241/0x280
+  Write of size 4 at addr ffff88810dab804c
+  Call Trace:
+   __pktgen_NN_threads+0x241/0x280
+   pktgen_device_event+0x24e/0x3d0
+   unregister_netdevice_many_notify+0xde8/0x1ec0
+   rtnl_dellink+0x35d/0xa90
+  Allocated by task 92:
+   __kasan_kmalloc+0x8f/0xa0
+   pktgen_thread_write+0x498/0x14e0
+  Freed by task 0:
+   __kasan_slab_free+0x43/0x70
+   rcu_core+0x50a/0x1850
 
-  BUG: KCSAN: data-race in __xfrm_policy_link / xfrm_lookup_with_ifid
-  write to ... by task 92 on cpu 0:
-    __xfrm_policy_link
-    xfrm_policy_insert
-    xfrm_add_policy
-  read to ... by task 91 on cpu 1:
-    xfrm_lookup_with_ifid
-    xfrm_lookup_route
-    ip_route_output_flow
+Move the existing RCU read lock into the sole caller and release it only
+after setting removal_mark. The object therefore remains alive through
+the dereference, while lookup order and control handling remain
+unchanged.
 
-The per-bin sequence counter already brackets inexact tree changes,
-including node merges. Snapshot it before candidate discovery and retry
-after evaluating all candidate lists if it changed. This rejects results
-from any traversal overlapping reinsertion while leaving stable lookup
-order and locking unchanged.
-
-Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
+Fixes: 8788370a1d4b ("pktgen: RCU-ify "if_list" to remove lock in next_to_run()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- net/xfrm/xfrm_policy.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ net/core/pktgen.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 932a313b9460..5d4e863863df 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -2157,6 +2157,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 	struct xfrm_pol_inexact_bin *bin;
- 	struct xfrm_policy *pol, *ret;
- 	struct hlist_head *chain;
-+	unsigned int inexact_sequence;
- 	unsigned int sequence;
- 	int err;
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 7f81aed46672..4fb1853589b3 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -2032,14 +2032,17 @@ static struct pktgen_dev *__pktgen_NN_threads(const struct pktgen_net *pn,
+ 	bool exact = (remove == FIND);
  
-@@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 		goto skip_inexact;
+ 	list_for_each_entry(t, &pn->pktgen_threads, th_list) {
++		rcu_read_lock();
+ 		pkt_dev = pktgen_find_dev(t, ifname, exact);
+ 		if (pkt_dev) {
+ 			if (remove) {
+ 				pkt_dev->removal_mark = 1;
+ 				t->control |= T_REMDEV;
+ 			}
+-			break;
+ 		}
++		rcu_read_unlock();
++		if (pkt_dev)
++			break;
+ 	}
+ 	return pkt_dev;
+ }
+@@ -3776,7 +3779,6 @@ static struct pktgen_dev *pktgen_find_dev(struct pktgen_thread *t,
+ 	struct pktgen_dev *p, *pkt_dev = NULL;
+ 	size_t len = strlen(ifname);
  
- 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
--	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
--							 daddr))
-+	if (!bin)
-+		goto skip_inexact;
-+
-+	inexact_sequence = read_seqcount_begin(&bin->count);
-+	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
- 		goto skip_inexact;
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(p, &t->if_list, list)
+ 		if (strncmp(p->odevname, ifname, len) == 0) {
+ 			if (p->odevname[len]) {
+@@ -3787,7 +3789,6 @@ static struct pktgen_dev *pktgen_find_dev(struct pktgen_thread *t,
+ 			break;
+ 		}
  
- 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
- 					  family, if_id);
-+	if (read_seqcount_retry(&bin->count, inexact_sequence))
-+		goto retry;
-+
- 	if (pol) {
- 		ret = pol;
- 		if (IS_ERR(pol))
+-	rcu_read_unlock();
+ 	pr_debug("find_dev(%s) returning %p\n", ifname, pkt_dev);
+ 	return pkt_dev;
+ }
 -- 
 2.43.0
 
