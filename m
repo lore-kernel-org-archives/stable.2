@@ -1,150 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFD0411FB8;
-	Mon, 24 Aug 2026 12:01:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC3F4189CC
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787572912; cv=none; b=aLIWjdfmUe8O53Q7ahUMq6TnAnOAn8TbhH7cvR7Y7PVcCin2ABJvafPDs3KsdNdx4vgSMAMdBycKyix4K1FK4MsmYuZF41qAQCMPpldoH9WK1gHDVqV1eHAcXo2loxVl6A3i/QxjyH2cGAk8jIN8EYB8bMEJRxoWoeu98Irn00M=
+	t=1787572966; cv=none; b=VpqFmV3RNXbDQpEf8hgcNcF6j6DYNwAo0cPFQbv0IrzD6uWBhxUdIktYtisCwt0hIZpGUr6JOVbX/QjPcJvEXWYWbO9PtgcwXnxlbhdaH7In0eCpW/eUG4qtU+QdULbvVkKdx040s5eMZO/qxH7UMAOIMqMwox/qzscCTzBTPx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787572912; c=relaxed/simple;
-	bh=bd+SvbArwpaqiMOHk197Gbuk0I37mXJH8PMk5UrlrEU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ozSwiOvOje67NUxkma8ay50yJTYzJlIMCW3ubuULhZSI5+9Yx3MZVFGAIyeAvaJVgJMULMc3GZ82NvuBtGpYG3TC45kH4M1XWeWRCvlAOEsAVtBv0w93dB2IM9RbNQe36DV2Jr6myekoLoTGgNi7QRBYRfqAmdO0gatSSMgbg9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eiHrhdDs; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787572966; c=relaxed/simple;
+	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WARBMr5Wu06EP0RibDA3UFkK79gK//pfFRBMi1KLuPc3rKOq6tRyup1ubmpzqIXh1C21gR6+VFp0uM8ELzR3CwYwWZ9ZOgW478Kx0ybRmjQtoGd4KdB2jmQKXBg0DSGthnNYgiWfDg7bmcWhrXxsaL9rnW3OwQ8uXlUyz3N2UnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=D3W49eln; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eiHrhdDs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787572911; x=1819108911;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bd+SvbArwpaqiMOHk197Gbuk0I37mXJH8PMk5UrlrEU=;
-  b=eiHrhdDsSgsQ8ED7QXnaZfnjUVUmz/sm2Hsyb8Z/2uxNkmExhE6/st9f
-   y6tOqUjGY/DCyukGwZNn5eqPlR7MbHulWYgAnKX5vHb9rt36MhFHiZkK0
-   9p+03uSaogHHz1bIlon74ht9WOux0Y2gO94XjPUcJnhrImKYOwI3pEp/w
-   s/U/GVVNab1qvTHfyNxMR2sqSQm2bayeTnTjvYVXmQML3Z+LE1tfsSN5B
-   tVEzrC5mq3BvHGIJBkSbPrrYz9/4K3Dm9XTLsK1KfthLx29AyIc/VhmGp
-   BWMwoedDUyb1Np4xGk+pho3WPD/0+XHsJwqbjetNwJK0T2LM84iMk6HkC
-   A==;
-X-CSE-ConnectionGUID: k7bnqMLfRlCFIeQM2sJY8w==
-X-CSE-MsgGUID: Q+vwgjsVRZ+LapyeaOLRHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="99546382"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="99546382"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:01:50 -0700
-X-CSE-ConnectionGUID: B4++PNuNQE+mtSwQGlK9Mg==
-X-CSE-MsgGUID: rKyuEJ76SYOQD0lYMYzDSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="266461788"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa008.jf.intel.com with ESMTP; 24 Aug 2026 05:01:48 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 98B2899; Mon, 24 Aug 2026 14:01:46 +0200 (CEST)
-Date: Mon, 24 Aug 2026 14:01:46 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
-	kernel@dh-electronics.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: mux: avoid duplicated mux switches
-Message-ID: <aowyqsM1zuT77q3d@black.igk.intel.com>
-References: <20260822072556.490594-1-marex@nabladev.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D3W49eln"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787572964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
+	b=D3W49elnGCAY//L/jkb44zdug7XtToWW7ewr/taqmqCZ57ddu5/TXZpJrzIxA/VbxGTJyx
+	wP4Q/PufKgT/4ftb5klI0zPQ5BsgK9cqlMUgRU44i1QDw0T9+eC3LZigB0wj5+rN+YgtU1
+	rptjeLBIiQeOVqqFQ8jcrKBOb26Jo18=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-QKIZ5IQHPW2M0-MoD0otjw-1; Mon,
+ 24 Aug 2026 08:02:37 -0400
+X-MC-Unique: QKIZ5IQHPW2M0-MoD0otjw-1
+X-Mimecast-MFC-AGG-ID: QKIZ5IQHPW2M0-MoD0otjw_1787572956
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2192A19540C5;
+	Mon, 24 Aug 2026 12:02:36 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.15])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7F8A11800257;
+	Mon, 24 Aug 2026 12:02:32 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] netfs: Fix uninitialized return value in netfs_unbuffered_write()
+Date: Mon, 24 Aug 2026 13:02:20 +0100
+Message-ID: <20260824120224.504575-2-dhowells@redhat.com>
+In-Reply-To: <20260824120224.504575-1-dhowells@redhat.com>
+References: <20260824120224.504575-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260822072556.490594-1-marex@nabladev.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Sat, Aug 22, 2026 at 09:24:58AM +0200, Marek Vasut wrote:
-> Some devices use combo PHYs (i.e. USB3 + DisplayPort), which also
-> handle the lane muxing. These PHYs are referenced twice from
-> the USB-C connector (USB super-speed lines and SBU/AUX lines)
-> resulting in the mux being configured twice. Avoid this by
-> dropping duplicates.
-> 
-> This is a re-application of b145c3f29d62 ("usb: typec: mux: avoid
-> duplicated mux switches"), with fix derived from usb: typec: mux:
-> Fix typec_switch_match() .
-> 
-> Fixes: f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux switches"")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Co-developed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+If preparation of the first subrequest fails,
+netfs_unbuffered_write() exits its loop before ret is initialized. The
+empty-iterator check can do the same.
 
-> ---
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Cc: kernel@dh-electronics.com
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-usb@vger.kernel.org
-> ---
-> - Extensive test by Jens https://lore.kernel.org/all/8bdf6062-8ec2-4c30-8463-0368d3a0f1ce@oldschoolsolutions.biz/
-> ---
->  drivers/usb/typec/mux.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
-> index 2bc7e8edb3cbd..afa6fc1813978 100644
-> --- a/drivers/usb/typec/mux.c
-> +++ b/drivers/usb/typec/mux.c
-> @@ -277,7 +277,9 @@ static int mux_fwnode_match(struct device *dev, const void *fwnode)
->  static void *typec_mux_match(const struct fwnode_handle *fwnode,
->  			     const char *id, void *data)
->  {
-> +	struct typec_mux_dev **mux_devs = data;
->  	struct device *dev;
-> +	int i;
->  
->  	/*
->  	 * Device graph (OF graph) does not give any means to identify the
-> @@ -292,8 +294,18 @@ static void *typec_mux_match(const struct fwnode_handle *fwnode,
->  
->  	dev = class_find_device(&typec_mux_class, NULL, fwnode,
->  				mux_fwnode_match);
-> +	if (!dev)
-> +		return ERR_PTR(-EPROBE_DEFER);
->  
-> -	return dev ? to_typec_mux_dev(dev) : ERR_PTR(-EPROBE_DEFER);
-> +	/* Skip duplicates */
-> +	for (i = 0; i < TYPEC_MUX_MAX_DEVS; i++)
-> +		if (to_typec_mux_dev(dev) == mux_devs[i]) {
-> +			put_device(dev);
-> +			return NULL;
-> +		}
-> +
-> +
-> +	return to_typec_mux_dev(dev);
->  }
->  
->  /**
-> @@ -318,7 +330,8 @@ struct typec_mux *fwnode_typec_mux_get(struct fwnode_handle *fwnode)
->  		return ERR_PTR(-ENOMEM);
->  
->  	count = fwnode_connection_find_matches(fwnode, "mode-switch",
-> -					       NULL, typec_mux_match,
-> +					       (void **)mux_devs,
-> +					       typec_mux_match,
->  					       (void **)mux_devs,
->  					       ARRAY_SIZE(mux_devs));
->  	if (count <= 0) {
-> -- 
-> 2.53.0
+For synchronous writes, netfs_unbuffered_write_iter_locked() may then
+return an unrelated error instead of wreq->error. This is reachable
+through CIFS if cifs_prepare_write() fails to reopen the file or obtain
+credits.
 
--- 
-heikki
+Initialize ret to 0 so the caller returns wreq->error if no data was
+written, or the number of bytes already written otherwise.
+
+Found with Clang's -Wconditional-uninitialized.
+
+Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+---
+ fs/netfs/direct_write.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index c16fbad286a1..b04019097ab8 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
+ {
+ 	struct netfs_io_subrequest *subreq = NULL;
+ 	struct netfs_io_stream *stream = &wreq->io_streams[0];
+-	int ret;
++	int ret = 0;
+ 
+ 	_enter("%llx", wreq->len);
+ 
+
