@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A453233E8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AD7324716;
 	Mon, 24 Aug 2026 13:32:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787578376; cv=none; b=EhFqKK/Pw+/FGoPBB9RkenjuX3ZakO+GAi8r/8dYu2NE/sbuiksGqKXeWf/H1vPbDYto1GmFDhDoWcTBGfGAHoSQE5M3V6x80VTdZXQviAxxAMCS0sEjyv1Shb02dnGLs24C1Se7/Ic3rT7Fe3N6dE/aYIRsdZ9CmIp20r5TEs8=
+	t=1787578376; cv=none; b=Z1rFXGzAQ3iDrZUPnr4eUw2061yAxGKi6V6VHGpj8+L+rDpGxkshe+ftVCn1D9yrcqqil++i3geL4yzA3yijAcmtdngEzRqhadwggxMgxSt4sKEM+sKF++KxXEcg//KG9TLfsqLQZxF31LldOLdO94ebs/GhUuURLjshaQnsOq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787578376; c=relaxed/simple;
-	bh=bqxr7tJMlMv9QBqyGWY6/PLr9AYldw0DmoB+D9A7GFc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZFj6nsQdYgX86BBFMLhLO60oIauvyFh6LaCzeeEsttca+LZZsDBx1sC9PBDLazr0fjPksVmVk6SLV+r+yC2/knvzb3EihNW8a1gMj2kVfaknFn6Enpth3KNKL2EJm00NhIsvTeYITojN1R3r6aYMSAC+Ggn3VS7jgbQ76psEl9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8kAsPfC; arc=none smtp.client-ip=10.30.226.201
+	bh=m8oDTs2Omttsm2iVNRsyL1KTq7wF+IDuFw+OPYgP+Kg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oWR3iiqOCUAFqO4MuDo5uAe5QUzJO+rZ9kTAVMz9C4yFZ7kaXbVdi2oU9rSQw+bGgsFlfWC3bNufX0dbpzs0YWnblow8pa6B9V/4+c9JVL1Z8qkC1/Q+3JU+0CtT9rqdNcSH5IrCyldXeYH0uz9OeQ+wdEdCsFm32giKG6haFv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LY9vVvfj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8kAsPfC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A9339C2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LY9vVvfj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 867A8C19425;
 	Mon, 24 Aug 2026 13:32:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787578375;
-	bh=bqxr7tJMlMv9QBqyGWY6/PLr9AYldw0DmoB+D9A7GFc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=G8kAsPfCd3v0QZK65ZQP4KbhzUnGfCQ/YNdkoQ3WwCT14wzGj9hReIH273n2r91cC
-	 hf9cQNH9FaJ/SegJFP5aGHT+oSKJgm80aw235CTOzila7GC58WdE3xJQgbnh3pLrQ4
-	 WM+MOFoLPeHYdlmGlNN7hiznkG/ykacFsN7uBre0tLzM2dmmPP4vFHSrKCsef9+AAu
-	 oITHQNzQTS01lFe580bdiAAWEN0TmE/7m+Sn/alE9JlaAHLvUaDxgpysh07csx+4Gw
-	 0hxsbC4hK2ZL98jZpXhYDhFXcqtp0LsIjBdPRveODY9Bxf5txAk1Zdg9c8XbhyJlqe
-	 ic6rZ/mqXn1rA==
+	bh=m8oDTs2Omttsm2iVNRsyL1KTq7wF+IDuFw+OPYgP+Kg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=LY9vVvfjVj0dTcYmQccXCfK9HWdq3+Ay3pEkWnRrKmIARH5jxrUIgRcABeKxPRAl3
+	 IfQBfGOzMvAD/nQjIpMGXEdkjxVYYHXW9MdBu1YJzceL4Y06xqm9uVV8Q256v868r0
+	 VKiatKE58emBZ3v6uuz6KR34AYpulQATZAUPiM4rZBICJ6tmxjHpLO/vE+3vgFvzMl
+	 hQqa9h5BwZauz+NXtn8UhOzhE6YpC630brsgQUtYJcMn5jGoXc/s8PIVHaIUu73dr4
+	 Inkj64EDkERbR8uHQwCFCiBs3HTyfKEclajAfdftozq0R11+gBy6ny42DUo4wTzKZO
+	 0+syj18dc55jA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 887D9C5DF94;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 629D8C5DF81;
 	Mon, 24 Aug 2026 13:32:55 +0000 (UTC)
 From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
-Date: Mon, 24 Aug 2026 15:32:48 +0200
-Subject: [PATCH v2 2/2] nbd: drop stale partitions on NBD_CLEAR_SOCK
+Subject: [PATCH v2 0/2] loop, nbd: drop partitions left behind by the
+ GD_NEED_PART_SCAN removal
+Date: Mon, 24 Aug 2026 15:32:46 +0200
+Message-Id: <20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,9 +41,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260824-b4-loop-nbd-stale-partitions-v2-2-9815a577cebd@amutable.com>
-References: <20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com>
-In-Reply-To: <20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr2K6dkxpFIgr72FYzNBRaoCSTiEaw
+ t1t8QIu3/8zL39VwsGxqOthVYEXJ86PCczxoNoOxyeDs4mV0abUtS6BztB7P8FIFiRizzBhiC6
+ mPwFjC82WqwINqqSYAj/ce9ffmx/LTC9uY3bmC0JhoIBj2+VoQIkcctE5iT589mFLkQV/blgK0
+ FBWRNUFa1sR33CYI1LPp9YPqtm27QvDn62h9gAAAA==
+X-Change-ID: 20260806-b4-loop-nbd-stale-partitions-2d10ede71a2a
 To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
  Josef Bacik <josef@toxicpanda.com>
 Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -51,11 +54,11 @@ Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
  Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787578374; l=2227;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787578374; l=2324;
  i=daan@amutable.com; s=20260712; h=from:subject:message-id;
- bh=IJsYukTCp+gKDcCUl73TRLZtzYPIPmGwnx1/NOZHD4E=;
- b=+3LKI5LgUmNDygotKLNLsRXKAEF5uxws+wjt9ChSEsGXFVqJWzbH+YSsSCGOVnRyU54fmfXoR
- ve0kGD09ernCUHrWvT8l+uWR/XeooSDOTbqrxfcNt+Ur0EoXvdUX9wz
+ bh=m8oDTs2Omttsm2iVNRsyL1KTq7wF+IDuFw+OPYgP+Kg=;
+ b=fNrfiKkFno9FI1OkHU1IpiZwGO7JDAKB2aiPhaNwy4SDOLKjkI6phc4O81sz4kHnlF/d34lTv
+ jqFqFl5ACeaCBaP+Szikiya/mlTUw0I82MIJ3feixk0zQoizlshzTB7
 X-Developer-Key: i=daan@amutable.com; a=ed25519;
  pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
 X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
@@ -63,56 +66,60 @@ X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
 X-Original-From: Daan De Meyer <daan@amutable.com>
 Reply-To: daan@amutable.com
 
-From: Daan De Meyer <daan@amutable.com>
-
 Commit 267ec4d7223a ("loop: fix partition scan race between udev and
-loop_reread_partitions()") stopped disk_force_media_change() from
-setting GD_NEED_PART_SCAN. Besides requesting a rescan, that bit was what
-removed stale partitions on the next open, as bdev_disk_changed() drops
-all partitions before it consults disk_has_partscan().
+loop_reread_partitions()") stopped disk_force_media_change() from setting
+GD_NEED_PART_SCAN. The caller audit in that commit only considered the bit
+as a request to rescan partitions, but it did more than that:
+bdev_disk_changed() drops every entry in disk->part_tbl before it consults
+disk_has_partscan(), and only the re-adding half is gated on partition
+scanning being enabled. The lazy scan on the next open was therefore also
+the only thing removing partitions from a device that has partitions but
+no partition scanning.
 
-nbd_clear_sock_ioctl() relied on that. It zeroes the capacity through
-nbd_bdev_reset(), but nothing removes the partitions of the disconnected
-device anymore. With the default max_part=16 they linger until the next
-connect sets GD_NEED_PART_SCAN again. With max_part=0 nothing ever sets
-it, so they are never removed at all, even though nbd does not set
-GENHD_FL_NO_PART and partitions can therefore still be added with BLKPG.
+Loop devices without LO_FLAGS_PARTSCAN are exactly such devices, and they
+are not unusual. bdev_add_partition() only rejects GENHD_FL_NO_PART disks,
+so BLKPG_ADD_PARTITION works while GD_SUPPRESS_PART_SCAN is set, and
+parted, libfdisk and systemd all fall back to BLKPG when BLKRRPART fails
+with -EINVAL, which is what a loop device without LO_FLAGS_PARTSCAN
+returns.
 
-Set GD_NEED_PART_SCAN in nbd_clear_sock_ioctl() so the partitions are
-dropped on the next open. Calling bdev_disk_changed() directly is not an
-option as it needs open_mutex, which nbd_open() acquires under
-config_lock.
+Commit c4f4c0fc551c ("loop: remove manually added partitions on detach")
+fixed the detach path after this was reported as loop devices picking up
+partition devices from a previously built image:
 
-Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+  https://bugs.debian.org/1141434
+
+These two patches fix the two remaining places that relied on the same
+lazy cleanup, LOOP_CHANGE_FD and NBD_CLEAR_SOCK.
+
+Regression tests for both paths have been submitted to blktests:
+
+  https://github.com/linux-blktests/blktests/pull/259
+  https://github.com/linux-blktests/blktests/pull/260
+
 Signed-off-by: Daan De Meyer <daan@amutable.com>
 ---
- drivers/block/nbd.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes in v2:
+- Rewrap the comments added by both patches so they fit in 80 columns
+  (Christoph Hellwig).
+- No functional change, so the review and test tags from v1 were carried
+  over.
+- Link to v1: https://patch.msgid.link/20260806-b4-loop-nbd-stale-partitions-v1-0-67bb75a8d7be@amutable.com
 
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index ffce519bf008..09b4ad70a5d7 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1616,6 +1616,13 @@ static void nbd_clear_sock_ioctl(struct nbd_device *nbd)
- 	nbd_clear_sock(nbd);
- 	disk_force_media_change(nbd->disk);
- 	nbd_bdev_reset(nbd);
-+	/*
-+	 * Drop the partitions of the disconnected device on the next open.
-+	 * They can exist even with max_part zero as they may have been added
-+	 * manually with BLKPG. Dropping them here is not possible as that
-+	 * needs open_mutex, which nbd_open() acquires under config_lock.
-+	 */
-+	set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
- 	if (test_and_clear_bit(NBD_RT_HAS_CONFIG_REF,
- 			       &nbd->config->runtime_flags))
- 		nbd_config_put(nbd);
+---
+Daan De Meyer (2):
+      loop: drop stale partitions on LOOP_CHANGE_FD
+      nbd: drop stale partitions on NBD_CLEAR_SOCK
 
--- 
-2.54.0
+ drivers/block/loop.c | 10 ++++++----
+ drivers/block/nbd.c  |  7 +++++++
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+---
+base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
+change-id: 20260806-b4-loop-nbd-stale-partitions-2d10ede71a2a
+
+Best regards,
+--  
+Daan De Meyer <daan@amutable.com>
 
 
