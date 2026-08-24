@@ -1,89 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AE035E1D5;
-	Mon, 24 Aug 2026 15:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73ECA3AAF6D
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787585578; cv=none; b=NezL+ETvaGozUe9DfoZ6OchEAeLeQeYxH21rm/hovxEMW3hlgVWsYrOcQ7xd5jm3LjbN+5L/NrT0R1Tx2kYpqYcBmFMdk52UvE8vfWA9GZ8bPShZpp5JSgFMCFmwkTm3gldbUpnRbuekh0Tpa60wQWMc9bq+umUqPWNjCoz8OQU=
+	t=1787585679; cv=none; b=iD+78D2Ht8EAAx/OEg4k56zcS+vsGieDLkvvk6DtH7heeWfQKJ2NYC/kgT27F4qZ62hiyL2rUj05V5AqdyymR1syfDsoS9y0x4X/AQT1h6aaAeqOvzfbK4Yohc8EuP2scV12bc+ZzVBuRcSmvUdwXmm/YUSm4hpvN5vwu7CzbV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787585578; c=relaxed/simple;
-	bh=OfARlw9nsXER7L4K7sbe5xbl4bur1xzTIEX0rdw1c/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ff/JLr7CiFvHDCiKLKhvi8BcQmDYG0KROOJQnJMqbj02lE18oVG/yXS6z/x+2QbNJtHV1zYo0et94ZZM2pnmZ+27ELUUH7w/ySHxDkdhH6Tj7olHA9dR5qN95f+yYQ8Bv4et9h2nOpvu6KTc6CRdnGVkWnRMfdU5sn8QXVC6xvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fXbQ/urL; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787585679; c=relaxed/simple;
+	bh=14cdQ41E0X3RV0xJQrkY3Hc7EJF6CPIGMEJNBqMCLcU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JOIJbuRDMLUQu7OvqHxyA2TAZ3tRykwsX4YWn6s46qfRXaNIMNdQw24nLbOOaKJAhtttzU1tS9qaeIcThdM9r1zAH4/FaWjoxVcG4g5kruDKf8bVPACduG8VSCtt1yQ0jwPGS4EEwxzGnILbX1fSZdg5zvAXIJqK/MEyAA4y9gY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BgrfE3eu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fXbQ/urL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787585577; x=1819121577;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OfARlw9nsXER7L4K7sbe5xbl4bur1xzTIEX0rdw1c/8=;
-  b=fXbQ/urLMiR16nw2rO55UQanli2EujscsbdVvStC3znMzSD7Xp4x8nHF
-   9L/1/Rsgy6FzlzwQ1wzbvrgDAhBg4bYs2dYr+xV8uW44DzdL74sixNxKs
-   63OCM91eZjDUyVdw9glMmPAWMWra4gog2OPcDhNfyd1cg+4JSsWaUQOeN
-   ID7uN8JDs01Ni+8JnfrF4yByJ+i+RXiMNHn3MyBoDFCWE8SnjNm7TNBmL
-   rXP7/cMIrvh84BnwlmdH+9uinMy/5HYQIO8Z1s/cDtdTA+Cq1a0QouCz3
-   lFlWqzxiXPx3leAF7/X42PMYUgsoD5DRHiPEEkkj+r/n+pOSAbiFH53Bp
-   w==;
-X-CSE-ConnectionGUID: ftGiKVauTRCt8tqU5/3cvQ==
-X-CSE-MsgGUID: q8/XZT6MSQS+tc32++fDew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="87807258"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="87807258"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 08:32:56 -0700
-X-CSE-ConnectionGUID: nvDKjNIMTpWJ37d4vql8ag==
-X-CSE-MsgGUID: oNACP2q2QeOAyQPivu96Sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="305253632"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 08:32:54 -0700
-Date: Mon, 24 Aug 2026 18:32:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: jean-baptiste.maneyrol@tdk.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: inv_sensors: fix estimated value larger than
- interrupt timestamp
-Message-ID: <aoxkI3SV4IGumncy@ashevche-desk.local>
-References: <20260824-iio-common-inv-sensors-fix-estimated-use-v1-1-6e93506e7e93@tdk.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BgrfE3eu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5274C1F000E9;
+	Mon, 24 Aug 2026 15:34:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787585678;
+	bh=kAckhru0N00YrYQR637X5J2JlwSv3LLV/P185DoIggU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BgrfE3euEI6c2LX0tHFrq+8zUxpfQgkcVX7VSHqM5i+xaRtRMsPTkUNt5UVXN7SZ8
+	 NKtuMH1M7//TgyDRI3iNlT0JkX2BDbhUFRqDbrMLDV8HvDpMqwHFYFrr1XUmiYpse+
+	 7bAf5wckKrOXxMRolqJRhaQalZrqwMSTEt7jrU0EvIyTyfLux7lDK3McZ+O0kIHmpe
+	 CeduzQ0uPS4bs6dClyqHDrnK/0V9rrahK9H0kaBT7Zc0M0m04+F19FMaaUp+pd0a4M
+	 he7K1r1GmPZwhA0ZMWVW9JnFlet7uqmqhzMUeY95qJB6Dy/4GKDOWZScCyiVO0JjgT
+	 ozxBqY+DzRn+Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Cryolitia PukNgae <cryolitia.pukngae@linux.dev>,
+	Mikura Kyouka <mikurakyouka@aosc.io>,
+	"foad.elkhattabi" <foad.elkhattabi@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] Input: atkbd - skip deactivate for HONOR FMB-P's internal keyboard
+Date: Mon, 24 Aug 2026 11:34:34 -0400
+Message-ID: <20260824153435.3850535-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082022-arbitrate-hunchback-c487@gregkh>
+References: <2026082022-arbitrate-hunchback-c487@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824-iio-common-inv-sensors-fix-estimated-use-v1-1-6e93506e7e93@tdk.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 05:16:58PM +0200, Jean-Baptiste Maneyrol via B4 Relay wrote:
+From: Cryolitia PukNgae <cryolitia.pukngae@linux.dev>
 
-> When interrupt timestamp interval is not valid, we use an estimated value
-> that can in rare case be bigger than the interrupt timestamp. This is
-> obviously wrong, so better use interrupt timestamp in this case.
+[ Upstream commit 2aaf33c6e1e82561d7dce2345298a985a2483266 ]
 
-...
+After commit 9cf6e24c9fbf17e52de9fff07f12be7565ea6d61 ("Input: atkbd -
+do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID"), HONOR
+FMB-P, aka HONOR MagicBook Pro 14 2025's internal keyboard stops
+working. Adding the atkbd_deactivate_fixup quirk fixes it.
 
-> -		ts->period = ts->mult * ts->chip_period.val;
-> +		ts->period = min(ts->mult * ts->chip_period.val, period);
+DMI: HONOR FMB-P/FMB-P-PCB, BIOS 1.13 05/08/2025
 
-It's u32 * u32, how is this guaranteed to be always under the u32 result?
+Fixes: 9cf6e24c9fbf17e52de9fff07f12be7565ea6d61 ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
+Reported-by: Mikura Kyouka <mikurakyouka@aosc.io>
+Reported-by: foad.elkhattabi <foad.elkhattabi@gmail.com>
+Signed-off-by: Cryolitia PukNgae <cryolitia.pukngae@linux.dev>
+Reviewed-by: Hans de Goede <hansg@kernel.org>
+Link: https://patch.msgid.link/20251022-honor-v1-1-ff894ed271a9@linux.dev
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Stable-dep-of: 410c44b10967 ("Input: atkbd - skip deactivate for HONOR ZQC-P")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/input/keyboard/atkbd.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
+index 94a7de558fcd6..c3cdb5933e94b 100644
+--- a/drivers/input/keyboard/atkbd.c
++++ b/drivers/input/keyboard/atkbd.c
+@@ -1924,6 +1924,13 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
+ 		},
+ 		.callback = atkbd_deactivate_fixup,
+ 	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "FMB-P"),
++		},
++		.callback = atkbd_deactivate_fixup,
++	},
+ 	{
+ 		/* Lenovo Yoga Air 14 (83QK) */
+ 		.matches = {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
