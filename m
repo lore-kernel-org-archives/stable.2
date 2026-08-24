@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FC01A7264
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:19:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F362840B0F4
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:19:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573947; cv=none; b=Y+vXE9aT1qtOc7e74JoA1zjvewmXc1Ddx+Oox7qFGV37J7CRV72trVHC8+SPux0hwaLM+5EZsnmJdqXzETecz4IKI/xitOfENQ3j8nMRxQTPDIwdlWIgOWngsPUta1jCESGC629/B0lkbGk9r3LQh0VIZhqw9ukZd+IZiIoQDnA=
+	t=1787573949; cv=none; b=XUBqp+3Q987IrK9wDQ3gJZs5jld6Hhs2VbHKH2LNqf7fRWP490ZxMUx/iM2gqDp3mr0STQtWy59ZOTHtOGXNqo2aesPVWWwnHQjW1cnpav0e9zAe1Ii27a4RPGjuE22qdJdweVn9ROrYMKTMdOy/lwXW44VhKr+wcO/5YKv5cOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787573947; c=relaxed/simple;
-	bh=JyC6cki8JYE9FBKPP+uM571/ow6As7nAf5dP9wHFScA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ghLnlfV+Y6WCV6ERhXY/8GtE2NvPHyxEooZoO1o6d7EYY22skVviu6hN2VsUPEBuI0yggEsHH+iWqqeGPleZPNXEFaIUv9TKaTYv90L/G39K9LzqcR34bwAU1hbtWj56GRXS67CuKRs02viDA2n6ycittTt2u4y/qHDegLqkjb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0pq6rlyg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787573949; c=relaxed/simple;
+	bh=h+ySCmpWh14+s7feGlHf95efRoJawsNalCYUFRgo2yM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TjSb83FrosJ1uvvElEVEM0NGEY78wFZPBM2RmuzToiGxZzOZerZL1YxCQ9AdVrhfxFvxNGzeb/SFQTqaeft4TFJTIyTdxYb7IWk7byyYyh9NGdJ1HvFFG/5ThMx015n3xPt9TqMyPFQNCGpP5/mobN8E/Vr8jpDOPGEfXFwONv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wxtJLfyJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0pq6rlyg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FEB11F000E9;
-	Mon, 24 Aug 2026 12:19:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wxtJLfyJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F381F00A3A;
+	Mon, 24 Aug 2026 12:19:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787573944;
-	bh=9dniSjJOqKOmVEhBkSixNjFk8++BJBP2MHJCjHvyQHc=;
+	s=korg; t=1787573947;
+	bh=CbIijEfmch1RDtEKz+OudTomuGIvXrgxDWH2610uekE=;
 	h=Subject:To:Cc:From:Date;
-	b=0pq6rlygO8yztLwc0EzCZS6Huy8kselWYfh4xfc3tG3rkuWZoDqIcyJEpc5HA+0T/
-	 nlzXfXtvVMrLX2dLaEOv1gEEi53fqGcS0iFyJz32Gv2joc6Z9dkVYn3dDs8OqcZOTa
-	 XUp9zHSCGAQ6lFGG83wjVBTeMZ2UeBueuBxxsWmw=
-Subject: FAILED: patch "[PATCH] io_uring: defer eventfd signaling when queued from a wakeup" failed to apply to 6.1-stable tree
+	b=wxtJLfyJRPabXs8zWw/HSlZe9FFwyn4+PL+EPHqvRBX1FyoWa+QfFK3DqHAovxRIL
+	 6GVJl7yPgo35OEIey2elpOV2FWeCNobLGJTnFgJe4PXJv4A+7mDQa1cvmmoRRBMdHZ
+	 5vmSi08eguRIyJZz7WENVACkjbRZUUeRiIdLAEDM=
+Subject: FAILED: patch "[PATCH] io_uring: defer eventfd signaling when queued from a wakeup" failed to apply to 6.12-stable tree
 To: axboe@kernel.dk
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 24 Aug 2026 14:18:50 +0200
-Message-ID: <2026082450-unmoving-ramrod-207b@gregkh>
+Message-ID: <2026082450-deflate-overfeed-d50f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x cd305ee3633a45fcf5f3a5d83f99f3cb77d87b6e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082450-unmoving-ramrod-207b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082450-deflate-overfeed-d50f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
