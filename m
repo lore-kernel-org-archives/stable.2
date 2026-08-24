@@ -1,40 +1,47 @@
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
+Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74227382395
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 19:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA5B389459
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 19:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787600088; cv=none; b=PWL3vz0GfENB9Mqvb6VDSTPd8o7dhUu7M5Ai4DraShaKSeAq8bDlvg5KYFnyWe/kRCQBdvWAo3NXkyY/D8Orb5e5ADuImpyI/ufSJgyaQTGiLuhZpVZ7KnYUDMMJydWVcSgV6wFPwNdRwz2Z7WLG8e7KLTOzK0e2/1BWREyPrnc=
+	t=1787600091; cv=none; b=Xq1TLz73K7T2IwUOGtpqVLLrnOoo39EeALbi7E8oEDwWLNDTg+ZN4vAIPmKNmzjRKsoFGCDpe9lHK2CUGAZH/7Uyc9T2S1WGT4OWWfqfKgwEnmmd49+amt3eA3yu8walIlB47603WNxLHD09tGuk8mo+qnbMfL+TcIb4JgaFsZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787600088; c=relaxed/simple;
-	bh=KtGyNC1QCkL7BlMRUanRlye4XBsU+FKYPE4fRzLXnAE=;
-	h=Mime-Version:Message-Id:From:Content-Type:To:Subject:References:
-	 Cc:In-Reply-To:Date; b=EorOFOowuGIlES7ZhaUXg+wB5myVucFOMeA0jxZCvyIUwZVdLvNqr/Vt6OS6Byb711aSVNjWXJxXZyRmOxATS5omYV4tE6Nr5x5MeqiBIOEus0KO0B5zV34NWzC28pBoD0DhTTf98FL/Kfxjiuvsi4S8VDo0vd68qVH1pvEBdaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=eG966JAs; arc=none smtp.client-ip=71.18.227.1
+	s=arc-20240116; t=1787600091; c=relaxed/simple;
+	bh=lUMS82M+cyaQU2dClb4aMl4BxhiXa1LhP0YFDWcWdBw=;
+	h=Subject:In-Reply-To:From:References:Cc:Mime-Version:Content-Type:
+	 To:Date:Message-Id; b=ttgv74qInV17uxaxAJdKxGETp3Dj49Jh8hW8MjUJ7KRVJzZBYt+ZKWaF/RmaD2cJ/8KJVwy4hPvChB3i/u9xglPvnwPcG9ooGcunuA/uTW47qtidf69qIRQCYDj9n5xYb94NOLD938C9dndDoL3YEX9hCdwuFyy6o1Mfxbj2Gy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=xTIl7Njw; arc=none smtp.client-ip=71.18.227.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="eG966JAs"
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="xTIl7Njw"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787600080; h=from:subject:
+ s=feishu2604220257; d=cherr.cc; t=1787600082; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=OH1V2XBa3EFVQaHX2pCS4ZMV/ZcmzVgpWewcrgvVAVk=;
- b=eG966JAsGTTjYKINbV/69IWhZLorf7f0553/LcXwEWmj1icPm5T2Cqh+f+q3W19lPESPIR
- U+6cKzCppq+1H7pgfNYFEWfDB6dtbylcQjqCJgNK/gDQy5zXvtjEK0OkzC/vegslDzLmVj
- YeavJ4Ifaa/fInMCzsOsbuMBzSTn50ML3FkwN802VZP7W0DAyxQ/RM+EdxkyiB9JQcngtm
- 7YkXLzaJiR3vvBGqDc8SFiJETrH4VYL+C2Kq+1msyqGLosNz+dEHzmgJyrkcIaBGma6JNt
- HiCc966uicLamYmA5C7K2f1kO7Q7ZWohhJ/45FoTnglyzp+yrO4+qXFZ3uxs4g==
+ bh=G2ERPFIrOa+gDnsmMFvcRecBvtEZUGxg6dBSiPNWMUk=;
+ b=xTIl7NjwTnuivp6bfW656TfpVRSSSTXptfLdk2s8Yba7gWvdY2s4jkDcDljDxMfgGnnbvQ
+ FLUzyjET8n0yY5l3Z0FLEHJdmsLaFDDlQYv+TT50PCy4U1+Ge1X3j6UbX/izAJf+eAFjpL
+ fhPo7LQF82pDRa+nhbOhJwFyQ4xY9fBLWc4HpC9DjyCYFEOMA4CjESS4DqSXpnBEaLeUvF
+ CoLrCbX61D577fpcHOmvgDuLn87YSkvIYO8eGRz61ajHFR7ftwrDQLQkFBTAX5vOJs3vtO
+ jbyG8OMKIc347W4bCZtmllBJIRCaDbtsXNejtYzbh6OQK54mMJpTUEceZH9DoQ==
+Subject: [PATCH 2/3] media: verisilicon: hantro: cancel watchdog work before m2m release
+X-Mailer: b4 0.14.2
+Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Tue, 25 Aug 2026 03:34:40 +0800
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+In-Reply-To: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
+From: "Shengzhuo Wei" <me@cherr.cc>
+References: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
+Cc: <imx@lists.linux.dev>, <linux-media@vger.kernel.org>, 
+	<linux-arm-kernel@lists.infradead.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-Mailer: b4 0.14.2
-Message-Id: <20260825-media-timeout-work-v1-1-ebfebbeb6c31@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
 Content-Type: text/plain; charset=UTF-8
 To: "Mirela Rabulea" <mirela.rabulea@nxp.com>, 
 	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
@@ -50,49 +57,39 @@ To: "Mirela Rabulea" <mirela.rabulea@nxp.com>,
 	"Matthias Brugger" <matthias.bgg@gmail.com>, 
 	"AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>, 
 	"irui wang" <irui.wang@mediatek.com>, "kyrie wu" <kyrie.wu@mediatek.com>
-Subject: [PATCH 1/3] media: nxp: imx-jpeg: cancel task_timer before freeing ctx
-Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Tue, 25 Aug 2026 03:34:38 +0800
-References: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
-Cc: <imx@lists.linux.dev>, <linux-media@vger.kernel.org>, 
-	<linux-arm-kernel@lists.infradead.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
+Date: Tue, 25 Aug 2026 03:34:31 +0800
+Message-Id: <20260825-media-timeout-work-v1-2-ebfebbeb6c31@cherr.cc>
+X-Lms-Return-Path: <lba+26a8c9cd0+57d917+vger.kernel.org+me@cherr.cc>
 Content-Transfer-Encoding: 7bit
-In-Reply-To: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
-X-Lms-Return-Path: <lba+26a8c9cce+f203e7+vger.kernel.org+me@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Date: Tue, 25 Aug 2026 03:34:30 +0800
 
-mxc_jpeg_device_run() arms ctx->task_timer for each job; the only place
-it is cancelled is the job-completion IRQ handler. If the hardware
-never completes the job, mxc_jpeg_release() frees ctx with the timer
-still pending, and mxc_jpeg_device_run_timeout() then dereferences the
-freed ctx -- a use-after-free.
+Each job arms vpu->watchdog_work, cancelled only by the
+job-completion path. If a job stalls, hantro_remove() drops the last
+reference to vpu->m2m_dev via v4l2_m2m_put() with the watchdog still
+pending, and hantro_watchdog() then dereferences the freed m2m_dev --
+a use-after-free.
 
-Cancel the timer before the ctx is torn down, before taking
-mxc_jpeg->lock so the cancel never waits on a worker that needs the
-mutex.
+Drain the watchdog before the m2m device is released.
 
-Fixes: cfed9632ca8e ("media: imx-jpeg: Add a timeout mechanism for each frame")
+Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 Assisted-by: GLM:5.3
 ---
- drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/platform/verisilicon/hantro_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-index 725e941528848e8f224fe6a96ba7f746fc45ed63..fbb64a1ecb5189d2d7b953b99dcd7bcb54e6e20e 100644
---- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-+++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-@@ -2796,6 +2796,8 @@ static int mxc_jpeg_release(struct file *file)
- 	struct mxc_jpeg_ctx *ctx = mxc_jpeg_file_to_ctx(file);
- 	struct device *dev = mxc_jpeg->dev;
- 
-+	cancel_delayed_work_sync(&ctx->task_timer);
-+
- 	mutex_lock(&mxc_jpeg->lock);
- 	if (mxc_jpeg->mode == MXC_JPEG_DECODE)
- 		dev_dbg(dev, "Release JPEG decoder instance on slot %d.",
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 2e81877f640fb429b18d2f4fd64bc0c392cf600e..1b04b98371a48184f390a13791243fd00d6b80ef 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -1284,6 +1284,7 @@ static void hantro_remove(struct platform_device *pdev)
+ 	hantro_remove_dec_func(vpu);
+ 	hantro_remove_enc_func(vpu);
+ 	media_device_cleanup(&vpu->mdev);
++	cancel_delayed_work_sync(&vpu->watchdog_work);
+ 	v4l2_m2m_put(vpu->m2m_dev);
+ 	v4l2_device_unregister(&vpu->v4l2_dev);
+ 	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
 
 -- 
 2.47.3
