@@ -1,65 +1,60 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829B438B135;
-	Mon, 24 Aug 2026 20:05:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787601952; cv=fail; b=hf//1k2Pn0ds5J74+a24Ffs9UwHeLeLRowOjBSZVWYqNw2UDwMcPB0g47Q4u/gysonmclahOtshAXImgOjg/WIhFOORYE2eHjE0ss5KO56WHjvqwTB4FxATEXKz1pJIiiFo8viHPvw3FypJEq7QYiJ/0vv5/Ps+WhejLHP4Pvfs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787601952; c=relaxed/simple;
-	bh=xrRZSGtSzbEvTW08/UGd0dzABpk+JYUQOpL7/Oh5afo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=FQ5SJIjuyN2PGJPBDh/mKp9yRv1kTEciPv6SiJPxZz2Mq9pD3O5vQfobVmVRau1TDLnNZM74qDsWfPkoaMVN62xYFvKfNBCcfNx7qzBjS5QOMxlMVwWN0WmhpMVu/e67mxw2aqOwOca0fTNUrTQ+acJruBOsROzIOlt8lYGi1P0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=gAR1TXqI; arc=fail smtp.client-ip=52.101.201.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C9F38B135;
+	Mon, 24 Aug 2026 20:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787602099; cv=none; b=Yn147NntIm9q28sdcvWGn/A+t1PNB1IcyAxlyCayPX5MOeIJfCNF/6vPNKEBmQMjWgeqgMpg/GruZxmAM/+IgNcGWBE64lBRVd+ibxuYsm3mQghTpDi4/bCyr4MLgY5TerFR7ngygqpn9O7wYEZ4Equ7kDeN5eMWI1MtIAPPCNU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787602099; c=relaxed/simple;
+	bh=6lOZD74hmsxPvxmBbRS/bcK4hbZYLczBN5Hio0TOxWs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pq7RCfkkkHU9Z9Vs80coHPjJ6S0yhNNV53/UO3W2d1fR6Uuh+XSvE5MO9u4eZqt3tra5RjZw8EIIa1hssvNlHY5YPojII+lbXzRpM+X6uQZEtevQoNrEdKr4215guqsDGXVp0k94ch24ATKd8JDlwcLJFk1eb2gDY8KnRcqzTWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VisNziad; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="gAR1TXqI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cFcvBm7x1xPZwFySeL1P1I5+2C3q/bsICb0wrb+/UUyvag83qWuiEZUCVow63c2m34ra37HjKLgN/R6UenALd7TuU1ZmuTTSQj2tucKVz0TsxEae7SGnKkmB+bWhDX8fdTi4Xf9pnQ7ZQha8IVtWWvTvAnIw9d3B6aW4nHCyDaMdtzyRn5znth3Bdu2NhxpYlDlliQ3cNRFZ1wBz3o+nWuihMVVJ7jkz73/AheafZPu9KxPyC4hWSk4jd5iFxaSeVzyNu+KAJrAeFj0HJeKIDsR21Z/OVGNZ7GH0yz3fZlJxLkTw+9JxC2jZnpbdCNk5vHKqFkEvrm1To8P745CMHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DGnUnMQV9S54t1FH83oyVwaBTHpZ3ODtytR6dWMP7PI=;
- b=xOQeNtFODmlucjLCKYkB/U6MyxfSPuemsOziR3S0ZwBlxN4WXsAgR7USwDW69G3PJMa6CszbXAhP96G3dA7ttx+sI6CeuuOxudUkH+ZyUn75kUbPv0sKFD0umPj44N0V4UswR7uKzcoEhPmvdO+fcSdAczXx+jMZOEdXZN4nnOBGWID32h1ahsn/PfNqBsboFYIlwWXa2kP2ymKnsFPNzjqnAX9X4/3Nw/J0gTkQN7I2TY5E0os1WmPs6ZnnlFWatHMvIGK138nbk09LYDDTBF9JqyNvRyEHE44UfB+QizfnKrnT1PDBq3WQ8exR0SjGKsrsk/KRRRgEqDyAqkvC6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DGnUnMQV9S54t1FH83oyVwaBTHpZ3ODtytR6dWMP7PI=;
- b=gAR1TXqIOb2ZclqXHHf7eP1M0cXoyeCTeECUC9tZaGT8BM7wqms1PdZSCN3WlitI8wN0QlnuXeTJVwNBxwqFVMfmGiA1ohFxX0LCe3DGqw0g2VHqxh6QXetwdXhO9vKSFL+lxi2VT6b7ye2H5/0ivs5KGNoEIbArwBTnWz+w+2s=
-Received: from SA1PR03CA0020.namprd03.prod.outlook.com (2603:10b6:806:2d3::17)
- by CY1PR12MB9649.namprd12.prod.outlook.com (2603:10b6:930:106::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 20:05:47 +0000
-Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
- (2603:10b6:806:2d3:cafe::66) by SA1PR03CA0020.outlook.office365.com
- (2603:10b6:806:2d3::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Mon,
- 24 Aug 2026 20:05:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Mon, 24 Aug 2026 20:05:47 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
- 2026 15:05:47 -0500
-Received: from [192.168.19.2] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 24 Aug 2026 15:05:45 -0500
-Message-ID: <49f2616d-e37c-4420-9d8c-81f978386ce6@amd.com>
-Date: Mon, 24 Aug 2026 16:05:40 -0400
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VisNziad"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OJVh2N1725617;
+	Mon, 24 Aug 2026 20:08:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Ja+ht4
+	7Ti4t1oI4fLD11MIDWVwD/TA169NDYv1uYkGE=; b=VisNziadq/KaGGXL7XQskp
+	PuzK9uly5Adld5aN++vp8/6mWFoi3KD/FT6N0WcrBmcprHh+NwGc06bRTGtMNQa/
+	dR7zE3ji7SmIW1nMtXlHdPxKQW5GF1H1m8rNW4nshncdsKCqhZxcUAisABjj4VD5
+	DomctnaZTQ9mC60CiigOEd8Bq68h8yEUY35/gp3Ivco3Ck4wDqXWX+WY5LVIrVmt
+	2RCgiG2knOH7FDmVg0WWFT+3MZxDKC2vTSR+uTazWmJ9C21p6+RqzxS9gRF0rLiy
+	EzrhiKnV70jJX/yu2uKKTjbhXfdstc4b8HvqI4MDZTqdQqH8e7Fbhn9xNkIUws7g
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g726ebw36-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 20:08:12 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67OJuINW030108;
+	Mon, 24 Aug 2026 20:08:11 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rag832b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 20:08:11 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67OK8AKX30278252
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 24 Aug 2026 20:08:10 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9094058051;
+	Mon, 24 Aug 2026 20:08:10 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3DEBE5805A;
+	Mon, 24 Aug 2026 20:08:09 +0000 (GMT)
+Received: from [9.61.96.163] (unknown [9.61.96.163])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 24 Aug 2026 20:08:09 +0000 (GMT)
+Message-ID: <5e766b0f-4270-4414-8f3f-2568d1b9a75b@linux.ibm.com>
+Date: Mon, 24 Aug 2026 16:08:08 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,96 +62,140 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-To: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
-	<x86@kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>
-CC: <linux-kernel@vger.kernel.org>, Penny Zheng <penny.zheng@amd.com>,
-	<stable@vger.kernel.org>
-References: <20260814214255.83127-1-jason.andryuk@amd.com>
- <20260814214255.83127-2-jason.andryuk@amd.com>
+Subject: Re: [PATCH 3/4] s390/vfio-ap: Fix unbounded loop in apq_reset_check()
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260824135850.503728-1-akrowiak@linux.ibm.com>
+ <20260824135850.503728-4-akrowiak@linux.ibm.com>
+ <07bdd3bb-0f9e-4288-9fd0-52ea9edf4b0d@linux.ibm.com>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20260814214255.83127-2-jason.andryuk@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <07bdd3bb-0f9e-4288-9fd0-52ea9edf4b0d@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|CY1PR12MB9649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fdc147b-bd2d-4941-e7ac-08df021b1664
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|10067099003|56012099006|18002099003|22082099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	fxS6gIezclc/Rvw9t7wEgxR+GKNrFCNgHoRnciImoaxngoyKXTs3TZoG1sYG3A+TdPj50fEW4rU0xNBXNlgLscCvS3+A96cZ+HL0WtTtRxbL0gDAf/sewjCHwfqljOq9Klp3BWoy7eAt8zekj4BWy6pwNlV953VfYCFQs73Ywf0WR8XSK7TSYP0Z2FpeHaG2+FMNLeJ+z/6vECHzhdh86GLr9idS8b+w9QJP9q7s+r0jiwzLmNKg6dM9CmTjGm2baiVtAg/lX4OtkN7IcSl97DOK0sv13x5YxXhXYNBYVC285CD/n5l5MA6AUIkxZUA4CuPAq/0YxjVfyCCzBCpD1Mz5n+nILi1wQqzuuaCue+6FGxke2k+ZsFndNkQfACeidryUwqVIrlyTspx1/sLM6bCGYN2+3qX/lBnqif76Ymmpbv0J7tR/RWsQodZdedbudD3XKcKzEyS82MvyPTZ2YCAeKi3qrXFhuoYiM/A9BKs8I5bNSz9pjifq9gXM9ztV5uXMo0jvxeRFafuTVDnEIhNz89AbXsuMPud6ZEPrAxJ8gCtLpJDrIXQwtsiCLSULYwHEN1dJJnZYgnYV6fqQdDvv8fOfseVk4toD6J5HPKTRJWnBtLV0KYm7I7Xp0E3JE7UeU8XePk8gv2/4geR7maO3cHMT3XWeqx8UrMvJXdPX0/khJd06J0GKPiYTIB/wgx1jKxz7ybsOor5YQBqWOA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bQA/xESZX9EdjEpMJ4GxAByOHCGd7z6GIC3r4sNouxKOk/LOUst3nTadK2BFyILeS8RCdKb7pH2ZqgqG3IHiUr2lt9ZB0Y4gXOqYl7UDHBM2N/Z8Ct11OFajxCHe8fZ0FNCC8U0RLj0tDo3CkvXadc+kj9wHg7Fj0jTpWfsq/IdAZBa3ymlnZAon1qn/lBXjLq2gcYEYEx32jhWt1nqrXdquJ8nHcC5rD3fP5H4jY9cWTI/joWf0GkBU5DYRF3UrULnTt1cJABWKA8ZoViveWuBsM1bPrH58ClQXCS2K0F4ULiQu0SW6pugksvMIyf6LwzLrClWSJGnW1x/JJn65Pm5IvTl2tRJBafc9wsnubNsY1fnls1vav+acwZTzuFUuaxZ3hFpOrQrJVTjAovv1ha6LoJpiBVvVvE5oPu7kOdlJTpx8s0mMw8QJfy3cu9P7
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 20:05:47.2560
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fdc147b-bd2d-4941-e7ac-08df021b1664
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9649
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=TfimcxQh c=1 sm=1 tr=0 ts=6a8ca4ac cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=WMBu6IYHjKrs_xjfU4gA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDE2OSBTYWx0ZWRfX3gEp23Qj0wpn
+ WdsYlOr5N3MNQUNKmUNQJH3L8uTPdcgZflzn/16ZUw9zpeSSHLqzQCMUVoh288bHX1CVj9/BCDw
+ srmDzEhd2uxM4hOoxk57BcUYiKQyxC0=
+X-Proofpoint-GUID: X70ejJFT2kRHM3r2wqdZIsUL1ORk1S_m
+X-Proofpoint-ORIG-GUID: X70ejJFT2kRHM3r2wqdZIsUL1ORk1S_m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDE2OSBTYWx0ZWRfX/TStpE7iyYdw
+ lV5Xw+eBNwdayc0ScD5RFwyF/Gf41ZrWowvZaYkZIiIfTwL3jG7lY6bvi8c9O+MhhWIakfyMVdv
+ iEJLY4XUicB2Yntlw9FezFWF8aEDFBywMUNSGlmyJtZOwaXlB7IlUIgGN8nwvn8edj/VU/PnEKV
+ EiJb+UrzhmZW1erM0TyFl0HMGs+guFDIQfp5UaSLPGnJIL2YZyX0pzdqPvKfDZkaB9upsx/5Q/0
+ phOwSOMFPIGaYS4buHjTtxea22CWI7vKdWgNny0UnDYtE2GuAGfQoZnFbvlCyM2RGBmFzCvoMOW
+ 53vIpfHFIvBgNXbO5Nmw4ZeBmwJCS2tRhK2jdOANyCKjCA5LpomOtQ+/cgAcigzzzcgDOkge+xx
+ uddJwEssjDmG7g7Rp5E8ymtwbTuRwAfyYabmuMXYoA6+F11V2Asot2Y411cKTPRssh8TxafDuJ0
+ 8LzliHAwU8cixeFY4Pg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_06,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240169
 
-Hi,
 
-On 2026-08-14 17:42, Jason Andryuk wrote:
-> On a virtualized system, the number of nodes does not have a
-> relationship to the number of roots.  A Xen PVH dom0 can calculate
-> roots_per_node as 0, which crashes with a divide by zero in:
-> 
->      if (count++ % roots_per_node)
-> 
-> The issue is seen with Xen, but it could affect other systems.
-> 
-> Change roots_per_node == 0 to 1 to allow the system to boot.  Print a
-> warning when this is performed for non-virtualized systems.
-> 
-> Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Borislav Petkov <bp@alien8.de>
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Any feedback here?
+On 8/24/26 1:04 PM, Matthew Rosato wrote:
+> On 8/24/26 9:58 AM, Anthony Krowiak wrote:
+>> The apq_reset_check() worker polls ap_tapq() in a while(true) loop
+>> waiting for a queue reset to complete. When ap_tapq() returns
+>> AP_RESPONSE_BUSY or AP_RESPONSE_RESET_IN_PROGRESS,
+>> apq_status_check() returns -EBUSY and the loop continues after
+>> sleeping AP_RESET_INTERVAL (20ms). There is no upper bound on how
+>> many times the loop iterates, so if the hardware continuously
+>> returns a busy response the worker runs indefinitely.
+>>
+>> This is particularly harmful because several callers of
+>> vfio_ap_mdev_reset_queues() and vfio_ap_mdev_reset_qlist() call
+>> flush_work() on each queue's reset_work while holding one or more
+>> of the global matrix_dev locks (guests_lock, mdevs_lock) or the
+>> KVM lock. An indefinitely spinning worker permanently blocks all
+>> of those locks, hanging mdev removal, KVM guest teardown, and the
+>> VFIO_DEVICE_RESET ioctl path.
+>>
+>> Fix this by introducing AP_RESET_TIMEOUT (2000ms) and breaking out
+> s/AP_RESET_TIMEOUT/AP_RESET_MAX_WAIT/ ?
+>
+>> of the poll loop when elapsed time reaches that threshold. On
+>> timeout the final busy status is written back to q->reset_status
+>> so that callers inspecting reset_status.response_code after
+>> flush_work() see a non-zero value and can return an appropriate
+>> error. vfio_ap_free_aqic_resources() is called before returning
+>> to release any KVM ISC registration and pinned NIB page,
+>> consistent with all other early-exit paths in the function.
+>>
+>> Fixes: dd174833e44e ("s390/vfio-ap: remove upper limit on wait for queue reset to complete")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>> ---
+>>   drivers/s390/crypto/vfio_ap_ops.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+>> index 6e4569d6b975..c7eebbd0ed40 100644
+>> --- a/drivers/s390/crypto/vfio_ap_ops.c
+>> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+>> @@ -31,6 +31,7 @@
+>>   #define AP_QUEUE_IN_USE "in use"
+>>   
+>>   #define AP_RESET_INTERVAL		20	/* Reset sleep interval (20ms)		*/
+>> +#define AP_RESET_MAX_WAIT		2000	/* Maximum wait for reset (2000ms)	*/
+>>   
+>>   static int vfio_ap_mdev_reset_queues(struct ap_matrix_mdev *matrix_mdev);
+>>   static int vfio_ap_mdev_reset_qlist(struct list_head *qlist);
+>> @@ -1973,6 +1974,12 @@ static void apq_reset_check(struct work_struct *reset_work)
+>>   					      status.response_code,
+>>   					      status.queue_empty,
+>>   					      status.irq_enabled);
+>> +			if (elapsed >= AP_RESET_MAX_WAIT) {
+>> +				/* Timed out waiting for reset to complete */
+>> +				memcpy(&q->reset_status, &status, sizeof(status));
+>> +				vfio_ap_free_aqic_resources(q);
+>> +				return;
+> Sashiko points out a concern here and I tend to agree; if this timer
+> elapses you are effectively freeing resources that could still be in-use.
 
-Thanks,
-Jason
+Ironically, it was sashiko that precipitated this change given the
+issue of hanging forever.
 
-> ---
-> v2:
-> Print as a warning instead of error
-> Use "!" instead of "== 0".
-> 
-> X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
-> ---
->   arch/x86/kernel/amd_node.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-> index 0be01725a2a4..c3e214925d9c 100644
-> --- a/arch/x86/kernel/amd_node.c
-> +++ b/arch/x86/kernel/amd_node.c
-> @@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
->   		return -ENOMEM;
->   
->   	roots_per_node = num_roots / num_nodes;
-> +	if (!roots_per_node) {
-> +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
-> +			pr_warn(FW_BUG "Error detecting roots per node.");
-> +		roots_per_node = 1;
-> +	}
->   
->   	count = 0;
->   	node = 0;
+>
+> This seems to go back to dd174833e44e 's390/vfio-ap: remove upper limit
+> on wait for queue reset to complete' where it was decided to hang
+> forever vs leak resources -- e.g. the hang seems intentional?
+
+It may have been intentional, but I don't recall.
+
+>
+> If we don't have a way of forcing firmware to give up the resources I
+> think we are stuck either waiting indefinitely or quarantining (leaking)
+> the resources consciously.  And documenting the rationale in a comment
+> block.
+
+The AP architecture defines only a few instructions, none of which
+provide a way to give up resources. I think it best to document this
+in a comment block rather than waiting indefinitely. The
+apq_reset_check() function is called under the matrix_dev->mdevs_lock
+mutex which is a global lock that guards access to all active mdevs
+in the system. Since the likelihood of this is happening is probably
+extremely rare and the amount of storage leaked is not significant,
+I think it makes more sense to allow things to proceed in this case.
+
+>
+>> +			}
+>>   		} else {
+>>   			if (q->reset_status.response_code == AP_RESPONSE_RESET_IN_PROGRESS ||
+>>   			    q->reset_status.response_code == AP_RESPONSE_BUSY ||
 
