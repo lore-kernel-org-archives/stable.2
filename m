@@ -1,124 +1,115 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6853655CA;
-	Mon, 24 Aug 2026 15:12:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4028E3655CA;
+	Mon, 24 Aug 2026 15:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787584328; cv=none; b=RJ1nCwMSuxWLxKYJMStsXtlxrXPhHxfNwHbNmeexCrUizOOUe87G07fyIKhiNPQQ7jonWBUH7uiQeombyGC5cCVXHnCl2aduefq4a9i50D/2nj89PExTJegPs3/VpEFMAkUJom9la5y/FdbszwLXET0hinkUCLNvUtMGloVpH4o=
+	t=1787584406; cv=none; b=qyEwnHJ0eiPaja03/3kKSzBKc8VuDxsN0UCaJCP1gQHPLEsxQ8oaImBWrY/qv9HlMNB5Yvv7sAI16o/2Z9W5g1l+SpQ6HBBi2mn/T+bz8I2dEjvprLCVhVm84jCgqvNPJm02XO61TjfdcNahIGU1zObQiNwTI6SGRyZLbSDrmwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787584328; c=relaxed/simple;
-	bh=A2RqH/jaftMlRxv+xBpJ27Pe6NxHP5IbHqviH3Gs2cg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Udm9+9CxVNi3osR/CDpWarVil4Ub9q3CgviVBRrf9ilAhWVU+JiSDXhF6I84iP7RYH9xQam/h2P8UzI1WyOa937ofaCRulRfNfPXFfGm3W7guYATZKpHtKUdUc4MBRncsOoIBDGOc5zZPyZWAHK6TfmnYMfrup8eNviRm5+32LM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 43832200FF9;
-	Mon, 24 Aug 2026 17:12:00 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1wyWLA-0037uy-0Z;
-	Mon, 24 Aug 2026 17:12:00 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id E903E58B62D;
-	Mon, 24 Aug 2026 15:11:59 +0000 (UTC)
-Date: Mon, 24 Aug 2026 17:11:59 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Ji-Ze Hong via B4 Relay <devnull+peter_hong.fintek.com.tw@kernel.org>
-Cc: Vincent Mailhol <mailhol@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Dynetrex, Admin" <admin@dynetrex.com>, 
-	"Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
-Subject: Re: [PATCH v2] can: usb: f81604: fix struct f81604_int_data size
- mismatch
-Message-ID: <20260824-alluring-affable-hog-d072e8-mkl@pengutronix.de>
-References: <20260824-f81604-fix-v2-1-fc9be5581394@fintek.com.tw>
+	s=arc-20240116; t=1787584406; c=relaxed/simple;
+	bh=LMUl0wRqk8+xqojqeT+SrIqH8HRZqBkNpw5r+kVtCp4=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=tYmIZmhfvW0D6Ohrn6lJT4uME2W2gqPD2M+tDIo5mohVZoPmMRB5+gSFBPi3LTE8eZ9GBwfgRrq/ko4/oJzhSopmCMOI2TCS6gXjIOiiMZx80VhPlS0fG/gij4ledRqw81E+yvJ3W8v1iDwadGB28srh9uV3x7KLGZcNgWgnMk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Vd/XN1i0; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Vd/XN1i0"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 15017A02A3;
+	Mon, 24 Aug 2026 17:13:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1787584396; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=g2xnyjbL7P8HZTzEf65T2GecraVsWg2Jd43dBvLVMt8=;
+	b=Vd/XN1i0CL0GldedKnpeyvV+Vlv5B0hFCIyJjqg8nN0knzNp5a9OUhscpONcUs8CMyfogY
+	fPerXxJEgz1Xr62Ml6PiAMYAoIvSQGfzzoxmTfJV47SzJ4VwNKceRadBZsn1haH0sgrh34
+	P29MCwRTHxRM/z8ppQToaslxBRSPNy5Mo3s/g3WQtgt0ZKrXiZo1DvjPlmeQsMHB3L+NoA
+	Kjuibwgl2chYyFIvRqzVZBaJwU+1lpuicmspP1boTkM8JeP1uwHovwZd7lQ7EsU4Z/Hptw
+	I63REv8GSBbQzpksGlDa/eCoQqlcZSsh+eatDLXU8sToU6w83TAKXlKok0z8nw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2rgw3gn2fwjgklpi"
-Content-Disposition: inline
-In-Reply-To: <20260824-f81604-fix-v2-1-fc9be5581394@fintek.com.tw>
+Date: Mon, 24 Aug 2026 17:13:13 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Breno Leitao <leitao@debian.org>
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon
+ Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] net: fix spurious TX timeout after dev_activate()
+In-Reply-To: <20260824-trans_start-v1-1-0419cc427ed9@debian.org>
+References: <20260824-trans_start-v1-1-0419cc427ed9@debian.org>
+Message-ID: <4f3857029d855ed4e513ae01a2e8f018@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi Breno
 
---2rgw3gn2fwjgklpi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2] can: usb: f81604: fix struct f81604_int_data size
- mismatch
-MIME-Version: 1.0
+On 24.8.2026 13:45, Breno Leitao wrote:
+> While debugging another issue today, I found out that my TX queue is
+> stopped for 136.07 years (4294907392 ms).
 
-On 24.08.2026 21:18:14, Ji-Ze Hong via B4 Relay wrote:
-> From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
->
-> The struct f81604_int_data defines 9 bytes of interrupt data:
-> - Byte 0: Status register (sr)
-> - Byte 1: Interrupt register (isrc)
-> - Byte 2: Interrupt enable register (ier)
-> - Byte 3: Arbitration lost capture (alc)
-> - Byte 4: Error code capture (ecc)
-> - Byte 5: Error warning limit register (ewlr)
-> - Byte 6: RX error counter (rxerr)
-> - Byte 7: TX error counter (txerr)
-> - Byte 8: Reserved (val)
->
-> The hardware sends exactly 9 bytes for the interrupt endpoint.
-> However, the struct was defined with __aligned(4) attribute which
-> caused the compiler to pad the struct to 12 bytes.
->
-> This causes a problem in f81604_read_int_callback() where the short
-> URB check compares urb->actual_length against sizeof(*data). When
-> sizeof(struct f81604_int_data) is 12 but the hardware only sends 9
-> bytes, the check fails and valid interrupt messages are discarded.
->
-> This results in the driver only being able to transmit once because
-> the TX complete interrupt is never processed.
->
-> Fix this by removing the __aligned(4) attribute so the struct size
-> matches the actual hardware data size of 9 bytes.
->
-> Fixes: 7299b1b39a25 ("can: usb: f81604: handle short interrupt urb messag=
-es properly")
+nit: 4294907392 ms is ~49.7 days
+
+> 
+>     bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 28: transmit queue 
+> 23 timed out 4294907392 ms
+> 
+> 4294907392 is not an elapsed time. It is the value of jiffies at that
+> moment: INITIAL_JIFFIES is 4294667296.
+> 
+> dev_activate() runs transition_one_qdisc() over every TX queue, which
+> resets trans_start to 0, and then stamps only queue 0 through
+> netif_trans_update().
+> 
+> Stamp jiffies instead. A queue stopped across dev_activate() now gets a
+> full watchdog_timeo of grace, and is still reported if it is stopped
+> that long.
+> 
+> Fixes: 9b36627acecd ("net: remove dev->trans_start")
 > Cc: stable@vger.kernel.org
-> Reported-by: Dynetrex, Admin <admin@dynetrex.com>
-> Closes: https://lore.kernel.org/all/A3834A07-5639-4779-844F-C5843DFC3928@=
-dynetrex.com/
-> Signed-off-by: Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  net/sched/sch_generic.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+> index ef2b4bf515641..4539dc2c6d380 100644
+> --- a/net/sched/sch_generic.c
+> +++ b/net/sched/sch_generic.c
+> @@ -1278,7 +1278,7 @@ static void transition_one_qdisc(struct 
+> net_device *dev,
+> 
+>  	rcu_assign_pointer(dev_queue->qdisc, new_qdisc);
+>  	if (need_watchdog_p) {
+> -		WRITE_ONCE(dev_queue->trans_start, 0);
+> +		WRITE_ONCE(dev_queue->trans_start, jiffies);
+>  		*need_watchdog_p = 1;
+>  	}
+>  }
 
-Applied to linux-can.
+Follow up or v2: netif_trans_update() in dev_activate() now seems 
+redundant?
 
-regards,
-Marc
+> 
+> ---
+> base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
+> change-id: 20260824-trans_start-557ecd4c8866
+> 
+> Best regards,
+> --
+> Breno Leitao <leitao@debian.org>
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
---2rgw3gn2fwjgklpi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaoxfPQAKCRDMOmT6rpmt
-0hmXAP91xu9xxDOYrO8cHst+E5lzaoro3Ss9f94pRx5LgQ4RWgEA4UX6dWR7uhJs
-akVJhD6uAWYnkgtbM5vxPGxh4I5kJQU=
-=PjPm
------END PGP SIGNATURE-----
-
---2rgw3gn2fwjgklpi--
+Thanks,
+Nicolai
