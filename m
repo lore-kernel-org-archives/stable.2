@@ -1,152 +1,221 @@
-Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch [109.224.244.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0045A49365C;
-	Mon, 24 Aug 2026 11:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635DC409121;
+	Mon, 24 Aug 2026 11:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787569228; cv=none; b=DM1hDL/q1MaL16jQRP49BAKm9gqOI6+GZSR2I9e9LsLei7XHZXq1SEmAMwt4QwR7I66w09PzEnd2yhHnzejkr8hWTe6jai9UT9l/twCkwl99cC7kIOqhT/qROtVIQ/RVj23kU0vSJ64ruRyIUcog+ncIfpzi8OV8qzCR5tmtGUU=
+	t=1787569578; cv=none; b=YHohmUuhUWmLT49XKbIxpxW8TmEe3ZDz2go82O/YlUOFL/EHsPeVC6uFniR7qzSw9qd8HcgQzq2KEPkf/aFal/+rs4qBHGaprAf0ujwVOloUjfK991LWTF+iRFA/IaWxjIh9QTBMR0o4DviiRxiUkI/k6vt8sR/GrMP5VR98Uwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787569228; c=relaxed/simple;
-	bh=AE/GYNDmPO64JSgx6/zT48l/9P6AenBcx8poL6MX2Q4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lbp76DlBgCwjSeizX2w0kGlCoGvS3lWoqjATq9vmxf/92toyY+66yTsWXvaOqQPK/O1edU2ES7N08kx9mcDgzCLj9wZk1UyrD3VW/3FKK7CM3/rMSAtD9gB6OI7PRc9SrQ56ciGXXfcFKr8WFBdKwFvT++JxSbAWFdvx3MXoZ2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=N6FkMMsG; arc=none smtp.client-ip=109.224.244.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1787569578; c=relaxed/simple;
+	bh=cdNbg7ierzQ4SVqvczdngiZomV/AJvrAnFnUZFFGlVk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dYWwI/q6vKfxK0YYdVfoUBtElWNCX34X0y/FydCTm0CKbq0EHEu71HnVvielM0hdxhv8fulox5HsLeWl1BjsfsOKPvHqR/1gvI71VnC8sWgiHFQGHi2GK7lOpHo0jPnbW8B4VIfRTayZjqRxhPnMmPdeAxSjkucadtU7AfRy+LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwV/J4Aq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="N6FkMMsG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1787569219; x=1787828419;
-	bh=Z8/gyZvq1K/bBhlZ6sGYTHpFeJ3lOrpPEPV9gdmTfXA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=N6FkMMsGFmSwNpXYvMYTch+rKN9KJQFrlJ7FAXQz4U3kmTvmGvoPijT8TTAMYEZZW
-	 R0EJhHLeYIA4mNYD3OP9iIMhPDHWKeRKRhqGxbl6U8J+SN8d+wy1e9wlFJ4r98gmnk
-	 +b5Aguzw12U0Um/uaw5g5wRsi24bmm8oeI9+fOzLku0PJO4cCdRLT340+AMqR+abfc
-	 hIy9MzTLgr6OJWO5BKXzdBM449LIVfUMMxiKWyXWoUoz6spHv7BlmBncqFiAYLUeBY
-	 oyCQy6zkZ8j0A50jFNXUX9NXNkrPR78vFCH6blH5DKp5nsrMLohAl4/KnISLr40bDg
-	 OLJbw83SRRUVw==
-Date: Mon, 24 Aug 2026 11:00:15 +0000
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-From: nirbhayykumarr@proton.me
-Cc: "arnd@arndb.de" <arnd@arndb.de>, "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>, "w@1wt.eu" <w@1wt.eu>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v3] misc: mei: fix race condition between client teardown and read completion
-Message-ID: <nAKQ1OCohroK1IDDGOCNsI3rhxnpOt-dQp4PRQUgdPCJ13DjUIXHdp_mmdu_juNtAn5AgqR-hkQnMY0vllSuVDRyIGyzk-K-FOgOUmC8h1o=@proton.me>
-In-Reply-To: <2026082401-spoken-nag-acf7@gregkh>
-References: <2oKLyY1tm4g6xwyvmh7loQ1t1EBr1rNjMzfiXN-b0q8BbO_4vjW0xcxR_aTEielTWx5ma4f1NCO4Y5LG98PRKseN6WLUbnXR9zGtcQVR9zY=@proton.me> <2026082401-spoken-nag-acf7@gregkh>
-Feedback-ID: 172828574:user:proton
-X-Pm-Message-ID: 09f3c15f341ef96f7a43e7b2fd37cb89fbd0cfa7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwV/J4Aq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7E31F00A3A;
+	Mon, 24 Aug 2026 11:06:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787569576;
+	bh=YIW9cDWMhEnjUil/FTCyHPfyEMgCmBZe7DzJHN1+g9o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mwV/J4AqfZ7bGlyOcS6CjfOdHCZbZ/smQgCVNwcxgZ2Fiwpw+3OLWD4gtk83e4QId
+	 FsQtS9OgtXG4SNhznzIcdn03DWmVHKukB/+b3voqdEmy+ZBbfPA0cWJHmPg1o7a9Ht
+	 r8P5o8EDYBd5jCg8ekXEA5qfXdNHotU7jgAlyuL19WSVINyrD07U/5IwkQnpahL4wc
+	 EoQ7MG+B+M+SVlCKDHuYIqnlDUOMBgI5SocFD2lH6YOE6luEIPi/MIYsv3m2k8ttvm
+	 e0yHx9CfLAfYWc7H26T/B2HmE58wk7jCKW8G29sQA2JNw60tjsFIl6EoMi9kYbWmsH
+	 osuWyKCA34UiQ==
+Message-ID: <295cce78-47d2-4a6e-af90-696edb60a05d@kernel.org>
+Date: Mon, 24 Aug 2026 13:06:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] thunderbolt: Hold a router reference for each path
+ hop
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ asahi@lists.linux.dev, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
+ <20260823-b4-tbt-fixes-v2-1-26a18a426c9f@kernel.org>
+ <20260824104237.GF893316@black.igk.intel.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260824104237.GF893316@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Greg,
-
-To answer your first question directly: Yes, I used an LLM to help polish m=
-y changelog and commit description, and learn the strict kernel mailing lis=
-t etiquette. This is my very first kernel contribution, and I used it to he=
-lp navigate the patching process. However, the core technical work, finding=
- the bug, root causing it, writing the C patch, and testing it is entirely =
-my own.
-
-Regarding how this was found: This came out of a broader research project c=
-entered around systematic fuzzing and interface testing of /dev/mei0. As pa=
-rt of testing various subsystem boundaries, I wrote a custom multi-threaded=
- C stress utility that rapidly hammers the driver, more specifically, one t=
-hread streaming asynchronous MKHI requests while a second thread concurrent=
-ly drives rapid open/close/reconnect cycles.
-
-During this stress test, dmesg caught the WARNING at drivers/misc/mei/clien=
-t.c:698 (mei_cl_unlink) because cl->rd_completed was not empty. Then I trac=
-ed the driver source code in drivers/misc/mei/ to understand why rd_complet=
-ed was non-empty at unlink time: mei_release() called mei_cl_flush_queues()=
- before mei_cl_disconnect(), but mei_cl_disconnect() temporarily drops dev-=
->device_lock while waiting for firmware response. During that lock-drop win=
-dow, deferred read completions on the interrupt thread re-populated cl->rd_=
-completed before mei_cl_unlink() ran. Moving the queue flush inside mei_cl_=
-unlink() under the link state lock resolved the race and silenced the WARN_=
-ON.
-
-And my colleague simply helped me sanity check the trace to ensure it was a=
- legitimate kernel driver bug and not a misunderstanding on my end before r=
-eporting it.
-
-Thanks,
-Nirbhay Kumar
+Hi,
 
 
-On Monday, August 24th, 2026 at 3:10 PM, gregkh@linuxfoundation.org <gregkh=
-@linuxfoundation.org> wrote:
+On 8/24/26 12:42, Mika Westerberg wrote:
+> Hi,
+>
+> On Sun, Aug 23, 2026 at 06:09:14PM +0200, Sven Peter wrote:
+>> tb_stop drops the reference to all DP tunnels but does not deactivate
+>> them, thus nothing cancels a dprx_work still in flight (which holds its
+>> own tunnel reference) and the tunnel can outlive tb_switch_remove. The
+>> HopID releases in tb_path_free then operate on freed IDAs and trigger
+>> warnings like
+>>
+>>    ida_free called for id=8 which is not allocated.
+>>
+>> This can be triggered by unbinding the driver while a DP tunnel is still
+>> waiting for the DPRX capabilities read to finish. On the Apple NHI
+>> unplugging the cable runs into just that reliably because the read can
+>> never finish right now and because the unplug powers down the
+>> entire USB4 complex and removes the NHI device.
+> Thanks for adding this.
+>
+> Is this behaviour due to something missing still on PM side or this is how
+> it is designed to work on Apple silicon? This resembles the early PC way
+> where ACPI dealt with all the hotplug PCIe stuff and the host router was
+> only present when a cable was connected. I would kind of expect that Apple
+> did this using "RTD3" way so keeping the host router present and the OS
+> then deals with putting it into D3 and back.
 
-> On Mon, Aug 24, 2026 at 09:32:27AM +0000, nirbhayykumarr@proton.me wrote:
-> > In mei_release(), a host client is torn down upon close(). During this
-> > teardown sequence, mei_cl_disconnect() is invoked, which releases
-> > dev->device_lock while waiting for the firmware response.
-> >
-> > If an in-flight read request was previously submitted, an incoming
-> > completion interrupt processed concurrently by the MEI interrupt
-> > handler can add a completed callback into cl->rd_completed via
-> > mei_cl_add_rd_completed().
-> >
-> > Because mei_cl_flush_queues(cl, NULL) was invoked before mei_cl_unlink(=
-cl),
-> > an incoming completion callback can slip into cl->rd_completed after th=
-e
-> > flush has completed but before the client is unlinked from dev->file_li=
-st.
-> > When mei_cl_unlink() is subsequently called, the invariant check at
-> > drivers/misc/mei/client.c:698 triggers:
-> >
-> >   WARN_ON(!list_empty(&cl->rd_completed) ||
-> >           !list_empty(&cl->rd_pending) ||
-> >           !list_empty(&cl->link));
-> >
-> > Call trace:
-> >   WARNING: CPU: 2 PID: 5056 at drivers/misc/mei/client.c:698 mei_cl_unl=
-ink+0xaa/0x140 [mei]
-> >   RIP: 0010:mei_cl_unlink+0xaa/0x140 [mei]
-> >   Call Trace:
-> >    <TASK>
-> >    mei_release+0x202/0x270 [mei]
-> >    __fput+0x105/0x2e0
-> >    __x64_sys_close+0x90/0x140
-> >    do_syscall_64+0xaa/0x660
-> >    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> >    </TASK>
-> >
-> > Immediately following mei_cl_unlink(), mei_release() calls kfree(cl).
-> > If any remaining or deferred callback references the freed client, a
-> > use-after-free occurs.
-> >
-> > Fix this by flushing queues after unlinking the client from dev->file_l=
-ist
-> > inside mei_cl_unlink(), preventing concurrent IRQ completions from
-> > populating the client's completed queue during teardown.
-> >
-> > Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
-> > Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
-> > Cc: stable@vger.kernel.org
-> > ---
-> > v3:
-> >  - Removed non-standard Helped-by tags.
-> >  - Omitted Assisted-by: No AI or co-authors were used. The "we" in my o=
-riginal report referred to a colleague who merely verified and confirmed th=
-e bug.
->=20
-> Just to confirm, the original bug report, and test program, and this
-> hugely long changelog were not generated by any sort of LLM at all?
->=20
-> So how was this issue found?  What tool was used to poke around on the
-> mei codebase?
->=20
-> thanks,
->=20
-> greg k-h
-> 
+So unfortunately the entire USB hardware is best described as horribly 
+broken :(
+For USB2 already we only ever receive a single hotplug interrupt in 
+dwc3. If the first device is unplugged and another one plugged in 
+nothing happens. The only way around that is to tear down dwc3/xhci and 
+the PHY completely, assert all external reset lines and then bring them 
+up again.
+Upstream drivers/usb/dwc3/dwc3-apple.c contains more details in the very 
+first comment at the top.
+
+With USB4 this gets a bit worse: There's a block called "ACIO" (Apple 
+Converged I/O) which can only be brought up correctly after the PHY has 
+been switched to Thunderbolt/USB4 mode. This block has a co-processor 
+which then exposes the host router, NHI, IOMMU, etc. to our address space.
+We then have to write cable information into a vendor-specific 
+capabilities register and only then do we get the hotplug event and the 
+link comes up. This register appears to be effectively write-once after 
+each boot of the co-processor. If I try to write 0 that still works but 
+trying to write the value for the next connection then crashes the 
+co-processor with a very helpful message along the lines of "assert 4357 
+violated".
+So there's no way around first tearing everything down, then shutting 
+down the co-processor and the entire ACIO block and then finally 
+bringing it all up again after the next cable is connected. I've tried 
+to find ways around this but didn't succeed without documentation and 
+could only reproduce what XNU does.
+
+
+>
+>> Take or release a reference for both ports of each hop whenever the
+>> HopIDs are allocated or released to ensure they have the same lifetime.
+>>
+>> The KUnit tests allocate their switches without ever registering them so
+>> initialize the embedded struct device there as well to make these
+>> references work.
+>>
+>> Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Sven Peter <sven@kernel.org>
+>> ---
+>>   drivers/thunderbolt/path.c | 21 +++++++++++++++++++++
+>>   drivers/thunderbolt/test.c | 12 ++++++++++++
+>>   2 files changed, 33 insertions(+)
+>>
+>> diff --git a/drivers/thunderbolt/path.c b/drivers/thunderbolt/path.c
+>> index b2c322e76b8a..02c5e7a2101e 100644
+>> --- a/drivers/thunderbolt/path.c
+>> +++ b/drivers/thunderbolt/path.c
+>> @@ -196,6 +196,12 @@ struct tb_path *tb_path_discover(struct tb_port *src, int src_hopid,
+>>   		path->hops[i].out_port = out_port;
+>>   		path->hops[i].next_hop_index = next_hop;
+>>   
+>> +		/* Keep the ports alive, see tb_path_free() */
+>> +		if (alloc_hopid) {
+>> +			tb_switch_get(path->hops[i].in_port->sw);
+>> +			tb_switch_get(path->hops[i].out_port->sw);
+>> +		}
+> I wonder if we can put this in tb_port_alloc_in/out_hopid() instead? That
+> would be more "natural" IMHO.
+
+Sure, I'll give it a try.
+>
+>> +
+>>   		tb_dump_hop(&path->hops[i], &hop);
+>>   
+>>   		h = next_hop;
+>> @@ -323,6 +329,10 @@ struct tb_path *tb_path_alloc(struct tb *tb, struct tb_port *src, int src_hopid,
+>>   		path->hops[i].out_port = out_port;
+>>   		path->hops[i].next_hop_index = out_hopid;
+>>   
+>> +		/* Keep the ports alive, see tb_path_free() */
+>> +		tb_switch_get(path->hops[i].in_port->sw);
+>> +		tb_switch_get(path->hops[i].out_port->sw);
+>> +
+>>   		in_hopid = out_hopid;
+>>   	}
+>>   
+>> @@ -356,6 +366,17 @@ void tb_path_free(struct tb_path *path)
+>>   			if (hop->out_port)
+>>   				tb_port_release_out_hopid(hop->out_port,
+>>   							  hop->next_hop_index);
+>> +			/*
+>> +			 * Only drop the switch references after both HopIDs
+> Let's use "router" universally.
+
+Sure!
+
+>
+>> +			 * have been released: the path may be freed after the
+>> +			 * switch was already removed (e.g. asynchronous DP
+>> +			 * tunnel teardown) and these references are what
+>> +			 * keeps the ports and their HopID IDAs alive.
+>> +			 */
+>> +			if (hop->in_port)
+>> +				tb_switch_put(hop->in_port->sw);
+>> +			if (hop->out_port)
+>> +				tb_switch_put(hop->out_port->sw);
+>>   		}
+>>   	}
+>>   
+>> diff --git a/drivers/thunderbolt/test.c b/drivers/thunderbolt/test.c
+>> index 05652ee82fbf..034c56845380 100644
+>> --- a/drivers/thunderbolt/test.c
+>> +++ b/drivers/thunderbolt/test.c
+>> @@ -33,6 +33,11 @@ static void kunit_ida_init(struct kunit *test, struct ida *ida)
+>>   	kunit_alloc_resource(test, __ida_init, __ida_destroy, GFP_KERNEL, ida);
+>>   }
+>>   
+>> +static void tb_test_switch_release(struct device *dev)
+>> +{
+>> +	/* The memory is owned by KUnit, nothing to do here */
+>> +}
+>> +
+>>   static struct tb_switch *alloc_switch(struct kunit *test, u64 route,
+>>   				      u8 upstream_port, u8 max_port_number)
+>>   {
+>> @@ -44,6 +49,13 @@ static struct tb_switch *alloc_switch(struct kunit *test, u64 route,
+>>   	if (!sw)
+>>   		return NULL;
+>>   
+>> +	/*
+>> +	 * The paths take a reference to their switches and those devices
+>> +	 * have to be initialized for that to work.
+>> +	 */
+>> +	sw->dev.release = tb_test_switch_release;
+>> +	device_initialize(&sw->dev);
+> The idea was that we don't use this as real device but if we go this route
+> then I think we should call put_device() to release it and check for any
+> subtleties device_initialize() possibly does.
+
+Ack.
+
+
+Best,
+
+
+Sven
+
