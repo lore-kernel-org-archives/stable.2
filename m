@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFEF419FA2
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343B541B8DC
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574481; cv=none; b=oOuTh4dMCiyeZdt9x5WGK1en0W0DdGQWGx+o3hIEL79e7htiEMo2pej3kPDdUWa+WOF2Npl5x1s8iy3BUCo5IXl0luesQaIhJkXZ2PrH4eDwuWzsKerds4mVZkjfkI0SRSpZqavJX0WwES6+5wkuIu4Pu0sfuf8yp1+wKGVbl3E=
+	t=1787574485; cv=none; b=nKKqJog+A3+lcripIHW/JJ50iDDhoj4WxpKN/DSpgouBgMBxFpynjfnJfuvDxrOz5UcFllDyPuakmMD+fdHf/7ekQW4v/j0/EJY1rZW5xp+pOeezJm4e4kiVcVBgT0+H5L7LorOC4thsiHdDF61J1XpfKZLrWUdT6dfc4YxASxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574481; c=relaxed/simple;
-	bh=x1RR8FUbvRkJ0yiwOKazEyG4DvOhaDKDIsBW6tQiZq0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mV3UMdLv7jVYU6bXFKcJ6TkcOf+Pw/YdysU382bStM/FZeIcVEI5MCxfeYbleb78ptvT4lICjoDt+x31DznNp2HU5XmB/nCaqJKzqQkyax9cpmZ6aL7qu/pbX0/iqityWoZOFzA+HBeLm10fS/0v0+WuRl63rN6r2/P2g7DnYdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1viK9Rus; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787574485; c=relaxed/simple;
+	bh=pBe7UgznVJJUIcTs0C43fDxm6yy39wa65/79o1nFuSI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=URklX4AuuFiG8GBmBgkiIInwXgDfA8lXZWXpIpf3xzy8vJdDueHjrudaZMM7wKLiBT1Symp7acIk5cMsSvdm/Gw9wjup//zGljKcXAbD9oVryhcshcKDaPECDlYhxbFe4RU/o60ra+DjWL9usQpT538h/NjofVpxgsafrGNRkcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q5zgZ6oK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1viK9Rus"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0011F000E9;
-	Mon, 24 Aug 2026 12:27:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q5zgZ6oK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899D61F000E9;
+	Mon, 24 Aug 2026 12:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787574478;
-	bh=fPLXQQ3GiHqCyUQZeaHjLSAkQG+RfE2E0iPBa8Lxuoc=;
+	s=korg; t=1787574484;
+	bh=qh5ufFGCkvJAYnHTGlzWg7hglwtEggjeHUgTi6yf29E=;
 	h=Subject:To:Cc:From:Date;
-	b=1viK9RusA1TDWGnRYZvxoVU2qObub0Bg74nawXaTDG2TXRUHHpxyyW/3L2Wt5G9cj
-	 uaU4sgsKyWE73pH5NiPstm0a96RLysDij65dl8C1JK7wvjEV+2RrugUMYLNslapfz5
-	 OnIpnZlEBiZfqSiaMhq0zrP+e/D7Z1MV7kxZIKYE=
-Subject: FAILED: patch "[PATCH] ext4: protect WRITE_ZEROES written extents with orphan list" failed to apply to 6.18-stable tree
+	b=Q5zgZ6oK3HLUg5iICGzvTtGlCQAcBohnOkvdw0xTx57VyzC8YkusuKIYWKLvEjzAJ
+	 Cs7w0Yv0wUTcg/XbzRrKTftKMOlRmwQDKyQJEPGXEoP1YlpYelHrD0WfLIUGwxsn5R
+	 UmZBJMg0MiVCxDjBm6wsAAa+qBh0on+YKwI0ez1E=
+Subject: FAILED: patch "[PATCH] ext4: write back partial-zeroed edges in WRITE_ZEROES" failed to apply to 7.1-stable tree
 To: yi.zhang@huawei.com,jack@suse.cz,tytso@mit.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 14:27:48 +0200
-Message-ID: <2026082448-plow-sprinkler-55f1@gregkh>
+Date: Mon, 24 Aug 2026 14:27:52 +0200
+Message-ID: <2026082452-contact-marsupial-dc79@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f7237a775c8f3e99e0e77b7c10fb626815fb2877
+git cherry-pick -x d19d239ada9b7c92d086a1f051b7566538ee0089
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082448-plow-sprinkler-55f1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082452-contact-marsupial-dc79@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,161 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f7237a775c8f3e99e0e77b7c10fb626815fb2877 Mon Sep 17 00:00:00 2001
+From d19d239ada9b7c92d086a1f051b7566538ee0089 Mon Sep 17 00:00:00 2001
 From: Zhang Yi <yi.zhang@huawei.com>
-Date: Wed, 29 Jul 2026 16:59:18 +0800
-Subject: [PATCH] ext4: protect WRITE_ZEROES written extents with orphan list
+Date: Tue, 14 Jul 2026 16:00:43 +0800
+Subject: [PATCH] ext4: write back partial-zeroed edges in WRITE_ZEROES
 
-In ext4_alloc_file_blocks(), the WRITE_ZEROES path converts unwritten
-extents to written in one transaction, while i_disksize is updated to
-cover them only in a later transaction. A crash in between leaves
-written extents beyond i_disksize on disk, which fsck will complain
-about.
+FALLOC_FL_WRITE_ZEROES requires that all blocks in the requested range
+end up as written extents with zeroed content. For unaligned edges that
+were partial-zeroed in dirty unwritten or delalloc state, the buffer
+is left dirty while the underlying extent may not yet be converted to
+written. As a result, a subsequent SYNC write to this range would still
+trigger metadata changes, which violates the semantics of WRITE_ZEROES.
 
-To fix this, add the inode to the orphan list in the same handle that
-does the conversion, and remove it once i_disksize has caught up.
-Also add a sanity check to ensure conversion does not extend beyond EOF.
+Fix this by calling filemap_write_and_wait_range() for partial-zeroed
+edges to flush out the zeroed data and ensure the extent conversion
+is complete.
 
-Since ext4_alloc_file_blocks() is called from the fallocate() path,
-partial allocation is safe. On partial conversion failure, advance
-i_disksize only up to the boundary of successfully converted blocks, so
-that orphan cleanup sees a consistent state. Document this behavior in
-the function comment.
-
-Reported-by: Jan Kara <jack@suse.cz>
-Closes: https://lore.kernel.org/linux-ext4/3f6ao5amv7glbgigndtegcucgo3n34ij3lau6l3da3hgdxgn3v@ev66wv3r5umt/
 Fixes: f4265b8d32c4 ("ext4: add FALLOC_FL_WRITE_ZEROES support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260729085918.3336221-3-yi.zhang@huaweicloud.com
+Link: https://patch.msgid.link/20260714080044.4038124-9-yi.zhang@huaweicloud.com
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 
 diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 1ab1a6e2ed83..a3dde7ba0d23 100644
+index d62fc4543760..d5f87a7f6c05 100644
 --- a/fs/ext4/extents.c
 +++ b/fs/ext4/extents.c
-@@ -4571,6 +4571,22 @@ int ext4_ext_truncate(handle_t *handle, struct inode *inode)
- 	return err;
- }
+@@ -4791,7 +4791,15 @@ static long ext4_zero_range(struct file *file, loff_t offset,
+ 	if (IS_ALIGNED(offset | end, blocksize))
+ 		return ret;
  
-+/*
-+ * Pre-allocate blocks for the range [@offset, @offset + @len). Allocated
-+ * blocks are marked as unwritten by default. If EXT4_GET_BLOCKS_ZERO is
-+ * set, the allocated blocks are zeroed on disk and their extents are
-+ * converted to written state.
-+ *
-+ * When @new_size is nonzero, the caller intends to extend the file, and
-+ * the file size should be updated to the end of the allocated blocks.
-+ *
-+ * Allocation may partially succeed due to some non-fatal issues. In that
-+ * case, i_disksize (and i_size) is advanced up to the successfully
-+ * processed portion of the range.
-+ *
-+ * Return 0 on success, or a negative error code on failure or partial
-+ * failure.
-+ */
- static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
- 				  loff_t new_size, int flags)
- {
-@@ -4585,6 +4601,7 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
- 	loff_t epos = 0, old_size = i_size_read(inode);
- 	unsigned int blkbits = inode->i_blkbits;
- 	bool alloc_zero = false;
-+	bool orphan = false;
- 
- 	BUG_ON(!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS));
- 	map.m_lblk = offset >> blkbits;
-@@ -4659,19 +4676,49 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
- 
- 		if (alloc_zero &&
- 		    (map.m_flags & (EXT4_MAP_MAPPED | EXT4_MAP_UNWRITTEN))) {
-+			ext4_lblk_t converted;
-+
-+			WARN_ON_ONCE(map.m_lblk + map.m_len >
-+				EXT4_B_TO_LBLK(inode, new_size ?: old_size));
-+
- 			ret = ext4_issue_zeroout(inode, map.m_lblk, map.m_pblk,
- 						 map.m_len);
--			if (likely(!ret))
--				ret = ext4_convert_unwritten_extents(NULL,
--					inode, (loff_t)map.m_lblk << blkbits,
--					(loff_t)map.m_len << blkbits, NULL);
--			if (ret)
-+			if (unlikely(ret))
- 				break;
-+
-+			handle = ext4_journal_start(inode, EXT4_HT_MAP_BLOCKS,
-+						    credits);
-+			if (IS_ERR(handle)) {
-+				ret = PTR_ERR(handle);
-+				break;
-+			}
-+
-+			ret = ext4_convert_unwritten_extents(handle,
-+					inode, (loff_t)map.m_lblk << blkbits,
-+					(loff_t)map.m_len << blkbits,
-+					&converted);
-+			if (ret)
-+				map.m_len = converted;
-+
-+			/*
-+			 * If blocks beyond i_disksize are converted, add
-+			 * the inode to the orphan list and advance the epos.
-+			 */
-+			if (new_size && converted) {
-+				ret2 = ext4_orphan_add(handle, inode);
-+				ret = ret ? ret : ret2;
-+				orphan = true;
-+			}
-+
-+			ret3 = ext4_journal_stop(handle);
-+			ret = ret ? ret : ret3;
- 		}
- 
- 		map.m_lblk += map.m_len;
- 		map.m_len = len_lblk = len_lblk - map.m_len;
- 		epos = EXT4_LBLK_TO_B(inode, map.m_lblk);
-+		if (ret)
-+			break;
- 	}
- 
- 	if (ret == -ENOSPC && ext4_should_retry_alloc(inode->i_sb, &retries))
-@@ -4687,11 +4734,23 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
- 	if (epos > new_size)
- 		epos = new_size;
- 
--	handle = ext4_journal_start(inode, EXT4_HT_MISC, 1);
--	if (IS_ERR(handle))
--		return ret ? ret : PTR_ERR(handle);
-+	handle = ext4_journal_start(inode, EXT4_HT_MISC, 2);
-+	if (IS_ERR(handle)) {
-+		/*
-+		 * The conversion has successfully completed. Not much to
-+		 * do with the error here so just cleanup the orphan list
-+		 * and hope for the best.
-+		 */
-+		if (orphan && inode->i_nlink)
-+			ext4_orphan_del(NULL, inode);
-+		ret2 = PTR_ERR(handle);
-+		goto out;
-+	}
- 
- 	ext4_update_inode_size(inode, epos);
-+	if (orphan && inode->i_nlink)
-+		ext4_orphan_del(handle, inode);
-+
- 	ret2 = ext4_mark_inode_dirty(handle, inode);
- 	ext4_update_inode_fsync_trans(handle, inode, 1);
- 	ret3 = ext4_journal_stop(handle);
-@@ -4699,6 +4758,9 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
- 
- 	if (epos > old_size)
- 		pagecache_isize_extended(inode, old_size, epos);
-+out:
-+	if (ret2)
-+		ext4_std_error(inode->i_sb, ret2);
- 
- 	return ret ? ret : ret2;
- }
+-	if (((file->f_flags & O_SYNC) || IS_SYNC(inode)) && partial_zeroed) {
++	/*
++	 * In FALLOC_FL_WRITE_ZEROES mode, edges that have been partially
++	 * zeroed must be written back to ensure the entire zeroed range
++	 * is converted to the written state. In SYNC mode, writeback is
++	 * also required to persist the zeroed data to disk.
++	 */
++	if (partial_zeroed &&
++	    ((mode & FALLOC_FL_WRITE_ZEROES) ||
++	     (file->f_flags & O_SYNC) || IS_SYNC(inode))) {
+ 		ret = filemap_write_and_wait_range(inode->i_mapping, offset,
+ 						   end - 1);
+ 		if (ret)
 
