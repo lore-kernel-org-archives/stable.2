@@ -1,15 +1,16 @@
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D71626AF4;
-	Mon, 24 Aug 2026 02:42:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DC73749E2;
+	Mon, 24 Aug 2026 02:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787539362; cv=none; b=EzDnANvpHKElGv4oi7kh294SNYMoCicZg1XaYq0UQbdvpMo3MH3WOnvfOLn7fGnSe51190tRQVvpmbAnoDHJ5YhV/am2IvQsoFtOVQM35dcxlQnmVwGTg23maHJE59iQ502qodm3sIlUM8io0rJ5OhoO8bNHm0UdpLV3eoF0r9c=
+	t=1787539371; cv=none; b=T2QCXdULv5MF3HBag2gmr6H+R/2baQvld+MKJMoNEpU+s6H/Gyn5Dpfd91JowPYrJIBhEcDkdF8g9E4spndwLLP7Y7xHF405HKphqIh+5QN4DmYQWXf4hmYFmACjJsNOLd4bJyIZ9Fs04niPi+0dTXPfuTeADyyODpja5wxcYXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787539362; c=relaxed/simple;
-	bh=V9vHnE3kH0gZ8K3oW6/dvUq+35N/saT/ANArt5Lrs9A=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=XMCYK2S04K4pscMfCxbZog81kaIbu88ZAlouX2TGBrlIPSxpbFBr6K0i7pvCJSbTNEtWkZjX/lCPv3RNqE3DvLF6HNh5LwmvYqi61rXPgIptPECG8+jk9A1d+BKuqecI8wCMeBZZcQaDAYFW25BTkkDTBJoh/gzTXMPO2CGK4kk=
+	s=arc-20240116; t=1787539371; c=relaxed/simple;
+	bh=HAKuO93Qq40zQKSxoIqd6AgYapN0t/tUgR+0VfcG6gw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=OVmoCbVapgIDVZIRaSY0XxD0NRflX9CZ4gx+dkJynq6SCIqIH+UgCNarsWyIhwht70PN50LOlsBkoqKE063RhVjrf02feV8f7ufgsTh/MgMCMwh0sKJw6ahe+7s0hAANhOjI0cg4qEsoBVGLLzEcRfEYXSD0FG5mjjtyDiZisBY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
@@ -21,9 +22,8 @@ Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
  Transport; Mon, 24 Aug 2026 10:42:29 +0800
 From: Ryan Chen <ryan_chen@aspeedtech.com>
-Subject: [PATCH v2 0/8] Add Aspeed AST2700 SDRAM EDAC support
-Date: Mon, 24 Aug 2026 10:42:27 +0800
-Message-ID: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
+Date: Mon, 24 Aug 2026 10:42:29 +0800
+Subject: [PATCH v2 2/8] EDAC/aspeed: Set the DIMM grain
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -32,10 +32,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJOvi2oC/yXMQQ6DIBSE4auYty4NvqYgXXmPxgWBsbKoGjCkj
- eHupbr8J5Nvp4QYkOjR7BSRQwrLXIMvDbnJzi+I4GsTS1ZS8V3AWyc6GCUhGXrUVK9rxBg+B/M
- cak8hbUv8Hmpu/+sJdC2fQG6FFPJmDMPDstG9TSvgN7jp6pY3DaWUH420yfCdAAAA
-X-Change-ID: 20260625-edac-8e960e02e7f7
+Message-ID: <20260824-edac-v2-2-c8d8bb693586@aspeedtech.com>
+References: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
+In-Reply-To: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
 To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
 	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
@@ -43,75 +42,48 @@ To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
 CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
 	<linux-edac@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
 	<stable@vger.kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787539349; l=2978;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787539349; l=1310;
  i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=V9vHnE3kH0gZ8K3oW6/dvUq+35N/saT/ANArt5Lrs9A=;
- b=XXSvVnRUICHxI9DnJdoEdFOU8J2txiDs0wz1CkmDp2Xnhr8sCeqGajvULSJ0Riky30K3iF1sg
- 3wZ1AR+N5Z/DdaY+lcmZxDf5h0utro6XciKLWKsGBdDRk1TKA7TiKlO
+ bh=HAKuO93Qq40zQKSxoIqd6AgYapN0t/tUgR+0VfcG6gw=;
+ b=pWMGHcJsIcNVW6fGk94Ijg8TINjEYsz1FD6Ls8QarH71DmsGHNYs0v+MeawD+m42IUSfAQtqJ
+ Rx6vngxHGfQDWICRK+3nRef9Xsm4UkjhAOQp7WRYgmaaN6DkI5RH2vE
 X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
  pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Add ECC error reporting for the Aspeed AST2700 SoC to the existing
-aspeed_edac driver.
+The driver never sets dimm->grain, leaving it zero. Since commit
+3724ace582d9 ("EDAC/mc: Fix grain_bits calculation")
+edac_raw_mc_handle_error() runs WARN_ON_ONCE(!e->grain) and forces the
+grain to 1, so the first ECC error reported on any Aspeed BMC SoC emits a
+warning splat, e.g. on the AST2600:
 
-The AST2700 memory controller keeps the same overall EDAC programming
-model as the earlier Aspeed BMC SoCs, but uses a different register
-layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
-Rather than fork the driver, the existing code is first tidied and
-generalised, then the AST2700 is added as one more per-SoC variant.
+  WARNING: CPU: 0 PID: 0 at drivers/edac/edac_mc.c:924 edac_raw_mc_handle_error+0x4b4/0x604
+  ...
+  edac_raw_mc_handle_error from edac_mc_handle_error+0x364/0x4a8
+  edac_mc_handle_error from count_rec+0xdc/0x124
+  count_rec from mcr_isr+0x110/0x1e8
 
-Patches 2-5 are bug fixes and cleanups to the existing driver. Patches 6
-and 7 rework the implementation to accommodate the AST2700. Patch 8 adds
-the AST2700 support itself.
-
+Fixes: 9b7e6242ee4e ("EDAC, aspeed: Add an Aspeed AST2500 EDAC driver")
 Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: stable@vger.kernel.org
 ---
-Changes in v2:
-- New patch: free the ECC interrupt before the mem_ctl_info in
-  aspeed_remove(). The interrupt is requested with devm_request_irq() and
-  is only released after .remove() has returned, so edac_mc_free() could
-  free the handler's context while the handler was still running on
-  another CPU.
-- Acquire the register lock with the irqsave variant in init_csrows() and
-  in aspeed_probe(). The interrupt handler takes the same lock in hardirq
-  context, so taking it with interrupts enabled would have tripped lockdep
-  on the first reported error.
-- Move the dev_dbg() of the interrupt status register out of the
-  raw_spinlock critical section in the interrupt handler.
-- Opt aspeed_edac.o into context analysis in drivers/edac/Makefile. The
-  check is opt-in per object, so without it the __guarded_by() annotation
-  added by the same patch was never actually verified.
-- Return IRQ_NONE from ast2700_dramc_isr() when no ECC interrupt status
-  bit is set; the handler clears only the ECC bits, so unconditionally
-  claiming the interrupt could livelock the level-triggered line.
-- Tested v2 on both AST2600 and AST2700 by injecting a correctable
-  error with the memory controller's ECC error injection; each is
-  reported as a CE with the expected failure address.
-- Link to v1: https://lore.kernel.org/r/20260812-edac-v1-0-03992edea297@aspeedtech.com
+ drivers/edac/aspeed_edac.c | 1 +
+ 1 file changed, 1 insertion(+)
 
----
-Ryan Chen (8):
-      dt-bindings: edac: aspeed: Add AST2700 SDRAM EDAC
-      EDAC/aspeed: Set the DIMM grain
-      EDAC/aspeed: Free the interrupt before the mem_ctl_info on remove
-      EDAC/aspeed: Clean up whitespace and include ordering
-      EDAC/aspeed: Free the mem_ctl_info unconditionally on remove
-      EDAC/aspeed: Replace regmap with direct register access
-      EDAC/aspeed: Abstract SoC differences behind chip data
-      EDAC/aspeed: Add AST2700 support
+diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
+index 6e069b255595..83d60414f89a 100644
+--- a/drivers/edac/aspeed_edac.c
++++ b/drivers/edac/aspeed_edac.c
+@@ -266,6 +266,7 @@ static int init_csrows(struct mem_ctl_info *mci)
+ 	dimm->mtype = dram_type;
+ 	dimm->edac_mode = EDAC_SECDED;
+ 	dimm->nr_pages = nr_pages / csrow->nr_channels;
++	dimm->grain = 16;
+ 
+ 	dev_dbg(mci->pdev, "initialized dimm with first_page=0x%lx and nr_pages=0x%x\n",
+ 		csrow->first_page, nr_pages);
 
- .../bindings/edac/aspeed,ast2400-sdram-edac.yaml   |   6 +-
- drivers/edac/Makefile                              |   1 +
- drivers/edac/aspeed_edac.c                         | 426 ++++++++++++++-------
- 3 files changed, 284 insertions(+), 149 deletions(-)
----
-base-commit: 5464985e42c04e335fb30e38fbc409c997db9bec
-change-id: 20260625-edac-8e960e02e7f7
-
-Best regards,
 -- 
-Ryan Chen <ryan_chen@aspeedtech.com>
+2.34.1
 
