@@ -1,191 +1,128 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010018.outbound.protection.outlook.com [52.101.201.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECBDA45C6EE;
-	Mon, 24 Aug 2026 16:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787587227; cv=fail; b=m89G7wpoHwetbAVEm2C4wuMSZ/OCUFxxGhu7viG6lZCS50UFRUT+a6Zd49WKMb2u7pKYd3L3BiUemDhjG+lCDuBvugV25hWBZFwHTJ9Q1r9FJTPJcW3S7Zu0N3iHLVtj+Yj8jxd6TiJ6ReKlQR7c+dS9KOs4/FdAraR99+Z8fg4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787587227; c=relaxed/simple;
-	bh=9zVXBnewT7/ammwMaZHCSVCFSZ8SDtCQYHYthk4goWY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mEi3jRNw4U4rGLNw+/izFMwU8NyBtM26uaGVcpeE95PpjW8UrJM6RPc7mvOpZeyudCfAjw0LlSkpaavLDY7aM0tHhzThxDh+sZk1R42Vy1CrZvJcFvwUSBZMXot9LCRCqX5mnYLQbi1Dy/GVS1MUxn6jcGGL+sOkldz9ETm/k8E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=E9ohPGVV; arc=fail smtp.client-ip=52.101.201.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F13845C6F6
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 16:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787587243; cv=none; b=sD8AQG9dmFbn2+5uKtqsjVWDtDVW4mL++6mxE8kbFh5YbvIm4a8egO31nxAU2SsQZuXk2hJFOVvYWV5+low3sG69LgapzInyK3OZfPrITZ6oE6kU0nx1XFERY/lmp77oBC4rZdkqE/PBFRdwRRHSHdU5M2tIG4gkXhTNhsAYV9E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787587243; c=relaxed/simple;
+	bh=JDnNCm8POwOEh9r9Zuxavtl0AknyWidZ8VrOxDpaR+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W9KwVdQJ9/Lgp+qxyeBz1Emnk5NspJll33spPmFWAcfGGaNYugggg8TKw0EX47DvdM6ggRmu3HhvWPz2PrHYep2NxIKBqhlBmgjCka0YGg0HAFHsOSxWizyoKX7NzqDXTGr4UYMBx2fb98o1SpfCcPXof62RQhg99h/1Bhnvdks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h9syJETW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FR6wtOqY; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="E9ohPGVV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lvr5y4gvWit3uJFkWkmupUeTRst9M69zaeExrL+JvCUC3DA0L0ln7sgMTBUYqLWLdMuiJc3UHAP57TJL3cYZVoSu5jtC0Q7D3xYvuQCCbJqMZ1vTgcQpHKvjHYHB1sDW9FoXgGk8SfPqOA+uE1nrT7WlDWwWggYXFlB1R+KBTYmpch24OY92WSndtxdEP9tF0OS7WwM3jcG4soKJZqAUH8Z15pR4kPHZrGfNL5Ddi9F1JEDcZYPzBki5xOphpNbT7/WZO0+P/sN/9ofZ7lOtx2rS5r5BRygZLnk10NZZLvMtKU5VAvDPG9WhC8GKYg+yPmKEyHE+uBoguefwC7Inyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c8C32tfkoD0u7LZKrSVZxmXW7MymW5keNiUzcZHl/H0=;
- b=gdz2RagEyEZCcyAYzafJlj2xc9QTZct0pJAGT6oKzkP+DXaTaya82wqvLW/oeqBKTivO22lJxB88StHcB59Ed/rbdMcU0m77GS8F2cqgvs00SzfsdV072iyupLqxgsoNA1/bqOm2xxwggg5ubdXeVkh3QngmdWE9rJ43g6/NpXJTPR9E26eCY41O5q21Tn/LHCdS/vtwUqOIdfRrnGhKainEmRbfMgBg9r7Gpu+eg1PTURTBSxB4GI2k59nbEcvyr0YxZOb4lxQxWDEJrBlHpPg0V0fEe4pbIj7ewx/7xjyP9dxxSbmWpL9+FD2QMhW77zo4RV9aLTeUljh+Of12GA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c8C32tfkoD0u7LZKrSVZxmXW7MymW5keNiUzcZHl/H0=;
- b=E9ohPGVVfL1EOm7/FWn6BlxNWxUkTbV59kYfPSuCoQQRPgsWObiN+hyEVjeh9kytbImzkSpA6epkWQ/JcWN3WS4E0ntauZLB8XQSG8QZWiSK+lHg2Bxtlm+VoEDKJGv93+afhdRDklmKevm+aAn13QzgIqpDdSsw+d2iT2aVWkHhPikA2mnhBeQrKzhGLQARJDqdfVkDxyUuIv9bpCdsZb4rH7IkjmUBI7Hlmb9/n7jw/ArP1eC6GZIBs3SCXzAOavOzNFochmxXiYybQLi5WVBurKvDWJfQcUo0g1yuQRSIdHcKbEtwdsJ1FZvrtRd1YifUa8g0vSn9rYpFQbNAtQ==
-Received: from CH2PR11CA0017.namprd11.prod.outlook.com (2603:10b6:610:54::27)
- by DM4PR12MB5793.namprd12.prod.outlook.com (2603:10b6:8:60::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Mon, 24 Aug
- 2026 16:00:17 +0000
-Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:610:54:cafe::f) by CH2PR11CA0017.outlook.office365.com
- (2603:10b6:610:54::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Mon,
- 24 Aug 2026 16:00:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Mon, 24 Aug 2026 16:00:16 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 24 Aug
- 2026 08:59:45 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 24 Aug 2026 08:59:44 -0700
-Received: from sdonthineni01.nvidia.com (10.127.8.9) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 24 Aug 2026 08:59:43 -0700
-From: Shanker Donthineni <sdonthineni@nvidia.com>
-To: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>, "Steven
- Price" <steven.price@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
-	Shanker Donthineni <sdonthineni@nvidia.com>, <stable@vger.kernel.org>
-Subject: [PATCH] irqchip/gic-v3-its: zero ITS tables in the shared view after decryption
-Date: Mon, 24 Aug 2026 10:59:27 -0500
-Message-ID: <20260824155928.2396620-1-sdonthineni@nvidia.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h9syJETW";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FR6wtOqY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787587240;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1hh+S6BT+/ZJJa40lL1O++OyyII1KUrPxAo2YLD9DsQ=;
+	b=h9syJETWzi18gQ7VfX5vAJ0UpI30n2qSz0Pwpolt3W43kDIXM5U90VRIJIpEquiT0EuU2J
+	kFeklVHXAVsKz/UvBH2Z400Qc1y6tPaJbXsgfm48WRIlHdWDiVHw3deUUj8iZUH01d1uyz
+	eZkNEQ+f51VkRyDL8kMEB6V7BMxSeLI=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-127-Iwcu6cc3Pz659XzhgikNPA-1; Mon, 24 Aug 2026 12:00:38 -0400
+X-MC-Unique: Iwcu6cc3Pz659XzhgikNPA-1
+X-Mimecast-MFC-AGG-ID: Iwcu6cc3Pz659XzhgikNPA_1787587238
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93494527488so629114185a.3
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:00:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787587238; x=1788192038; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=1hh+S6BT+/ZJJa40lL1O++OyyII1KUrPxAo2YLD9DsQ=;
+        b=FR6wtOqYdVNrQDfHMo0Jo4uZZKRSu8QBdnoHPKHj7fFs4aqEQkuSViCpvqQ5N50rFi
+         ZWlefCp/p+53Wiu58EZhmQM+LMdtxlkeHhQss5PsnD7mRRkpc4mOJlZSi+2QsTriV683
+         KTeaSZSSiqDIj4penZAvG8rx4P4lyi4Axw6ERvfSWo7mMdy9bvXLZI0WtB+3KwZunYvK
+         OBJ5/PK4sz1Ahpx+ZsHSiZBYX2VzDw1WEgpJN2zGtPRKNiB4N06qNFDlTr/bAUB30FXa
+         KCISmM3Jpx79t1rpAtnkzAq83WjwEsw447UrHp9RtmRy+//ShDm7VMBlXCSLLC9bTfdt
+         QnWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787587238; x=1788192038;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1hh+S6BT+/ZJJa40lL1O++OyyII1KUrPxAo2YLD9DsQ=;
+        b=n3GZVGK6M9MESbGd18+omTidPVubQ2+MeDAaKLzcACc6AzgcpiCBNfuepGEUQPtwvZ
+         JRXa+C6rlGWWcWMCbyrnkNJUK016oiJy2AKa7TaUMnJCcKJ9DUku8YLrD5aQchCh0IQB
+         FlUB4Ujnk1lBT/1SVb2BUhf6CmmwBm7a7ywmiXbOkYZti0vt3ta0qCB1W0jfQrdeZSSC
+         ZD7rBkeW9N0vNruVh2BvXMviD6eo8a5hDlN8TNYynTYY3IJxvDYKQaUpyMF/o5X2IHzw
+         oailaugSK3zkbl8VRhLK2xgfOzIWTPrVllIBWNtq45D521mpBLr4N0+foYBtSmrydJHp
+         EVOA==
+X-Forwarded-Encrypted: i=1; AHgh+RpMEx6c37QmPg5S/wXB8DiEY7HBcRaRyWxuHJjnGSupqKVuMSUTGVbHBAypQVvzyTqF45yF+/w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgj9NZA/zizaCAbahEqhsUR7DGgubdQwUEdsDm3rWO0cbRJFTD
+	S81WwiymIfni2Ut8ERqkTyxWjh0zACS1VHGK3SZZkcmr94mlwDxJsE/2VK6DEHxI5BFpzCu34sV
+	vR3ioa8KAvnsDxtNPiS+YW0RhxOD9Kn5hC3u3DyxntkO1KrD2/gEFV63KmQ==
+X-Gm-Gg: AR+sD12U/DERZf+zMa946txIOi+uBd2qbjr5b7OwqXLP5MmvuSvUR7Ng7AbsbTkTbic
+	w73gTqY4FDwWEQTzIRkYl+AlNYgaR+YzXotD+ZqaRz0w2tlm05jqBQpl0YWGW9CI+wijLcvbr33
+	TTz6breFMaYYpOF8Co2aLVzatz2lE/Ii0bPJhrF+QhaAzW+khiWb+5Vx73QYKs7E7ZqQM1WV2Gr
+	0hbtVqzWq14iYlt7QHHl7oXUZTeMH7Ikiv56n418Szq7csYpW5YehjU1fiWgtgwHtuupPyk0XWp
+	zE9b6QErMyy9ocj98BBIiFhkgFdgE+a9aXRkB+4T+WZ1szOKTBVFZbGCcIoViJRmNA/THkuAcb8
+	PgV5+swwDfwu3H0hIOwLosq112+jLu7CQ76g=
+X-Received: by 2002:a05:620a:c55:b0:914:afc1:c66d with SMTP id af79cd13be357-9373945a4dfmr2575002685a.11.1787587237600;
+        Mon, 24 Aug 2026 09:00:37 -0700 (PDT)
+X-Received: by 2002:a05:620a:c55:b0:914:afc1:c66d with SMTP id af79cd13be357-9373945a4dfmr2574985285a.11.1787587237031;
+        Mon, 24 Aug 2026 09:00:37 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93749d9531fsm532494885a.24.2026.08.24.09.00.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 09:00:36 -0700 (PDT)
+Date: Mon, 24 Aug 2026 12:00:34 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: hanzhijian <hanzhijian1991@gmail.com>
+Cc: Daniel Palmer <daniel@thingy.jp>,
+	Romain Perier <romain.perier@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] clk: mstar: msc313-mpll: fix off-by-one in clock
+ array allocation
+Message-ID: <aoxqosHN8sqiR_XC@redhat.com>
+References: <67ec3261-9f3d-4dcc-b916-19dc8be56a6e@web.de>
+ <20260824142800.3497263-1-hanzhijian1991@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|DM4PR12MB5793:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a82cbc3-af1c-4227-4721-08df01f8ca83
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|6133799003|10067099003|11063799006|56012099006|10063799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	v2BMQqv/UsQFY87xjOwBYIY1xcrIOx12PXMoywuxdNfyb1w9lmtq8Z5T7xoRhXHwGgDuWrxzqc3zF4v5FHi5YykmLyYHuxftgdT5BHkDhTvkTInM4Sa3ORJYYryB3FX53PjKz9S0FZYqsXZnduzrEUdtXQZ5NsjgYtFAMMhmZwF7v3oOuAIA+N0ulp9/q4MLJLtXWxiIYbGvaSKO4m62vPgfWhdeOHcY63n+mhogoFNI8F9aVJWF7yAatvuf6y+oPEbqpF0pet54iZ2OpkKdaHeawKYhCrznOmER0xkd3FU1oifWGU5ecYmJnm3Fi0cCmWUwEuIByijkog2zixwdedkUEpz6GMLBmXWRXX5au399GfhI8Xqo9gfnPVlMQCr7ZK6DvkuZl2kly8Ylhwz0xVuCLMv1qXa5M5RpdjavxKnjlq5HrbIeO7C3xa8pX1/5n6zr5IPVeb32WEF6SiFOIsxC/VRxVhcJ5TcH7qgFTLGJEa9ok0bpOoB5aNAJB1yZHU2EJiepix+UycYKi16BWlfDql/4kgLywV00XqJg2WNYnSJEIiZ2N5yaJvZcXw5DROdgX5cKBqko1fV3BB2IHlviNbADmpHwNy5Qu5HHOYCUx3tJG5U3mGGhhcD7a7wzSf2Di3SokzeeXVL5Dqn/0pnKyCfp/1owOYYs2Pi1680/Ra7ttEBVZHpHoSBnLyx/r9iMh/cudrpwXImDIrjQkQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(6133799003)(10067099003)(11063799006)(56012099006)(10063799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/6BIWFFzraKf+Bm/sZ9/fw6Ea2WdQqDucLxV7uYipXIuJtYrRl8z5ZE826D1FZT2pPpXGZjse1RnckMR0bF/BUe2/OFdJ/HquacIwphLjnuDz9c6T5vdcKryhAn/D+M3jmA9Mn2y3uHVV6UXbtcC5ArxjPxU/cJQSbosvpr6rPHeyPeHwMzBa3S+Q13IFh9a5HNVMcoGoae7kMhV6O76aeYckENVGXbgwvELLFQ0zg56lQo0auImaMJE747RyXgbyB/E0zr6cIOVBScg+JckWVBkwc425zYBQm80Hn9BLY9c7L1qaWn/AUbTXk9mb+VzrRxrST28ztTaLFM6bWlzDKpAeMBXeuNbTWMMohxc7UnTwoItG2ejWyP1Ww6NB42FFYRBNmeR2uQQzYAckREUx6McaCMrgLWPX4yzmmiKd0rl5OQDLYcRVes/O++QwPvO
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 16:00:16.9584
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a82cbc3-af1c-4227-4721-08df01f8ca83
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5793
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824142800.3497263-1-hanzhijian1991@gmail.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-its_alloc_pages_node() allocates pages, some with __GFP_ZERO, before
-calling set_memory_decrypted() to share them with the untrusted
-hypervisor. In an Arm CCA Realm, allocator clearing occurs through the
-Protected IPA.
+On Mon, Aug 24, 2026 at 10:28:00PM +0800, hanzhijian wrote:
+> The hws array of mpll->clk_data is allocated with struct_size() using
+> ARRAY_SIZE(output_dividers) as the element count, giving it 7 elements.
+> But the probe function stores the MPLL clock at hws[0] and one
+> fixed-factor clock for each output divider at hws[i + 1] for i in
+> [0, ARRAY_SIZE(output_dividers)), writing 8 elements in total.  The
+> final write to hws[7] is past the end of the allocation.
+> 
+> clk_data->num is also set to NUMOUTPUTS (8), so the clock framework
+> reads hws[0..7], again accessing hws[7] out of bounds.
+> 
+> Use NUMOUTPUTS as the element count so the allocation matches the
+> number of clocks actually stored and exposed.
+> 
+> Found by smatch:
+>   drivers/clk/mstar/clk-msc313-mpll.c:134 msc313_mpll_probe()
+>   error: buffer overflow 'mpll->clk_data->hws' 7 <= 7
+> 
+> Fixes: bef7a78da716 ("clk: mstar: MStar/SigmaStar MPLL driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: hanzhijian <hanzhijian1991@gmail.com>
 
-set_memory_decrypted() changes the RIPAS of the Protected IPA from
-RIPAS_RAM to RIPAS_EMPTY. The RMM architecture requires the backing
-DATA Granule to be wiped before it becomes GRAN_UNDELEGATED. Wiping is
-a confidentiality operation, not a zero-initialization guarantee: it
-may be implemented by changing the MEC or writing random data.
-Consequently, zeroes written through the Protected IPA are not
-guaranteed to be observed through the corresponding Unprotected IPA
-alias.
-
-This is harmless for tables that the guest fully populates before use,
-but the GICv3 ITS indirect device table is sparse. The guest writes only
-the L1 entries for devices it maps, while both the guest and the
-hypervisor's ITS emulation rely on unused entries being zero.
-Unspecified nonzero values can make an unpopulated entry appear valid,
-causing the guest to skip the required L2 allocation and the hypervisor
-to consume a bogus pointer. Interrupt translation then fails,
-potentially hanging the guest when it first uses the device. This is
-exposed when guest_memfd reuses the same backing Granule for the
-Unprotected IPA mapping rather than supplying a fresh Host page.
-
-Strip __GFP_ZERO before allocation and clear the page through the
-Unprotected IPA alias after set_memory_decrypted(), so the requested
-zeroes are written in Non-secure PAS and are visible to both the guest
-and the Host. This also matches dma_direct_alloc(), which clears memory
-after dma_set_decrypted().
-
-Fixes: b08e2f42e86b ("irqchip/gic-v3-its: Share ITS tables with a non-trusted hypervisor")
-Cc: <stable@vger.kernel.org> # 6.18+
-Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
----
- drivers/irqchip/irq-gic-v3-its.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index 6f5811aae59c1..a62abe8bcbde0 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -216,7 +216,17 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
- 	struct page *page;
- 	int ret = 0;
- 
--	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
-+	/*
-+	 * Defer the zeroing requested by __GFP_ZERO until after the page has
-+	 * been shared below. Under memory encryption (e.g. an Arm CCA realm),
-+	 * any clearing performed by the allocator occurs in the private view
-+	 * (the realm MECID/PAS). Once set_memory_decrypted() has run, both the
-+	 * hypervisor and the guest access the page through its shared
-+	 * (non-secure) alias, where the earlier private zeroing is not visible.
-+	 * Strip __GFP_ZERO here and clear the shared view after the transition.
-+	 */
-+	page = alloc_pages_node(node, (gfp & ~__GFP_ZERO) | gfp_flags_quirk,
-+				order);
- 
- 	if (!page)
- 		return NULL;
-@@ -231,6 +241,15 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
- 	if (ret)
- 		return NULL;
- 
-+	/*
-+	 * If the caller requested __GFP_ZERO, clear the page after it has been
-+	 * shared. This is required for sparsely populated tables, such as the
-+	 * indirect device-table L1: zeroing the shared view ensures that the
-+	 * hypervisor observes zero for entries the guest has not written.
-+	 */
-+	if (gfp & __GFP_ZERO)
-+		memset(page_address(page), 0, PAGE_ORDER_TO_SIZE(order));
-+
- 	return page;
- }
- 
--- 
-2.43.0
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
