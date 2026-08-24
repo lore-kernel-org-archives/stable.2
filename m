@@ -1,64 +1,66 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED5D41D223;
-	Mon, 24 Aug 2026 12:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FA742046B;
+	Mon, 24 Aug 2026 12:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787576105; cv=none; b=qfyJTvqVDMdiBWyNSanFJBAasdbmotsgI49e69jGkUuDIo6pUhMhDvFTV/HLs6gGE8Knf6CVr2dXTYXodp+x7Qr8YB8E+wSZxrvq6z5+zUQZlmAxcaVvw4KuPcqp6drLhgT3teJ3MLpjO3soOOI9+AXFuXoQosCJ3wYZxLMhfTs=
+	t=1787576172; cv=none; b=MsQ0OvvqNqbeerIOt8KPmSW1D35bR1tytglPaqDx0l9n7bWeWIw61ZbPRXECDdOtYsOJO/1/ZUE9/Jedr/hdqg/WyAfDkXY9kcJvdlUbe1g1fefmg8IhI+zvSbBJbjFCDA0NXeKsnU71YTvpz9/iiZsWG74nm9F9TL5nwS4QY3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787576105; c=relaxed/simple;
-	bh=ZlM6xsIiViLJz7owZRxtVA3Y/seJp36RqcP3jOyJbMY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pzwrUYZa+96bhgoxi23bbK4KT8cEHjBKW36gnAkExP4IbIqumzS4dzQo2CFowRGDz3xcFcxJyyVMgTz8RR7wpQ/HmDFWIr2XDY+MmziSytumSeR56i5hi1SQvBldvE2uGV6tE+oE3+VJ7k4PheB6eiAgd70LSLvL16VKM8uTAQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=y0jPZCAH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1787576172; c=relaxed/simple;
+	bh=wrqhKy562GAHR7e5XZIHxOchJnJQcrFJcxXpfKTZ52s=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=ZeuOndumQIW3H2g+Vh17r1cnfVaFyB82tKGaMbHkv9tFl+FzM2PsdzQyZeWWw8g2F4kc3MDAMphfQl90gWrYwak8JDT1TOfniyzgMFonZPeZ5kNX7VTNdP4D8e68oxkjCYWArtJxOZtWBi0oRm9rxAqtOy36iz/0CfXdd4LGfiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=NOm+pAAS; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="y0jPZCAH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=HyVKkr1W6tET6ztDc79VEHgMX8JlNF0ks0TWdenQgiw=; b=y0jPZCAHfhE4AMGIegRoJkA8ba
-	W9hn5Y3DVq2W9TpY149lmG9ydEadX3EI8Jd7uLDjYRW75mMO5FvkItqM1oG7frsnX2lUUdUGlwSRM
-	n/TTkX2LKAHI3TQ8fP8Xp8K69W87awnn2alH10hm7fszjzzqsqQUmKvH8UHjQAUB4cKM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wyUCN-001Ea0-85; Mon, 24 Aug 2026 14:54:47 +0200
-Date: Mon, 24 Aug 2026 14:54:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: netdev@vger.kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net v1] net: phy: fix NULL deref in IRQ handler after
- unbind
-Message-ID: <e289a01b-d0a5-4296-b8b1-9b5935ee6854@lunn.ch>
-References: <20260824120703.107412-1-xuanqiang.luo@linux.dev>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="NOm+pAAS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=JmNjsD4g0Ts1wD3Vf9jzJ1CDo7ezTLHe49tpjmt9ijg=; b=NOm+pAASUkqXhelcZas32k/gyP
+	UjV4Z89iJ4E8qDCTFe5GezrEpDZTEpMHaRd+0dHNgoGJ06PdyiFoh3MiV1x+gGl7Y6sLRjDqRN3vl
+	eNwBREZeLymNcmBrm0+46FaCKlyI5ve9YXfph61pYqtC5BhNjTtFELXiCyoD7LhfUaex5FjpAg9BX
+	pCu3HXBTf0g9SU4xfdm8NP1GyDERDb5JKBNAwXHCW8Qm6BBcSiU2CzEpSaDhEz3LLEi+kTwig0toT
+	6tloGukwzCb9GaQOXQ68Ul5U2hNO+yDWQbMAUuKtdUI5/VAo3MKNpoIq7nTzkWR01L2EgN8jdCz13
+	ucOie94Q==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1wyUDh-00000000YpK-1OC9;
+	Mon, 24 Aug 2026 09:56:09 -0300
+Message-ID: <a7e552d6083f042e9b5e8cd0b0e93cf8@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Frank Sorenson <sorenson@redhat.com>, linux-cifs@vger.kernel.org
+Cc: linkinjeon@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] cifs: fix loff_t underflow in cifs_remap_file_range()
+ when len == 0
+In-Reply-To: <20260822215517.2353835-1-sorenson@redhat.com>
+References: <20260822215517.2353835-1-sorenson@redhat.com>
+Date: Mon, 24 Aug 2026 09:56:09 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260824120703.107412-1-xuanqiang.luo@linux.dev>
+Content-Type: text/plain
 
-> The IRQ is requested at attach time and released by phy_disconnect(),
-> so phy_remove() cannot free it without a later double-free.
+Frank Sorenson <sorenson@redhat.com> writes:
 
-So this sounds wrong.
+> With len == 0 (clone to EOF), the effective length is computed as:
+>
+>     len = src_inode->i_size - off;
+>
+> If off > i_size, this is a negative loff_t, corrupting the ByteCount
+> in the FSCTL_DUPLICATE_EXTENTS_TO_FILE request and inverting the range
+> in filemap_write_and_wait_range().  The existing off >= i_size check
+> fires only after the ioctl has already been sent.
+>
+> Snapshot i_size_read() once for both the bounds check and the length
+> calculation, eliminating the TOCTOU and 32-bit torn-read risk.  Reject
+> off > src_size with -EINVAL.  Treat off == src_size as a no-op,
+> consistent with __generic_remap_file_range_prep().
+> ...
 
-If you unbind the PHY, you need to also unbind the MAC, since a MAC
-without a PHY is useless. When the MAC unloads, it will call
-phy_remove() so everything unwinds in the correct order.
-
-    Andrew
-
----
-pw-bot: cr
-	     
+Applied.
