@@ -1,96 +1,156 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747C3317145
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 20:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2826A38AC65
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 20:23:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787602785; cv=none; b=czxTR75b3h4ETtYG/ggZKB2bWgqaMsrlXJ8Da/itcyvsGJv50KTnaBiGVDpN42z7e+RN5jUUaZ/K9pVHz+DzoUiHERmZEWpDqbsjIVUjamMtCbGKwWPsEVyKDPfP76ohtr0Ww69B7w1xeh4ITq8o32s6PWEOWp5cpNuMlgZqU0Y=
+	t=1787603001; cv=none; b=VLOur3ks/UDi6DXjlaBEHt3LzxazYBD1np0T/YnCF3c5F8oexpscp6idwpjbJWT+Q+JJNQv39Wb1NcD3urGI5M0IDbyiJDw/j6PVoBVjqKhorQBdSHwoTnA5tuTY/Yc0vH2Y3Iz2yBQbpHmz/oulYPDs+2DZvk2/Mf0YgUlZ0Ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787602785; c=relaxed/simple;
-	bh=jjLBs07ViJdXNJPrxWP5BQfdokoeqRxY+sJayNFc16s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YeZtLN8JJIyosu/e718OHgqczIlWtEQDv0Aaw4wERTlPgIxVYHuHbdG/BbpUpQwHcQHgHl6CJnqtdQRReoyeeWx5AQAZjHtNQSQnb/Nx/0rI2Yd/GJwT/RXtJtUjaEVflVK2PvS9Hr7zt4CqWQi7bPlcBxJ96Hq1iHUXhzHIds4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mzuph/cN; arc=none smtp.client-ip=209.85.160.179
+	s=arc-20240116; t=1787603001; c=relaxed/simple;
+	bh=btENLVdFB8/s+Xjru3gkV7mTsUnieYaafKgbgWSlUg8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZX6Bzsyivr7eTIc72JJ3uXi7CS4ZyEuWytEJluMpow94xPSwAIdup+Zu8DU2To1Euvwx9bs4wyd5KMjAKSgmuY4rqtxeie5xATRkDrRI+UXl9bYWSywBnk+ylpV3i1+v4i22APb3YDOcTzyUQOdmPh2+RaycfOerAP59/y+XVTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SbrXYcvk; arc=none smtp.client-ip=209.85.208.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mzuph/cN"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52b3934af3fso43437421cf.1
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 13:19:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SbrXYcvk"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso6696671a12.0
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 13:23:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787602783; x=1788207583; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dDQCrhRKJv1CgmBzHk5DV2Zi2hk1jJel0LnyJEuda+g=;
-        b=mzuph/cNbQta2Sm2LkBtHyvHSsoKFSeZTy+X8dwv418xpQAOxp1YwY/DvRrQ3TZEiI
-         SacfgTquq5G3MpCR2eVKQpNuZVcsdoIr7HVUuOCTD35Hq85YwCmQJ4d7nURDfFlVYbo9
-         HhFq/v0Jhcel2KNBR7/+VT6otQY/S8DGjg1PyDQ88WU/9Dp+rrhnCHEC2WE5jB8xgvwv
-         5wSVNrmQM8McUlC/pCzlFbdxzjhI/NTVThjnHCL41Fo719XgIdaGJ/ghQE5lPtFKgUgo
-         fcFo/xVl/Eh9sdqx2whQdT7i+vnMFqU5HvUc2TkxI/WyU+ViCzlk1B5TOZYMbcA56zuq
-         hHEQ==
+        d=gmail.com; s=20251104; t=1787602998; x=1788207798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7ivaCNP58c6toCkGyegef+e8/VsJt1P++x42BHAWvM8=;
+        b=SbrXYcvkdjShlJEBANccdI95lYf5UQ8dkfREX6j7acloh3/L2yJyslItqyvyMULQyk
+         ouo2vhoKjwNMTABesW/Y7XDQZl/qgiE9fitVjWNM/rtseDhMP9+dKV0yLCxs/SnBF2ic
+         Sx9RYzh7nATY9khn7KqAiOS3fF3CWX22bWS5ZrXeA902pVe3Ug/D9GJ5Y1nAuaZ4cDik
+         AdemvfoS8MtcIM3/RnqtbE1wlJtsRvR7Lp0cGihyN16mPUAaSQpnsYTGUMLoPyvmMOSv
+         PF+ZpkFrGPqP7mWqsRh8enocIDhQbPpaQmaXsfL7DOHMEr5NytOe8tlmMelGZ2cKlxhp
+         95LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787602783; x=1788207583;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dDQCrhRKJv1CgmBzHk5DV2Zi2hk1jJel0LnyJEuda+g=;
-        b=rHmQKL+TQL8grgGKmjj2SvZZq15Qw6NMZjvsl3E+jFAXZAIuk05b0hcAEEgP8P5MP1
-         s1xigQrcHoRZhkT/ohts5CXS6lpQ7DhJaW0neTQAppeMHnqhW39Xz3BCoLRNUaFruqR+
-         hXrH+7DpQnaFiBQF5XNFs05gLWdX6dx8U230NQXfexe/cskhnvRmxuCgA5NipKDj1k7M
-         OMtj1iRHUkHFhlVCpKg4eSedX+uiSsls+L1TJtWB3XI9lbLup0mWzIo0Qy3Y5/AS/cQZ
-         zBWsPZmsNfcCiA1u9OrTnZv+uxKY0l/qlnynJ4ve/2yYQKzFXu4fUH1UngUleIky53hl
-         SBmw==
-X-Forwarded-Encrypted: i=1; AHgh+RrdLfXkPFseqhD5LZsnN2qDn/uJQ5k+ycYg0EmUJpHbqpHu+Kq+LmzswvLNf1XyGOnh0HXmFeM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcyN5CRhyDmjtj1EAeqch8OtL9ZfkSlXZFMeOX3T94LSvYS1P3
-	iaDqZhtobk35MRhIpjXwkSe11eWRsJ+oFXI2YDt9haauZOmf2pA6d4xWmMC/PjSf
-X-Gm-Gg: AR+sD10q3kJstW6gnO2zCxDlNfmpampWEqh+6WG1m+VkFXp48ToXci75tyzG+D/BcOO
-	8NWYVPrwIzZKQj9iPytzt85IYUUPkIgIImK7ZFpaG0Pz/dho0la9EJUsOEeV5jW0X8kvA+0T99J
-	HbKptfKT6d3iat60PWK/5BUQ2tT2E2iIY5UasK/dZ52MHfoCu4MjwY9tYshwV/QT/pQJGqu3+Ps
-	7fVImygDshN1UjU5IM7UzycT7RIQpbM9nkB/BDi39wojW0b+vmvNs9xmo/wKE3bYCNFFtAwKshT
-	ORJr0VdnEukz2xMuMV3rVgBwM17FzsnaIn/UfMwpyuij2dYBgbvkdmAY4KAFaWAb5/VdTkV2TxG
-	kVuelmt0xv06zO2s2m9T0ejpXq6PEa+Mf2iE7gec/PLppJ8Fj2FVUptPP3yxu0xx715tl65GdVv
-	uQKaKj4UDraZCG7OPQNXSXd7JtFpGPKaCEsT4JozW6IAAl0NJkU4+ZVjpXiA4tQp+E27mwk2dDs
-	bUd6BjSVxTbddnVuzcldRM=
-X-Received: by 2002:a05:622a:1f97:b0:51b:fd82:22dd with SMTP id d75a77b69052e-52e2f092d74mr19871991cf.15.1787602783060;
-        Mon, 24 Aug 2026 13:19:43 -0700 (PDT)
-Received: from CW-D0XG2Q16P7-L ([2600:4041:5d54:8900:65b6:6c48:5883:571b])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c939332c0sm69720456d6.28.2026.08.24.13.19.41
+        d=1e100.net; s=20251104; t=1787602998; x=1788207798;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7ivaCNP58c6toCkGyegef+e8/VsJt1P++x42BHAWvM8=;
+        b=Eb5VHI8Dty0WazZf6TVSHI6Y4EqvGT7Z7IOQf6uDyA6vJcccLVEoplZJe2NsT20ghD
+         5vETw5B7ggNcJbsq1j/LOY6iN2M+vQ1YGw2MEPl0NcFAyOW8PRNH9uF9P8tPuAHxEiWP
+         FwXDGGulUnqyZs230fXSJgOZBDaOtzmqbb+e8odLlVMOzMPMhGCTlIv7nLlfF/pO8dAz
+         oF4Qs1C8j3/DT46wZwWlp1x7bMt1sSG0vq5TZTx1Vq3QJql9Ri6hDJK37YfV/ZCk9sRt
+         veRaLnMF9104E9UVNFQ5jHTWzn2O7EglV3xnIhoC2yVvSt6eRbnNFrZ359Mx3iJxzSvq
+         5cSQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro99fxqyJkFEdVHr0Z8Wlg+02dlKUnMwKj6QCd4c6HldSMwAKQ3BDucmVCf7ZIOCMxp0SipHmQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mv/eqmLLB5kUsv6ym1pNUEoSUIf4/J/1Go+ZG9stxUSkUY6Yn5
+	CH/V55s9RBZz9r1mNNinmFP1PJneQEU9A8JiN6BrWUiL+6oaLfGnll8n
+X-Gm-Gg: AR+sD118CLmXYej3OIzKzWYVQfzGwtg1Z5OIZzs44PQtGSiVqOVUzXncVHBT6kanpS/
+	nPLr+hHW8JhofqVyJevFq/Vhm+aQMsiRsScqNoJ4dsVV69iDQWRn+sL8U0uHHNT0Lz7e+rLTUpf
+	InhriHfT/Qr2jaD9Z5eePeqioNsdHjOW1bBPSu1VTzD5FF6xm7uG2V2Ugroy1LnGVAyy2EJf8hF
+	ZxXITkE0oKKWABWY3LA20iDLXDtPnuS1iHnDjOGQNZS9XaPEFvbxuRuFcl3Hi46Pt/XU9HU/y4S
+	ITbYuKOOmS00zYGJ05Sou6BWplj/atuXQLEffNhGAjIPm3ODYtasgVqiR0GZ3WRbxlaytJYBbHr
+	kMpGku03sA6+s39jl19KuhWe6cO0pMt5zMIl8pn6hh5o7r6/JpplKE1sWESvlTVzoiF/iy1ldFa
+	x0byV0O1zy6gk8bOhGNKqtk3QsnjjxgStvKLC37uyMNneS1JFYicx8/qFGgGzaWsqfEdD/7cMoz
+	d43s5H6gFw=
+X-Received: by 2002:a05:6402:551a:b0:6a4:ae0:52d5 with SMTP id 4fb4d7f45d1cf-6a5c40d8fa5mr1195434a12.2.1787602998354;
+        Mon, 24 Aug 2026 13:23:18 -0700 (PDT)
+Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:cb3:c624:acfd:1650:e62f:5668])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e001095sm10826690a12.6.2026.08.24.13.23.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 13:19:42 -0700 (PDT)
-Date: Mon, 24 Aug 2026 16:19:34 -0400
-From: Maxi Saparov <maxi.saparov@gmail.com>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>, 
-	Evangelos Petrongonas <epetron@amazon.de>, kexec@lists.infradead.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, sdimitropoulos@coreweave.com, 
-	Maxi Saparov <masaparov@coreweave.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] kho: do not reserve scratch memory in the kdump kernel
-Message-ID: <aoylgHzZKP8av1pN@CW-D0XG2Q16P7-L>
-References: <20260803193938.8778-1-maxi.saparov@gmail.com>
- <20260811161857.3096-1-maxi.saparov@gmail.com>
- <aoF8zPXiKpjt2Nsv@kernel.org>
+        Mon, 24 Aug 2026 13:23:16 -0700 (PDT)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Jie Luo <jie.luo@oss.qualcomm.com>,
+	Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Georg Seema <georgseema@gmail.com>,
+	Brian Masney <bmasney@redhat.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks enabled
+Date: Mon, 24 Aug 2026 22:23:09 +0200
+Message-ID: <20260824202309.1196418-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <f8b9192f-fe88-4a8e-86f0-6e2c33ed3f31@oss.qualcomm.com>
+References: <f8b9192f-fe88-4a8e-86f0-6e2c33ed3f31@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoF8zPXiKpjt2Nsv@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 8/24/26 12:28 PM, Jie Luo wrote:
+> As far as I understand, there is no expectation that the CMN PLL
+> registers need to be accessed after the CMN PLL driver has finished
+> loading on IPQ5018.
 
-On Sun, Aug 16, 2026 at 12:03:08PM -0500, Mike Rapoport wrote:
-> Hi,
-> 
-> Please don't send vN+1 as a reply to vN next time.
-> 
+Agreed, and measured: with the AHB/SYS pair gated on a fully booted
+GL-B3000 (runtime PM autosuspend, gate landing ~75 s after probe,
+runtime_status "suspended"), the board keeps running, both radios keep
+serving clients, nothing complains. Nothing in Linux needs those
+registers after probe, and the v4 commit message says so. The fix is
+not about post-probe register access.
 
-Ack, sorry about that! Thank you for the review.
+To Mieczyslaw's point on clk_summary: that read does not reach the
+hardware either way. The provider ops are wrapped in
+clk_pm_runtime_get()/put() by the framework (clk.c: recalc_rate at
+~1923, prepare at ~1110, set_rate at ~2415/2539 in 6.18), so a debugfs
+read would resume the block before touching it - and the outputs are
+registered without CLK_GET_RATE_NOCACHE, so clk_summary reports the
+cached rate without recalc at all. Accesses through CCF are safe with
+or without this patch; the argument for it never rested on them.
 
-Maxi
+> Could we identify which module is blocked after the CMN PLL driver
+> probe completes?
+
+None gets the chance. This is not a driver hanging on a register - the
+SoC dies and the watchdog resets it, silently, with no console output
+after the CMN PLL probe. Georg's timing on the Cudy P5: probe completes
+in ~628 us, pm_runtime_put() returns, and the board is dead before the
+next initcall starts. So the question "which module" has no answer in
+the form of a stuck driver; what exists is a window right after probe
+in which the asynchronous gate is fatal, and outside of which (idle
+system, above) the very same gate is harmless.
+
+> The UNIPHY block is the consumer of this 50 MHz clock. It divides and
+> gates the 50 MHz clock, then routes it to the connected PHY or switch
+> on the IPQ5018 platform.
+
+Thank you - that confirms the picture from the DT side (the GE PHY
+clocks are fixed-clock stubs in ipq5018.dtsi and no node references
+&cmn_pll, so Linux sees a provider with zero consumers while the
+consumer is wired in silicon). The 0x74 divider/gate description is
+useful and I have noted it.
+
+> Would you be able to try this approach in your code workspace? Since
+> the UNIPHY driver is not currently available in the upstream kernel,
+> this may be a practical way to validate whether keeping the relevant
+> clock path active through the UNIPHY side resolves the issue.
+
+Two measurements already bracket this, so let me put them on the table
+before anyone spends time on it:
+
+ - GL-B3000, UNIPHY0 disabled in DT (no uniphy driver ever probes),
+   vanilla put: 6 of 7 boots die. The failure does not need the uniphy
+   driver, or its clock path, to exist.
+ - Cudy P5: the board dies before the next initcall after the CMN PLL
+   probe - i.e. before any uniphy driver could run at all.
+
+So the fatal window opens and closes before the uniphy side gets to
+execute anything, upstream driver or not. A fix on the uniphy side can
+only start acting after that window, which is why holding the reference
+in the provider - the one place that exists at that moment - is what
+boots deterministically on all three boards. That said, the gating
+behaviour of 0x74 is worth understanding for the uniphy driver that will
+eventually come upstream, and I will keep it in mind for that work.
+
+The full set of numbers (per-block isolation, the 15 ms / 2 s delay
+experiments on two boards, the idle-gate result) is in v4:
+https://lore.kernel.org/linux-clk/20260813093351.178419-1-kuncy7@gmail.com/
