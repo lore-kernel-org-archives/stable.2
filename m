@@ -1,128 +1,168 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CB541A547
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787581697; cv=none; b=kpbNL2AfwXeYyb9QYHU1LPCgOxPkpzb0jbyEo1U/a/t7yV3yCU5Z5bQ8FWhqWH8nVvcIaS8FVnaQvRQ1+te0ydJgKYpDX+m74Wq9ycxuf2khwh7PUE3sBUIjlMyLXqfdNV9AIy3LHteCRmJtkNur6XHwEP40kedBhRa7pnCNcdI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787581697; c=relaxed/simple;
-	bh=CyvFyzFd1gbYPxjEkZ4TAXB+esuJNZ3LdYISRv/gmHA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ESx8aH1d4eEzlAPz1d5L1XUs7o1kOBjTDAS4j6xgdiZnGE2DdYdFezGCVeiTyuB50q/aBo78Kq79mf92WCSErpMffPb2KTWxY7A37qvAmspldFONY5j9Vh2vWEbeT3iIIHbb1Yxs8a7f1CYafjw16wNgcFZ4O4UR/sB7ZrC2e5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FdFvtps3; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BBA18DB26
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:28:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787581727; cv=pass; b=uPOHxP2EMSUbF7f54x6a4w7akwNoX338aHmuwOuQ29w9ZVEtAY2dq0BX8DH00jhAiFwbp2FgnDDZv2M8zZlEjGVc1RLVwsPVGphVsuTATCbS3Rsye/UjsIXk8CFFnsWRBwPojrJ1ORPELBHF6vkpC3qSDRS2qtGKSvG115X3QZA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787581727; c=relaxed/simple;
+	bh=jXSal8mmPLMLYM3sucEZPr6s4xK+MWEBsNqwtDllzlQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IXqBhTRN89iaplOYKdJGM+U0OC9oWlSVhTRWWTBT19NSr18XJNYTontO17LPXF0JflOLdYaPDRTtq9laeeXcinAcwEIB6SwcBabt4ExDPUpFWO+SbIytXRkSQxm2UpJ/BBsNEBIv3Chjg1FOZmzS/1cN+DGrY0dvCafaJjLBFxw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pOWwZcin; arc=pass smtp.client-ip=74.125.224.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FdFvtps3"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cca0c5799eso30786885ad.0
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 07:28:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pOWwZcin"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66d0c8d0d6eso531949d50.1
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 07:28:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787581725; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ft9poh+a8rwPCD/D1PfCwsE/Tqt0BHUQZZEvnVOeWPPHQmuhcHShjWfrpX9PtBj63Z
+         i9LzQ6em+SZV4HIfNY3Y8VeiddnfKBKd1DpU/cDBtnzlUhn7HMw76D/iMvBWGSeOq8/O
+         fV+CpSqFf1CGEL08lWkD/pRS3ubXF9olB4ZNHsZXR7jAIsZRG5RyhORikSpRndo1pK07
+         12U9nsjKKR9BKO4V6Xd8bOfqdL9vGueON7DEgvZVmWGe8LywxlWp4+tYLGOD5E/FLEOA
+         wprbaclT1enuVorDVCQwKdp9F1JFbVObBi44vV/QUyVr0jW5fCgZQZlqzStaApYxuhps
+         ZSXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CQ5UQMtAkeiSiALFgG4dHFcznmeucSwr2O+KBNTV3xw=;
+        fh=YqaTp4PUoagPbi+cVoy0btJLxdyBHQt3FEIyhh6iNlI=;
+        b=FDl0Jz2nEz7ifPijj+bMKp25Yig9/qLqD45PIEKRDa+MG6l3N5xg/yY1hmY3wQoW5Y
+         KwPYqR5Ddhq8V7SHXvEN9o5xL2zcV9aCZ75fskokua+TxaR0smrxT/fdCjx3PqJW6yaq
+         NgBg23rXoW+KnmoVrIV7yB5PEYksc7b+u9nCQ3J9Ys9yAhY5VLyoJNN2mgTUt2AhX9rN
+         KnZxgbJhX8e0+Pc/yx35hS4JBiWZFcmoRn9iIiQGjeMO6k6HCIRS2eDxJVfSMgwXWNFM
+         ZHL4WPiHzwJsPsSa3JgR/gdQx0rvA0ucCBCU/80nyB082blcGORwuSjkPYamDQIAUL3Q
+         UuTA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787581696; x=1788186496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CZRV0fsadUb2RGyF330MZobT+Dwgs5Uikgpa9gJZ9qc=;
-        b=FdFvtps3vBp2OgEHODb2betFLZ8dXjAuqcCsDFp5DaHX5argoBXrLtlCk85VJ8HZaI
-         RNyUxhlN/UMPIo1W1Gk6wS0AABoukTA1dvIJSZQI17BfEPEveZGinTyBov0i0ahnF/XK
-         OpUNCdFVcB5rUKrFzhVQc2dBa+B/PwDFCsggOR06SyqUtwSx1St1AgnoXXRefxJ3nqzP
-         GKYhryA7iDO4jaQaMJTerIobdcsyLFiLcJHM1kjS1bLHenWB153YXCvRZsznkrDAU3jc
-         +NOXyKk4fuE2b5EXKdGhsV+318yUrIMS2CnnOxbXzsR5FQTjgtmDNvL9XE4gW5Fr0tEc
-         zfrQ==
+        d=gmail.com; s=20251104; t=1787581725; x=1788186525; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CQ5UQMtAkeiSiALFgG4dHFcznmeucSwr2O+KBNTV3xw=;
+        b=pOWwZcinI363Px96KWrOTgCAOwAYrap3suD/bIY5ImUcR99LmaO9BvkZbAnav10QVz
+         XJGxUZ+qnbwKkm3obkLwlNULCYFIJhwDb2AWs5x11dqXp74u58kpZTBsO5OBtd6cqRuv
+         ot6ILeVEFskt/xq/tjiFIWpd0ku1+Pe5/SOGsicmdAroTLmlS553sN1Hdyx5uaaSVooP
+         JvMfE467OYlFayUKBWy5MhX7alOVPsX1wjkxh08hVf8vIZVE57LwaklkJcIypB+xfZkP
+         hpU9+7q1k8I8i0QpM9zPOJgbGM+j2h76GfIrb8oAWciByo2cYGzhI8GmUs80c3ZgXj8a
+         AgtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787581696; x=1788186496;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CZRV0fsadUb2RGyF330MZobT+Dwgs5Uikgpa9gJZ9qc=;
-        b=I7ORPA2kBiCkod6kxJz9UoYKhxChShOhTNCOM5frCN6ZjEkTmwAMWg48TCXLdpUwbt
-         X5g35ZiSK1VhOcO3Po8Uj1HXi9WvU5/lN2D9ka5ildocS9mivR3dsKPSlXHKczyiUpa1
-         vNbBqwRsOt4zNrrmF8G29ryLkf4MWjrb/OAODRh4th5K8GAc7FSn1Zpnn6qRvosnjTV+
-         sO0RVDchyee3c006cXRCasM6AELTkLFmFqzuZpgEemscGxQqiOxaYYVbSGgUXOAw40pq
-         2o0JyRO6+dCowxbh4fBj7QjdKK958uAIcBvelQDH9wx3VSbJw4B0gWAJLaFb0vi5rCaU
-         rKpw==
-X-Forwarded-Encrypted: i=1; AHgh+Roxd0VG21upSFMh49U/hoDKauxXgGfjE9uZ53BtVnpyCdVMF3BGELVysaoPt3ojgs3JlM6OcUQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXeMe5cC/IyHgaXqxmNMoVajRila3pBxLvkMhSIpzMJcbpUmfv
-	jDxDWFcaVx/WRrztoDcBZwAvResvEOBNX2xWonfSqW0x8ZdixN8vu/B2
-X-Gm-Gg: AR+sD11Rolvmr6i0KZaCWwQFoGIelq5GTLmfKx5mccxEbhlPJDz/1HrkBIBXQc+PAfX
-	IInfkLCjW0TvihLCcncPEKPDITHc+P5KaLE1YVzw4yxxOqH5CWfv4dkQKdI81O5ASFxJeFsX5Mm
-	TUBy/chselOgCvXa7giSoatmnCtpFMAY17lH3S0/G26JvSVE6ysFlZcdYlCKnIOZRZCQvNyMNZa
-	jvFHoKUpiw/fnx9x1Vsw6S6ABZFb3MLLscUr3+6FvxUp8oN+gMAqKRcw/f1dc8uVyNZZZkMvrKG
-	5dqN8YwF/jPyiugsXMEHh7nKm38WjLkx7PkDBqEAozsn3G3c8ZTi7yLRh8HUiWJixI0RHjqVrLU
-	HCNntSFa8jkl4r8Tw1ibWR7UfeoJtr60FSk8o9R7ZS+bf2c4qlG8FWFfDwYQDBGUDGzRhsSPMtc
-	ls/WJOoxPc8IQAZKYsvJqqx8Ai+DBkjgkGAReKX9mIWAvkXqDI8mmDpg1bDaMO9AejCZ3HkN+lm
-	+ZU8i9u/HGO9oLtq06FriwRTqOypf3DK0uXrlc5rWX63l8TrG52
-X-Received: by 2002:a17:90b:224f:b0:381:1f51:1ff0 with SMTP id 98e67ed59e1d1-395c354d445mr44970306a91.2.1787581695499;
-        Mon, 24 Aug 2026 07:28:15 -0700 (PDT)
-Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395e4a1597csm10201997a91.13.2026.08.24.07.28.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 07:28:15 -0700 (PDT)
-From: hanzhijian <hanzhijian1991@gmail.com>
-To: Daniel Palmer <daniel@thingy.jp>,
-	Romain Perier <romain.perier@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney@redhat.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	hanzhijian <hanzhijian1991@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] clk: mstar: msc313-mpll: fix off-by-one in clock array allocation
-Date: Mon, 24 Aug 2026 22:28:00 +0800
-Message-ID: <20260824142800.3497263-1-hanzhijian1991@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <67ec3261-9f3d-4dcc-b916-19dc8be56a6e@web.de>
-References: <67ec3261-9f3d-4dcc-b916-19dc8be56a6e@web.de>
+        d=1e100.net; s=20251104; t=1787581725; x=1788186525;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CQ5UQMtAkeiSiALFgG4dHFcznmeucSwr2O+KBNTV3xw=;
+        b=d3FlLzXQ/3g8byNI3GU5Zbz81v/8zo3JVlB4SaocH1dAZhRvAxjD+gaTg4vR6m+sdH
+         sXB4EtWvmq9WeZ4Jp8zEsdtyLJlpPPF7cnQWEhgtQ0QEERJ0f7LkNrExf5K+s4Cr8scE
+         +UGJSv5b+42lE4ZSN7iwXBOo5LXgGC/p9RCmuMlK4Kyf+qY5N5L6ntUEcsolrjbZWh2d
+         I82f7SNlx2+t3dJqG2rTsmyCbSdInWutJtP2ZZHTFDnu5UJxppKF62ujiQhbTi0K9wB7
+         z3Hs5rQM2nAbtmlYpT50MaNJKTCYum96f6U6wh0/n6Htbytx1xUrK0D+dcy/N6X9Ld9G
+         kyBA==
+X-Forwarded-Encrypted: i=1; AHgh+Roo94/nDNUQTIgd8fcgxb3koU1v8URa+Q5r0k9caQN0224Vc3x+WfR5Xmoszzx8sA+3p4zgC/U=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6VWvNykQ+yYIfKngFKFjBBkFufaguIv4mY0t5aEeVBDn84TAl
+	0ockZNc/1xS1Y+0TDC9aPGK4ftv6trzoFVn7ipNg1f7kqdt9UX+t7uJEK6SgoMIyol3SQAU4WX8
+	Xb1SIPkN1MgF5DY7Vjh7L1ZambivJ8kA=
+X-Gm-Gg: AR+sD11e+99tQEPVbh/SZc1Ax0TNM9SmD66pw6mbr8ko6MWyX5HMGFKUnYfbwvcySpS
+	QBJPdzUH+Adhup/RIXmq74VyjaGdItFGp5oQn9IQ9tOh88HEYRttIT++3xk/ncx5WJDNE+iQPAa
+	XpJIIbc9j3zIyVtM9YvDEBMM/QttYtye0F+z/+z4g3YjAbatwf4BTY/OfWbRBW68mwcHFS92x+d
+	e5bh3t0ZvPlxqRJBSO8CzacdoZo8YZYXOYSs1HulBXwBhiavSscT3lwn0xy/P7Qv/JTrohU/4BK
+	OCccRM7DxNuCPJJt1tsJlOZ/xLjEHlaBtlFZdj7uo31yt6QSx4PhEbnoMzi4Tu0QufNu+I6ct7v
+	S6+gxmlc2+85slXNYG5FbuMyU1MM1
+X-Received: by 2002:a53:b851:0:b0:667:e855:eccb with SMTP id
+ 956f58d0204a3-66ce4a63badmr6512693d50.20.1787581724681; Mon, 24 Aug 2026
+ 07:28:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260823161638.32348-1-acharyalaxman8848@gmail.com>
+In-Reply-To: <20260823161638.32348-1-acharyalaxman8848@gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Mon, 24 Aug 2026 10:28:33 -0400
+X-Gm-Features: AcwNN1X92HK-jWCscnHRPBBP8bYoNeBGWBlJBbzIRxHgThuSAl_NogVENm2OBlU
+Message-ID: <CABBYNZ+h-m9YQCim5Zm2_sgARZh+jM=POFYX_zTQ=xYUdxz-vw@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: hci_codec: validate vendor codec count length
+To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The hws array of mpll->clk_data is allocated with struct_size() using
-ARRAY_SIZE(output_dividers) as the element count, giving it 7 elements.
-But the probe function stores the MPLL clock at hws[0] and one
-fixed-factor clock for each output divider at hws[i + 1] for i in
-[0, ARRAY_SIZE(output_dividers)), writing 8 elements in total.  The
-final write to hws[7] is past the end of the allocation.
+Hi Laxman,
 
-clk_data->num is also set to NUMOUTPUTS (8), so the clock framework
-reads hws[0..7], again accessing hws[7] out of bounds.
+On Sun, Aug 23, 2026 at 12:16=E2=80=AFPM Laxman Acharya Padhya
+<acharyalaxman8848@gmail.com> wrote:
+>
+> The Read Local Supported Codecs parsers consume the variable-sized
+> standard codec array before parsing the vendor codec count.  Although the
+> initial reply-size check includes a vendor count byte in the fixed layout=
+,
+> it does not guarantee that the byte remains after the standard codec arra=
+y.
+>
+> If a controller reply ends immediately after that array, calculating the
+> vendor codec array size reads vnd_codecs->num beyond the skb data.  Requi=
+re
+> the vendor codec header to be present before using its count in both
+> command variants.
+>
+> Fixes: 8961987f3f5f ("Bluetooth: Enumerate local supported codec and cach=
+e details")
+> Fixes: 9ae664028a9e ("Bluetooth: Add support for Read Local Supported Cod=
+ecs V2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+> ---
+>  net/bluetooth/hci_codec.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/net/bluetooth/hci_codec.c b/net/bluetooth/hci_codec.c
+> index 5bc5003c387c..99394a3348c7 100644
+> --- a/net/bluetooth/hci_codec.c
+> +++ b/net/bluetooth/hci_codec.c
+> @@ -165,6 +165,8 @@ void hci_read_supported_codecs(struct hci_dev *hdev)
+>                  + sizeof(std_codecs->num));
+>
+>         vnd_codecs =3D (void *)skb->data;
+> +       if (skb->len < sizeof(*vnd_codecs))
+> +               goto error;
 
-Use NUMOUTPUTS as the element count so the allocation matches the
-number of clocks actually stored and exposed.
+If Im not mistake the following code already validates skb->len:
 
-Found by smatch:
-  drivers/clk/mstar/clk-msc313-mpll.c:134 msc313_mpll_probe()
-  error: buffer overflow 'mpll->clk_data->hws' 7 <= 7
+/* validate vendor codecs length before accessing */
+if (skb->len <
+   flex_array_size(vnd_codecs, codec, vnd_codecs->num)
+   + sizeof(vnd_codecs->num))
+goto error;
 
-Fixes: bef7a78da716 ("clk: mstar: MStar/SigmaStar MPLL driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: hanzhijian <hanzhijian1991@gmail.com>
----
-v2: add Fixes: and Cc: stable tags
+sizeof(vnd_codecs->num) is equivalent to what you are proposing with
+sizeof(*vnd_codecs), so this doesn't fix anything it just duplicates
+the testing for the minimal size.
 
- drivers/clk/mstar/clk-msc313-mpll.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>         /* validate vendor codecs length before accessing */
+>         if (skb->len <
+> @@ -233,6 +235,8 @@ void hci_read_supported_codecs_v2(struct hci_dev *hde=
+v)
+>                  + sizeof(std_codecs->num));
+>
+>         vnd_codecs =3D (void *)skb->data;
+> +       if (skb->len < sizeof(*vnd_codecs))
+> +               goto error;
+>
+>         /* check for payload data length before accessing */
+>         if (skb->len <
+> --
+> 2.50.1
 
-diff --git a/drivers/clk/mstar/clk-msc313-mpll.c b/drivers/clk/mstar/clk-msc313-mpll.c
-index 61beb4e87..bd45aa0ae 100644
---- a/drivers/clk/mstar/clk-msc313-mpll.c
-+++ b/drivers/clk/mstar/clk-msc313-mpll.c
-@@ -105,7 +105,7 @@ static int msc313_mpll_probe(struct platform_device *pdev)
- 		return PTR_ERR(mpll->loop_div_second);
- 
- 	mpll->clk_data = devm_kzalloc(dev, struct_size(mpll->clk_data, hws,
--			ARRAY_SIZE(output_dividers)), GFP_KERNEL);
-+				NUMOUTPUTS), GFP_KERNEL);
- 	if (!mpll->clk_data)
- 		return -ENOMEM;
- 
--- 
-2.43.0
 
+
+--=20
+Luiz Augusto von Dentz
