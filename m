@@ -1,151 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9BF42466A;
-	Mon, 24 Aug 2026 13:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD14B2EA732;
+	Mon, 24 Aug 2026 13:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787578161; cv=none; b=QPfYnfO2154qLlBIl7v0kYW8uYSZ0hy2COz9jl8CqnXcfooaRZD2deNnszdl630Qv7iYZxRd3Bw0fPJJoFsiEEFzgZn5CeV5QrfFN2TQVN4MfnGj/ui9IB2Il3zHrun/d4jwREzvmTuFxEoC2SnTq9Nsa3H873ixxCSUOq2A53s=
+	t=1787578375; cv=none; b=nyi/H3gb26S7T1WRDB/0iEFy/pKWoKZG3NrQUUTMobOz6RkigXivhhfylqLvFp72hJoPXUwIaqvYJtlbrcF2eJyp7m/AnK1RgsJ9eyrSOdfrDI2JYSTFTT55bHeh4SkQiXbK50s/yiFWN8X8/Ninr8HD6PxsFRGZUroEawgXBPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787578161; c=relaxed/simple;
-	bh=g29b7wvYfjaQmk7+nbFnx5PBJnBN8iu7Rf4k6W8M4xg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FR6O8ybrAwNcbKtoXB3vcYojBYgHW+hdVkX8jcf+41XzkRhmunislZmDebjyrS0eeUgu97jsbo7z2StC4sQ6Gx/Qu+vsqJ4t0489UzoaIwZnE7plnw7x5b1R7UivsxapRW9E2RfeAtHCQ66kGcg2eC+RZk+WongngrUQA2WPSEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/oshU4I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787578375; c=relaxed/simple;
+	bh=/Es2fSdTwUmy/6IdP4XUR1DrGU7DaaE6PINJhMBwvuc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WvfajSoo87veubPuUvVLEMrY/Wvy6bIDf4hQYAV1V25H3DSOHwDvTNxDsOlrS+CpH3eEf0thcM8MZBEietJqi1icXTyaJcZj1NpWqoT94+xuaZBaHQrtP+7Po30MIjpjGnDyxka2Rx7Mx6YnFUPWT0GY02JuCamEbewma+7LQxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPfjmKuL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/oshU4I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072771F000E9;
-	Mon, 24 Aug 2026 13:29:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787578160;
-	bh=lEgYKKEkha5zVelFKuaU6d4W/gqiYgaF9FnZq2+a+Sk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F/oshU4Il1Bt2lQkvGtNOAp6PSQO58YZxwo/DMx+p9l1JiOviAMbhb8tc9egUBgiS
-	 NVKQzJ3MihmJvtgtMMoaVv0AXT/GFQAmRkQKcbLeKUmw/QWJvG0pwFAnfWIReBGuXu
-	 vdYeViL60lKXaV8vyoONOrDUG11QfUevJffrwTG17JQly1GKZ8lYrTwdJRgJmqCuds
-	 sBCSM6CvNZfuXDU8V+kphQWICyI0aF8ujjIiGTKZMI0lSHitlvAyIj/1ulOBAB8+tY
-	 I4wQtbS3snLfcQJnvzDoqqFVXOTTErOS11hpSnhdcrAHxh3z6/97zsLgGlBe12kInT
-	 oOqOSPA3jCsiA==
-Date: Mon, 24 Aug 2026 14:29:14 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Yao Yuan <yaoyuan@linux.alibaba.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Christoffer Dall <christoffer.dall@arm.com>, 
-	Wei-Lin Chang <weilin.chang@arm.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] KVM: arm64: Fix spurious warning for benign stage
- 2 teardown race
-Message-ID: <aoxETjo-1vbTuLuZ@gremlin>
-References: <20260822-kvm-arm-nested-virt-fix-v2-0-ac4059a0eaa6@kernel.org>
- <20260822-kvm-arm-nested-virt-fix-v2-1-ac4059a0eaa6@kernel.org>
- <dycpfrkpphjy5xnb57t2zvdmlpkx76lbow7w23l3d2fwgbfjjj@lbk4uh7awc2p>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPfjmKuL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 95AEBC2BCF6;
+	Mon, 24 Aug 2026 13:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787578375;
+	bh=/Es2fSdTwUmy/6IdP4XUR1DrGU7DaaE6PINJhMBwvuc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TPfjmKuLrCLVWYQvU9NjRhVbiivSNvxrwAYB+x6PQCrUbD0LoThQxvu7kB555Pb/a
+	 yicE8xwGn+3P2R0g3X3bh2NUY9Y3oGwP1zsB6e7JsJGPWzwr5OhfXHJNZeiPPUCXll
+	 WatuEKWfLJfwCQm2WaEnZwtqFVMVXaXrOfc/w1C3PzJeVcPqdKyfsHnQtZrsB5suwG
+	 X36S9SDJsIhNgN7zuRwxgVEf1ggoUPtrBpPMs31BMVxhK2I1kiE+c0ihyTO9NTp5ka
+	 dylUf+niRMG2xeC3Ou/MZjY+fy2E9Dr7UJs1lem9zdtzg1qWp2kOZiXb/8UidT69FU
+	 NrJic/1tY+QKw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75E25C5DF9B;
+	Mon, 24 Aug 2026 13:32:55 +0000 (UTC)
+From: Daan De Meyer via B4 Relay <devnull+daan.amutable.com@kernel.org>
+Date: Mon, 24 Aug 2026 15:32:47 +0200
+Subject: [PATCH v2 1/2] loop: drop stale partitions on LOOP_CHANGE_FD
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dycpfrkpphjy5xnb57t2zvdmlpkx76lbow7w23l3d2fwgbfjjj@lbk4uh7awc2p>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260824-b4-loop-nbd-stale-partitions-v2-1-9815a577cebd@amutable.com>
+References: <20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com>
+In-Reply-To: <20260824-b4-loop-nbd-stale-partitions-v2-0-9815a577cebd@amutable.com>
+To: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ nbd@other.debian.org, Christoph Hellwig <hch@infradead.org>, 
+ Bart Van Assche <bvanassche@acm.org>, 
+ Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
+ Daan De Meyer <daan@amutable.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787578374; l=2855;
+ i=daan@amutable.com; s=20260712; h=from:subject:message-id;
+ bh=WMb3SvdJ8nIuT3XTRHYjCJBoiazU8RPkqLA8H581hVc=;
+ b=roJ22zyFQX/Aj5bjWwbYQ1OZriM1r+M8xNrCHVZC76NrO3DAmpoc//cdf8eoGpGjge//Kizny
+ AUInBq9U2srA60ZGkwqHnztnuOc22sPBbB2dGpoO8tyqqSiM3OhIShM
+X-Developer-Key: i=daan@amutable.com; a=ed25519;
+ pk=I1l+WwrtmzRgofA5SQ1wTuJi18fjh91w+f5uRkFeZEA=
+X-Endpoint-Received: by B4 Relay for daan@amutable.com/20260712 with
+ auth_id=868
+X-Original-From: Daan De Meyer <daan@amutable.com>
+Reply-To: daan@amutable.com
 
-On Sun, Aug 23, 2026 at 01:38:18PM +0800, Yao Yuan wrote:
-> On Sat, Aug 22, 2026 at 06:46:53PM +0800, Lorenzo Stoakes (ARM) wrote:
-> > A batch of kernel warnings were triggered in the L0 host kernel when using
-> > kvmtool to experiment with nested virtualisation.
->
-> ...
->
-> > Fixes: ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page tables")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  arch/arm64/kvm/mmu.c | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> > index 74e7e7f7564c..31e049ded093 100644
-> > --- a/arch/arm64/kvm/mmu.c
-> > +++ b/arch/arm64/kvm/mmu.c
-> > @@ -59,19 +59,25 @@ static phys_addr_t stage2_range_addr_end(phys_addr_t addr, phys_addr_t end)
-> >   * long will also starve other vCPUs. We have to also make sure that the page
-> >   * tables are not freed while we released the lock.
-> >   */
-> > -static int stage2_apply_range(struct kvm_s2_mmu *mmu, phys_addr_t addr,
-> > +static int stage2_apply_range(struct kvm_s2_mmu *mmu, phys_addr_t start,
-> >  			      phys_addr_t end,
-> >  			      int (*fn)(struct kvm_pgtable *, u64, u64),
-> >  			      bool resched)
-> >  {
-> >  	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-> > +	phys_addr_t addr = start;
-> >  	int ret;
-> >  	u64 next;
-> >
-> >  	do {
-> >  		struct kvm_pgtable *pgt = mmu->pgt;
-> > +		/*
-> > +		 * We may be raced on PGT teardown when we release the
-> > +		 * kvm->mmu_lock. That's fine as the PGT is legitimately no
-> > +		 * longer present.
-> > +		 */
-> >  		if (!pgt)
-> > -			return -EINVAL;
-> > +			return resched && addr > start ? 0 : -EINVAL;
->
-> Hi,
->
-> I can understand the addr checking makes sure only return 0
-> when the mmu_lock is dropped at least once and get pgt =
-> NULL, may a variable like drop_lock = true when
-> cond_resched_rwlock_write(&kvm->mmu_lock) happens can have
-> better readability, but depends on you and others' opinion.
+From: Daan De Meyer <daan@amutable.com>
 
-Yeah good point, also the condition is resched && next != end, so this was far
-too forgiving already :)
+Commit 267ec4d7223a ("loop: fix partition scan race between udev and
+loop_reread_partitions()") stopped disk_force_media_change() from
+setting GD_NEED_PART_SCAN. That bit did more than request a rescan:
+bdev_disk_changed() drops every partition before it consults
+disk_has_partscan(), so the lazy scan on the next open was also what
+removed partitions from a loop device without LO_FLAGS_PARTSCAN.
 
-So perhaps:
+Such devices are not unusual. bdev_add_partition() only rejects
+GENHD_FL_NO_PART disks, so BLKPG_ADD_PARTITION works while
+GD_SUPPRESS_PART_SCAN is set, and parted, libfdisk and systemd all fall
+back to BLKPG when BLKRRPART fails with -EINVAL, which is what a loop
+device without LO_FLAGS_PARTSCAN returns.
 
-static int stage2_apply_range(struct kvm_s2_mmu *mmu, phys_addr_t start,
-			      phys_addr_t end,
-			      int (*fn)(struct kvm_pgtable *, u64, u64),
-			      bool resched)
-{
-	...
-	bool lock_dropped = false;
-	...
-	do {
-		...
-		if (!pgt)
-			return lock_dropped ? 0 : -EINVAL;
-		...
-		if (resched && next != end) {
-			cond_resched_rwlock_write(&kvm->mmu_lock);
-			lock_dropped = true;
-		}
-	} while (...);
-	...
-}
+loop_change_fd() only rescans when LO_FLAGS_PARTSCAN is set, so those
+partitions now survive the backing file swap and keep describing the old
+file. The new backing file must have the same size, but its partition
+table can be completely different, leaving the partition devices mapping
+the wrong ranges.
 
-That keeps it simple and clear and we don't try to infer anything too
-complicated from the state just 'the lock was dropped'.
+Call loop_reread_partitions() unconditionally. Without LO_FLAGS_PARTSCAN,
+blk_add_partitions() returns early, so this drops the stale partitions
+without scanning the new backing file.
 
->
-> Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
+Fixes: 267ec4d7223a ("loop: fix partition scan race between udev and loop_reread_partitions()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Tested-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Signed-off-by: Daan De Meyer <daan@amutable.com>
+---
+ drivers/block/loop.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Thanks :)
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 6f12976035b0..89935cfc591f 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -550,7 +550,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	struct file *old_file;
+ 	unsigned int memflags;
+ 	int error;
+-	bool partscan;
+ 	bool is_loop;
+ 
+ 	if (!file)
+@@ -604,7 +603,6 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	loop_assign_backing_file(lo, file);
+ 	loop_update_dio(lo);
+ 	blk_mq_unfreeze_queue(lo->lo_queue, memflags);
+-	partscan = lo->lo_flags & LO_FLAGS_PARTSCAN;
+ 	loop_global_unlock(lo, is_loop);
+ 
+ 	/*
+@@ -622,8 +620,12 @@ static int loop_change_fd(struct loop_device *lo, struct block_device *bdev,
+ 	 */
+ 	fput(old_file);
+ 	dev_set_uevent_suppress(disk_to_dev(lo->lo_disk), 0);
+-	if (partscan)
+-		loop_reread_partitions(lo);
++	/*
++	 * Rescan or, without LO_FLAGS_PARTSCAN, just drop the partitions of
++	 * the old backing file. They can exist without LO_FLAGS_PARTSCAN as
++	 * they may have been added manually with BLKPG.
++	 */
++	loop_reread_partitions(lo);
+ 
+ 	error = 0;
+ done:
+
+-- 
+2.54.0
 
 
->
-> >
-> >  		next = stage2_range_addr_end(addr, end);
-> >  		ret = fn(pgt, addr, next - addr);
-> >
-> > --
-> > 2.55.0
-
---
-Cheers, Lorenzo
