@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA5241835F
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B133EE1FD
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574434; cv=none; b=DrFQ6w81DgIUoMGHEJeQA808i5VQ0kxYlIonFUK4wnOhI1sJxRJrd0asvIxP0n1/91fJe/OaoOfI79TC5Z8pJiBxW6pZu9faegyCtgqaG4VGShbRfzeCcaVyencq4INWjmMyvGfLFCteGk4M3as3Aeg/ubAwjY6ECpxoNrki6hM=
+	t=1787574437; cv=none; b=cyN/8nu9YFci2o8NhuvfdLP/lE9n+T/XkG1LU42kMyh1Cy6rerU2V7y7qiSA0ZCVudJWYbdfwUVd+HQcSsJIiZxhEEOGtwPwYAmVlwwc01geVo9rtMnmEw5a8yuxxnkJg4vp2P6GaLS/C5NzAwDrQLJ5pLljTngaaAaKeZXzKx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574434; c=relaxed/simple;
-	bh=lDBq1fU2Q2YHnZQSOSdkk92e0zx8cL7RInaxs+VtHqM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SOwcNHGkoJm4OMD0TxfK5uHHHyyHUxKHuvvtQT7aZVvRainSzouWy3p7c0sYXnHQ+LXdtvfyOOLqTo5i7dRH0f1AJ+0eok7W8nZwrWMN2QC1aqu1KEnW/77jA89e5sY3PYxv2/TW5Cs2XlK1GkYFtR4I6jTMEWZlUc09SMFPEYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jatTL3Iz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787574437; c=relaxed/simple;
+	bh=fR/1PRVTLB/p8KRWTVeVNbyoyB/xNG3EP9xdWWaenEk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ftcDzrbs6oyciCDMIgekU25nBw4E+y13e+Z4DjGa3g9FAtacNqziKeJOPhijrzt+cfT7nkd/q1djm8+EQKVsoHnTYvWqqY066funiXJdCfhMRf9ri31l9xxoC4SeHTH6dhz1ybsDbRmqL5EvOTpsu5z0nUuRGQ5sl1brLWVbSkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=w+HzybL7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jatTL3Iz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2341F00A3A;
-	Mon, 24 Aug 2026 12:27:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="w+HzybL7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297241F000E9;
+	Mon, 24 Aug 2026 12:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787574432;
-	bh=QExpGvRV4bZD7EpSdQDy258Zy/hQ6eH68+AStkGGxzs=;
+	s=korg; t=1787574435;
+	bh=jlQbihGDn4cLnOj+mP/U7hm+LOyZo/a6oPsmCb/wgYI=;
 	h=Subject:To:Cc:From:Date;
-	b=jatTL3IzDha+ai/sZnymbnhxNJrGWlMtbGdhpUZUCf6g9mmvGdJ2CkbmRv1YsnV2J
-	 V+Bjgb5jxVGyA7Q7cgu584h/ixqqsTfpYoY1B0II+d6g4xJuwjYuw4civNuKcWGWtX
-	 v7y9HTZt2L8vepCIaiZ42es6n30ptfHPlCjdcwVw=
-Subject: FAILED: patch "[PATCH] ext4: propagate errors from fast commit range replay" failed to apply to 5.10-stable tree
-To: 3497809730@qq.com,jack@suse.cz,tytso@mit.edu
+	b=w+HzybL7+cuq9DN995p2m9qnu1udIBEDq0eWFf9ysqhhjAwbh5BVmyQYNiIziDaid
+	 psWvvHFGjRWCGNQoAXL9fSnzdKrk+EndyUzOvwJVkAdY2bIqJcbrEg/+0H72UCT4R/
+	 ka+D3b8j1H3i1IaFhnd6lcPkP+M9rOKk8FTjc1qU=
+Subject: FAILED: patch "[PATCH] ext4: zero out whole block for clean edges in WRITE_ZEROES" failed to apply to 6.18-stable tree
+To: yi.zhang@huawei.com,jack@suse.cz,tytso@mit.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 14:26:56 +0200
-Message-ID: <2026082456-backache-routing-3aa7@gregkh>
+Date: Mon, 24 Aug 2026 14:27:08 +0200
+Message-ID: <2026082408-bogged-oozy-15cf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x d8b8dd3530bf41e14b118702cdaf9de64bb96885
+git cherry-pick -x a5179156ac1d9a6646da42254e4c461e1fc20096
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082456-backache-routing-3aa7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082408-bogged-oozy-15cf@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,90 +62,57 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d8b8dd3530bf41e14b118702cdaf9de64bb96885 Mon Sep 17 00:00:00 2001
-From: Guanghui Yang <3497809730@qq.com>
-Date: Wed, 8 Jul 2026 08:12:04 +0000
-Subject: [PATCH] ext4: propagate errors from fast commit range replay
+From a5179156ac1d9a6646da42254e4c461e1fc20096 Mon Sep 17 00:00:00 2001
+From: Zhang Yi <yi.zhang@huawei.com>
+Date: Tue, 14 Jul 2026 16:00:42 +0800
+Subject: [PATCH] ext4: zero out whole block for clean edges in WRITE_ZEROES
 
-ext4_fc_replay() stops replaying fast commit tags only when a tag
-handler returns a negative error. However, ext4_fc_replay_add_range()
-and ext4_fc_replay_del_range() currently return 0 from their common
-exit paths even after internal failures.
+FALLOC_FL_WRITE_ZEROES requires that all blocks in the requested range
+end up as written extents with zeroed content. For unaligned edges that
+were already allocated, ext4_zero_partial_blocks() zeros them directly.
+However, for unaligned edges whose underlying extent is a clean
+unwritten extent or a hole, the extent type remains unwritten after
+partial zeroing, which does not align with the semantics of
+WRITE_ZEROES.
 
-This hides errors from ext4_fc_record_modified_inode(),
-ext4_map_blocks(), ext4_find_extent(), ext4_ext_insert_extent(),
-ext4_ext_replay_update_ex(), and ext4_ext_remove_space(). As a result,
-a failed ADD_RANGE or DEL_RANGE replay can be treated as successful and
-the replay code may continue with subsequent fast commit tags.
+Therefore, when ext4_zero_partial_blocks() skips partial zeroing, it
+indicates that the corresponding edges are clean unwritten extents or
+holes. In this case, we need to expand the aligned allocation range
+outward to cover such edges, so that ext4_alloc_file_blocks() can
+correctly allocate blocks for the unaligned range. Edges that were
+partial-zeroed (i.e., written or dirty) are left untouched.
 
-This is particularly problematic for DEL_RANGE because it may already
-have marked blocks as free before ext4_ext_remove_space() fails. If the
-error is swallowed, replay may continue from a partially applied range
-operation.
-
-Return the saved error from the common exit paths and make the
-ERR_PTR() cases in ADD_RANGE store PTR_ERR() before jumping to out.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Fixes: f4265b8d32c4 ("ext4: add FALLOC_FL_WRITE_ZEROES support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/tencent_E3622146846A84C75C31C7D32AC4D5AD0605@qq.com
+Link: https://patch.msgid.link/20260714080044.4038124-8-yi.zhang@huaweicloud.com
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index ca72a52f8cc9..062103e42cd8 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2177,8 +2177,11 @@ static int ext4_fc_replay_add_range(struct super_block *sb, u8 *val)
- 		if (ret == 0) {
- 			/* Range is not mapped */
- 			path = ext4_find_extent(inode, cur, path, 0);
--			if (IS_ERR(path))
-+			if (IS_ERR(path)) {
-+				ret = PTR_ERR(path);
-+				path = NULL;
- 				goto out;
-+			}
- 			memset(&newex, 0, sizeof(newex));
- 			newex.ee_block = cpu_to_le32(cur);
- 			ext4_ext_store_pblock(
-@@ -2190,8 +2193,11 @@ static int ext4_fc_replay_add_range(struct super_block *sb, u8 *val)
- 			path = ext4_ext_insert_extent(NULL, inode,
- 						      path, &newex, 0);
- 			up_write((&EXT4_I(inode)->i_data_sem));
--			if (IS_ERR(path))
-+			if (IS_ERR(path)) {
-+				ret = PTR_ERR(path);
-+				path = NULL;
- 				goto out;
-+			}
- 			goto next;
- 		}
- 
-@@ -2238,10 +2244,11 @@ static int ext4_fc_replay_add_range(struct super_block *sb, u8 *val)
- 	}
- 	ext4_ext_replay_shrink_inode(inode, i_size_read(inode) >>
- 					sb->s_blocksize_bits);
-+	ret = 0;
- out:
- 	ext4_free_ext_path(path);
- 	iput(inode);
--	return 0;
-+	return ret;
- }
- 
- /* Replay DEL_RANGE tag */
-@@ -2301,9 +2308,10 @@ ext4_fc_replay_del_range(struct super_block *sb, u8 *val)
- 	ext4_ext_replay_shrink_inode(inode,
- 		i_size_read(inode) >> sb->s_blocksize_bits);
- 	ext4_mark_inode_dirty(NULL, inode);
-+	ret = 0;
- out:
- 	iput(inode);
--	return 0;
-+	return ret;
- }
- 
- static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index 9b6efc8f769e..d62fc4543760 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -4760,6 +4760,21 @@ static long ext4_zero_range(struct file *file, loff_t offset,
+ 	/* Zero range excluding the unaligned edges */
+ 	align_start = round_up(offset, blocksize);
+ 	align_end = round_down(end, blocksize);
++
++	/*
++	 * In WRITE_ZEROES mode, edges that were not partial-zeroed (clean
++	 * unwritten or hole) must be allocated and zeroed as whole blocks.
++	 * Expand the aligned range outward to cover them.
++	 */
++	if (mode & FALLOC_FL_WRITE_ZEROES) {
++		if (!IS_ALIGNED(offset, blocksize) &&
++		    !(partial_zeroed & EXT4_PARTIAL_ZERO_START))
++			align_start = round_down(offset, blocksize);
++		if (!IS_ALIGNED(end, blocksize) &&
++		    !(partial_zeroed & EXT4_PARTIAL_ZERO_END))
++			align_end = round_up(end, blocksize);
++	}
++
+ 	if (align_end > align_start) {
+ 		if (mode & FALLOC_FL_WRITE_ZEROES)
+ 			flags = EXT4_GET_BLOCKS_CREATE_ZERO | EXT4_EX_NOCACHE;
 
