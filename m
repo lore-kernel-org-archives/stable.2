@@ -1,82 +1,63 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E041B652E
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 02:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A218364EA6
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 02:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787537939; cv=none; b=Lrb4KCMqH9+kU5uQpab80Y59PGdNI0SKVRTkPEnJ6TuEy7o1N7rjbN9CePDoK1X/Kjxj088AuRla8HFT8JxtIhoijOHjtebTevdzeuHrxg9kuzErY6KUb/3V2/1El9Q6Gwq4ZXmAhYUU2VFEiNDCCprtERW7xyHMn3685mTYnZ4=
+	t=1787538608; cv=none; b=V1Ca8UMqBy48QSsBykAAw3S9U/uuA3xJuf1slTIijfwTzlNeB8MUERqu1E0UjSP8vvBl4QRmW3+RTW2BMFpgyXzegz389M40GS6cbmhTH5/eY5kAMiuqzJldTD+6MPOexL4m7IYXtZno58NEpIGWfSpj370LwEyLRT4ghPBKax8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787537939; c=relaxed/simple;
-	bh=COq2dJsX4Wo4xfq0ZUJE3cGkk7NlbkPtkeLagPTO2aQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PgNQwXHNP+0fc3K1QOKiUWev5qSqEvCfD/by4qLNB3bSKOuiz6LonH0cZHda1JIfkQdO7yU/8RJBLKhVlLRO6IR/700grLOFzRw9bfT6O0oH5w/h0yU34oIb+bX5FyfYBK/WfaRrznGV3upMt1dJylNlS8v8GzyF14UXmtq6yTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=beSAqEWY; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787538608; c=relaxed/simple;
+	bh=12vy6s9MlwtswAS4SxJv3UE92x5+mncClXWRS59yTAI=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=n419sKuX3sa/aM8N+QdPlSMzvQPp+EbaOoAuLq5RQHWIuJ7oR3MEZ8vqiTBxH3b3airtcqWZCevh3mYGfUAZME/SEc8uxfQX95kZvXAHaL6yCbU6kBrKsSuiwQ6YL9vMVUeIWjlCqb2IrmhmIpszEkzNPWb6+aHtQJGO/UNC0KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=G8N/suy1; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="beSAqEWY"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbe437a530dso198575a12.1
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 19:18:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="G8N/suy1"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cbee3777e1cso1720079a12.3
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 19:30:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787537937; x=1788142737; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zrDILERb95TsNDPp/xr8y+ID/sGXxmyWy+d24zww8cY=;
-        b=beSAqEWYePx+PdXAYzH7ezka5kThlEDdzFBoqLDqYepzCgXao9SNfHBAZXTjmRyVzr
-         C4s91xAZYj+GV1cnz/CgpCjbB9khsEOj2/0E+M32r5Q+dA02/LMIbGWsfbtpaGQ1hb45
-         9GKamI6GPavNCDs9p7SlFiCGfhZb51NL2AmQay0bClrzHzlMSBqoCfTSypazzN/X/kMx
-         N3d3TPPW2w9Ciwx3ZXbV+/SDj2nvLJT/sG2SQPVIwL1E6CqH6SNzeGJJlUpW4xQyWAgt
-         QZoCANm4JZuZCuDArLeQeyN3QBXtqyPoSn/Fih4Wt64ZVaUyoDh6i1o0uHSMyoNRKxJ5
-         XRIg==
+        d=kernelci.org; s=google; t=1787538605; x=1788143405; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HQFEsqr9va0lAEqH4YFPYweHZ7yAKCU5qfLyvlgpiig=;
+        b=G8N/suy19mTFIlVwEzN0t1uFpOYegvaMS4wAaxpNgHWZD8IZ9qdxGahL9HrZ95q4W8
+         WDAT3JBQz4Mmx7Mrkmct58Knn1e//u560jX8jblmzv0AwwBnGMZVU1dq/KE8VvRmBRLJ
+         vIjIXOE5YtXl1j0v8lLtmT+Q4vwzy/X35jzEpnSm0Pu2QTF8dlKiohQI1sIc24A24Zem
+         7MQErHW3oQC96VqfbUlRky38S2eq3pLTeUTcEZ0Gw2D3q8CDgHMEpxEvBSdWf6ylVkjO
+         arbFbtqWUJxQjhKMbnkOaMreTtXUai9ReH+lijCTKS1IUlgE1Fr8vhS6/t/NcsKhY21k
+         r20g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787537937; x=1788142737;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zrDILERb95TsNDPp/xr8y+ID/sGXxmyWy+d24zww8cY=;
-        b=mjPlxefsy156CpAb6yXN62SzkAkXAtyRJWLo0+dVVBdkz0ilNKnjsoL/z01y7b6e+O
-         1lKWdO7oP2nMyRPK1QXfXILRieDAeNBBoiyVOIs/Zu6C6ydVpzmJU//oziBrkrzP9+ll
-         +2vU/OPjibOwEvVDsyAlndeC73zqBM/cEVN1w78pTA14IkDzhIGgUtIbsE/UVOmv2Ygp
-         mqHmEFM8Yc3y/WFryfpMCwQttgmiircs0MgjrXNET3g2tcRxU4LvUKsDhgkLC06MTzgs
-         tj+m5oaJgC3MEvXp8qx/Ehj5xKXnVLER9itCPnXyOFouJkc/yOheuveqd3w57Z3u1v+M
-         Q0VA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4SMpU4vlw/KCD9fL87Rc0kNyi0f80EKNeVIBOKIHY6I155vdUMOirNR6D87yzyFy1ttBxlZo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5r96txxxLfcKNPDC2ydjLhhgIGDjEoQRCS690a5vmvwrRod62
-	zZoLqFg4yIxvv6Suu+4E6hEoks+bm06rMGwnRFYNitmx9H/PdOE0neFZ
-X-Gm-Gg: AR+sD11PgKSQnhW3/xrr6dDNPUib3Srovx6/0C5zCilS4rI3FlZeWEeDXec/38wMT3T
-	kO6+qvjzh5Ob0vo8ulQpXz4rWFRVqHRcpSmiRZVnQDpStkwCPCSYoiN4jhxveiMjYkF4uwmkkZf
-	pi6yrRIova8sHK42xrxGdc9Y/Gnv/FzlQ3LicKLLBDjUHMYcKhQ3zyOgbpa+8nOhNPv5FepmK9S
-	PEyLsD3bixa/hWwfsOiZoaKYcHdTpStk403atGxEeDuAXhqNPTrS2hSJids1x0ng2P91Ohqv18q
-	RO7/z70iT6uRVqH7vmDxHANvjoRCB5WoniCZnj8iz4SVFhluJfutqQv/seREsYlkuGU0QgvDoCw
-	0hh4VMEOUa3yJyyfJ2/5iw90Vb/Vs7NzrGyEMGqr1VN28dycz1HWt/ubwmqmDcX5ppfksXDYjlM
-	lwljNznuvsOykrFXw8dK/qKnwm+o58bYl3tis4xYK+RqgGIuv6J7rQWdbKEQ/eWkkK7j9yz56TT
-	T5PnJk1FS5oc6y24KDImF+nC/xy/gVrAE4EDxzh8KbWoQLOMS97deHIG3vpVw==
-X-Received: by 2002:a05:6300:4044:b0:3c3:7f50:fc39 with SMTP id adf61e73a8af0-3cd2f9cbbe0mr19412557637.0.1787537936940;
-        Sun, 23 Aug 2026 19:18:56 -0700 (PDT)
-Received: from localhost.localdomain ([139.159.170.75])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8520f03b185sm1406434b3a.39.2026.08.23.19.18.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 23 Aug 2026 19:18:56 -0700 (PDT)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: jv@jvosburgh.net,
-	jiri@resnulli.us
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	willemb@google.com,
-	netdev@vger.kernel.org,
-	Qihang Tang <q.h.hack.winter@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] team: reject frames with insufficient headroom in team_header_create
-Date: Mon, 24 Aug 2026 10:18:02 +0800
-Message-ID: <20260824021802.90369-2-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
-References: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
+        d=1e100.net; s=20251104; t=1787538605; x=1788143405;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HQFEsqr9va0lAEqH4YFPYweHZ7yAKCU5qfLyvlgpiig=;
+        b=Xh8yh6yUDDswoeCH3/VkGGSyXrUB2fJBGg8VdmfL8X/ZR4Qqs1yFDwY6o5nojy2JTT
+         k/KVWd1SwlEDaAXz65RxugMcvvLUklg9xLeK83P4KrhQeu02Lsu68xWxBJIq9n/nZCPH
+         HkXsFTnBvXGYZa0dpSCGQ79zOApfLvzJJpk1BjR7quPxprpqMagvg0xSQ4tW75cUslZm
+         iIh8XMptIRgdjbDewV4gpRbhIq/83wZmWeOI8tZDL1adUAOe2OrpWiib8ujI4a4M32V/
+         HzxShs4VSxJClMtBumPRur+bQKFywbu4Vc2Lypo82IZnC8wyPD4MC0uMtNN5laE2qHl9
+         OdDw==
+X-Gm-Message-State: AFuF++kGn2rPxbEJEiP+Bz9lCX7uquzonE2pc6M6Vz0PVqjhDCzT81VQ
+	vncO/VrdRJbR61GqQ/lEpU5Fao9D4lonKqQ3/a+r3V3frNEFQCrfABiOy017ksDWokA=
+X-Gm-Gg: AR+sD10jv5pCQF3DlQpPm7BB54adlQ0TEieO/OhRnNN5421U5DQA6OvjMKDGMLjbY7t
+	eENRUrKtDZ7RndSJ6aK9ObTAHzLkkd/8RZOULrzFBmvFhxhKe9uvW356uTn28YqkRBzQE+ecQbl
+	duKXN2crSJUWsxg9o8UEMLJFOQnrj2L6fBGMBNgmt6BJ2J+9s/5NaH+2PdX2XLBW0pvafcwMT6n
+	WY74U4F0k9wYc5/Nm9hmSUcA2Mer/msT76hVxm4EohusK1tOHXpoWERUkS/MacRs8Yfi1jW2H3K
+	KvzJJVUfVeB1Ko6ywAD8R+7uVf2lFE51LR6I9xTGN0mUNEzlNAq3Rk/5Zp/ww1EdvP6Pa4ckKMz
+	M+r5pTAOGNsmjpJvYylWfv1SzocnmeK9rtYG18nrJaZDb7H+7M3vdGiQoIrG9UVFuZwokJ1q5Uo
+	etmZ+D8pYsSKsRs+MCqlt3sAgsdiBbsCGbj+pGw8U/h6p/UaCyX7og
+X-Received: by 2002:a05:6a21:330e:b0:3c8:d3a4:7b40 with SMTP id adf61e73a8af0-3cd2fdab1f3mr45593158637.2.1787538605581;
+        Sun, 23 Aug 2026 19:30:05 -0700 (PDT)
+Received: from b455de3d9de8 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f90cb8e3sm28389554eec.12.2026.08.23.19.30.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Aug 2026 19:30:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,62 +65,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-
-From: Qihang Tang <q.h.hack.winter@gmail.com>
-
-AF_PACKET SOCK_DGRAM sends reserve skb headroom from a snapshot of
-team_dev->hard_header_len.  A concurrent team type change can switch the
-selected port to one with a larger hard_header_len between that snapshot
-and team_header_create(), so the port's create() pushes or writes past
-skb->head.
-
-This is the same race as in bond_header_create(); the snapshot series
-that fixed the SOCK_RAW send paths deferred it.  dev->header_ops is the
-stable team_header_ops, so snapshotting header_ops in the caller does
-not help.
-
-Reject the frame if skb headroom is smaller than the selected port's
-hard_header_len, before delegating under the existing rcu_read_lock.
-
-Fixes: 425000dbf173 ("team: fix header_ops type confusion with non-Ethernet ports")
+Subject: [STATUS] stable/linux-6.1.y -
+ 05208478041ccec1b348d25e1df5c4013608590e
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
-Cc: Willem de Bruijn <willemb@google.com>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
----
- drivers/net/team/team_core.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+Reply-To: kernelci@lists.linux.dev
+Date: Mon, 24 Aug 2026 02:30:03 -0000
+Message-ID: <178753860320.2405.11184726775672319853@b455de3d9de8>
 
-diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
-index feaa75fbf8fc..2742a4bfc9d0 100644
---- a/drivers/net/team/team_core.c
-+++ b/drivers/net/team/team_core.c
-@@ -2269,10 +2269,24 @@ static int team_header_create(struct sk_buff *skb, struct net_device *team_dev,
- 	port = team_header_port_get_rcu(team, true);
- 	if (port) {
- 		port_ops = READ_ONCE(port->dev->header_ops);
--		if (port_ops && port_ops->create)
-+		if (port_ops && port_ops->create) {
-+			unsigned int hlen = READ_ONCE(port->dev->hard_header_len);
-+
-+			/* Headroom was reserved from a snapshot of
-+			 * team_dev->hard_header_len that may predate this
-+			 * port (concurrent team type change); reject if
-+			 * insufficient for the port's create(), which
-+			 * pushes its own hlen.
-+			 */
-+			if (skb_headroom(skb) < hlen) {
-+				ret = -EINVAL;
-+				goto unlock;
-+			}
- 			ret = port_ops->create(skb, port->dev,
- 					       type, daddr, saddr, len);
-+		}
- 	}
-+unlock:
- 	rcu_read_unlock();
- 	return ret;
- }
--- 
-2.50.1 (Apple Git-155)
 
+
+Hello,
+
+Status summary for stable/linux-6.1.y
+
+Dashboard:
+https://d.kernelci.org/c/stable/linux-6.1.y/05208478041ccec1b348d25e1df5c4013608590e/
+
+giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+branch: linux-6.1.y
+commit hash: 05208478041ccec1b348d25e1df5c4013608590e
+origin: maestro
+test start time: 2026-08-23 12:29:45.234000+00:00
+
+Builds:	   49 ✅    1 ❌    0 ⚠️
+Boots: 	   46 ✅    0 ❌    0 ⚠️
+Tests: 	 4219 ✅  572 ❌  805 ⚠️
+
+### POSSIBLE REGRESSIONS
+
+  No possible regressions observed.
+
+
+### FIXED REGRESSIONS
+
+  No fixed regressions observed.
+
+
+### UNSTABLE TESTS
+    
+Hardware: qemu-arm64
+  > Config: defconfig+netdev+nfs-root-boot+kselftest
+    - Architecture/compiler: arm64/gcc-15
+      - ltp
+      last run: https://d.kernelci.org/test/maestro:6a8af82762f33761c005a5e8
+      history:  > ✅  > ❌  > ✅  > ✅  > ✅  
+            
+
+
+
+This branch has 1 pre-existing build issues. See details in the dashboard.
+
+Sent every day if there were changes in the past 24 hours.
+Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
