@@ -1,173 +1,103 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.221])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA414071E5;
-	Mon, 24 Aug 2026 12:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.221
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787575402; cv=pass; b=c3d+9cBPwgrEtQBPb1t2OszYOC/yTcuQIk4zicgmIGfNmehv9vYrwvA5+pqnJL0znif3eWl2NAQUX9aumSB8QCFWf5n1ZFjuaxgZSXvw4Ah4zqRGF+UPhNuhE1wIhL3SnnsZTV5oksS3bv0b//CyTtJtd/aX5kTR34vWjWPC0Lk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787575402; c=relaxed/simple;
-	bh=JpdtRO9HP2du2PUDYeKShMYqMUUC+0lWGi+Y2C5rDJk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jG7uEI8BLmypgoGJgonWGBVU7noDDvjpYPMM2dsM7GQ0KExYeKItT4ClFBfkQF/fnHO2leMgBoK0U0df7VqlufxhwIOUceO1YirQp1oll1G57/92gHoLguDAJcEkg+9ra1vCclX/kHJr90VxZO6jkhMlvdgwHtYC6NzJ9R9svXQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=KqgQmWoR; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=SJ45AIQ/; arc=pass smtp.client-ip=81.169.146.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9E53F12E2;
+	Mon, 24 Aug 2026 12:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787575817; cv=none; b=IgjV9XuMWDYqFxRbxpZuDTJCgRtgXRMZoZ1ENWmiy3ScDjtuALkSedDWnWvHzc8W1ZFITIHneULrwa+Pl4LxhDAC1GVIgIUSdOAYxukb1mUyIGNxXLmieqBuqOqazIXomaPuXXrDMUtURHnybZg5WOMwrJPm0KujPFHjweQC14E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787575817; c=relaxed/simple;
+	bh=8dyoGwYqE0+oRO6D3D9z7RssrqIoCJbmCBSreTo1NAM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k2CK4X2OwGWi7/xcWlrtVbdxrDKvqsC6GAf8JwHkAIGsuRwBgzLPvyoAgtU4c2N6542YxTj8S5E0Wm2OUszufoFIPmWZF99UUjrgyg18u519CNz6zbMzYEXawlvw3O3LdAiIzPWS+w4/A+q309aiWq4hr0uZ9L0qrI/JB1RTIWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HdMhbhYF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="KqgQmWoR";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="SJ45AIQ/"
-ARC-Seal: i=1; a=rsa-sha256; t=1787575208; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=IRNpNSk0eO2m3hypQV9UTeuVv3t0ElL2HieCvZTikbgbYtHY2EF7f5qQchPQKfylCn
-    lT1Di2iKf1oNd5BT/2kTGGl/u3d0Flq+Sy0OrKwDE9cvZqScrLC3c6yi0Eoi43RFe8s2
-    FAPutRDIAb3b6Rfcig+CBUcIf7EowWA/+13XiuMQ/9+p2UbC5up21gh03vBHRUBP/RFg
-    8Ij7EMVxLxhwLt5Oj6tP0eH8owMNtQcZoDNar1uRFG9y0sLB9lWmEhNDPxnDfYEazNcN
-    vrO9qJXw5dngzRfhvPbY4BH9qkEQJTCHO1EIjCIqGamCfCgpauQMobfvor204i3OLMpN
-    j2Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787575208;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
-    b=ootRZ4Va27+9XOhkojOMbYQw38uSw1JP6+5+E1J61iM2VbMvsuLFGf5t2wHmIPGoAA
-    C99mjyNUwvSnHaDopucaoJsnPl+o+qXV7O5E+hr7CZC17CPSIpy9pBVbwaldR/aFn8Lh
-    hhVNA2PcPhtq85Req8eb5QmwHqDKXgdk+2YKLoKR539CCO6hEBVhKHVGKKBIY3oOMF7D
-    g/7Vm78GLMivcs1J57BY31uhMpSThhyFZ6VYGqFjk5tUHlL2avIXEDfBPep/FudLRO2u
-    IbaJyrJI+RUQjp6IDPSkoqxJXU6aTwCUl6uNdU4JQAZGatbWCQU1dCznk6h/FTq+erRf
-    vtzw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787575208;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
-    b=KqgQmWoRDt9PmsS2ug4Eg7BkIZRb0DmXcovm9m5EsKRhKXGqTk9x2H5qo6lFRFf6Yk
-    plef576DlTNIFH6XAemNFC6+/HK8haWzEXh85XT+UMlgD4A4Jb5CJrysBOw7sV3o7fvK
-    DuonmCaJ3rAFSPxuKemvQGffCzb+TyyEONsJtcu18/ydwQagmHDVOSGisuJfKCayGWom
-    NiQ/MzXUFS0nALe8tq9uxViJ4cjK7CRUECXvnouObBhyXSifCaNtDVQawJixG89wVjnd
-    NFJtLAXwLEPfZoYNGK3du8u7zbGFMoGjbNtyue4qloHmo8haMYSHeb4qIOpmtjoG6OvT
-    VvLg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787575208;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
-    b=SJ45AIQ/zuG+8ASCxJUEaG4WRDC6RBoz1ocvCREXhdEBvgFQSbqphfDufWD8WtEDHv
-    ckJqWa01DUUNoqhgSOBg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQipoOy8iN9EQCaJvpc3APUCy9LxWOnfZGxS9c"
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id Qfefb327OCe7arf
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 24 Aug 2026 14:40:07 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Paul Cercueil <paul@crapouillou.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: linux-mips@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	wbx@openadk.org,
-	kernel@pyra-handheld.com,
-	"H. Nikolaus Schaller" <hns@goldelico.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4] drm/ingenic: fix bridge allocation
-Date: Mon, 24 Aug 2026 14:40:05 +0200
-Message-ID: <1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HdMhbhYF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0C01F00A3D;
+	Mon, 24 Aug 2026 12:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787575816;
+	bh=MZoj6aqj5U4tkAqvvKrf5s16sOmkfsLcKydVscu9oUo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HdMhbhYFiAxTvLaBruA4+2xYgwpDB1+h9q8noenekDfsbZPf5jQzN8J7IysEsmfaE
+	 WGLUjWdT1LBt2ZlpG5eUILxsQBtaRgaN1FByMQjjJX2pNc1Q1d8++g3AX5UUPqW7Hk
+	 jIRH8ShhSK0bCI/ZlUZc1IxlPUESt1FM43GTahz4g2UlKmmdqRsQMQuk8OYW4AqDzj
+	 cdL583jH7G2XgSKqaWcgY57OPTf4lLubqVLt7PuY3CF1Anqjdw3prQkIPeHgyJnLI9
+	 kcZALF6GJ5nZXYlOHL/QPhiYle6dVXbbh5ywq0YgbC3Rcxo+b7b5GrmLObCZQMoJ5g
+	 GUuiwlj51hWXQ==
+Message-ID: <ad7fba18-57d0-4f04-9c31-7ada3daf2d41@kernel.org>
+Date: Mon, 24 Aug 2026 14:50:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] thunderbolt: Hold a router reference for each path
+ hop
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andreas Noever <andreas.noever@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
+ <YehezkelShB@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ asahi@lists.linux.dev, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
+ <20260823-b4-tbt-fixes-v2-1-26a18a426c9f@kernel.org>
+ <20260824104237.GF893316@black.igk.intel.com>
+ <295cce78-47d2-4a6e-af90-696edb60a05d@kernel.org>
+ <20260824113759.GH893316@black.igk.intel.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260824113759.GH893316@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Bridge allocation API has changed and ingenic/drm was broken
-leading to
 
-[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
-[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
-[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
-[   55.904136] ------------[ cut here ]------------
-[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
-[   55.917538] refcount_t: addition on 0; use-after-free.
-...
-[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
-...
 
-Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
-Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-Cc: Waldemar Brodkorb <wbx@openadk.org>
-Cc: stable@vger.kernel.org
----
+On 8/24/26 13:37, Mika Westerberg wrote:
+> Hi,
+>
+> On Mon, Aug 24, 2026 at 01:06:12PM +0200, Sven Peter wrote:
+>> So unfortunately the entire USB hardware is best described as horribly
+>> broken :(
+> :-(
+>
+>> For USB2 already we only ever receive a single hotplug interrupt in dwc3. If
+>> the first device is unplugged and another one plugged in nothing happens.
+>> The only way around that is to tear down dwc3/xhci and the PHY completely,
+>> assert all external reset lines and then bring them up again.
+>> Upstream drivers/usb/dwc3/dwc3-apple.c contains more details in the very
+>> first comment at the top.
+>>
+>> With USB4 this gets a bit worse: There's a block called "ACIO" (Apple
+>> Converged I/O) which can only be brought up correctly after the PHY has been
+>> switched to Thunderbolt/USB4 mode. This block has a co-processor which then
+>> exposes the host router, NHI, IOMMU, etc. to our address space.
+>> We then have to write cable information into a vendor-specific capabilities
+>> register and only then do we get the hotplug event and the link comes up.
+>> This register appears to be effectively write-once after each boot of the
+>> co-processor. If I try to write 0 that still works but trying to write the
+>> value for the next connection then crashes the co-processor with a very
+>> helpful message along the lines of "assert 4357 violated".
+>> So there's no way around first tearing everything down, then shutting down
+>> the co-processor and the entire ACIO block and then finally bringing it all
+>> up again after the next cable is connected. I've tried to find ways around
+>> this but didn't succeed without documentation and could only reproduce what
+>> XNU does.
+> Thanks for sharing the interesting details! I totally understand the pain
+> of reverse engineering things. The initial USB4/TB driver was also result
+> of a huge reverse engineering effort by Andreas Noever, but it was and
+> still is functional, and we still support Apple TB1/2 hardware (although
+> not too much testing is done these days, I fire up my Cactus Ridge based
+> Mac maybe once a year).
 
-Notes:
-    v4: remove setting interlaced mode (would be new feature and not a fix) as suggested by paul@crapouillou.net
-    
-    v3: fixed a malformed diff in v2
-    
-    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
-        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
+Hah, nice! I wasn't aware the initial version of this driver was built 
+for Apple hardware!
+Let's see if we can the Apple Silicon changes into a shape where they 
+still work 10+ years from now as well :-)
 
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 42c86f195c66b3..f3c6c823314688 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -122,7 +122,7 @@ struct ingenic_drm {
- 
- struct ingenic_drm_bridge {
- 	struct drm_encoder encoder;
--	struct drm_bridge bridge, *next_bridge;
-+	struct drm_bridge *bridge, *next_bridge;
- 
- 	struct drm_bus_cfg bus_cfg;
- };
-@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
- 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
- 
- 	return drm_bridge_attach(encoder, ib->next_bridge,
--				 &ib->bridge, flags);
-+				 bridge, flags);
- }
- 
- static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
-@@ -1314,10 +1314,23 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 
- 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
- 
--		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
-+		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
-+						   base, &ingenic_drm_bridge_funcs);
-+		if (IS_ERR(ib->bridge)) {
-+			ret = PTR_ERR(ib->bridge);
-+			goto err_drvdata;
-+		}
-+
-+		ib->bridge->of_node = priv->dev->of_node;
- 		ib->next_bridge = bridge;
- 
--		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
-+		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
-+		if (ret) {
-+			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
-+			goto err_drvdata;
-+		}
-+
-+		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
- 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret) {
- 			dev_err(dev, "Unable to attach bridge\n");
--- 
-2.55.0
+Sven
 
