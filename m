@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0597141A4FE
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:27:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C529E41835F
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:27:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574469; cv=none; b=Pp6Tvxz+4O1KlP6MAV3YRgKMox1WO/jLrsaG705hcVPo8tMiNTQoIVDfDvDokaIS3bnhH+0VFbJ1N+McItpc4I+Ykjb/nQ8Sb+AaQmgizcbbH4Jk/K/u+gDO22kFIWPI2Lc6jFwehBis6zo3MxcWwZBrXKZRIkW7HSI17iEaNbs=
+	t=1787574473; cv=none; b=sW6zeCup1HKyKMEryufFHksYTZBKJ03IacWAu4k3FGiZcsgJHkf3uhES9GSej6Cgg0PvW4zsZaR4VNyLEYlidXBH39Vh1DA0W51T0OGy6fviMGZ+v8j7JJ+iIFHEQ+tKCFFp4tDpjTQPmjduxJdtsr2VgR46OtbqYRZQU4+NkI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574469; c=relaxed/simple;
-	bh=H9KUw/LMcFDjpERMIW8WVSyLwHA+LEReySjKAMj7Ojo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jcLyBRZiAkHAKLrJpRkLsjd0490884KDmhrQGS3WOGZacD1jaUx1SIOKpyek85dV0jagQvUSqa//Lge3MLRr/5+vis7p1bBlxArKPQgHIY6aJwNM0pRAoDRsXtIPcaAAxY2b3c1OHdjwpi264nZuCnjRpnc/Y//6lvm3MFyNl/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M4WxPzpm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787574473; c=relaxed/simple;
+	bh=WW3zpbGQNcCKqjggfHpa/lGLGGNAX7HuInQKOI8GGaI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Em3XQMu2+WpeHljIbZ6T9F3MTqrpVh8fA09vFI8f2x+k7BtK7n+yvKJCRqFh9hkSX1Qsopp+w9xmo2pAmGkRSI0tbpsOsD4ep1OTv2/otPPzOoBEjPx5hvKE3Bw9gNeDwT9+26zS5LExoB9AKUvmqvrXQO1Q02Uw5ff9JnP2cik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=seS2X8GL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M4WxPzpm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209AA1F00A3D;
-	Mon, 24 Aug 2026 12:27:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="seS2X8GL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8201F000E9;
+	Mon, 24 Aug 2026 12:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787574467;
-	bh=eDvd5xqhxAs1xFgLI8Ys34n29I7332WiI4d3+66fAoM=;
+	s=korg; t=1787574471;
+	bh=rdMplcUgue5sBB0ANhN2+lwnaEciB3AbZ3i6FLxwHfA=;
 	h=Subject:To:Cc:From:Date;
-	b=M4WxPzpm6OCy2N1D1luMYUhuZz2i24BjQYVJHYSVqqj6fam5mUGDBPl0351kcehtH
-	 AUi/O2NROEfdh/3dRIq/zNYoSk1RD1sVd93WLk04o90rGcu4HjasQv2mbXJl6N7g+6
-	 iN1C3l4PcunZLX/pkZSf+fmnpWGgRBRb2dBpGmuU=
-Subject: FAILED: patch "[PATCH] ext4: don't enable DAX on new encrypted files" failed to apply to 5.10-stable tree
-To: ebiggers@kernel.org,disgoel@linux.ibm.com,jack@suse.cz,ojaswin@linux.ibm.com,tytso@mit.edu
+	b=seS2X8GLhf90oAU1IkZke31zIH+cpTPPNIF9KgQhVaMjsAF5lXK3lRS4c0DrNwPsj
+	 Qpymb09ZWATt2AfG0LsVXhpvpmWfITsffFtF2fZ9MZ5kqjq98LDukF3WrcTcEl3ER5
+	 EU+Zo3xtcK/41wL/EI70qRROtOYSfPcg1uPLoFvE=
+Subject: FAILED: patch "[PATCH] ext4: protect WRITE_ZEROES written extents with orphan list" failed to apply to 7.2-stable tree
+To: yi.zhang@huawei.com,jack@suse.cz,tytso@mit.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 14:27:29 +0200
-Message-ID: <2026082429-reset-mocker-6122@gregkh>
+Date: Mon, 24 Aug 2026 14:27:48 +0200
+Message-ID: <2026082448-freely-mute-d6ba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x da32af420d6d466e247c43ac0b829edeac7ae0ad
+git cherry-pick -x f7237a775c8f3e99e0e77b7c10fb626815fb2877
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082429-reset-mocker-6122@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082448-freely-mute-d6ba@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,140 +62,161 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From da32af420d6d466e247c43ac0b829edeac7ae0ad Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Thu, 30 Jul 2026 10:52:12 -0700
-Subject: [PATCH] ext4: don't enable DAX on new encrypted files
+From f7237a775c8f3e99e0e77b7c10fb626815fb2877 Mon Sep 17 00:00:00 2001
+From: Zhang Yi <yi.zhang@huawei.com>
+Date: Wed, 29 Jul 2026 16:59:18 +0800
+Subject: [PATCH] ext4: protect WRITE_ZEROES written extents with orphan list
 
-Currently, when a new encrypted regular file is created, the call to
-ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
-before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
-filesystem is mounted with "-o dax=always".
+In ext4_alloc_file_blocks(), the WRITE_ZEROES path converts unwritten
+extents to written in one transaction, while i_disksize is updated to
+cover them only in a later transaction. A crash in between leaves
+written extents beyond i_disksize on disk, which fsck will complain
+about.
 
-EXT4_INODE_ENCRYPT then actually gets set a bit later in
-__ext4_new_inode(), when it calls fscrypt_set_context() which calls
-ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
-calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
+To fix this, add the inode to the orphan list in the same handle that
+does the conversion, and remove it once i_disksize has caught up.
+Also add a sanity check to ensure conversion does not extend beyond EOF.
 
-This was intended to clear S_DAX as well.  However, this was broken by
-commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
-causes data written to the file to bypass encryption, also causing
-xfstests failures such as generic/548 (when "-o dax=always" is used).
+Since ext4_alloc_file_blocks() is called from the fallocate() path,
+partial allocation is safe. On partial conversion failure, advance
+i_disksize only up to the boundary of successfully converted blocks, so
+that orphan cleanup sees a consistent state. Document this behavior in
+the function comment.
 
-Fix this by simplifying the flow by making __ext4_new_inode() set
-EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
-ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
-
-Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
-place on new encrypted inodes.  Then it doesn't need to be cleared.
-
-As a result of these simplifications, ext4_set_context() no longer needs
-to change inode flags or state when 'handle != NULL'.  Remove that too.
-
-Reported-by: Disha Goel <disgoel@linux.ibm.com>
-Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
-Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
+Reported-by: Jan Kara <jack@suse.cz>
+Closes: https://lore.kernel.org/linux-ext4/3f6ao5amv7glbgigndtegcucgo3n34ij3lau6l3da3hgdxgn3v@ev66wv3r5umt/
+Fixes: f4265b8d32c4 ("ext4: add FALLOC_FL_WRITE_ZEROES support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Tested-by: Disha Goel <disgoel@linux.ibm.com>
-Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260730175212.36923-1-ebiggers@kernel.org
+Link: https://patch.msgid.link/20260729085918.3336221-3-yi.zhang@huaweicloud.com
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 
-diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
-index f41f320f4437..3971986de028 100644
---- a/fs/ext4/crypto.c
-+++ b/fs/ext4/crypto.c
-@@ -144,7 +144,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	if (inode->i_ino == EXT4_ROOT_INO)
- 		return -EPERM;
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index 1ab1a6e2ed83..a3dde7ba0d23 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -4571,6 +4571,22 @@ int ext4_ext_truncate(handle_t *handle, struct inode *inode)
+ 	return err;
+ }
  
--	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
-+	/*
-+	 * For new encrypted inodes, S_DAX is never set in the first place.
-+	 *
-+	 * For existing inodes, this is called only on empty directories.  ext4
-+	 * never sets S_DAX on directories.
-+	 */
-+	if (WARN_ON_ONCE(IS_DAX(inode)))
- 		return -EINVAL;
++/*
++ * Pre-allocate blocks for the range [@offset, @offset + @len). Allocated
++ * blocks are marked as unwritten by default. If EXT4_GET_BLOCKS_ZERO is
++ * set, the allocated blocks are zeroed on disk and their extents are
++ * converted to written state.
++ *
++ * When @new_size is nonzero, the caller intends to extend the file, and
++ * the file size should be updated to the end of the allocated blocks.
++ *
++ * Allocation may partially succeed due to some non-fatal issues. In that
++ * case, i_disksize (and i_size) is advanced up to the successfully
++ * processed portion of the range.
++ *
++ * Return 0 on success, or a negative error code on failure or partial
++ * failure.
++ */
+ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
+ 				  loff_t new_size, int flags)
+ {
+@@ -4585,6 +4601,7 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
+ 	loff_t epos = 0, old_size = i_size_read(inode);
+ 	unsigned int blkbits = inode->i_blkbits;
+ 	bool alloc_zero = false;
++	bool orphan = false;
  
- 	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
-@@ -163,6 +169,14 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	 */
+ 	BUG_ON(!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS));
+ 	map.m_lblk = offset >> blkbits;
+@@ -4659,19 +4676,49 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
  
- 	if (handle) {
+ 		if (alloc_zero &&
+ 		    (map.m_flags & (EXT4_MAP_MAPPED | EXT4_MAP_UNWRITTEN))) {
++			ext4_lblk_t converted;
++
++			WARN_ON_ONCE(map.m_lblk + map.m_len >
++				EXT4_B_TO_LBLK(inode, new_size ?: old_size));
++
+ 			ret = ext4_issue_zeroout(inode, map.m_lblk, map.m_pblk,
+ 						 map.m_len);
+-			if (likely(!ret))
+-				ret = ext4_convert_unwritten_extents(NULL,
+-					inode, (loff_t)map.m_lblk << blkbits,
+-					(loff_t)map.m_len << blkbits, NULL);
+-			if (ret)
++			if (unlikely(ret))
+ 				break;
++
++			handle = ext4_journal_start(inode, EXT4_HT_MAP_BLOCKS,
++						    credits);
++			if (IS_ERR(handle)) {
++				ret = PTR_ERR(handle);
++				break;
++			}
++
++			ret = ext4_convert_unwritten_extents(handle,
++					inode, (loff_t)map.m_lblk << blkbits,
++					(loff_t)map.m_len << blkbits,
++					&converted);
++			if (ret)
++				map.m_len = converted;
++
++			/*
++			 * If blocks beyond i_disksize are converted, add
++			 * the inode to the orphan list and advance the epos.
++			 */
++			if (new_size && converted) {
++				ret2 = ext4_orphan_add(handle, inode);
++				ret = ret ? ret : ret2;
++				orphan = true;
++			}
++
++			ret3 = ext4_journal_stop(handle);
++			ret = ret ? ret : ret3;
+ 		}
+ 
+ 		map.m_lblk += map.m_len;
+ 		map.m_len = len_lblk = len_lblk - map.m_len;
+ 		epos = EXT4_LBLK_TO_B(inode, map.m_lblk);
++		if (ret)
++			break;
+ 	}
+ 
+ 	if (ret == -ENOSPC && ext4_should_retry_alloc(inode->i_sb, &retries))
+@@ -4687,11 +4734,23 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
+ 	if (epos > new_size)
+ 		epos = new_size;
+ 
+-	handle = ext4_journal_start(inode, EXT4_HT_MISC, 1);
+-	if (IS_ERR(handle))
+-		return ret ? ret : PTR_ERR(handle);
++	handle = ext4_journal_start(inode, EXT4_HT_MISC, 2);
++	if (IS_ERR(handle)) {
 +		/*
-+		 * __ext4_new_inode() should have already set the encrypt flag
-+		 * on the inode and avoided enabling inline data.
++		 * The conversion has successfully completed. Not much to
++		 * do with the error here so just cleanup the orphan list
++		 * and hope for the best.
 +		 */
-+		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
-+			return -EINVAL;
-+		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
-+			return -EINVAL;
- 		/*
- 		 * Since the inode is new it is ok to pass the
- 		 * XATTR_CREATE flag. This is necessary to match the
-@@ -170,21 +184,10 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 		 * function with the credits allocated for the new
- 		 * inode.
- 		 */
--		res = ext4_xattr_set_handle(handle, inode,
--					    EXT4_XATTR_INDEX_ENCRYPTION,
--					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
--					    ctx, len, XATTR_CREATE);
--		if (!res) {
--			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--			ext4_clear_inode_state(inode,
--					EXT4_STATE_MAY_INLINE_DATA);
--			/*
--			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--			 * S_DAX may be disabled
--			 */
--			ext4_set_inode_flags(inode, false);
--		}
--		return res;
-+		return ext4_xattr_set_handle(handle, inode,
-+					     EXT4_XATTR_INDEX_ENCRYPTION,
-+					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-+					     ctx, len, XATTR_CREATE);
- 	}
++		if (orphan && inode->i_nlink)
++			ext4_orphan_del(NULL, inode);
++		ret2 = PTR_ERR(handle);
++		goto out;
++	}
  
- 	res = dquot_initialize(inode);
-@@ -205,10 +208,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 				    ctx, len, 0);
- 	if (!res) {
- 		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--		/*
--		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--		 * S_DAX may be disabled
--		 */
-+		/* Update inode->i_flags to set S_ENCRYPTED. */
- 		ext4_set_inode_flags(inode, false);
- 		res = ext4_mark_inode_dirty(handle, inode);
- 		if (res)
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index a40cb27f8116..a5831fc536db 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
-@@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
- 		if (err)
- 			goto out;
-+		if (encrypt)
-+			i_flags |= EXT4_ENCRYPT_FL;
- 	}
+ 	ext4_update_inode_size(inode, epos);
++	if (orphan && inode->i_nlink)
++		ext4_orphan_del(handle, inode);
++
+ 	ret2 = ext4_mark_inode_dirty(handle, inode);
+ 	ext4_update_inode_fsync_trans(handle, inode, 1);
+ 	ret3 = ext4_journal_stop(handle);
+@@ -4699,6 +4758,9 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
  
- 	err = dquot_initialize(inode);
-@@ -1306,6 +1308,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 	ei->i_extra_isize = sbi->s_want_extra_isize;
- 	ei->i_inline_off = 0;
- 	if (ext4_has_feature_inline_data(sb) &&
-+	    /* Encrypted inodes cannot have inline data */
-+	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
- 	    (!(ei->i_flags & (EXT4_DAX_FL|EXT4_EA_INODE_FL)) || S_ISDIR(mode)))
- 		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
- 	ret = inode;
+ 	if (epos > old_size)
+ 		pagecache_isize_extended(inode, old_size, epos);
++out:
++	if (ret2)
++		ext4_std_error(inode->i_sb, ret2);
+ 
+ 	return ret ? ret : ret2;
+ }
 
