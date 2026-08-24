@@ -1,121 +1,192 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735C43AA1AE;
-	Mon, 24 Aug 2026 10:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787568352; cv=none; b=E4mQosIeSn4ZjhB5deqhVZuwfXKvbHxaQx3d4KlDKMFOQP7F3xHKWsAGgKvxka+pyje0N+P4ZWJlAYlT9JYvQt+sUbp3DRgcg25ejoXImBYmnTV+4/DyxVGz8offJQ5+CKkbvnRHF5sp7EsyZDW79VTpJIWVYflVai6otkbSCvA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787568352; c=relaxed/simple;
-	bh=05461UbdMkZxonRDgtnfK9XUrpOa29M4V9DDizrnJ9A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g73unT+eZl5Qsbj1GPO2xKsY7R+LMkBxUJaHuGQXQQs+h07X9SAi4qFm26S2Bvk6pImbPYQEEeIbGqrCqcCCZ9pXTLV8p9W0fsZ/aycivwheJzv7CnrRrQ4cew5pxAo3njfoy6JrZ7HY272lT44BUIp0+LEANEdzb/0SFakISPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eD5NgO8b; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5481D282F12;
+	Mon, 24 Aug 2026 10:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787568503; cv=fail; b=SlMMuaiDNtuqKj2yHtuXsKedhBWcxb1wP+uZXIiml3vt+2dsCBhwM9dyljgWQ+Z7D4Dt5ApjD4OErIRr6+ourcOrtgiMA95VlMm5h4zaxR35hyDxUUZ3LTHjxbjZCOpj4c/so52YEALLoRYUg/niuTNONDRP/g0aFu/RhxIZNhs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787568503; c=relaxed/simple;
+	bh=Jy2E5J7xdi4V0lQxoFamVUfPUCqEuTjjd+TqB6LRMFY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KmAsU18V/h+hhcjT4CZbNVPqT44anCQp7rl+GLDjW+0AlfNTtustB1RAlAccA4+0BPIEqPlGT9QypVArOK4VIXRyUN3j2Ag+7UHnaHzieZppBk0RwwZqREhk8rgojTFazGANSCnFfc3fCZWrpDeqF4ciTgj+FTZcruXVuRWsu3A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=otvCfM8n; arc=fail smtp.client-ip=52.101.57.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eD5NgO8b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787568350; x=1819104350;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=05461UbdMkZxonRDgtnfK9XUrpOa29M4V9DDizrnJ9A=;
-  b=eD5NgO8bxVZAWAcMibXy77C2fv03J9PhLcpkX0grCfb0mT2qVNVejn6i
-   MfU812+FWc+mbj6dfxy/H4esxiNvzcS8mK23iV7o/Q62z5pDYkVgc5w8i
-   XDlay0aXmJgex29rz8HswvXiSE35wxEM8Xb7ZxvqrIqlyhNm4zoN93WJY
-   5GtVCxNgur11D0VQ+FbiPQ6Xs7d9D1lhZekLI5SwWIQ5pRGCjyND63PYf
-   FANEdOL/ZGkuQGX9+2wHMXnnTsWLz9XY+QLyWquV3ClFkiuH/yk/NSwFj
-   z8rfk0xO7Ln/fREytRAFaqDp0fggr5QfA4HSGfwivo0FDsl/dX7uCJsax
-   w==;
-X-CSE-ConnectionGUID: 1yB8YzO9TaWQGXsadCt4bw==
-X-CSE-MsgGUID: x+mk3qQnRman9pfUZR7pQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="113548616"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="113548616"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 03:45:50 -0700
-X-CSE-ConnectionGUID: 1RG9Q7CGS4aJv+krVGQpDQ==
-X-CSE-MsgGUID: UQOs7zVFTn6SAaUSOjvt7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="270430960"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 24 Aug 2026 03:45:48 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 97A4599; Mon, 24 Aug 2026 12:45:46 +0200 (CEST)
-Date: Mon, 24 Aug 2026 12:45:46 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Konrad Dybcio <konradybcio@kernel.org>, asahi@lists.linux.dev,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/7] thunderbolt: Make the DP tunnel activation
- callback mandatory
-Message-ID: <20260824104546.GG893316@black.igk.intel.com>
-References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
- <20260823-b4-tbt-fixes-v2-2-26a18a426c9f@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="otvCfM8n"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I9CC7ge4zURTMH9LFb/LYPDQksS1G+cxKImvW6OI8rPKuDn4GnNgjEL8hBiQOdfzyV66undCj2Me0wHeXufb2K6ilLTSM8/kLsPPAym+N1C+LzndFZ11703A3vDBAIR4a4FNUleDrZGXNq+Q7G0J7XUBOFeGrfrFnIETRiNdlGCkuwTqLLnfMOsoH1dxcPHzPNXArdF7PPfbdYWzSb6X+sFbWnILEV1m2EvKMA0/JiGexquZEbN2Zw20F8LSNXyVfvCJrYwkZ0CN4AUgJdFjsdKWrCB8nVWMCAJp8X4Xiy28KdGywnq3BIZFRufCQaXf2hzaL1b8nbMGzkDOIGevcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kGM8YvRWqjFqBuQlY/QeDKxAeedk5yZDuPKLFP3ZqKk=;
+ b=oWnRYal7fG0CexORHi7fQ3PsFCV9SEsDYqqoZliT2Ka2iWeIlraLJZa49/AnHPeHisFQYYk0en8lUlcootwW5Cg/+RFt1KREV03d7gGFSYrba81H6JpmU53xDWR+vC4FAgguPKLsxjEJ3YQADlX32Zxn1guL+ktNbbHCchMdqlxIUzxyaKHWHVrz3IsZKXCTe1QpNvnk35G03pcPXIy7f13hbkVCxWfSTcj4Xd9mUDzwVAGVWlpNzkIimFkHWM9DrLRgeB9RonSu5qhxRUPQPcSS3B4IOocAs5EeNrpmPxz3eSHnEmK1FdXUGswNPV+qwVszphXx2KIjqScp9kqlvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kGM8YvRWqjFqBuQlY/QeDKxAeedk5yZDuPKLFP3ZqKk=;
+ b=otvCfM8ntZh0JofDvGKFTzd1YDvsJY3rDsYOJXetjRDiW5mN/kCx6IPoq4YbGZnfGZeH1lIdyTMN+BOp43wmJtn1aJjwCSbn4Ol1R9j4oG1BP71+Q+5AZpEFZfshGpm88Rtg4Yh7/66kUn+O6RmQTw32tZkq9ByBB6wV0QW6L+CMK+/rYwPlv7RLhg27tosieTTVMydEfAoHQ94SsHfxpNbK7I3WNAGugEo3uR5ZYf1fSbiJTnHHRKjFnzyvpx6M+gvN1AToi3z4LDPs5B0kAP/EaDgEtAHvDGbO4gpq12TQKzJdJPJjuMkwJZC7icAI3GU3I80DspDKHogH0nFKXg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB8728.namprd12.prod.outlook.com (2603:10b6:610:171::12)
+ by CH2PR12MB4245.namprd12.prod.outlook.com (2603:10b6:610:af::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 10:48:16 +0000
+Received: from CH3PR12MB8728.namprd12.prod.outlook.com
+ ([fe80::2641:1046:bdf3:93d7]) by CH3PR12MB8728.namprd12.prod.outlook.com
+ ([fe80::2641:1046:bdf3:93d7%6]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 10:48:16 +0000
+Message-ID: <b4abc8e4-aa9e-4e92-97b8-c6a661014c16@nvidia.com>
+Date: Mon, 24 Aug 2026 12:48:10 +0200
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v3 2/2] net/mlx5e: Prevent stale XSK buffer release on
+ MPWQE refill retry
+To: Jerome Tollet <jtollet@cisco.com>, netdev@vger.kernel.org
+Cc: saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com,
+ leonro@nvidia.com, daniel@iogearbox.net, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, ast@kernel.org, hawk@kernel.org,
+ john.fastabend@gmail.com, sdf@fomichev.me, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+References: <20260820151558.11015-1-jtollet@cisco.com>
+ <cover.1787347981.git.jtollet@cisco.com>
+ <675ce8a404cfe305e788a8e273b4091c9a90f867.1787347981.git.jtollet@cisco.com>
+Content-Language: en-US
+From: Dragos Tatulea <dtatulea@nvidia.com>
+In-Reply-To: <675ce8a404cfe305e788a8e273b4091c9a90f867.1787347981.git.jtollet@cisco.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0075.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::17) To CH3PR12MB8728.namprd12.prod.outlook.com
+ (2603:10b6:610:171::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260823-b4-tbt-fixes-v2-2-26a18a426c9f@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8728:EE_|CH2PR12MB4245:EE_
+X-MS-Office365-Filtering-Correlation-Id: f97cb439-452f-404f-96cf-08df01cd3409
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	JY42zwRivUnCyDxGk6zYwx8E4hRNgszoqI0VJpY6O0yxHPpwZ56GLMtLe9j55SkfSe5ZrJNL6E4uoBuYga+15PRJ2yXWuHFznSfC8WSdHdJCgfnazm/u03IA5Nu5AJteUigdKrKky5EKufxCOpkQCR94TfRFuq8B6Y3VEODtWEwP26iDKlGf9IbqH/YrmHUkmhNS8bHLTsnWTi07EshEilJlrAET+d9ulEoBgNx34arYTqXOCM3XIFg+TPbzPhGXL/FR2W39nOWXR63QQVwENfU29tHnQotzHYNS5Fw3xl/UY1/tJwXdrfck/gRwLuQDCwUCDhAWZVVz5AQwuUOMUUoF3hn7UA0QM/YFCluhcarlCNCcv301jUJ0JMhUhjZWtQy1719HijTOKF5NlHYltdu5OUenCIrdqMo5UlRTrQlpX+9s2zmZXqdaVyPuUBMNrrm6l+6wDQ85V8Bv3dHi9dzREzyfvc8CimMT5oQXvrUgXxPzTG4nh83w8UO0fCv73k82Y8j8sZVcY7vQUtt2vsGTaqnCXz/Dv48E0PnpJAsOiKC2QdN7YIi/ojjL4t9iGyGuAtQzxgoZcl6zxK6GRRIk6EIZaYE4O2NBgutNR5XdENjnaF0UYCZ8XEJrw7CAeBCql0LmTI9L68Vv1h9xdnTTvQsuEXaGn+xqmtTfYD0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8728.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UU4ydHZ5NmJQTmE0UWRjWjN6SDhFdW4yV3RwKzJoRjBKWkhvc3Y2RWc5cDBD?=
+ =?utf-8?B?MGhMWEFRTUtPcm9QQ0FndEVVNjY3TU9qM3N4NVFaeUJHeHNJMi9Ea2ZyWkZp?=
+ =?utf-8?B?MkgxNlpzYmZ1VWJ1cnQyTWxYQXYwNkZhS2JQcnYrOFpCU0F3T21PUThyUzk3?=
+ =?utf-8?B?a0JyTzdkVjNTQ3ZhOW5YYThsOXhuTmVCRWhtcVRLWFZURGNVUmNSbTRWWlRV?=
+ =?utf-8?B?OTUvdXJ5VUdEMWJaeE1hMG5WekcyUDA1enUzREZEc1gxQUxOYWRZcGQvQ0Vu?=
+ =?utf-8?B?UXZKNlpLVG9vU0FWMFI5aHJsY0d1N2M0NEVIamY1ZTFTRzBJcUpWUWVxQm1K?=
+ =?utf-8?B?elhSajJ5SzhjZjk2bXZJMDZrbkh5dGJCVmpwaytaWS9qQjNiTzNMMVRVUW9U?=
+ =?utf-8?B?aGFmaGJsM3h6dUZrZW0yRlRmTmxzbTgzREZ6cGJ0M0ZQNS91M1MvdWF0L1FZ?=
+ =?utf-8?B?di9EYU96NzJSV2I3ZWRjY3V0UnA4TEx2MHZuZ1FQaGxVUjhkNXJqOGZhY1M5?=
+ =?utf-8?B?SHJOVkozbWtnTXppV3FrWWZmMyttY09DdkxNaW9YV1QxYUxGWThzdUFPNXZm?=
+ =?utf-8?B?bVRsRFRjcHNkTS9DTEZOdUhZM29SSHF6d2kyZlRWUlJNRG5ZaGxpSTRyQStM?=
+ =?utf-8?B?ZFBhaVZoYmpZclZUd1IzNnZJTVI4SlQ3OGdTc21kWUR0dHVIOWVjZmpoaEJ1?=
+ =?utf-8?B?OGE5NnI3aU00TEFRSjg4d3B0QlpkVUEvd1F6ejhKZ3hpK0t0THRkQkNOeDBY?=
+ =?utf-8?B?K2t2emtRTHZJc3ZWUjM5aWFmWVdGVVhFLzVCZFg2SnlHNUN3Q1QyaXc5UVla?=
+ =?utf-8?B?OHJuMGE4blE0SkVLMmxlT2hrWi95M1M5U3hUOVZmZ0dIci9LQWxrUGlITjg1?=
+ =?utf-8?B?KzQxRHVPbW5JSzVxZmd5dVZZanp5cTFsZXRHMlFjUXVpNE9jS1V2S0VGUExp?=
+ =?utf-8?B?M3VhYmszSWxkb3c5NkVXeTFxR0lHY0laaG81bjh6eXNKaDZtYlVVUThFRXR2?=
+ =?utf-8?B?aDJILzhJMkxMOEg0cTRIemR0c1ExaS9tOFZzMFlnSzREbzkyT0pFQnlMRnc3?=
+ =?utf-8?B?SEwwRFYzVzM4ekNZOU8xOEV1cUhzVllkaStMaVdhcC9PdFZGcGhNYSsyQTR3?=
+ =?utf-8?B?ZGpnaXJPQ251QU5KZnRXWllsQVM5aFBDTmxLamhrdWhVMDdsd0ZpcDlQRW9P?=
+ =?utf-8?B?c1JhVzZMY2xtV1hwT1FRY3RueDUrMlh5amxuSkZOVjVEcnNYNCtNUjIvQmp2?=
+ =?utf-8?B?Tk4yMkJuUTBBSjRvNmJPZ2pxRGJITVNMRzZIa1BUVVEzQTBOSVVEMGx0SmFp?=
+ =?utf-8?B?UG5QMWdnQkM0OEpPTUlRb0hIL3kxYUxnL1d2TFRDMTFxczlSQzBMcXNjejNE?=
+ =?utf-8?B?ek9DTXpBWFIyc0lQK0IxZGZpM2JGRy84bit5UG5keHVkNm8wTDdETkFreUpo?=
+ =?utf-8?B?WStiOUh6L2xsK0lBMFBCUzNLU1ArYU53RXNIU1VJYk1mSDFKdCtaMFFGNFBC?=
+ =?utf-8?B?RHN4eDdNcS9pYTJsT2VoOFVUY3FtTVVmNTNQODRkZFVnQWRONGdpZHZlVTl4?=
+ =?utf-8?B?VFFLZmRTbXNraGxXL2RCUTErcjdVMkxhQXV3cm5RSW04TG5wMnRtVVp3eUg1?=
+ =?utf-8?B?QnBCMERJQk9VOTVRbEpJek10MStZczlkUXdYclQrYnVOdVowMjVUL29IRkRh?=
+ =?utf-8?B?Mmd2cHlWZzJ1ZjZRZ0JpMXliU2xTSjkvU29TV1U3Y3I5SDZwaFEvV2tIVHQ2?=
+ =?utf-8?B?ck52a2taMjVPUExROHM0ZjFxTy9nVGhYZkJyN2NLK1RCUktRVU5xQ1g0Qk1F?=
+ =?utf-8?B?R1J3S09ib08vQml5TmZpSXA5c3ZxdWxCVDJ4S3N5d0RkaHVLQ0NZOW1kckV4?=
+ =?utf-8?B?QnR5MDcxL1JyazR5aldYYllWNVliRkhCVmRVQkhPWjgrZEhkLzFwSk16c3po?=
+ =?utf-8?B?ZURxY3JLTStjM2I0KzZEMlYxdHR0TElIcGlSQnJxeFJKT3U5TXptUzlkRmxT?=
+ =?utf-8?B?dVBQdGVJZ2lpNHVpTm9MSFo4TFBOOHBvb2hRaTRsajVEd2pjYjJxZ0Zpcml6?=
+ =?utf-8?B?TGpaMDVFaHdPSjZweDFRT2x6ZUJOekd0NHY3eHNwQnZGeUFyei9pMld0L1Z5?=
+ =?utf-8?B?UVluWHFtRUs5MkdrcjhVSUxleXQwSERxWEtZVFZQZFdwdXpML2ZMaFgrSGNy?=
+ =?utf-8?B?WVdzZkhFNXQrY3JDaTB5MkZtZVB0TVZzZmJ6OE1OdUhNT3NRWjVjd0s5OFF4?=
+ =?utf-8?B?MnVrdHIvUUhQSisrQ3NLYkZ2SEFUdXNFOGYwWnp4UkxlRTRyclY3aXRDUFEx?=
+ =?utf-8?B?YjNibG9LcXdmUnB6cFFiZThXdGEwU2s5Z2FIeEZrd2h6M3VIYXBQdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f97cb439-452f-404f-96cf-08df01cd3409
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8728.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 10:48:16.5314
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a8ur94K9ptIIHdBw6+cL4TVa67W1lj51fR5TI8Yj3n2VTg22qGG4OlxXX8LJO7HsIkJSH9R/HoDg9uNhWXZoNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4245
 
-On Sun, Aug 23, 2026 at 06:09:15PM +0200, Sven Peter wrote:
-> tb_tunnel_alloc_dp() takes an optional callback which is run from
-> dprx_work once the DPRX capabilities read has completed. Without that
-> callback tb_dp_dprx_start() reads the capabilities synchronously and
-> never queues the work. It however always takes a tunnel reference which
-> is only dropped by dprx_work itself or by tb_dp_dprx_stop() when
-> cancel_delayed_work() actually canceled that work. That reference is
-> thus leaked for every tunnel without a callback.
+
+
+On 21.08.26 23:37, Jerome Tollet wrote:
+> With AF_XDP on a striding RQ, mlx5e defers releasing XSK buffers until
+> an MPWQE is refilled. If XSK allocation then returns -ENOMEM,
+> actual_wq_head is not advanced and a later NAPI poll retries the same
+> WQE.
 > 
-> The only tunnels without one are those from tb_tunnel_discover_dp(),
-> which are activated again when restoring from hibernation.
-> Pass the callback to tb_tunnel_discover_dp() as well and drop the
-> synchronous path such that the DPRX capabilities are always read from
-> dprx_work. Hibernation restore then also no longer blocks for up to 12
-> seconds while waiting for that read to complete.
+> mlx5e_free_rx_mpwqe() currently leaves each released slot marked as
+> releasable. On retry it can therefore call xsk_buff_free() again through
+> stale pointers after the frames have returned to the XSK pool and been
+> reallocated.
 > 
-> Also fix up the KUnit tests.
+> Mark each slot as released immediately after xsk_buff_free(). The
+> successful allocation path already clears the bitmap after replacing
+> all buffers, so retries become idempotent without changing the success
+> path.
 > 
-> Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
+> Fault injection forced three consecutive allocation failures for one
+> selected MPWQE in AF_XDP zero-copy mode. Stock freed the same 16 XSK
+> buffer pointers on all three attempts, for 48 frees. With this change,
+> only the initial 16 frees occurred; retries observed a full bitmap, and
+> a later successful allocation cleared it.
+> 
+> Fixes: 4c2a13236807 ("net/mlx5e: RX, Defer page release in striding rq for better recycling")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Sven Peter <sven@kernel.org>
+> Signed-off-by: Jerome Tollet <jtollet@cisco.com>
 > ---
->  drivers/thunderbolt/tb.c     |  4 +++-
->  drivers/thunderbolt/test.c   | 37 +++++++++++++++++++++++-----------
->  drivers/thunderbolt/tunnel.c | 47 ++++++++++++++++++++++++--------------------
->  drivers/thunderbolt/tunnel.h |  8 +++++---
->  4 files changed, 60 insertions(+), 36 deletions(-)
+>  drivers/net/ethernet/mellanox/mlx5/core/en_rx.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-> index f43f2d952372..29b9879c40d8 100644
-> --- a/drivers/thunderbolt/tb.c
-> +++ b/drivers/thunderbolt/tb.c
-> @@ -89,6 +89,7 @@ static void tb_dp_resource_unavailable(struct tb *tb, struct tb_port *port,
->  				       const char *reason);
->  static void tb_queue_dp_bandwidth_request(struct tb *tb, u64 route, u8 port,
->  					  int retry, unsigned long delay);
-> +static void tb_dp_tunnel_active(struct tb_tunnel *tunnel, void *data);
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+> index 7bd0606a5..5fe17d295 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+> @@ -609,9 +609,12 @@ mlx5e_free_rx_mpwqe(struct mlx5e_rq *rq, struct mlx5e_mpw_info *wi)
+>  		 * is no way to return the page to userspace when the interface
+>  		 * goes down.
+>  		 */
+> -		for (i = 0; i < rq->mpwqe.pages_per_wqe; i++)
+> -			if (no_xdp_xmit || !test_bit(i, wi->skip_release_bitmap))
+> +		for (i = 0; i < rq->mpwqe.pages_per_wqe; i++) {
+> +			if (no_xdp_xmit || !test_bit(i, wi->skip_release_bitmap)) {
+>  				xsk_buff_free(xsk_buffs[i]);
+> +				__set_bit(i, wi->skip_release_bitmap);
+> +			}
+> +		}
+>  	} else {
+>  		for (i = 0; i < rq->mpwqe.pages_per_wqe; i++) {
+>  			if (no_xdp_xmit || !test_bit(i, wi->skip_release_bitmap)) {
+I'd change this to be consistent with mlx5e_alloc_rx_mpwqe(): set skip_release_bitmap
+bits in error path of mlx5e_xsk_alloc_rx_mpwqe.
 
-If possible move the whole function here instead of forward declaration.
-
->  
->  static void tb_queue_hotplug(struct tb *tb, u64 route, u8 port, bool unplug)
->  {
-> @@ -385,7 +386,8 @@ static void tb_switch_discover_tunnels(struct tb_switch *sw,
->  
->  		switch (port->config.type) {
->  		case TB_TYPE_DP_HDMI_IN:
-> -			tunnel = tb_tunnel_discover_dp(tb, port, alloc_hopids);
-> +			tunnel = tb_tunnel_discover_dp(tb, port, alloc_hopids,
-> +						       tb_dp_tunnel_active, tb);
+Thanks,
+Dragos
