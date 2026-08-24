@@ -1,73 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-133.mta1.migadu.com [95.215.58.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F394E25B099;
-	Mon, 24 Aug 2026 00:57:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7198023E33D
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 01:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787533070; cv=none; b=NNfQvYhY5dQsvZ76NAS/i5J2NGJBQNXImquo/qlJgfuuDdkS5Xehq10Mt2Xn7wRH8MvRBDz2VdaShyPZHuOauy/sorD1oMMY2eY2ijj7JrJVw8AdnREIpzYQ4nVH95crk/+Ge7zbDosrjzqXO7TkR7+G6rfQ1XbK3+l05J98Pmc=
+	t=1787536040; cv=none; b=nSVRPQqlJ4BkCLkpeiG9TLjrVPfh+J7nBlJV7Fcv1KQiCxFJk02FaaOWUA5lVslIcinQyLzxEbz47lTVGq2A0hnfEeAjNVVQ0Gv0Ht245gx1UGNzCrjM0GoVwzj7h1cfhA170Ni526nvHN9w9qFQmMuE8wNovGBHyLz1fhLe/PQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787533070; c=relaxed/simple;
-	bh=ZpO/+clBgbyZIhZucYi7sQRaqwpub2ZTVJ/+FdV1dps=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=hEAD0Yi8IPgPj5RgiOxQcyTh2zkKaXJ+8ODJHQBXC4FZ2jz68DOJOq6qwmgrMY0sOR0bOnyDZbQHsPvRMXVZiEc8FJBz5iOgx0Zhv/mzwFVbh230THkutsUGlt3ImumbleSCyphRzqrgLn6cvZAvViv39szGFtStsXuN592E2oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rx0s+QsX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787536040; c=relaxed/simple;
+	bh=GMXp/uzjwMPTYkYu0trgCHPdqOIOW0rq90aIR8oBimE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mtWWLpvFU+U30NEW0MKY/6ZNxaMhtu83DTD8LoBx6DpQVDFygR78bOHjUo1lAvJQLbvtQcsz7akzul35bBn1/v93QC30PAP6ypNgkSvH8CECDF7IfKHg7ILwCDVjIb5UPXPYJAc+l+/IUc729fCRoCiccR/RDV333ptTlom8ASw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gTg1k2h4; arc=none smtp.client-ip=95.215.58.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rx0s+QsX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40E01F000E9;
-	Mon, 24 Aug 2026 00:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787533068;
-	bh=hDlgbjhSR4ai6RtZNkwjoZhpTUzRuGdgR34nn3zo+7Y=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=Rx0s+QsXwKJTFdh0Ne/Cim3ZdgLMn3myynXUE1Hdt5KYQfr//5Qpo0wxy/2x58lnc
-	 cz6Qz3PIV3xD4m3afEvVpyvSZQ5RdTXygP9jsy/6BQHLr5zPUCry6d1UrBcQJkVUS0
-	 NB/LMqukgV1hqfwOOl6rNEBphrnQSp580QAFxBkPhG7d0qWA9h2QV+2L/mfuE+HtwY
-	 rm81XHhf6LHtg0EVJ3SPnUdGdK5KALkH23mLAYHHkWgtK8NE6AWQpk/wRRaLk+9ujL
-	 N2mMuZ3UKOANwTyRLY6eDXodykkJgzjZnA3H6tCs6gm58JbOFwzCTW0YtKtjfjZW6L
-	 pW0MeDbOhNqXQ==
-Message-ID: <39e2934d-7155-4a55-bd55-3006308b810c@kernel.org>
-Date: Mon, 24 Aug 2026 08:57:43 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gTg1k2h4"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GMXp/uzjwMPTYkYu0trgCHPdqOIOW0rq90aIR8oBimE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787536035; v=1; x=1788140835;
+ b=gTg1k2h4x17BocxgJIbRcTKRVmdk6CN3x6sULp0nrNiPgHuOUgwz5tPToUkGmxgmKv35jw65
+ jbsRGpVtHwA9+YnVkWqjbu63sEKFtohxqkB97+UHsTVTXy2A7zun0YHLeT1kNafVyDVIomCTc6F
+ KD7hBLRROt+JZT7G+Za8FvmM=
+X-Envelope-To: stable@vger.kernel.org
+Received: from localhost.localdomain (116.128.244.169)
+	by smtp.migadu.com with ESMTPS id ffe8640577d465e7;
+	Mon, 24 Aug 2026 01:47:05 +0000
+X-Mizu-Trace-ID: ffe8640577d465e7
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>
+Cc: linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hao Ge <hao.ge@linux.dev>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] module: fix lost error code from codetag_load_module()
+Date: Mon, 24 Aug 2026 09:47:36 +0800
+Message-Id: <20260824014736.35026-1-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, zbestahu@gmail.com, jefflexu@linux.alibaba.com,
- dhavale@google.com, hongbohbli@tencent.com, guochunhai@vivo.com,
- linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] erofs: skip sufficiently large global buffers when
- resizing
-To: Nikhil Gurudasani <nikhilgurudasani314@gmail.com>, xiang@kernel.org
-References: <20260822140017.8119-1-nikhilgurudasani314@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260822140017.8119-1-nikhilgurudasani314@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/22/26 22:00, Nikhil Gurudasani wrote:
-> z_erofs_gbuf_nrpages is advanced only after every global buffer has been
-> grown. If a resize fails after some buffers were enlarged, a retry
-> revisits those enlarged buffers.
-> 
-> Retrying the same size then returns -ENOMEM because alloc_pages_bulk()
-> has no pages to add and the unchanged return value is treated as a
-> failure. Retrying an intermediate size allocates a temporary pointer
-> array smaller than gbuf->nrpages and copies more existing pointers than
-> the array can hold.
-> 
-> Skip buffers that already satisfy the request. Once all remaining
-> buffers have caught up, advancing z_erofs_gbuf_nrpages again describes
-> the guaranteed minimum size across the pool.
-> 
-> Fixes: d6db47e571dc ("erofs: do not use pagepool in z_erofs_gbuf_growsize()")
-> Cc: stable@vger.kernel.org # 6.10+
-> Signed-off-by: Nikhil Gurudasani <nikhilgurudasani314@gmail.com>
+If codetag_load_module() fails, err is never set and load_module()
+returns 0 after the module has been torn down.
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as module load failures")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ kernel/module/main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Thanks,
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index 46dd8d25a605..afb810f0154c 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -3568,7 +3568,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
+ 			goto sysfs_cleanup;
+ 	}
+ 
+-	if (codetag_load_module(mod))
++	err = codetag_load_module(mod);
++	if (err)
+ 		goto sysfs_cleanup;
+ 
+ 	/* Get rid of temporary copy. */
+-- 
+2.25.1
+
