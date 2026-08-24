@@ -1,130 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50AA450411;
-	Mon, 24 Aug 2026 15:54:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC090456E0D
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787586859; cv=none; b=dYCl+iPQCPYloKn89/lks4iteZr4u3IzVG05hHhofpN+NlH5zSBqV9aHsPvbSHQ/qrETWX80Z+rmEt65P2aOgpFmt3EJg5EknFQolJVKwh++3NoVyL/3Di96bnNI+z8RRcN8p23RzTL6zSwAxBkLPWxsbPB5bLjPspHIi4eY9aI=
+	t=1787587066; cv=none; b=MlBoc0BoSPAdn127B312Ey3zlM6peFvNPiVyYLvdttFzAblsMX/c8iajvz1PQn8XA2B7UAqy/434xyUzQIWOQ2pYEJCxsrkiI+2xjAUO//n/y57F90rOQZIMZQiswha+BaHHBn+CggBGxFA/QSNKEiYtsQlHNXcJ7AMDjapTSC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787586859; c=relaxed/simple;
-	bh=yj+CLjCd6ZN8YVITVo1ajAqsXT5194fFlbwNjWhjLcM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gaiutvhroZOqfhoYolsZSAaiAayb24QERVoN/q0fwQVz11lTg1kSBMPabCJ6VENj1ISF4dt9eLVJDcM3JM3h6vPSK+p6cnV3TjHAHvFx9N4NF+tc5Uu+oYzyt5kkiWZGILfgmppeESnQJGI7gXhsW0RF5LfiAhkL3fZCp0YP5tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XBDmeh7t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787587066; c=relaxed/simple;
+	bh=Z5tAT/mbHuc59Ui9YJ/aI3T6aE8OciceI47oDPSEdQM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YH/U3aP499zUdx9w/dw58sXXBZ+nAaX+wVLcuyLVf4ip4Cnv6zGa2pBIu/v7BrDv48gEgln/Dw/B6lG7RIYHs95ra3AAAQvlUvXsm66aBg3cAfH7cf+lmYjsrJR/bogqpXMaOYCrZykM7EJj9Xu9xocABfqrpPVVGocUmNjeohc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ho3s22j8; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XBDmeh7t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD5F1F000E9;
-	Mon, 24 Aug 2026 15:54:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787586857;
-	bh=Q/YK2XBpqlieY7KJvqGJYsHNS+SMvy1GkrZAPQ1gJ5k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XBDmeh7tkQdYARPGjPdNBK5kC6zjthQwiRE3A8fSloO/zwyEpGoDL5WZfn1vWgPyJ
-	 3HsYSxOzVN3azk/1bfhQRhwCqOoZBTWxKVMRY78nX/TTx2SsywelssenqSr4Lghtd/
-	 rY3vZehxVuRS0sdmO69AYs04PDwv+E9ZmrruC4AWhnZG/7ythH2wsv0h26DNnTr7a/
-	 qjimLt1MYiq6LJifz+Y8v9Krph0vn7Ek5q5RjJNyxZ30c2H78UjDpLoKj1iSrcoDE+
-	 XE92ftUKKLS65/jS0wX554/1eL4RwAlvVvYzfESciWGxiKAG+b8EHcA9nYW/+nh8EV
-	 +0LvQQUQ9fSTQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wyX02-00000000l0h-3eHA;
-	Mon, 24 Aug 2026 15:54:15 +0000
-Date: Mon, 24 Aug 2026 16:56:46 +0100
-Message-ID: <87ecfno6kh.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Christoffer Dall <christoffer.dall@arm.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ho3s22j8"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38759bcd877so4491238a91.2
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 08:57:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787587064; x=1788191864; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eYsIP6CPJ/D9oHNd/lqnV+fm0zd/HlHbMPOSyKSlzQs=;
+        b=Ho3s22j8XdqPRI0rJsTmxVW+s89FaenZFStIE/J/Ms7190D7GLMT3MXGnE50edf0UI
+         qfR2P/XDt2Ey2hLxNmcP3lVkxxtGHeTSDw0gssNOwZPWIRzmtb5sN+gLa/99da4uWbpU
+         igbyg5MdUqdc0W0qLqWESde3DUaTVNkHtzjkdQjH1aclE9XzB5S46kO0BegW84Oy9hH5
+         KLglddZuvEwaSePdguwvB27/JbOfXTrEfbMA88nHUnaIQU2zcxuKCfYV7rqAviDMKpX6
+         ykZaQ5DO8Pkr6QIqjkYBu9uZRkqccxVmcR/Pw/Gzj2TIiSGL+qNtEO7B2pIHNyu2ZAkX
+         Swxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787587064; x=1788191864;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eYsIP6CPJ/D9oHNd/lqnV+fm0zd/HlHbMPOSyKSlzQs=;
+        b=kkXVn2PTIUC3dqomXmFbjnZIs0CzdV6CbGM4XEj6gD19b904by3TVAFW6CQM+P51Qr
+         obNukC6tqbHV+loB1G/uLi9zaPnPY0Nj4cU3nwCLJuc8lmAxlqG5u57NsOTDpLWDs0q6
+         y/BQ5u/cfFWZz1iIVDahWZ75LfQc02r/Neixr17n0kD7Ssg1KNxfSju85ynaa+DkBL3U
+         n1642UgM31iu6wHplbdE55owjsrWDVekj1i6BM/M6QJC8q0MZPP3vEtIY6H3Xcfv+Dlq
+         Z8a7BsXNfJV2fdWv8cIXE0Y6X74xoq4myKjZ9xaI0+7SHKSW0qC3WCi+0D+naXOOd5cR
+         YgOw==
+X-Forwarded-Encrypted: i=1; AHgh+RobI1cn87clq3tlg60hWN+P00RBladhpAQmOOoAZw8wl2+2y9jJhdwYD64mnMZR7hKwBghmR1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfaMWdsP1ZNHozNtOp8EvUBwE78KfGu5B89zz9Mb0rdJMtGIci
+	apPYo67zRaHOJ+nihuGu/ro2mL0aXnNEQ8J3rqUTz448O5jw6Rp5kxUw
+X-Gm-Gg: AR+sD10QoV1h7mtUidkHLv4SxNISyWytOHwbbwab76utnLhF9CsPfDGJvuLF+95mrDV
+	qSZ575xXLc0fd7IjHt3zdhUaXGmPxyutpvEZDUmQEY394+XfYET28X4bR+zPCpVKaq1OnPVkEkQ
+	ciKMlrHnEu+0y+XevWd/j+0AnE5Y2eO6paoXY6jTDbY1QgkOD7QZS4zLgeoEhxIfVJNs2e98GX2
+	ie2EuSTnCjmtRfnSekwD2KCD9rAyZ5OJvgdfBxA+a5Da3Bbb6YDz14Y9xhcwzv2DEUNgvK/P/WH
+	npkPahg/Jiy0GHL6a8CXRPHuTuEQymX560bVK+4lYD2QyjQq0jlicVUQrkF/WE30a5m187a51Le
+	DKalxXIQ7uKkm7kG1p0Wd4o3HEtEzvCUp//Qm4ZtKtm0e/PpagCsZdK/PT/kBdhMSj/fhXgfrar
+	9vAdM5jEQcDblefOZqgZXbldktqx/gg/hKZjYlueN2vLrx0ea7zBIb+fcu61dZ0c30wdCHTeDXx
+	VJXbmfGSzQzhKtQ7P8TQetVBMR0/vlBxvCEBD80+JO+at+VYdUkySu3xnkfKix+hFoehg5k6lSE
+	Gd9bAtoHZvVunR+REYcj/q9rMCf9mFxEE3vBm+jwo67sf0XHiQEPcbEJjfN22TmyV3r5VWr5NZZ
+	0cmBB/exveNUdvs+9EmaEQ05gD2yZsvlXbrXkC45IFZSUV7I=
+X-Received: by 2002:a17:90b:1f8d:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-395df67778fmr36770322a91.15.1787587063832;
+        Mon, 24 Aug 2026 08:57:43 -0700 (PDT)
+Received: from localhost.localdomain ([101.251.7.10])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d37cesm32210430eec.15.2026.08.24.08.57.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 24 Aug 2026 08:57:43 -0700 (PDT)
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] KVM: arm64: Fix spurious warn, null ptr deref on S2 teardown race
-In-Reply-To: <aoxD4omq8gKYdFKL@gremlin>
-References: <20260822-kvm-arm-nested-virt-fix-v2-0-ac4059a0eaa6@kernel.org>
-	<87tsolnuh0.wl-maz@kernel.org>
-	<aoxD4omq8gKYdFKL@gremlin>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+Subject: [PATCH v2] Bluetooth: hci_codec: validate vendor codec count length
+Date: Mon, 24 Aug 2026 21:42:36 +0545
+Message-ID: <20260824155736.54542-1-acharyalaxman8848@gmail.com>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <CABBYNZJxXFt3N-hNQ-RPSe379uw9qfwvKL9yncQ4a034_9d6hQ@mail.gmail.com>
+References: <20260823161638.32348-1-acharyalaxman8848@gmail.com> <CABBYNZ+h-m9YQCim5Zm2_sgARZh+jM=POFYX_zTQ=xYUdxz-vw@mail.gmail.com> <20260824144051.50010-1-acharyalaxman8848@gmail.com> <CABBYNZKJ10anQiThzYturqWyRxhnKY-xOMKhKHF5ysx37VmHkQ@mail.gmail.com> <20260824152029.51492-1-acharyalaxman8848@gmail.com> <CABBYNZJxXFt3N-hNQ-RPSe379uw9qfwvKL9yncQ4a034_9d6hQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: ljs@kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, christoffer.dall@arm.com, weilin.chang@arm.com, yaoyuan@linux.alibaba.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 24 Aug 2026 14:15:29 +0100,
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> 
-> On Sun, Aug 23, 2026 at 08:53:31AM +0100, Marc Zyngier wrote:
-> > On Sat, 22 Aug 2026 18:46:52 +0100,
-> > "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> > >
-> > > When GFNs are invalidated in L0 an MMU notifier triggers
-> > > kvm_unmap_gfn_range() which tears down all of the stage 2 shadow page
-> > > tables for nested guests via kvm_nested_s2_unmap().
-> > >
-> > > To avoid lockup, the kvm->mmu_lock is dropped while doing this and the task
-> > > rescheduled once for each block of physical address space (32 MiB for 16
-> > > KiB page size), with the lock being reacquired once the task is scheduled
-> > > again.
-> > >
-> > > This results in a potential race between this L0 tear down and tear down of
-> > > the guest itself in kvm_flush_shadow_all(), a race which has been observed
-> > > on real hardware.
-> > >
-> > > When this race occurs it causes an invalid kernel warning when the PGT of a
-> > > nested MMU is cleared by kvm_flush_shadow_all() ->
-> > > kvm_arch_flush_shadow_all() -> kvm_free_stage2_pgd().
-> > >
-> > > Patch 1 fixes this by having stage2_apply_range() no longer return an error
-> > > when it has experienced a benign race with pgt teardown when it drops the
-> > > lock.
-> > >
-> > > Patch 2 addresses something more serious - bad timing can turn this spurious
-> > > warning into a NULL pointer dereference.
-> > >
-> > > kvm_arch_flush_shadow_all() calls kvm_uninit_stage2_mmu() which calls
-> > > kvm_free_stage2_pgd() on the canonical kvm->arch.mmu for that guest's S2
-> > > mappings, making it NULL.
-> > >
-> > > This is problematic if it happens before stage2_apply_range() reacquires
-> > > the kvm->mmu_lock, as it ultimately returns to kvm_nested_s2_unmap() which
-> > > dereferences kvm->arch.mmu.pgt with the mmu lock held under the incorrect
-> > > assumption that it means it's valid, resulting in a NULL pointer
-> > > dereference.
-> > >
-> > > Fix that by checking if kvm->arch.mmu.pgt is NULL before dereferencing it
-> > > in kvm_nested_s2_unmap() and kvm_nested_s2_wp().
-> >
-> > With the commit message for patch #1 trimmed to something that fits on
-> > a couple of standard terminal screens ;-) :
-> 
-> Haha sure will put it on a diet and respin :)
+The Read Local Supported Codecs parsers consume the variable-sized
+standard codec array before parsing the vendor codec count.  Although the
+initial reply-size check includes a vendor count byte in the fixed layout,
+it does not guarantee that the byte remains after the standard codec array.
 
-Oliver can probably do so when applying the series.
+If a controller reply ends immediately after that array, calculating the
+vendor codec array size reads vnd_codecs->num beyond the skb data.  Use
+skb_pull_data() to validate and consume each codec header before using its
+count in both command variants.
 
-Thanks,
+Fixes: 8961987f3f5f ("Bluetooth: Enumerate local supported codec and cache details")
+Fixes: 9ae664028a9e ("Bluetooth: Add support for Read Local Supported Codecs V2")
+Cc: stable@vger.kernel.org
+Suggested-by: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+---
+Changes in v2:
+- Use skb_pull_data() to validate and consume the standard and vendor
+  codec headers before accessing their counts, as suggested by Luiz.
 
-	M.
+ net/bluetooth/hci_codec.c | 36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
+diff --git a/net/bluetooth/hci_codec.c b/net/bluetooth/hci_codec.c
+index 5bc5003c387c..7a7e813dcdda 100644
+--- a/net/bluetooth/hci_codec.c
++++ b/net/bluetooth/hci_codec.c
+@@ -145,11 +145,12 @@ void hci_read_supported_codecs(struct hci_dev *hdev)
+ 
+ 	skb_pull(skb, sizeof(rp->status));
+ 
+-	std_codecs = (void *)skb->data;
++	std_codecs = skb_pull_data(skb, sizeof(*std_codecs));
++	if (!std_codecs)
++		goto error;
+ 
+ 	/* validate codecs length before accessing */
+-	if (skb->len < flex_array_size(std_codecs, codec, std_codecs->num)
+-	    + sizeof(std_codecs->num))
++	if (skb->len < flex_array_size(std_codecs, codec, std_codecs->num))
+ 		goto error;
+ 
+ 	/* enumerate codec capabilities of standard codecs */
+@@ -161,15 +162,14 @@ void hci_read_supported_codecs(struct hci_dev *hdev)
+ 					    LOCAL_CODEC_ACL_MASK | LOCAL_CODEC_SCO_MASK, &caps);
+ 	}
+ 
+-	skb_pull(skb, flex_array_size(std_codecs, codec, std_codecs->num)
+-		 + sizeof(std_codecs->num));
++	skb_pull(skb, flex_array_size(std_codecs, codec, std_codecs->num));
+ 
+-	vnd_codecs = (void *)skb->data;
++	vnd_codecs = skb_pull_data(skb, sizeof(*vnd_codecs));
++	if (!vnd_codecs)
++		goto error;
+ 
+ 	/* validate vendor codecs length before accessing */
+-	if (skb->len <
+-	    flex_array_size(vnd_codecs, codec, vnd_codecs->num)
+-	    + sizeof(vnd_codecs->num))
++	if (skb->len < flex_array_size(vnd_codecs, codec, vnd_codecs->num))
+ 		goto error;
+ 
+ 	/* enumerate vendor codec capabilities */
+@@ -214,11 +214,12 @@ void hci_read_supported_codecs_v2(struct hci_dev *hdev)
+ 
+ 	skb_pull(skb, sizeof(rp->status));
+ 
+-	std_codecs = (void *)skb->data;
++	std_codecs = skb_pull_data(skb, sizeof(*std_codecs));
++	if (!std_codecs)
++		goto error;
+ 
+ 	/* check for payload data length before accessing */
+-	if (skb->len < flex_array_size(std_codecs, codec, std_codecs->num)
+-	    + sizeof(std_codecs->num))
++	if (skb->len < flex_array_size(std_codecs, codec, std_codecs->num))
+ 		goto error;
+ 
+ 	memset(&caps, 0, sizeof(caps));
+@@ -229,15 +230,14 @@ void hci_read_supported_codecs_v2(struct hci_dev *hdev)
+ 					    &caps);
+ 	}
+ 
+-	skb_pull(skb, flex_array_size(std_codecs, codec, std_codecs->num)
+-		 + sizeof(std_codecs->num));
++	skb_pull(skb, flex_array_size(std_codecs, codec, std_codecs->num));
+ 
+-	vnd_codecs = (void *)skb->data;
++	vnd_codecs = skb_pull_data(skb, sizeof(*vnd_codecs));
++	if (!vnd_codecs)
++		goto error;
+ 
+ 	/* check for payload data length before accessing */
+-	if (skb->len <
+-	    flex_array_size(vnd_codecs, codec, vnd_codecs->num)
+-	    + sizeof(vnd_codecs->num))
++	if (skb->len < flex_array_size(vnd_codecs, codec, vnd_codecs->num))
+ 		goto error;
+ 
+ 	for (i = 0; i < vnd_codecs->num; i++) {
 -- 
-Jazz isn't dead. It just smells funny.
+2.51.2
