@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C029361957
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:34:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F094439F86
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:34:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787585680; cv=none; b=kQppNXL+t2UghTrklSwMzOxC962EUQm9AXUTpLVMpSTKuNDoX3KYMJ2p8IwjtJHeNRubATQqF4TNejmw8GPblpMSCPN5jO/uNVc2QvS02qF/no+pV+xv/k9s3OFYUVFOvczJ3sgKVPn5EOSoyC0k1J7RDfsdwYe8tkbGG+sjQpQ=
+	t=1787585681; cv=none; b=BX/2bmioyZvx7G6sbABCnPe5Y4e5CiGYdBVKGmZrnohd7utf45UkSsloSbohrZO75A0VGYtYeHW1YV/PwlAJjSJJUGYdOseqTYIY9WMiCNDIbma6ZSCZN82x6xmV9PjanLaB35UeBY9kQvvd92351Iqbw+4/9IrjN0uK8THUKqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787585680; c=relaxed/simple;
-	bh=AqseX1vvhgGcihR9RcOwXv6rmSkDHNZSwbupT5RrzBw=;
+	s=arc-20240116; t=1787585681; c=relaxed/simple;
+	bh=LD25mc55Ci+THDGXv4PexIzjSt2pjtJ6qoO5lPi185g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pp77DGA7la646lT/RZjPFunlZ40MBal6qse/o8hV/msk5tW9xqHvilwO34yJxYKPTTmMu40MA1QD0bioQU6ASSsXQGVBxK8zL+A078B6pkgqewKdonJVkGLauehYthTeIU0BmxCrXQnkHOFSy8Qu4URgOVSd8ode+2ZqTjdXo/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A++L55vj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iFcukRUycnTKLlbE1rjDzniH8tuVmXRkf/3KcfXMnQVZMdZX3+fr2E113tTcnbIGJGkZ8xy7GgAssm0hMkBhrVdMz8gQPgivNF/4QBxMhL/2BCtoBDRNmUYv1vL0Mc5OEsz+mqZ2u/tv219K/tDRP4Ctsx7IFd3NAOT+EMrXOu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdXQldvq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A++L55vj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5740E1F00A3E;
-	Mon, 24 Aug 2026 15:34:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdXQldvq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5E51F00A3A;
+	Mon, 24 Aug 2026 15:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787585679;
-	bh=1/F5+K31EpX73aCnzh8ZJjdkOxnBeEirJHTPL1QK8Oo=;
+	s=k20260515; t=1787585680;
+	bh=o4rUx+0dZN+7k0+rvVGxygzDDmZK1/jzP1bvurs4aXg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A++L55vjnzw8kveVO5zi5M8SyVwYjgSfoLzi80KUjYBDBWR7QvG2kOkydqdA3VFCT
-	 LQ4ByvcxSdil4lU6xl6L6AsEypZWAu5wFXDogIdKvlYjDBWu3JPe0jPbcLISZtN03v
-	 P2X4Pcwbpma5JfWU2x2CfhwxLUWYln43qbyzfrfDQYDM1AA3pqRAX8Hy7iH0SaQ+ER
-	 WkIE1oqd8/AiyLW8XBpSOnDZB3+wUmQYPn8acklyCsjQU721Bid3CqO7qN5W1oxKME
-	 4yImjsfpxY3hU9Td+ha+1oS+ENnTtwdKZB3Qwf5c71d3ZJGruJnAIxSAKTur+7NcoY
-	 c3InvvENMqJeA==
+	b=XdXQldvqVcvEHWFrsDB4oIQeo1ha0hreRFrzcNuihugSjQcxpliwzozuo6GSRjmLg
+	 +wN2ZjLoUBx0NPxcv/mtjSsYTCTF2HAOuaj6m11x/LfUdOwUOuEri+5iN0syyTf4ZA
+	 f98Ig32t1tQjpchfpWC2ytbYHJLD+GAkph3LWnncrRhnqFXAyENRwAkmvI9MfxL3NI
+	 +4TWwlBW5n+O4HCN17ZJcWuzT3q83LgzsV4sYGWk9jAKD3XF0v29fX7Lfa6HOXiUsh
+	 FEuLlrf9EAoEOG9o4rhVqM7R59XXnvXpEukvDr7cCZG0i10FKfI3Bw21w+R7njNweH
+	 RWp9LdfF9Ifig==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Donglin Lyu <DongLin_Lyu@outlook.com>,
-	Donglin Lyu <donglin_lyu@outlook.com>,
-	Ruslan Shevchenko <adefka@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+Cc: Pavitra Jha <jhapavitra98@gmail.com>,
+	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] Input: atkbd - skip deactivate for HONOR ZQC-P
-Date: Mon, 24 Aug 2026 11:34:35 -0400
-Message-ID: <20260824153435.3850535-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] libceph: fix OOB read in decode_watchers() via missing bounds check
+Date: Mon, 24 Aug 2026 11:34:37 -0400
+Message-ID: <20260824153437.3851112-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824153435.3850535-1-sashal@kernel.org>
-References: <2026082022-arbitrate-hunchback-c487@gregkh>
- <20260824153435.3850535-1-sashal@kernel.org>
+In-Reply-To: <2026082058-swiftly-hardwood-656a@gregkh>
+References: <2026082058-swiftly-hardwood-656a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,72 +46,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Donglin Lyu <DongLin_Lyu@outlook.com>
+From: Pavitra Jha <jhapavitra98@gmail.com>
 
-[ Upstream commit 410c44b1096789d0c40fbee706520e981dba7bc1 ]
+[ Upstream commit 00ead17c7de137a692edee59f2772e6af687e8eb ]
 
-The internal keyboard on the HONOR ZQC-P (HONOR MagicBook Pro 14 2026)
-does not work after boot.
+ceph_start_decoding() validates that struct_len bytes remain in the
+buffer after the encoding header, but accepts struct_len=0 as valid:
+ceph_decode_need(p, end, 0, bad) always passes. When a malicious or
+compromised OSD sends an obj_list_watch_response_t reply with
+struct_len=0, ceph_start_decoding() returns success with p == end,
+leaving zero bytes guaranteed for subsequent reads.
 
-Using the kernel command line 'i8042.dumbkbd=1' makes the keyboard
-functional, but the CapsLock LED does not work. Adding the
-'atkbd_deactivate_fixup' quirk fixes the keyboard and CapsLock LED
-natively without requiring boot parameters.
+The immediately following ceph_decode_32(p) in decode_watchers() has
+no preceding bounds check. With p == end this is a 4-byte read past
+the validated buffer boundary. The garbage value is then passed
+directly to kzalloc_objs() as the watcher count.
 
-DMI: HONOR ZQC-P/ZQC-P-PCB, BIOS 1.09 03/19/2026
+The sibling function decode_watcher() already uses the safe variants
+(ceph_decode_copy_safe, ceph_decode_64_safe, ceph_decode_skip_32)
+after its own ceph_start_decoding() call. decode_watchers() is the
+only site that uses the bare variant, confirming an oversight.
 
-Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
-Signed-off-by: Donglin Lyu <donglin_lyu@outlook.com>
-Tested-by: Ruslan Shevchenko <adefka@gmail.com>
-Link: https://patch.msgid.link/20260801151115.52709-1-donglin_lyu@outlook.com
+Fix by replacing ceph_decode_32(p) with ceph_decode_32_safe(p, end,
+*num_watchers, bad), consistent with the established pattern.
+
+Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
+deployment (e.g. cloud) can trigger this against any kernel client
+that calls CEPH_OSD_OP_LIST_WATCHERS, without any further privileges
+beyond OSD session establishment.
+
+[ idryomov: trim changelog ]
+
 Cc: stable@vger.kernel.org
-[dtor: keep all HONOR entries together]
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Fixes: a4ed38d7a180 ("libceph: support for CEPH_OSD_OP_LIST_WATCHERS")
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/keyboard/atkbd.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ net/ceph/osd_client.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index c3cdb5933e94b..be093721668ed 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -1927,22 +1927,30 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "FMB-P"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "BCC-N"),
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
- 	{
--		/* Lenovo Yoga Air 14 (83QK) */
- 		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "83QK"),
-+			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "FMB-P"),
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
- 	{
-+		/* HONOR MagicBook Pro 14 2026 */
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "BCC-N"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "ZQC-P"),
-+		},
-+		.callback = atkbd_deactivate_fixup,
-+	},
-+	{
-+		/* Lenovo Yoga Air 14 (83QK) */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83QK"),
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
+diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+index 89b02b8baca35..92d379c60da5c 100644
+--- a/net/ceph/osd_client.c
++++ b/net/ceph/osd_client.c
+@@ -4993,7 +4993,7 @@ static int decode_watchers(void **p, void *end,
+ 	if (ret)
+ 		return ret;
+ 
+-	*num_watchers = ceph_decode_32(p);
++	ceph_decode_32_safe(p, end, *num_watchers, bad);
+ 	*watchers = kcalloc(*num_watchers, sizeof(**watchers), GFP_NOIO);
+ 	if (!*watchers)
+ 		return -ENOMEM;
+@@ -5007,6 +5007,9 @@ static int decode_watchers(void **p, void *end,
+ 	}
+ 
+ 	return 0;
++
++bad:
++	return -EINVAL;
+ }
+ 
+ /*
 -- 
 2.53.0
 
