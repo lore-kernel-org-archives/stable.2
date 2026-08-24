@@ -1,155 +1,130 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24425.protonmail.ch (mail-24425.protonmail.ch [109.224.244.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50922371860
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 02:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421D236F905;
+	Mon, 24 Aug 2026 02:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787538644; cv=none; b=h4Raw4oC02mbEF4fnMpe5uXm3k8j69HAasILo0KtbQkqHPl2agqZ0lMjilnI5P5N5mZ+3QOnOrECBJGKz4Y3+rLWH+0BVhzTpZ4EOgN1mLerszaVoPDaCkll++Y+Vma3D9BOUVq5brXBFQSxWy3dLIzQR0E9rStVPPehlSyIdcw=
+	t=1787538764; cv=none; b=lHxl4gneUlWd+joC4DaHit2CHg5XVo1TsM3Zc6fgb7pMEMlOq0zE79+wny6zXrK6hO655FBKp8EvukQj3sm5SebSLa1V1r53GHLeRtwhqANrD8hMApn6ivSeZEZ3OTf8gCWiRrJhylsb9slZpgaklVZHrvNgeRJx7Zkqa082N4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787538644; c=relaxed/simple;
-	bh=JgXw25tHUGDX2B+GzYMeEAHLx2bI9iAYFZ3IUzFQ0mk=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=kXb7fKh2AMsjU4afpwMDq4IaYIuAtYNFNndlmBapYTsMY5ck5GVFOUPy9N+7yk3tdaC+w5K5+MRNl33j7eQlaeFwNt9GYGv5WldXlZDu2JUG5b+irQMuAoONgcdZzJFHzAiE1sT0RnBD3iuAbFyMC9t2tcEPKiqNmR/AeLieKXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=GrtwE3Ra; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1787538764; c=relaxed/simple;
+	bh=NwkZ0WftKFL0fiULLEYQmShV0iQtCEYdG4MbEtd5z+s=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ZQIzmYY20HGu9JhT/I+8H00b35FSUYbC7cgTpDQpqa/kZbGLhLmz0Uigx9Kvb3JD6teSsT9nJlaihA3EjJMNsd2hWJFPYI2D3DJvZjiIA0rJ1d3p4uanruuc0wI/QeiS3hkP2mcQvLWsQSA5gR/RcCcGmccShrOEDODjoKjHkC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=FBuyvhMS; arc=none smtp.client-ip=109.224.244.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="GrtwE3Ra"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e58034d05so2393513a91.2
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 19:30:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1787538639; x=1788143439; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=C9iO+DXTpHzGbZlhfcMuAapQ5BJFrOQFOemO6Hh8WxI=;
-        b=GrtwE3RaQUgK0mKEIGJrnk4CbFLpR0JXrs1wwBjq1u8T7uNOmPJigI9lQWXoLzgzFQ
-         BX8p4GOoQFu+b0FMS15RcHcLnB0pLmG5dLllMQsaFRAIrmFiBaNE9eqr+K3kRmQqSEEA
-         xDTFdA7sTJsUP95LqwoSfXQg9a9rk6AdXIJQy96XCHIn9s251yCdVVC88wvFX9FZfsb3
-         3fuk6hnyv8rH9rki7xGUcnhWIkjdL6UBwwaXB7d5L+20gVyS8r3FY52k4LuOZ8TxHRPq
-         uvv75/T29oJldoVQOKGL3sUpRqcm7Ykd2+GrcUtxUZdhxVVBp7hrLxMy0tBv007XzO33
-         sQbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787538639; x=1788143439;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C9iO+DXTpHzGbZlhfcMuAapQ5BJFrOQFOemO6Hh8WxI=;
-        b=Be6/wNmOW1eo6iFNGA9ZVOucIO9JHkYXUlfyB3RBEFTOdRdra8b3kHvZDaAdb0SRSV
-         dr9fTe62lU2oSYkUyk2HQ/3PMAYE1r1jOspveaKbB1L1SEcQsWTBQG+w2qL6eHPsC+Qg
-         yVe2vkRPquX5J3K6snaHZ3dokDjgbLx3iXFzo2tCG9hP4IwzgaohzN0EmLNV7bof2YGn
-         cnl/C5CHJP1or1H2r2ueIf42XuJc8tL/1m66cmp9JWRJfSp0sq4ndLeePBRfuFyTLTp7
-         JuiMuz4gfL4Ax4bQvE0drDsCNcO+/0D2uxmzFtld3fYY38y2xx4i5lv3GT29tB1DQNka
-         nBJQ==
-X-Gm-Message-State: AFuF++mYM667ceA/6LKXGiQJ1KOaSoxrnkEAmZuA7+HAxNF9Kp4wC4Wk
-	C6sy82vcE0FgKhxL5dnM0FKS/RVaHQL4T7imeGa96UxBrce+Y54QDirmhH+FnRcMURFmK0WchPZ
-	lSlzN
-X-Gm-Gg: AR+sD13j7laPot5Cy0T/RgQ21L0qAeJHf3CoHiIdxVOTrXrYhILLA/BMd6Z1/w18rLZ
-	YWvlt0/CRo2sdcru1eR6cbolB4XiPcglYmG0PSk3INSZ4ISJPpjOHwSqU+sN+lajMjexE6c3946
-	IXoTPO39kUO+lXBoOIJjWuFkYVvEKD0Oah9C1GWFEr0oENMZ/Eqor1pIOCmuNgI9xvzqZLi1XwX
-	8fCeS/Mo5aDflAFb2G+vJT4/b8yddkDUqUvqsYz3BFhNEvfPd5S7pPtmHWOZA4FiICDk4Pwe0wO
-	1VmVlw0EmgU7xhjYRyvrvoQTwqKN9bWYR6T2/znCNYx12is5dEk4GyYchGJms5xjSQvcfNXXNSd
-	dr+GgdP/UCKRNllHPcGSuO3C/chr9i2JnEPR6flcCSuK5IHTU+vicB7mG9sBERn//YILJC03BEV
-	/QPHdmR6HJQYI3gRFS+WtjFhjHvooAe3DGE/Kii+askSCALGQ5q1HJ
-X-Received: by 2002:a17:90b:3d85:b0:392:c80b:8eff with SMTP id 98e67ed59e1d1-395c3573af2mr40061449a91.11.1787538639325;
-        Sun, 23 Aug 2026 19:30:39 -0700 (PDT)
-Received: from b455de3d9de8 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f90c0dd3sm22205222eec.7.2026.08.23.19.30.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 19:30:38 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="FBuyvhMS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1787538746; x=1787797946;
+	bh=CO0P/4spPJKMxUAFueCKPG9jpVdFqvTvazGX83BR+GA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=FBuyvhMSvNA94G3vYCk/wfVeLew1gbFas2tQrUqncV6AFuXxP2ZdHRIIMqYDrcd/P
+	 RWAS76Ts6kosxrbfapm7bf63M5qUQ5W45yKnNevt7yx9d3rFOjZ/YdDdW3Jk1oHbh7
+	 JFZLA8BJxlnnXZBCCJuESTTtNV+/Jil47H1JMlEssxRtZWEYvIQMTquQL2bjM71vrh
+	 3iVKwIXC1hwKQguUvAq02iBwhfu+3SqWPfoLO9/zyAfXe5wAd0k+7ksxMIsOLVufD2
+	 ipGS/KQXklWF8tsVEjMmuYNnYa/wsWbIrqQMrxy6cC+cww4ydlykBNNNIXe4wLaxBs
+	 +9ovlEwzpcciw==
+Date: Mon, 24 Aug 2026 02:32:20 +0000
+To: "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>, "arnd@arndb.de" <arnd@arndb.de>, "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: nirbhayykumarr@proton.me
+Cc: "w@1wt.eu" <w@1wt.eu>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: [PATCH v2] misc: mei: fix race condition between client teardown and read completion
+Message-ID: <C3Rme4R7BxcZVE877gMzMhltbPTsvsMjN39D1qWG_5JYO1-l0OphcpyU-XbPGQTMlPuZDV5Dzgn09MOdFBChmprsrpVlp27eAxmZpzV9Ays=@proton.me>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: 0bb16a8d6da00a8767e572a7db202b2a2aa83d2f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.6.y -
- dc6160265ffc795a1832bc1424f58291d152c7bb
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+In mei_release(), a host client is torn down upon close(). During this
+teardown sequence, mei_cl_disconnect() is invoked, which releases
+dev->device_lock while waiting for the firmware response.
+
+If an in-flight read request was previously submitted, an incoming
+completion interrupt processed concurrently by the MEI interrupt
+handler can add a completed callback into cl->rd_completed via
+mei_cl_add_rd_completed().
+
+Because mei_cl_flush_queues(cl, NULL) was invoked before mei_cl_unlink(cl),
+an incoming completion callback can slip into cl->rd_completed after the
+flush has completed but before the client is unlinked from dev->file_list.
+When mei_cl_unlink() is subsequently called, the invariant check at
+drivers/misc/mei/client.c:698 triggers:
+
+  WARN_ON(!list_empty(&cl->rd_completed) ||
+          !list_empty(&cl->rd_pending) ||
+          !list_empty(&cl->link));
+
+Call trace:
+  WARNING: CPU: 2 PID: 5056 at drivers/misc/mei/client.c:698 mei_cl_unlink+=
+0xaa/0x140 [mei]
+  RIP: 0010:mei_cl_unlink+0xaa/0x140 [mei]
+  Call Trace:
+   <TASK>
+   mei_release+0x202/0x270 [mei]
+   __fput+0x105/0x2e0
+   __x64_sys_close+0x90/0x140
+   do_syscall_64+0xaa/0x660
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+
+Immediately following mei_cl_unlink(), mei_release() calls kfree(cl).
+If any remaining or deferred callback references the freed client, a
+use-after-free occurs.
+
+Fix this by flushing queues after unlinking the client from dev->file_list
+inside mei_cl_unlink(), preventing concurrent IRQ completions from
+populating the client's completed queue during teardown.
+
+Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
+Helped-by: Willy Tarreau <w@1wt.eu>
+Helped-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Mon, 24 Aug 2026 02:30:38 -0000
-Message-ID: <178753863774.2405.13785329850754741038@b455de3d9de8>
+---
+v2:
+ - Removed redundant Reported-by tag.
+ - Added Fixes tag tracing back to the commit that introduced the race wind=
+ow.
+ - Added Helped-by tags to credit Willy and Greg for guidance.
+ - Sent inline without attachment as requested.
 
+ drivers/misc/mei/client.c | 2 ++
+ drivers/misc/mei/main.c   | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 643b003..38b5792 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -695,6 +695,8 @@ int mei_cl_unlink(struct mei_cl *cl)
+ =09cl->state =3D MEI_FILE_UNINITIALIZED;
+ =09cl->writing_state =3D MEI_IDLE;
 
-Hello,
++=09mei_cl_flush_queues(cl, NULL);
++
+ =09WARN_ON(!list_empty(&cl->rd_completed) ||
+ =09=09!list_empty(&cl->rd_pending) ||
+ =09=09!list_empty(&cl->link));
+diff --git a/drivers/misc/mei/main.c b/drivers/misc/mei/main.c
+index 4fbf0b3..9e14ab4 100644
+--- a/drivers/misc/mei/main.c
++++ b/drivers/misc/mei/main.c
+@@ -148,7 +148,6 @@ static int mei_release(struct inode *inode, struct file=
+ *file)
+ =09=09goto out;
+ =09}
 
-Status summary for stable/linux-6.6.y
+-=09mei_cl_flush_queues(cl, NULL);
+ =09cl_dbg(dev, cl, "removing\n");
 
-Dashboard:
-https://d.kernelci.org/c/stable/linux-6.6.y/dc6160265ffc795a1832bc1424f58291d152c7bb/
-
-giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.6.y
-commit hash: dc6160265ffc795a1832bc1424f58291d152c7bb
-origin: maestro
-test start time: 2026-08-23 12:29:45.614000+00:00
-
-Builds:	   56 ✅    0 ❌    0 ⚠️
-Boots: 	   73 ✅    0 ❌    0 ⚠️
-Tests: 	 7851 ✅ 1949 ❌ 1319 ⚠️
-
-### POSSIBLE REGRESSIONS
-    
-Hardware: bcm2711-rpi-4-b
-  > Config: defconfig+arm64-chromebook+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.mm.mm_run_vmtests_sh_split_huge_page_test
-      last run: https://d.kernelci.org/test/maestro:6a8b739b62f33761c00ab057
-      history:  > ✅  > ❌  
-            
-Hardware: mt8183-kukui-jacuzzi-juniper-sku16
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-get-timeout
-      last run: https://d.kernelci.org/test/maestro:6a8afa1a62f33761c005b4aa
-      history:  > ✅  > ❌  
-            
-
-
-### FIXED REGRESSIONS
-    
-Hardware: bcm2711-rpi-4-b
-  > Config: defconfig+arm64-chromebook+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.kvm
-      last run: https://d.kernelci.org/test/maestro:6a8af0f762f33761c005672c
-      history:  > ❌  > ✅  
-            
-
-
-### UNSTABLE TESTS
-    
-Hardware: bcm2711-rpi-4-b
-  > Config: defconfig+arm64-chromebook+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.mm.mm_run_vmtests_sh
-      last run: https://d.kernelci.org/test/maestro:6a8b739b62f33761c00ab034
-      history:  > ⚠️  > ❌  
-            
-      - kselftest.mm.mm_run_vmtests_sh_khugepaged
-      last run: https://d.kernelci.org/test/maestro:6a8b739b62f33761c00ab059
-      history:  > ⚠️  > ❌  
-            
-Hardware: qemu-arm64
-  > Config: defconfig+netdev+nfs-root-boot+kselftest
-    - Architecture/compiler: arm64/gcc-15
-      - ltp
-      last run: https://d.kernelci.org/test/maestro:6a8af1fd62f33761c0057029
-      history:  > ✅  > ❌  > ✅  > ✅  > ✅  
-            
-
-
-Sent every day if there were changes in the past 24 hours.
-Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+ =09mei_cl_unlink(cl);
+--=20
+2.55.0
