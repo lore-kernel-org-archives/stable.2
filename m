@@ -1,75 +1,45 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE615448CE3
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F70535AC37
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787582828; cv=none; b=FBnPPVWRtdAy/l1goKhDSt/VTspyycrm0mCVETodJ+tPV+OTjWTzVItkzck/s4IB6VtodmR8bwpjoJdMpdsAfhJPTU13ejNukrTpakP2HJufqwWJJYmDCgqHVr+qhnti6qDxRKpX0AGyDgeD8B7TDyBA8DmNr/Je3SzoCougI7Q=
+	t=1787583039; cv=none; b=lelFKl86Ny7Xo8yMl7hjkY4s/kQ7+ubFU+YsTGRPJeeoe6efCu2DPAEPJZQvzzZ2Y7mEpXBPlzHDNHqK3Q/1CiTAP9B1XkYKRmvYdC6uZqiGCcUJwgRp08x1Tn+pGRd3Xtn7I10UnvM+oTSk0Mq2YJH+ymUGx8k58wTrZO3uhfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787582828; c=relaxed/simple;
-	bh=NXG7bE790VEEAyF28aLFVFci8yXbRztC6StC9DoElGM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JQRER1sLbt0581HDbnMueG96P6woxaiAxoQh0tWWLPS3m8SAeNGHsJucCZTjy7/5bPlA4FVWHsHis2MVQeu77h51CLM5y16b8B1mFIEFDdxcgtIY88/rxtRjc6Uqr+oLxd5vHdBILg/kS/FTzGLXVcRCWc1hws4edhTaV5DG9gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KawySjtM; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787583039; c=relaxed/simple;
+	bh=yjtoxshLlV7GSjzkF0xt8CVCjVKvq8Qj/2fmyxKbmHE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yk8cqRAi3ICfZc8V3gDbXTW+pLrxLmihwWeI3DDpIAjYYOBQ2eSACXN++riJcdgUnDv3TJYyv/S1es3rmgkF4trP/5jKK1MEJolBzws27mGyQWhoCCYwE1jkHKQrhCecAsuQlmA2OWLvHh0/4X3ocQ5Jmblx/3O+C3gwGhCA2o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5kCYzfN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KawySjtM"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso3987288a91.3
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 07:47:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787582825; x=1788187625; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HbTvMJOA5pAnK3dUzCcI4B1WpzStHPSu12W55oNjXVo=;
-        b=KawySjtMyaKjpiaTzAegy+9sFaXa9f+QcH53evqIh6Eai+w+efb+S4fJ5WTZY851vR
-         qwSITmHO6w/HydKbTUTRKeR3G+2fdegdqJPEy9OQNJcuq2JPqqco4/clcTQ7rn4LbgDP
-         TOdX1wN3re/qmKUJUwYFR2KmgJEdtik/Fvu3RblSbujkY/G9SJaVCBehNwnqHE4h5P9J
-         V/PMqa5t5KahtDp4/yLsSQGicbt2SgVVqBrrtgSgrncxA0QdFwp7lre4KL9TCnOW4wzY
-         i6WcLo7T9PipZX7GplPH+TP5s/wBdyxwmZRpxWXgNfdgPxeYEBw0A641CfSf17PbNkZW
-         sK2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787582825; x=1788187625;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HbTvMJOA5pAnK3dUzCcI4B1WpzStHPSu12W55oNjXVo=;
-        b=XKc26ugmhihhtDvq09eoUMzAd+KE2F2SbCBMdg8uPLXUz0ZaQhNKwIkMQiTD33zUfi
-         wyEO1UpzzXaulELZ5VVM4/mVKeYhfj/BcjO6pP8WBAkTv95NGgbOq5440qEKcyG4fr+F
-         C+QyD8DNu5y9zIdIA6QGnV3niwRtVESBywonymzHLalZHTB3zNFD47Rd+2msfd91WCVt
-         15d1fOhl0MXN6AOn+HkdFk4urbwF9OmdiUExaTGDfdF93YaGQWFPAeUkrrZ3lPccvdrs
-         htmJwE6XskP3uFbruA8+ZzQ2h6WV6Gv9ih7I8HLPmtYVcbfs4yJQy29wyJ7ySZIdJE9W
-         EPZA==
-X-Forwarded-Encrypted: i=1; AHgh+RqHKUsyBuGpU0EbMvTo14pE4JJclw5UspM5oXezGAftFVdl94ZzkRBbuiFbMMuaH+FsxR5SDf4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPTciSgxwxJCN2uq5mTl5GjQ7o6eu6+bhwHr9HCqyrYos86a1Q
-	WCkxVADck/62adRlgcag2nvwyAhvxpSlq23JZ+Ks1flysAMlrMczKhVj
-X-Gm-Gg: AR+sD11KXtg4zu74AqG8+OGVw49zxB/Ryx8jJuuSFD+NYlipNmKv1cbmnOsyU3szW89
-	DQ++UtYfSh6osbheVBLmgOT7DfESA5oSazj41LJRFgmZ4A/74rvawZwo9z2TmifxJz23RkSwtJp
-	Ty7u1jjZ0FwEQjBh8qBMJ7Ke3s7N+bSbQY48kttVp6W2jzUIkdZp3IiAmoDXPBW0M2Tg8N26+Xe
-	LWS9axjBmfeLkymODAwTnXdB8Y+UZ/roS7pY/WU5YLEgrcve+yXvlcgNzyp6OTHj7rT7ORU6OYd
-	MCo2FDbhStNgoCTQRibyqykg4PG8umOcko0C/tyErdL03o+dRlxE094nDCDvrhvu3dDAALtJ140
-	8BjW3vw5ur0glYr0dE77H60F99OGqBpq5aQ6JhhAyItMXjb3VrGRHZmFuE9CMokpUqJzSaO0gFs
-	WFkeUZ63abp+38tcPQ9waQ1tsPIrKxGd96uUO8bOSYVLaW523boSwLB4KAHq+Oq3zDq6iZH/a7q
-	yH0Nmh9Y1MO7bi0atzvXGE=
-X-Received: by 2002:a17:90a:100f:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39640e6f6d9mr1017779a91.3.1787582824587;
-        Mon, 24 Aug 2026 07:47:04 -0700 (PDT)
-Received: from deepanshu.. ([2405:201:682f:383f:4cf4:9e7a:69d:2900])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141861732f8sm25774770c88.10.2026.08.24.07.46.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 07:47:01 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] eventfs: Initialize ei->children and ei->list in init_ei()
-Date: Mon, 24 Aug 2026 20:16:53 +0530
-Message-Id: <20260824144653.54044-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5kCYzfN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF4071F00A3D;
+	Mon, 24 Aug 2026 14:50:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787583037;
+	bh=OqBkIVjS6SqAqsp5k4W9AGPybliMxrx2r2+ReJV0RSs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m5kCYzfNY2wPkZJ+lflon0jOcWMjibvDzetzpog1Pkuv4lRhKkxK/VYWF4Hj2rfzd
+	 6Y7Qz03CJpShsbWP5Spsejoz3W4f0i+/hMzxgu3P3RH9NZtmg8EDo7C+H1qevpLFn6
+	 IUGUSwFI+j4Hd8qe1X2BOutPFCW18AAT/vkc+F+aY3lDJ6AMJqflj6WQgsq093AHUb
+	 AIfG3kAmpDNzwj4ixxgxjYHmfRrCInL7u5R1C6R9rUHCjqQNezYeY3m0hXp00QaJE8
+	 +a5xMqllh8Ha683mXH0VRngnP6//Dt+kd00bi3S9ncJbZnP3oAYlwkEYbWDO/bkgzt
+	 jSlGhIobttW/w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Cryolitia PukNgae <cryolitia.pukngae@linux.dev>,
+	Mikura Kyouka <mikurakyouka@aosc.io>,
+	"foad.elkhattabi" <foad.elkhattabi@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] Input: atkbd - skip deactivate for HONOR FMB-P's internal keyboard
+Date: Mon, 24 Aug 2026 10:50:34 -0400
+Message-ID: <20260824145035.3662153-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082021-ungraded-halves-33f6@gregkh>
+References: <2026082021-ungraded-halves-33f6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,71 +48,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-eventfs_create_events_dir() allocates the eventfs_inode via
-alloc_root_ei(), but only calls INIT_LIST_HEAD() on ei->children
-and ei->list after the tracefs_get_inode() check. If that check
-fails, the code jumps to the fail label and calls cleanup_ei(),
-which calls free_ei():
+From: Cryolitia PukNgae <cryolitia.pukngae@linux.dev>
 
-	WARN_ON_ONCE(!list_empty(&ei->children));
+[ Upstream commit 2aaf33c6e1e82561d7dce2345298a985a2483266 ]
 
-Since ei was allocated with kzalloc(), ei->children.next is NULL
-at this point, not a self-referencing pointer. list_empty() checks
-head->next == head, so it returns false on an uninitialized list
-head, triggering a false-positive WARN_ON_ONCE() even though the
-list was never used.
+After commit 9cf6e24c9fbf17e52de9fff07f12be7565ea6d61 ("Input: atkbd -
+do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID"), HONOR
+FMB-P, aka HONOR MagicBook Pro 14 2025's internal keyboard stops
+working. Adding the atkbd_deactivate_fixup quirk fixes it.
 
-eventfs_create_dir() has the same latent issue: alloc_ei() is
-called before INIT_LIST_HEAD(), leaving a window where an early
-failure path could hit cleanup_ei() on an uninitialized list head.
+DMI: HONOR FMB-P/FMB-P-PCB, BIOS 1.13 05/08/2025
 
-Move the INIT_LIST_HEAD() calls into init_ei(), which is called
-by both alloc_ei() and alloc_root_ei() immediately after
-allocation. This guarantees every eventfs_inode has a valid,
-self-linked, empty children/list the moment it is allocated,
-regardless of which failure path runs afterward.
-
-Fixes: 5790b1fb3d67 ("eventfs: Remove eventfs_file and just use eventfs_inode")
-Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
-Cc: stable@vger.kernel.org
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Fixes: 9cf6e24c9fbf17e52de9fff07f12be7565ea6d61 ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
+Reported-by: Mikura Kyouka <mikurakyouka@aosc.io>
+Reported-by: foad.elkhattabi <foad.elkhattabi@gmail.com>
+Signed-off-by: Cryolitia PukNgae <cryolitia.pukngae@linux.dev>
+Reviewed-by: Hans de Goede <hansg@kernel.org>
+Link: https://patch.msgid.link/20251022-honor-v1-1-ff894ed271a9@linux.dev
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Stable-dep-of: 410c44b10967 ("Input: atkbd - skip deactivate for HONOR ZQC-P")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/tracefs/event_inode.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/input/keyboard/atkbd.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
-index 604ba3e841d2..6e3513b13cfa 100644
---- a/fs/tracefs/event_inode.c
-+++ b/fs/tracefs/event_inode.c
-@@ -438,6 +438,8 @@ static inline struct eventfs_inode *init_ei(struct eventfs_inode *ei, const char
- 	if (!ei->name)
- 		return NULL;
- 	kref_init(&ei->kref);
-+	INIT_LIST_HEAD(&ei->children);
-+	INIT_LIST_HEAD(&ei->list);
- 	return ei;
- }
- 
-@@ -729,8 +731,6 @@ struct eventfs_inode *eventfs_create_dir(const char *name, struct eventfs_inode
- 	ei->entries = entries;
- 	ei->nr_entries = size;
- 	ei->data = data;
--	INIT_LIST_HEAD(&ei->children);
--	INIT_LIST_HEAD(&ei->list);
- 
- 	scoped_guard(mutex, &eventfs_mutex) {
- 		if (!parent->is_freed)
-@@ -802,9 +802,6 @@ struct eventfs_inode *eventfs_create_events_dir(const char *name, struct dentry
- 	ei->attr.uid = uid;
- 	ei->attr.gid = gid;
- 
--	INIT_LIST_HEAD(&ei->children);
--	INIT_LIST_HEAD(&ei->list);
--
- 	ti = get_tracefs(inode);
- 	ti->flags |= TRACEFS_EVENT_INODE;
- 	ti->private = ei;
+diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
+index ea88bcfdb4b6f..f06ce0a7b156d 100644
+--- a/drivers/input/keyboard/atkbd.c
++++ b/drivers/input/keyboard/atkbd.c
+@@ -1937,6 +1937,13 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
+ 		},
+ 		.callback = atkbd_deactivate_fixup,
+ 	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "HONOR"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "FMB-P"),
++		},
++		.callback = atkbd_deactivate_fixup,
++	},
+ 	{
+ 		/* Lenovo Yoga Air 14 (83QK) */
+ 		.matches = {
 -- 
-2.34.1
+2.53.0
 
