@@ -1,115 +1,81 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4028E3655CA;
-	Mon, 24 Aug 2026 15:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F603655D6
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787584406; cv=none; b=qyEwnHJ0eiPaja03/3kKSzBKc8VuDxsN0UCaJCP1gQHPLEsxQ8oaImBWrY/qv9HlMNB5Yvv7sAI16o/2Z9W5g1l+SpQ6HBBi2mn/T+bz8I2dEjvprLCVhVm84jCgqvNPJm02XO61TjfdcNahIGU1zObQiNwTI6SGRyZLbSDrmwM=
+	t=1787584547; cv=none; b=fRQK9QE0vaNrRCwBlloMqI2mJ981l2Jf6lqj0Z3fnFbQ4RhV3Vq6V3iE6o+DaRddVb/CySUAINxklhQe26yE5zNLifI7tLK4mag+kaYJVus8n+5iZVXRmCJn9QjVXcZIki8hPLos81betvfGx2jjSl4yclTBzOF7PTOjwwiMv00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787584406; c=relaxed/simple;
-	bh=LMUl0wRqk8+xqojqeT+SrIqH8HRZqBkNpw5r+kVtCp4=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=tYmIZmhfvW0D6Ohrn6lJT4uME2W2gqPD2M+tDIo5mohVZoPmMRB5+gSFBPi3LTE8eZ9GBwfgRrq/ko4/oJzhSopmCMOI2TCS6gXjIOiiMZx80VhPlS0fG/gij4ledRqw81E+yvJ3W8v1iDwadGB28srh9uV3x7KLGZcNgWgnMk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Vd/XN1i0; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1787584547; c=relaxed/simple;
+	bh=gTXt/T7JdJ24JqXu08VXblSchYqRse2SDOCitpcqN8A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kcVm3nU7H7a4gB/SIKkVvT/1wLgT0YgP+gFl33MJG5OnBxT5F/q5BHM3pQ4ff/j1MsoUFPtK1mwlJAy4O4k/5D+G4yZuSjaTLhmURtAg75Z41Ruux8JWsPZ9JS4+cAfk/SBNxt57dYHQmcUtnuWCehkfBQkbnDIBrqIyGxIy6/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oLgkVZNJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Vd/XN1i0"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 15017A02A3;
-	Mon, 24 Aug 2026 17:13:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1787584396; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=g2xnyjbL7P8HZTzEf65T2GecraVsWg2Jd43dBvLVMt8=;
-	b=Vd/XN1i0CL0GldedKnpeyvV+Vlv5B0hFCIyJjqg8nN0knzNp5a9OUhscpONcUs8CMyfogY
-	fPerXxJEgz1Xr62Ml6PiAMYAoIvSQGfzzoxmTfJV47SzJ4VwNKceRadBZsn1haH0sgrh34
-	P29MCwRTHxRM/z8ppQToaslxBRSPNy5Mo3s/g3WQtgt0ZKrXiZo1DvjPlmeQsMHB3L+NoA
-	Kjuibwgl2chYyFIvRqzVZBaJwU+1lpuicmspP1boTkM8JeP1uwHovwZd7lQ7EsU4Z/Hptw
-	I63REv8GSBbQzpksGlDa/eCoQqlcZSsh+eatDLXU8sToU6w83TAKXlKok0z8nw==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oLgkVZNJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952721F000E9;
+	Mon, 24 Aug 2026 15:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787584546;
+	bh=PrU3A7MpYkg3zFbcviJ1bsAH95YevKQo3Mw0q4TSNqU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oLgkVZNJjX36aOPkTqWKHmmfOADOGg5pfFxEBJfXpw2spee26AmEQvf6LTPCc1rg8
+	 Tm/UYIXvEaCSqlV7BxccO4HovlzVO1EsL+cBSJOnei7HD+IDXYThRTrTzO+lloYQWE
+	 mfOQvvSmfWQk+OKX4LbyZRYm/F5suL00kxBC0oNU=
+Date: Mon, 24 Aug 2026 17:15:41 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Donglin Lyu <DongLin_Lyu@outlook.com>,
+	Ruslan Shevchenko <adefka@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: Re: [PATCH 6.18.y 2/2] Input: atkbd - skip deactivate for HONOR ZQC-P
+Message-ID: <2026082459-tweezers-freedom-b725@gregkh>
+References: <2026082021-ungraded-halves-33f6@gregkh>
+ <20260824145035.3662153-1-sashal@kernel.org>
+ <20260824145035.3662153-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 24 Aug 2026 17:13:13 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Breno Leitao <leitao@debian.org>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] net: fix spurious TX timeout after dev_activate()
-In-Reply-To: <20260824-trans_start-v1-1-0419cc427ed9@debian.org>
-References: <20260824-trans_start-v1-1-0419cc427ed9@debian.org>
-Message-ID: <4f3857029d855ed4e513ae01a2e8f018@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824145035.3662153-2-sashal@kernel.org>
 
-Hi Breno
-
-On 24.8.2026 13:45, Breno Leitao wrote:
-> While debugging another issue today, I found out that my TX queue is
-> stopped for 136.07 years (4294907392 ms).
-
-nit: 4294907392 ms is ~49.7 days
-
+On Mon, Aug 24, 2026 at 10:50:35AM -0400, Sasha Levin wrote:
+> From: Donglin Lyu <DongLin_Lyu@outlook.com>
 > 
->     bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 28: transmit queue 
-> 23 timed out 4294907392 ms
+> [ Upstream commit 410c44b1096789d0c40fbee706520e981dba7bc1 ]
 > 
-> 4294907392 is not an elapsed time. It is the value of jiffies at that
-> moment: INITIAL_JIFFIES is 4294667296.
+> The internal keyboard on the HONOR ZQC-P (HONOR MagicBook Pro 14 2026)
+> does not work after boot.
 > 
-> dev_activate() runs transition_one_qdisc() over every TX queue, which
-> resets trans_start to 0, and then stamps only queue 0 through
-> netif_trans_update().
+> Using the kernel command line 'i8042.dumbkbd=1' makes the keyboard
+> functional, but the CapsLock LED does not work. Adding the
+> 'atkbd_deactivate_fixup' quirk fixes the keyboard and CapsLock LED
+> natively without requiring boot parameters.
 > 
-> Stamp jiffies instead. A queue stopped across dev_activate() now gets a
-> full watchdog_timeo of grace, and is still reported if it is stopped
-> that long.
+> DMI: HONOR ZQC-P/ZQC-P-PCB, BIOS 1.09 03/19/2026
 > 
-> Fixes: 9b36627acecd ("net: remove dev->trans_start")
+> Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
+> Signed-off-by: Donglin Lyu <donglin_lyu@outlook.com>
+> Tested-by: Ruslan Shevchenko <adefka@gmail.com>
+> Link: https://patch.msgid.link/20260801151115.52709-1-donglin_lyu@outlook.com
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+> [dtor: keep all HONOR entries together]
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  net/sched/sch_generic.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-> index ef2b4bf515641..4539dc2c6d380 100644
-> --- a/net/sched/sch_generic.c
-> +++ b/net/sched/sch_generic.c
-> @@ -1278,7 +1278,7 @@ static void transition_one_qdisc(struct 
-> net_device *dev,
-> 
->  	rcu_assign_pointer(dev_queue->qdisc, new_qdisc);
->  	if (need_watchdog_p) {
-> -		WRITE_ONCE(dev_queue->trans_start, 0);
-> +		WRITE_ONCE(dev_queue->trans_start, jiffies);
->  		*need_watchdog_p = 1;
->  	}
->  }
+>  drivers/input/keyboard/atkbd.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
 
-Follow up or v2: netif_trans_update() in dev_activate() now seems 
-redundant?
+Did I miss a patch 1/2 for this?
 
-> 
-> ---
-> base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
-> change-id: 20260824-trans_start-557ecd4c8866
-> 
-> Best regards,
-> --
-> Breno Leitao <leitao@debian.org>
+And this patch differs a lot from the original, why not just backport
+the id table changes that were done in the meantime instead?
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+thanks,
 
-Thanks,
-Nicolai
+greg k-h
