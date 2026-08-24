@@ -1,185 +1,299 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012047.outbound.protection.outlook.com [52.101.53.47])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764FF388876;
-	Mon, 24 Aug 2026 21:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787605467; cv=fail; b=tz/X2Xt4yoebn0bQdbN1o5h4bFOKfmyjla+qrEW8IQsSlBmGgzIORQUtplj4hMnAJsPyTGXoLYOAUAQHcutUAVR2tnIsJQh2KoSvKqP+iTJRLPdhLRIbvkTzVZFWO0fOc5SqoC/ZvEN0aFZ7bLm/QqdNpcRVtrCzSUUa1wWqCLw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787605467; c=relaxed/simple;
-	bh=XKP4ukFQSGxvTEt2og3pnmtR+vvMCa71CWpoklULaW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=A1yhlnNmmUQ4NrxJUXT2GMP7CZjVRrpteqNVmf58gY9I/e1aDHzaXzFZaYrGVFOLGRYqGpQ2JqkRosDN/R4YIz0OG+mOxXdwKgXhUUyFII+Jm+TE9k1ImHW5mrP09H/+cMQ7VpCoDtXgzEZxZ4MuCnN+WaiLYOMTXf5eCZrWurU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2oyTaeLN; arc=fail smtp.client-ip=52.101.53.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACB738E5ED;
+	Mon, 24 Aug 2026 21:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787606425; cv=none; b=YUwWWUa97rx6PB4FV14kxYOpX0dHUJk/TfTxKAeXm/hFKCdtzLHgESRt5C9zzle4pd+ILkHsv7AE3Uh2NdmCxqnabl4NpobYmErrQo9JDD1QRsy1dncKNjSZ/RVz2g8pXVTwAEcHJJRorpPoOjv/yJ7LNihwTdrP5RzzmcaG+do=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787606425; c=relaxed/simple;
+	bh=gfrMoOzcGS7RwfJwX4rMg2yFC2DdX8Mz84jvvrwxjbc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B+hD/TszyBcFJa49qXWVOPYNWClqCKGiEeMlhcrX4G2iIhJAWobhMKydLmBHHwSbfCPiWl+9xT7MMtys6z+hiQNxh7ObG+0Qr2YxJikiMsacVo/9CnwDJnKUeQ89PsTcP4ozFj7Gzx59fLn6YJnAqMp57XtLLLSEkvS1QoyoKYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=acSm+yD9; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2oyTaeLN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IemwIrBwKd8M5BmNCZQQKcVENpyQuObvPiJZ1S+1prTiPz6AmF7i6qhmQGaOcXyVPnsJrltHqyHKCJ3JyjppPPnZTww3Zkjv9Q+1z6iLQ5kYkDHt7iejf5+ZaLyLW3oKKwwZNEBjM1CfhzlBm0Gm+PXhZlOl9gLKpflzZ/EU1npxbL5rULBCLMcqB2jPeJQsAgHAyXcm33GT4BaGOcX5oTjIYivMGEPZdhJ+lY/I4XAoCSAcTOCCY6GIyWP3lQYPcjkyw9ETSlvxM1jeKCaCNgX6Gyz0NbxQkWjmfJoAdzmY0dW3HYzq+hLHMHMgETaNuf40DsIS2ZW+SfVjNJ+LhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+9mlxSw9rWk94Lbp+x5UxTc10xGGR6OkhDEOoauon4k=;
- b=PchEIM+4vaBQwY6R04Az8IlFRvCQ2KYdqGnbp9kFMqE8Jkiqo3jEw31l/W1NF58Ywx7mo2BzBimzqGoOpZByTYnNORBr0AnjN68v6Uf2Rdpndt1JvEvQFrdpWAYH8uoIQv6fljn3m7MPVBqbZQpp0aG1plRTbqkhW0Huo80m/dDp6qmvp4gVO1LRgcaQkIaz8lO3KW8+G9mxxIUkyYpCIEt0SDzUQ47oLZCgt4XPn/Gww7AURE+KEYiOq6AUgc3KjrFr77BzWu1T9bRpbd35u9TuFA+aqziETwFQ/Pp//HF4jV92TvCrvg4K1pYVLvAVtovoryqS0syied1kOelXOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+9mlxSw9rWk94Lbp+x5UxTc10xGGR6OkhDEOoauon4k=;
- b=2oyTaeLNyQHSHGPm20h7zzyUZylUMUp+e3NQ1VC1gT5pcqOY96FStBOQ3ZrY3Bs4kpCSLU5aNp+/gGtPxMEv2jbFAorHbsmwQuaGmF5qzNLofitqW04kmAFjlZ3aw53njXx34KGwe9grvmZq9nKj8XAENf8GVCTzI12J/GgH3rg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- PH8PR12MB7159.namprd12.prod.outlook.com (2603:10b6:510:229::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Mon, 24 Aug
- 2026 21:04:20 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
- 21:04:20 +0000
-Date: Mon, 24 Aug 2026 17:04:11 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Penny Zheng <penny.zheng@amd.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-Message-ID: <20260824210411.GA1500179@yaz-khff2.amd.com>
-References: <20260814214255.83127-1-jason.andryuk@amd.com>
- <20260814214255.83127-2-jason.andryuk@amd.com>
- <49f2616d-e37c-4420-9d8c-81f978386ce6@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <49f2616d-e37c-4420-9d8c-81f978386ce6@amd.com>
-X-ClientProxiedBy: BN8PR04CA0063.namprd04.prod.outlook.com
- (2603:10b6:408:d4::37) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="acSm+yD9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787606423; x=1819142423;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gfrMoOzcGS7RwfJwX4rMg2yFC2DdX8Mz84jvvrwxjbc=;
+  b=acSm+yD9nK9mpHs4nBFrwhxOHreFlDiRta/vT4YP3pBetddUdapo60J4
+   s5m5jN9IP7ttPPAEy6ycP7CNXB5PtPCtQPgESdtZ46k7m6agP1QxD+7RQ
+   LkO+Hh3nlcfSf1hp+M2SeJyZ02FcsnbY3rlK6ZS+RZzmqmRNa1K18u3Je
+   P+Z2DXcFZlNWuc0QwvP5U/sgWoCBppau5V1DIn7IbRsXtJ6sxHwHpkh3K
+   HpkncNtlFyCbh+pbajSwFZxeiwK8TbulaZURz1LLOC6lLlQdkezlAtK1M
+   88UiOJqfLBlOpKdR+ahssvpne5XNeK9m60OV+R5CURc43thcYP5zLA/9w
+   Q==;
+X-CSE-ConnectionGUID: 7cTGPoCyRwOJWFdcr+Qvkw==
+X-CSE-MsgGUID: ure6VZfDS6m3pFIJ1FteGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="99417070"
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="99417070"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 14:20:23 -0700
+X-CSE-ConnectionGUID: YRt7ULOGR+6D5dHzrvQQTA==
+X-CSE-MsgGUID: ayJtM19NSYa5z1Lp3K3FdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="267156167"
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 24 Aug 2026 14:20:21 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wyc5R-000000004Ch-1XD6;
+	Mon, 24 Aug 2026 21:20:12 +0000
+Date: Tue, 25 Aug 2026 05:19:27 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hang Nan <2122295973@qq.com>, linux-bluetooth@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, marcel@holtmann.org,
+	luiz.dentz@gmail.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, pav@iki.fi
+Subject: Re: [PATCH v3] Bluetooth: ISO: fix use-after-free of listener socket
+ in iso_conn_ready
+Message-ID: <202608250515.cLzFz5iN-lkp@intel.com>
+References: <tencent_1E12CBD7417A4019FF058EFD19B1DB930006@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|PH8PR12MB7159:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd9a0731-d1fb-41b7-ec26-08df02234404
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|22082099003|18002099003|56012099006|4143699003|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Q2gbdLDJ8t1FnUdxnXsRC03WAbE+NqVBELiTDsUBlSGDBUKg49jPA/ZxjFIIdfBJutIl8Alk548Pfyha7SAknsFBoNvmGYyB9HidqjcaMAjyxMhD8iBM8DMhLppSeNJvitf/yAB9h8oCVaiSuDiqZC9CPJ5ypOkRIN+H5h0P247tVrWXccC1NDhC5Xi335gtRsbH+gyOn/X++yGP41vDoiKMbnlSYZQ0LbhOMHSPlRIYevQrITkl5sw4zY8c/skTUbgZPAxWtVtXN+u8yceTurYpEX0gXmjcZOZyUX17FXAgvrkVlrOhLTqGCNISIHSq+21bZDmkWw5c2y5xTBoVHjdMmfVPN6vEe27og/+3kxXBKGMU5kWz+YljcSNaDpAmKqemxqI1Dwtzj+vMLCRt9j77ctpdNzb4RNPQIDbJYo2mA53uGs43TPoH+Pw5Swfes5vluyv6Lci7nTpecD28ypJghp78J6FW0bJ0eGc0IJBRV76CrJx8/30ZkfIOyxKFe+UV/aZWXxHJRu3AHyeAclptvOIbmKZTKFaF3FnUyNSaTK3f+lk/igqXunhN/Udc0eJoijn1jUHkDoEo7UtxWZYRYyLzMsjxXH0HZ/4tPFkLiBmCz9X+4VxuDr3E7p1J6na4wgjaRnMjjOeAtnl5XqPwwpy7lEvWe+dB2BC0Lno=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HgO9RHwTt3tBHsCCjGqK4X+e8sYDyIA7403y+TfG8sXYO+X3th2jXcHKLeWi?=
- =?us-ascii?Q?d2TtH75CWvwUJB6XXSSKJRx2mqDCzmj/kaNPngwQc+Oq9AyeuDoj/Bqk4Vbj?=
- =?us-ascii?Q?n74665O9mLd27K9ZYm3moQzzNIZVKM6Y1Gxx/LIa4vx9+HxBmeo1NjWyl1B4?=
- =?us-ascii?Q?MbwSiOktNz83cWS+9zi2vz+soboh2cg1Whby+wp8omVua/W0K3vyyxnu4Xii?=
- =?us-ascii?Q?ljWNCP1IgOJtIVmgqipXtjEFrYHQe4QX/AGfJTyufAoSifpKuLvAt8CCVbKw?=
- =?us-ascii?Q?irydsePBRB+QRlI/PMqL+/TQkqJOl0bPbXUtogNDHy1e17LL/Y5z2JoLqkuI?=
- =?us-ascii?Q?/F1IMh9sjkT4cBT8Qr6oGulsfUC6zpnDgaq11U+BpmbyP8bmu5mFwytJ9Tx1?=
- =?us-ascii?Q?5QPXH6G0rsk39+Jb3AZv+eilYCFb28Fq7lD4AIb7MTfO3+bgByE2PDRxI+e+?=
- =?us-ascii?Q?JEkfz2qjOStA0/bGsf3EIU0+obupH/yjI/CrJNRuvooBtoB7PRvdC22Zp8+a?=
- =?us-ascii?Q?L4gWYrgnrQLmjp/h8mf0um6r+dfyxGyvjN6Aqm9gEP5Bjr7f8hUBG2xq50ox?=
- =?us-ascii?Q?41LymmrDrsZ6iWO79ELi9vm48qvZ4gpeUTEgdjAgWH+skWw8jhc7MfZcWIo2?=
- =?us-ascii?Q?Skgqmj+EERivDXZoohWZCe9WLmmCP9nd05Sh+XhZsuMwn91uE6u2wFb4sWtJ?=
- =?us-ascii?Q?kyGSroqncEtnkNQm8hZHvIMv9C9et1Crn2DaWA62ACf6T5Fwcy9fSEjPQ+O9?=
- =?us-ascii?Q?YRd3nfI9XOcwDrJRLfrwSrwQNxUcozMn+TdFe5edd2Hp7fio96hlnX1C6h3o?=
- =?us-ascii?Q?HalDnbaz6rd6H9vd9bvxIYsNaCzZHX/yIGC3+rrgSSE3c5W/1cXAH7HZs8Lr?=
- =?us-ascii?Q?tF7lILdzK2zkAkSuFGUxcMsR/e0LWAfIDrvlwBqZwtQVW0xxEsZ2ygsHDFSh?=
- =?us-ascii?Q?VOMnDpoby+ypQIU1cIy3zTVXuKBcBUgJzwZke0mtmwLDLq7iKGNYpV6vBcFQ?=
- =?us-ascii?Q?n4AkqIHyy9hU/njC4BJkMaYly2/ccynXa1uJ3W5+Hpbcfq6GMlaTE/nkO+mx?=
- =?us-ascii?Q?ILrDjwgcY0xDbwFACAnLrjUuQooytbdZRqq5latvRJRMPC8pQivzRhB17WBX?=
- =?us-ascii?Q?LcML+8cbILkLoe2U6Irei+z3WuWpeSW8fMdKzPlWXbYXttHGfEj1KYLwubz+?=
- =?us-ascii?Q?NaMk3HKcN/SeI2z7XJTu4UTqQeWtsHIiGPYINrHg28Ti8Bp+iG5/9kejofl1?=
- =?us-ascii?Q?+2HShcCiM4qu7/nlKVHsfsbbthWRVBlldLohUIuASn+tgEtvPVfZzwp56yvE?=
- =?us-ascii?Q?fFKeoWHxna3zfBcFWw6Mk7kRqZJztrt+zi69GEVC4JtzbyZzgo2meYhK1Io8?=
- =?us-ascii?Q?czrUFvYVAruXhWob+0jaia/5BqqVBM/JYfR6Z3PGEjwkbzZqcRLCDo5VW5lh?=
- =?us-ascii?Q?7Mgjft2DnZ+8dfYgDVb9Pyz4pKu/KZk5zSu7RvIiBX9bN3Ssg1Stfgq0IYIF?=
- =?us-ascii?Q?iGDVyWvNa0ImgL4iWh7hl8uIzz9PS0U154RyNpzIKAmKJGSEC0ULEEJw6MvN?=
- =?us-ascii?Q?2eA6HD/ILx9TnYxjEBwHTJzbUVUCb85O1TwCOjTUR/pNQORm4RAsSYjYmhNp?=
- =?us-ascii?Q?b2GZPVuGEYyMT+VOfUxIW0OSfFThdiFBLCPcjPlDVcZc9OjdqtOIgvesmvgS?=
- =?us-ascii?Q?nWtdSQJPcpqsqyVC1NY5BXiMtLtLW9GtbqLkJNSU7q95lwgA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd9a0731-d1fb-41b7-ec26-08df02234404
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 21:04:20.0085
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WyD6jbfPS1Lij8BR27n4d1LgPLi4QltdtlXky0NpcTk9ELndMpO667SUfMK5j+tvXfv7jk9rr24iE0Z8LgWvSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7159
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_1E12CBD7417A4019FF058EFD19B1DB930006@qq.com>
 
-On Mon, Aug 24, 2026 at 04:05:40PM -0400, Jason Andryuk wrote:
-> Hi,
-> 
-> On 2026-08-14 17:42, Jason Andryuk wrote:
-> > On a virtualized system, the number of nodes does not have a
-> > relationship to the number of roots.  A Xen PVH dom0 can calculate
-> > roots_per_node as 0, which crashes with a divide by zero in:
-> > 
-> >      if (count++ % roots_per_node)
-> > 
-> > The issue is seen with Xen, but it could affect other systems.
-> > 
-> > Change roots_per_node == 0 to 1 to allow the system to boot.  Print a
-> > warning when this is performed for non-virtualized systems.
-> > 
-> > Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-> > Cc: stable@vger.kernel.org
-> > Suggested-by: Borislav Petkov <bp@alien8.de>
-> > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> Any feedback here?
-> 
-> Thanks,
-> Jason
-> 
-> > ---
-> > v2:
-> > Print as a warning instead of error
-> > Use "!" instead of "== 0".
-> > 
-> > X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
-> > ---
-> >   arch/x86/kernel/amd_node.c | 5 +++++
-> >   1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-> > index 0be01725a2a4..c3e214925d9c 100644
-> > --- a/arch/x86/kernel/amd_node.c
-> > +++ b/arch/x86/kernel/amd_node.c
-> > @@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
-> >   		return -ENOMEM;
-> >   	roots_per_node = num_roots / num_nodes;
-> > +	if (!roots_per_node) {
-> > +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
-> > +			pr_warn(FW_BUG "Error detecting roots per node.");
-> > +		roots_per_node = 1;
-> > +	}
+Hi Hang,
 
-Minor nit: add a newline after the closing brace.
+kernel test robot noticed the following build errors:
 
-> >   	count = 0;
-> >   	node = 0;
-> 
+[auto build test ERROR on bluetooth/master]
+[also build test ERROR on linus/master v7.2]
+[cannot apply to bluetooth-next/master next-20260821]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Overall, looks good to me.
+url:    https://github.com/intel-lab-lkp/linux/commits/Hang-Nan/Bluetooth-ISO-fix-use-after-free-of-listener-socket-in-iso_conn_ready/20260818-193343
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth.git master
+patch link:    https://lore.kernel.org/r/tencent_1E12CBD7417A4019FF058EFD19B1DB930006%40qq.com
+patch subject: [PATCH v3] Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
+config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20260825/202608250515.cLzFz5iN-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260825/202608250515.cLzFz5iN-lkp@intel.com/reproduce)
 
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608250515.cLzFz5iN-lkp@intel.com/
 
-Thanks,
-Yazen
+All error/warnings (new ones prefixed by >>):
+
+   net/bluetooth/iso.c: In function 'iso_conn_ready':
+>> net/bluetooth/iso.c:2266:28: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+    2266 |                     (parent, SOCK_ZAPPED)) {
+         |                            ^
+>> net/bluetooth/iso.c:2267:25: error: implicit declaration of function 'release_sock_flagsock' [-Werror=implicit-function-declaration]
+    2267 |                         release_sock_flagsock(parent);
+         |                         ^~~~~~~~~~~~~~~~~~~~~
+   cc1: some warnings being treated as errors
+
+
+vim +/release_sock_flagsock +2267 net/bluetooth/iso.c
+
+  2156	
+  2157	static void iso_conn_ready(struct iso_conn *conn)
+  2158	{
+  2159		struct sock *parent = NULL;
+  2160		struct sock *sk;
+  2161		struct hci_ev_le_big_sync_established *ev = NULL;
+  2162		struct hci_ev_le_pa_sync_established *ev2 = NULL;
+  2163		struct hci_ev_le_per_adv_report *ev3 = NULL;
+  2164		struct hci_conn *hcon;
+  2165		struct hci_dev *hdev;
+  2166	
+  2167		BT_DBG("conn %p", conn);
+  2168	
+  2169		iso_conn_lock(conn);
+  2170		sk = iso_sock_hold(conn);
+  2171		iso_conn_unlock(conn);
+  2172	
+  2173		if (sk) {
+  2174			lock_sock(sk);
+  2175	
+  2176			/* conn->sk may have become NULL if racing with sk close, but
+  2177			 * due to held hdev->lock, it can't become different sk.
+  2178			 */
+  2179			if (!conn->sk) {
+  2180				release_sock(sk);
+  2181				sock_put(sk);
+  2182				return;
+  2183			}
+  2184	
+  2185			/* Attempt to update source address in case of BIS Sender if
+  2186			 * the advertisement is using a random address.
+  2187			 */
+  2188			if (conn->hcon->type == BIS_LINK &&
+  2189			    conn->hcon->role == HCI_ROLE_MASTER &&
+  2190			    !bacmp(&conn->hcon->dst, BDADDR_ANY)) {
+  2191				struct hci_conn *bis = conn->hcon;
+  2192				struct adv_info *adv;
+  2193	
+  2194				adv = hci_find_adv_instance(bis->hdev,
+  2195							    bis->iso_qos.bcast.bis);
+  2196				if (adv && bacmp(&adv->random_addr, BDADDR_ANY)) {
+  2197					iso_pi(sk)->src_type = BDADDR_LE_RANDOM;
+  2198					bacpy(&iso_pi(sk)->src, &adv->random_addr);
+  2199				}
+  2200			}
+  2201	
+  2202			iso_sock_ready(sk);
+  2203	
+  2204			release_sock(sk);
+  2205			sock_put(sk);
+  2206		} else {
+  2207			hcon = conn->hcon;
+  2208			if (!hcon)
+  2209				return;
+  2210	
+  2211			hdev = hcon->hdev;
+  2212	
+  2213			if (test_bit(HCI_CONN_BIG_SYNC, &hcon->flags)) {
+  2214				/* A BIS slave hcon is notified to the ISO layer
+  2215				 * after the Command Complete for the LE Setup
+  2216				 * ISO Data Path command is received. Get the
+  2217				 * parent socket that matches the hcon BIG handle.
+  2218				 */
+  2219				parent = iso_get_sock(hdev, &hcon->src, &hcon->dst,
+  2220						      BT_LISTEN, iso_match_big_hcon,
+  2221						      hcon);
+  2222			} else if (test_bit(HCI_CONN_BIG_SYNC_FAILED, &hcon->flags)) {
+  2223				ev = hci_recv_event_data(hcon->hdev,
+  2224							 HCI_EVT_LE_BIG_SYNC_ESTABLISHED);
+  2225	
+  2226				/* Get reference to PA sync parent socket, if it exists */
+  2227				parent = iso_get_sock(hdev, &hcon->src, &hcon->dst,
+  2228						      BT_LISTEN,
+  2229						      iso_match_pa_sync_flag,
+  2230						      NULL);
+  2231				if (!parent && ev)
+  2232					parent = iso_get_sock(hdev, &hcon->src,
+  2233							      &hcon->dst,
+  2234							      BT_LISTEN,
+  2235							      iso_match_big, ev);
+  2236			} else if (test_bit(HCI_CONN_PA_SYNC_FAILED, &hcon->flags)) {
+  2237				ev2 = hci_recv_event_data(hcon->hdev,
+  2238							  HCI_EV_LE_PA_SYNC_ESTABLISHED);
+  2239				if (ev2)
+  2240					parent = iso_get_sock(hdev, &hcon->src,
+  2241							      &hcon->dst,
+  2242							      BT_LISTEN,
+  2243							      iso_match_sid, ev2);
+  2244			} else if (test_bit(HCI_CONN_PA_SYNC, &hcon->flags)) {
+  2245				ev3 = hci_recv_event_data(hcon->hdev,
+  2246							  HCI_EV_LE_PER_ADV_REPORT);
+  2247				if (ev3)
+  2248					parent = iso_get_sock(hdev, &hcon->src,
+  2249							      &hcon->dst,
+  2250							      BT_LISTEN,
+  2251							      iso_match_sync_handle_pa_report,
+  2252							      ev3);
+  2253			}
+  2254	
+  2255			if (!parent)
+  2256				parent = iso_get_sock(hdev, &hcon->src, BDADDR_ANY,
+  2257						      BT_LISTEN, iso_match_dst, BDADDR_ANY);
+  2258	
+  2259			if (!parent)
+  2260				return;
+  2261	
+  2262			lock_sock(parent);
+  2263	
+  2264			/* The listener may have been closed concurrently. */
+  2265			if (parent->sk_state != BT_LISTEN ||
+> 2266			    (parent, SOCK_ZAPPED)) {
+> 2267				release_sock_flagsock(parent);
+  2268				sock_put(parent);
+  2269				return;
+  2270			}
+  2271	
+  2272			sk = iso_sock_alloc(sock_net(parent), NULL,
+  2273					    BTPROTO_ISO, GFP_ATOMIC, 0);
+  2274			if (!sk) {
+  2275				release_sock(parent);
+  2276				return;
+  2277			}
+  2278	
+  2279			iso_sock_init(sk, parent);
+  2280	
+  2281			bacpy(&iso_pi(sk)->src, &hcon->src);
+  2282	
+  2283			/* Convert from HCI to three-value type */
+  2284			if (hcon->src_type == ADDR_LE_DEV_PUBLIC)
+  2285				iso_pi(sk)->src_type = BDADDR_LE_PUBLIC;
+  2286			else
+  2287				iso_pi(sk)->src_type = BDADDR_LE_RANDOM;
+  2288	
+  2289			/* If hcon has no destination address (BDADDR_ANY) it means it
+  2290			 * was created by HCI_EV_LE_BIG_SYNC_ESTABILISHED or
+  2291			 * HCI_EV_LE_PA_SYNC_ESTABLISHED so we need to initialize using
+  2292			 * the parent socket destination address.
+  2293			 */
+  2294			if (!bacmp(&hcon->dst, BDADDR_ANY)) {
+  2295				bacpy(&hcon->dst, &iso_pi(parent)->dst);
+  2296				hcon->dst_type = le_addr_type(iso_pi(parent)->dst_type);
+  2297			}
+  2298	
+  2299			if (test_bit(HCI_CONN_PA_SYNC, &hcon->flags)) {
+  2300				iso_pi(sk)->qos = iso_pi(parent)->qos;
+  2301				hcon->iso_qos = iso_pi(sk)->qos;
+  2302				iso_pi(sk)->bc_sid = iso_pi(parent)->bc_sid;
+  2303				iso_pi(sk)->bc_num_bis = iso_pi(parent)->bc_num_bis;
+  2304				memcpy(iso_pi(sk)->bc_bis, iso_pi(parent)->bc_bis,
+  2305				       ISO_MAX_NUM_BIS);
+  2306				set_bit(BT_SK_PA_SYNC, &iso_pi(sk)->flags);
+  2307			}
+  2308	
+  2309			bacpy(&iso_pi(sk)->dst, &hcon->dst);
+  2310	
+  2311			/* Convert from HCI to three-value type */
+  2312			if (hcon->dst_type == ADDR_LE_DEV_PUBLIC)
+  2313				iso_pi(sk)->dst_type = BDADDR_LE_PUBLIC;
+  2314			else
+  2315				iso_pi(sk)->dst_type = BDADDR_LE_RANDOM;
+  2316	
+  2317			iso_pi(sk)->sync_handle = iso_pi(parent)->sync_handle;
+  2318			memcpy(iso_pi(sk)->base, iso_pi(parent)->base, iso_pi(parent)->base_len);
+  2319			iso_pi(sk)->base_len = iso_pi(parent)->base_len;
+  2320	
+  2321			hci_conn_hold(hcon);
+  2322			iso_chan_add(conn, sk, parent);
+  2323	
+  2324			if ((ev && ((struct hci_evt_le_big_sync_established *)ev)->status) ||
+  2325			    (ev2 && ev2->status)) {
+  2326				/* Trigger error signal on child socket */
+  2327				sk->sk_err = ECONNREFUSED;
+  2328				sk->sk_error_report(sk);
+  2329			}
+  2330	
+  2331			if (test_bit(BT_SK_DEFER_SETUP, &bt_sk(parent)->flags))
+  2332				sk->sk_state = BT_CONNECT2;
+  2333			else
+  2334				sk->sk_state = BT_CONNECTED;
+  2335	
+  2336			/* Wake up parent */
+  2337			parent->sk_data_ready(parent);
+  2338	
+  2339			release_sock(parent);
+  2340			sock_put(parent);
+  2341		}
+  2342	}
+  2343	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
