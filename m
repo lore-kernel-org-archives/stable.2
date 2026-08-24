@@ -1,109 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A962A2AD35;
-	Mon, 24 Aug 2026 16:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675BF359A99
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 16:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787590026; cv=none; b=muyOFl+GZa/EXQcT39ZQQcWm0F+H3YuRwkc7rnxTLK9XFp3bYsdt9vVIB3ZVCt2jcXQpN1T74Abe4QzpeqDeymdNGV6UDsqlaZvD2O1LsWqCQ+o6pqCMxjgb7RtX5Z+ei7+HBrFn+rsV0+qGgBGSVyWKxY3pJwMD91pob0akPzM=
+	t=1787590037; cv=none; b=fJ9u8Iq+wi73mEMaaqvpagAOnRf0I8ITqC0vOgCdXbVqCdwAtb+MoNt1wcUq0EKltXyZA+pWQs8XE+ouVpgn8QwN3bweEyECDo9b+aaWxlcRyMzhAw7Btd3K6dQo8oF5RfDbTl3cj1lD5o3Pootw6LZhJiL7N+6y6vjYbiq5U+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787590026; c=relaxed/simple;
-	bh=sC7M6zj382tmauq2+pPz136hu6jXbqxfZkCiGJid+OM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=un6yufvPP4esyIfSFfdodHaVNu/MGqbPzoMV31TyE6oDK5sUPamvbm99xShV++HaK9TzOihVFFhN7/grigLQOQfJURcD89EDN6zF/DvRrQo5/nZCE60kR4+ee+3hOQMBYl8sj0ovc+cQoFMe+vzcpLWQXJh3cRWWyhrkvYXhjl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtgNgZsM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787590037; c=relaxed/simple;
+	bh=7Eq4H0wXoehn29ByqTM1IIhuFt1x/zpEaGrgoOhjmr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q9UD09eyQZvcTomL78423RgaVIvDyC07SlVCEHy5iPfwr+E+Wg+O/DXdE/t+1VQP3CdZUDYHl/qlBKwqmPXj3t8cqZuCdp4C2Cz80iW70UptRcCkjNajemxpdc2fCfQB+GiopyYDQZvazDPjAfT6PeD3MQOJp2uxEDhzsYPQArA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=hYW/U47M; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtgNgZsM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3FC1F000E9;
-	Mon, 24 Aug 2026 16:47:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787590025;
-	bh=2vY9YzZNbcL9K90Cph9Ptq0BERrBXLPYz9JYuyHnqY4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VtgNgZsM+8pAzWXm1RYtyJLm2weKI7T61YATk9XOyX0nO6whnS1DB+PXXtPF6JsiT
-	 +vZH3JFDwXoNy2vP2G9ivKhzCy/pqg3Byk5yux8qeuqccaCgUM0xI/o/ZQcvZGe3SW
-	 l/s/hPr5j6s5QijmVinmuyLiPKRWa3wcvX52F6i6irdKVzU5OzPmaTmwfk2hFwZaaN
-	 DInD73ZUlatPCw/dv9Qx01a0irmmfoPEnC31SpHZpfgAVbVdVIXk/F3IDMorUciBo+
-	 B27bIy5IxzAo4SA1VjqPyBhdS7bBgg9HBkcns893qZ0DMA7o2jyMKph/5saGrUPipx
-	 CYYQ5nx9jADTg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wyXp9-00000000mST-21Hz;
-	Mon, 24 Aug 2026 16:47:03 +0000
-Date: Mon, 24 Aug 2026 17:49:35 +0100
-Message-ID: <878q5vo44g.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Shanker Donthineni <sdonthineni@nvidia.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	"Steven\
- Price" <steven.price@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH] irqchip/gic-v3-its: zero ITS tables in the shared view after decryption
-In-Reply-To: <20260824155928.2396620-1-sdonthineni@nvidia.com>
-References: <20260824155928.2396620-1-sdonthineni@nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="hYW/U47M"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c16794450aeso536168066b.2
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:47:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1787590034; x=1788194834; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vO5J9Tkq/BMJEuFay0EK1J+ldjBV3PGyGhM7DZqzQJk=;
+        b=hYW/U47MZ2bB/sKuhjws8Yo7b8deYavWr5WZxbl5T7zBVXLJfZ3mKRLK1TL5csNgzh
+         xln469FsDbJvRm9cHKtC2AYE2E/4rfn3bptbhdTtTgmetXwh2+iBgWIPusUme7KihDb6
+         D+nxO5+ZYWTDft6VhbYVnvyQRrGUShjWWOQ9KwpPU46PD2o1rG09UzM7KZ3apenyE9+D
+         C36TvxkrNKTFoUsbFUKuYmb/ew2x0NqWYDgPnQCuscXC4FbPqlg9Gpv3d53JU7+rZPfY
+         MW6k6YAFJSQezeg+KS3obtjCeZkpuKHgvF/OW2IS4iR01nuEUQMcPpxlyMeOPPwgWqSj
+         vm8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787590034; x=1788194834;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vO5J9Tkq/BMJEuFay0EK1J+ldjBV3PGyGhM7DZqzQJk=;
+        b=YDCPgxw9bdvhr3vMHXZd/hZsfOZUJNc14rvnuWTY3j0G5FnAa+Y4lrqvQOaFhkzPiq
+         /NUXS1fonGUq3tBOwtJYy9f3B+r0xC2Duw/2YDQ+DwcoDaDyKrHxbFfd87I9yWYXLKKH
+         8ybdB5gPcgsi5n4LdMcmJ1biVba9/6R99T9/OA04W6SHEwDdtKc7Y/NEh/a2iZUAefFM
+         cCSomeB07jJN9U2VH4ncCoElr1kjf7KNnTNPBY0vfWPVWWVW/ziOqI+MjX6FdskNE+6o
+         oLUkOfP0MQEI91lTY9n86DnXZpY8r5y6PJPBYXz4/Nn9P9zjY1wPHZU5GHYOTtAGNHrq
+         IcNw==
+X-Forwarded-Encrypted: i=1; AHgh+RoJXXZUxFJ8JQMFJ92i+8Wa910SxvuvIA5lYar3+HstApvaiz0zw6RzRbpe/0D3T9WXc8l4k9M=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/+c6EXzmF7QeagwVzNDj/qeZsbG8TUoLbU1sMV143xHl/2rTp
+	2U8cz21Y+/6wPZ9fWyOSQknseIB7oPz9InB/yX6YNe2Q+/WoddqsV2GKIqsqasqHHNE=
+X-Gm-Gg: AR+sD12Agk4+TtfA/iWfsMW0IoEaQm2r5K4uIVzL3DHzaVk2VkIoaQCfKV+0azHWbNR
+	W6VmjKZwDReuvzeLEOOx8H7FoXNoaoIhgsSDJOj4jgGsBqihf+Ytz57rqhX3qMKKQfdXXOwXJa0
+	Akq4IRyN5Mj5oDf34eWWuMaSSh6jw3N6zRFfyZxQVOgN5U2PpAKiEnohVFaah2Xa46sEqjZe333
+	5lxpDIFmeqorGiVqOQOt9bkEBG45zFFysfkwrR0+IrH1sTohRWCfxvKLufsoOCa3w3lSdf440bV
+	6i3mGxAlbKQ150t98TqVJrB4GKjWjnDTt9r5jiZbNU/eilR0JJADBYfUMsoy1Tlpz+IN0PHNpgk
+	/QVqHyjOBM1teNiIXHnMgOlTaDA/9+CU5Z/P+Um8Ls5ilsKMTlexCWsUC7HTaGUqGx9Vv5WJA8+
+	c584Ka8ZafauccuB+dDEEJBcBo14vIue92+2738FM6ewLvxSh3rv1z3a9LAyTVljkLgyy+c57KO
+	WtX3oD4ASOxhc0UTt+L2bJEspd/e16Adpd+ovgqGEd2bvKs6BUoAcTzgmDot+TE
+X-Received: by 2002:a17:907:fd18:b0:c24:d48a:e1e0 with SMTP id a640c23a62f3a-c24d48ae5c7mr623299266b.14.1787590032837;
+        Mon, 24 Aug 2026 09:47:12 -0700 (PDT)
+Received: from raven.intern.cm-ag (p200300dc6f02b200023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f02:b200:230:64ff:fe74:809])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e0190d3sm9209420a12.9.2026.08.24.09.47.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 09:47:12 -0700 (PDT)
+From: Max Kellermann <max.kellermann@ionos.com>
+To: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	xiubo.li@clyso.com,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ceph: lock mutex in ceph_mds_check_access()
+Date: Mon, 24 Aug 2026 18:47:07 +0200
+Message-ID: <20260824164707.225547-1-max.kellermann@ionos.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: sdonthineni@nvidia.com, tglx@kernel.org, steven.price@arm.com, suzuki.poulose@arm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 24 Aug 2026 16:59:27 +0100,
-Shanker Donthineni <sdonthineni@nvidia.com> wrote:
-> 
-> its_alloc_pages_node() allocates pages, some with __GFP_ZERO, before
-> calling set_memory_decrypted() to share them with the untrusted
-> hypervisor. In an Arm CCA Realm, allocator clearing occurs through the
-> Protected IPA.
-> 
-> set_memory_decrypted() changes the RIPAS of the Protected IPA from
-> RIPAS_RAM to RIPAS_EMPTY. The RMM architecture requires the backing
-> DATA Granule to be wiped before it becomes GRAN_UNDELEGATED. Wiping is
-> a confidentiality operation, not a zero-initialization guarantee: it
-> may be implemented by changing the MEC or writing random data.
-> Consequently, zeroes written through the Protected IPA are not
-> guaranteed to be observed through the corresponding Unprotected IPA
-> alias.
-> 
-> This is harmless for tables that the guest fully populates before use,
-> but the GICv3 ITS indirect device table is sparse. The guest writes only
-> the L1 entries for devices it maps, while both the guest and the
-> hypervisor's ITS emulation rely on unused entries being zero.
-> Unspecified nonzero values can make an unpopulated entry appear valid,
-> causing the guest to skip the required L2 allocation and the hypervisor
-> to consume a bogus pointer. Interrupt translation then fails,
-> potentially hanging the guest when it first uses the device. This is
-> exposed when guest_memfd reuses the same backing Granule for the
-> Unprotected IPA mapping rather than supplying a fresh Host page.
-> 
-> Strip __GFP_ZERO before allocation and clear the page through the
-> Unprotected IPA alias after set_memory_decrypted(), so the requested
-> zeroes are written in Non-secure PAS and are visible to both the guest
-> and the Host. This also matches dma_direct_alloc(), which clears memory
-> after dma_set_decrypted().
-> 
-> Fixes: b08e2f42e86b ("irqchip/gic-v3-its: Share ITS tables with a non-trusted hypervisor")
-> Cc: <stable@vger.kernel.org> # 6.18+
-> Signed-off-by: Shanker Donthineni <sdonthineni@nvidia.com>
+MDS session OPEN handling replaces mdsc->s_cap_auths under
+mdsc->mutex, freeing the previous array and its strings.
 
-https://lore.kernel.org/r/20260820105026.53208-1-steven.price@arm.com
+ceph_mds_check_access() traverses this array without holding the
+mutex.  A concurrent session reopen can therefore free the array while
+it is being inspected, resulting in a use-after-free like this:
 
-	M.
+  Unable to handle kernel paging request at virtual address 003aaad64b2c8bb9
+  [...]
+  Internal error: Oops: 0000000096000004 [#1]  SMP
+  Modules linked in:
+  CPU: 56 UID: 2953037534 PID: 1253231 Comm: php-cgi8.4 Not tainted 6.18.45-i2-ampere #1146 NONE
+  [..]
+  pc : ceph_mds_check_access+0xd4/0x550
+  lr : ceph_mds_check_access+0xc8/0x550
+  [...]
+  Call trace:
+   ceph_mds_check_access+0xd4/0x550 (P)
+   ceph_atomic_open+0x138/0xbe8
+   path_openat+0xa24/0xfa8
+   do_filp_open+0x94/0x158
+   do_sys_openat2+0x88/0xf8
 
+Fixes: 596afb0b8933 ("ceph: add ceph_mds_check_access() helper")
+Cc: stable@vger.kernel.org
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+---
+ fs/ceph/mds_client.c | 4 ++++
+ fs/ceph/mds_client.h | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 3c692ad02c85..0348e8b848ff 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -6532,11 +6532,13 @@ int ceph_mds_check_access(struct ceph_mds_client *mdsc, char *tpath, int mask)
+ 	doutc(cl, "tpath '%s', mask %d, caller_uid %d, caller_gid %d\n",
+ 	      tpath, mask, caller_uid, caller_gid);
+ 
++	mutex_lock(&mdsc->mutex);
+ 	for (i = 0; i < mdsc->s_cap_auths_num; i++) {
+ 		struct ceph_mds_cap_auth *s = &mdsc->s_cap_auths[i];
+ 
+ 		err = ceph_mds_auth_match(mdsc, s, cred, tpath);
+ 		if (err < 0) {
++			mutex_unlock(&mdsc->mutex);
+ 			put_cred(cred);
+ 			return err;
+ 		} else if (err > 0) {
+@@ -6558,6 +6560,7 @@ int ceph_mds_check_access(struct ceph_mds_client *mdsc, char *tpath, int mask)
+ 	doutc(cl, "root_squash_perms %d, rw_perms_s %p\n", root_squash_perms,
+ 	      rw_perms_s);
+ 	if (root_squash_perms && rw_perms_s == NULL) {
++		mutex_unlock(&mdsc->mutex);
+ 		doutc(cl, "access allowed\n");
+ 		return 0;
+ 	}
+@@ -6572,6 +6575,7 @@ int ceph_mds_check_access(struct ceph_mds_client *mdsc, char *tpath, int mask)
+ 		      !!(mask & MAY_READ), !!(mask & MAY_WRITE));
+ 	}
+ 	doutc(cl, "access denied\n");
++	mutex_unlock(&mdsc->mutex);
+ 	return -EACCES;
+ }
+ 
+diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
+index 0ece4c9e3529..8774c7d7d18d 100644
+--- a/fs/ceph/mds_client.h
++++ b/fs/ceph/mds_client.h
+@@ -603,6 +603,7 @@ struct ceph_mds_client {
+ 	struct rw_semaphore     pool_perm_rwsem;
+ 	struct rb_root		pool_perm_tree;
+ 
++	/* protected by mutex */
+ 	u32			 s_cap_auths_num;
+ 	struct ceph_mds_cap_auth *s_cap_auths;
+ 
 -- 
-Jazz isn't dead. It just smells funny.
+2.47.3
+
