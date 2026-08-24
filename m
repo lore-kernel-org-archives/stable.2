@@ -1,49 +1,48 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4629E3A1681;
-	Mon, 24 Aug 2026 07:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B2A372ED7;
+	Mon, 24 Aug 2026 08:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787558391; cv=none; b=rQ4tYXrvFpSUE857RFrqz++nus43vrp20hw7hGZmVaW0yqQuULNQj7SbrXyqdz3v1K4ZHVGPl59qQ4Cj7OclPRPBG9YzRdAuKIWb5y5B/j/2/VuV/kXS5Bw+7R6cz2pmDKfCHLt9jTjNcFX4HDwG7Nc8V9ec73V7oi+QU0KxxsQ=
+	t=1787559993; cv=none; b=YLNs7VmoQoQLslEK0GGTNbd99Vw4TT6tbnl5UDKu53T/S6QUVYmedzsmGhE83uU2xmh8Ssf05KqAvv46N4IO0MtC2h3CF2462Ehr+EJDV5Jk5DDAMPDnLgaeN4KyFQ63ujyU7RBc1tFp5m67/6gl6sOJlXdyPdyjBW+LfNC5Vqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787558391; c=relaxed/simple;
-	bh=8CgmWQgEeeQZ8J5pzC6X/sjGSAyTtZpGXePfygosudc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ld4hjJqvjDxBz6YG4ZX+Cg7T908fn/gDTyjLjYXipQaXK0Go40W/WsEpGR6+6800hUHafoiwoSeaBwBnIM6V7NWlOyqpN4gMo1XZT0zMigeCok5dE/dElz+S2mG28WBNQue1JLcd0Px26AI1lqNfA+xQyn/QzwDpwvLKIpd1TDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c1df3e569f9111f19a56ed5b684f684d-20260824
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:37df7150-0b2e-4f70-994d-98dfcdb65f6e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:0bbfa936c18d905bc4a511f38735a058,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c1df3e569f9111f19a56ed5b684f684d-20260824
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 878920382; Mon, 24 Aug 2026 15:59:39 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1787559993; c=relaxed/simple;
+	bh=gnMZQhlcLdQZfBgNd8RKcF9khoOP6CQEisRAnDO6COs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gBAAFxZ34Gxf0g1BTmIYoi62jVYZfhCt5iEXf/TbWAVCq+7tzcYbm6m+PIaflPl3ahiPNlARZKL3NB1i5vjlwQrsoBknc3k5jpXwA5470y/sscM0W4w9EiRJTlOmyYfG+Qb1u+l3g+OF2QZ5fRg5IzF8YcnyVjSzSazqiYs7oHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=hNKnQ8XF; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="hNKnQ8XF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787559949;
+	bh=czL/yE0bCmAN4P1FOK/8SGR9DFbiHNsq7jBEhme2hcA=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=hNKnQ8XFwA0XiPmAAcEF9WXLk7EiszGcyT6Gqsle8CtfbdtYViLzL/PM2+uVkhXNY
+	 9LePFZ7eeP9opjmrd4mT4uDlejsei4h6cmyH73XChgfFozSeIETI951kjJyVCUTIsk
+	 VwhNP6DxUozsE52+FLbNJpFOu/6v0ozKtbBy3a9A=
+X-QQ-mid: esmtpgz14t1787559928t2a1ddcc8
+X-QQ-Originating-IP: 0ANnjSMeXacE1awNZUHCmy1QCe0M/7ANd9jEhMnZya4=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 24 Aug 2026 16:25:26 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9794084815403460053
+EX-QQ-RecipientCnt: 7
+From: Wentao Guan <guanwentao@uniontech.com>
+To: chenhuacai@kernel.org
+Cc: kernel@xen0n.name,
+	yangtiezhu@loongson.cn,
+	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
+	Wentao Guan <guanwentao@uniontech.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] ntfs: fix memmove overlap in ntfs_new_attr_flags
-Date: Mon, 24 Aug 2026 15:59:35 +0800
-Message-Id: <20260824075935.170457-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH] LoongArch: rethook: Do not save/restore percpu base register in trampoline
+Date: Mon, 24 Aug 2026 16:25:24 +0800
+Message-Id: <20260824082524.3801394-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,69 +50,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OD6FFkn240CDDTy1/XoaQcPqU+TV9vj/uxto0uaZ6Y/MTbbfbdIbSq6Z
+	rw+hBThI2pUcEIZp61vDeFNckV9gcYdMPMR0vFjmDNoKnpJggj2Ob+p3Xugf/98t5iO3x3P
+	/Lb2yW9+McmEmi7MeNaE7UYkI66V911Atzvck1U96CpeUd76tvivnqveapJ/4RvvfTsGRR3
+	MKt8v01dXFbQtwYuD8APb4oA7jKNhNRs8rnjObNFTnIk8uWbPkvs6pxho42dZXNEfU55D0B
+	pb1eq2fdQTIMJ0PbG8rM8vdBgsDGiZtLtcun+2ZzdFMXFLbXVzIB+hItI2kld+sLsQtMxpA
+	NO6LWjEk2BTlsGyBZ+Xebt+0g+GQH1EpctoqGXjnw2fC/b/h+IkgniTOsSIa0XHSkP9lShd
+	r+RrJFx2D4A0VgHwjizKJZpmSw0Y/PmpaGY6qy7iY4r5NNlWJT/nb0L8dlY5Sx/gJ9W3xwW
+	eUWOGcp1XWjhASJi6tvXClIPHZVOCVoe208hfyBv4mGNmnye+6pohz0/J07m7T/xhIjoesV
+	fcP6bU7y2tJpO4xdmoQkzVvfNPVVfZNxjr3XyDYQ7oNgKffOEH7cuCFJdNNNUA8Us3+Z5tD
+	cBgaGf5V506t67zZ2GkpvWagzeMs07JqAz8LYBdT+h8QTIs54egld1QNn9P3ltPFVndGGXe
+	KcoMxHDN0bcY18iFD0EgAUE4oNOlKz9T8pSQfxWHOgSFM45W2eM4fXUQa3vqaol1/QuZUUj
+	Sl4Yb1Hc1rkRxJcucV+MROFxC8A5c9FJaJqfh/IEMgiYxknFBaTkIMseFsC4nykPkUsOJUM
+	/lPYmuTCMN3pt774UxBENWYv2rsuQk/i+VtUrfrdPrNEcoFXFQh8wUu0h5az23YFCeBe5wP
+	PM/A3RtG37xptML24+aZtYp95IkMWg+ennB7plL7x/apJOe1xFIkDkIXwB2wx5jf2l3espf
+	xeYEH6xrkFf5iDbIE6qXGAsKYKIr4q/6rK4trvR5RWTtlvEy0XpQYnbVW9PFxgxDkER+Peb
+	xfiRZPDjblgbXIvRqZojJq10h1lQVLbGXUpln0GnLrg9r3JDl3UGMBf3pLmTO4wZFAo6I7Z
+	9kROb7gVcJP
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-When the record shrinks while the payload offsets increase (e.g., enabling
-compression reduces padding, making arec_size < old_arec_size, but the header
-grows by 8 bytes), moving the name first can overwrite the old mapping_pairs
-before they are copied. Move mapping_pairs first in this case.
+The rethook trampoline saves $r21 ($u0), the percpu base, into its
+frame at entry and restores it at exit. In between,
+rethook_trampoline_handler() may schedule via preempt_enable_notrace();
+if the task migrates to another CPU, the frame's $r21 names the old
+CPU's percpu base, and restoring it poisons $r21 on the new CPU. Until
+the next user->kernel transition heals $r21, this_cpu_*() accesses
+(runqueues, RCU per-CPU data, timer tick programming, FPU ownership)
+hit the wrong CPU's percpu area.
 
-Since mp_ofs is derived from name_ofs, they always change in the same
-direction. Checking name_ofs alone is sufficient.
+Under kretprobe-heavy preemptible load this corrupts scheduler and
+timer state: scheduling-while-atomic splats, wrong-CPU RCU warnings,
+WARN_ON_ONCE(rq != this_rq()) in nohz_balance_exit_idle(), and CPUs
+parking in the idle loop with the constant timer never re-armed (hard
+lockup). Reproduces on a Loongson-3A6000 with kretprobes on VFS paths
+plus heavy file churn (OS install / unsquashfs).
 
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+By convention $r21 always holds the current CPU's percpu base in kernel
+mode: exception entries reload it only when coming from user mode, and
+RESTORE_SOME() restores it only when returning to user mode; the
+context-switch path never writes it. The live $r21 at trampoline exit
+is therefore already correct, and nothing in between can legitimately
+change it (kernel C code cannot write a global register variable). The
+same flaw existed in the pre-rethook kretprobe trampoline since v6.3;
+it was carried over when rethook replaced it. Drop both the save and
+the restore.
+
+Fixes: 3f5536860086d ("LoongArch: Add kretprobes support")
+Cc: stable@vger.kernel.org # v6.5+
+Assisted-by: Kimi:Kimi-K3 # debug and root-cause analysis
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- fs/ntfs/ea.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+ arch/loongarch/kernel/rethook_trampoline.S | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 534f7efaf128..c836d33ab0d3 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -729,15 +729,36 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 	old_arec_size = le32_to_cpu(a->length);
- 
- 	/*
--	 * Move payloads before shrinking the record.  Otherwise resizing moves
-+	 * Move payloads before shrinking the record. Otherwise resizing moves
- 	 * the following attribute over the old payload before it can be copied.
-+	 *
-+	 * When offsets increase, move mapping_pairs first to avoid name
-+	 * overwriting the start of mapping_pairs.
- 	 */
- 	if (arec_size < old_arec_size) {
--		if (a->name_length && name_ofs != old_name_ofs)
--			memmove((u8 *)a + name_ofs, (u8 *)a + old_name_ofs,
--				a->name_length * sizeof(__le16));
--		if (mp_ofs != old_mp_ofs)
--			memmove((u8 *)a + mp_ofs, (u8 *)a + old_mp_ofs, mp_size);
-+		if (name_ofs > old_name_ofs) {
-+			/* Payload offsets increased: move mapping pairs first. */
-+			if (mp_ofs != old_mp_ofs)
-+				memmove((u8 *)a + mp_ofs,
-+						(u8 *)a + old_mp_ofs,
-+						mp_size);
-+			if (a->name_length && name_ofs != old_name_ofs)
-+				memmove((u8 *)a + name_ofs,
-+						(u8 *)a + old_name_ofs,
-+						a->name_length *
-+							sizeof(__le16));
-+		} else {
-+			/* Payload offsets decreased or unchanged: move name first. */
-+			if (a->name_length && name_ofs != old_name_ofs)
-+				memmove((u8 *)a + name_ofs,
-+						(u8 *)a + old_name_ofs,
-+						a->name_length *
-+							sizeof(__le16));
-+			if (mp_ofs != old_mp_ofs)
-+				memmove((u8 *)a + mp_ofs,
-+						(u8 *)a + old_mp_ofs,
-+						mp_size);
-+		}
- 	}
- 
- 	err = ntfs_attr_record_resize(ctx->mrec, a, arec_size);
+diff --git a/arch/loongarch/kernel/rethook_trampoline.S b/arch/loongarch/kernel/rethook_trampoline.S
+index 2e009fbea53f2..5efe0268b3143 100644
+--- a/arch/loongarch/kernel/rethook_trampoline.S
++++ b/arch/loongarch/kernel/rethook_trampoline.S
+@@ -24,7 +24,12 @@
+ 	cfi_st	t6, PT_R18
+ 	cfi_st	t7, PT_R19
+ 	cfi_st	t8, PT_R20
+-	cfi_st	u0, PT_R21
++	/*
++	 * $r21 ($u0, percpu base) is deliberately not saved/restored: in
++	 * kernel mode it must always hold the current CPU's percpu base,
++	 * and restoring it from the frame would poison it with the old
++	 * CPU's base if the handler scheduled and we migrated.
++	 */
+ 	cfi_st	fp, PT_R22
+ 	cfi_st	s0, PT_R23
+ 	cfi_st	s1, PT_R24
+@@ -59,7 +64,7 @@
+ 	cfi_ld	t6, PT_R18
+ 	cfi_ld	t7, PT_R19
+ 	cfi_ld	t8, PT_R20
+-	cfi_ld	u0, PT_R21
++	/* $r21 not restored; see comment in save_all_base_regs. */
+ 	cfi_ld	fp, PT_R22
+ 	cfi_ld	s0, PT_R23
+ 	cfi_ld	s1, PT_R24
 -- 
-2.25.1
-
+2.30.2
