@@ -1,64 +1,50 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC3F4189CC
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:02:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D0436895D
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787572966; cv=none; b=VpqFmV3RNXbDQpEf8hgcNcF6j6DYNwAo0cPFQbv0IrzD6uWBhxUdIktYtisCwt0hIZpGUr6JOVbX/QjPcJvEXWYWbO9PtgcwXnxlbhdaH7In0eCpW/eUG4qtU+QdULbvVkKdx040s5eMZO/qxH7UMAOIMqMwox/qzscCTzBTPx0=
+	t=1787573251; cv=none; b=SI8yZifb3I90aQXpaeEre+d5kZZj90raGmyJaL8yj4oxQ4fiPOPzvhjeYAUW5KX6eBgPfmDTCncAV/splJl6XMxHOwWoQB9Ks15jAzMDXcZhT1bImWY3mjVXAwwB6p3k8MYVmU7G3eNbCJsrilcxRpmILehq9ErxOPKwv9HDRVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787572966; c=relaxed/simple;
-	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WARBMr5Wu06EP0RibDA3UFkK79gK//pfFRBMi1KLuPc3rKOq6tRyup1ubmpzqIXh1C21gR6+VFp0uM8ELzR3CwYwWZ9ZOgW478Kx0ybRmjQtoGd4KdB2jmQKXBg0DSGthnNYgiWfDg7bmcWhrXxsaL9rnW3OwQ8uXlUyz3N2UnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=D3W49eln; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787573251; c=relaxed/simple;
+	bh=BDiJdAAtUD92ISyF12fPSqcPbxouJgrro2chaJ5giqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M/9wBHAF9SvcahFM7MUvd7hALaQYoR1lK5Hv+U5oSqDhT2ngKwv3tZaijXLzIaNTPJWT9Y8g7GnGw5k5albFm/YOhnHaoso1L+WRX0SvIyqbPPdPgOtaZwTS/Bu9OgEcowfHbdzT1Rw0ZsCJmbdq0nhCqaEkn5ZkOGHXf69bJBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y4S1qaKr; arc=none smtp.client-ip=91.218.175.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D3W49eln"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787572964;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
-	b=D3W49elnGCAY//L/jkb44zdug7XtToWW7ewr/taqmqCZ57ddu5/TXZpJrzIxA/VbxGTJyx
-	wP4Q/PufKgT/4ftb5klI0zPQ5BsgK9cqlMUgRU44i1QDw0T9+eC3LZigB0wj5+rN+YgtU1
-	rptjeLBIiQeOVqqFQ8jcrKBOb26Jo18=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-QKIZ5IQHPW2M0-MoD0otjw-1; Mon,
- 24 Aug 2026 08:02:37 -0400
-X-MC-Unique: QKIZ5IQHPW2M0-MoD0otjw-1
-X-Mimecast-MFC-AGG-ID: QKIZ5IQHPW2M0-MoD0otjw_1787572956
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2192A19540C5;
-	Mon, 24 Aug 2026 12:02:36 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.15])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7F8A11800257;
-	Mon, 24 Aug 2026 12:02:32 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y4S1qaKr"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BDiJdAAtUD92ISyF12fPSqcPbxouJgrro2chaJ5giqM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787573248; v=1; x=1788178048;
+ b=Y4S1qaKr82Rx+ykfLLx2NR4Wl+1j7qGlNApm5N8I4qjq9USFYGKwpWBen1dxTas4RDma2YHq
+ Ur4Dpj6BPGA+h0ggTM4lpcoA2w5bZ0ZiMLCLocFia7TzkI8FnMAX+M/5bLOOBhsZkLvIwmMK17c
+ yVtmw/TJKcz2RqOmTA47z5vs=
+X-Envelope-To: stable@vger.kernel.org
+Received: from localhost.localdomain (116.128.244.171)
+	by smtp.migadu.com with ESMTPS id 94adfce5723ac7f1;
+	Mon, 24 Aug 2026 12:07:18 +0000
+X-Mizu-Trace-ID: 94adfce5723ac7f1
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
 	linux-kernel@vger.kernel.org,
-	Karl Mehltretter <kmehltretter@gmail.com>,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] netfs: Fix uninitialized return value in netfs_unbuffered_write()
-Date: Mon, 24 Aug 2026 13:02:20 +0100
-Message-ID: <20260824120224.504575-2-dhowells@redhat.com>
-In-Reply-To: <20260824120224.504575-1-dhowells@redhat.com>
-References: <20260824120224.504575-1-dhowells@redhat.com>
+Subject: [PATCH net v1] net: phy: fix NULL deref in IRQ handler after unbind
+Date: Mon, 24 Aug 2026 20:07:03 +0800
+Message-ID: <20260824120703.107412-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,44 +52,72 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-If preparation of the first subrequest fails,
-netfs_unbuffered_write() exits its loop before ret is initialized. The
-empty-iterator check can do the same.
+phydev->drv can become NULL while the phy_device is still attached to
+its net_device, after the PHY driver is unbound via sysfs:
 
-For synchronous writes, netfs_unbuffered_write_iter_locked() may then
-return an unrelated error instead of wreq->error. This is reachable
-through CIFS if cifs_prepare_write() fails to reopen the file or obtain
-credits.
+    echo <mdio_id> > /sys/bus/mdio_bus/drivers/<phy_drv>/unbind
 
-Initialize ret to 0 so the caller returns wreq->error if no data was
-written, or the number of bytes already written otherwise.
+phy_remove() clears phydev->drv but does not free the threaded IRQ
+installed at attach time. A later hardware interrupt, or another
+device on the same IRQF_SHARED line, then oopses in phy_interrupt()
+on phydev->drv->handle_interrupt():
 
-Found with Clang's -Wconditional-uninitialized.
+    Unable to handle kernel NULL pointer dereference at 0x138
+    ...
+    pc : phy_interrupt+0xb4/0x108
+    Call trace:
+     phy_interrupt+0xb4/0x108 (P)
+     irq_thread_fn+0x34/0xb8
+     irq_thread+0xc8/0x178
+     kthread+0x128/0x138
+     ret_from_fork+0x10/0x20
 
-Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
+The same unbind sequence is already treated as valid. Skip the
+driver callback when no PHY driver is bound, matching other phylib
+unbind paths. Also guard phy_config_interrupt(), which is reached
+from phy_disconnect() after the same unbind.
+
+The IRQ is requested at attach time and released by phy_disconnect(),
+so phy_remove() cannot free it without a later double-free. After
+this change the handler returns IRQ_NONE. If the PHY keeps the line
+asserted and no other shared handler claims it, the IRQ core may
+eventually disable the whole line ("nobody cared") and affect other
+devices on that IRQ. That is a limitation of not tearing the IRQ
+down on driver unbind, but it is still better than the NULL pointer
+dereference that the same interrupt triggers today.
+
+Fixes: c974bdbc3e77 ("net: phy: Use threaded IRQ, to allow IRQ from sleeping devices")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 ---
- fs/netfs/direct_write.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/phy/phy.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index c16fbad286a1..b04019097ab8 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index fce9bc7be3304..5435f62e98171 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -168,7 +168,7 @@ EXPORT_SYMBOL_GPL(phy_get_rate_matching);
+ static int phy_config_interrupt(struct phy_device *phydev, bool interrupts)
  {
- 	struct netfs_io_subrequest *subreq = NULL;
- 	struct netfs_io_stream *stream = &wreq->io_streams[0];
--	int ret;
-+	int ret = 0;
+ 	phydev->interrupts = interrupts ? 1 : 0;
+-	if (phydev->drv->config_intr)
++	if (phydev->drv && phydev->drv->config_intr)
+ 		return phydev->drv->config_intr(phydev);
  
- 	_enter("%llx", wreq->len);
+ 	return 0;
+@@ -1436,7 +1436,10 @@ static irqreturn_t phy_interrupt(int irq, void *phy_dat)
+ 	}
  
-
+ 	mutex_lock(&phydev->lock);
+-	ret = phydev->drv->handle_interrupt(phydev);
++	if (!phydev->drv)
++		ret = IRQ_NONE;
++	else
++		ret = phydev->drv->handle_interrupt(phydev);
+ 	mutex_unlock(&phydev->lock);
+ 
+ 	return ret;
