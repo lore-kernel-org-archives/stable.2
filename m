@@ -1,105 +1,152 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC6136728F
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 16:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EA8340A6F;
+	Mon, 24 Aug 2026 16:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787590120; cv=none; b=CjQIJ3tiP1/1l67tgz8+ClIedxRda6YGbUos452X/O1vYQ9S8RDUcz2BKiYc4WzGHuWaiUf6TH3xzFaNJZoZvRdnLQkahcKWypcb0w08b7bN9/8LnVdyD4nf7c+HN5ZFQqFgOjewwWYCHKJJ/5LHNCzaL7dy+NZcN8RJiutbKg4=
+	t=1787590124; cv=none; b=BPl9qB0ghq7ZNOuiNFX9u4vsuQHrCDLBdXaOOYx3Kaab2j24eni2qQCj/PTTzPjzUhi3IDIMZwXP6w5U3mvQqbOL8UNgUr3UjjIIXIKLjnOe6CiIZOyMt0O0jlq+rvgr+nmACtLrWo4AAv/zqj/wmmYn1I521EoVwWuoHqZBD60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787590120; c=relaxed/simple;
-	bh=TciwayOsxxorse3GHwPR+ReTFwDlI/7fhMU/ChCAlRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eksZ6mKwWqw7ncWlcsgQZsMtir/L2OqPFc44z5RVgdqbf7osoHcJ9DkmK80MHCQOctQC17Jc/FmH2EttvYrnOLFAfJj0DPpXDAKn9JXJH1yjuT/DeazGBNnEHaUv5AXYL/077rbjkjZ2FgZ55Engc/YJD485lu9x8kXiaGjZ6+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VDImUCCU; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787590124; c=relaxed/simple;
+	bh=OdzcroVIBks3JFTSAjW6CRoFsw9jd2L4sObexLqmZhE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jnNVJ/VD8H+116t84isMgFITXT6d4uGw1FxptGuuwXhkE39QAstF8qxjMaKqut4DgAt7wPfZEYkJ1yEFICBfWnAqGw+HjgTwbhqlf3H8wOVJiGp7VgZNv0rIDWFlTBeRMIwAljapBY/nbw3chngxuWLRuGmBinyVecUqobNteIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZlRnYzT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VDImUCCU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787590119; x=1819126119;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=TciwayOsxxorse3GHwPR+ReTFwDlI/7fhMU/ChCAlRI=;
-  b=VDImUCCUNMz4HUxQM/cA3v1PUqxkKGMUXmFpqcKcFcKqKLWMEcODeAjf
-   7ga+Shl7MW7+GIFgNvGSSbSHCzZTIeP/Qc2gEQ3HRITG7QAaJMTDS/RcV
-   Y7FV0idJOPDh1TxerPZnm6WAdSme6G5KVuR2ZjKFAYWGvm8OSv81fck54
-   GUALcoUrdXb4V1fbzgu2FqBVW06cKqJMO/iTDLM04QryfhrxnLyRCkkOl
-   KPqPbX5kk+leZjAkNSKDMV1shRXM+/1qIr15gXPh7usW6QJSIO1XkTo/z
-   yDdfEjyTUyhLqnKD1Jc96WRNxHPri9RhkDTl9DWU18aEYeidt88mf4xnR
-   w==;
-X-CSE-ConnectionGUID: uAQuz4pfQhOdhm7EnjXwLg==
-X-CSE-MsgGUID: V9d4qiszS5C1v2u5rVmoDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="98722913"
-X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
-   d="scan'208";a="98722913"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 09:48:38 -0700
-X-CSE-ConnectionGUID: XO9b57XlR2K7gPYlu/1iaA==
-X-CSE-MsgGUID: 7Z66bDxnSMeCOW4TLERlvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
-   d="scan'208";a="270839928"
-Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.39])
-  by orviesa004.jf.intel.com with ESMTP; 24 Aug 2026 09:48:39 -0700
-From: Jia Yao <jia.yao@intel.com>
-To: stable@vger.kernel.org
-Cc: Jia Yao <jia.yao@intel.com>,
-	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 3/3] drm/xe/guc_ads: use uncached mapping for UM queue BO
-Date: Mon, 24 Aug 2026 16:48:28 +0000
-Message-ID: <20260824164828.498481-3-jia.yao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260824164828.498481-1-jia.yao@intel.com>
-References: <2026082055-unhinge-monstrous-7eeb@gregkh>
- <20260824164828.498481-1-jia.yao@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZlRnYzT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504941F000E9;
+	Mon, 24 Aug 2026 16:48:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787590123;
+	bh=7eG18ALqGrAc0R4jlhNdqf4NA5blrLBjDEioLV0nwrU=;
+	h=From:Subject:Date:To:Cc;
+	b=DZlRnYzTLz9SKJeKspWhnZ0AYyPKwx72K4WF1EivckXKFRMM6eZRvIg1EYmo71apE
+	 yYWxXUFS9ePCaECM/dIr5qe8Id1vKP+ttoZvmyZjMyFqYWbSXUKiZNSUoi6Yk5gcv3
+	 xos0HLFMX0nWo1btBj4G0Qk1Lyf3RH/0yeq7yiFI66QL7pqLwa+oHG+PJi+xL7x8m1
+	 VIETsoZnvYcGDs0eojoV9ym9hhb1lHLaiyEEr6o63eIqMD9v98tJpa4Bgl40h7RI6z
+	 sO1SSWAVywYSGLVY0tSv8XJ7VR00S5wyXMbaBppu1CPVwGogisQOg3GoyyGEsilLnG
+	 1fC7yOZHFphgg==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Subject: [PATCH net 00/14] mptcp: misc fixes for v7.3-rc1
+Date: Mon, 24 Aug 2026 18:48:20 +0200
+Message-Id: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-0-a92309d121ca@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAxFf2Xk2cCalSr+ivgws6gRVkvTiTD27
+ 0Z9PJd7zgomVcXg2K1Q5aWmz+wQdh3wfcw3QZ2cgXpK/YEiZmk4l8YFZzXGq77FcI8DVg6Yxjg
+ lokE4BvBEqfI7eOEEbsL5P9pyeQi3bxi27QMCBTl0hQAAAA==
+X-Change-ID: 20260824-net-mptcp-misc-fixes-7-3-rc1-6a4d6223ec41
+To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
+ stable@vger.kernel.org, Florian Westphal <fw@strlen.de>, 
+ Kalpan Jani <kalpan.jani@mpiricsoftware.com>, 
+ syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com, 
+ Tao Cui <cuitao@kylinos.cn>, Gang Yan <yangang@kylinos.cn>, 
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
+ Qing Luo <luoqing@kylinos.cn>, Kishen Maloor <kishen.maloor@intel.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Keita Morisaki <kmta1236@gmail.com>, 
+ Jakub Sitnicki <jakub@cloudflare.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3308; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=OdzcroVIBks3JFTSAjW6CRoFsw9jd2L4sObexLqmZhE=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJ6Su9yWSu4fZ6+asvuiDjGi1svaqeXl8zV81O6Wr7X+
+ ttF4Vf1HaUsDGJcDLJiiizSbZH5M59X8ZZ4+VnAzGFlAhnCwMUpABO5qs3wT+s6Z9zyz5UzL3bP
+ tT3p3ifT4iFZ3NUidHu6iIrgdu/gHQz/3QsWT8h3ebgq6FDQIruv9m9eyHjKOR/b72UZst8xzKy
+ dAQA=
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
+ fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-On Pre-Xe3p platform, the GAM write the UM queue through DPA using UC.
-if GuC reads the queue via GGTT (WB), stale data may be observed
-when the cacheline has been polluted by another agent.
+Here are various unrelated fixes:
 
-To match the GAM's UC writes, configure the GuC mapping as UC as well.
+- Patch 1: Do not reschedule the RTX timer for sockets that fell back to
+  TCP. A fix for v5.7.
 
-Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: <stable@vger.kernel.org> # v6.12+
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260804165057.129529-4-jia.yao@intel.com
-(cherry picked from commit 9daa302a82590eeee7bdc68023ddad302df4b88c)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-(cherry picked from commit 8d5134ae4177fa4f5a9bc8e71e6656cfc2852882)
+- Patch 2: Avoid copying thmac which will not be used and could be
+  uninitialised. A fix for v5.7.
+
+- Patch 3: Re-set the request backup flag when SYN cookies are used. A
+  fix for v5.9.
+
+- Patch 4: Drop pending ADD_ADDR when removing ID0, and avoid a WARN. A
+  fix for v5.13.
+
+- Patch 5: Handle invalid suboptions where the checksum is requested in
+  the MP_CAPABLE 4th ACK with data, but not added in the option. A fix
+  for v5.14.
+
+- Patch 6: Fix a use-after-free in the selftests that could lead to
+  false positive. A fix for v5.17.
+
+- Patch 7: Limit new addresses with the userspace PM to avoid an address
+  ID overflow. A fix for v5.19.
+
+- Patch 8: Reset the ADD_ADDR retransmission counter when the timer is
+  reused. A fix for v5.19.
+
+- Patch 9: Remove unneeded and confusing READ_ONCE() annotations. A fix
+  for v6.13.
+
+- Patches 10-11: Get nstat counters for the current test, not since the
+  creation of the netns. A fix for v6.19.
+
+- Patch 12: Fix an uninit-value in mptcp_write_data_fin for a corner
+  case now that only a part of the tcp_out_options struct is reset. A
+  fix for v7.1.
+
+- Patches 13-14: Two follow-up patches addressing minor comments
+  discovered after the human review. A fix for v7.3-rc0.
+
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_guc_ads.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Gang Yan (1):
+      selftests: mptcp: fix an UAF in mptcp_connect.c
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index 35168447a90b..a4932a45120b 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -413,7 +413,8 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
- 			       XE_BO_FLAG_GGTT |
- 			       XE_BO_FLAG_GGTT_INVALIDATE |
--			       XE_BO_FLAG_PINNED_NORESTORE;
-+			       XE_BO_FLAG_PINNED_NORESTORE |
-+			       XE_BO_FLAG_NEEDS_UC;
- 
- 		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
- 		if (IS_ERR(bo))
--- 
-2.43.0
+Kalpan Jani (1):
+      mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
+
+Matthieu Baerts (NGI0) (7):
+      mptcp: subflow: no need to copy thmac during ulp_clone
+      mptcp: syncookies: remember the request backup flag
+      mptcp: options: handle MPC data + csum reqd + no csum
+      mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
+      selftests: mptcp: lib: dump nstat for the right test
+      selftests: mptcp: lib: get counters for the right test
+      mptcp: options: fix uninit-value in mptcp_write_data_fin
+
+Paolo Abeni (4):
+      mptcp: do not reschedule the RTX timer for fallback sockets
+      mptcp: remove unneeded READ_ONCE() annotation
+      mptcp: being below memory limit is a likely() condition
+      mptcp: avoid pruning for OoW data
+
+Qing Luo (1):
+      mptcp: pm: userspace: fix address ID overflow
+
+ net/mptcp/options.c                               |  8 ++++---
+ net/mptcp/pm.c                                    |  2 +-
+ net/mptcp/pm_kernel.c                             |  8 +++++++
+ net/mptcp/pm_userspace.c                          | 18 ++++++++++----
+ net/mptcp/protocol.c                              | 29 +++++++++++++----------
+ net/mptcp/protocol.h                              |  1 +
+ net/mptcp/subflow.c                               |  1 -
+ net/mptcp/syncookies.c                            |  5 +++-
+ tools/testing/selftests/net/mptcp/mptcp_connect.c |  4 +++-
+ tools/testing/selftests/net/mptcp/mptcp_lib.sh    | 26 +++++++++++---------
+ 10 files changed, 68 insertions(+), 34 deletions(-)
+---
+base-commit: 7cbfb180945ce529608e4d4e24a6d483699fab1e
+change-id: 20260824-net-mptcp-misc-fixes-7-3-rc1-6a4d6223ec41
+
+Best regards,
+--  
+Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
