@@ -1,78 +1,78 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DC739021F
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075AC43BDDD
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787582460; cv=none; b=CX2bGQlaTStTU0WGjxubLpaWbqh1EL+lluEEDcTSvXFwVOuo3fNULWfjh6TBludmjyeGauZ+q6WP83XgYjwq7b9nhukd21hBH2oZe0Hu5Bnv38/ytzzX4l44CcyU+1rcn/w/8AZIE67Nwo9mU2Rv/YIk6xS2K68RxDn/wekIRQw=
+	t=1787582520; cv=none; b=kneY3kKIyne1ptoDw+elz8Jx3TiEK1tbQPdCERgsDkSTuR4rLzwqN2MWydvraNgot5wDDIW71kMAl1EwzB1qtrX7AZGwRNN6FurwtcnDGduIPY9REsHdXLQQ5Kzf86FbKrfP3Ze+ALdrTgzCBb25mHekGlNWEw5hS65QboPiB2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787582460; c=relaxed/simple;
-	bh=QvPRordQBEP+YJt89UXWlh9W5eenSZujQghB4DOd398=;
+	s=arc-20240116; t=1787582520; c=relaxed/simple;
+	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XRAdTE0N4XJg/qYoT8YALHsy0TNTdSEBHKxcT13O9r4RONyF8Q2Pu88OhFxKbOAg+HHXgOg6erAtpz0N5GRwmw4vdR1oBduWyvj390/wTNOINiAm0SvHTvLGwHci63S4cb4V8DpS8yrESbE89SQgmgT/8XRkmPYtiS7reDQZm3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ju/BJszJ; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=CrjGehrPu7FeIejpESiyqyVHNSZc3MQxRvVB+BC7t5jR/Yonx5m3Nxmwk5SUy37Bvb/Ga6G5Kh0lLnBLeOqzVrVI5JqTHszsXJ622NXbcCSKaxNVN/0rOuS+8x3q3x4Y8igVDia0wsp2TjPiAjLh2p/WGWa81Dtq9aQwPfXo4l0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hOROC4Rz; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ju/BJszJ"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38e041ea211so2956496a91.0
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 07:40:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787582459; x=1788187259; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x3IQRXITFMDe1ddVJj0V8oul9t4BpMVbA4OwUmQgnZA=;
-        b=ju/BJszJIEquI6Wet3upmIl/55np0IIcadGXDMhPC8rPBuWkiKidYfSzJGdIFck/CH
-         w6y/Hajd2iLR/oQirxosLDOYsjXABFJMMNKQgXNU0GF7VKyGoRAQBEx+alVYxrcxYjCb
-         Lk0J2Q2uVpIL2STQWQ6RO0lQT7LuS6Gkpl1W1RUhrnKDk7+voi/umSvuSj0w2y5IF/bo
-         lAEyQ7AMpV15YCaOiyIa/K2V3jQW9pHkLnytuVdJU3IZACyvuDQJf3lHwn7tL/+xlgNx
-         VRd0Z7clpedH7lNVqcbw6CtPO/0ZYsQH80OThDyj9bnXHWBBrLZYahHQNZPraUE1GV3Q
-         elVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787582459; x=1788187259;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x3IQRXITFMDe1ddVJj0V8oul9t4BpMVbA4OwUmQgnZA=;
-        b=s8TETVMy7WvWdY6hZ80IGIrrrwXSvqHXOblfiOFv6aBrg5pST7yYdmhfe4Gunzx4P1
-         LzbKUSdZ4DHnjHJ292hDcxMkrXQQsahrupNpUeP7XwgWI/Zk+Z1QHWZkUygyP5C6iKIs
-         8DP7Sf1CuZAdSLnn7969sd8zaI5++mn5w1NFyzkwpW2XTUo2Oo25aBwf6NHjZf+0244E
-         Zebn9nRMa6TAZXINjlFudj0HlvkUXyBzzSGMSIk2nWYgdHx/qmrXvoRfJAmecEQCjCm9
-         kRXX8KobpxFz2DQ8DGMYMWwhjXeUR10vFmbfaDAxtEBXGMpnZcNkPhLPqrLNwwrT6XXN
-         3SkQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqpYiQADn0bq09DeZj7b75B6gzYwo4Ym7LwiArwaOMt7eHzCEGcIqjbfkuSf5dsP/zR5WVL9UU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWOvgNUFBR6UF94NyFYYLiGU0w5Ony9FP+VmBDEYo8BoxSDqry
-	3lLJplgEUd4NkwPLZsc0lQRuIBOwJ/t+GJX97ZpSTgaQACAR6IkgUj38N6nkeA==
-X-Gm-Gg: AR+sD10G6kPF+rSylB3fRe+pXSVD8jNJ8OK8ep0rOqO3vG1sgJL0m0TA7Iez+AuivWv
-	cZRKM86R8QHQ3cXzAxGckGoKIWuX2LNg+26+ttPOu0Hu7LIq52eq9MIq3VN6Ji0FwySL1rk6LnC
-	3tgR6GAayabct/TI3w/JGDiH+VidGEiI2Ex45u931K3xXJKccYiHsALL+8JEQmkb4tPd+bzdGRC
-	y0g0h2YDnx8/Jyfo1cMqlPuE/VIDggU4TCCX5/bMjuS+IUKlVdH4kMsUP4wVj+Ialr/+Q8u717v
-	nXUFtZGTGD4C4acQfmiWpjGI5eMwOE2mECQAryVVHLoLcCsgdHt5J6xZF/H/Cp4ty19/497EliE
-	ZDIXvTPE3BK9wrFn/zm7N3MjZnMgMqFV+4BMKoWrbcynNAnr3qeUAFk67gtJDWQvJA9vRU0jskb
-	HBRq4ZCtH0nrWMzOc1lWUGbVtFx9EhoNXhTFvxO6Na+rRMh/ThRXrDARnpWJLoHGyyClJnKAyrZ
-	xy8pI7lCJ0aVhOV+W9NiS22LuZtGC4m/SQVZ3L5q5LCh7E4gI1j/zV36hyP3mqp9+F4Up3ggTba
-	yx8wQCKBETFOJQEn/pcChJ+aA6PFkXcmpws3nVWDyA1q4LnT+/SxtEJlUblKtSKP2jkzQv4rIT9
-	goU5jeG9c6bRdeSXO2TfTSsZtuyp7AJp+ibBJCpsJUN+Mxt8=
-X-Received: by 2002:a17:90b:2f0c:b0:395:4de5:1054 with SMTP id 98e67ed59e1d1-395c3847e85mr49724324a91.16.1787582458723;
-        Mon, 24 Aug 2026 07:40:58 -0700 (PDT)
-Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f90c31a5sm27138656eec.11.2026.08.24.07.40.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 24 Aug 2026 07:40:58 -0700 (PDT)
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hOROC4Rz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787582517;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
+	b=hOROC4RzZdPRZJ5YR6wMTVcCkrZ17xfwxprq3wHytTPK6DcxatBoqHX9y/+iNzJYLWUMuC
+	rHOswB/t9dJjb2ZqByTMDBN1O/xxGZ4oIHCYbYzkD3pCoxzxKzyFJWHcoKaxsgeTDhR2q5
+	83T+8+1hOnZKpzCiRd8qy8U7ubulA4k=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-660-BkkMkSVBPOmbFAgBkBZ02Q-1; Mon,
+ 24 Aug 2026 10:41:56 -0400
+X-MC-Unique: BkkMkSVBPOmbFAgBkBZ02Q-1
+X-Mimecast-MFC-AGG-ID: BkkMkSVBPOmbFAgBkBZ02Q_1787582513
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 61DE919541B5;
+	Mon, 24 Aug 2026 14:41:52 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.15])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40B6A1800605;
+	Mon, 24 Aug 2026 14:41:44 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: David Howells <dhowells@redhat.com>,
+	Christian Brauner <christian@brauner.io>,
+	Matthew Wilcox <willy@infradead.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Leon Romanovsky <leon@kernel.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-erofs@lists.ozlabs.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Karl Mehltretter <kmehltretter@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: hci_codec: validate vendor codec count length
-Date: Mon, 24 Aug 2026 20:25:51 +0545
-Message-ID: <20260824144051.50010-1-acharyalaxman8848@gmail.com>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <CABBYNZ+h-m9YQCim5Zm2_sgARZh+jM=POFYX_zTQ=xYUdxz-vw@mail.gmail.com>
-References: <20260823161638.32348-1-acharyalaxman8848@gmail.com> <CABBYNZ+h-m9YQCim5Zm2_sgARZh+jM=POFYX_zTQ=xYUdxz-vw@mail.gmail.com>
+Subject: [PATCH v10 01/35] netfs: Fix uninitialized return value in netfs_unbuffered_write()
+Date: Mon, 24 Aug 2026 15:40:54 +0100
+Message-ID: <20260824144130.759997-2-dhowells@redhat.com>
+In-Reply-To: <20260824144130.759997-1-dhowells@redhat.com>
+References: <20260824144130.759997-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,28 +80,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Hi Luiz,
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-You are right that sizeof(*vnd_codecs) and
-sizeof(vnd_codecs->num) are both one byte here.  The issue is the order
-in which the existing check performs the access: vnd_codecs->num must
-be evaluated as the count argument to flex_array_size() before the
-result can be compared with skb->len.
+If preparation of the first subrequest fails,
+netfs_unbuffered_write() exits its loop before ret is initialized. The
+empty-iterator check can do the same.
 
-For example, consider a V1 reply containing exactly these three bytes:
+For synchronous writes, netfs_unbuffered_write_iter_locked() may then
+return an unrelated error instead of wreq->error. This is reachable
+through CIFS if cifs_prepare_write() fails to reopen the file or obtain
+credits.
 
-	status = 0, std_codecs->num = 1, std_codecs->codec[0]
+Initialize ret to 0 so the caller returns wreq->error if no data was
+written, or the number of bytes already written otherwise.
 
-It passes the initial sizeof(*rp) check.  After pulling the status byte,
-the standard codec length check also passes, and pulling that array
-leaves skb->len equal to zero.  The existing vendor length check then
-evaluates vnd_codecs->num with vnd_codecs pointing at the end of the
-skb data.
+Found with Clang's -Wconditional-uninitialized.
 
-The added check uses sizeof(), whose operand is not evaluated, to make
-sure the count byte is present before the following expression reads
-vnd_codecs->num.  The V2 parser has the same ordering issue.
+Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+---
+ fs/netfs/direct_write.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Laxman
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index c16fbad286a1..b04019097ab8 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
+ {
+ 	struct netfs_io_subrequest *subreq = NULL;
+ 	struct netfs_io_stream *stream = &wreq->io_streams[0];
+-	int ret;
++	int ret = 0;
+ 
+ 	_enter("%llx", wreq->len);
+ 
+
