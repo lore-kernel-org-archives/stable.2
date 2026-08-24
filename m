@@ -1,298 +1,189 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7C0386C21;
-	Mon, 24 Aug 2026 19:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFF238239C;
+	Mon, 24 Aug 2026 19:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787601006; cv=none; b=qwpWfuJ5SLdzDcn6hrtevZVN/hGQYT5hc+lmp6INoxSzindhLEieDV3M3xOEGhUJf9hl/cZU6uEvlXf1OmrmmdtgUW8ue5hMt3tqCZVjlKZQtwVzS3YDgNEJsOIZ0XB6BFdg4eyOVT6fwVOKIbqijVT4jGRTe0fX3PwJ7CorNCI=
+	t=1787601304; cv=none; b=ldurIcOsD5uhfRsjZ9EmVvfurUGf9Kke8npHu4c0GQbty4QUbwZhOLpZt4d84720mNZQHkp7NFVXT4B33STcn7QIGDjTHUaYN+/Yc2AaUmpSDN5Etmp+pIcfUcqt14WyUd0uxLYxBTIohEq2NDsnvlHpVutUSdWG6G7flDAhNVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787601006; c=relaxed/simple;
-	bh=ahlPqpkIPSw1IsjsmVM21wJnovl1SrnM6Dd9PQlIDbs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DcATdWvRqFX34IK4grdJRsIF1tLJ1TcTIMMEQY59a/LFkqftGoUlq82omvD+nak703o7VLFRXCqc+UcMRlnaB5Pf/py3NG/pxNtz95J8TzpeQbTPADqRMVKqSfzkxLynGM7ooxIrjQIiNbG2IirM0KxL1XGg6d1C/U4+CMlbeMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N60jQ1MX; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787601304; c=relaxed/simple;
+	bh=20aqDRG+pvmN64pd1W7wLLUW7jkQNx9jCG4h9rlZ1rY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KFkAtp+OHDK2fchEJDA5HqiwRNoP9hypGOiE/Xw8YOeFIUQG8HH7ugaxcJlnvt3ONDqZCCT36yvWQUVOx/kIvy7G9iDroy1OAIe79r4MPixKEcCMyFN+/z8Atie9aGx+VEPqQvveM6Nv1mGuG5aVyhP464DhiNNXjomsS1e1Vdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FtOdnZk3; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N60jQ1MX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787601004; x=1819137004;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ahlPqpkIPSw1IsjsmVM21wJnovl1SrnM6Dd9PQlIDbs=;
-  b=N60jQ1MXvZOM7W1gWsIR1FOSzTkD6SAbHNCUg8ZP6eTy7CSH5wpclYjH
-   VeWZsA3Hs5VNUWlaulXHGzBEcNOKPg8WHPEr3mTSwHyJcoWUJHZhMTINW
-   0aCdIOFg6ZOZ5z7AaqukuJTCoABjRHz5GWRxGSRbD7leszTSS3xojA8mP
-   yLlTGw18+ZjWGWWXuhKwN7gyj/emZ8nncE+pstWY0dLam0NdM7qNblCOq
-   yKEPm8i+wxqG1EJ+qEEQvE4Z9xdNNi5daBBp2rOHdNPUQIUETie9yNxZN
-   ZH+TKIslUMSwNcxFsSflfhDK8eKvZGsW8E5PFaVkZCCIOovNrb7zHjEJg
-   A==;
-X-CSE-ConnectionGUID: trtExo0pRHa7bGpBb3owOg==
-X-CSE-MsgGUID: oYgyxgtFSjuN0SlxrIJ8Cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="87921945"
-X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
-   d="scan'208";a="87921945"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 12:50:04 -0700
-X-CSE-ConnectionGUID: Dsag7avqSlurvZJXEL8gvQ==
-X-CSE-MsgGUID: Sv9RE7OFSz+avZGUJedHng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
-   d="scan'208";a="270557835"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 24 Aug 2026 12:50:02 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wyag4-000000003wF-0sfl;
-	Mon, 24 Aug 2026 19:49:55 +0000
-Date: Tue, 25 Aug 2026 03:48:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hang Nan <2122295973@qq.com>, linux-bluetooth@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	marcel@holtmann.org, luiz.dentz@gmail.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, pav@iki.fi
-Subject: Re: [PATCH v3] Bluetooth: ISO: fix use-after-free of listener socket
- in iso_conn_ready
-Message-ID: <202608250307.IiUVBpTP-lkp@intel.com>
-References: <tencent_1E12CBD7417A4019FF058EFD19B1DB930006@qq.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FtOdnZk3"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OJVS8i2857824;
+	Mon, 24 Aug 2026 19:54:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=D29bjz
+	bmzGVInxvBVJ385pNG8Xahef4ZcSVJEam39J8=; b=FtOdnZk3+U+dDWVhd5Q5Lq
+	/ZeZ/pe+syGmoIN0fjDd5RIWtRrfC7m+MD3TtkZHLJdGQQxdlNWTMzCrc0CiNckz
+	wYYqM8n15eFiNTtm4uCY5RFRcA0m7pYoX2sp7W4D84gLYPK/mQbWnqFzrLy0VmkP
+	5bkz2wX0SgnP8ewVh8tFVzszYdFjS+FHcskCx+7luJp9I0A6iuXDeq8JoYOl2vEj
+	yP+s8MOb2YQNRQEf8ap9CJDXPqc8SxYWlPb/Hkp5YeR2jYDUbvmIMM6Z5DVkgH7d
+	7H979AwfszZYJkWVJAi1JCOnW9CntdR7bPLDvwou5Aaj1NXc/d4P4EmWysWgf58w
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73g4ku73-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 19:54:52 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67OJfKwR011904;
+	Mon, 24 Aug 2026 19:54:52 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rag80qx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 19:54:52 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67OJsoN926280612
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 24 Aug 2026 19:54:51 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DA6CE58060;
+	Mon, 24 Aug 2026 19:54:50 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B01395805C;
+	Mon, 24 Aug 2026 19:54:49 +0000 (GMT)
+Received: from [9.61.96.163] (unknown [9.61.96.163])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 24 Aug 2026 19:54:49 +0000 (GMT)
+Message-ID: <86451d1d-240b-43a7-a0df-d9e973b254c8@linux.ibm.com>
+Date: Mon, 24 Aug 2026 15:54:49 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_1E12CBD7417A4019FF058EFD19B1DB930006@qq.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] s390/vfio-ap: Fix unbounded loop in apq_reset_check()
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260824135850.503728-1-akrowiak@linux.ibm.com>
+ <20260824135850.503728-4-akrowiak@linux.ibm.com>
+ <07bdd3bb-0f9e-4288-9fd0-52ea9edf4b0d@linux.ibm.com>
+Content-Language: en-US
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <07bdd3bb-0f9e-4288-9fd0-52ea9edf4b0d@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: u5Daa8ZzOEU4oNZ37NdRLnrbqtWrzIiN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDE2NSBTYWx0ZWRfX51yB9smVWGsr
+ Zkf0VKd5ZXMtm8YGJCD/2neNaPctiU0FXB0coUumWm39pPTN/arHc++C6zZCTgB+KYGKWnzM45k
+ Rxe33EWbv/X4tGcjajrZnKoRXCRyTGU=
+X-Proofpoint-GUID: u5Daa8ZzOEU4oNZ37NdRLnrbqtWrzIiN
+X-Authority-Analysis: v=2.4 cv=JZyMa0KV c=1 sm=1 tr=0 ts=6a8ca18d cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=8XkFLdLQ_C6xlXzbQ_wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDE2NSBTYWx0ZWRfX8ySaGuQKG/wg
+ xLDrV6vanmMyV5lFGYY+PHncDFxXwiglFvXCmzi5xkp9QFIuAfGo3UfKBUlQdPjQlfsvTEpaZjC
+ cFBKMOaNPYWTpz7hOf/Xzc6P4HlA916WBVRbw2z3gHimn7aatiRNSzOupXhMDNSCIzCTD6JyG7M
+ mf+hFCWD9XoVqp64I2WADNQB2VRoYToGVWm/Gvfn+8XjNdV1LxDozcchI39QTG+7JMMUjHk6rfH
+ hntBRQfhnVVxNcSPL7FSr/6IcJ+2008WVQfpilxtXxo/SZ04mbD93yfkqYFLqMeDoZAnZXMKe6e
+ Ek852MLtheCChEG1DjyUeoEzVhf2UrrOTTNllXnV3qGrcrN2/MCln8eAfuIr20KseA93S+bQGgn
+ +frBVyOo0qes2AmOs5pyXY5EMnhdqBtZ344xN6WhHrnKLuadKjiPX9bpqVEJ8yIPNlbPCXySyaH
+ fG8Dz7uKYblgChcPTSQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_06,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240165
 
-Hi Hang,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on bluetooth/master]
-[also build test ERROR on linus/master v7.2]
-[cannot apply to bluetooth-next/master next-20260821]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Hang-Nan/Bluetooth-ISO-fix-use-after-free-of-listener-socket-in-iso_conn_ready/20260818-193343
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth.git master
-patch link:    https://lore.kernel.org/r/tencent_1E12CBD7417A4019FF058EFD19B1DB930006%40qq.com
-patch subject: [PATCH v3] Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready
-config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260825/202608250307.IiUVBpTP-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 935bfc708590c60147a79c7df145bb6e68b1d388)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260825/202608250307.IiUVBpTP-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608250307.IiUVBpTP-lkp@intel.com/
-
-All error/warnings (new ones prefixed by >>):
-
->> net/bluetooth/iso.c:2267:4: error: call to undeclared function 'release_sock_flagsock'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    2267 |                         release_sock_flagsock(parent);
-         |                         ^
->> net/bluetooth/iso.c:2266:8: warning: left operand of comma operator has no effect [-Wunused-value]
-    2266 |                     (parent, SOCK_ZAPPED)) {
-         |                      ^~~~~~
-   1 warning and 1 error generated.
 
 
-vim +/release_sock_flagsock +2267 net/bluetooth/iso.c
+On 8/24/26 1:04 PM, Matthew Rosato wrote:
+> On 8/24/26 9:58 AM, Anthony Krowiak wrote:
+>> The apq_reset_check() worker polls ap_tapq() in a while(true) loop
+>> waiting for a queue reset to complete. When ap_tapq() returns
+>> AP_RESPONSE_BUSY or AP_RESPONSE_RESET_IN_PROGRESS,
+>> apq_status_check() returns -EBUSY and the loop continues after
+>> sleeping AP_RESET_INTERVAL (20ms). There is no upper bound on how
+>> many times the loop iterates, so if the hardware continuously
+>> returns a busy response the worker runs indefinitely.
+>>
+>> This is particularly harmful because several callers of
+>> vfio_ap_mdev_reset_queues() and vfio_ap_mdev_reset_qlist() call
+>> flush_work() on each queue's reset_work while holding one or more
+>> of the global matrix_dev locks (guests_lock, mdevs_lock) or the
+>> KVM lock. An indefinitely spinning worker permanently blocks all
+>> of those locks, hanging mdev removal, KVM guest teardown, and the
+>> VFIO_DEVICE_RESET ioctl path.
+>>
+>> Fix this by introducing AP_RESET_TIMEOUT (2000ms) and breaking out
+> s/AP_RESET_TIMEOUT/AP_RESET_MAX_WAIT/ ?
 
-  2156	
-  2157	static void iso_conn_ready(struct iso_conn *conn)
-  2158	{
-  2159		struct sock *parent = NULL;
-  2160		struct sock *sk;
-  2161		struct hci_ev_le_big_sync_established *ev = NULL;
-  2162		struct hci_ev_le_pa_sync_established *ev2 = NULL;
-  2163		struct hci_ev_le_per_adv_report *ev3 = NULL;
-  2164		struct hci_conn *hcon;
-  2165		struct hci_dev *hdev;
-  2166	
-  2167		BT_DBG("conn %p", conn);
-  2168	
-  2169		iso_conn_lock(conn);
-  2170		sk = iso_sock_hold(conn);
-  2171		iso_conn_unlock(conn);
-  2172	
-  2173		if (sk) {
-  2174			lock_sock(sk);
-  2175	
-  2176			/* conn->sk may have become NULL if racing with sk close, but
-  2177			 * due to held hdev->lock, it can't become different sk.
-  2178			 */
-  2179			if (!conn->sk) {
-  2180				release_sock(sk);
-  2181				sock_put(sk);
-  2182				return;
-  2183			}
-  2184	
-  2185			/* Attempt to update source address in case of BIS Sender if
-  2186			 * the advertisement is using a random address.
-  2187			 */
-  2188			if (conn->hcon->type == BIS_LINK &&
-  2189			    conn->hcon->role == HCI_ROLE_MASTER &&
-  2190			    !bacmp(&conn->hcon->dst, BDADDR_ANY)) {
-  2191				struct hci_conn *bis = conn->hcon;
-  2192				struct adv_info *adv;
-  2193	
-  2194				adv = hci_find_adv_instance(bis->hdev,
-  2195							    bis->iso_qos.bcast.bis);
-  2196				if (adv && bacmp(&adv->random_addr, BDADDR_ANY)) {
-  2197					iso_pi(sk)->src_type = BDADDR_LE_RANDOM;
-  2198					bacpy(&iso_pi(sk)->src, &adv->random_addr);
-  2199				}
-  2200			}
-  2201	
-  2202			iso_sock_ready(sk);
-  2203	
-  2204			release_sock(sk);
-  2205			sock_put(sk);
-  2206		} else {
-  2207			hcon = conn->hcon;
-  2208			if (!hcon)
-  2209				return;
-  2210	
-  2211			hdev = hcon->hdev;
-  2212	
-  2213			if (test_bit(HCI_CONN_BIG_SYNC, &hcon->flags)) {
-  2214				/* A BIS slave hcon is notified to the ISO layer
-  2215				 * after the Command Complete for the LE Setup
-  2216				 * ISO Data Path command is received. Get the
-  2217				 * parent socket that matches the hcon BIG handle.
-  2218				 */
-  2219				parent = iso_get_sock(hdev, &hcon->src, &hcon->dst,
-  2220						      BT_LISTEN, iso_match_big_hcon,
-  2221						      hcon);
-  2222			} else if (test_bit(HCI_CONN_BIG_SYNC_FAILED, &hcon->flags)) {
-  2223				ev = hci_recv_event_data(hcon->hdev,
-  2224							 HCI_EVT_LE_BIG_SYNC_ESTABLISHED);
-  2225	
-  2226				/* Get reference to PA sync parent socket, if it exists */
-  2227				parent = iso_get_sock(hdev, &hcon->src, &hcon->dst,
-  2228						      BT_LISTEN,
-  2229						      iso_match_pa_sync_flag,
-  2230						      NULL);
-  2231				if (!parent && ev)
-  2232					parent = iso_get_sock(hdev, &hcon->src,
-  2233							      &hcon->dst,
-  2234							      BT_LISTEN,
-  2235							      iso_match_big, ev);
-  2236			} else if (test_bit(HCI_CONN_PA_SYNC_FAILED, &hcon->flags)) {
-  2237				ev2 = hci_recv_event_data(hcon->hdev,
-  2238							  HCI_EV_LE_PA_SYNC_ESTABLISHED);
-  2239				if (ev2)
-  2240					parent = iso_get_sock(hdev, &hcon->src,
-  2241							      &hcon->dst,
-  2242							      BT_LISTEN,
-  2243							      iso_match_sid, ev2);
-  2244			} else if (test_bit(HCI_CONN_PA_SYNC, &hcon->flags)) {
-  2245				ev3 = hci_recv_event_data(hcon->hdev,
-  2246							  HCI_EV_LE_PER_ADV_REPORT);
-  2247				if (ev3)
-  2248					parent = iso_get_sock(hdev, &hcon->src,
-  2249							      &hcon->dst,
-  2250							      BT_LISTEN,
-  2251							      iso_match_sync_handle_pa_report,
-  2252							      ev3);
-  2253			}
-  2254	
-  2255			if (!parent)
-  2256				parent = iso_get_sock(hdev, &hcon->src, BDADDR_ANY,
-  2257						      BT_LISTEN, iso_match_dst, BDADDR_ANY);
-  2258	
-  2259			if (!parent)
-  2260				return;
-  2261	
-  2262			lock_sock(parent);
-  2263	
-  2264			/* The listener may have been closed concurrently. */
-  2265			if (parent->sk_state != BT_LISTEN ||
-> 2266			    (parent, SOCK_ZAPPED)) {
-> 2267				release_sock_flagsock(parent);
-  2268				sock_put(parent);
-  2269				return;
-  2270			}
-  2271	
-  2272			sk = iso_sock_alloc(sock_net(parent), NULL,
-  2273					    BTPROTO_ISO, GFP_ATOMIC, 0);
-  2274			if (!sk) {
-  2275				release_sock(parent);
-  2276				return;
-  2277			}
-  2278	
-  2279			iso_sock_init(sk, parent);
-  2280	
-  2281			bacpy(&iso_pi(sk)->src, &hcon->src);
-  2282	
-  2283			/* Convert from HCI to three-value type */
-  2284			if (hcon->src_type == ADDR_LE_DEV_PUBLIC)
-  2285				iso_pi(sk)->src_type = BDADDR_LE_PUBLIC;
-  2286			else
-  2287				iso_pi(sk)->src_type = BDADDR_LE_RANDOM;
-  2288	
-  2289			/* If hcon has no destination address (BDADDR_ANY) it means it
-  2290			 * was created by HCI_EV_LE_BIG_SYNC_ESTABILISHED or
-  2291			 * HCI_EV_LE_PA_SYNC_ESTABLISHED so we need to initialize using
-  2292			 * the parent socket destination address.
-  2293			 */
-  2294			if (!bacmp(&hcon->dst, BDADDR_ANY)) {
-  2295				bacpy(&hcon->dst, &iso_pi(parent)->dst);
-  2296				hcon->dst_type = le_addr_type(iso_pi(parent)->dst_type);
-  2297			}
-  2298	
-  2299			if (test_bit(HCI_CONN_PA_SYNC, &hcon->flags)) {
-  2300				iso_pi(sk)->qos = iso_pi(parent)->qos;
-  2301				hcon->iso_qos = iso_pi(sk)->qos;
-  2302				iso_pi(sk)->bc_sid = iso_pi(parent)->bc_sid;
-  2303				iso_pi(sk)->bc_num_bis = iso_pi(parent)->bc_num_bis;
-  2304				memcpy(iso_pi(sk)->bc_bis, iso_pi(parent)->bc_bis,
-  2305				       ISO_MAX_NUM_BIS);
-  2306				set_bit(BT_SK_PA_SYNC, &iso_pi(sk)->flags);
-  2307			}
-  2308	
-  2309			bacpy(&iso_pi(sk)->dst, &hcon->dst);
-  2310	
-  2311			/* Convert from HCI to three-value type */
-  2312			if (hcon->dst_type == ADDR_LE_DEV_PUBLIC)
-  2313				iso_pi(sk)->dst_type = BDADDR_LE_PUBLIC;
-  2314			else
-  2315				iso_pi(sk)->dst_type = BDADDR_LE_RANDOM;
-  2316	
-  2317			iso_pi(sk)->sync_handle = iso_pi(parent)->sync_handle;
-  2318			memcpy(iso_pi(sk)->base, iso_pi(parent)->base, iso_pi(parent)->base_len);
-  2319			iso_pi(sk)->base_len = iso_pi(parent)->base_len;
-  2320	
-  2321			hci_conn_hold(hcon);
-  2322			iso_chan_add(conn, sk, parent);
-  2323	
-  2324			if ((ev && ((struct hci_evt_le_big_sync_established *)ev)->status) ||
-  2325			    (ev2 && ev2->status)) {
-  2326				/* Trigger error signal on child socket */
-  2327				sk->sk_err = ECONNREFUSED;
-  2328				sk->sk_error_report(sk);
-  2329			}
-  2330	
-  2331			if (test_bit(BT_SK_DEFER_SETUP, &bt_sk(parent)->flags))
-  2332				sk->sk_state = BT_CONNECT2;
-  2333			else
-  2334				sk->sk_state = BT_CONNECTED;
-  2335	
-  2336			/* Wake up parent */
-  2337			parent->sk_data_ready(parent);
-  2338	
-  2339			release_sock(parent);
-  2340			sock_put(parent);
-  2341		}
-  2342	}
-  2343	
+I had to change that string at one time because the compiler
+complained about the AP_RESET_TIMEOUT being a duplicate.
+I'll fix it.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>
+>> of the poll loop when elapsed time reaches that threshold. On
+>> timeout the final busy status is written back to q->reset_status
+>> so that callers inspecting reset_status.response_code after
+>> flush_work() see a non-zero value and can return an appropriate
+>> error. vfio_ap_free_aqic_resources() is called before returning
+>> to release any KVM ISC registration and pinned NIB page,
+>> consistent with all other early-exit paths in the function.
+>>
+>> Fixes: dd174833e44e ("s390/vfio-ap: remove upper limit on wait for queue reset to complete")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>> ---
+>>   drivers/s390/crypto/vfio_ap_ops.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+>> index 6e4569d6b975..c7eebbd0ed40 100644
+>> --- a/drivers/s390/crypto/vfio_ap_ops.c
+>> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+>> @@ -31,6 +31,7 @@
+>>   #define AP_QUEUE_IN_USE "in use"
+>>   
+>>   #define AP_RESET_INTERVAL		20	/* Reset sleep interval (20ms)		*/
+>> +#define AP_RESET_MAX_WAIT		2000	/* Maximum wait for reset (2000ms)	*/
+>>   
+>>   static int vfio_ap_mdev_reset_queues(struct ap_matrix_mdev *matrix_mdev);
+>>   static int vfio_ap_mdev_reset_qlist(struct list_head *qlist);
+>> @@ -1973,6 +1974,12 @@ static void apq_reset_check(struct work_struct *reset_work)
+>>   					      status.response_code,
+>>   					      status.queue_empty,
+>>   					      status.irq_enabled);
+>> +			if (elapsed >= AP_RESET_MAX_WAIT) {
+>> +				/* Timed out waiting for reset to complete */
+>> +				memcpy(&q->reset_status, &status, sizeof(status));
+>> +				vfio_ap_free_aqic_resources(q);
+>> +				return;
+> Sashiko points out a concern here and I tend to agree; if this timer
+> elapses you are effectively freeing resources that could still be in-use.
+>
+> This seems to go back to dd174833e44e 's390/vfio-ap: remove upper limit
+> on wait for queue reset to complete' where it was decided to hang
+> forever vs leak resources -- e.g. the hang seems intentional?
+>
+> If we don't have a way of forcing firmware to give up the resources I
+> think we are stuck either waiting indefinitely or quarantining (leaking)
+> the resources consciously.  And documenting the rationale in a comment
+> block.
+>
+>> +			}
+>>   		} else {
+>>   			if (q->reset_status.response_code == AP_RESPONSE_RESET_IN_PROGRESS ||
+>>   			    q->reset_status.response_code == AP_RESPONSE_BUSY ||
+
