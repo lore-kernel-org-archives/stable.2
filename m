@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12553F86E7
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A7D3A6B6F
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:56:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787565396; cv=none; b=idQKKjof7PA7XfOLFz5eEiWmOSJlvtWukH8kaj0GhY2xhkhgIwQdpc7NE6OXwpex4EpLG3dAOkIhQYJR0pQiUhIcg0PaPzAIfftr/4KkEBuL/aiZiSWqfbfIJxt6ZKXBDx5npUjvuYPAGGSEheeSZky/PQ+bdhX0HJrkE2Gmm/Y=
+	t=1787565397; cv=none; b=Gg33FMOPOZMpOm7irR/DyGVOuzApBN1nsx+spfNuyJYr6TBUQz4Rq68fT/3ef5sRXcuzSMIXWkJIMtts3yx55FZCPix2FAGGQeYBV6aptnqiyS9AzZKfMOkDCM4BIJp+igec+gRBfMznJO0SJk08jtBEZlCHVehh/IQWoTrL4y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787565396; c=relaxed/simple;
-	bh=gFPCQsa6RUV/wv/ny1Cyb9T7FrZTw8OlxPEhzbLmTXI=;
+	s=arc-20240116; t=1787565397; c=relaxed/simple;
+	bh=6LE06kM9X8kYWphVuj9EP5Dz8K65cvHsTYXFp60VU3Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pVZt1r75fTYkFaUrhueKM99CYSO0asMxqyuyExjXrrn+LWPHXFjkeQqsX0lOrcnAQfLLYvlyWVursbwN4XzVftIYfig2bjA7+jryYSN8Q1IniqxnTOoxdkd3voOlaWkC/mhzJi8S+qQLER9ZgWgrCNS4YbYEkKuuVza9NqOrOiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mXnvcVdK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TqXxIyQYy06ctd2S6yZuR5ufxJOGcriC7gVH+XiTB+963EUHZMbo6OTisfsCly9hAXKXHo5p/dUKzZV7UApyyciBfkpYyByi50uIxlPAS4rgTBfqCB2Sa+PyrdTHA/vlSLM7uYqvcwEfz6A3+x9QXShj/8rhcsaf3Olmqqps8Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3Y6nAwG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mXnvcVdK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065831F00A3D;
-	Mon, 24 Aug 2026 09:56:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3Y6nAwG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCF221F00ACA;
+	Mon, 24 Aug 2026 09:56:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787565394;
-	bh=te1NWrgFkbyGyhHGuVX7Bp8f/2Ni1rlhhenziPPPc2c=;
+	s=k20260515; t=1787565395;
+	bh=Cvm5dfqaFoJMnzKo4RYIzCAyJwfLf6fCCV7D00QDM+s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mXnvcVdKM821qck57n76lgQW5ujDiYXSUdoxQoohSYJl4aXao0Yz8ldkeOUBpaEJP
-	 z46hXWDhQaeCHw7/tb+myYobXIgT6rke1HRgFUO99JuY3ic9BsNDtR/eKCu38NQnRI
-	 9wgthtEg0bpRp5w32j4mt1dcCl4f6Sn5QDGE7JUN+9OJlA9UP6UoNGKODRPKZQn0w8
-	 IVZD27u7eXqieKYvPtDxD3gDMIHdUABHEZB89+NYLLHkMzowUuwclNYnIzfsZlij1I
-	 T8wpVof85o2s/WJ9bOUNPT5WDiwjO7FSEXCXurgS69Ap2GLfgt0YlJ99FcNSEIpcGk
-	 3tcVNhG5aOwbw==
+	b=W3Y6nAwGdoKK8AuN90GXwqSTG7XvAU8XpdaBEs+/L6MsEwHHgEu39IhPPZ1+CR9sA
+	 zQIrzO+H9Wgh5alQxZU6xAz3LBhY7ODb+6TwnvJlZ8fwhnaC15fWAQZLFNZfwa5IXJ
+	 IDeb0CyovE4Sfyfhiya0H2wYP9G/NYNctD1h4plb6aVjRFSGGJbAtEHar74aG5WuF4
+	 AxBN8JY0lHf0zkxmMLT3cNsdLW5eX198Igc3zvIdPEmFbS2MN0yc02cdP7EFKYt5+T
+	 kIwYE0XTAFaqTZBbAfrWhYB497RR9ueg6T8swMqg0xENqkfwIs2m/mCcsGp/EWpYPz
+	 S7Fs5zDL1lDkQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Farman <farman@linux.ibm.com>,
 	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Farhan Ali <alifm@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] s390/vfio_ccw: Selectively expand io_mutex
-Date: Mon, 24 Aug 2026 05:56:29 -0400
-Message-ID: <20260824095630.4066777-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] s390/vfio_ccw: Implement a crw lock
+Date: Mon, 24 Aug 2026 05:56:30 -0400
+Message-ID: <20260824095630.4066777-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260824095630.4066777-1-sashal@kernel.org>
 References: <2026082011-january-overcook-6d98@gregkh>
@@ -49,164 +50,173 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Farman <farman@linux.ibm.com>
 
-[ Upstream commit 34f4feff3e90bd09308fad0974e97113b23b812a ]
+[ Upstream commit 16b0798024c0e9117e395829ddbbe70981c79d9c ]
 
-The io_mutex was defined to serialize the io_regions, but then has
-also sort of been associated with the I/O themselves because of
-the close relationship they share.
+Unlike the channel_program struct, which covers synchronous I/O
+submissions and asynchronous interrupts, the CRW region relies
+exclusively on asynchronous events coming from hardware.
 
-With the handful of races that are possible, the choices are either to:
- A) expand the scope of io_mutex to close these remaining windows, or
- B) reduce the scope of io_mutex to just io_region, and introduce a new
-    lock mechanism for the remaining I/O resources
+Implement a lock to manage the list of those payloads, to ensure
+they are read cohesively.
 
-This patch implements A, since B brings with it a lot more interactions
-that would need to be tracked and kept in a correct hierarchy. It also
-takes advantage of the workqueue element for cp_free() that now gets
-called out of fsm_notoper(), which could be invoked out of an interrupt
-context and thus cannot acquire a mutex itself.
-
-Fixes: 4f76617378ee ("vfio-ccw: protect the I/O region")
+Fixes: 3f02cb2fd9d2 ("vfio-ccw: Wire up the CRW irq and CRW region")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
 Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
+Signed-off-by: Eric Farman <farman@linux.ibm.com>
 Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Stable-dep-of: 16b0798024c0 ("s390/vfio_ccw: Implement a crw lock")
+[ Relocated the `spin_lock_init()` and CRW drain loop from `vfio_ccw_mdev_init_dev()`/`release_dev()` in ops.c to `vfio_ccw_alloc_private()`/`vfio_ccw_free_private()` in drv.c, and kept the 2-argument `eventfd_signal()` form. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/cio/vfio_ccw_chp.c     | 2 +-
- drivers/s390/cio/vfio_ccw_cp.c      | 8 +++++++-
- drivers/s390/cio/vfio_ccw_drv.c     | 6 ++++--
- drivers/s390/cio/vfio_ccw_fsm.c     | 5 +++++
- drivers/s390/cio/vfio_ccw_private.h | 3 ++-
- 5 files changed, 19 insertions(+), 5 deletions(-)
+ drivers/s390/cio/vfio_ccw_chp.c     | 26 ++++++++++++++++----------
+ drivers/s390/cio/vfio_ccw_drv.c     | 10 ++++++++++
+ drivers/s390/cio/vfio_ccw_private.h |  4 ++++
+ 3 files changed, 30 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_chp.c
-index 11264e2adffcb..ee9688738a950 100644
+index ee9688738a950..3ee2444f3d902 100644
 --- a/drivers/s390/cio/vfio_ccw_chp.c
 +++ b/drivers/s390/cio/vfio_ccw_chp.c
-@@ -97,13 +97,13 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+@@ -92,18 +92,13 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+ 	loff_t pos = *ppos & VFIO_CCW_OFFSET_MASK;
+ 	struct ccw_crw_region *region;
+ 	struct vfio_ccw_crw *crw;
++	unsigned long flags;
+ 	int ret;
+ 
  	if (pos + count > sizeof(*region))
  		return -EINVAL;
  
-+	mutex_lock(&private->io_mutex);
- 	crw = list_first_entry_or_null(&private->crw,
- 				       struct vfio_ccw_crw, next);
- 
- 	if (crw)
- 		list_del(&crw->next);
- 
--	mutex_lock(&private->io_mutex);
+ 	mutex_lock(&private->io_mutex);
+-	crw = list_first_entry_or_null(&private->crw,
+-				       struct vfio_ccw_crw, next);
+-
+-	if (crw)
+-		list_del(&crw->next);
+-
  	if (i >= private->num_regions) {
  		ret = -EINVAL;
  		goto out;
-diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_cp.c
-index 8b0fbfd856235..06f1d34095367 100644
---- a/drivers/s390/cio/vfio_ccw_cp.c
-+++ b/drivers/s390/cio/vfio_ccw_cp.c
-@@ -904,17 +904,23 @@ void cp_update_scsw(struct channel_program *cp, union scsw *scsw)
-  */
- bool cp_iova_pinned(struct channel_program *cp, u64 iova, u64 length)
- {
-+	struct vfio_ccw_private *private =
-+		container_of(cp, struct vfio_ccw_private, cp);
- 	struct ccwchain *chain;
- 	int i;
+@@ -112,6 +107,16 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+ 	i = array_index_nospec(i, private->num_regions);
+ 	region = private->region[i].data;
  
- 	if (!cp->initialized)
- 		return false;
++	spin_lock_irqsave(&private->crw_lock, flags);
++	crw = list_first_entry_or_null(&private->crw,
++				       struct vfio_ccw_crw, next);
++
++	if (crw)
++		list_del(&crw->next);
++
++	/* Drop CRW lock while copying to userspace */
++	spin_unlock_irqrestore(&private->crw_lock, flags);
++
+ 	if (crw)
+ 		memcpy(&region->crw, &crw->crw, sizeof(region->crw));
  
-+	mutex_lock(&private->io_mutex);
- 	list_for_each_entry(chain, &cp->ccwchain_list, next) {
- 		for (i = 0; i < chain->ch_len; i++)
--			if (page_array_iova_pinned(chain->ch_pa + i, iova, length))
-+			if (page_array_iova_pinned(chain->ch_pa + i, iova, length)) {
-+				mutex_unlock(&private->io_mutex);
- 				return true;
-+			}
- 	}
+@@ -121,15 +126,16 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+ 		ret = count;
+ 
+ 	region->crw = 0;
+-
+-out:
+-	mutex_unlock(&private->io_mutex);
+-
+ 	kfree(crw);
+ 
+ 	/* Notify the guest if more CRWs are on our queue */
++	spin_lock_irqsave(&private->crw_lock, flags);
+ 	if (!list_empty(&private->crw) && private->crw_trigger)
+ 		eventfd_signal(private->crw_trigger, 1);
++	spin_unlock_irqrestore(&private->crw_lock, flags);
++
++out:
 +	mutex_unlock(&private->io_mutex);
  
- 	return false;
+ 	return ret;
  }
 diff --git a/drivers/s390/cio/vfio_ccw_drv.c b/drivers/s390/cio/vfio_ccw_drv.c
-index dd181752e11a5..ead4c9ea8796c 100644
+index ead4c9ea8796c..a8340a69a7c84 100644
 --- a/drivers/s390/cio/vfio_ccw_drv.c
 +++ b/drivers/s390/cio/vfio_ccw_drv.c
-@@ -82,6 +82,7 @@ static void vfio_ccw_sch_io_todo(struct work_struct *work)
+@@ -109,11 +109,14 @@ static void vfio_ccw_sch_io_todo(struct work_struct *work)
+ static void vfio_ccw_crw_todo(struct work_struct *work)
+ {
+ 	struct vfio_ccw_private *private;
++	unsigned long flags;
  
- 	is_final = !(scsw_actl(&irb->scsw) &
- 		     (SCSW_ACTL_DEVACT | SCSW_ACTL_SCHACT));
-+	mutex_lock(&private->io_mutex);
- 	if (scsw_is_solicited(&irb->scsw)) {
- 		cp_update_scsw(&private->cp, &irb->scsw);
- 		if (is_final && private->state == VFIO_CCW_STATE_CP_PENDING) {
-@@ -89,9 +90,7 @@ static void vfio_ccw_sch_io_todo(struct work_struct *work)
- 			cp_is_finished = true;
- 		}
+ 	private = container_of(work, struct vfio_ccw_private, crw_work);
+ 
++	spin_lock_irqsave(&private->crw_lock, flags);
+ 	if (!list_empty(&private->crw) && private->crw_trigger)
+ 		eventfd_signal(private->crw_trigger, 1);
++	spin_unlock_irqrestore(&private->crw_lock, flags);
+ }
+ 
+ static void vfio_ccw_notoper_todo(struct work_struct *work)
+@@ -153,6 +156,7 @@ static struct vfio_ccw_private *vfio_ccw_alloc_private(struct subchannel *sch)
+ 	INIT_WORK(&private->io_work, vfio_ccw_sch_io_todo);
+ 	INIT_WORK(&private->crw_work, vfio_ccw_crw_todo);
+ 	INIT_WORK(&private->notoper_work, vfio_ccw_notoper_todo);
++	spin_lock_init(&private->crw_lock);
+ 
+ 	private->cp.guest_cp = kcalloc(CCWCHAIN_LEN_MAX, sizeof(struct ccw1),
+ 				       GFP_KERNEL);
+@@ -199,11 +203,14 @@ static struct vfio_ccw_private *vfio_ccw_alloc_private(struct subchannel *sch)
+ static void vfio_ccw_free_private(struct vfio_ccw_private *private)
+ {
+ 	struct vfio_ccw_crw *crw, *temp;
++	unsigned long flags;
+ 
++	spin_lock_irqsave(&private->crw_lock, flags);
+ 	list_for_each_entry_safe(crw, temp, &private->crw, next) {
+ 		list_del(&crw->next);
+ 		kfree(crw);
  	}
--	mutex_lock(&private->io_mutex);
- 	memcpy(private->io_region->irb_area, irb, sizeof(*irb));
--	mutex_unlock(&private->io_mutex);
++	spin_unlock_irqrestore(&private->crw_lock, flags);
+ 
+ 	kmem_cache_free(vfio_ccw_crw_region, private->crw_region);
+ 	kmem_cache_free(vfio_ccw_schib_region, private->schib_region);
+@@ -314,6 +321,7 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
+ 			       unsigned int rsid)
+ {
+ 	struct vfio_ccw_crw *crw;
++	unsigned long flags;
  
  	/*
- 	 * Reset to IDLE only if processing of a channel program
-@@ -101,6 +100,7 @@ static void vfio_ccw_sch_io_todo(struct work_struct *work)
- 	 */
- 	if (cp_is_finished)
- 		private->state = VFIO_CCW_STATE_IDLE;
-+	mutex_unlock(&private->io_mutex);
+ 	 * If unable to allocate a CRW, just drop the event and
+@@ -331,7 +339,9 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
+ 	crw->crw.erc = erc;
+ 	crw->crw.rsid = rsid;
  
- 	if (private->io_trigger)
- 		eventfd_signal(private->io_trigger, 1);
-@@ -122,7 +122,9 @@ static void vfio_ccw_notoper_todo(struct work_struct *work)
- 
- 	private = container_of(work, struct vfio_ccw_private, notoper_work);
- 
-+	mutex_lock(&private->io_mutex);
- 	cp_free(&private->cp);
-+	mutex_unlock(&private->io_mutex);
++	spin_lock_irqsave(&private->crw_lock, flags);
+ 	list_add_tail(&crw->next, &private->crw);
++	spin_unlock_irqrestore(&private->crw_lock, flags);
+ 	queue_work(vfio_ccw_work_q, &private->crw_work);
  }
  
- /*
-diff --git a/drivers/s390/cio/vfio_ccw_fsm.c b/drivers/s390/cio/vfio_ccw_fsm.c
-index d2a27f50631fa..aefc4ebf40474 100644
---- a/drivers/s390/cio/vfio_ccw_fsm.c
-+++ b/drivers/s390/cio/vfio_ccw_fsm.c
-@@ -176,6 +176,7 @@ static void fsm_notoper(struct vfio_ccw_private *private,
- 	css_sched_sch_todo(sch, SCH_TODO_UNREG);
- 	private->state = VFIO_CCW_STATE_NOT_OPER;
- 
-+	/* This routine could be called from IRQ context, so defer */
- 	queue_work(vfio_ccw_work_q, &private->notoper_work);
- }
- 
-@@ -412,7 +413,11 @@ static void fsm_close(struct vfio_ccw_private *private,
- 
- 	private->state = VFIO_CCW_STATE_STANDBY;
- 	spin_unlock_irq(sch->lock);
-+
-+	mutex_lock(&private->io_mutex);
- 	cp_free(&private->cp);
-+	mutex_unlock(&private->io_mutex);
-+
- 	return;
- 
- err_unlock:
 diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_ccw_private.h
-index a9e1dd9089306..0d78da9597c0c 100644
+index 0d78da9597c0c..5294910e64cc2 100644
 --- a/drivers/s390/cio/vfio_ccw_private.h
 +++ b/drivers/s390/cio/vfio_ccw_private.h
-@@ -74,7 +74,8 @@ struct vfio_ccw_crw {
-  * @state: internal state of the device
-  * @completion: synchronization helper of the I/O completion
-  * @io_region: MMIO region to input/output I/O arguments/results
-- * @io_mutex: protect against concurrent update of I/O regions
-+ * @io_mutex: protect against concurrent update of I/O resources
-+ *            and @cp lifecycle
-  * @region: additional regions for other subchannel operations
-  * @cmd_region: MMIO region for asynchronous I/O commands other than START
-  * @schib_region: MMIO region for SCHIB information
+@@ -84,6 +84,8 @@ struct vfio_ccw_crw {
+  * @cp: channel program for the current I/O operation
+  * @irb: irb info received from interrupt
+  * @scsw: scsw info
++ * @crw_lock: serialization of CRW list information
++ * @crw: list of Channel Report Word elements
+  * @io_trigger: eventfd ctx for signaling userspace I/O results
+  * @crw_trigger: eventfd ctx for signaling userspace CRW information
+  * @req_trigger: eventfd ctx for signaling userspace to return device
+@@ -109,6 +111,8 @@ struct vfio_ccw_private {
+ 	struct channel_program	cp;
+ 	struct irb		irb;
+ 	union scsw		scsw;
++
++	spinlock_t		crw_lock;
+ 	struct list_head	crw;
+ 
+ 	struct eventfd_ctx	*io_trigger;
 -- 
 2.53.0
 
