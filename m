@@ -1,222 +1,171 @@
-Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010026.outbound.protection.outlook.com [52.101.201.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB89370AF5
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787585069; cv=none; b=bJJ26CWPijM4VYdu6+sT6o/bg8skNhffBPG4TZtq+CDp7XkcP+KI5szjt2jyaFa+zdlNBotw5r6EgUT+yqLUzmf5QNRMQR82yC9ZKcHXQcP223swejSBfmKWg9HF0d5xe1CvLsFf3GTtvP0UnU8yUeIEmhYPhG2iGYUwwX9SO5w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787585069; c=relaxed/simple;
-	bh=7lNKlFpG1/Rfo1+XNFejg9HEn8ngWSQXgqnvhDMFNPA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ORPjedOvr23eQNI7ep/jJGxf+qdXmuDNYMGVMkR8AVHDv6imceWOIrIlTn9tC90WpbuDfznB+dBZhacutOWQFzgwmrNiH17CjYnNnMtX7k9ABTNWqgqzrfTycQ7zZmmeLFFD1LpL3cW/ycscPQdKNIcMd/lTLMf3Kc5Zv9m/ins=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rYlBOevX; arc=none smtp.client-ip=95.215.58.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A20367F2F;
+	Mon, 24 Aug 2026 15:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787585273; cv=fail; b=rhUh1du6r+5ZwblEsdRrJpgCSSGOUQEeqT5gl1axM7TAGOJon1/KbKm5xTeTTyXJzg1Oegsg1svyZ2jDbMcFaPywypdCHZYrsCAXfBqLlPTCLVkODUucperPLD6K22xZy8Hr3/kC44RFnbrZVn9Ac5tlVbYHQxDN1uMC0V+re1w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787585273; c=relaxed/simple;
+	bh=IY1pPr3g9hILywVeOKx0c6TDeXbepLSgZg8epOCOmS0=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=H8WRDLT5VOdP5Y/cJKF648J9s6OsHaklQNThUUEwsP6gfXzNZ0zCgTz3oMDgVVrghAVHDyfTPDk8HmXCzAFOegWIShgi2iPLCtVAYM4N2d0DX1xdrFXfi1S1SLNMMxkMreMnKBioU8rFcGdbvQ+BKp8lNGaSHVS/kV4hv9V4N0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=V8YT1381; arc=fail smtp.client-ip=52.101.201.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rYlBOevX"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7lNKlFpG1/Rfo1+XNFejg9HEn8ngWSQXgqnvhDMFNPA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787585064; v=1; x=1788189864;
- b=rYlBOevXfUw+Fnl42gmeQsd6MJ0/Snm0YB0trEBtaGGzT3O+dGrhNtP9cTbznsfzA6oB2yeR
- FBkAKnGSVsDQcJbQJ8rBw2bFnZn7lFfCu/Mbhm/i6l3NbMJNwE4oXt2T4vEJhnLCRNQatCHL9ul
- nwiMEfZv43OtDNs4XX2hEKLg=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [IPV6:2a04:ee41:4:15d4:8934:f21b:2683:d2a4] (2a04:ee41:4:15d4:8934:f21b:2683:d2a4)
-	by smtp.migadu.com with ESMTPS id ac01b71e8bf4fad9;
-	Mon, 24 Aug 2026 15:24:24 +0000
-X-Mizu-Trace-ID: ac01b71e8bf4fad9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4aa8833a-ab7d-4034-a299-414c3e11ed1d@linux.dev>
-Date: Mon, 24 Aug 2026 17:24:20 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="V8YT1381"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VycQOgM0+KxcwwDlxf8mGo9HJlJV66mu18OD+Rdiiz98OPKxiRToKjpU0sQyMRopS0HTMews+Uvxp7cKnR+U2WGSPoQpwwUW8lEvJl/ItsBMXcFE3/Fz0F52XlUrF77TFVhj/KynKx4U61c7nUGHQttffNxGaxMvWX9ZYRyy+L9ZrmrEa3t6QVwN34FNpfDNek/U+B2d+rcRrW0pbKMv3nDPpWRxtKHx0CMWkxsg9jstc7GaA4kziWM5MP+p7A94174aw1QbrjZz4WE4cdHtpj9isZYA7i7jKuXj4QwmwVc0qojz8HU9axHgHsYl5EHMDhFVF7LyLEZGn8RjxMyZYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IY1pPr3g9hILywVeOKx0c6TDeXbepLSgZg8epOCOmS0=;
+ b=yjF4baQJ61AwhaxMj/TozFZynUYeSVRFoXkVY1JSiy+R5lMWVv0BlGu/+In09HpSk+Ninf02+5sYvxiIr9mxgzQiXg8IRCQsSXIwh3hCUM8j9pRKzFxBaiEObGHrmteNOc0PS4ZeWz8Sru/IemcmWeihplnPITuLxpA+DXWi8fnjHRvCz5o8cnzr+UwozyOI9E3YvSCte8rZ7NGxAGO4zupYSKJa2Fk6jSGctWpos8lx+o2k78fPWCPZvUW2KsMLKoYhwWqOa+u42Ly0+8f5i8SDv+Ydns35ntTsmUt6L7HcpoP99T43M8zKeh3IYj3iNdBHjHTQkaQ6wH1/CHYAMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IY1pPr3g9hILywVeOKx0c6TDeXbepLSgZg8epOCOmS0=;
+ b=V8YT1381MQC1yZHJJqmr1K/z4koxiOMOEdaoxt+mf08Zk+o9JTHx1cvMts/K01iOisP55i9aT9ewOJAi4ByhvBjucb1kTuNwSsoWnfxSK7mAS7U+e9ui5R2H67rfTTYRHYheB9Dap1cFbEiMmcfE9CJUc7sTZa/9hPVVUW64ON49GC1e3mGmQnaM/xVhidBZ2H7nOMyc22GO36ua0KDrm+gdmj/TMJ2LtnrQtfiKSJJyrPvkayIANoyy2buzsLiasA3UOadM89Bb3FVWFFZ0aHQud2fVaBD9l4mKbN23ODsUEG5aFUq3EWX+dln1/Bag7kfRglFy61kiTM5p3cxUqQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SJ5PPFB332093D3.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99f) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 15:27:47 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0315.014; Mon, 24 Aug 2026
+ 15:27:47 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 25 Aug 2026 00:27:44 +0900
+Message-Id: <DKXA39O66KKG.2PPLT14FCZNRS@nvidia.com>
+Cc: <git@younes.io>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <rust-for-linux@vger.kernel.org>, <stable@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4] rust: num: restrict bool conversion to unsigned
+ Bounded
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
+References: <20260822-fix-rust-bounded-from-bool-submit-v4-1-aa780bfe7f30@younes.io> <CANiq72mOfR33s4y+Ueivd5NrC5yre+Pcp57ZOBz0msw9A4AP1Q@mail.gmail.com>
+In-Reply-To: <CANiq72mOfR33s4y+Ueivd5NrC5yre+Pcp57ZOBz0msw9A4AP1Q@mail.gmail.com>
+X-ClientProxiedBy: TY4P286CA0091.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:369::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] RDMA/siw: KASAN: slab-use-after-free in siw_accept
-To: Guoqing Jiang <guoqing.jiang@linux.dev>,
- Shuangpeng Bai <shuangpeng.kernel@gmail.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260821194704.835548-1-shuangpeng.kernel@gmail.com>
- <3702388e-3eb9-5f62-f2ae-cac3a01be716@linux.dev>
-From: Bernard Metzler <bernard.metzler@linux.dev>
-In-Reply-To: <3702388e-3eb9-5f62-f2ae-cac3a01be716@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ5PPFB332093D3:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c77d0d7-e9fe-48c3-512e-08df01f4402b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|7416014|376014|23010399003|1800799024|6133799003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	yJ3hQMJX+asvrdNvv5dAoXIYeNKnKDFSeIa2T2IJ2Oi09huo5+Xnuljh36br9iAFR1jYdZ3mBAUupUddeAXs0YN1wUg/p6GAbooUToV0bcNMYsXvIKTVswM28U6rsUrM473jGTlX3efmIX5Xc1mSBIYhlWkZRKTlflSudb3Gn7jwE2ADmXRn3Q+DugK4+D3OdOl4d9pst9PvhIMfXlCQe8kMg+794dMFRiaGns6heAIpnxkLRar/u6R+LTI+O+eImmCne98nkrDsnltGrTtjXAMwMT/2pI4RC5NA3LFswKTPpSFoLWpOSDA48e05hMcpKWWI+di9Rz4m3uJ6nNFdNK+yRBj7yA22HlYDqW4MRBYGmz4aX/6L+I+Mkj4kfWJSh5qBz0u5CIY1zPtk56jGrcJSPOHsFkZz4AmO1EJCu273iN6mGfcOegdGzcIgtV0tdqSv57Z8OtWVLxMUsNi0xneewcFT1gSifffW4jocLae5FC2ngToo0bK2wIwAL126zCUHD9p4WtDhMQIt/dHHZ7DUlSJPdBhFjGGnKQ6oAMOdjqAYo2DjrQJF3gylt1QmvyYz22mg04l4P0rM28E6z0wqxKr/anYNGOgxM4x+OXuIAU0W1IMPq82bedLLkSbJL0yHquMLmxvMrcKZ8JadC01WCUKpr8F1+/Y6QYevBDQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(7416014)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a0IzakVqQ2hKUUFkYnZ0bml3WjBUcjlieDNnVTFxL1lETFRiVVRjQjRZNWNO?=
+ =?utf-8?B?cTBIQXQ2QXhwM2RyckRML3JuZXlFZnJXZGd4MzAxWmlwbkRBdkZ1U2NsNFZC?=
+ =?utf-8?B?U0hzNGlhaWFEN2J4MVllWmJlRktqYUZvOGJzWk1qS3RBdERqYzg1a2FoMDZI?=
+ =?utf-8?B?VTZGSXlZV2J0cWRGcWdSejMvM0I3YStDMGN6N2JCUThjajJ2TlRzRlNObW5l?=
+ =?utf-8?B?REdPU0FtR3QwK3p4ZEwxeFQzRHlPZGVIaWVpd25iYXVHZTBxdURoWjRoUmV1?=
+ =?utf-8?B?M3hGdzcrM3d5ZTdVb1NveDVVT0M0bmxCY05oYi9EQU1tRHovYUVoaUlwOXpM?=
+ =?utf-8?B?bmwxdlBsZG5CUTZlZ3Y5NnpENmtzZm9nWmpLUUtDZjdEKzhPWXhJY3k4VnlD?=
+ =?utf-8?B?SHBiRHRVeWVmaFFzNnpDS1IyM2Zpa2QwNGIrTDVsWHJYMnFpRDI2ZnIxU2tW?=
+ =?utf-8?B?MCtPWG9Ba0hPaER0aDh2Q1BiMFdkK0F3NWxxTjFqQmtBQmx6bHhDMTFUU0VZ?=
+ =?utf-8?B?RkU3OWVTV2FlaExjbDhQV2tacVZIOVRhZno5K3h1N2laUFZrY0lmTnVKY0Vs?=
+ =?utf-8?B?VHZFSjd3SURJOUkxaWZFamY3UEJVNSsrUDc4WmNVYnBQamN0ajhyajZJV2lV?=
+ =?utf-8?B?UVNTZllyTFBxUDhKeFlTZ3NyUmgxd1FVYUMzWGJOa3ZBK3BvU3hvSU5HMDJS?=
+ =?utf-8?B?NjVIdUdKYks3ZTBxQzhqNHNQN1pyQi9GNmFRdVZ5bGR5V0ZWaGNsYUdXL0FS?=
+ =?utf-8?B?ZmdFNWorbzk2cERZWDRISW14ajh5bWRnNEViN290dHVHSmJzVVBRek1DbHRr?=
+ =?utf-8?B?QnhSZlVsSmIySUZSVVQvT28vb2J5VFRXZ1E2dnkwbXdmVE5pNFFPaDl1R0dV?=
+ =?utf-8?B?MVM2KzJGWU9Nd2hWMy9pN3R4amZ2SmZkMjQvdHBjamo5NmJ5WlJ0eCtiOVFM?=
+ =?utf-8?B?aWl3S09VQVFtS29ZRWIrTzBDN085Tys1MUcrNFdJam1seHRNaGo0blYzY2pD?=
+ =?utf-8?B?MHVoeE1CbmpTQmRaeUJHT1lXRE1XYjk3SzJjaUtnYlZRcHczUmVtR1ZCVVR3?=
+ =?utf-8?B?V2ZabzBkS1JUcUp0NllObTA2Umg3WVdiVVdoZUVBQnRjVzlUZHdnc1pGOWZP?=
+ =?utf-8?B?TWpmRGR0b2FjbnY2ZytDVFZyQUtEeHVVYmNuZ2NuRnI3S0NYbXhZNXNmWFlJ?=
+ =?utf-8?B?UWtzQzBWbllXWjNndzl5UWNvZzZJR09DTkg1UlpEMUpMVFc0cFRwd29GbXg2?=
+ =?utf-8?B?OTE4cko2dFkybkN1RktnVnpBTDNJQnkxeWJNU2E2TzFETkNBR214VGV5clpk?=
+ =?utf-8?B?SzFTb2VMcExuRUp0OUU5RmR2Y3p4NEY0ek9tNk9nYVc0Q2JUNzVRdVErMzk4?=
+ =?utf-8?B?TDU5RmpGR0RxSElxbktjOFF2ZVRYTlJQRTk5SW1odm9EQTBTdmptQkNLSkR3?=
+ =?utf-8?B?bTgxUWE2Sk05blU0dm4rQ1psSVlTV3NGSTFBQ1JTVEZwZHMzVEpNNzQrS3l2?=
+ =?utf-8?B?c09wNjRCOGU1d2wwQmt3bUh1eUs0Z2R2T3JNTkg2L0hwQld0VjZkOHVJSHlJ?=
+ =?utf-8?B?elovTEpqc3E5UlJWNHZwSGRORTFZSllVcTFFamNUN0hySENvVHU5c0FUUWVC?=
+ =?utf-8?B?VkgwTUVsUFIvNTdrSTlTa0QyYStMeWRGSVE2OGlGR1hrTXlTWXdyNjNRY21T?=
+ =?utf-8?B?ZTRPTm9WS1RxdDdYZENra1RicWUxUUk3YzVxbTdHSzdKT0pDdDgzVlZlYXFl?=
+ =?utf-8?B?cTZpWmhrbjdPNkxQcnhTREhIUjA2UFJkL0NHaEhlUVJGSGtSdCs3Qk9VSWJE?=
+ =?utf-8?B?NmQ3Mzc4aC95WUNnaEIzQi9McGMrblZMY2FYVW1EM0pzT3VHTWo3WjAweFd3?=
+ =?utf-8?B?SlZ0c0NmendVTlV0ZXBRZ3FyWk5OZ1FVaFZlMFFOdXMwbUJjQXBmRk5Fa0p4?=
+ =?utf-8?B?cnJlODFxZldOWnB6bUV0SHdKY2Zva2pETzIvTkVJVmJFcWw1eTRxT29udkI5?=
+ =?utf-8?B?YmF5WjZUdFFFNERTTTdocFJ1U3JYeUQxdFZlcnNRZ0g3THBTQ1VpWXVEekRT?=
+ =?utf-8?B?ZXVtcDBPU3hjQVFrSnlVNHBmWk1PbDdRN0Z5RDhJd3cxdDZ3bHE1RkVHV3pW?=
+ =?utf-8?B?QnRGbnp1MGIvdlNIUUxaQjduSUJsY1Ixckl1SHZtQ0gyQTVsMWhQdHVoRDNp?=
+ =?utf-8?B?a2FSbEtlMzJhTVNJb2xBcXNndXdqMitDVmwvN2k2NFJ5U1p1UEcwZUxnRTZO?=
+ =?utf-8?B?bmMvdVE5cjVEcUlUYm9kQUN4ejA5d0EvS2hBUXV1ZjRndm5kUE9tazc1SXlo?=
+ =?utf-8?B?cGd2SVZlVGZ2Y2phM0ZKNUhSL3cwUXlubjc3ci9wQjk4VlJ4b1ljOUZxcDF0?=
+ =?utf-8?Q?KqLwBH0zw6Oc9W+u3fn6Wf0aMl/4o9Szmi6RAffyuEre5?=
+X-MS-Exchange-AntiSpam-MessageData-1: pFQLDJRs1j1xKg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c77d0d7-e9fe-48c3-512e-08df01f4402b
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 15:27:47.1464
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9Y7fFAmW+ikjItjzXQ88dFHiahcuknHZmxfm0q9ElY4wfshhkVYk8Vot60BtM+pzDUqpXY+C6zNOP5C/QIEjtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFB332093D3
 
-On 24.08.2026 10:58, Guoqing Jiang wrote:
-> Hi,
-> 
-> On 8/22/26 03:46, Shuangpeng Bai wrote:
->> Hi Kernel Maintainers,
+On Mon Aug 24, 2026 at 8:32 PM JST, Miguel Ojeda wrote:
+> On Sat, Aug 22, 2026 at 10:45=E2=80=AFAM Younes Akhouayri via B4 Relay
+> <devnull+git.younes.io@kernel.org> wrote:
 >>
->> I hit the following report while testing current upstream kernel:
+>> From: Younes Akhouayri <git@younes.io>
 >>
->> KASAN: slab-use-after-free in siw_accept
+>> From<bool> turns true into 1. A signed Bounded with N =3D 1 can hold
+>> only -1 and 0. The current implementation can therefore create a value
+>> that breaks Bounded's invariant. Deref relies on that invariant and
+>> calls unreachable_unchecked() when it is broken, so safe Rust can reach
+>> undefined behavior.
 >>
->> on commit: bd5f485f3f026225b86573e559af0b7254ef4184 (2026-08-18)
+>> The other primitive conversions require the source and destination to
+>> have the same signedness. Treat bool as an unsigned one-bit value and
+>> allow conversions between bool and Bounded only when the backing integer
+>> type is unsigned.
 >>
->> To help trigger the bug more reliably, we applied a minimal diagnostic patch
->> that only adds delays and print statements.
->>
->> The reproducer and .config files are here.
->> https://gist.github.com/shuangpengbai/28addfcbf79470a62d5b4cd784e95cd2
->>
->> The reproducer triggers a concurrent userspace QP transition to ERROR while
->> siw_accept() is unwinding after a QP initialization allocation failure. The
->> QP ERROR path drops qp->cep and frees the same struct siw_cep before
->> siw_accept() stores cep->qp = NULL.
->>
->> This report is separate from the withdrawn follow-up patch:
->> https://lore.kernel.org/linux-rdma/20260816061353.4059242-1-shuangpeng.kernel@gmail.com/
->>
->> That patch concerned a concurrent QP-destruction path. This report instead
->> involves a normal userspace ibv_modify_qp() transition to IBV_QPS_ERR on a
->> still-live QP.
->>
->> We also reproduced this issue on a tree containing
->> a93949718259 ("RDMA/siw: Fix use-after-free in siw_accept()"). That commit
->> covers the qp->cep != cep case; this report exercises the distinct
->> qp->cep == cep race during a concurrent userspace ibv_modify_qp(...,
->> IBV_QPS_ERR).
->>
->> The QP initialization failure was induced through the built-in fail_page_alloc
->> fault injector, restricted to the siw_qp_modify() call stack. The failing
->> vcalloc() path is a real -ENOMEM path.
->>
->> The diagnostic patch shifts source line numbers in the decoded trace; in the
->> unmodified tree, the corresponding access is `siw_cm.c:1758` and the freeing
->> put is `siw_qp.c:663`.
->>
->> I'm happy to test debug patches or provide additional information.
->>
->> Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
->>
->> [  409.854273] ==================================================================
->> [  409.856424] BUG: KASAN: slab-use-after-free in siw_accept (drivers/infiniband/sw/siw/siw_cm.c:1766)
->> [  409.858419] Write of size 8 at addr ffff888176620068 by task siw_accept_foll/8801
->>
->> [  409.860281] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->> [  409.860284] Call Trace:
->> [  409.860288]  <TASK>
->> [  409.860291]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
->> [  409.860298]  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
->> [  409.860315]  kasan_report (mm/kasan/report.c:595)
->> [  409.860325]  siw_accept (drivers/infiniband/sw/siw/siw_cm.c:1766)
->> [  409.860382]  iw_cm_accept (drivers/infiniband/core/iwcm.c:670)
->> [  409.860388]  rdma_accept (drivers/infiniband/core/cma.c:4643 drivers/infiniband/core/cma.c:4727)
->> [  409.860484]  ucma_accept (drivers/infiniband/core/ucma.c:1208)
->> [  409.860504]  ucma_write (drivers/infiniband/core/ucma.c:1856)
->> [  409.860528]  vfs_write (fs/read_write.c:685)
->> [  409.860554]  ksys_write (fs/read_write.c:739)
->> [  409.860574]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
->> [  409.860579]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
->> [  409.860583] RIP: 0033:0x7f179cdf6fef
->> [  409.860588] Code: 89 54 24 18 48 89 74 24 10 89 7c 24 08 e8 29 fd ff ff 48 8b 54 24 18 48 8b 74 24 10 41 89 c0 8b 7c 24 08 b8 01 00 00 00 0f 05 <48> 3d 00 
->> f0 ff ff 77 31 44 89 c7 48 89 44 24 08 e8 5c fd ff ff 48
->> All code
->> ========
->>     0:    89 54 24 18              mov    %edx,0x18(%rsp)
->>     4:    48 89 74 24 10           mov    %rsi,0x10(%rsp)
->>     9:    89 7c 24 08              mov    %edi,0x8(%rsp)
->>     d:    e8 29 fd ff ff           call   0xfffffffffffffd3b
->>    12:    48 8b 54 24 18           mov    0x18(%rsp),%rdx
->>    17:    48 8b 74 24 10           mov    0x10(%rsp),%rsi
->>    1c:    41 89 c0                 mov    %eax,%r8d
->>    1f:    8b 7c 24 08              mov    0x8(%rsp),%edi
->>    23:    b8 01 00 00 00           mov    $0x1,%eax
->>    28:    0f 05                    syscall
->>    2a:*    48 3d 00 f0 ff ff        cmp    $0xfffffffffffff000,%rax        <-- trapping instruction
->>    30:    77 31                    ja     0x63
->>    32:    44 89 c7                 mov    %r8d,%edi
->>    35:    48 89 44 24 08           mov    %rax,0x8(%rsp)
->>    3a:    e8 5c fd ff ff           call   0xfffffffffffffd9b
->>    3f:    48                       rex.W
->>
->> Code starting with the faulting instruction
->> ===========================================
->>     0:    48 3d 00 f0 ff ff        cmp    $0xfffffffffffff000,%rax
->>     6:    77 31                    ja     0x39
->>     8:    44 89 c7                 mov    %r8d,%edi
->>     b:    48 89 44 24 08           mov    %rax,0x8(%rsp)
->>    10:    e8 5c fd ff ff           call   0xfffffffffffffd71
->>    15:    48                       rex.W
->> [  409.860592] RSP: 002b:00007ffe992e7720 EFLAGS: 00000293 ORIG_RAX: 0000000000000001
->> [  409.860599] RAX: ffffffffffffffda RBX: 00007ffe992e79c0 RCX: 00007f179cdf6fef
->> [  409.860602] RDX: 0000000000000130 RSI: 00007ffe992e7800 RDI: 0000000000000003
->> [  409.860605] RBP: 000055f0d1977070 R08: 0000000000000000 R09: 00007f179ca7e700
->> [  409.860608] R10: fffffffffffffaa5 R11: 0000000000000293 R12: 0000000000000000
->> [  409.860610] R13: 0000000000000000 R14: 0000000000000001 R15: 00007ffe992e7800
->> [  409.860615]  </TASK>
->>
->> [  409.897413] Allocated by task 8115 on cpu 1 at 408.747286s:
->> [  409.897984]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
->> [  409.898409]  __kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
->> [  409.898822]  __kmalloc_cache_noprof (./include/linux/kasan.h:263 mm/slub.c:5489)
->> [  409.899305]  siw_cep_alloc (./include/linux/slab.h:988 ./include/linux/slab.h:1309 drivers/infiniband/sw/siw/siw_cm.c:210)
->> [  409.899712]  siw_cm_work_handler (drivers/infiniband/sw/siw/siw_cm.c:982 drivers/infiniband/sw/siw/siw_cm.c:1077)
->> [  409.900176]  process_scheduled_works (kernel/workqueue.c:3322 kernel/workqueue.c:3405)
->> [  409.900666]  worker_thread (kernel/workqueue.c:3486)
->> [  409.901080]  kthread (kernel/kthread.c:436)
->> [  409.901451]  ret_from_fork (archkernel/process.c:158)
->> [  409.901865]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
->>
->> [  409.902511] Freed by task 8817 on cpu 0 at 409.051801s:
->> [  409.903051]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
->> [  409.903477]  kasan_save_free_info (mm/kasan/generic.c:584)
->> [  409.903930]  __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
->> [  409.904366]  kfree (./include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6377 mm/slub.c:6692)
->> [  409.904718]  siw_qp_modify (drivers/infiniband/sw/siw/siw_qp.c:669 drivers/infiniband/sw/siw/siw_qp.c:823)
->> [  409.905144]  siw_verbs_modify_qp (drivers/infiniband/sw/siw/siw_verbs.c:600)
->> [  409.905609]  ib_security_modify_qp (drivers/infiniband/core/security.c:625)
->> [  409.906082]  _ib_modify_qp (drivers/infiniband/core/verbs.c:1912)
->> [  409.906502]  modify_qp (drivers/infiniband/core/uverbs_cmd.c:1925)
->> [  409.906890]  ib_uverbs_modify_qp (drivers/infiniband/core/uverbs_cmd.c:1951)
->> [  409.907339]  ib_uverbs_handler_UVERBS_METHOD_INVOKE_WRITE (drivers/infiniband/core/uverbs_std_types_device.c:44)
->> [  409.907989]  ib_uverbs_cmd_verbs (drivers/infiniband/core/uverbs_ioctl.c:387 drivers/infiniband/core/uverbs_ioctl.c:526)
->> [  409.908469]  ib_uverbs_ioctl (drivers/infiniband/core/uverbs_ioctl.c:555)
->> [  409.908898]  __se_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:597 fs/ioctl.c:583)
->> [  409.909319]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
->> [  409.909729]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
->>
->> [  409.910480] The buggy address belongs to the object at ffff888176620000
->> which belongs to the cache kmalloc-256 of size 256
->> [  409.911716] The buggy address is located 104 bytes inside of
->> freed 256-byte region [ffff888176620000, ffff888176620100)
-> 
-> I suppose it is necessary to clear qp and cep before release state_lock since both siw_qp_llp_close and
-> siw_qp_modify->siw_qp_llp_close hold the lock during close cep, something like
-> 
-> @@ -1719,6 +1719,16 @@ int siw_accept(struct iw_cm_id *id, struct iw_cm_conn_param *params)
->                             SIW_QP_ATTR_STATE | SIW_QP_ATTR_LLP_HANDLE |
->                                     SIW_QP_ATTR_ORD | SIW_QP_ATTR_IRD |
->                                     SIW_QP_ATTR_MPA);
-> +       if (rv) {
-> +               cep->qp = NULL;
-> +               qp->cep = NULL;
-> +               siw_cep_put(cep);
-> +       }
->          up_write(&qp->state_lock);
-> 
-Thanks Guoqing, that should fix it. But even better if we
-goto error_unlock directly and remove the now obsolete
-'if (rv != 0) goto error' below. Can you pls provide
-a new patch?
+>> Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+>> Closes: https://lore.kernel.org/rust-for-linux/OzuVxu0--J-9@younes.io/
+>> Cc: stable@vger.kernel.org
+>> Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+>> Assisted-by: Codex:gpt-5.6-sol
+>> Signed-off-by: Younes Akhouayri <git@younes.io>
+>
+> Applied to `rust-fixes` -- thanks everyone!
+>
+> Reviewing this with an LLM made me notice that we should probably seal
+> `Integer` or make it `unsafe`, because currently someone can
+> buggily/maliciously implement it to still trigger UB regardless of
+> this fix.
 
-Shuangpeng - could you pls test this with your
-test environment?
-
-Thank you both!
-Bernard.
-
-> Thanks,
-> Guoqing
-
+Good idea indeed. I'll send a patch to seal it, thanks for mentioning it!
