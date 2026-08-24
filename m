@@ -1,139 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7613EC685
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0963F822A;
+	Mon, 24 Aug 2026 09:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787564680; cv=none; b=fxqtBYQE0qjgv4qEPjYC1wp0CzsqgYq3dyc0M8YsHbp7FvoC4yxf+Nr/rbRwdzaopZ6iPyGXTVnQeLHAt/49udfG5W4tSdEvCgjAoBLLrmu5+klRpXdmxtivyqSYfa9bXzm90x3gtseG+H43UNe1ZF6EtebsbrJjREQFTagYB9w=
+	t=1787564749; cv=none; b=iKic02saTCyUj7qT4NEi5pYqXxR3FxkfGkNd+WgXbxNTtURMI86N4v8aYvkTHkwZDgGbOTpyfNujAGLKYsq3Dh4LTB4DpBlhMp6DfhKgJhcMBL64bHK33aWmwz2Lt62Bt2w+lIJOinjpDX2WCoqvWH6vPBJvJkuvWg1YcL+eZZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787564680; c=relaxed/simple;
-	bh=LT3f8R4EhrNeK9o9qYtC2RxZDSoShR4tG/NsoTDCpq0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oWaFFrnMsFvtYnFDyOXiO6gfyhiqzf9Yu52RqkJA4VTu6JV3xsIAlw2puBAnmoHqKT/8BIJNf90AA/9StfWUNa9FKL+/e2jqHE8lRB65dEjQVPivpjw9rhBTiiSsvWpDHxid5YVNqDOwVCFbO4aY68/P/cH3e1EIuue5jD6/CIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FesdooMA; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FesdooMA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02BB1F00A3A
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787564676;
-	bh=WG5UuXNQ5Bw4+uoqYB0cYhO/66ndwt+J+PmLGUGsLkU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FesdooMAINCdqFFP0VjP3ZGuxwWvkyyHwfZritUZT9/zJlp032waMfxa0+hp+ZbzE
-	 gUyfaHbTsL0WHZENFX9pALETOvX1x14z1pERlp3uJgdoN3O0F0hn6NXgq5FElolJVS
-	 k7y5BX2xLTuHyNZU6kEumqCVUbA9u4PIT1QPqh6Ar0XiftPOKDF/GA20F9ItPHOHG1
-	 /dT1plTsH91BEVNhkuWAL94wmYvPEYBdRIXW8eccqHna0/SwsMsdn5B1w7AXernQvH
-	 AVQLGY0LzZC24FQMkBkK/JpGxbbqdlYzYjerhQ8/9E9hZnGyJdWKa51M49jkUc40Q2
-	 9PXR1KFPWt4VA==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15cf78d1a2so364814866b.1
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 02:44:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq6mOvXseFtNJm+l/OAcJTZ5ZrIQm5z+q7Mf61fl1MYGypStyRcYEcYC0RUSAG61KqmrWMXUJ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTN2KxqgCa+25qr5oI1D2gjegWtOjuGUPkUWFv1mfNmcj1ILsH
-	Ru5NQL6jcUmo4Tlo0Ry0V2S8+0hWIhBcLhTOKkj9Lq73Xd3yCKdsRsQRTgOA1irSRA6vh8XZzZ2
-	IykHEW6NM+kRy18L8Fm4f0iyHKxIevlU=
-X-Received: by 2002:a17:906:9c8a:b0:c21:792:8257 with SMTP id
- a640c23a62f3a-c246a5f67e6mr2786311766b.15.1787564675379; Mon, 24 Aug 2026
- 02:44:35 -0700 (PDT)
+	s=arc-20240116; t=1787564749; c=relaxed/simple;
+	bh=Q7RZPYxOCzFyQhNN1XICSt3skMiGsldsWnEiMR6LIKs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=B2UCLM6UbOcvCgOkV3jx0QYImLxT7GWrzeDybnS5mRKuc5ErnUK8oYxbfzwqOiy9wNi6cghaTp08zor+uMQUd0CB8BriS71m0UH0yNdix7HGSZPSTWC0gAJoWQTpx8NXlRCKDzvLDPNXpPAKncCr1parL8MeabBA8Dy6PSSbWIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 9051affe9fa011f19a56ed5b684f684d-20260824
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:409010a3-a1d6-4c0f-a352-5df3bfe2562d,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9f3345e84f4d72416099d08503cd2cf0,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 9051affe9fa011f19a56ed5b684f684d-20260824
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 119831218; Mon, 24 Aug 2026 17:45:39 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: cem@kernel.org,
+	darrick.wong@oracle.com,
+	chandanrlinux@gmail.com
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] xfs: fix array bounds checking in log recovery
+Date: Mon, 24 Aug 2026 17:45:35 +0800
+Message-Id: <20260824094535.219503-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824093348.3814991-1-guanwentao@uniontech.com>
-In-Reply-To: <20260824093348.3814991-1-guanwentao@uniontech.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 24 Aug 2026 17:45:02 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7dO4V_McOvX-KyPXEwGHvu8n1inMcdVFyKLof7_Qfh3A@mail.gmail.com>
-X-Gm-Features: AcwNN1WY4Y2F3GnJSwlJflZVyhCOGYQ2VT_50CElsxSA0lflAqKg3a1cmmaaNXM
-Message-ID: <CAAhV-H7dO4V_McOvX-KyPXEwGHvu8n1inMcdVFyKLof7_Qfh3A@mail.gmail.com>
-Subject: Re: [PATCH v2] LoongArch: rethook: Do not restore percpu base
- register in trampoline
-To: Wentao Guan <guanwentao@uniontech.com>
-Cc: kernel@xen0n.name, yangtiezhu@loongson.cn, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi, Wentao,
+The log recovery code increments array indices based on bits set in
+blf_data_map without verifying that the indices stay within the bounds
+of the item->ri_buf array.
 
-On Mon, Aug 24, 2026 at 5:34=E2=80=AFPM Wentao Guan <guanwentao@uniontech.c=
-om> wrote:
->
-> The rethook trampoline saves $r21 ($u0), the percpu base, into its
-> frame at entry and restores it at exit. In between,
-> rethook_trampoline_handler() may schedule via preempt_enable_notrace();
-> if the task migrates to another CPU, the frame's $r21 names the old
-> CPU's percpu base, and restoring it poisons $r21 on the new CPU. Until
-> the next user->kernel transition heals $r21, this_cpu_*() accesses
-> (runqueues, RCU per-CPU data, timer tick programming, FPU ownership)
-> hit the wrong CPU's percpu area.
->
-> Under kretprobe-heavy preemptible load this corrupts scheduler and
-> timer state: scheduling-while-atomic splats, wrong-CPU RCU warnings,
-> WARN_ON_ONCE(rq !=3D this_rq()) in nohz_balance_exit_idle(), and CPUs
-> parking in the idle loop with the constant timer never re-armed (hard
-> lockup). Reproduces on a Loongson-3A6000 with kretprobes on VFS paths
-> plus heavy file churn (OS install / unsquashfs).
->
-> By convention $r21 always holds the current CPU's percpu base in kernel
-> mode: exception entries reload it only when coming from user mode, and
-> RESTORE_SOME() restores it only when returning to user mode; the
-> context-switch path never writes it. The live $r21 at trampoline exit
-> is therefore already correct, and nothing in between can legitimately
-> change it (kernel C code cannot write a global register variable).
-> Drop the restore; keep the save so that the pt_regs view handed to
-> handlers stays fully initialized.
->
-> The same flaw existed in the pre-rethook kretprobe trampoline since
-> v6.3; it was carried over when rethook replaced it.
->
-> Fixes: 3f5536860086d ("LoongArch: Add kretprobes support")
-> Cc: stable@vger.kernel.org # v6.5+
-> Assisted-by: Kimi:Kimi-K3 # debug and root-cause analysis
-> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-> ---
-> changelog v2:
-> according sashiko report, keep cfi_st u0, PT_R21
-> Link: https://sashiko.dev/#/patchset/20260824082524.3801394-1-guanwentao%=
-40uniontech.com
-I don't think AI is correct here, if "leaking" a random stack value is
-unacceptable, then "leaking" $r21 is better?
+Since blf_data_map is from untrusted log data, a malicious log could set
+many bits while ri_total is small, causing array index overflow.
 
-Huacai
+This can result in an out-of-bounds access during log recovery, causing
+a kernel crash or memory corruption.
 
->
-> v1 link:
-> https://lore.kernel.org/loongarch/20260824082524.3801394-1-guanwentao@uni=
-ontech.com/T/#u
-> ---
-> ---
->  arch/loongarch/kernel/rethook_trampoline.S | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/loongarch/kernel/rethook_trampoline.S b/arch/loongarch/=
-kernel/rethook_trampoline.S
-> index 2e009fbea53f2..94adead8faa5c 100644
-> --- a/arch/loongarch/kernel/rethook_trampoline.S
-> +++ b/arch/loongarch/kernel/rethook_trampoline.S
-> @@ -59,7 +59,14 @@
->         cfi_ld  t6, PT_R18
->         cfi_ld  t7, PT_R19
->         cfi_ld  t8, PT_R20
-> -       cfi_ld  u0, PT_R21
-> +       /*
-> +        * $r21 ($u0, percpu base) is deliberately not restored: in kerne=
-l
-> +        * mode it must always hold the current CPU's percpu base, and
-> +        * restoring it from the frame would poison it with the old CPU's
-> +        * base if the handler scheduled and we migrated.  The save side
-> +        * stays so that the pt_regs view handed to handlers remains full=
-y
-> +        * initialized.
-> +        */
->         cfi_ld  fp, PT_R22
->         cfi_ld  s0, PT_R23
->         cfi_ld  s1, PT_R24
-> --
-> 2.30.2
+This patch adds array bounds checking for ri_buf access in
+xlog_recover_do_reg_buffer() and xlog_recover_do_inode_buffer().
+
+The check in xlog_recover_do_inode_buffer() is placed right before the
+actual array access, not after incrementing the index, to avoid false
+positives when processing the last valid region.
+
+Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/xfs/xfs_buf_item_recover.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 57929f115055..7148716366ba 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -485,6 +485,19 @@ xlog_recover_do_reg_buffer(
+ 			break;
+ 		nbits = xfs_contig_bits(buf_f->blf_data_map,
+ 					buf_f->blf_map_size, bit);
++
++		/*
++		 * The bitmap can have more bits set than there are regions
++		 * in ri_buf, so we must check array bounds before using the
++		 * index to access ri_buf[i].
++		 */
++		if (XFS_IS_CORRUPT(mp, i >= item->ri_total)) {
++			xfs_alert(mp,
++		"Buffer log item index (%d) exceeds allocated regions (%d).",
++					i, item->ri_total);
++			return -EFSCORRUPTED;
++		}
++
+ 		ASSERT(nbits > 0);
+ 		ASSERT(item->ri_buf[i].iov_base != NULL);
+ 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+@@ -688,6 +701,19 @@ xlog_recover_do_inode_buffer(
+ 		if (next_unlinked_offset < reg_buf_offset)
+ 			continue;
+ 
++		/*
++		 * Check array bounds here (right before accessing ri_buf)
++		 * rather than after incrementing item_index. This avoids
++		 * incorrectly rejecting logs when item_index reaches
++		 * ri_total after processing the final valid region.
++		 */
++		if (XFS_IS_CORRUPT(mp, item_index >= item->ri_total)) {
++			xfs_alert(mp,
++		"Inode buffer log item index (%d) exceeds allocated regions (%d).",
++				item_index, item->ri_total);
++			return -EFSCORRUPTED;
++		}
++
+ 		ASSERT(item->ri_buf[item_index].iov_base != NULL);
+ 		ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
+ 		ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
+-- 
+2.25.1
+
