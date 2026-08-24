@@ -1,303 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F362840B0F4
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573949; cv=none; b=XUBqp+3Q987IrK9wDQ3gJZs5jld6Hhs2VbHKH2LNqf7fRWP490ZxMUx/iM2gqDp3mr0STQtWy59ZOTHtOGXNqo2aesPVWWwnHQjW1cnpav0e9zAe1Ii27a4RPGjuE22qdJdweVn9ROrYMKTMdOy/lwXW44VhKr+wcO/5YKv5cOY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02084052AF;
+	Mon, 24 Aug 2026 12:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787573949; cv=pass; b=G/JmhUJdJtxQ+LRpG3XWNX+6ZhRqsVmSesAKqTRymADMH6/8Ttk+d1m1vaCFqUQxsiX7Q+HqWfHDNo4K0w/hJAVGc/b7YQ9a+9YifuDL38Up1MG6ZhAQ+ReXT8dG21VFmcMhj1+/cyIzrtW2Gn71xsWY0JV6mQzEZZSpc22zRQs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787573949; c=relaxed/simple;
-	bh=h+ySCmpWh14+s7feGlHf95efRoJawsNalCYUFRgo2yM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TjSb83FrosJ1uvvElEVEM0NGEY78wFZPBM2RmuzToiGxZzOZerZL1YxCQ9AdVrhfxFvxNGzeb/SFQTqaeft4TFJTIyTdxYb7IWk7byyYyh9NGdJ1HvFFG/5ThMx015n3xPt9TqMyPFQNCGpP5/mobN8E/Vr8jpDOPGEfXFwONv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wxtJLfyJ; arc=none smtp.client-ip=100.103.45.18
+	bh=oXSyQbJMaCFyHPLgO+M1Zn2NxfGd2XmVSNpkw8g+0xE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UqAQiXx/UW854zeS1EJN7Bn8MBFqW7+LfcKMtnjTuS6MZlPin8ke4L6bUi0svGYO6apCGMOG+nufCce0/dVLpRPUyQM9qB9Dq44fpCsz1BRQKI+wRjd2Ql0UEJgNXqUslbkXY+b5xHioDznUmrSA5uYYKokHe+21iuu3wuIj0Jc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=O2zGuaSM; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wxtJLfyJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27F381F00A3A;
-	Mon, 24 Aug 2026 12:19:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787573947;
-	bh=CbIijEfmch1RDtEKz+OudTomuGIvXrgxDWH2610uekE=;
-	h=Subject:To:Cc:From:Date;
-	b=wxtJLfyJRPabXs8zWw/HSlZe9FFwyn4+PL+EPHqvRBX1FyoWa+QfFK3DqHAovxRIL
-	 6GVJl7yPgo35OEIey2elpOV2FWeCNobLGJTnFgJe4PXJv4A+7mDQa1cvmmoRRBMdHZ
-	 5vmSi08eguRIyJZz7WENVACkjbRZUUeRiIdLAEDM=
-Subject: FAILED: patch "[PATCH] io_uring: defer eventfd signaling when queued from a wakeup" failed to apply to 6.12-stable tree
-To: axboe@kernel.dk
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 14:18:50 +0200
-Message-ID: <2026082450-deflate-overfeed-d50f@gregkh>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="O2zGuaSM"
+ARC-Seal: i=1; a=rsa-sha256; t=1787573932; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EYLfL2js0GSiA+3q+SuLYycN43dQ7himjkuuv2iQE2nEnaFvDjIlC+3JfL9T0aEtqqZUSbNi4JYhdMSTlwPI+JaYRNAIo3iHCYb8dmCWtjEPlTJ71cUf6Z7lawQR/iQqToAWmR6QRNrb9He7H/jX1ML3DBsSP1023Ar9tP8o1CE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787573932; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=oXSyQbJMaCFyHPLgO+M1Zn2NxfGd2XmVSNpkw8g+0xE=; 
+	b=WZITXfVuURAffcWw3vlKy8YqYrqvnhek6NOsaQNh0dWbK7jKgHkSYXdwQepMlQ9BL9yUi03H1yUs5ihOcIz7i2fxjt6FDkZxyWLRrNyscjyxtBDyYBoV0h/3rP1N4ryYReDk7alSVzHSdwOY8PpTr3S+OdESnCdMkmyYfX7gR6g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787573932;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=oXSyQbJMaCFyHPLgO+M1Zn2NxfGd2XmVSNpkw8g+0xE=;
+	b=O2zGuaSMcSE/ggklscJPBLwhp5kBsC24nOkmVc9CymXXnFB+GvODYDRDRWeC934Q
+	mkf8FuhkWBMnp1ymW/Gi1OBKXepc+uzlDTkpk1oVF3G1Ik09Ve9BcU4KeeB8EAUQ7nY
+	PewQMDG3TemB7OOnKpBiw4ssJkN5uBlvPDvmrYx4=
+Received: by mx.zohomail.com with SMTPS id 1787573930202549.2921163268792;
+	Mon, 24 Aug 2026 05:18:50 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 7E762180830; Mon, 24 Aug 2026 14:18:46 +0200 (CEST)
+Date: Mon, 24 Aug 2026 14:18:46 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Cc: Marek Vasut <marex@nabladev.com>, linux-usb@vger.kernel.org, 
+	stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: mux: avoid duplicated mux switches
+Message-ID: <aow2jLtrvHqPLI_w@venus>
+References: <20260822072556.490594-1-marex@nabladev.com>
+ <ef89a8ba-af41-425a-90e5-77061fec3f9f@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wrpw432ce2qfgpj6"
+Content-Disposition: inline
+In-Reply-To: <ef89a8ba-af41-425a-90e5-77061fec3f9f@oldschoolsolutions.biz>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/287.552.98
+X-ZohoMailClient: External
 
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+--wrpw432ce2qfgpj6
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] usb: typec: mux: avoid duplicated mux switches
+MIME-Version: 1.0
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Hi,
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x cd305ee3633a45fcf5f3a5d83f99f3cb77d87b6e
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082450-deflate-overfeed-d50f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+On Sat, Aug 22, 2026 at 09:47:33AM +0200, Jens Glathe wrote:
+> On 8/22/26 09:24, Marek Vasut wrote:
+> > This is a re-application of b145c3f29d62 ("usb: typec: mux: avoid
+> > duplicated mux switches"), with fix derived from usb: typec: mux:
+> > Fix typec_switch_match() .
+> >=20
+> > Fixes: f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux swi=
+tches"")
+> > - Extensive test by Jens https://lore.kernel.org/all/8bdf6062-8ec2-4c30=
+-8463-0368d3a0f1ce@oldschoolsolutions.biz/
+> >=20
+> I applied both patches and compared to my tip of tree, same except for a
+> newline. Also did a test on the Lenovo X13s (sc8280xp, gpio mux). Therefo=
+re
+> justified:
+>=20
+> Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-Possible dependencies:
+Thanks!
 
+-- Sebastian
 
+--wrpw432ce2qfgpj6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-thanks,
+-----BEGIN PGP SIGNATURE-----
 
-greg k-h
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqMNqMACgkQ2O7X88g7
++prnlQ//evCtj283/a5GHiY0JQ3J318qcwF/aFB+ZuykvgRFoT0dU0NrWlM6ohQI
+luCvZSLo7xcHomNcBu7VZSJm9SyIKoU5sE0kcfkjvLJzxqSOsE5h3AYTqvhSRvRT
+wprIsyykw+8YO5rPTUZouDEmSTKr8+nAolv+XZ4mbW7cQoDXG9f2dG38wtLRol++
+O6HiBU78Bg4H95qixiMVAvfHVLjz6oc5AU01/E7zEjSmcM8vXR0YTVbp3nqCMJX/
+A4eG8jYJ5THGcAX/gxP6L9UkDfDraG4zEDxTuTBqB6ZmqMqeDyG8ZsZrLJYNlqBk
+8gADT8uufCisQAXHNeEAgn3snlSBbOx6etQYHCCjoAYCCktd0WWOpeXZRXCFRjEh
+URwOTx6U77x6Hr2YmoUkFfHT4B49IWhV7PYfWYKhQb/z3UPucnQdnV/mkUXJaxJx
+2wTbCPLxgx0rwBhHP2E7vtv+i06m79g/SV0nO1Jtp5reYwpBd+KB5uC4B/3WU21o
+SRkh6TCyFBSmXB61/S0zd2Fn+VZy9a1MUa+OY43/MvNlkG/DYXM3mF6LyA9mkkQb
+6jAJD2mQm0+o1/0iLzCQr5dCyZukM0XeuqCWvL49BlsGz38PqGjldwLAS2SnZGUG
+m3Ebw83iFrzSJlUBoar9RlOwz/wY+lX07mvmk/feK6WECN7I6Y8=
+=JQfS
+-----END PGP SIGNATURE-----
 
------------------- original commit in Linus's tree ------------------
-
-From cd305ee3633a45fcf5f3a5d83f99f3cb77d87b6e Mon Sep 17 00:00:00 2001
-From: Jens Axboe <axboe@kernel.dk>
-Date: Fri, 14 Aug 2026 06:58:43 -0600
-Subject: [PATCH] io_uring: defer eventfd signaling when queued from a wakeup
- handler
-
-io_req_local_work_add() signals the CQ ring eventfd inline when it is the
-one to push the first entry onto ->work_list. For DEFER_TASKRUN rings that
-add is frequently done from a waitqueue wakeup handler, where an
-arbitrary waitqueue lock is held.
-
-eventfd_signal_mask() only refuses to recurse when current->in_eventfd
-is set, but that bit is set by eventfd_signal_mask() itself. If the wake
-chain starts somewhere else, signal goes out inline and can feed back
-into epoll.
-
-Add IOU_F_TWQ_IN_WAKE, set it on the task_work add done from the three
-waitqueue callbacks, and use it to force io_eventfd_signal() down the
-existing call_rcu_hurry() deferral instead of signaling inline.
-
-Fixes: 21a091b970cd ("io_uring: signal registered eventfd to process deferred task work")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260813133843.2933127-1-4ncienth@gmail.com/
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-
-diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index a2c623a67a25..f6e90cc64a1f 100644
---- a/include/linux/io_uring_types.h
-+++ b/include/linux/io_uring_types.h
-@@ -20,6 +20,14 @@ enum {
- 	 * It's also ignored unless IORING_SETUP_DEFER_TASKRUN is set.
- 	 */
- 	IOU_F_TWQ_LAZY_WAKE			= 1,
-+
-+	/*
-+	 * Set when task_work is queued from a waitqueue wakeup handler, where
-+	 * an arbitrary provider waitqueue lock is held. Signaling the CQ ring
-+	 * eventfd inline from there can recurse back into that lock through
-+	 * epoll, so the eventfd signal must be deferred.
-+	 */
-+	IOU_F_TWQ_IN_WAKE			= 2,
- };
- 
- enum io_uring_cmd_flags {
-diff --git a/io_uring/eventfd.c b/io_uring/eventfd.c
-index d656cc2a0b9b..63fe6e5d79ba 100644
---- a/io_uring/eventfd.c
-+++ b/io_uring/eventfd.c
-@@ -51,9 +51,9 @@ static void io_eventfd_do_signal(struct rcu_head *rcu)
- /*
-  * Returns true if the caller should put the ev_fd reference, false if not.
-  */
--static bool __io_eventfd_signal(struct io_ev_fd *ev_fd)
-+static bool __io_eventfd_signal(struct io_ev_fd *ev_fd, bool defer)
- {
--	if (eventfd_signal_allowed()) {
-+	if (!defer && eventfd_signal_allowed()) {
- 		eventfd_signal_mask(ev_fd->cq_ev_fd, EPOLL_URING_WAKE);
- 		return true;
- 	}
-@@ -73,7 +73,7 @@ static bool io_eventfd_trigger(struct io_ev_fd *ev_fd)
- 	return !ev_fd->eventfd_async || io_wq_current_is_worker();
- }
- 
--void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event)
-+void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event, bool defer)
- {
- 	bool skip = false;
- 	struct io_ev_fd *ev_fd;
-@@ -113,7 +113,7 @@ void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event)
- 		spin_unlock(&ctx->completion_lock);
- 	}
- 
--	if (skip || __io_eventfd_signal(ev_fd))
-+	if (skip || __io_eventfd_signal(ev_fd, defer))
- 		io_eventfd_put(ev_fd);
- }
- 
-diff --git a/io_uring/eventfd.h b/io_uring/eventfd.h
-index 400eda4a4165..e965d80d9fdc 100644
---- a/io_uring/eventfd.h
-+++ b/io_uring/eventfd.h
-@@ -5,4 +5,4 @@ int io_eventfd_register(struct io_ring_ctx *ctx, void __user *arg,
- 			unsigned int eventfd_async);
- int io_eventfd_unregister(struct io_ring_ctx *ctx);
- 
--void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event);
-+void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event, bool defer);
-diff --git a/io_uring/futex.c b/io_uring/futex.c
-index f0d80a444f45..eaee14242a3a 100644
---- a/io_uring/futex.c
-+++ b/io_uring/futex.c
-@@ -181,7 +181,7 @@ static void io_futex_wakev_fn(struct wake_q_head *wake_q, struct futex_q *q)
- 
- 	io_req_set_res(req, 0, 0);
- 	req->io_task_work.func = io_futexv_complete;
--	io_req_task_work_add(req);
-+	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
- }
- 
- int io_futexv_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
-@@ -237,7 +237,7 @@ static void io_futex_wake_fn(struct wake_q_head *wake_q, struct futex_q *q)
- 
- 	io_req_set_res(req, 0, 0);
- 	req->io_task_work.func = io_futex_complete;
--	io_req_task_work_add(req);
-+	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
- }
- 
- int io_futexv_wait(struct io_kiocb *req, unsigned int issue_flags)
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 4c83a94b4bdc..76f049e29aa2 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -475,7 +475,7 @@ void __io_commit_cqring_flush(struct io_ring_ctx *ctx)
- 	if (ctx->int_flags & IO_RING_F_OFF_TIMEOUT_USED)
- 		io_flush_timeouts(ctx);
- 	if (ctx->int_flags & IO_RING_F_HAS_EVFD)
--		io_eventfd_signal(ctx, true);
-+		io_eventfd_signal(ctx, true, false);
- }
- 
- static inline void __io_cq_lock(struct io_ring_ctx *ctx)
-diff --git a/io_uring/poll.c b/io_uring/poll.c
-index 0204affdc308..5447a7c24dce 100644
---- a/io_uring/poll.c
-+++ b/io_uring/poll.c
-@@ -208,9 +208,9 @@ enum {
- 	IOU_POLL_REQUEUE = 4,
- };
- 
--static void __io_poll_execute(struct io_kiocb *req, int mask)
-+static void __io_poll_execute(struct io_kiocb *req, int mask, unsigned tw_flags)
- {
--	unsigned flags = 0;
-+	unsigned flags = tw_flags;
- 
- 	io_req_set_res(req, mask, 0);
- 	req->io_task_work.func = io_poll_task_func;
-@@ -218,14 +218,15 @@ static void __io_poll_execute(struct io_kiocb *req, int mask)
- 	trace_io_uring_task_add(req, mask);
- 
- 	if (!(req->flags & REQ_F_POLL_NO_LAZY))
--		flags = IOU_F_TWQ_LAZY_WAKE;
-+		flags |= IOU_F_TWQ_LAZY_WAKE;
- 	__io_req_task_work_add(req, flags);
- }
- 
--static inline void io_poll_execute(struct io_kiocb *req, int res)
-+static inline void io_poll_execute(struct io_kiocb *req, int res,
-+				   unsigned tw_flags)
- {
- 	if (io_poll_get_ownership(req))
--		__io_poll_execute(req, res);
-+		__io_poll_execute(req, res, tw_flags);
- }
- 
- /*
-@@ -344,7 +345,7 @@ void io_poll_task_func(struct io_tw_req tw_req, io_tw_token_t tw)
- 	if (ret == IOU_POLL_NO_ACTION) {
- 		return;
- 	} else if (ret == IOU_POLL_REQUEUE) {
--		__io_poll_execute(req, 0);
-+		__io_poll_execute(req, 0, 0);
- 		return;
- 	}
- 	io_poll_remove_entries(req);
-@@ -383,7 +384,7 @@ static void io_poll_cancel_req(struct io_kiocb *req)
- {
- 	io_poll_mark_cancelled(req);
- 	/* kick tw, which should complete the request */
--	io_poll_execute(req, 0);
-+	io_poll_execute(req, 0, 0);
- }
- 
- #define IO_ASYNC_POLL_COMMON	(EPOLLONESHOT | EPOLLPRI)
-@@ -392,7 +393,7 @@ static __cold int io_pollfree_wake(struct io_kiocb *req, struct io_poll *poll)
- {
- 	io_poll_mark_cancelled(req);
- 	/* we have to kick tw in case it's not already */
--	io_poll_execute(req, 0);
-+	io_poll_execute(req, 0, IOU_F_TWQ_IN_WAKE);
- 	io_poll_remove_waitq(poll);
- 	return 1;
- }
-@@ -430,7 +431,7 @@ static int io_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
- 			else
- 				req->flags &= ~REQ_F_SINGLE_POLL;
- 		}
--		__io_poll_execute(req, mask);
-+		__io_poll_execute(req, mask, IOU_F_TWQ_IN_WAKE);
- 	}
- 	return 1;
- }
-@@ -618,7 +619,7 @@ static int __io_arm_poll_handler(struct io_kiocb *req,
- 
- 	if (mask && (poll->events & EPOLLET) &&
- 	    io_poll_can_finish_inline(req, ipt)) {
--		__io_poll_execute(req, mask);
-+		__io_poll_execute(req, mask, 0);
- 		return 0;
- 	}
- 	io_napi_add(req);
-@@ -629,7 +630,7 @@ static int __io_arm_poll_handler(struct io_kiocb *req,
- 		 * poll was waken up, queue up a tw, it'll deal with it.
- 		 */
- 		if (atomic_cmpxchg(&req->poll_refs, 1, 0) != 1)
--			__io_poll_execute(req, 0);
-+			__io_poll_execute(req, 0, 0);
- 	}
- 	return 0;
- }
-diff --git a/io_uring/tw.c b/io_uring/tw.c
-index a4c872870d81..bf4e5aa5c2e7 100644
---- a/io_uring/tw.c
-+++ b/io_uring/tw.c
-@@ -170,7 +170,7 @@ void io_req_local_work_add(struct io_kiocb *req, unsigned flags)
- 	if (mpscq_push(&ctx->work_list, &req->io_task_work.node)) {
- 		io_ctx_mark_taskrun(ctx);
- 		if (data_race(ctx->int_flags) & IO_RING_F_HAS_EVFD)
--			io_eventfd_signal(ctx, false);
-+			io_eventfd_signal(ctx, false, flags & IOU_F_TWQ_IN_WAKE);
- 	}
- 
- 	/*
-diff --git a/io_uring/waitid.c b/io_uring/waitid.c
-index 32f68fd7fcdd..76af129ba8ca 100644
---- a/io_uring/waitid.c
-+++ b/io_uring/waitid.c
-@@ -253,7 +253,7 @@ static int io_waitid_wait(struct wait_queue_entry *wait, unsigned mode,
- 		return 1;
- 
- 	req->io_task_work.func = io_waitid_cb;
--	io_req_task_work_add(req);
-+	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
- 	return 1;
- }
- 
-
+--wrpw432ce2qfgpj6--
