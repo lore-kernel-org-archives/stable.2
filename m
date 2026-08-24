@@ -1,109 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB02019E97B
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 23:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C805419E97B
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 23:50:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787615446; cv=none; b=tu8b71iapPkC0yVdxV4scuhapos/4ZTrblrBzQBFxGpEsX6ul6kPV4nHXfFoei1onCpit3moVF319TUl0RBjLYGMfEerZ7w+WoYs6Kze9NcYAKr8F+aRH6BQAYvoq3cHbmnbGXO/j5PfgSEcMbGQmNElCPHSC88iCbswuXhZ26s=
+	t=1787615453; cv=none; b=lFQMwao0kEu219HgIJzragLGQCBV8uXftDxKG4NSKbGfkfYm1v6hNiT9lKu/jK/fN71HdH5liBxYrNhDNGWik0mfgnaJB0GhlJ0SqyWNjI0Ho9OaT/yHP/af3NeRqlFQh8gLgjZEQMDrXcj/+i7Aj5+fDT68DDFbMIfAzTPp+5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787615446; c=relaxed/simple;
-	bh=m9lwo4XQmQnHA2ChAR3QzkbyLUJURM94bRWE4rof+SQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hbb8YV5kvFOYGKFEb84Lyc38abaOgyRfyRiB8JANRLZhB7kE3df41Zahe/6agDkZDUeApshJo1/RJuKb1GhjAQon2CYH5bp/4LF9nQ7O5nDbhgGC+Winst7NKCQw+WdI2Tk75Gvr2NLiXQEWxNGPNdY2rUhOGC2lkdl6VAfNhZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHID4Nkl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787615453; c=relaxed/simple;
+	bh=2b9h6pGiLZD2WRcgoOrhSLVmbDn1wudO9py0PQ/8ZVE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QKjqfAFBB6UjNRK2X07yuFU3//3iCUTXqtRbfceknZ3fs+tQvFizoZaheJqHKQA5kMZzbh5rIVIbfs+2J1XaL7Uz3dC0VnzGiW42W3aTSwJRUdSCqlUFSnCH1g4EciRL4nBSdCoGm2LPPgIGeG1uXfIMoLdfA3pZIU6C7WoJ+Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sbtpv5K6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHID4Nkl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064A01F00A3F;
-	Mon, 24 Aug 2026 23:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sbtpv5K6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949EA1F00A3F
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 23:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787615444;
-	bh=12OIME2SEMPO/tR5ruymdRJ884PBLh7GTALJnkosmto=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GHID4Nkl3ROy7yltTDng4x7SV3ujVn3gbylZE/QZPAYDtoCUDIPvNZrBb39Rc24v2
-	 pntGCxeRSj+Go07o8L/ho5ECEKI31b0n16y3PMIr0r0xp7sXWHvWkFLJMfUUju3yeL
-	 gg8VIk2TxbgNwA6fIIs71HV9bx1/+kjC5T0raqLzNOCeE4bVwp5C45lCStq6EeFKj7
-	 Kd1chB1/Q2tdEqmUlmRExNxC9Ir7/m8RPsjeQAf3tuuIiVzuLY6b+FrieW7aitkfCv
-	 Klxb4LPddBTfY/ZyTAE9EjZrJY6Nslr3yTko+eOtEs93gmxCDNy/D7Fbd9/L0o6uey
-	 C2LmVi7SLLwGg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qing Luo <luoqing@kylinos.cn>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] mptcp: pm: fix data race in add_addr timer callback
-Date: Mon, 24 Aug 2026 19:50:40 -0400
-Message-ID: <20260824235040.730038-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824235040.730038-1-sashal@kernel.org>
-References: <2026082025-sitter-talisman-7358@gregkh>
- <20260824235040.730038-1-sashal@kernel.org>
+	s=k20260515; t=1787615452;
+	bh=O1NxW5UCrvqxpbTSSg1+ct0wHpVvYfk3nZLtWuhg7kc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Sbtpv5K6ESHpgj950NVUnDDytVN76zeS4qC7r7a2/vwgbwUcVJI+xwQK6WaUPysap
+	 G1l5XGH9ZW6X7oSEcCzUpuc37yU1aSosnIDCKVlZbSkCL2O0Gr+hOr4ToLZB9s9xMD
+	 eQ1GmVg0dcEh6gfwBmBqfuB3Q+YqEhey++UJBegL1JnhQJIb3Z9mYPrn9pr5CFjRuQ
+	 ok5Qhfcw43/qnVctT4OorBbZKS5cWSHR2uPRff2hAs66Cp+D3nRZp8SBLZrinsc1KU
+	 AJyflmpXbMwkRFV2v80Wo4mk94Nrna20o+L5zpmaEVJz1i6rtpXD+b8D1nngI3cPwy
+	 sJSfzx6J9uFUg==
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a3e145e1bfso5494792a12.1
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 16:50:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrHJQA8Sf5gO9nf6oI4+g9gkyuM9zWtVbqvUM4t9OfpXtzvzq10xca6bT5opXPfdbodYT8Q0oo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAAl5x32xQkeK2C++1asmZy2eNwQ4GoW7eXW8Wd/Es6ZD1ZZgK
+	xN0mUbf99YY0TkOqJwmVR/EqazsTuMBuNQq5wxd/ncp79yVwQJooE8lOasffHwgMOrkObAkjyoY
+	FKdr6q5W/Z142Mftkfo+eSYIS2M6R3KQ=
+X-Received: by 2002:a17:907:1c1f:b0:c20:31d1:a899 with SMTP id
+ a640c23a62f3a-c246a4ad97emr3431061066b.4.1787615451207; Mon, 24 Aug 2026
+ 16:50:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260824195912.634526-1-pc@manguebit.org>
+In-Reply-To: <20260824195912.634526-1-pc@manguebit.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 25 Aug 2026 08:50:39 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_wGZ_YMOHi7f-EE1-PVkCt6Qbt2Uh6LwYLB_+gW3F36Q@mail.gmail.com>
+X-Gm-Features: AcwNN1UWU_hePnn2jkBxdvdyARMOqhYPQjt55Nmla25GoReja-9jO_lTJaa1DX0
+Message-ID: <CAKYAXd_wGZ_YMOHi7f-EE1-PVkCt6Qbt2Uh6LwYLB_+gW3F36Q@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: fix multiuser mount with krb5
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: linux-cifs@vger.kernel.org, Jacob Shivers <jshivers@redhat.com>, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Qing Luo <luoqing@kylinos.cn>
-
-[ Upstream commit a7aad5b69d3bdaec20a3ed9284e184502450c0cd ]
-
-The timer callback reads entry->retrans_times outside pm.lock to decide
-whether to call mptcp_pm_subflow_established(). Since
-mptcp_pm_announced_del_timer() can concurrently set retrans_times =
-ADD_ADDR_RETRANS_MAX under pm.lock, a race condition exists.
-
-I discovered this issue while studying the code. AI tools helped me to
-verify the issue can potentially happen under race conditions.
-
-Use a local 'retransmit' flag set inside pm.lock to capture whether
-retransmission is still possible when the lock is taken. This allows to
-call mptcp_pm_subflow_established() accordingly, and not depending on
-the situation that can be different when checked outside the pm.lock.
-
-Fixes: 348d5c1dec60 ("mptcp: move to next addr when timeout")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qing Luo <luoqing@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-4-b8f496d71664@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mptcp/pm_netlink.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
-index 495ec8e584035..74e211e8adad4 100644
---- a/net/mptcp/pm_netlink.c
-+++ b/net/mptcp/pm_netlink.c
-@@ -307,6 +307,7 @@ static void mptcp_pm_add_timer(struct timer_list *timer)
- 	struct mptcp_sock *msk = entry->sock;
- 	struct sock *sk = (struct sock *)msk;
- 	unsigned int timeout = 0;
-+	bool retransmit;
- 
- 	pr_debug("msk=%p\n", msk);
- 
-@@ -344,12 +345,13 @@ static void mptcp_pm_add_timer(struct timer_list *timer)
- 		entry->retrans_times++;
- 	}
- 
--	if (entry->retrans_times >= ADD_ADDR_RETRANS_MAX)
-+	retransmit = entry->retrans_times < ADD_ADDR_RETRANS_MAX;
-+	if (!retransmit)
- 		timeout = 0;
- 
- 	spin_unlock_bh(&msk->pm.lock);
- 
--	if (entry->retrans_times == ADD_ADDR_RETRANS_MAX)
-+	if (!retransmit)
- 		mptcp_pm_subflow_established(msk);
- 
- out:
--- 
-2.53.0
-
+On Tue, Aug 25, 2026 at 4:59=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> =
+wrote:
+>
+> Customer reported that they could no longer mount their SMB shares
+> with multiuser mount option and krb5.  Turned out that the client
+> wasn't duplicating username option when creating multiuser
+> connections, therefore failing to retrieve credentials as
+> cifs.upcall(8) couldn't find them in keytab.
+>
+> Fix this by duplicating username option (if set) from original fs
+> context before creating multiuser connections with krb5.
+>
+> Reproducer:
+>
+>   ```
+>   $ ktutil
+>   ktutil:  add_entry -password -p testuser -k 1 -e aes256-cts
+>   Password for testuser@ZELDA.TEST:
+>   ktutil:  write_kt /etc/krb5.keytab
+>   ktutil:  quit
+>   $ klist -ke
+>   Keytab name: FILE:/etc/krb5.keytab
+>   KVNO Principal
+>    ---- ----------------------------------------------------------------
+>      1 testuser@ZELDA.TEST (aes256-cts-hmac-sha1-96)
+>   $ mount.cifs //w22-root2/scratch /mnt/1 -o \
+>         uid=3D1000,sec=3Dkrb5,username=3Dtestuser@ZELDA.TEST,multiuser
+>   mount error(13): Permission denied
+>   Refer to the mount.cifs(8) manual page (e.g. man mount.cifs) and
+>   kernel log messages (dmesg)
+>   ```
+>
+> Reported-by: Jacob Shivers <jshivers@redhat.com>
+> Fixes: 12b4c5d98cd7 ("smb: client: fix krb5 mount with username option")
+> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+> Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+> Cc: Shyam Prasad N <sprasad@microsoft.com>
+> Cc: Tom Talpey <tom@talpey.com>
+> Cc: Bharath SM <bharathsm@microsoft.com>
+> Cc: Namjae Jeon <linkinjeon@kernel.org>
+> Cc: stable@vger.kernel.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Thanks.
