@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947B53B38B8
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:56:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750DD374E5B
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787565403; cv=none; b=uZg9KRM5pjA74iJr/4o3jQqoDUYNcEXWdUoC5mHouOuBKFPR4UCog4PUhwgnfaLobkfH28aZ18vzMoTW1hSOAr5TYikNJL4k2elbE4TrPZ8C9Y0aynHNLTi1hL5bRQtA5Mq1XCDazkG8xK0XhptMaUoMDtUwmnMoyw4/lLP7JyE=
+	t=1787565414; cv=none; b=qAJE6GxeCqJegQmiZX9+dESU73r2wATLqEpsZP/kuCexa2rR2iBEGjIiW15JQZZKRVBXqX8HZVNSN5cPatTLJSEUHUgmxxo45qRuS9Y+ANflGHxQm39yMyWyhkfxUH2WxoErch1SFcdAFipjLhOF46J5ddB0H6IJ5w70BG1d73s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787565403; c=relaxed/simple;
-	bh=HRjXS6DTsVRz5KioarzIfakdXXrbaUTGqweRYUMgb0Y=;
+	s=arc-20240116; t=1787565414; c=relaxed/simple;
+	bh=WdB1WlcWhM8jN4a4ysjOteoTxyWv7eg8yFc9V5FigCU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T3DroztVyvDDaf9Ht+p0mO9wiXa6aPGBAXGvNDuLFrYSogah290Z+BH8PYUvd/I6T93HuP9N6ysooS9dA2k8DhTKZj97MQSNayR4KuJxQ9Q4RcE5tj+sQvH+d1vvIyk9GrzVCi0mqhfFTVfVMe5VV5J0LAWylK4PWfQk+GQ49e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oHOVc8+6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lotQto2NFhEgXnNQu32wjJtEB1fL7C7yYHGjf650ARdjj8QR/86aQt+n1wqzQjfXbl+wO8EJenLRxfR4EYUOE2/I1Hr+muc+M6S0u7E2iQI2KCebPtGQtk5PtplbDl3a4pwINrVQhOJzYlJJAWM6LtH5gdXR9Y+Bd+MI0O6efA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjePniD+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oHOVc8+6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914731F000E9;
-	Mon, 24 Aug 2026 09:56:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjePniD+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78CB1F00A3A;
+	Mon, 24 Aug 2026 09:56:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787565402;
-	bh=fhVL/8GsHe6ni7lcj9Hqvx/uIzBJkf1Ht5UI02v/VN4=;
+	s=k20260515; t=1787565413;
+	bh=eNwq3cLHglEvNoKWBmzZkx0iDbK8mV2SlFo6LXm2olc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oHOVc8+6zDGYD3f9hN+VAhYn4rDBfEAFByheOHyxslht8FbWSKqviZurFNQ1k2U3J
-	 qsEq3KSaIZbNqWYerB5s0B3LHP1YuXCVUb0y5d133Q6qQJCAxHCH+6Yx4E5gan275Q
-	 OmbvEO+gxRnWxYrxe3CY+7yGkx+2s0yH7y12HN9j9y7wXyO4iGbMPh3jRuGty5Mk3M
-	 EXBJdalBPQQyIV74jU/YzTKs7QGqzAXC8jljmkVFOhl6+od0Ur2YU8DcZmpRbC1puh
-	 cxx4ZJ2gqNe27lFjbu8flJQ++wGFmt3RFARUEb1ZVhjQRLgV6eWDnMUHU2XpIzjUAN
-	 ZRdfbQXOPQGlw==
+	b=JjePniD+j/tkpsZKgOpZi3eGJGgnRDq53k+jLsxA/8H5Iyf2QP1LIe59SZWr5gs24
+	 Kv84KHK/gP3ICOpBkUeezx5cB98jTj4ervt5rNhgMBqTEKJTUmL2e5+csiFoYdoDfg
+	 ++uVNSGW43tpM8gjo6P58SiNQzLkSXitr8fiWaXY40lhYVcnjdPiTzM4cz3PUjlnQ2
+	 McpP7CzLSc/5M1l2G7UigCzMr0kNrxB6gD0Pr770xmQnG/3efIcNHloQmHfz1kPcjJ
+	 kvKPDm4uCt0mTSIiQmlKHb1+UqMjZ+5dRgTwhJAQp+z+gaKb7vcbUAHBWNyAf1FkLA
+	 YfRC+3OPvfWfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nathan Lucas <nlucasgit@gmail.com>,
-	Igor Paunovic <royalnet026@gmail.com>,
-	Satyajit Roy <sroy14@alum.utk.edu>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Ibrahim Hashimov <security@auditcode.ai>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Brian Foster <bfoster@redhat.com>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix
-Date: Mon, 24 Aug 2026 05:56:39 -0400
-Message-ID: <20260824095639.4067078-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] xfs: bounds-check buffer log item's dirty bitmap
+Date: Mon, 24 Aug 2026 05:56:50 -0400
+Message-ID: <20260824095650.4068172-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824095639.4067078-1-sashal@kernel.org>
-References: <2026082006-fable-army-ffc8@gregkh>
- <20260824095639.4067078-1-sashal@kernel.org>
+In-Reply-To: <20260824095650.4068172-1-sashal@kernel.org>
+References: <2026082046-trophy-useable-6a71@gregkh>
+ <20260824095650.4068172-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,136 +48,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nathan Lucas <nlucasgit@gmail.com>
+From: Ibrahim Hashimov <security@auditcode.ai>
 
-[ Upstream commit 2f9a5c0f018d4a1586ee892f81f1383219676415 ]
+[ Upstream commit 813f8136a2ce1fee266d02a7df73db6e8a541604 ]
 
-COLOR_SPACE_YCBCR2020_TYPE, which is selected for
-COLOR_SPACE_2020_YCBCR_LIMITED color_space, has coefficients that are
-incorrect for limited-range output. Its luma and chroma scaling is
-full-range so output is too bright and colors are incorrect.
+xlog_recover_do_reg_buffer() replays each dirty region described by a
+buffer log item's bitmap into the buffer read for that item:
 
-COLOR_SPACE_YCBCR2020_TYPE is closer to a full-range conversion matrix with
-incorrect luma offset, so correct the luma offset for full-range and rename
-it to COLOR_SPACE_YCBCR2020_FULL_TYPE.
+	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+		item->ri_buf[i].iov_base,
+		nbits << XFS_BLF_SHIFT);
 
-Add COLOR_SPACE_YCBCR2020_LIMITED_TYPE with correct scaling and range for
-limited-range output.
+The destination offset (bit/nbits, from the logged dirty bitmap) and the
+buffer size (from the logged blf_len) are both attacker-controlled and
+otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
+which compiles away on production kernels. A crafted image logging a
+small blf_len together with a bitmap bit past the end of that buffer
+drives the memcpy() past the buffer's allocation, corrupting adjacent
+kernel heap during mount-time log recovery. This is reachable by anyone
+who can get a crafted image mounted -- the malicious-filesystem threat
+model XFS already guards against elsewhere.
 
-Fix related functions so COLOR_SPACE_YCBCR2020_LIMITED_TYPE and
-COLOR_SPACE_YCBCR2020_FULL_TYPE are correctly selected based on
-dc_color_space.
+Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
+of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
+idiom already used in xlog_recover_do_inode_buffer() and
+xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
+STATIC int and its three callers propagate the error.
 
-Derivation of both matrices follows ITU-T H.273:
+Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
+image trips a slab-out-of-bounds write before this change and fails
+recovery cleanly with -EFSCORRUPTED after it.
 
-Table 4, MatrixCoefficients 9, BT.2020-NCL weights:
-KR = 0.2627, KB = 0.0593, KG = 1 - KR - KB = 0.6780.
-
-Equations 45-47 in matrix form:
-            [  KR             KG             KB            0 ]
-M2020_NCL = [ -KR/(2(1-KB))  -KG/(2(1-KB))   1/2           0 ]
-            [  1/2           -KG/(2(1-KR))  -KB/(2(1-KR))  0 ]
-            [  0              0              0             1 ]
-
-Limited and Full transforms based on equations 30-32 and 36-38 with bit
-depth 10, normalized by 1023:
-
-            [ 876/1023   0         0         64/1023  ]
-MLimited  = [ 0          896/1023  0         512/1023 ]
-            [ 0          0         896/1023  512/1023 ]
-            [ 0          0         0         1        ]
-
-            [ 1023/1023  0         0         0        ]
-    MFull = [ 0          1023/1023 0         512/1023 ]
-            [ 0          0         1023/1023 512/1023 ]
-            [ 0          0         0         1        ]
-
-M2020_NCL_Limited = MLimited x M2020_NCL
-M2020_NCL_Full    = MFull x M2020_NCL
-
-The upper three rows of M2020_NCL_* are stored in CR, Y, CB order. Each
-M2020_NCL_* value is stored as Round(value * 8192) in its 16-bit
-two's-complement representation.
-
-Fixes: 973a9c810c78 ("drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix")
-Assisted-by: OpenAI-Codex:GPT-5.6-Sol
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Satyajit Roy <sroy14@alum.utk.edu>
-Signed-off-by: Nathan Lucas <nlucasgit@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 3b906e1dc7e3c9ff9f7940f6828b367a6a9ec73c)
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Reviewed-by: Brian Foster <bfoster@redhat.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ dropped the `xlog_recover_do_primary_sb_buffer()` error-propagation hunk and its primary-SB/rtsb arm since that helper doesn't exist, keeping only the `error = 0;` reset ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 31 ++++++++++++-------
- 1 file changed, 20 insertions(+), 11 deletions(-)
+ fs/xfs/xfs_buf_item_recover.c | 53 +++++++++++++++++++++++++----------
+ 1 file changed, 38 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 4c88dbdb69f43..37b156d32dd91 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -47,7 +47,8 @@ enum dc_color_space_type {
- 	COLOR_SPACE_RGB_LIMITED_TYPE,
- 	COLOR_SPACE_YCBCR601_TYPE,
- 	COLOR_SPACE_YCBCR709_TYPE,
--	COLOR_SPACE_YCBCR2020_TYPE,
-+	COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
-+	COLOR_SPACE_YCBCR2020_FULL_TYPE,
- 	COLOR_SPACE_YCBCR601_LIMITED_TYPE,
- 	COLOR_SPACE_YCBCR709_LIMITED_TYPE,
- 	COLOR_SPACE_YCBCR709_BLACK_TYPE,
-@@ -99,9 +100,15 @@ static const struct out_csc_color_matrix_type output_csc_matrix[] = {
- 		{ 0xE00, 0xF349, 0xFEB7, 0x1000,
- 		  0x6CE, 0x16E3, 0x24F,  0x200,
- 		  0xFCCB, 0xF535, 0xE00, 0x1000} },
--	{ COLOR_SPACE_YCBCR2020_TYPE,
-+	/* Corrected. Not included in the TODO above. */
-+	{ COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
-+		{ 0x0E04, 0xF31D, 0xFEDF, 0x1004,
-+		  0x0733, 0x1294, 0x01A0, 0x0201,
-+		  0xFC16, 0xF5E6, 0x0E04, 0x1004} },
-+	/* Corrected. Not included in the TODO above. */
-+	{ COLOR_SPACE_YCBCR2020_FULL_TYPE,
- 		{ 0x1000, 0xF149, 0xFEB7, 0x1004,
--		  0x0868, 0x15B2, 0x01E6, 0x201,
-+		  0x0868, 0x15B2, 0x01E6, 0,
- 		  0xFB88, 0xF478, 0x1000, 0x1004} },
- 	{ COLOR_SPACE_YCBCR709_BLACK_TYPE,
- 		{ 0x0000, 0x0000, 0x0000, 0x1000,
-@@ -168,14 +175,14 @@ static bool is_ycbcr709_type(
- 	return ret;
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index e956d7ca68ad9..39ca2c658c10b 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -441,7 +441,7 @@ xlog_recover_validate_buf_type(
+  * given buffer.  The bitmap in the buf log format structure indicates
+  * where to place the logged data.
+  */
+-STATIC void
++STATIC int
+ xlog_recover_do_reg_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog_recover_item	*item,
+@@ -469,8 +469,24 @@ xlog_recover_do_reg_buffer(
+ 		ASSERT(nbits > 0);
+ 		ASSERT(item->ri_buf[i].iov_base != NULL);
+ 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+-		ASSERT(BBTOB(bp->b_length) >=
+-		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
++		/*
++		 * The bitmap is only trustworthy to the extent that it
++		 * describes a region that actually fits inside the buffer we
++		 * read in based on the (attacker-controlled) blf_len.  Do not
++		 * rely on an ASSERT() for this -- it compiles away entirely on
++		 * non-DEBUG kernels, which is exactly where this matters, so
++		 * validate it for real and abort recovery of this buffer rather
++		 * than copying past the end of it.
++		 */
++		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
++				((uint)bit << XFS_BLF_SHIFT) +
++				(nbits << XFS_BLF_SHIFT))) {
++			xfs_alert(mp,
++	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
++				bit, nbits, BBTOB(bp->b_length),
++				xfs_buf_daddr(bp));
++			return -EFSCORRUPTED;
++		}
+ 
+ 		/*
+ 		 * The dirty regions logged in the buffer, even though
+@@ -524,6 +540,7 @@ xlog_recover_do_reg_buffer(
+ 	ASSERT(i == item->ri_total);
+ 
+ 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
++	return 0;
  }
  
--static bool is_ycbcr2020_type(
--	enum dc_color_space color_space)
-+static bool is_ycbcr2020_limited_type(enum dc_color_space color_space)
+ /*
+@@ -532,10 +549,10 @@ xlog_recover_do_reg_buffer(
+  * (ie. USR or GRP), then just toss this buffer away; don't recover it.
+  * Else, treat it as a regular buffer and do recovery.
+  *
+- * Return false if the buffer was tossed and true if we recovered the buffer to
+- * indicate to the caller if the buffer needs writing.
++ * Return 0 if the buffer was not recovered (tossed), 1 if it was recovered and
++ * needs writing, or a negative errno if recovery of the buffer failed.
+  */
+-STATIC bool
++STATIC int
+ xlog_recover_do_dquot_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog			*log,
+@@ -544,6 +561,7 @@ xlog_recover_do_dquot_buffer(
+ 	struct xfs_buf_log_format	*buf_f)
  {
--	bool ret = false;
-+	return color_space == COLOR_SPACE_2020_YCBCR_LIMITED;
-+}
+ 	uint			type;
++	int			error;
  
--	if (color_space == COLOR_SPACE_2020_YCBCR_LIMITED || color_space == COLOR_SPACE_2020_YCBCR_FULL)
--		ret = true;
--	return ret;
-+static bool is_ycbcr2020_full_type(enum dc_color_space color_space)
-+{
-+	return color_space == COLOR_SPACE_2020_YCBCR_FULL;
+ 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
+ 
+@@ -551,7 +569,7 @@ xlog_recover_do_dquot_buffer(
+ 	 * Filesystems are required to send in quota flags at mount time.
+ 	 */
+ 	if (!mp->m_qflags)
+-		return false;
++		return 0;
+ 
+ 	type = 0;
+ 	if (buf_f->blf_flags & XFS_BLF_UDQUOT_BUF)
+@@ -564,10 +582,12 @@ xlog_recover_do_dquot_buffer(
+ 	 * This type of quotas was turned off, so ignore this buffer
+ 	 */
+ 	if (log->l_quotaoffs_flag & type)
+-		return false;
++		return 0;
+ 
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+-	return true;
++	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
++	if (error)
++		return error;
++	return 1;
  }
  
- static bool is_ycbcr709_limited_type(
-@@ -204,8 +211,10 @@ static enum dc_color_space_type get_color_space_type(enum dc_color_space color_s
- 		type = COLOR_SPACE_YCBCR601_LIMITED_TYPE;
- 	else if (is_ycbcr709_limited_type(color_space))
- 		type = COLOR_SPACE_YCBCR709_LIMITED_TYPE;
--	else if (is_ycbcr2020_type(color_space))
--		type = COLOR_SPACE_YCBCR2020_TYPE;
-+	else if (is_ycbcr2020_limited_type(color_space))
-+		type = COLOR_SPACE_YCBCR2020_LIMITED_TYPE;
-+	else if (is_ycbcr2020_full_type(color_space))
-+		type = COLOR_SPACE_YCBCR2020_FULL_TYPE;
- 	else if (color_space == COLOR_SPACE_YCBCR709)
- 		type = COLOR_SPACE_YCBCR709_BLACK_TYPE;
- 	else if (color_space == COLOR_SPACE_YCBCR709_BLACK)
+ /*
+@@ -962,13 +982,16 @@ xlog_recover_buf_commit_pass2(
+ 			goto out_release;
+ 	} else if (buf_f->blf_flags &
+ 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+-		bool	dirty;
+-
+-		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+-		if (!dirty)
++		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
++		if (error <= 0)
+ 			goto out_release;
++		/* write dirty buffer */
++		error = 0;
+ 	} else {
+-		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
++						   current_lsn);
++		if (error)
++			goto out_release;
+ 	}
+ 
+ 	/*
 -- 
 2.53.0
 
