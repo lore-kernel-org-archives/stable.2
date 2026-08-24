@@ -1,44 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F70381AF1
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:56:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBA5384CC2;
+	Mon, 24 Aug 2026 21:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787608574; cv=none; b=ha4+cjLnOE9h79cJQCWqm/5SAVo7Y0/6dzRlG5ug82VIQ+0RZ63PtpOc9wshz5nfpowD1hBBPWFXUio5HrcGsHWI7MXyAQuFG0c4cFph2Lc4gsLcJq1k+2MNLYI+Yf2+JBq9u5CCPN4HPr226fvKbG9lx8cTevqXjVOBOOTOyDc=
+	t=1787608581; cv=none; b=iGMtUvPpvgyFx4KHfvb2VLL2N3kP5YFAN2igLbcNlSMPZa2S5W9ffvwe2RNG4HoBCYBK7QNrfbCOk6pRTgVttrMOIidQVrUKCsPWJBExLh0gEyt9ukp+6oohblzAsjfpTdSIXO2BxV+VYcIbxP7MvO0zOTJv9ZUpPKbWhTmUm6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787608574; c=relaxed/simple;
-	bh=9iKoukI4/UB3ADwlbDxuUzr82yJWu/fAMlroxCA1cQI=;
+	s=arc-20240116; t=1787608581; c=relaxed/simple;
+	bh=/UlVtfTIQxqU57CW4NDAlN32GL20/n/BAIqXvgZOLfU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=djj/0cmJXYvBESt4BrYxjvVwNLMHhUaeB/NX9I+oGsJU4+uiGWPOZWlsiaOkj0k60eNOfHhr7aWB0RKIUExJcV85xtfT5EHmnYXc+ASBrlM/w6JRnllld8gUMV4NravRVEoTUILJt6adkeCXV8ksWaJc4IPkyfBy8lc/YCNZdgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=daJFdeaD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Fzu3xXtsQ8KTNNeoYjSfloBilIX0yB7KSebzBCqiwZjMbLfgrVhlbTD5btD/JSZbwoRSumGPtr9Kw1Xw7TuGS7Cous7RInCJ5ycBZllilJgm+/lK2xQxllugpg8TZHG6e4PxO+WbGhbHFMUxYQ45pY36Xq1On7kqT2UR5E6SI14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qHO8ii0E; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="daJFdeaD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771091F00A3A;
-	Mon, 24 Aug 2026 21:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787608569;
-	bh=gyZZQ4xQMYkezsbeUQrdhEW9F1s/C/n0gzAqh7vJmyA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=daJFdeaDIoniUScHCQS8HuiKJQPvlIrSzxJ0y5QvWDvjGxi/vdxD7yqWy3ERVM2q+
-	 57bGT19s4QJlUvflM+v+apPS28WLEAftwRnwZbkeS5voBYi8J/JIK6XVlv7CUmxXsi
-	 sMeTeB+bOtXt1IG0pRzWPrmVoFnUCsbk9ay4haxGHqOAQT/s4n29kqA2tIkeco8pos
-	 HDZO+miANaioBWdqV1Rt8g9xmhJgznAihFpaAfFa57a17EuSOWJWP3gnSVRjpghsHe
-	 Bwxryd9gkVH1JubXiOdKVjk1s2cb+byd9otd+SaRndYQET/Obx1xvRZFfinHHLbeUr
-	 n0PQQRp1TeOYA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 3/3] selinux: require a class's permission values to cover its permission count
-Date: Mon, 24 Aug 2026 17:56:05 -0400
-Message-ID: <20260824215605.432476-3-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qHO8ii0E"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OJVTCW2836508;
+	Mon, 24 Aug 2026 21:56:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=bgcSHbVr7rPYmHcI1
+	KU+SingjOpIVb4nyHY1r9vXUpY=; b=qHO8ii0EIXUU6GiNG/snykPCt74D0lyOp
+	kSbQAK1oHjnLDzQrqxRhb/CV65MjiSqoKDC0jCELJns0DU/xYJJN+mC9SqGvhsnB
+	DKAUjMl9jfYso4Ng+JaEwKQGMb3SV/V/yBQQYochaSrOMl7t5vhGZnQySxkHSj9q
+	Xp9/7iwPYMJAyRw/vBx89J+9OudYOm3mIVCuA7OSZite1npEywNsb9EYC8HO7YqU
+	8mHnNV7n+lJjAAjLa9b+mzh91QtWx/g+OoJQ6rx6kpicQmdlCQHtiKYgLwR+ITOD
+	RwshgcVjI40H6MEayvfgZga1Xn/q6oiqZB7E00t2iLab4DLRp4OmA==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g7393vf4y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 21:56:10 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67OLfJvB023999;
+	Mon, 24 Aug 2026 21:56:09 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7pfw0tu7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 21:56:09 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67OLu8gZ31785726
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 24 Aug 2026 21:56:08 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 78F8A58053;
+	Mon, 24 Aug 2026 21:56:08 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A30EC58043;
+	Mon, 24 Aug 2026 21:56:06 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.96.163])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 24 Aug 2026 21:56:06 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v2 1/4] s390/vfio-ap: Fix leak of pinned NIB and registered NISC in vfio_ap_irq_enable()
+Date: Mon, 24 Aug 2026 17:56:00 -0400
+Message-ID: <20260824215603.819379-2-akrowiak@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824215605.432476-1-sashal@kernel.org>
-References: <2026082020-unnatural-animosity-f5e9@gregkh>
- <20260824215605.432476-1-sashal@kernel.org>
+In-Reply-To: <20260824215603.819379-1-akrowiak@linux.ibm.com>
+References: <20260824215603.819379-1-akrowiak@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,153 +73,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: Vyou1FdRmdlTHh5S3QGHeljXi0Dnzae3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDE4MiBTYWx0ZWRfX+JtBa/HMPmLT
+ zUzJ+ZylQIy5vVZHe/lj/qVGgyz/zjEWraFqXDwiUn0h3Xw9cTIPsdt+bptDvo+GAI02Srs6KfA
+ NY3Yb4C9sazD1bbPBwgkLyZIHryOsF/Qt72r+JHCXLEMCvdBXmH+/9TCva9B4WdEDRZ3TC6iFrv
+ jJEVD2fFuuDm8YW7eWWwhjdSurmbwMMyoJRViJ/DPuWLChWw2ZaNfGT3o15lZXGJEjBjWzILj+H
+ TFROV4tkvSKCBwrV59823EZSq8rRL/GmgLlx/KpOK4TLsIwTtGPRsIS7BE5OwCPjhaKRLFJguor
+ Q49MN5+dGZmwzmYH1h2IPTrsgbo+QsqHzRZ8wJE6ks3O0sqT8A6yxIO3zmxYrmBIQ/JMus8/Uuf
+ fIAr+1I6CLZqBDgMqnF8sl0nA204rTNrW6VN8vcE2weAvEf/EVE7JEBalBnslPten1yiSobV3Kp
+ coXwdhbUTubdppnRmag==
+X-Authority-Analysis: v=2.4 cv=Y/nIdBeN c=1 sm=1 tr=0 ts=6a8cbdfa cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=hmEx05nRRPonxVd58HoA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDE4MiBTYWx0ZWRfX1kzlzegLkAsH
+ uO6mpuZ9fG5o0mbcOZkq5+hu6nfpBkenMtYyv3ULHXz+eYr91cbmk/5tE+KKg7uXo2VZf6P75Am
+ yyA2Fif3lDqcVRSyoKZqLWg0ulmo0YM=
+X-Proofpoint-ORIG-GUID: Vyou1FdRmdlTHh5S3QGHeljXi0Dnzae3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_06,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ suspectscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240182
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+The vfio_ap_irq_enable() function executes the PQAP(AQIC) instruction to
+enable interrupts for an AP queue. A switch statement is used to examine
+the status response code returned from the instruction to determine
+whether it succeeded or failed and react accordingly. For the default case,
+the vfio_ap_irq_disable function is invoked to disable interrupts for the
+queue and clean up the AQIC resources (i.e., unpin the NIB and unregister
+the NISC). There are a number of problems with this:
 
-[ Upstream commit b98a8ac50775540f3804397ed08f61ef9910bcab ]
+1. Neither the q->saved_iova nor q->saved_isc has been set, so the
+   AQIC resources - assuming those values have been previously set - will
+   be the NIB and NISC resources from a prior call; the NIB and NISC from
+   the current call are therefore leaked.
 
-security_get_permissions() sizes an array by the class's permissions.nprim
-and fills it at value - 1, from the inherited common's permission table and
-then the class's own. A value no permission defines leaves a NULL that
-sel_make_perm_files() passes to d_alloc_name(), an oops inside
-sel_write_load() that strands selinux_state.policy_mutex and leaves every
-later load in uninterruptible sleep; two permissions sharing a value
-overwrite the first kstrdup(). Bounding each value by nprim catches
-neither, and neither would a count: the symbol table is keyed on the
-permission name, so duplicates pass.
+2. Interrupts may never have been enabled. Sending a disable instruction to
+   a queue that the hardware just told you is in a bad state (CHECKSTOPPED,
+   DECONFIGURED, Q_NOT_AVAIL) is at best wasted work and at worst generates
+   a further WARN_ONCE from inside vfio_ap_irq_disable's own default.
 
-Track the values each permission table claims and require them to cover
-exactly what its count declares, rejecting a count no value can reach.
-Conforming policies are unaffected.
+3. The hardware just rejected the new ap_aqic() enable attempt with an
+   unexpected status. Disabling a previously-working IRQ config - assuming
+   that is even possible - as a reaction to a failed enable attempt does
+   not make sense; it is actively destructive, tearing down something that
+   was working for no valid reason.
 
+The fix is to unregister the NISC and an unpin the NIB in the default case
+of the switch statement.
+
+Fixes: ec89b55e3bce7 ("s390: ap: implement PAPQ AQIC interception in kernel")
 Cc: stable@vger.kernel.org
-Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
 ---
- security/selinux/ss/policydb.c | 51 ++++++++++++++++++++++++++++++----
- 1 file changed, 46 insertions(+), 5 deletions(-)
+ drivers/s390/crypto/vfio_ap_ops.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index 45eeb10b4fd71..60a7d9ad9df08 100644
---- a/security/selinux/ss/policydb.c
-+++ b/security/selinux/ss/policydb.c
-@@ -1138,7 +1138,18 @@ int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
- 	return 0;
- }
- 
--static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
-+/*
-+ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
-+ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
-+ * fits in a u32 and the callers reject an nprim past that width.
-+ */
-+static u32 perm_claimed_mask(u32 nprim)
-+{
-+	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
-+}
-+
-+static int perm_read(struct policydb *p, struct symtab *s,
-+		     struct policy_file *fp, u32 *claimed)
- {
- 	char *key = NULL;
- 	struct perm_datum *perdatum;
-@@ -1170,6 +1181,10 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	/* indexes an nprim-sized array in security_get_permissions() */
- 	if (perdatum->value > s->nprim)
- 		goto bad;
-+	/* two permissions cannot share one slot of that array */
-+	if (*claimed & (1U << (perdatum->value - 1)))
-+		goto bad;
-+	*claimed |= 1U << (perdatum->value - 1);
- 
- 	return 0;
- bad:
-@@ -1182,7 +1197,7 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	char *key = NULL;
- 	struct common_datum *comdatum;
- 	__le32 buf[4];
--	u32 i, len, nel;
-+	u32 i, len, nel, claimed = 0;
- 	int rc;
- 
- 	comdatum = kzalloc_obj(*comdatum);
-@@ -1204,17 +1219,28 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	if (rc)
- 		goto bad;
- 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (comdatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
- 		goto bad;
- 
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &comdatum->permissions, fp);
-+		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 940c0ff668be..22a6ceaa7b56 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -503,9 +503,12 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+ 		vfio_unpin_pages(&q->matrix_mdev->vdev, nib, 1);
+ 		break;
+ 	default:
+-		pr_warn("%s: apqn %04x: response: %02x\n", __func__, q->apqn,
+-			status.response_code);
+-		vfio_ap_irq_disable(q);
++		/* We could not modify IRQ settings: clear new configuration */
++		ret = kvm_s390_gisc_unregister(kvm, isc);
++		if (ret)
++			VFIO_AP_DBF_WARN("%s: kvm_s390_gisc_unregister: rc=%d isc=%d, apqn=%#04x\n",
++					 __func__, ret, isc, q->apqn);
++		vfio_unpin_pages(&q->matrix_mdev->vdev, nib, 1);
+ 		break;
  	}
  
-+	rc = -EINVAL;
-+	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
-+		pr_err("SELinux:  common %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
-+
- 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
- 
- 	rc = symtab_insert(s, key, comdatum);
-@@ -1348,7 +1374,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	char *key = NULL;
- 	struct class_datum *cladatum;
- 	__le32 buf[6];
--	u32 i, len, len2, ncons, nel, val;
-+	u32 i, len, len2, ncons, nel, val, claimed = 0, inherited = 0;
- 	int rc;
- 
- 	cladatum = kzalloc_obj(*cladatum);
-@@ -1376,6 +1402,10 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	if (rc)
- 		goto bad;
- 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (cladatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	ncons = le32_to_cpu(buf[5]);
- 
-@@ -1410,11 +1440,22 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 		}
- 	}
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &cladatum->permissions, fp);
-+		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
- 	}
- 
-+	/* the class's own permissions must claim the slots the common leaves */
-+	if (cladatum->comdatum)
-+		inherited = cladatum->comdatum->permissions.nprim;
-+	rc = -EINVAL;
-+	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
-+			~perm_claimed_mask(inherited))) {
-+		pr_err("SELinux:  class %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
-+
- 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
- 
- 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
 -- 
 2.53.0
 
