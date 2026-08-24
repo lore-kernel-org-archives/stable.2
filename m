@@ -1,60 +1,62 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic301-32.consmr.mail.ne1.yahoo.com (sonic301-32.consmr.mail.ne1.yahoo.com [66.163.184.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAAD36308E;
-	Mon, 24 Aug 2026 19:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B85232E12E
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 19:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787600367; cv=none; b=MXHOvq6ciJcBRo9jtFQYWhvXhaVFCm7Xqijurh9nKbZZRCjdxYfx6hKKHMyq2XVO6x+PnppJmxJ8TpuWwxZsWO/Z7AR/eWa819KkeV+z1fV/TcD4UtQHtUDTKYiTbt8wR8cA5CLiubTTJvPd8F9UX38LHxAUCkw7A/X2TUA3eYs=
+	t=1787600937; cv=none; b=a/2OyhvXPXPUagXLu49/jPjv+4yZg0yZef5SYq7Qjof2XJhwq0/RE7w9GbCood9IGuRXT5cX1WcmvmyihimRDC25WLUrmX4pkqvD45vu+QPd7lB/2SLKQKBYNT3iFDe1PgfdRa/UsdIHGdNWLL49BPpGWfUwJzP7SY6393Hxd2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787600367; c=relaxed/simple;
-	bh=ePef0YIcfKv9kA1goDXyGTRATLgMpyXqvviayrA9k18=;
+	s=arc-20240116; t=1787600937; c=relaxed/simple;
+	bh=jG6rlCttz4zfS3cypQxsfUVtISfDgjFUmP9l8ju5kvc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ukdhaJi2GS+6pFrLwxn5fk9vkZUXwHfxnkBktAPO6ZJJkiPxnYPHeOdh8XfJifwLTp0SKZ0vsvK6I/GURsrJ42ILxkzvGKcUJ/OFND7kp5zowyKRhGBijsPiQNZTe1SFDEdEwql4GT0JCaGF6wwSG3TBpykYSmMV7PpTbe4JjuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pGU2YGkY; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=oaiDLY24sxvS1Vdi+K3HNCcOhygGpYZti7ZvmCrkTvbyiD4S35iSjCxQ26TWZUiYetSLZo/yHFk4ifYvWL9r1C/FqmtNUXb2q1sDxpQn9O32UMxMfJ5l+9TtIKDztS0VDrYVzEXIHMv9yNLTUinHzdfieOiPm7v4Inxdog/x2BQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=o2JNh/tk; arc=none smtp.client-ip=66.163.184.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pGU2YGkY"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OJVnhg985218;
-	Mon, 24 Aug 2026 19:39:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Wr3upw
-	Lw/dmhJ6s5+p0hiUa2rl+PwOQ8qfF+k7Ypcvc=; b=pGU2YGkYi1wGx49WZQPq4F
-	YLGZg3XE/7mBjeQNksABf+/J4efKSPGZpp3uDZg3AfcccCdbtbL6UNBYAlg1paT5
-	Bt88ZeZZ3B89y1/YT322Kdhmu9As51GYSwOztg9Ydb4IDKfKC9Xocw7cxzTmXfhp
-	ryZ1ODH2ErsiOevGYQxz8zDxE/sFm8d4zexYZZwNU0ctc2+ft5SjVESaw4ntqRSL
-	6FxoYIt/2npQY686NtUruRyQ9sfj2mQlXdYJ0IjNsyAaT6i5+q2EeGx+fVwWch0+
-	WGNohJ3ZGwjyDF1Fa83Xny/HXQ03xbcCZthcFSSPS4sOgeGpAyXdYllwNgzjRnGw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73eqkr6e-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 24 Aug 2026 19:39:20 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67OJR40C026723;
-	Mon, 24 Aug 2026 19:39:19 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rag7xud-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 24 Aug 2026 19:39:19 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67OJcba323593504
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 24 Aug 2026 19:38:38 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 57C525805A;
-	Mon, 24 Aug 2026 19:39:17 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1A9865805F;
-	Mon, 24 Aug 2026 19:39:16 +0000 (GMT)
-Received: from [9.61.96.163] (unknown [9.61.96.163])
-	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 24 Aug 2026 19:39:16 +0000 (GMT)
-Message-ID: <4bc189fa-ade2-46a9-a749-c9c8067f347a@linux.ibm.com>
-Date: Mon, 24 Aug 2026 15:39:15 -0400
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="o2JNh/tk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1787600935; bh=jG6rlCttz4zfS3cypQxsfUVtISfDgjFUmP9l8ju5kvc=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=o2JNh/tkMEsZR3KFM89u9wI+CApx6x2wRY9G3zUHlXDqR4EAbyyiV+7gGVvsd2yxw+KeqFV41nDWIEQJ9Z3mkiXZ7umC/HXYnY4ugKM+XO05AM3NbAubY2sG/JErHJo4fI0oyHToALfPxwr8xz2ZiX+3utwTwpceK3RhSiyGePr926ybb+9wjbkQ4BQVSGciYUvWPwPiNclw8hZKm/7Hl6LefZiybS8K+Jl5zcyddKlRQKUfzGsqR0Ce7OYjcZh4lXMlA9GHHFD/MxaO5ysiOpXxOcBS7fhalYY7/MVgzY9P51absr/R/uD+TXg1kpmvEtmjDGrltsyfUxRrQ+hVcw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1787600935; bh=2hPAeluHvJ0H6/F9PQzlnD891uV4YY+ZM2lSgOSqI/E=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=dIrSfFAjB63vDEX7SA7Wen4KsqKvJ/ErRmbAah1npLaXTeMMaJV99AN2ydXrh2VHxayoTBJapGF4RVfOPLA6oILY8Oh2Zdi2AUiaWD1n6IucXC5HQmsUuIzPfrGOw/4KYp32X3m69NY+yl+OTz7kFzSYb7fPtr8Omuef3NzLqfFZbSkUJqtk5a0eGgeRONzNOFkRq9OcO9eiMQz+dbsDiOsVlIs73uCTMg4MFG+ZF/kPl7rAIWPQEXXj7HIYSKJtSZASV1DxVbrrnYLTONuMuUj/w/glUPdWhvn/47n3j2pXd+qGA2iaS8tnKw5MVmztu6LfkU+5Tde0zObKD8Kckw==
+X-YMail-OSG: .0qRR40VM1nMzXmVXcFsRGNO4RmEkFhJGKHG.FzpWuBs68wqW8KVKs9MOYkYp7T
+ OiMYBV_yd4C_6whhR9derhmCAEOk3oqs4HDjnSJF8ywermGOOihRjGcOep6rWtkNsmOg0CqV2mB2
+ OwKY10qyMFbTX.Upx6yTlQ0qKHeguRhf8fNQ1TtE0c_BfibyTQlFZPT5GSmfYCUAfzfuLLExdWrs
+ UPHXf8jZ3lpAutznWhVAzcclm9moR72ol7n5klbawAydrjeJYGthuna26qNAQZCrNRjbGjhHvsNa
+ B5p8nmh5OgJfIoacTRHE3IeKPPzPp25HxwUkEoKund_qaUeaB2ypNBtsUmHwMEdhcUCYWHMYopLc
+ 59tdfx24OQOiXlKaLvw1CG6OwvsaXxQfslhtfdJSlxEVO_vWXC3ZIamo.VCxxtlq.MJZ_F1Tezfm
+ 1zvacVOIMw7iy9oFW0V8epAH19ZXGy4Gk.G5bnuUoqjZNCZr2RHMBjyjFz4sxVUb1KnQtMt0_pkV
+ FTpyj7DdrCF0h3T80T0d3zO8.2za.s8MstHHyG_1RSy1ctJwVHScsReQ5ZGucoxGJLYvamAstDEw
+ TjokSAD82Z.xDbRhnqycBea9gNplnSKuvTvO_Kkqt.gbNBw9yOB0n1QuO4pLmrs7_fvgONYKDG34
+ BigX0kolobw.YMx6vH6Z7YhyOQMKkVl23HTACyEsSt0U.tys7ZSwMG2puTvmF1i_NNqj_KvGi21Q
+ Yfk.l8svbcF3LN5mjIG4uck6Hz.DJXC.acPJlUVinLfMNdBvPzjKbqF4u331ljWHbSbWgcL17XJX
+ .5vVhBapn2vVzDNrNlFNFAHUX0tYAKDiabipKsN4NPgvRCXYCfhJblPQgd.d9tR7ESDaa7xDGqIe
+ sWJ3s6Zs9RXtHac9fevdKaBVAZmtHKSh0mMwvtiEtz7guAzFeg1Sa1BSdJQfUWH7yYTyVwxnWsE9
+ aa0fXKWYc5iOkj7rgsXHc309dhWW07SNF564tGAR9PkBlEm_J9iRf267Dr4I4cM8Ge6jua2ANwCw
+ GmKhWkmHXMkU5QLftB01JZpkFaRA_ua42AhJS_c94fjYsj_4FCmPf2wio.ZGvBk6adnjE5V6ViEm
+ J0vu2bi1aAE8jlC9IWB5yf2W8j_g07UQNKEjsaGZt2i3RsI.Q5G6lag3ARrIRZc5Hrj5zarUPB2y
+ z6F5jyxVsf5.WY4IuxvDHPZhFc8ndf3e71kpR45YytIYk.aKAt.RDy1Ti6Q0D34zDKrkr_azLxVd
+ EZP19BT27QZK9AOlr3jtOxmTfvHc7i7raxq0W2S6KAL3FB7aQEvQS6wbIkuykAbOCZSfR6xuWUci
+ XBk5WG0o_UE6QpW.HsVy6OJMgfUGVPSLiQEIkkTpW50dI5CFWzaw0xc2QGJf_hY.y.EZucusD4kp
+ 4Z3HHdZPMRBFroZ3c4lHHt2ABlW7tZ8XFk0hxxCsBgsPQI5_aBhULgoIOJhjhhihqFrjB7se8qyh
+ 4ATjbcE9eun3HVJPpa0pTW6WbcPYqW4pnD_3c9SCp6NBHx8R4zrwjmDSeEmoz_XLo0viIQEF1toJ
+ b.NIP26BQ7x60DHqGBcOTMGpRFB8pRowhYAt1H1vyo5Bjv5Z9scX9ieGTiikJqh07C2QOlhfhc.Q
+ AWVlvkQNnKJoN7xjt8UHFNiJXr40zGjOLwx43SmtD8sQyhYeEwbwQsbI1_TePtpw4.Af85g4wbp.
+ liVRFDAEFLFAW9T6L5YZNqZFH9JZxHdfRLDINPN2qQtl7BU9Xvuxy6D_meWT8ZupEtBpPlHGJTRL
+ epdXkHnVqKFMPVlld33H0HJy8ZXaZOFJgdHnXLqDqJev4Pqkhj3Ir2QIYg0Ue3d0bNr8ubczqe4R
+ MMBP9oYU4A7XwWmmVXruBlE.ZQRBcx6qakPmWUMzOBqpdllj.G03gOaiBNpODz1YgqK3PZZwiG8G
+ nG0DFBxBj1pWP2VZsuHxZCh0YcnozHM_SAsJmLggpbP9MD1pGPCvmEzkOi5Fo1wAxeIWkptEAID8
+ ejsF5vkX5349M8fuqo4_NA8iZsUPtsivsU4BDnTbdymGptlc2E79325by90ssFjz4HN6eWTzouvi
+ E3ftrUS7Mpwk1BGrGAmi7efNJfEbpF_bDNykNz7i7IbGRe39IbawdZ13TPpW9h1QrjNqgmXaVlbu
+ J6saY3ceEuVSYyqnb2t0iTpAxcOzGHoMbmTwNdSSgaL8MCPlyKlHLUQ5PZekcgozv1qyNteQl_fs
+ hLMqJbDJ2v2iKtHSepY0QHkilz9I7sOCDHoJKVAd2W2GnCoRcSsQUpGynMTTiU6i7UGbe32KijF5
+ yTfJZeTAdNfu40bpbYMviU9YemCEjoc6flJgY2nP.ZA--
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 3ffb26c4-2b83-4bfc-aaaa-fb382edc7209
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.ne1.yahoo.com with HTTP; Mon, 24 Aug 2026 19:48:55 +0000
+Received: by hermes--production-ir2-cddf86dcf-rfhhn (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 8051616196a71b1caf318bbe8a22d6b1;
+          Mon, 24 Aug 2026 19:06:23 +0000 (UTC)
+Message-ID: <8a3f22a7-43ec-469a-a1a7-3a073c24854c@yahoo.com>
+Date: Mon, 24 Aug 2026 21:06:19 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,122 +64,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] s390/vfio-ap: Fix leak of pinned NIB and registered
- NISC in vfio_ap_irq_enable()
-To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
-        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
-        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
-        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
-        stable@vger.kernel.org
-References: <20260824135850.503728-1-akrowiak@linux.ibm.com>
- <20260824135850.503728-2-akrowiak@linux.ibm.com>
- <adecc2df-d2c2-48d6-a80a-c84ab9779322@linux.ibm.com>
-Content-Language: en-US
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-In-Reply-To: <adecc2df-d2c2-48d6-a80a-c84ab9779322@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: ATfjQQBdy1L70HFhYHe164-8UVn5C-H1
-X-Proofpoint-ORIG-GUID: ATfjQQBdy1L70HFhYHe164-8UVn5C-H1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDE2NSBTYWx0ZWRfX6DiF8jXiBZ7v
- OwW5PxbdObpmzZ4iMncSYoL/GpJwzLEVfLplJIiHzyx0YRv79EnsZWYYUmNTD1k/YxHiYL/4+Eo
- S/Oq4iLXD/Cn7Pynx+HR70IDuwzlIXwdyQM+bfnMA0iQy5IIFPYnnAMu8NwtNUwZ5A+Lr+UbZx8
- JzYT6uZi/kAp04ms2qd3MGhdq0LJCoKNwdxX0SI5IHyVU1LXTg46ccMZy9c2qkoLVvNQXJ1upPY
- VNnBKfme5PcP8pL+oXFznTKsSBojGctrKEJQnzttngvzqz/7pXn4RgPVwtJPlHW3u7pEkoZyHOY
- nLJtfyA8LxDhXGYfSYdKQDy1vdBorfjB3Kgf4mRxMsmeJBdb3TjqqdDOb2Y7NHNxxMG1Njw+vK4
- 0kvVELrMb/U/J7Kuug6epvm969XPOcqiRsROZnRnw9sg3XKwCGLLw/8qvuWPpBDrhagrbNccl4Y
- huJEiSLBFfxRXccXCjA==
-X-Authority-Analysis: v=2.4 cv=QsRuG1yd c=1 sm=1 tr=0 ts=6a8c9de8 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=oJhS4qge3_J52AN1xGYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDE2NSBTYWx0ZWRfX1avNBySAe4V1
- Ec291qXlldWQEN9wawEbt0r5D4CwIeZUf0v5kKvafY7HS4yLQ2VxczdFPRMuNsZnXGVkZnQ3Ds4
- e20oMg6ctXPslEIBdialnc32EgGZVwQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-24_06,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240165
+Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
+ enabled
+To: Jie Luo <jie.luo@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Stanislaw Pal <kuncy7@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260730191353.557494-1-kuncy7@gmail.com>
+ <aeeeebf9-dbd4-4f57-847a-5f495b3236a2@oss.qualcomm.com>
+ <20260803091003.15285-1-kuncy7@gmail.com>
+ <8af46926-fecc-4396-973e-2290ae285998@oss.qualcomm.com>
+ <cd5a25ed-76a3-4f1f-b924-06bb685ff426@oss.qualcomm.com>
+ <181944c2-2484-4384-9c91-45cc87f31955@oss.qualcomm.com>
+ <8286b42e-0314-477b-ac2e-4b410a97d833@yahoo.com>
+ <f8b9192f-fe88-4a8e-86f0-6e2c33ed3f31@oss.qualcomm.com>
+Content-Language: pl
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+In-Reply-To: <f8b9192f-fe88-4a8e-86f0-6e2c33ed3f31@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.26380 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-
-
-On 8/24/26 12:57 PM, Matthew Rosato wrote:
-> On 8/24/26 9:58 AM, Anthony Krowiak wrote:
->> The vfio_ap_irq_enable() function executes the PQAP(AQIC) instruction to
->> enable interrupts for an AP queue. A switch statement is used to examine
->> the status response code returned from the instruction to determine
->> whether it succeeded or failed and react accordingly. For the default case,
->> the vfio_ap_irq_disable function is invoked to disable interrupts for the
->> queue and clean up the AQIC resources (i.e., unpin the NIB and unregister
->> the NISC). There are a number of problems with this:
->>
->> 1. Neither the q->saved_iova nor q->saved_isc has been set, so the
->>     AQIC resources - assuming those values have been previously set - will
->>     be the NIB and NISC resources from a prior call; the NIB and NISC from
->>     the current call are therefore leaked.
->>
->> 2. Interrupts may never have been enabled. Sending a disable instruction to
->>     a queue that the hardware just told you is in a bad state (CHECKSTOPPED,
->>     DECONFIGURED, Q_NOT_AVAIL) is at best wasted work and at worst generates
->>     a further WARN_ONCE from inside vfio_ap_irq_disable's own default.
->>
->> 3. The hardware just rejected the new ap_aqic() enable attempt with an
->>     unexpected status. Disabling a previously-working IRQ config - assuming
->>     that is even possible - as a reaction to a failed enable attempt does
->>     not make sense; it is actively destructive, tearing down something that
->>     was working for no valid reason.
->>
->> The fix is to unregister the NISC and an unpin the NIB in the default case
->> of the switch statement.
->>
->> Fixes: ec89b55e3bce7 ("s390: ap: implement PAPQ AQIC interception in kernel")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
->> ---
->>   drivers/s390/crypto/vfio_ap_ops.c | 11 ++++++++---
->>   1 file changed, 8 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
->> index 940c0ff668be..a46bf381ab72 100644
->> --- a/drivers/s390/crypto/vfio_ap_ops.c
->> +++ b/drivers/s390/crypto/vfio_ap_ops.c
->> @@ -503,9 +503,14 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
->>   		vfio_unpin_pages(&q->matrix_mdev->vdev, nib, 1);
->>   		break;
->>   	default:
->> -		pr_warn("%s: apqn %04x: response: %02x\n", __func__, q->apqn,
->> -			status.response_code);
->> -		vfio_ap_irq_disable(q);
->> +		pr_warn("%s: PQAP(AQIC) failed with response code %02x for apqn %04x\n",
->> +			__func__, status.response_code, q->apqn);
-> LGTM, except Sashiko mentions the pr_warn here that you are updating has
-> a pre-existing issue.
+On Thu, Aug 20, 2026 at 01:39:52PM +0800, Jie Luo wrote:
+> As far as I understand, there is no expectation that the CMN PLL
+> registers need to be accessed after the CMN PLL driver has finished
+> loading on IPQ5018.
 >
-> Since you're touching it already, do you think it makes sense to switch
-> to pr_warn_ratelimited with this patch?
+> Could we identify which module is blocked after the CMN PLL driver probe
+> completes?
 
-Since this is a pre-existing problem not introduced with this patch and 
-there is
-likewise another related problem not introduced by this patch, I am 
-going to
-post a separated series with fixes to those two related issues.
+I don't have a captured trace to point to — this was found through
+code inspection, not a reproduced hang on hardware, and I'd rather
+say that plainly than overstate it.
 
->
->> +		/* We could not modify IRQ settings: clear new configuration */
->> +		ret = kvm_s390_gisc_unregister(kvm, isc);
->> +		if (ret)
->> +			VFIO_AP_DBF_WARN("%s: kvm_s390_gisc_unregister: rc=%d isc=%d, apqn=%#04x\n",
->> +					 __func__, ret, isc, q->apqn);
->> +		vfio_unpin_pages(&q->matrix_mdev->vdev, nib, 1);
->>   		break;
->>   	}
->>   
+That said, "no expectation of post-probe access" isn't something CCF
+enforces. debugfs (clk_summary and similar) can read back rate/state
+for any registered clk at any time regardless of whether a formal
+consumer exists, and nothing stops a future driver — including a
+possible upstream UNIPHY driver — from calling clk_get_rate() or
+clk_round_rate() on this provider later. Leaving the AHB/SYS
+interface gated while the provider is still registered and
+advertised as active seems fragile on those grounds alone, even
+without a concrete stack trace in hand today.
+
+If anyone on this thread has access to IPQ5018 hardware and can
+force autosuspend then read back clk_summary for this provider,
+that would settle it either way — I don't currently have access
+to test this myself.
+
+Reviewed-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
 
