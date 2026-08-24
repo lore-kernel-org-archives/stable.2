@@ -1,113 +1,124 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB630367B6D
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 15:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6853655CA;
+	Mon, 24 Aug 2026 15:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787584199; cv=none; b=h/HqT0l81DwI0FKAmDshCIKoacnucRW4h0FOuB6YtRtlYcTkvdiwFoVh6jDvlQgJuAgWGQfPXh28MFOKfGe0CDcGvrV9HGucAlVTvAcEh6VkIhHdIkZ9Md90kt4ND2hFxr5OG0LDQ0aap7uQzril+uox3XiBAkdLgZ5LWUzowCc=
+	t=1787584328; cv=none; b=RJ1nCwMSuxWLxKYJMStsXtlxrXPhHxfNwHbNmeexCrUizOOUe87G07fyIKhiNPQQ7jonWBUH7uiQeombyGC5cCVXHnCl2aduefq4a9i50D/2nj89PExTJegPs3/VpEFMAkUJom9la5y/FdbszwLXET0hinkUCLNvUtMGloVpH4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787584199; c=relaxed/simple;
-	bh=dfMidm/UL0JV4R20isZPTs+J7q4aMwjodEzJbjwDOP8=;
+	s=arc-20240116; t=1787584328; c=relaxed/simple;
+	bh=A2RqH/jaftMlRxv+xBpJ27Pe6NxHP5IbHqviH3Gs2cg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KrXEXeZxYU4PDdlvv8/TgP2Yed4w4WJskiZn4W2zuxuLzR+av7T+glH9tXd5GdTck+0tZEgCx+kh0NnzTf5X8KxZsT0WfEkhTAxqxEoS2UiOx6ecBKhlzmn+gjbkO5KDvXBkkrfsJYKyYZcRVenxChBL3EcYWMUVa0XS3u7xpUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=pmgDPO1/; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="pmgDPO1/"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-90c522298d2so22302086d6.2
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 08:09:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1787584196; x=1788188996; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k6j7WBdzhGUFGnvNUS2cIrQrd4SkMPF+Ufhv82BZDwo=;
-        b=pmgDPO1/RBFgoiE96DFR795j8SXC6Eeh+MoBXciqrqhbwmcN7P/6Vw4Bf4HiaiZAqj
-         YwgOBXaHBg506pt/fYWTMKROKnRG7upUVhrz2ouiDS2ecu7GdKzMQMPbvR1wiicxPKjn
-         j+AMx5gZbWPmWwmQ1lKGV84xB8/fvcUZXLF5XXHxgXCiwSkfDk6YkrVMZexje32GCD5J
-         c/EdX8FMGZ5d+797EBamksX4Qbb3OhgZE67Kil6zfiRrdLD370lFv2HOMigNH97vkeiE
-         Nwu9WAXadXCLiQqwqQzswaxjf6iYvP+jJIIB1rMo4+FwWqIb1d74/NQngOwqFdF46Jgh
-         fiNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787584196; x=1788188996;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k6j7WBdzhGUFGnvNUS2cIrQrd4SkMPF+Ufhv82BZDwo=;
-        b=Orpr8VfmfG/tYfeYu8aVWXKWeaKJinLKCDq6VqdGce85ey8Y5mvAd5MfXs+bXDY4R8
-         cSAu7PIRYiRmPW3w6Xh1BKtuMInDZ6jphpfkQmLe5BC4sxz22GfkCKwEHctoXrmb0eHd
-         UY3opnQmxhllq4lb7kgVgDz0RHIVsKtfPpBZQbqNYFBgIEbbTVhVOLutd13gMNXF82++
-         703ovuDIdrjjv+JW3l5VkJS7MTfYCxIX03wSW0T8yaWHFfZRNd3pSdQC4wqWLuCnzwHb
-         c8Et0dcxgPvJVb0U/cWNVAlEIZ5k0LXhFvtHPfvShaoCKH7hRzsRLYo66nrQkCXUrtiL
-         O1xw==
-X-Forwarded-Encrypted: i=1; AHgh+RrRkIIrSLeBKYKlVyGtUroAR1mj+CIrVh7NppyI2K4yMLn7EDTIkyADVTzR5te2jbx6pm8WkmQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWNgsC9WSLqF/5+yrEEiRALIOiT99gPiMJWIjdqJ2YA3fyaflm
-	pto/k9gGOQL72zeRe50IRK4wSljMEdUXPWwbzbUZL4UHGiBK2fUJdjVOxmYPMjvvzeY=
-X-Gm-Gg: AR+sD103mIq4Dp5hGydBfppD301hQW3bdIZ6qwN4HmLS22sC/nL/3BNQWperZgLfo74
-	qCV8LQ/K/0XpvAQpNSwNBGWD3FnPvPF80YuddsYsqAzIeBE6UIa7fj+0rdLJXhgFFgscCKV8pGb
-	HC3LnA4LO8xrJ0lTU24rKXyevfTF+bQALRSqAbRGpyZeC3Ht8A3ojrjNn08j8iTjpKkE02D96jA
-	jG9ky5sC8T3pKgYNn5+9hjG3aImOglOPduoELpcqropX6WypM49PTsP/rzbtJALtZkQ2/WRCAFG
-	JnVAvFzi6+daEaW/kYKH9ia8Eb/wzFGP3lgvhq8qZ8lGcHK9WJ7evMd1HVcFB9F1KS50440fUxR
-	MYJ5XAqnHQOEstC1vpVqnhyHg9Gc8KcUQGVk8GPmQ+zV9ezBiC4juC9Z+0V2w7o1DakCE1HSR9E
-	a9HJGcQmi54KsAhrsw64IWjA7t4QEi0WesL2RmBfYfgwLFytOYXTZxymNP45tYlThDRHFZsQY2+
-	Q8HI0as29MLxK3SzbyYO1359V3fipXui5aTpVBVCkys
-X-Received: by 2002:a05:6214:21cb:b0:8f3:cf36:15ca with SMTP id 6a1803df08f44-90c8098e804mr271697776d6.9.1787584196428;
-        Mon, 24 Aug 2026 08:09:56 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c9360b07csm64972756d6.17.2026.08.24.08.09.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 08:09:55 -0700 (PDT)
-Date: Mon, 24 Aug 2026 11:09:54 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, edumazet@google.com, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org, david@kernel.org, 
-	ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, syzbot+0dbf6d295b3350944f0b@syzkaller.appspotmail.com
-Subject: Re: [PATCH] mm/mempolicy: refcount the weighted interleave state
- instead of copying it
-Message-ID: <aoxeJmrVAiqOVIE8@gourry-fedora-PF4VCD3F>
-References: <20260821104043.f692421fec915c0c5bc1fbe6@linux-foundation.org>
- <20260824024117.1755899-1-gourry@gourry.net>
- <aou1Gwxk2s8Qjdm9@casper.infradead.org>
- <aou9WUf2qU8UewL7@gourry-fedora-PF4VCD3F>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Udm9+9CxVNi3osR/CDpWarVil4Ub9q3CgviVBRrf9ilAhWVU+JiSDXhF6I84iP7RYH9xQam/h2P8UzI1WyOa937ofaCRulRfNfPXFfGm3W7guYATZKpHtKUdUc4MBRncsOoIBDGOc5zZPyZWAHK6TfmnYMfrup8eNviRm5+32LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 43832200FF9;
+	Mon, 24 Aug 2026 17:12:00 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wyWLA-0037uy-0Z;
+	Mon, 24 Aug 2026 17:12:00 +0200
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id E903E58B62D;
+	Mon, 24 Aug 2026 15:11:59 +0000 (UTC)
+Date: Mon, 24 Aug 2026 17:11:59 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Ji-Ze Hong via B4 Relay <devnull+peter_hong.fintek.com.tw@kernel.org>
+Cc: Vincent Mailhol <mailhol@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, "Dynetrex, Admin" <admin@dynetrex.com>, 
+	"Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
+Subject: Re: [PATCH v2] can: usb: f81604: fix struct f81604_int_data size
+ mismatch
+Message-ID: <20260824-alluring-affable-hog-d072e8-mkl@pengutronix.de>
+References: <20260824-f81604-fix-v2-1-fc9be5581394@fintek.com.tw>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2rgw3gn2fwjgklpi"
 Content-Disposition: inline
-In-Reply-To: <aou9WUf2qU8UewL7@gourry-fedora-PF4VCD3F>
+In-Reply-To: <20260824-f81604-fix-v2-1-fc9be5581394@fintek.com.tw>
 
-On Sun, Aug 23, 2026 at 11:52:55PM -0400, Gregory Price wrote:
-> On Mon, Aug 24, 2026 at 04:06:03AM +0100, Matthew Wilcox wrote:
-> > On Sun, Aug 23, 2026 at 10:41:17PM -0400, Gregory Price wrote:
-> > 
-> > Bit of a shame to take/put a refcount on every memory allocation.  That
-> > seems like it might hurt (even being on a different cacheline).  Would
-> > it make more sense to use SRCU for this?
-> 
-> Bulk allocation - from some measurements it's about once per 100-pages
-> on average.  Looking back at the data I was getting about 41 refs per
-> 4096 pages (16MB chunks).
-> 
-> Have to imagine there's other cache fighting in that stack too. 
-> 
-> I'm less familiar with the rules around SRCU so i shied away from it,
-> but I will take a look.
-> 
 
-I will update to the new fast srcu mechanism, but it'll prevent
-backporting beyond 6.18.
+--2rgw3gn2fwjgklpi
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] can: usb: f81604: fix struct f81604_int_data size
+ mismatch
+MIME-Version: 1.0
 
-Best to backport the gfp fix and update to srcu in normal cadence.
+On 24.08.2026 21:18:14, Ji-Ze Hong via B4 Relay wrote:
+> From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
+>
+> The struct f81604_int_data defines 9 bytes of interrupt data:
+> - Byte 0: Status register (sr)
+> - Byte 1: Interrupt register (isrc)
+> - Byte 2: Interrupt enable register (ier)
+> - Byte 3: Arbitration lost capture (alc)
+> - Byte 4: Error code capture (ecc)
+> - Byte 5: Error warning limit register (ewlr)
+> - Byte 6: RX error counter (rxerr)
+> - Byte 7: TX error counter (txerr)
+> - Byte 8: Reserved (val)
+>
+> The hardware sends exactly 9 bytes for the interrupt endpoint.
+> However, the struct was defined with __aligned(4) attribute which
+> caused the compiler to pad the struct to 12 bytes.
+>
+> This causes a problem in f81604_read_int_callback() where the short
+> URB check compares urb->actual_length against sizeof(*data). When
+> sizeof(struct f81604_int_data) is 12 but the hardware only sends 9
+> bytes, the check fails and valid interrupt messages are discarded.
+>
+> This results in the driver only being able to transmit once because
+> the TX complete interrupt is never processed.
+>
+> Fix this by removing the __aligned(4) attribute so the struct size
+> matches the actual hardware data size of 9 bytes.
+>
+> Fixes: 7299b1b39a25 ("can: usb: f81604: handle short interrupt urb messag=
+es properly")
+> Cc: stable@vger.kernel.org
+> Reported-by: Dynetrex, Admin <admin@dynetrex.com>
+> Closes: https://lore.kernel.org/all/A3834A07-5639-4779-844F-C5843DFC3928@=
+dynetrex.com/
+> Signed-off-by: Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
 
-Will submit separately.
+Applied to linux-can.
 
-~Gregory
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--2rgw3gn2fwjgklpi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaoxfPQAKCRDMOmT6rpmt
+0hmXAP91xu9xxDOYrO8cHst+E5lzaoro3Ss9f94pRx5LgQ4RWgEA4UX6dWR7uhJs
+akVJhD6uAWYnkgtbM5vxPGxh4I5kJQU=
+=PjPm
+-----END PGP SIGNATURE-----
+
+--2rgw3gn2fwjgklpi--
