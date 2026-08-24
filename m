@@ -1,147 +1,188 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C193F4106;
-	Mon, 24 Aug 2026 12:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574621; cv=none; b=m8BvbSyg3wgqd9OvqoH01FtwuDWtT+4YZlSRbdH5wWKLZuSaBk10JDcm77by+lAY/FnzUUqieJKvI4wLEgJ2pHrRx910I7FyZjR8w1Ya+jPADnzVpYXNgiFt//5BZt3FHxbTZ4IhSM56E5HaIAy3iT3sCdO2XbagKRDnRM+jBxQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574621; c=relaxed/simple;
-	bh=4FYgbXV1GvF2U0TPr00VPqUvtdejrIO8XnW0SMV09cY=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=igXzl74s2WGZqqX8fXpF+c3gjxgJL44KTk06Bj+xqA0WUbW41uezf2teIbRIngo1kfpTLW4UTzl2BQMWz4oBDVJSZyzs0ckjaZ6V3b8cWGYH9gHSzdSc/Kon57bhaAjVXIEIUhMK+GCa0CtRJ1t55IEivuYofXRNHkUq4GvRYxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=s8OmJWQA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=3w9y/Udb; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hrqUWpxJ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=wQDHiOzw; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EF5352031;
+	Mon, 24 Aug 2026 12:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787574648; cv=pass; b=R86dXhDRUdnpZQNmYUzBwm9jw2FuS92LJiXoG4XmRHgLu8n3KlpQK9u0EWmDsxQ1JzETsvgTq5mhY466vbOq/BHV7aOXhpfyOX7dZn3/XTrZLid7T5KUn8ueSljqePKpAbxJ5JA6LzIjCz5izZ2utuDdSmlDnMLpP1gIDuNv4WE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787574648; c=relaxed/simple;
+	bh=pNVnBdrLpuo1YSXINwKOs4MhRwi5tlLbSP+0RCTE7Sc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DAAI2cUpEg06E+NIHBW23mkuspnmteGrsfOpF6dj64kvq+u6cPG3bl696jzo3tIzoZ50Ev7nwKF/EwQSko9US6AfeI4kYTJP/GOzanyFlfXVteUg1yzpuv+Bt+Dc/f3xQelVpJAdvCF5of7o/w5/7D8Yzg3e4OyOd+IcQU201WM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Y6nRdPBE; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="s8OmJWQA";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="3w9y/Udb";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hrqUWpxJ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="wQDHiOzw"
-Received: from localhost.localdomain (unknown [IPv6:2a07:de40:b2bf:1b::12ef])
-	by smtp-out2.suse.de (Postfix) with ESMTP id 77B1D1F456;
-	Mon, 24 Aug 2026 12:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787574612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3TxHLB2ACRy0YXvBC2+vJNSimCPx49N4FXYU/nbyQLk=;
-	b=s8OmJWQA/+fx5Tg26/JBeMUaEvaCxzqEDnXVeh4sDnf2WDUElyX6zl6xy28oIRa9lRFe7h
-	MjvLs5YLEVSu24jlufgXcRMxMMTXwBMRP6BFbpve7yrKokmVthfC6CXcRJALRHRVpNH0Ck
-	LqGVculcKtQQmO1syvZEhlJ0olF3Xn4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787574612;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3TxHLB2ACRy0YXvBC2+vJNSimCPx49N4FXYU/nbyQLk=;
-	b=3w9y/UdbLBGYBX1XIy3lUChaSdi0SzspnjZQeB/IyYSehbQxGw/dVwWUISLR7+1BNo20HJ
-	HO6Sr31Kap2B/UDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hrqUWpxJ;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=wQDHiOzw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787574608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3TxHLB2ACRy0YXvBC2+vJNSimCPx49N4FXYU/nbyQLk=;
-	b=hrqUWpxJfZN0QQCjdA0oiDu0222d4nwXyumUbNdH5G+Nm+mcx9hMq87JZFQ2FTICKamHWR
-	8+My9FSPUOl3/YRZu5e3e4Cb7KVnx4y7N8l7tBhzvKQ2Vl957M2scpIXmdP6LE0jEL5+jT
-	rgd6dKTevV8svVzZ6jpbpRwu1xzsAY8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787574608;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3TxHLB2ACRy0YXvBC2+vJNSimCPx49N4FXYU/nbyQLk=;
-	b=wQDHiOzwdGwAAGbXNtUr11IgHGTLML+ZTgybkSYzTVxKRs3vq9IMLbEGrSvxeJ/ljC+BuP
-	Us+utJ17UGPll7CQ==
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Y6nRdPBE"
+ARC-Seal: i=1; a=rsa-sha256; t=1787574631; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=RvEANc48T9hyFdkVwM8ehEmsZMjX6v69gkHlyNtGsS3doHk7D1EVt8VdjgqDhlezr0EwpzLwH04My42cBTKUd5AbcBjl0yEV/nt7NFX93iLDLfScS7y3TbTlivQfLIEkt43RxEFLSJ5K+ikTiB1nfoW+nYFPvm4RNj6Yz72JyBs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1787574631; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=3inmB2Z2PbYZm0RylkoS9SCcCTHRnzUfcm31P9GssOM=; 
+	b=WU3c+fHl/ropI9X63/pFfYe+yOiLTV0cHQJdBbIT3RXR9pA96BHCrT4ittZDHf0sXPMpTbQdDWufTx+cfE6XJSMrznYFic7x4GhVtNkaW5YXxZSzVfVFLcznuQE7FeDRchawaoIig5BS44qRbp5HjZFYys9tX0WnSX1F5f/22K8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787574631;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=3inmB2Z2PbYZm0RylkoS9SCcCTHRnzUfcm31P9GssOM=;
+	b=Y6nRdPBEoXGUQsx5ub5kg7NhZF58pxax8ceFZTUBuzybh2rphS75An/g4pJRug2p
+	D04XyO6a8/yTsE1uRJwAjIbyX/QQrlc/VuvqCvd+6xhmiYCpT4fuoaEvPMp0WfwVH0r
+	lTn/gc5u+E0Vgdjz/HK6lw24ZTzQzRBqBx+3OYPE=
+Received: by mx.zohomail.com with SMTPS id 1787574627310520.2698602900982;
+	Mon, 24 Aug 2026 05:30:27 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id DECDB180830; Mon, 24 Aug 2026 14:30:23 +0200 (CEST)
+Date: Mon, 24 Aug 2026 14:30:23 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-usb@vger.kernel.org, stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Jens Glathe <jens.glathe@oldschoolsolutions.biz>, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: mux: avoid duplicated mux switches
+Message-ID: <aow2wbpZzN2oyWCv@venus>
+References: <20260822072556.490594-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH bpf-next v3 1/2] ftrace: deprecate disabling via
- ftrace_enabled sysctl
-From: Miroslav Benes <mbenes@suse.cz>
-To: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Cc: bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- live-patching@vger.kernel.org, rostedt@goodmis.org, mbenes@suse.cz, 
- jolsa@kernel.org, mhiramat@kernel.org, jpoimboe@kernel.org, 
- joe.lawrence@redhat.com, mark.rutland@arm.com, corbet@lwn.net, 
- stable@vger.kernel.org, linux-open-source@crowdstrike.com
-In-Reply-To: <20260806153000.4184871-2-andrey.grodzovsky@crowdstrike.com>
-References: <20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com>
- <20260806153000.4184871-2-andrey.grodzovsky@crowdstrike.com>
-Date: Mon, 24 Aug 2026 14:30:06 +0200
-Message-Id: <178757460647.29054.9328797950595292140.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=546; i=mbenes@suse.cz;
- h=from:subject:message-id; bh=4FYgbXV1GvF2U0TPr00VPqUvtdejrIO8XnW0SMV09cY=;
- b=kA0DAAgBgX1r3ESrGywByyZiAGqMOVCg3dLuIU/b+lZ79aZUVBHhJAnKnzjEOtRa15DeUEB8i
- 4kBTwQAAQgAORYhBOu9Qx4xlG0wKXvu3YF9a9xEqxssBQJqjDlQGxSAAAAAAAQADm1hbnUyLDIu
- NSsxLjEyLDIsMgAKCRCBfWvcRKsbLGuoCACbLxUEN77+CiHSPWNHC8OQFNVBbN/QhaER1SBsFM6
- nETmCAbItEcvZVPq3jYxYDSwMyKRoNRfOFFfkyEklj0k0IZaJ8guQWfqm1BPmGKRaCO4R3E2Jnl
- +rrtyCSkGBqnRml1OwlgqEHFcKQSV8yjN8yjvNYrfD3sFL2zYMQKsOmAAUbji3WoaoLjmBGM4LF
- ORl/iswkEHZlkS/21qM/LuvRgdAAN7l4weyzUvu15q7mJJMhSvTT3HM9yriKd1D8uC+HkU4uwF6
- svWQYhWI7Wjb7WzDq1cxrvjG8dLzv3roaYoBwJUOBHIYroL7LyKZ10QZbx2gWWG7qQEtgvRalRV j
-X-Developer-Key: i=mbenes@suse.cz; a=openpgp;
- fpr=91BB0699882EF39D46654BB3FF98A38DA80834DA
-X-Spamd-Result: default: False [17.40 / 50.00];
-	SPAM_FLAG(5.00)[];
-	NEURAL_SPAM_LONG(3.50)[1.000];
-	HFILTER_HELO_5(3.00)[localhost.localdomain];
-	NEURAL_SPAM_SHORT(3.00)[0.999];
-	BAYES_HAM(-2.99)[99.96%];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
-	RDNS_NONE(2.00)[];
-	ONCE_RECEIVED(1.20)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DIRECT_TO_MX(0.00)[b4 0.17-dev];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[crowdstrike.com:email,suse.cz:email,suse.cz:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b2bf:1b::12ef:from];
-	RCVD_COUNT_ZERO(0.00)[0];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Score: 17.40
-X-Spam-Level: *****************
-X-Spamd-Bar: +++++++++++++++++
-X-Rspamd-Queue-Id: 77B1D1F456
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: YES
-X-Rspamd-Action: add header
-X-Spam: Yes
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4xv2tqlmurmywifm"
+Content-Disposition: inline
+In-Reply-To: <20260822072556.490594-1-marex@nabladev.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/287.552.98
+X-ZohoMailClient: External
 
-On Thu, 06 Aug 2026 11:29:59 -0400, Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
-> Writing 0 to kernel.ftrace_enabled has not reliably disabled ftrace
-> for years (FTRACE_OPS_FL_PERMANENT users already block it, and more
-> callers rely on ftrace always being on). Refuse the write instead of
-> leaving it in an inconsistent "disables some, not all" state: return
-> -EOPNOTSUPP and log a message. Reads and enabling (writing 1) are
-> unaffected.
-> 
-> [...]
 
-Reviewed-by: Miroslav Benes <mbenes@suse.cz>
+--4xv2tqlmurmywifm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] usb: typec: mux: avoid duplicated mux switches
+MIME-Version: 1.0
 
--- 
-Miroslav
+Hi,
 
+On Sat, Aug 22, 2026 at 09:24:58AM +0200, Marek Vasut wrote:
+> Some devices use combo PHYs (i.e. USB3 + DisplayPort), which also
+> handle the lane muxing. These PHYs are referenced twice from
+> the USB-C connector (USB super-speed lines and SBU/AUX lines)
+> resulting in the mux being configured twice. Avoid this by
+> dropping duplicates.
+>=20
+> This is a re-application of b145c3f29d62 ("usb: typec: mux: avoid
+> duplicated mux switches"), with fix derived from usb: typec: mux:
+> Fix typec_switch_match() .
+>=20
+> Fixes: f576c75f95a5 ("Revert "usb: typec: mux: avoid duplicated mux switc=
+hes"")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Co-developed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Cc: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Cc: kernel@dh-electronics.com
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-usb@vger.kernel.org
+> ---
+> - Extensive test by Jens https://lore.kernel.org/all/8bdf6062-8ec2-4c30-8=
+463-0368d3a0f1ce@oldschoolsolutions.biz/
+
+Thanks for the fixed version. It looks mostly good to me, but it
+should also take the other fix into account and initialize
+mux_devs to {} in fwnode_typec_mux_get():
+
+https://lore.kernel.org/linux-usb/20260804083434.20885-1-i@4t.pw/
+
+Greetings,
+
+-- Sebastian
+
+> ---
+>  drivers/usb/typec/mux.c | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/usb/typec/mux.c b/drivers/usb/typec/mux.c
+> index 2bc7e8edb3cbd..afa6fc1813978 100644
+> --- a/drivers/usb/typec/mux.c
+> +++ b/drivers/usb/typec/mux.c
+> @@ -277,7 +277,9 @@ static int mux_fwnode_match(struct device *dev, const=
+ void *fwnode)
+>  static void *typec_mux_match(const struct fwnode_handle *fwnode,
+>  			     const char *id, void *data)
+>  {
+> +	struct typec_mux_dev **mux_devs =3D data;
+>  	struct device *dev;
+> +	int i;
+> =20
+>  	/*
+>  	 * Device graph (OF graph) does not give any means to identify the
+> @@ -292,8 +294,18 @@ static void *typec_mux_match(const struct fwnode_han=
+dle *fwnode,
+> =20
+>  	dev =3D class_find_device(&typec_mux_class, NULL, fwnode,
+>  				mux_fwnode_match);
+> +	if (!dev)
+> +		return ERR_PTR(-EPROBE_DEFER);
+> =20
+> -	return dev ? to_typec_mux_dev(dev) : ERR_PTR(-EPROBE_DEFER);
+> +	/* Skip duplicates */
+> +	for (i =3D 0; i < TYPEC_MUX_MAX_DEVS; i++)
+> +		if (to_typec_mux_dev(dev) =3D=3D mux_devs[i]) {
+> +			put_device(dev);
+> +			return NULL;
+> +		}
+> +
+> +
+> +	return to_typec_mux_dev(dev);
+>  }
+> =20
+>  /**
+> @@ -318,7 +330,8 @@ struct typec_mux *fwnode_typec_mux_get(struct fwnode_=
+handle *fwnode)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+>  	count =3D fwnode_connection_find_matches(fwnode, "mode-switch",
+> -					       NULL, typec_mux_match,
+> +					       (void **)mux_devs,
+> +					       typec_mux_match,
+>  					       (void **)mux_devs,
+>  					       ARRAY_SIZE(mux_devs));
+>  	if (count <=3D 0) {
+> --=20
+> 2.53.0
+>=20
+
+--4xv2tqlmurmywifm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqMOVgACgkQ2O7X88g7
++pojhg//YZzo6unqhGvO9Hmxu0MNjXVlQetPuewYf8o0P7hEHF7ZwrWZ2cCowTkm
+305UYsckiFGj8/X1CCHdOkdDKGnxDddVk0q/3UJBpUZU+kdMEOYEgAIq/XC3h9+y
+KZOn3ddZjHTB6KHDW3qsfM0lkOvWDCgzNEGr+cNwy21zue/NBofdMB+BgxhLAWIP
+rgEGz8r0xvuS5zpUcHi9Dq9iXicmh4X+1rmetN39Om6dJdAPXK7TTotZrVTY7+3c
+ZK6dEZJTB5/A/KyOHYuRqsuADrLjTpnoBsr2BvL+BqPBLN/GjuFkt9rfI2y3+8Ag
+f84Gai54zJ96sQiXlgb2PU5dKELaPT2XYF+smiWUG6XRJ62dA0vyium2bi9m1EGE
+BM1sM8TdX+HcAy75g4/kT60tgir/1hxHCQoH84LE6w/q43fYkWBAcmMK/5072uO6
+ezeU6Oln9rxGWDoq7eWC3Q37jIXShuhBQDv2bYW9lqIx4iWxgtC9Atn+ZY+juPZ+
+6FHvWul3xxN5l3t1+N+dFglGgfO8cBY17fBc4P4T7LVzlFkR0XLC/2Df/bBpLbCD
+MkUaEBWkLjion8a0CVpaJST+5bszsHhhfbqSWwjsmgAMHyws23vH75jx1VzhGCHl
+yFIfpqcl6BkbPq6YSdZntzl4bGVTtNQfflqN271gFqfU79GNAMM=
+=g7r5
+-----END PGP SIGNATURE-----
+
+--4xv2tqlmurmywifm--
