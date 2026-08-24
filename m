@@ -1,249 +1,303 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8836469824;
-	Mon, 24 Aug 2026 16:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787588978; cv=fail; b=uxEoqZOWWOSMBTNnlGnA4VH4y8UbPPWEGpni/xc65oDQ7hhRzl9HxLUvTKNGFgqI7Ht2yZQ8mvR6EGlDm+3Ogi47LXpvYoZX517oWFrDte6iJFRc+3qOy4GH06RLnI88KpsQLghy+OgxSgnbeRTt2HZmTnSUfNC+H7pghzYcRtQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787588978; c=relaxed/simple;
-	bh=PBcFEbXWSJEab6A9u5OUCWJKmYxf1sAh1q13wy4Ehz8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=hCfrSillmkni4XkDeHenAYpGdItuUU3mMS0HFVXwr7R/FyDIdvGbqbgHWMiEKTLAs+zry3UPsTNqWPAy0Mhv6w0CrEhzwtBBeUTmDxNM9zEKUHF/hJ2HpwI93LLDEoaal8ryIGRh8VNfmiHadxq2SEFeNFlQwxoGGPaz/Shum2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=HcD2l0nk; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=tL2BiD80; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E300035F8D2;
+	Mon, 24 Aug 2026 16:30:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787589043; cv=none; b=K8H1nJSU6A4H2yFGQ/+OSXNF/AeSyFphiLQfvG9cL6eW/sdhs3UBdnXMvSp2dIx5w56bXziI46qBYi/hLU+XHKKovtz3pGJIBmbevC6PCTOtjef9s2Qk9ewy2rLjeL4507JtNVDNMSRrcVBUmBjWf31gJ7N7Bf5jOxhvhF5joE0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787589043; c=relaxed/simple;
+	bh=QqPjj7ldJ0heWDbPJ00z8ATxo9dRfqyDS51BJi8W3O8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u0+RA1s4jH2w7ICYohwmRtRFEMcRpF+XHk+ALug2x5srXqIl25413cLWHTeRIrJyV2lsGXpScH5sjhOXGUGRH8BMm18RmnACYT+KfCS/6yFUdQsz2bBhwLlSVCOc9cKh3j58GbO7zrS2dv00oOLk4esiK9RZs+VVayeIyiANNiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVLxiV+o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="HcD2l0nk";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="tL2BiD80"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OFmRYE3636831;
-	Mon, 24 Aug 2026 11:29:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=hiWMvjwpJCUFQ
-	daPsQHfIHVViDJTRoQE+SUqzy6Yq+E=; b=HcD2l0nkGxcUTxGyZ1oK808K+WLIN
-	ZC/+MzWVqotMYykB9WG+YfnrzQVyUECYKKjN9UU3Xu/6Jv++k4XDVr8dK7DDNr/P
-	vHS9stPWVrORX+LTdqeLng89E2MITCsTNsntasP1yLKCIspU56KuwmqabNvglqlr
-	7woPY+/4TPQ6SZ02jUbguIYu0IvGnWYvHHQmNS+S3+aEL9PrgNC3mcuGfiLBiNQp
-	cZD3ATHl07sU8zkWLUcJlozQfD6b7N7KSZG/vzqAiW8V8V/uUIpMk1dRsTXkNYK5
-	KXmVj+3evBAzAdMK4BZ+R1EP8EHMDZOx9VCqiynVO29wqm23mJSVS1Kjw==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013060.outbound.protection.outlook.com [40.93.196.60])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4g8d1fcex9-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 24 Aug 2026 11:29:29 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EWk9v6KYAeaopKShmSRNEx9uSD7mWGSzK7ydDYUOlGEdSGBpqALpygz8UwDfDAG/d6QJaLE1rutI8NRl++d4TX7RZpo+rIBAndBQxLCnajgWiwymFhSAP1EXFsHGPoP9D1NQoMdtWznxYBKmr9YOD8xeAMAda92fTzRcF6lIcpzAnnSlIMvTxa5F+zBL9TWS4qNAOMYPUL+Q0WY357mDHbOX//4cLxaQxehq/Duvfkbk3Wra42TdMUwMDAXVZaV4bz2TBCXOgdN/bwYbO8IU/Z6S6yYwZk9+TeZ9VRA45qMlJ0Wrt/yizX8X+EnxkPNwgvtcxKOk5OjUjlynBER1mA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hiWMvjwpJCUFQdaPsQHfIHVViDJTRoQE+SUqzy6Yq+E=;
- b=DDg3JskopYPJmQASXrpi5PIAVn5kxGtgr4+Cb6Dj8kOoML3Fqfthqy4nKyZ6tYf8ury/5LXgALnglrvPOwH9ZM9hG3ZySD86wo/cE1YqEBaBO0OeJN7LpScDGD92WvupEawklIloLVrJur31a/1Zr7EBpFmJ9oRuk+gsaAZOa68je+7KTOd7Hcpv7eXzum3y4+GDbBpDplFeoIzvvKn9U1nMDtxToauAa4rvc71TnuiIMrNKRlJhrtV+rmQWuiQkG72XJLsIVhGUyWsEVohEkUCWLDI4fh4kuSblzMle5QmM4KjdYrrBCbIqCPyZInajZo7QujzRIf7WRxJ4dcNgXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hiWMvjwpJCUFQdaPsQHfIHVViDJTRoQE+SUqzy6Yq+E=;
- b=tL2BiD80nK4dhGH9unhRrf4PA2TH/8EDQDh6DA4EyxwqEzxYI0fqos+riZWOJWx8+jhwd8HEK9bqTmNELRnPWbRmt/EbJOfSq0qs9N9+z9qq6JnmNXFrcmktImOZ53i4TOfWq2MFMNAjJZz9fz/XKgg2e/OnFqVJdRoeOB+xnQI=
-Received: from BL1PR13CA0219.namprd13.prod.outlook.com (2603:10b6:208:2bf::14)
- by SN4PR10MB997923.namprd10.prod.outlook.com (2603:10b6:806:4fe::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 16:29:26 +0000
-Received: from BL6PEPF0001AB75.namprd02.prod.outlook.com
- (2603:10b6:208:2bf:cafe::12) by BL1PR13CA0219.outlook.office365.com
- (2603:10b6:208:2bf::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.6 via Frontend Transport; Mon, 24
- Aug 2026 16:29:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BL6PEPF0001AB75.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Mon, 24 Aug 2026 16:29:23 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
- 2026 11:28:51 -0500
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
- 2026 11:28:51 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 24 Aug 2026 11:28:51 -0500
-Received: from [127.0.1.1] (uda0506412.dhcp.ti.com [128.247.81.196])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67OGSpxw3434524;
-	Mon, 24 Aug 2026 11:28:51 -0500
-From: Kendall Willis <k-willis@ti.com>
-Date: Mon, 24 Aug 2026 11:28:51 -0500
-Subject: [PATCH] serial: 8250_omap: fix wake irq cleared during suspend
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVLxiV+o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB90A1F000E9;
+	Mon, 24 Aug 2026 16:30:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787589041;
+	bh=ccprj7uvs6H815Axks6UBkPHSJxlZwnAj8ISZ9LuDAM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZVLxiV+oTRWjlhl9TLRFJ+ftJKIt0tfvbR4cvhxwJEzVduSN62BDHTGD0X0vshAG7
+	 fMHpTQDiXPSA+4vvc23tau/brQBHzbwInKsyG18zIpwQkChA3OI13nBKTmp0/wydXN
+	 vL/cHwRtcOGL+XY5+Dg4W+TYf+I0TD9KXhWqCty8M3zhlwnLERAzGJeqZaF+J/gS3J
+	 A7Oeb58ttpDBCla4SzvRntAJhJTzUWxZKYBUoKbv/AFs8dESkdOZSfmpN5gBcYUJHD
+	 xk0DLhzV5WAh+wO6tHt3c8uKRbTmtTzX1wnBbIvLMZmTT92CFxkZi1TcoYIIB1BeeA
+	 pruFyUwOoP+yA==
+From: Simon Horman <horms@kernel.org>
+To: blbllhy@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	ap420073@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	xmei5@asu.edu,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] amt: fix tunnel list corruption on device stop
+Date: Mon, 24 Aug 2026 17:30:29 +0100
+Message-ID: <20260824163029.1034695-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260822045407.28983-1-blbllhy@gmail.com>
+References: <20260822045407.28983-1-blbllhy@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260824-uart-wakeirq-fix-v1-1-6d81a230a1c4@ti.com>
-X-B4-Tracking: v=1; b=H4sIAEJxjGoC/x2MSQqAMAwAvyI5G6i1LvgV8VBqqkFwSd1A/LvF4
- wzMPBBImAI0yQNCJwde5ghZmoAb7TwQch8ZtNKlqrXBw8qOl52IZUPPN+a5N5WyrtKmgJitQlH
- /y7Z73w+Dcb2vYgAAAA==
-X-Change-ID: 20260824-uart-wakeirq-fix-33f470ac7245
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby
-	<jirislaby@kernel.org>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        Peter Hurley <peter@hurleysoftware.com>,
-        Tony Lindgren <tony@atomide.com>
-CC: <s-kochidanadu@ti.com>, <a-kaur@ti.com>, <s-tripathi1@ti.com>,
-        <vishalm@ti.com>, <k-willis@ti.com>, <linux-kernel@vger.kernel.org>,
-        <linux-serial@vger.kernel.org>, <stable@vger.kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787588931; l=2461;
- i=k-willis@ti.com; s=20251230; h=from:subject:message-id;
- bh=PBcFEbXWSJEab6A9u5OUCWJKmYxf1sAh1q13wy4Ehz8=;
- b=aZqACz4kkAAobwLaRr6Jnl3pCmRLLydwRXTA4zbolsY+OYVRltvlVjMsDQrBBp4WkaKJdvD3x
- vPYJHYzY34OCfpI949HX7hAmKpruyvhfrazssSO/sAvsXGPtx0FHQ9v
-X-Developer-Key: i=k-willis@ti.com; a=ed25519;
- pk=fQiPVFwmogfDAKdaAKq163RWSfgHZVE/MrsDzp0Xo1k=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB75:EE_|SN4PR10MB997923:EE_
-X-MS-Office365-Filtering-Correlation-Id: 183cebf1-cb69-4d41-8789-08df01fcdb71
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|6133799003|10067099003|5023799004|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	18ZlNz9puCcKGsD8RxwzqNG+rh1WUKO5zhComr530wxbQVsJw2pCdVPAhcs4utcEcykUmMNSTMYzjSkbARLR4XXhpB+m18c7r7zW0Qp8Gy2adZ2ipI75aSR020+TPVLpc4QQRH2quBHYp21APk1ptDE3TUZ6x1Zbna2n7pjW80BylCyqwV0x56w/iDhTFfjooaM/a5RBHFRoHCsZal05cYkoKSZ+r7oy4hpGjoHy0AFUsyYwaMvG2L78MP2B8WAWMZCCg5Kj2RcQxKOh7rArG5Fhwd2uyysW+b1JTCjSdq1Dk0/MFej/MLfPDlS8Wvsg7EeT4tc3FOT2Yv869fAvwL92RfnLewXqwoZGAetMwIO4kZTx/R2qbWjMHhuEIzkFDIMUtMCpFLIPuDwG+rp5cRjNwJs0q5J7sR3eoEYHm0QCM0G+LYagw3sqGWbC//AcW6Thlm26/zbxbrh5ksuloRUnhn0ROMRlM+tp5oxGHlNKb2+PctYOGnmrsCmHe7IKqA3X3TYrdRtlVuBAdyuPzUNiHPvuux0xpl9s0SBL+ogFcciwU4XlDmKn4hKMGY81JaQj1B5pegQoRwTMD33R5lx6qWI9fNu8ZeEhE7TgdEEPP41vVZ7/6jxwLx3KzFlA0zk5ciyCdaizBHZYzWOLSN2iBveyj9VqKWmK0C8CvAPbGHdUWANJ4UJkdXSGE5mUpnxAq7mdVFQJvXOOHDaLNw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(6133799003)(10067099003)(5023799004)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Xth2nnIF6kSzC9ulIghjOehECV1rAbr1MC+4UDgBMAsl4ikQQdGa/+9W/zX3fqST+bg3uNY1+ORxI0/rBSdZyorWSgKBpPKBL5WTYTtgQoYQ7FnwACoRoHpzKi5rYzGgw+xm43IL72fdj9HSK5EE0T4nRS/PZs3pHw62S3jZ2Fcwc0BODRiKe00b1Es9FA+G/BSkcu3BdQ6UmLA0SGazaX+RGz2ab/Y4AYdStQxY1btdR8P+CWFSr52aIgM6n25sP4fwXH3Jnt222+t7A8ITJQPYuCGrssWd6gYymswrgW/DLnJNo+MZMKWYRcAIQCUzsLOLPPj+xmBSS08Z27ZSGQdfXzYm94Fq3JVhTpmFlwlexXNB+zd98s5p4f4OWXRj3LEvY+Fzk0AwutxLtJsF/bLInv/M5MaVSxDReYPS4q2oloIoSCJtf7rCDTNpFERN
-X-Exchange-RoutingPolicyChecked:
-	M1Nj/fY1fcM5NpymNFUsPTyHpYRb1ZEIeI/noNWhRg/sCHuw1FnEGOLRSxWcwMcqKMRkDY5vauhYNjNfu+DJ5+nt3oq0uj0rK4LXlq5juR9lAXmugwT/CSqU6O9VhfbG7CQFpx485QP1+HPM+wcVv/pLJh4bMQM47q0eI23bqRMebJB/Qe92gmR1GQJNrhLUPEzEJAmwj+9bezTEXMUoM26bCtOtxKakPKu/bhtRCWOIvawvWmTvTyMRapZBTWjAkRYd8fhEAOQ3bhOtfYgcOuK157LUvu6hU9+UKkclor1gN7vLPcMNqGs2PLBEznPLDas0VlGlZ5BMoT0SYlwogg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 16:29:23.3775
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 183cebf1-cb69-4d41-8789-08df01fcdb71
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB75.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR10MB997923
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDEzOSBTYWx0ZWRfXzPhUsUl9nIEh
- +euu675QotShwaiEvzZs+P1U9Q8RQcdx7A8fAIn2s63hbxZ0RauPRqzFBwGTVLEebKbG+WuzbNm
- O3ZR3mjnRLW5HcLAExxcEqTLGg2c47Twvj++fdHmBHve+YvwMxe4aBJ9mQ/P6+EQw2V3hJSKjim
- nVVsqRdFm+KWp9U1lte7XPxqfOh0FaVEfIW1I3WSiiN33EF2Kdh/3q8+LwLYiCY3AvxyBOWOMxv
- rcaQRF1V27YO8fiFMO+F92XFxr0szKtxIAhMUjsKu57k5sVCsPZm4zrfgvoCXmy6dOt0QUi5Cp8
- AbAoAHUqdYXlBQp/wD38vmJkI0VDvENgaZtLsEM8BoNnW9XTsFazSC48aPw3+tBsWSsXEX+1Lr6
- 2CepTS5M+KB9nBmV761Fs5K+eFezEcy8d5HB51Pz4IHPVb2L/rb6TRcs1ScZVohEd5x6fYCY6rT
- B6EH3WAvfk67J1vqjug==
-X-Proofpoint-ORIG-GUID: mu8c9d03q5vw2JklueQs0uqNA9nhKqim
-X-Proofpoint-GUID: mu8c9d03q5vw2JklueQs0uqNA9nhKqim
-X-Authority-Analysis: v=2.4 cv=NZ3WEWD4 c=1 sm=1 tr=0 ts=6a8c7169 cx=c_pps
- a=Ei0IHGVoEhmO3RFfwX1Atw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=jEtcNFeU0uYd4u7O3DYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDEzOSBTYWx0ZWRfX/YUbx7/ufZnZ
- /AZy+2MKyBU00rXc/lZgPKRqt/zYAbGy4ufYE1Agwc0oEmIaHmxyCvQnowN2YD3obspec16tsXz
- A5RojiGt39DzvYYAntz+GGjQQEEb45g=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-24_05,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 clxscore=1011 priorityscore=1501 bulkscore=0
- spamscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240139
+Content-Transfer-Encoding: 8bit
 
-The wake irq was cleared in shutdown(), which runs during the suspend
-sequence, making it impossible to wake the system via UART.
-Move wake irq setup to probe() and teardown to remove() so the irq
-remains armed during suspend when the UART is a wakeup source.
-
-Cc: stable@vger.kernel.org
-Fixes: 61929cf0169d ("tty: serial: Add 8250-core based omap driver")
-Signed-off-by: Kendall Willis <k-willis@ti.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260822045407.28983-1-blbllhy@gmail.com?part=1
 ---
- drivers/tty/serial/8250/8250_omap.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+amt: fix tunnel list corruption on device stop
 
-diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index 3c7775df27effd309419b413c791b46688d4aacd..9cc88d2c510ce1c4e2fd63bf1976f23b9d7871e2 100644
---- a/drivers/tty/serial/8250/8250_omap.c
-+++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -711,12 +711,6 @@ static int omap_8250_startup(struct uart_port *port)
- 	struct uart_8250_dma *dma = &priv->omap8250_dma;
- 	int ret;
- 
--	if (priv->wakeirq) {
--		ret = dev_pm_set_dedicated_wake_irq(port->dev, priv->wakeirq);
--		if (ret)
--			return ret;
--	}
--
- #ifdef CONFIG_PM
- 	up->capabilities |= UART_CAP_RPM;
- #endif
-@@ -787,7 +781,6 @@ static void omap_8250_shutdown(struct uart_port *port)
- 	}
- 
- 	disable_irq_nosync(port->irq);
--	dev_pm_clear_wake_irq(port->dev);
- 
- 	serial8250_release_dma(up);
- 	up->dma = NULL;
-@@ -1588,6 +1581,12 @@ static int omap8250_probe(struct platform_device *pdev)
- 
- 	priv->wakeirq = irq_of_parse_and_map(np, 1);
- 
-+	if (priv->wakeirq) {
-+		ret = dev_pm_set_dedicated_wake_irq(&pdev->dev, priv->wakeirq);
-+		if (ret)
-+			goto err;
-+	}
-+
- 	ret = serial8250_register_8250_port(&up);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "unable to register 8250 port\n");
-@@ -1608,6 +1607,7 @@ static int omap8250_probe(struct platform_device *pdev)
- 	flush_work(&priv->qos_work);
- 	pm_runtime_disable(&pdev->dev);
- 	cpu_latency_qos_remove_request(&priv->pm_qos_request);
-+	dev_pm_clear_wake_irq(&pdev->dev);
- 	return ret;
- }
- 
-@@ -1630,6 +1630,7 @@ static void omap8250_remove(struct platform_device *pdev)
- 	flush_work(&priv->qos_work);
- 	pm_runtime_disable(&pdev->dev);
- 	cpu_latency_qos_remove_request(&priv->pm_qos_request);
-+	dev_pm_clear_wake_irq(&pdev->dev);
- 	device_set_wakeup_capable(&pdev->dev, false);
- }
- 
+This changes amt_dev_stop() to unlink tunnels under amt->lock using
+list_del_init(), adds a list_empty() ownership check to
+amt_tunnel_expire(), clears sk_user_data before synchronize_net(), and
+switches the per-tunnel GC work to disable_delayed_work_sync().
 
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260824-uart-wakeirq-fix-33f470ac7245
+A few questions on the changelog and on the new drain loop below.
 
-Best regards,
--- 
-Kendall Willis <k-willis@ti.com>
+First, about the two justifications given in the changelog:
 
+>     1. Quiesce RX: clear sk_user_data and call synchronize_net() to ensure
+>        no RCU readers are traversing tunnel_list. This makes list_del_init()
+>        safe (it is not RCU-reader-safe unlike list_del_rcu()).
+
+[Severity: Medium]
+Is this claim accurate for all readers of amt->tunnel_list?
+
+amt_dev_xmit() traverses the same list in relay mode:
+
+drivers/net/amt.c:amt_dev_xmit() {
+	...
+	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+		hash = amt_group_hash(tunnel, &group);
+	...
+}
+
+That reader is not reached through amt->sk / sk_user_data, so clearing
+sk_user_data and calling synchronize_net() does not cover it.
+
+>     4. Use disable_delayed_work_sync() instead of cancel_delayed_work_sync()
+>        to prevent amt_update_handler() from rearming the GC timer in a rare
+>        race where a packet arrives before the socket is fully released.
+
+Can this window still exist after the change in point 1?
+
+amt_update_handler() and amt_request_handler() are only called from
+amt_rcv(), which resolves amt via rcu_dereference_sk_user_data(sk) inside
+rcu_read_lock_bh(). Once sk_user_data is NULLed and synchronize_net() has
+returned, amt_rcv() can no longer find amt, so the packet-driven
+mod_delayed_work(amt_wq, &tunnel->gc_wq, ...) in amt_update_handler()
+cannot run any more.
+
+So point 1 says no RCU reader can be traversing tunnel_list, while point 4
+describes a packet reaching amt_update_handler(), which can only reach that
+mod_delayed_work() from inside list_for_each_entry_rcu() over
+amt->tunnel_list. Could the changelog be made consistent about which
+readers the quiesce actually covers, given that this is the stated reason
+for dropping the RCU-safe removal primitive and the patch is tagged for
+stable?
+
+> diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+> index bddc24e1856d..a5db02d81291 100644
+> --- a/drivers/net/amt.c
+> +++ b/drivers/net/amt.c
+> @@ -1348,6 +1348,11 @@ static void amt_tunnel_expire(struct work_struct *work)
+>  	struct amt_dev *amt = tunnel->amt;
+>  
+>  	spin_lock_bh(&amt->lock);
+> +	/* amt_dev_stop() marks tunnels it owns with list_del_init(). */
+> +	if (list_empty(&tunnel->list)) {
+> +		spin_unlock_bh(&amt->lock);
+> +		return;
+> +	}
+>  	rcu_read_lock();
+>  	list_del_rcu(&tunnel->list);
+>  	amt->nr_tunnels--;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the new list_empty()
+guard cover the case where the GC work is rearmed while it is already
+running?
+
+amt_update_handler() rearms the work under rcu_read_lock_bh() only, without
+amt->lock:
+
+drivers/net/amt.c:amt_update_handler() {
+	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+		if (tunnel->ip4 == saddr) {
+			if ((nonce == tunnel->nonce &&
+			     response_mac == tunnel->mac)) {
+				mod_delayed_work(amt_wq, &tunnel->gc_wq,
+						 msecs_to_jiffies(amt_gmi(amt))
+								  * 3);
+	...
+}
+
+Once process_one_work() has cleared the work's PENDING bit,
+mod_delayed_work() arms the delayed timer again, and amt_tunnel_expire()
+then proceeds to list_del_rcu() + kfree_rcu(tunnel, rcu) with
+tunnel->gc_wq.timer still armed. The rearm delay is amt_gmi() * 3, which is
+far longer than the grace period behind kfree_rcu(), so the timer_list
+inside the freed tunnel stays linked in the timer wheel.
+
+The drain loop in amt_dev_stop() does not help here, because the first
+callback has already removed the tunnel from amt->tunnel_list, so
+disable_delayed_work_sync() is never called for it.
+
+And if the work does run again on still-mapped memory, the new guard cannot
+detect it either: list_del_rcu() leaves entry->next unchanged, so
+list_empty(&tunnel->list) is false and a second list_del_rcu() runs with
+prev == LIST_POISON2, which is the same lib/list_debug.c BUG this patch is
+fixing.
+
+> @@ -3097,13 +3104,21 @@ static int amt_dev_open(struct net_device *dev)
+>  	amt->req_cnt = 0;
+>  	WRITE_ONCE(amt->remote_ip, 0);
+>  
+> -	list_for_each_entry_safe(tunnel, tmp, &amt->tunnel_list, list) {
+> -		list_del_rcu(&tunnel->list);
+> +	spin_lock_bh(&amt->lock);
+> +	while (!list_empty(&amt->tunnel_list)) {
+> +		tunnel = list_first_entry(&amt->tunnel_list,
+> +					  struct amt_tunnel_list, list);
+> +		list_del_init(&tunnel->list);
+>  		amt->nr_tunnels--;
+
+[Severity: High]
+Can this wedge a concurrent amt_dev_xmit()?
+
+list_del_init() points the node at itself:
+
+include/linux/list.h:list_del_init() {
+	__list_del_entry(entry);
+	INIT_LIST_HEAD(entry);
+}
+
+amt->tunnel_list is published with list_add_tail_rcu() in
+amt_request_handler() and read locklessly in amt_dev_xmit():
+
+drivers/net/amt.c:amt_dev_xmit() {
+	...
+	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+	...
+}
+
+A reader parked on the node being unlinked gets itself back from
+list_next_entry_rcu() and never reaches the list head, so it spins forever
+with BH disabled inside an RCU read-side section. That also stalls the
+grace period behind the kfree_rcu(tunnel, rcu) calls in the same loop.
+
+Is this TX reader quiesced anywhere? amt_link_setup() sets:
+
+drivers/net/amt.c:amt_link_setup() {
+	dev->priv_flags		|= IFF_NO_QUEUE;
+	dev->lltx		= true;
+	...
+}
+
+With the noqueue qdisc, noqueue_init() leaves qdisc->enqueue == NULL, so
+dev_deactivate_queue() never sets *sync_needed and dev_deactivate_many()
+skips its synchronize_net() for this device. And __dev_direct_xmit(), used
+by AF_PACKET PACKET_QDISC_BYPASS and xsk generic xmit, tests liveness
+before disabling BH:
+
+net/core/dev.c:__dev_direct_xmit() {
+	if (unlikely(!netif_running(dev) ||
+		     !netif_carrier_ok(dev)))
+		goto drop;
+
+	skb = validate_xmit_skb_list(skb, dev, &again);
+	...
+	local_bh_disable();
+	...
+}
+
+so a sender can pass the check, be preempted across __dev_close_many() and
+amt_dev_stop()'s synchronize_net(), and only then enter amt_dev_xmit().
+
+The previous list_del_rcu() poisoned only entry->prev and left entry->next
+intact, so a racing reader still terminated. Would keeping list_del_rcu()
+here (and using a different marker for the ownership test in
+amt_tunnel_expire()) avoid this?
+
+> -		cancel_delayed_work_sync(&tunnel->gc_wq);
+> +		spin_unlock_bh(&amt->lock);
+> +
+> +		disable_delayed_work_sync(&tunnel->gc_wq);
+>  		amt_clear_groups(tunnel);
+>  		kfree_rcu(tunnel, rcu);
+
+[Severity: High]
+This is a pre-existing issue, but the works nested under the tunnel are
+still only cancelled with the non-waiting cancel_delayed_work() while the
+tunnel-level work is now upgraded to disable_delayed_work_sync().
+
+amt_clear_groups() -> amt_del_group() does:
+
+drivers/net/amt.c:amt_del_group() {
+	if (cancel_delayed_work(&gnode->group_timer))
+		dev_put(amt->dev);
+	hlist_del_rcu(&gnode->node);
+	...
+	kfree_rcu(gnode, rcu);
+}
+
+and amt_destroy_source() does the same for the source timer:
+
+drivers/net/amt.c:amt_destroy_source() {
+	cancel_delayed_work(&snode->source_timer);
+	hlist_del_init_rcu(&snode->node);
+	...
+}
+
+cancel_delayed_work() returns false once process_one_work() has cleared
+PENDING, and it is never waited for. The callbacks dereference the objects
+and take tunnel->lock before entering any RCU read-side section:
+
+drivers/net/amt.c:amt_group_work() {
+	struct amt_tunnel_list *tunnel = gnode->tunnel_list;
+	struct amt_dev *amt = gnode->amt;
+	...
+	spin_lock_bh(&tunnel->lock);
+	...
+}
+
+drivers/net/amt.c:amt_source_work() {
+	struct amt_group_node *gnode = snode->gnode;
+	struct amt_dev *amt = gnode->amt;
+	...
+	tunnel = gnode->tunnel_list;
+	spin_lock_bh(&tunnel->lock);
+	rcu_read_lock();
+	...
+}
+
+A worker preempted between PENDING being cleared and spin_lock_bh() is in
+plain preemptible process context, not an RCU reader, so the grace periods
+behind kfree_rcu(gnode, rcu) and kfree_rcu(tunnel, rcu) can complete. When
+it resumes it takes spin_lock_bh() on freed memory, reads gnode fields from
+freed memory, and can call dev_put(amt->dev) derived from that state.
+
+Would it make sense to use the sync cancel for the group and source timers
+too, so the cancel-before-free ordering is complete for everything nested
+under the tunnel?
+
+>  	}
+> +	spin_unlock_bh(&amt->lock);
+>  
+>  	return 0;
+>  }
