@@ -1,83 +1,108 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F78395AD3
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 23:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FD23803C5
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 23:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787614849; cv=none; b=iNbUSPSAQKA5m6UgcEyiI1HSola1Qn5Gz/uTuPVomWDsVrHoMhQcNsYwjJLj7AC8pQPyl58lA3KsvFiBlJAWeMFcqkxOWo6YMLADZDhO14oIk1tzra20zybx6giNGqAEDyokw3Dzo7I+RB75tmghJhmYPyBdfEzIApLMB3ozmqA=
+	t=1787615041; cv=none; b=WlQUz60WBfl9EDh/HZ64jLJufdnjqsOGjvPuPOGmbxr0EPPlb9m3q0ERjYn1nsY9yHbuiCgp3RHV+ZOISNO/45Y3Lud3rjEPabDK98o/i7QSObK3TBiV3EDbykprK6WIEUVAYUr04o9SiHgpFhy37QFiCw2VQdfaERcel8wWMig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787614849; c=relaxed/simple;
-	bh=UK3Ka/ym/G0XcukOVsVyV6NnJWs41Sf1ZVaK1C/8CzU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ejv2auHBZvFKK8/tIXm0ZDmGRiyNLveXG0OMihsrStYTYcNF39JfqTPAOTX8s/Pr94nVIuoKohoje/OnQH027LxHmSKv1AQRQDLCnHQW1T6Nm+BM0CFfrgcdR2MAspt0LueoPflzbM/a8n2mXWRjBAQdl+KP3EFuuO51r1qTI+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dwilley.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qLGIWIhQ; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dwilley.bounces.google.com
+	s=arc-20240116; t=1787615041; c=relaxed/simple;
+	bh=OCMbUUoBG5vPYMqd1ch68Bv85BClXKAbQsrX0fm4IxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cEN1FUhKm59DSzg5SkQPA5UJwglGGv9A/XTDi/eok/ZPEiREore58T7QhJDGjVSik3CHcp7tAJmNkSjXJfe3wIRxwXddw6A0+RH9BUDmIBdBvyIHhwNHhmR2D/LOloN+rDudubVyN3inWLZipGdeCUiFGRCrMzgtMcHnlzp7zoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWhnQ+i+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qLGIWIhQ"
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e9dc0f5900so566384a34.0
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 16:40:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787614847; x=1788219647; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UK3Ka/ym/G0XcukOVsVyV6NnJWs41Sf1ZVaK1C/8CzU=;
-        b=qLGIWIhQff+Zn6beqaYsDHrA1QjQSF5xKH6RVedIxK8BifC/WqAW13xuHTO0qvV09b
-         CrTOxiqyS6rbno2Pqz2AboT0sFNtPkQ7XAvpNWtqrY9NKx7/QRCdhn9zuTODOK+/vm6c
-         6fONEzDTBYuBdMTV3oMskaXXjPg8eeoWxZ29Y4VApmH0DadZvxvOEuUIb5ovLipuYTh0
-         wYbAeJ7PawH+jNcR6dZDtou9XLRLQC0iQO8O8IqvxxbMFEe/EW84IfQ/SToDHeSDlYQH
-         IOUj7i8MqmDcHr7s/9LE3koGm4LIJdtLSleztDXf3IlLXcjFcZWZpdFcBIuOUlKvVx40
-         f+sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787614847; x=1788219647;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UK3Ka/ym/G0XcukOVsVyV6NnJWs41Sf1ZVaK1C/8CzU=;
-        b=B+LUD48dHjf1r5irIqIguPZ6NhmqP7eIII0EGjLugGshT10RzhWcUupLgTlyJ6pK72
-         kgQZ+Vj7ebHt/CjjDzRkVer6+3665AOsM56mbXp6zayRhKgkoMpHVKynf+gl6PE9ThOe
-         ok79jXwR4ZnQQhjWDwppKpgkN8OtAMVqKsGkThfrMr5VwGb+qkcPOXJcUSeejwFnmWRJ
-         JnCeOteTjV2lfGLGDQXlnd2mNQ1G0WjKq6B3UIqc+CKBAGVBxwo4ucGHOcf6XM8rM6CN
-         bJVUjy3uwIGCLEA/KNIngsvFOUwmWgG1FWpoDoX4rUNQM1hcod5F/T0CjmMCs2IhJPgV
-         WJcg==
-X-Forwarded-Encrypted: i=1; AHgh+RqooTYCfMTkDdz1I1xqZGK7DSKyZfzfLMNeb3lyIN6tRhtxSYYu5SOJC4bVXi44+Kyd7aCefDg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRg1gluglemqNiqA4oFKmZe61ehrjFj17v1Tqxo0an2+AQZ0cB
-	ZUu8NdKsypRlvU1azLYLgQNUwGgfvs6qD+xADRHvu5uYHWYQeAAJwbycY+HbnZNpvGohf9ZnzP8
-	FcTdPPGdwMw==
-X-Received: from iobip13.prod.google.com ([2002:a05:6602:6e0d:b0:9ab:3339:3966])
- (user=dwilley job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6820:1908:b0:6a3:6f5d:4d6c
- with SMTP id 006d021491bc7-6b18faa5cadmr2046337eaf.6.1787614846566; Mon, 24
- Aug 2026 16:40:46 -0700 (PDT)
-Date: Mon, 24 Aug 2026 23:39:52 +0000
-In-Reply-To: <20260824-alluring-affable-hog-d072e8-mkl@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWhnQ+i+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2F21F000E9;
+	Mon, 24 Aug 2026 23:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787615039;
+	bh=ejHLEzcLg9VwHRKI3tyRFudpW+sopcThi4CFAaquutQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oWhnQ+i+QJX7S0T8gfr8WMSrQc3Md2QZutQS2x6j4Cky9o4P4C/v78voJ1aGZtiK8
+	 8VKQnIMjvb0iwyY2Qsa7Qtolkhrk2/C4vmoiPskTSGLbxM0gRbW9izhb6ojW4KUfQK
+	 FmjxfmwOxoaQICI8oqkijGtEGu70ePd2QsMgj9V64VbF94IAmSTXzagt4QeIf6DwWe
+	 q/n/ckeiJMCK2h3B8xWjAhO8PRsRP1HRvfUvF6Cgry9mcAhbF48ihEDwSTeKvHRIOf
+	 wQD9txEJK6C+yZfuAiBtwd0TQOzgqeUZ3oMpXC7UP4r/dOQaWXNqVO0SYwf3voJbL7
+	 CaedNyBUrRSiw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Dawid=20Wro=CC=81bel?= <me@dawidwrobel.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
+Date: Mon, 24 Aug 2026 19:43:57 -0400
+Message-ID: <20260824234357.685026-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082034-fragrance-goal-64e1@gregkh>
+References: <2026082034-fragrance-goal-64e1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260824-alluring-affable-hog-d072e8-mkl@pengutronix.de>
-X-Mailer: git-send-email 2.55.0.860.g4b6b3295ed-goog
-Message-ID: <20260824233953.2057979-1-dwilley@google.com>
-Subject: Re: [PATCH v2] can: usb: f81604: fix struct f81604_int_data size mismatch
-From: Drew Willey <dwilley@google.com>
-To: mkl@pengutronix.de
-Cc: admin@dynetrex.com, devnull+peter_hong.fintek.com.tw@kernel.org, 
-	gregkh@linuxfoundation.org, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mailhol@kernel.org, peter_hong@fintek.com.tw, 
-	stable@vger.kernel.org, Drew Willey <dwilley@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Tested running ChromeOS, kernel 6.12, rev facaadd, f81604=C2=A0(2c42:1709),=
- the driver hits "f81604_read_int_callback: short int URB: 9 < 12"=C2=A0on =
-the first Tx attempt and stops the Tx queue. Subsequent frames queue up and=
- are not transmitted.
+From: Dawid Wróbel <me@dawidwrobel.com>
 
-Reloaded the f81604 module with this patch. Transmitted several frames over=
- a minute and all succeed.
+[ Upstream commit 1ba381759e45d5d0442452cfa5c42e836191a568 ]
 
-Tested-by: Drew Willey <dwilley@google.com>
+The "DEC0 MODE" to "DEC7 MODE" controls are enumerated, but
+tx_macro_dec_mode_get() and tx_macro_dec_mode_put() access their
+value through ucontrol->value.integer.value[0] (a long) instead of
+ucontrol->value.enumerated.item[0] (an unsigned int).
+
+This same pattern was fixed in the sibling drivers by
+commit bcfe5f76cc40 ("ASoC: codecs: rx-macro: fix accessing array
+out of bounds for enum type") and
+commit 0ea5eff7c606 ("ASoC: codecs: va-macro: fix accessing array
+out of bounds for enum type"), but tx-macro was missed.
+
+On 64-bit kernels built with CONFIG_SND_CTL_DEBUG, the elem value
+sanity check catches the 4 bytes written past the enumerated item
+and every read of these controls fails with -EINVAL:
+
+  snd-sm8250 sound: control 2:0:0:DEC0 MODE:0: access overflow
+
+Fixes: c39667ddcfc5 ("ASoC: codecs: lpass-tx-macro: add support for lpass tx macro")
+Assisted-by: Claude:claude-fable-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260730-worktree-lpass-tx-macro-enum-fix-v2-1-6d091c736116@dawidwrobel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ kept `snd_soc_kcontrol_component()` context line instead of upstream's renamed `snd_kcontrol_chip()` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/lpass-tx-macro.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 095c6dc564465..f32db1eda631d 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -1013,7 +1013,7 @@ static int tx_macro_dec_mode_get(struct snd_kcontrol *kcontrol,
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	int path = e->shift_l;
+ 
+-	ucontrol->value.integer.value[0] = tx->dec_mode[path];
++	ucontrol->value.enumerated.item[0] = tx->dec_mode[path];
+ 
+ 	return 0;
+ }
+@@ -1022,7 +1022,7 @@ static int tx_macro_dec_mode_put(struct snd_kcontrol *kcontrol,
+ 				 struct snd_ctl_elem_value *ucontrol)
+ {
+ 	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
+-	int value = ucontrol->value.integer.value[0];
++	int value = ucontrol->value.enumerated.item[0];
+ 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
+ 	int path = e->shift_l;
+ 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
+-- 
+2.53.0
+
