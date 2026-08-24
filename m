@@ -1,50 +1,47 @@
-Received: from mta1.migadu.com (out-133.mta1.migadu.com [95.215.58.133])
+Received: from mta0.migadu.com (out-252.mta0.migadu.com [91.218.175.252])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7198023E33D
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 01:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605792853F3
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 02:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787536040; cv=none; b=nSVRPQqlJ4BkCLkpeiG9TLjrVPfh+J7nBlJV7Fcv1KQiCxFJk02FaaOWUA5lVslIcinQyLzxEbz47lTVGq2A0hnfEeAjNVVQ0Gv0Ht245gx1UGNzCrjM0GoVwzj7h1cfhA170Ni526nvHN9w9qFQmMuE8wNovGBHyLz1fhLe/PQ=
+	t=1787537698; cv=none; b=C+ks88TZqopZ1QfEGsqgUbRn1nbw6AecFaZbPn9M+8Kyfm60TX/8CIZrRoL0VxnqfT2j2U36cX4CSg47797AaW0RG7CmD1PbM9OW4TSupOb5bUPfcAYJEIxID0coae4NSSYJFctmEg5KWlhVVU6X5hlXcQX2lqovFe0UIXWq4e4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787536040; c=relaxed/simple;
-	bh=GMXp/uzjwMPTYkYu0trgCHPdqOIOW0rq90aIR8oBimE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mtWWLpvFU+U30NEW0MKY/6ZNxaMhtu83DTD8LoBx6DpQVDFygR78bOHjUo1lAvJQLbvtQcsz7akzul35bBn1/v93QC30PAP6ypNgkSvH8CECDF7IfKHg7ILwCDVjIb5UPXPYJAc+l+/IUc729fCRoCiccR/RDV333ptTlom8ASw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gTg1k2h4; arc=none smtp.client-ip=95.215.58.133
+	s=arc-20240116; t=1787537698; c=relaxed/simple;
+	bh=NtQ2IOM/Mh5R17rSUOh8SsBc1MqYsMk2h3KzjPHs0PE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OG4NBs8EiKnLxgTD04QAf5kyOEVqBQCE+AoyWG+2Eh3LLAtkYc5oipgAsYw4Rcwsbs/TNRHvswFu5Ov9Ws22Rsv0OVXHGBGQODEBC37Heplev6w82wh+GT3Nb5ni8RDM4qWgAQyPRvCwcBgw0bRTkgD8OYlQc9B5nY7any5y408=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wQVvXueO; arc=none smtp.client-ip=91.218.175.252
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gTg1k2h4"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wQVvXueO"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GMXp/uzjwMPTYkYu0trgCHPdqOIOW0rq90aIR8oBimE=;
+DKIM-Signature: a=rsa-sha256; bh=NtQ2IOM/Mh5R17rSUOh8SsBc1MqYsMk2h3KzjPHs0PE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787536035; v=1; x=1788140835;
- b=gTg1k2h4x17BocxgJIbRcTKRVmdk6CN3x6sULp0nrNiPgHuOUgwz5tPToUkGmxgmKv35jw65
- jbsRGpVtHwA9+YnVkWqjbu63sEKFtohxqkB97+UHsTVTXy2A7zun0YHLeT1kNafVyDVIomCTc6F
- KD7hBLRROt+JZT7G+Za8FvmM=
+ t=1787537693; v=1; x=1788142493;
+ b=wQVvXueOFLtDN5Vz2tgoyaSRzYAX7FfBDKUOiijLrQlo2B4jI0dhYuab3bIgZezb0devHpaf
+ 8ONXFs7as3ZARCG/vhHg2mxL52GZlfBk9BR9XRzM04jrRUYlAxcprZSyp1kk9GYUnV9DyaHQKSR
+ uxGLG0tcaX8dIPAVqwNrobIo=
 X-Envelope-To: stable@vger.kernel.org
 Received: from localhost.localdomain (116.128.244.169)
-	by smtp.migadu.com with ESMTPS id ffe8640577d465e7;
-	Mon, 24 Aug 2026 01:47:05 +0000
-X-Mizu-Trace-ID: ffe8640577d465e7
+	by mta10.migadu.com with ESMTPS id 9bf3271d94a12da4;
+	Mon, 24 Aug 2026 02:14:53 +0000
+X-Mizu-Trace-ID: 9bf3271d94a12da4
 X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hao Ge <hao.ge@linux.dev>,
-	Sashiko <sashiko-bot@kernel.org>,
+From: Yi Cong <cong.yi@linux.dev>
+To: nbd@nbd.name,
+	lorenzo@kernel.org,
+	ryder.lee@mediatek.com
+Cc: shayne.chen@mediatek.com,
+	sean.wang@mediatek.com,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Yi Cong <yicong@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] module: fix lost error code from codetag_load_module()
-Date: Mon, 24 Aug 2026 09:47:36 +0800
-Message-Id: <20260824014736.35026-1-hao.ge@linux.dev>
+Subject: [PATCH] wifi: mt76: mt792x: fix negative errno truncation in offload capability
+Date: Mon, 24 Aug 2026 10:14:29 +0800
+Message-Id: <20260824021429.43761-1-cong.yi@linux.dev>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,31 +51,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If codetag_load_module() fails, err is never set and load_module()
-returns 0 after the module has been torn down.
+From: Yi Cong <yicong@kylinos.cn>
 
-Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as module load failures")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
+Returning a negative errno as u8 turned -ENOENT into 0xfe, wrongly
+enabling CNM and NAN caps. Return int and default to no caps on error.
+
+Fixes: e8a264ccd2de0 ("wifi: mt76: mt7921: move init shared code in mt792x-lib module")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Signed-off-by: Yi Cong <yicong@kylinos.cn>
 ---
- kernel/module/main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/wireless/mediatek/mt76/mt792x_core.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index 46dd8d25a605..afb810f0154c 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -3568,7 +3568,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
- 			goto sysfs_cleanup;
- 	}
+diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+index 0ad33f74c2285..297c8a9f41ba3 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
++++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+@@ -857,7 +857,7 @@ int mt792x_init_wiphy(struct ieee80211_hw *hw)
+ }
+ EXPORT_SYMBOL_GPL(mt792x_init_wiphy);
  
--	if (codetag_load_module(mod))
-+	err = codetag_load_module(mod);
-+	if (err)
- 		goto sysfs_cleanup;
+-static u8
++static int
+ mt792x_get_offload_capability(struct device *dev, const char *fw_wm)
+ {
+ 	const struct mt76_connac2_fw_trailer *hdr;
+@@ -926,13 +926,20 @@ mt792x_get_mac80211_ops(struct device *dev,
+ 			void *drv_data, u8 *fw_features)
+ {
+ 	struct ieee80211_ops *ops;
++	int ret;
  
- 	/* Get rid of temporary copy. */
+ 	ops = devm_kmemdup(dev, mac80211_ops, sizeof(struct ieee80211_ops),
+ 			   GFP_KERNEL);
+ 	if (!ops)
+ 		return NULL;
+ 
+-	*fw_features = mt792x_get_offload_capability(dev, drv_data);
++	ret = mt792x_get_offload_capability(dev, drv_data);
++	if (ret < 0) {
++		dev_warn(dev, "failed to read firmware offload caps: %d\n", ret);
++		*fw_features = 0;
++	} else {
++		*fw_features = ret;
++	}
+ 
+ 	if (mt792x_needs_cnm_runtime(drv_data))
+ 		*fw_features |= MT792x_FW_CAP_CNM;
 -- 
 2.25.1
 
