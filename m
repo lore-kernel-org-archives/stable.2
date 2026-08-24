@@ -1,103 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9E53F12E2;
-	Mon, 24 Aug 2026 12:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48AD40EBA8;
+	Mon, 24 Aug 2026 12:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787575817; cv=none; b=IgjV9XuMWDYqFxRbxpZuDTJCgRtgXRMZoZ1ENWmiy3ScDjtuALkSedDWnWvHzc8W1ZFITIHneULrwa+Pl4LxhDAC1GVIgIUSdOAYxukb1mUyIGNxXLmieqBuqOqazIXomaPuXXrDMUtURHnybZg5WOMwrJPm0KujPFHjweQC14E=
+	t=1787575945; cv=none; b=Pcv3Rj8KftwAmq+UgUPIHE/R77fwvYFW217k7YMKxWNsrQWR/QWr5WCkTe9NeM147z9t5C4qjWttzQJSFru7lCi5iTew3DYUOIktrumRbwMaBtRT9+rpm6UKK4vML6u6oOoL7pp7p6sjh30brGv4WneFjFGacpCnKtpj0JgFTcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787575817; c=relaxed/simple;
-	bh=8dyoGwYqE0+oRO6D3D9z7RssrqIoCJbmCBSreTo1NAM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k2CK4X2OwGWi7/xcWlrtVbdxrDKvqsC6GAf8JwHkAIGsuRwBgzLPvyoAgtU4c2N6542YxTj8S5E0Wm2OUszufoFIPmWZF99UUjrgyg18u519CNz6zbMzYEXawlvw3O3LdAiIzPWS+w4/A+q309aiWq4hr0uZ9L0qrI/JB1RTIWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HdMhbhYF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HdMhbhYF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0C01F00A3D;
-	Mon, 24 Aug 2026 12:50:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787575816;
-	bh=MZoj6aqj5U4tkAqvvKrf5s16sOmkfsLcKydVscu9oUo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HdMhbhYFiAxTvLaBruA4+2xYgwpDB1+h9q8noenekDfsbZPf5jQzN8J7IysEsmfaE
-	 WGLUjWdT1LBt2ZlpG5eUILxsQBtaRgaN1FByMQjjJX2pNc1Q1d8++g3AX5UUPqW7Hk
-	 jIRH8ShhSK0bCI/ZlUZc1IxlPUESt1FM43GTahz4g2UlKmmdqRsQMQuk8OYW4AqDzj
-	 cdL583jH7G2XgSKqaWcgY57OPTf4lLubqVLt7PuY3CF1Anqjdw3prQkIPeHgyJnLI9
-	 kcZALF6GJ5nZXYlOHL/QPhiYle6dVXbbh5ywq0YgbC3Rcxo+b7b5GrmLObCZQMoJ5g
-	 GUuiwlj51hWXQ==
-Message-ID: <ad7fba18-57d0-4f04-9c31-7ada3daf2d41@kernel.org>
-Date: Mon, 24 Aug 2026 14:50:12 +0200
+	s=arc-20240116; t=1787575945; c=relaxed/simple;
+	bh=RHfBJQvUmRRrjA4Sl3o6osk1PrMdBZxJVzxqJOVnliU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O9IujCaVQ4oTHBgY8jtdssYkyS36A6i4uS7DugqFiPw7fylGENlyI6DUFmRaup8DUzp/UMdpRBbJuI4zPrXODTXhXObS8beTF48vizPqcJtW9e6Syw+3EQSPwjJvDLay0DvFYSuWreBLHsOCJB5t95tDeDXnMCm8tNkm8NFFEGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: a2879dfe9fba11f19a56ed5b684f684d-20260824
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1ca0a853-6c81-41b5-a108-06a015ade9f0,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:6073d24401ac398f1b2b2f87925aa8e0,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a2879dfe9fba11f19a56ed5b684f684d-20260824
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 90146487; Mon, 24 Aug 2026 20:52:16 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: adc: ade9000: fix NULL pointer dereference in clkout registration
+Date: Mon, 24 Aug 2026 20:52:10 +0800
+Message-Id: <20260824125210.1644319-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] thunderbolt: Hold a router reference for each path
- hop
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
- <YehezkelShB@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>,
- asahi@lists.linux.dev, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
- <20260823-b4-tbt-fixes-v2-1-26a18a426c9f@kernel.org>
- <20260824104237.GF893316@black.igk.intel.com>
- <295cce78-47d2-4a6e-af90-696edb60a05d@kernel.org>
- <20260824113759.GH893316@black.igk.intel.com>
-Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <20260824113759.GH893316@black.igk.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+ade9000_setup_clkout() passes NULL as the register address when
+registering a divider clock. During clock registration, the common
+clock framework calls clk_divider_recalc_rate(), which dereferences
+the address through readl(). As a result, probing an ADE9000 configured
+as a clock provider with an external input clock crashes.
 
+CLKOUT passes CLKIN through without changing its rate. Register it as
+a 1:1 fixed-factor clock, which does not require register access.
 
-On 8/24/26 13:37, Mika Westerberg wrote:
-> Hi,
->
-> On Mon, Aug 24, 2026 at 01:06:12PM +0200, Sven Peter wrote:
->> So unfortunately the entire USB hardware is best described as horribly
->> broken :(
-> :-(
->
->> For USB2 already we only ever receive a single hotplug interrupt in dwc3. If
->> the first device is unplugged and another one plugged in nothing happens.
->> The only way around that is to tear down dwc3/xhci and the PHY completely,
->> assert all external reset lines and then bring them up again.
->> Upstream drivers/usb/dwc3/dwc3-apple.c contains more details in the very
->> first comment at the top.
->>
->> With USB4 this gets a bit worse: There's a block called "ACIO" (Apple
->> Converged I/O) which can only be brought up correctly after the PHY has been
->> switched to Thunderbolt/USB4 mode. This block has a co-processor which then
->> exposes the host router, NHI, IOMMU, etc. to our address space.
->> We then have to write cable information into a vendor-specific capabilities
->> register and only then do we get the hotplug event and the link comes up.
->> This register appears to be effectively write-once after each boot of the
->> co-processor. If I try to write 0 that still works but trying to write the
->> value for the next connection then crashes the co-processor with a very
->> helpful message along the lines of "assert 4357 violated".
->> So there's no way around first tearing everything down, then shutting down
->> the co-processor and the entire ACIO block and then finally bringing it all
->> up again after the next cable is connected. I've tried to find ways around
->> this but didn't succeed without documentation and could only reproduce what
->> XNU does.
-> Thanks for sharing the interesting details! I totally understand the pain
-> of reverse engineering things. The initial USB4/TB driver was also result
-> of a huge reverse engineering effort by Andreas Noever, but it was and
-> still is functional, and we still support Apple TB1/2 hardware (although
-> not too much testing is done these days, I fire up my Cactus Ridge based
-> Mac maybe once a year).
+Fixes: 81de7b4619fc ("iio: adc: add ade9000 support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+---
+ drivers/iio/adc/ade9000.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Hah, nice! I wasn't aware the initial version of this driver was built 
-for Apple hardware!
-Let's see if we can the Apple Silicon changes into a shape where they 
-still work 10+ years from now as well :-)
+diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+index e57e24b6acdf7..4e96cc37fbedf 100644
+--- a/drivers/iio/adc/ade9000.c
++++ b/drivers/iio/adc/ade9000.c
+@@ -1647,8 +1647,9 @@ static int ade9000_setup_clkout(struct device *dev, struct ade9000_state *st)
+ 		return 0;
+ 
+ 	/* CLKOUT passes through CLKIN with divider of 1 */
+-	clkout_hw = devm_clk_hw_register_divider(dev, "clkout", __clk_get_name(st->clkin),
+-						 CLK_SET_RATE_PARENT, NULL, 0, 1, 0, NULL);
++	clkout_hw = devm_clk_hw_register_fixed_factor(dev, "clkout",
++						      __clk_get_name(st->clkin),
++						      CLK_SET_RATE_PARENT, 1, 1);
+ 	if (IS_ERR(clkout_hw))
+ 		return dev_err_probe(dev, PTR_ERR(clkout_hw), "Failed to register clkout");
+ 
 
-
-Sven
+base-commit: 6b9f23b5460818aaf199dda90210d5fc08d66c8f
+-- 
+2.25.1
 
