@@ -1,281 +1,546 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E6E383981;
-	Mon, 24 Aug 2026 18:22:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAB82D47E9
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 18:28:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787595775; cv=none; b=i/7tYW8HSf9r2qw+717JQTEgRsy65NnXxPV8dBsMK5lpkYcOcZup3DiHZwoqLt7neVIM/dEopTbeXe2nNlaKGxga7EEgix1aFITSQPQzqSLEp4ptQOj0hTicsBz+wtMloRPc2rLICvyMeh2iiDqqpQ6J7bIqrIjw4tdU/JA9x6g=
+	t=1787596091; cv=none; b=L/TFwMJkR2UrSHdUIM1KwukeEhsY4rKOlsZGEqo4uiODqJAzeUj1ddpO92fEQZ9r9YcoRrQbhiWkUt9mTV8ZfKl5uJE7geE2lSqvzK9sbOl2/O3/iu8QlAgVnUIX4lgq9c322MfymGgLKahkb412UyGjecI4h8Aw6pr+YbddHyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787595775; c=relaxed/simple;
-	bh=rxs7sO3FqqvreuB3ejp0DZZxGpzhU8PhCvK/ZvhE8/c=;
+	s=arc-20240116; t=1787596091; c=relaxed/simple;
+	bh=UlsOmCR6v3LDb15OE3jN5hcOYmSZVxDSjYNBWelguqM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ikUX5mtsR/6qO5kDJEb/l5wF9oFkKC3gA9oy8DNUJdeMXYBD0D5shQoQ8O55Ks3AHew+KVLGIhiMa6C04jVobGM4sxfZIZbzvYvkUhx5ww4UjRKWfWI/BXj5x+jl83us7z3DwI65/sghlN082h/0XVvNpO/oU5k4U/Rxht25Oj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kdNQ1jqD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WgEP01LQWDWdLmq65n9MGS6URJbxx796igfvAgUALMBsyBfG05CJnlZBbxXyigmWAGFfgK4VFXSlx4rDIqcQKVNQ6GPIjhIok2gEBVUXHkt/UW7OXyrsN5DkIzN9jB9auAcYREp7UN8fIrsIRmaak2oIvUjXfJT36jsdgexCitQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dhCg+hZM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kdNQ1jqD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FE451F000E9;
-	Mon, 24 Aug 2026 18:22:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dhCg+hZM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11F71F000E9;
+	Mon, 24 Aug 2026 18:28:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787595773;
-	bh=WmNoSysQv/hBxiCyPDAmxrJYxNZ925BTiUeBMsz9xA8=;
+	s=k20260515; t=1787596089;
+	bh=KQlcKTjhaAIJoPH7sJMjiHrY/x0w/Eepm9APCGXEuJw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kdNQ1jqD/Tkj0Wt9MM86oo99kzAarxOUdsVBK2ZWAMWj2uaYfWdvrtp1iloo9NXoD
-	 WdTXl95nljlmM0b2SKl2yPc8eP+j5ahmACpK1sfcCDpoJhkauqW+rnXWLek/CQXwZg
-	 V1FiX56jdTPTQH5QTSOT92SDyNwCqrc4ZJJnkhG5Gh++71bZ0rF4mp2JDr9CzCI9gX
-	 npgVdwS+nByplKEP0ugnR4N4A6DSgKYNhQ93nVTqT4emspIDbceTQh1CLQAXlMGm/j
-	 hJdEiFW/M/zfsMAGGXj5nWddxup1gpGP3yB16L9uaGz9BiDTk1d7FVto+yTEYEX12O
-	 P8ru86ZCenRTQ==
-From: Jakub Kicinski <kuba@kernel.org>
-To: meatuni001@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	jhs@mojatatu.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net/sched: act_csum: Fix missing headroom COW and integer underflow in header rewriting
-Date: Mon, 24 Aug 2026 11:22:52 -0700
-Message-ID: <20260824182252.2672540-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260818221519.75088-3-meatuni001@gmail.com>
-References: <20260818221519.75088-3-meatuni001@gmail.com>
+	b=dhCg+hZMv9Ezmg8+kvbzgpmtEYPv2sQYVyz0D2ZhTxxXw6/DocwlT+Szg6iDlLY3M
+	 8inWRVdW+CeXFSsAtp50lz3gjQ5CASNjs/p9TAc+1M/fEHDonnBZFADTBO28LXeRem
+	 DjVG8zkSznddUX/vUXl4Mxj6chXhzXOyerwf10Z9jmKqukqGRWwNNkA09RtNDPvYvw
+	 gvBunP5EsbrJaBjMsFXlWe7fGqv4jNWpwKIz7oDxdOV74XiXyLBZbEvOaJXB2Vpjpj
+	 PTdUVjzzOHgJ7JXgmMkZnV3brlxcy2loGBNDy5KBzFeWBKS9AZmgFF8csh7cy6TtDx
+	 ep5U+/t+fhhOg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] drm/amdgpu: fix recursive ww_mutex acquire in amdgpu_devcoredump_format
+Date: Mon, 24 Aug 2026 14:28:06 -0400
+Message-ID: <20260824182807.271396-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082041-sporty-underdone-82eb@gregkh>
+References: <2026082041-sporty-underdone-82eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+
+[ Upstream commit 7152b248dc3c8d5fa8629e99ed5655dd41b51562 ]
+
+When dumping IB contents from a hung job, amdgpu_devcoredump_format()
+acquired the VM root PD's reservation via amdgpu_vm_lock_by_pasid() and
+then, for each IB, called amdgpu_bo_reserve() on the BO backing the IB.
+Both reservations are reservation_ww_class_mutex objects and neither
+used a ww_acquire_ctx, which trips lockdep:
+
+  WARNING: possible recursive locking detected
+  --------------------------------------------
+  kworker/u128:0 is trying to acquire lock:
+  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+
+  but task is already holding lock:
+  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
+    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+
+   Possible unsafe locking scenario:
+         CPU0
+         ----
+    lock(reservation_ww_class_mutex);
+    lock(reservation_ww_class_mutex);
+
+   *** DEADLOCK ***
+   May be due to missing lock nesting notation
+
+  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
+  Call Trace:
+   __ww_mutex_lock.constprop.0
+   ww_mutex_lock
+   amdgpu_bo_reserve
+   amdgpu_devcoredump_format+0x1594 [amdgpu]
+   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
+
+The two reservations are on different BOs in the captured trace, so the
+splat is a lockdep-correctness warning, not an observed deadlock. It
+becomes a real self-deadlock whenever the IB BO shares its dma_resv with
+the root PD (the always-valid case, see amdgpu_vm_is_bo_always_valid()):
+amdgpu_bo_reserve(abo) re-acquires the same ww_mutex without a ticket
+and blocks forever. With amdgpu.gpu_recovery=0 the timeout handler
+refires every ~2 s and each invocation produces this splat, drowning the
+kernel ring buffer.
+
+Now that amdgpu_vm_lock_by_pasid() takes a drm_exec context, move the IB
+dumping into a separate helper that locks the root PD and every IB BO
+together in a single drm_exec ticket. DRM_EXEC_IGNORE_DUPLICATES handles
+IB BOs that share a dma_resv (e.g. always-valid BOs, or two IBs backed
+by the same BO). Every lock is now a top-level acquire under one
+ww_acquire_ctx, so the recursive ww_mutex condition is gone, and the
+per-IB amdgpu_bo_reserve()/amdgpu_bo_unref() dance -- including a BO
+refcount leak on the amdgpu_bo_reserve() failure path -- is removed.
+
+Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit d6bf4242731219ee08ce54c365631e395486651e)
+Stable-dep-of: e40ff9840fa8 ("drm/amdgpu: Allocate coredump ring buffers per ring")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-net/sched: act_csum: Fix missing headroom COW and integer underflow in header rewriting
+ .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 215 ++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  91 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   2 +-
+ 3 files changed, 184 insertions(+), 124 deletions(-)
 
-This adds a helper csum_ensure_writable() to act_csum that calls
-skb_cow(skb, -offset) when the network offset is negative before calling
-skb_ensure_writable(), and converts two of the existing offset
-computations in tcf_csum_skb_nextlayer() and tcf_csum_ipv4() to use it.
-
-A few questions below, first about the changelog and then inline in the
-diff.
-
->     2. skb_try_make_writable() only evaluates writability from skb->data
->        forwards and does not invoke skb_cow() on the headroom. When modifying
->        cloned SKBs (e.g. from packet sockets, tc mirred, or BPF redirects),
->        updating headers via ip_send_check() or L4 checksum replacements mutates
->        shared headroom data directly, leading to packet corruption and page
->        cache corruption.
-
-[Severity: Low]
-Can this code reach page cache pages at all?  The bytes protected here are
-the headroom in front of skb->data, which lives inside the skb head
-allocation, and skb_cow() -> __skb_cow() -> pskb_expand_head() only
-reallocates and copies skb->head .. skb_tail_pointer().
-
-Page cache pages only show up in skb_shinfo(skb)->frags (sendfile,
-MSG_ZEROCOPY), and neither the old nor the new act_csum code writes there.
-
-The "cloned SKBs" framing also looks questionable for the ntkoff >= 0 case.
-skb_ensure_writable() falls back to a full head copy:
-
-net/core/skbuff.c:skb_ensure_writable() {
-	if (!skb_cloned(skb) || skb_clone_writable(skb, write_len))
-		return 0;
-
-	return pskb_expand_head(skb, 0, 0, GFP_ATOMIC);
-}
-
-and the fast path only triggers when
-
-include/linux/skbuff.h:skb_clone_writable() {
-	return !skb_header_cloned(skb) &&
-	       skb_headroom(skb) + len <= skb->hdr_len;
-}
-
-i.e. when the header area including headroom was explicitly handed to this
-skb as privately writable (see "DOC: dataref and headerless skbs" in
-include/linux/skbuff.h).  Could the changelog drop the page cache claim and
-describe the headroom case only?
-
-> diff --git a/net/sched/act_csum.c b/net/sched/act_csum.c
-> index 078d3a27130b..c8e2f20e2da3 100644
-> --- a/net/sched/act_csum.c
-> +++ b/net/sched/act_csum.c
-> @@ -121,6 +121,18 @@ static int tcf_csum_init(struct net *net, struct nlattr *nla,
->  	return err;
->  }
->  
-> +static int csum_ensure_writable(struct sk_buff *skb, int offset, size_t len)
-> +{
-> +	if (offset < 0) {
-> +		if (skb_cow(skb, -offset))
-> +			return -ENOMEM;
-> +		if (offset + (int)len > 0)
-> +			return skb_ensure_writable(skb, offset + len);
-> +		return 0;
-> +	}
-> +	return skb_ensure_writable(skb, offset + len);
-> +}
-
-[Severity: High]
-Is the (int)len cast here safe?  len is size_t, so any length above INT_MAX
-becomes negative in this test, the helper returns 0 without calling
-pskb_may_pull() or skb_ensure_writable() at all, and the caller treats the
-range as validated.
-
-On the IPv6 path ipl is not bounded.  tcf_csum_ipv6_hopopts() can overwrite
-pl with the full 32-bit Jumbo Payload value:
-
-net/sched/act_csum.c:tcf_csum_ipv6_hopopts() {
-	...
-			*pl = ntohl(*(__be32 *)(xh + off + 2));
-			goto done;
-	...
-}
-
-so with pl = 0xffffffc8 the caller passes len = ipl = 0xfffffff0, where
-(int)len == -16 and ntkoff < 0 makes offset + (int)len > 0 false.
-tcf_csum_skb_nextlayer() then returns skb_network_header(skb) + ihl and the
-L4 handler walks the claimed length:
-
-net/sched/act_csum.c:tcf_csum_ipv6_icmp() {
-	...
-	skb->csum = csum_partial(icmp6h, ipl - ihl, 0);
-	...
-}
-
-The removed pskb_may_pull(skb, ipl + ntkoff) rejected this input
-(0xfffffff0 + (-20) = 0xffffffdc, pull fails).  Should the helper reject
-lengths it cannot represent instead of returning success, and should the
-kernel-doc claim "Check the expected next layer availability" still hold?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but tcf_csum_sctp() recomputes
-the offset independently of this helper and hands it to an unsigned
-parameter:
-
-net/sched/act_csum.c:tcf_csum_sctp() {
-	...
-	sctph->checksum = sctp_compute_cksum(skb,
-					     skb_network_offset(skb) + ihl);
-	...
-}
-
-include/net/sctp/checksum.h:sctp_compute_cksum(struct sk_buff *skb,
-						unsigned int offset) {
-	struct sctphdr *sh = (struct sctphdr *)(skb->data + offset);
-	__le32 old = sh->checksum;
-	...
-	sh->checksum = 0;
-	new = ~skb_crc32c(skb, offset, skb->len - offset, ~0);
-	sh->checksum = old;
-	...
-}
-
-ihl comes from iph->ihl * 4 and tcf_csum_ipv4() never checks iph->ihl >= 5,
-so ihl == 0 is packet selectable; with ntkoff == -20 the offset becomes
-0xffffffec and both sh->checksum writes land roughly 4 GiB past skb->data.
-
-Since this patch declares negative network offsets supported, and the new
-offset + (int)len <= 0 branch admits packets that pskb_may_pull(skb,
-ipl + ntkoff) previously rejected, does this widen the set of packets
-reaching that write?  Should tcf_csum_sctp() also go through a signed,
-bounds-checked path?
-
->  
->  /**
->   * tcf_csum_skb_nextlayer - Get next layer pointer
->   * @skb: sk_buff to use
-> @@ -138,8 +150,7 @@ static void *tcf_csum_skb_nextlayer(struct sk_buff *skb,
->  	int ntkoff = skb_network_offset(skb);
->  	int hl = ihl + jhl;
->  
-> -	if (!pskb_may_pull(skb, ipl + ntkoff) || (ipl < hl) ||
-> -	    skb_try_make_writable(skb, hl + ntkoff))
-> +	if (ipl < hl || csum_ensure_writable(skb, ntkoff, max_t(unsigned int, ipl, hl)))
->  		return NULL;
->  	else
->  		return (void *)(skb_network_header(skb) + ihl);
-
-[Severity: Medium]
-Is the change of the requested writable length intentional here?  The old
-code asked for hl + ntkoff (mac_len plus IP plus L4 header); the new code
-asks for ntkoff + ipl, the whole packet length taken from iph->tot_len or
-the IPv6 payload length.
-
-Because the ipl < hl test short-circuits first, ipl >= hl always holds when
-the helper runs, so max_t(unsigned int, ipl, hl) is always ipl and the
-max_t() looks like dead code.
-
-The widened length also disables the clone fast path:
-
-include/linux/skbuff.h:skb_clone_writable() {
-	return !skb_header_cloned(skb) &&
-	       skb_headroom(skb) + len <= skb->hdr_len;
-}
-
-For transport clones (__skb_header_release() plus skb_clone(), i.e. every
-non-GSO TCP transmit skb) hdr_len - headroom covers only the mac plus IP
-plus TCP bytes pushed after cloning, which satisfied hl + ntkoff but never
-satisfies ntkoff + tot_len.  Those skbs now take
-pskb_expand_head(skb, 0, 0, GFP_ATOMIC) in skb_ensure_writable() per
-packet, and when that allocation fails the action drops a packet that was
-previously forwarded without allocating.
-
-The callers only write inside the L4 header, so would hl be the right
-length to request, and should the changelog mention the per-packet copy?
-
-> @@ -437,7 +448,7 @@ static int tcf_csum_ipv4(struct sk_buff *skb, u32 update_flags)
->  	}
->  
->  	if (update_flags & TCA_CSUM_UPDATE_FLAG_IPV4HDR) {
-> -		if (skb_try_make_writable(skb, sizeof(*iph) + ntkoff))
-> +		if (csum_ensure_writable(skb, ntkoff, sizeof(*iph)))
->  			goto fail;
->  
->  		ip_send_check(ip_hdr(skb));
-
-[Severity: Medium]
-Can this new call ever run for the negative offsets the changelog talks
-about?  Earlier in the same function the entry gate is untouched:
-
-net/sched/act_csum.c:tcf_csum_ipv4() {
-	ntkoff = skb_network_offset(skb);
-
-	if (!pskb_may_pull(skb, sizeof(*iph) + ntkoff))
-		goto fail;
-	...
-}
-
-sizeof() is size_t, so a negative ntkoff is converted: the sum is exactly 0
-for ntkoff == -20 (passes) and wraps for ntkoff <= -21 (pull fails).  The
-new headroom COW in the IPV4HDR branch is therefore unreachable for the
-deeply negative offsets.
-
-The changelog names "sizeof(*iph) + ntkoff" as one of the expressions being
-fixed, but that expression is left in place.
-
-tcf_csum_ipv6() also keeps four such computations:
-
-net/sched/act_csum.c:tcf_csum_ipv6() {
-	if (!pskb_may_pull(skb, hl + ntkoff))
-		goto fail;
-	...
-			if (!pskb_may_pull(skb, hl + sizeof(*ip6xh) + ntkoff))
-	...
-			if (!pskb_may_pull(skb, hl + ixhl + ntkoff))
-	...
-	} while (pskb_may_pull(skb, hl + 1 + ntkoff));
-}
-
-so the IPv6 half still rejects negative offsets while feeding the now
-negative-offset-tolerant tcf_csum_skb_nextlayer(), and tcf_csum_sctp()
-still passes skb_network_offset(skb) + ihl unsigned.  Should negative
-ntkoff be handled in all of these places, or rejected once at the top of
-both tcf_csum_ipv4() and tcf_csum_ipv6()?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+index dba7fca574271..5ae9fde80e510 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+@@ -24,6 +24,7 @@
+ 
+ #include <generated/utsrelease.h>
+ #include <linux/devcoredump.h>
++#include <drm/drm_exec.h>
+ #include "amdgpu_dev_coredump.h"
+ #include "atom.h"
+ 
+@@ -207,23 +208,137 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+ 	}
+ }
+ 
++static void
++amdgpu_devcoredump_print_ibs(struct drm_printer *p,
++			     struct amdgpu_coredump_info *coredump,
++			     bool sizing_pass)
++{
++	struct amdgpu_device *adev = coredump->adev;
++	struct amdgpu_bo_va_mapping *mapping;
++	struct amdgpu_bo *abo;
++	struct drm_exec exec;
++	struct amdgpu_vm *vm;
++	u32 *ib_content;
++	u64 va_start, offset;
++	u8 *kptr;
++	u32 off;
++	int r;
++
++	/*
++	 * On the sizing pass there is no VM to look up and no BO to lock; the
++	 * size estimate doesn't depend on whether the IB BOs are reachable.
++	 * Just emit the per-IB headers (the content is not written anywhere).
++	 */
++	if (sizing_pass) {
++		for (int i = 0; i < coredump->num_ibs; i++) {
++			drm_printf(p, "\nIB #%d 0x%llx %d dw\n", i,
++				   coredump->ibs[i].gpu_addr,
++				   coredump->ibs[i].ib_size_dw);
++		}
++		return;
++	}
++
++	/*
++	 * Lock the VM root PD and every IB BO together in a single drm_exec
++	 * ticket. Reserving the IB BOs one by one while the root PD is held
++	 * would be a recursive reservation_ww_class_mutex acquire without a
++	 * ww_acquire_ctx, which trips lockdep and self-deadlocks for IB BOs
++	 * that share their dma_resv with the root PD (always-valid BOs).
++	 */
++	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 1 + coredump->num_ibs);
++	drm_exec_until_all_locked(&exec) {
++		vm = amdgpu_vm_lock_by_pasid(adev, coredump->pasid, &exec);
++		if (!vm)
++			goto unlock;
++
++		for (int i = 0; i < coredump->num_ibs; i++) {
++			u64 pfn = (coredump->ibs[i].gpu_addr &
++				   AMDGPU_GMC_HOLE_MASK) / AMDGPU_GPU_PAGE_SIZE;
++
++			mapping = amdgpu_vm_bo_lookup_mapping(vm, pfn);
++			if (!mapping)
++				continue;
++
++			abo = mapping->bo_va->base.bo;
++			r = drm_exec_lock_obj(&exec, &abo->tbo.base);
++			drm_exec_retry_on_contention(&exec);
++			if (r)
++				goto unlock;
++		}
++	}
++
++	for (int i = 0; i < coredump->num_ibs; i++) {
++		bool emit_content = false;
++
++		ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
++					    GFP_KERNEL);
++		if (!ib_content)
++			continue;
++
++		va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
++		mapping = amdgpu_vm_bo_lookup_mapping(vm,
++						      va_start / AMDGPU_GPU_PAGE_SIZE);
++		if (!mapping)
++			goto output_ib_content;
++
++		abo = mapping->bo_va->base.bo;
++		offset = va_start - mapping->start * AMDGPU_GPU_PAGE_SIZE;
++
++		if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
++			struct amdgpu_res_cursor cursor;
++
++			off = 0;
++
++			if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
++				goto output_ib_content;
++
++			amdgpu_res_first(abo->tbo.resource, offset,
++					 coredump->ibs[i].ib_size_dw * 4, &cursor);
++			while (cursor.remaining) {
++				amdgpu_device_mm_access(adev, cursor.start / 4,
++							&ib_content[off], cursor.size / 4,
++							false);
++				off += cursor.size;
++				amdgpu_res_next(&cursor, cursor.size);
++			}
++			emit_content = true;
++		} else {
++			r = ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size),
++					&abo->kmap);
++			if (r)
++				goto output_ib_content;
++
++			kptr = amdgpu_bo_kptr(abo);
++			kptr += offset;
++			memcpy(ib_content, kptr, coredump->ibs[i].ib_size_dw * 4);
++
++			amdgpu_bo_kunmap(abo);
++			emit_content = true;
++		}
++
++output_ib_content:
++		drm_printf(p, "\nIB #%d 0x%llx %d dw\n", i,
++			   coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
++		if (emit_content) {
++			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
++				drm_printf(p, "0x%08x\n", ib_content[j]);
++		}
++		kvfree(ib_content);
++	}
++
++unlock:
++	drm_exec_fini(&exec);
++}
++
+ static ssize_t
+ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_info *coredump)
+ {
+-	struct amdgpu_device *adev = coredump->adev;
+ 	struct drm_printer p;
+ 	struct drm_print_iterator iter;
+ 	struct amdgpu_vm_fault_info *fault_info;
+-	struct amdgpu_bo_va_mapping *mapping;
+ 	struct amdgpu_ip_block *ip_block;
+-	struct amdgpu_res_cursor cursor;
+-	struct amdgpu_bo *abo, *root;
+-	uint64_t va_start, offset;
+ 	struct amdgpu_ring *ring;
+-	struct amdgpu_vm *vm;
+-	u32 *ib_content;
+-	uint8_t *kptr;
+-	int ver, i, j, r;
++	int ver, i, j;
+ 	u32 ring_idx, off;
+ 	bool sizing_pass;
+ 
+@@ -347,86 +462,8 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+ 	else if (coredump->reset_vram_lost)
+ 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
+ 
+-	if (coredump->num_ibs) {
+-		/* Don't try to lookup the VM or map the BOs when calculating the
+-		 * size required to store the devcoredump.
+-		 */
+-		if (sizing_pass)
+-			vm = NULL;
+-		else
+-			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
+-
+-		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
+-			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
+-						    GFP_KERNEL);
+-			if (!ib_content)
+-				continue;
+-
+-			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
+-			 * drm_printf() calls (ib_content doesn't need to be initialized
+-			 * as its content won't be written anywhere).
+-			 */
+-			if (!vm)
+-				goto output_ib_content;
+-
+-			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
+-			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
+-			if (!mapping)
+-				goto free_ib_content;
+-
+-			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
+-			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
+-			r = amdgpu_bo_reserve(abo, false);
+-			if (r)
+-				goto free_ib_content;
+-
+-			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
+-				off = 0;
+-
+-				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
+-					goto unreserve_abo;
+-
+-				amdgpu_res_first(abo->tbo.resource, offset,
+-						 coredump->ibs[i].ib_size_dw * 4,
+-						 &cursor);
+-				while (cursor.remaining) {
+-					amdgpu_device_mm_access(adev, cursor.start / 4,
+-								&ib_content[off], cursor.size / 4,
+-								false);
+-					off += cursor.size;
+-					amdgpu_res_next(&cursor, cursor.size);
+-				}
+-			} else {
+-				r = ttm_bo_kmap(&abo->tbo, 0,
+-						PFN_UP(abo->tbo.base.size),
+-						&abo->kmap);
+-				if (r)
+-					goto unreserve_abo;
+-
+-				kptr = amdgpu_bo_kptr(abo);
+-				kptr += offset;
+-				memcpy(ib_content, kptr,
+-				       coredump->ibs[i].ib_size_dw * 4);
+-
+-				amdgpu_bo_kunmap(abo);
+-			}
+-
+-output_ib_content:
+-			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
+-				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
+-			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
+-				drm_printf(&p, "0x%08x\n", ib_content[j]);
+-unreserve_abo:
+-			if (vm)
+-				amdgpu_bo_unreserve(abo);
+-free_ib_content:
+-			kvfree(ib_content);
+-		}
+-		if (vm) {
+-			amdgpu_bo_unreserve(root);
+-			amdgpu_bo_unref(&root);
+-		}
+-	}
++	if (coredump->num_ibs)
++		amdgpu_devcoredump_print_ibs(&p, coredump, sizing_pass);
+ 
+ 	return count - iter.remain;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 97c5151bada3f..beefa05bf49b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2947,47 +2947,56 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ }
+ 
+ /**
+- * amdgpu_vm_lock_by_pasid - return an amdgpu_vm and its root bo from a pasid, if possible.
++ * amdgpu_vm_lock_by_pasid - look up a VM by PASID and lock its root PD
+  * @adev: amdgpu device pointer
+- * @root: root BO of the VM
+  * @pasid: PASID of the VM
+- * The caller needs to unreserve and unref the root bo on success.
++ * @exec: drm_exec context to lock the root PD in
++ *
++ * Must be called from within a drm_exec_until_all_locked() loop; the caller
++ * runs drm_exec_retry_on_contention() afterwards. The drm_exec context holds
++ * a reference on the root BO until it is finalised.
++ *
++ * Return: the VM on success, or NULL if the PASID has no VM, the VM is being
++ * torn down, or locking the root PD failed.
+  */
+ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+-					  struct amdgpu_bo **root, u32 pasid)
++					  u32 pasid, struct drm_exec *exec)
+ {
+ 	unsigned long irqflags;
++	struct amdgpu_bo *root;
+ 	struct amdgpu_vm *vm;
+ 	int r;
+ 
+ 	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+ 	vm = xa_load(&adev->vm_manager.pasids, pasid);
+-	*root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
++	root = vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+ 	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+ 
+-	if (!*root)
++	if (!root)
+ 		return NULL;
+ 
+-	r = amdgpu_bo_reserve(*root, true);
+-	if (r)
+-		goto error_unref;
++	r = drm_exec_lock_obj(exec, &root->tbo.base);
++	if (r) {
++		amdgpu_bo_unref(&root);
++		return NULL;
++	}
+ 
+ 	/* Double check that the VM still exists */
+ 	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+ 	vm = xa_load(&adev->vm_manager.pasids, pasid);
+-	if (vm && vm->root.bo != *root)
++	if (vm && vm->root.bo != root)
+ 		vm = NULL;
+ 	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+-	if (!vm)
+-		goto error_unlock;
++	if (!vm) {
++		drm_exec_unlock_obj(exec, &root->tbo.base);
++		amdgpu_bo_unref(&root);
++		return NULL;
++	}
+ 
+-	return vm;
+-error_unlock:
+-	amdgpu_bo_unreserve(*root);
++	/* The drm_exec context holds its own reference on the root BO. */
++	amdgpu_bo_unref(&root);
+ 
+-error_unref:
+-	amdgpu_bo_unref(root);
+-	return NULL;
++	return vm;
+ }
+ 
+ /**
+@@ -3009,33 +3018,49 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 			    uint64_t ts, bool write_fault)
+ {
+ 	bool is_compute_context = false;
+-	struct amdgpu_bo *root;
++	struct drm_exec exec;
+ 	uint64_t value, flags;
+ 	struct amdgpu_vm *vm;
+ 	int r;
+ 
+-	vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+-	if (!vm)
++	drm_exec_init(&exec, 0, 1);
++	drm_exec_until_all_locked(&exec) {
++		vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
++		drm_exec_retry_on_contention(&exec);
++		if (!vm)
++			break;
++	}
++	if (!vm) {
++		drm_exec_fini(&exec);
+ 		return false;
++	}
+ 
+ 	is_compute_context = vm->is_compute_context;
+ 
+ 	if (is_compute_context) {
+-		/* Unreserve root since svm_range_restore_pages might try to reserve it. */
+-		/* TODO: rework svm_range_restore_pages so that this isn't necessary. */
+-		amdgpu_bo_unreserve(root);
++		/* Release the root PD lock since svm_range_restore_pages
++		 * might try to take it.
++		 * TODO: rework svm_range_restore_pages so that this isn't
++		 * necessary.
++		 */
++		drm_exec_fini(&exec);
+ 
+ 		if (!svm_range_restore_pages(adev, pasid, vmid,
+-					     node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+-			amdgpu_bo_unref(&root);
++					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
+ 			return true;
+-		}
+-		amdgpu_bo_unref(&root);
+ 
+ 		/* Re-acquire the VM lock, could be that the VM was freed in between. */
+-		vm = amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+-		if (!vm)
++		drm_exec_init(&exec, 0, 1);
++		drm_exec_until_all_locked(&exec) {
++			vm = amdgpu_vm_lock_by_pasid(adev, pasid, &exec);
++			drm_exec_retry_on_contention(&exec);
++			if (!vm)
++				break;
++		}
++		if (!vm) {
++			drm_exec_fini(&exec);
+ 			return false;
++		}
+ 	}
+ 
+ 	addr /= AMDGPU_GPU_PAGE_SIZE;
+@@ -3059,7 +3084,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		value = 0;
+ 	}
+ 
+-	r = dma_resv_reserve_fences(root->tbo.base.resv, 1);
++	r = dma_resv_reserve_fences(vm->root.bo->tbo.base.resv, 1);
+ 	if (r) {
+ 		pr_debug("failed %d to reserve fence slot\n", r);
+ 		goto error_unlock;
+@@ -3073,12 +3098,10 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	r = amdgpu_vm_update_pdes(adev, vm, true);
+ 
+ error_unlock:
+-	amdgpu_bo_unreserve(root);
++	drm_exec_fini(&exec);
+ 	if (r < 0)
+ 		dev_err(adev->dev, "Can't handle page fault (%d)\n", r);
+ 
+-	amdgpu_bo_unref(&root);
+-
+ 	return false;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index d083d7aab75c6..0c6e3e0368c77 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -593,7 +593,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 			    bool write_fault);
+ 
+ struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+-					  struct amdgpu_bo **root, u32 pasid);
++					  u32 pasid, struct drm_exec *exec);
+ 
+ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+ 
 -- 
-pw-bot: cr
+2.53.0
+
