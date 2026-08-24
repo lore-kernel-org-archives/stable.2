@@ -1,142 +1,181 @@
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F5C3876C3
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 19:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC253859E9;
+	Mon, 24 Aug 2026 19:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787599243; cv=none; b=T2W7EBj/UadKV2ZgfMSoN0QoVokf/bVtRjIR4bUbMQ7GLlhY91YaID66sPqznyBPZ54bFpzBZYqR32awhzIdebNoemkOkiIxG3f4DnkFtjUAoGD21y7M6m7PRwEqgzQNGzYLN5tQMNgFFi3lTddigaz4UUbRNgIbiFqienbhnt0=
+	t=1787599620; cv=none; b=UyUZzLqx83RHEPJqsjLj3U8ob4jwL/fF9RKHl2mmZ4bnWUiiIRjiCtI9wTSlcalWqjtAmKFSUm5h/z4OnEoU7+bwL0P90ZDbuk0hrQYTAoCWI+1Xn4aVCG9jc9/uQx2UP+cvZpK0C8EvgQ5faUEdsSlIIDeNuKtahkInXgLgoGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787599243; c=relaxed/simple;
-	bh=SE6RYF4RgqjvqxfmIETCl0Y+EcovjINzHj0ntk3zKQU=;
-	h=Message-Id:Mime-Version:Content-Type:Cc:To:From:Subject:Date; b=OH3vzS7c56aQJjdBqFNzv4wIAgg/ceZuqCJQGjvaL3XyJgOaAYFxF4Ut80i4qe6E9WQDgBErqnJRwr2jmsPMJYDJRoX/D96yeLrfoTBrY7khJWLoJkuBEOy6NMgQ23XRwx2WbPk31gGqvoaNsQcMyOx+v4kGkB3z53I2JWUL3Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=RsRhVuSY; arc=none smtp.client-ip=71.18.227.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787599620; c=relaxed/simple;
+	bh=Gcw5UP4gGC4F289qTbPeGhJ8G0BIK5Z3mLupp8P2Fo8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e6Fj7GosuTrFoLSxLz0Gc6bLRIg2DWoTXZ6ITWPyh2pzkTSzDd6/R2eLldn3d/GmWlXdunmnO9uUmyMc68UglPexASi8FjWuMf5VJOKIlfzcH0iE223AoMDiOdzM+i0/eKZxuSgov4wZZAXAT7K1UKcWELkiCyEwOqpigMSGZG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DalAbQri; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="RsRhVuSY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787599222; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=eDOkDSGQUi9t79Z89S+frzk+NZ5ly+DCESN3SLosnUE=;
- b=RsRhVuSY/eQGF48jLbLsfhUf5snDwN8BNoaBGhnX70mhfycr8ynN+P8KhwbpJ6oXOdg01K
- TfnRRtCqpAQeqUcPzwb9El6c+118SbI/TjrdhHaxjhJ7t4GmSwRq4TDjPWQlDxB0SCFV4H
- SzL4xZqncxXsYGAgeaep39MIYgKcYDqKgQXHoHSD85Nap5KjxP3z+jUqmVY32vxRBlOhnc
- RVJyG6tTD8OTWcMFIY6na2+k8+YdKAGRrZTzWVCOGgmWf5XRLZJhG/TjZOfNxiTQoDSRui
- FTDjIY0t+IwrKmAjwObF4wEcq0Q7qjbYh0CX2VRrQbbED/rDkOZmRENPq4GJ3A==
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Message-Id: <20260825-ttusb-dec-overflow-v2-1-4d1263c03dff@cherr.cc>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DalAbQri"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OG1gVj2418100;
+	Mon, 24 Aug 2026 19:26:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=+VMZVr
+	X/Ikrt3ZCzeinXPpUUFGPbvYQ41HoGVYdLfww=; b=DalAbQri4vigtX382j4cdZ
+	w8sO1buY5Wek9sZTHlqyfGBycTfnAqOkY1Ovz5LCn4yvozTwmWIkf6l4tf78ofHc
+	5vI8k8MCoBRL20p3JV4IiceIAMJ4hYHcOb2Zc7aeyc9CBRgyl1p26cHFaopzHUT0
+	ouHtV9V3KLM5bxfpoi7xmkWsllq1rFK/IgkiPWVyvNyCsgGbIhXf57GQ/e2gmehi
+	MQgnwdeaTXpBNAsYU5XDnr2BvgpB8HlmPEBNvO9IQMh5jCa1CTnO/8WuQLybRZCu
+	NvtdfkXlHmHpdBBDMn/9M3CDjYsYR73KSP8N60ZFKBYDGlQ0ksRRcZcJ0ZMtyT5g
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dx3gcj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 19:26:54 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67OJQjST026591;
+	Mon, 24 Aug 2026 19:26:53 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rag7w7e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 19:26:53 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67OJQp7l59507102
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 24 Aug 2026 19:26:51 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4DF9358051;
+	Mon, 24 Aug 2026 19:26:51 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0A5FC5805A;
+	Mon, 24 Aug 2026 19:26:50 +0000 (GMT)
+Received: from [9.61.96.163] (unknown [9.61.96.163])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 24 Aug 2026 19:26:49 +0000 (GMT)
+Message-ID: <88a04bb8-76f1-4805-af42-558e6499f841@linux.ibm.com>
+Date: Mon, 24 Aug 2026 15:26:49 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Change-Id: 20260825-ttusb-dec-overflow-0d1f7fc2e308
-Received: from [192.168.9.107] ([111.42.148.146]) by smtp.feishu.cn with ESMTPS; Tue, 25 Aug 2026 03:20:20 +0800
-X-B4-Tracking: v=1; b=H4sIAHCZjGoC/32NQQ7CIBREr9L8tRhAocSV9zBdCHyExBTzqahpu LvYA5hZvUnmzQoFKWGB07ACYU0l5bmD3A3g4nW+IUu+M0guNTdSsWV5Fss8OpYrUrjnF+NehDE 4iQduoA8fhCG9N+ll6hxTWTJ9to8qfu1fXRWsx2ql7FGrUZizi0i0dw6m1toXHZKF0bMAAAA=
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Seungjin Bae" <eeodqql09@gmail.com>, 
-	"Pengpeng Hou" <pengpeng@iscas.ac.cn>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-X-Mailer: b4 0.14.2
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26a8c9974+f41955+vger.kernel.org+me@cherr.cc>
-To: "Mauro Carvalho Chehab" <mchehab@kernel.org>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH v2] media: ttusb-dec: reject oversized packet lengths
-Date: Tue, 25 Aug 2026 03:20:17 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] s390/vfio-ap: Fix leak of pinned NIB and registered
+ NISC in vfio_ap_irq_enable()
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260824135850.503728-1-akrowiak@linux.ibm.com>
+ <20260824135850.503728-2-akrowiak@linux.ibm.com>
+ <adecc2df-d2c2-48d6-a80a-c84ab9779322@linux.ibm.com>
+Content-Language: en-US
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <adecc2df-d2c2-48d6-a80a-c84ab9779322@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDE2MSBTYWx0ZWRfXxZEqJk3+u1i/
+ Fbs/vw7K5rv/KClxOrt64hDA7BAhO87KSEKmp9EvuR2DXHkRKz1gK6IQipM9yLRO4ZHfOC0JP9q
+ y+D6PKO0uGspEuQvbjJ3XpEsqE3TgJ8=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a8c9afe cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=oJhS4qge3_J52AN1xGYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: ufc8smyBS976Xa_pMSkZPHGHY9vJpJO7
+X-Proofpoint-GUID: ufc8smyBS976Xa_pMSkZPHGHY9vJpJO7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDE2MSBTYWx0ZWRfXzbzp3f2oU08s
+ k2hF+00LG8b5+TMy1UGq1vf9K08ZdMXFlQRkzk97SpiVP5PlSqkwkIXa5DsojoTyPL1y6n2Y1VD
+ 3P23BeMj7TLFm1/vXrDxkm9fANjAf40a/CvbI0cM/bmWo0YvwWMCEjE35Hkr4lNT1bfx+jq/22r
+ Qd7GHf36uecCBRJVKfUqNeptYFYvEqalHM8zqKg22Y1HYeHCJ9xmKuAKXa1II5ixhoap8Az/o3X
+ fVNrrCu1bNY/c0XYBUoNXVdzqb81wjOxSywf9P4W6cbtK9Qw8FYFOChOPqJJBtoXRMAWGE20Q+M
+ dPe/+arExFbAA0ZzO3wd8xWV54IN7Ddtuir4WHy29Yo7YYCn8vTfTOLwjIJdzNMhZlAz2DPWA4L
+ LpFuZ2WtLZw2Tkp86fMrZCa3raMp2Nu0uAOEqwiBk1BlW2bXiZOkGNb1bLNELyhZp6P4WLrdtR5
+ TQd+rzOmOZPP5pMjOEg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_05,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608240161
 
-ttusb_dec_process_urb_frame() derives the packet payload length from
-the PVA/SECTION header, up to 8 + 0xffff = 65543 bytes, and uses it in
-the bulk-copy state to memcpy() into dec->packet[], a fixed 6148-byte
-buffer. A malicious or faulty Technotrend TT-USB DEC device can
-therefore drive a heap out-of-bounds write of up to ~59 KB past the
-buffer, over function pointers in struct ttusb_dec and adjacent
-allocations. The only existing length check, in ttusb_dec_process_pva(),
-runs after the bulk copy, too late to help.
 
-Reject the packet in the header state, as soon as the advertised length
-is known and before any bulk copy. Both PVA and section packets are
-covered, and the check leaves room for the up-to-five bytes appended
-after the payload (4-byte trailer plus one padding byte for odd-sized
-section payloads).
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Seungjin Bae <eeodqql09@gmail.com>
-Closes: https://lore.kernel.org/linux-media/20251230195041.36768-2-eeodqql09@gmail.com/
-Reported-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Closes: https://lore.kernel.org/linux-media/20260402112800.39716-1-pengpeng@iscas.ac.cn/
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-This bug was previously reported and fixes were posted in Dec 2025 and
-Mar 2026 but did not receive any maintainer response; it is still
-present in master. This version also rejects section packets (not just
-PVA) and accounts for the post-payload trailer, which earlier attempts
-missed.
+On 8/24/26 12:57 PM, Matthew Rosato wrote:
+> On 8/24/26 9:58 AM, Anthony Krowiak wrote:
+>> The vfio_ap_irq_enable() function executes the PQAP(AQIC) instruction to
+>> enable interrupts for an AP queue. A switch statement is used to examine
+>> the status response code returned from the instruction to determine
+>> whether it succeeded or failed and react accordingly. For the default case,
+>> the vfio_ap_irq_disable function is invoked to disable interrupts for the
+>> queue and clean up the AQIC resources (i.e., unpin the NIB and unregister
+>> the NISC). There are a number of problems with this:
+>>
+>> 1. Neither the q->saved_iova nor q->saved_isc has been set, so the
+>>     AQIC resources - assuming those values have been previously set - will
+>>     be the NIB and NISC resources from a prior call; the NIB and NISC from
+>>     the current call are therefore leaked.
+>>
+>> 2. Interrupts may never have been enabled. Sending a disable instruction to
+>>     a queue that the hardware just told you is in a bad state (CHECKSTOPPED,
+>>     DECONFIGURED, Q_NOT_AVAIL) is at best wasted work and at worst generates
+>>     a further WARN_ONCE from inside vfio_ap_irq_disable's own default.
+>>
+>> 3. The hardware just rejected the new ap_aqic() enable attempt with an
+>>     unexpected status. Disabling a previously-working IRQ config - assuming
+>>     that is even possible - as a reaction to a failed enable attempt does
+>>     not make sense; it is actively destructive, tearing down something that
+>>     was working for no valid reason.
+>>
+>> The fix is to unregister the NISC and an unpin the NIB in the default case
+>> of the switch statement.
+>>
+>> Fixes: ec89b55e3bce7 ("s390: ap: implement PAPQ AQIC interception in kernel")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>> ---
+>>   drivers/s390/crypto/vfio_ap_ops.c | 11 ++++++++---
+>>   1 file changed, 8 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+>> index 940c0ff668be..a46bf381ab72 100644
+>> --- a/drivers/s390/crypto/vfio_ap_ops.c
+>> +++ b/drivers/s390/crypto/vfio_ap_ops.c
+>> @@ -503,9 +503,14 @@ static struct ap_queue_status vfio_ap_irq_enable(struct vfio_ap_queue *q,
+>>   		vfio_unpin_pages(&q->matrix_mdev->vdev, nib, 1);
+>>   		break;
+>>   	default:
+>> -		pr_warn("%s: apqn %04x: response: %02x\n", __func__, q->apqn,
+>> -			status.response_code);
+>> -		vfio_ap_irq_disable(q);
+>> +		pr_warn("%s: PQAP(AQIC) failed with response code %02x for apqn %04x\n",
+>> +			__func__, status.response_code, q->apqn);
+> LGTM, except Sashiko mentions the pr_warn here that you are updating has
+> a pre-existing issue.
+>
+> Since you're touching it already, do you think it makes sense to switch
+> to pr_warn_ratelimited with this patch?
 
-Verified with KASAN: without the check, a crafted packet yields
-"BUG: KASAN: slab-out-of-bounds ... Write of size 65535"; with the
-check, the packet is rejected and no overflow occurs.
+I think it makes more sense to switch to VFIO_AP_DBF_WARN which all other
+guest-triggered warning paths in  this function already use.
 
-Changes in v2:
-- The v1 mail carried a corrupted diff (a "\n" in the dev_warn string
-  was expanded into a literal newline), so the patch did not apply.
-  Resend with no other changes.
----
- drivers/media/usb/ttusb-dec/ttusb_dec.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+>
+>> +		/* We could not modify IRQ settings: clear new configuration */
+>> +		ret = kvm_s390_gisc_unregister(kvm, isc);
+>> +		if (ret)
+>> +			VFIO_AP_DBF_WARN("%s: kvm_s390_gisc_unregister: rc=%d isc=%d, apqn=%#04x\n",
+>> +					 __func__, ret, isc, q->apqn);
+>> +		vfio_unpin_pages(&q->matrix_mdev->vdev, nib, 1);
+>>   		break;
+>>   	}
+>>   
 
-diff --git a/drivers/media/usb/ttusb-dec/ttusb_dec.c b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-index 825a3875989d32ddbb65589f7015acee96a44c9e..58628846d9e23b225c9939784bcbae7825642fdd 100644
---- a/drivers/media/usb/ttusb-dec/ttusb_dec.c
-+++ b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-@@ -700,23 +700,33 @@ static void ttusb_dec_process_urb_frame(struct ttusb_dec *dec, u8 *b,
- 
- 		case 5:
- 			dec->packet[dec->packet_length++] = *b++;
-+			length--;
- 
- 			if (dec->packet_type == TTUSB_DEC_PACKET_PVA &&
- 			    dec->packet_length == 8) {
--				dec->packet_state++;
- 				dec->packet_payload_length = 8 +
- 					(dec->packet[6] << 8) +
- 					dec->packet[7];
- 			} else if (dec->packet_type ==
- 					TTUSB_DEC_PACKET_SECTION &&
- 				   dec->packet_length == 5) {
--				dec->packet_state++;
- 				dec->packet_payload_length = 5 +
- 					((dec->packet[3] & 0x0f) << 8) +
- 					dec->packet[4];
-+			} else {
-+				break;
-+			}
-+
-+			if (dec->packet_payload_length + 5 >
-+			    sizeof(dec->packet)) {
-+				dev_warn_ratelimited(&dec->udev->dev,
-+						     "%s: packet too long - discarding\n",
-+						     __func__);
-+				dec->packet_state = 0;
-+			} else {
-+				dec->packet_state++;
- 			}
- 
--			length--;
- 			break;
- 
- 		case 6: {
-
----
-base-commit: 66fb95a521110da673090294561844c9f76ebe64
-change-id: 20260825-ttusb-dec-overflow-0d1f7fc2e308
-
-Best regards,
--- 
-Shengzhuo Wei <me@cherr.cc>
