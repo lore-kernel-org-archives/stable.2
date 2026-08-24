@@ -1,64 +1,64 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AC536894D
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 03:34:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8C13769FD
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 03:34:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787542483; cv=none; b=dVz1LXYX8vSsnivzvSkta5ijRHtvlhlN/Mh6DLAis7IiZAoIL4bIn2fqylxs9R9OLG8zuv8bCcJtWsBrMAmJyyyk4EhKQrxNUKo75yv+OZTIFc5bPorIazKkBtfWXXBveOhsYiGFSN7EYOaiz7S08awXjTaIFv6lo4k9avawlC4=
+	t=1787542490; cv=none; b=Q1Yle007DL0wHdOPCrZ9e0jkvtqgKWkyf221/gmnQrrubigdBRVW8D6zhcUq2G0/4adTi09upZdow/lVGzvgTKOMA1bbfg/v45ZYtqKl6TEx/kOBpgyIPTp+3N0h8HExo4gbrQnwywTOMrCJeGiizjfvExMAzuHZBLB9IFPIxoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787542483; c=relaxed/simple;
-	bh=1Rvyp0xy3Ragc0E9ZWd9WCRPxmJ4/WJmfFVSVWG1dfc=;
+	s=arc-20240116; t=1787542490; c=relaxed/simple;
+	bh=sz4I1sq4K0b/4zGjd0FzYdICKmLEOx+P2s0EyxNw1ck=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l8R8IJUeW13e5juYClTDc5bily4ddH3Xg8w1mIFk5QGTE470Jlj7J0zeeG8lLkZWOg2XvCuYVmM6BfDAYd/ciduISXP4NzIBxbHmy8rtpJ4RWxl13mGcpcJXJAeIlVQDhUB4GG4t4N1Ejk0bYrKYlTvS+kBi/qmmW06h3s+l5Lg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qPG3jJv5; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=k2c1MwvpE8Z+qThevbZGKIy28F2H2JZxuktxiQMch/dXYVYsXJ/1D8XSdgAu0+8jAF++5vDq7ErNnHEz5nBe+zfJwxbSVXaaVBP+fLZRpkSWOnvRZ5t+PXVNQ3sWNSDT+FOcWu/UJcyJMsjbtZZdetZ6ZFRUk7GUW9SiNeD61Ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UD75Iysx; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qPG3jJv5"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cace91f112so33359425ad.0
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 20:34:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UD75Iysx"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e7109321dso1993762a91.3
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 20:34:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787542481; x=1788147281; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787542487; x=1788147287; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aOYu1j3wk0HoiBBxP9GSyUREhQRtNv0dyeHn1pEGiXc=;
-        b=qPG3jJv5/RrWQmUQZeL6Sc8NbZjMvCCRfGdqxQNwwNUyhoQFiDJb0DLWJY2u9SPXxp
-         RTWrrm7JNcke0mM7P2SblSsY/FByFDFgGCqd3BmOb8+I095nAlh/gk1iq4QW9c8RrZTm
-         pCo5ibQ5GsWBbnyBU+f/EdXx1loPKKp/ns45Nprmfkbp1oHehOukYsEbmDJrqM5zYv/9
-         5IeO6woME+I0LGOIJy8kKJ0+kjEMwjFbKxbpg6KWdSbr69Ai0J0ikEcXDJVopK62UUbo
-         rzqcCBQxWK5XF4w5SvRRK9Gw6vyEXdNO2GCLj0X+i6f5oRZdLZziK4aoGyEL2fuTRXoU
-         DSZw==
+        bh=h3czPEGgc8kYZ51pcfr/0w7zOEtrgQWrgOFC5Loyaz4=;
+        b=UD75Iysx8wdyY58cFjzUVXdFvohgn4QrSvPOepcBrVuUaLz8D+ip2mLntd5qFPE2Fr
+         lEZzPZqcny2Ny6mYcbHK6j8vjnQNplMDE4sW9vUH5s/2xn0RIEI9X/FzQDMApEmfCYow
+         Cs4bo0vlGl1Do3QCubUmrZBaQDo0ojeod82X2JrVhpkI48pZxgMXyH9Hspah+vnHWSO7
+         r8So9mIeFEscjcV2qFT6lUpsIGrIqy/2cShFPckUz4fpabmhGctpyEFlNeXuy52JgWAE
+         ZoXtRc44mNiGBHPoq5gjWN8nT2tNCA5JhwDV8A+cWsboX59fhoBx8CBYUDFBxbpqWR86
+         i0qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787542481; x=1788147281;
+        d=1e100.net; s=20251104; t=1787542487; x=1788147287;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aOYu1j3wk0HoiBBxP9GSyUREhQRtNv0dyeHn1pEGiXc=;
-        b=oD/1Z3gbFsoWZL2vHEeyVWkCp7wzlzUVlKe9RuxY7Ia8PR6TGGm9dQiGBabMI6pJVk
-         mPnqN3V0juGBpJ5VuG65fakWGOvbNhpFX1cg/XpsnmcQgRul9ISXkbn1IT1EeAXglVbv
-         vlatkAp5WVdoJDkdha6c54YIQA2MMDN+0KZ5By6bFC3rQkUfjpmYnPQQfLnxorNtCj1H
-         RZMEFAqVlX2JFhJISEzzdXJmwbmPpEpzv2Xdw61pr0hAYuEuhA/mVyllBD/O0RppQErA
-         Era7anpplZEDoIlAvLWUhH6yRoiUKD5+jSZxuWFX9b9jJI5mbCk1XCelUjQjuqfpiuf0
-         DW2g==
-X-Forwarded-Encrypted: i=1; AHgh+RrN4gLl7zlAs6kWiuyY1CGbeDBiUBYMb3//8bRAvuaHgr0rW2Muz6WzLawm4q23URUoWrFJLZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mieSdR3VKjnjtoKkhlAsa/JnQ2A6GQfmr0I5hwkAkUwDIci2WA
-	+ut6Lf4rv/xK7X7zTJD8p5cHeU/tmgfzyzKMMtsur0AGZV6mJ2lFqVXN
-X-Gm-Gg: AR+sD10QlWzRGWld0fonyGC3DX1rLf3DtoVzq9YjN41NCIS+7NplU7KDSm8/wqu3upS
-	0CHN3ihO1kKeKTnWWxJqH+dp+TAauj4HXoqODpPMZuY0JC3SYlMZrb9Q627RGX0H0D6OvjnNNO/
-	IfLSiAtaf9UMwS0fRF5QhpFQ8LoYjSnJUknDMH0ORPcBwR8hzYGBi2g66o5tCbhQB+OdFLSMWey
-	z0XXp0GDf6/or+0g2tBAxzQSu/wDf3Tq2t0QGpwcOGX8luYntZSoqTK+UaStNEoEfg/gTTwG0Dz
-	P5mckQOKShP8RqB40nrKLhTNJvXYvmibYAa5vTy2SoEHqq4f8qnzspnl+5+lff/s09azkpM/Iu6
-	ZO18+FrHXCbJgPkCJrcC2uAOvsll69bRKat5LxmZfVZrwQGsRlg19RTajBPeyVJf46ZQq0hukLZ
-	7CqURWv8TgdHytIlR7Th2dwSzsCBAGP4u08/VI/7mCdweLkfa9pIPp6uVbKbAD5DFQNWeRRFnW0
-	GRhZovL5xM=
-X-Received: by 2002:a17:90b:28c5:b0:38e:75f3:ad4d with SMTP id 98e67ed59e1d1-395df11a0damr28694326a91.7.1787542481551;
-        Sun, 23 Aug 2026 20:34:41 -0700 (PDT)
+        bh=h3czPEGgc8kYZ51pcfr/0w7zOEtrgQWrgOFC5Loyaz4=;
+        b=dj1qQK2bkM9FNXPk49rQM8d/6jv/tDWayc4oiaZ4yaWt8FcMEXbxKoqL41RXyoifOi
+         wRlGFau+NLmkxmcPSlwcn7d5NTaTBfew0Z/gwh976nXAqvT7/wQwiSGkI8QCIRUgZSpm
+         Pq1uer+daxJj1Od9qLOjaHqvuPeaV1N9gcCMJRB2ONctxETLX6CULfUAJrUKs3NrzvGZ
+         kaaxViqjoHm43N/rvOnB+JY6mhveaGMOy34pR8MDkcOQQVF3oU1NP9Kae2a1rlefxS/9
+         nCUWWq47G8TJBYMuC33URtPusIQY+smr873upwsmld5L+QpN+kmEMNF/NTvvUIlV42NY
+         PlzA==
+X-Forwarded-Encrypted: i=1; AHgh+RpqCSLRHMtltr8NGGGdkyMPdQhg3X2b3Nfq3ozy522FagbGGtnmCA5vbOMALpKKKTxqFI4Vjc4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMMChcc8vaYTGofb5fr2+ACzzJVQ/EzyT8BWdXjjF/pDiBkgCd
+	e3fq/VlvBlcJi0Gf1sfIm2wcSVG6JAf7rZ93UXszG5g3zeSqQDv7y/rv57Y5wg==
+X-Gm-Gg: AR+sD13XpTcqKnZcW8O1Hn9HhZzTW/wrw98BGfaT1h7yJX3gK+1FigiyFSe1MtHokN0
+	wanZlk8FpoZ7Q7Ukexb7D83awiyWbv4VAuTOuiS1odC3nZU2J16Q+Y/CzA1UWnBECORnqYiMPtE
+	T8MsWVI6ti1+ZqvsuzLuE1p4H5+7rAXW0S62tX7pIuQjH1OH0Fv55yEYaHaliH8khop2b8Cur51
+	m7OhWAlXZYhrzjpFus9013rPD1dTeBmQj3M8EgHqoj9xHegjrVUtxOIoFxR6H6sde4mWtgfSWCr
+	+JFjVd6YsFi+w8EbNq78dSq+zkUXeuN9wLvSE1m0botbTpUqDlkLNoB/sbJ9U1CTOzzFcjYULjL
+	+Y4TchPyOoJ/XhH6szWoCiewX+te+qlwvc4V13PhC+GaCoJek1l8Q5XwqcJuOwAOtxdaArNla7r
+	gzXVEns4WsaBt2/ACU6JTKME7k12G7Xl3uFclVto4eFpHL+1kgaZV7KhQCEyqzIhI3vNMp1UeuY
+	LypMLWEKmMyP7UPMbZ7ag==
+X-Received: by 2002:a17:90b:5805:b0:38e:485c:ebd3 with SMTP id 98e67ed59e1d1-395c3a514a5mr42206353a91.15.1787542486850;
+        Sun, 23 Aug 2026 20:34:46 -0700 (PDT)
 Received: from v4bel.. ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c8fd34d9sm4227256a91.1.2026.08.23.20.34.36
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c8fd34d9sm4227256a91.1.2026.08.23.20.34.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 20:34:41 -0700 (PDT)
+        Sun, 23 Aug 2026 20:34:46 -0700 (PDT)
 From: Hyunwoo Kim <imv4bel@gmail.com>
 To: davem@davemloft.net,
 	edumazet@google.com,
@@ -83,9 +83,9 @@ Cc: kerneljasonxing@gmail.com,
 	linux-kernel@vger.kernel.org,
 	imv4bel@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 6/8] tcp: fix use-after-free in the lockless listener path
-Date: Mon, 24 Aug 2026 12:32:50 +0900
-Message-ID: <20260824033331.1084971-7-imv4bel@gmail.com>
+Subject: [PATCH net v2 7/8] net: clear sk_tsq_flags in sk_clone()
+Date: Mon, 24 Aug 2026 12:32:51 +0900
+Message-ID: <20260824033331.1084971-8-imv4bel@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260824033331.1084971-1-imv4bel@gmail.com>
 References: <20260824033331.1084971-1-imv4bel@gmail.com>
@@ -97,333 +97,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tcp_v{4,6}_rcv() calls tcp_v{4,6}_do_rcv() without holding the socket
-lock when sk->sk_state is TCP_LISTEN. Every other path into
-tcp_v{4,6}_do_rcv() holds it.
+A socket returned by accept() can be freed while its fd is still open. A
+setsockopt() on that fd then hits a use-after-free.
 
-tcp_v{4,6}_do_rcv() and tcp_rcv_state_process() below it read
-sk->sk_state again. A listener can leave TCP_LISTEN through
-connect(AF_UNSPEC), and if that happens in between, the second read
-returns a different state.
+TCP_TSQ_DEFERRED owns a socket reference. tcp_tsq_handler() sets the bit
+and calls sock_hold() when the socket is owned by user, and
+tcp_release_cb() clears the bit and calls __sock_put(). sock_copy() gives
+the child the bit but not the reference, so the __sock_put() that runs when
+accept() locks and unlocks the child has nothing to pair with. The socket
+is freed by the next put, which in the log below came from a timer.
 
-tcp_rcv_established() or tcp_rcv_state_process() then runs without the
-lock. If the second read returns TCP_SYN_SENT, the incoming SYN is
-treated as a crossed SYN and reaches tcp_send_synack(). When the SYN skb
-at the head of the retransmit queue is skb_cloned(), that function
-replaces it with a copy and releases the original with
-tcp_rtx_queue_unlink_and_free().
+A listener can be holding this bit. An established socket becomes a
+listener again through connect(AF_UNSPEC) and listen(), and
+tcp_clear_xmit_timers() only calls hrtimer_try_to_cancel(), so a pacing
+callback that is already running survives. That callback sets the bit while
+accept() holds the socket lock, and in the same window the child is created
+in the TCP_NEW_SYN_RECV branch of tcp_v4_rcv(), which does not take the
+listener lock.
 
-The original is the skb that a thread on another CPU is transmitting
-right now in __tcp_transmit_skb(). skb_cloned() is true because the
-clone made for that transmit is still alive. Once the transmit returns,
-tcp_update_skb_after_send() calls list_move_tail() on the skb's
-tcp_tsorted_anchor.
+All seven bits in sk_tsq_flags describe work pending on the parent, and
+four of them own a reference. They are set in four different places, so
+clear the whole word in sk_clone().
 
 In short:
 
-  socket(AF_INET) -> bind() -> listen()   // the socket that changes state
-  socket(AF_INET) -> bind() -> listen()   // the peer
-
-  Several threads keep opening new sockets and connecting to the first
-  socket's address.
-
-  Another thread repeats this on the first socket:
-    connect(AF_UNSPEC)      // TCP_LISTEN -> TCP_CLOSE
-    connect(peer address)   // TCP_CLOSE -> TCP_SYN_SENT
-                            // another CPU still sees a listener, handles
-                            // one of those SYNs without the lock and
-                            // releases the SYN skb that this connect()
-                            // is transmitting
-                            // -> use-after-free
-    connect(AF_UNSPEC)
-    listen()                // TCP_LISTEN again
+  socket(AF_INET) -> setsockopt(SO_MAX_PACING_RATE, 100000)
+                  -> setsockopt(TCP_MAXSEG, 1200) -> bind -> connect(peer)
+  send(64KB)                          // arms the pacing timer, sock_hold()
+  connect(AF_UNSPEC)                  // stop being connected
+  listen()                            // become a listener again
+  setsockopt(TCP_DEFER_ACCEPT)
+      // another socket connects, and with TCP_DEFER_ACCEPT there is no
+      // child yet
+  accept()                            // the child is created when one byte
+                                      // arrives. while accept() holds the
+                                      // lock the pacing callback sets the
+                                      // bit, and the child is cloned by
+                                      // the receive path, which does not
+                                      // take the listener lock
+      // a timer on the child does the last put and the socket is freed
+  setsockopt(accepted, TCP_NODELAY)   // use-after-free
 
 KASAN log:
 
-  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x14/0x140
-  Read of size 8 at addr ffff88800a5d1460 by task poc/125
+  BUG: KASAN: slab-use-after-free in sock_common_setsockopt+0x44/0x80
+  Read of size 8 at addr ffff88800e2ab668 by task repro/94
   ...
   Call Trace:
-   __list_del_entry_valid_or_report+0x14/0x140
-   tcp_update_skb_after_send+0x62/0x170
-   __tcp_transmit_skb+0xe33/0x1e40
-   tcp_connect+0x1b67/0x2490
-   tcp_v4_connect+0x998/0xab0
-   __inet_stream_connect+0x22c/0x700
-   inet_stream_connect+0x48/0x70
-   __sys_connect+0x101/0x130
+   sock_common_setsockopt+0x44/0x80
+   do_sock_setsockopt+0x15e/0x2b0
+   __sys_setsockopt+0x9e/0xe0
+   __x64_sys_setsockopt+0x64/0x80
   ...
-  Allocated by task 125:
-   __alloc_skb+0xd1/0x370
-   tcp_stream_alloc_skb+0x2d/0x2b0
-   tcp_connect+0x72d/0x2490
-   tcp_v4_connect+0x998/0xab0
-   __inet_stream_connect+0x22c/0x700
-   inet_stream_connect+0x48/0x70
-   __sys_connect+0x101/0x130
+  Allocated by task 95:
+   sk_prot_alloc+0x45/0x170
+   sk_clone+0x49/0x960
+   inet_csk_clone_lock+0x29/0x2c0
+   tcp_create_openreq_child+0x2a/0xf20
+   tcp_v4_syn_recv_sock+0xd3/0x7e0
+   tcp_check_req+0x374/0xff0
+   tcp_v4_rcv+0xc2d/0x2040
   ...
-  The buggy address belongs to the object at ffff88800a5d1400
-   which belongs to the cache skbuff_fclone_cache of size 472
+  Freed by task 0:
+   slab_free_after_rcu_debug+0xc5/0x200
+   rcu_core+0x4de/0xd30
+  ...
+  Last potentially related work creation:
+   kmem_cache_free+0x11d/0x5f0
+   __sk_destruct+0x29a/0x3d0
+   call_timer_fn+0x12f/0x3f0
+   __run_timers+0x4a4/0x5e0
+  ...
+  The buggy address belongs to the object at ffff88800e2ab640
+   which belongs to the cache TCP of size 3200
 
-Instead of taking the lock, keep the lockless path from reading
-sk->sk_state again to decide how to process the packet. Move the
-TCP_LISTEN handling out of tcp_rcv_state_process() into
-tcp_rcv_listen_state_process(), and let the TCP_LISTEN branch of
-tcp_v{4,6}_rcv() call a new tcp_v{4,6}_rcv_listen(). Listener processing
-does not change. The TCP_LISTEN arm of tcp_v{4,6}_do_rcv() is left
-alone, because a socket can finish listen() after the state check and a
-backlogged skb is then processed there.
-
-Fixes: e994b2f0fb92 ("tcp: do not lock listener to process SYN packets")
+Fixes: 73a6bab5aa2a ("tcp: switch pacing timer to softirq based hrtimer")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
- include/net/tcp.h    |  2 ++
- net/ipv4/tcp_input.c | 64 +++++++++++++++++++++++++-------------------
- net/ipv4/tcp_ipv4.c  | 44 ++++++++++++++++++++++++++++--
- net/ipv6/tcp_ipv6.c  | 44 ++++++++++++++++++++++++++++--
- 4 files changed, 123 insertions(+), 31 deletions(-)
+ net/core/sock.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 2c5b889530b556..add438d6561be5 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -392,6 +392,8 @@ void tcp_write_timer_handler(struct sock *sk);
- void tcp_delack_timer_handler(struct sock *sk);
- int tcp_ioctl(struct sock *sk, int cmd, int *karg);
- enum skb_drop_reason tcp_rcv_state_process(struct sock *sk, struct sk_buff *skb);
-+enum skb_drop_reason tcp_rcv_listen_state_process(struct sock *sk,
-+						  struct sk_buff *skb);
- void tcp_rcv_established(struct sock *sk, struct sk_buff *skb);
- void tcp_rcvbuf_grow(struct sock *sk, u32 newval);
- void tcp_rcv_space_adjust(struct sock *sk);
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 0f60a1dbf92746..77af18fba66b4d 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -7141,6 +7141,42 @@ static void tcp_rcv_synrecv_state_fastopen(struct sock *sk)
- 	tcp_rearm_rto(sk);
- }
- 
-+enum skb_drop_reason tcp_rcv_listen_state_process(struct sock *sk,
-+						  struct sk_buff *skb)
-+{
-+	const struct tcphdr *th = tcp_hdr(skb);
-+	SKB_DR(reason);
-+
-+	if (th->ack)
-+		return SKB_DROP_REASON_TCP_FLAGS;
-+
-+	if (th->rst) {
-+		SKB_DR_SET(reason, TCP_RESET);
-+		goto discard;
-+	}
-+	if (th->syn) {
-+		if (th->fin) {
-+			SKB_DR_SET(reason, TCP_FLAGS);
-+			goto discard;
-+		}
-+		/* It is possible that we process SYN packets from backlog,
-+		 * so we need to make sure to disable BH and RCU right there.
-+		 */
-+		rcu_read_lock();
-+		local_bh_disable();
-+		inet_csk(sk)->icsk_af_ops->conn_request(sk, skb);
-+		local_bh_enable();
-+		rcu_read_unlock();
-+
-+		consume_skb(skb);
-+		return 0;
-+	}
-+	SKB_DR_SET(reason, TCP_FLAGS);
-+discard:
-+	tcp_drop_reason(sk, skb, reason);
-+	return 0;
-+}
-+
- /*
-  *	This function implements the receiving procedure of RFC 793 for
-  *	all states except ESTABLISHED and TIME_WAIT.
-@@ -7152,7 +7188,6 @@ enum skb_drop_reason
- tcp_rcv_state_process(struct sock *sk, struct sk_buff *skb)
- {
- 	struct tcp_sock *tp = tcp_sk(sk);
--	struct inet_connection_sock *icsk = inet_csk(sk);
- 	const struct tcphdr *th = tcp_hdr(skb);
- 	struct request_sock *req;
- 	int queued = 0;
-@@ -7164,32 +7199,7 @@ tcp_rcv_state_process(struct sock *sk, struct sk_buff *skb)
- 		goto discard;
- 
- 	case TCP_LISTEN:
--		if (th->ack)
--			return SKB_DROP_REASON_TCP_FLAGS;
--
--		if (th->rst) {
--			SKB_DR_SET(reason, TCP_RESET);
--			goto discard;
--		}
--		if (th->syn) {
--			if (th->fin) {
--				SKB_DR_SET(reason, TCP_FLAGS);
--				goto discard;
--			}
--			/* It is possible that we process SYN packets from backlog,
--			 * so we need to make sure to disable BH and RCU right there.
--			 */
--			rcu_read_lock();
--			local_bh_disable();
--			icsk->icsk_af_ops->conn_request(sk, skb);
--			local_bh_enable();
--			rcu_read_unlock();
--
--			consume_skb(skb);
--			return 0;
--		}
--		SKB_DR_SET(reason, TCP_FLAGS);
--		goto discard;
-+		return tcp_rcv_listen_state_process(sk, skb);
- 
- 	case TCP_SYN_SENT:
- 		tp->rx_opt.saw_tstamp = 0;
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 302afe8ebcbcc3..2fa8958380a5b9 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1828,7 +1828,7 @@ u16 tcp_v4_get_syncookie(struct sock *sk, struct iphdr *iph,
- INDIRECT_CALLABLE_DECLARE(struct dst_entry *ipv4_dst_check(struct dst_entry *,
- 							   u32));
- /* The socket must have it's spinlock held when we get
-- * here, unless it is a TCP_LISTEN socket.
-+ * here.
-  *
-  * We have a potential double-lock case here, so even when
-  * doing backlog processing we use the BH locking scheme.
-@@ -1906,6 +1906,46 @@ int tcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
- 	goto discard;
- }
- 
-+/* @sk is not locked here and can leave TCP_LISTEN; do not test sk_state. */
-+static noinline int tcp_v4_rcv_listen(struct sock *sk, struct sk_buff *skb)
-+{
-+	enum skb_drop_reason reason;
-+	struct sock *nsk;
-+
-+	reason = psp_sk_rx_policy_check(sk, skb);
-+	if (reason)
-+		goto err_discard;
-+
-+	if (tcp_checksum_complete(skb))
-+		goto csum_err;
-+
-+	nsk = tcp_v4_cookie_check(sk, skb);
-+	if (!nsk)
-+		return 0;
-+
-+	if (nsk != sk) {
-+		reason = tcp_child_process(sk, nsk, skb);
-+		sock_put(nsk);
-+	} else {
-+		reason = tcp_rcv_listen_state_process(sk, skb);
-+	}
-+	if (!reason)
-+		return 0;
-+
-+	tcp_v4_send_reset(sk, skb, sk_rst_convert_drop_reason(reason));
-+discard:
-+	sk_skb_reason_drop(sk, skb, reason);
-+	return 0;
-+
-+csum_err:
-+	reason = SKB_DROP_REASON_TCP_CSUM;
-+	trace_tcp_bad_csum(skb);
-+	TCP_INC_STATS(sock_net(sk), TCP_MIB_CSUMERRORS);
-+err_discard:
-+	TCP_INC_STATS(sock_net(sk), TCP_MIB_INERRS);
-+	goto discard;
-+}
-+
- enum skb_drop_reason tcp_add_backlog(struct sock *sk, struct sk_buff *skb)
- {
- 	u32 tail_gso_size, tail_gso_segs;
-@@ -2243,7 +2283,7 @@ int tcp_v4_rcv(struct sk_buff *skb)
- 	skb->dev = NULL;
- 
- 	if (sk->sk_state == TCP_LISTEN) {
--		ret = tcp_v4_do_rcv(sk, skb);
-+		ret = tcp_v4_rcv_listen(sk, skb);
- 		goto put_and_return;
- 	}
- 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index 9e9155b1b3aa75..a2deda9a4258bc 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -1556,7 +1556,7 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
- INDIRECT_CALLABLE_DECLARE(struct dst_entry *ipv4_dst_check(struct dst_entry *,
- 							   u32));
- /* The socket must have it's spinlock held when we get
-- * here, unless it is a TCP_LISTEN socket.
-+ * here.
-  *
-  * We have a potential double-lock case here, so even when
-  * doing backlog processing we use the BH locking scheme.
-@@ -1704,6 +1704,46 @@ int tcp_v6_do_rcv(struct sock *sk, struct sk_buff *skb)
- 	return 0;
- }
- 
-+/* @sk is not locked here and can leave TCP_LISTEN; do not test sk_state. */
-+static noinline int tcp_v6_rcv_listen(struct sock *sk, struct sk_buff *skb)
-+{
-+	enum skb_drop_reason reason;
-+	struct sock *nsk;
-+
-+	reason = psp_sk_rx_policy_check(sk, skb);
-+	if (reason)
-+		goto err_discard;
-+
-+	if (tcp_checksum_complete(skb))
-+		goto csum_err;
-+
-+	nsk = tcp_v6_cookie_check(sk, skb);
-+	if (!nsk)
-+		return 0;
-+
-+	if (nsk != sk) {
-+		reason = tcp_child_process(sk, nsk, skb);
-+		sock_put(nsk);
-+	} else {
-+		reason = tcp_rcv_listen_state_process(sk, skb);
-+	}
-+	if (!reason)
-+		return 0;
-+
-+	tcp_v6_send_reset(sk, skb, sk_rst_convert_drop_reason(reason));
-+discard:
-+	sk_skb_reason_drop(sk, skb, reason);
-+	return 0;
-+
-+csum_err:
-+	reason = SKB_DROP_REASON_TCP_CSUM;
-+	trace_tcp_bad_csum(skb);
-+	TCP_INC_STATS(sock_net(sk), TCP_MIB_CSUMERRORS);
-+err_discard:
-+	TCP_INC_STATS(sock_net(sk), TCP_MIB_INERRS);
-+	goto discard;
-+}
-+
- static void tcp_v6_fill_cb(struct sk_buff *skb, const struct ipv6hdr *hdr,
- 			   const struct tcphdr *th)
- {
-@@ -1891,7 +1931,7 @@ INDIRECT_CALLABLE_SCOPE int tcp_v6_rcv(struct sk_buff *skb)
- 	skb->dev = NULL;
- 
- 	if (sk->sk_state == TCP_LISTEN) {
--		ret = tcp_v6_do_rcv(sk, skb);
-+		ret = tcp_v6_rcv_listen(sk, skb);
- 		goto put_and_return;
- 	}
- 
+diff --git a/net/core/sock.c b/net/core/sock.c
+index 098e58b40f304b..06fbb19824e267 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -2533,6 +2533,7 @@ struct sock *sk_clone(const struct sock *sk, const gfp_t priority,
+ 	newsk->sk_reserved_mem  = 0;
+ 	DEBUG_NET_WARN_ON_ONCE(newsk->sk_drop_counters);
+ 	sk_drops_reset(newsk);
++	newsk->sk_tsq_flags	= 0;
+ 	newsk->sk_send_head	= NULL;
+ 	newsk->sk_userlocks	= sk->sk_userlocks & ~SOCK_BINDPORT_LOCK;
+ 	atomic_set(&newsk->sk_zckey, 0);
 -- 
 2.43.0
 
