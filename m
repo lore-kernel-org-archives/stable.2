@@ -1,125 +1,190 @@
-Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE344052DE;
-	Mon, 24 Aug 2026 13:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673E742F718
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 13:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787579572; cv=none; b=ioKfoQrikHmGz4cT39RAvI2UNUImtIC6n5bPJpi5xkP3qkCDSHDemM3h9Z1oOf2+8wR2DlwtGGGsps3/AAZMlSnX8oCtqUvilo1r8CyQYyH86d6/TrF6WiyrmG8WpEcHkeB7oEVKetD63QwGmbNDLium49j5i9c/vghf+M/Ad34=
+	t=1787579759; cv=none; b=AjdImct+fI43YY2u6G5V9QE4laxHRr5F8ReXJlkA0Su4UzOLPY8v03IIoApo3m5I+xBS065m8/kbpi0g7W+tGlnBkHtQVD0llOUr2Nx4Gf9URnfU0ZjObwhUDtiIGa0c5r6TCWLTrNpH2TFIix1HKc/SAdF1SFbO2nSamndMdmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787579572; c=relaxed/simple;
-	bh=fUfjUCkiaM90io/n8Y7zz+NQRpbgcwJgatrGWCPIf2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dHvv8flOyaY6P55/Yi8MzBimD6pWkGHOjfhnkOvhv4WFqgkTH0WNspv61zKhii/Excaxap0VDU655Dob57crl7Im5rz9Iy6qb81Q/HskOg5DGCIgZoJZa91IeW6FHXP2zte975S9TXRrvN4K1CdqaVbhLtaC505pmZmnApwATPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=G6vz/uwB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=k0OgL+8/; arc=none smtp.client-ip=202.12.124.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1787579759; c=relaxed/simple;
+	bh=anNHvv1K44RevnBk6CsZNTiRb3xHd+fhANuv/lRDNks=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tBh2R8bngUC4Mecc7SHkgoh4BGYv8+5r1HRJK+anRkXFFPmQZkyCfZFmA3jIy7xb6ws++coBPl8rfrHvKSfeaebV9pvD8Miq0FbvNVr3W86v90D//eqNGjuSm5omgzlTL+Sgp9Mgws+T30lMbXQx0CLQgQfnOTb0LQRT4fnUHOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=T5InLg2J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="G6vz/uwB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="k0OgL+8/"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.stl.internal (Postfix) with ESMTP id B3FA01300084;
-	Mon, 24 Aug 2026 09:52:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 24 Aug 2026 09:52:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1787579569; x=1787586769; bh=zD00BnjS9t
-	sCP+uch931+VaqPVYRemIFkBWowtNOyZA=; b=G6vz/uwBrBJbGD9KPp6R6rpDT4
-	x9qUAI0yUYMB99QZaRFSRHD+laZWtSFYySDls8y8mZf8XZ9DKONeXHD+E+hyipqj
-	Ex7CKV+D9/04tnWV34dpicZq+0MiUei2BwVL0DRDW2gVpo2ylK+DFcHV9D7idq+1
-	jQ1IkgagtGlq8dwVz61kcAlg4UCu2ZoHuuEc6ItXouqDjlyNkxshHIpJAcXuv+u5
-	fqpP9RIH1IlTht5o88+fOD3Rygif/A4VQ8mKht8sEo5E9zMgEGhs1SikLhOyFsTn
-	2u2YDL63Or60+4xjSOn3/oumODArME5KZVg8mF5xZnocdPxlWm1ccuWPRgsw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1787579569; x=1787586769; bh=zD00BnjS9tsCP+uch931+VaqPVYRemIFkBW
-	owtNOyZA=; b=k0OgL+8/VRJZlTRux9iIop5FUNtzRJuHdr3D5O97slOIrvsmAIb
-	3vc/HFDi2/hGRUPzAxAVNI26KwD07c+qEI0UkLtqdVGaOsftZYNBKuIORpUyQRru
-	SJ1i/czyKl0GZ6MAKXnufPXeLoQeAb7AsFRVuQMYm2AwUZMiqb9QnMT0arb61Xfo
-	iB6Vzc7pb2pDwEpM1/6iG5aZIN5ylPK5QUOJK6uDL27I9bAY8gvYf+4MGs+KONgg
-	53Ds/cN6guJwiGwcw3r/dzlm823o79cckmlC6u8JjEhD/kGDsBNjsTTChmBEDtzu
-	8hT0MGMCPilp5ooSxXri2qmv6dOpci+e0Gw==
-X-ME-Sender: <xms:sUyMakzOP9AQhap9mWc57DEJCIKukqgcxRHapaU819tfIzSGKXrI_Q>
-    <xme:sUyMaqpEBfiQacue1Qg30PcgNvv80FxA6XXtJOl1yRT8kEuHktfvOFHCLzomd7OKg
-    0xqV6GPilIw_68bcnAG0Vp4cCxZWCqeb0K3QV1UPSccuF9CEA>
-X-ME-Received: <xmr:sUyMavn5OQg_QDPhqlJAV8wyda5B_IRZh6nM-RtUOuGtv3OZyRuqeIwWrPbD0zXCM_8JqMAsY1CCjqmD0dMpxXUdewpeQzI59Dt_IvX6Bc0>
-X-ME-Proxy-Cause: dmFkZTEPn1zsIOPKOAqDfn4v6wjQvPSeR6w6xBDZDwNrVoBNFuHflUDaBa/OrLbn41U77i
-    EB7lSjaDunC6FmNX8baljOdoWdSzXiuGLxMsuQjWfc35kQ34AzqqqWH/emt+yIdAsN19zL
-    cxURTm3UgXLxdxOMfEsDOy4PFM6wVRJjIN6rOBnjGhJ/PkeWup4AS0OA1BhyMaY9zi+f5o
-    qf0ZSbxnZhhfYF7yJjxatRECbIvFXZHzbZ6d5asxO4W6/M6L4/E30YqleLYnEJx1fJeLnK
-    FtvaYD5XhGxmO9jl0m6xZ6FJ0LB8Mn/+Yz3/qG64QKpWTFmm2RR54ru2ZLcGwDrzUXxLap
-    bPY9rfDf72H2lfttfD6I8vuC/XhkZ4249w/eF3PTCNn38rxKmcyU9ahHLQ1LTVrQS5rsSy
-    KGKfOn1pYZ6vWJi4lhRKHvWG1q+su5YiDQAbY13y1spoIl642XseFOAyWAW2LvDwEEBz8t
-    l9stysJ0b61nc2Cx5q96XBkVwK8mxD+xwh6B5tyXXhJZOKQGxBzN5D+CiTK1jxNOuVaAPa
-    2nq1AKvjVGbynX73GM974IqxvgfIP1ZfsEycpOAjpmAXc2izNFp4AEeFUjmWEhG2F4dy34
-    +41cJr5+JY2Y7KUCIzK8aoTRySc0hvj1lkxVyoF5a6URHVppOctW85Jjeyvw
-X-ME-Proxy: <xmx:sUyMalrQkYIgHEckIeAKMCE8D6pRGc2kaLc3QhMzQJC3uu8vD0tnrg>
-    <xmx:sUyMaoabsfmBz_cg4rPvPKUoosuzT5CWG4B2m4NkMS2AizsN5HikjA>
-    <xmx:sUyMarHLpqODMlOMYGe4kvRBdG-iothFTc-QOwtaxrhozA_Pdl_12g>
-    <xmx:sUyMaoxW0BPWdxByEAqO3250RmiSzbXxoWGcb2jJ2JRcwuO6dC1hzw>
-    <xmx:sUyMasCZIQIwwwU3_SlmMTStVqntYxZCnns9bDqyGh_aqPL5m4eZrAjm>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 24 Aug 2026 09:52:48 -0400 (EDT)
-Date: Mon, 24 Aug 2026 15:52:45 +0200
-From: Greg KH <greg@kroah.com>
-To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Cc: stable@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
-	"Darrick J. Wong" <darrick.wong@oracle.com>,
-	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-kernel@vger.kernel.org, Joanne Koong <joannelkoong@gmail.com>,
-	syzbot@syzkaller.appspotmail.com, Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 5.10.y] iomap: adjust read range correctly for
- non-block-aligned positions
-Message-ID: <2026082434-freeway-legwarmer-84e6@gregkh>
-References: <20260820-cve-2025-68974-5-10-v1-1-26ff0db1f8e8@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="T5InLg2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0DBC1F00A3A;
+	Mon, 24 Aug 2026 13:55:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787579758;
+	bh=UU0gA1BrqAc4+23HJap7Ery3txZN4F9EuZmO9PD655w=;
+	h=Subject:To:Cc:From:Date;
+	b=T5InLg2JwILR/yV8DfyiDe/2E2Td697dwV1YRGxlrLAJ+MRaT8XgIjQIpYiMtLoy/
+	 LQxqobw+jqGiViH+Y/hvc1d3400hoExNDtolrLazypsgulT5xe2ZjP6VoAyLHg3sdb
+	 I9ZzZvRvq1yfmwJvs9uw15AHfIRtTLTpF3XbTybk=
+Subject: FAILED: patch "[PATCH] nfc: nci: add data_len bound checks to activation parameter" failed to apply to 6.12-stable tree
+To: hexlabsecurity@proton.me,david@ixit.cz
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 24 Aug 2026 15:55:54 +0200
+Message-ID: <2026082454-almanac-viewpoint-5985@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260820-cve-2025-68974-5-10-v1-1-26ff0db1f8e8@bootlin.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 20, 2026 at 07:03:07PM +0200, Miguel Gazquez (Schneider Electric) wrote:
-> From: Joanne Koong <joannelkoong@gmail.com>
-> 
-> [ Upstream commit 7aa6bc3e8766990824f66ca76c19596ce10daf3e ]
-> 
-> iomap_adjust_read_range() assumes that the position and length passed in
-> are block-aligned. This is not always the case however, as shown in the
-> syzbot generated case for erofs. This causes too many bytes to be
-> skipped for uptodate blocks, which results in returning the incorrect
-> position and length to read in. If all the blocks are uptodate, this
-> underflows length and returns a position beyond the folio.
-> 
-> Fix the calculation to also take into account the block offset when
-> calculating how many bytes can be skipped for uptodate blocks.
-> 
-> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-> Tested-by: syzbot@syzkaller.appspotmail.com
-> Reviewed-by: Brian Foster <bfoster@redhat.com>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Christian Brauner <brauner@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
-> ---
->  fs/iomap/buffered-io.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
 
-Don't we also need this for 5.15.y first?
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0428fa2c22e2ba0cff766d3b80d461e149102045
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082454-almanac-viewpoint-5985@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
 
 thanks,
 
 greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0428fa2c22e2ba0cff766d3b80d461e149102045 Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Fri, 12 Jun 2026 12:50:25 -0500
+Subject: [PATCH] nfc: nci: add data_len bound checks to activation parameter
+ extractors
+
+nci_extract_activation_params_iso_dep() and
+nci_extract_activation_params_nfc_dep() read an inner length byte from
+the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
+kernel buffers, but neither function receives the caller-validated
+activation_params_len.  A crafted NCI notification with
+activation_params_len=1 and an inner length byte of up to 20 (NFC-A) or
+50 (NFC-B) causes memcpy() to read that many bytes past the one valid
+byte in the activation params region -- a slab out-of-bounds read of
+kernel memory adjacent to the NCI skb.
+
+The sibling nci_extract_rf_params_*() family was given equivalent
+protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
+validation for packet data"), but the two activation parameter
+extractors were not updated at that time.
+
+Add a data_len parameter to both functions, guard against an empty
+region before consuming the inner length byte, decrement the remaining
+count after consuming it, and clamp the copy length to what is actually
+available.  Update both call sites to pass ntf.activation_params_len,
+which is already validated against the skb at ntf.c:801.
+
+Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Link: https://patch.msgid.link/20260612-b4-disp-6d52d8b0-v3-1-e26221f8826d@proton.me
+Signed-off-by: David Heidelberg <david@ixit.cz>
+
+diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+index c96512bb8653..8bc3adbc5b6b 100644
+--- a/net/nfc/nci/ntf.c
++++ b/net/nfc/nci/ntf.c
+@@ -525,15 +525,19 @@ static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
+ 
+ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+ 						 struct nci_rf_intf_activated_ntf *ntf,
+-						 const __u8 *data)
++						 const __u8 *data, __u8 data_len)
+ {
+ 	struct activation_params_nfca_poll_iso_dep *nfca_poll;
+ 	struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
+ 
+ 	switch (ntf->activation_rf_tech_and_mode) {
+ 	case NCI_NFC_A_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		nfca_poll = &ntf->activation_params.nfca_poll_iso_dep;
+ 		nfca_poll->rats_res_len = min_t(__u8, *data++, NFC_ATS_MAXSIZE);
++		data_len--;
++		nfca_poll->rats_res_len = min_t(__u8, nfca_poll->rats_res_len, data_len);
+ 		pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
+ 		if (nfca_poll->rats_res_len > 0) {
+ 			memcpy(nfca_poll->rats_res,
+@@ -542,8 +546,12 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+ 		break;
+ 
+ 	case NCI_NFC_B_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		nfcb_poll = &ntf->activation_params.nfcb_poll_iso_dep;
+ 		nfcb_poll->attrib_res_len = min_t(__u8, *data++, 50);
++		data_len--;
++		nfcb_poll->attrib_res_len = min_t(__u8, nfcb_poll->attrib_res_len, data_len);
+ 		pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
+ 		if (nfcb_poll->attrib_res_len > 0) {
+ 			memcpy(nfcb_poll->attrib_res,
+@@ -562,7 +570,7 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+ 
+ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 						 struct nci_rf_intf_activated_ntf *ntf,
+-						 const __u8 *data)
++						 const __u8 *data, __u8 data_len)
+ {
+ 	struct activation_params_poll_nfc_dep *poll;
+ 	struct activation_params_listen_nfc_dep *listen;
+@@ -570,9 +578,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 	switch (ntf->activation_rf_tech_and_mode) {
+ 	case NCI_NFC_A_PASSIVE_POLL_MODE:
+ 	case NCI_NFC_F_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		poll = &ntf->activation_params.poll_nfc_dep;
+ 		poll->atr_res_len = min_t(__u8, *data++,
+ 					  NFC_ATR_RES_MAXSIZE - 2);
++		data_len--;
++		poll->atr_res_len = min_t(__u8, poll->atr_res_len, data_len);
+ 		pr_debug("atr_res_len %d\n", poll->atr_res_len);
+ 		if (poll->atr_res_len > 0)
+ 			memcpy(poll->atr_res, data, poll->atr_res_len);
+@@ -580,9 +592,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 
+ 	case NCI_NFC_A_PASSIVE_LISTEN_MODE:
+ 	case NCI_NFC_F_PASSIVE_LISTEN_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		listen = &ntf->activation_params.listen_nfc_dep;
+ 		listen->atr_req_len = min_t(__u8, *data++,
+ 					    NFC_ATR_REQ_MAXSIZE - 2);
++		data_len--;
++		listen->atr_req_len = min_t(__u8, listen->atr_req_len, data_len);
+ 		pr_debug("atr_req_len %d\n", listen->atr_req_len);
+ 		if (listen->atr_req_len > 0)
+ 			memcpy(listen->atr_req, data, listen->atr_req_len);
+@@ -806,12 +822,14 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
+ 		switch (ntf.rf_interface) {
+ 		case NCI_RF_INTERFACE_ISO_DEP:
+ 			err = nci_extract_activation_params_iso_dep(ndev,
+-								    &ntf, data);
++								    &ntf, data,
++								    ntf.activation_params_len);
+ 			break;
+ 
+ 		case NCI_RF_INTERFACE_NFC_DEP:
+ 			err = nci_extract_activation_params_nfc_dep(ndev,
+-								    &ntf, data);
++								    &ntf, data,
++								    ntf.activation_params_len);
+ 			break;
+ 
+ 		case NCI_RF_INTERFACE_FRAME:
+
