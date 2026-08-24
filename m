@@ -1,85 +1,49 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAAC3F328F
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63973345CC0;
+	Mon, 24 Aug 2026 09:30:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787563817; cv=none; b=b7gwpE8iWtXZzvG2v8rF9nvMbh5LpYMvQS1DqBBARcfbSnuXoSP23zwqbVsiO1QEspu1r7ZSPBJxoc6L/pJaFeZwdoC06DgRoTEXYPGV7jGh5f4Zh4mt+AwLUAQhQ5yopEegYez/DWt87giTTY4os2SHe6iIUC304dYvcbFa0mI=
+	t=1787563844; cv=none; b=kUyo3o5Cq56YDH1y+JBBZs2+Tfv6KxZsZZT0nECC/VSDYaF03kqq3x03CK3yTvUWHHlyLIKBM0uTZm9HvSkkEqyKTA7JyNsVNPLJEkZiTqYoQlTq3Zo47rsTkVUBsjpnWZP46ZgQt227PTcYX0ds0vLoz0+odJbsHG1n6pAlPmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787563817; c=relaxed/simple;
-	bh=F20+2pN27w1wV106mm78Uqa6vlea/vNu7ZZQw84xAlU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=maXrCbjbuXoPjfdjKwkVdJ+WxVpRAvI8fuEpP4oCWiDEM2QWn1J0yGAPzMb/zKyqQTqi0r+bkGUiJaw51c94lKehJZ6qnip9zqfAq3JJrykivdxLDr5w/+TLw5DlngsCPGT6ZqizTAhNRcrLDz7NAfFrpXWlQvTVXZPoG77miFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DqRyKLCh; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DqRyKLCh"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84faf0fa17eso3253515b3a.2
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 02:30:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787563816; x=1788168616; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2yr3XBcdQ3LShy8RFIN2zpBH4EW/xdxEP6silOD6LRY=;
-        b=DqRyKLChYlUPPg64B613vYeFBRbdIE6dwLXT2GYtxdNkks5tSmLRq1lrifcBDsU5ot
-         3odVw32vII3qBuL+OnvQ5q7h1PywTFup26L/iYNPjKXrzJEGxCwErX7GYF0C530aMoV7
-         Wsw4ZJQXr9PKcq1dGkoboSj/ghie4YzmulifREMDKWubLCxO4aabAKT67IdCvTa0jQOL
-         KP/gy1iDbyTdBzDg3GGHnpFIfYW2XwVEOgUV1MD+LZQItJse1TIjQNik6ACjpETfLS87
-         zyM7wH1Rz0wAgKUE0/xtgEIrOLWY7y+C7S9DzgDb80eOSJphPN+6fE9pg62YN3cUzIWJ
-         1K3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787563816; x=1788168616;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2yr3XBcdQ3LShy8RFIN2zpBH4EW/xdxEP6silOD6LRY=;
-        b=UJMTRFkLSYChdQDToaKG0C7b8Q8GNZHNaEcCnE+KktG3zBOhf2B1hXtxLF0FHvcYZs
-         Kne9yfcJU9wjTIGRfpRzMu3rxCD3oXAEQJ32I/91JoD+Col7CeoD8zl5V1FQ5CaTtQrI
-         78gc00Uhd54dHuPibfBfDzJDMZJJjfUq2eaE/Ius+D9h9j2QFSpiOAsp2Tz+TBt8+hC2
-         I/6nWVfHWKVU5S2LxBSffPPWue1rzaScqSEnrM2rfvwajWByIFJHhR+ZEYgx8uZACJGw
-         5OYCb/L499FPgMFcNUAevK9h1VWTyu3bBs6K80kq2/Kgajz+TuBdkTAwUy5OWdzkFjdL
-         MUlg==
-X-Forwarded-Encrypted: i=1; AHgh+RpwXGN6dOhvJKwvk4pbIEKk4Y0ma4vPq2q+Jg/VhCYJhkA7rdwYB9daS/TE6gBATxMfn2WJKpg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mW60zaLTQUl/RBeszcYQfwaKam80xAqMb2c1JPB55hY+lJ7UNL
-	VQoshJO0d7v/V5+zBzIO6pJ9t+wLe25fSGU+2VtH9dmkIF6Vn1lA+R3b
-X-Gm-Gg: AR+sD11OdcgrrDRXTizvDp+UHCKVSK0jKqGkWYOQMXgHYehHbQiwqQ1oUBVyqXAdAoK
-	44OGBFZ11b+HE0BUpmtmUbCJr32iZ49FlqdldlxVLBUbl5+eFekhHU3KRdPoHw0uLVk/GNoPUBO
-	iq6t4FOx3dGn8X/FaIt+paBEeaeqIuQ5Vl75D6ISUVa+d8XxUF8wVPpRJrIFoWk71lThRZPAaTa
-	hMxVAphwtRjWhs+mAkvFnkHyV/6rRNsIDqy9XhZcten5jVlogPnZiFS3Wi8UWCpf4/nX2RQfk4R
-	Ecw9RAXvhV5igozLsHbUqdLQqra1kATxSKzEnVqUE6zgfkZYJ8pp0GFCUzKkWMtiwyBAWAn06sr
-	yjFJGH6Z9aUCcdXRLkvMurRDPFpXmWfENabY19poBgcR1TwJpCK0QlsJb4yW5LQwJlurgVswk5h
-	WUSAGdvaamjBSBz+P5D8hplz8dwtWjt4axRHR4d5/54oZJJyXHle0uZdx8wt7lVgIVEFZttSUd+
-	WHdEmGXf1XLQOtzu0HwHHBihw==
-X-Received: by 2002:a05:6a21:a93:b0:3c3:a140:9392 with SMTP id adf61e73a8af0-3cd4b6850aemr34704553637.0.1787563815848;
-        Mon, 24 Aug 2026 02:30:15 -0700 (PDT)
-Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc199e60035sm845226a12.22.2026.08.24.02.30.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 02:30:15 -0700 (PDT)
-From: Vernon Yang <vernon2gm@gmail.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org
-Cc: nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	zokeefe@google.com,
+	s=arc-20240116; t=1787563844; c=relaxed/simple;
+	bh=78yE10/xbclHlKoveZ5nGN9VaIjo8xxd8ysJQbi7NrI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T/GwHI1OCPWvlsYkPx/egewjU45y1+hpYlWQjhmrtu4yss9RPe7d91TRnQ2p3UzfPMNM3qlrzCX7SFELCwzY5Fy9po/vQkCgi7FHPRNxkCu6fufzAnzadG6mqG0/Nsxqx/CCRlVykTI3Mwe8Ca+UGT91SXx19BNHREHVL0OclYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 767799109f9e11f19a56ed5b684f684d-20260824
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:cdebc39d-9a5b-4d31-9ed8-46b7d58ac7db,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:8b81f1eb8d97af383d75b9b32e2ef6bb,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 767799109f9e11f19a56ed5b684f684d-20260824
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 308014753; Mon, 24 Aug 2026 17:30:36 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org,
-	Vernon Yang <yanglincheng@kylinos.cn>
-Subject: [PATCH v3 3/3] mm: khugepaged: fix folio is used after folio_put/unlock()
-Date: Mon, 24 Aug 2026 17:29:35 +0800
-Message-ID: <20260824092935.73892-4-vernon2gm@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824092935.73892-1-vernon2gm@gmail.com>
-References: <20260824092935.73892-1-vernon2gm@gmail.com>
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs: fix memmove overlap in ntfs_new_attr_flags
+Date: Mon, 24 Aug 2026 17:30:30 +0800
+Message-Id: <20260824093030.213157-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,85 +52,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vernon Yang <yanglincheng@kylinos.cn>
+When the record shrinks while the payload offsets increase (e.g., enabling
+compression reduces padding, making arec_size < old_arec_size, but the header
+grows by 8 bytes), moving the name first can overwrite the old mapping_pairs
+before they are copied. Move mapping_pairs first in this case.
 
-On the rollback path, folio_put() has already dropped the last reference
-of new_folio. On the success path, new_folio is already unlocked and can
-be freed concurrently. The trace_mm_khugepaged_collapse_file() is left
-with a dangling folio pointer.
+Since mp_ofs is derived from name_ofs, they always change in the same
+direction. Checking name_ofs alone is sufficient.
 
-So using the folio_pfn() before dropping the reference, closing
-use-after-free window.
-
-Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
+Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- include/trace/events/huge_memory.h | 6 +++---
- mm/khugepaged.c                    | 5 ++++-
- 2 files changed, 7 insertions(+), 4 deletions(-)
+ fs/ntfs/ea.c | 33 +++++++++++++++++++++++++++------
+ 1 file changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
-index fa828967e1fb..5fb4d92cfd84 100644
---- a/include/trace/events/huge_memory.h
-+++ b/include/trace/events/huge_memory.h
-@@ -211,10 +211,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
- );
- 
- TRACE_EVENT(mm_khugepaged_collapse_file,
--	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
-+	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
- 			unsigned long addr, bool is_shmem, struct file *file,
- 			int nr, int result),
--	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
-+	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
- 	TP_STRUCT__entry(
- 		__field(struct mm_struct *, mm)
- 		__field(unsigned long, hpfn)
-@@ -228,7 +228,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
- 
- 	TP_fast_assign(
- 		__entry->mm = mm;
--		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
-+		__entry->hpfn = new_pfn;
- 		__entry->index = index;
- 		__entry->addr = addr;
- 		__entry->is_shmem = is_shmem;
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4e0fca5942dd..24347f1a94ae 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2254,6 +2254,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	struct address_space *mapping = file->f_mapping;
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
-+	unsigned long new_pfn = -1;
- 	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
-@@ -2633,6 +2634,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	retract_page_tables(mapping, start);
- 	if (cc && !cc->is_khugepaged)
- 		result = SCAN_PTE_MAPPED_HUGEPAGE;
-+	new_pfn = folio_pfn(new_folio);
- 	folio_unlock(new_folio);
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index cdd306933d73..61ca945ce5bf 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -753,15 +753,36 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
+ 	old_arec_size = le32_to_cpu(a->length);
  
  	/*
-@@ -2671,12 +2673,13 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+-	 * Move payloads before shrinking the record.  Otherwise resizing moves
++	 * Move payloads before shrinking the record. Otherwise resizing moves
+ 	 * the following attribute over the old payload before it can be copied.
++	 *
++	 * When offsets increase, move mapping_pairs first to avoid name
++	 * overwriting the start of mapping_pairs.
+ 	 */
+ 	if (arec_size < old_arec_size) {
+-		if (a->name_length && name_ofs != old_name_ofs)
+-			memmove((u8 *)a + name_ofs, (u8 *)a + old_name_ofs,
+-				a->name_length * sizeof(__le16));
+-		if (mp_ofs != old_mp_ofs)
+-			memmove((u8 *)a + mp_ofs, (u8 *)a + old_mp_ofs, mp_size);
++		if (name_ofs > old_name_ofs) {
++			/* Payload offsets increased: move mapping pairs first. */
++			if (mp_ofs != old_mp_ofs)
++				memmove((u8 *)a + mp_ofs,
++						(u8 *)a + old_mp_ofs,
++						mp_size);
++			if (a->name_length && name_ofs != old_name_ofs)
++				memmove((u8 *)a + name_ofs,
++						(u8 *)a + old_name_ofs,
++						a->name_length *
++							sizeof(__le16));
++		} else {
++			/* Payload offsets decreased or unchanged: move name first. */
++			if (a->name_length && name_ofs != old_name_ofs)
++				memmove((u8 *)a + name_ofs,
++						(u8 *)a + old_name_ofs,
++						a->name_length *
++							sizeof(__le16));
++			if (mp_ofs != old_mp_ofs)
++				memmove((u8 *)a + mp_ofs,
++						(u8 *)a + old_mp_ofs,
++						mp_size);
++		}
  	}
  
- 	new_folio->mapping = NULL;
-+	new_pfn = folio_pfn(new_folio);
- 
- 	folio_unlock(new_folio);
- 	folio_put(new_folio);
- out:
- 	VM_BUG_ON(!list_empty(&pagelist));
--	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
-+	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
- 	return result;
- }
- 
+ 	err = ntfs_attr_record_resize(m, a, arec_size);
 -- 
-2.53.0
+2.25.1
 
