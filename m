@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDCA437861
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:06:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C067F437861
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:06:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787580361; cv=none; b=YJW3oPkWz/DWCJ0izcxt0if+1yv9VXsRDZKnmdqgVfgAzN/HsTSsIdkAjipBDZywiP9vW7HFs2MDvuTsUXk+Oq8HRD2ftXaBFecqUB1THt946+bOxzMj4rYez4KtsRb522n5caqpjh1tFdNKCOSItti/1KBeZxX72bxICP+mSAY=
+	t=1787580364; cv=none; b=YlvRIoMd8KZH9cvVwVKooWf/4wBwbxPyCcw97WqziBHnLIcVOpKwCKIIUG982xIo6031mSIsligcUt9tAROc+Aul2X0P5x2LdHPzhSUjM6Y1RMDTC8J8IFE313k4HIqg8gbF75GSI9+CTwKYuolYdLnA0UsCShXYriIoWvJlx/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787580361; c=relaxed/simple;
-	bh=McKRACwLYrpYpoRqnh60u0hIVPQgSvB0rKtjwzgexHM=;
+	s=arc-20240116; t=1787580364; c=relaxed/simple;
+	bh=T2+FqUUkx0eVdSo71HjNeLdV9XBdqJ/UKsAUMl2AltQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UMPSMPCoIHN1rEGoodu6rF9EcEuRhAueDXKPSrFvqakNaD+j9dJSCjQ842db+DAdSFbVRz2LusnZT9CVKowloQkWIO5wccDbKL+iYYP120x1H/abDPYaphOWmKgRpI36PJf7jSIZ388O+p4zXms3g/Z1VYP2GHmeQaT5a0eLNPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5Mnh+d2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ObeTDW0HWc/s5uiRQn3hu9q8FNxLKOWoHRgKoT4Y0Fo3IZ5j/IZiQ8rRhV5+PSNKUk/VTPUhgpxhVbiUOsflMC0QZqbqyQDLbKR9pyR1N1BJWlb8n90GoQTSCm7SiWyifuwQ1pIlfNV8hhzchc8Q5P4x0aq93YIsmb6ZqSRm5wQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+9GdSbu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5Mnh+d2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498FC1F00A3E;
-	Mon, 24 Aug 2026 14:05:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+9GdSbu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095361F00A3F;
+	Mon, 24 Aug 2026 14:06:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787580359;
-	bh=nzyjPqKErgyuIaSebJECzd9EPIfFhsvUmDjNb6uGtzU=;
+	s=k20260515; t=1787580362;
+	bh=2NlF2o+TTq91b9gBH6KfS1QQfwC2+bhN2PKNwQbA5+E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J5Mnh+d2YZfj/QJmyjakNt9agH4W/eosXEKwDImA1sbbCJr/nAJd45Ar1ZdeFbB9c
-	 jHH2VUN5PH3WkDaa8aqfxdmRCBL5YVjQ+GTRY7GKZrabG04mLA6nkkNqrmyu68TiAQ
-	 7FR+YCJXcYnz8F1ZZu+TLF5aNJpWWk8tB2v8YLr/nVkcUQ/7ot5qyMUOq5k/wGsChZ
-	 8AWRWjxCaLKEb0nDJTb/hQi8LK/VfDicjPjds9r7Os5QVLWvHSnnVbpeBsJx4mktoE
-	 +uPkFj3bhj+Q+al/JhlAs6NaVKotNz+tHtFdoBvD6f0Z2OQz3P++i6JJg6ljth0Y/4
-	 Tz0mtpC++IRiw==
+	b=W+9GdSbuZbcwdRFUpBIgDWEfF1IVmfxHidSkBGEInxgQ0ATmB/AZYJcmSolicfzeW
+	 d0W4z25moBfRQ+9yJI2kLv+LJWnLg02D7g3G8kVDWVb7325D+Q54mKQH+l+dsvXFNm
+	 1pbitSQ7nneZXJNyGGvBU5OjHhCQ15h1uF/U6o2ppsOQwSuAbDvIYoQPeJzUJx7LUX
+	 RzSUsp8L8xT5rY6oYs5QMaFKZvl6nOhQ3L3CxPJ6o6cZRZf0x4lSVWK9aXT66bPw+9
+	 qhEfBfETubzT+SN1AK4N6G43pozfxUXbBPYhUo55BmQBsmHTRdNaIndkHLJfnhB/iU
+	 9iXuWAmB6iOfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Farman <farman@linux.ibm.com>,
-	Matthew Rosato <mjrosato@linux.ibm.com>,
-	Farhan Ali <alifm@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
+Cc: Ibrahim Hashimov <security@auditcode.ai>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Brian Foster <bfoster@redhat.com>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] s390/vfio_ccw: Implement a crw lock
-Date: Mon, 24 Aug 2026 10:05:55 -0400
-Message-ID: <20260824140555.3097579-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y] xfs: bounds-check buffer log item's dirty bitmap
+Date: Mon, 24 Aug 2026 10:06:00 -0400
+Message-ID: <20260824140600.3098208-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824140555.3097579-1-sashal@kernel.org>
-References: <2026082011-underarm-plywood-1b0f@gregkh>
- <20260824140555.3097579-1-sashal@kernel.org>
+In-Reply-To: <2026082047-moonwalk-headwear-455d@gregkh>
+References: <2026082047-moonwalk-headwear-455d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,177 +47,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Farman <farman@linux.ibm.com>
+From: Ibrahim Hashimov <security@auditcode.ai>
 
-[ Upstream commit 16b0798024c0e9117e395829ddbbe70981c79d9c ]
+[ Upstream commit 813f8136a2ce1fee266d02a7df73db6e8a541604 ]
 
-Unlike the channel_program struct, which covers synchronous I/O
-submissions and asynchronous interrupts, the CRW region relies
-exclusively on asynchronous events coming from hardware.
+xlog_recover_do_reg_buffer() replays each dirty region described by a
+buffer log item's bitmap into the buffer read for that item:
 
-Implement a lock to manage the list of those payloads, to ensure
-they are read cohesively.
+	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+		item->ri_buf[i].iov_base,
+		nbits << XFS_BLF_SHIFT);
 
-Fixes: 3f02cb2fd9d2 ("vfio-ccw: Wire up the CRW irq and CRW region")
+The destination offset (bit/nbits, from the logged dirty bitmap) and the
+buffer size (from the logged blf_len) are both attacker-controlled and
+otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
+which compiles away on production kernels. A crafted image logging a
+small blf_len together with a bitmap bit past the end of that buffer
+drives the memcpy() past the buffer's allocation, corrupting adjacent
+kernel heap during mount-time log recovery. This is reachable by anyone
+who can get a crafted image mounted -- the malicious-filesystem threat
+model XFS already guards against elsewhere.
+
+Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
+of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
+idiom already used in xlog_recover_do_inode_buffer() and
+xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
+STATIC int and its three callers propagate the error.
+
+Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
+image trips a slab-out-of-bounds write before this change and fails
+recovery cleanly with -EFSCORRUPTED after it.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-[ relocated crw_lock init and CRW drain from vfio_ccw_ops.c's mdev_init_dev()/mdev_release_dev() into vfio_ccw_drv.c's sch_probe()/sch_remove(), and kept the two-argument eventfd_signal() calls ]
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Reviewed-by: Brian Foster <bfoster@redhat.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/cio/vfio_ccw_chp.c     | 26 ++++++++++++++++----------
- drivers/s390/cio/vfio_ccw_drv.c     | 10 ++++++++++
- drivers/s390/cio/vfio_ccw_private.h |  4 ++++
- 3 files changed, 30 insertions(+), 10 deletions(-)
+ fs/xfs/xfs_buf_item_recover.c | 53 +++++++++++++++++++++++++----------
+ 1 file changed, 38 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_chp.c
-index ee9688738a950..3ee2444f3d902 100644
---- a/drivers/s390/cio/vfio_ccw_chp.c
-+++ b/drivers/s390/cio/vfio_ccw_chp.c
-@@ -92,18 +92,13 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
- 	loff_t pos = *ppos & VFIO_CCW_OFFSET_MASK;
- 	struct ccw_crw_region *region;
- 	struct vfio_ccw_crw *crw;
-+	unsigned long flags;
- 	int ret;
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index a053b0bf79308..eddef2f994678 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -432,7 +432,7 @@ xlog_recover_validate_buf_type(
+  * given buffer.  The bitmap in the buf log format structure indicates
+  * where to place the logged data.
+  */
+-STATIC void
++STATIC int
+ xlog_recover_do_reg_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog_recover_item	*item,
+@@ -460,8 +460,24 @@ xlog_recover_do_reg_buffer(
+ 		ASSERT(nbits > 0);
+ 		ASSERT(item->ri_buf[i].i_addr != NULL);
+ 		ASSERT(item->ri_buf[i].i_len % XFS_BLF_CHUNK == 0);
+-		ASSERT(BBTOB(bp->b_length) >=
+-		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
++		/*
++		 * The bitmap is only trustworthy to the extent that it
++		 * describes a region that actually fits inside the buffer we
++		 * read in based on the (attacker-controlled) blf_len.  Do not
++		 * rely on an ASSERT() for this -- it compiles away entirely on
++		 * non-DEBUG kernels, which is exactly where this matters, so
++		 * validate it for real and abort recovery of this buffer rather
++		 * than copying past the end of it.
++		 */
++		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
++				((uint)bit << XFS_BLF_SHIFT) +
++				(nbits << XFS_BLF_SHIFT))) {
++			xfs_alert(mp,
++	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
++				bit, nbits, BBTOB(bp->b_length),
++				bp->b_bn);
++			return -EFSCORRUPTED;
++		}
  
- 	if (pos + count > sizeof(*region))
- 		return -EINVAL;
+ 		/*
+ 		 * The dirty regions logged in the buffer, even though
+@@ -515,6 +531,7 @@ xlog_recover_do_reg_buffer(
+ 	ASSERT(i == item->ri_total);
  
- 	mutex_lock(&private->io_mutex);
--	crw = list_first_entry_or_null(&private->crw,
--				       struct vfio_ccw_crw, next);
--
--	if (crw)
--		list_del(&crw->next);
--
- 	if (i >= private->num_regions) {
- 		ret = -EINVAL;
- 		goto out;
-@@ -112,6 +107,16 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
- 	i = array_index_nospec(i, private->num_regions);
- 	region = private->region[i].data;
- 
-+	spin_lock_irqsave(&private->crw_lock, flags);
-+	crw = list_first_entry_or_null(&private->crw,
-+				       struct vfio_ccw_crw, next);
-+
-+	if (crw)
-+		list_del(&crw->next);
-+
-+	/* Drop CRW lock while copying to userspace */
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
-+
- 	if (crw)
- 		memcpy(&region->crw, &crw->crw, sizeof(region->crw));
- 
-@@ -121,15 +126,16 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
- 		ret = count;
- 
- 	region->crw = 0;
--
--out:
--	mutex_unlock(&private->io_mutex);
--
- 	kfree(crw);
- 
- 	/* Notify the guest if more CRWs are on our queue */
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	if (!list_empty(&private->crw) && private->crw_trigger)
- 		eventfd_signal(private->crw_trigger, 1);
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
-+
-+out:
-+	mutex_unlock(&private->io_mutex);
- 
- 	return ret;
- }
-diff --git a/drivers/s390/cio/vfio_ccw_drv.c b/drivers/s390/cio/vfio_ccw_drv.c
-index 3678c3eed19b8..735d9493b6874 100644
---- a/drivers/s390/cio/vfio_ccw_drv.c
-+++ b/drivers/s390/cio/vfio_ccw_drv.c
-@@ -119,11 +119,14 @@ static void vfio_ccw_sch_io_todo(struct work_struct *work)
- static void vfio_ccw_crw_todo(struct work_struct *work)
- {
- 	struct vfio_ccw_private *private;
-+	unsigned long flags;
- 
- 	private = container_of(work, struct vfio_ccw_private, crw_work);
- 
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	if (!list_empty(&private->crw) && private->crw_trigger)
- 		eventfd_signal(private->crw_trigger, 1);
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
+ 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
++	return 0;
  }
  
  /*
-@@ -207,6 +210,7 @@ static int vfio_ccw_sch_probe(struct subchannel *sch)
- 	INIT_LIST_HEAD(&private->crw);
- 	INIT_WORK(&private->io_work, vfio_ccw_sch_io_todo);
- 	INIT_WORK(&private->crw_work, vfio_ccw_crw_todo);
-+	spin_lock_init(&private->crw_lock);
- 	atomic_set(&private->avail, 1);
- 	private->state = VFIO_CCW_STATE_STANDBY;
- 
-@@ -238,13 +242,16 @@ static void vfio_ccw_sch_remove(struct subchannel *sch)
+@@ -523,10 +540,10 @@ xlog_recover_do_reg_buffer(
+  * (ie. USR or GRP), then just toss this buffer away; don't recover it.
+  * Else, treat it as a regular buffer and do recovery.
+  *
+- * Return false if the buffer was tossed and true if we recovered the buffer to
+- * indicate to the caller if the buffer needs writing.
++ * Return 0 if the buffer was not recovered (tossed), 1 if it was recovered and
++ * needs writing, or a negative errno if recovery of the buffer failed.
+  */
+-STATIC bool
++STATIC int
+ xlog_recover_do_dquot_buffer(
+ 	struct xfs_mount		*mp,
+ 	struct xlog			*log,
+@@ -535,6 +552,7 @@ xlog_recover_do_dquot_buffer(
+ 	struct xfs_buf_log_format	*buf_f)
  {
- 	struct vfio_ccw_private *private = dev_get_drvdata(&sch->dev);
- 	struct vfio_ccw_crw *crw, *temp;
-+	unsigned long flags;
+ 	uint			type;
++	int			error;
  
- 	vfio_ccw_sch_quiesce(sch);
+ 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
  
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	list_for_each_entry_safe(crw, temp, &private->crw, next) {
- 		list_del(&crw->next);
- 		kfree(crw);
- 	}
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
+@@ -542,7 +560,7 @@ xlog_recover_do_dquot_buffer(
+ 	 * Filesystems are required to send in quota flags at mount time.
+ 	 */
+ 	if (!mp->m_qflags)
+-		return false;
++		return 0;
  
- 	vfio_ccw_mdev_unreg(sch);
+ 	type = 0;
+ 	if (buf_f->blf_flags & XFS_BLF_UDQUOT_BUF)
+@@ -555,10 +573,12 @@ xlog_recover_do_dquot_buffer(
+ 	 * This type of quotas was turned off, so ignore this buffer
+ 	 */
+ 	if (log->l_quotaoffs_flag & type)
+-		return false;
++		return 0;
  
-@@ -304,6 +311,7 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
- 			       unsigned int rsid)
- {
- 	struct vfio_ccw_crw *crw;
-+	unsigned long flags;
- 
- 	/*
- 	 * If unable to allocate a CRW, just drop the event and
-@@ -321,7 +329,9 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
- 	crw->crw.erc = erc;
- 	crw->crw.rsid = rsid;
- 
-+	spin_lock_irqsave(&private->crw_lock, flags);
- 	list_add_tail(&crw->next, &private->crw);
-+	spin_unlock_irqrestore(&private->crw_lock, flags);
- 	queue_work(vfio_ccw_work_q, &private->crw_work);
+-	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+-	return true;
++	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
++	if (error)
++		return error;
++	return 1;
  }
  
-diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_ccw_private.h
-index 9b13b41e3a9cb..67bc16f8c11ce 100644
---- a/drivers/s390/cio/vfio_ccw_private.h
-+++ b/drivers/s390/cio/vfio_ccw_private.h
-@@ -84,6 +84,8 @@ struct vfio_ccw_crw {
-  * @cp: channel program for the current I/O operation
-  * @irb: irb info received from interrupt
-  * @scsw: scsw info
-+ * @crw_lock: serialization of CRW list information
-+ * @crw: list of Channel Report Word elements
-  * @io_trigger: eventfd ctx for signaling userspace I/O results
-  * @crw_trigger: eventfd ctx for signaling userspace CRW information
-  * @req_trigger: eventfd ctx for signaling userspace to return device
-@@ -108,6 +110,8 @@ struct vfio_ccw_private {
- 	struct channel_program	cp;
- 	struct irb		irb;
- 	union scsw		scsw;
-+
-+	spinlock_t		crw_lock;
- 	struct list_head	crw;
+ /*
+@@ -943,13 +963,16 @@ xlog_recover_buf_commit_pass2(
+ 			goto out_release;
+ 	} else if (buf_f->blf_flags &
+ 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+-		bool	dirty;
+-
+-		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+-		if (!dirty)
++		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
++		if (error <= 0)
+ 			goto out_release;
++		/* write dirty buffer */
++		error = 0;
+ 	} else {
+-		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
++		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
++						   current_lsn);
++		if (error)
++			goto out_release;
+ 	}
  
- 	struct eventfd_ctx	*io_trigger;
+ 	/*
 -- 
 2.53.0
 
