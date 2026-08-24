@@ -1,137 +1,123 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABE04119E0;
-	Mon, 24 Aug 2026 11:20:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787570405; cv=none; b=desXty7wtoGaUyrblxGxAtmnhAzzLVWbJhPqIqkiMR0GLWa+0t4NkROK5MwunvnL4YMgKvCU014xXXbw0E0fS4axUKAWuIVOfWfSEvAqE8IvCNQLrVOmZd+OsfKzFvNRoK5wRdarQ/MP2+JMIChi9pjCc35Wd9TPnE/ZL0UYTkQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787570405; c=relaxed/simple;
-	bh=CBQJtTadz8j39fVTrD8BrXPJ+VCJRa5hxUkhja9QjUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OWqyfr1OYqm7LVFPK8lxNo+mKrT/aqC6iUFiVzhOmp+Syiws2AC6U3Eq8qC9ctJR54OCTGwxoSgNoWRNJsHgRyMcMuJl42rl6IWAaugta+qRmVSqmjihaVBnnafz5oPmjrixzAfV3DBPFWQD3oEGEIDQbzQgP9azSTelZay5uUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JB/5icX3; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA2438B7B4
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787570456; cv=pass; b=dwF205Ff7SFVdtecBWzPAToHdfdl/Zp5v85FsMC0M5inuW9dfo6TdeQVnAS45+d1ah1j+zFReBwVWgvnGsWRNlJQUVTZzkEM1pKACWw6a37Ag3mPvFUCYRNmBrpsdh0xzUKOO1SsWa8dV4GPIhMg1hIrWh63JiVUb/gJvV0K20c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787570456; c=relaxed/simple;
+	bh=CzYFGMQGqT7y4Z3luy3N+VOzIHn8PE+ndRV1J1LK56I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FibE/uY9FWpeE+2a0PrTkXa+Lzdy8jzO4tHdTqdmOECBETJcF3d18WvF7unEkJ6OMecPCeUrrZh6CtjPpWZVZaEESIeqTy72wTx8zvv6iac3QOzevRO6hlWjNFC7dTL+Gw8UDJn95fe/9CTeK0BZeZL5jvogpHwfddXCRPTS4yo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOU7Nbhp; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JB/5icX3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787570403; x=1819106403;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CBQJtTadz8j39fVTrD8BrXPJ+VCJRa5hxUkhja9QjUY=;
-  b=JB/5icX3KqSpt8hlhWJ0dzRbPbGUfKrRmx4RZw2G4scpCKv9w7hzRjPj
-   a/1mGFLEVT26EvEmPiz+LjwF7oht2Dlz0b3MyUjNK9eztKPNDRnkG8DyM
-   9UKC6MQsl+VTmGnsMAnZXd+721GAFBZQjLiAyxqsUBSkkRlufwUCTkFoO
-   AwOIl5rCse5+r+eqeAsgB2DFCGq4rPr0p/lhjiGwNGhDEbJahb41D2TSc
-   rmg6F8w7bkBgjebzU/HF5q6I12zIwubAozcF/RLb8Ohs4QJeTFXti7kc/
-   7/ewgad473KfQZTcvO7tbvX62kcXwylCaJjfUYoJOxYB46mXdIdMiaiZY
-   g==;
-X-CSE-ConnectionGUID: W1dkqETzQ16QZBl/k2PlsA==
-X-CSE-MsgGUID: 669aNMlKSJq0NNFIvdIpWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88033092"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="88033092"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 04:20:03 -0700
-X-CSE-ConnectionGUID: 56RXLQU6QTGK4Xf/IM/6aQ==
-X-CSE-MsgGUID: uKZyOZjFQAqPg5GjNOjeLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="272190349"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa005.fm.intel.com with ESMTP; 24 Aug 2026 04:20:01 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id ABB8399; Mon, 24 Aug 2026 13:20:00 +0200 (CEST)
-Date: Mon, 24 Aug 2026 13:20:00 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Chang Wu <kunjinkao.jp@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jan Remmet <j.remmet@phytec.de>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: hd3ss3220: track VBUS enable state per
- consumer
-Message-ID: <aowo4CwwNjYSN1bA@black.igk.intel.com>
-References: <20260819152027.90994-1-kunjinkao.jp@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOU7Nbhp"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69fdfd98eb8so609123a12.0
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 04:20:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787570453; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DYMhMxSS2Cgmqd95T3DwwkDHaF3OQURMJpx37GiQiXUzFZCAqNtm1J200JKsowaFZy
+         cHq0GMhFFhLxeuNyOGyWo+fahJRMVwGKxQf/1nER0M9ccGjop8mDAknQX/ntrbVnwrAX
+         e5IufqhOQyFzq47hDZymhFlH1gqYulu2GjPgerQ5NFZ5mh7ukhiBCt/BWtcd9fVcgEme
+         m35eu94mWyD9kBvnm57+zhGZZUsF9RyKrAj/CR4D8LnbnTUf2C2el3zqV+6Q9AjKWTrV
+         VZcnpR8OZ2UghbTx+FLkHuAkmRw/joh4oPQi9XdPCpVu3wJXgzhuyAxkmf6mrQQ28yb1
+         dc0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CzYFGMQGqT7y4Z3luy3N+VOzIHn8PE+ndRV1J1LK56I=;
+        fh=EGfZThsPbCKqqghti6eDSzlPt/UGQG4qSM3QWAPcBuk=;
+        b=hdobN5Q2R4vxFpfGWvhRfhVhK0hDaTntHQgpM9EHzJmTCykZR/8D/SsilQZaaXtpiu
+         kAxQ3Yf6zoHihe0rRVgDn2L8OcBa3/wZ4jf3/5SYIBUjGqj+H6v7wkefeg4LBuA2k3SK
+         kurasc922H4vA/7yCIaKoQP/ksDXdu05MdUGcXUavoRnlGQXmm8Usdg0xAWQ5isBVjj9
+         csOt99nNwj3eFTD2hDBad9l/9T6lmlJGsV2FzEZxM7T15x0lBgTXs3avyfgciQYeUgb3
+         zOKGuJz6xyOO1D8FYVia5ALD1SQDlpJWP9dAHY2G5hlsw78TVb1gHba+jPw/4taL4OMf
+         u6TA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787570453; x=1788175253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CzYFGMQGqT7y4Z3luy3N+VOzIHn8PE+ndRV1J1LK56I=;
+        b=iOU7Nbhprl+ErIRVM0SKVTgNZoV1iGrWBpRu1qvJ9ZBorYKeJeE3SyZSnF9D8reAPa
+         LZaj6MK+vNE5VSHfWdDCvWXOu9PmNQ+IfohxpYI+0coxmrCaVReQEnwjwVF+PPAlDOtX
+         Ljnxd2ZVuZCpq1sUQEZ81QtFQjmpoljlA9a//h/p6oJhQKPzcvPTrT8jXoEwuNQSqGFK
+         j1xvgGO+vIkh3fvCI2GzX185PH49aPLaZyAyWR2y9zTiH2SDtUwGK5O7RtvGjLit+YqB
+         J9uCX13rhl4+f6pvqzu8YLI72srqEiZuHG9wjhFVWVjf2Uw8xkd+Dgkswz36aSX594ns
+         V/Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787570453; x=1788175253;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CzYFGMQGqT7y4Z3luy3N+VOzIHn8PE+ndRV1J1LK56I=;
+        b=VtZYMTdfkcPEkUs25rJOrUGNSb0nQ1UMa5TQcyMKPQAYr+5MvjLnAqu+LUaY+k0Gp0
+         KaPb0XJgGzSYtON2DQRbUFdrKpcQxw7wZPzNgk/Q8Ue4VeRWimLlRB4K178aK7GlS/iG
+         UzFq2Zt+NuIzyHSsKICzH6XR8+DiL8mmiJcRZVABfRxexwRzdHXYxA8fYt3YfSv3jiZ0
+         uvCaL6gkeQysCkGkLpqBTuQQJL7hyxrc9E6+oqU7JBsxJhvyFmWPJlYmZFfgU815dlRw
+         DQc9VEieCwFZRgxf62gbcn9/BDVMPYA+ZbpY861Z5V0UUIsaqySuxmahZaulUR1l6BdT
+         fapw==
+X-Forwarded-Encrypted: i=1; AHgh+RocdxHAyuO7Wa5KgtiVJddzBBFiSNXyA7/y0Z7pKkkPcqAShYSVImRUqiT66FPDPPJ3Fh6CW8k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kC/Pow4RySStcslpoNfyDDi8Z0pDiFxdKV9BPUVE58YABHhxAg
+	+FEM13BdDEg62UM08f93hCok4j4DinYqOLeMCilEpXoqJq7YonAVJ9gjtt0Nd6Zg7Uja79V8o/J
+	ZzQGKKIGftL4m31zrj6aKuxTuewJniVY=
+X-Gm-Gg: AR+sD11JMVzx1BMjD4jjg7TpH18AiHxk1chk0aGnTUW7Ii9kbyM85cd9or3ucFRSEsP
+	sWsRlVAEFmTuunOVez//aP6ubSyVmGy5u8cXaLtfa4BmGejCNQO9luFkCLG132nCs432Ue6MjxV
+	7y85JlP+RuVPT51iwKn8AAWeZSl3JEQmlH4ltxWwMi3kXY0x9jUW9TvWP7WyEcSkntql4MTMr2N
+	1/rjwiwQobuG9S2jpQulrQlNyEroljtfhXBf4WbxqiLnM+CWEjf9H7ooUQL0eVLUjwlFE0RRaWE
+	ABn8Ae4qWHVqMo1I06dx/UdEWURnfx0sctsmz98DwFRgqkSYL2QF4SJKG+h7/J4V32zTRZjw6w=
+	=
+X-Received: by 2002:a05:6402:249c:b0:6a2:9c3:6926 with SMTP id
+ 4fb4d7f45d1cf-6a42f1bcc81mr14169194a12.1.1787570453192; Mon, 24 Aug 2026
+ 04:20:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819152027.90994-1-kunjinkao.jp@gmail.com>
+References: <20260801060115.3538849-1-nicoyip.dev@gmail.com>
+ <20260821145908.2829132-1-nicoyip.dev@gmail.com> <20260824075011.GA858321@shredder>
+In-Reply-To: <20260824075011.GA858321@shredder>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Mon, 24 Aug 2026 19:20:42 +0800
+X-Gm-Features: AcwNN1UcFXyuU7hL-3GWhAB4rcYKRD0bjXeZfTZl0ULtNilBR6X5re8wwsqhuVM
+Message-ID: <CAAo+4rVEbS4qq9_3OxMLMisD80CsZNjwN1ZD-obGQ2rxSy_30w@mail.gmail.com>
+Subject: Re: [PATCH net v2] fou: ensure GUE headers have enough headroom
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, Antoine Tenart <atenart@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	David Ahern <dsahern@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 19, 2026 at 11:20:27PM +0800, Chang Wu wrote:
-> regulator_is_enabled() reports the aggregate regulator state, not
-> whether this consumer holds an enable reference. If another consumer
-> enables VBUS first, the driver can skip its own regulator_enable() call
-> and later attempt to drop a reference it never acquired, triggering an
-> unbalanced regulator disable warning.
-> 
-> Track successful enable and disable calls locally. Keep the state
-> unchanged when an operation fails so a later role or ID notification
-> retries the operation while this consumer keeps balanced references.
-> 
-> Fixes: b3f9d6e491fd ("usb: typec: hd3ss3220: Check if regulator needs to be switched")
-> Cc: stable@vger.kernel.org
-> Link: https://github.com/qualcomm-linux/kernel/issues/472
-> Signed-off-by: Chang Wu <kunjinkao.jp@gmail.com>
+On Mon, Aug 24, 2026 at 3:50=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wr=
+ote:
+>
+> It is up to the caller of ip_tunnel_encap() to make sure that there is
+> enough headroom in the packet. Otherwise, what is the point of the
+> encap_hlen() callback? Also, adding skb_cow_head() in the build_header()
+> callback forces every caller to refresh pointers to skb->head.
+>
+> There's a WIP patch to fix the same problem in IPv6 [1]. I suggest doing
+> something similar in ip_tunnel_xmit() and ip_md_tunnel_xmit(). Note that
+> IPv6 reserves the headroom before the encap push, so the snapshot is
+> enough there. IPv4 reserves it after, so we also need an skb_cow_head()
+> before ip_tunnel_encap().
+>
+> [1] https://lore.kernel.org/netdev/cover.1786088695.git.petalzu987@gmail.=
+com/
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Thanks for the guide, I just created a v3 to fix the problem using the
+similar way as that ipv6 patch by adjusting the callsite.
 
-> ---
-> Testing:
-> - scripts/checkpatch.pl --strict: passed
-> - Qualcomm CI checkpatch, sparse, DT and UAPI checks: passed
-> - Not tested on hardware
-> 
->  drivers/usb/typec/hd3ss3220.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
-> index d0de5a2488f9..4eec90c82bae 100644
-> --- a/drivers/usb/typec/hd3ss3220.c
-> +++ b/drivers/usb/typec/hd3ss3220.c
-> @@ -62,6 +62,7 @@ struct hd3ss3220 {
->  	int id_irq;
->  
->  	struct regulator *vbus;
-> +	bool vbus_enabled;
->  };
->  
->  static int hd3ss3220_set_power_opmode(struct hd3ss3220 *hd3ss3220, int power_opmode)
-> @@ -208,7 +209,7 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
->  {
->  	int ret;
->  
-> -	if (regulator_is_enabled(hd3ss3220->vbus) == on)
-> +	if (hd3ss3220->vbus_enabled == on)
->  		return;
->  
->  	if (on)
-> @@ -216,9 +217,13 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
->  	else
->  		ret = regulator_disable(hd3ss3220->vbus);
->  
-> -	if (ret)
-> +	if (ret) {
->  		dev_err(hd3ss3220->dev,
->  			"vbus regulator %s failed: %d\n", on ? "enable" : "disable", ret);
-> +		return;
-> +	}
-> +
-> +	hd3ss3220->vbus_enabled = on;
->  }
->  
->  static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
-> 
-> base-commit: e1e6e541c5c9cf548e9fdc35fc26808c82074440
-> -- 
-> 2.48.0
-
--- 
-heikki
+Best regards,
+Chengfeng
