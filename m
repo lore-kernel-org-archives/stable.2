@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B242C370AFD
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 18:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426583803D9
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 18:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787595009; cv=none; b=E0R3q6hisTcTht1Gii7/wa/aijARUNDudpGupwPDZw6PUGDPFBvSALvjbQKuJFvjZh7y9PnCQZUS9YTJDEJUMzD5UarshoJyUWHtClYLbwPF+gvLr6ynQFuh/9tItTpNxRXLp4ygpUqxO8i6tERwDHY5oQObV1xfONQFaHJf6c0=
+	t=1787595019; cv=none; b=oiumQ1rwTyE0CYweJa9q1hO3Z/qMfZ9Ib6UTaDdCyX1FDVikpVnAauTFBQlemkktWRwwUWReIATsajjIdY5Lxj1qs6KJTjiSAU0D5h/NIuoZnr1STtyR08WbaTbudjHRZiVOdIQ7qAzG9ea2OiQtmknABK8XoHAGJdYvXraw8GU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787595009; c=relaxed/simple;
-	bh=uETiduIBlVKbBmIL34ZQ0zwQ/Yj3353e1KKXTfIzrNs=;
+	s=arc-20240116; t=1787595019; c=relaxed/simple;
+	bh=L1yQdOy3oQZC1rPoP8YUDoQsCx/Bkd2r3mbJ4IAjav8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R7GREz24tSK6TFSTjp32sFzAc0ZOMPz1toWBOV3JQjO8i/Q6zEOlw0cZlDcECqtIkOLVwJnsjqbfsY/bMZZaDvMlqiqWJjInhzPm3kPrucEv5jI+5YfJ/j1QKLDy4kVe8LbzpRWJ2YtJOaJlp50mnKoMML+exkwuK9DjcVIN6W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhqeB4x5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=C7EkmBz6iHPtsQH7JyVZLgj1erfcMBmNbBzLMg5fBZCV9FNjfxwVlz7umcvAj9GfeJF4w2InHefiY8N8DK39OR5JL8W9J1WxTsxgrhzpf8bT95xFhshJZafunQufq18j9siZzFTsF9iqMNxeGbjjT3r4qoHRqrvxDNMZqCz4lM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJYnnY5V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhqeB4x5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7FB91F00A3A;
-	Mon, 24 Aug 2026 18:10:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJYnnY5V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2D31F00A3A;
+	Mon, 24 Aug 2026 18:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787595007;
-	bh=Xc4AJnMR8XllVhcJCIzAzceN2m6i8w0uEzUh61RemFM=;
+	s=k20260515; t=1787595017;
+	bh=kejzsgd0/11TfK5GGep7ocA0Q7d9S/u461rHgoE+bDw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EhqeB4x5NNEoSJOlG50GEeL191oop6v82vNd5s5MaSvZjI7KDaTvCqRvkMqOs64Ir
-	 YsLY8LOTGEr8GYIjeaIb0y5EocE9qdQS81mSg8JK4Q3QOHLiSy9LRhYRcPwci86qAV
-	 K5phXs+Q/NQhQBFmYc9luKGO/qpuITCKIissXZJFqcuiAkCfLZsbcyUh37CazOheUr
-	 K3ley+Fh9cwr77IHAUIV+iXmgb1CVtrQKHQOJjwp7KP7WTC7dUw2ce2t+i4LAZTk6Y
-	 OuWZr9kIfDK/eD5rIsGyEeM9su8cqyQx1pLsFJ+YEkQbqdxGMoBO/oI5X2ypeSRNh/
-	 mtQj0lWIZjdsA==
+	b=EJYnnY5VMxMJGc5pZBY0NwKii7QCokiRrQzakEYJTZY6yZgse7zQd0FhM1EI15BBC
+	 VIF2/RvaKYprvd6EJxA/O7Q2/d3CwrNXYlqFw15Jt+WxLc+hzzIapQLpHveQ9ZPaUG
+	 3rq1h3pgInDiYE6OlvzVZ1uJSwJ1RKo3EEdV0FFJcVx/hhN9ERDdKK1hGnUk2weyOq
+	 mFRsG5OqZhkU+TDrDaK7sYr7MDCHIg6fBpKeQcvlDNVpYnpPPqi9fZn+fUCR7Bhcak
+	 bJcwby1UVbQnK/LQdp5jY5kzBmCQcRfTTKxHvcms2KsRZmj7atP+YkyAjVaEZHtIYS
+	 qquLCnO99o72Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mptcp: avoid combining some incoming suboptions
-Date: Mon, 24 Aug 2026 14:10:05 -0400
-Message-ID: <20260824181005.254168-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] fbdev: Wrap user-invoked calls to fb_set_var() in helper
+Date: Mon, 24 Aug 2026 14:10:14 -0400
+Message-ID: <20260824181015.254406-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082004-brutishly-geranium-d749@gregkh>
-References: <2026082004-brutishly-geranium-d749@gregkh>
+In-Reply-To: <2026082036-chili-glider-8a45@gregkh>
+References: <2026082036-chili-glider-8a45@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,223 +45,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit b6ee361524641f57b2e2363f7737f20e17f67827 ]
+[ Upstream commit 6f611e5e5f3327cf2e2daabe6ee5acac58cc784e ]
 
-Some MPTCP suboptions are mutually exclusive according to the RFC8684,
-but also because in different places, the code doesn't expect some
-combinations to be present. That's specially true for suboptions that
-would be present twice, but with different attributes.
+Handle fbcon during display updates in fb_set_var_from_user(). Check
+with fbcon if the mode change is possible, update hardware state and
+finally update fbcon. Update all callers.
 
-The new restrictions are the same as the ones applied on the output
-side, with mptcp_write_options. The same rules can be reused with a
-small fix: an MP_FASTCLOSE can be used with a DSS when the sender picks
-this option [1], which is not the case on Linux. Here are the rules:
+Only the FBIOPUT_VSCREENINFO ioctl currently does all steps. Other
+mode-changes callers in sysfs and driver code are missing fbcon-related
+steps.
 
-  Which options can be used together?
+With the new helper, ps3fb and sh_mobile_lcdcfb no longer maintain
+fbcon state themselves.
 
-  X: mutually exclusive
-  O: often used together
-  C: can be used together in some cases
-  P: could be used together but we prefer not to (optimisations)
-
-  | Opt: | MPC  | MPJ  | DSS  | ADD  |  RM  | PRIO | FAIL |  FC  |
-  |------|------|------|------|------|------|------|------|------|
-  | MPC  |------|------|------|------|------|------|------|------|
-  | MPJ  |  X   |------|------|------|------|------|------|------|
-  | DSS  |  X   |  X   |------|------|------|------|------|------|
-  | ADD  |  X   |  X   |  P   |------|------|------|------|------|
-  | RM   |  C   |  C   |  C   |  P   |------|------|------|------|
-  | PRIO |  X   |  C   |  C   |  C   |  C   |------|------|------|
-  | FAIL |  X   |  X   |  C   |  X   |  X   |  X   |------|------|
-  | FC   |  X   |  X   |  P   |  X   |  X   |  X   |  X   |------|
-  | RST  |  X   |  X   |  X   |  X   |  X   |  X   |  O   |  O   |
-  |------|------|------|------|------|------|------|------|------|
-
-The only difference is with the 'P': another stack could send and
-ADD_ADDR with other suboptions (DSS, RM_ADDR), and this should be
-allowed.
-
-A few points of attention:
-
- - In theory, an MP_CAPABLE could be used with a RM_ADDR, but there is
-   no reason to add it with a SYN. Note that even with a 4th ACK, it
-   doesn't seem to be useful, except when IDs are known in advance via
-   another channel. Better not to break that.
-
- - Now, combining both an MP_CAPABLE and an MP_JOIN will no longer
-   result to a reject of the two options, but only the second suboption
-   is ignored. That seems OK to do that for this unexpected error. At
-   least now all inconsistent combinations are handled the same way.
-   This could change later in next. This also means the explicit checks
-   for having both MPC + MPJ in subflow.c will now be unreachable.
-   That's fine, they will be removed in a follow-up patch.
-
- - In case of conflicting combinations, the extra suboption(s) is/are
-   ignored: having such combinations either means the remote peer is
-   buggy, or is evil. The simplest action is then taken in this case:
-   stop processing the current suboption.
-
- - In mp_opt->suboptions, there is also a bit reserved to the checksum,
-   which can be used in an MP_CAPABLE and a DSS. Each time a DSS option
-   can be used in parallel with another option, the checksum can be set,
-   so the verification is combined into a new OPTIONS_MPTCP_DSS macro.
-
- - An MP_CAPABLE ACK can carry a Data-Level Length, and an optional
-   Checksum: they are the same as the ones found in a DSS, because a DSS
-   cannot be used in parallel to an MP_CAPABLE. Similarly, even if there
-   is room, a DSS cannot be used with an MP_JOIN.
-
-Fixes: eda7acddf808 ("mptcp: Handle MPTCP TCP options")
-Cc: stable@vger.kernel.org
-Link: https://www.rfc-editor.org/rfc/rfc8684.html#section-3.5-5.1 [1]
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-2-b8f496d71664@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ used `!(TCP_SKB_CB(skb)->tcp_flags & TCPHDR_SYN)` instead of missing `subopt` variable and `OPTIONS_MPTCP_MPC` instead of `OPTION_MPTCP_MPC_ACK` ]
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
+Stable-dep-of: 061db6b7a910 ("fbdev: serialize mode sysfs access with lock_fb_info()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/options.c  | 57 ++++++++++++++++++++++++++++++++++++++++++++
- net/mptcp/protocol.h |  1 +
- 2 files changed, 58 insertions(+)
+ drivers/video/fbdev/core/fb_chrdev.c   |  6 +-----
+ drivers/video/fbdev/core/fbcon.c       |  2 --
+ drivers/video/fbdev/core/fbmem.c       | 13 +++++++++++++
+ drivers/video/fbdev/core/fbsysfs.c     |  4 +---
+ drivers/video/fbdev/ps3fb.c            |  5 +----
+ drivers/video/fbdev/sh_mobile_lcdcfb.c |  5 +----
+ include/linux/fb.h                     |  2 ++
+ 7 files changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-index 78e83ce15cc17..c913f1903380b 100644
---- a/net/mptcp/options.c
-+++ b/net/mptcp/options.c
-@@ -45,6 +45,14 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 				expected_opsize = TCPOLEN_MPTCP_MPC_SYN;
- 		}
+diff --git a/drivers/video/fbdev/core/fb_chrdev.c b/drivers/video/fbdev/core/fb_chrdev.c
+index 4ebd16b7e3b8d..54f926fb411bd 100644
+--- a/drivers/video/fbdev/core/fb_chrdev.c
++++ b/drivers/video/fbdev/core/fb_chrdev.c
+@@ -85,11 +85,7 @@ static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,
+ 		var.activate &= ~FB_ACTIVATE_KD_TEXT;
+ 		console_lock();
+ 		lock_fb_info(info);
+-		ret = fbcon_modechange_possible(info, &var);
+-		if (!ret)
+-			ret = fb_set_var(info, &var);
+-		if (!ret)
+-			fbcon_update_vcs(info, var.activate & FB_ACTIVATE_ALL);
++		ret = fb_set_var_from_user(info, &var);
+ 		unlock_fb_info(info);
+ 		console_unlock();
+ 		if (!ret && copy_to_user(argp, &var, sizeof(var)))
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 666293f0864f3..6691e0f8ff41a 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2706,7 +2706,6 @@ void fbcon_update_vcs(struct fb_info *info, bool all)
+ 	else
+ 		fbcon_modechanged(info);
+ }
+-EXPORT_SYMBOL(fbcon_update_vcs);
  
-+		/* Only the MPC + ACK can be used with a RM_ADDR */
-+		if (!(TCP_SKB_CB(skb)->tcp_flags & TCPHDR_SYN)) {
-+			if ((mp_opt->suboptions & ~OPTION_MPTCP_RM_ADDR) != 0)
-+				break;
-+		} else if (mp_opt->suboptions != 0) {
-+			break;
-+		}
+ /* let fbcon check if it supports a new screen resolution */
+ int fbcon_modechange_possible(struct fb_info *info, struct fb_var_screeninfo *var)
+@@ -2734,7 +2733,6 @@ int fbcon_modechange_possible(struct fb_info *info, struct fb_var_screeninfo *va
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL_GPL(fbcon_modechange_possible);
+ 
+ int fbcon_mode_deleted(struct fb_info *info,
+ 		       struct fb_videomode *mode)
+diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
+index 0ea182314b89b..a3af47e103b0d 100644
+--- a/drivers/video/fbdev/core/fbmem.c
++++ b/drivers/video/fbdev/core/fbmem.c
+@@ -349,6 +349,19 @@ fb_set_var(struct fb_info *info, struct fb_var_screeninfo *var)
+ }
+ EXPORT_SYMBOL(fb_set_var);
+ 
++int fb_set_var_from_user(struct fb_info *info, struct fb_var_screeninfo *var)
++{
++	int ret = fbcon_modechange_possible(info, var);
 +
- 		/* Cfr RFC 8684 Section 3.3.0:
- 		 * If a checksum is present but its use had
- 		 * not been negotiated in the MP_CAPABLE handshake, the receiver MUST
-@@ -117,6 +125,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
- 
- 	case MPTCPOPT_MP_JOIN:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTION_MPTCP_RM_ADDR |
-+					    OPTION_MPTCP_PRIO)) != 0)
-+			break;
++	if (!ret)
++		ret = fb_set_var(info, var);
++	if (!ret)
++		fbcon_update_vcs(info, var->activate & FB_ACTIVATE_ALL);
 +
- 		if (opsize == TCPOLEN_MPTCP_MPJ_SYN) {
- 			mp_opt->suboptions |= OPTION_MPTCP_MPJ_SYN;
- 			mp_opt->backup = *ptr++ & MPTCPOPT_BACKUP;
-@@ -148,6 +161,14 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
- 
- 	case MPTCPOPT_DSS:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTION_MPTCP_ADD_ADDR |
-+					    OPTION_MPTCP_RM_ADDR |
-+					    OPTION_MPTCP_PRIO |
-+					    OPTION_MPTCP_FASTCLOSE |
-+					    OPTION_MPTCP_FAIL)) != 0)
-+			break;
++	return ret;
++}
++EXPORT_SYMBOL(fb_set_var_from_user);
 +
- 		pr_debug("DSS\n");
- 		ptr++;
+ static void fb_lcd_notify_blank(struct fb_info *info)
+ {
+ 	int power;
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
+index fa12e5da9bbdc..49d886c2dd7c8 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+@@ -20,9 +20,7 @@ static int activate(struct fb_info *fb_info, struct fb_var_screeninfo *var)
+ 	var->activate |= FB_ACTIVATE_FORCE;
+ 	console_lock();
+ 	lock_fb_info(fb_info);
+-	err = fb_set_var(fb_info, var);
+-	if (!err)
+-		fbcon_update_vcs(fb_info, var->activate & FB_ACTIVATE_ALL);
++	err = fb_set_var_from_user(fb_info, var);
+ 	unlock_fb_info(fb_info);
+ 	console_unlock();
+ 	if (err)
+diff --git a/drivers/video/fbdev/ps3fb.c b/drivers/video/fbdev/ps3fb.c
+index dbcda307f6a67..1376d19b19aeb 100644
+--- a/drivers/video/fbdev/ps3fb.c
++++ b/drivers/video/fbdev/ps3fb.c
+@@ -29,7 +29,6 @@
+ #include <linux/freezer.h>
+ #include <linux/uaccess.h>
+ #include <linux/fb.h>
+-#include <linux/fbcon.h>
+ #include <linux/init.h>
  
-@@ -235,6 +256,12 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
- 
- 	case MPTCPOPT_ADD_ADDR:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_DSS |
-+					    OPTION_MPTCP_RM_ADDR |
-+					    OPTION_MPTCP_PRIO)) != 0)
-+			break;
-+
- 		mp_opt->echo = (*ptr++) & MPTCP_ADDR_ECHO;
- 		if (!mp_opt->echo) {
- 			if (opsize == TCPOLEN_MPTCP_ADD_ADDR ||
-@@ -294,6 +321,14 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
- 
- 	case MPTCPOPT_RM_ADDR:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_MPC |
-+					    OPTIONS_MPTCP_MPJ |
-+					    OPTIONS_MPTCP_DSS |
-+					    OPTION_MPTCP_ADD_ADDR |
-+					    OPTION_MPTCP_PRIO)) != 0)
-+			break;
-+
- 		if (opsize < TCPOLEN_MPTCP_RM_ADDR_BASE + 1 ||
- 		    opsize > TCPOLEN_MPTCP_RM_ADDR_BASE + MPTCP_RM_IDS_MAX)
+ #include <asm/cell-regs.h>
+@@ -830,9 +829,7 @@ static int ps3fb_ioctl(struct fb_info *info, unsigned int cmd,
+ 				/* Force, in case only special bits changed */
+ 				var.activate |= FB_ACTIVATE_FORCE;
+ 				par->new_mode_id = val;
+-				retval = fb_set_var(info, &var);
+-				if (!retval)
+-					fbcon_update_vcs(info, var.activate & FB_ACTIVATE_ALL);
++				retval = fb_set_var_from_user(info, &var);
+ 				console_unlock();
+ 			}
  			break;
-@@ -308,6 +343,13 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
+diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+index 72969fe8e5134..e8324b01700f6 100644
+--- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
++++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+@@ -15,7 +15,6 @@
+ #include <linux/ctype.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/delay.h>
+-#include <linux/fbcon.h>
+ #include <linux/init.h>
+ #include <linux/interrupt.h>
+ #include <linux/ioctl.h>
+@@ -1768,11 +1767,9 @@ static void sh_mobile_fb_reconfig(struct fb_info *info)
+ 	var.height = ch->display.height;
+ 	var.activate = FB_ACTIVATE_NOW;
  
- 	case MPTCPOPT_MP_PRIO:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_MPJ |
-+					    OPTIONS_MPTCP_DSS |
-+					    OPTION_MPTCP_ADD_ADDR |
-+					    OPTION_MPTCP_RM_ADDR)) != 0)
-+			break;
+-	if (fb_set_var(info, &var) < 0)
++	if (fb_set_var_from_user(info, &var) < 0)
+ 		/* Couldn't reconfigure, hopefully, can continue as before */
+ 		return;
+-
+-	fbcon_update_vcs(info, true);
+ }
+ 
+ /*
+diff --git a/include/linux/fb.h b/include/linux/fb.h
+index 5178a33c752c6..88680a7cabd55 100644
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -533,6 +533,8 @@ extern int fb_set_var(struct fb_info *info, struct fb_var_screeninfo *var);
+ extern int fb_pan_display(struct fb_info *info, struct fb_var_screeninfo *var);
+ extern int fb_blank(struct fb_info *info, int blank);
+ 
++int fb_set_var_from_user(struct fb_info *info, struct fb_var_screeninfo *var);
 +
- 		if (opsize != TCPOLEN_MPTCP_PRIO)
- 			break;
- 
-@@ -317,6 +359,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
- 
- 	case MPTCPOPT_MP_FASTCLOSE:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_DSS |
-+					    OPTION_MPTCP_RST)) != 0)
-+			break;
-+
- 		if (opsize != TCPOLEN_MPTCP_FASTCLOSE)
- 			break;
- 
-@@ -327,6 +374,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
- 
- 	case MPTCPOPT_RST:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTION_MPTCP_FAIL |
-+					    OPTION_MPTCP_FASTCLOSE)) != 0)
-+			break;
-+
- 		if (opsize != TCPOLEN_MPTCP_RST)
- 			break;
- 
-@@ -340,6 +392,11 @@ static void mptcp_parse_option(const struct sk_buff *skb,
- 		break;
- 
- 	case MPTCPOPT_MP_FAIL:
-+		/* Can be used with a restricted number of other options */
-+		if ((mp_opt->suboptions & ~(OPTIONS_MPTCP_DSS |
-+					    OPTION_MPTCP_RST)) != 0)
-+			break;
-+
- 		if (opsize != TCPOLEN_MPTCP_FAIL)
- 			break;
- 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 4767b5ea29df4..609e7768fab31 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -35,6 +35,7 @@
- 				 OPTION_MPTCP_MPC_ACK)
- #define OPTIONS_MPTCP_MPJ	(OPTION_MPTCP_MPJ_SYN | OPTION_MPTCP_MPJ_SYNACK | \
- 				 OPTION_MPTCP_MPJ_ACK)
-+#define OPTIONS_MPTCP_DSS	(OPTION_MPTCP_DSS | OPTION_MPTCP_CSUMREQD)
- 
- /* MPTCP option subtypes */
- #define MPTCPOPT_MP_CAPABLE	0
+ /*
+  * Helpers for framebuffers in I/O memory
+  */
 -- 
 2.53.0
 
