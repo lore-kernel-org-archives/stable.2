@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2293385D66
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:56:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F70381AF1
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:56:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787608573; cv=none; b=P7IsX38LMDVai0uWRcM3P7XMS33ma3qNX2bijFzbdi3E3uQh6tQ0x6vffHSdVaPxKQNmbQon+j3W43+oxJRUAJqmcV4SFh8iQ2eiydy35UxvUvFsTx+qWLj0lse7ZFBh7wl7vES1V+Lm0320mi48juybv0/jNHdp73CRPI7VqYk=
+	t=1787608574; cv=none; b=ha4+cjLnOE9h79cJQCWqm/5SAVo7Y0/6dzRlG5ug82VIQ+0RZ63PtpOc9wshz5nfpowD1hBBPWFXUio5HrcGsHWI7MXyAQuFG0c4cFph2Lc4gsLcJq1k+2MNLYI+Yf2+JBq9u5CCPN4HPr226fvKbG9lx8cTevqXjVOBOOTOyDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787608573; c=relaxed/simple;
-	bh=7y2C+CysRP3P29+D3Rl93zl7GkeppsStMJJ9AuNyBBo=;
+	s=arc-20240116; t=1787608574; c=relaxed/simple;
+	bh=9iKoukI4/UB3ADwlbDxuUzr82yJWu/fAMlroxCA1cQI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TaOGy14ruXJWaWrQFSe/g/+5TtMZMdXsS5RHV60y6wnHGE8ttw16O6rty0eng7JNXRhzSVw4qk3bWy542hNURxCDfPskFpZ6UWJ4fMq0MOYEpqLcxGcrtfFk+SJnyGff2aJcN/1uozxq+mFPTC8Mv2VEt0k6Zk9qMbgCwfA0NdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQF3iHRP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=djj/0cmJXYvBESt4BrYxjvVwNLMHhUaeB/NX9I+oGsJU4+uiGWPOZWlsiaOkj0k60eNOfHhr7aWB0RKIUExJcV85xtfT5EHmnYXc+ASBrlM/w6JRnllld8gUMV4NravRVEoTUILJt6adkeCXV8ksWaJc4IPkyfBy8lc/YCNZdgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=daJFdeaD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQF3iHRP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987121F00A3D;
-	Mon, 24 Aug 2026 21:56:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="daJFdeaD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771091F00A3A;
+	Mon, 24 Aug 2026 21:56:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787608568;
-	bh=e713V2f5dwblcDtAxGqd1r1IDO7O5nMcsXSmgmeJwjM=;
+	s=k20260515; t=1787608569;
+	bh=gyZZQ4xQMYkezsbeUQrdhEW9F1s/C/n0gzAqh7vJmyA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AQF3iHRPTP+5nmJ8numvbSRX7ROQcjJpxZmbk1Qu1Ky6EmFWUbC3vlfloOKgmXjg/
-	 QOy6JxFqPhNI4MU5skabptqfo4xmPqFbxREyIQxOzSzdN8kBTufqBE0c174UHMB8bz
-	 2Xdqy6dkfwzLHOx3jJhI7Gyr4aEDwNj7w/EDL0SN/HAPIw+a50cBRgLmyN++DcqCd4
-	 5lnmNERTA68O1kKskVU5BAxZ04ZCVvhaiH/NjXKb3KHWW4TdXSrMbzGP/JtmyXXJ8s
-	 CnNfjSkIvhkxKy3WlnVvmNoMIf5yLPsDvRbpdNGwFivTyHVvnDoGo5KGi2GHKnTHNP
-	 Gj9CCmjR2mphA==
+	b=daJFdeaDIoniUScHCQS8HuiKJQPvlIrSzxJ0y5QvWDvjGxi/vdxD7yqWy3ERVM2q+
+	 57bGT19s4QJlUvflM+v+apPS28WLEAftwRnwZbkeS5voBYi8J/JIK6XVlv7CUmxXsi
+	 sMeTeB+bOtXt1IG0pRzWPrmVoFnUCsbk9ay4haxGHqOAQT/s4n29kqA2tIkeco8pos
+	 HDZO+miANaioBWdqV1Rt8g9xmhJgznAihFpaAfFa57a17EuSOWJWP3gnSVRjpghsHe
+	 Bwxryd9gkVH1JubXiOdKVjk1s2cb+byd9otd+SaRndYQET/Obx1xvRZFfinHHLbeUr
+	 n0PQQRp1TeOYA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
 	Stephen Smalley <stephen.smalley.work@gmail.com>,
 	Paul Moore <paul@paul-moore.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 2/3] selinux: more strict policy parsing
-Date: Mon, 24 Aug 2026 17:56:04 -0400
-Message-ID: <20260824215605.432476-2-sashal@kernel.org>
+Subject: [PATCH 7.1.y 3/3] selinux: require a class's permission values to cover its permission count
+Date: Mon, 24 Aug 2026 17:56:05 -0400
+Message-ID: <20260824215605.432476-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260824215605.432476-1-sashal@kernel.org>
 References: <2026082020-unnatural-animosity-f5e9@gregkh>
@@ -45,764 +45,154 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christian Göttsche <cgzones@googlemail.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 18fa21f10d008a0fc22565109c7d38f304295912 ]
+[ Upstream commit b98a8ac50775540f3804397ed08f61ef9910bcab ]
 
-Be more strict during parsing of policies and reject invalid values.
+security_get_permissions() sizes an array by the class's permissions.nprim
+and fills it at value - 1, from the inherited common's permission table and
+then the class's own. A value no permission defines leaves a NULL that
+sel_make_perm_files() passes to d_alloc_name(), an oops inside
+sel_write_load() that strands selinux_state.policy_mutex and leaves every
+later load in uninterruptible sleep; two permissions sharing a value
+overwrite the first kstrdup(). Bounding each value by nprim catches
+neither, and neither would a count: the symbol table is keyed on the
+permission name, so duplicates pass.
 
-Add some error messages in the case of policy parse failures, to
-enhance debugging, either on a malformed policy or a too strict check.
+Track the values each permission table claims and require them to cover
+exactly what its count declares, rejecting a count no value can reach.
+Conforming policies are unaffected.
 
-Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+Cc: stable@vger.kernel.org
+Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-[PM: fixed checkpatch.pl warnings, style problems]
 Signed-off-by: Paul Moore <paul@paul-moore.com>
-Stable-dep-of: b98a8ac50775 ("selinux: require a class's permission values to cover its permission count")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/selinux/include/security.h |   1 +
- security/selinux/ss/avtab.c         |  35 ++++-
- security/selinux/ss/avtab.h         |  13 ++
- security/selinux/ss/conditional.c   |  18 +--
- security/selinux/ss/constraint.h    |   1 +
- security/selinux/ss/policydb.c      | 196 +++++++++++++++++++++++-----
- security/selinux/ss/policydb.h      |  23 +++-
- security/selinux/ss/services.c      |   6 +-
- 8 files changed, 233 insertions(+), 60 deletions(-)
+ security/selinux/ss/policydb.c | 51 ++++++++++++++++++++++++++++++----
+ 1 file changed, 46 insertions(+), 5 deletions(-)
 
-diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
-index 0babb89921816..a74415e3afd3a 100644
---- a/security/selinux/include/security.h
-+++ b/security/selinux/include/security.h
-@@ -236,6 +236,7 @@ int security_read_policy(void **data, size_t *len);
- int security_read_state_kernel(void **data, size_t *len);
- int security_policycap_supported(unsigned int req_cap);
- 
-+/* Maximum supported number of permissions per class */
- #define SEL_VEC_MAX 32
- struct av_decision {
- 	u32 allowed;
-diff --git a/security/selinux/ss/avtab.c b/security/selinux/ss/avtab.c
-index d12ca337e6498..fb67b36001566 100644
---- a/security/selinux/ss/avtab.c
-+++ b/security/selinux/ss/avtab.c
-@@ -316,7 +316,7 @@ int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *po
- 	struct avtab_extended_perms xperms;
- 	__le32 buf32[ARRAY_SIZE(xperms.perms.p)];
- 	int rc;
--	unsigned int set, vers = pol->policyvers;
-+	unsigned int vers = pol->policyvers;
- 
- 	memset(&key, 0, sizeof(struct avtab_key));
- 	memset(&datum, 0, sizeof(struct avtab_datum));
-@@ -327,9 +327,12 @@ int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *po
- 			pr_err("SELinux: avtab: truncated entry\n");
- 			return rc;
- 		}
-+		/* Read five or more items: source type, target type,
-+		 * target class, AV type, and at least one datum.
-+		 */
- 		items2 = le32_to_cpu(buf32[0]);
--		if (items2 > ARRAY_SIZE(buf32)) {
--			pr_err("SELinux: avtab: entry overflow\n");
-+		if (items2 < 5 || items2 > ARRAY_SIZE(buf32)) {
-+			pr_err("SELinux: avtab: invalid item count\n");
- 			return -EINVAL;
- 		}
- 		rc = next_entry(buf32, fp, sizeof(u32) * items2);
-@@ -358,6 +361,13 @@ int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *po
- 			return -EINVAL;
- 		}
- 
-+		if (!policydb_type_isvalid(pol, key.source_type) ||
-+		    !policydb_type_isvalid(pol, key.target_type) ||
-+		    !policydb_class_isvalid(pol, key.target_class)) {
-+			pr_err("SELinux: avtab: invalid type or class\n");
-+			return -EINVAL;
-+		}
-+
- 		val = le32_to_cpu(buf32[items++]);
- 		enabled = (val & AVTAB_ENABLED_OLD) ? AVTAB_ENABLED : 0;
- 
-@@ -376,6 +386,11 @@ int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *po
- 
- 		for (i = 0; i < ARRAY_SIZE(spec_order); i++) {
- 			if (val & spec_order[i]) {
-+				if (items >= items2) {
-+					pr_err("SELinux: avtab: entry has too many items (%d/%d)\n",
-+					       items + 1, items2);
-+					return -EINVAL;
-+				}
- 				key.specified = spec_order[i] | enabled;
- 				datum.u.data = le32_to_cpu(buf32[items++]);
- 				rc = insertf(a, &key, &datum, p);
-@@ -411,9 +426,13 @@ int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *po
- 		return -EINVAL;
- 	}
- 
--	set = hweight16(key.specified & (AVTAB_XPERMS | AVTAB_TYPE | AVTAB_AV));
--	if (!set || set > 1) {
--		pr_err("SELinux:  avtab:  more than one specifier\n");
-+	if (hweight16(key.specified & ~AVTAB_ENABLED) != 1) {
-+		pr_err("SELinux:  avtab:  not exactly one specifier\n");
-+		return -EINVAL;
-+	}
-+
-+	if (key.specified & ~AVTAB_SPECIFIER_MASK) {
-+		pr_err("SELinux:  avtab:  invalid specifier\n");
- 		return -EINVAL;
- 	}
- 
-@@ -438,6 +457,10 @@ int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *po
- 			pr_err("SELinux: avtab: truncated entry\n");
- 			return rc;
- 		}
-+		if (!avtab_is_valid_xperm_specified(xperms.specified))
-+			pr_warn_once_policyload(pol,
-+						"SELinux: avtab: unsupported xperm specifier %#x\n",
-+						xperms.specified);
- 		rc = next_entry(&xperms.driver, fp, sizeof(u8));
- 		if (rc) {
- 			pr_err("SELinux: avtab: truncated entry\n");
-diff --git a/security/selinux/ss/avtab.h b/security/selinux/ss/avtab.h
-index 850b3453f2598..1de4cce288a76 100644
---- a/security/selinux/ss/avtab.h
-+++ b/security/selinux/ss/avtab.h
-@@ -44,6 +44,7 @@ struct avtab_key {
- 	 AVTAB_XPERMS_DONTAUDIT)
- #define AVTAB_ENABLED_OLD 0x80000000 /* reserved for used in cond_avtab */
- #define AVTAB_ENABLED	  0x8000 /* reserved for used in cond_avtab */
-+#define AVTAB_SPECIFIER_MASK (AVTAB_AV | AVTAB_TYPE | AVTAB_XPERMS | AVTAB_ENABLED)
- 	u16 specified; /* what field is specified */
- };
- 
-@@ -68,6 +69,18 @@ struct avtab_extended_perms {
- 	struct extended_perms_data perms;
- };
- 
-+static inline bool avtab_is_valid_xperm_specified(u8 specified)
-+{
-+	switch (specified) {
-+	case AVTAB_XPERMS_IOCTLFUNCTION:
-+	case AVTAB_XPERMS_IOCTLDRIVER:
-+	case AVTAB_XPERMS_NLMSG:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- struct avtab_datum {
- 	union {
- 		u32 data; /* access vector or type value */
-diff --git a/security/selinux/ss/conditional.c b/security/selinux/ss/conditional.c
-index 824c3f8961518..f0a9866f01659 100644
---- a/security/selinux/ss/conditional.c
-+++ b/security/selinux/ss/conditional.c
-@@ -199,19 +199,12 @@ int cond_index_bool(void *key, void *datum, void *datap)
- 	return 0;
- }
- 
--static int bool_isvalid(struct cond_bool_datum *b)
--{
--	if (!(b->state == 0 || b->state == 1))
--		return 0;
--	return 1;
--}
--
- int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct cond_bool_datum *booldatum;
- 	__le32 buf[3];
--	u32 len;
-+	u32 len, val;
- 	int rc;
- 
- 	booldatum = kzalloc_obj(*booldatum);
-@@ -223,11 +216,12 @@ int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
- 		goto err;
- 
- 	booldatum->value = le32_to_cpu(buf[0]);
--	booldatum->state = le32_to_cpu(buf[1]);
-+	val = le32_to_cpu(buf[1]);
- 
- 	rc = -EINVAL;
--	if (!bool_isvalid(booldatum))
-+	if (!val_is_boolean(val))
- 		goto err;
-+	booldatum->state = (int)val;
- 
- 	len = le32_to_cpu(buf[2]);
- 
-@@ -241,6 +235,7 @@ int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
- 
- 	return 0;
- err:
-+	pr_err("SELinux: conditional: failed to read boolean\n");
- 	cond_destroy_bool(key, booldatum, NULL);
- 	return rc;
- }
-@@ -362,7 +357,8 @@ static int expr_node_isvalid(struct policydb *p, struct cond_expr_node *expr)
- 		return 0;
- 	}
- 
--	if (expr->boolean > p->p_bools.nprim) {
-+	if (expr->expr_type == COND_BOOL &&
-+	    (expr->boolean == 0 || expr->boolean > p->p_bools.nprim)) {
- 		pr_err("SELinux: conditional expressions uses unknown bool.\n");
- 		return 0;
- 	}
-diff --git a/security/selinux/ss/constraint.h b/security/selinux/ss/constraint.h
-index 203033cfad672..1d75a8a044df9 100644
---- a/security/selinux/ss/constraint.h
-+++ b/security/selinux/ss/constraint.h
-@@ -50,6 +50,7 @@ struct constraint_expr {
- 	u32 op; /* operator */
- 
- 	struct ebitmap names; /* names */
-+	/* internally unused, only forwarded via policydb_write() */
- 	struct type_set *type_names;
- 
- 	struct constraint_expr *next; /* next expression */
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index b8243b6c51a5a..45eeb10b4fd71 100644
+index 45eeb10b4fd71..60a7d9ad9df08 100644
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -638,13 +638,11 @@ static int sens_index(void *key, void *datum, void *datap)
- 	levdatum = datum;
- 	p = datap;
- 
--	if (!levdatum->isalias) {
--		if (!levdatum->level.sens ||
--		    levdatum->level.sens > p->p_levels.nprim)
--			return -EINVAL;
-+	if (!levdatum->level.sens || levdatum->level.sens > p->p_levels.nprim)
-+		return -EINVAL;
- 
-+	if (!levdatum->isalias)
- 		p->sym_val_to_name[SYM_LEVELS][levdatum->level.sens - 1] = key;
--	}
- 
+@@ -1138,7 +1138,18 @@ int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
  	return 0;
  }
-@@ -657,12 +655,11 @@ static int cat_index(void *key, void *datum, void *datap)
- 	catdatum = datum;
- 	p = datap;
  
--	if (!catdatum->isalias) {
--		if (!catdatum->value || catdatum->value > p->p_cats.nprim)
--			return -EINVAL;
-+	if (!catdatum->value || catdatum->value > p->p_cats.nprim)
-+		return -EINVAL;
- 
-+	if (!catdatum->isalias)
- 		p->sym_val_to_name[SYM_CATS][catdatum->value - 1] = key;
--	}
+-static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
++/*
++ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
++ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
++ * fits in a u32 and the callers reject an nprim past that width.
++ */
++static u32 perm_claimed_mask(u32 nprim)
++{
++	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
++}
++
++static int perm_read(struct policydb *p, struct symtab *s,
++		     struct policy_file *fp, u32 *claimed)
+ {
+ 	char *key = NULL;
+ 	struct perm_datum *perdatum;
+@@ -1170,6 +1181,10 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
+ 	/* indexes an nprim-sized array in security_get_permissions() */
+ 	if (perdatum->value > s->nprim)
+ 		goto bad;
++	/* two permissions cannot share one slot of that array */
++	if (*claimed & (1U << (perdatum->value - 1)))
++		goto bad;
++	*claimed |= 1U << (perdatum->value - 1);
  
  	return 0;
- }
-@@ -1159,6 +1156,9 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
+ bad:
+@@ -1182,7 +1197,7 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
+ 	char *key = NULL;
+ 	struct common_datum *comdatum;
+ 	__le32 buf[4];
+-	u32 i, len, nel;
++	u32 i, len, nel, claimed = 0;
+ 	int rc;
  
- 	len = le32_to_cpu(buf[0]);
- 	perdatum->value = le32_to_cpu(buf[1]);
+ 	comdatum = kzalloc_obj(*comdatum);
+@@ -1204,17 +1219,28 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
+ 	if (rc)
+ 		goto bad;
+ 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
 +	rc = -EINVAL;
-+	if (perdatum->value < 1 || perdatum->value > SEL_VEC_MAX)
++	if (comdatum->permissions.nprim > SEL_VEC_MAX)
 +		goto bad;
  
  	rc = str_read(&key, GFP_KERNEL, fp, len);
  	if (rc)
-@@ -1196,6 +1196,9 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	len = le32_to_cpu(buf[0]);
- 	comdatum->value = le32_to_cpu(buf[1]);
- 	nel = le32_to_cpu(buf[3]);
-+	rc = -EINVAL;
-+	if (nel > SEL_VEC_MAX)
-+		goto bad;
+ 		goto bad;
  
- 	rc = symtab_init(&comdatum->permissions, nel);
- 	if (rc)
-@@ -1345,7 +1348,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &comdatum->permissions, fp);
++		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
+ 
++	rc = -EINVAL;
++	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
++		pr_err("SELinux:  common %s does not define every permission it declares\n",
++		       key);
++		goto bad;
++	}
++
+ 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
+ 
+ 	rc = symtab_insert(s, key, comdatum);
+@@ -1348,7 +1374,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
  	char *key = NULL;
  	struct class_datum *cladatum;
  	__le32 buf[6];
--	u32 i, len, len2, ncons, nel;
-+	u32 i, len, len2, ncons, nel, val;
+-	u32 i, len, len2, ncons, nel, val;
++	u32 i, len, len2, ncons, nel, val, claimed = 0, inherited = 0;
  	int rc;
  
  	cladatum = kzalloc_obj(*cladatum);
-@@ -1358,8 +1361,16 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 
- 	len = le32_to_cpu(buf[0]);
- 	len2 = le32_to_cpu(buf[1]);
--	cladatum->value = le32_to_cpu(buf[2]);
- 	nel = le32_to_cpu(buf[4]);
-+	rc = -EINVAL;
-+	if (nel > SEL_VEC_MAX)
-+		goto bad;
-+
-+	val = le32_to_cpu(buf[2]);
-+	rc = -EINVAL;
-+	if (val > U16_MAX)
-+		goto bad;
-+	cladatum->value = val;
- 
- 	rc = symtab_init(&cladatum->permissions, nel);
+@@ -1376,6 +1402,10 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
  	if (rc)
-@@ -1427,16 +1438,59 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 		if (rc)
- 			goto bad;
- 
--		cladatum->default_user = le32_to_cpu(buf[0]);
--		cladatum->default_role = le32_to_cpu(buf[1]);
--		cladatum->default_range = le32_to_cpu(buf[2]);
-+		rc = -EINVAL;
-+		val = le32_to_cpu(buf[0]);
-+		switch (val) {
-+		case 0:
-+		case DEFAULT_SOURCE:
-+		case DEFAULT_TARGET:
-+			cladatum->default_user = val;
-+			break;
-+		default:
-+			goto bad;
-+		}
-+		val = le32_to_cpu(buf[1]);
-+		switch (val) {
-+		case 0:
-+		case DEFAULT_SOURCE:
-+		case DEFAULT_TARGET:
-+			cladatum->default_role = val;
-+			break;
-+		default:
-+			goto bad;
-+		}
-+		val = le32_to_cpu(buf[2]);
-+		switch (val) {
-+		case 0:
-+		case DEFAULT_SOURCE_LOW:
-+		case DEFAULT_SOURCE_HIGH:
-+		case DEFAULT_SOURCE_LOW_HIGH:
-+		case DEFAULT_TARGET_LOW:
-+		case DEFAULT_TARGET_HIGH:
-+		case DEFAULT_TARGET_LOW_HIGH:
-+		case DEFAULT_GLBLUB:
-+			cladatum->default_range = val;
-+			break;
-+		default:
-+			goto bad;
-+		}
- 	}
- 
- 	if (p->policyvers >= POLICYDB_VERSION_DEFAULT_TYPE) {
- 		rc = next_entry(buf, fp, sizeof(u32) * 1);
- 		if (rc)
- 			goto bad;
--		cladatum->default_type = le32_to_cpu(buf[0]);
-+		rc = -EINVAL;
-+		val = le32_to_cpu(buf[0]);
-+		switch (val) {
-+		case 0:
-+		case DEFAULT_TARGET:
-+		case DEFAULT_SOURCE:
-+			cladatum->default_type = val;
-+			break;
-+		default:
-+			goto bad;
-+		}
- 	}
- 
- 	rc = symtab_insert(s, key, cladatum);
-@@ -1446,6 +1500,8 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	return 0;
- bad:
- 	cls_destroy(key, cladatum, NULL);
-+	if (rc)
-+		pr_err("SELinux:  invalid class\n");
- 	return rc;
- }
- 
-@@ -1637,7 +1693,7 @@ static int sens_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	struct level_datum *levdatum;
- 	int rc;
- 	__le32 buf[2];
--	u32 len;
-+	u32 len, val;
- 
- 	levdatum = kzalloc_obj(*levdatum);
- 	if (!levdatum)
-@@ -1648,7 +1704,11 @@ static int sens_read(struct policydb *p, struct symtab *s, struct policy_file *f
  		goto bad;
- 
- 	len = le32_to_cpu(buf[0]);
--	levdatum->isalias = le32_to_cpu(buf[1]);
-+	val = le32_to_cpu(buf[1]);
+ 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
 +	rc = -EINVAL;
-+	if (!val_is_boolean(val))
++	if (cladatum->permissions.nprim > SEL_VEC_MAX)
 +		goto bad;
-+	levdatum->isalias = val;
  
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
-@@ -1664,6 +1724,8 @@ static int sens_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	return 0;
- bad:
- 	sens_destroy(key, levdatum, NULL);
-+	if (rc)
-+		pr_err("SELinux:  invalid sensitivity\n");
- 	return rc;
- }
+ 	ncons = le32_to_cpu(buf[5]);
  
-@@ -1673,7 +1735,7 @@ static int cat_read(struct policydb *p, struct symtab *s, struct policy_file *fp
- 	struct cat_datum *catdatum;
- 	int rc;
- 	__le32 buf[3];
--	u32 len;
-+	u32 len, val;
+@@ -1410,11 +1440,22 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 		}
+ 	}
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &cladatum->permissions, fp);
++		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
  
- 	catdatum = kzalloc_obj(*catdatum);
- 	if (!catdatum)
-@@ -1685,7 +1747,11 @@ static int cat_read(struct policydb *p, struct symtab *s, struct policy_file *fp
- 
- 	len = le32_to_cpu(buf[0]);
- 	catdatum->value = le32_to_cpu(buf[1]);
--	catdatum->isalias = le32_to_cpu(buf[2]);
-+	val = le32_to_cpu(buf[2]);
++	/* the class's own permissions must claim the slots the common leaves */
++	if (cladatum->comdatum)
++		inherited = cladatum->comdatum->permissions.nprim;
 +	rc = -EINVAL;
-+	if (!val_is_boolean(val))
++	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
++			~perm_claimed_mask(inherited))) {
++		pr_err("SELinux:  class %s does not define every permission it declares\n",
++		       key);
 +		goto bad;
-+	catdatum->isalias = val;
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
-@@ -1697,6 +1763,8 @@ static int cat_read(struct policydb *p, struct symtab *s, struct policy_file *fp
- 	return 0;
- bad:
- 	cat_destroy(key, catdatum, NULL);
-+	if (rc)
-+		pr_err("SELinux:  invalid category\n");
- 	return rc;
- }
- 
-@@ -1878,7 +1946,7 @@ static int range_read(struct policydb *p, struct policy_file *fp)
- 	struct mls_range *r = NULL;
- 	int rc;
- 	__le32 buf[2];
--	u32 i, nel;
-+	u32 i, nel, val;
- 
- 	if (p->policyvers < POLICYDB_VERSION_MLS)
- 		return 0;
-@@ -1909,7 +1977,11 @@ static int range_read(struct policydb *p, struct policy_file *fp)
- 			rc = next_entry(buf, fp, sizeof(u32));
- 			if (rc)
- 				goto out;
--			rt->target_class = le32_to_cpu(buf[0]);
-+			rc = -EINVAL;
-+			val = le32_to_cpu(buf[0]);
-+			if (val > U16_MAX)
-+				goto out;
-+			rt->target_class = val;
- 		} else
- 			rt->target_class = p->process_class;
- 
-@@ -1946,6 +2018,8 @@ static int range_read(struct policydb *p, struct policy_file *fp)
- out:
- 	kfree(rt);
- 	kfree(r);
-+	if (rc)
-+		pr_err("SELinux:  invalid range\n");
- 	return rc;
- }
- 
-@@ -1954,7 +2028,7 @@ static int filename_trans_read_helper_compat(struct policydb *p, struct policy_f
- 	struct filename_trans_key key, *ft = NULL;
- 	struct filename_trans_datum *last, *datum = NULL;
- 	char *name = NULL;
--	u32 len, stype, otype;
-+	u32 len, stype, otype, val;
- 	__le32 buf[4];
- 	int rc;
- 
-@@ -1973,9 +2047,17 @@ static int filename_trans_read_helper_compat(struct policydb *p, struct policy_f
- 	if (rc)
- 		goto out;
- 
-+	rc = -EINVAL;
- 	stype = le32_to_cpu(buf[0]);
-+	if (!policydb_type_isvalid(p, stype))
-+		goto out;
- 	key.ttype = le32_to_cpu(buf[1]);
--	key.tclass = le32_to_cpu(buf[2]);
-+	if (!policydb_type_isvalid(p, key.ttype))
-+		goto out;
-+	val = le32_to_cpu(buf[2]);
-+	if (val > U16_MAX || !policydb_class_isvalid(p, val))
-+		goto out;
-+	key.tclass = val;
- 	key.name = name;
- 
- 	otype = le32_to_cpu(buf[3]);
-@@ -2031,6 +2113,9 @@ static int filename_trans_read_helper_compat(struct policydb *p, struct policy_f
- 	kfree(ft);
- 	kfree(name);
- 	kfree(datum);
++	}
 +
-+	if (rc)
-+		pr_err("SELinux:  invalid compat filename transition\n");
- 	return rc;
- }
+ 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
  
-@@ -2039,7 +2124,7 @@ static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp
- 	struct filename_trans_key *ft = NULL;
- 	struct filename_trans_datum **dst, *datum, *first = NULL;
- 	char *name = NULL;
--	u32 len, ttype, ndatum, i;
-+	u32 len, ttype, ndatum, i, val;
- 	u16 tclass;
- 	__le32 buf[3];
- 	int rc;
-@@ -2059,8 +2144,15 @@ static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp
- 	if (rc)
- 		goto out;
- 
-+	rc = -EINVAL;
- 	ttype = le32_to_cpu(buf[0]);
--	tclass = le32_to_cpu(buf[1]);
-+	if (!policydb_type_isvalid(p, ttype))
-+		goto out;
-+	val = le32_to_cpu(buf[1]);
-+	rc = -EINVAL;
-+	if (val > U16_MAX || !policydb_class_isvalid(p, val))
-+		goto out;
-+	tclass = val;
- 
- 	ndatum = le32_to_cpu(buf[2]);
- 	if (ndatum == 0) {
-@@ -2090,6 +2182,10 @@ static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp
- 
- 		datum->otype = le32_to_cpu(buf[0]);
- 
-+		rc = -EINVAL;
-+		if (!policydb_type_isvalid(p, datum->otype))
-+			goto out;
-+
- 		dst = &datum->next;
- 	}
- 
-@@ -2121,6 +2217,9 @@ static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp
- 		ebitmap_destroy(&datum->stypes);
- 		kfree(datum);
- 	}
-+
-+	if (rc)
-+		pr_err("SELinux:  invalid filename transition\n");
- 	return rc;
- }
- 
-@@ -2168,7 +2267,7 @@ static int filename_trans_read(struct policydb *p, struct policy_file *fp)
- static int genfs_read(struct policydb *p, struct policy_file *fp)
- {
- 	int rc;
--	u32 i, j, nel, nel2, len, len2;
-+	u32 i, j, nel, nel2, len, len2, val;
- 	__le32 buf[1];
- 	struct ocontext *l, *c;
- 	struct ocontext *newc = NULL;
-@@ -2238,7 +2337,11 @@ static int genfs_read(struct policydb *p, struct policy_file *fp)
- 			if (rc)
- 				goto out;
- 
--			newc->v.sclass = le32_to_cpu(buf[0]);
-+			rc = -EINVAL;
-+			val = le32_to_cpu(buf[0]);
-+			if (val > U16_MAX || (val != 0 && !policydb_class_isvalid(p, val)))
-+				goto out;
-+			newc->v.sclass = val;
- 			rc = context_read_and_validate(&newc->context[0], p,
- 						       fp);
- 			if (rc)
-@@ -2275,6 +2378,9 @@ static int genfs_read(struct policydb *p, struct policy_file *fp)
- 	}
- 	ocontext_destroy(newc, OCON_FSUSE);
- 
-+	if (rc)
-+		pr_err("SELinux:  invalid genfs\n");
-+
- 	return rc;
- }
- 
-@@ -2283,7 +2389,7 @@ static int ocontext_read(struct policydb *p,
- {
- 	int rc;
- 	unsigned int i;
--	u32 j, nel, len;
-+	u32 j, nel, len, val;
- 	__be64 prefixbuf[1];
- 	__le32 buf[3];
- 	struct ocontext *l, *c;
-@@ -2347,11 +2453,25 @@ static int ocontext_read(struct policydb *p,
- 				rc = next_entry(buf, fp, sizeof(u32) * 3);
- 				if (rc)
- 					goto out;
--				c->u.port.protocol = le32_to_cpu(buf[0]);
--				c->u.port.low_port = le32_to_cpu(buf[1]);
--				c->u.port.high_port = le32_to_cpu(buf[2]);
--				rc = context_read_and_validate(&c->context[0],
--							       p, fp);
-+
-+				rc = -EINVAL;
-+				val = le32_to_cpu(buf[0]);
-+				if (val > U8_MAX)
-+					goto out;
-+				c->u.port.protocol = val;
-+				val = le32_to_cpu(buf[1]);
-+				if (val > U16_MAX)
-+					goto out;
-+				c->u.port.low_port = val;
-+				val = le32_to_cpu(buf[2]);
-+				if (val > U16_MAX)
-+					goto out;
-+				c->u.port.high_port = val;
-+				if (c->u.port.low_port == 0 ||
-+				    c->u.port.low_port > c->u.port.high_port)
-+					goto out;
-+
-+				rc = context_read_and_validate(&c->context[0], p, fp);
- 				if (rc)
- 					goto out;
- 				break;
-@@ -2469,6 +2589,8 @@ static int ocontext_read(struct policydb *p,
- 	}
- 	rc = 0;
- out:
-+	if (rc)
-+		pr_err("SELinux:  invalid ocon\n");
- 	return rc;
- }
- 
-@@ -2483,7 +2605,7 @@ int policydb_read(struct policydb *p, struct policy_file *fp)
- 	struct role_trans_datum *rtd = NULL;
- 	int rc;
- 	__le32 buf[4];
--	u32 i, j, len, nprim, nel, perm;
-+	u32 i, j, len, nprim, nel, perm, val;
- 
- 	char *policydb_str;
- 	const struct policydb_compat_info *info;
-@@ -2675,7 +2797,11 @@ int policydb_read(struct policydb *p, struct policy_file *fp)
- 			rc = next_entry(buf, fp, sizeof(u32));
- 			if (rc)
- 				goto bad;
--			rtk->tclass = le32_to_cpu(buf[0]);
-+			rc = -EINVAL;
-+			val = le32_to_cpu(buf[0]);
-+			if (val > U16_MAX)
-+				goto bad;
-+			rtk->tclass = val;
- 		} else
- 			rtk->tclass = p->process_class;
- 
-diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
-index a49275d1168d8..20b834581106a 100644
---- a/security/selinux/ss/policydb.h
-+++ b/security/selinux/ss/policydb.h
-@@ -74,7 +74,7 @@ struct class_datum {
- /* Role attributes */
- struct role_datum {
- 	u32 value; /* internal role value */
--	u32 bounds; /* boundary of role */
-+	u32 bounds; /* boundary of role, 0 for none */
- 	struct ebitmap dominates; /* set of roles dominated by this role */
- 	struct ebitmap types; /* set of authorized types for role */
- };
-@@ -110,7 +110,8 @@ struct role_allow {
- /* Type attributes */
- struct type_datum {
- 	u32 value; /* internal type value */
--	u32 bounds; /* boundary of type */
-+	u32 bounds; /* boundary of type, 0 for none */
-+	/* internally unused, only forwarded via policydb_write() */
- 	unsigned char primary; /* primary name? */
- 	unsigned char attribute; /* attribute ?*/
- };
-@@ -118,7 +119,7 @@ struct type_datum {
- /* User attributes */
- struct user_datum {
- 	u32 value; /* internal user value */
--	u32 bounds; /* bounds of user */
-+	u32 bounds; /* bounds of user, 0 for none */
- 	struct ebitmap roles; /* set of authorized roles for user */
- 	struct mls_range range; /* MLS range (min - max) for user */
- 	struct mls_level dfltlevel; /* default login MLS level for user */
-@@ -195,7 +196,7 @@ struct ocontext {
- 		} ibendport;
- 	} u;
- 	union {
--		u16 sclass; /* security class for genfs */
-+		u16 sclass; /* security class for genfs (can be 0 for wildcard) */
- 		u32 behavior; /* labeling behavior for fs_use */
- 	} v;
- 	struct context context[2]; /* security context(s) */
-@@ -388,9 +389,23 @@ static inline char *sym_name(struct policydb *p, unsigned int sym_num,
- 	return p->sym_val_to_name[sym_num][element_nr];
- }
- 
-+static inline bool val_is_boolean(u32 value)
-+{
-+	return value == 0 || value == 1;
-+}
-+
- extern int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len);
- 
- extern u16 string_to_security_class(struct policydb *p, const char *name);
- extern u32 string_to_av_perm(struct policydb *p, u16 tclass, const char *name);
- 
-+#define pr_warn_once_policyload(policy, fmt, ...)    \
-+	do {                                         \
-+		static const void *prev_policy__;    \
-+		if (prev_policy__ != policy) {       \
-+			pr_warn(fmt, ##__VA_ARGS__); \
-+			prev_policy__ = policy;      \
-+		}                                    \
-+	} while (0)
-+
- #endif /* _SS_POLICYDB_H_ */
-diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
-index e48e5204f8a1c..016863f950846 100644
---- a/security/selinux/ss/services.c
-+++ b/security/selinux/ss/services.c
-@@ -446,8 +446,6 @@ static int dump_masked_av_helper(void *k, void *d, void *args)
- 	struct perm_datum *pdatum = d;
- 	char **permission_names = args;
- 
--	BUG_ON(pdatum->value < 1 || pdatum->value > 32);
--
- 	permission_names[pdatum->value - 1] = (char *)k;
- 
- 	return 0;
-@@ -466,7 +464,7 @@ static void security_dump_masked_av(struct policydb *policydb,
- 	char *tclass_name;
- 	char *scontext_name = NULL;
- 	char *tcontext_name = NULL;
--	char *permission_names[32];
-+	char *permission_names[SEL_VEC_MAX];
- 	int index;
- 	u32 length;
- 	bool need_comma = false;
-@@ -507,7 +505,7 @@ static void security_dump_masked_av(struct policydb *policydb,
- 			 "scontext=%s tcontext=%s tclass=%s perms=",
- 			 reason, scontext_name, tcontext_name, tclass_name);
- 
--	for (index = 0; index < 32; index++) {
-+	for (index = 0; index < SEL_VEC_MAX; index++) {
- 		u32 mask = (1 << index);
- 
- 		if ((mask & permissions) == 0)
+ 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
 -- 
 2.53.0
 
