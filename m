@@ -1,119 +1,131 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-10696.protonmail.ch (mail-10696.protonmail.ch [79.135.106.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63973345CC0;
-	Mon, 24 Aug 2026 09:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA2F372EE9
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 09:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787563844; cv=none; b=kUyo3o5Cq56YDH1y+JBBZs2+Tfv6KxZsZZT0nECC/VSDYaF03kqq3x03CK3yTvUWHHlyLIKBM0uTZm9HvSkkEqyKTA7JyNsVNPLJEkZiTqYoQlTq3Zo47rsTkVUBsjpnWZP46ZgQt227PTcYX0ds0vLoz0+odJbsHG1n6pAlPmw=
+	t=1787563966; cv=none; b=NcENz8vPsKnuW2qVLxm11LBEbGVvqba+Q7lckX6SLv46+ysWpyAvm7BmBXkup0vwo+PwshuwUEvjvh9LJQBrfyFZobMRlxF9AeeQNPBb/qd0uNf8TUnOqjsvQv6dfjpo4I81L6BXtJSDG0s2ua9HxPZS0a3ojYMcOF47Xa45Shw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787563844; c=relaxed/simple;
-	bh=78yE10/xbclHlKoveZ5nGN9VaIjo8xxd8ysJQbi7NrI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T/GwHI1OCPWvlsYkPx/egewjU45y1+hpYlWQjhmrtu4yss9RPe7d91TRnQ2p3UzfPMNM3qlrzCX7SFELCwzY5Fy9po/vQkCgi7FHPRNxkCu6fufzAnzadG6mqG0/Nsxqx/CCRlVykTI3Mwe8Ca+UGT91SXx19BNHREHVL0OclYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 767799109f9e11f19a56ed5b684f684d-20260824
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:cdebc39d-9a5b-4d31-9ed8-46b7d58ac7db,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:8b81f1eb8d97af383d75b9b32e2ef6bb,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 767799109f9e11f19a56ed5b684f684d-20260824
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 308014753; Mon, 24 Aug 2026 17:30:36 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: fix memmove overlap in ntfs_new_attr_flags
-Date: Mon, 24 Aug 2026 17:30:30 +0800
-Message-Id: <20260824093030.213157-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787563966; c=relaxed/simple;
+	bh=goiJTpD81UkO+0bjpn3mID+t6jNNmAbwGS8t9jULR+w=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Rq70IMLiakW2uhTepoFsVErVu87E4wy+vFqjlVHF/jEVdzpkbkmFK6btcOEYXd+VM3pkJiY62VAr1FYscUaqSNdSa3zVKhld5HGneEB1gsT/bw2hF5XZT5NpHKfm3IWbc/c1a/gtLYWp4RcIBGlFKHqw+7LaUMr5ihDPFyh2RaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=eCxD/pA7; arc=none smtp.client-ip=79.135.106.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="eCxD/pA7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=3x6yn6cahjg4xcixgpjh652ui4.protonmail; t=1787563953; x=1787823153;
+	bh=7+h9sFzK/L+TPtTP07y0l9vvNK0ZelQsWXu2ppus/oM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eCxD/pA7A33ZB9D38d00RotGh251Cdn3w/dvRqWuVDEOH17x5xz6xHrA3xQIZPA1k
+	 JgKtmPOH9vyc1+/N2dsk4oeH6xE7XuQYR04VDVnOegC+NcZbYZ6OpN/VUdnNgJ8jtn
+	 MsiNSQLBsy6TaIrZewG+PJPrvNmWpRkydhfOdc7V1utctH+60+P93zphAsA3lnxfta
+	 qgudIbLrQa8eQzpyvqQLbgxtMp91L/vopm3Zxpi/jtx4czhch8So7TXfUCxyJWIYuV
+	 pGNlOk3W6JuTNDM4YVbsUUzqRiLXH8ZWASa3UR1jFSo4X/596NTcKtXpxZ57uAyoNn
+	 hpW+X1CFF9nww==
+Date: Mon, 24 Aug 2026 09:32:27 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "arnd@arndb.de" <arnd@arndb.de>, "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>
+From: nirbhayykumarr@proton.me
+Cc: "w@1wt.eu" <w@1wt.eu>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: [PATCH v3] misc: mei: fix race condition between client teardown and read completion
+Message-ID: <2oKLyY1tm4g6xwyvmh7loQ1t1EBr1rNjMzfiXN-b0q8BbO_4vjW0xcxR_aTEielTWx5ma4f1NCO4Y5LG98PRKseN6WLUbnXR9zGtcQVR9zY=@proton.me>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: a2d84506cae9a7addd5c271afd29cd103fd04c40
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-When the record shrinks while the payload offsets increase (e.g., enabling
-compression reduces padding, making arec_size < old_arec_size, but the header
-grows by 8 bytes), moving the name first can overwrite the old mapping_pairs
-before they are copied. Move mapping_pairs first in this case.
+In mei_release(), a host client is torn down upon close(). During this
+teardown sequence, mei_cl_disconnect() is invoked, which releases
+dev->device_lock while waiting for the firmware response.
 
-Since mp_ofs is derived from name_ofs, they always change in the same
-direction. Checking name_ofs alone is sufficient.
+If an in-flight read request was previously submitted, an incoming
+completion interrupt processed concurrently by the MEI interrupt
+handler can add a completed callback into cl->rd_completed via
+mei_cl_add_rd_completed().
 
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+Because mei_cl_flush_queues(cl, NULL) was invoked before mei_cl_unlink(cl),
+an incoming completion callback can slip into cl->rd_completed after the
+flush has completed but before the client is unlinked from dev->file_list.
+When mei_cl_unlink() is subsequently called, the invariant check at
+drivers/misc/mei/client.c:698 triggers:
+
+  WARN_ON(!list_empty(&cl->rd_completed) ||
+          !list_empty(&cl->rd_pending) ||
+          !list_empty(&cl->link));
+
+Call trace:
+  WARNING: CPU: 2 PID: 5056 at drivers/misc/mei/client.c:698 mei_cl_unlink+=
+0xaa/0x140 [mei]
+  RIP: 0010:mei_cl_unlink+0xaa/0x140 [mei]
+  Call Trace:
+   <TASK>
+   mei_release+0x202/0x270 [mei]
+   __fput+0x105/0x2e0
+   __x64_sys_close+0x90/0x140
+   do_syscall_64+0xaa/0x660
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+
+Immediately following mei_cl_unlink(), mei_release() calls kfree(cl).
+If any remaining or deferred callback references the freed client, a
+use-after-free occurs.
+
+Fix this by flushing queues after unlinking the client from dev->file_list
+inside mei_cl_unlink(), preventing concurrent IRQ completions from
+populating the client's completed queue during teardown.
+
+Fixes: f35fe5f47ed0 ("mei: add a vtag map for each client")
+Signed-off-by: Nirbhay Kumar <nirbhayykumarr@proton.me>
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- fs/ntfs/ea.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+v3:
+ - Removed non-standard Helped-by tags.
+ - Omitted Assisted-by: No AI or co-authors were used. The "we" in my origi=
+nal report referred to a colleague who merely verified and confirmed the bu=
+g.
+v2:
+ - Removed redundant Reported-by tag.
+ - Added Fixes tag pointing to commit f35fe5f47ed0.
+ - Sent inline plain text without attachments.
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index cdd306933d73..61ca945ce5bf 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -753,15 +753,36 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 	old_arec_size = le32_to_cpu(a->length);
- 
- 	/*
--	 * Move payloads before shrinking the record.  Otherwise resizing moves
-+	 * Move payloads before shrinking the record. Otherwise resizing moves
- 	 * the following attribute over the old payload before it can be copied.
-+	 *
-+	 * When offsets increase, move mapping_pairs first to avoid name
-+	 * overwriting the start of mapping_pairs.
- 	 */
- 	if (arec_size < old_arec_size) {
--		if (a->name_length && name_ofs != old_name_ofs)
--			memmove((u8 *)a + name_ofs, (u8 *)a + old_name_ofs,
--				a->name_length * sizeof(__le16));
--		if (mp_ofs != old_mp_ofs)
--			memmove((u8 *)a + mp_ofs, (u8 *)a + old_mp_ofs, mp_size);
-+		if (name_ofs > old_name_ofs) {
-+			/* Payload offsets increased: move mapping pairs first. */
-+			if (mp_ofs != old_mp_ofs)
-+				memmove((u8 *)a + mp_ofs,
-+						(u8 *)a + old_mp_ofs,
-+						mp_size);
-+			if (a->name_length && name_ofs != old_name_ofs)
-+				memmove((u8 *)a + name_ofs,
-+						(u8 *)a + old_name_ofs,
-+						a->name_length *
-+							sizeof(__le16));
-+		} else {
-+			/* Payload offsets decreased or unchanged: move name first. */
-+			if (a->name_length && name_ofs != old_name_ofs)
-+				memmove((u8 *)a + name_ofs,
-+						(u8 *)a + old_name_ofs,
-+						a->name_length *
-+							sizeof(__le16));
-+			if (mp_ofs != old_mp_ofs)
-+				memmove((u8 *)a + mp_ofs,
-+						(u8 *)a + old_mp_ofs,
-+						mp_size);
-+		}
- 	}
- 
- 	err = ntfs_attr_record_resize(m, a, arec_size);
--- 
-2.25.1
+ drivers/misc/mei/client.c | 2 ++
+ drivers/misc/mei/main.c   | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 643b003..38b5792 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -695,6 +695,8 @@ int mei_cl_unlink(struct mei_cl *cl)
+ =09cl->state =3D MEI_FILE_UNINITIALIZED;
+ =09cl->writing_state =3D MEI_IDLE;
+=20
++=09mei_cl_flush_queues(cl, NULL);
++
+ =09WARN_ON(!list_empty(&cl->rd_completed) ||
+ =09=09!list_empty(&cl->rd_pending) ||
+ =09=09!list_empty(&cl->link));
+diff --git a/drivers/misc/mei/main.c b/drivers/misc/mei/main.c
+index 4fbf0b3..9e14ab4 100644
+--- a/drivers/misc/mei/main.c
++++ b/drivers/misc/mei/main.c
+@@ -148,7 +148,6 @@ static int mei_release(struct inode *inode, struct file=
+ *file)
+ =09=09goto out;
+ =09}
+=20
+-=09mei_cl_flush_queues(cl, NULL);
+ =09cl_dbg(dev, cl, "removing\n");
+=20
+ =09mei_cl_unlink(cl);
+--=20
+2.55.0
