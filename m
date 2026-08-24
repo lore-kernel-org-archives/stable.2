@@ -1,149 +1,173 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC0935CB91;
-	Mon, 24 Aug 2026 12:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787575324; cv=none; b=htPHYYa866zzjhJfgYq8kmBHGVVrcNkgqwPiFPWEZVB5/Wm5TZnh31/LyYvUz1HJphx7g2l8181iL2YpeE5YGNxV2b/g4OlLgrXni7j0qFrsOPpqQEyyhnIubw1cny38R2ZUz/xmafbVwabhNzgyA8MCPPlRBEf8M/LP9PhR4pA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787575324; c=relaxed/simple;
-	bh=UmuseKvcI+SWBhzEipWmfvar25ab4brFYoBPHMCnm+Y=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=X2izlAzJZCmKU8frhRr65OaaZ/FzMfOtSOEEsjbHsH1J8xpDrMiOLjsfunU8q2WytI+L/kIhTmz5LsWXahgw9TNCmyJ3wVn/7sVrUQko6wHZ5Fo21Aoop+OhywBiuNCFssutmlTXC4gKZvU2bT0X32uXQr19gOuwFxiJ0dJcUhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=oD+9+p2B; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=mn0vUfbn; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=GM84VEdr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=I/BeLCnz; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA414071E5;
+	Mon, 24 Aug 2026 12:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.221
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787575402; cv=pass; b=c3d+9cBPwgrEtQBPb1t2OszYOC/yTcuQIk4zicgmIGfNmehv9vYrwvA5+pqnJL0znif3eWl2NAQUX9aumSB8QCFWf5n1ZFjuaxgZSXvw4Ah4zqRGF+UPhNuhE1wIhL3SnnsZTV5oksS3bv0b//CyTtJtd/aX5kTR34vWjWPC0Lk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787575402; c=relaxed/simple;
+	bh=JpdtRO9HP2du2PUDYeKShMYqMUUC+0lWGi+Y2C5rDJk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jG7uEI8BLmypgoGJgonWGBVU7noDDvjpYPMM2dsM7GQ0KExYeKItT4ClFBfkQF/fnHO2leMgBoK0U0df7VqlufxhwIOUceO1YirQp1oll1G57/92gHoLguDAJcEkg+9ra1vCclX/kHJr90VxZO6jkhMlvdgwHtYC6NzJ9R9svXQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=KqgQmWoR; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=SJ45AIQ/; arc=pass smtp.client-ip=81.169.146.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oD+9+p2B";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="mn0vUfbn";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="GM84VEdr";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="I/BeLCnz"
-Received: from localhost.localdomain (unknown [IPv6:2a07:de40:b2bf:1b::12ef])
-	by smtp-out2.suse.de (Postfix) with ESMTP id 026281F766;
-	Mon, 24 Aug 2026 12:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787575314; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VIDgs8iAZXEVKDlswAXyXwdUD7ShHc7/MjvIWDD2YA=;
-	b=oD+9+p2BK7Rdg1taWyf8v4/ClHfafGxpRSRNL/7ldwX5TXVOSO0VzbvABUcLaKQ2uBS3OI
-	irYewdFEbW4qRne9hY1URgm9+s/LSRpFPtaIS52aUtomgEHm3dzE05RGfECz4FJLmotIfS
-	K3aSR2+VQ3J/grCmnGAhVAa5eIXtsuI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787575314;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VIDgs8iAZXEVKDlswAXyXwdUD7ShHc7/MjvIWDD2YA=;
-	b=mn0vUfbnsPUGjFkXiis0kmFhzjfGg4NsMzJ2ASU1ZzAixQ1dDAR7oA4JYFM4K1huHMfvGj
-	46oJBBbQQJFFQwCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=GM84VEdr;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="I/BeLCnz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1787575310; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VIDgs8iAZXEVKDlswAXyXwdUD7ShHc7/MjvIWDD2YA=;
-	b=GM84VEdr7RypoTMe4QNs8pQVc0RrlV7+j3zhXjKi0Cdk9wD9HmkLS4y7ul1h0Mo8UoZ0qw
-	cuLsYkYe0OGGTGB9i4wnQIuxgpendCZDnKQSwuQ3aFhMa7I8nAJ91g6ip/9G2pvOjXiA7F
-	V+DwnsdXeBs3b4CtcpnEJFdVDxiO5q8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1787575310;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2VIDgs8iAZXEVKDlswAXyXwdUD7ShHc7/MjvIWDD2YA=;
-	b=I/BeLCnztAV4lyCfHU+qrIsiq6T1r0DEVYvjy0GGYoSoN+zyafwPo08MlUjwMd6x0v6ab/
-	igvUdwK0jZHiurDA==
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="KqgQmWoR";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="SJ45AIQ/"
+ARC-Seal: i=1; a=rsa-sha256; t=1787575208; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=IRNpNSk0eO2m3hypQV9UTeuVv3t0ElL2HieCvZTikbgbYtHY2EF7f5qQchPQKfylCn
+    lT1Di2iKf1oNd5BT/2kTGGl/u3d0Flq+Sy0OrKwDE9cvZqScrLC3c6yi0Eoi43RFe8s2
+    FAPutRDIAb3b6Rfcig+CBUcIf7EowWA/+13XiuMQ/9+p2UbC5up21gh03vBHRUBP/RFg
+    8Ij7EMVxLxhwLt5Oj6tP0eH8owMNtQcZoDNar1uRFG9y0sLB9lWmEhNDPxnDfYEazNcN
+    vrO9qJXw5dngzRfhvPbY4BH9qkEQJTCHO1EIjCIqGamCfCgpauQMobfvor204i3OLMpN
+    j2Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787575208;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
+    b=ootRZ4Va27+9XOhkojOMbYQw38uSw1JP6+5+E1J61iM2VbMvsuLFGf5t2wHmIPGoAA
+    C99mjyNUwvSnHaDopucaoJsnPl+o+qXV7O5E+hr7CZC17CPSIpy9pBVbwaldR/aFn8Lh
+    hhVNA2PcPhtq85Req8eb5QmwHqDKXgdk+2YKLoKR539CCO6hEBVhKHVGKKBIY3oOMF7D
+    g/7Vm78GLMivcs1J57BY31uhMpSThhyFZ6VYGqFjk5tUHlL2avIXEDfBPep/FudLRO2u
+    IbaJyrJI+RUQjp6IDPSkoqxJXU6aTwCUl6uNdU4JQAZGatbWCQU1dCznk6h/FTq+erRf
+    vtzw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787575208;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
+    b=KqgQmWoRDt9PmsS2ug4Eg7BkIZRb0DmXcovm9m5EsKRhKXGqTk9x2H5qo6lFRFf6Yk
+    plef576DlTNIFH6XAemNFC6+/HK8haWzEXh85XT+UMlgD4A4Jb5CJrysBOw7sV3o7fvK
+    DuonmCaJ3rAFSPxuKemvQGffCzb+TyyEONsJtcu18/ydwQagmHDVOSGisuJfKCayGWom
+    NiQ/MzXUFS0nALe8tq9uxViJ4cjK7CRUECXvnouObBhyXSifCaNtDVQawJixG89wVjnd
+    NFJtLAXwLEPfZoYNGK3du8u7zbGFMoGjbNtyue4qloHmo8haMYSHeb4qIOpmtjoG6OvT
+    VvLg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787575208;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=hdl5+vuoxUtreZDmE2u1Lsb93eEflKwu+QkhnmGOsRo=;
+    b=SJ45AIQ/zuG+8ASCxJUEaG4WRDC6RBoz1ocvCREXhdEBvgFQSbqphfDufWD8WtEDHv
+    ckJqWa01DUUNoqhgSOBg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQipoOy8iN9EQCaJvpc3APUCy9LxWOnfZGxS9c"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id Qfefb327OCe7arf
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 24 Aug 2026 14:40:07 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	wbx@openadk.org,
+	kernel@pyra-handheld.com,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] drm/ingenic: fix bridge allocation
+Date: Mon, 24 Aug 2026 14:40:05 +0200
+Message-ID: <1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH bpf-next v3 2/2] selftests/livepatch: update
- test-ftrace.sh for deprecated ftrace_enabled
-From: Miroslav Benes <mbenes@suse.cz>
-To: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Cc: bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- live-patching@vger.kernel.org, rostedt@goodmis.org, mbenes@suse.cz, 
- jolsa@kernel.org, mhiramat@kernel.org, jpoimboe@kernel.org, 
- joe.lawrence@redhat.com, mark.rutland@arm.com, corbet@lwn.net, 
- stable@vger.kernel.org, linux-open-source@crowdstrike.com
-In-Reply-To: <20260806153000.4184871-3-andrey.grodzovsky@crowdstrike.com>
-References: <20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com>
- <20260806153000.4184871-3-andrey.grodzovsky@crowdstrike.com>
-Date: Mon, 24 Aug 2026 14:41:48 +0200
-Message-Id: <178757530845.29054.17849856818444710672.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=577; i=mbenes@suse.cz;
- h=from:subject:message-id; bh=UmuseKvcI+SWBhzEipWmfvar25ab4brFYoBPHMCnm+Y=;
- b=owGbwMvMwMHYWJt9x2W1tA7jabUkhqweG15Fqdww1+1eRgsXu7K+Vlz68dCt079yXv0XiNCen
- ba/IiOyk9GfhYGRg8FSTJHl9V5nOcMpuQaa1e/uwgxiZQKZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkCGjhEDF6cATDWXNPv/oF32ra2KymZH/KepzFNm5v19SV3LcUm2/faQ15zWknYOq+PqeO6V3FW
- 5NFtGzGtHpdkfFYNf73LvpVTpel3OrJp6mG3N8dMqwVtW9Na6/zrMLWy6IpS/1TliQmlnVdeTtU
- FJAVll71rvWOfsK6zePO3Oi3nLdC51ZPX8N5adcP6cblLLxRrXYhFfw1ecb6brXX/NFjl99Trz/
- 3PFUz1YnGQc2T79aZj6tUjR//ans5OjEi7vdL579K3z/YWnt1ptXNZS5el7bmqDkYB9yZsq18/r
- Ajb2L97Eb6Fz2039p0nOs79iGlYpqRf/Vs7T8HsheU8x5uebNbfXLAo5kn9x05ZDs/6yiLMYXjj
- 7OLsGAA==
-X-Developer-Key: i=mbenes@suse.cz; a=openpgp;
- fpr=91BB0699882EF39D46654BB3FF98A38DA80834DA
-X-Spamd-Result: default: False [17.41 / 50.00];
-	SPAM_FLAG(5.00)[];
-	NEURAL_SPAM_LONG(3.50)[1.000];
-	HFILTER_HELO_5(3.00)[localhost.localdomain];
-	NEURAL_SPAM_SHORT(3.00)[1.000];
-	BAYES_HAM(-2.98)[99.90%];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
-	RDNS_NONE(2.00)[];
-	ONCE_RECEIVED(1.20)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b2bf:1b::12ef:from];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FROM_EQ_ENVFROM(0.00)[];
-	DIRECT_TO_MX(0.00)[b4 0.17-dev];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b2bf:1b::12ef:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,localhost.localdomain:helo,crowdstrike.com:email]
-X-Spam-Score: 17.41
-X-Spam-Level: *****************
-X-Spamd-Bar: +++++++++++++++++
-X-Rspamd-Queue-Id: 026281F766
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: YES
-X-Rspamd-Action: add header
-X-Spam: Yes
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-On Thu, 06 Aug 2026 11:30:00 -0400, Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
-> kernel.ftrace_enabled=0 is now refused on kernels that deprecate the
-> knob, so the old disable/reload flow no longer applies there. Probe
-> for this with ftrace_disable_supported() and keep the full original
-> scenario (disable, fail to load a livepatch, re-enable, load, confirm
-> disable is refused while loaded) on kernels where it still works;
-> otherwise just confirm the write is refused.
-> 
-> [...]
+Bridge allocation API has changed and ingenic/drm was broken
+leading to
 
-Acked-by: Miroslav Benes <mbenes@suse.cz>
+[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
+[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
+[   55.904136] ------------[ cut here ]------------
+[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
+[   55.917538] refcount_t: addition on 0; use-after-free.
+...
+[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+...
 
+Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Cc: Waldemar Brodkorb <wbx@openadk.org>
+Cc: stable@vger.kernel.org
+---
+
+Notes:
+    v4: remove setting interlaced mode (would be new feature and not a fix) as suggested by paul@crapouillou.net
+    
+    v3: fixed a malformed diff in v2
+    
+    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT as suggested by Sashiko-reviews
+        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
+
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 42c86f195c66b3..f3c6c823314688 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -122,7 +122,7 @@ struct ingenic_drm {
+ 
+ struct ingenic_drm_bridge {
+ 	struct drm_encoder encoder;
+-	struct drm_bridge bridge, *next_bridge;
++	struct drm_bridge *bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+@@ -802,7 +802,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+-				 &ib->bridge, flags);
++				 bridge, flags);
+ }
+ 
+ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+@@ -1314,10 +1314,23 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
++		ib->bridge = devm_drm_bridge_alloc(priv->dev, struct drm_bridge,
++						   base, &ingenic_drm_bridge_funcs);
++		if (IS_ERR(ib->bridge)) {
++			ret = PTR_ERR(ib->bridge);
++			goto err_drvdata;
++		}
++
++		ib->bridge->of_node = priv->dev->of_node;
+ 		ib->next_bridge = bridge;
+ 
+-		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
++		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
++		if (ret) {
++			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+ 			dev_err(dev, "Unable to attach bridge\n");
 -- 
-Miroslav
+2.55.0
 
