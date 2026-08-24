@@ -1,43 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2C2390603
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5318408018;
+	Mon, 24 Aug 2026 11:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787570987; cv=none; b=gwNKfehq6JcUdXbBlJhU/GhlueK2YxgGdHJMJUZoEv6mj2bBD7bVFkthfQhCnD0eCYYpHCv+IQfeC5La0mdVg/wKWOizycZBbuXQD7+4cX4HiqR9OK7rCTmfuD4sZJbDQp97ZKpfPGhLkA77RsyqNMv8dse/rNhwNBgNLvPB1UE=
+	t=1787571185; cv=none; b=aJMA8Ezd1DUuXUktNSClAJoYRkJ/MRT5rPDIpxxo3BPNgFNlcSmDBYNAogBi1bA/znBhz34P7xBzO5d9bB/Ohg+E9cnc09t77XDWfjyrGjChROfb4lr7PeuuxnA854dR12NqQBIx7aLZXueo+ZUcpANTBduEGK9LT+PwlFwFs74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787570987; c=relaxed/simple;
-	bh=qAjbspjWR6RwB0+xOE/WuuhPIneJ3edg1UJSdtDQyCQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YVycfYQHe+NErV+UOoXQSmRaDdU3qpPUeipeST5VwRq1h1DZxQI5u6jQ2IYYakhKCBSxDH3IA2qCauMTP2PrbUEl1oSE8YC+tdoMYKlkHxx5/uZ3bciuPqamw+uMkpl8lKGiDeA9t1w4DG13bPxjN9t0cYpcJJpUwMHCJ6o11+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fsng2wB9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787571185; c=relaxed/simple;
+	bh=gcpwUycV3lGQazWxKBNmeDjHjQOL/EjnX5TWkAUhnEo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=XEcUIbkzc1m+8DFY9SD0p2vYTuK490Jdm3ctwiqqnZ76KWzvVqWiAVCYqKwZQRrRTxwPWz099LcBjdVDDde0/uQ5hUihibPZYCJci43VreTJzbafiNNjZWz+3bRO0fMA6OBLV7gh8YxD29oEW9pDtJ23eNAO5f6VQAV8DeBj5Fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=jb6zbs0j; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fsng2wB9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D061F00A3A;
-	Mon, 24 Aug 2026 11:29:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787570985;
-	bh=AFcHP0rqpfa8snxvw4xf83HOAh/T0gkEEyskfq1xLjk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fsng2wB9rAUIkrmmgbxoehyfE9pmIecsbQiqTMZlblWTbS/gnaJeNgoza7faRoy+q
-	 jgdEypEZpmIeaB2XdaJg8ndBzlqGX2vodI6ec+plhSBrYzGxIFwxT8B9AFGw9oT5wj
-	 43IUMq2fx+Ugi/Dx+EYpyWe6LaytbCk3HgPW16VpO7G0IZYCtzjcTnWar+FnSQhJzG
-	 +glYNULdYjOlYqS8Mm7BpeO9kDMkBPTdSPR0EV0K0pCRF6B3Jk5DXu2BJNRplP94qc
-	 zRjbqubl39FrSgZstwntCDWgrCZMBlkIOZRwZ6MjvhwvOz+/g5VCUe0dLufNxxsl00
-	 crIENGzZ7NJZg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Pavitra Jha <jhapavitra98@gmail.com>,
-	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] libceph: fix OOB read in decode_watchers() via missing bounds check
-Date: Mon, 24 Aug 2026 07:29:43 -0400
-Message-ID: <20260824112943.529557-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082055-disregard-education-f575@gregkh>
-References: <2026082055-disregard-education-f575@gregkh>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="jb6zbs0j"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4b1a0b4b5;
+	Mon, 24 Aug 2026 19:32:54 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Ketan Mukadam <ketan.mukadam@broadcom.com>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Jitendra Bhivare <jitendra.bhivare@broadcom.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v2] scsi: be2iscsi: use rollback index when freeing MSI-X vectors
+Date: Mon, 24 Aug 2026 19:32:46 +0800
+Message-Id: <20260824113246.2235666-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260824092712.2130707-1-runyu.xiao@seu.edu.cn>
+References: <20260824092712.2130707-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,72 +42,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0338b7c9603a1kunm75b9fa81226697
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUwdVkpMTk4aHkJPTxlNHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=jb6zbs0jrj4LjTTSNLskm0p9355/0tLXMaBW82PqpPyeUcKgA7V7dFAY+CY88ACqw7MJ9q5JKB8QnZBVg7MxI74d5Y2wSTUmJMz9kTtKNI/yv/DMUzvPk5SAmueMWReeODwFUD1uf23tUn7bOg8SyMUmvZRf0lSNN0iE0OF4e/Y=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=O0L3dxum/kFijaa2cO72W+QTj7ZW1WTIbRjJOMXc59g=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Pavitra Jha <jhapavitra98@gmail.com>
+beiscsi_init_irqs() unwinds previously registered MSI-X handlers with
+free_irq(pci_irq_vector(pcidev, i), &phwi_context->be_eq[j]). The IRQ
+number should match the rollback slot j, not the current loop index i.
+Using i passes the wrong IRQ/dev_id pair and leaves earlier handlers
+registered on failure.
 
-[ Upstream commit 00ead17c7de137a692edee59f2772e6af687e8eb ]
+Use j for pci_irq_vector() in the rollback loop.
 
-ceph_start_decoding() validates that struct_len bytes remain in the
-buffer after the encoding header, but accepts struct_len=0 as valid:
-ceph_decode_need(p, end, 0, bad) always passes. When a malicious or
-compromised OSD sends an obj_list_watch_response_t reply with
-struct_len=0, ceph_start_decoding() returns success with p == end,
-leaving zero bytes guaranteed for subsequent reads.
-
-The immediately following ceph_decode_32(p) in decode_watchers() has
-no preceding bounds check. With p == end this is a 4-byte read past
-the validated buffer boundary. The garbage value is then passed
-directly to kzalloc_objs() as the watcher count.
-
-The sibling function decode_watcher() already uses the safe variants
-(ceph_decode_copy_safe, ceph_decode_64_safe, ceph_decode_skip_32)
-after its own ceph_start_decoding() call. decode_watchers() is the
-only site that uses the bare variant, confirming an oversight.
-
-Fix by replacing ceph_decode_32(p) with ceph_decode_32_safe(p, end,
-*num_watchers, bad), consistent with the established pattern.
-
-Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
-deployment (e.g. cloud) can trigger this against any kernel client
-that calls CEPH_OSD_OP_LIST_WATCHERS, without any further privileges
-beyond OSD session establishment.
-
-[ idryomov: trim changelog ]
-
+Fixes: 831488669a33 ("scsi: be2iscsi: switch to pci_alloc_irq_vectors")
 Cc: stable@vger.kernel.org
-Fixes: a4ed38d7a180 ("libceph: support for CEPH_OSD_OP_LIST_WATCHERS")
-Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ kept the tree's `kcalloc()` context line instead of upstream's `kzalloc_objs()` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- net/ceph/osd_client.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Changes in v2:
+- Use the mainline Assisted-by format.
+- Keep the commit trailers contiguous.
 
-diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
-index 2f1c461e0ffcc..1357793ae38f1 100644
---- a/net/ceph/osd_client.c
-+++ b/net/ceph/osd_client.c
-@@ -5090,7 +5090,7 @@ static int decode_watchers(void **p, void *end,
- 	if (ret)
- 		return ret;
- 
--	*num_watchers = ceph_decode_32(p);
-+	ceph_decode_32_safe(p, end, *num_watchers, bad);
- 	*watchers = kcalloc(*num_watchers, sizeof(**watchers), GFP_NOIO);
- 	if (!*watchers)
- 		return -ENOMEM;
-@@ -5104,6 +5104,9 @@ static int decode_watchers(void **p, void *end,
- 	}
- 
+ drivers/scsi/be2iscsi/be_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/be2iscsi/be_main.c b/drivers/scsi/be2iscsi/be_main.c
+index dc88bc46dcc0..3801da1c0229 100644
+--- a/drivers/scsi/be2iscsi/be_main.c
++++ b/drivers/scsi/be2iscsi/be_main.c
+@@ -878,7 +878,7 @@ static int beiscsi_init_irqs(struct beiscsi_hba *phba)
  	return 0;
-+
-+bad:
-+	return -EINVAL;
- }
- 
- /*
+ free_msix_irqs:
+ 	for (j = i - 1; j >= 0; j--) {
+-		free_irq(pci_irq_vector(pcidev, i), &phwi_context->be_eq[j]);
++		free_irq(pci_irq_vector(pcidev, j), &phwi_context->be_eq[j]);
+ 		kfree(phba->msi_name[j]);
+ 	}
+ 	return ret;
 -- 
-2.53.0
-
+2.34.1
