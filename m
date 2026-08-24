@@ -1,64 +1,64 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139BE35F185
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 03:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED3235F185
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 03:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787542468; cv=none; b=TvwNyNlJANg4RdqTusEoXYxyKyzUr7PQA7uP2ZUqRb1uLCFna5xY3kGjV6oEq3dcY5iziuqDV9Wu555CcCo1LDp8UfFB1r6DTdJT1e1hzhPK1Y9rcomOy9gs5lgc4wxt7UlFtbke6CM5Ne8s5pIT9SlAmdwyELibJW/IGAHvRDE=
+	t=1787542472; cv=none; b=PmbjQvCtYImWdHmfXuoXes0K5skyW6vSjOlbDM4CeY33M4Q/J8RnAGrnbwaIoTenr6rtjPsCw6TF88xaYlGYYcuDIANH4OFpavA0Dk3kSt4HBRCP2AFZiZqUFZfgp3qlVoB71aJfVwfXoBeNL/bM6zZMLuA3U1OhwZONKGsWm5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787542468; c=relaxed/simple;
-	bh=fshRyVnVklSNFCrBGc5v+fvhYMKreR65qNagU/FO848=;
+	s=arc-20240116; t=1787542472; c=relaxed/simple;
+	bh=Dek4I5uP0FMYW8XeEuoDo68UhqlHR47NiFV4NvSaHmM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZzTpGC340Ph1EUrlx9BIxy77LgPH7HUU49PZU7yIs95vGCQAhyHeqTIPDEcJkPAGUdEBDkhsmo0acfl3QocWmb547fbzgiO7mK98hF74liCiLyA2oHPJOVb7BurZttqyM+cDIe9DBTEldO+KPujBAMHtw/Gi6+9LSRrLblriico=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y4wKDlT/; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version; b=je0IplUmxMERiMuhiW5DzGsbkl8FTXUNMIuXFc2GrnVaafY2oqoENAEWtMe5fvtJ5c5TSJ/SwdnS/0YcUhMYtKML5Db+UzrKWsgDjAfFVkXzurkf9AHJ3KZrx/j55CnKONpzjov+iPRPGT+UOwaqhCtHQ1Y0pfOAqXQzDbGraKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dd6xpXHf; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y4wKDlT/"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38f0f132f56so2876666a91.0
-        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 20:34:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dd6xpXHf"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so2872428a12.0
+        for <stable@vger.kernel.org>; Sun, 23 Aug 2026 20:34:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787542465; x=1788147265; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787542471; x=1788147271; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e3Ne4nEWByrW0EmFrdDA4ySM1EU9MVsFB0We73FOJj4=;
-        b=Y4wKDlT/IyZgrxdbD748RoH8u5Zmr56XV6677dlSzAHS75yvkGczaKspktA5EPBgV0
-         zenyKOM7Ehm2cDmJsc5neT+nw49KHA9U0G5kgv6KLlcu8f2THNRtykNdNsf4P5Zd7d6+
-         vD7W7xNhY+oJdtrTGUMu1N7lKRd9WTxOwYPWaxy/Zzf37sXePThOvILs1gvrRtuDP/IY
-         RN5YiRvPN+fPCT0KxM9en4h54GtY8RbEe/r5j9H0MboVZ1fSWpinBSFNPrpjiFbm747t
-         PCWItsin2ALQAMpc2SJ63wfg64SqDh2ovZ833UKyX/4XZUXacx+Oug2VSlQpluzyovuB
-         TgUA==
+        bh=pLRrcZ+wu3rYCbjfRuOSR4inkFMDxN07CSBT+LJEscY=;
+        b=Dd6xpXHfnoqITo1VCu+q7/YLjre9bdSGlyeCIV2I3FuF+KCb7kukR5QVuoJaX/ca8W
+         M15Qu9p+bHIJ6YhJZMsn/JXmpXUHzXWbwh7LVlWIdLbyW2KVc9CycOUVGkefRbO4BIr6
+         +2pER9tmVPXACVAcEsCnAopnXTOsMtv3hf/1/66zdDdd5YkrcOVDL9Ie/zN8dYYlLljo
+         vNMPpsVXrXC9TK3PfJlj4yw7vlqcE32PecmBmzJ3bTBEcNFxC4I9ugbcqfTSE4t3Ma/v
+         WYt1UBBMvJYUvWHh0nm8kyjAisrwrksNlR/eFsrfpoq9ZttmzNV/i44lJhUQYuXk/kSW
+         tPAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787542465; x=1788147265;
+        d=1e100.net; s=20251104; t=1787542471; x=1788147271;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e3Ne4nEWByrW0EmFrdDA4ySM1EU9MVsFB0We73FOJj4=;
-        b=EcDO+EHmTeUgfFZu/VT0btEAdQ2nW4rTrqbpVoCc9JgUhq1R26jETscmLxusESIsh+
-         CDz/+YuCMErrynwWLvtcYnF89IQtZBNuMvyBW20kQCs3DY4A4QxeUF0Rb5FLWLAV7eO6
-         yejnRlxfaztGEVt2tXVaxbcTs1cIJ6I9dbqzK4h3vstn/9ViNoDArS5fWlkqxkkow+Fu
-         Jjf31XA7vfzRCvWBYIREtHMrUMQ0pI5m1D4NXgCvcsLACYlgOaIFW2qnI2c6ZQkPTJuE
-         f/tFR1SNwrdBFeWFNrmajXUKvcLp8Rnqa5tUQN8bCj/Bpqxd8THxIOh10zJZREYLz1HD
-         3c/w==
-X-Forwarded-Encrypted: i=1; AHgh+RomlbWNV/flLyXSA547Q+E8+1pihDtGlqLyxgyWrYEPD2FCMZUXX1sVHwoq8eiQgzyuoXQWxug=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQNRbDtSgd+UYh04ad0AG9Rw2RkUpgy2jwgvoHRr9XYXVt1kLg
-	zFCzin0Hpdds+7PCP96wCJ1wfwzQik23uHdId1AdexUlnv7pTHaiibvV
-X-Gm-Gg: AR+sD12+iSe+Y5tl8l1gVDC9kHDTrg6qcqdXLqu4C1u+X+phZ+ShX9Avpr7ptnUj5+4
-	x02zQW3OHhY349pxl/0Upi8B4Uu2Bb+YWL4JWbqMJfeSgNdldmc3fECmapDBEUkPSJnXWajfeVO
-	LZ9ggE6hDLuKfW9vJW/kj9czREITbFD6FFwZdjdlpjjPiEB6oYsYfCieGBwz4uhlm/yARxZI0of
-	qI8Uhg8cMzVq/haSdtkrqxEPcNcKckg9RvOsV3JRR5J+TYimEyEnO0qkZzmrDHlyp2CDHPO62SX
-	WA2+LxE+96Soq8uDt2up7J6aBsZ3/hzAB0jsm5m7yn6Wop/b8XNbeB/tsnZXGPeslmM7PTFzzfc
-	JKCm8uoTZWKTTjPoeO0JI97jAYa8FEvM71b+2NqkSHc26rYF/hoT3VKlvWT8OthqKBpILcVwxDx
-	4+Hduu+eNIK0z+e206rmMTszypYprZMDRjvU0pPCbMR52k4THvcukGUPYP5ieggz4shbKic7q/C
-	/1O5f6Hd/Y=
-X-Received: by 2002:a17:90b:268b:b0:38e:42f5:d096 with SMTP id 98e67ed59e1d1-395c4528324mr21965634a91.0.1787542465447;
-        Sun, 23 Aug 2026 20:34:25 -0700 (PDT)
+        bh=pLRrcZ+wu3rYCbjfRuOSR4inkFMDxN07CSBT+LJEscY=;
+        b=CGYUPP0hVYzn2+/poJaHCFluavTcrnSWQAjZ8NUI8LRWlzLnkYDRJrUT1IXAH755Ra
+         8/4l/SFcQGfS3cMznx/t+mn9swL5oO0ovZoI2CNG5f7L1FzanEhsFatJNK8iihSU4+xD
+         VCpK+OfcWnXTQxPaY4bDkHO43lax/Dy7YOlS7y0+PAQxcCAhQwRa82NuJ0Q2fnsxHKVv
+         8/St7wEJW1TDIj/ja27xVY8IckeRnDg14dmooTs3tPVTB6Tchl25sKm8YSCt09Ya7Fzl
+         fNCEi47FBHb4p4vYeORVaoTd7qLNV+pyUNy1BCrvKkw1M1wLbCoYChLQJWryisAwL6uc
+         kB1g==
+X-Forwarded-Encrypted: i=1; AHgh+RpMQTsbvNOlLIBszvShB5X7LVztt4EPXCPpOLGOQ3FfFcQhMF6bR4nku7oteLhoCsv0bUiLYFI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvsfk+u+iCEo1m7pdozh1NUXYZp7i74u7BwKR5cN+5fFbZOfp+
+	Fu8RIqyfHxayDeiqf5rQroM9UGTTYvEYFcmSgtFA0zCjJwRiDHPlj24v
+X-Gm-Gg: AR+sD12wgoKWqy4v+0cvsd8eiRZmxRYEBN82/Le3IA9OCAZBJ+KnWfvMXv+/wJXW3aP
+	OaW8miZw76IMfy4qwZwqhTu9zFmbcrHadJAMYKfJ56npx7RjEeDjarx4z6v84FiDoqYmKyZOIq3
+	i9n90FhDnokFenPPc1ALQ+kmxsFa5zyZLXnuBUrU60zaHmrdpNgzKkt1V9BXY+DCHFyzAzLmT4i
+	/VBu7vPvH5TzIOqwu1ZT3ehXe2VJIyAIFzQe5q50oh3UqVfMrB5G+Y4Opqe3No1gcZmBGg/wFkr
+	8YaWq3msTFVjfXQ7dFV/k6g4XKxGlWyayYWBMoBBm4Wyi0DW3OjdCWlTU5adiducevJPIrKj0rB
+	mrs7j2VZndN516RxDX876/tyP+afNGXz342WKf6aKhpZd6xSATtpMZmJQ5ImxmY093HCfusb3Al
+	LSxfp31UGkINeoxE/8jgwBAkgmW60P5YSsw3huU1N8PhwVS2RJK++AjrZj4SeB92QaeBjAgZBxB
+	mbK6Ey+sxA=
+X-Received: by 2002:a17:90b:164e:b0:38f:2168:b9cb with SMTP id 98e67ed59e1d1-395c352fa60mr33931547a91.9.1787542470791;
+        Sun, 23 Aug 2026 20:34:30 -0700 (PDT)
 Received: from v4bel.. ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c8fd34d9sm4227256a91.1.2026.08.23.20.34.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-395c8fd34d9sm4227256a91.1.2026.08.23.20.34.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 23 Aug 2026 20:34:25 -0700 (PDT)
+        Sun, 23 Aug 2026 20:34:30 -0700 (PDT)
 From: Hyunwoo Kim <imv4bel@gmail.com>
 To: davem@davemloft.net,
 	edumazet@google.com,
@@ -83,9 +83,9 @@ Cc: kerneljasonxing@gmail.com,
 	linux-kernel@vger.kernel.org,
 	imv4bel@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 3/8] ipv6: fix request socket use-after-free after IPV6_ADDRFORM
-Date: Mon, 24 Aug 2026 12:32:47 +0900
-Message-ID: <20260824033331.1084971-4-imv4bel@gmail.com>
+Subject: [PATCH net v2 4/8] net: fix out-of-bounds write in sk_clone() racing with IPV6_ADDRFORM
+Date: Mon, 24 Aug 2026 12:32:48 +0900
+Message-ID: <20260824033331.1084971-5-imv4bel@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260824033331.1084971-1-imv4bel@gmail.com>
 References: <20260824033331.1084971-1-imv4bel@gmail.com>
@@ -97,130 +97,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-IPV6_ADDRFORM turns an AF_INET6 TCP socket into an AF_INET one. It requires
-the socket to be established, and a listener can get there with
-connect(AF_UNSPEC) followed by connect(). Request sockets queued while it
-was listening are still there: inet_csk_listen_stop() leaves them in the
-ehash, and their timers only drop them while the socket is not listening,
-so making it listen again keeps them alive.
+sk_clone() allocates the child from sk->sk_prot, and IPV6_ADDRFORM can
+change sk_prot under it. The conversion requires the socket to be
+established, and a listener gets there with connect(AF_UNSPEC) followed
+by connect().
 
-A request that arrived over IPv6 was hashed with inet6_ehashfn(). Its child
-is cloned from the converted socket and hashed with inet_ehashfn(), so it
-belongs in a different bucket.
+tcp_check_req() completes a request without the listener lock, so it can
+run while the conversion is in progress. IPV6_ADDRFORM stores sk_prot
+before icsk_af_ops, so tcp_check_req() can still call
+tcp_v6_syn_recv_sock() once sk_prot is tcp_prot. The child then comes
+from tcp_prot's slab while the AF_INET6 code treats it as a tcp6_sock.
 
-inet_ehash_insert() locks the child's bucket, warns about the mismatching
-hashes, and replaces the request with the child in the request's own bucket
-anyway. reqsk_queue_unlink() locks the bucket the request is really in, so
-there is no synchronization between the two. Both can see the request still
-hashed and both can drop the reference the ehash holds.
+tcp_inet6_sk() is a fixed offset into tcp6_sock, and in a child sized by
+tcp_prot that offset is the end of the object. The ipv6_pinfo copy is
+therefore a slab out-of-bounds write of sizeof(struct ipv6_pinfo) bytes
+past the child.
 
-The extra put takes the request's refcount to zero too early, so it is
-freed while it is still on the listener's accept queue. The listener is
-then closed, and inet_csk_listen_stop() reads the freed request and writes
-to it in reqsk_put().
+The out-of-bounds address is also stored in the child's pinet6, so
+everything that reaches the socket through inet6_sk() keeps writing
+there. A request that arrived over IPv4 takes the same copy in
+tcp_v6_mapped_child_init().
 
 In short:
 
-  socket(AF_INET6) -> setsockopt(TCP_DEFER_ACCEPT, 120) -> bind -> listen
-      // a native IPv6 client connects and sends nothing
-      // the request stays in the bucket inet6_ehashfn() picked
-  connect(AF_UNSPEC)                    // stop listening
-  connect(a v4-mapped peer)             // become established
-  setsockopt(IPV6_ADDRFORM, PF_INET)    // become an AF_INET socket
-  connect(AF_UNSPEC), listen()          // listen again
-      // the client sends data and the leftover request completes
-  close()                               // use-after-free
+  client                              the socket owner
+
+                                      socket(AF_INET6)
+                                      setsockopt(TCP_DEFER_ACCEPT, 30)
+                                      bind(), listen()
+  connect(::1)
+      // bare ACK deferred, request stays
+  send()
+      // tcp_check_req() ->
+      //   picks tcp_v6_syn_recv_sock()
+                                      connect(AF_UNSPEC)
+                                      connect(::ffff:127.0.0.1)
+                                      setsockopt(IPV6_ADDRFORM, PF_INET)
+                                          // sk_prot = tcp_prot
+      // sk_clone() -> child from the TCP slab
+      // tcp_v6_syn_recv_sock() -> memcpy(ipv6_pinfo)
+      // out-of-bounds write of 128 bytes
 
 KASAN log:
 
-  BUG: KASAN: slab-use-after-free in inet_csk_listen_stop+0x1c2/0x760
-  Write of size 4 at addr ffff888010b7cbe0 by task init/1
+  BUG: KASAN: slab-out-of-bounds in tcp_v6_syn_recv_sock+0x297/0xce0
+  Write of size 128 at addr ffff888015b5f480 by task repro/161
   ...
   Call Trace:
-   inet_csk_listen_stop+0x1c2/0x760
-   __tcp_close+0x6c1/0x7b0
-   tcp_close+0x23/0x90
-   inet_release+0x93/0x100
-   __sock_release+0x66/0x130
-   sock_close+0x18/0x20
-   __fput+0x1f0/0x4c0
-   fput_close_sync+0xd2/0x170
-   __x64_sys_close+0x55/0x90
+   <IRQ>
+   __asan_memcpy+0x3c/0x60
+   tcp_v6_syn_recv_sock+0x297/0xce0
+   tcp_check_req+0x374/0xff0
+   tcp_v6_rcv+0xb9f/0x1e90
+   ip6_protocol_deliver_rcu+0x1aa/0x870
+   ip6_input_finish+0xac/0x1a0
+   ip6_input+0xe5/0x490
+   ipv6_rcv+0x2a0/0x3d0
   ...
-  Allocated by task 0:
-   inet_reqsk_alloc+0x8c/0x320
-   tcp_conn_request+0x324/0x11f0
-   tcp_rcv_state_process+0x2ff/0x2cf0
-   tcp_v6_do_rcv+0x326/0xc30
-   tcp_v6_rcv+0x1e07/0x1e90
+  Allocated by task 161:
+   sk_prot_alloc+0x45/0x170
+   sk_clone+0x49/0x960
+   inet_csk_clone_lock+0x29/0x2c0
+   tcp_create_openreq_child+0x2a/0xf20
+   tcp_v6_syn_recv_sock+0x14e/0xce0
+   tcp_check_req+0x374/0xff0
+   tcp_v6_rcv+0xb9f/0x1e90
   ...
-  Freed by task 0:
-   slab_free_after_rcu_debug+0xc5/0x200
-   rcu_core+0x4dc/0xd20
-  ...
-  Last potentially related work creation:
-   kmem_cache_free+0x11d/0x5f0
-   tcp_v6_rcv+0xb30/0x1e90
-  ...
-  The buggy address belongs to the object at ffff888010b7cb60
-   which belongs to the cache request_sock_TCPv6 of size 352
+  The buggy address belongs to the object at ffff888015b5e800
+   which belongs to the cache TCP of size 3200
+  The buggy address is located 0 bytes to the right of
+   allocated 3200-byte region [ffff888015b5e800, ffff888015b5f480)
 
-Refuse the conversion if inet_csk_reqsk_queue_len() is not zero. Nothing
-clears that counter when a socket stops listening or listens again, so it
-still accounts for the requests left in the ehash. A socket that never
-listened is not affected.
+Checking sk_prot before the clone does not help. It can change between
+that check and the read inside sk_clone(). Use sk_prot_creator instead.
+It is set once in sk_alloc() and never changes, and the socket is
+already freed back through it. No caller that replaces sk_prot installs
+a proto with a larger obj_size than the creator, so the child gets the
+size the parent object actually has.
 
-Reading the counter once is not enough. inet_csk_reqsk_queue_hash_add()
-puts the request in the ehash first and bumps the counter second, so a
-setsockopt that lands in between misses a request that is already
-reachable. No new request is created once the socket stops listening, and
-a SYN that found it while it was still listening is handled inside the RCU
-read-side critical section the receive path holds. Waiting for one grace
-period before reading again therefore leaves no request that is reachable
-but not yet counted.
-
-Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash table")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
 Changes in v2:
-- Read inet_csk_reqsk_queue_len() again after synchronize_rcu(). A request
-  is put in the ehash before the counter is bumped, so v1 could be raced.
-- Move the check below the TCP_ESTABLISHED and v4-mapped checks. In v1 a
-  listener returned -EBUSY or -ENOTCONN depending on whether a peer had a
-  half-open connection at that moment.
 - Add the trigger sequence and the KASAN log to the commit message.
-- v1: https://lore.kernel.org/all/20260817090319.3897799-2-imv4bel@gmail.com/
+- v1: https://lore.kernel.org/all/20260817090319.3897799-3-imv4bel@gmail.com/
 ---
- net/ipv6/ipv6_sockglue.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ net/core/sock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
-index b4c977434c2e0a..6d2dd9ae46a964 100644
---- a/net/ipv6/ipv6_sockglue.c
-+++ b/net/ipv6/ipv6_sockglue.c
-@@ -587,6 +587,21 @@ int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
- 				break;
- 			}
- 
-+			if (sk->sk_protocol == IPPROTO_TCP) {
-+				if (inet_csk_reqsk_queue_len(sk)) {
-+					retv = -EBUSY;
-+					break;
-+				}
-+				/* A SYN that found this socket while it was
-+				 * still listening may not be counted yet.
-+				 */
-+				synchronize_rcu();
-+				if (inet_csk_reqsk_queue_len(sk)) {
-+					retv = -EBUSY;
-+					break;
-+				}
-+			}
-+
- 			__ipv6_sock_mc_close(sk);
- 			__ipv6_sock_ac_close(sk);
- 
+diff --git a/net/core/sock.c b/net/core/sock.c
+index 1ad41904db25b4..098e58b40f304b 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -2479,7 +2479,7 @@ static void sk_init_common(struct sock *sk)
+ struct sock *sk_clone(const struct sock *sk, const gfp_t priority,
+ 		      bool lock)
+ {
+-	struct proto *prot = READ_ONCE(sk->sk_prot);
++	struct proto *prot = sk->sk_prot_creator;
+ 	struct sk_filter *filter;
+ 	bool is_charged = true;
+ 	struct sock *newsk;
 -- 
 2.43.0
 
