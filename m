@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAEF376A10;
-	Mon, 24 Aug 2026 19:01:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E93384CC4;
+	Mon, 24 Aug 2026 19:01:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787598108; cv=none; b=t7sz3Caencgv97BV5wJ0O/WedTlHRe+k4/vyWeaFdxeLjX9h9kAxNuosGG/GESNbMSxJ7nXWEV20QIV8KjPp5bibkHkwVl/i2cbC8/gvxffkhz/qnAlymHJlMGc7dh+dMiIoS2bcJmMWHnt3pvjBTcrb/c8w+t6jAnW/nRQNYgY=
+	t=1787598110; cv=none; b=bgsnd0xd/3mzXUYVF2vuiMnL3e2pCfo8ghPeLVWQS650CcxdvBBoMStCMFBCW/urKJwISPNmIDBrx+Iujc+ymUF4SRZq9YxEu5r/WXq2Jk8We55mN3So0Rdp1lG/PX4f/s20UsRBkgfdZuTkiz05UZ0ZfKWiiP7Iqxbo8IQ4CaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787598108; c=relaxed/simple;
-	bh=QPG+5zHZF8Ux1aDsagZX6ts4+HP84U3dMCEfF7MrHbA=;
+	s=arc-20240116; t=1787598110; c=relaxed/simple;
+	bh=eyU6r0SishXykL6vOGQc0Xujzk1E/Hki3H9UxM5+g9g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KGsv6rWvsP7E+Mf9qb6k1g9FTqNB+x+jG748s83u7uIanbziAdIUl+QSU8qjIQw7Bi8BLnuPGWlcPlGxj6XOwvfWiXARL1dcfaDEPryItA9fRPVeVi/g4uBKkvOzz7vnPQvyegS69TcJzZXkD42h2ICPmRWLeqvmVQaxlgt/Z9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QV+hujfs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B4DjmECyFVJLZDZP3BIyi0JJSn0XERk/fT04b3TQxeKa7ZWszKxqE/eHFe1ah2e7kiWmN9Tccykm9PAmq3gtN6lNdaRb1Gs8YxoCfN+dcfJv1+kI2/2vweEud8V9HJ3Qtg0aMmVEB4BkzUi1HMiY9bScWSsNuSC87cn8yRp0tLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJ1pQWoJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QV+hujfs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87121F000E9;
-	Mon, 24 Aug 2026 19:01:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJ1pQWoJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF89B1F00A3A;
+	Mon, 24 Aug 2026 19:01:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787598107;
-	bh=z3oH1SxaO2SwL91Ta+fmi+p0s6Gj/py/2Bq4Gth7lSs=;
+	s=k20260515; t=1787598108;
+	bh=whCxGhkN1F/IkrbyKB7rAyMLLjPIW2qrMZfBStfHyG4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QV+hujfsLtm8xqiDvBxnAtkpQhSztVxo1MpB1tjCOssuEidIQ4aiJ+Auirh+w8fiP
-	 4jlzDyRbxm/QJQDhj69G7R8EL3HtZQHT7+ff+TkR4SDsxp657WEodenqkwRJHEPNTc
-	 XwcZm3i3TV7gxNNVXSV1vicY0R2GhmeLRYOoxE4B+ohhyZeU3WbkUKRTY8jz1Ck8zO
-	 QeMgkdfOexJAU7nEmqbbA5rUhRKFKdMX7yMdB/rPoTUp/PFZy+3yMiVR47DOPzIvX6
-	 p15mlOHGgZ2vx0oYf01pp/f6RP16yBkuKY28+31StQ/Wa7dSWmUbKson6xLN2+Vgg0
-	 yaARQjGSuAsJg==
+	b=hJ1pQWoJps39Mrc3jMFCH6/BbjZPxGL91CytMbzcTrdcb+kxXf7oN6rFKPEGnoF71
+	 MGodN7YYeZUTxZdkSSne6E+kz6T7TVBsvfFCALj3WTqwNIt5hCzvRxOuf+8dYDqkkz
+	 YWstNiHbzLNsKjDYgp0BTZJntyHDdJx9j75NDhqGQuME4GHllPnvnkfvUe5OR4mSXO
+	 uUjOi6oz6BLFGxwKChOFXTQZIW3jdtmreL/R+C5qsIVI68QfsdZSvjdqYvg7KTeC8H
+	 4x26hSXGTjZZw32XCeF2aE/sTnXodw7kjLELeN7ZC2K87l7kYEQWX8shyRVuYw4XPJ
+	 SHScW3+gApCiQ==
 From: Jakub Kicinski <kuba@kernel.org>
 To: anthony.l.nguyen@intel.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -42,12 +42,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	horms@kernel.org,
 	stable@vger.kernel.org,
 	rafal.romanowski@intel.com
-Subject: Re: [PATCH net 1/4] iavf: return EBUSY if reset in progress or not ready during MAC change
-Date: Mon, 24 Aug 2026 12:01:45 -0700
-Message-ID: <20260824190145.2714480-1-kuba@kernel.org>
+Subject: Re: [PATCH net 2/4] i40e: skip unnecessary VF reset when setting trust
+Date: Mon, 24 Aug 2026 12:01:47 -0700
+Message-ID: <20260824190147.2714513-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821204537.2189112-2-anthony.l.nguyen@intel.com>
-References: <20260821204537.2189112-2-anthony.l.nguyen@intel.com>
+In-Reply-To: <20260821204537.2189112-3-anthony.l.nguyen@intel.com>
+References: <20260821204537.2189112-3-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,88 +59,262 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-iavf: return EBUSY if reset in progress or not ready during MAC change
+i40e: skip unnecessary VF reset when setting trust
 
-This adds an early bail-out to iavf_set_mac() so that a MAC address change
-returns -EBUSY when a reset is in progress or when the VF has not yet
-reached __IAVF_DOWN.  The stated motivation is to avoid waiting inside the
-ndo callback while the netdev instance lock is held.
+This changes i40e_ndo_set_vf_trust() so that the VF reset is only performed
+when trust is being revoked and the VF has ADQ, cloud filters or
+promiscuous mode configured. In the other cases a new helper,
+i40e_setup_vf_trust(), just sets or clears
+I40E_VIRTCHNL_VF_CAP_PRIVILEGE. A few questions below about the state that
+the skipped reset used to clean up.
 
-No Link: tags present in the commit header.
-
-A couple of questions below, one about the commit message and one about the
-new check itself.
-
->     After commit ad7c7b2172c3 ("net: hold netdev instance lock
->     during sysfs operations"), MAC changes are called with the netdev lock
->     held, so we should not wait with the lock held during reset or
->     initialization.
-
-[Severity: Low]
-This paragraph describes a user-visible behaviour change caused by
-ad7c7b2172c3, but there is no Fixes: tag on this commit.  Was that
-intentional?
-
-Worth noting that this commit does not actually remove the wait under the
-netdev instance lock: after this patch iavf_set_mac() still calls
-
-	ret = wait_event_interruptible_timeout(adapter->vc_waitqueue,
-					       iavf_is_mac_set_handled(netdev, addr->sa_data),
-					       msecs_to_jiffies(2500));
-
-so a Fixes: ad7c7b2172c3 here would arguably be misleading.  The later
-patch in the same series, "iavf: send MAC change request synchronously",
-does carry Fixes: ad7c7b2172c3 and cc: stable, which looks like the right
-place for the provenance.  Is that the intended split?
-
-> diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c b/drivers/net/ethernet/intel/iavf/iavf_main.c
-> index 29b8403a066b..630388e9d28c 100644
-> --- a/drivers/net/ethernet/intel/iavf/iavf_main.c
-> +++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
-> @@ -1042,6 +1042,9 @@ static int iavf_set_mac(struct net_device *netdev, void *p)
->  	struct sockaddr *addr = p;
->  	int ret;
+> diff --git a/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c b/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
+> index a26c3d47ec15..0cc434b26eb8 100644
+> --- a/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
+> +++ b/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
+> @@ -4943,6 +4943,23 @@ int i40e_ndo_set_vf_spoofchk(struct net_device *netdev, int vf_id, bool enable)
+>  	return ret;
+>  }
 >  
-> +	if (iavf_is_reset_in_progress(adapter) || adapter->state < __IAVF_DOWN)
-> +		return -EBUSY;
-> +
+> +/**
+> + * i40e_setup_vf_trust - Enable/disable VF trust mode without reset
+> + * @vf: VF to configure
+> + * @setting: trust setting
+> + *
+> + * Update VF flags when changing trust without performing a VF reset.
+> + * This is only called when it's safe to skip the reset (VF has no advanced
+> + * features configured that need cleanup).
+> + */
+> +static void i40e_setup_vf_trust(struct i40e_vf *vf, bool setting)
+> +{
+> +	if (setting)
+> +		set_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
+> +	else
+> +		clear_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
+> +}
 
-[Severity: Low]
-Is this check-then-act sequence racy against the reset scheduling path?
+[Severity: Medium]
 
-iavf_is_reset_in_progress() does plain reads of adapter->state and
-adapter->flags:
+This helper writes I40E_VIRTCHNL_VF_CAP_PRIVILEGE from the ndo (rtnl)
+context. i40e_alloc_vf_res() derives the same bit from an unsynchronized
+read of vf->trusted:
 
-	static bool iavf_is_reset_in_progress(struct iavf_adapter *adapter)
-	{
-		if (adapter->state == __IAVF_RESETTING ||
-		    adapter->flags & (IAVF_FLAG_RESET_PENDING |
-				      IAVF_FLAG_RESET_NEEDED))
-			return true;
+i40e_alloc_vf_res()
+	if (vf->trusted)
+		set_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
+	else
+		clear_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
 
-		return false;
+That runs from i40e_reset_vf()->i40e_cleanup_reset_vf()->i40e_alloc_vf_res()
+in service task context, and a VF can request a reset itself through
+VIRTCHNL_OP_RESET_VF.
+
+If that path reads vf->trusted and is preempted before the
+set_bit()/clear_bit(), can i40e_ndo_set_vf_trust() update vf->trusted and
+call i40e_setup_vf_trust() in between, so the stale write lands last? That
+would leave vf->trusted true with the capability bit clear, or vf->trusted
+false with the bit still set.
+
+Before this patch the ndo always followed the vf->trusted update with
+i40e_vc_reset_vf(), so the bit was recomputed from the final value of
+vf->trusted. With the reset skipped, is anything left that reconciles the
+two?
+
+>  /**
+>   * i40e_ndo_set_vf_trust
+>   * @netdev: network interface device structure of the pf
+> @@ -4987,19 +5004,20 @@ int i40e_ndo_set_vf_trust(struct net_device *netdev, int vf_id, bool setting)
+>  	set_bit(__I40E_MACVLAN_SYNC_PENDING, pf->state);
+>  	pf->vsi[vf->lan_vsi_idx]->flags |= I40E_VSI_FLAG_FILTER_CHANGED;
+>  
+> -	i40e_vc_reset_vf(vf, true);
+> +	/* Reset only if revoking trust and VF has advanced features configured */
+> +	if (!setting &&
+> +	    (vf->adq_enabled || vf->num_cloud_filters > 0 ||
+> +	     test_bit(I40E_VF_STATE_UC_PROMISC, &vf->vf_states) ||
+> +	     test_bit(I40E_VF_STATE_MC_PROMISC, &vf->vf_states))) {
+
+[Severity: High]
+
+Does this condition need to consider the MAC and VLAN filters that the VF
+was only allowed to install because it was trusted?
+
+Trust is checked at add time only. i40e_check_vf_permission():
+
+	vf_trusted = test_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
+	...
+	if (!vf_trusted && !is_multicast_ether_addr(addr) &&
+	    vf->pf_set_mac && ...)
+		return -EPERM;
+	...
+	if (!vf_trusted)
+		mac_add_max = I40E_VC_MAX_MAC_ADDR_PER_VF;
+	else
+		mac_add_max = I40E_VC_MAX_MACVLAN_PER_TRUSTED_VF(...);
+
+and i40e_vc_add_vlan_msg():
+
+	if ((vf->num_vlan >= I40E_VC_MAX_VLAN_PER_VF) &&
+	    !test_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps)) {
+
+Nothing revalidates filters that are already installed when the privilege
+bit is dropped.
+
+Previously the revoke always went through
+i40e_vc_reset_vf()->i40e_reset_vf()->i40e_cleanup_reset_vf(), which calls
+i40e_free_vf_res():
+
+i40e_free_vf_res()
+	if (vf->lan_vsi_idx) {
+		i40e_vsi_release(pf->vsi[vf->lan_vsi_idx]);
+
+so every MAC/VLAN filter was purged, and i40e_cleanup_reset_vf() also set
+vf->num_vlan = 0.
+
+A VF that used only the privileged MAC/VLAN allowances has
+adq_enabled == false, num_cloud_filters == 0 and both promisc bits clear,
+so it takes the else branch here and only the capability bit is cleared.
+Can such a VF keep receiving on MAC/VLAN combinations an untrusted VF may
+never request, including a MAC that overrides the administratively set
+vf->default_lan_addr, while ip link reports trust off?
+
+Is the requested MACVLAN resync enough to cover this? Following
+i40e_sync_vsi_filters()->i40e_correct_vf_mac_vlan_filters() in
+i40e_main.c:
+
+	new_vlan = i40e_get_vf_new_vlan(vsi, NULL, f, vlan_filters, trusted);
+	if (new_vlan != f->vlan) { ... }
+
+that only re-derives I40E_VLAN_ANY versus 0 for existing filters, it does
+not delete filters that exceed the untrusted quota.
+
+As a second effect, vf->num_vlan and the active MAC filter count stay above
+the untrusted limits, so does every later VLAN/MAC add from that VF get
+rejected until an unrelated reset happens?
+
+[Severity: Medium]
+
+Can this sample of VF-controlled state race with the virtchnl handlers that
+write it? i40e_vc_process_vf_msg() is called from
+i40e_clean_adminq_subtask() in i40e_main.c:
+
+	case i40e_aqc_opc_send_msg_to_pf:
+		ret = i40e_vc_process_vf_msg(pf, ...);
+
+which runs in service task context without rtnl_lock and without taking
+__I40E_VIRTCHNL_OP_PENDING, so it does not exclude this ndo.
+
+CPU1 in i40e_vc_config_promiscuous_mode_msg() passes the gate and starts
+the admin queue work:
+
+	if (!test_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps)) { ... }
+	...
+	aq_ret = i40e_config_vf_promiscuous_mode(vf, info->vsi_id,
+						 allmulti, alluni);
+	if (aq_ret)
+		goto err_out;
+	... test_and_set_bit(I40E_VF_STATE_UC_PROMISC, &vf->vf_states)
+
+CPU0 then runs i40e_ndo_set_vf_trust(), sees both promisc bits still clear
+(they are set only after the admin queue sequence), takes the else branch,
+clears the privilege bit and skips the reset. CPU1 finishes and sets
+I40E_VF_STATE_UC_PROMISC with promiscuous mode programmed in hardware.
+
+Does that leave an untrusted VF promiscuous indefinitely? The same ordering
+appears in i40e_vc_add_cloud_filter(), where
+
+	hlist_add_head(&cfilter->cloud_node, &vf->cloud_filter_list);
+	vf->num_cloud_filters++;
+
+happens after the filter is programmed, and in i40e_vc_add_qch_msg() which
+sets vf->adq_enabled last.
+
+> +		i40e_vc_reset_vf(vf, true);
+
+[Severity: Medium]
+
+This is a pre-existing issue and not introduced by this patch, but in this
+branch the capability bit and the hardware promiscuous teardown are only
+side effects of the reset, and i40e_vc_reset_vf() is void and can return
+having done nothing:
+
+i40e_vc_reset_vf()
+	if (test_bit(__I40E_VFS_RELEASING, pf->state))
+		return;
+	if (i40e_reset_vf(vf, false))
+		return;
+
+i40e_reset_vf() also returns true immediately when __I40E_VF_RESETS_DISABLED
+or __I40E_VF_DISABLE is set, and after 20 attempts the helper only warns.
+
+In those cases vf->trusted is already false and the driver prints "VF %u is
+now untrusted", but the bit consulted by i40e_check_vf_permission(),
+i40e_vc_config_promiscuous_mode_msg(), i40e_vc_add_vlan_msg() and
+i40e_vc_add_cloud_filter() is still set, since i40e_setup_vf_trust() is
+only called from the else branch. i40e_ndo_get_vf_config() reports
+ivi->trusted = vf->trusted, so the two can disagree.
+
+Would calling i40e_setup_vf_trust(vf, setting) unconditionally, before the
+branch, make both artifacts deterministic?
+
+> +		i40e_del_all_cloud_filters(vf);
+
+[Severity: Medium]
+
+This ordering is pre-existing and not introduced by this patch, the
+baseline also called i40e_vc_reset_vf() before i40e_del_all_cloud_filters()
+in the "if (vf->adq_enabled && !vf->trusted)" block, but the restructuring
+keeps it.
+
+The reset just above releases the ADQ channel VSIs and zeroes their ids in
+i40e_free_vf_res():
+
+	if (j)
+		i40e_vsi_release(pf->vsi[vf->ch[j].vsi_idx]);
+	vf->ch[j].vsi_idx = 0;
+	vf->ch[j].vsi_id = 0;
+
+and i40e_alloc_vf_res() re-creates them with newly assigned seids. The
+teardown then looks the VSI up by the recorded seid in
+i40e_find_vsi_from_seid():
+
+	for (i = 0; i < vf->num_tc ; i++) {
+		vsi = i40e_find_vsi_from_id(pf, vf->ch[i].vsi_id);
+		if (vsi && vsi->seid == seid)
+			return vsi;
 	}
 
-IAVF_FLAG_RESET_NEEDED can be set from a context that does not hold the
-netdev instance lock:
+If the seid changed, i40e_del_all_cloud_filters() takes the error path:
 
-dev_watchdog()
-  netif_freeze_queues(dev);
-  dev->netdev_ops->ndo_tx_timeout(dev, i);    /* timer context */
-    iavf_tx_timeout()
-      iavf_schedule_reset(adapter, IAVF_FLAG_RESET_NEEDED)
-        adapter->flags |= flags;              /* non-atomic RMW */
+	vsi = i40e_find_vsi_from_seid(vf, cfilter->seid);
+	if (!vsi) {
+		dev_err(... "can't delete cloud filter\n" ...);
+		continue;
+	}
 
-net/sched/sch_generic.c only freezes the TX queues around ndo_tx_timeout(),
-so there does not appear to be anything serializing that writer against
-iavf_set_mac().  If the TX timeout fires just after the new test, does
-iavf_set_mac() go on to the 2.5 s wait_event_interruptible_timeout() with
-the netdev instance lock held anyway, i.e. exactly the case the check is
-meant to reject?
+so the hlist_del(), the kfree(cfilter) and the vf->num_cloud_filters
+decrement are all skipped. Does this leak the struct i40e_cloud_filter
+allocations? Nothing else walks vf->cloud_filter_list, and with
+vf->num_cloud_filters stuck non-zero the VF also takes the reset branch
+here forever. Would deleting the cloud filters before triggering the reset
+be the right order?
 
-The window is small and the fallback is the pre-patch behaviour (blocked
-for up to 2.5 s, then -EAGAIN), so this looks like a best-effort guard
-rather than a new failure mode.  Is that the intent, or should the state
-and flags reads be done under the same serialization as the reset path
-(and with READ_ONCE(), given the concurrent non-atomic |= on
-adapter->flags)?
+> +	} else {
+> +		i40e_setup_vf_trust(vf, setting);
+> +	}
+> +
+>  	dev_info(&pf->pdev->dev, "VF %u is now %strusted\n",
+>  		 vf_id, setting ? "" : "un");
+>  
+> -	if (vf->adq_enabled) {
+> -		if (!vf->trusted) {
+> -			dev_info(&pf->pdev->dev,
+> -				 "VF %u no longer Trusted, deleting all cloud filters\n",
+> -				 vf_id);
+> -			i40e_del_all_cloud_filters(vf);
+> -		}
+> -	}
+> -
+>  out:
+>  	clear_bit(__I40E_VIRTCHNL_OP_PENDING, pf->state);
+>  	return ret;
