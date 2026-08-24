@@ -1,233 +1,207 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810423859F4
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 20:24:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A335218DB01;
+	Mon, 24 Aug 2026 20:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787603084; cv=pass; b=cn8SJSR64ESN+tvS7KogcpPfnf5I5KQDrdmKkwJjeWFrIJZmm8OnkiqMEKXUC70fr/y6Y3GKEwGU81jzgjBeL1UQiXeDt1ZS9km6fvb+rO2QfE4TS1CigjhsbG7UMR0Mmro9bw5ugcfHbvdmqkHsVb5Ziz7IwwKGynKlcOkLj20=
+	t=1787604263; cv=pass; b=mbgRbsqa42dqCGITUN/wRrZRT7EaiRMz8KATweBhnHrXFM9xIr1mV83ZkVnm7Zzf/PC0NmyQ/N+VbMpHa38A+Zbp1Ei0K4irN5zxQCc/u/WWcKnWt2lJbXjOni+VoifMhqX6cui6l4WQUs4GL/xvX/re1YA5k9RjjANhU7Aq9JY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787603084; c=relaxed/simple;
-	bh=MdlGQ1YGPyo6q4fQ5CsW81kcKMXd9tZzx9TSaN4B5ic=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jOHSDnKmeSaEgsDGm0EeF/i5IafMmV7NIALLQtFn1Tt5a5zWtmbMWEtIbA5uJO3n72HTXc5rYM3zXupFfTKDKiPJIHqA+XmghrkEbXHd9FUYFs83rFJLswBvI8RWwpMg11AamGoxeePmJAA2PkBcSrgDL2ZWuDbr38eAFZouWUw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUFUNoOU; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787604263; c=relaxed/simple;
+	bh=2ZBEgTiwS4+ust8Haib6K0glNq7q0TrHt5DDCyKYnWs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dnGZ76zMOZ3KKFluzBvAGXXxDTRWhArXShY+/P36G8KSqcNosAXWfTRJMmiCIuaK8Woxi/VpkXguIOGWifz9URD1gg1t9ff1H7os2AZm59F9b3Sv7LvK7ASse8FUFJ4z2CGfjqpWiJ3pzFHlMAaxGQx6ah4HEMHiJChM+lwuPuQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=jk406l48; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=j0OjE5CO; arc=pass smtp.client-ip=85.215.255.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUFUNoOU"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6682259cae6so4869032d50.3
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 13:24:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787603081; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i2EYN0feH8Katd9alDAIxMfP8S1oCP5zizSTcG5Ke3Qj7bBHtATzU7jHfjNXerzLjw
-         zr3xF1oSvwtX19uIo4nvix90/GotS+LGkpWsnFglvNN7EdB7TPT/Mr3Z4/tBd7YbxyYz
-         6lJZtdNGanbM5VzwQ7/aNfFCcSMXl5+efS1ErsfTjUXYFDwGCp/n9Y2/YXB8rPqZJEY9
-         1CxcxL4UNeVAHdzBs4nxit3fPFKxrFqlfG8SmjhMzc9aSYt51C7nPjSJ8Q2FIkupBeSu
-         RAa+tiPqFOVIfOK5Ndsy4Pj54beS5zntaRXb8FfI3+y76pwgm6sXtmu96ZQDfn/pA6x/
-         xnpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6arJFNIEtYO1N3cE88QFjylzkIER2l/NUQl8uPQTV3E=;
-        fh=RB41oR5FRL5kLh7c5kDfhjY0OXKoA5m/Tzq135vvg3Q=;
-        b=aABMhPDna40dB3KgF/5hw6ESzEZ6SCBdJ5lySi1F84da2xEjYoqk+0ZCal1wM5trqY
-         s6cQUubL+sAiwovW9MbMlw/B4woS6pKZ8oQ7LbBFgep4bEjD4NVth8qzLeuSXuhzOinX
-         AbpwB+GiDSaJkM9cUKPZKxDpvLMecm+S5HY2NNxhSuZfej8c1Alq6L5+CublYviWn9FK
-         7/mwP219v4MguvKrNSJIQz5p3EuAI8U3BgYFSxP6AyeAfUASnCV5Z3AAzKyRAdfzBMZ+
-         gqb8LXo3HZ/fIwhhVfS2Zo3rVe6gunmgHBLuL7lNxWfcTHO+P4ecIx2II1kRrrxSkHVK
-         mVlQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787603081; x=1788207881; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6arJFNIEtYO1N3cE88QFjylzkIER2l/NUQl8uPQTV3E=;
-        b=WUFUNoOUoTfpU7+O7eDe7WeUDQvJ2HlDqU9y72dK6NuEf/OmMYLfvFPfH9OKA9+w3D
-         hJ0e9DyTXe/HtOhKISUgHpvRb19tyYOtmj16Wk2UNiTBdaN564rrhgs9N9QxlEg1nSxI
-         V1BaCIApkbf1qjCllWq/FJ7sx5FPdu7nxsDg7HCo7hyl5x46cLT+lDTKtwj6QBzSGtsc
-         MFO3gxyIpbg+pFArcTxYyvzpGRi5VmZn5XVUz/zxfakk0nfxzYBBzOYBffs1wevDRxjO
-         pSJFfoSeUFHRg1R2rouHdisugLYaJWeOB4kwRQUEb0Yp1IlzY3XmrD2vZqhahvWWgF6G
-         jS/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787603081; x=1788207881;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6arJFNIEtYO1N3cE88QFjylzkIER2l/NUQl8uPQTV3E=;
-        b=ZR8joF70EBY8mxBGtow2a0Tvf81310FouIZoxOAPcAJDo0b3jSqJWK73hgAVUqu0Zi
-         q4vwHTP/avdJB9c4rDXK84fCWzmaZQDqWBR0ZNmLaa+b05qogwN/cLUaKkSnfWzjYikc
-         Eil+8nC3jfkFYBQJHbNkSbB6jT20QX4R7/I3oH+U2f31Ny5+aPmvTIB4H5ZIflKzNBXZ
-         spXhMN6Bd83kTtkccthJAQYeIDDSQBWyEpaH5Oc1vIbsKanoEDeVxF+q7vK9dWzkFvls
-         ezIcPNsguCb4E8+JVOD0A3Ioqk+m0MOiJdGTO0TQ2PT9oRzaB0h4Z/c4vCAtXLoQtApj
-         RLuQ==
-X-Forwarded-Encrypted: i=1; AHgh+RokK2FVUwDhvKLRn9KpUKCb9VaoA3EM6I4fgbNl4L92+P2SlgwxxKIDs37uK5y0Na2ggImvYfk=@vger.kernel.org
-X-Gm-Message-State: AFuF++le+W7Jjv+l7/BcMDaMvBi1fkmY37bzN3jMx6J7ogAHkuLkIM48
-	fB83u0LxEV6BPjmFun+hFkVGkkEnk6+kx6i4XPWVkVN6wNZPy9SeZuWplgsTx3GE0kKOOo9gG7s
-	/8s6XopcJioyEIefJMfomFfDJI2gyt6w=
-X-Gm-Gg: AR+sD103CSdz5RfDiCKvAWIKil7PAZzvf4HxDTdUrNK4vHB02LVrk0wD8SFv+jNmfp5
-	zJXACgxSJm3J2jnJDDYjp+fAQLHbWh/w1SNbEiNQmOtnsyvcKUGgp6SRJWIofN6vLJKoYYXbQEB
-	IlW0MlEqNpMsB2MDGtmqKPEOI69F2aiY2lWigpYbGvJ155Anhc/y+kjwl9B48nRlHC0j1rMwiJz
-	dgmO0wN64mbOClstHX3LF78dN63KJdzQx7vuC1blFz3nscSdOQVwgF0iLE1rUTJKkyezgUNzoTO
-	8T/vR+DffA9aXomOFLC+sA3n4nJmUVqre9tjKTZZHehpDT9Oms2221eT2aiMZvcaMnSvFaU49QW
-	bmZhjAbDggHK/RJ+ZBNKvYkiTF/cZ7CGbl+reIV8KLQ==
-X-Received: by 2002:a05:690e:4514:10b0:66c:c7f7:a074 with SMTP id
- 956f58d0204a3-66cf21346dfmr5071579d50.1.1787603081472; Mon, 24 Aug 2026
- 13:24:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="jk406l48";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="j0OjE5CO"
+ARC-Seal: i=1; a=rsa-sha256; t=1787604228; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=s8qJyTJqMbLeN3cNggxgodnkmGIdc1MV7BoOV+8DA8W7pQZqxAXmWRROi90rn/Rr/e
+    vJp1mYo3e7kT4P4c1T59arKO74J/M6ng4WBySxanR0nOLOjfbtOhhw6rqt0wF55yVCs+
+    DITGUOU4OIYeIblckcGLOLd43hdj7ah9FujYWbPRbBg7GKLopgDWDISNPDqdLltmL9F/
+    uO3S/5IGRW5xTT9/iVi1o7+nZPVTHAozeAv+XdMWCOP2a2IjV6CzbZjPl2FBXFhsl22G
+    0eSjwRcrP9aSdFaBG3NnHBkaYQIX3boJXVMkPJQrlH/7Z4qe3x7h1qbS20ifP0ZCjRsy
+    /OSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787604228;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
+    b=DdhrLpPKoeKKZGZcK+77kNRUWaxSl51QF/c4VcY4PpGp1b84b2TlUXVTbsO3hSg558
+    9xeIbpL297pCWMMtKn5Ptp4q224xV+Teq/LMlv3hXEGc0LNXrKXifEfr51Wl1s7pICer
+    qOGtvEDdbga2fUnUObokr/ZuXjPhhEdA/GirJBYaS4uevB+eRrWHxTqrstKm0jTSFX3R
+    4/gi3ANkdYWVwIErzUWflNRi7QFfqzi+ezejA1nJrX7FEvhxmLERI37o7oo80vDigHzT
+    fenbI0pBqm2hbfKAxGWa+egtTJKI6aI787HGOq6v2vCWRwt7ngIQrDGCKjen22H8CikW
+    DINw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787604228;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
+    b=jk406l48CyXSpZjVrllc/8ZRmLC5ix0/7DqcU62XJT1uTxWJ8ZgRSFUlT1hn933SX7
+    r3D2Eh7VbJALUsIXf3HhI/nsRyULtGc6GPUvRrXoTR66DM0PqkVNmeV9Dbflw1qSqjtj
+    xKvMe0K+84B/vybEw9jyPEEnAHcpSufD1T4yadalbloUUjBAkMQELTDs3vdd4gyHKqHO
+    5nQ+uKubi/jjmzcQ6HdpadjR3nPsjEWNoGWCItFFIWv9r62MCLlKKsbocUpPPD4EC4xm
+    sFtJrAH2jRDyXAXPcESzxX65wK8CqWZO+5+XpURDHW3mqnIr1OZAVfsJsrfY9cR3Z65M
+    nHgA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787604228;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
+    b=j0OjE5COH9nNie4mN9LP2GLdZA60llJ5nAx9JKdQDKjoxo4VJhD9I/vXoYb4iwx7xT
+    qTv3TkFqj3DSH2JxogAw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQipoOy8iN9EQCaJvpc3APUCy9LxWOnfZGxS9c"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id Qfefb327OKhmcFM
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 24 Aug 2026 22:43:48 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: linux-mips@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	wbx@openadk.org,
+	kernel@pyra-handheld.com,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v6] drm/ingenic: fix bridge allocation
+Date: Mon, 24 Aug 2026 22:43:45 +0200
+Message-ID: <4f30341735d77c77a9a4952abd91879007bc00fd.1787604223.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260822164341.3750491-1-nicoyip.dev@gmail.com>
- <178759021163.3014491.6954824460297136867.git-patchwork-notify@kernel.org> <5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi>
-In-Reply-To: <5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 24 Aug 2026 16:24:30 -0400
-X-Gm-Features: AcwNN1XI0fwmwELQrp0LxTgNN5-Hwkf5JRdkao3DMgkKEJh4yKK7TGLZ-xyNW8Q
-Message-ID: <CABBYNZJotKc4k55jEEweD6aP6XEhYyKAgk4BamV5vfp8HHi0Tw@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: RFCOMM: serialize security confirmation handling
-To: Pauli Virtanen <pav@iki.fi>
-Cc: patchwork-bot+bluetooth@kernel.org, Chengfeng Ye <nicoyip.dev@gmail.com>, 
-	marcel@holtmann.org, kuba@kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-Hi Pauli,
+Bridge allocation API has changed and ingenic/drm was broken
+leading to
 
-On Mon, Aug 24, 2026 at 3:38=E2=80=AFPM Pauli Virtanen <pav@iki.fi> wrote:
->
-> Hi,
->
-> ma, 2026-08-24 kello 16:50 +0000, patchwork-bot+bluetooth@kernel.org
-> kirjoitti:
-> > Hello:
-> >
-> > This patch was applied to bluetooth/bluetooth-next.git (master)
-> > by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
-> >
-> > On Sun, 23 Aug 2026 00:43:41 +0800 you wrote:
-> > > rfcomm_security_cfm() looks up a session on session_list and then wal=
-ks
-> > > its DLC list without holding rfcomm_mutex. Since RFCOMM session teard=
-own
-> > > uses rfcomm_mutex, krfcommd can close and free the same session and D=
-LCs
-> > > concurrently:
-> > >
-> > >   hci_rx_work                    krfcommd
-> > >
-> > > [...]
-> >
-> > Here is the summary with links:
-> >   - Bluetooth: RFCOMM: serialize security confirmation handling
-> >     https://git.kernel.org/bluetooth/bluetooth-next/c/40c621391de9
-> >
-> > You are awesome, thank you!
->
-> I'm a bit too late now, but Sashiko report had some valid concerns
-> about lock ordering in this one:
-> https://sashiko.dev/#/patchset/20260822164341.3750491-1-nicoyip.dev%40gma=
-il.com
->
-> Running both BlueZ l2cap-tester and rfcomm-tester (so lockdep sees more
-> paths) in same boot you get lockdep splat.
+[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
+[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
+[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
+[   55.904136] ------------[ cut here ]------------
+[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
+[   55.917538] refcount_t: addition on 0; use-after-free.
+...
+[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
+...
 
-I didn't know about this trick, so I wonder if we should do something
-about it. Testing with just rfcomm-tester should show this, or perhaps
-we need to change the CI to run all tests under the same test-runner
-instance so lockdep learns about all the code paths.
+Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
+Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Cc: Waldemar Brodkorb <wbx@openadk.org>
+Cc: stable@vger.kernel.org
+---
 
-> Not immediately clear that a real deadlock could be triggered, but
-> lockdep thinks the ordering is now inconsistent.
->
->
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
-> WARNING: possible circular locking dependency detected
-> 7.2.0-rc6-01463-gfe3897b4ab57 #994 Not tainted
-> ------------------------------------------------------
-> rfcomm-tester/364 is trying to acquire lock:
-> ffff8880027d40b0 (&hdev->lock){+.+.}-{4:4}, at: l2cap_chan_connect (net/b=
-luetooth/l2cap_core.c:7271)
->
-> but task is already holding lock:
-> ffffffff99499f58 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_dlc_open (net/blu=
-etooth/rfcomm/core.c:426)
->
-> which lock already depends on the new lock.
->
->
-> the existing dependency chain (in reverse order) is:
->
-> -> #2 (rfcomm_mutex){+.+.}-{4:4}:
-> __mutex_lock (kernel/locking/mutex.c:646)
-> rfcomm_security_cfm (net/bluetooth/rfcomm/core.c:2222)
-> hci_auth_complete_evt (./include/net/bluetooth/hci_core.h:2246 net/blueto=
-oth/hci_event.c:3554)
-> hci_event_packet (net/bluetooth/hci_event.c:7887)
-> hci_rx_work (net/bluetooth/hci_core.c:4041)
-> process_scheduled_works (kernel/workqueue.c:3322)
-> worker_thread (kernel/workqueue.c:3486)
-> kthread (kernel/kthread.c:436)
-> ret_from_fork (arch/x86/kernel/process.c:158)
-> ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
->
-> -> #1 (hci_cb_list_lock){+.+.}-{4:4}:
-> __mutex_lock (kernel/locking/mutex.c:646)
-> hci_remote_ext_features_evt (./include/net/bluetooth/hci_core.h:2207 net/=
-bluetooth/hci_event.c:5030)
-> hci_event_packet (net/bluetooth/hci_event.c:7887)
-> hci_rx_work (net/bluetooth/hci_core.c:4041)
-> process_scheduled_works (kernel/workqueue.c:3322)
-> worker_thread (kernel/workqueue.c:3486)
-> kthread (kernel/kthread.c:436)
-> ret_from_fork (arch/x86/kernel/process.c:158)
-> ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
->
-> -> #0 (&hdev->lock){+.+.}-{4:4}:
-> __lock_acquire (kernel/locking/lockdep.c:3165)
-> lock_acquire (kernel/locking/lockdep.c:5868)
-> __mutex_lock (kernel/locking/mutex.c:646)
-> l2cap_chan_connect (net/bluetooth/l2cap_core.c:7271)
-> l2cap_sock_connect (net/bluetooth/l2cap_sock.c:255)
-> kernel_connect (net/socket.c:3726)
+Notes:
+    v6: Sashiko found another weakness in the v5 object lifecycle repair attempt...
+        https://sashiko.dev/#/patchset/f77ed4e1547e452668a6549e3966471a6b638a6b.1787593585.git.hns@goldelico.com?part=1
+    
+    v5: fixed a potential issue with directly allocating struct drm_bridge and
+        depending on its internal structure. Solve by allocating a stable
+        driver-specific container struct ingenic_drm_bridge_alloc that embeds
+        a struct drm_bridge.
+        Also revisit and adjust object lifecycle by doing drm_bridge_add() before
+        drm_bridge_attach().
+        Suggested by Sashiko-reviews:
+        https://sashiko.dev/#/patchset/1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com?part=1
+    
+    v4: remove setting interlaced mode (would be new feature and not a fix)
+        as suggested by paul@crapouillou.net
+    
+    v3: fixed a malformed diff in v2
+    
+    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT
+        as suggested by Sashiko-reviews:
+        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
 
-Interesting, I though the kernel_connect would actually behave as a
-syscall and use it own thread so it wouldn't result into
-l2cap_chan_connect, in that case it is probably useless to use it in
-place of l2cap_chan_connect directly, so we may take the opportunity
-and clean this up.
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 30 ++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 4 deletions(-)
 
-> rfcomm_dlc_open (net/bluetooth/rfcomm/core.c:808)
-> rfcomm_sock_connect (net/bluetooth/rfcomm/sock.c:421)
-> __sys_connect (net/socket.c:2135)
-> __x64_sys_connect (net/socket.c:2160 net/socket.c:2157 net/socket.c:2157)
-> do_syscall_64 (arch/x86/entry/syscall_64.c:63)
-> entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
->
-> other info that might help us debug this:
->
-> Chain exists of:
-> &hdev->lock --> hci_cb_list_lock --> rfcomm_mutex
->
-> Possible unsafe locking scenario:
->
-> CPU0                    CPU1
-> ----                    ----
-> lock(rfcomm_mutex);
->                         lock(hci_cb_list_lock);
->                         lock(rfcomm_mutex);
-> lock(&hdev->lock);
->
-> *** DEADLOCK ***
->
-> 1 lock held by rfcomm-tester/364:
-> #0: ffffffff99499f58 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_dlc_open (net=
-/bluetooth/rfcomm/core.c:426)
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 42c86f195c66b3..b3dc28f78f3807 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -122,11 +122,15 @@ struct ingenic_drm {
+ 
+ struct ingenic_drm_bridge {
+ 	struct drm_encoder encoder;
+-	struct drm_bridge bridge, *next_bridge;
++	struct drm_bridge *bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+ 
++struct ingenic_drm_bridge_alloc {
++	struct drm_bridge bridge;
++};
++
+ static inline struct ingenic_drm_bridge *
+ to_ingenic_drm_bridge(struct drm_encoder *encoder)
+ {
+@@ -802,7 +806,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+-				 &ib->bridge, flags);
++				 bridge, flags);
+ }
+ 
+ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+@@ -1107,6 +1111,7 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 	struct clk *parent_clk;
+ 	struct drm_plane *primary;
+ 	struct drm_bridge *bridge;
++	struct ingenic_drm_bridge_alloc *bridge_alloc;
+ 	struct drm_panel *panel;
+ 	struct drm_connector *connector;
+ 	struct drm_encoder *encoder;
+@@ -1314,10 +1319,27 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
++		bridge_alloc = devm_drm_bridge_alloc(priv->dev,
++						     struct ingenic_drm_bridge_alloc,
++						     bridge,
++						     &ingenic_drm_bridge_funcs);
++		if (IS_ERR(bridge_alloc)) {
++			ret = PTR_ERR(bridge_alloc);
++			goto err_drvdata;
++		}
++
++		ib->bridge = &bridge_alloc->bridge;
++		ib->bridge->of_node = priv->dev->of_node;
++
+ 		ib->next_bridge = bridge;
+ 
+-		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
++		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
++		if (ret) {
++			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+ 			dev_err(dev, "Unable to attach bridge\n");
+-- 
+2.55.0
+
