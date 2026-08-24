@@ -1,152 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1A4386435;
-	Mon, 24 Aug 2026 18:50:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9A97E105;
+	Mon, 24 Aug 2026 18:56:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787597446; cv=none; b=mmR4Nt0SZlGkE3pfkl3IfJa/vq1/bztZodBrjEW1rKzQQk/VNRgTl1WyV/o8r7iVHstIky6yY4du095wJJwh08LMVopg95eNfL/ZaUE2miFJIw0wsWmmGG89+5+IwO8BTZqsGbV/G1qh3JGSrNE6D4wR0XNX2fRSyv18DsIBVmM=
+	t=1787597797; cv=none; b=EWdQWPvXoEblWBkI44ygDvXrmwVZ8d/p5vUSaG4CfWroqWc3rwS9RA3e5BjZg1vd6cR1CW7g91t0mMFts98YTQxwT0hUPVjTs5ZTQRJEz8iODRV1e2xEeBCabi/neeNbnOXNQwme3+fIwlY65OPo5tXEmA9QI2fedxQyhxS2h/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787597446; c=relaxed/simple;
-	bh=tp0qs5KskZPC9bLgjjBIJelmk39ebd0b8P3RC89Xgx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OfCUBafyDF+4a33znY3M8mzyfrz5ADqVNhCFVNw4XjqUpEzsuwPYif9nVTRtqsrbVNHf5jytyM4VMpUiy8VTjQ4Ou5PqwOItbyZ87yWPG8Tw89quKspD8Y7VGInokMjvIV9u0goRi9SobvWqyuaWPonCTiGMecPh5eI9TiUZ6G0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAhIlnZG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787597797; c=relaxed/simple;
+	bh=OLGkBfQgwD3VV61/5CLfbR4/BZrD2w8BtZqoWHhXdYw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=i1TPTurJpQIyiS89rNSOcOS4TDyILts+qHoxGI+kR5dT+vJYcp9m+RIvyvJhVqVJv31TBabgykP1XS8ds/ZFg2ByDBOUAWKpE0vUnNvHXKdDp74GGfD/fatYH8nbJTE5wzVpXX3LLxfGRQ4GjTUT8Xa9a59eg8ZZBK/v0q97CIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ekHxVc7u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAhIlnZG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6ADC1F000E9;
-	Mon, 24 Aug 2026 18:50:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ekHxVc7u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081971F00A3A;
+	Mon, 24 Aug 2026 18:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787597445;
-	bh=Gw5cqatvUJD+UEYE9swbLVwuk7RDjDmNNLvkCRibJJA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fAhIlnZGxiR7N65HWMX37ZGibQGYHBLGE+PnlaD4Q67rZzcEATHf1BE/nW0Bzt+Tk
-	 E7LXqeKNBoN8SWA05RogBol+jpgXUKZ/qKhjxXI7XDSX9nDtIGtQYtZd3NTJeY8q5m
-	 QLiHWxg1SQt2tyW/G/EdJUAzRiguoRXeQHwjXLcaK5+T6kw/+0G/zXLycdypmWWhhD
-	 +AvKC9bd9z4OSsblb3fe8bDm7uEVr34cvhgLMf8Hs9XkH1+98v4rPV3qSqZk137n5N
-	 HkXhB/WPccKozrDuc/hxk5e/NAFtSKLS7bDLulptXcXAMaA7q4oRG+jhysMk3m/J8p
-	 B7S/Zf/k4G11w==
-From: Jakub Kicinski <kuba@kernel.org>
-To: xuziyougm@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	ericwouds@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: air_en8811h: restore LED GPIO output after MCU restart
-Date: Mon, 24 Aug 2026 11:50:43 -0700
-Message-ID: <20260824185043.2701718-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260820141034.1400439-1-xuziyougm@gmail.com>
-References: <20260820141034.1400439-1-xuziyougm@gmail.com>
+	s=k20260515; t=1787597796;
+	bh=OTnTfNKx3yZisGodE0G7jqPvwprpXxsPPbrVpgqd9+o=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ekHxVc7u1cR1iObiIRnsBlRuLBjjMsankhFfEYl6suLs2p+kqtEZGsGuaCsckFPoW
+	 tv5wuhBEUPooDS8C24B3Zbn+HL3fheJ+LbJCBSGRWdT7yfgdBDsvxTCSZW/4Y3KOEV
+	 7rGKYY8+E5Yys56iBv9krRA+kCEBi4OPd9iO77H0nhcFthvdlnDvCqnVxnuc+Q1yL+
+	 RFH8j1JiXYdKpb0YlQ4yHA3uAQQG8z/DGtubDQBcKibC2sp8FPlErlvsV8nx2I6vRB
+	 QlvU8MND0QBWbEHs4p9Lw3veXAgWlxNkh6q1NWSbZMJwfR22O46q6HlMILbGVA9Mq3
+	 iPgYyRnbQrUFw==
+Message-ID: <c4c495fbc56774c012aebb5979dd72070e4a1c9d.camel@kernel.org>
+Subject: Re: [PATCH net] net: rds: fix uninitialized trans dereference in CM
+ event handler
+From: Allison Henderson <achender@kernel.org>
+To: Aohan Mei <ljp1205831794@gmail.com>, netdev@vger.kernel.org
+Cc: linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com, 
+ linux-kernel@vger.kernel.org, Jason Xing <kerneljasonxing@gmail.com>, Aohan
+ Mei <henrymei@tencent.com>, TencentOS Corvus AI <corvus@tencent.com>, 
+ stable@vger.kernel.org
+Date: Mon, 24 Aug 2026 11:56:35 -0700
+In-Reply-To: <20260824111701.2979194-1-ljp1205831794@gmail.com>
+References: <20260824111701.2979194-1-ljp1205831794@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-Verified. Report follows.
+On Mon, 2026-08-24 at 19:17 +0800, Aohan Mei wrote:
+> From: Aohan Mei <henrymei@tencent.com>
+>=20
+> rds_rdma_cm_event_handler_cmn() assigns trans only when the RDMA
+> device is an InfiniBand CA (RDMA_NODE_IB_CA).  On any other device
+> type, e.g. an iWARP RNIC such as siw, trans stays uninitialized, but
+> the event switch dereferences it: unconditionally in the
+> RDMA_CM_EVENT_CONNECT_REQUEST case via trans->cm_handle_connect(),
+> and (with a connection context) in the ROUTE_RESOLVED and
+> ESTABLISHED cases.
+>=20
+> An RDS listener on an iWARP device therefore crashes the kernel as
+> soon as a connect request arrives: with CONFIG_INIT_STACK_ALL_ZERO
+> the wild load becomes a NULL dereference at offset 0xa0
+> (&trans->cm_handle_connect) in the iw_cm_wq workqueue.
+>=20
+> GCC masks the bug in default builds by folding the uninitialized
+> load into &rds_ib_transport; Clang-built kernels take the real
+> uninitialized path and oops.
+>=20
+> Reject events that arrive on device types without an RDS transport:
+> initialize trans to NULL and bail out before the event switch when
+> no transport matched.
+>=20
+> Fixes: dcdede0406d3 ("RDS: Drop stale iWARP RDMA transport")
+> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+> Cc: stable@vger.kernel.org
+> Assisted-by: CodeBuddy:Kimi-K3
+> Signed-off-by: Aohan Mei <henrymei@tencent.com>
+>=20
+>=20
 
-commit 90353ad40d9c49a8f67a9cf009916549d394f63d
-Author: Ziyou Xu <xuziyougm@gmail.com>
+Hi Aohan,
 
-net: phy: air_en8811h: restore LED GPIO output after MCU restart
+Thanks for catching this.  A few comments below:
 
-The LED GPIO3/4/5 output-enable write is moved out of en8811h_probe() and
-into en8811h_config_init(), just before air_leds_init(), so the pads are
-re-enabled after every MD32 restart.
-
-> diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-> index edd49c193e476..fbd87fc712bfb 100644
-> --- a/drivers/net/phy/air_en8811h.c
-> +++ b/drivers/net/phy/air_en8811h.c
-
-[ ... ]
-
-> @@ -1317,6 +1310,16 @@ static int en8811h_config_init(struct phy_device *phydev)
->  	if (ret < 0)
->  		return ret;
->  
-> +	/*
-> +	 * Restarting MD32 clears the GPIO3/4/5 output enable bits. Restore
-> +	 * them after every restart, before enabling the corresponding LEDs.
+> ---
+>  net/rds/rdma_transport.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/net/rds/rdma_transport.c b/net/rds/rdma_transport.c
+> index b15cf316b23a..ad9244a09848 100644
+> --- a/net/rds/rdma_transport.c
+> +++ b/net/rds/rdma_transport.c
+> @@ -52,7 +52,7 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_cm=
+_id *cm_id,
+>  {
+>  	/* this can be null in the listening path */
+>  	struct rds_connection *conn =3D cm_id->context;
+> -	struct rds_transport *trans;
+> +	struct rds_transport *trans =3D NULL;
+>  	int ret =3D 0;
+>  	int *err;
+>  	u8 len;
+> @@ -80,6 +80,14 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_c=
+m_id *cm_id,
+>  		}
+>  	}
+> =20
+> +	/* No RDS transport exists for this device type (e.g. iWARP RNIC),
+> +	 * so trans was never assigned; reject instead of dereferencing it.
 > +	 */
-> +	ret = air_phy_buckpbus_reg_modify(phydev, EN8811H_GPIO_OUTPUT,
-> +					  EN8811H_GPIO_OUTPUT_345,
-> +					  EN8811H_GPIO_OUTPUT_345);
-> +	if (ret < 0)
-> +		return ret;
+> +	if (!trans) {
+> +		ret =3D 1;
+> +		goto out;
+> +	}
 > +
 
-[Severity: Medium]
-This isn't a bug introduced by this patch, but should the sibling AN8811HB
-path in the same file get the same treatment?
+Support for iWarp was removed in dcdede0406d30e1 and this function only sup=
+ports ib.  So we should probably just enforce
+the ib transport:
 
-AN8811HB_GPIO_OUTPUT_345 is written in exactly one place, an8811hb_probe():
-
-	/* Configure led gpio pins as output */
-	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
-					  AN8811HB_GPIO_OUTPUT_345,
-					  AN8811HB_GPIO_OUTPUT_345);
-
-an8811hb_config_init() then restarts the MCU on every call after the first
-and goes straight to the LEDs without touching that register:
-
-	if (priv->mcu_needs_restart) {
-		ret = en8811h_restart_mcu(phydev);
-		...
+	if (cm_id->device->node_type !=3D RDMA_NODE_IB_CA) {
+		ret =3D 1;
+		goto out;
 	}
-	ret = an8811hb_config_serdes_polarity(phydev);
-	...
-	ret = air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
-			    AIR_LED_MODE_USER_DEFINE);
 
-For AN8811HB, en8811h_restart_mcu() does a superset of the EN8811H
-sequence:
+Then we can just initialize trans to &rds_ib_transport at the top, and remo=
+ve the conditional assignment that appears a
+few lines up from here.=20
 
-	if (phy_id_compare_model(phydev->phy_id, AN8811HB_PHY_ID)) {
-		ret = an8811hb_mcu_assert(phydev);
-		...
-		ret = an8811hb_mcu_deassert(phydev);
-		...
-	}
-	ret = air_phy_buckpbus_reg_write(phydev, EN8811H_FW_CTRL_1,
-					 EN8811H_FW_CTRL_1_START);
+Thanks!
+Allison
 
-If the premise stated in the new comment ("Restarting MD32 clears the
-GPIO3/4/5 output enable bits") holds for this device family, do the
-AN8811HB LEDs also go dark on the second and later .config_init() call
-(ifdown/ifup, or a repeated phy_init_hw())?
 
-After this patch the two peer paths in the file disagree: en8811h_config_init()
-restores the pad output-enable bits on every restart, while
-an8811hb_config_init() still assumes they survive it.
+>  	switch (event->event) {
+>  	case RDMA_CM_EVENT_CONNECT_REQUEST:
+>  		ret =3D trans->cm_handle_connect(cm_id, event, isv6);
 
-Would it make sense to place the restore in the shared en8811h_restart_mcu()
-or air_leds_init() path so both models are covered, or duplicate it in
-an8811hb_config_init()? If AN8811HB is genuinely unaffected, could the commit
-message say why?
-
-Note this concern is based on the register definitions rather than measured
-hardware behaviour: AN8811HB_GPIO_OUTPUT is the same 0xcf8b8 offset within
-the AN8811HB PBUS window with an identical BIT(3) | BIT(4) | BIT(5) mask, and
-commit 6b9c9def95cb ("net: phy: air_en8811h: Introduce resume/suspend and
-clk_restore_context...") notes that PHY reinitialisation reverts chip-config
-registers such as CKO to their initial values.
-
->  	ret = air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
->  			    AIR_LED_MODE_USER_DEFINE);
->  	if (ret < 0) {
--- 
-pw-bot: cr
