@@ -1,149 +1,204 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C00E38E119
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 10:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787567973; cv=pass; b=gy6sujPhEBZ3aTBY1NbnD+5BsYVL+WLnxqrr2t6d7gybdjUAxPIBIPit2Z4hXRHLBiYhLkAXZip0LYd90dC57c+MAQzzHyt05Mry2+15G3EFFjwKTx+j+nM9Oc6pGP/mg29pA8+D/hKZIuf3IOgyIkfgUx6R+yc5vDpOjommifw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787567973; c=relaxed/simple;
-	bh=hgryzcWBh81J+fqav+2BlfgO1BmbWhuhmWVgVs11gQg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ui3QUB8laRd2Wris7pgZlRKJsoJNWWfT1i7JGbyqpjFx1vEon7b7ssQMe8kCQUlsVHWgW05JARqj7CnDmJgtn/2P44lWyqA2/5oR78KPzJjmEilH3NDtZI+Qn7baWuGAj3R6IMDM+ccCCIwttBKJPh3E5VhNQhHOPNvvKvy0y0U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BmBc/UZ0; arc=pass smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0531DB13A;
+	Mon, 24 Aug 2026 10:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787568164; cv=none; b=av5MiV+ZzGjmmb9UGuYbrfqpyRm/qXXp+IcD3zAguiGOTnVOICc2m8r2m5AtrvHQmhTWpwI3juOZX5F8OIYjSBiwdbbEmMotNigW82tEm1h51iGseYSdvIIHgKuVjHad7ahKO4DZRLi1LMxPNBdAetfCEzkmrRXbOheYIZm4wo0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787568164; c=relaxed/simple;
+	bh=kVjUh+EoJXC8TjXoux47UFXVZqJcZMec3OAtT1y1yow=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fyq4a5ZP+AHfeaYc/WJCAjsdDvtHg/Xy2mbscKMK7PGfccTv5edi1F7IAuPtnT0Klk7tMZJ9t4/Hl+2Ot9AeNeyxwH33Jio9msUUIaFDiVL9cJCcIxrysDcm9ZxR+ftw03lG3vIlvqRZINUun4upwNxHUDLJ+UTpWt/uHirnDbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D3+C35xZ; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BmBc/UZ0"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ccae46de39so4436545ad.3
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 03:39:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787567972; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cC23+ZRghm7kXaO1Kp1zGBECozqRGEXjW/YuhuOKNHpBNzk+Scp85J6V6v6d/e1xAQ
-         Uzl5OVjbosHwNLvw/r+wavLPfChEfpUiiXDRgio3FmWeueffGo2zYSvAwcvpLb/8mLl1
-         aMCeaHpDQHxI8K1meAKhN/DkB7GPbmHU8WfJ+Qdvnt9V+icY3Nd0+00d+8xPgxg9IxRC
-         NhcjSuIesAHaPPd6t7ZjX94ZZDTR1JN0ttGgIYgoq99k86YOAFe/SCQR5c4oAsZF8cQh
-         x47ZKbwXTm7oFJiofa5nR8D0Rif3oRWuCyI/6KeG8h9/etSlyaxe0Dem3q6/4MELAXT4
-         5dJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dm+SxIlEY/yR4zyZCKc0UXwl4nlxVLA5fi42KRK5dYw=;
-        fh=HS9HB9sR3mX6bMHmJcIWDxrpmOddtzP8aGDml5JoEPo=;
-        b=BkJyv27xTEQzrT45d0Lj0DnaC0CXHOOSpgVUE1dImaIFkcHT+oCgg6BExddNLE2l6Z
-         pOQT+4pPeFIdgp5lqwlYe5agCp9Vi6YjNZdk1oQ1Q7p7T7gVQzE9SnTnGhVO7dGB9Mek
-         0Ny8ySJCyFKycJfLNW0ayDuv9KHMndbFjkDKmfOmMao2srPGiHBIXQVUMU9prfnqPqO4
-         k4OQ904EtUYuYXouDD+2hOEmvMtWhNb41ebU/KmFaUbWXxbMPoyJLc8jQn/LwfbEU83k
-         ZCajEwNZzYOfES7fGOxp8CS7DqWB8fPk8A5XGzav+IPw4k+5xJ8SeTg6GetGapplGdOH
-         bU4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787567972; x=1788172772; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dm+SxIlEY/yR4zyZCKc0UXwl4nlxVLA5fi42KRK5dYw=;
-        b=BmBc/UZ01fjCpGXrD5VaGU5g6PyvEsT+EoLVXxUJHydR8l0vT+LAtRR+8zhQgZtuw0
-         I397lelTLyOYJpxfO3te6aVPtPY6wiZKPak4/zwmuDQLt1M3L7XW9sXtDhLrOm24GZkD
-         hWxohSbC1GqPfocKIrpouJP21ss6AIsJUGMhAruWaqdnZK9oNWF9fvK4LjFR8+RtXaVc
-         KIxlKgWDPs2aoCTYXEDIMFFXT99hFpPo8bwrRFNJ5wpfbewTh5iLIitzA0Dkz57FA2sY
-         BX1auQ11LfyNa5WZsA646pIcZ8EV/EcZHy7ijYByeTADvrssIJtWZkKwp6F/d+HoG8Gr
-         RQgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787567972; x=1788172772;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dm+SxIlEY/yR4zyZCKc0UXwl4nlxVLA5fi42KRK5dYw=;
-        b=lJbh1R07lIke5VFN6dl9KpdHAVfOdbTFEVHho3f4pRcHwVk2tPwvmxJESOc/AAsBEY
-         ucPONkEf8v4m2/G2Q8a2ZEl/nDtpp+6PaaWQ1joXvTKrRlAPeAvnc0fCYTjkNvXmEHFx
-         IngFtyWgUugEVXQqU6rk+4hAHQu8rTe935Q1a+6hZd4IazKXepJdl/5C9xFsx1kPxnGo
-         72kkbEHFDVyC52ezcsJy1i8SB9fKv3JnBKnmj8rpdaRlvXNXwFBsJYacTa1j5DEWedB5
-         z8ncfeNbId12BXpFAUCCkVRZRUkOMs66DgRi61aWplgYAh6HM2SW4VoeuNEl9WqI/enL
-         eP5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrJz3JJhVd9K383PMJ0szF/0eHX21j2L3/ZZ/Z3ROtBOtGYXmA8ioPRk7hqsWkCQjXs21u8QOU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCVZENFK8mh6dnUs23IIH00/P9sH/jo5nj+ThuCgMsC99mmDgM
-	4JhF5LKiQMSLIit785y+0wYQjdPe7tL7bOaNGkK7TDDq6M0cBrWSNnSAGrZI8Bs4R4NcEpdRXHR
-	HqdsWSekELz9R+9QQ1MPiGDUApFu5NZ8=
-X-Gm-Gg: AR+sD10v0aq7KNc65GcSBSvZUwRQ4GdCQeu0kIYvVfHiLqfK7R7+R9LQe7j8rPmDbBm
-	SRen2imrhVY2n3Ri2F3wifnJmlxN4IiwxtApTmzLfWiEFUXyqRRn+WGBEGkowCHWk4NGTH7QMTX
-	cHfXACbqpYB+37S+6KI7UhclNuvpJlicIEbxIROF1dLM/q27YR6SRyqgRYuQhB73iIGnUmdn9yx
-	bzBWvBqa5A5+Y68IeCZg8onCElK2SbpXGYypHOMG3SG+9w0h6W6WrI+CdeyEZWK2T/qqbmzIlRu
-	HBDOJfcM+DYSr1ATcRFPw9nvz3rZInMywWXkdFdhzqr5I2zhED5i9iM8C1uQ2fNLyxjye3yeatf
-	sZB7kZv5hJMk1Au89s42pOkLyMs7rNnbTqpprYqInSEYX20YfZrkjBWSn3eVM
-X-Received: by 2002:a17:902:e544:b0:2c9:ed4a:c3a4 with SMTP id
- d9443c01a7336-2d64a9ae35dmr206138235ad.0.1787567971710; Mon, 24 Aug 2026
- 03:39:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D3+C35xZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787568161; x=1819104161;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kVjUh+EoJXC8TjXoux47UFXVZqJcZMec3OAtT1y1yow=;
+  b=D3+C35xZJKxdci1rJQEiWnfs1dMg7454f3kYVb1reVJsX9m6Qz1XqFq6
+   40sMe6DJgZRfxlEQ7ztqwwOcShsXVXZg9k6OIugx8755fL0V4ckDm/cEm
+   AhmkYzjr6jALQQETlrobK59nwoDYC/XvgqiJg3W9oXd3IY1zgOIquTI1m
+   xRFrZ9Zx7rjBQ+0dF7XIuAdaA/z1ramcG1osXT8TLbwNthxHZDrPVEVMj
+   WXpTxNC3SYGQNBvQcAOIn6wFScS/jEkyflU6sXGmQ6w2oLry4ogcVoo9j
+   TerkwZqPXhNLyVBPCDOWbt2ti5dWhPjAkGRk3nQlBcaEG20aJid3zWK7F
+   Q==;
+X-CSE-ConnectionGUID: T+FBRtFlRwqLiT35ju0LRA==
+X-CSE-MsgGUID: 2lMz2QPeRqq+jmn2uhWdfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="113548363"
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="113548363"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 03:42:41 -0700
+X-CSE-ConnectionGUID: UvUhFTxhQHC9SKsWim8WqA==
+X-CSE-MsgGUID: GzbioUGIQuigVFaIe4ddNA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="267013247"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa007.jf.intel.com with ESMTP; 24 Aug 2026 03:42:39 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id DEA6199; Mon, 24 Aug 2026 12:42:37 +0200 (CEST)
+Date: Mon, 24 Aug 2026 12:42:37 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Konrad Dybcio <konradybcio@kernel.org>, asahi@lists.linux.dev,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] thunderbolt: Hold a router reference for each
+ path hop
+Message-ID: <20260824104237.GF893316@black.igk.intel.com>
+References: <20260823-b4-tbt-fixes-v2-0-26a18a426c9f@kernel.org>
+ <20260823-b4-tbt-fixes-v2-1-26a18a426c9f@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260816133233.197500-1-ojeda@kernel.org>
-In-Reply-To: <20260816133233.197500-1-ojeda@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 24 Aug 2026 12:39:16 +0200
-X-Gm-Features: AcwNN1XqG3kZZP3a32PBSrKWeajLatO9hp7-Kfpxa1ILeXqg5p650B05C8OP7O8
-Message-ID: <CANiq72k2A4UCLakuKZ3V=N-FHONk26npA55J+gkFT197XAOMfA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] kbuild: rust: preserve unreachable traps with inline helpers
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, Matthew Maurer <mmaurer@google.com>, Alice Ryhl <aliceryhl@google.com>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, linux-kbuild@vger.kernel.org, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260823-b4-tbt-fixes-v2-1-26a18a426c9f@kernel.org>
 
-On Sun, Aug 16, 2026 at 3:33=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
-te:
->
-> When `CONFIG_RUST_INLINE_HELPERS` is enabled, it is possible to hit
-> `objtool` warnings like:
->
->     vmlinux.o: warning: objtool: _R..._4cmdq12CommandToGsp4init()
->     falls through to next function _R..._4core5array4iter8IntoIterRShKj3_=
-EEEBa_()
->
-> `rustc` normally emits traps for unreachable paths. However, under
-> `CONFIG_RUST_INLINE_HELPERS=3Dy`, `rustc` emits LLVM bitcode and Clang
-> performs final code generation after the helper bitcode is linked,
-> but Clang does not trap unreachable IR by default.
->
-> In turn, this means `objtool` follows compiler-generated impossible Rust
-> `enum` paths through alignment padding into the next function, resulting
-> in fallthrough warnings.
->
-> Thus pass the LLVM `trap-unreachable` option to the final Clang invocatio=
-n
-> and suppress traps immediately after `noreturn` calls, which `objtool`
-> already recognizes as dead ends. The combination of both flags makes it
-> match `rustc`'s behavior.
->
-> Rust 1.85.0 (the minimum supported one) supports LLVM >=3D 18, and both
-> flags are available in LLVM 18.
->
-> Assisted-by: LLM
-> Cc: Gary Guo <gary@garyguo.net>
-> Cc: Boqun Feng <boqun@kernel.org>
-> Cc: Alice Ryhl <aliceryhl@google.com>
-> Cc: Matthew Maurer <mmaurer@google.com>
-> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
+Hi,
+
+On Sun, Aug 23, 2026 at 06:09:14PM +0200, Sven Peter wrote:
+> tb_stop drops the reference to all DP tunnels but does not deactivate
+> them, thus nothing cancels a dprx_work still in flight (which holds its
+> own tunnel reference) and the tunnel can outlive tb_switch_remove. The
+> HopID releases in tb_path_free then operate on freed IDAs and trigger
+> warnings like
+> 
+>   ida_free called for id=8 which is not allocated.
+> 
+> This can be triggered by unbinding the driver while a DP tunnel is still
+> waiting for the DPRX capabilities read to finish. On the Apple NHI
+> unplugging the cable runs into just that reliably because the read can
+> never finish right now and because the unplug powers down the
+> entire USB4 complex and removes the NHI device.
+
+Thanks for adding this.
+
+Is this behaviour due to something missing still on PM side or this is how
+it is designed to work on Apple silicon? This resembles the early PC way
+where ACPI dealt with all the hotplug PCIe stuff and the host router was
+only present when a cable was connected. I would kind of expect that Apple
+did this using "RTD3" way so keeping the host router present and the OS
+then deals with putting it into D3 and back.
+
+> Take or release a reference for both ports of each hop whenever the
+> HopIDs are allocated or released to ensure they have the same lifetime.
+> 
+> The KUnit tests allocate their switches without ever registering them so
+> initialize the embedded struct device there as well to make these
+> references work.
+> 
+> Fixes: d6d458d42e1e ("thunderbolt: Handle DisplayPort tunnel activation asynchronously")
 > Cc: stable@vger.kernel.org
-> Fixes: 3a2486cc1da5 ("kbuild: rust: provide an option to inline C helpers=
- into Rust")
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+>  drivers/thunderbolt/path.c | 21 +++++++++++++++++++++
+>  drivers/thunderbolt/test.c | 12 ++++++++++++
+>  2 files changed, 33 insertions(+)
+> 
+> diff --git a/drivers/thunderbolt/path.c b/drivers/thunderbolt/path.c
+> index b2c322e76b8a..02c5e7a2101e 100644
+> --- a/drivers/thunderbolt/path.c
+> +++ b/drivers/thunderbolt/path.c
+> @@ -196,6 +196,12 @@ struct tb_path *tb_path_discover(struct tb_port *src, int src_hopid,
+>  		path->hops[i].out_port = out_port;
+>  		path->hops[i].next_hop_index = next_hop;
+>  
+> +		/* Keep the ports alive, see tb_path_free() */
+> +		if (alloc_hopid) {
+> +			tb_switch_get(path->hops[i].in_port->sw);
+> +			tb_switch_get(path->hops[i].out_port->sw);
+> +		}
 
-Applied series to `rust-fixes` -- thanks everyone!
+I wonder if we can put this in tb_port_alloc_in/out_hopid() instead? That
+would be more "natural" IMHO.
 
-Cheers,
-Miguel
+> +
+>  		tb_dump_hop(&path->hops[i], &hop);
+>  
+>  		h = next_hop;
+> @@ -323,6 +329,10 @@ struct tb_path *tb_path_alloc(struct tb *tb, struct tb_port *src, int src_hopid,
+>  		path->hops[i].out_port = out_port;
+>  		path->hops[i].next_hop_index = out_hopid;
+>  
+> +		/* Keep the ports alive, see tb_path_free() */
+> +		tb_switch_get(path->hops[i].in_port->sw);
+> +		tb_switch_get(path->hops[i].out_port->sw);
+> +
+>  		in_hopid = out_hopid;
+>  	}
+>  
+> @@ -356,6 +366,17 @@ void tb_path_free(struct tb_path *path)
+>  			if (hop->out_port)
+>  				tb_port_release_out_hopid(hop->out_port,
+>  							  hop->next_hop_index);
+> +			/*
+> +			 * Only drop the switch references after both HopIDs
+
+Let's use "router" universally.
+
+> +			 * have been released: the path may be freed after the
+> +			 * switch was already removed (e.g. asynchronous DP
+> +			 * tunnel teardown) and these references are what
+> +			 * keeps the ports and their HopID IDAs alive.
+> +			 */
+> +			if (hop->in_port)
+> +				tb_switch_put(hop->in_port->sw);
+> +			if (hop->out_port)
+> +				tb_switch_put(hop->out_port->sw);
+>  		}
+>  	}
+>  
+> diff --git a/drivers/thunderbolt/test.c b/drivers/thunderbolt/test.c
+> index 05652ee82fbf..034c56845380 100644
+> --- a/drivers/thunderbolt/test.c
+> +++ b/drivers/thunderbolt/test.c
+> @@ -33,6 +33,11 @@ static void kunit_ida_init(struct kunit *test, struct ida *ida)
+>  	kunit_alloc_resource(test, __ida_init, __ida_destroy, GFP_KERNEL, ida);
+>  }
+>  
+> +static void tb_test_switch_release(struct device *dev)
+> +{
+> +	/* The memory is owned by KUnit, nothing to do here */
+> +}
+> +
+>  static struct tb_switch *alloc_switch(struct kunit *test, u64 route,
+>  				      u8 upstream_port, u8 max_port_number)
+>  {
+> @@ -44,6 +49,13 @@ static struct tb_switch *alloc_switch(struct kunit *test, u64 route,
+>  	if (!sw)
+>  		return NULL;
+>  
+> +	/*
+> +	 * The paths take a reference to their switches and those devices
+> +	 * have to be initialized for that to work.
+> +	 */
+> +	sw->dev.release = tb_test_switch_release;
+> +	device_initialize(&sw->dev);
+
+The idea was that we don't use this as real device but if we go this route
+then I think we should call put_device() to release it and check for any
+subtleties device_initialize() possibly does.
+
+> +
+>  	sw->config.upstream_port_number = upstream_port;
+>  	sw->config.depth = tb_route_length(route);
+>  	sw->config.route_hi = upper_32_bits(route);
+> 
+> -- 
+> 2.55.0
+> 
