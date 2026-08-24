@@ -1,39 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A1F42E01B;
-	Mon, 24 Aug 2026 13:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0054345EAD;
+	Mon, 24 Aug 2026 13:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787579156; cv=none; b=izU9yZNoA1Rs5Nf0llTFAdJwylW905nwlWQFsqKx0Ym8CmCxauhf47Mv+yHA9dYRpC9UhpbbhM0p/FmzNizzYGLKgtcoakKgk2rdHHywnD1f5WgEamfp69vGemnHKEiPRu9ix2CwhmYnoQx0a5NdY54EgLW0dBUMzvHNC5tNgcU=
+	t=1787579242; cv=none; b=cIAQ0ceU8Ja3JT0Q+WIXLWxAc0dG4sHOBr1Lp50TLLgsaB0FsBkv2EerL4qhKXoEcdE+UyR81YB/RPjOIDBrT0kXAIrC6UKUdPsQvq0Svu2f96ensw5j/lfw+VwuD3hrWzm2Zmacz6Y3tYul6R/ecl9tMK05l9NYLNYWfCwAtoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787579156; c=relaxed/simple;
-	bh=k0LZ5aOPmi6/50zSoKd/vyIpyTWb3o/XhgzZqnE8144=;
+	s=arc-20240116; t=1787579242; c=relaxed/simple;
+	bh=gsZth2D5w2+FUxwW8I64Md+XCABLbTd3Ip9I+dJOdTA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cAq/MfOx4b4lzpMMY8cAPkptrLf6tdHKORfv81K6a+iyb29ulLmCBQI0lOhGmrK8l9QF1TFvDuNBr8qjkuqHwmAWElsOJ7GFVNXPBi8zIdClWHAMAUjWVgzLczYv6Ns81hPY5ukcOyu+JOvZrgKaDuowLD3IiCzYHJKF1QGSJmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MxpeOTFd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qNIwppMknUsz4/PVBjiiS9LODSVlTbNgt7dFGfp2OmTdwjJ4TXNMX/TW6bpTVXY10sAHRw7AoLuvGDYwkmfM3L8gD7lGGvowwiZmgWWJOi39U68dUOrxn3UEZCJII5AitQL5NzQ+OtJ/yE+xv2U1ldapd8uMvoFZMkFHEEQr0Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=lUNgbKWE; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kEBExeIA; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MxpeOTFd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747431F000E9;
-	Mon, 24 Aug 2026 13:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787579152;
-	bh=Q9nzPt7jIUBXzxIdZz+oQV8kPmoQxGRBVRISY+ASyys=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MxpeOTFdzra/a/MubHO173tMYqjuhsSWW9lP0yDaG2LYuzKA52Oj3Eyln/UYXhZt/
-	 LEUTHkNrDBtDv/J2ZYbX/MymL8vTHh9Ufov6pGruJ7virgPGWSTReTPFG7VsNI4iyv
-	 QUUUrs3nbBFMkoxCiDXd3VRj4f6lyeQgRYkXXQEY=
-Date: Mon, 24 Aug 2026 15:45:47 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Artem Dinaburg <artem@trailofbits.com>
-Cc: stable@vger.kernel.org, Xiang Mei <xmei5@asu.edu>,
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="lUNgbKWE";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kEBExeIA"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.stl.internal (Postfix) with ESMTP id C786F1300075;
+	Mon, 24 Aug 2026 09:47:15 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Mon, 24 Aug 2026 09:47:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1787579235; x=1787586435; bh=v0eOO8mP3K
+	vc+I6zkuxDnQ7yn0ErBoVsdLcBQWhrggM=; b=lUNgbKWEU+TSOAdrRlhzdv2zIB
+	IR/RZtTNW1RSkmZy8TgEcXyVse+i1WIGbr26kod86DfJwn/IW0OtF9x0SjluCQe5
+	P8ZGu5oozI1iVddoWsNP4K0SabJqi9syhn0n7lBtGHQ+jUdeLIJZxnnQd2/ockNt
+	culPcHq5MA49b8XGNX58prG6eICgjj1LOEAfBXZ3SBuCHd5x+4dUjWc3uTEjbQjk
+	4xdtJqMyZ7zv2BIrlb7HKfNCfBOCW5LRL40Bjk8anuqjpNib8FZwNj+DbUmwW9cq
+	Il36zG99CR4LUKQkbVtNnlCSf/ZxdGUKief2D8eWhdH6tjp9zifrjU3Qz23Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1787579235; x=1787586435; bh=v0eOO8mP3Kvc+I6zkuxDnQ7yn0ErBoVsdLc
+	BQWhrggM=; b=kEBExeIAqdjlMDEu3AlSrjSPTXocCpyKyKuodb4tLOeGZxli4ZP
+	o4lU0fnOniSa+vzbx5n54/8qXzJFpxWfOmUDSmZIZAwAi+LepfgEdnIOdev/bmSA
+	1mgv34rv+2qXTFz6Y5tiCvCjN/Hz2YZbDUY+exvThK976WVX0mUWHwY2i7QFcz7z
+	EoIrddz/NJf8rdGozjNKM6qKPpkOVmwtw9MX9nJhSbMTa6KrcYStZUieANhXlvtp
+	JPK8ZHKb9nlprgffrI5Ar4QpwKXE2kXoLb/rlnrmC2Yo811luC00P3bndOs93CLG
+	QIoFNk6lew5S1nVN3TxxOMOPu61ON2lFCSw==
+X-ME-Sender: <xms:YkuMaq6ALhlGHFuHpwfws93_iyMOTSNLYBBIRuhkiUMXUDbvO8kA5g>
+    <xme:YkuMavlr1JlhmNiQVNcNz6PNZtjr8uiOX6Vc6LiIZJDm8xPMnkd8rp6VTk7OaE4uz
+    658-hxl_CICFZyf1rxOYFuvKssY9Pa3H969BdVtu88J2Tt_-f4>
+X-ME-Received: <xmr:YkuMatFMO4p4hb3BwWkVyUL9LcdQoDro1unhkJbk1FkZMPfLUhNB7YDrQqpukTexTSwrls4cQFhJrq9WMdPfDoDJWTBpQr5lW48bwksFAsQ>
+X-ME-Proxy-Cause: dmFkZTEo1+qQ5pn1rPMdWCcaft2bSBaYbe5yoW99KucM5sbb0NM+N53s+3Q8UNHPVUoYEV
+    swGT7AgHtJgWJs3OdNpJRcTo1LPOftAILAXRjyDdSzlJth+JxtnNXUUSGi3ReJRQhxi4bX
+    lrpyjQNVSt5/+Ty/iwQdFIdzFwUqFadTnbVDYZd4Yek9WrgC9tXUMfbP0dS7SQMUHj+SuN
+    Ugh46bDRiOICsRnjFVucUeAre8TZxDqm3i9ClfvaqMqKp8Fo0cJjoxiE/GONj6OLOT0x3f
+    pMRqt5dUlgOvlGtwhXGjvnibfg36qySeC4L4LfWeuqwZb3k0PSFwfjspbWcQ6EKd6I/pH3
+    4aau0ixZF4J/1YZsAKqhM33PzQhEn2erhtTEmyqRq/q/iYRtgOxOUo7zVcVd5rqrLNGLEj
+    5Gt2wWMSbigmAjNGJlgwwB6+o/CRbO8I4r96I8imy3Trz/bjJF7Xvk23bA754Iay4ALhsX
+    YM9AweG6uXx51e4mmqnN6qwXujQjngExUZ0K+Q+FWsv9epvHYRnUq/zKh1ZVr4I+YVFb0a
+    jyagL4+OYQeU04oE0tPQgNlDLziCoWhKN4iAdAnUhb8zbYizp6HmQgCRPfDYRqa4Dc2unw
+    BbtbaIZYMXarPxI5wWuIcVKcBfO66UVykrxciNpJJpLMfI15ezCTH3k81JSw
+X-ME-Proxy: <xmx:YkuManZJ8R071JOU9mDSxBMfV6B2MTWwEsElzm_XoZfBxg7CX8V3KA>
+    <xmx:YkuMasKQqn9gwrS5h3rTcSme0k-A1a2r7AixJ1gFGtjJHUkleYXbWw>
+    <xmx:YkuMagyQtL1HArvfT92UQVds6Qh_EiRjYA2Hhl87Xe0dR1huV3RuRg>
+    <xmx:YkuMak207O2KEwmnxN2A46K_Ay09DIR96YNbrenapmdPE0u9WXIhdw>
+    <xmx:Y0uMaiN8O1Y--Kv4TSWRswfV9XD6_73-1VlymsJewVrmZUAZqsrebZRo>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 24 Aug 2026 09:47:13 -0400 (EDT)
+Date: Mon, 24 Aug 2026 15:47:09 +0200
+From: Greg KH <greg@kroah.com>
+To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Wei Wang <weiwan@google.com>, Martin KaFai Lau <kafai@fb.com>,
+	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
+	David Ahern <dsahern@kernel.org>,
 	Steffen Klassert <steffen.klassert@secunet.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-kernel@vger.kernel.org, AutonomousCodeSecurity@microsoft.com
-Subject: Re: [PATCH 6.1.y] xfrm: fix sk_dst_cache double-free in
- xfrm_user_policy()
-Message-ID: <2026082450-eggshell-gigantic-97d2@gregkh>
-References: <20260821044210.10076-1-artem@trailofbits.com>
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Jozsef Kadlecsik <kadlec@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org
+Subject: Re: [PATCH v6.1.y 4/4] ipv4: start using dst_dev_rcu()
+Message-ID: <2026082454-jacket-gravity-6ddc@gregkh>
+References: <20260821-cve-2025-40074-6-1-v1-0-cad5cf499b76@bootlin.com>
+ <20260821-cve-2025-40074-6-1-v1-4-cad5cf499b76@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,66 +95,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260821044210.10076-1-artem@trailofbits.com>
+In-Reply-To: <20260821-cve-2025-40074-6-1-v1-4-cad5cf499b76@bootlin.com>
 
-On Fri, Aug 21, 2026 at 12:42:00AM -0400, Artem Dinaburg wrote:
-> From: Xiang Mei (Microsoft) <xmei5@asu.edu>
+On Fri, Aug 21, 2026 at 03:33:38PM +0200, Miguel Gazquez (Schneider Electric) wrote:
+> From: Eric Dumazet <edumazet@google.com>
 > 
-> [ Upstream commit c283e9ada7fcb7dd4b10592623086b2e6d2f9925 ]
+> [ Upstream commit 6ad8de3cefdb6ffa6708b21c567df0dbf82c43a8 ]
 > 
-> xfrm_user_policy() clears the socket dst cache with __sk_dst_reset(),
-> i.e. the non-atomic __sk_dst_set(sk, NULL): it reads sk_dst_cache with
-> rcu_dereference_protected(), stores NULL and dst_release()s the old dst.
-> That is only safe if no other thread modifies sk_dst_cache concurrently.
+> Change icmpv4_xrlim_allow(), ip_defrag() to prevent possible UAF.
 > 
-> For a connected UDP socket that does not hold: the transmit fast path
-> (udp_sendmsg -> sk_dst_check -> sk_dst_reset) resets the cache locklessly
-> with an atomic xchg(). A per-socket policy change racing a send can make
-> both sides observe the same old dst and each dst_release() it, dropping
-> the socket's single reference twice and freeing the xfrm_dst bundle while
-> it is still referenced:
+> Change ipmr_prepare_xmit(), ipmr_queue_fwd_xmit(), ip_mr_output(),
+> ipv4_neigh_lookup() to use lockdep enabled dst_dev_rcu().
 > 
->   BUG: KASAN: slab-use-after-free in dst_release
->   Write of size 4 at addr ffff88801897b6c0 by task exploit/155
->   Call Trace:
->    ...
->    dst_release (... ./include/linux/rcuref.h:109)
->    xfrm_user_policy (./include/net/sock.h:2239 ./include/net/sock.h:2256 net/xfrm/xfrm_state.c:3053)
->    do_ip_setsockopt (net/ipv4/ip_sockglue.c:1347)
->    ip_setsockopt (net/ipv4/ip_sockglue.c:1417)
->    do_sock_setsockopt (net/socket.c:2368)
->    __sys_setsockopt (net/socket.c:2393)
->    __x64_sys_setsockopt (net/socket.c:2396)
->    do_syscall_64 (arch/x86/entry/syscall_64.c:94)
->    entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-> 
-> Reachable by an unprivileged user via a user+network namespace.
-> 
-> Use the atomic sk_dst_reset() so the cache is cleared and released with a
-> single xchg(): whichever side wins releases the dst once, the other sees
-> NULL and does nothing. Behaviour is otherwise unchanged.
-> 
-> Fixes: 2b06cdf3e688 ("xfrm: Clear sk_dst_cache when applying per-socket policy.")
-> Fixes: be8f8284cd89 ("net: xfrm: allow clearing socket xfrm policies.")
-> Reported-by: AutonomousCodeSecurity@microsoft.com
-> Signed-off-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-> Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
-> ---
-> Please queue this unchanged upstream fix for CVE-2026-64581 in 6.1.y. An
-> unprivileged namespace user can race UDP transmit with per-socket XFRM policy
-> replacement and double-release the cached destination.
-> 
-> Reproduced immediately on KASAN v6.1.182; the patched target completed 50,000
-> rounds. The fix is in 7.1.6 but absent from 6.1.y.
+> Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
+> Signed-off-by: Eric Dumazet <edumazet@google.com>
+> Reviewed-by: David Ahern <dsahern@kernel.org>
+> Link: https://patch.msgid.link/20250828195823.3958522-9-edumazet@google.com
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> [ minor modifications to fix conflict, added rcu_read_lock and unlock
+> to ip_defrag function ]
+> Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
-Yes, but we need it also for all other trees between those versions.
-You do not want to upgrade from the 6.1.y tree to 6.6.y and have a
-regression, right?
-
-Please submit all needed backports, including this one again, and we'll
-be glad to queue them up then.
+We need a working 6.6.y version first, before we can take this one.
 
 thanks,
 
