@@ -1,207 +1,140 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A335218DB01;
-	Mon, 24 Aug 2026 20:44:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787604263; cv=pass; b=mbgRbsqa42dqCGITUN/wRrZRT7EaiRMz8KATweBhnHrXFM9xIr1mV83ZkVnm7Zzf/PC0NmyQ/N+VbMpHa38A+Zbp1Ei0K4irN5zxQCc/u/WWcKnWt2lJbXjOni+VoifMhqX6cui6l4WQUs4GL/xvX/re1YA5k9RjjANhU7Aq9JY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787604263; c=relaxed/simple;
-	bh=2ZBEgTiwS4+ust8Haib6K0glNq7q0TrHt5DDCyKYnWs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dnGZ76zMOZ3KKFluzBvAGXXxDTRWhArXShY+/P36G8KSqcNosAXWfTRJMmiCIuaK8Woxi/VpkXguIOGWifz9URD1gg1t9ff1H7os2AZm59F9b3Sv7LvK7ASse8FUFJ4z2CGfjqpWiJ3pzFHlMAaxGQx6ah4HEMHiJChM+lwuPuQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=jk406l48; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=j0OjE5CO; arc=pass smtp.client-ip=85.215.255.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A50246781;
+	Mon, 24 Aug 2026 20:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787604997; cv=none; b=gyOGfq23Q4016L23COKdUDqxHbJz3PjHxpEES9EADfymx8trrYL9ZxqzV4nlV1EcgAEZKBCZLfkDpUa1KvqKGnTOcPdbjXQcBCrKBJcDh6ONAx+zzPG7c+W9c1Xto+xeVoRlrNFT3vb3Y36jJB0Z3nM6nZ53uAwjk72/qM7CkSY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787604997; c=relaxed/simple;
+	bh=oxGvpJXn0j7pVZtTYsp8ePNna712eA722kU7qOjKLpI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JmMzE/v1bmd3xjoJb1cNx88UlcG0QATIrgnyaFXpqHYlJ3ty7MhFg4nhb0blmIzgXbwzvlN5nQVyVVxzD0FSFDud2Q1iGHHthUV8R20DfhsER5qnjh0pLNPxHGuhpMf4D6+YQ4WksAu1L7+aDrdOiZONOvnlsqrNEjTzi2tLscA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PuobLqnM; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="jk406l48";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="j0OjE5CO"
-ARC-Seal: i=1; a=rsa-sha256; t=1787604228; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=s8qJyTJqMbLeN3cNggxgodnkmGIdc1MV7BoOV+8DA8W7pQZqxAXmWRROi90rn/Rr/e
-    vJp1mYo3e7kT4P4c1T59arKO74J/M6ng4WBySxanR0nOLOjfbtOhhw6rqt0wF55yVCs+
-    DITGUOU4OIYeIblckcGLOLd43hdj7ah9FujYWbPRbBg7GKLopgDWDISNPDqdLltmL9F/
-    uO3S/5IGRW5xTT9/iVi1o7+nZPVTHAozeAv+XdMWCOP2a2IjV6CzbZjPl2FBXFhsl22G
-    0eSjwRcrP9aSdFaBG3NnHBkaYQIX3boJXVMkPJQrlH/7Z4qe3x7h1qbS20ifP0ZCjRsy
-    /OSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1787604228;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
-    b=DdhrLpPKoeKKZGZcK+77kNRUWaxSl51QF/c4VcY4PpGp1b84b2TlUXVTbsO3hSg558
-    9xeIbpL297pCWMMtKn5Ptp4q224xV+Teq/LMlv3hXEGc0LNXrKXifEfr51Wl1s7pICer
-    qOGtvEDdbga2fUnUObokr/ZuXjPhhEdA/GirJBYaS4uevB+eRrWHxTqrstKm0jTSFX3R
-    4/gi3ANkdYWVwIErzUWflNRi7QFfqzi+ezejA1nJrX7FEvhxmLERI37o7oo80vDigHzT
-    fenbI0pBqm2hbfKAxGWa+egtTJKI6aI787HGOq6v2vCWRwt7ngIQrDGCKjen22H8CikW
-    DINw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1787604228;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
-    b=jk406l48CyXSpZjVrllc/8ZRmLC5ix0/7DqcU62XJT1uTxWJ8ZgRSFUlT1hn933SX7
-    r3D2Eh7VbJALUsIXf3HhI/nsRyULtGc6GPUvRrXoTR66DM0PqkVNmeV9Dbflw1qSqjtj
-    xKvMe0K+84B/vybEw9jyPEEnAHcpSufD1T4yadalbloUUjBAkMQELTDs3vdd4gyHKqHO
-    5nQ+uKubi/jjmzcQ6HdpadjR3nPsjEWNoGWCItFFIWv9r62MCLlKKsbocUpPPD4EC4xm
-    sFtJrAH2jRDyXAXPcESzxX65wK8CqWZO+5+XpURDHW3mqnIr1OZAVfsJsrfY9cR3Z65M
-    nHgA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1787604228;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=yS+NX2fkPUZetLVqc3eSo3aOe1P1fcv4VjpZQ+6pKBM=;
-    b=j0OjE5COH9nNie4mN9LP2GLdZA60llJ5nAx9JKdQDKjoxo4VJhD9I/vXoYb4iwx7xT
-    qTv3TkFqj3DSH2JxogAw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQipoOy8iN9EQCaJvpc3APUCy9LxWOnfZGxS9c"
-Received: from iMac.fritz.box
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id Qfefb327OKhmcFM
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 24 Aug 2026 22:43:48 +0200 (CEST)
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-To: Paul Cercueil <paul@crapouillou.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: linux-mips@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	letux-kernel@openphoenux.org,
-	wbx@openadk.org,
-	kernel@pyra-handheld.com,
-	"H. Nikolaus Schaller" <hns@goldelico.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v6] drm/ingenic: fix bridge allocation
-Date: Mon, 24 Aug 2026 22:43:45 +0200
-Message-ID: <4f30341735d77c77a9a4952abd91879007bc00fd.1787604223.git.hns@goldelico.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PuobLqnM"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67OJVlqZ2744507;
+	Mon, 24 Aug 2026 20:56:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=oxGvpJ
+	Xn0j7pVZtTYsp8ePNna712eA722kU7qOjKLpI=; b=PuobLqnMAY75jYM54aVm8J
+	5bgDJXFn37e7yXQ3lYaSfE4EQO8iw05s841e4dZqvn79/TJnF0iRqmF+2I8iia95
+	h5NvhXm2dCt19jbnIsASkjcFf0RQExrZXBq6y4OKsSB3zamqni94DbDQ4NG2t9OL
+	0DGFCbZvluDXkN3NWHRHNezGKB7aDJ9HLecfjFN9ZAFQndu3pgDdrjztSxIN7jaE
+	f9MK7G8MwyUZMJbmf6dEYJf74nbKedcMhEq9ioLGCVro7DOzBR1IVeSojx4XQgtO
+	Mb02XBcfJ8d4UQJALMKk8407ttYCg4quIt4HUh6xUwOBjiOrLGTkxQIYaPSwzU8w
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g716hmbs4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 20:56:29 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67OKuIwt011820;
+	Mon, 24 Aug 2026 20:56:28 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rag8ab4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 24 Aug 2026 20:56:28 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67OKuRsx9503368
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 24 Aug 2026 20:56:27 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0B50B5805E;
+	Mon, 24 Aug 2026 20:56:27 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C4AEB58051;
+	Mon, 24 Aug 2026 20:56:25 +0000 (GMT)
+Received: from [9.61.96.163] (unknown [9.61.96.163])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 24 Aug 2026 20:56:25 +0000 (GMT)
+Message-ID: <1ed56cec-00d8-4805-96e1-bdcdecc3be1d@linux.ibm.com>
+Date: Mon, 24 Aug 2026 16:56:25 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] s390/vfio-ap: Fix leak of pinned NIB and registered
+ NISC in vfio_ap_irq_enable()
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260824135850.503728-1-akrowiak@linux.ibm.com>
+ <20260824135850.503728-2-akrowiak@linux.ibm.com>
+ <adecc2df-d2c2-48d6-a80a-c84ab9779322@linux.ibm.com>
+ <4bc189fa-ade2-46a9-a749-c9c8067f347a@linux.ibm.com>
+ <50eab46c-adb2-4ed0-ba4e-cd61f458be25@linux.ibm.com>
+Content-Language: en-US
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <50eab46c-adb2-4ed0-ba4e-cd61f458be25@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDE3MyBTYWx0ZWRfXwQYXEudCLZhH
+ maNSFNpDHwRM9T7vigSB2MMXP4uIlBQL6HA3cxO4YZPJucvUrPr9w82hhm+jsQJ++UC2+z8RBbU
+ qwvpOQXRkY1TAGuzZq/Ed3Q+j/EPKZQ=
+X-Proofpoint-GUID: VCI0cuZEie5NwuuY8hy-ug_nd0t_Us9d
+X-Proofpoint-ORIG-GUID: VCI0cuZEie5NwuuY8hy-ug_nd0t_Us9d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDE3MyBTYWx0ZWRfX2Wb7EXoflSb/
+ bSiUJduVVKAen77BavimZAN48Jt4ud3DmwkMyuzhSoxHvDcdM5fVjF8RTh78tEAW8UjTbXfFz4l
+ VmWRFwr9Ab5aQt6TIjQaqZZtTjTEj/c8puXgUDaOb4Dwb/wE5+oCjX9n8E3XSh92JiH7Nc5t14L
+ 20m2TIC4MEH0sUBfbMP0yjiHmjPbPDjVLhChpSR0CfpCqJ6rsAywpRZFxO3DVfMOS9Qw0JwCh9W
+ iQmuYyiC7W3vOTiXigckYn6uYqk2zq5zDioWeJzUXHJlXE/zEPIbVqIwsQ+oLj4VYhZg8tfzFCm
+ LNfsnyGAWG5IdvAr2yBFgZ8rgfdnH+pFF3M2TueVlK/ym8Fa1oFa7I2QkvnJS50nAfI7CcPIJ7g
+ yewxj7XQ4iuZPqz85ZdVSYx2Q///CLxkypYT/WHlf1whhXkG3F3NHeYwR27wvF8YUFFgr1BkL1G
+ YO5jQ4YCBy/FCMe162g==
+X-Authority-Analysis: v=2.4 cv=H7brBeYi c=1 sm=1 tr=0 ts=6a8caffd cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=I5xbfZNcwhnpA0U6tpEA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_06,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240173
 
-Bridge allocation API has changed and ingenic/drm was broken
-leading to
 
-[   54.997593] dw-hdmi-ingenic 10180000.hdmi: Detected HDMI \X controller v1.31a with HDCP (DWC HDMI 3D TX PHY)
-[   55.491338] dw-hdmi-ingenic 10180000.hdmi: registered DesignWare HDMI I2C bus driver
-[   55.899132] [drm] DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()
-[   55.904136] ------------[ cut here ]------------
-[   55.908753] WARNING: lib/refcount.c:25 at drm_bridge_get+0x58/0x6c [drm], CPU#0: kworker/u4:2/36
-[   55.917538] refcount_t: addition on 0; use-after-free.
-...
-[   56.354928] [<c04898b8>] drm_bridge_attach+0x80/0x208 [drm]
-...
 
-Fixes: 9347f2fbb0183b0 ("drm/bridge: add warning for bridges using neither devm_drm_bridge_alloc() nor drm_bridge_add()")
-Tested-by: Waldemar Brodkorb <wbx@openadk.org> (on CI20 with HDMI)
-Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-Cc: Waldemar Brodkorb <wbx@openadk.org>
-Cc: stable@vger.kernel.org
----
+On 8/24/26 3:56 PM, Matthew Rosato wrote:
+>>>> -        pr_warn("%s: apqn %04x: response: %02x\n", __func__, q->apqn,
+>>>> -            status.response_code);
+>>>> -        vfio_ap_irq_disable(q);
+>>>> +        pr_warn("%s: PQAP(AQIC) failed with response code %02x for
+>>>> apqn %04x\n",
+>>>> +            __func__, status.response_code, q->apqn);
+>>> LGTM, except Sashiko mentions the pr_warn here that you are updating has
+>>> a pre-existing issue.
+>>>
+>>> Since you're touching it already, do you think it makes sense to switch
+>>> to pr_warn_ratelimited with this patch?
+>> Since this is a pre-existing problem not introduced with this patch and
+>> there is
+>> likewise another related problem not introduced by this patch, I am
+>> going to
+>> post a separated series with fixes to those two related issues.
+>>
+> Isn't the change in pr_warn wording here also unnecessary/cosmetic?
+>
+> Why don't you remove the change to pr_warn from this patch and re-word
+> it at the same time you convert it to VFIO_AP_DBF_WARN -- that way you
+> avoid touching/extending the pre-existing issue with this patch.
 
-Notes:
-    v6: Sashiko found another weakness in the v5 object lifecycle repair attempt...
-        https://sashiko.dev/#/patchset/f77ed4e1547e452668a6549e3966471a6b638a6b.1787593585.git.hns@goldelico.com?part=1
-    
-    v5: fixed a potential issue with directly allocating struct drm_bridge and
-        depending on its internal structure. Solve by allocating a stable
-        driver-specific container struct ingenic_drm_bridge_alloc that embeds
-        a struct drm_bridge.
-        Also revisit and adjust object lifecycle by doing drm_bridge_add() before
-        drm_bridge_attach().
-        Suggested by Sashiko-reviews:
-        https://sashiko.dev/#/patchset/1630a544a26fac0b87187885374ebe59fc92df3b.1787575203.git.hns@goldelico.com?part=1
-    
-    v4: remove setting interlaced mode (would be new feature and not a fix)
-        as suggested by paul@crapouillou.net
-    
-    v3: fixed a malformed diff in v2
-    
-    v2: removed ib->bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT
-        as suggested by Sashiko-reviews:
-        https://sashiko.dev/#/patchset/400ba2fe0d4f76484e929d2efaa32f67a940163a.1787477392.git.hns@goldelico.com?part=1
+Sure, will do.
 
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 30 ++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-index 42c86f195c66b3..b3dc28f78f3807 100644
---- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-+++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-@@ -122,11 +122,15 @@ struct ingenic_drm {
- 
- struct ingenic_drm_bridge {
- 	struct drm_encoder encoder;
--	struct drm_bridge bridge, *next_bridge;
-+	struct drm_bridge *bridge, *next_bridge;
- 
- 	struct drm_bus_cfg bus_cfg;
- };
- 
-+struct ingenic_drm_bridge_alloc {
-+	struct drm_bridge bridge;
-+};
-+
- static inline struct ingenic_drm_bridge *
- to_ingenic_drm_bridge(struct drm_encoder *encoder)
- {
-@@ -802,7 +806,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
- 	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
- 
- 	return drm_bridge_attach(encoder, ib->next_bridge,
--				 &ib->bridge, flags);
-+				 bridge, flags);
- }
- 
- static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
-@@ -1107,6 +1111,7 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 	struct clk *parent_clk;
- 	struct drm_plane *primary;
- 	struct drm_bridge *bridge;
-+	struct ingenic_drm_bridge_alloc *bridge_alloc;
- 	struct drm_panel *panel;
- 	struct drm_connector *connector;
- 	struct drm_encoder *encoder;
-@@ -1314,10 +1319,27 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
- 
- 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
- 
--		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
-+		bridge_alloc = devm_drm_bridge_alloc(priv->dev,
-+						     struct ingenic_drm_bridge_alloc,
-+						     bridge,
-+						     &ingenic_drm_bridge_funcs);
-+		if (IS_ERR(bridge_alloc)) {
-+			ret = PTR_ERR(bridge_alloc);
-+			goto err_drvdata;
-+		}
-+
-+		ib->bridge = &bridge_alloc->bridge;
-+		ib->bridge->of_node = priv->dev->of_node;
-+
- 		ib->next_bridge = bridge;
- 
--		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
-+		ret = devm_drm_bridge_add(priv->dev, ib->bridge);
-+		if (ret) {
-+			dev_err(dev, "Failed to register DRM bridge: %d\n", ret);
-+			goto err_drvdata;
-+		}
-+
-+		ret = drm_bridge_attach(encoder, ib->bridge, NULL,
- 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret) {
- 			dev_err(dev, "Unable to attach bridge\n");
--- 
-2.55.0
 
