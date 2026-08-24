@@ -1,44 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from alln-iport-8.cisco.com (alln-iport-8.cisco.com [173.37.142.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C067F437861
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C97D43846C;
+	Mon, 24 Aug 2026 14:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.37.142.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787580364; cv=none; b=YlvRIoMd8KZH9cvVwVKooWf/4wBwbxPyCcw97WqziBHnLIcVOpKwCKIIUG982xIo6031mSIsligcUt9tAROc+Aul2X0P5x2LdHPzhSUjM6Y1RMDTC8J8IFE313k4HIqg8gbF75GSI9+CTwKYuolYdLnA0UsCShXYriIoWvJlx/U=
+	t=1787580596; cv=none; b=LeIG2vyPku8CwZhd/gfvaYR2qpq9J41LicG9SN8skJAlfVr9sLsnVUD1JMbUOH/Sva00kJQmUwnF9mcRu0zDG3JUk3xWQ2xGkJFnRP8WKp7nkZe1g6ALkoZiMFwLFrS20bOj4rIPo54ul4RgeIWYhmnVej5LdpzujVf76a+oVX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787580364; c=relaxed/simple;
-	bh=T2+FqUUkx0eVdSo71HjNeLdV9XBdqJ/UKsAUMl2AltQ=;
+	s=arc-20240116; t=1787580596; c=relaxed/simple;
+	bh=EWk4hyPG7+FOgPwNlMRsuGfg5oxxmX/Xb9vd6xeiMSk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ObeTDW0HWc/s5uiRQn3hu9q8FNxLKOWoHRgKoT4Y0Fo3IZ5j/IZiQ8rRhV5+PSNKUk/VTPUhgpxhVbiUOsflMC0QZqbqyQDLbKR9pyR1N1BJWlb8n90GoQTSCm7SiWyifuwQ1pIlfNV8hhzchc8Q5P4x0aq93YIsmb6ZqSRm5wQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+9GdSbu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HgGx+ysnGMuy/rgvRRRoAxgm6C3Mzyakr1J5LXGVZb6K7o9wm0PdPztz/4rNXKrzRvqzI+cHKT2WAP9wqDHDBelIfhrwNsHrga+inkgxZtAD2cdiw+aKnkSPnivV3LK+vuIHkSyiDNmMwwp1tyh80T11UEn3CISxxTMhHgHHztA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com; spf=pass smtp.mailfrom=cisco.com; dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b=CTvRWbFI; arc=none smtp.client-ip=173.37.142.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+9GdSbu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095361F00A3F;
-	Mon, 24 Aug 2026 14:06:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787580362;
-	bh=2NlF2o+TTq91b9gBH6KfS1QQfwC2+bhN2PKNwQbA5+E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W+9GdSbuZbcwdRFUpBIgDWEfF1IVmfxHidSkBGEInxgQ0ATmB/AZYJcmSolicfzeW
-	 d0W4z25moBfRQ+9yJI2kLv+LJWnLg02D7g3G8kVDWVb7325D+Q54mKQH+l+dsvXFNm
-	 1pbitSQ7nneZXJNyGGvBU5OjHhCQ15h1uF/U6o2ppsOQwSuAbDvIYoQPeJzUJx7LUX
-	 RzSUsp8L8xT5rY6oYs5QMaFKZvl6nOhQ3L3CxPJ6o6cZRZf0x4lSVWK9aXT66bPw+9
-	 qhEfBfETubzT+SN1AK4N6G43pozfxUXbBPYhUo55BmQBsmHTRdNaIndkHLJfnhB/iU
-	 9iXuWAmB6iOfA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ibrahim Hashimov <security@auditcode.ai>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] xfs: bounds-check buffer log item's dirty bitmap
-Date: Mon, 24 Aug 2026 10:06:00 -0400
-Message-ID: <20260824140600.3098208-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082047-moonwalk-headwear-455d@gregkh>
-References: <2026082047-moonwalk-headwear-455d@gregkh>
+	dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b="CTvRWbFI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=cisco.com; i=@cisco.com; l=771; q=dns/txt;
+  s=iport01; t=1787580594; x=1788790194;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=EWk4hyPG7+FOgPwNlMRsuGfg5oxxmX/Xb9vd6xeiMSk=;
+  b=CTvRWbFIGaubNPrCVLp+cFTlhsnlT0Zv7Mk+e5t/pCmswJgSPuMZvTnc
+   ZunkFzYtb08fkinKPCLjusz/UmgLCpiyLpGfujlyxEbxuRhGQcV4ZFvnc
+   RDuNkleDTadoJqIsO1YCDi4bEmJKs6fBdE6US5fOhRBAB9avSEAC5VL9D
+   OALOuQ4K1L7o1RyXXT4tiGfKTnTiXP/E008tgZbRNH7evlqU8xkVjsj0x
+   Zt5XIFs5EVrf+3UoUxzAKwPiBs02TjJJl7On3cT/K6Tu0Dwg7R0GXxnnq
+   2+wa98qORkhSbXZeq+djCPPO1dwdHXzFjbEX+SrSUr0oAf21AYGuwDpq3
+   A==;
+X-CSE-ConnectionGUID: Ch0jTdYOQZmVofPRK3MPUg==
+X-CSE-MsgGUID: Dj2cqU4SQLGstu02LBJnEQ==
+X-IPAS-Result: =?us-ascii?q?A0BnBAA1T4xq/4sQJK1aglmEKUOUcoIhnh6Bfg8BAQEPU?=
+ =?us-ascii?q?QQBAYUFAo1sAiY2Bw4BAgQDAgMBAQEBAQEBAQEBAQsBAQUBAQECAQcFgQ4Th?=
+ =?us-ascii?q?lyGWwIBAzIBRhALDjhWBoMVgnUDvnaCLIEB3keBchWBOI1hdhuEYScbgUlEh?=
+ =?us-ascii?q?A8xPosIBIIigQyTVUgKgRQDWSwBVRMNCgsHBYEjQwM1EioVIw88BS0dgSMhH?=
+ =?us-ascii?q?RcXdhsGBRIgKkFEFQ4DPoEZQQKBdT8jGTZ8gQlegSspYAECEBdGLhWCBwKCW?=
+ =?us-ascii?q?oEnXgIBSUMOB0ciCxgNSBEsNxQZBD5uB5FBBgExSlaBAStvllywI4QooVwaM?=
+ =?us-ascii?q?5dfkw2ZCKlDgW4BNYFZMxoIGxWDI1IZD45fz19FbwEBBwIHDgMLgWiRfgEB?=
+IronPort-Data: A9a23:W4a3yaNwgCZaqh7vrR1vl8FynXyQoLVcMsEvi/4bfWQNrUoqgzZVy
+ zdOD2GGa/ffYWqgf493bY63ph9Q7JCHz9JkSXM5pCpnJ55oRWUpJjg4wmPYZX76whjrFRo/h
+ ykmQoCeaphyFTmE+kvF3oHJ9RFUzbuPSqf3FNnKMyVwQR4MYCo6gHqPocZh6mJTqYb/WV7lV
+ e/a+ZWFZgf1gWIsawr41orawP9RlKWq0N8nlgRWicBj5Df2i3QTBZQDEqC9R1OQapVUBOOzW
+ 9HYx7i/+G7Dlz91Yj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnBaPpIACRYpQRw/ZwNlMDxG4
+ I4lWZSYEW/FN0BX8QgXe0Ew/ypWZcWq9FJbSJSymZT78qHIT5fj695uVEMKMbw/w9RyP2ZAz
+ cY7cxU1Ux/W0opawJrjIgVtrs0nKM+uOMYUvWttiGmDS/0nWpvEBa7N4Le03h9p2ZsIRqiYP
+ pRfMGE+BPjDS0Un1lM/Co45mOOlmlH0ciZTrxSeoq9fD237nFUhj+C9boeIEjCMbelXxE2Bm
+ z79xkDWGQ0HbIa74xiD30v504cjmgu+Aur+DoaQ+vd0jVi7ymUNBRgSUlWn5/+0liaWQN5RA
+ 0IT/yslraUsskmmJvH/WB2+5nCNpQIVUddWH8U17QiMzuzf5APxLmUIUztIetE6nMAxQjMu2
+ xmCmNaBLTBmtryYTVqc8biZpCm4PjhTK2IeDQcNVhct4NT5pow3yBXVQb5LEKeqjfX2FCv2z
+ jTMqzIx750QkMQC/6a251bKh3SrvJehZgcz6h/aQSGj4x91aZCNY5Gu7x7Q7Z5oIJqQUkSFs
+ XEsndaf4OEHS5qKkUSlROgKGquuz/CbMTHdiBhkGJxJ3zGn/3mofahW/jByJU4vOcEBERfya
+ ULetQZ54oFSMHqjK6RwZuqZF80wzLH8PdL7V/zVZ5xFZZ0ZXBeO9ixoZGaK0mztmVRqmqY6U
+ b+RaciEE3kXE+JkwSCwSuNb1qUkrgg6xGXOVdX4wg6h3L62enGYU/EGPUGIY+R/67mLyC3R8
+ tBCJ46QxxBWePPxbzOR8oMJK10Oa38hCvjercFLeuOdChRpFXtnCPLLx74lPYt/kMx9jfvB9
+ HWwclFXxUC5hnDdLwiOLHd5Z9vSsY1XpHY/O2koeF2vwXVmOdzp56YEfJxxdr4inAB+8cNJo
+ zA+U53oKpxypv7volzxsbGVQFReSSmW
+IronPort-HdrOrdr: A9a23:7hitjKumPSL4Rgy0f8kWD2rZ7skDVtV00zEX/kB9WHVpmwKj+/
+ xG+85rsSMc5wx+ZJhNo7q90ey7MBDhHP1OkOws1NWZPTUO0VHAROpfBMnZsl/d8kbFmdK1u5
+ 0MT0EHMr3NJGk/q9rm6w+lFNtl6tyG/Ke0wdr69R5WPGZXg2UK1XYBNu5deXcGIjV7OQ==
+X-Talos-CUID: =?us-ascii?q?9a23=3Azh53mmiI/0HrjrqmMJZp2NW90zJuWX2FzkvcEmi?=
+ =?us-ascii?q?BO2NXT7Otc3zL3ZtZnJ87?=
+X-Talos-MUID: =?us-ascii?q?9a23=3AaPAE6g2mWk1KVrU7mZaQmuEiaTUjz6b0A1kwza4?=
+ =?us-ascii?q?/n+afKTEoYRO3rjKae9py?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.25,240,1779148800"; 
+   d="scan'208";a="818708655"
+Received: from alln-l-core-02.cisco.com ([173.36.16.139])
+  by alln-iport-8.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 24 Aug 2026 14:09:46 +0000
+Received: from localhost (unknown [10.228.224.45])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by alln-l-core-02.cisco.com (Postfix) with ESMTPS id B3FF51800015B;
+	Mon, 24 Aug 2026 14:09:45 +0000 (GMT)
+From: Jerome Tollet <jtollet@cisco.com>
+To: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: Jerome Tollet <jtollet@cisco.com>,
+	netdev@vger.kernel.org,
+	saeedm@nvidia.com,
+	tariqt@nvidia.com,
+	mbloch@nvidia.com,
+	leonro@nvidia.com,
+	daniel@iogearbox.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	ast@kernel.org,
+	hawk@kernel.org,
+	john.fastabend@gmail.com,
+	sdf@fomichev.me,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3 2/2] net/mlx5e: Prevent stale XSK buffer release on MPWQE refill retry
+Date: Mon, 24 Aug 2026 16:09:43 +0200
+Message-ID: <20260824140943.20665-1-jtollet@cisco.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <b4abc8e4-aa9e-4e92-97b8-c6a661014c16@nvidia.com>
+References: <20260820151558.11015-1-jtollet@cisco.com> <cover.1787347981.git.jtollet@cisco.com> <675ce8a404cfe305e788a8e273b4091c9a90f867.1787347981.git.jtollet@cisco.com> <b4abc8e4-aa9e-4e92-97b8-c6a661014c16@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,166 +109,27 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Outbound-Client-TLS: ANONYMOUS;unknown [10.228.224.45];TLSv1.3;TLS_AES_256_GCM_SHA384;256
+X-Outbound-SMTP-Client: 10.228.224.45, [10.228.224.45]
+X-Outbound-Node: alln-l-core-02.cisco.com
 
-From: Ibrahim Hashimov <security@auditcode.ai>
+Hi Dragos,
 
-[ Upstream commit 813f8136a2ce1fee266d02a7df73db6e8a541604 ]
+Agreed, thanks. I changed the patch to set all skip_release_bitmap bits in
+the common error path of mlx5e_xsk_alloc_rx_mpwqe(), consistently with
+mlx5e_alloc_rx_mpwqe().
 
-xlog_recover_do_reg_buffer() replays each dirty region described by a
-buffer log item's bitmap into the buffer read for that item:
+I tested both early and partial allocation failures. With three consecutive
+failures on the same MPWQE, the original 16 XSK buffers were released only
+once. Retries observed a full bitmap, and a later successful allocation
+cleared it. The partial case allocated 8 of 16 replacement buffers before
+unwinding.
 
-	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
-		item->ri_buf[i].iov_base,
-		nbits << XFS_BLF_SHIFT);
+I also ran a 20-second AF_XDP zero-copy striding-RQ pressure test with the
+clean patch. It exercised 1,575,262 XSK buffer allocation failures and
+reported no invalid descriptors, WQE errors, or kernel warnings.
 
-The destination offset (bit/nbits, from the logged dirty bitmap) and the
-buffer size (from the logged blf_len) are both attacker-controlled and
-otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
-which compiles away on production kernels. A crafted image logging a
-small blf_len together with a bitmap bit past the end of that buffer
-drives the memcpy() past the buffer's allocation, corrupting adjacent
-kernel heap during mount-time log recovery. This is reachable by anyone
-who can get a crafted image mounted -- the malicious-filesystem threat
-model XFS already guards against elsewhere.
+I'll send v4 with this change.
 
-Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
-of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
-idiom already used in xlog_recover_do_inode_buffer() and
-xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
-STATIC int and its three callers propagate the error.
-
-Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
-image trips a slab-out-of-bounds write before this change and fails
-recovery cleanly with -EFSCORRUPTED after it.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Brian Foster <bfoster@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/xfs/xfs_buf_item_recover.c | 53 +++++++++++++++++++++++++----------
- 1 file changed, 38 insertions(+), 15 deletions(-)
-
-diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-index a053b0bf79308..eddef2f994678 100644
---- a/fs/xfs/xfs_buf_item_recover.c
-+++ b/fs/xfs/xfs_buf_item_recover.c
-@@ -432,7 +432,7 @@ xlog_recover_validate_buf_type(
-  * given buffer.  The bitmap in the buf log format structure indicates
-  * where to place the logged data.
-  */
--STATIC void
-+STATIC int
- xlog_recover_do_reg_buffer(
- 	struct xfs_mount		*mp,
- 	struct xlog_recover_item	*item,
-@@ -460,8 +460,24 @@ xlog_recover_do_reg_buffer(
- 		ASSERT(nbits > 0);
- 		ASSERT(item->ri_buf[i].i_addr != NULL);
- 		ASSERT(item->ri_buf[i].i_len % XFS_BLF_CHUNK == 0);
--		ASSERT(BBTOB(bp->b_length) >=
--		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
-+		/*
-+		 * The bitmap is only trustworthy to the extent that it
-+		 * describes a region that actually fits inside the buffer we
-+		 * read in based on the (attacker-controlled) blf_len.  Do not
-+		 * rely on an ASSERT() for this -- it compiles away entirely on
-+		 * non-DEBUG kernels, which is exactly where this matters, so
-+		 * validate it for real and abort recovery of this buffer rather
-+		 * than copying past the end of it.
-+		 */
-+		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
-+				((uint)bit << XFS_BLF_SHIFT) +
-+				(nbits << XFS_BLF_SHIFT))) {
-+			xfs_alert(mp,
-+	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
-+				bit, nbits, BBTOB(bp->b_length),
-+				bp->b_bn);
-+			return -EFSCORRUPTED;
-+		}
- 
- 		/*
- 		 * The dirty regions logged in the buffer, even though
-@@ -515,6 +531,7 @@ xlog_recover_do_reg_buffer(
- 	ASSERT(i == item->ri_total);
- 
- 	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
-+	return 0;
- }
- 
- /*
-@@ -523,10 +540,10 @@ xlog_recover_do_reg_buffer(
-  * (ie. USR or GRP), then just toss this buffer away; don't recover it.
-  * Else, treat it as a regular buffer and do recovery.
-  *
-- * Return false if the buffer was tossed and true if we recovered the buffer to
-- * indicate to the caller if the buffer needs writing.
-+ * Return 0 if the buffer was not recovered (tossed), 1 if it was recovered and
-+ * needs writing, or a negative errno if recovery of the buffer failed.
-  */
--STATIC bool
-+STATIC int
- xlog_recover_do_dquot_buffer(
- 	struct xfs_mount		*mp,
- 	struct xlog			*log,
-@@ -535,6 +552,7 @@ xlog_recover_do_dquot_buffer(
- 	struct xfs_buf_log_format	*buf_f)
- {
- 	uint			type;
-+	int			error;
- 
- 	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
- 
-@@ -542,7 +560,7 @@ xlog_recover_do_dquot_buffer(
- 	 * Filesystems are required to send in quota flags at mount time.
- 	 */
- 	if (!mp->m_qflags)
--		return false;
-+		return 0;
- 
- 	type = 0;
- 	if (buf_f->blf_flags & XFS_BLF_UDQUOT_BUF)
-@@ -555,10 +573,12 @@ xlog_recover_do_dquot_buffer(
- 	 * This type of quotas was turned off, so ignore this buffer
- 	 */
- 	if (log->l_quotaoffs_flag & type)
--		return false;
-+		return 0;
- 
--	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
--	return true;
-+	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
-+	if (error)
-+		return error;
-+	return 1;
- }
- 
- /*
-@@ -943,13 +963,16 @@ xlog_recover_buf_commit_pass2(
- 			goto out_release;
- 	} else if (buf_f->blf_flags &
- 		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
--		bool	dirty;
--
--		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
--		if (!dirty)
-+		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
-+		if (error <= 0)
- 			goto out_release;
-+		/* write dirty buffer */
-+		error = 0;
- 	} else {
--		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
-+		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
-+						   current_lsn);
-+		if (error)
-+			goto out_release;
- 	}
- 
- 	/*
--- 
-2.53.0
-
+Thanks,
+Jerome
