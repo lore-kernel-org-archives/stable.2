@@ -1,337 +1,169 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5802D4137BC
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 11:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787572772; cv=pass; b=DdOA4wsOlS+b3AHYSn0wdEq3Lr+07AXBo3J5XG1RNJQh2yJChOiPBu5ea3bABoTZwnZ/sMlNvV94C3R4/bH4XLKJsiFat6z9ZyvpkZjwC11rGEeNIBrmQgL+RoXUMzXLuvwFLC+t/jOVmlKgL29RQwQ+9gtH+7Kfzoz74hV80Qw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787572772; c=relaxed/simple;
-	bh=n8XaB57aaEQ6dDjJctc+o5dgV+QNULbMJaGUIBH9NIs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PmIx3wvhWnkmNRCaXb5oj9a9uVBsiqeAqag2YpjSVV1Z3+d1lI/UcbF+/WBxV6YBP+eC3+Dd12WLUGGNesFYdlcHnIYatskEymHqir7CaEkxdjVvQ9NuJ52fxkx7RtZR/eDmt3RTdsC/NmRnoZ0xG4gpxcUpLSqojU3IzGsGjfU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BZ5AmSUk; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07108411A17;
+	Mon, 24 Aug 2026 11:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787572801; cv=none; b=RnTjqv0m7RFGEb1d/kxBP9qv+Vy4S+sQ2nzZ4K3TzmkbpsCcCKfYJgIWXRnZZ+Tu1avk5NROWsNft0SxsDt+zwITVomkJepJXfvDyc5CiTzlG1MGJQTIPKbEtrd7Q3NkgvJY8+A4/O1jxq2E/4lZcvYoZKDGIEgLvHnpuzlzIvU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787572801; c=relaxed/simple;
+	bh=2usbdkss54KNYExpP+scOyPTXsgm7rxDjwMzP29O+S8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fG+YofFMDClskqtHfc5X6S1YZ+XyOBpwAXDcgsxyREjBHGBXQRC5FQ2Q+TCPucrJnze7eu0xbmydWt1C+MYEwwMglt404InazD6C+Ic9Zj1wUhWYN6IoaSt3wBEaOFThcLq82eX0MfDeeYMBV/HsEPpLOYW3eGf0ebP/9I4H1Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DV8XUbma; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BZ5AmSUk"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a18af264f9so703058a12.0
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 04:59:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787572768; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HGH7Bu3d40w1xgstf4aZxJD3CZPR6bav7aAhxmPVQwzw4Yb+RlW04WXvmcIjDrJCCY
-         q5VIkG3kiJRtgb6C8TKbVHsy0jrfPvcGne397t/9XAxhrJ7uXNgn0OwNbIhCuzWy5sdr
-         AqVB+Ek4V40hWCz+is6P1Nh4D+XBLLmzpUnAuBHHPLyZVE5CmnydAE/3EoK6drk4sJe4
-         X9Q04k1USOxnxGzuBxYKxEqxXx9On1eJmecHfx/V00B2RFIK/8/VbTWlWQ8B53RLI7Z5
-         L1BK+wVVji/fggQiZKuM3/JWzzsNI1KP9RT0vJgT128m7TPezNL30srageP2dfxguFUb
-         MiJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VaSBoohYncBwZi2t/vY0TkG12zTaDc0RNLikLupkjjM=;
-        fh=w9InHTbxyLzMngDFna9SAEwcIQG69wrCg/6rq23LPTo=;
-        b=QSMP4HiRpbVAH0metauolRh6vd/MOjmEGvxCcetKnM/o/q9fvCgg/osEeuYl+tXpoL
-         hKIIpCEH10Zv11GbFcQVcHhOFzcTMzg2A2j9UyFktIrtFeab1ge54ME702jm/LSsywsm
-         ktrsV35LJSLvd8GttLgeqh3wlRWO4O91GOqU/DOT71sGuj6wqdHqfyDUX/SoW+JLv1iq
-         BLg33/B7trNfZc/UNrqgnEe6NoQFayvidWhRfSlAKngBtv8VEg15U6l2CZr6PxC2fzfX
-         km2ZD+ZiaRqzsO4ixP9yADaTBGCMEGLt6VXrvt/xxBo66Ub6aS77L2MtiNitLufRj9MW
-         Uk1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787572768; x=1788177568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VaSBoohYncBwZi2t/vY0TkG12zTaDc0RNLikLupkjjM=;
-        b=BZ5AmSUkJ5yxV+may0ef+2QrEFR1pBQPe1a1dbhYaZhFnkjIE3Phw03LLmUR6xdICc
-         sKb79QaFuVITaHXQd0Nyg5bgwN3lMap7sZcpqcD8Jx48jO2bVZz1j7KIPeWap/a+aLYQ
-         P1aBZ6zAnN9MOG9sbMGoriFU8q4VbYNVPx4qRdAtsTWG7UIJnEQzWxM6nqx0JJ4MdhwM
-         9Xwgf1HhE0HAtAzLn9T0y5QmSIyZl9BRXotqSV5LKxDkK0qcA7E4JSi4StrAHWJ32C5h
-         uXjSZ8XqNp9YRWHKGhJh+yE6NJhsBk2T68E8EBR6gLXgSE/6RqY3NP/BkjX9yOI9gN6g
-         FNcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787572768; x=1788177568;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VaSBoohYncBwZi2t/vY0TkG12zTaDc0RNLikLupkjjM=;
-        b=X+uVEdpesRkJHS6RyMy4tGofblJdbRcXCTXexmk1F0MovXpq/6IX3p4IqN7t/PKKp9
-         Azl6H0kj9u6spaYL0ooHI9yvi8O4JmL5RdcfieF2o5wes27i1cIhUbr+ZRBuMkIbIFfR
-         KcXnSDezKVe5DuhrsF+ZDfGRYvtSqe8b0caYCuXj8xbxRWb9nvozPMy2ptChQGPfvlYo
-         z2MQzNMe8t/0lCMr/uhqLfW/Vx6sqtxMFrBev3uJRfDMVfy/RThSkzrKSYt7a0XQjVo/
-         ZgYiGpwNMfvyUwjhYoLUqAnjrrPHLhrQR7jp4rBHF5lAm6/8a0kTPdqXMWp2wrto3gE7
-         eiLw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro1FgHXxUVDZB+4fid5eGKFBoXQiNUWcn7yIeBigUIwHOmHR43GBgXzgcuJAFq/oiqOEd3UgHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldPi23Rc/haO/ovIxqgBRjTxZqLLYSb4DBp8msXJ1MMfcUbC+2
-	ANUeK/97fzwNJr6soJXEDdK320CHeFeMpfAdD5To3j6GJtkTWXNEkRmE13Bez4x2HX2JC0FPRRn
-	3bsP7VcWNLAjuoF0vYV5HALzWAJiT7Y8=
-X-Gm-Gg: AR+sD12wBwhVJogyMZQggxhnfJrehEIZyWVetP39HW+MOo38uG7zqNjD4l0vMibPPl5
-	E6p6YUbGDYFhfsJie4CfEv5Go1WwDiICaWvsdF769iaIG+qSFQNPq3wHf2L0BiuLTW+c2TCvGEq
-	OJHj9fo5CSaajrRF7eleP+MV4n+AUHe57Dj0ymmYUcqoD/q26arqs3o7PxQGsaSocLK7RpsaQbh
-	U/ndhvGAsmDnmKxjKRDPLy2agfEhXNF4Bs6WKoh1ZB6qdUxn5aMAT1wEDEQllHFEql4Pz+GSA2W
-	pGetCMRWz4AFA8eB9WHQq/y6zp0u3Bnbd45BoljlGnbuWThaATFiv1xiwKkQEHLNNpGZuFv3bg=
-	=
-X-Received: by 2002:a05:6402:5d0:b0:6a1:d68:338a with SMTP id
- 4fb4d7f45d1cf-6a42eeaf432mr15119654a12.0.1787572767546; Mon, 24 Aug 2026
- 04:59:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DV8XUbma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3691D1F000E9;
+	Mon, 24 Aug 2026 11:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787572799;
+	bh=rTuYvF3Mu7p31xlyX3il8puWDUAl1lur7TZTZMOinSw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DV8XUbmaKUGJZhyQ1aHYwN/aGyQChNpP/e/L2YUvyE4Qt2E6lWjS7DsjwkPQCtXPu
+	 11Dgzi+rcPEI2V8DfmdRO+2hM6TZmmOOOCZW+MtGDSp/Iw5jx/tyEPab/lS3768PXt
+	 +coJPLqdOA25xoeeLV6zmReX18s1vkXtEyAPQLCTUCl82xr1GdOrVHx073h1aGx3rH
+	 IyBrhiIRf77corKNQlykvoVSUJd8TtjLwOLjVZxf4TKijbBl/XOCDUPTu1okWd+VlW
+	 NhdOqmSULDHu45jlzUp2eCPONjeTRfoA19bjWYycWlWQp21DAEhUrl4VDPmqbmBmXe
+	 zT8NEIkG46Rqg==
+Message-ID: <8001afe8-84e4-43d4-971b-b23f72070339@kernel.org>
+Date: Mon, 24 Aug 2026 13:59:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824115829.205118-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260824115829.205118-1-nicoyip.dev@gmail.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Mon, 24 Aug 2026 19:59:16 +0800
-X-Gm-Features: AcwNN1WTzhohN6-hUdDub7gQv1MygGWzS4zJTIG38EfpsCoxvH0teMV9z17ZSPU
-Message-ID: <CAAo+4rUzuEZAPOBj06+Djo6WnhFOv2UJz7Rj=nrLzpNsR=RD+g@mail.gmail.com>
-Subject: Re: [PATCH] netfilter: flowtable: flush delete work after final GC
-To: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Paul Blakey <paulb@mellanox.com>
-Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] mm: khugepaged: fix folio is used after
+ folio_put/unlock()
+To: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
+ ljs@kernel.org
+Cc: nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+ zokeefe@google.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>
+References: <20260824092935.73892-1-vernon2gm@gmail.com>
+ <20260824092935.73892-4-vernon2gm@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260824092935.73892-4-vernon2gm@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 24, 2026 at 7:58=E2=80=AFPM Chengfeng Ye <nicoyip.dev@gmail.com=
-> wrote:
->
-> nf_flow_table_offload_flush_cleanup() drains delete work before its final
-> garbage-collection pass. That pass can itself queue more delete work.
->
-> During teardown, one possible interleaving is:
->
->   teardown worker                         delete worker
->   first GC: work allocation fails
->     leave flow retryable
->   drain delete workqueue
->   final GC: allocation succeeds
->     queue FLOW_CLS_DESTROY work
->   destroy rhashtable
->   free flowtable
->                                           read flowtable->net
->
-> nf_flow_table_offload_flush_cleanup() flushes only the delete work that
-> was queued before the final GC. NF_FLOW_HW_DYING is set only after
-> successful work allocation, so a GFP_ATOMIC allocation failure during the
-> first GC leaves the entry eligible for retry. If that retry later succeed=
-s
-> in the final GC, it queues new destroy work after the earlier flush, and
-> that work can retain a stale flowtable pointer past the free.
->
-> This was reproducible with failslab forcing the initial GFP_ATOMIC
-> allocation failure, and KASAN reported:
->
->   BUG: KASAN: slab-use-after-free in flow_offload_work_handler+0xbe8/0xe3=
-0
->   Read of size 8 at addr ffff888109c9fd98 by task kworker/u16:3/397
->   Workqueue: nf_ft_offload_del flow_offload_work_handler
->   Call Trace:
->    print_report+0xd0/0x630
->    kasan_report+0xce/0x100
->    flow_offload_work_handler+0xbe8/0xe30
->    process_one_work+0x63a/0x1070
->    worker_thread+0x45b/0xd10
->    kthread+0x2c6/0x3b0
->    ret_from_fork+0x36e/0x5a0
->   Allocated by task 87:
->    nf_tables_newflowtable+0x5d0/0x22f0
->    nfnetlink_rcv_batch+0x1396/0x1d00
->    netlink_unicast+0x5f5/0x860
->    netlink_sendmsg+0x70a/0xba0
->   Freed by task 11:
->    kfree+0x131/0x3c0
->    nf_tables_trans_destroy_work+0xb26/0xeb0
->    process_one_work+0x63a/0x1070
->    worker_thread+0x45b/0xd10
->   Last potentially related work creation:
->    __queue_work+0x68e/0x1030
->    flow_offload_del+0x74c/0xad0
->    nf_flow_offload_gc_step+0x264/0x8e0
->    nf_flow_table_gc_run+0xcd/0x150
->    nf_flow_table_offload_flush_cleanup+0x5c/0x70
->    nf_flow_table_free+0x280/0x350
->    nf_tables_flowtable_destroy+0x71/0x270
->
-> Flush the delete workqueue again after the final GC. This keeps every
-> successfully queued destroy operation within the flowtable lifetime.
->
-> Fixes: c921ffe85333 ("netfilter: flowtable: Fix flushing of offloaded flo=
-ws on free")
+On 8/24/26 11:29, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+> 
+> On the rollback path, folio_put() has already dropped the last reference
+> of new_folio. On the success path, new_folio is already unlocked and can
+> be freed concurrently. The trace_mm_khugepaged_collapse_file() is left
+> with a dangling folio pointer.
+> 
+> So using the folio_pfn() before dropping the reference, closing
+> use-after-free window.
+> 
+> Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 > ---
->  net/netfilter/nf_flow_table_offload.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flo=
-w_table_offload.c
-> index 801a3dd9ceea..0fd09554b9ce 100644
-> --- a/net/netfilter/nf_flow_table_offload.c
-> +++ b/net/netfilter/nf_flow_table_offload.c
-> @@ -1167,6 +1167,7 @@ void nf_flow_table_offload_flush_cleanup(struct nf_=
-flowtable *flowtable)
->         if (nf_flowtable_hw_offload(flowtable)) {
->                 flush_workqueue(nf_flow_offload_del_wq);
->                 nf_flow_table_gc_run(flowtable);
-> +               flush_workqueue(nf_flow_offload_del_wq);
->         }
->  }
->
-> --
-> 2.43.0
->
+>  include/trace/events/huge_memory.h | 6 +++---
+>  mm/khugepaged.c                    | 5 ++++-
+>  2 files changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+> index fa828967e1fb..5fb4d92cfd84 100644
+> --- a/include/trace/events/huge_memory.h
+> +++ b/include/trace/events/huge_memory.h
+> @@ -211,10 +211,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+>  );
+>  
+>  TRACE_EVENT(mm_khugepaged_collapse_file,
+> -	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
+> +	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
+>  			unsigned long addr, bool is_shmem, struct file *file,
+>  			int nr, int result),
+> -	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
+> +	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
+>  	TP_STRUCT__entry(
+>  		__field(struct mm_struct *, mm)
+>  		__field(unsigned long, hpfn)
+> @@ -228,7 +228,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
+>  
+>  	TP_fast_assign(
+>  		__entry->mm = mm;
+> -		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
+> +		__entry->hpfn = new_pfn;
+>  		__entry->index = index;
+>  		__entry->addr = addr;
+>  		__entry->is_shmem = is_shmem;
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 4e0fca5942dd..24347f1a94ae 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -2254,6 +2254,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>  	struct address_space *mapping = file->f_mapping;
+>  	struct page *dst;
+>  	struct folio *folio, *tmp, *new_folio;
+> +	unsigned long new_pfn = -1;
+>  	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
+>  	LIST_HEAD(pagelist);
+>  	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+> @@ -2633,6 +2634,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>  	retract_page_tables(mapping, start);
+>  	if (cc && !cc->is_khugepaged)
+>  		result = SCAN_PTE_MAPPED_HUGEPAGE;
+> +	new_pfn = folio_pfn(new_folio);
 
-Here is the full KASAN report:
+Why not set new_pfn once after successful alloc_charge_folio()?
 
-[    9.294240] BUG: KASAN: slab-use-after-free in
-flow_offload_work_handler+0xbe8/0xe30
-[    9.294696] Read of size 8 at addr ffff888109c9fd98 by task kworker/u16:=
-3/397
-[    9.295085]
-[    9.295185] CPU: 1 UID: 0 PID: 397 Comm: kworker/u16:3 Not tainted
-7.1.0-rc1-00124-g3c4c99630206-dirty #133 PREEMPT(lazy)
-[    9.295189] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX,
-arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    9.295191] Workqueue: nf_ft_offload_del flow_offload_work_handler
-[    9.295197] Call Trace:
-[    9.295200]  <TASK>
-[    9.295202]  dump_stack_lvl+0x53/0x70
-[    9.295223]  print_report+0xd0/0x630
-[    9.295239]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[    9.295245]  ? irqentry_exit+0xcb/0x560
-[    9.295247]  ? flow_offload_work_handler+0xbe8/0xe30
-[    9.295249]  kasan_report+0xce/0x100
-[    9.295251]  ? flow_offload_work_handler+0xbe8/0xe30
-[    9.295254]  flow_offload_work_handler+0xbe8/0xe30
-[    9.295256]  ? __pfx_pick_next_task_fair+0x10/0x10
-[    9.295271]  ? __pfx_flow_offload_work_handler+0x10/0x10
-[    9.295274]  ? finish_task_switch.isra.0+0x1e2/0x9c0
-[    9.295280]  ? __schedule+0x1693/0x4250
-[    9.295282]  process_one_work+0x63a/0x1070
-[    9.295289]  ? __pfx_flow_offload_work_handler+0x10/0x10
-[    9.295291]  ? assign_work+0x11d/0x370
-[    9.295293]  worker_thread+0x45b/0xd10
-[    9.295295]  ? __pfx_worker_thread+0x10/0x10
-[    9.295297]  ? __pfx_worker_thread+0x10/0x10
-[    9.295299]  kthread+0x2c6/0x3b0
-[    9.295302]  ? recalc_sigpending+0x15c/0x1e0
-[    9.295308]  ? __pfx_kthread+0x10/0x10
-[    9.295310]  ret_from_fork+0x36e/0x5a0
-[    9.295319]  ? __pfx_ret_from_fork+0x10/0x10
-[    9.295320]  ? __switch_to+0x572/0xde0
-[    9.295326]  ? __pfx_kthread+0x10/0x10
-[    9.295329]  ret_from_fork_asm+0x1a/0x30
-[    9.295336]  </TASK>
-[    9.295337]
-[    9.303596] Allocated by task 87:
-[    9.303789]  kasan_save_stack+0x33/0x60
-[    9.304010]  kasan_save_track+0x14/0x30
-[    9.304226]  __kasan_kmalloc+0x8f/0xa0
-[    9.304440]  nf_tables_newflowtable+0x5d0/0x22f0
-[    9.304702]  nfnetlink_rcv_batch+0x1396/0x1d00
-[    9.304954]  nfnetlink_rcv+0x2dd/0x360
-[    9.305165]  netlink_unicast+0x5f5/0x860
-[    9.305392]  netlink_sendmsg+0x70a/0xba0
-[    9.305613]  ____sys_sendmsg+0x77a/0x900
-[    9.305840]  ___sys_sendmsg+0xff/0x180
-[    9.306052]  __sys_sendmsg+0x11f/0x1b0
-[    9.306265]  do_syscall_64+0xf9/0x540
-[    9.306476]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[    9.306756]
-[    9.306850] Freed by task 11:
-[    9.307021]  kasan_save_stack+0x33/0x60
-[    9.307237]  kasan_save_track+0x14/0x30
-[    9.307455]  kasan_save_free_info+0x3b/0x60
-[    9.307689]  __kasan_slab_free+0x43/0x70
-[    9.307909]  kfree+0x131/0x3c0
-[    9.308087]  nf_tables_trans_destroy_work+0xb26/0xeb0
-[    9.308368]  process_one_work+0x63a/0x1070
-[    9.308598]  worker_thread+0x45b/0xd10
-[    9.308809]  kthread+0x2c6/0x3b0
-[    9.308993]  ret_from_fork+0x36e/0x5a0
-[    9.309205]  ret_from_fork_asm+0x1a/0x30
-[    9.309426]
-[    9.309521] Last potentially related work creation:
-[    9.309791]  kasan_save_stack+0x33/0x60
-[    9.310007]  kasan_record_aux_stack+0x8c/0xa0
-[    9.310251]  __queue_work+0x68e/0x1030
-[    9.310465]  queue_work_on+0x5d/0x70
-[    9.310671]  flow_offload_del+0x74c/0xad0
-[    9.310895]  nf_flow_offload_gc_step+0x264/0x8e0
-[    9.311152]  nf_flow_table_gc_run+0xcd/0x150
-[    9.311394]  nf_flow_table_offload_flush_cleanup+0x5c/0x70
-[    9.311695]  nf_flow_table_free+0x280/0x350
-[    9.311928]  nf_tables_flowtable_destroy+0x71/0x270
-[    9.312198]  nf_tables_trans_destroy_work+0xb26/0xeb0
-[    9.312478]  process_one_work+0x63a/0x1070
-[    9.312706]  worker_thread+0x45b/0xd10
-[    9.312917]  kthread+0x2c6/0x3b0
-[    9.313101]  ret_from_fork+0x36e/0x5a0
-[    9.313311]  ret_from_fork_asm+0x1a/0x30
-[    9.313533]
-[    9.313627] Second to last potentially related work creation:
-[    9.313941]  kasan_save_stack+0x33/0x60
-[    9.314157]  kasan_record_aux_stack+0x8c/0xa0
-[    9.314403]  __queue_work+0x68e/0x1030
-[    9.314614]  queue_work_on+0x5d/0x70
-[    9.314816]  flow_offload_del+0x74c/0xad0
-[    9.315040]  nf_flow_offload_gc_step+0x264/0x8e0
-[    9.315297]  nf_flow_table_gc_run+0xcd/0x150
-[    9.315538]  nf_flow_table_offload_flush_cleanup+0x5c/0x70
-[    9.315840]  nf_flow_table_free+0x280/0x350
-[    9.316074]  nf_tables_flowtable_destroy+0x71/0x270
-[    9.316348]  nf_tables_trans_destroy_work+0xb26/0xeb0
-[    9.316627]  process_one_work+0x63a/0x1070
-[    9.316856]  worker_thread+0x45b/0xd10
-[    9.317067]  kthread+0x2c6/0x3b0
-[    9.317252]  ret_from_fork+0x36e/0x5a0
-[    9.317464]  ret_from_fork_asm+0x1a/0x30
-[    9.317684]
-[    9.317777] The buggy address belongs to the object at ffff888109c9fc00
-[    9.317777]  which belongs to the cache kmalloc-rnd-10-512 of size 512
-[    9.318479] The buggy address is located 408 bytes inside of
-[    9.318479]  freed 512-byte region [ffff888109c9fc00, ffff888109c9fe00)
-[    9.319132]
-[    9.319225] The buggy address belongs to the physical page:
-[    9.319532] page: refcount:0 mapcount:0 mapping:0000000000000000
-index:0x0 pfn:0x109c9c
-[    9.319966] head: order:2 mapcount:0 entire_mapcount:0
-nr_pages_mapped:0 pincount:0
-[    9.320382] flags: 0x200000000000040(head|node=3D0|zone=3D2)
-[    9.320675] page_type: f5(slab)
-[    9.320856] raw: 0200000000000040 ffff8881000532c0 dead000000000100
-dead000000000122
-[    9.321275] raw: 0000000000000000 0000000000100010 00000000f5000000
-0000000000000000
-[    9.321698] head: 0200000000000040 ffff8881000532c0
-dead000000000100 dead000000000122
-[    9.322121] head: 0000000000000000 0000000000100010
-00000000f5000000 0000000000000000
-[    9.322546] head: 0200000000000002 ffffffffffffff01
-00000000ffffffff 00000000ffffffff
-[    9.322969] head: 0000000000000000 0000000000000000
-00000000ffffffff 0000000000000000
-[    9.323392] page dumped because: kasan: bad access detected
-[    9.323697]
-[    9.323790] Memory state around the buggy address:
-[    9.324056]  ffff888109c9fc80: fb fb fb fb fb fb fb fb fb fb fb fb
-fb fb fb fb
-[    9.324451]  ffff888109c9fd00: fb fb fb fb fb fb fb fb fb fb fb fb
-fb fb fb fb
-[    9.324842] >ffff888109c9fd80: fb fb fb fb fb fb fb fb fb fb fb fb
-fb fb fb fb
-[    9.325234]                             ^
-[    9.325459]  ffff888109c9fe00: fc fc fc fc fc fc fc fc fc fc fc fc
-fc fc fc fc
-[    9.325851]  ffff888109c9fe80: fc fc fc fc fc fc fc fc fc fc fc fc
-fc fc fc fc
-[    9.326243] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+
+
+-- 
+Cheers,
+
+David
