@@ -1,201 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23411419314
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515BA415F24
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574466; cv=none; b=RMu74oZDZaJyG7YlMSE+VPSQmb9YC/xuWKhm1pnSo5ZeEYU4vUZZ6DLPbcvFSIdr1peARIsdOa2Ey1MGTLsDj2iABsr9AXDfLyHSvAsc55RNvK1d2eCAdLpJy3nDAd7QJMTRW7I6mea3Dx8LgmhL95fkycTy4g+2231OiIFjv0c=
+	t=1787574468; cv=none; b=PZLAzDZGXJogiRIPZ+6Phs2ExqabhgM0eHkLPhqDaB9fjsPA3wHiP3Mg9VRH+XSCNDKvh+elBH9HBuIuxtsH8hG1qy4pCyPGwKANxlg9g3VL2jygfMHLFCuqyZeSoxagQR9kq1s24IBtJPC/Prr5YMhl908LOusqiQyjEKDlPtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574466; c=relaxed/simple;
-	bh=7zx9neKdM/4X8LOJFmPlImLlZNJ6K9eEdZudMi/7JyU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j6i3JMdAg0w+5Qh42OaNYlu4Mj5Kyd9qcZEcFZ5aXzSWDIeBYPZlmp10fuMiZpY9vSWqquZeBZX8pwO7fIK3hkPGaxRqeR3IqVLODoJ7uxiaJ8FgKMjtyJ6qVKThkwU8ErhBTrt5HhDr92b98qDMI651ojGRyi0DjZwHkCc6iFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O3eh+KpD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787574468; c=relaxed/simple;
+	bh=C9ljMPmOgKzzGRi9lsltS32itRvLvS7A9iFne2T9euI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eSkIOtrPFG4twRnuDv9/nYkAYbALAeH6AWzZssjS99H+AXo5PL9WM4kQeKEsrtOMvQRUyzaX0jqikuRxOXKhcHSIpqFxIqaq3/4OQMGZB+2NW4vvam7n30P9Lji1moxaY21fOO2kukmp+laJVAMtzO1GFcImdMAdBZQJ8MXsq7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LD6InFZZ; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O3eh+KpD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388B81F000E9;
-	Mon, 24 Aug 2026 12:27:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787574464;
-	bh=Trb5KsjTwaU9j+7VUopq1y2tSUoTmaLkB+V9uMe6kQc=;
-	h=Subject:To:Cc:From:Date;
-	b=O3eh+KpDZaRVXQjcOW7grqjiNcx+W3VScnMA2+R4aGj7EN9O2pFBPVxMDehl52h5H
-	 j2s5e5/pAS6RMmmPKUKc2If4j6ar8lVacit7WlxDsfXY82QIkf+7TVUerQYWXhPJ+b
-	 FBm9LMv7aUGHXZrjdgKnuZte39wSkVxHQ3sLqwbw=
-Subject: FAILED: patch "[PATCH] ext4: don't enable DAX on new encrypted files" failed to apply to 6.1-stable tree
-To: ebiggers@kernel.org,disgoel@linux.ibm.com,jack@suse.cz,ojaswin@linux.ibm.com,tytso@mit.edu
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 14:27:28 +0200
-Message-ID: <2026082428-hurray-kindred-17e7@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LD6InFZZ"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90a6b298887so18536906d6.2
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 05:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787574466; x=1788179266; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dCP4SoxE8UtElbaGnJtG7fQSm7CuB0xZVB5xSM21nbM=;
+        b=LD6InFZZwRepGmXD353W2OKtohFRJRAvrHrV58XM7gacs5SvtttuOzL+H+RVQp109V
+         tJm3v+7g694vBv/u4szLqSq+AThHROGsaVctI3BPxC34vEv0v1QwszhNHC2i9BN+1VBo
+         mPmcr+xLSQjhejXnA1cNPllAsSAN6MIYCGB79b1XFeoBlcG421iO21S0rc0RmnmNPUXm
+         nAdlqScKD0qdGVVp6Nc/okrGRBJG/SnUHz2H/hRwuu/UifZcVHScgWunYMUXfjPG3mIn
+         zOcYLX4bIouePG+fv1s3vu0cfj6MBueFbvAY2FOsAWcZZH0Qa8ESosuwbbOte5ZrE6B9
+         cetg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787574466; x=1788179266;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dCP4SoxE8UtElbaGnJtG7fQSm7CuB0xZVB5xSM21nbM=;
+        b=O5SMP3z5kTvioj1grSOHRTswdt6+b3D5abyiXiu04Dh1V4Vmmc2pyvbbxmDig33hii
+         Z/PGSRsdsdVEVEThqogZ/Hc2QFG06h6SsSfFRak6e+Taa1Q4mNhSH45aL2rP3IKWS+EB
+         wZejh+rs+YtENeB7NZzV4dCrvI8z2S0mJbBe1XdxeeXbDSUQytKNG4A7PTSf7yLpCpMp
+         /LHOqqG2Gnz+2ss5sgD58o4m8/WbW+7CDadrjbHm+LDcIhps1hMqWf11t5HDZ3oLV9sY
+         CyEyMSyH4HJdAzkv1Z9ws+9WqOESvaJMXbLiAXhYMUgViK+qTx1TWWiiJAYKcjtdeXu5
+         dwpQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpUBia6u4HvKIP7vnXo+3hjGlwO+MifLl07glDqwVLdMs3C/V8c4V0DmCrueJjBepfZ2jrtiag=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/NCvf2mF2Y6ovr1ioDzhlp7t51DWDocbek2wcBW5TTRIG5x6+
+	+cJ+7kCvrxg71IsSmLVQmKzoid8lDh+UPMD/yoxZvqJzFOckx3Yh6IB4
+X-Gm-Gg: AR+sD13kVQKIF3gTF+zKBXlx3SJ2zjEw8s0TMcKRRGukygsxXNltJpRSNYMG+a4hMSG
+	MK9wRSZ9TWwZMSSDn4BgGtkp0FxyL7ur9rvokrRwbEv3LodxWaUDGucADe6AsCoQiRrfuSGA4X0
+	ymHh1JxbO7+f6D1tHUX1Qt3BP9RrVEkQwXfXsvuHwDs9Q/Rwu+1ulCcfP3FurKC/SLAml/HVa12
+	ldChw8Do7ab8jMEkTnMFAHFXwJpetYZSb40OX26wFRTVhflgj0i/LrDig2vrnSYYqm2g5kSW/kp
+	OSaSCRmgyApmRyyovyaunu5n0z6dXIehQRwb0miZTza2jytSHjumof6WDqlpt7p/HWArfvEunde
+	rVkuG2u6J3YhPaOul5KfG+nZhHV8P8zkffWM1aD/xjfhBvCUYp9ribjOkX8CygDCj0GN2UjzET+
+	0XnsQvPMJGCDK/l1PJVIA96i2MbrTK9FVm5M36u5NR7Ma0UaLpsGdUz3ZE0Tw4tUYMOcosCBCFM
+	xr6hHPyyQ52kkMa641RF5X6bFufPx9tTsQucJPDA1kfqMphIzsG0Z3bZga+Ora+kE6hVHmHwW5l
+	JRgvAF8vJHhcown2F3ppJkDzpG7/ejV/W7g=
+X-Received: by 2002:a05:6214:508c:b0:90c:576a:db55 with SMTP id 6a1803df08f44-90c8fa36499mr169713346d6.21.1787574466014;
+        Mon, 24 Aug 2026 05:27:46 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c93a4f093sm60745276d6.37.2026.08.24.05.27.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 05:27:45 -0700 (PDT)
+From: Wei Jie Law <98lawweijie@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Andrew Duggan <aduggan@synaptics.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] Input: synaptics-rmi4 - reject a PDT that grows between scans
+Date: Mon, 24 Aug 2026 20:27:33 +0800
+Message-ID: <20260824122733.76321-3-98lawweijie@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260824122733.76321-1-98lawweijie@gmail.com>
+References: <20260824122733.76321-1-98lawweijie@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+rmi_driver_probe() walks the Page Description Table three times, and each
+walk reads the table back from the device:
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+  1. rmi_initial_reset   - issue the reset command in the F01 entry
+  2. rmi_count_irqs      - total the interrupt sources
+  3. rmi_create_function - create the functions and set their irq bits
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Scan 2 fixes data->irq_count, data->num_of_irq_regs and the size of every
+per-function irq_mask[].  Scan 3 then accumulates fn->irq_pos and does
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x da32af420d6d466e247c43ac0b829edeac7ae0ad
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082428-hurray-kindred-17e7@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+	for (i = 0; i < fn->num_of_irqs; i++)
+		set_bit(fn->irq_pos + i, fn->irq_mask);
 
-Possible dependencies:
+without checking the result against the count that sized the bitmap.
+Nothing makes the device answer the third scan the way it answered the
+second, so a device that reports one function with one interrupt source
+on scan 2 and a long list of functions on scan 3 walks set_bit() past the
+end of the flexible array at the tail of every struct rmi_function:
 
+  BUG: KASAN: slab-out-of-bounds in rmi_create_function+0x560/0x930 [rmi_core]
+  Write of size 8 at addr ffff888110c92b58 by task kworker/1:2/129
+  Workqueue: events uhid_device_add_worker
+   kasan_report+0xc6/0x100
+   kasan_check_range+0x105/0x1b0
+   rmi_create_function+0x560/0x930 [rmi_core]
+   rmi_scan_pdt+0x190/0x3f0 [rmi_core]
+   rmi_init_functions+0xb8/0x320 [rmi_core]
+   rmi_driver_probe+0x31e/0xbf0 [rmi_core]
 
+one report per corrupted function object.  The same unvalidated
+fn->irq_pos is used again by the set_bit() and irq_create_mapping() in
+rmi_create_function_irq().
 
-thanks,
+Validate the position before using it and fail the probe instead.  The
+check is exact, not conservative: when both scans see the same table,
+fn->irq_pos + fn->num_of_irqs is the running total that produced
+data->irq_count, so it never fires for a device that behaves.
 
-greg k-h
+Reproduced with an emulated RMI4 device driven over /dev/uhid, and again
+over dummy_hcd plus raw-gadget, on v6.12.69 booted slub_debug=FZPU and on
+v6.12.105 built with CONFIG_KASAN=y.  After this change the same device
+gets
 
------------------- original commit in Linus's tree ------------------
+  rmi4_physical rmi4-03: F40: interrupt count changed between PDT
+      scans (pos 1 + 6 > 1)
+  rmi4_physical rmi4-03: Function creation failed with code -22.
 
-From da32af420d6d466e247c43ac0b829edeac7ae0ad Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Thu, 30 Jul 2026 10:52:12 -0700
-Subject: [PATCH] ext4: don't enable DAX on new encrypted files
+and a device that answers both scans consistently still probes normally.
 
-Currently, when a new encrypted regular file is created, the call to
-ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
-before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
-filesystem is mounted with "-o dax=always".
-
-EXT4_INODE_ENCRYPT then actually gets set a bit later in
-__ext4_new_inode(), when it calls fscrypt_set_context() which calls
-ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
-calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
-
-This was intended to clear S_DAX as well.  However, this was broken by
-commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
-causes data written to the file to bypass encryption, also causing
-xfstests failures such as generic/548 (when "-o dax=always" is used).
-
-Fix this by simplifying the flow by making __ext4_new_inode() set
-EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
-ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
-
-Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
-place on new encrypted inodes.  Then it doesn't need to be cleared.
-
-As a result of these simplifications, ext4_set_context() no longer needs
-to change inode flags or state when 'handle != NULL'.  Remove that too.
-
-Reported-by: Disha Goel <disgoel@linux.ibm.com>
-Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
-Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
+Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Tested-by: Disha Goel <disgoel@linux.ibm.com>
-Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260730175212.36923-1-ebiggers@kernel.org
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+The rejection happens before rmi_register_function(), i.e. before
+device_initialize() has touched fn->dev, so the partially built function
+is disposed of with kfree(): put_device() on a kobject that was never
+initialised warns and then leaves the object behind, because the
+saturated refcount stops the release from ever running.
 
-diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
-index f41f320f4437..3971986de028 100644
---- a/fs/ext4/crypto.c
-+++ b/fs/ext4/crypto.c
-@@ -144,7 +144,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	if (inode->i_ino == EXT4_ROOT_INO)
- 		return -EPERM;
+Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
+---
+Changes in v2:
+ - Dispose of the rejected function with kfree() instead of
+   put_device().  See the cover letter.
+
+ drivers/input/rmi4/rmi_driver.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index 5d49a9021c7d..8dcf088a7a81 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -899,6 +899,24 @@ static int rmi_create_function(struct rmi_device *rmi_dev,
+ 	fn->irq_pos = *current_irq_count;
+ 	*current_irq_count += fn->num_of_irqs;
  
--	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
 +	/*
-+	 * For new encrypted inodes, S_DAX is never set in the first place.
-+	 *
-+	 * For existing inodes, this is called only on empty directories.  ext4
-+	 * never sets S_DAX on directories.
++	 * irq_mask[] was sized from the interrupt count collected by the
++	 * earlier rmi_count_irqs() scan of the PDT.  Nothing guarantees that
++	 * this scan sees the same table -- the PDT is read back from the
++	 * device every time -- so a device that grows its interrupt counts
++	 * between the two scans would push these set_bit() calls past the end
++	 * of the flexible array.  Refuse the function instead.
 +	 */
-+	if (WARN_ON_ONCE(IS_DAX(inode)))
- 		return -EINVAL;
++	if (fn->num_of_irqs > RMI_FN_MAX_IRQS ||
++	    fn->irq_pos + fn->num_of_irqs > data->irq_count) {
++		dev_err(dev,
++			"F%02X: interrupt count changed between PDT scans (pos %u + %u > %d)\n",
++			pdt->function_number, fn->irq_pos, fn->num_of_irqs,
++			data->irq_count);
++		kfree(fn);
++		return -EINVAL;
++	}
++
+ 	for (i = 0; i < fn->num_of_irqs; i++)
+ 		set_bit(fn->irq_pos + i, fn->irq_mask);
  
- 	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
-@@ -163,6 +169,14 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	 */
- 
- 	if (handle) {
-+		/*
-+		 * __ext4_new_inode() should have already set the encrypt flag
-+		 * on the inode and avoided enabling inline data.
-+		 */
-+		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
-+			return -EINVAL;
-+		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
-+			return -EINVAL;
- 		/*
- 		 * Since the inode is new it is ok to pass the
- 		 * XATTR_CREATE flag. This is necessary to match the
-@@ -170,21 +184,10 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 		 * function with the credits allocated for the new
- 		 * inode.
- 		 */
--		res = ext4_xattr_set_handle(handle, inode,
--					    EXT4_XATTR_INDEX_ENCRYPTION,
--					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
--					    ctx, len, XATTR_CREATE);
--		if (!res) {
--			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--			ext4_clear_inode_state(inode,
--					EXT4_STATE_MAY_INLINE_DATA);
--			/*
--			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--			 * S_DAX may be disabled
--			 */
--			ext4_set_inode_flags(inode, false);
--		}
--		return res;
-+		return ext4_xattr_set_handle(handle, inode,
-+					     EXT4_XATTR_INDEX_ENCRYPTION,
-+					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-+					     ctx, len, XATTR_CREATE);
- 	}
- 
- 	res = dquot_initialize(inode);
-@@ -205,10 +208,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 				    ctx, len, 0);
- 	if (!res) {
- 		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--		/*
--		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--		 * S_DAX may be disabled
--		 */
-+		/* Update inode->i_flags to set S_ENCRYPTED. */
- 		ext4_set_inode_flags(inode, false);
- 		res = ext4_mark_inode_dirty(handle, inode);
- 		if (res)
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index a40cb27f8116..a5831fc536db 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
-@@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
- 		if (err)
- 			goto out;
-+		if (encrypt)
-+			i_flags |= EXT4_ENCRYPT_FL;
- 	}
- 
- 	err = dquot_initialize(inode);
-@@ -1306,6 +1308,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 	ei->i_extra_isize = sbi->s_want_extra_isize;
- 	ei->i_inline_off = 0;
- 	if (ext4_has_feature_inline_data(sb) &&
-+	    /* Encrypted inodes cannot have inline data */
-+	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
- 	    (!(ei->i_flags & (EXT4_DAX_FL|EXT4_EA_INODE_FL)) || S_ISDIR(mode)))
- 		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
- 	ret = inode;
+-- 
+2.43.0
 
