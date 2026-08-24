@@ -1,228 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010068.outbound.protection.outlook.com [52.101.56.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D40A399CFC;
-	Mon, 24 Aug 2026 07:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787557647; cv=none; b=ZFoQQok6085xq9mDyozvAOJCNg0JU8a2EsU9QPONElE9XW0UidfdmJqkiYZtYI9cpKajF8LcQaBb8uQsStnYbHkEQcZnpJ/7FfNAXefcFt3rNlZeCI3vG84/rINPkyKucLw4vXz3RY6cyl+0JgfBqYD0BP7aAKYqZwHQjoyPISQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787557647; c=relaxed/simple;
-	bh=BkVxzeXRrmErxQMyAj7+2qXNTJZhiEfY+yBOWS6vP98=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=o3kV+3LRAt3aD52qeFqcosjbl4fLn3HTilpGWs5/nRD2SOYIWRz+okI0mgtx2fKAMh96ctDUlNUc7GJ8RtmjPtiDMm1xams5CIbA+kB9Hs5uFg/KWJi7LkIKUPd8xg2f/9I3CSRPbcsaFNVXK2YR8RQQae1bblE9dkHXNndCp34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMM1gx0i; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395C237AA9F;
+	Mon, 24 Aug 2026 07:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787557823; cv=fail; b=ll3rTj6FiwoJB/DZ0JnZTlZApz/jtyOWsNwkSuDKX38Ha3peNqXYixuaVWuQ0LU3tTJrHRxi/n4K02McT9M3cuXD8tTYT2NCn5j8dFeUKqWjHq+TK6lTB2H1JVxtPWIGwcACutoeDqJzbbhRTJLI1UwofpqnzCJz7fZSAxaVg2c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787557823; c=relaxed/simple;
+	bh=5+SaYVDuPiyJZp1F8HiZFViNLUFzgARcpBRyOsAaKnc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=sidgB/xwyy5i97zrvx6zdKYMowiRSIJxqgJOogmf+hXShRKNeTj6eGH5sTEnKWiEhnRU65LyVRiqsAmZBiIHLztgNu3/jEI+GRPlaQrlM8AnJTBuphLcoaQEkRVWCsfUi0ycs/IzoIX631XSEPpNoDx0vMLLAmT7yoVTJo9toPU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eanA3lJu; arc=fail smtp.client-ip=52.101.56.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMM1gx0i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86991F000E9;
-	Mon, 24 Aug 2026 07:47:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787557646;
-	bh=hj7/s+j6NHMyFBaYg+JKp2NMB5fFO+T1WpKQCf87wwk=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=kMM1gx0iiuqeD+Ra55RRDPhAsn33uc4wUkbkih2ERM0dY01vMN0FcnHevDdI9Q4An
-	 qXdx8CN2viXPoFD+BQz9XVYmfP7yWJ/JA055TI+lZ/T/n3Ck/B/+t8aj1LVTTxFdRM
-	 Hljj/EKiMZyUOCFhkM6XHSHwc6Jb3Sa9BF6WUfaHPIQbt+PVQmtHszMJmhTxj0cWKi
-	 1K8h92hm2qx16n2bHwvIVUTwvab6PLkZgOYcTI7zUZDlo5ZSDzumV+MkeStr4gi99k
-	 pLvE4kCkiJ9wWFsucd9gG/ojUN557BfgiExsRTe3D+k6tUIXyKoUt8CxDCaOQrnEFN
-	 9KRgC+rk8t+2w==
-Message-ID: <e85ca927-223e-4752-95c3-72edba41f16a@kernel.org>
-Date: Mon, 24 Aug 2026 09:47:23 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eanA3lJu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FigOesXpE2yD0/sZdhy2ib5X8ZuS6hplBiv26IPG2bvsyfbNTPLlP+cRIK9FbWWas57WNNFhYrCoA9/bR6zNv9ZKHDWeaVce6CatY+KduQ7cfHk20Zl0GJi+SQpktD1l0dD+VsIjFApUcXOF8aDUMyxMYo4CpiOJvg1zubIpF4BRa4rENU93QMTqgRO3vkfI9EBfnPy7GtGbdfcZZuCOdDEYGYCHxsdExGi1SyByH1H1EQuD/raV1rE/qsGO/7lCsucAJV8jm5hEvgtSL/S15P1XiN9O9iau/UqtHG2XL6j1dM1tq8qU5KzTubZ0SoNaKRFCKRc9D9sf4bDBBcs9cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dNGO3SfVfQnAuWLXFKoH+Nb33rZRcrrpJPd6gGnPR24=;
+ b=ihLd4dNHjynZuir0R4Q0I5gRKLqNI8rLEmuAjFhZvRWAvFsAa/Sy5vZsa2F5Ho+QnRljgNF5rhsYISp3vqK00PIGqteRoH5dJiCA93CibiuIjtHOPcpFZKcs5hTMYtsGzToCkXS25Cn+uBNhI5a7IvJI5gcnurH5mmswSpUTcwRiRCxSiXAgpAj2BqFrnJTEid1XHnrvDwaDPQnC9oFQNbv7RNj1LCqcmxlieTD/jWedCsRLgkgDj1sZhZDPW6+2Mx2l1naECyu/jGL8ZMbFIDyZn5y08dBF0ZJC/NphjcGCA+okInopgBoYzXYakjFHtV90E8+cbeqx+BrYDAJhHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dNGO3SfVfQnAuWLXFKoH+Nb33rZRcrrpJPd6gGnPR24=;
+ b=eanA3lJukZI+wG7cMWONH59Th3PfbhfRxBpZk0BE6xdTF0qbv+VqaQEc8YC3SS8tvXUN01eJoPo498BIDmBLtSqurrS3MFda5rvX2yhlM/cYefYkHgDjqSi3t/rOU7cmBRPugrvtxEhtffQtsYEPB7eQtD20pxuqN30mT0YxSGNrfv36xzNjbPDIk8dcNCMfet3uEou4chtIsdh3ugGsK0CI2Xs0XFWcUZnHTRNzQzbRHAGsb3hPI8UHXz3B9GTiLnqzIduQytIMk9iccpN52OM1tfW+RpaxaW5DObIy4aTC6+tlqyXODEo1MNxBIZsq31CxCE2eGteMq4v/GdnLvw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
+ by IA0PR12MB8646.namprd12.prod.outlook.com (2603:10b6:208:489::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 07:50:19 +0000
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0339.010; Mon, 24 Aug 2026
+ 07:50:19 +0000
+Date: Mon, 24 Aug 2026 10:50:11 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: netdev@vger.kernel.org, Antoine Tenart <atenart@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] fou: ensure GUE headers have enough headroom
+Message-ID: <20260824075011.GA858321@shredder>
+References: <20260801060115.3538849-1-nicoyip.dev@gmail.com>
+ <20260821145908.2829132-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821145908.2829132-1-nicoyip.dev@gmail.com>
+X-ClientProxiedBy: TL0P290CA0013.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:5::20) To SA3PR12MB7901.namprd12.prod.outlook.com
+ (2603:10b6:806:306::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Sven Peter <sven@kernel.org>
-Subject: Re: [PATCH] soc: apple: rtkit: bound syslog copies to the shared
- buffer
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Cc: Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Janne Grunau <j@jannau.net>
-References: <20260822095121.53451-1-acharyalaxman8848@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260822095121.53451-1-acharyalaxman8848@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|IA0PR12MB8646:EE_
+X-MS-Office365-Filtering-Correlation-Id: 460ca554-6792-474d-e82c-08df01b457c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|6133799003|56012099006|10067099003|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	XUV7g6eDzAO2brPKDeSNumRS+8m7gILi1O0bUTsaM1Zl5wV+s9icxKLHU7rZpX+0oQ06fObMFCV0jGgmk9eLxJ9FrkbF9BI98zsZOdCgqnr3YhGLFMgPEGPaVrK59RJ1AccJjOuxMM2UdYH3efsui/vhXs/Lrch2pvxu6lzZD34qBqYRu89xQZITxUTb+8dlXbW7YmGsEh4YEjeRQcXGupqy1evrvg3ld0Gippypivsh4hGZOP9pSwrbvJXwyEK4ijzEN47ycyGNtr1QgdcOa5uXC6q/WjZD6rQMGkHbP1WMpbLj2sBBi8HXtS6cV87a7AnE/eUoutYoM0A9FVkgaCsTE4ubpgf/ayLvE9KQKiAZsScARtBvDbtOzsLeBGAX+tWbliwr6xMS6DlaUePmulIlgK6ni6u79IBcbXj8PmhfG0LX17ae2K0vu3ygMk3HtYt3ONq1p5fxiVpbZEBNcrL9xE1teApop/F7fRggmSa70CtShwqC/ut18UgKdTxWCAuOwq2fCICAqD/tQisImbVgCy+6rvqmxFCK7L49cMcT//tqnfCNu0nfrK84IefRCLo6wiSebqAQdIK8UaOKiqEIJKr4hCT5HyNCGA1sVC7apXDtVGekE2OS62Tt+OzxKh+XkFAWHGYC8JUrlSOsj52zWA3YoB1QKEGYeb0AYso=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ZGeOdmid+zH2nqBo/Ku7QSwVbJjcafVT3w7eS80uyrfuQhcH+a57IiqAmGl1?=
+ =?us-ascii?Q?dpHMwgnL71Fyqb7qdzNed+ksaYoB5Jza3EuXYbeFzLF05IFsvL48NtMnz1G1?=
+ =?us-ascii?Q?BuVg3LaWZ7P9LETQiKwecM+xCwr3kJLPxQky3sIgNCjsQW+YSMZnRz5v0m1B?=
+ =?us-ascii?Q?trTYLHieWMcRZAUEPWbe5CmAhL1wbGBwfaWUqi4hqeV5s3gnN89MzOcTIp3D?=
+ =?us-ascii?Q?AYnhD0YntOZ+vYw6ld07ZBBzNNxq3mH8Uu9FvRbyaBok4zoxMlUVfKqp9x0g?=
+ =?us-ascii?Q?0ZBQYTMORCiS3aoCXEB3g8qeg+77lIQPFTon/5cDW3SPSRMG13k1w0ZASVeV?=
+ =?us-ascii?Q?KGEL1lxr1rkbHuO8bKNLEvMDt5VOeeIndSXjafYHDv4LbVY3OLQzn7TkhFuo?=
+ =?us-ascii?Q?6wgBckCtxXv+scxUv4FVyKR73nrLOF7oAmCH0ucWb/qakFEecyQ7MlPAVf0p?=
+ =?us-ascii?Q?frDhe8/51gMEzNTo+7DxxFeFtrib5lkPquHAPLfmy0EHhSlIyar796kRSbAN?=
+ =?us-ascii?Q?egabOcxDsmPa8qCoKwPIR3L8pCQX5ZFRc2r/E9iNR4UGdBMJKXhU12vatBRL?=
+ =?us-ascii?Q?Sy/t+n3MPOEELTb65QSY4VcslTzquPQmPoq/aWo5DP+a8MNtg3JlPW2lFQEJ?=
+ =?us-ascii?Q?qHRXpf3OMAK+yHX7r5g1hEE/mk6WXOKdACcqZSE/hNVShMCOdXWYkL7fqBrE?=
+ =?us-ascii?Q?Fja7zJsoNGrRMXZtxnhBvoNIiy0v1tnY/RIajvEk10n11SamsJnDNvYZ0GMU?=
+ =?us-ascii?Q?WBkYJZ4WVcLwtfTqlE31uGVaVeC1mp6kYwT6zKx0hOrZqsN8d5vNP3GPaFxB?=
+ =?us-ascii?Q?pLeQQP6PGNp2Fkg6Qa7JXIgxz4LUF630e8dOrb+5Lbzz8vt0QX53FcSQqYFB?=
+ =?us-ascii?Q?PvRSrJTa6Wdf4qqeYXcba5xpfFcmlSOQbHu0tZsPqkpQlsk6WHa5umFeyF3a?=
+ =?us-ascii?Q?q2KOHEUY8i5TnvVMeEybSU9w3DXJI99GIPDAqOFCziTHdOiS2J3L9U3KvSC7?=
+ =?us-ascii?Q?LbROOfd+jjz0dX++0WKjclSsY+LlW+4XCluANrNR2DLtgvHi9/OH3kiiiUWi?=
+ =?us-ascii?Q?CCnXWWJcaZtntzJ2JNa3U8d4jCnPTeir5mrrrsSRan1ZnsrIfl6nxB7lBytw?=
+ =?us-ascii?Q?ezPs2LGX9f8VSjZTAiUTsL0ZWt+GnnJFNzj5fUJce7x0cun1aWxaY9UGoAA2?=
+ =?us-ascii?Q?icMlomCWjtD+mvpznLIQhhm+rxP62kVnPaWS3CAFd5kZDtG4U7fammTc0yKo?=
+ =?us-ascii?Q?etIlmPbhgB1sSvml3/PTEKhNu2aEbjJvjNFxHN2404VOYuHA9YcFAJmpBVCM?=
+ =?us-ascii?Q?x9kdQMNo72e0vZ7iF4sm9F1/SvEPJEyj5Rb/G0HW8rSZ7tsQ+aVx/OLiTq+K?=
+ =?us-ascii?Q?TPrDM9oJjFCoe9uhVQPouP9pG/elGXG96C8bjoKlsHP8K9NcZ7K9rO8J6mKU?=
+ =?us-ascii?Q?8U2Uvn9rDT750QT27/wY0h+Fqiow2mv47MVXg54rMyBlGwhy5tmeJMDLhZyF?=
+ =?us-ascii?Q?PlNG2hkgtF39QFr40FZ0hskeowfi6UyLqzrUMMr3gUKbNY9zdDu8NpQAhDhg?=
+ =?us-ascii?Q?rDpPT/tT3oycNZBSONAdWPo1hi82zEZCuRnX5ANnxaqorjrMSPlwE0SLZpJs?=
+ =?us-ascii?Q?Z31kYDII+ls5mSNwSKYkSPvM9w2oXLYPRoyrbIvoXmHWocfY4ksM2IxTv88X?=
+ =?us-ascii?Q?ZHR1CoOFPj2rctRk6LRaMgSZaA2USJ/uujnKBy63vhNvUZ49?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 460ca554-6792-474d-e82c-08df01b457c0
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 07:50:19.0390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fVoIV+ovmk/pSGgMN/kM8m+BHIWGhQ/p7yMDDwNRmKB6l2WaFccd6ttgpZMSu6hpsuJo1xyWziTWoURj+gYQUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8646
 
-Hi,
+On Fri, Aug 21, 2026 at 10:59:08PM +0800, Chengfeng Ye wrote:
+> ipgre_changelink() installs GUE encapsulation before it publishes the
+> new GRE header length and updates dev->needed_headroom.  The transmit
+> path does not serialize with RTNL, so it can interleave as follows:
+> 
+>   CPU 0 (ipgre_changelink)        CPU 1 (ipgre_xmit)
+>   install GUE encapsulation
+>                                   reserve the old needed_headroom
+>   publish larger GRE flags
+>   update tunnel->tun_hlen
+>                                   push the larger GRE header
+>                                   push the GUE and UDP headers
+>   update dev->needed_headroom
+> 
+> With REMCSUM, the new layout can push 16 bytes of GRE and 20 bytes of
+> GUE/UDP headers into an skb with only 32 bytes of actual headroom.  The
+> final UDP push writes four bytes before skb->head.
+> 
+> With the update window widened, the kernel reported:
+> 
+>   skbuff: skb_under_panic: ... len:128 put:8 ... dev:gre0poc
+>   kernel BUG at net/core/skbuff.c:214!
+>   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   Call Trace:
+>    skb_push
+>    fou_build_udp
+>    gue_build_header
+>    ip_tunnel_xmit
+>    __gre_xmit
+>    ipgre_xmit
+> 
+> Make __gue_build_header() ensure space for both the GUE header it is
+> about to push and the UDP header that follows.  On normally sized skbs
+> the check is a no-op.  If configuration changes race with transmission,
+> skb_cow_head() expands the head before either GUE write, or returns an
+> error without modifying the packet.
+> 
+> skb_cow_head() may move skb->head.  Refresh skb-derived inner_iph
+> pointers after encapsulation, and read the tunnel fragment and TTL
+> fields before ip_tunnel_encap() so ip_tunnel_xmit() does not dereference
+> tnl_params after a possible skb head reallocation.
 
+It is up to the caller of ip_tunnel_encap() to make sure that there is
+enough headroom in the packet. Otherwise, what is the point of the
+encap_hlen() callback? Also, adding skb_cow_head() in the build_header()
+callback forces every caller to refresh pointers to skb->head.
 
-On 8/22/26 11:51, Laxman Acharya Padhya wrote:
-> apple_rtkit_syslog_rx_log() copies a log entry out of the coprocessor
-> shared-memory ring using an index and layout that the coprocessor
-> itself chose (SYSLOG_INIT n_entries / msg_size, plus the 8-bit idx in
-> the LOG message). Those values are never checked against
-> syslog_buffer.size, so a compromised or buggy RTKit firmware can make
-> the kernel memcpy_fromio()/memcpy() past the DMA mapping.
->
-> SYSLOG_INIT also accepted msg_size == 0. kzalloc(0) returns
-> ZERO_SIZE_PTR, which is non-NULL, and strnlen(..., msg_size - 1) then
-> wraps to SIZE_MAX.
->
-> Treat n_entries as a count (reject idx >= n_entries), reject a zero
-> message size, and refuse shared-memory copies that do not fit in the
-> buffer. Rate-limit the new OOB warning so a coprocessor cannot flood
-> the kernel log.
->
-> Fixes: 9bd1d9a0d8bb ("soc: apple: Add RTKit IPC library")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Laxman Acharya Padhya<acharyalaxman8848@gmail.com>
-> ---
->   drivers/soc/apple/rtkit.c | 73 ++++++++++++++++++++++++++++++---------
->   1 file changed, 56 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/soc/apple/rtkit.c b/drivers/soc/apple/rtkit.c
-> index a3fdac8f6f06..63b85d082a7a 100644
-> --- a/drivers/soc/apple/rtkit.c
-> +++ b/drivers/soc/apple/rtkit.c
-> @@ -348,14 +348,28 @@ static void apple_rtkit_free_buffer(struct apple_rtkit *rtk,
->   	bfr->is_mapped = false;
->   }
->   
-> -static void apple_rtkit_memcpy(struct apple_rtkit *rtk, void *dst,
-> -			       struct apple_rtkit_shmem *bfr, size_t offset,
-> -			       size_t len)
-> +static bool apple_rtkit_shmem_ok(struct apple_rtkit_shmem *bfr, size_t offset,
-> +				 size_t len)
->   {
+There's a WIP patch to fix the same problem in IPv6 [1]. I suggest doing
+something similar in ip_tunnel_xmit() and ip_md_tunnel_xmit(). Note that
+IPv6 reserves the headroom before the encap push, so the snapshot is
+enough there. IPv4 reserves it after, so we also need an skb_cow_head()
+before ip_tunnel_encap().
 
-This is only used in a single place and doesn't have to be its own function.
-
-> +	return offset <= bfr->size && len <= bfr->size - offset;
-> +}
-> +
-> +static int apple_rtkit_memcpy(struct apple_rtkit *rtk, void *dst,
-> +			      struct apple_rtkit_shmem *bfr, size_t offset,
-> +			      size_t len)
-> +{
-> +	if (!apple_rtkit_shmem_ok(bfr, offset, len)) {
-> +		dev_warn_ratelimited(rtk->dev,
-> +				     "RTKit: shared-memory copy out of bounds (off 0x%zx len 0x%zx size 0x%zx)\n",
-> +				     offset, len, bfr->size);
-> +		return -EINVAL;
-> +	}
-> +
->   	if (bfr->iomem)
->   		memcpy_fromio(dst, bfr->iomem + offset, len);
->   	else
->   		memcpy(dst, bfr->buffer + offset, len);
-> +	return 0;
->   }
->   
->   static void apple_rtkit_crashlog_rx(struct apple_rtkit *rtk, u64 msg)
-> @@ -384,9 +398,10 @@ static void apple_rtkit_crashlog_rx(struct apple_rtkit *rtk, u64 msg)
->   	 */
->   	bfr = kzalloc(rtk->crashlog_buffer.size, GFP_KERNEL);
->   	if (bfr) {
-> -		apple_rtkit_memcpy(rtk, bfr, &rtk->crashlog_buffer, 0,
-> -				   rtk->crashlog_buffer.size);
-> -		apple_rtkit_crashlog_dump(rtk, bfr, rtk->crashlog_buffer.size);
-> +		if (!apple_rtkit_memcpy(rtk, bfr, &rtk->crashlog_buffer, 0,
-> +					rtk->crashlog_buffer.size))
-
-nit: please use == 0 here since that's easier to read
-
-> +			apple_rtkit_crashlog_dump(rtk, bfr,
-> +						  rtk->crashlog_buffer.size);
->   	} else {
->   		dev_err(rtk->dev,
->   			"RTKit: Couldn't allocate crashlog shadow buffer\n");
-> @@ -422,10 +437,29 @@ static void apple_rtkit_ioreport_rx(struct apple_rtkit *rtk, u64 msg)
->   
->   static void apple_rtkit_syslog_rx_init(struct apple_rtkit *rtk, u64 msg)
->   {
-> -	rtk->syslog_n_entries = FIELD_GET(APPLE_RTKIT_SYSLOG_N_ENTRIES, msg);
-> -	rtk->syslog_msg_size = FIELD_GET(APPLE_RTKIT_SYSLOG_MSG_SIZE, msg);
-> +	size_t n_entries = FIELD_GET(APPLE_RTKIT_SYSLOG_N_ENTRIES, msg);
-> +	size_t msg_size = FIELD_GET(APPLE_RTKIT_SYSLOG_MSG_SIZE, msg);
->   
-> -	rtk->syslog_msg_buffer = kzalloc(rtk->syslog_msg_size, GFP_KERNEL);
-> +	kfree(rtk->syslog_msg_buffer);
-
-this fixes a separate memory leak, please split this into another patch.
-
-> +	rtk->syslog_msg_buffer = NULL;
-> +	rtk->syslog_n_entries = 0;
-> +	rtk->syslog_msg_size = 0;
-> +
-> +	/*
-> +	 * msg_size == 0 would make kzalloc() return ZERO_SIZE_PTR (non-NULL)
-> +	 * and later strnlen(..., msg_size - 1) wrap to SIZE_MAX.
-> +	 */
-> +	if (!msg_size) {
-> +		dev_warn(rtk->dev, "RTKit: syslog msg_size is zero\n");
-> +		return;
-> +	}
-> +
-> +	rtk->syslog_msg_buffer = kzalloc(msg_size, GFP_KERNEL);
-> +	if (!rtk->syslog_msg_buffer)
-> +		return;
-> +
-> +	rtk->syslog_n_entries = n_entries;
-> +	rtk->syslog_msg_size = msg_size;
->   
->   	dev_dbg(rtk->dev,
->   		"RTKit: syslog initialized: entries: %zd, msg_size: %zd\n",
-> @@ -441,10 +475,11 @@ static void apple_rtkit_syslog_rx_log(struct apple_rtkit *rtk, u64 msg)
->   {
->   	u8 idx = msg & 0xff;
->   	char log_context[24];
-> -	size_t entry_size = 0x20 + rtk->syslog_msg_size;
-> +	size_t entry_size;
-> +	size_t offset;
->   	int msglen;
->   
-> -	if (!rtk->syslog_msg_buffer) {
-> +	if (!rtk->syslog_msg_buffer || !rtk->syslog_msg_size) {
->   		dev_warn(
->   			rtk->dev,
->   			"RTKit: received syslog message but no syslog_msg_buffer\n");
-> @@ -462,17 +497,21 @@ static void apple_rtkit_syslog_rx_log(struct apple_rtkit *rtk, u64 msg)
->   			"RTKit: received syslog message but no syslog_buffer.buffer or syslog_buffer.iomem\n");
->   		goto done;
->   	}
-> -	if (idx > rtk->syslog_n_entries) {
-> +	if (idx >= rtk->syslog_n_entries) {
-
-Have you verified this on hardware? With the bounds check in memcpy this 
-won't result in anything bad and I don't know if rtkit firmware treats 
-idx == n_entries as valid. I *think* this is correct but it would be 
-good to test this and split it into a separate commit so that it's 
-easier to revert if it breaks.
->   		dev_warn(rtk->dev, "RTKit: syslog index %d out of range\n",
->   			 idx);
-While you're at it, it would be good to make these rate-limited as well, 
-possibly as a follow-up patch as well.
->   		goto done;
->   	}
->   
-> -	apple_rtkit_memcpy(rtk, log_context, &rtk->syslog_buffer,
-> -			   idx * entry_size + 8, sizeof(log_context));
-> -	apple_rtkit_memcpy(rtk, rtk->syslog_msg_buffer, &rtk->syslog_buffer,
-> -			   idx * entry_size + 8 + sizeof(log_context),
-> -			   rtk->syslog_msg_size);
-> +	entry_size = 0x20 + rtk->syslog_msg_size;
-> +	offset = (size_t)idx * entry_size + 8;
-> +	if (apple_rtkit_memcpy(rtk, log_context, &rtk->syslog_buffer, offset,
-> +			       sizeof(log_context)))
-> +		goto done;
-nit: like above, < 0 please to make it easier to read.
-
-> +	if (apple_rtkit_memcpy(rtk, rtk->syslog_msg_buffer, &rtk->syslog_buffer,
-> +			       offset + sizeof(log_context),
-> +			       rtk->syslog_msg_size))
-> +		goto done;
->   
->   	log_context[sizeof(log_context) - 1] = 0;
->   
-
-
-Best,
-
-
-Sven
-
+[1] https://lore.kernel.org/netdev/cover.1786088695.git.petalzu987@gmail.com/
