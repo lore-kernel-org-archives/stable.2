@@ -1,118 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F81408035
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385DA40587A
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 12:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574570; cv=none; b=tMjx1LgvHNQRJTZwQ0CvuSlw5z+2fpOsVEFig64dOQDm0Gx/iGYjJy7BieIl5MEBohct0dZn6a61Vd28oIYxTMDqBvh9DZ81JtoHg42JZ1eF2CpgrTvH+mEoKYbOIiLik0Kxp67F7d5etNycVFdw2A/as+pwumNUVjqw5Fj0AyE=
+	t=1787574584; cv=none; b=d52c6x5jGjqpBcYmrdV2+iJv7piGgmotDTreKbdSsEVeqCak32FbUfFvFbY/iVAZFkvC1FddvQYuuEfI5P890BcFhrnFxbpYQqFoTKBvBUOdTPqHvhT4eBpqSn1nVAGscdEZNOVJ8BImIA8ZQfc9KRSoCxfZvSloVjxyPdB2SSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574570; c=relaxed/simple;
-	bh=47ng0Y7fwlNCKIjm6hKMATJUnwtcs6vaOG0bjdU5H8Q=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gEToNEMYxnzYK4FvUdz31ETeOplKRIXpzWVn4V5sXCyNe+F7B7d5fuib+5UPw4On4u7ugAgRlA91Xr02W5QlN3m/BVTowSYHGdagyH5VHy1KrX6MyhPIUZUSWZroIQLC8KkCgsvsq97cjVVh/NvS75A1a1/6llbH0oPCfBoEa1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kmyjguDg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787574584; c=relaxed/simple;
+	bh=/p4Yl9cRrA/08EFs7XUHDyj23xIlq6ZPP0gzi9wHapg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OxGqaIDdxYzPHlpbjIWcXXaMHjyNVzm/bW6hu07AHYbP2bmKUIjnkFksdS4cwFTYW20CERZ0CVaBPAAuLgBwc9mq4bGSCVinfGo9z/3Qw3B/qlDnisutDDBstry3iz5A8vBsgrwbvQKaUIbemllzgsMuVDmpAZzKt0zlZr4+Ub8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=USrDBV0b; arc=none smtp.client-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kmyjguDg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1DF1F000E9;
-	Mon, 24 Aug 2026 12:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787574568;
-	bh=x0KRZz0MEzWTuzcOw6ei1+HA8M/8fOjZkMHFnji18r8=;
-	h=Subject:To:Cc:From:Date;
-	b=kmyjguDgt04IeokiNfhy+Q4sgAN1v3Kin6PdilNcYDUqtXPGjGXqBhGDxx5ufx0T/
-	 2fn087mY7/Migegq1xITsZT4J/Xh2wfjgzItS5AADH89RaoeHSSDB+y4X/cocZqFAt
-	 5+NWjUQgkJe50WPjHVA32rtZUqet9Gx1KZfQobtk=
-Subject: FAILED: patch "[PATCH] ext4: zero out whole block for clean edges in WRITE_ZEROES" failed to apply to 7.1-stable tree
-To: yi.zhang@huawei.com,jack@suse.cz,tytso@mit.edu
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Aug 2026 14:29:17 +0200
-Message-ID: <2026082417-smokiness-hacker-071d@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="USrDBV0b"
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-451fe9bf738so481973fac.1
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 05:29:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787574581; x=1788179381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=udVPUe6IPHcf7p6BJaM0xcgin13VVHNN5Zpwgn/hQ6I=;
+        b=USrDBV0bKQZq9JYtrMP2fBafqLKGBeX/fy3asHPsvY+XBbwv3V0sRSF7QKlk0w2al7
+         cFw5Vwd2IYBOPkmoYH7USfKgKZCXUrYkZh5cDr8FPdRI8jLgtYhCJjMVv0Ab7yBxQhF+
+         TTZCTwi/oZlqCukP8q94ImTs0zoQrorFjrM9hBQSJIJqdUasGIg6ihcck4D3SYuV14p7
+         /1L/PgWtRgOQpDdjccYU/3O8a7HMI0LDTM/nu1DxeUY29gmUzV7DhVZF/X3E+jv0Ytwr
+         XiIX5vSx/WphTevs3Zrw307wYpgD0scVEuOagsdam7X3Ap4PTmyuWMP3C7kYmhhInOcf
+         QcEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787574581; x=1788179381;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=udVPUe6IPHcf7p6BJaM0xcgin13VVHNN5Zpwgn/hQ6I=;
+        b=AFHYUEzfLUL918XnYXGJB9dAyZde2H7VvG44WDTEqbDRp9NQrysmGHEQ6lBDyhHX9a
+         kILPA2Cp02ismKeqnoDwTu8KZWdw5OwIVlMJAdbz7VE+P7ZBTLob66isqrc4pCgw3tCU
+         2E3T3Y7mKYLULdTiWRdsqZ5QYj6bsAPga+hZ/gY3yug8xbeepYpu6FXE0oCD2JsV3Zdd
+         eSVywCBJ1rHLnmFr5wviTG+Ya+AabIfXxRu/jYNtraidnpAK9nV/baQIoHlfMjvQguhZ
+         HA/ZtNTxNxEmyU1MDcTatzLilmTfE7ULesRMb3BaWM+BlXbh+HDPpE+YqEZ0WIOjWmjy
+         Qh4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrX0QNcIWTdONtA4rmutNwFWMNsdw2Hf3nJ/WqoY68/XW/4cpz8S+/CifBk2O/QvMKt/LRF4+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nu7l3ohK+nyH6e0mO1eZOTmFHsYi3CfYg0zjiwhQCkxZ3Wjjz2
+	BUGNDtEDPAZoY6asR3wvHNFptbZNLCAZTfOebJ+YzA5N1KV1iPfqUHfX
+X-Gm-Gg: AR+sD12ZH/ZMLjWT3cW5R+yALIYwkHUY+wQ8k5CuCcHrywoLQeOrXocpPvpHyrcgTRG
+	zxhB2w6ujOAdHRinplCP9bjRLzjuIKnI/3GVNj6tp/eRHNmiZPTYlJX+C1en6AlPcvi8MfBEESZ
+	ZOfJoNR44lMWAx/2UjWgo0uDVTaugoIGU5JzYYIQuAulLGYKvVOYDmx20/8IdvUYv36HpGGKW9f
+	uzEsiltlUd2a31Ab2wNNUsxDbxENWwOQdfqoTSLjgGqulAjcoCEZj26AxyqTZ3ZfwxTsH0dODWO
+	jpdUsTdltEVk9a/O7aY/rLflTUkeuSh7LeudgnE+zpHRMkDi+p3cUvbyO3JQN878IDvY9rnoGSS
+	MS1RTuCjp2PwgeYC9XKchQHIO6zliVZ4g9RgXznMUDfiHbzqQ4JL8PLdU5ECsAwf4pUR/oDtlOi
+	wPgMsNgB+HbC7QifugydTe2jr4C1u6NULGrvjhOis8jtK1/EfVAJBzXcGJMaAeiXUvVvQoXuNUK
+	F/nhel3Fa4tWhHaJvlrorHy6ber/vxy/iLlq7DW/VHGHfWA6QNLv2Q2
+X-Received: by 2002:a05:6820:341a:20b0:6a3:6bb0:e584 with SMTP id 006d021491bc7-6b1592c253cmr9992591eaf.1.1787574580793;
+        Mon, 24 Aug 2026 05:29:40 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b17c832d31sm3598839eaf.5.2026.08.24.05.29.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 05:29:40 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Jon Maloy <jmaloy@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Tuong Lien <tuong.t.lien@dektech.com.au>,
+	Ying Xue <ying.xue@windriver.com>,
+	netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>
+Subject: [PATCH net v2] tipc: protect node reset trace dump with node lock
+Date: Mon, 24 Aug 2026 20:29:29 +0800
+Message-ID: <20260824122929.210431-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+The tipc_node_reset_links trace event asks tipc_node_dump() to walk the
+node's link entries. Unlike the other node events that request link data,
+this event runs without the node lock.
 
-The patch below does not apply to the 7.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+This permits bearer teardown to free a link while the trace callback is
+dumping it:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+  CPU 0                                CPU 1
+  trace_tipc_node_reset_links()
+    tipc_node_dump()
+      l = n->links[0].link
+                                       tipc_node_write_lock()
+                                       kfree(l)
+                                       n->links[0].link = NULL
+                                       tipc_node_write_unlock()
+      tipc_link_dump(l)
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x a5179156ac1d9a6646da42254e4c461e1fc20096
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082417-smokiness-hacker-071d@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+tipc_link_dump() then dereferences the stale pointer. KASAN reported:
 
-Possible dependencies:
+  BUG: KASAN: slab-use-after-free in tipc_link_dump (net/tipc/link.c:2910)
+  Read of size 4 by task poc/115
+  Call Trace:
+   tipc_link_dump+0x10cb/0x16b0
+   tipc_node_dump+0x4bb/0x740
+   trace_event_raw_event_tipc_node_class+0x258/0x360
+   tipc_node_reset_links+0x14d/0x1a0
+   tipc_rcv+0x13f5/0x3030
+   tipc_udp_recv+0x4e3/0x670
+  Allocated by task 0:
+   tipc_link_create+0x1e1/0x1020
+   tipc_node_check_dest+0x7d2/0x11a0
+   tipc_disc_rcv+0xdbf/0x1430
+  Freed by task 89:
+   kfree+0x131/0x3c0
+   tipc_node_link_down+0x267/0x4b0
+   tipc_node_delete_links+0xec/0x160
+   bearer_disable+0x107/0x260
 
+Take the node write lock around the trace event. This serializes the
+dump against tipc_node_link_down(delete=true), which frees the link
+under the same write lock.
 
+Do not take the lock inside tipc_node_dump() itself: several dump
+callers, including tipc_node_link_down(), already hold the write lock.
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a5179156ac1d9a6646da42254e4c461e1fc20096 Mon Sep 17 00:00:00 2001
-From: Zhang Yi <yi.zhang@huawei.com>
-Date: Tue, 14 Jul 2026 16:00:42 +0800
-Subject: [PATCH] ext4: zero out whole block for clean edges in WRITE_ZEROES
-
-FALLOC_FL_WRITE_ZEROES requires that all blocks in the requested range
-end up as written extents with zeroed content. For unaligned edges that
-were already allocated, ext4_zero_partial_blocks() zeros them directly.
-However, for unaligned edges whose underlying extent is a clean
-unwritten extent or a hole, the extent type remains unwritten after
-partial zeroing, which does not align with the semantics of
-WRITE_ZEROES.
-
-Therefore, when ext4_zero_partial_blocks() skips partial zeroing, it
-indicates that the corresponding edges are clean unwritten extents or
-holes. In this case, we need to expand the aligned allocation range
-outward to cover such edges, so that ext4_alloc_file_blocks() can
-correctly allocate blocks for the unaligned range. Edges that were
-partial-zeroed (i.e., written or dirty) are left untouched.
-
-Fixes: f4265b8d32c4 ("ext4: add FALLOC_FL_WRITE_ZEROES support")
+Fixes: eb18a510b5cd ("tipc: add trace_events for tipc node")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260714080044.4038124-8-yi.zhang@huaweicloud.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+v1 -> v2:
+- Use tipc_node_write_lock() instead of tipc_node_read_lock() so the
+  dump is exclusive with link deletion.
 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 9b6efc8f769e..d62fc4543760 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -4760,6 +4760,21 @@ static long ext4_zero_range(struct file *file, loff_t offset,
- 	/* Zero range excluding the unaligned edges */
- 	align_start = round_up(offset, blocksize);
- 	align_end = round_down(end, blocksize);
-+
-+	/*
-+	 * In WRITE_ZEROES mode, edges that were not partial-zeroed (clean
-+	 * unwritten or hole) must be allocated and zeroed as whole blocks.
-+	 * Expand the aligned range outward to cover them.
-+	 */
-+	if (mode & FALLOC_FL_WRITE_ZEROES) {
-+		if (!IS_ALIGNED(offset, blocksize) &&
-+		    !(partial_zeroed & EXT4_PARTIAL_ZERO_START))
-+			align_start = round_down(offset, blocksize);
-+		if (!IS_ALIGNED(end, blocksize) &&
-+		    !(partial_zeroed & EXT4_PARTIAL_ZERO_END))
-+			align_end = round_up(end, blocksize);
-+	}
-+
- 	if (align_end > align_start) {
- 		if (mode & FALLOC_FL_WRITE_ZEROES)
- 			flags = EXT4_GET_BLOCKS_CREATE_ZERO | EXT4_EX_NOCACHE;
+ net/tipc/node.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/net/tipc/node.c b/net/tipc/node.c
+index 683a136e53ef..127848e8a644 100644
+--- a/net/tipc/node.c
++++ b/net/tipc/node.c
+@@ -1333,7 +1333,9 @@ static void tipc_node_reset_links(struct tipc_node *n)
+ 
+ 	pr_warn("Resetting all links to %x\n", n->addr);
+ 
++	tipc_node_write_lock(n);
+ 	trace_tipc_node_reset_links(n, true, " ");
++	tipc_node_write_unlock(n);
+ 	for (i = 0; i < MAX_BEARERS; i++) {
+ 		tipc_node_link_down(n, i, false);
+ 	}
+-- 
+2.43.0
