@@ -1,78 +1,75 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075AC43BDDD
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:41:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE615448CE3
+	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 14:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787582520; cv=none; b=kneY3kKIyne1ptoDw+elz8Jx3TiEK1tbQPdCERgsDkSTuR4rLzwqN2MWydvraNgot5wDDIW71kMAl1EwzB1qtrX7AZGwRNN6FurwtcnDGduIPY9REsHdXLQQ5Kzf86FbKrfP3Ze+ALdrTgzCBb25mHekGlNWEw5hS65QboPiB2A=
+	t=1787582828; cv=none; b=FBnPPVWRtdAy/l1goKhDSt/VTspyycrm0mCVETodJ+tPV+OTjWTzVItkzck/s4IB6VtodmR8bwpjoJdMpdsAfhJPTU13ejNukrTpakP2HJufqwWJJYmDCgqHVr+qhnti6qDxRKpX0AGyDgeD8B7TDyBA8DmNr/Je3SzoCougI7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787582520; c=relaxed/simple;
-	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CrjGehrPu7FeIejpESiyqyVHNSZc3MQxRvVB+BC7t5jR/Yonx5m3Nxmwk5SUy37Bvb/Ga6G5Kh0lLnBLeOqzVrVI5JqTHszsXJ622NXbcCSKaxNVN/0rOuS+8x3q3x4Y8igVDia0wsp2TjPiAjLh2p/WGWa81Dtq9aQwPfXo4l0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hOROC4Rz; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787582828; c=relaxed/simple;
+	bh=NXG7bE790VEEAyF28aLFVFci8yXbRztC6StC9DoElGM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JQRER1sLbt0581HDbnMueG96P6woxaiAxoQh0tWWLPS3m8SAeNGHsJucCZTjy7/5bPlA4FVWHsHis2MVQeu77h51CLM5y16b8B1mFIEFDdxcgtIY88/rxtRjc6Uqr+oLxd5vHdBILg/kS/FTzGLXVcRCWc1hws4edhTaV5DG9gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KawySjtM; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hOROC4Rz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787582517;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
-	b=hOROC4RzZdPRZJ5YR6wMTVcCkrZ17xfwxprq3wHytTPK6DcxatBoqHX9y/+iNzJYLWUMuC
-	rHOswB/t9dJjb2ZqByTMDBN1O/xxGZ4oIHCYbYzkD3pCoxzxKzyFJWHcoKaxsgeTDhR2q5
-	83T+8+1hOnZKpzCiRd8qy8U7ubulA4k=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-660-BkkMkSVBPOmbFAgBkBZ02Q-1; Mon,
- 24 Aug 2026 10:41:56 -0400
-X-MC-Unique: BkkMkSVBPOmbFAgBkBZ02Q-1
-X-Mimecast-MFC-AGG-ID: BkkMkSVBPOmbFAgBkBZ02Q_1787582513
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 61DE919541B5;
-	Mon, 24 Aug 2026 14:41:52 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.15])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40B6A1800605;
-	Mon, 24 Aug 2026 14:41:44 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: David Howells <dhowells@redhat.com>,
-	Christian Brauner <christian@brauner.io>,
-	Matthew Wilcox <willy@infradead.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Leon Romanovsky <leon@kernel.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-erofs@lists.ozlabs.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Mehltretter <kmehltretter@gmail.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KawySjtM"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso3987288a91.3
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 07:47:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787582825; x=1788187625; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HbTvMJOA5pAnK3dUzCcI4B1WpzStHPSu12W55oNjXVo=;
+        b=KawySjtMyaKjpiaTzAegy+9sFaXa9f+QcH53evqIh6Eai+w+efb+S4fJ5WTZY851vR
+         qwSITmHO6w/HydKbTUTRKeR3G+2fdegdqJPEy9OQNJcuq2JPqqco4/clcTQ7rn4LbgDP
+         TOdX1wN3re/qmKUJUwYFR2KmgJEdtik/Fvu3RblSbujkY/G9SJaVCBehNwnqHE4h5P9J
+         V/PMqa5t5KahtDp4/yLsSQGicbt2SgVVqBrrtgSgrncxA0QdFwp7lre4KL9TCnOW4wzY
+         i6WcLo7T9PipZX7GplPH+TP5s/wBdyxwmZRpxWXgNfdgPxeYEBw0A641CfSf17PbNkZW
+         sK2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787582825; x=1788187625;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HbTvMJOA5pAnK3dUzCcI4B1WpzStHPSu12W55oNjXVo=;
+        b=XKc26ugmhihhtDvq09eoUMzAd+KE2F2SbCBMdg8uPLXUz0ZaQhNKwIkMQiTD33zUfi
+         wyEO1UpzzXaulELZ5VVM4/mVKeYhfj/BcjO6pP8WBAkTv95NGgbOq5440qEKcyG4fr+F
+         C+QyD8DNu5y9zIdIA6QGnV3niwRtVESBywonymzHLalZHTB3zNFD47Rd+2msfd91WCVt
+         15d1fOhl0MXN6AOn+HkdFk4urbwF9OmdiUExaTGDfdF93YaGQWFPAeUkrrZ3lPccvdrs
+         htmJwE6XskP3uFbruA8+ZzQ2h6WV6Gv9ih7I8HLPmtYVcbfs4yJQy29wyJ7ySZIdJE9W
+         EPZA==
+X-Forwarded-Encrypted: i=1; AHgh+RqHKUsyBuGpU0EbMvTo14pE4JJclw5UspM5oXezGAftFVdl94ZzkRBbuiFbMMuaH+FsxR5SDf4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPTciSgxwxJCN2uq5mTl5GjQ7o6eu6+bhwHr9HCqyrYos86a1Q
+	WCkxVADck/62adRlgcag2nvwyAhvxpSlq23JZ+Ks1flysAMlrMczKhVj
+X-Gm-Gg: AR+sD11KXtg4zu74AqG8+OGVw49zxB/Ryx8jJuuSFD+NYlipNmKv1cbmnOsyU3szW89
+	DQ++UtYfSh6osbheVBLmgOT7DfESA5oSazj41LJRFgmZ4A/74rvawZwo9z2TmifxJz23RkSwtJp
+	Ty7u1jjZ0FwEQjBh8qBMJ7Ke3s7N+bSbQY48kttVp6W2jzUIkdZp3IiAmoDXPBW0M2Tg8N26+Xe
+	LWS9axjBmfeLkymODAwTnXdB8Y+UZ/roS7pY/WU5YLEgrcve+yXvlcgNzyp6OTHj7rT7ORU6OYd
+	MCo2FDbhStNgoCTQRibyqykg4PG8umOcko0C/tyErdL03o+dRlxE094nDCDvrhvu3dDAALtJ140
+	8BjW3vw5ur0glYr0dE77H60F99OGqBpq5aQ6JhhAyItMXjb3VrGRHZmFuE9CMokpUqJzSaO0gFs
+	WFkeUZ63abp+38tcPQ9waQ1tsPIrKxGd96uUO8bOSYVLaW523boSwLB4KAHq+Oq3zDq6iZH/a7q
+	yH0Nmh9Y1MO7bi0atzvXGE=
+X-Received: by 2002:a17:90a:100f:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39640e6f6d9mr1017779a91.3.1787582824587;
+        Mon, 24 Aug 2026 07:47:04 -0700 (PDT)
+Received: from deepanshu.. ([2405:201:682f:383f:4cf4:9e7a:69d:2900])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141861732f8sm25774770c88.10.2026.08.24.07.46.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 07:47:01 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v10 01/35] netfs: Fix uninitialized return value in netfs_unbuffered_write()
-Date: Mon, 24 Aug 2026 15:40:54 +0100
-Message-ID: <20260824144130.759997-2-dhowells@redhat.com>
-In-Reply-To: <20260824144130.759997-1-dhowells@redhat.com>
-References: <20260824144130.759997-1-dhowells@redhat.com>
+Subject: [PATCH] eventfs: Initialize ei->children and ei->list in init_ei()
+Date: Mon, 24 Aug 2026 20:16:53 +0530
+Message-Id: <20260824144653.54044-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,44 +77,72 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+eventfs_create_events_dir() allocates the eventfs_inode via
+alloc_root_ei(), but only calls INIT_LIST_HEAD() on ei->children
+and ei->list after the tracefs_get_inode() check. If that check
+fails, the code jumps to the fail label and calls cleanup_ei(),
+which calls free_ei():
 
-If preparation of the first subrequest fails,
-netfs_unbuffered_write() exits its loop before ret is initialized. The
-empty-iterator check can do the same.
+	WARN_ON_ONCE(!list_empty(&ei->children));
 
-For synchronous writes, netfs_unbuffered_write_iter_locked() may then
-return an unrelated error instead of wreq->error. This is reachable
-through CIFS if cifs_prepare_write() fails to reopen the file or obtain
-credits.
+Since ei was allocated with kzalloc(), ei->children.next is NULL
+at this point, not a self-referencing pointer. list_empty() checks
+head->next == head, so it returns false on an uninitialized list
+head, triggering a false-positive WARN_ON_ONCE() even though the
+list was never used.
 
-Initialize ret to 0 so the caller returns wreq->error if no data was
-written, or the number of bytes already written otherwise.
+eventfs_create_dir() has the same latent issue: alloc_ei() is
+called before INIT_LIST_HEAD(), leaving a window where an early
+failure path could hit cleanup_ei() on an uninitialized list head.
 
-Found with Clang's -Wconditional-uninitialized.
+Move the INIT_LIST_HEAD() calls into init_ei(), which is called
+by both alloc_ei() and alloc_root_ei() immediately after
+allocation. This guarantees every eventfs_inode has a valid,
+self-linked, empty children/list the moment it is allocated,
+regardless of which failure path runs afterward.
 
-Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
+Fixes: 5790b1fb3d67 ("eventfs: Remove eventfs_file and just use eventfs_inode")
+Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
- fs/netfs/direct_write.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/tracefs/event_inode.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index c16fbad286a1..b04019097ab8 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
- {
- 	struct netfs_io_subrequest *subreq = NULL;
- 	struct netfs_io_stream *stream = &wreq->io_streams[0];
--	int ret;
-+	int ret = 0;
+diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
+index 604ba3e841d2..6e3513b13cfa 100644
+--- a/fs/tracefs/event_inode.c
++++ b/fs/tracefs/event_inode.c
+@@ -438,6 +438,8 @@ static inline struct eventfs_inode *init_ei(struct eventfs_inode *ei, const char
+ 	if (!ei->name)
+ 		return NULL;
+ 	kref_init(&ei->kref);
++	INIT_LIST_HEAD(&ei->children);
++	INIT_LIST_HEAD(&ei->list);
+ 	return ei;
+ }
  
- 	_enter("%llx", wreq->len);
+@@ -729,8 +731,6 @@ struct eventfs_inode *eventfs_create_dir(const char *name, struct eventfs_inode
+ 	ei->entries = entries;
+ 	ei->nr_entries = size;
+ 	ei->data = data;
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
  
+ 	scoped_guard(mutex, &eventfs_mutex) {
+ 		if (!parent->is_freed)
+@@ -802,9 +802,6 @@ struct eventfs_inode *eventfs_create_events_dir(const char *name, struct dentry
+ 	ei->attr.uid = uid;
+ 	ei->attr.gid = gid;
+ 
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
+-
+ 	ti = get_tracefs(inode);
+ 	ti->flags |= TRACEFS_EVENT_INODE;
+ 	ti->private = ei;
+-- 
+2.34.1
 
