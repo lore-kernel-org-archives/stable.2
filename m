@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E93384CC4;
-	Mon, 24 Aug 2026 19:01:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9336632B9B5;
+	Mon, 24 Aug 2026 19:01:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787598110; cv=none; b=bgsnd0xd/3mzXUYVF2vuiMnL3e2pCfo8ghPeLVWQS650CcxdvBBoMStCMFBCW/urKJwISPNmIDBrx+Iujc+ymUF4SRZq9YxEu5r/WXq2Jk8We55mN3So0Rdp1lG/PX4f/s20UsRBkgfdZuTkiz05UZ0ZfKWiiP7Iqxbo8IQ4CaA=
+	t=1787598112; cv=none; b=BqvxhEjyH4N6p0hgknq5CCT1qegAkxl9dEDyuYetHiS50ewaGJHopSpAkQ0tjJP+oEHEDjR94eQ409ZgHaqXBhb1ixI4aHG3tQSdKP5J4tKirEKF9bdeANU8i8GUR5S3FN9+GvQGxrxYaoeG6EhCU0efB2qMFDpchEoGYgeteIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787598110; c=relaxed/simple;
-	bh=eyU6r0SishXykL6vOGQc0Xujzk1E/Hki3H9UxM5+g9g=;
+	s=arc-20240116; t=1787598112; c=relaxed/simple;
+	bh=933u73QWdpzZaBze9u9KiUkCiWNielYyFE59mdotBAE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B4DjmECyFVJLZDZP3BIyi0JJSn0XERk/fT04b3TQxeKa7ZWszKxqE/eHFe1ah2e7kiWmN9Tccykm9PAmq3gtN6lNdaRb1Gs8YxoCfN+dcfJv1+kI2/2vweEud8V9HJ3Qtg0aMmVEB4BkzUi1HMiY9bScWSsNuSC87cn8yRp0tLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJ1pQWoJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oxlp8E3uR8S9QqSmNqEoCzCIFFwhAjM/qNIKTk8sol8pv4YnPcFHyrqSfIYZ673tYp4i712Zq9JM7vIL6QBFOei+idS9+sGf61vhdtNS8gcPTvTaJCxEZEpdwwq9EQLYPpVpZjxRt08AXyzX8bOew4rZt6xYP1Y6dCxfmsn/aC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjhlpZC4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJ1pQWoJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF89B1F00A3A;
-	Mon, 24 Aug 2026 19:01:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjhlpZC4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4D11F00A3D;
+	Mon, 24 Aug 2026 19:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787598108;
-	bh=whCxGhkN1F/IkrbyKB7rAyMLLjPIW2qrMZfBStfHyG4=;
+	s=k20260515; t=1787598110;
+	bh=p3pGLBZRSwh5yRsmnzTTKhLQV7JpbpiY680jV/tG03k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hJ1pQWoJps39Mrc3jMFCH6/BbjZPxGL91CytMbzcTrdcb+kxXf7oN6rFKPEGnoF71
-	 MGodN7YYeZUTxZdkSSne6E+kz6T7TVBsvfFCALj3WTqwNIt5hCzvRxOuf+8dYDqkkz
-	 YWstNiHbzLNsKjDYgp0BTZJntyHDdJx9j75NDhqGQuME4GHllPnvnkfvUe5OR4mSXO
-	 uUjOi6oz6BLFGxwKChOFXTQZIW3jdtmreL/R+C5qsIVI68QfsdZSvjdqYvg7KTeC8H
-	 4x26hSXGTjZZw32XCeF2aE/sTnXodw7kjLELeN7ZC2K87l7kYEQWX8shyRVuYw4XPJ
-	 SHScW3+gApCiQ==
+	b=DjhlpZC4SJ9XW3yBFQrQtzo3TzjNR0YB7KVpnx7DvsAwB/bZUzKJqpZnl8CvjZ5Fc
+	 IixUo1vPFUDm7jNJyvdXmm7WMFnI9C2+XnfDebN/M+G4annp/0sP5Y03jkCCTe/Q9g
+	 Ij4VOIKjDgKraUhg/bTQNs1bQ4U062BcpM/HJE0CAGH4Xiv/FRxvoHYH9iBNp4Vnht
+	 4o3D7ytoIUKUK0tw5si72rVjVhAxhnAUqGyTPThznmcP3yWGOXEhl53JgIl/D2JlUW
+	 /c6ozDj8XSzHG+G3dti0g2hUBSssNjdBClL0dZzuSMa5O1QawgvKzRN6nTZq8JDGuX
+	 Wgwpqf9l1VC1g==
 From: Jakub Kicinski <kuba@kernel.org>
 To: anthony.l.nguyen@intel.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -42,12 +42,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	horms@kernel.org,
 	stable@vger.kernel.org,
 	rafal.romanowski@intel.com
-Subject: Re: [PATCH net 2/4] i40e: skip unnecessary VF reset when setting trust
-Date: Mon, 24 Aug 2026 12:01:47 -0700
-Message-ID: <20260824190147.2714513-1-kuba@kernel.org>
+Subject: Re: [PATCH net 3/4] iavf: send MAC change request synchronously
+Date: Mon, 24 Aug 2026 12:01:49 -0700
+Message-ID: <20260824190149.2714547-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821204537.2189112-3-anthony.l.nguyen@intel.com>
-References: <20260821204537.2189112-3-anthony.l.nguyen@intel.com>
+In-Reply-To: <20260821204537.2189112-4-anthony.l.nguyen@intel.com>
+References: <20260821204537.2189112-4-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,262 +59,547 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-i40e: skip unnecessary VF reset when setting trust
+iavf: send MAC change request synchronously
 
-This changes i40e_ndo_set_vf_trust() so that the VF reset is only performed
-when trust is being revoked and the VF has ADQ, cloud filters or
-promiscuous mode configured. In the other cases a new helper,
-i40e_setup_vf_trust(), just sets or clears
-I40E_VIRTCHNL_VF_CAP_PRIVILEGE. A few questions below about the state that
-the skipped reset used to clean up.
+This converts iavf_set_mac() from queueing the ADD_ETH_ADDR request for the
+watchdog and waiting on vc_waitqueue into sending the virtchnl message
+directly and polling the admin receive queue for the reply. A new generic
+helper iavf_poll_virtchnl_response() is added, iavf_add_ether_addrs() now
+returns an error code, iavf_mac_add_reject() is exported for rollback, and
+vc_waitqueue is removed.
 
-> diff --git a/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c b/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
-> index a26c3d47ec15..0cc434b26eb8 100644
-> --- a/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
-> +++ b/drivers/net/ethernet/intel/i40e/i40e_virtchnl_pf.c
-> @@ -4943,6 +4943,23 @@ int i40e_ndo_set_vf_spoofchk(struct net_device *netdev, int vf_id, bool enable)
+A few questions about the new synchronous path below.
+
+First, about the changelog text:
+
+>     export iavf_mac_add_reject() to enable proper rollback on local failures
+>     (timeouts, send errors) - PF rejections are already handled automatically
+>     by iavf_virtchnl_completion().
+
+[Severity: Low]
+
+Is the "timeouts" part accurate? iavf_poll_virtchnl_response() returns
+-EAGAIN on timeout, and iavf_set_mac() explicitly skips the rollback for
+that value:
+
+	if (ret != -EAGAIN) {
+		iavf_mac_add_reject(adapter);
+		ether_addr_copy(adapter->hw.mac.addr, netdev->dev_addr);
+	}
+
+So on a timeout nothing is rolled back, which is the opposite of what the
+changelog describes (and matches the in-code comment). Could the changelog
+be adjusted to say send errors only?
+
+> diff --git a/drivers/net/ethernet/intel/iavf/iavf.h b/drivers/net/ethernet/intel/iavf/iavf.h
+> index dc31202b2a94..8c45536fd502 100644
+> --- a/drivers/net/ethernet/intel/iavf/iavf.h
+> +++ b/drivers/net/ethernet/intel/iavf/iavf.h
+
+[ ... ]
+
+> @@ -588,8 +587,9 @@ void iavf_configure_queues(struct iavf_adapter *adapter);
+>  void iavf_enable_queues(struct iavf_adapter *adapter);
+>  void iavf_disable_queues(struct iavf_adapter *adapter);
+>  void iavf_map_queues(struct iavf_adapter *adapter);
+> -void iavf_add_ether_addrs(struct iavf_adapter *adapter);
+> +int iavf_add_ether_addrs(struct iavf_adapter *adapter);
+>  void iavf_del_ether_addrs(struct iavf_adapter *adapter);
+> +void iavf_mac_add_reject(struct iavf_adapter *adapter);
+
+[Severity: Low]
+
+Now that iavf_add_ether_addrs() reports -EBUSY, -ENOMEM and send failures,
+should the watchdog side caller consume it too? iavf_process_aq_command()
+still discards it and returns 0 unconditionally:
+
+	if (adapter->aq_required & IAVF_FLAG_AQ_ADD_MAC_FILTER) {
+		iavf_add_ether_addrs(adapter);
+		return 0;
+	}
+
+which also disagrees with that function's own kernel-doc ("Returns error
+code if no command was sent or error code if the command failed").
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c b/drivers/net/ethernet/intel/iavf/iavf_main.c
+> index 630388e9d28c..3fa288e3798a 100644
+> --- a/drivers/net/ethernet/intel/iavf/iavf_main.c
+> +++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
+> @@ -1029,6 +1029,60 @@ static bool iavf_is_mac_set_handled(struct net_device *netdev,
 >  	return ret;
 >  }
 >  
 > +/**
-> + * i40e_setup_vf_trust - Enable/disable VF trust mode without reset
-> + * @vf: VF to configure
-> + * @setting: trust setting
+> + * iavf_mac_change_done - Check if MAC change completed
+> + * @adapter: board private structure
+> + * @data: MAC address being checked (as const void *)
+> + * @v_op: virtchnl opcode from processed message
 > + *
-> + * Update VF flags when changing trust without performing a VF reset.
-> + * This is only called when it's safe to skip the reset (VF has no advanced
-> + * features configured that need cleanup).
+> + * Callback for iavf_poll_virtchnl_response() to check if MAC change completed.
+> + *
+> + * Return: true if MAC change completed, false otherwise
 > + */
-> +static void i40e_setup_vf_trust(struct i40e_vf *vf, bool setting)
+> +static bool iavf_mac_change_done(struct iavf_adapter *adapter,
+> +				 const void *data, enum virtchnl_ops v_op)
 > +{
-> +	if (setting)
-> +		set_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
-> +	else
-> +		clear_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
+> +	const u8 *addr = data;
+> +
+> +	return iavf_is_mac_set_handled(adapter->netdev, addr);
 > +}
 
 [Severity: Medium]
 
-This helper writes I40E_VIRTCHNL_VF_CAP_PRIVILEGE from the ndo (rtnl)
-context. i40e_alloc_vf_res() derives the same bit from an unsynchronized
-read of vf->trusted:
+iavf_mac_change_done() ignores v_op and looks only at filter state, while
+iavf_poll_virtchnl_response() calls the predicate after every message it
+processes.
 
-i40e_alloc_vf_res()
-	if (vf->trusted)
-		set_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
-	else
-		clear_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
+Consider setting an address that already has a filter whose earlier add
+succeeded, so add_handled is true and is_new_mac is false.
+iavf_replace_primary_mac() sets add = true but does not reset add_handled,
+and iavf_add_ether_addrs() clears add again while building the batch:
 
-That runs from i40e_reset_vf()->i40e_cleanup_reset_vf()->i40e_alloc_vf_res()
-in service task context, and a VF can request a reset itself through
-VIRTCHNL_OP_RESET_VF.
+iavf_is_mac_set_handled():
+	f = iavf_find_filter(adapter, macaddr);
 
-If that path reads vf->trusted and is preempted before the
-set_bit()/clear_bit(), can i40e_ndo_set_vf_trust() update vf->trusted and
-call i40e_setup_vf_trust() in between, so the stale write lands last? That
-would leave vf->trusted true with the capability bit clear, or vf->trusted
-false with the bit still set.
+	if (!f || (!f->add && f->add_handled))
+		ret = true;
 
-Before this patch the ndo always followed the vf->trusted update with
-i40e_vc_reset_vf(), so the bit was recomputed from the final value of
-vf->trusted. With the reset skipped, is anything left that reconciles the
-two?
+Can an unrelated message processed by the poll loop, for example a
+VIRTCHNL_OP_EVENT link change, then make this return true before the
+ADD_ETH_ADDR reply arrives? netdev->dev_addr is only updated from
+iavf_virtchnl_completion(), so iavf_set_mac() would return -EACCES for a
+request that is still in flight and later applied.
 
+The old code only re-evaluated the condition on
+wake_up(&adapter->vc_waitqueue), which was issued exclusively from the
+VIRTCHNL_OP_ADD_ETH_ADDR completion paths.
+
+> +
+> +/**
+> + * iavf_set_mac_sync - Synchronously change MAC address
+> + * @adapter: board private structure
+> + * @addr: MAC address to set
+> + *
+> + * Send MAC change request to PF and poll admin queue for response.
+> + * Caller must hold netdev_lock. This can sleep for up to 2.5 seconds.
+> + * Event buffer is allocated before sending to avoid state mismatch if
+> + * allocation fails after message is sent to PF.
+> + *
+> + * Return: 0 on success, negative on failure
+> + */
+> +static int iavf_set_mac_sync(struct iavf_adapter *adapter, const u8 *addr)
+> +{
+> +	struct iavf_arq_event_info event;
+> +	int ret;
+> +
+> +	netdev_assert_locked(adapter->netdev);
+> +
+> +	event.buf_len = IAVF_MAX_AQ_BUF_SIZE;
+> +	event.msg_buf = kzalloc(event.buf_len, GFP_KERNEL);
+> +	if (!event.msg_buf)
+> +		return -ENOMEM;
+> +
+> +	ret = iavf_add_ether_addrs(adapter);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = iavf_poll_virtchnl_response(adapter, &event,
+> +					  iavf_mac_change_done, addr, 2500);
+
+[Severity: Medium]
+
+Only one batch is sent here. iavf_add_ether_addrs() truncates the request
+when it does not fit the admin queue buffer:
+
+	len = virtchnl_struct_size(veal, list, count);
+	if (len > IAVF_MAX_AQ_BUF_SIZE) {
+		dev_warn(&adapter->pdev->dev, "Too many add MAC changes in one request\n");
+		while (len > IAVF_MAX_AQ_BUF_SIZE)
+			len = virtchnl_struct_size(veal, list, --count);
+		more = true;
+	}
+
+The remaining filters keep f->add == true and IAVF_FLAG_AQ_ADD_MAC_FILTER
+stays set, and iavf_add_filter() appends new filters to the tail of
+mac_filter_list. If the just requested primary address ends up outside the
+first batch, can iavf_mac_change_done() ever become true, given
+iavf_is_mac_set_handled() requires !f->add? The poll loop has no way to send
+the next batch, so this would burn the full 2500 ms and return -EAGAIN to
+userspace while the watchdog applies the change afterwards.
+
+> +
+> +out:
+> +	kfree(event.msg_buf);
+> +	return ret;
+> +}
+> +
 >  /**
->   * i40e_ndo_set_vf_trust
->   * @netdev: network interface device structure of the pf
-> @@ -4987,19 +5004,20 @@ int i40e_ndo_set_vf_trust(struct net_device *netdev, int vf_id, bool setting)
->  	set_bit(__I40E_MACVLAN_SYNC_PENDING, pf->state);
->  	pf->vsi[vf->lan_vsi_idx]->flags |= I40E_VSI_FLAG_FILTER_CHANGED;
+>   * iavf_set_mac - NDO callback to set port MAC address
+>   * @netdev: network interface device structure
+> @@ -1049,25 +1103,23 @@ static int iavf_set_mac(struct net_device *netdev, void *p)
+>  		return -EADDRNOTAVAIL;
 >  
-> -	i40e_vc_reset_vf(vf, true);
-> +	/* Reset only if revoking trust and VF has advanced features configured */
-> +	if (!setting &&
-> +	    (vf->adq_enabled || vf->num_cloud_filters > 0 ||
-> +	     test_bit(I40E_VF_STATE_UC_PROMISC, &vf->vf_states) ||
-> +	     test_bit(I40E_VF_STATE_MC_PROMISC, &vf->vf_states))) {
+>  	ret = iavf_replace_primary_mac(adapter, addr->sa_data);
+> -
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = wait_event_interruptible_timeout(adapter->vc_waitqueue,
+> -					       iavf_is_mac_set_handled(netdev, addr->sa_data),
+> -					       msecs_to_jiffies(2500));
+> -
+> -	/* If ret < 0 then it means wait was interrupted.
+> -	 * If ret == 0 then it means we got a timeout.
+> -	 * else it means we got response for set MAC from PF,
+> -	 * check if netdev MAC was updated to requested MAC,
+> -	 * if yes then set MAC succeeded otherwise it failed return -EACCES
+> -	 */
+> -	if (ret < 0)
+> +	ret = iavf_set_mac_sync(adapter, addr->sa_data);
+> +	if (ret) {
+> +		/* Rollback only if send failed (message never reached PF).
+> +		 * Don't rollback on timeout (-EAGAIN) because the message was
+> +		 * sent and PF will eventually respond. When the response arrives,
+> +		 * iavf_virtchnl_completion() will handle rollback (on PF error)
+> +		 * or acceptance (on PF success) automatically.
+> +		 */
+> +		if (ret != -EAGAIN) {
+> +			iavf_mac_add_reject(adapter);
+> +			ether_addr_copy(adapter->hw.mac.addr, netdev->dev_addr);
+> +		}
 
 [Severity: High]
 
-Does this condition need to consider the MAC and VLAN filters that the VF
-was only allowed to install because it was trusted?
+Can this rollback destroy filters that belong to a different, still
+outstanding request?
 
-Trust is checked at add time only. i40e_check_vf_permission():
+iavf_mac_add_reject() is a completion time helper that walks the whole list:
 
-	vf_trusted = test_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps);
-	...
-	if (!vf_trusted && !is_multicast_ether_addr(addr) &&
-	    vf->pf_set_mac && ...)
-		return -EPERM;
-	...
-	if (!vf_trusted)
-		mac_add_max = I40E_VC_MAX_MAC_ADDR_PER_VF;
-	else
-		mac_add_max = I40E_VC_MAX_MACVLAN_PER_TRUSTED_VF(...);
+	list_for_each_entry_safe(f, ftmp, &adapter->mac_filter_list, list) {
+		if (f->remove && ether_addr_equal(f->macaddr, netdev->dev_addr))
+			f->remove = false;
 
-and i40e_vc_add_vlan_msg():
+		if (!f->add && !f->add_handled)
+			f->add_handled = true;
 
-	if ((vf->num_vlan >= I40E_VC_MAX_VLAN_PER_VF) &&
-	    !test_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps)) {
-
-Nothing revalidates filters that are already installed when the privilege
-bit is dropped.
-
-Previously the revoke always went through
-i40e_vc_reset_vf()->i40e_reset_vf()->i40e_cleanup_reset_vf(), which calls
-i40e_free_vf_res():
-
-i40e_free_vf_res()
-	if (vf->lan_vsi_idx) {
-		i40e_vsi_release(pf->vsi[vf->lan_vsi_idx]);
-
-so every MAC/VLAN filter was purged, and i40e_cleanup_reset_vf() also set
-vf->num_vlan = 0.
-
-A VF that used only the privileged MAC/VLAN allowances has
-adq_enabled == false, num_cloud_filters == 0 and both promisc bits clear,
-so it takes the else branch here and only the capability bit is cleared.
-Can such a VF keep receiving on MAC/VLAN combinations an untrusted VF may
-never request, including a MAC that overrides the administratively set
-vf->default_lan_addr, while ip link reports trust off?
-
-Is the requested MACVLAN resync enough to cover this? Following
-i40e_sync_vsi_filters()->i40e_correct_vf_mac_vlan_filters() in
-i40e_main.c:
-
-	new_vlan = i40e_get_vf_new_vlan(vsi, NULL, f, vlan_filters, trusted);
-	if (new_vlan != f->vlan) { ... }
-
-that only re-derives I40E_VLAN_ANY versus 0 for existing filters, it does
-not delete filters that exceed the untrusted quota.
-
-As a second effect, vf->num_vlan and the active MAC filter count stay above
-the untrusted limits, so does every later VLAN/MAC add from that VF get
-rejected until an unrelated reset happens?
-
-[Severity: Medium]
-
-Can this sample of VF-controlled state race with the virtchnl handlers that
-write it? i40e_vc_process_vf_msg() is called from
-i40e_clean_adminq_subtask() in i40e_main.c:
-
-	case i40e_aqc_opc_send_msg_to_pf:
-		ret = i40e_vc_process_vf_msg(pf, ...);
-
-which runs in service task context without rtnl_lock and without taking
-__I40E_VIRTCHNL_OP_PENDING, so it does not exclude this ndo.
-
-CPU1 in i40e_vc_config_promiscuous_mode_msg() passes the gate and starts
-the admin queue work:
-
-	if (!test_bit(I40E_VIRTCHNL_VF_CAP_PRIVILEGE, &vf->vf_caps)) { ... }
-	...
-	aq_ret = i40e_config_vf_promiscuous_mode(vf, info->vsi_id,
-						 allmulti, alluni);
-	if (aq_ret)
-		goto err_out;
-	... test_and_set_bit(I40E_VF_STATE_UC_PROMISC, &vf->vf_states)
-
-CPU0 then runs i40e_ndo_set_vf_trust(), sees both promisc bits still clear
-(they are set only after the admin queue sequence), takes the else branch,
-clears the privilege bit and skips the reset. CPU1 finishes and sets
-I40E_VF_STATE_UC_PROMISC with promiscuous mode programmed in hardware.
-
-Does that leave an untrusted VF promiscuous indefinitely? The same ordering
-appears in i40e_vc_add_cloud_filter(), where
-
-	hlist_add_head(&cfilter->cloud_node, &vf->cloud_filter_list);
-	vf->num_cloud_filters++;
-
-happens after the filter is programmed, and in i40e_vc_add_qch_msg() which
-sets vf->adq_enabled last.
-
-> +		i40e_vc_reset_vf(vf, true);
-
-[Severity: Medium]
-
-This is a pre-existing issue and not introduced by this patch, but in this
-branch the capability bit and the hardware promiscuous teardown are only
-side effects of the reset, and i40e_vc_reset_vf() is void and can return
-having done nothing:
-
-i40e_vc_reset_vf()
-	if (test_bit(__I40E_VFS_RELEASING, pf->state))
-		return;
-	if (i40e_reset_vf(vf, false))
-		return;
-
-i40e_reset_vf() also returns true immediately when __I40E_VF_RESETS_DISABLED
-or __I40E_VF_DISABLE is set, and after 20 attempts the helper only warns.
-
-In those cases vf->trusted is already false and the driver prints "VF %u is
-now untrusted", but the bit consulted by i40e_check_vf_permission(),
-i40e_vc_config_promiscuous_mode_msg(), i40e_vc_add_vlan_msg() and
-i40e_vc_add_cloud_filter() is still set, since i40e_setup_vf_trust() is
-only called from the else branch. i40e_ndo_get_vf_config() reports
-ivi->trusted = vf->trusted, so the two can disagree.
-
-Would calling i40e_setup_vf_trust(vf, setting) unconditionally, before the
-branch, make both artifacts deterministic?
-
-> +		i40e_del_all_cloud_filters(vf);
-
-[Severity: Medium]
-
-This ordering is pre-existing and not introduced by this patch, the
-baseline also called i40e_vc_reset_vf() before i40e_del_all_cloud_filters()
-in the "if (vf->adq_enabled && !vf->trusted)" block, but the restructuring
-keeps it.
-
-The reset just above releases the ADQ channel VSIs and zeroes their ids in
-i40e_free_vf_res():
-
-	if (j)
-		i40e_vsi_release(pf->vsi[vf->ch[j].vsi_idx]);
-	vf->ch[j].vsi_idx = 0;
-	vf->ch[j].vsi_id = 0;
-
-and i40e_alloc_vf_res() re-creates them with newly assigned seids. The
-teardown then looks the VSI up by the recorded seid in
-i40e_find_vsi_from_seid():
-
-	for (i = 0; i < vf->num_tc ; i++) {
-		vsi = i40e_find_vsi_from_id(pf, vf->ch[i].vsi_id);
-		if (vsi && vsi->seid == seid)
-			return vsi;
+		if (f->is_new_mac) {
+			list_del(&f->list);
+			kfree(f);
+		}
 	}
 
-If the seid changed, i40e_del_all_cloud_filters() takes the error path:
+One way to reach it with ret == -EBUSY is an ADD_ETH_ADDR batch the watchdog
+already sent and whose reply has not been processed yet. Those filters are
+exactly in state add == false, is_new_mac == true (is_new_mac is only
+cleared by iavf_mac_add_ok() on a successful reply), so they are freed here
+while the PF still has the adds pending.
 
-	vsi = i40e_find_vsi_from_seid(vf, cfilter->seid);
-	if (!vsi) {
-		dev_err(... "can't delete cloud filter\n" ...);
-		continue;
-	}
+Newly queued unicast/multicast filters from iavf_addr_sync() are in the same
+boat, since iavf_add_filter() sets:
 
-so the hlist_del(), the kfree(cfilter) and the vf->num_cloud_filters
-decrement are all skipped. Does this leak the struct i40e_cloud_filter
-allocations? Nothing else walks vf->cloud_filter_list, and with
-vf->num_cloud_filters stuck non-zero the VF also takes the reset branch
-here forever. Would deleting the cloud filters before triggering the reset
-be the right order?
+	f->add = true;
+	f->add_handled = false;
+	f->is_new_mac = true;
 
-> +	} else {
-> +		i40e_setup_vf_trust(vf, setting);
+The netdev core already considers those addresses synced, so once they are
+dropped here nothing programs or retries them until a reset. Should the
+rollback be scoped to the address that iavf_set_mac() itself queued?
+
+[Severity: Medium]
+
+Does the -EAGAIN assumption in the comment above ("the message was sent and
+PF will eventually respond") hold when IAVF_FLAG_PF_COMMS_FAILED is set?
+iavf_send_pf_msg() returns success without posting anything in that case:
+
+	if (adapter->flags & IAVF_FLAG_PF_COMMS_FAILED)
+		return 0; /* nothing to see here, move along */
+
+iavf_add_ether_addrs() then reports 0 while current_op stays
+VIRTCHNL_OP_ADD_ETH_ADDR and f->add has already been cleared, so the poll
+spins for the full 2.5 s under rtnl_lock plus the netdev instance lock,
+returns -EAGAIN, and no rollback runs. adapter->hw.mac.addr and the filter
+bookkeeping then diverge from netdev->dev_addr, and current_op stays pending
+so later virtchnl requests hit "Cannot add filters, command %d pending".
+
+iavf_disable_vf() sets IAVF_FLAG_PF_COMMS_FAILED, clears
+IAVF_FLAG_RESET_PENDING and moves the state to __IAVF_DOWN, so the guard at
+the top of iavf_set_mac() still passes in that window:
+
+	if (iavf_is_reset_in_progress(adapter) || adapter->state < __IAVF_DOWN)
+		return -EBUSY;
+
+>  		return ret;
+> -
+> -	if (!ret)
+> -		return -EAGAIN;
+> +	}
+>  
+>  	if (!ether_addr_equal(netdev->dev_addr, addr->sa_data))
+>  		return -EACCES;
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
+> index ec234cc8bd9d..e6b7e8f82c7c 100644
+> --- a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
+> +++ b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
+
+[ ... ]
+
+> @@ -555,20 +556,23 @@ iavf_set_mac_addr_type(struct virtchnl_ether_addr *virtchnl_ether_addr,
+>   * @adapter: adapter structure
+>   *
+>   * Request that the PF add one or more addresses to our filters.
+> - **/
+> -void iavf_add_ether_addrs(struct iavf_adapter *adapter)
+> + *
+> + * Return: 0 on success, negative on failure
+> + */
+> +int iavf_add_ether_addrs(struct iavf_adapter *adapter)
+>  {
+>  	struct virtchnl_ether_addr_list *veal;
+>  	struct iavf_mac_filter *f;
+>  	int i = 0, count = 0;
+>  	bool more = false;
+>  	size_t len;
+> +	int ret;
+>  
+>  	if (adapter->current_op != VIRTCHNL_OP_UNKNOWN) {
+>  		/* bail because we already have a command pending */
+>  		dev_err(&adapter->pdev->dev, "Cannot add filters, command %d pending\n",
+>  			adapter->current_op);
+> -		return;
+> +		return -EBUSY;
+>  	}
+
+[Severity: Medium]
+
+Is this -EBUSY reachable as a hard failure from the new caller?
+
+iavf_set_mac() runs with the netdev instance lock held, and the only context
+that clears current_op is iavf_virtchnl_completion() as called from
+iavf_adminq_task(), which starts with netdev_lock(netdev). The watchdog does
+the same. So while iavf_set_mac() holds the lock, an outstanding command's
+reply cannot be consumed and current_op cannot go back to
+VIRTCHNL_OP_UNKNOWN.
+
+iavf_set_mac_sync() sends once and gives up:
+
+	ret = iavf_add_ether_addrs(adapter);
+	if (ret)
+		goto out;
+
+Before this change iavf_set_mac() only set IAVF_FLAG_AQ_ADD_MAC_FILTER and
+the watchdog retried the send after the previous command completed, so the
+operation succeeded. Can "ip link set dev X address ..." or bond_enslave()
+now fail with -EBUSY whenever the watchdog has a command in flight, for
+instance the VIRTCHNL_OP_GET_STATS request it sends every couple of
+watchdog ticks?
+
+[ ... ]
+
+> @@ -615,8 +620,15 @@ void iavf_add_ether_addrs(struct iavf_adapter *adapter)
+>  
+>  	spin_unlock_bh(&adapter->mac_vlan_list_lock);
+>  
+> -	iavf_send_pf_msg(adapter, VIRTCHNL_OP_ADD_ETH_ADDR, (u8 *)veal, len);
+> +	ret = iavf_send_pf_msg(adapter, VIRTCHNL_OP_ADD_ETH_ADDR, (u8 *)veal, len);
+>  	kfree(veal);
+> +	if (ret) {
+> +		dev_err(&adapter->pdev->dev,
+> +			"Unable to send ADD_ETH_ADDR message to PF, error %d\n", ret);
+> +		adapter->current_op = VIRTCHNL_OP_UNKNOWN;
 > +	}
 > +
->  	dev_info(&pf->pdev->dev, "VF %u is now %strusted\n",
->  		 vf_id, setting ? "" : "un");
+> +	return ret;
+>  }
 >  
-> -	if (vf->adq_enabled) {
-> -		if (!vf->trusted) {
-> -			dev_info(&pf->pdev->dev,
-> -				 "VF %u no longer Trusted, deleting all cloud filters\n",
-> -				 vf_id);
-> -			i40e_del_all_cloud_filters(vf);
-> -		}
-> -	}
-> -
->  out:
->  	clear_bit(__I40E_VIRTCHNL_OP_PENDING, pf->state);
->  	return ret;
+>  /**
+> @@ -712,8 +724,8 @@ static void iavf_mac_add_ok(struct iavf_adapter *adapter)
+>   * @adapter: adapter structure
+>   *
+>   * Remove filters from list based on PF response.
+> - **/
+> -static void iavf_mac_add_reject(struct iavf_adapter *adapter)
+> + */
+> +void iavf_mac_add_reject(struct iavf_adapter *adapter)
+>  {
+>  	struct net_device *netdev = adapter->netdev;
+>  	struct iavf_mac_filter *f, *ftmp;
+
+[Severity: Medium]
+
+Is this helper able to roll back a filter whose is_new_mac is already
+cleared?
+
+Setting an address that was programmed successfully before leaves
+is_new_mac == false, and iavf_replace_primary_mac() then does:
+
+	old_f->is_primary = false;
+	old_f->remove = true;
+	...
+	new_f->is_primary = true;
+	new_f->add = true;
+
+If iavf_set_mac_sync() fails locally before the batch is built (-EBUSY from
+the current_op check, or -ENOMEM from the veal kzalloc), both branches in
+iavf_mac_add_reject() skip that entry: f->add is still true, and
+f->is_new_mac is false. So f->add and IAVF_FLAG_AQ_ADD_MAC_FILTER survive,
+and the watchdog later sends ADD_ETH_ADDR for the address whose change was
+just reported as failed. Since f->is_primary is still set,
+iavf_set_mac_addr_type() marks it as primary:
+
+	virtchnl_ether_addr->type = filter->is_primary ?
+		VIRTCHNL_ETHER_ADDR_PRIMARY :
+		VIRTCHNL_ETHER_ADDR_EXTRA;
+
+Does the PF then end up with a primary MAC that differs from
+netdev->dev_addr, with no filter marked primary for the address the
+interface is actually using, since old_f->is_primary is never restored?
+
+[ ... ]
+
+> @@ -2950,3 +2960,72 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
+>  	} /* switch v_opcode */
+>  	adapter->current_op = VIRTCHNL_OP_UNKNOWN;
+>  }
+> +
+> +/**
+> + * iavf_poll_virtchnl_response - Poll admin queue for virtchnl response
+
+[ ... ]
+
+> + * Return: 0 on success (condition met), -EAGAIN on timeout, or error code
+> + */
+> +int iavf_poll_virtchnl_response(struct iavf_adapter *adapter,
+> +				struct iavf_arq_event_info *event,
+> +				bool (*condition)(struct iavf_adapter *adapter,
+> +						  const void *data,
+> +						  enum virtchnl_ops v_op),
+> +				const void *cond_data,
+> +				unsigned int timeout_ms)
+> +{
+> +	struct iavf_hw *hw = &adapter->hw;
+> +	enum virtchnl_ops received_op;
+> +	unsigned long timeout;
+> +	int ret = -EAGAIN;
+> +	u16 pending = 0;
+> +	u32 v_retval;
+> +
+> +	netdev_assert_locked(adapter->netdev);
+> +
+> +	timeout = jiffies + msecs_to_jiffies(timeout_ms);
+> +	do {
+> +		if (!pending)
+> +			usleep_range(50, 75);
+> +
+> +		if (iavf_clean_arq_element(hw, event, &pending) == IAVF_SUCCESS) {
+
+[Severity: Medium]
+
+The kernel-doc promises "or error code", but ret is only ever -EAGAIN or 0,
+and the iavf_clean_arq_element() status is dropped here. The sibling helper
+in this file does convert it:
+
+iavf_poll_virtchnl_msg():
+	status = iavf_clean_arq_element(hw, event, NULL);
+	if (status != IAVF_SUCCESS)
+		return iavf_status_to_errno(status);
+
+For the IAVF_ERR_ADMIN_QUEUE_ERROR case, iavf_clean_arq_element() has
+already consumed the descriptor, re-posted it and advanced IAVF_VF_ARQT1:
+
+	flags = le16_to_cpu(desc->flags);
+	if (flags & LIBIE_AQ_FLAG_ERR) {
+		ret_code = IAVF_ERR_ADMIN_QUEUE_ERROR;
+
+so the awaited reply no longer exists. Should that be reported instead of
+spinning to the -EAGAIN timeout, which iavf_set_mac() reads as "still
+outstanding, the PF will respond later" and therefore skips the rollback,
+leaving current_op pending?
+
+[Severity: High]
+
+What happens to this loop if a VFR/EMPR lands while it is polling? The other
+ARQ consumer checks for that explicitly:
+
+iavf_adminq_task():
+	if (iavf_is_reset_in_progress(adapter))
+		goto freedom;
+
+	/* check for error indications */
+	val = rd32(hw, IAVF_VF_ARQLEN1);
+	if (val == 0xdeadbeef || val == 0xffffffff) /* device in reset */
+		goto freedom;
+
+and it also clears the sticky ARQVFE/ARQOVFL/ARQCRIT bits. None of that
+happens here, and iavf_clean_arq_element() takes the producer index straight
+from the register without validating it:
+
+	ntu = rd32(hw, IAVF_VF_ARQH1) & IAVF_VF_ARQH1_ARQH_MASK;
+	if (ntu == ntc) {
+
+With the reset sentinels, 0xdeadbeef & 0x3FF is 751 and 0xffffffff & 0x3FF
+is 1023, both well above hw->aq.num_arq_entries and never equal to
+next_to_clean, so IAVF_ERR_ADMIN_QUEUE_NO_WORK is not returned. Can this
+then "clean" descriptors the hardware never produced, rewrite them, do
+wr32(hw, IAVF_VF_ARQT1, ntc) on a disabled queue and advance
+next_to_clean/next_to_use?
+
+*pending would also come back as hundreds, so the throttle is skipped:
+
+	if (!pending)
+		usleep_range(50, 75);
+	...
+		if (pending)
+			continue;
+
+Does that busy-spin on MMIO for the remaining 2.5 s while holding the netdev
+instance lock and the caller's rtnl_lock, which is what iavf_reset_task()
+needs to recover? Note the loop itself can process
+VIRTCHNL_EVENT_RESET_IMPENDING, which only schedules the reset and does not
+stop the polling.
+
+> +			received_op = (enum virtchnl_ops)le32_to_cpu(event->desc.cookie_high);
+> +			if (received_op != VIRTCHNL_OP_UNKNOWN) {
+> +				v_retval = le32_to_cpu(event->desc.cookie_low);
+> +
+> +				iavf_virtchnl_completion(adapter, received_op,
+> +							 (enum iavf_status)v_retval,
+> +							 event->msg_buf, event->msg_len);
+> +
+> +				if (condition(adapter, cond_data, received_op)) {
+> +					ret = 0;
+> +					break;
+> +				}
+> +			}
+> +
+> +			memset(event->msg_buf, 0, IAVF_MAX_AQ_BUF_SIZE);
+
+[Severity: Low]
+
+Should this use event->buf_len rather than the hardcoded
+IAVF_MAX_AQ_BUF_SIZE? The buffer is caller owned and its size is described
+by event->buf_len, which iavf_clean_arq_element() honours:
+
+	e->msg_len = min(datalen, e->buf_len);
+
+Today's only caller allocates exactly IAVF_MAX_AQ_BUF_SIZE so nothing is
+overwritten, but the helper is exported in iavf.h as generic, and this file
+already has ARQ polling callers with small buffers, e.g.:
+
+	event.msg_buf = (u8 *)&rxdids;
+	event.buf_len = sizeof(rxdids);
+
+Such a caller would get a 4096 byte memset of a few bytes of storage.
+
+> +
+> +			if (pending)
+> +				continue;
+> +		}
+> +	} while (time_before(jiffies, timeout));
+> +
+> +	return ret;
+> +}
