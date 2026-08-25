@@ -1,194 +1,702 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F3B485CE2;
-	Tue, 25 Aug 2026 14:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787669665; cv=fail; b=UkCKBU5dxEn4dp0PqcLboVS8XTZYIr7DZA8SDOm480SRjaLROlHlvPUmOTP98ZlaJ716ZtVZRiVVXMI0lsQw/bhRySP5A2CpAzGAz3m718vLKI0ycoptg39S8NZnQbf5VjbhIoy85rjosO03e7mX+u8KduPU2Q1AJeordweZ/js=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787669665; c=relaxed/simple;
-	bh=FypnKfNCcSfJpdh796UtI7vQlb18s7IqFHfl3vF6edo=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rVLvtzhTHfgn18m841PHNO4HNOV44X7haV5wukp+m8a4NOwl8do+OBu+K7o2JEBQXizd3oI7/y2WWRgW6s0+febP6BO9KxdY81e8X1FEu1Lpv4qU+ZIk3C45RGW5o/Dy2A6Vi3at6Wxbjt32IahbmK1r20fOt5vYG2FUzXkMdXI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=eMbQ6Nmo; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=RvCuncy6; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC0B3D9DC8
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:09:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787670585; cv=none; b=mH0t94qemaYM9/COrb/oyZOTl1CusLbInLczyNJ332mC17coxmXKJju969LyxLLbOKMym1bEHXZ6Ura/OOCMw+14yZPmEZK5aoUahaCQlZz0kFYVN1EpKN7FX+HUtRF1WwS6DTMOGTgu3foS3CswNU5mcB0Bv+a5zFg2PMvKx7Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787670585; c=relaxed/simple;
+	bh=vs77ghMMFouh8CGMr9LSUEAQf8bxt6GLZDqHXtWko8I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QvZomW5a0Og49PsipP+OQY9aS5eBLukicrvm+rqfzdSo/bhTalahjjZMhb85reuTdQaESidulI3xpPqt2OKj+xRBSM0tmSYcJ75p8mUoLiZKNpUAqYKEt5UJoQdKJIB45YP+uYHV4L7goQ9oFn7cUZ9AQu5i3BNJiiYB5aK1zV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dpm3jDYF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="eMbQ6Nmo";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="RvCuncy6"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67PEVbTA2046003;
-	Tue, 25 Aug 2026 09:53:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=proofpoint-05-2026; bh=3i4pEUMDOgEDCHU
-	aQCN8HIE8Gk/70xvhaNdtUv6g7Ek=; b=eMbQ6NmosXzKCRBGaCBTNE9U/iBter2
-	vEgHI6ieM9qqqHqDIx43kB+MJdlhWwG2Z5+2+tIiY6btH0tBewwNo8i232AOE/ud
-	k5RZ5erHTZC6vSCOFRk8y8NSfUPUWdKds/FkbWgY9YpQwLoqO0O2EA3CV3K+my+Z
-	DqCqB2xvSaLwO06upxLjewuC0HwFK5Aj/tSGZ+8VDzM3ZNUIcvIJA88snB+O6YTc
-	Z8yQCY1Fimrr5Eqpo46DNx8A8M2AavF5r7oL4eDksVvgXDkbXqZjpH3sH81hUf2l
-	+WjlU4FrLcEzspa8mIZm/PrFWuJqzedQMpV3hujPgJt8BI5cpGxXCBg==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013013.outbound.protection.outlook.com [40.93.196.13])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4g92xnkdt6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 25 Aug 2026 09:53:44 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ea4XDS2mr/u5ENC4/Ww+u+pf/rWrPk9/u6mhHCwXI42BALEiTvVve3fklgUC1nJLWC+G1uIV+17THEhaBA2H5LGIVqPg1IPdXcOhe//IcpkTmXXRDEC59UPsyR9ikPzRun0EgG7HNToE69LnZ39xY8npXUjJGep5Ir4LZg+MCj5/G7R2ZbY8zHasrucdh8hPK4dSFYeyXYMYkYxuv+jYvZaWtFRcUblNmdo/xTRxL91kK2taWxr/ai0B+cT6reBVP4pOPteuVFiaUOQaskGmAM4HAzu/hQypX0E+J3vq+txX9vRywdNjpMYr7mZV3st1U44AweZUbaUMCjs82HeCpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3i4pEUMDOgEDCHUaQCN8HIE8Gk/70xvhaNdtUv6g7Ek=;
- b=ROH+ZZ5E/5yiBKWguHTNCTY+7ip6PlCwcP/AOmdELKDy3YiURJd6VZIS7Nu6uEqFGYzXd8SjJ2RRQgHezXn2JW2js3cY9wY6h/PBrsqH6qF6Qa8hyvl3Cx9GCUAEXcG5NHzDF/za1IKn4MrJr6VjgzsgFrmz8JwnzHkp02ONCLSsm+sDAIaNJmK6mPjqfY9foKLIyWZSHJmr6yRL7DF62wvFrIffbmRwvbj2VNWoQlltjk9KpIIHyZrXtJ+moFoZ6em0CaQ8/+0y2T3WkoncZheoPtMhMbLFFjhxIcG44MqSfN2o/M3FV+gG6qReYDJbbhuWLlT75iLgt7A24FtlCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3i4pEUMDOgEDCHUaQCN8HIE8Gk/70xvhaNdtUv6g7Ek=;
- b=RvCuncy6LCVHzp74xz4kNdbBKv2o6fu7JxIzv0HOFFzh4yShFG8sugmCj8vbXmsO/HbPT3etGLO+tP7a/sRhqSPtQvvOUzNFsuqe3yRsO8BFhWAIY4SZ0Z2cEGyMP/KMoqYytfDD9yCmQkhea36NF9eoTV6R/SvDNnylnVkAQZI=
-Received: from BL1P221CA0032.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:5b5::11)
- by SJ0PR10MB998056.namprd10.prod.outlook.com (2603:10b6:a03:40d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Tue, 25 Aug
- 2026 14:53:41 +0000
-Received: from BN3PEPF00022BBE.namprd04.prod.outlook.com
- (2603:10b6:208:5b5:cafe::1a) by BL1P221CA0032.outlook.office365.com
- (2603:10b6:208:5b5::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.6 via Frontend Transport; Tue, 25
- Aug 2026 14:53:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BN3PEPF00022BBE.mail.protection.outlook.com (10.167.248.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 14:53:39 +0000
-Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
- 2026 09:52:58 -0500
-Received: from DFLE214.ent.ti.com (10.64.6.72) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
- 2026 09:52:58 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE214.ent.ti.com
- (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 25 Aug 2026 09:52:58 -0500
-Received: from localhost (uda0506412.dhcp.ti.com [128.247.81.196])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67PEqwVX1206558;
-	Tue, 25 Aug 2026 09:52:58 -0500
-Date: Tue, 25 Aug 2026 09:52:58 -0500
-From: Kendall Willis <k-willis@ti.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby
-	<jirislaby@kernel.org>,
-        Peter Hurley <peter@hurleysoftware.com>,
-        "Tony
- Lindgren" <tony@atomide.com>, <s-kochidanadu@ti.com>,
-        <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
-        <linux-kernel@vger.kernel.org>, <linux-serial@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: Re: [PATCH] serial: 8250_omap: fix wake irq cleared during suspend
-Message-ID: <20260825145258.nlnfj6jr5tqys53c@uda0506412>
-References: <20260824-uart-wakeirq-fix-v1-1-6d81a230a1c4@ti.com>
- <20260825072712.jR_IlVlw@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dpm3jDYF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A94E1F00A3A;
+	Tue, 25 Aug 2026 15:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787670581;
+	bh=OAIt6XPkZqnULOwSbOaaU1wfmb99CxePbRzoKQz4mNI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Dpm3jDYFloCU5d07DeZ0AIdr20iil+JZfgtvbAzKs4k0xWf2op4Nhqo8d00E8Ge48
+	 rXh1CM5mLxyCBI8jR+M+qmlmAioUpL1hSIiYCLF/ZCHjbZU8JqB/uvsVfOs2iKJ20X
+	 yapsaaIVFV+I8jKk7/NLbPsBFR3wAp3oxdiBiWH21aX/1VJAHRYWFMRKFs0vbYSAp4
+	 EdBwT5hznc8zHRL7Vf51H58iwgSOy+Ocfrkx50Uuk+dHtB2t2pRHDnGBdEYwSKFK43
+	 CFfqTlmzNlaWj4+yYCYTtaSfXmHBQ/cggLuhM/Te+JeicTNOYfSO6seRoGFNfzxnRa
+	 JND4Xq3kRqSCw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] selinux: use known type instead of void pointer
+Date: Tue, 25 Aug 2026 11:09:35 -0400
+Message-ID: <20260825150937.4024395-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082022-lyrically-condiment-ea5e@gregkh>
+References: <2026082022-lyrically-condiment-ea5e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260825072712.jR_IlVlw@linutronix.de>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBE:EE_|SJ0PR10MB998056:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a70fd24-c5ae-44dd-82a4-08df02b8a5f6
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|10067099003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zggWfwZIkVpEIv1nsEvTrCmeqd9tCphfXahAYQaCpWKo73uiregm6FcMId+dTzxqjVYaHi8tVUD+5T7He8LjZpIkscnEbANKSIdPG53WamOvB5IY4UJdIplOU4O9E/k8YROJHfntgiMbrpLSmsCVrfTQVHrdqd02Tqtw5FGXD7nDp1cM9hkyA6ehB91WsnuhQkf3sjqGURwBQRwMHXX8ghjLFTzhbuNftD30DNZXStXfLmzD9WlM55ALeKKcGoO71JhMFnztXsvWJAH8R3GR/i4DJ8c+J53lWI8suYE/80wP3NOdTHD8WkK6TqP1jYEMLU+IHSTVDjiXa8yx2G7HLwhYsZ7v61Wpty/TVSbETqUJneab+i4G5jO+I2A0LbUPcAlHyH+gkEmM9p/n8y5IITF349/sRKhgZ1uUdYQutbHTQ1RxtF7tvrXUkLYvgsfIcKbmYs5G3IKX4Nm49/LDLOUB0nZPoOJ+00Lt/tb8j0maN7RchdQ/PGao7J6WKCfOqg9OAM+4Sktz16+iBDf505ODwWwVtTTlSOBOPE42A2l1bjglzmxUcqZ7nTolZ+gD78aNmJJlqnFUJgxaqjQZ8TgjhqopepANRn2qpe5qt3T5dhcEQRD1U43HtDInYtqPWGrfjYD1wxIPrEqlqgu8xZkOgchziKmePyR/liaboCrz/aqLxqA12ompgWvcsKWkb9kLYRkcj7Q6Yr/1ITZSBg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	9e4KkCtoZ5NtB5oFgHdtZ0dzVkO9cMfeTm9sOE5/DgeD+D+Bq2LZ2uW+Hz0X0ktGNrB4JxW8Y0xcE2PufQD6nchifaXr9ay7z8Ca7udbiaL2Y5lz350cuZ8G3DVB0zgSw+Sc75qNJzONAxeqfhHRfCm+QJQoXs6jqYWBy0aFWLRPflXAuMg1liSwmNqGIIYcFE6D2EpSxiamhztpIsODPCqerkw8JkCtQkmS8czh3xdr/IxcdmdDlmwdWiHH5NzxAyWUVJFZfZ2McwNdAR0bNN9jUQKFFtDSBC/a5zopl4p7k/nydQBjGGVdOqqhsQ7GpX/x0Paz+MbfFfs/6AeE7pbxKkrPS2LYCXYbRybif8Qqejo3cs6/KO37spRZy3BOgMq8Nb4H6F5UOCyaNYO/GJGdx42JomY+G7CtoyvUMhRm6+mrz1Jf+hNxXDRkZKxX
-X-Exchange-RoutingPolicyChecked:
-	f7F7kvL1aSGgydIWtIKSvKGiu/sb7TGZV2mBEF5Ygku+N1KViEqJPbR9653ibzhWjs/77UkABIFzPjcOo8ayl0dXXJnJXGjAsVusAfWf13Ky13mt2lyh5WKbJZYMW/nbi1p1yH1yn4WJZQSXHwWV4cH3wZblKcUxvwFAm/axyfT8h3dH6yIJ6pSniWrtyAXlRfxvIt1N1zUGnWH/wOvWLx8++jtxkq3Udb7I+/wAid/pAR7ZaO28MgXLYomc4KWnyhS/a/hLhax4xqcJVKhhBYvG1cOGJ3BT2KYmMv31OfP0AoWi0ccaQB7gjUF5ze/8IFr1e6UtHKGb59OG4Neyrg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 14:53:39.0389
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a70fd24-c5ae-44dd-82a4-08df02b8a5f6
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BBE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB998056
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDEyNiBTYWx0ZWRfX7DizhN3xeW7l
- lA36Y0vOL9ys0yJZESbmcoHCHgj121VK8UEmdwWkGkLTJ8tSKD1kOqJ3UxAvNDXRpr3Tno3si0z
- Zh0f70xoNffw3ao8z8MQostOaB8XAyI=
-X-Proofpoint-GUID: sgneNSOWSX_6-O6WEQnI7QU8rQLioxTW
-X-Proofpoint-ORIG-GUID: sgneNSOWSX_6-O6WEQnI7QU8rQLioxTW
-X-Authority-Analysis: v=2.4 cv=PsijqQM3 c=1 sm=1 tr=0 ts=6a8dac78 cx=c_pps
- a=fOo0+MOGfjr111H4QC4BGg==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=TgeY1WT-rtaAFZimDk0A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDEyNiBTYWx0ZWRfX/Q3UYwMxE+83
- sPlfnZQZxEbN0ExS6CYdA6is25qyVpj4wQoHtPWfnsG/N1ue3SP3GpcSrrXI42rGs7Njj9DFdRM
- DfachZfBkKX6cv119eIAsatMCsU9BfHoG1BzM9O9QuXvgVpU05hSSKPrijMY9/+rldo5gXLrUc7
- lJ4MxxAlYAyUjJlCsMay6Tt6yEh7KC8RjkBuPzRvSjogrrUES9XgQvSzSe0IqbXlI5z/FIEJX9H
- G6YShSegkR0oa1Ghpe5WZiRWIYhTnxR5G9j7f4RupfoDEdGPsy5KHAWzlGbhzmqS0EKvCPZoGnr
- WCqt5aC3plhrrJ0PeeX/Ny0iTFVuWAZkSFdLTAbkcQZ1l+V56ystrcog02xHjWLIoPDI2cLYnkV
- nmdOnbGC2OabM/DKEAVvhchvShgl2wt8d2ZsPdgV8o81Owr4WaBCtxdVwbHNgH7HhzRzVWeD6oU
- 8iJolqVxoj/DwgDGgxw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_04,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 spamscore=0 impostorscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608250126
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 09:27-20260825, Sebastian Andrzej Siewior wrote:
-> On 2026-08-24 11:28:51 [-0500], Kendall Willis wrote:
-> > The wake irq was cleared in shutdown(), which runs during the suspend
-> > sequence, making it impossible to wake the system via UART.
-> > Move wake irq setup to probe() and teardown to remove() so the irq
-> > remains armed during suspend when the UART is a wakeup source.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 61929cf0169d ("tty: serial: Add 8250-core based omap driver")
-> > Signed-off-by: Kendall Willis <k-willis@ti.com>
-> 
-> I leave this to Tony. I tested it back then on bbb and wake up from idle
-> was a requirement which worked. Tony had other boards which passed the
-> test, too.
-> The omap driver had and has the same logic here.
-> 
-> Sebastian
+From: Christian Göttsche <cgzones@googlemail.com>
 
-Hi Sebastian,
+[ Upstream commit f07586160fd5492f8d48e7667e7a5d8797aa5090 ]
 
-When I was testing the dedicated wake irq on AM62P EVM, I was not seeing
-the interrupt count increase for the wake irq in /proc/interrupts after
-resume. This patch fixes that and after resume the wake irq interrupt
-count increases when UART is a wakeup source.
+Improve type safety and readability by using the known type.
 
-Best,
-Kendall
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+Stable-dep-of: b98a8ac50775 ("selinux: require a class's permission values to cover its permission count")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ security/selinux/ss/avtab.c       |  8 +--
+ security/selinux/ss/avtab.h       | 10 ++--
+ security/selinux/ss/conditional.c | 12 ++---
+ security/selinux/ss/conditional.h |  6 +--
+ security/selinux/ss/ebitmap.c     |  4 +-
+ security/selinux/ss/ebitmap.h     |  5 +-
+ security/selinux/ss/policydb.c    | 90 +++++++++++++++----------------
+ security/selinux/ss/policydb.h    | 16 +++---
+ 8 files changed, 77 insertions(+), 74 deletions(-)
+
+diff --git a/security/selinux/ss/avtab.c b/security/selinux/ss/avtab.c
+index 8480ec6c6e75f..c3749ababbd66 100644
+--- a/security/selinux/ss/avtab.c
++++ b/security/selinux/ss/avtab.c
+@@ -397,7 +397,7 @@ static const uint16_t spec_order[] = {
+ 	AVTAB_XPERMS_DONTAUDIT
+ };
+ 
+-int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
++int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *pol,
+ 		    int (*insertf)(struct avtab *a, const struct avtab_key *k,
+ 				   const struct avtab_datum *d, void *p),
+ 		    void *p)
+@@ -565,7 +565,7 @@ static int avtab_insertf(struct avtab *a, const struct avtab_key *k,
+ 	return avtab_insert(a, k, d);
+ }
+ 
+-int avtab_read(struct avtab *a, void *fp, struct policydb *pol)
++int avtab_read(struct avtab *a, struct policy_file *fp, struct policydb *pol)
+ {
+ 	int rc;
+ 	__le32 buf[1];
+@@ -609,7 +609,7 @@ int avtab_read(struct avtab *a, void *fp, struct policydb *pol)
+ 	goto out;
+ }
+ 
+-int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp)
++int avtab_write_item(struct policydb *p, const struct avtab_node *cur, struct policy_file *fp)
+ {
+ 	__le16 buf16[4];
+ 	__le32 buf32[ARRAY_SIZE(cur->datum.u.xperms->perms.p)];
+@@ -644,7 +644,7 @@ int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp)
+ 	return 0;
+ }
+ 
+-int avtab_write(struct policydb *p, struct avtab *a, void *fp)
++int avtab_write(struct policydb *p, struct avtab *a, struct policy_file *fp)
+ {
+ 	unsigned int i;
+ 	int rc = 0;
+diff --git a/security/selinux/ss/avtab.h b/security/selinux/ss/avtab.h
+index d3ebea8d146f2..2d60ef7530f8b 100644
+--- a/security/selinux/ss/avtab.h
++++ b/security/selinux/ss/avtab.h
+@@ -95,14 +95,16 @@ void avtab_destroy(struct avtab *h);
+ void avtab_hash_eval(struct avtab *h, char *tag);
+ 
+ struct policydb;
+-int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
++struct policy_file;
++int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *pol,
+ 		    int (*insert)(struct avtab *a, const struct avtab_key *k,
+ 				  const struct avtab_datum *d, void *p),
+ 		    void *p);
+ 
+-int avtab_read(struct avtab *a, void *fp, struct policydb *pol);
+-int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp);
+-int avtab_write(struct policydb *p, struct avtab *a, void *fp);
++int avtab_read(struct avtab *a, struct policy_file *fp, struct policydb *pol);
++int avtab_write_item(struct policydb *p, const struct avtab_node *cur,
++		     struct policy_file *fp);
++int avtab_write(struct policydb *p, struct avtab *a, struct policy_file *fp);
+ 
+ struct avtab_node *avtab_insert_nonunique(struct avtab *h,
+ 					  const struct avtab_key *key,
+diff --git a/security/selinux/ss/conditional.c b/security/selinux/ss/conditional.c
+index e11219fdf9f75..62343c7c97877 100644
+--- a/security/selinux/ss/conditional.c
++++ b/security/selinux/ss/conditional.c
+@@ -205,7 +205,7 @@ static int bool_isvalid(struct cond_bool_datum *b)
+ 	return 1;
+ }
+ 
+-int cond_read_bool(struct policydb *p, struct symtab *s, void *fp)
++int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct cond_bool_datum *booldatum;
+@@ -321,7 +321,7 @@ static int cond_insertf(struct avtab *a, const struct avtab_key *k,
+ 	return 0;
+ }
+ 
+-static int cond_read_av_list(struct policydb *p, void *fp,
++static int cond_read_av_list(struct policydb *p, struct policy_file *fp,
+ 			     struct cond_av_list *list,
+ 			     struct cond_av_list *other)
+ {
+@@ -373,7 +373,7 @@ static int expr_node_isvalid(struct policydb *p, struct cond_expr_node *expr)
+ 	return 1;
+ }
+ 
+-static int cond_read_node(struct policydb *p, struct cond_node *node, void *fp)
++static int cond_read_node(struct policydb *p, struct cond_node *node, struct policy_file *fp)
+ {
+ 	__le32 buf[2];
+ 	u32 i, len;
+@@ -413,7 +413,7 @@ static int cond_read_node(struct policydb *p, struct cond_node *node, void *fp)
+ 	return cond_read_av_list(p, fp, &node->false_list, &node->true_list);
+ }
+ 
+-int cond_read_list(struct policydb *p, void *fp)
++int cond_read_list(struct policydb *p, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	u32 i, len;
+@@ -451,7 +451,7 @@ int cond_write_bool(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct cond_bool_datum *booldatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[3];
+ 	u32 len;
+ 	int rc;
+@@ -534,7 +534,7 @@ static int cond_write_node(struct policydb *p, struct cond_node *node,
+ 	return 0;
+ }
+ 
+-int cond_write_list(struct policydb *p, void *fp)
++int cond_write_list(struct policydb *p, struct policy_file *fp)
+ {
+ 	u32 i;
+ 	__le32 buf[1];
+diff --git a/security/selinux/ss/conditional.h b/security/selinux/ss/conditional.h
+index e47ec6ddeaf61..c4c60413127cc 100644
+--- a/security/selinux/ss/conditional.h
++++ b/security/selinux/ss/conditional.h
+@@ -69,10 +69,10 @@ int cond_destroy_bool(void *key, void *datum, void *p);
+ 
+ int cond_index_bool(void *key, void *datum, void *datap);
+ 
+-int cond_read_bool(struct policydb *p, struct symtab *s, void *fp);
+-int cond_read_list(struct policydb *p, void *fp);
++int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp);
++int cond_read_list(struct policydb *p, struct policy_file *fp);
+ int cond_write_bool(void *key, void *datum, void *ptr);
+-int cond_write_list(struct policydb *p, void *fp);
++int cond_write_list(struct policydb *p, struct policy_file *fp);
+ 
+ void cond_compute_av(struct avtab *ctab, struct avtab_key *key,
+ 		struct av_decision *avd, struct extended_perms *xperms);
+diff --git a/security/selinux/ss/ebitmap.c b/security/selinux/ss/ebitmap.c
+index d31b87be9a1ed..978a18aa17cad 100644
+--- a/security/selinux/ss/ebitmap.c
++++ b/security/selinux/ss/ebitmap.c
+@@ -362,7 +362,7 @@ void ebitmap_destroy(struct ebitmap *e)
+ 	e->node = NULL;
+ }
+ 
+-int ebitmap_read(struct ebitmap *e, void *fp)
++int ebitmap_read(struct ebitmap *e, struct policy_file *fp)
+ {
+ 	struct ebitmap_node *n = NULL;
+ 	u32 mapunit, count, startbit, index;
+@@ -468,7 +468,7 @@ int ebitmap_read(struct ebitmap *e, void *fp)
+ 	goto out;
+ }
+ 
+-int ebitmap_write(const struct ebitmap *e, void *fp)
++int ebitmap_write(const struct ebitmap *e, struct policy_file *fp)
+ {
+ 	struct ebitmap_node *n;
+ 	u32 count;
+diff --git a/security/selinux/ss/ebitmap.h b/security/selinux/ss/ebitmap.h
+index e5b57dc3fc531..3fbd6917cb53d 100644
+--- a/security/selinux/ss/ebitmap.h
++++ b/security/selinux/ss/ebitmap.h
+@@ -129,8 +129,9 @@ int ebitmap_contains(const struct ebitmap *e1, const struct ebitmap *e2, u32 las
+ int ebitmap_get_bit(const struct ebitmap *e, unsigned long bit);
+ int ebitmap_set_bit(struct ebitmap *e, unsigned long bit, int value);
+ void ebitmap_destroy(struct ebitmap *e);
+-int ebitmap_read(struct ebitmap *e, void *fp);
+-int ebitmap_write(const struct ebitmap *e, void *fp);
++struct policy_file;
++int ebitmap_read(struct ebitmap *e, struct policy_file *fp);
++int ebitmap_write(const struct ebitmap *e, struct policy_file *fp);
+ u32 ebitmap_hash(const struct ebitmap *e, u32 hash);
+ 
+ #ifdef CONFIG_NETLABEL
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index 42bcd861bbfb7..8d37adf8608f3 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -986,7 +986,7 @@ int policydb_context_isvalid(struct policydb *p, struct context *c)
+  * Read a MLS range structure from a policydb binary
+  * representation file.
+  */
+-static int mls_read_range_helper(struct mls_range *r, void *fp)
++static int mls_read_range_helper(struct mls_range *r, struct policy_file *fp)
+ {
+ 	__le32 buf[2];
+ 	u32 items;
+@@ -1047,7 +1047,7 @@ static int mls_read_range_helper(struct mls_range *r, void *fp)
+  */
+ static int context_read_and_validate(struct context *c,
+ 				     struct policydb *p,
+-				     void *fp)
++				     struct policy_file *fp)
+ {
+ 	__le32 buf[3];
+ 	int rc;
+@@ -1085,7 +1085,7 @@ static int context_read_and_validate(struct context *c,
+  * binary representation file.
+  */
+ 
+-static int str_read(char **strp, gfp_t flags, void *fp, u32 len)
++static int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
+ {
+ 	int rc;
+ 	char *str;
+@@ -1108,7 +1108,7 @@ static int str_read(char **strp, gfp_t flags, void *fp, u32 len)
+ 	return 0;
+ }
+ 
+-static int perm_read(struct policydb *p, struct symtab *s, void *fp)
++static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct perm_datum *perdatum;
+@@ -1141,7 +1141,7 @@ static int perm_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int common_read(struct policydb *p, struct symtab *s, void *fp)
++static int common_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct common_datum *comdatum;
+@@ -1191,7 +1191,7 @@ static void type_set_init(struct type_set *t)
+ 	ebitmap_init(&t->negset);
+ }
+ 
+-static int type_set_read(struct type_set *t, void *fp)
++static int type_set_read(struct type_set *t, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -1212,7 +1212,7 @@ static int type_set_read(struct type_set *t, void *fp)
+ 
+ static int read_cons_helper(struct policydb *p,
+ 				struct constraint_node **nodep,
+-				int ncons, int allowxtarget, void *fp)
++				int ncons, int allowxtarget, struct policy_file *fp)
+ {
+ 	struct constraint_node *c, *lc;
+ 	struct constraint_expr *e, *le;
+@@ -1305,7 +1305,7 @@ static int read_cons_helper(struct policydb *p,
+ 	return 0;
+ }
+ 
+-static int class_read(struct policydb *p, struct symtab *s, void *fp)
++static int class_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct class_datum *cladatum;
+@@ -1412,7 +1412,7 @@ static int class_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int role_read(struct policydb *p, struct symtab *s, void *fp)
++static int role_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct role_datum *role;
+@@ -1468,7 +1468,7 @@ static int role_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int type_read(struct policydb *p, struct symtab *s, void *fp)
++static int type_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct type_datum *typdatum;
+@@ -1520,7 +1520,7 @@ static int type_read(struct policydb *p, struct symtab *s, void *fp)
+  * Read a MLS level structure from a policydb binary
+  * representation file.
+  */
+-static int mls_read_level(struct mls_level *lp, void *fp)
++static int mls_read_level(struct mls_level *lp, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -1542,7 +1542,7 @@ static int mls_read_level(struct mls_level *lp, void *fp)
+ 	return 0;
+ }
+ 
+-static int user_read(struct policydb *p, struct symtab *s, void *fp)
++static int user_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct user_datum *usrdatum;
+@@ -1592,7 +1592,7 @@ static int user_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int sens_read(struct policydb *p, struct symtab *s, void *fp)
++static int sens_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct level_datum *levdatum;
+@@ -1633,7 +1633,7 @@ static int sens_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int cat_read(struct policydb *p, struct symtab *s, void *fp)
++static int cat_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct cat_datum *catdatum;
+@@ -1667,7 +1667,7 @@ static int cat_read(struct policydb *p, struct symtab *s, void *fp)
+ }
+ 
+ static int (*const read_f[SYM_NUM]) (struct policydb *p,
+-				     struct symtab *s, void *fp) = {
++				     struct symtab *s, struct policy_file *fp) = {
+ 	common_read,
+ 	class_read,
+ 	role_read,
+@@ -1834,7 +1834,7 @@ u32 string_to_av_perm(struct policydb *p, u16 tclass, const char *name)
+ 	return 1U << (perdatum->value-1);
+ }
+ 
+-static int range_read(struct policydb *p, void *fp)
++static int range_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct range_trans *rt = NULL;
+ 	struct mls_range *r = NULL;
+@@ -1911,7 +1911,7 @@ static int range_read(struct policydb *p, void *fp)
+ 	return rc;
+ }
+ 
+-static int filename_trans_read_helper_compat(struct policydb *p, void *fp)
++static int filename_trans_read_helper_compat(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct filename_trans_key key, *ft = NULL;
+ 	struct filename_trans_datum *last, *datum = NULL;
+@@ -1995,7 +1995,7 @@ static int filename_trans_read_helper_compat(struct policydb *p, void *fp)
+ 	return rc;
+ }
+ 
+-static int filename_trans_read_helper(struct policydb *p, void *fp)
++static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct filename_trans_key *ft = NULL;
+ 	struct filename_trans_datum **dst, *datum, *first = NULL;
+@@ -2084,7 +2084,7 @@ static int filename_trans_read_helper(struct policydb *p, void *fp)
+ 	return rc;
+ }
+ 
+-static int filename_trans_read(struct policydb *p, void *fp)
++static int filename_trans_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	u32 nel;
+ 	__le32 buf[1];
+@@ -2125,7 +2125,7 @@ static int filename_trans_read(struct policydb *p, void *fp)
+ 	return 0;
+ }
+ 
+-static int genfs_read(struct policydb *p, void *fp)
++static int genfs_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	int i, j, rc;
+ 	u32 nel, nel2, len, len2;
+@@ -2239,7 +2239,7 @@ static int genfs_read(struct policydb *p, void *fp)
+ }
+ 
+ static int ocontext_read(struct policydb *p, const struct policydb_compat_info *info,
+-			 void *fp)
++			 struct policy_file *fp)
+ {
+ 	int i, j, rc;
+ 	u32 nel, len;
+@@ -2424,7 +2424,7 @@ static int ocontext_read(struct policydb *p, const struct policydb_compat_info *
+  * Read the configuration data from a policy database binary
+  * representation file into a policy database structure.
+  */
+-int policydb_read(struct policydb *p, void *fp)
++int policydb_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct role_allow *ra, *lra;
+ 	struct role_trans_key *rtk = NULL;
+@@ -2742,7 +2742,7 @@ int policydb_read(struct policydb *p, void *fp)
+  * Write a MLS level structure to a policydb binary
+  * representation file.
+  */
+-static int mls_write_level(struct mls_level *l, void *fp)
++static int mls_write_level(struct mls_level *l, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -2763,7 +2763,7 @@ static int mls_write_level(struct mls_level *l, void *fp)
+  * Write a MLS range structure to a policydb binary
+  * representation file.
+  */
+-static int mls_write_range_helper(struct mls_range *r, void *fp)
++static int mls_write_range_helper(struct mls_range *r, struct policy_file *fp)
+ {
+ 	__le32 buf[3];
+ 	size_t items;
+@@ -2803,7 +2803,7 @@ static int sens_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct level_datum *levdatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[2];
+ 	size_t len;
+ 	int rc;
+@@ -2831,7 +2831,7 @@ static int cat_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct cat_datum *catdatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[3];
+ 	size_t len;
+ 	int rc;
+@@ -2856,7 +2856,7 @@ static int role_trans_write_one(void *key, void *datum, void *ptr)
+ 	struct role_trans_key *rtk = key;
+ 	struct role_trans_datum *rtd = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	__le32 buf[3];
+ 	int rc;
+@@ -2876,7 +2876,7 @@ static int role_trans_write_one(void *key, void *datum, void *ptr)
+ 	return 0;
+ }
+ 
+-static int role_trans_write(struct policydb *p, void *fp)
++static int role_trans_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct policy_data pd = { .p = p, .fp = fp };
+ 	__le32 buf[1];
+@@ -2890,7 +2890,7 @@ static int role_trans_write(struct policydb *p, void *fp)
+ 	return hashtab_map(&p->role_tr, role_trans_write_one, &pd);
+ }
+ 
+-static int role_allow_write(struct role_allow *r, void *fp)
++static int role_allow_write(struct role_allow *r, struct policy_file *fp)
+ {
+ 	struct role_allow *ra;
+ 	__le32 buf[2];
+@@ -2919,7 +2919,7 @@ static int role_allow_write(struct role_allow *r, void *fp)
+  * to a policydb binary representation file.
+  */
+ static int context_write(struct policydb *p, struct context *c,
+-			 void *fp)
++			 struct policy_file *fp)
+ {
+ 	int rc;
+ 	__le32 buf[3];
+@@ -2972,7 +2972,7 @@ static int common_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct common_datum *comdatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[4];
+ 	size_t len;
+ 	int rc;
+@@ -2997,7 +2997,7 @@ static int common_write(void *vkey, void *datum, void *ptr)
+ 	return 0;
+ }
+ 
+-static int type_set_write(struct type_set *t, void *fp)
++static int type_set_write(struct type_set *t, struct policy_file *fp)
+ {
+ 	int rc;
+ 	__le32 buf[1];
+@@ -3016,7 +3016,7 @@ static int type_set_write(struct type_set *t, void *fp)
+ }
+ 
+ static int write_cons_helper(struct policydb *p, struct constraint_node *node,
+-			     void *fp)
++			     struct policy_file *fp)
+ {
+ 	struct constraint_node *c;
+ 	struct constraint_expr *e;
+@@ -3067,7 +3067,7 @@ static int class_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct class_datum *cladatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	struct constraint_node *c;
+ 	__le32 buf[6];
+@@ -3152,7 +3152,7 @@ static int role_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct role_datum *role = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	__le32 buf[3];
+ 	size_t items, len;
+@@ -3192,7 +3192,7 @@ static int type_write(void *vkey, void *datum, void *ptr)
+ 	struct type_datum *typdatum = datum;
+ 	struct policy_data *pd = ptr;
+ 	struct policydb *p = pd->p;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[4];
+ 	int rc;
+ 	size_t items, len;
+@@ -3233,7 +3233,7 @@ static int user_write(void *vkey, void *datum, void *ptr)
+ 	struct user_datum *usrdatum = datum;
+ 	struct policy_data *pd = ptr;
+ 	struct policydb *p = pd->p;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[3];
+ 	size_t items, len;
+ 	int rc;
+@@ -3280,7 +3280,7 @@ static int (*const write_f[SYM_NUM]) (void *key, void *datum, void *datap) = {
+ };
+ 
+ static int ocontext_write(struct policydb *p, const struct policydb_compat_info *info,
+-			  void *fp)
++			  struct policy_file *fp)
+ {
+ 	unsigned int i, j, rc;
+ 	size_t nel, len;
+@@ -3409,7 +3409,7 @@ static int ocontext_write(struct policydb *p, const struct policydb_compat_info
+ 	return 0;
+ }
+ 
+-static int genfs_write(struct policydb *p, void *fp)
++static int genfs_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct genfs *genfs;
+ 	struct ocontext *c;
+@@ -3467,7 +3467,7 @@ static int range_write_helper(void *key, void *data, void *ptr)
+ 	struct range_trans *rt = key;
+ 	struct mls_range *r = data;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	int rc;
+ 
+@@ -3489,7 +3489,7 @@ static int range_write_helper(void *key, void *data, void *ptr)
+ 	return 0;
+ }
+ 
+-static int range_write(struct policydb *p, void *fp)
++static int range_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -3516,7 +3516,7 @@ static int filename_write_helper_compat(void *key, void *data, void *ptr)
+ 	struct filename_trans_key *ft = key;
+ 	struct filename_trans_datum *datum = data;
+ 	struct ebitmap_node *node;
+-	void *fp = ptr;
++	struct policy_file *fp = ptr;
+ 	__le32 buf[4];
+ 	int rc;
+ 	u32 bit, len = strlen(ft->name);
+@@ -3552,7 +3552,7 @@ static int filename_write_helper(void *key, void *data, void *ptr)
+ {
+ 	struct filename_trans_key *ft = key;
+ 	struct filename_trans_datum *datum;
+-	void *fp = ptr;
++	struct policy_file *fp = ptr;
+ 	__le32 buf[3];
+ 	int rc;
+ 	u32 ndatum, len = strlen(ft->name);
+@@ -3597,7 +3597,7 @@ static int filename_write_helper(void *key, void *data, void *ptr)
+ 	return 0;
+ }
+ 
+-static int filename_trans_write(struct policydb *p, void *fp)
++static int filename_trans_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -3629,7 +3629,7 @@ static int filename_trans_write(struct policydb *p, void *fp)
+  * structure to a policy database binary representation
+  * file.
+  */
+-int policydb_write(struct policydb *p, void *fp)
++int policydb_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	unsigned int i, num_syms;
+ 	int rc;
+diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
+index ffc4e7bad2054..862b6577e79d7 100644
+--- a/security/selinux/ss/policydb.h
++++ b/security/selinux/ss/policydb.h
+@@ -315,14 +315,19 @@ struct policydb {
+ 	u32 process_trans_perms;
+ } __randomize_layout;
+ 
++struct policy_file {
++	char *data;
++	size_t len;
++};
++
+ extern void policydb_destroy(struct policydb *p);
+ extern int policydb_load_isids(struct policydb *p, struct sidtab *s);
+ extern int policydb_context_isvalid(struct policydb *p, struct context *c);
+ extern int policydb_class_isvalid(struct policydb *p, unsigned int class);
+ extern int policydb_type_isvalid(struct policydb *p, unsigned int type);
+ extern int policydb_role_isvalid(struct policydb *p, unsigned int role);
+-extern int policydb_read(struct policydb *p, void *fp);
+-extern int policydb_write(struct policydb *p, void *fp);
++extern int policydb_read(struct policydb *p, struct policy_file *fp);
++extern int policydb_write(struct policydb *p, struct policy_file *fp);
+ 
+ extern struct filename_trans_datum *policydb_filenametr_search(
+ 	struct policydb *p, struct filename_trans_key *key);
+@@ -345,14 +350,9 @@ extern struct role_trans_datum *policydb_roletr_search(
+ #define POLICYDB_MAGIC SELINUX_MAGIC
+ #define POLICYDB_STRING "SE Linux"
+ 
+-struct policy_file {
+-	char *data;
+-	size_t len;
+-};
+-
+ struct policy_data {
+ 	struct policydb *p;
+-	void *fp;
++	struct policy_file *fp;
+ };
+ 
+ static inline int next_entry(void *buf, struct policy_file *fp, size_t bytes)
+-- 
+2.53.0
+
