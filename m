@@ -1,161 +1,141 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A06238B7DC
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACD646A611
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787667348; cv=none; b=QGrD/dWf4mgjbivDvibPcpoOS7w1VCKrhFe19x4y13RhT+yIMIcwEhoCnEAu7TS8OF12IFfpbJ/OMVYD2S/c3Oe6njN4kyxJ195U2SBxU8/xFQIDS1w7CsRsDtmJBLKm7qc1koYb1mDmtjGgeSJg7nhgEtyQOlfqQlnD+0wBzm4=
+	t=1787667919; cv=none; b=RuTSAbC31eWZZ+NFVKR343Y+A6yg5XlNo0kzq6oAMXp7MPjp68qqSDqEilhkxQMbFJ2/kRyMbUGWFCtmnQ1frf4t/xA3S0pfYSXrCWz7xsYV3a/3W6XyDAqDW7lIo36B1ntcamTzGVUv7sutAvQCFyCMTwN3EZtcbPjae8DSF7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787667348; c=relaxed/simple;
-	bh=N8dfMV2RTxCE7arhbl2EaVyOwVpkyAhCuc/xfSBqTcA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dRBY8S3v/9o3HkwhOv4bJb76wo0PThRDZLRsG0JDDOdD+66VmmPR9aGr1Yd1vhQiYMtAWCXqQrPDTwg5twj+rhDCDGnc11OsmRRvaBEyubF3Gkrc4QjehLbxvNBBYLr0lf5WpH5vmUvKzYaG/fWfKyMaBfFUnq9beKQYOoYLlvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rk6BRX9b; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787667919; c=relaxed/simple;
+	bh=lcussTpnEkYB+f6r4eYplK5pAVZZaGO8mmd85E/qMmA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=aPd1nlomaw6hx4c0HMjyhn0DyPm7AntqeJRVxQznUt/95cRNLA+AuVZusdJBYLWfnn1e7djEYmmn9nKOd6qUSU39w0ifHB7k0+VtskcF7F2Nb2sbuhR24MCCj1QgBZ/if4X2WsubLFMsFfChgEvRyd6kL2qA1AcicF29vzdKIHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iYWpomNR; arc=none smtp.client-ip=209.85.160.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rk6BRX9b"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-848643382fcso5071648b3a.1
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:15:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iYWpomNR"
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5174a23afcbso69358611cf.3
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:25:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787667347; x=1788272147; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wGI8avUDsdCwdcQZ5iPHHrLahXfIYCIB9Ws1YZ5JElk=;
-        b=Rk6BRX9bSC7P8j2tsSdB4hGDOyFdfqUti7h+0lq2rqiz8fWK9iS5DptYelTguEXn5e
-         Pe4fNYi2COyl1VpyhMx5OYFuGqx0O3UErJ7TqEWsV7v0E+w0p6y5hZVzfgrYz4ybmdtJ
-         TXZ508d/62gg6myXfA4sIpL3j3hsOgTWBNVmYZguNrEpcNJNKC+cQ0vGTAEgjffogb4E
-         dzvUYO3s5YaIeDwthv/2sFETkUrdQCjZaujfPnJSzsbkUSzu8moL4uYhnVxnDVAsDJbC
-         Or9qYKWmSntcptXYnppLvijY5ZYL9bCC24uFdDgiwVd0MjBBHhX6LgYLjyc1LXttb9Jd
-         maWw==
+        d=google.com; s=20251104; t=1787667917; x=1788272717; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rdFSlUVmHWGUJbLkl9/wAY3JHKLpZ3Zt8SkFUaiSwc4=;
+        b=iYWpomNRKyufYrzjWt7bnv0TmXZdxTNtk+CA86Ziv8BBx0vVW4/kdvvGlCagiF8x/f
+         epQX+z+t4B6c/c6JMY2BVmw1N1MfAvAlFqpPQ7Ixk1PjsfR2grdMd35enBMhMVzAItXY
+         eVfTvlkzwF1QekNLnYqReVL/r64Xe9/UoFNOvNfa5h18kz6yP78W3nVYuBvn6yRRtdIQ
+         dcu6YLwn44vATiH2ChATWN1FhrCdF6uWXSl1vgwuMbl2zs8um4JaICoQPC02Pi+iQMHb
+         m+m/SxH0Gj8RJr5cOEbQlJZ1GphPS9LoQ4A2vDNcj/y0lqnzFDh0VuTiKTPwsuCGBwu5
+         zlBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787667347; x=1788272147;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wGI8avUDsdCwdcQZ5iPHHrLahXfIYCIB9Ws1YZ5JElk=;
-        b=Oy71yHovDsUt3SsRvuC+82HVGHMvfS305RlBXwv131XJnlPUDar+EKonPlgpXBHTOZ
-         5qpfHoL15nXgW8RmygDQJP0ZRKgyUYIzN6lEqzaAlMwEA6H/f8oTfVst07WMJ9A5zz8h
-         VoW5wF4jgOG3TCfXH2JkUvJ61SP6ZCsN38x+SS/S4z9uOjml4Epmva4e19Wuem/xG0Yv
-         nLgCXsKMV5A+zwOKhxs2k8O2PAQnnyKyXpQqjyreqsBgvPjLm3YYty6RcUl2dYfjl7MQ
-         c0ui+YPeDeHed/5lg0Hxr6IpJRUV+vsQoVZYfr8u/OFQ60TCFaXnQZhcEsW9RbG9eXBf
-         VXnw==
-X-Forwarded-Encrypted: i=1; AHgh+RpVSXuiKWxZGYJ3EolyPcVcENr5FAfExGCpCs1XcrMAzkWjpdzxAEuS57CLML8TZHVsUJWWWhs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+wXAf52a0uitjkw3kmt7Wnx+4nbswQjgyp6cIhVKtoAzMYTDS
-	Hdm/dV8UsaI+k7BGJc40RTeIdr+JFkJPWHUPIMoO2nQTuPjzkBb6tQ0m
-X-Gm-Gg: AR+sD130l4nIl25HfNY2YMeowpwUkvHmJLiwgAcKRd00WnzK3lzjgUysIW4grOOkzQO
-	gKT7ueCqqp7UcVle98bjZpfKxtBOByjieW9zZw9gTGiVXrA6T1GsM069P97LThE6DoezdYLEkYs
-	/VZgAuEYIsgLnp6c+yY/2lnCbD1dB1nVSfuzXgQk9hzmyW2h+vwoeRmqSfpwmHm//riIRLCKDp6
-	yIM+UH087ZCUUbn1m46V7HUy75kxrzcyMymhdYvkqrZYbnLum59ne7Ntfo8RfzyUrhVenSL9ad4
-	bYKP5z+y9+AI8VtDFC1+AKLxSqA0pJlhEzX2gof3Ge5wtJskfYsLK5as1P4wLxnJLl00f+0+92V
-	shQ5gxJhKsuDANmS95684C91VCI5NKfbIhXPh3JmJ8f47TXQCQq13+LTysnOJ5K4VDXRltaJzjc
-	SpE+cYr7KxcxfcG+eB2nXEvmWft6pgxHVZCFjmZnSz1AZizTKq4dhVP5Fc23Y8lvJbuU3hLi7Nq
-	yb1iSvRf2+xiDFATJHvi90cBuAQZCEBgOIawO4TM7aufo3PJTH/
-X-Received: by 2002:a05:6a00:928f:b0:851:ba04:ca02 with SMTP id d2e1a72fcca58-851fa070bf3mr58592115b3a.16.1787667346530;
-        Tue, 25 Aug 2026 07:15:46 -0700 (PDT)
-Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8520eed5034sm3122767b3a.1.2026.08.25.07.15.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 07:15:45 -0700 (PDT)
-From: Zhijian Han <hanzhijian1991@gmail.com>
-To: Richard Zhu <hongxing.zhu@nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	Zhijian Han <hanzhijian1991@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] PCI: imx6: fix endpoint init error handling
-Date: Tue, 25 Aug 2026 22:15:26 +0800
-Message-ID: <20260825141526.3911472-1-hanzhijian1991@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1787667917; x=1788272717;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rdFSlUVmHWGUJbLkl9/wAY3JHKLpZ3Zt8SkFUaiSwc4=;
+        b=AVOGZhFLoNHzRdRdLRoAXxBHYX8QfxhwKTZ0TUUno7nrhPnmJJGbV16LdnP2eu+vF0
+         gdaVywGGtNJ4Mz9/ek4aPo90C8bNBpiTL9sJ7cXwqVgnOpwbos8mQ2vpuNPPXKTvASO2
+         hvqfNfOD50h2x82/M9aUryMR2wTNNxP4ttL6z0+CQMSL4ZxycRFuYjewXSj1Z/gZzb3M
+         eezbIETxqaIC+SNdVv0NVGEnxTX9WRcrQc+9A3zxeCpXAlviRYVSoIDk4DASgLoLyLiU
+         WDyrUFFUEp+P5KXB8iJKjQ1Z4KyFU9Ucxz1FyQuPH/6CTMy17P6B7B6QX1D74ouDBiM5
+         5H/g==
+X-Forwarded-Encrypted: i=1; AHgh+RrhmhnW4RfB1zaZkklM0B2pif5/7kWCtnHHy9xnL1s3fFGOUFQu7YluiI3Fv2ZCor8Xz2wgpok=@vger.kernel.org
+X-Gm-Message-State: AFuF++neNX3MjmzTySHJv7gGfJTs6kuGPQeE6JAlcAN/ucwhv+kdtdlO
+	adiHMnMHJhGrvDPgM2Nmp7+QlYSf5RULxjqffPvtmvgdecb2CfCFAvEWCmZ0GqIvr4brL57wM6D
+	TnabuYa7hHtG8jQ==
+X-Received: from qtqb13.prod.google.com ([2002:ac8:540d:0:b0:52d:4e72:d2ee])
+ (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
+ 2002:ac8:5d53:0:b0:52d:4f43:d5b0 with SMTP id d75a77b69052e-52e2f127d41mr69938171cf.22.1787667916432;
+ Tue, 25 Aug 2026 07:25:16 -0700 (PDT)
+Date: Tue, 25 Aug 2026 14:25:15 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.860.g4b6b3295ed-goog
+Message-ID: <20260825142515.1965654-1-edumazet@google.com>
+Subject: [PATCH] Revert "once: don't use a work queue to reset sleepable
+ static key"
+From: Eric Dumazet <edumazet@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel <linux-kernel@vger.kernel.org>, Eric Dumazet <eric.dumazet@gmail.com>, 
+	netdev@vger.kernel.org, Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org, 
+	"Shin'ichiro Kawasaki" <shinichiro.kawasaki@wdc.com>, Tony Luck <tony.luck@intel.com>, 
+	Reinette Chatre <reinette.chatre@intel.com>, Keith Busch <kbusch@kernel.org>, 
+	Nilay Shroff <nilay@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-imx_add_pcie_ep() ignores the return value of imx_pcie_host_init(), so
-a failure to enable the clocks, regulators, or PHY during endpoint
-initialization goes unnoticed and the driver proceeds to initialize the
-endpoint against unpowered hardware.
+This reverts commit e8eef69a99f185e75909adb24ab93d706e07bf27.
 
-It also returns directly without releasing the host resources when
-dw_pcie_ep_init() or dw_pcie_ep_init_registers() fails, leaking the
-clocks, regulators, and PHY that imx_pcie_host_init() acquired.
+While DO_ONCE_SLEEPABLE() is used from sleepable/process context, callers
+may still be holding arbitrary subsystem locks.
 
-Check the return value of imx_pcie_host_init() and register
-imx_pcie_host_exit() with devm_add_action_or_reset() so the host
-resources are released through the devres framework, which unregisters
-the EPC device before powering the hardware off.  This mirrors the root
-port path, where dw_pcie_host_init() releases these resources through
-the same framework.
+For instance, __inet_hash_connect() uses get_random_sleepable_once()
+which invokes DO_ONCE_SLEEPABLE() while holding the socket lock (sk_lock):
 
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/all/20260824152857.DB9771F00A3D@smtp.kernel.org/
-Fixes: 75c2f26da03f ("PCI: imx6: Add i.MX PCIe EP mode support")
+  lock_sock(sk)
+    __inet_hash_connect()
+      get_random_sleepable_once()
+        DO_ONCE_SLEEPABLE()
+          __do_once_sleepable_done()
+            static_branch_disable()
+              static_key_disable()
+                cpus_read_lock()
+
+Calling static_branch_disable() directly from __do_once_sleepable_done()
+causes static_key_disable() to synchronously acquire cpus_read_lock()
+(cpu_hotplug_lock) and jump_label_mutex inside the caller's lock context.
+
+This introduces an unwanted lockdep dependency:
+  sk_lock -> cpu_hotplug_lock
+
+Because cpu_hotplug_lock depends on fs_reclaim (via workqueue CPU bringup
+allocating memory with GFP_KERNEL), and storage/block layers (such as
+NVMe-TCP) acquire sk_lock during I/O dispatch, lockdep reports circular
+locking dependencies:
+
+  set->srcu -> sk_lock -> cpu_hotplug_lock -> fs_reclaim -> q_usage_counter -> elevator_lock -> set->srcu
+
+This false positive previously prompted commit 19bdb70c77d3 ("nvme-tcp:
+lockdep: use dynamic lockdep keys per socket instance") to work around the
+warning using per-socket dynamic keys in NVMe-TCP. That in turn broke
+asynchronous socket teardown and caused syzbot warnings in
+tcp_tsq_handler().
+
+Restoring once_disable_jump() in __do_once_sleepable_done() ensures that
+static_branch_disable() is executed asynchronously from a system workqueue
+without holding the caller's locks.
+
+Fixes: e8eef69a99f1 ("once: don't use a work queue to reset sleepable static key")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
+Closes: https://lore.kernel.org/lkml/ao0mwtt8ePAINFni@shinhome/
+Reported-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Nilay Shroff <nilay@linux.ibm.com>
 ---
-v3:
-- Add Fixes: and Cc: stable tags
+ lib/once.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2:
-- Use devm_add_action_or_reset() for imx_pcie_host_exit() instead of
-  calling it directly on the error paths, so the EPC device is
-  unregistered before the hardware is powered off
-
- drivers/pci/controller/dwc/pci-imx6.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 39790e66b..f0fb4e1b0 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -1488,6 +1488,11 @@ static void imx_pcie_host_exit(struct dw_pcie_rp *pp)
- 		regulator_disable(imx_pcie->vpcie);
- }
- 
-+static void imx_pcie_host_exit_action(void *data)
-+{
-+	imx_pcie_host_exit(data);
-+}
-+
- static void imx_pcie_host_post_init(struct dw_pcie_rp *pp)
+diff --git a/lib/once.c b/lib/once.c
+index d801bfa945e6..0a0a919156e0 100644
+--- a/lib/once.c
++++ b/lib/once.c
+@@ -93,6 +93,6 @@ void __do_once_sleepable_done(bool *done, struct static_key_true *once_key,
  {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-@@ -1634,7 +1639,20 @@ static int imx_add_pcie_ep(struct imx_pcie *imx_pcie,
- 	struct dw_pcie_rp *pp = &pci->pp;
- 	struct device *dev = pci->dev;
- 
--	imx_pcie_host_init(pp);
-+	ret = imx_pcie_host_init(pp);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Tear the host resources down via a devm action so that, on probe
-+	 * failure, the EPC device created by dw_pcie_ep_init() is
-+	 * unregistered (also via devres) before the clocks, regulators and
-+	 * PHY are switched off.
-+	 */
-+	ret = devm_add_action_or_reset(dev, imx_pcie_host_exit_action, pp);
-+	if (ret)
-+		return ret;
-+
- 	ep = &pci->ep;
- 	ep->ops = &pcie_ep_ops;
- 
+ 	*done = true;
+ 	mutex_unlock(&once_mutex);
+-	static_branch_disable(once_key);
++	once_disable_jump(once_key, mod);
+ }
+ EXPORT_SYMBOL(__do_once_sleepable_done);
+
+base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+-- 
+2.55.0.860.g4b6b3295ed-goog
+
