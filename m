@@ -1,79 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-224.mta1.migadu.com [95.215.58.224])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39DE3EAC6D;
-	Tue, 25 Aug 2026 09:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886A13D5673
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787649063; cv=none; b=OhRmLtottHeapd2oqZGRXcYzMHpRNjFhqHxFyCUUUj2Gd1xPbJZ8we+PUStnxL7649IuPm3i815CLX/NbT/lbXs2H5j98DdjNvg8i42PYlb2k+Gd7TYfR8iubHa7aNJS3E3awJZk3CAO6kL9cuUydAEiYT1TnHAhUcN6sWGHxTU=
+	t=1787649071; cv=none; b=CsDF76SfnFpjsXjzFD1bMt2nhhKZLMbnYvotwnltr+nSyNqArByrX99OmyNU29DYqacxoUHdCNtd7BozH6bXUn/cBztRYsSRPo69AE+8g1pBPt2gEbA7i+DZ+JW8oeAeJMj6ziiW/9WNzVIjiyH/G4agvLVJ8mXDi/mywHXD8nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787649063; c=relaxed/simple;
-	bh=y2o0OnwC6jrVGWgzIXGqD1iIKejFda1MtFL2bWoaKvI=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Df/vKVBy9VuA2UndoOFgcVH1UpVc/P6czNi2z8a3NcvyeRv1ier6rtqsiHR8f9raZgt+MlRJivCsS2YArdT0orG3exFj9sOM6yUW6izOpxC8tdZhCNDtzYURlzDOFvcuZGU+jO5JM0rizlbO5S35brxzM0PgPpP9i+9/ib5vXxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDx7MRtQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787649071; c=relaxed/simple;
+	bh=JuWDoKHZ2bnsbiKF1lOc6Dz6iYhV+sugWR+1vGSNmVo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F7ErkrGnvQ/kycd+5U+QUMDiKSgol31kve5jXg9ff+oL3L/cdEZZq0r23l8uQRjVbuSmtkmjiJWDVsiFHO2Uv+fFBbBMuBvpjCVTxuNgvl2QJt+QdEz+TT9QqnBDZWsJK9NUSbgBCXg5hRBUPJe5jpDX8x9ki5sv4/OEEBmtS80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rKljo9mL; arc=none smtp.client-ip=95.215.58.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDx7MRtQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850651F000E9;
-	Tue, 25 Aug 2026 09:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787649062;
-	bh=z3dMN3TWHIZI8df4I6nsAXJ3q+Cd8tMxiRx2fIyjOKY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kDx7MRtQVQ7knhiTvQSjWUsnQfHJX77W91pHnIKK9vKKei3V2uMcMaFDVPl1HvSBc
-	 pSkgc3IZkTKYWCYWr0SXNKOYFQzB8WKxoq4TXIWp4dlo2MOCOnJqZrv3CMEnDTo1AT
-	 JVw7G8UefWBhP+Q7rs3MQXXBwTU3BuyM0jniJjKBtMdinkgH/sCQ0QUvMYYSxhgBZs
-	 UVbpu4wJTNWEW1hWtmxrhCuHmqck/Gk92zOurrktPKaBy3exlshZgAQClRq2KSCjPh
-	 OTfAJLxAWSvBuNNtpK/PQBjle/htfA5e4fICj2AyuP00Fkwr4qiWK6HZSGGyaFeG/t
-	 2OWR+AKKJ04Iw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A8D3924A77;
-	Tue, 25 Aug 2026 09:10:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rKljo9mL"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JuWDoKHZ2bnsbiKF1lOc6Dz6iYhV+sugWR+1vGSNmVo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787649066; v=1; x=1788253866;
+ b=rKljo9mLXFN3QUIfmvt96IAq/u7jJv3ShL2fBmEaa1ASr9uXXCV0VxxxNXpfZYgO14TH/f7w
+ oQ8xPF8JSVidstAoTrF2XeJY6xbzQEsfKXuLNZPyTdzWD1yopE9U9A8qSKHYicvuInt8Js1wB/M
+ CXas1NlBLbQwxRWoKFAJgsYA=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [192.168.38.216] (123.123.40.40)
+	by smtp.migadu.com with ESMTPS id e89364679e9dc4d3;
+	Tue, 25 Aug 2026 09:11:06 +0000
+X-Mizu-Trace-ID: e89364679e9dc4d3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d6fbe475-a5c2-f975-99b0-a0bd6b6d10e8@linux.dev>
+Date: Tue, 25 Aug 2026 17:11:00 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [BUG] RDMA/siw: KASAN: slab-use-after-free in siw_accept
+Content-Language: en-US
+To: Bernard Metzler <bernard.metzler@linux.dev>,
+ Shuangpeng Bai <shuangpeng.kernel@gmail.com>, Jason Gunthorpe
+ <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260821194704.835548-1-shuangpeng.kernel@gmail.com>
+ <3702388e-3eb9-5f62-f2ae-cac3a01be716@linux.dev>
+ <4aa8833a-ab7d-4034-a299-414c3e11ed1d@linux.dev>
+From: Guoqing Jiang <guoqing.jiang@linux.dev>
+In-Reply-To: <4aa8833a-ab7d-4034-a299-414c3e11ed1d@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3] sctp: fix NULL deref on untransmitted RECONF
- completion
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178764900938.3343118.190077942408834584.git-patchwork-notify@kernel.org>
-Date: Tue, 25 Aug 2026 09:10:09 +0000
-References: <20260823172857.896146-2-bestswngs@gmail.com>
-In-Reply-To: <20260823172857.896146-2-bestswngs@gmail.com>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, xmei5@asu.edu, stable@vger.kernel.org
 
-Hello:
+Hi,
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+On 8/24/26 23:24, Bernard Metzler wrote:
+>>
+>> I suppose it is necessary to clear qp and cep before release 
+>> state_lock since both siw_qp_llp_close and
+>> siw_qp_modify->siw_qp_llp_close hold the lock during close cep, 
+>> something like
+>>
+>> @@ -1719,6 +1719,16 @@ int siw_accept(struct iw_cm_id *id, struct 
+>> iw_cm_conn_param *params)
+>>                             SIW_QP_ATTR_STATE | SIW_QP_ATTR_LLP_HANDLE |
+>>                                     SIW_QP_ATTR_ORD | SIW_QP_ATTR_IRD |
+>>                                     SIW_QP_ATTR_MPA);
+>> +       if (rv) {
+>> +               cep->qp = NULL;
+>> +               qp->cep = NULL;
+>> +               siw_cep_put(cep);
+>> +       }
+>>          up_write(&qp->state_lock);
+>>
+> Thanks Guoqing, that should fix it. But even better if we
+> goto error_unlock directly and remove the now obsolete
+> 'if (rv != 0) goto error' below. 
 
-On Mon, 24 Aug 2026 01:28:58 +0800 you wrote:
-> sctp_process_strreset_outreq(), sctp_process_strreset_addstrm_out() and
-> sctp_process_strreset_resp() complete a pending stream reconfiguration
-> request by stopping the reconf timer on the transport it was sent on:
-> 
-> 	t = asoc->strreset_chunk->transport;
-> 	if (timer_delete(&t->reconf_timer))
-> 		sctp_transport_put(t);
-> 
-> [...]
+That is cleaner, thanks for the suggestion.
 
-Here is the summary with links:
-  - [net,v3] sctp: fix NULL deref on untransmitted RECONF completion
-    https://git.kernel.org/netdev/net/c/2db9bfa3e27b
+> Can you pls provide a new patch? 
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Sure, will do.
 
-
+Thanks,
+Guoqing
