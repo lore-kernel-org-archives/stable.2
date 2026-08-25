@@ -1,84 +1,80 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB03D3F58CA
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54468393DFB
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787654768; cv=none; b=drmS0NQb1mqHmmg5y2SOP/pAJfmxtKFvtQyOzTj3NMqLH/WhKId8lFtIDZ3cWtOZX/bzjWrU3EtYUwNzvyAzBI6JDmlijHpIWw4dNWWLG4PFxx6mZ+JmXjzmTLQDBuhc6jG2IuSgW4+ZXinVj1qjkMSV0h+CtqT4gNhXQgyzgeY=
+	t=1787654829; cv=none; b=mm4k9A44Bfcwin1qkyHVx4GE7s45TgNChGB7EGFhHEMCMe2RF3SNeNzitIGdV0IVRS5yP0ePJecUcTVOV5nQzIbZCac0FtKHLBHxWv6gkC1gfor162d/o0QUnx3LXOLtIzFW5QEfVEVD0lHNFGr7DUlIsy0YSkhzOUSPomOXuzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787654768; c=relaxed/simple;
-	bh=FPYe1crnsYHtn0U7WPNaYM9b5z0ifdW88rHUuc4KNhA=;
+	s=arc-20240116; t=1787654829; c=relaxed/simple;
+	bh=KoWnSXBGaCj0jbCTvpHVOuxUQJsRstO2RferBywnX+I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NN9GaBUpBj09zuyij8Q1682ayU9dk0BNzak1SI8D2qmrvnzGbC80aJSBAvL4QxiWtSIzWMym8bdM9uZBmijukGncsSNLvqIv1JslfdlMMKxz0UATUG9R1JqNDP31QXBJk7eRWl9//+YRP7dXt/sE5g4sC6Y8CJUycCBABhuzTwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PuUwDybL; arc=none smtp.client-ip=209.85.214.174
+	 MIME-Version; b=chBO1g4AyJIoF+uG06j6IoG52FIEoYyURxMPbMR5TCiIeJlQBlucsr6YDQTgw4nl79LQlm11WhBPJOhYCSwxDVrPA17q+6z6pZCNwK/qGhYIqIYpH+Wrc1R+xkeiSMrFgvlhb5CPYLigq5jAMJ+9/mUfBJtybGZtw/J6tqA8M5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r/AbB6nz; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PuUwDybL"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d530328efbso39532135ad.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:46:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r/AbB6nz"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6efd73032so3314715ad.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:47:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787654766; x=1788259566; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787654827; x=1788259627; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ac16pfv2Rj18iPUVLOrADWTqxfqfViLMohr3+8pP5Us=;
-        b=PuUwDybLEjuh5FNODCn48CdyAFNEix2EFjWpfm4XZvNQawtOYGOHszdX8/Sb8Pu1wQ
-         jD+3FSjXeTb5q39ffyloFP2ppAy0jQa7rU1FkH1PgpwUN5x8asG8TBtp2r9rYd8+VbWf
-         Mt3q0HCR2IBDu3r7uu7fnjZRl2S9GKTDSiaQ6s+bLCS39QSEoFm96HJqjVoDNdJjDCtl
-         4Y7RFgsJ4MTNQqefHbSRfdaCudX1cZI38FBvQ+fLdarzns4cCfsPECFu93bG4Yo4C9t3
-         WXwRBHIgvYFlrZw0TAquDb/7qqT2zlV+rf0XJKA9GxYdZm50EdiQzd1GcxygO4H3Ydhp
-         B3Xg==
+        bh=bUuxtBGmNOQbmRdHfy9LEMAv45qzxqGeH6c6o8+FBaw=;
+        b=r/AbB6nzyVDv4MhKtw7UNa0FCSddWRptTcq7tPC0JPyFORgaqMlxOuUzeyvSlDH3bp
+         I7YiUXRZ0fenXogObzQLn1N+0kS6QCNamAXtDNPFN3Q0Jf8+cT1JTv3cA4n73rEqzsya
+         NqjTdGPSysaxccPbY7nXiYHYcRWqjZtD2TrmDrRA+8o7nsqqkpsX73ap0a1mV1zdowaC
+         daa+6P0NE838PQzOOLCacXKFyCygteN/s8luIxKsG4oAeVg+BcaEPwmzPZ6ayO0eDAmq
+         OmeCFs1jQfTFgROtu8KNzU7Yd66GMFooejFtnAIhpmLtBzJ3Ri2UcINt+K/2w9NUkOxE
+         082Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787654766; x=1788259566;
+        d=1e100.net; s=20251104; t=1787654827; x=1788259627;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ac16pfv2Rj18iPUVLOrADWTqxfqfViLMohr3+8pP5Us=;
-        b=kPSHszle624lDW4huR4wrI4BO2uWNwcOClSlUyikpAintODfPdF+lBeGp4Kbvo/gZX
-         0GoP19RvbMJNnAgfiIvtD+k7NlFDiPAuteuXmgX3klMxhBnbRpemqN5H9SmnpYUDohTX
-         ZWjjRoStub5qbrFZfn7PJZNswYJ6ftsxJFJDQ9QIngXUC2o9M0RxrciuaBHefm1syeEx
-         nW8XxwB8S0rYHAUTuzneEF0EDCdMLsIDffxZiBomTHSDeSYHBLVjzX6hpsCU3rvkFtvg
-         K1L7R6LrTtpN64RG+jaXxJayGDm1VuSH335B9P0qT+yVmH3rczykm5aRC5jlWuobR3vf
-         pigw==
-X-Forwarded-Encrypted: i=1; AHgh+RoAIDRNGoLO+6b5n5c313bg9QnwfbwikALkttLqirJ/01GykTkA0gvJYvMQw5Vw+tKwxQTzZrQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmQjWQmcdm7VXr/556QHOy+aENqfRzufzc37yNeas1WvJvvLDl
-	KYx0D8aar5aM6CFDgwp6jnUDWuTqzF48nN8j165/dAvOEDUM0cDzofGs
-X-Gm-Gg: AR+sD101wuGC3bnIatPBQg0S9/ytVk1erlIa9zy9YbqJjMio2bGdgDGIU8+VL3nMFRq
-	jTJI+p6dfE/soUbylMopn4DkWCEUAtc1EaivJek4LZ0E1JvWTyCK2AKea4IXtvBiIM3lk2+6fur
-	MxGAlitI1sI8yC77uqNdn6qPdm/DjSSNUqoQ0DGRgQ3mHhjHcVP90qUSBUOrttBy9aJMlHqGdNm
-	1cB5v+jFu6SypZ2NqsOCCGsGhwQFJjwobjINhQZnr9TsW8rH+nV3Nrzocn/6WKg0qoit6HUBIok
-	CmaR2da560VWGwjR8B2ULm0OfW13Yzsl7+C1NoZggk8uAndjgX4j9JI9WIMNpOIBZi67oJiUvvX
-	U+10W0CPJ8Mu/KyN4ynd193TPhqFGtqi/YPGAD9BMzT3uRNCFyMyDHO/aRqyuiIz7689rfPUuZ/
-	Ea0YEfXjenYx30DfbdS1tYYWqJHzTdWWs9hmjCp1q8ppu2NeZnssh8Oo8DV8eSaN7m5c/+8OJEL
-	eyHZ58bR9QdO6IJ5H2X5fLC7yYWDurivQ==
-X-Received: by 2002:a17:902:ec87:b0:2cf:8131:75e8 with SMTP id d9443c01a7336-2d64b11893amr525939445ad.13.1787654765892;
-        Tue, 25 Aug 2026 03:46:05 -0700 (PDT)
-Received: from localhost ([2409:40c4:101c:e5a9:a28f:e499:1b07:43b3])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f90cb8e3sm51146610eec.12.2026.08.25.03.46.04
+        bh=bUuxtBGmNOQbmRdHfy9LEMAv45qzxqGeH6c6o8+FBaw=;
+        b=OixZ8AD0gt3NN7Atq6LdMatspmZHCRlHtVslieZfseQpIw+zDMEzXgBP3dzkNo91x1
+         BrMIZsMpy00qTrIANQwo4u9FIih34oaB6C10PAlOOXdUrVTZoyDBXXO6+gGmhyVDW4ii
+         tD6hXwEKHi+r0HoAai2d3bqHqRFwALweNEubU9XhR4SYnZVGfVf2Jbb80TiGLFfvoRet
+         m8jbfgjC0zef3DnSCczbRdq8VbTrhV781TSp0BcGqs/l+ZG+arqe2+OkAtQJmBypovca
+         znGoWhL4PKoUpo6WVb5aSRrIMCiH/+P36Z2luuOd94dQjNzYYccP9g9e7gu5qRyHIp/V
+         alMQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoSGTD+mXg53QBa7SWUAPXUPakM7lmEclEdyu+HDFdAi0rZQak0E366OMdPlnqQvXJzMOmeMy0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqNJj/HKl9VVJeZLujCYXwl4l4atAQf4mKu3uT8umu4mo6Kc8h
+	97NVK2PR+1YOVgsqFGeNw8/5ukhxg1zWzJK7eT/T6LCsuG9zNlO+eSdx
+X-Gm-Gg: AR+sD10h0IQtfytCCHnSnOPGybP5iS9XbMZiAuNQnfs6RzlpIqwGasM1tCsN/h5mFdQ
+	pL+I4pcBwkYpYJ2qFL/01PYE4+gW64JD0a8Px/jcWb88V5k0l3sbXHgIUc3sMA22d9hJSJtPs1v
+	M8Sy0LhzOf69CLZUnKT++0r4+WDxV0sBihMtsS3vOrCW1JknMawXvM6OWd0gs3LG9V2/5CfWeLO
+	UUSJD7fl/0unKRfECLYhLLzsWcqYJYJFnUKFncp4BDKhOT0ciKqO2NhI1PzMichTp7M5cJAzHeC
+	t5Ug3GcgRx/70biHq3V570SeLwWuQrUXJpo6AmPQ2H+BYHYpbyMcKR7RSDSfneXCRVSjYMmuxpy
+	4lEAPmbAxHJ5UgrZ6WtiGRPP0tQEJ59riqdV3StgZjvcAbFRFmeJiHgJYgDwV/hoD/QEPVhwz3Q
+	SEUk5oXVVpSpjouMAN2XMlZz4NlmnAhejBRr7oA+/bRoBPOwwxuEdvvoaj3YpkLpRzrUzGPsU5W
+	nD8P+pCMasiCicLIzYLskP02wPeuGEnsFq8KWmf8PnoJHphJjrZOKIFQAV3wPzoyTL8ToWXPrta
+	dn58HHj+CudA38xQNTaBDR2W
+X-Received: by 2002:a17:903:19cd:b0:2c9:d277:2cdb with SMTP id d9443c01a7336-2d6dcab5925mr73666195ad.9.1787654827563;
+        Tue, 25 Aug 2026 03:47:07 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d6eee850b7sm4561755ad.3.2026.08.25.03.47.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 03:46:05 -0700 (PDT)
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: jjy600901@snu.ac.kr
-Cc: brauner@kernel.org,
-	eulgyukim@snu.ac.kr,
-	gregkh@linuxfoundation.org,
-	jack@suse.cz,
-	kees@kernel.org,
-	linux-fsdevel@vger.kernel.org,
+        Tue, 25 Aug 2026 03:47:07 -0700 (PDT)
+From: Wei Jie LAW <98lawweijie@gmail.com>
+To: 98lawweijie@gmail.com,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: aduggan@synaptics.com,
+	bentiss@kernel.org,
+	jikos@kernel.org,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	stern@rowland.harvard.edu,
-	viro@zeniv.linux.org.uk,
-	Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] USB: gadget: fix NULL pointer dereference in gadget_dev_ioctl()
-Date: Tue, 25 Aug 2026 16:16:01 +0530
-Message-ID: <20260825104601.315401-1-lovekeshsolanki00@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824160022.2378192-1-jjy600901@snu.ac.kr>
-References: <20260824160022.2378192-1-jjy600901@snu.ac.kr>
+Subject: Re: [PATCH v3 2/2] Input: synaptics-rmi4 - reject a PDT that grows between scans
+Date: Tue, 25 Aug 2026 18:46:59 +0800
+Message-ID: <20260825104659.16251-1-98lawweijie@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260825061027.105062-3-98lawweijie@gmail.com>
+References: <20260825061027.105062-3-98lawweijie@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,47 +83,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gadget_dev_ioctl() reads dev->gadget outside the dev->lock, while
-gadgetfs_bind() writes it without holding the lock. A concurrent
-bind can update dev->gadget and dev->state under the lock while the
-ioctl thread holds a stale NULL copy, causing a NULL pointer
-dereference at offset 0x28 (gadget->ops->ioctl).
+From: Wei Jie Law <98lawweijie@gmail.com>
 
-Read dev->gadget inside the locked region, before the state check,
-so the state and gadget pointer are always consistent.
+Superseded by the v4 series:
+https://lore.kernel.org/linux-input/20260825103123.12216-1-98lawweijie@gmail.com/
 
-Cc: stable@vger.kernel.org
-Reported-by: Eulgyu Kim <eulgyukim@snu.ac.kr>
-Link: https://lore.kernel.org/all/20260824160022.2378192-1-jjy600901@snu.ac.kr/
-Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-Link: https://lore.kernel.org/all/20260824160022.2378192-1-jjy600901@snu.ac.kr/
-Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
----
- drivers/usb/gadget/legacy/inode.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Please use that one instead.  The only difference is the Assisted-by
+tags that Documentation/process/coding-assistants.rst asks for -- AI
+tools were used in finding and fixing these bugs and I should have
+acknowledged that in the earlier postings.  Neither diff is changed.
 
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index d87a8ab51510..e9f7d7c1a6a3 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -1251,14 +1251,15 @@ ep0_poll (struct file *fd, poll_table *wait)
- static long gadget_dev_ioctl (struct file *fd, unsigned code, unsigned long value)
- {
- 	struct dev_data		*dev = fd->private_data;
--	struct usb_gadget	*gadget = dev->gadget;
-+	struct usb_gadget	*gadget;
- 	long ret = -ENOTTY;
- 
- 	spin_lock_irq(&dev->lock);
-+	gadget = dev->gadget;
- 	if (dev->state == STATE_DEV_OPENED ||
- 			dev->state == STATE_DEV_UNBOUND) {
- 		/* Not bound to a UDC */
--	} else if (gadget->ops->ioctl) {
-+	} else if (gadget && gadget->ops->ioctl) {
- 		++dev->udc_usage;
- 		spin_unlock_irq(&dev->lock);
- 
--- 
-2.55.0
+Please mark this one superseded.
 
+Thanks, and sorry for the noise,
+Wei Jie
