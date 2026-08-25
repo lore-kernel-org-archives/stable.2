@@ -1,46 +1,46 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6553E024F
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5761A9FBD;
+	Tue, 25 Aug 2026 08:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787647388; cv=none; b=D5iluOmES94M6nJT9IUtpIrmNz+bkIn6KNO3dbTep7yweJpQCZQ7fhlgW6PmiMPXQ3mrYU8fGDatifVbdYS8ilOhPGSkiNY2ouQ/6/gZLHftmvTZvFE2jdEvJhhcPTZhBOmLigElkbnzBlmyPU3/wjcn7ZJK+Q7aIpM5Vr2PqKg=
+	t=1787647637; cv=none; b=eMaPWTMpH3smn23PIrSvAb33aFEhceaB4VZifa7vLSCZY8lRjTFBSpv+G/IjM11/TYVb/pII+gHA1vpgrYO8B6zrnig7Y7UOIlrl5Ku03sdOWoJhS9IfpEvrzPxczQdmY7rGKkZp0NL0gRjGxy8hTgSRebS3/xy30OC/T+seSCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787647388; c=relaxed/simple;
-	bh=28scDQzKucQL6DiEcKJupVj0en3+wJoei3BCEmBoCKs=;
+	s=arc-20240116; t=1787647637; c=relaxed/simple;
+	bh=9iNGiXurcCv+5fGLR7kL9ZTVi+vh7411c3K0gUozs20=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=QNNN7I8IFo3ov0271rPdc5LN09xYiOjW8Pix1FHTUhXL//c8Xb41YxCBCXrYDcLzEBh0NMilK2hCaAhXi9OkY3pUgsQCneUtoMkiqonZicDLhTXGyTeR7NSiCtO4qfhrcvXemMmsGWBG/u1PQK9OOcsIFcY7v2w1vVSev31VPZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=NmLwgL0m; arc=none smtp.client-ip=185.70.43.170
+	 MIME-Version:Content-Type; b=UAY0jiSysgFQJ/SywCfm4kLaG56bRVPOtAPTY9OZPI3uSUf5S60hBziy55iRf9cwns6zdffrKqhp1Rfw4ulDZ6sFNsD+Kbk+HuovOrD7T2BSqA3qVBVtowrNNAXqbFMWhZQOdiWs4GaMxibRjDjYHPsMiwWbRYxvhythSTJB9X4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=OqrIPmrF; arc=none smtp.client-ip=79.135.106.113
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="NmLwgL0m"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="OqrIPmrF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1787647384; x=1787906584;
-	bh=HOvGvpBL6vKX/Gy/8vu8P6+iSfQ3ZvawAvrRVtwgKpE=;
+	s=protonmail; t=1787647634; x=1787906834;
+	bh=Od7IsANHp9XzoW8pEczlbQg4ofXu9FbMG+Auow4vD0Y=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=NmLwgL0mYtc0/WRKBglhDItbnKtDRKlAEAJ0O94GaedDAPKTHqbSg533Totd84AJ/
-	 kpk4mFRwAoaIuqR4jDLN988LHcUlp6RJei4uSz3q9kC+rP0Rv/uowOautYKJS5q7Qn
-	 nDxxygqeTNeMM39xW3Gd/gjdegZ+5vH6kc3o4YYvCp7bsHJPTLFDhgoEEa8Eip5xCp
-	 mfHVVVx7fooxIbb6jxKd0udGAAs7CyiwWnREosQQ//gQocwBF2l56dr2ek+CjEVWEV
-	 nBexEYJ/CLdmgK8NWMeoSmm+7LT49DL/B9O2nqtePXujuuhfUVJ5VI9OfLeU2rtRKF
-	 kvsSpBTRR8ZNw==
-X-Pm-Submission-Id: 4hThBH0Lrsz1DDXG
+	b=OqrIPmrFd5TsKtZtTQEF0oWcxPk3Lpn51VrrN59DBWzACZjfT66DA5rr9npX3EuE+
+	 gnovSvhnVE9iUZe9VvzzUu+ib0uqI14i5kFm/5zGXr6aBtuQl2B5g3oBGetHtGAOXY
+	 GlonY0XLLxNXZ2z5cD4r0IMpoXB0InGi7BqPzEfYOncPoRpgQLH5PPlc8JzDPW02wI
+	 HhVYxpaugKl4r8njtZhSvryoiFhqKqQ/BJP15TCQKdBWwzYOHcR/XkBp3jco3Agf0/
+	 Y7CwfSOeLzpnvcfv3EvNUP/zDDRLnzMUGKlUNcM83Hhi5s6oo3+/dYAKrU/B5JSVxe
+	 kqLAP3OR1huyQ==
+X-Pm-Submission-Id: 4hThH52vKZz2Schg
 From: Esben Haabendal <esben@geanix.com>
 To: "Markus Elfring" <Markus.Elfring@web.de>
-Cc: <dri-devel@lists.freedesktop.org>, <stable@vger.kernel.org>,  "LKML"
+Cc: <dri-devel@lists.freedesktop.org>,  <stable@vger.kernel.org>,  "LKML"
  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 3/3] drm/bridge: ti-sn65dsi83: Support LVDS Channel B
- on SN65DSI84
-In-Reply-To: <ee366627-a286-46b8-b343-7f88064a25de@web.de> (Markus Elfring's
-	message of "Wed, 19 Aug 2026 13:57:39 +0200")
-References: <20260810-ti-sn65dsi83-fixes-v4-3-ae9c95c8d162@geanix.com>
-	<huX-KL5X5hbADDAlY_Y7yetpfIUeuL1vJ_SZtUhasR8lpLs_KDmmoZ-AkbNOVjguhsSV2OmyrlT-j2dZj0UrUA==@protonmail.internalid>
-	<ee366627-a286-46b8-b343-7f88064a25de@web.de>
-Date: Tue, 25 Aug 2026 10:43:02 +0200
-Message-ID: <87wlteoajt.fsf@geanix.com>
+Subject: Re: [PATCH v4 2/3] drm/bridge: ti-sn65dsi83: Propagate error in
+ sn65dsi83_reset_pipe()
+In-Reply-To: <2f0fef87-4377-4a01-a210-8d55a0b67a9e@web.de> (Markus Elfring's
+	message of "Wed, 19 Aug 2026 13:51:13 +0200")
+References: <20260810-ti-sn65dsi83-fixes-v4-2-ae9c95c8d162@geanix.com>
+	<v45WZnbABEcVZHxTpq2Cw_Z3nnj7uSdSYEP2ANyYM3ZcoriX3BBSBRNIHGm_hNTsSqq3z35ZJLXTpuREP82q9w==@protonmail.internalid>
+	<2f0fef87-4377-4a01-a210-8d55a0b67a9e@web.de>
+Date: Tue, 25 Aug 2026 10:47:12 +0200
+Message-ID: <87se42oacv.fsf@geanix.com>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -48,19 +48,16 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
 "Markus Elfring" <Markus.Elfring@web.de> writes:
 
->> This adds support for =E2=80=A6
+>> Propagate the error code from drm_bridge_helper_reset_crtc(), so that
+>> callers has a chance to handle the failure.
 >
->   Add support for?
->
-> See also:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/D=
-ocumentation/process/submitting-patches.rst?h=3Dv7.2#n94
+>           have got?
 
-Thanks, changed for v5.
+I will change to "so that callers have a chance ...", for proper
+plural form. Thanks.
 
 /Esben
