@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0BC22FDE6
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 22:05:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708563E2AD6
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 22:05:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787695548; cv=none; b=OkZNn3oVy6HbyfoxANc/QQPAdp65BgVRxPJmd4dkxpK6kwg5hef8R/SIq0hvzKtyoww7Sg05mXcRZIgQOb/17VtGbeHzKMV97c7ZSXJE8ZN8JPf3WcGZAAbjZm3aTVlmzCKu8CzIgxMPRI7gsHETfx2ZiflRwTzagqBemjrqHVQ=
+	t=1787695552; cv=none; b=lon4yuMWDFBNpCO80m7FslFl3z14jOWsZZ+82IOCiAdSbe4jIaZtQJ1xrjgNWvuoFby2JXn3XNFJSFVxF71h848olVqUGVJI/9rsBfOcyHEvH6XQJGqR3pHtqIlqarjayadHpQTLOWzxP3iYB+gR8EYOu13lX9aI4NMV53KXmKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787695548; c=relaxed/simple;
-	bh=1lHMb32Ncb42JcgmKWb3oirLvhSBBWPqczjSp6F7vzA=;
+	s=arc-20240116; t=1787695552; c=relaxed/simple;
+	bh=1gwedEuQAnj8pjDRP3zLMcG/8f2DWyHYe8ySy5HH+Nc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H4L12cSm4gzxyq+A/zh44jqch1yEqegOciP1cyRwNPZojeKf5TDUgqzmS4hIo21TZS5Hk71d+tUaXMZflyDaLhgU2PQcgu2f5b/3SgI+7X6qdKPnP/+2auxFK+9/MKQLEv5ChgEhBe6yjomeIlgnN6nchP00epeO6c7TtKanx2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDQcNLy2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KA6UyXWj3aTDffpKhWCQMtpvLj9c1aUnMV3xKUoqTApHIcpezc3nseEuoYxwlvQvuOxI/Yr80cIfjTUvsrRNDY9C6Fmd+lb6H3JttPNB2xgTFedUbqb2n9kpuvz/qa9zsR1ueh7gdPjwMmQ+jXFjvSCdqe4tCe4NUFnJCImg8go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocV3P0ki; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDQcNLy2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85D811F000E9;
-	Tue, 25 Aug 2026 22:05:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocV3P0ki"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81B2A1F000E9;
+	Tue, 25 Aug 2026 22:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787695547;
-	bh=oUK6zwxLTb+md93LmDIKqAMMK4ePSJVExm2123P8Ino=;
+	s=k20260515; t=1787695551;
+	bh=sahSxs11TB+VY2RepctS0+3CbTmouCibPtwlGNYcbkQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RDQcNLy2tx9LRsefML4t2lv4BgLz+rlJv1qYte22NVPfanPRd4qQzUN/M+E+O+fJo
-	 XPtHBSmpMjHZnQUglHpUfm1hfRaB+Wo7XsMGhDnyuRQBgQuidj6fYbR+tHJUjpuydx
-	 UcV/wbbpt9g/aeVFm4fhVOEmIA54TJiSlHy3ieHd4kd5tf5j8vcO1S+GY2xavTSepJ
-	 Y1AtpvxWP/lmgHBmD0FYTfJuep1SPe9husBj0p1KkhFrrdRaZAfpOW+jGEu+km6c+Q
-	 3+cs0IdJzz5TG5hFpiE8JUzJOeNxMSqQiVh/8Hz5K3IdnP5ZkGwl6+Z73Q3r3OOVOd
-	 uKEYUn61UBzjA==
+	b=ocV3P0ki/3nkshTILshuBjCH5pXzSLb289UtHVtoHMgjxUaGtmeNOs8zuvaM31wpK
+	 zGDFjEnOHEgvcjkETjhXTCxs+3g14qE/QSXikjun0mG5Wq7gNZyY7eS52xkYBSOzFY
+	 wYQ3AOBg0xD23q/pzfWo3ItjoM+xxMmcFfPw5PC12twKznbui9QcyX/D1UY7jGCAQc
+	 3/3MXuG8p+D/vsXBn8tDYwf5HBxZPd7q1Cirxw5OM4dDYvEP92ql+TGpeFqn8rkGUn
+	 T7jjvsedEpsqdslMpp/UIvkVoMN4c7vH3GBYJMPuJVEhnpcUo+yT6bOfELbkqIcW2S
+	 TuGz4Qcm4w/Hw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Theodore Ts'o <tytso@mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] futex: Fix race on the initial mm->futex.phash.ref allocation
-Date: Tue, 25 Aug 2026 18:05:45 -0400
-Message-ID: <20260825220545.2780691-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] ext4: make state in ext4_mb_mark_bb to be bool
+Date: Tue, 25 Aug 2026 18:05:47 -0400
+Message-ID: <20260825220549.2781247-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082406-pushup-epic-2778@gregkh>
-References: <2026082406-pushup-epic-2778@gregkh>
+In-Reply-To: <2026082454-agent-feisty-8c0c@gregkh>
+References: <2026082454-agent-feisty-8c0c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,78 +46,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+From: Kemeng Shi <shikemeng@huaweicloud.com>
 
-[ Upstream commit bde0238083647381d4747355c5a19115a3422b96 ]
+[ Upstream commit d2f7cf40ea89b486fb7a25f5ab9a5d3ce26fb4bb ]
 
-futex_hash_allocate() allocates mm->futex.phash.ref without any locking.
-Commit d9b05321e21e ("futex: Move futex_hash_free() back to __mmput()")
-moved the allocation here and assumed that the process has just a single
-thread at this point.
+As state could only be either 0 or 1, just make it bool.
 
-Commit ee9dce44362b ("futex: Drop CLONE_THREAD requirement for private
-default hash alloc") widened need_futex_hash_allocate_default() to cover
-any CLONE_VM clone, but left out vfork because the parent is suspended and
-cannot race.
-
-That no longer holds once vfork is nested. If a vfork child calls vfork
-again and is then killed with SIGKILL, the parent is released from its
-vfork wait and runs concurrently with the grandchild in the same mm.
-Neither of them went through futex_hash_allocate_default().
-
-When both call prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS) at the same
-time, each one sees mm->futex.phash.ref as NULL and stores its own percpu
-counter. Only the last store survives. The counter stored first is no
-longer reachable from the mm, so the references on it are not seen by
-__futex_ref_atomic_end(). A private hash that still has references is then
-considered dead and freed, and a task that still holds one of its buckets
-writes into freed memory in futex_q_lock().
-
-Store the counter once with cmpxchg() and let the loser free_percpu() its
-own. The initial reference has to be taken before the store, otherwise
-another task can install a private hash while the counter is still 0.
-
-Fixes: d9b05321e21e ("futex: Move futex_hash_free() back to __mmput()")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/ansrpP4ImE1MaBY9@v4bel
-[ renamed `mm->futex.phash.ref` to `mm->futex_ref` to match the existing flat field name ]
+Signed-off-by: Kemeng Shi <shikemeng@huaweicloud.com>
+Reviewed-by: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Link: https://lore.kernel.org/r/20230928160407.142069-2-shikemeng@huaweicloud.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Stable-dep-of: d8b8dd3530bf ("ext4: propagate errors from fast commit range replay")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/futex/core.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ fs/ext4/ext4.h        | 2 +-
+ fs/ext4/extents.c     | 4 ++--
+ fs/ext4/fast_commit.c | 8 ++++----
+ fs/ext4/mballoc.c     | 4 ++--
+ 4 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index fde558fd2bd60..934dd2b7f6bcb 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -1830,14 +1830,18 @@ static int futex_hash_allocate(unsigned int hash_slots, unsigned int flags)
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 317c2c0c015b2..387509da86a2a 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -2940,7 +2940,7 @@ extern int ext4_group_add_blocks(handle_t *handle, struct super_block *sb,
+ extern int ext4_trim_fs(struct super_block *, struct fstrim_range *);
+ extern void ext4_process_freed_data(struct super_block *sb, tid_t commit_tid);
+ extern void ext4_mb_mark_bb(struct super_block *sb, ext4_fsblk_t block,
+-		       int len, int state);
++			    int len, bool state);
+ static inline bool ext4_mb_cr_expensive(enum criteria cr)
+ {
+ 	return cr >= CR_GOAL_LEN_SLOW;
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index 9c2d23958146b..d05f5790a5ac8 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -6207,13 +6207,13 @@ int ext4_ext_clear_bb(struct inode *inode)
+ 				for (j = 0; j < path->p_depth; j++) {
+ 
+ 					ext4_mb_mark_bb(inode->i_sb,
+-							path[j].p_block, 1, 0);
++							path[j].p_block, 1, false);
+ 					ext4_fc_record_regions(inode->i_sb, inode->i_ino,
+ 							0, path[j].p_block, 1, 1);
+ 				}
+ 				ext4_free_ext_path(path);
+ 			}
+-			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, 0);
++			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, false);
+ 			ext4_fc_record_regions(inode->i_sb, inode->i_ino,
+ 					map.m_lblk, map.m_pblk, map.m_len, 1);
+ 		}
+diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
+index ca5f1b0d2687b..d96d303e390da 100644
+--- a/fs/ext4/fast_commit.c
++++ b/fs/ext4/fast_commit.c
+@@ -1838,7 +1838,7 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
+ 			 * at the end of the FC replay using our array of
+ 			 * modified inodes.
+ 			 */
+-			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, 0);
++			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, false);
+ 			goto next;
+ 		}
+ 
+@@ -1907,7 +1907,7 @@ ext4_fc_replay_del_range(struct super_block *sb,
+ 		if (ret > 0) {
+ 			remaining -= ret;
+ 			cur += ret;
+-			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, 0);
++			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, false);
+ 		} else {
+ 			remaining -= map.m_len;
+ 			cur += map.m_len;
+@@ -1966,12 +1966,12 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
+ 				if (!IS_ERR(path)) {
+ 					for (j = 0; j < path->p_depth; j++)
+ 						ext4_mb_mark_bb(inode->i_sb,
+-							path[j].p_block, 1, 1);
++							path[j].p_block, 1, true);
+ 					ext4_free_ext_path(path);
+ 				}
+ 				cur += ret;
+ 				ext4_mb_mark_bb(inode->i_sb, map.m_pblk,
+-							map.m_len, 1);
++							map.m_len, true);
+ 			} else {
+ 				cur = cur + (map.m_len ? map.m_len : 1);
+ 			}
+diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
+index 73b27ddafe915..4ec4388932eaf 100644
+--- a/fs/ext4/mballoc.c
++++ b/fs/ext4/mballoc.c
+@@ -4121,7 +4121,7 @@ ext4_mb_mark_diskspace_used(struct ext4_allocation_context *ac, handle_t *handle
+  * blocks in bitmaps and update counters.
+  */
+ void ext4_mb_mark_bb(struct super_block *sb, ext4_fsblk_t block,
+-			int len, int state)
++		     int len, bool state)
+ {
+ 	struct buffer_head *bitmap_bh = NULL;
+ 	struct ext4_group_desc *gdp;
+@@ -6158,7 +6158,7 @@ ext4_mb_new_blocks_simple(struct ext4_allocation_request *ar, int *errp)
  	}
  
- 	if (!mm->futex_ref) {
-+		unsigned int __percpu *ref = alloc_percpu(unsigned int);
-+
-+		if (!ref)
-+			return -ENOMEM;
-+
- 		/*
--		 * This will always be allocated by the first thread and
--		 * therefore requires no locking.
-+		 * Tasks sharing the mm can run this concurrently, so take the
-+		 * initial reference before publishing the counter.
- 		 */
--		mm->futex_ref = alloc_percpu(unsigned int);
--		if (!mm->futex_ref)
--			return -ENOMEM;
--		this_cpu_inc(*mm->futex_ref); /* 0 -> 1 */
-+		this_cpu_inc(*ref); /* 0 -> 1 */
-+		if (cmpxchg(&mm->futex_ref, NULL, ref))
-+			free_percpu(ref);
- 	}
+ 	block = ext4_group_first_block_no(sb, group) + EXT4_C2B(sbi, i);
+-	ext4_mb_mark_bb(sb, block, 1, 1);
++	ext4_mb_mark_bb(sb, block, 1, true);
+ 	ar->len = 1;
  
- 	fph = kvzalloc(struct_size(fph, queues, hash_slots),
+ 	*errp = 0;
 -- 
 2.53.0
 
