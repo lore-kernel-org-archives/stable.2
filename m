@@ -1,135 +1,111 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44D53F44CE
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800C03E63BD
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787652786; cv=none; b=mnBIr/E6IWk/W0xpLcknfBsN+wj6Jr5vxSxt4h0d6qTofsg+0x6sb+Afjzjefg9NiAU46FNwKkBbIQ0dqF2tetn/z+8nBT79P++l92oNl+PrstZWgI0Zl4+jzPPGEA6AJZsQaY5X8MbOLosBV9caX5Qgc54uUDggA4lA8+6FzXA=
+	t=1787652921; cv=none; b=Shymyj8LQiSqlhzacja3G1RCYvHhzLonyN1UujzDGsBXcVu3LuaPnAsCidwCY4zoT+NyMFKkFJzhcncAPsVcbc2XN0x7nSjH09vPl1Cu9xCMRan/yW55jubKBkiUpnaI800NcPzHBgP82Fl7RKQgBpnz2McCIWYuetnF5OrvPpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787652786; c=relaxed/simple;
-	bh=RAGFgUE/hL9ns4Dc9Yzxf5XGA2OGySAH7T6FTytqKYQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KUuiUVBo+zkhEGqFql15eOAUVpaoGplKN3zfJ4dHaknT72OD0s4HOPYafZO62146ZGGfu3EvTKN4fzD/171NZIgG9H8sRIt5q+ADjVif8i5E+8jQMSmdgkHhYyPoD8rFq2YaK3jA6p0s6+d1+xI9B32ALethDYkeYFpdFuvR+X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LfoYJ12h; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1787652921; c=relaxed/simple;
+	bh=tvZn/DMGKqbYfXmiEXnBW9Jf8jg1KanjiDCL69cMdX0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LMzu89kOS61txHczXzf+LVgO2HeD35S1AnINVO29cGvMm3Z9MqfHetNtJ9sstFZAYWNwh6ztOXA0jwO3zvVq2qjXHTbXA8YlexZMPIrBAf7fGHqHel0FZo2hzTbpIsZ+Kt+2jWYnh/5dDE1aRZ4JIWVLm+0eynTtCqAHJu+kGoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HN1COI2f; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LfoYJ12h"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so232499a91.3
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:13:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HN1COI2f"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc149372c14so3333958a12.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:15:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787652783; x=1788257583; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=okcv3TiKdUkjHH/2Q47/3TclBNSBZ0LXy94OPqvg5Lg=;
-        b=LfoYJ12h9Lbj4GtcLPEKRC37EUTWUFOGtsvoJXaOXKSc95SDraOnVnhqW2x66ZMf/0
-         iQ0GZnI1PctpJ3tofW53ifNircHQw5nvoi9AXucg+5BjTntOawpOwtKR+93GdWnW5JiX
-         GW9Uv+stfB/+VINoUtLxI3pvU1Iqq/SmVWmgVza5BbO/YLmcIMNXD/BMr+aIWSu7a9qD
-         Mr6Kzgx+d3eAbI6vCeO6ja2vjuwJNNm/Z9RhseFZZcM0Zb5W0T7xQTuUEktiwySDBkYW
-         vNvKUXaVcMnY/uxpVlMLKM+1tSKFsSTen7Vce6R1g0kFf9U77DwBoZrQRLo2vVCvcnEd
-         ZfcA==
+        d=gmail.com; s=20251104; t=1787652920; x=1788257720; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t/2kEnaWyYQdlZqHnH4m5uiHvxgG16cMzCUkrsocMZc=;
+        b=HN1COI2fUevhDRatIMcA+EelMC+p5KlZVqE18Vj4wQsyVMsq3a+LolXiMqa1+shIF3
+         PFYOt2jvH1H258f9EEDfzDCnGeK+6Bt2OWJBQjcueVAojyllKCa+hdTRU3L5etuDcedU
+         NPtDmDR5VcXydX2o9YW7P0lWuiyO1HoQc0069IGKCPYO1N28ILspCyTdiHhqUNABYqZb
+         f2QCPNz5LOas7RrLoIb2BUFdlrm+efbt2SviCMAvVfNociPX8K7RlSoecplwYSfdR7pA
+         yPeN2wVVLQOq0JId7rpXelpl8qh9rFb21MMxQ+WG+PFbxd3A1PcHWuAUBKswGIeeEQ1P
+         gzxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787652783; x=1788257583;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=okcv3TiKdUkjHH/2Q47/3TclBNSBZ0LXy94OPqvg5Lg=;
-        b=GbqVJybkHXqxZAg8qlerNDHcsAvn+7o1RNLCQHOcJLtvqg4RVtFdm4t5ZxgroqLRmB
-         hgQ2sA+WkH0wq+BXOhJDlMK17NgxA+4GR3CsXDlCQfNmmuQcB3HhFKPqhF7Kgo3uj4pX
-         /ComC4MHrZYXF/gUgEh2ZrPaTUdgqFhuEHL48Gn3G8gR549kimieczE8thMX9eORqrWQ
-         CwjpcYsH7en95pVK5/7MfhBV9LrIrTiCPNIf6ZOq9AT3mFchN/yRLXsKtt+5YtVj0XP0
-         MgGXud88s5YPWWt+MFOCSpi4v6pyUf9vpKooQLifrTVA93C9p6Qt8FwX1X+M8dthQD1x
-         jb0g==
-X-Forwarded-Encrypted: i=1; AHgh+RqeDGpIaZzJQ7m7yu+n7uaOgILcv2y1ryuN8F1y1gmdwnNkAfufQe5tN6NqXcrcUM9V1rbwYc8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQMRCKBPUIFt6exl5/Z2UrbuGvC5sksKRBHpSqokQ+9UXtbrot
-	GfaKs0MmBjEWyjLcH9AoZzehyKI17Kfby2h6jFgsygojdTulo9CJp5py
-X-Gm-Gg: AR+sD1338yirhg9xnbdvwDdSrOD1jtlR5wVQAgv0V34j0DxE1NqCpbOM8rUnr/7nLW6
-	AlFOLQS3vdOLRL9XJES80BKe6p6riSI2rZ7y2pYRggEUeomCdzOuCErGrvh9ehuELyDLBHpK+uM
-	zMMcGh4MGNBee3fpr4qEEOceY79YhuFoLp79eduvHFWItFoTToax3WD6D3BunxzU3NuroQCKAB7
-	8Jxe5QlxH+AgHlMBLb5soa/lVfV0S2Vd2ODRcuVPp92xGdqLqiwWUUzTuR0MQX81kc6eF2cQd0Z
-	CiX7nAVuT5drpgLadmaEjZWfmV472vg9j6+OWVYqw9XaU6pdjSY1ZFKNbURV06RdeHL4139aPtl
-	Vf7ULF2Yu7Eok2iJzFvcFZWcSUHhoEAuzgrEMPgkUxYTRPRORz3Kf34L0ff9o3cLcBQ/nPS7GUf
-	vrBwPatCiQeNMEPVJhlSoL1CDAuQTUSWT3NHYtFxIxJMCEf0z2KTfZaFyKm1OF63yafedHTvJUK
-	3CTsBQisesW5K+urVPGiHd8f2658W88OSecaZNCCw==
-X-Received: by 2002:a17:90b:5112:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-395df3cf1c8mr48525381a91.10.1787652782947;
-        Tue, 25 Aug 2026 03:13:02 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f9209f51sm57715424eec.22.2026.08.25.03.12.54
+        d=1e100.net; s=20251104; t=1787652920; x=1788257720;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t/2kEnaWyYQdlZqHnH4m5uiHvxgG16cMzCUkrsocMZc=;
+        b=GJALbCt/WMYuexS1GfkEqx7GkH7tEQuo/mGjhJ/uMtUcSKlh00CAOQ6abWut690v/n
+         48F9IqwKEYdpOf3gm8onNnwxZptHk9qzn0qAQRAQomnlROMlyN/zBcYysYH5af8Vt0nP
+         6iGkeK5cobA+SVXiwh8aZZYXwjR0UvgLhY0iO+LcJ43Dc525lm8Uo8ph1ApX2kvs6tKk
+         NrK7zCzjawx9pZthQvgU5rMjIPTfj+Lm1Tn05iaH7IiU/L1D4eQ6uF8DewkBlf9g8+O8
+         dajq8wLfmhzAK5+HBa0p5nYSVR39rE/q64NiOWkGFc3WuMzowt+xPhWD+4BpRXmk49eH
+         L4JA==
+X-Forwarded-Encrypted: i=1; AHgh+RrsZJvSjIjVLWB2m2ra3Hh/IsZCOvcORuUIIC2zahBfl2l3GKkwb6wHdBuv5w2kclneczcrn3k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQg2mzFWvO/PcCqmr5bHgcTA2//aTO+jfNCcy5fEEGQ9ajZOYq
+	9/Nqyy6PNZiXBp5Nn7jXIPCAlF02liWkTlxfD5PugvECboaXlpVTQ/oG
+X-Gm-Gg: AR+sD11P3rXSfRjQjCfhjF5xRcSCa+2A5Z6WD5867w/ISMWx5lz+ORPvbxxELQD6D2F
+	ce7i/FxvcS7Y0p/yL+7TUexbj22I0rzx7kM1e3z42VidUJT4HmBJywA7bQ3pQNYfMyP0oqaHa1v
+	bZGZPZOrhTfeuXL2bJMJsY3KcJELvad/VeQRkx7yj8v5Lf+cw7wJQHR7xdi5siF5GxOivNTr10E
+	RKX4x86gi8xhvxjyJsEHeG0gRhu7oLLFXLd2CQGnhgu0qQy5wtIyyHeV2jhDNjwFwrAaiq9OT+X
+	CDGcTAIIpZAO0C0d8pk5UkfJA/ArTPT0GEPIQbVKfEwU/j5pqHrZwrWA3DCV9eiQ9DCa3Sz+rxg
+	tPYOTF5SDemjbWwqnJlPfWWjj6WVcDcVSf9+Q0GlnKk6mSVIcZ9vSYOw230ZF25EPX7JUeegcLY
+	BfiWmEG1JCrV0Yc3ixHKISpy69LDYMk/wGt2BEBLjrtKMugP2TSuTzSHMzUFurRBeJUvfq12RVm
+	GOlueZ2/f+zCbS1nb1qYGfHn0sQ5fcW
+X-Received: by 2002:a17:90b:53c7:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-396464a15f2mr11505556a91.11.1787652919563;
+        Tue, 25 Aug 2026 03:15:19 -0700 (PDT)
+Received: from localhost ([2409:40c4:101c:e5a9:a28f:e499:1b07:43b3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d2d1esm36749172eec.17.2026.08.25.03.15.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 03:13:01 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()
-Date: Tue, 25 Aug 2026 15:12:10 +0500
-Message-ID: <20260825101210.47782-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Tue, 25 Aug 2026 03:15:18 -0700 (PDT)
+Date: Tue, 25 Aug 2026 15:45:15 +0530
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Mathieu Fluhr <mathieu.fluhr@gmail.com>, 
+	Michal Pecio <michal.pecio@gmail.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
+	Mathias Nyman <mathias.nyman@linux.intel.com>, linux-usb@vger.kernel.org, regressions@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org, Forest <forestix@gaga.casa>, 
+	Slavik Dev <developer.slavik@gmail.com>
+Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
+ triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
+ (bisected to aec11e5f9c45)
+Message-ID: <ao1qAlO8t9N3kfbZ@eggarch>
+References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
+ <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
+ <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
+ <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
+ <aosGtkE_diwVJJtB@eggarch>
+ <20260823174059.46fec036.michal.pecio@gmail.com>
+ <aoser8dLytrwqBC2@eggarch>
+ <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
+ <226b2f34-fa25-4ca6-8afb-0b3dc942715c@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <226b2f34-fa25-4ca6-8afb-0b3dc942715c@amd.com>
 
-hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
-struct bios_return header in the returned buffer. However, it only
-checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
-that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
+On Mon, Aug 24, 2026 at 05:09:02PM -0500, Mario Limonciello wrote:
+> The behavior that is described here sounds like a platform firmware bug to
+> me.  Are you on the latest BIOS available from your OEM?
+> 
+> Can you please confirm:
+> 
+> 1. Your CPU model number/codename
+> 2. Your OEM (from /sys/class/dmi/id)
+> 3. OEM BIOS version (from /sys/class/dmi/id)
+> 4. AGESA version (see commit bc91133e260c8113c1119073c03b93c12aa41738 if the
+> OEM didn't tear it out.  Otherwise look in BIOS menus)?
+Though the issue's only reproducible in kernels including commmit
+8f5b7e2bec1c36, which their bisection showed too.
 
-If the firmware or ACPI method returns a buffer shorter than 8 bytes:
-1. bios_return->return_code at offset 4 reads out of bounds from the
-   allocated ACPI buffer slab.
-2. If return_code evaluates to 0 and outsize is non-zero,
-   (int)(obj->buffer.length - sizeof(*bios_return)) evaluates to a
-   negative integer (e.g. -8 for a 0-length buffer).
-   actual_outsize is set to this negative value and passed to
-   memcpy(buffer, ..., actual_outsize), where the signed negative value
-   is cast to size_t (e.g. 0xfffffffffffffff8), attempting to copy ~18
-   Exabytes and triggering an immediate kernel crash.
-   Additionally, memset(buffer + actual_outsize, ...) performs an
-   out-of-bounds write before buffer.
+Could the trigger not be the 200ms SS hold?
 
-Fix this by ensuring obj->buffer.length is at least sizeof(*bios_return)
-before accessing the return code, and compute actual_outsize safely
-using min_t(u32, ...).
-
-Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/platform/x86/hp/hp-wmi.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 8ba286ed8721..f3cab841afc4 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -616,8 +616,9 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 		goto out_free;
- 	}
- 
--	if (obj->type != ACPI_TYPE_BUFFER) {
--		pr_warn("query 0x%x returned an invalid object 0x%x\n", query, ret);
-+	if (obj->type != ACPI_TYPE_BUFFER ||
-+	    obj->buffer.length < sizeof(*bios_return)) {
-+		pr_warn("query 0x%x returned wrong type or too small buffer\n", query);
- 		ret = -EINVAL;
- 		goto out_free;
- 	}
-@@ -636,7 +637,7 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 	if (!outsize)
- 		goto out_free;
- 
--	actual_outsize = min(outsize, (int)(obj->buffer.length - sizeof(*bios_return)));
-+	actual_outsize = min_t(u32, outsize, obj->buffer.length - sizeof(*bios_return));
- 	memcpy(buffer, obj->buffer.pointer + sizeof(*bios_return), actual_outsize);
- 	memset(buffer + actual_outsize, 0, outsize - actual_outsize);
- 
--- 
-2.55.0
-
+Regards,
+Lovekesh
