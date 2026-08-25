@@ -1,186 +1,113 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEB13CEB9A
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 22:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB554908A9
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 22:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787695987; cv=none; b=edDCcAReKgcbZ3lMsxWzhzaC10Mp8pSzT0S48Ux5Kxrw4EPelC0ba34KzOt/3ZQUcanbLc392n1YaLiFtp+3Kkm04mK2xEkLkLJqpJtqkzaKx1n2jvUU1gb7ma1hP/ev3/ZBVHuYWXRCmHntbui9efiDwPwcRyWv0JAD1y89IXk=
+	t=1787697184; cv=none; b=DhfoNH6KB0UQ40kSP8IkpVdh7YWI0gR4ifIuhoVk7m8/VRErO22bs6toLMRTaH0O0eOE5bKBuJRFSX/Y+tkGkF6X6nIvJLRCNHZ29QeX/NX+K6SpO/wxHkS9KpkCCU0Du0cj/5iugIPFoEMpamlU8rApax5QoqQjAbI11sHKJ4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787695987; c=relaxed/simple;
-	bh=gm26qQiiwKEYhHZMZb8w7wMtSk6o3tA87DkPepM1DIQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HN+QGhnd9ASgQJniQhzi0i7AGhqu1OsKUwAIjGYzYNOZEXeCcbHviscs703/4XfjyVizs6Qmo0eCOvhNInUkQn+gdwmoezagWEZt7oigy5QZKN0vcVsIQ2djloWIW639SPCGaoZtT6mckMwOcc9QbEMoGAjgU5ZpKR0YMTfdujk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KWHJLt3e; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y4l98uqC; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787697184; c=relaxed/simple;
+	bh=hkS+ij/4QIUn/eSjY2s1BHYyQ3gtrdbmnSZQZskWohY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s0K4W3zrsrwZQGcw5ce+Rl5ntNXgCycvZD8pcuUBeKxcOtqjAlC03zVSHYSaM/Y187bAzFGgxp81PePfm8Yj9IyhN3uVOeE2uImLM62I0TuMhye1lfd50UqEy/yFnc1jhiljeYCaoYyF2TghP7dQEQPgCFPBcBlLUAwpUc7UW6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M5J9oqKu; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KWHJLt3e";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y4l98uqC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787695984;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xHn5uWyTj2Tgmniq47Pv+Rn61JDZfNSE6Z8AvHiyjIQ=;
-	b=KWHJLt3e4JMTM1a2C2W7JuslJxDODHdSIczoINZgDmb2F2CfXka5ZGqXXh5uh1lTDFInNa
-	kpmWjK50hdpWaJLKWVO/NAduQYg7CHzKoJZMaQ03Ir0VpALH2D3gTk4OYWLWaEUPWcLccp
-	n2ie1M0WY1c0WIXQ0UfPqesmrfSiuMQ=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-391-VgleVgJvMeiuulXoWVXEiQ-1; Tue, 25 Aug 2026 18:13:03 -0400
-X-MC-Unique: VgleVgJvMeiuulXoWVXEiQ-1
-X-Mimecast-MFC-AGG-ID: VgleVgJvMeiuulXoWVXEiQ_1787695983
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52e2d1bdce2so3958431cf.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:13:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M5J9oqKu"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1c3d79b9bso22953a12.3
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:33:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787695983; x=1788300783; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xHn5uWyTj2Tgmniq47Pv+Rn61JDZfNSE6Z8AvHiyjIQ=;
-        b=Y4l98uqCMiFyjZopsME6j5ty6F6mo2VotlzmAEotDoalBa6EfTyUuly6eikBhSlDrP
-         x+hK3qoO941yGB60FxfJlc0HmbKfZX+cig3omt2ag0e0A43zX2VcyNSbbN7WOr/2AsJq
-         9gLz7nLK4SV/tIpGIJmvV9PtL13RVn9JITs75VAe/W0y6fVnhCNULYYVKwMGNbxQ1aK+
-         8jY7EiQmZKIBXCO1g4uuyA4Y2Xr6qS9rzS4lN3zYAJ+HnZ8wluz2xw3doGaVN1RAxPMU
-         YIFUQzWQjGD3kzMj0WKrUZBia2CxLPmEw0drgMPGKgMUZHvSG2g0bQXbzq8y5HikMUiz
-         iEsw==
+        d=gmail.com; s=20251104; t=1787697180; x=1788301980; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TJSb9WBld/1/tUPNLwV+CZNLUqE0Mha7foQadGzvq8o=;
+        b=M5J9oqKuZa4cidKnIAU/Yhihv0O+XV1kg/CyKf1EdIDqWq849SkXsuZzDVDk09nAdV
+         J4A4c2aTOy8tcJd7+8E7DqNROJNNRyoWMqXWsudnmN5O63SELaKVW2p3fibv3+jToUPJ
+         851wPq2i2ansS0i/KmZQxD4HN0C63TeDjEz+tvpeo3es0kz5gzKAjTFKJDK9LQRyoU3x
+         m9aJDMpxtY2y/jLmmGlbOVRy3bPb/6d0zXcpqKxFZRIYHC052zMN4Grw42+kmg9BQ0WY
+         90xpbVElAwD6qDj8NZcN8L8cGoLGe3M92K8MLzvp3aSIVfs8b36or5rW0f8Ggm7NvtRQ
+         c/1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787695983; x=1788300783;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xHn5uWyTj2Tgmniq47Pv+Rn61JDZfNSE6Z8AvHiyjIQ=;
-        b=AaIhvI74eFchq4DkGiliElFxwIZpZg4yLKquD/Q95DBBA4FnQxjWB26ke1tshwWWbO
-         T5ECLIBPcqHUrlk24oW0MPBDcFYtcIzeL2ulSGsouUhHOourf1gb5vTpLAau/ohE5xnB
-         SFk/Wg98ayWGDGyZV/eoZIUGxE3Qesbwu8aM8K+6qC15yMCbR+JHMT6X5drq5eSOff2U
-         M1DX75ePHOZkNpg8tO8ET5cpH4wApFw6NHdjd9whUx2vBycONfjOjHMjZXt+AqSSs5Uq
-         kpcwZGkffRUXiJVdb5numrjrMHrCTbkSM6DDMTMaO/DDXImZ/++L6XoPX0fsOI6yoXAh
-         JB9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqxgDVltdCZ1c1gL1iuPOoOZvdJM1HPckcFLsJSk56dRzE9fJxDCZorudrhO8GJk++zhbGWEQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6FzP7j2rPpH2eoRt81BngGRCScm0Ag+mkpy/49h1i4thGeoz2
-	gqtzwD2BHXz6QYOI6giJFjUckaFrfIzBPjdq4xvDv1r2ltFaf/jLYNFtbSnvzAqxw50IShf9vv3
-	WvP8i4NxUPff6+BAfEkblsywbUVKmsM1VSTSLEtOrBGmSXQASdXxZwFsbEABOPNP6OQ==
-X-Gm-Gg: AR+sD13IuXaNTo3r2ID61ZduAvg5ObJ4tsWfVRoBCsHZIw9oo/j276rLFqvMxkhKa2B
-	Jf2hxTDqyPaGMexzWxHQvFtqHmcjF3d5X2GEgfBNW+ErsAuhZBtANJiSK9KBLo8Vb5+mIKrr7q7
-	4Iw3M1WiSieGT0Nr+6oRoBBgbrhW2Hp2q/w6nQgaT27AEZ0MDK2r9NvO2EK1UfsbtOEK1n3ynJW
-	3ZZcqEJJWbWR4X7Xu00E/M3qRgsxOSo77NvzYANw1F6Xy+WrvEIS5p9G8UFruRRne+wm3N2a9/j
-	JDrNBwmrKYE7BmewkVeu2sFoztigZ6aecQlYmqtxsJc2zA++8dylo6Icw6992nCbx/QWblaWW1k
-	kebJiq1sfwoxh6tDTQvlDau8YGJ8AgNQePpiVaHBGLFD/6hbrZGtICgnwqvIu
-X-Received: by 2002:ac8:5dc7:0:b0:52d:6c36:db32 with SMTP id d75a77b69052e-52e423f7e4fmr18394311cf.41.1787695983208;
-        Tue, 25 Aug 2026 15:13:03 -0700 (PDT)
-X-Received: by 2002:ac8:5dc7:0:b0:52d:6c36:db32 with SMTP id d75a77b69052e-52e423f7e4fmr18393941cf.41.1787695982767;
-        Tue, 25 Aug 2026 15:13:02 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52e4270a6ecsm4998291cf.17.2026.08.25.15.13.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 15:13:02 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org
-Cc: pc@manguebit.org,
-	linkinjeon@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] smb: client: fix OOB struct field reads in move_smb2_ea_to_cifs()
-Date: Tue, 25 Aug 2026 17:13:00 -0500
-Message-ID: <20260825221300.3860212-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260823185807.3115901-7-sorenson@redhat.com>
-References: <20260823185807.3115901-7-sorenson@redhat.com>
+        d=1e100.net; s=20251104; t=1787697180; x=1788301980;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TJSb9WBld/1/tUPNLwV+CZNLUqE0Mha7foQadGzvq8o=;
+        b=khVWNxZrhNrmFwKG+VumKPdhkTpZKap3IG6mprZRj+91m1ToRkiBSYJgu/a2uov+LS
+         g0rWYViNa9331034Bspd6aI+wnp/LqwHQakE5qvAJyPtvNjkKMZpeQLeB7n29etsykmI
+         INSwV4MYXrTjm3lPJk0XUpM9MIPh230/ICufw3XcwfJqdiOIExdqZcjyG28RmiepMwBd
+         nMXJKfha7xp2O8rhJsnl8+Kp0FOyFT78K34mPYt8Bz9/VVPQLAhTlD1KGeyCMaXkDdZ4
+         F7F9/S/HJvqIVtt+/iZDYT+FwRSDccDlnouDCCgHj7+6Kb1NZ8L8ZXYGeanK9phGorMD
+         wpFg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7qwUqHx82ZwVc6Q33nFZicLOqvCQ7wh+puDBDqDdI/rxIeRMJIEnFPUpfTrIK17Kfz5r2vW8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOz1qU+fgt5vP4N/Czp+lncJfVix5QwYYLI008V7qtSeOYYgfn
+	VRdUw7UFMeVKSrhe9EMNw+gOXI+hx/NythkO9ohtzvLCOWHG4VQBjWx/YGxL582d
+X-Gm-Gg: AR+sD10iFBXnv/pWd/3cftdpueJ5YptNSHus7asVCbZwekWVNjXbhNxbS47Um++O+4Z
+	p02hJVBf8Hdx64KqUF01NpqFd5pdezrbt51F4vlzf9pfKFniikRnKjUkyPge1SbogyS5OmJEM55
+	75fsYEKPx4lN1mu/JdJhIFiOm6tspYF/Hfto4maKNSWKKmo5nZlMQEktuGwZvtBv/BjziZHpLOI
+	WwwDZ049oXmbVINeKs6thS90mpqMSYXlCurT/3lXaJiHtzTrsCWJsKZZQsCExqhzdr3PpXsSBcq
+	sdCQNk8gw6gtqGCD/KB+uvhsM4Qoltv5MjlMcYc7isxkh3gVxGri3yi/YhHTZUCn2L8i2PWrqQN
+	EnS9VTkP83fsiVkU7D+1m+maJGGHR1LgQD/nkuV7R7FyrSjHZ1xZqA5SfQpYFIZs5yDXh3k6Roo
+	pA7kxfvcA+aTtE+4Tu+RZEESjK/h3rhhkWJK3ct6VcEvZejBtA9g6JkuFxfyyYVmUf5F6N9ZrFz
+	VzAeY0jZOEVqOY=
+X-Received: by 2002:a05:6a20:728b:b0:3cc:feb8:ce34 with SMTP id adf61e73a8af0-3cf85670603mr2849349637.17.1787697179842;
+        Tue, 25 Aug 2026 15:32:59 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f20095sm2319217c88.6.2026.08.25.15.32.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 15:32:59 -0700 (PDT)
+Message-ID: <5b991549-d202-4989-9e2b-a6a350f1997e@gmail.com>
+Date: Tue, 25 Aug 2026 15:32:57 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 00/77] 6.12.106-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260825132541.580275153@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260825132541.580275153@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The while (src_size > 0) loop guard allows iteration after
-next_entry_offset advances src past the point where a full struct fits
-in src_size.  Reads of ea_name_length and ea_value_length on the next
-iteration are then out-of-bounds.
+On 8/25/26 06:25, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.106 release.
+> There are 77 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.106-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Require src_size >= sizeof(*src) before reading any struct field,
-and reject next_entry_offset values that are smaller than
-sizeof(*src) or that leave fewer than sizeof(*src) bytes remaining
-after advancing.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-For calls where the server returns an EA list with an invalid
-next_entry_offset, the error returned to userspace changes from
--ENODATA (getxattr) or -ERANGE (listxattr) to -EIO, correctly
-signalling a server protocol error rather than "attribute not present"
-or "output buffer too small".
-
-Fixes: 95907fea4fd8 ("cifs: Add support for reading attributes on SMB2+")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
----
-v2 changes:
- -  reject next_entry_offset values that leave fewer than
-    sizeof(*src) bytes remainint after advancing.
-
- fs/smb/client/smb2ops.c | 25 +++++++++++++++++--------
- fs/smb/client/trace.h   |  1 +
- 2 files changed, 18 insertions(+), 8 deletions(-)
-
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 4dd9dd55ab4d..c866d7c8c7dd 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -1053,8 +1053,9 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
- 	char *name, *value;
- 	size_t buf_size = dst_size;
- 	size_t name_len, value_len, user_name_len;
-+	u32 next_off;
- 
--	while (src_size > 0) {
-+	while (src_size >= sizeof(*src)) {
- 		name_len = (size_t)src->ea_name_length;
- 		value_len = (size_t)le16_to_cpu(src->ea_value_length);
- 
-@@ -1110,14 +1111,22 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
- 		if (!src->next_entry_offset)
- 			break;
- 
--		if (src_size < le32_to_cpu(src->next_entry_offset)) {
--			/* stop before overrun buffer */
--			rc = -ERANGE;
--			break;
-+		next_off = le32_to_cpu(src->next_entry_offset);
-+		if (next_off < sizeof(*src) || src_size < next_off) {
-+			cifs_dbg(FYI, "EA next_entry_offset %u out of range [%zu, %zu]\n",
-+				 next_off, sizeof(*src), src_size);
-+			rc = smb_EIO2(smb_eio_trace_ea_next_offset,
-+				      next_off, src_size);
-+			goto out;
-+		}
-+		src_size -= next_off;
-+		src = (void *)((char *)src + next_off);
-+		if (src_size > 0 && src_size < sizeof(*src)) {
-+			cifs_dbg(FYI, "EA next_entry_offset %u left truncated entry (%zu bytes)\n",
-+				 next_off, src_size);
-+			rc = smb_EIO2(smb_eio_trace_ea_next_offset, next_off, src_size);
-+			goto out;
- 		}
--		src_size -= le32_to_cpu(src->next_entry_offset);
--		src = (void *)((char *)src +
--			       le32_to_cpu(src->next_entry_offset));
- 	}
- 
- 	/* didn't find the named attribute */
-diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
-index 12241abb8e2e..6da395abae14 100644
---- a/fs/smb/client/trace.h
-+++ b/fs/smb/client/trace.h
-@@ -27,6 +27,7 @@
- 	EM(smb_eio_trace_copychunk_overcopy_c,		"copychunk_overcopy_c") \
- 	EM(smb_eio_trace_create_rsp_too_small,		"create_rsp_too_small") \
- 	EM(smb_eio_trace_dfsref_no_rsp,			"dfsref_no_rsp") \
-+	EM(smb_eio_trace_ea_next_offset,		"ea_next_offset") \
- 	EM(smb_eio_trace_ea_overrun,			"ea_overrun") \
- 	EM(smb_eio_trace_extract_will_pin,		"extract_will_pin") \
- 	EM(smb_eio_trace_forced_shutdown,		"forced_shutdown") \
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.55.0
-
+Florian
