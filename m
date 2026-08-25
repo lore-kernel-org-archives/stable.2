@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E5A2F7EF5;
-	Tue, 25 Aug 2026 18:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC4D175A83;
+	Tue, 25 Aug 2026 18:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787682790; cv=none; b=klpftLtEjBNEdvTepTeQkZb+PeLniPuAs0fHHuPB2Xl5uQvDTyvOF4MqQLLb+24FRNz2jYztF0yTZBoQ80uPUtpBrQ/EHc9tEt4PiWh7/ozypK1wMuaM3ucDXpKL39Vh0xJF6NybUwm4odkNpl5/95l7AK9+3iSAUD8I5u8o0V8=
+	t=1787683020; cv=none; b=Rjw0MYC5sKqTAa9QsVgn7ZMmst6KrxHVHAZyycnIVkVh2vYD+MtRL+Dyb7i9oxABSrEddsLdwNkaTkioBuJOsy2812OHtKB5OIkFvRNweiyWNwwSEIqFILrW5sPowoHu/LFZWvnPYjW3x0+22iSBHZlbF5eSwGR2aPYT7k04E70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787682790; c=relaxed/simple;
-	bh=4K01LHN6qb5PtX6z6TN1QScw5jNk4evkNGwp0rqp8Aw=;
+	s=arc-20240116; t=1787683020; c=relaxed/simple;
+	bh=uumKQFEa3kqhuvOY1+xLfH5sjjFkfcwFT6v/fbDM/Dw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fS8yk16oXXn9Q53Rc2FQBHEdzyYESdrFbe5ThN/fRV1MvGsS1BYArffJQjNCP91CgwsmWBK+dgZo9DlLfpLKZyYFXs/Mlk386EByTApvSeSbJN421onjT2MBZZXLR6aTjzRQWb9U/F6zTVU83qDxVXIBWrsZG5rrAlAzSic9w8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ptgcm8q0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=W4xn1rDKwelkl+9urIdIIXJyTfNOKTeu1qq5EtjpSQ5btzRxjVZuuro/Uoa2nrWAv6aLy5juaMqX+7FBeyJUYkGdp1EImYlaZiyXfDqD3qqtmvbOqKt3tTr/DU9kqKkBE0vJ8MOQY1LT5Qmn+JVmu5qePxSdG+109nGaqVdm9VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovMSEDum; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ptgcm8q0"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EA0E21F000E9;
-	Tue, 25 Aug 2026 18:33:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovMSEDum"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 732091F000E9;
+	Tue, 25 Aug 2026 18:36:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787682789;
-	bh=E4pjEVfIBYcDkbvVtMTqNuQnn3UBD9+nNXnxWS4ELdc=;
+	s=k20260515; t=1787683018;
+	bh=chZvNI5OrdFGzbSM2PHYoGX8WICYk+h0imPyR6BDYFo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ptgcm8q0P8Q2kAi1T1huXYgjtAY5fGGe90vLLCHn8DrvNMpUnd1YRf5xDyYLINRYX
-	 C3DHX8pf46WNGOJC8MH4eftUrJYDQnyppOqpJHuL+As04VzTx057otS0wPOb2Q+tBp
-	 jhnax1SqD0SEsU9eoMzKztgyixdx3YAyPwsPhE3hX6+lMMEl81A3jzjdPvhOAniJhy
-	 uHqq9IP2gtWgJNHyXmoMEm196ugEhUTpfdMrGp9YtL59i5z11JNWRSedf4yRxXMHb+
-	 99N+EJajwC39Vk8sadOFmDMAUtWbF9JAdM+ILU7bHDb5fhbUAqoTji8tgHpX86Aco1
-	 NVFOpcZkGVM6w==
-Date: Tue, 25 Aug 2026 11:33:08 -0700
+	b=ovMSEDumbYipvyHK/cBSEzEK7TT3lNqLfKUoa6m7i+Rmgbwm7MS0GORFUfWUNenQE
+	 kfjPSQmwlJz/memxuEq53cL7FGFqMfW+4mmdHhbozuR1f6WJ/tzxsOdHTPX+3WhoYp
+	 YvjrqYkhVYszG2v57IXSnfCkiPfJ5PV5qQac6gjgAKm4JDzlfyGOQHvvdqb7/z0GHK
+	 kpPVQ5c7cpCivV9bUeIA7JoAdlMJRr3KTWYbfc1IGNZSF9NG2rFYOOQkXd87kFWW5h
+	 H4fvpYPiw7gSorHVfgbwsfF4Nd3f0QdAspgu8HJmEJEYmm6sPHHM7F1+3g88XOU5lM
+	 QD9ffWdUrY6GA==
+Date: Tue, 25 Aug 2026 11:36:58 -0700
 From: "Darrick J. Wong" <djwong@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
 Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 1/5] xfs: always set xfs_healthmon::first_event when
- inserting at front of list
-Message-ID: <20260825183308.GW6072@frogsfrogsfrogs>
+Subject: Re: [PATCH 2/5] xfs: check healthmon outbuffer space correctly
+Message-ID: <20260825183658.GX6072@frogsfrogsfrogs>
 References: <178760941052.944364.16602293998794359025.stgit@frogsfrogsfrogs>
- <178760941102.944364.11828316232110118627.stgit@frogsfrogsfrogs>
- <20260825064017.GA24532@lst.de>
+ <178760941123.944364.14413050986149192404.stgit@frogsfrogsfrogs>
+ <20260825064451.GB24532@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,65 +43,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260825064017.GA24532@lst.de>
+In-Reply-To: <20260825064451.GB24532@lst.de>
 
-On Tue, Aug 25, 2026 at 08:40:17AM +0200, Christoph Hellwig wrote:
-> On Mon, Aug 24, 2026 at 10:36:12PM -0700, Darrick J. Wong wrote:
+On Tue, Aug 25, 2026 at 08:44:51AM +0200, Christoph Hellwig wrote:
+> On Mon, Aug 24, 2026 at 10:36:28PM -0700, Darrick J. Wong wrote:
 > > From: Darrick J. Wong <djwong@kernel.org>
 > > 
-> > LOLLM complains that __xfs_healthmon_insert purports to insert a
-> > xfs_healthmon_event event at the start of the event list, but neglects
-> > to update first_event to point to the unmount event if there were
-> > already events in the queue.  That results in list corruption, so let's
-> > fix this problem.
-> 
-> I can't really follow this..
-
-Let me try again:
-
-"LOLLM complains that while __xfs_healthmon_insert is supposed to insert
-an event at the head of the list, it doesn't do that correctly if the
-list isn't empty.  In that case it *should* make our new event point to
-the current head, and then make the head point to the new event, but
-it doesn't actually update the head."
-
+> > LOLLM notices that the outbuf space check in xfs_healthmon_format_pop
+> > isn't quite correct -- it checks that there's enough space to write a
+> > xfs_healthmon_event object, but the outbuffer is supposed to contain
+> > xfs_health_monitor_event objects.  Fix this by adding a helper, and
+> > refactoring all three outbuf size checks to use it.
+> > 
+> > Cc: <stable@vger.kernel.org> # v7.0
+> > Fixes: b3a289a2a9397b ("xfs: create event queuing, formatting, and discovery infrastructure")
+> > Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> > Assisted-by: LOLLM # finding obvious bugs
+> > ---
+> >  fs/xfs/xfs_healthmon.c |   16 +++++++++++++---
+> >  1 file changed, 13 insertions(+), 3 deletions(-)
+> > 
+> > 
 > > diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
-> > index d8b95af33a3e9f..166ef0d5864486 100644
+> > index 166ef0d5864486..a2ae15a262a510 100644
 > > --- a/fs/xfs/xfs_healthmon.c
 > > +++ b/fs/xfs/xfs_healthmon.c
-> > @@ -276,8 +276,7 @@ __xfs_healthmon_insert(
-> >  	event->time_ns = (now.tv_sec * NSEC_PER_SEC) + now.tv_nsec;
+> > @@ -739,6 +739,12 @@ static const unsigned int type_map[] = {
+> >  	[XFS_HEALTHMON_DATALOST]	= XFS_HEALTH_MONITOR_TYPE_DATALOST,
+> >  };
 > >  
-> >  	event->next = hm->first_event;
-> > -	if (!hm->first_event)
-> > -		hm->first_event = event;
-> > +	hm->first_event = event;
-> >  	if (!hm->last_event)
-> >  		hm->last_event = event;
+> > +static inline bool
+> > +xfs_healthmon_check_outbuffer_space(const struct xfs_healthmon *hm)
+> > +{
+> > +	return hm->bufhead + sizeof(struct xfs_health_monitor_event) <= hm->bufsize;
 > 
-> event is the newly inserted event.  We want to queue it at the
-> head of the list (why, btw?).
+> Overly long line.
 
-The only event that gets inserted at the front is the unmount event.
-This signals that the filesystem is being completely unmounted (not just
-detached from a mount ns) and there's nothing further that xfs_healer
-can do to fix the filesystem.  Therefore we put the unmount item first
-in the list so that xfs_healer won't waste time trying to find the
-mount to do repairs that it won't be able to make.
+Will fix.
 
-> The next point in event points to
-> first_event (which can be NULL).  And first should always point
-> to event, otherwise we potentially never queue anything up?  I.e.
-> we never ever actually set first?  Not sure how that is related
-> to umount.
+> >  		memcpy(hm->buffer + hm->bufhead, &hme, sizeof(hme));
+> >  		hm->bufhead += sizeof(hme);
+> >  	}
+> > @@ -891,7 +897,11 @@ xfs_healthmon_format_pop(
+> >  {
+> >  	struct xfs_healthmon_event *event;
+> >  
+> > -	if (hm->bufhead + sizeof(*event) > hm->bufsize)
+> > +	/*
+> > +	 * Don't bother if there's not enough space to format even one event in
+> > +	 * the outbuffer.
+> > +	 */
+> > +	if (!xfs_healthmon_check_outbuffer_space(hm))
+> >  		return NULL;
+> >  
+> >  	mutex_lock(&hm->lock);
+> 
+> This is a bit annoying as we now require the type name instead of an
+> object, and the v0 implies there could be other formats.  But I guess
+> for now it is fine..
 
-xfs_healthmon_push will set first_event if the list is empty.
+<nod> v0 is the only format, eventually that helper would end up looking
+like this:
 
-(for context, all other events are _pushed on to the end of the list)
+static inline bool
+xfs_healthmon_check_outbuffer_space(const struct xfs_healthmon *hm)
+{
+	size_t	event_sz = 0;
 
-> Maybe this should just use standard list_head-based lists even
-> if they waste an extra pointer in the event structure?
+	switch (hm->format) {
+	case XFS_HEALTHMON_V0:
+		event_sz = sizeof(struct xfs_health_monitor_event);
+		break;
+	case XFS_HEALTHMON_V1:
+		event_sz = sizeof(struct xfs_health_monitor_event_v1);
+		break;
+	default:
+		ASSERT(0);
+		break;
+	}
 
-Yes, that at least wouldn't increase the size of xfs_healthmon_event.
+	return hm->bufhead + event_sz <= hm->bufsize;
+}
 
 --D
