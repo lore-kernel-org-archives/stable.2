@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6623B3880
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:47:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAA53CAA49
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:47:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787687268; cv=none; b=Fg2FasrIsV9t0sSTg/GC4urZbjE7+uEnxeJ9ZSfL2YN3+EJSCa3tQyb6IQ3KRTAX1VGRLZ9YGW0JAipiO9SsDFCSYddsub8MuYffdBJkjcMEhp81scJ5RYKsTJFLWltaHv45JRQWaY1e48zLoe2LpaDWv2eo+KSUsM49j4dIHnw=
+	t=1787687269; cv=none; b=ijRuOrj+maj/naflBpHm80/B0BmZk5D6jkrHBxIBNFxE6i3LuPzB6XN7DGP3Vzdxy2WhL4r7DzBA5jFvw0RxP3D3pwmebuT3gzqk4+1vc3lmN1XwhTRNagiNa3v+M+iWWZ8SBz5ELdot28In75YGSOvYdPSEVjJTw6SvLV9l8fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787687268; c=relaxed/simple;
-	bh=6L1fp7bXilTZKsfJV3rTF/XKwILoKF4lGTqtJEuGuUI=;
+	s=arc-20240116; t=1787687269; c=relaxed/simple;
+	bh=iAAJWueGyHsa5WbokskSLu4lxYTceWFmHS4HqhW+6Hw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MVCgx8TPgfU+6MVH41suhVOXXeK9GReG0QXhzgt1DZMZmPQ5vIhrIVM14UWz9w3jCYwGXERTdQXxjOnxuzsj7jTmJH9kk1fKyUOilO/9BlJq8+iZB1LOFCMhsDjnQw2hEbquepXpWrdDFTs56NmNr5Do1T+mgCQSHMNgTkF6AKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AdpF24vb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nzNewCLJa2H6xXdj0sKFjL+1s0hbGkICTnUZMOypfOJjhH00VVMUuSP70u1vJvlaSployZ5hzGaXwdzrShlLQ5SguzKJhHCbVYKh6Gbrzq7SQ4VxUkr+gIXsLmazM6iQ7vKLSIUEK+NRHBsXziASw0T7GVW+s87p7foy1jGhLhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y4wn7nhk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AdpF24vb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E2B1F00A3D;
-	Tue, 25 Aug 2026 19:47:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y4wn7nhk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2380F1F00A3F;
+	Tue, 25 Aug 2026 19:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787687266;
-	bh=4opHVt7uT49smtIAPskYz2z33g1Wy7YHssw+H3UWU7o=;
+	s=k20260515; t=1787687267;
+	bh=nxUMfDz50XvPOgIY1iX69MzE9cCXufCaRYXLoVIVSoA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AdpF24vb9adSzCP+ZljrO+kTAll48V6DI5v7C2UMc9LFMFLUYSmpwp7zSBnN4ewKg
-	 Mprt9e2Ab68zUGBgw/gmun6a4s4/a95Z+/oyuqGwu4xT/EnahozgnqTJhBgwpKhslP
-	 LalYIObILxsfkW7IYpkm4UCtOpSMmiHlg/bd9e8k0qlg4OUyXydm7iYRAwYEia7f1C
-	 iR8o1rSK1Y7k8DE7N5nZYUQChOiRgQUKLGtdxfW5KO7Pjo4t9VYA/9dMPgis+gA/Vr
-	 5i5Xjp3Vr4JjSz1cEAdi32YrXMZNPC+BBmhJDGe4VtwJdOGuabCRB7TxwqAdswomOl
-	 vaqeIiWYJ1gqg==
+	b=Y4wn7nhkVa1pZVUQeAyPqs/Ix5+oVzZkua8NCJ8nRakEIPpsXBZoJlBkk5HbeZak+
+	 EF8iHBnCsZOhz1xNLLLrJL13JT5DXfBOXgD6q7gqBphiTXEU/VVxX3czJbZI9l7fX0
+	 nTr4KmR/pCJsYw7TmY8gaGS52P0YfEr44+hQHIW400FzsJV70GJm0r6JCRG645HbVq
+	 V6SpOU+8uenTHo0uh15MAsOeihM9vOpBjhSZpQhhrRQd4ZknBjzwjy5SXp+rqzh5U2
+	 b5KwMuq9yDF5CTyVVmyEcF5A3UgJnTQuw8UJpwXZrgvj7nwR/IkwStfoZNsAvN+c1M
+	 ARJ7A77hQt9YA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] io_uring/rsrc: improve regbuf iov validation
-Date: Tue, 25 Aug 2026 15:47:43 -0400
-Message-ID: <20260825194744.374948-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] io_uring: defer eventfd signaling when queued from a wakeup handler
+Date: Tue, 25 Aug 2026 15:47:44 -0400
+Message-ID: <20260825194744.374948-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260825194744.374948-1-sashal@kernel.org>
 References: <2026082449-reapply-disdain-0fc8@gregkh>
@@ -46,87 +45,249 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pavel Begunkov <asml.silence@gmail.com>
+From: Jens Axboe <axboe@kernel.dk>
 
-[ Upstream commit 2e02f9efdbc6c73544e315b7eb85e55a59776b6f ]
+[ Upstream commit cd305ee3633a45fcf5f3a5d83f99f3cb77d87b6e ]
 
-Deduplicate io_buffer_validate() calls by moving the checks into
-io_sqe_buffer_register(). Now we also don't need special handling in
-io_buffer_validate() passing through buffer removal requests. I also
-was using it as a cleanup before some other changes.
+io_req_local_work_add() signals the CQ ring eventfd inline when it is the
+one to push the first entry onto ->work_list. For DEFER_TASKRUN rings that
+add is frequently done from a waitqueue wakeup handler, where an
+arbitrary waitqueue lock is held.
 
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+eventfd_signal_mask() only refuses to recurse when current->in_eventfd
+is set, but that bit is set by eventfd_signal_mask() itself. If the wake
+chain starts somewhere else, signal goes out inline and can feed back
+into epoll.
+
+Add IOU_F_TWQ_IN_WAKE, set it on the task_work add done from the three
+waitqueue callbacks, and use it to force io_eventfd_signal() down the
+existing call_rcu_hurry() deferral instead of signaling inline.
+
+Fixes: 21a091b970cd ("io_uring: signal registered eventfd to process deferred task work")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260813133843.2933127-1-4ncienth@gmail.com/
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Stable-dep-of: cd305ee3633a ("io_uring: defer eventfd signaling when queued from a wakeup handler")
+[ Relocated the `io_req_local_work_add()` hunk into io_uring.c and kept 6.18's `ctx->has_evfd` and open-coded `io_pollfree_wake()` context due to missing tw.c split and `io_poll_remove_waitq()`. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/rsrc.c | 31 ++++++++++---------------------
- 1 file changed, 10 insertions(+), 21 deletions(-)
+ include/linux/io_uring_types.h |  8 ++++++++
+ io_uring/eventfd.c             |  8 ++++----
+ io_uring/eventfd.h             |  2 +-
+ io_uring/futex.c               |  4 ++--
+ io_uring/io_uring.c            |  4 ++--
+ io_uring/poll.c                | 23 ++++++++++++-----------
+ io_uring/waitid.c              |  2 +-
+ 7 files changed, 30 insertions(+), 21 deletions(-)
 
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index dc87c6a86e346..aaab927ffd1d0 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -94,20 +94,6 @@ int io_validate_user_buf_range(u64 uaddr, u64 ulen)
- 	return 0;
+diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
+index 2ee408d076b3f..d73556f10733c 100644
+--- a/include/linux/io_uring_types.h
++++ b/include/linux/io_uring_types.h
+@@ -17,6 +17,14 @@ enum {
+ 	 * It's also ignored unless IORING_SETUP_DEFER_TASKRUN is set.
+ 	 */
+ 	IOU_F_TWQ_LAZY_WAKE			= 1,
++
++	/*
++	 * Set when task_work is queued from a waitqueue wakeup handler, where
++	 * an arbitrary provider waitqueue lock is held. Signaling the CQ ring
++	 * eventfd inline from there can recurse back into that lock through
++	 * epoll, so the eventfd signal must be deferred.
++	 */
++	IOU_F_TWQ_IN_WAKE			= 2,
+ };
+ 
+ enum io_uring_cmd_flags {
+diff --git a/io_uring/eventfd.c b/io_uring/eventfd.c
+index ab789e1ebe91e..7a57dd88304a6 100644
+--- a/io_uring/eventfd.c
++++ b/io_uring/eventfd.c
+@@ -50,9 +50,9 @@ static void io_eventfd_do_signal(struct rcu_head *rcu)
+ /*
+  * Returns true if the caller should put the ev_fd reference, false if not.
+  */
+-static bool __io_eventfd_signal(struct io_ev_fd *ev_fd)
++static bool __io_eventfd_signal(struct io_ev_fd *ev_fd, bool defer)
+ {
+-	if (eventfd_signal_allowed()) {
++	if (!defer && eventfd_signal_allowed()) {
+ 		eventfd_signal_mask(ev_fd->cq_ev_fd, EPOLL_URING_WAKE);
+ 		return true;
+ 	}
+@@ -72,7 +72,7 @@ static bool io_eventfd_trigger(struct io_ev_fd *ev_fd)
+ 	return !ev_fd->eventfd_async || io_wq_current_is_worker();
  }
  
--static int io_buffer_validate(struct iovec *iov)
--{
--	/*
--	 * Don't impose further limits on the size and buffer
--	 * constraints here, we'll -EINVAL later when IO is
--	 * submitted if they are wrong.
--	 */
--	if (!iov->iov_base)
--		return iov->iov_len ? -EFAULT : 0;
--
--	return io_validate_user_buf_range((unsigned long)iov->iov_base,
--					  iov->iov_len);
--}
--
- static void io_release_ubuf(void *priv)
+-void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event)
++void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event, bool defer)
  {
- 	struct io_mapped_ubuf *imu = priv;
-@@ -317,9 +303,6 @@ static int __io_sqe_buffers_update(struct io_ring_ctx *ctx,
- 			err = -EFAULT;
- 			break;
- 		}
--		err = io_buffer_validate(iov);
--		if (err)
--			break;
- 		node = io_sqe_buffer_register(ctx, iov, &last_hpage);
- 		if (IS_ERR(node)) {
- 			err = PTR_ERR(node);
-@@ -788,8 +771,17 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 	struct io_imu_folio_data data;
- 	bool coalesced = false;
+ 	bool skip = false;
+ 	struct io_ev_fd *ev_fd;
+@@ -112,7 +112,7 @@ void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event)
+ 		spin_unlock(&ctx->completion_lock);
+ 	}
  
--	if (!iov->iov_base)
-+	if (!iov->iov_base) {
-+		if (iov->iov_len)
-+			return ERR_PTR(-EFAULT);
-+		/* remove the buffer without installing a new one */
- 		return NULL;
-+	}
-+
-+	ret = io_validate_user_buf_range((unsigned long)iov->iov_base,
-+					 iov->iov_len);
-+	if (ret)
-+		return ERR_PTR(ret);
+-	if (skip || __io_eventfd_signal(ev_fd))
++	if (skip || __io_eventfd_signal(ev_fd, defer))
+ 		io_eventfd_put(ev_fd);
+ }
  
- 	node = io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
- 	if (!node)
-@@ -895,9 +887,6 @@ int io_sqe_buffers_register(struct io_ring_ctx *ctx, void __user *arg,
- 				ret = PTR_ERR(iov);
- 				break;
- 			}
--			ret = io_buffer_validate(iov);
--			if (ret)
--				break;
- 			if (ctx->compat)
- 				arg += sizeof(struct compat_iovec);
+diff --git a/io_uring/eventfd.h b/io_uring/eventfd.h
+index e2f1985c2cf98..86c3c69eba1d7 100644
+--- a/io_uring/eventfd.h
++++ b/io_uring/eventfd.h
+@@ -4,4 +4,4 @@ int io_eventfd_register(struct io_ring_ctx *ctx, void __user *arg,
+ 			unsigned int eventfd_async);
+ int io_eventfd_unregister(struct io_ring_ctx *ctx);
+ 
+-void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event);
++void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event, bool defer);
+diff --git a/io_uring/futex.c b/io_uring/futex.c
+index 64f3bd51c84c6..203ee4d24d2df 100644
+--- a/io_uring/futex.c
++++ b/io_uring/futex.c
+@@ -161,7 +161,7 @@ static void io_futex_wakev_fn(struct wake_q_head *wake_q, struct futex_q *q)
+ 
+ 	io_req_set_res(req, 0, 0);
+ 	req->io_task_work.func = io_futexv_complete;
+-	io_req_task_work_add(req);
++	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
+ }
+ 
+ int io_futexv_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+@@ -210,7 +210,7 @@ static void io_futex_wake_fn(struct wake_q_head *wake_q, struct futex_q *q)
+ 
+ 	io_req_set_res(req, 0, 0);
+ 	req->io_task_work.func = io_futex_complete;
+-	io_req_task_work_add(req);
++	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
+ }
+ 
+ int io_futexv_wait(struct io_kiocb *req, unsigned int issue_flags)
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 1dc160d86ea74..9784463fb718d 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -578,7 +578,7 @@ void __io_commit_cqring_flush(struct io_ring_ctx *ctx)
+ 	if (ctx->off_timeout_used)
+ 		io_flush_timeouts(ctx);
+ 	if (ctx->has_evfd)
+-		io_eventfd_signal(ctx, true);
++		io_eventfd_signal(ctx, true, false);
+ }
+ 
+ static inline void __io_cq_lock(struct io_ring_ctx *ctx)
+@@ -1312,7 +1312,7 @@ static void io_req_local_work_add(struct io_kiocb *req, unsigned flags)
+ 	if (!head) {
+ 		io_ctx_mark_taskrun(ctx);
+ 		if (ctx->has_evfd)
+-			io_eventfd_signal(ctx, false);
++			io_eventfd_signal(ctx, false, flags & IOU_F_TWQ_IN_WAKE);
+ 	}
+ 
+ 	nr_wait = atomic_read(&ctx->cq_wait_nr);
+diff --git a/io_uring/poll.c b/io_uring/poll.c
+index a5e78747e63ab..6745bbc963286 100644
+--- a/io_uring/poll.c
++++ b/io_uring/poll.c
+@@ -190,9 +190,9 @@ enum {
+ 	IOU_POLL_REQUEUE = 4,
+ };
+ 
+-static void __io_poll_execute(struct io_kiocb *req, int mask)
++static void __io_poll_execute(struct io_kiocb *req, int mask, unsigned tw_flags)
+ {
+-	unsigned flags = 0;
++	unsigned flags = tw_flags;
+ 
+ 	io_req_set_res(req, mask, 0);
+ 	req->io_task_work.func = io_poll_task_func;
+@@ -200,14 +200,15 @@ static void __io_poll_execute(struct io_kiocb *req, int mask)
+ 	trace_io_uring_task_add(req, mask);
+ 
+ 	if (!(req->flags & REQ_F_POLL_NO_LAZY))
+-		flags = IOU_F_TWQ_LAZY_WAKE;
++		flags |= IOU_F_TWQ_LAZY_WAKE;
+ 	__io_req_task_work_add(req, flags);
+ }
+ 
+-static inline void io_poll_execute(struct io_kiocb *req, int res)
++static inline void io_poll_execute(struct io_kiocb *req, int res,
++				   unsigned tw_flags)
+ {
+ 	if (io_poll_get_ownership(req))
+-		__io_poll_execute(req, res);
++		__io_poll_execute(req, res, tw_flags);
+ }
+ 
+ /*
+@@ -323,7 +324,7 @@ void io_poll_task_func(struct io_kiocb *req, io_tw_token_t tw)
+ 	if (ret == IOU_POLL_NO_ACTION) {
+ 		return;
+ 	} else if (ret == IOU_POLL_REQUEUE) {
+-		__io_poll_execute(req, 0);
++		__io_poll_execute(req, 0, 0);
+ 		return;
+ 	}
+ 	io_poll_remove_entries(req);
+@@ -362,7 +363,7 @@ static void io_poll_cancel_req(struct io_kiocb *req)
+ {
+ 	io_poll_mark_cancelled(req);
+ 	/* kick tw, which should complete the request */
+-	io_poll_execute(req, 0);
++	io_poll_execute(req, 0, 0);
+ }
+ 
+ #define IO_ASYNC_POLL_COMMON	(EPOLLONESHOT | EPOLLPRI)
+@@ -371,7 +372,7 @@ static __cold int io_pollfree_wake(struct io_kiocb *req, struct io_poll *poll)
+ {
+ 	io_poll_mark_cancelled(req);
+ 	/* we have to kick tw in case it's not already */
+-	io_poll_execute(req, 0);
++	io_poll_execute(req, 0, IOU_F_TWQ_IN_WAKE);
+ 
+ 	/*
+ 	 * If the waitqueue is being freed early but someone is already
+@@ -426,7 +427,7 @@ static int io_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
  			else
+ 				req->flags &= ~REQ_F_SINGLE_POLL;
+ 		}
+-		__io_poll_execute(req, mask);
++		__io_poll_execute(req, mask, IOU_F_TWQ_IN_WAKE);
+ 	}
+ 	return 1;
+ }
+@@ -614,7 +615,7 @@ static int __io_arm_poll_handler(struct io_kiocb *req,
+ 
+ 	if (mask && (poll->events & EPOLLET) &&
+ 	    io_poll_can_finish_inline(req, ipt)) {
+-		__io_poll_execute(req, mask);
++		__io_poll_execute(req, mask, 0);
+ 		return 0;
+ 	}
+ 	io_napi_add(req);
+@@ -625,7 +626,7 @@ static int __io_arm_poll_handler(struct io_kiocb *req,
+ 		 * poll was waken up, queue up a tw, it'll deal with it.
+ 		 */
+ 		if (atomic_cmpxchg(&req->poll_refs, 1, 0) != 1)
+-			__io_poll_execute(req, 0);
++			__io_poll_execute(req, 0, 0);
+ 	}
+ 	return 0;
+ }
+diff --git a/io_uring/waitid.c b/io_uring/waitid.c
+index 921b4de3a31cb..97cce0bd2d50e 100644
+--- a/io_uring/waitid.c
++++ b/io_uring/waitid.c
+@@ -237,7 +237,7 @@ static int io_waitid_wait(struct wait_queue_entry *wait, unsigned mode,
+ 		return 1;
+ 
+ 	req->io_task_work.func = io_waitid_cb;
+-	io_req_task_work_add(req);
++	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
+ 	return 1;
+ }
+ 
 -- 
 2.53.0
 
