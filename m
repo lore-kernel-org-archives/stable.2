@@ -1,145 +1,93 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C479F1C2324
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 04:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787632607; cv=pass; b=RX/NJsZiJ+8vT7azRd9+MOUYwLtLfph9mtUvrljjU7GOTD8jX2DoczbD8xNo6zzrC8Ay23AhxjLLWZxY6TP9dQK2ZmOjATtzsFr6YuV1oV19lCw/c2nDjgyc+OIzeAGov3oNWmIO4MYfKsz/Si/e5BgmtWSc08tomcNsMsY0xio=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787632607; c=relaxed/simple;
-	bh=8KXDg6v+jwLGL46qS1rvYXZT24b9H8EIN1Re7A2aD84=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uwSVD+GK++v1SMk2cnG6pFv0uXjnaz3YtiYlDxFpbWPKruZeOcnXp7UP/KamONDdf9HnMPjvcc1jlaTJ19A+hLgkQJwf1VINQssug7vuF2EetXVmYil82D0vfe/+q8xSvroY20voiVslFS2Suhf7NoEOA467VlEnWvRolqpunzc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p17JMiCC; arc=pass smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEED61FCE;
+	Tue, 25 Aug 2026 05:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787634769; cv=none; b=YmOk1f8qG3k1QXx94dOOzBoZGSlBKTJCClf3HOGGvTR96TWoiCN/1+fsTAJ+EqCZhliQ3Vp8s51uk+0bRuGBYgm8Iu716fTLPkKRTeETrciKZzz8T1aJyIOAc9aGb1Ynf0h2aq7Fez/u07ohSGpKXj5Y4vEt0hyycHU/GiNbNlo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787634769; c=relaxed/simple;
+	bh=MRCf7eCThAO7A+U8cmPm9hmnIT5mafRy/QU1wCCCzoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=msGevNLoW3LEVhulLdUostbuDWtol9HzVBVP6sM0i9WhcUgLOOcn8n3CrVjUrDSbjE6WOpv5+ExpKp8t2RApIwpsJeeokkAB+X9CrXjlf7RiEGbX2SoiVZXQJS3bV35ev8jYRg7GdlQSSp2coZutCnqXiSihmqPGk2VamBXjlqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BkHI3TsO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p17JMiCC"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c8dbf4f38so41364921fa.3
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:36:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787632603; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D4GIRRJnKVwljzJoc9BKKPGObNi7+IcOm225FgAgHkoLS5yHEB/r7kMQvmkw5iFfif
-         j6tb82AL1IUvcoGj9vdxSx2AN1mL+AHF/iMawBfmh7oNsZc1d2H87ZktYFCIvVCHSofF
-         7bZe7//4RelNvm3QG87bx95p0xzUcdZlJxPE4Zsrrn5b1EiPR5HMKo6Id8Ko0WNExshg
-         yv3q8dvB6OhT3HnImZL7Q439Q0CRJxBp6Qsvg3VhwgsJx+k703OAJcCAbsZLHVOhEWKW
-         ZnUw4j/LiStrWQ0r0mrnZDkeAkjcHvu0mV2hk+/5aZhMSdgeYYw1sV9TdMUXKTTjPt/n
-         NTjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ig8RAVfekwF2wIGK7Q5QZITkYd9OOtlKfCSkZ8UG+zA=;
-        fh=uW3Cgw+UFFug7GjXXjan6qOvqEQ0ighux6DNfpKvY4A=;
-        b=l0oQ07JQe2hEvI/tqdAdq8/bMTV8As7Y3Or64N4KYL/gobNFPvbAwZHO4stpYKJXnW
-         HMf9lUQqZ7De9xFwFKITm4x9XIp5Hy7ZqEiR7CArE1Rs4a09zxptbm+DrrSwJNEoeE3e
-         2lrP54dSlZlLA3uy3/cZYgYtluQQsmHcDfFKV50coF7CXdPs3vCjawJXGEFGyvQ7EoGy
-         3nlDlwlfsKiKyBWuUZPdjPS2pDkvl3StbjR6KJTZ7J0Odf0yQKpXrIIENqF3ndobUPiF
-         X9Xe4jBvx47ZJH4+57nqFYcJNVIsGNBEffkYvSMVebBaLLuC2VwXea28clkiZkCUjn3l
-         SsPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787632603; x=1788237403; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ig8RAVfekwF2wIGK7Q5QZITkYd9OOtlKfCSkZ8UG+zA=;
-        b=p17JMiCCLZ3pWI/UyRyuhhaTMKNL1ePy2mkuzgjEwGQo9jN5m2ENRbOFKM8EvtlvbN
-         Jz7fwHu4IhtzeAlgwhCR2WoeFO4bLrQ29mRuUQGDYmwy5HBUF56pwGMQ1XBXRvv4z4N3
-         tXAXW/C/GwZDRrCLUjUSvxT2CbH4ypLs0neB8+BSPA92gGFt22Wzgyqpgq5o5SiPbbhU
-         +J3ZJBEwCkwf3rmnp1psSqYPUMlueRCd5SwSlg8Ojev+ytgGlN1uPDp6yEd0n51+03BP
-         EBAAeTqRZ3LRbj4TRrLeTE2m7BNA6KIeKbWvALut7V4D7V7GVbgzFAXsN0HmXp6+EiGi
-         dZJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787632603; x=1788237403;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ig8RAVfekwF2wIGK7Q5QZITkYd9OOtlKfCSkZ8UG+zA=;
-        b=L7pcxnFhPpsjo/vAdpnm1AsFHhli83WmBNBRVmMQ4y13wpMHIdNjBqpVhNn7ecNB1u
-         eCSVFwz8MCsykfsuIPdaK1cdW3B2mXY6YZ8INLa6NW34BiI2gVuRHHFv00jyNOEJdA7S
-         PIYl+HZRIEbnvmzj0lBUpgMztOWeIk/Jx5xyOndl1iYjfIvy/YAHUjk+gqRTL9c4YNaV
-         XNE3FAFY3wcz0AuiephiML6WFqpo97DXX39144i8UVFKikJHRgVsFTy8OCu/krT3Dw9a
-         Et7adjxLrPcAzb+4rSI0sTYHEZqFwP5sWxWDKoBN5iBXViFAN2UB3wbAifjr6pHiGIwI
-         lBwg==
-X-Forwarded-Encrypted: i=1; AHgh+RrOwbx3vlwUZ4RSKCM8fEIbpurZu+yoHrZE3AsBezzPR/pOLFRBd3LLzGTkLAc6SxiEyOJtdCM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDf+g4iHrCzZ1jWNYXRDZfK0e/ro5vBlmi3LmvKwSMvMxRB2vF
-	cOXc6tl1prKKsbuEChTS9v8TGPE7QVK+9WcHdEaWgTMNUUgIb70fQZVR2ssUA3UUL3uvd1pv6rW
-	HuLS58yiOTbdf6XKNrUKiQ0evYMjf2lY=
-X-Gm-Gg: AR+sD13egCIhVF4J256wTdLZccDuhPIu1kcUzRnV4fHpptsCHkCbMtj9gG/kyOS/Qlk
-	H8DyFbBTGBx/qw8PUf9sp2N060/QMwlY+BYFfTMyfEIXvs6ARGM0sjBvBQjqpxWzmWZCxFDl67z
-	vPmGhpyTjz2Qv6dQyztSZQwl5z5ASiM+fC7eFXPKAZLCqGndDlmg7hGEkXJD2znQ/mqyQUjVSnd
-	BznooLpFEV8kJIjP1EruAOkz6IJQLCK+DVETYDqL3RAjCLTLyTvA7PwpDxIFxzJRKDLYvjX+wNs
-	j/aVBrJh/EQc+jxWNfLUQAoj0QYRQcr0G/9ED9EDSmrf
-X-Received: by 2002:a05:651c:f16:b0:3a1:90f8:c14c with SMTP id
- 38308e7fff4ca-3a1ef3ef2acmr6706201fa.11.1787632602487; Mon, 24 Aug 2026
- 21:36:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BkHI3TsO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61A2A1F000E9;
+	Tue, 25 Aug 2026 05:12:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787634767;
+	bh=jsue9NmQQ5qqCa2scGSeG7VvIZy1SQTrcL5VDepieHI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BkHI3TsOTVW1bSyIeJQCTR4koLPYsF3y91mCvzPozfUIDulLy/csM2JF+8CQ2lc36
+	 RO8iZ7Dx9nhIdonWj+MGna4gRFC+jQvTc1ffGPe5OwwfI2LFt6ajRa/s6c8uRuaD3w
+	 D+B2emObkd2dXi6tKlwxt+uru7alNrksPG/wsJi8=
+Date: Tue, 25 Aug 2026 07:11:06 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>
+Cc: heikki.krogerus@linux.intel.com, jeffinphilip14@gmail.com,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	mika.westerberg@linux.intel.com, stable@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [usb?] general protection fault in wcove_typec_probe
+Message-ID: <2026082540-tarantula-gigantic-b786@gregkh>
+References: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com>
+ <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824054115.114298-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260824054115.114298-1-zenghongling@kylinos.cn>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Tue, 25 Aug 2026 13:36:30 +0900
-X-Gm-Features: AcwNN1W0Ie8ThfGLQSZuvnEXV8DGnfK_q6Z4Wo1bvi5W-Srfd1h8RCYobcvQFiw
-Message-ID: <CANFS6bb9BPEuiv2NVG4dMJRRoQyiC6fE+UokPxpMMiReOseT-g@mail.gmail.com>
-Subject: Re: [PATCH] ntfs: fix incorrect MFT record pointer passed to ntfs_attr_record_resize
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
 
-2026=EB=85=84 8=EC=9B=94 24=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 2:41, H=
-ongling Zeng <zenghongling@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
-:
->
-> ntfs_new_attr_flags() passes the wrong MFT record to ntfs_attr_record_res=
-ize().
-> When the attribute is in an extent record, ctx->mrec points to the extent
-> but the function receives the base record pointer m, causing incorrect
-> size calculations in memmove.
->
-> Fix by passing ctx->mrec (the actual MFT record containing the attribute)
-> instead of m (the base MFT record) to ntfs_attr_record_resize().
->
-> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+On Mon, Aug 24, 2026 at 08:43:40PM -0700, syzbot wrote:
+> syzbot has found a reproducer for the following issue on:
+> 
+> HEAD commit:    66498c75b4f8 Merge tag 'dmaengine-7.3-rc1' of git://git.ke..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1253719e580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=3e64b1bf01d830ed
+> dashboard link: https://syzkaller.appspot.com/bug?extid=1a01783ea233350598b5
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> userspace arch: i386
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17491979580000
+> 
+> Downloadable assets:
+> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-66498c75.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/5ce4685e13ba/vmlinux-66498c75.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/6a32d8e997a7/bzImage-66498c75.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com
+> 
+> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+> KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+> CPU: 0 UID: 0 PID: 5912 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> RIP: 0010:wcove_typec_probe+0xdb/0x780 drivers/usb/typec/tcpm/wcove.c:621
+> Code: 48 c1 ea 03 80 3c 02 00 0f 85 af 05 00 00 48 8d 7d 08 4d 89 af 88 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 05 00 00 49 8d bf 90 00 00 00 48 8b 6d 08 48
+> RSP: 0018:ffffc90002f6faf8 EFLAGS: 00010202
+> RAX: dffffc0000000000 RBX: ffff8880226c1000 RCX: 0000000000000000
+> RDX: 0000000000000001 RSI: 0000000000000001 RDI: 0000000000000008
+> RBP: 0000000000000000 R08: 0000000000000004 R09: 0000000000000000
+> R10: ffff888014243883 R11: 000000000000001f R12: ffffffff904a7ea8
+> R13: ffff8880226c1010 R14: ffff8880142438c0 R15: ffff888014243838
+> FS:  0000000000000000(0000) GS:ffff888096982000(0063) knlGS:00000000f67e5b40
+> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+> CR2: 0000000032e24008 CR3: 000000004e2f1000 CR4: 0000000000352ef0
+> Call Trace:
+>  <TASK>
+>  platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+>  call_driver_probe drivers/base/dd.c:628 [inline]
+>  really_probe+0x241/0xa60 drivers/base/dd.c:706
+>  __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+>  device_driver_attach+0xd1/0x220 drivers/base/dd.c:1203
+>  bind_store+0xf4/0x190 drivers/base/bus.c:267
 
-Looks good to me.
+Please do not think that this is a valid path for syzbot to be
+fuzzing...
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-
-> ---
->  fs/ntfs/ea.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-> index 44252f2c2ca6..534f7efaf128 100644
-> --- a/fs/ntfs/ea.c
-> +++ b/fs/ntfs/ea.c
-> @@ -740,7 +740,7 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni,=
- __le32 fattr)
->                         memmove((u8 *)a + mp_ofs, (u8 *)a + old_mp_ofs, m=
-p_size);
->         }
->
-> -       err =3D ntfs_attr_record_resize(m, a, arec_size);
-> +       err =3D ntfs_attr_record_resize(ctx->mrec, a, arec_size);
->         if (unlikely(err))
->                 goto err_out;
->
-> --
-> 2.25.1
->
-
-
---=20
-Thanks,
-Hyunchul
