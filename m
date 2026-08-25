@@ -1,46 +1,83 @@
-Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2ED335E1AE
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692F63BE15D
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:01:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787684360; cv=none; b=fzhe5bJlb2eF0Jpjp0t0BAsKpdZviUlyhTQehWkr/OToQBgbC2EjKY1DOMSChic72IdZE0pzPufvBrGd1DzUty6Fx+oy7s/OcMp+c+SgXOSVDk3tqaZC482hZfFDQaGVTaoyOmGK1FImYFltpFxspt9jC10vSFfKoz7Oz4gFh+4=
+	t=1787684517; cv=none; b=D5pfKCJI3mkXVtQP1yn+G9BnkOID4YqU7jqDGhU7hy7rWZ+7ZvcvAvmg0gTfLfbpmSrcM2jNuE387i2Zw3yyLDGRYBsB0yb98nL4WwucsSA6BTJgp/vH9+t92IWlrtnQ9igV01qY4a6hXkUVaTy75Z38G9ahUkE2n3gJISp7gxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787684360; c=relaxed/simple;
-	bh=kEycn8od9OF+AUlEP2ZGFBpmB8tJT+YAZezNFgVW8I0=;
+	s=arc-20240116; t=1787684517; c=relaxed/simple;
+	bh=X7pDA7UIZPtmUoIrYytaWnc2F7tq1z6bTYR4o48PLQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sY61d79E5w+Das5UlJFMr23DTbJ0v7xxel3t2LVh8yRAqcGl8nJf13fc6E3IP216Uz3nI3M0eogdK81iUr87MwzgP3MVisUk2ltwZw6m4aM/VNKOYKcjHpEygD/SQYCsLVKmUGYkHKCtkb4+U/6QrTPF+Ypg2iIXF4gHZgsejzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZIdhdbpF; arc=none smtp.client-ip=95.215.58.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=na20qO5fQjDpw2BCabfo0w1f4167Qej6VOZsLHeXjWQiHFV0SsnDaarsVpfEs0l8HqDCLoD/mYsM2FvXxEWw4DwUHBXCRQttA5E5uwWHMxmllj9XHmpT8qk3buBkpZ8kKhk9cuR+BDzlxC313VlaQIDDl0vGtior3DZSPglBCyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g////zy8; arc=none smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZIdhdbpF"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kEycn8od9OF+AUlEP2ZGFBpmB8tJT+YAZezNFgVW8I0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787684354; v=1; x=1788289154;
- b=ZIdhdbpF0ievBfdc6krOxXFoY2XwpHrXMz/yspIrNuXaFFXSiHQEM98nSiDdMTt5sqHmaSE6
- jd8HIwOHoYb76j8v8KVWk4PYSTpnRHvgL4KA+h0eWQjNMP6kI5mjBDyNgM/5lThiwi0bbccapZV
- Y6XaIUC+X0ZLxHMPU17TL31A=
-X-Envelope-To: stable@vger.kernel.org
-Received: from lb03055.. (2601:647:6300:a030:488e:1b9c:4a00:b63e)
-	by smtp.migadu.com with ESMTPS id 6c1f2e2c3e58a006;
-	Tue, 25 Aug 2026 18:59:13 +0000
-X-Mizu-Trace-ID: 6c1f2e2c3e58a006
-X-Migadu-Flow: FLOW_OUT
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-To: stable@vger.kernel.org
-Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
-	Zhu Yanjun <yanjun.zhu@linux.dev>,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: [PATCH 6.18.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
-Date: Tue, 25 Aug 2026 20:59:02 +0200
-Message-ID: <20260825185902.1105236-1-yanjun.zhu@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g////zy8"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-836c8cd38beso69127b3.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 12:01:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787684515; x=1788289315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JNIaQSwgW/t/fs+u+s8u3C/hO3umWdaKi6RZs9rk2nc=;
+        b=g////zy89dXdsf6BcWPmg9PXja2me48gaKL7FAS4Zul+B4sfba//IDhyLHTg2VzLzg
+         BWfgZWG39UI+0Tr/568iw225wcOow5Dpc1QQpSidxoMbrVnhA8wRiU87Qdb2bDGNF0OZ
+         kKqdzfdj/Sb1U2dX+1HlT5CLX8OmWynn+D3hKA/j7zxl0I7DKmDCdw1iLWJHmqeyfqXc
+         ERPHyIN6V3KswZ9frJjwuOnVeDibzthwtd8R/8HPQUOribk+fnfr8AiBnTq/763EvZRA
+         B4zXhOajq3IX84eRKFhszNrF9rbf8QybzCrXu5In/jqF0mNmuaKPQ9KwtZhpOPcLraUi
+         g6fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787684515; x=1788289315;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JNIaQSwgW/t/fs+u+s8u3C/hO3umWdaKi6RZs9rk2nc=;
+        b=a/Frd+4hzV29QflyfEaX0x8TPMHfKYRqtvjgUSinaz12SBwMVVXtT7pgtKmEFvqcJo
+         YjMRVhHRr07zMXnzeo8kMbrrIc1WitqRguBLVDIbtCVyCrXmBF0GhfKteOH8g0ifoGon
+         xDemEoOYvd9NUCVy0CC9UchwWCi+PJaaGqnNI7KDRiA6lRlFJz/gJ59IN0APCR/opyZ6
+         ZCjZZ171RYRWbCYgHXYzarNELkvc8z68DdCit71qZfqQrBz2OFaevXsykliEP3SyKSYe
+         YYsDMfVSBoTFd9LF9X2nd6Mcz6GD9D3z+yn1Z5bnyoOviWtUNDnEEYCulMkc7U1iZ8xU
+         z/ow==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1s3X6UEDQlxakIiMOvkeMzfyTcDmYHx394iN0zMgt9ArfcogOVgX5gSfHvzH7cuIKDjocL+U=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1ydyd5tpXc/nDKdNAu2+c+vEzqEoIiSsT8jQrAV7zM9q/PBbB
+	o8Gw9eng8EBQLlPVJ2qZSrLSnXYHW9CoRXIEPIqTOEplnqhloLO9npYC
+X-Gm-Gg: AR+sD111aHEhW9znGD1YGTehfL9Fv8r7BAZFLBZVtH2s9oohAdkTguLJdCrK1R+NBE4
+	jFSW7b9y3QB/pcxFdmThKJp3+M6WtPmDtsTj6nQn0/bx2vVGj0uw6rji9ijAz2z4JLfEwc1ptp7
+	/OSyCWSZPqtfH1aUT7362tUudcoyU4TFmYRj8y1lsurXGim54ncIcktK60WOvzNTRnaiKSLxpPo
+	JHVWu08kdLAOn1x73u6BHOKq1u3O4bZ2IBhlYhsAWJQNAF+e16B5s6UQC0E+sSRaxwZEqaD42IE
+	xSby0eENAAksfi5nfZxOec1erM9Te9JzeDoY8rgRXkEGTo9ofrriMl41D+pmUrFE/KsSWG7IWQD
+	4iLKTCFAgoivts62ZSVpyIdPQHe1EunRnAYWItgn0lsomk7TTB/dhtWVZp7CPc+uo4RNa+jljt4
+	xk6KQ2TguPwwo041CnsSKjI+oQTKNrLY0jvj7RvyazYIKa6mzl7Quv6hIJ0PMzMtdmSFSr3/3xr
+	r4ZlLw83xWt588yk0bmP6eFDayl82cSt+fXEMUH53Ng7A4Z02WLMe+q1Ght77gVIHpG
+X-Received: by 2002:a05:690c:4986:b0:7ba:f0d0:5e9b with SMTP id 00721157ae682-8573fdbda0fmr5047787b3.2.1787684513952;
+        Tue, 25 Aug 2026 12:01:53 -0700 (PDT)
+Received: from localhost.localdomain (45.78.64.189.16clouds.com. [45.78.64.189])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8570dfcffb0sm4192987b3.48.2026.08.25.12.01.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 12:01:53 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+	Jon Maloy <jmaloy@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] tipc: protect node reset trace dump with node lock
+Date: Wed, 26 Aug 2026 03:01:41 +0800
+Message-ID: <20260825190141.242219-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026082519-embargo-unease-0e3c@gregkh>
-References: <2026082519-embargo-unease-0e3c@gregkh>
+In-Reply-To: <20260824122929.210431-1-nicoyip.dev@gmail.com>
+References: <20260824122929.210431-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,183 +86,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+The tipc_node_reset_links trace event asks tipc_node_dump() to walk the
+node's link entries. Unlike the other node events that request link data,
+this event runs without the node lock.
 
-free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
-Updating max_dest_rd_atomic before freeing the old array can make the
-free path walk past the old allocation and trigger a slab out-of-bounds
-write catched by KASAN:
-==================================================================
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
-BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
-Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
+This permits bearer teardown to free a link while the trace callback is
+dumping it:
 
-CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0xf7/0x600 mm/kasan/report.c:482
- kasan_report+0xe4/0x120 mm/kasan/report.c:595
- free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
- rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fefc75a70cd
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
-RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
-RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
- </TASK>
+  CPU 0                                CPU 1
+  trace_tipc_node_reset_links()
+    tipc_node_dump()
+      l = n->links[0].link
+                                       tipc_node_write_lock()
+                                       kfree(l)
+                                       n->links[0].link = NULL
+                                       tipc_node_write_unlock()
+      tipc_link_dump(l)
 
-Allocated by task 11063:
- kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5296 [inline]
- __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
- rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+tipc_link_dump() then dereferences the stale pointer. KASAN reported:
 
-The buggy address belongs to the object at ffff88802b8ddd80
- which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 0 bytes to the right of
- allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
+  BUG: KASAN: slab-use-after-free in tipc_link_dump
+  Read of size 4 by task poc/115
+  Call Trace:
+   tipc_link_dump+0x10cb/0x16b0
+   tipc_node_dump+0x4bb/0x740
+   trace_event_raw_event_tipc_node_class+0x258/0x360
+   tipc_node_reset_links+0x14d/0x1a0
+   tipc_rcv+0x13f5/0x3030
+   tipc_udp_recv+0x4e3/0x670
+  Allocated by task 0:
+   tipc_link_create+0x1e1/0x1020
+   tipc_node_check_dest+0x7d2/0x11a0
+   tipc_disc_rcv+0xdbf/0x1430
+  Freed by task 89:
+   kfree+0x131/0x3c0
+   tipc_node_link_down+0x267/0x4b0
+   tipc_node_delete_links+0xec/0x160
+   bearer_disable+0x107/0x260
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
- set_page_owner include/linux/page_owner.h:32 [inline]
- post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
- prep_new_page mm/page_alloc.c:1861 [inline]
- get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
- __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
- alloc_slab_page mm/slub.c:3278 [inline]
- allocate_slab mm/slub.c:3467 [inline]
- new_slab+0xa6/0x670 mm/slub.c:3525
- refill_objects+0x278/0x420 mm/slub.c:7272
- refill_sheaf mm/slub.c:2816 [inline]
- __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
- alloc_from_pcs mm/slub.c:4750 [inline]
- slab_alloc_node mm/slub.c:4884 [inline]
- __do_kmalloc_node mm/slub.c:5295 [inline]
- __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
- tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
- tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
- tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
- security_file_open+0x7a/0x1b0 security/security.c:2739
- do_dentry_open+0x57e/0x1690 fs/open.c:924
- vfs_open+0x82/0x3f0 fs/open.c:1079
- do_open fs/namei.c:4699 [inline]
- path_openat+0x218a/0x3190 fs/namei.c:4858
-page last free pid 1 tgid 1 stack trace:
- reset_page_owner include/linux/page_owner.h:25 [inline]
- __free_pages_prepare mm/page_alloc.c:1397 [inline]
- __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
- selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
- inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
- selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
- security_d_instantiate+0x123/0x190 security/security.c:3704
- d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
- kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
- lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
- open_last_lookups fs/namei.c:4611 [inline]
- path_openat+0x17dd/0x3190 fs/namei.c:4855
- do_file_open+0x20c/0x430 fs/namei.c:4887
- do_sys_openat2+0x101/0x1d0 fs/open.c:1364
- do_sys_open fs/open.c:1370 [inline]
- __do_sys_openat fs/open.c:1386 [inline]
- __se_sys_openat fs/open.c:1381 [inline]
- __x64_sys_openat+0x141/0x200 fs/open.c:1381
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Take the node write lock around the trace event. This serializes the
+dump against tipc_node_link_down(delete=true), which frees the link
+under the same write lock.
 
-Memory state around the buggy address:
- ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
- ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
-                                        ^
- ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
- ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
-
-Fix the OOB by moving the assignment after free_rd_atomic_resources()
-so the old array is freed using the old bound. This matches the original
-ordering in commit 8700e3e7c485 ("Soft RoCE driver").
-
-Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
-Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
+Fixes: eb18a510b5cd ("tipc: add trace_events for tipc node")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-(cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
-[This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
-Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- drivers/infiniband/sw/rxe/rxe_qp.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+v1 -> v2:
+- Use tipc_node_write_lock() instead of tipc_node_read_lock() so the
+  dump is exclusive with link deletion.
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index 95f1c1c2949d..b709a8d53b61 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -658,10 +658,9 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
- 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
- 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
+v2 -> v3:
+- Use tipc_node_write_unlock_fast().
+
+ net/tipc/node.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/tipc/node.c b/net/tipc/node.c
+index 683a136e53ef..bd91378b7540 100644
+--- a/net/tipc/node.c
++++ b/net/tipc/node.c
+@@ -1333,7 +1333,9 @@ static void tipc_node_reset_links(struct tipc_node *n)
  
--		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
--
- 		free_rd_atomic_resources(qp);
+ 	pr_warn("Resetting all links to %x\n", n->addr);
  
-+		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
- 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
- 		if (err)
- 			return err;
++	tipc_node_write_lock(n);
+ 	trace_tipc_node_reset_links(n, true, " ");
++	tipc_node_write_unlock_fast(n);
+ 	for (i = 0; i < MAX_BEARERS; i++) {
+ 		tipc_node_link_down(n, i, false);
+ 	}
 -- 
 2.43.0
-
