@@ -1,109 +1,123 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A76472F8A
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA7D4746A3;
+	Tue, 25 Aug 2026 13:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664076; cv=none; b=awRsqwo43cIKvoOS6Bm/EX70YiquUi1F2/n888BzbtC3FU/M9tEThQqBFdWmSELVi5h8fJcasYT80bEJlHOgB42kccyUOCURCURJbDXJ97bVpd9KiefbGpz4QtEC+RoWYvqILmcqWac68WM0cnVqia6Kxnfjt7uKGJ8WF35WAx8=
+	t=1787664126; cv=none; b=c5grVQDuDtHwLaY2XcBwMQBhtsEoTF1EF9fJ0aR4/mIjdVmnLPhq/XIwMJlbqx5VEmBlu9Z2GJww6hw/oI6ghY/wgy1Df9vpiyi0PqRwwr81DUe6tnxd33WCUKc5AwyzwqfAvWhmx+TnvB2FKjPYPf/3gFcjh8VUHsA0eb8FFVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787664076; c=relaxed/simple;
-	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RpvfTFxubu2G4W94hYavQ9DeBEy5XpGhonfrEtYhjdXkdNheG4n4PfA9hNo+M0DWdmmXEVp6ehNDelPvVpqRMpHnKR2mNVMXQNAO0fU1f0LCjyy/mAL3Q9QFL4X/M+49vlyXoY251iz9tmKXb2Ddao3dikLDN/rFqE1dF0Rehlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JuquKssl; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787664126; c=relaxed/simple;
+	bh=vHFLXzi7Yr0EPsIoB1pGXmXoglNRdcKLVuIO/oiKtd0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ddAw8lidYRGuXdBRpu6PLlLRMKg5sdbSktpLW8qrUb57wGLBf5+aenN/LnK9TBQbubc+nktPmPpNHxy9L3UezOenaa/RbolUpnUDpvkge18yjR9vPYkRjmD42pd+KE5CD6kz2VyI61Q9fvhV56NSws/ToHzwQI9cugZbp8QFxG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=btPMdDAT; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JuquKssl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787664064;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
-	b=JuquKsslWPG6HXYVOA9VNnPldHe4cRK40aZGdLnV2r8B4/f7T7Kj/Ytifd5FCjvI1IqT9v
-	xXGdJ9Tcmv0eujcifODbIZ3pokywrH4n41ePcVlIBorjLDqCBqDzqsxuLRq4gl++ovIeoq
-	LAmNu8uiw41igPhDEzVP1NPIfdYeEoA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-373-yNrnZdQ8McWHxJjh7PxgbA-1; Tue,
- 25 Aug 2026 09:21:01 -0400
-X-MC-Unique: yNrnZdQ8McWHxJjh7PxgbA-1
-X-Mimecast-MFC-AGG-ID: yNrnZdQ8McWHxJjh7PxgbA_1787664058
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 208C6195F152;
-	Tue, 25 Aug 2026 13:20:58 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.15])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D57EC362;
-	Tue, 25 Aug 2026 13:20:54 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/9] netfs: Fix uninitialized return value in netfs_unbuffered_write()
-Date: Tue, 25 Aug 2026 14:20:35 +0100
-Message-ID: <20260825132045.1000787-2-dhowells@redhat.com>
-In-Reply-To: <20260825132045.1000787-1-dhowells@redhat.com>
-References: <20260825132045.1000787-1-dhowells@redhat.com>
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="btPMdDAT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=nhEH62V5OEPxAlsJ+IhIzhqi1xPNjRqLmlHD+qXXMt0=; b=btPMdDATWy2ob1QbOw3ekauXeB
+	n2iwikqU0sfgiET2eHFGtSCn4F3NX1GR+reG4RKP8F0oXnme5u4ek3LzWn/iuSjyvkl3AIKM7O8sn
+	vjNzNAntzN0aJgX/SdxfdFqB+YOQpiwPIa+TcsgZFC8UgMeAizONgC8wdex55+xeRQ/Y=;
+Received: from modemcable061.19-161-184.mc.videotron.ca ([184.161.19.61] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1wyr6A-000000006OR-2kN2;
+	Tue, 25 Aug 2026 09:21:54 -0400
+Date: Tue, 25 Aug 2026 09:21:54 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Luca Fresi <luca.fresi@bithiatec.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, Tomasz =?UTF-8?Q?Mo=C5=84?=
+ <tomasz.mon@camlingroup.com>, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] serial: sc16is7xx: enable THRI before filling TX FIFO
+Message-Id: <20260825092154.87372afd883ff787b304caf9@hugovil.com>
+In-Reply-To: <20260721222404.204746-1-luca.fresi@bithiatec.com>
+References: <20260721222404.204746-1-luca.fresi@bithiatec.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+Hi Luca,
 
-If preparation of the first subrequest fails,
-netfs_unbuffered_write() exits its loop before ret is initialized. The
-empty-iterator check can do the same.
+On Wed, 22 Jul 2026 00:24:04 +0200
+Luca Fresi <luca.fresi@bithiatec.com> wrote:
 
-For synchronous writes, netfs_unbuffered_write_iter_locked() may then
-return an unrelated error instead of wreq->error. This is reachable
-through CIFS if cifs_prepare_write() fails to reopen the file or obtain
-credits.
+> sc16is7xx_handle_tx() currently requests the THRI enable only after it has
+> filled the TX FIFO. The request is asynchronous because the IER update is
+> performed later by reg_work.
+> 
+> The SC16IS7xx generates a THRI interrupt when the TX FIFO crosses its
+> trigger level. If the FIFO drains past that level before reg_work enables
+> THRI, the chip does not generate a new interrupt. Characters remain queued
+> indefinitely even though the hardware FIFO is empty.
+> 
+> This was observed on an SC16IS752 while both UART channels were active.
+> During the stall the software TX buffer remained non-empty while TXLVL
+> reported 64 bytes free, LSR reported THR and transmitter empty, IER had
+> THRI enabled, and IIR reported no interrupt pending.
+> 
+> Enable THRI synchronously before filling the FIFO so the threshold crossing
+> cannot be missed.
+> 
+> Fixes: cc4c1d05eb10 ("sc16is7xx: Properly resume TX after stop")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Luca Fresi <luca.fresi@bithiatec.com>
+> ---
+>  drivers/tty/serial/sc16is7xx.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+> index daebd92f32c7..a1bd175e2feb 100644
+> --- a/drivers/tty/serial/sc16is7xx.c
+> +++ b/drivers/tty/serial/sc16is7xx.c
+> @@ -827,6 +827,9 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
+>  		msleep(port->rs485.delay_rts_before_send);
+>  
+>  	guard(mutex)(&one->lock);
+> +	sc16is7xx_port_update(port, SC16IS7XX_IER_REG,
+> +			      SC16IS7XX_IER_THRI_BIT,
+> +			      SC16IS7XX_IER_THRI_BIT);
 
-Initialize ret to 0 so the caller returns wreq->error if no data was
-written, or the number of bytes already written otherwise.
+You can combine the last two lines on a single line.
 
-Found with Clang's -Wconditional-uninitialized.
+Also, now that arming is done with your patch in tx_proc(), you can
+probably remove in handle_tx():
 
-Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
----
- fs/netfs/direct_write.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+	else
+		sc16is7xx_ier_set(port, SC16IS7XX_IER_THRI_BIT);
 
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index c16fbad286a1..b04019097ab8 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
- {
- 	struct netfs_io_subrequest *subreq = NULL;
- 	struct netfs_io_stream *stream = &wreq->io_streams[0];
--	int ret;
-+	int ret = 0;
- 
- 	_enter("%llx", wreq->len);
- 
+since the only other caller of handle_tx() will be
+from the port_irq() when THRI fires, so it is already enabled.
 
+Also it seems that for some cases, the THRI will be enabled for nothing
+and then immediately disabled, causing useless I2C/SPI bus
+transactions...
+
+Also for x_char, empty kfifo or tx_stopped, THRI will be set, as before
+it was not.
+
+
+>  	sc16is7xx_handle_tx(port);
+>  }
+>  
+> -- 
+> 2.34.1
+> 
+> 
+
+
+-- 
+Hugo Villeneuve
