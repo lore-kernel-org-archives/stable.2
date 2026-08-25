@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A007E32D7F1
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:14:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C371E46F4AF
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:15:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663697; cv=none; b=F98eyiqJd2RjDumej07Ic/+skVeDFIFN6NHUC5iiIyrteRlqhTns/vN7DFwOiCfz3Wl5VFco1gwG+v0mxpWbaIJnTs5IzidsrKlT/QtPZAGT5r+CNaqOmcBOHoLSQFmCHvGjjei9uA6eol2ff39V6MF5YW7+XUdCcqx+P3BT81U=
+	t=1787663746; cv=none; b=STaIQPeuvxcV++OK2qeP4S7x9npRbebwOdKl0SmSs+cLiprTBPDkOqUPakLH2reg+L9pWQ98SePry4yT4pPVy8I7oW/xnBBLdkqcRIRfJFXO+qRcIT5ZDdZP/1yHih3l64t4i7/TUJuL8I8WEq1SeBDKTdKhQkH12QlSRmWAXv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663697; c=relaxed/simple;
-	bh=ZcssEL9bZIv0WPe8Nt2US5CDn8zdnCl205MQqjwMYZA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kZsGbonjdSoxTf6lZGW9VHIkG2TNeRCtlLe9IwlNCM92yVpL3/eyF87E5pm5emFKMY/q3VHQZMtWTDbGdEggjY1LuGObnmHonX7PCBGzmF+ah7JZ3dJOsXId91GVhHtuvp3Aq4WZkbgCIOs9xVdZPVCPsNOpOZLrWKBkn0MkJF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IfPrEITg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787663746; c=relaxed/simple;
+	bh=DJd2PfBAimAyTlNPvpTeOOCimZXxNUuOkF1nprs6ngI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qsfZ2OAZ8vFcHBfMVMZMsANoMjs6ZQxY9JGUb2XHGNSBFIZL7OxoCYh6FkhGmUM5nidM86U9LETBuj0vvcYoSdA04oxeNUHKyNN+5KoDGEcME6I6spYi3N5HVdnjSRDDSiE/XPeJw1iLWW1C+OfOZU/OGkHnl3/CRCIeQYKOdVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Bjw+whDo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IfPrEITg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976041F00A3A;
-	Tue, 25 Aug 2026 13:14:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Bjw+whDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D361F000E9;
+	Tue, 25 Aug 2026 13:15:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787663696;
-	bh=Jjmb/FmcBm+OA+NYnLn93DDkysWOtlaSMLQ4LBAu+QQ=;
+	s=korg; t=1787663741;
+	bh=M7hsp++DL9rZ+6SSgVJ1ZOvkeRNj916Cfe/LiZMXdic=;
 	h=Subject:To:Cc:From:Date;
-	b=IfPrEITgSuopXqtc0CgtD4eu1BUgGXUc9gxZCacLzNWHVe43bA0UxFyhIgbCZVc3V
-	 FeoSUz0w5ikqjMfhu6/CGY5TXlIiojh2jICUEvyNP0tK6l0jEFiGwZwklg+Te3NpL0
-	 l25a9hAdRUhvoiRS51HZqc0Mw4i4Qhv29Ues/8mU=
-Subject: FAILED: patch "[PATCH] HID: nintendo: stop device IO before hid_hw_stop on probe" failed to apply to 6.1-stable tree
-To: yijiangshan@kylinos.cn,jkosina@suse.com
+	b=Bjw+whDojlt9BBjsGc7Us4Ul4j6zwK3J6px3W4V2jBra8/qHaDHP+0t+ho7QgBhsj
+	 rAikdv8U+ANTjiI9SEyCRbvL4fcrJo8XgPRsaKsrbKY/aIWCr5C2Hby407niacERJi
+	 xYFHwFI6evlh+J4lYjAaoaprde1LL6q/0tJroYX0=
+Subject: FAILED: patch "[PATCH] HID: ft260: fix stack-use-after-return write in I2C read race" failed to apply to 6.18-stable tree
+To: kernel-linux-20260610-80b7ab08@raman.v1.sg,jkosina@suse.com,michael.zaidman@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 15:14:38 +0200
-Message-ID: <2026082538-busboy-cannabis-7578@gregkh>
+Date: Tue, 25 Aug 2026 15:15:36 +0200
+Message-ID: <2026082536-statue-starlet-dc1b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1f74d3bff6fe04a64e02ab3661d2e0d554565aa6
+git cherry-pick -x bf3e39df3a397fd82967a31d17c4e02c7feab221
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082538-busboy-cannabis-7578@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082536-statue-starlet-dc1b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,58 +62,145 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1f74d3bff6fe04a64e02ab3661d2e0d554565aa6 Mon Sep 17 00:00:00 2001
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-Date: Thu, 30 Jul 2026 11:19:27 +0800
-Subject: [PATCH] HID: nintendo: stop device IO before hid_hw_stop on probe
- failure
+From bf3e39df3a397fd82967a31d17c4e02c7feab221 Mon Sep 17 00:00:00 2001
+From: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
+Date: Wed, 10 Jun 2026 22:29:52 +0800
+Subject: [PATCH] HID: ft260: fix stack-use-after-return write in I2C read race
 
-nintendo_hid_probe() calls hid_device_io_start() before joycon_init()
-and joycon_leds_create().  If either fails, the error path jumps to
-err_close which calls hid_hw_close()/hid_hw_stop() without first calling
-hid_device_io_stop().
+ft260_i2c_read() points dev->read_buf at a caller-supplied buffer
+(often an on-stack variable), arms a completion and waits up to five
+seconds for the device to return the data. The HID input callback
+ft260_raw_event() runs in the input/IRQ path, independent of the
+dev->lock mutex held by the read path, and copies the device-supplied
+payload into dev->read_buf after a plain NULL check.
 
-hid_hw_stop() does not stop device IO, so hid_input_report() may still
-run and access driver data that is being torn down, resulting in a
-use-after-free.
+These two paths share read_buf, read_idx and read_len with no
+serialization. If the device delays its response until the read
+times out, ft260_i2c_read() resets the controller, clears read_buf
+and returns, unwinding the stack frame the buffer lived in. A
+response that arrives at that moment lets ft260_raw_event() pass the
+NULL check and then memcpy() the device-controlled payload into the
+now-freed stack location, a bounded but attacker-influenced
+stack-use-after-return write triggerable by malicious or
+malfunctioning hardware.
 
-Add an err_io_stop label that calls hid_device_io_stop() before
-hid_hw_close(), and point the two post-io_start error paths at it.
+Add a dedicated spinlock that serializes every access to read_buf,
+read_idx and read_len. ft260_raw_event() now holds it across the
+NULL check, the memcpy and the index update, while the read path
+takes it when arming and when clearing the buffer, so the teardown
+can no longer slip between the check and the copy.
 
-Fixes: 2af16c1f846b ("HID: nintendo: add nintendo switch controller driver")
+Fixes: 6a82582d9fa4 ("HID: ft260: add usb hid to i2c host bridge driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Signed-off-by: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
+Reviewed-by: Michael Zaidman <michael.zaidman@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
 
-diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
-index e7302ec01ff1..0db553528826 100644
---- a/drivers/hid/hid-nintendo.c
-+++ b/drivers/hid/hid-nintendo.c
-@@ -2736,14 +2736,14 @@ static int nintendo_hid_probe(struct hid_device *hdev,
- 	ret = joycon_init(hdev);
- 	if (ret) {
- 		hid_err(hdev, "Failed to initialize controller; ret=%d\n", ret);
--		goto err_close;
-+		goto err_io_stop;
- 	}
+diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
+index 946ed0c6fc39..64c9c940db46 100644
+--- a/drivers/hid/hid-ft260.c
++++ b/drivers/hid/hid-ft260.c
+@@ -240,6 +240,8 @@ struct ft260_device {
+ 	struct mutex lock;
+ 	u8 write_buf[FT260_REPORT_MAX_LENGTH];
+ 	unsigned long need_wakeup_at;
++	/* Protects read_buf, read_idx and read_len against ft260_raw_event() */
++	spinlock_t read_lock;
+ 	u8 *read_buf;
+ 	u16 read_idx;
+ 	u16 read_len;
+@@ -501,6 +503,7 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
+ 	int timeout, ret = 0;
+ 	struct ft260_i2c_read_request_report rep;
+ 	struct hid_device *hdev = dev->hdev;
++	unsigned long irqflags;
+ 	u8 bus_busy = 0;
+ 	/*
+ 	 * STOP terminates the last chunk; clear means hold the bus so a
+@@ -534,9 +537,11 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
  
- 	/* Initialize the leds */
- 	ret = joycon_leds_create(ctlr);
- 	if (ret) {
- 		hid_err(hdev, "Failed to create leds; ret=%d\n", ret);
--		goto err_close;
-+		goto err_io_stop;
- 	}
+ 		reinit_completion(&dev->wait);
  
- 	/* Initialize the battery power supply */
-@@ -2766,7 +2766,8 @@ static int nintendo_hid_probe(struct hid_device *hdev,
++		spin_lock_irqsave(&dev->read_lock, irqflags);
+ 		dev->read_idx = 0;
+ 		dev->read_buf = data;
+ 		dev->read_len = rd_len;
++		spin_unlock_irqrestore(&dev->read_lock, irqflags);
  
- err_ida:
- 	ida_free(&nintendo_player_id_allocator, ctlr->player_id);
--err_close:
-+err_io_stop:
-+	hid_device_io_stop(hdev);
- 	hid_hw_close(hdev);
- err_stop:
- 	hid_hw_stop(hdev);
+ 		ret = ft260_hid_output_report(hdev, (u8 *)&rep, sizeof(rep));
+ 		if (ret < 0) {
+@@ -551,7 +556,9 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
+ 			goto ft260_i2c_read_exit;
+ 		}
+ 
++		spin_lock_irqsave(&dev->read_lock, irqflags);
+ 		dev->read_buf = NULL;
++		spin_unlock_irqrestore(&dev->read_lock, irqflags);
+ 
+ 		if (flag & FT260_FLAG_STOP)
+ 			bus_busy = FT260_I2C_STATUS_BUS_BUSY;
+@@ -570,7 +577,9 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
+ 	} while (len > 0);
+ 
+ ft260_i2c_read_exit:
++	spin_lock_irqsave(&dev->read_lock, irqflags);
+ 	dev->read_buf = NULL;
++	spin_unlock_irqrestore(&dev->read_lock, irqflags);
+ 	return ret;
+ }
+ 
+@@ -1053,6 +1062,7 @@ static int ft260_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		 "FT260 usb-i2c bridge");
+ 
+ 	mutex_init(&dev->lock);
++	spin_lock_init(&dev->read_lock);
+ 	init_completion(&dev->wait);
+ 
+ 	ret = ft260_xfer_status(dev, FT260_I2C_STATUS_BUS_BUSY);
+@@ -1102,6 +1112,7 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
+ {
+ 	struct ft260_device *dev = hid_get_drvdata(hdev);
+ 	struct ft260_i2c_input_report *xfer = (void *)data;
++	unsigned long irqflags;
+ 
+ 	if (size < offsetof(struct ft260_i2c_input_report, data)) {
+ 		hid_err(hdev, "short report %d\n", size);
+@@ -1110,6 +1121,8 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 
+ 	if (xfer->report >= FT260_I2C_REPORT_MIN &&
+ 	    xfer->report <= FT260_I2C_REPORT_MAX) {
++		bool complete_read;
++
+ 		ft260_dbg("i2c resp: rep %#02x len %d size %d\n",
+ 			  xfer->report, xfer->length, size);
+ 
+@@ -1120,8 +1133,15 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 			return -1;
+ 		}
+ 
++		/*
++		 * Hold read_lock so a timed-out ft260_i2c_read() cannot
++		 * clear read_buf between the NULL check and the memcpy.
++		 */
++		spin_lock_irqsave(&dev->read_lock, irqflags);
++
+ 		if ((dev->read_buf == NULL) ||
+ 		    (xfer->length > dev->read_len - dev->read_idx)) {
++			spin_unlock_irqrestore(&dev->read_lock, irqflags);
+ 			hid_err(hdev, "unexpected report %#02x, length %d\n",
+ 				xfer->report, xfer->length);
+ 			return -1;
+@@ -1130,8 +1150,11 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 		memcpy(&dev->read_buf[dev->read_idx], &xfer->data,
+ 		       xfer->length);
+ 		dev->read_idx += xfer->length;
++		complete_read = dev->read_idx == dev->read_len;
+ 
+-		if (dev->read_idx == dev->read_len)
++		spin_unlock_irqrestore(&dev->read_lock, irqflags);
++
++		if (complete_read)
+ 			complete(&dev->wait);
+ 
+ 	} else {
 
