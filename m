@@ -1,148 +1,133 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6D833D6F0
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455743DDB13
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:52:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787651361; cv=none; b=OcgeMef104nlHQBzauANHI93MbaU9O8KRfvakfey/Wrdn0RisKz914NIHLVW9Xyl4ts7wutcMUgPZCAKigjL3oqiysPKGd6bRXrpjrhpzHwMYYcmSE8sbfLS5a0Jg6gXbUejbzNcvWH6HOn+x+q3p1HX5SZtML/qQ6rzi/QRrc4=
+	t=1787651561; cv=none; b=iQqPTZsYPinldL62pQ4CiCkdTx54T03LykLSUzXm5JlEuLk+hCmPXVLrhlCiTkT2MwhpVY4HsEhdODhQe9vYQO9PtEOBOWsgCDGGGzDptLCrz25bJRuzDSEKOkoMbOmj4MPGwcYLoNITKrTcKOzwus9n6nnyR5NAhqDAHi8WS7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787651361; c=relaxed/simple;
-	bh=SDOK5a982ZwEQnK+mq6ZJyeUw0V3az0fCs0VeBXrxUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ngVLSZRCVw9vDw/y6jeCnnsw8MXLQ/LDIcTgEvb8KagaQBdGprhyW9CfKNpb1y0RVBr0mTjl/KeFvBoD9KkEYDJfL523C4NASFyeIrk5jRgr5oV/LkCJBHpFzxcvJpPuhyEexSIkCwDfap48lKo+9+8DRVphtjcSflqB/C9RRpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EHsQo9IG; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1787651561; c=relaxed/simple;
+	bh=qAfIO28YCM1SmDmdE3IhwfvU1TDo5r74vGdtxfX7ZvI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YbDnbjqoLV3bzi5QXqaz7qnqNlZujWwWB5M3Tz6lRvWiSvOMR8O1ENzwfrREKNfddX5R7+sLm1wxJMhTfFBYLN7Yi10FKKRjlS1Wn6KXK0YSjW2oy6lR+7NFdOoFI4Vq0N7Zx4yPeehULZuVCDlbYbC6LzpTtj24y+LgtQlUaTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VY2F8g/i; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EHsQo9IG"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso7639292a12.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 02:49:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787651358; x=1788256158; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jhNcaEAWGOV1mao/QyWB63lyecaeVBUJemIbl04upLg=;
-        b=EHsQo9IGWT9obEWNEWTHRhCCnGixdbrhh0GFiMZKJOfK3h4rIoLxrNpzssR5zoBq/R
-         mEbe4leE3KYiFo3hBMQvcZ5J1irI6RY4615zJJlauK+d4AKOI7muyN9A48IEhBuwahYB
-         oC6yBkCTc72H5BqaicUZ+wEsYuje1dW/pFWk528BB8HMw/Nb8y9bmrAEKsPOdDfyZQaE
-         h4642/3Y82t3mU4YU/LGN14PaKMnXNK5teX75bLRbBJ9hOmfnTODCEiAAMjQrBe+6KtE
-         TsYsT13tG8Z46I3nTkRZjuyS4dJ19TRu4qeU852Te2hoMMnWmKNfMeBHoo2absKLBYb1
-         LZSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787651358; x=1788256158;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jhNcaEAWGOV1mao/QyWB63lyecaeVBUJemIbl04upLg=;
-        b=e2vataCE7iMYvZMtUkfES9n2SXwUy6jyBUlFRY+LlKnIQz0LQ8zkVblvOwbwA4GJMm
-         4GfmA539ibwq12AgaQ9BBodCX588ODfHJTWjMZNLIzxt4ADEF81MmvIPFoNIDY+Kq988
-         rLAOrFu40qgiDSFmOvm6RuP5k/DF9LEGRQ2MFqT+/0Jbvm4DBW43bQvxgq8H6CXEkiTz
-         w3jogczXPzaCtURxP4+Veg3uvay8GtEappUnP+P05b1d2WMiBZ+TMSDMseRp5DtOJ+qw
-         XU3uiLY3SqaDtZIEMHeBX53PI/8sFFpU/eE44wT4rxObUkh6eVfF6P/Gv9Oww+wdcs+R
-         htQA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqn3G99O4/rq2cC4aizsSCpjQUpmJHu0D0PlCLFAD3fLhjuzE8ikoj+NkXOZtcCW0VZZXJl8Gc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXkZ99NaZlGM9tsyMPvEDRUosTWuMXCiJ533jL6ZMGz2f5Mx2x
-	zQafFj3AfYn2E8LxzvXYTyapwh8zRzV+xb9XE3r3gwQ9Y0wJWVLHC8fmTEf9q/J7KSo=
-X-Gm-Gg: AR+sD12mv+/MMlQGthAtpBccGeTOynAlqzpD1TXR/QB5z5GSV+FqDeDWW2Le4GrYkKZ
-	LgnhqfpPgYuNk/IeU+pPathXZpCXY6XsFudSpeaISLYOp4iJdfYyN0/lOEufX67cEBx9oLeqebk
-	1e4FYqybzDd2ha4lRptfOmrvI8nwW9Sk3shcTE1B540146cogZdnprsS+FrrQ/maGQqTvWcNwD6
-	VoIperN8SBV2pO8Oh2+lemVJbV1EfVuh1wEWbmdWuV1OSD4jugJmOnfZIG0EkWOKLNpxNdjO301
-	wP5z8GJcK9UsbKK8QvQFnNbpwIoucJ/p4urJHvunazZjgH756FLjsOC/wGRkmpn6fpgi1CsMpj8
-	1p7yarTOgOGwUbEW81uta5RI+of+HtEkrkIp8CSQCWp12hSR4RTm6kE0/MvCL6R5I51hG4MZnWR
-	+ICmd9LLWBmTyRBn9paeMpJwgdSmyuTE2/6NUncVLcBjSi/9gfmSZi3W9PR0SyLdd6JXoPJWSny
-	A==
-X-Received: by 2002:a17:907:9304:b0:c17:cf99:6154 with SMTP id a640c23a62f3a-c24e5b28879mr566987266b.16.1787651357608;
-        Tue, 25 Aug 2026 02:49:17 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249606a8fasm1864582966b.8.2026.08.25.02.49.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 02:49:17 -0700 (PDT)
-Date: Tue, 25 Aug 2026 11:49:15 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Bradley Morgan <include@grrlz.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jinchao Wang <wangjinchao600@gmail.com>,
-	Feng Tang <feng.tang@linux.alibaba.com>,
-	Rio <rioo.tsukatsukii@gmail.com>,
-	Pnina Feder <pnina.feder@mobileye.com>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v6 6/6] panic: kill the "buffer unavailable" redirect
- fallback
-Message-ID: <ao1lG5wumJJ6FO2T@pathway.suse.cz>
-References: <20260818163806.17460-1-include@grrlz.net>
- <20260818163806.17460-7-include@grrlz.net>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VY2F8g/i"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3BBB31A17E3;
+	Tue, 25 Aug 2026 09:52:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0D410604C4;
+	Tue, 25 Aug 2026 09:52:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 327B911C7A36B;
+	Tue, 25 Aug 2026 11:52:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787651551; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qAfIO28YCM1SmDmdE3IhwfvU1TDo5r74vGdtxfX7ZvI=;
+	b=VY2F8g/iGVVqY7vf62k9QFFt5YfoEFmi/UUHQ0rdsl7993acOS0EVcvv2rKp+amOO2Hant
+	Aa9Jbdsrw4XgqrC2p008HyzM/xp+Nrf66Eixq2emwwRSNxYJqycu5PCngm5/1hXnjFXLpI
+	mkf9wtMN4Jjd2Nsba3W7g3QZo74Tb2PirZav0IIp0irWpmorQXPk76jz/N6FHvXO825hdd
+	a8T4g5thq938EzOn0NpiNnwqnU3WLwRxWW7ctS4KOBhYjleyWTwxh9NwW1vjZf6qd7rKdQ
+	GAe7ELolGFW9Ov0RvWTbZdGY+b+tDT1EUkzTj6sE3R3EbTtSC2LkX4FS0I+P9Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Stefan Agner <stefan@agner.ch>,  Richard Weinberger <richard@nod.at>,
+  Vignesh Raghavendra <vigneshr@ti.com>,  Mehmet Fide
+ <mehmet.fide@screeningeagle.com>,  Boris Brezillon
+ <bbrezillon@kernel.org>,  Frieder Schrempf <frieder.schrempf@kontron.de>,
+  Edward Karpicz <webmaster@toradex.com>,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] mtd: rawnand: vf610_nfc: fix reads on chips with
+ more than 64 bytes of OOB
+In-Reply-To: <20260818114208.2780311-2-mehmet.fide@gmail.com> (Mehmet Fide's
+	message of "Tue, 18 Aug 2026 13:42:07 +0200")
+References: <20260818114208.2780311-1-mehmet.fide@gmail.com>
+	<20260818114208.2780311-2-mehmet.fide@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 25 Aug 2026 11:52:27 +0200
+Message-ID: <87mruail2c.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818163806.17460-7-include@grrlz.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue 2026-08-18 16:38:06, Bradley Morgan wrote:
-> The redirect buffer is a disgusting terrible hack. panic_force_buf is
-> kmalloc'ed in a late_initcall, the return value is not even checked,
+Hi Mehmet,
 
-It is not checked intentionally. kmalloc() prints a debug message
-on its own when it is not able to allocate the memory.
-And it returns NULL in this case. It is enough in this case.
+On 18/08/2026 at 13:42:07 +02, Mehmet Fide <mehmet.fide@gmail.com> wrote:
 
-Please, remove this sentence from the commit message.
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+>
+> The driver only implements the 64-byte OOB layout, so attach_chip()
+> shrinks mtd->oobsize when the chip provides more.=20
 
-> and until then the redirect delivers this as the panic message:
+Ehr...
 
->   Redirected panic (buffer unavailable)
-> 
-> The whole point of the redirect is to hand the panic message to the
-> target CPU, so the crash kernel boots knowing it panicked and not why.
-> And that window is the entire boot, from the early_param to the
-> late_initcall, which is exactly when you most want the message. A
-> failed kmalloc just keeps it broken forever, silently.
-> 
-> Make it a static 1KB buffer and kill the initcall. The cost is 1KB of
-> .bss in SMP crash dump builds, and it is only ever touched when
-> panic_force_cpu= is set anyway.
-> 
-> --- a/kernel/panic.c
-> +++ b/kernel/panic.c
-> @@ -413,20 +403,12 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
->  		return old_cpu != this_cpu;
->  
->  	/*
-> -	 * Use dynamically allocated buffer if available, otherwise
-> -	 * fall back to static message for early boot panics or allocation failure.
-> +	 * Do not consume args, the caller reuses them if we fail.
->  	 */
-> -	if (panic_force_buf) {
-> -		va_list ap;
-> -
-> -		/* Do not consume args, the caller reuses it if we fail */
-> -		va_copy(ap, args);
-> -		vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
-> -		va_end(ap);
-> -		msg = panic_force_buf;
-> -	} else {
-> -		msg = "Redirected panic (buffer unavailable)";
-> -	}
-> +	va_copy(ap, args);
-> +	vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
-> +	va_end(ap);
-> +	msg = panic_force_buf;
+> That clamp does not
+> survive: nand_scan_tail() runs nanddev_init() after ->attach_chip(), and
+> it restores mtd->oobsize from the memory organization, which still holds
+> the value detected from the chip.
 
-Nit: The "msg" variable is no longer needed. It will always be set to
-     panic_force_buf. The later code could use:
+I guess that's expected.
 
-	panic_smp_redirect_cpu(panic_force_cpu, (void *)panic_force_buf)
+> The driver therefore transfers writesize + the chip's full OOB size, so
+> the hardware ECC parity ends up at a different offset than the layout the
+> controller was set up for, and every ECC-protected read fails with
+> -EBADMSG.
 
-Otherwise, the change looks good from my POV.
+This is clearly the correct=E2=84=A2 way :)
 
-Best Regards,
-Petr
+> Measured on a Colibri VF61 (MX30LF4G28AC, 2048-byte pages, 112 bytes of
+> OOB): with the clamp lost, UBI cannot read the erase counter headers of
+> the pages U-Boot has just written, and the on-flash bad block table
+> written by an older kernel reads back with ECC errors, so the board does
+> not boot. Kernels before commit a7ab085d7c16 ("mtd: rawnand: Initialize
+> the nand_device object") are not affected because nothing overwrote the
+> clamp there, which is why the same chip works with a v4.4 kernel and
+> with U-Boot, whose copy of this driver has no memory organization to
+> restore the value from. Edward Karpicz reported that the clamp no longer
+> takes effect on this chip; see the link below.
+
+This commit is not incorrect, what the driver does is incorrect, and
+is now unfortunately visible.
+
+> Clamp the memory organization as well so the driver's 64-byte layout
+> stays in effect, and log the truncation once, as it decides which
+> on-flash layout the system uses.
+
+It fixes the problem, but honestly modifying the memorg is not
+correct. Broadcom and mpc5121 controller drivers do it, but that's
+likely wrong.
+
+What you report here is a U-Boot issue. The chips has more than 64 OOB
+bytes, U-boot clamps that value, Linux does not. U-boot is wrong. But I
+guess it's now too late and you'll tell me many devices in the field
+already use this broken layout?
+
+In this case, maybe you should just change the layout, instead of
+forcing an obviously incorrect memory layout. In this driver the large
+page generic OOB layout (which puts the ECC bytes at the end) is used. I
+guess a better approach could be to make your own 64-byte clamped OOB
+layout for backward compatibility. You should drop the oobsize
+modification as well.
+
+> Reported-by: Edward Karpicz <webmaster@toradex.com>
+> Link: https://community.toradex.com/t/colibri-vf50-vf61-on-the-current-bs=
+p-mainline-u-boot-v2026-07-and-linux-6-18-lts/30735
+> Fixes: a7ab085d7c16 ("mtd: rawnand: Initialize the nand_device object")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+
+There is at least one legitimate Sashiko warning on this patch, can you
+please also check it?
+
+Thanks!
+Miqu=C3=A8l
