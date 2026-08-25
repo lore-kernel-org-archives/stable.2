@@ -1,278 +1,158 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABFB334C39
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787682318; cv=pass; b=lBoiYGNG12VX8rGaVH3x/HcakjyXmuGf3tCeRLMqh8hQ+VIbs2HyfnbV0EMw6zKjA7e+9tKWxtgPbUXg9wKWaO1cS9lTX9OgD00eesvZr7axK/jFpCREu8aLKYJIP0hCKeCR3LCqdPy3P7JzuvBEjaf1PVUbsCXqZsyTh/btRQo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787682318; c=relaxed/simple;
-	bh=edvAyAV2B7rRFLTXUn3ZaH2JUJ3C/Mmk1zUbHa27RwY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lG6tCIPM4q0Xzb4wLwvbldI5GpjS5FqTZwBpc3CYpEi+pWgj6Lb8TofgVcOoyucTwcYylwp/N3HHCBwCWMrBlqGHZWg1lj+hwMXBkvVyZBdPjp81hBVGuhe+dsy0MrQUXQn4EaLp21nIM1Z59Ti8X0fH0wUSy/2bGOYAE+54fNg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h0yKpFPP; arc=pass smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C35122D785
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787682757; cv=none; b=ryYLpwbWeAeRU2rdOnWlzTljEOxem6HBU/OAqxb3DvqhB+FjFOq6UNz8t1nRyQENASKcDsuEyE8d0squNL2khj0wcwJYpKmqy5azsSubVW5J0Y3nBQCnX7eNvGlUCairAYA97KPfBlx2n5WE3LyWy2d2YeFEJEe62aRLNjgS5Os=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787682757; c=relaxed/simple;
+	bh=PEUh5RLGTVidTbS/TJT9PVJi1gQFkodyRDfs9AfH9W0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kwlaOXxN3BAN3fhLzlVTE9qMeddTFzJHyG/5Wk0C/f1mUU9518GqdMPtJMi/awy6zHFKX3+JpCVPclPJrN+2vfnU6+6RV/c3I3jN5Zrh39Q5AEy3fHD/V5ILKPfwuSmu5TVvTgZnt6y56LP/1JIUUz6BNk95ysNWAdtWmcDcak0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dal9Q50D; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=P1cC7LUa; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h0yKpFPP"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8535a9be75eso154413b3a.2
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:25:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787682317; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o1QP26BqKS3/p7iAMn5tg7dKAUlBdC9yAw0bQnNOgpOEIRk4G8VbGwAb9yxGVJXlja
-         ps7xeWv8AKcxazY4Y5Cf1tHDIYAuysytpWLRbsZSz5omzRBYdpq0+fr53D1C1TquSnCW
-         PQd7KP21/+jGPFuJPt8/3ka24T7g6PbH18Z19OoTN4Cv6QxizxJSF0h1+Qw6ythSqzpi
-         0kzverTX+WhdTDOBqjlzwJWO83v3Zbt8+iAMg0SpjwBov2/4OU1Wj8GPm0oKxqKnf4F7
-         fLjPEt2Gnt9zNnc5JKAVDnHg+F6JdIXkrscGcqT4Y4pohDAkVjhyUR37g6nKqjrcwvJ5
-         4D6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=S/1Pr9NkaXBmIiFBKFLsBDr4+QWaBpFdxaq8v2gBmK4=;
-        fh=eYJHx5+NXjLbNzPLter/zwC7xImPQAlJ0V9AdoHz5PY=;
-        b=jurTcr3WXcXLzJORdNg9kQeaIGyBkQCIrvjeFhw4PI1u+JInaUnMxCzGOeWcm1M1cv
-         bD5QqeJGGA5Z5stGY23LzIq0oOM/lb8fHIu8oxe8xpAYmlg/7Hh2gV3TmJbf+cxqroiy
-         CWSbx+dZsieU7SNWSzL+HUutGt+ZtZ1RyhHQ5X9pT/eSmAfCGz4Bkgoe7Drcz1P+mGRA
-         k/qljNCkZgY2LZ1LJErDk8PIq0Q+byFdtgqjxSFv/F5F1e1oL9MTgkyeUJ1uWUIBpq75
-         AsmH8N8gJsPXaqMLMe6jC9liyElK2lH4ASaO3bwYkhtV807EWk1Xs9dZ688US88FZXcY
-         /nxg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dal9Q50D";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="P1cC7LUa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787682755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=w+YMnu6id4V5XvUuXw+f6RGrlFEPCBCMRJX1CXIFo/0=;
+	b=dal9Q50Du6F8VNqgG/2BBs57FNIZW+dLj4jq1gRV1NnVW3fiH7VQ4o2HTF3OdVY9w6Ien9
+	mjJ7GYRXHEvOYNiTL5GV+BYE3+wR0dEnL3cJyilxcJf40OcMNzk0Jin1xqWyPfkjW4hiWF
+	SRb3wZ3AVFEsOXu9jTnYPkD0SRzHlwI=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-624-buLVv2RVMxSlJVCJP8XxZQ-1; Tue, 25 Aug 2026 14:32:33 -0400
+X-MC-Unique: buLVv2RVMxSlJVCJP8XxZQ-1
+X-Mimecast-MFC-AGG-ID: buLVv2RVMxSlJVCJP8XxZQ_1787682753
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-907c59bd73bso2220506d6.3
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:32:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787682317; x=1788287117; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S/1Pr9NkaXBmIiFBKFLsBDr4+QWaBpFdxaq8v2gBmK4=;
-        b=h0yKpFPPxRlRjnF+bFM1vrotOykjC2RKUcdR10My1iljuViSBMqb1M0+ZuLGUB+Hm4
-         KFzkkUdeXYLKXhS2ltrbc8hJ1ndKXS3C4ZPXwZ688iMh99e3peHgFwkZ/DnASHorixFo
-         /kEXXoNH4PDEmCnsH2puwPQwsb3lR4S9rb1ULL1AfaVvnSCvyGC/3T5+YyXkfsGfh7Ye
-         IwGeyKS/1LGUuKdQA7rPImpIg9iq8+ClF4KQL0G2dfwKu7g1M7TPwIFlkQN9VpSiIGSH
-         HHoFzOekZomYmgWeOd0xQ7XcsEpUPZEGJAMBJ607sg5QZ8cB/YXPZwKyVVmvr0QHhqLr
-         gIBw==
+        d=redhat.com; s=google; t=1787682753; x=1788287553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w+YMnu6id4V5XvUuXw+f6RGrlFEPCBCMRJX1CXIFo/0=;
+        b=P1cC7LUaBMS/bemdbt8p0lP9ItP8vkiZnrrvyqKby+G6k0rwMWBM1wrtLxbTmHglYS
+         vnHT/h0FKoU6phXpa3zShHDOp1zEM93vziiz1ud/wwPe4pPcB05VkElUS3jucSZmmwdC
+         W+A6nRb6eYtvxj1cQTnEBcckde8TTGjS6e+U2fE80+jo/DGEcMfNpSLgBwqK/x/k/aXk
+         4mC5yqrgvhZXbmaV+bt3XWDQ+O9j9WUNXCxQtZuzOpaJvI+zTTLrnMg7ss2Dl2T9ZMrr
+         Auj/1VGcwB/RlMA86VmhPqMEFkw6QyLRsWdAUt+UFu6BSPh3CAttEgH7VQXYRezACYdZ
+         /ugA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787682317; x=1788287117;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S/1Pr9NkaXBmIiFBKFLsBDr4+QWaBpFdxaq8v2gBmK4=;
-        b=r/KfseAJr4kcp94kFVsnefeHzN8EQI2njJF6VaF6BFMi8qJQhsmgu3n8mm99vgI29U
-         CWlxejMWbldmb94/G1JBS1pQefWCcZlQqqG8k+NH2eT8fNaKvTdcHqzXp29Q8wV35KIk
-         +0vM0KXEIa6ANkKQplIKdCeZxXo2YiD35mnuWttFRp8XvWhXfSHaUZ44KOXcyQ4oZaPZ
-         ketlSsD1uFkqS4QkoxsbpySsYf1ek3i7kK9D6EBvrPrnmYNqxCt6vTNTRDW6mQudlE5t
-         Rjj3NfVDpGgH06T0Bkod6njL/tXS7H3+e6cAuhDAEKeZvuOYbBn5lqR3Twdxi9+kMhX9
-         cx5w==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4rqCoVmhxv64vYQOL8aDBlxBQOHwl+eg9Iyv/nNdEDjNTeJH9iSAcPRHdfEyu2NBqoOl6fF0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVViY78dNbRxtc+ScT5Q0hX55tOBTCXemWhVUYmIKuqElWkDfU
-	92eWSD3QAzD4/0UB3NBfPWdJRQE39OMKI2HTSeH+HwE3UKLPsL+KOai1Dpwsgyk6jhEYbadAs6G
-	BvqtYoiBuPFtVfS7jzlmtHdHfb8/TVg8=
-X-Gm-Gg: AR+sD130gMfCQFhjpKvT8aHPII00zsJ8g0i6c8sVvwhIuPvnM5tbLhIO7psy+Cr8ffk
-	KwDhhjwCbKTBKfJnNPFJTdSVqp9jIG4kxSiY1WLgJhPZ85s/X1N7XS9OGj9VTNuh/PHAgX9jH8m
-	Ddu94l9ijR9i7EcucFqxfvcQJHaiXv+ZZPtXD2UHeeQjzYwjbB+0MvgmDYgAmZbrOYHi3nvqgOr
-	MZrZlYLBTXZ+dqxSthuSkn2pWl3VednbjEcZ8NVHWlB5mBEFjGhT6ZElGcAZtHPnpspZmMyX8Nf
-	0EYIix61TiVjSMklFUPJ2zz/ASjV8WvXClSUGJJhuwVgFMZiKwM1W4ktx1WX3DTf77Bpzly1Co/
-	x8pAHyt/uZXvrF/GTi8OdNwUYWrTJQht0t/88OQP/PA==
-X-Received: by 2002:a05:6a21:4514:b0:3c3:88a5:83db with SMTP id
- adf61e73a8af0-3cf7607aa02mr845026637.5.1787682316507; Tue, 25 Aug 2026
- 11:25:16 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787682753; x=1788287553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w+YMnu6id4V5XvUuXw+f6RGrlFEPCBCMRJX1CXIFo/0=;
+        b=s8mCXJNonCU077Llc54dM3lkiZjWf5JV/C8x8lp3Bf0wn/m/hpdS8wLoB9G0nNYfYj
+         /c5aXHVW3H/6TDDeWGkDl18e/ZWi7T6yByhhSsicXVXEjsXvFgnbmdD3JhIjI18ez+pp
+         3eCYOxLPnz/0pD+7hLqldmh524LfpJ6j4G4fWr3qXETxsAKoQPjjQ9mxFue3g+CJFQ3e
+         6zwbzGIPQ4ULraQP+E3ROK04KTCd3sF2yuu9/DEDZ8pp94OLAFOEdICENMDu5Xinl4Ba
+         iIUwdnO+pn7qEpxPDJrL+Fvl1t7pmgtIuKut2yTxnrtrPNVvRWSYRZhDzMTKfOW75mhp
+         Hw+A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrj+nlEWtY03lTilMe/d8Mk0LDRpqt5PZzc/wgOelmngJM3JcH59Msg6gsgMnbGmaOGmaJ5Pnw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lo5HjQXP6VTuVLImVKFfU9LKe+XjG/YV6AZf9ENkA0OOpxwqFF
+	5FUBXN/o9/LUYR34Gzj6Ocn6sUeL6/+O6zoqr3PbrV1HWT+BWwYI+SKVLi40gRMV0qvlZ9qJm5q
+	zJb8IUoUQGapXHuYeOxi1mkVpONvXZzbtu/1fuTfltH05GV+M0xl/S6YCCg==
+X-Gm-Gg: AR+sD10I6/PbYI/7fJCoWjOAO3qBKYHfD7g1AUk926t6hspkReAb55qMJN+oZK/eFJF
+	QkLTsAlhVIANy1IqvtwmCxq6kVIkKCYG9LazImVhEy+X739rz73P3JKR/tkces3D1+4uowXjZrD
+	AE4sZySobIsvL0VHVASkuX2QsFQV9Pj98I2pt4LurkdmQF6MK4Ia0KWsc5FmLLDhuJ3EO8C+9RY
+	Ewv5vuQ/ffwBLq+oGZbtZQSJtwZAipLEk4KiaWU3zfE0E6hPZPApWA/2n5B+awQ+e8E4fheKXyd
+	gvLsBhSFJ2CZ20W0PHiNQRx2fuZPnt7DIxuL3XZ/nstb4RpFbYCxXVFBZ0gj6iI18FmpyMLVl6m
+	mwKdhc3yXtygOt+9h524Oeza9mv+MlDs65G7h6tuW6GKdDW+G3PMuMrrOFz3x
+X-Received: by 2002:a05:6214:4608:b0:907:c0e1:62e4 with SMTP id 6a1803df08f44-90cc792d3e7mr7220706d6.9.1787682752999;
+        Tue, 25 Aug 2026 11:32:32 -0700 (PDT)
+X-Received: by 2002:a05:6214:4608:b0:907:c0e1:62e4 with SMTP id 6a1803df08f44-90cc792d3e7mr7219776d6.9.1787682752382;
+        Tue, 25 Aug 2026 11:32:32 -0700 (PDT)
+Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cc641a940sm5250666d6.20.2026.08.25.11.32.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 11:32:31 -0700 (PDT)
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org
+Cc: pc@manguebit.org,
+	linkinjeon@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: fix heap overflow in cifs_do_set_acl() from mismatched ACL format sizes
+Date: Tue, 25 Aug 2026 13:32:29 -0500
+Message-ID: <20260825183229.3799705-1-sorenson@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818203234.1142913-1-simon@swine.de> <CAEf4BzbkKwM-uwc1=o2p2v-bjuYNxM++La8Gr5edv5H6sGGqDA@mail.gmail.com>
- <aooIR-oRaN4iIQRy@krava> <CAE_y42AS2egu9athNHmqSYVP7wc8E4fhLg5T51tDTVx6QL3LMQ@mail.gmail.com>
- <ao2f-rBgT0SqX6Pw@krava>
-In-Reply-To: <ao2f-rBgT0SqX6Pw@krava>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Tue, 25 Aug 2026 11:25:01 -0700
-X-Gm-Features: AcwNN1Ubykf5Gnf0-64UjfJ-P4ZUe9OrImEiLJNVde-Q11fNcy5dc189CLBU-Ag
-Message-ID: <CAEf4BzZfQwOTS8HGryFR0V7FKxtAbbs=qe+2eYk=RTj7gNK09Q@mail.gmail.com>
-Subject: Re: [PATCH bpf v2] bpf: guard uprobes against private-stack corruption
-To: Jiri Olsa <olsajiri@gmail.com>
-Cc: Christian Simon <simon@swine.de>, bpf@vger.kernel.org, ast@kernel.org, andrii@kernel.org, 
-	daniel@iogearbox.net, martin.lau@kernel.org, tj@kernel.org, 
-	yonghong.song@linux.dev, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 7:00=E2=80=AFAM Jiri Olsa <olsajiri@gmail.com> wrot=
-e:
->
-> On Sun, Aug 23, 2026 at 12:05:40AM +0100, Christian Simon wrote:
-> > On Sat, 22 Aug 2026 at 21:36, Jiri Olsa <olsajiri@gmail.com> wrote:
-> > >
-> > > On Fri, Aug 21, 2026 at 11:06:16AM -0700, Andrii Nakryiko wrote:
-> > > > On Tue, Aug 18, 2026 at 1:33=E2=80=AFPM Christian Simon <simon@swin=
-e.de> wrote:
-> > > > >
-> > > > > Eligible BPF programs use one private stack per program and CPU. =
-Both
-> > > > > bpf_prog_run_array_uprobe() and uprobe_prog_run() use migrate_dis=
-able()
-> > > > > to keep an invocation on one CPU, but another task can still pree=
-mpt it
-> > > > > and run the same program on that CPU. The second invocation then =
-reuses
-> > > > > and can overwrite the first invocation's private stack.
-> > > > >
-> > > > > Protect each real program invocation with the existing per-progra=
-m
-> > > > > recursion context. When the program is already active on this CPU=
-,
-> > > > > account for the missed invocation and skip it. Return zero when s=
-kipping
-> > > > > an uprobe-multi invocation so session handling does not suppress =
-its
-> > > > > return probe.
-> > > > >
-> > > > > Skip dummy_bpf_prog in the classic array path before acquiring th=
-e
-> > > > > recursion context because its active pointer is NULL.
-> > > > >
-> > > > > Add a regression test that pins two threads to one CPU and overla=
-ps
-> > > > > classic and multi uprobe invocations while preserving a sentinel =
-in a
-> > > > > private stack frame. Without the guards, the second invocation ex=
-ecutes
-> > > > > and corrupts the first invocation's sentinel.
-> > > > >
-> > > > > Fixes: 7d1cd70d4b16 ("bpf, x86: Support private stack in jit")
-> > > > > Fixes: 6c17a882d380 ("bpf, arm64: JIT support for private stack")
-> > > > > Closes: https://github.com/open-telemetry/opentelemetry-ebpf-inst=
-rumentation/issues/3056
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Signed-off-by: Christian Simon <simon@swine.de>
-> > > > > ---
-> > > > > Changes in v2:
-> > > > > - Address review comments from sashiko-bot
-> > > > >   - Guard the uprobe-multi path as well.
-> > > > >   - Remove const from correct line
-> > > > > - Add a regression selftest for uprobe-classic/multi paths.
-> > > > > - Add the arm64 Fixes tag.
-> > > > >
-> > > > >  include/linux/bpf.h                           |  33 +++--
-> > > > >  kernel/trace/bpf_trace.c                      |  11 +-
-> > > > >  .../bpf/prog_tests/uprobe_private_stack.c     | 118 ++++++++++++=
-++++++
-> > > > >  .../bpf/progs/uprobe_private_stack.c          |  54 ++++++++
-> > > > >  4 files changed, 206 insertions(+), 10 deletions(-)
-> > > > >  create mode 100644 tools/testing/selftests/bpf/prog_tests/uprobe=
-_private_stack.c
-> > > > >  create mode 100644 tools/testing/selftests/bpf/progs/uprobe_priv=
-ate_stack.c
-> > > > >
-> > > > > diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-> > > > > index 7719f6528445..a94fc9898ece 100644
-> > > > > --- a/include/linux/bpf.h
-> > > > > +++ b/include/linux/bpf.h
-> > > > > @@ -2572,6 +2572,14 @@ static inline void bpf_reset_run_ctx(struc=
-t bpf_run_ctx *old_ctx)
-> > > > >
-> > > > >  typedef u32 (*bpf_prog_run_fn)(const struct bpf_prog *prog, cons=
-t void *ctx);
-> > > > >
-> > > > > +#ifdef CONFIG_BPF_SYSCALL
-> > > > > +void notrace bpf_prog_inc_misses_counter(struct bpf_prog *prog);
-> > > > > +#else
-> > > > > +static inline void bpf_prog_inc_misses_counter(struct bpf_prog *=
-prog)
-> > > > > +{
-> > > > > +}
-> > > > > +#endif
-> > > > > +
-> > > > >  static __always_inline u32
-> > > > >  bpf_prog_run_array(const struct bpf_prog_array *array,
-> > > > >                    const void *ctx, bpf_prog_run_fn run_prog)
-> > > > > @@ -2617,7 +2625,7 @@ bpf_prog_run_array_uprobe(const struct bpf_=
-prog_array *array,
-> > > > >                           const void *ctx, bpf_prog_run_fn run_pr=
-og)
-> > > > >  {
-> > > > >         const struct bpf_prog_array_item *item;
-> > > > > -       const struct bpf_prog *prog;
-> > > > > +       struct bpf_prog *prog;
-> > > > >         struct bpf_run_ctx *old_run_ctx;
-> > > > >         struct bpf_trace_run_ctx run_ctx;
-> > > > >         u32 ret =3D 1;
-> > > > > @@ -2635,15 +2643,30 @@ bpf_prog_run_array_uprobe(const struct bp=
-f_prog_array *array,
-> > > > >         old_run_ctx =3D bpf_set_run_ctx(&run_ctx.run_ctx);
-> > > > >         item =3D &array->items[0];
-> > > > >         while ((prog =3D READ_ONCE(item->prog))) {
-> > > > > +               /* dummy_bpf_prog has no recursion state. */
-> > > > > +               if (unlikely(!prog->len)) {
-> > > > > +                       item++;
-> > > > > +                       continue;
-> > > > > +               }
-> > > > > +
-> > > > > +               if (unlikely(!bpf_prog_get_recursion_context(prog=
-))) {
-> > > > > +                       bpf_prog_inc_misses_counter(prog);
-> > > > > +                       bpf_prog_put_recursion_context(prog);
-> > > > > +                       item++;
-> > > > > +                       continue;
-> > > > > +               }
-> > > > > +
-> > > >
-> > > > I think it's unacceptable to skip sleepable uprobe execution just
-> > > > because there is the same BPF program attached to a *different* upr=
-obe
-> > > > (and all due to a private stack that no one asked for or needs for
-> > > > uprobes, really).
-> > > >
-> > > > As a short-term fix, we should probably disable private stack for
-> > > > sleepable uprobe/kprobe program (and tracepoint/raw_tracepoint), an=
-d
-> > > > think how we can make private stack less per-CPU dependent.
-> > >
-> > > +1 for disabling private stack for uprobes
-> > >
-> > > thanks,
-> > > jirka
-> >
-> > Thanks for your guidance. I have just posted v3 of the patch set, which
-> > disables private stacks for sleepable programs.
-> >
-> > I am still unsure why non-sleepable uprobes would be unaffected. On a
->
-> I think we need to disable both sleepable and non-sleepable uprobes
->
-> problem is that we can't say if kprobe program is going to be attached
-> as uprobe or kprobe, so we'd need to disable both kprobe/uprobes, which
-> I'm not sure is a problem
->
+cifs_set_acl() validates ACL size using posix_acl_xattr_size(), which
+computes the Linux xattr format size:
 
-I don't think it is, private stack is most critical for struct_ops
-where we can have intentionally recursive calls (sched-ext had/has
-such use case, I believe), I think it's much less of a problem and
-risk for normal uprobe/kprobe (and other tracing programs for that
-matter)
+        4 + (count * 8)  // 4-byte header + 8 bytes per ACE
 
-> I don't see how tracepoint/raw_tracepoint are affected by this problem,
-> because they have either retursion context or bpf_prog_active check
->
-> jirka
->
->
-> > preemptible kernel, their execution paths use migrate_disable() rather =
-than
-> > preempt_disable(), and rcu_read_lock() does not prevent preemption with
-> > preemptible RCU. It therefore seems possible for a task to be scheduled=
- out
-> > while running a non-sleepable uprobe, after which another task could in=
-voke the
-> > same program on the same CPU and reuse its per-CPU, per-program private=
- stack.
-> > Am I missing another mechanism that prevents this?
-> >
-> > Cheers,
-> > Christian
-> >
-> > ---
-> > v3: https://lore.kernel.org/bpf/20260822225444.2774461-1-simon@swine.de=
-/
+But cifs_do_set_acl() calls posix_acl_to_cifs() to write the CIFS
+wire format into the same buffer:
+
+        6 + (count * 10)  // 6-byte header + 10 bytes per ACE
+
+For the same entry count, the CIFS format is ~25% larger.  An ACL
+with a near-maximum count that passes the xattr-based size check in
+cifs_set_acl() can overflow the heap allocation when written by
+posix_acl_to_cifs().
+
+Before converting, validate that the CIFS format size fits in the
+remaining buffer space.  Replace the bogus hardcoded MaxDataCount
+value (1000) with CIFSMaxBufSize.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+---
+ fs/smb/client/cifssmb.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index f5aad5f61dce..4ce22fe3cb2e 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -3555,6 +3555,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 	int rc = 0;
+ 	int bytes_returned = 0;
+ 	__u16 params, byte_count, data_count, param_offset, offset;
++	size_t cifs_acl_size, bytes_available;
+ 
+ 	cifs_dbg(FYI, "In SetPosixACL (Unix) for path %s\n", fileName);
+ setAclRetry:
+@@ -3575,7 +3576,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 	params = 6 + name_len;
+ 	pSMB->MaxParameterCount = cpu_to_le16(2);
+ 	/* BB find max SMB size from sess */
+-	pSMB->MaxDataCount = cpu_to_le16(1000);
++	pSMB->MaxDataCount = cpu_to_le16(CIFSMaxBufSize);
+ 	pSMB->MaxSetupCount = 0;
+ 	pSMB->Reserved = 0;
+ 	pSMB->Flags = 0;
+@@ -3587,6 +3588,15 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 	parm_data = ((char *)pSMB) + offset;
+ 	pSMB->ParameterOffset = cpu_to_le16(param_offset);
+ 
++	/* make sure we can fit the larger cifs_posix_aces in the buffer */
++	cifs_acl_size = sizeof(struct cifs_posix_acl) +
++		       (acl->a_count * sizeof(struct cifs_posix_ace));
++	bytes_available = (CIFSMaxBufSize + MAX_SMB2_HDR_SIZE) - offset;
++	if (cifs_acl_size > bytes_available) {
++		rc = -E2BIG;
++		goto setACLerrorExit;
++	}
++
+ 	/* convert to on the wire format for POSIX ACL */
+ 	data_count = posix_acl_to_cifs(parm_data, acl, acl_type);
+ 
+-- 
+2.55.0
+
