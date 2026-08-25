@@ -1,103 +1,121 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855C23F5BDB;
-	Tue, 25 Aug 2026 09:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D853FE347
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787651657; cv=none; b=X2WHupOSn5dNvMWxEOPhY4lPF7luKC5ZBQB3fo4dXPV+kI9MISiOTa79bzzti46h1H91Wz7OVDHkYtObFOmdWMmXRapDkdyeaV6lgCDM3X+/nEGbbwmaXcKsa9u/roJzbxQ7rw8xcBmTQTeIGs/2OTTYtrn1fb/ivp6BsVM2Lsk=
+	t=1787651735; cv=none; b=o0UXMo0EUsapTvgo+H2N21TmwHtTjJiGOlJ2ROQUVCYjlHyUwonrUXH8BRsf9++A+mbCD8VpK6dVRRe88JtvYx08Lcsk5mnDs9ABLCfCbnrWAAcYT7QMNUVqxl1j7g8nVc4j73NXFZiLYhk3qE6MPTZoMT0VGzji+iY1vTL0g44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787651657; c=relaxed/simple;
-	bh=9VzUH3yQXpFtXHm7ZxHmWMtcLFl1q+qw7kcAIRn37H4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CYjsQX27/y8VlPO77LbajtQAeLs78t4BZdnLZuRpB1g9pc3pU4b6iOiGDRCLu/WfB8jK2jJxMGTr2wYFqPavzYagWLrJUvyWIStf4jvHoyWPlLdZUORF//XPUnlnDo1WFdOj8sDFD/mYic3Da6fC3kLZrcSLlNFdBQNw3JhAxiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: eab5e56ca06a11f19a56ed5b684f684d-20260825
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:3d8f985e-fdd4-45c7-8c88-0b9d3a8b262d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:840bb7b4110cd749ec60fbbc926f4b1a,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: eab5e56ca06a11f19a56ed5b684f684d-20260825
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1235446033; Tue, 25 Aug 2026 17:54:08 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
+	s=arc-20240116; t=1787651735; c=relaxed/simple;
+	bh=XzaAibm+M9Dc/5gYq3GKmDGXqfQoFphDgDegCWcgc1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NEzszZoY7k/zC62bN82f3FkCQzJFUoP8SduLkBnQw+JZvKdlVlfxBqtaBpFWikV9q5wfN5fOdTV2irsWGgujTegiXXPlN+s4MSaEmy7/RXGesktFZALkKuMzqyGIVhbI9EDswbGu0A1jnjEIG20hbqZzxEvadHHuq64DN+kziqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=a9VO3vXO; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="a9VO3vXO"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15c42a45adso86631466b.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 02:55:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1787651731; x=1788256531; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L8/ympwJy7UG2l2hXdqKdXh3q513FQ6SISpiMxScLrc=;
+        b=a9VO3vXOoxOOz1cI+cNXw+f+O+XEpaLqRoN5vjSYepjLse9Sf/v2LpDi6I61guXC3f
+         MMqNo/v1qvtEXXgAcsOWkDjpUMtTg+DKhWmma8Ku8ksikBH9oXNqQNx2qEwzJWUdsqFn
+         TyvigluBmcG8II71uf77TISqr8qk4kRk6H/bRjsgosvkQ1KXw9ulOrv1VuufJnPoZCai
+         mZHFd8Grh88BjDNL5gIx01EwYTft1b5Ub+IjMi0ZZDSE0FxFcfusbItK3S6cjBq+lSLL
+         KBHDxoDYqUPzEVTp01dOOtUJmaIm953XVGI7KoNwACjkcmxjXbB+PTebXFinSBitUjey
+         eczg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787651731; x=1788256531;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L8/ympwJy7UG2l2hXdqKdXh3q513FQ6SISpiMxScLrc=;
+        b=TTMnXFyhHpqZT9QdCtRrPjDkxNlxceji2gdINpUpUMTa75wHU32BQTCrx2TTn/zzZq
+         TW5JxTi95V4fFe5KJoRPvQ/v0uDisw6AnmZlhbvxOTpFaXU8kWhSu75I6aHpvRoDJeGV
+         tuwkR5BUZMbFKDOqs3i1KWR+A6ANvXt7cxQw7VsOlL4IfacCf7T7Ek4nYzLr/NPFmiVZ
+         0cwuuoq30NPLj6NAIZAaRK294yJXBk+Xpn6UuS6Oj784eGu3QtaFTaZ9R43LQ/NedHJ5
+         ZgZ1XOmyIiLV9mSIBrn+flOqY03ABLXl9C0HRFi7WL7Ho4ywurDTzUrf6yCOMGECYCMq
+         WYgg==
+X-Forwarded-Encrypted: i=1; AHgh+RrDg+fRTKneQ4bbfota+csEknDQ0kIMp7EXVJ/DbGXklxm/xEpLyk4gZ7EI+f+098ZwJRvTKxQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfUPgpXqHKBh/wgP7JA/3FqYyNUTal+Ek0OnUS3Ce1wUkG+/fU
+	oLQGESkIQSyp3xntEBIFOzwrSmcOA5LhFv2ybw8tkuatoOvTE0P1jVr7qNuXda8Jc/Y=
+X-Gm-Gg: AR+sD12g0zynUb6lvJDE/BPczbU/aOks+ylpAmQVhb74WQPGx2ekJCs67kG0Y2piL6l
+	qLU9oce/+wknxGW8+W6JNBp+bMeWEXtPcosysHG2mebeXD5ekcRy/s5wbeiSnOmJYK4A+qw8Cfv
+	Mgj6Yyx3stJ+e02rpon1xo7kHFFXfIs/OmD2r2+2OTGzATfm8Nw4z7T+7xLg6ZwN9g7RrvKNrDb
+	eMapLKC7YqKI4XF8F51XT9BYrvzLTLCPIXz3Nr0M8JCeAnpBrYPNGS3KcqdxzOFjR4NnqlsSWCR
+	QXLe0J2dq1nIQ6tWXL1/FpMYr9YEMONVX9YHhU5zny5/0DXV0gRraIkPxjoRMoUpDwGkYcCYl//
+	RSrlCY0SAfuHmZBJkarnBPnla0SMxYi6tmnN3DcOrwmJr5+RHPOT4MXhx1tAdjOd1rOXKcAuMBN
+	yrbf6J833lMnbiwVHQHCYH8qYgoJLpjYp10Ls7Qj987FeCIZ33PR2J3/dMlswe+A==
+X-Received: by 2002:a17:906:794f:b0:c1c:4c72:e6df with SMTP id a640c23a62f3a-c24e2860886mr564689466b.0.1787651731469;
+        Tue, 25 Aug 2026 02:55:31 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f6b48sm1759023966b.33.2026.08.25.02.55.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 02:55:31 -0700 (PDT)
+Date: Tue, 25 Aug 2026 11:55:29 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Bradley Morgan <include@grrlz.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Jinchao Wang <wangjinchao600@gmail.com>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	Rio <rioo.tsukatsukii@gmail.com>,
+	Pnina Feder <pnina.feder@mobileye.com>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH] ntfs: fix undefined behavior in mft/index record size calculation
-Date: Tue, 25 Aug 2026 17:54:05 +0800
-Message-Id: <20260825095405.858623-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: Re: [PATCH v6 0/6] panic: fix panic_force_cpu= redirect races and
+ NMI bypass
+Message-ID: <ao1mkbDPbChOKjt9@pathway.suse.cz>
+References: <20260818163806.17460-1-include@grrlz.net>
+ <20260818114158.cc20b0cfcbe730a30597b466@linux-foundation.org>
+ <0EBA4DAD-7B63-4AD6-B1E7-523D09E1305D@grrlz.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0EBA4DAD-7B63-4AD6-B1E7-523D09E1305D@grrlz.net>
 
-The boot sector validation allows clusters_per_mft_record and
-clusters_per_index_record to range from 0xE1 (-31) to 0xF7 (-9) when
-interpreted as signed values. When these are used as negative shift
-counts in expressions like `1 << -clusters_per_mft_record`, values
-like 0xE1 cause `1 << 31`, which shifts into the sign bit of a 32-bit
-signed integer, resulting in undefined behavior.
+On Tue 2026-08-18 19:45:47, Bradley Morgan wrote:
+> On 18 August 2026 19:41:58 BST, Andrew Morton <akpm@linux-foundation.org>
+> wrote:
+> >On Tue, 18 Aug 2026 16:38:00 +0000 Bradley Morgan <include@grrlz.net>
+> >wrote:
+> >
+> >> The panic_force_cpu= parameter redirects a panic to a specific CPU so
+> >> the crash kernel runs there. The redirect code in panic_try_force_cpu()
+> >> had two races and an NMI bypass, all found by Sashiko. This series
+> >> closes them and kills one more hack that the rework turned up.
+> >
+> >Thanks.  Sashiko had more to say:
+> >	https://sashiko.dev/#/patchset/20260818163806.17460-1-include@grrlz.net
+> >
+> >In the first one it suggests va_copy(), but perhaps this would be
+> >better addressed with va_end/va_start.
+> >
+> 
+> Sashiko said there was ANOTHER bug, I might just screammm, at this point,
+> some sort of superhero needs to come by and suggest the fix that sashiko
+> likes :sob:
 
-Fix by using unsigned shift (1U << ...) instead of signed shift.
-This prevents undefined behavior while preserving the full valid
-range of negative values (-31 to -9) that may appear in NTFS boot
-sectors.
+We are all still learning how to deal with Sashiko. It is quite good
+at finding problems. We always have to decide/agree on what is worth
+fixing and what is not worth it.
 
-The encoding scheme uses negative values to represent record sizes
-smaller than cluster_size: -log2(record_size). Common values include
--10 (1024 bytes) for mft_record_size and -12 (4096 bytes) for
-index_record_size.
+I described my opinion in replies to the particular patches.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/ntfs/super.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Anyway, we are getting close. I believe that v7 will be final ;-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 30481e5d5dd4..a1813093222b 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -695,7 +695,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
- 		 * = -log2(mft_record_size) bytes. mft_record_size normaly is
- 		 * 1024 bytes, which is encoded as 0xF6 (-10 in decimal).
- 		 */
--		vol->mft_record_size = 1 << -clusters_per_mft_record;
-+		vol->mft_record_size = 1U << -clusters_per_mft_record;
- 	vol->mft_record_size_mask = vol->mft_record_size - 1;
- 	vol->mft_record_size_bits = ffs(vol->mft_record_size) - 1;
- 	ntfs_debug("vol->mft_record_size = %i (0x%x)", vol->mft_record_size,
-@@ -732,7 +732,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
- 		 * index_record_size normaly equals 4096 bytes, which is
- 		 * encoded as 0xF4 (-12 in decimal).
- 		 */
--		vol->index_record_size = 1 << -clusters_per_index_record;
-+		vol->index_record_size = 1U << -clusters_per_index_record;
- 	vol->index_record_size_mask = vol->index_record_size - 1;
- 	vol->index_record_size_bits = ffs(vol->index_record_size) - 1;
- 	ntfs_debug("vol->index_record_size = %i (0x%x)",
--- 
-2.25.1
-
+Best Regards,
+Petr
