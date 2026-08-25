@@ -1,123 +1,119 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F66F3F3284
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7DB3F788A
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:23:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787653224; cv=none; b=p2XquLchAiTjWTVkJ77YvaE1zzwFX8+NysmnGPGwJPmjKHh7VSVDUFKYfwg0XAWBGaEhJHuypRXZVFg9MSaB/3Evj5VNtg5PEv/yfnyv3sl0RRfp7lmH+BhkkXCpXeD9uew2Y7D9mqMZ93WUxgulC9eIshT4zp9X0tfn836m6+I=
+	t=1787653391; cv=none; b=p58CftyImbylcj3twauVVZEg2eWROuwtpade8BfER3r71q2mjV53pe+fyAZ0wbfrVkd0LXR9ohinZ7YO/CbTbX8gWT535uC5t68is+mpSy0552YRe3FRrLY3tXhcH2QxVAywq1/a3bykW6lwhugCkPaTveun9BX+6iJqCF13wqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787653224; c=relaxed/simple;
-	bh=VwnCPhwqB5g/Gfq9pegelUvx5vJ+9qzrhPFnEoTLFj4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aw9WUgfsMouZgTD7YTYFH6cpsQuvMROsRQLpuT9PgwMIWOuCGoo9Knwg2lwYfJRI2os9pKkXcyarmaFu0v8w8hFFlsLE7Si9CRUeuvy+DL1iVSKXwyfvQHyR+CUo4V0hRH6VRLgR8HpZz9KatAUumSuuXP7kmvWnKBNoPVZI+h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KVk1IN4v; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787653391; c=relaxed/simple;
+	bh=lqMXD3suOr+sitndCEj6l9BWxP7uFteuQLonBXuJZuY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gPzzexoq+KnjFR6E5pw6ONEXjmi+qFP+5sz/eVtMj6DRzcrCgh/6v3S7syftNROhofpuN78Ibjuknf1arEzvOn/OZcN1merQ640sssAmZJEfPbnL0PXYzgL29wPSwJYPVSE3v65sTru8OCAx4PPKnYyoN9SCecIpRTX/f47sdjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=Df/oG2tj; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KVk1IN4v"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84847482584so463540b3a.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:20:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="Df/oG2tj"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-698ae09e356so6393693a12.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:23:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787653222; x=1788258022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zQ4oewLEkWKOXaZHzg/gCiDZkRqq6di8ok5MYz3oEVM=;
-        b=KVk1IN4vGHMnMCG97XQpXbTHJf98y3+I4dqJVHQwU2E5X7AhUmL7O4b8y137+of94N
-         RDg+PRMsqaj/jPBmTzrVs7GvenCuuQ2avfcGeHyah0FaZA6QH64zdb0jzM0MOk30QwTP
-         xmhVtUzVsMMVgSgZC+iLWsxo15AQkeOBXeHiRsqbnqnMPfQfJhypOc4KV+655Rbxj+ix
-         0u2IXLvOIXpdlukahiBQDdcP23v0ct65f8lseWWfnckCQzYon4oK7rb4FWQ1H1xiJ6ej
-         51gJfsUYwDh2qxAhVGl37gCX2z7nOG7Gsk8Pw6YovXH+KlNxvKzC9zFqQnVHSsXKK2LL
-         wm4A==
+        d=blackwall.org; s=google; t=1787653388; x=1788258188; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h4FFQMfXNiGpn+c0Ds6FNCWxiddPqnNk/uHSviV3ZIQ=;
+        b=Df/oG2tjxtynxlxuivyAAtjvRVH31qMGGeAuXoTG47ewNzfIzWt14mc3N/Z4MpTVqP
+         9E2lwuLe9H9xw+fQomqc6GzjvtORRHl55oitVz6UAL4ixQvmVgt+u3JdHglM0WpJ65DJ
+         dhZSy7vwvRwihQH5o42oN5PYQo7DGYrp/XuzXSz5uyb6EBd/q+uzQwvUKxgbPreH7Q1S
+         SADj7UtJ+rXFcS9IiWAM9JRr1X1ZdTLyk5XE3bOB75TrW6+7g20dZRdhJ6cVmh0bYfHE
+         tBvOFnvNAd6Cu5+zrR5QbgzfSaUI83v0Np41maB/z6m1pN9bdjOWjBchPAc6nF6RynF9
+         tzyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787653222; x=1788258022;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zQ4oewLEkWKOXaZHzg/gCiDZkRqq6di8ok5MYz3oEVM=;
-        b=H4joHj8SbfKiISs/S9C0uiKaS/row30M8VTS8YHF/d837AFTM97o/YpApgbYlJlqsN
-         tSrV6/BIii5fXxcVftP6HjkvM3Z5IvAVlNuNnH1/g+yMyYXb1GANpGpLbWwmrRtMyEtl
-         tMNkiQNt4mLAi7V6BRH5APfhiH4Hv0/irWtqefxTaDd2Fwz3xjzOXhKkzzUm2E/A5S1+
-         vwwSNzHNYHoj2peWbMAiIShkuRhXNH6NAI88SKS9BcnVRK3YGGn7aUCWbaUmijSeo2yD
-         UN9YE/54Z+/RE2QfY9guK08KMxNYPRZ+Lw+n9ZH0ej4PidGYT8cNOZ2ez4lIDvsgDPUm
-         OhxA==
-X-Forwarded-Encrypted: i=1; AHgh+RrIqWyIdPtwhUyC3xnjjNIGAlIvuyp6zGKxgFq6M6K94KhQuKqCGoPvZhyygO4gPucMQgnaHKA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kORfx+kSHWDqJg2phlXh107yqcfBicdakAxumc5P62enWzx6Vv
-	VxxrpVwm4C2bgyZO/DrXDM6UOZCzEW25yq9e9L3Wj3Tn+hLzuTRdrEyY
-X-Gm-Gg: AR+sD13cAiw3LWJssR8x+aOzMCfjUh9z67mV3Mdd1+PFH8aOdgQ7x6T2/nNw70xDaq2
-	q+HFNOTreOZ7kvkVg9grM1L0XkVI9KTY+ihxhEu8+0ZTRc5Fynl31s6b6joPx0JsTzzlO5Lw5yY
-	HBgnA8gJXZYhV1XhG/6odQhP+afI6a79nTAAV4xzFfQMHa6bD1RDSS1pOgL9qkIDQb1qfIyFSwy
-	gu0YbuC7WhEruidbqC4KEQtF7nK5zv096L1GwQrkhN1rzEqPeErt8Xx6fNIhf5l8bxq0s0YnqG7
-	8YhpuqxWQds4ATCtS/mRbgdpYLcwCVb+QAYfVQEYEfhKrqZKj7ouhZ+ArvrTTni0om0B2PmpLpB
-	3V7dNJJB1ZqL6Lr7Ex2PJIlEd8qx0WpsJt8IdxGrA7eLe1SUvJg4B5xQ5oQ6Pcd9o32LmKOiXZR
-	wbRohy7Oo8JymWeCn7liMd1d3z/zK1wtNrG4sOTF2ukeyPdnOTFbv6SmNiwCOdZiQ=
-X-Received: by 2002:a05:6a00:238d:b0:84e:242:4bb2 with SMTP id d2e1a72fcca58-8523baf0f3bmr6228246b3a.4.1787653222346;
-        Tue, 25 Aug 2026 03:20:22 -0700 (PDT)
-Received: from TENCENT64.site ([103.7.29.106])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8520ed495c5sm2834862b3a.0.2026.08.25.03.20.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 03:20:21 -0700 (PDT)
-From: Jun Yang <littleddfu@gmail.com>
-X-Google-Original-From: Jun Yang <junvyyang@tencent.com>
-To: Nikolay Aleksandrov <razor@blackwall.org>
-Cc: Jun Yang <junvyyang@tencent.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	stable@vger.kernel.org,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: bridge: mcast: don't truncate the port group walk on
- teardown
-Date: Tue, 25 Aug 2026 18:19:51 +0800
-Message-ID: <20260825101954.3799675-1-junvyyang@tencent.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <19b05984-d67c-4c30-aec6-ee8e8be554d9@blackwall.org>
-References: <20260812113435.1854275-1-junvyyang@tencent.com>
- <5fddb18f-8ead-4680-ad7d-82123966cfa4@blackwall.org>
- <19b05984-d67c-4c30-aec6-ee8e8be554d9@blackwall.org>
-X-Unsent: 1
-Content-Type: text/plain; charset="utf-8"
+        d=1e100.net; s=20251104; t=1787653388; x=1788258188;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h4FFQMfXNiGpn+c0Ds6FNCWxiddPqnNk/uHSviV3ZIQ=;
+        b=i5eIYNCk4EWyqwztUORSB1mVwWE7qd0oPf2a6hd2W3CYc+/38gWfiK2qg/JEC3wihr
+         9RJ0TM8v9xeZA9ULAUcjOktkQUz9XM/nUDsTWj5mUg6gA0IzP2d7WDDR8gj9CgAuXOE3
+         DnaIFf1l8hwfyTCd3A+wdGOJZHRJVu0/dIeBkE8vbUm1qCPGQCywPuOs3uddVYnyYCFt
+         E4fDak76U+GyNZ+SVYGzxfW11bjbZTYN17jkquqJNu9XO6jQUuEue4EC6VzWE99KeCZF
+         FhKK4Rf+CtslqRzaWl1YtsgWfIYLR+qqJhAF4hy4GgfT3dWwPDSIYQCFYaaqmZrzg7rE
+         dCww==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2QuM7DYH5oX9gHoSq8+kTds4biD0I7wTkyUhQPH1KBR5HZefCHGAb7k3Zi1KpWChvN74gl40=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtGiPeTmNwS2kIuymuwrxbwEkz0m/kK4EkeMxra9q/Mq6KGxMW
+	XUrqN9zLd600B/WpRo+KaZOIewarL1gt64jGjcQEVKabdvfq8bUqG5F/iFuZooDnsFo=
+X-Gm-Gg: AR+sD10uKqhyVR6iz10D8bwFBY7jYPCknvCqF++i3UPIFYaLz0NP+FPdAiEMf61OMQu
+	wcp6myuaz1NpQ0swDOFDAvDYcfyTSL3fJOUgS1lT/I63/hclJjj7pdLkLL2FHTYMqjaSckAgOKr
+	3/FxHAZW6ghLzwg19AAjdFblJGedlditMsCKXxeDqw68vpv63vRx9Elz7uEtBhvgYSbUH8wh2iz
+	764G1QnNu9kv3AptOQCH6GtXJRwTaCoT7XMfqPP3jNBrarY9CuaexzOk7rcXKP8DcRQW4nDPWjW
+	3m/g8VI7YnFdIEXKPpvd3BhnzapYPlMoYC1tObnXJm2h7/Mi3VhzlFtzRgOx+9St8OVNzq/GtOT
+	oKkwrKRHoRT4jB0KXuWizxzdXGM6RelCqaXk6A5itIhFILa3V8hjQFdPTCqmr4mfsxA6jIyrpYN
+	ypGCSqvrQELhiQhI5O5/R5oVlDtTKWIhzM2r0rK4CYgkWnn6fgjkv1lzcWUs1prjqz35UAPDgmv
+	NGG5Zb/LI+J8Z9oDEE=
+X-Received: by 2002:a17:906:fd81:b0:c21:35d0:f43d with SMTP id a640c23a62f3a-c246a6c52c2mr3630062566b.16.1787653388035;
+        Tue, 25 Aug 2026 03:23:08 -0700 (PDT)
+Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249606a8fasm1880346766b.8.2026.08.25.03.23.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 03:23:07 -0700 (PDT)
+Message-ID: <f2d97d29-e380-4d1b-ae21-f5ea406119c9@blackwall.org>
+Date: Tue, 25 Aug 2026 13:23:06 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: bridge: mcast: don't truncate the port group walk on
+ teardown
+Content-Language: en-US, bg
+To: Jun Yang <littleddfu@gmail.com>
+Cc: Jun Yang <junvyyang@tencent.com>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, stable@vger.kernel.org,
+ TencentOS Corvus AI <corvus@tencent.com>, bridge@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260812113435.1854275-1-junvyyang@tencent.com>
+ <5fddb18f-8ead-4680-ad7d-82123966cfa4@blackwall.org>
+ <19b05984-d67c-4c30-aec6-ee8e8be554d9@blackwall.org>
+ <20260825101954.3799675-1-junvyyang@tencent.com>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <20260825101954.3799675-1-junvyyang@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 12/08/2026 15:21, Nikolay Aleksandrov wrote:=0D
->> +	/* use _rcu to preserve the next pointer because it might be in use */=
-=0D
->> +	hlist_del_init_rcu(&pg->mglist);=0D
-> Just to be clear - I'd expand the comment to include why it is safe to do=
-=0D
-> so and under what conditions (multicast_lock held)=0D
-=0D
-Thanks Nik, that is much nicer than the restart/checks dance.=0D
-hlist_del_init_rcu() works - the UAF splat is gone (7.2 + KASAN).=0D
-=0D
-Before I spin anything: would you like me to send a v2 with your suggestion=
-,=0D
-or will you fold it into the open-coded-list cleanup you mentioned? It is a=
-=0D
-UAF with a Fixes/stable tag, so a minimal v2 now may be the easier backport=
-,=0D
-but I am happy to leave it to your series.=0D
-=0D
-If you do want the v2, here is the expanded comment I would use:=0D
-=0D
-	/* Keep ->next (held under multicast_lock, freed later by the GC work):=0D
-	 * a port->mglist teardown walk may have latched this node as its next,=0D
-	 * and deleting other groups of the same port must not truncate it.=0D
-	 */=0D
-=0D
-Thanks,=0D
-Jun=0D
+On 25/08/2026 13:19, Jun Yang wrote:
+> On 12/08/2026 15:21, Nikolay Aleksandrov wrote:
+>>> +	/* use _rcu to preserve the next pointer because it might be in use */
+>>> +	hlist_del_init_rcu(&pg->mglist);
+>> Just to be clear - I'd expand the comment to include why it is safe to do
+>> so and under what conditions (multicast_lock held)
+> 
+> Thanks Nik, that is much nicer than the restart/checks dance.
+> hlist_del_init_rcu() works - the UAF splat is gone (7.2 + KASAN).
+> 
+> Before I spin anything: would you like me to send a v2 with your suggestion,
+> or will you fold it into the open-coded-list cleanup you mentioned? It is a
+> UAF with a Fixes/stable tag, so a minimal v2 now may be the easier backport,
+> but I am happy to leave it to your series.
+> 
+> If you do want the v2, here is the expanded comment I would use:
+> 
+> 	/* Keep ->next (held under multicast_lock, freed later by the GC work):
+> 	 * a port->mglist teardown walk may have latched this node as its next,
+> 	 * and deleting other groups of the same port must not truncate it.
+> 	 */
+> 
+> Thanks,
+> Jun
+
+Please send v2, I don't know when I'll have time to prepare my changes.
+The comment sounds good to me.
+
+Thanks!
