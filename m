@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA39470126
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:17:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB10471247
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:17:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663837; cv=none; b=fiZIa1KjCHwRrymelOlRi6g5YccoFlBJ9XNlpbeWJS1IdJuKGiL0RMX06l34pzM6NLdYd1t/d2VdF0IJFeOUI/3bYbrIM+v5heif4QNoFHwaxs3vjb/6GzLs9H/unv8tU7DY93KwVzw6BXn5f9z30qO5R2mVR9xsfEFeKCHqqQ0=
+	t=1787663872; cv=none; b=WizHA3u2FOv6Yv0y7po+TY83Z6KQHJsNC+yjJOvKDPA2gGH+VDuXl3KpYdBswypOQ6ok7P1nqqthyP4oV1nsanhOON7mGu7t7gdP8rNYro2/KkSUCw/dEfLedZhqI0gA5/jCbEuL23s4Wlp8hE2WwozBwFoNRY6yo+OCv6VWuJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663837; c=relaxed/simple;
-	bh=twO/J0iS0wFMvvrYvJluXHX8lCljSKP8/fYNSWlLuiI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=D9D7tsdcLydMiaU0f1D9GA+Y6p7x6mJVHt+0dF3QOfpypnXgK5HZogK8OLJ54O1zcn6EIrMviaDKOQQ+zYv5ztC8KNkpF1kD09vqClA7i83Wh5qZu0QX/Cg/jt1qzfcwVIVrQss5vvO6vRuo5jYjJadz63XUn8lfF1Hnw5L4i6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l2nZEW4/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787663872; c=relaxed/simple;
+	bh=UliAD8328nHt9AtdeaaHr3Ox3JagRSiOiR0LmwUtm40=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C6aDkxD5tL0w3RaHLShTbmbSka+2rPZ3odges0MGsR4Xsmsjqoe2X8om++HbPuPHFk2st6u+Zksc7r8W1vsn7G9GbikPtzmiglYm69fHa2FsZlDGzeJb/TxiJJuHV4Fdo3WiI3o2JfJzwm80IKx2R940BtNLLDVLVot7AMaVmbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AuR3Yb+v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l2nZEW4/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F141F000E9;
-	Tue, 25 Aug 2026 13:17:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AuR3Yb+v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A716C1F000E9;
+	Tue, 25 Aug 2026 13:17:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787663835;
-	bh=uTBWfS4kTvX5CMD7FHqYBTDMZOtETYHirwXNvDR1iWU=;
+	s=korg; t=1787663870;
+	bh=AIh/eNcA59VTFyakY36EwjzOVPOEc7w+AmT52micf6I=;
 	h=Subject:To:Cc:From:Date;
-	b=l2nZEW4/xvziaZb4zFl5WR1aRcDDJ1r28BPh9YLUMmt62pNs85BBU1rS8GzooyIKP
-	 9YsGs2UTP8JfGuNpP/ZfEXDgsHbpCRfWDN1ipSWhRTFg+ACSe+HnRTmOz7OAWauhWX
-	 067wzZ/9hLAaNjCoSbiUL4HDZMnLhThF9OyJRzAs=
-Subject: FAILED: patch "[PATCH] HID: input: read battery capacity from its actual report" failed to apply to 5.10-stable tree
-To: pepemontfort@gmail.com,jkosina@suse.com,signshop.alec@gmail.com
+	b=AuR3Yb+vCnxIWoq+xE302zVz9noC60ZsREoILQK3Yt8UrHgOcWMmUs91XFiK5pRlm
+	 v+pyZlszfY6+wcmG/I6n5w4eEqZwWZH/wuKqwdOHpVVL49NCntHeozH/cIh6vcoh2b
+	 PrfMzsLKy08VWnI6TWkKJxgqqfPdwuN1wsT7VYZU=
+Subject: FAILED: patch "[PATCH] Bluetooth: hci_event: fix LE list UAF on reset" failed to apply to 5.15-stable tree
+To: nicoyip.dev@gmail.com,luiz.von.dentz@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 15:16:45 +0200
-Message-ID: <2026082545-marlin-zealous-2533@gregkh>
+Date: Tue, 25 Aug 2026 15:17:45 +0200
+Message-ID: <2026082545-disparate-unlikable-75e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x d07644524b6511b622ee7b0e2e68c9ee43d522a4
+git cherry-pick -x 33af47e847fe4a28b109673affb5874015d54f5a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082545-marlin-zealous-2533@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082545-disparate-unlikable-75e5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,125 +62,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d07644524b6511b622ee7b0e2e68c9ee43d522a4 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>
-Date: Tue, 28 Jul 2026 14:13:09 -0600
-Subject: [PATCH] HID: input: read battery capacity from its actual report
- offset
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 33af47e847fe4a28b109673affb5874015d54f5a Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Thu, 30 Jul 2026 16:32:02 +0800
+Subject: [PATCH] Bluetooth: hci_event: fix LE list UAF on reset
 
-hidinput_query_battery_capacity() assumes the state-of-charge value is
-the first byte following the report ID (buf[1]) and ignores where the
-battery field actually sits within the report.
+hci_cc_reset() clears the LE accept and resolving lists without taking
+hdev->lock. Other command-complete handlers serialize updates to these
+lists with that lock, and the debugfs readers hold it while walking them.
 
-An Apple Magic Trackpad 2 precedes the AbsoluteStateOfCharge byte with a
-byte of status flags in its battery reports, so this query returns the
-flags byte instead of the charge level.
+This permits the reset completion and a debugfs read to interleave as
+follows:
 
-The device happens to make that easy to observe, because it exposes the
-same cell twice: its report descriptor declares AbsoluteStateOfCharge in
-two reports (0x90 and 0x9b), so hidinput_setup_battery() registers two
-power supplies. Only the first one is refreshed by hid-magicmouse -- it
-uses hid_get_battery(), which returns the first battery of the list --
-and that refresh goes through the report event path, which parses the
-field correctly. Nothing ever reports the second one, so every read of
-its capacity takes the query path above. On a USB-C Magic Trackpad over
-USB, on an unpatched 7.1.5:
+  hci_rx_work                 debugfs reader
+  -----------                 --------------
+                              lock hdev->lock
+                              fetch current entry
+  list_del(entry)
+  kfree(entry)
+                              read entry fields
 
-  hid-<serial>-battery-144 = 100%  (Charging)      <- report event path
-  hid-<serial>-battery-155 =   3%  (Discharging)   <- query path
+The reader then dereferences a freed list entry and may follow its stale
+next pointer.
 
-Both are the same physical battery. A raw HIDIOCGINPUT of the two
-reports at that same moment:
+KASAN reported:
 
-  report 0x90 -> [90 03 64]
-  report 0x9b -> [9b 03 64 64 00 00 10 00 00 00 00 00 00 00]
-                     ^flags ^SoC = 0x64 = 100%
+  BUG: KASAN: slab-use-after-free in white_list_show+0x15f/0x180
+  Read of size 1 at addr ffff8881015dab16 by task poc/95
 
-The device answers correctly in both cases; only the offset the kernel
-reads the capacity from is wrong. 0x03 is the flags byte (present,
-charging), reported as "3%".
+  Call Trace:
+   white_list_show+0x15f/0x180
+   seq_read_iter+0x3ff/0x1190
+   seq_read+0x267/0x3d0
+   vfs_read+0x177/0xa20
+   ksys_read+0xf7/0x1c0
 
-Bluetooth takes the same query path for its capacity, where the trackpad
-reported a bogus near-constant ~4% -- 0b100, the FullyCharged flag --
-regardless of the real charge.
+  Allocated by task 91:
+   hci_bdaddr_list_add+0x1a6/0x3a0
+   hci_cc_le_add_to_accept_list+0xab/0x140
+   hci_cmd_complete_evt+0x26c/0x9a0
+   hci_event_packet+0x454/0xb20
+   hci_rx_work+0x293/0x730
 
-Store the battery field's offset within the report at setup time and use
-it when querying, so the capacity is read from its real position. The
-report event path already parses the field correctly through the HID
-core; only the explicit GET_REPORT query was wrong.
+  Freed by task 90:
+   kfree+0x131/0x3c0
+   hci_bdaddr_list_clear+0xd8/0x160
+   hci_cc_reset+0x28a/0x370
+   hci_cmd_complete_evt+0x26c/0x9a0
+   hci_event_packet+0x454/0xb20
+   hci_rx_work+0x293/0x730
 
-Devices whose capacity field is the first field in the report have a
-report_offset of 0 and are unaffected (buf[1 + 0] == buf[1]).
+Take hdev->lock around both list clears. This matches the existing
+mutation and traversal locking convention.
 
-Fixes: 581c4484769e ("HID: input: map digitizer battery usage")
+Fixes: a4d5504d5c39 ("Bluetooth: Clear LE white list when resetting controller")
+Fixes: cfdb0c2d095a ("Bluetooth: Store Resolv list size")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-Reviewed-by: Alec Hall <signshop.alec@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
-index 3487600cadb4..b55cbe7f6e20 100644
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -432,17 +432,25 @@ static int hidinput_scale_battery_capacity(struct hid_battery *bat,
- static int hidinput_query_battery_capacity(struct hid_battery *bat)
- {
- 	int ret;
-+	/*
-+	 * The capacity field may not be the first field in the report: some
-+	 * devices (e.g. the Apple Magic Trackpad 2 over Bluetooth) precede it
-+	 * with status flags. Read it from its actual byte offset in the report
-+	 * (report_offset is in bits; the leading byte is the report id).
-+	 */
-+	int offset = 1 + bat->report_offset / 8;
-+	int len = offset + 1;
+diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+index 9764efb9e293..9c8bf6708356 100644
+--- a/net/bluetooth/hci_event.c
++++ b/net/bluetooth/hci_event.c
+@@ -297,8 +297,10 @@ static u8 hci_cc_reset(struct hci_dev *hdev, void *data, struct sk_buff *skb)
  
--	u8 *buf __free(kfree) = kmalloc(4, GFP_KERNEL);
-+	u8 *buf __free(kfree) = kmalloc(max(len, 4), GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
+ 	hdev->ssp_debug_mode = 0;
  
--	ret = hid_hw_raw_request(bat->dev, bat->report_id, buf, 4,
-+	ret = hid_hw_raw_request(bat->dev, bat->report_id, buf, max(len, 4),
- 				 bat->report_type, HID_REQ_GET_REPORT);
--	if (ret < 2)
-+	if (ret < len)
- 		return -ENODATA;
++	hci_dev_lock(hdev);
+ 	hci_bdaddr_list_clear(&hdev->le_accept_list);
+ 	hci_bdaddr_list_clear(&hdev->le_resolv_list);
++	hci_dev_unlock(hdev);
  
--	return hidinput_scale_battery_capacity(bat, buf[1]);
-+	return hidinput_scale_battery_capacity(bat, buf[offset]);
+ 	return rp->status;
  }
- 
- static int hidinput_get_battery_property(struct power_supply *psy,
-@@ -593,6 +601,7 @@ static int hidinput_setup_battery(struct hid_device *dev, unsigned report_type,
- 	bat->max = max;
- 	bat->report_type = report_type;
- 	bat->report_id = field->report->id;
-+	bat->report_offset = field->report_offset;
- 	bat->charge_status = POWER_SUPPLY_STATUS_DISCHARGING;
- 	bat->status = HID_BATTERY_UNKNOWN;
- 
-diff --git a/include/linux/hid.h b/include/linux/hid.h
-index 47dc0bc89fa4..51b21f98037b 100644
---- a/include/linux/hid.h
-+++ b/include/linux/hid.h
-@@ -642,6 +642,7 @@ enum hid_battery_status {
-  * @max: maximum battery value from HID descriptor
-  * @report_type: HID report type (input/feature)
-  * @report_id: HID report ID for this battery
-+ * @report_offset: bit offset of the capacity field within its report
-  * @charge_status: current charging status
-  * @status: battery reporting status
-  * @capacity: current battery capacity (0-100)
-@@ -657,6 +658,7 @@ struct hid_battery {
- 	__s32 max;
- 	__s32 report_type;
- 	__s32 report_id;
-+	__s32 report_offset;
- 	__s32 charge_status;
- 	enum hid_battery_status status;
- 	__s32 capacity;
 
