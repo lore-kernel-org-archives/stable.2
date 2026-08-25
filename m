@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFEA374170;
-	Tue, 25 Aug 2026 01:55:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7A1372B50;
+	Tue, 25 Aug 2026 01:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787622915; cv=none; b=p7ptL9eX8Mvze5S3pGc/g2p7Turg+iK6ljbdHi/wCehDL8nBOqzVtDWz2iXJNPVlHqeB0l/zTfeR8lWiFrggy9YKXvIMx0qBRgbVZrkUIf3f2ddWIwsUSAeWaq0Kj94DctJmS2mhbWaXJApvdjLGmyXZDnjJzlEdYOfvjxgLvdg=
+	t=1787622916; cv=none; b=uIPtkxtUFdNt8SPi/H/aGxop3TuBMRRuarCx5jdDCURJj8lT6Q2ZaQ8e/IxfRYSgFuFQOv6kiToHvk6aVOo1BfKqEfnPwDZm6I7n2OEAZ5dL0pTmbVL+SYqIYh6szQ4YW27J5Cqv3r2gISt/NW0NfxhmXqJyQ9XoRBmcO4vr4VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787622915; c=relaxed/simple;
-	bh=kPAGCdy+OAdyCtSQIMl4fEdlUgAvlv8YTucvotB0a94=;
-	h=Date:To:From:Subject:Message-Id; b=NLEXtK+cM4srCwPxueCoEHKWIzk5AIPYUE3X2YuU4Rx6Ef8DG8BVLZtc8ECdRE2oT3ufGI/qUdujaMoC97nfzCuGWJsfKWdaam9VZNOA4qhE5JewIi4d7uEB9HmEuSMXcQj9VD1OpIdf81ucrEYabZAqfnR2FjkM4TPzeedM4IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iY6yHToL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787622916; c=relaxed/simple;
+	bh=2yTY3wHz1D0UUUyGwRo8d77Q9U4v+you+3nRRboVl1U=;
+	h=Date:To:From:Subject:Message-Id; b=HLds7uJHzZ2/cTfe13czOjSy+1rXIQqVY+ZpCQDPcJFvMuHnwb/GvnzxQ1W/VJyoin2jk+eOehHc3DRKLr9ra2RVJRi7YH5xA4dLT5DrvxH9CRiORfq3a6Ijtcc2xvxoNNv7sEx2A7Q3ysy3KlerQBi3jtnd7wIuWOSm7fJIkRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=w2KXvBix; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iY6yHToL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E493D1F00A3A;
-	Tue, 25 Aug 2026 01:55:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="w2KXvBix"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331E21F00A3D;
+	Tue, 25 Aug 2026 01:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787622913;
-	bh=Fhqu5bMi5nUdgeC/dyLkj6K25le8wL4hDEAn42hU+uY=;
+	d=linux-foundation.org; s=korg; t=1787622915;
+	bh=BBIXlOC7C65mfIsPWeXTGiqT2NaLhxc5zFQexLthNC4=;
 	h=Date:To:From:Subject;
-	b=iY6yHToLVv6nAMyp5t9UrSZOcebl9CPBDqTz9Yc8Xk8aUFPNUkPM11zVg4zrFMSYk
-	 WpMf/QbAQY5EYWGe8vecjA8zRj0iItgkKOxbqOYryc6Owp2+p/3a36WjTpMYSKbzMt
-	 AExlbHhQ/lJTYBVTSSE+sDchjVEGE/60XXgFgSqQ=
-Date: Mon, 24 Aug 2026 18:55:12 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,devnexen@gmail.com,akpm@linux-foundation.org
+	b=w2KXvBixsar0CCVJo4ve6Kn2tvo+PJ91LAGhQ6oPk7zwNKIe1OncAFEJ8Bd+VNCn9
+	 mWraMVQ5f6QKCWMoGDWM7y5qAu5QpX/dTR/jjCesPvGTcWBzL312NtgoUSMmn9ls9j
+	 SEYAligBmjGcR8zC/z+zphql6VLWsYiC8J8Fqb/4=
+Date: Mon, 24 Aug 2026 18:55:14 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,xialonglong@kylinos.cn,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] zram-fix-slot-lock-bit-position-on-big-endian-64-bit.patch removed from -mm tree
-Message-Id: <20260825015512.E493D1F00A3A@smtp.kernel.org>
+Subject: [merged mm-stable] zsmalloc-account-for-handle-size-in-class-lookup.patch removed from -mm tree
+Message-Id: <20260825015515.331E21F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,104 +35,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: zram: fix slot lock bit position on big-endian 64-bit
+     Subject: zsmalloc: account for handle size in class lookup
 has been removed from the -mm tree.  Its filename was
-     zram-fix-slot-lock-bit-position-on-big-endian-64-bit.patch
+     zsmalloc-account-for-handle-size-in-class-lookup.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: David Carlier <devnexen@gmail.com>
-Subject: zram: fix slot lock bit position on big-endian 64-bit
-Date: Mon, 10 Aug 2026 21:22:37 +0100
+From: Longlong Xia <xialonglong@kylinos.cn>
+Subject: zsmalloc: account for handle size in class lookup
+Date: Sun, 9 Aug 2026 19:55:18 +0800
 
-The slot lock is a bit operation on the whole __lock word, which flags and
-ac_time alias as two u32s.  On little-endian the lock bit lands in the
-position ZRAM_ENTRY_LOCK reserves in flags, so the aliasing works out.  On
-64-bit big-endian it lands in ac_time instead: with
-ZRAM_TRACK_ENTRY_ACTIME enabled, storing the access time from
-mark_slot_accessed() or slot_free() wipes out the held lock bit, letting
-another CPU take the same slot lock; an access time value with that bit
-set makes the slot look locked forever.
+zs_lookup_class_index() lets zram recompression decide whether a newly
+compressed object would use a smaller size class.  It currently classifies
+the payload size directly, while zs_malloc() adds ZS_HANDLE_SIZE before
+selecting the class.
 
-Shift the lock bit into the flags half of the word on big-endian 64-bit.
+This makes lookup disagree with allocation near size-class boundaries. 
+With 4 KiB pages, CONFIG_ZSMALLOC_CHAIN_SIZE=8, and 64-bit handles, a
+1025-to-1024-byte recompression appears to move from class 64 to class 62
+although both allocations use class 64.  Conversely, a 1049-to-1025-byte
+recompression appears to stay in class 64 although the allocations move
+from class 65 to class 64.
 
-Link: https://lore.kernel.org/20260810202241.2436603-1-devnexen@gmail.com
-Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
-Signed-off-by: David Carlier <devnexen@gmail.com>
+As a result, zram can accept replacements with no allocation benefit or
+reject ones that would save memory, potentially marking the object
+incompressible.
+
+Factor size-class selection into lookup_size_class(), account for the
+handle there, and use the helper for both lookup and allocation.
+
+Link: https://lore.kernel.org/20260809115518.3791787-1-xialonglong2025@163.com
+Fixes: 7c2af309abd2 ("zram: add size class equals check into recompression")
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 Cc: Minchan Kim <minchan@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- drivers/block/zram/zram_drv.c |    6 +++---
- drivers/block/zram/zram_drv.h |   14 ++++++++++++++
- 2 files changed, 17 insertions(+), 3 deletions(-)
+ mm/zsmalloc.c |   11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
---- a/drivers/block/zram/zram_drv.c~zram-fix-slot-lock-bit-position-on-big-endian-64-bit
-+++ a/drivers/block/zram/zram_drv.c
-@@ -74,7 +74,7 @@ static __must_check bool slot_trylock(st
- {
- 	unsigned long *lock = &zram->table[index].__lock;
- 
--	if (!test_and_set_bit_lock(ZRAM_ENTRY_LOCK, lock)) {
-+	if (!test_and_set_bit_lock(ZRAM_ENTRY_LOCK_BIT, lock)) {
- 		mutex_acquire(&zram->table_lock_map, 0, 1, _RET_IP_);
- 		lock_acquired(&zram->table_lock_map, _RET_IP_);
- 		return true;
-@@ -88,7 +88,7 @@ static void slot_lock(struct zram *zram,
- 	unsigned long *lock = &zram->table[index].__lock;
- 
- 	mutex_acquire(&zram->table_lock_map, 0, 0, _RET_IP_);
--	wait_on_bit_lock(lock, ZRAM_ENTRY_LOCK, TASK_UNINTERRUPTIBLE);
-+	wait_on_bit_lock(lock, ZRAM_ENTRY_LOCK_BIT, TASK_UNINTERRUPTIBLE);
- 	lock_acquired(&zram->table_lock_map, _RET_IP_);
+--- a/mm/zsmalloc.c~zsmalloc-account-for-handle-size-in-class-lookup
++++ a/mm/zsmalloc.c
+@@ -552,6 +552,11 @@ static int get_size_class_index(int size
+ 	return min_t(int, ZS_SIZE_CLASSES - 1, idx);
  }
  
-@@ -97,7 +97,7 @@ static void slot_unlock(struct zram *zra
- 	unsigned long *lock = &zram->table[index].__lock;
- 
- 	mutex_release(&zram->table_lock_map, _RET_IP_);
--	clear_and_wake_up_bit(ZRAM_ENTRY_LOCK, lock);
-+	clear_and_wake_up_bit(ZRAM_ENTRY_LOCK_BIT, lock);
- }
- 
- static inline bool init_done(struct zram *zram)
---- a/drivers/block/zram/zram_drv.h~zram-fix-slot-lock-bit-position-on-big-endian-64-bit
-+++ a/drivers/block/zram/zram_drv.h
-@@ -15,6 +15,7 @@
- #ifndef _ZRAM_DRV_H_
- #define _ZRAM_DRV_H_
- 
-+#include <asm/byteorder.h>
- #include <linux/rwsem.h>
- #include <linux/zsmalloc.h>
- 
-@@ -58,6 +59,19 @@ enum zram_pageflags {
- };
- 
- /*
-+ * The slot lock is a bit-wait lock on the whole __lock word, while
-+ * flags and ac_time alias that word as two u32s.  The lock bit must
-+ * land in the slot that ZRAM_ENTRY_LOCK reserves in attr.flags; on
-+ * 64-bit big-endian the flags word maps to the upper half of __lock,
-+ * so the bit position has to be shifted up.
-+ */
-+#if defined(CONFIG_64BIT) && defined(__BIG_ENDIAN)
-+#define ZRAM_ENTRY_LOCK_BIT  (ZRAM_ENTRY_LOCK + 32)
-+#else
-+#define ZRAM_ENTRY_LOCK_BIT  ZRAM_ENTRY_LOCK
-+#endif
++static struct size_class *lookup_size_class(struct zs_pool *pool, size_t size)
++{
++	return pool->size_class[get_size_class_index(size + ZS_HANDLE_SIZE)];
++}
 +
-+/*
-  * Allocated for each disk page.  We use bit-lock (ZRAM_ENTRY_LOCK bit
-  * of flags) to save memory.  There can be plenty of entries and standard
-  * locking primitives (e.g. mutex) will significantly increase sizeof()
+ static inline void class_stat_add(struct size_class *class, int type,
+ 				  unsigned long cnt)
+ {
+@@ -1117,7 +1122,7 @@ unsigned int zs_lookup_class_index(struc
+ {
+ 	struct size_class *class;
+ 
+-	class = pool->size_class[get_size_class_index(size)];
++	class = lookup_size_class(pool, size);
+ 
+ 	return class->index;
+ }
+@@ -1407,9 +1412,7 @@ unsigned long zs_malloc(struct zs_pool *
+ 	if (!handle)
+ 		return (unsigned long)ERR_PTR(-ENOMEM);
+ 
+-	/* extra space in chunk to keep the handle */
+-	size += ZS_HANDLE_SIZE;
+-	class = pool->size_class[get_size_class_index(size)];
++	class = lookup_size_class(pool, size);
+ 
+ 	/* class->lock effectively protects the zpage migration */
+ 	spin_lock(&class->lock);
 _
 
-Patches currently in -mm which might be from devnexen@gmail.com are
+Patches currently in -mm which might be from xialonglong@kylinos.cn are
 
-mm-swap-pm-hibernate-atomically-replace-hibernation-pin.patch
+mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
 
