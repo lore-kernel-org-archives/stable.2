@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9B112D1F1
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 12:48:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837B43FF8B0
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 12:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787662129; cv=none; b=lOyZdXCbkdPKdD8rSBlj6aI79J8H2VrB5WN6h9961+KXd8NME1e441phaa+x6wo/BqSyD534iuXLPQn2AW1Rzr4eF4JblmEMwWl8W3/4Jtk1EaEd+Ki40pfEsp7RkLCnM589Nwqr2z2MaWX5PHCBi6t9ECUaUlxw5lLNaZ0iAcE=
+	t=1787662132; cv=none; b=pbwlnV8i1tx4cVVRIbpvF611WZ0YnZq0ygBEbEeDAYz0FJBuUofRjj5UHEVwWiFUUqclo1oCgZUzNkkcQNdrw8YkVjc4RENzlimEI20q/6KpUdv2LMPPp2DiWrnQtlK6ERy1fTjk3i85h2htjqZmA3qbUy7U4D2C3oNAC0wVLq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787662129; c=relaxed/simple;
-	bh=qMKtTY9j+Av4EIcVtFFJnrfY1lB5Tw56nWyI+W9SbwE=;
+	s=arc-20240116; t=1787662132; c=relaxed/simple;
+	bh=JBukCL+qPCiKz2ldcRghqNXMnIUN3MXUZ0ikJucpZvA=;
 	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=FPSC0EDd8l91+mMsvwgiEqHQSTM+JlK1IfL1R+I5FqHPCubWp2Icyc2KAvrKpDUMALzVm+7ssoHVV2WBeZEXg/EvLGgLDKJOXGnzyfrIer91lAaST3HXGhcrqATqTMzp9vo0djJa0RevcZl6TgrDnER8GizxIpC3G5q3UYqOFts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QjBZaVSV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=QWmj9kU31TbRipkKSJg6Q/N16Wqaeq6GeJIS2r64Q+Lwrfxp89ALxp3oROW5+Pkidm8ngQEMIpXb8m4wm+4w6prehrlNYu6Jb+CUHsn09t+6+GF/ZGEH/Y38KpNniYXrfS1lOwPUE9W51TzzHXMMiZZpDXE9kEzEIv51jJi4HZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkfCfH8d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QjBZaVSV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D08D1F000E9;
-	Tue, 25 Aug 2026 12:48:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkfCfH8d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC7251F000E9;
+	Tue, 25 Aug 2026 12:48:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787662127;
-	bh=Eed6Fn2T5nS93N9mU6vYvPc5rAW6YFiteaXjB+DeYm4=;
+	s=k20260515; t=1787662131;
+	bh=ZCEk/q8vSMnS/YB4Y7lwsjDrSc7vm0PmbGipYdbdNbY=;
 	h=Date:From:To:Cc:Subject:References;
-	b=QjBZaVSVNntHweharTr/eDzRFsYLOYYHsm970eoP/kpxewdMAL9oE7Aq0EcFwCpsq
-	 O+urGKxCWJxbq4lJKloCh4dmVCs0lRQL0B+Xzx0R4+M2XaqeSIPdUhyUTZHG2ZHhjv
-	 9jhob1TIEzpKnHmKjLZ7iC67T5KnT29ax5VucMYjiwyoVC7B8GmjFi0yfeKNyXa6zn
-	 Dm/Ka5OD58r344s29RRajevvKhcG5tsDPxctGElT6SAmqkQbQ0ZLDn3Uemy7Zhv7HF
-	 zFVkVUDTkwVSUdkKxets0iLkVYKAPrabIhwzmvG/VLLPqHlpNXlnoxRSX8B/qRorRy
-	 iK6XpPBuD0MWw==
-Date: Tue, 25 Aug 2026 14:48:44 +0200
-Message-ID: <20260825091708.654252839@kernel.org>
+	b=ZkfCfH8d3VAcGEXCzxR42vrD+zBXjErDWSt1JBXHgMrX7mO3NTGNxp29kcOeCXDt7
+	 XWAFzJs/W8C7YI+WFWPCLIjHz//tfQVgwysyb6YVusV0Wdt4ygIkqn1sI1Ow0sgxqs
+	 zKp1en6+aRehTgyGqJQ9fEWtdDwHvMFCmrRVGftV71wls8d+YT+/sgikbbz8kmXGvS
+	 cZCZrva2/FJrenSyuh0WqyawCzNf6tsV+9wQtHwvTZ7/hUd/RKSiNUKES4DISDEQ92
+	 LQuvpBtYnbgvFsliKfQZ6ipFzyYviOqsnYmQ4Ap1/m9gtuygjD3s5/azro4hNG9E0o
+	 dRZSWsqHU6nLQ==
+Date: Tue, 25 Aug 2026 14:48:48 +0200
+Message-ID: <20260825091708.702202648@kernel.org>
 User-Agent: quilt/0.69
 From: Thomas Gleixner <tglx@kernel.org>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
  peterz@infradead.org,
- Hyunwoo Kim <imv4bel@gmail.com>
-Subject: [patch 7.1.y 5/6] futex: Fix race on the initial mm->futex.phash.ref
- allocation
+ syzbot+350a93852ac854927f45@syzkaller.appspotmail.com
+Subject: [patch 7.1.y 6/6] futex: Fix might_sleep() warning in
+ futex_pivot_pending()
 References: <2026082446-lumpish-subdivide-9766@gregkh>
  <20260825091624.748852250@kernel.org>
 Precedence: bulk
@@ -46,72 +46,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+From: Peter Zijlstra <peterz@infradead.org>
 
-commit bde0238083647381d4747355c5a19115a3422b96 upstream.
+commit d8aa5dd97944a72d4a9e3cc79bb80fcac7d6e829 upstream.
 
-futex_hash_allocate() allocates mm->futex.phash.ref without any locking.
-Commit d9b05321e21e ("futex: Move futex_hash_free() back to __mmput()")
-moved the allocation here and assumed that the process has just a single
-thread at this point.
+A younger me put a WARN in might_sleep() to warn about nested sleep loops. This
+younger me also build a wait-loop variant that can deal with it. This wait-loop
+variant doesn't have all the fancy wrappers, since it isn't used much. It also
+lacks wait-bit support.
 
-Commit ee9dce44362b ("futex: Drop CLONE_THREAD requirement for private
-default hash alloc") widened need_futex_hash_allocate_default() to cover
-any CLONE_VM clone, but left out vfork because the parent is suspended and
-cannot race.
+Add the wait-bit support and use it to fix the nested wait issue.
 
-That no longer holds once vfork is nested. If a vfork child calls vfork
-again and is then killed with SIGKILL, the parent is released from its
-vfork wait and runs concurrently with the grandchild in the same mm.
-Neither of them went through futex_hash_allocate_default().
-
-When both call prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS) at the same
-time, each one sees mm->futex.phash.ref as NULL and stores its own percpu
-counter. Only the last store survives. The counter stored first is no
-longer reachable from the mm, so the references on it are not seen by
-__futex_ref_atomic_end(). A private hash that still has references is then
-considered dead and freed, and a task that still holds one of its buckets
-writes into freed memory in futex_q_lock().
-
-Store the counter once with cmpxchg() and let the loser free_percpu() its
-own. The initial reference has to be taken before the store, otherwise
-another task can install a private hash while the counter is still 0.
-
-Fixes: d9b05321e21e ("futex: Move futex_hash_free() back to __mmput()")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Fixes: 8e7ff730dd96 ("futex: Fix race in futex_pivot_pending() during private hash resize")
+Reported-by: syzbot+350a93852ac854927f45@syzkaller.appspotmail.com
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/ansrpP4ImE1MaBY9@v4bel
+Link: https://patch.msgid.link/20260820074927.GH1246887@noisy.programming.kicks-ass.net
+Closes: https://syzkaller.appspot.com/bug?extid=350a93852ac854927f45
 ---
- kernel/futex/core.c |   16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ include/linux/wait.h     |    1 +
+ include/linux/wait_bit.h |    1 +
+ kernel/futex/core.c      |   27 ++++++++++++++++++++++++++-
+ kernel/sched/wait.c      |   15 +++++++++++++++
+ kernel/sched/wait_bit.c  |   14 +++++++++++---
+ 5 files changed, 54 insertions(+), 4 deletions(-)
 ---
+--- a/include/linux/wait.h
++++ b/include/linux/wait.h
+@@ -1228,6 +1228,7 @@ long prepare_to_wait_event(struct wait_q
+ void finish_wait(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_entry);
+ long wait_woken(struct wait_queue_entry *wq_entry, unsigned mode, long timeout);
+ int woken_wake_function(struct wait_queue_entry *wq_entry, unsigned mode, int sync, void *key);
++int woken_wake_bit_function(struct wait_queue_entry *wq_entry, unsigned mode, int sync, void *key);
+ int autoremove_wake_function(struct wait_queue_entry *wq_entry, unsigned mode, int sync, void *key);
+ 
+ #define DEFINE_WAIT_FUNC(name, function)					\
+--- a/include/linux/wait_bit.h
++++ b/include/linux/wait_bit.h
+@@ -32,6 +32,7 @@ int out_of_line_wait_on_bit_timeout(unsi
+ int out_of_line_wait_on_bit_lock(unsigned long *word, int, wait_bit_action_f *action, unsigned int mode);
+ struct wait_queue_head *bit_waitqueue(unsigned long *word, int bit);
+ extern void __init wait_bit_init(void);
++extern struct wait_bit_key *__var_wake_key(struct wait_queue_entry *wq_entry, void *arg);
+ 
+ int wake_bit_function(struct wait_queue_entry *wq_entry, unsigned mode, int sync, void *key);
+ 
 --- a/kernel/futex/core.c
 +++ b/kernel/futex/core.c
-@@ -1833,14 +1833,18 @@ static int futex_hash_allocate(unsigned
- 	}
+@@ -44,6 +44,7 @@
+ #include <linux/prctl.h>
+ #include <linux/mempolicy.h>
+ #include <linux/mmap_lock.h>
++#include <linux/wait_bit.h>
  
- 	if (!mm->futex_ref) {
-+		unsigned int __percpu *ref = alloc_percpu(unsigned int);
-+
-+		if (!ref)
-+			return -ENOMEM;
+ #include "futex.h"
+ #include "../locking/rtmutex_common.h"
+@@ -1869,11 +1870,35 @@ static int futex_hash_allocate(unsigned
+ 		futex_hash_bucket_init(&fph->queues[i], fph);
+ 
+ 	if (custom) {
++		struct wait_bit_queue_entry __wbq_entry;
++		struct wait_queue_head *__wq_head;
 +
  		/*
--		 * This will always be allocated by the first thread and
--		 * therefore requires no locking.
-+		 * Tasks sharing the mm can run this concurrently, so take the
-+		 * initial reference before publishing the counter.
+ 		 * Only let prctl() wait / retry; don't unduly delay clone().
  		 */
--		mm->futex_ref = alloc_percpu(unsigned int);
--		if (!mm->futex_ref)
--			return -ENOMEM;
--		this_cpu_inc(*mm->futex_ref); /* 0 -> 1 */
-+		this_cpu_inc(*ref); /* 0 -> 1 */
-+		if (cmpxchg(&mm->futex_ref, NULL, ref))
-+			free_percpu(ref);
+ again:
+-		wait_var_event(mm, futex_pivot_pending(mm));
++		__wq_head = __var_waitqueue(mm);
++		init_wait_var_entry(&__wbq_entry, mm, 0);
++		__wbq_entry.wq_entry.func = woken_wake_bit_function;
++		add_wait_queue(__wq_head, &__wbq_entry.wq_entry);
++
++		/*
++		 * add_wait_queue()		futex_ref_put()
++		 * MB (this)			MB (implied)
++		 * futex_pivot_pending()	wake_up_var()
++		 *                                waitqueue_active()
++		 *
++		 * Notably, it must not be possible to see
++		 * !futex_pivot_pending() && !waitqueue_active().
++		 */
++		smp_mb();
++
++		while (!futex_pivot_pending(mm) &&
++		       wait_woken(&__wbq_entry.wq_entry, TASK_UNINTERRUPTIBLE,
++				  MAX_SCHEDULE_TIMEOUT))
++			/* empty */;
++
++		remove_wait_queue(__wq_head, &__wbq_entry.wq_entry);
  	}
  
- 	fph = kvzalloc(struct_size(fph, queues, hash_slots),
+ 	scoped_guard(mutex, &mm->futex_hash_lock) {
+--- a/kernel/sched/wait.c
++++ b/kernel/sched/wait.c
+@@ -5,6 +5,7 @@
+  * (C) 2004 Nadia Yvette Chambers, Oracle
+  */
+ #include "sched.h"
++#include <linux/wait_bit.h>
+ 
+ void __init_waitqueue_head(struct wait_queue_head *wq_head, const char *name, struct lock_class_key *key)
+ {
+@@ -463,3 +464,17 @@ int woken_wake_function(struct wait_queu
+ 	return default_wake_function(wq_entry, mode, sync, key);
+ }
+ EXPORT_SYMBOL(woken_wake_function);
++
++int woken_wake_bit_function(struct wait_queue_entry *wq_entry, unsigned mode, int sync, void *arg)
++{
++	struct wait_bit_key *key = __var_wake_key(wq_entry, arg);
++	if (!key)
++		return 0;
++
++	/* Pairs with the smp_store_mb() in wait_woken(). */
++	smp_mb(); /* C */
++	wq_entry->flags |= WQ_FLAG_WOKEN;
++
++	return default_wake_function(wq_entry, mode, sync, key);
++}
++EXPORT_SYMBOL(woken_wake_bit_function);
+--- a/kernel/sched/wait_bit.c
++++ b/kernel/sched/wait_bit.c
+@@ -167,9 +167,7 @@ wait_queue_head_t *__var_waitqueue(void
+ }
+ EXPORT_SYMBOL(__var_waitqueue);
+ 
+-static int
+-var_wake_function(struct wait_queue_entry *wq_entry, unsigned int mode,
+-		  int sync, void *arg)
++struct wait_bit_key *__var_wake_key(struct wait_queue_entry *wq_entry, void *arg)
+ {
+ 	struct wait_bit_key *key = arg;
+ 	struct wait_bit_queue_entry *wbq_entry =
+@@ -177,6 +175,16 @@ var_wake_function(struct wait_queue_entr
+ 
+ 	if (wbq_entry->key.flags != key->flags ||
+ 	    wbq_entry->key.bit_nr != key->bit_nr)
++		return NULL;
++
++	return key;
++}
++
++static int var_wake_function(struct wait_queue_entry *wq_entry, unsigned int mode,
++			     int sync, void *arg)
++{
++	struct wait_bit_key *key = __var_wake_key(wq_entry, arg);
++	if (!key)
+ 		return 0;
+ 
+ 	return autoremove_wake_function(wq_entry, mode, sync, key);
 
