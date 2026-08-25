@@ -1,140 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDA236B910;
-	Tue, 25 Aug 2026 07:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD50355819
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787644537; cv=none; b=LJ/dgzT5IwbmORkiwPSoe0Qwvulohmr2/P++pOBT2fg2QiFHeCa/f6quXB862ARlknHnGcA/MBpS+h3CBP+wRuwysTFZ1TasHmf+Cq1wnRL3PqQvZWEMRDqSYepnzYIJG3vwnRQ9U68Y7IVvf85NK5NPudoyCBs/KKmMvlDi124=
+	t=1787645029; cv=none; b=UWKkP1/vmcIzVxr88Xl7LbJ7fmUr94/a96Q9zEUdWwhREpqo2KAaMynKpOy+v+IUHU9gXdJZYXIArMIUWCSR14kH0T6vKmZaUdOFJSYpHSLobFUUUviePDlzR2Tj1yzjOjXuAKHE3oyWIii0ClfCR+/WfRiBNokdGXv3ctf7UTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787644537; c=relaxed/simple;
-	bh=XAjv6WtrWWzCB6YeREY2fuaNyp9p5PNb3fFaAqJ2NVM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AxGWvqgOLroK6I2J6JtNa6AICmkqNaadvYCm8i1pIZK48UxCA2sPmVp/h2LOYVDPT25/BirXmqmJM5J86b87CmCXRraFw1zHZm44oiZchfJw8VhLHVsS7TXewUT9y0w/qc80l3KRO48CsR2iUK4Yx+aWQQD7hNbM0GK1c7JjE0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhUM9DpS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787645029; c=relaxed/simple;
+	bh=h6jeY6kUt05J87fFLVEavDXhYt+yiXHgVOp+BHg7Xuc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EUGP1+CE56qiQVqOCEqqSLa+CQbJRACh1bFhMpw4mizO7HlOzNjZxDyFJTzc5QoHMtpX8nGkcjRhFpVStpXu43SW1Jp1p5vjjHaAYiTI6uTLtDiQVGa4ABh+PvjxD5yDiuZbe8U4rKD9LPk2JR+Gmt8KnIgFj8zqYCXJiF41IYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ds+YncoK; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=IbEk0HSZ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhUM9DpS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914011F000E9;
-	Tue, 25 Aug 2026 07:55:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787644536;
-	bh=yhrTrxCBc00NwW0qUXfxz5rqpATbkL+cccg5ndk3DOA=;
-	h=From:Date:Subject:To:Cc;
-	b=HhUM9DpSj6ZkEzU5cwmyQ5RXsssO8cVqBAGv/VeXMmcTHyAmHUQ24pCgP047DjJj4
-	 gqrhNq8/Ae0JRp1nr3gBVa4XYJ61+ecUvkD0X6UgoBN545Jrefi6UUO1aaS0ks9nme
-	 yubv4nfOBEajsfM0NOTO+PTAYZxSo2Pf3AghAxB7M1ZWzdvQtBZoxSNDHeYFrof+YK
-	 UM26+ThGmkiZoLtGpRs9C8PX/GlWMYokZKCMpGoxqGOJbXeDl+xOQCQ2XXZGL7AhIl
-	 GU2u8mi9/Uownq0zkEkesRzPWs6rL4Cw6L0m6Jsjc6LXze5TAQRe7feGLjrrm/IGB7
-	 Olw+zNie+1D1A==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 25 Aug 2026 08:55:26 +0100
-Subject: [PATCH] mm/mremap: reset unfaulted VMA page offset for
- MREMAP_DONTUNMAP
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ds+YncoK";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="IbEk0HSZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787645026;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4t5HTh+6lmJKuFy4RSIDMrUEkIcD/jxh7XivmoZM5sU=;
+	b=Ds+YncoK/HnWEFW4aUoPn8JOhWREewTkM0uzBAq/EPfJOpiTNhgsg3IwQQYQtNGOkK/iWh
+	xDYTQsaGptzpQifYO2jpF9NYGHLIQnWOuHL3EYnFQl09GMwylvMwg4W8r4TqAYyLmrHLS2
+	HH7MiivmtZsZXVYMpoAjyX1DxXSBKRM=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-140-m3idKD_rNsiKIButiaoihw-1; Tue, 25 Aug 2026 04:03:45 -0400
+X-MC-Unique: m3idKD_rNsiKIButiaoihw-1
+X-Mimecast-MFC-AGG-ID: m3idKD_rNsiKIButiaoihw_1787645024
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c15e555a164so49943066b.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 01:03:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787645024; x=1788249824; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4t5HTh+6lmJKuFy4RSIDMrUEkIcD/jxh7XivmoZM5sU=;
+        b=IbEk0HSZv3WUK7S6137xw+H9HYR4S/dRu/l+C6U1h//F6PWg1W4LvbTkJ0QH0Pg9MK
+         wq4CWu9H2+FGhScBhYs3nCnJEvpr+I0qQ9Cjj5+zO6bCPJ8ae5s9JM2JiixhEJnkiQmv
+         FtpyKifMuKVMj5Lc86OIVt+iBij5FiI7rf0905UDH/CTGjzvvVk6mhQAz8uNDdmDvRlb
+         OhOgrF4RIWS1ks3yGgfCBOF0CYaPdC5UygXZpmOVTHkRahDkgLwUZGMkUVnO7GwtXfgF
+         Gd7LHPTJA39QTAGFBR2ppaGVLDWf8UQfCXbYwhV5UkO+bR4WEz4bN8SBJ/zy24ZymCnT
+         aVUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787645024; x=1788249824;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4t5HTh+6lmJKuFy4RSIDMrUEkIcD/jxh7XivmoZM5sU=;
+        b=jk5kRHg5aWdY32bwIzwfykjdvCTkqUzodPyRyIU4xMXEQ/s7qOxw/LNWA0vbvIXFgK
+         fbhI0Qf9GW0727P7ypRNl1sAfZle6f/rAXqeCqJePeslAWIDtu2BLoAJIBtUD26NPUxd
+         ZoaLHjl9Q4DmlTkICd7bOQF+pReaW68nKgHL9IKBfiP0SV34owZfHPPKMSdKq1c/njwu
+         kWI29enhze53LR/FGon0Q92vDec4JLjtOAzZPJyNth3YanHqQpDZfgwvbqFnvhxvvJc5
+         f5CMLxXe8uFQ0A9A6esdlNfCC5SseJBpRrxLPSpa7v/brQjpep7Gpmw/o4wG3183ZoJH
+         rMNQ==
+X-Gm-Message-State: AFuF++lTGOYuLYjJ9n8AxxLlXXKf4IYO0TnBt2o9qTzFxWchaSGL1vzG
+	xvQNPprBNj97IyLI30HPR/9R+Z+r7CTPWL+WUYdJMfWSeozRS4QH/4uPJ9njebXtaeeTeEafF/8
+	jP7E0HZnMn1NEUYdqXvEgeUOZVHjhiraXECV0nPq9IUR6y4b7ktT4G5c+/A==
+X-Gm-Gg: AR+sD10v7ka7yiBaQ/qKToCahZEx2hjjE8csTJGdJzfVrm5y9vMfJXpc0ZHF1kZxV7G
+	QqzxKMOHusuO7P+m9cAQVpfqwsg8p1aB/IlNSl2I/ctsqEs058fwFvLPujnPqShiPfNhlXkeRG/
+	mk/nNAOCqMCHn5rDwUA5XtcXrQQtZ3Zi3szsI2nXr8xHK1vqcjD+8hJY4DlIcFG78gEXs8PjK0c
+	E0MfyL0GWBd5pKpOg3pX0damfBbGGZ6dL+61be4BKKioSQ8QM9RTooSO6FnQBIuPnTPwvQBg/6B
+	zB+jJlBJaPYe/TN5dGe/Rls9GRckYINmNYcIaV7/myQ2cx+L/bvGpG54uaYErgg5kubZiLmqc/L
+	nLmI9wbGOn21SAFxN7ZKt9qKN/9RPsn81ZAM492BIsjTdeamU4e6jVKGtERtsBb3KXqSRsxIw
+X-Received: by 2002:a17:907:e98a:b0:c20:7cb0:f33c with SMTP id a640c23a62f3a-c24e3005531mr482561466b.16.1787645023523;
+        Tue, 25 Aug 2026 01:03:43 -0700 (PDT)
+X-Received: by 2002:a17:907:e98a:b0:c20:7cb0:f33c with SMTP id a640c23a62f3a-c24e3005531mr482547766b.16.1787645022908;
+        Tue, 25 Aug 2026 01:03:42 -0700 (PDT)
+Received: from [192.168.188.103] (ip46-47-231-195.pool-bba.aruba.it. [195.231.47.46])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e19a05bsm18230076a12.17.2026.08.25.01.03.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 01:03:39 -0700 (PDT)
+Message-ID: <b1ede30d-5c03-4514-980f-c656acf3bc13@redhat.com>
+Date: Tue, 25 Aug 2026 10:03:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1] tls: device: fix out-of-bounds write in
+ tls_append_frag()
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, Ilya Lesokhin <ilyal@mellanox.com>,
+ Aviad Yehezkel <aviadye@mellanox.com>, Boris Pismenny <borisp@mellanox.com>,
+ linux-kernel@vger.kernel.org
+References: <20260823084758.20936-1-jiayuan.chen@linux.dev>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260823084758.20936-1-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqAIBAAfyX23EJZ2eNXooPUantIRSuC6N+zb
- jMwzA2RAlOEIbsh0MmRnU1S5hnMq7KGkJfkIAohi07UqPnCLdCmPC7O7of9yBunNSrZtWVVU98
- 3BGngA6X6n4/T87xdfPTObAAAAA==
-X-Change-ID: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Li Xinhai <lixinhai.lxh@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2999; i=ljs@kernel.org;
- h=from:subject:message-id; bh=XAjv6WtrWWzCB6YeREY2fuaNyp9p5PNb3fFaAqJ2NVM=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJ6vYo2Ht5/Yt8eMwWhH+nyQiprNOdO7+4+YKIsNa96W
- sCs2ae/dZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAidk8ZGbo3rwxj9fv0f/UE
- kdbLE1ecNl36+2B/2MvF9T8LtdZp585nZLh+mvPfTjfvv0JR/x7psqi2edybGCHLduiAtEJxvcN
- 2PQ4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-a faulted VMA into an unfaulted one.
+On 8/23/26 10:47 AM, Jiayuan Chen wrote:
+> Found with syzkaller and a local syzbot instance running on top of a
+> netdevsim TLS offload emulation; tls_device.c is otherwise only reachable
+> on a machine with a NIC that implements the offload.
+> 
+> tls_push_data() only checks whether the open record still has room for
+> another frag at the bottom of its loop, and the MSG_MORE early break
+> skips that check.  The record survives to the next syscall with the frag
+> count it already had, and tls_append_frag() does not check either, so
+> with TLS_TX_ZEROCOPY_RO every splice(SPLICE_F_MORE) of a byte or two adds
+> a non-coalescing pipe page and num_frags walks off the end of
+> tls_record_info.frags[MAX_SKB_FRAGS].  Once the record is pushed,
+> tls_push_record() runs the same index over sg_tx_data[MAX_SKB_FRAGS] and
+> the sg_set_page() writes land on the destruct_work that follows it, which
+> the workqueue then calls.
+> 
+> The byte limit is fine because copy drops to 0 and the loop falls through
+> to the same check; the frag count has no such feedback.
+> 
+> Push the record rather than keep a full one open, which is what a plain
+> TCP socket does - tcp_sendmsg_locked() uses tcp_mark_push() and
+> new_segment in both the copy and the MSG_SPLICE_PAGES paths, and tls_sw
+> already sets full_record when the sk_msg ring fills up, MSG_MORE or not.
+> 
+>   BUG: KASAN: slab-out-of-bounds in tls_append_frag ( net/tls/tls_device.c:269)
+>   Write of size 8 at addr ffff8881104d1530 by task tls_oob/450
+> 
+>   CPU: 2 UID: 0 PID: 450 Comm: tls_oob Not tainted 7.2.0-rc7+ #329 PREEMPT
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+>    print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+>    kasan_report (mm/kasan/report.c:595)
+>    tls_append_frag (net/tls/tls_device.c:269)
+>    tls_push_data (net/tls/tls_device.c:518)
+>    tls_device_sendmsg (net/tls/tls_device.c:583)
+>    inet_sendmsg (net/ipv4/af_inet.c:865)
+>    sock_sendmsg (net/socket.c:775 net/socket.c:790 net/socket.c:813)
+>    splice_to_socket (fs/splice.c:884)
+>    do_splice (fs/splice.c:936 fs/splice.c:1349)
+>    __do_splice (fs/splice.c:1431)
+>    __x64_sys_splice (fs/splice.c:1634 fs/splice.c:1616)
+>    do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
+>    entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+>    </TASK>
+> 
+> and, once the record is pushed:
+> 
+>   UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:300:24
+>   index 18 is out of range for type 'skb_frag_t [17]'
+>   UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:301:41
+>   index 18 is out of range for type 'scatterlist [17]'
+>   UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:302:39
+>   index 18 is out of range for type 'scatterlist [17]'
+>   UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:307:38
+>   index 26 is out of range for type 'scatterlist [17]'
+> 
+>   kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+>   BUG: unable to handle page fault for address: ffffea000411a680
+>   #PF: supervisor instruction fetch in kernel mode
+>   #PF: error_code(0x0011) - permissions violation
+>   Oops: Oops: 0011 [#1] SMP KASAN PTI
+>   Workqueue: ktls_device_destruct 0xffffea000411a680
+>   RIP: 0010:0xffffea000411a680
+>   Call Trace:
+>    <TASK>
+>    worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
+>    kthread (kernel/kthread.c:436)
+>    ret_from_fork (arch/x86/kernel/process.c:158)
+>    ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+>    </TASK>
+> 
+> Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> 
+> ---
+> Hope to get capture attention
+> 
+> netdevsim + tls (revised a lot locally):
+> https://lore.kernel.org/netdev/20260728125658.390500-1-jiayuan.chen@linux.dev/
+I must admit that RFC series have low chances of getting full attention
+these days, due to constant flood situation.
 
-It does so after the page tables have been moved to the copied VMA with
-MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-as the page tables it had are no longer present.
+Could you please re-submit that series formally?
 
-However, in doing so, it violates the invariant that the anonymous page
-offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
+Thanks,
 
-This is because a VMA may have been faulted in, mremap()'d (causing a delta
-between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-
-This condition is a violation of a fundamental assumption in mm, but now
-also triggers an assert in assert_sane_pgoff() which explicitly checks for
-this condition.
-
-Correct it by resetting the VMA's page offset at the point of completing
-the MREMAP_DONTUNMAP operation.
-
-Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/mremap.c | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index e8df5cdb0ac9..2b4b523a86b8 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- {
- 	unsigned long start = vrm->addr;
- 	unsigned long end = vrm->addr + vrm->old_len;
--	unsigned long old_start = vrm->vma->vm_start;
--	unsigned long old_end = vrm->vma->vm_end;
-+	struct vm_area_struct *vma = vrm->vma;
-+	unsigned long old_start = vma->vm_start;
-+	unsigned long old_end = vma->vm_end;
- 
- 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
--	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
-+	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
- 
- 	/*
- 	 * anon_vma links of the old vma is no longer needed after its page
- 	 * table has been moved.
- 	 */
--	if (new_vma != vrm->vma && start == old_start && end == old_end)
--		unlink_anon_vmas(vrm->vma);
-+	if (new_vma != vma && start == old_start && end == old_end) {
-+		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-+
-+		unlink_anon_vmas(vma);
-+		/*
-+		 * The VMA is now unfaulted and it is an invariant that
-+		 * unfaulted anonymous VMAs have page offset equal to
-+		 * vma->vm_start >> PAGE_SHIFT.
-+		 */
-+		vma_set_anon_pgoff(vma, pgoff_unfaulted);
-+		if (vma_is_anonymous(vma) && !vma->vm_file)
-+			vma_set_pgoff(vma, pgoff_unfaulted);
-+	}
- 
- 	/* Because we won't unmap we don't need to touch locked_vm. */
- }
-
----
-base-commit: efecab401cb15fd3bb9bc05990609acb6b267ff2
-change-id: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
-
-Best regards,
--- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Paolo
 
