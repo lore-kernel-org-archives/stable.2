@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5389046F4AB
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:18:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488072C0298
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:18:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663898; cv=none; b=paGwEWfZXBMn3P4qngyrvQl8Pj7iUY1i1UxZWZ1Rspf6/yTE/H9pCl3khgBxGF5p2CIemVYnV7CrHYCKE7eQct6H6orAOgGmuXRPe25pscr/z2sMtuYPSUOuXvpgT44BTmYHRzFqAqvrZlP3MlX9avGO7tk5KWKF0WGbsPbFERw=
+	t=1787663907; cv=none; b=DOdE4/glhrzrjJk8s23xNZispZFWnoYP95pwWXE5tLngqw27f1faOT+TZVTmhnhVah5Leo3O+ArOjuU8oEc9f/WM2VRWyCmmQJWPEY4Rpl+AxWJCb8C2s3U3LPXD8lKSUHd1rSe6WT7pz/Tp3hEWk4xa9c178oiWUbl2lNHIIhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663898; c=relaxed/simple;
-	bh=vKjxnwqiDEDzocfo6cMwmAOt/x5kKtSef5elXlMocWM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H88fSQdrgCFiOYUODY2fJyfmhlXaX0JAuDMUjRfjGenB1gGq9aqqqdzARnYqTuAfoYUm18ySCdJe920sTDvxxPvgvXkGUyXvAWoKjIJ7An22OsjfR7wpXIwV7dyBaLqa3CEwj4d2d9aUz+T23ObKqplN5tMXLa3inLb7DLbhT7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dn07/Jzm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787663907; c=relaxed/simple;
+	bh=BRsD7vrFZ+d5WLGNIJiqeNn2FtV8R140e5qJ5jLgAHA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=S0TJx8UfsYZNJpFALuMt/SsNUjw7kXozy2M17fTIwJFtmY5P6whd0rgVuMcYRqe7wC7xUvdGzQ7EsBJB9U5lIkiqmaV1hXiUwc98/evI8zaBHgX8PzakzOybtsu1qfNJsqlQ0iU73lfqgjvdjr0ILdpRJ+5weJkbmYnJDyULvQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XWVfIW9p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dn07/Jzm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D391F000E9;
-	Tue, 25 Aug 2026 13:18:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XWVfIW9p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C1A1F000E9;
+	Tue, 25 Aug 2026 13:18:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787663897;
-	bh=V1sp1RQkuhyBziIBgnS5gguDMPchqglyvUH8MifqDmg=;
+	s=korg; t=1787663905;
+	bh=M5n1F7Zk0hf3+Dse71R4/cr9i1fEV0m9gmW63OTugbQ=;
 	h=Subject:To:Cc:From:Date;
-	b=dn07/JzmjTvUBNy3jyXVh6klWmK/bIKetkbRrXU2hCb3cuamVw1J+Eemq5z6GAvEp
-	 LoCvpuUnMQmTiDJL4vnAy5TpdZ5IB8WfEt5MxjVHUjE/6gIkI0MJufbsREX5oFQaqh
-	 7RKTa0prtmiAbKYrd020x58zxx5P2/OvDW0eXrcM=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Fix accept list UAF during suspend" failed to apply to 6.12-stable tree
+	b=XWVfIW9pSF6fumrDDX+QkvQm76f4yQqigHlcYk5tHEUQR3sKywpERdJRiE1g2Rjsw
+	 hck7uL3n0pRuAmmGcX+Yl1XqN6COUZJdfTbxOSuOjggHGfF4942QyFVEOGxNm+I7Qh
+	 gjy9DWW4WS4BDyE30r8bFikL6mcQY13o/kOFEwU0=
+Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Fix accept list UAF during suspend" failed to apply to 6.6-stable tree
 To: nicoyip.dev@gmail.com,luiz.von.dentz@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 25 Aug 2026 15:18:11 +0200
-Message-ID: <2026082511-unpadded-identity-f2f9@gregkh>
+Message-ID: <2026082511-scouting-bunt-8bff@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x f57b399c4fa1501b2d5451f52d861ece86bcf3db
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082511-unpadded-identity-f2f9@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082511-scouting-bunt-8bff@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
