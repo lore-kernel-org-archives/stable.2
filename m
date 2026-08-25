@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7407936308A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C52D38B7D4;
 	Tue, 25 Aug 2026 05:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787635293; cv=none; b=NrZYWTdrHtONU5mS925BLWcuThBTsOaFirGDFQEl4e19PHiYLTcMd/mPsIzIUNKhyeX5XVtFo7vlvCVVQUdoTk/zD/VXLSE6dpsHW+D5y1emaF0IA/FgIX7Ag/QpAuK7euBXM7G5M0aKFfVeKnMblVVv8HqsUtRGiKAO/09j7Y0=
+	t=1787635293; cv=none; b=s42cyuhilsoZDz8qSWKjMt5CeikKPAI8dnGSlkRnI92SfNoeQeJ7gNoLaCUbk52Xy+kr7KNEbgVuc1ZiygtFG5ED7ziJ+O8W9CLaG0dYlLOqlX0ltttlV4W0Rsfgq1OF8G5SVbfp3516c0QXdWLahM1V/CxG9oiyADVEPEQW7JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787635293; c=relaxed/simple;
-	bh=6Y1XbZWfQiu+oywBa1EwFn9wtGU0Z1a2BMaPr+MkY/U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Oen7WB8B0NLxKvnoHCxHMPY7b2AoUS3znFwReQaIijK5YGSlFiOI/Ed+cCSCJ5dm8BA/taNzvWAZ7b/VPn+TahQ5H/p+66Fb25XL22MfHwuCKqia5rkOAZqNap4rauC9PJJsJQ7aqNFOa034+4ATkS6lfzQfTWKisPsiOtURKrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=shmbcStw; arc=none smtp.client-ip=10.30.226.201
+	bh=x74r0oqsaq9tYSELP0l1x9/SUc0crA2uxMOnhcHAnpA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=biq+PQ3S3i4RVh8oFwGeleGfJulbGHCdQBfjJXlQ8jtHrGZJR21jg24Q4lHMU7Of4oAfAWUta6hShIrNqgAoRJBvRgJKCy8XO3hbhVFfuOSEynkSafOY5x/+kk9cPZImuaB3j1VdqvlRK40LhdC+IFNqGL6dCsaQuO7SKZaCVuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rtQ6WjJ8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="shmbcStw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 464F8C2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rtQ6WjJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1EE4EC2BCB8;
 	Tue, 25 Aug 2026 05:21:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787635293;
-	bh=6Y1XbZWfQiu+oywBa1EwFn9wtGU0Z1a2BMaPr+MkY/U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=shmbcStwdzlHkU1pz/DI2vV39TmrISx9lmIQrhIfUmUx/y/qLodk9wiYX96kxKGvB
-	 nobQLcSIyb7/KOr1JSD4u6K60xTmg43z+/6OgwF+4MW63MHdWfZ03l1WezOG/qiHy3
-	 xVgWRTfMzHT2BvfEm7+/NE/AoPqxvkAimXBV1m4fxifvVV1do9PikYOBWRi84YiwgH
-	 E9eulQP0H5nywd9RMIvmN5ysSli0to8x5fmkQ7hjUDs0WmjXTxLO4b7mddN8mV/vvU
-	 tAwEzu7EagndrRIn0lJ40Rk0PNGsZJuvvzgmNuJAdkWFwbl11Eh90rYRP0Z6ETxUBE
-	 VuYprDepuR04g==
+	bh=x74r0oqsaq9tYSELP0l1x9/SUc0crA2uxMOnhcHAnpA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=rtQ6WjJ8jx9oM1ZY1uPYNfVnfh8bzl6NAYepIun0iheRKDvQHcKzT7L8xvtX53se8
+	 86Zm1uaTQtvn7YwelAnxI//45j9ShVVFsNKq2A3/dYeHKQxfPe+hflPOntxJkcRNYC
+	 ZnX9d7lOJqC0FFfrltJyh6CfXEdjdRHejMVqgzHLOMNS3MjrzPjcJAW3nsSxk7/HzV
+	 re+fENhpvslO6M+ajp/wb0oAFJsheuTLYviYtJ/9HTeXVBqLg4HsOk7FVuybkInIHE
+	 3OkoWJwayJiJuOZ/1JM4nULIZFkxwKPx55plzL4DqQ4e9J8kfoRouJdY3t6qkG8wf4
+	 DRZy9I8jFsbiQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A853C61DB6;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AEA0C5DF9C;
 	Tue, 25 Aug 2026 05:21:33 +0000 (UTC)
 From: Ivan Immanuel Shaji via B4 Relay <devnull+ivanimmanuel1234.gmail.com@kernel.org>
-Date: Tue, 25 Aug 2026 01:20:38 -0400
-Subject: [PATCH 2/2] ring-buffer: Stop remote reader update when page swap
- fails
+Subject: [PATCH 0/2] tracing: Fix remote reader page swap failures
+Date: Tue, 25 Aug 2026 01:20:36 -0400
+Message-Id: <20260825-kernel-patch-1-v1-0-e9349aa0b165@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +40,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-kernel-patch-1-v1-2-e9349aa0b165@gmail.com>
-References: <20260825-kernel-patch-1-v1-0-e9349aa0b165@gmail.com>
-In-Reply-To: <20260825-kernel-patch-1-v1-0-e9349aa0b165@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBG4avErBtQI4muEi0k/2ooLDQikO6et
+ PwW72VKiIJEfZUp4pYkRyjQdUXT6sICFl9MRhmrOtPyhhiw8+muaWXNvlMWjYfSrqUSnRGzPP9
+ wGN/3AxXYl1VgAAAA
+X-Change-ID: 20260825-kernel-patch-1-d806e3de01a5
 To: Steven Rostedt <rostedt@goodmis.org>, 
  Masami Hiramatsu <mhiramat@kernel.org>, 
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
@@ -51,11 +51,11 @@ To: Steven Rostedt <rostedt@goodmis.org>,
 Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787635292; l=1498;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787635292; l=1366;
  i=ivanimmanuel1234@gmail.com; s=20260825; h=from:subject:message-id;
- bh=Yt3jJEKjDX8/on3DO9yN+/vqaXIqohP/+YVJCaaE2TA=;
- b=KmTfJ3GvG/u3YrBfBZAyX5nOKK+yVn9H2LRQsIdURBZL6eyXNJKeUDzGR4U1N8WGLf9D7C5OU
- bnWoYbWgI93DAs3LZpK+WUo1uq3qAEUUgZNrxB3zqY9axeBmdR+8JnZ
+ bh=x74r0oqsaq9tYSELP0l1x9/SUc0crA2uxMOnhcHAnpA=;
+ b=ObxVAA6UI2ihrhJIU4/e9qvfLbnlcNFTBkhdrffzuyuU9mZ1EYkMCnplYc4UGI0p/FmqxQ8Rd
+ jHQhX13kHVSDZda8WvuCSamRddJzrRXoxqKqSKhZRjixHXrI/RyE5yT
 X-Developer-Key: i=ivanimmanuel1234@gmail.com; a=ed25519;
  pk=Wx8O3UUs3XneDkbqbOJJnlNdWSpEf2tWbTAoE7/vnqE=
 X-Endpoint-Received: by B4 Relay for ivanimmanuel1234@gmail.com/20260825
@@ -63,43 +63,41 @@ X-Endpoint-Received: by B4 Relay for ivanimmanuel1234@gmail.com/20260825
 X-Original-From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
 Reply-To: ivanimmanuel1234@gmail.com
 
-From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
+The simple ring buffer's reader-page swap retry loop mishandles its last
+attempt. A success at that point is reported as an error, while a failure
+is allowed to continue into the pointer updates. The remote ring buffer
+consumer compounds callback failures by warning and continuing with stale
+reader metadata.
 
-The remote swap_reader_page callback can fail when the writer moves the
-head before the remote catches it. __rb_get_reader_page_from_remote()
-warns about that failure but continues with the unchanged reader ID and
-rearranges the local page list as though the swap succeeded.
+Fix the retry result in the provider, then stop the remote consumer before
+it mutates its local page list when the swap fails.
 
-Stop immediately after warning. Callers already handle a NULL reader
-page as a failed attempt, and this avoids splicing the same page as both
-the previous and new reader.
+These paths are used by remote tracing, including arm64 nVHE EL2 tracing
+and CONFIG_TRACE_REMOTE_TEST.
 
-Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse
-Signed-off-by: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
+Testing:
+
+  make C=2 W=1 kernel/trace/simple_ring_buffer.o kernel/trace/ring_buffer.o
+  scripts/checkpatch.pl --no-tree (each formatted patch)
+
+No runtime reproducer was run. The two final-attempt outcomes follow from
+the retry counter's post-decrement semantics. An arm64 cross-compiler was
+not available.
+
 ---
- kernel/trace/ring_buffer.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Ivan Immanuel Shaji (2):
+      tracing: Fix retry exhaustion in simple ring buffer reader swap
+      ring-buffer: Stop remote reader update when page swap fails
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 3c3ed639923d..d11b2759caac 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -5805,8 +5805,9 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
- 
- 	prev_reader = cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
- 
--	WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
--							  cpu_buffer->remote->priv));
-+	if (WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
-+							      cpu_buffer->remote->priv)))
-+		return NULL;
- 	/* nr_pages doesn't include the reader page */
- 	if (WARN_ON_ONCE(cpu_buffer->meta_page->reader.id > cpu_buffer->nr_pages))
- 		return NULL;
+ kernel/trace/ring_buffer.c        | 5 +++--
+ kernel/trace/simple_ring_buffer.c | 4 ++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+---
+base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
+change-id: 20260825-kernel-patch-1-d806e3de01a5
 
+Best regards,
 -- 
-2.53.0
+Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
 
 
