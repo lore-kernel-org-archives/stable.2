@@ -1,44 +1,59 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63004322FA;
-	Tue, 25 Aug 2026 12:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AB13F1AB8;
+	Tue, 25 Aug 2026 12:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787662421; cv=none; b=d2o17kggl85av4rBUm78QyfGRtZHP4CXk/6khYqYq+6oi0YFBn3e+yZzzlKyh9taZndzacQBHo5xuz3XaJwHugjirVF1eMwTMwZMYjOtfMtWrMbUFEzxr7q1w+musk3FGFnU1KfhLW1+4sOolJA+91n2E7VVekg7Q1CGctA8owM=
+	t=1787662506; cv=none; b=jv8GOOpcg4TLvcH7E/eRpFWxACio2ixA61cJ+QQjOZhf2qtjx7ZsQCwzTPw8RvQlYMbSY9tD0Lhg9Uou0S+NKapPWNXSGv1xh3H2pKz+Vri+bfSASzJ1YH5uWjySU9WsMBdsYmkALpR+v7I3Xp4Y9wnjD1rw27s2WynHTSskvvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787662421; c=relaxed/simple;
-	bh=Of19rIAK27GoN4N5jCqBLABBmU+V1b4MUKeDj1a5I7I=;
+	s=arc-20240116; t=1787662506; c=relaxed/simple;
+	bh=VLAy0C1DrIqO9piddMV94geRcYhGFe2jnsWYgr4FjU8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j5TWvMrkqy8b7sOSbqo99oP+9ffX4+lGpXsymWRjbreSGcn2WXfVKgYoFSnilspRyp4V0NEc1qY165qXJ0RKsE2yjMgSQU5mh6gUxtiorNwM9pdJKunqRSl1jXnj7Cx9mCeq57v+7/e5tUqEeJ+JIIx1RmvZR3o1CzejhHas8Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMgPGuE4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=igRZdZl0Yj59PdUVnO56qycmHndRvGUm8gzi9v4XNZwf24Yh4kG3+N4YMljnEhszY3db3NSpZ9rkkU4WR+GC7Wa/hB6Ddg7UnHO4xQefKhcFNSug0bPyGbgQFoW8gwrv7ZPirO0xwadIucHWfk5fB2TkbtQdrpO0YJFEklVdiE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=34qD/RmW; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMgPGuE4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08231F000E9;
-	Tue, 25 Aug 2026 12:53:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787662419;
-	bh=cFqy0iZQM8tBm4oUMpoq1Y2sfynDkv1QLYRiCrkswLE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WMgPGuE4HqraYVZGzhXNVOSIgDO27+l8s/aPGUiNZT7UtGArJEBzBt5UmUmrn1Idb
-	 0K5L304bw1C63sT/dJSsF0cxthKDnjDYybwwjzycNEsdHTbWw2nsbS/b4byRYN3ff8
-	 aRskB3LruXllKqarOjnhf0f9e30uW1iBL7+ldqlrBswwLd5gCOQAebG3vnqFUjffQT
-	 lDlDh97OrbS/guxsqzeCCDv2IxUTChh3+TA8GsydTD94ZuVY2DYa9+8KLVHFHb+zID
-	 wObzsX+sqlT8iqky78FYjLsbrgVJxEQcXouLZREpgCR6O87MEMDjmo0wWf2Apya0Yb
-	 pVMDPFjhTcjjA==
-Date: Tue, 25 Aug 2026 14:53:34 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
-	Laurent Vivier <laurent@vivier.eu>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] ovl: don't warn when the mount is completed from
- another user namespace
-Message-ID: <20260825-ganoven-waldweg-lappalie-3252be210162@brauner>
-References: <20260802-work-fill_super-warn-v1-0-4e987911a39a@kernel.org>
- <20260802-work-fill_super-warn-v1-1-4e987911a39a@kernel.org>
- <CAJfpegtXbdpFZmV2dYSbp6eL0DBGmZin98TFr42nxJCfuryfrw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="34qD/RmW"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id DD6F414C2DE;
+	Tue, 25 Aug 2026 14:54:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1787662494;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QLDj2hZCve2ZWWLDxKombVsx7zXm/NyM2HtS7v1LdNE=;
+	b=34qD/RmW3+YAfFU49MNmHd7+ykPxdE3JfNqfWQGiB7qIcaGMHrcpvRq4xnu2MOVwCKGEcI
+	wMQD841PBTKqMyrQCUmnj5PVf1Ba4K+8EIVmcrNNwGwkloZ12UHr38dDA2El9tZpXBayNw
+	Tcfg7mpgC0VK2f4yq54KKSZtHXBbg7P28Otj3GK0/rPVKQ4auwEr1cHA/JZZCUmCG7g2mt
+	Fu45QbiuoeeyZsBYbzQcUYP9JgS0e0SESGZCW/v9aU4BFcJ9YVxCC9QArt9gJ30cND4nkm
+	ces1Us63jDfQcluY0mPH44hR/ZlfYjfjUIBR4PKgDSgs0fcaXSsk/9xnE2IjHA==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 2988523d;
+	Tue, 25 Aug 2026 12:54:47 +0000 (UTC)
+Date: Tue, 25 Aug 2026 21:54:32 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Vincent Jardin <vjardin@free.fr>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Andi Shyti <andi.shyti@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Wolfram Sang <wsa@kernel.org>,
+	Kaushal Butala <kaushalkernelmailinglist@gmail.com>,
+	Shawn Guo <shawn.guo@freescale.com>,
+	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+	linux-i2c@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Carlos Song <carlos.song@nxp.com>,
+	Stefan Eichenberger <eichest@gmail.com>
+Subject: Re: [PATCH v3 0/2] i2c: imx: fix SMBus block-read of 0 locking the
+ bus [stable backport question/offer]
+Message-ID: <ao2QiAGMU3g5dQB8@codewreck.org>
+References: <aogVVwPlOmCqFsg_@codewreck.org>
+ <202608250009.7e963743cf842d4e@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,13 +62,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAJfpegtXbdpFZmV2dYSbp6eL0DBGmZin98TFr42nxJCfuryfrw@mail.gmail.com>
+In-Reply-To: <202608250009.7e963743cf842d4e@kernel.org>
 
-> Just one comment on this (I know it's been merged, will do a fixup
-> patch):  EIO should be turned into EINVAL.
+Sasha Levin wrote on Tue, Aug 25, 2026 at 07:49:30AM -0400:
+> Dominique Martinet wrote on Fri, Aug 21, 2026 at 06:07:35PM +0900:
+> > tl;dr: If maintainers agree, I can send these two for a future 6.6/6.12:
+> > 5f5c2d4579ca ("i2c: imx: prevent rescheduling in non dma mode")
+> > 07fd9385f0d8 ("i2c: imx: fix locked bus on SMBus block-read of 0 (IRQ)")
 > 
-> The EIO was used to signal an internal error (commit 9efb069de4ba
-> ("ovl: add warning on user_ns mismatch")) , which is no longer the
-> case.
+> Thanks for the offer, but let's not take these on 6.6/6.12.
 
-Sounds good, thanks!
+Ok, thanks for taking the time to check and reply!
+
+> 5f5c2d4579ca splits the read path, and the split leaves the block_err
+> handling in the atomic variant only, while the live non-dma path ends up
+> back in the unfixed handler. On 6.6/6.12 the block-read-of-0 fix that
+> shipped in 6.12.101 and its 6.6 sibling landed in the shared
+> i2c_imx_read(), which both paths still go through - so pulling the rework
+> in would actually re-open the bus lockup those trees are already
+> protected against.
+
+Yes, a backport would only make sense with both patches...
+
+> Your premise is right that b460b15b3cc2 is now everywhere, but
+> 5f5c2d4579ca also carries five Fixes: follow-ups, four of them tagged
+
+... but now that you've pointed out the others I agree it's more trouble
+than it's worth (even if they all apply cleanly after trivially fixing
+5f5c2d4579ca's backport), so I'm fine with this
+(And that can be reconsidered if more people report timeouts fixed by
+5f5c2d4579ca...)
+
+
+Thanks,
+-- 
+Dominique Martinet | Asmadeus
