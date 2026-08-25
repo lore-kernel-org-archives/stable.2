@@ -1,181 +1,135 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D47B3EDE42
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787649395; cv=pass; b=FcpCLcDCIIKNZIZqDb5cG+/iQ5y6n4NOTzkXR4W+RbeiOnOulg24z1ojS6eNF1CCGC7pCZHDHorYbmNylR4gtsjtQmnjaELfOCweX05gGkLaqnXvCgFYO7bNURx+d3RPdnA1q+uQgHZhE5yn8AV28Q7fdIA5Vz8bKHi8EaN58Cg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787649395; c=relaxed/simple;
-	bh=H1SQ4hT1KQqrQV7vp8N8BkgUmq8q7U6yAUaePAyRclk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n0RGIDgMsHIeJqBlaxkBSa68gDpBkaDS9LHX3iHf2uy/5U0I6S6wHQiCBkCRysMnpP+znAdh9O0XtiMEbTk5yoeyfaw3IgybWj39kG0KtdxTnuqaUETqk2aVPWhBvq1Y+QqP/b0cdljEvMDHOJOm04q91GaEcqZzanREFSxyo6I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=O0eCtH5X; arc=pass smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2113EFD3D
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787649814; cv=none; b=bSS2pIstGZ15uu+o5LmZ/SP9T4w5gSletIoAdk4BlYxP44FU07pkqpuE/RV8o/ECqO6Gc6yabbYgt76rheCpnIidTqvY8zbXcpEhWlr4U/0O5Xllp+wHmWd6NAIKB0gnYVUR4EP2S0z2RmHaqc2mjZl9Q8Gs5+3x/nOLIgUJOkg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787649814; c=relaxed/simple;
+	bh=2vCa4OWaCxs+EPAwn3Fk12/TtCk2qFnRbN4NZBCJLqo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ZWAiB6dX5en/sLr5gqMVuHnuz90iuo1ynlEJOEtFQ4cosjE8DjF6GmebISDckiqQFA5IE2B5xvER5qZS48KLOjeuKlwQjrSOmblcDQUn38njzZFhrFTlIHy1lBdZweIWw6DAmM8fkHZ6rkNH5AtMT5AKXcViT67SM1J4q2oY4MI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fSY/4XV+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JAdtJP12; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="O0eCtH5X"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8485b358552so1820710b3a.2
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 02:16:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787649391; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gwvSden9LPqtxwpBhRy1eG+yM/IwVgp2hdh2ufYrScc0tHWlKPA2vSkY7TWD42Dy58
-         gE1r3oLSpGAAGllY8fNZA7wsnS64FeBQz34LFmId1Z747hBtmGTX9AfpL7Vf+QGEgd69
-         AoZaqIuf/6OCHTp/1phAZyD/E83mXLieoyTmA3j6RRMdTrXJhZWIO2LSeDpkEhqyGgLH
-         oh4MqznqEM4j30ICAF5ohho0g8E2XnLVqjWFnd7atYizOqW2ils2ziy3YEgzAkpyHisd
-         rJTpqYgDhebPolzM/hAe9nE54fjuGFGom/BIdOi+8dzt3NEveQ8bjxGndSrAEiHzdK/6
-         eDeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TsUhMFps5aAYQXcyo1u4kyTUSwki3n35BuVuvGeBTu4=;
-        fh=qDTUoCH/PKV83Q1K79eBZbNnKuPPA00qmr6BoTBMfdg=;
-        b=lJxLn9JvcA228nYYJGCW3j7HlriLiANNZWPv4E1V1CPcJwHrcGDQvtlUy2cgiz5p/b
-         Xb9rhnpJ1CjSnMX5/dWmGm/lQlc+Fn6gl9PG9gnj/flg1oTzckDiv8oghiz/QoiNmJp5
-         QS6waCZCLZqvmS839yzZKflhmsZwzn4erYKd+BOJJdo3jyGG/N3T87MLbNq6atkseor1
-         3QF1fsF+ovxLvdFiBeyYEPjLKWPOwKUbB3apPdUhlxOJ9wGHj+ut1wIlmJCh/xv47tfg
-         v3ahSD+/MhJx0Zua24IsTrmXkXw49/Ru4sWPibvlZTzvfOnjmoOLITApOgGaAonWZpzS
-         95cw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fSY/4XV+";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JAdtJP12"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787649810;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RK0+xnt7HSnjTdxTCQe8vmw6hrFSmhIbspuPg3DKPMc=;
+	b=fSY/4XV+zzNCVtTusEnCy4niWSPhop2fEr777h6560cwe7I/3x0XpjT43xqXIW01zCxTwJ
+	VYRGzL2/fU5snMgTmZIJfStTyvnxiEYtL1DGm5MuUWhHpQ3ujNSf+8WgQAJ/XzhnTtE7OZ
+	0k1FQXySDw9q3op1kfWBx2QKUYs3x8U=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-663-ZfHenhiwPgi576zX0g4SFw-1; Tue, 25 Aug 2026 05:23:29 -0400
+X-MC-Unique: ZfHenhiwPgi576zX0g4SFw-1
+X-Mimecast-MFC-AGG-ID: ZfHenhiwPgi576zX0g4SFw_1787649808
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c2192b12cd6so421434766b.3
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 02:23:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787649391; x=1788254191; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TsUhMFps5aAYQXcyo1u4kyTUSwki3n35BuVuvGeBTu4=;
-        b=O0eCtH5XeSlMe5GvOZxWYo6NQEfGagDs1O8inrdRt/WIMTnsgEj1cVmAryjtJ65SSQ
-         iiLca48oaDfMLC01MpS7BlMSGgDynPdXXU07OBZC3BCJQRndyJtu1ic0G9Oga2eLrYOh
-         UmIycSYcABaJpM5EKhOvLaqwtIOKVeszrxrj0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787649391; x=1788254191;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1787649808; x=1788254608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TsUhMFps5aAYQXcyo1u4kyTUSwki3n35BuVuvGeBTu4=;
-        b=DuEBgohkadHWHW0ZRXVk9eerPZiD0KoTK8BtJ+vIShQ0fZsgt40RexgPFQXdTlRXBp
-         L5VOh0OKlBoN22DUPdcGITqxT+6yLYNEatFueX9edycFwY0uZ71STtGAc0WvCAHKZ85C
-         3p+CugIMlJpp8jiYEunLnB3U3SYzEKn2DRYD0kfP367++z8I2wjo03teS22san+p8r9K
-         lJOQOfG9S/zmnkL+a8+ZMeczgtVXJWst+kjpvBE/GGODlH+FQVDG/OpQlDLJmq38g2+6
-         b+DPdogLTSNSuf1x61LH2wI0X3oni0E1hBrg324XxqwGJthe8xfxzDTK4F1MbdfwKI/S
-         GO1w==
-X-Forwarded-Encrypted: i=1; AHgh+RrwRKMtbUYQ4Ozbf2PQADdUov++5HoYtgjIeddmLzlP1WaA+Mq2igvDJNbK0+rx2EvRfMx9fEo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZSOm1Rt9AZ1LigGgAoNEcrvT0E256RIZIeI3ziFUVvCtjQKqy
-	tdtiidbbURVAwGj6ErhnT+1ImxYAgbu+ktsHaPo6bO8X+e09tQDUV1byzJUgPUV1L7cjmhnhStP
-	A1kShnnJWRkEk6aAZwPoQuJUzgY5pr993NUM4xux9
-X-Gm-Gg: AR+sD13BDovCH1yu60Oz54udSEBmsg7VNqfJ4EKr+idnlHzkUNIk2OB0SNilKS2Fnpm
-	rWhubZyihrzwtKWxYtvVnsPurBtVgShAMnh/P3t+PK1swgvDDiViQtSKNjXeVCSPsbusrd2tccT
-	c87tigDcK7KEopusN8bOZFKRCbf5L8RbuBSaPdmvkJmU2loFhVQBYErwuN/jBLI5Mgobk7GwKI6
-	y7FAJr4w4+S1VEmoWkUXVTCL/kro1r5pi0p79AJCvUvYKfNDm+h4rBrHbRUBx1jfK+QjDezaeWu
-	NVCdHSEocD1jD9v4vuMCsWVYJMKpwV1+GE/er4maWDBUMZU57QFGPce2
-X-Received: by 2002:a05:6a00:2e17:b0:848:2a71:a48a with SMTP id
- d2e1a72fcca58-851fa024b2fmr53883728b3a.13.1787649391557; Tue, 25 Aug 2026
- 02:16:31 -0700 (PDT)
+        bh=RK0+xnt7HSnjTdxTCQe8vmw6hrFSmhIbspuPg3DKPMc=;
+        b=JAdtJP12vrPDXseQOFHUlS8b2Fixty79cyYdWCRMjYTo8qT6LyRNUdGt8Cf3yvnkMt
+         BbPswJHcQqkz2rj5R7tIFJdxjQun3whNRd0XkG/ofgXb7hBjGCqHMauHX7LIpAhptMAA
+         4FaEk1jubo1Dxu++kfYNIGfw9MfylkgEVennnOaRVKuJTmHOnGJw2wzUWdhJSeGMfiwH
+         jFZL9SwKjz5DKCSiCOfZdB/o+4LO3nQ6jTCGR1uMK6foXU7WJl53TWGAAhfQ2UB8fyXl
+         V4qVsvLP9jGI4p1tkPeLcTkbbKIluAeirPtb4xQqwBwasKaVFIecQDberxbWZHMWqYl9
+         6MfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787649808; x=1788254608;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RK0+xnt7HSnjTdxTCQe8vmw6hrFSmhIbspuPg3DKPMc=;
+        b=MCbuEQ3crKuAP6hSsf5nRf74Qq8Mg3zMOwgj8PSe74UzI4z0b9y0e2cDxmBaisTGfB
+         TcK7RRinvhSmJEhSXWPX8GouiAwUN0zPIGPhc2GQTtBoiJgK7cBjymL+GtDg/OgLddlO
+         cmqLsfqkm0ziLQoFtLHLGCuJ13GfSYIlLctbIYUp1+0U6Ga93cnAMHgLkqBxXQZc7Fea
+         6vlL9RJ0er7mtXiXg1qI/dClRsJ6L+chUS9fTZ/DY+pHuFP/K09k+iNf3bzuM8+k6DoO
+         qGUBS8VOzSYreGzLSpcTA1WC7P0akN9dHCuOL8Mf21BW+S8FITC7cHX+/ARnPDNKlq/Q
+         Hs8g==
+X-Forwarded-Encrypted: i=1; AHgh+RqgPw+uRRxXcWmhJx27dxRxYgvb8vTszkkcpKp8CnDFeDJTp+7B47BBykmJX6GakPqOayvua9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdNWvEjEsJSpV9rrV/HEKpeab/g+7PwIJlOjopU0SqwxbGNBOH
+	7Lw4+PGqTJuZvAzsU4NiYkFY248nFOUwkMzZzOl0EiUxcOH9VXyu+HDe+Clunfp9LzV5LBesD9s
+	71m1OBFX4H40tebMyagqP3vOB0Y7z5U7IE7Kfmq91pE05BdSJ3G3eG7FXog==
+X-Gm-Gg: AR+sD138QRLrl6kiBj0TlCGP5hysRRYFYEBFJcqsIQcDZ9aUNJexKY5+/+7wnSDH1Ev
+	vheJD1wMcXXsQxHFt0yvlhmyCLnWR4dWip9C4klsvgdjNEf6X3xfqKEJBzgOqSjSeCUx81kCtGr
+	xUpb8Gqv+1mK8tgT4Fg0zg2bJ928+KE1H4fFt2MmVvku699qh3Dof5QpOf8jKKjMSj1JbX5PeIu
+	QlpvJOJy2LltjyaSZv3m39ZMxnwgOvNy/yfIBWSZPZEvUYmaNRSc0mAVdgWuX/Au3E87Djg9JOU
+	uYOf8M4mgfPiidlBBmuVGAvRUkLoUQVtS/WE/M+LgQOowEnM9gbdb26kaVci6wY8cgwlHI9cIMG
+	ZjISiE6uT6wOyQRPM6KTWULOXhep7eBWOig==
+X-Received: by 2002:a17:907:3d4e:b0:c20:1bc5:7002 with SMTP id a640c23a62f3a-c246a4ad6abmr3801348066b.3.1787649807880;
+        Tue, 25 Aug 2026 02:23:27 -0700 (PDT)
+X-Received: by 2002:a17:907:3d4e:b0:c20:1bc5:7002 with SMTP id a640c23a62f3a-c246a4ad6abmr3801340566b.3.1787649807413;
+        Tue, 25 Aug 2026 02:23:27 -0700 (PDT)
+Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2496738e8bsm1619137166b.44.2026.08.25.02.23.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 02:23:26 -0700 (PDT)
+From: Alex Markuze <amarkuze@redhat.com>
+To: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Ilya Dryomov <idryomov@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	ceph-devel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] fs/ceph: reject export_targets ranks >= CEPH_MAX_MDS in mdsmap decode
+Date: Tue, 25 Aug 2026 09:23:25 +0000
+Message-Id: <20260825092325.2605644-1-amarkuze@redhat.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260822195509.112717-1-jhs@mojatatu.com> <20260822195509.112717-5-jhs@mojatatu.com>
- <62618ef6-28f1-4d0d-916a-96fc54dfc2e3@redhat.com>
-In-Reply-To: <62618ef6-28f1-4d0d-916a-96fc54dfc2e3@redhat.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 25 Aug 2026 05:16:20 -0400
-X-Gm-Features: AcwNN1W4dU6fkQMaBEtZid1fXZrnyh2RgeBk2usssVcuBGElMZCq7KTBOpf55LU
-Message-ID: <CAM0EoMkwr5idTgLSfB3azrfbBasGVGXrOPSJMUpyQKkgCgZgTw@mail.gmail.com>
-Subject: Re: [PATCH net v3 4/6] net/sched: fq_pie: clamp default quantum to
- avoid signed overflow
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	"Mohit P. Tahiliani" <tahiliani@nitk.edu.in>, "Sachin D . Patil" <sdp.sachin@gmail.com>, 
-	"V. Saicharan" <vsaicharan1998@gmail.com>, Mohit Bhasi <mohitbhasi1998@gmail.com>, 
-	Leslie Monis <lesliemonis@gmail.com>, Gautam Ramakrishnan <gautamramk@gmail.com>, stable@vger.kernel.org, 
-	vega@nebusec.ai, Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 4:33=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
-te:
->
-> Hi,
->
-> On 8/22/26 9:55 PM, Jamal Hadi Salim wrote:
-> > fq_pie_init() sets q->quantum =3D psched_mtu(qdisc_dev(sch)) without
-> > clamping. A device with a huge MTU (e.g. dummy with max_mtu =3D=3D 0
-> > accepting MTU 2147483634) makes psched_mtu() return 0x80000000, which
-> > overflows the signed flow->deficit to INT_MIN in fq_pie_qdisc_dequeue()=
-,
-> > causing an infinite loop and soft lockup. Emulate fq_pie_policy which
-> > is already bounded to [1, 1 << 20]; clamp the default to [256, 1 << 20]=
-.
-> > 256 matches fq_codel's floor and is a sane minimum for a DRR quantum.
-> >
-> > Conditions to recreate the bug: a device whose MTU (plus
-> > hard_header_len) wraps psched_mtu() into the sign bit (e.g. a dummy
-> > device with max_mtu =3D=3D 0 accepting MTU 2147483634). Requires
-> > CAP_NET_ADMIN in a user namespace.
-> >
-> > Fixes: ec97ecf1ebe4 ("net: sched: add Flow Queue PIE packet scheduler")
-> > Reported-by: vega@nebusec.ai
-> > Tested-by: Victor Nogueira <victor@mojatatu.com>
-> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > ---
-> >  net/sched/sch_fq_pie.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
-> > index 069e1facd413..b27d95418707 100644
-> > --- a/net/sched/sch_fq_pie.c
-> > +++ b/net/sched/sch_fq_pie.c
-> > @@ -427,7 +427,8 @@ static int fq_pie_init(struct Qdisc *sch, struct nl=
-attr *opt,
-> >       pie_params_init(&q->p_params);
-> >       sch->limit =3D 10 * 1024;
-> >       q->p_params.limit =3D sch->limit;
-> > -     q->quantum =3D psched_mtu(qdisc_dev(sch));
-> > +     q->quantum =3D clamp_t(u32, psched_mtu(qdisc_dev(sch)),
-> > +                          256, 1 << 20);
->
-> Sashiko thinks that the soft lookup is still reachable via pie_change:
->
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260822195509.112717=
--1-jhs%40mojatatu.com
->
-> and has similar concerns for patch 6/6, too. It marks the issues as
-> pre-existing, but AFAICS they overlap with the things addressed here.
->
-> WDYT?
+This patch was sent to me privately. Thanks Jeremy. Posting it to the list.
 
-You are right, they overlap. I had them as followups (with a few
-others derived from the sashiko feedback with justification that the
-v3 init-path clamps are independently correct and the stab cap already
-mitigates the change-path worst case to a stall; but those two a
-(adding max(256U, ...) to both fq_pie_change() and sfq_change(),
-matching the fq_codel_change()) are more serious.
-So if you'd prefer a v4 respin of the whole series, I can do that.
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-Sashiko is a double edge sword - i think code quality is improving but
-it feels like the work load has doubled ;->
-Here's what i had as followups (some still to be vetted, just noting
-what sashiko is stating to be reviewed later when cycles available and
-potential followup patches sent):
-- sch_dualpi2 unclamped psched_mtu
-- sch_pie unclamped psched_mtu =E2=86=92 AQM disable / div-by-zero
-- hhf TCA_HHF_HH_FLOWS_LIMIT unbounded
-- fq_pie_change() / sfq_change() 256 floor missing (one that you bring up h=
-ere)
-- DRR/ETS quantum=3D0 spin (have a patch, was reported already as a bug by =
-vega@)
-- Consider two separate clamps for fq_codel/sch_codel (nipa
-gpt-5-6-sol-3-15): quantum in [256, FQ_CODEL_QUANTUM_MAX], mtubounded
-separately (no 256 floor on mtu)
+MDSMap export_targets entries are monitor controlled. check_new_map() uses
+each entry as a bit number in a fixed stack bitmap, so a rank outside the
+protocol namespace can make set_bit() write past the end of the array.
 
+Reject ranks outside CEPH_MAX_MDS while decoding the map. Do not validate
+against possible_max_rank here because maps may legitimately reference ranks
+beyond a temporarily reduced max_mds.
 
-cheers,
-jamal
->
+Fixes: d517b3983dd3 ("ceph: reconnect to the export targets on new mdsmaps")
+Cc: stable@vger.kernel.org
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Alex Markuze <amarkuze@redhat.com>
+---
+ fs/ceph/mdsmap.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/ceph/mdsmap.c b/fs/ceph/mdsmap.c
+index 4f0626753429..53079ef34c3a 100644
+--- a/fs/ceph/mdsmap.c
++++ b/fs/ceph/mdsmap.c
+@@ -269,6 +269,10 @@ struct ceph_mdsmap *ceph_mdsmap_decode(struct ceph_mds_client *mdsc, void **p,
+ 				goto nomem;
+ 			for (j = 0; j < num_export_targets; j++) {
+ 				target = ceph_decode_32(&pexport_targets);
++				if (target >= CEPH_MAX_MDS) {
++					err = -EIO;
++					goto corrupt;
++				}
+ 				info->export_targets[j] = target;
+ 			}
+ 		} else {
+-- 
+2.34.1
+
