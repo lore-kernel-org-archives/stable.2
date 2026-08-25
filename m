@@ -1,133 +1,173 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6F9270EDF;
-	Tue, 25 Aug 2026 10:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2DE3932D3
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655097; cv=none; b=NYiCnU+0tg1XqXyltgU1VB0spFftmhYQv5LD0FBMiLsTiO4e+4msXQu7Cd4KTJP/92ABGsyobG+gqYqL+CTotGZ+jDEWzeTdRxgtjDwpYm7bQMif/MQJUBw8ZMIko86fY7gtvUnGjs+ixZA5tB3suAhia9g/PGRHFwHYQYpaPg0=
+	t=1787655433; cv=none; b=QBEVdx6+mMOW5z07JYeb8KA5UCA6KEaFIrnCdlKQI+6w/LyEPq3+W0cV+8DWP7TivFwfPGcE0mLJFcNI1oOQmev/x7IMQ1Hq7J7ETW4SR5x7l/8+sm9dH4gBgYOhOYo9kfTfH/64Or0bIDgZc6OORaSldJMHVr+AZ0h+z9rkIZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655097; c=relaxed/simple;
-	bh=fdFP3wC1fOQFHW1FA1xNTBhFjVz5KPeC/RA/brLqifw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=p3BeFMtHfygW8rMxNXE28Rk7fDOr5lRdzz2xzGR4ColRf3RShBiBR3WB2avB8M3mKwIfu7SeSeN6bEtdZjNwBW7uf1FroGwpu/LwMDZY+BVJfyv932JTCaP/b2dkSLFM/wkYriUhK+zSsYS9T/KGStyPgTKqJePGhzLCiYrlAs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=HySWiWuy; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1787655433; c=relaxed/simple;
+	bh=xn7RtMu/tpQVV37VA1Pb8wh0KsNDYJt/hw/B5XqiPaA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JkuTu+myFnDRmXA+yEetfMCgGbtnmYg7uJVKD+DXOiCZ5UnB/lOU6hWfNvvEat9zMzCzGam3xrXkg+bcpkYJF4S2EfaN0j+ocxQHO9Xct2PnQhPqW+GBazxDXIXYSlBYDQS64r0fYaZxu9Sj12ieYRakslB8G0+RAcVYtcBdgUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IJghGs2J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="HySWiWuy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=ikAYs2pwcbpHInM8XsxAP8vYsZneA6/qPI55oerVaA8=; b=HySWiWuyzMATnK+BqhNRmn8Ll0
-	3ogS2PF/KGgMHbnMum4JHT+qNpWMWgebXdckgjExJiyx9WGspcCQF6b3XRhpBvhrmNu7drRFg2YdF
-	ik0nYY9fP8CkBEENDJtdvhoKZ/WlKx7n1Qfsq8D+CyzK1+/xnakVDu/URVxNYML1s7vGxFhAHlwhG
-	jD7eied/vEZLUmscdP+fGPWmdFAaz79QqATLuPxJnX87tyyESCnV3IB8685I+aGLx8W3GZLIcVJkB
-	O/2VEmuJBEUilTKaQlqnMAH6FRZEuEXY/MbLaXhJ/OAoMFbr23XQdN4+RbQyvGjVkdnfq/7V8Tykg
-	yLBTRibg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wyokW-00EO1H-01;
-	Tue, 25 Aug 2026 10:51:25 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 25 Aug 2026 03:50:10 -0700
-Subject: [PATCH net v2] net: fix spurious TX timeout after dev_activate()
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IJghGs2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78441F000E9;
+	Tue, 25 Aug 2026 10:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787655432;
+	bh=xjavgrseFBUxeruNmZkHFI0NkSzoDttTeofibUwr3BY=;
+	h=Subject:To:Cc:From:Date;
+	b=IJghGs2JBsubBmCTJm7cXEkyFX+Y2Oc3oodYIHqSXHOxS4OzRsXo3Gc24IM7qxPII
+	 NmU1+hmcHtLtprATLCAkAz9tcR91htfVV31BdczvFN28DycmlR45cWIDmi7p1sBxFC
+	 SJ1mw6tY3v7gskUGrRgm6W60beYYqxIqVMA+vEoQ=
+Subject: FAILED: patch "[PATCH] HID: magicmouse: fix battery reporting for Bluetooth Magic" failed to apply to 6.1-stable tree
+To: andfed.net@gmail.com,jkosina@suse.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 25 Aug 2026 12:56:58 +0200
+Message-ID: <2026082558-accuracy-duplex-8568@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-trans_start-v2-1-286b4d6d70cb@debian.org>
-X-B4-Tracking: v=1; b=H4sIAGFzjWoC/23NSwqDMBRG4a2Ef2yKCfE5ch9FSprc6p3EchOkR
- dx7wXHHB75zIJMwZYzqgNDOmbeEUdlKIaw+LaQ5YlSwtW3r3jpdxKf8yMVL0U3TUYgu9H3bolJ
- 4C734c2l3JCqYK4WVc9nkex12c6W/2G600bUzQwjOdhSHKdKTfbptsmA+z/MHqEtUGqwAAAA=
-X-Change-ID: 20260824-trans_start-557ecd4c8866
-To: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, stable@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2136; i=leitao@debian.org;
- h=from:subject:message-id; bh=fdFP3wC1fOQFHW1FA1xNTBhFjVz5KPeC/RA/brLqifw=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqjXOnwKkCfwGy5himkx2H4YOP7SjprhUveA+kN
- TP02v1GGxiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCao1zpwAKCRA1o5Of/Hh3
- bScVEACeWQaYR/NOX1MCxCoWPBQN5PJnQ+OOFjTyCuUHf6t5rgSsjAS0HyPxiHww03lLtXTcbXl
- RVD4X/hl4d/xlV448lof+Kkc2AkWUXYVtDnCu5LBz2lcwXEi8is4NFC0DRyiFtbqygXa4Iljv6d
- RxVOzq/81ZEO+8nwVXivHY8Bl6sSMaHts4fVrcz9VKlKs4cLaed1ZY7Jry9e5R2D746t6n9V/j7
- n8aH9YdaGDXfAyfiFWJ1/xXWn09QLTtqBID4uWqOMxq6CKgw15v2u/qphD/MaWzHA+3I4S/qLvi
- RBuSQgPf99qjO0k2DKFEm9mdRw8WxyKqJHWx+TE5SHxkYrknEi4glF2jx8qNXiIMBapms/pF+US
- X0uE1dxhpngyB0MnIkVz6tx0z9+AtM9J+7w1Ya9GQaKInB30myyaMiR96EBJBV2WzMhKtyxjYoi
- a0lTu3WpigqHJzhwGWnd4Eb81FOWQLizf4LmdZDOKPYQpLnVph4PU8nj4H9m6r1KdbfHP6XAlzx
- pLGudG1TRC24/y+jXgcbXcRA5XKo6HricPNh2C8rMXhCqaAvG/dvWgKcWxNKc0n+HhZmEe1b25J
- 15Ph5MyQAfbUtqUvnKAM0xUpt1RxKAhaEAgBMBTH/l13h9V6Ov7ZpBWyogyM5DQWyZJRTskAG0T
- AKF76AgA74TTn4Q==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-While debugging another issue today, I found out that my TX queue is
-reported as stopped for 4294907392 ms (49.7 days), on a machine that
-had been up for four minutes.
 
-    bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 28: transmit queue 23 timed out 4294907392 ms
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-4294907392 is not an elapsed time. It is the value of jiffies at that
-moment: INITIAL_JIFFIES is 4294667296, which leaves jiffies 59 seconds
-short of wrapping.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-dev_activate() runs transition_one_qdisc() over every TX queue, which
-resets trans_start to 0, and then stamps only queue 0 through
-netif_trans_update().
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x a1556b48efc157fdda07b52ecc56c7bd1e1786f0
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082558-accuracy-duplex-8568@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-Stamp jiffies instead. A queue stopped across dev_activate() now gets a
-full watchdog_timeo of grace, and is still reported if it is stopped
-that long.
+Possible dependencies:
 
-Fixes: 9b36627acecd ("net: remove dev->trans_start")
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From a1556b48efc157fdda07b52ecc56c7bd1e1786f0 Mon Sep 17 00:00:00 2001
+From: Andrei Fed <andfed.net@gmail.com>
+Date: Mon, 6 Jul 2026 19:55:07 +0200
+Subject: [PATCH] HID: magicmouse: fix battery reporting for Bluetooth Magic
+ Trackpad USB-C
+
+The Apple Magic Trackpad 2 (USB-C) reports a wildly wrong battery
+capacity over Bluetooth, for example a constant 4% for a pack that is
+actually at 74%.
+
+The device's battery input report (0x90) is laid out as
+[report-id][status][charge]. hid-input's synchronous capacity query,
+hidinput_query_battery_capacity(), assumes the common
+[report-id][capacity] layout and returns buf[1], which for this device
+is the status byte rather than the charge (buf[2]).
+
+magicmouse_fetch_battery(), which requests the battery report through
+hid_hw_request() so the reply is decoded via the report descriptor at
+the correct field offset, is gated to the USB models and never runs
+over Bluetooth. The device does not push battery reports on its own
+either, except a single one at connect time, which is delivered while
+probe holds driver_input_lock and is silently dropped. All userspace
+reads therefore go through the misparsing query, and the device is
+stuck reporting its status byte as the capacity.
+
+Enabling the fetch for Bluetooth is not sufficient on its own: user
+space reacts to the power_supply registration immediately, so a query
+is typically already in flight when the fetch reply is parsed.
+hidinput_get_battery_property() stores the query result and marks the
+battery as queried without rechecking whether a report arrived while
+it was waiting, clobbering the just-reported correct value with the
+misparsed one.
+
+Fix this by adding HID_BATTERY_QUIRK_AVOID_QUERY for the Bluetooth
+Magic Trackpad USB-C so the misparsing query path is never used, and
+by fetching the battery at the end of probe for this device. hidp has
+no asynchronous request() callback, so the fetch is serviced
+synchronously via __hid_request() while probe still holds
+driver_input_lock; call hid_device_io_start() first so the reply is
+processed instead of being discarded.
+
+Tested with a Magic Trackpad USB-C (004c:0324) over Bluetooth on
+6.18.37: the reported capacity now matches the device (verified against
+a raw GET_REPORT of report 0x90) and updates on reconnect.
+
+Fixes: 87a2f10395c8 ("HID: magicmouse: Apple Magic Trackpad 2 USB-C driver support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-The redundant netif_trans_update() in dev_activate() that Nicolai
-spotted is a separate cleanup, and will be sent against net-next.
+Signed-off-by: Andrei Fed <andfed.net@gmail.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 
-Changes in v2:
-- Fix the unit error in the changelog: 4294907392 ms is 49.7 days, not
-  136 years. Also note the machine had only been up four minutes, which
-  makes the bogus delta obvious (Nicolai Buchwitz).
-- Collect Reviewed-by from Nicolai Buchwitz.
-- Link to v1: https://patch.msgid.link/20260824-trans_start-v1-1-0419cc427ed9@debian.org
----
- net/sched/sch_generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-index ef2b4bf515641..4539dc2c6d380 100644
---- a/net/sched/sch_generic.c
-+++ b/net/sched/sch_generic.c
-@@ -1278,7 +1278,7 @@ static void transition_one_qdisc(struct net_device *dev,
- 
- 	rcu_assign_pointer(dev_queue->qdisc, new_qdisc);
- 	if (need_watchdog_p) {
--		WRITE_ONCE(dev_queue->trans_start, 0);
-+		WRITE_ONCE(dev_queue->trans_start, jiffies);
- 		*need_watchdog_p = 1;
- 	}
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index 3487600cadb4..f78166f97229 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -375,6 +375,9 @@ static const struct hid_device_id hid_battery_quirks[] = {
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
+ 		USB_DEVICE_ID_APPLE_MAGICTRACKPAD),
+ 	  HID_BATTERY_QUIRK_IGNORE },
++	{ HID_BLUETOOTH_DEVICE(BT_VENDOR_ID_APPLE,
++		USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC),
++	  HID_BATTERY_QUIRK_AVOID_QUERY },
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
+ 		USB_DEVICE_ID_ELECOM_BM084),
+ 	  HID_BATTERY_QUIRK_IGNORE },
+diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
+index d2f95658a383..7be01cb103d2 100644
+--- a/drivers/hid/hid-magicmouse.c
++++ b/drivers/hid/hid-magicmouse.c
+@@ -843,6 +843,12 @@ static bool is_usb_magictrackpad2(__u32 vendor, __u32 product)
+ 	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
  }
-
----
-base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
-change-id: 20260824-trans_start-557ecd4c8866
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+ 
++static bool is_bt_magictrackpad2(__u32 vendor, __u32 product)
++{
++	return vendor == BT_VENDOR_ID_APPLE &&
++	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
++}
++
+ static int magicmouse_fetch_battery(struct hid_device *hdev)
+ {
+ #ifdef CONFIG_HID_BATTERY_STRENGTH
+@@ -853,7 +859,8 @@ static int magicmouse_fetch_battery(struct hid_device *hdev)
+ 	bat = hid_get_battery(hdev);
+ 	if (!bat ||
+ 	    (!is_usb_magicmouse2(hdev->vendor, hdev->product) &&
+-	     !is_usb_magictrackpad2(hdev->vendor, hdev->product)))
++	     !is_usb_magictrackpad2(hdev->vendor, hdev->product) &&
++	     !is_bt_magictrackpad2(hdev->vendor, hdev->product)))
+ 		return -1;
+ 
+ 	report_enum = &hdev->report_enum[bat->report_type];
+@@ -996,6 +1003,16 @@ static int magicmouse_probe(struct hid_device *hdev,
+ 		schedule_delayed_work(&msc->work, msecs_to_jiffies(500));
+ 	}
+ 
++	/*
++	 * Query the Bluetooth Magic Trackpad USB-C battery as done for USB.
++	 * Start io first: probe holds driver_input_lock and the synchronous
++	 * GET_REPORT reply would otherwise be dropped.
++	 */
++	if (is_bt_magictrackpad2(id->vendor, id->product)) {
++		hid_device_io_start(hdev);
++		magicmouse_fetch_battery(hdev);
++	}
++
+ 	return 0;
+ err_stop_hw:
+ 	if (is_usb_magicmouse2(id->vendor, id->product) ||
 
