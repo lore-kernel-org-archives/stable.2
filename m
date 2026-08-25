@@ -1,36 +1,84 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF403F822A;
-	Tue, 25 Aug 2026 11:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A243FDBF5
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:15:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656432; cv=none; b=XixIytTkEFWm3QU3yRxiAl9kVB7S9n0hbckyPx5afi/63FaaBh0WnBqp0/852pRPCSlLGPxpZ+w5IyB3liiRnH+i93tqk6/AgUpKRUfMSpXmF8YqVKjBpf6jx4FErzNH0xQe+7dVpxv2xoSj5RXoFmiiw2oy7BeqD/Sw0WM+sy8=
+	t=1787656518; cv=none; b=DRds9SBxe6vpaeYAM1SAou6XGa6KOKfCpUEQNOEmTmQPDR/ug60ZcTY6dDyM3rq+hBsWo31HuvlEQvyZlUKpf2ioEFgNgRHzyqB3ru5954sf1rOqrMIb6rmpXa5WDgZGZf/xEyEUWBhmDD9eifkrddxCQ7slRfHPHI/QoX8D1AU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656432; c=relaxed/simple;
-	bh=PP9geZqEW9Oi9mFRsdmlutX7jJ4DIYxjjzbStESXTQQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nXwmtbcvVEFrkndV8gjKTRYtZDOykhIWjPiwo7SY4ScWgnaBu/P+0lr/U6DzRSDRhb0kRdCNDatyXNPhs0HTeYfQdgwwG/MAfZq+betthA9K+3TcMgXMop2v95aRzivCyhBM9cUBfLsOESOxDpWu4OuZQsUbcnp3QfswFNUNZBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn; spf=pass smtp.mailfrom=stu.pku.edu.cn; dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b=TSBK2eda; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+	s=arc-20240116; t=1787656518; c=relaxed/simple;
+	bh=GKN8g4QDBFDef8bKiPT7Dvw3NomvdxmD3jUAwR8N0Mo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jvuox3+/tmReiyOrGHMW/oMAa6FzVs3+L7mPYUYoEG6FOmrUzNtsa38+GGNzrRnxhOwoOmEfWLWzcNwlr0Dz7f0brnmLrS01a0sxqwXOYXvqURGelAA++JxHTqvWWHIgzzXQHAgilljtL7WLKx0K9ZwL4sPVY7YnWjwpbN3lnJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HMktEPZE; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.b="TSBK2eda"
-Received: from localhost.localdomain (unknown [106.120.124.5])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4b4138eec;
-	Tue, 25 Aug 2026 19:13:35 +0800 (GMT+08:00)
-From: Chunfeng Song <springbreeze@stu.pku.edu.cn>
-To: rust-for-linux@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	fujita.tomonori@gmail.com,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] rust: net: phy: fix off-by-one bit positions in device status accessors
-Date: Tue, 25 Aug 2026 11:13:33 +0000
-Message-ID: <20260825111334.795732-1-springbreeze@stu.pku.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HMktEPZE"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-395cf2535acso820818a91.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 04:15:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787656517; x=1788261317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GKN8g4QDBFDef8bKiPT7Dvw3NomvdxmD3jUAwR8N0Mo=;
+        b=HMktEPZERGupv1Sa3dsMl7Pkj3eIvvaB7Qmt2XPUQGcA8Jk0M9hdbYGbd4NPGx6Rqe
+         EfxBuDKV86WDzqZcZZ/F5C18ilxTlGTRnm3r+3mEeiGWfU+82FR2zQXt5KegptLRRBMX
+         /VDTWjPQbdURSMi272bYEj67Yqb835FltgV4TOCxLMfANye/bja8PrD2qBvk/xizMN1W
+         Vv4G1MABzwQkaaeTAdh0MkCv6UhVcWjTM3Dnda8IW8wPT8jlOsUFkb8/ECvsPpz8EMDH
+         jzCzpS58X4GKvCxolp9xuM4l8WJ8I8biNj0r8ovUhOQZBMFOihL3qqMGsrX4+HwSMmhm
+         gfhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787656517; x=1788261317;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GKN8g4QDBFDef8bKiPT7Dvw3NomvdxmD3jUAwR8N0Mo=;
+        b=I9R2uIfWvWt3xFIVHYRok8uN3460igZUp5rc3kPgqiUTrbb0DJ7CzOmdHSPBGltABX
+         /rOlbg1lSPkQVec68Jo66kCe6Oth8Rg7WHNWo0Ng5Ln3Y1SDqq3Q0HVHTFIAwOpRTWrl
+         siLD+1vc9eEL3clEUAfVNBkpzKZ4Xbr538ADz/jv0+CveMmM9zBy+gidAKbQjN43LauJ
+         IQfjrgYSd/f3jzhUw0/aCnSAhwKIWKnatBrHIAQpqlAhfTS1Awlz0Ly8DWuWMcg9N5Co
+         9lw9kwnNx+yMInWHrk/jdTc+Np2Bm53E6fQzIKT/ygEoAeh4Hw7jF4G1PDO8CHiiSBgg
+         GR2A==
+X-Forwarded-Encrypted: i=1; AHgh+RrjOg6Kb52NZ2/Isfx5pDUMn12LkPO36zpRvokkvrDW79Tx4loP9gXZk1bMVJFoMNn7ecBqgWc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lm+0oaR/hiRs+9+1v95eLmzJ0nZjbQbsNnbpPJ3gj7KKZh/ySD
+	H//ycQYGMFSJvaSNJhtNjS20xS3IjZJo8rDicJEdnutc4jlvAXdY93PN
+X-Gm-Gg: AR+sD12N9MWSe5nCMT3+ivhDRxO/C5S94brxb8avGgF6L9mf5c6W34pj5NrF4TpbvTg
+	ddBHD89+L0PBmJanpGqX5tyT+nSXtEZr2S+kk5011JWTe+8q5DjDJFmz8cs2LilTkTuveSUtuf1
+	Ci9vG7rUkKfTgG5Z4O3oBEnvgHyq57nYZPS85MA5EofeWqOP2rgZQMI/8bGI83U4bdvNrgQMouQ
+	ckt8SnaqKVN7Uw+yjLzcg55WbLp2ewTDrdlkVTYsRY2JVqFua8Ve5vgfY+DGjSULytrYf6UII4u
+	44XIOXVfcq3m9Fvfa0sFVO/+Prlz0XozSPav7rw06Z4CG3dhjInk9dCKTQv0nwFd0/L3OOZ0jyu
+	M5ruhq7DOJmwXdjJcAKgqE0jrSctgZRf4ytuDEFeqoDuVLnP2zTt8TWOpc/d3QYMTMcFKFA+SEq
+	wOGThNh2xonv0lC7o8jHsHo/ttA97GyH7gdsW72sLgTGm158OMIg7FOw/zGcfftYs5ieLSaJLh3
+	cgVuk2ifQGWHQnjPgqvxzND/B5m4fLs5HUirJu5TG4=
+X-Received: by 2002:a17:90b:2712:b0:394:ed5c:ff9f with SMTP id 98e67ed59e1d1-39645b19ef1mr8212048a91.17.1787656516295;
+        Tue, 25 Aug 2026 04:15:16 -0700 (PDT)
+Received: from localhost ([2409:40c4:101c:e5a9:a28f:e499:1b07:43b3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3282afb407bsm6628824eec.30.2026.08.25.04.15.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 04:15:15 -0700 (PDT)
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: lovekeshsolanki00@gmail.com
+Cc: brauner@kernel.org,
+	eulgyukim@snu.ac.kr,
+	gregkh@linuxfoundation.org,
+	jack@suse.cz,
+	jjy600901@snu.ac.kr,
+	kees@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	stable@vger.kernel.org,
+	stern@rowland.harvard.edu,
+	viro@zeniv.linux.org.uk
+Subject: Re: [PATCH] USB: gadget: fix NULL pointer dereference in gadget_dev_ioctl()
+Date: Tue, 25 Aug 2026 16:45:11 +0530
+Message-ID: <20260825111511.328160-1-lovekeshsolanki00@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825104601.315401-1-lovekeshsolanki00@gmail.com>
+References: <20260825104601.315401-1-lovekeshsolanki00@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,117 +86,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa038a024c103a1kunm89dfbb18255bc9
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDS0tLVktOTkNOSxlJTkNCGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS01VSklLVUpJT1VOWVdZFhoPEhUdFFlBWU9LSFVKS0lITk
-	NDVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=TSBK2eda+wJa6k6HCOKHK9cZ4g2JDNzztEhNm9hHhR7KHzfdWzUSVgrsprNKndvY5M/htDlHrhn9f60W6Xu6EXzERDAf1dMgKeVrRXXbsFgOTFfWqbLhyf9+bDyDETqDPKLUZoNWLhj5yWXcDOAYRtw0GGFH0Y/hFlbR4rZPkrU=; c=relaxed/relaxed; s=default; d=stu.pku.edu.cn; v=1;
-	bh=xiSz919X5LkFjc0KTZrpLq1Z3y+8WAeioSuB5xG3Y/Q=;
-	h=date:mime-version:subject:message-id:from;
 
-The hand-written bitfield offsets in is_link_up(), is_autoneg_enabled()
-and is_autoneg_completed() were correct when the abstraction was
-merged: at that time autoneg, link, and autoneg_complete were at bits
-13, 14, and 15 of struct phy_device's first bitfield unit. Commit
-2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct
-phy_device") later inserted is_genphy_driven just before autoneg,
-shifting the three fields up by one, so the accessors now read:
+This patch was intended for a different report. Please ignore it.
 
-  is_link_up()           reads bit 14 = autoneg
-  is_autoneg_enabled()   reads bit 13 = is_genphy_driven
-  is_autoneg_completed() reads bit 15 = link
+Sorry for the confusion.
 
-The official ax88796b Rust driver uses all three accessors in its
-link-change handling, so it inherits the bug. On genphy-driven devices
-is_genphy_driven is always 1, which masks the broken
-is_autoneg_enabled() check.
-
-Hard-coded offsets will silently break again on the next layout
-change, so use the bindgen-generated accessors (link(), autoneg(),
-autoneg_complete()), which are always consistent with the C layout,
-and drop the hand-written numbers together with the TODO comment that
-marked them as a stopgap.
-
-Found by a static equivalence audit (C2RustDrv, a C-to-Rust driver
-migration tool) that compares hand-written bitfield offsets against
-the bindgen layout of struct phy_device. Verified by building the
-bindings and checking the generated accessors; no runtime testing was
-possible without PHY hardware.
-
-Fixes: 2796ff1e3dca ("net: phy: add flag is_genphy_driven to struct phy_device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chunfeng Song <springbreeze@stu.pku.edu.cn>
----
-v2 -> v3:
-  - Drop the links to previous versions from the commit message
-    (Miguel Ojeda).
-  - Keep the changelog here, after the separator, as is customary.
-
-v1 -> v2:
-  - Use the bindgen-generated accessors (link(), autoneg(),
-    autoneg_complete()) instead of the hard-coded bit numbers, as
-    suggested by Andrew Lunn, since the offsets drift whenever the
-    layout changes.
-  - Update the Fixes: tag to 2796ff1e3dca, the commit that inserted
-    is_genphy_driven and shifted the fields (the offsets were correct
-    when the abstraction was merged in v6.8).
-  - Add the net tree prefix to the subject.
-
-rust/kernel/net/phy.rs | 20 ++++++--------------
- 1 file changed, 6 insertions(+), 14 deletions(-)
-
-diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
-index 956cda573ddb..14dd1e6cb380 100644
---- a/rust/kernel/net/phy.rs
-+++ b/rust/kernel/net/phy.rs
-@@ -124,38 +124,30 @@ pub fn state(&self) -> DeviceState {
-     ///
-     /// It returns true if the link is up.
-     pub fn is_link_up(&self) -> bool {
--        const LINK_IS_UP: u64 = 1;
--        // TODO: the code to access to the bit field will be replaced with automatically
--        // generated code by bindgen when it becomes possible.
-+        let phydev = self.0.get();
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
--        let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(14, 1) == LINK_IS_UP
-+        unsafe { (*phydev).link() == 1 }
-     }
- 
-     /// Gets the current auto-negotiation configuration.
-     ///
-     /// It returns true if auto-negotiation is enabled.
-     pub fn is_autoneg_enabled(&self) -> bool {
--        // TODO: the code to access to the bit field will be replaced with automatically
--        // generated code by bindgen when it becomes possible.
-+        let phydev = self.0.get();
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
--        let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(13, 1) == u64::from(bindings::AUTONEG_ENABLE)
-+        unsafe { (*phydev).autoneg() == bindings::AUTONEG_ENABLE }
-     }
- 
-     /// Gets the current auto-negotiation state.
-     ///
-     /// It returns true if auto-negotiation is completed.
-     pub fn is_autoneg_completed(&self) -> bool {
--        const AUTONEG_COMPLETED: u64 = 1;
--        // TODO: the code to access to the bit field will be replaced with automatically
--        // generated code by bindgen when it becomes possible.
-+        let phydev = self.0.get();
-         // SAFETY: The struct invariant ensures that we may access
-         // this field without additional synchronization.
--        let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
--        bit_field.get(15, 1) == AUTONEG_COMPLETED
-+        unsafe { (*phydev).autoneg_complete() == 1 }
-     }
- 
-     /// Sets the speed of the PHY.
--- 
-2.43.0
-
+Thanks,
+Lovekesh
