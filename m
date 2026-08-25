@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DCE2F7F0E
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B642F7F0E
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:09:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787645356; cv=none; b=t3mxfVeopKIwenkjAgucY6SVbjTnwiX3B432/dOomRxDBoqcfX3jOo5OBackY9PJ5CXaPfQ6wPEF/fEArWQW28BJkHZUKjUfmUtgv7AQ8x+u5iCkZGws/PQuP9z2MDEh/hj0vHgd14TtLWAnA6yr7kJZk1CpFWCqTmy/FBWE3Ws=
+	t=1787645361; cv=none; b=kOrTtVsQJn5s2OpcKZlYh/QNmqahb2pUFf7A4YrJtjOasawwz/TgjzKAqDbU+UB2y0eBVV9XptIup120EqqAcUaNbKSNJZgUxQgxSTsXjYjw3EBXRM4NFirtia1hZEBUby94oEukO9qxXcOQWbcLE9C94hQ/ee+2glw74X2C7tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787645356; c=relaxed/simple;
-	bh=b84CVlcjPhOAC+nmwn6C3RvV644K7N+uUL5d2YYxAs8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EkxZDfmFa2M1XACEWYYk3xXG05QAE9LWQHh0CAHMTJIFKBrUMOS9FiTSrwyMLQu+k/0qpw8/waViiAzcNIbjOG4g9afXYRd/XJqNVg9W0Loc5EQLehoSKqlFITnhPB+QaSpCyYswbGlcDoW6mouue/6PS4wgrrOvjUYzuYMYP9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lMmIZAtc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787645361; c=relaxed/simple;
+	bh=n+Rphd47OFvzWL6SBop889ksJtNUHDEFQ0LSHoiKlP4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=m/QJBPg7Lv6AisRG9MRScZ2PVBiBYw2cq2P2aVp0wCABbA11dwG3OjA6Oh0Fy7kDEbIDyKKhUeGc3mTfnvuF2BoeYZ8qGgDyW3fCu3KGDI+WaKaw/26S6LsxuSkqIZXa0aX3il8q7srfz13NmKhjYINo8pajYIfyvi0gldeWB4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R648UChW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lMmIZAtc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946101F000E9;
-	Tue, 25 Aug 2026 08:09:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R648UChW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561FD1F00A3A;
+	Tue, 25 Aug 2026 08:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787645352;
-	bh=8WEvoPDCkEwe3uHmRAyhgogzAyxkJ/O0uTB0SsZ4JOg=;
+	s=korg; t=1787645357;
+	bh=sQyqkipZjd3NxoztycIm2nYv7hiccSO19yRPiqv9OaI=;
 	h=Subject:To:Cc:From:Date;
-	b=lMmIZAtcAtwVIWDCSKIpi8Vde05qq1TEVJZuu3YCTTi6jOQ+rvDg7gD7zVnIfH+Ts
-	 6GVkN6UfkjJOE8tOLh3295PNckRJhlACd8bH4hLJSgBfxtX4fKsc/oyoEtFDuw4JLI
-	 6QjURwAevtnXx956mdhV0UBedTUBU4W+Sk/xBI/U=
-Subject: FAILED: patch "[PATCH] nvmet-tcp: bound SGL data length before allocating command" failed to apply to 5.10-stable tree
+	b=R648UChWH4G/8V0V9rxDTe0TNXvobuN1M/bm5GdFWkvDpvcTMYMGfz5TJTAA9Ocb9
+	 txCirbaieDuVesS4ynmTs9B60qNOqMaB2v2UBVAYbNaPS0aluvhtCJxk2wqlBO+v4E
+	 8ZVlXpDCFMa54ynAVwRa3+hNusubG4sCat5S14+o=
+Subject: FAILED: patch "[PATCH] nvmet-tcp: bound SGL data length before allocating command" failed to apply to 5.15-stable tree
 To: security@auditcode.ai,hch@lst.de,kbusch@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 10:07:13 +0200
-Message-ID: <2026082513-rifling-overtime-c20d@gregkh>
+Date: Tue, 25 Aug 2026 10:07:14 +0200
+Message-ID: <2026082514-frill-epilogue-80ea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4a3f00262a044e8e15064b1a6860968bf0500bf4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082513-rifling-overtime-c20d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082514-frill-epilogue-80ea@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
