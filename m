@@ -1,105 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E1333ADAC
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787673948; cv=none; b=eWWIyE6flOJiro9axfwKO6oQ3D9CjkhiKhiGwTmzLK1ycBpOhdMUsVi2v6P9v91ZLFs+6IQBpkC4Az2dprCZpCo80wXJmp9kJoHnBm/c+j4AkHToXV+oCc0AY4mW9JEDXvdoPbMuvitsbCh9ohNUjp4PBJURvQXHFysqvUMQDuA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787673948; c=relaxed/simple;
-	bh=kDI2ihpW2N+Pu0rfna1EMnQOHYrZILzhojiJVcBIzLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TdhqkK22Ppk5nEpVmk3xkjKnrFzFN9poIZZU7yfBwBLUFg14JX2BE52t5xJmU/miGmxii6MNPblELIwrfNai+HqpOn4xbPMAJeFSvLKvfZuSWEizK28a2Mz0TWJO09hiJIoQ+ow/OWR8su8DOKDcFDuVmgO9pwtHOyKV9WpeaCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5I0xE94; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E9B33D6D5
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787674100; cv=pass; b=kY8OM4z1CP32LLShRZEKpYhphtbEtAUREWmOCjNYs1K9wntYH/5R5JPpwPwh/a0r/iN+ox/NcHeTTbDaiqUjy2Bxzs4ZdpBCxuM/Wmxbdj8HzMkiW/shxMokGEiCNzd5RdTl5eBK47HgsUuoz+KKHFEXEFWaz7W60GZ7Wk3AyCQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787674100; c=relaxed/simple;
+	bh=dGqiAelMi3j+OBeMLnEKDn93G/jB0JDZpRAJXM72wUo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K9obqn003ify3E6BTy/js8JSWBwC6QAgl9ZmqLWY31yIlG68T7EZWtRQANeLS7R69E5eDtR6naRDY5MM8M9TI/kOErvd5dsFCMxHTCWqiVnevQkbSYVosN3NauR+7WtrpDCVCO8+nsgcd88vbB0hXCw7msrUsSxpIv6ZSmNmvgE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=UFhY6V2Y; arc=pass smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5I0xE94"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7531F00A3E;
-	Tue, 25 Aug 2026 16:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787673947;
-	bh=9EYtlfLUMpJ5EfAj5NHVjsEiaP9nzoMAmolGqX4NRjA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K5I0xE94JxFazvykjmwUtNeNp/XsfNdp2KzZDnlBZdEbNcrhilS4qNaoaTVQiwRrZ
-	 oG6cHUqvMQwtcaXCReghR5NOS6lvATVOAP4qF6Pu1OTmPfks+pOqouQAv7cX0neosO
-	 PSWeJ04fKm+EHDji3gBOgMaui70o9nF6W+A740jzRAiUe5+g9MHogIXgGvbNCc3+xp
-	 1n3RD++wCQkrgO6O2eQtMCElNqT8MUvlU/6/YCnT13j+aVpNSXhrA04e3ZryojMopB
-	 Ey0gPY/V7xeVTpvxZyuoCjmGSg6RWSuDU6aNfqEIf6tRECMydc7Z5TrvIpobo7gCnV
-	 8uyXqNETkr+SQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Vishnu Razdan <vrazdan@openai.com>,
-	Gabriel Krisman Bertazi <krisman@suse.de>,
-	Jens Axboe <axboe@kernel.dk>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] io_uring/io-wq: fix worker accounting when canceling creation callbacks
-Date: Tue, 25 Aug 2026 12:05:43 -0400
-Message-ID: <20260825160543.4126397-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825160543.4126397-1-sashal@kernel.org>
-References: <2026082422-frivolous-grab-47d6@gregkh>
- <20260825160543.4126397-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="UFhY6V2Y"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84faf0fa17eso4317b3a.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:08:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787674096; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k/SlNVJzZLuJdNyrmrMEjMxPU/iwXuopd/GHt6bADhHJpAblVkHrsjiIeCCYmqXUro
+         gRgKJSozDzfiEXgCFW/SGZNJ5au7S2orYPw+L0E07j3JMFVbLBfu+9eOxRu+Km6Nu+2p
+         +qMO36kf1eBddWYSU4KaJkdHy/8F0C6yaqTveHZu086iEHRX7TOIe4yW3OzEaV7oq0kV
+         hBPgI3/AELkkII/vfjB3HJOdTVwYV65iO0ijCA9ecGdPwnloL3uq0d/60AC40gzYEe+Q
+         pSRQcrfj9ph+6zipylMq9p2TI1Lg/h7te2wPXg3NoS33sA3YcDqIHlbBjGpw19Z1PVAV
+         b1Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2ZLowbj6pZcMppFHbOVdGIJyzEqMnEa6iqrdQcAQ/VY=;
+        fh=Xt7GeQ1Y2fn5up48TK7zUrCYkp3U7FFuiIWvyQsd0HQ=;
+        b=Bqg7x+UG6THyH6uQq7Rb304eBjSLkCm9miRsRgw3LfnvtDLzBj9dDpNxlD7KvPMXOy
+         dlBA63slcU6zOdYiY9srG8vxNK829/i0QHGfApX99TeETOWyF26zKKbTeLnG0ydOG8SN
+         3/qmtr1yU9J1CzEsQksFGWNHbsHcyiGd8YTT/kZmKBCEE1Hijun73aj7u2Mch9MoMWEl
+         NWEX/G2Za/yx6oqPM2KUsK8kALb+XBo8It8Bol9qlLHwl7In6si1iHEg79VfKf+6MNWW
+         +5u4x1hp2EHtQb89JrTbCWdk5FDFHxugYwQu37twUyY/RghVGyrjTq7aO5Mza43bap2i
+         mciQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1787674096; x=1788278896; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2ZLowbj6pZcMppFHbOVdGIJyzEqMnEa6iqrdQcAQ/VY=;
+        b=UFhY6V2YaSXTehNNJjFn4l41ePBoR8UlPOKHj5w3M4/MatP3KAXsNNLcE4pOvcexw+
+         Lq+uvtutLQbsp5ReMkA+XgMaiqfLKS8y1hzemu7kvGkVlusLkbwQzSzlFKLktY3CIEMC
+         SD8if/k1ClDUcb5ekJ2FiIZVfeX9KMP0zc2xw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787674096; x=1788278896;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ZLowbj6pZcMppFHbOVdGIJyzEqMnEa6iqrdQcAQ/VY=;
+        b=ichRQe//HbHkxFltazn5gah5OSQoa0FwUOIevpMBDRzZIMDZdvOBrC8wKbTczzvL3C
+         4KWhDW9vDXPoxgU6Mz4+7GvYXRh4kfWLjUn0HiavRCEPJyr15YM8ODm3NKVDdOuZiVcu
+         +wJGTt0uen9DIWF3dS5LIWCry4omxYCJtQ/X/nxIbJjfFcXC3PFmJHMjR8DMg6Qm46Vk
+         VVXXb9y7cgQb3h3PFXa3XRwvFNmrpT+C/KH8a6qGmRUX7XcAaJ8/voLNOOYWz+6yjB6d
+         6dnDcUHe4bmxtM1DCyraQlOUx0MEQGwk5s6Ud61INNPSzGh/M3LTrbaZkaJbsjOzyVmv
+         fwsw==
+X-Forwarded-Encrypted: i=1; AHgh+RqNxWYjIcbN0etufcEQmt+kAWO2U4C8xs7bb0kJl0obS9jn1XfZGtihuxbKsyn2tx5jlLb9Xjw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2OxMAni2HzutwLRCy5UG9+Sod2ESE3eq8yRoxhKV9uZF+p2z2
+	xkW8oQmPEcAdnNnw5FVuvgMJkfBo0giyyg+htdJNXGp/ea5otMWF7nD/Inu88qv3tPM6UXyW96V
+	Bcuyg7NrD/gZEL0e6OrLfjfLc1XhOkcmMC34nJJ9a
+X-Gm-Gg: AR+sD13d1cW/FlT1n19EUQIoNSk/k/GrM0Er6P45Bsy49Z/+SAR1CUQldhR/orO8+p9
+	stp0Dl8PHYQz/Nakqu1Aaz6St5miE5jK3zbLHVkfp+gxPpEyUVJ59j4I5rvQmcsnmKg2LiihvtJ
+	OpjVf+lnFgDqcS9PLK9rPYvLm/5c3KJu8NYUQBfgtqnmjLYwCiecWIxbM+jNnx/Y/5fxHnD40Yk
+	6jf75Uy2NzJT4Kf8EGOd/jGLznyteMTehJ9d3Z+WDx6p7w1koomw9ILfC2Fd7gMVBt3hI/bogtL
+	VUCVFD40LqqQ+HK3vQkmhcJr+j2slaJyeAAoEMH+Mb/RmN5Wj02G
+X-Received: by 2002:a05:6a00:858f:b0:853:5152:a3e9 with SMTP id
+ d2e1a72fcca58-8535152ac57mr1163052b3a.11.1787674095878; Tue, 25 Aug 2026
+ 09:08:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260820095742.68511-1-jhs@mojatatu.com> <20260822134401.6545e4eb@kernel.org>
+ <CAM0EoMnLnc2dtzRyaJs+V6Niq=39OQ=p-XC7M+FMTQ0ctSvmyw@mail.gmail.com>
+ <20260822160234.7115ccdc@kernel.org> <CAM0EoMm0orPkSuMLrpGMNkUATjmBPCvqWmKMEPQoYuYAEvCAQg@mail.gmail.com>
+In-Reply-To: <CAM0EoMm0orPkSuMLrpGMNkUATjmBPCvqWmKMEPQoYuYAEvCAQg@mail.gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 25 Aug 2026 12:08:02 -0400
+X-Gm-Features: AcwNN1UfZeiVD0YzBqdqd_6Ugr5w6_aaDqOKIPnHzTlvPeR1fBSFdGBvHs3fFDo
+Message-ID: <CAM0EoMk8fAACt11fe1pUsFeG9np3SdsV0YUNmEevLu=i=b+xKg@mail.gmail.com>
+Subject: Re: [PATCH net 1/2] net/sched: pfifo_fast: cap ring size and account
+ to memcg
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, stable@vger.kernel.org, vega@nebusec.ai, 
+	Victor Nogueira <victor@mojatatu.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Vishnu Razdan <vrazdan@openai.com>
+On Mon, Aug 24, 2026 at 8:37=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> On Sat, Aug 22, 2026 at 7:02=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> =
+wrote:
+> >
+> > On Sat, 22 Aug 2026 18:14:49 -0400 Jamal Hadi Salim wrote:
+> > > > On Thu, 20 Aug 2026 05:57:41 -0400 Jamal Hadi Salim wrote:
+> > > > > +     if (qlen > 65535) {
+> > > > > +             pr_warn_ratelimited("pfifo_fast: capping ring size =
+%u to 65535 for dev %s\n",
+> > > > > +                                 qlen, qdisc_dev(qdisc)->name);
+> > > > > +             qlen =3D 65535;
+> > > > > +     }
+> > > >
+> > > > Why not a hard cap?
+> > >
+> > > sorry, where to put the hard cap and what would it be?
+> > > Or maybe you misspoke and intended to say "why put a hardcap"?
+> > >
+> > > Or maybe in this case probably safer to just reject the change if > h=
+ard cap?
+> >
+> > The latter, I'm asking why not:
+> >
+> > if (qlen > 64k)
+> >         return -EINVAL;
+> >
+> > To be clear I didn't dig into the code, just read the commit msg, so
+> > maybe you have a reason. But the "normal behavior" for out of range
+> > params should be to return an error rather than silently clamp() into
+> > the allowed range?
+>
+> No real concreate reason other than the thought that it's a device
+> param as opposed to a pfifo one.
+>
+> I am going to send a v2. Will switch to similar to what virtio does:
+>
+>   if (qlen > S16) {
+>       //extack here
+>       return -E2BIG;
+>   }
+>
+> The followup as identified by sashikos is on tun/tap - i have a rough
+> patch, untested but there are others ahead of that i need to send out
+> first.
 
-[ Upstream commit 297b5ccea4acacaa47c150f043bce695202afbf1 ]
+Although i have submitted v2 - i may have a small change of heart.
+I was trying to document sashiko's famous "pre-existing issue" rant
+for this bug so we can followup later; sashiko correctly pointed out
+that tun, tap/macvtap have the same issue and i was going to do those
+as followups.
+Although i had this approach below as an option earlier - i didnt want
+to go with it because the goal was to isolate the pfifo changes to
+net/sched. The option was to make this change:
 
-create_worker_cb() reserves an io-wq worker slot only after its
-task-work callback runs. If the callback is canceled before then,
-io_worker_cancel_cb() still decrements acct->nr_workers. When an
-existing worker retires with its creation callback pending, that
-worker has already decremented the same account's worker count.
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 38336858c168..ab6b44b67be2 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -9985,6 +9985,9 @@ int netif_change_tx_queue_len(struct net_device
+*dev, unsigned long new_len)
+        if (new_len !=3D (unsigned int)new_len)
+                return -ERANGE;
 
-The resulting undercount permits worker creation beyond the account's
-configured limit. On an AST2600 OpenBMC system, an unchanged sensor
-daemon reached 4,291 threads with the original kernel. With an
-equivalent downstream fix, 25 passive samples under its normal
-workload showed 6-9 threads.
++       if (new_len > S16_MAX)
++               return -ERANGE;
++
+        if (new_len !=3D orig_len) {
+                WRITE_ONCE(dev->tx_queue_len, new_len);
+                res =3D call_netdevice_notifiers(NETDEV_CHANGE_TX_QUEUE_LEN=
+, dev);
 
-Decrement nr_workers only when the canceled callback is not
-create_worker_cb(). Continuation callbacks still release their reserved
-slot, and both callback types retain the existing running-count,
-reference-count, and create-state cleanup.
 
-Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
-Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- io_uring/io-wq.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+This is a bit controversial with S16_MAX as the upper bound, although
+no device i could find had anything that caps other than virtio (u16
+max: 32768).
+I have tested this with all 3 issues(pfifo, tun and tap) and it fixes all 3=
+.
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index f75160f9151b7..99ebb48cde754 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -202,9 +202,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
- 	struct io_wq *wq = worker->wq;
- 
- 	atomic_dec(&acct->nr_running);
--	raw_spin_lock(&acct->workers_lock);
--	acct->nr_workers--;
--	raw_spin_unlock(&acct->workers_lock);
-+	/* create_worker_cb() has not reserved a worker slot yet. */
-+	if (worker->create_work.func != create_worker_cb) {
-+		raw_spin_lock(&acct->workers_lock);
-+		acct->nr_workers--;
-+		raw_spin_unlock(&acct->workers_lock);
-+	}
- 	io_worker_ref_put(wq);
- 	clear_bit_unlock(0, &worker->create_state);
- 	io_worker_release(worker);
--- 
-2.53.0
+If this is acceptable as a fix i am going to withdraw v2
+(I dont see much of a downside even for buffer bloat needy folks like
+satellite links and given virtio there is precedence)
 
+cheers,
+jamal
