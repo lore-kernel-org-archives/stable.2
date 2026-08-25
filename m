@@ -1,148 +1,124 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2376D45C70B;
-	Tue, 25 Aug 2026 13:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F89648167F;
+	Tue, 25 Aug 2026 13:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787666265; cv=none; b=XdHYMY446mjPvOtY35ndawLdAl1hAENAGMfNJVaaK/X6xk2YZNRgdTcXMZIXlGhid2p/dsdiqQrDxSEXd146ajU/6YYDKODsEbYC0gCz2EcgZg6SubE0mrlCg5YHzyQTcss1NtrGT5eZ0JArHri+mDVWZozuR1fL0DKaO/CMDLs=
+	t=1787666268; cv=none; b=fdycCYK7Lg7QodOI+Soae+Bh6I3b8gUsH5nMEQ9E07oy3yzcYB68scpCDF8zdrEcC0mfK9pfd6HmYAPZ0gB7k41shY3NiVxsHyDu2DUmaeh1Dxi+PvviHjn39156NdHBDbes9S7vrVPeRwn+t6hN7YYfp3IUmfWppAeM94ksWT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787666265; c=relaxed/simple;
-	bh=ccfp13Ex/bdX/+cSPLI8OfotNi6PEzN0nmjiCvtjVPg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Kg2ntHmbNoG8Pb4B01+lSZ+wau8oh55LqUsYnkXcToEDVEbGtrjFW3ILK75knPProEEeQI1OBXrXW2oV2OIDhtlPB2JAh052Vl8ddC821Rl69/hpZYp1w6lJeHarv0P+NRmwkHqXZTeNmXR6lnMSlOp/KyCbGpMBuyJQVM/cAao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=U4Ztk9M0; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1787666268; c=relaxed/simple;
+	bh=Q6tSWHiAVgA+8WCIKm1gsSbQWU8wb351dX+MdhKWcCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e4/uLv/iyVugLMuFootFQkRNZ+1tOVSAPx9JqlElIL7nwDVe8ilHhT6PBNVAHnPKo85NbX9NwJErAQkJGjcHXnRWrPNvWEk2CRtigRBBHGdty4IFgmcRzYMVAThFm6lnIx36YphDjwEIOWaJQH2nCghKn9PLqklR+WE2um8r1fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L9lGwMLk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="U4Ztk9M0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=LSkFSJdgSktGSdc7N8X9eD+ZySBXU7m+wuK4INimUOE=; b=U4Ztk9M0ruthWfCxn1ve0FOymH
-	uG5ye3ScD4xXWpadtvOYsGd74qW8ZbexSZSj1srAe+UX1+/mTXhLlffVdG8StprgU3ReQ/Y2TxHYC
-	d0kS2EBApUQr4JNf4KZngx+mHy74IcLZMugRZj/dRijpLWSXlKoz7LBgfH5DABt4BhLw=;
-Received: from modemcable061.19-161-184.mc.videotron.ca ([184.161.19.61] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1wyreo-000000006c7-1upT;
-	Tue, 25 Aug 2026 09:57:42 -0400
-Date: Tue, 25 Aug 2026 09:57:41 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
-Cc: <linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>,
- <hvilleneuve@dimonoff.com>, <stable@vger.kernel.org>, Tobias Gannert
- <tobias.gannert@ziehl-abegg.de>, Joachim Knorr
- <joachim.knorr@ziehl-abegg.de>
-Subject: Re: [PATCH 1/2] serial: sc16is7xx: fix TX gap caused by kfifo
- circular buffer wrap-around
-Message-Id: <20260825095741.6dbe87760a2401ba93ed9035@hugovil.com>
-In-Reply-To: <20260623112225.82386-2-paultyson.mbewe@ziehl-abegg.de>
-References: <20260623112225.82386-1-paultyson.mbewe@ziehl-abegg.de>
-	<20260623112225.82386-2-paultyson.mbewe@ziehl-abegg.de>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L9lGwMLk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B921F000E9;
+	Tue, 25 Aug 2026 13:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787666267;
+	bh=IrbNJJ0TNhnTNP7mDHd56g7caU9zmSjp49Aj10o2REI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L9lGwMLkvU2huIt8KattV2l8NWE4PEavMuhKI9FUgmzBwFiWWDjP+naQxJxN6AzfS
+	 f+bIEB81OBOdYhYKinOmYYW4zsQ6vlumTD1e2aqZ8TjEuXeRmmwoJqTcG5Lv4wRd7m
+	 zlpyFQOs0SOHmpGqxUDyBqd3HL2qzngGXsST5qZU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Federico Kirschbaum <federico.kirschbaum@xbow.com>,
+	Baul Lee <baul.lee@xbow.com>,
+	Jiri Kosina <jkosina@suse.com>
+Subject: [PATCH 5.15 61/76] HID: core: fix OOB read of field->usage in hid_set_field()
+Date: Tue, 25 Aug 2026 15:26:54 +0200
+Message-ID: <20260825132543.971093136@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825132541.568214149@linuxfoundation.org>
+References: <20260825132541.568214149@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-On Tue, 23 Jun 2026 13:22:24 +0200
-Paul Mbewe <paultyson.mbewe@ziehl-abegg.de> wrote:
+------------------
 
-> kfifo_out_linear_ptr() returns only one contiguous linear segment of the
-> circular kfifo buffer. When transmit data wraps around the end of the
-> buffer, only the first segment (up to the buffer end) is sent. The
-> remaining data at the start of the buffer is not sent until the next TX
-> interrupt fires, resulting in a visible inter-frame gap on the wire.
-> 
-> This gap violates the Modbus RTU 1.5 character-time inter-character
-> silence limit. Receivers interpret any silence exceeding 1.5 character
-> times as an end-of-frame marker, splitting a single valid frame into
-> two malformed fragments and corrupting communication on the bus.
-> 
-> The incomplete transfer also causes unnecessary TX interrupts: instead
-> of draining the full available FIFO space in one pass, the driver fires
-> an extra interrupt per wrap-around just to send the remaining bytes.
-> 
-> The pre-kfifo code handled wrap-around by copying bytes one at a time
-> from the circ_buf into a linear staging buffer. The conversion to kfifo
-> replaced this with a single kfifo_out_linear_ptr() call, losing the
-> wrap-around handling. The max310x driver (a similar SPI UART) correctly
-> handles this with a while loop.
-> 
-> Fix this by calling kfifo_out_linear_ptr() in a loop, advancing through
-> all contiguous segments until the available TX FIFO space is exhausted
-> or the kfifo is empty.
-> 
-> Tested on SC16IS752 (SPI) driving RS-485 at 115200 baud 8N1 on an
-> i.MX6ULL based board. Oscilloscope confirmed mid-frame breaks at the
-> kfifo wrap-around boundary before the fix; no breaks observed after.
-> 
-> Fixes: 1788cf6a91d9 ("tty: serial: switch from circ_buf to kfifo")
-> Cc: stable@vger.kernel.org
-> Reported-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
-> Tested-by: Tobias Gannert <tobias.gannert@ziehl-abegg.de>
-> Reviewed-by: Joachim Knorr <joachim.knorr@ziehl-abegg.de>
-> Signed-off-by: Paul Mbewe <paultyson.mbewe@ziehl-abegg.de>
-> ---
->  drivers/tty/serial/sc16is7xx.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-> index 1a2c4c14f6aa..395a219280be 100644
-> --- a/drivers/tty/serial/sc16is7xx.c
-> +++ b/drivers/tty/serial/sc16is7xx.c
-> @@ -730,9 +730,17 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
->  		txlen = 0;
->  	}
->  
-> -	txlen = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
-> -	sc16is7xx_fifo_write(port, tail, txlen);
-> -	uart_xmit_advance(port, txlen);
-> +	/* Handle circular buffer wrap-around by sending in contiguous segments */
+From: Baul Lee <baul.lee@xbow.com>
 
-Maybe I would drop "by sending in contiguous segments", because it is
-more confusing than helping for me, because before your patch it was
-already sending one contiguous segment...
-Or maybe change to "... by sending multiple segments"?
+commit a13cdb19fcb223ed41bdab3bab42b98dba87e90b upstream.
 
+hid_set_field() hands field->usage + offset to hid_dump_input() before
+the guard that bounds offset:
 
-> +	while (txlen > 0 && !kfifo_is_empty(&tport->xmit_fifo)) {
-> +		unsigned int to_send;
+	hid_dump_input(field->report->device, field->usage + offset, value);
 
-You can now move this variable here since it is used only in the
-while() scope:
-                unsigned char *tail;
+	if (offset >= field->report_count) {
+		hid_err(...);
+		return -1;
+	}
 
-> +
-> +		to_send = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
-> +		if (!to_send)
-> +			break;
+Under CONFIG_DEBUG_FS hid_dump_input() dereferences that pointer, with
+buf = hid_resolv_usage(usage->hid, NULL).  The usage[] array is
+allocated inline with the hid_field in hid_register_field() and holds
+field->maxusage entries, so an offset past it reads off the end of the
+kvzalloc()ed allocation and into a neighbouring object.  Had the guard
+run first, offset < report_count <= maxusage would already have confined
+the pointer to the array.
 
-Insert empty line
+A caller supplies such an offset today.  picolcd_fb_send_tile()
+validates only report->maxfield before issuing
+hid_set_field(report->field[0], 11 + i, ...) for i = 0..31, so its
+offsets are fixed at 11..42 and are never checked against the bound
+field.  When the device registers that field with fewer usages, the
+framebuffer deferred-io work drives the read on every tile.  KASAN
+reports a 4-byte slab-out-of-bounds read in hid_dump_input() below
+hid_set_field(), and the same boot logs "offset (1) exceeds
+report_count (1)" from the guard that runs only afterwards.
 
-> +		sc16is7xx_fifo_write(port, tail, to_send);
-> +		uart_xmit_advance(port, to_send);
-> +		txlen -= to_send;
-> +	}
->  
->  	uart_port_lock_irqsave(port, &flags);
->  	if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
-> -- 
-> 2.43.0
-> 
-> 
-> 
+Move the hid_dump_input() call below the guard.  Because
+field->maxusage >= field->report_count, the guard then establishes that
+field->usage + offset lies inside the array before it is dereferenced,
+for every caller and without changing behaviour on the valid path.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Reported-by: Baul Lee <baul.lee@xbow.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/hid/hid-core.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+--- a/drivers/hid/hid-core.c
++++ b/drivers/hid/hid-core.c
+@@ -1696,13 +1696,14 @@ int hid_set_field(struct hid_field *fiel
+ 
+ 	size = field->report_size;
+ 
+-	hid_dump_input(field->report->device, field->usage + offset, value);
+-
+ 	if (offset >= field->report_count) {
+ 		hid_err(field->report->device, "offset (%d) exceeds report_count (%d)\n",
+ 				offset, field->report_count);
+ 		return -1;
+ 	}
++
++	hid_dump_input(field->report->device, field->usage + offset, value);
++
+ 	if (field->logical_minimum < 0) {
+ 		if (value != snto32(s32ton(value, size), size)) {
+ 			hid_err(field->report->device, "value %d is out of range\n", value);
 
 
--- 
-Hugo Villeneuve
