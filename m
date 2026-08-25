@@ -1,70 +1,42 @@
-Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF732351C13
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066134908B3
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787671654; cv=none; b=sP4LO1emSTLp7kl6TVIBDxfav3VNmd0p0ADvZAD96O+sYd67EpQlRnNoaEKlIIREarC6wq0zpONDEW6lItSMbgBPM3llcHAET2nE3wYIWdKaqfPwBvSNlRuuCciJOL3rEBceS66bcYIiePpfKRpHWvRsBOV8lnGI1n0DMFbqHw8=
+	t=1787671994; cv=none; b=m8WIwcxk/B5U6l++sI9pGCTszDOjwDKNCp+cSPohBee9QPxj4pmvBXIy/kuWylDVPKGpksByf8uazjzwQ3R0lRmX8tUbWwNxa9aNz3muYyDfgOlQ7hgcU8UX+Q7UV0OO+5xoGtmaUGnrHnoc+deENwng/N65lYVbjV5Wl7sdaw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787671654; c=relaxed/simple;
-	bh=uQVz+K1/tiwkasTG+w79z8H2afc5AsmIftpAEk5RMkY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uR5Bhfx3fS5VeI8jbrIUUdKptzQK1KFRWL8A8m5ngSI88pX6ee0HeeuaQnacGRAC0IoCZHrdnqe6bM3R3/tc2d1F9oXOmPC3cSjMiFY6AxcIMOObqy3VlsKI6K5n2OlgtrhbV9HdFLw8iyvYegA5m4m05V9NBlO6ERkFqBpjVmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a5d790cce1so255889a12.1
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:27:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787671651; x=1788276451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+5k9HBpOvCsTp3v94rUbWHBbfWVbyD8PJy/u/PILaBw=;
-        b=kO9WbnurpLoDTlDpQtMLdSbB8tndvYisA6yq9ai9eiF+iG1kznB9/8fGx6CVaAXePO
-         a5Ts/nCUlUMoglg34EuYF/tvxs3ZswHa6gpk4d7Gj3t+VddkBJQSPLuGjNE3APdI1+Gt
-         GEwHpWSb1pyDVnwbFzpvO8lwXxOBwXP6PY7p10I8m8J49902w+pO5WwBK8uskeqgDxjH
-         ufdsXqaSdyd/s+T3cDHL5q5Ahj+33w+mTGNpkSOQX6auMyL3XLelh+YnHy7U4vkDsM7i
-         o8aiXlF2PVoGLai9X95MH48I1/rSKhQQ82SEDbcFrLRAUWVq51QFTgO6scCqOfApdokE
-         FzdQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpaN7JPbGay8rZNEmKewsjdc/D8JEoXrFZZXRPqsjcKYfAOoj7fpeLthu9qNOK24sf1YudR1Ts=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+wZnwNk3eko7yPyAhTZJucHPLe+/hxwoieu+LprEAimlfKktk
-	5HLejfvif20OC9Y4GkDPZ4pnkIR4y+SYAvzzLZx/kQK2YSnrp3he/9yU
-X-Gm-Gg: AR+sD10BT+vi6AGHFrgcKKdk8M+gqs8flryljWtBoLXMCd2c0FBEox9VxQ3mg0R4NBY
-	iyrQD0eSmuDZ9ZGOtsRXo/WkZej7g+wtongrgfRcLEg6VcynGDvLV7UJEgK85cvYEZoiyUPn/+x
-	IU4vOCl5EcXLH9ALCt+sxjcgTay9qycmzAfHaAKiC9zCzoMe0/NqEKl88M0qsb/qnffDFdESdya
-	iTidGGmVMHJ5S0RgDqoWT0HN7Un1U7Xd1Uu5rJnVxma1/CzE03RuDyeCKWA8vKnPy/D5xWIzPg3
-	IzaE/SvMRqpqWU1DJF3eRlAb/OLOWg0PGCoAfh+wjJAKEbb6MZGBz9R/NrwIrhC8Yp712eHDao6
-	E3vbpOmIqqs+0o6Ew2Tzl32E7cfqHxO1ye39u6FuKA7nvQhmzHY4Igp/SYOytQUHTFp/JoffuE+
-	eIR7+RZ8VZtG/TBCtZ3ByY0jGruD+KH9UK4Xb5vcPpE4hiuqZBYM3D8zRsvHaSHY9ChOGkAZVLi
-	UG910Ay74i590rs9lSzOUEpeN8xdSc=
-X-Received: by 2002:a17:906:f591:b0:c24:6045:2a94 with SMTP id a640c23a62f3a-c24e5c8ad60mr1019878166b.4.1787671650465;
-        Tue, 25 Aug 2026 08:27:30 -0700 (PDT)
-Received: from im-t490s.redhat.com (89-24-33-32.nat.epc.tmcz.cz. [89.24.33.32])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9ef996sm1808866b.62.2026.08.25.08.27.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 08:27:29 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: netfilter-devel@vger.kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Romain Bellan <romain.bellan@wifirst.fr>,
-	Florent Fourcot <florent.fourcot@wifirst.fr>,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ilya Maximets <i.maximets@ovn.org>,
-	stable@vger.kernel.org
-Subject: [PATCH nf] net: netfilter: report NLM_F_DUMP_FILTERED when all is filtered out
-Date: Tue, 25 Aug 2026 17:27:24 +0200
-Message-ID: <20260825152725.3678225-1-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1787671994; c=relaxed/simple;
+	bh=tDcRDFPfDiTkzMjIWTZR1CvlLQQ+SzGHSKVTCtqx2x0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e2bm9gOCHA1gPkw02M7mMVz25lYVbdSsv+80FVEg9OLniLfSaW/oufeEFtFgwsnAp+JZrlEetFMOyLaOiL0g+hHtwRJ9esrjxdcDIRENqeWT75dFcqvyC4xLuEeZ8SbIX+xiIuO5GX4a5FRDYMD+tJnLIFoW9h2lIMQYVqnpxy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kWeHk4nu; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kWeHk4nu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB9B1F00AC4;
+	Tue, 25 Aug 2026 15:33:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787671992;
+	bh=rSTSQjP1uFWFxTusOOrVe+TtmpICXhQjuT2+CLNW9BY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kWeHk4nua4gZxRy4qpot4xwPGJG+WUV9SNKJvw6XUYhmdsNB1PU4KPthUiVwFd/y5
+	 r4KOenmUZ4w7/okVLKza21UHaTj+GAk0RrJ16CJsbR+bG7BJA6F6RiyDZf5t1k/G3d
+	 6jnAI09yETZh+9L3N6A24tC09IiDThFUAW/VvQ60YwxeJNXdQ53yOlw0BRZfsxH0zT
+	 A3etsmZFS5WyKer0BL6s0iOGPCXx53gDdXrT+NruZB5DwJSGR9ulcpUNm96uoYoUU/
+	 WMOXicb6M7d/RFwiPIiQivL1kqfeY7JrxV6rtDl85NDasvwsKQ+g8KBC+zg8cmqrvu
+	 EHFhPWuBFwQEw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/3] futex: Make futex_mm_init() void
+Date: Tue, 25 Aug 2026 11:33:08 -0400
+Message-ID: <20260825153310.4065884-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082406-engaged-statistic-82bb@gregkh>
+References: <2026082406-engaged-statistic-82bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,44 +45,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-NLM_F_DUMP_FILTERED is only set on data elements in the conntrack dump.
-But when everything is filtered out it is confusing for the user space,
-since the flag is not reported anymore and it looks like the table was
-empty, which may or may not be the case.
+From: Thomas Gleixner <tglx@kernel.org>
 
-'answer_flags' were introduced precisely for this use case, and the
-conntrack dump should set the flag in there in case the filtering was
-applied.
+[ Upstream commit d7b3f52c861f54ba2fff15696d3798277fb4c19f ]
 
-This is important, for example, to be able to tell if the filters are
-supported or not by the kernel without modifying the kernel state.
+Nothing fails there. Mop up the leftovers of the early version of this,
+which did an allocation.
 
-With the proper reporting of NLM_F_DUMP_FILTERED on NLMSG_DONE, an
-application in user space can just try and dump with an arbitrary
-filter without worrying that there could be no matching entry.  The
-reported flag will signal that the filtering was applied and therefore
-supported.
+While at it clean up the stubs and the #ifdef comments to make the header
+file readable.
 
-Fixes: cb8aa9a3affb ("netfilter: ctnetlink: add kernel side filtering for dump")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260602090535.356789395@kernel.org
+Stable-dep-of: bde023808364 ("futex: Fix race on the initial mm->futex.phash.ref allocation")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nf_conntrack_netlink.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/futex.h | 28 +++++++++++-----------------
+ kernel/fork.c         |  8 ++------
+ kernel/futex/core.c   |  3 +--
+ 3 files changed, 14 insertions(+), 25 deletions(-)
 
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 9b4e29557ec3..579ada063b1b 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -1077,6 +1077,8 @@ static int ctnetlink_start(struct netlink_callback *cb)
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index 9e9750f049805..87559766319e1 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -85,22 +85,20 @@ int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
+ #ifdef CONFIG_FUTEX_PRIVATE_HASH
+ int futex_hash_allocate_default(void);
+ void futex_hash_free(struct mm_struct *mm);
+-int futex_mm_init(struct mm_struct *mm);
+-
+-#else /* !CONFIG_FUTEX_PRIVATE_HASH */
++void futex_mm_init(struct mm_struct *mm);
++#else  /* CONFIG_FUTEX_PRIVATE_HASH */
+ static inline int futex_hash_allocate_default(void) { return 0; }
+ static inline int futex_hash_free(struct mm_struct *mm) { return 0; }
+-static inline int futex_mm_init(struct mm_struct *mm) { return 0; }
+-#endif /* CONFIG_FUTEX_PRIVATE_HASH */
++static inline void futex_mm_init(struct mm_struct *mm) { }
++#endif /* !CONFIG_FUTEX_PRIVATE_HASH */
+ 
+-#else /* !CONFIG_FUTEX */
++#else  /* CONFIG_FUTEX */
+ static inline void futex_init_task(struct task_struct *tsk) { }
+ static inline void futex_exit_recursive(struct task_struct *tsk) { }
+ static inline void futex_exit_release(struct task_struct *tsk) { }
+ static inline void futex_exec_release(struct task_struct *tsk) { }
+-static inline long do_futex(u32 __user *uaddr, int op, u32 val,
+-			    ktime_t *timeout, u32 __user *uaddr2,
+-			    u32 val2, u32 val3)
++static inline long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout,
++			    u32 __user *uaddr2, u32 val2, u32 val3)
+ {
+ 	return -EINVAL;
+ }
+@@ -108,13 +106,9 @@ static inline int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsig
+ {
+ 	return -EINVAL;
+ }
+-static inline int futex_hash_allocate_default(void)
+-{
+-	return 0;
+-}
++static inline int futex_hash_allocate_default(void) { return 0; }
+ static inline int futex_hash_free(struct mm_struct *mm) { return 0; }
+-static inline int futex_mm_init(struct mm_struct *mm) { return 0; }
++static inline void futex_mm_init(struct mm_struct *mm) { }
++#endif /* !CONFIG_FUTEX */
+ 
+-#endif
+-
+-#endif
++#endif /* _LINUX_FUTEX_H */
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 5a4623b058a20..ded98330429d0 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1106,6 +1106,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ #endif
+ 	mm_init_uprobes_state(mm);
+ 	hugetlb_count_init(mm);
++	futex_mm_init(mm);
+ 
+ 	mm_flags_clear_all(mm);
+ 	if (current->mm) {
+@@ -1118,11 +1119,8 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ 		mm->def_flags = 0;
  	}
  
- 	cb->data = filter;
-+	if (filter)
-+		cb->answer_flags = NLM_F_DUMP_FILTERED;
- 	return 0;
+-	if (futex_mm_init(mm))
+-		goto fail_mm_init;
+-
+ 	if (mm_alloc_pgd(mm))
+-		goto fail_nopgd;
++		goto fail_mm_init;
+ 
+ 	if (mm_alloc_id(mm))
+ 		goto fail_noid;
+@@ -1149,8 +1147,6 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ 	mm_free_id(mm);
+ fail_noid:
+ 	mm_free_pgd(mm);
+-fail_nopgd:
+-	futex_hash_free(mm);
+ fail_mm_init:
+ 	free_mm(mm);
+ 	return NULL;
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 6b3121c734bb5..cfaa96c009320 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -1750,7 +1750,7 @@ static bool futex_ref_is_dead(struct futex_private_hash *fph)
+ 	return atomic_long_read(&mm->futex_atomic) == 0;
  }
  
+-int futex_mm_init(struct mm_struct *mm)
++void futex_mm_init(struct mm_struct *mm)
+ {
+ 	mutex_init(&mm->futex_hash_lock);
+ 	RCU_INIT_POINTER(mm->futex_phash, NULL);
+@@ -1759,7 +1759,6 @@ int futex_mm_init(struct mm_struct *mm)
+ 	mm->futex_ref = NULL;
+ 	atomic_long_set(&mm->futex_atomic, 0);
+ 	mm->futex_batches = get_state_synchronize_rcu();
+-	return 0;
+ }
+ 
+ void futex_hash_free(struct mm_struct *mm)
 -- 
-2.55.0
+2.53.0
 
