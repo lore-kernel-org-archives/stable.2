@@ -1,83 +1,83 @@
-Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4683DDB13
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:24:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C80E7081E;
+	Tue, 25 Aug 2026 08:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787646285; cv=none; b=FgHIPnSPc3vLHHNn+NiEBb104OuHeZ+B8TbIYG8JRFBtRHQsOWBhc7UB1YsEiC1mmUny5q7o9Oa5dGd3q6n/NCTKMKVumkFqYdNx3sEL0WNRJylw+Ru6H6xOCkEVBrtlKxqJReNMtO6hy8GTrxC071SOQ4JNblF/W14G0mi+XDc=
+	t=1787646306; cv=none; b=VLOxrsC1yh2BOXoUfGtCjkOahlRWDvFKh8kRL2LWPG4FeC9QQox5J9QtQxAMA+pUpDMKkduLQrXJwUVmKYsySBN52qGM6RONwhLmHxZDLx9GX6cAKay7NG5dLQSDfyGrwjuP0uiw28b4ZeEptZyqrPRjMY8C0MRUCu3o7RJYh4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787646285; c=relaxed/simple;
-	bh=fMVBFOBVKoGOkj1z1iZ/OESzFrC4Hs4XMDXPGd9Ou0c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vohbu0jZOcyqzIixkKG/U+YxLwvIh5pAA3yFohdT//YW6+X83gEkzkZSv5T2J3m2r5qlkLZCwzjLCooQzswZM6VVBbRlABQAgUnBkbnLFw6z0YXHalAoys02WZHYYz1GxVzSmCpJkH7c3nSs1YJWI6xpQR5zlx+m6mZngZgjZLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=W99Wy5lj; arc=none smtp.client-ip=91.218.175.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787646306; c=relaxed/simple;
+	bh=3Arvg/Z7t541bnNnv8tATh8KJx3KCUVvAbe3BqetXAc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y0n9eCwnzw2mDdYtgsHIb7BEVRi2ZvE7dSpb/RmK//FXYLeQwywQ2ROHH2+mPCufXvIyfF4sl4bBsfpdekB85ehvFfI1u9P8LTSJ1hncVTQbCl+D8YPPejNH4xSHlZjhUrE1CHjcW8vYJJh7QNPkGXuwNucdx2htx8oHatOwDSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2PwchZaK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="W99Wy5lj"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fMVBFOBVKoGOkj1z1iZ/OESzFrC4Hs4XMDXPGd9Ou0c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787646281; v=1; x=1788251081;
- b=W99Wy5ljfE/q3r3LrSy2MLvV1W13vGR28iqt52jIsdZe9Uo9UWGS8A6zl8nl6pMpkUnFw0cy
- JhzVV5eQI1Ledf3n3ubyzX0oJY2EfT0DH4INxPmFM4hSODX5gKYLikPBDvr9CX87MctUlnGq66l
- hMuc43A4/mLL8j7V5IufMBjE=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [10.54.25.56] (210.22.144.162)
-	by smtp.migadu.com with ESMTPS id a3d3e90f79ae5f84;
-	Tue, 25 Aug 2026 08:24:40 +0000
-X-Mizu-Trace-ID: a3d3e90f79ae5f84
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <cbf1cf65-6f80-45ad-8b83-4927dd49c53c@linux.dev>
-Date: Tue, 25 Aug 2026 16:24:30 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2PwchZaK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A7ED1F000E9;
+	Tue, 25 Aug 2026 08:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787646304;
+	bh=L6GLVc9MfIyepECb6CymswjSoYeLQ6qjUw2dWWPhrkw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=2PwchZaK3WE9iWY7HOqWOn6RSXiuVVp67sjlE6lQse13ehgQODSYZwMsUB+Ktfy7h
+	 P9p/jdDSgqnZEVQWyTE301qBJ8BqSt0fjGm+HntyGpXuxvK1XE4CNO6DCCZdwZLH92
+	 jWLg0Lhn3jtbr30WVY83k1i0E9L4BhymMJeOnsNc=
+Date: Tue, 25 Aug 2026 10:25:00 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: =?utf-8?B?7ZWY7YOc6rWs?= <hataegu0826@gmail.com>
+Cc: stable@vger.kernel.org, bpf@vger.kernel.org,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>
+Subject: Re: [STABLE REQUEST] bpf: backport de36adca6346 to 7.1.y
+Message-ID: <2026082526-remindful-aids-773b@gregkh>
+References: <CAPa51zmwhbD2Xc1kFJY8HmpG-DY3OsK=G=h2Yn5ismeGCxo==g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v1] tls: device: fix out-of-bounds write in
- tls_append_frag()
-To: Paolo Abeni <pabeni@redhat.com>, Jiayuan Chen <jiayuan.chen@linux.dev>,
- netdev@vger.kernel.org
-Cc: stable@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Simon Horman <horms@kernel.org>, Ilya Lesokhin <ilyal@mellanox.com>,
- Aviad Yehezkel <aviadye@mellanox.com>, Boris Pismenny <borisp@mellanox.com>,
- linux-kernel@vger.kernel.org
-References: <20260823084758.20936-1-jiayuan.chen@linux.dev>
- <b1ede30d-5c03-4514-980f-c656acf3bc13@redhat.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <b1ede30d-5c03-4514-980f-c656acf3bc13@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPa51zmwhbD2Xc1kFJY8HmpG-DY3OsK=G=h2Yn5ismeGCxo==g@mail.gmail.com>
 
+On Tue, Aug 25, 2026 at 04:00:34AM +0900, 하태구 wrote:
+> Hello,
+> 
+> Please consider backporting the following upstream commit to Linux 7.1.y:
+> 
+> de36adca634634c205a9eb8b56a28175ab7abf5f
+> ("bpf: reject overlarge global subprog argument sizes")
+> 
+> The issue was introduced by:
+> 
+> 2cb27158adb3 ("bpf: poison dead stack slots")
+> 
+> which is present in Linux 7.1.
+> 
+> The fix rejects BTF-derived global subprogram argument sizes larger
+> than S32_MAX. Without the check, the caller-side PTR_TO_STACK
+> validation can interpret an overlarge size differently from the
+> callee-side PTR_TO_MEM state, potentially allowing the verifier to
+> validate accesses outside the actual stack object.
+> 
+> The upstream commit includes a selftest and applies cleanly to the
+> current linux-7.1.y tree. The fix is present in Linux 7.2 but is not
+> present in Linux 7.1.10 or the current 7.1 stable queue.
+> 
+> Upstream commit:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=de36adca634634c205a9eb8b56a28175ab7abf5f
+> 
+> Target stable series:
+> 
+> 7.1.y
 
-On 8/25/26 4:03 PM, Paolo Abeni wrote:
-> On 8/23/26 10:47 AM, Jiayuan Chen wrote:
-[...]
->> Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
->>
->> ---
->> Hope to get capture attention
->>
->> netdevsim + tls (revised a lot locally):
->> https://lore.kernel.org/netdev/20260728125658.390500-1-jiayuan.chen@linux.dev/
-> I must admit that RFC series have low chances of getting full attention
-> these days, due to constant flood situation.
->
-> Could you please re-submit that series formally?
->
-> Thanks,
->
-> Paolo
+It does not actually build properly, how did you test this?  Please
+provide a working backport that has been tested if you wish to see this
+added to the 7.1.y tree.
 
+thanks,
 
-Thanks Paolo. Will do it after merge window.
-
+greg k-h
