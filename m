@@ -1,221 +1,219 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8363D38B154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6043DAAA8
 	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664469; cv=none; b=gejsP05JGoi43BAryGR53tR9Ucx7tVPp81TPoIXiBLHKRYHwhyvcNK/LI3pHJKAdb2gydZ+YYVz5Rh9dmCR2ccGGSPn6b/DGSdqkwOWsJd8pNUtuOUqvBKjpGFI8b2vTRqRb4Kc/rtHOdgqYoQi1QiNr1ZYY6TKgsRH8PwflreM=
+	t=1787664469; cv=none; b=bjU45CveXMXm8WEODvL9SKuMmZhF3F2zuFBOtodbKFvgE6heGG7YG2+mdsmImSiw7Jqn6yHm6ZJiDIJtoW2h1Mt23GEe3UKLR0vyGPAtgNwK/Pt3t3C/y/tQ1H4r4upt6yrRSYDgEUe/czTZqsa5E6tkxNtUuR6svVlPJTnvEos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787664469; c=relaxed/simple;
-	bh=sB8w7icDhblNM19I/EDhKyOKG5h7KK7ZDL0y1lspcZw=;
+	bh=nCCXkP2Kinxrw5s+UIaUZqOqSZPrMgeBBBvva+5vvNc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D4M4sTVCymViKUSrFjK0YFdj1IX6SO2rhit1dLHkSZmthcfW+cyeasmKcHJIuNYIe55cMZM1tGL39/HP2+qnZpvD370niLwoqhrSXIdV2p13R2GCorfkgTKkWN/oCc7I266HouORxdPqM+Mb8WOSyYYWjkk6l6wbWAKfGndlqQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k40e525P; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Si3m7VwalbYG/7M38FiwWqJCbHaFIVbpfxAChEqN9P3eOkdxfGh5ClKyGbYlTghFdCohbnWUkuVj65U79hfebApeyGfXtGXEeHXaZ2XUu+EGcjw2o6c+Bgkv09FS4EIOjuLcndc6dda1UPgbpiBlVSvXzNTMFQRRJ3FFvXKHS7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQmxzYnk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k40e525P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 025A01F000E9;
-	Tue, 25 Aug 2026 13:27:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQmxzYnk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C651F00A3D;
+	Tue, 25 Aug 2026 13:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787664464;
-	bh=BgqJ1DxLrX17GVYxoEEDZbEELkXAK40zFLXc/H2PjFI=;
+	s=k20260515; t=1787664465;
+	bh=4OuSimcTcQmJWBl4B54IsZrfbRzIhZ6PoV2VICE9V9c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k40e525PwqgPhd3epAyNFweqQ1flkV6nx+6TQZtOS9O/4qJkdn8ly1XsS99M1SdLw
-	 FffoXpHFEwLqjDBOKI+5wVn/jYPnExyD6IXZB4l8mIX9hUPKEr0SzhJZpJHWqGP7of
-	 DsRJI/CZrnOBUPGU+3pWnnQ1usD7Wa6m1lLWStfa4yBiGk9w8yaRnQY0qlCm/vibzC
-	 Yr6aOhgCdh6vlR7RfSXJ/WoxtL+BnoFzzXV7UBUEwjQ+HhTECL9wbW/sud3lnGptJi
-	 MuWkpLpUEHH2rXDAcu5jTXxiTxij0N0iq3GB41ZzgojDZnzdsB8K/Wo9Ll95ZVhL6L
-	 /E7iWEUmHaCwQ==
+	b=RQmxzYnkJTcRZBES5FeGQ7MbTwUQcse3tPEGfeU+LkIr4nij8Rl2P3sNV8uDo//4o
+	 P3+1CSsFGpUJr7t07J+bZAR2nb+og8kBKwM+S3+6GkxMiJpb3ooxfGlTEcv+sx/IJK
+	 axMwVVyD4ixBuZH2Ol1CZ69fC2APET17PdAXwW/brOWI0XlF1dQJsnue0cMENf+mug
+	 LOHWfUKaN5f7HmaoZHf+8WbDshypVfPCk5v5iYcA+di1IA/zvDVQcNwk5dJUr4qvkg
+	 I0mp8oTNe4lTAoLF+z6irwB8M2xljEeesKse9kM4UdX9he9F/Iv6jsWSxVlesGgyz2
+	 GCZ16LQdPxPBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paul Moore <paul@paul-moore.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
+Cc: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
+	Paul Moore <paul@paul-moore.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/3] selinux: uninline unlikely parts of avc_has_perm_noaudit()
-Date: Tue, 25 Aug 2026 09:27:40 -0400
-Message-ID: <20260825132742.3865669-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] selinux: avoid implicit conversions in services code
+Date: Tue, 25 Aug 2026 09:27:41 -0400
+Message-ID: <20260825132742.3865669-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082039-waffle-overlabor-d7cc@gregkh>
+In-Reply-To: <20260825132742.3865669-1-sashal@kernel.org>
 References: <2026082039-waffle-overlabor-d7cc@gregkh>
+ <20260825132742.3865669-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Paul Moore <paul@paul-moore.com>
+From: Christian Göttsche <cgzones@googlemail.com>
 
-[ Upstream commit f62ca0b6e31d82e0622a8e31ce5562e80edf6c3c ]
+[ Upstream commit c50e125d057152bc68dfd5669b73611343653eb7 ]
 
-This is based on earlier patch posted to the list by Linus, his
-commit description read:
+Use u32 as the output parameter type in security_get_classes() and
+security_get_permissions(), based on the type of the symtab nprim
+member.
 
- "avc_has_perm_noaudit()is one of those hot functions that end up
-  being used by almost all filesystem operations (through
-  "avc_has_perm()") and it's intended to be cheap enough to inline.
+Declare the read-only class string parameter of
+security_get_permissions() const.
 
-  However, it turns out that the unlikely parts of it (where it
-  doesn't find an existing avc node) need a fair amount of stack
-  space for the automatic replacement node, so if it were to be
-  inlined (at least clang does not) it would just use stack space
-  unnecessarily.
+Avoid several implicit conversions by using the identical type for the
+destination.
 
-  So split the unlikely part out of it, and mark that part noinline.
-  That improves the actual likely part."
+Use the type identical to the source for local variables.
 
-The basic idea behind the patch was reasonable, but there were minor
-nits (double indenting, etc.) and the RCU read lock unlock/re-lock in
-avc_compute_av() began to look even more ugly.  This patch builds on
-Linus' first effort by cleaning things up a bit and removing the RCU
-unlock/lock dance in avc_compute_av().
-
-Removing the RCU lock dance in avc_compute_av() is safe as there are
-currently two callers of avc_compute_av(): avc_has_perm_noaudit() and
-avc_has_extended_perms().  The first caller in avc_has_perm_noaudit()
-does not require a RCU lock as there is no avc_node to protect so the
-RCU lock can be dropped before calling avc_compute_av().  The second
-caller, avc_has_extended_perms(), is similar in that there is no
-avc_node that requires RCU protection, but the code is simplified by
-holding the RCU look around the avc_compute_av() call, and given that
-we enter a RCU critical section in security_compute_av() (called from
-av_compute_av()) the impact will likely be unnoticeable.  It is also
-worth noting that avc_has_extended_perms() is only called from the
-SELinux ioctl() access control hook at the moment.
-
-Acked-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+[PM: cleanup extra whitespace in subject]
 Signed-off-by: Paul Moore <paul@paul-moore.com>
 Stable-dep-of: 22b05fec62c0 ("selinux: reject an unclaimed class value in security_get_classes()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/selinux/avc.c | 85 ++++++++++++++++++++++++++++--------------
- 1 file changed, 57 insertions(+), 28 deletions(-)
+ security/selinux/include/security.h |  4 ++--
+ security/selinux/selinuxfs.c        |  7 ++++---
+ security/selinux/ss/services.c      | 23 ++++++++++++-----------
+ 3 files changed, 18 insertions(+), 16 deletions(-)
 
-diff --git a/security/selinux/avc.c b/security/selinux/avc.c
-index 8984ba92676db..d5ad01834dd67 100644
---- a/security/selinux/avc.c
-+++ b/security/selinux/avc.c
-@@ -988,25 +988,26 @@ int avc_ss_reset(struct selinux_avc *avc, u32 seqno)
- 	return rc;
- }
+diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+index 393aff41d3ef8..38390e3393745 100644
+--- a/security/selinux/include/security.h
++++ b/security/selinux/include/security.h
+@@ -379,9 +379,9 @@ int security_net_peersid_resolve(struct selinux_state *state,
+ 				 u32 *peer_sid);
  
--/*
-- * Slow-path helper function for avc_has_perm_noaudit,
-- * when the avc_node lookup fails. We get called with
-- * the RCU read lock held, and need to return with it
-- * still held, but drop if for the security compute.
-+/**
-+ * avc_compute_av - Add an entry to the AVC based on the security policy
-+ * @state: SELinux state pointer
-+ * @ssid: subject
-+ * @tsid: object/target
-+ * @tclass: object class
-+ * @avd: access vector decision
-+ * @xp_node: AVC extended permissions node
-  *
-- * Don't inline this, since it's the slow-path and just
-- * results in a bigger stack frame.
-+ * Slow-path helper function for avc_has_perm_noaudit, when the avc_node lookup
-+ * fails.  Don't inline this, since it's the slow-path and just results in a
-+ * bigger stack frame.
-  */
--static noinline
--struct avc_node *avc_compute_av(struct selinux_state *state,
--				u32 ssid, u32 tsid,
--				u16 tclass, struct av_decision *avd,
--				struct avc_xperms_node *xp_node)
-+static noinline struct avc_node *avc_compute_av(struct selinux_state *state,
-+						u32 ssid, u32 tsid, u16 tclass,
-+						struct av_decision *avd,
-+						struct avc_xperms_node *xp_node)
+ int security_get_classes(struct selinux_policy *policy,
+-			 char ***classes, int *nclasses);
++			 char ***classes, u32 *nclasses);
+ int security_get_permissions(struct selinux_policy *policy,
+-			     char *class, char ***perms, int *nperms);
++			     const char *class, char ***perms, u32 *nperms);
+ int security_get_reject_unknown(struct selinux_state *state);
+ int security_get_allow_unknown(struct selinux_state *state);
+ 
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index ab804d4ea9117..f74fdabaa541b 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -1874,7 +1874,8 @@ static int sel_make_perm_files(struct selinux_policy *newpolicy,
+ 			char *objclass, int classvalue,
+ 			struct dentry *dir)
  {
--	rcu_read_unlock();
- 	INIT_LIST_HEAD(&xp_node->xpd_head);
- 	security_compute_av(state, ssid, tsid, tclass, avd, &xp_node->xp);
--	rcu_read_lock();
- 	return avc_insert(state->avc, ssid, tsid, tclass, avd, xp_node);
- }
+-	int i, rc, nperms;
++	u32 i, nperms;
++	int rc;
+ 	char **perms;
  
-@@ -1112,6 +1113,36 @@ int avc_has_extended_perms(struct selinux_state *state,
- 	return rc;
- }
- 
-+/**
-+ * avc_perm_nonode - Add an entry to the AVC
-+ * @state: SELinux state pointer
-+ * @ssid: subject
-+ * @tsid: object/target
-+ * @tclass: object class
-+ * @requested: requested permissions
-+ * @flags: AVC flags
-+ * @avd: access vector decision
-+ *
-+ * This is the "we have no node" part of avc_has_perm_noaudit(), which is
-+ * unlikely and needs extra stack space for the new node that we generate, so
-+ * don't inline it.
-+ */
-+static noinline int avc_perm_nonode(struct selinux_state *state,
-+				    u32 ssid, u32 tsid, u16 tclass,
-+				    u32 requested, unsigned int flags,
-+				    struct av_decision *avd)
-+{
-+	u32 denied;
-+	struct avc_xperms_node xp_node;
-+
-+	avc_compute_av(state, ssid, tsid, tclass, avd, &xp_node);
-+	denied = requested & ~(avd->allowed);
-+	if (unlikely(denied))
-+		return avc_denied(state, ssid, tsid, tclass, requested, 0, 0,
-+				  flags, avd);
-+	return 0;
-+}
-+
- /**
-  * avc_has_perm_noaudit - Check permissions but perform no auditing.
-  * @state: SELinux state
-@@ -1139,29 +1170,27 @@ inline int avc_has_perm_noaudit(struct selinux_state *state,
- 				unsigned int flags,
- 				struct av_decision *avd)
+ 	rc = security_get_permissions(newpolicy, objclass, &perms, &nperms);
+@@ -1944,8 +1945,8 @@ static int sel_make_classes(struct selinux_policy *newpolicy,
+ 			    struct dentry *class_dir,
+ 			    unsigned long *last_class_ino)
  {
--	struct avc_node *node;
--	struct avc_xperms_node xp_node;
--	int rc = 0;
- 	u32 denied;
-+	struct avc_node *node;
- 
- 	if (WARN_ON(!requested))
- 		return -EACCES;
- 
- 	rcu_read_lock();
 -
- 	node = avc_lookup(state->avc, ssid, tsid, tclass);
--	if (unlikely(!node))
--		avc_compute_av(state, ssid, tsid, tclass, avd, &xp_node);
--	else
--		memcpy(avd, &node->ae.avd, sizeof(*avd));
-+	if (unlikely(!node)) {
-+		rcu_read_unlock();
-+		return avc_perm_nonode(state, ssid, tsid, tclass, requested,
-+				       flags, avd);
-+	}
-+	denied = requested & ~node->ae.avd.allowed;
-+	memcpy(avd, &node->ae.avd, sizeof(*avd));
-+	rcu_read_unlock();
+-	int rc, nclasses, i;
++	u32 i, nclasses;
++	int rc;
+ 	char **classes;
  
--	denied = requested & ~(avd->allowed);
- 	if (unlikely(denied))
--		rc = avc_denied(state, ssid, tsid, tclass, requested, 0, 0,
--				flags, avd);
--
--	rcu_read_unlock();
--	return rc;
-+		return avc_denied(state, ssid, tsid, tclass, requested, 0, 0,
-+				  flags, avd);
-+	return 0;
+ 	rc = security_get_classes(newpolicy, &classes, &nclasses);
+diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+index 48d67b26110bc..077a7af5794e6 100644
+--- a/security/selinux/ss/services.c
++++ b/security/selinux/ss/services.c
+@@ -869,7 +869,7 @@ int security_bounded_transition(struct selinux_state *state,
+ 	struct sidtab *sidtab;
+ 	struct sidtab_entry *old_entry, *new_entry;
+ 	struct type_datum *type;
+-	int index;
++	u32 index;
+ 	int rc;
+ 
+ 	if (!selinux_initialized(state))
+@@ -1537,7 +1537,7 @@ static int security_context_to_sid_core(struct selinux_state *state,
+ 		return -ENOMEM;
+ 
+ 	if (!selinux_initialized(state)) {
+-		int i;
++		u32 i;
+ 
+ 		for (i = 1; i < SECINITSID_NUM; i++) {
+ 			const char *s = initial_sid_to_string[i];
+@@ -2886,7 +2886,6 @@ static inline int __security_genfs_sid(struct selinux_policy *policy,
+ {
+ 	struct policydb *policydb = &policy->policydb;
+ 	struct sidtab *sidtab = policy->sidtab;
+-	int len;
+ 	u16 sclass;
+ 	struct genfs *genfs;
+ 	struct ocontext *c;
+@@ -2908,7 +2907,7 @@ static inline int __security_genfs_sid(struct selinux_policy *policy,
+ 		return -ENOENT;
+ 
+ 	for (c = genfs->head; c; c = c->next) {
+-		len = strlen(c->u.name);
++		size_t len = strlen(c->u.name);
+ 		if ((!c->v.sclass || sclass == c->v.sclass) &&
+ 		    (strncmp(c->u.name, path, len) == 0))
+ 			break;
+@@ -3402,7 +3401,7 @@ static int get_classes_callback(void *k, void *d, void *args)
+ {
+ 	struct class_datum *datum = d;
+ 	char *name = k, **classes = args;
+-	int value = datum->value - 1;
++	u32 value = datum->value - 1;
+ 
+ 	classes[value] = kstrdup(name, GFP_ATOMIC);
+ 	if (!classes[value])
+@@ -3412,7 +3411,7 @@ static int get_classes_callback(void *k, void *d, void *args)
  }
  
- /**
+ int security_get_classes(struct selinux_policy *policy,
+-			 char ***classes, int *nclasses)
++			 char ***classes, u32 *nclasses)
+ {
+ 	struct policydb *policydb;
+ 	int rc;
+@@ -3428,7 +3427,8 @@ int security_get_classes(struct selinux_policy *policy,
+ 	rc = hashtab_map(&policydb->p_classes.table, get_classes_callback,
+ 			 *classes);
+ 	if (rc) {
+-		int i;
++		u32 i;
++
+ 		for (i = 0; i < *nclasses; i++)
+ 			kfree((*classes)[i]);
+ 		kfree(*classes);
+@@ -3442,7 +3442,7 @@ static int get_permissions_callback(void *k, void *d, void *args)
+ {
+ 	struct perm_datum *datum = d;
+ 	char *name = k, **perms = args;
+-	int value = datum->value - 1;
++	u32 value = datum->value - 1;
+ 
+ 	perms[value] = kstrdup(name, GFP_ATOMIC);
+ 	if (!perms[value])
+@@ -3452,10 +3452,11 @@ static int get_permissions_callback(void *k, void *d, void *args)
+ }
+ 
+ int security_get_permissions(struct selinux_policy *policy,
+-			     char *class, char ***perms, int *nperms)
++			     const char *class, char ***perms, u32 *nperms)
+ {
+ 	struct policydb *policydb;
+-	int rc, i;
++	u32 i;
++	int rc;
+ 	struct class_datum *match;
+ 
+ 	policydb = &policy->policydb;
+@@ -3675,7 +3676,7 @@ int selinux_audit_rule_init(u32 field, u32 op, char *rulestr, void **vrule,
+ /* Check to see if the rule contains any selinux fields */
+ int selinux_audit_rule_known(struct audit_krule *rule)
+ {
+-	int i;
++	u32 i;
+ 
+ 	for (i = 0; i < rule->field_count; i++) {
+ 		struct audit_field *f = &rule->fields[i];
 -- 
 2.53.0
 
