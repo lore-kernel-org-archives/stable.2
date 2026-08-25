@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C2F4756B9
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:27:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D64D3DD502;
+	Tue, 25 Aug 2026 13:29:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664470; cv=none; b=FVOEE8htdDa2vS9p8I68R0kMf79CN65IsX3o2GGnK+/6z1l1eq5USh5PQGb+cc4qTBrpPS9Z+Fby4jV/RsnBeZDQIz9K8HHHfPvuKd4XQy33erUq6zcz5q1S9Z7ZtTT6/uqeV8lGWMj9YX1xNyFlB6zzX0GKZ7FYh8S3rdlECRk=
+	t=1787664552; cv=none; b=ErEvM03LHES78kjcbb0q1OSW4QL6Cs1Zy5SOxYc9b8OpREnSU8xR6HuJSio0cKnmbNLh86q5RpKU1XqR6lZKaaaCg/wZC/c/tQQ92KB/5niTwB9U0XoPmNRjD+fBSF86EILNpXGDuLMW0FXtV7PJU8lnBbOm4+xKYJaeJ8tG/4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787664470; c=relaxed/simple;
-	bh=V4ft8tfM9qa7bJsVbzxuqNR7jWyRZKbMgpsLnQ6sjL8=;
+	s=arc-20240116; t=1787664552; c=relaxed/simple;
+	bh=NMprdpSVj2gWC59K20e1LOwvqM83YevVksRkrYlWfF8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LTFjrBjzqCZEUNWvmVCy/P5MP69HBqIJKQT8n+RfqCtg6IP4Ndv8WnCGI2kaeDk97xqOB3QvfYvaCErNpIwjThLygz2yLQv8s7B4a1Gz6zQ0chLrgrCMsyBMsqVfu/E008rnweOYX+zd2YP0GrByauGacZpoKGh6/39qtuT9bfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiY5FWAQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=c71GXVMxq/3I/2DfwM0GrsJnKuSatChMGMwPPwvW2PHw+RABS8ueKxr8D2Uw0RS8GtQB4KYzzkhz7PCXY918p+N7BziHLAqHine1ZCvuQHLaEUVvbSL7mhA3iqjF74nHR5Id01OVW+l/ZCnuMNaqF110YGbj4lG099XWGjho9tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zIR0TQjv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiY5FWAQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783021F00A3A;
-	Tue, 25 Aug 2026 13:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787664466;
-	bh=aJ3qp8iSnJJayZXGa9fZyGoYtPnQZ2uCtWbqFMW6F8g=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zIR0TQjv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413871F00A3F;
+	Tue, 25 Aug 2026 13:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787664550;
+	bh=OxPfiAqrUq/DnE9EgTI9HkNaSEAnGbuOuerTCt7tR1A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OiY5FWAQ/fxn3OMKDZ+mQH1Nn6prQkwh9MbM7MOMcay2sefjZ4GJY+AHy+2LHoCbB
-	 5bgq5m2KoBnhgghkWZm/XFPCHv5S9IEbMooQSpMh4W7MZJA67g25i4W2uzIazUEksV
-	 ueEpBCxe2l9KkK7+MQ+JtSjJcdrumh7DVIm4WZijTL/kkLP6aGjcVrfouZV+ZINiIL
-	 3/SPSmI0V/Tm+yLNffQcgoT8KKK8uoiz6r4yEAMLy7l4L8cJu1gxQ931BH28nIUEaL
-	 G26eBx56HEuvPkhNjO/6YAduJHSxRMLVfGIJmefWaALhskYR07TpxjaTtFLM/CH5Rt
-	 DXTJtfgxSWuvw==
-From: Sasha Levin <sashal@kernel.org>
+	b=zIR0TQjvfgGaWmqcBw22FqFm15siIK3eBUKexS3EqB3mB4BhPryPOS4K0KKoTTZB7
+	 RoQwNNwuGf1GNB+/ShUoRdeU4Mws+DByytm0/2z5eO/Nh1QRkKoWsLbey9DtH7iBPf
+	 yOmAmeqy37VeV5OIMuyy7AtynPNxw6BDXlpfvr80=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] selinux: reject an unclaimed class value in security_get_classes()
-Date: Tue, 25 Aug 2026 09:27:42 -0400
-Message-ID: <20260825132742.3865669-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825132742.3865669-1-sashal@kernel.org>
-References: <2026082039-waffle-overlabor-d7cc@gregkh>
- <20260825132742.3865669-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Steffen Persvold <spersvold@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Subject: [PATCH 7.2 01/82] PCI: host-generic: Fix NULL pointer dereference on 32-bit CAM systems
+Date: Tue, 25 Aug 2026 15:24:48 +0200
+Message-ID: <20260825132541.616066702@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
+References: <20260825132541.560541185@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,79 +46,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 22b05fec62c0fe9864cfceb52f7d0f3a34d9b1dd ]
+------------------
 
-security_get_classes() sizes an array by p_classes.nprim and fills it at
-value - 1, so a class value the policy never defines leaves a NULL.
-sel_make_classes() passes every entry to sel_make_dir(), reaching the same
-d_alloc_name() dereference as the permission array. The class symbol table
-is allowed to be sparse (policydb_class_isvalid() exists to absorb that),
-but this getter builds its own array straight from the hash table and has
-no such predicate.
+From: Steffen Persvold <spersvold@gmail.com>
 
-Fail the lookup when a value went unclaimed instead of handing out the
-NULL. Conforming policies define every class they declare and are
-unaffected.
+commit 008cb88edb41f3c7c8e0ed763ff9f26719830984 upstream.
 
+On 32-bit systems the config space is too large to ioremap in one go, so
+pci_ecam_create() maps each bus segment separately and relies on the
+->add_bus callback (pci_ecam_add_bus) to populate the per-bus mapping in
+cfg->winp[]. pci_ecam_map_bus() then uses that mapping as the base for
+every config access.
+
+The generic ECAM ops (pci_generic_ecam_ops) already provide the ->add_bus
+and ->remove_bus callbacks, but the CAM (legacy) ops in pci-host-generic.c
+do not. As a result, on a 32-bit host using "pci-host-cam-generic" the
+per-bus mapping is never set up and the first config read dereferences a
+NULL base, crashing during bus enumeration:
+
+ Unable to handle kernel NULL pointer dereference at virtual address 00000800
+ Oops [#1]
+ CPU: 0 PID: 1 Comm: swapper Not tainted 6.9.7+ #43
+ Hardware name: Digilent Nexys-Video-A7 RV32 (DT)
+ epc : pci_generic_config_read+0x40/0xb0
+  ra : pci_generic_config_read+0x2c/0xb0
+ [<c038db9c>] pci_generic_config_read+0x40/0xb0
+ [<c038da04>] pci_bus_read_config_dword+0x50/0xb0
+ [<c0391e94>] pci_bus_generic_read_dev_vendor_id+0x3c/0x1ec
+ [<c039245c>] pci_scan_single_device+0xa4/0x11c
+ [<c0392570>] pci_scan_slot+0x9c/0x23c
+ [<c039388c>] pci_scan_child_bus_extend+0x58/0x2f4
+ [<c0393db0>] pci_scan_root_bus_bridge+0x64/0xe8
+ [<c0393e54>] pci_host_probe+0x20/0xc8
+ [<c03bc6f4>] pci_host_common_probe+0x144/0x1e4
+
+Fix this by giving the CAM ops the same ->add_bus/->remove_bus callbacks.
+Since pci_ecam_add_bus() and pci_ecam_remove_bus() are static to ecam.c,
+move the CAM ops definition there as pci_generic_cam_ops (mirroring
+pci_generic_ecam_ops) and export it for pci-host-generic.c to reference.
+
+Fixes: 8fe55ef23387 ("PCI: Dynamically map ECAM regions")
+Signed-off-by: Steffen Persvold <spersvold@gmail.com>
+[mani: removed timestamp from log]
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
 Cc: stable@vger.kernel.org
-Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://patch.msgid.link/20260709122446.3151899-1-spersvold@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- security/selinux/ss/services.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+ drivers/pci/controller/pci-host-generic.c |   11 +----------
+ drivers/pci/ecam.c                        |   13 +++++++++++++
+ include/linux/pci-ecam.h                  |    3 +++
+ 3 files changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
-index 077a7af5794e6..657c8942ac810 100644
---- a/security/selinux/ss/services.c
-+++ b/security/selinux/ss/services.c
-@@ -3414,6 +3414,7 @@ int security_get_classes(struct selinux_policy *policy,
- 			 char ***classes, u32 *nclasses)
+--- a/drivers/pci/controller/pci-host-generic.c
++++ b/drivers/pci/controller/pci-host-generic.c
+@@ -16,15 +16,6 @@
+ 
+ #include "pci-host-common.h"
+ 
+-static const struct pci_ecam_ops gen_pci_cfg_cam_bus_ops = {
+-	.bus_shift	= 16,
+-	.pci_ops	= {
+-		.map_bus	= pci_ecam_map_bus,
+-		.read		= pci_generic_config_read,
+-		.write		= pci_generic_config_write,
+-	}
+-};
+-
+ static bool pci_dw_valid_device(struct pci_bus *bus, unsigned int devfn)
  {
- 	struct policydb *policydb;
-+	u32 i;
- 	int rc;
+ 	struct pci_config_window *cfg = bus->sysdata;
+@@ -60,7 +51,7 @@ static const struct pci_ecam_ops pci_dw_
  
- 	policydb = &policy->policydb;
-@@ -3426,16 +3427,29 @@ int security_get_classes(struct selinux_policy *policy,
+ static const struct of_device_id gen_pci_of_match[] = {
+ 	{ .compatible = "pci-host-cam-generic",
+-	  .data = &gen_pci_cfg_cam_bus_ops },
++	  .data = &pci_generic_cam_ops },
  
- 	rc = hashtab_map(&policydb->p_classes.table, get_classes_callback,
- 			 *classes);
--	if (rc) {
--		u32 i;
-+	if (rc)
-+		goto err;
+ 	{ .compatible = "pci-host-ecam-generic",
+ 	  .data = &pci_generic_ecam_ops },
+--- a/drivers/pci/ecam.c
++++ b/drivers/pci/ecam.c
+@@ -208,6 +208,19 @@ const struct pci_ecam_ops pci_generic_ec
+ };
+ EXPORT_SYMBOL_GPL(pci_generic_ecam_ops);
  
--		for (i = 0; i < *nclasses; i++)
--			kfree((*classes)[i]);
--		kfree(*classes);
-+	/*
-+	 * The class symtab may be sparse, which policydb_class_isvalid() exists
-+	 * to absorb; the callback fills this array by value, so an unclaimed
-+	 * one leaves a NULL that sel_make_classes() hands to sel_make_dir().
-+	 */
-+	for (i = 0; i < *nclasses; i++) {
-+		if (!(*classes)[i]) {
-+			rc = -EINVAL;
-+			goto err;
-+		}
- 	}
- 
- out:
- 	return rc;
++/* CAM ops */
++const struct pci_ecam_ops pci_generic_cam_ops = {
++	.bus_shift	= 16,
++	.pci_ops	= {
++		.add_bus	= pci_ecam_add_bus,
++		.remove_bus	= pci_ecam_remove_bus,
++		.map_bus	= pci_ecam_map_bus,
++		.read		= pci_generic_config_read,
++		.write		= pci_generic_config_write,
++	}
++};
++EXPORT_SYMBOL_GPL(pci_generic_cam_ops);
 +
-+err:
-+	for (i = 0; i < *nclasses; i++)
-+		kfree((*classes)[i]);
-+	kfree(*classes);
-+	return rc;
- }
+ #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
+ /* ECAM ops for 32-bit access only (non-compliant) */
+ const struct pci_ecam_ops pci_32b_ops = {
+--- a/include/linux/pci-ecam.h
++++ b/include/linux/pci-ecam.h
+@@ -81,6 +81,9 @@ void __iomem *pci_ecam_map_bus(struct pc
+ /* default ECAM ops */
+ extern const struct pci_ecam_ops pci_generic_ecam_ops;
  
- static int get_permissions_callback(void *k, void *d, void *args)
--- 
-2.53.0
++/* default CAM ops */
++extern const struct pci_ecam_ops pci_generic_cam_ops;
++
+ #if defined(CONFIG_ACPI) && defined(CONFIG_PCI_QUIRKS)
+ extern const struct pci_ecam_ops pci_32b_ops;	/* 32-bit accesses only */
+ extern const struct pci_ecam_ops pci_32b_read_ops; /* 32-bit read only */
+
 
