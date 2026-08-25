@@ -1,156 +1,254 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA673E3C50
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35433D3CFF
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787646811; cv=none; b=gYCphYbIO0KcPYfb2Z+3W9g0hqOckUblxUll4a1Ov1FbiU2aburJJQuHKClT47dr6GTBMiEbLYiP7X/IcEpLg5TlAve8XpO5LjdT4KnK18olGKFQUCv/3VHKawrfDHE6NGZy0hCPpgSz4GveZnTp/1iLao8YO/9Slscq+sjMzLY=
+	t=1787646862; cv=none; b=Kp2LyLSav4jb+HKlxzIrJME4S2HIlinA9FCpP++VQWJSGadlNtw0m1DZZuEmPC2Q9RPftahquWde8dKfMSuSyZzvvolwIhwQcplsFFvdIKqUbOvaVCgGN+h87JVb6Sa2vwhSXiKit+5AouMyIIbBO3YMCD6hVSgiAjdWWrKPEQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787646811; c=relaxed/simple;
-	bh=fWBWy64iKsCBFztcv+VWls7yQvkNtUNfFO4diiqfAXI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N8+sGdpSJgyjzeTSmxnSnLGowrje1/vkwDP4bmtBmP/n3hZuMVUEnZMqjQqK10L8ojL1thzuJZE0RoLSDMNmCIEGdrP78S4UVFIfZF9aes4naWuX3Crp7vfgJeBV3LV6ocwoxjYKQQj2odtwZuUc8sjOLQcb9kZZpZ8ZoaH3/6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MBxAWYe9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LDnCWZCh; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787646862; c=relaxed/simple;
+	bh=k9UdTUFjCo/3f5G+Pxw2bjAU9qkDmVibVVrVSl/63c8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l3I/Mk+veb8Bdk6XApVuBgSxnXcM8NMiv2lp9hSUtexh+v/sb9zkQJ0EJJJOjPJ7jPgVE9caHvjzmTTtV5nWKzY1/1fgDTWFkaM+vUwBjF1Md29evjxikNhXi4uOi6Ozw3h50f3V/sDSEYBIHZPI+iKRRIHVLm6mJc14sYOjDGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=SXYazNjz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JZbLS/ik; arc=none smtp.client-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MBxAWYe9";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LDnCWZCh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787646809;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eWBD3iJL83l1SuUqrEcE1y4U7JlqfeuMYAAUlvs1TeI=;
-	b=MBxAWYe9hYeE2ao76nRMRB9097+/NE96agSvIEuvPFc6FloWNRqh/QUYGJ5UfmQ+wpxxg3
-	H8akLv+kKs82RIEn5rzMNIrbmmMC86SiCVUlKLgj/OS/8aEYTzecDrVbbFUGealsW8ilJG
-	0wM+/j+pWhYD3pH7NheYqAgdl+guxnE=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-695-XFRYju5cPqKOkm1NPr1c7g-1; Tue, 25 Aug 2026 04:33:26 -0400
-X-MC-Unique: XFRYju5cPqKOkm1NPr1c7g-1
-X-Mimecast-MFC-AGG-ID: XFRYju5cPqKOkm1NPr1c7g_1787646805
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-69abf97d53aso4486577a12.3
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 01:33:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787646805; x=1788251605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eWBD3iJL83l1SuUqrEcE1y4U7JlqfeuMYAAUlvs1TeI=;
-        b=LDnCWZChj7xQkek9pge7fRybuz6XJ6VIMdh4aB0HorddldiodU0kMS5baszmXAqG4n
-         ARTFU/EFi2N4zllkD1xvW+QddD9U0Fagx+j2T61005yz9tX4/d9ReCL73x8bW4Sgs6EV
-         BVIGJLunu52rBzGq/KP0I5HhajtRMgQPk4Z0ZNL/w2Ylf/ir7A7or+lVyadDSxJx6zvu
-         C2S38D6OajPgKfaeNmrJpk6Di6EOLmCZ8NYPE7CXFAhDZtAnonemFqHyVTBRyjZR7htY
-         L8pESCV8GxfcqahiQW0WMjNssjCWxQ5ewEZpZXBMM8KtMlB3nIeHnWILZJYy+XqCnIOU
-         iKZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787646805; x=1788251605;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eWBD3iJL83l1SuUqrEcE1y4U7JlqfeuMYAAUlvs1TeI=;
-        b=BHgTTi4B1K6tMR+Ifd+ZshXnN67iD17pjWFKlvpbxQTZMJQHEK+SeNUYOjBvoTHdxO
-         /Yszp5vssPaI52nxY26gSx7HdRnRnRi2oR+GtqArEknYacwvgfmfAxt+ES3JGsPp1E3d
-         efzbuV/tITsSGmXEFkEVaYP+fqYxjgE5vkoQhqvGWrTYBKJ+sghYN56ao5WAXyCmHF6H
-         2zCiuEwi/CC9Brv42RGVzrEX35NZlCzkLhDN2qTF6t8JzbT1zGsB76BH8SA6g/L1y+0O
-         lXaqZxkbPfhHY3ppnSAEp7F48jEwqGymYQh8/vPkR1dhcf6v49FAVcQGacP9CPGVSrwR
-         Cd1w==
-X-Forwarded-Encrypted: i=1; AHgh+RpXijmyzUIeC6aJury/BdlH0bwDZtaID7lKvuNfeJGJuO0l7JFfWQAukKVOUfiDuPeegoUjsHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5pSt6bJEd/O8GIqGOUHGLAa5YRO8tdv7ZmO63/Dnhdq7DlE18
-	Rd5X6hwtKdrwyMD6JyljSInflKAx4ZC90iOcXwD6KgAGsC3RJMJhl+xCF8Cr52y7CXxs/VlMtV1
-	TPfKM3dxqQESq6uoXvOrHNF+K8bLGJXGdhDAUlAFBXdb/ybEXjdCcZJPpSw==
-X-Gm-Gg: AR+sD11C3QKMHn2Vol+RukM7Y3/RkYfbTkIM3gig3MssgWt6RTS+PJMt9hqp11owWV6
-	523QgBCRCiw2QjkR75SjgZ+grsb6X4xJPUwf9YHRIxSemX7chZCwqykgnLpPlD4OTPSftCxL6RU
-	+oVJKKVZmcspGzNstweTZOiv6gIlAGnDcFmS+cECXyT8GhESWm/yl9Qk6E+ywavLz+bsf0UW/42
-	eWp99BcN0dNvw6OwP/nCWN4WXioNu7YdYEKkV2lwQdUtrAvwkCcgxz5+EaSsnOhHIaxlEIFQfyc
-	4BGzFcXrNF+2yXYWVwIws7p37B1JzPPyScBcf97BHcOrvOO2QlF40YP5fYwSspd642/wUR4XYcl
-	sok8uSbEqM/0EcMEtQ0EVSymBtDU9lir5nwtxwSSyo0u9pVVKEkdqcS/sbnxSb6o/PfU2vFXn
-X-Received: by 2002:a05:6402:52cb:b0:6a1:f7f4:200b with SMTP id 4fb4d7f45d1cf-6a42f1d6913mr37890513a12.12.1787646805113;
-        Tue, 25 Aug 2026 01:33:25 -0700 (PDT)
-X-Received: by 2002:a05:6402:52cb:b0:6a1:f7f4:200b with SMTP id 4fb4d7f45d1cf-6a42f1d6913mr37890401a12.12.1787646803937;
-        Tue, 25 Aug 2026 01:33:23 -0700 (PDT)
-Received: from [192.168.188.103] (ip46-47-231-195.pool-bba.aruba.it. [195.231.47.46])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e2ddad2sm12253271a12.30.2026.08.25.01.33.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 01:33:22 -0700 (PDT)
-Message-ID: <62618ef6-28f1-4d0d-916a-96fc54dfc2e3@redhat.com>
-Date: Tue, 25 Aug 2026 10:33:19 +0200
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="SXYazNjz";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JZbLS/ik"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfout.phl.internal (Postfix) with ESMTP id CFC96EC013B;
+	Tue, 25 Aug 2026 04:34:19 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Tue, 25 Aug 2026 04:34:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1787646859; x=1787733259; bh=e+f+zDfK/d
+	BUvvOD26PpzhWLBdVpYsQESNCQ0eubESk=; b=SXYazNjzuUQiUcpCMAZ3Pzykki
+	4rMbJD2vZzpK7EUsJxmgwpDPBXcvgTSbwyqL0QVTrFkn0RpSjvE7aTpuQ0kGBmPu
+	1KOUrtheOgTnh2n+jzJIjyOoozlY2li75RjYp4nksPkH/3IpoyGi4KZMNNQOq/XI
+	p4CyYEW1+9cFW7t0wqbv3A4v7Pt7PrOghmhymklM0JpcvTtcywrI3y61gtAtUdoE
+	0Q7nV4GUujPsbOnoNz8Qg3Zjh4JRh9HJDVU6Of09yQo+Hr7Ra2nsdPEK1jk6ZXUd
+	mAkklB6vRRgI4VyDirwvH6W/Zv4kGQYSkPsRKmvGfxGok/53wrZkPDlxcaDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1787646859; x=1787733259; bh=e+f+zDfK/dBUvvOD26PpzhWLBdVpYsQESNC
+	Q0eubESk=; b=JZbLS/ikhaJoBUdMDyqNjBiSG5ngp0WZIfA/RHvKH9dC+Ne+Zxg
+	ckJrBDDtkOtrJTMarauLKJlHiK+s7PZDSOzA0AVdCSWy3ffAMW8nxN1JG9SgsQfb
+	GwSwGuvuuSyfL4L+HkuJ42trJZu0t+aGapi4FVKwe3u9qBsvRWZ3RJR+JFhHaGYY
+	VuznR1s0tf+s4eARzQ5kEgo6RMA9tKn422mvebhzFoi0yiSul+8H18nDqjD/s60b
+	gwLnsRa8h2sS+03+78/zeqKCvlBzUDWO7i9cx0vtB6aNNnMfQ9zSOMNgUPS5jShU
+	lSk+EHNfdPKACJ4w4hfQxGl0FSnhWlqO1nw==
+X-ME-Sender: <xms:i1ONavQCPOpDYkxdugANdEITCj3xNj_CSB3fgBSWtHTWd--XZzRwRQ>
+    <xme:i1ONatL5BDj-APoy3uQ2sM-l88Q-fLiKLlGDL1soNpygjZDbeeQymDzXqQDYnvUd9
+    pjDFY8D74_WcnDMtdwRKGP13nIbr5hOJGF6Sy2rEGRa80lF5Q>
+X-ME-Received: <xmr:i1ONapSb5P5-vKvHgeSDlYxJdossoDJjqLQFYjY0rB6TcJ3O4BzJ8YD2ks60r_-UJL3gPWvOBt-fzAo50zYUxiRleGlQVrbUxlqvj9-xhTw>
+X-ME-Proxy-Cause: dmFkZTGsMRe1TW8gFMsPZEZXruyDsIrahTHapajjyCXDg8pAOrkY8dekrH6Yr3IKdqA90w
+    tnhb4KUuGVt0GXZckJGLUk/dEOQ4TdN+Qd/Q2tAvIHaY5bA4kW6XhiEaZZ7C7cOG+NlY1e
+    OG5Q6odqRLYj1zfkGiVgnqlYGHayo2F+kMpG1wat9Dcfxw+LL5kYJGsSRSD0sgsxZpBgUO
+    pidJWje1yD5rI/nFW3tmL9XMINfMsKN4pogYx/s6zgxASkJ7OQIiMWxvO3+s6SbCduIV40
+    RKaztSy7LdDUMYFZhc/5Vx36n4GYJCWnFzt+Byj0reIu1OZ/00+ce1O5j0bCsKAHZKtDqK
+    LlnacvJ4E1Vm2WTGdy327SQ9TT+YsoUh7QjoM+Ai12L89VAXouLU+n88Sh0dh93/bfTVuK
+    Y9O6NCETNJCfj1tw6VW1xXUrukt4mujrWY9seMBTRFCcDyD48UsbWJdfQ8dbWXjfpPapUQ
+    pw+6F2jL94SiN6Sgu8R2gjVTCNDR/6oUZP4kryuYT/9+xc+UvFaZ2f9vgZ8aM+dFoDXS5S
+    PsTo9x7u/0b383ZuQToaxWhKkDKk9Qc2sIlwgdr6O06VqEJ1jPzZ9U9b8AdXoba3kxCd8T
+    lvEu+dkH3c7LJhbvQHeUk7QsqAT1ETLJiDirgEnm1eZaIY1fcSGrck/occMA
+X-ME-Proxy: <xmx:i1ONatJKwjYhRE9qcTFc2MpVrqI0K-abHyl3mAqb-bWlRA4u7w0mxQ>
+    <xmx:i1ONak8nUaLjyKgVXn1iC_twjzUoPAd-wTurmJcSBzzBkfPr_waSPg>
+    <xmx:i1ONasLaGeDvRBFiOQt4FvXaqaReekIyy5JTgnuUFDcVeuyEaqINCA>
+    <xmx:i1ONarF1jyASyfRcCP2ONwUAYY6yEVcJL_CgMaWmvZm0pXAzXpKyXw>
+    <xmx:i1ONarZyYhgRnd0OEovnmVA30I0EHl3KdtK1QpwSKB6-jpP5KfD9gFig>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 25 Aug 2026 04:34:18 -0400 (EDT)
+Date: Tue, 25 Aug 2026 10:34:10 +0200
+From: Greg KH <greg@kroah.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Eric Farman <farman@linux.ibm.com>,
+	Matthew Rosato <mjrosato@linux.ibm.com>,
+	Farhan Ali <alifm@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>
+Subject: Re: [PATCH 5.10.y] s390/vfio_ccw: Implement a crw lock
+Message-ID: <2026082504-prewashed-juggle-c0c8@gregkh>
+References: <2026082012-jam-hardly-84ee@gregkh>
+ <20260824162615.4144738-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 4/6] net/sched: fq_pie: clamp default quantum to
- avoid signed overflow
-To: Jamal Hadi Salim <jhs@mojatatu.com>, netdev@vger.kernel.org
-Cc: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, "Mohit P. Tahiliani"
- <tahiliani@nitk.edu.in>, "Sachin D . Patil" <sdp.sachin@gmail.com>,
- "V. Saicharan" <vsaicharan1998@gmail.com>,
- Mohit Bhasi <mohitbhasi1998@gmail.com>, Leslie Monis
- <lesliemonis@gmail.com>, Gautam Ramakrishnan <gautamramk@gmail.com>,
- stable@vger.kernel.org, vega@nebusec.ai,
- Victor Nogueira <victor@mojatatu.com>
-References: <20260822195509.112717-1-jhs@mojatatu.com>
- <20260822195509.112717-5-jhs@mojatatu.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260822195509.112717-5-jhs@mojatatu.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824162615.4144738-1-sashal@kernel.org>
 
-Hi,
-
-On 8/22/26 9:55 PM, Jamal Hadi Salim wrote:
-> fq_pie_init() sets q->quantum = psched_mtu(qdisc_dev(sch)) without
-> clamping. A device with a huge MTU (e.g. dummy with max_mtu == 0
-> accepting MTU 2147483634) makes psched_mtu() return 0x80000000, which
-> overflows the signed flow->deficit to INT_MIN in fq_pie_qdisc_dequeue(),
-> causing an infinite loop and soft lockup. Emulate fq_pie_policy which
-> is already bounded to [1, 1 << 20]; clamp the default to [256, 1 << 20].
-> 256 matches fq_codel's floor and is a sane minimum for a DRR quantum.
+On Mon, Aug 24, 2026 at 12:26:15PM -0400, Sasha Levin wrote:
+> From: Eric Farman <farman@linux.ibm.com>
 > 
-> Conditions to recreate the bug: a device whose MTU (plus
-> hard_header_len) wraps psched_mtu() into the sign bit (e.g. a dummy
-> device with max_mtu == 0 accepting MTU 2147483634). Requires
-> CAP_NET_ADMIN in a user namespace.
+> [ Upstream commit 16b0798024c0e9117e395829ddbbe70981c79d9c ]
 > 
-> Fixes: ec97ecf1ebe4 ("net: sched: add Flow Queue PIE packet scheduler")
-> Reported-by: vega@nebusec.ai
-> Tested-by: Victor Nogueira <victor@mojatatu.com>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> Unlike the channel_program struct, which covers synchronous I/O
+> submissions and asynchronous interrupts, the CRW region relies
+> exclusively on asynchronous events coming from hardware.
+> 
+> Implement a lock to manage the list of those payloads, to ensure
+> they are read cohesively.
+> 
+> Fixes: 3f02cb2fd9d2 ("vfio-ccw: Wire up the CRW irq and CRW region")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+> Reviewed-by: Farhan Ali <alifm@linux.ibm.com>
+> Signed-off-by: Eric Farman <farman@linux.ibm.com>
+> Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  net/sched/sch_fq_pie.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/s390/cio/vfio_ccw_chp.c     | 16 +++++++++++-----
+>  drivers/s390/cio/vfio_ccw_drv.c     | 10 ++++++++++
+>  drivers/s390/cio/vfio_ccw_private.h |  4 ++++
+>  3 files changed, 25 insertions(+), 5 deletions(-)
 > 
-> diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
-> index 069e1facd413..b27d95418707 100644
-> --- a/net/sched/sch_fq_pie.c
-> +++ b/net/sched/sch_fq_pie.c
-> @@ -427,7 +427,8 @@ static int fq_pie_init(struct Qdisc *sch, struct nlattr *opt,
->  	pie_params_init(&q->p_params);
->  	sch->limit = 10 * 1024;
->  	q->p_params.limit = sch->limit;
-> -	q->quantum = psched_mtu(qdisc_dev(sch));
-> +	q->quantum = clamp_t(u32, psched_mtu(qdisc_dev(sch)),
-> +			     256, 1 << 20);
+> diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_chp.c
+> index 13b26a1c79886..4fc493584a1e2 100644
+> --- a/drivers/s390/cio/vfio_ccw_chp.c
+> +++ b/drivers/s390/cio/vfio_ccw_chp.c
+> @@ -84,19 +84,24 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+>  	loff_t pos = *ppos & VFIO_CCW_OFFSET_MASK;
+>  	struct ccw_crw_region *region;
+>  	struct vfio_ccw_crw *crw;
+> +	unsigned long flags;
+>  	int ret;
+>  
+>  	if (pos + count > sizeof(*region))
+>  		return -EINVAL;
+>  
+> +	mutex_lock(&private->io_mutex);
+> +	region = private->region[i].data;
+> +
+> +	spin_lock_irqsave(&private->crw_lock, flags);
+>  	crw = list_first_entry_or_null(&private->crw,
+>  				       struct vfio_ccw_crw, next);
+>  
+>  	if (crw)
+>  		list_del(&crw->next);
+>  
+> -	mutex_lock(&private->io_mutex);
+> -	region = private->region[i].data;
+> +	/* Drop CRW lock while copying to userspace */
+> +	spin_unlock_irqrestore(&private->crw_lock, flags);
+>  
+>  	if (crw)
+>  		memcpy(&region->crw, &crw->crw, sizeof(region->crw));
+> @@ -107,14 +112,15 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+>  		ret = count;
+>  
+>  	region->crw = 0;
+> -
+> -	mutex_unlock(&private->io_mutex);
+> -
+>  	kfree(crw);
+>  
+>  	/* Notify the guest if more CRWs are on our queue */
+> +	spin_lock_irqsave(&private->crw_lock, flags);
+>  	if (!list_empty(&private->crw) && private->crw_trigger)
+>  		eventfd_signal(private->crw_trigger, 1);
+> +	spin_unlock_irqrestore(&private->crw_lock, flags);
+> +
+> +	mutex_unlock(&private->io_mutex);
+>  
+>  	return ret;
+>  }
+> diff --git a/drivers/s390/cio/vfio_ccw_drv.c b/drivers/s390/cio/vfio_ccw_drv.c
+> index e3c1060b6056c..83993a1423d00 100644
+> --- a/drivers/s390/cio/vfio_ccw_drv.c
+> +++ b/drivers/s390/cio/vfio_ccw_drv.c
+> @@ -119,11 +119,14 @@ static void vfio_ccw_sch_io_todo(struct work_struct *work)
+>  static void vfio_ccw_crw_todo(struct work_struct *work)
+>  {
+>  	struct vfio_ccw_private *private;
+> +	unsigned long flags;
+>  
+>  	private = container_of(work, struct vfio_ccw_private, crw_work);
+>  
+> +	spin_lock_irqsave(&private->crw_lock, flags);
+>  	if (!list_empty(&private->crw) && private->crw_trigger)
+>  		eventfd_signal(private->crw_trigger, 1);
+> +	spin_unlock_irqrestore(&private->crw_lock, flags);
+>  }
+>  
+>  /*
+> @@ -207,6 +210,7 @@ static int vfio_ccw_sch_probe(struct subchannel *sch)
+>  	INIT_LIST_HEAD(&private->crw);
+>  	INIT_WORK(&private->io_work, vfio_ccw_sch_io_todo);
+>  	INIT_WORK(&private->crw_work, vfio_ccw_crw_todo);
+> +	spin_lock_init(&private->crw_lock);
+>  	atomic_set(&private->avail, 1);
+>  	private->state = VFIO_CCW_STATE_STANDBY;
+>  
+> @@ -238,13 +242,16 @@ static int vfio_ccw_sch_remove(struct subchannel *sch)
+>  {
+>  	struct vfio_ccw_private *private = dev_get_drvdata(&sch->dev);
+>  	struct vfio_ccw_crw *crw, *temp;
+> +	unsigned long flags;
+>  
+>  	vfio_ccw_sch_quiesce(sch);
+>  
+> +	spin_lock_irqsave(&private->crw_lock, flags);
+>  	list_for_each_entry_safe(crw, temp, &private->crw, next) {
+>  		list_del(&crw->next);
+>  		kfree(crw);
+>  	}
+> +	spin_unlock_irqrestore(&private->crw_lock, flags);
+>  
+>  	vfio_ccw_mdev_unreg(sch);
+>  
+> @@ -305,6 +312,7 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
+>  			       unsigned int rsid)
+>  {
+>  	struct vfio_ccw_crw *crw;
+> +	unsigned long flags;
+>  
+>  	/*
+>  	 * If unable to allocate a CRW, just drop the event and
+> @@ -322,7 +330,9 @@ static void vfio_ccw_queue_crw(struct vfio_ccw_private *private,
+>  	crw->crw.erc = erc;
+>  	crw->crw.rsid = rsid;
+>  
+> +	spin_lock_irqsave(&private->crw_lock, flags);
+>  	list_add_tail(&crw->next, &private->crw);
+> +	spin_unlock_irqrestore(&private->crw_lock, flags);
+>  	queue_work(vfio_ccw_work_q, &private->crw_work);
+>  }
+>  
+> diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_ccw_private.h
+> index 8723156b29eac..38f470c2d26c3 100644
+> --- a/drivers/s390/cio/vfio_ccw_private.h
+> +++ b/drivers/s390/cio/vfio_ccw_private.h
+> @@ -83,6 +83,8 @@ struct vfio_ccw_crw {
+>   * @cp: channel program for the current I/O operation
+>   * @irb: irb info received from interrupt
+>   * @scsw: scsw info
+> + * @crw_lock: serialization of CRW list information
+> + * @crw: list of Channel Report Word elements
+>   * @io_trigger: eventfd ctx for signaling userspace I/O results
+>   * @io_work: work for deferral process of I/O handling
+>   */
+> @@ -104,6 +106,8 @@ struct vfio_ccw_private {
+>  	struct channel_program	cp;
+>  	struct irb		irb;
+>  	union scsw		scsw;
+> +
+> +	spinlock_t		crw_lock;
+>  	struct list_head	crw;
+>  
+>  	struct eventfd_ctx	*io_trigger;
+> -- 
+> 2.53.0
+> 
+> 
 
-Sashiko thinks that the soft lookup is still reachable via pie_change:
-
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260822195509.112717-1-jhs%40mojatatu.com
-
-and has similar concerns for patch 6/6, too. It marks the issues as
-pre-existing, but AFAICS they overlap with the things addressed here.
-
-WDYT?
-
-/P
-
+Does not apply to the queue :(
