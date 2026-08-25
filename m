@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BE124DD17
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:03:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B0425A640
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:04:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655817; cv=none; b=IU2hs77tnNZqi/rVcqcCuEjrm0Ao/+N8MWRLPCKQKPWB/mXKCxv1yyZhAUkXaoOj6onFL5X6ld5axN9akyJj+mc7x3OSDAb5D+ijLEtr5gQFJCMkAiOPevQKm8AiAMiFtSz78uimsXKuYikMVpy1JtzrIV5NJto8qKMdYRHQ3KA=
+	t=1787655864; cv=none; b=QKWVslmwrDlzXDYXRZfXVvcDsJjDTjuFa1MwAmTCD/bxXPkz8MHhL91lXYcSahF9ywgWq79y+p0M2+Ax48rLbD2Z2jWZy1PdQh4pvXNNa+REUvn71DUtFJbT1eiLqhpbHNYLzb5HxO/Wd0pJ3ehpAYX4M/kUFb2lf3X2KvpoE0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655817; c=relaxed/simple;
-	bh=pL376zGnHrYuIt+0muFXJFSkGv/Qykxnrnn/jN2sojg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XObbHR5UOPE1TOGKj9VVq1ufL/zde/NxOXkD6mklg9Vn0agfpyLgQlVTX7V68DU5iElc4I/f8vXCs3W626tMKXrswfcpcmoNyt+ayX73HhyrtR0uRnOCkSk7fMs66o4pctdvTrbEvi7EL5aK572CqZcUtxdHWAclTheTdOvAXLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TQ86aL5p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787655864; c=relaxed/simple;
+	bh=0bYtsviM0ixl8KVSv6CyI3viBdoFsRODN0Gq2IOEIr4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LZhF6ileeLStoXzUnjdpNPhRLZqX8vs1lENqggH8f5AoG50DLVByuXGdyInrVl2NSnmxlPReYzVjvJx4fj7ykN3SeJfJbhtc1dWo2i2cykuy+e4n6ANdC03rhGfJvKFChVTYjsWS0lhECSTNPHxVt5wrWwdXODegqrc4ahKmZks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vu8Onh3S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TQ86aL5p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D571F000E9;
-	Tue, 25 Aug 2026 11:03:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vu8Onh3S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420791F000E9;
+	Tue, 25 Aug 2026 11:04:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787655812;
-	bh=wvLz8QnDyoXKpMtW1KCcISBDryeH5KTM0Ziq5qFVJac=;
+	s=korg; t=1787655862;
+	bh=Qveft8I6KJ4Wjp6kq0MuswmlOn0pll5IAvmmDqGojBE=;
 	h=Subject:To:Cc:From:Date;
-	b=TQ86aL5plmv1KHQZBEY6d7GYbQOgRErIhQ0IeMwVL4m/ytWveWUqPRa8IfZF1k2/M
-	 iqvUXD+XetNl0tvV5U3j4SVwblWIuLA6Zn/uWNCxqoo5fmvLOYwHw+c3/vZrn12cQC
-	 ZRrLoxeRQL1ItHfOp6uKV7YnaAA1Y44hRDNLtWFM=
-Subject: FAILED: patch "[PATCH] HID: pidff: fix OOB write when hid->inputs is empty" failed to apply to 6.6-stable tree
-To: baul.lee@xbow.com,federico.kirschbaum@xbow.com,jkosina@suse.com
+	b=vu8Onh3S/unxS8sjYTOs/T9509C8LlgmdH3Lj9tMwTDrdcokYiWBqmHE6hJekhWiX
+	 y+syHLwNl1/uqYGXwKES9pkz8wtHJVA0RIw4YWtXMJfmGKDHOUmQBj5eJJZwImKEz4
+	 z9sp3hbzc6uipKkSlhuzo0mk9OISLWHRdzG5oOo0=
+Subject: FAILED: patch "[PATCH] RDMA/rxe: Fix OOB in free_rd_atomic_resources()" failed to apply to 7.2-stable tree
+To: peiyang_he@smail.nju.edu.cn,leonro@nvidia.com,yanjun.zhu@linux.dev
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 13:03:18 +0200
-Message-ID: <2026082518-countless-imply-6af9@gregkh>
+Date: Tue, 25 Aug 2026 13:04:16 +0200
+Message-ID: <2026082516-phrase-console-29b9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 67bb1074e3d2d12fa059a9cc707e89398a4e4704
+git cherry-pick -x de329533792a373186d79dca1ca120f8fa0afd05
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082518-countless-imply-6af9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082516-phrase-console-29b9@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,79 +62,183 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 67bb1074e3d2d12fa059a9cc707e89398a4e4704 Mon Sep 17 00:00:00 2001
-From: Baul Lee <baul.lee@xbow.com>
-Date: Sun, 26 Jul 2026 15:25:03 +0900
-Subject: [PATCH] HID: pidff: fix OOB write when hid->inputs is empty
+From de329533792a373186d79dca1ca120f8fa0afd05 Mon Sep 17 00:00:00 2001
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Date: Thu, 30 Jul 2026 10:28:27 +0800
+Subject: [PATCH] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
 
-hid_pidff_init_with_quirks() derives its input_dev from
+free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
+Updating max_dest_rd_atomic before freeing the old array can make the
+free path walk past the old allocation and trigger a slab out-of-bounds
+write catched by KASAN:
+==================================================================
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
 
-	list_entry(hid->inputs.next, struct hid_input, list)
+CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xf7/0x600 mm/kasan/report.c:482
+ kasan_report+0xe4/0x120 mm/kasan/report.c:595
+ free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+ rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fefc75a70cd
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
+RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
+RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
+ </TASK>
 
-without first checking that hid->inputs is non-empty.  The list member
-of struct hid_input is at offset 0, so on an empty list list_entry()
-yields &hid->inputs itself and the following hidinput->input load reads
-an unrelated member of struct hid_device.  dev is then a type-confused
-pointer, and force-feedback init writes through it: each
-set_bit(FF_*, dev->ffbit) stores 8 bytes at dev + 192, past the end of
-the object dev actually aliases, and input_ff_create() adds further
-writes of a heap pointer and two function pointers.
+Allocated by task 11063:
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5296 [inline]
+ __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
+ rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Until hid-universal-pidff the only caller was hid_pidff_init() from
-usbhid, which runs under HID_CLAIMED_INPUT and therefore always has at
-least one hid_input.  universal_pidff_probe() starts the device with
-HID_CONNECT_DEFAULT & ~HID_CONNECT_FF and then calls
-hid_pidff_init_with_quirks() directly whenever the descriptor carries a
-PID usage page, bypassing that gate.  A report descriptor whose only
-application collection is on HID_UP_PID leaves hid->inputs empty while
-hid_connect() still succeeds through the hidraw claim, so probe reaches
-the unguarded list_entry().
+The buggy address belongs to the object at ffff88802b8ddd80
+ which belongs to the cache kmalloc-64 of size 64
+The buggy address is located 0 bytes to the right of
+ allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
 
-The write happens in the USB probe path, on the hotplug workqueue, so
-plugging in a malicious device is enough to trigger it; no attacker
-software and no logged-in user are required.  KASAN reports an 8-byte
-out-of-bounds write in hid_pidff_init_with_quirks() reached from
-universal_pidff_probe().
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
+ set_page_owner include/linux/page_owner.h:32 [inline]
+ post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
+ prep_new_page mm/page_alloc.c:1861 [inline]
+ get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
+ __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
+ alloc_slab_page mm/slub.c:3278 [inline]
+ allocate_slab mm/slub.c:3467 [inline]
+ new_slab+0xa6/0x670 mm/slub.c:3525
+ refill_objects+0x278/0x420 mm/slub.c:7272
+ refill_sheaf mm/slub.c:2816 [inline]
+ __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
+ alloc_from_pcs mm/slub.c:4750 [inline]
+ slab_alloc_node mm/slub.c:4884 [inline]
+ __do_kmalloc_node mm/slub.c:5295 [inline]
+ __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
+ tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
+ tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
+ tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+ security_file_open+0x7a/0x1b0 security/security.c:2739
+ do_dentry_open+0x57e/0x1690 fs/open.c:924
+ vfs_open+0x82/0x3f0 fs/open.c:1079
+ do_open fs/namei.c:4699 [inline]
+ path_openat+0x218a/0x3190 fs/namei.c:4858
+page last free pid 1 tgid 1 stack trace:
+ reset_page_owner include/linux/page_owner.h:25 [inline]
+ __free_pages_prepare mm/page_alloc.c:1397 [inline]
+ __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
+ selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
+ inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
+ selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
+ security_d_instantiate+0x123/0x190 security/security.c:3704
+ d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
+ kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
+ lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
+ open_last_lookups fs/namei.c:4611 [inline]
+ path_openat+0x17dd/0x3190 fs/namei.c:4855
+ do_file_open+0x20c/0x430 fs/namei.c:4887
+ do_sys_openat2+0x101/0x1d0 fs/open.c:1364
+ do_sys_open fs/open.c:1370 [inline]
+ __do_sys_openat fs/open.c:1386 [inline]
+ __se_sys_openat fs/open.c:1381 [inline]
+ __x64_sys_openat+0x141/0x200 fs/open.c:1381
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Check for an empty list before deriving dev and return -ENODEV, as the
-other HID force-feedback drivers already do.  universal_pidff_probe()
-propagates the error and unwinds.
+Memory state around the buggy address:
+ ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
+                                        ^
+ ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
 
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+Fix the OOB by moving the assignment after free_rd_atomic_resources()
+so the old array is freed using the old bound. This matches the original
+ordering in commit 8700e3e7c485 ("Soft RoCE driver").
 
-Fixes: f06bf8d94fff ("HID: Add hid-universal-pidff driver and supported device ids")
-Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
-Reported-by: Baul Lee <baul.lee@xbow.com>
+Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
+Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 5f4395f7c645..22951b7ecd17 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -1539,13 +1539,20 @@ static int pidff_check_autocenter(struct pidff_device *pidff,
- int hid_pidff_init_with_quirks(struct hid_device *hid, u32 initial_quirks)
- {
- 	struct pidff_device *pidff;
--	struct hid_input *hidinput =
--		list_entry(hid->inputs.next, struct hid_input, list);
--	struct input_dev *dev = hidinput->input;
-+	struct hid_input *hidinput;
-+	struct input_dev *dev;
- 	struct ff_device *ff;
- 	int max_effects;
- 	int error;
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index ec2cfb12559a..311f285d78a6 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -708,8 +708,6 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+ 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
+ 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
  
-+	if (list_empty(&hid->inputs)) {
-+		hid_err(hid, "no inputs found\n");
-+		return -ENODEV;
-+	}
-+
-+	hidinput = list_first_entry(&hid->inputs, struct hid_input, list);
-+	dev = hidinput->input;
-+
- 	hid_dbg(hid, "starting pid init\n");
- 
- 	if (list_empty(&hid->report_enum[HID_OUTPUT_REPORT].report_list)) {
+-		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+-
+ 		/*
+ 		 * Not gated by IB_QP_STATE, so the responder task is live.
+ 		 * Quiesce recv_task like rxe_qp_reset() before swapping the
+@@ -718,6 +716,7 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+ 		 */
+ 		rxe_disable_task(&qp->recv_task);
+ 		free_rd_atomic_resources(qp);
++		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+ 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
+ 		/*
+ 		 * On ENOMEM leave recv_task quiesced: qp->resp.resources is
 
