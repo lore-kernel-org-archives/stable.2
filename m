@@ -1,152 +1,224 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0096719005E
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787629423; cv=none; b=RltzMf7TLbQ11m1uZuSnEjVYT+aYUdXNR3OExIc1kPXpoIo9es5Srs0Lz7gGAPLRBS14LbUn1GiVgqyT7dqNysYhYdrAXKdA+tqrUGZVcdzK6KReRD2l1+1QhL/GjASnBGOw9L7SVynGstSxVkxTAHq3WHIrS8AELTjsGU3oLJc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787629423; c=relaxed/simple;
-	bh=Q0tS7aUlqWs1+Sv1rMy8/xQ7sdBcjXYL5fPPpYfKWnM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=tdrWjSrIZGaOamMcSXkt4/YuVdICKZbLJSj2loCORUeSceYYFkxaGUgV42MzaoOXDO/dftFG8jpoFAl0L/UoS3+6h11VbOha6V09NUzM/lImREKrxjxdmd5ZOJPnpy/qmdfurIhoksdpgMxm6Q/UTqGpPfLBtdbKJiWmBP055eE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f10.google.com with SMTP id 46e09a7af769-7f193d62888so630026a34.1
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 20:43:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787629420; x=1788234220;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZjpD2FQJ+/ueSJRioL530ZfyPsRnYCZF2fy/pO8aPtQ=;
-        b=J9CbXse2XxWvt9nt0t+eZYKylYavaLBEBrmQBuuY3rURFL7gMaJc1KlmPt1Unzgov0
-         AiCBZwwlLWDAKFXBeVfhN/ojJ2GDJNPOiOGQa+YlYJXdDNo2Zi7gfsRGGbeyBf1SeqYu
-         RtzLUMYqVNJc98ytdXbjN2cX9iJfV9aTv0Fmuga32eA1gd5k34g75E6mmyDcnL/QImO0
-         DgHlvOfrbX3dfEaQUM/NZ/9Lf+xjhalul/K/a5KT4P/jqSBy6Iq55BWKTUfA+Y6MOhwp
-         ZZ5aTA7Wb+HZvQX7tXDT1ekIPVKlzJ88McfWfI1tuyRl2By3DW+he3yh4Ixf0Iwcc0tX
-         nx3A==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3/Y1TXHI3Oxz8HUE6P7UyYGF3/JumJZZhVfs45RyQrATrNr7eLH5yslv5X1NdLSCUfrWXKVA=@vger.kernel.org
-X-Gm-Message-State: AFuF++npe4ty2kfyFBmmWz/5JvdhBqaQs4OF8zKFjnW5zlTEO2CRJWEU
-	vUPHzcvqQTiQruQm0DyuABopgTDHouk+wBgMdFYUWY7xSm/g0keUIA88YI/gF+CANekdJvBrS5l
-	mgC5Pg0iC0Z9J0zHCaRyvZhwmvD75Lt0PFVaX/Pd1MBJ6tb8njbu6/cRHqNI=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AA7348C76
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787629523; cv=fail; b=hIaKCe9mShnChu2lGqh0la0Id/JYnHF6IGP/fLiVpE4aAnvSbmvA1cMoop46HocD8qm3xM4qqOldf/fPI5+mkxQpqaSEP+VxvusinHYZmrPCfWpSzx/UYUZJJJBejUWir9DxNUQoDauDTgbh0QpZysiPVcxtwoBywYIV9kKpFus=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787629523; c=relaxed/simple;
+	bh=KyZPUSKdiYJQOKxWE+qBB3NBCWSQjs0ZznoU25DXYzE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=he+KUJmaj7xKnqaDe4mmUB0bT6fFAnWTNIurOtkbwL4X2fd55CKsuDrK8VJyGHAvlnYhSUOLdIqoggoimsIYDMVxmBvTZIAKeK77TDC4SeL88wRyzKzkAjBkUEwwXAIbB0rUJLPJoQyYN+cwS1qsV3S3nfrPo4IcNpMiMT9vke0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fBv5lEGT; arc=fail smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fBv5lEGT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787629522; x=1819165522;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=KyZPUSKdiYJQOKxWE+qBB3NBCWSQjs0ZznoU25DXYzE=;
+  b=fBv5lEGTF5jag41CiYgEGIbGwAJyizNBaUIVzg025rohHbVBvFmD8O0p
+   5lO5OJA/vSqvFvUbEZtpNvu421wg9CYLRxvMfH8DeMUYq89uRdi8bCnq5
+   Iyh7NGrRsWt/zGPz/M8ba3yFV0OOh+nPvd1xD0MiILeGVNOTpsP7AucWx
+   NvXEQftS4EX4lwiNVYnMoaBpKnqs20vtsQ35Imkbpe4/BUooPfCkyub8W
+   JONUMMsjxeo9lWSU+gIZxcpz10rhLYO+/G+wHk0Vwzrn2TPAcNHWxhym/
+   vHLWG63/cNwMOP3poRGNibGuzgU4NokX8V9p8lSQPbbc6UXm457HBoT2r
+   g==;
+X-CSE-ConnectionGUID: 4jSE3qHfRH+YzWEBBoKF3g==
+X-CSE-MsgGUID: 2uXx/0fiRQi6WkkXKhrCng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="87038720"
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="87038720"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 20:45:21 -0700
+X-CSE-ConnectionGUID: uIz2j+M2RK6LHGIc8tfjow==
+X-CSE-MsgGUID: 4n54yROORveH+NCYDfrvng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="270641799"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 20:45:22 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 24 Aug 2026 20:45:21 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Mon, 24 Aug 2026 20:45:21 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.67) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 24 Aug 2026 20:45:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cbhKZPjyQFLQ8gzinkSqj9ZzGs5nf6FGTKII+I0aS5iqrwE24P8v0YG8zXSJ44REHvY0QQUFApNhZVnISIgGBXasg4WAHUas8t9W0VEtr3nEDCWUtFCTLrOZdyDthTdGgbmex51V15ACqOJSvWgsFBTM23wQXR4fpq6WOkOd/oqDmuw2PXQVz7tnmfQOAhRvFD2cVICCuyzxIk6MHTlEfgE5rCUhbwnpLe5prkL8QCw9zak+WucB0PQtIikj1L2obecoDj7hzA4BgGMiILERP02i1+w/3eHZKQoBcJ2LJfph9X1n9BY4+3PCWAx7wTh0HQwlOxpb7ay1XOgOzY18ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ciw+LxFa5x3WpZBuHOPLDL4axgCpGow67RKviK8+2hw=;
+ b=s7e9guN+FiiZwVl/gqsdQppZndlRXFeVWZu04194/b3Zmz+vYTrFRnguFQQ+Qba7MhBOPvYl4oHL7RcrBGjNBTFdsS0Zc93u36MtZIUmj8xlQQWkG+aqFqGURcjtL29Tv3BOnxydrHe9pFokltUg+zxuxBbMFOWzmyDsnQ4ldC4tKxs3BTXdPOcRyDMfp8RusckHnItCxMLOjWgXOOcqqhE8dPBMfqyTIRQUdxsPLsS9Cbxr/3mA/lWdV91ND1q7I9Iy/xzwTEv++DPjnSzFXvmNOAOCP1Hz2RdryUOZ/aXT2YqxMmWk1cBA+YnVSVN7feuzOavGR34chM5ZjV3uUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH8PR11MB8040.namprd11.prod.outlook.com (2603:10b6:510:238::11)
+ by SJ1PR11MB6225.namprd11.prod.outlook.com (2603:10b6:a03:45c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
+ 2026 03:45:15 +0000
+Received: from PH8PR11MB8040.namprd11.prod.outlook.com
+ ([fe80::89bf:2274:1371:50c5]) by PH8PR11MB8040.namprd11.prod.outlook.com
+ ([fe80::89bf:2274:1371:50c5%3]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
+ 03:45:14 +0000
+From: "Yao, Jia" <jia.yao@intel.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>, "Mun, Gwan-gyeong"
+	<gwan-gyeong.mun@intel.com>, "Auld, Matthew" <matthew.auld@intel.com>,
+	=?iso-8859-1?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: RE: [PATCH 1/3] drm/xe/guc_ads: allocate UM queues in a separate BO
+Thread-Topic: [PATCH 1/3] drm/xe/guc_ads: allocate UM queues in a separate BO
+Thread-Index: AQHdM+jyPaU0dlF810C399fyt0BMC7atbQEAgAACRfCAALCPsA==
+Date: Tue, 25 Aug 2026 03:45:14 +0000
+Message-ID: <PH8PR11MB8040FC3EA4D1AAA6A521AFBBF4AF2@PH8PR11MB8040.namprd11.prod.outlook.com>
+References: <2026082036-afterglow-tapered-84a0@gregkh>
+ <20260824165208.498797-1-jia.yao@intel.com>
+ <2026082417-detonate-glacial-6417@gregkh>
+ <PH8PR11MB80403BD1E790D1130A21BC9AF4A02@PH8PR11MB8040.namprd11.prod.outlook.com>
+In-Reply-To: <PH8PR11MB80403BD1E790D1130A21BC9AF4A02@PH8PR11MB8040.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH8PR11MB8040:EE_|SJ1PR11MB6225:EE_
+x-ms-office365-filtering-correlation-id: 068963bc-e14c-42a6-809e-08df025b45d5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|42112799006|23010399003|376014|22082099003|18002099003|11063799006|56012099006|38070700021|4143699003|10067099003;
+x-microsoft-antispam-message-info: TyWrfe4w9FRrmoH2kg+M0jZALr/sHqx+7DZAZm8w6EEdvTu+4VHJ4kCjO905MqHQzEWGS7sniaBm0jpoS2EtDg47gQBw/TACi7xvZtNzk1hQvp8lwq3SZdTJJv9viKng0kT05pqa3j1vHeChU0opc8LDcOpTrUPScJ4CvVRpjJ4bsTVkOpdTLRHVB/AqCyM6+l2gdREIs9EhzEWfbn9od3lsIAF1cei8oO8Wax8o+Cf64Od3oTzapWZMJcW4yFmPB4ozaggtwpeRS5C+j1DYsGvjtCb5mt+e1z3tN3MM1EPQXcUGfGNTgXoRVHtRJ1cpn4yUNBc9q7hJYyUwlvHtwbvC67UUYwI5MMqS0C0zLvhYjLEO65SXoOx6bFFxY9yQXJfnw1LrsavrE8wg+CiSwcTlO+uxVWUBol7D4nWAnpwxD2Y+JPCvzhQpd0P9vrIsH+KAusOnzc0ciSKcRxpi/4PogkxmPyOdUiSgFze++JHLhTX7ulaW8KYDkIRldY5sPV+09QkyiKLzSIp6rgiRSxHrxkyhxqhwjQn06YXbaSba265Un3wxx1gQzt6ikkU9yaHEAmgAPnRAweMznQJEQa9bWVHDkUCLppfiJpnOHUsMZFPjB8lc3FMDkzR/TFF6+73v5R/00TuEM+DzyQ+VhVlmI5Ulwb0+CrnAsc0K9ilot+MxVsSlwA8DjUdqXojM
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB8040.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(42112799006)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(38070700021)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?eZbN9DbrO2JziKP1aVLaRdCv2z6fkYDSiWz0TBhVZ5uqkZFJIltFg7vlQb?=
+ =?iso-8859-1?Q?559etoM+CzudZ8yMFbp1BpjUzfvjkq1dxKRHs4f5RaPNWDQqK2+xxDotVo?=
+ =?iso-8859-1?Q?R0aPlMg4iXDwkHhxjlo9m1uqZ7fGWEHGBPQByvrWmiRULd+984KF/+w3U/?=
+ =?iso-8859-1?Q?FiKP6CFAx31mqTU+IMq17HLK71eQNoREK6mxsLAfRLDW8Nx5pHoqmPm3ea?=
+ =?iso-8859-1?Q?H8APuus1IvInMxXNsf6rbVi2QX9cVgrEhoJEXp7cNrXlBJar8ph8jt2EEf?=
+ =?iso-8859-1?Q?eOYKfCT6BTFlACATFh1VnAD8fWwAztQhIDq+a4l2BwfyyBseQL18Tpt+MU?=
+ =?iso-8859-1?Q?l7fCGAOYWif0/Ym5w0HFy1J5b4gUO4796dPF1lvftl+jyV4U7ifumti5Tq?=
+ =?iso-8859-1?Q?cpgATfkWeJ9Pk90oJeMawFN2wP54AHQta1Jzbp0KF/ddvq5pIa97XBlmcG?=
+ =?iso-8859-1?Q?AiIvk9DwksNjHFuxluBiQ+oVUxOUxn4HyVleY0Eb0jSZpHfi85VgbepifO?=
+ =?iso-8859-1?Q?9TueYovNnt5TKO+LJPlyX0ptQk7GNSS3anMeM8gHRKcP+XE0Ra/f9FTTLu?=
+ =?iso-8859-1?Q?jzAEqheZO0j1pXZyMFisgNB9HBOaNyBhkryl8hvYXkyc7nEsKd0TkSpaHe?=
+ =?iso-8859-1?Q?mjkRgZd46TpTRLEf4mVGKDbP1TLfJLfxY5bEp97ylKvAx87pdwMbJFmu7x?=
+ =?iso-8859-1?Q?ha293sXlFHb8wtOUAeWVKb8TGMVqQ9plKhjdA+oQ+s/zlglnJham0N+/fK?=
+ =?iso-8859-1?Q?QqquNVGMGtcQaTn+9s0ky43f81VqzP/gnmo3AXVXNVpHH8/j/AXQtfNLlZ?=
+ =?iso-8859-1?Q?krTYlSzkrJTfz4l+CR9Jwqvt8Os1E5kntQu19/UOVkh5tv8SKC/sCUJfDM?=
+ =?iso-8859-1?Q?8YK4jxowQmSFpoNSorpfbYiTOjkpoVEsST45ZGRG9yzdF19PrpplkqS/7l?=
+ =?iso-8859-1?Q?7hYC8VLePaw1JtSsZRvqla8wsw4V5h6goNisv93TOSI6AzJApwzLkJNLVt?=
+ =?iso-8859-1?Q?cmDZYKOxVdTBGDJNU831u4FSLqX7yE/GHH7IBxEp+idAmoXUC16zKBgsx/?=
+ =?iso-8859-1?Q?kq6wGJsHg6pYasKNs0IIvOb/fb5G/R5qF1BZ/5Eg5kh2xq+K5MS18d9yLU?=
+ =?iso-8859-1?Q?nJ+rKMq3mMPBQ2tYNDzdUqzEaZPasPdFk/ZdlcJ2Mwu8q8vm7tl2naXP5I?=
+ =?iso-8859-1?Q?KEqLu94uhEEug0nBMneE4SCu2Y5tvHVi9hbd64dxsEBAIYquehrgMsSqTl?=
+ =?iso-8859-1?Q?7+pGqgRfrIYk+7oIqHVPIg6fytV3jaNe70tI+j4pXQkWtI/QuaiQMWeyWb?=
+ =?iso-8859-1?Q?sV2TBBcFuQgsUtGV1wJytDAvbwRVnSG+6TF8caEe69IrIbuspnfulO/QrE?=
+ =?iso-8859-1?Q?VUuJ9D6HDIU/9VQlhuQ2v1biogYai44ZK4pFR32bCWnGB83dl1opZepd3M?=
+ =?iso-8859-1?Q?+NHBYR/S/lPy1RNVMS656MwuNMbCZzCWffSU8ADlRtlMrSiolmLYL60CqB?=
+ =?iso-8859-1?Q?CXGOcwKwrbXZqkg43M8wYMoSzyro0X4bAF6sA9Xf9O8AxOlCymdWKH+FME?=
+ =?iso-8859-1?Q?CO4yjD64xJPsyGWvL+TEVYRN/FLp432L+l1EQaul9+jksKoODdUzyRGr1q?=
+ =?iso-8859-1?Q?e8doIXf0LkMlEiunbm8ScMAQcA0e36lO3nawgwdIrww6QrpKNfgnk/XiHv?=
+ =?iso-8859-1?Q?j8uPM4xFCqjQtEiolQVSIKOcP2iUjOhk3bMvMYzczQU+I3pCKBDHLnfDvz?=
+ =?iso-8859-1?Q?LtomYWTK+cyfMGX0TLjZn9MYRq499uQfk9C2mot6GR5Q91?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4c89:b0:6b1:5b3e:13a3 with SMTP id
- 006d021491bc7-6b16b42654emr20396820eaf.30.1787629420739; Mon, 24 Aug 2026
- 20:43:40 -0700 (PDT)
-Date: Mon, 24 Aug 2026 20:43:40 -0700
-In-Reply-To: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in wcove_typec_probe
-From: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, heikki.krogerus@linux.intel.com, 
-	jeffinphilip14@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mika.westerberg@linux.intel.com, 
-	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked: UcghqMGL3NDuqqcqT5G+9mPdO5hrV3H0RblWEysvYeTW6dYqt0KsPCQrg0sqW0xq3mq94AszlyH1ANsYHwqNjn2ZUc+OeV52fHl65v9lRQ3yP0Dk2YmDvOUexwo9TFd5PxJXwAf45Ug90oMyQTScuJ6zkhCshnHm/Qd5b1Fvjy2mPvakbSHuJ4toCwPDrubAthQUkJ9RVXCHgwXx6w9zks2uLOZwEfytNgQ6S1X06IF5EfbtbQzFcAAqtmwumcL88UKR8df1vwuZHhz76LKQuQdXxhpDd+gLtSiQ1n29upeY4ULcgqyJ6qf3D+QAaZsa0+oQROdV3UwaoB3WLDkgpw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8040.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 068963bc-e14c-42a6-809e-08df025b45d5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2026 03:45:14.6207
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +gBH6iZIgpcJ9ogBemVlW3qzuro94/Gi9+gUrslghwKJyVjquqOSJHjrvHCFTf7Su5PRWadCGEZ0eqh8dFYJQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6225
+X-OriginatorOrg: intel.com
 
-syzbot has found a reproducer for the following issue on:
+Resent the patches after removing the redundant cherry-pick information and=
+ adding the correct subject.
 
-HEAD commit:    66498c75b4f8 Merge tag 'dmaengine-7.3-rc1' of git://git.ke..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1253719e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3e64b1bf01d830ed
-dashboard link: https://syzkaller.appspot.com/bug?extid=1a01783ea233350598b5
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17491979580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-66498c75.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5ce4685e13ba/vmlinux-66498c75.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6a32d8e997a7/bzImage-66498c75.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-CPU: 0 UID: 0 PID: 5912 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:wcove_typec_probe+0xdb/0x780 drivers/usb/typec/tcpm/wcove.c:621
-Code: 48 c1 ea 03 80 3c 02 00 0f 85 af 05 00 00 48 8d 7d 08 4d 89 af 88 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 05 00 00 49 8d bf 90 00 00 00 48 8b 6d 08 48
-RSP: 0018:ffffc90002f6faf8 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: ffff8880226c1000 RCX: 0000000000000000
-RDX: 0000000000000001 RSI: 0000000000000001 RDI: 0000000000000008
-RBP: 0000000000000000 R08: 0000000000000004 R09: 0000000000000000
-R10: ffff888014243883 R11: 000000000000001f R12: ffffffff904a7ea8
-R13: ffff8880226c1010 R14: ffff8880142438c0 R15: ffff888014243838
-FS:  0000000000000000(0000) GS:ffff888096982000(0063) knlGS:00000000f67e5b40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 0000000032e24008 CR3: 000000004e2f1000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- device_driver_attach+0xd1/0x220 drivers/base/dd.c:1203
- bind_store+0xf4/0x190 drivers/base/bus.c:267
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf6feefec
-Code: Unable to access opcode bytes at 0xf6feefc2.
-RSP: 002b:00000000f67e550c EFLAGS: 00000292 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 0000000080000400
-RDX: 0000000000000007 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:wcove_typec_probe+0xdb/0x780 drivers/usb/typec/tcpm/wcove.c:621
-Code: 48 c1 ea 03 80 3c 02 00 0f 85 af 05 00 00 48 8d 7d 08 4d 89 af 88 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 05 00 00 49 8d bf 90 00 00 00 48 8b 6d 08 48
-RSP: 0018:ffffc90002f6faf8 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: ffff8880226c1000 RCX: 0000000000000000
-RDX: 0000000000000001 RSI: 0000000000000001 RDI: 0000000000000008
-RBP: 0000000000000000 R08: 0000000000000004 R09: 0000000000000000
-R10: ffff888014243883 R11: 000000000000001f R12: ffffffff904a7ea8
-R13: ffff8880226c1010 R14: ffff8880142438c0 R15: ffff888014243838
-FS:  0000000000000000(0000) GS:ffff888096a82000(0063) knlGS:00000000f67e5b40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00007f45dd833708 CR3: 000000004e2f1000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	48 c1 ea 03          	shr    $0x3,%rdx
-   4:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-   8:	0f 85 af 05 00 00    	jne    0x5bd
-   e:	48 8d 7d 08          	lea    0x8(%rbp),%rdi
-  12:	4d 89 af 88 00 00 00 	mov    %r13,0x88(%r15)
-  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  20:	fc ff df
-  23:	48 89 fa             	mov    %rdi,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
-  2e:	0f 85 7f 05 00 00    	jne    0x5b3
-  34:	49 8d bf 90 00 00 00 	lea    0x90(%r15),%rdi
-  3b:	48 8b 6d 08          	mov    0x8(%rbp),%rbp
-  3f:	48                   	rex.W
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> -----Original Message-----
+> From: Yao, Jia
+> Sent: Monday, August 24, 2026 10:13 AM
+> To: 'Greg KH' <gregkh@linuxfoundation.org>
+> Cc: stable@vger.kernel.org; Mun, Gwan-gyeong <Gwan-
+> gyeong.Mun@intel.com>; Auld, Matthew <matthew.auld@intel.com>;
+> Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
+> Subject: RE: [PATCH 1/3] drm/xe/guc_ads: allocate UM queues in a separate
+> BO
+>=20
+> This fix is intended for all stable trees containing commit 9c57bc08652a
+> ("drm/xe/lnl: Drop force_probe requirement").
+>=20
+> Regarding the duplicate cherry-pick annotations, 99b01815957b was itself
+> cherry-picked from 6af05de0dc19 and the extra annotation was carried over
+> inadvertently. One of the cherry-picked lines can be dropped.
+>=20
+> > -----Original Message-----
+> > From: Greg KH <gregkh@linuxfoundation.org>
+> > Sent: Monday, August 24, 2026 10:03 AM
+> > To: Yao, Jia <jia.yao@intel.com>
+> > Cc: stable@vger.kernel.org; Mun, Gwan-gyeong <gwan-
+> > gyeong.mun@intel.com>; Auld, Matthew <matthew.auld@intel.com>;
+> Thomas
+> > Hellstr=F6m <thomas.hellstrom@linux.intel.com>
+> > Subject: Re: [PATCH 1/3] drm/xe/guc_ads: allocate UM queues in a
+> > separate BO
+> >
+> > On Mon, Aug 24, 2026 at 04:52:06PM +0000, Jia Yao wrote:
+> > > Move the UM queues into a dedicated BO (ads->um_queue_bo) and avoid
+> > > CPU memset operations on it, which eliminates the CPU as a potential
+> > > cacheline-polluting agent and helps maintain consistency between GAM
+> > > writes and GuC reads.
+> > >
+> > > We also need to ensure the base_dpa for the queue is contiguous on
+> > > hw where this is used instead of a GGTT address. Another good reason
+> > > to split this out to a separate BO.
+> > >
+> > > Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
+> > > Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+> > > Cc: Matthew Auld <matthew.auld@intel.com>
+> > > Cc: <stable@vger.kernel.org> # v6.12+
+> > > Signed-off-by: Jia Yao <jia.yao@intel.com>
+> > > Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> > > Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+> > > Link:
+> > > https://patch.msgid.link/20260804165057.129529-2-jia.yao@intel.com
+> > > (cherry picked from commit
+> > 6af05de0dc19bbf3aaeec2020fe48b37c834b811)
+> > > Signed-off-by: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
+> > > (cherry picked from commit
+> > 99b01815957bd7d848420cb697f79ed11f7f215c)
+> > > ---
+> > >  drivers/gpu/drm/xe/xe_bo.h            | 14 +++++
+> > >  drivers/gpu/drm/xe/xe_guc.c           |  6 ++
+> > >  drivers/gpu/drm/xe/xe_guc_ads.c       | 90 +++++++++++++++++--------=
+--
+> > >  drivers/gpu/drm/xe/xe_guc_ads_types.h |  5 ++
+> > >  4 files changed, 83 insertions(+), 32 deletions(-)
+> >
+> > What stable tree(s) are these patches for?
+> >
+> > And what's with the crazy 2 cherry picked lines?  You all know better
+> > than to attempt to mess this up even more...
