@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BA433938C
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:33:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C43D33B966
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787672027; cv=none; b=DaOqrL93XG59qzT5bLXwATMzjF1qtHNRONecmgj1OZ+TzYTwrcGWoXR5FwNL9KRPBXYVhf5e15iYR2k8Ua8jCIi/uUpAcXUzpm9+TXmItKrZ/y66E3w0gAaEMwgXbTGhw5p0LWY0hGlc72+PoWEPMI24nkjCDHQMRA4WywwxCUg=
+	t=1787672119; cv=none; b=aFGWAmjZ6newZp8jt1mPSlIeRXod3DYReH6froh0fLmVU6OAs+XREW7Qv1hdCSDqeLihi3UOksECBSVx/ESQ6ZUTq70rpRGNt/MBycIL37S6zZcNGmayCFS01ZmEG/wFH74Eb6QYVaBkYldOBR+ckMLIDz/xxGcjWQV34o0LrI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787672027; c=relaxed/simple;
-	bh=S6ZX/HBoSUKBJznf9hOjS3If2fREhigiroI9l77jDa0=;
+	s=arc-20240116; t=1787672119; c=relaxed/simple;
+	bh=A9f1oiohD6eJdjOYQPsWd31pem8l/GX+9Vbjngy4EmI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gj2LPClCzdTb4mkuclX0EblI7x7gx+uQlWeWUnJXfCfPMHyWClfgXM8YyY0li9ew5aHaxHZJHbAW2viuJjvJQ8E0qixekE/2qAmcCBjMCPZGaij/p2WiUankLyQ2+aaeJ4pBzTlj3/Q9plvYQ+LQyR4gf3KWIMlu2zkKPrABEsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ohcok/mD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Pyk+tNjyHTt0YM3iieblf4P60G9K2kmEYqN9ZqbDnliufeKWr5AxTpTBWdpkkTPXAeMEIf/EulQMTUaHfytOW/OBLUc7Ksd1bZOrlNJGfQdedsf5iMQeot89RjWnl1JVO8bpaI5tE1MkRcTlhNNGTDuKDRojAcg+pEKIkn3HY4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5hvsf7L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ohcok/mD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF171F00A3A;
-	Tue, 25 Aug 2026 15:33:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5hvsf7L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1F01F000E9;
+	Tue, 25 Aug 2026 15:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787672026;
-	bh=DsnEaCCW/hwtE/GwWoazTz7ynd78bEMSYNgqLXYBhqA=;
+	s=k20260515; t=1787672118;
+	bh=BR7ggH5eylBQ9Pzoul9geaPSZFpnF9jE/tPJ1nvagc4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ohcok/mDLKo10VMyrgRqDXdMFHdQoy1HXety+uzS+pso2Fr+nECdBm056T2v8wvEH
-	 g3ZPAKoSzoJTDMWfHnyB+pjD0uTQhwFd9GoRwc7tGZutU8JN+5RYqg8eSoOglhf3CO
-	 HqMUgWbCtTiyn3s2+zI2UXK0XWOAeEaCln6dCB/GRkvceAWrtk1RoH47z6SRR3My1E
-	 wdrGNAuNsZB94mruyow5EpmKrxC6P7Y0spCCCkMe1YjtJdqHf1qYZI7bycyWHyJxEJ
-	 pIX5gIj4Vwf3eVr/z56bckjGvuUdrfxUw5b1N28ikEQTIaHz0Hj/cVR3zWT/geVnO1
-	 zLEdpxGV/N2IQ==
+	b=a5hvsf7LrfVZ2O9D/YgM7zOkK8O/fAik66YJkevhPblxjP9WQiF3rSH/nEn6OaIhS
+	 KzZcphNBXBxBfiK8RxBfX+kzQCXhB+fv2hRRDbgLC5I+3V8wB/eoMkcCV1s9+SaAZ/
+	 TOb8gPLT0BP1ni2s6AAp09ueBI6JSR3dhoqNEagA/XuG78ryk24xnUhtk2HVv3B6/z
+	 wVjeo/cS7jGGd9sPpGaAUEiE8TdzjczPWsMvkis5rfCkEKN3gRhimiz1b19nH9FOWs
+	 5Ero9scCKMktK+3P0p5idzqQEUYB0EUtwBOexwFA576EzzOl9yWfa83WaY8qw/R7oQ
+	 GZS6rniYXHEag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Kyle Zeng <kylebot@openai.com>,
+	Peter Zijlstra <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] io_uring/futex: only mark private futex waits as inflight
-Date: Tue, 25 Aug 2026 11:33:37 -0400
-Message-ID: <20260825153337.4067089-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] futex/pi: Plug private futex exec() race
+Date: Tue, 25 Aug 2026 11:35:16 -0400
+Message-ID: <20260825153516.4069495-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825153337.4067089-1-sashal@kernel.org>
-References: <2026082442-slogan-feminine-7a8d@gregkh>
- <20260825153337.4067089-1-sashal@kernel.org>
+In-Reply-To: <2026082417-mule-shrunk-c989@gregkh>
+References: <2026082417-mule-shrunk-c989@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,80 +46,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+From: Thomas Gleixner <tglx@kernel.org>
 
-[ Upstream commit 4d327bbd1cd2485783553b6b2b401aa475f90dd0 ]
+[ Upstream commit c5f0bc9fd1cec4a00400cc727fcde03e0fde17cc ]
 
-Inflight tracking of futex wait requests exists to ensure that do_exit()
--> io_uring_files_cancel() cancels them before the mm goes away, as a
-private futex wait depends on the mm private futex hash staying alive
-for the duration of the request.
+The check for private futexes whether the waiter's mm, which is stored in
+the futex_key and copied into the pi_state, is the same as the owner's mm
+is not sufficient for exec(). exec() has a gap where the mm check fails to
+give the correct answer:
 
-Shared futexes have no such dependency. A FLAGS_SHARED request always
-resolves to either an inode based key or an mm-shared key, both of which
-fail futex_key_is_private() and hence always hash into the global futex
-hash, whose lifetime isn't tied to the mm.
+  exec()
+  ...
+    exec_release_mm()
+      futex_exec_release()
+        tsk::futex::exit_state = EXITING;
+        cleanup_robust_list();
+1)      tsk::futex::exit_state = OK;
+    ...
+    old_mm = tsk::mm;
+2)  tsk::mm = ->mm;
 
-Only mark vectored futex waits as inflight if the futex is private.
+Between #1 and #2 the check for the mm is wrong as that mm is about to be
+swapped out and eventually freed.
 
+Plug this gap by:
+
+  1) Setting tsk::futex::exit_state to FUTEX_STATE_DEAD in
+     futex_exec_release()
+
+  2) Setting tsk::futex::exit_state to FUTEX_STATE_OK after
+     the mm has been switched.
+
+From a futex point of view the task is dead after it finished the robust
+list cleanup up to the point where it sets the state to OK again.
+
+Fixes: 80367ad01d93 ("futex: Add basic infrastructure for local task local hash")
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Acked-by: Peter Zijlstra <peterz@infradead.org>
 Cc: stable@vger.kernel.org
-Fixes: 079afb081c42 ("io_uring/futex: mark wait requests as inflight")
-Link: https://lore.kernel.org/io-uring/CANGjgdn=R_qyUdE=j9za+vkmqcxacbP-84OHXF4nZ4ho9qRyVg@mail.gmail.com/
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ kept 6.18's `struct futex_vector *futexv` declaration and changed `ifd->futexv[i].w.flags` to `futexv[i].w.flags` since `struct io_futexv_data` is absent, retaining the `iof->futexv_owned = 0;` init ]
+[ Dropped the comment-only kernel/futex/pi.c hunk and kept 6.18's lockless `futex_state` store, adapting `fs/exec.c` to the inline `old_mm` teardown. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/futex.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ fs/exec.c             |  7 ++++--
+ include/linux/futex.h |  2 ++
+ kernel/futex/core.c   | 54 +++++++++++++++++++++++++++++--------------
+ 3 files changed, 44 insertions(+), 19 deletions(-)
 
-diff --git a/io_uring/futex.c b/io_uring/futex.c
-index 57a17c6942219..cccd1244c4b46 100644
---- a/io_uring/futex.c
-+++ b/io_uring/futex.c
-@@ -149,14 +149,16 @@ int io_futex_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+diff --git a/fs/exec.c b/fs/exec.c
+index 6eb1c8da2c7db..1af621c8a6039 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -30,6 +30,7 @@
+ #include <linux/mm.h>
+ #include <linux/stat.h>
+ #include <linux/fcntl.h>
++#include <linux/futex.h>
+ #include <linux/swap.h>
+ #include <linux/string.h>
+ #include <linux/init.h>
+@@ -851,6 +852,7 @@ static int exec_mmap(struct mm_struct *mm)
+ 	/* Notify parent that we're no longer interested in the old VM */
+ 	tsk = current;
+ 	old_mm = current->mm;
++	/* Clean up futexes and release the mm */
+ 	exec_mm_release(tsk, old_mm);
  
- int io_futex_wait_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- {
-+	struct io_futex *iof = io_kiocb_to_cmd(req, struct io_futex);
- 	int ret;
- 
- 	ret = io_futex_prep(req, sqe);
- 	if (unlikely(ret))
- 		return ret;
- 
--	/* Mark as inflight, so file exit cancelation will find it */
--	io_req_track_inflight(req);
-+	/* inflight tracking only needed for mm private hash */
-+	if (!(iof->futex_flags & FLAGS_SHARED))
-+		io_req_track_inflight(req);
+ 	ret = down_write_killable(&tsk->signal->exec_update_lock);
+@@ -899,9 +901,10 @@ static int exec_mmap(struct mm_struct *mm)
+ 		setmax_mm_hiwater_rss(&tsk->signal->maxrss, old_mm);
+ 		mm_update_next_owner(old_mm);
+ 		mmput(old_mm);
+-		return 0;
++	} else {
++		mmdrop_lazy_tlb(active_mm);
+ 	}
+-	mmdrop_lazy_tlb(active_mm);
++	futex_exec_done(tsk);
  	return 0;
  }
  
-@@ -179,6 +181,7 @@ int io_futexv_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index 9e9750f049805..e93f2be22779f 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -77,6 +77,7 @@ static inline void futex_init_task(struct task_struct *tsk)
+ void futex_exit_recursive(struct task_struct *tsk);
+ void futex_exit_release(struct task_struct *tsk);
+ void futex_exec_release(struct task_struct *tsk);
++void futex_exec_done(struct task_struct *tsk);
+ 
+ long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout,
+ 	      u32 __user *uaddr2, u32 val2, u32 val3);
+@@ -98,6 +99,7 @@ static inline void futex_init_task(struct task_struct *tsk) { }
+ static inline void futex_exit_recursive(struct task_struct *tsk) { }
+ static inline void futex_exit_release(struct task_struct *tsk) { }
+ static inline void futex_exec_release(struct task_struct *tsk) { }
++static inline void futex_exec_done(struct task_struct *tsk) { }
+ static inline long do_futex(u32 __user *uaddr, int op, u32 val,
+ 			    ktime_t *timeout, u32 __user *uaddr2,
+ 			    u32 val2, u32 val3)
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index fde558fd2bd60..539b816610673 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -1505,13 +1505,13 @@ static void futex_cleanup_begin(struct task_struct *tsk)
+ 	raw_spin_unlock_irq(&tsk->pi_lock);
+ }
+ 
+-static void futex_cleanup_end(struct task_struct *tsk, int state)
++static void futex_cleanup_end(struct task_struct *tsk)
  {
- 	struct io_futex *iof = io_kiocb_to_cmd(req, struct io_futex);
- 	struct futex_vector *futexv;
-+	unsigned int i;
- 	int ret;
+ 	/*
+ 	 * Lockless store. The only side effect is that an observer might
+ 	 * take another loop until it becomes visible.
+ 	 */
+-	tsk->futex_state = state;
++	tsk->futex_state = FUTEX_STATE_DEAD;
+ 	/*
+ 	 * Drop the exit protection. This unblocks waiters which observed
+ 	 * FUTEX_STATE_EXITING to reevaluate the state.
+@@ -1519,29 +1519,49 @@ static void futex_cleanup_end(struct task_struct *tsk, int state)
+ 	mutex_unlock(&tsk->futex_exit_mutex);
+ }
  
- 	/* No flags or mask supported for waitv */
-@@ -202,8 +205,14 @@ int io_futexv_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 		return ret;
- 	}
- 
--	/* Mark as inflight, so file exit cancelation will find it */
--	io_req_track_inflight(req);
-+	/* inflight tracking only needed for mm private hash */
-+	for (i = 0; i < iof->futex_nr; i++) {
-+		if (!(futexv[i].w.flags & FLAGS_SHARED)) {
-+			io_req_track_inflight(req);
-+			break;
-+		}
-+	}
+-void futex_exec_release(struct task_struct *tsk)
++void futex_exit_release(struct task_struct *tsk)
+ {
+-	/*
+-	 * The state handling is done for consistency, but in the case of
+-	 * exec() there is no way to prevent further damage as the PID stays
+-	 * the same. But for the unlikely and arguably buggy case that a
+-	 * futex is held on exec(), this provides at least as much state
+-	 * consistency protection which is possible.
+-	 */
+ 	futex_cleanup_begin(tsk);
+ 	futex_cleanup(tsk);
++	futex_cleanup_end(tsk);
++}
 +
- 	iof->futexv_owned = 0;
- 	iof->futexv_unqueued = 0;
- 	req->flags |= REQ_F_ASYNC_DATA;
++void futex_exec_release(struct task_struct *tsk)
++{
+ 	/*
+-	 * Reset the state to FUTEX_STATE_OK. The task is alive and about
+-	 * exec a new binary.
++	 * exec() makes it interesting for futexes because the TID of the task
++	 * stays the same, but from a futex perspective the task has to be
++	 * treated like an exiting task. This is especially important for the
++	 * sanity check for private futexes in attach_to_pi_owner() which
++	 * compares the owner's mm with the waiter's mm.
++	 *
++	 * That check would give the wrong answer if futex_cleanup_end() would
++	 * set the state to FUTEX_STATE_OK as long as the task still has the old
++	 * mm.
++	 *
++	 * After the task has switched to the new mm it sets it to
++	 * FUTEX_STATE_OK again in futex_exec_done().
+ 	 */
+-	futex_cleanup_end(tsk, FUTEX_STATE_OK);
++	futex_exit_release(tsk);
+ }
+ 
+-void futex_exit_release(struct task_struct *tsk)
++/*
++ * exec() has switched to the new mm. Futex operations are safe again.
++ */
++void futex_exec_done(struct task_struct *tsk)
+ {
+-	futex_cleanup_begin(tsk);
+-	futex_cleanup(tsk);
+-	futex_cleanup_end(tsk, FUTEX_STATE_DEAD);
++	/*
++	 * This store does not have to take tsk::futex::exit_mutex because the
++	 * phase where waiters block on it during state FUTEX_STATE_EXITING has
++	 * been finished when futex_cleanup_end() set the state to
++	 * FUTEX_STATE_DEAD.
++	 *
++	 * This transitions back from FUTEX_STATE_DEAD to FUTEX_STATE_OK. The
++	 * ordering guarantee required here is that the previous store to
++	 * tsk::mm in the calling code cannot be reordered against this store.
++	 */
++	guard(raw_spinlock_irq)(&tsk->pi_lock);
++	tsk->futex_state = FUTEX_STATE_OK;
+ }
+ 
+ static void futex_hash_bucket_init(struct futex_hash_bucket *fhb,
 -- 
 2.53.0
 
