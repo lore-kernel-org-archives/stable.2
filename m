@@ -1,67 +1,66 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B93E44FD
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246B63E51F5
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787646870; cv=none; b=bMBAtNWyiA+YXf0WLxvIK1Ab1UyU7yEXt7H//qe/AcRkwVi6WDjvwdc++fSlhxsGputrcsBbukAl8Nsqe6jGCdf4Yf/Gk/hOR1gVn/0gnuM2Fu3oTt+DjlHHp5/ZZ4pJl1Um8RCOqCo/2MjDk7ePKaHCcDO023zaxsQe4FQbFbs=
+	t=1787647188; cv=none; b=uoSrSMr+L90sz6sHbIettNw5l1ySI/6h/8JrAFsnRpY8UYCwOvaPcsZ+4vlLX6QWJzYFNjEI3UT0CDcItNGsP61tZHr7KglzO2OG3ha2dmDNU9TqfjFj63VNKx3CAP6M5n266qzfIMorIULrHXwf8+l2n82A3eSFhGK1uB8sZkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787646870; c=relaxed/simple;
-	bh=Osz8dIVx9pcjDLZBVhUg7eExjzhfbTT9XPNOuGpP5Ys=;
+	s=arc-20240116; t=1787647188; c=relaxed/simple;
+	bh=4bQy4f4qdvQOwMEZC2OyjV2O2mUVqY8x7xOCljRlQXA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RyWdr+exDzJSWfWmuf0QsUT1aNikCO8DSYuHuVIPX7clDRgOCDaxhRjBHN9+us0JpZvvQppsrHTFrLayaVcsqn1MT5087QQmLzkhdp9lc5SBymQIE+148dvp1C33Tf/tFhDd8MaPp1cB7StkTXj5U9feKngX8Hb+1zdDK6Cjv5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XcC/pSNe; arc=none smtp.client-ip=209.85.221.54
+	 Content-Type:Content-Disposition:In-Reply-To; b=C57YCg2Cg6qpRX96udoFeheQxXmYrFn/P2qc+wF+ERRb4JUQKAWLSpxWJoysadgfYb3JurvAjx3JCxtMONeSjBqZ6BN7HuUgjJrkgFoGUU/D+jFeYLYIIqHe8J/bPG0K3fTcz92WY/bHE0lrwXGpxQ7TBASN3HTPZSWtjg/zDP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lCCW2TCr; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XcC/pSNe"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482db627cd8so133918f8f.1
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 01:34:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lCCW2TCr"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so26495425e9.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 01:39:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787646866; x=1788251666; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1787647184; x=1788251984; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IVGtX9QFUX57YpBuir6YXJ5ojxTug80HJTjtVuCANHI=;
-        b=XcC/pSNeMVVdjeNAd8Z8ukLJiIuqrtTnZshRUB6X2M5/JIQ7h2zbM+Exc7Xetr8QSX
-         h1X/LVdMVmwjbB+65HLFxgCQw2nKfF+Bh0T7ovmbfp6jDxnRPB6Srz/GCNB6InkssIi4
-         j7tJ+P9iMgRCYpPzaz4Y9dPKzC+vTW9c+Fh1F+L8Gl456NxFY6ML56wCl3LsoWEByPum
-         i3+6Nkt94+9UWFvtWzrJjNPL4xPQI69HHISuVIP6h+aCtUyRF21zjiYZtJVkE3x2gXTH
-         Rr/ZgJHdSUwHywB483eDsYqDjsuT0MCp4gCVbiKUwaixoxNYaVwz//jYYQGttrlIPBQ9
-         +egA==
+        bh=4MxiI6dQZjsqlXXMkr9OPsJ2JcGD28bAQB1bOc8N8OA=;
+        b=lCCW2TCr/6I3dC/qx3ff5FdW0qmFxoksbVZ9+icJaxIMcuvvuFRwS4vqyjwHzksOPR
+         pAQiAOxv5qni1na0iCeIo4RmJjMjOybGZx66kn8TEZGFZyeyPHSOEqjP8whp5EDI3erK
+         MM2QZxDYaEdi7+5ng9gFrT3Yj18YAX2VlO5OX5Ixz7/Ip111g7JiITQt+TND/+rSQz0G
+         EiJqjvpf9B1GJDVTpGbBx0b5qlmF+EKklizkkB5H62KgaHTn2zu0xMKBf1hgM6e+9UrH
+         u01QizqXd7ifI2tC3t9Y3K704Rd6iE0Q8rLbVxFKVvRiX/UdiJhS5HL4AdodXt+U4QCt
+         WFlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787646866; x=1788251666;
+        d=1e100.net; s=20251104; t=1787647184; x=1788251984;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IVGtX9QFUX57YpBuir6YXJ5ojxTug80HJTjtVuCANHI=;
-        b=Mi8XMh403rmvy0w7HuzoQFE3iP7C8i+bpKOHRZHclbsCbKMVEA7gj+flumkaJrGERE
-         FzztLs0+jlCOVla7DsVTtIvq4A/H0s53dBqYAvaT7sVKLt7Y0kEpadHbeJD6LcmzW88k
-         mBiy6jtFXjD3nv8s5ci3fFRTCTvsWirm7dCrrYVTCGmkDY+avwJfHR9I/SrnDTsCz3kB
-         g5obAJK6Znsy/q0iD6UPZvL0W9TPH0LnyCqRPFhHh6YgqBbLcHlIRMlcZk+5u74v/eGp
-         icpkrlZk8MXwf+GHZjz4+9DmE1v7Opn+EU/qpvbMExYQnF1hBFGtgdB/Odn+uSPoWrDZ
-         6tUg==
-X-Forwarded-Encrypted: i=1; AHgh+RrmoYKdGBUhnov5nDWyc6U3lLpyy4lIjGI66tCM8nvTFDIOMNlk3h9g0lYBKd0oQlleE3cm98k=@vger.kernel.org
-X-Gm-Message-State: AFuF++k17ycV3BVq+cLL9ddoUoAqyRHmWXC36Weg8BGpPWe5XOTQ2olX
-	M2qnkAyCDN+SiPAw2RuS0AC9JlXgyBOVbw8P4PGsUkIGJVjhBjOYvI5Mvm34uVD8NSmrd077hbQ
-	S8+H6tSOGfao=
-X-Gm-Gg: AR+sD1193opSDpDoFvd2UOf+/nGp2DSN2C+wYak4xg7PKwZcQFYo/62K+cPEfdoRPhf
-	zMNqvHw/E1IFvVHaD3UamuvWA1R9J37pFLciEq5397mEea4BuVaQyv3r/ewtEQ/S6HoyIojJauC
-	1YKK2YSvTs2Tu0LBECrYgiLh3CN2B9DjfSW3AWYHKDsnk479SsndSZYhCBbpZnN3x2fslsHeN3h
-	VKa6h54/AQae3EGailwG2ZdVkmc7pU+ttPDJimszcXevD5Hjq9KLqzR4qMRC9oOTbLq0psRecL5
-	baMkCWj9g2UttoKdJe+qEl2fGAQWLBG0SzyExUrPiQJn7MtmQvjXlah8Bh2Uc4aR9z6lhBE6Mkt
-	Ei1447QebsqUCnEOvNhm19AdRQG894+UyK3taE1Ga3ctQejoNV7Ag3h54nq2itmKObemq5nc2Vg
-	RJRevI9V69xf/nQHCyKP7hyoZIUYkHtNIERhrZ61jnINXHCYCl2MgakVQ9p/QPJUQb+mfypKv0v
-	itH3+HftzShRllTjtYGTjZmvVRwiM1JigPhdIaqcMA=
-X-Received: by 2002:a05:6000:2c12:b0:482:bb55:8bdc with SMTP id ffacd0b85a97d-482c0b55514mr40947617f8f.1.1787646865301;
-        Tue, 25 Aug 2026 01:34:25 -0700 (PDT)
+        bh=4MxiI6dQZjsqlXXMkr9OPsJ2JcGD28bAQB1bOc8N8OA=;
+        b=hz1/hvLTlEPx+3iIUXTBvEV1sQ0zB1XPz3gre8vMN/Nj9vADrT9Igyx9VsfpE1Lwsc
+         tj6l7LhHqGtytcbLmNP5aiIVlVcUAPqUNQSeL/AIKDJ877qeZHLrYLZ47A6p6hmMZ186
+         Dq1DNDAZT0VU4Qne3WvjoCRcDH8Y6eylMpdvPCc8EDfaLwgNQxm2ePMdUoGHCj6A89rb
+         +eyiXwnYm6LeJRt9QqGCrRRmkP1Sl6fB7kEaYaJjnRiUj4U2CXFdDCSMVwaDdFeIePBC
+         8qTjlhF0B0cSJ6ypXAj1SZspd7wdWrradhhhYWbJLf9lGLU1LdpMIU+dS3xbQXmmFj/i
+         9o1A==
+X-Forwarded-Encrypted: i=1; AHgh+RpGgEhEVTzP9R5V39qBUVAlxyll4V49mlmUumBimBnNYGFD+lzdiloWxfwFo5jLoY3mgwkckjs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9vD/hG+lL2HJkywAji1tLxhqstUPBhCC5CgAlcPl78/C05lSU
+	mOm0XY543Kqxux2m0J/vrbce+pxKkEqXwDOkt5Nqrlh7t6Q5CfVvLyxjj7nqi0rA0w==
+X-Gm-Gg: AR+sD11bB8aWqcki4kYD2IQsloNPC+vgUJiWZU8IyN0gHi9lGO83WYPwAgoWkUgK4cz
+	ueUx2TKTGEP+wq5X34kJSieT1HL3yP152317xiXBrizqp6gDsakrNeqOJBgyHOIvE1CakBQg5Fe
+	2NErPcv/6r2bW6A+WocMj5FocFbp1gSJOFx3dxrHmaABUBZsPcwBtH9jqikEA7vFM17QyhntyLM
+	iTWELzrDS6CQI/8xDcHYOUwqXqOmfHkw2NN3RA7tX4CppgZk5uAdmHoiklRf5bqVpVgMTf9yoD3
+	tMc1Lx/l16sWnsS5p3cvPMDsIl7GRfsCAdjzwU0hDYsf2EunRAbfQUN3npw/oEJbUtSN3PvIlAZ
+	2f2ScRbaMV/+S007dw70dbDd1SOlb+c6ZoZ+jdN0yxuS/VNMshZ7qXejMtmzUb8han4onKlAKpj
+	fG1QwgnwmTdLQy1M6lCD6l+zgbk8DA8DiA+gYDb4U6LPe1tBdAYLybbAiGfD5x4qFSao+Q6Jn+x
+	dpYS+J09lzcoinV9p7rbcciKJ0fZQuZ
+X-Received: by 2002:a05:600c:3e1b:b0:499:a685:c10 with SMTP id 5b1f17b1804b1-499b82e5427mr431534635e9.4.1787647182685;
+        Tue, 25 Aug 2026 01:39:42 -0700 (PDT)
 Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482c9c0acaesm10806759f8f.29.2026.08.25.01.34.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499d6364720sm22212585e9.12.2026.08.25.01.39.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 01:34:24 -0700 (PDT)
-Date: Tue, 25 Aug 2026 09:34:21 +0100
+        Tue, 25 Aug 2026 01:39:41 -0700 (PDT)
+Date: Tue, 25 Aug 2026 09:39:38 +0100
 From: Vincent Donnefort <vdonnefort@google.com>
 To: ivanimmanuel1234@gmail.com
 Cc: Steven Rostedt <rostedt@goodmis.org>,
@@ -69,11 +68,11 @@ Cc: Steven Rostedt <rostedt@goodmis.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing: Fix retry exhaustion in simple ring buffer
- reader swap
-Message-ID: <ao1Tjb7VB6JcLhf0@google.com>
+Subject: Re: [PATCH 2/2] ring-buffer: Stop remote reader update when page
+ swap fails
+Message-ID: <ao1Uyps5JSTyOlZf@google.com>
 References: <20260825-kernel-patch-1-v1-0-e9349aa0b165@gmail.com>
- <20260825-kernel-patch-1-v1-1-e9349aa0b165@gmail.com>
+ <20260825-kernel-patch-1-v1-2-e9349aa0b165@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,53 +81,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260825-kernel-patch-1-v1-1-e9349aa0b165@gmail.com>
+In-Reply-To: <20260825-kernel-patch-1-v1-2-e9349aa0b165@gmail.com>
 
-On Tue, Aug 25, 2026 at 01:20:37AM -0400, Ivan Immanuel Shaji via B4 Relay wrote:
+On Tue, Aug 25, 2026 at 01:20:38AM -0400, Ivan Immanuel Shaji via B4 Relay wrote:
 > From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
 > 
-> simple_ring_buffer_swap_reader_page() starts with retry set to 8 and
-> post-decrements it only after a failed link replacement. On the final
-> attempt, a successful replacement leaves retry at zero, while a failed
-> replacement leaves it at -1.
+> The remote swap_reader_page callback can fail when the writer moves the
+> head before the remote catches it. __rb_get_reader_page_from_remote()
+> warns about that failure but continues with the unchanged reader ID and
+> rearranges the local page list as though the swap succeeded.
 > 
-> The current !retry test reverses both outcomes. It returns an error after
-> a successful final replacement, leaving the link update complete but the
-> reader bookkeeping unfinished. After a failed final replacement, it
-> falls through and updates the head and reader pointers as though the
-> replacement succeeded, which can corrupt the ring.
+> Stop immediately after warning. Callers already handle a NULL reader
+> page as a failed attempt, and this avoids splicing the same page as both
+> the previous and new reader.
 > 
-> Treat only a negative counter as exhaustion and return the documented
-> -EBUSY error.
-> 
-> Fixes: 34e5b958bdad ("tracing: Introduce simple_ring_buffer")
+> Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM sparse
 > Signed-off-by: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
-
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-
 > ---
->  kernel/trace/simple_ring_buffer.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  kernel/trace/ring_buffer.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
-> index f4642f5adda3..49913bb0057a 100644
-> --- a/kernel/trace/simple_ring_buffer.c
-> +++ b/kernel/trace/simple_ring_buffer.c
-> @@ -160,8 +160,8 @@ int simple_ring_buffer_swap_reader_page(struct simple_rb_per_cpu *cpu_buffer)
->  		overrun = cpu_buffer->meta->overrun;
->  	} while (!simple_bpage_unset_head_link(last, reader, SIMPLE_RB_LINK_NORMAL) && retry--);
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 3c3ed639923d..d11b2759caac 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -5805,8 +5805,9 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
 >  
-> -	if (!retry)
-> -		return -EINVAL;
-> +	if (retry < 0)
-> +		return -EBUSY;
+>  	prev_reader = cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
 >  
->  	cpu_buffer->head_page = simple_bpage_from_link(reader->link.next);
->  	cpu_buffer->head_page->link.prev = &reader->link;
+> -	WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
+> -							  cpu_buffer->remote->priv));
+> +	if (WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
+> +							      cpu_buffer->remote->priv)))
+> +		return NULL;
+>  	/* nr_pages doesn't include the reader page */
+>  	if (WARN_ON_ONCE(cpu_buffer->meta_page->reader.id > cpu_buffer->nr_pages))
+>  		return NULL;
 > 
 > -- 
 > 2.53.0
 > 
 > 
+
+If handled gracefully and as this can be triggered by a storm of events on small
+buffer (when -EBUSY) I wonder if we shouldn't use a pr_warn_ratelimited()
+instead of a WARN()?
+
+-- 
+Vincent
