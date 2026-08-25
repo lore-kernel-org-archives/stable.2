@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B91449364C;
-	Tue, 25 Aug 2026 01:45:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DDC33B6E8;
+	Tue, 25 Aug 2026 01:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787622314; cv=none; b=n+vI9m//zWj3rKKqLSS6lbuOVwQJwaqU0Xed1eByJN1F3UVPhtUs44HlHLmsjSSaLgsBEgCSWZ1wXyy6J0lgf2rIhO0QKJRNCkT0qn2wEn3hBFHqejxD2ifoo/tdJ8Y1v+N0gmX6yLB5T3iftip+tZ8U+6OFWnrjP+dp3pc4+dM=
+	t=1787622321; cv=none; b=SxyiJLPVF6S1e9oNnlTd6wmQV6oiS+TVkMGl/ka0tx8UhPH9ZFNI0EpPpG4nMNrgYA97h7LxnuE7k4RXu+ABsRGet/zypnMM2T+obAI8PUgb/lWkDz/AztwxkJ3wA8EergSfSGccF0EHeGjDNv1/VLP/ga89xRtUU7Eep7yWiYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787622314; c=relaxed/simple;
-	bh=LXIt5UrmBDRLn0p/QxJ4V561V7qHZffm6YWwpQlVk7g=;
-	h=Date:To:From:Subject:Message-Id; b=uqbRHVne5rNFhN3VFqc/IgSHTlULPCV/IgRQ46ipgzkgCZWrgcnE4wgpaFytNH2OeNA7AR029ZHnMGpy3YeY5a4e4xqFSvFnLmagzeWO2+0tsUw5yZDwU6Mcq3eGgXIcH1+ZN6iE80YWhuttEPFC9XA1OW1/j2mbOePSvXq5EtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xOiRTA/a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787622321; c=relaxed/simple;
+	bh=2q31nzcaZgjLs3a3VyRAVVx4OqQWwz0o0tX1BHI0BiA=;
+	h=Date:To:From:Subject:Message-Id; b=udIc2R9b2xdN0Q+YcrxyqJz2bFjnYAA8NBC8r+AcMKwwrE9XBq8Ba/efQfW918a4atSxBRR9WX/9LNO4z+2nUwBYaLNjckjgCBSvi40MFBVE8bFGGbN6880N+PEaQJiCVN6KuSTmLhrrrVcnXNeKUsYijwLZTIYVcpuFavHll78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=me2tMgao; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xOiRTA/a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF6D1F00A3A;
-	Tue, 25 Aug 2026 01:45:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="me2tMgao"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C2A01F000E9;
+	Tue, 25 Aug 2026 01:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787622312;
-	bh=QQMejMuUWGufm3CCrl9thooxt4J/iQbmOBl1tWlSvEE=;
+	d=linux-foundation.org; s=korg; t=1787622319;
+	bh=DrlZG65MM8Br9V/2Am3HgGRCGHbDl1vwqAy6GkuQlcQ=;
 	h=Date:To:From:Subject;
-	b=xOiRTA/ahfQ89Q0G2Lx9gHxZdlxNYATzS3juVrQsxHzRyVSBr2WoMdc+PpgQOGWVq
-	 ZU8LBAOahM0aElnK2IX3VmtUvWqXd/KUfVfnK6Wtr6RolaqHQBBLRoL1vP7XB/cHM0
-	 NlE3UF/0al4XBximJidFq5P6H2MFIry2WZchN334=
-Date: Mon, 24 Aug 2026 18:45:11 -0700
-To: mm-commits@vger.kernel.org,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shikemeng@huaweicloud.com,shakeel.butt@linux.dev,roman.gushchin@linux.dev,qi.zheng@linux.dev,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,husong@kylinos.cn,hannes@cmpxchg.org,david@kernel.org,dave@stgolabs.net,chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,axelrasmussen@google.com,chenridong@xiaomi.com,akpm@linux-foundation.org
+	b=me2tMgaoks1FdALhN7PLP4SAGOQqfcTS89D3iDcfo8TEoSapNDukJbpbR63gTK2ey
+	 gDlSUKXl/gTTRvIPEN92KId0D2KmTBhnzU89i8AtaP7VR9+2c+kkMbTUAXWd0JUxvn
+	 fBVqsiC+eCKFd4TgR7mhjeTFmmpZqodY7Aj2wbxU=
+Date: Mon, 24 Aug 2026 18:45:19 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,minchan@kernel.org,haoqinhuang7@gmail.com,senozhatsky@chromium.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch removed from -mm tree
-Message-Id: <20260825014512.4CF6D1F00A3A@smtp.kernel.org>
+Subject: [merged mm-stable] zram-set-default-primary-compressor-in-zram_destroy_comps.patch removed from -mm tree
+Message-Id: <20260825014519.9C2A01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,141 +35,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm: vmscan: fix node reclaim ignoring swappiness parameter
+     Subject: zram: set default primary compressor in zram_destroy_comps()
 has been removed from the -mm tree.  Its filename was
-     mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch
+     zram-set-default-primary-compressor-in-zram_destroy_comps.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Ridong Chen <chenridong@xiaomi.com>
-Subject: mm: vmscan: fix node reclaim ignoring swappiness parameter
-Date: Thu, 23 Jul 2026 11:24:34 +0800
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: zram: set default primary compressor in zram_destroy_comps()
+Date: Wed, 29 Jul 2026 13:57:35 +0900
 
-sc_swappiness() had two separate definitions depending on CONFIG_MEMCG. 
-The !CONFIG_MEMCG variant simply returned vm_swappiness, ignoring the
-proactive_swappiness value passed through scan_control.  This caused the
-swappiness parameter written to /sys/devices/system/node/nodeX/reclaim to
-have no effect when CONFIG_MEMCG is disabled.
+Patch series "zram: fix zram issues reported by sashiko".
 
-Fix this by consolidating sc_swappiness() into a single definition that
-checks sc->proactive_swappiness first, then falls back to
-mem_cgroup_swappiness() which already handles both CONFIG_MEMCG and
-!CONFIG_MEMCG.
+Sashiko drove by and reported [1] a couple of zram issues:
+a possible BUG_ON() in zlib code due to missing winbits range
+validation and one possible NULL-ptr dereference in zcomp.
+Both are low risk yet still worth fixing.
 
-Before fix (swappiness=max ignored, mostly file pages reclaimed):
 
-    # cat /proc/sys/vm/swappiness
-    60
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 1840
-    pgsteal_anon 25
-    pgsteal_file 1815
-    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 18013
-    pgsteal_anon 337
-    pgsteal_file 17676
+This patch (of 2):
 
-After fix (swappiness=max honored, anon pages reclaimed as expected):
+zram_destroy_comps() resets all compressors and leaves them set to NULL,
+including the primary one, which is invalid device state, as now
+comp_algorithm_show()->strcmp() can be called on a NULL compressor.  Set
+default primary compressor in zram_destroy_comps().
 
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 0
-    pgsteal_anon 0
-    pgsteal_file 0
-    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 16283
-    pgsteal_anon 16283
-    pgsteal_file 0
-
-Link: https://lore.kernel.org/20260723032434.2016749-3-ridong.chen@linux.dev
-Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Tested-by: Song Hu <husong@kylinos.cn>
-Reviewed-by: Song Hu <husong@kylinos.cn>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: <stable@vger.kernel.org>	[6.17+]
+Link: https://lore.kernel.org/20260729045745.775973-2-senozhatsky@chromium.org
+Fixes: 486fd58af7ac ("zram: don't free statically defined names")
+Link: https://sashiko.dev/#/patchset/20260728092935.31139-1-haoqinhuang7@gmail.com [1]
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Haoqin Huang <haoqinhuang7@gmail.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/vmscan.c |   19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
+ drivers/block/zram/zram_drv.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
---- a/mm/vmscan.c~mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter
-+++ a/mm/vmscan.c
-@@ -199,6 +199,13 @@ struct scan_control {
-  */
- int vm_swappiness = 60;
+--- a/drivers/block/zram/zram_drv.c~zram-set-default-primary-compressor-in-zram_destroy_comps
++++ a/drivers/block/zram/zram_drv.c
+@@ -2828,6 +2828,7 @@ static void zram_destroy_comps(struct zr
+ 		zram->comp_algs[prio] = NULL;
  
-+static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
-+{
-+	if (sc->proactive && sc->proactive_swappiness)
-+		return *sc->proactive_swappiness;
-+	return mem_cgroup_swappiness(memcg);
-+}
-+
- #ifdef CONFIG_MEMCG
- 
- /* Returns true for reclaim through cgroup limits or cgroup interfaces. */
-@@ -239,13 +246,6 @@ static bool writeback_throttling_sane(st
- #endif
- 	return false;
+ 	zram_comp_params_reset(zram);
++	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
  }
--
--static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
--{
--	if (sc->proactive && sc->proactive_swappiness)
--		return *sc->proactive_swappiness;
--	return mem_cgroup_swappiness(memcg);
--}
- #else
- static bool cgroup_reclaim(struct scan_control *sc)
- {
-@@ -261,11 +261,6 @@ static bool writeback_throttling_sane(st
- {
- 	return true;
- }
--
--static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
--{
--	return READ_ONCE(vm_swappiness);
--}
- #endif
  
- static inline bool is_exec_file_folio(const struct folio *folio,
+ static void zram_reset_device(struct zram *zram)
+@@ -2845,8 +2846,6 @@ static void zram_reset_device(struct zra
+ 	zram_destroy_comps(zram);
+ 	memset(&zram->stats, 0, sizeof(zram->stats));
+ 	reset_bdev(zram);
+-
+-	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+ }
+ 
+ static ssize_t disksize_store(struct device *dev, struct device_attribute *attr,
 _
 
-Patches currently in -mm which might be from chenridong@xiaomi.com are
+Patches currently in -mm which might be from senozhatsky@chromium.org are
 
 
