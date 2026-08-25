@@ -1,173 +1,161 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010008.outbound.protection.outlook.com [52.101.56.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA738B7DC;
-	Tue, 25 Aug 2026 14:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787667064; cv=fail; b=BhyEpLgtFAWHaj7Cb6AeHJ8UavYMfx6sBQwyFPaZ8F/ta5xqJhmvKWtUb8+uUaJc8m0yGiSgFJST4CL1prPvrTcOp11Z6pZ5+EtDi3CeOi43MLyoaghFqgQFWlFx316gLamcthsTe5uRjGwxpm2G6UAo9tviGhcKM5jy1YtPZEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787667064; c=relaxed/simple;
-	bh=EKH1eQEM3+8kJrMDRXhUZnxpHCi1qGr3QaY/ePw8GDE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=HPVbtT+H/MRZiXuztct8K8dAjgqF6NbaVWaTKecWzW/vjPhn/NmkhkcH9fkjw58N550+RJtzVn7ABbnMHoOORY9YhiyH2i6qx29wZavXVrI56T1o0fvDjo8IAkv8Ty1Qe4VR6Vuvqn0koHHWjzFRkB2L8xbKDjvX0Y0IcjCK7sE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rF3jNWKm; arc=fail smtp.client-ip=52.101.56.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A06238B7DC
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787667348; cv=none; b=QGrD/dWf4mgjbivDvibPcpoOS7w1VCKrhFe19x4y13RhT+yIMIcwEhoCnEAu7TS8OF12IFfpbJ/OMVYD2S/c3Oe6njN4kyxJ195U2SBxU8/xFQIDS1w7CsRsDtmJBLKm7qc1koYb1mDmtjGgeSJg7nhgEtyQOlfqQlnD+0wBzm4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787667348; c=relaxed/simple;
+	bh=N8dfMV2RTxCE7arhbl2EaVyOwVpkyAhCuc/xfSBqTcA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dRBY8S3v/9o3HkwhOv4bJb76wo0PThRDZLRsG0JDDOdD+66VmmPR9aGr1Yd1vhQiYMtAWCXqQrPDTwg5twj+rhDCDGnc11OsmRRvaBEyubF3Gkrc4QjehLbxvNBBYLr0lf5WpH5vmUvKzYaG/fWfKyMaBfFUnq9beKQYOoYLlvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rk6BRX9b; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rF3jNWKm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rkOMsDzveDPQfeouJEJCbiR+yxeSErVdsCdfYNBcyGXdcNxUcnbG6kbyDsnS9ClwGdQVE1jHaZ3gTb2J5Xq9Vm6O3TUIpobYIISylEZDs4mrYL9Mqf/gWFcTvfWjrDzv56Ckr0UdSiJMNFRCOlnXlZBs+ZF8nWO9E7AJ+ZjbKfLD1Za3Vo4/WgFOiDuxo/VtFFlqjC8c8PPqaxDIl74A1COiN9cgF+yZHSkGq0D0lqYFgqX7QDAin+wfpMrBFa7wuq0svHBO+YwFxXBQf5KdqpzQQcW8fqz6aFclTDTPhUr4J3/y/5C+Z/1fMEjmohpymIsG1XBBoEfLh1uiGEL0cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p+C6IcR7gMLezFerK+kLfDTZTQduroLvrP7+Csf97/Q=;
- b=YG6DZMpjJhSzf5z7PIVLpWFEIswJFItSp70jN959j1giRUTCn+aIy9VnoqLqLy7lvrjrwcO7HPt/6JJdCphmLqR8tigusJplt3l3C/wr7eFndrGToc7FQYWBF9Yur3pBP5ULmrOv5gV2KZKsK7N/WCdbc5Ua3qeBA2kqUdc5JwWI3MN2COFeW2RvGAzbt0UsUSqVLoX8oN9+PpnuXHps/MsjGVlE42BQsQLSc6emBlqyH1wWmMKR4hrxzkxe8nhJWyWiEW8h81PErTXNRFbOeS/9yF65Degak1zaLzjMt1HiRyHJEe0ElyJDkH6sPiqRNkCksyPiesWMhs3L63gh8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+C6IcR7gMLezFerK+kLfDTZTQduroLvrP7+Csf97/Q=;
- b=rF3jNWKm0+LxhOyUHXVlj2rD5RXfDJ+6+H1ohmAIkeadA5dYKsaJshQ7ZWzDDEj24nCO5sb3if7MuBWqMG0KCwj+DRvB/W6mdIewayZSfH8ezQiIoCVzWa6bnPD7gLJoockecksbC2PgFZBtTstSWaU7jerc3WV2qt+ootuMIXA=
-Received: from BL1PR13CA0403.namprd13.prod.outlook.com (2603:10b6:208:2c2::18)
- by BL1PR12MB5970.namprd12.prod.outlook.com (2603:10b6:208:399::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Tue, 25 Aug
- 2026 14:10:54 +0000
-Received: from BN3PEPF00022BDA.namprd03.prod.outlook.com
- (2603:10b6:208:2c2:cafe::45) by BL1PR13CA0403.outlook.office365.com
- (2603:10b6:208:2c2::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.6 via Frontend Transport; Tue, 25
- Aug 2026 14:10:54 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb07.amd.com (149.199.90.133) by
- BN3PEPF00022BDA.mail.protection.outlook.com (10.167.248.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 14:10:53 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
- 2026 09:10:52 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
- 2026 09:10:52 -0500
-Received: from [192.168.19.2] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 25 Aug 2026 09:10:49 -0500
-Message-ID: <4b253fa1-1d2e-49e4-9d1a-ea4ff81d4486@amd.com>
-Date: Tue, 25 Aug 2026 10:10:48 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rk6BRX9b"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-848643382fcso5071648b3a.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:15:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787667347; x=1788272147; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wGI8avUDsdCwdcQZ5iPHHrLahXfIYCIB9Ws1YZ5JElk=;
+        b=Rk6BRX9bSC7P8j2tsSdB4hGDOyFdfqUti7h+0lq2rqiz8fWK9iS5DptYelTguEXn5e
+         Pe4fNYi2COyl1VpyhMx5OYFuGqx0O3UErJ7TqEWsV7v0E+w0p6y5hZVzfgrYz4ybmdtJ
+         TXZ508d/62gg6myXfA4sIpL3j3hsOgTWBNVmYZguNrEpcNJNKC+cQ0vGTAEgjffogb4E
+         dzvUYO3s5YaIeDwthv/2sFETkUrdQCjZaujfPnJSzsbkUSzu8moL4uYhnVxnDVAsDJbC
+         Or9qYKWmSntcptXYnppLvijY5ZYL9bCC24uFdDgiwVd0MjBBHhX6LgYLjyc1LXttb9Jd
+         maWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787667347; x=1788272147;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wGI8avUDsdCwdcQZ5iPHHrLahXfIYCIB9Ws1YZ5JElk=;
+        b=Oy71yHovDsUt3SsRvuC+82HVGHMvfS305RlBXwv131XJnlPUDar+EKonPlgpXBHTOZ
+         5qpfHoL15nXgW8RmygDQJP0ZRKgyUYIzN6lEqzaAlMwEA6H/f8oTfVst07WMJ9A5zz8h
+         VoW5wF4jgOG3TCfXH2JkUvJ61SP6ZCsN38x+SS/S4z9uOjml4Epmva4e19Wuem/xG0Yv
+         nLgCXsKMV5A+zwOKhxs2k8O2PAQnnyKyXpQqjyreqsBgvPjLm3YYty6RcUl2dYfjl7MQ
+         c0ui+YPeDeHed/5lg0Hxr6IpJRUV+vsQoVZYfr8u/OFQ60TCFaXnQZhcEsW9RbG9eXBf
+         VXnw==
+X-Forwarded-Encrypted: i=1; AHgh+RpVSXuiKWxZGYJ3EolyPcVcENr5FAfExGCpCs1XcrMAzkWjpdzxAEuS57CLML8TZHVsUJWWWhs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+wXAf52a0uitjkw3kmt7Wnx+4nbswQjgyp6cIhVKtoAzMYTDS
+	Hdm/dV8UsaI+k7BGJc40RTeIdr+JFkJPWHUPIMoO2nQTuPjzkBb6tQ0m
+X-Gm-Gg: AR+sD130l4nIl25HfNY2YMeowpwUkvHmJLiwgAcKRd00WnzK3lzjgUysIW4grOOkzQO
+	gKT7ueCqqp7UcVle98bjZpfKxtBOByjieW9zZw9gTGiVXrA6T1GsM069P97LThE6DoezdYLEkYs
+	/VZgAuEYIsgLnp6c+yY/2lnCbD1dB1nVSfuzXgQk9hzmyW2h+vwoeRmqSfpwmHm//riIRLCKDp6
+	yIM+UH087ZCUUbn1m46V7HUy75kxrzcyMymhdYvkqrZYbnLum59ne7Ntfo8RfzyUrhVenSL9ad4
+	bYKP5z+y9+AI8VtDFC1+AKLxSqA0pJlhEzX2gof3Ge5wtJskfYsLK5as1P4wLxnJLl00f+0+92V
+	shQ5gxJhKsuDANmS95684C91VCI5NKfbIhXPh3JmJ8f47TXQCQq13+LTysnOJ5K4VDXRltaJzjc
+	SpE+cYr7KxcxfcG+eB2nXEvmWft6pgxHVZCFjmZnSz1AZizTKq4dhVP5Fc23Y8lvJbuU3hLi7Nq
+	yb1iSvRf2+xiDFATJHvi90cBuAQZCEBgOIawO4TM7aufo3PJTH/
+X-Received: by 2002:a05:6a00:928f:b0:851:ba04:ca02 with SMTP id d2e1a72fcca58-851fa070bf3mr58592115b3a.16.1787667346530;
+        Tue, 25 Aug 2026 07:15:46 -0700 (PDT)
+Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8520eed5034sm3122767b3a.1.2026.08.25.07.15.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 07:15:45 -0700 (PDT)
+From: Zhijian Han <hanzhijian1991@gmail.com>
+To: Richard Zhu <hongxing.zhu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	Zhijian Han <hanzhijian1991@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] PCI: imx6: fix endpoint init error handling
+Date: Tue, 25 Aug 2026 22:15:26 +0800
+Message-ID: <20260825141526.3911472-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-To: Borislav Petkov <bp@alien8.de>
-CC: Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
-	<hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Mario Limonciello
-	<mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
-	<x86@kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>,
-	<linux-kernel@vger.kernel.org>, Penny Zheng <penny.zheng@amd.com>,
-	<stable@vger.kernel.org>
-References: <20260814214255.83127-1-jason.andryuk@amd.com>
- <20260814214255.83127-2-jason.andryuk@amd.com>
- <20260825040039.GAao0TZ6b8j0kp2RKk@fat_crate.local>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20260825040039.GAao0TZ6b8j0kp2RKk@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BDA:EE_|BL1PR12MB5970:EE_
-X-MS-Office365-Filtering-Correlation-Id: 318eba26-517d-439e-c1fa-08df02b2ad0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|56012099006|10067099003|3023799007|18002099003|22082099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	KjIhliTh3Yvgh47rdgkzVuj/nXVMIwUCXhPc5UBr0nWWIw903V18NUS/uFHUHouIr29RnJQjGEw0UbzjSp0lLkF9Zml3i7yCMiMhVIzUB7tYgjUS65zE7ZJwyqqvJooEMQmzcKgPNEUrS2nh/a2nixspBHwhJTitHBqfYQblLT9E4sZ8aq/DqWPQa629yyLgC21m8nSUywpU42kfh5bMFnhzry112J0g0P7Nop/65bgNFi2k+vUWyfNKvRj4dxPfRENS5ru+TQy+S7R4KEL5eIOYZNB2iMeR4QMbMKqK+mUDbgf4nVs5FENucqeDjm1e49VOmlc84E1qXqBFbk8DDe2gAntAPqcfUzHaDxDxeLBuFmdpiXaT2Pt9gAg6b/RVY41094PhsWTvgNdAEQti62DOluJKZ5luZYzyoAJrLam+kaUOWxT294OEaD58kqopOEUsFo1hlK73H9fQ5NuZIj0KpxtMbrCLwKL+Wv4HDEG/l7bRVICe9K12L+wBxVSb86qc/X5R1266zdG1pqHpNoBSneIjUB4vedmjWOdHjb9cbTNxGrBjyXonQ0/l6hDT/25AAxAMgq4z0yYJU0WmTdC2IMGONjqyZKaIfKm71hrmzG/Dr59pOgP78NU9LZcWP0kbhPyCyVcpcZahCSdcow==
-X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jU648oDu4BHR8qOE+rzQFLZMw/N0BmOrbf2Vwyl/Df0UquTC22b4rMPDIH0tI7j8SObiacRmVDFl1eND88qTH0SCZzdLulIz3XpYg9D94fmSJMmUMm7eO8gzrtk8A5kvQvLZ4Z1MBWuGlBRZlOsWj3Yu9uL0PTdTq1sNeS8C7s6bFTEUlFl1FD0ZBwbVm6/nbkx/ZaO7H2LgRH+FZOd/nh+BJwq2Jr9gIGW85VNy3IpZ62zCAC2SiJYu6jQzMhrHL7k6QmCVz3y3+Yq4R1M1YbDUcaWP5gJZ37GGSTL6tG5tAC/3wPAXY1bN1WdrWWTCXwATpz8ZUoY02AhbNEhwuVpy7PzYGFCQWPQCI7R1Awe6UrZZBS3ppidwtWA5AJse+iyX13xcInX10+qpk01oTrZqYqTJ6Affo55s8TtXdKFYN1/lWrHY0+S/o1HbaTZG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 14:10:53.8837
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 318eba26-517d-439e-c1fa-08df02b2ad0c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BDA.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5970
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-25 00:00, Borislav Petkov wrote:
-> On Fri, Aug 14, 2026 at 05:42:52PM -0400, Jason Andryuk wrote:
->> On a virtualized system, the number of nodes does not have a
->> relationship to the number of roots.  A Xen PVH dom0 can calculate
->> roots_per_node as 0, which crashes with a divide by zero in:
->>
->>      if (count++ % roots_per_node)
->>
->> The issue is seen with Xen, but it could affect other systems.
->>
->> Change roots_per_node == 0 to 1 to allow the system to boot.  Print a
->> warning when this is performed for non-virtualized systems.
->>
->> Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
->> Cc: stable@vger.kernel.org
->> Suggested-by: Borislav Petkov <bp@alien8.de>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> ---
->> v2:
->> Print as a warning instead of error
->> Use "!" instead of "== 0".
->>
->> X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
->> ---
->>   arch/x86/kernel/amd_node.c | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
->> index 0be01725a2a4..c3e214925d9c 100644
->> --- a/arch/x86/kernel/amd_node.c
->> +++ b/arch/x86/kernel/amd_node.c
->> @@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
->>   		return -ENOMEM;
->>   
->>   	roots_per_node = num_roots / num_nodes;
->> +	if (!roots_per_node) {
->> +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
->> +			pr_warn(FW_BUG "Error detecting roots per node.");
->> +		roots_per_node = 1;
->> +	}
->>   
->>   	count = 0;
->>   	node = 0;
->> -- 
-> 
-> https://sashiko.dev/#/patchset/20260814214255.83127-1-jason.andryuk%40amd.com
-> 
-> And this one specifically (the other two are being addressed):
-> 
-> "Are we missing a newline character at the end of this warning message?
-> Without a trailing \n in the format string, subsequent kernel messages might
-> be appended to the same line, resulting in malformed dmesg output."
+imx_add_pcie_ep() ignores the return value of imx_pcie_host_init(), so
+a failure to enable the clocks, regulators, or PHY during endpoint
+initialization goes unnoticed and the driver proceeds to initialize the
+endpoint against unpowered hardware.
 
-Yes, thanks.  I'll fix.
+It also returns directly without releasing the host resources when
+dw_pcie_ep_init() or dw_pcie_ep_init_registers() fails, leaking the
+clocks, regulators, and PHY that imx_pcie_host_init() acquired.
 
-Regards,
-Jason
+Check the return value of imx_pcie_host_init() and register
+imx_pcie_host_exit() with devm_add_action_or_reset() so the host
+resources are released through the devres framework, which unregisters
+the EPC device before powering the hardware off.  This mirrors the root
+port path, where dw_pcie_host_init() releases these resources through
+the same framework.
+
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/all/20260824152857.DB9771F00A3D@smtp.kernel.org/
+Fixes: 75c2f26da03f ("PCI: imx6: Add i.MX PCIe EP mode support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
+---
+v3:
+- Add Fixes: and Cc: stable tags
+
+v2:
+- Use devm_add_action_or_reset() for imx_pcie_host_exit() instead of
+  calling it directly on the error paths, so the EPC device is
+  unregistered before the hardware is powered off
+
+ drivers/pci/controller/dwc/pci-imx6.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+index 39790e66b..f0fb4e1b0 100644
+--- a/drivers/pci/controller/dwc/pci-imx6.c
++++ b/drivers/pci/controller/dwc/pci-imx6.c
+@@ -1488,6 +1488,11 @@ static void imx_pcie_host_exit(struct dw_pcie_rp *pp)
+ 		regulator_disable(imx_pcie->vpcie);
+ }
+ 
++static void imx_pcie_host_exit_action(void *data)
++{
++	imx_pcie_host_exit(data);
++}
++
+ static void imx_pcie_host_post_init(struct dw_pcie_rp *pp)
+ {
+ 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+@@ -1634,7 +1639,20 @@ static int imx_add_pcie_ep(struct imx_pcie *imx_pcie,
+ 	struct dw_pcie_rp *pp = &pci->pp;
+ 	struct device *dev = pci->dev;
+ 
+-	imx_pcie_host_init(pp);
++	ret = imx_pcie_host_init(pp);
++	if (ret)
++		return ret;
++
++	/*
++	 * Tear the host resources down via a devm action so that, on probe
++	 * failure, the EPC device created by dw_pcie_ep_init() is
++	 * unregistered (also via devres) before the clocks, regulators and
++	 * PHY are switched off.
++	 */
++	ret = devm_add_action_or_reset(dev, imx_pcie_host_exit_action, pp);
++	if (ret)
++		return ret;
++
+ 	ep = &pci->ep;
+ 	ep->ops = &pcie_ep_ops;
+ 
