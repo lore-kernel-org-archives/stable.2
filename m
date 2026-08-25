@@ -1,162 +1,164 @@
-Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151733CF1F6
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.190
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE72184524;
+	Tue, 25 Aug 2026 07:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787641966; cv=none; b=WBSnb/ySGs5ngIkmvuJhNvvrwATnjTilS+4ExSFGWLykazstN31b6SnSYrdx0Ecz8lj5c2yVeGutCsio7oRPKbzilfUZ4xE8j+mj0t4rB/I6joJ0g2Dv0AEjik79e2ipU6/6syKY3vdkVV3lBVvgmPIc+/2guFIkW/EDCmtqhOI=
+	t=1787642479; cv=none; b=Rt/Z5LleUHqaipVM/+44ktJbU6zb6ji3jXD/RtrHAZSq0EwnM/LpvpNkO3A8a700CrK9DaB33jxpBYkEKYI0+7on+6exhvEtZ37eMdqYjnwaPnhWwY4Fw0eJ/U7RJlmDFooVx+ayxDPHSlDrAbOhfsL8mbUK4I7dyWn/X5RDucc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787641966; c=relaxed/simple;
-	bh=vrqAFbQm5tBczLY4hb4nFOlOxMC1/kc+DDXxwinK16Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uyhTf4AAvP04R+v8zOiFXkhKOArYKSfka6LXvaCHEsBN1zqIe70ZYvlSWfJXmxyWp/BWfLxXjHvMZg5cZAnOvRUcn3HbBscd2hHEk/XFcQNCRRfJ/YKluWh5AQioGgEVVYSZUIt0z1yP0uVujTnC6DgawZ1obwbT35XIu1cmv/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RZ2vBCYU; arc=none smtp.client-ip=91.218.175.190
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787642479; c=relaxed/simple;
+	bh=5Kl2jQjO9cECsTxKcLbbCtTyLed0eNcKwzR7VgPB6rQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cUrN5V1t1MRgkZxGjeVuM87atFv895MAvyL5o9zmBZVzVWzmU62VtVG+Yrr3BDwEa4DxESe6mt9/UppKpEGLWldbfCdSxsPDQOIXcp3XNv/3bYWcZxGe8zIvHuGzpzzj+1TlDKd1EjxRHZFleJ+7jzMJEFjAphVcBtRvZ85BsuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XrFuUPIb; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=SFWvNA3j; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RZ2vBCYU"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vrqAFbQm5tBczLY4hb4nFOlOxMC1/kc+DDXxwinK16Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787641961; v=1; x=1788246761;
- b=RZ2vBCYUJdlQ2ouUbpplBqf0V0IfdZLhmUhRPBFubqs5J7C1o2Tl/sLF4DvU+JPz3goGPA4R
- RSBGovrjrO7ZisJXlZQiZkwYt42mBOr1XRwPC7WU1sU6cVt7G1eSIrfHWh2tFlOetQZGPNxIwu5
- EOiCcFpU4qevjltscGqgZmaE=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [IPV6:2620:10d:c085:21d6::12f9] (2620:10d:c090:400::5:e4ca)
-	by smtp.migadu.com with ESMTPS id 29ba699e53c601c6;
-	Tue, 25 Aug 2026 07:12:41 +0000
-X-Mizu-Trace-ID: 29ba699e53c601c6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev>
-Date: Tue, 25 Aug 2026 00:12:32 -0700
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XrFuUPIb";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="SFWvNA3j"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hTfMt6MC1zMlGP;
+	Tue, 25 Aug 2026 09:21:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787642474;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=wMnwRlqtnUgyBUhAfXE3j+Zlk5aWVxnyqISZrf06fZk=;
+	b=XrFuUPIbGQYlsW2mqjnSjSQ+ID7cnb5QSOqdkRhv/7zX9Po37Yqmnhg8xoS94LRBJwTVo/
+	+CWURboN10BMt8iQ4iIwYbwN9jkPBaOR4kx+TIssPlaZaNeeZnF17W3VmJ1NH0Ksh2l9i5
+	TeetnxSdqmXwJg2sj+MZ+KfmQ4FR+E0XWR8tb6Ir2wxLroAkq3HrW81+/dnKoQCSMIDh7H
+	bZoK9OwF0w/eFTDUvdllcx9to7SFW4Dgxw7+1HFZG7ruQ1fOrWirqmEM7F8IBwq9WTh/r3
+	0EW0SfmUPpo/u3M80Z7Y85a1iPmHyVT4w/0mu7h8iykbgU5tJcwLtA8jio/S9A==
+From: Qing Ming <a0yami@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787642472;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=wMnwRlqtnUgyBUhAfXE3j+Zlk5aWVxnyqISZrf06fZk=;
+	b=SFWvNA3j3nSLSXoqDjES+eJR9qLjgbssO3KM2V2xWHym5+fX+ekJZYasHFGgSi6u1zJnFT
+	i6AtDMowGvwqOe4OLmjIp7fXTl5hkoMT8K+pznUnyWd931dNI0dZ0MwMVFIG+uxjPOjlLo
+	C3zXdB9JYLSI0on5T1NbVQ7N5oj+rkOllvvJHb3wHFtU5N/OhSVSk9/drZNZnEAmbUou3K
+	xyP56XkW6+N7vJB/s06WAonjVkMVbCu67etoDM/GahKYm2q/wKvku7WP3QeFCA/m7iKAlT
+	w9fnNiqvpaEwjXlNc9mafZ+Zp7Fcddwzk2jdZmIZkG7tDD3zX8M1XXm8C5nenw==
+To: Eric Dumazet <edumazet@google.com>,
+	Neal Cardwell <ncardwell@google.com>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Dmitry Safonov <0x7f454c46@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qing Ming <a0yami@mailbox.org>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] tcp: fix AO info use-after-free in tcp_ao_connect_init()
+Date: Tue, 25 Aug 2026 15:20:33 +0800
+Message-ID: <20260825072033.6921-1-a0yami@mailbox.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] x86/mm/pat: CPA fixes
-To: Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
- David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>,
- Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Lu Baolu <baolu.lu@linux.intel.com>, Nikunj A Dadhania <nikunj@amd.com>,
- Pedro Falcato <pfalcato@suse.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Peter Zijlstra <peterz@infradead.org>, Shakeel Butt
- <shakeel.butt@linux.dev>, Steffen Dirkwinkel <lists@steffen.cc>,
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>,
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org, syzbot@syzkaller.appspotmail.com, x86@kernel.org
-References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
-Content-Language: en-US
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 713e056c3bd2c8fd8c1
+X-MBO-RS-META: frbpemzubkhbkf7qz8nybgci1d84p3kq
 
+tcp_v4_connect() adds a SYN-SENT socket to the ehash before calling
+tcp_connect().  If TCP-AO is configured, tcp_connect() first verifies that
+a key matches the peer and the bound device's current L3 master.
+tcp_ao_connect_init() later resolves the L3 master again and removes keys
+which do not match it.
 
-On 8/13/26 2:01 AM, Mike Rapoport wrote:
-> The first three patches are urgent, the third patch fixes BUG() reported
-> y several people and it depends on the first two.
->
-> There were no bug reports that the last two patches fix because bug
-> manifestations won't yell at users.
->
-> TL;DR version:
->
-> There are a couple of CPA fixes floating around:
->
-> Denis Lunev fixed races between split and collapse of the large mappings:
->
-> https://lore.kernel.org/all/20260715183453.2381141-1-den@openvz.org
->
-> Lorenzo Stoakes fixed UAF caused by races between CPA and ptdump:
->
-> https://lore.kernel.org/all/20260723-series-vmap-race-fix-v6-0-8cc77dcc0018@kernel.org
->
-> and an issue with stale page tables in IOMMU:
->
-> https://lore.kernel.org/all/20260721-fix-cpa-kernel-pagetables-v2-1-2b255deed710@kernel.org
->
-> Mike Rapoport fixed a check of RW attribute in lookup_address_in_pgd_attr()
-> used for the verification of RWX:
->
-> https://lore.kernel.org/all/20260715144519.934289-1-rppt@kernel.org
->
-> Pedro Falcato closed a race between text poking and collapse of large
-> pages:
->
-> https://lore.kernel.org/all/anCK3eWFMwZqq5ka@pedro-suse
->
-> Some of the fixes got merged into x86 tree, some of them got merged into mm
-> tree and some are still hanging in the air.
->
-> The changes here are collected from all these fixes into a single coherent
-> set on top of tip/x86/mm:
->   
-> * fix for races between CPA and ptdump causing UAF
-> * update to the fix of the race between split and collapse of large
->    mappings
-> * fix for races between CPA and vmalloc_to_page() in text poking
-> * fix for stale page tables in IOMMU
-> * fix for effective RW computation in lookup_address_in_pgd_attr()
->
-> ---
-> v2 changes:
-> * rebased on the current tip/x86/mm that includes peterz's changes for
->    DEBUG_PAGEALLOC
-> * added fix for CPA vs text poking race
->
-> v1: https://patch.msgid.link/20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org
->
-> ---
-> Lorenzo Stoakes (ARM) (3):
->        x86/mm/pat: acquire init_mm write lock on collapse to avoid UAF
->        x86/mm/pat: acquire init_mm read lock on attribute change to avoid UAF
->        x86/mm/pat: allocate split page tables as kernel page tables
->
-> Mike Rapoport (Microsoft) (1):
->        x86/mm/pat: fix effective RW computation in lookup_address_in_pgd_attr()
->
-> Pedro Falcato (1):
->        x86/alternative: exclude text poking against change_page_attr()
->
->   arch/x86/kernel/alternative.c | 39 ++++++++++++++++++++++++---
->   arch/x86/mm/pat/set_memory.c  | 61 +++++++++++++++++++++++++++++++------------
->   include/linux/mmap_lock.h     |  2 ++
->   3 files changed, 83 insertions(+), 19 deletions(-)
-> ---
-> base-commit: 7da514d819a0afb148634aac92b3d190f34947c3
-> change-id: 20260727-cpa-fixes-d3c73c075672
+The socket lock does not stabilize the bound device's VRF membership.
+Detaching the device from its VRF between the initial validation and the
+L3-master calculation in tcp_ao_connect_init() can therefore make the
+validation succeed while initialization observes the default L3 domain and
+removes the only key.  The subsequent AO lookup then fails, so the no-key
+path clears tp->ao_info and frees it directly.
 
-Reproduced and verified this series (patches 1-3) on 4vcpu guest running two different kernels
-1. mainline (commit: 77ae27fd98f3)
-2. Ubuntu Resolute 7.0.0-26 (production kernel hitting the issue in a VM)
+The receive path can find the socket in the ehash and load tp->ao_info
+under RCU before acquiring the socket lock.  A reader which loaded the old
+pointer can thus continue into tcp_inbound_ao_hash() after the direct free.
 
-The Reproducer consisted of
-1. A debug patch a cmdline-gated stall between the two *pmd reads in vmalloc_to_page()
-2. One taskset-pinned insmod/rmmod worker per module over stock cfg80211/dummy/veth modules
+The issue was found during a static audit of TCP-AO object lifetime.  An
+unprivileged reproducer in self-created user and network namespaces raced
+connect() with detaching a veth from its VRF while sending TCP-AO segments.
+It triggered the same KASAN report on two fresh boots:
 
-With the above reproducer, both BUG within seconds in unpatched kernel.
-1. Resolute in 0.71s at alternative.c:2564 (BUG_ON(!pages[0] ...), RAX=0)
-2. mainline at alternative.c:2473 (BUG_ON(memcmp(addr, src, len))).
+  BUG: KASAN: slab-use-after-free in tcp_inbound_ao_hash+0x585/0x19f0
+  Write of size 8 at addr ffff88800bf88128 by task tcp_ao_vrf_race/232
 
-With patches 1-3: zero splats across 10 runs each (600s/11,378 module load/unload cycles on mainline and 1200s/55,980 module load/unload cycles on Resolute).
+  Call Trace:
+   tcp_inbound_ao_hash+0x585/0x19f0
+   tcp_inbound_hash+0x677/0xa80
+   tcp_v4_rcv+0x1c3e/0x3ab0
 
+  Allocated by task 235:
+   tcp_ao_alloc_info+0x43/0xf0
+   tcp_ao_add_cmd+0xdf7/0x13b0
+   do_tcp_setsockopt+0x168c/0x2640
 
-Tested-by: Atish Patra<atishp@meta.com>
+  Freed by task 235:
+   kfree+0x1b8/0x550
+   tcp_connect+0x252/0x4f00
+   tcp_v4_connect+0x1114/0x1720
 
-> --
-> Sincerely yours,
-> Mike.
->
+The bad address is 40 bytes inside the freed 128-byte object, matching the
+tcp_ao_info counters.key_not_found field.  The two runs used 1000 attempts
+each, reached the no-key path 366 and 411 times, and produced one and two
+KASAN reports respectively.  With this change, the same reproducer reached
+the no-key path 366 times in 1000 attempts without a KASAN report or oops.
+
+Use tcp_ao_destroy_sock() for the no-key path.  It unpublishes the AO info,
+updates the socket memory and static-key accounting, and defers the free
+until after an RCU grace period.
+
+Also drop the WARN_ON_ONCE() and its stale comment.  The VRF detach race
+makes the no-key state reachable during normal operation, so it is a
+handled condition rather than an impossible assertion.  On panic_on_warn
+kernels the WARN would turn this handled race into a kernel panic.
+
+Fixes: 248411b8cb89 ("net/tcp: Wire up l3index to TCP-AO")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
+---
+v2:
+- Drop the no-key WARN_ON_ONCE(1) and its stale comment.
+
+v1:
+https://lore.kernel.org/netdev/20260818162108.11456-1-a0yami@mailbox.org/
+ net/ipv4/tcp_ao.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
+index 5094267447ae..cc2fb643119e 100644
+--- a/net/ipv4/tcp_ao.c
++++ b/net/ipv4/tcp_ao.c
+@@ -1196,12 +1196,7 @@ void tcp_ao_connect_init(struct sock *sk)
+ 		ao_info->lisn = htonl(tp->write_seq);
+ 		ao_info->snd_sne = 0;
+ 	} else {
+-		/* Can't happen: tcp_connect() verifies that there's
+-		 * at least one tcp-ao key that matches the remote peer.
+-		 */
+-		WARN_ON_ONCE(1);
+-		rcu_assign_pointer(tp->ao_info, NULL);
+-		kfree(ao_info);
++		tcp_ao_destroy_sock(sk, false);
+ 	}
+ }
+ 
+
+base-commit: b70b7b71561f2be1183b6046964d950c2b203bfc
+-- 
+2.53.0
+
