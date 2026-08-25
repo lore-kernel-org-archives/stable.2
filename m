@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A00472F8A
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED40D43F081
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663791; cv=none; b=LD240r68KT3PXhtNF3wSv4Yh7a2jG3hArBKTr3ani8vYZh0xOx0mYevF3Ovqv+yi1epemNaRWTE9IHrT6zJsYyrBCGiT4zBt0CuA9lNkrwW+1tf5q+IQjFAxI1ZR+2onliYKqKwSBMCkve7xhnnrNFMl0e+o27KEKt1+HyKTFN8=
+	t=1787663809; cv=none; b=kD1lMTLjjBobN6Y/aQckx4YReF6m+6FJeCbYm8YequtayH39h5Sz7m3LKckDhxC7dUFBntpfNVglPCVNhlAqVNK1ozFoF4PRaHQJqIWV4evMkRi+LjNrGin8v+dSxEq4oYgQwZZTQ98echV4jVu+I2/CX7+zmeRb7hqKaEXamzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663791; c=relaxed/simple;
-	bh=n70lWkqXPkRuDTgYXo7A/LlLgvommmnQbukBgMzNgYI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZU7O76LTiKhDrL1r7x4tPGTCg6NKRZh1/8A3kGKnkxjQV69jfM9pVF+69kjZK+hNUxMjaUnRVSYkHRcNspMrVylulRj9g95UK/NR5IUzH37s93AYuuY509xIMD/L6vpp/vyRxBJbPiT79ygU+HX/QoFNOru/UOfNFvcC9E6FAo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hgWhAiFw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787663809; c=relaxed/simple;
+	bh=VifxmEml2ZVgHUCz4zCDAp3iQ7A33EXG+uq2B2N3aXY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=axWRTeJhotLy1F1mWahBz4/uMiFLSBgobfkQo/ohv7K00IwBoAx9hX2EuQyiaaxq457lVgjKLigk6vzR1ZUoKKQ5L8ti119CKz54EqVTFDJW04jx9lmPnf+x6L2h3w0SCYPOjU9X6TlsVPJ1fG5HyF4tJfHZis0b4mt5qtu1Yd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Nw7Ik9Qc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hgWhAiFw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4684C1F000E9;
-	Tue, 25 Aug 2026 13:16:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Nw7Ik9Qc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56D71F000E9;
+	Tue, 25 Aug 2026 13:16:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787663789;
-	bh=IaitPrt+5+LwO+Ql14LqoZVhF3bZV0nqt97V0XttH14=;
+	s=korg; t=1787663807;
+	bh=YKvuFFhjOOIBHh7qKLwFHv8MDcZZ47xQSyGZ08yC2Ho=;
 	h=Subject:To:Cc:From:Date;
-	b=hgWhAiFwylkLLzSMPlNbnNk9zCOSgVCVlAeRyKDJGRCP3oKytd4W00aon37fqe0Hq
-	 UmU63E7a4qcw2d+EIE3zBOjlCeTmAGqXSZvcu2pkiiUnls15tznPX5Py2+9cv/QkFc
-	 io4wkAoEJeP7+r8MhbbSuv4yqDI8SwhiyZSovaVc=
-Subject: FAILED: patch "[PATCH] HID: uclogic: fix use-after-free of inrange_timer on remove" failed to apply to 5.10-stable tree
-To: security@auditcode.ai,jkosina@suse.com
+	b=Nw7Ik9Qc7SaSS3J8Pr3pxpeoEyU9zqpvFAaWcgd5QwzDg77IP47VqLQTYCbKrkOpd
+	 bieKxhrcdz6F7ZYxKu/MECndNS40ji180QWHfqEF5osGXDBeUroca7Vg95Vs/xFrOT
+	 d0wZuwho2OHUk+TQanXxVBvV25Y5fk/zWkgb0iRs=
+Subject: FAILED: patch "[PATCH] HID: input: read battery capacity from its actual report" failed to apply to 6.18-stable tree
+To: pepemontfort@gmail.com,jkosina@suse.com,signshop.alec@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 15:15:58 +0200
-Message-ID: <2026082557-distract-expletive-f530@gregkh>
+Date: Tue, 25 Aug 2026 15:16:41 +0200
+Message-ID: <2026082541-tightwad-rinsing-012b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 506fd50a9027340f0e9dcc587d10ccb03312dba6
+git cherry-pick -x d07644524b6511b622ee7b0e2e68c9ee43d522a4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082557-distract-expletive-f530@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082541-tightwad-rinsing-012b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,71 +62,125 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 506fd50a9027340f0e9dcc587d10ccb03312dba6 Mon Sep 17 00:00:00 2001
-From: Ibrahim Hashimov <security@auditcode.ai>
-Date: Tue, 14 Jul 2026 19:39:46 +0200
-Subject: [PATCH] HID: uclogic: fix use-after-free of inrange_timer on remove
+From d07644524b6511b622ee7b0e2e68c9ee43d522a4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>
+Date: Tue, 28 Jul 2026 14:13:09 -0600
+Subject: [PATCH] HID: input: read battery capacity from its actual report
+ offset
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-uclogic_remove() cancels the pen in-range timer and then stops the
-device:
+hidinput_query_battery_capacity() assumes the state-of-charge value is
+the first byte following the report ID (buf[1]) and ignores where the
+battery field actually sits within the report.
 
-	timer_delete_sync(&drvdata->inrange_timer);
-	hid_hw_stop(hdev);
+An Apple Magic Trackpad 2 precedes the AbsoluteStateOfCharge byte with a
+byte of status flags in its battery reports, so this query returns the
+flags byte instead of the charge level.
 
-timer_delete_sync() only guarantees the timer is idle at that instant.
-uclogic_raw_event_pen() keeps delivering pen reports until hid_hw_stop()
-stops the transport several lines later, and every report with
-pen->inrange == UCLOGIC_PARAMS_PEN_INRANGE_NONE re-arms the timer:
+The device happens to make that easy to observe, because it exposes the
+same cell twice: its report descriptor declares AbsoluteStateOfCharge in
+two reports (0x90 and 0x9b), so hidinput_setup_battery() registers two
+power supplies. Only the first one is refreshed by hid-magicmouse -- it
+uses hid_get_battery(), which returns the first battery of the list --
+and that refresh goes through the report event path, which parses the
+field correctly. Nothing ever reports the second one, so every read of
+its capacity takes the query path above. On a USB-C Magic Trackpad over
+USB, on an unpatched 7.1.5:
 
-	mod_timer(&drvdata->inrange_timer, jiffies + msecs_to_jiffies(100));
+  hid-<serial>-battery-144 = 100%  (Charging)      <- report event path
+  hid-<serial>-battery-155 =   3%  (Discharging)   <- query path
 
-A report landing between the timer_delete_sync() call and the transport
-teardown in hid_hw_stop() re-arms inrange_timer after it was cancelled.
-uclogic_remove() then returns and the devm drvdata is freed, while
-hid_hw_stop() has already freed the input device drvdata->pen_input
-points at, so when the timer fires ~100 ms later
-uclogic_inrange_timeout() dereferences freed memory -- a use-after-free
-in timer-softirq context.
+Both are the same physical battery. A raw HIDIOCGINPUT of the two
+reports at that same moment:
 
-Swapping the two calls is not a fix: stopping the device first frees
-drvdata->pen_input via hidinput_disconnect() while the timer may still
-be pending, so a timer already armed before removal fires on the freed
-input device in the window before timer_delete_sync() runs.
+  report 0x90 -> [90 03 64]
+  report 0x9b -> [9b 03 64 64 00 00 10 00 00 00 00 00 00 00]
+                     ^flags ^SoC = 0x64 = 100%
 
-Use timer_shutdown_sync() before hid_hw_stop() instead. It cancels the
-timer, waits for a running callback while pen_input is still valid, and
-prevents any further re-arming -- a later mod_timer() from an in-flight
-report is silently ignored -- so the timer is provably dead before
-hid_hw_stop() frees the inputs. This is the ordering the timer core
-documents for this "timer re-armed from another path" teardown case.
+The device answers correctly in both cases; only the offset the kernel
+reads the capacity from is wrong. 0x03 is the flags byte (present,
+charging), reported as "3%".
 
-Fixes: 01309e29eb95 ("HID: uclogic: Support in-range reporting emulation")
+Bluetooth takes the same query path for its capacity, where the trackpad
+reported a bogus near-constant ~4% -- 0b100, the FullyCharged flag --
+regardless of the real charge.
+
+Store the battery field's offset within the report at setup time and use
+it when querying, so the capacity is read from its real position. The
+report event path already parses the field correctly through the HID
+core; only the explicit GET_REPORT query was wrong.
+
+Devices whose capacity field is the first field in the report have a
+report_offset of 0 and are unaffected (buf[1 + 0] == buf[1]).
+
+Fixes: 581c4484769e ("HID: input: map digitizer battery usage")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
+Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
+Reviewed-by: Alec Hall <signshop.alec@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
 
-diff --git a/drivers/hid/hid-uclogic-core.c b/drivers/hid/hid-uclogic-core.c
-index b73f09d26688..0b8a83fa6c5b 100644
---- a/drivers/hid/hid-uclogic-core.c
-+++ b/drivers/hid/hid-uclogic-core.c
-@@ -548,7 +548,17 @@ static void uclogic_remove(struct hid_device *hdev)
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index 3487600cadb4..b55cbe7f6e20 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -432,17 +432,25 @@ static int hidinput_scale_battery_capacity(struct hid_battery *bat,
+ static int hidinput_query_battery_capacity(struct hid_battery *bat)
  {
- 	struct uclogic_drvdata *drvdata = hid_get_drvdata(hdev);
- 
--	timer_delete_sync(&drvdata->inrange_timer);
+ 	int ret;
 +	/*
-+	 * Shut the in-range timer down before stopping the device.
-+	 * uclogic_raw_event_pen() re-arms inrange_timer on every pen report
-+	 * and keeps running until hid_hw_stop() stops the transport, so a
-+	 * plain timer_delete_sync() here can be undone by a report landing in
-+	 * the window before hid_hw_stop().  timer_shutdown_sync() cancels the
-+	 * timer and makes any later re-arm a no-op, so it is provably dead
-+	 * before hid_hw_stop() frees the input device drvdata->pen_input
-+	 * points at.
++	 * The capacity field may not be the first field in the report: some
++	 * devices (e.g. the Apple Magic Trackpad 2 over Bluetooth) precede it
++	 * with status flags. Read it from its actual byte offset in the report
++	 * (report_offset is in bits; the leading byte is the report id).
 +	 */
-+	timer_shutdown_sync(&drvdata->inrange_timer);
- 	hid_hw_stop(hdev);
- 	kfree(drvdata->desc_ptr);
- 	uclogic_params_cleanup(&drvdata->params);
++	int offset = 1 + bat->report_offset / 8;
++	int len = offset + 1;
+ 
+-	u8 *buf __free(kfree) = kmalloc(4, GFP_KERNEL);
++	u8 *buf __free(kfree) = kmalloc(max(len, 4), GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
+ 
+-	ret = hid_hw_raw_request(bat->dev, bat->report_id, buf, 4,
++	ret = hid_hw_raw_request(bat->dev, bat->report_id, buf, max(len, 4),
+ 				 bat->report_type, HID_REQ_GET_REPORT);
+-	if (ret < 2)
++	if (ret < len)
+ 		return -ENODATA;
+ 
+-	return hidinput_scale_battery_capacity(bat, buf[1]);
++	return hidinput_scale_battery_capacity(bat, buf[offset]);
+ }
+ 
+ static int hidinput_get_battery_property(struct power_supply *psy,
+@@ -593,6 +601,7 @@ static int hidinput_setup_battery(struct hid_device *dev, unsigned report_type,
+ 	bat->max = max;
+ 	bat->report_type = report_type;
+ 	bat->report_id = field->report->id;
++	bat->report_offset = field->report_offset;
+ 	bat->charge_status = POWER_SUPPLY_STATUS_DISCHARGING;
+ 	bat->status = HID_BATTERY_UNKNOWN;
+ 
+diff --git a/include/linux/hid.h b/include/linux/hid.h
+index 47dc0bc89fa4..51b21f98037b 100644
+--- a/include/linux/hid.h
++++ b/include/linux/hid.h
+@@ -642,6 +642,7 @@ enum hid_battery_status {
+  * @max: maximum battery value from HID descriptor
+  * @report_type: HID report type (input/feature)
+  * @report_id: HID report ID for this battery
++ * @report_offset: bit offset of the capacity field within its report
+  * @charge_status: current charging status
+  * @status: battery reporting status
+  * @capacity: current battery capacity (0-100)
+@@ -657,6 +658,7 @@ struct hid_battery {
+ 	__s32 max;
+ 	__s32 report_type;
+ 	__s32 report_id;
++	__s32 report_offset;
+ 	__s32 charge_status;
+ 	enum hid_battery_status status;
+ 	__s32 capacity;
 
