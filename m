@@ -1,228 +1,275 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3329A361DDC
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 17:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787678643; cv=none; b=enBtuk7nOdsXPJz0EA6/luX/P2FVeq1PwHq6ITM4Lwp1HMHMxswBhyMFtEAjam0K0eQeDspAHlMU6py6i/gQC2yTNd7h5izb/CcMUQIHRDOOskgve1Leo0HkaY9sPg2Yx8vsfu472YZpc0bBB/JN0o1jstFxiGVedniGQK+gAeY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787678643; c=relaxed/simple;
-	bh=1dW/4R8CaYaR/dw/qJ9MuMrEiGI1y0NbrMPvpiqgqT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p7YUZVR4rIAXErSMLJWSxig8wZ8cqDJ2dCJuX8GF2nyNnVp4Zz33u/9PJoSjz2KXcgHZOK69nTDuolZfZUa0tdt6MrI2FqoCTf8Ih9d9lAtaGrdDwei8A4WXWEhxf7NuzhjMN9Mz4YN9IugO4hWqFTCor+K85h3InBg82jgniBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XYGCfS6k; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24CB484248
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 17:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787679226; cv=pass; b=tskCf7dGxm4NCwfpF7S5CPUjM9IMxU7uRpZvvh3qQNfB+YvIQBFl4Q1KOG693VmPf8SHpW/HQZbmsNamFyoHswVotBDCxCphjLqpgIe8/vIFtw/+kAu85nlS4jrSsdTyO8cv8lnJgBnIskRBPlhcTiQYA7yJQcaWx4UHhkPaF5w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787679226; c=relaxed/simple;
+	bh=zz7+m/XFvaCyh9sM/yu1NkCUrr2P3uDfYLbdRpy1i0A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hlr508S6NYFFSeLQpd52i4lUyTy17qwjPhTTsijAcRkkEFPaXFH5+4JVX2uwCBMBkoslNK/5r2nUcVYKI9gFQ0X2A2BU87LfWMh9fNDBkaf0KEXZQaj1fFcMxgEEco4RZxy/86WtjcRTcDe53Uh3FLMbWQ3ftT2r4on8iTIBbVQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G0xoWIFG; arc=pass smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XYGCfS6k"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d319b84213so207485ad.1
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:24:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G0xoWIFG"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so6686105e9.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:33:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787679221; cv=none;
+        d=google.com; s=arc-20260327;
+        b=muS+JuNFK7970JDi3TNXQ+L555PmfQPFYT0d4L7BiK5H1cdmbXV5XPmL9OwMYtTJC6
+         geL+zsJuOFAbqyDD0P0cxV39E2OgByUT2kWPYt7Qs8CxYsYrtAP7DZcLDq2v3Mv7OYWu
+         sfFh5otWLbvIPBDieEGY617VW+JLW9LvLcJNVfZyY9My2RDZzyRCy+XCbjXD1f//rBEh
+         J2M+M+VpwsrVmvsliWY13aK6H/wZCnwjTdAnfLgmW3IY8+CtS4vVM6NAUY1DDB3y/yqo
+         AjBUWSNvJnxavlnQqVbgtzvmloksrt19ZbkI2D0X4eqgqTyGfLoUT6eBEsdGNIqjZjVK
+         OMhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+C3oMNTxKING+oxnIVuwTvyrIfPtnlGjd1Gmndygo7I=;
+        fh=D5heIDIdDU7W/RHNRD14nnj6sOw/xgwH+kOqm7ZQv88=;
+        b=Ymvq76pMmPA1pQLqrqHZkg+Isly+WRt2vfQ91ahObXW2YoPHT0mAqDd3Qq9FnI1LZV
+         fC/WnRYb1EGCWLL9IzQW3nVlOzdftBaWKjwGbzA0maFo2hToLMxGHKk+UdWQ1iIiMKyc
+         DupqM1cfuQHLqPcSaEO3yMvOTsrmt6dxbVANaJFXHFud+oI3o1AVkh9sUiC16Eonjd2D
+         i8JD3vzaMVsPFUjtHQMN39wVeUH0sjWz0CLYmD+1n3I5OVhFysj3ZMYUJ6LrtaoJNbQt
+         y2RoRXiJrZHBLr5PIc2dJYYTQiHMCzaMax8MnGjNaYl+eNKfAiqOk5DbWNxtakFX3RmK
+         hw+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787678641; x=1788283441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z8i7HH59Qhp0knzyYvG4FDnmdY05CSm6obQoU01fzRQ=;
-        b=XYGCfS6kD805+c7vD0Wjgk7VDC0ZT84y8hX+crnd8rJSkosfp0N0h0fS91wFOA82PT
-         6xosacDMxYRnLSdnaNiUI7ZqOZdYAZbGnqamHECIgvmjuWeFS0LFYPJ6B4BwsByI6gxA
-         NFgiDfsmpHNFas3ighIJWom3mEKgpbHlBvcRmO5uSY2BSxD/0cDxcrjoSjjjtqYYfMM0
-         nuNO4IhBhBpdg6CLFYSoJaJ9Z+9ZXAxTl0zzih5Wqbv85GcwnIV8RUA0opEV0q0N2U6X
-         Vz5SRDoQJaLv3SxXOsOjO4pHrPJQ35auD6fIpy8mmNlroLphfrL9MVrQcGT0vCvSZ1zI
-         IK+w==
+        d=google.com; s=20251104; t=1787679221; x=1788284021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+C3oMNTxKING+oxnIVuwTvyrIfPtnlGjd1Gmndygo7I=;
+        b=G0xoWIFGiSlvXhgCqMQpwdH7UE8YQUh2WufRL6k2wDwyUFOs8CNU8r3t52WG7PQVGJ
+         mVfbj+R/HKxjjsxLyn4FKOXGuN6oULNeN8EYUZil8XzOgAq9uY/s1bLWLY8Qzil4ooqK
+         LpJIaBKHsx87GRyhWuT7mG07cfpeeACzwh9Q2aHJZdNKJcPWg8ke111QirrW39aZcMLl
+         8/t9KzbFKrFT122btJGi9I68gq9cFwL1cGr/pK8hIWo/ZdwO92ehvPcUSjyBaTH01/6n
+         6HEjab8xAkKkvprS70Bh7xoTtPtrwZ3CRLoGoynHO59A3Y6axo3kaFjSGcR9Ao3CZUcv
+         g+xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787678641; x=1788283441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z8i7HH59Qhp0knzyYvG4FDnmdY05CSm6obQoU01fzRQ=;
-        b=YSrLZ9eLfVgri5JeMzJ6N1O+tP44tZTOYeCpp/OZiUuXTQbEmCUYo2ZxKfP5H5kHQr
-         Vm4BtDFMvtslqv6oVKsSnugWv3M1Mv7be2vNS8QvAyDK19t/j/CDIQq281Zx7v2ccODp
-         6ezCbEryG2XTSokoeFXzXcCt/lv8NtRUMm8mvNdTM0q/zcBJGTVpx6GoROH/tmBwvdZN
-         zd7dRjLcutuwn11BikcsyBvhAal146aVzTQ6/F1UiItR2khVzr26FQ50PIAiAI3jFkEU
-         CxyZkojM48fBHHa5Cb792VXyjO5o+Gw5dzYjjxLI975yPunK2vPLeOoXlqlziqiiVVcy
-         nvrw==
-X-Forwarded-Encrypted: i=1; AHgh+Rok4MeWzmeF6AoJUeAY8QTqSsoLwYUn88hQgHCjLhAScKjmvNOu6gUsY3AJ4i+chGgClVVXpBc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k55v6H708VCKD7tO3KYd3KeT0Q3wRVRu/N+LyXTOAWge637rNL
-	aYQPjjky9PWTsoIFxiMumoSZVT1McL9b7wEg1WOGp6wJFter/BpYxQZO
-X-Gm-Gg: AR+sD11Z6Dk1lnjixx6pwdIXgxmwBQgasAsk/16c3bAs3GJnEl/jnI8vHdLwVeai4s0
-	G1MQ+vExZbNJkiSCiJhyO8Ce7xrNmli5aYhY+JEKFxlgJdSEpBAy7+PFD6nm+a2eOfvnQTlN8JV
-	DwSVfI1/O1mAXw8GTUAxt5439gZJieU2mBVoEGUmjToB8JcnicM/FQ8LoEj38lEkkAUP4H4hv26
-	vjit1CU7Wg3SBoxo42Zx6WfWLCq3/rFVeMJA+MSYs9KAf0WnECCxVJoUq3H5fAi+Wm27NN5897C
-	YrXZXjwBQVjIZstaRAn/z3lPj91uxROhiGast/O2aI2ez/kBsj0Mr2EBUUNngys0qtoy0rdmNn8
-	j9oxnLzwUqyCdT4YwAIgB/PQm1SgUlOTt4/hMl2y7LE4ogqQe9R6waIKQbWP2RmiWXl3VvGuzIB
-	gLGQAYWExBvlHjXZ9+oWXcMR3CcxOzP3CVRTp2oT9IaILEZhxgIfmDraS+O+iitWMB7qaWgR3RI
-	kEkrAQrPb4f8paQm/Ky9xRkJkOrovPsDsDJlJDLeVo9PlmNTqNuQIJl6Q==
-X-Received: by 2002:a17:902:ec8c:b0:2d3:71af:782a with SMTP id d9443c01a7336-2d6e0a521a1mr69133835ad.0.1787678641136;
-        Tue, 25 Aug 2026 10:24:01 -0700 (PDT)
-Received: from localhost.localdomain (45.78.64.189.16clouds.com. [45.78.64.189])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d9e5fb1sm640096eec.25.2026.08.25.10.23.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 10:24:00 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: pin protocol module before inet socket allocation
-Date: Wed, 26 Aug 2026 01:23:49 +0800
-Message-ID: <20260825172349.232794-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260823171311.3857087-1-nicoyip.dev@gmail.com>
-References: <20260823171311.3857087-1-nicoyip.dev@gmail.com>
+        d=1e100.net; s=20251104; t=1787679221; x=1788284021;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+C3oMNTxKING+oxnIVuwTvyrIfPtnlGjd1Gmndygo7I=;
+        b=RlzA0UTIA/bT9884kA8+hoHxdKCXwfq+TpPCjk3hGa3EjB0IYltACDYfQZ2Xt2Qdnh
+         AwyhjMJ4QRwPEj2yL3kk5wMZGQ5EojF2zQ45sT2UQxZ7LJ/QIX5+XSt8/z8sbszd4ddq
+         3mc7XQfaEsy+TukkH6RzLx5AOzF6b/R/etNYwNvFEoMbX4ONanoVRGbAkwUzaVtJNO73
+         Ksx/XqkecbRqVH1tU+D9QIfrwWUM9EQlng1Lh3zWNkRIeRmcShTPql5a3XJp+a+vKlC1
+         cZvVecVdIrXMoHY0hvQMoFYKSsFT+rpDy4pv0N+H1uo4ZsTKCX/1kl1Bh1MmPaFleLHD
+         cKzg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4/+GuL6zVD6Au69Ids4qlO1OsqLz+a2JUAByhKbukZbqct3tNmBGYUCWagSRgVO7sBjKJadI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnKWbd2k8mZlCvgYHXlQdwZpyjzybJf0ckSaUH1Wp75F1xSTQC
+	eownvMTwnmkuzZqegs+RlQ8mIMNjCHnUHPqFXC6a4iB1SxyWdKYoCVN/lABOn1wU435Uv37o3mW
+	u6E/q+Hwun5VMiuR4hwRX76nWvoGpks9AHDXM1W6F
+X-Gm-Gg: AR+sD10zUEzJGP+xy+dzRiV4FYevv2G27sfwn3eY9aThejoJbyG9a5fiOP5ttOpmWJj
+	4ZhY+qjtXU3bzIRznooOM49/0rHmUC2yxldlxakzlPIfn3O2tSHJSkiMWlwjSewDPeDoF7OqVci
+	f/BLRBOZMrFjlig+YAm/uD0gzl45RZc9Q0Dkk7FK5zFqXVJmVcLb9BId+lABtAErX0enHHvJq60
+	v/8wss2LVHXbTKwS/ueXhfyMl67USUMDWx6ULAKGqmG4iRE2N60lbthoIN/9iOHgPuPN8ktP70l
+	dmODieC4FFQkvO8oOX+Fq4Z6csY73MSpEyM+cHp/pfAID2JAA1L8ehKvckEVB0u0qPFRJKUMn00
+	Ge0Gcp5ZEqHgAHLQXbCpQPDDVEgWQVZA0jfMPokGRlcviv3FFxfeLH8MbpV/9ZA==
+X-Received: by 2002:a05:600c:4c9a:b0:499:b81d:f580 with SMTP id
+ 5b1f17b1804b1-499d630abbbmr70390245e9.2.1787679220347; Tue, 25 Aug 2026
+ 10:33:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260718111340.159896-1-linux@yoavmoshe.com> <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+ <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com> <20260721180950.GA3684684@ax162>
+ <180001f5-bddd-4e58-8442-f7ef3c979500@yoavmoshe.com> <CABCJKufhvTxmVm8y7xr4RWWKsoZk0h8UGBnem+F5fknnimaqPA@mail.gmail.com>
+ <7f273a08-b29c-4e15-b340-898b251efe57@yoavmoshe.com> <CABCJKud+GsBVv+XMTsi_4QAaTHo7jXD2Hyvi9wqKd7x3i2xyAg@mail.gmail.com>
+ <415ffa24-a30b-43b2-aa6a-a1cde3bd4ef0@yoavmoshe.com> <CABCJKud9B8vB-J8f0HLHw6EgEKVWzy+Q1PrNxpO_6yCGtEyi8A@mail.gmail.com>
+ <12a46993-82a5-4109-87fa-61b8fcf764aa@yoavmoshe.com> <CABCJKufoQ0fX797M01t7CkTgMEwNCELY1=ptZsxr=jWOR-KAyA@mail.gmail.com>
+ <CAKwvOdnaOy-nyZ=8oLw4N-_hA9JZVdP2BhR8cweCAOhsy4VG6w@mail.gmail.com>
+ <91cb0f21-e78a-4931-b123-937c6a01592c@yoavmoshe.com> <CAKwvOdk-JmqjhZWBiLjXTxKhEV+T3BAB6An+3Ara8oybmhAMpA@mail.gmail.com>
+ <da6bffba-6c44-4ee7-a1a8-842f9e6de408@yoavmoshe.com>
+In-Reply-To: <da6bffba-6c44-4ee7-a1a8-842f9e6de408@yoavmoshe.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Tue, 25 Aug 2026 10:33:28 -0700
+X-Gm-Features: AcwNN1VhEAk5JMtsG9Q-WQf39WhqqMQXw7xm3opvD6bBF_aO5cN6dQw8NYVOTcc
+Message-ID: <CAKwvOdmT=Q+etTTJUna4ZAg1=eXwaT9cSDy=U0s15UT-3TOu1Q@mail.gmail.com>
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: "Yo'av Moshe" <linux@yoavmoshe.com>
+Cc: Sami Tolvanen <samitolvanen@google.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-inet_create() and inet6_create() look up the protocol under
-rcu_read_lock(), then drop RCU before using the resulting proto.
-sk_alloc() uses GFP_KERNEL, so RCU cannot be held across it.
+On Mon, Aug 24, 2026 at 7:10=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com> w=
+rote:
+>
+> Sorry it took so long, I finally got it to work using your method!
 
-A loadable protocol can be unregistered in that window.
-inet_unregister_protosw() waits with synchronize_net() only for
-readers still in the RCU section. After rcu_read_unlock(), module
-exit can run proto_unregister(), destroy prot->slab, and free the
-module. inet_create() then uses a dangling proto pointer:
+Great! (It's somewhat funny to me the level of effort going into this;
+I love it. Keep up the good work).  It's also good to hear that we can
+keep this working _with_ CFI still enabled.
 
-  CPU 0 inet_create                     CPU 1 l2tp_ip_exit
-  rcu_read_lock()
-  answer_prot = answer->prot
-  rcu_read_unlock()                     inet_unregister_protosw()
-                                          synchronize_net()
-                                        proto_unregister()
-                                          kmem_cache_destroy(slab)
-  WARN_ON(!answer_prot->slab)
-  sk_alloc() -> kmem_cache_alloc(stale)
+>
+> On 2026-08-17 11:58 PM, Nick Desaulniers wrote:
+> > Can you share that diff? I would have expected that to work. Perhaps a
+> > minor mistake in your implementation?
+>
+> I started with something very simple: using SYM_TYPED_FUNC_START and
+> copying the 4-byte hash into OCRAM before fncpy(). But that didn't boot
+> on my hardware (Kobo Clara HD, i.MX6SLL).
+>
+> I think the issues were:
+> 1. My first attempt wrote the hash to suspend_ocram_base +
+> sizeof(*pm_info) - 4, which I suspect overwrote the last member of
+> struct imx6_cpu_pm_info, corrupting the memory controller setup.
+> 2. Moving the hash after pm_info and offsetting fncpy by +4 still failed
+> =E2=80=94 I think because fncpy requires 8-byte aligned source and destin=
+ation
+> addresses (FNCPY_ALIGN, with a BUG_ON check).
+> 3. Offsetting by +8 for alignment also failed. I suspect it is because
+> SYM_TYPED_FUNC_START emits the 4-byte hash after the .align directive,
+> which shifts the imx6_suspend label out of 8-byte alignment, again
+> triggering fncpy's source alignment BUG_ON.
+>
+> The version that finally boots on hardware emits the hash manually with
+> explicit alignment padding, instead of using SYM_TYPED_FUNC_START:
+>
+> diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
+> index a671ca4..b500922 100644
+> --- a/arch/arm/mach-imx/pm-imx6.c
+> +++ b/arch/arm/mach-imx/pm-imx6.c
+> @@ -515,7 +515,7 @@ static int __init imx6q_suspend_init(const struct imx=
+6_pm_socdata *socdata)
+>         pm_info =3D suspend_ocram_base;
+>         pm_info->pbase =3D ocram_pbase;
+>         pm_info->resume_addr =3D __pa_symbol(v7_cpu_resume);
+> -       pm_info->pm_info_size =3D sizeof(*pm_info);
+> +       pm_info->pm_info_size =3D sizeof(*pm_info) + 8;
 
-This was reproduced with socket(AF_INET, SOCK_DGRAM, IPPROTO_L2TP)
-racing delete_module("l2tp_ip"):
+I wonder if it would be better to modify the `struct imx6_cpu_pm_info`
+struct definition instead to add explicit padding there?  The comment
+below about reserving padding seems to make more sense for this hunk
+here than down there.
 
-  Oops: general protection fault, probably for non-canonical address
-  KASAN: maybe wild-memory-access in range
-  RIP: kmem_cache_alloc_noprof+0x63/0x370
-  Call Trace:
-   sk_prot_alloc+0x74/0x2c0
-   sk_alloc+0x2b/0x6c0
-   inet_create+0x2cd/0xd40
-   __sock_create+0x1c3/0x430
-   __sys_socket+0x116/0x1d0
+Like add a `u32 cfi_type;` member last, maybe?  That's not 8 bytes,
+but I think it fits in the padding, then you might not need +/- 8 in
+your pointer arithmetic anymore? I _think_.
 
-__sock_create() already converts family lookup into a module
-reference before dropping RCU, but that pins inet, not the protocol
-module. Pin answer_prot->owner while still under RCU, then allocate.
-sk_prot_alloc() still takes the socket-lifetime reference; drop the
-temporary one on every path after sk_alloc(). inet6_create() has the
-same hole.
+>
+>         /*
+>          * ccm physical address is not used by asm code currently,
+> @@ -568,10 +568,16 @@ static int __init imx6q_suspend_init(const struct i=
+mx6_pm_socdata *socdata)
+>                         mmdc_offset_array[i]);
+>         }
+>
+> +       /* Reserve 8 bytes between pm_info and the function copy in OCRAM=
+:
+> +        * 4 bytes padding + 4 bytes kCFI type hash, so that the hash sit=
+s
+> +        * at fncpy_dest - 4 and fncpy_dest remains 8-byte aligned. */
+> +       *(u32 *)(suspend_ocram_base + sizeof(*pm_info) + 4) =3D
+> +               *(((u32 *)&imx6_suspend) - 1);
 
-Fixes: a79af59efd20 ("[NET]: Fix module reference counts for loadable protocol modules")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-v2: Pin answer_prot->owner in inet_create()/inet6_create() under
-    RCU instead of reordering try_module_get() in sk_prot_alloc().
-    sk_alloc() can sleep, so the lookup must be converted into a
-    module reference before rcu_read_unlock(). Suggested by
-    Kuniyuki Iwashima.
+This is incredibly hard to follow.  This is copying the hash, not
+reserving anything?
 
- net/ipv4/af_inet.c  | 10 ++++++++--
- net/ipv6/af_inet6.c | 10 ++++++++--
- 2 files changed, 16 insertions(+), 4 deletions(-)
+Is cfi_get_func_hash() something we can use here?
 
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index 32d006c1a8ee..88a18ac0e6e4 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -325,6 +325,10 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	sock->ops = answer->ops;
- 	answer_prot = answer->prot;
- 	answer_flags = answer->flags;
-+	if (!try_module_get(answer_prot->owner)) {
-+		err = -EPROTONOSUPPORT;
-+		goto out_rcu_unlock;
-+	}
- 	rcu_read_unlock();
- 
- 	WARN_ON(!answer_prot->slab);
-@@ -332,7 +336,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	err = -ENOMEM;
- 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot, kern);
- 	if (!sk)
--		goto out;
-+		goto out_module_put;
- 
- 	err = 0;
- 	if (INET_PROTOSW_REUSE & answer_flags)
-@@ -398,6 +402,8 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 		if (err)
- 			goto out_sk_release;
- 	}
-+out_module_put:
-+	module_put(answer_prot->owner);
- out:
- 	return err;
- out_rcu_unlock:
-@@ -406,7 +412,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- out_sk_release:
- 	sk_common_release(sk);
- 	sock->sk = NULL;
--	goto out;
-+	goto out_module_put;
- }
- 
- 
-diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-index 282912a11999..82b390ce3e0c 100644
---- a/net/ipv6/af_inet6.c
-+++ b/net/ipv6/af_inet6.c
-@@ -170,6 +170,10 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	sock->ops = answer->ops;
- 	answer_prot = answer->prot;
- 	answer_flags = answer->flags;
-+	if (!try_module_get(answer_prot->owner)) {
-+		err = -EPROTONOSUPPORT;
-+		goto out_rcu_unlock;
-+	}
- 	rcu_read_unlock();
- 
- 	WARN_ON(!answer_prot->slab);
-@@ -177,7 +181,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	err = -ENOBUFS;
- 	sk = sk_alloc(net, PF_INET6, GFP_KERNEL, answer_prot, kern);
- 	if (!sk)
--		goto out;
-+		goto out_module_put;
- 
- 	sock_init_data(sock, sk);
- 
-@@ -251,6 +255,8 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 		if (err)
- 			goto out_sk_release;
- 	}
-+out_module_put:
-+	module_put(answer_prot->owner);
- out:
- 	return err;
- out_rcu_unlock:
-@@ -259,7 +265,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- out_sk_release:
- 	sk_common_release(sk);
- 	sock->sk = NULL;
--	goto out;
-+	goto out_module_put;
- }
- 
- int __inet6_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
--- 
-2.43.0
+```
+#include <linux/cfi.h>
 
+#ifdef CONFIG_CFI
+    // Make sure to clear the thumb bit!
+    pm_info->cfi_type =3D cfi_get_func_hash((void
+*)((uintptr_t)&imx6_suspend & ~1));
+#endif
+```
+
+then remove the below hunk?
+
+> +
+>         imx6_suspend_in_ocram_fn =3D fncpy(
+> -               suspend_ocram_base + sizeof(*pm_info),
+> +               suspend_ocram_base + sizeof(*pm_info) + 8,
+>                 &imx6_suspend,
+> -               MX6Q_SUSPEND_OCRAM_SIZE - sizeof(*pm_info));
+> +               MX6Q_SUSPEND_OCRAM_SIZE - sizeof(*pm_info) - 8);
+>
+>         __arm_iomem_set_ro(suspend_ocram_base, MX6Q_SUSPEND_OCRAM_SIZE);
+>
+> diff --git a/arch/arm/mach-imx/suspend-imx6.S b/arch/arm/mach-imx/suspend=
+-imx6.S
+> index 63ccc2d..c06e474 100644
+> --- a/arch/arm/mach-imx/suspend-imx6.S
+> +++ b/arch/arm/mach-imx/suspend-imx6.S
+> @@ -3,6 +3,7 @@
+>   * Copyright 2014 Freescale Semiconductor, Inc.
+>   */
+>
+> +#include <linux/cfi_types.h>
+>  #include <linux/linkage.h>
+>  #include <asm/assembler.h>
+>  #include <asm/asm-offsets.h>
+> @@ -148,6 +149,15 @@
+>
+>         .endm
+>
+> +#ifdef CONFIG_CFI
+> +       /*
+> +        * Emit kCFI type hash before imx6_suspend with padding to preser=
+ve
+> +        * the 8-byte alignment that fncpy requires for the source addres=
+s.
+> +        */
+> +       .align  3
+> +       .4byte  0
+> +       __CFI_TYPE(imx6_suspend)
+> +#endif
+>  ENTRY(imx6_suspend)
+
+Should you replace ENTRY (and everything you added to this file) with
+SYM_TYPED_START?  Or perhaps we should add a new macro to cfi_types.h
+for this?  ENTRY_TYPED or something?
+
+>         ldr     r1, [r0, #PM_INFO_PBASE_OFFSET]
+>         ldr     r2, [r0, #PM_INFO_RESUME_ADDR_OFFSET]
+>
+>
+> > How did you verify this? Can you share the command line invocations and=
+ output?
+> I tested each iteration on postmarketOS by building the kernel with
+> pmbootstrap (Clang/LLVM, CONFIG_CFI=3Dy), replacing the vmlinuz on the SD
+> card, and booting the Kobo Clara HD. The earlier attempts all failed to
+> boot (though they worked fine in QEMU, which doesn't emulate the i.MX6
+> MMDC hardware I guess?).
+>
+> I'm not really sure which approach is better now. The version above
+> preserves CFI on the indirect call, but it's quite involved compared to
+> the v3 __nocfi wrapper. If you think this is the better way to go, I'm
+> happy to clean it up and resubmit as v4.
+
+I do think it's better, but probably still needs revision.
+
+FWIW, I still have a bunch of i.mx8 family boards in a box under my
+desk.  I have a wafer gifted to me from my best man that we think is
+some i.mx chip from his time at NXP.  Out of nostalgia for that line,
+let's get this wrapped up neatly with a bow.
+
+>
+> Yo'av
+
+
+
+--=20
+Thanks,
+~Nick Desaulniers
