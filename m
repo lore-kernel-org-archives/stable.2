@@ -1,49 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D59F3A4F50;
-	Tue, 25 Aug 2026 05:28:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE2BEEB3;
+	Tue, 25 Aug 2026 05:34:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787635715; cv=none; b=E5QVoPKfWZ3udHNHYmx61/hA9+c3bdOvhcZxIAgAOBtUEBEe0e/IcQjSxGh1h5YrODsubwx+G+Flo47JNdhfQmOWTC7E/njzzU6e2obQGCSjrwC49+9KLoqqlMo7Or9RqsoG8duvgY8M7XIq36G+LSx6slQyCxQRuFqTR7ydAck=
+	t=1787636070; cv=none; b=D3M9Pre9xHNvLXqXPvIjgdOEKZztFts0Wt+iZc9ndQV5FhZrmjrBHmfQGiSpjU1/S1MfFmtKFLJkNWEnMtPpeIhsLmqzqqdOiIMCBnE673ce8jcrubuWyrgvlbg2EaKTeKwa4wfJYXDdP4dKlhgdaqbnz2/3AZWuuw9G+bJJutA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787635715; c=relaxed/simple;
-	bh=cE8B1E3WUZf5IEnZHWmkidhn4OymyKdzz/G+c+ZGFes=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kiBZSmjlWJ225uGYR5MYNK4CmNJW9aEtVW34syUBfacZLG2weKClOM5U6dXmYZ/PjARrCAouF9heUcxBeOWJRc990q4T+yFGcLi1h1Q4yLh7Cir1ibapbj7d+o6Z/S0I2fB+mxghccl+ID3vGfr7U23k9+mo6zkQAr6qr54gXPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KjXimhYi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787636070; c=relaxed/simple;
+	bh=ggaKiQg+I0bPhHxGtvXUrf85k1GcD+j7o5IzKxZRQjM=;
+	h=Date:Subject:From:To:Cc:Message-ID:MIME-Version:Content-Type; b=IaTlhIkc1xHiLjqmg/YGs63PfjrU32Hhn5vzUW8Psm77/Noa46VrGnaCc48KBkMCmfx7LX1td7HNwjYFrt7Z00ZDLNRai/ompjQs5tVJLg+6e/Qt+xCE5MD2IY792ZFy3FqDfVGrRMsOvSBPoyUHk4iuU3SRftOgqdMJCZIrdpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBYvQ17n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KjXimhYi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3277E1F000E9;
-	Tue, 25 Aug 2026 05:28:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787635713;
-	bh=cE8B1E3WUZf5IEnZHWmkidhn4OymyKdzz/G+c+ZGFes=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KjXimhYijdnoTUTX+Ye67ntsYUMitjn2JFoJjBe7VQ5dsR2mVd5yoXfPlPic3yn9e
-	 5gnYp6k8On28QoaC3eY6ZIj0NdlLHUJmk5fq/9iKDbAvCGXyF5gcUr0Bls9jK/Vlcg
-	 XzzVMCtQaZzgXUYYN1rA8yS0H1YUiTWUc7D8aC3s=
-Date: Tue, 25 Aug 2026 07:26:52 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] staging: rtl8723bs: fix multiple OOB reads in IE
- and frame parsing
-Message-ID: <2026082538-divided-raving-3346@gregkh>
-References: <20260728125456.32359-1-meatuni001@gmail.com>
- <CADqcGB=j8cSE-CW8dLC8My0rk70RC-Qidmvr-dZvzCUFE5wadA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBYvQ17n"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AD8BE1F000E9;
+	Tue, 25 Aug 2026 05:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787636068;
+	bh=NFHGz1Wqo6vQw9XvsO70Kw4ZB4xKNeoUkK8Ah3TXWWQ=;
+	h=Date:Subject:From:To:Cc;
+	b=gBYvQ17nYZ9hHt3yO4/wYLkPOYZrbRt1c0d0VuUkH+nRD9eeG4k9aUm+Yc0rvoQtg
+	 ykjgiFAEigYokhKci3LTETAmOQD0LRhI6RWAeL0jcOM84G0wKeWl6jmvi+B8Oi+Mvz
+	 mC51b878rykjf0rJYROE5MCkxaXx/mlUdWvatBXeQLPvLuH/dUgujFScSObc/X2hc7
+	 s4prmqf6wab9I3xHv9hidRzVgxKsOj8fxZ3Vv3E6LvmkenSiVQ+qg6aVrdIUbXNrY4
+	 i19ykoZCL1nezkSenOBQE/7wy+GykgulAsU49Pfm0biuixvYveq1K/xIwkOYNaSxl6
+	 0S0tpfk/0SfZg==
+Date: Mon, 24 Aug 2026 22:34:28 -0700
+Subject: [PATCHSET 1/2] xfs: LLM-inspired bug fixes, part 7
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: djwong@kernel.org, cem@kernel.org, hch@lst.de
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <178760940641.944084.17475223769703836830.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADqcGB=j8cSE-CW8dLC8My0rk70RC-Qidmvr-dZvzCUFE5wadA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 25, 2026 at 04:10:36AM +0500, Muhammad Bilal wrote:
-> ping.
+Hi all,
 
-Context-less pings are not really helpful :(
+Here's a seventh batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+mwa...
+
+If you're going to start using this code, I strongly recommend pulling
+from my git trees, which are linked below.
+
+With a bit of luck, this should all go splendidly.
+Comments and questions are, as always, welcome.
+
+--D
+
+kernel git tree:
+https://git.kernel.org/cgit/linux/kernel/git/djwong/xfs-linux.git/log/?h=llm-fixes-7
+---
+Commits in this patchset:
+ * xfs: don't spin forever on zero-length dirents when salvaging them
+ * xfs: don't stash removename operations with unknown ftype
+ * xfs: log the tempip after we convert it to extents format
+ * xfs: fix parent rec lookup initialization in xrep_metapath_unlink
+ * xfs: handle reconnecting metadir subdirectories
+ * xfs: lock the healthmon when inserting unmount event
+---
+ fs/xfs/scrub/dir_repair.c     |   27 +++++++++++++-
+ fs/xfs/scrub/metapath.c       |   78 ++++++++++++++++++++++++++++++++++++++++-
+ fs/xfs/scrub/symlink_repair.c |    2 +
+ fs/xfs/xfs_healthmon.c        |    2 +
+ 4 files changed, 103 insertions(+), 6 deletions(-)
+
