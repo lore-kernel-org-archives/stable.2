@@ -1,132 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C49382F1A;
-	Tue, 25 Aug 2026 16:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1EC33065D
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 17:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787676853; cv=none; b=X5/rajGkMsDmo+VMWZGl/93hnoMKw0z88ZP/c63QnbMo/OkC1WK2Tc0KIwwpDfo4wvTX5zNUn4nvUdmMwARaXJfRtBwjw4BXCCZCS7ansR0KQOmaWBRzTZMN5ONigknujRPZ4a+rav3yjDcJraNybQ5daRljNwhBS+kEVJur25I=
+	t=1787678046; cv=none; b=histf8EXS3UGdX61r4ILInWLqJhqy6h0+Dp4K0kekH7r/lb7kScXp/U9uS9RVSZQ+u4N+qfz6PMkErRLkAajbN4rK2JyznHCSfw6bmLCktoyn4aEdMTemO0788gEcgMbJyMo1AjQYolLLruL9PJtJMDYgIOLoE3DAoxvxcvbJE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787676853; c=relaxed/simple;
-	bh=iWGLle4lAtKcqmeruwFiTJsHYI1BI3ExERc4qJzsjaw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 In-Reply-To:References; b=a5zE4Z4M9Cz2u3s1Ja3dxpIl6S3470zeFAELk3LYv6ATs+24eqqFMRkeeyXtlZNnHvO0mBH0N4UXH7DZCh3N6aPdbdL9KcXs6fvw7RhyJbHI/ql8uId8qdFe/R1BgVzXa/h7XemHyAeT4TLvrLlcxmF479IKH1e0bH2zV6fg2YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lLecFhm1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787678046; c=relaxed/simple;
+	bh=OpUMRyvqO2TDh2Ehviw+eNrQLEvp9w5X8kjywsJwnKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SzdPMRJK13Q2jQG/vhxNv37/C1ytdZjGNqKbuPPDu+193QB7CaqU+n3187nQGgUUgyNm0KRQs/Exsr+YCi5kFbD2jm5H+ldwDpRs2kGaDQHQT8+2G5Ti3nW8O1OoR7NdonOlcHYiq4xo/PaYV9yz7V5kuGsCNtltJ2CAu58ulb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kbmr7+V5; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lLecFhm1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F4207C2BCB8;
-	Tue, 25 Aug 2026 16:54:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787676853;
-	bh=iWGLle4lAtKcqmeruwFiTJsHYI1BI3ExERc4qJzsjaw=;
-	h=From:Date:Subject:To:Cc:In-Reply-To:References:Reply-To:From;
-	b=lLecFhm1n1Dok1laBgYrk24b0DinkSYf/k+2Fd+BoFoBsv+2dVJJP09EqW5KFgRGv
-	 5tPrC5yLpm+o0OQ7X0g2DMoI8g0x2eqxkmM+Jw9rOTJaM1j4TlygOD4yAdOpcZZ3GZ
-	 73Laosg1hsOsY7Dj0XQtfUEoEixFNIIynToPjrX0xcTLKfvqM0CY+roPV2iGlQzyNC
-	 JdfmptMetqYQaE/7H+wndN1xiwZuZsoJfC4+wFuD3QANU4fvaOG5aJJYp6BhnbNxL3
-	 xi6Me1zmkMNUUzrwBvcDxNjCEw+CifiFXk4lGTQIiuXd8HzJqzQwJ07pl5W1vZyyDo
-	 BN/t3bcwi92PA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2235C61DBD;
-	Tue, 25 Aug 2026 16:54:12 +0000 (UTC)
-From: Vishnu Razdan via B4 Relay <devnull+vrazdan.openai.com@kernel.org>
-Date: Tue, 25 Aug 2026 09:54:10 -0700
-Subject: [PATCH 5.15.y] io_uring/io-wq: fix worker accounting when
- canceling creation callbacks
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kbmr7+V5"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84874b52eabso115874b3a.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:14:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787678044; x=1788282844; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zoBAAmieSvGKn/+PaDydAv9C08pg8BuNAhdnqlHhZz4=;
+        b=Kbmr7+V5uPLxviMFdv6Pczrh+v/Tl8QWZC3mfX3fc7+QTpL3cYzbSgyQjm4MaEtMdU
+         ulVXYQ3XF00guvsbuz8EXG2pbjqLV9rNfUBY4JfK1qzWCnfzN+njoz1BhsPxNMKgvRn2
+         dnqOJFdTGGLsVXhqMU9p/9uuY/OJ0xvI9t3vNwEi8roT2IJe1IUudTsqt4+lVXOwUOyQ
+         69j4yV9JrJTRUvJB0/TFpS296S3nIH3R32f4dGVWwEfymLj62sG4e46e78jJvzot/Pi/
+         wNhLEdmtBtFbRhV5ib6uZ9tRIJcEqoSwPTvGAkes6SMkCmOqPbl7yTnst42a7SZchqWT
+         bYeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787678044; x=1788282844;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zoBAAmieSvGKn/+PaDydAv9C08pg8BuNAhdnqlHhZz4=;
+        b=pMfQiKLOP3hRALKX0y3ut/Bmd4E+oNY+PctFtE0heyD3r+Fdma5y3c14ixmmPlQTob
+         dJvu5RTDPErtyaiVV31w3hKc1Dzrrna70Pd2FLmu508XrgzkqIFP0/GdS4inXfXDrCOJ
+         Oc5JF5xPcUqyeHUyndJNcKFGx0v+qkvrPZyJFzFYrHU8wZgsfd6+KvBpGwAmGlHUPAcj
+         +cCIqb8JEWCebA7oOjFlYKxeyHJnOrsLszP+AZ3wk435V/GP0Dj30NgLG88JwswOZBHP
+         arVCtJFGh2+VM8RusXSiXFb3+fK2aidoV9VDkGp9k+RmNvTqfd+PJyUL/5AmxAJdV6Cu
+         RdFw==
+X-Forwarded-Encrypted: i=1; AHgh+RqtoyFPMwGATNuGWvauISnScFMxg8IBNj/3SlhRaaYGYw2O0d+BcBtiP2C+UhbVnsmXofbbVoM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3BGy8+/RIdbQsIJC8iwbY0Lime3cBzSPTH9URMU9P04lADNSC
+	MQBebAyYx8Ay1+P7qgS04DoHEAcXJgjiqIa9K1t8aEEbLDWDLXBR6b/6
+X-Gm-Gg: AR+sD13aoWEUTxj8mYgtu0UUJD8k/8a0KNSh449RLeL8P0crM2mf3QIBmlZ4COpCvwT
+	MBhKAQdEIlyCXPwlJYZ/zBkS8scANBWldnTfxS/ZnqGrWID0DNy3HA6sJ1L5UIKQpK0V0y7GxaD
+	wtG5dgJ3objZAlia1rgWw1vCa3x0dPc7kqqNDIUnKYVGl6eo+5btyibW30N34VIgHcNYEYNuxlq
+	ZUrVyyAyFDZpvaD0L87xuaao3VC2OHvSzjhJmVM+6PZtk7BODP/FqThqot3OsEm/IJLwdlugJf0
+	JmlkPZXozp1s2LO/Z/AaA1nAMWeOdcpkDWLdRP43CHr+/0cBPu0em/D6GWidq668i1QsqzAOY/r
+	5WVCRBSWkf7LQKl/FieSBGYBymT8s7GWCpGd7C404zCpvs1B/CRoOks6p+NuWseGuXrGWulXi6T
+	pEXAkcm1lKSd7m+UzSrBzD7/WMHnFudy/u9oU1jLwzbgVxm4fV8jkrl1ezytmEE1Ob+eRfuvVIU
+	JyCz8PJkw25msJOYuIJneXlzRVQbsoo+A==
+X-Received: by 2002:a05:6a21:497:b0:3c0:278c:6a31 with SMTP id adf61e73a8af0-3cd9129966bmr18069644637.11.1787678043727;
+        Tue, 25 Aug 2026 10:14:03 -0700 (PDT)
+Received: from localhost ([2409:40c4:13d:8046:4d30:e4cc:47a7:83a3])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f20095sm664742c88.6.2026.08.25.10.14.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 10:14:02 -0700 (PDT)
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: stern@rowland.harvard.edu
+Cc: jjy600901@snu.ac.kr,
+	brauner@kernel.org,
+	eulgyukim@snu.ac.kr,
+	gregkh@linuxfoundation.org,
+	jack@suse.cz,
+	kees@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mjguzik@gmail.com,
+	viro@zeniv.linux.org.uk,
+	stable@vger.kernel.org,
+	Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+Subject: [PATCH v2] USB: gadget: fix NULL pointer dereference in gadget_dev_ioctl()
+Date: Tue, 25 Aug 2026 22:43:43 +0530
+Message-ID: <20260825171343.459630-1-lovekeshsolanki00@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-stable-io-wq-5-15-y-v1-1-a37209dc29ed@openai.com>
-X-B4-Tracking: v=1; b=H4sIALHIjWoC/y2Myw6CMBBFf4XM2iG0yVjirxgX0zpKjSnawQch/
- LsFXJ6Te88EKjmKwqGaIMs7auxTAbOrIHScroLxXBhsY/dNawl1YH8vtsfPEwkN4YjsHFPLwTo
- iKM9Hlkv8rtUjUG2oHuG0eX35m4RhSS5LzyroM6fQLeofX+3Whnn+AdtsDWWkAAAA
-X-Change-ID: 20260825-stable-io-wq-5-15-y-a77a58ac2755
-To: stable@vger.kernel.org
-Cc: io-uring@vger.kernel.org, vrazdan@openai.com, asml.silence@gmail.com, 
- axboe@kernel.dk, krisman@suse.de, gregkh@linuxfoundation.org
-In-Reply-To: <2026082424-reflux-strut-f1e1@gregkh>
-References: <2026082424-reflux-strut-f1e1@gregkh>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787676852; l=2384;
- i=vrazdan@openai.com; s=io-wq-kernel-20260811; h=from:subject:message-id;
- bh=Tl/OzY3FNyX7xHdZQwqDkXPChdqaGTeIOqQGm/x/EIA=;
- b=0rivWzHQH5EB0zgdQXfXfJw4rzcv1hvXzZaCw62QHak+jai5mTckSbMfDl9K691WBYrVe6X15
- HdrDk8KXUubAR4HCsI/RhJ1y+FSXNHI0doARSgDVETVENRHhNhZJRe3
-X-Developer-Key: i=vrazdan@openai.com; a=ed25519;
- pk=45vHW8D/KId5RtsP3Qx7zMcNpgDwEvCnL5uAw0KzuS0=
-X-Endpoint-Received: by B4 Relay for
- vrazdan@openai.com/io-wq-kernel-20260811 with auth_id=937
-X-Original-From: Vishnu Razdan <vrazdan@openai.com>
-Reply-To: vrazdan@openai.com
+Content-Transfer-Encoding: 8bit
 
-From: Vishnu Razdan <vrazdan@openai.com>
+gadget_dev_ioctl() reads dev->gadget before acquiring dev->lock, but
+dev->state is checked after acquiring the lock. Therefore a concurrent
+bind can change the device state between these operations, which can
+leave ioctl with a stale NULL gadget pointer and causing a NULL pointer 
+dereference at gadget->ops->ioctl.
 
-commit 297b5ccea4acacaa47c150f043bce695202afbf1 upstream.
+Read dev->gadget while holding dev->lock so that the gadget pointer
+and device state are sampled consistently.
 
-create_worker_cb() reserves an io-wq worker slot only after its
-task-work callback runs. If the callback is canceled before then,
-io_worker_cancel_cb() still decrements acct->nr_workers. When an
-existing worker retires with its creation callback pending, that
-worker has already decremented the same account's worker count.
-
-The resulting undercount permits worker creation beyond the account's
-configured limit. On an AST2600 OpenBMC system, an unchanged sensor
-daemon reached 4,291 threads with the original kernel. With an
-equivalent downstream fix, 25 passive samples under its normal
-workload showed 6-9 threads.
-
-Decrement nr_workers only when the canceled callback is not
-create_worker_cb(). Continuation callbacks still release their reserved
-slot, and both callback types retain the existing running-count,
-reference-count, and create-state cleanup.
-
-[ Backport: retain the existing worker->wqe->lock protecting worker
-  accounting. ]
-
-Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
-Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
+Reported-by: Eulgyu Kim <eulgyukim@snu.ac.kr>
+Link: https://lore.kernel.org/all/20260824113510.1141236-1-jjy600901@snu.ac.kr/
+Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
+Link: https://lore.kernel.org/all/20260824113510.1141236-1-jjy600901@snu.ac.kr/
+Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
 ---
-Stable backport for linux-5.15.y.
----
- io_uring/io-wq.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Changes in v2:
+- Fix Link tag pointing to wrong bug report.
+- Remove the unnecessary NULL check.
+- Reword commit message as per Alan's review.
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index edcb5af514b53e..f57743d911b4cd 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -195,9 +195,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
- 	struct io_wq *wq = wqe->wq;
+ drivers/usb/gadget/legacy/inode.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index d87a8ab51510..12819e8c265d 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -1251,10 +1251,11 @@ ep0_poll (struct file *fd, poll_table *wait)
+ static long gadget_dev_ioctl (struct file *fd, unsigned code, unsigned long value)
+ {
+ 	struct dev_data		*dev = fd->private_data;
+-	struct usb_gadget	*gadget = dev->gadget;
++	struct usb_gadget	*gadget;
+ 	long ret = -ENOTTY;
  
- 	atomic_dec(&acct->nr_running);
--	raw_spin_lock(&worker->wqe->lock);
--	acct->nr_workers--;
--	raw_spin_unlock(&worker->wqe->lock);
-+	/* create_worker_cb() has not reserved a worker slot yet. */
-+	if (worker->create_work.func != create_worker_cb) {
-+		raw_spin_lock(&worker->wqe->lock);
-+		acct->nr_workers--;
-+		raw_spin_unlock(&worker->wqe->lock);
-+	}
- 	io_worker_ref_put(wq);
- 	clear_bit_unlock(0, &worker->create_state);
- 	io_worker_release(worker);
-
----
-base-commit: 945fa863f02cf8b1638546907f72dd0fc4d6ba85
-change-id: 20260825-stable-io-wq-5-15-y-a77a58ac2755
-
-Best regards,
---  
-Vishnu Razdan <vrazdan@openai.com>
-
-
+ 	spin_lock_irq(&dev->lock);
++	gadget = dev->gadget;
+ 	if (dev->state == STATE_DEV_OPENED ||
+ 			dev->state == STATE_DEV_UNBOUND) {
+ 		/* Not bound to a UDC */
+-- 
+2.55.0
