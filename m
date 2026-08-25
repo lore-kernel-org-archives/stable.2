@@ -1,128 +1,159 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B5C3A48F6;
-	Tue, 25 Aug 2026 04:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45E88003D
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 04:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787630470; cv=none; b=h9rHwLSpS4fSydKAfp1sJonhuj1EL5BixcFOU1dryz1w4V6W64lY4iOhrwXwtwrAsni8iLpwI48tFYLzzVEuXeQn3liUt6nNc8jBTx6wP/CB4SbP6UYJH4ngrUMAygurXCZuFl01Oj7zX+62h0/Xrd1rU1BemXuxdKzxEFEdnWk=
+	t=1787630661; cv=none; b=DMINK6wbgvkwMoH9NOM9bjX3XQ583qTWCzL86KVprkYkTA8nULR/jJz/mZIALxEyhzSGdnJUKZvxd1PBmsQNr+JIIu9u1WAbC1dGjoA6mhOA026LIl1oXhrkACH0kxVruUQLxY46KgZujqVbFGSr2PWUwAVZrtbIRH4BLPlovvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787630470; c=relaxed/simple;
-	bh=OwJZQqNtodqfxQD/LXqPXjdr+C6RM5iK6LW4mr4E4HE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JwSNpG6VL9wQmgRdIslXJ6oku0DEPKdie3MnpOO0NXIx5gEFCxcnaVYJAR1d+ceGltiQ+m6yJAfTL7swl3+Vp2Eg8yWgUAk+xbYGx+KW+Z3lhn+6vrpYyEePkMrF/FQ7sJrIb7tahLpWxYaLTED2Efy47cv+ylCCvVMo7yGyOi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=SD68F4qN; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1787630661; c=relaxed/simple;
+	bh=SoTvn6u1nBsHaKXnWNHeQ87Z/kyy/lzwbSFW5uKNLKI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Xlix3aNfUIVQ9tCDLwDHPNqpZQtD8qRIl/gVPpag9qFA9k9ejvKH5K+k4EmQYYk9lCHKmUp4y8/BAg/p8A51mX3plU0h4qQPDvtbONI2uh2cXslDKeS1E+mhqcRGpFfj6Rj8utuunV0NtbEr+xS/Ts1QyYaDBwpSr/NsIAdMjiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mvKj/ACu; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="SD68F4qN"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id ABAFD40E015C;
-	Tue, 25 Aug 2026 04:01:05 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id qnYwr9dfZAPJ; Tue, 25 Aug 2026 04:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1787630454; bh=bz8Ecmle0UUnbjlFKNpfbTWc8BEwShknF9n2ucb7H9U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SD68F4qNI2tFVQu3vqOdw2H1onrwQQBJ/CaOiygaaG+Yg7R6KEpM7AyRhK/MFcwO0
-	 tyYaiKAsAdfuOBOP2WsmUWSSrskgdnpea8Ax4qn3fhaBdovWVsPgW/0Mvd37Bvahyd
-	 o4hy8qscsc1aPIMw17kBWSh4/x1i6MT47WADNq2wBM7RJ6h7lSAglvNXUCzycf7lXB
-	 VwzAJZ8OTKDqFr3wua6kq7+MH6COgMOSWB0Bfx5gl/e0PRelGc8Jhtu3TeVVpBCK+i
-	 HVrPbzVbp88q8m+xNy+xFuhVgV28zc1M3r0kNL3YMFgojDw5NQ1KSXZNiDi4sqHqpd
-	 2HbFconHTqoejyV2FZtPFK+IKf6k48Ke6YbIMcQ5Lw4x89TpT0AMlMf+Tp9I7688+c
-	 cunv4GeiL+wKCqlj5GYXe++hsul8U98eInP915pZs1K8NSSILxRTi1Mp+rM8cqsHJH
-	 H1cDN83Lssm8lBHQBvzOYEUPyfZSv38iBJ7dhaxFKC0w9yv9l/PErcI5xuLPkhoGk8
-	 FLF04tXrWAqtmltGRxwPNheA7xF3uscTIeyd4m4yD+RNv2hamHYrzjwoMrmnmCH84w
-	 7cPRd5n7hj6Mq9QOiXRcNLm2dkX3B6UniGy52vwbornf03hdh2LeGbfGZkpMW83qxe
-	 5PHccBtcpNMguF6aoIek3XA0=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EE5F740E01B5;
-	Tue, 25 Aug 2026 04:00:42 +0000 (UTC)
-Date: Mon, 24 Aug 2026 21:00:39 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
-	Yazen Ghannam <yazen.ghannam@amd.com>, linux-kernel@vger.kernel.org,
-	Penny Zheng <penny.zheng@amd.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-Message-ID: <20260825040039.GAao0TZ6b8j0kp2RKk@fat_crate.local>
-References: <20260814214255.83127-1-jason.andryuk@amd.com>
- <20260814214255.83127-2-jason.andryuk@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mvKj/ACu"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-698ae09e356so5956777a12.2
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787630658; x=1788235458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bIz1d+M2XopEmaZu4JMwJQJno6roCNCxkVfrOrxuSFI=;
+        b=mvKj/ACugcyKt/F/1km4HzrIxX3rdOVBEaei48buJYQk3hRoHW0YMxFNDLYQYWcKFI
+         VcQiFe/6iTmH+yLvIgP+dohIPoX80hAFJ8zN8zdzZtkASHxmJOhcv+gRu3dFZ8c1/gIs
+         0NDu8Z26joB5A/fuVvdTFkRxc0pXrxckk4yq08KwSsfyc/A0DQnasEOxNiqfgaxyPMoM
+         PkZu+fKK4QbyZGVyPfv7vUUVmp85gPdHIAaCoyKGGFyABccjPAKQ5bKGjs9YYfMBIArR
+         xmSCnGxV4FqWmlBY5md1KhGYAvDeb+GIdQloXN5PBplRa51BcU8xxZkvF6SzUJmkHhtz
+         XdDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787630658; x=1788235458;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bIz1d+M2XopEmaZu4JMwJQJno6roCNCxkVfrOrxuSFI=;
+        b=sDhkh+PR8ZaQihAiliBN+0CUyOfxULNVvrmubcvPaQSxvOjY11OlqIYHKhyRg236cT
+         V6jaVDegAjupLkYZP9UcSfyIMiO+kZB/pBPou9t+pk9pKnFCpb3of5soVlCyDYM+vocz
+         QobSRyPu0e0b3Dvr9BDXGZwiC9usOD0zjDhxjNmrAF4oW7NywfTnSeE0Hp6vfg/FSM1N
+         iCxTGHI1NAmBq5k15XDmsz/yOvOeVHWY5Ms72UlqMS1wrA1ZAeR9gOmrfwVEV9x2kv+5
+         uFLZtSeZY6PIp4CDsiBauf5XkBXLl2drrVcGjljQClU4H/61aCG5qdAj4CHDvY4H62Wb
+         2how==
+X-Forwarded-Encrypted: i=1; AHgh+RpPq0iNO7RQzPH4jNIlZUGHrT/35dPZxEBOPvpSk6PU57oxct5sjfwcV2V2ES9g2FwiEZHj1Zs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPumMXdKoeRuWVzYkDAgkLOSyR0BEqqiQRyS1fQRfXHa4XCiCT
+	3ZtOIVmhqV3R+IAn0+bxarp6JMOuXhIbZvnDrVO1CtS4dv+vqPDigFqkR4HvklqL
+X-Gm-Gg: AR+sD11nspG2B2eF3ZzXA/GYdDDD2AMvLkrJ/cUJnB3tqlWiLrnb/KeeoSBPum3gOzP
+	qOSfEsAu6lOiXVr0wUI1i6OB9NlQbFahTB62eyce4RtKm+aSL3sZkmrT3DgQHJTL34eMbLxcekX
+	YEwqoWKNILe61+Tf36pL37zvh90oJ+r1KRfSyJYynWPCTjWMSlrJpuHj/G8N3O3eAAR/O93GdYs
+	wOUv829Xx/afOjjs4CHfscMV3M0C7ZAPI8u7l2Ou1CBtD0x7LCwfyMti/rX1MW3DxM5EUvGBtSx
+	JcHDkImkhioa31BDoVafEaRBk5wiB9l/qrthF2aIs9SsFWy0cebD8u69UzTYQBtXNTcascFlTn2
+	AA8A8C73rbN6a3vMbAhDY/F02j2jiu/HWrBrU0mihE/NyK/pjqOtTIPn0tQCz2owGt3btZmLZhq
+	hvj7PGK9QJ6VeDFrxY1W3pEuMZO18AbWs9mwOBkIAMGfC1Co2ROMU72Zo8d9no9s1b26xkdkpfT
+	gwSQ+VLSEfUzK+DhhNfV8FxL8oDyKYjhj/njYgH2w2yDIfmNpl5nbB7Zhz2S40hnxgEJZfdKHtx
+	m1vcG9aVLIOULICx6htbD3R/msUsCBYQH/PuxTBhXXf238rJBhWN4RXmj75QSVAepZvT
+X-Received: by 2002:a05:6402:e09:b0:6a1:f95b:8cff with SMTP id 4fb4d7f45d1cf-6a42f14d945mr36628081a12.1.1787630657941;
+        Mon, 24 Aug 2026 21:04:17 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-af54-b201-7419-a557-62e9-4d13.310.pool.telefonica.de. [2a02:3100:af54:b201:7419:a557:62e9:4d13])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a59e00108asm17474345a12.2.2026.08.24.21.04.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 24 Aug 2026 21:04:17 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+9cb1ac7fce4944ba9165@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] klist: avoid accesses after waking klist_remove()
+Date: Tue, 25 Aug 2026 06:04:08 +0200
+Message-Id: <20260825040408.59225-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260814214255.83127-2-jason.andryuk@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 05:42:52PM -0400, Jason Andryuk wrote:
-> On a virtualized system, the number of nodes does not have a
-> relationship to the number of roots.  A Xen PVH dom0 can calculate
-> roots_per_node as 0, which crashes with a divide by zero in:
-> 
->     if (count++ % roots_per_node)
-> 
-> The issue is seen with Xen, but it could affect other systems.
-> 
-> Change roots_per_node == 0 to 1 to allow the system to boot.  Print a
-> warning when this is performed for non-virtualized systems.
-> 
-> Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Borislav Petkov <bp@alien8.de>
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
-> v2:
-> Print as a warning instead of error
-> Use "!" instead of "== 0".
-> 
-> X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
-> ---
->  arch/x86/kernel/amd_node.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-> index 0be01725a2a4..c3e214925d9c 100644
-> --- a/arch/x86/kernel/amd_node.c
-> +++ b/arch/x86/kernel/amd_node.c
-> @@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
->  		return -ENOMEM;
->  
->  	roots_per_node = num_roots / num_nodes;
-> +	if (!roots_per_node) {
-> +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
-> +			pr_warn(FW_BUG "Error detecting roots per node.");
-> +		roots_per_node = 1;
-> +	}
->  
->  	count = 0;
->  	node = 0;
-> -- 
+klist_release() publishes waiter->woken before its final accesses to the
+stack waiter and node. klist_remove() can then return, allowing the waiter
+to go out of scope and its caller to free or reuse the node.
 
-https://sashiko.dev/#/patchset/20260814214255.83127-1-jason.andryuk%40amd.com
+Clear n_klist and take a task reference before publishing woken. Use
+release/acquire accesses for that publication and wake the referenced task.
 
-And this one specifically (the other two are being addressed):
+The task reference keeps the waiter task alive if it returns and exits
+before wake_up_process(). wake_up_process() provides the full barrier
+required by the sleep/wakeup protocol, so remove the explicit mb().
 
-"Are we missing a newline character at the end of this warning message?
-Without a trailing \n in the format string, subsequent kernel messages might
-be appended to the same line, resulting in malformed dmesg output."
+Fixes: 8b0c250be489 ("[PATCH] add klist_node_attached() to determine if a node is on a list or not.")
+Fixes: 210272a28465 ("driver core: Remove completion from struct klist_node")
+Reported-by: syzbot+9cb1ac7fce4944ba9165@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9cb1ac7fce4944ba9165
+Tested-by: syzbot+9cb1ac7fce4944ba9165@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ lib/klist.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
+diff --git a/lib/klist.c b/lib/klist.c
+index 332a4fbf18ff..7242f4cc1c1b 100644
+--- a/lib/klist.c
++++ b/lib/klist.c
+@@ -36,6 +36,7 @@
+ #include <linux/klist.h>
+ #include <linux/export.h>
+ #include <linux/sched.h>
++#include <linux/sched/task.h>
+ 
+ /*
+  * Use the lowest bit of n_klist to mark deleted nodes and exclude
+@@ -187,18 +188,23 @@ static void klist_release(struct kref *kref)
+ 
+ 	WARN_ON(!knode_dead(n));
+ 	list_del(&n->n_node);
++	knode_set_klist(n, NULL);
+ 	spin_lock(&klist_remove_lock);
+ 	list_for_each_entry_safe(waiter, tmp, &klist_remove_waiters, list) {
++		struct task_struct *p;
++
+ 		if (waiter->node != n)
+ 			continue;
+ 
++		p = waiter->process;
++		get_task_struct(p);
+ 		list_del(&waiter->list);
+-		waiter->woken = 1;
+-		mb();
+-		wake_up_process(waiter->process);
++		/* Publish only after the final waiter and n accesses */
++		smp_store_release(&waiter->woken, 1);
++		wake_up_process(p);
++		put_task_struct(p);
+ 	}
+ 	spin_unlock(&klist_remove_lock);
+-	knode_set_klist(n, NULL);
+ }
+ 
+ static int klist_dec_and_del(struct klist_node *n)
+@@ -250,7 +256,8 @@ void klist_remove(struct klist_node *n)
+ 
+ 	for (;;) {
+ 		set_current_state(TASK_UNINTERRUPTIBLE);
+-		if (waiter.woken)
++		/* Pairs with the release store in klist_release() */
++		if (smp_load_acquire(&waiter.woken))
+ 			break;
+ 		schedule();
+ 	}
 -- 
-Regards/Gruss,
-    Boris.
+2.39.5 (Apple Git-154)
 
-https://people.kernel.org/tglx/notes-about-netiquette
