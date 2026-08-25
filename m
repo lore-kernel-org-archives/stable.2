@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708563E2AD6
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 22:05:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4820244063D
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 22:05:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787695552; cv=none; b=lon4yuMWDFBNpCO80m7FslFl3z14jOWsZZ+82IOCiAdSbe4jIaZtQJ1xrjgNWvuoFby2JXn3XNFJSFVxF71h848olVqUGVJI/9rsBfOcyHEvH6XQJGqR3pHtqIlqarjayadHpQTLOWzxP3iYB+gR8EYOu13lX9aI4NMV53KXmKg=
+	t=1787695553; cv=none; b=roqUcFvDRiBA6pz+wR7GbT8w/nXBf5d9HcrxtloeF3/xJDscKLW/DH56b+e0b6t+KQxkmv/NxbUu7UNMngBJuSZ/GwIsZBTTobSjbOTQA0O1WQ7iqHHp0YpurJ8+zlT5UN4/Fv2RzdgDqXl+/lqWANiCj6SQg3X6JC1LZ+9QJdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787695552; c=relaxed/simple;
-	bh=1gwedEuQAnj8pjDRP3zLMcG/8f2DWyHYe8ySy5HH+Nc=;
+	s=arc-20240116; t=1787695553; c=relaxed/simple;
+	bh=pr5X5bl0ZnFDjfcr+M4+umg91bMtXSpoEPbtUawQ3as=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KA6UyXWj3aTDffpKhWCQMtpvLj9c1aUnMV3xKUoqTApHIcpezc3nseEuoYxwlvQvuOxI/Yr80cIfjTUvsrRNDY9C6Fmd+lb6H3JttPNB2xgTFedUbqb2n9kpuvz/qa9zsR1ueh7gdPjwMmQ+jXFjvSCdqe4tCe4NUFnJCImg8go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocV3P0ki; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i6YNctAO54DVMgNAAda15F7rv2CcOnD1jmIOwHIzYzPQDLvY2a8hpUl74KJk0bowRU8wLfSojZdtPVkOFk4gnQVobtMrSBklXmv8x7QEWWj82OdsqlVDDPcUHEtfF2MmhWUFh3dl8bK+R2U0d/MVg+XSqkTyCoaQ5y79GdrJMxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUi4K7KF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocV3P0ki"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81B2A1F000E9;
-	Tue, 25 Aug 2026 22:05:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUi4K7KF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60FFE1F00A3E;
+	Tue, 25 Aug 2026 22:05:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787695551;
-	bh=sahSxs11TB+VY2RepctS0+3CbTmouCibPtwlGNYcbkQ=;
+	s=k20260515; t=1787695552;
+	bh=qtaLR2SwkOsxJy3y5CiMBkLki7G21lF2d+4eALpFmaY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ocV3P0ki/3nkshTILshuBjCH5pXzSLb289UtHVtoHMgjxUaGtmeNOs8zuvaM31wpK
-	 zGDFjEnOHEgvcjkETjhXTCxs+3g14qE/QSXikjun0mG5Wq7gNZyY7eS52xkYBSOzFY
-	 wYQ3AOBg0xD23q/pzfWo3ItjoM+xxMmcFfPw5PC12twKznbui9QcyX/D1UY7jGCAQc
-	 3/3MXuG8p+D/vsXBn8tDYwf5HBxZPd7q1Cirxw5OM4dDYvEP92ql+TGpeFqn8rkGUn
-	 T7jjvsedEpsqdslMpp/UIvkVoMN4c7vH3GBYJMPuJVEhnpcUo+yT6bOfELbkqIcW2S
-	 TuGz4Qcm4w/Hw==
+	b=kUi4K7KFkcx0iVTn91lx1tjiv1gPORPevCKsrZq+Q0yMYZX5fN5HbeC+QtEQjB0MI
+	 r6viBMsHBkiErEI0oogj8RegX4+iGFwfk+aZwovZ24FpBTYmxGcWBN3A61m1m709EN
+	 3v9nWzgScpJOFq73dxiaibartm3M7wn7dtHYSetStvgZdOMdhHLdqMhxC8NuQKXc8R
+	 hI9SuHcI4k9aAmfwKg1aFt0kMojhWjJ1ptUJVP/tujD/M0+awOGoyqM9rtF2i8BIRV
+	 h3hk1Lesxr8r2FDLwMWJ8cfrMVXeFcsUseRjuaqTj7VXCAUab2xNsTyeEJibTAH6Ki
+	 PAFMEZi04qF5g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+Cc: Baokun Li <libaokun1@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
 	Theodore Ts'o <tytso@mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] ext4: make state in ext4_mb_mark_bb to be bool
-Date: Tue, 25 Aug 2026 18:05:47 -0400
-Message-ID: <20260825220549.2781247-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] ext4: make some fast commit functions reuse extents path
+Date: Tue, 25 Aug 2026 18:05:48 -0400
+Message-ID: <20260825220549.2781247-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082454-agent-feisty-8c0c@gregkh>
+In-Reply-To: <20260825220549.2781247-1-sashal@kernel.org>
 References: <2026082454-agent-feisty-8c0c@gregkh>
+ <20260825220549.2781247-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,117 +48,211 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kemeng Shi <shikemeng@huaweicloud.com>
+From: Baokun Li <libaokun1@huawei.com>
 
-[ Upstream commit d2f7cf40ea89b486fb7a25f5ab9a5d3ce26fb4bb ]
+[ Upstream commit 2352e3e461926b59f01c1e39fbb0494891cff997 ]
 
-As state could only be either 0 or 1, just make it bool.
+The ext4_find_extent() can update the extent path so that it does not have
+to allocate and free the path repeatedly, thus reducing the consumption of
+memory allocation and freeing in the following functions:
 
-Signed-off-by: Kemeng Shi <shikemeng@huaweicloud.com>
-Reviewed-by: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Link: https://lore.kernel.org/r/20230928160407.142069-2-shikemeng@huaweicloud.com
+    ext4_ext_clear_bb
+    ext4_ext_replay_set_iblocks
+    ext4_fc_replay_add_range
+    ext4_fc_set_bitmaps_and_counters
+
+No functional changes. Note that ext4_find_extent() does not support error
+pointers, so in this case set path to NULL first.
+
+Signed-off-by: Baokun Li <libaokun1@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Tested-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Link: https://patch.msgid.link/20240822023545.1994557-25-libaokun@huaweicloud.com
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 Stable-dep-of: d8b8dd3530bf ("ext4: propagate errors from fast commit range replay")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/ext4.h        | 2 +-
- fs/ext4/extents.c     | 4 ++--
- fs/ext4/fast_commit.c | 8 ++++----
- fs/ext4/mballoc.c     | 4 ++--
- 4 files changed, 9 insertions(+), 9 deletions(-)
+ fs/ext4/extents.c     | 51 +++++++++++++++++++------------------------
+ fs/ext4/fast_commit.c | 11 ++++++----
+ 2 files changed, 29 insertions(+), 33 deletions(-)
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 317c2c0c015b2..387509da86a2a 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -2940,7 +2940,7 @@ extern int ext4_group_add_blocks(handle_t *handle, struct super_block *sb,
- extern int ext4_trim_fs(struct super_block *, struct fstrim_range *);
- extern void ext4_process_freed_data(struct super_block *sb, tid_t commit_tid);
- extern void ext4_mb_mark_bb(struct super_block *sb, ext4_fsblk_t block,
--		       int len, int state);
-+			    int len, bool state);
- static inline bool ext4_mb_cr_expensive(enum criteria cr)
- {
- 	return cr >= CR_GOAL_LEN_SLOW;
 diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 9c2d23958146b..d05f5790a5ac8 100644
+index d05f5790a5ac8..98e9c4804f084 100644
 --- a/fs/ext4/extents.c
 +++ b/fs/ext4/extents.c
-@@ -6207,13 +6207,13 @@ int ext4_ext_clear_bb(struct inode *inode)
- 				for (j = 0; j < path->p_depth; j++) {
+@@ -6092,12 +6092,9 @@ int ext4_ext_replay_set_iblocks(struct inode *inode)
+ 	if (IS_ERR(path))
+ 		return PTR_ERR(path);
+ 	ex = path[path->p_depth].p_ext;
+-	if (!ex) {
+-		ext4_free_ext_path(path);
++	if (!ex)
+ 		goto out;
+-	}
+ 	end = le32_to_cpu(ex->ee_block) + ext4_ext_get_actual_len(ex);
+-	ext4_free_ext_path(path);
  
+ 	/* Count the number of data blocks */
+ 	cur = 0;
+@@ -6123,32 +6120,28 @@ int ext4_ext_replay_set_iblocks(struct inode *inode)
+ 	ret = skip_hole(inode, &cur);
+ 	if (ret < 0)
+ 		goto out;
+-	path = ext4_find_extent(inode, cur, NULL, 0);
++	path = ext4_find_extent(inode, cur, path, 0);
+ 	if (IS_ERR(path))
+ 		goto out;
+ 	numblks += path->p_depth;
+-	ext4_free_ext_path(path);
+ 	while (cur < end) {
+-		path = ext4_find_extent(inode, cur, NULL, 0);
++		path = ext4_find_extent(inode, cur, path, 0);
+ 		if (IS_ERR(path))
+ 			break;
+ 		ex = path[path->p_depth].p_ext;
+-		if (!ex) {
+-			ext4_free_ext_path(path);
+-			return 0;
+-		}
++		if (!ex)
++			goto cleanup;
++
+ 		cur = max(cur + 1, le32_to_cpu(ex->ee_block) +
+ 					ext4_ext_get_actual_len(ex));
+ 		ret = skip_hole(inode, &cur);
+-		if (ret < 0) {
+-			ext4_free_ext_path(path);
++		if (ret < 0)
+ 			break;
+-		}
+-		path2 = ext4_find_extent(inode, cur, NULL, 0);
+-		if (IS_ERR(path2)) {
+-			ext4_free_ext_path(path);
++
++		path2 = ext4_find_extent(inode, cur, path2, 0);
++		if (IS_ERR(path2))
+ 			break;
+-		}
++
+ 		for (i = 0; i <= max(path->p_depth, path2->p_depth); i++) {
+ 			cmp1 = cmp2 = 0;
+ 			if (i <= path->p_depth)
+@@ -6160,13 +6153,14 @@ int ext4_ext_replay_set_iblocks(struct inode *inode)
+ 			if (cmp1 != cmp2 && cmp2 != 0)
+ 				numblks++;
+ 		}
+-		ext4_free_ext_path(path);
+-		ext4_free_ext_path(path2);
+ 	}
+ 
+ out:
+ 	inode->i_blocks = numblks << (inode->i_sb->s_blocksize_bits - 9);
+ 	ext4_mark_inode_dirty(NULL, inode);
++cleanup:
++	ext4_free_ext_path(path);
++	ext4_free_ext_path(path2);
+ 	return 0;
+ }
+ 
+@@ -6187,12 +6181,9 @@ int ext4_ext_clear_bb(struct inode *inode)
+ 	if (IS_ERR(path))
+ 		return PTR_ERR(path);
+ 	ex = path[path->p_depth].p_ext;
+-	if (!ex) {
+-		ext4_free_ext_path(path);
+-		return 0;
+-	}
++	if (!ex)
++		goto out;
+ 	end = le32_to_cpu(ex->ee_block) + ext4_ext_get_actual_len(ex);
+-	ext4_free_ext_path(path);
+ 
+ 	cur = 0;
+ 	while (cur < end) {
+@@ -6202,16 +6193,16 @@ int ext4_ext_clear_bb(struct inode *inode)
+ 		if (ret < 0)
+ 			break;
+ 		if (ret > 0) {
+-			path = ext4_find_extent(inode, map.m_lblk, NULL, 0);
+-			if (!IS_ERR_OR_NULL(path)) {
++			path = ext4_find_extent(inode, map.m_lblk, path, 0);
++			if (!IS_ERR(path)) {
+ 				for (j = 0; j < path->p_depth; j++) {
+-
  					ext4_mb_mark_bb(inode->i_sb,
--							path[j].p_block, 1, 0);
-+							path[j].p_block, 1, false);
+ 							path[j].p_block, 1, false);
  					ext4_fc_record_regions(inode->i_sb, inode->i_ino,
  							0, path[j].p_block, 1, 1);
  				}
- 				ext4_free_ext_path(path);
+-				ext4_free_ext_path(path);
++			} else {
++				path = NULL;
  			}
--			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, 0);
-+			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, false);
+ 			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, false);
  			ext4_fc_record_regions(inode->i_sb, inode->i_ino,
- 					map.m_lblk, map.m_pblk, map.m_len, 1);
- 		}
+@@ -6220,5 +6211,7 @@ int ext4_ext_clear_bb(struct inode *inode)
+ 		cur = cur + map.m_len;
+ 	}
+ 
++out:
++	ext4_free_ext_path(path);
+ 	return 0;
+ }
 diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index ca5f1b0d2687b..d96d303e390da 100644
+index d96d303e390da..3ee282c8d2481 100644
 --- a/fs/ext4/fast_commit.c
 +++ b/fs/ext4/fast_commit.c
-@@ -1838,7 +1838,7 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
- 			 * at the end of the FC replay using our array of
- 			 * modified inodes.
- 			 */
--			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, 0);
-+			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, false);
+@@ -1798,7 +1798,7 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
+ 
+ 		if (ret == 0) {
+ 			/* Range is not mapped */
+-			path = ext4_find_extent(inode, cur, NULL, 0);
++			path = ext4_find_extent(inode, cur, path, 0);
+ 			if (IS_ERR(path))
+ 				goto out;
+ 			memset(&newex, 0, sizeof(newex));
+@@ -1814,7 +1814,6 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
+ 			up_write((&EXT4_I(inode)->i_data_sem));
+ 			if (IS_ERR(path))
+ 				goto out;
+-			ext4_free_ext_path(path);
  			goto next;
  		}
  
-@@ -1907,7 +1907,7 @@ ext4_fc_replay_del_range(struct super_block *sb,
- 		if (ret > 0) {
- 			remaining -= ret;
- 			cur += ret;
--			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, 0);
-+			ext4_mb_mark_bb(inode->i_sb, map.m_pblk, map.m_len, false);
- 		} else {
- 			remaining -= map.m_len;
- 			cur += map.m_len;
-@@ -1966,12 +1966,12 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
+@@ -1862,6 +1861,7 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
+ 	ext4_ext_replay_shrink_inode(inode, i_size_read(inode) >>
+ 					sb->s_blocksize_bits);
+ out:
++	ext4_free_ext_path(path);
+ 	iput(inode);
+ 	return 0;
+ }
+@@ -1962,12 +1962,13 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
+ 				break;
+ 
+ 			if (ret > 0) {
+-				path = ext4_find_extent(inode, map.m_lblk, NULL, 0);
++				path = ext4_find_extent(inode, map.m_lblk, path, 0);
  				if (!IS_ERR(path)) {
  					for (j = 0; j < path->p_depth; j++)
  						ext4_mb_mark_bb(inode->i_sb,
--							path[j].p_block, 1, 1);
-+							path[j].p_block, 1, true);
- 					ext4_free_ext_path(path);
+ 							path[j].p_block, 1, true);
+-					ext4_free_ext_path(path);
++				} else {
++					path = NULL;
  				}
  				cur += ret;
  				ext4_mb_mark_bb(inode->i_sb, map.m_pblk,
--							map.m_len, 1);
-+							map.m_len, true);
- 			} else {
- 				cur = cur + (map.m_len ? map.m_len : 1);
- 			}
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index 73b27ddafe915..4ec4388932eaf 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -4121,7 +4121,7 @@ ext4_mb_mark_diskspace_used(struct ext4_allocation_context *ac, handle_t *handle
-  * blocks in bitmaps and update counters.
-  */
- void ext4_mb_mark_bb(struct super_block *sb, ext4_fsblk_t block,
--			int len, int state)
-+		     int len, bool state)
- {
- 	struct buffer_head *bitmap_bh = NULL;
- 	struct ext4_group_desc *gdp;
-@@ -6158,7 +6158,7 @@ ext4_mb_new_blocks_simple(struct ext4_allocation_request *ar, int *errp)
+@@ -1978,6 +1979,8 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
+ 		}
+ 		iput(inode);
  	}
++
++	ext4_free_ext_path(path);
+ }
  
- 	block = ext4_group_first_block_no(sb, group) + EXT4_C2B(sbi, i);
--	ext4_mb_mark_bb(sb, block, 1, 1);
-+	ext4_mb_mark_bb(sb, block, 1, true);
- 	ar->len = 1;
- 
- 	*errp = 0;
+ /*
 -- 
 2.53.0
 
