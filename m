@@ -1,53 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DBF3FFACC;
-	Tue, 25 Aug 2026 11:49:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333B63F20ED
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787658582; cv=none; b=toiMzbddy9jJ8iI2Pkwledu8ZCgZxKmYzDhHJh/GGLpLh/TIpbOPAzAVLrSkiZfwZkoEljs2MGWnpsND/xh+WwoS7hlLX70yhRDTv7PrGw4m0HG+h8OP5P+3Wadi62/U6/ryNY2f/74KY9RS2Z7t2waSF7BXvOmBrzxAQvp+AZs=
+	t=1787658583; cv=none; b=Kh4svRvnU8MXgXjXqWqLKJJsvx6zsJcoLiE5rh9JBAz10CvXRkzePf3FQ47vEn8BhXItn5hQCDSO8QybOFDqGlIav5T1H2u768BhsX5mkF3dWj3V2cIVf9629TJPNq08p+R23o42Z/780ewP6EWpro+eYdAvjib0cJkpMtc9els=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787658582; c=relaxed/simple;
-	bh=6AeKEmAbglrYMuTQDcgryyRF8OFnCwxkKDCoXKGt4+g=;
+	s=arc-20240116; t=1787658583; c=relaxed/simple;
+	bh=luSmJJGIgTcP1IXeAIYkVPbGD4KUInd5gTlE7yLwo8E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P+tb5Y3njtqt48SCO1+MCsa4O47DgvSdXI9/0LoLLeUehUswYhsJMlez70p0+lI0sAy85TjK+X4LHBGrIZHcuuhEYpLTW5FqrzpNBf4l+0uyKq4oojn7XJId01SqWvtHOeIriVCix63acp+9v7lU5r5ibVjTD1vAglwt/45JD9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kz7psXWl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kid6aqGD04E4yW9tteUJNj++DQ9oaLURxNgUMJXmHHZSptoLNWrTMKoxMgeNfNy+QHikByd7uqQgNBgRnqzioMLDbD4rI8DNepH/NrSo2prJgI0xtFuOW9FklZ++3wLAIZgFaoGOgPEKLSlOQG4xNSWLBzh61WsqGIrw4JLNxR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGXsARAt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kz7psXWl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC4581F00A3F;
-	Tue, 25 Aug 2026 11:49:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGXsARAt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799511F000E9;
+	Tue, 25 Aug 2026 11:49:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787658581;
-	bh=fW3Uz/X24qHx+oUgJ0jCrQNRCEkUirr3meKSn7X1+3U=;
+	bh=byFI9W3WR6avUteXf4BUgrYFrTNniX7Bt8eE+L/cx98=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kz7psXWleF6u08Y5fhW1+PAhI2ABQ/6znyEBZOKQ7NA+ATiNuEbcwjLO1VpBgx0Dk
-	 ElChkumr9p2CxdXsVW6C+rtkxoV1Ylc5lz/+MisYhwI9mSpvxJQsNvVTA1nZxmXkFo
-	 tJJyVoRspGOcRtxvZqiSGx1YoHxPVFRmA/XQRX444nbW05rRB40hBr9zTyVT4G/g1R
-	 fNRalzuTCylLoNeIwvb0SNP6tdE2nZ4a+U9C5QDiKcKwjkOALUzMdS8TwfEvwDTlzk
-	 J5OkdOuFzNxcQy13FF07ijcXuZQ6ih7UOYlvw4QBKjWh3hGf9kcmVZrExToEBNdWFL
-	 ojKl0m8PLewug==
+	b=KGXsARAtcukhTaGBzSCXCumJOSH9w7gkNJyIaFsgw+jv/sdjVLS+E510QGt2p56yg
+	 oFYqRZ4ZcVm99SnWUfd1ZbmK9mSa7tTaVToeTwGGQE/eYx8jK0/Ks9F1WmLp6gQ4We
+	 kN5npYox2UvBwsDtnIHum05H/JY0Fdru7gbyl/ppIKXKc8m+Y6JbYjU9FEMnUZw1Sn
+	 WC2zHP1KrXZva4yppv01v8yhvL2azX0iIzvZeCa0CsSrmEmBfMZmAqGJF9BHE1a/r2
+	 +URbXWNLfvTlzlzOiLyNhw51G87f7l0Rw0UQiFrxXO3LHPdi3mkf4jbM+QA8ATE5Mu
+	 tffJvlwksYlaQ==
 From: Sasha Levin <sashal@kernel.org>
-To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Eric Dumazet <edumazet@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Martin KaFai Lau <kafai@fb.com>,
-	Wei Wang <weiwan@google.com>,
-	thomas.petazzoni@bootlin.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 6.12.y v2] ipv4: start using dst_dev_rcu()
-Date: Tue, 25 Aug 2026 07:49:24 -0400
-Message-ID: <202608250002.b8a90eb369f250bc@kernel.org>
+	Kenta Akagi <k@mgml.me>
+Subject: Re: [PATCH 5.15.y v2 0/8] backport for CVE-2026-64561
+Date: Tue, 25 Aug 2026 07:49:25 -0400
+Message-ID: <202608250003.e10141c037c23a12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082420-reanalyze-dehydrate-c386@gregkh>
-References: <2026082420-reanalyze-dehydrate-c386@gregkh>
+In-Reply-To: <20260823130751.2880-1-k@mgml.me>
+References: <20260823130751.2880-1-k@mgml.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,15 +44,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 11:05:52AM +0200, Greg KH wrote:
-> Doesn't apply to the queue anymore due to me taking this patch series
-> from Sasha:
-> 	https://lore.kernel.org/r/20260821144926.3428433-1-sashal@kernel.org
+On Sun, Aug 23, 2026 at 10:07:43PM +0900, Kenta Akagi wrote:
+> This is v2 of the backport to fix CVE-2026-64561, v1 is Sasha's series [1].
 >
-> Can you rebase it on that?
+> Patches 2-7 in this series correspond to patches 1-6 in v1; Patches 1 and 8 are new in v2.
 
-Miguel, no need to respin - I've already redone the backport on top of
-that series. Queued for 6.12, thanks.
+Queued the series for 5.15, thanks.
+
+One addition on my side: I inserted 18c841e1f411 ("KVM: x86: Retry page
+fault if MMU reload is pending and root has no sp") immediately after
+patch 1/8. It is the Cc: stable follow-up to a955cad84cda and the two
+need to ship together.
 
 -- 
 Thanks,
