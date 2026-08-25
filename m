@@ -1,225 +1,123 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B6F3F328F
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40D23F39D4
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787652342; cv=none; b=tUWGV6Wcrc8Cy0NeiQUeGPijVIaPmHDOiEP7k+pl7I40AkWGOOW4cCYn5bjG2puz87neBXub3/a83xOjmarh+IlPN8AmDRfRgSjF6ClWEMZnstLOWXc+Vj4FQSryEYriu8zwkynFrffT7obGOtT4cSeNoW2e1RskPc6nFDWUek8=
+	t=1787652398; cv=none; b=QjhCzzn/rBo32E5w1IjaF8nB4qKhEqNosLAtZld4nTQ3ZrTWxDJqycD836tbxdJ0S+W9tCzZXm4wxG0/BOks+/iQvmwhd245zxB/TgSvIAGRVmITLho4FM//OYu8/h5/+g1E16se34ouF2IMcT9dPNEcVpfgl5AOjiQFvhdsCls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787652342; c=relaxed/simple;
-	bh=9kIvFghEcFfXTkbF1WNY/VJMZUTJ0xIkLY62JxBFXHg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jtW/mziPTe/fkoFat20kz56yRLopVTkMzlozFSPY2U0bsAjSIYBnRj4//0Ev2J2WotNRuXE7Yup5QYklUB2U/C27yjl0FOfaBsHEbTscqDzUH797i7uM5cr4i8hoSnVdkuWdyEWwO/YtpTcCZTA7DFnkwDPvdJqX9swSbDEb4Bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=brYggHlA; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1787652398; c=relaxed/simple;
+	bh=+O4TG5OTvpzqzT/cUA9OzfVxWnNFyW0F+ybzoMguOEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iITj7iOzNpgzPjL9FgSYSLqv/pXUjYNqP0rK64/0hYgXAiiewIZYRYV2Sl1GDF9CMQ6JxHbqd9RcCQLRWd72CbPNArz3nwbdcxR8Pz7QLJTzuW7FzNitDaIXYDMY7mQFOlZczoviXi/mwpPlpkPsM/ooA70Nvm5ONtCQH/cQe7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YBbBem1f; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="brYggHlA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787652305;
-	bh=eVDBEU9oSJsjPFTxry7jteJuPXySjoLrYjwG8ovYT/E=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=brYggHlAz8pZyllRo64kKaLqPlZzPusT0BvdygKpBk2bYHo6yTgJWagXqdt++vkx8
-	 yIgbFgChcbqMQyg8I9nDw1lcF/GnsiodJSL0jXK5syyObM42TW8S3kJt3Nx6wJrbuB
-	 a0uQ5dlaykiQUzRMRinaudGHPTSK0gBYBXbJnN0E=
-X-QQ-mid: esmtpgz12t1787652300t5d7fac6c
-X-QQ-Originating-IP: x5pwLDhiROb5yJwAFnmIH4ylWUboSsMPZ8ughKYhPAI=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 25 Aug 2026 18:04:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16797180943558310592
-EX-QQ-RecipientCnt: 6
-From: Wentao Guan <guanwentao@uniontech.com>
-To: sashal@kernel.org
-Cc: hexlabsecurity@proton.me,
-	paul@paul-moore.com,
-	stable@vger.kernel.org,
-	stephen.smalley.work@gmail.com,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH 6.18.y 7/7] selinux: require a class's permission values to cover its permission count
-Date: Tue, 25 Aug 2026 18:03:45 +0800
-Message-Id: <20260825100338.4039846-7-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260824220022.435960-3-sashal@kernel.org>
-References: <20260824220022.435960-3-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YBbBem1f"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d5335cf904so35204485ad.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:06:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787652396; x=1788257196; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lV6nQecXjHtcQsqEmzr+clL9T3RLWY/CJqTB6zRiV+8=;
+        b=YBbBem1foyHKgWaNkHrx20djA9aNCGAImRlkSbjvAEKSQdYYry0Yui9/7pkPFexshv
+         GbOAS2ShY1wyolYXSjYMivQiM5m6ZNRKw9VrzNTNGnDExYjWU4tm3yDTG6Dh7ABibuey
+         n+6wh7RJGmkhO1vogtS0+LkrHfNJV2EwQZh5EoCpnv0+TStwutW6X19CpjmyPVlVQQv8
+         o2apgt0PGGpWC9OjQejG5NIXJ85Fo1yAqaLXuA7A6CPZl0PLiQki1DEu1FjnHzmwBJKD
+         JvPuKe18PAZkpMhJ6T/SRGRhEkgJz4brfM92Lj/1etCfwMujALIpyeL8uAoHU2yRcoVt
+         R+GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787652396; x=1788257196;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lV6nQecXjHtcQsqEmzr+clL9T3RLWY/CJqTB6zRiV+8=;
+        b=NmY9Q17rMIc7p+1Gwkvy20OkQEij/qctNDOjS5hKtE5/zgg6shINHkKjsMX+KKOWiX
+         DFGdhNVQ/JK9NH3t+TYer42T8IYQilOiUl1SZOsbJz2kTi2lu7sNX0bQ68LFbREtu91x
+         dmFQ4FAvQ6chrfPmXN+Zi45ljHH/jgJOJeEkrMMlnnJo8z+KmViQCXb+r99kbJgls7TZ
+         RgpFsLr3hir7H9hM+xsLvr/YXncJptuujjgcjpKa7GWIhS57C1giNbL+xWy1cQ55aMvu
+         puibrsqxg4WO/zc9w2HcHvoWurDMm4d8F0HtpJtF2dWqsg1302wJpoqXzIymFT/2j86G
+         foog==
+X-Forwarded-Encrypted: i=1; AHgh+RoA+NAUcgQHb21nIFUKND5Hg+bElGzsO1rdpqNk8vZr5Xm5gUMmqyz5Z+31qqwtqsCmG/OGvJQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYX3P0/aL2qEUmnXKLEYpOpsJrvB5xouOHtEFuezL0UIgPS3Zn
+	jpGw2ytdNlqeclSNz4mLfJndctxe7wvxt/9PKxy1n3W7NJPXEMAKJ/Yf
+X-Gm-Gg: AR+sD11xEZlRJsHXPVOyu7owmbZLXJtWdOIiIDrbTHGtYuQwHhggtljyO1skSa4EFCD
+	pXt/cR1zVCCem/PtggS8M/tf1RMOyvEMx9R4ExebBTqj6qr34JalKLZAJo0RYhhvl0dKzczx/N/
+	MuWtDcCqfLXro9nBYmEJhpTA9rwR4YueACjGJ6XCsC7Jbo3XxIDqTGa72/Uzy15bHMJQC1CFutH
+	ZRAqZDG5nQN5tcaerxqXA2+SiLdpKNKjDoKugz9jH0g2PJxbgBSi+X+y7Tit8FDnZ/1q2QB1bUU
+	6aE9OLjZ4Zz2VKWyQ7EYo3yGni1l+J1LV7rVvcz2iri5H1eBlThYUmLzM62ugtCNYpFnCSPFCUn
+	9KkbXJ+pDaWF2D5xasnKdgmD34KyjT4V0D/ZN/DTw2wcMhDqfvdCC9S86iyGgunlYig/9Kic8Ch
+	bRZQISboCeJoVaXP/z5ERKLUecUDg/mTfRDb1FFdrQE23g5RtoJMTOzQC1ikl/667FK/qJtQTuK
+	5f3+8gpG0VtzKeY82DuWrvoNRWP0u0a
+X-Received: by 2002:a17:902:e785:b0:2ca:6eca:492f with SMTP id d9443c01a7336-2d64b0e2c7fmr671003895ad.14.1787652395985;
+        Tue, 25 Aug 2026 03:06:35 -0700 (PDT)
+Received: from localhost ([2409:40c4:101c:e5a9:a28f:e499:1b07:43b3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f8e2a730sm37287178eec.0.2026.08.25.03.06.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 03:06:35 -0700 (PDT)
+Date: Tue, 25 Aug 2026 15:36:32 +0530
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: Mathieu Fluhr <mathieu.fluhr@gmail.com>
+Cc: Michal Pecio <michal.pecio@gmail.com>, 
+	Thorsten Leemhuis <regressions@leemhuis.info>, Mathias Nyman <mathias.nyman@linux.intel.com>, 
+	linux-usb@vger.kernel.org, regressions@lists.linux.dev, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>, 
+	Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
+Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
+ triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
+ (bisected to aec11e5f9c45)
+Message-ID: <ao1ovvdPAy6n_F7I@eggarch>
+References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
+ <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
+ <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
+ <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
+ <aosGtkE_diwVJJtB@eggarch>
+ <20260823174059.46fec036.michal.pecio@gmail.com>
+ <aoser8dLytrwqBC2@eggarch>
+ <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OBfOdZ/atxB3kJUz33hf/jBrb7+Wb1+VcaOae4X+ad2QnkSrk8LcUxVz
-	UF2drf0FDaXS6gQh3wD/6OrsVNDxnQ1BXL1Ja/cW/78jnXjnIuZBSep2nZ52w1jXREHeOD/
-	J2S+O+es12n787VgKJCPmYALvMq+u+5Svzk0wO2gGYckdF5LuE8lGMMbRtF+C0R77j74TyY
-	+cpH2i9nC6lwTSJgmLub5X2OSih/hH9Md2rVpH0/RWiWIh2Jtpl0lb0vhJ446YL5Vn6llfD
-	lT9nJaJAxP4Zlt/HRF2TK5FMqFw4TzcupGdPOfQrLyHNUlVi4kd6+00p5Lw0ctAANRp7Ftd
-	wER6Q2rK7qJNtgm0NIlFOPJXVX6SBCdISY/Uee8vW6wSQgYJfjoAbwIDSC7VZYWzwq8fKql
-	4R4WXO2m5NKWEQYiIXW5Wf7Y11qX+4ek8OagUJIeX38olAASkeSpdGeVoSbqBESc+CvTJdd
-	ccd40eSjBuAV5lqdCtIV8iGqV431dtcuW/tFdSBzIZRzuzt0zkHSA+RA+BPre7DP5n6TqID
-	WSnfp8gNfvzuIaEjnsx8+8tEpPeCV4FoDG6wnSESCxg9E7m4gGt1GpYJcpeq77agL5KSEdc
-	hmOPioq4YOYHFSaoevJLOzs+oScN9ilz/udfnV1Gj3rA4XlNgKx3IA6ACMeFwRNAC940Jfi
-	GhiFXNchAws1FUJCwOI0boIzZayir+f5iq0kJKPnF6kzDLNcNZiSJMZ3E1dLaSgrVKGdj03
-	0/yoFY24z0CMo5xNkES1TOxu6qn77f4omZKsWwByfgj9bMXOnkYK9I/zT6SCARnWm8Ix9fj
-	UVxQJ1LXwg5RwoINMuoXPoD3wnu65BplWNYafftpkZhZm8usFVFhMA6cdjONbtefuU1/NPY
-	Id5rIT9vszBkkIq4EgnswYPajG6eVCMxeEfDiXpY+uinBjviHPQ91SqLTbTs3YzhlZUJJFK
-	ygxbHqPphXCKSxsmDPwEiqmzGHt1lvjugqb+nxspacR3/6B8SoNDwmGmWu3PFGdkg5AE70H
-	S6SGquPJXDG7xVKf7c/mXtTh8ahJnrAKbLI0iTAVZWLetLZN7MCT+6Y1HJEdo9AVMIVJXTV
-	MUou5tyVB9d/82CZbf7ok8GAuDOLzF3X/pwBgc/NHcsw05S+mql0JPVvkI9zPsPL0QtTD0S
-	n+kJgzH1YoLO9zQ=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+On Mon, Aug 24, 2026 at 09:37:55PM +0200, Mathieu Fluhr wrote:
+> Yes. As mentioned, I first thought that the emulator itself triggered that by
+> doing something that the CPU did not like.To be honest, I barely play with old
+> Android versions anymore, but seeing that I could reproduce it even with
+> Android 13 or 14 made me suspicious.
+> 
+> I _guess_ Google implemented a workaround inside adb for version Android
+> 15 since using this version, it remains stable for more than 2 hours.
+> 
+> But, in the end, the situation is that from a simple user account having access
+> to some usb plugged in devices (I usually add my user account to the plugdev
+> group and use some known udev rules to access my Android tests devices),
+> you have a way to crash the complete system.
+> 
+> > Opinions seem to vary on whether CPU load must be present or absent.
+> 
+> On my side (and I am here only speaking about my TR. I don't know about
+> other Ryzen CPUs), I can't reproduce it under load, and one condition to
+> reproduce it is my CPU going in C2 state.
+> -> I did a 2:30 hour test using several youtube videos playing at the same
+> time on my desktop, also stressing the emulator with some 3D Mark runs
+> (as mentioned, I first suspected the nvidia driver to be faulty). As long as my
+> computer was busy everything went fine. But then I let it stand still for a few
+> minutes, and it just crashed.
+> 
+> If you need me to do some further tests or experiments, let me know. I will
+> be more than happy to play the guinea pig here.
+Was this result after applying the small patch I sent above?
 
-security_get_permissions() sizes an array by the class's permissions.nprim
-and fills it at value - 1, from the inherited common's permission table and
-then the class's own. A value no permission defines leaves a NULL that
-sel_make_perm_files() passes to d_alloc_name(), an oops inside
-sel_write_load() that strands selinux_state.policy_mutex and leaves every
-later load in uninterruptible sleep; two permissions sharing a value
-overwrite the first kstrdup(). Bounding each value by nprim catches
-neither, and neither would a count: the symbol table is keyed on the
-permission name, so duplicates pass.
-
-Track the values each permission table claims and require them to cover
-exactly what its count declares, rejecting a count no value can reach.
-Conforming policies are unaffected.
-
-Cc: stable@vger.kernel.org
-Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-(cherry picked from commit b98a8ac50775540f3804397ed08f61ef9910bcab)
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- security/selinux/ss/policydb.c | 51 ++++++++++++++++++++++++++++++----
- 1 file changed, 46 insertions(+), 5 deletions(-)
-
-diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index 926dae3731a0d..483d7d54642a3 100644
---- a/security/selinux/ss/policydb.c
-+++ b/security/selinux/ss/policydb.c
-@@ -1139,7 +1139,18 @@ int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
- 	return 0;
- }
- 
--static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
-+/*
-+ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
-+ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
-+ * fits in a u32 and the callers reject an nprim past that width.
-+ */
-+static u32 perm_claimed_mask(u32 nprim)
-+{
-+	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
-+}
-+
-+static int perm_read(struct policydb *p, struct symtab *s,
-+		     struct policy_file *fp, u32 *claimed)
- {
- 	char *key = NULL;
- 	struct perm_datum *perdatum;
-@@ -1163,6 +1174,10 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	/* indexes an nprim-sized array in security_get_permissions() */
- 	if (perdatum->value > s->nprim)
- 		goto bad;
-+	/* two permissions cannot share one slot of that array */
-+	if (*claimed & (1U << (perdatum->value - 1)))
-+		goto bad;
-+	*claimed |= 1U << (perdatum->value - 1);
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
-@@ -1183,7 +1198,7 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	char *key = NULL;
- 	struct common_datum *comdatum;
- 	__le32 buf[4];
--	u32 i, len, nel;
-+	u32 i, len, nel, claimed = 0;
- 	int rc;
- 
- 	comdatum = kzalloc(sizeof(*comdatum), GFP_KERNEL);
-@@ -1205,17 +1220,28 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
- 	if (rc)
- 		goto bad;
- 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (comdatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
- 		goto bad;
- 
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &comdatum->permissions, fp);
-+		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
- 	}
- 
-+	rc = -EINVAL;
-+	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
-+		pr_err("SELinux:  common %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
-+
- 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
- 
- 	rc = symtab_insert(s, key, comdatum);
-@@ -1351,7 +1377,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	char *key = NULL;
- 	struct class_datum *cladatum;
- 	__le32 buf[6];
--	u32 i, len, len2, ncons, nel, val;
-+	u32 i, len, len2, ncons, nel, val, claimed = 0, inherited = 0;
- 	int rc;
- 
- 	cladatum = kzalloc(sizeof(*cladatum), GFP_KERNEL);
-@@ -1379,6 +1405,10 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 	if (rc)
- 		goto bad;
- 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
-+	/* no permission value can reach a slot past SEL_VEC_MAX */
-+	rc = -EINVAL;
-+	if (cladatum->permissions.nprim > SEL_VEC_MAX)
-+		goto bad;
- 
- 	ncons = le32_to_cpu(buf[5]);
- 
-@@ -1413,11 +1443,22 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
- 		}
- 	}
- 	for (i = 0; i < nel; i++) {
--		rc = perm_read(p, &cladatum->permissions, fp);
-+		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
- 		if (rc)
- 			goto bad;
- 	}
- 
-+	/* the class's own permissions must claim the slots the common leaves */
-+	if (cladatum->comdatum)
-+		inherited = cladatum->comdatum->permissions.nprim;
-+	rc = -EINVAL;
-+	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
-+			~perm_claimed_mask(inherited))) {
-+		pr_err("SELinux:  class %s does not define every permission it declares\n",
-+		       key);
-+		goto bad;
-+	}
-+
- 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
- 
- 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
--- 
-2.30.2
-
+Regards,
+Lovekesh
