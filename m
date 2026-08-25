@@ -1,130 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D3031F984
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655508; cv=none; b=CpY/HprB/9noLfsNKbyRJeiMwx7iXX6KYInt/arQoBka9f6ojVF2FXEGux9dRxL/ghkTsnqTrWvawwLiw0mV3RR3rVbx+e/hNY+4lHfKUpzdiNjrb2n8yyyxa6Ox+Wn2Tz3760yosozIosyBBBOun5RYTHfz5t+LK59qImjCCKE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655508; c=relaxed/simple;
-	bh=/IkyAw7tGy1r1aCHhFxk8NvhgU9F8k9n4pyN6kUwMhQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PEBTWyYMx7HWjak8RlBwXzq4YB6x2WiKB4IRM6qYje+McHBdt7CeJCHJ9Ld57qDgW89/MpyoIeWm0+dAT59cr34r7o+zlHjY964EveTEeRyEbyZgwIfGH95Dy7mUYNlEWjei2J/Qvi0nbq8LfAtXSlIQ1ZpXvx/m1WAZXTKbVv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ui87sKJk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEEB93FAE19
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:02:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787655771; cv=pass; b=Q8P4h00J47CQ94i0Pkw3hltEpaxDebNamEQXV7aDtRwcWmTbZ3flruIlXU7EQf3mXPauPSdcsyiD7Ape/JBdemRCsTZ/fR3Zo00M1NYpz8k1wXTj6/PKpIgTmUqIfXPLqGjH7J/hED3Oy85kC9zUJdK97Oaacq8FWgq5WqNHUVY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787655771; c=relaxed/simple;
+	bh=O7oN+5ypnrgvnpz+DAdTMI/+5pdrmXGSddGlMOUk4ho=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fXYRQO1CRbrdpcOBLriwgtQyTrOlfmaahqEcH1BI/3qyw9rRKj6FocXOafbj/PhmarUUJOs4uaS5+R8/4LwYPpmtlVeILRKdMetT4Sue8Mja4B3Ll4atu6UYHT+oS4LkvPtrNk5TBXl+0m4NgEWkagcPK0sU2npCwLv9BCLZgHo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=ADaEVmAo; arc=pass smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ui87sKJk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB35B1F000E9;
-	Tue, 25 Aug 2026 10:58:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787655506;
-	bh=duGdI/yLMhLlpv3GxJhLcn7VeVbX2nTFuOkF8mHPQUM=;
-	h=Subject:To:Cc:From:Date;
-	b=ui87sKJk6FmuenHCofL2nzB9fnlvfzQEmFtJnV2IzP6zW0UkgqmwfSW6Aol8Bt/bl
-	 1WfhQuWgvK621pHmSa/G1O5HjLUH37eU3HwLIO2wElrbhAzQ19/vQs+N3Wj3VMlkJG
-	 NSEE3E2glHPyNTu1f9nKrV3JJHNEBa0e3DI9PUbM=
-Subject: FAILED: patch "[PATCH] HID: magicmouse: do not keep a stale msc->input if no input" failed to apply to 5.10-stable tree
-To: pepemontfort@gmail.com,jkosina@suse.com,signshop.alec@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 12:58:03 +0200
-Message-ID: <2026082503-contort-glorified-efe1@gregkh>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="ADaEVmAo"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84eb992a881so3502572b3a.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 04:02:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787655768; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FgWNCRsbUEAtusGnEq969kTmjll7Y98M/IZEGB0L0jNZ3ZG4DmTDywSFG1oD9kLP4B
+         +B+nYiKYlHC4b6uQGk2Xvnp8yh2ZB2zXFI5boGAJYvnGEGNqEv8nlPGt+Wx5hkaL5GTZ
+         KNpR3OndcOTdPxOo0Bn4xlcN/ZJGfHTer4Kf2jr9Eejg3X3zd4MsipJxVI9FA6XtoHd4
+         oH+sXIVk0yN1hIFAMEAYL2kNsF8zlQYVgushGAczWSiVlxsbsWVZ1jX4ILa1WVsHiJaj
+         JO++7HUHcw2fdjcTwoCawOzsdCUcUhGPR6Zq2vMuNwnCajEJm/0Ca+CyBQKkTh2vbaJs
+         AK5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wuxkasmS4758DhsbvfWN+PcQaFQqwlSEUUCXzsCOmhY=;
+        fh=eWuzVIXAM5H54n+ZLvVjEUgtlY26brtnW0DbSGW4Q4g=;
+        b=ls3sfnzOBE9eX07PBaknr+1oaTB+W01cvLjCScw11Lwj6yLcvewTIfdmdjE6HUcUW+
+         Ni92KgKJxxc6Tk2k7pftc2li84DM0R4bizS1yTWtTEfubNV8kt5vk8RJBTtBLqLtJtYZ
+         L9FhzsRuyiUpYtwzAkqyg9SuuYOC3MM6yceVEf+c4ugFWKDEEcBaPhEbBbs48SoaEeAI
+         fWeD/J5fg80PWEnanVq4GYK44/9Fi/sOMVVxseHm1AYCRS/4KzAqP7kuRQPt6CE5eeR8
+         Oz1KMPROOMbNOBJFFpWyLFC6zm0KwXIbsV6YjAQ/u21JIrmNJekdGMWut53F5oDwlVoA
+         IYyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1787655768; x=1788260568; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wuxkasmS4758DhsbvfWN+PcQaFQqwlSEUUCXzsCOmhY=;
+        b=ADaEVmAoLzWdpkKNXOGCLOonT6xjw7BtMvGLVp1ZkwMFfLTkKDEDWidTIpzS6aJ93a
+         IkBxPFYGiGkiSN7HcMcZghn4zqGeG+5jzvH4/BCqiehiBkLw1KTvWeLTLAbgLdEHYMC6
+         2AVRKpSMKjmF+97j1EdL8dCy3ZwyWMuqR9qUo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787655768; x=1788260568;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wuxkasmS4758DhsbvfWN+PcQaFQqwlSEUUCXzsCOmhY=;
+        b=MJeJzy0CTsEfDTS3drZaeWxaMEg+zhPTooutghfvcgSUhnPmM9vDg0glj6cCFG42ZR
+         qYhoP826AvQt5HysF6Te1PGgVPAunZPrIkJ6GYBpo3X+mfkOSalVIwOzeONqxOqrMXul
+         ipU5b+45XuNZnIpjiSExeLcaLSrqhrp+BJrbh3oLV/peF3bs6KJT88uqwovHPbm6rLgk
+         U5hBSKYKxJbwKLME7bJAVmJzpTwI0a1TL+DPvGauyd4Ze6fU2dRyC4f3wSdM05LWwmR1
+         oQ3zC1WUnjGWt0O2FM43yOL56aLCw001Kc7VVKRcpoTl0Rb0oqMk5SQIzAIgxhgKG6+N
+         8mIA==
+X-Forwarded-Encrypted: i=1; AHgh+RrB9fYjF4VOWjYvBTxPbeMub5AFD18aeSyfUbCY70ibz+of8a8HORIIXMgKLLEz4ThnP+8MeFs=@vger.kernel.org
+X-Gm-Message-State: AFuF++krQLmbdjitSUV7y1sEjwu/tISBUxChD934gYsbXK8q5Hp6AlzV
+	Es9oUs0t9xIHVm1jR/3VHY6JaZkdkfPfF6q61/48KZ30N0LsJklBcIkNth1IJEfTzNM8+eyttry
+	21JI7UzopX/vF3fPLnvc1vetbt/uIOOkVM8OJ2l6l
+X-Gm-Gg: AR+sD13IwsZVHGlvf48DGADRFxBfen7162aQ0/53fUCZ334h7rtjpi6vM5fc5Ru7b8G
+	+4JqvK1BpR4+cOiDF0LgieFRTdbF8IfESk7TueFohPUnzdFLW9dTjU4ymiZfUOT6RW1f+tXpdRW
+	J2RBXeNrl+8KE6gsH1MmmI7DqKrE720ZWXmkxWWUdLky60Ynl5Jan3sgD+tAx2QAGRYETDhzLBa
+	tLi451CvVc9yer7/KnNt1VO6yYKAEKBFvH1lHs3Ejor4edu108MEUb0XRFnKh9SlH0oNrlGEyg5
+	uqSeHdWwQA3LL+iA6gj02fnNV7Vr++NoFAFg/ysWPxRdmA==
+X-Received: by 2002:a05:6a00:420c:b0:845:dfef:75b8 with SMTP id
+ d2e1a72fcca58-8523c9972damr11759279b3a.15.1787655767497; Tue, 25 Aug 2026
+ 04:02:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260822195509.112717-1-jhs@mojatatu.com> <20260822195509.112717-2-jhs@mojatatu.com>
+ <CANn89iKYg5YzY1QhU7D8mETW6avf4K-yoCwPNGiSrxRhdswbCg@mail.gmail.com> <CAM0EoM=bNoXFP5ub9gBopJ_-1GxSB68s65pZGvYjGwifuOsBTA@mail.gmail.com>
+In-Reply-To: <CAM0EoM=bNoXFP5ub9gBopJ_-1GxSB68s65pZGvYjGwifuOsBTA@mail.gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 25 Aug 2026 07:02:32 -0400
+X-Gm-Features: AcwNN1VdJsI5lGXQ9Qej1pldtXtix4LTgC7bWChSobF7rmBsTQFAw5hreuWVIPI
+Message-ID: <CAM0EoMkYJZFsb13B_gxMQCmQBKpV3BpqKwETgAJBAAVAyU06VA@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/6] net/sched: fq: add overflow bounds to quantum
+ and initial quantum
+To: Eric Dumazet <edumazet@google.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, stable@vger.kernel.org, vega@nebusec.ai, 
+	Victor Nogueira <victor@mojatatu.com>
+Content-Type: multipart/mixed; boundary="00000000000000cee30659dd0bc1"
+
+--00000000000000cee30659dd0bc1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Aug 25, 2026 at 6:43=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> On Tue, Aug 25, 2026 at 6:03=E2=80=AFAM Eric Dumazet <edumazet@google.com=
+> wrote:
+> >
+> > On Sat, Aug 22, 2026 at 9:55=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.=
+com> wrote:
+> > >
+> > > fq_init() computes quantum =3D 2 * psched_mtu() and initial_quantum =
+=3D 10 *
+> > > psched_mtu() with no overflow check. A device with a huge MTU (e.g. d=
+ummy
+> > > with max_mtu =3D=3D 0 accepting MTU 2147483634) makes psched_mtu() re=
+turn
+> > > 0x80000000; the 2 * and 10 * multiplications wrap to 0 in 32-bit
+> > > arithmetic, so q->quantum =3D=3D 0. Then in fq_dequeue() the credit-r=
+efill
+> > > loop adds 0 to f->credit (which stays <=3D 0) and goto begin loops
+> > > forever under the qdisc lock, creating a soft lockup.
+> > >
+> > > Clamp psched_mtu() to [1, 1 << 20] before multiplying so the product
+> > > cannot wrap, then cap the result at 1 << 20, matching the bound alrea=
+dy
+> > > enforced on TCA_FQ_QUANTUM in fq_change().
+> > >
+> > > Conditions to recreate the bug: a device whose MTU (plus
+> > > hard_header_len) is large enough that 2 * psched_mtu() wraps (e.g. a
+> > > dummy device with max_mtu =3D=3D 0 accepting MTU 2147483634). Require=
+s
+> > > CAP_NET_ADMIN in a user namespace.
+> > >
+> > > Fixes: afe4fd062416 ("pkt_sched: fq: Fair Queue packet scheduler")
+> > > Reported-by: vega@nebusec.ai
+> > > Tested-by: Victor Nogueira <victor@mojatatu.com>
+> > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > > ---
+> > >  net/sched/sch_fq.c | 6 ++++--
+> > >  1 file changed, 4 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/net/sched/sch_fq.c b/net/sched/sch_fq.c
+> > > index 7cae082a9847..8a071c35b869 100644
+> > > --- a/net/sched/sch_fq.c
+> > > +++ b/net/sched/sch_fq.c
+> > > @@ -1222,12 +1222,14 @@ static int fq_init(struct Qdisc *sch, struct =
+nlattr *opt,
+> > >                    struct netlink_ext_ack *extack)
+> > >  {
+> > >         struct fq_sched_data *q =3D qdisc_priv(sch);
+> > > +       u32 mtu;
+> > >         int i, err;
+> > >
+> > >         sch->limit              =3D 10000;
+> > >         q->flow_plimit          =3D 100;
+> > > -       q->quantum              =3D 2 * psched_mtu(qdisc_dev(sch));
+> > > -       q->initial_quantum      =3D 10 * psched_mtu(qdisc_dev(sch));
+> > > +       mtu =3D clamp_t(u32, psched_mtu(qdisc_dev(sch)), 1, 1 << 20);
+> > > +       q->quantum              =3D min_t(u32, 2 * mtu, 1 << 20);
+> > > +       q->initial_quantum      =3D min_t(u32, 10 * mtu, 1 << 20);
+> > >         q->flow_refill_delay    =3D msecs_to_jiffies(40);
+> > >         q->flow_max_rate        =3D ~0UL;
+> > >         q->time_next_delayed_flow =3D ~0ULL;
+> >
+> > Note that after FQ qdisc has been created, it can be changed, and
+> > fq_change() and/or iq_range
+> > need to be fixed.
+>
+> Right. TCA_FQ_QUANTUM is already bounded to (0, 1<<20] in fq_change(),
+> but TCA_FQ_INITIAL_QUANTUM goes through iq_range which has .max =3D
+> INT_MAX =E2=80=94 so fq_change() accepts values up to INT_MAX while init =
+now
+> clamps to 1<<20.
+>
+> I'll fold that into the follow-up patch I'm preparing for the
+> fq_pie_change()/sfq_change() 256-floor gaps Paolo flagged =E2=80=94 same
+> pattern (init clamped, change path not). Narrowing iq_range.max to
+> 1<<20 will reject at parse time, matching the init clamp.
+>
+
+Something like attached - untested. Sigh, i think i had what you are
+asking for in v2 but lost it in translation to v3.
+
+cheers,
+jamal
 
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+> cheers,
+> jamal
 
-To reproduce the conflict and resubmit, you may use the following commands:
+--00000000000000cee30659dd0bc1
+Content-Type: application/octet-stream; name=p1
+Content-Disposition: attachment; filename=p1
+Content-Transfer-Encoding: base64
+Content-ID: <f_mt8k2syy0>
+X-Attachment-Id: f_mt8k2syy0
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 0af3b89705688af01aa06025b84fa7a1e06ba6cc
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082503-contort-glorified-efe1@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 0af3b89705688af01aa06025b84fa7a1e06ba6cc Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>
-Date: Tue, 28 Jul 2026 22:15:57 -0600
-Subject: [PATCH] HID: magicmouse: do not keep a stale msc->input if no input
- is claimed
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-magicmouse_input_mapping() caches the first hid_input's input_dev in
-msc->input while the report descriptor is parsed, and the rest of the
-driver treats a non-NULL msc->input as proof that an input device was
-registered.
-
-That does not hold on the hid-input error path. If hidinput_connect()
-fails -- for instance because input_register_device() returns an error --
-it unwinds through hidinput_disconnect(), which frees every input_dev it
-created, including the one cached in msc->input.
-
-The failure does not abort the probe. hid_connect() only skips the claim:
-
-	if ((connect_mask & HID_CONNECT_HIDINPUT) && !hidinput_connect(hdev,
-				connect_mask & HID_CONNECT_HIDINPUT_FORCE))
-		hdev->claimed |= HID_CLAIMED_INPUT;
-
-and the "device has no listeners" bailout below it does not fire for this
-driver, which sets ->raw_event; on the USB Magic Mouse 2 / Magic Trackpad
-2 paths hidraw and hiddev are claimed as well. hid_hw_start() therefore
-returns 0 and magicmouse_probe() continues with msc->input pointing at
-freed memory. Being non-NULL, it passes the "input not registered" check
-in probe and the NULL checks in ->raw_event and ->event, so the next
-input report dereferences freed memory.
-
-Clear msc->input when the HID core did not claim an input device, so the
-existing NULL checks cover this case as well.
-
-Fixes: f1a9a149abc8 ("HID: magicmouse: fix race between input_register() and probe()")
-Link: https://lore.kernel.org/linux-input/20260728185542.65F091F000E9@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-Reviewed-by: Alec Hall <signshop.alec@gmail.com>
-Tested-by: Alec Hall <signshop.alec@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-
-diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
-index 97562765a01d..d2f95658a383 100644
---- a/drivers/hid/hid-magicmouse.c
-+++ b/drivers/hid/hid-magicmouse.c
-@@ -915,6 +915,16 @@ static int magicmouse_probe(struct hid_device *hdev,
- 		return ret;
- 	}
- 
-+	/*
-+	 * When hidinput_connect() fails it frees every input device it
-+	 * created, but that does not fail hid_hw_start(): the core simply
-+	 * does not claim an input. msc->input, cached in ->input_mapping
-+	 * while the report descriptor was parsed, would then be a dangling
-+	 * pointer that passes every NULL check. Trust the core's claim.
-+	 */
-+	if (!(hdev->claimed & HID_CLAIMED_INPUT))
-+		msc->input = NULL;
-+
- 	if (is_usb_magicmouse2(id->vendor, id->product) ||
- 	    is_usb_magictrackpad2(id->vendor, id->product)) {
- 		timer_setup(&msc->battery_timer, magicmouse_battery_timer_tick, 0);
-
+ZGlmZiAtLWdpdCBhL25ldC9zY2hlZC9zY2hfZnEuYyBiL25ldC9zY2hlZC9zY2hfZnEuYwppbmRl
+eCA2MTQ0YjU2ODZmMTMuLmFiOGU3YzZhZTIwMyAxMDA2NDQKLS0tIGEvbmV0L3NjaGVkL3NjaF9m
+cS5jCisrKyBiL25ldC9zY2hlZC9zY2hfZnEuYwpAQCAtOTgwLDcgKzk4MCw3IEBAIHN0YXRpYyBp
+bnQgZnFfcmVzaXplKHN0cnVjdCBRZGlzYyAqc2NoLCB1MzIgbG9nKQogfQogCiBzdGF0aWMgY29u
+c3Qgc3RydWN0IG5ldGxpbmtfcmFuZ2VfdmFsaWRhdGlvbiBpcV9yYW5nZSA9IHsKLQkubWF4ID0g
+SU5UX01BWCwKKwkubWF4ID0gMSA8PCAyMCwKIH07CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgbmxh
+X3BvbGljeSBmcV9wb2xpY3lbVENBX0ZRX01BWCArIDFdID0gewpkaWZmIC0tZ2l0IGEvbmV0L3Nj
+aGVkL3NjaF9mcV9waWUuYyBiL25ldC9zY2hlZC9zY2hfZnFfcGllLmMKaW5kZXggYjI3ZDk1NDE4
+NzA3Li41OTgyODQ3ZGY4ZjggMTAwNjQ0Ci0tLSBhL25ldC9zY2hlZC9zY2hfZnFfcGllLmMKKysr
+IGIvbmV0L3NjaGVkL3NjaF9mcV9waWUuYwpAQCAtMzQxLDcgKzM0MSw4IEBAIHN0YXRpYyBpbnQg
+ZnFfcGllX2NoYW5nZShzdHJ1Y3QgUWRpc2MgKnNjaCwgc3RydWN0IG5sYXR0ciAqb3B0LAogCQkJ
+ICAgbmxhX2dldF91MzIodGJbVENBX0ZRX1BJRV9CRVRBXSkpOwogCiAJaWYgKHRiW1RDQV9GUV9Q
+SUVfUVVBTlRVTV0pCi0JCVdSSVRFX09OQ0UocS0+cXVhbnR1bSwgbmxhX2dldF91MzIodGJbVENB
+X0ZRX1BJRV9RVUFOVFVNXSkpOworCQlXUklURV9PTkNFKHEtPnF1YW50dW0sCisJCQkgICBtYXgo
+MjU2VSwgbmxhX2dldF91MzIodGJbVENBX0ZRX1BJRV9RVUFOVFVNXSkpKTsKIAogCWlmICh0YltU
+Q0FfRlFfUElFX01FTU9SWV9MSU1JVF0pCiAJCVdSSVRFX09OQ0UocS0+bWVtb3J5X2xpbWl0LApk
+aWZmIC0tZ2l0IGEvbmV0L3NjaGVkL3NjaF9zZnEuYyBiL25ldC9zY2hlZC9zY2hfc2ZxLmMKaW5k
+ZXggMTg3ZDNlZDU3OGYyLi45MzJhNzZiY2Y4MDggMTAwNjQ0Ci0tLSBhL25ldC9zY2hlZC9zY2hf
+c2ZxLmMKKysrIGIvbmV0L3NjaGVkL3NjaF9zZnEuYwpAQCAtNjg4LDcgKzY4OCw3IEBAIHN0YXRp
+YyBpbnQgc2ZxX2NoYW5nZShzdHJ1Y3QgUWRpc2MgKnNjaCwgc3RydWN0IG5sYXR0ciAqb3B0LAog
+CiAJLyogdXBkYXRlIGFuZCB2YWxpZGF0ZSBjb25maWd1cmF0aW9uICovCiAJaWYgKGN0bC0+cXVh
+bnR1bSkKLQkJcXVhbnR1bSA9IGN0bC0+cXVhbnR1bTsKKwkJcXVhbnR1bSA9IG1heCgyNTZVLCBj
+dGwtPnF1YW50dW0pOwogCWlmIChjdGwtPmZsb3dzKQogCQltYXhmbG93cyA9IG1pbl90KHUzMiwg
+Y3RsLT5mbG93cywgU0ZRX01BWF9GTE9XUyk7CiAJaWYgKGN0bC0+ZGl2aXNvcikgewotLSAKMi40
+My4wCgo=
+--00000000000000cee30659dd0bc1--
