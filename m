@@ -1,157 +1,255 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021081.outbound.protection.outlook.com [52.101.95.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1AC1A680C;
-	Tue, 25 Aug 2026 08:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302BB3E5A29
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787648086; cv=fail; b=BYhJmuCW9Kx4YizOnCD61gdVeY/01I/uaIhTiyrfZfORlAv+s6wsKqJYYIzGlX5A+CY7Mz/36DjzVHCelel+c8r6HHrfb/h8KOmqcSsSs+j87hrrUuZm7yFwsJD/LhPqGTjSVIxfVK3foY4nFmMU1j0cTKDMJ2KJsBoxjq0SCnY=
+	t=1787648288; cv=pass; b=Nzq/CHtW4FXuUEThrSBr1FtragxK1RYB9sGJ1b80BmtqJ1KZLosIYB6Lhn82XlKDtB0w3FMyBt17KzXlf/IO3ZzVrD3LFZykzOUIn0ouF1yZKn6yiAUI8Cu6WzeU9Tz/zM6a7P3pfdwODRQkh91OZ8EIaWzirJN3X+QaBl15Gng=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787648086; c=relaxed/simple;
-	bh=OuZnMcGiOPjMOSHhCKHy73f09aj3o0/ZGvWQXX0T8os=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=kJ3ahWbV+ED0VJjRAQs4a4OxOp4WVcSMDCe6U9c1iBq73rFHJobByPqkV5sfqKr7YD8U+lH2XEjVAAylJPJXjuZXnYXPIgf6sPchPH1Kff2Li2FOIdestDEEbIzclcgdpN+R/m9Iid5SbwktMyQgRUwjWYVUv9WcebIV96GWxEM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YkqnSXyWUlzeJAaAKPdY2uLH8+iy6Ptiu5DENPtq570zDgeu2Du5mSj9p9X6aG44m+wrM5EQfCIp0l3HJI0xUhzKHcIvvPuPWyAXeX+gvJUP7MVHV2TRn1sdBPBwjzsVExkOj+XTIKM254rmKGcj0dW/2AzugZ5xdDXJg9riLXCVcHR1Vtv5EMTYU/uz6S5dAJRhzwp7Q1tJ1g65u+2BGU3NBoqZICtbubUc1G9BgseZvKmHpFHrM0k9wRfec/Mp7iqqBKp69QzK99538c6Sr0Mwoa9CrO2cHMkdrUeaAD4fBP8gVtxYIYBGpRqARA1Sa+CA9f7YCzniUI3PpQ6cWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=SX2xXbZyt5Gd6pAlSCQuVwEBY74Gm20PC1gDo2clyOE=;
- b=fcjgNiD+NusG7WNmNJZJsE+dB3V55GMUhqjE5e/ywv0covanMcnImieQnHKUcEm/1qHyGHSBzV8uUviXWxhpf97H1GK6rhC0RP3Q8nyMCxDMw/v/s14YAF98Nhb2QgCnoYHWGigwXzWycIZNTGPyzW7Tw60j8emIRZcDG7fy4e+6XenrvRyneNINl9N/AnaQmFGXBXUwj6frKu75RSUZEcbfE6H5GilA6oYAMOTExKj7PTQWsfBCuyaEzOndNNRAaOqFpNETe4MhxaJqDZUsHID2y20cT5TSvEqj5y7959lmK2FhzhTyk/Q/P3a0H30BbSl7pK8DayBr/ic5ubCHtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO0P123MB4250.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:159::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.13; Tue, 25 Aug
- 2026 08:54:41 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0339.012; Tue, 25 Aug 2026
- 08:54:40 +0000
-Date: Tue, 25 Aug 2026 04:54:38 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] module: fix lost error code from codetag_load_module()
-Message-ID: <22w2z5iw5mkakrz5bypeygjl3ytlaakagcc77emsmbrzol5tvs@ucrorrfpcg5o>
-References: <20260824014736.35026-1-hao.ge@linux.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260824014736.35026-1-hao.ge@linux.dev>
-X-ClientProxiedBy: LO0P265CA0012.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:355::13) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	s=arc-20240116; t=1787648288; c=relaxed/simple;
+	bh=hv7psFl3Ws9ReChTvMwa0l+kAvHLDTCuxuec1CNlfM0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d5Ad1j9j7SbWHZuiylurBbrktMHOa5kDsjxrlD2xg+ys4ZvGbinD71hAFzyFIkmxUyic2SDt+9ZIPfPND5Jp13lCHhhyLmwGuMmQjWaLIDfl+ZRFOt9TqZ4nkFKuvTE/SOaJzcE9y+v/75QBVxUVUZxTW5GCEnnwh/v8yUlw0vY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y7sOk6Nv; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y7sOk6Nv"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39fa5e3a428so4505701fa.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 01:58:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787648284; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FR3eII+4uqthy1ZJBmKSviP3VAemqOX8ju53PO6Z7bAc/ANxgOpKTIO21bfAwl0aju
+         sI8F6miTNtCfp9yrvK1cBpvtrE6ZYXO6s8DTsOwuiFUrpp9UHNauvAlZCTeXU+Uv5v4H
+         RlHzoHLOMdy5yzw9av+hnYpxtBNOw8c8SJpTDRuOzc6IXz3ONVISDycQtPvAgvweeDMo
+         G3eVqHFwpTNBZWzAB3F+W2IjiYAA5YqybVpM7UNvwataQUGFBQuQ95BtvrVI0pnIZJNI
+         iw3LE0iDFmMTD3zz2TBVFQciDGR/Ma4TCQbgNkaCxmcNe1+ZvRo7fl2zF/Wi8NnuZkOq
+         uc8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5ezw+lHG90KyeeujMITgw3JFtWqOY7cmyGIM6ONzm1c=;
+        fh=cet4sjKLFyZcNeKnAvGNCvpiSTtL3eggGSHHFcaVqRE=;
+        b=GEUgiBsntKXxbazmL2EZDu6tuMMMKnkpyjw4eGU8jfJ4RJ940CfIPLzO32/tBIx5Nl
+         OHDQppdEDYVnA71jZHIL214HHejC9My/GeYs6y9zGSNCpjAr/VB6oVPs81hjGLpVk/+x
+         9UV2RTmVP7pQAs/t4xR4Lxgi8VC7vugIuRP2VrN832HFZ2IVdGJFPhRW66GH4SptUeW9
+         8UdX9YYBjDr4QtaqSIEAAukyt9dpSUq+G3BT8bVJ18w3FCc7o+ZuatNPkmjODR8mx/f6
+         VorM4/FSOz/UmKIOEGOFnf3vmMH0B1ziAvIAywu+KzK+7KfaPAvouQd/zRi1SZTJzikN
+         px6A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787648284; x=1788253084; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5ezw+lHG90KyeeujMITgw3JFtWqOY7cmyGIM6ONzm1c=;
+        b=Y7sOk6Nv8fIOfg6wic3A4ZRsv32+C4wbxkO4Tym5+kUVrfw0wHxBSGudIiAF0lG6xQ
+         rUMduuLjyzlm2A4iJbzOUBsHSsWQYkNqL6M/MYkzVMM9CWfdc8Rr6ePyxrxlNVJw0IOV
+         y+AvAke4Nt3VyJvLJlYVTX9/xIbezq4jbHPx3dT6isxPkaYm/gaXkZUTI6+tNCEyisGA
+         FCMi33wgt3wxO9SitmcgJZaf8ml4e0Vr5E8IGnnMHtJ/HTuoJ4tzBaEbfuofd/ymMYkR
+         ocZtN8/oD3hhB9U/yh/oR5p8+IKZnmCPFT/9fyahpuIHR0rBUkorzRu0Z8v2EXrQdIHz
+         5RzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787648284; x=1788253084;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5ezw+lHG90KyeeujMITgw3JFtWqOY7cmyGIM6ONzm1c=;
+        b=QL+zfeYl0yWsAtd9sXEQRICpMr5Ucbe5HJ+kvlUaKcQ3Qfak0ONJXTfocxN1gmFzRO
+         SXkw+t4t6dM9wBYo9/KCZb1Njd0WfKgyk+wQ/VoRbjCYJXu2LbZhIxCGF6/AU8wyPtwa
+         OAx9+WFRDiErg084piDKeAg0bToSDD45pXZd5ouxoMrg57pJRcumkzopwEckvoDExCnf
+         rczDFOTK9mxoQgKyNVA7cArCLrxRYiasPEOCQ1NQzfP5fhoNzG/QyBt9G432XWwXcgXf
+         c2IA79FgR0uBHdBA56cP/d+ps3XH6u4MOykkRz9mg9FSRG6hMZqzhzqIRMBWgmujfHzn
+         02Iw==
+X-Forwarded-Encrypted: i=1; AHgh+RqW03bopd8J5VYdZqw1lpWubcdC+gXW2T/NmB2POtGAgFjULlMhjBtmv51/i6IXidZMoWoHKoQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgMR6c9qxZqnPlCDnaUL51Y+HXfFZXH59NgxyltbkJu5VEiCfJ
+	ng40I2uAoWEWJyub2kYv0yWc8bW4lLfozu8oWJLt88UinPjsTkLWRoK71e2ZcZ9reQoIuWNFJWi
+	4OsKWHup96hZ9Vfg71Wx6Q/HFcRTG9Ck=
+X-Gm-Gg: AR+sD13BSxDeS13VNEGgCkOhlqn+Zj3rCl2VkxxBdtllXxexNcG3rc6HZGqg2rgJlX6
+	eCZ6dQC1bZUxN6uxjK9m7Umepddni7DHAbt/Hn6Q1W9h4/zL5pgeHKHKMgpQa9M2B7fsAmIGRfH
+	T60nYogj1/JzqJNs9guQ9dpR1l2LHsPJZm8VMn3J76PL5b4adICGzyuc+LSNiXLw5+78aNXSWNU
+	yCaKIXwYLnaoPrCvFNf1AjEiOCA9eddA85/BnlT/ewOrH43cHSAE/IbJQCKNJoonCednsZfWfz1
+	38M8twowIyXgfNYnbYnAIVpgDgknJ7HZS/Sv9gmEj1Sxzs52JRvt6Mr9LvbP0OU1bt/XTV7culD
+	1qA==
+X-Received: by 2002:a05:651c:a338:b0:3a1:7927:c302 with SMTP id
+ 38308e7fff4ca-3a1eda808acmr10530241fa.2.1787648283761; Tue, 25 Aug 2026
+ 01:58:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB4250:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4059d035-03bd-4d61-bcfd-08df02867fdb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7huFCH/iSfjsLwA2BMUGpvplb4pSczEeVJaqInQri2cONMOxlkMmLGQPbcMrYdxLyXKvJ+Kjrb1ixAOCFiU0Udq7gRbUAWDIhkyT2958VJ67eSY9T6Yi9JjYmkWkIKou+Q0WZQ+0LphXKw6unSdff6OEqGKVTSMIpj41GLBvrHPusPKkBFEUbAaydtn54bqy4vhnLNL9VsEhvlKLRjUnzAfvM1vG82wZDt1abSCNaFpUs8/HwcZLHkkT02gmBHE3r0R4qmpdB4txYOuIQOH8E0++K3z6SiSeV8eaXjjk5a33GFGKqYOKoFe6xxA9Jv4SzZisibAtW/Ca5MIenJixAe4xqGzJO7Etm9thyUgLQj9OKwdmQm8eStk1xpiyn44utl6y4SFhx2eyVHvUmL+y2VE2sQO20I5yjoitXfYfdUF5NFYanMXNoBw+XEuPpnsys5jq363ICGMDMrczUCcsD6wm/m0v41ATiR+8s7AFHItPs/OyytZqR+ljpFcmwFoqDoSn6vmmBuvYIShAPgWuqhLZ1H7zWO4lSKOvPwBOQh8TT+2Te5uqUZjLPFAwFxuAiiaJLqNjOE1xhZdLnhIYMxe7flqAsneGsUcXTuFoXU8ZAoBI6/gbpUBa0SSaTvPkBWGfwaCwMGc9KES2cuRMWPit+U7esFf8nsrEA4MNqEc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VitZV0NCWFlHV0doRm05aGxmK29HaDhLUW5aVW4yYVNrR0doZkk5RGtoVlds?=
- =?utf-8?B?a0Z5d1IyRXJZM2tlSWV0RWVEcUlXSFJmNWw4bWg1Rk80WFV3b2crMDdKTCtl?=
- =?utf-8?B?ZmFXcTBVeGhac0xReWt2cE9hb0tQVi80NTcwRUc0amFyQ2RaQ3MwSXpUYWts?=
- =?utf-8?B?Zlo5cWFQcTM5cTBGdGJrNUNtOFlTTlZnM3ZtTDdMdEtTT295Ri9pOUhmZEJI?=
- =?utf-8?B?WGdWM1hybHZ5T1ora2pqM0NYNXdxY2RBYjZRTHNqODdxYVNhYmdodE85SDVS?=
- =?utf-8?B?djNSOXNHS3gxbmlFeEhvd09xRVcrRy9sWDRSNUgwOEROanBRM0RiZ2I4MGdn?=
- =?utf-8?B?TVNHUDgwN0FtYk00bjVMN0JIWktJcCs0RVNlK0cybVE2VGpEZzNMZjJXMlZM?=
- =?utf-8?B?ay90ZFhYRDVEVnRWczE2YXhZTkdFWUFFaFZjcWtEVFVoRmdmVExrNFdxYzVJ?=
- =?utf-8?B?bXlNVzlscUo1SDM4TUdRVDQ1YUNNMTNxM3o4MU5QU2FrRjlFQURydHZiV1BC?=
- =?utf-8?B?ZW12bVF4ZktLSjlJbDZsdGlVOVpta3gyb2NTcXhkM0gwRlR2Q2U3VmNIV0s5?=
- =?utf-8?B?cUt6L1B1em1CelY1M3NNcjJQTng0WjloQThBTjNmU0hQU1VWZ0VnYzRiSnRs?=
- =?utf-8?B?anQ1Rk15aFNNQnE5M3plKy81QUJKNjZyNG5oU1IvWDNpNVEzcHVKendxaGN2?=
- =?utf-8?B?dmZPUyt4SlJVZi96TzhvWGx4R2VDaGlaNVp5d3NaTmJzVWgrdGx5RTRXaXdQ?=
- =?utf-8?B?LzV5MVdjRVVFV3ZkZFhpNVFyQ3lwaE1qTkpKNTNqK3Evd1JBKzIxSWFkT2Zr?=
- =?utf-8?B?bmhabUVvWjRaclo0aGQxTDFKcmpFNnBWbm1abGNFMHdlNWVFWmtXQjJRekZm?=
- =?utf-8?B?N2JENDZUaGhwemJqb01xeDV2Qk54VFo0aEhPMXVJWkhRWHJhc0lSM0oyT1R3?=
- =?utf-8?B?MUJxMlB1a3ZUOHhPQ1dwUTBvckt3OGFVYjkzYmN2UzhnNVlma3dOMTZUN0k2?=
- =?utf-8?B?REt4anB3c1BCWUtWdDQ2MTkxM01YTzVQVkxubjlCamtLQWZyWTdzVEhpY2pB?=
- =?utf-8?B?aE9tdnBwbnk2TkNuUGxaRXdvY0RzajFvaCs4NVNEMm9aa0dYR0tpaDllMGdj?=
- =?utf-8?B?ano4RnFNMnNrcngzNkpKeGxBZ1Y4RkRmbTZrRVIvTnJPRjhKUkw1akVBMkJC?=
- =?utf-8?B?UUhxL3NodUVIM1BNeTNYSWg1Z1BkRzg5QlBzVjg4RjlVZEVSemFHYzk4UnpM?=
- =?utf-8?B?WDh5QjkydkQzVUJoeEFjYnczbFNreVJvdFY1NUJrMitPa0gxbjN5emc5ajRD?=
- =?utf-8?B?TTFPbGNodjZlQUJqTnNhby9uV09pMWsyMFVKSWpibE8xNXUrT3pzWTV3TjhU?=
- =?utf-8?B?NEdMY2VGanhaVTJsek50SkhIUlFxVTZPRFJTNkRYZnZJZjVGMDVLMzBFOHdV?=
- =?utf-8?B?NUV4czNianRJUXRrWHBZM3dydUQxL2dEK0pVQXgvNnZleGpqZ2RCWWczbGV4?=
- =?utf-8?B?cUc4eDM5Z0toYk5vWG52cHZhdTY0OUJSUlM1Z2N6UWxnb1YwUlpSeldwbzRE?=
- =?utf-8?B?V0V5RHEydlJIeVp0MDF2NDJwSTRNeUdYaVRjbFR3NmJ2Ry96emdPb00vMUJZ?=
- =?utf-8?B?a25zcmxvR1JhUnh3Ni8rMHV1dUlWZ3hRTm5WYWJDZEtBRHEvMkJKWk83dzg5?=
- =?utf-8?B?aVVzZUNWcVNHRUFXOWRGcjF0TWxNamxpM1BXdGZjelB0V0p3NzI5dWsyTDlu?=
- =?utf-8?B?NnphUGxIcDluVVVkcGlobVZ2YW9uVHk5SytCQkNlMElFWGtVOWpadWVGcjFk?=
- =?utf-8?B?MmV3RmNhdWtROWdxTlFubHF6NUl5L3lKUmZTdE5EUDZyVXRqMUsvY1BCSmxp?=
- =?utf-8?B?UlduTjUvUkNMSzlHY0N3RjlSTnh5aitMSWRYMGxDNUtVblNqWmdRaTVpM3E2?=
- =?utf-8?B?cUV6L0p0ZmNpYksvdjVPSC9SNmMyeFJ6ei9OV0ozLytPMGdJYW8zNzlJOVdk?=
- =?utf-8?B?ZHh4SEJ2Rlo3VFIwMFFKMkUrRFFyL1VkelM1bTErVmxKekJlR21FQ3NobmRv?=
- =?utf-8?B?QU15MGtaajlDa1NkNVB2a3preHJoQnZFazlrM0JsbzRjY2pHeFBwaFR0Vk9P?=
- =?utf-8?B?QVJsMytRY3lxVmc3NmpGRm13S2U3ODZYdTBhRlJxbXVlMU1QMTR1dWhRNmxR?=
- =?utf-8?B?ME1VaVB2dXNMSGtvRFRyWis4N0xQeExpMjRKdC9SVVUreUNJN0Y1UE9hNzI3?=
- =?utf-8?B?dG1nRWcyOG9OTmNpdyt6OTg1aERwNWxkNC9DTm9iRysvR0lvL0R0R3QyaVFQ?=
- =?utf-8?Q?6C07HocYpnCQnOUCMW?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4059d035-03bd-4d61-bcfd-08df02867fdb
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 08:54:40.6247
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ELR+yTCjT07m13uswxZyIVCT+PF+dnmQJec9VP7rkVW6hsVUOprw4vcBirsDUEUm2vzFbGpTWIbYxHD4uQShiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB4250
+References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
+ <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
+ <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
+ <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info> <aosGtkE_diwVJJtB@eggarch>
+ <20260823174059.46fec036.michal.pecio@gmail.com> <aoser8dLytrwqBC2@eggarch>
+ <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com> <226b2f34-fa25-4ca6-8afb-0b3dc942715c@amd.com>
+In-Reply-To: <226b2f34-fa25-4ca6-8afb-0b3dc942715c@amd.com>
+From: Mathieu Fluhr <mathieu.fluhr@gmail.com>
+Date: Tue, 25 Aug 2026 10:57:52 +0200
+X-Gm-Features: AcwNN1VgQYuPNfWZAsoIgdXuYlvjSNx0u-75mKCYFe6GTjYsbwfcHq3iOmLOPQM
+Message-ID: <CAPyJwA9GvqeaBYhN56L1S9YW-rwWgFejrcNcE=54DQC3Eaqxww@mail.gmail.com>
+Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
+ triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
+ (bisected to aec11e5f9c45)
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Lovekesh Solanki <lovekeshsolanki00@gmail.com>, Michal Pecio <michal.pecio@gmail.com>, 
+	Thorsten Leemhuis <regressions@leemhuis.info>, Mathias Nyman <mathias.nyman@linux.intel.com>, 
+	linux-usb@vger.kernel.org, regressions@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 24, 2026 at 09:47:36AM +0800, Hao Ge wrote:
-> If codetag_load_module() fails, err is never set and load_module()
-> returns 0 after the module has been torn down.
-> 
-> Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as module load failures")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  kernel/module/main.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/module/main.c b/kernel/module/main.c
-> index 46dd8d25a605..afb810f0154c 100644
-> --- a/kernel/module/main.c
-> +++ b/kernel/module/main.c
-> @@ -3568,7 +3568,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
->  			goto sysfs_cleanup;
->  	}
->  
-> -	if (codetag_load_module(mod))
-> +	err = codetag_load_module(mod);
-> +	if (err)
->  		goto sysfs_cleanup;
->  
->  	/* Get rid of temporary copy. */
-> -- 
-> 2.25.1
-> 
+> The behavior that is described here sounds like a platform firmware bug
+> Are you on the latest BIOS available from your OEM?
 
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+Ywa, And I even rolled back 2 BIOS before, All 3 are showing the issue...
+...even the exact same one (with the exact same CMOS settings) that I
+used in 2024 without any single issue.
 
--- 
-Aaron Tomlin
+> Can you please confirm:
+> Your CPU model number/codename
+AMD Ryzen Threadripper 7870X 32.Cores
+
+mathieu@ubuntu:~$ cat /proc/cpuinfo
+processor : 0
+vendor_id : AuthenticAMD
+cpu family : 25
+model : 24
+model name : AMD Ryzen Threadripper 7970X 32-Cores
+stepping : 1
+microcode : 0xa10810c
+cpu MHz : 2188.582
+cache size : 1024 KB
+physical id : 0
+siblings : 64
+core id : 0
+cpu cores : 32
+apicid : 0
+initial apicid : 0
+fpu : yes
+fpu_exception : yes
+cpuid level : 16
+wp : yes
+flags : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov
+pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt
+pdpe1gb rdtscp lm constant_tsc rep_good amd_lbr_v2 nopl xtopology
+nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor
+ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx
+f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a
+misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core
+perfctr_nb bpext perfctr_llc mwaitx cpuid_fault cpb cat_l3 cdp_l3
+hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall
+fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq
+rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw
+avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc
+cqm_mbm_total cqm_mbm_local user_shstk avx512_bf16 clzero irperf
+xsaveerptr rdpru wbnoinvd amd_ppin cppc arat npt lbrv svm_lock
+nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter
+pfthreshold avic vgif x2avic v_spec_ctrl vnmi avx512vbmi umip pku
+ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg
+avx512_vpopcntdq la57 rdpid overflow_recov succor smca fsrm flush_l1d
+debug_swap
+bugs : sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso
+spectre_v2_user tsa vmscape
+bogomips : 7988.27
+TLB size : 3584 4K pages
+clflush size : 64
+cache_alignment : 64
+address sizes : 52 bits physical, 57 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+[..]
+
+2. Your OEM (from /sys/class/dmi/id)
+I am using an ASUS Pro WS TRX50-SAGE WIFI
+
+root@ubuntu:/home/mathieu# cat /sys/class/dmi/id/board*
+Default string
+Pro WS TRX50-SAGE WIFI
+231230340100705
+ASUSTeK COMPUTER INC.
+Rev 1.xx
+
+3. OEM BIOS version (from /sys/class/dmi/id)
+root@ubuntu:/home/mathieu# cat /sys/class/dmi/id/bios*
+02/03/2026
+13.17
+American Megatrends Inc.
+1317
+
+4. AGESA version (see commit bc91133e260c8113c1119073c03b93c12aa41738 if
+the OEM didn't tear it out.  Otherwise look in BIOS menus)?
+
+The BOIS shoes this information (I also put the ones from previous
+BIOS I tested):
+BIOS 1317: ComboSP6PI 1.0.0.1e
+BIOS 1203: ComboSP6PI 1.0.0.1a Patch A
+BIOS 0803: StormPeakPI_1.1.0.0g
+
+On Tue, Aug 25, 2026 at 12:09=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+>
+>
+> On 8/24/26 14:37, Mathieu Fluhr wrote:
+> >> The issue is obviously a severe HW malfunction (you mentioned MCEs, th=
+e
+> >> Ryzen CPUs simply totally locked up), triggered by poking certain xHCI
+> >> controllers on the I/O die of these CPUs in some wrong way.
+> >
+> > Yes. As mentioned, I first thought that the emulator itself triggered t=
+hat by
+> > doing something that the CPU did not like.To be honest, I barely play w=
+ith old
+> > Android versions anymore, but seeing that I could reproduce it even wit=
+h
+> > Android 13 or 14 made me suspicious.
+> >
+> > I _guess_ Google implemented a workaround inside adb for version Androi=
+d
+> > 15 since using this version, it remains stable for more than 2 hours.
+> >
+> > But, in the end, the situation is that from a simple user account havin=
+g access
+> > to some usb plugged in devices (I usually add my user account to the pl=
+ugdev
+> > group and use some known udev rules to access my Android tests devices)=
+,
+> > you have a way to crash the complete system.
+> >
+> >> Opinions seem to vary on whether CPU load must be present or absent.
+> >
+> > On my side (and I am here only speaking about my TR. I don't know about
+> > other Ryzen CPUs), I can't reproduce it under load, and one condition t=
+o
+> > reproduce it is my CPU going in C2 state.
+> > -> I did a 2:30 hour test using several youtube videos playing at the s=
+ame
+> > time on my desktop, also stressing the emulator with some 3D Mark runs
+> > (as mentioned, I first suspected the nvidia driver to be faulty). As lo=
+ng as my
+> > computer was busy everything went fine. But then I let it stand still f=
+or a few
+> > minutes, and it just crashed.
+> >
+> > If you need me to do some further tests or experiments, let me know. I =
+will
+> > be more than happy to play the guinea pig here.
+> >
+> The behavior that is described here sounds like a platform firmware bug
+> to me.  Are you on the latest BIOS available from your OEM?
+>
+> Can you please confirm:
+>
+> 1. Your CPU model number/codename
+> 2. Your OEM (from /sys/class/dmi/id)
+> 3. OEM BIOS version (from /sys/class/dmi/id)
+> 4. AGESA version (see commit bc91133e260c8113c1119073c03b93c12aa41738 if
+> the OEM didn't tear it out.  Otherwise look in BIOS menus)?
+>
