@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F81E46F483
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D719E46F497
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:16:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663767; cv=none; b=uHrYGBxf0v430VySaAGavepVjXRmnOJ5r5RjGIuK2A7rRi87TKd5fmXVlXeEkHj98nrbZlzVSleeGy29vUe173Diac2brmqvJ83p8CnMancVcloeUfiJGWIWvzveY+yVLgleWiSolQ2g2i1sNxuX7UxTU+9uxu6ogm1FRkM4b1w=
+	t=1787663773; cv=none; b=OYzztr+oAbiwJm80zJzq2Tv1cF585iuXh2U/5807r2mME+LpshEUBQ6Q1i/vf75x2Ase2YfOPN1CTLOk2+95NQqHdAoJ30r21XKkCBde573cjlADD+pnDmt73VMYbDmDFZI6+2gF6Gk/qGpXPRoB28m+YShQQY7QT3697L2O3Kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663767; c=relaxed/simple;
-	bh=YWdmmksZT01Av5iheuLSd0ZziaxahDjsZnoWR77U/o8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ehXp7ODfq7/Zo1QKJwV3Q0uQPiYreGlNu/smYvO+2QOt+MmW9mOMdeajUQNs6Kl3ZCawBlV4vYzd4nLFaq2mVgIW8rutAbwaHeAiOhQlPCmfznfkZoGmp3k2hKEucIL7LYRmaTPMohQ97OJl7WiJqAdAg6jXtcgEMEwMq6c27h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ys8+ti7r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787663773; c=relaxed/simple;
+	bh=K0hOG7jBkexgDVmMzlgFbWgwo80jlOFIQd3+PSZ64zc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Cx/bvW9+Eim7F7T95POeZRzT+KHwG3n7Be+y2jdfeIJvkavzY/Q+b22no1Wq7rJ/PwM2mVCkYBSHArJzJKLtVFzX79ANBfm+dHJ+vF9Iz96ihXucVhlI8EY9aDDsjcQUiz9Yykah1g/PiSNemCgibZV+Q1Le9aHy0v7wDMzAovw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QQXkruIk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ys8+ti7r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3854E1F000E9;
-	Tue, 25 Aug 2026 13:16:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QQXkruIk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B2FB1F000E9;
+	Tue, 25 Aug 2026 13:16:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787663765;
-	bh=zZs6zUBjsvlO5OYOb+aLLfe5Dds7zaIAaASpesAIyoE=;
+	s=korg; t=1787663770;
+	bh=TJMeNU02rjJRl6o/dFfpUzK+I292AlWWyWsB8c2f+mM=;
 	h=Subject:To:Cc:From:Date;
-	b=Ys8+ti7rz4oVX9dCF7rolTwAjESe9bhuMrOpZrBNKYwdKpYAksLjS985nug0pFd14
-	 gYvecF4ktnCP+DknqnuIe30BX3DeSFeVTN0r6Xoz12h8G9kktYBGaMWUNHcF0d7Hnz
-	 FYHyrXGK/0wzmBWDHZCGCQNF6JQy/7tMzeUi6y+w=
-Subject: FAILED: patch "[PATCH] HID: ft260: fix stack-use-after-return write in I2C read race" failed to apply to 6.1-stable tree
-To: kernel-linux-20260610-80b7ab08@raman.v1.sg,jkosina@suse.com,michael.zaidman@gmail.com
+	b=QQXkruIk77sto2WnTVSK/QB8RxLWNI0SJJZR8wZqxjD3L/p3KO/qkJkY2mPULKfqp
+	 dWrRkjztHhiJAlPwTaiZT346VDhPsF30//Kbh7U3F6LYu/KfiInSSFxJyQrujZzd1u
+	 rmoNhN1wfhGMskeHBl+vN3GN3wyePlu31WzH2kMQ=
+Subject: FAILED: patch "[PATCH] HID: uclogic: fix use-after-free of inrange_timer on remove" failed to apply to 6.12-stable tree
+To: security@auditcode.ai,jkosina@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 15:15:38 +0200
-Message-ID: <2026082538-overhaul-surging-7a4a@gregkh>
+Date: Tue, 25 Aug 2026 15:15:55 +0200
+Message-ID: <2026082555-mummify-culprit-6c6b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x bf3e39df3a397fd82967a31d17c4e02c7feab221
+git cherry-pick -x 506fd50a9027340f0e9dcc587d10ccb03312dba6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082538-overhaul-surging-7a4a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082555-mummify-culprit-6c6b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,145 +62,71 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bf3e39df3a397fd82967a31d17c4e02c7feab221 Mon Sep 17 00:00:00 2001
-From: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
-Date: Wed, 10 Jun 2026 22:29:52 +0800
-Subject: [PATCH] HID: ft260: fix stack-use-after-return write in I2C read race
+From 506fd50a9027340f0e9dcc587d10ccb03312dba6 Mon Sep 17 00:00:00 2001
+From: Ibrahim Hashimov <security@auditcode.ai>
+Date: Tue, 14 Jul 2026 19:39:46 +0200
+Subject: [PATCH] HID: uclogic: fix use-after-free of inrange_timer on remove
 
-ft260_i2c_read() points dev->read_buf at a caller-supplied buffer
-(often an on-stack variable), arms a completion and waits up to five
-seconds for the device to return the data. The HID input callback
-ft260_raw_event() runs in the input/IRQ path, independent of the
-dev->lock mutex held by the read path, and copies the device-supplied
-payload into dev->read_buf after a plain NULL check.
+uclogic_remove() cancels the pen in-range timer and then stops the
+device:
 
-These two paths share read_buf, read_idx and read_len with no
-serialization. If the device delays its response until the read
-times out, ft260_i2c_read() resets the controller, clears read_buf
-and returns, unwinding the stack frame the buffer lived in. A
-response that arrives at that moment lets ft260_raw_event() pass the
-NULL check and then memcpy() the device-controlled payload into the
-now-freed stack location, a bounded but attacker-influenced
-stack-use-after-return write triggerable by malicious or
-malfunctioning hardware.
+	timer_delete_sync(&drvdata->inrange_timer);
+	hid_hw_stop(hdev);
 
-Add a dedicated spinlock that serializes every access to read_buf,
-read_idx and read_len. ft260_raw_event() now holds it across the
-NULL check, the memcpy and the index update, while the read path
-takes it when arming and when clearing the buffer, so the teardown
-can no longer slip between the check and the copy.
+timer_delete_sync() only guarantees the timer is idle at that instant.
+uclogic_raw_event_pen() keeps delivering pen reports until hid_hw_stop()
+stops the transport several lines later, and every report with
+pen->inrange == UCLOGIC_PARAMS_PEN_INRANGE_NONE re-arms the timer:
 
-Fixes: 6a82582d9fa4 ("HID: ft260: add usb hid to i2c host bridge driver")
+	mod_timer(&drvdata->inrange_timer, jiffies + msecs_to_jiffies(100));
+
+A report landing between the timer_delete_sync() call and the transport
+teardown in hid_hw_stop() re-arms inrange_timer after it was cancelled.
+uclogic_remove() then returns and the devm drvdata is freed, while
+hid_hw_stop() has already freed the input device drvdata->pen_input
+points at, so when the timer fires ~100 ms later
+uclogic_inrange_timeout() dereferences freed memory -- a use-after-free
+in timer-softirq context.
+
+Swapping the two calls is not a fix: stopping the device first frees
+drvdata->pen_input via hidinput_disconnect() while the timer may still
+be pending, so a timer already armed before removal fires on the freed
+input device in the window before timer_delete_sync() runs.
+
+Use timer_shutdown_sync() before hid_hw_stop() instead. It cancels the
+timer, waits for a running callback while pen_input is still valid, and
+prevents any further re-arming -- a later mod_timer() from an in-flight
+report is silently ignored -- so the timer is provably dead before
+hid_hw_stop() frees the inputs. This is the ordering the timer core
+documents for this "timer re-armed from another path" teardown case.
+
+Fixes: 01309e29eb95 ("HID: uclogic: Support in-range reporting emulation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
-Reviewed-by: Michael Zaidman <michael.zaidman@gmail.com>
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
 
-diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 946ed0c6fc39..64c9c940db46 100644
---- a/drivers/hid/hid-ft260.c
-+++ b/drivers/hid/hid-ft260.c
-@@ -240,6 +240,8 @@ struct ft260_device {
- 	struct mutex lock;
- 	u8 write_buf[FT260_REPORT_MAX_LENGTH];
- 	unsigned long need_wakeup_at;
-+	/* Protects read_buf, read_idx and read_len against ft260_raw_event() */
-+	spinlock_t read_lock;
- 	u8 *read_buf;
- 	u16 read_idx;
- 	u16 read_len;
-@@ -501,6 +503,7 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 	int timeout, ret = 0;
- 	struct ft260_i2c_read_request_report rep;
- 	struct hid_device *hdev = dev->hdev;
-+	unsigned long irqflags;
- 	u8 bus_busy = 0;
- 	/*
- 	 * STOP terminates the last chunk; clear means hold the bus so a
-@@ -534,9 +537,11 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 
- 		reinit_completion(&dev->wait);
- 
-+		spin_lock_irqsave(&dev->read_lock, irqflags);
- 		dev->read_idx = 0;
- 		dev->read_buf = data;
- 		dev->read_len = rd_len;
-+		spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 
- 		ret = ft260_hid_output_report(hdev, (u8 *)&rep, sizeof(rep));
- 		if (ret < 0) {
-@@ -551,7 +556,9 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 			goto ft260_i2c_read_exit;
- 		}
- 
-+		spin_lock_irqsave(&dev->read_lock, irqflags);
- 		dev->read_buf = NULL;
-+		spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 
- 		if (flag & FT260_FLAG_STOP)
- 			bus_busy = FT260_I2C_STATUS_BUS_BUSY;
-@@ -570,7 +577,9 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 	} while (len > 0);
- 
- ft260_i2c_read_exit:
-+	spin_lock_irqsave(&dev->read_lock, irqflags);
- 	dev->read_buf = NULL;
-+	spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 	return ret;
- }
- 
-@@ -1053,6 +1062,7 @@ static int ft260_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		 "FT260 usb-i2c bridge");
- 
- 	mutex_init(&dev->lock);
-+	spin_lock_init(&dev->read_lock);
- 	init_completion(&dev->wait);
- 
- 	ret = ft260_xfer_status(dev, FT260_I2C_STATUS_BUS_BUSY);
-@@ -1102,6 +1112,7 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
+diff --git a/drivers/hid/hid-uclogic-core.c b/drivers/hid/hid-uclogic-core.c
+index b73f09d26688..0b8a83fa6c5b 100644
+--- a/drivers/hid/hid-uclogic-core.c
++++ b/drivers/hid/hid-uclogic-core.c
+@@ -548,7 +548,17 @@ static void uclogic_remove(struct hid_device *hdev)
  {
- 	struct ft260_device *dev = hid_get_drvdata(hdev);
- 	struct ft260_i2c_input_report *xfer = (void *)data;
-+	unsigned long irqflags;
+ 	struct uclogic_drvdata *drvdata = hid_get_drvdata(hdev);
  
- 	if (size < offsetof(struct ft260_i2c_input_report, data)) {
- 		hid_err(hdev, "short report %d\n", size);
-@@ -1110,6 +1121,8 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- 
- 	if (xfer->report >= FT260_I2C_REPORT_MIN &&
- 	    xfer->report <= FT260_I2C_REPORT_MAX) {
-+		bool complete_read;
-+
- 		ft260_dbg("i2c resp: rep %#02x len %d size %d\n",
- 			  xfer->report, xfer->length, size);
- 
-@@ -1120,8 +1133,15 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- 			return -1;
- 		}
- 
-+		/*
-+		 * Hold read_lock so a timed-out ft260_i2c_read() cannot
-+		 * clear read_buf between the NULL check and the memcpy.
-+		 */
-+		spin_lock_irqsave(&dev->read_lock, irqflags);
-+
- 		if ((dev->read_buf == NULL) ||
- 		    (xfer->length > dev->read_len - dev->read_idx)) {
-+			spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 			hid_err(hdev, "unexpected report %#02x, length %d\n",
- 				xfer->report, xfer->length);
- 			return -1;
-@@ -1130,8 +1150,11 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		memcpy(&dev->read_buf[dev->read_idx], &xfer->data,
- 		       xfer->length);
- 		dev->read_idx += xfer->length;
-+		complete_read = dev->read_idx == dev->read_len;
- 
--		if (dev->read_idx == dev->read_len)
-+		spin_unlock_irqrestore(&dev->read_lock, irqflags);
-+
-+		if (complete_read)
- 			complete(&dev->wait);
- 
- 	} else {
+-	timer_delete_sync(&drvdata->inrange_timer);
++	/*
++	 * Shut the in-range timer down before stopping the device.
++	 * uclogic_raw_event_pen() re-arms inrange_timer on every pen report
++	 * and keeps running until hid_hw_stop() stops the transport, so a
++	 * plain timer_delete_sync() here can be undone by a report landing in
++	 * the window before hid_hw_stop().  timer_shutdown_sync() cancels the
++	 * timer and makes any later re-arm a no-op, so it is provably dead
++	 * before hid_hw_stop() frees the input device drvdata->pen_input
++	 * points at.
++	 */
++	timer_shutdown_sync(&drvdata->inrange_timer);
+ 	hid_hw_stop(hdev);
+ 	kfree(drvdata->desc_ptr);
+ 	uclogic_params_cleanup(&drvdata->params);
 
