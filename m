@@ -1,231 +1,131 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669EF3803C5
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670F6357CFC;
+	Tue, 25 Aug 2026 16:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787675786; cv=none; b=cCdcFC3IzvQjlTd5QUO0D5nv1+jIOfKEphUc2GryaeZyWt074TtT54NxJWkNt/3VgEtlCoGBjrKxlpQMsII2JQIIihaQX5ngqttWpsfK0ZDPeZo/EQYjL5d/ss0efbTKM6Efo2tB8jk9BYicEpu3upfPiq8ZF90Eu8h4urgqpy0=
+	t=1787676794; cv=none; b=decM5bxYNYEN/tZ+an4cNkUz88jrpBInqhnknIxnySW29ISQUeZdLU7V4qrxUQ/UC8K3V2XgKhUZ/wCPs9JDbWweyZj6ezxuzUT6Y54FbhcDNg+iMhFHbpQbgX5FBRZJRmWR+29+PbvJkK1D0BddD5FLF7PQJ+jnzPsbMZayhgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787675786; c=relaxed/simple;
-	bh=72I17/r8hJEj/sUpPJTVnlUiD4GOIv9aAX0QpfW7en4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ENMdI49z8WlAI65aIOfio/vc8G9PzES/ZwPa0uzHnQxBPWjghJkat2+KXnQV2l3higrRnqeBw3vtZXGQnxfJR6f71IhCq+vwpO0LIimwxj8cDhwNOrFrRwVWsQmptLMOqT0+ETjnqwXumr/iqfEmvDlrZCRi0gVRSm8VbC7pCHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OFNcVdj7; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787676794; c=relaxed/simple;
+	bh=+1w877Is4LscSJhePxSfNtkgYNPcZ3dI1MzNgaouPUA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 In-Reply-To:References; b=ftCOn6Ef/Y+0iN2rOkhtAsGUGS2q7q4M0dgR0pF22Kn4mO6Yx0A6nUbmuVwnfZFRWnSvkrtujijUN3+UQsPJpcHlmhAk3Kdm/1KnYUoEcYLG5AzeEuvO/DNAZr69pu4/fy1xrjwv0d/KFXiiR/J0E2CeKh6HTT6AvMCcWXjax6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jeiY/C+Z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OFNcVdj7"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=72I17/r8hJEj/sUpPJTVnlUiD4GOIv9aAX0QpfW7en4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787675782; v=1; x=1788280582;
- b=OFNcVdj70xaovKh0+Z33cQSE2CTTACR0Txs8g2SkN3vT+nY1aVj+1K2BwwEBh1rLtxmaadno
- uB/XzuhnevNpJfQ4zar950uZl9NfiJP9FMG3NdSL1kYDgtGddKI84Yep8Z0C7F3FihTxLDuXSTB
- P0v+ZPmM7OIBont9hvVKtWws=
-X-Envelope-To: stable@vger.kernel.org
-Received: from lb03055.. (2601:647:6300:a030:488e:1b9c:4a00:b63e)
-	by smtp.migadu.com with ESMTPS id 3490b55e6e069dcb;
-	Tue, 25 Aug 2026 16:36:22 +0000
-X-Mizu-Trace-ID: 3490b55e6e069dcb
-X-Migadu-Flow: FLOW_OUT
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-To: stable@vger.kernel.org
-Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
-	Zhu Yanjun <yanjun.zhu@linux.dev>,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: [PATCH 7.2.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
-Date: Tue, 25 Aug 2026 18:36:05 +0200
-Message-ID: <20260825163605.21809-1-yanjun.zhu@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026082516-phrase-console-29b9@gregkh>
-References: <2026082516-phrase-console-29b9@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jeiY/C+Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F3032C2BCB8;
+	Tue, 25 Aug 2026 16:53:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787676794;
+	bh=+1w877Is4LscSJhePxSfNtkgYNPcZ3dI1MzNgaouPUA=;
+	h=From:Date:Subject:To:Cc:In-Reply-To:References:Reply-To:From;
+	b=jeiY/C+ZHtC73FpGCwl7KuA2mfKZAqcp8yCtBYExAUP5qGHtQuN1g/I4TvXQEgJZa
+	 Cfbv/RfvMyRcxNvJIdnVo5dbjn3gIIvCtEJe3tGPt7njZFpS7xxubD7zLSzuBpNAWr
+	 JYJJpLV9PiAdNUxakPe8xL6lTKZHakE1gns8mLIDsaYH+FdVMZxr35piJdX7R/r45R
+	 EB9AmHDGCCeoSjaUAmc/qXp6UtJzR7aAw3XAsi36hh67Wttehzcf22jdhq0/lKCLyR
+	 bclEK65/d2tBgwSCN6+WQ/JIa3Pw7nieQ/hjxc3RpIWgeRGS9secdt13N/fOyD2KDV
+	 vLiA3wnMlVX9g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF188C61DBD;
+	Tue, 25 Aug 2026 16:53:13 +0000 (UTC)
+From: Vishnu Razdan via B4 Relay <devnull+vrazdan.openai.com@kernel.org>
+Date: Tue, 25 Aug 2026 09:52:03 -0700
+Subject: [PATCH 6.6.y] io_uring/io-wq: fix worker accounting when canceling
+ creation callbacks
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260825-stable-io-wq-6-6-y-v1-1-c9f890168485@openai.com>
+X-B4-Tracking: v=1; b=H4sIADLIjWoC/y2MSw7CMAxEr1J5jasS1IC4CuoiMS4NQinE5VNVv
+ TtOQLOap5m3gHAKLHCsFkj8ChLGqGW7qYAGFy+M4awdTGNsczAtyuT8TemI7wdazYzeGdr11JK
+ hPejxnrgPnyI9ga1tPUP3w/L0V6YpC/PQO2H0yUUaMvqrCy1mWNcvDve2R6EAAAA=
+X-Change-ID: 20260825-stable-io-wq-6-6-y-ba2c3fc5c2c7
+To: stable@vger.kernel.org
+Cc: asml.silence@gmail.com, vrazdan@openai.com, krisman@suse.de, 
+ axboe@kernel.dk, io-uring@vger.kernel.org, gregkh@linuxfoundation.org
+In-Reply-To: <2026082423-fineness-promotion-9ac5@gregkh>
+References: <2026082423-fineness-promotion-9ac5@gregkh>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787676793; l=2337;
+ i=vrazdan@openai.com; s=io-wq-kernel-20260811; h=from:subject:message-id;
+ bh=VKXeGsfnMBFtjlWVBZ3PVT5X6resbdE+aaVqCUQBHaw=;
+ b=cMPsI3bfyS4J/eutD9UJRVgZ7c6ppKcOg/mj1NypZn98YswYPv5cx12ROriVJTjkccI9/sHfg
+ 8xb7wxVT+LyAHcnstiJ0GFff2huUiw1h6vfl+7GmbHBxx4T3qJFW798
+X-Developer-Key: i=vrazdan@openai.com; a=ed25519;
+ pk=45vHW8D/KId5RtsP3Qx7zMcNpgDwEvCnL5uAw0KzuS0=
+X-Endpoint-Received: by B4 Relay for
+ vrazdan@openai.com/io-wq-kernel-20260811 with auth_id=937
+X-Original-From: Vishnu Razdan <vrazdan@openai.com>
+Reply-To: vrazdan@openai.com
 
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+From: Vishnu Razdan <vrazdan@openai.com>
 
-free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
-Updating max_dest_rd_atomic before freeing the old array can make the
-free path walk past the old allocation and trigger a slab out-of-bounds
-write catched by KASAN:
-==================================================================
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
-BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
-Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
+commit 297b5ccea4acacaa47c150f043bce695202afbf1 upstream.
 
-CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0xf7/0x600 mm/kasan/report.c:482
- kasan_report+0xe4/0x120 mm/kasan/report.c:595
- free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
- rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fefc75a70cd
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
-RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
-RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
- </TASK>
+create_worker_cb() reserves an io-wq worker slot only after its
+task-work callback runs. If the callback is canceled before then,
+io_worker_cancel_cb() still decrements acct->nr_workers. When an
+existing worker retires with its creation callback pending, that
+worker has already decremented the same account's worker count.
 
-Allocated by task 11063:
- kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5296 [inline]
- __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
- rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+The resulting undercount permits worker creation beyond the account's
+configured limit. On an AST2600 OpenBMC system, an unchanged sensor
+daemon reached 4,291 threads with the original kernel. With an
+equivalent downstream fix, 25 passive samples under its normal
+workload showed 6-9 threads.
 
-The buggy address belongs to the object at ffff88802b8ddd80
- which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 0 bytes to the right of
- allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
+Decrement nr_workers only when the canceled callback is not
+create_worker_cb(). Continuation callbacks still release their reserved
+slot, and both callback types retain the existing running-count,
+reference-count, and create-state cleanup.
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
- set_page_owner include/linux/page_owner.h:32 [inline]
- post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
- prep_new_page mm/page_alloc.c:1861 [inline]
- get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
- __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
- alloc_slab_page mm/slub.c:3278 [inline]
- allocate_slab mm/slub.c:3467 [inline]
- new_slab+0xa6/0x670 mm/slub.c:3525
- refill_objects+0x278/0x420 mm/slub.c:7272
- refill_sheaf mm/slub.c:2816 [inline]
- __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
- alloc_from_pcs mm/slub.c:4750 [inline]
- slab_alloc_node mm/slub.c:4884 [inline]
- __do_kmalloc_node mm/slub.c:5295 [inline]
- __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
- tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
- tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
- tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
- security_file_open+0x7a/0x1b0 security/security.c:2739
- do_dentry_open+0x57e/0x1690 fs/open.c:924
- vfs_open+0x82/0x3f0 fs/open.c:1079
- do_open fs/namei.c:4699 [inline]
- path_openat+0x218a/0x3190 fs/namei.c:4858
-page last free pid 1 tgid 1 stack trace:
- reset_page_owner include/linux/page_owner.h:25 [inline]
- __free_pages_prepare mm/page_alloc.c:1397 [inline]
- __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
- selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
- inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
- selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
- security_d_instantiate+0x123/0x190 security/security.c:3704
- d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
- kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
- lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
- open_last_lookups fs/namei.c:4611 [inline]
- path_openat+0x17dd/0x3190 fs/namei.c:4855
- do_file_open+0x20c/0x430 fs/namei.c:4887
- do_sys_openat2+0x101/0x1d0 fs/open.c:1364
- do_sys_open fs/open.c:1370 [inline]
- __do_sys_openat fs/open.c:1386 [inline]
- __se_sys_openat fs/open.c:1381 [inline]
- __x64_sys_openat+0x141/0x200 fs/open.c:1381
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[ Backport: retain the existing wq->lock protecting worker accounting. ]
 
-Memory state around the buggy address:
- ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
- ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
-                                        ^
- ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
- ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
-
-Fix the OOB by moving the assignment after free_rd_atomic_resources()
-so the old array is freed using the old bound. This matches the original
-ordering in commit 8700e3e7c485 ("Soft RoCE driver").
-
-Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
-Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
+Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-(cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
-[This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
-Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Assisted-by: Codex:gpt-5.6-sol
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
+Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
 ---
- drivers/infiniband/sw/rxe/rxe_qp.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Stable backport for linux-6.6.y.
+---
+ io_uring/io-wq.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index f3dff1aea96a..bd48ef80fa49 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -707,10 +707,8 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
- 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
- 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index 37725c5031b4c2..a20be1a43aafcf 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -193,9 +193,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
+ 	struct io_wq *wq = worker->wq;
  
--		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
--
- 		free_rd_atomic_resources(qp);
--
-+		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
- 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
- 		if (err)
- 			return err;
--- 
-2.43.0
+ 	atomic_dec(&acct->nr_running);
+-	raw_spin_lock(&wq->lock);
+-	acct->nr_workers--;
+-	raw_spin_unlock(&wq->lock);
++	/* create_worker_cb() has not reserved a worker slot yet. */
++	if (worker->create_work.func != create_worker_cb) {
++		raw_spin_lock(&wq->lock);
++		acct->nr_workers--;
++		raw_spin_unlock(&wq->lock);
++	}
+ 	io_worker_ref_put(wq);
+ 	clear_bit_unlock(0, &worker->create_state);
+ 	io_worker_release(worker);
+
+---
+base-commit: dc6160265ffc795a1832bc1424f58291d152c7bb
+change-id: 20260825-stable-io-wq-6-6-y-ba2c3fc5c2c7
+
+Best regards,
+--  
+Vishnu Razdan <vrazdan@openai.com>
+
 
