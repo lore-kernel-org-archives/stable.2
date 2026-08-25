@@ -1,93 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEED61FCE;
-	Tue, 25 Aug 2026 05:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C5F3A4F50
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 05:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787634769; cv=none; b=YmOk1f8qG3k1QXx94dOOzBoZGSlBKTJCClf3HOGGvTR96TWoiCN/1+fsTAJ+EqCZhliQ3Vp8s51uk+0bRuGBYgm8Iu716fTLPkKRTeETrciKZzz8T1aJyIOAc9aGb1Ynf0h2aq7Fez/u07ohSGpKXj5Y4vEt0hyycHU/GiNbNlo=
+	t=1787635257; cv=none; b=jibmCpoHZ76gwNeVo61p2dkXsevaKSMrqfE/sulZZJHomaWODaZrg4D3LCwcI1jj4u4lxEmhnqCnKdtlStKbLY6Yg1y2++QhCBSWWGIElVXQzGa1yaV9W1AsU2ODYCorF1unn5nipzwB5XO9vHLvERuZ15E0iSaPfvyd/a431ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787634769; c=relaxed/simple;
-	bh=MRCf7eCThAO7A+U8cmPm9hmnIT5mafRy/QU1wCCCzoA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=msGevNLoW3LEVhulLdUostbuDWtol9HzVBVP6sM0i9WhcUgLOOcn8n3CrVjUrDSbjE6WOpv5+ExpKp8t2RApIwpsJeeokkAB+X9CrXjlf7RiEGbX2SoiVZXQJS3bV35ev8jYRg7GdlQSSp2coZutCnqXiSihmqPGk2VamBXjlqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BkHI3TsO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787635257; c=relaxed/simple;
+	bh=c/zSn87gCTjzjIcjnVDD3vC4OrOaxiOrWIvV+BS/duw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e7C0xnrCePZS+DJoOr2jhGpIbq9yb4Fv/Qf+8ul32LdSZ0GzhHCton1afiTOlKxpUXOsH3lss2zGRGGS8yqAEamStCvEgpR9MLMwVSDJAGUeAyBo0bWRcgTphUzWy8SZ8qzQ77x++hoTLUZ8blWxwDTV5urTU7uMocxuuhK9wKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VoEf9y1g; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BkHI3TsO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61A2A1F000E9;
-	Tue, 25 Aug 2026 05:12:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787634767;
-	bh=jsue9NmQQ5qqCa2scGSeG7VvIZy1SQTrcL5VDepieHI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BkHI3TsOTVW1bSyIeJQCTR4koLPYsF3y91mCvzPozfUIDulLy/csM2JF+8CQ2lc36
-	 RO8iZ7Dx9nhIdonWj+MGna4gRFC+jQvTc1ffGPe5OwwfI2LFt6ajRa/s6c8uRuaD3w
-	 D+B2emObkd2dXi6tKlwxt+uru7alNrksPG/wsJi8=
-Date: Tue, 25 Aug 2026 07:11:06 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>
-Cc: heikki.krogerus@linux.intel.com, jeffinphilip14@gmail.com,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	mika.westerberg@linux.intel.com, stable@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VoEf9y1g"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e58034d05so3877274a91.2
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 22:20:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787635255; x=1788240055; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c/zSn87gCTjzjIcjnVDD3vC4OrOaxiOrWIvV+BS/duw=;
+        b=VoEf9y1gP7SYXJGzmJW+aPGJ/eFT4Nlkhg7RFrY81/uo6KQI83tcin2Rl9/B3Bb3vz
+         O9JESsHMOo9afrcc0oXv0q+9OEN8InpnOGCoPhNAI/mathf6a80VXpP0RKRapoGjdXPO
+         It0OlRYExxdubEa1B02k9JK85e9gZGDBwQ3V4b/kg74FOjptX59xua/c5AxY0CuJPTqd
+         M/JnNzTScf9EBYV0yBqw7F0P3uMykjSXc/CloTO91Uf2Fnf74/MB98y/NjvsW11BoPDd
+         ukODbYxZwni4YHN7KHfatvxOZIisNQUNP/X6ytxfLa/0JxCbl9vSDRsT6xVh5ea3R4wi
+         KaIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787635255; x=1788240055;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c/zSn87gCTjzjIcjnVDD3vC4OrOaxiOrWIvV+BS/duw=;
+        b=SyvM4bsrYGxExCKbcFmCgyhRD4XdJAM+c/fVWhcd8WnLY8M7pLSobngkHatENc3AEd
+         ETzFXp04D6V1YBrhTygLLq/HHdX7MUespGoL/B80byCr5teIotzAkHOZWvhxr6Mj9xP3
+         lmvcpGREGMwqPSVcYviPKHz8flDW8quvk92v8JTKvIWnehtLSooWfiYAmxXxrFfS2RCP
+         o+ajsWt1lB+fI7jED7BWMc7n0f63JP0eLyt51n0AMEhMfzZIMWQwwQig1mDUwfkyNrNa
+         uhaSUrFC88hPSpWCD04MD+2WjN063peVaVvRt7+Vw/sTg3G7FU8SI51nG1LOQdSCG9jO
+         fGAQ==
+X-Forwarded-Encrypted: i=1; AHgh+Romd6RGZphX1yGv54UMf1jrjrGqJhvbL5MVKHTX5ELEfRyTAAkXCInsxcbjyi5nqoQJH4GQP2c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/6PZoaGwVus0OBhPA2AfZbpkmxZDS+oxvT3kGaWIe7+o+wbLA
+	TSlURsAfCsNKa1sO1Z7OizV9+2x0akphfXZKu8ycozbOpjvX4bofbBGO
+X-Gm-Gg: AR+sD10JCNE4AMCPdaWkwb7w5RmSgIuvMQ8Krd9VTDpii6if2H6Cas3Ia8y2OSS2Ik2
+	XoiYLSTyFIZx4nFJ4SrtH/6ZUfj6vXJh7culUzFn+0HNGer/jH8Uqu4O/gzg03EOIkKC1WDYP+w
+	HVEYYj1kgLo7Utk4sC98u9lLZbLNUNrVUqFuzzW0TpKx1AgCoV8XDb4XHP9REuWd5DWSSz+W6/K
+	Fv/SuW3m0ColKZyTYKhXLFcQfPOVsI5E8R65vFv/zfUP7epj532SRIVqFuz1A3K0xwb+peWPbMU
+	GYF/8e3F0oBHI4EKl3/jO6pHjLD807t0qnIbET3Eh3nbBpRg6uuiHe25EwuiDj9en8Qjj9DhRNx
+	yKCrvKiAqW5fFM6QHy4CHtvPn3cGzwTGsP7cOZUVt/PQ5MTy2c/EFGaqQp6b+gElpEwQZmrV7aR
+	pYqBG4f18jLQj4SHbwFDoGWHWsI1pxuMreWARICEwTNybomhAOb5KRitjJFJFlWeY=
+X-Received: by 2002:a17:90b:4a81:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-395c33ec558mr54049572a91.7.1787635254932;
+        Mon, 24 Aug 2026 22:20:54 -0700 (PDT)
+Received: from Default ([2409:40f4:1006:fae2:f5ac:f8df:7687:b6f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d36f9sm48047175eec.16.2026.08.24.22.20.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 22:20:54 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: heikki.krogerus@linux.intel.com,
+	jeffinphilip14@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mika.westerberg@linux.intel.com,
+	stable@vger.kernel.org,
+	syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com,
 	syzkaller-bugs@googlegroups.com
 Subject: Re: [syzbot] [usb?] general protection fault in wcove_typec_probe
-Message-ID: <2026082540-tarantula-gigantic-b786@gregkh>
-References: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com>
- <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
+Date: Tue, 25 Aug 2026 10:50:29 +0530
+Message-ID: <20260825052038.23669-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026082540-tarantula-gigantic-b786@gregkh>
+References: <2026082540-tarantula-gigantic-b786@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
+Content-Type: text/plain; charset=y
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 08:43:40PM -0700, syzbot wrote:
-> syzbot has found a reproducer for the following issue on:
-> 
-> HEAD commit:    66498c75b4f8 Merge tag 'dmaengine-7.3-rc1' of git://git.ke..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1253719e580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3e64b1bf01d830ed
-> dashboard link: https://syzkaller.appspot.com/bug?extid=1a01783ea233350598b5
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> userspace arch: i386
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17491979580000
-> 
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-66498c75.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/5ce4685e13ba/vmlinux-66498c75.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/6a32d8e997a7/bzImage-66498c75.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com
-> 
-> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-> KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-> CPU: 0 UID: 0 PID: 5912 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> RIP: 0010:wcove_typec_probe+0xdb/0x780 drivers/usb/typec/tcpm/wcove.c:621
-> Code: 48 c1 ea 03 80 3c 02 00 0f 85 af 05 00 00 48 8d 7d 08 4d 89 af 88 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 7f 05 00 00 49 8d bf 90 00 00 00 48 8b 6d 08 48
-> RSP: 0018:ffffc90002f6faf8 EFLAGS: 00010202
-> RAX: dffffc0000000000 RBX: ffff8880226c1000 RCX: 0000000000000000
-> RDX: 0000000000000001 RSI: 0000000000000001 RDI: 0000000000000008
-> RBP: 0000000000000000 R08: 0000000000000004 R09: 0000000000000000
-> R10: ffff888014243883 R11: 000000000000001f R12: ffffffff904a7ea8
-> R13: ffff8880226c1010 R14: ffff8880142438c0 R15: ffff888014243838
-> FS:  0000000000000000(0000) GS:ffff888096982000(0063) knlGS:00000000f67e5b40
-> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-> CR2: 0000000032e24008 CR3: 000000004e2f1000 CR4: 0000000000352ef0
-> Call Trace:
->  <TASK>
->  platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
->  call_driver_probe drivers/base/dd.c:628 [inline]
->  really_probe+0x241/0xa60 drivers/base/dd.c:706
->  __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
->  device_driver_attach+0xd1/0x220 drivers/base/dd.c:1203
->  bind_store+0xf4/0x190 drivers/base/bus.c:267
+On Tue, Aug 25, 2026, 10:42 AM, Greg KH wrote:
+>Please do not think that this is a valid path for syzbot to be
+>fuzzing...
 
-Please do not think that this is a valid path for syzbot to be
-fuzzing...
+Understood
+
+Thanks,
+Jeffin.
 
