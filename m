@@ -1,237 +1,181 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D95D3E9C18
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:11:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787649110; cv=none; b=mluKNJNGzrd1z1mSpo328FNEJONUylaTRZfrVpH6JYQtdPfeXm8RRs1tCifrW6hiamKf1IN6oOcH0Un5AhM+Ak5LHWw6bsTWpErGGzEsMvtzH55MHhMDW7BPT6oGiSW07PiUxpcI9to2+NHg3/nwH4nDu/jH8ig5mHQuXFiNLNQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787649110; c=relaxed/simple;
-	bh=IJM12IPhydPMhVfgKAD3r1R+hMTUt/15MFROcI+Z0fY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UKusBTpv+3HUi3xlc9IMH+KC5s43iU+ax7BAJJ5SQUgO/i+ArzdZ30YXzeHdl0fuygvK8TI/EuwXw0RmgnlIYXw3rDUawp+Ep/F4spPe39yykVRq/vgtaYnUWN/J9vGCUekwwTXFFcgvM6WHO/vD2a5lHtp4ZVt76njrN4uTXZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fhiuw5Ez; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TzUoQf+I; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D47B3EDE42
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787649395; cv=pass; b=FcpCLcDCIIKNZIZqDb5cG+/iQ5y6n4NOTzkXR4W+RbeiOnOulg24z1ojS6eNF1CCGC7pCZHDHorYbmNylR4gtsjtQmnjaELfOCweX05gGkLaqnXvCgFYO7bNURx+d3RPdnA1q+uQgHZhE5yn8AV28Q7fdIA5Vz8bKHi8EaN58Cg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787649395; c=relaxed/simple;
+	bh=H1SQ4hT1KQqrQV7vp8N8BkgUmq8q7U6yAUaePAyRclk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n0RGIDgMsHIeJqBlaxkBSa68gDpBkaDS9LHX3iHf2uy/5U0I6S6wHQiCBkCRysMnpP+znAdh9O0XtiMEbTk5yoeyfaw3IgybWj39kG0KtdxTnuqaUETqk2aVPWhBvq1Y+QqP/b0cdljEvMDHOJOm04q91GaEcqZzanREFSxyo6I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=O0eCtH5X; arc=pass smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fhiuw5Ez";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TzUoQf+I"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67P88QqF196255
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:11:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=P4U1vKKGfvsW3iPMjF5IU+
-	stSAtAMqxWdBp0JhDoid0=; b=fhiuw5EzKiQn8wsZnJKIEsnbHGR6yM9HywjfsP
-	bM0BBGxudparrVcEB1xOr2i+7cPegsEqhA6R/3PuAHgabYcDVYjkJfGhsAG7Seav
-	8TAIlIJ0UT2pB5nzohvZ+u+Z6TYLaV8wxXflGaFROjjKzey1ez7fUtU3mS01M4Ij
-	gm4clV50QQIeLO2JlRrAJe/r67P3XabCF3CVEQvMgkMieBN8A8iVxmD/eS5zIaOd
-	pY0clRCE9zryEhmbCvjnXhS7/HjF9AXjL1Q+sCHfS2R2IjJUcRb+InGnOMQfdXSX
-	fnkKs5g+Dqy1sUrdIdWMpINaM2tM/SBQl7mjFzVwlh95YUtQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g93pvh3nn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:11:47 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3954def0191so8129732a91.3
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 02:11:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="O0eCtH5X"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8485b358552so1820710b3a.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 02:16:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787649391; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gwvSden9LPqtxwpBhRy1eG+yM/IwVgp2hdh2ufYrScc0tHWlKPA2vSkY7TWD42Dy58
+         gE1r3oLSpGAAGllY8fNZA7wsnS64FeBQz34LFmId1Z747hBtmGTX9AfpL7Vf+QGEgd69
+         AoZaqIuf/6OCHTp/1phAZyD/E83mXLieoyTmA3j6RRMdTrXJhZWIO2LSeDpkEhqyGgLH
+         oh4MqznqEM4j30ICAF5ohho0g8E2XnLVqjWFnd7atYizOqW2ils2ziy3YEgzAkpyHisd
+         rJTpqYgDhebPolzM/hAe9nE54fjuGFGom/BIdOi+8dzt3NEveQ8bjxGndSrAEiHzdK/6
+         eDeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TsUhMFps5aAYQXcyo1u4kyTUSwki3n35BuVuvGeBTu4=;
+        fh=qDTUoCH/PKV83Q1K79eBZbNnKuPPA00qmr6BoTBMfdg=;
+        b=lJxLn9JvcA228nYYJGCW3j7HlriLiANNZWPv4E1V1CPcJwHrcGDQvtlUy2cgiz5p/b
+         Xb9rhnpJ1CjSnMX5/dWmGm/lQlc+Fn6gl9PG9gnj/flg1oTzckDiv8oghiz/QoiNmJp5
+         QS6waCZCLZqvmS839yzZKflhmsZwzn4erYKd+BOJJdo3jyGG/N3T87MLbNq6atkseor1
+         3QF1fsF+ovxLvdFiBeyYEPjLKWPOwKUbB3apPdUhlxOJ9wGHj+ut1wIlmJCh/xv47tfg
+         v3ahSD+/MhJx0Zua24IsTrmXkXw49/Ru4sWPibvlZTzvfOnjmoOLITApOgGaAonWZpzS
+         95cw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787649107; x=1788253907; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=P4U1vKKGfvsW3iPMjF5IU+stSAtAMqxWdBp0JhDoid0=;
-        b=TzUoQf+IhO9Vj4V9vclhi+huShX1KTaG8cPycfTn2tv96lmsy7NtJLFM6RLnXRThID
-         6N4D6jXVE+kmuEDBPOey+eZmiBOtMb95DjQmAt3QPo53fvsx4AONaG06bzl1WNW1KYSq
-         U3eayVgHvCM6JupLJiNzMSLF+eZNIVmOzywDxVVRkop/MHpGxcOPjuyPxROq8opkp8Vl
-         22ka7GNJ66n+XRhFWgPev26vP251YR3v4pDQbRuzLWs3SzhoMrwsGj/X0Zgy39gjIbLw
-         5VO/DAadFLOlgRsgxt7rMr6gYEzAHaqCfHGXzjCIAZ/r/60AQNZ9AbBM82rbW/TqAJ5D
-         Y5kQ==
+        d=mojatatu.com; s=google; t=1787649391; x=1788254191; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TsUhMFps5aAYQXcyo1u4kyTUSwki3n35BuVuvGeBTu4=;
+        b=O0eCtH5XeSlMe5GvOZxWYo6NQEfGagDs1O8inrdRt/WIMTnsgEj1cVmAryjtJ65SSQ
+         iiLca48oaDfMLC01MpS7BlMSGgDynPdXXU07OBZC3BCJQRndyJtu1ic0G9Oga2eLrYOh
+         UmIycSYcABaJpM5EKhOvLaqwtIOKVeszrxrj0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787649107; x=1788253907;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=P4U1vKKGfvsW3iPMjF5IU+stSAtAMqxWdBp0JhDoid0=;
-        b=Lxhlqm2lv4vhN8QCaD3m1VqdCGwUe4IsNLw90e0q85N0HweNGfOCgZINSVaTZCg49y
-         WJtbYCMHnT7K+/7fPS7EKqHnSU7kRBwam1kGT9lwCh/V58PmcQJ59cZelX4fcItNtTT/
-         5EFjeTM9whvWaXY7ddAXbYciyRoWrEJYj+T4+f9ysC5TWIr1WzHoyitN4gAU3OgCsLXE
-         5fExKzzDLY/UbHeBRveuUKh3kdcze5P2D0LkbXJ1uU1G5tze3HeXr9W5l8VuLQU/7O2D
-         kF1MmXrbj4cfFOQ456f5pW9FQ5Aexd3/DkOhWsSi343y5U2b10vFicRywzZCYYV+8kdk
-         bMRQ==
-X-Forwarded-Encrypted: i=1; AHgh+RppNTUj1/VbPrWLOVzZvo6UObS0pA+6wwFvambFnq3kZwIUEwxQN6XCudRNGD8kLNp3B3Fva08=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWyTXuSxxxgPohj4Gk1+tCZBhDgUImfV6vcUY6GYqnagDlWezF
-	mRqvCRQ4nKHXf+jTQCASwERUpTNxazGYW6IZV4M/SZMRCvL4w8/CMhSbMCuxgW/Bd/eJpy6j1z1
-	cV9wNFZ3PLNbq8ZHrHkbPc7z2SHBDuNpU8A8+c0ytuiak/D/LUekISAqNGGg=
-X-Gm-Gg: AR+sD12ev05Dggod2AsgOd33oUwNGgh4dNyF4fapYYRtiLA876Wq3TeW5U4MMzmhHLi
-	0OCwAXdEkMqlhQgRn60H0SxrHx4RHbzLyf6QQuGMVKjs9UkUbCaOCnceB0p+aTe4owixylevXgU
-	aY5/yiY5ZkHRUMvQSyLJGSZXd8UdpPAU5AFA+34cFhYAzf5ktF+Q8D0qtHAcis1CpCsKGn5skwI
-	pK8ZxOkzBa0zOp3qAvjGVfCNkIL6OxNneijGiSnNUHY+I+l2C4eoIh6zWmvGW4YAAbFOWDHCcAT
-	wiys5k+V7kwq2IKxurLzAwD5V9cQOqtjaU0ByH2oVXH8w+VxTRjkGWlXQbKySfkx5n7VW6ctDIF
-	f1BQPhB1cOuUOGe47HTwaK9TiaOqA48URuw==
-X-Received: by 2002:a17:90b:4a81:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-395c34fed98mr54562633a91.4.1787649106740;
-        Tue, 25 Aug 2026 02:11:46 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a81:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-395c34fed98mr54562526a91.4.1787649106314;
-        Tue, 25 Aug 2026 02:11:46 -0700 (PDT)
-Received: from hu-ketakish-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3965d119724sm895766a91.2.2026.08.25.02.11.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 02:11:45 -0700 (PDT)
-From: Ketan Kishore <ketan.kishore@oss.qualcomm.com>
-Date: Tue, 25 Aug 2026 14:41:41 +0530
-Subject: [PATCH RESEND v2] amba: bus: Fix race condition during DMA
- configure at IOMMU probe time
+        d=1e100.net; s=20251104; t=1787649391; x=1788254191;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TsUhMFps5aAYQXcyo1u4kyTUSwki3n35BuVuvGeBTu4=;
+        b=DuEBgohkadHWHW0ZRXVk9eerPZiD0KoTK8BtJ+vIShQ0fZsgt40RexgPFQXdTlRXBp
+         L5VOh0OKlBoN22DUPdcGITqxT+6yLYNEatFueX9edycFwY0uZ71STtGAc0WvCAHKZ85C
+         3p+CugIMlJpp8jiYEunLnB3U3SYzEKn2DRYD0kfP367++z8I2wjo03teS22san+p8r9K
+         lJOQOfG9S/zmnkL+a8+ZMeczgtVXJWst+kjpvBE/GGODlH+FQVDG/OpQlDLJmq38g2+6
+         b+DPdogLTSNSuf1x61LH2wI0X3oni0E1hBrg324XxqwGJthe8xfxzDTK4F1MbdfwKI/S
+         GO1w==
+X-Forwarded-Encrypted: i=1; AHgh+RrwRKMtbUYQ4Ozbf2PQADdUov++5HoYtgjIeddmLzlP1WaA+Mq2igvDJNbK0+rx2EvRfMx9fEo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZSOm1Rt9AZ1LigGgAoNEcrvT0E256RIZIeI3ziFUVvCtjQKqy
+	tdtiidbbURVAwGj6ErhnT+1ImxYAgbu+ktsHaPo6bO8X+e09tQDUV1byzJUgPUV1L7cjmhnhStP
+	A1kShnnJWRkEk6aAZwPoQuJUzgY5pr993NUM4xux9
+X-Gm-Gg: AR+sD13BDovCH1yu60Oz54udSEBmsg7VNqfJ4EKr+idnlHzkUNIk2OB0SNilKS2Fnpm
+	rWhubZyihrzwtKWxYtvVnsPurBtVgShAMnh/P3t+PK1swgvDDiViQtSKNjXeVCSPsbusrd2tccT
+	c87tigDcK7KEopusN8bOZFKRCbf5L8RbuBSaPdmvkJmU2loFhVQBYErwuN/jBLI5Mgobk7GwKI6
+	y7FAJr4w4+S1VEmoWkUXVTCL/kro1r5pi0p79AJCvUvYKfNDm+h4rBrHbRUBx1jfK+QjDezaeWu
+	NVCdHSEocD1jD9v4vuMCsWVYJMKpwV1+GE/er4maWDBUMZU57QFGPce2
+X-Received: by 2002:a05:6a00:2e17:b0:848:2a71:a48a with SMTP id
+ d2e1a72fcca58-851fa024b2fmr53883728b3a.13.1787649391557; Tue, 25 Aug 2026
+ 02:16:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260825-iommu_races-v2-1-49de6de71357@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAExcjWoC/22NsQ6CMBRFf4V0toS2QMHJQVYHHY0xpRSpEaotN
- BrCv1uqgyQuL7kv954zAiO0FAasgxFoYaWRqnMBrwLAG9ZdBJSVywBHOI0oiqFUbTucNePCQBa
- TlPCc1XmGgVvctajl09OOYF8cit0WnD5/M5RXwfsZNTcbaXqlX15rke9/DcnCYBFEkPBYVIiUK
- GNko4wJHwO7cdcK3fECi38RdInADlFFJaVZjmnC6j+IaZrefLfxYAoBAAA=
-X-Change-ID: 20260714-iommu_races-a4363c9af982
-To: Russell King <linux@armlinux.org.uk>,
-        "Rob Herring (Arm)" <robh@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Joerg Roedel <jroedel@suse.de>
-Cc: kernel@oss.qualcomm.com, Robin Murphy <robin.murphy@arm.com>,
-        Will McVicker <willmcvicker@google.com>, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Ketan Kishore <ketan.kishore@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787649102; l=3320;
- i=ketan.kishore@oss.qualcomm.com; s=20260617; h=from:subject:message-id;
- bh=IJM12IPhydPMhVfgKAD3r1R+hMTUt/15MFROcI+Z0fY=;
- b=0U42JO1fVzs55rtzLetyDoRhGmBMGfCcfn/oEopbGzFncYkkZn+5kCZOeArp0goFSshVKBreU
- h+JAAMv4e9OCCZizZ/70gP61XBKXTacOGKcSWZqA523nZ+78Gi1JFHc
-X-Developer-Key: i=ketan.kishore@oss.qualcomm.com; a=ed25519;
- pk=4sb5Ima5x03wc0KSnl57v8kR/7FxMt01+xlZJ53rSJU=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDA3NyBTYWx0ZWRfX1v547D1zMpD9
- jcm56oarqeG1AGuJNdxc/j/BWrKVclYC6vKoiYLV7+Jg0QA7CJnS7y32qiKg0aRTds/NEyH/7k7
- l8//mJb/qDuT/k80ptZu5s1dC/xqgaw=
-X-Proofpoint-GUID: hu7BRDDhMnKB5UkvlWT9YWkFd3aPCNcy
-X-Proofpoint-ORIG-GUID: hu7BRDDhMnKB5UkvlWT9YWkFd3aPCNcy
-X-Authority-Analysis: v=2.4 cv=Ru716imK c=1 sm=1 tr=0 ts=6a8d5c53 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=PHq6YzTAAAAA:8
- a=7CQSdrXTAAAA:8 a=1XWaLZrsAAAA:8 a=9jRdOu3wAAAA:8 a=DEt-5Vgr3fpEtGrxzCkA:9
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=FO4_E8m0qiDe52t0p3_H:22
- a=ZKzU8r6zoKMcqsNulkmm:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=ZE6KLimJVUuLrTuGpvhn:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDA3NyBTYWx0ZWRfX9ntYbgS8bHH/
- LPG+/Zn8uN480LG7PxmRgqH81axLeTWhcQN9JyOU74r+ab1j2A40IxWjpy/2PtVVsnV+XkAlXrS
- OARCNiWmVRM08bvLdFR5LhvajOOG5HUImCEi4ngzOtWimgpIrF3a7+NJ5TYhExIAkNnu6or/y5A
- qnJ0MMZmhl4m+f0juRZRSyDS7az8vXoID+xLKUuVnVuQsGP4hChTlZQE8VFo4fVI0YkUGs/Y4PF
- Gscmx6QgeMFRGBe22ABW1Fjtli4s8zQveOrvL9lWh/vOiAnuAr6rBb9KFv1udNf+n7EgfW3E3se
- RCaSFXsVx3prV6C909xjXEc1bzgdjsg80aE64zcuWoYxtLCf/psBi5suJaDWTJ16mOnUOMouC4w
- cxIXUl3tLc9BDNiURROMMGUKurKR0wwpjDVv3puQbg+5KyatY9yi5DyTPCBIHPA0b4V2NWX7bJX
- vJ+TEF7ydRzYYTVwNVQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-25_02,2026-08-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
- phishscore=0 malwarescore=0 impostorscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608250077
+References: <20260822195509.112717-1-jhs@mojatatu.com> <20260822195509.112717-5-jhs@mojatatu.com>
+ <62618ef6-28f1-4d0d-916a-96fc54dfc2e3@redhat.com>
+In-Reply-To: <62618ef6-28f1-4d0d-916a-96fc54dfc2e3@redhat.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Tue, 25 Aug 2026 05:16:20 -0400
+X-Gm-Features: AcwNN1W4dU6fkQMaBEtZid1fXZrnyh2RgeBk2usssVcuBGElMZCq7KTBOpf55LU
+Message-ID: <CAM0EoMkwr5idTgLSfB3azrfbBasGVGXrOPSJMUpyQKkgCgZgTw@mail.gmail.com>
+Subject: Re: [PATCH net v3 4/6] net/sched: fq_pie: clamp default quantum to
+ avoid signed overflow
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	"Mohit P. Tahiliani" <tahiliani@nitk.edu.in>, "Sachin D . Patil" <sdp.sachin@gmail.com>, 
+	"V. Saicharan" <vsaicharan1998@gmail.com>, Mohit Bhasi <mohitbhasi1998@gmail.com>, 
+	Leslie Monis <lesliemonis@gmail.com>, Gautam Ramakrishnan <gautamramk@gmail.com>, stable@vger.kernel.org, 
+	vega@nebusec.ai, Victor Nogueira <victor@mojatatu.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-amba_dma_configure() can be invoked from the IOMMU probe path while a
-device's driver is still being bound asynchronously by really_probe()
-on another thread.
-Call trace:
-  amba_dma_configure
-  __iommu_probe_device
-  probe_iommu_group
-  bus_for_each_dev
-  iommu_device_register
-  arm_smmu_device_probe
-  platform_probe
-  really_probe
-  __driver_probe_device
-  driver_probe_device
-  __device_attach_driver
-  bus_for_each_drv
-  __device_attach
-  device_initial_probe
-  bus_probe_device
-  deferred_probe_work_func
-  process_scheduled_works
-  worker_thread
-  kthread
-  ret_from_fork
+On Tue, Aug 25, 2026 at 4:33=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
+te:
+>
+> Hi,
+>
+> On 8/22/26 9:55 PM, Jamal Hadi Salim wrote:
+> > fq_pie_init() sets q->quantum =3D psched_mtu(qdisc_dev(sch)) without
+> > clamping. A device with a huge MTU (e.g. dummy with max_mtu =3D=3D 0
+> > accepting MTU 2147483634) makes psched_mtu() return 0x80000000, which
+> > overflows the signed flow->deficit to INT_MIN in fq_pie_qdisc_dequeue()=
+,
+> > causing an infinite loop and soft lockup. Emulate fq_pie_policy which
+> > is already bounded to [1, 1 << 20]; clamp the default to [256, 1 << 20]=
+.
+> > 256 matches fq_codel's floor and is a sane minimum for a DRR quantum.
+> >
+> > Conditions to recreate the bug: a device whose MTU (plus
+> > hard_header_len) wraps psched_mtu() into the sign bit (e.g. a dummy
+> > device with max_mtu =3D=3D 0 accepting MTU 2147483634). Requires
+> > CAP_NET_ADMIN in a user namespace.
+> >
+> > Fixes: ec97ecf1ebe4 ("net: sched: add Flow Queue PIE packet scheduler")
+> > Reported-by: vega@nebusec.ai
+> > Tested-by: Victor Nogueira <victor@mojatatu.com>
+> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > ---
+> >  net/sched/sch_fq_pie.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
+> > index 069e1facd413..b27d95418707 100644
+> > --- a/net/sched/sch_fq_pie.c
+> > +++ b/net/sched/sch_fq_pie.c
+> > @@ -427,7 +427,8 @@ static int fq_pie_init(struct Qdisc *sch, struct nl=
+attr *opt,
+> >       pie_params_init(&q->p_params);
+> >       sch->limit =3D 10 * 1024;
+> >       q->p_params.limit =3D sch->limit;
+> > -     q->quantum =3D psched_mtu(qdisc_dev(sch));
+> > +     q->quantum =3D clamp_t(u32, psched_mtu(qdisc_dev(sch)),
+> > +                          256, 1 << 20);
+>
+> Sashiko thinks that the soft lookup is still reachable via pie_change:
+>
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260822195509.112717=
+-1-jhs%40mojatatu.com
+>
+> and has similar concerns for patch 6/6, too. It marks the issues as
+> pre-existing, but AFAICS they overlap with the things addressed here.
+>
+> WDYT?
 
-dev->driver is read and converted to a struct amba_driver before it
-is known whether dev->driver is actually set. If a driver bind
-completes concurrently with the IOMMU probe path, the
-driver_managed_dma could end up being dereferenced through an
-invalid pointer derived from NULL.
+You are right, they overlap. I had them as followups (with a few
+others derived from the sashiko feedback with justification that the
+v3 init-path clamps are independently correct and the stab cap already
+mitigates the change-path worst case to a stall; but those two a
+(adding max(256U, ...) to both fq_pie_change() and sfq_change(),
+matching the fq_codel_change()) are more serious.
+So if you'd prefer a v4 respin of the whole series, I can do that.
 
-Update amba_dma_configure() to read dev->driver once and test if it's
-NULL before using it. This ensures that we don't dereference an
-invalid amba driver pointer if the device driver is asynchronously
-bound while configuring the DMA.
+Sashiko is a double edge sword - i think code quality is improving but
+it feels like the work load has doubled ;->
+Here's what i had as followups (some still to be vetted, just noting
+what sashiko is stating to be reviewed later when cycles available and
+potential followup patches sent):
+- sch_dualpi2 unclamped psched_mtu
+- sch_pie unclamped psched_mtu =E2=86=92 AQM disable / div-by-zero
+- hhf TCA_HHF_HH_FLOWS_LIMIT unbounded
+- fq_pie_change() / sfq_change() 256 floor missing (one that you bring up h=
+ere)
+- DRR/ETS quantum=3D0 spin (have a patch, was reported already as a bug by =
+vega@)
+- Consider two separate clamps for fq_codel/sch_codel (nipa
+gpt-5-6-sol-3-15): quantum in [256, FQ_CODEL_QUANTUM_MAX], mtubounded
+separately (no 256 floor on mtu)
 
-This is the same TOCTOU race already fixed for the platform bus in
-commit 95deee37a123 ("platform: Fix race condition during DMA
-configure at IOMMU probe time") and for fsl-mc in commit 152f33ee30ee
-("bus: fsl_mc: Fix driver_managed_dma check"). amba_dma_configure()
-has the identical pattern, so apply the same fix here.
 
-Fixes: bcb81ac6ae3c ("iommu: Get DT/ACPI parsing into the proper probe path")
-Cc: stable@vger.kernel.org # 6.1+
-Signed-off-by: Ketan Kishore <ketan.kishore@oss.qualcomm.com>
----
-Changes in v2:
-- Change the patch's commit description to only CC stable for 6.1+ stable kernel branches
-  and not for all stable releases prior to 6.1 .
-- Link to v1: https://patch.msgid.link/20260715-iommu_races-v1-1-3c4ed13b18a3@oss.qualcomm.com
-
-To: Russell King <linux@armlinux.org.uk>
-To: Robin Murphy <robin.murphy@arm.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Joerg Roedel <jroedel@suse.de>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: kernel@oss.qualcomm.com
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-kernel@vger.kernel.org
----
- drivers/amba/bus.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/amba/bus.c b/drivers/amba/bus.c
-index d721d64a9858..0cdda7e07af7 100644
---- a/drivers/amba/bus.c
-+++ b/drivers/amba/bus.c
-@@ -324,7 +324,7 @@ static void amba_shutdown(struct device *dev)
- 
- static int amba_dma_configure(struct device *dev)
- {
--	struct amba_driver *drv = to_amba_driver(dev->driver);
-+	const struct device_driver *drv = READ_ONCE(dev->driver);
- 	enum dev_dma_attr attr;
- 	int ret = 0;
- 
-@@ -336,7 +336,7 @@ static int amba_dma_configure(struct device *dev)
- 	}
- 
- 	/* @drv may not be valid when we're called from the IOMMU layer */
--	if (!ret && dev->driver && !drv->driver_managed_dma) {
-+	if (!ret && drv && !to_amba_driver(drv)->driver_managed_dma) {
- 		ret = iommu_device_use_default_domain(dev);
- 		if (ret)
- 			arch_teardown_dma_ops(dev);
-
----
-base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
-change-id: 20260714-iommu_races-a4363c9af982
-
-Best regards,
---  
-Ketan Kishore <ketan.kishore@oss.qualcomm.com>
-
+cheers,
+jamal
+>
