@@ -1,158 +1,108 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C35122D785
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E5A2F7EF5;
+	Tue, 25 Aug 2026 18:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787682757; cv=none; b=ryYLpwbWeAeRU2rdOnWlzTljEOxem6HBU/OAqxb3DvqhB+FjFOq6UNz8t1nRyQENASKcDsuEyE8d0squNL2khj0wcwJYpKmqy5azsSubVW5J0Y3nBQCnX7eNvGlUCairAYA97KPfBlx2n5WE3LyWy2d2YeFEJEe62aRLNjgS5Os=
+	t=1787682790; cv=none; b=klpftLtEjBNEdvTepTeQkZb+PeLniPuAs0fHHuPB2Xl5uQvDTyvOF4MqQLLb+24FRNz2jYztF0yTZBoQ80uPUtpBrQ/EHc9tEt4PiWh7/ozypK1wMuaM3ucDXpKL39Vh0xJF6NybUwm4odkNpl5/95l7AK9+3iSAUD8I5u8o0V8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787682757; c=relaxed/simple;
-	bh=PEUh5RLGTVidTbS/TJT9PVJi1gQFkodyRDfs9AfH9W0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kwlaOXxN3BAN3fhLzlVTE9qMeddTFzJHyG/5Wk0C/f1mUU9518GqdMPtJMi/awy6zHFKX3+JpCVPclPJrN+2vfnU6+6RV/c3I3jN5Zrh39Q5AEy3fHD/V5ILKPfwuSmu5TVvTgZnt6y56LP/1JIUUz6BNk95ysNWAdtWmcDcak0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dal9Q50D; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=P1cC7LUa; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787682790; c=relaxed/simple;
+	bh=4K01LHN6qb5PtX6z6TN1QScw5jNk4evkNGwp0rqp8Aw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fS8yk16oXXn9Q53Rc2FQBHEdzyYESdrFbe5ThN/fRV1MvGsS1BYArffJQjNCP91CgwsmWBK+dgZo9DlLfpLKZyYFXs/Mlk386EByTApvSeSbJN421onjT2MBZZXLR6aTjzRQWb9U/F6zTVU83qDxVXIBWrsZG5rrAlAzSic9w8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ptgcm8q0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dal9Q50D";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="P1cC7LUa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787682755;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=w+YMnu6id4V5XvUuXw+f6RGrlFEPCBCMRJX1CXIFo/0=;
-	b=dal9Q50Du6F8VNqgG/2BBs57FNIZW+dLj4jq1gRV1NnVW3fiH7VQ4o2HTF3OdVY9w6Ien9
-	mjJ7GYRXHEvOYNiTL5GV+BYE3+wR0dEnL3cJyilxcJf40OcMNzk0Jin1xqWyPfkjW4hiWF
-	SRb3wZ3AVFEsOXu9jTnYPkD0SRzHlwI=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-624-buLVv2RVMxSlJVCJP8XxZQ-1; Tue, 25 Aug 2026 14:32:33 -0400
-X-MC-Unique: buLVv2RVMxSlJVCJP8XxZQ-1
-X-Mimecast-MFC-AGG-ID: buLVv2RVMxSlJVCJP8XxZQ_1787682753
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-907c59bd73bso2220506d6.3
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:32:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787682753; x=1788287553; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w+YMnu6id4V5XvUuXw+f6RGrlFEPCBCMRJX1CXIFo/0=;
-        b=P1cC7LUaBMS/bemdbt8p0lP9ItP8vkiZnrrvyqKby+G6k0rwMWBM1wrtLxbTmHglYS
-         vnHT/h0FKoU6phXpa3zShHDOp1zEM93vziiz1ud/wwPe4pPcB05VkElUS3jucSZmmwdC
-         W+A6nRb6eYtvxj1cQTnEBcckde8TTGjS6e+U2fE80+jo/DGEcMfNpSLgBwqK/x/k/aXk
-         4mC5yqrgvhZXbmaV+bt3XWDQ+O9j9WUNXCxQtZuzOpaJvI+zTTLrnMg7ss2Dl2T9ZMrr
-         Auj/1VGcwB/RlMA86VmhPqMEFkw6QyLRsWdAUt+UFu6BSPh3CAttEgH7VQXYRezACYdZ
-         /ugA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787682753; x=1788287553;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w+YMnu6id4V5XvUuXw+f6RGrlFEPCBCMRJX1CXIFo/0=;
-        b=s8mCXJNonCU077Llc54dM3lkiZjWf5JV/C8x8lp3Bf0wn/m/hpdS8wLoB9G0nNYfYj
-         /c5aXHVW3H/6TDDeWGkDl18e/ZWi7T6yByhhSsicXVXEjsXvFgnbmdD3JhIjI18ez+pp
-         3eCYOxLPnz/0pD+7hLqldmh524LfpJ6j4G4fWr3qXETxsAKoQPjjQ9mxFue3g+CJFQ3e
-         6zwbzGIPQ4ULraQP+E3ROK04KTCd3sF2yuu9/DEDZ8pp94OLAFOEdICENMDu5Xinl4Ba
-         iIUwdnO+pn7qEpxPDJrL+Fvl1t7pmgtIuKut2yTxnrtrPNVvRWSYRZhDzMTKfOW75mhp
-         Hw+A==
-X-Forwarded-Encrypted: i=1; AHgh+Rrj+nlEWtY03lTilMe/d8Mk0LDRpqt5PZzc/wgOelmngJM3JcH59Msg6gsgMnbGmaOGmaJ5Pnw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lo5HjQXP6VTuVLImVKFfU9LKe+XjG/YV6AZf9ENkA0OOpxwqFF
-	5FUBXN/o9/LUYR34Gzj6Ocn6sUeL6/+O6zoqr3PbrV1HWT+BWwYI+SKVLi40gRMV0qvlZ9qJm5q
-	zJb8IUoUQGapXHuYeOxi1mkVpONvXZzbtu/1fuTfltH05GV+M0xl/S6YCCg==
-X-Gm-Gg: AR+sD10I6/PbYI/7fJCoWjOAO3qBKYHfD7g1AUk926t6hspkReAb55qMJN+oZK/eFJF
-	QkLTsAlhVIANy1IqvtwmCxq6kVIkKCYG9LazImVhEy+X739rz73P3JKR/tkces3D1+4uowXjZrD
-	AE4sZySobIsvL0VHVASkuX2QsFQV9Pj98I2pt4LurkdmQF6MK4Ia0KWsc5FmLLDhuJ3EO8C+9RY
-	Ewv5vuQ/ffwBLq+oGZbtZQSJtwZAipLEk4KiaWU3zfE0E6hPZPApWA/2n5B+awQ+e8E4fheKXyd
-	gvLsBhSFJ2CZ20W0PHiNQRx2fuZPnt7DIxuL3XZ/nstb4RpFbYCxXVFBZ0gj6iI18FmpyMLVl6m
-	mwKdhc3yXtygOt+9h524Oeza9mv+MlDs65G7h6tuW6GKdDW+G3PMuMrrOFz3x
-X-Received: by 2002:a05:6214:4608:b0:907:c0e1:62e4 with SMTP id 6a1803df08f44-90cc792d3e7mr7220706d6.9.1787682752999;
-        Tue, 25 Aug 2026 11:32:32 -0700 (PDT)
-X-Received: by 2002:a05:6214:4608:b0:907:c0e1:62e4 with SMTP id 6a1803df08f44-90cc792d3e7mr7219776d6.9.1787682752382;
-        Tue, 25 Aug 2026 11:32:32 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cc641a940sm5250666d6.20.2026.08.25.11.32.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 11:32:31 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org
-Cc: pc@manguebit.org,
-	linkinjeon@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] smb: client: fix heap overflow in cifs_do_set_acl() from mismatched ACL format sizes
-Date: Tue, 25 Aug 2026 13:32:29 -0500
-Message-ID: <20260825183229.3799705-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ptgcm8q0"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EA0E21F000E9;
+	Tue, 25 Aug 2026 18:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787682789;
+	bh=E4pjEVfIBYcDkbvVtMTqNuQnn3UBD9+nNXnxWS4ELdc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ptgcm8q0P8Q2kAi1T1huXYgjtAY5fGGe90vLLCHn8DrvNMpUnd1YRf5xDyYLINRYX
+	 C3DHX8pf46WNGOJC8MH4eftUrJYDQnyppOqpJHuL+As04VzTx057otS0wPOb2Q+tBp
+	 jhnax1SqD0SEsU9eoMzKztgyixdx3YAyPwsPhE3hX6+lMMEl81A3jzjdPvhOAniJhy
+	 uHqq9IP2gtWgJNHyXmoMEm196ugEhUTpfdMrGp9YtL59i5z11JNWRSedf4yRxXMHb+
+	 99N+EJajwC39Vk8sadOFmDMAUtWbF9JAdM+ILU7bHDb5fhbUAqoTji8tgHpX86Aco1
+	 NVFOpcZkGVM6w==
+Date: Tue, 25 Aug 2026 11:33:08 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 1/5] xfs: always set xfs_healthmon::first_event when
+ inserting at front of list
+Message-ID: <20260825183308.GW6072@frogsfrogsfrogs>
+References: <178760941052.944364.16602293998794359025.stgit@frogsfrogsfrogs>
+ <178760941102.944364.11828316232110118627.stgit@frogsfrogsfrogs>
+ <20260825064017.GA24532@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825064017.GA24532@lst.de>
 
-cifs_set_acl() validates ACL size using posix_acl_xattr_size(), which
-computes the Linux xattr format size:
+On Tue, Aug 25, 2026 at 08:40:17AM +0200, Christoph Hellwig wrote:
+> On Mon, Aug 24, 2026 at 10:36:12PM -0700, Darrick J. Wong wrote:
+> > From: Darrick J. Wong <djwong@kernel.org>
+> > 
+> > LOLLM complains that __xfs_healthmon_insert purports to insert a
+> > xfs_healthmon_event event at the start of the event list, but neglects
+> > to update first_event to point to the unmount event if there were
+> > already events in the queue.  That results in list corruption, so let's
+> > fix this problem.
+> 
+> I can't really follow this..
 
-        4 + (count * 8)  // 4-byte header + 8 bytes per ACE
+Let me try again:
 
-But cifs_do_set_acl() calls posix_acl_to_cifs() to write the CIFS
-wire format into the same buffer:
+"LOLLM complains that while __xfs_healthmon_insert is supposed to insert
+an event at the head of the list, it doesn't do that correctly if the
+list isn't empty.  In that case it *should* make our new event point to
+the current head, and then make the head point to the new event, but
+it doesn't actually update the head."
 
-        6 + (count * 10)  // 6-byte header + 10 bytes per ACE
+> > diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
+> > index d8b95af33a3e9f..166ef0d5864486 100644
+> > --- a/fs/xfs/xfs_healthmon.c
+> > +++ b/fs/xfs/xfs_healthmon.c
+> > @@ -276,8 +276,7 @@ __xfs_healthmon_insert(
+> >  	event->time_ns = (now.tv_sec * NSEC_PER_SEC) + now.tv_nsec;
+> >  
+> >  	event->next = hm->first_event;
+> > -	if (!hm->first_event)
+> > -		hm->first_event = event;
+> > +	hm->first_event = event;
+> >  	if (!hm->last_event)
+> >  		hm->last_event = event;
+> 
+> event is the newly inserted event.  We want to queue it at the
+> head of the list (why, btw?).
 
-For the same entry count, the CIFS format is ~25% larger.  An ACL
-with a near-maximum count that passes the xattr-based size check in
-cifs_set_acl() can overflow the heap allocation when written by
-posix_acl_to_cifs().
+The only event that gets inserted at the front is the unmount event.
+This signals that the filesystem is being completely unmounted (not just
+detached from a mount ns) and there's nothing further that xfs_healer
+can do to fix the filesystem.  Therefore we put the unmount item first
+in the list so that xfs_healer won't waste time trying to find the
+mount to do repairs that it won't be able to make.
 
-Before converting, validate that the CIFS format size fits in the
-remaining buffer space.  Replace the bogus hardcoded MaxDataCount
-value (1000) with CIFSMaxBufSize.
+> The next point in event points to
+> first_event (which can be NULL).  And first should always point
+> to event, otherwise we potentially never queue anything up?  I.e.
+> we never ever actually set first?  Not sure how that is related
+> to umount.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
----
- fs/smb/client/cifssmb.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+xfs_healthmon_push will set first_event if the list is empty.
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index f5aad5f61dce..4ce22fe3cb2e 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -3555,6 +3555,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
- 	int rc = 0;
- 	int bytes_returned = 0;
- 	__u16 params, byte_count, data_count, param_offset, offset;
-+	size_t cifs_acl_size, bytes_available;
- 
- 	cifs_dbg(FYI, "In SetPosixACL (Unix) for path %s\n", fileName);
- setAclRetry:
-@@ -3575,7 +3576,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
- 	params = 6 + name_len;
- 	pSMB->MaxParameterCount = cpu_to_le16(2);
- 	/* BB find max SMB size from sess */
--	pSMB->MaxDataCount = cpu_to_le16(1000);
-+	pSMB->MaxDataCount = cpu_to_le16(CIFSMaxBufSize);
- 	pSMB->MaxSetupCount = 0;
- 	pSMB->Reserved = 0;
- 	pSMB->Flags = 0;
-@@ -3587,6 +3588,15 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
- 	parm_data = ((char *)pSMB) + offset;
- 	pSMB->ParameterOffset = cpu_to_le16(param_offset);
- 
-+	/* make sure we can fit the larger cifs_posix_aces in the buffer */
-+	cifs_acl_size = sizeof(struct cifs_posix_acl) +
-+		       (acl->a_count * sizeof(struct cifs_posix_ace));
-+	bytes_available = (CIFSMaxBufSize + MAX_SMB2_HDR_SIZE) - offset;
-+	if (cifs_acl_size > bytes_available) {
-+		rc = -E2BIG;
-+		goto setACLerrorExit;
-+	}
-+
- 	/* convert to on the wire format for POSIX ACL */
- 	data_count = posix_acl_to_cifs(parm_data, acl, acl_type);
- 
--- 
-2.55.0
+(for context, all other events are _pushed on to the end of the list)
 
+> Maybe this should just use standard list_head-based lists even
+> if they waste an extra pointer in the event structure?
+
+Yes, that at least wouldn't increase the size of xfs_healthmon_event.
+
+--D
