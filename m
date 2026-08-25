@@ -1,48 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87523515DA
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:48:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87593B4EBC
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787687296; cv=none; b=CBmz/HrViWIR/fbA9Mvkf63R6nw+BEAPzH1Vu5m3TqL3XAhfILKDnmEgveKLTi9wSPqPL3tO8ZqXype0o1xjGMwlKSms4nwbvgrDCRtYZIVOM8EAvX47AQYIjJqSJjjYv3TcRccyZsPqw3xBvsR/KHs0vudQSldGV0x+NcokkBA=
+	t=1787687297; cv=none; b=ZIG5vQPWuHeqZvIe+UIoQ6sKb372LKib7aZeA1F5nELMGe2uB3ULdok8qIVxFvbLCrw8cVJMWM/AMKVfOqXbCEE8twwPQuVvOskyr7LnqNWXpNDh1mvqXNXPDo4xKimOgx7zOerDeVgWz9aQnY0rJeC5z0Gk8VeuU8Z7zHZ0HHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787687296; c=relaxed/simple;
-	bh=XnUB5V8+EVrlmxend2wsqxc2qsxBGEbEmKFm1Za6odQ=;
+	s=arc-20240116; t=1787687297; c=relaxed/simple;
+	bh=38ZekwcNZI2koLbQmzuhUZtiheqEoURsec5Wjk3hkO0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bcug5g9d0ijH+oaqdx6IZr4AjDZcDq740x1K/jTBov4OL+/KuTeZbSz2fAUKLvVxWL5nyfZDpQ77hOl/MAR5OmDgfVaRVC+ILAEybIxgLKZ8aqDXWcw8IDPVY4lAeQKFc+ByB8Vd1S18XboD92b4cHcgFAvLbKFfxh3Gjn1bAxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E4SnWwHA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g39JZ9ADKiGtyczk5HN6A2D/7VzCBOjBMxiqabynklWLfR/ah03PmUybNc/SUjvirxVvSGgR01AG1DPEYYAcOmcunixqOf/qLhYgNf500yBWdxC+MEy8l/xRZ8qHzV16SUdEhZI/2v1MI0ZRk3uSH8WBqmmi9uJn1ms5ZK3NRVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtEjySU9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E4SnWwHA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7E81F000E9;
-	Tue, 25 Aug 2026 19:48:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtEjySU9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26E71F00A3D;
+	Tue, 25 Aug 2026 19:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787687294;
-	bh=D0O0Q5xQaPLFvuV1oad8CevmE+Kt2IiPFv/c4YUGFbE=;
+	s=k20260515; t=1787687296;
+	bh=kRPv9YLARdUitkDeCyWQQ+DqD7C9okKi3ZW4ReDiJOs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E4SnWwHAOnG1Ozg5mCfhbPma2bie0CX54bw5hMY4x0d45D9Y/OUpykWHMpRSM3AS5
-	 MV1T4Uca/Hox/ha3zRSBcNL1eiBRh3/atrZFQOv/ApOcyl2XCtytUNk5BFJoMC26ZG
-	 9MaykoUvTSpoV7YdWTFUOxWtyJnzP2HVr/mPXGsJwuP/ynRmeKbj89bUmN4U7ghbL4
-	 IUxyBjvDLaUK1pmLrM+/JTlGRUKyma1bxeLHdk7neLLjgjUn7E+tEcvqkxCv9Pd9zR
-	 Sg1FqTD9/e2QXaDmCv3bBWaiPLTQZJxlI3VChweumFgg3ph24Uta8kRxnx5YWOQ8/P
-	 mWI7LGFjXpTPA==
+	b=NtEjySU97Ob9G61Uk8qKawevkOkK8PNL5dD2zAUqOO6Ce0uVlGaMW95JJruZC5gkZ
+	 NdilLxfVJ2m6eLxM5tzQmYEKisv64CD9XFgimBiwHRnPwI310gYirkpi8W2AO5zsW6
+	 8mE/xENj0w7GPrV39k07+WzsVATs88TQo/oWtNygprHRvoehCqqIDBC4tdoZAg7nYQ
+	 bqgcmYc3kuciDvf7bUrh2ao+zoT33XaaT30Y55WdxGWuozbRXZ1be6cepqzmMISE2D
+	 7t3yesgOoTXTUn70QKLfM55A1qkzU6t7qj6JiYoymXTvz0lU8QcY7SjsS/tgxwLjds
+	 sMbj58taZMpRg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <williams@redhat.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Marco Elver <elver@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] kcov: replace local_irq_save() with a local_lock_t
-Date: Tue, 25 Aug 2026 15:48:10 -0400
-Message-ID: <20260825194811.376587-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] io_uring/io-wq: add io_worker.acct pointer
+Date: Tue, 25 Aug 2026 15:48:12 -0400
+Message-ID: <20260825194814.376625-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082427-contour-certify-9d3c@gregkh>
-References: <2026082427-contour-certify-9d3c@gregkh>
+In-Reply-To: <2026082423-fineness-promotion-9ac5@gregkh>
+References: <2026082423-fineness-promotion-9ac5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,184 +45,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+From: Max Kellermann <max.kellermann@ionos.com>
 
-[ Upstream commit d5d2c51f1e5f56ed01d2c773974630c007e5e5f5 ]
+[ Upstream commit 3d3bafd35fb422eb36cfc5709473cef7400588e7 ]
 
-The kcov code mixes local_irq_save() and spin_lock() in
-kcov_remote_{start|end}().  This creates a warning on PREEMPT_RT because
-local_irq_save() disables interrupts and spin_lock_t is turned into a
-sleeping lock which can not be acquired in a section with disabled
-interrupts.
+This replaces the `IO_WORKER_F_BOUND` flag.  All code that checks this
+flag is not interested in knowing whether this is a "bound" worker;
+all it does with this flag is determine the `io_wq_acct` pointer.  At
+the cost of an extra pointer field, we can eliminate some fragile
+pointer arithmetic.  In turn, the `create_index` and `index` fields
+are not needed anymore.
 
-The kcov_remote_lock is used to synchronize the access to the hash-list
-kcov_remote_map.  The local_irq_save() block protects access to the
-per-CPU data kcov_percpu_data.
-
-There is no compelling reason to change the lock type to raw_spin_lock_t
-to make it work with local_irq_save().  Changing it would require to
-move memory allocation (in kcov_remote_add()) and deallocation outside
-of the locked section.
-
-Adding an unlimited amount of entries to the hashlist will increase the
-IRQ-off time during lookup.  It could be argued that this is debug code
-and the latency does not matter.  There is however no need to do so and
-it would allow to use this facility in an RT enabled build.
-
-Using a local_lock_t instead of local_irq_save() has the befit of adding
-a protection scope within the source which makes it obvious what is
-protected.  On a !PREEMPT_RT && !LOCKDEP build the local_lock_irqsave()
-maps directly to local_irq_save() so there is overhead at runtime.
-
-Replace the local_irq_save() section with a local_lock_t.
-
-Link: https://lkml.kernel.org/r/20210923164741.1859522-6-bigeasy@linutronix.de
-Link: https://lore.kernel.org/r/20210830172627.267989-6-bigeasy@linutronix.de
-Reported-by: Clark Williams <williams@redhat.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Dmitry Vyukov <dvyukov@google.com>
-Acked-by: Marco Elver <elver@google.com>
-Tested-by: Marco Elver <elver@google.com>
-Reviewed-by: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Stable-dep-of: 2eed77fdcb0c ("kcov: fix data corruption and race conditions on PREEMPT_RT")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Link: https://lore.kernel.org/r/20250128133927.3989681-3-max.kellermann@ionos.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 297b5ccea4ac ("io_uring/io-wq: fix worker accounting when canceling creation callbacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/kcov.c | 32 ++++++++++++++++++--------------
- 1 file changed, 18 insertions(+), 14 deletions(-)
+ io_uring/io-wq.c | 23 ++++++++---------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
-diff --git a/kernel/kcov.c b/kernel/kcov.c
-index 3260a65a9def6..c6400e9b44796 100644
---- a/kernel/kcov.c
-+++ b/kernel/kcov.c
-@@ -88,6 +88,7 @@ static struct list_head kcov_remote_areas = LIST_HEAD_INIT(kcov_remote_areas);
- 
- struct kcov_percpu_data {
- 	void			*irq_area;
-+	local_lock_t		lock;
- 
- 	unsigned int		saved_mode;
- 	unsigned int		saved_size;
-@@ -96,7 +97,9 @@ struct kcov_percpu_data {
- 	int			saved_sequence;
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index 37725c5031b4c..e99c81453dd53 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -30,7 +30,6 @@ enum {
+ 	IO_WORKER_F_UP		= 0,	/* up and active */
+ 	IO_WORKER_F_RUNNING	= 1,	/* account as running */
+ 	IO_WORKER_F_FREE	= 2,	/* worker on free list */
+-	IO_WORKER_F_BOUND	= 3,	/* is doing bounded work */
  };
  
--static DEFINE_PER_CPU(struct kcov_percpu_data, kcov_percpu_data);
-+static DEFINE_PER_CPU(struct kcov_percpu_data, kcov_percpu_data) = {
-+	.lock = INIT_LOCAL_LOCK(lock),
-+};
+ enum {
+@@ -46,12 +45,12 @@ enum {
+  */
+ struct io_worker {
+ 	refcount_t ref;
+-	int create_index;
+ 	unsigned long flags;
+ 	struct hlist_nulls_node nulls_node;
+ 	struct list_head all_list;
+ 	struct task_struct *task;
+ 	struct io_wq *wq;
++	struct io_wq_acct *acct;
  
- /* Must be called with kcov_remote_lock locked. */
- static struct kcov_remote *kcov_remote_find(u64 handle)
-@@ -834,7 +837,7 @@ void kcov_remote_start(u64 handle)
- 	if (!in_task() && !in_softirq_really())
- 		return;
+ 	struct io_wq_work *cur_work;
+ 	struct io_wq_work *next_work;
+@@ -80,7 +79,6 @@ struct io_worker {
+ struct io_wq_acct {
+ 	unsigned nr_workers;
+ 	unsigned max_workers;
+-	int index;
+ 	atomic_t nr_running;
+ 	raw_spinlock_t lock;
+ 	struct io_wq_work_list work_list;
+@@ -136,7 +134,7 @@ struct io_cb_cancel_data {
+ 	bool cancel_all;
+ };
  
--	local_irq_save(flags);
-+	local_lock_irqsave(&kcov_percpu_data.lock, flags);
+-static bool create_io_worker(struct io_wq *wq, int index);
++static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct);
+ static void io_wq_dec_running(struct io_worker *worker);
+ static bool io_acct_cancel_pending_work(struct io_wq *wq,
+ 					struct io_wq_acct *acct,
+@@ -168,7 +166,7 @@ static inline struct io_wq_acct *io_work_get_acct(struct io_wq *wq,
  
- 	/*
- 	 * Check that kcov_remote_start() is not called twice in background
-@@ -842,7 +845,7 @@ void kcov_remote_start(u64 handle)
- 	 */
- 	mode = READ_ONCE(t->kcov_mode);
- 	if (WARN_ON(in_task() && kcov_mode_enabled(mode))) {
--		local_irq_restore(flags);
-+		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 		return;
- 	}
- 	/*
-@@ -851,14 +854,15 @@ void kcov_remote_start(u64 handle)
- 	 * happened while collecting coverage from a background thread.
- 	 */
- 	if (WARN_ON(in_serving_softirq() && t->kcov_softirq)) {
--		local_irq_restore(flags);
-+		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 		return;
- 	}
- 
- 	spin_lock(&kcov_remote_lock);
- 	remote = kcov_remote_find(handle);
- 	if (!remote) {
--		spin_unlock_irqrestore(&kcov_remote_lock, flags);
-+		spin_unlock(&kcov_remote_lock);
-+		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 		return;
- 	}
- 	kcov_debug("handle = %llx, context: %s\n", handle,
-@@ -879,19 +883,19 @@ void kcov_remote_start(u64 handle)
- 		size = CONFIG_KCOV_IRQ_AREA_SIZE;
- 		area = this_cpu_ptr(&kcov_percpu_data)->irq_area;
- 	}
--	spin_unlock_irqrestore(&kcov_remote_lock, flags);
-+	spin_unlock(&kcov_remote_lock);
- 
- 	/* Can only happen when in_task(). */
- 	if (!area) {
-+		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 		area = vmalloc(size * sizeof(unsigned long));
- 		if (!area) {
- 			kcov_put(kcov);
- 			return;
- 		}
-+		local_lock_irqsave(&kcov_percpu_data.lock, flags);
- 	}
- 
--	local_irq_save(flags);
--
- 	/* Reset coverage size. */
- 	*(u64 *)area = 0;
- 
-@@ -901,7 +905,7 @@ void kcov_remote_start(u64 handle)
- 	}
- 	kcov_start(t, kcov, size, area, mode, sequence);
- 
--	local_irq_restore(flags);
-+	local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 
+ static inline struct io_wq_acct *io_wq_get_acct(struct io_worker *worker)
+ {
+-	return io_get_acct(worker->wq, test_bit(IO_WORKER_F_BOUND, &worker->flags));
++	return worker->acct;
  }
- EXPORT_SYMBOL(kcov_remote_start);
-@@ -975,12 +979,12 @@ void kcov_remote_stop(void)
- 	if (!in_task() && !in_softirq_really())
- 		return;
  
--	local_irq_save(flags);
-+	local_lock_irqsave(&kcov_percpu_data.lock, flags);
+ static void io_worker_ref_put(struct io_wq *wq)
+@@ -324,7 +322,7 @@ static bool io_wq_create_worker(struct io_wq *wq, struct io_wq_acct *acct)
+ 	raw_spin_unlock(&wq->lock);
+ 	atomic_inc(&acct->nr_running);
+ 	atomic_inc(&wq->worker_refs);
+-	return create_io_worker(wq, acct->index);
++	return create_io_worker(wq, acct);
+ }
  
- 	mode = READ_ONCE(t->kcov_mode);
- 	barrier();
- 	if (!kcov_mode_enabled(mode)) {
--		local_irq_restore(flags);
-+		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 		return;
+ static void io_wq_inc_running(struct io_worker *worker)
+@@ -344,7 +342,7 @@ static void create_worker_cb(struct callback_head *cb)
+ 
+ 	worker = container_of(cb, struct io_worker, create_work);
+ 	wq = worker->wq;
+-	acct = &wq->acct[worker->create_index];
++	acct = worker->acct;
+ 	raw_spin_lock(&wq->lock);
+ 
+ 	if (acct->nr_workers < acct->max_workers) {
+@@ -353,7 +351,7 @@ static void create_worker_cb(struct callback_head *cb)
  	}
- 	/*
-@@ -988,12 +992,12 @@ void kcov_remote_stop(void)
- 	 * actually found the remote handle and started collecting coverage.
- 	 */
- 	if (in_serving_softirq() && !t->kcov_softirq) {
--		local_irq_restore(flags);
-+		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 		return;
- 	}
- 	/* Make sure that kcov_softirq is only set when in softirq. */
- 	if (WARN_ON(!in_serving_softirq() && t->kcov_softirq)) {
--		local_irq_restore(flags);
-+		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
- 		return;
- 	}
+ 	raw_spin_unlock(&wq->lock);
+ 	if (do_create) {
+-		create_io_worker(wq, worker->create_index);
++		create_io_worker(wq, acct);
+ 	} else {
+ 		atomic_dec(&acct->nr_running);
+ 		io_worker_ref_put(wq);
+@@ -385,7 +383,6 @@ static bool io_queue_worker_create(struct io_worker *worker,
  
-@@ -1023,7 +1027,7 @@ void kcov_remote_stop(void)
- 		spin_unlock(&kcov_remote_lock);
- 	}
+ 	atomic_inc(&wq->worker_refs);
+ 	init_task_work(&worker->create_work, func);
+-	worker->create_index = acct->index;
+ 	if (!task_work_add(wq->task, &worker->create_work, TWA_SIGNAL)) {
+ 		/*
+ 		 * EXIT may have been set after checking it above, check after
+@@ -835,9 +832,8 @@ static void io_workqueue_create(struct work_struct *work)
+ 		kfree(worker);
+ }
  
--	local_irq_restore(flags);
-+	local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
+-static bool create_io_worker(struct io_wq *wq, int index)
++static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct)
+ {
+-	struct io_wq_acct *acct = &wq->acct[index];
+ 	struct io_worker *worker;
+ 	struct task_struct *tsk;
  
- 	/* Get in kcov_remote_start(). */
- 	kcov_put(kcov);
+@@ -856,12 +852,10 @@ static bool create_io_worker(struct io_wq *wq, int index)
+ 
+ 	refcount_set(&worker->ref, 1);
+ 	worker->wq = wq;
++	worker->acct = acct;
+ 	raw_spin_lock_init(&worker->lock);
+ 	init_completion(&worker->ref_done);
+ 
+-	if (index == IO_WQ_ACCT_BOUND)
+-		set_bit(IO_WORKER_F_BOUND, &worker->flags);
+-
+ 	tsk = create_io_thread(io_wq_worker, worker, NUMA_NO_NODE);
+ 	if (!IS_ERR(tsk)) {
+ 		io_init_new_worker(wq, worker, tsk);
+@@ -1193,7 +1187,6 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
+ 	for (i = 0; i < IO_WQ_ACCT_NR; i++) {
+ 		struct io_wq_acct *acct = &wq->acct[i];
+ 
+-		acct->index = i;
+ 		atomic_set(&acct->nr_running, 0);
+ 		INIT_WQ_LIST(&acct->work_list);
+ 		raw_spin_lock_init(&acct->lock);
 -- 
 2.53.0
 
