@@ -1,99 +1,231 @@
-Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
+Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E168538D407
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 20:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611A746C82B
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 20:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787688365; cv=none; b=BWdT+sDDA9PcHXDbkuu8A0Qe6arCfPJqjb25COs4UpS0RLFViTLp96rn7vGTXSfI01qF7TUdQI0fRm+owtNhR8RsvdCRkTF4ysqXRfNwyp7YgILssGcutk3mAflSIDWe4L7gyN3lCMLof1ewul0rXDgZqqI+cWouko9A27LaaH0=
+	t=1787688607; cv=none; b=fAeRGpIJbmoQUvGYn195izRJwepqGseH2lMf7dghq8h5fYNP06MCxHvRp9/+ORj8C8F7p6DFIF9vntsrycY0L36aQ4hqVhF1dPWFjClbNGXiJMKG6l9rNGwbj1jfj18lzdfdupyzs0G038t3ZALNzg5YPtJGO+hG9S8A99LAxm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787688365; c=relaxed/simple;
-	bh=XbjAz7qal9P/BA1hWjjA2A6ymhlraYwWduqNMnGPNfM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZQuxzJKy9LzCVxqR34Fwg79UA2PEWDhjh6nlviS2lso0Vz6bNh6A3nFNS8g4+jyLIkfoCrRRlBZ7mZ4c7Na9imKUXbe+cX9cu7i+RjVfxMTIwMobg1fEBp/H4xXvGlL5H/7IQ5kxZ/Unx8nZsdGONOq6aRJa3TA1AqpQ0l+SnuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F9U2jhQT; arc=none smtp.client-ip=95.215.58.74
+	s=arc-20240116; t=1787688607; c=relaxed/simple;
+	bh=Oa2n1Vfp/IboPx8jwpZtKXHw2BLQPZVz1k7pypymldE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aiO/ZIo2ZftvrnFjkazMbu7IgeOYpiKKqFmo+SOeFVjj2pRyPFPj/jwn0yi1b2M511HBVPcX7PgYLdC5wXAjNQ8cYbHoW+DbHnz2Dhbl4812E/XRmw8bj3Qc37NqtLqPPoiO/+tqn8tjzxTERVYTiA8Uvy5aLKEo3dZ0a/N7UoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y9XjLiEX; arc=none smtp.client-ip=95.215.58.148
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F9U2jhQT"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y9XjLiEX"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XbjAz7qal9P/BA1hWjjA2A6ymhlraYwWduqNMnGPNfM=;
+DKIM-Signature: a=rsa-sha256; bh=Oa2n1Vfp/IboPx8jwpZtKXHw2BLQPZVz1k7pypymldE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787688360; v=1; x=1788293160;
- b=F9U2jhQTev4uP28NPHwP7qg9cVC0YxNRBdvTHtPArQ0MbbPTaCi1UpBz/QCeF39oIA6JP0zR
- q3SQEbybvl1aBmhYFEkjqvfjnKayhLneiA5C1OiukTjpvXQYs2TOhcIzmpdeENdoY+k20HLtQLt
- twS2PFIjdz9R5b54EltRitKQ=
+ t=1787688599; v=1; x=1788293399;
+ b=Y9XjLiEXbCuzYbUzUZDFk/kODTrMNXqHzXt6xcNppbz+VRPoXBTZz7T4gbvhNB9hPpfpdb2z
+ q9XGJVd62aKdLwMAgPLYxsNquAnUBom+EyM21m14c8ISTH8DDEbhQ8rniT71lbx2D6tBLruOwjH
+ MO2j1qm8Tz0rFV1y5YO+RNA4=
 X-Envelope-To: stable@vger.kernel.org
-Received: from [IPV6:2a03:83e0:1156:1:10b7:9472:4142:b7b7] (2620:10d:c090:500::7:759c)
-	by smtp.migadu.com with ESMTPS id 9b0c0d836eb66a38;
-	Tue, 25 Aug 2026 20:05:50 +0000
-X-Mizu-Trace-ID: 9b0c0d836eb66a38
+Received: from lb03055.. (2601:647:6300:a030:488e:1b9c:4a00:b63e)
+	by smtp.migadu.com with ESMTPS id d294612f501337c9;
+	Tue, 25 Aug 2026 20:09:59 +0000
+X-Mizu-Trace-ID: d294612f501337c9
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <ddb64a7a-70b2-4c3d-8b80-2c7bcd7f329d@linux.dev>
-Date: Tue, 25 Aug 2026 13:05:37 -0700
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+To: stable@vger.kernel.org
+Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	Leon Romanovsky <leonro@nvidia.com>
+Subject: [PATCH 6.6.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+Date: Tue, 25 Aug 2026 22:09:46 +0200
+Message-ID: <20260825200946.1685897-1-yanjun.zhu@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026082522-print-snuff-962c@gregkh>
+References: <2026082522-print-snuff-962c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] x86/mm/pat: CPA fixes
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, Dave Hansen
- <dave.hansen@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>,
- Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
- David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>,
- Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Nikunj A Dadhania <nikunj@amd.com>, Pedro Falcato <pfalcato@suse.de>,
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Steffen Dirkwinkel
- <lists@steffen.cc>, Suren Baghdasaryan <surenb@google.com>,
- Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
- Vishal Moola <vishal.moola@gmail.com>, Vlastimil Babka <vbabka@kernel.org>,
- Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
- syzbot@syzkaller.appspotmail.com, x86@kernel.org
-References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
- <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev> <ao1EtJG_Gj8f90WQ@gremlin>
-Content-Language: en-US
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <ao1EtJG_Gj8f90WQ@gremlin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-On 8/25/26 12:31 AM, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Aug 25, 2026 at 12:12:32AM -0700, Atish Patra wrote:
->> Reproduced and verified this series (patches 1-3) on 4vcpu guest running two different kernels
->> 1. mainline (commit: 77ae27fd98f3)
->> 2. Ubuntu Resolute 7.0.0-26 (production kernel hitting the issue in a VM)
->>
->> The Reproducer consisted of
->> 1. A debug patch a cmdline-gated stall between the two *pmd reads in vmalloc_to_page()
->> 2. One taskset-pinned insmod/rmmod worker per module over stock cfg80211/dummy/veth modules
->>
->> With the above reproducer, both BUG within seconds in unpatched kernel.
->> 1. Resolute in 0.71s at alternative.c:2564 (BUG_ON(!pages[0] ...), RAX=0)
->> 2. mainline at alternative.c:2473 (BUG_ON(memcmp(addr, src, len))).
->>
->> With patches 1-3: zero splats across 10 runs each (600s/11,378 module load/unload cycles on mainline and 1200s/55,980 module load/unload cycles on Resolute).
-> Amazing, thanks!
->
->>
->> Tested-by: Atish Patra<atishp@meta.com>
-> I guess should be applied to patches 1-3 only strictly? Or perhaps 3/5?
+free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
+Updating max_dest_rd_atomic before freeing the old array can make the
+free path walk past the old allocation and trigger a slab out-of-bounds
+write catched by KASAN:
+==================================================================
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
 
-Yes. 1-3 sounds good.
+CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xf7/0x600 mm/kasan/report.c:482
+ kasan_report+0xe4/0x120 mm/kasan/report.c:595
+ free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+ rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fefc75a70cd
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
+RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
+RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
+ </TASK>
 
+Allocated by task 11063:
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5296 [inline]
+ __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
+ rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
->>> --
->>> Sincerely yours,
->>> Mike.
->>>
-> --
-> Cheers, Lorenzo
+The buggy address belongs to the object at ffff88802b8ddd80
+ which belongs to the cache kmalloc-64 of size 64
+The buggy address is located 0 bytes to the right of
+ allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
+ set_page_owner include/linux/page_owner.h:32 [inline]
+ post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
+ prep_new_page mm/page_alloc.c:1861 [inline]
+ get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
+ __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
+ alloc_slab_page mm/slub.c:3278 [inline]
+ allocate_slab mm/slub.c:3467 [inline]
+ new_slab+0xa6/0x670 mm/slub.c:3525
+ refill_objects+0x278/0x420 mm/slub.c:7272
+ refill_sheaf mm/slub.c:2816 [inline]
+ __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
+ alloc_from_pcs mm/slub.c:4750 [inline]
+ slab_alloc_node mm/slub.c:4884 [inline]
+ __do_kmalloc_node mm/slub.c:5295 [inline]
+ __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
+ tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
+ tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
+ tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+ security_file_open+0x7a/0x1b0 security/security.c:2739
+ do_dentry_open+0x57e/0x1690 fs/open.c:924
+ vfs_open+0x82/0x3f0 fs/open.c:1079
+ do_open fs/namei.c:4699 [inline]
+ path_openat+0x218a/0x3190 fs/namei.c:4858
+page last free pid 1 tgid 1 stack trace:
+ reset_page_owner include/linux/page_owner.h:25 [inline]
+ __free_pages_prepare mm/page_alloc.c:1397 [inline]
+ __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
+ selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
+ inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
+ selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
+ security_d_instantiate+0x123/0x190 security/security.c:3704
+ d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
+ kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
+ lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
+ open_last_lookups fs/namei.c:4611 [inline]
+ path_openat+0x17dd/0x3190 fs/namei.c:4855
+ do_file_open+0x20c/0x430 fs/namei.c:4887
+ do_sys_openat2+0x101/0x1d0 fs/open.c:1364
+ do_sys_open fs/open.c:1370 [inline]
+ __do_sys_openat fs/open.c:1386 [inline]
+ __se_sys_openat fs/open.c:1381 [inline]
+ __x64_sys_openat+0x141/0x200 fs/open.c:1381
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
+                                        ^
+ ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+
+Fix the OOB by moving the assignment after free_rd_atomic_resources()
+so the old array is freed using the old bound. This matches the original
+ordering in commit 8700e3e7c485 ("Soft RoCE driver").
+
+Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
+Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+(cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
+[This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
+Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+---
+ drivers/infiniband/sw/rxe/rxe_qp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index 8426c261c263..1d6c8eb1f97d 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -664,10 +664,9 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+ 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
+ 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
+ 
+-		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+-
+ 		free_rd_atomic_resources(qp);
+ 
++		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+ 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
+ 		if (err)
+ 			return err;
+-- 
+2.43.0
+
