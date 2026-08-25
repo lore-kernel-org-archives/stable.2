@@ -1,88 +1,88 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F5031DD97
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 02:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BF92EEE90
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787624971; cv=none; b=fipdMEzidbxJ9EG1tTOjkuuWwxBHWI8D70aXy7VuW/ukaFlYPGGuLNNC8A5anr18hPjZ2BKNgYmwwfEW1sVYjsMS4W3KTiEwDiq4AuhjNztJNZB2DBVK3/BQHzYEga+6T4d+y36Kd1ZztM+qTNtcJz56GaqQw1WbsBiCMW5l+Q4=
+	t=1787627411; cv=none; b=V5Tm8r3moOVp8OVMF1LpueP7W5+35OsOnjng7itq4pbyU+EopL3lpvgUyA+4/inbwPW9cCgwt7dYoTCwMO4rovxwbQu45PPbNxdS90TPiLd2hbaVVc2CKrM0ZTHu2caphFL6d80ZYdIdEHwQZToWfuZrYFIC0tApqdOJbP3+g4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787624971; c=relaxed/simple;
-	bh=M/IWYj4ph7EluD8ZT1bKyDgrsuAffstCmPuVSD/R550=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nySWikFG3edD4Jq8DMFzUtmAMYjxHm/WkrT9YdAbNN+QfJbpSVoiJqpLfX4q0sYaubFQtx18gI7KYSY3o2ZW4k/Q6QADDgAypJYhDxTrWNRcumwFOetP2Amx61Qdx4f+4VYs+QKmlE2Uzf+9hJXStSuZJ7nxfyCC0AfmjY6v8O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TV3xdFag; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=B6nz5Scu; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1787627411; c=relaxed/simple;
+	bh=VjzzJJY0REmFePmGv+un+MKumTAgaDWAEIs3xP9m4z0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iiv/LAAQ/68QLNMWVZFlFLvUG3XGODNaMQDlATPMsVwyAPmlPDAzYQYzJlLR5AEg7oidt9xq2TjGV0eONRXX6WRcyI9XREhT5+w31FBzBNewKja5Ou9lm28yMWLOT31ok2JWRkjFUZyls1fyrJHcTNQECVc1DpEgrkoa6XuManc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S2S9ccff; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=plJ03fYj; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TV3xdFag";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="B6nz5Scu"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S2S9ccff";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="plJ03fYj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787624968;
+	s=mimecast20190719; t=1787627407;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=gLL7o/ycwkHw6o3JwRvUs/3GQV4+FfgW/bU13Rc2JF8=;
-	b=TV3xdFag7b943ju91GDzQ4bhauHxxBagtkvQ1ku12F2OtqWtmQo0GXdyfrk4tJxOFJp27G
-	rztd77XXvVbFuDFYXDRF1VemyOthuCOGir0X+mqaJmTqqZ4LZbWm60PJAWpVuDKEMXlpKk
-	f+jd5SYk9+v2y8SqywMC0C6Rau7/Uls=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Q7kJ9NxSCjyWswzqtIaS+F9FDZ/yEUyNYfEg9Rn62g8=;
+	b=S2S9ccffGUUoSK3n1SbE6gXIv9P+mypwt26Z5JrgLzjvS6Cfi7Hz36NYbe9CGvpY68nDKo
+	UI5S5znKzkc0gMpWCAuuNgvmwTKjyVWxuqO5OqZnGQPuKRyIrgtiEUOoiupAkdyEvog3d4
+	hwbFmEqYiNwJOYDwHV1hv7NdA/0xO0g=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-114-kT0r3nVqPgKurxdJto0Bdg-1; Mon, 24 Aug 2026 22:29:26 -0400
-X-MC-Unique: kT0r3nVqPgKurxdJto0Bdg-1
-X-Mimecast-MFC-AGG-ID: kT0r3nVqPgKurxdJto0Bdg_1787624966
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f5ac7354dso6237126a91.1
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 19:29:26 -0700 (PDT)
+ us-mta-586-xj0iTqlKPl2qd58QA8X49w-1; Mon, 24 Aug 2026 23:10:05 -0400
+X-MC-Unique: xj0iTqlKPl2qd58QA8X49w-1
+X-Mimecast-MFC-AGG-ID: xj0iTqlKPl2qd58QA8X49w_1787627404
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso5986668a91.3
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 20:10:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787624966; x=1788229766; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gLL7o/ycwkHw6o3JwRvUs/3GQV4+FfgW/bU13Rc2JF8=;
-        b=B6nz5Scu144fUKybKMwZ6Fp3lfvbnLlZD4Mt2wc69tu5mp8V2aP1ijmi85sSJXK4aC
-         TkQ2UltjmuUlc4ua3TeR7tYOEDrK62GB70tbUGguS67425YJlOPHw0BJXzjNwAkKff22
-         wsIHRiyKUUgQl+2TDr2TCF1HLydpz+186nRgbKjky00VzNvWIKSyKQ9v0sI4g1ZtEmt2
-         BI7v3prKXPIkwjenJmXSok3rq7ymX+5ISd5vzZ1GKcE9urLs0IE2plkhZP8p0asf/0ck
-         caT3n10dAiTI7j5qU28tjUFwtdYc2sru00K1U1aG6vt0gMK7+YYJ4fyuAGqPr+47tahN
-         HyBA==
+        d=redhat.com; s=google; t=1787627404; x=1788232204; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q7kJ9NxSCjyWswzqtIaS+F9FDZ/yEUyNYfEg9Rn62g8=;
+        b=plJ03fYjcJKXnIFlXi5NeLgcY7U8r6XwcijQD87ibgDzxyyF9ZXRItuClHxXETIsJR
+         Wt+dmPHVcmURDfD9T7aGs7uygZ2Agi2w2MOH+INGGWDKUuEA6LQnmI+Ke1dfmjg4zNEa
+         MDO8oOxeR5uvJwkL9DBnWqdCykJweoB3zEpDjypXlbq4EPnROVQhD7zzXooSEMd8ENz5
+         Respa+K9wMzql1e4QdGoMMZPmTPNGefRpy8WNWtGpNCYOr8m94pkbkfpYAuIDFh0xXcF
+         7o4xJMcNs7cMUKPuvM7ZKtFefo8u7Z8RvCLgydnYIw3iJiQuulxb9xZY42z2cHu1z/1i
+         hHHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787624966; x=1788229766;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gLL7o/ycwkHw6o3JwRvUs/3GQV4+FfgW/bU13Rc2JF8=;
-        b=R+sGVMNylkf5W7c19gNAHVuSEB+qzRSEv1Y+d5jr+v20BAkvRr7OpNvSNGLIvdY7th
-         yCsY8W+3+uTM+XWl34AITb8mt1wD3PqP/Nk37DFHeWW0X4FreJlarmttHp6TGK3aZHrW
-         HSYCXVKuk1h5XBvbkKmzB9wwz3ps4Hqg4KJbglIbF4zK2EcRefppX+xdJgCerduzSQpS
-         Oo/hyU+hTlpldvYKj1gOtXQ7TPrnhpg0EjGzYZa8qvCKo13x0+9aZO50bWdk6Cf8RQXj
-         IjpCzMKkMqc23vUrvfX+5CHk9mmsOIyAKhQT86F5YOaySq6b8DAJ8uE3yHLyGXVqUDLG
-         m72g==
-X-Forwarded-Encrypted: i=1; AHgh+RogoicXq4F9rw4AoxSrmKSxOgiBELPw/Mm8MrGWCPnQmTvndm/6M2p2Nre1C4Jhpo7cL1dUe7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lW+N+3RHtRJcvzm4ikqN2krtt27hN3kZLue02gwXEjQdsBLwC7
-	6j+ZATOt7a2mPqY8toIExvpw5Q1DOrqnbBszDhHx6l5qsDYFnlQxWrgE56h5k+KTzITD+jJVTZX
-	9s+Axr6RyZeY8rVpuKUXkUKLD1NUMh9Qu+3ULkChQG5rIxPr/eeIn1MntzenbCXZCmg==
-X-Gm-Gg: AR+sD11Ll6jkWXrlytwf+WcL+DL6jddIStATwVrpS3ce6hQPBEfd52dzpn/yOMr5pDW
-	ipq+lOJfMz8B0ELWGeJONoL0qM5VRp8ts6h8nAhRYcRZTYvt9Sgebjtq0sJ7ca8A54g6il1aaeI
-	YoxxWhCsnWDqJoPIJuEMhAniJPxxQC0yheQROScHUJhJnvs4WrCGXrOKVORtEeo90b9J3EkZ18D
-	kJvD917lHRI6E52axWYIjO/DQPRWC8OCltMSONfS4guNA/tvryozCnFqdZY7CgWhf/lZrcBnkRM
-	k3KZc6z2Ag0DfwWByFn+NRsm3SY7CmQ5X1Qkvz+PlVNh0NMA2RTIF9nA14zKyJ3SYmH7tFgP6t3
-	TGzB4hZEMAGeiYsQFX4iZZmYokd+HkkG6e5ZmyQ9YhvOXMy4ijypmONfKWkCk
-X-Received: by 2002:a17:90a:e7c5:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-395c34f47cbmr51855913a91.8.1787624965592;
-        Mon, 24 Aug 2026 19:29:25 -0700 (PDT)
-X-Received: by 2002:a17:90a:e7c5:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-395c34f47cbmr51855834a91.8.1787624965153;
-        Mon, 24 Aug 2026 19:29:25 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787627404; x=1788232204;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q7kJ9NxSCjyWswzqtIaS+F9FDZ/yEUyNYfEg9Rn62g8=;
+        b=cwAqXZ3Cvp30LAfnhiL6XomeFoO4P4nSZ9hJLghhJil6LxoN0cqdKYNQREtyMyDSv7
+         njMSTjrpiE2TsieYgrdWgjG8qs6314evXc76KARDHeEhhHaipFA9mAGL5cVq6bUowUYa
+         P9hH8VUgW/FpDO5fkWkGXOvR++rBTIDLC2x389kacYfgIqkK5VPVB5BN8clBfIBrqwGm
+         AgyhxsHiRABiIy0hFXtP5NNZxQFWJWhsYLC2VAmjE+JM/vLFOqnw54sA0marLls6TGEJ
+         CSFLe2+9RIGZmmV4zuwztgGVuOg3TAyq7R2VyhgHfRmwTraQNJYtk+B+AU1a0TXNyU9g
+         olwQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoUNBVqXpyp04TJH2H9kWGn1iVF010rR5NQVZrQi1Lsv7ZDRvZw7g1bkaCXORVNvfrDs2mSd5s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfC+LD7+KKv0gftDRa4Z1Kk4mwnLCKWSJV0kxcD6x2MSt6f/TY
+	AusTsGebWvkw3Jr6MaBIejYfcjm0P2QugCAYai+NJO+Sl33IoUlH3le7GGP2iJ5BHsLGkzJU+VJ
+	3BHodO8PHThwFJ7/TwMhxPVihtokJTG3sH/L7dFZ+FJfdX5ClbQjrPkf1QvqBDjw+cA==
+X-Gm-Gg: AR+sD12SoZHNsQpNBeKRdXh2y/ANWGQvrA5yq6Yr0K6EH9gMaglpatq4IXKNU5Igy4e
+	UTJ3S621uBnsD6US4YAjwBNev9Ly36NuzduMVQOX5HRwRn7tduVt2vDhUOE1/cj3lnj60kxZjqs
+	YnYNMQXiuFSmerAdtKdH17CTDNE5z6ccf5FcbbiVDwnQLYw81INDEUi5smER+g+yWTTT+Eglq1Q
+	LlqLGbk0vffeoQMQ+DW6aEOtcg833/YD65VtrxO/febFVnwHorZ0/K6Wt55jWIP468YBfuDtetd
+	gnIfSc9imelbPC02Q+1x8ad5cnzJFg8Sj2KwnxvmL3clDExupd6TtSIBNMMjpAKM9qogn/1StUM
+	MuUpHr7rIBv89yx7C2LjOTYAuRyFmUOik72xkRB4BgGBwRwTYIoHYa5qBk6au
+X-Received: by 2002:a17:90b:254e:b0:381:28e0:6259 with SMTP id 98e67ed59e1d1-396464d2917mr6882021a91.9.1787627404107;
+        Mon, 24 Aug 2026 20:10:04 -0700 (PDT)
+X-Received: by 2002:a17:90b:254e:b0:381:28e0:6259 with SMTP id 98e67ed59e1d1-396464d2917mr6881904a91.9.1787627403451;
+        Mon, 24 Aug 2026 20:10:03 -0700 (PDT)
 Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f9209fafsm52113590eec.23.2026.08.24.19.29.20
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f90e22f8sm28141163eec.13.2026.08.24.20.09.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 19:29:24 -0700 (PDT)
+        Mon, 24 Aug 2026 20:10:02 -0700 (PDT)
 From: Frank Sorenson <sorenson@redhat.com>
 To: linux-cifs@vger.kernel.org
 Cc: pc@manguebit.org,
 	linkinjeon@kernel.org,
-	brauner@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] smb: client: fix OOB reads in cifs_to_posix_acl()
-Date: Mon, 24 Aug 2026 21:29:07 -0500
-Message-ID: <20260825022907.3567228-1-sorenson@redhat.com>
+Subject: [PATCH] smb: client: tighten validate_t2() offset bounds against actual buffer size
+Date: Mon, 24 Aug 2026 22:09:48 -0500
+Message-ID: <20260825030948.3577275-1-sorenson@redhat.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -90,77 +90,463 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-cifs_to_posix_acl() reads the 6-byte fixed header (version,
-access_entry_count, default_entry_count) before validating
-size_of_data_area, causing an OOB read from truncated responses.
+validate_t2() rejects ParameterOffset and DataOffset only when they
+exceed 1024, far below the allocated buffer ceiling.  Raise the
+individual offset guard to CIFSMaxBufSize + MAX_CIFS_HDR_SIZE.  Add
+joint offset+count checks against frame_end — bytes from hdr.Protocol
+to the end of the received payload, derived from WordCount and BCC to
+match smbCalcSize() — so a large offset with zero count cannot reach
+beyond the received frame.
 
-The ACL_TYPE_DEFAULT path then forms a pointer from access_entry_count
-before checking bounds:
+In CIFSFindFirst and CIFSFindNext, bound lnoff <= DataCount: since
+validate_t2() guarantees data_off + DataCount <= frame_end, this
+transitively bounds data_off + lnoff within the frame.
 
-        pACE = &cifs_acl->ace_array[count];
-        count = le16_to_cpu(cifs_acl->default_entry_count);
-        size += sizeof(struct cifs_posix_ace) * count;
-        if (size_of_data_area < size)
-                return -EINVAL;
+Add min_param_size and min_data_size parameters to verify the offset
+clears the byte past ByteCount and that offset + struct size fits in the
+frame.  validate_t2() computes the minimum valid offset dynamically as
+frame_end - BCC, which accounts for SetupCount > 0 (WordCount > 10)
+responses where extra setup words shift ByteCount and the data area
+later.  Non-obvious sizes at the call sites:
 
-Validate the header before any field access, validate access ACE count
-before pointer arithmetic in both branches, and validate default ACE
-count before use.
+- CIFSPOSIXCreate: sizeof(OPEN_PSX_RSP) + sizeof(FILE_UNIX_BASIC_INFO),
+  as the caller memcpys FILE_UNIX_BASIC_INFO immediately after OPEN_PSX_RSP.
+- CIFSSMBQPathInfo: legacy ? offsetof(FILE_INFO_STANDARD, EASize) :
+  sizeof(FILE_ALL_INFO); the legacy path skips EASize intentionally.
+- CIFSSMBQAllEAs: offsetof(struct fealist, list), not sizeof, because an
+  empty EA list returns DataCount=4 (list_len only).
+- CIFSSMBPosixLock: (0, sizeof(struct cifs_posix_lock)) — pSMBr aliases
+  the small request buffer on the waitFlag path; defer
+  cifs_small_buf_release(pSMB) to plk_err_exit so the pLockData branch
+  does not read from freed memory.  validate_t2()'s frame_end bound covers
+  both the waitFlag (small buffer) and !waitFlag (transport-chosen buffer)
+  paths correctly.
+- CIFSGetDFSRefer: (0, 0) — parse_dfs_referrals() reads from the fixed
+  dfs_data struct offset, not from DataOffset; add an explicit check that
+  dfs_data + DataCount fits within the received frame.
 
-Fixes: bd9684b042dc ("cifs: implement get acl method")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 ---
- fs/smb/client/cifssmb.c | 22 +++++++++-------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+ fs/smb/client/cifssmb.c | 166 +++++++++++++++++++++++++++-------------
+ 1 file changed, 113 insertions(+), 53 deletions(-)
 
 diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index d445fbd2a0ca..522e01973fd4 100644
+index f5aad5f61dce..2dbd2624bc97 100644
 --- a/fs/smb/client/cifssmb.c
 +++ b/fs/smb/client/cifssmb.c
-@@ -3326,31 +3326,27 @@ static void cifs_init_posix_acl(struct posix_acl_entry *ace,
- static int cifs_to_posix_acl(struct posix_acl **acl, char *src,
- 			     const int acl_type, const int size_of_data_area)
+@@ -332,27 +332,74 @@ smb_init_no_reconnect(int smb_command, int wct, struct cifs_tcon *tcon,
+ 	return __smb_init(smb_command, wct, tcon, request_buf, response_buf);
+ }
+ 
+-static int validate_t2(struct smb_t2_rsp *pSMB)
++/*
++ * min_param_size / min_data_size: when non-zero, verify the offset clears
++ * the fixed T2 header and that offset + struct size fits within the
++ * actually-received frame.  Callers using a small buffer
++ * (MAX_CIFS_SMALL_BUFFER_SIZE) must apply a tighter per-call check; passing
++ * 0, 0 here still catches offsets beyond the allocated buffer.
++ */
++static int validate_t2(struct smb_t2_rsp *pSMB, unsigned int min_param_size,
++		       unsigned int min_data_size)
  {
--	int size =  0;
-+	int size =  sizeof(struct cifs_posix_acl);
- 	__u16 count;
- 	struct cifs_posix_ace *pACE;
- 	struct cifs_posix_acl *cifs_acl = (struct cifs_posix_acl *)src;
- 	struct posix_acl *kacl = NULL;
- 	struct posix_acl_entry *pa, *pe;
+-	unsigned int total_size;
++	unsigned int total_size, param_off, data_off, data_count, frame_end, min_off;
  
-+	if (size_of_data_area < size) /* validate acl header */
-+		return -EINVAL;
-+
- 	if (le16_to_cpu(cifs_acl->version) != CIFS_ACL_VERSION)
- 		return -EOPNOTSUPP;
+ 	/* check for plausible wct */
+ 	if (pSMB->hdr.WordCount < 10)
+ 		goto vt2_err;
  
-+	count = le16_to_cpu(cifs_acl->access_entry_count);
-+	size += sizeof(struct cifs_posix_ace) * count;
-+	if (size_of_data_area < size) /* validate access ACEs */
-+		return -EINVAL;
+-	/* check for parm and data offset going beyond end of smb */
+-	if (get_unaligned_le16(&pSMB->t2_rsp.ParameterOffset) > 1024 ||
+-	    get_unaligned_le16(&pSMB->t2_rsp.DataOffset) > 1024)
++	param_off = get_unaligned_le16(&pSMB->t2_rsp.ParameterOffset);
++	data_off  = get_unaligned_le16(&pSMB->t2_rsp.DataOffset);
 +
- 	if (acl_type == ACL_TYPE_ACCESS) {
--		count = le16_to_cpu(cifs_acl->access_entry_count);
- 		pACE = &cifs_acl->ace_array[0];
--		size = sizeof(struct cifs_posix_acl);
--		size += sizeof(struct cifs_posix_ace) * count;
--		/* check if we would go beyond end of SMB */
--		if (size_of_data_area < size) {
--			cifs_dbg(FYI, "bad CIFS POSIX ACL size %d vs. %d\n",
--				 size_of_data_area, size);
--			return -EINVAL;
--		}
- 	} else if (acl_type == ACL_TYPE_DEFAULT) {
--		count = le16_to_cpu(cifs_acl->access_entry_count);
--		size = sizeof(struct cifs_posix_acl);
--		size += sizeof(struct cifs_posix_ace) * count;
- 		/* skip past access ACEs to get to default ACEs */
- 		pACE = &cifs_acl->ace_array[count];
- 		count = le16_to_cpu(cifs_acl->default_entry_count);
++	/* server-supplied offsets must stay within the allocated buffer */
++	if (param_off > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE ||
++	    data_off  > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE)
++		goto vt2_err;
++
++	/*
++	 * frame_end matches smbCalcSize().  checkSMB() has already verified
++	 * that clc_len <= rfclen == total_read, so frame_end is bounded by
++	 * the actual received byte count.  Validating all offset+count pairs
++	 * against frame_end rather than the buffer size ensures that a large
++	 * DataOffset into uninitialised pool memory beyond the received frame
++	 * is rejected even when DataCount == 0.
++	 */
++	frame_end = sizeof(struct smb_hdr) +
++		    2 * pSMB->hdr.WordCount + sizeof(__le16) +
++		    get_bcc(&pSMB->hdr);
++	/*
++	 * Minimum valid offset accounts for the actual WordCount: for
++	 * WordCount > 10 (SetupCount > 0), setup words precede ByteCount,
++	 * shifting the data area two bytes per extra setup word.
++	 */
++	min_off = frame_end - get_bcc(&pSMB->hdr);
++
++	/* When the caller will dereference a struct at the offset, verify it
++	 * clears the fixed T2 header and that the struct fits in the frame.
++	 */
++	if (min_param_size &&
++	    (param_off < min_off ||
++	     param_off + min_param_size > frame_end))
++		goto vt2_err;
++
++	if (min_data_size &&
++	    (data_off < min_off ||
++	     data_off + min_data_size > frame_end))
+ 		goto vt2_err;
+ 
+ 	total_size = get_unaligned_le16(&pSMB->t2_rsp.ParameterCount);
+-	if (total_size >= 512)
++	if (total_size >= 512 ||
++	    param_off + total_size > frame_end)
++		goto vt2_err;
++
++	data_count = get_unaligned_le16(&pSMB->t2_rsp.DataCount);
++	if (data_off + data_count > frame_end)
+ 		goto vt2_err;
+ 
+ 	/* check that bcc is at least as big as parms + data, and that it is
+ 	 * less than negotiated smb buffer
+ 	 */
+-	total_size += get_unaligned_le16(&pSMB->t2_rsp.DataCount);
++	total_size += data_count;
+ 	if (total_size > get_bcc(&pSMB->hdr) ||
+ 	    total_size >= CIFSMaxBufSize + MAX_CIFS_HDR_SIZE)
+ 		goto vt2_err;
+@@ -1126,7 +1173,8 @@ CIFSPOSIXCreate(const unsigned int xid, struct cifs_tcon *tcon,
+ 	}
+ 
+ 	cifs_dbg(FYI, "copying inode info\n");
+-	rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++	rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0,
++			 sizeof(OPEN_PSX_RSP) + sizeof(FILE_UNIX_BASIC_INFO));
+ 
+ 	if (rc || get_bcc(&pSMBr->hdr) < sizeof(OPEN_PSX_RSP)) {
+ 		rc = smb_EIO2(smb_eio_trace_create_rsp_too_small,
+@@ -2358,15 +2406,14 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 				&resp_buf_type, sr_flags, &rsp_iov);
+ 		pSMBr = (struct smb_com_transaction2_sfi_rsp *)rsp_iov.iov_base;
+ 	}
+-	cifs_small_buf_release(pSMB);
+-
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in Posix Lock = %d\n", rc);
+ 	} else if (pLockData) {
+ 		/* lock structure can be returned on get */
+ 		__u16 data_offset;
+ 		__u16 data_count;
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0,
++				 sizeof(struct cifs_posix_lock));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < sizeof(*parm_data)) {
+ 			rc = smb_EIO2(smb_eio_trace_lock_bcc_too_small,
+@@ -2401,6 +2448,7 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 	}
+ 
+ plk_err_exit:
++	cifs_small_buf_release(pSMB);
+ 	free_rsp_buf(resp_buf_type, rsp_iov.iov_base);
+ 
+ 	/* Note: On -EAGAIN error only caller can retry on handle based calls
+@@ -2933,7 +2981,7 @@ CIFSSMBUnixQuerySymLink(const unsigned int xid, struct cifs_tcon *tcon,
+ 	} else {
+ 		/* decode response */
+ 
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, 0);
+ 		/* BB also check enough total bytes returned */
+ 		if (rc || get_bcc(&pSMBr->hdr) < 2)
+ 			rc = smb_EIO2(smb_eio_trace_qsym_bcc_too_small,
+@@ -3518,7 +3566,8 @@ int cifs_do_get_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 	} else {
+ 		/* decode response */
+ 
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0,
++				 sizeof(struct cifs_posix_acl));
+ 		/* BB also check enough total bytes returned */
+ 		if (rc || get_bcc(&pSMBr->hdr) < 2)
+ 			rc = smb_EIO2(smb_eio_trace_getacl_bcc_too_small,
+@@ -3690,7 +3739,7 @@ CIFSGetExtAttr(const unsigned int xid, struct cifs_tcon *tcon,
+ 		cifs_dbg(FYI, "error %d in GetExtAttr\n", rc);
+ 	} else {
+ 		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(struct file_chattr_info));
+ 		/* BB also check enough total bytes returned */
+ 		if (rc || get_bcc(&pSMBr->hdr) < 2)
+ 			/* If rc should we check for EOPNOSUPP and
+@@ -4093,7 +4142,7 @@ CIFSSMBQFileInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in QFileInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_ALL_INFO));
+ 
+ 		if (rc) /* BB add auto retry on EOPNOTSUPP? */
+ 			rc = smb_EIO2(smb_eio_trace_qfileinfo_invalid,
+@@ -4182,7 +4231,16 @@ CIFSSMBQPathInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in QPathInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		/*
++		 * On legacy responses we do not read the last field, EASize;
++		 * it varies by subdialect and differs between Set and Get
++		 * (two bytes vs four bytes).  Use offsetof so both the
++		 * validation bound and the copy size exclude it.
++		 */
++		int size = legacy ? offsetof(FILE_INFO_STANDARD, EASize) :
++				    sizeof(FILE_ALL_INFO);
++
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, size);
+ 
+ 		if (rc) /* BB add auto retry on EOPNOTSUPP? */
+ 			rc = smb_EIO2(smb_eio_trace_qpathinfo_invalid,
+@@ -4195,19 +4253,8 @@ CIFSSMBQPathInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 			rc = smb_EIO2(smb_eio_trace_qpathinfo_bcc_too_small,
+ 				      get_bcc(&pSMBr->hdr), 24);
+ 		else if (data) {
+-			int size;
+ 			__u16 data_offset = le16_to_cpu(pSMBr->t2.DataOffset);
+ 
+-			/*
+-			 * On legacy responses we do not read the last field,
+-			 * EAsize, fortunately since it varies by subdialect and
+-			 * also note it differs on Set vs Get, ie two bytes or 4
+-			 * bytes depending but we don't care here.
+-			 */
+-			if (legacy)
+-				size = sizeof(FILE_INFO_STANDARD);
+-			else
+-				size = sizeof(FILE_ALL_INFO);
+ 			memcpy((char *) data, (char *) &pSMBr->hdr.Protocol +
+ 			       data_offset, size);
+ 		} else
+@@ -4269,7 +4316,7 @@ CIFSSMBUnixQFileInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in UnixQFileInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_UNIX_BASIC_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < sizeof(FILE_UNIX_BASIC_INFO)) {
+ 			cifs_dbg(VFS, "Malformed FILE_UNIX_BASIC_INFO response. Unix Extensions can be disabled on mount by specifying the nosfu mount option.\n");
+@@ -4354,7 +4401,7 @@ CIFSSMBUnixQPathInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in UnixQPathInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_UNIX_BASIC_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < sizeof(FILE_UNIX_BASIC_INFO)) {
+ 			cifs_dbg(VFS, "Malformed FILE_UNIX_BASIC_INFO response. Unix Extensions can be disabled on mount by specifying the nosfu mount option.\n");
+@@ -4387,7 +4434,7 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 	TRANSACTION2_FFIRST_RSP *pSMBr = NULL;
+ 	T2_FFIRST_RSP_PARMS *parms;
+ 	struct nls_table *nls_codepage;
+-	unsigned int in_len, lnoff;
++	unsigned int in_len, lnoff, data_off;
+ 	__u16 params, byte_count;
+ 	int bytes_returned = 0;
+ 	int name_len, remap;
+@@ -4499,7 +4546,7 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 		return rc;
+ 	}
+ 	/* decode response */
+-	rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++	rc = validate_t2((struct smb_t2_rsp *)pSMBr, sizeof(T2_FFIRST_RSP_PARMS), 0);
+ 	if (rc) {
+ 		cifs_buf_release(pSMB);
+ 		return rc;
+@@ -4508,8 +4555,8 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
+ 	psrch_inf->ntwrk_buf_start = (char *)pSMBr;
+ 	psrch_inf->smallBuf = false;
+-	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol +
+-		le16_to_cpu(pSMBr->t2.DataOffset);
++	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
++	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol + data_off;
+ 
+ 	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol +
+ 					le16_to_cpu(pSMBr->t2.ParameterOffset));
+@@ -4519,14 +4566,15 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->index_of_last_entry = 2 /* skip . and .. */ +
+ 		psrch_inf->entries_in_buffer;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+-	if (CIFSMaxBufSize < lnoff) {
++
++	if (pnetfid)
++		*pnetfid = parms->SearchHandle;
++
++	if (lnoff >= le16_to_cpu(pSMBr->t2.DataCount)) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+ 		psrch_inf->last_entry = NULL;
+-	} else {
++	} else
+ 		psrch_inf->last_entry = psrch_inf->srch_entries_start + lnoff;
+-		if (pnetfid)
+-			*pnetfid = parms->SearchHandle;
+-	}
+ 	return 0;
+ }
+ 
+@@ -4538,7 +4586,7 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	TRANSACTION2_FNEXT_RSP *pSMBr = NULL;
+ 	T2_FNEXT_RSP_PARMS *parms;
+ 	unsigned int name_len, in_len;
+-	unsigned int lnoff;
++	unsigned int lnoff, data_off;
+ 	__u16 params, byte_count;
+ 	char *response_data;
+ 	int bytes_returned;
+@@ -4613,7 +4661,7 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	}
+ 
+ 	/* decode response */
+-	rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++	rc = validate_t2((struct smb_t2_rsp *)pSMBr, sizeof(T2_FNEXT_RSP_PARMS), 0);
+ 	if (rc) {
+ 		cifs_buf_release(pSMB);
+ 		return rc;
+@@ -4623,8 +4671,8 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	response_data = (char *)&pSMBr->hdr.Protocol +
+ 		le16_to_cpu(pSMBr->t2.ParameterOffset);
+ 	parms = (T2_FNEXT_RSP_PARMS *)response_data;
+-	response_data = (char *)&pSMBr->hdr.Protocol +
+-		le16_to_cpu(pSMBr->t2.DataOffset);
++	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
++	response_data = (char *)&pSMBr->hdr.Protocol + data_off;
+ 
+ 	if (psrch_inf->smallBuf)
+ 		cifs_small_buf_release(psrch_inf->ntwrk_buf_start);
+@@ -4638,7 +4686,7 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
+ 	psrch_inf->index_of_last_entry += psrch_inf->entries_in_buffer;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+-	if (CIFSMaxBufSize < lnoff) {
++	if (lnoff >= le16_to_cpu(pSMBr->t2.DataCount)) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+ 		psrch_inf->last_entry = NULL;
+ 	} else {
+@@ -4757,7 +4805,7 @@ CIFSGetSrvInodeNumber(const unsigned int xid, struct cifs_tcon *tcon,
+ 		cifs_dbg(FYI, "error %d in QueryInternalInfo\n", rc);
+ 	} else {
+ 		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(struct file_internal_info));
+ 		/* BB also check enough total bytes returned */
+ 		if (rc || get_bcc(&pSMBr->hdr) < 2)
+ 			/* If rc should we check for EOPNOSUPP and
+@@ -4877,7 +4925,7 @@ CIFSGetDFSRefer(const unsigned int xid, struct cifs_ses *ses,
+ 		cifs_dbg(FYI, "Send error in GetDFSRefer = %d\n", rc);
+ 		goto GetDFSRefExit;
+ 	}
+-	rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++	rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, 0);
+ 
+ 	/* BB Also check if enough total bytes returned? */
+ 	if (rc || get_bcc(&pSMBr->hdr) < 17) {
+@@ -4889,6 +4937,18 @@ CIFSGetDFSRefer(const unsigned int xid, struct cifs_ses *ses,
+ 	cifs_dbg(FYI, "Decoding GetDFSRefer response BCC: %d  Offset %d\n",
+ 		 get_bcc(&pSMBr->hdr), le16_to_cpu(pSMBr->t2.DataOffset));
+ 
++	/*
++	 * dfs_data is at a fixed structural offset, not at the server-supplied
++	 * DataOffset.  Verify that DataCount bytes fit within the frame from
++	 * that fixed position before passing them to parse_dfs_referrals().
++	 */
++	if (offsetof(TRANSACTION2_GET_DFS_REFER_RSP, dfs_data) +
++	    le16_to_cpu(pSMBr->t2.DataCount) > sizeof(struct smb_hdr) +
++	    2 * pSMBr->hdr.WordCount + sizeof(__le16) + get_bcc(&pSMBr->hdr)) {
++		rc = -EIO;
++		goto GetDFSRefExit;
++	}
++
+ 	/* parse returned result into more usable form */
+ 	rc = parse_dfs_referrals(&pSMBr->dfs_data,
+ 				 le16_to_cpu(pSMBr->t2.DataCount),
+@@ -4955,7 +5015,7 @@ SMBOldQFSInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in QFSInfo = %d\n", rc);
+ 	} else {                /* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_SYSTEM_ALLOC_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < 18)
+ 			rc = smb_EIO2(smb_eio_trace_oldqfsinfo_bcc_too_small,
+@@ -5045,7 +5105,7 @@ CIFSSMBQFSInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in QFSInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_SYSTEM_SIZE_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < 24)
+ 			rc = smb_EIO2(smb_eio_trace_qfsinfo_bcc_too_small,
+@@ -5135,7 +5195,7 @@ CIFSSMBQFSAttributeInfo(const unsigned int xid, struct cifs_tcon *tcon)
+ 	if (rc) {
+ 		cifs_dbg(VFS, "Send error in QFSAttributeInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_SYSTEM_ATTRIBUTE_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < 13) {
+ 			/* BB also check if enough bytes returned */
+@@ -5209,7 +5269,7 @@ CIFSSMBQFSDeviceInfo(const unsigned int xid, struct cifs_tcon *tcon)
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in QFSDeviceInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_SYSTEM_DEVICE_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) <
+ 			  sizeof(FILE_SYSTEM_DEVICE_INFO))
+@@ -5283,7 +5343,7 @@ CIFSSMBQFSUnixInfo(const unsigned int xid, struct cifs_tcon *tcon)
+ 	if (rc) {
+ 		cifs_dbg(VFS, "Send error in QFSUnixInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_SYSTEM_UNIX_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < 13) {
+ 			rc = smb_EIO2(smb_eio_trace_qfsunixinfo_bcc_too_small,
+@@ -5368,7 +5428,7 @@ CIFSSMBSetFSUnixInfo(const unsigned int xid, struct cifs_tcon *tcon, __u64 cap)
+ 	if (rc) {
+ 		cifs_dbg(VFS, "Send error in SETFSUnixInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, 0);
+ 		if (rc)
+ 			rc = -EIO;	/* bad smb */
+ 	}
+@@ -5432,7 +5492,7 @@ CIFSSMBQFSPosixInfo(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (rc) {
+ 		cifs_dbg(FYI, "Send error in QFSUnixInfo = %d\n", rc);
+ 	} else {		/* decode response */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++		rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, sizeof(FILE_SYSTEM_POSIX_INFO));
+ 
+ 		if (rc || get_bcc(&pSMBr->hdr) < 13) {
+ 			rc = smb_EIO2(smb_eio_trace_qfsposixinfo_bcc_too_small,
+@@ -6198,7 +6258,7 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+ 	/* BB we need to improve the validity checking
+ 	of these trans2 responses */
+ 
+-	rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++	rc = validate_t2((struct smb_t2_rsp *)pSMBr, 0, offsetof(struct fealist, list));
+ 	if (rc || get_bcc(&pSMBr->hdr) < 4) {
+ 		rc = smb_EIO2(smb_eio_trace_qalleas_bcc_too_small,
+ 			      get_bcc(&pSMBr->hdr), 4);
 -- 
 2.55.0
 
