@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A483032C94A
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:05:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E1333ADAC
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:05:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787673948; cv=none; b=OLP5vi1/8mTF/gF2BmB8jbs/C5Kfjf80rwebtbqYMiE7Y4f+SUexsjYw+KlLlgwtpvLP7q6orUsZLzh2H0S8ogyrM/C0OgisGfW+4kbhwU72xaXgr5HvDB5qZeYVbOSjjip5cN8PUca8ycvNhBjWGhoVHLpcR5ZALUlm5oa0N/4=
+	t=1787673948; cv=none; b=eWWIyE6flOJiro9axfwKO6oQ3D9CjkhiKhiGwTmzLK1ycBpOhdMUsVi2v6P9v91ZLFs+6IQBpkC4Az2dprCZpCo80wXJmp9kJoHnBm/c+j4AkHToXV+oCc0AY4mW9JEDXvdoPbMuvitsbCh9ohNUjp4PBJURvQXHFysqvUMQDuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787673948; c=relaxed/simple;
-	bh=rzAYJBIq5py3qTykLuXoM4VfTmSeZxmwv/seZeQdklA=;
+	bh=kDI2ihpW2N+Pu0rfna1EMnQOHYrZILzhojiJVcBIzLo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uPCo5h0ut/M62Aem4EzGd6XhvbkoydBAIHJlDQJiqicvusY4KFgrJGEohtliOX+2SNeqoVahS6kNlHlU3JWAn5p6tC2auDKC3HKNho9kw6DhcXTmwphDOhudpN3aAfs69hc8KxFVBMOKGO17asydt91c3UijZjKSyLNmxgjn/F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFFR9N7l; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TdhqkK22Ppk5nEpVmk3xkjKnrFzFN9poIZZU7yfBwBLUFg14JX2BE52t5xJmU/miGmxii6MNPblELIwrfNai+HqpOn4xbPMAJeFSvLKvfZuSWEizK28a2Mz0TWJO09hiJIoQ+ow/OWR8su8DOKDcFDuVmgO9pwtHOyKV9WpeaCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5I0xE94; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFFR9N7l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1411F00A3D;
-	Tue, 25 Aug 2026 16:05:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5I0xE94"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7531F00A3E;
+	Tue, 25 Aug 2026 16:05:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787673946;
-	bh=RvtWycZIYY3wAmvHH8caJ4JtIrN/4CUMXMwZFyxtwwk=;
+	s=k20260515; t=1787673947;
+	bh=9EYtlfLUMpJ5EfAj5NHVjsEiaP9nzoMAmolGqX4NRjA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mFFR9N7lqSFBWkAvIZjOPWD0YHL6rhS4ryY4Fe7irodXi9wYabXDZPoR330ZSwqxV
-	 KrrnNpvepWVn51oFuEfvrIVa8X1LUdY2u9C27wcJvrIWHzuCXoSXJfPb4tpJeBs6dc
-	 NM4+dQUd7TxW9wZYCQFy2PAchViYOr3gliQe3ZYhU0XBdZ+rz3m4zDih1+jJSnisnY
-	 RODkmHDNUTRsy6RXXONaDjhpDn4N+C8MdNfpFexxGTSLBaiBl6rPwcL7OdLuWSVrbE
-	 /bH/w3u9mJgucLSyX6J0jT7rhUjJSpgPqD6tLZCGZYFap8bTwLiSV7vP4rK8G+vanm
-	 vRhBkcI1F/dnQ==
+	b=K5I0xE94JxFazvykjmwUtNeNp/XsfNdp2KzZDnlBZdEbNcrhilS4qNaoaTVQiwRrZ
+	 oG6cHUqvMQwtcaXCReghR5NOS6lvATVOAP4qF6Pu1OTmPfks+pOqouQAv7cX0neosO
+	 PSWeJ04fKm+EHDji3gBOgMaui70o9nF6W+A740jzRAiUe5+g9MHogIXgGvbNCc3+xp
+	 1n3RD++wCQkrgO6O2eQtMCElNqT8MUvlU/6/YCnT13j+aVpNSXhrA04e3ZryojMopB
+	 Ey0gPY/V7xeVTpvxZyuoCjmGSg6RWSuDU6aNfqEIf6tRECMydc7Z5TrvIpobo7gCnV
+	 8uyXqNETkr+SQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
+Cc: Vishnu Razdan <vrazdan@openai.com>,
+	Gabriel Krisman Bertazi <krisman@suse.de>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] io_uring/io-wq: move worker lists to struct io_wq_acct
-Date: Tue, 25 Aug 2026 12:05:42 -0400
-Message-ID: <20260825160543.4126397-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] io_uring/io-wq: fix worker accounting when canceling creation callbacks
+Date: Tue, 25 Aug 2026 12:05:43 -0400
+Message-ID: <20260825160543.4126397-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260825160543.4126397-1-sashal@kernel.org>
 References: <2026082422-frivolous-grab-47d6@gregkh>
@@ -46,467 +47,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Max Kellermann <max.kellermann@ionos.com>
+From: Vishnu Razdan <vrazdan@openai.com>
 
-[ Upstream commit 751eedc4b4b79332ecf1a78c0dbeb47d573a8f59 ]
+[ Upstream commit 297b5ccea4acacaa47c150f043bce695202afbf1 ]
 
-Have separate linked lists for bounded and unbounded workers.  This
-way, io_acct_activate_free_worker() sees only workers relevant to it
-and doesn't need to skip irrelevant ones.  This speeds up the
-linked list traversal (under acct->lock).
+create_worker_cb() reserves an io-wq worker slot only after its
+task-work callback runs. If the callback is canceled before then,
+io_worker_cancel_cb() still decrements acct->nr_workers. When an
+existing worker retires with its creation callback pending, that
+worker has already decremented the same account's worker count.
 
-The `io_wq.lock` field is moved to `io_wq_acct.workers_lock`.  It did
-not actually protect "access to elements below", that is, not all of
-them; it only protected access to the worker lists.  By having two
-locks instead of one, contention on this lock is reduced.
+The resulting undercount permits worker creation beyond the account's
+configured limit. On an AST2600 OpenBMC system, an unchanged sensor
+daemon reached 4,291 threads with the original kernel. With an
+equivalent downstream fix, 25 passive samples under its normal
+workload showed 6-9 threads.
 
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Link: https://lore.kernel.org/r/20250128133927.3989681-4-max.kellermann@ionos.com
+Decrement nr_workers only when the canceled callback is not
+create_worker_cb(). Continuation callbacks still release their reserved
+slot, and both callback types retain the existing running-count,
+reference-count, and create-state cleanup.
+
+Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Stable-dep-of: 297b5ccea4ac ("io_uring/io-wq: fix worker accounting when canceling creation callbacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/io-wq.c | 162 ++++++++++++++++++++++++++++-------------------
- 1 file changed, 96 insertions(+), 66 deletions(-)
+ io_uring/io-wq.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index f364ab2a66408..f75160f9151b7 100644
+index f75160f9151b7..99ebb48cde754 100644
 --- a/io_uring/io-wq.c
 +++ b/io_uring/io-wq.c
-@@ -76,9 +76,27 @@ struct io_worker {
- #define IO_WQ_NR_HASH_BUCKETS	(1u << IO_WQ_HASH_ORDER)
- 
- struct io_wq_acct {
-+	/**
-+	 * Protects access to the worker lists.
-+	 */
-+	raw_spinlock_t workers_lock;
-+
- 	unsigned nr_workers;
- 	unsigned max_workers;
- 	atomic_t nr_running;
-+
-+	/**
-+	 * The list of free workers.  Protected by #workers_lock
-+	 * (write) and RCU (read).
-+	 */
-+	struct hlist_nulls_head free_list;
-+
-+	/**
-+	 * The list of all workers.  Protected by #workers_lock
-+	 * (write) and RCU (read).
-+	 */
-+	struct list_head all_list;
-+
- 	raw_spinlock_t lock;
- 	struct io_wq_work_list work_list;
- 	unsigned long flags;
-@@ -110,12 +128,6 @@ struct io_wq {
- 
- 	struct io_wq_acct acct[IO_WQ_ACCT_NR];
- 
--	/* lock protects access to elements below */
--	raw_spinlock_t lock;
--
--	struct hlist_nulls_head free_list;
--	struct list_head all_list;
--
- 	struct wait_queue_entry wait;
- 
- 	struct io_wq_work *hash_tail[IO_WQ_NR_HASH_BUCKETS];
-@@ -190,9 +202,9 @@ static void io_worker_cancel_cb(struct io_worker *worker)
+@@ -202,9 +202,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
  	struct io_wq *wq = worker->wq;
  
  	atomic_dec(&acct->nr_running);
--	raw_spin_lock(&wq->lock);
-+	raw_spin_lock(&acct->workers_lock);
- 	acct->nr_workers--;
--	raw_spin_unlock(&wq->lock);
-+	raw_spin_unlock(&acct->workers_lock);
+-	raw_spin_lock(&acct->workers_lock);
+-	acct->nr_workers--;
+-	raw_spin_unlock(&acct->workers_lock);
++	/* create_worker_cb() has not reserved a worker slot yet. */
++	if (worker->create_work.func != create_worker_cb) {
++		raw_spin_lock(&acct->workers_lock);
++		acct->nr_workers--;
++		raw_spin_unlock(&acct->workers_lock);
++	}
  	io_worker_ref_put(wq);
  	clear_bit_unlock(0, &worker->create_state);
  	io_worker_release(worker);
-@@ -211,6 +223,7 @@ static bool io_task_worker_match(struct callback_head *cb, void *data)
- static void io_worker_exit(struct io_worker *worker)
- {
- 	struct io_wq *wq = worker->wq;
-+	struct io_wq_acct *acct = io_wq_get_acct(worker);
- 
- 	while (1) {
- 		struct callback_head *cb = task_work_cancel_match(wq->task,
-@@ -224,11 +237,11 @@ static void io_worker_exit(struct io_worker *worker)
- 	io_worker_release(worker);
- 	wait_for_completion(&worker->ref_done);
- 
--	raw_spin_lock(&wq->lock);
-+	raw_spin_lock(&acct->workers_lock);
- 	if (test_bit(IO_WORKER_F_FREE, &worker->flags))
- 		hlist_nulls_del_rcu(&worker->nulls_node);
- 	list_del_rcu(&worker->all_list);
--	raw_spin_unlock(&wq->lock);
-+	raw_spin_unlock(&acct->workers_lock);
- 	io_wq_dec_running(worker);
- 	/*
- 	 * this worker is a goner, clear ->worker_private to avoid any
-@@ -267,8 +280,7 @@ static inline bool io_acct_run_queue(struct io_wq_acct *acct)
-  * Check head of free list for an available worker. If one isn't available,
-  * caller must create one.
-  */
--static bool io_wq_activate_free_worker(struct io_wq *wq,
--					struct io_wq_acct *acct)
-+static bool io_acct_activate_free_worker(struct io_wq_acct *acct)
- 	__must_hold(RCU)
- {
- 	struct hlist_nulls_node *n;
-@@ -279,13 +291,9 @@ static bool io_wq_activate_free_worker(struct io_wq *wq,
- 	 * activate. If a given worker is on the free_list but in the process
- 	 * of exiting, keep trying.
- 	 */
--	hlist_nulls_for_each_entry_rcu(worker, n, &wq->free_list, nulls_node) {
-+	hlist_nulls_for_each_entry_rcu(worker, n, &acct->free_list, nulls_node) {
- 		if (!io_worker_get(worker))
- 			continue;
--		if (io_wq_get_acct(worker) != acct) {
--			io_worker_release(worker);
--			continue;
--		}
- 		/*
- 		 * If the worker is already running, it's either already
- 		 * starting work or finishing work. In either case, if it does
-@@ -312,13 +320,13 @@ static bool io_wq_create_worker(struct io_wq *wq, struct io_wq_acct *acct)
- 	if (unlikely(!acct->max_workers))
- 		pr_warn_once("io-wq is not configured for unbound workers");
- 
--	raw_spin_lock(&wq->lock);
-+	raw_spin_lock(&acct->workers_lock);
- 	if (acct->nr_workers >= acct->max_workers) {
--		raw_spin_unlock(&wq->lock);
-+		raw_spin_unlock(&acct->workers_lock);
- 		return true;
- 	}
- 	acct->nr_workers++;
--	raw_spin_unlock(&wq->lock);
-+	raw_spin_unlock(&acct->workers_lock);
- 	atomic_inc(&acct->nr_running);
- 	atomic_inc(&wq->worker_refs);
- 	return create_io_worker(wq, acct);
-@@ -342,13 +350,13 @@ static void create_worker_cb(struct callback_head *cb)
- 	worker = container_of(cb, struct io_worker, create_work);
- 	wq = worker->wq;
- 	acct = worker->acct;
--	raw_spin_lock(&wq->lock);
-+	raw_spin_lock(&acct->workers_lock);
- 
- 	if (acct->nr_workers < acct->max_workers) {
- 		acct->nr_workers++;
- 		do_create = true;
- 	}
--	raw_spin_unlock(&wq->lock);
-+	raw_spin_unlock(&acct->workers_lock);
- 	if (do_create) {
- 		create_io_worker(wq, acct);
- 	} else {
-@@ -427,25 +435,25 @@ static void io_wq_dec_running(struct io_worker *worker)
-  * Worker will start processing some work. Move it to the busy list, if
-  * it's currently on the freelist
-  */
--static void __io_worker_busy(struct io_wq *wq, struct io_worker *worker)
-+static void __io_worker_busy(struct io_wq_acct *acct, struct io_worker *worker)
- {
- 	if (test_bit(IO_WORKER_F_FREE, &worker->flags)) {
- 		clear_bit(IO_WORKER_F_FREE, &worker->flags);
--		raw_spin_lock(&wq->lock);
-+		raw_spin_lock(&acct->workers_lock);
- 		hlist_nulls_del_init_rcu(&worker->nulls_node);
--		raw_spin_unlock(&wq->lock);
-+		raw_spin_unlock(&acct->workers_lock);
- 	}
- }
- 
- /*
-  * No work, worker going to sleep. Move to freelist.
-  */
--static void __io_worker_idle(struct io_wq *wq, struct io_worker *worker)
--	__must_hold(wq->lock)
-+static void __io_worker_idle(struct io_wq_acct *acct, struct io_worker *worker)
-+	__must_hold(acct->workers_lock)
- {
- 	if (!test_bit(IO_WORKER_F_FREE, &worker->flags)) {
- 		set_bit(IO_WORKER_F_FREE, &worker->flags);
--		hlist_nulls_add_head_rcu(&worker->nulls_node, &wq->free_list);
-+		hlist_nulls_add_head_rcu(&worker->nulls_node, &acct->free_list);
- 	}
- }
- 
-@@ -579,7 +587,7 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 		if (!work)
- 			break;
- 
--		__io_worker_busy(wq, worker);
-+		__io_worker_busy(acct, worker);
- 
- 		io_assign_current_work(worker, work);
- 		__set_current_state(TASK_RUNNING);
-@@ -651,20 +659,20 @@ static int io_wq_worker(void *data)
- 		while (io_acct_run_queue(acct))
- 			io_worker_handle_work(acct, worker);
- 
--		raw_spin_lock(&wq->lock);
-+		raw_spin_lock(&acct->workers_lock);
- 		/*
- 		 * Last sleep timed out. Exit if we're not the last worker,
- 		 * or if someone modified our affinity.
- 		 */
- 		if (last_timeout && (exit_mask || acct->nr_workers > 1)) {
- 			acct->nr_workers--;
--			raw_spin_unlock(&wq->lock);
-+			raw_spin_unlock(&acct->workers_lock);
- 			__set_current_state(TASK_RUNNING);
- 			break;
- 		}
- 		last_timeout = false;
--		__io_worker_idle(wq, worker);
--		raw_spin_unlock(&wq->lock);
-+		__io_worker_idle(acct, worker);
-+		raw_spin_unlock(&acct->workers_lock);
- 		if (io_run_task_work())
- 			continue;
- 		ret = schedule_timeout(WORKER_IDLE_TIMEOUT);
-@@ -725,18 +733,18 @@ void io_wq_worker_sleeping(struct task_struct *tsk)
- 	io_wq_dec_running(worker);
- }
- 
--static void io_init_new_worker(struct io_wq *wq, struct io_worker *worker,
-+static void io_init_new_worker(struct io_wq *wq, struct io_wq_acct *acct, struct io_worker *worker,
- 			       struct task_struct *tsk)
- {
- 	tsk->worker_private = worker;
- 	worker->task = tsk;
- 	set_cpus_allowed_ptr(tsk, wq->cpu_mask);
- 
--	raw_spin_lock(&wq->lock);
--	hlist_nulls_add_head_rcu(&worker->nulls_node, &wq->free_list);
--	list_add_tail_rcu(&worker->all_list, &wq->all_list);
-+	raw_spin_lock(&acct->workers_lock);
-+	hlist_nulls_add_head_rcu(&worker->nulls_node, &acct->free_list);
-+	list_add_tail_rcu(&worker->all_list, &acct->all_list);
- 	set_bit(IO_WORKER_F_FREE, &worker->flags);
--	raw_spin_unlock(&wq->lock);
-+	raw_spin_unlock(&acct->workers_lock);
- 	wake_up_new_task(tsk);
- }
- 
-@@ -784,20 +792,20 @@ static void create_worker_cont(struct callback_head *cb)
- 	struct io_worker *worker;
- 	struct task_struct *tsk;
- 	struct io_wq *wq;
-+	struct io_wq_acct *acct;
- 
- 	worker = container_of(cb, struct io_worker, create_work);
- 	clear_bit_unlock(0, &worker->create_state);
- 	wq = worker->wq;
-+	acct = io_wq_get_acct(worker);
- 	tsk = create_io_thread(io_wq_worker, worker, NUMA_NO_NODE);
- 	if (!IS_ERR(tsk)) {
--		io_init_new_worker(wq, worker, tsk);
-+		io_init_new_worker(wq, acct, worker, tsk);
- 		io_worker_release(worker);
- 		return;
- 	} else if (!io_should_retry_thread(worker, PTR_ERR(tsk))) {
--		struct io_wq_acct *acct = io_wq_get_acct(worker);
--
- 		atomic_dec(&acct->nr_running);
--		raw_spin_lock(&wq->lock);
-+		raw_spin_lock(&acct->workers_lock);
- 		acct->nr_workers--;
- 		if (!acct->nr_workers) {
- 			struct io_cb_cancel_data match = {
-@@ -805,11 +813,11 @@ static void create_worker_cont(struct callback_head *cb)
- 				.cancel_all	= true,
- 			};
- 
--			raw_spin_unlock(&wq->lock);
-+			raw_spin_unlock(&acct->workers_lock);
- 			while (io_acct_cancel_pending_work(wq, acct, &match))
- 				;
- 		} else {
--			raw_spin_unlock(&wq->lock);
-+			raw_spin_unlock(&acct->workers_lock);
- 		}
- 		io_worker_ref_put(wq);
- 		kfree(worker);
-@@ -842,9 +850,9 @@ static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct)
- 	if (!worker) {
- fail:
- 		atomic_dec(&acct->nr_running);
--		raw_spin_lock(&wq->lock);
-+		raw_spin_lock(&acct->workers_lock);
- 		acct->nr_workers--;
--		raw_spin_unlock(&wq->lock);
-+		raw_spin_unlock(&acct->workers_lock);
- 		io_worker_ref_put(wq);
- 		return false;
- 	}
-@@ -857,7 +865,7 @@ static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct)
- 
- 	tsk = create_io_thread(io_wq_worker, worker, NUMA_NO_NODE);
- 	if (!IS_ERR(tsk)) {
--		io_init_new_worker(wq, worker, tsk);
-+		io_init_new_worker(wq, acct, worker, tsk);
- 	} else if (!io_should_retry_thread(worker, PTR_ERR(tsk))) {
- 		kfree(worker);
- 		goto fail;
-@@ -873,14 +881,14 @@ static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct)
-  * Iterate the passed in list and call the specific function for each
-  * worker that isn't exiting
-  */
--static bool io_wq_for_each_worker(struct io_wq *wq,
--				  bool (*func)(struct io_worker *, void *),
--				  void *data)
-+static bool io_acct_for_each_worker(struct io_wq_acct *acct,
-+				    bool (*func)(struct io_worker *, void *),
-+				    void *data)
- {
- 	struct io_worker *worker;
- 	bool ret = false;
- 
--	list_for_each_entry_rcu(worker, &wq->all_list, all_list) {
-+	list_for_each_entry_rcu(worker, &acct->all_list, all_list) {
- 		if (io_worker_get(worker)) {
- 			/* no task if node is/was offline */
- 			if (worker->task)
-@@ -894,6 +902,18 @@ static bool io_wq_for_each_worker(struct io_wq *wq,
- 	return ret;
- }
- 
-+static bool io_wq_for_each_worker(struct io_wq *wq,
-+				  bool (*func)(struct io_worker *, void *),
-+				  void *data)
-+{
-+	for (int i = 0; i < IO_WQ_ACCT_NR; i++) {
-+		if (!io_acct_for_each_worker(&wq->acct[i], func, data))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- static bool io_wq_worker_wake(struct io_worker *worker, void *data)
- {
- 	__set_notify_signal(worker->task);
-@@ -963,7 +983,7 @@ void io_wq_enqueue(struct io_wq *wq, struct io_wq_work *work)
- 	raw_spin_unlock(&acct->lock);
- 
- 	rcu_read_lock();
--	do_create = !io_wq_activate_free_worker(wq, acct);
-+	do_create = !io_acct_activate_free_worker(acct);
- 	rcu_read_unlock();
- 
- 	if (do_create && ((work_flags & IO_WQ_WORK_CONCURRENT) ||
-@@ -974,12 +994,12 @@ void io_wq_enqueue(struct io_wq *wq, struct io_wq_work *work)
- 		if (likely(did_create))
- 			return;
- 
--		raw_spin_lock(&wq->lock);
-+		raw_spin_lock(&acct->workers_lock);
- 		if (acct->nr_workers) {
--			raw_spin_unlock(&wq->lock);
-+			raw_spin_unlock(&acct->workers_lock);
- 			return;
- 		}
--		raw_spin_unlock(&wq->lock);
-+		raw_spin_unlock(&acct->workers_lock);
- 
- 		/* fatal condition, failed to create the first worker */
- 		io_acct_cancel_pending_work(wq, acct, &match);
-@@ -1087,11 +1107,22 @@ static void io_wq_cancel_pending_work(struct io_wq *wq,
- 	}
- }
- 
-+static void io_acct_cancel_running_work(struct io_wq_acct *acct,
-+					struct io_cb_cancel_data *match)
-+{
-+	raw_spin_lock(&acct->workers_lock);
-+	io_acct_for_each_worker(acct, io_wq_worker_cancel, match);
-+	raw_spin_unlock(&acct->workers_lock);
-+}
-+
- static void io_wq_cancel_running_work(struct io_wq *wq,
- 				       struct io_cb_cancel_data *match)
- {
- 	rcu_read_lock();
--	io_wq_for_each_worker(wq, io_wq_worker_cancel, match);
-+
-+	for (int i = 0; i < IO_WQ_ACCT_NR; i++)
-+		io_acct_cancel_running_work(&wq->acct[i], match);
-+
- 	rcu_read_unlock();
- }
- 
-@@ -1114,16 +1145,14 @@ enum io_wq_cancel io_wq_cancel_cb(struct io_wq *wq, work_cancel_fn *cancel,
- 	 * as an indication that we attempt to signal cancellation. The
- 	 * completion will run normally in this case.
- 	 *
--	 * Do both of these while holding the wq->lock, to ensure that
-+	 * Do both of these while holding the acct->workers_lock, to ensure that
- 	 * we'll find a work item regardless of state.
- 	 */
- 	io_wq_cancel_pending_work(wq, &match);
- 	if (match.nr_pending && !match.cancel_all)
- 		return IO_WQ_CANCEL_OK;
- 
--	raw_spin_lock(&wq->lock);
- 	io_wq_cancel_running_work(wq, &match);
--	raw_spin_unlock(&wq->lock);
- 	if (match.nr_running && !match.cancel_all)
- 		return IO_WQ_CANCEL_RUNNING;
- 
-@@ -1147,7 +1176,7 @@ static int io_wq_hash_wake(struct wait_queue_entry *wait, unsigned mode,
- 		struct io_wq_acct *acct = &wq->acct[i];
- 
- 		if (test_and_clear_bit(IO_ACCT_STALLED_BIT, &acct->flags))
--			io_wq_activate_free_worker(wq, acct);
-+			io_acct_activate_free_worker(acct);
- 	}
- 	rcu_read_unlock();
- 	return 1;
-@@ -1186,14 +1215,15 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
- 		struct io_wq_acct *acct = &wq->acct[i];
- 
- 		atomic_set(&acct->nr_running, 0);
-+
-+		raw_spin_lock_init(&acct->workers_lock);
-+		INIT_HLIST_NULLS_HEAD(&acct->free_list, 0);
-+		INIT_LIST_HEAD(&acct->all_list);
-+
- 		INIT_WQ_LIST(&acct->work_list);
- 		raw_spin_lock_init(&acct->lock);
- 	}
- 
--	raw_spin_lock_init(&wq->lock);
--	INIT_HLIST_NULLS_HEAD(&wq->free_list, 0);
--	INIT_LIST_HEAD(&wq->all_list);
--
- 	wq->task = get_task_struct(data->task);
- 	atomic_set(&wq->worker_refs, 1);
- 	init_completion(&wq->worker_done);
-@@ -1381,14 +1411,14 @@ int io_wq_max_workers(struct io_wq *wq, int *new_count)
- 
- 	rcu_read_lock();
- 
--	raw_spin_lock(&wq->lock);
- 	for (i = 0; i < IO_WQ_ACCT_NR; i++) {
- 		acct = &wq->acct[i];
-+		raw_spin_lock(&acct->workers_lock);
- 		prev[i] = max_t(int, acct->max_workers, prev[i]);
- 		if (new_count[i])
- 			acct->max_workers = new_count[i];
-+		raw_spin_unlock(&acct->workers_lock);
- 	}
--	raw_spin_unlock(&wq->lock);
- 	rcu_read_unlock();
- 
- 	for (i = 0; i < IO_WQ_ACCT_NR; i++)
 -- 
 2.53.0
 
