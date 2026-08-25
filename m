@@ -1,147 +1,214 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707FF3B19B6
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 07:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DFF351C02;
+	Wed, 26 Aug 2026 07:50:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787730503; cv=none; b=CV2OoDnnz85pYIw6aaU/BuKYCbZYSVQJi9MCY/am4DrYOVQPWoJbZNqzYEpgsYoc5MDc6y5osZn1V2pdFHjKROECJx9pN2f1UkczBNUsJagI9meRVuDFdwqQrc1llGOxuG5N3SFC7qzeYe5caPe1QiMVqkg96R32jXkL5XPv40Y=
+	t=1787730615; cv=none; b=irzu6gkpGuqkdUy6MYzo4fhuCJtCTZTUuK6C/jU2skRFnMzVqTeakPskjBtvmdM9U1RHc7rMNMf2KHlrjVexOSs0wUbiwirx0GR9wQ5cS449+Nah7ITsW3MenKvrauMP/s4ZN6hiiIpyXbyjVAQdOjVZoqWKYtmbsqu9vevkCnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787730503; c=relaxed/simple;
-	bh=WJ0uLwRr9UFmTPVr4jLczI4kM0DG/KFUsDWq0YyLYMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P7LVASjqFwouPPB5vn/vk2DRyOUFfbBGSwz8JK1Avg5Xu3OpRBfymI6PKXZAi2JuQUrfY9JfFVX7RaNi7n7q0AqmkXE64hgmC2UOeMmD/yVI9jOROO5ffSRdGvzL6lEpoRreXoafegYABdaqUYRf0DaFWuINH6iRoLITGNp/KFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=W53XkLUh; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	s=arc-20240116; t=1787730615; c=relaxed/simple;
+	bh=aCjJjG2Nw3cPfyAT5z4SuQfzlRJA8clTcgN99zBnPIE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ua4zFajM7p3LdyMbjr7I377AYXzXzDEm0Sf/6c2pP2dLZHTnXQOJkevjFudrkFSepnEkW9B5DFtbWj//74TndV9I7mG6nwq9gJ/drYlpMIufjY37/+5koccYAcn7kCSfg8P7PLbks4YUu7deDGNb04Gc9hpN7SPIrJrBY6c8bzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Tuf8Zu4E; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oTwZ5Guy; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ff3Cc7VU; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=sLVbV5ya; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="W53XkLUh"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c197eaaab00so101844466b.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:48:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1787730499; x=1788335299; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OUoJaBU6v8Sez5v2j24ZHioeYX9zgLhvXZSZMCcMA/U=;
-        b=W53XkLUhVgMm6LNHHTf86bz0YUT2pfoVLDwqydIDEKqmULuXFf4I1bgtiYkGsKyqOi
-         K7GrOrGEPkEq0H2Spb3UBEK1GEuVm1IO+KA4DNgc21UDDlk6JvXHldc8LimEihZQU8Hv
-         ibB/mgfP4xldhbGyZGUKSGON+fzyCqv7LSPT760ONbe+bfnHNrnrh12P/Sl0XZLp70YV
-         zBkGtS/4K/EcdrWSgyRIef3S4TWqABQtujR0bzUyEIyljvu2BELdOO6gvAjJQTb7WuQQ
-         gsnVZzP2AJqEMCIW1KisQQoCTMtIAC2O3SVW20l+PBuoVF1B3faJONtkhUvZy/24tSbH
-         g+eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787730499; x=1788335299;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OUoJaBU6v8Sez5v2j24ZHioeYX9zgLhvXZSZMCcMA/U=;
-        b=hhFfENcxZn8nzflILNj9iKjdNpF5fayBqZSXRs5dxmJoGGG/VcB/M74B0+A+696y54
-         uc6zYD1eE9rtqVl74Y1tUyNq/5BuezFSm8FVWl6nOCbmpv4PAPq0YIS5MTXLyCrfLLKr
-         c35o6NGKjVv1p8ix7NgcDX3Hjn6PP34FoPJMTSRv5iyvKJ+DHH4+p+wXdJAiAWvmSRv9
-         xlfbPcpgLWQfGTGld4Vw4tKUBGQHtMmDxWGrleWqRIt2IwTbm8rHwkDUDJQ2K9p34oFB
-         dNHNi7IQThivxVWKluc4c7KKMzJjt2Qy9L7U/heJL5CN7IlOjvcRO+e3BJaYA+rI0ERu
-         vUAw==
-X-Forwarded-Encrypted: i=1; AHgh+RpIM0J9sXPnuBX4kPk4XgPcCDKHGmsIwpSocvwF6TW5ttfL3i3hhFXT7X8Ec+iigH1Z8/5gnY8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYt1LzII7EQ/B8SqFGWWRh7EE/AL3Zwi53PAa95KrvmiqFgNh8
-	DoQf+b7GPleEpaU3axY4/sifh58FHU36MPfVik4WJntP0gBqCPU2N1hyWawjjmHywX8=
-X-Gm-Gg: AR+sD13i+axpZTUcKzQ+5Pnzgriujuz98SqhI42DKQlCdQKnkLZ0hKVseX7/eP8duUj
-	OksHdD3wrFz2OSUa0ii3KxdP6Tvz/Lh7Z+S5fHVbAkAQtkxLymeVwIiOHlifPcZP9AQAnpwiXbu
-	b0N6APzKWnoA+tZK8ecMAFJr3648Bw+/JQCaB8/7IbJzkAMXEooqk0t6AjTJsNXfYytiLG4rOqT
-	tkszj3eZX5gqNj0SjroG2nOAlq++d3aFFl4JCOui+XscwX4pFMoliQqkF7kzUaW7ApdWdgZSiaS
-	05EOezj18biPB1QuViYgc2cAMCbbNNeyEG/NO4zkjxFeYXnnJcKW6Kw56bLqoqY96AwXORkxFjs
-	WeFMC7N1B8OcBVU7k4wPmFhA4p8vOT7p5y2OUMYIRqwfmozKK00sVX4AtspDxP006AR6oW0Rc4F
-	9lI2kLpF7j2tyQXRY8phCuBD/MSYy5x7i6qjlva486W9v0ZWNx3yqPEV1gteq7me7ukzz7BIlVy
-	dE/GXDZXK9nYJfLGf4=
-X-Received: by 2002:a17:907:6091:b0:c1c:2007:298e with SMTP id a640c23a62f3a-c250c408972mr651961666b.24.1787730498862;
-        Wed, 26 Aug 2026 00:48:18 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d62dfsm338649666b.4.2026.08.26.00.48.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 00:48:18 -0700 (PDT)
-Message-ID: <86b735ff-6996-4ab4-96b2-6853fcc788a7@blackwall.org>
-Date: Wed, 26 Aug 2026 10:48:17 +0300
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Tuf8Zu4E";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oTwZ5Guy";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ff3Cc7VU";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="sLVbV5ya"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 76E3E872B2;
+	Wed, 26 Aug 2026 07:50:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787730607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/j78b41kQyLqwxObwd/PJ2I/iGywaOMruyWQoKE3HbE=;
+	b=Tuf8Zu4Ebi77WoIO4EUIU87JNNUiB1J7hYEx6rSkZALXTpF0Xjy6thjpV7wU/XJr61Ca9i
+	3f/7EN/krg8CMJvhR2fXTM1PDpE+FODRfHeHMwWy53Xe1Hnwu57x06lqh27FxIvrIDwcH8
+	e/XuHCZJlH52N6LPnqxHREkaTlQQoyY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787730607;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/j78b41kQyLqwxObwd/PJ2I/iGywaOMruyWQoKE3HbE=;
+	b=oTwZ5Guydt2UslFqLcJMzoNBM95y2y8Stw6z3DChhmdeRXIAuQjjzD9jjAhj0kcKg62zr1
+	Eg6cG5u8efw+QKAQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ff3Cc7VU;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=sLVbV5ya
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1787730603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/j78b41kQyLqwxObwd/PJ2I/iGywaOMruyWQoKE3HbE=;
+	b=ff3Cc7VUUnrgurxIvbJpk2eL+TmY6IFOZaMou04qyyiAPpXedri3kYOAALtbiWLXeg+86K
+	kntdXniYP6ihElWhivPRySaGOwwr5UHCnlq8a3mScLQr4rSQzwV/ust6cCVIRXOC7o/fwj
+	e95IZn+fZTtrq7PxHGK0mD43H2LE+Cc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1787730603;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/j78b41kQyLqwxObwd/PJ2I/iGywaOMruyWQoKE3HbE=;
+	b=sLVbV5yaBZJBXoR7uc7F2YS8eVweG28D1f8ORpp9uZ0RbKi7URyuuFMqgml7Ih4W1Izwse
+	Xrvvdab65yZzwiCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93A8213688;
+	Wed, 26 Aug 2026 07:49:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CS4GJKOajmoJDAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 26 Aug 2026 07:49:55 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 47961A13C4; Tue, 25 Aug 2026 19:35:09 +0200 (CEST)
+Date: Tue, 25 Aug 2026 19:35:09 +0200
+From: Jan Kara <jack@suse.cz>
+To: Moritz Tanner <moritz.tanner@linbit.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fs: don't return -EINVAL for successful nested thaw
+Message-ID: <3udtnc2d6pu7et4wlvjume37nrnuvpxal3au4z2oynk3dh3ij5@dingvsd4x7rr>
+References: <20260821085451.65206-1-moritz.tanner@linbit.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: bridge: mcast: don't truncate the port group
- walk on teardown
-Content-Language: en-US, bg
-To: Jun Yang <littleddfu@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, stable@vger.kernel.org,
- TencentOS Corvus AI <corvus@tencent.com>, bridge@lists.linux.dev,
- netdev@vger.kernel.org, Jun Yang <junvyyang@tencent.com>
-References: <20260826014200.362304-1-littleddfu@gmail.com>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20260826014200.362304-1-littleddfu@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821085451.65206-1-moritz.tanner@linbit.com>
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim,suse.com:email];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 76E3E872B2
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
-On 26/08/2026 04:41, Jun Yang wrote:
-> From: Jun Yang <junvyyang@tencent.com>
+On Fri 21-08-26 10:54:51, Moritz Tanner wrote:
+> Commit 7366f8b6fc6a ("fs: handle freezing from multiple devices")
+> replaced the freeze_holders bitmask with per-holder counters to allow
+> nested freezes. In the bitmask version, a thaw that released a shared
+> hold while another holder remained returned 0. Since the rework,
+> thaw_super_locked() drops the freeze reference via freeze_dec() but
+> then returns -EINVAL when other freezers remain, misinforming the
+> caller: the thaw did succeed, the superblock just stays frozen for the
+> remaining holders.
 > 
-> __br_multicast_disable_port_ctx() and br_multicast_del_port() walk
-> port->mglist with hlist_for_each_entry_safe(). However,
-> br_multicast_find_del_pg() can also delete other entries from the same
-> list through br_multicast_fwd_src_remove() or __fwd_del_star_excl().
+> This breaks bdev-initiated freezing. When a filesystem is frozen with
+> FIFREEZE and additionally frozen via bdev_freeze() -- which nests by
+> design, see fs_bdev_freeze() -- the subsequent bdev_thaw() receives
+> -EINVAL from the holder op although its freeze reference was dropped,
+> and therefore keeps bd_fsfreeze_count elevated. Then device-mapper's
+> unlock_fs() ignores bdev_thaw()'s return value, so nothing rebalances
+> the count. After the user's FITHAW and umount, the block device can
+> never be mounted again:
 > 
-> If such an entry is the iterator's saved next node, hlist_del_init()
-> clears its ->next and terminates the walk early. The reproducer triggers
-> this in both teardown walks, leaving port groups in the bridge mdb with
-> a dangling ->key.port after del_nbp() frees the port:
+>     dm-1: Can't mount, blockdev is frozen
 > 
->    BUG: KASAN: slab-use-after-free in __mdb_fill_info+0x1191/0x1320
->     __mdb_fill_info+0x1191/0x1320
->     br_mdb_dump+0x594/0xe40
->     rtnl_mdb_dump+0x1cf/0x5d0
+> There is no way for userspace to drop the leaked count; only
+> destroying the block device (or a reboot) recovers the device.
 > 
-> Use hlist_del_init_rcu() to unlink the group while preserving ->next.
-> br_multicast_del_pg() and the teardown walks run under
-> br->multicast_lock. The GC worker must acquire the same lock before
-> detaching the group for destruction, so the node remains alive while
-> the walk uses the preserved pointer.
+> Reproducer (any kernel since v6.8):
 > 
-> Fixes: b08123684bd5 ("net: bridge: mcast: install S,G entries automatically based on reports")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
-> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-> Assisted-by: tencentos-corvus-ai:kimi-k3
-> Signed-off-by: Jun Yang <junvyyang@tencent.com>
+>     dmsetup create dut --table "0 $(blockdev --getsz "$DEV") linear $DEV 0"
+>     mkfs.ext4 /dev/mapper/dut
+>     mount /dev/mapper/dut /mnt
+>     fsfreeze --freeze /mnt      # freeze_ucount == 1
+>     dmsetup suspend dut         # bd_fsfreeze_count == 1, ucount == 2
+>     dmsetup resume dut          # ucount 2 -> 1, but thaw_super()
+>                                 # returns -EINVAL, so bdev_thaw()
+>                                 # keeps bd_fsfreeze_count at 1
+>     fsfreeze --unfreeze /mnt    # filesystem thaws fine
+>     umount /mnt
+>     mount /dev/mapper/dut /mnt  # EBUSY, forever
+> 
+> The same happens with fsfreeze held across an LVM snapshot of the
+> origin volume.
+> 
+> fs_bdev_thaw()'s documentation already describes the intended
+> semantics: "If this function returns zero it doesn't mean that the
+> filesystem is unfrozen as it may have been frozen multiple times".
+> Restore them by returning 0 when a nested thaw drops its hold while
+> other freezers remain. Thawing without holding a freeze still fails
+> with -EINVAL as may_unfreeze() rejects that case before the reference
+> count is touched.
+> 
+> Fixes: 7366f8b6fc6a ("fs: handle freezing from multiple devices")
+> Cc: <stable@vger.kernel.org> # needs adjustments for < 6.17 (no may_unfreeze())
+> Signed-off-by: Moritz Tanner <moritz.tanner@linbit.com>
+
+Ouch. Good catch. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
-> v2: delete with hlist_del_init_rcu() to preserve ->next for an in-progress
->      teardown walk, per Nikolay's suggestion, instead of restarting the walks.
->      Tested on 7.2-rc7 with KASAN: the original use-after-free is no longer
->      reported.
+>  fs/super.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 > 
-> v1: https://lore.kernel.org/all/20260812113435.1854275-1-junvyyang@tencent.com/
+> diff --git a/fs/super.c b/fs/super.c
+> index 05e443173038..01db6124e409 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -2369,11 +2369,14 @@ static int thaw_super_locked(struct super_block *sb, enum freeze_holder who,
+>  		goto out_unlock;
+>  
+>  	/*
+> -	 * All freezers share a single active reference.
+> -	 * So just unlock in case there are any left.
+> +	 * All freezers share a single active reference. If other freezers
+> +	 * remain, drop our hold and report success; the superblock stays
+> +	 * frozen until the last holder thaws it.
+>  	 */
+> -	if (freeze_dec(sb, who))
+> +	if (freeze_dec(sb, who)) {
+> +		error = 0;
+>  		goto out_unlock;
+> +	}
+>  
+>  	if (sb_rdonly(sb)) {
+>  		sb->s_writers.frozen = SB_UNFROZEN;
+> -- 
+> 2.55.0
 > 
->   net/bridge/br_multicast.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
-> index 00aa9b2879d6..8022c7f12169 100644
-> --- a/net/bridge/br_multicast.c
-> +++ b/net/bridge/br_multicast.c
-> @@ -808,7 +808,11 @@ void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
->   	struct hlist_node *tmp;
->   
->   	rcu_assign_pointer(*pp, pg->next);
-> -	hlist_del_init(&pg->mglist);
-> +	/* Keep ->next (held under multicast_lock, freed later by the GC work):
-> +	 * a port->mglist teardown walk may have latched this node as its next,
-> +	 * and deleting other groups of the same port must not truncate it.
-> +	 */
-> +	hlist_del_init_rcu(&pg->mglist);
->   	br_multicast_eht_clean_sets(pg);
->   	hlist_for_each_entry_safe(ent, tmp, &pg->src_list, node)
->   		br_multicast_del_group_src(ent, false);
-
-Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
-
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
