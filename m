@@ -1,231 +1,113 @@
-Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF55F31E857
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3EB329C48
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787681862; cv=none; b=oZISyAxvNlJpv6SFHObecYzW3ShUrZl4V+2HbeLnSwYn8BUl76/5hJlI5a0fhAkxav3XgtzwhtcOqal14YhMbMMSqUL7Rx1u0QI5Q9+aKLXu/6A08Ablbxj8MGb7sGOvGuJlSwwp8aJaiigYmlz5sh0PYQlKbqXiMB2kYvpeJXo=
+	t=1787681877; cv=none; b=M98+oW6jgi1NnFb4w9Giwqw2AfjRf7zAOMIr+rtTE0XiepjG5Mgcw0tZDZSxKDR86Vq2LCCydugNgGQ7hvbJxHtNIbspan9nv2Pi78xFoRVvg6YwUqZUO6JIWNPLqbtCF55NgBgw2YLeNEyXeVHBOevHFMy8T9pBJnctFGur31c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787681862; c=relaxed/simple;
-	bh=hcipjfUawnQAZq/PV5aePJf09Z2kzqaK4GYj/l90zpY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SQ1baVeraKBHyKWn7dL6M4z0OXQvc6B35OWk93bdCPsy7UPBGg4eDaeLDGrGDN9CprQluhrUdTmzrMSus65hLEUKwbur0srAeyKjeS6iHMcIZM7FtA7/bbAYLyUdvRmeQQa3fVAreO6mLTV8hyR0gAdgo5ehsvhdX7W/slb0Qr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DFI4yk3R; arc=none smtp.client-ip=91.218.175.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787681877; c=relaxed/simple;
+	bh=Dt7ncDe8e3B+3I1UeOHquBqkDmI9/orsxWf/7aiwomk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LUwIh01p0BOu8S6dD2NM3PB3bv83c/deP5tHIcKssc7Jqib8UGAVfGUiRZWsN3ZW1C+0jJeAomi8PBx1ZwtLm3uw7IcQyxaF9wE0FupKGOZxLfQLHeoJGUtOSd9dvVgXRLLIj4DoPR4O5nPNSs8C0wjWJrp3ywaXvLgxUQL14zM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q0OSkanx; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DFI4yk3R"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hcipjfUawnQAZq/PV5aePJf09Z2kzqaK4GYj/l90zpY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787681857; v=1; x=1788286657;
- b=DFI4yk3RPL2sjG8Do9FiCQ4JSUSJbxVQ7EluQETyarOiybkVl7thvVnek0oPphQ4IzB2/2AA
- IHRxHlWlBRr1ZSAdJEhp68d4eAHSqsSKt8YyM8YrrHgplU1gjW0vv3O9BBW34pWHjxjjQNZktxh
- TYvrNhTom6MmKSNTas2fIRqs=
-X-Envelope-To: stable@vger.kernel.org
-Received: from lb03055.. (2601:647:6300:a030:488e:1b9c:4a00:b63e)
-	by smtp.migadu.com with ESMTPS id 21b5a62e5938843a;
-	Tue, 25 Aug 2026 18:17:37 +0000
-X-Mizu-Trace-ID: 21b5a62e5938843a
-X-Migadu-Flow: FLOW_OUT
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-To: stable@vger.kernel.org,
-	yanjun.zhu@linux.dev
-Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: [PATCH 7.1.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
-Date: Tue, 25 Aug 2026 20:17:27 +0200
-Message-ID: <20260825181727.887465-1-yanjun.zhu@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026082517-sitter-shriek-9502@gregkh>
-References: <2026082517-sitter-shriek-9502@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q0OSkanx"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-936ea476db3so1175485a.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:17:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787681875; x=1788286675; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VxAwI4Fc+L+F4zd+LT3xyEmwERxG0KOHGZbxsUHLJFk=;
+        b=q0OSkanxnXDrosnFHE3gQX8wR72KIVAO3TumvMn/ZcbNfVeOs/SHTwAaykPwHwaob/
+         Ds0GibPshHl7/aeu4tKkUrAw1PWZqtt8HKyGRVw36M9o4pYAf+BYhdh3YRH/y+TjDY7J
+         erJWO7cyTCm1UfubHBG0XeFA7cWmz5nvgd9K6WkUNHspk1ypWvWdA/V7nxW2THCElAXP
+         +ImAlTx2XqZKp9mUbIFJdXMYgqYyjPYB8/+J41I1jVqYShCMzMnhs1Njka2OqCDom5x3
+         1tS9j48OtclxBWVBNb8OQBB5VvwHYvyhUeYXXDoGvkvUzSZA02Aw9SK9Re4D1PaWL5vb
+         e1gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787681875; x=1788286675;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VxAwI4Fc+L+F4zd+LT3xyEmwERxG0KOHGZbxsUHLJFk=;
+        b=Ah3eVOevFEjoS5jJxrxEZEoDwu9B2/qUUTOjcB19qfPFVN6nG1F3RyeKbHjD73BI4L
+         +ZIsozPknU8oQLyXbnH0bOxMLeyBTQNl/TEl1829UzoT7FrsOpxhGO4bLxdi8mLaxuVE
+         u327y6aWwwn6nLe/ZtsSng++0N6t6NSctbGFisfR+XfP2T7uNKF5YCllO5eTqGqaDist
+         KOAzKHmAHMxTdGzey3NFHmsYAPAFsCK+5wDGqu8f5dRGJPvGE1ZOgjVJQQDLO4j/wSyP
+         WEbtfyH9vnBEy2I7NrizH7ksBNIgwDR0x93tfmBVqdP/qHBkBHyMKHS2QjBUjT8uk0TU
+         BL/A==
+X-Forwarded-Encrypted: i=1; AHgh+RpDDUCQKLzz6k5loZBzX6wBVt4NhetHB7WjDflXFOOQqvoIhcivOhNY21536uUxiFYojJNoDl0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nizhflFHx27bK1psduYkQIooyJTN7/9rccKRkoYW/pF3L5oOya
+	I+FGF9UKsDWOi7Gn31CvroMCFSunH50h1+DgPulY7cjicPkYqWEw0Jv9
+X-Gm-Gg: AR+sD101j+8baQvXISyJEJt32UKVpwKCy6+w28k+tJ5xGM4vDraovwqDiv3bZuFEu+k
+	MeLUY7ahid8bjA0ofGBhM4zG8Ee8G+GH4xE8igwbs+06c83ReIPdApjzDY/QZDctOPbu+PRgXzZ
+	1vPB0NOJfApYhQ1W8tF8OQ4g6pzhxPB6UyYkKe6UXbMZNGK/is0HtSe5qaqP+uSfgkhGRVf36+v
+	3larTnhtgPPbCC06xUSfd/nuU41CgvhE3rkKp6lNvMju2QeWmn6jQ+mmhldUX1U6GtezdsUrHjW
+	YpPiNCbs3kyuzsO8oQdZjSgXdy4XY2Z32YhVa+/3LRWP1ihTr/1TY6trwIPBkblnbOwimvv3OrX
+	icJOhEBLEO2bTsCI0C33fhlf+F1535w7BJS9j+FCSKduagYAY7kGYaMIVlgVCRJD1kym8ffjpIr
+	28CH7tMMYURLWpTtzd2Kw8IgfA5rwU1e1nuvBynfdKaLYFa1L+1QeV5IqGDD3DYwfMGtChfISoc
+	P5lzfceTBjJPDo=
+X-Received: by 2002:a05:620a:a80a:b0:936:315b:a5f4 with SMTP id af79cd13be357-93780186a47mr38178685a.5.1787681874939;
+        Tue, 25 Aug 2026 11:17:54 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377f217c5asm22804085a.15.2026.08.25.11.17.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 11:17:54 -0700 (PDT)
+Message-ID: <f88e3144-f38c-4053-940d-cbb1e0cd45ed@gmail.com>
+Date: Tue, 25 Aug 2026 11:17:51 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 00/76] 5.15.218-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260825132541.568214149@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260825132541.568214149@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+On 8/25/26 06:25, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.218 release.
+> There are 76 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.218-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
-Updating max_dest_rd_atomic before freeing the old array can make the
-free path walk past the old allocation and trigger a slab out-of-bounds
-write catched by KASAN:
-==================================================================
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
-BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
-Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0xf7/0x600 mm/kasan/report.c:482
- kasan_report+0xe4/0x120 mm/kasan/report.c:595
- free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
- rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fefc75a70cd
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
-RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
-RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
- </TASK>
-
-Allocated by task 11063:
- kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5296 [inline]
- __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
- rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802b8ddd80
- which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 0 bytes to the right of
- allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
- set_page_owner include/linux/page_owner.h:32 [inline]
- post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
- prep_new_page mm/page_alloc.c:1861 [inline]
- get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
- __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
- alloc_slab_page mm/slub.c:3278 [inline]
- allocate_slab mm/slub.c:3467 [inline]
- new_slab+0xa6/0x670 mm/slub.c:3525
- refill_objects+0x278/0x420 mm/slub.c:7272
- refill_sheaf mm/slub.c:2816 [inline]
- __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
- alloc_from_pcs mm/slub.c:4750 [inline]
- slab_alloc_node mm/slub.c:4884 [inline]
- __do_kmalloc_node mm/slub.c:5295 [inline]
- __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
- tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
- tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
- tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
- security_file_open+0x7a/0x1b0 security/security.c:2739
- do_dentry_open+0x57e/0x1690 fs/open.c:924
- vfs_open+0x82/0x3f0 fs/open.c:1079
- do_open fs/namei.c:4699 [inline]
- path_openat+0x218a/0x3190 fs/namei.c:4858
-page last free pid 1 tgid 1 stack trace:
- reset_page_owner include/linux/page_owner.h:25 [inline]
- __free_pages_prepare mm/page_alloc.c:1397 [inline]
- __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
- selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
- inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
- selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
- security_d_instantiate+0x123/0x190 security/security.c:3704
- d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
- kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
- lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
- open_last_lookups fs/namei.c:4611 [inline]
- path_openat+0x17dd/0x3190 fs/namei.c:4855
- do_file_open+0x20c/0x430 fs/namei.c:4887
- do_sys_openat2+0x101/0x1d0 fs/open.c:1364
- do_sys_open fs/open.c:1370 [inline]
- __do_sys_openat fs/open.c:1386 [inline]
- __se_sys_openat fs/open.c:1381 [inline]
- __x64_sys_openat+0x141/0x200 fs/open.c:1381
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
- ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
-                                        ^
- ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
- ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
-
-Fix the OOB by moving the assignment after free_rd_atomic_resources()
-so the old array is freed using the old bound. This matches the original
-ordering in commit 8700e3e7c485 ("Soft RoCE driver").
-
-Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
-Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-(cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
-[This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
-Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
----
- drivers/infiniband/sw/rxe/rxe_qp.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index f3dff1aea96a..50c10dbb1c4d 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -707,10 +707,9 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
- 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
- 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
- 
--		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
--
- 		free_rd_atomic_resources(qp);
- 
-+		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
- 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
- 		if (err)
- 			return err;
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.43.0
-
+Florian
