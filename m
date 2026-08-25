@@ -1,67 +1,73 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD1F3F1ABE;
-	Tue, 25 Aug 2026 10:08:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44D53F44CE
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787652540; cv=none; b=VW+usq8ZB2Wx1XQQaLAn4MrCkG7WPvexZsEpYS6vQh54I5q9CPphz16+WIVXf5L3ExleR3cEQeU67MuaQj9OMzlaGgkFpIbnCDh4MNwNH8UkJI7GAoeLsUZbVdnZI75ohaiMKtAwzkSLDvnJ/QBwHNTXlku04DvvxJRrRtH2Dmw=
+	t=1787652786; cv=none; b=mnBIr/E6IWk/W0xpLcknfBsN+wj6Jr5vxSxt4h0d6qTofsg+0x6sb+Afjzjefg9NiAU46FNwKkBbIQ0dqF2tetn/z+8nBT79P++l92oNl+PrstZWgI0Zl4+jzPPGEA6AJZsQaY5X8MbOLosBV9caX5Qgc54uUDggA4lA8+6FzXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787652540; c=relaxed/simple;
-	bh=xMar59unp2vaiEn+D7IvEj3fxVUXzF/Naedo+la31BQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=U71cvpSyGy5OdzdjAHHwK4qmeaGjv6zByH8Mfn5QTzFfHwgln5i3hcxcdB0NzoHhu8YGzTll/Wx1StRcX3o90iH7VInYqH8R2e4+CZf9/DurL9prYvZkXQ8RAsgWvXXAiGaJF1q67YdSBAyxk+p/TWu9i4iDvbJWqSNsTmbRl+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f7c1064aa06c11f19a56ed5b684f684d-20260825
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_MISS
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
-	IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, DN_TRUSTED
-	SRC_TRUSTED, SA_EXISTED, SN_UNTRUSTED, SN_LOWREP, SN_EXISTED
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF
-	CIE_UNKNOWN, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c4dbeec5-d9c6-4e7f-9724-98e671d410bf,IP:10,
-	URL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:10
-X-CID-INFO: VERSION:1.3.19,REQID:c4dbeec5-d9c6-4e7f-9724-98e671d410bf,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:10
-X-CID-META: VersionHash:7db8b62,CLOUDID:e30d52b1251784e770df18d386dded09,BulkI
-	D:260825180852GNJL4FDO,BulkQuantity:0,SF:17|19|66|78|81|82|102|127|850|865
-	|898|908|914,TC:nil,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk
-	:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,
-	BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f7c1064aa06c11f19a56ed5b684f684d-20260825
-X-User: lihaojie@kylinos.cn
-Received: from localhost.localdomain [(39.144.194.152)] by mailgw.kylinos.cn
-	(envelope-from <lihaojie@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 160353266; Tue, 25 Aug 2026 18:08:49 +0800
-From: Haojie Li <lihaojie@kylinos.cn>
-To: ck.hu@mediatek.com
-Cc: chunkuang.hu@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	lihaojie@kylinos.cn,
+	s=arc-20240116; t=1787652786; c=relaxed/simple;
+	bh=RAGFgUE/hL9ns4Dc9Yzxf5XGA2OGySAH7T6FTytqKYQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KUuiUVBo+zkhEGqFql15eOAUVpaoGplKN3zfJ4dHaknT72OD0s4HOPYafZO62146ZGGfu3EvTKN4fzD/171NZIgG9H8sRIt5q+ADjVif8i5E+8jQMSmdgkHhYyPoD8rFq2YaK3jA6p0s6+d1+xI9B32ALethDYkeYFpdFuvR+X0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LfoYJ12h; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LfoYJ12h"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so232499a91.3
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:13:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787652783; x=1788257583; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=okcv3TiKdUkjHH/2Q47/3TclBNSBZ0LXy94OPqvg5Lg=;
+        b=LfoYJ12h9Lbj4GtcLPEKRC37EUTWUFOGtsvoJXaOXKSc95SDraOnVnhqW2x66ZMf/0
+         iQ0GZnI1PctpJ3tofW53ifNircHQw5nvoi9AXucg+5BjTntOawpOwtKR+93GdWnW5JiX
+         GW9Uv+stfB/+VINoUtLxI3pvU1Iqq/SmVWmgVza5BbO/YLmcIMNXD/BMr+aIWSu7a9qD
+         Mr6Kzgx+d3eAbI6vCeO6ja2vjuwJNNm/Z9RhseFZZcM0Zb5W0T7xQTuUEktiwySDBkYW
+         vNvKUXaVcMnY/uxpVlMLKM+1tSKFsSTen7Vce6R1g0kFf9U77DwBoZrQRLo2vVCvcnEd
+         ZfcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787652783; x=1788257583;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=okcv3TiKdUkjHH/2Q47/3TclBNSBZ0LXy94OPqvg5Lg=;
+        b=GbqVJybkHXqxZAg8qlerNDHcsAvn+7o1RNLCQHOcJLtvqg4RVtFdm4t5ZxgroqLRmB
+         hgQ2sA+WkH0wq+BXOhJDlMK17NgxA+4GR3CsXDlCQfNmmuQcB3HhFKPqhF7Kgo3uj4pX
+         /ComC4MHrZYXF/gUgEh2ZrPaTUdgqFhuEHL48Gn3G8gR549kimieczE8thMX9eORqrWQ
+         CwjpcYsH7en95pVK5/7MfhBV9LrIrTiCPNIf6ZOq9AT3mFchN/yRLXsKtt+5YtVj0XP0
+         MgGXud88s5YPWWt+MFOCSpi4v6pyUf9vpKooQLifrTVA93C9p6Qt8FwX1X+M8dthQD1x
+         jb0g==
+X-Forwarded-Encrypted: i=1; AHgh+RqeDGpIaZzJQ7m7yu+n7uaOgILcv2y1ryuN8F1y1gmdwnNkAfufQe5tN6NqXcrcUM9V1rbwYc8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQMRCKBPUIFt6exl5/Z2UrbuGvC5sksKRBHpSqokQ+9UXtbrot
+	GfaKs0MmBjEWyjLcH9AoZzehyKI17Kfby2h6jFgsygojdTulo9CJp5py
+X-Gm-Gg: AR+sD1338yirhg9xnbdvwDdSrOD1jtlR5wVQAgv0V34j0DxE1NqCpbOM8rUnr/7nLW6
+	AlFOLQS3vdOLRL9XJES80BKe6p6riSI2rZ7y2pYRggEUeomCdzOuCErGrvh9ehuELyDLBHpK+uM
+	zMMcGh4MGNBee3fpr4qEEOceY79YhuFoLp79eduvHFWItFoTToax3WD6D3BunxzU3NuroQCKAB7
+	8Jxe5QlxH+AgHlMBLb5soa/lVfV0S2Vd2ODRcuVPp92xGdqLqiwWUUzTuR0MQX81kc6eF2cQd0Z
+	CiX7nAVuT5drpgLadmaEjZWfmV472vg9j6+OWVYqw9XaU6pdjSY1ZFKNbURV06RdeHL4139aPtl
+	Vf7ULF2Yu7Eok2iJzFvcFZWcSUHhoEAuzgrEMPgkUxYTRPRORz3Kf34L0ff9o3cLcBQ/nPS7GUf
+	vrBwPatCiQeNMEPVJhlSoL1CDAuQTUSWT3NHYtFxIxJMCEf0z2KTfZaFyKm1OF63yafedHTvJUK
+	3CTsBQisesW5K+urVPGiHd8f2658W88OSecaZNCCw==
+X-Received: by 2002:a17:90b:5112:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-395df3cf1c8mr48525381a91.10.1787652782947;
+        Tue, 25 Aug 2026 03:13:02 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f9209f51sm57715424eec.22.2026.08.25.03.12.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 03:13:01 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	p.zabel@pengutronix.de,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/mediatek: Add missing IS_ERR check for ovl_adaptor  platform device
-Date: Tue, 25 Aug 2026 18:08:45 +0800
-Message-Id: <20260825100845.438893-1-lihaojie@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <7a3cbf55bf6a97835ee426eb38c34b2c153437eb.camel@mediatek.com>
-References: <7a3cbf55bf6a97835ee426eb38c34b2c153437eb.camel@mediatek.com>
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()
+Date: Tue, 25 Aug 2026 15:12:10 +0500
+Message-ID: <20260825101210.47782-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,34 +76,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-platform_device_register_data() can fail and return an ERR_PTR, but the
-return value is used without checking, leading to an invalid pointer
-being stored in ddp_comp[].dev and passed to component_match_add() and
-mtk_ddp_comp_init(), which could result in a kernel crash.
+hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
+struct bios_return header in the returned buffer. However, it only
+checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
+that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
 
-Add an IS_ERR() check to jump to the error handling path on failure.
+If the firmware or ACPI method returns a buffer shorter than 8 bytes:
+1. bios_return->return_code at offset 4 reads out of bounds from the
+   allocated ACPI buffer slab.
+2. If return_code evaluates to 0 and outsize is non-zero,
+   (int)(obj->buffer.length - sizeof(*bios_return)) evaluates to a
+   negative integer (e.g. -8 for a 0-length buffer).
+   actual_outsize is set to this negative value and passed to
+   memcpy(buffer, ..., actual_outsize), where the signed negative value
+   is cast to size_t (e.g. 0xfffffffffffffff8), attempting to copy ~18
+   Exabytes and triggering an immediate kernel crash.
+   Additionally, memset(buffer + actual_outsize, ...) performs an
+   out-of-bounds write before buffer.
 
-Fixes: 0d9eee9118b7 ("drm/mediatek: Add drm ovl_adaptor sub driver for MT8195")
+Fix this by ensuring obj->buffer.length is at least sizeof(*bios_return)
+before accessing the return code, and compute actual_outsize safely
+using min_t(u32, ...).
+
+Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/platform/x86/hp/hp-wmi.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index c86a3f54f35b..b281482ab8c8 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -1112,6 +1112,9 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 							    PLATFORM_DEVID_AUTO,
- 							    (void *)private->mmsys_dev,
- 							    sizeof(*private->mmsys_dev));
-+		if (IS_ERR(ovl_adaptor))
-+			return PTR_ERR(ovl_adaptor);
-+
- 		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev = &ovl_adaptor->dev;
- 		mtk_ddp_comp_init(dev, NULL, &private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR],
- 				  DDP_COMPONENT_DRM_OVL_ADAPTOR);
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 8ba286ed8721..f3cab841afc4 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -616,8 +616,9 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+ 		goto out_free;
+ 	}
+ 
+-	if (obj->type != ACPI_TYPE_BUFFER) {
+-		pr_warn("query 0x%x returned an invalid object 0x%x\n", query, ret);
++	if (obj->type != ACPI_TYPE_BUFFER ||
++	    obj->buffer.length < sizeof(*bios_return)) {
++		pr_warn("query 0x%x returned wrong type or too small buffer\n", query);
+ 		ret = -EINVAL;
+ 		goto out_free;
+ 	}
+@@ -636,7 +637,7 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+ 	if (!outsize)
+ 		goto out_free;
+ 
+-	actual_outsize = min(outsize, (int)(obj->buffer.length - sizeof(*bios_return)));
++	actual_outsize = min_t(u32, outsize, obj->buffer.length - sizeof(*bios_return));
+ 	memcpy(buffer, obj->buffer.pointer + sizeof(*bios_return), actual_outsize);
+ 	memset(buffer + actual_outsize, 0, outsize - actual_outsize);
+ 
 -- 
-2.25.1
+2.55.0
 
