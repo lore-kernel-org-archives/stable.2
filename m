@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6079A3438A7;
-	Tue, 25 Aug 2026 01:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4889346AE1;
+	Tue, 25 Aug 2026 01:54:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787622821; cv=none; b=ceHubpyo9wWy6tOnDaqcl7RrhHKDuQvdHvG23fnLML9NSQpB0ZU+MGuF2X6Nw/INKSCH5b3Wu+mXV3XS1hqscAlm22HNwQfGo9PUxJJWLAMaGqI4vZLoT4YyxH8gD9OM3StiNOCcPaGz6wudgTXGcwPEcUH9oB6oZLTYZwPKUg8=
+	t=1787622843; cv=none; b=MKmasRNBGhhHkzNZRcgw7ce8ku66OqZuYmKJfXfisz8JNWr5s8mdyBL3M+ls8aTeuCtxawtQdqQg2ChNjKr+gbGcesJpKptQm7HWVRXDvTsKGI6U5hyNBeUy/tRD15F5+VCNetcUQtEnagWSJXvjCgKOySHEbTuZDku069FBH/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787622821; c=relaxed/simple;
-	bh=b9N/1SBhzI+GuXKGQ3aGVU4RU/IUCdRRr1qtdQBLLdU=;
-	h=Date:To:From:Subject:Message-Id; b=n0/Y3ZJtwBQkNzlxo8aa91fMEOWhBC7erKdHqSx9JYc2yA5HGLUUMtEo+6nKRME0mnUYnmldRkTKaDynFRBcvCVO46Ia/1CRcvBbvZE6FmiQkcJPsNsl2AETrcOFPjtv3e4D3MfCLBX5wX4hQU05VdB+3+J9k/URUj0grWKhNEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ohWIIpS0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787622843; c=relaxed/simple;
+	bh=pBdtcemevuwkSgQ7HfB/ZLJhIRDOKV4JmXMbaUvMzaQ=;
+	h=Date:To:From:Subject:Message-Id; b=U2iGNevwJ4NCLPQNMCX8H+Z3DL8ESBLxBhmKTK6qjuqGgWE8R8FgoDyoL3roprE6Cp4wkNtszyLevUuX+qkwprq4BP8DaCzQDtA9CA2V3Q3A5yudqJmtB22LaBz7vPTJNJKRosrYfiMmRVaRt8VSubspWiGuAToBBdHq+w3TNQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=imNeySJS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ohWIIpS0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2957E1F000E9;
-	Tue, 25 Aug 2026 01:53:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="imNeySJS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921051F000E9;
+	Tue, 25 Aug 2026 01:54:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787622820;
-	bh=RM20fX2f429nnCNrsg7cC8ZTwJicC4yqz4F4M3rQM/s=;
+	d=linux-foundation.org; s=korg; t=1787622841;
+	bh=L5Xa/nquVif7gbdUEpPSNLYs8GemIMvG0yb4PKuZllE=;
 	h=Date:To:From:Subject;
-	b=ohWIIpS020pMM30wbmv7J54M8C5piCiLz5GRSMrY/O/Gwz4rWYXyRIiX60ri+CcgG
-	 PtjOLVlF78LnEtIFy010iXHSmP7nJuoGC2fy7K6ZYB1h3riWHFHUuZWtweCK41/3lt
-	 shfyTe6myM8TMnSb03Urb1R3LJGhbL9ZFvabBoPg=
-Date: Mon, 24 Aug 2026 18:53:39 -0700
-To: mm-commits@vger.kernel.org,usama.anjum@arm.com,stable@vger.kernel.org,shikemeng@huaweicloud.com,nphamcs@gmail.com,kasong@tencent.com,djwong@kernel.org,chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,ebiggers@kernel.org,akpm@linux-foundation.org
+	b=imNeySJSnVSbM1NVVF5Afg7GZVK1O/FCZ4fFYAhAG88bPWutOTMor760q2Q0uJnq/
+	 TCaAh5cZ1WgSTd8r/9DZxgQx/s8hiU+Du+/4VEb+Tn6nyT+LmCye/U32QCn+NraooQ
+	 snBvhEs8qbA/AriPHt0O9oCf/9ADa1xez7GEhyz8=
+Date: Mon, 24 Aug 2026 18:54:01 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,axboe@kernel.dk,xialonglong@kylinos.cn,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-swap-reject-swapon-on-filesystem-level-encrypted-files.patch removed from -mm tree
-Message-Id: <20260825015340.2957E1F000E9@smtp.kernel.org>
+Subject: [merged mm-stable] zram-fix-out-of-bounds-access-in-writeback_store.patch removed from -mm tree
+Message-Id: <20260825015401.921051F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,79 +35,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/swap: reject swapon() on filesystem-level encrypted files
+     Subject: zram: fix out-of-bounds access in writeback_store()
 has been removed from the -mm tree.  Its filename was
-     mm-swap-reject-swapon-on-filesystem-level-encrypted-files.patch
+     zram-fix-out-of-bounds-access-in-writeback_store.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Eric Biggers <ebiggers@kernel.org>
-Subject: mm/swap: reject swapon() on filesystem-level encrypted files
-Date: Mon, 3 Aug 2026 11:04:26 -0700
+From: Longlong Xia <xialonglong@kylinos.cn>
+Subject: zram: fix out-of-bounds access in writeback_store()
+Date: Tue, 4 Aug 2026 14:59:18 +0800
 
-ext4 and f2fs don't prevent filesystem-level encrypted files from being
-set up directly as swap files.  In this case, encryption is bypassed.
+Patch series "zram: fix stale scan bounds after reinitialization".
 
-No one should be doing this, vs.  the methods of encrypted swap that
-actually do work (such as swapping to a dm-crypt device, or swapping to a
-loopback device on top of a filesystem-level encrypted file).
+Both writeback_store() and read_block_state() derive their table scan
+bounds from zram->disksize before acquiring dev_lock.  If the device is
+reset and reinitialized with a smaller disksize between that read and lock
+acquisition, the bound can describe the old table while the scan operates
+on the new one.  This can lead to out-of-bounds slot accesses.
 
-Nevertheless, to prevent user error, make swapon() explicitly reject this
-case.  Document this behavior in fscrypt.rst as well.
+Move both bound calculations under dev_lock so each bound remains
+consistent with the table throughout its scan.  Keep the fixes separate
+because the affected interfaces originate from different commits and can
+be backported independently.
 
-Link: https://lore.kernel.org/20260803180426.3123-1-ebiggers@kernel.org
-Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
-Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-Reviewed-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Nhat Pham <nphamcs@gmail.com>
+
+This patch (of 2):
+
+writeback_store() calculates the table scan bounds before taking dev_lock.
+A reset followed by reconfiguration with a smaller disksize can therefore
+replace zram->table while writeback_store() is waiting for the lock.  Once
+it acquires the lock, it sees an initialized device but scans the new
+table using the old upper bound, resulting in an out-of-bounds access.
+
+Calculate the number of pages while holding dev_lock so the scan bound
+matches the table protected by the lock.
+
+Link: https://lore.kernel.org/20260804065919.3970386-1-xialonglong2025@163.com
+Link: https://lore.kernel.org/20260804065919.3970386-2-xialonglong2025@163.com
+Fixes: a939888ec38b ("zram: support idle/huge page writeback")
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Minchan Kim <minchan@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- Documentation/filesystems/fscrypt.rst |    4 ++++
- mm/swapfile.c                         |    7 +++++++
- 2 files changed, 11 insertions(+)
+ drivers/block/zram/zram_drv.c |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
---- a/Documentation/filesystems/fscrypt.rst~mm-swap-reject-swapon-on-filesystem-level-encrypted-files
-+++ a/Documentation/filesystems/fscrypt.rst
-@@ -1238,6 +1238,10 @@ astute users may notice some differences
+--- a/drivers/block/zram/zram_drv.c~zram-fix-out-of-bounds-access-in-writeback_store
++++ a/drivers/block/zram/zram_drv.c
+@@ -1235,8 +1235,8 @@ static ssize_t writeback_store(struct de
+ 			       const char *buf, size_t len)
+ {
+ 	struct zram *zram = dev_to_zram(dev);
+-	u64 nr_pages = zram->disksize >> PAGE_SHIFT;
+-	unsigned long lo = 0, hi = nr_pages;
++	u64 nr_pages;
++	unsigned long lo = 0, hi;
+ 	struct zram_pp_ctl *pp_ctl = NULL;
+ 	struct zram_wb_ctl *wb_ctl = NULL;
+ 	char *args, *param, *val;
+@@ -1250,6 +1250,9 @@ static ssize_t writeback_store(struct de
+ 	if (!zram->backing_dev)
+ 		return -ENODEV;
  
- - DAX (Direct Access) is not supported on encrypted files.
- 
-+- Encrypted files cannot be used directly as swap files.  To swap to
-+  an encrypted file, set up a loopback device on top of it.
-+  Alternatively, encrypted swap can use a dm-crypt device.
++	nr_pages = zram->disksize >> PAGE_SHIFT;
++	hi = nr_pages;
 +
- - The maximum length of an encrypted symlink is 2 bytes shorter than
-   the maximum length of an unencrypted symlink.  For example, on an
-   EXT4 filesystem with a 4K block size, unencrypted symlinks can be up
---- a/mm/swapfile.c~mm-swap-reject-swapon-on-filesystem-level-encrypted-files
-+++ a/mm/swapfile.c
-@@ -3668,6 +3668,13 @@ SYSCALL_DEFINE2(swapon, const char __use
- 		error = -EBUSY;
- 		goto bad_swap_unlock_inode;
- 	}
-+	if (IS_ENCRYPTED(inode)) {
-+		pr_warn_once(
-+			"Filesystem-level encrypted swapfile '%s' is unsupported. Create a loop device over it, or use dm-crypt\n",
-+			name->name);
-+		error = -EINVAL;
-+		goto bad_swap_unlock_inode;
-+	}
- 
- 	/*
- 	 * The swap subsystem needs a major overhaul to support this.
+ 	pp_ctl = init_pp_ctl();
+ 	if (!pp_ctl)
+ 		return -ENOMEM;
 _
 
-Patches currently in -mm which might be from ebiggers@kernel.org are
+Patches currently in -mm which might be from xialonglong@kylinos.cn are
 
+mm-hugetlb-keep-max_huge_pages-when-dissolving-surplus-folios.patch
 
