@@ -1,164 +1,146 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE72184524;
-	Tue, 25 Aug 2026 07:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787642479; cv=none; b=Rt/Z5LleUHqaipVM/+44ktJbU6zb6ji3jXD/RtrHAZSq0EwnM/LpvpNkO3A8a700CrK9DaB33jxpBYkEKYI0+7on+6exhvEtZ37eMdqYjnwaPnhWwY4Fw0eJ/U7RJlmDFooVx+ayxDPHSlDrAbOhfsL8mbUK4I7dyWn/X5RDucc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787642479; c=relaxed/simple;
-	bh=5Kl2jQjO9cECsTxKcLbbCtTyLed0eNcKwzR7VgPB6rQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cUrN5V1t1MRgkZxGjeVuM87atFv895MAvyL5o9zmBZVzVWzmU62VtVG+Yrr3BDwEa4DxESe6mt9/UppKpEGLWldbfCdSxsPDQOIXcp3XNv/3bYWcZxGe8zIvHuGzpzzj+1TlDKd1EjxRHZFleJ+7jzMJEFjAphVcBtRvZ85BsuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XrFuUPIb; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=SFWvNA3j; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193D73D2FFC
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787642654; cv=pass; b=FRPR1Ow0V5nnYnqm6zd9YM7Cd5Jaeay2H4fsHUCVzywf+KqX8wzc+AQNT6uSpTH+rTD8BRfWj6qBUAycK2mZB9bfvUzbniny4FUxRhqLXkY4NOsv7EOkzhG4akIV0Nazwu8V2Fa4oM+geGrJjiYcq98GzO8IknY0xegqR5P+ZYc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787642654; c=relaxed/simple;
+	bh=SiNqUwUIFt6SRHZmrmpiB724uzW4gBOBRWi19Ci/8DI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TQbwo4sF66IjEn+uXeEwwXJdyyIQOEhSF9f7Q3m8BuHEZTMWDVZT4//pTFE2lzkp9nkNXztD1jklF0upTMmEZCveHvCWH5HJaJFKzzxLOZJnAd4q1+72i/+NHowlgsTSa0OSlZNnhby/ourlzsKQUArcdAwd8L54aFbCxXWn7j8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YA/Pytb2; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XrFuUPIb";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="SFWvNA3j"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hTfMt6MC1zMlGP;
-	Tue, 25 Aug 2026 09:21:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787642474;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wMnwRlqtnUgyBUhAfXE3j+Zlk5aWVxnyqISZrf06fZk=;
-	b=XrFuUPIbGQYlsW2mqjnSjSQ+ID7cnb5QSOqdkRhv/7zX9Po37Yqmnhg8xoS94LRBJwTVo/
-	+CWURboN10BMt8iQ4iIwYbwN9jkPBaOR4kx+TIssPlaZaNeeZnF17W3VmJ1NH0Ksh2l9i5
-	TeetnxSdqmXwJg2sj+MZ+KfmQ4FR+E0XWR8tb6Ir2wxLroAkq3HrW81+/dnKoQCSMIDh7H
-	bZoK9OwF0w/eFTDUvdllcx9to7SFW4Dgxw7+1HFZG7ruQ1fOrWirqmEM7F8IBwq9WTh/r3
-	0EW0SfmUPpo/u3M80Z7Y85a1iPmHyVT4w/0mu7h8iykbgU5tJcwLtA8jio/S9A==
-From: Qing Ming <a0yami@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1787642472;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wMnwRlqtnUgyBUhAfXE3j+Zlk5aWVxnyqISZrf06fZk=;
-	b=SFWvNA3j3nSLSXoqDjES+eJR9qLjgbssO3KM2V2xWHym5+fX+ekJZYasHFGgSi6u1zJnFT
-	i6AtDMowGvwqOe4OLmjIp7fXTl5hkoMT8K+pznUnyWd931dNI0dZ0MwMVFIG+uxjPOjlLo
-	C3zXdB9JYLSI0on5T1NbVQ7N5oj+rkOllvvJHb3wHFtU5N/OhSVSk9/drZNZnEAmbUou3K
-	xyP56XkW6+N7vJB/s06WAonjVkMVbCu67etoDM/GahKYm2q/wKvku7WP3QeFCA/m7iKAlT
-	w9fnNiqvpaEwjXlNc9mafZ+Zp7Fcddwzk2jdZmIZkG7tDD3zX8M1XXm8C5nenw==
-To: Eric Dumazet <edumazet@google.com>,
-	Neal Cardwell <ncardwell@google.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qing Ming <a0yami@mailbox.org>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] tcp: fix AO info use-after-free in tcp_ao_connect_init()
-Date: Tue, 25 Aug 2026 15:20:33 +0800
-Message-ID: <20260825072033.6921-1-a0yami@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YA/Pytb2"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c160420289bso637859566b.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 00:24:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787642650; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RSTkAU33g8MJ4gwg66h1XGhFX1XctSIfeN8wPw2ig2RQqtjuEvVYQYvWpLzo5SkOF9
+         bD25Fsv7HuRE62LZzAvcXQTzOpAqaqbliMaxlgCfiTYfFe6smviZ3v4Z+zFRYTLz7XkG
+         6co96C3OgNhLhSQb99JP1ucHRkMffq+PlS9q0A9oTdWKKT8Rq2KFJygkfD9XKmwhvQwz
+         nmN13mNKzEcBKATw7/PPvx1NW5ywIHT72MvpD0u2rNpFZ8EdOZN16ObWWF0VkWx5Deus
+         2cxPs0q0du/SyWeR+ot1ifGrc7PhdGLE6mge34FOJ7UbheNsbXJgXmrcZ2qrNoNjBZcG
+         E55Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SiNqUwUIFt6SRHZmrmpiB724uzW4gBOBRWi19Ci/8DI=;
+        fh=oiz3vKUAQ0KNYoyneiKFKlGWt3HoPP6p/MEJyzmJOxM=;
+        b=H1u0FUjxZIMOG7ct86OF/2d8u6dje2yblA+f+ZQmlq/9nyAYSz/oc0dYP6lyliKxEE
+         8m4pI0SAJi1o9wXmjemXa8NaETfYLHilORXOdrJZgvRPdLZ6OHJgmpmJOeGz5Qp/jCWn
+         wwr/zmknVa3dN2ijV8QdjoNIG+1szO0Bb2XK7+L1q9ESkh8xIx439UuGc//FXYJPPTG3
+         ilJAdHY8BEXj2LR11VrgeFu637Rxn8nc1pwiIuqjMr3kq9hs5mpJyrlmiB22LCJnTYUM
+         zoF4tqXmWJKWvk98YQRNU/yxq0fstmdtcrv5cwWjutxs1Oa3aPXOhZpekdsM+o8ofynK
+         aZBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787642650; x=1788247450; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SiNqUwUIFt6SRHZmrmpiB724uzW4gBOBRWi19Ci/8DI=;
+        b=YA/Pytb2ci8epOWjCEebgEFSHkwt1ocZSoAFGBRGFDSarcot3Z6RmFKSYaiJzOSBOi
+         Xx3Gg2yOdXATkql3Z7/Eora+ohEXuCC7Xl5uXtZWPjqasn+++Xa6AHsybceG2Txtg1Jv
+         c5Ezx3VCYswVcXisg1hxEQ6cLM4zCIAX1LDj4JGNNjeiNHYWf9zNel7BBlFaTEH4iKTQ
+         63Fk7VP94zSvE3IXWJwfiQregup78xzhlHbC7TWLiiHphysimjy0k707mt+cTMs52cMu
+         /ZSxWza/QF+z16+kN7QVI2Wjn0tHFvM0/nI2z/HWzT7rADxfLt+jCAQ3+mDRs5ZdAVFx
+         DWrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787642650; x=1788247450;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SiNqUwUIFt6SRHZmrmpiB724uzW4gBOBRWi19Ci/8DI=;
+        b=OlUEzwiU4szZObi4jeBuOjOwUar7b0Uds93ZRw6kguA8c2OtlEKPmdsAfX+DSdjaOF
+         h0akrfGkwlASDBPIi5q/qg17rt0a3yd9o0rjDVrh3Ly3cIjrI4wdzFQtB8BGx8RvzQ3D
+         A6SvfpT3MG0zPxr4jXHgEK8+AABJFxDk2MRSH5jr3azKrKIYuhQ3x2Dh/jnGEEJE1QKh
+         LDGTInvhfr/E5lk9dhFimj57JQeZUJ7mXAZjTbz4FkClIgtHrGPAxDFrZbzOJEpcAhN3
+         glktiaPtG8Y7P8A3exwPANsNWZ2S37f1MZtAjF+57hUmm63C97FDVxXTvQ6+WH6dPhYQ
+         X0qA==
+X-Forwarded-Encrypted: i=1; AHgh+RrRx8dwtqiElz5rvHVtpNh6qZEund4WpVr75izWYGEns8lyFQAnGWZW567PQNl33TupgPNZI7A=@vger.kernel.org
+X-Gm-Message-State: AFuF++n23ZngHjxsh38SfL+JSFPtYHKIoweMZ5a9UH7EmAe3WPfnyvyW
+	oQvg2gPZDQoKgFFMVJ4j7akQO9H3a9blisviB36XC2kKgK0I0uJn66/+t/ZP/6exaOGhP4HVBdX
+	9oXrM/Cgmhd9CN44xLh5VmkOWr3zMP5c=
+X-Gm-Gg: AR+sD11A6y6v9aR0l1JKnR+flXxm33dZhlKF5IPnsBMQykR94V3Iw20G2e0Dxyca11v
+	AtPELrm+oGqpVgt2R/8OGJqiHsxKi3eNxAJVATHDPLIf1etq5LiDhhmCy/ev+OswNGkM4K2sLIn
+	9r49yXQ1tRMv/F+/lx24l1TXC4YxnBzeraXWpiVSu86ww0pSkeWj4O8vCLCz5N36NZiuCu80M/k
+	QRYwICVdKnkNGwRAiizK9vXjKBT3pGcGdrEQyiVl9XJys6mc2pidmSqm9dK3+9fwbkSlh+LMYDV
+	AGnh/l8TWcBg+Ev0ygchlmNE5rLLYRRK2+ugVWraApouNN4LMNGbICPjqxfIm1n9hkDatgo5hcO
+	3m78WfihYWwwlq5/FHIxNeLfpcRFF
+X-Received: by 2002:a17:906:fe48:b0:c15:fc59:cdf3 with SMTP id
+ a640c23a62f3a-c24b3ebee48mr1966772166b.12.1787642649742; Tue, 25 Aug 2026
+ 00:24:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 713e056c3bd2c8fd8c1
-X-MBO-RS-META: frbpemzubkhbkf7qz8nybgci1d84p3kq
+References: <20260728125456.32359-1-meatuni001@gmail.com> <CADqcGB=j8cSE-CW8dLC8My0rk70RC-Qidmvr-dZvzCUFE5wadA@mail.gmail.com>
+ <2026082538-divided-raving-3346@gregkh> <CADqcGBko4B8hEXkgG6LCb9HXoW5HdcTNBAuWh6CQN2cURgkT-A@mail.gmail.com>
+In-Reply-To: <CADqcGBko4B8hEXkgG6LCb9HXoW5HdcTNBAuWh6CQN2cURgkT-A@mail.gmail.com>
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Tue, 25 Aug 2026 12:23:57 +0500
+X-Gm-Features: AcwNN1UC7gqL1hUuA2uFBvo4qMx47GRcm0iQcoityUhZNg3Aaw43rBz_aKIoujA
+Message-ID: <CADqcGBnfEgGm0=arJHGkRtGJb48p24cJN5-X+Hzqo6W8B9JUFQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] staging: rtl8723bs: fix multiple OOB reads in IE
+ and frame parsing
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tcp_v4_connect() adds a SYN-SENT socket to the ehash before calling
-tcp_connect().  If TCP-AO is configured, tcp_connect() first verifies that
-a key matches the peer and the bound device's current L3 master.
-tcp_ao_connect_init() later resolves the L3 master again and removes keys
-which do not match it.
+Apologies for the context-less ping, that was on me.
 
-The socket lock does not stabilize the bound device's VRF membership.
-Detaching the device from its VRF between the initial validation and the
-L3-master calculation in tcp_ao_connect_init() can therefore make the
-validation succeed while initialization observes the default L3 domain and
-removes the only key.  The subsequent AO lookup then fails, so the no-key
-path clears tp->ao_info and frees it directly.
+For reference, this is the v2 series (sent Jul 28) fixing three OOB
+read / stack overflow bugs in rtl8723bs where length or offset fields
+from untrusted wireless frames are used without validating that enough
+bytes remain in the buffer:
 
-The receive path can find the socket in the ehash and load tp->ao_info
-under RCU before acquiring the socket lock.  A reader which loaded the old
-pointer can thus continue into tcp_inbound_ao_hash() after the direct free.
+1/3 fix OOB read / stack overflow in rtw_get_wps_attr()
+2/3 fix OOB read in rtw_action_frame_parse()
+3/3 fix OOB read in rtw_restruct_wmm_ie()
 
-The issue was found during a static audit of TCP-AO object lifetime.  An
-unprivileged reproducer in self-created user and network namespaces raced
-connect() with detaching a veth from its VRF while sending TCP-AO segments.
-It triggered the same KASAN report on two fresh boots:
+It's been about four weeks with no review comments. Just checking
+whether the series is still on your radar, or if there's anything
+you'd like changed before it can be applied.
 
-  BUG: KASAN: slab-use-after-free in tcp_inbound_ao_hash+0x585/0x19f0
-  Write of size 8 at addr ffff88800bf88128 by task tcp_ao_vrf_race/232
+Thanks,
+Muhammad Bilal
 
-  Call Trace:
-   tcp_inbound_ao_hash+0x585/0x19f0
-   tcp_inbound_hash+0x677/0xa80
-   tcp_v4_rcv+0x1c3e/0x3ab0
-
-  Allocated by task 235:
-   tcp_ao_alloc_info+0x43/0xf0
-   tcp_ao_add_cmd+0xdf7/0x13b0
-   do_tcp_setsockopt+0x168c/0x2640
-
-  Freed by task 235:
-   kfree+0x1b8/0x550
-   tcp_connect+0x252/0x4f00
-   tcp_v4_connect+0x1114/0x1720
-
-The bad address is 40 bytes inside the freed 128-byte object, matching the
-tcp_ao_info counters.key_not_found field.  The two runs used 1000 attempts
-each, reached the no-key path 366 and 411 times, and produced one and two
-KASAN reports respectively.  With this change, the same reproducer reached
-the no-key path 366 times in 1000 attempts without a KASAN report or oops.
-
-Use tcp_ao_destroy_sock() for the no-key path.  It unpublishes the AO info,
-updates the socket memory and static-key accounting, and defers the free
-until after an RCU grace period.
-
-Also drop the WARN_ON_ONCE() and its stale comment.  The VRF detach race
-makes the no-key state reachable during normal operation, so it is a
-handled condition rather than an impossible assertion.  On panic_on_warn
-kernels the WARN would turn this handled race into a kernel panic.
-
-Fixes: 248411b8cb89 ("net/tcp: Wire up l3index to TCP-AO")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Qing Ming <a0yami@mailbox.org>
----
-v2:
-- Drop the no-key WARN_ON_ONCE(1) and its stale comment.
-
-v1:
-https://lore.kernel.org/netdev/20260818162108.11456-1-a0yami@mailbox.org/
- net/ipv4/tcp_ao.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
-index 5094267447ae..cc2fb643119e 100644
---- a/net/ipv4/tcp_ao.c
-+++ b/net/ipv4/tcp_ao.c
-@@ -1196,12 +1196,7 @@ void tcp_ao_connect_init(struct sock *sk)
- 		ao_info->lisn = htonl(tp->write_seq);
- 		ao_info->snd_sne = 0;
- 	} else {
--		/* Can't happen: tcp_connect() verifies that there's
--		 * at least one tcp-ao key that matches the remote peer.
--		 */
--		WARN_ON_ONCE(1);
--		rcu_assign_pointer(tp->ao_info, NULL);
--		kfree(ao_info);
-+		tcp_ao_destroy_sock(sk, false);
- 	}
- }
- 
-
-base-commit: b70b7b71561f2be1183b6046964d950c2b203bfc
--- 
-2.53.0
-
+On Tue, Aug 25, 2026 at 12:22=E2=80=AFPM Muhammad Bilal <meatuni001@gmail.c=
+om> wrote:
+>
+> Apologies for the context-less ping, that was on me.
+>
+> For reference, this is the v2 series (sent Jul 28) fixing three OOB read =
+/ stack overflow bugs in rtl8723bs where length or offset fields from untru=
+sted wireless frames are used without validating that enough bytes remain i=
+n the buffer:
+>
+> 1/3 fix OOB read / stack overflow in rtw_get_wps_attr()
+> 2/3 fix OOB read in rtw_action_frame_parse()
+> 3/3 fix OOB read in rtw_restruct_wmm_ie()
+>
+> It's been about four weeks with no review comments. Just checking whether=
+ the series is still on your radar, or if there's anything you'd like chang=
+ed before it can be applied.
+>
+> Thanks,
+> Muhammad Bilal
+>
+> On Tue, Aug 25, 2026 10:28 AM, Greg KH <gregkh@linuxfoundation.org> wrote=
+:
+>>
+>> On Tue, Aug 25, 2026 at 04:10:36AM +0500, Muhammad Bilal wrote:
+>> > ping.
+>>
+>> Context-less pings are not really helpful :(
