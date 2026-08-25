@@ -1,93 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CF03FCB37;
-	Tue, 25 Aug 2026 11:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787657469; cv=none; b=QQ2naUgvLjxHECE0UE+N/G9136BNnAGkCjB7AnPOWNEDHqthX5i8L8H+ztFU900SVUimCohR2LVDYpWBVSR+ry70CoKsGdqqSLJVRl7u2Q5EhS4W6+d+T3e1zBy4UyHuiIc28BgjLv4vx6pNxxSv2VIEt0en3FNUHvXHBgeKO94=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787657469; c=relaxed/simple;
-	bh=VjJko0yA3d3YUMxZUcmEj/Vhj9nnISoGVu0m8VeLzBg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Acrw/WcAR6BXzyVR1TR7f2SJq8rQNAqyEoR7UBy2F08c7CQ2g1TdKi+pGL867+U36HflxQGmQ1shdCSNl2Iaziqts6PDPvY9JwUpNDuStvXVYz+c510gpZbPG2TkYBHNe5p1Th/Gcb1it0q1JqHjFbyb3WPJc9U9ekZdSsbcrSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LyUYwbSI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2243FF1A9
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787657970; cv=pass; b=EnMrSOab9e44IG7GUHolPq73MeaIxl35gr859ChizaQ5hIQku8O0nMgdeFvj9tQmoHywshg9C5PxtajOLQhXwB+tDgDfiyOk4FQRSjKtxTUxFRBgcjQPLNI0BaP1t74OMB+nxIHxtu7+sz38YmQ6DQAHc20WGuFgBo3JdGbqXhw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787657970; c=relaxed/simple;
+	bh=BeLdhDF9y5Q5SXx19u1tkJ61xmtxMDfJUSUet9PV9+k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mWsbxpjunNOQGbhPJ1l4HBwBKFWMriPIxxIR2ThLHcn+KhrbFT5Bsm8QeZ6cvT7JssFrBNKhPULyJ/So1XcxJMJm0/lP9hOU6+yb+gii9mFtDFWAu6YL/NXrHEsE0c9PSl/ndDQj6t3/rLwvuZZTIA5Icr75fYYdyhwR9c/UhQo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PoK2SJnA; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LyUYwbSI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB981F000E9;
-	Tue, 25 Aug 2026 11:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787657467;
-	bh=w1SXzpz7rikUBZtWYHQVrdcAXSUIx0iFDqOEdDDx3Qo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LyUYwbSIdBWTCB7Iiyt2+L9a/zD6fPaegOurpi2U+KOz3gt8f1eE9iIM98kBvX3fi
-	 tX4tgt7eKNJdGw2+8UiXXcIzc/FCnIlm1JgjBxn5ipnMNjcada76N3j4lTmhc2duep
-	 27DKAcuiidmEGFUV/cXgbN+DRt1vpsewvxQERfeA+lfXeERQxCTPi6wTKm/xn+wcx8
-	 wajj3nliZD4L3Xv9KcM7uN+M7x9sLcjjG9cINVaoRd4J8uaDqw/ZOz14nWOH8djH0F
-	 NLkSkzHmg1W8Bl4aNlb6kpZIB2TgvIqQ7zX/xdjIxTOvjru5Wk1KzzY1OC34zw3vMb
-	 W5TwO0gWaw5fQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 03F073924FD4;
-	Tue, 25 Aug 2026 11:30:16 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PoK2SJnA"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c95395230so41167931fa.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 04:39:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787657966; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YJ5DNir8Lv9IbKRXYsi5mGzLcj66vXYDYcPPSF5QRCZp5jRJEMqfr5f/K+vOuM5CJq
+         qmY+w2sM1WZuyqpYo+pUp1lMSa7vI77LHXZ0prvN2JWsQ7Jm4DgHFja1l3lJkmVcSecX
+         rmmoZbGKlvMtNnr0zxexKaBTsdhfRAm2rmqn3CqjftmS3gpdVJhaU/lS1v6IsIKiyr/o
+         qC5KbjBSFFwbx581C8eMrfu1IyrJghFebWjdVM5bH7KHsxS1K6Aosd5V92RK9DyRtL1s
+         sxWbbsUgH8PArZERWg4NDGl+hL9DBkcLJusAr/N/U3dlecOqw77iHvicFaDjMmHFNhRS
+         nhHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zWG+md4j2PNcfHubRAWpkT3PHkqwBg1+dLd3rsTqY4Y=;
+        fh=yg6C3yvFqYmr8rnOeoEkNqCoJcNnq7z38FuUn0894cs=;
+        b=ewP6BtesUKKM3qyTYTJlR00jZr0OfBCWuWvzaL/RFTw4TqQw3+Sg0xMsxOueYE6QPp
+         fdmCjYXFnownTrEEiF3VHS8NDC6XXyAo/pMIY4ohCLxHaFRkXxShzx7HPBwGPAY16jcv
+         y1QptoVxHSt+0FaMHyHV8vs8oHOnUrIZDYv61l25TIK77B4zF45TH6n6/RWkGcovXHhI
+         o8T12umwU/sMoQvnjOTO0um/xqemkEWdpTYp5ZBuiSUhP0/zIDXQgDIH6ypQqaBZiE5k
+         hZF+5AtT5YvD4MNEgWv8AV0MXB0A1MCRz43jP52gLjclLctqeprqGQemoHnhOL9t3RJU
+         rssA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787657966; x=1788262766; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zWG+md4j2PNcfHubRAWpkT3PHkqwBg1+dLd3rsTqY4Y=;
+        b=PoK2SJnA4H4PrKFogJeWbClORhi22fcfiBs0m+alBjP/si1st1UvgHO19hZ+9mZrd6
+         luz7q4GTUJppxU19RnHeqSeWWXQP1HkJARdpqWbOUeiejhvf5PiG8zIoLyJu3UbtzoJR
+         OZT4fKSwT5M6Ma1qGY68vvXQCl5sanU1XpchVHpU+nVlQQyHxvL3LYvGtEOhPcromEAT
+         4aiVYzAUKNTGLKAfS0fU+SMzQr4h0ncGxAVUEbopvJAD6pSDKhH5LV2z6g57Bv74ozrq
+         4FON4hlddPzA22PeIX8u2wCbD5/bTQDdo1YhTh+0JBgha5aWJSVPgZN0x6KjF2SkFY9J
+         KJHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787657966; x=1788262766;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zWG+md4j2PNcfHubRAWpkT3PHkqwBg1+dLd3rsTqY4Y=;
+        b=qJLY0cinawdDdI2boP9Zvu6dYFB0TOPbWq8jiW3xa3/z8RuD2L3VYNfpwMUyY03hqW
+         zpSKkHlTDf04wcuXX+HV+LdDJ77GB8BmPuQGvvUqbRd24Dtk/cB3Siqpwb7twrgwDDwA
+         8f9SfEOnK/v/yaPNXEyHAtL/B+KBy6Spxq0fxZYs24Uay9kMS6tkxZQFgqwd66ZuhSut
+         JX4kQQh7Kzo6N27Z1eZUFgtaRsE3in5ncO8PdnX5Gq18dYjoeVdvQFQcoZ38C8CIeE6Y
+         j/jPYVCMdx33ZSgVdl837al4Ltu5bvkXHnKCyziGxAkruOSKeUh+EZwf/CeIrcye68la
+         Rg6w==
+X-Forwarded-Encrypted: i=1; AHgh+Roz+s8lgPDByEc8oBlSY9vpB3GCprj4NK9M6u8xrjSpHZATd1dfEo4J2ammbt0os4SilvgOB14=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+74XiqO88R1huTzF143kS/EDZKaFPH9EKXHGtG4eMrnmlfJcA
+	OfV7MDy2snKROozLD29DCXG1/KhNZ5WMaRD38b1a7QZeCR/YFeyRdv5UqOkTOcpF4SDR77lffXy
+	/KHDbWHU80YWnm9EaQ+0rtNSpc61fr7uHYUtnAXA=
+X-Gm-Gg: AR+sD12f6PrPezmz2yef1OM0ZHeyxHXc80EOM2e6RSUsPuxpYYimV00WDn/bquf6RNl
+	TQZxRsRBTF1WDN2jUSXU2GI/9b24ZRbfq9aFmSlz4JMcCn3M6W94l2YHtDyB0WJyTU3dwOwoCw0
+	m6DYcRi20HykYCGd9Kk7KlR8QmKODs7U2tnnQIkgbEiN8Apa/mbCcDEIkXKvGtAdUUHURO09K6+
+	ZehgpdPK8B2HJ9fZcVSWrE44z2ivICFrkvoJ2/pb07VpmVuefIMLKdBmhn1JSanb/5bczOqZZZp
+	xs+8EymbqQ8MBUn8s9oS2/uZZaQz25Om7q2BJQQ5J+tgnm7y+RFTrlorL6mXnE3cFcyokPkVu3f
+	DvrnzmFyRlv/pxmhXDLYULiTifG4A697Jn1AstUFp9YcY2J5kJ3mGVl1Pndc=
+X-Received: by 2002:a2e:be0c:0:b0:3a1:ee15:309a with SMTP id
+ 38308e7fff4ca-3a1ef375f45mr11041461fa.7.1787657965390; Tue, 25 Aug 2026
+ 04:39:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3 0/6] net: sched: fix quantum/mtu overflow in fq,
- fq_codel, sch_codel, fq_pie, hhf, sfq
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178765741495.3403300.2275787044891472077.git-patchwork-notify@kernel.org>
-Date: Tue, 25 Aug 2026 11:30:14 +0000
-References: <20260822195509.112717-1-jhs@mojatatu.com>
-In-Reply-To: <20260822195509.112717-1-jhs@mojatatu.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- tahiliani@nitk.edu.in, sdp.sachin@gmail.com, vsaicharan1998@gmail.com,
- mohitbhasi1998@gmail.com, lesliemonis@gmail.com, gautamramk@gmail.com,
- vtlam@google.com, stable@vger.kernel.org, vega@nebusec.ai,
- victor@mojatatu.com
+References: <20260825-trans_start-v2-1-286b4d6d70cb@debian.org>
+In-Reply-To: <20260825-trans_start-v2-1-286b4d6d70cb@debian.org>
+From: Jason Xing <kerneljasonxing@gmail.com>
+Date: Tue, 25 Aug 2026 19:38:47 +0800
+X-Gm-Features: AcwNN1XjQjXxu_LWWSVa3JvUT2ke1vsS37UH-HzsyAnH1vl-dmsN4iUGVuJN_ak
+Message-ID: <CAL+tcoDM1WD+Nbc_KXiOb-ZvfBT+bFjb+czDkGF6Nz81MS8paA@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: fix spurious TX timeout after dev_activate()
+To: Breno Leitao <leitao@debian.org>
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Florian Westphal <fw@strlen.de>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, stable@vger.kernel.org, 
+	Nicolai Buchwitz <nb@tipi-net.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Tue, Aug 25, 2026 at 6:56=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
+ote:
+>
+> While debugging another issue today, I found out that my TX queue is
+> reported as stopped for 4294907392 ms (49.7 days), on a machine that
+> had been up for four minutes.
+>
+>     bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 28: transmit queue 2=
+3 timed out 4294907392 ms
+>
+> 4294907392 is not an elapsed time. It is the value of jiffies at that
+> moment: INITIAL_JIFFIES is 4294667296, which leaves jiffies 59 seconds
+> short of wrapping.
+>
+> dev_activate() runs transition_one_qdisc() over every TX queue, which
+> resets trans_start to 0, and then stamps only queue 0 through
+> netif_trans_update().
+>
+> Stamp jiffies instead. A queue stopped across dev_activate() now gets a
+> full watchdog_timeo of grace, and is still reported if it is stopped
+> that long.
+>
+> Fixes: 9b36627acecd ("net: remove dev->trans_start")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
 
-On Sat, 22 Aug 2026 15:55:03 -0400 you wrote:
-> Several qdiscs derive their per-flow quantum or CoDel mtu from
-> psched_mtu() without an overflow or zero clamp, which can drive the
-> dequeue/credit-refill loop into a soft lockup or silently disable the
-> AQM. vega@nebusec.ai provided reports and PoCs for the following qdiscs:
-> sch_fq, sch_fq_codel, sch_fq_pie, sch_hhf, and sch_sfq.
-> 
-> sch_codel was found by inspection for the same pattern. It's TheLinuxWay
-> (i.e cutnpaste code from somewhere for your new feature) and the AIs
-> are having a lot of fun finding patterns. We must overcome!
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,v3,1/6] net/sched: fq: add overflow bounds to quantum and initial quantum
-    https://git.kernel.org/netdev/net/c/709f34f7c28d
-  - [net,v3,2/6] net/sched: fq_codel: clamp default quantum and mtu
-    https://git.kernel.org/netdev/net/c/d9ebd8f9aa8b
-  - [net,v3,3/6] net/sched: sch_codel: clamp default mtu to avoid disabling CoDel
-    https://git.kernel.org/netdev/net/c/6439461f1618
-  - [net,v3,4/6] net/sched: fq_pie: clamp default quantum to avoid signed overflow
-    https://git.kernel.org/netdev/net/c/c86cd7ed0b0e
-  - [net,v3,5/6] net/sched: hhf: clamp quantum before hhf_change() to avoid overflow
-    https://git.kernel.org/netdev/net/c/2164b512b97b
-  - [net,v3,6/6] net/sched: sfq: clamp quantum to avoid signed overflow soft lockup
-    https://git.kernel.org/netdev/net/c/816e90057ab1
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks!
