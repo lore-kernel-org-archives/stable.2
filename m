@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B4E32B109;
-	Tue, 25 Aug 2026 05:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1310361668;
+	Tue, 25 Aug 2026 05:35:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787636128; cv=none; b=syN42tqPpUnGXumnogAY7YyCWUSRRZ2X5EWVjXmAReVSsDmxjfjv8qGc35xEomMRIe0sbNOWbbO7/pq8KjueWIdskMfwzi2+z7uHj6JY/+7P8mqGCZuOmdWSCYFonykVd9PwRUHrRCNqf7hyTsdr8mpicfwZAWooKqasBPgCiLc=
+	t=1787636158; cv=none; b=GRNzpBao4soHAA1hqNQi4zEW9OSq5wPl3gBGjfu2n015z/rfGtHwssCoDov1sZhI3dxMG7HHBCej1oYc45Hk/O1fnckOOMbLIJzkCfkGll0SsHqnNx+Prhjn7NgzN3EslWIcbRYOgHGNRDGJhuvR49GSKfqCkTVZ2whufoF/LhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787636128; c=relaxed/simple;
-	bh=ubfqzGpFWY4MY3wSMowP13vUJmtAxmmNdWTd3mhLcIs=;
+	s=arc-20240116; t=1787636158; c=relaxed/simple;
+	bh=JtDV2aEd30r58tEWrGKtNRwveKk++ECL6otBDlhnr0U=;
 	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WRacOiKnZxliGcUfgjSZHWJqBFfJpr3C2qJkSWLdZB53J7+xeJZfURAY0rMq6LkM08i7DZwvEiFH434jknWW7npubAexMibr0+cDwvMVBM0PybhXwBjBGxzSD/cyjdu8jEN04TaEveCAN7O/eICaHIIVJasDgZChEWNffPgLr7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nIU0JIZd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=IIzAMclInbIsOCHceAn+mOselDdJVS+/CA4CYwj14QypGUNP/zMr0gq7bmsCKwbm3Y5MsqHrDVFAr/GcW+FIh1WqEtQBvl9ARXk5wrGOVOWdyfNGLTlrOQOltVIlvKi0PSOcTgB4xELfjoX5+tKH4CFUVLfjiE/vPHcTs8dBiZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGl/Sky9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nIU0JIZd"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7B7581F000E9;
-	Tue, 25 Aug 2026 05:35:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGl/Sky9"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 892DC1F000E9;
+	Tue, 25 Aug 2026 05:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787636126;
-	bh=qwyBGzhb6RiU4SFIYasX87DfEjTK2tIXYD5Uqnf5AIA=;
+	s=k20260515; t=1787636157;
+	bh=X+aaNfcvdPTYb0VmxD/l7DonAIjppMX8gtJHjC77TqM=;
 	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=nIU0JIZd9baSFD/sg9LfA+4jThjIeJgQ0tWRy8vSB6ihoC3BW6YoJrLXAOPns01iN
-	 AboZYxxGK1w69K2yr8zknXUE0s+qx62jzBvDl0sJV19YJZgo2o936VbfuKfpkZjnBU
-	 Zf7iUrLaf2jto9cZM4OCFHZBC1ZOVASzae/3fWWmTGFHD8i/5z48n5b+1wHbNVG6Wm
-	 fiPD6tqKLf8yvEeKuUKMPag5fmvPIk96HOn8aRLLWweISGVBME3bLAxzBzb0V89N0N
-	 gYmGdc1wdMAn9g3EySBPyqXqlPmuCd9owYrnxiSZEIeFvypkvKUe/FfpYTAFIenVOo
-	 IVEt9mt5Rov1A==
-Date: Mon, 24 Aug 2026 22:35:26 -0700
-Subject: [PATCH 4/6] xfs: fix parent rec lookup initialization in
- xrep_metapath_unlink
+	b=TGl/Sky9CQWPy1i6qeWvmbjl7SSvL0y53HQhQjQ3NEa8NiEo/1rLOT3iXILKX0V0P
+	 wXIO6Z+eLjiZ7fY7mfq1HBZqrDhZJiB+8U2rk1nmxLT0YCl4ra1VXL33p5GpgmZsM4
+	 uKD26hEbtKRgjvR506DbmzjKH8D2tbARcnPCJCrj6SDJCwJjXdEYuCOl0Yc2lmPL7n
+	 eT9GoYpo1Igr4gNmLqYpLf/1wvuOaFVlcm1/uGEhQbgkMo+460tOrhR2uJtf0Armwp
+	 AGph/ntqwTaX1w6QGDhpqingHNRX2L5LhOjhCqDdkDDZ6YDjdmcCBhBeOmLMdgv/hd
+	 lpZ1T5zSIT9iA==
+Date: Mon, 24 Aug 2026 22:35:57 -0700
+Subject: [PATCH 6/6] xfs: lock the healthmon when inserting unmount event
 From: "Darrick J. Wong" <djwong@kernel.org>
 To: djwong@kernel.org, cem@kernel.org, hch@lst.de
 Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <178760940763.944084.16089302387459334065.stgit@frogsfrogsfrogs>
+Message-ID: <178760940804.944084.12785441907263638942.stgit@frogsfrogsfrogs>
 In-Reply-To: <178760940641.944084.17475223769703836830.stgit@frogsfrogsfrogs>
 References: <178760940641.944084.17475223769703836830.stgit@frogsfrogsfrogs>
 Precedence: bulk
@@ -46,30 +45,31 @@ Content-Transfer-Encoding: 7bit
 
 From: Darrick J. Wong <djwong@kernel.org>
 
-LOLLM notices that xrep_metapath_unlink looks for a parent pointer in
-the child metafile that it's removing, but initializes the parent handle
-using the child.  This is obviously incorrect, so fix that.
+LOLLM complains that xfs_healthmon_unmount does an unlocked insert of
+the unmount event into the health monitor's event list.  Fix that.
 
-Cc: <stable@vger.kernel.org> # v6.13
-Fixes: 0d2c636e489c11 ("xfs: repair metadata directory file path connectivity")
+Cc: <stable@vger.kernel.org> # v7.0
+Fixes: 25ca57fa3624ca ("xfs: convey filesystem unmount events to the health monitor")
 Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 ---
- fs/xfs/scrub/metapath.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/xfs/xfs_healthmon.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
 
-diff --git a/fs/xfs/scrub/metapath.c b/fs/xfs/scrub/metapath.c
-index ff1ff762b3003c..9f44c82910eaef 100644
---- a/fs/xfs/scrub/metapath.c
-+++ b/fs/xfs/scrub/metapath.c
-@@ -397,7 +397,7 @@ xrep_metapath_unlink(
+diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
+index 4521ffdab9f1ae..d8b95af33a3e9f 100644
+--- a/fs/xfs/xfs_healthmon.c
++++ b/fs/xfs/xfs_healthmon.c
+@@ -415,8 +415,10 @@ xfs_healthmon_unmount(
+ 	 * There's nothing actionable for userspace after an unmount.  Once
+ 	 * we've inserted the unmount event, hm no longer owns that event.
+ 	 */
++	mutex_lock(&hm->lock);
+ 	__xfs_healthmon_insert(hm, hm->unmount_event);
+ 	hm->unmount_event = NULL;
++	mutex_unlock(&hm->lock);
  
- 	/* Figure out if we're removing a parent pointer too. */
- 	if (xfs_has_parent(mp)) {
--		xfs_inode_to_parent_rec(&rec, ip);
-+		xfs_inode_to_parent_rec(&rec, mpath->dp);
- 		error = xfs_parent_lookup(sc->tp, ip, &mpath->xname, &rec,
- 				&mpath->pptr_args);
- 		switch (error) {
+ 	xfs_healthmon_detach(hm);
+ 	xfs_healthmon_put(hm);
 
