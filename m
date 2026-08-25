@@ -1,193 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE42445AE0
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:18:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A76472F8A
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663912; cv=none; b=K2gi2MxbqyNfZS+FyTipw+coc0C7BdWmsaidARtzA2Wgs3a8/LEjWasbh6krN1bb6/LpqV4jNnZq4uNI+46fbgotKunetzNwLsv+bKuzyUoaxAGN3fWq8GHutbe5vXx30AOvk/wauYIa0yZ7sNtjS3ns4K1W2Uv2cXuWktxpSBA=
+	t=1787664076; cv=none; b=awRsqwo43cIKvoOS6Bm/EX70YiquUi1F2/n888BzbtC3FU/M9tEThQqBFdWmSELVi5h8fJcasYT80bEJlHOgB42kccyUOCURCURJbDXJ97bVpd9KiefbGpz4QtEC+RoWYvqILmcqWac68WM0cnVqia6Kxnfjt7uKGJ8WF35WAx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663912; c=relaxed/simple;
-	bh=B1R+kYUWJTcAddj2wvqQ8ocOXJqx42feXR6g8p0xiao=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=i6ZIVBrJtdIoZsCIs9OmlPfC5gXQD9xXch0Vig5adqakQLBrShbNbyaAIEeRJWb0ICRcj9dwFmd9z807ikG6aWWrOwnRN52DMx/vjFf13Rk4OPKfumyZyBQHB8Uzzj/tNcCD2Nw9dE0aQtm72wPhwJ6Nw1UQJP1WqYEly0pi7IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZQICvr4g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787664076; c=relaxed/simple;
+	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RpvfTFxubu2G4W94hYavQ9DeBEy5XpGhonfrEtYhjdXkdNheG4n4PfA9hNo+M0DWdmmXEVp6ehNDelPvVpqRMpHnKR2mNVMXQNAO0fU1f0LCjyy/mAL3Q9QFL4X/M+49vlyXoY251iz9tmKXb2Ddao3dikLDN/rFqE1dF0Rehlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JuquKssl; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZQICvr4g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A2E1F000E9;
-	Tue, 25 Aug 2026 13:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787663911;
-	bh=HqT90drEdyljIzPtVPCfCDTYrNhCwO+YBv3ml6K2BQY=;
-	h=Subject:To:Cc:From:Date;
-	b=ZQICvr4gZC1moei+wU69bCxnQfijLqEWL9/DNumJVIbClSMuASWPV1Fpp45FAlsOT
-	 13175xo7VgsjmYtAFJiKBsTSFO47YOopd0NSc3xHP320NlNeLto7N+VVU2qR4zbdW+
-	 5yJL4NG+XqfpjKj5EoadKkxbQuE4eNJEyiIx/bM8=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Fix accept list UAF during suspend" failed to apply to 6.1-stable tree
-To: nicoyip.dev@gmail.com,luiz.von.dentz@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 15:18:12 +0200
-Message-ID: <2026082512-chimp-sixties-ddb1@gregkh>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JuquKssl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787664064;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
+	b=JuquKsslWPG6HXYVOA9VNnPldHe4cRK40aZGdLnV2r8B4/f7T7Kj/Ytifd5FCjvI1IqT9v
+	xXGdJ9Tcmv0eujcifODbIZ3pokywrH4n41ePcVlIBorjLDqCBqDzqsxuLRq4gl++ovIeoq
+	LAmNu8uiw41igPhDEzVP1NPIfdYeEoA=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-373-yNrnZdQ8McWHxJjh7PxgbA-1; Tue,
+ 25 Aug 2026 09:21:01 -0400
+X-MC-Unique: yNrnZdQ8McWHxJjh7PxgbA-1
+X-Mimecast-MFC-AGG-ID: yNrnZdQ8McWHxJjh7PxgbA_1787664058
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 208C6195F152;
+	Tue, 25 Aug 2026 13:20:58 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.15])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D57EC362;
+	Tue, 25 Aug 2026 13:20:54 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/9] netfs: Fix uninitialized return value in netfs_unbuffered_write()
+Date: Tue, 25 Aug 2026 14:20:35 +0100
+Message-ID: <20260825132045.1000787-2-dhowells@redhat.com>
+In-Reply-To: <20260825132045.1000787-1-dhowells@redhat.com>
+References: <20260825132045.1000787-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+If preparation of the first subrequest fails,
+netfs_unbuffered_write() exits its loop before ret is initialized. The
+empty-iterator check can do the same.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+For synchronous writes, netfs_unbuffered_write_iter_locked() may then
+return an unrelated error instead of wreq->error. This is reachable
+through CIFS if cifs_prepare_write() fails to reopen the file or obtain
+credits.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x f57b399c4fa1501b2d5451f52d861ece86bcf3db
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082512-chimp-sixties-ddb1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+Initialize ret to 0 so the caller returns wreq->error if no data was
+written, or the number of bytes already written otherwise.
 
-Possible dependencies:
+Found with Clang's -Wconditional-uninitialized.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From f57b399c4fa1501b2d5451f52d861ece86bcf3db Mon Sep 17 00:00:00 2001
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sat, 1 Aug 2026 15:05:24 +0800
-Subject: [PATCH] Bluetooth: hci_sync: Fix accept list UAF during suspend
-
-hci_update_event_filter_sync() walks hdev->accept_list while sending a
-synchronous HCI command for each remote-wakeup device.  The suspend path
-holds hdev->req_lock, but accept-list updates are serialized by hdev->lock.
-Consequently, remove_device() can free the current list entry during the
-controller wait.
-
-The following interleaving causes the use-after-free:
-
-  hci_update_event_filter_sync()    remove_device()
-  fetch accept-list entry
-  hci_set_event_filter_sync()
-    wait for controller response    hci_dev_lock()
-                                    list_del()
-                                    kfree()
-                                    hci_dev_unlock()
-  read the freed list.next
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in hci_suspend_sync+0x835/0x910
-  Read of size 8 at addr ffff88810bec8440 by task kworker/0:1/10
-  Workqueue: events vhci_suspend_work
-  Call Trace:
-   hci_suspend_sync+0x835/0x910
-   hci_suspend_dev+0x182/0x450
-   process_one_work+0x661/0x1090
-   worker_thread+0x45b/0xd10
-
-  Allocated by task 86:
-   hci_bdaddr_list_add_with_flags+0x1a8/0x400
-   add_device+0x381/0x820
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-  Freed by task 91:
-   kfree+0x131/0x3c0
-   remove_device+0x429/0xb70
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-Snapshot the remote-wakeup addresses under hdev->lock.  Release the lock
-before sending HCI commands.  Clear the controller event filter before
-building the snapshot, and skip allocation and the second list traversal
-when there are no matching entries.  This preserves the original filter
-and scan-state updates without retaining an accept-list node across a
-controller wait.
-
-Fixes: 182ee45da083 ("Bluetooth: hci_sync: Rework hci_suspend_notifier")
+Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-bluetooth/20260730092331.2069741-1-nicoyip.dev@gmail.com/
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+---
+ fs/netfs/direct_write.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 307fd47f8459..a661634a63aa 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -6351,6 +6351,8 @@ static int hci_pause_discovery_sync(struct hci_dev *hdev)
- static int hci_update_event_filter_sync(struct hci_dev *hdev)
+diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
+index c16fbad286a1..b04019097ab8 100644
+--- a/fs/netfs/direct_write.c
++++ b/fs/netfs/direct_write.c
+@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
  {
- 	struct bdaddr_list_with_flags *b;
-+	bdaddr_t *accept_list;
-+	size_t i, num_entries = 0;
- 	u8 scan = SCAN_DISABLED;
- 	bool scanning = test_bit(HCI_PSCAN, &hdev->flags);
- 	int err;
-@@ -6367,23 +6369,49 @@ static int hci_update_event_filter_sync(struct hci_dev *hdev)
- 	/* Always clear event filter when starting */
- 	hci_clear_event_filter_sync(hdev);
+ 	struct netfs_io_subrequest *subreq = NULL;
+ 	struct netfs_io_stream *stream = &wreq->io_streams[0];
+-	int ret;
++	int ret = 0;
  
--	list_for_each_entry(b, &hdev->accept_list, list) {
--		if (!(b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP))
--			continue;
-+	hci_dev_lock(hdev);
+ 	_enter("%llx", wreq->len);
  
--		bt_dev_dbg(hdev, "Adding event filters for %pMR", &b->bdaddr);
-+	list_for_each_entry(b, &hdev->accept_list, list)
-+		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
-+			num_entries++;
- 
--		err =  hci_set_event_filter_sync(hdev, HCI_FLT_CONN_SETUP,
--						 HCI_CONN_SETUP_ALLOW_BDADDR,
--						 &b->bdaddr,
--						 HCI_CONN_SETUP_AUTO_ON);
-+	if (!num_entries) {
-+		hci_dev_unlock(hdev);
-+		goto update_scan;
-+	}
-+
-+	accept_list = kmalloc_array(num_entries, sizeof(*accept_list),
-+				    GFP_KERNEL);
-+	if (!accept_list) {
-+		hci_dev_unlock(hdev);
-+		return -ENOMEM;
-+	}
-+
-+	i = 0;
-+	list_for_each_entry(b, &hdev->accept_list, list)
-+		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
-+			bacpy(&accept_list[i++], &b->bdaddr);
-+
-+	hci_dev_unlock(hdev);
-+
-+	for (i = 0; i < num_entries; i++) {
-+		bt_dev_dbg(hdev, "Adding event filters for %pMR",
-+			   &accept_list[i]);
-+
-+		err = hci_set_event_filter_sync(hdev, HCI_FLT_CONN_SETUP,
-+						HCI_CONN_SETUP_ALLOW_BDADDR,
-+					 &accept_list[i],
-+					 HCI_CONN_SETUP_AUTO_ON);
- 		if (err)
- 			bt_dev_err(hdev, "Failed to set event filter for %pMR",
--				   &b->bdaddr);
-+				   &accept_list[i]);
- 		else
- 			scan = SCAN_PAGE;
- 	}
- 
-+	kfree(accept_list);
-+
-+update_scan:
- 	if (scan && !scanning)
- 		hci_write_scan_enable_sync(hdev, scan);
- 	else if (!scan && scanning)
 
