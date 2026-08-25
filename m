@@ -1,105 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCC93CB2D9
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E168538D407
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 20:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787687299; cv=none; b=FDz/ptnD9Q0/8+L98k6FnZARQUazn8SIMTvplJJi6TOZFVdEzcke0ggpleK2QXWKe1l1Agcdo7d1CdthZb1NAk5JWSvU7yeSfOMKXUHzQbK6raGY4aUmmJZjk8n2neHiWS68DPdy4WxNHfKRf9JhxjC6AFUTHM2iRhoicnol2hM=
+	t=1787688365; cv=none; b=BWdT+sDDA9PcHXDbkuu8A0Qe6arCfPJqjb25COs4UpS0RLFViTLp96rn7vGTXSfI01qF7TUdQI0fRm+owtNhR8RsvdCRkTF4ysqXRfNwyp7YgILssGcutk3mAflSIDWe4L7gyN3lCMLof1ewul0rXDgZqqI+cWouko9A27LaaH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787687299; c=relaxed/simple;
-	bh=bD3AWIUv9H9YJ3QQjBDFK4REcaPN0//7TButE/1VLJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s2+2f2ztsr1xm9eSiNphZhH0mS6MPqJKIC0y9c0CZnLl5fWKGv3WmuQvGCu9ncvpzslk/8781nDNk4sxKIRPEeOUJGszuMrKHIhxaYK1e1tbntU3MqHLWRJFy86VkT0/rAPCt8kwjZn5gds4RlOHzYwlMsE2L2tbzE7Fv8w0Ak4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARIHOsTV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787688365; c=relaxed/simple;
+	bh=XbjAz7qal9P/BA1hWjjA2A6ymhlraYwWduqNMnGPNfM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZQuxzJKy9LzCVxqR34Fwg79UA2PEWDhjh6nlviS2lso0Vz6bNh6A3nFNS8g4+jyLIkfoCrRRlBZ7mZ4c7Na9imKUXbe+cX9cu7i+RjVfxMTIwMobg1fEBp/H4xXvGlL5H/7IQ5kxZ/Unx8nZsdGONOq6aRJa3TA1AqpQ0l+SnuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F9U2jhQT; arc=none smtp.client-ip=95.215.58.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARIHOsTV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538BC1F00A3F;
-	Tue, 25 Aug 2026 19:48:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787687297;
-	bh=RsS+3M8ATlnAotWwmwGe3Eg+he+YApToDV6efDpte80=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ARIHOsTV1OvPv8P4FJWkz/7VZgJHHDg0sNI6kVvG5MAIUKbE5DNz+1cmHgFsDqOPR
-	 Wu6wc7ZAVz7cG0VIu5VBEn9lSfDUnMwApBOFLsF/haXd38Ox9ZHExUOT/rXv/xN/r0
-	 NHuHDbZ31Iko9gbA3IgyAFR3syGDNSTSXJrA6S/25M4uG6+dzIog0eACQbdZT0sNSG
-	 rOUGVmdUFUBevNX8eMVQ3eun5aeQ+lpV9Nk74W/hxmckIIE33atAaYpfbYXG+xd3Tg
-	 /f9J7vRZhKSQkFL6hTdB7NPbJzjWpp9FVRLlOX/0uYVnlZcfyJlOxTCB4BdRGjEaa7
-	 apqFhO/YafC3Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Vishnu Razdan <vrazdan@openai.com>,
-	Gabriel Krisman Bertazi <krisman@suse.de>,
-	Jens Axboe <axboe@kernel.dk>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] io_uring/io-wq: fix worker accounting when canceling creation callbacks
-Date: Tue, 25 Aug 2026 15:48:14 -0400
-Message-ID: <20260825194814.376625-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825194814.376625-1-sashal@kernel.org>
-References: <2026082423-fineness-promotion-9ac5@gregkh>
- <20260825194814.376625-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F9U2jhQT"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XbjAz7qal9P/BA1hWjjA2A6ymhlraYwWduqNMnGPNfM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787688360; v=1; x=1788293160;
+ b=F9U2jhQTev4uP28NPHwP7qg9cVC0YxNRBdvTHtPArQ0MbbPTaCi1UpBz/QCeF39oIA6JP0zR
+ q3SQEbybvl1aBmhYFEkjqvfjnKayhLneiA5C1OiukTjpvXQYs2TOhcIzmpdeENdoY+k20HLtQLt
+ twS2PFIjdz9R5b54EltRitKQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a03:83e0:1156:1:10b7:9472:4142:b7b7] (2620:10d:c090:500::7:759c)
+	by smtp.migadu.com with ESMTPS id 9b0c0d836eb66a38;
+	Tue, 25 Aug 2026 20:05:50 +0000
+X-Mizu-Trace-ID: 9b0c0d836eb66a38
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ddb64a7a-70b2-4c3d-8b80-2c7bcd7f329d@linux.dev>
+Date: Tue, 25 Aug 2026 13:05:37 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] x86/mm/pat: CPA fixes
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, Dave Hansen
+ <dave.hansen@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, Pedro Falcato <pfalcato@suse.de>,
+ "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Steffen Dirkwinkel
+ <lists@steffen.cc>, Suren Baghdasaryan <surenb@google.com>,
+ Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
+ Vishal Moola <vishal.moola@gmail.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
+ syzbot@syzkaller.appspotmail.com, x86@kernel.org
+References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
+ <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev> <ao1EtJG_Gj8f90WQ@gremlin>
+Content-Language: en-US
+From: Atish Patra <atish.patra@linux.dev>
+In-Reply-To: <ao1EtJG_Gj8f90WQ@gremlin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Vishnu Razdan <vrazdan@openai.com>
 
-[ Upstream commit 297b5ccea4acacaa47c150f043bce695202afbf1 ]
+On 8/25/26 12:31 AM, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Aug 25, 2026 at 12:12:32AM -0700, Atish Patra wrote:
+>> Reproduced and verified this series (patches 1-3) on 4vcpu guest running two different kernels
+>> 1. mainline (commit: 77ae27fd98f3)
+>> 2. Ubuntu Resolute 7.0.0-26 (production kernel hitting the issue in a VM)
+>>
+>> The Reproducer consisted of
+>> 1. A debug patch a cmdline-gated stall between the two *pmd reads in vmalloc_to_page()
+>> 2. One taskset-pinned insmod/rmmod worker per module over stock cfg80211/dummy/veth modules
+>>
+>> With the above reproducer, both BUG within seconds in unpatched kernel.
+>> 1. Resolute in 0.71s at alternative.c:2564 (BUG_ON(!pages[0] ...), RAX=0)
+>> 2. mainline at alternative.c:2473 (BUG_ON(memcmp(addr, src, len))).
+>>
+>> With patches 1-3: zero splats across 10 runs each (600s/11,378 module load/unload cycles on mainline and 1200s/55,980 module load/unload cycles on Resolute).
+> Amazing, thanks!
+>
+>>
+>> Tested-by: Atish Patra<atishp@meta.com>
+> I guess should be applied to patches 1-3 only strictly? Or perhaps 3/5?
 
-create_worker_cb() reserves an io-wq worker slot only after its
-task-work callback runs. If the callback is canceled before then,
-io_worker_cancel_cb() still decrements acct->nr_workers. When an
-existing worker retires with its creation callback pending, that
-worker has already decremented the same account's worker count.
+Yes. 1-3 sounds good.
 
-The resulting undercount permits worker creation beyond the account's
-configured limit. On an AST2600 OpenBMC system, an unchanged sensor
-daemon reached 4,291 threads with the original kernel. With an
-equivalent downstream fix, 25 passive samples under its normal
-workload showed 6-9 threads.
 
-Decrement nr_workers only when the canceled callback is not
-create_worker_cb(). Continuation callbacks still release their reserved
-slot, and both callback types retain the existing running-count,
-reference-count, and create-state cleanup.
-
-Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
-Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- io_uring/io-wq.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 775c55e377922..b09fa30927930 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -203,9 +203,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
- 	struct io_wq *wq = worker->wq;
- 
- 	atomic_dec(&acct->nr_running);
--	raw_spin_lock(&acct->workers_lock);
--	acct->nr_workers--;
--	raw_spin_unlock(&acct->workers_lock);
-+	/* create_worker_cb() has not reserved a worker slot yet. */
-+	if (worker->create_work.func != create_worker_cb) {
-+		raw_spin_lock(&acct->workers_lock);
-+		acct->nr_workers--;
-+		raw_spin_unlock(&acct->workers_lock);
-+	}
- 	io_worker_ref_put(wq);
- 	clear_bit_unlock(0, &worker->create_state);
- 	io_worker_release(worker);
--- 
-2.53.0
-
+>>> --
+>>> Sincerely yours,
+>>> Mike.
+>>>
+> --
+> Cheers, Lorenzo
