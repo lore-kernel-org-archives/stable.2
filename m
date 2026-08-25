@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08BF47F766;
-	Tue, 25 Aug 2026 16:53:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BB8342538;
+	Tue, 25 Aug 2026 16:53:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787676804; cv=none; b=nhy7QgGabuwhxDumz0yP/KCzhsqvb9q7iCHtiyHQ163wVVuMK07VQ8AkTgtVOsXvyFOAd/OpN4ak0vSeYglqDcO86VUcYXBfCdX659tX/WXKs/DKiLl3kcv2fAo2lisauJr5DqAC//pgV3qjB9cZqRuTx4azCGqaAfpj2+XPzeY=
+	t=1787676831; cv=none; b=W+Ns09WqIg3QvdADsNQux56aHHfm5sIUanhAZI1e5ZCnRlS8voC4gQVCt3B+yRdQZGE+SNwi3C8RUVNflnSu8XQt5HdzeasknpjndkcVWqP8vKEp1HmvrcY4ymcLOi/6aJcYKy4185qAtLofC688EjAtKxmd1IOMYaWjDOJc8L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787676804; c=relaxed/simple;
-	bh=wcF7uM94hR3OYHjUR0deVPFNJXkbu82Yd2mt83M2Wcs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gFxkuqA8ZMDiqSXXbVtRrh7i5uy4GifIc7frYuyLJV56v8nA+/s6CroP/kJz/S3fif80Jw10fyEkwEU40ftEqKfW+ojNV5HKM66oSwA8EgyTHi24k7prG2zeHjLDlnOZZc6Q/bkiMFzt549QHNCXN6/I2ksYDbOZMGL64m2kl24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eB1GPAna; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787676831; c=relaxed/simple;
+	bh=6Q+nZv0YRl/CyM23/aiGxp3BIyZ2CbBXSgWHvN1fR/Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 In-Reply-To:References; b=MfnUZhd6tt+qBH01zYM87PqEdOUvn0ELuswHe+kBWskkccfiIvQIZAqtEeM57gugdlb+ukYJkV7f4ySha9FgJ1iH4EDVkmPuZGNCnuH7B7Fm8HkDXfG6R+5KB3GRYyPi0MxUZmbddjxWoMNIfV0SgCsCdaMZYKOe0Yqyl43SZ0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0TihZWf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eB1GPAna"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A8B5C2BCB8;
-	Tue, 25 Aug 2026 16:53:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0TihZWf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A9A77C2BCB8;
+	Tue, 25 Aug 2026 16:53:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787676804;
-	bh=wcF7uM94hR3OYHjUR0deVPFNJXkbu82Yd2mt83M2Wcs=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=eB1GPAnaW6PhODBaCOEAFJlJ05eTAUns0Ipv3uwOL5Aigg9kw32tMQW+ZxIH9I02I
-	 WEMExTM/iEWYRLkmc1zOV4IHRfvrIPHP3h55dFqK40rPtQuK67vQQvRijta1HufbFQ
-	 4wD3OVcwbhDvnYacl335eKDhZUnj9/vQs25barrza4Oh/doWrXsjRnkwxgn4xcd7B8
-	 0PL2yzB0ojnBscczry8GCH9jTEKHOvvD1u2IRdcqM9b2g5VLlpUtLYL8ud6ePgvSpM
-	 gM7p8v3XoxuWe+05a2wSy0bGF8eRprAfjfzwr2j5gyrdXFq//gVi1bJAzF0KlCXNR5
-	 Ow85pCmiMPKIg==
+	s=k20201202; t=1787676831;
+	bh=6Q+nZv0YRl/CyM23/aiGxp3BIyZ2CbBXSgWHvN1fR/Y=;
+	h=From:Date:Subject:To:Cc:In-Reply-To:References:Reply-To:From;
+	b=I0TihZWf0kwFWT2RsMGubyZRQ7Qo4Pe5+CuB8KNcQV7qKvZSczqs2uNHV7lpB6raF
+	 yA8e9YudMU+dDbMbyBo+iS+0bO3cNs09BonM/I1Y6nhuZJLxrNhIhRmHwtlYQFtQ+d
+	 nXaRE9Dgtbu6xOETCXp/x8xXOiGm4TfhBFfuDHqmm5opA1B7PUcYO5L8OrcaqIT/DA
+	 2WzZuwDpGzG00dh8+IyYHaXtgUMqiUOLoXDbW/4SqZbcjXoRsWXsQE/qhZzbMSVpiX
+	 HzpvKZNzbQUfawsuwJo0nWG7NAZz488WnWr1bYwDIYwNggh9K11bpkJj9inz7HleXI
+	 D3THqHXmQQ7ug==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35936C61DBC;
-	Tue, 25 Aug 2026 16:53:24 +0000 (UTC)
-From: Ivan Immanuel Shaji via B4 Relay <devnull+ivanimmanuel1234.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] tracing: Fix remote reader page swap failures
-Date: Tue, 25 Aug 2026 12:52:48 -0400
-Message-Id: <20260825-kernel-patch-1-v2-0-bb3461807a32@gmail.com>
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 941D4C61DB9;
+	Tue, 25 Aug 2026 16:53:51 +0000 (UTC)
+From: Vishnu Razdan via B4 Relay <devnull+vrazdan.openai.com@kernel.org>
+Date: Tue, 25 Aug 2026 09:53:47 -0700
+Subject: [PATCH 6.1.y] io_uring/io-wq: fix worker accounting when canceling
+ creation callbacks
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,71 +41,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMQQ6CMBCF4auQWTumLbYBV97DsKh0pBOhJS0hG
- sLdrexd/i953waZElOGa7VBopUzx1BCnSrovQ0DIbvSoIQyolEaX5QCjTjbpfco0TXCUO1ISKu
- hnOZET34f4L0r7TkvMX0Of5W/9S+1ShRIbX1prRUPafRtmCyP5z5O0O37/gWRNM8/rAAAAA==
-X-Change-ID: 20260825-kernel-patch-1-d806e3de01a5
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Vincent Donnefort <vdonnefort@google.com>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787676803; l=1659;
- i=ivanimmanuel1234@gmail.com; s=20260825; h=from:subject:message-id;
- bh=wcF7uM94hR3OYHjUR0deVPFNJXkbu82Yd2mt83M2Wcs=;
- b=XIY564obFbHXJ78STHg+tNDgIkiB60qq73/Njm1V1Lf53UcL3eyb/0jAPKaHOhGhoJH7WRn8t
- J3a3736XDdaC/aXpBWgDgeJvdAXR9ZemwK0qoaBLGUfy8x424EGdLoU
-X-Developer-Key: i=ivanimmanuel1234@gmail.com; a=ed25519;
- pk=Wx8O3UUs3XneDkbqbOJJnlNdWSpEf2tWbTAoE7/vnqE=
-X-Endpoint-Received: by B4 Relay for ivanimmanuel1234@gmail.com/20260825
- with auth_id=975
-X-Original-From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
-Reply-To: ivanimmanuel1234@gmail.com
+Message-Id: <20260825-stable-io-wq-6-1-y-v1-1-8166bc2decba@openai.com>
+X-B4-Tracking: v=1; b=H4sIAJrIjWoC/y2Myw7CIBBFf6WZtdMAVtL4K8YFj6nFGKpMfTRN/
+ 11Al+fk3rMCUwrEcGxWSPQKHKaYQe4acKOJF8LgM4MSSoteHZBnY2/ZTvh+oEaJC6q+23thBi+
+ og3y8JxrCp0ZPoFvZLnD+aX7aK7m5BMvQGia0yUQ3FvVPV1vLsG1f3kcvzaEAAAA=
+X-Change-ID: 20260825-stable-io-wq-6-1-y-2843d0afd0e4
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, asml.silence@gmail.com, vrazdan@openai.com, 
+ krisman@suse.de, axboe@kernel.dk, io-uring@vger.kernel.org
+In-Reply-To: <2026082423-scotch-snowbird-3d10@gregkh>
+References: <2026082423-scotch-snowbird-3d10@gregkh>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787676831; l=2382;
+ i=vrazdan@openai.com; s=io-wq-kernel-20260811; h=from:subject:message-id;
+ bh=sCRULoicw5p9DvIy5OfX6hMqGoHK4NAyp/A0A5zZiaM=;
+ b=fdLiFznmtW8IuNsu3K5YlA/j1sU4OmxUeKh1RIChqvDlzNYMHZ+feA+nxGN/GiHsYpeEKZa0r
+ 9daucjK824uDTooUhNOb5+69KMhAwlGPLCnKMl3rqYO6EShHrxJ9+fL
+X-Developer-Key: i=vrazdan@openai.com; a=ed25519;
+ pk=45vHW8D/KId5RtsP3Qx7zMcNpgDwEvCnL5uAw0KzuS0=
+X-Endpoint-Received: by B4 Relay for
+ vrazdan@openai.com/io-wq-kernel-20260811 with auth_id=937
+X-Original-From: Vishnu Razdan <vrazdan@openai.com>
+Reply-To: vrazdan@openai.com
 
-The simple ring buffer's reader-page swap retry loop mishandles its last
-attempt. A success at that point is reported as an error, while a failure
-is allowed to continue into the pointer updates. The remote ring buffer
-consumer compounds callback failures by warning and continuing with stale
-reader metadata.
+From: Vishnu Razdan <vrazdan@openai.com>
 
-Fix the retry result in the provider, then stop the remote consumer before
-it mutates its local page list when the swap fails.
+commit 297b5ccea4acacaa47c150f043bce695202afbf1 upstream.
 
-These paths are used by remote tracing, including arm64 nVHE EL2 tracing
-and CONFIG_TRACE_REMOTE_TEST.
+create_worker_cb() reserves an io-wq worker slot only after its
+task-work callback runs. If the callback is canceled before then,
+io_worker_cancel_cb() still decrements acct->nr_workers. When an
+existing worker retires with its creation callback pending, that
+worker has already decremented the same account's worker count.
 
-Testing:
+The resulting undercount permits worker creation beyond the account's
+configured limit. On an AST2600 OpenBMC system, an unchanged sensor
+daemon reached 4,291 threads with the original kernel. With an
+equivalent downstream fix, 25 passive samples under its normal
+workload showed 6-9 threads.
 
-  make C=2 W=1 kernel/trace/simple_ring_buffer.o kernel/trace/ring_buffer.o
-  scripts/checkpatch.pl --no-tree (each formatted patch)
+Decrement nr_workers only when the canceled callback is not
+create_worker_cb(). Continuation callbacks still release their reserved
+slot, and both callback types retain the existing running-count,
+reference-count, and create-state cleanup.
 
-No runtime reproducer was run. The two final-attempt outcomes follow from
-the retry counter's post-decrement semantics. An arm64 cross-compiler was
-not available.
+[ Backport: retain the existing worker->wqe->lock protecting worker
+  accounting. ]
+
+Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
+Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
+---
+Stable backport for linux-6.1.y.
+---
+ io_uring/io-wq.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index 66fdd69fd6cb40..0c3de2fead81cc 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -201,9 +201,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
+ 	struct io_wq *wq = wqe->wq;
+ 
+ 	atomic_dec(&acct->nr_running);
+-	raw_spin_lock(&worker->wqe->lock);
+-	acct->nr_workers--;
+-	raw_spin_unlock(&worker->wqe->lock);
++	/* create_worker_cb() has not reserved a worker slot yet. */
++	if (worker->create_work.func != create_worker_cb) {
++		raw_spin_lock(&worker->wqe->lock);
++		acct->nr_workers--;
++		raw_spin_unlock(&worker->wqe->lock);
++	}
+ 	io_worker_ref_put(wq);
+ 	clear_bit_unlock(0, &worker->create_state);
+ 	io_worker_release(worker);
 
 ---
-Changes in v2:
-- Report callback failures with pr_warn_ratelimited() instead of
-  WARN_ON_ONCE(), as suggested by Vincent Donnefort.
-- Add Vincent Donnefort's Reviewed-by tag to patch 1.
-- Link to v1: https://lore.kernel.org/r/20260825-kernel-patch-1-v1-0-e9349aa0b165@gmail.com
-
----
-Ivan Immanuel Shaji (2):
-      tracing: Fix retry exhaustion in simple ring buffer reader swap
-      ring-buffer: Stop remote reader update when page swap fails
-
- kernel/trace/ring_buffer.c        | 7 +++++--
- kernel/trace/simple_ring_buffer.c | 4 ++--
- 2 files changed, 7 insertions(+), 4 deletions(-)
----
-base-commit: 66498c75b4f8017f62d720d9b59675bdf3abce91
-change-id: 20260825-kernel-patch-1-d806e3de01a5
+base-commit: 05208478041ccec1b348d25e1df5c4013608590e
+change-id: 20260825-stable-io-wq-6-1-y-2843d0afd0e4
 
 Best regards,
--- 
-Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
+--  
+Vishnu Razdan <vrazdan@openai.com>
 
 
