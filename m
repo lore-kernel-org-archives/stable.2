@@ -1,40 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C371E2614;
-	Tue, 25 Aug 2026 07:29:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D930C23507B;
+	Tue, 25 Aug 2026 07:32:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787642983; cv=none; b=M/7ZcfoZYJRSJ6B9FOWJ5DgsEziGVcT4FLWeaMhBZuSFyAnYtSFsLTgCmnB1mcn7fL79WEM0TCRwCv9wbrlY6wY8qEX05UEq+mFaLOcsrUlbV3HQBStC1MWYHX6QqrtjP7lMo21g1NvMAkbhU1mWXymGc+hbtpjn07O1tg4hiAo=
+	t=1787643125; cv=none; b=W+phSJpoCW0YBdqmPyWDLP8fUDRS1RXb9nDcqbcvXlIShZ0n6LrMWZc9Uh2zT2fsI6qETPMkI0HB+WsfGCN1jtDJhGdt91K4XfD33o4BWi4HTRyyj/GhXosLainoAHhrXSCQj6cV5dLdhWrKHBbYr/iWAkrCvprTZbFWcpdGFbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787642983; c=relaxed/simple;
-	bh=r1SW5hsw8cC+Rw5tTcsDyAfvXUpuSkKCnrump62ZlDU=;
+	s=arc-20240116; t=1787643125; c=relaxed/simple;
+	bh=pOEToaHFZ1KezTVQLT895r8MTCYw9JPZrUoSp64NpPo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nAtpbRntOx3f+Tk/nRiYA8GUq1EsukxxCMOpQ/+GTY5hX+rgeKPGlgAa43j5ppoli6Fk0SljKKACazI0CfoTUJ1FSnvwzTLGiY9N5UlArG8OUBW2uzAbYoVcf6wIQLjW7RQZZUuHpibyEE/hDlrJ4/w9wKcBufq13LXNrg/Mwhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ugwqiJCQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UcQQ6pH+Ot7ZfhQj1gK8YGneD8EYQz6TRKbXgmifnWglZX7U1L9AY1FWFkUkwpk8u9WyCqQ7TNfNoq4Fkj+nmgV/AxzsDUjnrnLApr+t7INtNf2Ve1QtW+C6BpPL6CIbi0lF1B16x3sXPqsw2T7aVgjZvdeK1mr4WUAfBQg7E3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z4g/5Wuu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ugwqiJCQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D9A1F000E9;
-	Tue, 25 Aug 2026 07:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787642981;
-	bh=NfZZnMBWOikoEClIce+/vqhwaYr1dCzaNJMYSJ5kJJg=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4g/5Wuu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6908D1F000E9;
+	Tue, 25 Aug 2026 07:31:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787643124;
+	bh=pOEToaHFZ1KezTVQLT895r8MTCYw9JPZrUoSp64NpPo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ugwqiJCQRicKUA6DDZagf8aYtRGN1A/4PKXgcaWHuemtIp7gT6A+yCSnMRcZtDIjc
-	 jKYZ59WgXULIurL6w6feMmhSvX2WxwBaM5AWlsb9vgdzHzzZ9JZ0q+Qi4ZMP2N0ve0
-	 ZIluykmIY8Tf7gHr4HSsQEeyRzfyRHCxxPrRKnyM=
-Date: Tue, 25 Aug 2026 09:29:34 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] staging: rtl8723bs: fix multiple OOB reads in IE
- and frame parsing
-Message-ID: <2026082555-balancing-facility-6e54@gregkh>
-References: <20260728125456.32359-1-meatuni001@gmail.com>
- <CADqcGB=j8cSE-CW8dLC8My0rk70RC-Qidmvr-dZvzCUFE5wadA@mail.gmail.com>
- <2026082538-divided-raving-3346@gregkh>
- <CADqcGBko4B8hEXkgG6LCb9HXoW5HdcTNBAuWh6CQN2cURgkT-A@mail.gmail.com>
+	b=Z4g/5WuuSrT94p10shBVAIXPmRKgbAf3s/fvhs/4tFk+uVYx28S171DpFdj0a9Xtu
+	 yTgAB0qfoK70a2ye7WIOmkKuqCjxINjcN0eExJDTuRNBqiinabd9CGUcwpYxZmIH3s
+	 A0kNWY2SdjirMgff3v1e0bjg5Zda8IR7ORCKEQrBFZoKCrT/hCqjtKapvjkQ2xpfVN
+	 aAnIT1hGn9XvE3sPxICXKO90JPq+Dics4zTCwjz0acMygp6SMe5XJ/h3sRF6PIVSHA
+	 ijnfHH3HK2dEqvm36yUHge9E/WgJxljCqXRw85kpAtXpDM/79/D+YtvABmbSMjvNJU
+	 LC6rJGO/S2iuw==
+Date: Tue, 25 Aug 2026 08:31:53 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Atish Patra <atish.patra@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Steffen Dirkwinkel <lists@steffen.cc>, 
+	Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
+	syzbot@syzkaller.appspotmail.com, x86@kernel.org
+Subject: Re: [PATCH v2 0/5] x86/mm/pat: CPA fixes
+Message-ID: <ao1EtJG_Gj8f90WQ@gremlin>
+References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
+ <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,31 +57,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CADqcGBko4B8hEXkgG6LCb9HXoW5HdcTNBAuWh6CQN2cURgkT-A@mail.gmail.com>
+In-Reply-To: <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev>
 
-Please do not top-post.
+On Tue, Aug 25, 2026 at 12:12:32AM -0700, Atish Patra wrote:
+> Reproduced and verified this series (patches 1-3) on 4vcpu guest running two different kernels
+> 1. mainline (commit: 77ae27fd98f3)
+> 2. Ubuntu Resolute 7.0.0-26 (production kernel hitting the issue in a VM)
+>
+> The Reproducer consisted of
+> 1. A debug patch a cmdline-gated stall between the two *pmd reads in vmalloc_to_page()
+> 2. One taskset-pinned insmod/rmmod worker per module over stock cfg80211/dummy/veth modules
+>
+> With the above reproducer, both BUG within seconds in unpatched kernel.
+> 1. Resolute in 0.71s at alternative.c:2564 (BUG_ON(!pages[0] ...), RAX=0)
+> 2. mainline at alternative.c:2473 (BUG_ON(memcmp(addr, src, len))).
+>
+> With patches 1-3: zero splats across 10 runs each (600s/11,378 module load/unload cycles on mainline and 1200s/55,980 module load/unload cycles on Resolute).
 
-On Tue, Aug 25, 2026 at 12:22:54PM +0500, Muhammad Bilal wrote:
-> Apologies for the context-less ping, that was on me.
-> 
-> For reference, this is the v2 series (sent Jul 28) fixing three OOB read /
-> stack overflow bugs in rtl8723bs where length or offset fields from
-> untrusted wireless frames are used without validating that enough bytes
-> remain in the buffer:
-> 
-> 1/3 fix OOB read / stack overflow in rtw_get_wps_attr()
-> 2/3 fix OOB read in rtw_action_frame_parse()
-> 3/3 fix OOB read in rtw_restruct_wmm_ie()
-> 
-> It's been about four weeks with no review comments. Just checking whether
-> the series is still on your radar, or if there's anything you'd like
-> changed before it can be applied.
+Amazing, thanks!
 
-It's in my queue to review, it's the middle of the merge window right
-now and nothing can be done until after -rc1 happens.
+>
+>
+> Tested-by: Atish Patra<atishp@meta.com>
 
-Also, have you tested this on real hardware?
+I guess should be applied to patches 1-3 only strictly? Or perhaps 3/5?
 
-thanks,
+>
+> > --
+> > Sincerely yours,
+> > Mike.
+> >
 
-greg k-h
+--
+Cheers, Lorenzo
