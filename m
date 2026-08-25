@@ -1,121 +1,140 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821293D5222
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787643871; cv=pass; b=r43UQxlKSQJ09LGTBNbkxEu3LpW9ZUaWgbV7ttCQTpAKKU7C96FwUxGdFNgZ1Zg1fPBJqZCOqtm6Ndy/1O1bezu8T1zbKEcwzG5KvD8HfNzy0VNfJPb75a5Ykz0v+54cK/p5jedV4F+7cs/SbvDhJiOjtSsQiuM+sqnqq26ID+A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787643871; c=relaxed/simple;
-	bh=X04DIHMZxw6/5xtn5gumEmBjGtO0g/1ZdeYvU0NA1jQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QVHtcfnqb2YFcHZMcAJEM2K4tOZDqckiNHEuIeso46CrxF1FtqivnDUhKlJhkgasXSR27mlVImcBtuMkGSjDDnSVG75KSHIC43R5e6hrsVM2IRCbuMuX4ARWYyPLIOC1pHhXtHrwZdxs0EFbdUlknp+VGef1DV+0TUA1140f+nk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sOopyrHO; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDA236B910;
+	Tue, 25 Aug 2026 07:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787644537; cv=none; b=LJ/dgzT5IwbmORkiwPSoe0Qwvulohmr2/P++pOBT2fg2QiFHeCa/f6quXB862ARlknHnGcA/MBpS+h3CBP+wRuwysTFZ1TasHmf+Cq1wnRL3PqQvZWEMRDqSYepnzYIJG3vwnRQ9U68Y7IVvf85NK5NPudoyCBs/KKmMvlDi124=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787644537; c=relaxed/simple;
+	bh=XAjv6WtrWWzCB6YeREY2fuaNyp9p5PNb3fFaAqJ2NVM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=AxGWvqgOLroK6I2J6JtNa6AICmkqNaadvYCm8i1pIZK48UxCA2sPmVp/h2LOYVDPT25/BirXmqmJM5J86b87CmCXRraFw1zHZm44oiZchfJw8VhLHVsS7TXewUT9y0w/qc80l3KRO48CsR2iUK4Yx+aWQQD7hNbM0GK1c7JjE0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhUM9DpS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sOopyrHO"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c928bf172so32716131cf.3
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 00:44:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787643869; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hTE0qSQKpN4SZ9vB+7I280ynHB4VSQDVw9ke7uMll4D78sdk4WHCk2JffBhRgOr+a7
-         BcjciKOSGVXITx0TaW8OzwNJMiC1F34avA5atnkzF0xRDiGHxmme7GO4ZLnHQuCF2RiS
-         HNDSKf00pMtACPb7VVgBL2Z/Hr51prsFEeRmvYoM8fvgRWxnzs3SXddM3kktGQI2Ldmd
-         DPhZqlg8NXWztqRTcvkclUYdf28czs9xQN2EAcBavIn/DNMuTjX96e9qdvutXxxEZbD5
-         PwTFoSsJ35nEJXYd4C1Qlp/qIMiEsHz+DQC/QyjnFCFnJ3gbdGl79JR7f71UaiaIWy3a
-         +oUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=icSIZLjmkJhUkdPFsKLS4ShrJUnEK0Co35qci0jNz2c=;
-        fh=SdMFuzpFNWi21EsOPdFY6g2FZkrJq+2AUbGa0XZKFEU=;
-        b=cIlRCdA7ciM0OcwrONwXtSUFnHG6o8OwrY/eQZKoAcEKWoHZol7e4GRoeD7SBldq7h
-         l0sieHBi8CcWy6KImrAZFZfUE3yGyO3SgudITXenTKphZ05W+Cy2jzwXuabTE9ahySlU
-         wbXGnJTqtj3SyGuhWU9jjEjy64JiR0RCC1hmXGYV5HRUmeuQwwwLmv7nMRb4n2ka4s/X
-         JGDpfZD/f9M+aiTwT3dKPt9gbW15Xo2YvhwaNqiLV/4SIBxaIc5cOuduyN2y1fOzZXiC
-         qRlWJSc4XvcC6t61XeluK4ewowDGsuzwaEXZdkFE1gxub60zBkeF50CojvJVkRoIJAAJ
-         ECaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787643869; x=1788248669; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=icSIZLjmkJhUkdPFsKLS4ShrJUnEK0Co35qci0jNz2c=;
-        b=sOopyrHOyJkRuIaWuQZ9hlyT5xTiuPC8iFLvpriJUBJnzvueHngMFl4SY4VK8sjCye
-         uBxPlOuT8MQv6Z8Q5RuMkMHvwJ9jYWr2j2GAtX++k2vVtXh7LOHLHN3tE8iDrsdMJk84
-         bq+jJZZRK+hVsQrv94RNXx7jSLtmPWsEsuX56EtGAqjr5qLmKtC8WVZ6FsVQJq6ASuEZ
-         M2IF1JZhN8glAc4yCTJHmWvQ0h+ICAWDE4A3JwnezEdO7SQ7cvmuHf8RLSVyy+8WJEnu
-         NTtyOQIFDClq3iRSqWojMydy2LfGdl4rJ/k23RjDQ3Bi9av9q4cBooyGUvZrmZqDrYT9
-         mAbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787643869; x=1788248669;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=icSIZLjmkJhUkdPFsKLS4ShrJUnEK0Co35qci0jNz2c=;
-        b=U+xwTXm/bVXShwuWAdR4rfWDZ+0cMzqweQG58V4hu6lNVq4T4Gq9vZN3CwfvHlxsaS
-         cyvduQZEKIdpBkiBvQHI3wXoTC+y1dGY29vcUpBAV7fq69cZKD+YJ+42KjzIqSFvaI3E
-         7FBXnqwUda2H69a4hJoIzkCMldFW5Eh2T/6KlDYVtN+NGmbLyHngePZsXOpDTldLYe3/
-         MFb4ndCRn7sUI41CNM30lG44c9Dwds6AfmSzouuzsUuCpduaI2JHfcm00u0/Zbp5Nc4x
-         54Z9hLU0u97ab5vaI4jkvvVN5x3nW1p6757T/RsoOCUHFixqg67gILpZa8SrH2gfoKZQ
-         U86Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqYQr2uP1+hZGH6OjfCEfh/THmykgt+3HuncdGXFn4xKx9D8qW2PIGQsOaJr8RgSDlNvmX5VPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kf+r1il7V6fY57MG4EDNTY6n/jlSaiXwK66ayO3Ja4/qGonfDq
-	TDdKYf6s+yZk4B+Tyj3Mk0tab311awxXDf5Alem1g/OX9j6no6lYPQzbxNil/MDseA1K8Xdjj+l
-	zys9qUvsXJA1kcU0Wk2g0415hWO7UtB84vv+fBGo2
-X-Gm-Gg: AR+sD13KdEcrt678nbJF+NVSpA9Ar2k2kGLL4lb04K3fHk1cMdUBqUQXQzSOeAR2Fym
-	Qb66EpnB2op2/XRF46mEsUgaRXDKFBTH/f/Vnhzj9cbSYurFoqPesfJy2iXOvYnlUzM8sVrhuLQ
-	xmck/CaTSNgcWfcsuZKETNHj8FHa2ik7L2tHMQtwiHW35tnipDcsNDRn74tZ/K8+so8UlExHU2i
-	epCySnlh7d1nrOHtcZ5YuJSAFLYtxf6c5kF7Nl3KXdQt9501pBUGICaf807zfcZ3TjKFIHL0G8r
-	S9h6sS6dhJXLvWhpWocMynLo8h7m6ln/MLOahh7Od+XXpJ7lLbFA4rpDqe8WxGIeKb/we4pQBQO
-	FFbpXe5ctpudt45dH/IWSJ+eLrf1Xacl/HB4owhSXEXiHAki1FXz9cQOr
-X-Received: by 2002:a05:622a:4d03:b0:515:189c:e0f8 with SMTP id
- d75a77b69052e-52df573a231mr353332591cf.17.1787643868848; Tue, 25 Aug 2026
- 00:44:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhUM9DpS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 914011F000E9;
+	Tue, 25 Aug 2026 07:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787644536;
+	bh=yhrTrxCBc00NwW0qUXfxz5rqpATbkL+cccg5ndk3DOA=;
+	h=From:Date:Subject:To:Cc;
+	b=HhUM9DpSj6ZkEzU5cwmyQ5RXsssO8cVqBAGv/VeXMmcTHyAmHUQ24pCgP047DjJj4
+	 gqrhNq8/Ae0JRp1nr3gBVa4XYJ61+ecUvkD0X6UgoBN545Jrefi6UUO1aaS0ks9nme
+	 yubv4nfOBEajsfM0NOTO+PTAYZxSo2Pf3AghAxB7M1ZWzdvQtBZoxSNDHeYFrof+YK
+	 UM26+ThGmkiZoLtGpRs9C8PX/GlWMYokZKCMpGoxqGOJbXeDl+xOQCQ2XXZGL7AhIl
+	 GU2u8mi9/Uownq0zkEkesRzPWs6rL4Cw6L0m6Jsjc6LXze5TAQRe7feGLjrrm/IGB7
+	 Olw+zNie+1D1A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 25 Aug 2026 08:55:26 +0100
+Subject: [PATCH] mm/mremap: reset unfaulted VMA page offset for
+ MREMAP_DONTUNMAP
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825072033.6921-1-a0yami@mailbox.org>
-In-Reply-To: <20260825072033.6921-1-a0yami@mailbox.org>
-From: Eric Dumazet <edumazet@google.com>
-Date: Tue, 25 Aug 2026 09:44:16 +0200
-X-Gm-Features: AcwNN1V08EdLmukE1q3m4sOYEto-IGNkL2x9GXUdsJBRGl4YLU1wMSpMA79x4oo
-Message-ID: <CANn89iJMhLgnMjhRp6RKBZxhAQrtWqJB9s7wNcshjJ3derCOdQ@mail.gmail.com>
-Subject: Re: [PATCH net v2] tcp: fix AO info use-after-free in tcp_ao_connect_init()
-To: Qing Ming <a0yami@mailbox.org>
-Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
-	Dmitry Safonov <0x7f454c46@gmail.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqAIBAAfyX23EJZ2eNXooPUantIRSuC6N+zb
+ jMwzA2RAlOEIbsh0MmRnU1S5hnMq7KGkJfkIAohi07UqPnCLdCmPC7O7of9yBunNSrZtWVVU98
+ 3BGngA6X6n4/T87xdfPTObAAAAA==
+X-Change-ID: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Li Xinhai <lixinhai.lxh@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2999; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=XAjv6WtrWWzCB6YeREY2fuaNyp9p5PNb3fFaAqJ2NVM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJ6vYo2Ht5/Yt8eMwWhH+nyQiprNOdO7+4+YKIsNa96W
+ sCs2ae/dZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAidk8ZGbo3rwxj9fv0f/UE
+ kdbLE1ecNl36+2B/2MvF9T8LtdZp585nZLh+mvPfTjfvv0JR/x7psqi2edybGCHLduiAtEJxvcN
+ 2PQ4A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, Aug 25, 2026 at 9:21=E2=80=AFAM Qing Ming <a0yami@mailbox.org> wrot=
-e:
->
-> tcp_v4_connect() adds a SYN-SENT socket to the ehash before calling
-> tcp_connect().  If TCP-AO is configured, tcp_connect() first verifies tha=
-t
-> a key matches the peer and the bound device's current L3 master.
-> tcp_ao_connect_init() later resolves the L3 master again and removes keys
-> which do not match it.
+Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
+a faulted VMA into an unfaulted one.
 
-...
+It does so after the page tables have been moved to the copied VMA with
+MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
+as the page tables it had are no longer present.
 
-> Fixes: 248411b8cb89 ("net/tcp: Wire up l3index to TCP-AO")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Qing Ming <a0yami@mailbox.org>
+However, in doing so, it violates the invariant that the anonymous page
+offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+This is because a VMA may have been faulted in, mremap()'d (causing a delta
+between its page offset and vma->vm_start >> PAGE_SHIFT), and then
+mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
 
-Thanks!
+This condition is a violation of a fundamental assumption in mm, but now
+also triggers an assert in assert_sane_pgoff() which explicitly checks for
+this condition.
+
+Correct it by resetting the VMA's page offset at the point of completing
+the MREMAP_DONTUNMAP operation.
+
+Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
+Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/mremap.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/mm/mremap.c b/mm/mremap.c
+index e8df5cdb0ac9..2b4b523a86b8 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ {
+ 	unsigned long start = vrm->addr;
+ 	unsigned long end = vrm->addr + vrm->old_len;
+-	unsigned long old_start = vrm->vma->vm_start;
+-	unsigned long old_end = vrm->vma->vm_end;
++	struct vm_area_struct *vma = vrm->vma;
++	unsigned long old_start = vma->vm_start;
++	unsigned long old_end = vma->vm_end;
+ 
+ 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+-	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
++	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+ 
+ 	/*
+ 	 * anon_vma links of the old vma is no longer needed after its page
+ 	 * table has been moved.
+ 	 */
+-	if (new_vma != vrm->vma && start == old_start && end == old_end)
+-		unlink_anon_vmas(vrm->vma);
++	if (new_vma != vma && start == old_start && end == old_end) {
++		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
++
++		unlink_anon_vmas(vma);
++		/*
++		 * The VMA is now unfaulted and it is an invariant that
++		 * unfaulted anonymous VMAs have page offset equal to
++		 * vma->vm_start >> PAGE_SHIFT.
++		 */
++		vma_set_anon_pgoff(vma, pgoff_unfaulted);
++		if (vma_is_anonymous(vma) && !vma->vm_file)
++			vma_set_pgoff(vma, pgoff_unfaulted);
++	}
+ 
+ 	/* Because we won't unmap we don't need to touch locked_vm. */
+ }
+
+---
+base-commit: efecab401cb15fd3bb9bc05990609acb6b267ff2
+change-id: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
+
+Best regards,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
