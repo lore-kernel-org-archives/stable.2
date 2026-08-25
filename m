@@ -1,186 +1,231 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E9B33D6D5
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787674100; cv=pass; b=kY8OM4z1CP32LLShRZEKpYhphtbEtAUREWmOCjNYs1K9wntYH/5R5JPpwPwh/a0r/iN+ox/NcHeTTbDaiqUjy2Bxzs4ZdpBCxuM/Wmxbdj8HzMkiW/shxMokGEiCNzd5RdTl5eBK47HgsUuoz+KKHFEXEFWaz7W60GZ7Wk3AyCQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787674100; c=relaxed/simple;
-	bh=dGqiAelMi3j+OBeMLnEKDn93G/jB0JDZpRAJXM72wUo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K9obqn003ify3E6BTy/js8JSWBwC6QAgl9ZmqLWY31yIlG68T7EZWtRQANeLS7R69E5eDtR6naRDY5MM8M9TI/kOErvd5dsFCMxHTCWqiVnevQkbSYVosN3NauR+7WtrpDCVCO8+nsgcd88vbB0hXCw7msrUsSxpIv6ZSmNmvgE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=UFhY6V2Y; arc=pass smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669EF3803C5
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787675786; cv=none; b=cCdcFC3IzvQjlTd5QUO0D5nv1+jIOfKEphUc2GryaeZyWt074TtT54NxJWkNt/3VgEtlCoGBjrKxlpQMsII2JQIIihaQX5ngqttWpsfK0ZDPeZo/EQYjL5d/ss0efbTKM6Efo2tB8jk9BYicEpu3upfPiq8ZF90Eu8h4urgqpy0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787675786; c=relaxed/simple;
+	bh=72I17/r8hJEj/sUpPJTVnlUiD4GOIv9aAX0QpfW7en4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ENMdI49z8WlAI65aIOfio/vc8G9PzES/ZwPa0uzHnQxBPWjghJkat2+KXnQV2l3higrRnqeBw3vtZXGQnxfJR6f71IhCq+vwpO0LIimwxj8cDhwNOrFrRwVWsQmptLMOqT0+ETjnqwXumr/iqfEmvDlrZCRi0gVRSm8VbC7pCHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OFNcVdj7; arc=none smtp.client-ip=91.218.175.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="UFhY6V2Y"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84faf0fa17eso4317b3a.2
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 09:08:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787674096; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k/SlNVJzZLuJdNyrmrMEjMxPU/iwXuopd/GHt6bADhHJpAblVkHrsjiIeCCYmqXUro
-         gRgKJSozDzfiEXgCFW/SGZNJ5au7S2orYPw+L0E07j3JMFVbLBfu+9eOxRu+Km6Nu+2p
-         +qMO36kf1eBddWYSU4KaJkdHy/8F0C6yaqTveHZu086iEHRX7TOIe4yW3OzEaV7oq0kV
-         hBPgI3/AELkkII/vfjB3HJOdTVwYV65iO0ijCA9ecGdPwnloL3uq0d/60AC40gzYEe+Q
-         pSRQcrfj9ph+6zipylMq9p2TI1Lg/h7te2wPXg3NoS33sA3YcDqIHlbBjGpw19Z1PVAV
-         b1Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2ZLowbj6pZcMppFHbOVdGIJyzEqMnEa6iqrdQcAQ/VY=;
-        fh=Xt7GeQ1Y2fn5up48TK7zUrCYkp3U7FFuiIWvyQsd0HQ=;
-        b=Bqg7x+UG6THyH6uQq7Rb304eBjSLkCm9miRsRgw3LfnvtDLzBj9dDpNxlD7KvPMXOy
-         dlBA63slcU6zOdYiY9srG8vxNK829/i0QHGfApX99TeETOWyF26zKKbTeLnG0ydOG8SN
-         3/qmtr1yU9J1CzEsQksFGWNHbsHcyiGd8YTT/kZmKBCEE1Hijun73aj7u2Mch9MoMWEl
-         NWEX/G2Za/yx6oqPM2KUsK8kALb+XBo8It8Bol9qlLHwl7In6si1iHEg79VfKf+6MNWW
-         +5u4x1hp2EHtQb89JrTbCWdk5FDFHxugYwQu37twUyY/RghVGyrjTq7aO5Mza43bap2i
-         mciQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787674096; x=1788278896; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2ZLowbj6pZcMppFHbOVdGIJyzEqMnEa6iqrdQcAQ/VY=;
-        b=UFhY6V2YaSXTehNNJjFn4l41ePBoR8UlPOKHj5w3M4/MatP3KAXsNNLcE4pOvcexw+
-         Lq+uvtutLQbsp5ReMkA+XgMaiqfLKS8y1hzemu7kvGkVlusLkbwQzSzlFKLktY3CIEMC
-         SD8if/k1ClDUcb5ekJ2FiIZVfeX9KMP0zc2xw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787674096; x=1788278896;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2ZLowbj6pZcMppFHbOVdGIJyzEqMnEa6iqrdQcAQ/VY=;
-        b=ichRQe//HbHkxFltazn5gah5OSQoa0FwUOIevpMBDRzZIMDZdvOBrC8wKbTczzvL3C
-         4KWhDW9vDXPoxgU6Mz4+7GvYXRh4kfWLjUn0HiavRCEPJyr15YM8ODm3NKVDdOuZiVcu
-         +wJGTt0uen9DIWF3dS5LIWCry4omxYCJtQ/X/nxIbJjfFcXC3PFmJHMjR8DMg6Qm46Vk
-         VVXXb9y7cgQb3h3PFXa3XRwvFNmrpT+C/KH8a6qGmRUX7XcAaJ8/voLNOOYWz+6yjB6d
-         6dnDcUHe4bmxtM1DCyraQlOUx0MEQGwk5s6Ud61INNPSzGh/M3LTrbaZkaJbsjOzyVmv
-         fwsw==
-X-Forwarded-Encrypted: i=1; AHgh+RqNxWYjIcbN0etufcEQmt+kAWO2U4C8xs7bb0kJl0obS9jn1XfZGtihuxbKsyn2tx5jlLb9Xjw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2OxMAni2HzutwLRCy5UG9+Sod2ESE3eq8yRoxhKV9uZF+p2z2
-	xkW8oQmPEcAdnNnw5FVuvgMJkfBo0giyyg+htdJNXGp/ea5otMWF7nD/Inu88qv3tPM6UXyW96V
-	Bcuyg7NrD/gZEL0e6OrLfjfLc1XhOkcmMC34nJJ9a
-X-Gm-Gg: AR+sD13d1cW/FlT1n19EUQIoNSk/k/GrM0Er6P45Bsy49Z/+SAR1CUQldhR/orO8+p9
-	stp0Dl8PHYQz/Nakqu1Aaz6St5miE5jK3zbLHVkfp+gxPpEyUVJ59j4I5rvQmcsnmKg2LiihvtJ
-	OpjVf+lnFgDqcS9PLK9rPYvLm/5c3KJu8NYUQBfgtqnmjLYwCiecWIxbM+jNnx/Y/5fxHnD40Yk
-	6jf75Uy2NzJT4Kf8EGOd/jGLznyteMTehJ9d3Z+WDx6p7w1koomw9ILfC2Fd7gMVBt3hI/bogtL
-	VUCVFD40LqqQ+HK3vQkmhcJr+j2slaJyeAAoEMH+Mb/RmN5Wj02G
-X-Received: by 2002:a05:6a00:858f:b0:853:5152:a3e9 with SMTP id
- d2e1a72fcca58-8535152ac57mr1163052b3a.11.1787674095878; Tue, 25 Aug 2026
- 09:08:15 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OFNcVdj7"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=72I17/r8hJEj/sUpPJTVnlUiD4GOIv9aAX0QpfW7en4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787675782; v=1; x=1788280582;
+ b=OFNcVdj70xaovKh0+Z33cQSE2CTTACR0Txs8g2SkN3vT+nY1aVj+1K2BwwEBh1rLtxmaadno
+ uB/XzuhnevNpJfQ4zar950uZl9NfiJP9FMG3NdSL1kYDgtGddKI84Yep8Z0C7F3FihTxLDuXSTB
+ P0v+ZPmM7OIBont9hvVKtWws=
+X-Envelope-To: stable@vger.kernel.org
+Received: from lb03055.. (2601:647:6300:a030:488e:1b9c:4a00:b63e)
+	by smtp.migadu.com with ESMTPS id 3490b55e6e069dcb;
+	Tue, 25 Aug 2026 16:36:22 +0000
+X-Mizu-Trace-ID: 3490b55e6e069dcb
+X-Migadu-Flow: FLOW_OUT
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+To: stable@vger.kernel.org
+Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	Leon Romanovsky <leonro@nvidia.com>
+Subject: [PATCH 7.2.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+Date: Tue, 25 Aug 2026 18:36:05 +0200
+Message-ID: <20260825163605.21809-1-yanjun.zhu@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026082516-phrase-console-29b9@gregkh>
+References: <2026082516-phrase-console-29b9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820095742.68511-1-jhs@mojatatu.com> <20260822134401.6545e4eb@kernel.org>
- <CAM0EoMnLnc2dtzRyaJs+V6Niq=39OQ=p-XC7M+FMTQ0ctSvmyw@mail.gmail.com>
- <20260822160234.7115ccdc@kernel.org> <CAM0EoMm0orPkSuMLrpGMNkUATjmBPCvqWmKMEPQoYuYAEvCAQg@mail.gmail.com>
-In-Reply-To: <CAM0EoMm0orPkSuMLrpGMNkUATjmBPCvqWmKMEPQoYuYAEvCAQg@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 25 Aug 2026 12:08:02 -0400
-X-Gm-Features: AcwNN1UfZeiVD0YzBqdqd_6Ugr5w6_aaDqOKIPnHzTlvPeR1fBSFdGBvHs3fFDo
-Message-ID: <CAM0EoMk8fAACt11fe1pUsFeG9np3SdsV0YUNmEevLu=i=b+xKg@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] net/sched: pfifo_fast: cap ring size and account
- to memcg
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, stable@vger.kernel.org, vega@nebusec.ai, 
-	Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 8:37=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> On Sat, Aug 22, 2026 at 7:02=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> =
-wrote:
-> >
-> > On Sat, 22 Aug 2026 18:14:49 -0400 Jamal Hadi Salim wrote:
-> > > > On Thu, 20 Aug 2026 05:57:41 -0400 Jamal Hadi Salim wrote:
-> > > > > +     if (qlen > 65535) {
-> > > > > +             pr_warn_ratelimited("pfifo_fast: capping ring size =
-%u to 65535 for dev %s\n",
-> > > > > +                                 qlen, qdisc_dev(qdisc)->name);
-> > > > > +             qlen =3D 65535;
-> > > > > +     }
-> > > >
-> > > > Why not a hard cap?
-> > >
-> > > sorry, where to put the hard cap and what would it be?
-> > > Or maybe you misspoke and intended to say "why put a hardcap"?
-> > >
-> > > Or maybe in this case probably safer to just reject the change if > h=
-ard cap?
-> >
-> > The latter, I'm asking why not:
-> >
-> > if (qlen > 64k)
-> >         return -EINVAL;
-> >
-> > To be clear I didn't dig into the code, just read the commit msg, so
-> > maybe you have a reason. But the "normal behavior" for out of range
-> > params should be to return an error rather than silently clamp() into
-> > the allowed range?
->
-> No real concreate reason other than the thought that it's a device
-> param as opposed to a pfifo one.
->
-> I am going to send a v2. Will switch to similar to what virtio does:
->
->   if (qlen > S16) {
->       //extack here
->       return -E2BIG;
->   }
->
-> The followup as identified by sashikos is on tun/tap - i have a rough
-> patch, untested but there are others ahead of that i need to send out
-> first.
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-Although i have submitted v2 - i may have a small change of heart.
-I was trying to document sashiko's famous "pre-existing issue" rant
-for this bug so we can followup later; sashiko correctly pointed out
-that tun, tap/macvtap have the same issue and i was going to do those
-as followups.
-Although i had this approach below as an option earlier - i didnt want
-to go with it because the goal was to isolate the pfifo changes to
-net/sched. The option was to make this change:
+free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
+Updating max_dest_rd_atomic before freeing the old array can make the
+free path walk past the old allocation and trigger a slab out-of-bounds
+write catched by KASAN:
+==================================================================
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 38336858c168..ab6b44b67be2 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -9985,6 +9985,9 @@ int netif_change_tx_queue_len(struct net_device
-*dev, unsigned long new_len)
-        if (new_len !=3D (unsigned int)new_len)
-                return -ERANGE;
+CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xf7/0x600 mm/kasan/report.c:482
+ kasan_report+0xe4/0x120 mm/kasan/report.c:595
+ free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+ rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fefc75a70cd
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
+RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
+RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
+ </TASK>
 
-+       if (new_len > S16_MAX)
-+               return -ERANGE;
-+
-        if (new_len !=3D orig_len) {
-                WRITE_ONCE(dev->tx_queue_len, new_len);
-                res =3D call_netdevice_notifiers(NETDEV_CHANGE_TX_QUEUE_LEN=
-, dev);
+Allocated by task 11063:
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5296 [inline]
+ __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
+ rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
+The buggy address belongs to the object at ffff88802b8ddd80
+ which belongs to the cache kmalloc-64 of size 64
+The buggy address is located 0 bytes to the right of
+ allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
 
-This is a bit controversial with S16_MAX as the upper bound, although
-no device i could find had anything that caps other than virtio (u16
-max: 32768).
-I have tested this with all 3 issues(pfifo, tun and tap) and it fixes all 3=
-.
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
+ set_page_owner include/linux/page_owner.h:32 [inline]
+ post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
+ prep_new_page mm/page_alloc.c:1861 [inline]
+ get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
+ __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
+ alloc_slab_page mm/slub.c:3278 [inline]
+ allocate_slab mm/slub.c:3467 [inline]
+ new_slab+0xa6/0x670 mm/slub.c:3525
+ refill_objects+0x278/0x420 mm/slub.c:7272
+ refill_sheaf mm/slub.c:2816 [inline]
+ __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
+ alloc_from_pcs mm/slub.c:4750 [inline]
+ slab_alloc_node mm/slub.c:4884 [inline]
+ __do_kmalloc_node mm/slub.c:5295 [inline]
+ __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
+ tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
+ tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
+ tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+ security_file_open+0x7a/0x1b0 security/security.c:2739
+ do_dentry_open+0x57e/0x1690 fs/open.c:924
+ vfs_open+0x82/0x3f0 fs/open.c:1079
+ do_open fs/namei.c:4699 [inline]
+ path_openat+0x218a/0x3190 fs/namei.c:4858
+page last free pid 1 tgid 1 stack trace:
+ reset_page_owner include/linux/page_owner.h:25 [inline]
+ __free_pages_prepare mm/page_alloc.c:1397 [inline]
+ __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
+ selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
+ inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
+ selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
+ security_d_instantiate+0x123/0x190 security/security.c:3704
+ d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
+ kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
+ lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
+ open_last_lookups fs/namei.c:4611 [inline]
+ path_openat+0x17dd/0x3190 fs/namei.c:4855
+ do_file_open+0x20c/0x430 fs/namei.c:4887
+ do_sys_openat2+0x101/0x1d0 fs/open.c:1364
+ do_sys_open fs/open.c:1370 [inline]
+ __do_sys_openat fs/open.c:1386 [inline]
+ __se_sys_openat fs/open.c:1381 [inline]
+ __x64_sys_openat+0x141/0x200 fs/open.c:1381
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-If this is acceptable as a fix i am going to withdraw v2
-(I dont see much of a downside even for buffer bloat needy folks like
-satellite links and given virtio there is precedence)
+Memory state around the buggy address:
+ ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
+                                        ^
+ ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
 
-cheers,
-jamal
+Fix the OOB by moving the assignment after free_rd_atomic_resources()
+so the old array is freed using the old bound. This matches the original
+ordering in commit 8700e3e7c485 ("Soft RoCE driver").
+
+Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
+Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+(cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
+[This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
+Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+---
+ drivers/infiniband/sw/rxe/rxe_qp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index f3dff1aea96a..bd48ef80fa49 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -707,10 +707,8 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+ 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
+ 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
+ 
+-		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+-
+ 		free_rd_atomic_resources(qp);
+-
++		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+ 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
+ 		if (err)
+ 			return err;
+-- 
+2.43.0
+
