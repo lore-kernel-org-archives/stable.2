@@ -1,177 +1,145 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011034.outbound.protection.outlook.com [40.93.194.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460903A5456;
-	Tue, 25 Aug 2026 04:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C479F1C2324
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 04:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787631753; cv=fail; b=R8wv7ns5RgyM/k7dbE1A8sgnUEwG4qcyKZEuGhU/0hPDvKSvTYTCA6PRD3BAW0ueE+apFyWvybNnKtMFbFsTzIlgsjD2uCU3Q/Fp3OOd7Wjk4WFXdeCRFVZ/4QpM9i3PXZMAXAOh/3LDv25i98ov8DcbRDVJG6jX7EQisln98T4=
+	t=1787632607; cv=pass; b=RX/NJsZiJ+8vT7azRd9+MOUYwLtLfph9mtUvrljjU7GOTD8jX2DoczbD8xNo6zzrC8Ay23AhxjLLWZxY6TP9dQK2ZmOjATtzsFr6YuV1oV19lCw/c2nDjgyc+OIzeAGov3oNWmIO4MYfKsz/Si/e5BgmtWSc08tomcNsMsY0xio=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787631753; c=relaxed/simple;
-	bh=mk1MG7waA2lGn3tit8PaFcz+zel6fPgL8foD07CYqWM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VnM8UtNDroxM6jHsxjCOZjTChs3qMhVg9pCR3/Nwmp4FAKH3TbA6Ug11v9go0uGmJuy6IGnOrxt44IxiXf+hZZfP/+GdN8x+QSTQwYXxEzvM9j1Oacg/kcrDAXmsMM+Coqt6TAIK0g8syvg+CwOEnt/P1IH0gQWUoog7EXGDGfg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Itf66Ej6; arc=fail smtp.client-ip=40.93.194.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1787632607; c=relaxed/simple;
+	bh=8KXDg6v+jwLGL46qS1rvYXZT24b9H8EIN1Re7A2aD84=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uwSVD+GK++v1SMk2cnG6pFv0uXjnaz3YtiYlDxFpbWPKruZeOcnXp7UP/KamONDdf9HnMPjvcc1jlaTJ19A+hLgkQJwf1VINQssug7vuF2EetXVmYil82D0vfe/+q8xSvroY20voiVslFS2Suhf7NoEOA467VlEnWvRolqpunzc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p17JMiCC; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Itf66Ej6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oVpIbh9xU4XrIWsG2KwgyVRXvCl74R4bE5CV/NYF5rawOuHBC5vr9GNgjI+h8FyoDKYpo69fFFc6RghWhdei/7qg4+ZqFCSoECxB0Ur6pceXF+1Q/fSnefUK557/KJKGZUV4BndPRY/I2JaQzTeiCy0BQCGif5KSaDqLsjANm6J4OPEU500ZzJ6u2MjiYY8weejZWfwEMLnaX5Zic7tx5Yk9/k7uUa8HEjS77bp7HTPWH1afT2ZrduZAMbbEpwLZE+JGaDxMcsqoxDeXZsFk7KeoQ0FmePxa92gDA+wAlkBKnl1HIv5xoQ3f8+jYm9SPVb51zhOFGYj/OazbURFO2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j5AlrA+0ftlKlJkE8Q7L41s1BR6Db2eJfx/ENO1ZcEk=;
- b=TPjCQwgvhUu7qD99kwzVAiSymEU2Wky+gRiNq2FoE07ugteSqzNyOJQCyDmsAa2EAsn0dBOVZ/5zNWSt3cFDct490PuYhmVJuRcTuhsdvYqnGhJDOuWndFtOyHWcP9zFBoJkN5sPZ8XBQo7YclGEgQUUiYOn0OVnYdsGBsXvAiSHt6zy37wbU3yo+QyAa2bmWoaYnaQ2mdQcFzqVxN7aW+6y8Ll87Mjqhw3Ac9I9ff0pc3MXjD524//OOs+UqPVNTwnV/4CbJRqqD9PJiPH1SMwO3PEIk1RDJSw2kuupuz+6/NCQkTGfZJCTAOUfdNFDKaOjEYp41AnQxiCb8PiXqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j5AlrA+0ftlKlJkE8Q7L41s1BR6Db2eJfx/ENO1ZcEk=;
- b=Itf66Ej6kKUhqMv+3p/uGBabzCrOv5iRb/Qq6WxQCOYEBTCOvGa2pQsd7k3DRj2ssEkMmJW3hHTKPq4Jk5nBVSjjGLEhJF15qmbs4R4mnSoB1qFsHfclRdlsEH0qbGEZg6bQ8exML2OGIddAhEUAUeI+sf4E2Zf9uVvjr81M0ag=
-Received: from SA1P222CA0060.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2c1::10)
- by SA3PR12MB9129.namprd12.prod.outlook.com (2603:10b6:806:397::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
- 2026 04:22:28 +0000
-Received: from SN1PEPF0002BA4E.namprd03.prod.outlook.com
- (2603:10b6:806:2c1:cafe::8b) by SA1P222CA0060.outlook.office365.com
- (2603:10b6:806:2c1::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Tue,
- 25 Aug 2026 04:22:28 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb07.amd.com (149.199.90.133) by
- SN1PEPF0002BA4E.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 04:22:28 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
- 2026 19:04:50 -0500
-Received: from [192.168.19.2] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 24 Aug 2026 19:04:49 -0500
-Message-ID: <cda2faad-441c-4c4c-a848-72b63901c40f@amd.com>
-Date: Mon, 24 Aug 2026 20:02:51 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p17JMiCC"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c8dbf4f38so41364921fa.3
+        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 21:36:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787632603; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D4GIRRJnKVwljzJoc9BKKPGObNi7+IcOm225FgAgHkoLS5yHEB/r7kMQvmkw5iFfif
+         j6tb82AL1IUvcoGj9vdxSx2AN1mL+AHF/iMawBfmh7oNsZc1d2H87ZktYFCIvVCHSofF
+         7bZe7//4RelNvm3QG87bx95p0xzUcdZlJxPE4Zsrrn5b1EiPR5HMKo6Id8Ko0WNExshg
+         yv3q8dvB6OhT3HnImZL7Q439Q0CRJxBp6Qsvg3VhwgsJx+k703OAJcCAbsZLHVOhEWKW
+         ZnUw4j/LiStrWQ0r0mrnZDkeAkjcHvu0mV2hk+/5aZhMSdgeYYw1sV9TdMUXKTTjPt/n
+         NTjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ig8RAVfekwF2wIGK7Q5QZITkYd9OOtlKfCSkZ8UG+zA=;
+        fh=uW3Cgw+UFFug7GjXXjan6qOvqEQ0ighux6DNfpKvY4A=;
+        b=l0oQ07JQe2hEvI/tqdAdq8/bMTV8As7Y3Or64N4KYL/gobNFPvbAwZHO4stpYKJXnW
+         HMf9lUQqZ7De9xFwFKITm4x9XIp5Hy7ZqEiR7CArE1Rs4a09zxptbm+DrrSwJNEoeE3e
+         2lrP54dSlZlLA3uy3/cZYgYtluQQsmHcDfFKV50coF7CXdPs3vCjawJXGEFGyvQ7EoGy
+         3nlDlwlfsKiKyBWuUZPdjPS2pDkvl3StbjR6KJTZ7J0Odf0yQKpXrIIENqF3ndobUPiF
+         X9Xe4jBvx47ZJH4+57nqFYcJNVIsGNBEffkYvSMVebBaLLuC2VwXea28clkiZkCUjn3l
+         SsPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787632603; x=1788237403; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ig8RAVfekwF2wIGK7Q5QZITkYd9OOtlKfCSkZ8UG+zA=;
+        b=p17JMiCCLZ3pWI/UyRyuhhaTMKNL1ePy2mkuzgjEwGQo9jN5m2ENRbOFKM8EvtlvbN
+         Jz7fwHu4IhtzeAlgwhCR2WoeFO4bLrQ29mRuUQGDYmwy5HBUF56pwGMQ1XBXRvv4z4N3
+         tXAXW/C/GwZDRrCLUjUSvxT2CbH4ypLs0neB8+BSPA92gGFt22Wzgyqpgq5o5SiPbbhU
+         +J3ZJBEwCkwf3rmnp1psSqYPUMlueRCd5SwSlg8Ojev+ytgGlN1uPDp6yEd0n51+03BP
+         EBAAeTqRZ3LRbj4TRrLeTE2m7BNA6KIeKbWvALut7V4D7V7GVbgzFAXsN0HmXp6+EiGi
+         dZJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787632603; x=1788237403;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ig8RAVfekwF2wIGK7Q5QZITkYd9OOtlKfCSkZ8UG+zA=;
+        b=L7pcxnFhPpsjo/vAdpnm1AsFHhli83WmBNBRVmMQ4y13wpMHIdNjBqpVhNn7ecNB1u
+         eCSVFwz8MCsykfsuIPdaK1cdW3B2mXY6YZ8INLa6NW34BiI2gVuRHHFv00jyNOEJdA7S
+         PIYl+HZRIEbnvmzj0lBUpgMztOWeIk/Jx5xyOndl1iYjfIvy/YAHUjk+gqRTL9c4YNaV
+         XNE3FAFY3wcz0AuiephiML6WFqpo97DXX39144i8UVFKikJHRgVsFTy8OCu/krT3Dw9a
+         Et7adjxLrPcAzb+4rSI0sTYHEZqFwP5sWxWDKoBN5iBXViFAN2UB3wbAifjr6pHiGIwI
+         lBwg==
+X-Forwarded-Encrypted: i=1; AHgh+RrOwbx3vlwUZ4RSKCM8fEIbpurZu+yoHrZE3AsBezzPR/pOLFRBd3LLzGTkLAc6SxiEyOJtdCM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDf+g4iHrCzZ1jWNYXRDZfK0e/ro5vBlmi3LmvKwSMvMxRB2vF
+	cOXc6tl1prKKsbuEChTS9v8TGPE7QVK+9WcHdEaWgTMNUUgIb70fQZVR2ssUA3UUL3uvd1pv6rW
+	HuLS58yiOTbdf6XKNrUKiQ0evYMjf2lY=
+X-Gm-Gg: AR+sD13egCIhVF4J256wTdLZccDuhPIu1kcUzRnV4fHpptsCHkCbMtj9gG/kyOS/Qlk
+	H8DyFbBTGBx/qw8PUf9sp2N060/QMwlY+BYFfTMyfEIXvs6ARGM0sjBvBQjqpxWzmWZCxFDl67z
+	vPmGhpyTjz2Qv6dQyztSZQwl5z5ASiM+fC7eFXPKAZLCqGndDlmg7hGEkXJD2znQ/mqyQUjVSnd
+	BznooLpFEV8kJIjP1EruAOkz6IJQLCK+DVETYDqL3RAjCLTLyTvA7PwpDxIFxzJRKDLYvjX+wNs
+	j/aVBrJh/EQc+jxWNfLUQAoj0QYRQcr0G/9ED9EDSmrf
+X-Received: by 2002:a05:651c:f16:b0:3a1:90f8:c14c with SMTP id
+ 38308e7fff4ca-3a1ef3ef2acmr6706201fa.11.1787632602487; Mon, 24 Aug 2026
+ 21:36:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-CC: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>, Penny Zheng
-	<penny.zheng@amd.com>, <stable@vger.kernel.org>
-References: <20260814214255.83127-1-jason.andryuk@amd.com>
- <20260814214255.83127-2-jason.andryuk@amd.com>
- <49f2616d-e37c-4420-9d8c-81f978386ce6@amd.com>
- <20260824210411.GA1500179@yaz-khff2.amd.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20260824210411.GA1500179@yaz-khff2.amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4E:EE_|SA3PR12MB9129:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1249e7c8-39fa-447a-8041-08df02607925
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|4143699003|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	EZN5FQbeDKpsZwCvJFg8KBtTWUPiuPSj7ByDnuCZHCx3vlnZGvlTrb49baDd6+ksfGs6ifRS742Iye0UOe4pWhM7QaswwrtfJGh+xjIcPFf1qzHr1ToGcldfimvX9A7UvQz7RC5W8IbnrkK18Iz/eOd4KoblE2OJUR/MoyLNiLDpsWOjE0fkXFphlPYjffxrHxOMgYQmYy1SH+Bn7NKOYmkbzbE8NR5Sy2793D9YhEAUsKB1CicyxrN4KiiPsxrHtcbglJXYKcfz7UGiTpQB5dD38g31+t31zjuXzN98WDmU562CdLOVYwxBjd7EJiDQn4ZIrUxxFrsViiXFxjEbB+rEl8/o3lrGZ1aDLA7zJzPd/RrH5QjcxnWqam8EEAqSUELBri9u3lO0ylcmHGSAek7nsHuIwPD4xRFVV890qOP2ZnekTecJCuIJN050gb8RYumqlgj/I8pmRioPXxIWWub/qOWcNsOhli58p9PAa4CeirZLLxzkwxEH1k0YzVLUbUOZb8LICOFAr7aaLqKm2cmWPI10nWl5qaOD37GmphqtY1vBtfP5i5AoPdy/Nj86jYzGqPsVdPrf3tOmVyggnYgyKS3CneASRCkR0iY0PVgl6+YUbjAgEExMi1HrYnx938Ojt69Os3apiMIDvBTNO5jJxwBCwu3bHAYySaa+qkPZoWpj2pNwXNzKD2XbG/9EXAHENyvHXKHPFDXYzuHwVg==
-X-Forefront-Antispam-Report:
-	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(4143699003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	CAvFTqBtnu0Zd6TgvArwSCCayFRIA8BlZBET3Vx67T6bjlJ9XoD9o870pZuSEsoEvr7V3JLMiOCy508bLilj1+8ZnFa1o7r8ZI4N7mitlIPfJWd7KUKpJbrhipJhy5+mQhP1ku5EX3HTQlJpd8Vuu/x1pokS4m3qk7kVKVbVaaidJGEdggSvSnyWrWtIXU4st09eg1h7BJHcCkUKsNnvh+GATORO0385ny71nBwEwB9iggaBCkoxE0IgLuvBqiBfmxdIIpT1CE/r+RIw7erpBz446h3GQRwHgJVf/VkjRJ1Ec9TyllN+qEdW7OTZXhCbnGLZnx7xhPDv0e6TivxKrRHygeGEh1722Mi153diJqDHNot2zPr6ChiFirVbMkviYUdRQSEbAVKAmw30jAE+WQK4B/sPMmPbXNyApJVs7+Gj9Jr7MGOPB3ew8zlZs3Do
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 04:22:28.1581
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1249e7c8-39fa-447a-8041-08df02607925
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF0002BA4E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9129
+References: <20260824054115.114298-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260824054115.114298-1-zenghongling@kylinos.cn>
+From: Hyunchul Lee <hyc.lee@gmail.com>
+Date: Tue, 25 Aug 2026 13:36:30 +0900
+X-Gm-Features: AcwNN1W0Ie8ThfGLQSZuvnEXV8DGnfK_q6Z4Wo1bvi5W-Srfd1h8RCYobcvQFiw
+Message-ID: <CANFS6bb9BPEuiv2NVG4dMJRRoQyiC6fE+UokPxpMMiReOseT-g@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix incorrect MFT record pointer passed to ntfs_attr_record_resize
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-08-24 17:04, Yazen Ghannam wrote:
-> On Mon, Aug 24, 2026 at 04:05:40PM -0400, Jason Andryuk wrote:
->> Hi,
->>
->> On 2026-08-14 17:42, Jason Andryuk wrote:
->>> On a virtualized system, the number of nodes does not have a
->>> relationship to the number of roots.  A Xen PVH dom0 can calculate
->>> roots_per_node as 0, which crashes with a divide by zero in:
->>>
->>>       if (count++ % roots_per_node)
->>>
->>> The issue is seen with Xen, but it could affect other systems.
->>>
->>> Change roots_per_node == 0 to 1 to allow the system to boot.  Print a
->>> warning when this is performed for non-virtualized systems.
->>>
->>> Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
->>> Cc: stable@vger.kernel.org
->>> Suggested-by: Borislav Petkov <bp@alien8.de>
->>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>
->> Any feedback here?
->>
->> Thanks,
->> Jason
->>
->>> ---
->>> v2:
->>> Print as a warning instead of error
->>> Use "!" instead of "== 0".
->>>
->>> X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
->>> ---
->>>    arch/x86/kernel/amd_node.c | 5 +++++
->>>    1 file changed, 5 insertions(+)
->>>
->>> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
->>> index 0be01725a2a4..c3e214925d9c 100644
->>> --- a/arch/x86/kernel/amd_node.c
->>> +++ b/arch/x86/kernel/amd_node.c
->>> @@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
->>>    		return -ENOMEM;
->>>    	roots_per_node = num_roots / num_nodes;
->>> +	if (!roots_per_node) {
->>> +		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
->>> +			pr_warn(FW_BUG "Error detecting roots per node.");
->>> +		roots_per_node = 1;
->>> +	}
-> 
-> Minor nit: add a newline after the closing brace.
+2026=EB=85=84 8=EC=9B=94 24=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 2:41, H=
+ongling Zeng <zenghongling@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
+:
+>
+> ntfs_new_attr_flags() passes the wrong MFT record to ntfs_attr_record_res=
+ize().
+> When the attribute is in an extent record, ctx->mrec points to the extent
+> but the function receives the base record pointer m, causing incorrect
+> size calculations in memmove.
+>
+> Fix by passing ctx->mrec (the actual MFT record containing the attribute)
+> instead of m (the base MFT record) to ntfs_attr_record_resize().
+>
+> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-There is an existing newline that is preserved here in the original 
-posting.  It seems when I replied in Thunderbird the context here was 
-corrupted.
+Looks good to me.
 
->>>    	count = 0;
->>>    	node = 0;
->>
-> 
-> Overall, looks good to me.
-> 
-> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Thank you.
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-Jason
+> ---
+>  fs/ntfs/ea.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+> index 44252f2c2ca6..534f7efaf128 100644
+> --- a/fs/ntfs/ea.c
+> +++ b/fs/ntfs/ea.c
+> @@ -740,7 +740,7 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni,=
+ __le32 fattr)
+>                         memmove((u8 *)a + mp_ofs, (u8 *)a + old_mp_ofs, m=
+p_size);
+>         }
+>
+> -       err =3D ntfs_attr_record_resize(m, a, arec_size);
+> +       err =3D ntfs_attr_record_resize(ctx->mrec, a, arec_size);
+>         if (unlikely(err))
+>                 goto err_out;
+>
+> --
+> 2.25.1
+>
+
+
+--=20
+Thanks,
+Hyunchul
