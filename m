@@ -1,54 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D930C23507B;
-	Tue, 25 Aug 2026 07:32:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04F33D301F;
+	Tue, 25 Aug 2026 07:35:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787643125; cv=none; b=W+phSJpoCW0YBdqmPyWDLP8fUDRS1RXb9nDcqbcvXlIShZ0n6LrMWZc9Uh2zT2fsI6qETPMkI0HB+WsfGCN1jtDJhGdt91K4XfD33o4BWi4HTRyyj/GhXosLainoAHhrXSCQj6cV5dLdhWrKHBbYr/iWAkrCvprTZbFWcpdGFbY=
+	t=1787643335; cv=none; b=eZO1sFufy9H0w0+cxMZqCPIE5tPl/Zq4YKwzYI1lf/8Msc/gUL8LUZlZ2P2xjl0cco5Rj6623scrgmin51jZM02QoZYDtJJ801tb9issdwrXwsOiPvRRC0ZWYOPu1ZIPyFhQqHVqpwgY+oE9Z4qZURVd/8vTax8b/HZKvj2YAKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787643125; c=relaxed/simple;
-	bh=pOEToaHFZ1KezTVQLT895r8MTCYw9JPZrUoSp64NpPo=;
+	s=arc-20240116; t=1787643335; c=relaxed/simple;
+	bh=1nBO3tqC/rh3asonVg6eCnlzcd4vt3Cy0XL/AX3sLRU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UcQQ6pH+Ot7ZfhQj1gK8YGneD8EYQz6TRKbXgmifnWglZX7U1L9AY1FWFkUkwpk8u9WyCqQ7TNfNoq4Fkj+nmgV/AxzsDUjnrnLApr+t7INtNf2Ve1QtW+C6BpPL6CIbi0lF1B16x3sXPqsw2T7aVgjZvdeK1mr4WUAfBQg7E3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z4g/5Wuu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=e9s9n41hoDnsm9/ewFT6/By+pV2U/xqM1g2UQ6TfCO29+Gpz8fip5l8lZZL1Dt5AQUXUkA8qzeOedmtfMUVR17gJwjsaJkhlE+iJ1RaBtjor2w44ZQJwFaAS3ic+tA+lVV3t6AkrH8A7+xpYvh0C2mA3PUzygbhfD/MHUSEaYSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fLZ1pdWa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4g/5Wuu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6908D1F000E9;
-	Tue, 25 Aug 2026 07:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787643124;
-	bh=pOEToaHFZ1KezTVQLT895r8MTCYw9JPZrUoSp64NpPo=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fLZ1pdWa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CAB1F000E9;
+	Tue, 25 Aug 2026 07:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787643334;
+	bh=rE/4jkXsLBPVikp8VMJRbXVO5XNtq5XVkVJOG3dYLrI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z4g/5WuuSrT94p10shBVAIXPmRKgbAf3s/fvhs/4tFk+uVYx28S171DpFdj0a9Xtu
-	 yTgAB0qfoK70a2ye7WIOmkKuqCjxINjcN0eExJDTuRNBqiinabd9CGUcwpYxZmIH3s
-	 A0kNWY2SdjirMgff3v1e0bjg5Zda8IR7ORCKEQrBFZoKCrT/hCqjtKapvjkQ2xpfVN
-	 aAnIT1hGn9XvE3sPxICXKO90JPq+Dics4zTCwjz0acMygp6SMe5XJ/h3sRF6PIVSHA
-	 ijnfHH3HK2dEqvm36yUHge9E/WgJxljCqXRw85kpAtXpDM/79/D+YtvABmbSMjvNJU
-	 LC6rJGO/S2iuw==
-Date: Tue, 25 Aug 2026 08:31:53 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Atish Patra <atish.patra@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
-	David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Steffen Dirkwinkel <lists@steffen.cc>, 
-	Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>, 
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
-	syzbot@syzkaller.appspotmail.com, x86@kernel.org
-Subject: Re: [PATCH v2 0/5] x86/mm/pat: CPA fixes
-Message-ID: <ao1EtJG_Gj8f90WQ@gremlin>
-References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
- <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev>
+	b=fLZ1pdWacfBirh6QpnR1xLV5i8GmBg2gRl3mUL1WExPbc3CPIBDq6Jz56raQ8PVi4
+	 +UvjAxvGfsMFCr10TUTsJ9iR+T+vsAacKaiAQu+zL6S5xC4CnlPvwP5hFLRKQc7Z1J
+	 vz4d1Hiz2PNCGzlgdvqUT8XJXUDIUrL9ZUCzOGDY=
+Date: Tue, 25 Aug 2026 09:35:29 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+9cb1ac7fce4944ba9165@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] klist: avoid accesses after waking klist_remove()
+Message-ID: <2026082544-polyester-regroup-d935@gregkh>
+References: <20260825040408.59225-1-kmehltretter@gmail.com>
+ <2026082559-cyclist-annoying-7a55@gregkh>
+ <ao051-T1sSobzcXP@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,36 +46,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev>
+In-Reply-To: <ao051-T1sSobzcXP@gmail.com>
 
-On Tue, Aug 25, 2026 at 12:12:32AM -0700, Atish Patra wrote:
-> Reproduced and verified this series (patches 1-3) on 4vcpu guest running two different kernels
-> 1. mainline (commit: 77ae27fd98f3)
-> 2. Ubuntu Resolute 7.0.0-26 (production kernel hitting the issue in a VM)
->
-> The Reproducer consisted of
-> 1. A debug patch a cmdline-gated stall between the two *pmd reads in vmalloc_to_page()
-> 2. One taskset-pinned insmod/rmmod worker per module over stock cfg80211/dummy/veth modules
->
-> With the above reproducer, both BUG within seconds in unpatched kernel.
-> 1. Resolute in 0.71s at alternative.c:2564 (BUG_ON(!pages[0] ...), RAX=0)
-> 2. mainline at alternative.c:2473 (BUG_ON(memcmp(addr, src, len))).
->
-> With patches 1-3: zero splats across 10 runs each (600s/11,378 module load/unload cycles on mainline and 1200s/55,980 module load/unload cycles on Resolute).
+On Tue, Aug 25, 2026 at 09:03:25AM +0200, Karl Mehltretter wrote:
+> On Tue, Aug 25, 2026 at 07:25:48AM +0100, Greg Kroah-Hartman wrote:
+> > > to go out of scope and its caller to free or reuse the node.
+> > 
+> > But does that ever actually happen?
+> 
+> klist_remove() waits until the node is removed so the containing object can
+> be freed. bus_remove_driver() can later free drv->p, while device_move()
+> immediately adds the same node to another list.
+> 
+> > > The task reference keeps the waiter task alive if it returns and exits
+> > > before wake_up_process(). wake_up_process() provides the full barrier
+> > > required by the sleep/wakeup protocol, so remove the explicit mb().
+> > 
+> > I'm confused, what actual bug is here?
+> 
+> I found this during a targeted klist.c review.
+> 
+> Only later I cam across the syzbot report. That report became too prominent
+> in the commit message.
+> 
+> klist_release() sets waiter->woken, then reads waiter->process and later
+> writes n->n_klist. After seeing woken, the waiter can return on another CPU.
+> 
+> My initial KASAN reproducer was klist-only. One thread held an iterator while
+> another removed and freed the object. A delay after the wakeup made
+> the race easy, hit KASAN on n_klist in qemu arm64. 
 
-Amazing, thanks!
+Yes, but real-world use causes this in the kernel today?
 
->
->
-> Tested-by: Atish Patra<atishp@meta.com>
+> 
+> > > Closes: https://syzkaller.appspot.com/bug?extid=9cb1ac7fce4944ba9165
+> > > Tested-by: syzbot+9cb1ac7fce4944ba9165@syzkaller.appspotmail.com
+> > 
+> > Are you sure?  the whole bind/unbind mess that syzbot is throwing at us
+> > right now is really causing people to go down odd paths in thinking it's
+> > even a valid thing to consider at all.
+> 
+> I did not verify the dummy_udc bind/unbind sequence. The klist issue
+> does not depend on this USB path.
+> 
+> I can reword a v2 around the generic reproducer. anything else I should
+> investigate before sending it ?
 
-I guess should be applied to patches 1-3 only strictly? Or perhaps 3/5?
+Again, what user of this api in the kernel is causing this type of
+problem to require these changes?
 
->
-> > --
-> > Sincerely yours,
-> > Mike.
-> >
+thanks,
 
---
-Cheers, Lorenzo
+greg k-h
