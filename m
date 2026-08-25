@@ -1,46 +1,46 @@
-Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
+Received: from mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611A746C82B
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 20:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE693CAE99
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 20:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787688607; cv=none; b=fAeRGpIJbmoQUvGYn195izRJwepqGseH2lMf7dghq8h5fYNP06MCxHvRp9/+ORj8C8F7p6DFIF9vntsrycY0L36aQ4hqVhF1dPWFjClbNGXiJMKG6l9rNGwbj1jfj18lzdfdupyzs0G038t3ZALNzg5YPtJGO+hG9S8A99LAxm8=
+	t=1787688699; cv=none; b=cprsm0a5AcuRO/JPV7sYCWaTWrgCi++GnJ8vFTiszqC8/W3rAzaIGO5zr3L0J3UAb83s8jSkGdiUXj8kAl2pO8KiN4g31lIz8Yf6dJL+ohiPZD2tEihXPOzayL76m3EG0EAknaxPkbduHJWqYzkDvFZNQec1q1wuxTB5MaLOdIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787688607; c=relaxed/simple;
-	bh=Oa2n1Vfp/IboPx8jwpZtKXHw2BLQPZVz1k7pypymldE=;
+	s=arc-20240116; t=1787688699; c=relaxed/simple;
+	bh=ecyNiAQAxlUTEM9BLOPqFz8ljklz8yGqUkj3eMSzLJE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aiO/ZIo2ZftvrnFjkazMbu7IgeOYpiKKqFmo+SOeFVjj2pRyPFPj/jwn0yi1b2M511HBVPcX7PgYLdC5wXAjNQ8cYbHoW+DbHnz2Dhbl4812E/XRmw8bj3Qc37NqtLqPPoiO/+tqn8tjzxTERVYTiA8Uvy5aLKEo3dZ0a/N7UoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y9XjLiEX; arc=none smtp.client-ip=95.215.58.148
+	 MIME-Version; b=YYB4FtRmDACMBqf/vtq9buE8aA7fq5v6zeAFolbJYVA/2KQUWHBWWflvdZnwvrzVVrZ9ojUBVcYPCkMO87I/oPplgDO+FajPrBVDBqjdWmwrAhTpJnSQHB791dlaCyflrks231Cetc2Kv9hz8iz4OTgNP7NRKCCoieFsK2f05Hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cRCoJ3Ip; arc=none smtp.client-ip=95.215.58.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y9XjLiEX"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cRCoJ3Ip"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Oa2n1Vfp/IboPx8jwpZtKXHw2BLQPZVz1k7pypymldE=;
+DKIM-Signature: a=rsa-sha256; bh=ecyNiAQAxlUTEM9BLOPqFz8ljklz8yGqUkj3eMSzLJE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787688599; v=1; x=1788293399;
- b=Y9XjLiEXbCuzYbUzUZDFk/kODTrMNXqHzXt6xcNppbz+VRPoXBTZz7T4gbvhNB9hPpfpdb2z
- q9XGJVd62aKdLwMAgPLYxsNquAnUBom+EyM21m14c8ISTH8DDEbhQ8rniT71lbx2D6tBLruOwjH
- MO2j1qm8Tz0rFV1y5YO+RNA4=
+ t=1787688695; v=1; x=1788293495;
+ b=cRCoJ3IpoV5SgkutN2gM0Rm3227c2NuJrdrVgR67MsgneEqtK2C6g07visbsh8QGDt6IeMae
+ XYg1pu3dOg2T/rYYf0O57/dEWKErGGBExdocUuUhksK02JbnUotSUK5Nlm2LOARnS8bQHI+rs66
+ yf9H6QRJtYD81w5YupN3sbUA=
 X-Envelope-To: stable@vger.kernel.org
 Received: from lb03055.. (2601:647:6300:a030:488e:1b9c:4a00:b63e)
-	by smtp.migadu.com with ESMTPS id d294612f501337c9;
-	Tue, 25 Aug 2026 20:09:59 +0000
-X-Mizu-Trace-ID: d294612f501337c9
+	by smtp.migadu.com with ESMTPS id 53cb97281e91461e;
+	Tue, 25 Aug 2026 20:11:35 +0000
+X-Mizu-Trace-ID: 53cb97281e91461e
 X-Migadu-Flow: FLOW_OUT
 From: Zhu Yanjun <yanjun.zhu@linux.dev>
 To: stable@vger.kernel.org
 Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
 	Zhu Yanjun <yanjun.zhu@linux.dev>,
 	Leon Romanovsky <leonro@nvidia.com>
-Subject: [PATCH 6.6.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
-Date: Tue, 25 Aug 2026 22:09:46 +0200
-Message-ID: <20260825200946.1685897-1-yanjun.zhu@linux.dev>
+Subject: [PATCH 6.1.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+Date: Tue, 25 Aug 2026 22:11:21 +0200
+Message-ID: <20260825201121.1686721-1-yanjun.zhu@linux.dev>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026082522-print-snuff-962c@gregkh>
-References: <2026082522-print-snuff-962c@gregkh>
+In-Reply-To: <2026082523-salami-scorch-4541@gregkh>
+References: <2026082523-salami-scorch-4541@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -206,15 +206,16 @@ Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 (cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
 [This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
 Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+(cherry picked from commit ea1bc427167bf29d82d1e095b859398c8d66cad4)
 ---
  drivers/infiniband/sw/rxe/rxe_qp.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index 8426c261c263..1d6c8eb1f97d 100644
+index 171c0f4dcbec..ab42bfea92a6 100644
 --- a/drivers/infiniband/sw/rxe/rxe_qp.c
 +++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -664,10 +664,9 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+@@ -583,10 +583,9 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
  		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
  			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
  
