@@ -1,106 +1,171 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF373AAF44
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 21:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F21C42D77B
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 21:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787694038; cv=none; b=pILbDI4OHYS+cc0AAY3fW6fh+LIN+9K31LnOUjMRDWr3DmIFjVmwbLxdzx5btFcsCqkJzlWJtUeayx7JiVsGfxRmQjYLCRHQotUrWwaZAbWjVH+RHbIczPWF4hFG/C5hnbIHfwaKzZbzMdgsOj6t2oBcr6AXga6Vig8lpm1q7vM=
+	t=1787694217; cv=none; b=lWRzp5kbk4iedFhMU9rmElMtAmNLjUvqCs9v6Dq4jLUOtc8lLTY7upwpwHHwKqut9BdUPnV7LmC9wvakHTpbtUZ9mgRjxW+Uhg+zwDT+ahfY5Znu6m2cHE9RwO1cLpiYsZVm1sPnwZlYo8CkFNj/8otCdKAoiOd5B5OS9Ap5frI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787694038; c=relaxed/simple;
-	bh=+p1s7ehtBm/Xh6QxoMkumt5Y7ogq0/1iBvyp8TXickA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QasbDi8KMryK15DYqTDQyqhaUnLZm9NuKzzL8IVs2lvdkUf8k+g5tKZQINsxHkVY0490+a/sN4GqBHWuQ2iLNU1f2pzt1+aPtrDt6scaDpNvvdajkAahruJWwL79BnDdTM+VFBQBlU4TRryxvHMfdkqcSSqlrzbq6WIt3yTH7/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=gskY6jMu; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+	s=arc-20240116; t=1787694217; c=relaxed/simple;
+	bh=wjNucUp39n3xq8EAzxorvaJGmmTgMK02D5HVAfhjQVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KrII+BY/uuUGK6T+hzsesQGDB2m7f19MS2tKkb2s9PN8ZpFGQwgpYNvev6Bdr3zdfXQc9Dq9I0e42sZkY3PGde6UgS9b5Xr5y4mt2I9kUJ2jUnAC9RNCd5v7rADj4I5rPRpWIPQjVmBI0u+gpANXaIWU+RykYAsTnJvMKJLVbps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eKaSS5Pu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LbYcUmz+; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="gskY6jMu"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-92edb12cdf2so14667285a.3
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:40:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eKaSS5Pu";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LbYcUmz+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787694215;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PbvycVzqf4hPEetyb1QBcOfC1HYJJLq/kySscNL5C24=;
+	b=eKaSS5Pu+nYqd1IChehFFNZvCoK3SwPLmnv7pDpWghQxGUuv+dlduLG2pf0tuLgChmSX+m
+	n/Qj/2a/YC7hAeuS9NCBBXjOaQf7hBoB6kCsoq1Y+eQkUariXYpYvCUWigRXHrT63+D1YT
+	z/wHEcT47dlefcUpm7L21louh2mxUs0=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-686-NX-8_LC5NxGu4AmG6e2AAA-1; Tue, 25 Aug 2026 17:43:31 -0400
+X-MC-Unique: NX-8_LC5NxGu4AmG6e2AAA-1
+X-Mimecast-MFC-AGG-ID: NX-8_LC5NxGu4AmG6e2AAA_1787694211
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934956beec8so38597585a.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:43:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxtx.org; s=google; t=1787694035; x=1788298835; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DlsjZF3WwriA427R4ehTn2/RfPWu6IO9jwWcYt6es+Q=;
-        b=gskY6jMumf5fZxSiv5ZP5e5JzlUKsXqkn5AcfON5PpC6saim+QhkASns3G1zw1UWvA
-         SN/nxvmFRUXFeobX6ARJgSY6BuKgEOLw+uytCy4+d9nPuDJsEbOC7/sQKrFTFRrC34/Z
-         ZLzyQykyDTQEXSKaubN9ih5DMzbqw6rga5muY=
+        d=redhat.com; s=google; t=1787694211; x=1788299011; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PbvycVzqf4hPEetyb1QBcOfC1HYJJLq/kySscNL5C24=;
+        b=LbYcUmz+/GXBuCLdrt6wROabzkYmsoMOttzY+0J3x/diPctYlQS+gKSZSkHjmpagOL
+         /8LRTzr+iwY1JxF6hJVRD2knw1yiUlXAket8KiWaXWfQoyOKeAfeffU5GmdoIEGf/HnZ
+         flT/R5KJkLD83or+c+2g4Lz0Qd1wcBCN3n7k4p561SVtz2tBYQlhB49VYEAe5Lm/1JSD
+         Y7nQyKNAlZf/LeM6wlItXjv4i4qQjMaRfSDBnsWtp3kZcg8NRM5db24i6YSO3E+AhSK7
+         kCbJ2rMvaahPv4+jw3zTnkGVnx8zGG9fgcDYJVnRUDJGyQySRxm/EezA8IgukamNAqfE
+         rwIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787694035; x=1788298835;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DlsjZF3WwriA427R4ehTn2/RfPWu6IO9jwWcYt6es+Q=;
-        b=HhUZrIdpmCYULErWMPYYoLm+OyflnoDHInpA2ALog0YqMBcmjTcGcGrE2ZI/2prPI4
-         wgserIbAJW5TprOkrJ09ltnQ7S58xLat3sw+eisCBVFcXanZsagFRjv056ssppH7E2sm
-         TaCiyr/+/cFkhifINt/v5z47qmbHbLKdyhDN7CR2+deX2gTPB4HN9dGavV5dGFTg/92Y
-         xqZiCY8dQi0yZ21s9imdQfnmpFUjxiDKouXl5WZ2FHFT8qfX9jYj4G7FMgUUoymNV7I5
-         7Tq3/aTbzmRcKjLldBpMA8Ntip2u1BBZfSSZmunoL5wGCzKaAeuXnDY/7xBuRbGm8D7K
-         X4hg==
-X-Gm-Message-State: AFuF++kTxuo1GyjTTP0TAZDSBgYOu5xzvoc3IZ9xpOuY/21f4rYS6gww
-	pIWA8X4lQgMb6WpA+tyLbrNQksWVcLsB4PBMXuPFWhdachLK2Nk9bxgT2n0NRqJK4A==
-X-Gm-Gg: AR+sD12zovsqHrN1YI682N4hchLeGmtjVyGnoAO3OcuUs+4Zcge96+A1Mg+MER5D7wJ
-	PEojXlge745rlN4lYI/SfQz6UOFjds18rbIwgSnnxRAMK5noFeWxbNrgB7uaD7DP/QoO/iwytB7
-	qcSe5V+cd0qI67Zvicz8mcWfv0dovLZ+dfweIz/wibJclZ9hriHl/hgh0MSoDTPINZWBR6ujHDX
-	83qwPUBH8Hgc3F8XA48XVFhRnUdYyzEJ9zutcoVGLorKxWZea1KQq0kGefIy9q1m6dgaGzudjJ2
-	h/KBzh3JX7P/RD1jOjcIvUhxU9aIPH54BwVWISbMvM0JNq4zdQO668zaKETOT2OnxjSbx953Djq
-	qiA3QqBWCnDS4oW9RQnabgD2ZyOh5Na5XxLTf6PSM4ZtsNzx8CVNJX7GTOShB/AYbyDFoTR2R0E
-	LGNeTrQeKZxzbuy+aLUuu6yLgr9LaQ0br7yeETXK3AaAmGa1g1amHH1Q7d1IExXULW0CkyEw6k/
-	EgeVhYNObUGDKs=
-X-Received: by 2002:a05:620a:2546:b0:937:3d64:6608 with SMTP id af79cd13be357-937803d153fmr163839385a.23.1787694035517;
-        Tue, 25 Aug 2026 14:40:35 -0700 (PDT)
-Received: from fedora64.linuxtx.org ([98.97.3.217])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e61a098sm70013085a.23.2026.08.25.14.40.33
+        d=1e100.net; s=20251104; t=1787694211; x=1788299011;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PbvycVzqf4hPEetyb1QBcOfC1HYJJLq/kySscNL5C24=;
+        b=T/2w12N+fsmOQ6QU+YkIiclfRqfjvJAmhjsjhIfLf+xOhliWpKRwi0JCtq7PwnQh4P
+         PIdI1QapmiM8Wr/DLS/POwn4V4VRjlCX4m9RVpCBvMNvf80TgI5zehTKIbeErUtwZk/9
+         1MIhtHvUoGpeHdErxO3Op/uI8FUm+mrHLOVjaRfWG9p50dLHpjWVORCToOaeLW6kWWIF
+         weso4k9PgacBimizAhY0/P/It8I+n/PDfqfxPNbF9mm0tJ2YsxIMlDmfQpDoTGGuDHE5
+         L2l47nGJUNBZtvPJd2z24w1OAIn/44EVxwQHcLkO/lvXGIoFvixi64LFGrOn7ThILUCv
+         4MPQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpGNY10aJkeepeUe/lbKh0GRZppIuFxpMboGyIcMXEllyFNpbg9iyR+zXNBzBMQakJpLPD4f2M=@vger.kernel.org
+X-Gm-Message-State: AFuF++nt8ZgRhSfZHLEy1ss7O2WsYTxd6gNAfWKYpkwOIKyW9K0LO44a
+	iKOvHIUaq5WzV85CmCTEGuxTx4GH1O7yrxj1QGt/OdZVTEstqqHyLYGtJgZU5Ja9DzGzun/naFm
+	EeXNpv3ckTWoNu15I+miNDBL1R2XClRApU2EJxOKtOi90r1Pb9NTA4BFzKjd+mZGbcQ==
+X-Gm-Gg: AR+sD13khI5dODiH3FD77u2HSIrIIgket0BNmpmy2nW8xAen8Nvn6dayUQXDxBsYtjp
+	e3j3/zT49y1YJGRTI5a9xpP5V9RnRnFrPllDm4SHmzUHKHigb2YG7npT1t6zUoIvoF5sMhBIs3w
+	my+l2L9xXeRCbx44pSzPTM4uPuOw1S+ShwV0DMWS4nL5pl+7DM5izxxftD2DfPrIiXEL2joth67
+	hnw/gm9g1OfGBUovXo7kSNRW8EnAoztQKRhMxjGzK+DbGVHzFVyEYFdXzz2uSHUmHxDmEf4jDjA
+	TN5kICSIJWAc6gkOZUaFKYy2bFW4gT2a1d208AQgCLPzRj0udVhV1aWulJe+H97zq/T/1psJYJR
+	s+BTUFdO2yMWonmLiu80H5rphFXf3yaDRKwEGpMOovXIxijkIOQ6yfdCilQpH
+X-Received: by 2002:a05:620a:f12:b0:937:19d3:3fda with SMTP id af79cd13be357-93780490ecemr158851985a.28.1787694211088;
+        Tue, 25 Aug 2026 14:43:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:f12:b0:937:19d3:3fda with SMTP id af79cd13be357-93780490ecemr158847585a.28.1787694210602;
+        Tue, 25 Aug 2026 14:43:30 -0700 (PDT)
+Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377f217c5asm59929785a.15.2026.08.25.14.43.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 14:40:34 -0700 (PDT)
-Sender: Justin Forbes <jmforbes@linuxtx.org>
-Date: Tue, 25 Aug 2026 15:40:31 -0600
-From: Justin Forbes <jforbes@fedoraproject.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
-Message-ID: <ao4LzwbQ3ElF_aS3@fedora64.linuxtx.org>
-References: <20260825132541.560541185@linuxfoundation.org>
+        Tue, 25 Aug 2026 14:43:30 -0700 (PDT)
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org
+Cc: pc@manguebit.org,
+	linkinjeon@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] smb: client: fix heap overflow in cifs_do_set_acl()
+Date: Tue, 25 Aug 2026 16:43:27 -0500
+Message-ID: <20260825214328.3852168-1-sorenson@redhat.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825183229.3799705-1-sorenson@redhat.com>
+References: <20260825183229.3799705-1-sorenson@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 03:24:47PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.1 release.
-> There are 82 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.1-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+cifs_set_acl() validates ACL size using posix_acl_xattr_size():
 
-Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
-x86_64), and boot tested x86_64. No regressions noted.
+        4 + (count * 8)  // 4-byte header + 8 bytes per ACE
 
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+cifs_do_set_acl() then calls posix_acl_to_cifs() to write the CIFS
+wire format into the same buffer:
+
+        6 + (count * 10)  // 6-byte header + 10 bytes per ACE
+
+An ACL that passes the xattr-based check in cifs_set_acl() can
+overflow the heap when posix_acl_to_cifs() writes the larger CIFS
+format.
+
+Validate the CIFS format size against the remaining buffer space and
+USHRT_MAX before converting--data_count is __u16, so sizes above
+USHRT_MAX truncate the on-wire packet length, causing the server to
+apply a partial ACL.  Replace MaxDataCount = 1000 with
+min(CIFSMaxBufSize, USHRT_MAX).
+
+Fixes: dc1af4c4b4721 ("cifs: implement set acl method")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+---
+v2 changes:
+ - Add USHRT_MAX bound to prevent u16 truncation of data_count for ACLs
+   with more than 6553 entries, which would cause a partial ACL to be
+   silently applied on the server
+ - limit MaxDataCount to min(CIFSMaxBufSize, USHRT_MAX)
+
+ fs/smb/client/cifssmb.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index f5aad5f61dce..621aca5d3b75 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -3555,6 +3555,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 	int rc = 0;
+ 	int bytes_returned = 0;
+ 	__u16 params, byte_count, data_count, param_offset, offset;
++	size_t cifs_acl_size, bytes_available;
+ 
+ 	cifs_dbg(FYI, "In SetPosixACL (Unix) for path %s\n", fileName);
+ setAclRetry:
+@@ -3574,8 +3575,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 	}
+ 	params = 6 + name_len;
+ 	pSMB->MaxParameterCount = cpu_to_le16(2);
+-	/* BB find max SMB size from sess */
+-	pSMB->MaxDataCount = cpu_to_le16(1000);
++	pSMB->MaxDataCount = cpu_to_le16(min_t(unsigned int, CIFSMaxBufSize, USHRT_MAX));
+ 	pSMB->MaxSetupCount = 0;
+ 	pSMB->Reserved = 0;
+ 	pSMB->Flags = 0;
+@@ -3587,6 +3587,15 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
+ 	parm_data = ((char *)pSMB) + offset;
+ 	pSMB->ParameterOffset = cpu_to_le16(param_offset);
+ 
++	/* make sure we can fit the larger cifs_posix_aces in the buffer */
++	cifs_acl_size = sizeof(struct cifs_posix_acl) +
++		       (acl->a_count * sizeof(struct cifs_posix_ace));
++	bytes_available = (CIFSMaxBufSize + MAX_SMB2_HDR_SIZE) - offset;
++	if (cifs_acl_size > bytes_available || cifs_acl_size > USHRT_MAX) {
++		rc = -E2BIG;
++		goto setACLerrorExit;
++	}
++
+ 	/* convert to on the wire format for POSIX ACL */
+ 	data_count = posix_acl_to_cifs(parm_data, acl, acl_type);
+ 
+-- 
+2.55.0
+
