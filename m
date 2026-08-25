@@ -1,68 +1,42 @@
-Received: from mail-ej2-f1.google.com (mail-ej2-f1.google.com [74.125.228.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83275481640
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0642333B96B
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787673549; cv=none; b=sibVMElB3vsK1c3e9f6tPZQ51I47N1aHs+UyNI9RRGCYRb/bN8Dld7+3vb1373Ntyl5+6q6xZNlbn41QX+QtDkEt/3lp4i7ZmIyGwawo94QFh9dr08Y4op2Fcn68bmqFG5PfFii7qsrDdvMrRowqS/qhrlZc+Oy7RXDRTKVm17s=
+	t=1787673947; cv=none; b=Fcc4yKvnUiujXg2o43VzKgaASQrf6kwg7csnHP7EJQ4bqvEpNI9hVWSVfvpy0plh7aD6sEI99SJ+AQe1nm4a9xYvTKKfMsotEIFgoVAccj3AaKdhIaQ8LYR1WHEY01gPPevvlTWjgk+Lm4w6x7COTrNwb3kqpFkqi3OHIo0seZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787673549; c=relaxed/simple;
-	bh=RRut4CcXzZ33X43C9H5lQOu9ePxUARCVaLziJt3a6PM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ap087a5NbO2IbJQBFPdxfkYIa8sHx+eLzzGoWJsv7smGv5UyLtMi5cRBC1v6FiQDxax4jFpGEP+RfvCRrLs+j2XW73OkOpaO6ol2pvlspMqSqA1VqTLhZFJC4+C/AL2mYjsUJnR1xYIeBboZm1BcVLyAcpnGJf3EZnliRO3kx0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f1.google.com with SMTP id a640c23a62f3a-c15e0279316so221167566b.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:59:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787673546; x=1788278346;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wr1rmaQc3zAX/KiOiWAbKtWPn8dgUIfKo9r4PXcz4Iw=;
-        b=cl6JMUTgcSgtHtc/vbGPE1GkzvHfCL6efCgeJsXFip4XbsslC6tXXKR4Ni5SocZ/dm
-         zc13mHbcB7BkV4ax0RgyXNP0LeKYqSAL+Ek16vaKdvvA6bJJxmBYQu2uhMxD7tiOocKG
-         rtD69DJK1aYjHMwCmxTPPmQqvJ2XWwkLHpgPiAq/BvSuAjyiFDn2PEv1v76EqhmG+Qjz
-         VkgPMACiOZtkLL5HKCaFLIT3X6R+9kVuUwduZqTmWGH0loVafoJTgdLpz9fBmWTNYQFq
-         oT1O8QrKdzGqTxFaHFudzxg0aWOGXurhW1VukGY10Fx/Vv9gPIqwB+YDc67jkfldMQVH
-         zFRQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqBWbiT89/YetRjFw5uYnerFvKyuGc+zPCEszUGXsYeB/R8BrBta2OUN6+LfSKnl+CesKUhYMQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnpUrdLLQ3W/3h+jqNftFW6N7AirJEFGXCKzpYY1ao0TINxAAl
-	T6ny83VwNj4/uVkVwj35jZQfFDyfdbtwUN+xOFZi4uaxGiCxjVvIBBvA
-X-Gm-Gg: AR+sD11kkA1uP3MRX3uu5jqCGojA8laqdhnXOOxCyragYP/nlxJqM7gNIv1EupSrFaE
-	BctEGGIC8KND1BK5BNHHOyC8GdMc7JIqwdYiqPd36xlkoMl/WImzPJTypadsQUytCsB7vQbFKpy
-	wGedYoHZc1P1RCS9KxNpsKzv5unHkbXWqrbq72pZe2e45/W7RbyCCEkFZptrngSanw6H0e8YHJR
-	F3H+cBXehqHWIW6rrTNjJETZLbc1AcGcMrOamp3xmLdRPuptIpx6X2v4I4HrjrQsrHXD5vDu6fK
-	skfrcUZRwyR3TgLCgEsIr5/M1ca0xgJE6TBUtFL6bsgI2QFi0Z/V/PBzrZQ2Wnz70wcYjam23Ac
-	BwiNE5XBngyHSlbqaUB5GmnMBMXZyqcatcwRKB/nQn35YWaQNkyy2Ht98lmLDvNpjwS0y2K2a3j
-	lyVfZMbnXiU05duD4gw70fqwNegB10HMYBu/fOzy1L8V/MuHcwlvatv02IUasdSKeXoxeq0BwqQ
-	BjOEnv+3zpBXgFh2Xu4
-X-Received: by 2002:a17:906:f588:b0:c24:d430:3929 with SMTP id a640c23a62f3a-c24e58cfc2amr923308066b.1.1787673545645;
-        Tue, 25 Aug 2026 08:59:05 -0700 (PDT)
-Received: from im-t490s.redhat.com (89-24-33-32.nat.epc.tmcz.cz. [89.24.33.32])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ac7fsm23088866b.30.2026.08.25.08.59.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 08:59:05 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	"Remy D. Farley" <one-d-wide@protonmail.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Florian Westphal <fw@strlen.de>,
-	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	Ilya Maximets <i.maximets@ovn.org>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netlink: specs: fix the conntrack filter type
-Date: Tue, 25 Aug 2026 17:58:00 +0200
-Message-ID: <20260825155832.3685714-1-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1787673947; c=relaxed/simple;
+	bh=Qd9BrMerC6PLr9mjoHcT8yQe313Zb34otuW95vUQLcM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y39sbj7/z9VQ2AFknEqneliXvDZTq066QJEYKiWl7w1mC4xzaNgrgtR2uQ9hoTwpeYvqGUKAHe9qOS5Vq/AEeNOoqkfUb4inR2fvTilvRRKQxeeioINN/unCd5brJLukygJkAL5RPNWwoljItMC1nXkICbWwqUNrXCX1KOrq2WE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1ZFzTdq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1ZFzTdq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455FD1F000E9;
+	Tue, 25 Aug 2026 16:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787673945;
+	bh=UKiHHDEcNMU4QXxqVV5F5k61NQwjILNiCQjxItDTFUA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=B1ZFzTdqN+VNjCh8k7Zf8v+x7e0Arv+EHbLyEvdzMV52gq40/BOGU680TZElRpV2L
+	 Ec9KJBEi6RaqJ58T+wwBoddQBVqgP8WgwaenaAzrpDJ9pttVn9AeDihFvKjfK67QFg
+	 XLfJxF+71ibU2ZeLax7uJ7xlF7DtZZStDwXNPjxZnx0JNP1TUmC/KGPQAd1oXaeGTR
+	 wNRwClV04vgvUgYWB2qaNlmcazZ9Tc+t7adRLZUIRBCDpiCSUiTU3fe0S4U/EkWZpZ
+	 fJh74ftJLONdvTMlNbFEjNfvGLedEFFu41bF6/xn7HeGvfCpny/M9IFBuF+ntuoDeq
+	 f3vj9hbaGhCSg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] io_uring/io-wq: add io_worker.acct pointer
+Date: Tue, 25 Aug 2026 12:05:41 -0400
+Message-ID: <20260825160543.4126397-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082422-frivolous-grab-47d6@gregkh>
+References: <2026082422-frivolous-grab-47d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,53 +45,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The CTA_FILTER doesn't contain nested tuple attributes, instead it
-contains bit masks that specify which tuple attributes to filter on.
-The values for filtering are taken from the top-level CTA_TUPLE_ORIG
-and CTA_TUPLE_REPLY.
+From: Max Kellermann <max.kellermann@ionos.com>
 
-The bits themselves somehow are not in the public headers, so not
-defining them in the spec either for now.  Once they are public in
-uAPI, they can be added here with enum-as-flags.
+[ Upstream commit 3d3bafd35fb422eb36cfc5709473cef7400588e7 ]
 
-Fixes: 23fc9311a526 ("netlink: specs: add conntrack dump and stats dump support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+This replaces the `IO_WORKER_F_BOUND` flag.  All code that checks this
+flag is not interested in knowing whether this is a "bound" worker;
+all it does with this flag is determine the `io_wq_acct` pointer.  At
+the cost of an extra pointer field, we can eliminate some fragile
+pointer arithmetic.  In turn, the `create_index` and `index` fields
+are not needed anymore.
+
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Link: https://lore.kernel.org/r/20250128133927.3989681-3-max.kellermann@ionos.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 297b5ccea4ac ("io_uring/io-wq: fix worker accounting when canceling creation callbacks")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/netlink/specs/conntrack.yaml | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ io_uring/io-wq.c | 23 ++++++++---------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/netlink/specs/conntrack.yaml b/Documentation/netlink/specs/conntrack.yaml
-index db7cddcda50a..46f1ba880745 100644
---- a/Documentation/netlink/specs/conntrack.yaml
-+++ b/Documentation/netlink/specs/conntrack.yaml
-@@ -360,6 +360,17 @@ attribute-sets:
-         name: tsoff
-         type: u32
-         byte-order: big-endian
-+  -
-+    name: filter-attrs
-+    attributes:
-+      -
-+        name: orig-flags
-+        type: u32
-+        doc: bitmask of tuple fields to filter on, original direction
-+      -
-+        name: reply-flags
-+        type: u32
-+        doc: bitmask of tuple fields to filter on, reply direction
-   -
-     name: conntrack-attrs
-     attributes:
-@@ -466,7 +477,7 @@ attribute-sets:
-       -
-         name: filter
-         type: nest
--        nested-attributes: tuple-attrs
-+        nested-attributes: filter-attrs
-       -
-         name: status-mask
-         type: u32
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index e02128374837b..f364ab2a66408 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -30,7 +30,6 @@ enum {
+ 	IO_WORKER_F_UP		= 0,	/* up and active */
+ 	IO_WORKER_F_RUNNING	= 1,	/* account as running */
+ 	IO_WORKER_F_FREE	= 2,	/* worker on free list */
+-	IO_WORKER_F_BOUND	= 3,	/* is doing bounded work */
+ };
+ 
+ enum {
+@@ -46,12 +45,12 @@ enum {
+  */
+ struct io_worker {
+ 	refcount_t ref;
+-	int create_index;
+ 	unsigned long flags;
+ 	struct hlist_nulls_node nulls_node;
+ 	struct list_head all_list;
+ 	struct task_struct *task;
+ 	struct io_wq *wq;
++	struct io_wq_acct *acct;
+ 
+ 	struct io_wq_work *cur_work;
+ 	raw_spinlock_t lock;
+@@ -79,7 +78,6 @@ struct io_worker {
+ struct io_wq_acct {
+ 	unsigned nr_workers;
+ 	unsigned max_workers;
+-	int index;
+ 	atomic_t nr_running;
+ 	raw_spinlock_t lock;
+ 	struct io_wq_work_list work_list;
+@@ -135,7 +133,7 @@ struct io_cb_cancel_data {
+ 	bool cancel_all;
+ };
+ 
+-static bool create_io_worker(struct io_wq *wq, int index);
++static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct);
+ static void io_wq_dec_running(struct io_worker *worker);
+ static bool io_acct_cancel_pending_work(struct io_wq *wq,
+ 					struct io_wq_acct *acct,
+@@ -167,7 +165,7 @@ static inline struct io_wq_acct *io_work_get_acct(struct io_wq *wq,
+ 
+ static inline struct io_wq_acct *io_wq_get_acct(struct io_worker *worker)
+ {
+-	return io_get_acct(worker->wq, test_bit(IO_WORKER_F_BOUND, &worker->flags));
++	return worker->acct;
+ }
+ 
+ static void io_worker_ref_put(struct io_wq *wq)
+@@ -323,7 +321,7 @@ static bool io_wq_create_worker(struct io_wq *wq, struct io_wq_acct *acct)
+ 	raw_spin_unlock(&wq->lock);
+ 	atomic_inc(&acct->nr_running);
+ 	atomic_inc(&wq->worker_refs);
+-	return create_io_worker(wq, acct->index);
++	return create_io_worker(wq, acct);
+ }
+ 
+ static void io_wq_inc_running(struct io_worker *worker)
+@@ -343,7 +341,7 @@ static void create_worker_cb(struct callback_head *cb)
+ 
+ 	worker = container_of(cb, struct io_worker, create_work);
+ 	wq = worker->wq;
+-	acct = &wq->acct[worker->create_index];
++	acct = worker->acct;
+ 	raw_spin_lock(&wq->lock);
+ 
+ 	if (acct->nr_workers < acct->max_workers) {
+@@ -352,7 +350,7 @@ static void create_worker_cb(struct callback_head *cb)
+ 	}
+ 	raw_spin_unlock(&wq->lock);
+ 	if (do_create) {
+-		create_io_worker(wq, worker->create_index);
++		create_io_worker(wq, acct);
+ 	} else {
+ 		atomic_dec(&acct->nr_running);
+ 		io_worker_ref_put(wq);
+@@ -384,7 +382,6 @@ static bool io_queue_worker_create(struct io_worker *worker,
+ 
+ 	atomic_inc(&wq->worker_refs);
+ 	init_task_work(&worker->create_work, func);
+-	worker->create_index = acct->index;
+ 	if (!task_work_add(wq->task, &worker->create_work, TWA_SIGNAL)) {
+ 		/*
+ 		 * EXIT may have been set after checking it above, check after
+@@ -834,9 +831,8 @@ static void io_workqueue_create(struct work_struct *work)
+ 		kfree(worker);
+ }
+ 
+-static bool create_io_worker(struct io_wq *wq, int index)
++static bool create_io_worker(struct io_wq *wq, struct io_wq_acct *acct)
+ {
+-	struct io_wq_acct *acct = &wq->acct[index];
+ 	struct io_worker *worker;
+ 	struct task_struct *tsk;
+ 
+@@ -855,12 +851,10 @@ static bool create_io_worker(struct io_wq *wq, int index)
+ 
+ 	refcount_set(&worker->ref, 1);
+ 	worker->wq = wq;
++	worker->acct = acct;
+ 	raw_spin_lock_init(&worker->lock);
+ 	init_completion(&worker->ref_done);
+ 
+-	if (index == IO_WQ_ACCT_BOUND)
+-		set_bit(IO_WORKER_F_BOUND, &worker->flags);
+-
+ 	tsk = create_io_thread(io_wq_worker, worker, NUMA_NO_NODE);
+ 	if (!IS_ERR(tsk)) {
+ 		io_init_new_worker(wq, worker, tsk);
+@@ -1191,7 +1185,6 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
+ 	for (i = 0; i < IO_WQ_ACCT_NR; i++) {
+ 		struct io_wq_acct *acct = &wq->acct[i];
+ 
+-		acct->index = i;
+ 		atomic_set(&acct->nr_running, 0);
+ 		INIT_WQ_LIST(&acct->work_list);
+ 		raw_spin_lock_init(&acct->lock);
 -- 
-2.55.0
+2.53.0
 
