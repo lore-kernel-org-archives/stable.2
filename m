@@ -1,104 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948F1488210
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 23:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787700691; cv=none; b=g90SEgKdOw5LWd0KD1ql34HLe8OVPZYuMSq6/cD6kp3ZpKz/uTtMaGTUlZTwdIJ1cWABiHMvyb/xiNBoMPdarMVLCW0HVNzcaCpHyyRw0VEZsU/0P2tlA/nJZUcYRGch/00t0t5vee7aOOTEUSfkx77aKEK3UkPbKyFtdOe+acE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787700691; c=relaxed/simple;
-	bh=QhU7JzCPmCzIVSsOwyUff+OzMLwVq/rtHOtc8CqMscQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Lu+hzqgXFzKcH0Wa30eeohGH9jl7uD9Jshla4FuTgZ2AERQGTCeuvjKgLl+s30/rwgLCpUAuZ8n1C5xbUYGednzCuqjwSEHdrJHTP/koJsoiy86c7hwd6DH0qszwBbzmMhs2mLe0bb+BrnsZcPppZB7ij8bcge2TXn/6zDCPWjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CTOf439K; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A5A23EA94
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 23:36:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787701013; cv=pass; b=e0PDsFRPKPSOrdUQGIgt1ah6dfgEa1GKWlENf/K7UaG6ZCQr/DzVlb1hB19Qis3dVJOO9q54Z44zsbqPCyYQ9Nn+AtOW3SyXFT8ly/Y9fLbrcCclj6cgZ/WOw6gjAeRNNKnJP4B9c7/L+1S9ANVwKkdpamECMwBKTXhQKQhCH7Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787701013; c=relaxed/simple;
+	bh=h1DbMee42kDTE/h0M3ZhHKpBRN+EYlu3Xiaw/VOWNzw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VhX21P/wJfuaHsLfElF7GE6Bithqv6IwH8mxRx8VXkrmAkeF1jBELwJ+QvtbHQiR0dfRaFi6ZnGfhV568TVdimhxgmEAoVsHuJUcwa7UovouLsa4+oEP0Qfes8NimetcitAkK/2lzVIpFlbwNIEes1OmqwZr+cyjAtOdHAvY7yY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cq5aUTeC; arc=pass smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CTOf439K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787700690; x=1819236690;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=QhU7JzCPmCzIVSsOwyUff+OzMLwVq/rtHOtc8CqMscQ=;
-  b=CTOf439KkZ8VQkmmQWzCjKD/ru6/vA0fuzpROV2TdpN3Pt6rWjbGP2ZD
-   OrS8+KWs91Djjxi3kxPnrLkqkfxQDDXDHRyvbDCFUw8Qe5OXmEWFR3Xmj
-   vUYrxgSWsNTyi5/1XGRbonlsZgS1UViZRWXphV4Gv8fmog4leWKNTgTZJ
-   EA9ig6dDRd9G/5ru42kKeas86RIQegQturfl9s5y/80AGeBW0AHxDIoFR
-   t80JcqV1Kl3VPrDLmuviVGiwbe0kxqum42S3VCeYihNWH544LCeskX4Lh
-   GnWIrVC7ujF7OUyUJPMruz+uy6ZBwgInzsbeFBCfoo/vtaJD2AFNL4pQ3
-   g==;
-X-CSE-ConnectionGUID: nZke1IEiRHeq9Q/j21sU5w==
-X-CSE-MsgGUID: y/fydV/DRDqfj7RP7U5NGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="99335338"
-X-IronPort-AV: E=Sophos;i="6.25,243,1779174000"; 
-   d="scan'208";a="99335338"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 16:31:29 -0700
-X-CSE-ConnectionGUID: rPe6oKq2QqGbp3HY1sKslg==
-X-CSE-MsgGUID: eqlj4cVSQFWIH77yBGC29g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,243,1779174000"; 
-   d="scan'208";a="290941892"
-Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.39])
-  by fmviesa002.fm.intel.com with ESMTP; 25 Aug 2026 16:31:29 -0700
-From: Jia Yao <jia.yao@intel.com>
-To: stable@vger.kernel.org
-Cc: Jia Yao <jia.yao@intel.com>,
-	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 6.18.y 3/3] drm/xe/guc_ads: use uncached mapping for UM queue BO
-Date: Tue, 25 Aug 2026 23:30:53 +0000
-Message-ID: <20260825233053.1504506-3-jia.yao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260825233053.1504506-1-jia.yao@intel.com>
-References: <2026082036-afterglow-tapered-84a0@gregkh>
- <20260825233053.1504506-1-jia.yao@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cq5aUTeC"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d03fcd26a6so358455ad.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 16:36:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787701011; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kQPpx1k3LULcrq34nIGzbzCAT804JkDcI0rGwvDhFTRNHZjUVnIGxGEcuar4w2v2EY
+         rnc+73L9v70rq8OtQo9CoCOJaWHETha8GA0eMgF8uNeZarAARZIcQ0CdtbnQyK3sCwvm
+         QXOJMRuEqvWFCmbz+AxPiiQe9D5x28IaWroSqYIabotFqxi+2uDyvbXqL5tINle69Rb2
+         WWADjgJwGQzhx4m2+6XB7AU9ftxL0xXzQCIF3UobnwHC+PkxFuekbcLA3QvUyGojf77I
+         5ZGbBOg+QCGP/TsqsjPrERPJG2Bc6zg05E1P3eGUFmIh4FFJkQv9KqPtIrVVdIMdJjOJ
+         amyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2fMZcIr7PJYUKtYt6N73x4GUy9xmDK+BvFmvurRf9/Q=;
+        fh=YQgENS8p/X3DcT4oqZ/9X8LA0vR7XI1zX3Qz+aoOEBI=;
+        b=gOxww+YuYlERcs7NNvu8qXdaJp1fepUebE1cMg0dd/MOpsbC99lM9R/hGVe2lP9KuH
+         Zn3xP00HA29MpdtrAzKgz1BVCorGXiq/pramHRYLjNHhpUt6A4HZUOgYRdt3686rkIjY
+         igXuMuqTeTPz4+oqf3+k7hKtT0Gdjcg7al5lHfezMLRLUJYhCX83Cn7QUOIZIbTJMstR
+         gI8QEEUZzDbufYjcGYWuMqswn3LCn3l+TOwyCOFAYBSyGGZVql5gFAMeMpYFMAnDardY
+         nXhUTCPehZOaSUBu788ARfXS0TGFKBaKZikcVuJZO8Zw4eLzoHcBb3SrkEzvVwXTFHFE
+         qSIg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787701011; x=1788305811; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2fMZcIr7PJYUKtYt6N73x4GUy9xmDK+BvFmvurRf9/Q=;
+        b=cq5aUTeCIAE4mPtjyZVij1Hq4AplR5/esWhQPkNAERpwIuaaWIPVGtfFgZstEhFweB
+         pVprFD7Z26WLT36SDmmhso44Pw5y3eJJ4CGWxpt/0kMkyQFS1459igOdKymQnRGZLfVq
+         gE9Q6RCmNodQEOMsKejWCjBl+3ZuR+kihYHbMZjB1tbPNGi68C/P0mVCVHY/VkwBKY41
+         EgSrSi3jUvk+ZK9zbs1/tYQDh5qE/8OPY4YzjYKQfMS7EaQixYtsf8k3oPCTrsq/5zkK
+         1EY5tldB36zoQowFXpBqhhiX138FcQoJcT66X28v0gm67EMWKqTl5EAtfCBoF/QTFf64
+         LTYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787701011; x=1788305811;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2fMZcIr7PJYUKtYt6N73x4GUy9xmDK+BvFmvurRf9/Q=;
+        b=mrFEzktUarWGyvcjCaI6d6y1+t/IZs+6wrocUHTiql2tKqP3O0H35z/ujNgCNQ6qdy
+         EOW95FoLf4XfPm1OxiHrqocb4qleon4LD7Sz8toah5+LEySsdxR0z2anBuiqWzYVnPwr
+         Ch/OXMLUc+TE7sdYkILD6FAXGFDAhEgclorYhiQ1+2mTPatozsSWqPKxRnrnoegpmeMQ
+         yjcxv3kLfdt13EMeCpAfz8uszxQYCcsIcS8ExQ/FzPoZh74q2S3qJ2svThfm8VDKakeP
+         iTIRqNHPs7uWYcympGT/D5+/eMsLPl/JhAqEQNeUguvkQKUttQxTKMHOhOGXhAeEy41t
+         rMMw==
+X-Forwarded-Encrypted: i=1; AHgh+RqMPf8rwwLy62qI76QpiTq4JuMStk41DuBJgEnOiIe2nDS1pGfbUr34pHWk+aJVv+1DDbeVKrc=@vger.kernel.org
+X-Gm-Message-State: AFuF++niASFQqHzzkVr2wZZYgCNIApNG7ZHOzUhPq3iTIQu3LVZqy0Jy
+	x3Lz0XLFIrMvJ/nA7bvMxvJZIV/cbNsNB/VOUI+h2diye3FHsB6zPrKi2tgDzRzPyopm97/euqr
+	9ke677nOAK6pgLKbr/P4rvxBfLOS9vzM=
+X-Gm-Gg: AR+sD12FGQres1OC5ForJLY4n13BAp3vjhq4OZqW6ZHmzb8WocS3erZYL6eeysA6JmK
+	ZfltIXcZcB8+qsHIeSdTq9OQ/QLWB3ny3q6C2AslOy30hlRaUecvtX2U/YHlTod+kJalzo8h6ri
+	kn1yGiJEYgfZKr+YwrfVLGBsXRfQG9OQEUeRAd6IbnJSE3rTW8nlPww4xyp9OqWMG3HB1aul6vj
+	Kpqo1j0IkI9fvR6kWQ0IRMvtbSFnbbLOBJW6T4NT4d42cLYXKVzjM/ideZZdrcVdHgsR1xVFve4
+	i/5EFC0nNMfB1uLvPGD+1In9/AHHPri0B0N7gqpUhtfqowvKAZGHgcCnsxyUmmHDYAhSIHZGs4R
+	sSPaqjP1Uc8D+UI7YeJDCbIQ6iycr4kkIAdSC5p3Eop9LjNHY3IaIkc9ogdXpqQZ6Yrgseqc=
+X-Received: by 2002:a17:902:f789:b0:2c9:ed4a:c3a4 with SMTP id
+ d9443c01a7336-2d7077710ffmr16923965ad.0.1787701011201; Tue, 25 Aug 2026
+ 16:36:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260823193529.156066-1-ojeda@kernel.org>
+In-Reply-To: <20260823193529.156066-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 26 Aug 2026 01:36:37 +0200
+X-Gm-Features: AcwNN1XJUdcU-uaWrJb_MWdWJsZH9EysTDIt0KdNtGRwRojvJo_C-_WfkW_E10w
+Message-ID: <CANiq72=AXhvxG3TD5QgnLMmL1hcPyahn55wO28MOsWTAo6F_Ww@mail.gmail.com>
+Subject: Re: [PATCH] rust: kbuild: disambiguate `zerocopy_derive` for `rusttest`
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	Antoni Boucher <bouanto@zoho.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Pre-Xe3p platform, the GAM write the UM queue through DPA using UC.
-if GuC reads the queue via GGTT (WB), stale data may be observed
-when the cacheline has been polluted by another agent.
+On Sun, Aug 23, 2026 at 9:35=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> The `rustc-dev` components for Rust 1.82.0 through 1.87.0 include a
+> precompiled `zerocopy_derive` procedural macro in the sysroot. This
+> range includes Rust 1.85.0, our minimum supported version.
+>
+> This makes `rusttest` fail because the compiler finds both the sysroot
+> copy and the copy built in `rust/test`:
+>
+>     error[E0464]: multiple candidates for `dylib` dependency `zerocopy_de=
+rive` found
+>       --> rust/kernel/prelude.rs:70:9
+>        |
+>     70 | pub use zerocopy_derive::{
+>        |         ^^^^^^^^^^^^^^^
+>        |
+>        =3D note: candidate #1: .../lib/rustlib/x86_64-unknown-linux-gnu/l=
+ib/libzerocopy_derive-54d2b38896fa6bc5.so
+>        =3D note: candidate #2: .../rust/test/libzerocopy_derive.so
+>
+> Commit fe39a233ea52 ("rust: kbuild: disambiguate `zerocopy` for
+> `rusttest`") fixed the equivalent ambiguity for `zerocopy`.
+>
+> Thus point to the dependency explicitly in this case too.
+>
+> Cc: Antoni Boucher <bouanto@zoho.com>
+> Cc: stable@vger.kernel.org
+> Fixes: 506054980429 ("rust: zerocopy-derive: enable support in kbuild")
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 
-To match the GAM's UC writes, configure the GuC mapping as UC as well.
+Applied to `rust-fixes`.
 
-Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: <stable@vger.kernel.org> # v6.12+
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260804165057.129529-4-jia.yao@intel.com
-(cherry picked from commit 8d5134ae4177fa4f5a9bc8e71e6656cfc2852882)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/xe/xe_guc_ads.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index 4f48356ae622..63017ae2c381 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -405,7 +405,8 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
- 			       XE_BO_FLAG_GGTT |
- 			       XE_BO_FLAG_GGTT_INVALIDATE |
--			       XE_BO_FLAG_PINNED_NORESTORE;
-+			       XE_BO_FLAG_PINNED_NORESTORE |
-+			       XE_BO_FLAG_NEEDS_UC;
- 
- 		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
- 		if (IS_ERR(bo))
--- 
-2.43.0
-
+Cheers,
+Miguel
