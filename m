@@ -1,197 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303F52E06E4;
-	Tue, 25 Aug 2026 14:01:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD1837F326;
+	Tue, 25 Aug 2026 14:10:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787666506; cv=none; b=tHUVtTKOoWaFWhmnxdEPKpQ/yigkUJF+cvxTVwN3bn/AEdkHkJ+jHRLmASgilBZQTn/B6wWhbFzSIoDsrgrQSQpTKbbf8+8YhHz0UTLpqAHxwj5Xx2lujQo9BmShhBRMHhzBPwwQU9BNjWQbSM75Du8+XvSQbIDBnY1yqADRSD4=
+	t=1787667040; cv=none; b=nULHdPRRBvWrte+LpdbUemT9VQ/upss7nU317jpDgaZnCb5eicNHoXUG4hd3EeRNgTnnPmK3/UoIAk+Vaywl+TFYCBKJRNAO6Fc4RoDuVTUYSGtClvGv+LujLxsOGgNwZzPi6ci7M7eU8StsT+HpqpoIf8mljNu0wYj+Dj4lvyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787666506; c=relaxed/simple;
-	bh=JYphfp8drL7SqyLWnVomYZ9JUT72DmLdZswbomnePoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l7x4TbCTqYJo1k6vfnTsI8eT3jXtPVRAMzgouHaGrrUY04a9o8gg6UapsTVsJ0uxV+LJE7UxTLyCChpI/RPZEF7AoNrgC7N13beSCnH5a6CqNWumqWRppA4UWcYxQZmUczwV1JxPNNdEgwviNTHVNpMdj6Ssmw+i9dG4Udsy5Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XVqr5oQF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787667040; c=relaxed/simple;
+	bh=MfFQtTT/W85KevC15gz/V9mX0Owlq+lpP7+V9ZDGvb0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C6+jsR2Us0gr3W35isOzsGhbR1fcN6M8GGW4HseSFBjFdUoGP1EWX4zMpWkICz2/aXRvXHf1U41VELsd3rV8vc3JAlD/11EEPddecQOk3niQQLBfaG35DYP18p4j5MyQ3qtPWh12vocQASDMRawnqCC9PDP2XxYlYy+4aJIK4HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPkaLXwb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XVqr5oQF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A701F000E9;
-	Tue, 25 Aug 2026 14:01:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787666505;
-	bh=6L4PHG8BaTPrqJjdgLn3s9E4wRKugm3dMfDhKt9YrHA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XVqr5oQFGq+gUPh4Wfp5HharPtRk0HUMpOHfEtML3Sx9pmBLecNhjda1D6M19dAXE
-	 qoKdsLCSgRqMXbpQFA4lpNuCeKvIsuEyory6Pyb0E2+VRrnmkP2nTGxfxJVP0Iw1rl
-	 2ieTl+ot8wbPT1OCV3a5KxiW/Mh0PIInnqccz5gM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qihang Tang <q.h.hack.winter@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 20/57] packet: use consistent hard_header_len in non-ring send paths
-Date: Tue, 25 Aug 2026 15:26:42 +0200
-Message-ID: <20260825132542.079220280@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260825132541.342390421@linuxfoundation.org>
-References: <20260825132541.342390421@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPkaLXwb"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4966F1F000E9;
+	Tue, 25 Aug 2026 14:10:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787667038;
+	bh=oZIYoxakdDcpHnw/oiQi6XnASlXnxu1bw6B/PUp3B2E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TPkaLXwbayFeS67Ap88S+Myncs5etLL85m0wtCa7ZJg2yxZrOXdsatoW07KR7yEeL
+	 1u9JZg77FUiKLjKVuLE2moN/V5h/9wkcRILU8jKFxuEheMw+GTHqGbwK3Js8Q1NDQW
+	 XDzRGquTcBNMdTNdwa8EZ9oH3CSHH2fNjAnlpWAOsUAYeAnGFri+GrQVWGEwoAcl2n
+	 nbR9jFPY5eRCEC21OMCsZRCie60YcI4gGsk17mlZXP7We2OuQljvKhFxbsCdyC8E6m
+	 ltTKfa1g7UMBd3URluY55LK418yBYWM+KcdIrmGsZgX29/2ESFhT2Oylf5OoPbrOIF
+	 87JP3C62uXJnA==
+Date: Tue, 25 Aug 2026 17:10:35 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, James.Bottomley@hansenpartnership.com,
+	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] keys: translate request_key_auth pid for the reading
+ procfs instance
+Message-ID: <ao2iW6FGwphVCu3Q@kernel.org>
+References: <20260821095935.1864998-1-maoyixie.tju@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821095935.1864998-1-maoyixie.tju@gmail.com>
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Qihang Tang <q.h.hack.winter@gmail.com>
-
-[ Upstream commit 03390aa32e669cc4ecd7d34108e2e1afc13d689d ]
-
-packet_snd() reads dev->hard_header_len multiple times while allocating
-and constructing an skb. Device reconfiguration can change this value
-concurrently, for example through bonding device type changes.
-
-For SOCK_RAW, packet_snd() can save a larger value in reserve and later
-allocate headroom using a smaller value. Moving skb->data back by reserve
-then places it before skb->head, and the following copy from userspace can
-attempt an out-of-bounds write.
-
-packet_sendmsg_spkt() has the same issue because it calculates its
-reservation and header offset from separate reads before dropping the RCU
-read lock to allocate the skb.
-
-Add LL_RESERVED_SPACE_EX() for callers that already saved a header length.
-Read hard_header_len once in packet_snd() and use it for allocation and
-construction. In packet_sendmsg_spkt(), preserve the allocation-time value
-through the device lookup retry.
-
-The separate SOCK_DGRAM consistency problem between hard_header_len and
-header_ops->create is not addressed here.
-
-Fixes: b84bbaf7a6c8 ("packet: in packet_snd start writing at link layer allocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260805125729.19220-3-q.h.hack.winter@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 21b5953e7494 ("packet: use consistent hard_header_len in TX_RING send path")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- include/linux/netdevice.h |    6 ++++--
- net/packet/af_packet.c    |   26 ++++++++++++++++----------
- 2 files changed, 20 insertions(+), 12 deletions(-)
-
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -269,9 +269,11 @@ struct hh_cache {
-  * We could use other alignment values, but we must maintain the
-  * relationship HH alignment <= LL alignment.
-  */
--#define LL_RESERVED_SPACE(dev) \
--	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom)) \
-+#define LL_RESERVED_SPACE_EX(dev, hlen) \
-+	((((hlen) + READ_ONCE((dev)->needed_headroom)) \
- 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
-+#define LL_RESERVED_SPACE(dev) \
-+	LL_RESERVED_SPACE_EX(dev, (dev)->hard_header_len)
- #define LL_RESERVED_SPACE_EXTRA(dev,extra) \
- 	((((dev)->hard_header_len + READ_ONCE((dev)->needed_headroom) + (extra)) \
- 	  & ~(HH_DATA_MOD - 1)) + HH_DATA_MOD)
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -1968,8 +1968,9 @@ static int packet_sendmsg_spkt(struct so
- 	struct net_device *dev;
- 	struct sockcm_cookie sockc;
- 	__be16 proto = 0;
--	int err;
-+	int hard_header_len;
- 	int extra_len = 0;
-+	int err;
- 
- 	/*
- 	 *	Get and verify the address.
-@@ -2012,14 +2013,18 @@ retry:
- 		extra_len = 4; /* We're doing our own CRC */
- 	}
- 
-+	/* Keep the allocation-time header length across retry. */
-+	if (!skb)
-+		hard_header_len = READ_ONCE(dev->hard_header_len);
-+
- 	err = -EMSGSIZE;
--	if (len > dev->mtu + dev->hard_header_len + VLAN_HLEN + extra_len)
-+	if (len > dev->mtu + hard_header_len + VLAN_HLEN + extra_len)
- 		goto out_unlock;
- 
- 	if (!skb) {
--		size_t reserved = LL_RESERVED_SPACE(dev);
-+		size_t reserved = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 		int tlen = dev->needed_tailroom;
--		unsigned int hhlen = dev->header_ops ? dev->hard_header_len : 0;
-+		unsigned int hhlen = dev->header_ops ? hard_header_len : 0;
- 
- 		rcu_read_unlock();
- 		skb = sock_wmalloc(sk, len + reserved + tlen, 0, GFP_KERNEL);
-@@ -2049,7 +2054,7 @@ retry:
- 		err = -EINVAL;
- 		goto out_unlock;
- 	}
--	if (len > (dev->mtu + dev->hard_header_len + extra_len) &&
-+	if (len > (dev->mtu + hard_header_len + extra_len) &&
- 	    !packet_extra_vlan_len_allowed(dev, skb)) {
- 		err = -EMSGSIZE;
- 		goto out_unlock;
-@@ -2965,7 +2970,7 @@ static int packet_snd(struct socket *soc
- 	int offset = 0;
- 	struct packet_sock *po = pkt_sk(sk);
- 	bool has_vnet_hdr = false;
--	int hlen, tlen, linear;
-+	int hard_header_len, hlen, tlen, linear;
- 	int extra_len = 0;
- 
- 	/*
-@@ -3006,8 +3011,9 @@ static int packet_snd(struct socket *soc
- 			goto out_unlock;
- 	}
- 
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
- 	if (sock->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
-+		reserve = hard_header_len;
- 	if (po->has_vnet_hdr) {
- 		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr);
- 		if (err)
-@@ -3029,10 +3035,10 @@ static int packet_snd(struct socket *soc
- 		goto out_unlock;
- 
- 	err = -ENOBUFS;
--	hlen = LL_RESERVED_SPACE(dev);
-+	hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 	tlen = dev->needed_tailroom;
- 	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
--	linear = max(linear, min_t(int, len, dev->hard_header_len));
-+	linear = max(linear, min_t(int, len, hard_header_len));
- 	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
- 			       msg->msg_flags & MSG_DONTWAIT, &err);
- 	if (skb == NULL)
-@@ -3048,7 +3054,7 @@ static int packet_snd(struct socket *soc
- 	} else if (reserve) {
- 		skb_reserve(skb, -reserve);
- 		if (len < reserve + sizeof(struct ipv6hdr) &&
--		    dev->min_header_len != dev->hard_header_len)
-+		    dev->min_header_len != hard_header_len)
- 			skb_reset_network_header(skb);
- 	}
- 
+On Fri, Aug 21, 2026 at 05:59:35PM +0800, Maoyi Xie wrote:
+> request_key_auth_describe() prints rka->pid into /proc/keys as a raw
+> pid_t in the initial pid namespace. A reader can open /proc/keys through
+> a mount in another pid namespace. That reader sees a number with no
+> meaning there. The number can even name an unrelated task. The line
+> needs VIEW on the key. So the reader either shares the key owner's uid
+> or possesses the key.
+> 
+> The fix keeps a struct pid. Commit 4f82f45730c6 ("net ip6 flowlabel:
+> Make owner a union of struct pid * and kuid_t") gave
+> /proc/net/ip6_flowlabel the same storage. The print goes through
+> pid_nr_ns(). It renders against the pid namespace of the procfs instance
+> the line is read through. Commit ad08978ab41c ("ipv6/flowlabel: simplify
+> pid namespace lookup") moved that print to the same anchor. Output
+> through an initial namespace /proc does not change. The line shows 0 for
+> a requestor with no number in that namespace.
+> 
+> Translating at read time was the alternative. find_pid_ns() can resolve
+> a recycled number. The line would then name a live task with no
+> connection to the key. A stored struct pid gives 0 instead when the
+> requestor has no number there.
+> 
+> Link: https://lore.kernel.org/keyrings/20260809110202.2180410-1-maoyixie.tju@gmail.com/
+> Fixes: 78b7280cce23 ("KEYS: Improve /proc/keys")
+> Cc: stable@vger.kernel.org # v5.10+
+> Assisted-by: Claude:claude-opus-5 codeql
+> Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+> ---
+> 
+>  include/keys/request_key_auth-type.h |  2 +-
+>  security/keys/request_key_auth.c     | 12 +++++++++---
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/keys/request_key_auth-type.h b/include/keys/request_key_auth-type.h
+> index 01e42ee5f4099..464636278c4f8 100644
+> --- a/include/keys/request_key_auth-type.h
+> +++ b/include/keys/request_key_auth-type.h
+> @@ -22,7 +22,7 @@ struct request_key_auth {
+>  	const struct cred	*cred;
+>  	void			*callout_info;
+>  	size_t			callout_len;
+> -	pid_t			pid;
+> +	struct pid		*pid;
+>  	char			op[8];
+>  } __randomize_layout;
+>  
+> diff --git a/security/keys/request_key_auth.c b/security/keys/request_key_auth.c
+> index 282e09d8fa46c..ed6f55b9cdd93 100644
+> --- a/security/keys/request_key_auth.c
+> +++ b/security/keys/request_key_auth.c
+> @@ -9,6 +9,8 @@
+>  
+>  #include <linux/sched.h>
+>  #include <linux/err.h>
+> +#include <linux/pid.h>
+> +#include <linux/proc_fs.h>
+>  #include <linux/seq_file.h>
+>  #include <linux/slab.h>
+>  #include <linux/uaccess.h>
+> @@ -73,7 +75,10 @@ static void request_key_auth_describe(const struct key *key,
+>  	seq_puts(m, "key:");
+>  	seq_puts(m, key->description);
+>  	if (key_is_positive(key))
+> -		seq_printf(m, " pid:%d ci:%zu", rka->pid, rka->callout_len);
+> +		seq_printf(m, " pid:%d ci:%zu",
+> +			   pid_nr_ns(rka->pid,
+> +				     proc_pid_ns(file_inode(m->file)->i_sb)),
+> +			   rka->callout_len);
+>  }
+>  
+>  /*
+> @@ -113,6 +118,7 @@ static void free_request_key_auth(struct request_key_auth *rka)
+>  	if (rka->cred)
+>  		put_cred(rka->cred);
+>  	kfree(rka->callout_info);
+> +	put_pid(rka->pid);
+>  	kfree(rka);
+>  }
+>  
+> @@ -226,14 +232,14 @@ struct key *request_key_auth_new(struct key *target, const char *op,
+>  
+>  		irka = cred->request_key_auth->payload.data[0];
+>  		rka->cred = get_cred(irka->cred);
+> -		rka->pid = irka->pid;
+> +		rka->pid = get_pid(irka->pid);
+>  
+>  		up_read(&cred->request_key_auth->sem);
+>  	}
+>  	else {
+>  		/* it isn't - use this process as the context */
+>  		rka->cred = get_cred(cred);
+> -		rka->pid = current->pid;
+> +		rka->pid = get_pid(task_pid(current));
+>  	}
+>  
+>  	rka->target_key = key_get(target);
+> -- 
+> 2.34.1
+> 
 
 
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+BR, Jarkko
