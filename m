@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860F6349B19;
-	Tue, 25 Aug 2026 01:55:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFEA374170;
+	Tue, 25 Aug 2026 01:55:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787622901; cv=none; b=UswWkFY9B8v5P6VIuZn04PUWPIgZRjNiBKiixyGQUdz/uQJAr6Bf85YYM232Fi0fq3/fLNXfj2HYoF8swjWN5GrnL/hsd257bLjVTV+TcnjF63O5XgHTIMrlfwKdLUnh8GTFyQWZsbZ/ckFrAwM02zXjZ5wtMUO3wUtpNuKLIYI=
+	t=1787622915; cv=none; b=p7ptL9eX8Mvze5S3pGc/g2p7Turg+iK6ljbdHi/wCehDL8nBOqzVtDWz2iXJNPVlHqeB0l/zTfeR8lWiFrggy9YKXvIMx0qBRgbVZrkUIf3f2ddWIwsUSAeWaq0Kj94DctJmS2mhbWaXJApvdjLGmyXZDnjJzlEdYOfvjxgLvdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787622901; c=relaxed/simple;
-	bh=+jnLThwyYTEnoSvevAyr9lzb5hDEHt4rAG1qEqAboKI=;
-	h=Date:To:From:Subject:Message-Id; b=nJTU4FDkE5IajrGIX5voMTkTLY/iNbird7h3z8RPi/xPrrs4ucKZzYIg0UzDVnCmmGCfb8YgTtWi05WCVDAXj8FHZ+SiKsJqUWgr83BHR79B81ohZiUX8adiAC3ysZYB6vgH89cXIfF4HxfOh1fbhH9Qw2PsunFwB/N3ml/Z8tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=DH0xUSGf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787622915; c=relaxed/simple;
+	bh=kPAGCdy+OAdyCtSQIMl4fEdlUgAvlv8YTucvotB0a94=;
+	h=Date:To:From:Subject:Message-Id; b=NLEXtK+cM4srCwPxueCoEHKWIzk5AIPYUE3X2YuU4Rx6Ef8DG8BVLZtc8ECdRE2oT3ufGI/qUdujaMoC97nfzCuGWJsfKWdaam9VZNOA4qhE5JewIi4d7uEB9HmEuSMXcQj9VD1OpIdf81ucrEYabZAqfnR2FjkM4TPzeedM4IU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iY6yHToL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="DH0xUSGf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2471F00A3A;
-	Tue, 25 Aug 2026 01:55:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iY6yHToL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E493D1F00A3A;
+	Tue, 25 Aug 2026 01:55:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787622900;
-	bh=so6cfpDikWx0JKCEnxjjBhoVYSknl23EHCDy7hHj8UA=;
+	d=linux-foundation.org; s=korg; t=1787622913;
+	bh=Fhqu5bMi5nUdgeC/dyLkj6K25le8wL4hDEAn42hU+uY=;
 	h=Date:To:From:Subject;
-	b=DH0xUSGfl8epM8TP5C7ahSEcORvANWcBhsASaEZv96KtKMKmjw1Q5IlZC7LeftJSw
-	 tnSZj2jrcIqPd6h4dZanPFidfJ0t4RwoCPpXIRMVpOZ44mzvnL1pm5s0Tiqg5BuVCd
-	 FRMGRfyt3WwWYv/9ZbKgczLjSsA4B2nBZqYyu1GY=
-Date: Mon, 24 Aug 2026 18:54:59 -0700
-To: mm-commits@vger.kernel.org,vincenzo.frascino@arm.com,stable@vger.kernel.org,ryabinin.a.a@gmail.com,qiang1.zhang@intel.com,glider@google.com,dvyukov@google.com,andreyknvl@gmail.com,sh_def@163.com,akpm@linux-foundation.org
+	b=iY6yHToLVv6nAMyp5t9UrSZOcebl9CPBDqTz9Yc8Xk8aUFPNUkPM11zVg4zrFMSYk
+	 WpMf/QbAQY5EYWGe8vecjA8zRj0iItgkKOxbqOYryc6Owp2+p/3a36WjTpMYSKbzMt
+	 AExlbHhQ/lJTYBVTSSE+sDchjVEGE/60XXgFgSqQ=
+Date: Mon, 24 Aug 2026 18:55:12 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,devnexen@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] kasan-fix-cache-shrink-race-with-cpu-hotplug.patch removed from -mm tree
-Message-Id: <20260825015500.5D2471F00A3A@smtp.kernel.org>
+Subject: [merged mm-stable] zram-fix-slot-lock-bit-position-on-big-endian-64-bit.patch removed from -mm tree
+Message-Id: <20260825015512.E493D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,124 +35,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: kasan: fix cache shrink race with CPU hotplug
+     Subject: zram: fix slot lock bit position on big-endian 64-bit
 has been removed from the -mm tree.  Its filename was
-     kasan-fix-cache-shrink-race-with-cpu-hotplug.patch
+     zram-fix-slot-lock-bit-position-on-big-endian-64-bit.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Hui Su <sh_def@163.com>
-Subject: kasan: fix cache shrink race with CPU hotplug
-Date: Sat, 8 Aug 2026 11:14:59 +0800
+From: David Carlier <devnexen@gmail.com>
+Subject: zram: fix slot lock bit position on big-endian 64-bit
+Date: Mon, 10 Aug 2026 21:22:37 +0100
 
-kasan_quarantine_remove_cache() first invokes per_cpu_remove_cache() on
-all online CPUs.  Each callback moves objects belonging to the cache from
-cpu_quarantine to the CPU's shrink_qlist, where they can later be freed
-from task context.
+The slot lock is a bit operation on the whole __lock word, which flags and
+ac_time alias as two u32s.  On little-endian the lock bit lands in the
+position ZRAM_ENTRY_LOCK reserves in flags, so the aliasing works out.  On
+64-bit big-endian it lands in ac_time instead: with
+ZRAM_TRACK_ENTRY_ACTIME enabled, storing the access time from
+mark_slot_accessed() or slot_free() wipes out the held lock bit, letting
+another CPU take the same slot lock; an access time value with that bit
+set makes the slot look locked forever.
 
-kmem_cache_destroy() invokes the quarantine removal path while holding
-cpus_read_lock(), but kmem_cache_shrink() does not.  The latter can
-therefore race with CPU offlining as follows:
+Shift the lock bit into the flags half of the word on big-endian 64-bit.
 
-  kmem_cache_shrink()             CPU hotplug
-  -------------------             -----------
-  on_each_cpu()
-    CPU1 moves objects to
-    CPU1's shrink_qlist
-  on_each_cpu() returns
-                                  CPU1 goes offline
-                                  kasan_cpu_offline()
-                                    drains cpu_quarantine
-                                    leaves shrink_qlist untouched
-  for_each_online_cpu()
-    skips CPU1
-
-The objects left on CPU1's shrink_qlist are not returned to the slab
-allocator.  This may prevent kmem_cache_shrink() from releasing slabs that
-would otherwise become empty.  If CPU1 remains offline, a later
-kmem_cache_destroy() also skips the list and can report that the cache
-still contains objects.
-
-An intermittent occurrence was observed with a virtio-9p filesystem.  The
-mount and umount commands both returned 0, but the kernel logged the
-following during the userspace-triggered teardown:
-
-  [  2994.380134][  T111] BUG 9p-fcall-cache-1 (Tainted: G    B              ): Objects remaining on __kmem_cache_shutdown()
-  [  2994.381140][  T111] Object 0xff11000004361118 @offset=4376
-  [  2994.381607][  T111] Allocated in p9_fcall_init+0x201/0x400 age=19564 cpu=1 pid=104
-  [  2994.382591][  T111]  p9_fcall_init+0x201/0x400
-  [  2994.382810][  T111]  p9_tag_alloc+0x12f/0x700
-  [  2994.382982][  T111]  p9_client_prepare_req+0x102/0x3e0
-  [  2994.383165][  T111]  p9_client_rpc+0x1ab/0xa50
-  [  2994.383334][  T111]  p9_client_getattr_dotl+0xb0/0x1a0
-  [  2994.383515][  T111]  v9fs_vfs_getattr_dotl+0x115/0x360
-  [  2994.383719][  T111]  vfs_getattr_nosec+0x22c/0x3a0
-  [  2994.383910][  T111]  vfs_statx+0xd7/0x170
-  [  2994.384062][  T111]  vfs_fstatat+0x45/0x80
-  [  2994.384215][  T111]  __do_sys_newfstatat+0x84/0xe0
-  [  2994.384386][  T111]  do_syscall_64+0x115/0x6a0
-  [  2994.384566][  T111]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  [  2994.399720][  T111] WARNING: mm/slub.c:1244 at __kmem_cache_shutdown+0x363/0x500, CPU#0: busybox/111
-  [  2994.405655][  T111] Call Trace:
-  [  2994.406325][  T111]  kmem_cache_destroy+0x73/0x1b0
-  [  2994.406630][  T111]  p9_client_destroy+0x271/0x3c0
-  [  2994.407210][  T111]  v9fs_session_close+0x3c/0x260
-  [  2994.407409][  T111]  v9fs_kill_super+0x48/0x90
-  [  2994.407584][  T111]  deactivate_locked_super+0xa3/0x160
-  [  2994.407778][  T111]  cleanup_mnt+0x1dd/0x3e0
-
-Thus, a successful umount left objects in the 9p fcall cache and prevented
-the cache from being destroyed cleanly.
-
-Per-CPU shrink_qlist storage exists for every possible CPU, and each list
-is protected by its own raw spinlock.  Iterate over possible CPUs so that
-a list populated before its CPU went offline is drained as well.
-
-for_each_possible_cpu() can do more work than for_each_online_cpu(), but
-this change only affects CONFIG_KASAN_GENERIC kernels.  The extra work is
-limited to cache shrink and cache destruction paths and does not affect
-the normal allocation/free fast path.  It adds one raw-spinlock-protected
-scan of each possible CPU's shrink list.  These lists are normally empty;
-a non-empty list is traversed to remove objects belonging to the cache
-being shrunk or destroyed.
-
-Link: https://lore.kernel.org/20260808031459.3032812-1-sh_def@163.com
-Fixes: 07d067e4f2ce ("kasan: fix sleeping function called from invalid context on RT kernel")
-Signed-off-by: Hui Su <sh_def@163.com>
-Reviewed-by: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Alexander Potapenko <glider@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: "Zhang, Qiang1" <qiang1.zhang@intel.com>
+Link: https://lore.kernel.org/20260810202241.2436603-1-devnexen@gmail.com
+Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Minchan Kim <minchan@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/kasan/quarantine.c |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/block/zram/zram_drv.c |    6 +++---
+ drivers/block/zram/zram_drv.h |   14 ++++++++++++++
+ 2 files changed, 17 insertions(+), 3 deletions(-)
 
---- a/mm/kasan/quarantine.c~kasan-fix-cache-shrink-race-with-cpu-hotplug
-+++ a/mm/kasan/quarantine.c
-@@ -355,7 +355,12 @@ void kasan_quarantine_remove_cache(struc
- 	 */
- 	on_each_cpu(per_cpu_remove_cache, cache, 1);
+--- a/drivers/block/zram/zram_drv.c~zram-fix-slot-lock-bit-position-on-big-endian-64-bit
++++ a/drivers/block/zram/zram_drv.c
+@@ -74,7 +74,7 @@ static __must_check bool slot_trylock(st
+ {
+ 	unsigned long *lock = &zram->table[index].__lock;
  
--	for_each_online_cpu(cpu) {
-+	/*
-+	 * A CPU can go offline after on_each_cpu() returns, leaving cache
-+	 * objects on that CPU's shrink list. Scan all possible CPUs to
-+	 * drain those lists.
-+	 */
-+	for_each_possible_cpu(cpu) {
- 		sq = per_cpu_ptr(&shrink_qlist, cpu);
- 		raw_spin_lock_irqsave(&sq->lock, flags);
- 		qlist_move_cache(&sq->qlist, &to_free, cache);
+-	if (!test_and_set_bit_lock(ZRAM_ENTRY_LOCK, lock)) {
++	if (!test_and_set_bit_lock(ZRAM_ENTRY_LOCK_BIT, lock)) {
+ 		mutex_acquire(&zram->table_lock_map, 0, 1, _RET_IP_);
+ 		lock_acquired(&zram->table_lock_map, _RET_IP_);
+ 		return true;
+@@ -88,7 +88,7 @@ static void slot_lock(struct zram *zram,
+ 	unsigned long *lock = &zram->table[index].__lock;
+ 
+ 	mutex_acquire(&zram->table_lock_map, 0, 0, _RET_IP_);
+-	wait_on_bit_lock(lock, ZRAM_ENTRY_LOCK, TASK_UNINTERRUPTIBLE);
++	wait_on_bit_lock(lock, ZRAM_ENTRY_LOCK_BIT, TASK_UNINTERRUPTIBLE);
+ 	lock_acquired(&zram->table_lock_map, _RET_IP_);
+ }
+ 
+@@ -97,7 +97,7 @@ static void slot_unlock(struct zram *zra
+ 	unsigned long *lock = &zram->table[index].__lock;
+ 
+ 	mutex_release(&zram->table_lock_map, _RET_IP_);
+-	clear_and_wake_up_bit(ZRAM_ENTRY_LOCK, lock);
++	clear_and_wake_up_bit(ZRAM_ENTRY_LOCK_BIT, lock);
+ }
+ 
+ static inline bool init_done(struct zram *zram)
+--- a/drivers/block/zram/zram_drv.h~zram-fix-slot-lock-bit-position-on-big-endian-64-bit
++++ a/drivers/block/zram/zram_drv.h
+@@ -15,6 +15,7 @@
+ #ifndef _ZRAM_DRV_H_
+ #define _ZRAM_DRV_H_
+ 
++#include <asm/byteorder.h>
+ #include <linux/rwsem.h>
+ #include <linux/zsmalloc.h>
+ 
+@@ -58,6 +59,19 @@ enum zram_pageflags {
+ };
+ 
+ /*
++ * The slot lock is a bit-wait lock on the whole __lock word, while
++ * flags and ac_time alias that word as two u32s.  The lock bit must
++ * land in the slot that ZRAM_ENTRY_LOCK reserves in attr.flags; on
++ * 64-bit big-endian the flags word maps to the upper half of __lock,
++ * so the bit position has to be shifted up.
++ */
++#if defined(CONFIG_64BIT) && defined(__BIG_ENDIAN)
++#define ZRAM_ENTRY_LOCK_BIT  (ZRAM_ENTRY_LOCK + 32)
++#else
++#define ZRAM_ENTRY_LOCK_BIT  ZRAM_ENTRY_LOCK
++#endif
++
++/*
+  * Allocated for each disk page.  We use bit-lock (ZRAM_ENTRY_LOCK bit
+  * of flags) to save memory.  There can be plenty of entries and standard
+  * locking primitives (e.g. mutex) will significantly increase sizeof()
 _
 
-Patches currently in -mm which might be from sh_def@163.com are
+Patches currently in -mm which might be from devnexen@gmail.com are
 
-mm-migrate_device-avoid-out-of-bounds-writes-for-compound-folios.patch
+mm-swap-pm-hibernate-atomically-replace-hibernation-pin.patch
 
