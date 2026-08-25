@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B3B3D45F7
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:09:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AF23D9DC8
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 15:09:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787670592; cv=none; b=nuERCoDsCTaQ3GHZ2lUaw7y6B+MOj6Xh+cJPaKWRlLXeMukx3TYB9wOB4pfafmCyzKLlsYd+hNsBc5hRBW9k76PzFVw++AlyhmggURz/gok/2zbCsEdHsMP6OtWt9tcyxpRYwqt10TQU6ne5g7xeuk5rUiVwbrgIw88YOPQwLv4=
+	t=1787670592; cv=none; b=g2y8cln6jBJPqfWtEocEjMep0swarDjZfTJ65/ft2Nexkf99F+DXdYr++HNnfvNO+z+hcBp39e4urahGTrx3w6KPD5L4XwfkkWIg22SzMVtJHlhdQc0YVd3hfO0Toxn/fSMp+LkVUEUrmlycrTpp8+RfLyUBy780Dx7NHCput54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787670592; c=relaxed/simple;
-	bh=eTtoLDO0X2tL6IGPikJ5fOl1esotQFNoDj+An8OC9Do=;
+	bh=tk/7WcPutfaFSxSjJwnjsrN07czUu7z6FgLO7FNodfo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EUtyhE3Z6WRwjzpB34DMjRsbYfPaXPbn3xvXVWIWSXL05g+3HEF+69vToln4avb0ZFnZbGZoePjYB/oHub+wMNOS3KegjVUhvjzQQwastzWo9NnNUdcqWrucKbqtbrSX0fP07QjYZyQ2MDbenKctDRW5psxXwUxR+TdULfaV0vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGPJ2Ek7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jl9Atja0/eugORoy2iHA6jVQk2ilMGrEpa2zSwvNoxNLED5n4T63PlHro98isc6Cpu0lW699JJMih7ej8JWKed5k3qwzxS9Fo62Y8YEPFKu/Bwqdbq86PeXI/9aU3f6KLqG4bPBlpR+rSpgKIYlev2FK7hqc52jVhV6BBFQH3Jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6gubTS+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGPJ2Ek7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C6C1F000E9;
-	Tue, 25 Aug 2026 15:09:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6gubTS+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3C01F00A3A;
+	Tue, 25 Aug 2026 15:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787670589;
-	bh=veJ0TVM41N4pCX+O/Wmh2IVWKr0X5/WYaPX6Um2ob6M=;
+	s=k20260515; t=1787670590;
+	bh=4i092qNvyr6LKXYtWxyZqygflcRNhhVHxnp8EuzwG6s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UGPJ2Ek7lNIH4N2D//ZRR4ULsfGDailRDemTwd9gabkYyiNRK998ut8Hy/knltmYf
-	 gZGTOU4FqXrKFGQ5tzs//4Y8gaEuknIe87S2DcfWLOnnNRLZX/YC6PfWkoXQs89XeY
-	 2BluJBepGZ/FLiFywen13sfp73NJudsnM8H3RzEzs/jNl43t5j04IoaQvyZLaucuuq
-	 F1OeAfejA2+5fjIQbG2h+o92qzfNNcQYP3dt4Yy2skU2ANyjLm43x1c1Lj81VDB0dd
-	 6j91aSHcgaBc3PGZWmE8Y4VLD4qBHRz/3HtB2OKkqApJ2Z+qM3tgQZcT9F/o+TTPkn
-	 w2qp38J6Pt8kA==
+	b=L6gubTS+U/Ow0PHyjQLEcHdh2YFe8xSY6mTLoZCPaexOTLrdkI/seYkJlpRxpRI41
+	 Q5xYEwqWOK5g4Oh6R7j/WoK/MK9BJS5m8qjzrln/AgJBiKlGV3V8XeXidsm49spWdN
+	 sQ+coC3vvWJ3mViCy9b6MkrXLKIdLpCKFpwO3on+CYaIsPlEDV3ADtCD7L9qIyooZb
+	 XQSh9ERjseD6XPi5gQhudDsu58JfdN4gs6j3mhe4GX7CZ5t8a85vgzo2t4XFiUT+S7
+	 JLPrA2EzDNM4kNw3PLCet44Xh974dG1wvKtiKbJpzvhTuX6fsB+7y3OORaG78LywO3
+	 eYD3hHXd14Z9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,
+Cc: Felix Hoffmann <f3lix.dev@gmx.de>,
 	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 1/2] futex: Make futex_mm_init() void
-Date: Tue, 25 Aug 2026 11:09:46 -0400
-Message-ID: <20260825150947.4024767-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/2] futex: Avoid private hash use-after-free on final put
+Date: Tue, 25 Aug 2026 11:09:47 -0400
+Message-ID: <20260825150947.4024767-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082454-wharf-swapping-5328@gregkh>
+In-Reply-To: <20260825150947.4024767-1-sashal@kernel.org>
 References: <2026082454-wharf-swapping-5328@gregkh>
+ <20260825150947.4024767-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,134 +46,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Gleixner <tglx@kernel.org>
+From: Felix Hoffmann <f3lix.dev@gmx.de>
 
-[ Upstream commit d7b3f52c861f54ba2fff15696d3798277fb4c19f ]
+[ Upstream commit 1c7efabfbaf796f11000a46094a69955a01ec6cc ]
 
-Nothing fails there. Mop up the leftovers of the early version of this,
-which did an allocation.
+futex_private_hash_put() drops the reference to fph before evaluating
+fph->mm for wake_up_var(). futex_ref_put() enables preemption again before
+returning. If that put drops the final reference and the task is preempted,
+another task can pivot to the replacement hash and free the old hash after
+an RCU grace period. The first task then reads fph->mm from the freed
+allocation when it resumes.
 
-While at it clean up the stubs and the #ifdef comments to make the header
-file readable.
+KASAN reports a slab-use-after-free in futex_private_hash_put(), with the
+read at offset 24 in a freed kmalloc-512 allocation. The allocation and
+free stacks point to futex_hash_allocate() and the RCU free path,
+respectively.
 
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Load the mm pointer while the fph reference is still held and pass the
+saved value to wake_up_var(). wake_up_var() uses the pointer as a waitqueue
+key and does not dereference the mm through it.
+
+Fixes: bd54df5ea7ca ("futex: Allow to resize the private local hash")
+Signed-off-by: Felix Hoffmann <f3lix.dev@gmx.de>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260602090535.356789395@kernel.org
-Stable-dep-of: 1c7efabfbaf7 ("futex: Avoid private hash use-after-free on final put")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260731155024.1150011-1-f3lix.dev@gmx.de
+[ dropped the `!fph` NULL guard since this tree's callers already check, keeping the existing `if (futex_ref_put(fph))` form ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/futex.h | 28 +++++++++++-----------------
- kernel/fork.c         |  8 ++------
- kernel/futex/core.c   |  3 +--
- 3 files changed, 14 insertions(+), 25 deletions(-)
+ kernel/futex/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/futex.h b/include/linux/futex.h
-index 9e9750f049805..87559766319e1 100644
---- a/include/linux/futex.h
-+++ b/include/linux/futex.h
-@@ -85,22 +85,20 @@ int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
- #ifdef CONFIG_FUTEX_PRIVATE_HASH
- int futex_hash_allocate_default(void);
- void futex_hash_free(struct mm_struct *mm);
--int futex_mm_init(struct mm_struct *mm);
--
--#else /* !CONFIG_FUTEX_PRIVATE_HASH */
-+void futex_mm_init(struct mm_struct *mm);
-+#else  /* CONFIG_FUTEX_PRIVATE_HASH */
- static inline int futex_hash_allocate_default(void) { return 0; }
- static inline int futex_hash_free(struct mm_struct *mm) { return 0; }
--static inline int futex_mm_init(struct mm_struct *mm) { return 0; }
--#endif /* CONFIG_FUTEX_PRIVATE_HASH */
-+static inline void futex_mm_init(struct mm_struct *mm) { }
-+#endif /* !CONFIG_FUTEX_PRIVATE_HASH */
- 
--#else /* !CONFIG_FUTEX */
-+#else  /* CONFIG_FUTEX */
- static inline void futex_init_task(struct task_struct *tsk) { }
- static inline void futex_exit_recursive(struct task_struct *tsk) { }
- static inline void futex_exit_release(struct task_struct *tsk) { }
- static inline void futex_exec_release(struct task_struct *tsk) { }
--static inline long do_futex(u32 __user *uaddr, int op, u32 val,
--			    ktime_t *timeout, u32 __user *uaddr2,
--			    u32 val2, u32 val3)
-+static inline long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout,
-+			    u32 __user *uaddr2, u32 val2, u32 val3)
- {
- 	return -EINVAL;
- }
-@@ -108,13 +106,9 @@ static inline int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsig
- {
- 	return -EINVAL;
- }
--static inline int futex_hash_allocate_default(void)
--{
--	return 0;
--}
-+static inline int futex_hash_allocate_default(void) { return 0; }
- static inline int futex_hash_free(struct mm_struct *mm) { return 0; }
--static inline int futex_mm_init(struct mm_struct *mm) { return 0; }
-+static inline void futex_mm_init(struct mm_struct *mm) { }
-+#endif /* !CONFIG_FUTEX */
- 
--#endif
--
--#endif
-+#endif /* _LINUX_FUTEX_H */
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 5a4623b058a20..ded98330429d0 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1106,6 +1106,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
- #endif
- 	mm_init_uprobes_state(mm);
- 	hugetlb_count_init(mm);
-+	futex_mm_init(mm);
- 
- 	mm_flags_clear_all(mm);
- 	if (current->mm) {
-@@ -1118,11 +1119,8 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
- 		mm->def_flags = 0;
- 	}
- 
--	if (futex_mm_init(mm))
--		goto fail_mm_init;
--
- 	if (mm_alloc_pgd(mm))
--		goto fail_nopgd;
-+		goto fail_mm_init;
- 
- 	if (mm_alloc_id(mm))
- 		goto fail_noid;
-@@ -1149,8 +1147,6 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
- 	mm_free_id(mm);
- fail_noid:
- 	mm_free_pgd(mm);
--fail_nopgd:
--	futex_hash_free(mm);
- fail_mm_init:
- 	free_mm(mm);
- 	return NULL;
 diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 6b3121c734bb5..cfaa96c009320 100644
+index cfaa96c009320..a68bbeb2db610 100644
 --- a/kernel/futex/core.c
 +++ b/kernel/futex/core.c
-@@ -1750,7 +1750,7 @@ static bool futex_ref_is_dead(struct futex_private_hash *fph)
- 	return atomic_long_read(&mm->futex_atomic) == 0;
- }
+@@ -149,8 +149,10 @@ static bool futex_private_hash_get(struct futex_private_hash *fph)
  
--int futex_mm_init(struct mm_struct *mm)
-+void futex_mm_init(struct mm_struct *mm)
+ void futex_private_hash_put(struct futex_private_hash *fph)
  {
- 	mutex_init(&mm->futex_hash_lock);
- 	RCU_INIT_POINTER(mm->futex_phash, NULL);
-@@ -1759,7 +1759,6 @@ int futex_mm_init(struct mm_struct *mm)
- 	mm->futex_ref = NULL;
- 	atomic_long_set(&mm->futex_atomic, 0);
- 	mm->futex_batches = get_state_synchronize_rcu();
--	return 0;
++	struct mm_struct *mm = fph->mm;
++
+ 	if (futex_ref_put(fph))
+-		wake_up_var(fph->mm);
++		wake_up_var(mm);
  }
  
- void futex_hash_free(struct mm_struct *mm)
+ /**
 -- 
 2.53.0
 
