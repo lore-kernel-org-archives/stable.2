@@ -1,241 +1,180 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9792F6586;
-	Tue, 25 Aug 2026 11:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FD93F4827
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:24:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656710; cv=none; b=b/0ZVPfOMaPlx03ngnuryXQk4n1NcN0MytiFX8OYtOYxpPkrjB/Hzuy5mv+1UwsolNjZ6BIVqiFLDpbvO5VeNcP7HEPsxjn/uOpJG8ZTLWVJxlc87A/yhVKXGPImExQyBZNmpv6zKYno0UAVoPh4xqIXh0YVh9eVxpmmvG4DmKc=
+	t=1787657068; cv=none; b=EUFXzeUvAJvLiQgnbsnSXEQ3D2eYgX0P4WpAw4ObdlzvgwkDzNmLpBFmFbA2AWqWLgiuR97TEEoEtpYxI02xSRbxKNA2TLNyY9aVhppDrl5hkVT0yv2JO0b4pl5/kiDL3TE+ue2AjeCbOlO5UBqIrPIhpXTodqLI2DUJQqapADU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656710; c=relaxed/simple;
-	bh=kBhdER13jAp6MxknuAJUTIZC71E/Zc5bUmUHnqda1uo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y3sJGBDS0TqVtyzNiqAqVb5ujYUGwaObDbdnQWXK5ZK++1RL6PjaWDKcnDbQKEvvEsJlVE/Q8VA+CY/XT7OGS5rYOvaM9DZvxegHdpZrPc7lBoBzdP0XTi1s4o288VP7BKcb5/iE4AO4575xP3DXFBFyw03GN0mfstu0+FHGHO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YGEZC8Fp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787657068; c=relaxed/simple;
+	bh=MM2zyqJCFhoK4zM4mpb57umtPWx10RO/d4p2GmSLYp4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xi1BeiqlDESpEtI59mPIPXUB0JpKGzazy5WMiZebDKfJGwM0piHsa6OYVK2v0iTjd33M3GsEch4pbxlQPWbNj1b04IkggEZxgPR3BDtNAzytGphWHVouEownnxHN7eiSXHC11peu833uWEzyk83xiwNMR4iiWFKUQV6y7vGUvQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DWbLtYZb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YGEZC8Fp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2851F00A3A;
-	Tue, 25 Aug 2026 11:18:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DWbLtYZb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 699C81F000E9;
+	Tue, 25 Aug 2026 11:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787656708;
-	bh=W05Dx/VZMWvzT1SSodsvq4ca5CdFdSoDwnfBlPLV4jk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YGEZC8FpPuaGJTkbj+O22U5UJ5eHCoQdZKhpk0mREl2Yhk1RMhKjSQpZVNe31G3m+
-	 YlAF98rAHthuPnCeEeP2BDBRfWFYWrhFCZSj+FQ012T9VJ1eTTtm8QPVK7syzOLegH
-	 V9ZiVnNdgicGC8JEfJxGAVgabPWhYKdwE/FTOoMtBnJtXlOq6HM00gzfgnm0ePGNyT
-	 bdQx6Ohwqgi0e5QDnLrTGTLLnSBNt+v7tVseSXE2lVvvw6LR7b4r2lfLpcpG/CikO0
-	 0JE1rSzDikmxz0iMjjpw5PlAkn59CAORWeqRN3yCOvyMc0pM7RMZU6Byhgi7nSFckA
-	 cGJv4dRxlzK0A==
-Date: Tue, 25 Aug 2026 12:18:20 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	Hagen Paul Pfeifer <hagen@jauu.net>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2] mm/secretmem: properly account locked pages
-Message-ID: <ao13TmFVVpsv0zO4@gremlin>
-References: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
- <17e9f7d6-d095-44ee-9997-8dc10646f3f8@kernel.org>
+	s=k20260515; t=1787657067;
+	bh=lv2cnOrbiXvxl4iaKD0AAv0iOqQevY1mrjBosxNGWoI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DWbLtYZbbV4++oUB3sPZXj265Rk3FcK2rRe34/8pbhoJ9Q9e6nlIwQWVHUz0vXF3e
+	 6dXAsI0f2LKzRjH7nYLE2FIK/VvKlfvkaHQcIv8ViDRKpothcC4IGhRjl+RfoiESCU
+	 cCpaoY7Gi9gdUihTr4TAPuPTMiMYtReKnqOrrkHX1spVMbz8Vvy56KuA82RQ2waqha
+	 b71mdWGWNAdKwUw/L5mV8mT1tD7yQzqJJbFesL+u8CymPR25I/8gIzHZvK8F/ciIJs
+	 tXcOYem9V+fdZ3QMvIEd0A5IfoInb5yCnhB2elg0z2ZNFkcB8GztA5poLR8erTbEI3
+	 l+s/9pdAk5OQg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mptcp: pm: fix memory leak from alloc-during-teardown race
+Date: Tue, 25 Aug 2026 07:24:24 -0400
+Message-ID: <20260825112424.3540743-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082047-mutiny-refusing-2715@gregkh>
+References: <2026082047-mutiny-refusing-2715@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <17e9f7d6-d095-44ee-9997-8dc10646f3f8@kernel.org>
 
-On Tue, Aug 25, 2026 at 12:50:57PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/22/26 21:14, Lorenzo Stoakes (ARM) wrote:
-> > secretmem has a relatively laissez-faire attitude to accounting the folios
-> > it allocates.
-> >
-> > The intention is that the memory is treated as if it were mlock()'d and
-> > thus is limited by the RLIMIT_MEMLOCK limit if the CAP_IPC_LOCK capability
-> > is not in place (which broadly allows unlimited ranges of mlock()'d
-> > memory).
-> >
-> > The lifecycle for memfd accounting against this limit is - account on map,
-> > unaccount on unmap but the lifecycle of memfd folios is allocate on fault,
-> > deallocate on inode eviction.
-> >
-> > This mismatch is problematic because the folios are unevictable and remain
-> > so until the inode is evicted (set using mapping_set_unevictable()).
-> >
-> > This is problematic as it eliminates usual mlock() semantics - mapping
-> > folios then unmapping them does not clear their unevictable state, since it
-> > depends on AS_UNEVICTABLE, not PG_mlocked.
-> >
-> > A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
-> > map then unmap and VmLck no longer counts the secretmem range (or more
-> > involved - fork which also achieves the same thing).
-> >
-> > Worse - they are not accounted in the process's RSS even if mapped again,
-> > meaning the OOM killer won't know to kill the process.
-> >
-> > A user without the CAP_IPC_LOCK capability can therefore repeatedly
-> > map/unmap (or map/fork) and consume all available system memory with
-> > unevictable folios and cause system instability.
-> >
-> > A secretmem fd can be passed between processes and over fork so a
-> > per-process limit simply does not make sense.
-> >
-> > So follow the precedent set by io_uring, perf, skbuff, iommufd and xdp -
-> > track the number of locked pages in user_struct->locked_vm.
-> >
-> > Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
-> > applies per-user not per-process. Also given the change in scope it doesn't
-> > make sense to bypass for users with CAP_IPC_LOCK, so remove it.
-> >
-> > There is simply no reason to carry on marking the mapping as mlock()'d
-> > since it's misleading and the lifecycle is now correctly handled, so remove
-> > this too.
-> >
-> > Additionally, fix the selftest which checks the limit as this now must
-> > assert SIGBUS on limit violation on fault-in.
-> >
-> > __secretmem_account_pages() is more or less a duplicate of the code that
-> > io_uring etc. use, but since this is a bug fix that needs backporting,
-> > defer any de-duplication efforts to a follow-up.
-> >
-> > Reported-by: Daehyeon Ko <4ncienth@gmail.com>
-> > Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
-> > Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Can we split off the selftest changes? This stable patch is already pretty big.
+From: Shardul Bankar <shardul.b@mpiricsoftware.com>
 
-Yeah I can do! I seem to recall people wanting tests backported too hence
-the change.
+[ Upstream commit efc33b5102ff859bacd390a5f30112d8e0c084c0 ]
 
->
-> I'd assume the changes to the selftests are not required just to get if fixed,
-> because the changes should not be breaking existing user space (and cosnequently
-> existing selftests).
+mptcp_pm_destroy() empties msk->pm.anno_list and
+msk->pm.userspace_pm_local_addr_list under msk->pm.lock during socket
+teardown, dropping the lock between the two.
 
-Yup confirmed locally that the changes don't break the tests.
+A concurrent userspace PM genl ANNOUNCE on the same msk holds a sock
+reference via mptcp_token_get_sock() and, in
+mptcp_pm_nl_announce_doit(), calls
+mptcp_userspace_pm_append_new_local_addr() and
+mptcp_pm_announced_alloc(). Both take msk->pm.lock briefly to add to
+their respective lists. Because the genl handler holds a sock reference,
+mptcp_pm_destroy() may run on the same msk via mptcp_disconnect(), which
+invokes mptcp_destroy_common() without dropping the sock refcount,
+before the handler completes.
 
->
-> [...]
->
-> > v1:
-> > https://patch.msgid.link/20260814-secretmem-accounting-v1-1-d2f8c677980b@kernel.org
-> >
-> > To: Andrew Morton <akpm@linux-foundation.org>
-> > To: Mike Rapoport <rppt@kernel.org>
-> > To: David Hildenbrand <david@kernel.org>
-> > To: "Liam R. Howlett" <liam@infradead.org>
-> > To: Vlastimil Babka <vbabka@kernel.org>
-> > To: Suren Baghdasaryan <surenb@google.com>
-> > To: Michal Hocko <mhocko@suse.com>
-> > To: Shuah Khan <shuah@kernel.org>
-> > To: Alexei Starovoitov <ast@kernel.org>
-> > To: Daniel Borkmann <daniel@iogearbox.net>
-> > To: "David S. Miller" <davem@davemloft.net>
-> > To: Jakub Kicinski <kuba@kernel.org>
-> > To: Jesper Dangaard Brouer <hawk@kernel.org>
-> > To: John Fastabend <john.fastabend@gmail.com>
-> > To: Stanislav Fomichev <sdf@fomichev.me>
-> > To: James Bottomley <James.Bottomley@HansenPartnership.com>
-> > To: Hagen Paul Pfeifer <hagen@jauu.net>
-> > Cc: ljs@kernel.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: linux-mm@kvack.org
-> > Cc: linux-kselftest@vger.kernel.org
-> > Cc: netdev@vger.kernel.org
-> > Cc: bpf@vger.kernel.org
-> > ---
->
-> [...]
->
-> > +
-> > +static bool secretmem_account_folio(struct secretmem_inode_state *state,
-> > +		const struct folio *folio)
-> > +{
-> > +	unsigned long nr_pages;
->
-> Nit:
->
-> const unsinged long nr_pages = folio_nr_pages(folio);
+If the lock acquisitions interleave such that mptcp_pm_destroy() empties
+a list first, the later alloc adds its entry to a list head that nothing
+else iterates for this msk, and the entry leaks. kmemleak reports both
+mptcp_pm_add_addr objects (from mptcp_pm_announced_alloc()) and
+mptcp_pm_addr_entry objects (from
+mptcp_userspace_pm_append_new_local_addr()) under sustained concurrent
+ANNOUNCE + close load against the userspace PM.
 
-Ack
+Add an MPTCP_PM_DESTROYING bit in msk->pm.status, set by
+mptcp_pm_destroy() under pm.lock before the lists are emptied and
+checked under pm.lock by the alloc paths. Either the alloc takes pm.lock
+first, in which case its entry is on the list when mptcp_pm_destroy()
+frees it; or mptcp_pm_destroy() takes pm.lock first, in which case the
+later alloc observes the bit and refuses.
 
->
-> > +
-> > +	nr_pages = folio_nr_pages(folio);
-> > +	if (!__secretmem_account_pages(state->user, nr_pages))
-> > +		return false;
-> > +
-> > +	atomic_long_add(nr_pages, &state->nr_pages_accounted);
-> > +	return true;
-> > +}
-> > +
-> > +static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
-> > +		unsigned long nr_pages)
-> > +{
-> > +	atomic_long_sub(nr_pages, &state->user->locked_vm);
-> > +	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
-> > +}
-> > +
-> > +static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
-> > +		struct folio *folio)
-> > +{
-> > +	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
-> > +}
-> > +
-> > +static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
-> > +{
-> > +	unsigned long nr_pages_accounted;
-> > +
-> > +	nr_pages_accounted = atomic_long_read(&state->nr_pages_accounted);
-> > +	__secretmem_unaccount_pages(state, nr_pages_accounted);
-> > +}
-> > +
-> >  static vm_fault_t secretmem_fault(struct vm_fault *vmf)
-> >  {
-> >  	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
-> >  	struct inode *inode = file_inode(vmf->vma->vm_file);
-> > +	struct secretmem_inode_state *state = inode->i_private;
-> >  	pgoff_t offset = vmf->pgoff;
-> >  	gfp_t gfp = vmf->gfp_mask;
-> >  	unsigned long addr;
-> > @@ -72,8 +134,15 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
-> >  			goto out;
-> >  		}
-> >
-> > +		if (!secretmem_account_folio(state, folio)) {
-> > +			folio_put(folio);
-> > +			ret = VM_FAULT_SIGBUS;
-> > +			goto out;
-> > +		}
-> > +
-> Okay, that works because secretmem does not support any form of truncate, in
-> particular, no FALLOC_FL_PUNCH_HOLE.
+Found by an MPTCP protocol-flow harness extending BRF (arXiv:2305.08782).
 
-Yeah exactly. I think I covered that off somewhere in my essay-length
-commit msg but if not but yeah that is a thing that I noted.
+Fixes: 9ab4807c84a4 ("mptcp: netlink: Add MPTCP_PM_CMD_ANNOUNCE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-6-b8f496d71664@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Inlined `mptcp_pm_destroy()` at its call site in `mptcp_destroy_common()` and moved the fences into the pre-rename `mptcp_pm_alloc_anno_list()`/`mptcp_free_local_addr_list()` equivalents, deleting the `mptcp_pm_is_userspace()` guard from inside the callee instead of the call site. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mptcp/pm_netlink.c   | 3 +++
+ net/mptcp/pm_userspace.c | 7 ++++---
+ net/mptcp/protocol.c     | 9 +++++++++
+ net/mptcp/protocol.h     | 7 ++++---
+ 4 files changed, 20 insertions(+), 6 deletions(-)
 
->
-> Overall, the idea sounds good to me. Nothing jumped at me.
+diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
+index 550c4c1b963d8..876373e7d0cb0 100644
+--- a/net/mptcp/pm_netlink.c
++++ b/net/mptcp/pm_netlink.c
+@@ -395,6 +395,9 @@ bool mptcp_pm_alloc_anno_list(struct mptcp_sock *msk,
+ 
+ 	lockdep_assert_held(&msk->pm.lock);
+ 
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING))
++		return false;
++
+ 	add_entry = mptcp_lookup_anno_list_by_saddr(msk, addr);
+ 
+ 	if (add_entry) {
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index 2a219e47392ce..33494c4a8fb29 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -14,9 +14,6 @@ void mptcp_free_local_addr_list(struct mptcp_sock *msk)
+ 	struct sock *sk = (struct sock *)msk;
+ 	LIST_HEAD(free_list);
+ 
+-	if (!mptcp_pm_is_userspace(msk))
+-		return;
+-
+ 	spin_lock_bh(&msk->pm.lock);
+ 	list_splice_init(&msk->pm.userspace_pm_local_addr_list, &free_list);
+ 	spin_unlock_bh(&msk->pm.lock);
+@@ -54,6 +51,10 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 	bitmap_zero(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
+ 
+ 	spin_lock_bh(&msk->pm.lock);
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING)) {
++		ret = -EINVAL;
++		goto append_err;
++	}
+ 	list_for_each_entry(e, &msk->pm.userspace_pm_local_addr_list, list) {
+ 		addr_match = mptcp_addresses_equal(&e->addr, &entry->addr, true);
+ 		if (addr_match && entry->addr.id == 0 && needs_id)
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 967c3ef7aa2f2..8b61fe656ec66 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -3578,7 +3578,16 @@ void mptcp_destroy_common(struct mptcp_sock *msk)
+ 	sk_forward_alloc_add(sk, msk->rmem_fwd_alloc);
+ 	WRITE_ONCE(msk->rmem_fwd_alloc, 0);
+ 	mptcp_token_destroy(msk);
++
++	spin_lock_bh(&msk->pm.lock);
++	msk->pm.status |= BIT(MPTCP_PM_DESTROYING);
++	spin_unlock_bh(&msk->pm.lock);
++
+ 	mptcp_pm_free_anno_list(msk);
++
++	/* Free the userspace local address list unconditionally: the socket
++	 * can be reused (mptcp_disconnect()) and re-selected to a different PM
++	 */
+ 	mptcp_free_local_addr_list(msk);
+ }
+ 
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index e4540431b49c1..36f3f5b34a5d6 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -190,9 +190,10 @@ enum mptcp_pm_status {
+ 	MPTCP_PM_ESTABLISHED,
+ 	MPTCP_PM_SUBFLOW_ESTABLISHED,
+ 	MPTCP_PM_ALREADY_ESTABLISHED,	/* persistent status, set after ESTABLISHED event */
+-	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED /* persistent status, set after MPC local address is
+-					 * accounted int id_avail_bitmap
+-					 */
++	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED, /* persistent status, set after MPC local address is
++					  * accounted int id_avail_bitmap
++					  */
++	MPTCP_PM_DESTROYING,		/* To fence out PM list allocs */
+ };
+ 
+ enum mptcp_pm_type {
+-- 
+2.53.0
 
-Thanks! So in a way you kinda... Ack it right? :P If only there were a tag
-for that 🤔 ;)
-
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
