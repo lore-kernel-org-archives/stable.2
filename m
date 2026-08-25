@@ -1,53 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21C83F7A9F;
-	Tue, 25 Aug 2026 11:49:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE84B3FF8AD;
+	Tue, 25 Aug 2026 11:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787658589; cv=none; b=LyAXR8QlJYIufe/Uec+g3X8Fb3IHJ1lqb0anH99TRGXOEoQSOf1Z20U+LRS/qxRsDyVP7k60MVQTGu5qFoPaJ7Xb3GiGISBptYd7Ljlb1GCFrrH0A+7NA7uGmnzFYPKiwFi1HfNAy/W2bdz29+TLu2ZMbUbc5po5m5ixG5K5xvc=
+	t=1787658592; cv=none; b=OCZBBsoyqw7wNJz/wMH72g99v+2gKCdwbKv167aydY1dkbqDu9qZG2245T35McFfbfq36KLIOdhCDgShkBuMzTBwEuTN6I3uHmE2YE7b5XntaDxOMQcHqHW05pC3fD7COI4s1sv1vdcoN9MgtR76Yd5xUbmnBuCoWg7LC5Twc2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787658589; c=relaxed/simple;
-	bh=JbBXzRFycmY4S3NWsQai8RiVbF724BMidBw7DmD+dwE=;
+	s=arc-20240116; t=1787658592; c=relaxed/simple;
+	bh=K9HLkIPmB9mfoubfIXzGGSCkeF45Tq1N7AaeMxZv2MQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WJjgZcMEMeq4AALtAIpOM0+eXOmo9Psq6RUL/bGX9DNwT4zxd3ZA7vw8GnfZuWZaJpZjm/rupgSL8NgttHAgdurBNRxtAssBhC9cozDcxaSWmGZsmZkWR5GyPWhVHiUJpjhT7BlsELR+jQLU2JrYQ569Tv+G1NmUkZepGkdYr7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUVLsqgI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qm/hbAbEX3UpNSBZUvq3xo2/VcA7RzD/mZRExmY8U4k2DMRLo+SC/CMDyYHnrNWmt/QDFN128VA8i5b6WMNMFQITLcaCZlluQo3wTyDwwX1IdGtSsv+KXIejCxfwif7NjfM2j5KRAXqRDywQOCiBGxJUXYD5N5/Rvy5hPjGd+wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EuvBgON4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUVLsqgI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD00E1F00A3E;
-	Tue, 25 Aug 2026 11:49:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EuvBgON4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26611F000E9;
+	Tue, 25 Aug 2026 11:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787658585;
-	bh=pGsMf342zeMGHdOXE/moYI66XDqk2BCoh5HhxRCWIeM=;
+	s=k20260515; t=1787658590;
+	bh=cPViORCFrxsxEx74yJ3PYYV50HrV9rFpBBd8ks58f/8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OUVLsqgIeCbShWJKxOUCyGmH3/EBGoBLRnW9lfCJYIURGMv/LtouH05aBb1hlM5h/
-	 a/NkNUBT6rOSU8cm52g1UUZ7FNoS5g8DhbJ/5flkMbRU0kQzAKnOYBFPAQUL1h+M7O
-	 Dr7Eg250nfzLMl9U2MoPzq7sOc2XZYQWgM+kWI/6Nx2JQDYWcbw2fbiqY+MO6rO0pg
-	 oK339Bwd0F+52T/ZHfj2MeDr5dh6E1QsP55xC1BjQrVkCUJhKKMpmaa4vCARFCfN//
-	 TEFUmjgEaJKyi6PUlVsEPNuZPWNMhAmHuA/upkfP7+xJdwxbEt3y/gtzGC+mDjfktM
-	 75F+k0z+cNn2A==
+	b=EuvBgON4gsbPw6cZPX8Q1Nw0R9iD4fuVsTuPvYR7lW4CKeNW39xECMmm8Anf1ta9e
+	 Wo4ujbzFMsQjseuzVraShzS9j4EqWTOG2pXKg9dJYYmXyHbAc7Hn9knNqXJQO62hod
+	 Mnq3Yw1BwsBsevMav2CF6yoh57au+B1ID3w7USmj/0NjXH6SdN5ahyTmIspJmVkyCP
+	 Awwf8pa0f0geY4lAxBFClpPiCZ0aBrepwvJf82NdxouPHUTxVbIte49XozMvzeqU8S
+	 +1fjKIVhwlje3SpHdFaULXuC3wVFQSJJph0FrlKZED90FyUgllkDUauPHAMsY4aPJr
+	 sXPMSNSaLz8ZQ==
 From: Sasha Levin <sashal@kernel.org>
-To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Cc: Sasha Levin <sashal@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
 	stable@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>,
-	"Darrick J. Wong" <darrick.wong@oracle.com>,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Joanne Koong <joannelkoong@gmail.com>,
-	syzbot@syzkaller.appspotmail.com,
-	Brian Foster <bfoster@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Christian Brauner <brauner@kernel.org>,
-	Greg KH <greg@kroah.com>
-Subject: Re: [PATCH 5.10.y] iomap: adjust read range correctly for non-block-aligned positions
-Date: Tue, 25 Aug 2026 07:49:27 -0400
-Message-ID: <202608250005.0b3345f7a7f0ed5a@kernel.org>
+	Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Subject: Re: [PATCH] Revert "pmdomain: qcom: rpmhpd: Add missing MXC and MMCX power domains for Eliza"
+Date: Tue, 25 Aug 2026 07:49:31 -0400
+Message-ID: <202608250010.26978953f092a26a@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082434-freeway-legwarmer-84e6@gregkh>
-References: <2026082434-freeway-legwarmer-84e6@gregkh>
+In-Reply-To: <CAPx+jO_WgxJSyW_ZPYLrYaQMJMv6w918CQupeHoPSr7JPxqa8Q@mail.gmail.com>
+References: <CAPx+jO_WgxJSyW_ZPYLrYaQMJMv6w918CQupeHoPSr7JPxqa8Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,10 +49,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 03:52:45PM +0200, Greg KH wrote:
-> Don't we also need this for 5.15.y first?
+On Fri, Aug 21, 2026 at 02:51:24PM +0200, Ulf Hansson wrote:
+> Applied for fixes and by adding a stable tag, thanks!
 
-Queued for 5.15 first and then 5.10, thanks.
+Thanks - then there is nothing for us to do ahead of time.
+
+b48a0a0a76cc ("pmdomain: qcom: rpmhpd: Add missing MXC and MMCX power
+domains for Eliza") only reached 7.1.y (6.18 and older have no
+eliza_rpmhpds table at all), and the revert will flow into 7.1.y
+automatically once it lands in Linus' tree with the stable tag. No
+stable-only revert needed.
 
 -- 
 Thanks,
