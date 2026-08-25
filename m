@@ -1,73 +1,73 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C6037883D
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC0D2FFF8D
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787653906; cv=none; b=BSKWbJVHV/444LoYVpFBuLimsLfCoZX86ODdX2VUfwltnZlkQQ+PLhwcIp/J+8CAdHpCD6AmyDzmwQ8RShxfnzfEI/Y1hdCLtuD2SZb0SJZoYP82j73VNEmUtU26RzdoOmsJSN/awpbx8JaQz0dXzm1UBwEwEYL7bSY5t6ivHC4=
+	t=1787653911; cv=none; b=pJxulB1p5EPGwyKi5ytx1rY7mYaKxxGtLTC7LNvO8j3IdEHjwS85UIxs6mSqd48uYGrCHSHQBwPXsNd+qVwHAnFftCBINRqsCqIe6MsAolngqS1yinS/bHhkZTaSTMz/h2ilkciMhIe7HGl8d2bpcKHc9dZ/LfHF7IkKQ7+jhGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787653906; c=relaxed/simple;
-	bh=U1RdvAP46481FUvT030ILqTW0TXUCFk5va06VBzgSmE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OMfR9FYdk3cSVGkHdmaqHErPwv9rpsentIZDljbqsxOiKW//bwEolkQ0kCjyzjd3O5p3249R1TErl+PkJF+JkOMJUhDpFWiyYfZ4knTFb2BzV4yhQH36ICw6k2fcr62EWsG8Fw27l5TVCcSnX6TSnvdkMw3D/FtIamUxLK5OJD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dFNwo7lW; arc=none smtp.client-ip=209.85.216.44
+	s=arc-20240116; t=1787653911; c=relaxed/simple;
+	bh=l2bWokjjDY0chpe0fnrpQgfAeQ6dFl5ffvZ1a8RD9ts=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AIFPXwpyTPGkGf2CcBicUNfGCJSm7gszWCBpioMPP+wlaBYD1jpuvpUhh0W+LU+7Bteah7CsjxS84hN7Pqb/0ahzsuNY8e1zbxAH1vVHikn55RB2UsH+8XmAWVoiGBVI/WSSwnVehT+uTd/GhNhlJVkSRD1iNBy9yYCRzAFXM8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=au7iaoTi; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dFNwo7lW"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso5722439a91.2
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:31:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="au7iaoTi"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c9aea40d799so2784433a12.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:31:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787653904; x=1788258704; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787653909; x=1788258709; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G2k8xM7U5oQqDyHik1ipWLEdMDKcFN0PK5gALjtTJXo=;
-        b=dFNwo7lWp8ZfIaIizD2CFH1QTPnQV4kBqG+Gh+u97BGyiOq98Xx56d8lmMhz6LOze7
-         xn7DAPNNDqDXWXuux+stbFcvkN++Zjb+Bzb1rVRpiDpTz5/YbZzeQ9vnuUjavD46BV1z
-         0vXdE2z//D1Vgt/ok0KeLatgVv1UTjxOkmWX3lrYUkh5yPKfzSva0tU/sv81tzAmJI2C
-         r9RpV+bM/p/Op8MqQJFkPS4wSyXsD/8sa2tfoYUR6wzEnhNXtACsW4IJBarQt0FPlO4U
-         jiKOQgndxOrf4n+64Q9JOTdbmc5cEMmKEj/iAyPRZFdGE0u5Puc/v55k8Hikn/ABqhS7
-         KEXw==
+        bh=paSjqA23OneL+rTygITLT6pmiH7WkUSFEzJPB30mI9w=;
+        b=au7iaoTiq9Gss7tblsAgVQVhTUzKpOpe7oJ+DnOAKzIZgtIfBgHXjzv0NNvc0O8E4w
+         IfaIMvfKKL+ufgFunfSsARnt36XsO3K0AfY7vo0wdopjUX3V91HOe0rXo9DnmZZAcMkh
+         /fP6YLfrQSpYGaToHStQCFCpRJ3BtRrTf+V/4wCln17WcELTzq5df/7D9dvMkEqDOPlg
+         QOmAmEk4XaRg9IMxU/Qmz/xb2T+69r3O+/CqpPeKZZLpgmvqqbytA7aFaTVXNtmXz8jE
+         8umUy7Tre2srTs2CTA9OAqu9iqoLfHlxUhqIfSGgwZZ12RWnn62uSOO/QrcJa83hg/pt
+         hK7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787653904; x=1788258704;
+        d=1e100.net; s=20251104; t=1787653909; x=1788258709;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G2k8xM7U5oQqDyHik1ipWLEdMDKcFN0PK5gALjtTJXo=;
-        b=fLn2ghn+/Dioh6OuiydNC/Qhe4Fhx2oh+gO2mRCClWaY/r+bR3QIy1XGP0xBAelUn3
-         vyf+mQhOm7asavZAor6zGsBIlUw5Cg+gZkzaexsx6/VQ2fqdXlHGZO4+1Yy8svcaBGcq
-         bG90iARzeJHbfN46r6Kj1mPIneZLYu6tSnNYliY/a2SBhmWuiAq7PW0YzU0gfw7/SkGE
-         aSLaVzIVkRnlGUr6nXVgd+xPDY+vD6ff6nNQblmrQgxZW7FFQGOAwSkMyKhhgUmorRy7
-         ApPw7BTqiQo7UfKilAeSbzdNRWjX4K5KvPz4ArEOZH7crWi193Uq4Jyk4NzaL56If+my
-         EEWw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7PQtcHvF+zmSdJr1x+EFaXUTmKMoD+21r0ab27imgzQ14Ug3rZV8lN7CoDWa8qaGzSbupnWE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBThgbaa7jPEJhUaed7MY5Rj8lzBt6lSDiLVdM3cMV6/VJ9GBh
-	kgLRhaDz+GthGB9pSwH7UFS2hHxiGfIQtz/aaMbySxgHUics1hgGHXEf
-X-Gm-Gg: AR+sD11+23ZcuJZ+1cfUUw32cZ8G5bpaTmk9h60kWgar+knt5Cs0TEPZc1Wa5Wo2/cs
-	uSRgWrKJSm8e8/rUx7Qj6UjfoQeghb494eYWIfHfravZysb90hZOnclrk7fimtAV/I6ETjxP6IR
-	ZGS80Jtr+rcGpgzpLzmQ3XPkZII+3F1rcHT+Kt3G5wplrCkeFJqcPrLwGQ+/G0LJ/Q0GJuqmn4c
-	i/3DgBb2To/0fdMikMFMCMrkIOuJI7JsFgwOqWAkLylabo1iiqicupuQF19dCTBpXcfn5ys06WB
-	gLh4ivBvPGzHqhEo3T52vHRlwqrApKrp3UkytZHyd1WtV6e6FS2OYplocVWJ0zr7opThCZcrDv7
-	knIdPa6w6W3P2mlEyEtkbJtKVLvPipWdFBan3AQ8xSoL++faOcuJZzgfSr5RBp/uTH3Nm4w+kAH
-	faxUpBWDLtRYNYUhAUnzJ7A/JMwgJggsDym3V14mlf6vQd1O50vwyTQ0+jds8YxN/j9FAUCMwZO
-	WO7SiipeK1IsouNWDxA39pdBAd0HUSNxyGIpE//eB26ALnKuIQDm4XHDehrGt34ldCiYal282Ub
-	QIO1xmpXqh3dhn4Z7WXk8H+e
-X-Received: by 2002:a17:90a:e70f:b0:381:a766:efcc with SMTP id 98e67ed59e1d1-395df3c6026mr49485366a91.14.1787653904110;
-        Tue, 25 Aug 2026 03:31:44 -0700 (PDT)
+        bh=paSjqA23OneL+rTygITLT6pmiH7WkUSFEzJPB30mI9w=;
+        b=nwPLqvmedUtcaI1e1WV7i0oAfLCoMxLzHN9utg2h23VhhTBslhMMtHHVTpHCejYucL
+         EGfzGkfKxWjsc1LPn0KZnLDU/VjpyQAbrEb5N2w6rJpXMXMQky0GvYZ9+pn1OanzAAmH
+         U1EoeZDMLU3lBDYQjqHoLYlb8yyX4ImIFeQfBM1YK3DbqpyFrfH7qhPhWKVa++aKQwGV
+         MDnYzQoWeoZXvtYpSPOA2EMIDHUxVKkiJCP3BOOO0AUK7FzOrRNBgeg5q75lz/c6jRjc
+         IETnQlWeqIxZwLKet9vL8xp59XJXBLLIjlPOgPdHiPPNDHESu6ul1G55R5F9aXlSsYhG
+         ezdA==
+X-Forwarded-Encrypted: i=1; AHgh+RpmJGu/V/w0nRzeK024nZTg/YZ0M5jgZ8rgHczp7YFABXNfQKxG0h8FLr/PM+/mnfXHBvVDI/Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjdn9OBa7qsq+0B7zdODbS6xWf5CY5Cc3t27jqyftIWuWgAqJQ
+	g3qWtALmJmJujZl1nrZrPN9frdC7KvmSuKk8eSp89TpSvKdKVf9lMSbI
+X-Gm-Gg: AR+sD11NJIbhfs1QVgbGuVR5YkrNRgJx8zla8jQva61ukhAQdsd6EnZxbmcVFx9fmhQ
+	nMucrcNc66tE39W27HAi71CKICz7fpPlOqb3/EwA6NVTYSdbtSmfXNex6mp+JzbfSIIVEydtkUa
+	McaW1YZp/B0jEua88JZBC6V5msdDdGAuUZTxd70DyAb4zEn6f4Lir53BuWj6rUppnPBRDrGWbyb
+	atJZEmcSvM620kUgGKeehHocFTNiycNglJOpOOPqkq56KXtlciMB01/j/H9JJ74RgXoFm8UGuyc
+	TwImmOQGE5K8wqsE6snjzsMHgLIAePCzqp/SwLkSwyp0wpOmBdzx4hBjdvH3hy4hlYnEhx4EBaX
+	D3D5gE5rj2sQcQ4I85yP9SODRuEJLF7xm5cDLw2Eh9onA5iwHUpGjawBptqVm3ISsNE9S9e5RfI
+	0DyGkP2vzpflU2UbxkX6R1PebdvMiwi8NJeO9/s+DSOZ2ZHhYM84B2VvoaU4xcB5rqkk2BLigRj
+	MVAZYUe7qgs/BGZ9WcMw22k0gDwvA0GI60wYtbcH68w/IDQGT5m8GVKiHezAYhzo5iiyBKUOLLu
+	rqCr0PH7mL+Fw+lx6/TpJOT5
+X-Received: by 2002:a17:90b:2e4b:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-396464a18c5mr11957498a91.10.1787653908966;
+        Tue, 25 Aug 2026 03:31:48 -0700 (PDT)
 Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645b7ff6dsm3299029a91.10.2026.08.25.03.31.42
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3965547159asm1916964a91.12.2026.08.25.03.31.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 03:31:43 -0700 (PDT)
+        Tue, 25 Aug 2026 03:31:48 -0700 (PDT)
 From: Wei Jie Law <98lawweijie@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
 Cc: Andrew Duggan <aduggan@synaptics.com>,
-	Christopher Heiny <cheiny@synaptics.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] Input: synaptics-rmi4 - fix input_dev->name use-after-free on unplug
-Date: Tue, 25 Aug 2026 18:31:39 +0800
-Message-ID: <20260825103139.12314-1-98lawweijie@gmail.com>
+Subject: [PATCH v2] HID: rmi: fix use-after-free of struct rmi_data via reset_work
+Date: Tue, 25 Aug 2026 18:31:44 +0800
+Message-ID: <20260825103144.12356-1-98lawweijie@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,91 +77,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rmi_driver_probe() reuses the transport driver's input device when it has
-one, and then renames it out of memory owned by the RMI device:
+rmi_event() queues hdata->reset_work for any pointer/mouse usage as soon
+as RMI_DEVICE is set, but rmi_remove() only cancels the work when
+RMI_STARTED is set:
 
-	if (rmi_dev->xport->input) {
-		data->input = rmi_dev->xport->input;
-	...
-	name = devm_kasprintf(&rmi_dev->dev, GFP_KERNEL,
-			      "Synaptics %s", device_name);
-	if (!name)
-		return;
+	if ((hdata->device_flags & RMI_DEVICE)
+	    && test_bit(RMI_STARTED, &hdata->flags)) {
+		clear_bit(RMI_STARTED, &hdata->flags);
+		cancel_work_sync(&hdata->reset_work);
+		rmi_unregister_transport_device(&hdata->xport);
+	}
 
-	input->name = name;
+RMI_STARTED is set at the very end of rmi_input_configured(), so a device
+that advertises the RMI report IDs - which is what makes rmi_probe() set
+RMI_DEVICE - but then makes rmi_input_configured() fail leaves the work
+schedulable and never cancelled.  Never answering the SET_REPORT that
+rmi_set_mode() issues is enough, i.e. exactly the unreachable-device case
+the guard was added for.  rmi_probe() still returns 0 there, because
+hidraw claims the device, so the driver stays bound and rmi_event() keeps
+running.
 
-In the borrowed case the name outlives its allocation.  hid-rmi is the
-transport that hits it: rmi_input_configured() hands us its hidinput
-device, and rmi_remove() then tears the RMI device down first:
+struct rmi_data is devm_kzalloc()'d on &hdev->dev, so hid_device_remove()
+releases it as soon as ->remove() returns, with the work still queued or
+still running.  The workqueue then reads and writes the freed object:
+process_one_work() stores into work->data, list_del_init()s work->entry,
+and loads work->func out of freed memory before calling it, while
+rmi_reset_work() dereferences hdata->hdev, which the same unplug freed.
 
-	rmi_unregister_transport_device(&hdata->xport);
-	hid_hw_stop(hdev);
+  BUG: KASAN: slab-use-after-free in process_one_work+0xd96/0x10b0
+  Read of size 8 at addr ffff8881095c0540 by task kworker/0:4/3058
+  [...]
+  Allocated by task 450:
+   devm_kmalloc+0x7c/0x220
+   rmi_probe+0x36/0xcf0 [hid_rmi]
+   hid_device_probe+0x286/0x430
+  Freed by task 9278:
+   kfree+0x125/0x420
+   release_nodes+0xf0/0x260
+   devres_release_group+0x23a/0x3a0
+   hid_device_remove+0xf5/0x220
 
-The first line unbinds this driver, so devres frees the name.  The second
-reaches input_unregister_device(), whose device_del() emits the
-KOBJ_REMOVE uevent, and input_dev_uevent() does
+The read is of hdata->reset_work.func, 320 bytes into the freed 512-byte
+region, which process_one_work() calls straight afterwards.  Without KASAN
+the same reproducer oopses in rmi_reset_work() and leaves the kworker
+"exited with irqs disabled".
 
-	if (dev->name)
-		INPUT_ADD_HOTPLUG_VAR("NAME=\"%s\"", dev->name);
+Cancel the work unconditionally in rmi_remove(), and do not queue it
+before rmi_input_configured() has succeeded or after rmi_remove() has
+cleared RMI_STARTED.
 
-so vsnprintf() walks the freed string and copies it into the uevent that
-is broadcast to userspace.  With slub_debug=FZPU the remove event carries
+A report can still pass the RMI_STARTED test in rmi_event() just before
+rmi_remove() clears the bit and queue the work after that cancel, so cancel
+once more after hid_hw_stop() has stopped the report flow, and make
+rmi_reset_work() bail out when RMI_STARTED is clear - by then the transport
+device it would reset has been unregistered.
 
-  NAME="kkkkkkkkkkkkkkkkkkkkkkk\xa5\xbb\xbb\xbb\xbb\xbb\xbb\xbb\xbb..."
-
-i.e. POISON_FREE, POISON_END, the redzone and the SLUB tracking metadata
-past the end of the object - the read runs to the first NUL, so it leaves
-the object as well.
-
-  BUG: KASAN: slab-use-after-free in string+0x2a9/0x330
-  Read of size 1 at addr ffff88810a379d31 by task name/8056
-   string+0x2a9/0x330
-   vsnprintf+0x5ec/0x1680
-   add_uevent_var+0x165/0x390
-   input_dev_uevent+0x14c/0x750
-   kobject_uevent_env+0x4ed/0x11b0
-   device_del+0x5ac/0x940
-   input_unregister_device+0x88/0xc0
-   hidinput_disconnect+0x144/0x3e0
-   hid_hw_stop+0x13/0x70
-  Allocated by task 7810:
-   devm_kasprintf+0xb0/0xe0
-   rmi_driver_probe+0x3e0/0xbf0 [rmi_core]
-   rmi_input_configured+0x184/0x2e0 [hid_rmi]
-  Freed by task 8056:
-   devres_release_all+0x106/0x170
-   device_release_driver_internal+0x3f9/0x550
-   rmi_unregister_transport_device+0x34/0x50 [rmi_core]
-   rmi_remove+0xd0/0x100 [hid_rmi]
-
-This is not limited to the RMI_DEVICE_HAS_PHYS_BUTTONS models: any RMI4
-sensor reaches it, because rmi_init_functions() runs inside
-rmi_input_configured() and F11/F12/F30 call input_set_capability() on the
-borrowed device, so hidinput_connect() finds it populated and registers
-it.  11 to 14 reports per three unplugs here.
-
-The same string is read on the add side too.
-rmi_register_transport_device() returns 0 whenever device_add() succeeded,
-so a probe failure of this driver - rmi_enable_sensor() failing on a
-register read is enough, and a HID device that stops answering can arrange
-that - does not stop the transport: devres frees the name, and
-hidinput_connect() then goes on to call input_register_device(), which
-prints the name and emits KOBJ_ADD, with the same KASAN report under
-input_register_device() <- hidinput_connect().
-
-Moving the allocation onto the input device does not help - device_del()
-releases devres before it emits the uevent - so put the name back to a
-string with static storage duration when this driver lets go of an input
-device it does not own, both on remove and on the probe error paths.
-
-That means writing to the borrowed device after hidinput_connect() may
-already have thrown it away: if none of the RMI functions populated it,
-hidinput_connect() calls hidinput_cleanup_hidinput() and frees it while
-data->input still points there.  Take a reference for as long as we keep
-the pointer, which also stops rmi_process_interrupt_requests() from
-input_sync()ing a freed device.
-
-Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
+Fixes: 8725aa4fa7de ("HID: rmi: Check that the RMI_STARTED bit is set before unregistering the RMI transport device")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5
 Assisted-by: GLM:glm-5.3
@@ -170,69 +141,99 @@ Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
 Changes in v2:
  - No code change: the diff is identical to v1.  Adds the Assisted-by
    tags required by Documentation/process/coding-assistants.rst.
- - Commit message trimmed; the KASAN reports are quoted in short form
-   and the add-path report is summarised rather than repeated in full.
 
-v1: https://lore.kernel.org/linux-input/20260825031315.51860-1-98lawweijie@gmail.com/
+This is independent of the pending "HID: rmi: fix OOB access with
+undersized RMI reports" [1] (whose v5, also a tags-only respin, is being
+sent alongside this) -- they touch different functions, and either order
+applies cleanly.  They are worth taking together, though.
 
- drivers/input/rmi4/rmi_driver.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+That patch makes a zero-length READ_DATA reply fail rmi_hid_read_block()
+with -EIO instead of spinning in it, so rmi_scan_pdt(), and hence
+rmi_input_configured(), now fail where they previously hung with the
+device lock held.  That failure leaves RMI_DEVICE set and RMI_STARTED
+clear -- the state this patch is about -- and, because the probe no
+longer hangs, it also lets the unplug that triggers the use-after-free
+complete.  The route described above, never answering the SET_REPORT
+that rmi_set_mode() issues, reaches the same state on an unpatched tree,
+so this is not a regression from that patch; it is a second way in, and
+an argument for the two landing in the same release.
 
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 5d49a9021c7d..8696a6aa0fa9 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -369,6 +369,24 @@ static void rmi_driver_set_input_name(struct rmi_device *rmi_dev,
- 	input->name = name;
- }
+[1] https://lore.kernel.org/all/20260825060954.104890-1-98lawweijie@gmail.com/
+
+v1: https://lore.kernel.org/linux-input/20260825034854.63555-1-98lawweijie@gmail.com/
+
+ drivers/hid/hid-rmi.c | 40 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 34 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
+index d4af17fdba46..13a301404ff8 100644
+--- a/drivers/hid/hid-rmi.c
++++ b/drivers/hid/hid-rmi.c
+@@ -313,6 +313,14 @@ static void rmi_reset_work(struct work_struct *work)
+ 	struct rmi_data *hdata = container_of(work, struct rmi_data,
+ 						reset_work);
  
-+/*
-+ * Let go of an input device that belongs to the transport driver.  It outlives
-+ * us, but rmi_driver_set_input_name() pointed its name at devres memory of
-+ * ours that is freed as soon as we are done - input_register_device() and both
-+ * the add and the remove uevent print that name - so put the name back to a
-+ * string with static storage duration before dropping the reference.
-+ */
-+static void rmi_driver_put_input(struct rmi_device *rmi_dev,
-+				 struct rmi_driver_data *data)
-+{
-+	if (!data->input || data->input != rmi_dev->xport->input)
++	/*
++	 * A report that raced with rmi_remove() may have queued us after it
++	 * cleared RMI_STARTED, i.e. after the transport device we would reset
++	 * has been unregistered.
++	 */
++	if (!test_bit(RMI_STARTED, &hdata->flags))
 +		return;
 +
-+	data->input->name = SYNAPTICS_INPUT_DEVICE_NAME;
-+	input_put_device(data->input);
-+	data->input = NULL;
-+}
-+
- static int rmi_driver_set_irq_bits(struct rmi_device *rmi_dev,
- 				   unsigned long *mask)
+ 	/* switch the device to RMI if we receive a generic mouse report */
+ 	rmi_reset_attn_mode(hdata->hdev);
+ }
+@@ -412,7 +420,13 @@ static int rmi_event(struct hid_device *hdev, struct hid_field *field,
+ 				return 1;
+ 		}
+ 
+-		schedule_work(&data->reset_work);
++		/*
++		 * Only reset a device that finished rmi_input_configured();
++		 * before that, and after rmi_remove() has cleared the bit,
++		 * struct rmi_data may go away under the work.
++		 */
++		if (test_bit(RMI_STARTED, &data->flags))
++			schedule_work(&data->reset_work);
+ 		return 1;
+ 	}
+ 
+@@ -739,15 +753,29 @@ static int rmi_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ static void rmi_remove(struct hid_device *hdev)
  {
-@@ -1026,6 +1044,8 @@ static int rmi_driver_remove(struct device *dev)
- 	rmi_f34_remove_sysfs(rmi_dev);
- 	rmi_free_function_list(rmi_dev);
+ 	struct rmi_data *hdata = hid_get_drvdata(hdev);
++	bool started = test_and_clear_bit(RMI_STARTED, &hdata->flags);
  
-+	rmi_driver_put_input(rmi_dev, data);
+-	if ((hdata->device_flags & RMI_DEVICE)
+-	    && test_bit(RMI_STARTED, &hdata->flags)) {
+-		clear_bit(RMI_STARTED, &hdata->flags);
+-		cancel_work_sync(&hdata->reset_work);
++	/*
++	 * reset_work lives inside the devm-allocated hdata, which is freed as
++	 * soon as this returns, so it has to be cancelled whether or not the
++	 * device ever reached the RMI_STARTED state.  Cancel it here, while
++	 * the transport device it resets is still registered.
++	 */
++	cancel_work_sync(&hdata->reset_work);
 +
- 	irq_domain_remove(data->irqdomain);
- 	data->irqdomain = NULL;
++	if ((hdata->device_flags & RMI_DEVICE) && started)
+ 		rmi_unregister_transport_device(&hdata->xport);
+-	}
  
-@@ -1231,7 +1251,7 @@ static int rmi_driver_probe(struct device *dev)
- 		 * One example is some HID touchpads report "pass-through"
- 		 * button events are not reported by rmi registers.
- 		 */
--		data->input = rmi_dev->xport->input;
-+		data->input = input_get_device(rmi_dev->xport->input);
- 	} else {
- 		data->input = devm_input_allocate_device(dev);
- 		if (!data->input) {
-@@ -1287,6 +1307,7 @@ static int rmi_driver_probe(struct device *dev)
- err_destroy_functions:
- 	rmi_free_function_list(rmi_dev);
- err:
-+	rmi_driver_put_input(rmi_dev, data);
- 	return retval;
+ 	hid_hw_stop(hdev);
++
++	/*
++	 * A report that passed the RMI_STARTED test in rmi_event() just before
++	 * the clear above can queue the work again after that first cancel.
++	 * Such a work item does nothing, but it still has to be reaped before
++	 * hdata goes away.  hid_hw_stop() has stopped the report flow, so no
++	 * further queueing is possible by now.
++	 */
++	cancel_work_sync(&hdata->reset_work);
  }
  
+ static const struct hid_device_id rmi_id[] = {
 -- 
 2.43.0
 
