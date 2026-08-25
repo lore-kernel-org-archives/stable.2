@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4D93E5588
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BE124DD17
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:03:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655806; cv=none; b=uKS12lOLbUXm18X/1A32m3EDgu+cU8M34eqsb7KqLXfXq2/bpfGr5LPLaOizOiscG9NuQmXHuSYq3M0PM/7lXEdWdA08mXS91vfIJxxsbTb3pDUgjLcq/BNSDu/MbIdqt2NSM4xTWd6ZtlnXKSFve5rZgxGR9D50Col1CrvyE0k=
+	t=1787655817; cv=none; b=IU2hs77tnNZqi/rVcqcCuEjrm0Ao/+N8MWRLPCKQKPWB/mXKCxv1yyZhAUkXaoOj6onFL5X6ld5axN9akyJj+mc7x3OSDAb5D+ijLEtr5gQFJCMkAiOPevQKm8AiAMiFtSz78uimsXKuYikMVpy1JtzrIV5NJto8qKMdYRHQ3KA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655806; c=relaxed/simple;
-	bh=7+ZmvUeSm4Z7dHGgpNwpwyWm+rkXXfNFwX6xpT+pSUU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UlI/mB7rMNspH722/Xj7mJpWoS9CPWpoKYVilFMdRO07d8cPPjpg+3wbKDiJlmthqtYBDL5zOSgBoHGxJU5c2tvzxfwAk2csixa7hV9/ZgjVMCEDWoRcFmrqczAQsS6asxEfF3GJXt2hLisv7DzkkdPds6NcQHbgtb+xTyBdzEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eWo6iDNT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787655817; c=relaxed/simple;
+	bh=pL376zGnHrYuIt+0muFXJFSkGv/Qykxnrnn/jN2sojg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XObbHR5UOPE1TOGKj9VVq1ufL/zde/NxOXkD6mklg9Vn0agfpyLgQlVTX7V68DU5iElc4I/f8vXCs3W626tMKXrswfcpcmoNyt+ayX73HhyrtR0uRnOCkSk7fMs66o4pctdvTrbEvi7EL5aK572CqZcUtxdHWAclTheTdOvAXLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TQ86aL5p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eWo6iDNT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7451F000E9;
-	Tue, 25 Aug 2026 11:03:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TQ86aL5p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D571F000E9;
+	Tue, 25 Aug 2026 11:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787655803;
-	bh=rS+huXssvfUzOq5GM+B2kRgyylpaFCfJGpxdo5Hfv3w=;
+	s=korg; t=1787655812;
+	bh=wvLz8QnDyoXKpMtW1KCcISBDryeH5KTM0Ziq5qFVJac=;
 	h=Subject:To:Cc:From:Date;
-	b=eWo6iDNTgCJz/Rwvoxi1zqeNcLF+mpUTzmMpmJpblLT+zdN6iIe8LxLozLMgrG3IL
-	 pQlNUhFlhNaRBIBGj0zncRyJ7ZpuaLFQb1uVgExkubOf3qTgYv6+G5iBePQmnIGh/s
-	 mWcR5p3JCSTkAn32MQiMPNYAme9CR7v3Gh9eOeZI=
-Subject: FAILED: patch "[PATCH] HID: pidff: fix OOB write when hid->inputs is empty" failed to apply to 6.12-stable tree
+	b=TQ86aL5plmv1KHQZBEY6d7GYbQOgRErIhQ0IeMwVL4m/ytWveWUqPRa8IfZF1k2/M
+	 iqvUXD+XetNl0tvV5U3j4SVwblWIuLA6Zn/uWNCxqoo5fmvLOYwHw+c3/vZrn12cQC
+	 ZRrLoxeRQL1ItHfOp6uKV7YnaAA1Y44hRDNLtWFM=
+Subject: FAILED: patch "[PATCH] HID: pidff: fix OOB write when hid->inputs is empty" failed to apply to 6.6-stable tree
 To: baul.lee@xbow.com,federico.kirschbaum@xbow.com,jkosina@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 13:03:17 +0200
-Message-ID: <2026082517-petroleum-anaerobic-3fd3@gregkh>
+Date: Tue, 25 Aug 2026 13:03:18 +0200
+Message-ID: <2026082518-countless-imply-6af9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 67bb1074e3d2d12fa059a9cc707e89398a4e4704
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082517-petroleum-anaerobic-3fd3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082518-countless-imply-6af9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
