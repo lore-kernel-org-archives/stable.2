@@ -1,173 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98723481252;
-	Tue, 25 Aug 2026 13:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787665251; cv=none; b=V+8kyc6AuEcPQUojGvrCOj4F4j8RaufJFrVOM8NYlIpaSF8rMxmjxUS7b9P5Ww3yNwNcpQi3ge/lCDvknn7LEk1cvhapMBwfU8mHY0ZF5IM5MS1aFCNzTCYojc5aQDB9o3ixAtGbwEmt3aGwhnVA/VyiZYmSpxS/ryIAZMhQ9ps=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787665251; c=relaxed/simple;
-	bh=vFVDVadC53VsEfvVhOXZAccM8bIzf8mqSi2zuHRFkIY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bjfVmjxyl5EKKODVYib8Sb0/K0NqGGvYKD+DUd8LAgFA9r86ou1yJcZxbNLtZ6oVIzuHACFm48QnieBiW+dBCUbpVQdiaDgv9iZcfRkhfqdukxnCHmfImENEcI463acuD1LWz4+Z5VnPmS9C8f5SadN++UxKNvrk//j1e0OM8vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VXiO8P0z; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A9D481252
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787665254; cv=pass; b=byQx6a/7M0ObeDLFI8LNuMOfx4BySMhhiw9Xve4DNHxxiRmL1vFJG/3tqqlnbms1ZSvRUAazwMKPXll1AXegjfMJggx24iFOvH/axGpah4o2VFu3HJA5xAQkdzrOwmI25T9kaL/31YbxuP/4vcqwgj7PIFJlb+rnA+uaXVTokB0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787665254; c=relaxed/simple;
+	bh=hvKyXzgJppJMaaEEyd99Thc93IbcMAS25L7bMTUdZT4=;
+	h=Mime-Version:From:References:In-Reply-To:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gg+JvgyPh0Xy11N+oS6t3V6pfQ/Bn5tSkO3DlbYBvjuxZjc0ZMYa8P6LSLHu0EB2qNeOCcgJRifRJpPUivQ+Dx+0ALpbaAf6FOtYKOTRX1N3WyzkhLCfPAQgUt1jzXx9KLK2VIgevTSeDeZOj6U7CPvq+WqE7d+k/RK/SIZRyoY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eByTozo4; arc=pass smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VXiO8P0z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C372D1F000E9;
-	Tue, 25 Aug 2026 13:40:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787665250;
-	bh=2zjrz3zeQ3e4LSF2uBTEqrdTGSN2L5XpEl6YgpYS/9c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VXiO8P0ziZ6ksvoNPYcbgjJe4yXvhuvenlIS5vVKrh9ZepYJp/S4wqwdKU+Gzlg2Y
-	 9eXwMb96QiWnMs9Db0uT13HN2bse0HIzGN1ZXaLXA6+hv0kVMS+xhqPwtftchSzCCq
-	 jhBHor+kgta75StYI8egcMEPc68pmQeed8OuJ/as=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mat Martineau <martineau@kernel.org>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 57/94] mptcp: pm: use for_each_subflow helper
-Date: Tue, 25 Aug 2026 15:25:53 +0200
-Message-ID: <20260825132544.132279524@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260825132541.887883084@linuxfoundation.org>
-References: <20260825132541.887883084@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eByTozo4"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b011edaf7dso5366166e87.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 06:40:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787665250; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z+3ypB8CiOoFULO5I9KtyV2eRc8a037CcguYElcUKcD6jz7Ve4cePQoe6PKDiHu9vz
+         DGbahRpiHDMv4FHFKLHGMjxf6Gb7EkRQ/OQuKWnu7g1wgsAWsuDBru0X+Qr4Be7O2ifS
+         vR+vqiyyNU+7s846ub6pFdBPJez7qaQ77uES5ljuVzVCUtKX05ng50bRkbZAreApfWUT
+         KlB3tNmihXiJHpeQrrjgPTrp5Q+j/hK7+lZmppkVSdrFHZTwaB5ZfuQlBJxw8WuwTH8p
+         yrlrRpy61zwnG3pnvpmTGmCPOiPXR8wldhzUqJe6RrHzgiKS6vAsDEwxbV77HweznjXv
+         OSMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:in-reply-to:references:from
+         :mime-version:dkim-signature;
+        bh=hvKyXzgJppJMaaEEyd99Thc93IbcMAS25L7bMTUdZT4=;
+        fh=C6unatxLx/EPVtL0cEOfKtrBePbyMDWsHPR6RmlsjPA=;
+        b=YdUd6O5UwOChK0gDxcWg0y7mQ2ZbE/ploJo390WYmhazRNa0keOFFx3gXvlFyd+O6f
+         PcDd5ogC9bCC1I8ub9joOaE0dLzQj6eWoT5jV1XVQHJCcbejikc99cdLeD49T+zPPOJT
+         X0xuOrXL2EdbItyy18n80eVU/+TuB7/HkNO5o4k2wjt0rM3BJNEbuZel8qtdQIX1k34f
+         HPHim4iyDXnyFa8tB6TII4S8+2kdqc0BArmfTe5p6Knw7IXpdqHiUcUsAancpxeMRYzh
+         WwIb7tlqDYk/GMt1WVBTiO7WjpVrfMdAZSjYo4yajmoZbVKEN9wzUxXtKhL0OteFYWap
+         sMbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787665250; x=1788270050; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:in-reply-to:references
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hvKyXzgJppJMaaEEyd99Thc93IbcMAS25L7bMTUdZT4=;
+        b=eByTozo4EwWCk5mAcBWZaktfPVnJehwLLuPYKY4OnfQA5UM/D9zqZejfFJ7dxXYqw0
+         921HEW33MSY8pzRmcm7enTI4KBkkph2l0obH2vZgOS9kBnuM+V8sAphs+DmkrkCdvROY
+         CDfF+4M56UsFofGmLY+Ao4OF+XPP9ZSWcs88/Ydeqe9SxJZDx67GY9CtyeGHYOrh5M1X
+         tyTq621MQCuOlYGu53TCM1M5ULNalrpBTplWcDzi73Y9UiIaB32xekhS6MW0ATenInpK
+         RJW8w9HYvYflSdmKhDq8tCV16rsDgAZpwh9PN6s4/CsoGjKFcK1yJM2UA2E6gtgdZynN
+         fing==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787665250; x=1788270050;
+        h=content-type:cc:to:subject:message-id:date:in-reply-to:references
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hvKyXzgJppJMaaEEyd99Thc93IbcMAS25L7bMTUdZT4=;
+        b=sJ4wktIR8fAb3yqWnK7L7eLXh9Qpcl+zbtT4Os0aR8hyEuawz0XKt0mAwbYG/Yp4VZ
+         lzS4zrkmBW0CkUyZsx1OEi2mSGH78VxpsboX1F8MOZSIuqTz9pJv+WK/6yfusxCf08GB
+         Z/DhBGEZ6mj7eZGgRgchTi0nOShimIplIlD/RZ8nlDwXnTQtJ6X2rt72LFn8lqg6AJco
+         Cid1xDx3gXM0iS/LVsHJdzBicYhDdM4zc8TdM0q85W9MxO/nUlNcjV591Q0IXEtUUG36
+         4Q+x70fuXDq/r+BrLwy+LDLZ2tqndySDI7LdRTrgaukpPIEDEBcBuxEVwoVxnMO3qi/F
+         FGjw==
+X-Forwarded-Encrypted: i=1; AHgh+Roz0rtZlF3y+DTQW2Go8bx08DnZT7rkeM0xJW+DKfMLJQ9bgM+6SXb3TX3dbGJIJZtV0UrZRtE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFQZUwzsc82kTKFLHno2k88Uw7NCKyKen69gV3lt4YwMLnD4b5
+	P779chb/WPHtsPCyZ1lD/nIVPBF9ZI8W+dcmf7HEkrSR91b1YPthw3HojVQXQo1mG2moxQi2Kzj
+	OkxMGU+6QFIdxVCTRUb7l9Nnpr4kMX/8=
+X-Gm-Gg: AR+sD11maMvOZK48EZpe27HxX2a482MZXXR/Mmbf8XC7u796lA3mG5wbewt7AXbN0Bk
+	bG6IKNeyvqlkX/CZ25ue5jG2zaeZwJUtskUynSvH0ueMQ0axWjcVP63pmCWDS6M1a+ALvUcEYIH
+	VaInadUCHsRAnda/9dqMvnNkvZt3UXHvABEjfWbOyMCsB1xTbyGVKx02k7Yak/yiafogzgvUjKP
+	RJ9X3vjwEYCr8RAs8wQtoVfTfTCYSWWbYf9a616JltSawxwDpjXXajEvIlY4uOxxl4Yp0hbGOY/
+	saUVRgZIxz10fWkVtnCDis0rT9ZKH5kcloMxNubIcip/T0I2UwFbIqgNSfOMOCvzFHelMs0ZyP5
+	GWvqhfq6f3D9wietLfOnZm296cdedjUjDfHNz0REHbSHcdnuDSzcYewO7cpqU
+X-Received: by 2002:a05:6512:3d1d:b0:5b1:5a31:86b2 with SMTP id
+ 2adb3069b0e04-5b4842513bcmr10922031e87.16.1787665250199; Tue, 25 Aug 2026
+ 06:40:50 -0700 (PDT)
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 25 Aug 2026 08:40:49 -0500
+Received: from 753933720722 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 25 Aug 2026 08:40:49 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: Kamil Serwus <kserwus@gmail.com>
+X-Mailer: aerc 0.22.0
+References: <20260824053227.317496-1-junjie.cao@intel.com> <77f94165-3d5f-41de-8969-c7318284fd6a@leemhuis.info>
+ <CABBYNZK9ax+iw7xKBtdZTSERsdhQ7t41Bg_1EnG88KOYj6kFHg@mail.gmail.com>
+In-Reply-To: <CABBYNZK9ax+iw7xKBtdZTSERsdhQ7t41Bg_1EnG88KOYj6kFHg@mail.gmail.com>
+Date: Tue, 25 Aug 2026 08:40:49 -0500
+X-Gm-Features: AcwNN1Wug9vDtoOA1TaKYTIovtZeS8SWGR2PbmXd3NJe-LYW9VPQ6Emgzep44ig
+Message-ID: <CAO+VTThX-p5sT7sDVsr+Yqf-rWBdWHEBdEyWvDNbqZnwdwhfvw@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Junjie Cao <junjie.cao@intel.com>, Marcel Holtmann <marcel@holtmann.org>, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexej Sidorenko <alexej@sidorenko.cz>, regressions@lists.linux.dev, 
+	Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org, 
+	Kamil Serwus <kserwus@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Dear Luiz,
 
-------------------
+Yes I use this version 1-2 days. It works for me (with reverted code).
+(as the same as before commit 5ead2063611ae56809b1b113ac44cef9547c81d7)
 
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-
-[ Upstream commit f81689172429885d6c2c7c3dd4926ec626e794bb ]
-
-Similar to most places in the MPTCP code. So instead of passing the
-subflow list and use list_for_each_entry(subflow, list, node), pass the
-msk and use mptcp_for_each_subflow(msk, subflow).
-
-That's clearer and more uniform with the rest.
-
-While at it, add 'pm_' prefix for the exported one to easily identify
-the origin. Plus replace 'lookup' by 'has', because a bool is returned.
-
-Reviewed-by: Mat Martineau <martineau@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260605-net-next-mptcp-add-addr6-port-ts-v2-9-758e7ca73f4d@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: efc33b5102ff ("mptcp: pm: fix memory leak from alloc-during-teardown race")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/mptcp/pm.c           |    6 +++---
- net/mptcp/pm_kernel.c    |   12 ++++++------
- net/mptcp/pm_userspace.c |    2 +-
- net/mptcp/protocol.h     |    4 ++--
- 4 files changed, 12 insertions(+), 12 deletions(-)
-
---- a/net/mptcp/pm.c
-+++ b/net/mptcp/pm.c
-@@ -115,14 +115,14 @@ static bool mptcp_pm_is_init_remote_addr
- 	return mptcp_addresses_equal(&mpc_remote, remote, remote->port);
- }
- 
--bool mptcp_lookup_subflow_by_saddr(const struct list_head *list,
--				   const struct mptcp_addr_info *saddr)
-+bool mptcp_pm_has_subflow_saddr(const struct mptcp_sock *msk,
-+				const struct mptcp_addr_info *saddr)
- {
- 	struct mptcp_subflow_context *subflow;
- 	struct mptcp_addr_info cur;
- 	struct sock_common *skc;
- 
--	list_for_each_entry(subflow, list, node) {
-+	mptcp_for_each_subflow(msk, subflow) {
- 		skc = (struct sock_common *)mptcp_subflow_tcp_sock(subflow);
- 
- 		mptcp_local_address(skc, &cur);
---- a/net/mptcp/pm_kernel.c
-+++ b/net/mptcp/pm_kernel.c
-@@ -86,13 +86,13 @@ u8 mptcp_pm_get_limit_extra_subflows(con
- }
- EXPORT_SYMBOL_GPL(mptcp_pm_get_limit_extra_subflows);
- 
--static bool lookup_subflow_by_daddr(const struct list_head *list,
--				    const struct mptcp_addr_info *daddr)
-+static bool has_subflow_daddr(const struct mptcp_sock *msk,
-+			      const struct mptcp_addr_info *daddr)
- {
- 	struct mptcp_subflow_context *subflow;
- 	struct mptcp_addr_info cur;
- 
--	list_for_each_entry(subflow, list, node) {
-+	mptcp_for_each_subflow(msk, subflow) {
- 		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
- 
- 		if (!((1 << inet_sk_state_load(ssk)) &
-@@ -652,7 +652,7 @@ static void mptcp_pm_nl_add_addr_receive
- 	mptcp_pm_addr_send_ack(msk);
- 	mptcp_mpc_endpoint_setup(msk);
- 
--	if (lookup_subflow_by_daddr(&msk->conn_list, &remote))
-+	if (has_subflow_daddr(msk, &remote))
- 		return;
- 
- 	/* pick id 0 port, if none is provided the remote address */
-@@ -1074,7 +1074,7 @@ static int mptcp_nl_remove_subflow_and_s
- 			goto next;
- 
- 		lock_sock(sk);
--		remove_subflow = mptcp_lookup_subflow_by_saddr(&msk->conn_list, addr);
-+		remove_subflow = mptcp_pm_has_subflow_saddr(msk, addr);
- 		mptcp_pm_remove_anno_addr(msk, addr, remove_subflow &&
- 					  !(entry->flags & MPTCP_PM_ADDR_FLAG_IMPLICIT));
- 
-@@ -1202,7 +1202,7 @@ static void mptcp_pm_flush_addrs_and_sub
- 
- 	list_for_each_entry(entry, rm_list, list) {
- 		if (slist.nr < MPTCP_RM_IDS_MAX &&
--		    mptcp_lookup_subflow_by_saddr(&msk->conn_list, &entry->addr))
-+		    mptcp_pm_has_subflow_saddr(msk, &entry->addr))
- 			slist.ids[slist.nr++] = mptcp_endp_get_local_id(msk, &entry->addr);
- 
- 		if (alist.nr < MPTCP_RM_IDS_MAX &&
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -286,7 +286,7 @@ void mptcp_pm_remove_addr_entry(struct m
- 	/* only delete if either announced or matching a subflow */
- 	if (mptcp_remove_anno_list_by_saddr(msk, &entry->addr))
- 		anno_nr++;
--	else if (!mptcp_lookup_subflow_by_saddr(&msk->conn_list, &entry->addr))
-+	else if (!mptcp_pm_has_subflow_saddr(msk, &entry->addr))
- 		return;
- 
- 	alist.ids[alist.nr++] = entry->addr.id;
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -1087,8 +1087,8 @@ bool mptcp_pm_sport_in_anno_list(struct
- struct mptcp_pm_add_entry *
- mptcp_pm_del_add_timer(struct mptcp_sock *msk,
- 		       const struct mptcp_addr_info *addr, bool check_id);
--bool mptcp_lookup_subflow_by_saddr(const struct list_head *list,
--				   const struct mptcp_addr_info *saddr);
-+bool mptcp_pm_has_subflow_saddr(const struct mptcp_sock *msk,
-+				const struct mptcp_addr_info *saddr);
- bool mptcp_remove_anno_list_by_saddr(struct mptcp_sock *msk,
- 				     const struct mptcp_addr_info *addr);
- int mptcp_pm_nl_set_flags(struct mptcp_pm_addr_entry *local,
-
-
+Thanks
+Kamil
