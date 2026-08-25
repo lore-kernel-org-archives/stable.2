@@ -1,293 +1,704 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAA53CAA49
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21053515DA
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:48:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787687269; cv=none; b=ijRuOrj+maj/naflBpHm80/B0BmZk5D6jkrHBxIBNFxE6i3LuPzB6XN7DGP3Vzdxy2WhL4r7DzBA5jFvw0RxP3D3pwmebuT3gzqk4+1vc3lmN1XwhTRNagiNa3v+M+iWWZ8SBz5ELdot28In75YGSOvYdPSEVjJTw6SvLV9l8fM=
+	t=1787687288; cv=none; b=kHSPjsP++LcwVJIOjuCFckTkNPULnQZcv/BlGTzdD6pCQZ6Ezua+KIycuUc7wGuNgfCC8tbpxx8wi8oeJHXFKjYLuVgkd1LE8YNOBiYrbX6GO74+hJH3TJMMuoKu6KTVq00noq7i8lQ+ivXz3VtVIOWyRnx3NEz09oKBA1m+TzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787687269; c=relaxed/simple;
-	bh=iAAJWueGyHsa5WbokskSLu4lxYTceWFmHS4HqhW+6Hw=;
+	s=arc-20240116; t=1787687288; c=relaxed/simple;
+	bh=oz/Fo2PB7zACysEUIvKC3Ku9Yo2nEwikNCkasvIGiC8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nzNewCLJa2H6xXdj0sKFjL+1s0hbGkICTnUZMOypfOJjhH00VVMUuSP70u1vJvlaSployZ5hzGaXwdzrShlLQ5SguzKJhHCbVYKh6Gbrzq7SQ4VxUkr+gIXsLmazM6iQ7vKLSIUEK+NRHBsXziASw0T7GVW+s87p7foy1jGhLhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y4wn7nhk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=G34UALqoCkrOr0UvZVKPVIlK1KA9yv3YCLC1Viq+GIkBGci9usozN8zHNsYCG36ACFwNXaUgzVB+pHW9dZCFU8DlBCb3PnNl1J6aIP2Mnxs35W4oW9eBa9jSaAz1fMM8qUtHUHorNBapmkaln09iN1viK7IAJzeZ+f09R+uUD7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MN1e6RlV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y4wn7nhk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2380F1F00A3F;
-	Tue, 25 Aug 2026 19:47:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MN1e6RlV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E0F11F000E9;
+	Tue, 25 Aug 2026 19:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787687267;
-	bh=nxUMfDz50XvPOgIY1iX69MzE9cCXufCaRYXLoVIVSoA=;
+	s=k20260515; t=1787687286;
+	bh=CZrAWuuMikVEIAzgUlYX6ciSJkaemQFABBMoqWJBing=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y4wn7nhkVa1pZVUQeAyPqs/Ix5+oVzZkua8NCJ8nRakEIPpsXBZoJlBkk5HbeZak+
-	 EF8iHBnCsZOhz1xNLLLrJL13JT5DXfBOXgD6q7gqBphiTXEU/VVxX3czJbZI9l7fX0
-	 nTr4KmR/pCJsYw7TmY8gaGS52P0YfEr44+hQHIW400FzsJV70GJm0r6JCRG645HbVq
-	 V6SpOU+8uenTHo0uh15MAsOeihM9vOpBjhSZpQhhrRQd4ZknBjzwjy5SXp+rqzh5U2
-	 b5KwMuq9yDF5CTyVVmyEcF5A3UgJnTQuw8UJpwXZrgvj7nwR/IkwStfoZNsAvN+c1M
-	 ARJ7A77hQt9YA==
+	b=MN1e6RlVlm79MDxOMVvZzyVd13E2o9Mn4HjHe0/Rr8mScZCPmaxxNnkyZ8F93Gqm9
+	 bzMeYyecAq6duNziKARaVMVhDh/RnqQp7IVVtYK4OVOEZtn//Rm9O6cqBWjGvpBMkw
+	 hFKXNOWAla2sX5eLQyXyitADyQf3zJX9rUja4pg0YvqcohmoC7Lke+tYtp2lQqt/8H
+	 ZpyrKXiq1YFuVN2mkFZ+6iXQ7ZYBiA7yWF6omP36pnhYOi6v79yIek6zgTKKqpxq4/
+	 5CeQIOdVhX+PbAZDZXrjWhzT1iIghHXX7dv5okB2Eeq4OAKCoWvjLeVyw2hge6OnZ6
+	 G/EHYNz7n9PWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
+Cc: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
+	Paul Moore <paul@paul-moore.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] io_uring: defer eventfd signaling when queued from a wakeup handler
-Date: Tue, 25 Aug 2026 15:47:44 -0400
-Message-ID: <20260825194744.374948-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] selinux: use known type instead of void pointer
+Date: Tue, 25 Aug 2026 15:48:01 -0400
+Message-ID: <20260825194804.376152-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825194744.374948-1-sashal@kernel.org>
-References: <2026082449-reapply-disdain-0fc8@gregkh>
- <20260825194744.374948-1-sashal@kernel.org>
+In-Reply-To: <2026082023-agreeing-overbook-66d4@gregkh>
+References: <2026082023-agreeing-overbook-66d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+From: Christian Göttsche <cgzones@googlemail.com>
 
-[ Upstream commit cd305ee3633a45fcf5f3a5d83f99f3cb77d87b6e ]
+[ Upstream commit f07586160fd5492f8d48e7667e7a5d8797aa5090 ]
 
-io_req_local_work_add() signals the CQ ring eventfd inline when it is the
-one to push the first entry onto ->work_list. For DEFER_TASKRUN rings that
-add is frequently done from a waitqueue wakeup handler, where an
-arbitrary waitqueue lock is held.
+Improve type safety and readability by using the known type.
 
-eventfd_signal_mask() only refuses to recurse when current->in_eventfd
-is set, but that bit is set by eventfd_signal_mask() itself. If the wake
-chain starts somewhere else, signal goes out inline and can feed back
-into epoll.
-
-Add IOU_F_TWQ_IN_WAKE, set it on the task_work add done from the three
-waitqueue callbacks, and use it to force io_eventfd_signal() down the
-existing call_rcu_hurry() deferral instead of signaling inline.
-
-Fixes: 21a091b970cd ("io_uring: signal registered eventfd to process deferred task work")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260813133843.2933127-1-4ncienth@gmail.com/
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ Relocated the `io_req_local_work_add()` hunk into io_uring.c and kept 6.18's `ctx->has_evfd` and open-coded `io_pollfree_wake()` context due to missing tw.c split and `io_poll_remove_waitq()`. ]
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+Stable-dep-of: b98a8ac50775 ("selinux: require a class's permission values to cover its permission count")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/io_uring_types.h |  8 ++++++++
- io_uring/eventfd.c             |  8 ++++----
- io_uring/eventfd.h             |  2 +-
- io_uring/futex.c               |  4 ++--
- io_uring/io_uring.c            |  4 ++--
- io_uring/poll.c                | 23 ++++++++++++-----------
- io_uring/waitid.c              |  2 +-
- 7 files changed, 30 insertions(+), 21 deletions(-)
+ security/selinux/ss/avtab.c       |  8 +--
+ security/selinux/ss/avtab.h       | 10 ++--
+ security/selinux/ss/conditional.c | 12 ++--
+ security/selinux/ss/conditional.h |  6 +-
+ security/selinux/ss/ebitmap.c     |  4 +-
+ security/selinux/ss/ebitmap.h     |  5 +-
+ security/selinux/ss/policydb.c    | 92 ++++++++++++++++---------------
+ security/selinux/ss/policydb.h    | 16 +++---
+ 8 files changed, 79 insertions(+), 74 deletions(-)
 
-diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index 2ee408d076b3f..d73556f10733c 100644
---- a/include/linux/io_uring_types.h
-+++ b/include/linux/io_uring_types.h
-@@ -17,6 +17,14 @@ enum {
- 	 * It's also ignored unless IORING_SETUP_DEFER_TASKRUN is set.
- 	 */
- 	IOU_F_TWQ_LAZY_WAKE			= 1,
-+
-+	/*
-+	 * Set when task_work is queued from a waitqueue wakeup handler, where
-+	 * an arbitrary provider waitqueue lock is held. Signaling the CQ ring
-+	 * eventfd inline from there can recurse back into that lock through
-+	 * epoll, so the eventfd signal must be deferred.
-+	 */
-+	IOU_F_TWQ_IN_WAKE			= 2,
+diff --git a/security/selinux/ss/avtab.c b/security/selinux/ss/avtab.c
+index c97695ae508f1..ada24c8c2bf94 100644
+--- a/security/selinux/ss/avtab.c
++++ b/security/selinux/ss/avtab.c
+@@ -397,7 +397,7 @@ static uint16_t spec_order[] = {
+ 	AVTAB_XPERMS_DONTAUDIT
  };
  
- enum io_uring_cmd_flags {
-diff --git a/io_uring/eventfd.c b/io_uring/eventfd.c
-index ab789e1ebe91e..7a57dd88304a6 100644
---- a/io_uring/eventfd.c
-+++ b/io_uring/eventfd.c
-@@ -50,9 +50,9 @@ static void io_eventfd_do_signal(struct rcu_head *rcu)
- /*
-  * Returns true if the caller should put the ev_fd reference, false if not.
-  */
--static bool __io_eventfd_signal(struct io_ev_fd *ev_fd)
-+static bool __io_eventfd_signal(struct io_ev_fd *ev_fd, bool defer)
+-int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
++int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *pol,
+ 		    int (*insertf)(struct avtab *a, const struct avtab_key *k,
+ 				   const struct avtab_datum *d, void *p),
+ 		    void *p)
+@@ -565,7 +565,7 @@ static int avtab_insertf(struct avtab *a, const struct avtab_key *k,
+ 	return avtab_insert(a, k, d);
+ }
+ 
+-int avtab_read(struct avtab *a, void *fp, struct policydb *pol)
++int avtab_read(struct avtab *a, struct policy_file *fp, struct policydb *pol)
  {
--	if (eventfd_signal_allowed()) {
-+	if (!defer && eventfd_signal_allowed()) {
- 		eventfd_signal_mask(ev_fd->cq_ev_fd, EPOLL_URING_WAKE);
- 		return true;
- 	}
-@@ -72,7 +72,7 @@ static bool io_eventfd_trigger(struct io_ev_fd *ev_fd)
- 	return !ev_fd->eventfd_async || io_wq_current_is_worker();
+ 	int rc;
+ 	__le32 buf[1];
+@@ -609,7 +609,7 @@ int avtab_read(struct avtab *a, void *fp, struct policydb *pol)
+ 	goto out;
  }
  
--void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event)
-+void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event, bool defer)
+-int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp)
++int avtab_write_item(struct policydb *p, const struct avtab_node *cur, struct policy_file *fp)
  {
- 	bool skip = false;
- 	struct io_ev_fd *ev_fd;
-@@ -112,7 +112,7 @@ void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event)
- 		spin_unlock(&ctx->completion_lock);
- 	}
- 
--	if (skip || __io_eventfd_signal(ev_fd))
-+	if (skip || __io_eventfd_signal(ev_fd, defer))
- 		io_eventfd_put(ev_fd);
- }
- 
-diff --git a/io_uring/eventfd.h b/io_uring/eventfd.h
-index e2f1985c2cf98..86c3c69eba1d7 100644
---- a/io_uring/eventfd.h
-+++ b/io_uring/eventfd.h
-@@ -4,4 +4,4 @@ int io_eventfd_register(struct io_ring_ctx *ctx, void __user *arg,
- 			unsigned int eventfd_async);
- int io_eventfd_unregister(struct io_ring_ctx *ctx);
- 
--void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event);
-+void io_eventfd_signal(struct io_ring_ctx *ctx, bool cqe_event, bool defer);
-diff --git a/io_uring/futex.c b/io_uring/futex.c
-index 64f3bd51c84c6..203ee4d24d2df 100644
---- a/io_uring/futex.c
-+++ b/io_uring/futex.c
-@@ -161,7 +161,7 @@ static void io_futex_wakev_fn(struct wake_q_head *wake_q, struct futex_q *q)
- 
- 	io_req_set_res(req, 0, 0);
- 	req->io_task_work.func = io_futexv_complete;
--	io_req_task_work_add(req);
-+	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
- }
- 
- int io_futexv_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
-@@ -210,7 +210,7 @@ static void io_futex_wake_fn(struct wake_q_head *wake_q, struct futex_q *q)
- 
- 	io_req_set_res(req, 0, 0);
- 	req->io_task_work.func = io_futex_complete;
--	io_req_task_work_add(req);
-+	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
- }
- 
- int io_futexv_wait(struct io_kiocb *req, unsigned int issue_flags)
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 1dc160d86ea74..9784463fb718d 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -578,7 +578,7 @@ void __io_commit_cqring_flush(struct io_ring_ctx *ctx)
- 	if (ctx->off_timeout_used)
- 		io_flush_timeouts(ctx);
- 	if (ctx->has_evfd)
--		io_eventfd_signal(ctx, true);
-+		io_eventfd_signal(ctx, true, false);
- }
- 
- static inline void __io_cq_lock(struct io_ring_ctx *ctx)
-@@ -1312,7 +1312,7 @@ static void io_req_local_work_add(struct io_kiocb *req, unsigned flags)
- 	if (!head) {
- 		io_ctx_mark_taskrun(ctx);
- 		if (ctx->has_evfd)
--			io_eventfd_signal(ctx, false);
-+			io_eventfd_signal(ctx, false, flags & IOU_F_TWQ_IN_WAKE);
- 	}
- 
- 	nr_wait = atomic_read(&ctx->cq_wait_nr);
-diff --git a/io_uring/poll.c b/io_uring/poll.c
-index a5e78747e63ab..6745bbc963286 100644
---- a/io_uring/poll.c
-+++ b/io_uring/poll.c
-@@ -190,9 +190,9 @@ enum {
- 	IOU_POLL_REQUEUE = 4,
- };
- 
--static void __io_poll_execute(struct io_kiocb *req, int mask)
-+static void __io_poll_execute(struct io_kiocb *req, int mask, unsigned tw_flags)
- {
--	unsigned flags = 0;
-+	unsigned flags = tw_flags;
- 
- 	io_req_set_res(req, mask, 0);
- 	req->io_task_work.func = io_poll_task_func;
-@@ -200,14 +200,15 @@ static void __io_poll_execute(struct io_kiocb *req, int mask)
- 	trace_io_uring_task_add(req, mask);
- 
- 	if (!(req->flags & REQ_F_POLL_NO_LAZY))
--		flags = IOU_F_TWQ_LAZY_WAKE;
-+		flags |= IOU_F_TWQ_LAZY_WAKE;
- 	__io_req_task_work_add(req, flags);
- }
- 
--static inline void io_poll_execute(struct io_kiocb *req, int res)
-+static inline void io_poll_execute(struct io_kiocb *req, int res,
-+				   unsigned tw_flags)
- {
- 	if (io_poll_get_ownership(req))
--		__io_poll_execute(req, res);
-+		__io_poll_execute(req, res, tw_flags);
- }
- 
- /*
-@@ -323,7 +324,7 @@ void io_poll_task_func(struct io_kiocb *req, io_tw_token_t tw)
- 	if (ret == IOU_POLL_NO_ACTION) {
- 		return;
- 	} else if (ret == IOU_POLL_REQUEUE) {
--		__io_poll_execute(req, 0);
-+		__io_poll_execute(req, 0, 0);
- 		return;
- 	}
- 	io_poll_remove_entries(req);
-@@ -362,7 +363,7 @@ static void io_poll_cancel_req(struct io_kiocb *req)
- {
- 	io_poll_mark_cancelled(req);
- 	/* kick tw, which should complete the request */
--	io_poll_execute(req, 0);
-+	io_poll_execute(req, 0, 0);
- }
- 
- #define IO_ASYNC_POLL_COMMON	(EPOLLONESHOT | EPOLLPRI)
-@@ -371,7 +372,7 @@ static __cold int io_pollfree_wake(struct io_kiocb *req, struct io_poll *poll)
- {
- 	io_poll_mark_cancelled(req);
- 	/* we have to kick tw in case it's not already */
--	io_poll_execute(req, 0);
-+	io_poll_execute(req, 0, IOU_F_TWQ_IN_WAKE);
- 
- 	/*
- 	 * If the waitqueue is being freed early but someone is already
-@@ -426,7 +427,7 @@ static int io_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
- 			else
- 				req->flags &= ~REQ_F_SINGLE_POLL;
- 		}
--		__io_poll_execute(req, mask);
-+		__io_poll_execute(req, mask, IOU_F_TWQ_IN_WAKE);
- 	}
- 	return 1;
- }
-@@ -614,7 +615,7 @@ static int __io_arm_poll_handler(struct io_kiocb *req,
- 
- 	if (mask && (poll->events & EPOLLET) &&
- 	    io_poll_can_finish_inline(req, ipt)) {
--		__io_poll_execute(req, mask);
-+		__io_poll_execute(req, mask, 0);
- 		return 0;
- 	}
- 	io_napi_add(req);
-@@ -625,7 +626,7 @@ static int __io_arm_poll_handler(struct io_kiocb *req,
- 		 * poll was waken up, queue up a tw, it'll deal with it.
- 		 */
- 		if (atomic_cmpxchg(&req->poll_refs, 1, 0) != 1)
--			__io_poll_execute(req, 0);
-+			__io_poll_execute(req, 0, 0);
- 	}
+ 	__le16 buf16[4];
+ 	__le32 buf32[ARRAY_SIZE(cur->datum.u.xperms->perms.p)];
+@@ -644,7 +644,7 @@ int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp)
  	return 0;
  }
-diff --git a/io_uring/waitid.c b/io_uring/waitid.c
-index 921b4de3a31cb..97cce0bd2d50e 100644
---- a/io_uring/waitid.c
-+++ b/io_uring/waitid.c
-@@ -237,7 +237,7 @@ static int io_waitid_wait(struct wait_queue_entry *wait, unsigned mode,
- 		return 1;
  
- 	req->io_task_work.func = io_waitid_cb;
--	io_req_task_work_add(req);
-+	__io_req_task_work_add(req, IOU_F_TWQ_IN_WAKE);
+-int avtab_write(struct policydb *p, struct avtab *a, void *fp)
++int avtab_write(struct policydb *p, struct avtab *a, struct policy_file *fp)
+ {
+ 	unsigned int i;
+ 	int rc = 0;
+diff --git a/security/selinux/ss/avtab.h b/security/selinux/ss/avtab.h
+index d3ebea8d146f2..2d60ef7530f8b 100644
+--- a/security/selinux/ss/avtab.h
++++ b/security/selinux/ss/avtab.h
+@@ -95,14 +95,16 @@ void avtab_destroy(struct avtab *h);
+ void avtab_hash_eval(struct avtab *h, char *tag);
+ 
+ struct policydb;
+-int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
++struct policy_file;
++int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *pol,
+ 		    int (*insert)(struct avtab *a, const struct avtab_key *k,
+ 				  const struct avtab_datum *d, void *p),
+ 		    void *p);
+ 
+-int avtab_read(struct avtab *a, void *fp, struct policydb *pol);
+-int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp);
+-int avtab_write(struct policydb *p, struct avtab *a, void *fp);
++int avtab_read(struct avtab *a, struct policy_file *fp, struct policydb *pol);
++int avtab_write_item(struct policydb *p, const struct avtab_node *cur,
++		     struct policy_file *fp);
++int avtab_write(struct policydb *p, struct avtab *a, struct policy_file *fp);
+ 
+ struct avtab_node *avtab_insert_nonunique(struct avtab *h,
+ 					  const struct avtab_key *key,
+diff --git a/security/selinux/ss/conditional.c b/security/selinux/ss/conditional.c
+index feb206f3acb4a..7e4f1f0b4318a 100644
+--- a/security/selinux/ss/conditional.c
++++ b/security/selinux/ss/conditional.c
+@@ -205,7 +205,7 @@ static int bool_isvalid(struct cond_bool_datum *b)
  	return 1;
  }
  
+-int cond_read_bool(struct policydb *p, struct symtab *s, void *fp)
++int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct cond_bool_datum *booldatum;
+@@ -321,7 +321,7 @@ static int cond_insertf(struct avtab *a, const struct avtab_key *k,
+ 	return 0;
+ }
+ 
+-static int cond_read_av_list(struct policydb *p, void *fp,
++static int cond_read_av_list(struct policydb *p, struct policy_file *fp,
+ 			     struct cond_av_list *list,
+ 			     struct cond_av_list *other)
+ {
+@@ -373,7 +373,7 @@ static int expr_node_isvalid(struct policydb *p, struct cond_expr_node *expr)
+ 	return 1;
+ }
+ 
+-static int cond_read_node(struct policydb *p, struct cond_node *node, void *fp)
++static int cond_read_node(struct policydb *p, struct cond_node *node, struct policy_file *fp)
+ {
+ 	__le32 buf[2];
+ 	u32 i, len;
+@@ -413,7 +413,7 @@ static int cond_read_node(struct policydb *p, struct cond_node *node, void *fp)
+ 	return cond_read_av_list(p, fp, &node->false_list, &node->true_list);
+ }
+ 
+-int cond_read_list(struct policydb *p, void *fp)
++int cond_read_list(struct policydb *p, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	u32 i, len;
+@@ -451,7 +451,7 @@ int cond_write_bool(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct cond_bool_datum *booldatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[3];
+ 	u32 len;
+ 	int rc;
+@@ -534,7 +534,7 @@ static int cond_write_node(struct policydb *p, struct cond_node *node,
+ 	return 0;
+ }
+ 
+-int cond_write_list(struct policydb *p, void *fp)
++int cond_write_list(struct policydb *p, struct policy_file *fp)
+ {
+ 	u32 i;
+ 	__le32 buf[1];
+diff --git a/security/selinux/ss/conditional.h b/security/selinux/ss/conditional.h
+index e47ec6ddeaf61..c4c60413127cc 100644
+--- a/security/selinux/ss/conditional.h
++++ b/security/selinux/ss/conditional.h
+@@ -69,10 +69,10 @@ int cond_destroy_bool(void *key, void *datum, void *p);
+ 
+ int cond_index_bool(void *key, void *datum, void *datap);
+ 
+-int cond_read_bool(struct policydb *p, struct symtab *s, void *fp);
+-int cond_read_list(struct policydb *p, void *fp);
++int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp);
++int cond_read_list(struct policydb *p, struct policy_file *fp);
+ int cond_write_bool(void *key, void *datum, void *ptr);
+-int cond_write_list(struct policydb *p, void *fp);
++int cond_write_list(struct policydb *p, struct policy_file *fp);
+ 
+ void cond_compute_av(struct avtab *ctab, struct avtab_key *key,
+ 		struct av_decision *avd, struct extended_perms *xperms);
+diff --git a/security/selinux/ss/ebitmap.c b/security/selinux/ss/ebitmap.c
+index 61fcbb8d0f880..6854aeb48289c 100644
+--- a/security/selinux/ss/ebitmap.c
++++ b/security/selinux/ss/ebitmap.c
+@@ -362,7 +362,7 @@ void ebitmap_destroy(struct ebitmap *e)
+ 	return;
+ }
+ 
+-int ebitmap_read(struct ebitmap *e, void *fp)
++int ebitmap_read(struct ebitmap *e, struct policy_file *fp)
+ {
+ 	struct ebitmap_node *n = NULL;
+ 	u32 mapunit, count, startbit, index;
+@@ -468,7 +468,7 @@ int ebitmap_read(struct ebitmap *e, void *fp)
+ 	goto out;
+ }
+ 
+-int ebitmap_write(struct ebitmap *e, void *fp)
++int ebitmap_write(struct ebitmap *e, struct policy_file *fp)
+ {
+ 	struct ebitmap_node *n;
+ 	u32 count;
+diff --git a/security/selinux/ss/ebitmap.h b/security/selinux/ss/ebitmap.h
+index 9eb2d0af2805e..a721cd29ab118 100644
+--- a/security/selinux/ss/ebitmap.h
++++ b/security/selinux/ss/ebitmap.h
+@@ -129,8 +129,9 @@ int ebitmap_contains(struct ebitmap *e1, struct ebitmap *e2, u32 last_e2bit);
+ int ebitmap_get_bit(struct ebitmap *e, unsigned long bit);
+ int ebitmap_set_bit(struct ebitmap *e, unsigned long bit, int value);
+ void ebitmap_destroy(struct ebitmap *e);
+-int ebitmap_read(struct ebitmap *e, void *fp);
+-int ebitmap_write(struct ebitmap *e, void *fp);
++struct policy_file;
++int ebitmap_read(struct ebitmap *e, struct policy_file *fp);
++int ebitmap_write(struct ebitmap *e, struct policy_file *fp);
+ u32 ebitmap_hash(const struct ebitmap *e, u32 hash);
+ 
+ #ifdef CONFIG_NETLABEL
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index 3b87ec820d3c4..fcacc56424697 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -992,7 +992,7 @@ int policydb_context_isvalid(struct policydb *p, struct context *c)
+  * Read a MLS range structure from a policydb binary
+  * representation file.
+  */
+-static int mls_read_range_helper(struct mls_range *r, void *fp)
++static int mls_read_range_helper(struct mls_range *r, struct policy_file *fp)
+ {
+ 	__le32 buf[2];
+ 	u32 items;
+@@ -1053,7 +1053,7 @@ static int mls_read_range_helper(struct mls_range *r, void *fp)
+  */
+ static int context_read_and_validate(struct context *c,
+ 				     struct policydb *p,
+-				     void *fp)
++				     struct policy_file *fp)
+ {
+ 	__le32 buf[3];
+ 	int rc;
+@@ -1091,7 +1091,7 @@ static int context_read_and_validate(struct context *c,
+  * binary representation file.
+  */
+ 
+-static int str_read(char **strp, gfp_t flags, void *fp, u32 len)
++static int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
+ {
+ 	int rc;
+ 	char *str;
+@@ -1114,7 +1114,7 @@ static int str_read(char **strp, gfp_t flags, void *fp, u32 len)
+ 	return 0;
+ }
+ 
+-static int perm_read(struct policydb *p, struct symtab *s, void *fp)
++static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct perm_datum *perdatum;
+@@ -1147,7 +1147,7 @@ static int perm_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int common_read(struct policydb *p, struct symtab *s, void *fp)
++static int common_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct common_datum *comdatum;
+@@ -1197,7 +1197,7 @@ static void type_set_init(struct type_set *t)
+ 	ebitmap_init(&t->negset);
+ }
+ 
+-static int type_set_read(struct type_set *t, void *fp)
++static int type_set_read(struct type_set *t, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -1218,7 +1218,8 @@ static int type_set_read(struct type_set *t, void *fp)
+ 
+ static int read_cons_helper(struct policydb *p,
+ 				struct constraint_node **nodep,
+-				int ncons, int allowxtarget, void *fp)
++				int ncons, int allowxtarget,
++				struct policy_file *fp)
+ {
+ 	struct constraint_node *c, *lc;
+ 	struct constraint_expr *e, *le;
+@@ -1311,7 +1312,7 @@ static int read_cons_helper(struct policydb *p,
+ 	return 0;
+ }
+ 
+-static int class_read(struct policydb *p, struct symtab *s, void *fp)
++static int class_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct class_datum *cladatum;
+@@ -1418,7 +1419,7 @@ static int class_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int role_read(struct policydb *p, struct symtab *s, void *fp)
++static int role_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct role_datum *role;
+@@ -1474,7 +1475,7 @@ static int role_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int type_read(struct policydb *p, struct symtab *s, void *fp)
++static int type_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct type_datum *typdatum;
+@@ -1526,7 +1527,7 @@ static int type_read(struct policydb *p, struct symtab *s, void *fp)
+  * Read a MLS level structure from a policydb binary
+  * representation file.
+  */
+-static int mls_read_level(struct mls_level *lp, void *fp)
++static int mls_read_level(struct mls_level *lp, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -1548,7 +1549,7 @@ static int mls_read_level(struct mls_level *lp, void *fp)
+ 	return 0;
+ }
+ 
+-static int user_read(struct policydb *p, struct symtab *s, void *fp)
++static int user_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct user_datum *usrdatum;
+@@ -1598,7 +1599,7 @@ static int user_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int sens_read(struct policydb *p, struct symtab *s, void *fp)
++static int sens_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct level_datum *levdatum;
+@@ -1639,7 +1640,7 @@ static int sens_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int cat_read(struct policydb *p, struct symtab *s, void *fp)
++static int cat_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ {
+ 	char *key = NULL;
+ 	struct cat_datum *catdatum;
+@@ -1672,7 +1673,8 @@ static int cat_read(struct policydb *p, struct symtab *s, void *fp)
+ 	return rc;
+ }
+ 
+-static int (*read_f[SYM_NUM]) (struct policydb *p, struct symtab *s, void *fp) =
++static int (*read_f[SYM_NUM]) (struct policydb *p, struct symtab *s,
++			       struct policy_file *fp) =
+ {
+ 	common_read,
+ 	class_read,
+@@ -1840,7 +1842,7 @@ u32 string_to_av_perm(struct policydb *p, u16 tclass, const char *name)
+ 	return 1U << (perdatum->value-1);
+ }
+ 
+-static int range_read(struct policydb *p, void *fp)
++static int range_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct range_trans *rt = NULL;
+ 	struct mls_range *r = NULL;
+@@ -1917,7 +1919,7 @@ static int range_read(struct policydb *p, void *fp)
+ 	return rc;
+ }
+ 
+-static int filename_trans_read_helper_compat(struct policydb *p, void *fp)
++static int filename_trans_read_helper_compat(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct filename_trans_key key, *ft = NULL;
+ 	struct filename_trans_datum *last, *datum = NULL;
+@@ -2001,7 +2003,7 @@ static int filename_trans_read_helper_compat(struct policydb *p, void *fp)
+ 	return rc;
+ }
+ 
+-static int filename_trans_read_helper(struct policydb *p, void *fp)
++static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct filename_trans_key *ft = NULL;
+ 	struct filename_trans_datum **dst, *datum, *first = NULL;
+@@ -2090,7 +2092,7 @@ static int filename_trans_read_helper(struct policydb *p, void *fp)
+ 	return rc;
+ }
+ 
+-static int filename_trans_read(struct policydb *p, void *fp)
++static int filename_trans_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	u32 nel;
+ 	__le32 buf[1];
+@@ -2131,7 +2133,7 @@ static int filename_trans_read(struct policydb *p, void *fp)
+ 	return 0;
+ }
+ 
+-static int genfs_read(struct policydb *p, void *fp)
++static int genfs_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	int i, j, rc;
+ 	u32 nel, nel2, len, len2;
+@@ -2245,7 +2247,7 @@ static int genfs_read(struct policydb *p, void *fp)
+ }
+ 
+ static int ocontext_read(struct policydb *p, struct policydb_compat_info *info,
+-			 void *fp)
++			 struct policy_file *fp)
+ {
+ 	int i, j, rc;
+ 	u32 nel, len;
+@@ -2430,7 +2432,7 @@ static int ocontext_read(struct policydb *p, struct policydb_compat_info *info,
+  * Read the configuration data from a policy database binary
+  * representation file into a policy database structure.
+  */
+-int policydb_read(struct policydb *p, void *fp)
++int policydb_read(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct role_allow *ra, *lra;
+ 	struct role_trans_key *rtk = NULL;
+@@ -2748,7 +2750,7 @@ int policydb_read(struct policydb *p, void *fp)
+  * Write a MLS level structure to a policydb binary
+  * representation file.
+  */
+-static int mls_write_level(struct mls_level *l, void *fp)
++static int mls_write_level(struct mls_level *l, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -2769,7 +2771,7 @@ static int mls_write_level(struct mls_level *l, void *fp)
+  * Write a MLS range structure to a policydb binary
+  * representation file.
+  */
+-static int mls_write_range_helper(struct mls_range *r, void *fp)
++static int mls_write_range_helper(struct mls_range *r, struct policy_file *fp)
+ {
+ 	__le32 buf[3];
+ 	size_t items;
+@@ -2809,7 +2811,7 @@ static int sens_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct level_datum *levdatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[2];
+ 	size_t len;
+ 	int rc;
+@@ -2837,7 +2839,7 @@ static int cat_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct cat_datum *catdatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[3];
+ 	size_t len;
+ 	int rc;
+@@ -2862,7 +2864,7 @@ static int role_trans_write_one(void *key, void *datum, void *ptr)
+ 	struct role_trans_key *rtk = key;
+ 	struct role_trans_datum *rtd = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	__le32 buf[3];
+ 	int rc;
+@@ -2882,7 +2884,7 @@ static int role_trans_write_one(void *key, void *datum, void *ptr)
+ 	return 0;
+ }
+ 
+-static int role_trans_write(struct policydb *p, void *fp)
++static int role_trans_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct policy_data pd = { .p = p, .fp = fp };
+ 	__le32 buf[1];
+@@ -2896,7 +2898,7 @@ static int role_trans_write(struct policydb *p, void *fp)
+ 	return hashtab_map(&p->role_tr, role_trans_write_one, &pd);
+ }
+ 
+-static int role_allow_write(struct role_allow *r, void *fp)
++static int role_allow_write(struct role_allow *r, struct policy_file *fp)
+ {
+ 	struct role_allow *ra;
+ 	__le32 buf[2];
+@@ -2925,7 +2927,7 @@ static int role_allow_write(struct role_allow *r, void *fp)
+  * to a policydb binary representation file.
+  */
+ static int context_write(struct policydb *p, struct context *c,
+-			 void *fp)
++			 struct policy_file *fp)
+ {
+ 	int rc;
+ 	__le32 buf[3];
+@@ -2978,7 +2980,7 @@ static int common_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct common_datum *comdatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[4];
+ 	size_t len;
+ 	int rc;
+@@ -3003,7 +3005,7 @@ static int common_write(void *vkey, void *datum, void *ptr)
+ 	return 0;
+ }
+ 
+-static int type_set_write(struct type_set *t, void *fp)
++static int type_set_write(struct type_set *t, struct policy_file *fp)
+ {
+ 	int rc;
+ 	__le32 buf[1];
+@@ -3022,7 +3024,7 @@ static int type_set_write(struct type_set *t, void *fp)
+ }
+ 
+ static int write_cons_helper(struct policydb *p, struct constraint_node *node,
+-			     void *fp)
++			     struct policy_file *fp)
+ {
+ 	struct constraint_node *c;
+ 	struct constraint_expr *e;
+@@ -3073,7 +3075,7 @@ static int class_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct class_datum *cladatum = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	struct constraint_node *c;
+ 	__le32 buf[6];
+@@ -3158,7 +3160,7 @@ static int role_write(void *vkey, void *datum, void *ptr)
+ 	char *key = vkey;
+ 	struct role_datum *role = datum;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	__le32 buf[3];
+ 	size_t items, len;
+@@ -3198,7 +3200,7 @@ static int type_write(void *vkey, void *datum, void *ptr)
+ 	struct type_datum *typdatum = datum;
+ 	struct policy_data *pd = ptr;
+ 	struct policydb *p = pd->p;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[4];
+ 	int rc;
+ 	size_t items, len;
+@@ -3239,7 +3241,7 @@ static int user_write(void *vkey, void *datum, void *ptr)
+ 	struct user_datum *usrdatum = datum;
+ 	struct policy_data *pd = ptr;
+ 	struct policydb *p = pd->p;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	__le32 buf[3];
+ 	size_t items, len;
+ 	int rc;
+@@ -3288,7 +3290,7 @@ static int (*write_f[SYM_NUM]) (void *key, void *datum,
+ };
+ 
+ static int ocontext_write(struct policydb *p, struct policydb_compat_info *info,
+-			  void *fp)
++			  struct policy_file *fp)
+ {
+ 	unsigned int i, j, rc;
+ 	size_t nel, len;
+@@ -3417,7 +3419,7 @@ static int ocontext_write(struct policydb *p, struct policydb_compat_info *info,
+ 	return 0;
+ }
+ 
+-static int genfs_write(struct policydb *p, void *fp)
++static int genfs_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	struct genfs *genfs;
+ 	struct ocontext *c;
+@@ -3475,7 +3477,7 @@ static int range_write_helper(void *key, void *data, void *ptr)
+ 	struct range_trans *rt = key;
+ 	struct mls_range *r = data;
+ 	struct policy_data *pd = ptr;
+-	void *fp = pd->fp;
++	struct policy_file *fp = pd->fp;
+ 	struct policydb *p = pd->p;
+ 	int rc;
+ 
+@@ -3497,7 +3499,7 @@ static int range_write_helper(void *key, void *data, void *ptr)
+ 	return 0;
+ }
+ 
+-static int range_write(struct policydb *p, void *fp)
++static int range_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -3524,7 +3526,7 @@ static int filename_write_helper_compat(void *key, void *data, void *ptr)
+ 	struct filename_trans_key *ft = key;
+ 	struct filename_trans_datum *datum = data;
+ 	struct ebitmap_node *node;
+-	void *fp = ptr;
++	struct policy_file *fp = ptr;
+ 	__le32 buf[4];
+ 	int rc;
+ 	u32 bit, len = strlen(ft->name);
+@@ -3560,7 +3562,7 @@ static int filename_write_helper(void *key, void *data, void *ptr)
+ {
+ 	struct filename_trans_key *ft = key;
+ 	struct filename_trans_datum *datum;
+-	void *fp = ptr;
++	struct policy_file *fp = ptr;
+ 	__le32 buf[3];
+ 	int rc;
+ 	u32 ndatum, len = strlen(ft->name);
+@@ -3605,7 +3607,7 @@ static int filename_write_helper(void *key, void *data, void *ptr)
+ 	return 0;
+ }
+ 
+-static int filename_trans_write(struct policydb *p, void *fp)
++static int filename_trans_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	__le32 buf[1];
+ 	int rc;
+@@ -3637,7 +3639,7 @@ static int filename_trans_write(struct policydb *p, void *fp)
+  * structure to a policy database binary representation
+  * file.
+  */
+-int policydb_write(struct policydb *p, void *fp)
++int policydb_write(struct policydb *p, struct policy_file *fp)
+ {
+ 	unsigned int i, num_syms;
+ 	int rc;
+diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
+index ffc4e7bad2054..862b6577e79d7 100644
+--- a/security/selinux/ss/policydb.h
++++ b/security/selinux/ss/policydb.h
+@@ -315,14 +315,19 @@ struct policydb {
+ 	u32 process_trans_perms;
+ } __randomize_layout;
+ 
++struct policy_file {
++	char *data;
++	size_t len;
++};
++
+ extern void policydb_destroy(struct policydb *p);
+ extern int policydb_load_isids(struct policydb *p, struct sidtab *s);
+ extern int policydb_context_isvalid(struct policydb *p, struct context *c);
+ extern int policydb_class_isvalid(struct policydb *p, unsigned int class);
+ extern int policydb_type_isvalid(struct policydb *p, unsigned int type);
+ extern int policydb_role_isvalid(struct policydb *p, unsigned int role);
+-extern int policydb_read(struct policydb *p, void *fp);
+-extern int policydb_write(struct policydb *p, void *fp);
++extern int policydb_read(struct policydb *p, struct policy_file *fp);
++extern int policydb_write(struct policydb *p, struct policy_file *fp);
+ 
+ extern struct filename_trans_datum *policydb_filenametr_search(
+ 	struct policydb *p, struct filename_trans_key *key);
+@@ -345,14 +350,9 @@ extern struct role_trans_datum *policydb_roletr_search(
+ #define POLICYDB_MAGIC SELINUX_MAGIC
+ #define POLICYDB_STRING "SE Linux"
+ 
+-struct policy_file {
+-	char *data;
+-	size_t len;
+-};
+-
+ struct policy_data {
+ 	struct policydb *p;
+-	void *fp;
++	struct policy_file *fp;
+ };
+ 
+ static inline int next_entry(void *buf, struct policy_file *fp, size_t bytes)
 -- 
 2.53.0
 
