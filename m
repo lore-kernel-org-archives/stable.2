@@ -1,137 +1,88 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7CB3CAA53;
-	Tue, 25 Aug 2026 19:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CD23CAE73;
+	Tue, 25 Aug 2026 19:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787685898; cv=none; b=knmxvriMxoa4b4ffJ5jdniSFxyyDr27DOIq/Hc/ggLuzCpPo5lpWhepBzh2QdxajnzoBdXROooDs1UXCXhoT79OaOshtK22/1A+pP7A61WnBX7Rrwdr0pKhI4Roe4mCxnKDRLxp3Hx27628DF/1dkRbB4AMMafAds1DL6Q3UrMI=
+	t=1787685976; cv=none; b=bvuYTbADXO9SHcKnBWgg3csWfabVOCeUzGlRwK9lmvYOmixqzxkXdMgPegGXSNL+v50mFzzSZf8KbYovaYUDD9A13EK9vXxE60uF3fdKiB+AcLrGd3vV7te68yrkdtklzRmw52ZZF7Lm0HxWXX85kmEIjacbGkT+kOAsSAVSwUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787685898; c=relaxed/simple;
-	bh=kDXb0E0lYMM7EH3imuAOuuUNEh82ewm7w1dTNPRFYWI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VfNTCgpXTc9IcAiQyhDOLj1rxmVlO7Ugkez2xCdilH4F5Wtor9RGE5j1m/9kUu4seq+XakoV+vPJkM94B0gSw+VZ4Q/kV7LlMpgjKCeaky21i76rwCkLYv0Jqyd9tTpXSxukofSkNdMHQHLa8bfpF0jtbSBiCTMf4GtriFkIbmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Owww0kPH; arc=none smtp.client-ip=192.19.144.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1787685976; c=relaxed/simple;
+	bh=XmH3jneozTflejoWrChXqinHV2ZowSWDzGDkcPw1UBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r2mKj6G81gGEeXYZe3ko/pFnlHx0hIMHb1RF+EUdK8pmzGxI1ePRiSEAZnpMKlkz576nxanb5qsI+9ihFktwHiBB4mYuwBgUh8U3U7GlwbNgItZJbxMFIxuNWrJYQr/EYhNYiGvDQ9+G/A+iNmWoDysQpF+cm0s8ObaA11427SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=SWZgiCJy; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Owww0kPH"
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 2EA22C003AD2;
-	Tue, 25 Aug 2026 12:16:42 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 2EA22C003AD2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1787685402;
-	bh=kDXb0E0lYMM7EH3imuAOuuUNEh82ewm7w1dTNPRFYWI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Owww0kPH/CQssl9Uz1S7ZlxUDrZhVVcKQGHWC/vW4FhLDkuCZM/rztay3rA6C4bfS
-	 kpPhQZx2RKpTKZwx2RI5/lWnA18PAbXFTww2qYzBwvQ8kDgsuYtb2l07Nz5LFbcjKE
-	 zoC61mMplG+LFmjAFNE9fSgm9jdggRF/avg84oH0=
-Received: from bse-build-07.ric.broadcom.net (unknown [10.136.28.187])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 947ACA9A;
-	Tue, 25 Aug 2026 12:16:41 -0700 (PDT)
-From: Danesh Petigara <danesh.petigara@broadcom.com>
-To: jassisinghbrar@gmail.com
-Cc: justin.chen@broadcom.com,
-	florian.fainelli@broadcom.com,
-	james.quinlan@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Danesh Petigara <danesh.petigara@broadcom.com>
-Subject: [PATCH] mailbox: bcm74110: Cap rx_svc_init_list growth to prevent PMC-induced OOM
-Date: Tue, 25 Aug 2026 12:16:19 -0700
-Message-ID: <20260825191619.2326087-1-danesh.petigara@broadcom.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="SWZgiCJy"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7629511CD41;
+	Tue, 25 Aug 2026 21:26:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1787685967;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=3E+DvxtSXWQT62lxgL5+u/fNgNp/Oz6AouO2T1yqXSk=;
+	b=SWZgiCJyW88vDlXnhinDWemZ9u+JLMEB+Q5rqzrzZtbxEzLJJeG2g4I8/j/LYeDKBaFtTs
+	bd88vxW59fhar9L970R2K6eSqCmdche3/NMSDS0rrsWYb7jw4pt+xZT0/ZOR8wsKgaY0aV
+	jkBFG8tPAhHkvx/z2hd9nZSwPTj3OgbSXtbobRyZ9V+i0ZsId4rJ/VUh4xzu/55B/9bURC
+	96YnUoOzBb2EbhJ5TXHKQiUeBGCaLy9j0afeCquWhfnzHiww4UdxGkEcCpWy/ecanwfp5m
+	M62KZgZCd7TT5oMy0iJ45CXlkACc764p0Khn1iFc4coMS8uHsdIqfqAWecbk5w==
+Date: Tue, 25 Aug 2026 21:26:01 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 5.10 00/57] 5.10.267-rc1 review
+Message-ID: <ao3sSQ8raDtC-S1b@duo.ucw.cz>
+References: <20260825132541.342390421@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="o+dFAqIbDqrs4aAg"
+Content-Disposition: inline
+In-Reply-To: <20260825132541.342390421@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Florian Fainelli <florian.fainelli@broadcom.com>
 
-bcm74110_rx_push_init_msg() allocates a GFP_ATOMIC struct for every
-BCM_MSG_SVC_INIT word received from the PMC co-processor and appends it
-to rx_svc_init_list with no cap on list length.  The only consumers of
-this list (bcm74110_rx_pop_init_msg_block / bcm74110_rx_flush_msg) are
-called only during probe and at shutdown respectively; after probe
-completes, PMC firmware can continuously inject BCM_MSG_SVC_INIT words,
-exhausting GFP_ATOMIC reserves and causing a whole-device denial of
-service.
+--o+dFAqIbDqrs4aAg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Add BCM74110_INIT_MSG_MAX (16 entries) as the maximum list depth.
-bcm74110_rx_push_init_msg() now checks the count under the existing
-rx_svc_list_lock before allocating; if the cap is reached the message is
-dropped and a rate-limited warning is emitted.  The new rx_svc_init_count
-field is decremented by bcm74110_rx_pop_init_msg() on successful dequeue
-and reset to zero by bcm74110_rx_flush_msg() on shutdown.
+Hi!
 
-Fixes: 52436007b862 ("mailbox: Add support for bcm74110")
-Cc: stable@vger.kernel.org
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Assisted-by: Anthropic:claude-sonnet-4.6 cursor
-Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
----
- drivers/mailbox/bcm74110-mailbox.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+> This is the start of the stable review cycle for the 5.10.267 release.
+> There are 57 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-diff --git a/drivers/mailbox/bcm74110-mailbox.c b/drivers/mailbox/bcm74110-mailbox.c
-index c8709d509912..bec138d76914 100644
---- a/drivers/mailbox/bcm74110-mailbox.c
-+++ b/drivers/mailbox/bcm74110-mailbox.c
-@@ -97,6 +97,8 @@ struct bcm74110_mbox_chan {
- 	int				type;
- };
- 
-+#define BCM74110_INIT_MSG_MAX		16
-+
- struct bcm74110_mbox {
- 	struct platform_device		*pdev;
- 	void __iomem			*base;
-@@ -105,6 +107,7 @@ struct bcm74110_mbox {
- 	int				rx_chan;
- 	int				rx_irq;
- 	struct list_head		rx_svc_init_list;
-+	unsigned int			rx_svc_init_count;
- 	spinlock_t			rx_svc_list_lock;
- 
- 	struct mbox_controller		controller;
-@@ -148,7 +151,15 @@ static void bcm74110_rx_push_init_msg(struct bcm74110_mbox *mbox, u32 val)
- 	msg->msg = val;
- 
- 	spin_lock(&mbox->rx_svc_list_lock);
-+	if (mbox->rx_svc_init_count >= BCM74110_INIT_MSG_MAX) {
-+		spin_unlock(&mbox->rx_svc_list_lock);
-+		kfree(msg);
-+		dev_warn_ratelimited(&mbox->pdev->dev,
-+				     "PMC INIT msg list full, dropping message\n");
-+		return;
-+	}
- 	list_add_tail(&msg->list_entry, &mbox->rx_svc_init_list);
-+	mbox->rx_svc_init_count++;
- 	spin_unlock(&mbox->rx_svc_list_lock);
- }
- 
-@@ -225,6 +236,7 @@ static int bcm74110_rx_pop_init_msg(struct bcm74110_mbox *mbox, u32 func_type,
- 				 list_entry) {
- 		if (BCM_MSG_GET_FIELD(msg->msg, FUNC) == func_type) {
- 			list_del(&msg->list_entry);
-+			mbox->rx_svc_init_count--;
- 			found = true;
- 			break;
- 		}
-@@ -248,6 +260,7 @@ static void bcm74110_rx_flush_msg(struct bcm74110_mbox *mbox)
- 
- 	spin_lock_irqsave(&mbox->rx_svc_list_lock, flags);
- 	list_splice_init(&mbox->rx_svc_init_list, &list_temp);
-+	mbox->rx_svc_init_count = 0;
- 	spin_unlock_irqrestore(&mbox->rx_svc_list_lock, flags);
- 
- 	list_for_each_entry_safe(msg, msg_tmp, &list_temp, list_entry) {
--- 
-2.54.0
+CIP testing did not find any problems here:
 
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-5.10.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+
+--o+dFAqIbDqrs4aAg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCao3sSQAKCRAw5/Bqldv6
+8sVKAJ9m3lwO3Z9d+bIUIsxgZExZEPyj1ACgkhisV3+S5+esClGXzMKn/t/4SeE=
+=hCph
+-----END PGP SIGNATURE-----
+
+--o+dFAqIbDqrs4aAg--
