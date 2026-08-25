@@ -1,99 +1,267 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54468393DFB
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 10:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0884D33A70A;
+	Tue, 25 Aug 2026 10:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787654829; cv=none; b=mm4k9A44Bfcwin1qkyHVx4GE7s45TgNChGB7EGFhHEMCMe2RF3SNeNzitIGdV0IVRS5yP0ePJecUcTVOV5nQzIbZCac0FtKHLBHxWv6gkC1gfor162d/o0QUnx3LXOLtIzFW5QEfVEVD0lHNFGr7DUlIsy0YSkhzOUSPomOXuzw=
+	t=1787655068; cv=none; b=r2TgaMv6Y0rH994Zf8qbDXKP6m3wHAlmnI9PhJsYyVsIMd9sOEASLPhriNY3qOHZLKHfMfYeOKoswCIP7G93DuyI1U4zQDHiwKAUVdFTsESWeuUWwjBtqAgRkHZoP2sdHp5IwIONuGTWcgRetcNNRjSiyUcOyar9z7lSriusrLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787654829; c=relaxed/simple;
-	bh=KoWnSXBGaCj0jbCTvpHVOuxUQJsRstO2RferBywnX+I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=chBO1g4AyJIoF+uG06j6IoG52FIEoYyURxMPbMR5TCiIeJlQBlucsr6YDQTgw4nl79LQlm11WhBPJOhYCSwxDVrPA17q+6z6pZCNwK/qGhYIqIYpH+Wrc1R+xkeiSMrFgvlhb5CPYLigq5jAMJ+9/mUfBJtybGZtw/J6tqA8M5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r/AbB6nz; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787655068; c=relaxed/simple;
+	bh=QMJp/8yGBxO4YI1i1A5XdUSc2vFmLkXPV/JY9qAuZ48=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dT5iEUYZcgYtLsZZUnoico574W3V3ux73Yq2Et/nNNCH2oI9iuGgE8Q/pR4xAMl3L1RqYJoFddje5RoQ80xSmqi0gzfvW3ogxkuTgxuwOuaqUajlN2o1p3PoAgKiZHp16UBQmoN8SprsDmFyNHN/FKkPhIBy6AW2D1/DU7e35xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQPZds2K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r/AbB6nz"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6efd73032so3314715ad.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 03:47:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787654827; x=1788259627; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bUuxtBGmNOQbmRdHfy9LEMAv45qzxqGeH6c6o8+FBaw=;
-        b=r/AbB6nzyVDv4MhKtw7UNa0FCSddWRptTcq7tPC0JPyFORgaqMlxOuUzeyvSlDH3bp
-         I7YiUXRZ0fenXogObzQLn1N+0kS6QCNamAXtDNPFN3Q0Jf8+cT1JTv3cA4n73rEqzsya
-         NqjTdGPSysaxccPbY7nXiYHYcRWqjZtD2TrmDrRA+8o7nsqqkpsX73ap0a1mV1zdowaC
-         daa+6P0NE838PQzOOLCacXKFyCygteN/s8luIxKsG4oAeVg+BcaEPwmzPZ6ayO0eDAmq
-         OmeCFs1jQfTFgROtu8KNzU7Yd66GMFooejFtnAIhpmLtBzJ3Ri2UcINt+K/2w9NUkOxE
-         082Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787654827; x=1788259627;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bUuxtBGmNOQbmRdHfy9LEMAv45qzxqGeH6c6o8+FBaw=;
-        b=OixZ8AD0gt3NN7Atq6LdMatspmZHCRlHtVslieZfseQpIw+zDMEzXgBP3dzkNo91x1
-         BrMIZsMpy00qTrIANQwo4u9FIih34oaB6C10PAlOOXdUrVTZoyDBXXO6+gGmhyVDW4ii
-         tD6hXwEKHi+r0HoAai2d3bqHqRFwALweNEubU9XhR4SYnZVGfVf2Jbb80TiGLFfvoRet
-         m8jbfgjC0zef3DnSCczbRdq8VbTrhV781TSp0BcGqs/l+ZG+arqe2+OkAtQJmBypovca
-         znGoWhL4PKoUpo6WVb5aSRrIMCiH/+P36Z2luuOd94dQjNzYYccP9g9e7gu5qRyHIp/V
-         alMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoSGTD+mXg53QBa7SWUAPXUPakM7lmEclEdyu+HDFdAi0rZQak0E366OMdPlnqQvXJzMOmeMy0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqNJj/HKl9VVJeZLujCYXwl4l4atAQf4mKu3uT8umu4mo6Kc8h
-	97NVK2PR+1YOVgsqFGeNw8/5ukhxg1zWzJK7eT/T6LCsuG9zNlO+eSdx
-X-Gm-Gg: AR+sD10h0IQtfytCCHnSnOPGybP5iS9XbMZiAuNQnfs6RzlpIqwGasM1tCsN/h5mFdQ
-	pL+I4pcBwkYpYJ2qFL/01PYE4+gW64JD0a8Px/jcWb88V5k0l3sbXHgIUc3sMA22d9hJSJtPs1v
-	M8Sy0LhzOf69CLZUnKT++0r4+WDxV0sBihMtsS3vOrCW1JknMawXvM6OWd0gs3LG9V2/5CfWeLO
-	UUSJD7fl/0unKRfECLYhLLzsWcqYJYJFnUKFncp4BDKhOT0ciKqO2NhI1PzMichTp7M5cJAzHeC
-	t5Ug3GcgRx/70biHq3V570SeLwWuQrUXJpo6AmPQ2H+BYHYpbyMcKR7RSDSfneXCRVSjYMmuxpy
-	4lEAPmbAxHJ5UgrZ6WtiGRPP0tQEJ59riqdV3StgZjvcAbFRFmeJiHgJYgDwV/hoD/QEPVhwz3Q
-	SEUk5oXVVpSpjouMAN2XMlZz4NlmnAhejBRr7oA+/bRoBPOwwxuEdvvoaj3YpkLpRzrUzGPsU5W
-	nD8P+pCMasiCicLIzYLskP02wPeuGEnsFq8KWmf8PnoJHphJjrZOKIFQAV3wPzoyTL8ToWXPrta
-	dn58HHj+CudA38xQNTaBDR2W
-X-Received: by 2002:a17:903:19cd:b0:2c9:d277:2cdb with SMTP id d9443c01a7336-2d6dcab5925mr73666195ad.9.1787654827563;
-        Tue, 25 Aug 2026 03:47:07 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d6eee850b7sm4561755ad.3.2026.08.25.03.47.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 03:47:07 -0700 (PDT)
-From: Wei Jie LAW <98lawweijie@gmail.com>
-To: 98lawweijie@gmail.com,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: aduggan@synaptics.com,
-	bentiss@kernel.org,
-	jikos@kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] Input: synaptics-rmi4 - reject a PDT that grows between scans
-Date: Tue, 25 Aug 2026 18:46:59 +0800
-Message-ID: <20260825104659.16251-1-98lawweijie@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260825061027.105062-3-98lawweijie@gmail.com>
-References: <20260825061027.105062-3-98lawweijie@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQPZds2K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFB6B1F000E9;
+	Tue, 25 Aug 2026 10:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787655066;
+	bh=4dWbDNh7SefaqEmDQxom8V4ar9Vn3mt6p/4U2QAZfh0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RQPZds2KrGv64fSlv8dfSkfENvn4AkQ4dJQWtdOG2edngpo35SmYXFrizNznv4LV+
+	 ic67xjuq6VP5prYkXjr0s8IxgPnlclWoPxLynljPP6LKP1BcO7lZlLEXoN2Kt0hWzv
+	 1Sk+SF+I7mFzbhWGeATiKlPQKof1b/Y4Oh59E5hY7U9WnpNj0vNIrwzHoGGCUCr6Ck
+	 4qiPIgXHyb4zStAeqqjPPk3On9pQzfWy7qE8rRplrF0gq/UrhIT8kqQjR1XAkJ3+7O
+	 eHgJbbX3uv4GLKohzTnK4Z/2e4AePT6sGvIIzZqZA698rKIWhBNc+vzC/YOe0makdC
+	 HWP/uVH5WTeRQ==
+Message-ID: <17e9f7d6-d095-44ee-9997-8dc10646f3f8@kernel.org>
+Date: Tue, 25 Aug 2026 12:50:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/secretmem: properly account locked pages
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>,
+ James Bottomley <James.Bottomley@HansenPartnership.com>,
+ Hagen Paul Pfeifer <hagen@jauu.net>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org
+References: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Wei Jie Law <98lawweijie@gmail.com>
+On 8/22/26 21:14, Lorenzo Stoakes (ARM) wrote:
+> secretmem has a relatively laissez-faire attitude to accounting the folios
+> it allocates.
+> 
+> The intention is that the memory is treated as if it were mlock()'d and
+> thus is limited by the RLIMIT_MEMLOCK limit if the CAP_IPC_LOCK capability
+> is not in place (which broadly allows unlimited ranges of mlock()'d
+> memory).
+> 
+> The lifecycle for memfd accounting against this limit is - account on map,
+> unaccount on unmap but the lifecycle of memfd folios is allocate on fault,
+> deallocate on inode eviction.
+> 
+> This mismatch is problematic because the folios are unevictable and remain
+> so until the inode is evicted (set using mapping_set_unevictable()).
+> 
+> This is problematic as it eliminates usual mlock() semantics - mapping
+> folios then unmapping them does not clear their unevictable state, since it
+> depends on AS_UNEVICTABLE, not PG_mlocked.
+> 
+> A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
+> map then unmap and VmLck no longer counts the secretmem range (or more
+> involved - fork which also achieves the same thing).
+> 
+> Worse - they are not accounted in the process's RSS even if mapped again,
+> meaning the OOM killer won't know to kill the process.
+> 
+> A user without the CAP_IPC_LOCK capability can therefore repeatedly
+> map/unmap (or map/fork) and consume all available system memory with
+> unevictable folios and cause system instability.
+> 
+> A secretmem fd can be passed between processes and over fork so a
+> per-process limit simply does not make sense.
+> 
+> So follow the precedent set by io_uring, perf, skbuff, iommufd and xdp -
+> track the number of locked pages in user_struct->locked_vm.
+> 
+> Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
+> applies per-user not per-process. Also given the change in scope it doesn't
+> make sense to bypass for users with CAP_IPC_LOCK, so remove it.
+> 
+> There is simply no reason to carry on marking the mapping as mlock()'d
+> since it's misleading and the lifecycle is now correctly handled, so remove
+> this too.
+> 
+> Additionally, fix the selftest which checks the limit as this now must
+> assert SIGBUS on limit violation on fault-in.
+> 
+> __secretmem_account_pages() is more or less a duplicate of the code that
+> io_uring etc. use, but since this is a bug fix that needs backporting,
+> defer any de-duplication efforts to a follow-up.
+> 
+> Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+> Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
+> Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Superseded by the v4 series:
-https://lore.kernel.org/linux-input/20260825103123.12216-1-98lawweijie@gmail.com/
+Can we split off the selftest changes? This stable patch is already pretty big.
 
-Please use that one instead.  The only difference is the Assisted-by
-tags that Documentation/process/coding-assistants.rst asks for -- AI
-tools were used in finding and fixing these bugs and I should have
-acknowledged that in the earlier postings.  Neither diff is changed.
+I'd assume the changes to the selftests are not required just to get if fixed,
+because the changes should not be breaking existing user space (and cosnequently
+existing selftests).
 
-Please mark this one superseded.
+[...]
 
-Thanks, and sorry for the noise,
-Wei Jie
+> v1:
+> https://patch.msgid.link/20260814-secretmem-accounting-v1-1-d2f8c677980b@kernel.org
+> 
+> To: Andrew Morton <akpm@linux-foundation.org>
+> To: Mike Rapoport <rppt@kernel.org>
+> To: David Hildenbrand <david@kernel.org>
+> To: "Liam R. Howlett" <liam@infradead.org>
+> To: Vlastimil Babka <vbabka@kernel.org>
+> To: Suren Baghdasaryan <surenb@google.com>
+> To: Michal Hocko <mhocko@suse.com>
+> To: Shuah Khan <shuah@kernel.org>
+> To: Alexei Starovoitov <ast@kernel.org>
+> To: Daniel Borkmann <daniel@iogearbox.net>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: Jesper Dangaard Brouer <hawk@kernel.org>
+> To: John Fastabend <john.fastabend@gmail.com>
+> To: Stanislav Fomichev <sdf@fomichev.me>
+> To: James Bottomley <James.Bottomley@HansenPartnership.com>
+> To: Hagen Paul Pfeifer <hagen@jauu.net>
+> Cc: ljs@kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-kselftest@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Cc: bpf@vger.kernel.org
+> ---
+
+[...]
+
+> +
+> +static bool secretmem_account_folio(struct secretmem_inode_state *state,
+> +		const struct folio *folio)
+> +{
+> +	unsigned long nr_pages;
+
+Nit:
+
+const unsinged long nr_pages = folio_nr_pages(folio);
+
+> +
+> +	nr_pages = folio_nr_pages(folio);
+> +	if (!__secretmem_account_pages(state->user, nr_pages))
+> +		return false;
+> +
+> +	atomic_long_add(nr_pages, &state->nr_pages_accounted);
+> +	return true;
+> +}
+> +
+> +static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
+> +		unsigned long nr_pages)
+> +{
+> +	atomic_long_sub(nr_pages, &state->user->locked_vm);
+> +	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
+> +}
+> +
+> +static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
+> +		struct folio *folio)
+> +{
+> +	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
+> +}
+> +
+> +static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
+> +{
+> +	unsigned long nr_pages_accounted;
+> +
+> +	nr_pages_accounted = atomic_long_read(&state->nr_pages_accounted);
+> +	__secretmem_unaccount_pages(state, nr_pages_accounted);
+> +}
+> +
+>  static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+>  {
+>  	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
+>  	struct inode *inode = file_inode(vmf->vma->vm_file);
+> +	struct secretmem_inode_state *state = inode->i_private;
+>  	pgoff_t offset = vmf->pgoff;
+>  	gfp_t gfp = vmf->gfp_mask;
+>  	unsigned long addr;
+> @@ -72,8 +134,15 @@ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+>  			goto out;
+>  		}
+>  
+> +		if (!secretmem_account_folio(state, folio)) {
+> +			folio_put(folio);
+> +			ret = VM_FAULT_SIGBUS;
+> +			goto out;
+> +		}
+> +
+Okay, that works because secretmem does not support any form of truncate, in
+particular, no FALLOC_FL_PUNCH_HOLE.
+
+Overall, the idea sounds good to me. Nothing jumped at me.
+
+-- 
+Cheers,
+
+David
