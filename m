@@ -1,105 +1,96 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75523332638
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF31F390219
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787663549; cv=none; b=GZ5mKLOc5ajTdyqsNIlwKSAiEjkrbU3e9tYICqmRZpC+fgkL9YJD5xAUBky5cNeLGQLdWwhc0vFPKqzvaaxKeYmVyDKegyc/xHq6ea4QKlqik9I5YV0DooYYI+lhLLRaKD6Avx7njJe2TylcRSuv2FtJxZxT2EL+a8qPREeeJKA=
+	t=1787663646; cv=none; b=HrDcKA7ailZ5AKlyr6VvE7+pbM//+kDZOfs+zb0MxPrCM1lKbEExZsuKnkTHzAvtdtPKNnL7SvJ46DKuSsxiXb3pT5q10sjWKDz+SFYjc/P3MhW9Ys4dJ3dTIZYXER6rwfbDlll3CkRRfwv3MDDH0YVexDLjAFhMYcmGSmIgiNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787663549; c=relaxed/simple;
-	bh=Px5HaiRLFHtGk9GEgSeiRjA4kI4KfbcMyMMT/utFXMI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FdSHE5bPUwD6r82+PcJtYZm8CEmSBh7syCYIrD2y34+ZxlHq6ZdpyF5GOOXbpJToy78MwQ1IoUs9Y+mUg00OpNvn41z5r3uRoh92uXiuVTk5f0u3rOA/8MhWfGiPF5Pu2RWa3UeIhjgRZx3v06Y29x2VUlSfDX2CpSj/JEkvxWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=A5icUvDl; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1787663646; c=relaxed/simple;
+	bh=nWO2X7fdORjw82HvVbGkls81SHto9Xfwvzf+kek8l5s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=js2IfR1+x5ZLnIJfguKxEqZQdIBqO/QR/OdrU9A7ylPouRc6dldjgi5M4wsCEv0oo1FTQnb6P9NiycefGZr6qrYGBAZ5b/u5qzJBIPXmtvubgleXsjVz51vHrv4AfDM6j/ZF4zffRAg65HruHUb8lx4iTl4ed3pNgkfO1jcRWzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IF7/j30a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="A5icUvDl"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1600d040e4so122675566b.1
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 06:12:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787663542; x=1788268342; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=twIWnBEJbxG0JtjIqNqVHRhF5vlWQ7QBPu16pn9OWWA=;
-        b=A5icUvDl8cVYbS3wB9rMX+oQXhVYYi6D/clcs6h9sVqO9VnBqgeOoMft8E3M0cpbu3
-         sigIo34DNkQ9l0TdGVwG6H+iv4Mk4SFIqc3O5p84iIXdobF0Pt7MUKIIOEXzTwKOWlcp
-         ygcKredpDhPdnDZOShBDiGNUO7IVvATmQ44J3gBOb62eSZtXyZ2ajAKln0y20Hl6gyOw
-         wDWaWM3kVh8djP6VLG/TD2W+CYGRWAk/4fak7v3QK0TE7p5oTqho/F0BI8bs7eFtAB7z
-         Kavzv0RXvYaLMaDm0uxk5PiAnYrRPVxYWWgh3qcBj1jTFWtmt6fqbxwyZkvvuHxE0BUe
-         k8Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787663542; x=1788268342;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=twIWnBEJbxG0JtjIqNqVHRhF5vlWQ7QBPu16pn9OWWA=;
-        b=A8sMxx6+iLHmvbWJAWkBJPqDOhMRxfwYjts8Tr1eMny6Y+liYZdByUbzoqwoRY0SjH
-         Gyuyh3pqSH06dcuIgBEfZMK/5SclGrrfUfIS52ssslH1iT5MwJHPCAVWsb3rM1z7bfsf
-         LzZ3O1BwFVBLZHjgRWLaoAs0BpiG5oVFnGMcu8Gi8asbn+ES+zhjIkc6FE02Jevnd7sD
-         pTHVcmsnZDI8Snr85jFwwKJtKSOiunDqkSb0TlKPG2xxO+BcCOH9SGEzCdnSU1MslAL5
-         vdI1Ki7V0BFofsZfg4mXvketb+hDwUwPUqq52QmfJPmb9TzF2d5jOiDeazOk1XM4wxJg
-         yDOg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqm/xAZp63ef82UIaAovIvxhHKQEpk1M2vGPiULYcFGlS/5hKppk6ne4tmQd4NF3ipAGSeVM08=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfsyUK4Trw8IkQBIMtznJFEbznGBm7GL+EEmGfkBew2R5d7hGa
-	dZHyorTdTaQKzxCP/y5vz9U1ngDA/3ENScNePeRjxwRtYJDqjt8uCeva0c9W5+AL4Qc=
-X-Gm-Gg: AR+sD10Q5GCOvSyygLKGg2Sg50JcwoDnqmAl0dqUEJAOKal+Ro1D7+TBhsH1EGuMz2e
-	6acQ7bWoJsJAyZunCfFEe91k754rIIVoqVTeUKeoED72xC2u0cRRFt8GZNsulUXZ9WNoOINWlec
-	lxSN4I2XxbDk+ASxYN957J4SglHqLftj2t+zhaS6Lfyc8oHg3Lg3p+8XIBswrCSchFYsuc1BJ0j
-	uYe2KcHJ3AnW3hdD5wMddxaflhHFNlMIzlt7DOLTHEValseLaigqEsgaq7vbG6epYjCJQnb2TYu
-	cXvzYTE+M2l9tMIEznKXiqchfwh6azuYfVejt1KLp4O8VYFksnPlXOqulhNKhf3UuU3epM6xj2I
-	mCLb+qCV+BFg3NW3L9huN+IM2tzrVB34Q9HkvjEkNfQQqaorD333mkUNgdzO4jOJvEpvUU9woOy
-	O25NH1PhsJp6+nKWlMXXzBAoyk0kM9CKf30VDR22sPqRE/APEv0TkURdlI//BKqJMMInlqZFjZ
-X-Received: by 2002:a17:906:5147:20b0:c25:58e:8d64 with SMTP id a640c23a62f3a-c25058e9f37mr109537166b.12.1787663542583;
-        Tue, 25 Aug 2026 06:12:22 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2496866c4csm1922258666b.54.2026.08.25.06.12.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 06:12:22 -0700 (PDT)
-Date: Tue, 25 Aug 2026 15:12:20 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Cc: bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	live-patching@vger.kernel.org, rostedt@goodmis.org, mbenes@suse.cz,
-	jolsa@kernel.org, mhiramat@kernel.org, jpoimboe@kernel.org,
-	joe.lawrence@redhat.com, mark.rutland@arm.com, corbet@lwn.net,
-	stable@vger.kernel.org, linux-open-source@crowdstrike.com
-Subject: Re: [RFC PATCH bpf-next v3 2/2] selftests/livepatch: update
- test-ftrace.sh for deprecated ftrace_enabled
-Message-ID: <ao2UtL6-HHTZ6trp@pathway.suse.cz>
-References: <20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com>
- <20260806153000.4184871-3-andrey.grodzovsky@crowdstrike.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IF7/j30a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6921F00A3A;
+	Tue, 25 Aug 2026 13:13:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787663636;
+	bh=GCpc19NkSNGt32yAX7Z8NY3bTuv/AtiiGfpouv9fIEg=;
+	h=Subject:To:Cc:From:Date;
+	b=IF7/j30a1IbjGshajz1F+/29R30UyldcIRRmxHDFswgDiubv9isYDe/xXzMgqjC8E
+	 4jJRnXO7dkDEGU2gEfyiZzsLKBD5uvEZITTpGAntYFEAyI8+HB21mi15b3TYCsaG9A
+	 U5ONqox3l9lMBzkQ/5nFaQu4yQx4Sk1Ny+fGdEc0=
+Subject: FAILED: patch "[PATCH] HID: asus: fix missing hid_is_usb() check" failed to apply to 6.18-stable tree
+To: jannh@google.com,jkosina@suse.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 25 Aug 2026 15:13:50 +0200
+Message-ID: <2026082550-stinging-mushily-fa27@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806153000.4184871-3-andrey.grodzovsky@crowdstrike.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Thu 2026-08-06 11:30:00, Andrey Grodzovsky wrote:
-> kernel.ftrace_enabled=0 is now refused on kernels that deprecate the
-> knob, so the old disable/reload flow no longer applies there. Probe
-> for this with ftrace_disable_supported() and keep the full original
-> scenario (disable, fail to load a livepatch, re-enable, load, confirm
-> disable is refused while loaded) on kernels where it still works;
-> otherwise just confirm the write is refused.
-> 
-> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-> Suggested-by: Joe Lawrence <joe.lawrence@redhat.com>
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 
-It seems that this has already reached mainline.
-Anyway, for record, it looks good and seems to work as expected:
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Tested-by: Petr Mladek <pmladek@suse.com>
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Best Regards,
-Petr
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 02bf61dfb44f17ec187d1da1a82495951bbd12df
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082550-stinging-mushily-fa27@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 02bf61dfb44f17ec187d1da1a82495951bbd12df Mon Sep 17 00:00:00 2001
+From: Jann Horn <jannh@google.com>
+Date: Fri, 3 Jul 2026 17:45:52 +0200
+Subject: [PATCH] HID: asus: fix missing hid_is_usb() check
+
+to_usb_interface() can only be used on a hid_device whose parent is really
+USB; uhid can create devices that identify as being on BUS_USB, but don't
+actually have a USB parent.
+Fix the use of to_usb_interface() without a hid_is_usb() check.
+
+I have verified that it is currently possible to trigger a kernel splat due
+to this bug in an ASAN build, and that this commit fixes the issue.
+
+Fixes: 00e005c952f7 ("hid-asus: check ROG Ally MCU version and warn")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 3a3de999514c..f6e882a1cee6 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -950,7 +950,7 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+ 			return ret;
+ 	}
+ 
+-	if (drvdata->quirks & QUIRK_ROG_ALLY_XPAD) {
++	if ((drvdata->quirks & QUIRK_ROG_ALLY_XPAD) && hid_is_usb(hdev)) {
+ 		intf = to_usb_interface(hdev->dev.parent);
+ 		udev = interface_to_usbdev(intf);
+ 		validate_mcu_fw_version(hdev,
+
