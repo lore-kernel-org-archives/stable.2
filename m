@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D7033EB17;
-	Tue, 25 Aug 2026 01:53:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1130F55F;
+	Tue, 25 Aug 2026 01:53:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787622806; cv=none; b=Jat7p2ut1UZ7unmHMhSHDd41UxGbyXb5s/EQnxpYXrY5LLGS/7+cWYqJDt82o4i/lKvTbMg+3y4AphsED5BhIlswj8EoDrY66mWBdo3rVFre1Scw5rfjIEAM10AGkSrgKI8NEuhNJN1S5BkP+1nCwjCQbW7sUSVGbyay9Cvp3xM=
+	t=1787622813; cv=none; b=kjRku2LdxLfJGGY6JJe9giOTCXMBkGWzNOm+i+Y6M49kwQ2HCln3ClnFSsQ8VpZBer/yN1J+mbCmHEW5hfO4UH3j0L2mUbanaOIR4MhCKe+3cQ+b/gL7kzMkAp093Pwr8rMOeayj5kd9uAPLEMiBa5a8ThgIz4qv4H7jjNQlkAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787622806; c=relaxed/simple;
-	bh=jb06TWzVQc6iMew85SkUgZOO2b3Sul/rEHCGmBLxcgk=;
-	h=Date:To:From:Subject:Message-Id; b=gcEzpvX8yC7+c2GE66BEI7HBx7NVtCCoYk94d4Kpx/TGIdldhd3OOVOumXERXx8tePmtTrOFobZdQ6Y6ZSm5Ci/J5VQmFHlj7pGjzeFNa8/aGjzt4XwGe+ZtMj0hPB/Pc2XpnyVq2gzfxsgTmtDH5wd+9590ZJ7rGDTKtbM864M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NyeJHEan; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787622813; c=relaxed/simple;
+	bh=VjJ4wOoC8f8QXGgv9KrjK2rskdBo36zIvrytzBpdW0U=;
+	h=Date:To:From:Subject:Message-Id; b=LRMpmPLmp7M82QGT7goIcpwe0cy0BWCYrinlpK8UZWaJUlRnsotgOml1WY7ZWT93m6Ceu5fxQ8YrH33a8kPXZsICM2koOxUW60GElLgeWJqXKgjeIePVmzzfosezoVy4prPoUPzxeJMxFuncjXemXf/JNXD9EhMiD4zbZJH86TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZhOI3vpD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NyeJHEan"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214AA1F00A3A;
-	Tue, 25 Aug 2026 01:53:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZhOI3vpD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA191F000E9;
+	Tue, 25 Aug 2026 01:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787622805;
-	bh=RHOrOvHy1xI4V6LzggKTKQrx409yLUb1/OijS8BEJRs=;
+	d=linux-foundation.org; s=korg; t=1787622810;
+	bh=FgbWHf700w7jRwFvlcIjYMbXl7Dc3GrbPYAkt5rujus=;
 	h=Date:To:From:Subject;
-	b=NyeJHEanmKdrwu1RKGYj7OL/LgDWnjgMy9u7gbkR684gat+EGLGVxK0nCgN4cCV04
-	 49VKAQi6GE4Jk6sWMtZRtEssy7RqIfZqScbtI0ltkmHWsfle3oBh+Zkt+a4IYzFXwQ
-	 nF7VmP1bDH65+JN9XvdzAZNnZ3IYHfgv1ZPCKlzg=
-Date: Mon, 24 Aug 2026 18:53:24 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,riel@surriel.com,osalvador@suse.de,muchun.song@linux.dev,leitao@debian.org,david@kernel.org,guillaume@morinfr.org,akpm@linux-foundation.org
+	b=ZhOI3vpDS6DBZMl7DhZr37cXiQEVH+IqtKx7YG+E+2XVfMDeLMylw4TSbVNfJrClP
+	 1e3Kk+OX68YL8PUNRm22NXnc3EhbQeAvwpOALISjLqA8bF3N1cFkrVTdnOmGuA9TAJ
+	 Md3NBaO1CiAB5G19PzF8RA2ombT/O3FLSk9vb5i4=
+Date: Mon, 24 Aug 2026 18:53:30 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,stable@vger.kernel.org,rakie.kim@sk.com,matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,david@kernel.org,byungchul@sk.com,balbirs@nvidia.com,apopple@nvidia.com,arvind.yadav@intel.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0.patch removed from -mm tree
-Message-Id: <20260825015325.214AA1F00A3A@smtp.kernel.org>
+Subject: [merged mm-stable] mm-migrate_device-clear-stale-mapping-after-freeing-swapcache.patch removed from -mm tree
+Message-Id: <20260825015330.BAA191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,74 +35,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: hugetlb: only adjust reservation during unmapping if mapcount is 0
+     Subject: mm/migrate_device: clear stale mapping after freeing swapcache
 has been removed from the -mm tree.  Its filename was
-     hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0.patch
+     mm-migrate_device-clear-stale-mapping-after-freeing-swapcache.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Guillaume Morin <guillaume@morinfr.org>
-Subject: hugetlb: only adjust reservation during unmapping if mapcount is 0
-Date: Tue, 28 Jul 2026 21:29:03 +0200
+From: Arvind Yadav <arvind.yadav@intel.com>
+Subject: mm/migrate_device: clear stale mapping after freeing swapcache
+Date: Tue, 28 Jul 2026 11:58:32 +0530
 
-Since df7a6d1f6405, __unmap_hugepage_range can adjust reservations.  In
-the case of folio mapped in both a parent and a child, if the parent
-unmaps the range first, the reservation adjustment will result in an
-underflow of the reserved count.  Once the child unmaps the range, the
-count is restored.  Change __unmap_hugepage_range() to check the mapcount
-before adjusting the reservation.
+__migrate_device_pages() reads the folio mapping before calling
+folio_free_swap().  When folio_free_swap() succeeds, the folio is removed
+from the swap cache, but the saved mapping still points to swap_space.
 
-Link: https://lore.kernel.org/all/alEJkwn5VlTTH_ZX@bender.morinfr.org/
-Link: https://lore.kernel.org/amkC_1Ya6OiUoiLZ@bender.morinfr.org
-Fixes: df7a6d1f6405 ("mm/hugetlb: restore the reservation if needed")
-Signed-off-by: Guillaume Morin <guillaume@morinfr.org>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Cc: Muchun Song <muchun.song@linux.dev>
+Passing the stale mapping to folio_migrate_mapping() makes it use the
+mapped-folio path for a folio that is no longer in swapcache.  It can then
+operate on swap_space.i_pages with invalid reference accounting,
+eventually triggering a folio reference count BUG.
+
+After a successful split, nr still contains the number of pages in the
+original large folio, although each resulting page is now a separate
+order-0 folio.  Reset nr to 1 so each split folio is processed separately,
+including its own swapcache removal and mapping lookup.
+
+Refresh the saved mapping after folio_free_swap() so the current folio
+state is used during migration.
+
+Link: https://lore.kernel.org/20260728062832.1107127-1-arvind.yadav@intel.com
+Fixes: df263d9a7dff ("mm/migrate_device: try to handle swapcache pages")
+Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
 Cc: David Hildenbrand <david@kernel.org>
-Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Alistair Popple <apopple@nvidia.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/hugetlb.c |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/migrate_device.c |   13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
---- a/mm/hugetlb.c~hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0
-+++ a/mm/hugetlb.c
-@@ -5218,6 +5218,7 @@ void __unmap_hugepage_range(struct mmu_g
- 	bool adjust_reservation;
- 	unsigned long last_addr_mask;
+--- a/mm/migrate_device.c~mm-migrate_device-clear-stale-mapping-after-freeing-swapcache
++++ a/mm/migrate_device.c
+@@ -1193,6 +1193,13 @@ static void __migrate_device_pages(unsig
+ 							 MIGRATE_PFN_COMPOUND);
+ 					goto next;
+ 				}
++
++				/*
++				 * reset nr so that only first after-split folio
++				 * is processed below
++				 */
++				VM_WARN_ON_ONCE(folio_test_large(folio));
++				nr = 1;
+ 			} else if ((src_pfns[i] & MIGRATE_PFN_MIGRATE) &&
+ 				(dst_pfns[i] & MIGRATE_PFN_COMPOUND) &&
+ 				!(src_pfns[i] & MIGRATE_PFN_COMPOUND)) {
+@@ -1232,6 +1239,12 @@ static void __migrate_device_pages(unsig
+ 			folio = page_folio(migrate_pfn_to_page(src_pfns[i+j]));
+ 			newfolio = page_folio(migrate_pfn_to_page(dst_pfns[i+j]));
  
-+	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
- 	WARN_ON(!is_vm_hugetlb_page(vma));
- 	BUG_ON(start & ~huge_page_mask(h));
- 	BUG_ON(end & ~huge_page_mask(h));
-@@ -5309,7 +5310,10 @@ void __unmap_hugepage_range(struct mmu_g
- 
- 		/*
- 		 * Restore the reservation for anonymous page, otherwise the
--		 * backing page could be stolen by someone.
-+		 * backing page could be stolen by someone. Restore only on the
-+		 * last unmap, otherwise the owner could empty its resv map
-+		 * while the folio is still mapped by a child. Note that holding
-+		 * i_mmap_lock_write is needed to check the number of mappings.
- 		 * If there we are freeing a surplus, do not set the restore
- 		 * reservation bit.
- 		 */
-@@ -5317,7 +5321,7 @@ void __unmap_hugepage_range(struct mmu_g
- 
- 		spin_lock_irq(&hugetlb_lock);
- 		if (!h->surplus_huge_pages && __vma_private_lock(vma) &&
--		    folio_test_anon(folio)) {
-+		    !folio_mapped(folio) && folio_test_anon(folio)) {
- 			folio_set_hugetlb_restore_reserve(folio);
- 			/* Reservation to be adjusted after the spin lock */
- 			adjust_reservation = true;
++			/*
++			 * folio_free_swap() removed the folio from the swap
++			 * cache. Refresh the saved mapping before migration.
++			 */
++			mapping = folio_mapping(folio);
++
+ 			r = folio_migrate_mapping(mapping, newfolio, folio, extra_cnt);
+ 			if (r)
+ 				src_pfns[i+j] &= ~MIGRATE_PFN_MIGRATE;
 _
 
-Patches currently in -mm which might be from guillaume@morinfr.org are
+Patches currently in -mm which might be from arvind.yadav@intel.com are
 
 
