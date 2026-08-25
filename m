@@ -1,78 +1,96 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246B63E51F5
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 08:39:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F71E3E5588;
+	Tue, 25 Aug 2026 08:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787647188; cv=none; b=uoSrSMr+L90sz6sHbIettNw5l1ySI/6h/8JrAFsnRpY8UYCwOvaPcsZ+4vlLX6QWJzYFNjEI3UT0CDcItNGsP61tZHr7KglzO2OG3ha2dmDNU9TqfjFj63VNKx3CAP6M5n266qzfIMorIULrHXwf8+l2n82A3eSFhGK1uB8sZkw=
+	t=1787647246; cv=none; b=ZSHUSSIkp3UaKSFD5QA/oNtPYy9EsANNHW8avWQyNUSJ1DXPDb4W2GjSFj03P303YXJJc1V5hqZxyRYEB36Xk9WE6gzOsU+cr2chhJ2E/cca0Up6ObvZobEGtPNJxSmaWOxsvW6OfrFZm0kYAA6vQDf46JPjgbuJngjOgwMJCjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787647188; c=relaxed/simple;
-	bh=4bQy4f4qdvQOwMEZC2OyjV2O2mUVqY8x7xOCljRlQXA=;
+	s=arc-20240116; t=1787647246; c=relaxed/simple;
+	bh=zEI6B5W1ZBsfPG7yJLa65KStnlogwSjapD8ZpZXa8lw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C57YCg2Cg6qpRX96udoFeheQxXmYrFn/P2qc+wF+ERRb4JUQKAWLSpxWJoysadgfYb3JurvAjx3JCxtMONeSjBqZ6BN7HuUgjJrkgFoGUU/D+jFeYLYIIqHe8J/bPG0K3fTcz92WY/bHE0lrwXGpxQ7TBASN3HTPZSWtjg/zDP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lCCW2TCr; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=I/kQxkhcSR6KFXR6K4FZjnhesjKvXiMkNbv5A37sIxeu8aeup99g3dHBSzfKRha/phyxdDdqxpzXNHCPmgzO2jUTC6Qvm2XFF42c9UwIwEAPv7ZUxf6b0Esa6v4IGd8Dlx1JpOSAfs5oDVHSryOHA5MSAmey3ehfgGHLodUKmqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EYYdCdiw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=NrOw/zmj; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TWQ+t5aK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QURYyCTb; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lCCW2TCr"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so26495425e9.2
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 01:39:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787647184; x=1788251984; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4MxiI6dQZjsqlXXMkr9OPsJ2JcGD28bAQB1bOc8N8OA=;
-        b=lCCW2TCr/6I3dC/qx3ff5FdW0qmFxoksbVZ9+icJaxIMcuvvuFRwS4vqyjwHzksOPR
-         pAQiAOxv5qni1na0iCeIo4RmJjMjOybGZx66kn8TEZGFZyeyPHSOEqjP8whp5EDI3erK
-         MM2QZxDYaEdi7+5ng9gFrT3Yj18YAX2VlO5OX5Ixz7/Ip111g7JiITQt+TND/+rSQz0G
-         EiJqjvpf9B1GJDVTpGbBx0b5qlmF+EKklizkkB5H62KgaHTn2zu0xMKBf1hgM6e+9UrH
-         u01QizqXd7ifI2tC3t9Y3K704Rd6iE0Q8rLbVxFKVvRiX/UdiJhS5HL4AdodXt+U4QCt
-         WFlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787647184; x=1788251984;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4MxiI6dQZjsqlXXMkr9OPsJ2JcGD28bAQB1bOc8N8OA=;
-        b=hz1/hvLTlEPx+3iIUXTBvEV1sQ0zB1XPz3gre8vMN/Nj9vADrT9Igyx9VsfpE1Lwsc
-         tj6l7LhHqGtytcbLmNP5aiIVlVcUAPqUNQSeL/AIKDJ877qeZHLrYLZ47A6p6hmMZ186
-         Dq1DNDAZT0VU4Qne3WvjoCRcDH8Y6eylMpdvPCc8EDfaLwgNQxm2ePMdUoGHCj6A89rb
-         +eyiXwnYm6LeJRt9QqGCrRRmkP1Sl6fB7kEaYaJjnRiUj4U2CXFdDCSMVwaDdFeIePBC
-         8qTjlhF0B0cSJ6ypXAj1SZspd7wdWrradhhhYWbJLf9lGLU1LdpMIU+dS3xbQXmmFj/i
-         9o1A==
-X-Forwarded-Encrypted: i=1; AHgh+RpGgEhEVTzP9R5V39qBUVAlxyll4V49mlmUumBimBnNYGFD+lzdiloWxfwFo5jLoY3mgwkckjs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9vD/hG+lL2HJkywAji1tLxhqstUPBhCC5CgAlcPl78/C05lSU
-	mOm0XY543Kqxux2m0J/vrbce+pxKkEqXwDOkt5Nqrlh7t6Q5CfVvLyxjj7nqi0rA0w==
-X-Gm-Gg: AR+sD11bB8aWqcki4kYD2IQsloNPC+vgUJiWZU8IyN0gHi9lGO83WYPwAgoWkUgK4cz
-	ueUx2TKTGEP+wq5X34kJSieT1HL3yP152317xiXBrizqp6gDsakrNeqOJBgyHOIvE1CakBQg5Fe
-	2NErPcv/6r2bW6A+WocMj5FocFbp1gSJOFx3dxrHmaABUBZsPcwBtH9jqikEA7vFM17QyhntyLM
-	iTWELzrDS6CQI/8xDcHYOUwqXqOmfHkw2NN3RA7tX4CppgZk5uAdmHoiklRf5bqVpVgMTf9yoD3
-	tMc1Lx/l16sWnsS5p3cvPMDsIl7GRfsCAdjzwU0hDYsf2EunRAbfQUN3npw/oEJbUtSN3PvIlAZ
-	2f2ScRbaMV/+S007dw70dbDd1SOlb+c6ZoZ+jdN0yxuS/VNMshZ7qXejMtmzUb8han4onKlAKpj
-	fG1QwgnwmTdLQy1M6lCD6l+zgbk8DA8DiA+gYDb4U6LPe1tBdAYLybbAiGfD5x4qFSao+Q6Jn+x
-	dpYS+J09lzcoinV9p7rbcciKJ0fZQuZ
-X-Received: by 2002:a05:600c:3e1b:b0:499:a685:c10 with SMTP id 5b1f17b1804b1-499b82e5427mr431534635e9.4.1787647182685;
-        Tue, 25 Aug 2026 01:39:42 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499d6364720sm22212585e9.12.2026.08.25.01.39.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 01:39:41 -0700 (PDT)
-Date: Tue, 25 Aug 2026 09:39:38 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: ivanimmanuel1234@gmail.com
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] ring-buffer: Stop remote reader update when page
- swap fails
-Message-ID: <ao1Uyps5JSTyOlZf@google.com>
-References: <20260825-kernel-patch-1-v1-0-e9349aa0b165@gmail.com>
- <20260825-kernel-patch-1-v1-2-e9349aa0b165@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EYYdCdiw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NrOw/zmj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TWQ+t5aK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QURYyCTb"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C6AAF1F7B3;
+	Tue, 25 Aug 2026 08:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787647238; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9RmSEUx5DQwDo4gSgt9njDplt37d7EmELQcf1wHlvzo=;
+	b=EYYdCdiwzbwm2XbfG83NClbayGhlooeQcFhtxQcX9FcoG1+uMXYn5D3DXjew/zIoUultCR
+	eAynFepWrPCEbqphcLWFYiyeOjrwCsKCsXVLgCSTmQ5SfvfP5m0+fm8bpd33+jiCkH2tLZ
+	W+zyc71UHL58aXzrbNcFAYtVGjBi3i4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787647238;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9RmSEUx5DQwDo4gSgt9njDplt37d7EmELQcf1wHlvzo=;
+	b=NrOw/zmjxnCIxFsAAl1No4JLgnuZdNaMWHaSYWKkkyx4bvHA5ZQxjObwJEdcnvJkhjHX0B
+	WnBQ4PKtbOZJkhBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TWQ+t5aK;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=QURYyCTb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1787647234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9RmSEUx5DQwDo4gSgt9njDplt37d7EmELQcf1wHlvzo=;
+	b=TWQ+t5aKUEmQsPj+oJQDdPn156f/KLn7ugDyjYRMmKArrkz9MqNanDp8iFxMMcKubkKu2k
+	dOw2gHmq6x4ZJFAq27uRKR4H+hKBIZThthSsXBFvZ/hVxSYFtApjQItHn/8HpLV05Us8KP
+	w45GT0qF/B98rot5Vfm6u73WnCW7tHs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1787647234;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9RmSEUx5DQwDo4gSgt9njDplt37d7EmELQcf1wHlvzo=;
+	b=QURYyCTbBcyztX2JZcsKq9ZlNCoNCRQcvlMIls4cebfLJMoFKYXKA5E/SA4WaUsU8dofPO
+	HBPr3OR+R8N3vADw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4860313331;
+	Tue, 25 Aug 2026 08:40:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 5bBvDgFVjWo2GgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 25 Aug 2026 08:40:33 +0000
+Date: Tue, 25 Aug 2026 09:40:31 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Christoph Hellwig <hch@infradead.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	usama.arif@linux.dev, hughd@google.com, akpm@linux-foundation.org, baohua@kernel.org, 
+	baolin.wang@linux.alibaba.com, dev.jain@arm.com, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, ziy@nvidia.com, nphamcs@gmail.com, hannes@cmpxchg.org, 
+	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
+	stable@vger.kernel.org, willy@infradead.org
+Subject: Re: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio
+ on zap
+Message-ID: <ao1R1Dh-42ALMq7o@pedro-suse>
+References: <aoXYh9EPF6QnlvIK@pedro-suse.lan>
+ <20260820061337.24669-1-lance.yang@linux.dev>
+ <aobp2CtWZBlw4w7E@pedro-suse.lan>
+ <aob9PF_H6CCJMdkk@thinkstation>
+ <aocFPRgqieScf_yo@pedro-suse.lan>
+ <ao0vSde26_Qar0IZ@infradead.org>
+ <2614286d-19ed-4848-8ce6-59ebecf19d1d@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,53 +99,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260825-kernel-patch-1-v1-2-e9349aa0b165@gmail.com>
+In-Reply-To: <2614286d-19ed-4848-8ce6-59ebecf19d1d@kernel.org>
+X-Spam-Score: -4.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: C6AAF1F7B3
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[24];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.dev,google.com,linux-foundation.org,linux.alibaba.com,arm.com,infradead.org,vger.kernel.org,kvack.org,nvidia.com,gmail.com,cmpxchg.org,surriel.com,meta.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-On Tue, Aug 25, 2026 at 01:20:38AM -0400, Ivan Immanuel Shaji via B4 Relay wrote:
-> From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
-> 
-> The remote swap_reader_page callback can fail when the writer moves the
-> head before the remote catches it. __rb_get_reader_page_from_remote()
-> warns about that failure but continues with the unchanged reader ID and
-> rearranges the local page list as though the swap succeeded.
-> 
-> Stop immediately after warning. Callers already handle a NULL reader
-> page as a failed attempt, and this avoids splicing the same page as both
-> the previous and new reader.
-> 
-> Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM sparse
-> Signed-off-by: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
-> ---
->  kernel/trace/ring_buffer.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 3c3ed639923d..d11b2759caac 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -5805,8 +5805,9 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
->  
->  	prev_reader = cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
->  
-> -	WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
-> -							  cpu_buffer->remote->priv));
-> +	if (WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
-> +							      cpu_buffer->remote->priv)))
-> +		return NULL;
->  	/* nr_pages doesn't include the reader page */
->  	if (WARN_ON_ONCE(cpu_buffer->meta_page->reader.id > cpu_buffer->nr_pages))
->  		return NULL;
-> 
-> -- 
-> 2.53.0
-> 
-> 
+On Tue, Aug 25, 2026 at 10:04:31AM +0200, David Hildenbrand (Arm) wrote:
+> On 8/25/26 07:59, Christoph Hellwig wrote:
+> > On Thu, Aug 20, 2026 at 03:10:11PM +0100, Pedro Falcato wrote:
+> >>> Why? Write batching from large folios is a win.
+> >>
+> >> For some context: we were discussing (off-list) the recent report that
+> >> systemd-journald had horrible write amplification, worsed quite a bit
+> >> by large folios. At the moment, there is quite a lot of write amplification,
+> >> but _only_ on mmap writes (if you look at the write(2) paths, you'll see
+> >> write_begin and write_end which tactically only dirty what you actually wrote
+> >> to, block-wise in the BHs or iomap IFS). This doesn't need to be true.
+> > 
+> > So don't use mmap to write to storage.  That is always a bad idea for
+> > many, many reasons.  We should not work around broken applications that
+> > do this, but change them.  It only took about 10 years of bad reputation
+> > for MongoDB to finally fix their act, so it should be possible for
+> > systemd as well.
 
-If handled gracefully and as this can be triggered by a storm of events on small
-buffer (when -EBUSY) I wonder if we shouldn't use a pr_warn_ratelimited()
-instead of a WARN()?
+That is true. However, I don't think that should stop us from providing
+reasonable semantics for those that use mmap.
+
+Fundamentally:
+ - For the common, PTE-level case: we get the granularity for free, the
+filesystem only needs to be notified accordingly.
+ - For the less common, PMD-level case: we already aggressively break these
+down on mkwrite faults; I think doing this is the right tradeoff. Screw the TLB
+in that case :)
+
+And, frankly, half of the problem (and related to the GUP thread) is that
+page_mkwrite is a crap interface... Something like ->write_begin() being
+generalised to more than read(2)/write(2) could possibly solve most of these
+issues (or a ranged dirty_folio).
+
+> 
+> I was in contact with systemd folks (and pulled in Willy and Jan) regarding
+> that, and nothing should really block that.
+
+Awesome!
 
 -- 
-Vincent
+Pedro
