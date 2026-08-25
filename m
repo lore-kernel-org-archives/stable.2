@@ -1,118 +1,231 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97B93B635B
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787684158; cv=pass; b=dg0LpnkGHOafXizos8TOB+pROKfgi8dZ8SpLRM1htJjVIhiK1RSl97NAXtLdVYJLkr1r/1p074yMYic1Bsf6MdIWyviJOayV9nQHRQJire6Gv4vjl5rVR3pfPeypWvBiVH/ZNtvAAnfONePxHgfI4UymJYWnwpc/WtDzK0EmHT4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787684158; c=relaxed/simple;
-	bh=Oafa7a3hagVsWS8SJ/kkvtcYmScAQTKcHCN+MR5JqiY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ew8WEXXH7DiFqkkWxC6fUvrvKkv8VjrwWH5mXgg+7FdFAcI3IS3Dr/sLNZp7VfHW8ZgBSyrdSnK5TtmSEHp8U5ufNh2CPzHyjKcyt1ght7Z7DrOzE0GjTMWOPHrri9bixXoGoRd1cHNGRctRywf5pAtBUzggLecGHRorviZlL/E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jf1QPyWi; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2ED335E1AE
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787684360; cv=none; b=fzhe5bJlb2eF0Jpjp0t0BAsKpdZviUlyhTQehWkr/OToQBgbC2EjKY1DOMSChic72IdZE0pzPufvBrGd1DzUty6Fx+oy7s/OcMp+c+SgXOSVDk3tqaZC482hZfFDQaGVTaoyOmGK1FImYFltpFxspt9jC10vSFfKoz7Oz4gFh+4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787684360; c=relaxed/simple;
+	bh=kEycn8od9OF+AUlEP2ZGFBpmB8tJT+YAZezNFgVW8I0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sY61d79E5w+Das5UlJFMr23DTbJ0v7xxel3t2LVh8yRAqcGl8nJf13fc6E3IP216Uz3nI3M0eogdK81iUr87MwzgP3MVisUk2ltwZw6m4aM/VNKOYKcjHpEygD/SQYCsLVKmUGYkHKCtkb4+U/6QrTPF+Ypg2iIXF4gHZgsejzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZIdhdbpF; arc=none smtp.client-ip=95.215.58.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jf1QPyWi"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a5d24ae3ddso13961a12.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:55:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787684153; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qA+VT3oUlkDtt3qSXRTfwcYVIU4oeMKcDVU4ASryJ5a/2BZbSLvy8lDFmwyeYIt8ba
-         Xj33qDPpQxr6H6igu1ZTa7tVH8R2ZdwJl2jOiZ72IMjF8avBIRxXE+Ydd5Q9BLzcTBTn
-         6lglPTUIyO63sC3Z1+snO7GD8M/cVRc17VlVJE3thM+Lrtq8oQRT4xntOY0A9aLcR3eC
-         Q773Gjj8lKM/5BB9d+rxCM83hBa+2wQqKpMA3ITaMhN6aj5ER59q++nvGS1UwPb5nEBq
-         +CpFic4LEYsqgZF3cZ/N/fYhLFHqvq/J4LEKygdzC7ZJ6chweibvyeWlKnwQlfJyvB6x
-         vczw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Oafa7a3hagVsWS8SJ/kkvtcYmScAQTKcHCN+MR5JqiY=;
-        fh=5CxuMKGeCYehpjcfrudyoklbREkvGF1p5SWxPbKtO0A=;
-        b=UanaRxTu02xyhURpYubBCYJkT1Qrnrb5VTW9QK3BmoxNrAhyveLFmMEL7AOzrl6j3Z
-         ZD5/s8bub81MdxAJ79+DgZtEERo7axBHe8IdYmBVByg5pUj6hfygf3e2ZHr15fLlOn8l
-         JQ4G4j5FkBKyeNF9RuwGkHsGjNVkMIKdIvB/7BfPZJDzS9Rc9eSz23GzgwgHbd6AHHpj
-         EeSAJpeDl90VXD5NT06txMwbAy5uqSWQdR9BVaPjLDubCkDLQpAytAEuWsxJu6E33ABP
-         NJwTg2DHpVJK9fT2ZQSWZg0m5SzRnzxgE6nifvyj2YmZ2zRipZi3X9APGWkZPztDOz9J
-         aZrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787684153; x=1788288953; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Oafa7a3hagVsWS8SJ/kkvtcYmScAQTKcHCN+MR5JqiY=;
-        b=Jf1QPyWisWyPIttRGdPTtNtUYSp/tutRZ6N4mek/Z5dvf3sZgfh//tluk1J2uJRAKp
-         TybJdLXZev09NrkfYz3OnTUpKujRjuZtdlWOlSJ0lUsKO+Z6gwwLt3fOLBcn9a5Vnv07
-         R+G3lSn3/QsMPHTOTri+zYE/iZh6hE9IsKB9ztUjByf1x9ojJbcPUcLL6u2oV76kggsw
-         PHBumlhwklx/XDt9jnpvL8SGS9nHUDY+8CCnNHJQhT+D6WH9zXdztrJMmIXXtU5a9+Sc
-         uB9kd5FvFGmaooiBKZv06VkSYCkAZ5WoTGd+tjBexljWx+mB0XdIOkixWvDx+llUnPdp
-         KD2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787684153; x=1788288953;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Oafa7a3hagVsWS8SJ/kkvtcYmScAQTKcHCN+MR5JqiY=;
-        b=K9NYhIFOhbLfXyPck44yos4jJlpTJCT/Pghb8XD1Wr/TyYycz9zTvzpGqN8LLqlD9i
-         RmBP2eN2iU0RCkSEXo9GUbBwRkJcnFFckj4thYWQMB/yDnr3DuFLJM9Ob3Wafufxu6lU
-         OTjC22JLq03u1695mJ2gi6Haf6OpR9ASVMG1mBpCvX6pWx7rnpRi6RzDr/7ThNgYfGQp
-         Cyj7ukc87OgIGg7LlHcxnT2pG/9YHP9Md18xAxtZDo73zhsxwv0W54AqFF8BLXD9aj4C
-         4974VZo5Mz3wqkLfEUqsKKxhT5ZDwRfHbyAvguLLAyTLVj7jh3GlSjNvv1Txtd/ere2m
-         aG/A==
-X-Forwarded-Encrypted: i=1; AHgh+RooSj52ryKa93HCie/jU47f6+BMLhiTLlWopWMpLhrp7UeV7kF1zSbR26zSntb0hvk4vNz2jE4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2IDCUO+fYfNjvqHrIyKUFQtUmd12z9lJOtBeSYI/z2KUHmaqT
-	/Ca0gZlrHd5WpH1dbsXAScEt0+5HoxY1BoYp7bJx5pu2vBuKLjBj+o3VzgnIP0RtDKei5fzZFWE
-	CrdMA0aqbBK89qgX0sO3ZZKSpmlY6sHo=
-X-Gm-Gg: AR+sD10Mx8B0TdYqjc2DG5E18vWIjOUwADegpipoT6sUlp+PiIGMuj3DovvGqO76/zA
-	KR+07fRT0EpCZf+8iA0WG+riade9HG0VLClCEbzr2i0AmhkRv+QL5xqE8a0ndHQo2vay/ulKXWA
-	vQtzgZxHeiH8bK1+n1gUUcqgPUvfK40p1hGlQkSA9K9Jy0bBDBSXYvkFOmOPK8M46bajavQsyFF
-	bYwb80HVhnIDCcaBE95YrrHMcDbc73yLC8pU9FYhczZxQIFwYoibgSxkLF/kdiQpL5Wkqjq/fGL
-	fm/fWqc3kCPwkuR0kIt64aVWZi7+3Cj1iXkQyIoiObqig2rhF98nyvHzDWXFLScBK3Vuyw9Xag4
-	=
-X-Received: by 2002:a05:6402:1f0d:b0:68e:4c0:f59a with SMTP id
- 4fb4d7f45d1cf-6a5df61ebbamr630339a12.2.1787684152982; Tue, 25 Aug 2026
- 11:55:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZIdhdbpF"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kEycn8od9OF+AUlEP2ZGFBpmB8tJT+YAZezNFgVW8I0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787684354; v=1; x=1788289154;
+ b=ZIdhdbpF0ievBfdc6krOxXFoY2XwpHrXMz/yspIrNuXaFFXSiHQEM98nSiDdMTt5sqHmaSE6
+ jd8HIwOHoYb76j8v8KVWk4PYSTpnRHvgL4KA+h0eWQjNMP6kI5mjBDyNgM/5lThiwi0bbccapZV
+ Y6XaIUC+X0ZLxHMPU17TL31A=
+X-Envelope-To: stable@vger.kernel.org
+Received: from lb03055.. (2601:647:6300:a030:488e:1b9c:4a00:b63e)
+	by smtp.migadu.com with ESMTPS id 6c1f2e2c3e58a006;
+	Tue, 25 Aug 2026 18:59:13 +0000
+X-Mizu-Trace-ID: 6c1f2e2c3e58a006
+X-Migadu-Flow: FLOW_OUT
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+To: stable@vger.kernel.org
+Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	Leon Romanovsky <leonro@nvidia.com>
+Subject: [PATCH 6.18.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+Date: Tue, 25 Aug 2026 20:59:02 +0200
+Message-ID: <20260825185902.1105236-1-yanjun.zhu@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026082519-embargo-unease-0e3c@gregkh>
+References: <2026082519-embargo-unease-0e3c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824152331.216494-1-nicoyip.dev@gmail.com> <f3a9dd1f-43a7-4644-bf1a-45dcd422abcb@redhat.com>
-In-Reply-To: <f3a9dd1f-43a7-4644-bf1a-45dcd422abcb@redhat.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Wed, 26 Aug 2026 02:55:40 +0800
-X-Gm-Features: AcwNN1W9SWDArcmcz5-thOMAtgRTEFgcxQnTTIg0FVU6UltdC2HdRtGhOn0lr5k
-Message-ID: <CAAo+4rUG_Y_d28bLbQdcmHY5-vtBrhV+D6rzbd3Mb6B3iTSuHQ@mail.gmail.com>
-Subject: Re: [PATCH net] net: pktgen: keep device lookup under RCU protection
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Qi Zhang <marsy12010123@gmail.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Alice Mikityanska <alice.kernel@fastmail.im>, Florian Westphal <fw@strlen.de>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 6:45=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wro=
-te:
-> Side note: returning the RCU protected ptr outside the RCU read lock
-> safe, as the caller never deference it, but quite confusing.
->
-> It would be nice to follow-up on net-next replacing the return type here
-> with a bool.
->
-> /P
->
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-No problem, the follow-up patch is just sent.
+free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
+Updating max_dest_rd_atomic before freeing the old array can make the
+free path walk past the old allocation and trigger a slab out-of-bounds
+write catched by KASAN:
+==================================================================
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
 
-Best Regards,
-Chengfeng
+CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xf7/0x600 mm/kasan/report.c:482
+ kasan_report+0xe4/0x120 mm/kasan/report.c:595
+ free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+ rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fefc75a70cd
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
+RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
+RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
+ </TASK>
+
+Allocated by task 11063:
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5296 [inline]
+ __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
+ rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88802b8ddd80
+ which belongs to the cache kmalloc-64 of size 64
+The buggy address is located 0 bytes to the right of
+ allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
+ set_page_owner include/linux/page_owner.h:32 [inline]
+ post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
+ prep_new_page mm/page_alloc.c:1861 [inline]
+ get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
+ __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
+ alloc_slab_page mm/slub.c:3278 [inline]
+ allocate_slab mm/slub.c:3467 [inline]
+ new_slab+0xa6/0x670 mm/slub.c:3525
+ refill_objects+0x278/0x420 mm/slub.c:7272
+ refill_sheaf mm/slub.c:2816 [inline]
+ __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
+ alloc_from_pcs mm/slub.c:4750 [inline]
+ slab_alloc_node mm/slub.c:4884 [inline]
+ __do_kmalloc_node mm/slub.c:5295 [inline]
+ __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
+ tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
+ tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
+ tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+ security_file_open+0x7a/0x1b0 security/security.c:2739
+ do_dentry_open+0x57e/0x1690 fs/open.c:924
+ vfs_open+0x82/0x3f0 fs/open.c:1079
+ do_open fs/namei.c:4699 [inline]
+ path_openat+0x218a/0x3190 fs/namei.c:4858
+page last free pid 1 tgid 1 stack trace:
+ reset_page_owner include/linux/page_owner.h:25 [inline]
+ __free_pages_prepare mm/page_alloc.c:1397 [inline]
+ __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
+ selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
+ inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
+ selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
+ security_d_instantiate+0x123/0x190 security/security.c:3704
+ d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
+ kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
+ lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
+ open_last_lookups fs/namei.c:4611 [inline]
+ path_openat+0x17dd/0x3190 fs/namei.c:4855
+ do_file_open+0x20c/0x430 fs/namei.c:4887
+ do_sys_openat2+0x101/0x1d0 fs/open.c:1364
+ do_sys_open fs/open.c:1370 [inline]
+ __do_sys_openat fs/open.c:1386 [inline]
+ __se_sys_openat fs/open.c:1381 [inline]
+ __x64_sys_openat+0x141/0x200 fs/open.c:1381
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
+                                        ^
+ ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+
+Fix the OOB by moving the assignment after free_rd_atomic_resources()
+so the old array is freed using the old bound. This matches the original
+ordering in commit 8700e3e7c485 ("Soft RoCE driver").
+
+Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
+Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+(cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
+[This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
+Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+---
+ drivers/infiniband/sw/rxe/rxe_qp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index 95f1c1c2949d..b709a8d53b61 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -658,10 +658,9 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+ 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
+ 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
+ 
+-		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+-
+ 		free_rd_atomic_resources(qp);
+ 
++		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+ 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
+ 		if (err)
+ 			return err;
+-- 
+2.43.0
+
