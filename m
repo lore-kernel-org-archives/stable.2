@@ -1,101 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C805419E97B
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 23:50:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80685DF59
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 00:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787615453; cv=none; b=lFQMwao0kEu219HgIJzragLGQCBV8uXftDxKG4NSKbGfkfYm1v6hNiT9lKu/jK/fN71HdH5liBxYrNhDNGWik0mfgnaJB0GhlJ0SqyWNjI0Ho9OaT/yHP/af3NeRqlFQh8gLgjZEQMDrXcj/+i7Aj5+fDT68DDFbMIfAzTPp+5I=
+	t=1787616618; cv=none; b=WVanSGUaTGyuN6AGSqe4Z2k/YwFqE+ld/EoPoNn9mD6ogyAXUgrL3dPuBBQQ429eOb2IZdUvj6lDQySntRjmFM6uJnq108/CNeMOfA3fln5VzvWKL/maVGyzWaeN+fNptYQZ94J5njrXUC0LYbSWFCXQx2q3eKpoVNAbeiVsf6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787615453; c=relaxed/simple;
-	bh=2b9h6pGiLZD2WRcgoOrhSLVmbDn1wudO9py0PQ/8ZVE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QKjqfAFBB6UjNRK2X07yuFU3//3iCUTXqtRbfceknZ3fs+tQvFizoZaheJqHKQA5kMZzbh5rIVIbfs+2J1XaL7Uz3dC0VnzGiW42W3aTSwJRUdSCqlUFSnCH1g4EciRL4nBSdCoGm2LPPgIGeG1uXfIMoLdfA3pZIU6C7WoJ+Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sbtpv5K6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787616618; c=relaxed/simple;
+	bh=qUxjq1NTtmZLQ1Gkw4YkS8R1TYIHXCA36YhmFqL2Qcw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CDHTf5ZzNDrqiuXeCj0i00qD1NmQXP+PI1lRKSdBJfisFcq0ZA6ULZej0UMW7Xl6rspASDyPXnIz4QOqemh6QxM7ctMxsNzWDYA/PDIAWO0OgqgQfzvdQnWoA8HzlhVQPa1ZVFUd4w2PuLe4ew6ExnfGalPZN5zq5rQofhLHWuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgpNIk3P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sbtpv5K6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949EA1F00A3F
-	for <stable@vger.kernel.org>; Mon, 24 Aug 2026 23:50:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgpNIk3P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D551F000E9;
+	Tue, 25 Aug 2026 00:10:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787615452;
-	bh=O1NxW5UCrvqxpbTSSg1+ct0wHpVvYfk3nZLtWuhg7kc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Sbtpv5K6ESHpgj950NVUnDDytVN76zeS4qC7r7a2/vwgbwUcVJI+xwQK6WaUPysap
-	 G1l5XGH9ZW6X7oSEcCzUpuc37yU1aSosnIDCKVlZbSkCL2O0Gr+hOr4ToLZB9s9xMD
-	 eQ1GmVg0dcEh6gfwBmBqfuB3Q+YqEhey++UJBegL1JnhQJIb3Z9mYPrn9pr5CFjRuQ
-	 ok5Qhfcw43/qnVctT4OorBbZKS5cWSHR2uPRff2hAs66Cp+D3nRZp8SBLZrinsc1KU
-	 AJyflmpXbMwkRFV2v80Wo4mk94Nrna20o+L5zpmaEVJz1i6rtpXD+b8D1nngI3cPwy
-	 sJSfzx6J9uFUg==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a3e145e1bfso5494792a12.1
-        for <stable@vger.kernel.org>; Mon, 24 Aug 2026 16:50:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrHJQA8Sf5gO9nf6oI4+g9gkyuM9zWtVbqvUM4t9OfpXtzvzq10xca6bT5opXPfdbodYT8Q0oo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAAl5x32xQkeK2C++1asmZy2eNwQ4GoW7eXW8Wd/Es6ZD1ZZgK
-	xN0mUbf99YY0TkOqJwmVR/EqazsTuMBuNQq5wxd/ncp79yVwQJooE8lOasffHwgMOrkObAkjyoY
-	FKdr6q5W/Z142Mftkfo+eSYIS2M6R3KQ=
-X-Received: by 2002:a17:907:1c1f:b0:c20:31d1:a899 with SMTP id
- a640c23a62f3a-c246a4ad97emr3431061066b.4.1787615451207; Mon, 24 Aug 2026
- 16:50:51 -0700 (PDT)
+	s=k20260515; t=1787616617;
+	bh=ujHNgyrloXMqukobfVUrq2wdQbEZBbaAJj4v7WpLLT0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cgpNIk3PNIPh6PmZIdf+NQIBMPXkmwa71fxB0gZs79y9aGG0HpB3Mj1BQCF8ZA5jS
+	 fXroJbhdFeezlv/Vc90MtSuuRXdVmdtGnwFhZv4We9v4bkIyEnpcyesnMO/B/6xv0x
+	 aNA8bAsTVRAWcjXBTyhAKTBUH20DJQu82Ev65XhvgGv80tiMNRidJqRg/GdOE7dgKK
+	 2bpf2znfdH9kXGcC3lshMuPNxerx+RScFHc0x2QxQNuLuerPipFX0B+w9dUqMF8Wur
+	 Ugpna5ImiXOHOxYQZ7WmoP2/X6mTFSqrrASZN7mCyWbOgC738evd+WmpQy374rW8CF
+	 pDxwSuNi3gljA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] selinux: require a class's permission values to cover its permission count
+Date: Mon, 24 Aug 2026 20:10:14 -0400
+Message-ID: <20260825001015.758018-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082021-tubby-passerby-6f34@gregkh>
+References: <2026082021-tubby-passerby-6f34@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824195912.634526-1-pc@manguebit.org>
-In-Reply-To: <20260824195912.634526-1-pc@manguebit.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 25 Aug 2026 08:50:39 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_wGZ_YMOHi7f-EE1-PVkCt6Qbt2Uh6LwYLB_+gW3F36Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UWU_hePnn2jkBxdvdyARMOqhYPQjt55Nmla25GoReja-9jO_lTJaa1DX0
-Message-ID: <CAKYAXd_wGZ_YMOHi7f-EE1-PVkCt6Qbt2Uh6LwYLB_+gW3F36Q@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: fix multiuser mount with krb5
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: linux-cifs@vger.kernel.org, Jacob Shivers <jshivers@redhat.com>, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 4:59=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> =
-wrote:
->
-> Customer reported that they could no longer mount their SMB shares
-> with multiuser mount option and krb5.  Turned out that the client
-> wasn't duplicating username option when creating multiuser
-> connections, therefore failing to retrieve credentials as
-> cifs.upcall(8) couldn't find them in keytab.
->
-> Fix this by duplicating username option (if set) from original fs
-> context before creating multiuser connections with krb5.
->
-> Reproducer:
->
->   ```
->   $ ktutil
->   ktutil:  add_entry -password -p testuser -k 1 -e aes256-cts
->   Password for testuser@ZELDA.TEST:
->   ktutil:  write_kt /etc/krb5.keytab
->   ktutil:  quit
->   $ klist -ke
->   Keytab name: FILE:/etc/krb5.keytab
->   KVNO Principal
->    ---- ----------------------------------------------------------------
->      1 testuser@ZELDA.TEST (aes256-cts-hmac-sha1-96)
->   $ mount.cifs //w22-root2/scratch /mnt/1 -o \
->         uid=3D1000,sec=3Dkrb5,username=3Dtestuser@ZELDA.TEST,multiuser
->   mount error(13): Permission denied
->   Refer to the mount.cifs(8) manual page (e.g. man mount.cifs) and
->   kernel log messages (dmesg)
->   ```
->
-> Reported-by: Jacob Shivers <jshivers@redhat.com>
-> Fixes: 12b4c5d98cd7 ("smb: client: fix krb5 mount with username option")
-> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-> Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-> Cc: Shyam Prasad N <sprasad@microsoft.com>
-> Cc: Tom Talpey <tom@talpey.com>
-> Cc: Bharath SM <bharathsm@microsoft.com>
-> Cc: Namjae Jeon <linkinjeon@kernel.org>
-> Cc: stable@vger.kernel.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Thanks.
+From: Bryam Vargas <hexlabsecurity@proton.me>
+
+[ Upstream commit b98a8ac50775540f3804397ed08f61ef9910bcab ]
+
+security_get_permissions() sizes an array by the class's permissions.nprim
+and fills it at value - 1, from the inherited common's permission table and
+then the class's own. A value no permission defines leaves a NULL that
+sel_make_perm_files() passes to d_alloc_name(), an oops inside
+sel_write_load() that strands selinux_state.policy_mutex and leaves every
+later load in uninterruptible sleep; two permissions sharing a value
+overwrite the first kstrdup(). Bounding each value by nprim catches
+neither, and neither would a count: the symbol table is keyed on the
+permission name, so duplicates pass.
+
+Track the values each permission table claims and require them to cover
+exactly what its count declares, rejecting a count no value can reach.
+Conforming policies are unaffected.
+
+Cc: stable@vger.kernel.org
+Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+[ folded in the missing perdatum->value guards and used `void *fp` instead of `struct policy_file *fp` in perm_read() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ security/selinux/ss/policydb.c | 57 +++++++++++++++++++++++++++++++---
+ 1 file changed, 52 insertions(+), 5 deletions(-)
+
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index 304746b503a0c..7db4376a02432 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -1132,7 +1132,18 @@ static int str_read(char **strp, gfp_t flags, void *fp, u32 len)
+ 	return 0;
+ }
+ 
+-static int perm_read(struct policydb *p, struct symtab *s, void *fp)
++/*
++ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
++ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
++ * fits in a u32 and the callers reject an nprim past that width.
++ */
++static u32 perm_claimed_mask(u32 nprim)
++{
++	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
++}
++
++static int perm_read(struct policydb *p, struct symtab *s, void *fp,
++		     u32 *claimed)
+ {
+ 	char *key = NULL;
+ 	struct perm_datum *perdatum;
+@@ -1150,6 +1161,16 @@ static int perm_read(struct policydb *p, struct symtab *s, void *fp)
+ 
+ 	len = le32_to_cpu(buf[0]);
+ 	perdatum->value = le32_to_cpu(buf[1]);
++	rc = -EINVAL;
++	if (perdatum->value < 1 || perdatum->value > SEL_VEC_MAX)
++		goto bad;
++	/* indexes an nprim-sized array in security_get_permissions() */
++	if (perdatum->value > s->nprim)
++		goto bad;
++	/* two permissions cannot share one slot of that array */
++	if (*claimed & (1U << (perdatum->value - 1)))
++		goto bad;
++	*claimed |= 1U << (perdatum->value - 1);
+ 
+ 	rc = str_read(&key, GFP_KERNEL, fp, len);
+ 	if (rc)
+@@ -1170,7 +1191,7 @@ static int common_read(struct policydb *p, struct symtab *s, void *fp)
+ 	char *key = NULL;
+ 	struct common_datum *comdatum;
+ 	__le32 buf[4];
+-	u32 i, len, nel;
++	u32 i, len, nel, claimed = 0;
+ 	int rc;
+ 
+ 	comdatum = kzalloc(sizeof(*comdatum), GFP_KERNEL);
+@@ -1189,17 +1210,28 @@ static int common_read(struct policydb *p, struct symtab *s, void *fp)
+ 	if (rc)
+ 		goto bad;
+ 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
++	rc = -EINVAL;
++	if (comdatum->permissions.nprim > SEL_VEC_MAX)
++		goto bad;
+ 
+ 	rc = str_read(&key, GFP_KERNEL, fp, len);
+ 	if (rc)
+ 		goto bad;
+ 
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &comdatum->permissions, fp);
++		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
+ 
++	rc = -EINVAL;
++	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
++		pr_err("SELinux:  common %s does not define every permission it declares\n",
++		       key);
++		goto bad;
++	}
++
+ 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
+ 
+ 	rc = symtab_insert(s, key, comdatum);
+@@ -1335,7 +1367,7 @@ static int class_read(struct policydb *p, struct symtab *s, void *fp)
+ 	char *key = NULL;
+ 	struct class_datum *cladatum;
+ 	__le32 buf[6];
+-	u32 i, len, len2, ncons, nel;
++	u32 i, len, len2, ncons, nel, claimed = 0, inherited = 0;
+ 	int rc;
+ 
+ 	cladatum = kzalloc(sizeof(*cladatum), GFP_KERNEL);
+@@ -1355,6 +1387,10 @@ static int class_read(struct policydb *p, struct symtab *s, void *fp)
+ 	if (rc)
+ 		goto bad;
+ 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
++	rc = -EINVAL;
++	if (cladatum->permissions.nprim > SEL_VEC_MAX)
++		goto bad;
+ 
+ 	ncons = le32_to_cpu(buf[5]);
+ 
+@@ -1389,11 +1425,22 @@ static int class_read(struct policydb *p, struct symtab *s, void *fp)
+ 		}
+ 	}
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &cladatum->permissions, fp);
++		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
+ 
++	/* the class's own permissions must claim the slots the common leaves */
++	if (cladatum->comdatum)
++		inherited = cladatum->comdatum->permissions.nprim;
++	rc = -EINVAL;
++	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
++			~perm_claimed_mask(inherited))) {
++		pr_err("SELinux:  class %s does not define every permission it declares\n",
++		       key);
++		goto bad;
++	}
++
+ 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
+ 
+ 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
+-- 
+2.53.0
+
