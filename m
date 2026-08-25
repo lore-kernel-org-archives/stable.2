@@ -1,127 +1,162 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D5B35A395
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151733CF1F6
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 07:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787641411; cv=none; b=VH0bLfkuYw9qONF9mwbvB6IzOMui+Z2/XA4Cj18U98BoUntvPlEzh5l9rVLyGMzDz1HZoSPSRK4EuM9LKQjYzCEocEC1bUhQoayvDIKdq4SIF0e5oVuBCQKTTKmc5W83CZPEdSVtd8dFObFMMY2Si8b/Q2H6reWm8k07VTas9KE=
+	t=1787641966; cv=none; b=WBSnb/ySGs5ngIkmvuJhNvvrwATnjTilS+4ExSFGWLykazstN31b6SnSYrdx0Ecz8lj5c2yVeGutCsio7oRPKbzilfUZ4xE8j+mj0t4rB/I6joJ0g2Dv0AEjik79e2ipU6/6syKY3vdkVV3lBVvgmPIc+/2guFIkW/EDCmtqhOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787641411; c=relaxed/simple;
-	bh=LOf+RtJBXhs6s/eIJdx9ZRDZnUklk3vYSZNk0xKtRkE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lk4JouoFUoaYAQ6GCSBhH+b5xmejzLfH25nSKCtfxMpV0zNQ61J5evpZKjIEYYNedUCWt3/rfFLovmNuazjuqKLOfxYwYiP/GVy/wSjeVqpIihoWhiCgoS8vqkIyltQhjs65GPEJ/Pw079tS58JvubG20MvpGejYHYs50D4akzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H9Zm96d2; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787641966; c=relaxed/simple;
+	bh=vrqAFbQm5tBczLY4hb4nFOlOxMC1/kc+DDXxwinK16Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uyhTf4AAvP04R+v8zOiFXkhKOArYKSfka6LXvaCHEsBN1zqIe70ZYvlSWfJXmxyWp/BWfLxXjHvMZg5cZAnOvRUcn3HbBscd2hHEk/XFcQNCRRfJ/YKluWh5AQioGgEVVYSZUIt0z1yP0uVujTnC6DgawZ1obwbT35XIu1cmv/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RZ2vBCYU; arc=none smtp.client-ip=91.218.175.190
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H9Zm96d2"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso7412246a12.1
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 00:03:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787641408; x=1788246208; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CMzGm+i1YzxWvRFmcCkLX0OTQ3u6nTrGUJ+DECAkF1s=;
-        b=H9Zm96d2hwd/yfziz3J+EdS0l0/RLQka3SMvYiWETiVWsPeDMuC+/WCjsDZA0sHkhU
-         ObWfFjjUxCLfH/uWjQtdHOQ3/bdJrubzF/ER3bAAoLOsK9XX/Y+39wzEtea7v4KpLf7q
-         SQ0XrP2MIdj+JUGeZJxGcGrGidSHozTrNIailidrsHrEvZsVGPnkAM6dvt7o26se24Fc
-         pnbCOKwvmh26BlUBTcVjjKP78/cxwJAZOLzNlBnaPYNRfFs7EjyHWIVZbJ/tHV1j8Qs5
-         zQOzB/rzWULYsiTGtEM2iN1lfCSUukHgeJuEiNjkThmtI+K73vrsHV20XWkRM3HFnmPa
-         +gVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787641408; x=1788246208;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CMzGm+i1YzxWvRFmcCkLX0OTQ3u6nTrGUJ+DECAkF1s=;
-        b=GYGuL3gOTI2nwLSr/T5YuLFotci/JW+39OE3pCP7VXW1+jpzSI8o4CXjCcYvfwFZGp
-         si/VSXt1yTNETiTK6HhHjFc/AtAwVbIfjFNXRYSkAtsr4fpPtC6HpHHIFCx8YJp1WUJJ
-         mEIhmCcQ4+/O3OY6cwRtcsCZMTlSg66WaAdB+CNlfv2IBbXvKQQtM/R1jT7WMH8tv/Cz
-         8+c/OUE2yWPplzlag+DTB2I4l4j5pjOQEG69n5IbwFfQqJ8NGr9XkEuVx6bzjYrZeJdV
-         1z3NOB5NR32k28aDKKNkFoYwQHGedCtfHIqw7ci+opF3toIuU7eBK6WmEfPHkPEF1Uiw
-         0Lew==
-X-Forwarded-Encrypted: i=1; AHgh+RogHPB0c2s/FOPG1rj2Xq/chMaN47lZCvHebQxG8aOFaJyKOWEoFOUCD5AN2OVJqYxUmWOEX+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbzmEvVSEiyi5DJE8sc5i8OAtkdDVWE8polPEIPne5P0GkTb5G
-	HA6Btqc1WwcF5DDR5PIPl1lZTpgA4CnIDK5OD6MikE00ocivwZnrCDi5
-X-Gm-Gg: AR+sD135MuHg/+VQLFApgIs4aWqBu+84VxjDjnC1P6oKbgA1EsjjnYi6rkAnnn5mHAk
-	/FISbd1DlZpjT/CI6ml+YkkW8eSxCmmsCqkcZixnyBf1FDLJrbzXJi7Q8iK3fSU5smpYajOJe7t
-	5BpgJZ05+Rq/fWxriF6AinH7vvsopN9jR/AMA7hR25ycsSNN7rJP4VtPoObA+LULmINM/v+03Qc
-	xM4rImTVqf1wI6iPSuCDX+Bg45atJ8FZHsRygCNnq7OhaW+Jli+VAl9bTmn9al1E9zGhu6pTabo
-	T0ib4wej22OKAWu9emNiPNI7rmwcaJSYi+ZBsU8sQZ6leYInxJiNTT5uTVuDqUUiirIfsDg0VgE
-	qUP+2g/F3Cn/+4hozqyjbbATLU6SI4mdOb3707SN0ZughfAkFK1FlDi59AcI+hSgtRgJh+3jpQ2
-	MBKY9EWjreal19O3i1wdI6Nl+vn/Yu2V1DnYCijPHr5Vnt0yY+2uq/Zz3Y/ZRC63f2Xlvjdf5Fg
-	upDymuTbJoTVfybDoTqMG3S3aXEVNkxCPSs5cI6OOuWFcMS7wU/4Jvsci/9hXo4IBPA5AuQqU/4
-	7HOJXSHjqfp4LsW4xnl2iZDWXw+Si9Y6QiFq9X3/OdR7jQmODfG2lcB1hHktzqc0YIDXoatMGhf
-	V
-X-Received: by 2002:a17:907:948a:b0:c1f:922d:34c3 with SMTP id a640c23a62f3a-c24926a1c3dmr2295180566b.14.1787641408067;
-        Tue, 25 Aug 2026 00:03:28 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-af54-b201-7419-a557-62e9-4d13.310.pool.telefonica.de. [2a02:3100:af54:b201:7419:a557:62e9:4d13])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966f64e0sm1897627466b.32.2026.08.25.00.03.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 00:03:27 -0700 (PDT)
-Date: Tue, 25 Aug 2026 09:03:25 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Matthew Wilcox <willy@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzbot+9cb1ac7fce4944ba9165@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] klist: avoid accesses after waking klist_remove()
-Message-ID: <ao051-T1sSobzcXP@gmail.com>
-References: <20260825040408.59225-1-kmehltretter@gmail.com>
- <2026082559-cyclist-annoying-7a55@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RZ2vBCYU"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vrqAFbQm5tBczLY4hb4nFOlOxMC1/kc+DDXxwinK16Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787641961; v=1; x=1788246761;
+ b=RZ2vBCYUJdlQ2ouUbpplBqf0V0IfdZLhmUhRPBFubqs5J7C1o2Tl/sLF4DvU+JPz3goGPA4R
+ RSBGovrjrO7ZisJXlZQiZkwYt42mBOr1XRwPC7WU1sU6cVt7G1eSIrfHWh2tFlOetQZGPNxIwu5
+ EOiCcFpU4qevjltscGqgZmaE=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2620:10d:c085:21d6::12f9] (2620:10d:c090:400::5:e4ca)
+	by smtp.migadu.com with ESMTPS id 29ba699e53c601c6;
+	Tue, 25 Aug 2026 07:12:41 +0000
+X-Mizu-Trace-ID: 29ba699e53c601c6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <556337a8-5e2b-45fe-a1ba-90a90c1f3c4d@linux.dev>
+Date: Tue, 25 Aug 2026 00:12:32 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026082559-cyclist-annoying-7a55@gregkh>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] x86/mm/pat: CPA fixes
+To: Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Lu Baolu <baolu.lu@linux.intel.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Pedro Falcato <pfalcato@suse.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Peter Zijlstra <peterz@infradead.org>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Steffen Dirkwinkel <lists@steffen.cc>,
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org, syzbot@syzkaller.appspotmail.com, x86@kernel.org
+References: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
+Content-Language: en-US
+From: Atish Patra <atish.patra@linux.dev>
+In-Reply-To: <20260813-cpa-fixes-v2-0-39b4ff90f91d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 25, 2026 at 07:25:48AM +0100, Greg Kroah-Hartman wrote:
-> > to go out of scope and its caller to free or reuse the node.
-> 
-> But does that ever actually happen?
 
-klist_remove() waits until the node is removed so the containing object can
-be freed. bus_remove_driver() can later free drv->p, while device_move()
-immediately adds the same node to another list.
+On 8/13/26 2:01 AM, Mike Rapoport wrote:
+> The first three patches are urgent, the third patch fixes BUG() reported
+> y several people and it depends on the first two.
+>
+> There were no bug reports that the last two patches fix because bug
+> manifestations won't yell at users.
+>
+> TL;DR version:
+>
+> There are a couple of CPA fixes floating around:
+>
+> Denis Lunev fixed races between split and collapse of the large mappings:
+>
+> https://lore.kernel.org/all/20260715183453.2381141-1-den@openvz.org
+>
+> Lorenzo Stoakes fixed UAF caused by races between CPA and ptdump:
+>
+> https://lore.kernel.org/all/20260723-series-vmap-race-fix-v6-0-8cc77dcc0018@kernel.org
+>
+> and an issue with stale page tables in IOMMU:
+>
+> https://lore.kernel.org/all/20260721-fix-cpa-kernel-pagetables-v2-1-2b255deed710@kernel.org
+>
+> Mike Rapoport fixed a check of RW attribute in lookup_address_in_pgd_attr()
+> used for the verification of RWX:
+>
+> https://lore.kernel.org/all/20260715144519.934289-1-rppt@kernel.org
+>
+> Pedro Falcato closed a race between text poking and collapse of large
+> pages:
+>
+> https://lore.kernel.org/all/anCK3eWFMwZqq5ka@pedro-suse
+>
+> Some of the fixes got merged into x86 tree, some of them got merged into mm
+> tree and some are still hanging in the air.
+>
+> The changes here are collected from all these fixes into a single coherent
+> set on top of tip/x86/mm:
+>   
+> * fix for races between CPA and ptdump causing UAF
+> * update to the fix of the race between split and collapse of large
+>    mappings
+> * fix for races between CPA and vmalloc_to_page() in text poking
+> * fix for stale page tables in IOMMU
+> * fix for effective RW computation in lookup_address_in_pgd_attr()
+>
+> ---
+> v2 changes:
+> * rebased on the current tip/x86/mm that includes peterz's changes for
+>    DEBUG_PAGEALLOC
+> * added fix for CPA vs text poking race
+>
+> v1: https://patch.msgid.link/20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org
+>
+> ---
+> Lorenzo Stoakes (ARM) (3):
+>        x86/mm/pat: acquire init_mm write lock on collapse to avoid UAF
+>        x86/mm/pat: acquire init_mm read lock on attribute change to avoid UAF
+>        x86/mm/pat: allocate split page tables as kernel page tables
+>
+> Mike Rapoport (Microsoft) (1):
+>        x86/mm/pat: fix effective RW computation in lookup_address_in_pgd_attr()
+>
+> Pedro Falcato (1):
+>        x86/alternative: exclude text poking against change_page_attr()
+>
+>   arch/x86/kernel/alternative.c | 39 ++++++++++++++++++++++++---
+>   arch/x86/mm/pat/set_memory.c  | 61 +++++++++++++++++++++++++++++++------------
+>   include/linux/mmap_lock.h     |  2 ++
+>   3 files changed, 83 insertions(+), 19 deletions(-)
+> ---
+> base-commit: 7da514d819a0afb148634aac92b3d190f34947c3
+> change-id: 20260727-cpa-fixes-d3c73c075672
 
-> > The task reference keeps the waiter task alive if it returns and exits
-> > before wake_up_process(). wake_up_process() provides the full barrier
-> > required by the sleep/wakeup protocol, so remove the explicit mb().
-> 
-> I'm confused, what actual bug is here?
+Reproduced and verified this series (patches 1-3) on 4vcpu guest running two different kernels
+1. mainline (commit: 77ae27fd98f3)
+2. Ubuntu Resolute 7.0.0-26 (production kernel hitting the issue in a VM)
 
-I found this during a targeted klist.c review.
+The Reproducer consisted of
+1. A debug patch a cmdline-gated stall between the two *pmd reads in vmalloc_to_page()
+2. One taskset-pinned insmod/rmmod worker per module over stock cfg80211/dummy/veth modules
 
-Only later I cam across the syzbot report. That report became too prominent
-in the commit message.
+With the above reproducer, both BUG within seconds in unpatched kernel.
+1. Resolute in 0.71s at alternative.c:2564 (BUG_ON(!pages[0] ...), RAX=0)
+2. mainline at alternative.c:2473 (BUG_ON(memcmp(addr, src, len))).
 
-klist_release() sets waiter->woken, then reads waiter->process and later
-writes n->n_klist. After seeing woken, the waiter can return on another CPU.
+With patches 1-3: zero splats across 10 runs each (600s/11,378 module load/unload cycles on mainline and 1200s/55,980 module load/unload cycles on Resolute).
 
-My initial KASAN reproducer was klist-only. One thread held an iterator while
-another removed and freed the object. A delay after the wakeup made
-the race easy, hit KASAN on n_klist in qemu arm64. 
 
-> > Closes: https://syzkaller.appspot.com/bug?extid=9cb1ac7fce4944ba9165
-> > Tested-by: syzbot+9cb1ac7fce4944ba9165@syzkaller.appspotmail.com
-> 
-> Are you sure?  the whole bind/unbind mess that syzbot is throwing at us
-> right now is really causing people to go down odd paths in thinking it's
-> even a valid thing to consider at all.
+Tested-by: Atish Patra<atishp@meta.com>
 
-I did not verify the dummy_udc bind/unbind sequence. The klist issue
-does not depend on this USB path.
-
-I can reword a v2 around the generic reproducer. anything else I should
-investigate before sending it ?
-
-Thanks,
-Karl
+> --
+> Sincerely yours,
+> Mike.
+>
