@@ -1,135 +1,113 @@
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4063DFC82
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 21:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC00E223DCE
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 21:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787692745; cv=none; b=NnMgm/3Uv+Ls0x3ihOu9OYYE1Gz7pEHZ5H7vj8zPaEY449Rcpn8iPfIGqlwaeSQzZhU0L/yGW9O4x3GN8E7z8sbZNcuMIzMq0tu0gSDC93uNYsZE0MJGNU086Kibw6hsCqgB6sIT4tKE1a1E32LYPPgA9z94/IDP3U8v8vfTHik=
+	t=1787693490; cv=none; b=gZoRwhhXsY3z2bN2LO0Xn0Ya2CRIwAkNzlijIgSTyX4At3JdAQdH8nC+EeMp1ECpZCsQDezlmiKUJhZrY+1H+pKvUmWcTuA7NrFI5BtVtNFY3ihYJUJWzN1e0zoi0a9hu7lV4YOn+05D6q+ftB1Ia+ISDlPMuLtxG7Xz6z0NCD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787692745; c=relaxed/simple;
-	bh=NL2+fDEK/NqXxgl+V4NxG0uAgKVgcbSteisQtxYRH2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kzY59mMeZNeQ85OCiHzTJDY7/mk4ktaW6PWryTfyxhUY4JgMJhFJ6F/Y9vRea0fnoLGv5PTU9add1hPZ05kNTlkdTwWLl1G5Mmfn9/XP+qr9yWOSrGWpyX72X6CR76SegQnL/xfu/UGHAH50/jg5txfrhAbSKyvL+MsiJePcg9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cQE6KEQ9; arc=none smtp.client-ip=209.85.217.48
+	s=arc-20240116; t=1787693490; c=relaxed/simple;
+	bh=xSAn2eA+gsK2NX+/wquGLiUFNntJe9ngu2Rama6GOdU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Du1sOOomiQKtzSQTVF2HpalHusHP+MZLPx093dL5+FG276VS6D+fLYJmVMia43vNUwY2X5tj3CNgClCJk79mvZ3mhCA5oIKsHGuJwrgnULAqFnJGCT4MH+HTYoewe6zf6KuvOwk+1nAyNw8JGTTu5obaa0vKcy3CoskvW0RAeGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qiCF9Jms; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cQE6KEQ9"
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7377dde7bc6so998221137.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:19:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qiCF9Jms"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d530328efbso3668115ad.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:31:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787692740; x=1788297540; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KaEPfXUewgQRHDDWoDuU8VavJ7ak/kOFZR7Xytm9nQQ=;
-        b=cQE6KEQ9NmjtR7MUoWzWSAaCoHLj84cuDl75Qne0f59Hw9DqkO7l19J09/HF9uE+WW
-         Ceb9V1Ov3wh5NWb54zEHqwvkoK7zOPQ1hWQnRcYT+PxttkIq2Jsn3VZbo27yFWKnXj0c
-         QlK59oqcw+qegbVUlJg1wCNbGUVP7QpZCCcYhduIgQOAPIuHdMYZpDBlazLr48VDjdyj
-         sKtXxgjXspj/m3INRrapA5lNgZ9gNmyhMGFkmxee1ZTqOop6YyHjjwBfEwG8gO/Y5un3
-         0Mpi4yH1nGxYvRyJ3kI/27lUss7vwHM1QTCHbgN9yilqKVHH4g6e1O1ISZEvMRWLLKAX
-         3i7Q==
+        d=gmail.com; s=20251104; t=1787693487; x=1788298287; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CmIh6qdKxbDeRlvcOdLJQsm/geP5sjQy9z3qmCMHb8g=;
+        b=qiCF9Jmsxsug/RsqB60maU1BEbJeJg0YkBk3cOrrKcYO/sXSwFi/Ob+hWKlKodb/O+
+         KVvRd/gsXex7HEV27EO96mFzSb9WgiVxoswtf1X5+5ZZgeKwnij9XiQZmJ9I38Y2p1zr
+         R8klDPfG4Xy+Gb14BdNppYbDVpoavoGdnSadg63s8jYFPj2StjXq4pHDX6DE+OU9rk1S
+         pef21qNnkM/dPfmhn/5ff6YIRRQkushMb2nbNJF+Qa2HOCP6Hcbl5qhqTA38Lg95eILL
+         5oo22u+RKARAp16wFD34Jxwh+DbmJUfU8GwUSm98LsvAj/MDCmOmQfVcnWH4VfQ6s855
+         mmFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787692740; x=1788297540;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KaEPfXUewgQRHDDWoDuU8VavJ7ak/kOFZR7Xytm9nQQ=;
-        b=ZeU0HwtXyr6NW5mg2zXwmb5fpt6bhXpOIfEMv8xRPYFBfViDIR3+6XCRrjXyGhpu+f
-         +LBCyborZu/UzXdKPolzOj3RR2voioj1Mk5rsqMWQ4TwmjIEK8Q0NcbuqKwsoVEggdGm
-         qcR4UMEQ6tTCqkv5762QvS+87HTUIf5FHECIFsJ+zJaEXRRWU2WS+p3cDtf0u1h1grPT
-         4fZeclDyjWKXRWfZn4OmaIZB6+J9RorwzyATyLs4jcrA53X1xpMOUp/lE0u0CpKF+hDC
-         +D5ZhKGW5pHfG184SwmqnKfGwcoHePerBK78Z5ag3/wg+ziGgEIMKhJsNwHa4v6EgKcC
-         84kw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpf6Z+mgWEX3GK/AsmiBtcWVZiMNvK//tFGVtVPbjstwvKngJnfXVmsYp7WWCE11H8a53oqt7g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaT34U8aHB54cnNPts8g9Lqc/SR4Fea51rCzFsVKHqInw/0z7y
-	8K6YbMPKPIEQhHApngxNrbI8idTrbZzmFyNOXNit0Px6akgGFhCQ1GmfVpqA0LdSsmE=
-X-Gm-Gg: AR+sD12x+nvdkHdb/O7zanjHoYa1Q2gutBu2Z9y9eWRRTH/+5xxJHjXX98ZEQ5Y18Gj
-	KbTZXF39T7s0LffhKsWkXUgzNLEejGbjoYzWKX0A24S3OVsdNzB0iGM5euW3a9mbfmmbHR/amxf
-	Iyb58zOqfNuwgzgJ0EHYxULxkQoioOqQu3KG4cpd6P+allYQaxYQd3mgQ82ORG0G2Tm1ifWr5e7
-	Vo+q9+3E1uCdnspaEmn7g30/+khSA7tmTjPQ/2LDIk/KjtHDRsmv2vTVEcm8CylDkSEhFK3h0j5
-	sfIXdhEl+Q7/XrNvbrIJHvZVqbP8YXoEusM9e4PiiAUKx6V43LddCXoph8cX3gaTlD4usSVVW1J
-	g7PzyVGLtX7hu/J8REN8gQKQ12MuC9c2L0rbLQjK9CqTaFMQkOPh373m+AFgrAVYesWIa8SI/e2
-	fi8qMJcNpqTKdP86NGXe65z17U60bPI/S532h5IKshsqkYKOPTn1UAKv2+
-X-Received: by 2002:a05:6102:2921:b0:778:3894:b2e2 with SMTP id ada2fe7eead31-782bea7ce5emr469515137.6.1787692739953;
-        Tue, 25 Aug 2026 14:18:59 -0700 (PDT)
-Received: from t14 ([189.39.221.242])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78307cb51b9sm47611137.7.2026.08.25.14.18.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 14:18:59 -0700 (PDT)
-From: Mauricio Bellon <mauriciobellon@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Wayne Lin <Wayne.Lin@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Mauricio Bellon <mbellon@lenovo.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	christian.koenig@amd.com,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
-Date: Tue, 25 Aug 2026 18:18:19 -0300
-Message-ID: <20260825211819.100210-3-mauriciobellon@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825211819.100210-1-mauriciobellon@gmail.com>
-References: <20260825211819.100210-1-mauriciobellon@gmail.com>
+        d=1e100.net; s=20251104; t=1787693487; x=1788298287;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CmIh6qdKxbDeRlvcOdLJQsm/geP5sjQy9z3qmCMHb8g=;
+        b=EZ5L17xTXZSEliQ+UFLD4+l1nFvjv5pmOon6ntmM+VddYJAlMEjMdfvuO3bDh5L/DP
+         SstZNQM21q5Hh3h/zarULF3mFLe6jLX4mIfd+R8OY5w+7LtbW/qSArKgYvnGxsgdrHtr
+         5L3UAvUZicqmEbbs2ZQgq0ZYyZkMpjgzQB+rwuOs61UaulAxAupS/iha0mBDsX1LbzWh
+         XZkW/BWlqx8AoPN415BZpwAjCecWAMKonudYFCsRqQQa0qWEicOR0t4NO3Il1wty2I5i
+         ozw1kW4OLn+ZBdn9BZoYxhRRHPxt3TbNfMMosi3pJBVQHeMkbnleD7fUGfMrLGiax6ls
+         IRWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoHocctF0ubsApp8CJmz2y226Kj3f4EovdZrwgQz8lqcW5vEuEZ5pTuLFqk8WcwuUgMnnIi03o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSFKiZLoRaxuXfdZ82383iqzqNRUbjUJgVVrydB122tbOth04p
+	Vy8vdMBTNVPR0uceVVPTJbWywOwxxkWeDKmBUWGEeG2lly9lQB36YmM38aYlWOSM
+X-Gm-Gg: AR+sD10c6EcyxVQBPWVkPRGnWrk2dn+zd/PEmP9heRMTvvDqRlt47dm4uyCmKzyth3d
+	rmvrNpae/WegU4xKfaf+aBcNX34l5NxELY4Jfmvor09xAfE1wMejOmhGJ04Dic/MRtq7PO6FGZT
+	6QpCvVa4XLgBmmvu6EYQKF4rj6/+MO+VSGgPtLS0eE2TyNF9X0pvitxrIEYa6FdSPvPr4kP61E4
+	jsBpdI+Il3yEUs5Yg6Sm/ukwkL25s2CLhnTVR8D+JxRwWmJ2SfMRY91HzL8bm53US9taz9kDVkb
+	0pJNlaelaLsmXvWugNIOOmeigPuiksYONqIJh72jas/jh9OlbmZmxCG3cSfcjyRD6sJ+cPU4uVN
+	G0kcQ9fPQQn6Gwi2IZXzkCnPbb7KnNXLw2xyLkoXhMlK7mE0GjC6AACRgrIVRUl5mfhAvY8+rJZ
+	HtLipztvu1CfvD6x0U+0BFyfcrDv6/QuAqR2+KVmrVdh5Phil8zcRC2tGy3jU9WOF/d9pDN3MvQ
+	LaUZWyfrxxWnhqp
+X-Received: by 2002:a17:903:19ed:b0:2cc:864b:539 with SMTP id d9443c01a7336-2d7079ffa9fmr22032265ad.6.1787693487074;
+        Tue, 25 Aug 2026 14:31:27 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c291sm3197944eec.6.2026.08.25.14.31.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 14:31:26 -0700 (PDT)
+Message-ID: <d1e23ddc-f85b-4c4f-b866-f7d34b498b2a@gmail.com>
+Date: Tue, 25 Aug 2026 14:31:24 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 00/79] 6.1.185-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260825132541.677185791@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260825132541.677185791@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Mauricio Bellon <mbellon@lenovo.com>
+On 8/25/26 06:25, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.185 release.
+> There are 79 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.185-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Direct DisplayPort high-refresh modes using DSC and two-way ODM can
-commit without visible output during a 4K120-to-4K144 transition. A
-working 4K144 stream can also return black after long-pulse hotplug
-reconstruction.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-The DPMS-on path currently enables source DSC before link enablement but
-does not enable sink DSC until after the source stream is enabled. This
-leaves the sink and source compression state ordered differently while
-the stream is brought up.
-
-Enable sink DSC immediately before source DSC in the pre-enable phase,
-and remove the later redundant sink-enable operation near PPS packet
-programming. This establishes the order as sink DSC, source DSC, stream
-enablement, and PPS before the compressed stream becomes visible.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Mauricio Bellon <mbellon@lenovo.com>
----
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 48b086d15..412ce52b3 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -2635,8 +2635,10 @@ static enum dc_status link_set_dpms_on_pre_enable_link(
- 	 */
- 	if (stream->timing.flags.DSC) {
- 		if (dc_is_dp_signal(stream->signal) ||
--			dc_is_virtual_signal(stream->signal))
-+			dc_is_virtual_signal(stream->signal)) {
-+			dp_set_dsc_on_rx(pipe_ctx, true);
- 			link_set_dsc_enable(pipe_ctx, true);
-+		}
- 	}
- 
- 	if (link->replay_settings.config.replay_supported && !dc_is_embedded_signal(link->connector_signal))
-@@ -2729,7 +2731,6 @@ static enum dc_status link_set_dpms_on_post_enable_link(
- 	if (stream->timing.flags.DSC) {
- 		if (dc_is_dp_signal(stream->signal) ||
- 				dc_is_virtual_signal(stream->signal)) {
--			dp_set_dsc_on_rx(pipe_ctx, true);
- 			link_set_dsc_pps_packet(pipe_ctx, true, true);
- 		}
- 	}
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.53.0
-
+Florian
