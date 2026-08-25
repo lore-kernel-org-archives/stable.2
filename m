@@ -1,43 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313443F99F4
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CF03FCB37;
+	Tue, 25 Aug 2026 11:31:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787657400; cv=none; b=q5bX0bWZju+GExmqotORGNPC7uRn4gVrQqTvWS7oqD5JriNiO/czF32GCTpx8KMSGwUi/s9qmPHctfM9lgEKRjI1B9ZsEfEaUHxvSuPRheaeD3YXHbm5Ujh0ydmU5MQFO7WfFZbpcVeCug/H0okWQ/Kg2EO8C1RPw8IyQOXrWjA=
+	t=1787657469; cv=none; b=QQ2naUgvLjxHECE0UE+N/G9136BNnAGkCjB7AnPOWNEDHqthX5i8L8H+ztFU900SVUimCohR2LVDYpWBVSR+ry70CoKsGdqqSLJVRl7u2Q5EhS4W6+d+T3e1zBy4UyHuiIc28BgjLv4vx6pNxxSv2VIEt0en3FNUHvXHBgeKO94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787657400; c=relaxed/simple;
-	bh=9HBvp0D1q7WaVHqn1VmZkCPcxGbHJ5nC71UHCzBkYKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oykNw0sHoj/5oCZusEnrhun1YjupiW2/RiAZmDtZW3b6+tB0htlH2mfEeI+yunTSMU7P+Ft2mCYMZi7bUW1pFMmtoocOiE/4WIsYysL3Of7OYDT8tWPRplZEn/o7I+JHRoYmkYBbPj82/hEf4cQf1JSc4vf718eiU/hFkASnnco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2tZx1WZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787657469; c=relaxed/simple;
+	bh=VjJko0yA3d3YUMxZUcmEj/Vhj9nnISoGVu0m8VeLzBg=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Acrw/WcAR6BXzyVR1TR7f2SJq8rQNAqyEoR7UBy2F08c7CQ2g1TdKi+pGL867+U36HflxQGmQ1shdCSNl2Iaziqts6PDPvY9JwUpNDuStvXVYz+c510gpZbPG2TkYBHNe5p1Th/Gcb1it0q1JqHjFbyb3WPJc9U9ekZdSsbcrSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LyUYwbSI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2tZx1WZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4471F000E9;
-	Tue, 25 Aug 2026 11:29:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LyUYwbSI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB981F000E9;
+	Tue, 25 Aug 2026 11:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787657398;
-	bh=MUttI+6is8q2T4N6XXdX1ssn+3XeIjuYQjrnAIDf6JE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J2tZx1WZsuSCxSoRRVe6P44xuBIXoMERXgU+i742k5Q39eR2gY24UBur6F6xtZhLR
-	 Po+AFUecEJ8hKBm/35vvxrfDHCLSYZu4AgoiMBPYiaFDKdk9FDJz2nKsDwqot75vx/
-	 ZQa0QI5uilioGiBrdl7asgQP6o//ti7EocGV1vFyvSwAhcdSfVO1GVOSCFfmwIi19A
-	 Nb7JkernUrsreu8EcG5lGlBM6KghtA4+ipwAgXfEWpe3R8GMyUDk6ZquGpYuZhg8cr
-	 tgNAwMCYZwMZRo0pr+5pPukJw5ZivZdYyq8eEdsaHK+fzkOs8MJfa5Syw+/Wiybx1D
-	 A/aht/jCBcx8A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mptcp: pm: fix memory leak from alloc-during-teardown race
-Date: Tue, 25 Aug 2026 07:29:56 -0400
-Message-ID: <20260825112956.3574508-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082047-stumbling-handrail-8338@gregkh>
-References: <2026082047-stumbling-handrail-8338@gregkh>
+	s=k20260515; t=1787657467;
+	bh=w1SXzpz7rikUBZtWYHQVrdcAXSUIx0iFDqOEdDDx3Qo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=LyUYwbSIdBWTCB7Iiyt2+L9a/zD6fPaegOurpi2U+KOz3gt8f1eE9iIM98kBvX3fi
+	 tX4tgt7eKNJdGw2+8UiXXcIzc/FCnIlm1JgjBxn5ipnMNjcada76N3j4lTmhc2duep
+	 27DKAcuiidmEGFUV/cXgbN+DRt1vpsewvxQERfeA+lfXeERQxCTPi6wTKm/xn+wcx8
+	 wajj3nliZD4L3Xv9KcM7uN+M7x9sLcjjG9cINVaoRd4J8uaDqw/ZOz14nWOH8djH0F
+	 NLkSkzHmg1W8Bl4aNlb6kpZIB2TgvIqQ7zX/xdjIxTOvjru5Wk1KzzY1OC34zw3vMb
+	 W5TwO0gWaw5fQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 03F073924FD4;
+	Tue, 25 Aug 2026 11:30:16 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,136 +37,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3 0/6] net: sched: fix quantum/mtu overflow in fq,
+ fq_codel, sch_codel, fq_pie, hhf, sfq
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178765741495.3403300.2275787044891472077.git-patchwork-notify@kernel.org>
+Date: Tue, 25 Aug 2026 11:30:14 +0000
+References: <20260822195509.112717-1-jhs@mojatatu.com>
+In-Reply-To: <20260822195509.112717-1-jhs@mojatatu.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ tahiliani@nitk.edu.in, sdp.sachin@gmail.com, vsaicharan1998@gmail.com,
+ mohitbhasi1998@gmail.com, lesliemonis@gmail.com, gautamramk@gmail.com,
+ vtlam@google.com, stable@vger.kernel.org, vega@nebusec.ai,
+ victor@mojatatu.com
 
-From: Shardul Bankar <shardul.b@mpiricsoftware.com>
+Hello:
 
-[ Upstream commit efc33b5102ff859bacd390a5f30112d8e0c084c0 ]
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-mptcp_pm_destroy() empties msk->pm.anno_list and
-msk->pm.userspace_pm_local_addr_list under msk->pm.lock during socket
-teardown, dropping the lock between the two.
+On Sat, 22 Aug 2026 15:55:03 -0400 you wrote:
+> Several qdiscs derive their per-flow quantum or CoDel mtu from
+> psched_mtu() without an overflow or zero clamp, which can drive the
+> dequeue/credit-refill loop into a soft lockup or silently disable the
+> AQM. vega@nebusec.ai provided reports and PoCs for the following qdiscs:
+> sch_fq, sch_fq_codel, sch_fq_pie, sch_hhf, and sch_sfq.
+> 
+> sch_codel was found by inspection for the same pattern. It's TheLinuxWay
+> (i.e cutnpaste code from somewhere for your new feature) and the AIs
+> are having a lot of fun finding patterns. We must overcome!
+> 
+> [...]
 
-A concurrent userspace PM genl ANNOUNCE on the same msk holds a sock
-reference via mptcp_token_get_sock() and, in
-mptcp_pm_nl_announce_doit(), calls
-mptcp_userspace_pm_append_new_local_addr() and
-mptcp_pm_announced_alloc(). Both take msk->pm.lock briefly to add to
-their respective lists. Because the genl handler holds a sock reference,
-mptcp_pm_destroy() may run on the same msk via mptcp_disconnect(), which
-invokes mptcp_destroy_common() without dropping the sock refcount,
-before the handler completes.
+Here is the summary with links:
+  - [net,v3,1/6] net/sched: fq: add overflow bounds to quantum and initial quantum
+    https://git.kernel.org/netdev/net/c/709f34f7c28d
+  - [net,v3,2/6] net/sched: fq_codel: clamp default quantum and mtu
+    https://git.kernel.org/netdev/net/c/d9ebd8f9aa8b
+  - [net,v3,3/6] net/sched: sch_codel: clamp default mtu to avoid disabling CoDel
+    https://git.kernel.org/netdev/net/c/6439461f1618
+  - [net,v3,4/6] net/sched: fq_pie: clamp default quantum to avoid signed overflow
+    https://git.kernel.org/netdev/net/c/c86cd7ed0b0e
+  - [net,v3,5/6] net/sched: hhf: clamp quantum before hhf_change() to avoid overflow
+    https://git.kernel.org/netdev/net/c/2164b512b97b
+  - [net,v3,6/6] net/sched: sfq: clamp quantum to avoid signed overflow soft lockup
+    https://git.kernel.org/netdev/net/c/816e90057ab1
 
-If the lock acquisitions interleave such that mptcp_pm_destroy() empties
-a list first, the later alloc adds its entry to a list head that nothing
-else iterates for this msk, and the entry leaks. kmemleak reports both
-mptcp_pm_add_addr objects (from mptcp_pm_announced_alloc()) and
-mptcp_pm_addr_entry objects (from
-mptcp_userspace_pm_append_new_local_addr()) under sustained concurrent
-ANNOUNCE + close load against the userspace PM.
-
-Add an MPTCP_PM_DESTROYING bit in msk->pm.status, set by
-mptcp_pm_destroy() under pm.lock before the lists are emptied and
-checked under pm.lock by the alloc paths. Either the alloc takes pm.lock
-first, in which case its entry is on the list when mptcp_pm_destroy()
-frees it; or mptcp_pm_destroy() takes pm.lock first, in which case the
-later alloc observes the bit and refuses.
-
-Found by an MPTCP protocol-flow harness extending BRF (arXiv:2305.08782).
-
-Fixes: 9ab4807c84a4 ("mptcp: netlink: Add MPTCP_PM_CMD_ANNOUNCE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-6-b8f496d71664@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Inlined `mptcp_pm_destroy()` at its call site in `mptcp_destroy_common()` and moved the fences into the pre-rename `mptcp_pm_alloc_anno_list()`/`mptcp_free_local_addr_list()` equivalents, deleting the `mptcp_pm_is_userspace()` guard from inside the callee instead of the call site. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mptcp/pm_netlink.c   | 3 +++
- net/mptcp/pm_userspace.c | 7 ++++---
- net/mptcp/protocol.c     | 9 +++++++++
- net/mptcp/protocol.h     | 7 ++++---
- 4 files changed, 20 insertions(+), 6 deletions(-)
-
-diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
-index 242011de052a8..d60e2b253f63a 100644
---- a/net/mptcp/pm_netlink.c
-+++ b/net/mptcp/pm_netlink.c
-@@ -396,6 +396,9 @@ bool mptcp_pm_alloc_anno_list(struct mptcp_sock *msk,
- 
- 	lockdep_assert_held(&msk->pm.lock);
- 
-+	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING))
-+		return false;
-+
- 	add_entry = mptcp_lookup_anno_list_by_saddr(msk, addr);
- 
- 	if (add_entry) {
-diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index ded7a4d416919..12dd30d63c717 100644
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -13,9 +13,6 @@ void mptcp_free_local_addr_list(struct mptcp_sock *msk)
- 	struct sock *sk = (struct sock *)msk;
- 	LIST_HEAD(free_list);
- 
--	if (!mptcp_pm_is_userspace(msk))
--		return;
--
- 	spin_lock_bh(&msk->pm.lock);
- 	list_splice_init(&msk->pm.userspace_pm_local_addr_list, &free_list);
- 	spin_unlock_bh(&msk->pm.lock);
-@@ -53,6 +50,10 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
- 	bitmap_zero(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
- 
- 	spin_lock_bh(&msk->pm.lock);
-+	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING)) {
-+		ret = -EINVAL;
-+		goto append_err;
-+	}
- 	list_for_each_entry(e, &msk->pm.userspace_pm_local_addr_list, list) {
- 		addr_match = mptcp_addresses_equal(&e->addr, &entry->addr, true);
- 		if (addr_match && entry->addr.id == 0 && needs_id)
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index ef7479937ee56..127438ef120e6 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -3536,7 +3536,16 @@ void mptcp_destroy_common(struct mptcp_sock *msk)
- 	sk_forward_alloc_add(sk, msk->rmem_fwd_alloc);
- 	WRITE_ONCE(msk->rmem_fwd_alloc, 0);
- 	mptcp_token_destroy(msk);
-+
-+	spin_lock_bh(&msk->pm.lock);
-+	msk->pm.status |= BIT(MPTCP_PM_DESTROYING);
-+	spin_unlock_bh(&msk->pm.lock);
-+
- 	mptcp_pm_free_anno_list(msk);
-+
-+	/* Free the userspace local address list unconditionally: the socket
-+	 * can be reused (mptcp_disconnect()) and re-selected to a different PM
-+	 */
- 	mptcp_free_local_addr_list(msk);
- }
- 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index aae8ca0bfabfa..af00d64e61f4b 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -190,9 +190,10 @@ enum mptcp_pm_status {
- 	MPTCP_PM_ESTABLISHED,
- 	MPTCP_PM_SUBFLOW_ESTABLISHED,
- 	MPTCP_PM_ALREADY_ESTABLISHED,	/* persistent status, set after ESTABLISHED event */
--	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED /* persistent status, set after MPC local address is
--					 * accounted int id_avail_bitmap
--					 */
-+	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED, /* persistent status, set after MPC local address is
-+					  * accounted int id_avail_bitmap
-+					  */
-+	MPTCP_PM_DESTROYING,		/* To fence out PM list allocs */
- };
- 
- enum mptcp_pm_type {
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
