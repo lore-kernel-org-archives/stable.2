@@ -1,46 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5D73EC831;
-	Tue, 25 Aug 2026 11:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DBF3FFACC;
+	Tue, 25 Aug 2026 11:49:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787658580; cv=none; b=JNweh+gBDBYl0Ta+HRCSf7sCg6kk7h/7zqVbxRPdHKOhzIxpcxq3w3TP8oJVZh6Km8TBme3METb3jlzSop5Ae7GeJfm8cAciqa9N+yTIRBdnIyZEtxHjQUNnRrACPC4sQL8s56YTL5nehY7PC3RkUXWoWbLWNC+ptbEOGmTVNYs=
+	t=1787658582; cv=none; b=toiMzbddy9jJ8iI2Pkwledu8ZCgZxKmYzDhHJh/GGLpLh/TIpbOPAzAVLrSkiZfwZkoEljs2MGWnpsND/xh+WwoS7hlLX70yhRDTv7PrGw4m0HG+h8OP5P+3Wadi62/U6/ryNY2f/74KY9RS2Z7t2waSF7BXvOmBrzxAQvp+AZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787658580; c=relaxed/simple;
-	bh=vF/NofhQRISXuBLKCIyJDQtBtbKwrIKf3STqcasmukM=;
+	s=arc-20240116; t=1787658582; c=relaxed/simple;
+	bh=6AeKEmAbglrYMuTQDcgryyRF8OFnCwxkKDCoXKGt4+g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CZANDudSD/BwmrtiL6C6UO/Y4AFUAH4q/PBlygcVoIILEAqyrWv0eiJzOO8q7bayZsD+PIe6KDGYNjFhTiVGTmDeNYVHRsDNNb9eqwxuPR5r/5NQ2Ci6vaNEAQTc0gMqyWV5AC80E338zBt9Bc3WIWrWtl2RAUp9UAqBtPl3j00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WODV7CYj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=P+tb5Y3njtqt48SCO1+MCsa4O47DgvSdXI9/0LoLLeUehUswYhsJMlez70p0+lI0sAy85TjK+X4LHBGrIZHcuuhEYpLTW5FqrzpNBf4l+0uyKq4oojn7XJId01SqWvtHOeIriVCix63acp+9v7lU5r5ibVjTD1vAglwt/45JD9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kz7psXWl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WODV7CYj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8295B1F000E9;
-	Tue, 25 Aug 2026 11:49:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kz7psXWl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC4581F00A3F;
+	Tue, 25 Aug 2026 11:49:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787658579;
-	bh=lQ+Bc+20YB0DASmNf601uYMQYURFQFS2LpCO8+kh8Co=;
+	s=k20260515; t=1787658581;
+	bh=fW3Uz/X24qHx+oUgJ0jCrQNRCEkUirr3meKSn7X1+3U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WODV7CYj3cEyG98Pq3SKhGKq59EPeZAfgergN/ocEEGPCIr4glo2i0wMH/2TG3917
-	 uuCO46ic6h89G0t+x16Gz/5V+V4NV8unzy7bClQg2W5RagT2iDgO/WLfJm5TBDoDv5
-	 5qn8pOtkzomP6n4H0CLYjfXki0sTxFNdSFkQAN4pOBp6A8zIfsjfApRZPhB+nQ22kc
-	 7IX50Kva47LaOv1kkipTE8sV3fVjyvOBqWi9PH0RJHIGF3ApVfrG3UiL6TB5731UJI
-	 qbZNaOajlJeyx1Zs/il+f+9lfpA/UeTx1Iv4p1sPUxqW0w0sVs5aAyNGzoFP00rB7a
-	 uHysp80gZZtTQ==
+	b=Kz7psXWleF6u08Y5fhW1+PAhI2ABQ/6znyEBZOKQ7NA+ATiNuEbcwjLO1VpBgx0Dk
+	 ElChkumr9p2CxdXsVW6C+rtkxoV1Ylc5lz/+MisYhwI9mSpvxJQsNvVTA1nZxmXkFo
+	 tJJyVoRspGOcRtxvZqiSGx1YoHxPVFRmA/XQRX444nbW05rRB40hBr9zTyVT4G/g1R
+	 fNRalzuTCylLoNeIwvb0SNP6tdE2nZ4a+U9C5QDiKcKwjkOALUzMdS8TwfEvwDTlzk
+	 J5OkdOuFzNxcQy13FF07ijcXuZQ6ih7UOYlvw4QBKjWh3hGf9kcmVZrExToEBNdWFL
+	 ojKl0m8PLewug==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Xiang Mei <xmei5@asu.edu>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+	stable@vger.kernel.org,
+	Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Martin KaFai Lau <kafai@fb.com>,
+	Wei Wang <weiwan@google.com>,
+	thomas.petazzoni@bootlin.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.1.y] xfrm: fix sk_dst_cache double-free in xfrm_user_policy()
-Date: Tue, 25 Aug 2026 07:49:23 -0400
-Message-ID: <202608250001.9680466620fa83c7@kernel.org>
+	Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 6.12.y v2] ipv4: start using dst_dev_rcu()
+Date: Tue, 25 Aug 2026 07:49:24 -0400
+Message-ID: <202608250002.b8a90eb369f250bc@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821044210.10076-1-artem@trailofbits.com>
-References: <20260821044210.10076-1-artem@trailofbits.com>
+In-Reply-To: <2026082420-reanalyze-dehydrate-c386@gregkh>
+References: <2026082420-reanalyze-dehydrate-c386@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,12 +56,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 12:42:00AM -0400, Artem Dinaburg wrote:
-> Please queue this unchanged upstream fix for CVE-2026-64581 in 6.1.y. An
-> unprivileged namespace user can race UDP transmit with per-socket XFRM policy
-> replacement and double-release the cached destination.
+On Mon, Aug 24, 2026 at 11:05:52AM +0200, Greg KH wrote:
+> Doesn't apply to the queue anymore due to me taking this patch series
+> from Sasha:
+> 	https://lore.kernel.org/r/20260821144926.3428433-1-sashal@kernel.org
+>
+> Can you rebase it on that?
 
-Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+Miguel, no need to respin - I've already redone the backport on top of
+that series. Queued for 6.12, thanks.
 
 -- 
 Thanks,
