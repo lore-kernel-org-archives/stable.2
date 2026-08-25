@@ -1,91 +1,43 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196EE3FE363
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313443F99F4
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787657193; cv=none; b=GnbvMMbD7zqoyjJKB2JIeVfHfXJYDIjsTdO+AMUTIkYt8IVZHx3BakVMqC3tcSaFk6MzYedt5D/opiMz5PaqjpFby7dhcI1ERWRvC7blNo3tmPb0feKaif+M4QouMel+tjezb8ihfvLhBcSqhUXvPo/4HwHnepyRIFJ5rj7zklU=
+	t=1787657400; cv=none; b=q5bX0bWZju+GExmqotORGNPC7uRn4gVrQqTvWS7oqD5JriNiO/czF32GCTpx8KMSGwUi/s9qmPHctfM9lgEKRjI1B9ZsEfEaUHxvSuPRheaeD3YXHbm5Ujh0ydmU5MQFO7WfFZbpcVeCug/H0okWQ/Kg2EO8C1RPw8IyQOXrWjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787657193; c=relaxed/simple;
-	bh=Yg6bRBKQjliUp7NCfg2G5T4E08vAklJuXs4oqUp1Sg4=;
+	s=arc-20240116; t=1787657400; c=relaxed/simple;
+	bh=9HBvp0D1q7WaVHqn1VmZkCPcxGbHJ5nC71UHCzBkYKQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rTyioec2/N9y5dvXHnWWYWCOTncR2zOqxJ2a3WfKX84Yp3Ay8aw3z/sh9ZAkKbIolwAAjM3L3dEREPWJjMDjIzBS8Z3kCjSrnEfXKFlYFakWJQQ7lJGfCp0K2VO+WhcLG3XFcZ86jIZIhQw2u1jfUcjSI8v/88DAfpQ1peXHf/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fqFhzk6s; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=oykNw0sHoj/5oCZusEnrhun1YjupiW2/RiAZmDtZW3b6+tB0htlH2mfEeI+yunTSMU7P+Ft2mCYMZi7bUW1pFMmtoocOiE/4WIsYysL3Of7OYDT8tWPRplZEn/o7I+JHRoYmkYBbPj82/hEf4cQf1JSc4vf718eiU/hFkASnnco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2tZx1WZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fqFhzk6s"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so3643782a91.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 04:26:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787657191; x=1788261991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n+tRyTnlpLmJp3+Wgs2dMuwtgQimEwJVqYrZ9xUm0L0=;
-        b=fqFhzk6sTXchbLc0RTkZ5k5oe4HYTq0X8FZiDkFBD4uEfgAM4rg6ls9Wn3q5RQ2KcJ
-         slLu0R/iFTsNnilB2NZ3Gpem7BsWShFqLwWdGsWG6fy8cZafhIw+t1QXqNSszMSy5+0x
-         PL+CzYJWCLZlFGXtt9bPsesUBZhENGfi7ahRpZgL4oSV12Z4M+R60ND2CejKbBbASerN
-         94Gs+H6pijUXbhLegIyrqSXTw6gB3pnadH723gtbTMrvJsp/gsiT7cN1iXm9j2wPpFWL
-         H9JsJ82Aomlq1/x4FBYrkAQhdy5vcszheumQ60pVpvMQyXqVqHMYCs5jhgmYdPv3h6GK
-         ARAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787657191; x=1788261991;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n+tRyTnlpLmJp3+Wgs2dMuwtgQimEwJVqYrZ9xUm0L0=;
-        b=cZQPRYKxdYzn7x49Af4Mm4O+MEs8x8H4roZWpvMLpvlQSRDfUEJwv8VI1y371Kt+2O
-         sOlMdtaMkhThQ9PVOVCvOIKn70ipWB9ehLUieA+tX45ZEAs/7aH080z2oiT5upTrEsNO
-         nS+ya2K8ymohkKSoC0JNr2iHmjncoYURGaSLwcI33OvOb0QyHw3KpEX5joCWOMc2kmr2
-         eGeFL/RF2KRmZDJ6x6Nj59nPypZBZuiPCBkVJgAjlCrTn71ULxEXQdO2yQo+RWmQgmTs
-         BlLVjXxmO+8819x2Fm9GZbXg9qEFSNfm2pXcdF94BfbYUzCQ+DCGMpOzDawld9ZVW9WU
-         4tXQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2IMuSvqyE1adALv9lTKWHoiUDcYVRU08/2/HFNs/KDWcefP2XYU2+rY72m2lTs4EuV6JKVj4=@vger.kernel.org
-X-Gm-Message-State: AFuF++loWJ44PcO8zsvfdlEP5wEU9MQ7ZVL9qhoNOorpNrqhSiVVTCkN
-	LPxCgXVVHdKv0hI4Agm2owg8LT86T7qAPOQtzOuDKFJ1NxTkDth+Uupc
-X-Gm-Gg: AR+sD10F79EDk6wtCjBo1xCuT1eOxzPdZ5EGZPgl5QPoeBBUFaGuaUZmt/gD3eEwHjR
-	E3KZg5kScp642WZ+mMiN5RL80663tWDVAVrb26Q4yJPdOL7RgwBsMXAHc0MywTf9lNAKkhiN6if
-	itki6C0K4Io4F4eifyA3tj5BT76Mx3eBEBoKivFFyG5VO/JvkD5BXPb6Is/e2iDvS14pFKGAyrg
-	EhQeqGd1otkTDTbwO0nna1hzkQPdL08zP+uJAO+XxSs/3HTTi1K8SbdLTrh5QRCTedwmG+VQxY3
-	2sFK0Ed/vtpUvbZN+nV1PA6lN/35q/LbErgGJwfZq8zcXRXpy0gz7Nchhr3k5MbReCfPr7U+WEd
-	+/NelbmRXI9o1EQI1OnyxStGbCDND8hviOnJD47Ylw4ESTqtB4bS5/leTYBKDMm2PlBOtETM4SV
-	pcdporukDTS0eb05Kp6H2X8Bx7PaVJDzZIq/TKzHliNUp8649FPt+LxxyJzZqs+44PP2QkwgvHI
-	Pe/B7JjgbQluFu7WlEsKXfw+NI=
-X-Received: by 2002:a17:90b:2ecb:b0:381:1f51:1ff0 with SMTP id 98e67ed59e1d1-396462b886dmr13579385a91.2.1787657191098;
-        Tue, 25 Aug 2026 04:26:31 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([203.208.189.10])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f909a51fsm32952386eec.4.2026.08.25.04.26.24
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 25 Aug 2026 04:26:30 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Cc: Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rex Lu <rex.lu@mediatek.com>,
-	Peter Chiu <chui-hao.chiu@mediatek.com>,
-	Chad Monroe <chad@monroe.io>,
-	Howard Hsu <howard-yh.hsu@mediatek.com>,
-	StanleyYP Wang <StanleyYP.Wang@mediatek.com>,
-	MeiChia Chiu <meichia.chiu@mediatek.com>,
-	Bo Jiao <Bo.Jiao@mediatek.com>,
-	Evelyn Tsai <evelyn.tsai@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the agreement
-Date: Tue, 25 Aug 2026 19:26:20 +0800
-Message-ID: <20260825112620.97568-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260729173632.14387-3-enderaoelyther@gmail.com>
-References: <20260729173632.14387-1-enderaoelyther@gmail.com> <20260729173632.14387-3-enderaoelyther@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2tZx1WZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4471F000E9;
+	Tue, 25 Aug 2026 11:29:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787657398;
+	bh=MUttI+6is8q2T4N6XXdX1ssn+3XeIjuYQjrnAIDf6JE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J2tZx1WZsuSCxSoRRVe6P44xuBIXoMERXgU+i742k5Q39eR2gY24UBur6F6xtZhLR
+	 Po+AFUecEJ8hKBm/35vvxrfDHCLSYZu4AgoiMBPYiaFDKdk9FDJz2nKsDwqot75vx/
+	 ZQa0QI5uilioGiBrdl7asgQP6o//ti7EocGV1vFyvSwAhcdSfVO1GVOSCFfmwIi19A
+	 Nb7JkernUrsreu8EcG5lGlBM6KghtA4+ipwAgXfEWpe3R8GMyUDk6ZquGpYuZhg8cr
+	 tgNAwMCYZwMZRo0pr+5pPukJw5ZivZdYyq8eEdsaHK+fzkOs8MJfa5Syw+/Wiybx1D
+	 A/aht/jCBcx8A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shardul Bankar <shardul.b@mpiricsoftware.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] mptcp: pm: fix memory leak from alloc-during-teardown race
+Date: Tue, 25 Aug 2026 07:29:56 -0400
+Message-ID: <20260825112956.3574508-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082047-stumbling-handrail-8338@gregkh>
+References: <2026082047-stumbling-handrail-8338@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -94,55 +46,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mt7996_mac_add_twt_setup() links a new flow into dev->twt_list before
-asking the MCU to add the agreement, but exits without unlinking the flow
-if the request fails. The flow-ID and table masks are only committed
-after MCU success, so the still-linked flow is invisible to the
-mask-gated teardown paths.
+From: Shardul Bankar <shardul.b@mpiricsoftware.com>
 
-If the station retries the setup, the same slot is cleared and its
-embedded list node reinitialized while it is still linked, corrupting
-dev->twt_list. If the station disassociates instead, teardown skips the
-flow and station storage can be freed while the node remains linked. A
-later scheduling or debugfs twt_stats walk can then dereference the
-freed flow, resulting in a use-after-free.
+[ Upstream commit efc33b5102ff859bacd390a5f30112d8e0c084c0 ]
 
-Unlink the flow when the MCU rejects the agreement. This restores the
-list to its pre-request state while leaving the unchanged mask and
-agreement accounting untouched.
+mptcp_pm_destroy() empties msk->pm.anno_list and
+msk->pm.userspace_pm_local_addr_list under msk->pm.lock during socket
+teardown, dropping the lock between the two.
 
-Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
+A concurrent userspace PM genl ANNOUNCE on the same msk holds a sock
+reference via mptcp_token_get_sock() and, in
+mptcp_pm_nl_announce_doit(), calls
+mptcp_userspace_pm_append_new_local_addr() and
+mptcp_pm_announced_alloc(). Both take msk->pm.lock briefly to add to
+their respective lists. Because the genl handler holds a sock reference,
+mptcp_pm_destroy() may run on the same msk via mptcp_disconnect(), which
+invokes mptcp_destroy_common() without dropping the sock refcount,
+before the handler completes.
+
+If the lock acquisitions interleave such that mptcp_pm_destroy() empties
+a list first, the later alloc adds its entry to a list head that nothing
+else iterates for this msk, and the entry leaks. kmemleak reports both
+mptcp_pm_add_addr objects (from mptcp_pm_announced_alloc()) and
+mptcp_pm_addr_entry objects (from
+mptcp_userspace_pm_append_new_local_addr()) under sustained concurrent
+ANNOUNCE + close load against the userspace PM.
+
+Add an MPTCP_PM_DESTROYING bit in msk->pm.status, set by
+mptcp_pm_destroy() under pm.lock before the lists are emptied and
+checked under pm.lock by the alloc paths. Either the alloc takes pm.lock
+first, in which case its entry is on the list when mptcp_pm_destroy()
+frees it; or mptcp_pm_destroy() takes pm.lock first, in which case the
+later alloc observes the bit and refuses.
+
+Found by an MPTCP protocol-flow harness extending BRF (arXiv:2305.08782).
+
+Fixes: 9ab4807c84a4 ("mptcp: netlink: Add MPTCP_PM_CMD_ANNOUNCE")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260729173632.14387-3-enderaoelyther@gmail.com/
-Assisted-by: Codex:gpt-5.6-sol
-Assisted-by: Kimi:K3
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-6-b8f496d71664@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Inlined `mptcp_pm_destroy()` at its call site in `mptcp_destroy_common()` and moved the fences into the pre-rename `mptcp_pm_alloc_anno_list()`/`mptcp_free_local_addr_list()` equivalents, deleting the `mptcp_pm_is_userspace()` guard from inside the callee instead of the call site. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Rebase onto wireless/main commit 2812e64e1575.
-- Send mt7996 as a standalone patch; mt7915 is fixed by commit
-  16a04441eab0 ("wifi: mt76: mt7915: unlink TWT flow if the MCU rejects
-  the agreement").
-- Use list_del() to match the accepted mt7915 fix.
----
- drivers/net/wireless/mediatek/mt76/mt7996/mac.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/mptcp/pm_netlink.c   | 3 +++
+ net/mptcp/pm_userspace.c | 7 ++++---
+ net/mptcp/protocol.c     | 9 +++++++++
+ net/mptcp/protocol.h     | 7 ++++---
+ 4 files changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-index 0eebc8182ca9..4d3829e4220d 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-@@ -3207,8 +3207,10 @@ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
- 	flow->tsf = le64_to_cpu(twt_agrt->twt);
+diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
+index 242011de052a8..d60e2b253f63a 100644
+--- a/net/mptcp/pm_netlink.c
++++ b/net/mptcp/pm_netlink.c
+@@ -396,6 +396,9 @@ bool mptcp_pm_alloc_anno_list(struct mptcp_sock *msk,
  
- 	if (mt7996_mcu_twt_agrt_update(dev, &msta->vif->deflink, flow,
--				       MCU_TWT_AGRT_ADD))
-+				       MCU_TWT_AGRT_ADD)) {
-+		list_del(&flow->list);
- 		goto unlock;
+ 	lockdep_assert_held(&msk->pm.lock);
+ 
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING))
++		return false;
++
+ 	add_entry = mptcp_lookup_anno_list_by_saddr(msk, addr);
+ 
+ 	if (add_entry) {
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index ded7a4d416919..12dd30d63c717 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -13,9 +13,6 @@ void mptcp_free_local_addr_list(struct mptcp_sock *msk)
+ 	struct sock *sk = (struct sock *)msk;
+ 	LIST_HEAD(free_list);
+ 
+-	if (!mptcp_pm_is_userspace(msk))
+-		return;
+-
+ 	spin_lock_bh(&msk->pm.lock);
+ 	list_splice_init(&msk->pm.userspace_pm_local_addr_list, &free_list);
+ 	spin_unlock_bh(&msk->pm.lock);
+@@ -53,6 +50,10 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 	bitmap_zero(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
+ 
+ 	spin_lock_bh(&msk->pm.lock);
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING)) {
++		ret = -EINVAL;
++		goto append_err;
 +	}
+ 	list_for_each_entry(e, &msk->pm.userspace_pm_local_addr_list, list) {
+ 		addr_match = mptcp_addresses_equal(&e->addr, &entry->addr, true);
+ 		if (addr_match && entry->addr.id == 0 && needs_id)
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index ef7479937ee56..127438ef120e6 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -3536,7 +3536,16 @@ void mptcp_destroy_common(struct mptcp_sock *msk)
+ 	sk_forward_alloc_add(sk, msk->rmem_fwd_alloc);
+ 	WRITE_ONCE(msk->rmem_fwd_alloc, 0);
+ 	mptcp_token_destroy(msk);
++
++	spin_lock_bh(&msk->pm.lock);
++	msk->pm.status |= BIT(MPTCP_PM_DESTROYING);
++	spin_unlock_bh(&msk->pm.lock);
++
+ 	mptcp_pm_free_anno_list(msk);
++
++	/* Free the userspace local address list unconditionally: the socket
++	 * can be reused (mptcp_disconnect()) and re-selected to a different PM
++	 */
+ 	mptcp_free_local_addr_list(msk);
+ }
  
- 	setup_cmd = TWT_SETUP_CMD_ACCEPT;
- 	dev->twt.table_mask |= BIT(table_id);
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index aae8ca0bfabfa..af00d64e61f4b 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -190,9 +190,10 @@ enum mptcp_pm_status {
+ 	MPTCP_PM_ESTABLISHED,
+ 	MPTCP_PM_SUBFLOW_ESTABLISHED,
+ 	MPTCP_PM_ALREADY_ESTABLISHED,	/* persistent status, set after ESTABLISHED event */
+-	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED /* persistent status, set after MPC local address is
+-					 * accounted int id_avail_bitmap
+-					 */
++	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED, /* persistent status, set after MPC local address is
++					  * accounted int id_avail_bitmap
++					  */
++	MPTCP_PM_DESTROYING,		/* To fence out PM list allocs */
+ };
+ 
+ enum mptcp_pm_type {
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
+
