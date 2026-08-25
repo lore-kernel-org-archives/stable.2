@@ -1,123 +1,167 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA7D4746A3;
-	Tue, 25 Aug 2026 13:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5651A3DAAB1
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 13:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787664126; cv=none; b=c5grVQDuDtHwLaY2XcBwMQBhtsEoTF1EF9fJ0aR4/mIjdVmnLPhq/XIwMJlbqx5VEmBlu9Z2GJww6hw/oI6ghY/wgy1Df9vpiyi0PqRwwr81DUe6tnxd33WCUKc5AwyzwqfAvWhmx+TnvB2FKjPYPf/3gFcjh8VUHsA0eb8FFVE=
+	t=1787664447; cv=none; b=TlvVPnOqYUBNaKiqRm58dkE2lpMAvL/fYd5ak+9yUggcvF2pqyo2HyHlUR0OnfiTUmd3eusDI1H2/5utb2/JoO0/oDHseLf2o4FKRtmep+eWKvCMPHt2cxmydd0E/hcoDFxdxXNsvo4UG47ne1K6iyQz4Pyum9fSMkmYhjud5V0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787664126; c=relaxed/simple;
-	bh=vHFLXzi7Yr0EPsIoB1pGXmXoglNRdcKLVuIO/oiKtd0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=ddAw8lidYRGuXdBRpu6PLlLRMKg5sdbSktpLW8qrUb57wGLBf5+aenN/LnK9TBQbubc+nktPmPpNHxy9L3UezOenaa/RbolUpnUDpvkge18yjR9vPYkRjmD42pd+KE5CD6kz2VyI61Q9fvhV56NSws/ToHzwQI9cugZbp8QFxG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=btPMdDAT; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1787664447; c=relaxed/simple;
+	bh=TcaX7jDQadpulQeXb6KRRShiJdrp3QMmuEDqnSFx7ac=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=M+6q8D7Ta/1cA4g1bsOQZveOiGL/kJTj2f1iL3FUR1cKGxJldI0WtR1bksXi5gvmymfmVTndjKxBm/mfZ+/i4VBq8JrelYwXFufaQdUupluFBGpeO9WKF0W8q25SDmJK3ULdW4HmT22io/ZvLmyShULSWr4DMbP8/1wodydGeHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pGTbkuIk; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="btPMdDAT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=nhEH62V5OEPxAlsJ+IhIzhqi1xPNjRqLmlHD+qXXMt0=; b=btPMdDATWy2ob1QbOw3ekauXeB
-	n2iwikqU0sfgiET2eHFGtSCn4F3NX1GR+reG4RKP8F0oXnme5u4ek3LzWn/iuSjyvkl3AIKM7O8sn
-	vjNzNAntzN0aJgX/SdxfdFqB+YOQpiwPIa+TcsgZFC8UgMeAizONgC8wdex55+xeRQ/Y=;
-Received: from modemcable061.19-161-184.mc.videotron.ca ([184.161.19.61] helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1wyr6A-000000006OR-2kN2;
-	Tue, 25 Aug 2026 09:21:54 -0400
-Date: Tue, 25 Aug 2026 09:21:54 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Luca Fresi <luca.fresi@bithiatec.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Tomasz =?UTF-8?Q?Mo=C5=84?=
- <tomasz.mon@camlingroup.com>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] serial: sc16is7xx: enable THRI before filling TX FIFO
-Message-Id: <20260825092154.87372afd883ff787b304caf9@hugovil.com>
-In-Reply-To: <20260721222404.204746-1-luca.fresi@bithiatec.com>
-References: <20260721222404.204746-1-luca.fresi@bithiatec.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pGTbkuIk"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67PB1eQs709265;
+	Tue, 25 Aug 2026 13:27:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Ilnu1H
+	IaIio6eZYg5NJMWx8v8CscZJAD/fJ0VVGP7NQ=; b=pGTbkuIkim2cmqUiSh4fce
+	uUGrWnB0PAuRqKm6R87PfXN67eQIh4xhNDdCxFZOFHpYgM1PpsBmOGA8PeLrrjI2
+	rSpD/8b5HOR6bLgLIYS1dkag4EEt7OJy7SLF0eAZIu5aNTjmnwZ3Q0qR/L5vnhgf
+	pjFB3uIsPX3/V1FxNcnbE3irNtiDXby42YJ40EyYL3xBd+kmbhnbNAtv1CVodM9j
+	BSME/7UFrw5NDu1RWx4NVh1annLloOOWbKnDVqBdiutj1fF8v4CrtM3YL3WvDfnG
+	i2xu1SkO1k1RUHJ6ClSxmfO6AkKrzJAzwH/SU27msSMXgzuBH++wTaqcPgP7JyKw
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dx84hv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 25 Aug 2026 13:27:19 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67PDQFZ1019063;
+	Tue, 25 Aug 2026 13:27:18 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsy45wc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 25 Aug 2026 13:27:18 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67PDRHM530409346
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 25 Aug 2026 13:27:18 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C148258058;
+	Tue, 25 Aug 2026 13:27:17 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 478985805C;
+	Tue, 25 Aug 2026 13:27:17 +0000 (GMT)
+Received: from [9.61.78.161] (unknown [9.61.78.161])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 25 Aug 2026 13:27:17 +0000 (GMT)
+Message-ID: <3ed899de-9b01-4b53-9c38-d8e623e06581@linux.ibm.com>
+Date: Tue, 25 Aug 2026 09:27:16 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y v2 0/4] s390/vfio-ccw stable fixes
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+References: <20260821174951.3467637-1-farman@linux.ibm.com>
+ <202608250006.9e28a4bae2a86a35@kernel.org>
+Content-Language: en-US
+From: Eric Farman <farman@linux.ibm.com>
+Autocrypt: addr=farman@linux.ibm.com; keydata=
+ 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
+ y8m0x6unNti2MZIUMy0m2gcE
+In-Reply-To: <202608250006.9e28a4bae2a86a35@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI1MDExMSBTYWx0ZWRfXxakDV2xtxQ8e
+ zIixBfzhUThhpzXw1ZLv98K8BfGr6RiqE8rFLKHYmLSWYHHMdEhyDa4u9Ai1oO2OgHLVndh5rCm
+ wfFGtkRE6Q8/rw24dopv4hPrXXDGEdk=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a8d9837 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=tFBJykzGi6Pl1_ETWBIA:9
+ a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+X-Proofpoint-ORIG-GUID: 4orJwio0W1lhy83NNtIDka5A8iAUNadn
+X-Proofpoint-GUID: 4orJwio0W1lhy83NNtIDka5A8iAUNadn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI1MDExMSBTYWx0ZWRfX0XlbX1HW6qd4
+ qvkwb5S+5gTCUCVUlUfyQrhNHYmN81iEnF4e6fQXm5Xm+yXo2pDaU5E/08Y7gBCtu5BwTVXyueg
+ 6vhH5KQJq8dXkAv23uYmLWZNGL7uwJOdsItFe2O9dhg763EKEfmPPYs4ZHARQby7GksKUOaAdpD
+ Mo60H3In86bBY+0Vv0SO59BtmVtOe8PU409UFgkq5tcHWjYVHyLLHtdDB671l/DOpxQ6OUq9VAk
+ sEbfnTfHYXfNGVdsRdT1wFRhHQMFL6iu63Zls0deEoSfayHkiDgb/SZ7iuBrwW1Az02dEfCCFmh
+ uMYijQjvshlwJKYuRx3HH8WSmEjaQJENpmp/a0ieRlXj25VyTUn2D0fwC12MAQiEIWXsioZ+ZYB
+ k0S5tmLK4PmvmVllvcqgCHyBuH5b4cQyY7HVaO9mijmqZ44+8kSpOHkUhy67kLC+W10zKuT9mws
+ dMTbzpKeH9CYBEI0G2w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-25_03,2026-08-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1011 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608250111
 
-Hi Luca,
 
-On Wed, 22 Jul 2026 00:24:04 +0200
-Luca Fresi <luca.fresi@bithiatec.com> wrote:
 
-> sc16is7xx_handle_tx() currently requests the THRI enable only after it has
-> filled the TX FIFO. The request is asynchronous because the IER update is
-> performed later by reg_work.
+On 8/25/26 7:49 AM, Sasha Levin wrote:
+> On Fri, Aug 21, 2026 at 01:49:47PM -0400, Eric Farman wrote:
+>> Here are those all fixed together (I hope). Built on top of the current
+>> stable queue that includes the other fixes.
 > 
-> The SC16IS7xx generates a THRI interrupt when the TX FIFO crosses its
-> trigger level. If the FIFO drains past that level before reg_work enables
-> THRI, the chip does not generate a new interrupt. Characters remain queued
-> indefinitely even though the hardware FIFO is empty.
+> All four are already in the 6.6 queue, so there was nothing to re-apply
+> there.
+
+Excellent!
+
 > 
-> This was observed on an SC16IS752 while both UART channels were active.
-> During the stall the software TX buffer remained non-empty while TXLVL
-> reported 64 bytes free, LSR reported THR and transmitter empty, IER had
-> THRI enabled, and IIR reported no interrupt pending.
-> 
-> Enable THRI synchronously before filling the FIFO so the threshold crossing
-> cannot be missed.
-> 
-> Fixes: cc4c1d05eb10 ("sc16is7xx: Properly resume TX after stop")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Luca Fresi <luca.fresi@bithiatec.com>
-> ---
->  drivers/tty/serial/sc16is7xx.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-> index daebd92f32c7..a1bd175e2feb 100644
-> --- a/drivers/tty/serial/sc16is7xx.c
-> +++ b/drivers/tty/serial/sc16is7xx.c
-> @@ -827,6 +827,9 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
->  		msleep(port->rs485.delay_rts_before_send);
->  
->  	guard(mutex)(&one->lock);
-> +	sc16is7xx_port_update(port, SC16IS7XX_IER_REG,
-> +			      SC16IS7XX_IER_THRI_BIT,
-> +			      SC16IS7XX_IER_THRI_BIT);
-
-You can combine the last two lines on a single line.
-
-Also, now that arming is done with your patch in tx_proc(), you can
-probably remove in handle_tx():
-
-	else
-		sc16is7xx_ier_set(port, SC16IS7XX_IER_THRI_BIT);
-
-since the only other caller of handle_tx() will be
-from the port_irq() when THRI fires, so it is already enabled.
-
-Also it seems that for some cases, the THRI will be enabled for nothing
-and then immediately disabled, causing useless I2C/SPI bus
-transactions...
-
-Also for x_char, empty kfifo or tx_stopped, THRI will be set, as before
-it was not.
-
-
->  	sc16is7xx_handle_tx(port);
->  }
->  
-> -- 
-> 2.34.1
-> 
+> While checking that, I noticed 74186c2968f8 ("s390/vfio_ccw: Free all
+> memory if cp_init() fails") is missing from 6.1, 5.15 and 5.10 too, so I
+> queued it there as well - spelled u32 instead of dma32_t, which does not
+> exist on those trees. Thanks.
 > 
 
-
--- 
-Hugo Villeneuve
+Nice! That's been on my list (I started looking at 6.1 and then got 
+sidetracked). Thank you!!
