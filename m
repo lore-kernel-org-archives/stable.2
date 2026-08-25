@@ -1,168 +1,156 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968874734EE
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 21:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB103E3D85;
+	Tue, 25 Aug 2026 21:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.35
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787694218; cv=pass; b=uS1Dk82tKPI5SPu6Qjp992fI5n++9AsW1O+azaqctJRnGXzmRsnmSSbs9euHjUYdpZAFcoOchgwLxCDmbjvY3DzMeDeKuTAIE1S7d8uVqjFJGRXmciI0ISeuJi97jGUCXg15PdHW4MMFuKOS01yncmJ8z51C7xxPOaqYnbGfkrE=
+	t=1787694518; cv=fail; b=KLw5DxsHAidXPusivxciTFZ3qoCpVdiniVFipEkY4K7QvDHW59wNeEv7E8Wmzv+NHKkMd4voNNtBG4YYBnXo5UX3x/bmx9FIqjt421LQ3u+0xyhh9NKuJuCaHkmHhPaj/oZmooo25E/I3NIknM7J5Bh4R21y2RzgYfZm61Sm6ck=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787694218; c=relaxed/simple;
-	bh=gTQdpnJPXFvK+dH5XFeLn0W2hRaHVNhffzbwns+IEi4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SrpzeHjgwEdFbPa7N7zEd4PJSiVrYwxgQM89YSQhbF5xZWrCN7U5UBpNlW0TtIdh1J+XEc1Xl29+UAsDWC+DlnEyGv0oMbG15uk9jX4SrmwxcpSwHdqyfowobqa2QM+ipUKYW8QrQm0kOdHQo5ciM1yw6g3K75UQN3RrFmY+AH4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n2QWoKVv; arc=pass smtp.client-ip=209.85.167.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787694518; c=relaxed/simple;
+	bh=IDdzW80CJ3Nds6j6hiTXnTtJzGpWqtQmUyD9+7ir7Tg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QSmz0OWLA8rrtxkK8C7cwIAVEhsIxl60MN0VnH+wuGdqq3NVGR0zfcPE1uZsr5UzpgF+k14AmWNgnK2Cmmymt5CbhMMtcfqNtHh1gcoLefD3fOYKT/kqBRlFgpQFf/t15OO/w2z1OaK7MJH8ljZ7Eq9rKLrpqISFfWJVA0DNyeA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Rj1dFxIX; arc=fail smtp.client-ip=52.101.85.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n2QWoKVv"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so266278e87.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 14:43:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787694214; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N1nuwJzTiWkkNUTfFSE7w9vBN5+z1yziL/uuKxYfB9SD9Jm4fAfOE9BarrgjNISmJu
-         CkNg24XU88OFksOpG3ZcpyemvKh3lch+G7G6QyEur9SheKBLzck7ScQRXzGtVuSEaMwo
-         TNpmQGT6qFk5MmeNcihyfX5vt0gf7oo79csPvV6C+aLZthJTwEXNaZXozyLbi/Etd8kP
-         AseViykF40PW66apfxC/xTY9mK2W/Jv+OVKoKBN/jSQkoX85mXdK4pHIY17bY4vzWEaw
-         7UE2cxKuxVl3PEkrII4jQsCuP/3QxyL2dDbt2rt1SeIeOHQb4jA5sDkGmMstnmOZVakh
-         EpPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gTQdpnJPXFvK+dH5XFeLn0W2hRaHVNhffzbwns+IEi4=;
-        fh=VgLPwyeDCVTTRKLlirhELngm55knh36zNzj211PQbUo=;
-        b=rb2eadnDkO5ekSw35yS/jBWX6YYLp7J9Ir3E32wUe77YqF5TK9p8IkeWwKwESsCDIe
-         rTQix6g+tJw31Mo22I5PryKh2xOKRjb4HZXifRm3Xwa0JGJjjQZQDb7+KSjctrViPem6
-         OIO6hum4hOo8wK6TKmcZVWRdtYV+b/yQ8UWPz0nWK4mpqmZzCmtl/tYTL93NJIHCHQBd
-         e9GD3AgGqIxjlgPuC5ZxVwPHeb/GJUouBpOLR2tKRqv1VrxNYA0qRVfwTCftz/Uk5Is4
-         +k3i/Kz1dwUtAUUbzAmeo+rEj+Cdk5ZndAyknaV9d5RwIbveraiKxgSptuEPG1PCJe38
-         7hhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787694214; x=1788299014; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gTQdpnJPXFvK+dH5XFeLn0W2hRaHVNhffzbwns+IEi4=;
-        b=n2QWoKVvd0TQBYBAnRRDMm2kKvP5HYAF022AXy8YxFG6ECuZYa2K1lGjtVbWAfjp21
-         YZxHH0HoAYEmFm2p6rCl67atS36Yn6b18Uc2Y9dAfE6x8qRPpDnrhAddN2irtfqsfe+Y
-         9GZ1dDmrFzO/86mmbqlqNt1ocOC/Dq9lpYeQ2OJxzo4VySSMeUHQlYbkWdtz58OGrwYB
-         cezIy0UCb7I92ZsY2WLdPrThWRBLjEaUV3C5RH55GnQ59C26MuezFRt4U4MTbesPDFfd
-         sSRm2/LlOb3GrWVZ/8jy3cdJU0jj6FggNnw2ugyDpa07jvZXBGSQrP06pNE8px2KMDWJ
-         oDWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787694214; x=1788299014;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gTQdpnJPXFvK+dH5XFeLn0W2hRaHVNhffzbwns+IEi4=;
-        b=iSVs0qzIeEwYHSqQWf7fg4zy0xPJh5YzT4sVmjxME9o9UFraZfHVyydGCY7r7Z669X
-         XjTm+Q9zEUn5MowomsUdmwgpsJa/VKUY6ogtTQOCss3PVVK/xyA/i9djZg/4SF/cpgEZ
-         tUvndnZvmHhpSAHs/NexKiC+d1ueLhmkgAJExlm5n75PcpMw11+9cm47uRRXHJBnkxP6
-         MRchKeOQRaZZ1/cedvaWy/xVNom2lvt4OOceH0FZU6VvnHMRy2OZ8QyCz3usA1P+T0I8
-         ZbLRoxGKNhyG1de1ov+S0szkQPeynBtf9pFLjIs96t9Z0epl8j/xyfia2szRgrKd9oa/
-         no8w==
-X-Forwarded-Encrypted: i=1; AHgh+RrQWVridd61q7vUzboj2+CnGFrnX7He89YpF5DTrm/J9HisTnuM1XzhntAE4MaPM+UrpH9cp7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3qfP2jz5FW9oPw7cWvIrm2gu7oU6xXwVh5sjIsMt5aaWwBvCl
-	i5EGL9iIwapHnQMcdSG3+RWgu6aU3eI4iDszRlz7WBGBExUHYPaHCzGVZeivddXxAd+AaCnhH+z
-	AEBW2rE9LpM7ZJ/XU1CjI39idoz414OZ0vD8OHXRMlg==
-X-Gm-Gg: AR+sD12kVqEgG4MXpXmqgk2S7yPVVN6JjaDUBvo31djHzyieBXLSk/uE10aNChaYt/9
-	wgamW2ESxNajx/bN5TZ6qnTDz4uWGLA2mE6BPcYV7fGOOTNfn/SZpTLIX27hoZ2YPq5htvfP25p
-	UlBHfM/e+dX5B7xfogg3dweNR7Horrr7k2RC6ZSjDN+Yf2rXFvrIqdYHSv39zQp1AS/y9E41aV3
-	6ToVRcR32cl86vfT9yw6GAblesfXzRLpq17a/eeYwvIdUFtlVnerh0096aauEkPnCL8B2AXKy3M
-	LEujCO+FHuG4N0WIdRRatiUFOXjDMthTVhhDWQCkpwMbicRzjXMwGW683E1nBsJ4rbSNn9svl0L
-	gnfWgECDK3MA=
-X-Received: by 2002:a05:651c:31db:b0:3a1:1181:b2e with SMTP id
- 38308e7fff4ca-3a1fd67c986mr3121441fa.12.1787694214237; Tue, 25 Aug 2026
- 14:43:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Rj1dFxIX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZajTT4OCxJmZinOCIyqjc3DM/V1loClef7bXRCaQFzPKHxisqOjFAgRw4Bx354ZIbEd269AwwUUOqTt0DBPWHILKFm8oLDqUY2nkfxwCDa50fBMzEJnhqFiY13C4cmK2Vqdd6Txs1CNDl4OBV5w1+LKfOmHWYqGokS8cSKdGc3qgJmTYXJXx42FQt9dA9jSdY7Mlw6+e44UPN/cJ5gpneDKXugmfyMdz8XwHa8YzzzFjiSSDngJx0a8uU9tMYMOV6RWh6ZafZ2ny5actFNfA8ZPgpxpTYv/XWhJkYHUSsj2zOl8pacTNGKJ+kuUyKrKoyKNIJnFL1e5UnofN9SBp2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3WPkf9Jh8roJ1AIU9yH8Qw7Z4c2imYN5vWEZyHf33cI=;
+ b=WP9WfbJtMwQcg3WNj1oRaNnlDDdQpgO+2CkpptLmKkY7GIkQ6lizIkzu/h84k3KVLVBYmyyr8Vns/k0TWjzlsNWSYA9shGOxbCS895sSNoovW2yJ9Iutq9nL78c1QK4EuzLJDxleQChFzdEE2G0Ag8aC5b1bNE1qP6XZgj2WP0SMdwfft3463NMmWmTgQZ6ePFlzZTTFy09rOMzC6qk30cApvwL7Pkc+e85FoCc+Zpa2nzDg1We2jwv/Yn52pbs/naGjYHff+5647rfEI0e2VIDoTE864cJenKB+ERvOYQGGVo0RCSxmJBXT5EvsmqcqMIxTaUq/44r3pJmuP5rYRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3WPkf9Jh8roJ1AIU9yH8Qw7Z4c2imYN5vWEZyHf33cI=;
+ b=Rj1dFxIXTIQxwj5kA/fq6WCNhWR684lEiWfupFlM3RQUzDWqwLUOX99g14y7AtSwY0EoKyMtffoKiw85mDVPyLU8lD8wTChFUp+aEM2nbeDKFLgwUL8lxhNwGn6+bUCSDpCrHUJ1TFlg0ASTCfDIumD5mKKIeeODUlRQ+PykqEU=
+Received: from SA9PR10CA0020.namprd10.prod.outlook.com (2603:10b6:806:a7::25)
+ by DS0PR12MB7630.namprd12.prod.outlook.com (2603:10b6:8:11d::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Tue, 25 Aug
+ 2026 21:48:23 +0000
+Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
+ (2603:10b6:806:a7:cafe::84) by SA9PR10CA0020.outlook.office365.com
+ (2603:10b6:806:a7::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Tue,
+ 25 Aug 2026 21:48:23 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb07.amd.com (149.199.90.133) by
+ SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 21:48:22 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
+ 2026 16:48:22 -0500
+Received: from fedora (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
+ with Microsoft SMTP Server id 15.2.2562.45 via Frontend Transport; Tue, 25
+ Aug 2026 16:48:18 -0500
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, "Mario
+ Limonciello" <mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+	<x86@kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>
+CC: Jason Andryuk <jason.andryuk@amd.com>, <linux-kernel@vger.kernel.org>,
+	Penny Zheng <penny.zheng@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH v3 1/2] x86/amd_node: Avoid divide by zero on virtualized systems
+Date: Tue, 25 Aug 2026 17:48:02 -0400
+Message-ID: <20260825214805.39148-2-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825214805.39148-1-jason.andryuk@amd.com>
+References: <20260825214805.39148-1-jason.andryuk@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
- <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
- <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
- <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info> <aosGtkE_diwVJJtB@eggarch>
- <20260823174059.46fec036.michal.pecio@gmail.com> <aoser8dLytrwqBC2@eggarch>
- <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com> <ao1ovvdPAy6n_F7I@eggarch>
-In-Reply-To: <ao1ovvdPAy6n_F7I@eggarch>
-From: Mathieu Fluhr <mathieu.fluhr@gmail.com>
-Date: Tue, 25 Aug 2026 23:43:22 +0200
-X-Gm-Features: AcwNN1XMZ3b0XN7GsnQg8cfRR84V6LJh9PVf6rA8xjQi1iFnVttUPqbLHwxSCcY
-Message-ID: <CAPyJwA-QALkCQn8J1+=U-nuE_7WSEPhVcUEKb+MMYMaA_1AVjQ@mail.gmail.com>
-Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
- triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
- (bisected to aec11e5f9c45)
-To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Cc: Michal Pecio <michal.pecio@gmail.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
-	Mathias Nyman <mathias.nyman@linux.intel.com>, linux-usb@vger.kernel.org, 
-	regressions@lists.linux.dev, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>, 
-	Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|DS0PR12MB7630:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98d2726a-4bc0-4186-909e-08df02f295cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	MinabvoZEjpY7j9pT4LTZ3tN4dO6EwaH46lZGL2sMkcA7kcivDOIOdOUlCY4QtwMFz9b1OQmJEc9g7MT8ABXgBRRx1IgdKlMnGH2OlWOFZmyZI2eZOuUL9sYJFhx/d5RCCe4SbpDXqwRmzR3lXZiNW2tKcAxsd5e6FA5XzglnHsawZOwf4Br1VpocfID7lsVzP9eo9T48s9XDiCA1p5M6hNGAFvvHFLzdd9+7B3jzb0BeiCdWiTlDLjYZvXKCo6iueIpl3KSzbzRgtvZU7Ltep2o2FW0V1Wd/UZgsO3JxNUt0t7k2HPKY3duuWqagH83y/FJr9obx07K+WiSH8CCdjWyrtu1XMKMetYMeurpFTpHnaus+N7641VQsyZMMe7Wd/BbJ909JRtqDz9Keu2FdpbITQ2eW7nYnK/BXCC4D3IjOCgJXPssMGAsBIIANzVTofKZ6vITL4SKoJXtwt6l5huLqjKVcMMKWnvRQx6fZqJMO49VyPqWwelMzU2FULj1223GwmwgXkW0o7gZPpIQ7sTZKqrXjMITNku2oTi0xcn4Gw63/LRtrGDWbbnf1QTa8Bizb0w31d0YRVqqqwy9Z+OGo6wcvQBa0/YgEUcJOUqDUIGZrVxMuyhH5CPX9iiBJubhKNFSP6YyyexrUZ1NPHwXDaHWhR/DMfUE9U1Se6sdzWDCuD01HS9QlwpTWPyBxFe+cILjctHSx1r8JI34EQ==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ts/G2O4ot1+fd3M12XB++z0GYjBXssvxh00ewYbTyoYPL8noBj8um7TGEDe//UX4Urtqg5LW+FNq6KcRCxaMc0RI5Rb2oAssH3oY/4+Dq7/LHMizHkZuBQJtTtkmQJ4d/+mzg6BccODzBiUj2TvIA09fh/WuejOm3kD2TbiuO5CRwOU585m/q2A9X+2toiLbWOnEBEVO2mga3fV8L8+8zvZ8Tbm2880WrePlvHy3T7rdOaQZvwRTchMnPcaT65Okn67NZ2ZmBK+nBOFAu9m0OB+kHRCGfPNKLTK9SvqHs7ZaEupCu0tQG7OjHGHw0eJzuzHEJ6r4LkMPoXBcucg4siISFPFa989qtUf0Retj114GK2q3NFjuloK3qud0clCe7tkJbXM9FjP3DYtTHf1/TZSlddVTZ5VDIP/MU6XtOe+G0MC1Dd7t85ybtQcEhZcw
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 21:48:22.7165
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98d2726a-4bc0-4186-909e-08df02f295cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003AE9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7630
 
->> If you need me to do some further tests or experiments, let me know. I w=
-ill
->> be more than happy to play the guinea pig here.
-> Was this result after applying the small patch I sent above?
+On a virtualized system, the number of nodes does not have a
+relationship to the number of roots.  A Xen PVH dom0 can calculate
+roots_per_node as 0, which crashes with a divide by zero in:
 
-The patch you sent makes the issue go away. I am now running the exact same
-scenario for 2 hours, without any crash.
+    if (count++ % roots_per_node)
 
-However, I am not sure if this can qualify for a proper fix, since I
-do not have any
-external hub connected to my motherboard: All my USB devices are directly
-plugged into root hubs (and at the moment, there is only a keyboard and a
-mouse).
+The issue is seen with Xen, but it could affect other systems.
 
-On Tue, Aug 25, 2026 at 12:06=E2=80=AFPM Lovekesh Solanki
-<lovekeshsolanki00@gmail.com> wrote:
->
-> On Mon, Aug 24, 2026 at 09:37:55PM +0200, Mathieu Fluhr wrote:
-> > Yes. As mentioned, I first thought that the emulator itself triggered t=
-hat by
-> > doing something that the CPU did not like.To be honest, I barely play w=
-ith old
-> > Android versions anymore, but seeing that I could reproduce it even wit=
-h
-> > Android 13 or 14 made me suspicious.
-> >
-> > I _guess_ Google implemented a workaround inside adb for version Androi=
-d
-> > 15 since using this version, it remains stable for more than 2 hours.
-> >
-> > But, in the end, the situation is that from a simple user account havin=
-g access
-> > to some usb plugged in devices (I usually add my user account to the pl=
-ugdev
-> > group and use some known udev rules to access my Android tests devices)=
-,
-> > you have a way to crash the complete system.
-> >
-> > > Opinions seem to vary on whether CPU load must be present or absent.
-> >
-> > On my side (and I am here only speaking about my TR. I don't know about
-> > other Ryzen CPUs), I can't reproduce it under load, and one condition t=
-o
-> > reproduce it is my CPU going in C2 state.
-> > -> I did a 2:30 hour test using several youtube videos playing at the s=
-ame
-> > time on my desktop, also stressing the emulator with some 3D Mark runs
-> > (as mentioned, I first suspected the nvidia driver to be faulty). As lo=
-ng as my
-> > computer was busy everything went fine. But then I let it stand still f=
-or a few
-> > minutes, and it just crashed.
-> >
-> > If you need me to do some further tests or experiments, let me know. I =
-will
-> > be more than happy to play the guinea pig here.
-> Was this result after applying the small patch I sent above?
->
-> Regards,
-> Lovekesh
+Change roots_per_node == 0 to 1 to allow the system to boot.  Print a
+warning when this is performed for non-virtualized systems.
+
+Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+Cc: stable@vger.kernel.org
+Suggested-by: Borislav Petkov <bp@alien8.de>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+v3:
+Add newline to warning.
+R-b: Yazen
+
+v2:
+Print as a warning instead of error
+Use "!" instead of "== 0".
+
+X86_FEATURE_XENPV is only for PV, but this is observed with a PVH dom0.
+---
+ arch/x86/kernel/amd_node.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+index 0be01725a2a4..408b9fd48349 100644
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
+ 		return -ENOMEM;
+ 
+ 	roots_per_node = num_roots / num_nodes;
++	if (!roots_per_node) {
++		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
++			pr_warn(FW_BUG "Error detecting roots per node.\n");
++		roots_per_node = 1;
++	}
+ 
+ 	count = 0;
+ 	node = 0;
+-- 
+2.55.0
+
