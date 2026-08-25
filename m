@@ -1,244 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012059.outbound.protection.outlook.com [52.101.66.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4699F2F60CC
-	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787655896; cv=none; b=lO6SOCPJ3icOn0hHz6TYGodrCCyU3RTVFUelzAYZ7ccVpVrcX7CQ7HgXiiV+70d7I3DP7Yx7Jq2y8RcFVgmiEaFbf+xp1v7z4vPHBY+hOYh8oobdudis0aynz2iR4TuA2+BTsaMp7IEgH0L4tw4SbvNu+loNHSglC0wD0eV8Mrs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787655896; c=relaxed/simple;
-	bh=nnvg5g9I+/MkjY4qfSw2HYIbezbvMkEg1ezKRMHFPbA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=E8w4u1GUy8bbOoIuJJrr+cy/yv8IgXrAoYUUxpMYR7sDIArl2ixIhdXISJs5KdwkRlHXYqDwZ3S/d4W3dSrQeqeAqZ2RFMyRwVhxoZdTcGPXSw6FQOaYgu93vkLD0VQzAPLqQY3tJoN4j8xPuKN2l6f9n3IMo7Hid/gJQ/dwqv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B83xF6qB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BE1201278
+	for <stable@vger.kernel.org>; Tue, 25 Aug 2026 11:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787655943; cv=fail; b=APJG1dAlBAB4PhbQI2lBFprVN7m/o62GaYKe0xrmnArBlp2QeLkpbrERD1QbOiHCswfh2Nw7oMbQIiMkh+wHrnu5tmZAhxbLBpGLq7UwjDbGUFexMavoRwTDdqw7ruo6UuZ/67di1YkEWFKSNPqe6OM3u4tZQPMjOh6DwQQ3VCA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787655943; c=relaxed/simple;
+	bh=EzvH6MwOeLrnReMiQq1fzD//ZixySry5zc+8Y19O1SE=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=jcjtecBNEOiyJcdu3wMupleXcdbW6Ovg3zMfqaanMdswHYdr3RnvZ7xsAkfOZQV+Xlnnn6s1y1aSx0uN6QElFKEUbcTph0XD62Vm4+kbLxvVWA+F5Vjhtk40SrUnGha5xHpkrcUSLa3czfGN5gHdj8CVqJAywAv+PjO32/PmChI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com; spf=fail smtp.mailfrom=nokia.com; dkim=pass (2048-bit key) header.d=nokia.com header.i=@nokia.com header.b=mgeafGMK; arc=fail smtp.client-ip=52.101.66.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B83xF6qB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0EC1F000E9;
-	Tue, 25 Aug 2026 11:04:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787655895;
-	bh=sMwPmPq96Nr+oHGliy34EV1Lcov0/0Imk6BUsT5V+eo=;
-	h=Subject:To:Cc:From:Date;
-	b=B83xF6qBvZonJRGl8gj1itgEiAwlHi0/S2817a8HvQyR7XKTsVfk1dgZ0RCaM+gI1
-	 /jaEi6JJ3IRB4xhvVUDklsrz9ass4trAgoZmf/Upt1VJyKwzd60n9JbSYPoIO6LOAz
-	 GwO2yb4lpsKk7K+4M2Ajy1JDv/yaO18pOFEB8iKs=
-Subject: FAILED: patch "[PATCH] RDMA/rxe: Fix OOB in free_rd_atomic_resources()" failed to apply to 5.10-stable tree
-To: peiyang_he@smail.nju.edu.cn,leonro@nvidia.com,yanjun.zhu@linux.dev
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 25 Aug 2026 13:04:25 +0200
-Message-ID: <2026082525-semantic-primate-d494@gregkh>
+	dkim=pass (2048-bit key) header.d=nokia.com header.i=@nokia.com header.b="mgeafGMK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R1OOrWTbhC0pH2SK/lhKA2n4QfMXeGBPOPDtLZDC701U8K17QGUQnWV+KNYwd9aOiM/lUrFZdUdljDK65DpxmIAoWU7/OPGSXru3DZpNYjTYDEnxvSLNf/kPX6XdAN/JwK9UW46giNQCPRiAR8ebcD0sk0GrV61Hkv7S1pnA07RKs7mWbJfufJaE1nWBbtplIPCbm0l5ydQWC2y0NJCRSMw3/CkMsxcL4szh3qeFvCa1jJ7yZIhL+rNGEfAdoxBgoY/jg4pjfAPjASu1IrUrMcucjgRAGfcjJROealebG7dcIrbi/EzrwopsUjL2jOy0qkx8WcccGzYsmAGCAYUStg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EzvH6MwOeLrnReMiQq1fzD//ZixySry5zc+8Y19O1SE=;
+ b=qzueQeaNrta7zlrz1XZEbFxHQBaIZ6XiWplU6BEcRGrCFGaitg6r/qNWXsST6XZ7VQUpKSzeu/O43R8ljgtJ0oUe3HgN/TiZlQTryVQ8WHspwl16hl+MsMCWwg9mCDJdNUR/Cepw++OE1T60AcBUuS5+Dfj97IV5LxhD36iJ/ffg76r3e2jWPqA43MXDIaxERnMVQrDZOpiHth+C79YuMB+/i6C0a80f5OxZ4Whkr3UUWC+h8zcb4O0yF1AAleB3WqjHrnZYeFhVyRcj4xBY84nv23iXW0y7wCd/WtdzMmKon5kCn7LitNww9uFecu53Y5+HLkNJU3fBqSS7yJObRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nokia.com; dmarc=pass action=none header.from=nokia.com;
+ dkim=pass header.d=nokia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EzvH6MwOeLrnReMiQq1fzD//ZixySry5zc+8Y19O1SE=;
+ b=mgeafGMKwwaADI1u0ldtMbkddHvKiIKZ9JOT1A5JB1ws6wNzUq8pbd22t/J2jVvedi0i88VvCzduVWVGmoaM1I87YgLytmKZUr7htlCnx162pE2IGi2RJV5/J/ZzXmrs1O6tJCPdfPAnLr4Gu5wnBbV4F+vxN/fmtQgy7jSQmbTonRm/dGac6ARKIl5bhDNseSAeDToS9GA7molZmKT03Grrg/yClLf0+MoFcIGUS/kM1XD0VcDjeHy7UhEXsV//JlbLd5EFpzncJEOMyabvSk92h3OlEnRfpI3tA7TzucTIHXE3WiFY86iOGbc/jZ0zln6p4jDST5St9K55c96nnQ==
+Received: from DU4PR07MB12087.eurprd07.prod.outlook.com (2603:10a6:10:62b::10)
+ by AM0PR07MB6418.eurprd07.prod.outlook.com (2603:10a6:20b:158::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Tue, 25 Aug
+ 2026 11:05:39 +0000
+Received: from DU4PR07MB12087.eurprd07.prod.outlook.com
+ ([fe80::ec8f:9299:5812:d9d3]) by DU4PR07MB12087.eurprd07.prod.outlook.com
+ ([fe80::ec8f:9299:5812:d9d3%5]) with mapi id 15.21.0360.005; Tue, 25 Aug 2026
+ 11:05:39 +0000
+From: "Joakim Tjernlund (Nokia)" <joakim.tjernlund@nokia.com>
+To: stable <stable@vger.kernel.org>
+Subject: backport/fix for CVE-2026-43198 missing 6.12.x ?
+Thread-Topic: backport/fix for CVE-2026-43198 missing 6.12.x ?
+Thread-Index: AQHdNIGp2CwIx1nboUOY31T1jeTfug==
+Date: Tue, 25 Aug 2026 11:05:39 +0000
+Message-ID: <01e4f29ebe9590b2c5a91697b0fa4e23861bba77.camel@nokia.com>
+Accept-Language: en-SE, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.60.2 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nokia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU4PR07MB12087:EE_|AM0PR07MB6418:EE_
+x-ms-office365-filtering-correlation-id: 3516f226-5509-4c55-45af-08df0298cc06
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|38070700021|10067099003|11063799006|56012099006|18002099003;
+x-microsoft-antispam-message-info:
+ rUrUQkgsbxF6W1CFeYnEcpzmQcdPdVYiMk3T7flaF5Y8d3xpMrizvcxfJW2alCP2SK0xdVr7Z6sBvKayylob4vSssHzPeuE63mkeyGuKQmjPJ7HwQ0OjmIu6WWyMSv4IYvZ2rqShKwgGUVCYtk0ZJToyejRUreTDw1XhmBxpmwceME4OvBjJGs9aygd34KTmy3si+NxKDZeACNqbXk2VHPCCpbXVqQa5vyoioAhhAhB1oiCisSwbX+6VH75YbtTMpgcC7rCDuFtVJfHVu4zeowNEr1vzrHxIjpEglGyoGpZFnsyUoLUuILpzRaWq90th+yM5lmtuMGuo/hfMLvu4hD/q86hFvNKtI6OaTxSSBXlgSmGIOlu6KMrvJ8BgTIcrCsi6lKhoHdbgBg028loqqEarSCzQaIdXynYg73QQUGc/oxgFSanW0JK4s4AYu+MJj5jf2ZyD+MjXRMauMFYJ4Wqb6TInYsBuQchvTs691feV4g+vLher7lBNEOPfiNUoJd5tJAuGGfzjnLqs/e97heZgNs1XabBTrYOYlKnkvCRv/MAoWcBdyGokOIrqmqqwq0jBOBNh1ZxmUaOUa8Tl+pIYHXtcymdLbkUMtkeYbLstZ3Bj6RB7ML6eJVzYArRHvXTobmKHfYGOjreGOZjsQh3HyVDkyRqh6X9YcBwP3Lbt2yD9S9RXP7Lh51KVfGwSEbNstGIiygjd/L1VLxBRDg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR07MB12087.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VXBjT29DblZwNW1IakFlMlBORFdnTzFoWnlLcGE0dVRQT1Z5TThjS3FpTG85?=
+ =?utf-8?B?b0JMSDQ1NFIrYnp0cnBMb2wwK29Oc1h5Um9YUi9SVUE3L0JoK2VzUXFKYmVh?=
+ =?utf-8?B?S0Q0WlVIdzhZUTRrNzhOOUxqRGdQR0lsSkE5RnJaTUIzUm9qNThQVVlPN1A5?=
+ =?utf-8?B?OTNXVVFZak9FRTVhaHNsak54MjZINi9pWGwxbFlkY3ZNcThxaC8rV1pmOEEv?=
+ =?utf-8?B?YTF0YkxKM2ljeUduaXBRZE85S0U0WjlMdVZ6am42LzF3WjUzZVhIaUMxOWcv?=
+ =?utf-8?B?L1lCdHNWVzNhY2ZrcWhieVNuRmkvSmYxdFEvcU1BZDZXR0x3WU5YUlc1NHNY?=
+ =?utf-8?B?Z1FaZ3VJV1FtTCtsUU5jbURwSUQvaFRXa3A4TUY2RzZaeUxwMXFPd0ZpWW9E?=
+ =?utf-8?B?ZG5VMVh3Q3JhUmU3alJkQk5Pb2xJeHRTU1c4MjErYithc1lXbFp2VDBNMHc2?=
+ =?utf-8?B?U2hrc3ZwTzFlZkxTV1g2aTdwQzNzZ25wdVYxUkRjVDUwanhOOTFocWQ2OW8y?=
+ =?utf-8?B?VndjNG9YTmNJZ2RqWTJuaG1wNFdUWnlraTY5Z3MrQS9VdVdRbHhaN2ZEdVBw?=
+ =?utf-8?B?SkEzZDMvOTJGcGw0WVhQLzV1UHJ5V3RJZTVzS1lNbXJjVEJkcUJRRVlyN0ta?=
+ =?utf-8?B?L3o4VVFIWCthUVZUbjdobytPalpXellMOXcwamxhTnB1cmxsSVpEVHF6Q1dP?=
+ =?utf-8?B?bHI1Wlh4TUlQWlVad29OZ04xVmMyQ2xnSWZJdXUyTzZVeitSNFVTbkxnV3lN?=
+ =?utf-8?B?QmlWdC9ZN1NXQm1CTnc5NkprZGxlL1NkMEwyR3JvSUlqM3RuYmpoMTlnMnh1?=
+ =?utf-8?B?M0picnFYWE9wQzFXK1BtZGIvSnh1QXpSbjloT0FBSFNTYjZOdG8vdHhVNysz?=
+ =?utf-8?B?TWNMQ1UwbWYvT0pXVEFZSktOS3cyMVIyYmpXeHdYV0JUaU1BV0orS3l2Snpl?=
+ =?utf-8?B?UjNyanJJM0tFMHQyUGE5aHl2L2pUdFdJdTBsd2c3L2ptQ20waXhWNUR2ZWhs?=
+ =?utf-8?B?WTJMTlFEQXRTWXd0WFo0K2xGMDV1ZXgyQmhaTVJsVC93VGo1dlYyWlV5NzRC?=
+ =?utf-8?B?VmxGZFlMRFhVSFVNUElFalFxa1NhY0YrR0VyNVpKUFN1dms5OG01bTRHUHRC?=
+ =?utf-8?B?cDRWWnNGQTdvWjJsL1VpQ2xrVnFFSmE0empETUROTjlubkJWUGh4L0RyKzVv?=
+ =?utf-8?B?V0Ztb2hSRGVtdjJ3RXlWOVhDNktDMUE0WHEwZTJVM052Z0hleTR0Z1gzN0RJ?=
+ =?utf-8?B?UXB5eGg4U0ZEWm8vWjVQcU8wUnFXMTVsU3hnOEozWE5Rbk1SMGsxcjdtaDNq?=
+ =?utf-8?B?RzBWNjBleDlvZWE1TTdLU2xJSFRBZVZOVjl0djFlYXdNTTI1WUV5TVJ6c1NZ?=
+ =?utf-8?B?RjFDai9SOTNCUzB0NDI4UWtWVEdVNGVsSXhkbmZEcEttdDlINEhWSGJHRlcv?=
+ =?utf-8?B?S0JFZUNsOGhqV1crUjhIYkVOL3hCeEVqODEyUXFZUmlweVhxdHV6UGtCeEFz?=
+ =?utf-8?B?enBWeTVRT3g1Y3R2V1N3YVl1K1FhNE9aYXh1a0FDTTdyRzRtTzJ6Vk1pOUJX?=
+ =?utf-8?B?MVJmUjlTY01ZM3hZSk1hdDhqeE1VaEo4ajI2K3o1ODVOSHY3L2xjdzlxMnI5?=
+ =?utf-8?B?U3BNUzhFVUorbnNQM1l2SDJ6dURVTnlCSlcwMUI4SEJwY2VTT0NDMzl3NUVt?=
+ =?utf-8?B?cVFIa3IrWmFGUEN3ZmlITUFGNEhYS05kMmU3UzJsYWRsRkFxbmZ2TGplUzNi?=
+ =?utf-8?B?Y1g2TkFCR1dXcnFtVVF0NjBqZ3l6MFNWWUtBVmlTN0E1Z2NlTmlyc0NwUzJx?=
+ =?utf-8?B?MlVjQ0RablFmN3hvdW1qZU1CRzRKWFVRUmhIcWpvMFZSTUMvUTNpQzlkR0xU?=
+ =?utf-8?B?dkJiYWZzbHNVUVlwSG9hbktkQjZFakpjZ3dBS0xHQS9GNCtPbGNuRk53ellD?=
+ =?utf-8?B?MG9vTWhDN0VzUHlQUytMN0k3WUVZdXFqTDJVeWpkNmZLY3hxOTJRcjkrS3RQ?=
+ =?utf-8?B?YnNNMlloMDYrYjRhOXpOMVBzMzczKzJZNDdzeXArYmlyRVBRaDcvajJWdkpw?=
+ =?utf-8?B?RzhpTWl0M0F0dXV5V3V1UmFXT1B1cWptajFEYVdvc2NVNmVlODFUZ3lVOERl?=
+ =?utf-8?B?Y1FhcFhYc3ZkZUE2MFBYU201R0RuTERSQnpId1NIUXl0dFpIdCtIaEtxcjBk?=
+ =?utf-8?B?Q0ZPcGVpdzdTRGZjdlYzRWIwUnd5WWhGbWFrQ2Yrb3cwSkNpWDFsSUp0OGRs?=
+ =?utf-8?B?cW90L2JJcThCMVgxR3k2dVY1L0pRYVR1R0JieXdBVTZubHA5ZGxiZ1kvRUph?=
+ =?utf-8?B?ZGRrcHBnWEVva3VQVm1mNmk5SlVLTi9vd21WQzFQNHRidjVFbmlwZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <87C28B79E8460940A303AD1E3FD10A90@eurprd07.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nokia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR07MB12087.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3516f226-5509-4c55-45af-08df0298cc06
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2026 11:05:39.0750
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: h7mra4uFuA8UKDlKz2sczy4zjzykHusVsvfupZ+/nXZvgKYsHlZPvpwJkb0OKnejTYolrY9tKDEY+fvX6vfktE+gP8Qyqxl9wl7yp5DLYQg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR07MB6418
 
-
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x de329533792a373186d79dca1ca120f8fa0afd05
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026082525-semantic-primate-d494@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From de329533792a373186d79dca1ca120f8fa0afd05 Mon Sep 17 00:00:00 2001
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Date: Thu, 30 Jul 2026 10:28:27 +0800
-Subject: [PATCH] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
-
-free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
-Updating max_dest_rd_atomic before freeing the old array can make the
-free path walk past the old allocation and trigger a slab out-of-bounds
-write catched by KASAN:
-==================================================================
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
-BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
-BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
-Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
-
-CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0xf7/0x600 mm/kasan/report.c:482
- kasan_report+0xe4/0x120 mm/kasan/report.c:595
- free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
- free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
- rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fefc75a70cd
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
-RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
-RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
- </TASK>
-
-Allocated by task 11063:
- kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5296 [inline]
- __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
- rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
- rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
- ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
- _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
- modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
- ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
- ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
- vfs_write+0x2aa/0x1070 fs/read_write.c:686
- ksys_write+0x1f8/0x250 fs/read_write.c:740
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802b8ddd80
- which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 0 bytes to the right of
- allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
- set_page_owner include/linux/page_owner.h:32 [inline]
- post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
- prep_new_page mm/page_alloc.c:1861 [inline]
- get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
- __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
- alloc_slab_page mm/slub.c:3278 [inline]
- allocate_slab mm/slub.c:3467 [inline]
- new_slab+0xa6/0x670 mm/slub.c:3525
- refill_objects+0x278/0x420 mm/slub.c:7272
- refill_sheaf mm/slub.c:2816 [inline]
- __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
- alloc_from_pcs mm/slub.c:4750 [inline]
- slab_alloc_node mm/slub.c:4884 [inline]
- __do_kmalloc_node mm/slub.c:5295 [inline]
- __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
- kmalloc_noprof include/linux/slab.h:954 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
- tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
- tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
- tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
- security_file_open+0x7a/0x1b0 security/security.c:2739
- do_dentry_open+0x57e/0x1690 fs/open.c:924
- vfs_open+0x82/0x3f0 fs/open.c:1079
- do_open fs/namei.c:4699 [inline]
- path_openat+0x218a/0x3190 fs/namei.c:4858
-page last free pid 1 tgid 1 stack trace:
- reset_page_owner include/linux/page_owner.h:25 [inline]
- __free_pages_prepare mm/page_alloc.c:1397 [inline]
- __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
- selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
- inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
- selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
- security_d_instantiate+0x123/0x190 security/security.c:3704
- d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
- kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
- lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
- open_last_lookups fs/namei.c:4611 [inline]
- path_openat+0x17dd/0x3190 fs/namei.c:4855
- do_file_open+0x20c/0x430 fs/namei.c:4887
- do_sys_openat2+0x101/0x1d0 fs/open.c:1364
- do_sys_open fs/open.c:1370 [inline]
- __do_sys_openat fs/open.c:1386 [inline]
- __se_sys_openat fs/open.c:1381 [inline]
- __x64_sys_openat+0x141/0x200 fs/open.c:1381
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
- ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
-                                        ^
- ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
- ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
-
-Fix the OOB by moving the assignment after free_rd_atomic_resources()
-so the old array is freed using the old bound. This matches the original
-ordering in commit 8700e3e7c485 ("Soft RoCE driver").
-
-Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
-Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index ec2cfb12559a..311f285d78a6 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -708,8 +708,6 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
- 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
- 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
- 
--		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
--
- 		/*
- 		 * Not gated by IB_QP_STATE, so the responder task is live.
- 		 * Quiesce recv_task like rxe_qp_reset() before swapping the
-@@ -718,6 +716,7 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
- 		 */
- 		rxe_disable_task(&qp->recv_task);
- 		free_rd_atomic_resources(qp);
-+		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
- 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
- 		/*
- 		 * On ENOMEM leave recv_task quiesced: qp->resp.resources is
-
+TG9va2luZyBpbiBsYXRlc3QgNi4xMi54IGtlcm5lbCBJIGNhbm5vdCBmaW5kIGFueSBldmlkZW5j
+ZSBvZiBhIGZpeCBmb3IgQ1ZFLTIwMjYtNDMxOTguCklzIGl0IG1pc3Npbmcgb3IgaXMgNi4xMi54
+IHVuYWZmZWN0ZWQgPwoKCkNWRS0yMDI2LTQzMTk4Ogp0Y3A6IGZpeCBwb3RlbnRpYWwgcmFjZSBp
+biB0Y3BfdjZfc3luX3JlY3Zfc29jaygpIENvZGUgaW4gdGNwX3Y2X3N5bl9yZWN2X3NvY2soKSBh
+ZnRlciB0aGUgY2FsbCB0bwp0Y3BfdjRfc3luX3JlY3Zfc29jaygpIGlzIGRvbmUgdG9vIGxhdGUu
+IEFmdGVyIHRjcF92NF9zeW5fcmVjdl9zb2NrKCksIHRoZSBjaGlsZCBzb2NrZXQgaXMgYWxyZWFk
+eQp2aXNpYmxlIGZyb20gVENQIGVoYXNoIHRhYmxlIGFuZCBvdGhlciBjcHVzIG1pZ2h0IHVzZSBp
+dC4gU2luY2UgbmV3aW5ldC0+cGluZXQ2IGlzIHN0aWxsIHBvaW50aW5nCnRvIHRoZSBsaXN0ZW5l
+ciBpcHY2X3BpbmZvIGJhZCB0aGluZ3MgY2FuIGhhcHBlbiBhcyBzeXpib3QgZm91bmQuIE1vdmUg
+dGhlIHByb2JsZW1hdGljIGNvZGUgaW4KdGNwX3Y2X21hcHBlZF9jaGlsZF9pbml0KCkgYW5kIGNh
+bGwgdGhpcyBuZXcgaGVscGVyIGZyb20gdGNwX3Y0X3N5bl9yZWN2X3NvY2soKSBiZWZvcmUgdGhl
+IGVoYXNoCmluc2VydGlvbi4gVGhpcyBhbGxvd3MgdGhlIHJlbW92YWwgb2Ygb25lIHRjcF9zeW5j
+X21zcygpLCBzaW5jZSB0Y3BfdjRfc3luX3JlY3Zfc29jaygpIHdpbGwgY2FsbCBpdAp3aXRoIHRo
+ZSBjb3JyZWN0IGNvbnRleHQuCg==
