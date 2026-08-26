@@ -1,82 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD91A3E5EFD
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F98E33AD9C
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:32:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743812; cv=none; b=MBrpGpiJ6L6xZDaC3jRiS8fwr8Cv9nrmtyV/1VB1szTN2Cd5ytvCGh8z5OkVDuWw2W4tKv16ehuuGjTNUxKcu50UuKBE5NgewPf4hjBlAr5u5a88UlJj7SJU/Yt6d++2WzzNS8ZWouz5GTbTta6jPu0TnmlhqIdlxI2LXo5ngag=
+	t=1787743958; cv=none; b=rqqf0DFobt/ASdLVHznuySqM1Kb52KJdgM2sZwG8oUiakkDP3aE/XfUj6xDp57CZRe4NUBGKVPAs7ruif27GEpgDtzAETW/hD2/qApeSh7CQQeFHgyaLi4crX8dYBzyIlSYpCOyJfbzXPfeqv9r6RKLtjmDQ8DfpivUwJGfYlq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743812; c=relaxed/simple;
-	bh=5cJffYrbzvlLTLs/MGEVbZcRNd+BMA0Y9cIfNr/ZVHU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fus8bFdzWZdV0JBcOECfyD35eA8ZPzA1OIUx0GH25CpKXQTPzd7nTB07gZYZvX5gFT+gc4xFLyIQq28XsEv0fuHojFlXKvIG5NFJhS5/kEogU6k8ULrSJyvMShJK3d7A9uClkdBMOY92MI2eUQj0MpiBho8VUzuzaRizS3o1jmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Url3wdI9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787743958; c=relaxed/simple;
+	bh=k/XkxnhooZ7NkutzHcKCTjnZufRvQQHNGv39lUpSD2Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cWE5GD8MXZ79smD25N43SyMhjeA7ygnWkM3YpR8Um3yP/hZ8/K8gZKtjBoAE81KG0C3zBl3XMkqEWRAiUzpR7b/7oaq0Ml2DCE2biIk7SlRMNG8fYITeGzw37pJl2DHQXiumvchd/gd+VyjqO5c1fJfYXZVXuf6juwWExx1XpPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCX8RYeA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Url3wdI9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650D61F00A3D
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:30:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCX8RYeA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A84AB1F000E9;
+	Wed, 26 Aug 2026 11:32:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787743811;
-	bh=5cJffYrbzvlLTLs/MGEVbZcRNd+BMA0Y9cIfNr/ZVHU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Url3wdI9jGBf11dykA+qqN+TfAZTqfEF/iD2ASdB/sBdHT1Wity+DNZAO+Vi+/Fh1
-	 P6L8zIB7a+86vWF4R+WjBMyLtCws24e/mVQvZWYIS2raGbUT7fseEkcmnosvVGHwHX
-	 akpJSZtI4n0eD4oxy0CKk6yOdhwmyx/VZ3Gc4t4WL/ILpDySd3vHihqIztASn6ZdBx
-	 9qMgitsTxSXHuypr9WGRt6gEHtoLZkJQhCRKQd85lKBJtggExcQynAKILwYHMOSV2C
-	 jqtO/Iyeck8HzXxpQ7OXAfociHvJ4FRuZHJ2DF4NVGY/cckcweRZ8bC5sa3eNtmB6H
-	 ATeDxQRabd+3g==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c1671ec8692so117742266b.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 04:30:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrMnSFSl5QUURhaWfRYzE8sIGUZttL7YTUyecpZXIPn1Ry0E0583AwZ/JM+hMn8gUmSgu5Tslo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9AWJEIIukdEZieqBkXwHWlUIkZVUQMG6I9lrFnpmANy3FWOW7
-	/lNHuvVJqyUsmOvr75ohVkp/nsaRtTuondPywnY5XhKIyrSDcXuPxJU69tja5qV1DUswLEXH2Zf
-	FG8W6UCtp7pxkRdNwgdhMcNtMKaGw+kU=
-X-Received: by 2002:a17:906:fe0c:b0:c21:382e:9a38 with SMTP id
- a640c23a62f3a-c250c449b9fmr764484466b.2.1787743810078; Wed, 26 Aug 2026
- 04:30:10 -0700 (PDT)
+	s=k20260515; t=1787743957;
+	bh=0Pd7MFVpfM2lNv3su6E2nOfibwGTW5FQ/LHdEb7BWZk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kCX8RYeAJU9YzwcBbgR7S8JFKTPa+WN+YHtHt2lLKF8Z5f21xCPlW01Rq68pqS4tt
+	 p2sJPAlx5yJ9lcEopeSFHACXRqPc2g2D5CwhSI3KaXcjxAAwO+u/DmQk3+HAgsrjEu
+	 wGdxo6AZb3+WGJFk6/js9DsbHljiIeK8OVFNT9xMI8Ci2VhRF/IePQzqibPWpemXBs
+	 aOFilNq+rS+eE5DG31JnYXQ7KVCPyWhayyml8jN/ul2USU0dh3XaSvNkGQFR0F2A37
+	 /Lqq7odTP21DEy8lJwdjerluXXrW6qaCymACbIinf8xavf4GW+/EGh1ZiDeL1tCvv4
+	 FavrZVyaGHr7g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Jiri Kosina <jkosina@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] HID: magicmouse: Prevent out-of-bounds (OOB) read during DOUBLE_REPORT_ID
+Date: Wed, 26 Aug 2026 07:32:34 -0400
+Message-ID: <20260826113235.2856444-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082524-service-cricket-becc@gregkh>
+References: <2026082524-service-cricket-becc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825095405.858623-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260825095405.858623-1-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 26 Aug 2026 20:29:57 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8Vso+9+w2Dr7+vCSvRiHs0YPFz=Gk0Er1U6SJVG84H7A@mail.gmail.com>
-X-Gm-Features: AcwNN1WrBSfwzM2PN0UKTrEZYMyN8MA4TywdX16d31u7gFDR-wvU_LF3q0CbisE
-Message-ID: <CAKYAXd8Vso+9+w2Dr7+vCSvRiHs0YPFz=Gk0Er1U6SJVG84H7A@mail.gmail.com>
-Subject: Re: [PATCH] ntfs: fix undefined behavior in mft/index record size calculation
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 6:54=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
-.cn> wrote:
->
-> The boot sector validation allows clusters_per_mft_record and
-> clusters_per_index_record to range from 0xE1 (-31) to 0xF7 (-9) when
-> interpreted as signed values. When these are used as negative shift
-> counts in expressions like `1 << -clusters_per_mft_record`, values
-> like 0xE1 cause `1 << 31`, which shifts into the sign bit of a 32-bit
-> signed integer, resulting in undefined behavior.
->
-> Fix by using unsigned shift (1U << ...) instead of signed shift.
-> This prevents undefined behavior while preserving the full valid
-> range of negative values (-31 to -9) that may appear in NTFS boot
-> sectors.
->
-> The encoding scheme uses negative values to represent record sizes
-> smaller than cluster_size: -log2(record_size). Common values include
-> -10 (1024 bytes) for mft_record_size and -12 (4096 bytes) for
-> index_record_size.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Applied it to #ntfs-next with Baolin's reviewed-by tag.
-Thanks!
+From: Lee Jones <lee@kernel.org>
+
+[ Upstream commit d93ba918a185aca2594da63e92fdc5495b559c0f ]
+
+It is currently possible for a malicious or misconfigured USB device to
+cause an out-of-bounds (OOB) read when submitting reports using
+DOUBLE_REPORT_ID by specifying a large report length and providing a
+smaller one.
+
+Let's prevent that by comparing the specified report length with the
+actual size of the data read in from userspace.  If the actual data
+length ends up being smaller than specified, we'll politely warn the
+user and prevent any further processing.
+
+Signed-off-by: Lee Jones <lee@kernel.org>
+Reviewed-by: Günther Noack <gnoack@google.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: db8d634128d2 ("HID: magicmouse: prevent unbounded recursion in magicmouse_raw_event()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hid/hid-magicmouse.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
+index c59cfab104928..6f0ed4256697c 100644
+--- a/drivers/hid/hid-magicmouse.c
++++ b/drivers/hid/hid-magicmouse.c
+@@ -387,6 +387,10 @@ static int magicmouse_raw_event(struct hid_device *hdev,
+ 	struct input_dev *input = msc->input;
+ 	int x = 0, y = 0, ii, clicks = 0, npoints;
+ 
++	/* Protect against zero sized recursive calls from DOUBLE_REPORT_ID */
++	if (size < 1)
++		return 0;
++
+ 	switch (data[0]) {
+ 	case TRACKPAD_REPORT_ID:
+ 	case TRACKPAD2_BT_REPORT_ID:
+@@ -487,6 +491,18 @@ static int magicmouse_raw_event(struct hid_device *hdev,
+ 		/* Sometimes the trackpad sends two touch reports in one
+ 		 * packet.
+ 		 */
++
++		/* Ensure that we have at least 2 elements (report type and size) */
++		if (size < 2)
++			return 0;
++
++		if (size < data[1] + 2) {
++			hid_warn(hdev,
++				 "received report length (%d) was smaller than specified (%d)",
++				 size, data[1] + 2);
++			return 0;
++		}
++
+ 		magicmouse_raw_event(hdev, report, data + 2, data[1]);
+ 		magicmouse_raw_event(hdev, report, data + 2 + data[1],
+ 			size - 2 - data[1]);
+-- 
+2.53.0
+
