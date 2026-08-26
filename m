@@ -1,120 +1,84 @@
-Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1011D435F
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137AC175A6D;
+	Wed, 26 Aug 2026 00:38:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787703973; cv=none; b=B1DU5USgockFTj0A1o6gOzmT+UKv2aSCi079Pzx2uKZJtv9a6tI6KGKWvLrWp5UN6dN/kLFi4Snnq0OFr4gWgk4k5yyWH8LeVLNpqmVGid6Z3q/629pqL2O0K+WThCPGYv6lNw6sUCb97u3gQL9M6gdaZqZVBSGf2/NJC09A3LU=
+	t=1787704718; cv=none; b=eaSC2pIfkYUD482j2DxBVksuEK0Jzq1UAwlcq/z4excQ/1bmPe1YAHkE5znfHHPEfvYnl6B/zNHfcdwUm/32zx94hcKjR/2FKpqAZkLK/iwfvc6Q1Cf9n6l+JEIHDGqBEzUV2oZdY1DsPxWjeZ51LIr+MTs0v9t0GBpnWKQZaUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787703973; c=relaxed/simple;
-	bh=NxDKxbFlED+fFDd4TCm7HQl8oeKXvA3b2POunZDitW4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TPfvvesqqh12kJI0qGdqqTR87J28kNRQ5JAMVmpnbZbUPC+z7J5IL/SN5ZQovt80oOgJGyu4N/GibLULu/LSfVFVRURJf4pEiMvUMjjWtJrPO4oROMNhwFHOM5XuPFnKNGJiyq34NCryeASHV6/AbPpZ5lL45/xer+ciV97S5lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=Ib3XOxXQ; arc=none smtp.client-ip=91.218.175.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+	s=arc-20240116; t=1787704718; c=relaxed/simple;
+	bh=rwfgkzP5NZCPPLQJmLN8/8Fa9N87UlW4m3MdlWNTwjM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ecf4JeNzyFKstZzYnA+fl7EWkkyC7UwUqXpqZtDYun3gKRy4Nz4HASapZKp0h9/xDyyU8DOv/RKyL1XVZ+P0CzJRX3KegbY+cFgyEinlYF7IYsN8uApZuYA+I1GKZUngdFu1zgPvPXy+4I+zUvyFSDUESTRwzWRTsNcMZ8zOm50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=f40WgMbG; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="Ib3XOxXQ"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NxDKxbFlED+fFDd4TCm7HQl8oeKXvA3b2POunZDitW4=;
- c=simple/simple; d=cressey.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787703967; v=1; x=1788308767;
- b=Ib3XOxXQJkoWQKEBd5zro/bWGaiYgZIDmTcAHGGm3k8WpxcCLx1AiZXiMd+B/zenVFY/CBzX
- TLtTkHJhjp/H7ikoerKPLH7gprkMqG3H3T3a42IA2s0DcNH5ESMl0m6vn0yxI5uQ2JxCkvaeYFQ
- C10XOWyb+Vhh6BbwcpSE51+qlvlI+TeIKVUQ5TgETx8ic+gkjjbnU1sagnSmDFb8KpEj9Cmp+b9
- 531IB23AAcCHZ//RhVgkcvONtWvUt9kamh/jjwdjmoYjgRqB3+dICGFUvrUvQf4L+SZnbFc1MWr
- hsoIlz0t9q4PkzFoWZcY7PZG6LNBMbBIhIZEZLB1mQvYQ==
-X-Envelope-To: stable@vger.kernel.org
-Received: from coder-bcressey-whiskers-0.coder-bcressey-whiskers.remote-dev.svc.cluster.local (35.83.186.167)
-	by smtp.migadu.com with ESMTPS id d88eb38d4e98656b;
-	Wed, 26 Aug 2026 00:26:07 +0000
-X-Mizu-Trace-ID: d88eb38d4e98656b
-X-Migadu-Flow: FLOW_OUT
-From: Ben Cressey <ben@cressey.dev>
-Date: Wed, 26 Aug 2026 00:25:33 +0000
-Subject: [PATCH] dm-crypt: fix a tiny race condition in crypt_dec_pending
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="f40WgMbG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=rgRa5kD7aJJjA/AUbzq1fvReS9l34CYblqzybp581H4=; 
+	b=f40WgMbGN3WOjFWoYwMP8vmGD1scDeA9wA3lSI7fO1L0XnYY/eAqpRy+3Xqw/KnIKiVBODF0RVf
+	qLWcoIB9H/MwdI/T3ALk2EPbsgIL8iTCW1mMjFrEzj2uHES3oWI3BFbyokRBloELpi3tcdwaFoa2c
+	SMWIflDdnfm9CvJ9v3Vb0qv3xTrsFtVmrHPdGRxzZ7rSpQQyIvAdF2nZWvp7UMxpuA/ohOuCc9DHm
+	hZpF3VZ9qqx4MRcRB0CAHa5CECFRdnMvjXOT2slUNGYHSFcFr7YAy2Z1YJ/d15daqWA2LULl6QkM7
+	yHDzr73KowH4MS10paFWovrGnTzVQ1p15aWw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1wz1Or-00000007t5n-4Aix;
+	Wed, 26 Aug 2026 08:21:55 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 26 Aug 2026 10:21:53 +1000
+Date: Wed, 26 Aug 2026 10:21:53 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: horia.geanta@nxp.com, pankaj.gupta@nxp.com, gaurav.jain@nxp.com,
+	davem@davemloft.net, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: caam - reject overlong RSA CRT parameters
+Message-ID: <ao4xobfWhs5Ss8Uy@gondor.apana.org.au>
+References: <20260810154024.3178145-1-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260826-dm-crypt-dec-pending-v1-1-395bfee3576b@cressey.dev>
-X-B4-Tracking: v=1; b=H4sIAHwyjmoC/22NyQ6CMBCGX4XM2QnYyKKvYjyU6Qjj0jZT3EJ4d
- wGvHr9/HSGxCic4ZCMoPyVJ8DNsNxlQb33HKG5mMIWpisaU6O5I+okDOiaM7J34DndVzQ3ZfV2
- VDHM1Kp/lvc4eTz9Oj/bCNCxbS6K1ibFV66lfpFvMKbyCXlnz1fp3A9P0BZHs6qOwAAAA
-X-Change-ID: 20260825-dm-crypt-dec-pending-467e8ca9765e
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
- Mikulas Patocka <mpatocka@redhat.com>, 
- Benjamin Marzinski <bmarzins@redhat.com>, Milan Broz <gmazyland@gmail.com>
-Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>, 
- Ben Cressey <ben@cressey.dev>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260810154024.3178145-1-Jeremy.Jean@oss.cyber.gouv.fr>
 
-crypt_dec_pending reads io->error before calling atomic_dec_and_test.
-Another context, for example crypt_endio called from an interrupt, may
-set io->error and drop its reference between the read and the
-decrement. crypt_dec_pending then drops the last reference and completes
-the bio with the stale status - so a read that failed and was never
-decrypted, or a write that failed, is reported as successful.
+On Mon, Aug 10, 2026 at 03:40:24PM +0000, Jérémy Jean wrote:
+> caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
+> from the corresponding prime. rsa_parse_priv_key() only bounds these
+> integers against n, so a malformed key can provide, for example, a
+> two-byte dP with a one-byte p. dstlen - nbytes then underflows and
+> memcpy() writes outside the allocation during set_priv_key(). KASAN
+> reports a slab-out-of-bounds write in caam_read_rsa_crt().
+> 
+> Reject empty or overlong CRT parameters after stripping leading zeros.
+> qInv is consumed by CAAM as a p-sized value, so size it from p rather
+> than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
+> top-level key cleanup handle partial form-3 allocations and return the
+> specific error to the caller.
+> 
+> Also test nbytes before dereferencing it while stripping zeros, so an
+> all-zero integer does not read one byte beyond its input.
+> 
+> Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  drivers/crypto/caam/caampkc.c | 69 +++++++++++++++--------------------
+>  1 file changed, 30 insertions(+), 39 deletions(-)
 
-The read was placed before the decrement by commit b35f8caa0890 ("dm
-crypt: wait for endio to complete before destruction"), because that
-commit freed dm_crypt_io before calling bio_endio. This is no longer the
-case, dm_crypt_io lives in the per-bio data now.
+Is this driver still maintained? If not let's just remove it.
 
-Read io->error after atomic_dec_and_test instead. atomic_dec_and_test is
-fully ordered, so no additional barrier is needed.
-
-Fixes: b35f8caa0890 ("dm crypt: wait for endio to complete before destruction")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-Signed-off-by: Ben Cressey <ben@cressey.dev>
-Assisted-by: Claude:unspecified
----
-Found by inspection. On x86-64 the load and the lock decl are adjacent
-instructions, so in practice this needs an interrupt or preemption on
-the CPU doing the final crypt_dec_pending.
-It could only be demonstrated with an mdelay() inserted between the two
-in kcryptd context: with dm-crypt on top of the "error" target, 20 of
-20 failed direct writes were then reported as successful, and 0 of 20
-with this patch and the same delay.
-The affected pairs include kcryptd_io_read_work vs the read clone's
-crypt_endio (deferred or recheck read), kcryptd_crypt_write_convert vs
-the write clone's crypt_endio, and with an async cipher the read and
-write convert paths vs kcryptd_async_done.
----
- drivers/md/dm-crypt.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 608b617fb817f..9e170de50ad32 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -1745,7 +1745,6 @@ static void crypt_dec_pending(struct dm_crypt_io *io)
- {
- 	struct crypt_config *cc = io->cc;
- 	struct bio *base_bio = io->base_bio;
--	blk_status_t error = io->error;
- 
- 	if (!atomic_dec_and_test(&io->io_pending))
- 		return;
-@@ -1767,7 +1766,7 @@ static void crypt_dec_pending(struct dm_crypt_io *io)
- 	else
- 		kfree(io->integrity_metadata);
- 
--	base_bio->bi_status = error;
-+	base_bio->bi_status = io->error;
- 
- 	bio_endio(base_bio);
- }
-
----
-base-commit: 39c5aa3bd8ec3912d2cd0b3fe092642b0d2b0713
-change-id: 20260825-dm-crypt-dec-pending-467e8ca9765e
-
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
