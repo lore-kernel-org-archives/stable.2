@@ -1,166 +1,172 @@
-Received: from mail-qk2-f0.google.com (mail-qk2-f0.google.com [74.125.230.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68973C0A1B
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 09:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86FF3BD651;
+	Wed, 26 Aug 2026 09:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787736489; cv=none; b=BH0VW/NswXrNnWI4DD3oQ52lUnA/88Sb3oH+qJIeN69gy/v6XeMkml4lZ9FykZneKellNzkPQ0QVrk/qrAlE1ZapfK6orvp5I/aE+b9O2QeTcAr51NsdUGLG22Fybdi+9G8jc+o0jVYhd9lTK5FBDF3qsxM+32PuecyjTQIK9Ow=
+	t=1787736499; cv=none; b=hRse3eLiMa7YsRm/pTSGxLo6XfktgM4ugV2MMehiUtt0jiMwiCAD6Fe7MtIrzv5QGAPLm/C4+9bNO4+ZUzRJpK4MfskOmgxJPOTFimQJLveFLGwKXtTclzjXaMRlygm4jBWdZLIcsVLZ6gx2huoNiF2XXJeLa1PNwsQsVUfrHHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787736489; c=relaxed/simple;
-	bh=Hv7+Y9dHESTSaxHnfqqTK4NCvljMduEQjgsI3qTkahQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CC7aDzVQ+G6KyDNoKAVxJb/PiCLgvdYWOXoXV8vniZq40CTCAdt4trMT+Ejq9+t6Tiaqkk7I+gUEQCaMAaqNn8bloPc47y/2Kny96WvGvb+RJrpDVerLsqsaLAkQriEOxu4Qwtg1SXiPpngZ0fBdmNenSBJDxIY/whLY5pi4lOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QQ6buCXR; arc=none smtp.client-ip=74.125.230.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787736499; c=relaxed/simple;
+	bh=zOlZYyvRs9ChzGU73C832xzR4WXH1lB3xuJGvoCrFpc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OFjgfMzBgEUCJrtpPh7KO9sGuHfHu+AVtFxlaFJqIcoV4bdgMI5kNrnkqsC9pt79dIVtgRVF4M/vXgd5P08lpdl5dOA2qMJ4KlHIhw8aYqwOEdoDAkYIxlzGUwDvsey8M5Z11p584nX1z4QWXuVLVm/wom5qja55/z9CBxso1WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RkFXSijR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QQ6buCXR"
-Received: by mail-qk2-f0.google.com with SMTP id af79cd13be357-9371529ed6cso16710885a.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 02:28:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787736485; x=1788341285; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nLln/nzEL/lmZp8E8NEYYdhaUC5D7iZndLYefw4Q5CU=;
-        b=QQ6buCXRA5+hpQnX7RTql7lkgNGgM/evAvzcML/xujJ0HQCdOwpP39axbkBy9dvnGP
-         +jG4cz8hcOlWsv3cJWA/QFvygkWstK03yLaCh6Ews0lKTGJGv3rcCLocQVNBV2SziZsX
-         gNV7HgkBXuTLN7KJHAXMDi7oOrSiZEMmerwN7M0JGGHWWEBkDgczUNVh/ZarSF1QJsa/
-         300gd+vMCmcMcl5Kipx96bAKZOf4oDwvzdcaS7Yllom6TGhUdmU9CTq5bJUgiNFRsre4
-         aT8D4JtW47uiUo9TskyY5RZynZIhODjk+3qTMP6wvHExsj7KbXmLVKI14WLMWf8nj5Os
-         ss1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787736485; x=1788341285;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nLln/nzEL/lmZp8E8NEYYdhaUC5D7iZndLYefw4Q5CU=;
-        b=RUuJP9etHavGsC+UQktIJNeKUhlEo/wkdEUKgp0cVJWjisiBF2erPW6mDY64ynerDl
-         iHrjXSED3CaOoULkshV+mc8eXCwhBqc2DHjF3wUAVETnRkDXrC//n1MYjrNUl1TQCBIR
-         ClDwyby/uqpmMzdEa1/Fjwbe3HMTIZWesq20TvVZbfCLdMVgy5r0euG2676tYoMZF7EW
-         F6i4uknIl8bhQv7vuq3MIzYtjcVOvZ7sQeE5rUknCeA6yNaUj9egBVZO0DafsdbnrcxI
-         opAOuq561lt2AJRC+iKgywrug1aMkSdgj42p7leXw+ViFPHC69eJGSJOvtbeRWJn8EWH
-         ZLGg==
-X-Forwarded-Encrypted: i=1; AHgh+RrS9hGcTtTlCAwGBna02SgvpEqT5c4r5XbSMs2pEGB0pT6sAYQORMelzw+hxIdHlJPmcJIboII=@vger.kernel.org
-X-Gm-Message-State: AFuF++nieC6qAM/EGM1jVySgVGi+Sh849wFhM/etF/3794n5Fr2XRcFC
-	Sj+GZsqx22xAEhh2QIgBLYRZyVGjWaHr1pqj4SX/kja960bgDnsUH32W
-X-Gm-Gg: AR+sD12HoVtX3s0xktXhmWqmStIRbW4pUnkFDWsPNKf4SqdPybc/CUUbD2fwqO8mvHM
-	jw2NsOHaCoEAZtsgWAoooIkTqh9OxtKENcY+Q5lZ9ijKJnKGDpqNlAfMYogVj2+ACZ1Db/zsV6Y
-	ztxz8F0Fu3xHE6uHYtddWMI9jL68eS1W3FhoQWvfOC2ZWRO7SA5d7VTro/kZC/bJ6mB6A6EAWq/
-	xXcB6rC5T2Y4v4gfQ8RxKAd5Xek1NQ/oBTGUmicTigY7bmcax0Ne7KY71KBFaWCB46cxziwmb5/
-	O9fxSJkyJ3nLCBLpEkV+JhJ2c+lBeXbNoStdx9VUAyCYHeOc2ULVzrRO9fRxb/xfWqzhAq+0Ke8
-	OnWGxTkcUT16HaedC7KRQjuXQch6y2ss3jj8liW55PD8H3GpssBiNrJeBHkFv27FVEd8XsAH04z
-	XHr7hze1C/huncun7nxKp2mnOhwb4pepn7WET+am157S0lT/qQxTAAEvKNQ7VNh1GDRVHP0e5+v
-	N51OGlDQE+pKg==
-X-Received: by 2002:a05:620a:99c:b0:937:2aca:4d58 with SMTP id af79cd13be357-937803e5454mr340157585a.24.1787736485479;
-        Wed, 26 Aug 2026 02:28:05 -0700 (PDT)
-Received: from localhost.localdomain ([2606:6d00:39f:4500:5acb:2301:2b5a:c076])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e34b9cfsm170522085a.13.2026.08.26.02.28.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 02:28:05 -0700 (PDT)
-From: Mark Anthony Agarro <markanthonyagarro@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org,
-	Mark Anthony Agarro <markanthonyagarro@gmail.com>,
-	Devin Wittmayer <lucid_duck@justthetip.ca>
-Subject: [PATCH wireless v2] wifi: mt76: mt76x02: validate TX-status rate index before mac80211 handoff
-Date: Wed, 26 Aug 2026 05:27:55 -0400
-Message-ID: <20260826092755.480190-1-markanthonyagarro@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RkFXSijR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751711F01561;
+	Wed, 26 Aug 2026 09:28:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787736497;
+	bh=VkPDzgtqpJZ+C+pFu3IpQfmXypArccQSfZj/VF6NMbQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RkFXSijRbA6EM3ZrjDU8tSwuriXKTTOKjpopi5CErpNWTeCRYBX/qsSUpyn8Ggw/R
+	 kPodnkEfLkODpYExzkYsht60y+Ht4NVpAtwCjHkGW071tyXfWzKONDRORVx0+2QE2h
+	 zAUsNR84Y0VJkVKEYg+xwJ/PsQmf2mhC46R5H69eX6Rj0okfWJkL0JaWA24/a/ue6K
+	 8S/3idW0QkFMKJ3nRlZj8zfw3V9bg3e/B1zBxkMQNBUagKF5Fq7fD2KGSvyp8gNOXB
+	 7N8bQJJqeIvVJDE0sVvbKo0VkfJSliyfgJII+5KVQG+v9W2NAhWYpNB1mlsc33s3gV
+	 W90ZgP8IBSMLQ==
+Message-ID: <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+Date: Wed, 26 Aug 2026 11:28:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
+To: Zi Yan <ziy@nvidia.com>, Harry Yoo <harry@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org,
+ syzbot+805630f1453e490427fa@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mt76x02_mac_process_tx_rate() extracts the rate index straight from
-the hardware's raw TX-status word with no bounds check for the
-HT/HT_GF/VHT cases, and mt76x02_mac_fill_tx_status() ignores its
-return value. A stale or corrupt hardware index reaches mac80211's
-minstrel_ht rate control, whose per-group rate array is a fixed 10
-entries (MCS_GROUP_RATES), causing an out-of-bounds write.
+On 8/17/26 22:40, Zi Yan wrote:
+> kmalloc is used to allocate physically contiguous memory for kernel
+> allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc uses
+> the page allocator and can only support up to KMALLOC_MAX_SIZE. For request
+> sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
+> because kmalloc allocates an order greater than MAX_PAGE_ORDER. Systems
+> with panic_on_warn=1 crash because of this WARN. Fix it by rejecting any
+> kmalloc size bigger than KMALLOC_MAX_SIZE.
+> 
+> Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher kmalloc requests")
+> Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@google.com/
+> Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> Cc: stable@vger.kernel.org
+> ---
+> It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadgetfs
+> requests excessively large memory from kmalloc. Instead of adding
+> __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
+> kmalloc to return NULL without a warning for this specific issue.
+> 
+> [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively large memory allocations")
 
-Validate the index in mt76x02_mac_process_tx_rate() (HT: 0-31,
-VHT: MCS nibble 0-9) and have mt76x02_mac_fill_tx_status() bail out
-cleanly on failure instead of passing an invalid index through.
+So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
 
-Fixes: 7c1f88812690 ("mt76: unify send_tx_status and related helpers")
-Cc: stable@vger.kernel.org
-Closes: https://github.com/morrownr/mt76/issues/88
-Tested-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Signed-off-by: Mark Anthony Agarro <markanthonyagarro@gmail.com>
----
-v2: Drop the Reported-by tag. It named an invented
-    users.noreply.github.com address for the reporter that isn't a
-    real, deliverable mailbox (v1's Cc bounced with NXDOMAIN on that
-    domain). Closes: already credits and links the original report;
-    no functional change.
+        /* Don't even allow crazy sizes */
+        if (unlikely(size > INT_MAX)) {
+                WARN_ON_ONCE(!(flags & __GFP_NOWARN));
+                return NULL;
+        }
 
- .../net/wireless/mediatek/mt76/mt76x02_mac.c  | 27 ++++++++++++++-----
- 1 file changed, 21 insertions(+), 6 deletions(-)
+This comes from Linus in commit 7661809d493b4. I'd do the same thing here
+then. Thus there would be a useful warning for e.g. development mistakes
+resulting in the size to be unexpectedly high.
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
-index 14ee5b3b9..d77356a2e 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
-@@ -302,10 +302,22 @@ mt76x02_mac_process_tx_rate(struct ieee80211_tx_rate *txrate, u16 rate,
- 		txrate->flags |= IEEE80211_TX_RC_GREEN_FIELD;
- 		fallthrough;
- 	case MT_PHY_TYPE_HT:
-+		/* Raw hardware TX-status index is unvalidated; a stale or
-+		 * corrupt value here overflows mac80211/minstrel_ht's
-+		 * per-group rate array (MCS_GROUP_RATES == 10) and crashes.
-+		 * Valid 802.11n MCS indices are 0-31 (four streams x 8).
-+		 */
-+		if (idx > 31)
-+			return -EINVAL;
- 		txrate->flags |= IEEE80211_TX_RC_MCS;
- 		txrate->idx = idx;
- 		break;
- 	case MT_PHY_TYPE_VHT:
-+		/* Same overflow risk for VHT: mac80211 expects the MCS
-+		 * nibble (bits 3:0) in range 0-9, nss packed above it.
-+		 */
-+		if ((idx & 0xf) > 9)
-+			return -EINVAL;
- 		txrate->flags |= IEEE80211_TX_RC_VHT_MCS;
- 		txrate->idx = idx;
- 		break;
-@@ -493,18 +505,21 @@ mt76x02_mac_fill_tx_status(struct mt76x02_dev *dev, struct mt76x02_sta *msta,
- 		first_rate = st->rate & ~MT_PKTID_RATE;
- 		first_rate |= st->pktid & MT_PKTID_RATE;
- 
--		mt76x02_mac_process_tx_rate(&rate[0], first_rate,
--					    dev->mphy.chandef.chan->band);
-+		if (mt76x02_mac_process_tx_rate(&rate[0], first_rate,
-+						dev->mphy.chandef.chan->band))
-+			return;
- 	} else if (rate[0].idx < 0) {
- 		if (!msta)
- 			return;
- 
--		mt76x02_mac_process_tx_rate(&rate[0], msta->wcid.tx_info,
--					    dev->mphy.chandef.chan->band);
-+		if (mt76x02_mac_process_tx_rate(&rate[0], msta->wcid.tx_info,
-+						dev->mphy.chandef.chan->band))
-+			return;
- 	}
- 
--	mt76x02_mac_process_tx_rate(&last_rate, st->rate,
--				    dev->mphy.chandef.chan->band);
-+	if (mt76x02_mac_process_tx_rate(&last_rate, st->rate,
-+					dev->mphy.chandef.chan->band))
-+		return;
- 
- 	for (i = 0; i < ARRAY_SIZE(info->status.rates); i++) {
- 		retry--;
--- 
-2.47.3
+Callers passing size that comes from userspace or similar untrusted source
+can either pass __GFP_NOWARN or sanitize the size to what they expect to be
+sane (which is context dependent and I assume actually way lower than
+kmalloc limits in practice). Note that passing even sizes within but close
+to/at the limit, trusting blindly some external source, can succeed the
+allocations but effectively DoS the system with heavy reclaim/compaction. So
+caller sanitization should still be preferred IMHO. Some of the recent
+arguments from Linus [1] would apply to this too, I think.
+
+[1]
+https://lore.kernel.org/all/CAHk-=wiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=TBGGZbuhQ@mail.gmail.com/
+
+> ---
+>  mm/slub.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/slub.c b/mm/slub.c
+> index 0337e60db5ace..a3071f4ef1945 100644
+> --- a/mm/slub.c
+> +++ b/mm/slub.c
+> @@ -5263,7 +5263,12 @@ static void *___kmalloc_large_node(size_t size, gfp_t flags, int node)
+>  {
+>  	struct page *page;
+>  	void *ptr = NULL;
+> -	unsigned int order = get_order(size);
+> +	unsigned int order;
+> +
+> +	if (size > KMALLOC_MAX_SIZE)
+> +		return NULL;
+> +
+> +	order = get_order(size);
+>  
+>  	if (unlikely(flags & GFP_SLAB_BUG_MASK))
+>  		flags = kmalloc_fix_flags(flags);
+> 
+> ---
+> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> change-id: 20260817-limit_kmalloc_size-3a4a2c73beac
+> 
+> Best regards,
+> --  
+> Yan, Zi
+> 
 
