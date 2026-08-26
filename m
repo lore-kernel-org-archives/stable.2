@@ -1,137 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7D1282F1C
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C9123D7CE
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 02:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787708793; cv=none; b=CzROkDph8wJT4k/5lwqrlvNWfF1w71oB+9sjjqQzFruDZAnIF052xy7x84kEOnF1OlmmSBJ3ZCJ8JMD0GC2EU9r0YHMOM4tmYqyIYRuZuVgmtQsbRpPnBf2jsLsTPvEyDiRnYnJmx1Q/+1JxgHeahqIepxoeVmMWR8VvuypFVxY=
+	t=1787709739; cv=none; b=Gg/ILSzFNPGHUdxsN7KCeQ1gJHKJKQOD5eLzKKn1N/auJx/OfdmsTgC+xolsZHAsws9t3zYHZdU/tCXrjcQxe3mYgSLaRtxtJEMJ1x0aUrpLrmKIkeriDIWlMCleMROz3n5GKVvh47GSp+3xtgTOS1i0kQgi6ZLk69jJRJEVbBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787708793; c=relaxed/simple;
-	bh=tAHEUfXWX8PQ5gscgLDOWRfbZ/rIlsAdKEdUPvaXT7o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qKqGEzltC9CyGqbboXpfBJp8zTsjBiBptfW5UbLzR5eSqOU2mc3bAYSvjV2mZB8d1SXNRBJmjhGXYXpzNs3R8cLxpwEWkyVD0ZzMIdZCW8FX94PaKOXOm4YYgt5RJVBdXhkdgf7Cmvb05hSIT05QI3n6u1E2QoCamjXQeWjeeAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHBME54g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787709739; c=relaxed/simple;
+	bh=NJCCto9wLlVWCInGQDNhRaPAkrXW3Ymoo5rST/Wij80=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=jwpGtfHYxDQNPEX4iKUeplFApB3m7WulWf1Xb+ykR0fNr76pw1s9PitfytQBUDiqTq3FPvbpkNvlpt1enTxpcXy2Or0h3oEQdEWRHRAlEi0+6J0h5Oog4kGmN2B1++wiYdUg03ZUujOTg2bhymg2yUXCKl3o94hqkRH/KXOz1zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fN1Xq/4g; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHBME54g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308841F00A3D;
-	Wed, 26 Aug 2026 01:46:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787708791;
-	bh=ul8CI+Eb4z82fxh8sLeQ4YdtcJdmyaF/tioYRKM9LSQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NHBME54g2kmlL8kyWCw0MRnhftJQViBB6aSkzraWTa9Y52tWuqOv1eCV5GH/q2Thm
-	 00sylyIY9p3DX588jLqFX6VaWBG7O+RCYC8B7J08gvJgtmlI/Jf1gKISmYgY5qLgaC
-	 d9XF1Lt0oxL+7AgyvG1NQZ7NoE4kXQkNZ8MpqtqP8upNnPzbfwH2NFbukJPw/tsQv2
-	 cM/JGjjz9oKwqTBdB50c/Y+9O+tJr7HHYSsSx/qhKdZjN63mIJK/BqL9HjTnTdS7e/
-	 02ftnLRMaowu48fB7lfnFAf9CGhE7ZD2E5Hx7cDc3OmM2Sb/gW+kX/gUrfugzNK1+7
-	 4Bhe62Rqk1bZg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	syzbot+c37bed40868932d790e9@syzkaller.appspotmail.com,
-	wuyankun <wuyankun@uniontech.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] nilfs2: reject invalid block index in GC ioctl
-Date: Tue, 25 Aug 2026 21:46:27 -0400
-Message-ID: <20260826014627.1462629-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826014627.1462629-1-sashal@kernel.org>
-References: <2026082454-grope-ground-b6d7@gregkh>
- <20260826014627.1462629-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fN1Xq/4g"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66d03ff78abso642267d50.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 19:02:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787709737; x=1788314537; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/j2cKbyDnLqH/Uv8OCdqOUyQE63/GyK6ijE5X1RB5ZA=;
+        b=fN1Xq/4glB5q+SsFCeTwUbnBh8SV+IW7YEbqYlWcu57h/N80AHskRkSIWIPhQhCGA/
+         QPb8OwVMPVwL8gvlKKE6QkFn58bjm9sylkWXuO/dmtrFI3cIA/Mphvck32BhGH/2wmXk
+         tIGOSbqaPRh7whFWXMI3Ml+JzFEBQ7497bKB+ZMPaT6fX/6zlBynC+BB5fCV9LdVES1M
+         d4+yANHhMzuNlSp96tdBXrsLhB8TyUeKhQmdWTGVYvunkzfWiQV00ontRkgQT4xnA5qr
+         vHa0SVTFln7+7VzUn8I350DUm2+t0EL4+2mugRcQencWIvIwwVAzwvFVihopug1DXWKX
+         XTWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787709737; x=1788314537;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/j2cKbyDnLqH/Uv8OCdqOUyQE63/GyK6ijE5X1RB5ZA=;
+        b=Z5ApQeD4gLXsC0Iard7+e50UOAcci8+1avwkc/97m6ty/8H83R8xYLEtUNfAYgfUhD
+         UF3x0DXHVmpQ1j1J3o+KWP2n+89Bp6D5/lKNI1p/8mQ5U/Qrsu7zrzJjD0IHI4wFHaDs
+         BrGOG16B45p5PLO/uhTkjGsKR+WCQ185+YP8YLntBMkhyDK76zRIpcMw1ZKvWzhlXDLv
+         +XGtm20QkWE6zWH8LqdkczSq/kWIVSTOIl/xyHh9zPuyeP5uTeo6gtNmR+Xx1vF2A6V5
+         nYAclfrXjE8LL5JdrHqAOIA3Jjc46ncRpuGDVdypXT9kKXSn0UUVgj6y7E19B4R/QsCA
+         IMBg==
+X-Forwarded-Encrypted: i=1; AHgh+RpFYV/yE/edDny9ewMDGV0sxkeNbSdTXBMFNuVtnr6c2j6fXlYjT+T6SvCKXiz+ybrwAX393Hs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGGFeso1hVVSC4lnT/tc1fNCIDWwTUi1T1p01wSILVZu/rxI6j
+	9TLgjaL4R8U4XGTEdjQB3xpRxqdq6kQm4cGluqKcXOkMKdGnzEq5FGDf
+X-Gm-Gg: AR+sD12+hnsIc1uPLsIKMf3DOdZOmTwWbvpc+hAjA4lnMCq7MvgtsAugIS07G9O4fcd
+	JL0ZEFM0urovHyin0ZEsPbGYSlfr7d/H5YoxAzlyN7zL8aqBna38o9tKYwF/Unbppxp1AKXeyPF
+	Mn0GHdCTo1W+RVUT+d93GKpZBdtK9zfAy+ZhKLPh+di4FZ1CVEUUJ8GZCXdfznxZ/uax4vQzyPA
+	/HPoTRpGsWbomRIUDqoZwfzDb9w5MBM+/1sdMjDogsjPM0/SeOm48nu9upFtYlY3sTE8j0qa4Hy
+	+4Jbzs4bFrt88L2nqDO9RCE02fuwl33TynLTyvow7cOvxzcde/hPg1K6Nmgm2DEaIRpPyTujQrC
+	upbgFi7vpgxXN+D7ZygHA4QuUFc9jIRtfkRW23TlhY9juOXGyUs/lp6xwG2S+YGIs9+KTPaAqIm
+	2ZhFpl04agh1Pkqmqq8Pfe1KsDGke9dH9pQz86ZxPMF3QzcvXe0N96ejVluIoRfZkLYROIh3E/I
+	LlBcs9YgvcAf+6cTci/vtAea086Vl6+cFe/8pbRYQ==
+X-Received: by 2002:a05:690c:6a10:b0:81e:c972:e8c3 with SMTP id 00721157ae682-8574087e819mr16641587b3.29.1787709736910;
+        Tue, 25 Aug 2026 19:02:16 -0700 (PDT)
+Received: from gmail.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85705f35aebsm9805617b3.15.2026.08.25.19.02.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 19:02:16 -0700 (PDT)
+Date: Tue, 25 Aug 2026 22:02:15 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Qihang <q.h.hack.winter@gmail.com>, 
+ jv@jvosburgh.net, 
+ jiri@resnulli.us
+Cc: andrew+netdev@lunn.ch, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ willemb@google.com, 
+ netdev@vger.kernel.org, 
+ Qihang Tang <q.h.hack.winter@gmail.com>, 
+ stable@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.2ec10017f4836@gmail.com>
+In-Reply-To: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
+References: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
+Subject: Re: [PATCH net 1/2] bonding: reject frames with insufficient headroom
+ in bond_header_create
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Qihang wrote:
+> From: Qihang Tang <q.h.hack.winter@gmail.com>
 
-[ Upstream commit a1735eae55448bc79c2da6593455791e886f6ed8 ]
+Thanks for working on this Qihang.
 
-Syzbot reported list corruption caused by a double list_add_tail() call on
-bh->b_assoc_buffers within nilfs_lookup_dirty_data_buffers().
+Minor: a patch series should generally have a cover letter
 
-Analysis revealed that the root cause was the insertion of a page/folio
-with a page index of ULONG_MAX into the page cache via the GC ioctl.
-filemap_get_folios_tag(), called by nilfs_lookup_dirty_data_buffers(),
-repeatedly detects a dirty folio with a page index of ULONG_MAX due to
-index wrap-around, leading to duplicate processing of dirty buffers.
+> AF_PACKET SOCK_DGRAM sends reserve skb headroom from a snapshot of
+> bond_dev->hard_header_len.  A concurrent bond type change can switch the
+> active slave to one with a larger hard_header_len between that snapshot
+> and bond_header_create(), so the slave's create() pushes or writes past
+> skb->head.
 
-As a preparatory step, the GC ioctl loads the page/folio of the block to
-be moved during GC and inserts it into the page cache based on information
-in the nilfs_vdesc structure passed as an argument.  Normally, this does
-not cause issues because the user-space GC library configures the
-nilfs_vdesc structure properly.  However, since there is no range check on
-the parameters determining the page index, a request with artificially
-crafted parameters -- such as those generated by Syzbot -- can result in a
-page/folio being inserted with a page index of ULONG_MAX, triggering the
-above problem.
-
-This resolves the issue by checking the ranges of 'vd_offset' and
-'vd_vblocknr' in the nilfs_vdesc structure that determine the page index,
-thereby preventing the invalid page/folio insertions.
-
-Reported-by: syzbot+c37bed40868932d790e9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c37bed40868932d790e9
-Fixes: 7942b919f732 ("nilfs2: ioctl operations")
-Cc: wuyankun <wuyankun@uniontech.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nilfs2/ioctl.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
-
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 0a43f1f956cb7..baa43a13b7a87 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -513,6 +513,7 @@ static int nilfs_ioctl_get_bdescs(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EEXIST	- Block conflict detected.
-+ * * %-EINVAL	- Invalid virtual block descriptor.
-  * * %-EIO	- I/O error.
-  * * %-ENOENT	- Requested block doesn't exist.
-  * * %-ENOMEM	- Insufficient memory available.
-@@ -522,15 +523,30 @@ static int nilfs_ioctl_move_inode_block(struct inode *inode,
- 					struct list_head *buffers)
- {
- 	struct buffer_head *bh;
-+	__u64 limit_blkidx = (__u64)inode->i_sb->s_maxbytes >> inode->i_blkbits;
- 	int ret;
+Are we certain that bond and team are the only devices that implement
+header_ops->create?
  
--	if (vdesc->vd_flags == 0)
-+	/*
-+	 * vblocknr 0 is reserved as an invalid pointer.  Also, limit_blkidx
-+	 * ensures that the page index converted from vd_vblocknr never
-+	 * overflows the page cache limit and respects the architecture's bmap
-+	 * key width.
-+	 */
-+	if (unlikely(vdesc->vd_vblocknr == 0 ||
-+			vdesc->vd_vblocknr >= limit_blkidx))
-+		return -EINVAL;
-+
-+	if (vdesc->vd_flags == 0) {
-+		if (unlikely(vdesc->vd_offset >= limit_blkidx))
-+			return -EINVAL;
-+
- 		ret = nilfs_gccache_submit_read_data(
- 			inode, vdesc->vd_offset, vdesc->vd_blocknr,
- 			vdesc->vd_vblocknr, &bh);
--	else
-+	} else {
- 		ret = nilfs_gccache_submit_read_node(
- 			inode, vdesc->vd_blocknr, vdesc->vd_vblocknr, &bh);
-+	}
- 
- 	if (unlikely(ret < 0)) {
- 		if (ret == -ENOENT)
--- 
-2.53.0
+> The hard_header_len snapshot series that fixed the SOCK_RAW send paths
+> deferred this SOCK_DGRAM race: dev->header_ops is the stable
+> bond_header_ops, so snapshotting header_ops in the caller does not help.
+> 
+> Reject the frame if skb headroom is smaller than the active slave's
+> hard_header_len, before delegating under the existing rcu_read_lock.
+> 
+> Fixes: 950803f72547 ("bonding: fix type confusion in bond_setup_by_slave()")
+
+What's the rationale behind blaming this SHA1?
+
+> Cc: stable@vger.kernel.org
+> Cc: Willem de Bruijn <willemb@google.com>
+> Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
+> ---
+>  drivers/net/bonding/bond_main.c | 16 +++++++++++++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> index 522eab060f9e..9ec663610dfd 100644
+> --- a/drivers/net/bonding/bond_main.c
+> +++ b/drivers/net/bonding/bond_main.c
+> @@ -1524,10 +1524,24 @@ static int bond_header_create(struct sk_buff *skb, struct net_device *bond_dev,
+>  	slave = rcu_dereference(bond->curr_active_slave);
+>  	if (slave) {
+>  		slave_ops = READ_ONCE(slave->dev->header_ops);
+> -		if (slave_ops && slave_ops->create)
+> +		if (slave_ops && slave_ops->create) {
+> +			unsigned int hlen = READ_ONCE(slave->dev->hard_header_len);
+> +
+> +			/* Headroom was reserved from a snapshot of
+> +			 * bond_dev->hard_header_len that may predate this
+> +			 * slave (concurrent bond type change); reject if
+> +			 * insufficient for the slave's create(), which
+> +			 * pushes its own hlen.
+> +			 */
+> +			if (skb_headroom(skb) < hlen) {
+> +				ret = -EINVAL;
+> +				goto unlock;
+> +			}
+>  			ret = slave_ops->create(skb, slave->dev,
+>  						type, daddr, saddr, len);
+> +		}
+
+Ideally we could fix this in dev_hard_header or PF_PACKET itself,
+rather than in each implementation that's in scope.
+
+But there seems no way around holding this rcu reference on the slave
+device while re-checking.
+
+
+
+>  	}
+> +unlock:
+>  	rcu_read_unlock();
+>  	return ret;
+>  }
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
+
 
