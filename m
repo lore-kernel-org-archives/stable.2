@@ -1,117 +1,157 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA6B396D1C
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 18:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB79046D55C
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 18:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787768767; cv=none; b=D/WTbygs5pMbPy7wa6tGxNq4EWVUQCc3BGAdfOi4InGmz2cRJwDoXeIu9Yt8o9t+keP2HZZ3hfgkPnhIuxVg5HZe4q1mJuVeOaMyoGADleC1rAUuPEU382eYswrFAlYZ2ZaQW3WOqfC0hbiJ3JFCNOhdyUncb2+MKTwn6L/W5gU=
+	t=1787769511; cv=none; b=WY45lxdpJl1UodOePhqQM4yV/DNi6MfX9AThIXsGxH4OG2CEAIjuYSKQrwR3KsIKctuCWcHmcxE5IUesfPmYDTMVXx0G1r1p71o0spEl6DiYFIBbx7OEAQ4mP4Cx3Zfqb0wO+LzV6RLFoYHcV2iUmDae5Ltn63HdTI4owcJg55w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787768767; c=relaxed/simple;
-	bh=Nc1rNU2E7DHLdveCumxpbnt9mfl76U9FIsZQStRq2/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fbbax+PC67RVkCGZH0ZOIIzrusCuwx1BNlxTW1xTICdypqYD/vAcWQoQpkEzDxvdD9i573exId9VGS67W0qm+iBVHSEzYTIs9OiG36sfrzcETPwhdx5VEvCPkpU5OUV3NaWboOWvsk2J7ZqHqpbdNPTFh/VGgcZmCpQz1DB4yYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jtjw68om; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1787769511; c=relaxed/simple;
+	bh=rvhP7RaXDz6UJcdy0LpafQ28K6Jx0UmNaixps3g6iSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UQFjWmAUszdTw5O+amIGhW+OfUEIa/QPCcNMbC27HWxsIN+7IuibfgMuFyuZudzH8kDzJrEzOXjMH4l4IopvFWMKHSWJW+uviVMRXWJ1iUShySvO2DWYmuTeRCLJbgYo5N0ok99ePzPWdKPsKD6WAzvcGv4VTodeLhXCDitHL/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jtjw68om"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c252ff776efso38716466b.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:25:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787768754; x=1788373554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2AANzETdmnhX2GAGuIhUsamI5Im+2Kfn2eShC6d5HLA=;
-        b=Jtjw68omAmsPWFkAz+W7nIDSn9rw5RVVfw0Bfmx2Xuyoh8ku//cnaVf2o6uXA3jVyz
-         QIhp83hFE9ZHBNVt6CWFrmZGFegCD7Niu/ArvQRJxjzyKYYGc8bBdJNU+Q9/ocYqf2dP
-         NDI7uencRd7Ht5bHY35MmnX1JAz6Qc/+xj2fDQdOCUakenI+9s/CS/UwN8BxGvC05tRT
-         hxg5Tw1y3X+qQnDzFbeXtWnmblv2nusXiuUownTeqSY88bMFKAj3D0tm17Z78zffjIVJ
-         kW2fjXAjtmo80wPQ8HBSLLCvmvj/+n1n5X2fTfecvUdoWXFPaX35Ks4mrK2F57rSYEXz
-         Ezeg==
+Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c213bf6ad5bso53252466b.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:38:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787768754; x=1788373554;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787769498; x=1788374298;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2AANzETdmnhX2GAGuIhUsamI5Im+2Kfn2eShC6d5HLA=;
-        b=d3XsR7T2VXW85CwNTPsiZoWv1ILE0yP3zDOPXSOIlPBvCUo54eH7s/YsY6pYc5ZnVx
-         V+0kHCRL3voAnJxEDQUtRRPw36U2UroN9uIPAUORn25tXq9xIYeSMm2yZft1ggGFaeqM
-         N5vBqMk0HyuAPNkxW+tU+yc2esTi94+yuZQamZHGipaf67PaS/pv0ENNDelKUdzMcjzI
-         ZGYjTQsxNc54NJY8Og01hA3tJ4ZEBrGIDxCWfPGOrGtvQ0apwUPKAG6mH73HTk0E6stq
-         pImi5h3b0y2o5fw3r67UjlMfgpaP+/pQjx0ZYINK9qR+HSi908sbivA+oBkjTGDxyEJS
-         Yhvg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqn1/bxXmcl02Fn0rs7ulfvjfgbMorxkigd1PmtrG5mg8Pf4Krl9ZD4Yr1Ix+MJzYFJ5P0VWxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPfVmktsgz2g9f9OZWsdjeYmN3J//Nvmrh5/eChSN21pjKnMTh
-	MiP/8oGad32GGePZxsABbe3LCtlrB8HGI0U8MXGeAV6YbWvXyQ3eNUEC
-X-Gm-Gg: AR+sD110UvvHM86GwEukMMN0t6W0bF943DZKd217YA039L2OmO0iX7pVCRXu5y09P6w
-	5ey6JVU3zoEwvKtQTPiFmeT8rGSWPK76XA531xhJRNkQv4a7wDDGMs2Eq1llEdqIbMVJikIjRk6
-	Vwwmk1a3RRr6sg5JmTjQO3zfzKWY1U7tWhNlHacrEgC/L4FvqEsLSxk0VS1OvklZBQ9mmdBMuMZ
-	v9tQM6uaTQ1qSE8QTtpebWjKczaciXTxNzgG2Hpv/AU0ud0U7pUj/Ny++Nain8h0aeFFl0HVsuJ
-	nUuogwHCUlxvcMOf+jORgAbSYFgkWuZPovLEn26lKD2cKAZo2GpTQoxyGDzylukmiR8KP8+6v+W
-	LpUGiZEAtmf3a6VAYtsoQSmLYl3Zi/5Mmg6uWQiN6mjqAGQlVnuOlHu7UTwrBmvtxZCMb7RLJxX
-	/7vDkMTKT3xvzJrkqUvH31hEMDalTSD/v/gwcsAc3FY6AWnoXZ3NCL5XYLnEcrO86souA=
-X-Received: by 2002:a17:906:4784:b0:c1c:49d9:4c34 with SMTP id a640c23a62f3a-c25360ae6f6mr120564366b.11.1787768753983;
-        Wed, 26 Aug 2026 11:25:53 -0700 (PDT)
-Received: from fedora ([2404:3100:1006:efb1:8177:ae9d:629e:eab1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9b43absm612769666b.51.2026.08.26.11.25.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 11:25:53 -0700 (PDT)
-From: Saim Shujah <saimzst@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Saim Shujah <saimzst@gmail.com>
-Subject: [PATCH] drm/msm/dpu: clear pending flush state before physical cleanup
-Date: Wed, 26 Aug 2026 23:24:59 +0500
-Message-ID: <20260826182459.1506522-1-saimzst@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=uQAJ6HWMnaptEaDKWJ2YFOon5oDggMOJCWfPqpLuh7Y=;
+        b=L61mu43XKnhZ44fCSHi60awEEn/V0SUkBhbgD5OcBL3SzQJEOboY7r8fkLfy1/2YKr
+         wHGk5jpkwm3jwfS8s2qtzFuEYFhJIqPP9UkncNdFT7GCGCS3HjLV+v5CmzOvimOEGZT3
+         RtKuo7rsl10Ho4yF5pG4/1GE6E/Ysd4QYHeroOFPxORwNGp+wG60ocL62N/k8Fv9fMge
+         oBHp/hd58F9l1EsOTFlHobmDUhC2hRlLh+iKbZ0+7Dbza8sesKapcJS/CkG70/xV5DVa
+         APZb782YvhvEGqGhjAC6j6efm/WGLIEyuvmUrKTV8ziL+r66bx4qVmxEzqXYxvj0avLL
+         5aUw==
+X-Forwarded-Encrypted: i=1; AHgh+RrT3/Z/nRgoR7B8FgkxdE6HisX3MjP70Z/gDNlBT9mvMqzCGpzps2N6gYFtf/KpDFnUEeqQbUI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDArS4cd9ql+8Bd+N9yvRaxWlPfUdRO1IjBHu3zvKXEZaUKN+g
+	Zve8d8zSSEoPMg7NYMQJhzoetN7lW33C32Tac+nD/FoGW6e+NubKnGFLjXe8ZXa8
+X-Gm-Gg: AR+sD11CxwyvsToirvXytH3BZkdwRIh5Tm9IzGUuSXDoOTarvl1B/keikxbkgKHlzaT
+	mafUgaX1HA0Kb7mNlmdkP0kveRpVfIoVmTG4/6BWdO3zIhIV70+kupDW0tqGm3y2dSHhRnL80GR
+	EMuutYN0m6xeb5KWBmFSX2mq9VnknCrhoTYvbhFM1ODSOkYgXFZFvp7ScwDmi9lYQVZQ65xQcgj
+	31D/aUydRdOF1O1KjO83yesjJJPp9eg6+ZevpB3cCDyfrL1w3eJc+ElP5THhVuPY/OEDphLW/eg
+	8dOa75zv6Xm7xh1uE80+jHsW+nAt1vWt6qcQzmC3b1W9HfA2ZLg0kv77yOvoBigP+ip+mptlaeI
+	Ev7eVbfgmDI5b1B34pgcXz1x2DExPIr9DbLXwmFEsy2CUPighVT46vOyVUDPb9JbT0SCMkrwfdM
+	gIIP6EseJNrFSMw83uGHlIm5usAhmpmPU2D3cTiWttr1CYqXK/s6yurFU+mdp5QCbdRNmXydRWv
+	LGlf35CUtLzcu8=
+X-Received: by 2002:a17:907:d07:b0:c19:5572:d234 with SMTP id a640c23a62f3a-c250bb3791amr1150758066b.1.1787769497364;
+        Wed, 26 Aug 2026 11:38:17 -0700 (PDT)
+Received: from [192.168.88.241] (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5de8ea655sm5491581a12.12.2026.08.26.11.38.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 11:38:16 -0700 (PDT)
+Message-ID: <7b1f615f-d435-4b83-a180-67cf9a4223a0@ovn.org>
+Date: Wed, 26 Aug 2026 20:38:15 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] netlink: specs: fix the conntrack filter type
+To: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>,
+ Ilya Maximets <i.maximets@ovn.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Donald Hunter <donald.hunter@gmail.com>,
+ "Remy D. Farley" <one-d-wide@protonmail.com>,
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+ Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, stable@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260825155832.3685714-1-i.maximets@ovn.org>
+ <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hardware can consume an active-frame CTL flush while the cached software
-pending-flush mask retains the submitted bits. Video-mode disable stops the
-timing engine before physical cleanup, which then adds teardown bits to the
-stale cached mask.
+On 8/26/26 7:20 PM, Asbjørn Sloth Tønnesen wrote:
+> On 8/25/26 3:58 PM, Ilya Maximets wrote:
+>> The CTA_FILTER doesn't contain nested tuple attributes, instead it
+>> contains bit masks that specify which tuple attributes to filter on.
+>> The values for filtering are taken from the top-level CTA_TUPLE_ORIG
+>> and CTA_TUPLE_REPLY.
+> 
+> As identified by Sashiko-NIPA[1], then CTA_TUPLE_ORIG and CTA_TUPLE_REPLY
+> are both absent from the GET DUMP request attribute list.
+> 
+> However this doesn't prevent ynl CLI from sending the attributes:
+> 
+> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
+>    '{"nfgen-family": 2, "filter": {"orig-flags": 1}}'
+> Netlink error: Invalid argument
+> 
+> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
+> '{"nfgen-family": 2, "filter": {"orig-flags": 1}, "tuple-orig": {"tuple-ip": {"ip-v4-src": "192.255.0.255", "ip-v4-dst": 
+> "192.255.255.0"}}}'
+> []
+> 
+> Otherwise, LGTM.
+> 
+> [1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825155832.3685714-1-i.maximets%40ovn.org
 
-The teardown trigger can replay source-pipe bits after timing
-stops, leaving one pending and preventing the first commit after re-enable.
+The reported issue is preexisting and a little orthogonal to the goal of
+this patch.  I.e. missing dump attributes vs wrong type of attributes that
+are specified.
 
-Clear the cached pending-flush bookkeeping before constructing the teardown
-state. clear_pending_flush() updates software bookkeeping only; it does not
-write the hardware CTL_FLUSH register.
+I can add all the missing attributes: tuple-orig, tuple-reply, mark-mask
+and status-mask.  Either as a separate patch, or fold the change into this
+one, but rename it into something like:
+  "netlink: specs: fix conntrack filtering attributes and types"
 
-Fixes: 22cb02bc96ff ("drm/msm/disp/dpu: reset the datapath after timing engine disable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Saim Shujah <saimzst@gmail.com>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 1 +
- 1 file changed, 1 insertion(+)
+WDYT?
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 778e231..f3b1fdc 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2264,6 +2264,7 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
- 
- 	dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
- 
-+	ctl->ops.clear_pending_flush(ctl);
- 	ctl->ops.reset(ctl);
- 
- 	dpu_encoder_helper_reset_mixers(phys_enc);
--- 
-2.55.0
-
+Best regrads, Ilya Maximets.
