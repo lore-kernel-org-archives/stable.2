@@ -1,127 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3E23B6C1D;
-	Wed, 26 Aug 2026 08:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787732011; cv=none; b=fiCEC+VKmBRb1NUwhY4meO5UgSSflW2Wxgx+jI60+zPxfIJE5zi2Nc105c1Fk1tyA5NlPGkUAXh2ud8SCqq6Dj18Mq1DWTPUQJcMOm2XRTMayWT0PaUYLJWdfll4f+zPG3gSMy0pPkc/Lk+rOAsQCFfPHJ+0/xY6GYq240yRJt0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787732011; c=relaxed/simple;
-	bh=zKCnuFKFoAISxYZ0mt727QSfCVLybUWLQ+ZMiMObw8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MateHLbE/W26Dgp6I6rhyfKdO8cDQmfV5giarbY6/McPHTtEo4zPpMkDbSXsEeIxsDW0WpTf9hDIofFv/qSjJ6x0ymnyffJErm/0zOwEfOzJxUhbiBm2JFt4He+Qgwrvc2nI3w/Zd4c3CLgNuAa0xGgZx+GjMBmr56m6lJP+JG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HmZWmqvP; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDB73A7F69
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787732073; cv=pass; b=BdWCzwgt6DqnbICoC3bHqEaZZSDXs2dkYylaoW2XZslxjtB/TZsD5T3DAE5/vuqkVqmWnYeKNaYzJq47whIkDu8P8YxMw+uTgzOAdA1agKiDMtRaO67RPx/thty192BVg6F5iPx6cwCDaKv/kF4kqXvfMXkoE/xZ7/OCWtHI2UU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787732073; c=relaxed/simple;
+	bh=R9amIzEFA8q5uB6W0hUHTDML7nWF8S2I9fUZICwpgSY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NIgZKbDFhZWXYV2RGizmxpdMHnZlQuGLK8272P4X66Oj5DReErl/jFT4Z2Pp9XpcIl3SLCiL/H7y3qmTjJKSVXSXuw1i59L97/x0fGVBAeanZRkRvc46jjpmSplh3Ylh12ncMSwBxT3EHoo1tJUzh6jYExne3tGRWC6roL0QWrY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CAU8Xm7l; arc=pass smtp.client-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HmZWmqvP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787732010; x=1819268010;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zKCnuFKFoAISxYZ0mt727QSfCVLybUWLQ+ZMiMObw8g=;
-  b=HmZWmqvPR4FQS94lgjx+PjpIjNmQfmeqYTgZDKZynJ/B1za2ALIXjJiC
-   TY6RNxNQqQjTuTkbojHQ2z9yZ7CucQtQ/X/DWtuWf2wfnQornnGnNStSD
-   BJYIdiH7jdgmprt85vB+/Kr5rfW/PZX5AIBwPrkSp/W1ZVvGrVxflWUXg
-   Ywb/lQFRjb+OzB4t7QAUasyWfmD0sPihLEMuXmyfFsMoWpX1dmgNWD1fc
-   YzYk+blgdaQcCMlsooNPyG+44yFbpf0P6SmUd8F8DDUKrpcW8JWHYNSko
-   ZnsMRzPzrGox9x2KURCACQUdDvI9pztlO9YauPmJSsG4wwFhChCs9QjpF
-   A==;
-X-CSE-ConnectionGUID: zgE9p5OrRymZBPP4oUb6cQ==
-X-CSE-MsgGUID: r9mMjGIIQFu8gBzDGzMsSg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="90719731"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="90719731"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 01:13:29 -0700
-X-CSE-ConnectionGUID: v4AFlEZuQ2ebS9idgfxxhQ==
-X-CSE-MsgGUID: Uf+abpV6SUi1yAWSDLjR4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="261380416"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 01:13:26 -0700
-Date: Wed, 26 Aug 2026 11:13:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ruslan Valiyev <linuxoid@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Lukas Wunner <lukas@wunner.de>, Gerhard Engleder <eg@keba.com>,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+9f57c1b2792029198fcf@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] serial: core: fix NULL pointer dereference in
- serial_core_unregister_port()
-Message-ID: <ao6gI3bH_dHpfIof@ashevche-desk.local>
-References: <20260826073237.1377668-1-linuxoid@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CAU8Xm7l"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66c7127a73dso884723d50.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:14:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787732071; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ni1AHbzgsRj21i+J1UR4LEx1ileyJEXTBqdU1EgaKJCd+RXl4d04LbuMSSDOp8+klG
+         ehGP8hfIujASd2/c+Ry5pyE6pkHQzZBhPRovV/8+Um/F6Z5c8zEjM9e604G+/IZCoiQK
+         lg1K2BPgxHsI+OTubYOlENMKRLgmP7CuXnT96XDeAARWHivll9jIVGwUWhNqeNkgh2NE
+         a0iPuhrv298iUeRkECbjdbMB70okkE/5KznYxw9fY+Q2KZUpaL9i5nH6tb72drHD9Y0s
+         yOYskK8Dbua9+gOu1alddKFIa1lbw7hm8Lv8/Ktp3V6a8wZGrU2S64G7r6brmqqGk4ST
+         yxHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=R9amIzEFA8q5uB6W0hUHTDML7nWF8S2I9fUZICwpgSY=;
+        fh=0CEfckM5JTwSa9nm+SBQ7pBHLUO8JOMR+Wpx398bJjo=;
+        b=AYWzoSOFuDJIs5Xm/eLfrLBZBdYUzC3Ri97jcXuKT/QOnLqYalZgY8XOx1gyii63PJ
+         h+XLcN7EhzNJE/wM5RS48NNtNG91CDIEF1d3rgUSNf5lNcnGIaHPkn4Y360aHe2D1JmG
+         fR4c0jsZNNrGNEPcc/B8xVbPQZl75Onwci5LpIOhm6KpEc/E2gKkd7vU3kyc3I2pOxTp
+         BRlpZOxVB7tZuok/kmvOTOOPJoFZNAsi5hRgTo7B/IPPtaVmElY3xR5xFVWEMk5Fj1n6
+         ANEcOMZWvV2d4W1heHciMTR1h10e5eKyEh/D1ffZILlIa/2umNojHw1M7NMLZ8gVMvm0
+         o9NA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787732071; x=1788336871; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R9amIzEFA8q5uB6W0hUHTDML7nWF8S2I9fUZICwpgSY=;
+        b=CAU8Xm7lzdq1b1qO40sGEQasOMuOPt91pJDd62FxN3OIyDJXcmmUbpIqvRrC4QUuGn
+         qpHtR1B2GKXZSckfzUt6vVW62uHCDOiWhJYzqkkZfmE+dyeGYdDSRNqa4LSzULwKgDIW
+         pOMwN0VGK4ZNzUemiU9wI+5Y/6N9niw6Lp/r08lgrm6jiY4/2YdVAmBfkA1bcFUMXPna
+         kiHzsiJjblwHgLoxzVWQSk6oVBrguHCoE2Sv/tnoR3LyaLyyatub1zPUGFcjvpmT1N/B
+         11ihuug8+FLdBTQOpmv2oUvMTU/HXCohtBzpFEINpxiJOJ3Ym6DdftmfGJqXMY78JOyg
+         XdEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787732071; x=1788336871;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R9amIzEFA8q5uB6W0hUHTDML7nWF8S2I9fUZICwpgSY=;
+        b=RVom4TGoO7LbC9E9jUsrNHyvUFFMX/habXOV0pskWgpBZxl5Z9fe8T1po7BrUHRYSV
+         gjQ/9uCoRLyDHZmi095ZElOhBbVxIp1vmexyVPsGU1U1G2ZZCPBCHQU8OqkPioSKG0IA
+         pMyu1V1TDAJnqeipN4uuSTVXfvvTYlvt+toEWP+bi+D99jcWUGXLMdp+d01Gb8c2ysq6
+         99SHU8BKFB+yZpod8XrH/7ZV6xiPF8hjju34qKh2VQMWHswJLya1G89RO/Ceo+cfq7aa
+         lotIc5KEH6L13e6cuD3qEXIHRkN+kGGmou4JzvxA8Jl7IdqJx8gkh7IOKHBQLKX/Mit5
+         rEHw==
+X-Forwarded-Encrypted: i=1; AHgh+RoM3XWEz2YxD3TmLdHuzhCru9cVAUQ8cm9Qj0OqzifF845N4qyLZRYmVB5f8VMRuCBwNBks62I=@vger.kernel.org
+X-Gm-Message-State: AFuF++linvo1VetHw2JxVYeV/NttrfO0K8jAE7VbQzsm2NkODlVLiHx5
+	NVglVesuwqDhZxsbcPYHptJOuGgOafgQL7yT5jh7NsRRaKAVNiE/9L/ZOBgAOUE4hLazVeqyI9t
+	WcXiGSVZwz3ouAnnJTl1G5k1ZyfB0hnk=
+X-Gm-Gg: AR+sD11SIRKl/6xDarUqbzgVYvZr8eEtJU6417E5ovW0vTXGMiCEJlrz5MnF/IpcYFp
+	eTUw4gtG1YYrQduDcgZMfAmkhWOGs5NcR2IwDLD+ugZYwDw4QAu4bsKdt0iAqsapRq1zY7uvTYN
+	tDjqjrRGVu1Y7xDUOdz4ROijjVDpxI6RROpYdbOEV742YHh1EFKe9PPC+8SZf4S7BAZhJmBU4Z3
+	KJ/OgMo/7IOYRJgTKbZ2YZ/QVnncHjU4yYXHHMHfv5yN046bJC0ekPJkgBzEvQxZeckRIVgdXCF
+	UxtKMPVw/oFj5L4oHDbJ7x++S8fvJcx2EkJhRZHCJaTCW9Y=
+X-Received: by 2002:a05:690e:e8a:b0:66c:d6f6:eaef with SMTP id
+ 956f58d0204a3-66d25694eeamr1750611d50.18.1787732071154; Wed, 26 Aug 2026
+ 01:14:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826073237.1377668-1-linuxoid@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260812094425.3515179-1-lgs201920130244@gmail.com> <327de6a8-6c67-4328-83a2-bfea332aba7c@kernel.org>
+In-Reply-To: <327de6a8-6c67-4328-83a2-bfea332aba7c@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 26 Aug 2026 16:14:19 +0800
+X-Gm-Features: AcwNN1WbmUut-7AuuFCqwoZdX5jzcjMrvGCq4xDXrennGXYAL0ALsEP7Epy-Qzg
+Message-ID: <CANUHTR9+a8OYmsezZFWMvm+a7DQ980sjiVOjynyjv3ChyPSTLg@mail.gmail.com>
+Subject: Re: [PATCH] i2c: qcom-cci: fix autosuspend cleanup
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
+	Wolfram Sang <wsa@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-i2c@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 26, 2026 at 09:32:36AM +0200, Ruslan Valiyev wrote:
-> serial_core_unregister_port() dereferences port->port_dev before it has
-> been checked:
-> 
-> 	struct serial_port_device *port_dev = port->port_dev;
-> 	struct serial_ctrl_device *ctrl_dev = serial_core_get_ctrl_dev(port_dev);
-> 
-> serial_core_get_ctrl_dev() takes &port_dev->dev and reads dev->parent
-> straight away, so a NULL port_dev faults at offset 0x40.
-> 
-> port_dev is NULL whenever no port device is installed:
-> serial_core_remove_one_port() clears it on teardown, and it is never
-> set if registration failed before serial_core_port_device_add().
-> 
-> serial8250_unregister_port() reaches that state. It calls
-> uart_remove_one_port(), which clears port_dev, and then re-adds the
-> port with uart_add_one_port() without checking the return value. When
-> that re-add fails, port_dev stays NULL while port.dev still points at
-> the ISA platform device, so unbinding that device once more calls
-> serial8250_unregister_port() again and oopses:
-> 
->   Oops: general protection fault, probably for non-canonical address
->   KASAN: null-ptr-deref in range [0x0000000000000040-0x0000000000000047]
->   RIP: 0010:serial_core_unregister_port+0xef/0x990
->   Call Trace:
->    serial8250_unregister_port+0x1e4/0x8a0
->    serial8250_remove+0x8c/0xb0
->    platform_remove+0x5f/0x80
->    device_release_driver_internal+0x46b/0x640
->    unbind_store+0xf8/0x110
+Hi Krzysztof,
 
->    sysfs_kf_write+0xf2/0x150
->    vfs_write+0x6ac/0x1050
+On Thu, 20 Aug 2026 at 22:01, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 12/08/2026 11:44, Guangshuo Li wrote:
+> > cci_probe() calls pm_runtime_use_autosuspend(), but the remove path
+> > does not call the matching pm_runtime_dont_use_autosuspend() before
+> > disabling runtime PM.
+> >
+> > If the autosuspend delay is set to a negative value while autosuspend
+> > is enabled, the runtime PM core increments usage_count to prevent
+> > runtime suspend. Without undoing the autosuspend setting during
+> > teardown, this reference is not dropped and usage_count remains
+> > unbalanced.
+> >
+> > Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
+> > state. Its managed cleanup disables autosuspend and runtime PM and
+> > restores the suspended state on probe failure and driver removal.
+> > Remove the now redundant manual runtime PM cleanup.
+> >
+> > This issue was found by manual code inspection.
+> >
+> > Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+>
+> You sent vast amount of patches, all separate, making it very difficult
+> to track and respond in efficient way. Do not do that.
+>
+> Group your work per subsystem.
+>
+> You were asked to clarify and respond to incorrect fixes statement. I do
+> not see how you clarified and responded at all.
+>
+> Best regards,
+> Krzysztof
 
-At least these two lines are noise in the backtrace in the commit message.
-Submitting Patches recommends to leave only significantly important lines.
+Sorry about that. I should have replied to the earlier review comments
+explicitly, and I also should not have sent so many separate patches.
 
-> Return early when there is no port device to remove, and read
-> port->port_dev under port_mutex, since every other update of that
-> field is serialised by it.
-> 
-> Also clear port->port_dev on the serial_core_register_port() error
-> path. serial_base_port_device_remove() frees the port device but left
-> the pointer behind, so unregistering after a failed registration read
-> freed memory instead. That is the use-after-free variant of the same
-> crash, and matches the title syzbot first reported this under.
+I will group future patches by subsystem and make sure to respond
+clearly to review feedback before resending.
 
-Overall, try to re-read and simplify the text. This looks like an AI puke.
+Thanks for pointing this out.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Guangshuo
