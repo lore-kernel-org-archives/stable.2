@@ -1,165 +1,215 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+Received: from mta0.migadu.com (out-47.mta0.migadu.com [91.218.175.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803733F6C59
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750801; cv=pass; b=JVTv2jjPEAcNkvNA+3owlIP+2UCXIK1aTGKhdKSSB4YyYkBrnt/bkpLC0Ky3KY1y0LpTdHrxjg4SkFuxnXbVmuAILCtA7w5V25JM9oILNn8JYi1Oro2Q125YVVQKMmb/ugJtayhRJFUn9clYj6gHbWfUC2TXZUOeBWpPMSq6oyY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750801; c=relaxed/simple;
-	bh=PPyU/hz/a4Na+5pAT4hhG8x3kDuFcn+kPX+Se5g2BoI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qObvZliTcfrZ192Gea11ojML1pwNd6DXoBvoa5PyokvW+eTPOb3P7xBTCFXVo0Rmevn9K859gtRdZ//v3mEoEv5Y7r8PGKmcMCIt+hWYK/B7Uw466TccyExOhRW8b92RnshxXHp9VrsnwPe1sTvBUVjyjLizFbgY07RdWrTVsHs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=f5VB0O21; arc=pass smtp.client-ip=209.85.210.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176583FA5D4
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787751084; cv=none; b=B2tGQsR2K5RYzPnA5TttFJpApzZ/rww3NcE+/gtDu106z5qMbueiCttjeohimcVxUHtYU7c28P3fpOekOYzLaJhkGoL+2zTuO7P80gLdMPWLsKhU8CTGy5vEAjyTJEIOi/SgEmhrTWisM3UvYsRF9fqq0Ol+1GB6lYe9Ux5UMDU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787751084; c=relaxed/simple;
+	bh=lR4mZ8qczUfYMvA6XHhKi70YkLbB/IMG+ilRAttzYlY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J54ZqYnVHCgIrZA9rtFu+B74SOX4/jJzA9+XsnTNeBPi7f4B018RjqG+a5+3BiuyCh2d+rq6xgun5opwIme0EzyLrnYmvdYStal7WNjtXExHDvg2E6RxAU+VVVdNCmlkm7hdHuHs/osce4B6gGlRJbCLBlI6DThccpRoFOCditI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RMJ/OfnN; arc=none smtp.client-ip=91.218.175.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="f5VB0O21"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7ec3b429a3aso710132a34.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:26:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787750797; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bt8zMZF6rIVkDP/BabtZZYXOjkMZAGkUZ0UdlqNWHUEmCD1r/IYbMEeeVmtCs0xmaL
-         l4vmfcfdt1X5a4mlI/rLI4nhaWLo/yo19rBut+o5Z32Sr49tG8lk5d1unBer8JrAGiTp
-         AyK8XbaBQeFne2kWuuxwPU0VvrBXt1VhAmpdkkn8vAaRe3yr6z5J6ELPe7VVbvtz6VO/
-         1uwEw572SKrwtNPpepdK/ui1VTEvAjEED/zJw+Fwg+vPAbGV+5WGJYVyiCxBVY8WxbLc
-         jHZA1MYBfv138LONP5rkKKnIcqOyIXvpr23hHees+pVCfsMO4FcGyEg82sYfjkV0uyhn
-         r6LA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dXJfDFxsjd6n3nxiKwY8tVm+DTv8K0aaUVAVp01ZKj4=;
-        fh=5yMHCS4YRTxZiRC0N/G51aMfHTQWCNvMBhVmm5J3gsA=;
-        b=KLBaiCuoA7il8ERNuAbjkCrMreFeM+OJo8Z+X4pbAErTqyQYTA9MF7pfdYvCZ+THh5
-         ++gwrQMhLmdXJ8QIl9Xk7pQfTOzEXuE+7dzHTRrnsUz6ORYyRjZGjGkZvJDXFYALfsx1
-         mFe21FHpwUJf9zQ/zqZ1lpzvaV6kOHCkywEdtiBxeKyU5wObISi/wZglF5rYzH1vR6HD
-         owzhPlaoRgI9kRduwKZj7u0xIJqPfhoQdxA+3IjSUpDzhwCCHDSpgOt3caeVvf0pKAAP
-         9FEbLxYsD0SUCQfIgQt0lFjONnJhpcPjArCANjPRO9tyJ2B2Rd2JxkBuzV1Lk6RcmHSZ
-         cu0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787750797; x=1788355597; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dXJfDFxsjd6n3nxiKwY8tVm+DTv8K0aaUVAVp01ZKj4=;
-        b=f5VB0O21Nql8ySw+1SsT4k6WYugJHStg9aTUot/hSdc/dB15NxmjbX0+REenpjOe6I
-         mA0woCQcfZQ1HJvH7WBkzd/0BPue3FPkK/6DvenVT9JjorUKsqfkP60UPXLOvZcQDqIs
-         98cKeaa1MjjoIwimixGvaIrv6tpf4Sdxan6vXXSju8llSamOBz3gqSqHDD4m3hBTpq+X
-         awMUMrtfFHqb8AKV9OlDBkZ1Txk7kzbvCayh+5w24FhY57DTLz7ec1h0docw6MDRlx3U
-         PyA/CSieDTwB6wAQbYMXuzIFFcFahtvy+ZtNDMk1K8yt4MYhntskq3JGQ+fkEIoCDQQB
-         Q7fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750797; x=1788355597;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dXJfDFxsjd6n3nxiKwY8tVm+DTv8K0aaUVAVp01ZKj4=;
-        b=FAQPIbjDqI+/+jMy9WRyYI1WU3itTZfpbcfQ9vbUL/F01Cu29tZnojTcy5OAPKXrr5
-         yV7QN6qLrkEix4DBmYh73Fn3oZgIDDpP5vagTzEoOJ8UPLGs1Qgj0bN/+zkrYtnggHpW
-         uxKCLSqF8lC4Hobhs0s6AXtB73YYz/BaXMzsAvNvbGeebzfmM1/swI8aMEyMm0Ry6cO7
-         4DsLtdmCS/HIK/ipoymqFphrUntp7+oqkAwmytOl8ezJmBCVobECmFGONpD4NatJkn0c
-         i+xZvs99bbRcBv9zyVuJ1CD3q4f5X5/QMtBTA+WHM31YFWlisRW51Y2fUeYclB00jutf
-         c+Mw==
-X-Forwarded-Encrypted: i=1; AHgh+Roav3rjNYmbtIoWs//EN0dvnawIqogfCKWyHkpHS47zM8yuGbZx2WefcFiaxiGdQYjcmNJXORo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkM8hxFk94VyYl+SlWzDAuJ7xxKMgyHfWmJ2e9PLS4Dw2Fw5lH
-	A3v8cq7vlVCs7ENhzNGw6+amvNzETerDpyc41u4q7B8bypi51O0ww1CuPkMZc4DagY9c3eXbHs6
-	H1eTV77Wdb4Sdhg3CZI3iSo9lwWfNeP92TUUOBeGz
-X-Gm-Gg: AR+sD13lby97O2kHAD3jPpyEtf/KeDhfk0CsR4bPLfkQfupEluLWw51ufp1awJmyDxQ
-	0CNMk/WAHOy34Ndm99p0vJ7nAes92MrRQlX2MOdQ9sssr5pnIYqwDP3gr35LHvPkOpC7YPNX2cX
-	Sz9DDZki4oC1ufNmTfxob6Xkeyy7QvlvSkzdjwjCJyKgQc/LS3xRxghM2863DHE/15ss6uICuh+
-	NkkvcAEeZAsuGgObajApbw6s9ir6dCoRwLW5L067TRQROgWRmTHD8fIGZv9h94M3+Tvs8xcis0m
-	z6dNoqdHHk3aHaI8wVn/HBVI8n2RDiDZ/fWO7VL33gnyhdnrPQBuPOjjwf4Gvmo/AFCY0db/CIL
-	7rc+S9OpBMfqpN4rCSh7sD70CctMGXlyIe0W7rAqtopQm0ngxTqIdl8vzmt3q5RUBqaLr/6yjgC
-	gaaBfzVYmbONC6MA==
-X-Received: by 2002:a05:6820:1a08:b0:6b1:3427:698b with SMTP id
- 006d021491bc7-6b1a0496fa5mr6594994eaf.18.1787750795474; Wed, 26 Aug 2026
- 06:26:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RMJ/OfnN"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lR4mZ8qczUfYMvA6XHhKi70YkLbB/IMG+ilRAttzYlY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787751079; v=1; x=1788355879;
+ b=RMJ/OfnNf5glc2HTrO7xk+ubkDnht6HwAdoF4dB6PY+8/c0BHTw9+Egm7iNN5NZDPrl9oLX3
+ LniZOv2r4dx62AFPUbxxUZQSTwNuv1gwS5sO/Xeisx0xJMvH4t+FWCKLz6qE354ISosRF1YQTUr
+ cca2naq+lIqVQwqT2BYVOPFI=
+X-Envelope-To: stable@vger.kernel.org
+Received: from mi-ThinkCentre-M760t.mioffice.cn (14.29.108.92)
+	by smtp.migadu.com with ESMTPS id 57b289fe451a8707;
+	Wed, 26 Aug 2026 13:31:19 +0000
+X-Mizu-Trace-ID: 57b289fe451a8707
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Yu Zhao <yuzhao@google.com>,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [RFC PATCH] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
+Date: Wed, 26 Aug 2026 21:30:54 +0800
+Message-Id: <20260826133054.88529-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com> <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
- <2026082540-tarantula-gigantic-b786@gregkh> <CANp29Y5YH=O35brw55HFo_hVmFDz5Y4Yw7buBc-rOjETU2DNjg@mail.gmail.com>
- <2026082507-ecosystem-giant-0b79@gregkh>
-In-Reply-To: <2026082507-ecosystem-giant-0b79@gregkh>
-From: Aleksandr Nogikh <nogikh@google.com>
-Date: Wed, 26 Aug 2026 15:26:23 +0200
-X-Gm-Features: AcwNN1Ukp9gqLT_Z82SDZ7L72P37HiiIWWLnUCjIe39LlRn1vZJuzZxoH2pucek
-Message-ID: <CANp29Y5hnOWaqGw8BbPu1TCr00TbvNRciYvs_VCd6Jtk=8kSPg@mail.gmail.com>
-Subject: Re: [syzbot] [usb?] general protection fault in wcove_typec_probe
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>, 
-	heikki.krogerus@linux.intel.com, jeffinphilip14@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	mika.westerberg@linux.intel.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, syzkaller <syzkaller@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 11:07=E2=80=AFAM Greg KH <gregkh@linuxfoundation.or=
-g> wrote:
->
-> On Tue, Aug 25, 2026 at 11:04:54AM +0200, Aleksandr Nogikh wrote:
-> > Hi Greg,
-> >
-> > On Tue, Aug 25, 2026 at 7:12=E2=80=AFAM Greg KH <gregkh@linuxfoundation=
-.org> wrote:
-> > >
-< .. >
-> > >
-> > > Please do not think that this is a valid path for syzbot to be
-> > > fuzzing...
-> > >
-> >
-> > Can you please elaborate on this?
-> > Do you mean driver binding sysfs interface in general or something
-> > more specific?
->
-> That is the specific thing, don't have syzbot do random bind/unbind
-> calls, having it attempt to bind any random driver to any random
-> hardware device.  That's not how bind/unbind is supposed to work at all,
-> it's for developers who "know what they are doing" and you get to keep
-> the broken system if you mess it up.
->
-> Same for unbind.
->
-> This is a root-only api for that reason.
+From: Ridong Chen <chenridong@xiaomi.com>
 
-Thanks for clarifying!
+memory.min/low is silently bypassed for MGLRU during global proactive
+reclaim (writing to the root memory.reclaim) and global direct reclaim.
+It can be reproduced as follows:
 
-Some context from the syzkaller side:
-Restricting the fuzzer is always tricky, especially when the
-problematic operation is just opening a file and writing to it.
+  # echo 7 > /sys/kernel/mm/lru_gen/enabled
+  # cd /sys/fs/cgroup
+  # mkdir -p a/b
+  # echo 100M > a/memory.min
+  # echo +memory > a/cgroup.subtree_control
+  # echo 100M > a/b/memory.min
+  # echo $$ > a/b/cgroup.procs
+  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+  # cat a/b/memory.current
+  222650368
+  # echo 500M > memory.reclaim
+  -bash: echo: write error: Resource temporarily unavailable
+  # cat a/b/memory.current
+  6070272
 
-We normally constrain openat to:
-1) An allowlist of safe absolute paths (so it won't open /dev/mem,
-etc.), blocking any other path starting with '/'.
-2) Relative paths under CWD (so we can still fuzz normal file operations).
+memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+protection.  The traditional LRU path is not affected because
+shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+visits during a top-down tree walk.
 
-Here the problem is that one can mount sysfs under CWD, which leaves
-syzkaller full access to everything inside it.
+Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+moved the protection computation into lru_gen_age_node(), which only
+runs for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
+lru_gen_shrink_node() -> shrink_many() without any protection
+computation, so emin/elow remain stale or zero.
 
-Tightening the access to /bind, /unbind, /driver_override sounds
-reasonable, but trying to catch all workarounds purely in userspace
-(e.g., creating symlinks to these paths before opening them) will
-easily turn into a whack-a-mole.
+Introduce mem_cgroup_protection_path() which computes emin/elow along
+the root-to-target path only by iterating through the cgroup ancestors
+array top-down.  This avoids the full tree traversal that would be
+needed with mem_cgroup_calculate_protection(), limiting the cost to
+O(depth) per memcg - typically 3-5 levels.
 
-Would you be open to adding some kernel config option or a boot
-parameter to disable manual sysfs driver bind/unbind and
-driver_override? We had a similar problem with writing to a block
-device while a filesystem was being mounted, which was perfectly
-solved by CONFIG_BLK_DEV_WRITE_MOUNTED.
+Call it from shrink_one() for the non-kswapd path so that each memcg
+about to be shrunk has correct protection values.
 
-Best regards,
-Aleksandr
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ include/linux/memcontrol.h |  7 +++++++
+ mm/memcontrol.c            | 42 ++++++++++++++++++++++++++++++++++++++
+ mm/vmscan.c                |  8 +++++++-
+ 3 files changed, 56 insertions(+), 1 deletion(-)
 
->
-> thanks,
->
-> greg k-h
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 7d1c0ce189a8..26be8277d64b 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -605,6 +605,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
+ 
+ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 				     struct mem_cgroup *memcg);
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg);
+ 
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+@@ -1133,6 +1135,11 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ {
+ }
+ 
++static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
++					      struct mem_cgroup *memcg)
++{
++}
++
+ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+ 					  struct mem_cgroup *memcg)
+ {
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617..c739db33b917 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5198,6 +5198,48 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+ }
+ 
++/**
++ * mem_cgroup_protection_path - compute protection along root->memcg path
++ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
++ * @memcg: the target memory cgroup
++ *
++ * Walk the ancestor path from @root down to @memcg and compute the effective
++ * protection at each level.  This is safe for isolated queries because it
++ * ensures parents are computed before children.
++ */
++void mem_cgroup_protection_path(struct mem_cgroup *root,
++				struct mem_cgroup *memcg)
++{
++	bool recursive_protection =
++		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
++	struct cgroup *cg;
++	int root_level, i;
++
++	if (mem_cgroup_disabled())
++		return;
++
++	if (!root)
++		root = root_mem_cgroup;
++
++	if (memcg == root)
++		return;
++
++	root_level = root->css.cgroup->level;
++	cg = memcg->css.cgroup;
++
++	rcu_read_lock();
++	for (i = root_level + 1; i <= cg->level; i++) {
++		struct mem_cgroup *cur;
++
++		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
++						    &memory_cgrp_subsys));
++		if (cur)
++			page_counter_calculate_protection(&root->memory,
++					&cur->memory, recursive_protection);
++	}
++	rcu_read_unlock();
++}
++
+ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
+ 			gfp_t gfp)
+ {
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6dff207ad8c6..e572d2742c8c 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5102,7 +5102,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
+ 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 
+-	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
++	/*
++	 * For kswapd, lru_gen_age_node() has already called
++	 * mem_cgroup_calculate_protection()
++	 */
++	if (!current_is_kswapd())
++		mem_cgroup_protection_path(NULL, memcg);
++
+ 	if (mem_cgroup_below_min(NULL, memcg))
+ 		return MEMCG_LRU_YOUNG;
+ 
+-- 
+2.34.1
+
