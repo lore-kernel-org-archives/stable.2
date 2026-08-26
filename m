@@ -1,178 +1,121 @@
-Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com [209.85.167.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1933F5B3
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 07:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B20036B054;
+	Wed, 26 Aug 2026 07:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787730016; cv=none; b=WnzNBHD44xFpyU5GSNrAaM1X/Bv5kj1UdbV/JXlJiybLsdkpRbDlSQJzYbAfixckr/aV4hlfNglOResVXiWJuefQyRszDD3YnOMvirWwKdQsdGGdVSuXz24ftkJAvSRBk1GDVHWwkvZo2yuV9BeKX/72P00ulArjHb0rmmrYE9Q=
+	t=1787730029; cv=none; b=ak0IagU9sJTeSScSMeK/3kiX2Z2/DdTHxBrxgjcGAVbwlSJn3xy29FMcY8I/sOWmA175Buaan4r2MQUMeP1710dKXJrUahHiYSjVBQRguKP74zzucluMlWzacla4Ml95P9C1DffYTsN9iekQCADOiAfyB1cmtoKJHh0ek9GKhxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787730016; c=relaxed/simple;
-	bh=88cwRlOGDn0vpOQmUYNZUGYEdRzAeKkeMTlTyzUNsZU=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=X4A85+/RWSAlIZLP218ykHH7zMXo/Y0UVlcDDR8TrZpWkll9nTRApvK6eGCwdCH2KiqERIStWdpw+083se3H2YN7Gsofco+7p2JHyyxWyyY96C1b3Mpx63e5zHR9JhbJqp8zrj4cYrBUZQRdg8nc+EZA7db9b5UhToIme0UmeNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lR3GfUMH; arc=none smtp.client-ip=209.85.167.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787730029; c=relaxed/simple;
+	bh=0Y6lNv8yRFyMDVkcYhzbm7/wej0rCZSI/G3m6TdkiSA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P7C7ejYCGebLEd+39CD5+eFbNKmU5WlE0K4aCy/os8PQbw0pLoIXaSyN1hQ37oCTeLXLlBnPu3QdK6R82kdynSHd+LjFEbejWQaqirtOwUdgyjNgXTe2/9YzD8KQWiv1qeo7Z1iPL9sKQDbwXTqLQPeYeewWF6MvWmIauK6ujTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=z20Bdz3F; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SYDLBsc1; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lR3GfUMH"
-Received: by mail-lf1-f65.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so799361e87.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:40:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787730012; x=1788334812; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ltu0ibAXLu3xOE6Vns9ZIohMj7npj3m+gIbL5j+64fw=;
-        b=lR3GfUMHUmaUlA024lzXfq9TKi2qmcxBQVnxshr6ucju3nbRwo7EGg689Fkxrw1zGJ
-         cCMyOQvjOWRVhOAhb2IlPMVm9VkeGeOd6BBbGZ0IY5gaXq4IVBZYAN4VO23BEexNee9p
-         9u8cfW9BPySrlMXpxcyZbjUQfjDyEpc7a9z/gpZdsD8mQgepoinH8yq3KCzxuDmnnbZT
-         /qnvPY+3iMwvWGlR2U6KQzcBRTdESJ3lUHwt/BS6PIpkD4zvZBxqu8ja5TQguaKkGMPl
-         KfERXEoORel/q57PJ9Vy+sbLqqpuB3h3BllYLsejEbLOfghqUUIx1fmdh61BR/uGeoiY
-         QPow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787730012; x=1788334812;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ltu0ibAXLu3xOE6Vns9ZIohMj7npj3m+gIbL5j+64fw=;
-        b=BMn2QWduX2EEBsmoyKg7eNWkX6+n3gspMwA3uncG21D4mf4EuzH6o/al6TmhZsJhZX
-         w8DOAtWNSMCTXkSoTy3yqBNlnUB75uyNaWP/DLyQmlLIpbxwEJ3uQS0YtBGrLJKJgkPo
-         EAUlja1Vvyk3s0LJFQWQKKUvo8NeOMQuOuoWdVdgZbjBpDjEerzBsMev2e8SjtUg1ftz
-         q+PJntfg+M2DD+phq67w+jWxSHkB7HgZ5tlvDb3GJkcgB7PgUA8c5FJ55QHuUJj4dupO
-         X2kwwxRypAnuMSNW+ob7Vo729PfrGESnpUkMNRK+hF6qE4is5d7qfN3q31G5+/MMjp4y
-         06qg==
-X-Gm-Message-State: AFuF++mwt1fZsFdmyaOLRLgwAF6ivMPGojmTrFLLz3VmRlFn/AOydvCp
-	esvshGVS5si28tY1eCiYvjz8HTJwt7BZhYOGKf4jlF8RkBvc6HbnPUYNx5FFWMhQ
-X-Gm-Gg: AR+sD12ag+HAJGhdiz2vkWmuPzQXHnFMES8nyMjrX6Hy7lD3JqznPydfwpB4/2YJSne
-	r0knhBYNRL3zZhjuk2rOM3Ynn7tUPv2F4gotFCqCowTtm+94kqoFhZaN76veCHO3RZG1LMCmLdN
-	/KVT2wM9vgD+N2IaSAOgSciBybhbCYll6KXoj/PhKDTUujoDbxOZffTg5V8310yY7GT2zj1Sp8U
-	CmSZeD9AdAOq46UnDYNGqiG7/1TWQZL3p3rV7w6ZFKth3pLhrWy0j0YKI3dGUiw33p2TbbQesOo
-	/igyAvkXeXVX8pb5dm6qivyo65TUzYk+/VyIYS67EW5bB4mi/eeNQr8AbEsB9QxcG7O0ttRZt2A
-	z6VBN4EbONksxQuZBgc6hKu0H/wJ0z0jf1YjVbPDq4QOC6JwlIKEsaAOTc3BtnHZJjDPt8c+53n
-	1N2+EHfAVY20/9KU+GLZe+yqY6Ad+2So12O1JmPv+F+WBr+kNwciDJhG859pyonBEUVLoxR0MT+
-	Is1qg==
-X-Received: by 2002:a05:6512:3b8a:b0:5b1:4c14:9b3d with SMTP id 2adb3069b0e04-5b49c79e872mr2903961e87.11.1787730012058;
-        Wed, 26 Aug 2026 00:40:12 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4a41c240asm401260e87.83.2026.08.26.00.40.11
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 00:40:11 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org
-Subject: [PATCH 5.10] ipv6: mcast: Fix use-after-free when processing MLD queries
-Date: Wed, 26 Aug 2026 10:40:07 +0300
-Message-ID: <20260826074010.9256-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="z20Bdz3F";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SYDLBsc1"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id 26050EC0268;
+	Wed, 26 Aug 2026 03:40:26 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-05.internal (MEProxy); Wed, 26 Aug 2026 03:40:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787730026;
+	 x=1787816426; bh=gYkF66y1VH6D7L2hqhmPSsK7H+m6yzKGWs8wQakL/nk=; b=
+	z20Bdz3FB1rkJ1h/h4pjQbTf2Jtt3eJAARL9F7I3wFj7HmcmRKGwJi7mGXQ1Tibm
+	Zqi7d6nvm2haXkCY6NWfMIWvz+nD37LcZfo64Mute4ppAVYSSURc4w9ooje1N3QZ
+	8WgNquxSTtTpKQgEqUCTNGXZ9qe26himY73gXVox/7G1SdB790E6ZyXEeW0tUyVv
+	cgiC351SPr9EGlAsmaEvaTEw+PAP5DlWfO7zfXdPr3rFTLoer5uViEGNKn5CVzYv
+	iFUL+Li5YsFN4GgMHUI6Fp1v50w0mBddg6hVRfdjCKWgt0sB0681PlvcG8noLXKq
+	EOCoxP36uKm2dGdKArVQdg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787730026; x=
+	1787816426; bh=gYkF66y1VH6D7L2hqhmPSsK7H+m6yzKGWs8wQakL/nk=; b=S
+	YDLBsc1Tqt0zmkOY+DaRXGJ4euvOFu2pXXzhkhb9wKsYlPidaM1mmUFyf6IE2GpT
+	In0M0VyEHqkXI7rFfJ5AsIbXKomZVhqIOzPCzQ0Dp3Gp9B8kG9TvKjXuyZdJ1+/v
+	Dk9PAWDT/3KbyX81SVdqYwO6KK0eeAnx0RUmEhZDmQrg1VvFV1gynXYExe1026tW
+	TYvfTqJhc6ljnKwRV082U62o1qnCyuDVV8VOOhEaf9W23CepSsV9U8ElXInuorqA
+	PxZ3z4Twxc+DLPWpc/c5dUz+Bg9oWHRmwFH7eNJMdyjibdN9YetWW+MLGLkChz90
+	9+CShdNsvuX5rlX40U81w==
+X-ME-Sender: <xms:aJiOanyTz8OxbDP_STyniKEwJF2IUqFx39qayKUGaD4wd7_SklhKxw>
+    <xme:aJiOarKCNjjNU7I3-ndioU2vTYlCM_bhKMiqmB-SVcInyuXl0qddBttRlDKsqGjeT
+    GnYdmEkpQlyrReC9YSYXaSQlH_7Qe2Svb13hZZGDFKM8QtRbQX2xQ>
+X-ME-Received: <xmr:aJiOas14zcm6M11RW3t-tKje6oeUvs21DvriT8fdZvV5ycq5hcpTLspk1RO_RnYaiRGssptXFue-kVQFq1HQ_VXi_oF1-n1F>
+X-ME-Proxy-Cause: dmFkZTGX/FU9CHFN+FvmpI6bOASM2ulWc3CTGkJmmkw+3Sfbnzro5rlnWSRb+khW/Y8vdR
+    tVR4MWralH43SnDoRs87R4nSqYTMMbYYoiDZNTOIvnJR6P+tesEOK1EHD/68at5mEkdt5j
+    46jy9mcEiVK7v4UXoQcDnMb9alL4eV7IOA0KQTgC+k4rVGJvOp+QQBeKapCpvOmum5rehb
+    9MS5bAgk8DzmVF58/JpgeKbAoS1WYMSw6IwFtTACa6woZ/CxWBqZnmYYRUBLdf5hf3r7rK
+    S+N8nQd0VwPpwBJ6CxCY4VLG9pUE+PiCrHFomJI4ZUl0mfzI/yZeH3uqyVJz8TcbWSNrYs
+    p2ucG6tPwNyQflH4CSHBj/1WaBsQfGk7Qf4g5aaXQkMqnGmchT6HQ/XGYL3LJAmRso+1k4
+    WauKLHWoGy8LlPleXxHENguwX/hwYb127KKW2k11PvXgQshXO3ENUWZOQ8v76GkUGa1UuY
+    PmxVKh3WARW8x0Gbr4d5PH+T6G8z4f4JtY+q10BtQsJtfnzSD7UBjVX/u0SL0+tUxqSmgS
+    jjUacuIS9ibD5SXcjmuqJkeZNkgM+7toptfyFZZGg+esrrlDvGRkPNurG2am8AyhUy3i/u
+    kOtYUMm8r8PKHnHAbhYI4JvWKLbgpDZcOFo0MKjhYRmA5I5gKgkxR45zFriw
+X-ME-Proxy: <xmx:aJiOaleHc_00nk4QoX-dn9nJqphf2q4PtftPIZ8gxGuoICb2BRFoJA>
+    <xmx:aZiOag6DaGetf1QlbIHTMt4PMXxyhqpY5xw7Kt2GV-OGBZ3lgacQwA>
+    <xmx:aZiOao_3gaKo1y-SUYAyWkDQOnv81ZLstMzPzYwbvkbzbhTHt7z8Rw>
+    <xmx:aZiOanIDXznxwm1CBaHOsOaM02DH1RAhzDDT1SB-Y0KyktG5ktGQZQ>
+    <xmx:apiOaim8QZJlg01VC1hyX2lfYC3EO_YuO1fzt5DSophOtP2WG-DZYfBk>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Aug 2026 03:40:22 -0400 (EDT)
+Message-ID: <dcfa003d-0f44-4e8c-8bf2-654794d69fc4@pobox.com>
+Date: Wed, 26 Aug 2026 00:40:21 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 00/76] 5.15.218-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.568214149@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260825132541.568214149@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Ido Schimmel <idosch@nvidia.com>
+On 8/25/26 6:25 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.218 release.
+> There are 76 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.218-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-commit 791c91dc7a9dfb2457d5e29b8216a6484b9c4b40 upstream.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-When processing an MLD query, a pointer to the multicast group address
-is retrieved when initially parsing the packet. This pointer is later
-dereferenced without being reloaded despite the fact that the skb header
-might have been reallocated following the pskb_may_pull() calls, leading
-to a use-after-free [1].
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Fix by copying the multicast group address when the packet is initially
-parsed.
-
-[1]
-BUG: KASAN: slab-use-after-free in __mld_query_work (net/ipv6/mcast.c:1512)
-Read of size 8 at addr ffff8881154b8e90 by task kworker/4:1/118
-
-Workqueue: mld mld_query_work
-Call Trace:
-<TASK>
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_address_description.constprop.0 (mm/kasan/report.c:378)
-print_report (mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-__mld_query_work (net/ipv6/mcast.c:1512)
-mld_query_work (net/ipv6/mcast.c:1563)
-process_one_work (kernel/workqueue.c:3314)
-worker_thread (kernel/workqueue.c:3397 kernel/workqueue.c:3478)
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:158)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-</TASK>
-
-[...]
-
-Freed by task 118:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_save_track (mm/kasan/common.c:78)
-kasan_save_free_info (mm/kasan/generic.c:584)
-__kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
-kfree (./include/linux/kasan.h:235 mm/slub.c:2689 mm/slub.c:6251 mm/slub.c:6566)
-pskb_expand_head (net/core/skbuff.c:2335)
-__pskb_pull_tail (net/core/skbuff.c:2878 (discriminator 4))
-__mld_query_work (net/ipv6/mcast.c:1495 (discriminator 1))
-mld_query_work (net/ipv6/mcast.c:1563)
-process_one_work (kernel/workqueue.c:3314)
-worker_thread (kernel/workqueue.c:3397 kernel/workqueue.c:3478)
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:158)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-
-Fixes: 97300b5fdfe2 ("[MCAST] IPv6: Check packet size when process Multicast")
-Reported-by: Leo Lin <leo@depthfirst.com>
-Reviewed-by: David Ahern <dahern@nvidia.com>
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Link: https://patch.msgid.link/20260603101811.612594-1-idosch@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2026-53275
-
- net/ipv6/mcast.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-index e15c3e2318d7..c4a9866ea45b 100644
---- a/net/ipv6/mcast.c
-+++ b/net/ipv6/mcast.c
-@@ -1414,9 +1414,9 @@ void igmp6_event_query(struct sk_buff *skb)
- static void __mld_query_work(struct sk_buff *skb)
- {
- 	struct mld2_query *mlh2 = NULL;
--	const struct in6_addr *group;
- 	unsigned long max_delay;
- 	struct inet6_dev *idev;
-+	struct in6_addr group;
- 	struct ifmcaddr6 *ma;
- 	struct mld_msg *mld;
- 	int group_type;
-@@ -1448,8 +1448,8 @@ static void __mld_query_work(struct sk_buff *skb)
- 		goto kfree_skb;
- 
- 	mld = (struct mld_msg *)icmp6_hdr(skb);
--	group = &mld->mld_mca;
--	group_type = ipv6_addr_type(group);
-+	group = mld->mld_mca;
-+	group_type = ipv6_addr_type(&group);
- 
- 	if (group_type != IPV6_ADDR_ANY &&
- 	    !(group_type&IPV6_ADDR_MULTICAST))
-@@ -1501,7 +1501,7 @@ static void __mld_query_work(struct sk_buff *skb)
- 		}
- 	} else {
- 		for_each_mc_mclock(idev, ma) {
--			if (!ipv6_addr_equal(group, &ma->mca_addr))
-+			if (!ipv6_addr_equal(&group, &ma->mca_addr))
- 				continue;
- 			if (ma->mca_flags & MAF_TIMER_RUNNING) {
- 				/* gsquery <- gsquery && mark */
 -- 
-2.53.0
-
+-Barry K. Nathan  <barryn@pobox.com>
