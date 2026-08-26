@@ -1,162 +1,146 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F233B7767
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787731771; cv=pass; b=uAf/LRu216yQNTzZr0o3eVSMVk9PJzOOCPy/GrS8D81ZJ2SVuH8Ry3pil34CmzLt48F6mGVKqNtVudx/jvM72UyPSPCfXJ8743ntTe3C3KHdoWRlm6C5SW4iV0AYW4u7VDWUISlJ3SJq5Rmb56thNc81V89cBe+eyc3BTohZ0P8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787731771; c=relaxed/simple;
-	bh=hoibuipogw8WclF1xR5HyS23ry9/ifoPowPx6lvjlCs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XYQlM05BchYFLiz1WcJs+SL24whXwxyR+1KZvaFWuoKiJSWfMq2y4a/GpQHTQfBeWmEQ3Shq3s8v2/j0NUlH1Hkzyu0ivkYkmJ84B9ZNpekCJUS8PBZ4hJJHUcvlasAKE00d+V7d9fzfAb80jZAHLv+Zv1q10D/qjlVDBMADiro=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ecvAccYa; arc=pass smtp.client-ip=74.125.224.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF52B379C32;
+	Wed, 26 Aug 2026 08:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787731808; cv=none; b=EFr0000J5ICO0ln+9GRKf7YIFPvSckmpUlJZ9fpNvyMNtpLq+t0pINfIyuM36ldbUfM01/vYstACvrZDCV4aqPFHZpjDG78G2nvqygN3I+7Xk9vWF67dnS75OOEOPLuBq8JWSBLjaasfSwALVs9RTes4RbSfYkqnSI793eFZgo4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787731808; c=relaxed/simple;
+	bh=VH0JTq0aUrXxVeMX8ruxn6wUXJjklTvxhu+0AZ6/8kk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=UYfJ2CaAU5yq6xAGef982JDGIPKATbe14x6lA6uqfjrBXlLDvfHx2wpUtJnbdhSATJVKckldTn7AMK1BVQ3cEhsmt9BpZ+A2CQCAus9wzAnkUxZCsq1yojIjR+zBu3ITKAv8CiksaaYUNVb+g2v4tkBJBfNJfgiwp2K7Lh8gmn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=mjh5KFAN; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ecvAccYa"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-66c711b7f2aso1054156d50.3
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:09:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787731768; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qjOwErNbgpQT1oB2BOTU590M0POW3bRiGvPbVu+vhgzFAov+qPI7aK+ySCXqWFhekj
-         WoQNCqRxH5e2IGY3LYHtCR1xGxxyhs9xkrqFmJVYe+PfCJBaMAk3108OCZq+TdGzGQQB
-         zXEhYmV9wtXX5c0rmJ7y8o1ZHH7BnU2po8uMVBOjgw9wStFNbR7XH8qIV4dFjwsb8h/G
-         s7/vTY6+Q0TcU0J3hLlOImcqzik3yHKbzeD4s2MmGiXTj/R6c0QFIXKZgHeC3YyjjEJ5
-         XfM73RWBzHcksCjAzBQsuiZ52BGHmLZjsFoRbx60/zpEVq2wdSlDd4m1mLd2yOR8m3L6
-         z93w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hoibuipogw8WclF1xR5HyS23ry9/ifoPowPx6lvjlCs=;
-        fh=GKjLvhQ/I/JK6ZP95A30cPLRSJFRO9ES6zy/xhavCLE=;
-        b=nmKNgq0yGEkp6Q5nT/uBEEIaGVO7zTRPUMk0djF+8LQJrdNnCO4bnUwdls8X4Gyn67
-         TB8PJyrqRyUHyCdmF7oCg2Zj6y09uq8kDJegUUxTLaboEpYLsCYmX7sB/4QEgywSnYPF
-         th7xfg3/Q7pzVEnaujEEMMqAldNMx7X0YbNFx4cPuYh0YSivXygrbTrJzhy81+Xcr1/P
-         5ViuZh+c9hb5nrPZvZiuIzh2CYh6aaMrx/GAXJHq9gBGimu+Rqn2W4hAolyB1OJhzkIR
-         ch2Ht3iYRrdYF8+Q23QI6eEOBSRG2s67ctva9yCWzBHh41QBYOW3jckiDvypIxnvOvrZ
-         myMg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787731768; x=1788336568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hoibuipogw8WclF1xR5HyS23ry9/ifoPowPx6lvjlCs=;
-        b=ecvAccYapRTcorcS95MzPcVqKrG+u3Bh/azbdpQgi8eo0h47B9yrQnTsLNINfuD54h
-         zEVwdnE/oY1H9c5zBRC24YB1SwYJuW0ZmGG4skEmNGC4uwhTnPWeXHT3gLz01nv+pCUg
-         QYzMZP+W7slPdQh/IrDRmXpLPrfDxuhGdqXPrhfB0q/w6aQkg1nzWVxZgaETsfyZNwED
-         QkjXg1sAMUoCSrITuYWtrwxYxyq3gMLb/MSwubB0SyUSNhIGbYRimmDE9L81DskkAQ89
-         O2Tfu2OcGdrlRcriKCYT8Iu8+Duljwj2kNs1Z5YaMa6t/QzLRB86EwOBpnG408S3FQSC
-         y4IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787731768; x=1788336568;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hoibuipogw8WclF1xR5HyS23ry9/ifoPowPx6lvjlCs=;
-        b=Z5qCa4+1p2aBOmNDawDipKz+pTVKzn0rDM5nSKP+QYq0L83BNWraYelY6tLTDUhG3W
-         bhYrGTMDf5W6Ng4YjuGkn/2zGGiwWtwZIhnAtmz2A2HdcXZHrvJH/CZnLTD/7veDekcw
-         J/vUr38GsHSLE1kVf0LGv/X5zOnaAlE6vCBUq3B9rk2dmbJpZh/bqyDYL76qMW1Rtmsq
-         wPCRgNKQicXGML3NbQ2OR+UHTvm+i2IeVYBEH7Pfvkes6NBTS7MrFrtAHD2XX9to0DZo
-         Y53a8/5JAiEs/qDtm54MaiGupvIzSIiTaXQ2FTYy1Oyn5ZdbM1jXxEdk8YGEDYs+AVCp
-         RhAA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqawz9Thck58ro2bw7xA8QmARbiQaVNb+NpypEaV+h0vTaa1p3b3PYttP3URCKvSyXHF+Ycguo=@vger.kernel.org
-X-Gm-Message-State: AFuF++npws7S+mjWeh+gjD9Kh2+GPM/m1pmy00JLnB7m85USvPLly4Ut
-	bi/lObNj21hvsNrEr+CxiTc9aVsgDbnE4aCZP4QYuiSCpoRmXBaZbohYGVU1MttWDilItNhVjJf
-	O5K7EjCmgcssZxr7Xq8PVwht8L/u7IxA=
-X-Gm-Gg: AR+sD13dH+zgE/vvLKPRsCHKqmtViekcYA6+UbhQV5l+tllDjri7rxxbYsQXeawZ9nt
-	SaMP9fVYazIzkFLy4iZZxs1gLsCcr/czzy4HZV6D53x5YNBWCNuC7bx/Wp09FhMZ7a5T9v7GE6w
-	nGl15S6X2Bw55clUJ1kbsyeBvZZsucZEBY0t4mZ/rkXgHofeVqRpH0K6Z8ykPwL2pa75Pd+YqRv
-	SW4KqklFSJnkXscwW253iKrmg48ttsA0/aVBxbeNYsJLO43A7cu3xhtwYhTj9ODfVKpqFtnWB/O
-	mSG+iPN8QUDWlWEkMqyRw5HhlJzi9DbG0hVMil+RkXdBcVE=
-X-Received: by 2002:a05:690e:4146:b0:66d:13ee:2daf with SMTP id
- 956f58d0204a3-66d257d9e4emr1314684d50.43.1787731768110; Wed, 26 Aug 2026
- 01:09:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="mjh5KFAN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=wjPblfhFmT5W5g5QCeEjBcrjlEX/rBTw3prM8FktCbY=; b=mjh5KFANvm6pRco1PfkkrjyiyD
+	/0BPtlwAQ9QFj09H34h3R26+rd9/tf7OsegFtS4KxdRzuG/k+eecIO8jRowFz8Ohp/v+jd3lMcA3D
+	My8mn9feRIJeJXLfuQunn8QATBJ80ctGYnoHLNqwiS8+pEozxl1ke13+xr5alpqy8TJUmMske1xSQ
+	ElrdzIUoUE2kpi2ueJEjBSfLI4AD04dDbxaBDtzn0oj+8YopmoDMKWdAHsbkdOdnxw7IMFW74nj29
+	5B++UaAfjkeeyTuwetYAUYOkr/XI2ZZfb3O3qaf17x++YzQH/H7vZsB+K7HoRvDa8T3fcEBpnuWQu
+	PclOFbbA==;
+Received: from [151.115.150.205] (port=59492 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1wz8hp-0000000EKrJ-2uLv;
+	Wed, 26 Aug 2026 10:09:57 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] NFS: blocklayout: reject oversized SCSI designators
+Date: Wed, 26 Aug 2026 08:07:37 +0000
+Message-ID: <20260826080736.1431809-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260808152654.2943371-1-lgs201920130244@gmail.com>
- <144ef4b2-a200-4634-a4ec-539a0ba9a15c@kernel.org> <aogYAmDqlgmnEd3X@zenone.zhora.eu>
-In-Reply-To: <aogYAmDqlgmnEd3X@zenone.zhora.eu>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 26 Aug 2026 16:09:14 +0800
-X-Gm-Features: AcwNN1UWlYeU_Fm6Vv0GYzUXavNzpuhA_CQkuRUt3KOhhAYuo0_VKS3Q7UQ3-ug
-Message-ID: <CANUHTR-eRRw+uHBzAK42jVmnfEv_zV=_RgPGtiBCjZzjr4PJ5g@mail.gmail.com>
-Subject: Re: [PATCH] i2c: at91: fix autosuspend cleanup during teardown
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Ludovic Desroches <ludovic.desroches@atmel.com>, Wenyou Yang <wenyou.yang@atmel.com>, 
-	Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hi Andi,
+A SCSI GETDEVICEINFO reply can encode designator_len as 0xffffffff.  The
+current signed field turns that into -1, so the size check is bypassed and
+the value is converted to SIZE_MAX for xdr_inline_decode() and memcpy().
 
-On Fri, 21 Aug 2026 at 17:22, Andi Shyti <andi.shyti@kernel.org> wrote:
->
-> On Thu, Aug 20, 2026 at 04:50:13PM +0200, Krzysztof Kozlowski wrote:
-> > On 08/08/2026 17:26, Guangshuo Li wrote:
-> > > at91_twi_probe() calls pm_runtime_use_autosuspend(), but neither the
-> > > probe error path nor at91_twi_remove() calls the matching
-> > > pm_runtime_dont_use_autosuspend() during teardown.
-> > >
-> > > If the autosuspend delay is set to a negative value while autosuspend
-> > > is enabled, the runtime PM core increments usage_count to prevent
-> > > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> > > during teardown, this reference is not dropped.
-> > >
-> > > The documentation for pm_runtime_use_autosuspend() also notes that it
-> > > is important to undo it with pm_runtime_dont_use_autosuspend() at
-> > > driver exit time, unless runtime PM was initially enabled with
-> > > devm_pm_runtime_enable().
-> > >
-> > > Add the missing pm_runtime_dont_use_autosuspend() calls to the probe
-> > > error and driver remove paths.
-> > >
-> > > This issue was found by manual code inspection.
-> > >
-> > > Fixes: d64a818859af ("i2c: at91: add support for runtime PM")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> >
-> > How many separate I2C, drm, crypto, hwrng etc patches you sent?
-> >
-> > You sent vast amount of patches, all separate, making it very difficult
-> > to track and respond in efficient way. Do not do that.
-> >
-> > Group your work per subsystem.
-> >
-> > You were asked to clarify and respond to incorrect fixes statement. I d=
-o
-> > not see how you clarified and responded at all.
->
-> Is this a kind of LLM command or what?
->
-> I'm going to check only the patches that have been acked and/or
-> reviewed (people have spent time for that), for the rest, please,
-> follow Krzysztof's direction, put them all together (or ask your
-> AI to do it) and resend.
->
-> Thanks,
-> Andi
+The attacker model considers a controlled NFSv4.1+ server and a client
+already mounted to that server. An OOB read can be triggered in the client
+on a file read. KASAN reports:
 
-These patches were submitted manually.
+  BUG: KASAN: out-of-bounds in bl_alloc_deviceid_node+0x616/0x1110
+  Read of size 18446744073709551615
+  ...
+  __asan_memcpy+0x23/0x60
+  bl_alloc_deviceid_node+0x616/0x1110
+  nfs4_find_get_deviceid+0x565/0x810
+  bl_alloc_lseg+0x638/0x12d0
+  pnfs_layout_process+0x2b6/0xcf0
+  nfs4_proc_layoutget+0x4b3/0xd30
 
-Thank you for the suggestion and for taking the time to review them.
-I=E2=80=99ll follow your and Krzysztof=E2=80=99s guidance and group the pat=
-ches by
-subsystem when I resend them.
 
-Best regards,
-Guangshuo
+The fix stores the length as u32 and reject oversized values before decoding.
+The check is moved up before the call to xdr_inline_decode().
+
+Fixes: d9186c039765 ("nfs/blocklayout: add SCSI layout support")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ fs/nfs/blocklayout/blocklayout.h | 2 +-
+ fs/nfs/blocklayout/dev.c         | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/fs/nfs/blocklayout/blocklayout.h b/fs/nfs/blocklayout/blocklayout.h
+index 6da40ca19570..db81ef3f9811 100644
+--- a/fs/nfs/blocklayout/blocklayout.h
++++ b/fs/nfs/blocklayout/blocklayout.h
+@@ -84,7 +84,7 @@ struct pnfs_block_volume {
+ 		struct {
+ 			enum scsi_code_set		code_set;
+ 			enum scsi_designator_type	designator_type;
+-			int				designator_len;
++			u32				designator_len;
+ 			u8				designator[256];
+ 			u64				pr_key;
+ 		} scsi;
+diff --git a/fs/nfs/blocklayout/dev.c b/fs/nfs/blocklayout/dev.c
+index 368d20daf67b..1e6141e79f3f 100644
+--- a/fs/nfs/blocklayout/dev.c
++++ b/fs/nfs/blocklayout/dev.c
+@@ -203,11 +203,11 @@ nfs4_block_decode_volume(struct xdr_stream *xdr, struct pnfs_block_volume *b)
+ 		b->scsi.code_set = be32_to_cpup(p++);
+ 		b->scsi.designator_type = be32_to_cpup(p++);
+ 		b->scsi.designator_len = be32_to_cpup(p++);
++		if (b->scsi.designator_len > sizeof(b->scsi.designator))
++			return -EIO;
+ 		p = xdr_inline_decode(xdr, b->scsi.designator_len);
+ 		if (!p)
+ 			return -EIO;
+-		if (b->scsi.designator_len > 256)
+-			return -EIO;
+ 		memcpy(&b->scsi.designator, p, b->scsi.designator_len);
+ 		p = xdr_inline_decode(xdr, 8);
+ 		if (!p)
+@@ -345,14 +345,14 @@ bl_validate_designator(struct pnfs_block_volume *v)
+ 	case PS_DESIGNATOR_T10:
+ 	case PS_DESIGNATOR_NAME:
+ 		pr_err("pNFS: unsupported designator "
+-			"(code set %d, type %d, len %d.\n",
++			"(code set %d, type %d, len %u.\n",
+ 			v->scsi.code_set,
+ 			v->scsi.designator_type,
+ 			v->scsi.designator_len);
+ 		return false;
+ 	default:
+ 		pr_err("pNFS: invalid designator "
+-			"(code set %d, type %d, len %d.\n",
++			"(code set %d, type %d, len %u.\n",
+ 			v->scsi.code_set,
+ 			v->scsi.designator_type,
+ 			v->scsi.designator_len);
+-- 
+2.47.3
