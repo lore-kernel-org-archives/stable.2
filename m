@@ -1,121 +1,105 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B97F3B27E9;
-	Wed, 26 Aug 2026 07:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B950F356772;
+	Wed, 26 Aug 2026 07:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787731071; cv=none; b=sLhAbyAeK1CPI9n275vQLtL8yEabG4XeS4iAAt4Km+iodWmkvHjX8tT1LTJvQ3EXX2Vh+IewO5W23k9qpia+97PqgIect4h6oWmz1PGBKxnEqN7Y6vm/lSGI+w90RSyPVn7jLPU6yw1DtgRbzsSNGte3BACCw1Yx6aTmiGorDF8=
+	t=1787731080; cv=none; b=Ov+Pj1FmF9J8NjxE0b0izzw+ru7FDD/+rzQ3l2vzj+zXEvvpwonftXWRBmI/IQiL7VRdigTg5DH6q/sGb0oOxli2fB2eP0deAzt/vnJqNXfobLo3eTdXzuPyEHar4kVJoGPi3pwjde06zxKi9Ir6jIxD4poK0nVeULj3fXA4LYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787731071; c=relaxed/simple;
-	bh=PIv7Vk4CueoRVOds5QWgAMsuXIpc2CESTKrfOi+N3p8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lD/vHjMtqjkgp+pi/qgM0Dx8Xt6j7tjRI3DdbHW/mxvN0l/8E/+hZGLPvrVJJW+QiVawremFQ6yzB7qTzeHLSP+xlN0DJNd4cXkwg2VhBpcfqg0B9LoH4YuKabp4ZpFZP0I/emXW8PmLO4thnlE4ntjfJnL/dBo6NC1bA4vU1+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=JQEu7Rp3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OmnwJ5UX; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1787731080; c=relaxed/simple;
+	bh=V7FiM7QenTRWsgqaGWzg3RYAyNKlEcw03OJlNm5IuwI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GxP4l3vjzXp7ScCNhF4bSflZWtXFkZQbIRJ+z3sN9qSoI5IPkZpuWZgdFvtoq/RPvV1CyJXAr99d2E2IINMkQGspIT6z13rwY1PBUr6l8jGBEfXdSVcgJFLq3QQHut/lxf1NIb+Bm4gtvWpqjTusq5+XnGI0nPK+jAWri3jP2jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i4XP55Rr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="JQEu7Rp3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OmnwJ5UX"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5F5FC1400035;
-	Wed, 26 Aug 2026 03:57:49 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-06.internal (MEProxy); Wed, 26 Aug 2026 03:57:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787731069;
-	 x=1787817469; bh=n3tJdoJ4OIJuAc9QGu7+R3Mnt31hJMNNhTOwaiN/FNI=; b=
-	JQEu7Rp38Q9OROJmDxiaLhDwqFkhZu/ClYNwdP398S5f9FvQ6WBFdrlJA/zWdnLN
-	3LrW+juOquR+wyAYcQEIsrwB3o40XbvQ8BK+a9HSzNEGK2ww3lzqCI10ha/6Trg0
-	KQLJYxUBqzUxGvqLIJ73UmrrS3JHbcnAGL7gIX8fLCIgj4arslWkU3mOLxtIBgP2
-	UvD83nEJlaqxvACU4DuPNIZsgQ1Iatuvv5etq41ceMlSfMuh6VULkotQsaH3tP/C
-	Sj/jRNq6amMVVW2SIOoHkP8Y8T+QTL/Utw/xbmfVtNAtBg9EYsAVc8F66o10yR1O
-	8WzLH+MWqhrAz81eS50M/g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787731069; x=
-	1787817469; bh=n3tJdoJ4OIJuAc9QGu7+R3Mnt31hJMNNhTOwaiN/FNI=; b=O
-	mnwJ5UXzKEBgzxisPnGtYG5SIddJXsUy1SIfP7hszVV4SZJc1jbZ2Ka7VwJ3I97W
-	REMI7erWpG7BBP/CTFGD1kOEEJsOJNa3vnNUD9b1KcIe1lzP6yHHRoahZMU/u2Px
-	7deQekAb3Ib9hCtlmY+DlD1oz/GvtRTyEYmvcDN2R1033v7QTpAZ20Ygii+SLPyw
-	yfgRdGsgLmfWQ1FwrbHZJjS3gx4UTInVeF/fKMnsd60VUrVIPms+aNmBwGDgonVE
-	uOEk3LxJUYde6vg3fuigT91sJSEdNdyQkgubPv0Jt6lC+ueDkSRfUyGOo4psXZIl
-	PPwyxU4al11A3RRUkTUJA==
-X-ME-Sender: <xms:fZyOavXpeAQQ64yvENjlHNeIaM-vHP_MRU4kAVlCxyE7hQmdXH3zfQ>
-    <xme:fZyOajcKjYloNqzMAL5OJDyVG2k0EoQLUFvcSr2M4ttl3egaWgmhdfuUYuGQsbUN6
-    smHOjdPq8Z5E5Ca3gFZ0ousHwk3XuFs_USXUELS5An4zjqv7swGj3wg>
-X-ME-Received: <xmr:fZyOam6qAm5mmwQFj2goxv1fkJu5gzSKKyh73gMf5_A7JuEf9fsSKYd6dm-YwFxVpAsfJg8M3AjFEJ3UqmmhywdYCEXdhVmf>
-X-ME-Proxy-Cause: dmFkZTGG2hBiTOAsBCcb4hwW6iPrjgjHlSVr/r4RVmMm6wxJIthp1hETO/1fuexuNmi2Ix
-    psnwLkcFWNz+u7JxHt5AlIQ+/gHnE1l+MFo+Q0AFPcVsLmZZvEHglDOXbEuLF9rhf2YbBq
-    ByKapiR7wHyVcsZQZKBXac/6LNlwzp35NyNzH5gNKkSq3rt1o9t/2Uvda5C01UkvoC27or
-    1huFymfqcedK0xRivlFIFFUEmMdo1ezLMZC1CZRCgMoMxVJC6/gyvB83txcOttu2BKe7yE
-    y1qgwbEhtMmZQTP3yFN+z8uB4TxQ8DhIjdnreOzciIWS0ag6CE6yDZXg/Ng4cjHEJd3ie1
-    R+HlsqUq05/e08J8i68cvxXRIiF+YcPbM7mbcHGvOd8RadYV9gQUvTIburJHfjQuX1WjYb
-    pOxrKzLR6/UuI6DfjHsfpeUtVj2/Wjopcw4kN0KkWKjKhuaN1iRGVEPkPXgNK9o40FK3mS
-    er9+TSzgII7rLDLld8imsDwqSGaSL0a5OH4jUH1R92ZiXtVP4mGcUgPoZnfjkUlCqS0Luc
-    c0CyEEzjg8dd5gqtoq68LvH6doALWCvJBvkkpgBgUEv1eUeiF1UPvRsHiSclWxLLeIHRth
-    nMy3tgecccLrt7+5PZAjojhO3Q42OIq42+8dn3m++FSjQyr51XTIxtb9L/pA
-X-ME-Proxy: <xmx:fZyOauROHBGFOFF06iin7mL_hPOoHNkP4YNuKQYu1JCDPOP5qmckEw>
-    <xmx:fZyOahcoiqV3Y-MD8UP3vibmRM31FtMHhefpVlTik9-LhUPlD_fXqw>
-    <xmx:fZyOamRSZ0MK5nBFOgxnMY60046Ku0QVk1FeWM2TQrGJoSeS4IGjPg>
-    <xmx:fZyOaiMO_jyRJHvPN5ncfJlk0HcwOq1KlBJJ6dBdoojZ-LAcifs28g>
-    <xmx:fZyOahtQRoPT3e4pbwjYVvZkpdo--mR0OzRHFmeFl2mWZmb7uYsmDf8e>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 03:57:46 -0400 (EDT)
-Message-ID: <79ab93f1-21a6-4c9c-b32a-f2266703e9cb@pobox.com>
-Date: Wed, 26 Aug 2026 00:57:45 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i4XP55Rr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E561C1F00A3A;
+	Wed, 26 Aug 2026 07:57:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787731079;
+	bh=hmpj9TgfHr39DOeJCr3cPmBxSCLXnUOZroFpMszuCEo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i4XP55Rr+Zq1oMAbamvhLn2jYWDSAxn48TNZaZEz5P3ZKmIE1IX7khswMhbPdSWE+
+	 uhI8Lv6erPUMa+ScYtxq0ZO4sXD9PNTlGvcI6S47IlegKuJymUVmtxe7c9Hn8YD9wR
+	 Gg8zF+BV8xqN77G8FsZAiWg26oBPAZMlrEughbpdYMmjwbipEp0G94Z9HbSASuiyE3
+	 4OjEZc4s1zcx/aHozv6IR/Us1jec+P35irhJA7po2XoY65iUm/nchU+0Dxtx8V4wEl
+	 Jktjq1UDtKjFJQxG10lml1FZscJMDI9z/PjfVNiJcoQg7Io0TL+QuNMsy2ImoTOXtq
+	 KP71dWh/Adj2Q==
+Date: Wed, 26 Aug 2026 08:57:51 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	Hagen Paul Pfeifer <hagen@jauu.net>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/secretmem: properly account locked pages
+Message-ID: <ao6b7b9AIUPWRTkJ@gremlin>
+References: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
+ <20260826013948.1325213-1-4ncienth@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.560541185@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826013948.1325213-1-4ncienth@gmail.com>
 
-On 8/25/26 6:24 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.1 release.
-> There are 82 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.1-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Wed, Aug 26, 2026 at 10:39:48AM +0900, Daehyeon Ko wrote:
+> Hi Lorenzo,
+>
+> I tested the exact v2 from this Message-ID on its stated base with an x86_64
+> KASAN kernel. The supplied memfd_secret selftest passed 6/6 in three boots,
+> and my accounting-boundary suite also passed in three boots. I saw no
+> patch-attributable KASAN report, warning, Oops, or panic.
+>
+> A v1/v2 differential also confirms that v2 fixes the CAP_IPC_LOCK creator
+> delegation issue Mike identified:
+>
+>   v1: CAP_DELEGATION creator_cap_ipc_lock=1 receiver_uid=2001 receiver_pages=2
+>   v2: CAP_DELEGATION creator_cap_ipc_lock=1 receiver_uid=2001 receiver_pages=1
+>
+> I have one policy question before adding Tested-by. With a one-page soft and
+> hard RLIMIT_MEMLOCK, a non-root task whose only effective and permitted
+> capability was CAP_IPC_LOCK produced this on v2:
+>
+>   CAP_ONLY uid=2002 cap_ipc_lock=1 mlock_two_pages=1 faulted_pages=1 raise_hard_rc=-1 raise_hard_errno=1
+>
+> Thus ordinary mlock() of two pages succeeded, while only one secretmem page
+> could be faulted. Raising the hard limit failed with EPERM because that
+> requires CAP_SYS_RESOURCE. Is this divergence from ordinary mlock() the
+> intended consequence of removing the CAP_IPC_LOCK exemption for secretmem?
 
-Tested on my amd64 home NAS and an arm64 virtual machine. Working well,
-no regressions observed.
+I'm not quite sure what you're getting at here, as stated in the patch
+CAP_IPC_LOCK does not bypass this limit for secretmem because the scope of
+the folios is greater than the process so a process-level capability isn't
+suited to bypass it.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Also a typical use case of secretmem is privileged process establishes,
+then passes fd to less-privileged user. So it's relatively unique in this
+respect and therefore it is not enforced.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+The idea is that those with CAP_IPC_LOCK could raise the limits as needed
+should they wish to bypass.
+
+>
+> I saw the planned selftest split and cleanup in the follow-up discussion. I
+> will retest the revised patch before adding Tested-by.
+
+Thanks!
+
+>
+> Thanks,
+> Daehyeon
+
+--
+Cheers, Lorenzo
