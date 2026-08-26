@@ -1,143 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA675418361
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 12:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F7541F5F3
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 12:45:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787748305; cv=none; b=ItrWI4YbFVe2IIuJqX6vm7wdPUr8m5rirxtWthG8xfCbDbxOSzM/jEbmh6A3l8X8LHV+//5yK3l8eK6put0klvgAMTp33Fk2qo7L0IxhQaDQKVvGnkyXB9OVEoLWttDKNpyhPj6b3Qq2tiAYt1qGtWUvMn2dy8hgBu6I5nmyLi4=
+	t=1787748307; cv=none; b=mpq0t/PQQvUP++CbhPEg6Bw2xuD4d8mYNBzcX1fCgrbCaZ5O5oM/PQtuiPods2cP327gDI+jNi3Z+xLCP+bD/hhvOleqSIczraMSbSSd7VhBNPDsRp0ZWoYC5bixRdsDACsjlRZofExpSmPxCs1As0SLJmaNkOF1s4IIIxlFbfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787748305; c=relaxed/simple;
-	bh=ERGZNhMhm1ystwHRzoHfFg/CdmFzgCd9EU2JGdas+P0=;
+	s=arc-20240116; t=1787748307; c=relaxed/simple;
+	bh=Km9u608K5dIE3hTBaYtZ7IvjC24T7/3uZnLQr+jzTxQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aQlbqpA8hdeJWHQakEd8aDVpKTY43+xM+Fd3ABnKiraHVIiOxZhpe3XQ6qG6MGDktxLa/UsbP/lxP67ZovB///BlxbrazgmG+T7G48po9aCbhPs6Z3e6igphIw7LVgMQ/2TFXoQc7F1k0j+IWS/tDK1Wn63sVVSCkjqSLki26oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZGNKC5bU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=APy1Lc4haOMeXFz6tB/MrIseZ1+GLJhNegCxuEh2DLy6TROxfIhYcIw5/rVdaplbMlL+nVZTT11FjygLw/k1utryVIohFifP8yBwVyplUGgfnGcFH4s6r2G4hFxUWJmZbL5IlgkqNVZcQs/cJV+dq2WGRZDNtW/SD1lQJIhxbBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OpbRJJSZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZGNKC5bU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074AF1F00A3E;
-	Wed, 26 Aug 2026 12:45:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OpbRJJSZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15F821F00A3A;
+	Wed, 26 Aug 2026 12:45:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787748304;
-	bh=IkYIkK5MwFTEfGiLC728lzG+daC2WVWA1XY+wKtlZPs=;
+	s=k20260515; t=1787748305;
+	bh=0wRxFMsSiRKJ4L7fobibWr+kNjCIexX++1LvckxGCro=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZGNKC5bU0koPsHUSmbUIyFV20oyI18xHmDeiQf1SPJ/I7fs8k6uZIwkxfOqpAC5pw
-	 OM3Q53kvM1YzInu/mClCD+1+cwsQLTtZT5x6+IS4kRJcz5sA6uqtt+UA49cVUsErG+
-	 bvXPE+gHnTN37DcG/p5cwYyHk/z3F2xv7oxxd3730wVRpCeP6uYcUIORbau6aCyGeA
-	 lasSP5g+u8D/JLChNUZEf12GC1cMVMd6oPISLuXWvCvZ13wGJVhYRsH+4OvWecVash
-	 qW22ZLzGAkvawjqmXe8cai7VeWz330Fiks3OoQ6kB4nJuNP+rtdG/HUaHRlfB8HAdF
-	 cFBpZViYdoUSA==
+	b=OpbRJJSZopE6F1i9DTO6qIpDc9x5E0bf8DsYngy6F52bNOk5G3aQlKqG1h2ynnUn5
+	 bCb+UGw+NGBgSPSBlRxgW8Ul/qVxOMLjvpURKU5MtN5vcMAY8R0xomRYpOi++9rYFW
+	 yn9SqZ2PZnvV9/nhR5mHs2Z3XzWEAEkRpaAYAZQc9am5SRlAbJjg2x6q5CgDCf9fKt
+	 hpFHjcuZvvH0BGKLuMqUZLnA97ort3iDL6IbTrLsKIdIjTfeZa8+mFJphu5IKLPOLq
+	 1dmLkv3Hl7rzqkMovuCJcGtIdoOuafTpTAE+V2paRrPcprmp6+c2ypI7CQK/l7Elo8
+	 x4CGtktR9LjYg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>,
-	Alec Hall <signshop.alec@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	David Heidelberg <david@ixit.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] HID: magicmouse: prevent unbounded recursion in magicmouse_raw_event()
-Date: Wed, 26 Aug 2026 08:45:01 -0400
-Message-ID: <20260826124501.2941338-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] nfc: nci: add data_len bound checks to activation parameter extractors
+Date: Wed, 26 Aug 2026 08:45:03 -0400
+Message-ID: <20260826124503.2941456-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826124501.2941338-1-sashal@kernel.org>
-References: <2026082525-parabola-duplicate-d396@gregkh>
- <20260826124501.2941338-1-sashal@kernel.org>
+In-Reply-To: <2026082455-overlap-goldmine-1c00@gregkh>
+References: <2026082455-overlap-goldmine-1c00@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jose Villaseñor Montfort <pepemontfort@gmail.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit db8d634128d2ba88d79c0b601e983ebe14bb0519 ]
+[ Upstream commit 0428fa2c22e2ba0cff766d3b80d461e149102045 ]
 
-magicmouse_raw_event() handles DOUBLE_REPORT_ID (0xf7) packets, which pack
-two touch reports into one, by splitting the packet and calling itself on
-each half. The only guard against runaway recursion is a "size < 1" check,
-which stops zero-sized calls but does not bound the recursion depth.
+nci_extract_activation_params_iso_dep() and
+nci_extract_activation_params_nfc_dep() read an inner length byte from
+the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
+kernel buffers, but neither function receives the caller-validated
+activation_params_len.  A crafted NCI notification with
+activation_params_len=1 and an inner length byte of up to 20 (NFC-A) or
+50 (NFC-B) causes memcpy() to read that many bytes past the one valid
+byte in the activation params region -- a slab out-of-bounds read of
+kernel memory adjacent to the NCI skb.
 
-A malicious HID device that matches this driver can send a report starting
-with DOUBLE_REPORT_ID and filled with the sequence [0xf7, 0x00]. Each level
-consumes two bytes and recurses on the remainder, so an incoming report of
-up to HID_MAX_BUFFER_SIZE (16 KiB) drives roughly 8000 nested calls. That
-easily exhausts the 16 KiB kernel stack, leading to a stack overflow: a
-panic with CONFIG_VMAP_STACK, or memory corruption without it.
+The sibling nci_extract_rf_params_*() family was given equivalent
+protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
+validation for packet data"), but the two activation parameter
+extractors were not updated at that time.
 
-A double report only ever wraps two normal reports; it is never
-legitimately nested. Refuse to re-enter the DOUBLE_REPORT_ID case from a
-recursive call so the recursion depth is bounded to two, while all valid
-packets keep being parsed exactly as before.
+Add a data_len parameter to both functions, guard against an empty
+region before consuming the inner length byte, decrement the remaining
+count after consuming it, and clamp the copy length to what is actually
+available.  Update both call sites to pass ntf.activation_params_len,
+which is already validated against the skb at ntf.c:801.
 
-Fixes: a462230e16ac ("HID: magicmouse: enable Magic Trackpad support")
-Link: https://lore.kernel.org/linux-input/20260706181347.700DB1F00A3F@smtp.kernel.org/
+Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-Reviewed-by: Alec Hall <signshop.alec@gmail.com>
-Tested-by: Alec Hall <signshop.alec@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Link: https://patch.msgid.link/20260612-b4-disp-6d52d8b0-v3-1-e26221f8826d@proton.me
+Signed-off-by: David Heidelberg <david@ixit.cz>
+[ Replaced `NFC_ATS_MAXSIZE` with the literal `20` since that macro doesn't exist in this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-magicmouse.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ net/nfc/nci/ntf.c | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
-index de13f4ec5dfd4..31cea46dee903 100644
---- a/drivers/hid/hid-magicmouse.c
-+++ b/drivers/hid/hid-magicmouse.c
-@@ -377,8 +377,8 @@ static void magicmouse_emit_touch(struct magicmouse_sc *msc, int raw_id, u8 *tda
- 	}
- }
+diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+index a63b935872caa..81be7fa77718d 100644
+--- a/net/nfc/nci/ntf.c
++++ b/net/nfc/nci/ntf.c
+@@ -525,15 +525,19 @@ static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
  
--static int magicmouse_raw_event(struct hid_device *hdev,
--		struct hid_report *report, u8 *data, int size)
-+static int __magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size, bool nested)
+ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+ 						 struct nci_rf_intf_activated_ntf *ntf,
+-						 const __u8 *data)
++						 const __u8 *data, __u8 data_len)
  {
- 	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
- 	struct input_dev *input = msc->input;
-@@ -489,6 +489,15 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 		 * packet.
- 		 */
+ 	struct activation_params_nfca_poll_iso_dep *nfca_poll;
+ 	struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
  
-+		/*
-+		 * A double report only ever wraps two normal reports, so it is
-+		 * never nested. Refuse to recurse a second time; otherwise a
-+		 * malicious device could chain DOUBLE_REPORT_ID packets to drive
-+		 * unbounded recursion and overflow the kernel stack.
-+		 */
-+		if (nested)
-+			return 0;
-+
- 		/* Ensure that we have at least 2 elements (report type and size) */
- 		if (size < 2)
- 			return 0;
-@@ -500,9 +509,9 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 			return 0;
- 		}
+ 	switch (ntf->activation_rf_tech_and_mode) {
+ 	case NCI_NFC_A_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		nfca_poll = &ntf->activation_params.nfca_poll_iso_dep;
+ 		nfca_poll->rats_res_len = min_t(__u8, *data++, 20);
++		data_len--;
++		nfca_poll->rats_res_len = min_t(__u8, nfca_poll->rats_res_len, data_len);
+ 		pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
+ 		if (nfca_poll->rats_res_len > 0) {
+ 			memcpy(nfca_poll->rats_res,
+@@ -542,8 +546,12 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+ 		break;
  
--		magicmouse_raw_event(hdev, report, data + 2, data[1]);
--		magicmouse_raw_event(hdev, report, data + 2 + data[1],
--			size - 2 - data[1]);
-+		__magicmouse_raw_event(hdev, report, data + 2, data[1], true);
-+		__magicmouse_raw_event(hdev, report, data + 2 + data[1],
-+			size - 2 - data[1], true);
- 		return 0;
- 	default:
- 		return 0;
-@@ -527,6 +536,12 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 	return 1;
- }
+ 	case NCI_NFC_B_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		nfcb_poll = &ntf->activation_params.nfcb_poll_iso_dep;
+ 		nfcb_poll->attrib_res_len = min_t(__u8, *data++, 50);
++		data_len--;
++		nfcb_poll->attrib_res_len = min_t(__u8, nfcb_poll->attrib_res_len, data_len);
+ 		pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
+ 		if (nfcb_poll->attrib_res_len > 0) {
+ 			memcpy(nfcb_poll->attrib_res,
+@@ -562,7 +570,7 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
  
-+static int magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size)
-+{
-+	return __magicmouse_raw_event(hdev, report, data, size, false);
-+}
-+
- static int magicmouse_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
+ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 						 struct nci_rf_intf_activated_ntf *ntf,
+-						 const __u8 *data)
++						 const __u8 *data, __u8 data_len)
  {
+ 	struct activation_params_poll_nfc_dep *poll;
+ 	struct activation_params_listen_nfc_dep *listen;
+@@ -570,9 +578,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 	switch (ntf->activation_rf_tech_and_mode) {
+ 	case NCI_NFC_A_PASSIVE_POLL_MODE:
+ 	case NCI_NFC_F_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		poll = &ntf->activation_params.poll_nfc_dep;
+ 		poll->atr_res_len = min_t(__u8, *data++,
+ 					  NFC_ATR_RES_MAXSIZE - 2);
++		data_len--;
++		poll->atr_res_len = min_t(__u8, poll->atr_res_len, data_len);
+ 		pr_debug("atr_res_len %d\n", poll->atr_res_len);
+ 		if (poll->atr_res_len > 0)
+ 			memcpy(poll->atr_res, data, poll->atr_res_len);
+@@ -580,9 +592,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 
+ 	case NCI_NFC_A_PASSIVE_LISTEN_MODE:
+ 	case NCI_NFC_F_PASSIVE_LISTEN_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		listen = &ntf->activation_params.listen_nfc_dep;
+ 		listen->atr_req_len = min_t(__u8, *data++,
+ 					    NFC_ATR_REQ_MAXSIZE - 2);
++		data_len--;
++		listen->atr_req_len = min_t(__u8, listen->atr_req_len, data_len);
+ 		pr_debug("atr_req_len %d\n", listen->atr_req_len);
+ 		if (listen->atr_req_len > 0)
+ 			memcpy(listen->atr_req, data, listen->atr_req_len);
+@@ -784,12 +800,14 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
+ 		switch (ntf.rf_interface) {
+ 		case NCI_RF_INTERFACE_ISO_DEP:
+ 			err = nci_extract_activation_params_iso_dep(ndev,
+-								    &ntf, data);
++								    &ntf, data,
++								    ntf.activation_params_len);
+ 			break;
+ 
+ 		case NCI_RF_INTERFACE_NFC_DEP:
+ 			err = nci_extract_activation_params_nfc_dep(ndev,
+-								    &ntf, data);
++								    &ntf, data,
++								    ntf.activation_params_len);
+ 			break;
+ 
+ 		case NCI_RF_INTERFACE_FRAME:
 -- 
 2.53.0
 
