@@ -1,35 +1,35 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94C03BD657;
-	Wed, 26 Aug 2026 12:10:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C233FB067;
+	Wed, 26 Aug 2026 12:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787746252; cv=none; b=uErBP4NpYORfDvRLJNd7l16OtyiulT3DEWThupSMXqa+atnMqmuAfZslRNPgcB6uS3CuIpnHZ+NGZgC/jLu1vnllcvyvlOunBMjqO5XtSU/Lp4QiBvaQRpgXeZ1KKYfJTstKEDFch07fcj7+YKHkngPskRmhinSgxglcrtkWP1o=
+	t=1787746252; cv=none; b=qo47zGGsNvEpa5J533ZiYnWmz6elApK0HTL+vJE1oL73Z1CVNB5mQsFnRVisfqs0ZwhvWNRp5sf3XDdcwNG4BopV39ZThq882P1pE3K/aBqAYfKSYb7AjaSF/L4pinu5Soiw49HZb6OEU4j/ex77aghZabsniuqDqX9Oj38hHPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787746252; c=relaxed/simple;
-	bh=X7v2LJnJoDTl/6xgGJhsZSDCm+qtsmjkAVRyGhCrmdM=;
+	bh=VOs31o5q9d+LqKJw5NrPfHEDVuqgoMCPHJ443qFo2hw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oRNaOja66Vl3vBhK9/KQLND4y+i/UHzXuCBsl/kGeM8IFF6Xhi7d5vRaHn7aBbSCMpHxBcoHW1dG9hhuf+vyKqNZPyETpdh9o8KPmimExQmqtHfjWbmUKXNAZNUDq90luLnF8bj60/9zOb7XAGMFgukXjrVCoPKeFv5gvdOTbsk=
+	 MIME-Version; b=IttdOTqfR0OuFp+7QMJdHdLvKrWRNAcQNWqEsjLHrh3S0aOV3YjWginkEVpwpNbizOeqoN+dk3yzBzHbYZDDF936qGI4Cah8ECIvPtBmIQhPK3ihYohM26Vlb7ohGO2updpmbtOkU5QztaK/YZchy05ZC3UMhHmCbwlJWTG8ZjI=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B0AA52021CF;
-	Wed, 26 Aug 2026 14:10:38 +0200 (CEST)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 13E1020227E;
+	Wed, 26 Aug 2026 14:10:39 +0200 (CEST)
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1wzCSk-003R90-1v;
-	Wed, 26 Aug 2026 14:10:38 +0200
+	id 1wzCSk-003R9G-37;
+	Wed, 26 Aug 2026 14:10:39 +0200
 Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 5D6B758CCFC;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id A33CA58CD00;
 	Wed, 26 Aug 2026 12:10:38 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
@@ -40,9 +40,9 @@ Cc: davem@davemloft.net,
 	Cunhao Lu <1579567540@qq.com>,
 	stable@vger.kernel.org,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 05/14] can: rockchip_canfd: prevent TX stall on echo skb failure
-Date: Wed, 26 Aug 2026 14:02:15 +0200
-Message-ID: <20260826121036.2706424-6-mkl@pengutronix.de>
+Subject: [PATCH net 09/14] can: skb: make CAN skb allocation failure paths IRQ-safe
+Date: Wed, 26 Aug 2026 14:02:19 +0200
+Message-ID: <20260826121036.2706424-10-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260826121036.2706424-1-mkl@pengutronix.de>
 References: <20260826121036.2706424-1-mkl@pengutronix.de>
@@ -56,71 +56,52 @@ Content-Transfer-Encoding: 8bit
 
 From: Cunhao Lu <1579567540@qq.com>
 
-rkcanfd_start_xmit() advances tx_head and requests transmission even when
-can_put_echo_skb() fails. This creates a pending TX entry without the echo
-skb that the RXSTX completion path needs to match the self-received frame.
-The entry cannot be completed, and the netdev TX queue can remain stopped
-after the two-entry software FIFO fills.
+The CAN skb allocation helpers are used from hardware interrupt receive
+handlers. If can_skb_ext_add() fails, they release the newly allocated skb
+with kfree_skb(), which is not safe in hardware interrupt context.
 
-Install the echo skb before loading the hardware TX buffer. If installation
-fails, account the frame as dropped and leave both the hardware FIFO and
-software TX state unchanged. After the echo skb is installed, use the
-stored echo skb as the source for the hardware frame data.
+Use dev_kfree_skb_any() for the allocation failure paths in
+alloc_can_skb(), alloc_canfd_skb(), and alloc_canxl_skb().
 
-This depends on the standalone can_put_echo_skb() ownership fix. It makes
-the remaining -EINVAL path consume the skb and was posted at:
-
-Link: https://lore.kernel.org/linux-can/tencent_944DADCC4B42C8484EC01DA2B15F42132906@qq.com
-Fixes: b6661d73290c ("can: rockchip_canfd: add TX PATH")
+Fixes: 96ea3a1e2d31 ("can: add CAN skb extension infrastructure")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cunhao Lu <1579567540@qq.com>
-Link: https://patch.msgid.link/tencent_C82C09E7235101CC88A97E154D2534183208@qq.com
+Link: https://patch.msgid.link/tencent_C825C17D442F801351CE2FBC4984064B4605@qq.com
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/rockchip/rockchip_canfd-tx.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/net/can/dev/skb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-index 12200dcfd338..86fa8f2e1c8b 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-@@ -88,7 +88,16 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 		return NETDEV_TX_BUSY;
+diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+index 0ed8057a3cb2..c7be21ed70dd 100644
+--- a/drivers/net/can/dev/skb.c
++++ b/drivers/net/can/dev/skb.c
+@@ -224,7 +224,7 @@ struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
+ 
+ 	csx = can_skb_ext_add(skb);
+ 	if (!csx) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		goto out_error_cc;
  	}
  
--	cfd = (struct canfd_frame *)skb->data;
-+	tx_head = rkcanfd_get_tx_head(priv);
-+	frame_len = can_skb_get_frame_len(skb);
-+	err = can_put_echo_skb(skb, ndev, tx_head, frame_len);
-+	if (err) {
-+		ndev->stats.tx_dropped++;
-+		return NETDEV_TX_OK;
-+	}
-+
-+	skb = priv->can.echo_skb[tx_head];
-+	cfd = (const struct canfd_frame *)skb->data;
+@@ -255,7 +255,7 @@ struct sk_buff *alloc_canfd_skb(struct net_device *dev,
  
- 	if (cfd->can_id & CAN_EFF_FLAG) {
- 		reg_frameinfo = RKCANFD_REG_FD_FRAMEINFO_FRAME_FORMAT;
-@@ -114,7 +123,6 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 					    cfd->len);
+ 	csx = can_skb_ext_add(skb);
+ 	if (!csx) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		goto out_error_fd;
  	}
  
--	tx_head = rkcanfd_get_tx_head(priv);
- 	reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_head);
+@@ -293,7 +293,7 @@ struct sk_buff *alloc_canxl_skb(struct net_device *dev,
  
- 	rkcanfd_write(priv, RKCANFD_REG_FD_TXFRAMEINFO, reg_frameinfo);
-@@ -123,10 +131,7 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 		rkcanfd_write(priv, RKCANFD_REG_FD_TXDATA0 + i,
- 			      *(u32 *)(cfd->data + i));
- 
--	frame_len = can_skb_get_frame_len(skb);
--	err = can_put_echo_skb(skb, ndev, tx_head, frame_len);
--	if (!err)
--		netdev_sent_queue(priv->ndev, frame_len);
-+	netdev_sent_queue(priv->ndev, frame_len);
- 
- 	WRITE_ONCE(priv->tx_head, priv->tx_head + 1);
+ 	csx = can_skb_ext_add(skb);
+ 	if (!csx) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		goto out_error_xl;
+ 	}
  
 -- 
 2.53.0
