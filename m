@@ -1,130 +1,169 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91092561A7;
-	Thu, 27 Aug 2026 05:58:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA54423645D;
+	Thu, 27 Aug 2026 06:00:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810339; cv=none; b=sZ8zIg+UiiDmsjmgKGma0mnwNjpZ0SisxJ5Ht4gcSv66hjOz5yCcvoK+1Vgv34VCUZilKWIxrymO0wGRMz7wPiue1OIcAgxPrQPTw89SjehO4H7TMp7T29EhiS/r2qcvYAh8me7/yOR2grlPU+UuD0a1h/2cRWr2Rz5lEB0TH2g=
+	t=1787810451; cv=none; b=h/GYsoMKS69sbFrAlO2AoaV9LvPlSWjA8fZqkYebBtD3evrKpO5E5JvLUfSj9GxBaur5XvU7/FA/14l6qoQQP9rejQySNx199YmqWkhKL5Nc5Q5YzIGzOu1ZXqOw+g3bTy3RkdkwS7bXbZvAJT1xBaxlZG321HuGieJGYGPSv7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810339; c=relaxed/simple;
-	bh=FTAHQmTeeLsobDGdAzBKQhgCnX8AVOpSmrbuT8hmOKY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l6zjg59OUXPO+8wjipL7ZJr61HGCKISWmaqHnPVv6WPS3EyjUZrAFRFztiIAISg+RazsSqgboTaY/+BCH2TVVkSJ0wmDXBu8o1dRGfSoEP/aCl2RUHO8bnhQr5BGW3OoOjVoSBrz4tfZbA0DKknuJCaYzqak1wV6IhhNxu/Ykb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 5fee1788a1dc11f19a56ed5b684f684d-20260827
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:f67aadb4-e052-4b50-bd26-d550d892bd6d,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:0e8e02c6c728f64f7d4f60fcfca91690,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5fee1788a1dc11f19a56ed5b684f684d-20260827
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 202158259; Thu, 27 Aug 2026 13:58:49 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
+	s=arc-20240116; t=1787810451; c=relaxed/simple;
+	bh=0A+ZVSHmTZpBWDaeE60eIZ0qBxxkdFlAWVSwRqqWT9Q=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=JVb5fPc2euKYT8iLSoo/ElbtxiXa+PISnmXpc6d7lyrLc4JWz7jZgI3DTEIjl+c5GePcvutHaabevBEvSPNM4AVb83KnIh5ACU5c8mSbr+QmxExWZa+hN/1pP9HVxhbeO1zRdM9bNjPKTeMR+1uh8IAVvNqDR5uAkACjOEtcuu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=pjUW00sj; arc=none smtp.client-ip=203.205.221.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="pjUW00sj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1787810440; bh=XRQFRVMDjVp4EOP0fZkF//N4HCPkekJ5nXepNdiemsk=;
+	h=From:To:Cc:Subject:Date:Reply-To;
+	b=pjUW00sjEsfsas1uTRfho3CI/SdERh3gtDdHlkXy23vn8jSNG1JMw3Dvsjua+SLbl
+	 1T0WZ8JsWYe2n+3jCS/K6H2YqiKWfogSJrp3NbuEDuMjXX2PdiiH+wJgrY8iY2+a1y
+	 5rKOTU98A0Sc7Eb7h3e+jfuoEoD/jwvNrCu8xJF8=
+Received: from DESKTOP-5664AH9 ([14.153.63.166])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 25326CB; Thu, 27 Aug 2026 14:00:37 +0800
+X-QQ-mid: xmsmtpt1787810437tqimq57ru
+Message-ID: <tencent_4AF524857605546F78F39BBB33D2192B2E07@qq.com>
+X-QQ-XMAILINFO: NP9KN8CSKc3GH6Ii3xUWB3lwVuITMftJuyh1IMlHOp+DLSoK2iVHNK2vhShzwc
+	 2IUR4hEZ+P4yhJZ5lnkJwbCqEstfkhc0zksY4wN9h57P2T/fw7zxAEdbtodzZi1gXRGIK2YrE6mi
+	 8WP7pNzYTaiSu94SktzGwfgSzNw1KrCGzPetR11ynjgx3vMXcP4cUPPdB70na39vIfZPeXZ17jgy
+	 d1y7Z5AUvq51HbzPfoAQfqx20oJB2iaIEScHO6BJHyuzsC5sJlcuqLitZL+FULyBaiztNNXt5njE
+	 BALZY9KK1r5NIDucOKVePK7JI4AL3fuPdfAOZOTZD6Bovz4CWFinlg9ejoh1QvGO2HRU47z18rWX
+	 7OUkIdWvriE+K/FCbrD13f6/V6fjW7IK//mQiPa2uFPR67HA5FqJ2knLocUGZMEtRCryf9raidSp
+	 CvmVuMr9LGNoWniNCj1i3INpRwelz+rC0+O3zP1XzCljT1FWwkYNIIOVBpiG3IdOo2lv8vaJ19UZ
+	 WhGuvX+Pq3VDSmnPZTguiH0Vl0Qgf0EhzTuhJdVHY4CeZENA1ijeufTqU5JX+g168TBAF2+WG39q
+	 O5TT0F+C2oNj3QteMT1i004KAxQXfP8NE/KcP6iX5nYefYU6iToA1tPczVjJzYlx5GErFXu4VXVx
+	 4ztLnDk2llSVgxg9JQ/+sP3kEITYNTMVKav7Dw6Js09mFvL5bLvnQkwqmkbwawJ99cGLwo9jUHCI
+	 xmafeMtbSuMHsmiAnYdI2vmEaUDlVB9fdaz45CRxLmhwRExB29nbxyjk4DzpE25LdDA3dPHMUY8X
+	 2iiV3qjpbW2bwAyTQPT1F+mMg/+0g2LLBf8OHU7fO7pxh+dQv6V7oVT+LJrs209YoMJsZxay/csw
+	 LjS2F5dt/1JQE+RquO7RkfCevRI5axBDA4rLG5SH5R1pBOv22PyLN2yyR3rE30GdIwxR1c3q+Use
+	 L7NUIYUB/ZiLSUtrM7sPOtAHZY4+vuEvYjryCs0OrnpDo7apXfA4KfhXroxxSC3zjCnYIa4rV6vy
+	 yKiZC327YaNzBc6uNmRfmpPiQDY7D3HyanIhwFrWuEzN1UzUUgZCWhkR5fjvy4kvftyaXX8jsCvv
+	 76g4/A/qyfwK552jw76aHDlwVndHtEdtvyPdJTy/hLRPqTzTPKWTUI/+kGAtIvDf1jPzclcLkiaq
+	 JmT4s=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Hackdale <445735441@qq.com>
+To: greg@kroah.com
+Cc: linux-acpi@vger.kernel.org,
+	hdegoede@redhat.com,
+	rafael.j.wysocki@intel.com,
 	stable@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v3] ntfs: fix race between fallocate and mmap reads
-Date: Thu, 27 Aug 2026 13:58:44 +0800
-Message-Id: <20260827055844.1673890-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	DUAN Xuejian <445735441@qq.com>
+Subject: [PATCH] ACPI: resource: Add MECHREVO GM5BG0E to irq1_edge_low_force_override[]
+Date: Thu, 27 Aug 2026 06:00:37 +0800
+X-OQ-MSGID: <20260826220038.358-1-445735441@qq.com>
+X-Mailer: git-send-email 2.55.0.windows.3
+Reply-To: greg@kroah.com
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The fallocate implementation only takes invalidate_lock for punch hole,
-collapse range, and insert range operations. For standard allocation modes
-(mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
+From: DUAN Xuejian (段雪健) <445735441@qq.com>
 
-During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
-ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). This
-creates a window where concurrent mmap page faults can read uninitialized
-disk data.
+The MECHREVO Jiaolong 15K (GM5BG0E), an AMD Ryzen 7 7435H based laptop,
+has a defective DSDT that declares the PS2K keyboard IRQ1 as ActiveLow,
+whereas the hardware is actually ActiveHigh. Starting with Linux 6.0,
+the kernel no longer auto-corrects this polarity mismatch on AMD Zen
+platforms, causing the internal keyboard to become non-functional.
 
-Since mmap uses filemap_fault() which takes invalidate_lock in shared mode,
-it can fault in pages during this window and expose old disk contents to
-userspace. This is an information leak and data integrity issue.
+Add the GM5BG0E board to the irq1_edge_low_force_override[] DMI quirk
+table so that the kernel forces the correct IRQ polarity for this model.
 
-Fix by taking invalidate_lock for all fallocate operations, not just for
-punch/collapse/insert modes. This prevents concurrent page faults from
-accessing unzeroed clusters during the allocation window.
-
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-Cc: stable@vger.kernel.org
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=XXXXXX
+Link: https://lore.kernel.org/linux-acpi/XXXXXX@XXXXXX
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: DUAN Xuejian (段雪健) <445735441@qq.com>
 ---
-Change in v3:
- -Remove map_locked after fixing the pre-lock early exit.
----
- fs/ntfs/file.c | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+ drivers/acpi/resource.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 88747217ba61..1969e4f444f7 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -1116,7 +1116,6 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 	struct ntfs_volume *vol = ni->vol;
- 	int err = 0;
- 	loff_t old_size;
--	bool map_locked = false;
+diff --git a/drivers/acpi/resource.c b/drivers/acpi/resource.c
+index xxxxxxx..xxxxxxx 100644
+--- a/drivers/acpi/resource.c
++++ b/drivers/acpi/resource.c
+@@ -xxx,x +xxx,x @@ static const struct dmi_system_id irq1_edge_low_force_override[] = {
+ 		},
+ 	},
++	{
++		/* MECHREVO Jiaolong 15K GM5BG0E */
++		.matches = {
++			DMI_MATCH(DMI_BOARD_NAME, "GM5BG0E"),
++		},
++	},
+ 	{ }
+ };
  
- 	if (mode & ~(NTFS_FALLOC_FL_SUPPORTED))
- 		return -EOPNOTSUPP;
-@@ -1148,16 +1147,13 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 
- 	inode_lock(vi);
- 	if (NInoCompressed(ni) || NInoEncrypted(ni) || NInoWofCompressed(ni)) {
--		err = -EOPNOTSUPP;
--		goto out;
-+		inode_unlock(vi);
-+		return -EOPNOTSUPP;
- 	}
- 
- 	inode_dio_wait(vi);
--	if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
--		    FALLOC_FL_INSERT_RANGE)) {
--		filemap_invalidate_lock(vi->i_mapping);
--		map_locked = true;
--	}
-+	/* Take invalidate_lock for all fallocate operations to prevent races */
-+	filemap_invalidate_lock(vi->i_mapping);
- 
- 	switch (mode & FALLOC_FL_MODE_MASK) {
- 	case FALLOC_FL_ALLOCATE_RANGE:
-@@ -1182,8 +1178,7 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 
- 	err = file_modified(file);
- out:
--	if (map_locked)
--		filemap_invalidate_unlock(vi->i_mapping);
-+	filemap_invalidate_unlock(vi->i_mapping);
- 	if (!err) {
- 		if (mode == 0 && NInoNonResident(ni) &&
- 		    offset > old_size) {
 -- 
-2.25.1
+2.49.0
+
+---
+
+# 中文版补丁说明
+
+## 问题描述
+
+MECHREVO 蛟龙15K (GM5BG0E) 搭载 AMD Ryzen 7 7435H 处理器，其 BIOS DSDT 表中存在错误：
+键盘 IRQ1 被声明为 ActiveLow（低电平触发），但硬件实际为 ActiveHigh（高电平触发）。
+
+从 Linux 6.0 内核开始，AMD Zen 平台不再自动修正此极性不匹配问题，导致内置键盘无法使用。
+
+## 修复方案
+
+将 GM5BG0E 主板添加到内核 `irq1_edge_low_force_override[]` DMI 兼容表中，
+使内核为该型号强制使用正确的 IRQ 极性。
+
+## 提交信息
+
+- **维护者**：Hans de Goede <hdegoede@redhat.com>
+- **邮件列表**：linux-acpi@vger.kernel.org
+- **抄送**：stable@vger.kernel.org（用于稳定版回溯）
+
+---
+
+# English Version - Patch Description
+
+## Problem Description
+
+The MECHREVO Jiaolong 15K (GM5BG0E), equipped with AMD Ryzen 7 7435H processor,
+contains a defective BIOS DSDT table. The PS2K keyboard interrupt (IRQ1) is
+declared as ActiveLow in the ACPI table, but the hardware is actually wired
+for ActiveHigh operation.
+
+Starting with Linux 6.0, the kernel no longer automatically corrects this
+polarity mismatch on AMD Zen platforms (commit 2d331a6ac481), causing the
+internal keyboard to become non-functional.
+
+## Solution
+
+Add the GM5BG0E board name to the irq1_edge_low_force_override[] DMI quirk
+table in drivers/acpi/resource.c. This forces the kernel to apply the correct
+IRQ polarity override for this specific hardware model.
+
+## Technical Details
+
+- **File modified**: drivers/acpi/resource.c
+- **Function affected**: acpi_dev_irq_override()
+- **Quirk table**: irq1_edge_low_force_override[]
+- **DMI match**: DMI_BOARD_NAME = "GM5BG0E"
+
+## Testing
+
+Verified on MECHREVO Jiaolong 15K with:
+- AMD Ryzen 7 7435H
+- BIOS N.1.23MRO20
+- Linux kernel 6.x
+
+After applying this patch, the internal keyboard functions correctly.
+
+## References
+
+- Similar fixes: GM6BGEQ, GM6BG5Q, GM6BG0Q (TongFang barebones)
+- upstream commit: 2d331a6ac481 ("ACPI: resource: Fix IRQ override quirk")
 
