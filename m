@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A5E351C25
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:20:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C8935C6B9
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764822; cv=none; b=MHvF8o8P5cHINmHKXyfSwGCu5I+PedwYpUsoQ6xMaaH0evaKqt3MHPIBuEDPRRyHU0Bu72A4/dNuWO0ItqfzXbaV+q70xGHTVrCUPpu1WhpXwiXrj0Vqo5fwSFWXpQ61cswRax8hMgIfbZJUFrUlSiCK1t+cdG1lrlHC6QY9M+Q=
+	t=1787764823; cv=none; b=WacYCao/FgaoG0xeUGLWU8/UAF0GABcBWDY64Cymvlh0tHup2M0JR54ovffb9oR6zufaHCMK29qK5XLcYVfReCaaN1t+QorB5ZlOQmSftyFxuAp3McnHjZ4KbOA1xlmhExrMCSqu4LSv4dKyt93EWYGSgiePht3Ql9aUzqjWUhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764822; c=relaxed/simple;
-	bh=EQDkefkfXncmHOB1rQOoKXf9IyZcMcomeXZbIbnnpP4=;
+	s=arc-20240116; t=1787764823; c=relaxed/simple;
+	bh=TSQirgzf9thvAFSdOo0jIaXAmKOqw3n4K7GuA9TzubA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qzenw0YPDks+QeTFvGXv6PsKq/1oucgvB3btk1E0t6ngKKA6gzfL5hIdEg2CBUE4/zGfcc1ucc1DB0iMiXJfkLOOnF+PMsM0PUIUc6XYcf3C/J69Rlza9EhIfVu0vkN8tpluzO/7nWLKAHgjHEQDCgPUfxTI57NBKQfAdZzuFUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvSntjt3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qLfIRnwYeS5N1+i2ByHJ6Fr/yjWF6BCLfRZpfuR8XcDGGPHWRPSuzOHaIUESIPvjuUITHNHzao2mde5d/TxCIzSZaMCY90a8H27rgUJtwPiXFVlzXhv7HIq1yz8bvqmN5NrCf1EQDoCyNX9Yhpuh5DK5EpVQXEP+BkSZzro7O4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUZzy5dU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvSntjt3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5D71F00A3E;
-	Wed, 26 Aug 2026 17:20:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUZzy5dU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0CE1F00A3A;
+	Wed, 26 Aug 2026 17:19:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787764803;
-	bh=Dd6/YVgnrhqOzCcUIDRrxa5ozgpJ9Z/IUON/ikEeXvI=;
+	s=k20260515; t=1787764798;
+	bh=uCt+LJftkTGaWvtS0KhF7zhoRv03uEFImsHb8K0fP1M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CvSntjt3oeyIxP0B9v/bqvUckAz9+sQG+Kfz8bTIKha3A7zvHLmHJTga9fGF0uZXG
-	 VuqBf5bO3KSQi84gUh4yCs8IgN6vxHJHDCM2WM/m3aNilXdZDxnRfFoop0lJkRIwc0
-	 tiJSds/fIB18/eSA8kMU3nOKMBbHSvZaHD8dODSvHscx+eenuZDO8RS6BUquCUcaxL
-	 Cp2aJYoOpjpSxnAJlFUP6bqPLqeNCSiTtCsKwn+T5HN3FRmXhBurpXg/KufOQ/wXdM
-	 DVj2TtMRUS+Nynjn0HQiu6rDXxT8KnrIR7NHad7pDbGnKmVGDYU8oSMwTwRJlNpsVJ
-	 HGr6fqbYoAbYw==
+	b=TUZzy5dUbIkCCG/I9hTWXsl0e+A/VEhhccHXpxUxr1/L/9aPLAo9exyUUFIZXqXg4
+	 7ccjk+T7+lhIpbAGeUX3pVb2vzB8+uECuOLmPxnouHPI/Wa8qyF/SoAXZhI3lYX6ft
+	 8Ee2j1px4a+3nge5JCPD3TNYUUgtgdAEaVz6nKGQiTRGEyM17E26gL/XoI5VAP6xZU
+	 jWZlXaYuY77UHjT4RUOS7dgsU8D8XPw+jkXEIcxRn45o3OiX4D7t5yqSEF+lIMBbuU
+	 126EphgOTW+TSA2hDslNWqC0cBYy1HDDvu2z9Kggf6QGVET9si6DB6fBff8IKyUwmF
+	 ybqnZiPG4NSVQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ibrahim Hashimov <security@auditcode.ai>,
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] HID: uclogic: fix use-after-free of inrange_timer on remove
-Date: Wed, 26 Aug 2026 13:20:00 -0400
-Message-ID: <20260826172000.2267071-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] HID: input: use __free(kfree) to clean up temporary buffers
+Date: Wed, 26 Aug 2026 13:19:52 -0400
+Message-ID: <20260826171955.2266521-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082556-sandlot-zombie-b07b@gregkh>
-References: <2026082556-sandlot-zombie-b07b@gregkh>
+In-Reply-To: <2026082542-footpath-citation-4670@gregkh>
+References: <2026082542-footpath-citation-4670@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,77 +45,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ibrahim Hashimov <security@auditcode.ai>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-[ Upstream commit 506fd50a9027340f0e9dcc587d10ccb03312dba6 ]
+[ Upstream commit 142068281f5138a9888d488e6911e8d9f7923c15 ]
 
-uclogic_remove() cancels the pen in-range timer and then stops the
-device:
+The __free() cleanup automatically releases given resource when leaving
+the scope, so use it to make the code less cluttered with error
+handling.
 
-	timer_delete_sync(&drvdata->inrange_timer);
-	hid_hw_stop(hdev);
-
-timer_delete_sync() only guarantees the timer is idle at that instant.
-uclogic_raw_event_pen() keeps delivering pen reports until hid_hw_stop()
-stops the transport several lines later, and every report with
-pen->inrange == UCLOGIC_PARAMS_PEN_INRANGE_NONE re-arms the timer:
-
-	mod_timer(&drvdata->inrange_timer, jiffies + msecs_to_jiffies(100));
-
-A report landing between the timer_delete_sync() call and the transport
-teardown in hid_hw_stop() re-arms inrange_timer after it was cancelled.
-uclogic_remove() then returns and the devm drvdata is freed, while
-hid_hw_stop() has already freed the input device drvdata->pen_input
-points at, so when the timer fires ~100 ms later
-uclogic_inrange_timeout() dereferences freed memory -- a use-after-free
-in timer-softirq context.
-
-Swapping the two calls is not a fix: stopping the device first frees
-drvdata->pen_input via hidinput_disconnect() while the timer may still
-be pending, so a timer already armed before removal fires on the freed
-input device in the window before timer_delete_sync() runs.
-
-Use timer_shutdown_sync() before hid_hw_stop() instead. It cancels the
-timer, waits for a running callback while pen_input is still valid, and
-prevents any further re-arming -- a later mod_timer() from an in-flight
-report is silently ignored -- so the timer is provably dead before
-hid_hw_stop() frees the inputs. This is the ordering the timer core
-documents for this "timer re-armed from another path" teardown case.
-
-Fixes: 01309e29eb95 ("HID: uclogic: Support in-range reporting emulation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[ changed timer_delete_sync() to del_timer_sync() in the removed line to match the pre-rename API on this branch ]
+Stable-dep-of: d07644524b65 ("HID: input: read battery capacity from its actual report offset")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-uclogic-core.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/hid/hid-input.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/hid/hid-uclogic-core.c b/drivers/hid/hid-uclogic-core.c
-index 7658bd678e7e3..182f5c0e68942 100644
---- a/drivers/hid/hid-uclogic-core.c
-+++ b/drivers/hid/hid-uclogic-core.c
-@@ -446,7 +446,17 @@ static void uclogic_remove(struct hid_device *hdev)
- {
- 	struct uclogic_drvdata *drvdata = hid_get_drvdata(hdev);
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index c1708caa6b6cc..74d04e5c7f0b7 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -419,23 +419,18 @@ static int hidinput_scale_battery_capacity(struct hid_device *dev,
  
--	del_timer_sync(&drvdata->inrange_timer);
-+	/*
-+	 * Shut the in-range timer down before stopping the device.
-+	 * uclogic_raw_event_pen() re-arms inrange_timer on every pen report
-+	 * and keeps running until hid_hw_stop() stops the transport, so a
-+	 * plain timer_delete_sync() here can be undone by a report landing in
-+	 * the window before hid_hw_stop().  timer_shutdown_sync() cancels the
-+	 * timer and makes any later re-arm a no-op, so it is provably dead
-+	 * before hid_hw_stop() frees the input device drvdata->pen_input
-+	 * points at.
-+	 */
-+	timer_shutdown_sync(&drvdata->inrange_timer);
- 	hid_hw_stop(hdev);
- 	kfree(drvdata->desc_ptr);
- 	uclogic_params_cleanup(&drvdata->params);
+ static int hidinput_query_battery_capacity(struct hid_device *dev)
+ {
+-	u8 *buf;
+ 	int ret;
+ 
+-	buf = kmalloc(4, GFP_KERNEL);
++	u8 *buf __free(kfree) = kmalloc(4, GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
+ 
+ 	ret = hid_hw_raw_request(dev, dev->battery_report_id, buf, 4,
+ 				 dev->battery_report_type, HID_REQ_GET_REPORT);
+-	if (ret < 2) {
+-		kfree(buf);
++	if (ret < 2)
+ 		return -ENODATA;
+-	}
+ 
+-	ret = hidinput_scale_battery_capacity(dev, buf[1]);
+-	kfree(buf);
+-	return ret;
++	return hidinput_scale_battery_capacity(dev, buf[1]);
+ }
+ 
+ static int hidinput_get_battery_property(struct power_supply *psy,
+@@ -1818,7 +1813,6 @@ static void hidinput_led_worker(struct work_struct *work)
+ 	struct hid_report *report;
+ 	int ret;
+ 	u32 len;
+-	__u8 *buf;
+ 
+ 	field = hidinput_get_led_field(hid);
+ 	if (!field)
+@@ -1845,7 +1839,7 @@ static void hidinput_led_worker(struct work_struct *work)
+ 
+ 	/* fall back to generic raw-output-report */
+ 	len = hid_report_len(report);
+-	buf = hid_alloc_report_buf(report, GFP_KERNEL);
++	u8 *buf __free(kfree) = hid_alloc_report_buf(report, GFP_KERNEL);
+ 	if (!buf)
+ 		return;
+ 
+@@ -1855,7 +1849,6 @@ static void hidinput_led_worker(struct work_struct *work)
+ 	if (ret == -ENOSYS)
+ 		hid_hw_raw_request(hid, report->id, buf, len, HID_OUTPUT_REPORT,
+ 				HID_REQ_SET_REPORT);
+-	kfree(buf);
+ }
+ 
+ static int hidinput_input_event(struct input_dev *dev, unsigned int type,
 -- 
 2.53.0
 
