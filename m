@@ -1,149 +1,117 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D0A41B8EB
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D98C35E1CE
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787749911; cv=none; b=r6Gz3Yz38mpvJkKHu8VruGnSaQD3sCIkHgl9jGX7c2EebCUt5LRLj/Dy7btlR4NRF1ju+NkPt7F1Feo9rxFU1YuDmm1OCmmufC+YlB+KvC8YyceUB1yiaDJJUDSniQwu9QCZoz9GU23TYHIaqwdU8Xs2cXYHrDga+UWmdvi92FM=
+	t=1787750751; cv=none; b=B9XDlsfUryyy+a7K9BEVUkMYEbSRhZ646fMjpbSBmTqpuE+6jPw3vxQP6s1fSTHJ+0242o3sucSuoWHcodnRB7dW9Nj3OQyyggD7jSfVSpzPcxwXaOUHsHfE4YfGtuoaOyTOzaQvM0rx4oMKfz+flUWRsFmY32lzaToHvB9VJ9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787749911; c=relaxed/simple;
-	bh=iYXUe0s8goeacHQlmKJ3f9w79aXm+BLB+1SI5FmNLhs=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CJzQIg0osSNME0ifXUS7VpA/2kHjCLIK4Or/j/OyO9/BHu62ak86iPHDy8ZXLkKTY7PnzvzXfmQjrf9FqHmP2iFOUHxE5QWqt2qKOUNALnXy6FIgdA5nPJtGv0qdt6dXVsG118bDWC/sLinYop1S4APn/I1pS0a37Chqcqo0/Aw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHcOEytK; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787750751; c=relaxed/simple;
+	bh=h4xQc65uVBxWoHvKbCT+hslQVg/M00fNbbXhY6aDaHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kyZqOM7bE57wwt7/uWBLuBzwpxopHh6ELB8ewsSxiWGmy/cZ+UpgmGze6tMm/dAZ82Lwr6S8lxqg5ePAPRKjAqJck0Rvm6u1WWY70Gc6wk7G+2nq8LyyMbOq57tliUoBr2yn3t9FKQL5TMJoJ7sJu/BO8tLQpYo3wfSynf5OmEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6f3KjSZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHcOEytK"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c207cb16cf5so136028166b.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:11:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787749908; x=1788354708; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7M5t9v5XwKSZ3VZcQrdmnixl9ZSmqbJvPFx6wEt+sCo=;
-        b=UHcOEytKwqTrP3/bYCFJYliOVV16KXbK4jB07J+DBzs1nHlo/HpmkzDDeYAWMPpmDk
-         F4mk8jncnnay3idLSKlr54JYrRHfs9sci+n72qoQhNbsYJ4fU6APFW1sDTij+nVKdvBK
-         963ARIFZdSp1SY1WwIsY44rQ9zBowd2MRtl/p8rAaJUQpoW/HF5FYGqf8n7Fca/VcaR/
-         EPyrZkiBF7VyfGY3NJPBo5ntwgp3tuWWXUs61iaMP/V9m14ZPGGT7cmTivHX3D168z8J
-         clemAPbXxJ/lOTevAT01WcXMN947RngN7wdj5AiAus0fGQ9GP25pu7dCix8TM9Y+FVzm
-         h/Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787749908; x=1788354708;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7M5t9v5XwKSZ3VZcQrdmnixl9ZSmqbJvPFx6wEt+sCo=;
-        b=mvW6BcZbqSroMHUdQ01vsv2NYHAxgQGZtAG1evc/ATVxX6oZCnGWEaPgp+dCzMy8KS
-         ELMchIk5dcue9Rgggij214WaOejFtwVcJYEEGGJj3HAnriN3zTMyFF9fHjz5OCeNg30/
-         vOWeG9QHcW64V6AexmW1/jK/vmaNSgiez1kY9XqQgrZnwXRhsNrnXJBC68jhAxdySgRZ
-         1Jsb0knXd7jEOcVqOwOOl4jTgKA0JbMPqxVIzVWehBaWnZgJB+FSFJMIcFw8/6bvI67E
-         BcMxYdnNrrfKrX9u4nD5L04aXbVjZccu/IixjFt9QdUXYa37lkrNU+5ieCBwwB3WGunx
-         yGpw==
-X-Forwarded-Encrypted: i=1; AHgh+RrV1ByiFsoSV56dSuWZDkO1CWBrogmAYIJHH8bQLOKiHcwDlU2yqZBHYxqPzhOgi09KUFTWB4c=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncJz38rwAe5faefYUgCA7qbwv+N2s2KDkASkRj6I50K5xSh4OB
-	v2r04w8rPzTYGWF9BNNn8giXk/uXKtYEXeG7BIibNiwmPIMRySsEbsFs
-X-Gm-Gg: AR+sD11Ky39xat5d4tKXp/I0qyMqRsT77gI/97r4sKGuEdShX1SvMBK7HKMfhp1mgws
-	+se+vc/3TSlIaaY7GEGh1ae+d70OuU42Ly83mc8mUuxOVT5tT8oSC0kQOj1SnlN5mG17Bg6J497
-	gvJ+cTOx3whRAWHmxgJUC5rlv1E6csdjMDQS6owOALXdymYpqQNREFDdRUKusaNgoP8JxqJXXQL
-	9XsOiLrRIiQ6V1LJcnvP6YnRcLa6/OVo3mW16+jiV9AmECLONeYmRgDDXxc1V9rvGqm+XxafiIC
-	teSmXdJQnxq9i768zy7w+J+sM6Nl17PMW35u55AF/SYcAymhY3heLdSs3vogwmodZjZ7BWFr+1C
-	5RcjPWAdjCt0QDA5DsmTBWnQfjcOD1hV0O+PJq+hdf0LfZJ/umPQsoqa2Qyu7KsjIqeSf6FnNdD
-	OWpjoTKrZHTKw8k82cEp1yJfJt18BljSDfUKGaIuMDjCwRrQmV
-X-Received: by 2002:a17:907:3d44:b0:c25:5a7:87f with SMTP id a640c23a62f3a-c250ba06e3cmr876138966b.0.1787749908066;
-        Wed, 26 Aug 2026 06:11:48 -0700 (PDT)
-Received: from krava ([173.38.220.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2523ea83a1sm299172666b.60.2026.08.26.06.11.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:11:47 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Wed, 26 Aug 2026 15:11:46 +0200
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Christian Simon <simon@swine.de>, bpf@vger.kernel.org, ast@kernel.org,
-	andrii@kernel.org, daniel@iogearbox.net, martin.lau@kernel.org,
-	tj@kernel.org, yonghong.song@linux.dev, stable@vger.kernel.org,
-	andrii.nakryiko@gmail.com, olsajiri@gmail.com
-Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable
- programs
-Message-ID: <ao7mEnrgVNj7prrI@krava>
-References: <20260822225444.2774461-1-simon@swine.de>
- <20260822225444.2774461-2-simon@swine.de>
- <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6f3KjSZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15AEF1F000E9;
+	Wed, 26 Aug 2026 13:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787750749;
+	bh=4QR5LHutIfqbYfaxbujJVmkdEDgA8171FqS0Fuc6nv4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a6f3KjSZObUrz1qmQa3v5SjlZdr5QxmDVSIf6Gr6+971T4J8GDk1+wLyUXRDx0pv5
+	 PSjcQuwBFivp1LLea9d5FkMojE/OBRIbT7f172pVkOgW718xlv9xIFmd/9K32gYSmS
+	 kpIf2BPp6BScFwZA+j+DV8rkyxidX9wOb+rIAXSoVuEGzjdYD4YciFsjUI8THZ3/hl
+	 Iw6nFf1RWReh+Pf9BcR6cxPl/3hkTXMvw83YGC+PmBFlQ2d+KTO757I1oYzRvzoXM1
+	 e1CPpQU8UN0QOWg8Wxm1ZNx9x9b2SPlHPO/vPYypjTD3oSGkRU38PHehDjWH3UmiBu
+	 djH1HlvVXqqXw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Samuel Page <sam@bynar.io>,
+	David Heidelberg <david@ixit.cz>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] nfc: nci: fix uninit-value in the RF discover/activated NTF handlers
+Date: Wed, 26 Aug 2026 09:25:47 -0400
+Message-ID: <20260826132547.3118857-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082417-repent-kilometer-e0ba@gregkh>
+References: <2026082417-repent-kilometer-e0ba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 06:20:16PM -0700, Alexei Starovoitov wrote:
-> On Sat Aug 22, 2026 at 3:54 PM PDT, Christian Simon wrote:
-> > A JITed BPF program can use one private stack per program and CPU.
-> > Sleepable programs can be preempted, allowing another task to run the
-> > same program on the same CPU. The second invocation then reuses and can
-> > overwrite the first invocation's private stack.
-> 
-> I'm confused by this. sleepable progs go through __bpf_prog_enter_sleepable_recur()
-> which has per-prog recurison counter. So preemption of the prog
-> doesn't break private stack.
-> If the same prog attemps to execute on the same cpu it will be skipped.
-> 
-> syscall prog types go via bpf_prog_run_array_sleepable()
-> that have per prog recursions counter.
-> 
-> Looks like we're not doing it for bpf_prog_run_array_uprobe().
-> I'm not sure what the right trade off here.
-> I feel universally checking for recursion is better
-> then selectively disabling private stack for uprobe.
+From: Samuel Page <sam@bynar.io>
 
-also during the load we can't tell if kprobe program will be attached
-as kprobe or uprobe [1] so having a way to disable private stack for
-a program would solve this as well
+[ Upstream commit 8cbe06c1e699c0a165dae5093a2550e65f914818 ]
 
-jirka
+nci_rf_discover_ntf_packet() and nci_rf_intf_activated_ntf_packet() each
+parse a notification into an on-stack struct (nci_rf_discover_ntf /
+nci_rf_intf_activated_ntf) that is not initialised. The RF
+technology-specific parameters are only extracted when
+rf_tech_specific_params_len is non-zero, so a notification that reports a
+zero length leaves the rf_tech_specific_params union uninitialised - and
+both handlers then pass it to nci_add_new_protocol(), which reads it:
 
+ - discover:  nci_add_new_target() -> nci_add_new_protocol();
+ - activated: nci_target_auto_activated() -> nci_add_new_protocol().
 
-[1] https://lore.kernel.org/bpf/ao2f-rBgT0SqX6Pw@krava/
+nci_add_new_protocol() uses nfca_poll->nfcid1_len as both a branch
+condition and a memcpy() length and copies nfcid1/sens_res/sel_res into
+ndev->targets, which is later exposed to user space via NFC_CMD_GET_TARGET.
 
-> 
-> > Disable private stack for sleepable programs so they use the regular kernel
-> > stack, which handles preemption correctly. This change is intentionally
-> > limited to programs marked sleepable; preemptible non-sleepable dispatch
-> > paths require separate protection.
-> >
-> > Fixes: 7d1cd70d4b16 ("bpf, x86: Support private stack in jit")
-> > Fixes: 6c17a882d380 ("bpf, arm64: JIT support for private stack")
-> > Fixes: 156d985123b6 ("powerpc64/bpf: Implement JIT support for private stack")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Christian Simon <simon@swine.de>
-> > ---
-> >  kernel/bpf/verifier.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> > index 5e37ca75e5c4..038753ef07a9 100644
-> > --- a/kernel/bpf/verifier.c
-> > +++ b/kernel/bpf/verifier.c
-> > @@ -5237,6 +5237,15 @@ static enum priv_stack_mode bpf_enable_priv_stack(struct bpf_prog *prog)
-> >  	if (!bpf_jit_supports_private_stack())
-> >  		return NO_PRIV_STACK;
-> >  
-> > +	/*
-> > +	 * Sleepable programs can be preempted, allowing another task to run
-> > +	 * the same program on the same CPU. Since private stack is per-CPU
-> > +	 * and per-program, the second invocation would corrupt the first's
-> > +	 * stack. Disable private stack for sleepable programs.
-> > +	 */
-> > +	if (prog->sleepable)
-> > +		return NO_PRIV_STACK;
-> 
-> This is not true in genreal. sleepable progs can use priv stack.
-> 
-> pw-bot: cr
+  BUG: KMSAN: uninit-value in nci_add_new_protocol+0x624/0x6c0
+   nci_add_new_protocol+0x624/0x6c0
+   nci_ntf_packet+0x25b2/0x3c30
+   nci_rx_work+0x318/0x5d0
+   process_scheduled_works+0x84b/0x17a0
+   worker_thread+0xc10/0x11b0
+   kthread+0x376/0x500
+  Local variable ntf.i created at:
+   nci_ntf_packet+0xbc2/0x3c30
+
+Zero-initialise both on-stack notifications so the union reads back as
+zero when no technology-specific parameters are present.
+
+Fixes: 019c4fbaa790 ("NFC: Add NCI multiple targets support")
+Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
+Link: https://lore.kernel.org/netdev/20260623172109.1105965-2-horms@kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: Bynario AI
+Signed-off-by: Samuel Page <sam@bynar.io>
+Link: https://patch.msgid.link/20260626090301.2139500-1-sam@bynar.io
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/nfc/nci/ntf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+index f8b20cddd5c96..a3d9cb70f3d2c 100644
+--- a/net/nfc/nci/ntf.c
++++ b/net/nfc/nci/ntf.c
+@@ -310,7 +310,7 @@ void nci_clear_target_list(struct nci_dev *ndev)
+ static void nci_rf_discover_ntf_packet(struct nci_dev *ndev,
+ 				       struct sk_buff *skb)
+ {
+-	struct nci_rf_discover_ntf ntf;
++	struct nci_rf_discover_ntf ntf = {};
+ 	__u8 *data = skb->data;
+ 	bool add_target = true;
+ 
+@@ -511,7 +511,7 @@ static void nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
+ 					     struct sk_buff *skb)
+ {
+ 	struct nci_conn_info    *conn_info;
+-	struct nci_rf_intf_activated_ntf ntf;
++	struct nci_rf_intf_activated_ntf ntf = {};
+ 	__u8 *data = skb->data;
+ 	int err = NCI_STATUS_OK;
+ 
+-- 
+2.53.0
+
