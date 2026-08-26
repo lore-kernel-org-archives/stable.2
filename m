@@ -1,129 +1,111 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53F0EEC0
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:02:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8553264A8D
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:02:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787702559; cv=none; b=hSlsiPiBTsNHEkmOnXEkn+mB8rRLzX7vFz6iSIfxZaXU3Om8eqzE9XZ0B3Vra5GvADpwVm8485hMcUxxb47bPIogwr/t7VvWScGRjJKTAqhIWRN3pwOwrtVl+MxYxxEE+4PGdnyTWX8Jv/My95EqW7SfuGe9ByI0WmXPaz4tRjw=
+	t=1787702571; cv=none; b=Gst/oDHKTpIbGDZy6+qx9SYrdKDACTJInUF+pDxBsqIUCPh9fi+PT+7sLpNyDIgIC63e9ZSD5RVjAUQ/AtRy8KB/xGZtEUfy+4UtbRNlp2GV8JtYqF6P9NodwAuM20G2A1H5+0Jzns/gu8+h1HKwacmvbFVzLCDgV2dhoLmDWN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787702559; c=relaxed/simple;
-	bh=7VFxiajtNPEz8wd2qW7G25tWjW6JMDTpFm13VJwoHK8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kXgp50lNp8G/NwR3V56nYlDqym8d2J8MxNGoV2GM60Q5hbFXLw0adebthRYcEnppGStMc6L9dyndqOFfVahPc1pV5W85O5C4suLZXEAkuJQkkbqd1sHZ6U7NywND0EFaa/hoj5wyjS2ZvCg7aaq1aqFtenKtOYBhiZU+XPgPymY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=q2lN9NrA; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1787702571; c=relaxed/simple;
+	bh=ReTXM9ynVhZlhP+tUhPkijcFLiX/nfvGB2OubiREl84=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hSD0Nb4kumFirw98nLUiSj1G0kE+gXendxkW1aJzjWNEgUMI4QYRqslqKH57qoMtR6R5lOX4jvhnp30GyjYLl98gfX9c4PNW7KnTO5BK/LqyR84QkxS8gCrrH03bD1OUTNTLzir8KvWa3yH1wnBej/TCnfZvH1Um1FfZh+81i58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EhQoy0O8; arc=none smtp.client-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="q2lN9NrA"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso484908a91.3
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 17:02:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EhQoy0O8"
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-448b0ff4a57so556654fac.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 17:02:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787702557; x=1788307357; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Utmg/kSt4ut5hrQSIKyhDScZLEzGOdoo3IAf81kK6dA=;
-        b=q2lN9NrAZgc1U0CyW707xwP9OjqAt1k869suvt4/yr3Z9XkiAr4lFAYKBbkaqaOIiv
-         3GL5DCdxxVugVdeFcUM2/EiXdn8RCc5NfGuJu7PoVnKM+cucyCIWZcf4LAdEJYtHHnZZ
-         IluaiPDzbFstwaywB8hJ8FKk2sAcodFw6/6AT94keBoAGV3Nxa0WfiWq7+jtEUNoiYcx
-         6N+K+lQ/6IZA+kkk1a7b7cWFCc096/b9ibeYvblDUj/gKQZ5bVegjhkLkGKvE9Ax5ogp
-         0801p9jsUY1Zy6RshCAu9/LBbTFrN4AgHOi70ZEcQzKMK9r6sCrF1XwBsBO+RnRAXazv
-         R0WA==
+        d=linuxfoundation.org; s=google; t=1787702568; x=1788307368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HDg6Q8lfyspr+N0uaaIRNBvtV2V/3UQDK74a3w2PV68=;
+        b=EhQoy0O8A64alKAJS6R4iNwgdYuwAVfJexshM9I3p2IP8bVWODVVpKhrVT/GmERrgV
+         N3JlbrYMkyoFKdzm3MVspV8MM7idoeaujngI/FqB/w1ewif/jM+gsPfYThxXu4NtYtwS
+         SHPw4JrfIgGDTqv27qYNUjSOJ4n1aY8ApittA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787702557; x=1788307357;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787702568; x=1788307368;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Utmg/kSt4ut5hrQSIKyhDScZLEzGOdoo3IAf81kK6dA=;
-        b=c9XvWKacTTBytS3cLholRWYY+ssjRVOrCKNAGF5IItYD5GXO895cQej7AWqTggXEmG
-         Ix/LvBXbO3cCzrRJQXfQBGtCYRN4YaDRMukURj9QMINnZy6EdH1LB900yoFw20k6a7sI
-         295lZpfXXUJ6nK6Cc2xRPHZN/QpRehvj3O4Lemt5WuOeBSt7yc320mvvc+vhO/ViK2XT
-         4AlBS7zq39he8Hsz8RRwlcOJK/5E0odXbMvcT+tqJZO7TwKKL1kBPQankgVI91vudBw4
-         ibNk44KG4yFO91faGTvh8PQySlNho0172U8Vi80Iy8Tp7mS6LlITvwXlIz1CScvQ9zNu
-         hPHw==
-X-Forwarded-Encrypted: i=1; AHgh+RrXlqfbhyC10TTPwq7JhnWTH54YEbSMkJuxe7m44gaQMklKyW/f1vyz7zhPwvVI+5GeewM+20M=@vger.kernel.org
-X-Gm-Message-State: AFuF++naIIocRYcrNgzCD48Krx7HxqFdikVUWkM2MeHRtsy/eqDF6Bsr
-	39685kGTSNErPcsyFSUpv1bpKUH3cT+bAiqaj1FzEajJVEJBGs0UrpKuJVOGpnw+JQc=
-X-Gm-Gg: AR+sD12bzh+hTGusrLQmJ6VYlisO79mKOsfLN7kU/6DYE6xYy9v0xWNMAfsZsVBjOD+
-	MfimBqk0Hi0svpCGOTNoo6LIAX7yrHG7wB1f3R06kYDKP1P4YR+FcfmIJbN0S8EdH5ApNn1K7Eu
-	MCW+sbK3sYOITCf1j8UmUphdmUgBxnp2apjmiKw/aOYgUIChJ4xvUlIE5G6wNCYH556VBVaJ07Z
-	K71gTv2Bk1KzfflsCbO8p5zvZH/rAN+iwjGExuK/YbSEJ/gN2VwlFrmgSFiwis6OEojqzmGTlK1
-	gfkS7cLqBYxyp9QwGWb3mp0LRLtNqtvxgbwQljX2caoxJLGkR3hyjcpfXdQd/xsWJW7SWFvg2gl
-	GgO0u6VGIZ6vqRC6+qsBRYsqGAaIiyJZ9LEw8RK+lBIrczqXuxkDje/ydqCZ3bJ1yU7WqYjzOWy
-	sWcaEZTTI8vy+pyyM5ieaxiJQgtRMoys6S4odvuVNpFco=
-X-Received: by 2002:a17:90b:560c:b0:396:67ed:da2d with SMTP id 98e67ed59e1d1-3966d4931a0mr5782303a91.15.1787702556523;
-        Tue, 25 Aug 2026 17:02:36 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:49::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645da08desm5362829a91.17.2026.08.25.17.02.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 17:02:35 -0700 (PDT)
-From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andy Gospodarek <andrew.gospodarek@broadcom.com>,
-	Somnath Kotur <somnath.kotur@broadcom.com>,
-	Simon Horman <horms@kernel.org>
-Cc: kalesh-anakkur.purayil@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Joe Damato <joe@dama.to>,
-	stable@vger.kernel.org
-Subject: [PATCH net] bnxt_en: Write doorbell when linearizing skb fails
-Date: Tue, 25 Aug 2026 17:02:33 -0700
-Message-ID: <20260826000234.2031564-1-joe@dama.to>
-X-Mailer: git-send-email 2.53.0
+        bh=HDg6Q8lfyspr+N0uaaIRNBvtV2V/3UQDK74a3w2PV68=;
+        b=UN5/Pz9p/P6Q6hq+mGlBAVE/YOh6UlROqxK0xXDRfUqQVCnjq25o9l1XdObbRHdQOo
+         XSOPaY8mI4ouTV4fXqwlY9ij841wPL1nm7myiNuBslhxQPTyjavFLLR16dVePrZMUihC
+         3FSwFxdGG8FGr/hEimFR5DEXBm16gD35RrYoI9opwZcCjRIPuKf/PiB1vUKlFKNfKR/s
+         B2oxHuJ9FSgss2ARJeU667MnnWQP6m/KzCh0MVaHA97IvbPZwSUMvYQ8f1FU+RwbhK7/
+         UOHeUzIQb65gQ16ulWvfYi9uH7xuXYcexHV5/JHoyR0K336o0gx8cA7bPSCTBBuaHzbz
+         i1Iw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq2TfLZXmBjDOHPVBR4e/wQFknnjyX7UF1TwTdemkHc5cP070iE4A/GAmEvf+MoJDYnyokF9lk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4ddw8NAkBDqqIfLoeFs3xyoYwcy6aEEdymFfQmvZT8jsYvokF
+	+7XrCAvlKOWsGLBznUy8cB19CHZ+m5+4SEsD8blK3ETWL57lk4m22HMznZcs8Hc22dg=
+X-Gm-Gg: AR+sD13BdwnEAKvSlqgwCHA10nGFKYk2LP4eTjxW/aYxUIGuyPCIK6kAlXyAuIzf9Q4
+	CWftrRQZJmakbvMBxDGpef7hjQQXynHAQaqufncpO69Ba81HGR/AoSup2YvqGkn9wo9HlzMSPOZ
+	4r7YBjdN8xN3/a6qWXXSVW6ZVSSlwCRBiccW3bOUnvRff/VlIUjyduWEfT9dQBCux6U9U/HsXF/
+	CzDWCdlP+7DuR4tqnbT9/aS8zZDnP0PYXp2TLSkNrusC7S5H5zAjMGzJz8GuZpv+zbdyTDG1MIp
+	9IoVR94aS6Awtw5AKM/wQ46oDCLNI1BU61O9a7KN+olXqp1rcdSb01Jf5wHjpM+3/xGeOD2MckL
+	o355pBHn8wkKOrpS0gDJNmAU209jRj4gp6EyKg51Zt86Q6rOTxv7gp1DGtiQj0Zx31fFDvBGzX1
+	ztGbV/KeQDfUTQoMKPaDGg34H329V/KZlf19vCgUxZPOzx2np93SHnNmjMTtiBHuSXaMqd
+X-Received: by 2002:a05:6870:a0a2:b0:456:4c93:a7f8 with SMTP id 586e51a60fabf-465981b1c08mr3490510fac.6.1787702568147;
+        Tue, 25 Aug 2026 17:02:48 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-465adf69375sm780609fac.7.2026.08.25.17.02.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 17:02:47 -0700 (PDT)
+Message-ID: <0dbf9d9f-f01f-4e28-85f4-a134486a0ac9@linuxfoundation.org>
+Date: Tue, 25 Aug 2026 18:02:43 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260825132541.560541185@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When the driver is handed a burst of packets, the doorbell is deferred
-until the end. If the last packet has a huge number of frags, but fails
-to linearize, the doorbell will not be written adding latency on TX for
-any packets in the ring and holding their DMA mappings until the next
-TX. Note that the queue is not stopped, so this issue would delay
-pending BDs until the next TX.
+On 8/25/26 07:24, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.1 release.
+> There are 82 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.1-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-This issue was discovered by Sashiko and reading the code verifies that,
-while unlikely, it is possible.
+Compiled and booted on my test system. No dmesg regressions.
 
-Fix this by jumping to tx_free, which replicates the same pre-existing
-logic but also writes the doorbell.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Fixes: b91e82129400 ("bnxt_en: Linearize TX SKB if the fragments exceed the max")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joe Damato <joe@dama.to>
----
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index 9c2cc50276a5..d59bcca73a2b 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -502,11 +502,8 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
- 	if (skb_shinfo(skb)->nr_frags > TX_MAX_FRAGS) {
- 		netdev_warn_once(dev, "SKB has too many (%d) fragments, max supported is %d.  SKB will be linearized.\n",
- 				 skb_shinfo(skb)->nr_frags, TX_MAX_FRAGS);
--		if (skb_linearize(skb)) {
--			dev_kfree_skb_any(skb);
--			dev_core_stats_tx_dropped_inc(dev);
--			return NETDEV_TX_OK;
--		}
-+		if (skb_linearize(skb))
-+			goto tx_free;
- 	}
- #endif
- 	if (skb_is_gso(skb) &&
-
-base-commit: dc4b95b8fee95113587e93ca116356032d271371
--- 
-2.53.0-Meta
-
+thanks,
+-- Shuah
