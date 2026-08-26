@@ -1,72 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526883CEBA7;
-	Wed, 26 Aug 2026 10:56:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F242874F8
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:57:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787741787; cv=none; b=Gpy/o+kESHpOWWKBIIEYt0Kycya4PMem0oY3/ZibXOzMLD5SY/pzZAT/onRSOrdO9J3yUmVoHyJzXn5z6vA19mxwv5/s80A/ZXqJnW2PbbGpAL/QwoNW2VVU8E9y63rPgvHM39k+g4Qlf6GRSbssukyAOLqDaVY9R/9gPyIQng0=
+	t=1787741857; cv=none; b=qS4wGjYUPhdt+sysJqrvXWC9iagadST6TP0NTiplcJAVOc8WFf5qMXhrc0tq/HH1Mfn/NpGhYK+mzlmIWT3FsJZcO/M2yK4/sT7pTb5Psder53bGIPN+poD+tMmLWC24BhK5uGPVxg8dFgD3pslmZFQ6Fi5xaOzNzyj5UmCiJSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787741787; c=relaxed/simple;
-	bh=OlqXrs3FP5/K3FvoQEQfcAAWpkp9P+efwSEp0Z8GkSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OcEe70F7mhM+R76aFMOKkQbo8konqNFYwYGZabzst+RdyKhpO8WQzSvQZO0WFmDtwp0NlH+pZCT69o5Z6ndbBby+miQ5moqfRIyqCAp8S8aDyyvfiqEvHyqBolUmIRmaWy3qPyqTMF311R/kBtzAPmdWS3mJAI+Ti69a1ANOWtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Stre8xoC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787741857; c=relaxed/simple;
+	bh=0hcVHPWnuReN5kYauniBLcmyCXrmGI88kfFT86q5KBA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ENUtVGhJl5fykA8lkA5dgyIRP3JNE5ezEIWSNiLB3YIBaKqdVbZcpoqiG3TK8bsxFserfCZrJjU/FobKf6jgNDx/27zIrm2XDLw5Bcr4OzHF1+89hwO6xrsHU4ehG24fg033fVipm6Dqav9hsTYpsKa1udGokjjbbEgaQIO8VmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhFM3aya; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Stre8xoC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80FB1F000E9;
-	Wed, 26 Aug 2026 10:56:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787741775;
-	bh=4ng1xyPLNkCEx8Fpph2DV5F5md26pFFAG/0TMVj0uvU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Stre8xoCySIiCj7EEWrTedPBiqrwGLlPSF6csHS+Iq0SlX+7eERY7ti5v2UXhfB0i
-	 5zOlrL5IJAu6mTYht9D/TeLnfO7/lZHiAWsVVGApAKix+54zwTgaqwmV+/yTXMjK4S
-	 JglGTy9bk+8KCRPebTrqn0UMTI0Iilt4UI4Kr46I=
-Date: Wed, 26 Aug 2026 12:56:13 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Pavel Machek <pavel@nabladev.com>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com,
-	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-Subject: Re: [PATCH 5.15 00/76] 5.15.218-rc1 review
-Message-ID: <2026082658-partake-unlocked-d0c7@gregkh>
-References: <20260825132541.568214149@linuxfoundation.org>
- <ao3uOPXs9_3tSs8E@duo.ucw.cz>
- <775e72f4-6c67-4765-bd63-bef5d520a156@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhFM3aya"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8FF1F00A3A;
+	Wed, 26 Aug 2026 10:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787741840;
+	bh=OsdowQMA1Kmk6BvGI9wRjrPskJx9W9+nYDdehLMJ6kE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HhFM3ayagm5P4x0cActjjO+Xgc/LWj5SMOabdznPPvqQuZ3DGKW2FWp49HNB5/713
+	 2Z+U+lw73qGDiVxmqFRU2PFYCqj+couiG7+JU4eIIoEK6ukVcfBScIisPLI80kf9Lc
+	 7DPXvkOuRZdrzyMUvdiBYaHGIvAVF3NAr6i0WH2Vpi1rrIBhhRn1QMXdzYamjQqHrV
+	 2SR7KgrDNitSKg/loseG1YS7TfD0ZJ895QPR6okkT0XxuF2LW1e05qiQmLpa9PJmLa
+	 RnxoCrZbwzPQP/vo9NEFvNOiOVr7Tsh/1raFjhNGNelISWpxO3hrp6wyOPcO28eJEy
+	 MP+M+4qpAYXsg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Guanghui Yang <3497809730@qq.com>,
+	Jan Kara <jack@suse.cz>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] ext4: propagate errors from fast commit range replay
+Date: Wed, 26 Aug 2026 06:57:17 -0400
+Message-ID: <20260826105717.2608181-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082456-backache-routing-3aa7@gregkh>
+References: <2026082456-backache-routing-3aa7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <775e72f4-6c67-4765-bd63-bef5d520a156@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 11:28:07AM +0100, Jon Hunter wrote:
-> 
-> On 25/08/2026 20:34, Pavel Machek wrote:
-> > Hi!
-> > 
-> > > This is the start of the stable review cycle for the 5.15.218 release.
-> > > There are 76 patches in this series, all will be posted as a response
-> > > to this one.  If anyone has any issues with these being applied, please
-> > > let me know.
-> > 
-> > Build problems here, I assume it is same one as elsewhere:
-> > 
-> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2789505612
-> FWIW I am seeing the same build issue for ARM with multi_v7_defconfig.
-> Seems to be present for v6.1 and v6.6 too.
+From: Guanghui Yang <3497809730@qq.com>
 
-Offending commit now removed.  For the second time, it keeps coming back
-:(
+[ Upstream commit d8b8dd3530bf41e14b118702cdaf9de64bb96885 ]
 
+ext4_fc_replay() stops replaying fast commit tags only when a tag
+handler returns a negative error. However, ext4_fc_replay_add_range()
+and ext4_fc_replay_del_range() currently return 0 from their common
+exit paths even after internal failures.
+
+This hides errors from ext4_fc_record_modified_inode(),
+ext4_map_blocks(), ext4_find_extent(), ext4_ext_insert_extent(),
+ext4_ext_replay_update_ex(), and ext4_ext_remove_space(). As a result,
+a failed ADD_RANGE or DEL_RANGE replay can be treated as successful and
+the replay code may continue with subsequent fast commit tags.
+
+This is particularly problematic for DEL_RANGE because it may already
+have marked blocks as free before ext4_ext_remove_space() fails. If the
+error is swallowed, replay may continue from a partially applied range
+operation.
+
+Return the saved error from the common exit paths and make the
+ERR_PTR() cases in ADD_RANGE store PTR_ERR() before jumping to out.
+
+Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/tencent_E3622146846A84C75C31C7D32AC4D5AD0605@qq.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ext4/fast_commit.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
+index 26b7782b03f40..4f73f0ad6c85c 100644
+--- a/fs/ext4/fast_commit.c
++++ b/fs/ext4/fast_commit.c
+@@ -1678,8 +1678,10 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
+ 		if (ret == 0) {
+ 			/* Range is not mapped */
+ 			path = ext4_find_extent(inode, cur, NULL, 0);
+-			if (IS_ERR(path))
++			if (IS_ERR(path)) {
++				ret = PTR_ERR(path);
+ 				goto out;
++			}
+ 			memset(&newex, 0, sizeof(newex));
+ 			newex.ee_block = cpu_to_le32(cur);
+ 			ext4_ext_store_pblock(
+@@ -1741,9 +1743,10 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
+ 	}
+ 	ext4_ext_replay_shrink_inode(inode, i_size_read(inode) >>
+ 					sb->s_blocksize_bits);
++	ret = 0;
+ out:
+ 	iput(inode);
+-	return 0;
++	return ret;
+ }
+ 
+ /* Replay DEL_RANGE tag */
+@@ -1804,9 +1807,10 @@ ext4_fc_replay_del_range(struct super_block *sb, struct ext4_fc_tl *tl,
+ 	ext4_ext_replay_shrink_inode(inode,
+ 		i_size_read(inode) >> sb->s_blocksize_bits);
+ 	ext4_mark_inode_dirty(NULL, inode);
++	ret = 0;
+ out:
+ 	iput(inode);
+-	return 0;
++	return ret;
+ }
+ 
+ static inline const char *tag2str(u16 tag)
+-- 
+2.53.0
 
