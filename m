@@ -1,129 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DA0379C32;
-	Wed, 26 Aug 2026 08:09:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A348379C32;
+	Wed, 26 Aug 2026 08:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787731745; cv=none; b=CDRihsP/1JmVWVW12LUss4LxbDJn8st6X35eHNu//781r8lX2IDGwDwJ7JC+z0phkjIB61csudNUfElT22S1uWOvTYq7yjRe5Q+Mg/Nn29QTC2EocPhJ9QqfWWxMLjby86oc3nP0OGZyTvoQnMUJhHAj8qlB5MjVKzUS+Bq8d6I=
+	t=1787731764; cv=none; b=tsnyaGneBsFY2gOm6elKxaBKmDUJwZifvZqDO+3DQBC6CyrmW6Er/NzuEBVrf1RjjOe9ONQfqw17thmTk+qId+bv8kg9rdw0iXQTORTdczr/HBa49hmFN+CMph/y3vcOBBlmOdG3U/19aLdnnz6a9lKQvKxaJ7cIWwQ5qiIFufc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787731745; c=relaxed/simple;
-	bh=hWo4VRdpe36qVDHG5UAi+0SVJSDj4Zr79mxgIIsQgzA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cwg91T/3dBtG0dlP4v4tgF1eEIs6WIKEtFQ91B6FhjT6d6djNXO4wDpBp0z6DLj4qP535P4xnkqYdnLbBAOon5y5efHF9yf9Hd1UXipLm8xyUHGFwRkokNBc5fq6+ToZrTYfC+O7IMXvGznqOK3fFNJ0XLElWuQ81MtGcX8kHJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fZRK+pzh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787731764; c=relaxed/simple;
+	bh=cSGfkQYRkTaehWu4VydYgeY3mHfD4msOmfLY1ij97Yk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C5QSPvWplnW1TpU3TP5/yJJfWiU94K+29qR0DZrKgKV7LpEZQG0xbjhRZ0/d9Khu9lifAdsOjCgFlCpiE1XpzAQZA1NLIvXAjojDmpl8KwNrY0LhUaU3ocxOYycnX3/5NoGmbfK90cuRdJe+elUHlNl/qHFmC6m39+m1lQFU+Wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlFo/Xx2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZRK+pzh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F361F000E9;
-	Wed, 26 Aug 2026 08:09:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlFo/Xx2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B16F1F000E9;
+	Wed, 26 Aug 2026 08:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787731743;
-	bh=zkemYfzUAnDUUW7Woq3Ll7nAEHIuINdgKAIVWbxWrjA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fZRK+pzhRc25aW/wW0SKbu275nX+soOunXyesHz5tvU5vabsaNBeX6xxGODZJ107b
-	 qxr6bX6XbTsQSvbiAkNRlYarsu+qCsfbihRwrcaDV0r3fciz6bayHa0eGO8mC9JdSC
-	 ERElfHyth50mNYfJi44HGvoAJpIv119eMebycDMLpVZDdmOOhWfG8hq7Dtl1d8676J
-	 2/kwux5Ywtnjzy1h1PODGDkQUIxdd8CGx6j3bzNCKnHT9MjlmhLW4W2Cp6YthzFF+7
-	 0fHFnG5KKNGc1Lqp6bWWK21JmNqagFj8A8KULuq9/TDNZ/Wl7vWyb6xy7N5eQzm2je
-	 5CR1v5k+e93dA==
-Message-ID: <b6fbf952-c619-4fc7-8a8e-62a0ae64ff0d@kernel.org>
-Date: Wed, 26 Aug 2026 10:08:58 +0200
+	s=k20260515; t=1787731762;
+	bh=wcqiEUwoaQZ5bgWvIscWP1Egql02KyBJna4kdvbmVMc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QlFo/Xx2MRjymoU4gmfihXhAcIcPGrBb/0sKUf4LqjGIMVLLQxMucPIPgKldUNMDM
+	 hYOqwQP6mKIlxBSJfZ4tt7cSusb5U/z/PBOlbE33qu9DwWevlUAdzcL/iMXucNoQwq
+	 ZheIptJBCda1yDs7qgnBq/GlxKtDvS2++eUDeqEa2Aba0FDcRFPDuYBVqeT1gFdJba
+	 dD+upvrVwf0wrZjXPUxk/1dAYnbMCT3KSB7Z74NvQKYXmmKix8Sp4DKMRuZYG323xW
+	 6qVSkNiK03h1a3FYrJ2w/OmkTbrvC5BzwO9+LaVmY14wKinfICPcOUA+aouucIY4i9
+	 XyLlHf4EEdV3Q==
+Date: Wed, 26 Aug 2026 09:09:16 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
+	usama.arif@linux.dev, zokeefe@google.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, stable@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>
+Subject: Re: [PATCH v3 3/3] mm: khugepaged: fix folio is used after
+ folio_put/unlock()
+Message-ID: <ao6e9RxwQ-KC1Ikq@gremlin>
+References: <20260824092935.73892-1-vernon2gm@gmail.com>
+ <20260824092935.73892-4-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] mm: khugepaged: fix swap entry value to
- folio_pfn()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- zokeefe@google.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>
-References: <20260824092935.73892-1-vernon2gm@gmail.com>
- <20260824092935.73892-2-vernon2gm@gmail.com>
- <edd7ed8d-0f2c-4de3-89e5-f2b23c2dd1e5@kernel.org>
- <6a9c2369-5589-4f2a-bcfe-c6e3b46a1ccd@gmail.com>
- <c8e3bb54-e4f1-45d3-8059-3ee1910a920a@kernel.org> <ao6c6Oe_KV0O1LJn@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <ao6c6Oe_KV0O1LJn@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824092935.73892-4-vernon2gm@gmail.com>
 
-On 8/26/26 10:07, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Aug 26, 2026 at 09:57:05AM +0200, David Hildenbrand (Arm) wrote:
->> On 8/26/26 04:44, Vernon Yang wrote:
->>>
->>> When the `xas_for_each()` iteration to terminate and the folio operation
->>> preceding is normal, but pfn will be incorrect.
->>
->> The PFN is only relevant when a folio participated in the failure. Maybe the
->> following would be cleanest?
->>
->> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->> index 75639298efc27..371ee0b16d10c 100644
->> --- a/mm/khugepaged.c
->> +++ b/mm/khugepaged.c
->> @@ -2683,6 +2683,7 @@ static enum scan_result collapse_scan_file(struct
->> mm_struct *mm,
->>         int present, swap;
->>         int node = NUMA_NO_NODE;
->>         enum scan_result result = SCAN_SUCCEED;
->> +       unsigned long problematic_pfn = -1;
-> 
-> I find this name... problematic :)
+On Mon, Aug 24, 2026 at 05:29:35PM +0800, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+>
+> On the rollback path, folio_put() has already dropped the last reference
+> of new_folio. On the success path, new_folio is already unlocked and can
+> be freed concurrently. The trace_mm_khugepaged_collapse_file() is left
+> with a dangling folio pointer.
+>
+> So using the folio_pfn() before dropping the reference, closing
+> use-after-free window.
+>
+> Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> ---
+>  include/trace/events/huge_memory.h | 6 +++---
+>  mm/khugepaged.c                    | 5 ++++-
+>  2 files changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+> index fa828967e1fb..5fb4d92cfd84 100644
+> --- a/include/trace/events/huge_memory.h
+> +++ b/include/trace/events/huge_memory.h
+> @@ -211,10 +211,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+>  );
+>
+>  TRACE_EVENT(mm_khugepaged_collapse_file,
+> -	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
+> +	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
+>  			unsigned long addr, bool is_shmem, struct file *file,
+>  			int nr, int result),
+> -	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
+> +	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
+>  	TP_STRUCT__entry(
+>  		__field(struct mm_struct *, mm)
+>  		__field(unsigned long, hpfn)
+> @@ -228,7 +228,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
+>
+>  	TP_fast_assign(
+>  		__entry->mm = mm;
+> -		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
+> +		__entry->hpfn = new_pfn;
+>  		__entry->index = index;
+>  		__entry->addr = addr;
+>  		__entry->is_shmem = is_shmem;
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 4e0fca5942dd..24347f1a94ae 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -2254,6 +2254,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>  	struct address_space *mapping = file->f_mapping;
+>  	struct page *dst;
+>  	struct folio *folio, *tmp, *new_folio;
+> +	unsigned long new_pfn = -1;
 
-Elaborate.
+Nitty but:
 
--- 
-Cheers,
+Could we use pfn_t? I don't love that we are inconsistent with that.
 
-David
+Also the general pattern for pfn names is pfn_xxx so pfn_new instead?
+
+>  	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
+>  	LIST_HEAD(pagelist);
+>  	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+> @@ -2633,6 +2634,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>  	retract_page_tables(mapping, start);
+>  	if (cc && !cc->is_khugepaged)
+>  		result = SCAN_PTE_MAPPED_HUGEPAGE;
+> +	new_pfn = folio_pfn(new_folio);
+>  	folio_unlock(new_folio);
+>
+>  	/*
+> @@ -2671,12 +2673,13 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>  	}
+>
+>  	new_folio->mapping = NULL;
+> +	new_pfn = folio_pfn(new_folio);
+>
+>  	folio_unlock(new_folio);
+>  	folio_put(new_folio);
+>  out:
+>  	VM_BUG_ON(!list_empty(&pagelist));
+> -	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
+> +	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
+>  	return result;
+>  }
+>
+> --
+> 2.53.0
+>
+
+--
+Cheers, Lorenzo
