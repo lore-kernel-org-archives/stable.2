@@ -1,122 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C8935C6B9
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:20:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BE9357CFA;
+	Wed, 26 Aug 2026 17:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764823; cv=none; b=WacYCao/FgaoG0xeUGLWU8/UAF0GABcBWDY64Cymvlh0tHup2M0JR54ovffb9oR6zufaHCMK29qK5XLcYVfReCaaN1t+QorB5ZlOQmSftyFxuAp3McnHjZ4KbOA1xlmhExrMCSqu4LSv4dKyt93EWYGSgiePht3Ql9aUzqjWUhc=
+	t=1787764941; cv=none; b=LkGTWQ5hvHd4YFCRQm8JVMdxEq+9309syQYIJqHS1gKl/xeCuw6S5dysfiMkW4nXyef2Rrh+eqGkqLGdOJdgnhVSycCzML5JPQP8V7ZQnsAbhVL7VPesQpTwPnhj+H28dGETQLax0ph81negx4aEx4sNm6ZfZ4C57JgF+0vCgJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764823; c=relaxed/simple;
-	bh=TSQirgzf9thvAFSdOo0jIaXAmKOqw3n4K7GuA9TzubA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qLfIRnwYeS5N1+i2ByHJ6Fr/yjWF6BCLfRZpfuR8XcDGGPHWRPSuzOHaIUESIPvjuUITHNHzao2mde5d/TxCIzSZaMCY90a8H27rgUJtwPiXFVlzXhv7HIq1yz8bvqmN5NrCf1EQDoCyNX9Yhpuh5DK5EpVQXEP+BkSZzro7O4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUZzy5dU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787764941; c=relaxed/simple;
+	bh=xm90s1d0AKYkw+yeXHP8vErY/xzXMyujQ56myC4Oz7g=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=B/jxBe/pe1EAC0euaxBYn0WSzUhDertTn7yNL067PB1Lfm0g14obxRo/YMiPp4IkUIdhpFxz6Wb9Xvegx4VuKmyS3Z6xTR9NzMPbAYoTP7XzJpc2OIbMP6b+aLt3uiKKJprkTcoDLbSSBvIGqBVEnkG6y0eBlA6LyJboGXWnJtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=cKBWgSQ4; arc=none smtp.client-ip=193.104.135.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUZzy5dU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0CE1F00A3A;
-	Wed, 26 Aug 2026 17:19:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787764798;
-	bh=uCt+LJftkTGaWvtS0KhF7zhoRv03uEFImsHb8K0fP1M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TUZzy5dUbIkCCG/I9hTWXsl0e+A/VEhhccHXpxUxr1/L/9aPLAo9exyUUFIZXqXg4
-	 7ccjk+T7+lhIpbAGeUX3pVb2vzB8+uECuOLmPxnouHPI/Wa8qyF/SoAXZhI3lYX6ft
-	 8Ee2j1px4a+3nge5JCPD3TNYUUgtgdAEaVz6nKGQiTRGEyM17E26gL/XoI5VAP6xZU
-	 jWZlXaYuY77UHjT4RUOS7dgsU8D8XPw+jkXEIcxRn45o3OiX4D7t5yqSEF+lIMBbuU
-	 126EphgOTW+TSA2hDslNWqC0cBYy1HDDvu2z9Kggf6QGVET9si6DB6fBff8IKyUwmF
-	 ybqnZiPG4NSVQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] HID: input: use __free(kfree) to clean up temporary buffers
-Date: Wed, 26 Aug 2026 13:19:52 -0400
-Message-ID: <20260826171955.2266521-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082542-footpath-citation-4670@gregkh>
-References: <2026082542-footpath-citation-4670@gregkh>
+	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="cKBWgSQ4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
+	s=202008; t=1787764925;
+	bh=xm90s1d0AKYkw+yeXHP8vErY/xzXMyujQ56myC4Oz7g=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=cKBWgSQ4uH5wIjTKbJLmPSA4m+WXocr5mXOU+8iI1EyF2/YviK++67256+gfo24/y
+	 YD70o6ElUID2JrDgyDMjx0phtgFaDybOJhPbmZWSidJkgchKoKxjpWkxwpmBqsG16e
+	 aBUtfPZbgvON9NkPZ+sqNI7o1zk2jHMVnlP7Y7jup90lfbP6BYt/6kzLl0Zar26t1T
+	 +0fw/UPXM1jtUe5GeblqzSjXtt+n9GZMnLfl8kz3SXGVIjt+P6lrLpJRfAhA/QW3cm
+	 A2nT8m0EeQ3ngT1u6TbCF+mgYkZblpw1yMP7BCCvD1s+1oXP69sX++NGt1EMRi1KK+
+	 orBiBHC9SITPw==
+Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
+	by mail1.fiberby.net (Postfix) with ESMTPSA id A78B960075;
+	Wed, 26 Aug 2026 17:21:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by x201s (Postfix) with ESMTP id AB16820079C;
+	Wed, 26 Aug 2026 17:20:47 +0000 (UTC)
+Message-ID: <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
+Date: Wed, 26 Aug 2026 17:20:47 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
+Subject: Re: [PATCH net] netlink: specs: fix the conntrack filter type
+To: Ilya Maximets <i.maximets@ovn.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Donald Hunter <donald.hunter@gmail.com>,
+ "Remy D. Farley" <one-d-wide@protonmail.com>,
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+ Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, stable@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260825155832.3685714-1-i.maximets@ovn.org>
+Content-Language: en-US
+In-Reply-To: <20260825155832.3685714-1-i.maximets@ovn.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+On 8/25/26 3:58 PM, Ilya Maximets wrote:
+> The CTA_FILTER doesn't contain nested tuple attributes, instead it
+> contains bit masks that specify which tuple attributes to filter on.
+> The values for filtering are taken from the top-level CTA_TUPLE_ORIG
+> and CTA_TUPLE_REPLY.
 
-[ Upstream commit 142068281f5138a9888d488e6911e8d9f7923c15 ]
+As identified by Sashiko-NIPA[1], then CTA_TUPLE_ORIG and CTA_TUPLE_REPLY
+are both absent from the GET DUMP request attribute list.
 
-The __free() cleanup automatically releases given resource when leaving
-the scope, so use it to make the code less cluttered with error
-handling.
+However this doesn't prevent ynl CLI from sending the attributes:
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Stable-dep-of: d07644524b65 ("HID: input: read battery capacity from its actual report offset")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/hid-input.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+$ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
+   '{"nfgen-family": 2, "filter": {"orig-flags": 1}}'
+Netlink error: Invalid argument
 
-diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
-index c1708caa6b6cc..74d04e5c7f0b7 100644
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -419,23 +419,18 @@ static int hidinput_scale_battery_capacity(struct hid_device *dev,
- 
- static int hidinput_query_battery_capacity(struct hid_device *dev)
- {
--	u8 *buf;
- 	int ret;
- 
--	buf = kmalloc(4, GFP_KERNEL);
-+	u8 *buf __free(kfree) = kmalloc(4, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 
- 	ret = hid_hw_raw_request(dev, dev->battery_report_id, buf, 4,
- 				 dev->battery_report_type, HID_REQ_GET_REPORT);
--	if (ret < 2) {
--		kfree(buf);
-+	if (ret < 2)
- 		return -ENODATA;
--	}
- 
--	ret = hidinput_scale_battery_capacity(dev, buf[1]);
--	kfree(buf);
--	return ret;
-+	return hidinput_scale_battery_capacity(dev, buf[1]);
- }
- 
- static int hidinput_get_battery_property(struct power_supply *psy,
-@@ -1818,7 +1813,6 @@ static void hidinput_led_worker(struct work_struct *work)
- 	struct hid_report *report;
- 	int ret;
- 	u32 len;
--	__u8 *buf;
- 
- 	field = hidinput_get_led_field(hid);
- 	if (!field)
-@@ -1845,7 +1839,7 @@ static void hidinput_led_worker(struct work_struct *work)
- 
- 	/* fall back to generic raw-output-report */
- 	len = hid_report_len(report);
--	buf = hid_alloc_report_buf(report, GFP_KERNEL);
-+	u8 *buf __free(kfree) = hid_alloc_report_buf(report, GFP_KERNEL);
- 	if (!buf)
- 		return;
- 
-@@ -1855,7 +1849,6 @@ static void hidinput_led_worker(struct work_struct *work)
- 	if (ret == -ENOSYS)
- 		hid_hw_raw_request(hid, report->id, buf, len, HID_OUTPUT_REPORT,
- 				HID_REQ_SET_REPORT);
--	kfree(buf);
- }
- 
- static int hidinput_input_event(struct input_dev *dev, unsigned int type,
--- 
-2.53.0
+$ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
+'{"nfgen-family": 2, "filter": {"orig-flags": 1}, "tuple-orig": {"tuple-ip": {"ip-v4-src": "192.255.0.255", "ip-v4-dst": 
+"192.255.255.0"}}}'
+[]
 
+Otherwise, LGTM.
+
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825155832.3685714-1-i.maximets%40ovn.org
