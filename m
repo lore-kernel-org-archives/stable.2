@@ -1,88 +1,174 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D542413D9C;
-	Wed, 26 Aug 2026 15:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759789; cv=none; b=tPiUWvsSV0FKWE1aQqWHuJt6YM61Dpf0kDu3TvuBYl+1izlu4aF3ZOMlDkTzEOJNhk4syvE9Gb5sm5SK7rbtRya+LCd1jjJdNGpAkJ027Pg9ClqguhVnfnsXKmFx3iNmwUzYkqg53RxI+TqX8iSiuS7Yeh/jOlKKbGYiNaZWdxQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759789; c=relaxed/simple;
-	bh=CoSLCRPdIZBNyg1eBGr9k6anmDbc8TLWXW1Ev1uI608=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mzRqjdVtqcnySxpiVYGp2u5Nhc1DBGeMYXfBJJBeNy6jypEJRqInWPwaUIfW2yOUpaCkd8BWOpM47m16mLfzRNiLPstzipUrOD0oBQZmiGVfjGu+lNov7AlMjE6Vp5ZlcBjreWFC3oQotn0vyhmr+6LzCciBTpsw1TbfLGgHGbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=h5rKYzpH; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0137F4508E9
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 16:03:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787760207; cv=pass; b=UcKYrcwWaAVMZ6LywIUixoTlwLVwow4qtLRmC+NiOaEFJe+qon+85luf2AjzuqRx2JuAXQ8GXv2RI75tkZN2KPjqMJzHCNiK/4gj5/hplGbEfPf+iKEK5JkMWpsvNXQvygRB4Fpamt7ClbNTRqGYA89WYBUSICw/gIvspyUp3ns=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787760207; c=relaxed/simple;
+	bh=uYFdFW6deGwNCuRXWE33qO5lp6MMBOGHlKlJNVvT82g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ee1mSPliaG/v3pOY98RsxSu4C8M7MnSDEfPWmLBW6bNJW1qkDb2KHpK/LsinCqKkROWa2gSez2vMvvj2klWoBAgv0ascy+qTsfqJPyhTVR7lSFuppoEBQHvykVC2Uz6AMhSee6BXtHVS4LlrSQao41ddELSR5OnNzYNNTGU+yiw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jBO6Xvx7; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="h5rKYzpH"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9704640E020F;
-	Wed, 26 Aug 2026 15:56:24 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id j6pNEN2KU-xN; Wed, 26 Aug 2026 15:56:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1787759773; bh=1UjgLHFQQahhrBRAJb+d3ftPZMUUftCr0+sQrG0uMKQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h5rKYzpH3CnW61fzwDUq6ntQ/L5SGW6Q6OZEfRbcfOzD1YgOMUjz4SZeqVjLndZsb
-	 1397OScGxspHc4J3Tjn67rVU9wToQ8WUiorzLausymRbfKv7N2OG7O2CGYu++NPAiC
-	 0nm+lXnFdWMa2mdP7iVpolxHcbwflpwSyuKq/1FwxMELg5SqAlMV5JMNE4ckkm5fiJ
-	 bv6z4ap17kjeyDSgS/XcRoRG1QkRQyDh/1QB8BvZiD5GeHWpWNimsGH8jZVBkglku3
-	 lPU7t5ZRTaFXpCf6xFcQXHW4a5e6OCXC2r5qCrwLreO3P8H909VgULRbG1XGvrLBh1
-	 arscFsXSJ+x075S6R7hcdi253cnlZu+ftGp54bUrO97wq0AUpM8ljvxil2da6igq3L
-	 ULNgNUNUchj1hpPpnhC1kJepnFzwX04d8AXiWlXFaOKhzjNZRZ9hhRbyIgn0iZQJ5x
-	 LHcpfEwDEjNf+EkPbAeEVz6UQyX6worxyF1hzjY6Mrh8zOIEbJGejUQNXHNHe72GSu
-	 t0M9OlcaQEoInGQgBkstqvZ/iy4JRrco+cfOZxRoW+RHNuzJN9Pp2iWeW3P9l1w15h
-	 8GN6Mvqs9M+0gE4C0WFFf51gvVGYQweEBEn2s9F67ZhJFBJwiWbKdvM1sH3VIKlVLI
-	 qMPOxYgVBI4/pVdCs+MtahS4=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 101ED40E020E;
-	Wed, 26 Aug 2026 15:56:01 +0000 (UTC)
-Date: Wed, 26 Aug 2026 08:55:58 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
-	Yazen Ghannam <yazen.ghannam@amd.com>, linux-kernel@vger.kernel.org,
-	Penny Zheng <penny.zheng@amd.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] x86/amd_node: Avoid divide by zero on virtualized
- systems
-Message-ID: <20260826155558.GAao8MjhRP6GnlEVA-@fat_crate.local>
-References: <20260825214805.39148-1-jason.andryuk@amd.com>
- <20260825214805.39148-2-jason.andryuk@amd.com>
- <20260826044518.GBao5vXvWQx9_a9RzF@fat_crate.local>
- <e165a4d4-bb36-48be-b422-245ce52a997c@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jBO6Xvx7"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a1f75277f3so9049791fa.0
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 09:03:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787760199; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S2ADpmJQGfrpeM1DC6dxFLDW6FQkw6LfxHG6j+lSrYco/j9+SpGeaIVpIOs8WoZUSA
+         zD3jUwnkFLuSosGECMCOguTMWs/QUCv+SY33vBJg9NoVrM85RIBDWJWuMrbdFhMbSjl+
+         QAKms49Ukyu1MdH6UIBeY/9UMnlQXq79o5KquYC6fgadLngvsfgyaLuOcZxRTsWXVtjv
+         qTwTTUtYhnAkKWf9yVEbI/w/4IO2djv45jJ6xZ6KuopLoujUSPL7MFvjzCRFgVWKremS
+         Vg0wR1wtrszlRTlbLttqQquIriw5beG1q2/SgEirpX5M1BBgXEsKPjJ2rX2gM2Wu4zok
+         Hqmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uYFdFW6deGwNCuRXWE33qO5lp6MMBOGHlKlJNVvT82g=;
+        fh=itJjE37JYBH3xhGWKajCzKUSJSm4e0jJHFodNXvwJtk=;
+        b=nSMT7oaRXWUC/ICLG2STgcjnHY+iuYdJyd9OX2R9FMW24yqSxmYqDOAX3VKzfvxoMc
+         zQwukKO607qouFkOTvPva+XVaZUG8BM+Xa0b5ivvER0YKFhFo99eD9ViL3GK2jf+6IDQ
+         6TyK4jc8VdMR41Ig8WuqeQgoRNYRUSl0yKAYmNLTW41cT54OuznM5GGnsc+seHa3ZNqb
+         Aa1xfaNgbcmO2BJULplADC7ECVxOYA/AaFZQPM0LXKJvjeQNSL1J6uS6W4jxiUutZFLI
+         vrhpuZgGqGiYL1UMMXMrNeNQjfnYNL3+zNb+UAmyDTghboNI6+hBldRCTha+p2B0De8b
+         bDOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787760199; x=1788364999; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uYFdFW6deGwNCuRXWE33qO5lp6MMBOGHlKlJNVvT82g=;
+        b=jBO6Xvx7RsJ6daoO9ux7RccUIWoR274y4P/QKLXA7yiKYnKY6a5vMzT7T7Z4GlCdUB
+         Y+2x+OxPA2nkkG37yq6L9IBtIPhMjnZ0AJk2eAQ+27gquitNYDmEX5wE2/YdFFC9jIkZ
+         uP2Wf/xQNax2ey+J08fZQMBWw0xxIRUTn+GO5K2yTjsLl7jQVJYeY3DyFZWlEugxVWvs
+         2RJBLr2IgHL9kJNLxgZDWBWl6HCfFKqztNwxN/hzQhXNaphXExhSaNt0m27e3h9bimPs
+         YyA8UaaGF02pbD0Kn30QD7wfbeaN2xHoQe5LBJ7RvEPv2kNjUtR+55lVB6BAcgJtg9ZA
+         oJRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787760199; x=1788364999;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uYFdFW6deGwNCuRXWE33qO5lp6MMBOGHlKlJNVvT82g=;
+        b=d1vaw4sLN7xaITi5UCNfGsVnovERXI49iTjCvv2lKT6azJBE5SIqHQE8UXwc+9oWFI
+         1t9m7V/2ADfzZbxmphqWWDmWG0AUmvmyW52RDw5q9h649Tgy4ZtAc06tSYjl785s1RId
+         bchCkuv+Z5IJwejgHYozfae9adyIRHvnFqXoqLpWA6bZIupOi9TsVUJfUHM0QxCgpFCR
+         g8RSKdiLTjjH0ompIt3k01GrfOhdpRaLQCbFiRebw9M+I3D4rdDenTp9kU4p1jn8da+j
+         2kZ9JqFcpcHYwIJ5XlYafxkL1LwyN/HsX3k3IwM1+zefw78H1ZjN563LvMEm1aNPKr4S
+         ajQQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrrfEALDAyJHxymCfUuKASXt8uXyTa6oy2PuYjHuCqy4V1uB3DOu/+xOsA1BG7n8L0NiduNl9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktowCbU9Y93SrgC4FSUPiPswK6w/3qsRJ2LQCHRq0ZkyieHVfV
+	eQ9gltd2t1vUFHfx53hQfj1a83SBiMPEhp7MCHBT/zVhv9m1e8QhRbVeGgvhlpbajmMyPXpz/mt
+	GBsKcmPpfYdQn7OT+BXL2dNh6WdApftjgIfZ09/on1A==
+X-Gm-Gg: AR+sD10IByba2XEhFyOvxeAK9IOqozCzRJxIYCMkReJT8dNOu4X97zwPlrFS1QpyGJr
+	pmi3FPpadeVHU2QsntDgiSlMdoBBahXHInXRf8rSfbgLShjAzFn3MROn3dqZ8NmeZ4kkU+0phb3
+	UXfzvuwFEXg1z7Mh4EstLvhaE9rxPEnaRtsji8JfBOP1oCu0kIIMTXJSZ/de7WsnmfVSt5TI0g5
+	vl8LrKtewuF1GxY33AENZ6LpJ18wOSFNyJ6ytgP1HordlsKES+MVu4RSsPeJdz/YnYLr78nS8aq
+	WJ8NOSZ8oDnLN7CM0q9ZOlzE1rcOjU06nT3F1oiu6Tyg3CW24WoAXm/ixsyAxTbHIyjPm8ARo6B
+	J
+X-Received: by 2002:a05:651c:a10d:20b0:3a1:476:74b3 with SMTP id
+ 38308e7fff4ca-3a1fd6605afmr15291371fa.9.1787760198919; Wed, 26 Aug 2026
+ 09:03:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <e165a4d4-bb36-48be-b422-245ce52a997c@amd.com>
+References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
+ <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
+ <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
+ <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info> <aosGtkE_diwVJJtB@eggarch>
+ <20260823174059.46fec036.michal.pecio@gmail.com> <aoser8dLytrwqBC2@eggarch>
+ <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
+ <ao1ovvdPAy6n_F7I@eggarch> <CAPyJwA-QALkCQn8J1+=U-nuE_7WSEPhVcUEKb+MMYMaA_1AVjQ@mail.gmail.com>
+ <ao7aLXk9q_v_jEyX@eggarch> <d5a395f7-06ad-401a-b026-e975f620f017@linux.intel.com>
+In-Reply-To: <d5a395f7-06ad-401a-b026-e975f620f017@linux.intel.com>
+From: Mathieu Fluhr <mathieu.fluhr@gmail.com>
+Date: Wed, 26 Aug 2026 18:03:06 +0200
+X-Gm-Features: AcwNN1VMj1i9qHLHYCgFf_wI4NJMgmrhr4t1IuAyWuVvRr1oKaUch4AAYMJyJrg
+Message-ID: <CAPyJwA8CNeUnh2kzYktF8OR2T2QnVNN9EUnrUci7_419bF4QDw@mail.gmail.com>
+Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
+ triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
+ (bisected to aec11e5f9c45)
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: Lovekesh Solanki <lovekeshsolanki00@gmail.com>, Michal Pecio <michal.pecio@gmail.com>, 
+	Thorsten Leemhuis <regressions@leemhuis.info>, linux-usb@vger.kernel.org, 
+	regressions@lists.linux.dev, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>, 
+	Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 08:15:49AM -0400, Jason Andryuk wrote:
-> num_roots is 1, but num_nodes is 2.  Integer division gives 0 for
-> roots_per_node.
+> Mathieu, would it be possible to test different values for
+> USB_SS_PORT_U0_WAKE_TIME in hub.c? Especially 120ms is interesting.
 
-Aha, Xen has some topology knowledge and it manages to produce 2 nodes.
+I reverted to the stock version of hub.c, and changed the
+USB_SS_PORT_U0_WAKE_TIME to 120.
+-> No crash for 1 hour, but I will test this deeper this evening.
 
-I'll add that to the commit message.
+Where I am a bit puzzled is that Mario Limoncello from AMD just confirmed
+that this was a platform issue, only affecting StormPeak, for which AMD alr=
+eady
+has a fix.... Or maybe there are more than one issue here?
 
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+On Wed, Aug 26, 2026 at 3:40=E2=80=AFPM Mathias Nyman
+<mathias.nyman@linux.intel.com> wrote:
+>
+> On 8/26/26 15:35, Lovekesh Solanki wrote:
+> > On Tue, Aug 25, 2026 at 11:43:22PM +0200, Mathieu Fluhr wrote:
+> >> The patch you sent makes the issue go away. I am now running the exact=
+ same
+> >> scenario for 2 hours, without any crash.
+> > That's good, thanks for confirming.
+> >
+> >> However, I am not sure if this can qualify for a proper fix, since I
+> >> do not have any
+> >> external hub connected to my motherboard: All my USB devices are direc=
+tly
+> >> plugged into root hubs (and at the moment, there is only a keyboard an=
+d a
+> >> mouse).
+> > Yeah that's the point it only skips the 200ms hold for root hubs. The
+> > external hubs still get their fair hold since a parent exists for them.
+> > So external hubs are completely unaffected by this patch.
+> >
+> > On 'proper fix', I think it is, even if we keep this bug seperate for a
+> > moment, it makes sense to not give root hubs hold they don't need.
+> >
+> > I'd love to hear more thoughts on the patch.
+> >
+>
+> Roothub needs some time to settle as well, but 200ms might be excessive.
+>
+> xHC can triggers wake (PME) when a connected USB3 device starts signallin=
+g wake,
+> but port registers changes are not always visible to driver before link t=
+raining
+> between roothub and device is successful.
+>
+> My educated guess is that 120ms should always be enough for the roothub.
+> This is also the lecagy msleep() still apparently left in xhci resume
+> to detect port changes in xhci runtime resume if there are USB3 devices.
+> That msleep was supposed to be removed now that we got the hub changes.
+>
+> This 120ms can probably be further tuned for roothub in some cases,
+> especially if resume is due to userspace action instead of xHC wake signa=
+l (PME).
+>
+> Mathieu, would it be possible to test different values for
+> USB_SS_PORT_U0_WAKE_TIME in hub.c? Especially 120ms is interesting.
+>
+> See when system no longer crashes
+>
+> Thanks
+> Mathias
+>
