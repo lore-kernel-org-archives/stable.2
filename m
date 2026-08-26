@@ -1,121 +1,101 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-33.mta1.migadu.com [95.215.58.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA32637F339;
-	Wed, 26 Aug 2026 10:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985EE3B71DC
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787738769; cv=none; b=hqRYY24KL3g73wVybk6QvhG4RHrILZ8HQoqBW06Ho3vUTh9CI8e1gcoE2IT+MbyCEfpgaudV3rymtdAIKyBJJenpIoCZT6zz3XBj7u7k0/1pjaUfOVLD13YBBfQRVFHnmeFMxZ43zahnQH/ggvl43j3TtQrAC90p2cfUSSSFPUw=
+	t=1787739026; cv=none; b=ZZPpopEhTzX41VKO4t67kGb8tV+oWIh70E8vuOqHAic2g1WjG9xsctAeWe48J80A5H3nDx/qmXw6Q3HfPowxYz520d8r7DB1CUzgIbOWWv8oq/drUPGA/zNSQdZ1qkoR7l0k66pawjk0+RE/yMDUQVxwS+X53NbgoBRjpsDernM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787738769; c=relaxed/simple;
-	bh=le8OMlTOlsxaAIB65m7aJDrRyIC/2Kxw1/mA7tkT8F0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OKcNBr1udxxaXgyNF2Spyh+mZbVH/9x3q4ZuX0/qkFY/M5BgUIRtuwt3x769crpOlfsL2aOXX8c7+JvEOzqAEmIBiYEuHxOkXi1g58EIKVkLh4uOX2YGfFhrUJp94ZAx66xuodAIXrv68DUkkUPwJE5zL50ksaUiejAywS20lGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=VyOtJj+W; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RUypcvU0; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1787739026; c=relaxed/simple;
+	bh=57avFade3zuK7/6SQ3eV2ojUUQSJjhGWCjyqA29B4Qg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=maUuVwCctZ+p88E0//h/I19FMwac+a3FbbBgj7YbB++wAxy1TnEf+XY2kc/DjbXBR3HoMoMXY1uqOXIeapdJtn0BmSGrZm8n1Cth3Q7QQG6P/F0bw6NR/XJdDMtEaMHALq+y8pjgW4EpswznHssAFzd4sBXrvwz4LCfwNmWUUlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CuE9nDHt; arc=none smtp.client-ip=95.215.58.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="VyOtJj+W";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RUypcvU0"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id C32B5EC00E7;
-	Wed, 26 Aug 2026 06:06:04 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Wed, 26 Aug 2026 06:06:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787738764;
-	 x=1787825164; bh=A/t1h9nEp7GIUkieJCgOemdJENah2+btWKbk5oZfpAI=; b=
-	VyOtJj+W9c5+RuU0Ip2jOleaAB1b51ILtd13c3cQUYFqVdfyAeyURKYPefrXpUqV
-	bnbLHo5PBNhf67UVFpI3P63/1IyyCol6f31N2OL9z+HMsDIej9Fbu5NWZqewZQmc
-	hufwuz7G16T4KvLtyRjKdYyZKPh02V372f7gJpHsUlE9msB5jW+ufyYiC5SB2iB3
-	mEECOuHPMvdUogHY3LLZtsYoF1zvRRFGUH9mjt+/9AoQu9k7Li2RLGLVWY/UqrUz
-	J60I16LE27MB0ICx1SXWQpgSy0eNt5svE+afrLX45YjJzECWfZQOAr/9ZVOQg/rc
-	/3PUxI94vrCbd8LbEGg1Og==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787738764; x=
-	1787825164; bh=A/t1h9nEp7GIUkieJCgOemdJENah2+btWKbk5oZfpAI=; b=R
-	UypcvU0GwYDVHVJu56GdnDh8BEh2GeHknxTIe3AaDfRdc8V7Ay/GmiM5QMuI1kDb
-	OVNhZGwA1/Dv8HQhcqgigSnQR0zDY5uFc/sIq6WqYiLaEfwPXpC/qc41cIY3tz/S
-	lLVx6+CGQ492dVAduG8+cWOe9ZHGwPaAGe1QRJuFx4JcjVVzj66pdyPa1DXldSCd
-	9h931Wer2/blw6yfM9Ryuq26FbIQJFZasdW1mvb3aCED29KUupabC9/QYWcYKW0P
-	8ePL+xvDilmVVAi+dNUNnekZZ7W6vQa9O50tl+wb5i46oY/bcgFUcpadfEcd87el
-	iic9mMoITuU7qI1eDj6qQ==
-X-ME-Sender: <xms:jLqOaisNExAES1rEQcRgxUpkWFulosaUiBswlFI6n6ZabpDr57Oijw>
-    <xme:jLqOajWMmD-ZC2Q1vUswmGdnRamhaktt8QmQfV8RZVScXi2S_JMe00v7Ppcz7L7Sh
-    FLxKwXomtT-MjKw9QbQbwhJUFzs2GXTkCmtFig5V0ATgwPHNHUO6MC3>
-X-ME-Received: <xmr:jLqOapQ322Fbryi9ikh5CXRBYgUyVgSPiJC454jgldhzsahTCMWZULKjth3ECKnc5HH9ZRWe8lH0N33QaWBqM4OTCsFn7PoJ>
-X-ME-Proxy-Cause: dmFkZTGuzYL1BNN0QJqYzOk4WDsr7ywCNBSvbQ3C2NmgDEJwIaAPX8Mv5ou/8X8FumRP4F
-    X05UJDj3n2W0RW8YUR4KR4sgDkRrSM2Fm/k4Khs91rNbVl5RxfMPYwYhFbAL4BSOL/FPmz
-    pAWLJeYNziONAmfC5fotiu1i5MAKd+gle3GUZCKyeJflYMdRCzKVPUw3Z+Pbad3wRlcAb2
-    u3zUF6dTWP+ANQF/TDbweRRmnqVUCu2g+0YzCZ9ynLsR11yHQ/U+5uaLf4axQIQ/pvwmcN
-    Bc/KnmcMf6BSXgPz8el/pMNqGNmQ0p8lyZbs5yqN3KjZgVeHJAlcSw3VYPbr7FfZVwpknI
-    mbVn+yjCjop9b5w4Cw5htzZji7zI+UDIGrj+Yl26KPCil9/6J1rewEco5iXZpmiJ8j+rz2
-    +Ayr+0G3eMZiQMB/DqqWC1Xr4Zbx8dkhUNXOsOgY3hx7AJL7w5GXXKwPSCAPQPsWdvvedJ
-    l1RJxvqGENOMaLLoQSv8G9gEW7kcV6fTWyGWIx7vd5Ls0FoJZmROkCbPOAfxzPW7jHMlAY
-    lQ+hVlbkYem486wSiGKvdtHFuUhBowdjZrhoH5D58ClQ3WNl2h4t9g0W34MNMyPEtx1+Bs
-    epXdZbUPpRoqduN8I6O/hsYFit8qLEnwlKkr3CX0ly8eM+sIDRgeQ/kAGwXg
-X-ME-Proxy: <xmx:jLqOahKMKIYtW5Uj7tyo62WJeI231ShtNUNLQzsDH9G0vLOFlSCXRQ>
-    <xmx:jLqOaq2IH8W8TH0UEGv-JOFjUZXOMJ2jud_MEuhkiThUXsb1-9agqg>
-    <xmx:jLqOakI2EAnPkere37xuTnGdrgODW4BiCU9VmVsFCW45Hi-BoV8Kog>
-    <xmx:jLqOaqmHSLfev-qr3qovNGJiVoCaJQsJUokVHOyca29DZlISZwCemQ>
-    <xmx:jLqOaujkRIohUIo23UDIcVdNj6e9RLUPM4U4ZqfbJEvrl_fpFebN5t5V>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 06:06:01 -0400 (EDT)
-Message-ID: <dfc986ed-6e89-420f-b281-d0fb3e6dbe11@pobox.com>
-Date: Wed, 26 Aug 2026 03:06:00 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CuE9nDHt"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=57avFade3zuK7/6SQ3eV2ojUUQSJjhGWCjyqA29B4Qg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787739021; v=1; x=1788343821;
+ b=CuE9nDHte80mWQmtNvX3zr+RSEqjgOfnNeKRLbGNMfVuQcpcTho2DC1OFHt4VXuQGzw8Kclv
+ UzpMl9hpy+GflLoEVn7bO+4r0/U1htvaz85ue1OQZkC/BwGb5mRNHvj4TW3ExAfxMsEfnvq7ybG
+ ld/P63cOkQO2jsrFwvMJFqvU=
+X-Envelope-To: stable@vger.kernel.org
+Received: from localhost.localdomain (116.128.244.171)
+	by smtp.migadu.com with ESMTPS id d7afdb5e9b644012;
+	Wed, 26 Aug 2026 10:10:21 +0000
+X-Mizu-Trace-ID: d7afdb5e9b644012
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: netdev@vger.kernel.org
+Cc: richardcochran@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	arnd@arndb.de,
+	john.stultz@linaro.org,
+	jacob.e.keller@intel.com,
+	linux-kernel@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net v1] ptp: fix NULL deref when adjtime/adjfine are missing
+Date: Wed, 26 Aug 2026 18:10:04 +0800
+Message-ID: <20260826101004.100979-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 00/87] 6.6.154-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.813800447@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260825132541.813800447@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/25/26 6:25 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.154 release.
-> There are 87 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.154-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+ptp_clock_adjtime() invokes ->adjtime and ->adjfine unconditionally,
+but both callbacks are optional. clock_adjtime() with ADJ_SETOFFSET
+or ADJ_FREQUENCY therefore oopses on a PHC that implements neither.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+iavf registers such a read-only clock: no adjtime/adjfine, and
+max_adj left at 0. ADJ_SETOFFSET hits the NULL ->adjtime after the
+offset is validated. ADJ_FREQUENCY with freq 0 converts to 0 ppb,
+passes the max_adj check, and hits the NULL ->adjfine.
 
+Return -EOPNOTSUPP when the requested callback is missing, as the
+adjphase path already does, rather than adding driver stubs.
+
+Fixes: d94ba80ebbea ("ptp: Added a brand new class driver for ptp clocks.")
+Fixes: 75ab70ec5cef ("ptp: remove the .adjfreq interface function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+
+diff --git a/drivers/ptp/ptp_clock.c b/drivers/ptp/ptp_clock.c
+index 4111342d64f03..b5df120be4d1b 100644
+--- a/drivers/ptp/ptp_clock.c
++++ b/drivers/ptp/ptp_clock.c
+@@ -158,6 +158,8 @@ static int ptp_clock_adjtime(struct posix_clock *pc, struct __kernel_timex *tx)
+ 
+ 		kt = timespec64_to_ktime(ts);
+ 		delta = ktime_to_ns(kt);
++		if (!ops->adjtime)
++			return -EOPNOTSUPP;
+ 		err = ops->adjtime(ops, delta);
+ 	} else if (tx->modes & ADJ_FREQUENCY) {
+ 		long ppb;
+@@ -174,6 +176,8 @@ static int ptp_clock_adjtime(struct posix_clock *pc, struct __kernel_timex *tx)
+ 		ppb = scaled_ppm_to_ppb(tx->freq);
+ 		if (ppb > ops->max_adj || ppb < -ops->max_adj)
+ 			return -ERANGE;
++		if (!ops->adjfine)
++			return -EOPNOTSUPP;
+ 		err = ops->adjfine(ops, tx->freq);
+ 		if (!err)
+ 			ptp->dialed_frequency = tx->freq;
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.0
+
