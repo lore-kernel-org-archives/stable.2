@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA5A433AD
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:48:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8042C46D096
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:48:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787766493; cv=none; b=DXvhwbpz5VhqAW864kSJB52MSIF1cC/5DtB7YEDPcEN2hVMeGfc/0I6z69e3aCWHY9bm1tSnZYwEzrzOV2kAjIMPZWxBMjClyrHOysYqOLST5LWHbxboDymuTPCypkIyn5vNL5BVGeQ/riFnALxjXFIE1F8D2zolMJGu3Cxv0Mw=
+	t=1787766498; cv=none; b=h4sZRsTAMgRN9FE1v2yKH3g4XkqvQPHh725A5phoXe2Kp1LZS/sXHRQ1ymhdjBRDCHb4hBU9B40zJeGcCPgFFa8k8YtBrvYfSiTbyXFjL3o2woi6pLkQuEKGwOwM9MsbF6rUafUvvcgyFZOjybPPAZjjk/oMgJLuhZWtdQwjBNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787766493; c=relaxed/simple;
-	bh=G4r3I8tKcxNvyMi+Sj3D0Lo9Z3q4+ATG9QegGV+7qj0=;
+	s=arc-20240116; t=1787766498; c=relaxed/simple;
+	bh=7s9QdydL3BOO9IDNHJ2BJJKkEglO7QW6HP6E5wVqZb8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZB5qNtSxM7zioMwB9iwu0AxxyAwnFZiAUBpLHCFPjw3xPGfXunVMOMI6AQw0M0vaoiNSbo3C5HgdmtIfJBMB3vop+YsmSAVTFcGtbaypS5s4r5izKftmKw0EpXeFsPe58p6M9kdZN/bXo+nQnYM/uTiTiGdPzql6dGlmf6cEgOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9US/p3G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=giD1oL7gcdzNgEWm21dVwXqEQVp4WzMNgxQHemaaXJzSYSl0ja/c7pHB/g+RN/LVFy6AEtbylkG90WthN/rUus9ywT/yJE8ldCfAOVk4xWcb77djbfOMe0IoFaHGp1DNfYQF3X4o9G7Iv6Pgvw6aUa37sGcSEIyKsbhI92tvsFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkZUrjg+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9US/p3G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FCFF1F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkZUrjg+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500181F00A3A;
 	Wed, 26 Aug 2026 17:47:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787766478;
-	bh=6eKwntXLmIIt6TMFzH06IHUC8OJs3mVu4kJvfM1fO4I=;
+	s=k20260515; t=1787766477;
+	bh=Y4oKnMjDHQVRuvLSLAQPjxDtVI4rBTQqDjuvf0sU81k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G9US/p3GuhJH+rFHuFmlGgsahtz6E6lIWjZRm7HhenkAqpciyANIrakot9SafZrw1
-	 M8Mf1FFxvG/oBXUYLPClknKbrtovbrpJcX0eaCMgRJXukpKAkua/Vu4aVwp9+ejM8C
-	 qM6PoFyybjJm/RRiI6t6RkL6S+qtyHoQJNw5zdU4oawPDWzpnQ4cOpkcfGMfVFmbJ4
-	 W/1UH+Fj0HskrXeMIX3RJnlIirHwGhYlaPrcUlXEiUIuNcrba+J0D2jk0By2jIo+Jt
-	 jSYJWPW9wVk83UgSewakWu+rvDUJHEATixvUrq5Zhhsbzj2gdF74cJwC1gHGeftons
-	 wRrGDBdfoqdzg==
+	b=jkZUrjg+4IQEy1rmNOjI7AQ5g/kLQKXNQNA5GSnh0Gz0P3hRfoI8OB2GHgbhP5dip
+	 ScW9CykaTLQ3cRdwXmVZql6qmLCoGsEZqfycbehtwepvrOCYkBBoRTBmjbZnpau+Oj
+	 dmA4raxV1hHYIW9RaQnQ1T8gBWgxJTHiKpW1MkUJeupvMVVXQQE1BE26qbeXSk0kjM
+	 arTOS34rOA3DbVOW5ukohppKShv5ylCjZ9EyzceoLlqaY26+7A8L9OnTUqvovyJea0
+	 3eSO6yeeaKm8CtbA4gcQMQsJ2xZQaRxcSvM598CiOUnb5mF/YJ9C9n/O9iu9lx89S3
+	 LK67vdZmYH3sA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+Cc: Zijun Hu <zijun.hu@oss.qualcomm.com>,
 	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] Bluetooth: hci_sync: Fix accept list UAF during suspend
-Date: Wed, 26 Aug 2026 13:47:55 -0400
-Message-ID: <20260826174755.2489121-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] Bluetooth: hci_sync: Use bt_dev_err() to log error message in hci_update_event_filter_sync()
+Date: Wed, 26 Aug 2026 13:47:54 -0400
+Message-ID: <20260826174755.2489121-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826174755.2489121-1-sashal@kernel.org>
+In-Reply-To: <2026082511-unpadded-identity-f2f9@gregkh>
 References: <2026082511-unpadded-identity-f2f9@gregkh>
- <20260826174755.2489121-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,137 +45,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
 
-[ Upstream commit f57b399c4fa1501b2d5451f52d861ece86bcf3db ]
+[ Upstream commit da0186f19a7433d3d5607b0f61e9a3de17d1f721 ]
 
-hci_update_event_filter_sync() walks hdev->accept_list while sending a
-synchronous HCI command for each remote-wakeup device.  The suspend path
-holds hdev->req_lock, but accept-list updates are serialized by hdev->lock.
-Consequently, remove_device() can free the current list entry during the
-controller wait.
+Use bt_dev_err() instead of bt_dev_dbg() to log error message in
+hci_update_event_filter_sync().
 
-The following interleaving causes the use-after-free:
-
-  hci_update_event_filter_sync()    remove_device()
-  fetch accept-list entry
-  hci_set_event_filter_sync()
-    wait for controller response    hci_dev_lock()
-                                    list_del()
-                                    kfree()
-                                    hci_dev_unlock()
-  read the freed list.next
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in hci_suspend_sync+0x835/0x910
-  Read of size 8 at addr ffff88810bec8440 by task kworker/0:1/10
-  Workqueue: events vhci_suspend_work
-  Call Trace:
-   hci_suspend_sync+0x835/0x910
-   hci_suspend_dev+0x182/0x450
-   process_one_work+0x661/0x1090
-   worker_thread+0x45b/0xd10
-
-  Allocated by task 86:
-   hci_bdaddr_list_add_with_flags+0x1a8/0x400
-   add_device+0x381/0x820
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-  Freed by task 91:
-   kfree+0x131/0x3c0
-   remove_device+0x429/0xb70
-   hci_sock_sendmsg+0x1033/0x1ea0
-
-Snapshot the remote-wakeup addresses under hdev->lock.  Release the lock
-before sending HCI commands.  Clear the controller event filter before
-building the snapshot, and skip allocation and the second list traversal
-when there are no matching entries.  This preserves the original filter
-and scan-state updates without retaining an accept-list node across a
-controller wait.
-
-Fixes: 182ee45da083 ("Bluetooth: hci_sync: Rework hci_suspend_notifier")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-bluetooth/20260730092331.2069741-1-nicoyip.dev@gmail.com/
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Zijun Hu <zijun.hu@oss.qualcomm.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Stable-dep-of: f57b399c4fa1 ("Bluetooth: hci_sync: Fix accept list UAF during suspend")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/hci_sync.c | 46 ++++++++++++++++++++++++++++++++--------
- 1 file changed, 37 insertions(+), 9 deletions(-)
+ net/bluetooth/hci_sync.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 62d53d1743bfa..7ffed4b81d4fb 100644
+index ec99b08125806..62d53d1743bfa 100644
 --- a/net/bluetooth/hci_sync.c
 +++ b/net/bluetooth/hci_sync.c
-@@ -6212,6 +6212,8 @@ static int hci_pause_discovery_sync(struct hci_dev *hdev)
- static int hci_update_event_filter_sync(struct hci_dev *hdev)
- {
- 	struct bdaddr_list_with_flags *b;
-+	bdaddr_t *accept_list;
-+	size_t i, num_entries = 0;
- 	u8 scan = SCAN_DISABLED;
- 	bool scanning = test_bit(HCI_PSCAN, &hdev->flags);
- 	int err;
-@@ -6228,23 +6230,49 @@ static int hci_update_event_filter_sync(struct hci_dev *hdev)
- 	/* Always clear event filter when starting */
- 	hci_clear_event_filter_sync(hdev);
- 
--	list_for_each_entry(b, &hdev->accept_list, list) {
--		if (!(b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP))
--			continue;
-+	hci_dev_lock(hdev);
-+
-+	list_for_each_entry(b, &hdev->accept_list, list)
-+		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
-+			num_entries++;
- 
--		bt_dev_dbg(hdev, "Adding event filters for %pMR", &b->bdaddr);
-+	if (!num_entries) {
-+		hci_dev_unlock(hdev);
-+		goto update_scan;
-+	}
- 
--		err =  hci_set_event_filter_sync(hdev, HCI_FLT_CONN_SETUP,
--						 HCI_CONN_SETUP_ALLOW_BDADDR,
--						 &b->bdaddr,
--						 HCI_CONN_SETUP_AUTO_ON);
-+	accept_list = kmalloc_array(num_entries, sizeof(*accept_list),
-+				    GFP_KERNEL);
-+	if (!accept_list) {
-+		hci_dev_unlock(hdev);
-+		return -ENOMEM;
-+	}
-+
-+	i = 0;
-+	list_for_each_entry(b, &hdev->accept_list, list)
-+		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
-+			bacpy(&accept_list[i++], &b->bdaddr);
-+
-+	hci_dev_unlock(hdev);
-+
-+	for (i = 0; i < num_entries; i++) {
-+		bt_dev_dbg(hdev, "Adding event filters for %pMR",
-+			   &accept_list[i]);
-+
-+		err = hci_set_event_filter_sync(hdev, HCI_FLT_CONN_SETUP,
-+						HCI_CONN_SETUP_ALLOW_BDADDR,
-+					 &accept_list[i],
-+					 HCI_CONN_SETUP_AUTO_ON);
+@@ -6239,7 +6239,7 @@ static int hci_update_event_filter_sync(struct hci_dev *hdev)
+ 						 &b->bdaddr,
+ 						 HCI_CONN_SETUP_AUTO_ON);
  		if (err)
- 			bt_dev_err(hdev, "Failed to set event filter for %pMR",
--				   &b->bdaddr);
-+				   &accept_list[i]);
+-			bt_dev_dbg(hdev, "Failed to set event filter for %pMR",
++			bt_dev_err(hdev, "Failed to set event filter for %pMR",
+ 				   &b->bdaddr);
  		else
  			scan = SCAN_PAGE;
- 	}
- 
-+	kfree(accept_list);
-+
-+update_scan:
- 	if (scan && !scanning)
- 		hci_write_scan_enable_sync(hdev, scan);
- 	else if (!scan && scanning)
 -- 
 2.53.0
 
