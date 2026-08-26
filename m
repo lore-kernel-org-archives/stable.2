@@ -1,141 +1,128 @@
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A24B19AD90
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCEB211466
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787707221; cv=none; b=jrdqkY8Ay90uVTcP5Qx2xC1k0BEJEeP6taJ4Gd+2tDGd2mgwf4UXuo0R/aiau9rkDOydVMl7fko2N3M2x+oPp+hL2kR/ie2ySEFRcA828vW53pyVnz6R6mOFntoxKWsxVSBOkY8wEzva2eIjWUb8IYo4nb0jvuvMmtTG7y+7m2A=
+	t=1787708404; cv=none; b=IUM1ud+/vk7aqRRrugnApFvma3hlS4t8GKYanCwiiYdBiCsUDeASms0BMVWkoA7IO4yE9JcceW6xCbLvMH4pekf0huUO8+S1OVcH9UHjkgm7pfR6j2MNiZg/0S+GxwrvgbD+Pua8BgTn+wybsrfNK7AZg0s5K8Glm41i+6UutKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787707221; c=relaxed/simple;
-	bh=XnC0OAV8aac6dSnM/x5f16DLZfKmuzQPmXK1c/DyNuQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=cEKV/nrS+ktvttwcpZEV4+H6Q2NtyV1kVT+Mgi23yJjj9SBnx+5g4W3uR9TNoSOc7yjBamZCYJ1IZ8Dwz860wCAeBfoKhCtRpataAgW7eAyRfoRYwljboyIU8zzBx/4mp5c20aQdLQO5f+7LfU4MWZZS5TmyMs7WtZYyKCZFWh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HvXDqPCw; arc=none smtp.client-ip=209.85.160.49
+	s=arc-20240116; t=1787708404; c=relaxed/simple;
+	bh=xddEwg9RunMRuvB/k049ds1rBCYLv2ELWCpHxLMwfus=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bfoHCWjZbW8LBDVL0/ZIyG+QBZ9Elp2gYqHipg+LZRgW6/0q5O6cUZ9T9VDJ4BaZG+yKNYU14QQ2RYBlHUZCI0Z8993A4Z8/qwdH8y6nW/DGw8rUUW+pby7unlH8lqqmrL4Ox0gWFSZF2H+UASii3JpFVTvnTZapVZQ59oRkB9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YFoWZiby; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HvXDqPCw"
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-44cb057311bso133990fac.0
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:20:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YFoWZiby"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964b061528so649313a91.1
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:40:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787707218; x=1788312018; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fUDFu0Aj3iEpRXjvLMN725jqc9wt6Juyi3TstW1quH4=;
-        b=HvXDqPCwS3WmApsIZxRk/LmujckKD/zFiNYJLt9nYFf/jckjdQ5su2iEzw8Qiz3NRb
-         BtNpHC+MlUY5Us+RkWmFUwkCwcZnI8iys1HHMHjXcF3P5sz3Np/IUHAZZJXEyo8+wxAW
-         06rW67lAJF6VaN9kKj/+Q8D4VZsdbDYOjjZyUwRwOZBfBi8phQ1+u5FDvbvHJmG4h7JL
-         RZRp5jvtEhKTOb1OlNkZrVMSb0jN0q+/8C3cm2AION+ldD45LGW/CgZjPs8AAQBaTx7E
-         TnCr64jx2OlamCUnqDwTYvzl582HJpjLxfUpE5AZV58WPybVO+3fIB9YLWeBO/KL/wQ3
-         NZiA==
+        d=gmail.com; s=20251104; t=1787708402; x=1788313202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9D0ya7fAGHD4mh1WhP+JBRzlt0nXa7uSYqgCddP+Sco=;
+        b=YFoWZibyJ9THs0OTsUudD2LnUXl4W3tn0eE9KBlZVzb95U94ymGYhGfYtC3Z5hTI2f
+         jLymFKwlMIoHwur59BfZeR21MqmI7o7WaAt6lMh+XifUk9B1usC0CszpVUufpG7etk/I
+         uucNDtjhL7r/fLhR2JrpPQeGxgePxmhAftqmJvsjq6Iu3soavwL8BEjs0Q+KFS/XyM+p
+         pEn6iFi8ZhFRwJ6mPCE/ZY4T+mhGL+VAOzhkW6VrF2k3lh5ED4RK9lKnDllaY7wYRErx
+         TfkyrSJjM1JvwxJAipciqVPy85DFpSAOGZp/P4uxJfuuWNfB4q/4CncH3A5dalyqZvDa
+         KHlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787707218; x=1788312018;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fUDFu0Aj3iEpRXjvLMN725jqc9wt6Juyi3TstW1quH4=;
-        b=tO5oZzZ8rSzp1xTcb8YF2GiW2ti6722YG+3BZliu0Rp6WHOf89XSUD1+ZNdi+kNzkJ
-         OOY1EsMLYbvwMGYwxg87yz7JCj70JqTrFDtZStWYgGm34jFsjzDYaLM1q/cpVHEBgkSp
-         b4XMahWYSw3h4c0dmG1IYq2xJuSM8MKRsQgbdumDqO3td+tlCHpgH+9BOc7tFtuYTouh
-         4gwaQuFUF8S/no/m/jenaWkBUSevxFfIEkBJu7U8mHl2Bvms5++FJGUCuQqO2F/SQ9Js
-         divh8X4LVXxvURbTPGB/N11HxYCV6yz08wxyecOojAGwmiSExlC42I92p7c6WT1Y1/uj
-         A+2A==
-X-Forwarded-Encrypted: i=1; AHgh+Rrgubrh2hkEXAUl/GKrXhmDqh9J+IzL43rVfC2HT73WMlCV4go1pXHJ3EzthEm20aCu/LAmtAE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPqew2ROMPUYbQppkf0kiWPgEbAfCn8c3C419axKRdSnuAeFOo
-	c9n0MP1+/qBrlVDfEsWKzOPGI8dTxG2hrxjyQn3pfDm7IiXPUXlzH318KAOX2A==
-X-Gm-Gg: AR+sD12EOCIji/GjXDAXO3T6q1ONdTTL0sJLL8zfhIgHAVkjQ+i+wa2TCboPdlD8z3v
-	kCsrN+wZRMrSKqCdljIfjYy+QqLI/b5BSmvIvrXaMKRyzBMimjxaS+ettL2TDSvgMDevzGPHV1g
-	46XbL/B0IZE65hxXuu/bQIyBoBfEXvqBky5Ua7/zWiREHva09kJuodyIs7TJiZaREg+T6Z3E3sz
-	mcke6coRIRFUodSmnFaawTPklsxF8sMyVJ20qQobmMfTCu3ECnaXBG8AlpUpGt5XmHqSOXgB8mL
-	fupmnVQTDe5K2NMsMVo+vt76lv3Y3Dw++tbq464hO6/oeu/Rffi2fK2RPjyfI69eJRIL+SsCY5c
-	YV5TwIO81B+QTbLRJS7XFtYGzgaEbxk0SkGhSSbOcTg9wZnkz5rziDJsW8HQSUegM/soIl5BPqB
-	xT51ApInwWYggtJC8sq7qfQ87ax+96BVIbqXN8QWM/ogdL6puPqRUNcOCD90h6aLd65s8jZRpKa
-	jHTRcQzGb1PJlR6Nr2kumZpjJKIAdKLff+7LkxwvlHZCcVN/jC02Q==
-X-Received: by 2002:a05:6870:7d1a:b0:463:18a0:959b with SMTP id 586e51a60fabf-4659ab270acmr4525251fac.21.1787707218263;
-        Tue, 25 Aug 2026 18:20:18 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:7::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-465b014ca15sm841315fac.14.2026.08.25.18.20.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2026 18:20:17 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787708402; x=1788313202;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9D0ya7fAGHD4mh1WhP+JBRzlt0nXa7uSYqgCddP+Sco=;
+        b=FPndX0BPvuELkycIv8S4dhZo5Mf/1/hxjIEuHIVg6u8F0EPU3TDERSikGCOZdPgpNL
+         hGKXVdMaFFqpY+D/UqCXJTEpwizUFZXpM3q0wcVz/Pn/bSI2qNuMZY5l1fVLh5DZO/df
+         VqfiF6DhhnrO4iAU2bDeyNoE8LuNJOklaReYLCauEK4Nlf/Ojewr+YMNqA2heCTScArJ
+         wS09e6MjF3kyM7GooCh4MzFqf5uGCT9jsX9GUHiGCnQCEgrLzC2GAVqBDK4B674ptynQ
+         kZ94gRhKg9fbF5mKnQwofun63ziFySdfQw6hqKqI1LToCoufMiQIK+vF/+pSi8hG6b1f
+         lCgA==
+X-Forwarded-Encrypted: i=1; AHgh+RpaWeeLanc57FPKZrGZcomHStZRug8e6ewW2fNiO0qY0kUL3CZNd/GMKpxoh2NhgeebCd/jQtI=@vger.kernel.org
+X-Gm-Message-State: AFuF++luk4QX6F3rxx4n7wAmsGxmBwwCiOJsN7MnoJskqciPvL2ofR8H
+	mFfVvAyxfYnhylVtxJEo+V93Bvt9Cfvs/RDaihfdMQLUdW874WaOIKX3
+X-Gm-Gg: AR+sD12pNMhfm9JL4KFK9/MgohRpAe6Tk8Vr14I/l7F+iCdlqOFGqaRZ6dOvgAhZS5G
+	27Npftvgaj7P0gi9SP4ROU8PqSkny05cuuHLUYVrYaiUzmBfBzClaWHJVvzGoU3IQ1RXOigyxz9
+	838xeuyXkfGXG0SNjCvZ2et4tEO1MjTFCfemXsDAhpJ9KzfEo6xyYWpT7dfgvt2McPFa36cqhEe
+	ztNlfzcWWymymhWO4kNvtEVjR8gSbDHmMFANMOLJRUr4TiuZH/Yb4iOJv1X0W+UHuoEHj0Wj/xv
+	5XxSTc59cj+VJq7Qn50U7OALLGE7u9Lkbdy1fQAnq69Udm8iFSCTiCxVGBcYsuWeWqBNOqNf84k
+	tbjEO9tID1X3ulKgnD02tRxk6LTpkh0jPFuSk/2Lb9zCfBIRRvrLhNQBWOOA/CBo1HFtV1IHiW/
+	DWlg5m10NhwerPNepriiyUAsC+PB/uvYG9FN9XlYg/tnOwQUok8qf9re92mII7jRk/+0l/SbSl
+X-Received: by 2002:a17:90b:3cc3:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-3966d20cde1mr7186084a91.8.1787708402417;
+        Tue, 25 Aug 2026 18:40:02 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3965d119724sm3674887a91.2.2026.08.25.18.39.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 18:40:01 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Hagen Paul Pfeifer <hagen@jauu.net>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/secretmem: properly account locked pages
+Date: Wed, 26 Aug 2026 10:39:48 +0900
+Message-ID: <20260826013948.1325213-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
+References: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 25 Aug 2026 18:20:16 -0700
-Message-Id: <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
-Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable
- programs
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Christian Simon" <simon@swine.de>, <bpf@vger.kernel.org>
-Cc: <ast@kernel.org>, <andrii@kernel.org>, <daniel@iogearbox.net>,
- <martin.lau@kernel.org>, <tj@kernel.org>, <yonghong.song@linux.dev>,
- <stable@vger.kernel.org>, <andrii.nakryiko@gmail.com>, <olsajiri@gmail.com>
-X-Mailer: aerc
-References: <20260822225444.2774461-1-simon@swine.de>
- <20260822225444.2774461-2-simon@swine.de>
-In-Reply-To: <20260822225444.2774461-2-simon@swine.de>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat Aug 22, 2026 at 3:54 PM PDT, Christian Simon wrote:
-> A JITed BPF program can use one private stack per program and CPU.
-> Sleepable programs can be preempted, allowing another task to run the
-> same program on the same CPU. The second invocation then reuses and can
-> overwrite the first invocation's private stack.
+Hi Lorenzo,
 
-I'm confused by this. sleepable progs go through __bpf_prog_enter_sleepable=
-_recur()
-which has per-prog recurison counter. So preemption of the prog
-doesn't break private stack.
-If the same prog attemps to execute on the same cpu it will be skipped.
+I tested the exact v2 from this Message-ID on its stated base with an x86_64
+KASAN kernel. The supplied memfd_secret selftest passed 6/6 in three boots,
+and my accounting-boundary suite also passed in three boots. I saw no
+patch-attributable KASAN report, warning, Oops, or panic.
 
-syscall prog types go via bpf_prog_run_array_sleepable()
-that have per prog recursions counter.
+A v1/v2 differential also confirms that v2 fixes the CAP_IPC_LOCK creator
+delegation issue Mike identified:
 
-Looks like we're not doing it for bpf_prog_run_array_uprobe().
-I'm not sure what the right trade off here.
-I feel universally checking for recursion is better
-then selectively disabling private stack for uprobe.
+  v1: CAP_DELEGATION creator_cap_ipc_lock=1 receiver_uid=2001 receiver_pages=2
+  v2: CAP_DELEGATION creator_cap_ipc_lock=1 receiver_uid=2001 receiver_pages=1
 
-> Disable private stack for sleepable programs so they use the regular kern=
-el
-> stack, which handles preemption correctly. This change is intentionally
-> limited to programs marked sleepable; preemptible non-sleepable dispatch
-> paths require separate protection.
->
-> Fixes: 7d1cd70d4b16 ("bpf, x86: Support private stack in jit")
-> Fixes: 6c17a882d380 ("bpf, arm64: JIT support for private stack")
-> Fixes: 156d985123b6 ("powerpc64/bpf: Implement JIT support for private st=
-ack")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Simon <simon@swine.de>
-> ---
->  kernel/bpf/verifier.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index 5e37ca75e5c4..038753ef07a9 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -5237,6 +5237,15 @@ static enum priv_stack_mode bpf_enable_priv_stack(=
-struct bpf_prog *prog)
->  	if (!bpf_jit_supports_private_stack())
->  		return NO_PRIV_STACK;
-> =20
-> +	/*
-> +	 * Sleepable programs can be preempted, allowing another task to run
-> +	 * the same program on the same CPU. Since private stack is per-CPU
-> +	 * and per-program, the second invocation would corrupt the first's
-> +	 * stack. Disable private stack for sleepable programs.
-> +	 */
-> +	if (prog->sleepable)
-> +		return NO_PRIV_STACK;
+I have one policy question before adding Tested-by. With a one-page soft and
+hard RLIMIT_MEMLOCK, a non-root task whose only effective and permitted
+capability was CAP_IPC_LOCK produced this on v2:
 
-This is not true in genreal. sleepable progs can use priv stack.
+  CAP_ONLY uid=2002 cap_ipc_lock=1 mlock_two_pages=1 faulted_pages=1 raise_hard_rc=-1 raise_hard_errno=1
 
-pw-bot: cr
+Thus ordinary mlock() of two pages succeeded, while only one secretmem page
+could be faulted. Raising the hard limit failed with EPERM because that
+requires CAP_SYS_RESOURCE. Is this divergence from ordinary mlock() the
+intended consequence of removing the CAP_IPC_LOCK exemption for secretmem?
+
+I saw the planned selftest split and cleanup in the follow-up discussion. I
+will retest the revised patch before adding Tested-by.
+
+Thanks,
+Daehyeon
