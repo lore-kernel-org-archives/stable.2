@@ -1,200 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002A53C3F4F
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:29:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93ED3BD62E
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787740168; cv=none; b=k8FjbljHg89YyeZo9dtMehUllkxXdkXmhENl++svM+S8MeMrnIbENT6YRZ8tuwb3mzYtZ0ciz3JrJAWkg8uZoXthJjOoUZljgtzmxntSI5kQ7BE/DnsYgYVb7P2Gk889Rt8Md+njYD/Ijcnt+JB4+TwX0x/JWpdKz89Okr85Fbk=
+	t=1787740240; cv=none; b=rbpY3hnas9BcdPLgMACbJenphu4TTPqLJUPNoFQ38hDdE/Y7APSOMBnbycOAHelN/pDhFg7AaVi5jcd8bMWBYIqKVNP+XOdYNwqLd3JbeaMBdxIT4h7LaykvcvCwrI6bHe3/iuhjrYbBTliOwMyny/SrIiJ3UHQyTosgM5nZuc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787740168; c=relaxed/simple;
-	bh=CSyS2AAUx8IjH654HwNFW+tBkieMPajx0k9qQRZi2gY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HO16Gr+o6RdjKOA/VXPJm86oeBsSWRPJYRjOCGSNtSbcs5ygw5W/jOIWt5AN0Phu5nGBB6/zVz/upsPPCffBHz/0RnZIKrNMBj0WWnaDwu4KxncExNBsG7tXBnE3JkeX0+33Obf1qaMU5YXKTYKtT4VztrMnGW1urwerU1huI4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FgQYI4nj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VtbASEkY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787740240; c=relaxed/simple;
+	bh=nmanUXENTYAWhJcrZe5nnCdfVN8VqAFDHENUPTMv+nk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c7wSmN1O6zCUqATjRno7TRSmPG6cGUA3M16YMZ8cgTVOe9rFY21URV1jnh5S1dauAJYRBRD8BGDfP6+Rx3XtThvhVXUwxWb5bAU4nX8UsJaJfeoWL/N4O7vKXk8iFSQ9rH1blN6f8zlFjWnNddtIwwDoM4vYoxS2VAkp8P/Y7D8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OpoPN8+6; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FgQYI4nj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VtbASEkY"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QAGV0h3732387
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:29:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QveZLHZ1UA6LhKTB0pCtINjffhyivWeyncO8oEF8Ds8=; b=FgQYI4njldTAlU7d
-	FCya7p0PQMO5pje5o+UmV1ROpUsw1rlmHFZyqZwX8+xJEES76Ulfazv7Ugjj1RRx
-	o9pNueKprZtOaZ4MNDN5BS3aN7VkWjCot9XKdRDT+5bCxblRZpYjET4ibQAq03YS
-	CF8QfOlgm6NIQ65GIX1jGr9EExxc+tuwxoBMW4r/RX6HfUKNOOO35dWEviwShehF
-	sip93cLHQcBu9prCk09DUHIq5vcS0MDkImhiSQAOl92oTRg5VvQtqo2zLS6IIUkh
-	pepbuOuA1a+EBviOWkj4DLnpP6BORYhc4/tt7HXG1hS4+WG4EWm+s/3EmeT5As+5
-	qBb+Ng==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9wmqr76n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:29:26 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbf293831so2136939a91.3
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 03:29:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OpoPN8+6"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc11a905ba5so513883a12.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 03:30:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787740165; x=1788344965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QveZLHZ1UA6LhKTB0pCtINjffhyivWeyncO8oEF8Ds8=;
-        b=VtbASEkYF8kmmTSybaQH2SSWu2KCnJqIimuFSzJe5+Fo2ocygEPMvWPSbMglOBtyPZ
-         yA83uGHOSCY+kETe9r1J6sa13HequT8PBw5NrPCqKwnLuexyZY6/HQeMlF2iFsNQQafb
-         K5qyRlaFLVCI61Le336om65382rRHQgD6sSoKqVyCneaFHX6ECPjJeLqCIczjcLPD03g
-         QkdzMNL750kIUSQd+AcZL9EFtyDdNx5E5UHCUBkbxcQPKV8pm+k6awUxvVpV/kKzrGY+
-         eKcVJzqC+DDPKMtJ0RmAIrS3qPNMO6p8ksHskbS8BbjjiiVPPipOHlNdGsB77nFjra4/
-         13nw==
+        d=gmail.com; s=20251104; t=1787740238; x=1788345038; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fTwczG03AOy3mBcQRAusH2eukvjICUjX1lQZk3L+S68=;
+        b=OpoPN8+62oXfJZl20WXoSgC/eJu7Dlot0p27AYL5pC38nmxOdYVD7c+0IqE8iHVloN
+         Lo8bqBqepJhI1qcgdbCaEPHZVSJYkzMZuWRoLuCuvIDZm18W/2v/japf5yg9uW1QMEaZ
+         08A53TuOI+aifFdq0EwaqAXfIb/5vkmrJ3U8JnSso1epcyqARdJJwPYrSeWZe2qnq5IL
+         lcKA+DNnLqLotBsW0tqSG7zQc3e1b6YH+TzLh3+9po/i8/HWS7VUGd75CkG3dbEFJn2l
+         DO3NQ7sNoEBslwyJFgDSC5On1pYSs2TWK+X0vjEzTGTsglAtb0ukfn9KusC8ltJofVoZ
+         tmgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787740165; x=1788344965;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787740238; x=1788345038;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QveZLHZ1UA6LhKTB0pCtINjffhyivWeyncO8oEF8Ds8=;
-        b=c46uHOrSHYXnBFBklM6RkQu16YeJ1KldLvRo66rLN1gt4ZCTXcPWWs5zhtGMwm/S3m
-         uRRyh4XmfV2SgYkSLo33Eifes+TU/6KabwCcw1QFnARnD3TJThorIe2nSnkn5kbL5/6q
-         0WeqcEuRld3uqPw/F0Ssf0lmd/rTOARgyuAfSekKm5zVZZC9seitgI+DiwezS/OYaM6Z
-         7R/eijFh3JQ+gAjuMsVxggLrWdW9Wq3ZYqcaj08dayTeDiSnKuUJtQ8c4GuhITa1/MqN
-         cWAgEs9IHqHauKmkerMa8827yEDvM2JB3lq8oKiLOatMIKk/E5f4k75Rvh+DgTeREYag
-         3Xbw==
-X-Forwarded-Encrypted: i=1; AHgh+RpsUgF7mzP4Cj1ZsKNymwVTbK3RE/lpx+jQ6CKPA5QEtvvYJa7qEh/rfoCUrxX3GZnu433B6+g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS/DppWCzgOUkRm5msdzK/Gbdw9pyx/IPWXh/MKEcFWQSPL29z
-	gxigObV0llMJoGvFySgSHiKc5Wnn2ykQg1Jn2IqBtMLnP0BbTfuPtEWX991ylZ4ry6aZ4JuB8EX
-	FFRpp5rVTZ1keT3McB2MConAHTh5lqZtyIXC4zkrPA1J85X50lqdnxZYSgzA=
-X-Gm-Gg: AR+sD11IU6OW7eGhHi/pamauUQ75vZe9W8Xhxw4oKOyYXCkzod8MX4Xlop6C28tZh0q
-	X+QF4MgeEOm37kTPTqxIuPlbXk6qbI1MSPsy8V/R//Aj86l0KSCBtfclTbzj+vPmFq8RxgR9YU2
-	acSqmm+Cu2cPJl3wtwdMXr1f0LDi2gIalMcTH47rGH/G3CCeuKjerCGum9fWw7b6ezIVnZaSmnI
-	sNJDtJhOi612LrN00J4Cw7fvGGH13Ay1MdtUtHsiiIvVg1a8X8+ACZwUaI8JEcnSnz/7cYtIrZ+
-	h1LTCfxpfOVWOo8M9TncThskAx95N/8BdOWZS5FJAr5ng+A//C3gjqVbk6UKJQYPY2eLtqd99ML
-	So0+ALg4j4ARHzf4Jfw98e6pL7Cw+Af3+f4XUSaaOXCruNW8wvWL3nDtZllELyEc2cQ==
-X-Received: by 2002:a17:90b:520f:b0:38f:26c7:165e with SMTP id 98e67ed59e1d1-3966d5f8f84mr12826274a91.9.1787740165139;
-        Wed, 26 Aug 2026 03:29:25 -0700 (PDT)
-X-Received: by 2002:a17:90b:520f:b0:38f:26c7:165e with SMTP id 98e67ed59e1d1-3966d5f8f84mr12826103a91.9.1787740164412;
-        Wed, 26 Aug 2026 03:29:24 -0700 (PDT)
-Received: from [10.218.1.199] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d8861ecsm7249900eec.19.2026.08.26.03.29.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 03:29:23 -0700 (PDT)
-Message-ID: <611896c5-ce07-4219-a47a-9991bde0c16c@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 15:59:19 +0530
+        bh=fTwczG03AOy3mBcQRAusH2eukvjICUjX1lQZk3L+S68=;
+        b=ICw+sziJ0+sS0WJSFwU4wxiP6luosnFCKuWcrscWK2FNdvHLDL3i2zfWmSSMC/nCLc
+         ZJ3CDJRdM6oDpOCcG05jasehSoQh3U+/DwuqLPK0WJqpAzjU4pNkC/GRlKNKAizj53EP
+         zzriqfss/FUedVG1cjXGt6McpTuKNNG7PqDEWyJAL8r7kfUKDsAN184GJ0Wm78BqmaQI
+         au00zr1LweWGBLI4ul/+sVQjhkKiz23sFny5DhzI9vzDDeRXkNJtorgSiopQibKfP6MY
+         9lpxavs6wTAr5sI6Ng+qZUgO2dkEN0xmqFf22YvgSy/n7R+f0/D3HbOZ5s8sY73fQeEg
+         tUDg==
+X-Forwarded-Encrypted: i=1; AHgh+RpBGoD6oM6JXjsGjdbm2Th236UCYcNCDVzacKsRuIO2pE+GehJQ7nNbx+PC4rQZjWcz6h3noB0=@vger.kernel.org
+X-Gm-Message-State: AFuF++noQaXAD3uKVkGUyXs7f9tIjIugDi9Y/f85ULyvzH/e+BXhZ1w1
+	a6wQa4UftVXDCInccNcuppUpS6XwwCPTyJjoeDIBexesMWcdqtc4baoA
+X-Gm-Gg: AR+sD11TcKHMLxL1g4f2a6+LS2lLZxDduDNT55kfm8CsGiou9j8wKCyfzMxiE0VkMSb
+	IPgLM0uzb5f/WSTgHzBeh2gF5eGYgelzAv22toruvpkqj9a9+l/5IZ0scWa1x4/iiixcCX78X3a
+	NxiB3oS+yhhEngvVqEH4lxYkPc3+H0hLqmGRPvEXvsAORLSPVRqIMcGESjw6wwJcy53DEb0L0E1
+	qX0d2atJoZS+I8dFfJcNpUJNM9a8DUm/MKau4wm1+zeiMK82RQVRPU5htPaDbmYgCjLTE8XxL91
+	AjiwjudpQILlWaI8PaVy3wjMco2XBc/nHlUB2gLTEnvcBxssVdamCtaS6PELcMP8kRQEGQ/my0J
+	KucfAqqNn2QuvNQZHTH90o7aA64JeM7VJg7yCNgl2bv7BE8AP9WI2+trrQooQxQGCC3tEPe3oeD
+	+sFwpCogZoQ2RHWe7vK1fpgD0CgULq0LLwYaKzzcWa8xb28jRaXjNvquaDmbUKk84EYr5xIHOpg
+	TjrqIBO1/x5iYJih9Pr86s+UrlssOK89EjvqAHa1g==
+X-Received: by 2002:a05:6a21:6b0a:b0:3b3:d0f:7883 with SMTP id adf61e73a8af0-3cf762853b2mr12031072637.7.1787740237439;
+        Wed, 26 Aug 2026 03:30:37 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d8dc465sm7267468eec.24.2026.08.26.03.30.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 03:30:36 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: hdegoede@redhat.com,
+	ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: [PATCH v2] platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()
+Date: Wed, 26 Aug 2026 15:30:12 +0500
+Message-ID: <20260826103012.240453-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: typec: hd3ss3220: track VBUS enable state per
- consumer
-To: Chang Wu <kunjinkao.jp@gmail.com>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jan Remmet <j.remmet@phytec.de>, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260819152027.90994-1-kunjinkao.jp@gmail.com>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <20260819152027.90994-1-kunjinkao.jp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDA4NyBTYWx0ZWRfXyoNUvUl6TuZC
- YbiN4ClQEG2B2V0ykNQtvMr6kBxcwqCJFFs7gl1mkF6gQ/0NcENPeq3oaCz3DNobaPE7kGlOWp6
- 8+WvD6mzW1VbhFMie5jtBag3Ytq2YfQ=
-X-Proofpoint-ORIG-GUID: GlSWAcN5N89iywt9VVL7YTsRgLbDM9eT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDA4NyBTYWx0ZWRfX5ub+9AlFNJcy
- /AMYTmTPRF1oghIl5ykaRYvDGbhgJ17Dz+RNfTTAfEcnK6S+CsXdeKLy9zn9CRRM4U72FcZN01B
- qNbzxXi/FJ40swFRNQ4cFT/O8h9xrVQWaa4JxOLl9pxB2GCU3E+Gq2hTn/0DN8K/CQN3czCWqV1
- V2hbPimfp4KyWnwyWoTbMZTESX1D87smek/08wS+iYzg+ynvnmZJ4eDLnhlZ1/WPtCWJZDf9Jba
- bNC37l3Qg7+3LokDIg3AgN2jQ5eIvzNG8OX6Hw6sYcsPvUPBy8OZwWt8Wru5v/oCB0cAxNH0I6y
- diRJMaATdGUJ4ixmilppp3/DqOY+tEJGvszPX8nvzR+zdrWsKZKzuVowJeD2JPO1rxLnYCiOEUu
- 7qe0o5Fq9if9XacRUWYSX8XrAYarn81bi6zdl+KRJGjWaGj8WXGixUOC+FkfhH4rddfJ/uc/Yki
- ttCUldzD6O1H9aR8ejQ==
-X-Authority-Analysis: v=2.4 cv=T9S8ifKQ c=1 sm=1 tr=0 ts=6a8ec006 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
- a=iLJ8WFLs6lQ_ZW-OyZwA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: GlSWAcN5N89iywt9VVL7YTsRgLbDM9eT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260087
+Content-Transfer-Encoding: 8bit
 
+hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
+struct bios_return header in the returned buffer. However, it only
+checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
+that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
 
+If the firmware or ACPI method returns a buffer shorter than 8 bytes:
 
-On 8/19/2026 8:50 PM, Chang Wu wrote:
-> regulator_is_enabled() reports the aggregate regulator state, not
-> whether this consumer holds an enable reference. If another consumer
-> enables VBUS first, the driver can skip its own regulator_enable() call
-> and later attempt to drop a reference it never acquired, triggering an
-> unbalanced regulator disable warning.
-> 
-> Track successful enable and disable calls locally. Keep the state
-> unchanged when an operation fails so a later role or ID notification
-> retries the operation while this consumer keeps balanced references.
-> 
-> Fixes: b3f9d6e491fd ("usb: typec: hd3ss3220: Check if regulator needs to be switched")
-> Cc: stable@vger.kernel.org
-> Link: https://github.com/qualcomm-linux/kernel/issues/472
-> Signed-off-by: Chang Wu <kunjinkao.jp@gmail.com>
+1. bios_return->return_code at offset 4 reads out of bounds from the
+   allocated ACPI buffer slab.
 
-Reviewed-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+2. If return_code evaluates to 0 and outsize is non-zero,
+   (int)(obj->buffer.length - sizeof(*bios_return)) evaluates to a
+   negative integer (e.g. -8 for a 0-length buffer). actual_outsize is
+   set to this negative value and passed to memcpy(buffer, ...,
+   actual_outsize), where the signed negative value is cast to
+   size_t (e.g. 0xfffffffffffffff8), attempting to copy ~18 Exabytes
+   and triggering an immediate kernel crash. Additionally,
+   memset(buffer + actual_outsize, ...) performs an out-of-bounds
+   write before buffer.
 
-> ---
-> Testing:
-> - scripts/checkpatch.pl --strict: passed
-> - Qualcomm CI checkpatch, sparse, DT and UAPI checks: passed
-> - Not tested on hardware
-> 
->   drivers/usb/typec/hd3ss3220.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
-> index d0de5a2488f9..4eec90c82bae 100644
-> --- a/drivers/usb/typec/hd3ss3220.c
-> +++ b/drivers/usb/typec/hd3ss3220.c
-> @@ -62,6 +62,7 @@ struct hd3ss3220 {
->   	int id_irq;
->   
->   	struct regulator *vbus;
-> +	bool vbus_enabled;
->   };
->   
->   static int hd3ss3220_set_power_opmode(struct hd3ss3220 *hd3ss3220, int power_opmode)
-> @@ -208,7 +209,7 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
->   {
->   	int ret;
->   
-> -	if (regulator_is_enabled(hd3ss3220->vbus) == on)
-> +	if (hd3ss3220->vbus_enabled == on)
->   		return;
->   
->   	if (on)
-> @@ -216,9 +217,13 @@ static void hd3ss3220_regulator_control(struct hd3ss3220 *hd3ss3220, bool on)
->   	else
->   		ret = regulator_disable(hd3ss3220->vbus);
->   
-> -	if (ret)
-> +	if (ret) {
->   		dev_err(hd3ss3220->dev,
->   			"vbus regulator %s failed: %d\n", on ? "enable" : "disable", ret);
-> +		return;
-> +	}
-> +
-> +	hd3ss3220->vbus_enabled = on;
->   }
->   
->   static void hd3ss3220_set_role(struct hd3ss3220 *hd3ss3220)
-> 
-> base-commit: e1e6e541c5c9cf548e9fdc35fc26808c82074440
+Fix this by ensuring obj->buffer.length is at least sizeof(*bios_return)
+before accessing the return code, and compute actual_outsize safely
+using min_t(u32, ...), which is sound specifically because the guard
+above already rules out obj->buffer.length being smaller than
+sizeof(*bios_return) by the time that subtraction runs.
+
+Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+v2: Rebased onto current platform-drivers-x86.git 'fixes' (confirmed
+    matching current mainline, blob b2773fc1aca414792b99406315496a2c3a64dd06).
+    v1 was diffed against a stale local copy of hp-wmi.c that predated
+    a batch of unrelated upstream changes (GPU MUX switch support, new
+    OMEN/Victus board IDs), so its hunks no longer applied. The fix
+    itself is unchanged, only the base and line numbers moved. Also
+    correcting the recipient list: Hans de Goede's address is
+    hdegoede@redhat.com, not hansg@kernel.org as v1 had it.
+
+ drivers/platform/x86/hp/hp-wmi.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index b2773fc..d7ad206 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -691,8 +691,9 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+ 		goto out_free;
+ 	}
+ 
+-	if (obj->type != ACPI_TYPE_BUFFER) {
+-		pr_warn("query 0x%x returned an invalid object 0x%x\n", query, ret);
++	if (obj->type != ACPI_TYPE_BUFFER ||
++	    obj->buffer.length < sizeof(*bios_return)) {
++		pr_warn("query 0x%x returned wrong type or too small buffer\n", query);
+ 		ret = -EINVAL;
+ 		goto out_free;
+ 	}
+@@ -711,7 +712,7 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+ 	if (!outsize)
+ 		goto out_free;
+ 
+-	actual_outsize = min(outsize, (int)(obj->buffer.length - sizeof(*bios_return)));
++	actual_outsize = min_t(u32, outsize, obj->buffer.length - sizeof(*bios_return));
+ 	memcpy(buffer, obj->buffer.pointer + sizeof(*bios_return), actual_outsize);
+ 	memset(buffer + actual_outsize, 0, outsize - actual_outsize);
+ 
+-- 
+2.55.0
 
