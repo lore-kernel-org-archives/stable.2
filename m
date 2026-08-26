@@ -1,129 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A62A3F7899
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 12:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CBE3368B7
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787749052; cv=none; b=S08mta5cVP7K0uJNEvAoj5H0Rp+p7CNxg8+o6c+Wkt9x88uGMBkLry/m/VJjzf0fLuwk9kYDlRdsQVEQOFb0roLWtZK7RHPrTcyW4QazBzkw0k6Ae9SH4pJKg5ANwmFkWC0yTlfdAlGwvnM1tOYKhaUOI2XrhvXQolJeK/oYglY=
+	t=1787749766; cv=none; b=Gso4+7XYb1hhRFWv9IIxSyqQlPyGNgPuG/0wKBNwtbDUucj8VGsSc7dtdkbd5Ydi8QpqW3GydlM/Iu03zPNENQlgTNRA0oIJ1JUZ1XJTIezxL+OOZdSDM3ZEzg1OokqmSVr+TY7mgFHNgZ13MyRpY2H4y6UWkWenaNWBBsjmTcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787749052; c=relaxed/simple;
-	bh=3Br95GeokWU1IMa61DLVg5JbjGbz0vI1Rz+yfbMdmyg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bMnU/cR8yCaYzHCQLATVOjFxGfT/T6Zf5zmMU82p3H9HgTnpXooP4AmM4E66PcLelowf4tdRd8lPYk7HbCaSXB8le7/n3l9agLTNMO/aidV1b/flPKnoRe9j7maniTS/5Dir5RQf4Ae3kV93qhGLtgjaPR5Os7qe8c6ZDVQ8Pz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tq1CjqLs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787749766; c=relaxed/simple;
+	bh=UQxkqTK3/1ZsLFibCpvCrUBH5dRiA4vZDvb8AlwtX3w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xsx3Z6n4lltYs4uRe8MFMhE+vZG8ECY0giRSI2tAGzXKlMcVJFNlS0u+fs+rcVTLtO09NICn9nj9oQPAkRI0V8fwnx+lZge4hBKF3A3Ai/dbyGXEYjauhusIMz08INwgSxtq5IL8MNtH94jgLbSP8GQWkubSnYEmNCLH5pOxlpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=CEARBxtI; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tq1CjqLs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EB991F00A3F;
-	Wed, 26 Aug 2026 12:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787749044;
-	bh=eIrVevylhhAXFZOTCPMbN24v/kQC7G+xTPY83Or3I+A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tq1CjqLsARyYb5jhzusD+A3xImrElE/IXikHcook+Jy4gwO2UYLclHO2eMOt5eyZn
-	 CiN4QQhLU4PX2Mooqm79Web1o5sfcdpqjVum5pkR6QnMeJbeCtc4Kah0ePV27XnxJ0
-	 rb9VeheNtN1JNhBZZtxskt813VL1TJFTQfF01uV2rRXjJub9TeLRi25c54WwMzMS9A
-	 plX80694U4rYeEEI67wVNW+F8Iyxpr/qSACT7Phisz4+FEX+TOJ6ET2Drc9jsL8RC0
-	 lsFEoJBORUFIg1o490wh4MxO11vC9VtKVyC1ah4sTgr9hd2tH1BMHVc0sCrXX8BnCq
-	 4U2I+JcynDtSg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ibrahim Hashimov <security@auditcode.ai>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] nvmet-tcp: bound SGL data length before allocating command buffers
-Date: Wed, 26 Aug 2026 08:57:19 -0400
-Message-ID: <20260826125719.2952832-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826125719.2952832-1-sashal@kernel.org>
-References: <2026082515-mobilize-facelift-6d03@gregkh>
- <20260826125719.2952832-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="CEARBxtI"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15e2dab83eso141398566b.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:09:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1787749764; x=1788354564; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6JXi2pwwnfsDJ7n9zXvp9v+SjJvo9VFU+ep7dFFjZug=;
+        b=CEARBxtI5JNQMbb8P4LCdSZdQJEDI4HCVUdJlQThGR4EcXn4CO9v+kGpGjwLWGZoB/
+         ChD6FLhvGki3uK6OZVgij7MVSpYQhzB7XWNdA2smGrzRqRfdM7yAl1LMPvNhvOULVrKl
+         4NVE8krQaX2DVg8Fo40hx5OxGKU6oZiT4QGQW1L7/b9l1zPKpnG1w0P2XvCA9rKCNWxR
+         NuoMH8mQ7Sp2w3ThSGFVX4R4TiwsL/zYa8UH05FQ4eVxq6lZjwcgfrwM53fscV9TQrXh
+         03f3b2kz6pGHrG9L0Av+4HlLLQnukC/Tx5tcmOHvVQNeE2ZLXDSrS1GrYc0CuW7YIxkX
+         G2YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787749764; x=1788354564;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6JXi2pwwnfsDJ7n9zXvp9v+SjJvo9VFU+ep7dFFjZug=;
+        b=MMufMqtyYnkIQVZHO/lFYkkEh8zAgYEaJKa0U86B2mXfs1nNPTOA6ktN6Jv2wHPSLa
+         s2sktt7qAsYtKsQ2KSjZSf6bjNmJGHqWfaYfx7TZP1dIVFWzUKUmURQaYNL/y78L1TEg
+         TH7J7Zem1npeW4lKahMDxKpYaZQU/wFNEwcnvrV5ezILfki43AbJtDWQeCGaN6JpmxrZ
+         Yg2W0uBJECkGiCLwQiUOKKp7L2ykoueHTgTI2Uxvq2/sJWarywouUp0akO6TwEGOIjbX
+         QacdNpG1ImnedU6hhA5X3FX0q5ZZkbpon75a71z60XvHNXspNYi/Qmwdpw/xnSwwRhmG
+         iK9A==
+X-Forwarded-Encrypted: i=1; AHgh+RoTkszCnY9vVj76QEpZrjsDfmSJJgYesE8jtc0O+bUfFsoS9BANTc2s2OtF1g8jeOmIBfuYnzw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nd5rcJ2wv/J6bXouReyPFpPaJfydDx4VJBMH2VqjktCcfTHi0r
+	16r+CNhLnDXQJqJ7ibtjsZ8rib+trk1JBprrH0hSrV7YiVo43neISNU=
+X-Gm-Gg: AR+sD115hPR3QZayYsI/ZVThnl+ZPpGPBgpj1DFXl5hKc6sJGlfmW96EfhWEXMNg3KB
+	pwUyQS2N3Nk4oWElIjxK8MQEckKPSsF/Xkox9O91+ssgjTb/8xi1B3TKlqqaHAaeDdQIe7aQw0t
+	sLuGNV4nN9CbS9nBrxYtSaRxCwmtSCSJUVyB8hYDTDEvYhpC45veJDy3hrm/hU+X2rUsKgGnBLc
+	bXQuTH/QXv00x0Yl9x/aU3ltqmFgPEwT6KYSdoSAkQp4gXWDO0FG6BC30oRNGdNxzkWKO1npYtb
+	Qr/2K7td/bjH/TSd0a0+Pa90XnG/k7BbJuk1DuUmJsrUnGMzzKQT0BV9BZyVGCIlHGxXMDmzZ5a
+	XAzHMfKU3dZVzs/5s33fleCwvUjGeOd/XujiT+dn2EBbsSUFUQr0Fp1dWwa+Vcvx5+jzh6f6J/T
+	IfxZ1ILFu+TtHYDDVyaEbihcOEms2pE78djcT5AgX5Rk3ZVUf4oGAAG3aZvJALUMixi7UT+jx29
+	NLFNDR1dPcGdWklAkFO542KzgxFnR1roXvh9+c=
+X-Received: by 2002:a17:907:6091:b0:c1c:2007:298e with SMTP id a640c23a62f3a-c250c408972mr942154366b.24.1787749763224;
+        Wed, 26 Aug 2026 06:09:23 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ace5e.dip0.t-ipconnect.de. [91.42.206.94])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2533945d0esm586566b.9.2026.08.26.06.09.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 06:09:22 -0700 (PDT)
+Message-ID: <ed8a1a2b-c375-4504-9b5e-370b2ccd6e08@googlemail.com>
+Date: Wed, 26 Aug 2026 15:09:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 00/77] 6.12.106-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.580275153@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260825132541.580275153@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Ibrahim Hashimov <security@auditcode.ai>
+Am 25.08.2026 um 15:25 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.106 release.
+> There are 77 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-[ Upstream commit 4a3f00262a044e8e15064b1a6860968bf0500bf4 ]
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-nvmet_tcp_map_data() reads the host-controlled 32-bit sgl->length
-and, for the in-capsule offset descriptor (type 0x01), checks it
-against port->inline_data_size before use. Any other SGL descriptor
-type -- including the non-inline transport SGL data-block descriptor
-(type (NVME_TRANSPORT_SGL_DATA_DESC << 4) | NVME_SGL_FMT_TRANSPORT_A,
-the type a real host uses for out-of-capsule writes) skips that check
-entirely and falls straight through to:
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-	cmd->req.sg = sgl_alloc(len, GFP_KERNEL, &cmd->req.sg_cnt);
 
-with len taken directly from the wire, unbounded up to 4 GiB.
+Beste Grüße,
+Peter Schneider
 
-nvmet_req_init() only parses the command and never inspects
-sgl->length, and nvmet_check_transfer_len() -- the only other place
-transfer_len is validated -- runs later, from req->execute(), after
-the allocation has already happened. For a write command the target
-responds with an R2T and parks the command waiting for the host to
-send the data; if the host (or an unauthenticated peer that simply
-never follows up) never does, the sgl_alloc() buffer stays resident
-for the life of the command. NVMe/TCP has no mandatory authentication
-in the default configuration, so any peer able to reach the target
-portal and complete a Fabrics connect can drive this with a single
-crafted command, repeatable across queues and connections for
-amplification. This is unbounded kernel memory allocation
-triggered by a remote, effectively unauthenticated peer.
-
-Validate len against the same NVMET_TCP_MAXH2CDATA ceiling this file
-already uses to bound per-PDU H2C data, for every SGL descriptor type,
-before doing any allocation. This closes the gap for the non-inline
-descriptor while leaving the existing, tighter inline_data_size check
-in place for the in-capsule case.
-
-Runtime-verified on a v6.19 KASAN stand: with this bound in place, a
-crafted write command carrying an oversized non-inline SGL length is
-rejected before sgl_alloc() runs, where the same request previously
-drove an unbounded ~256 MiB kernel allocation (up to 4 GiB) that
-stayed resident pending an R2T the host never satisfies.
-
-Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/nvme/target/tcp.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index b053d9fee1d4a..bec17b85dc945 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -417,6 +417,19 @@ static int nvmet_tcp_map_data(struct nvmet_tcp_cmd *cmd)
- 	if (!len)
- 		return 0;
- 
-+	/*
-+	 * inline_data_size only bounds the in-capsule (type 0x01) SGL
-+	 * descriptor below. A non-inline transport SGL data-block
-+	 * descriptor skips that check entirely and would otherwise reach
-+	 * sgl_alloc() with an attacker-controlled len of up to 4 GiB,
-+	 * pinning that much kernel memory for a command that may never
-+	 * complete. Bound every descriptor type here, before allocating
-+	 * anything, using the same ceiling this file already applies to
-+	 * per-PDU H2C data.
-+	 */
-+	if (len > NVMET_TCP_MAXH2CDATA)
-+		return NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
-+
- 	if (sgl->type == ((NVME_SGL_FMT_DATA_DESC << 4) |
- 			  NVME_SGL_FMT_OFFSET)) {
- 		if (!nvme_is_write(cmd->req.cmd))
 -- 
-2.53.0
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
