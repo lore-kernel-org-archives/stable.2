@@ -1,112 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653CF23BCED;
-	Wed, 26 Aug 2026 11:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787742275; cv=none; b=tnV6XA2gVQueSzNhngx18LIGV3CBxWk57X4rGLdUyQEMQubbo0reQrp31AspHg+mBfyVQAGIx8k8B+5GHb7APKPuuawoU8yH5nzAOAbVD+zs7eBNvHJakidIrVeGFeRzRTfvmxsmohgH0xcweJE6ZSOsRNUW2xD8lrkvWUTAFZE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787742275; c=relaxed/simple;
-	bh=0t+7/e3oqGqmDt1r1bHIZ7l8ibPqxkX9cD03J04DFG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A/kDELBd/2tXY5S/sWWT33DE2JcyWwFEuJtAlNNUu7qjw7dptTYA6K1RsVLe/Ljha50mPF5ibmxvXTYKlMFPmdGt565PhX4YPmJeEmUjveO4Rqg+0SvQxyBvi2tz7jZPlNNRw22K/urJ1jpm7Ah9i2LcqTHZbsCW+quUOHKqWo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZrL8Cym; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7635137CD2F
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787742788; cv=pass; b=Os59fRNBU9bUMLSyjgne8Vp17gY94pHTmEzvAsrHosUoG15oxrHexIJAxhVTzaytT9DXtfccJXXA7fm0eGyYE7GfA7Kk8VOdLddqaI/KJmMo2vXWnUq1UNSDMEUYp5E9//Z2onD3zFSqJDWAnITtpoCAGhZZx3RE/NdKpO3qmOI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787742788; c=relaxed/simple;
+	bh=qxK0YDq758BFaqD9s7iCBATXt0a1M5kbbbBPljI+lWU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nEfVRNl0s2VBkTb8gVwhIJAkvT6LP8m4GuO7P1/50xLfWkZ+PCEVK+ykTdtGreiTBB2Fb8C1TO4fAC5cPR0QJP4EO92vNqDAuApn8didfUdhukGnZxry+sr4ndTEET7UC/bSbIr9+z+321iHUo6Wyjugc1tImL9WShcJtLBSGgw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=H4f+dczu; arc=pass smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZrL8Cym"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E301F000E9;
-	Wed, 26 Aug 2026 11:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787742267;
-	bh=uBmI5fOjIx+W9VbSYdym76cV4ZkOfJL66crn6l8h18I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bZrL8Cym9mcGQkJcKIk7xOUgiBjZIJX94P+HYk4/+Y98Rcj+dtnsz2aAJKHXYSjcP
-	 crRdTnHRa+gDVBDG32Gh8c2MqG8su06iqxXVIfZLr+asmvfVqRc5Rl+QiazfLF3ib7
-	 5mnAvpmPaYX75J1rq0YD+FW3QYIO9xsMzeQq3b/J8u/OZYHujlTzEU0QbtWhIl2nKe
-	 MSEgzBWAyJp6Uw3/tBOXmG3KDJwf5OkuOjD040J2mhSCdB9CPGxUbINA5LTqwVkhpq
-	 Gaegv6rmFp9/gxAZuGvCw3YBo28aoTkAxX9IQaOZ27ytBKyrVfd+vufJEaGNnUzhXW
-	 TIILx9bal2q6A==
-Date: Wed, 26 Aug 2026 12:04:21 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	akpm@linux-foundation.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
-	Vernon Yang <yanglincheng@kylinos.cn>
-Subject: Re: [PATCH v3 1/3] mm: khugepaged: fix swap entry value to
- folio_pfn()
-Message-ID: <ao7IG-tK1NY5n9ac@gremlin>
-References: <edd7ed8d-0f2c-4de3-89e5-f2b23c2dd1e5@kernel.org>
- <6a9c2369-5589-4f2a-bcfe-c6e3b46a1ccd@gmail.com>
- <c8e3bb54-e4f1-45d3-8059-3ee1910a920a@kernel.org>
- <ao6c6Oe_KV0O1LJn@gremlin>
- <b6fbf952-c619-4fc7-8a8e-62a0ae64ff0d@kernel.org>
- <ao6fSHW_nX8YC9QK@gremlin>
- <42695df0-3962-4126-9afb-9a1905d096a0@kernel.org>
- <49aa013f-f613-42be-bc58-35956ef189de@kernel.org>
- <ao6jVbVHLUmuY2UA@gremlin>
- <330789dd-94e2-4827-abdd-23671263608f@gmail.com>
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="H4f+dczu"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-8f1a8e914a9so7534046d6.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 04:12:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787742774; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L/asdBVIVCaLx9tTEwIAGPb7/3jkenjg3Id6sATvfbC6BbKO+TSgppQRY5kG6gfJNk
+         qidPfv28k8MyIhZyGiNAFKUjCK5popMTJvEovJ7Oj80giC/ErWEQQfrkbV4H8ZPIK5Jg
+         ZUakjQ0fg6RrSbF9QwU/2lDL3Q99LY+0Amtsp47bnILretushC8XmIFdQZPwaZFR6+FT
+         h3PX8s4ElQ8mlC+Rw3P+Ly9h/WHpka4AyZNAmFhqRN0cE3Ux6nOuoG+2dIrYWbEUvHZO
+         /5XR9MeA0zN8HKCyYQcUeu1Ub+ZpUu37+d+YYZWvvirm5+Ng9hsP58vqsI/WbDeBaCkB
+         6G+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qxK0YDq758BFaqD9s7iCBATXt0a1M5kbbbBPljI+lWU=;
+        fh=lKug6L1xXMNE5FhkZ64rV1JjN2wtgA6O2P8nxeZyXmU=;
+        b=myKXzHthuxDBK+X2kCgaxcODX2MtR/Fx/iSH/Ciyj/a6nDcwqzx/qy17XecHWSct4I
+         fvHbcS/bVynoRUu78WV5+1GYs+G9QxFmlH5aSDWgOmPOFYdvzpOmVi2wEi7hll08tkvd
+         3h4ulmMzF2aazLOIiUVg905oUVEjJYiEhPjMp4v2ymPM0bWuGD2VfQY4INgKwbrzkyKS
+         8jLlwlfT64q0+eQ5M/GI6fc6ZTDoXaG1AAJSn0m3IsomhQMKH/W//51xJ5p2R7TT9W88
+         DKhNZ3GRhOnW1hCAZRzu9/2Rl71CKqPuRNsr1ecUq62kIbmRyudhUZnxzLNk70PKmTBT
+         QuVw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1787742774; x=1788347574; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qxK0YDq758BFaqD9s7iCBATXt0a1M5kbbbBPljI+lWU=;
+        b=H4f+dczuDbl28JvwMiXOhV72AQCRPJpV76cvfKkAm7M1ejMGDST2Hmtfxg+28OULou
+         YdyffQth7lTL7J6UeeNBVQ3hlswFlJYI11oakfsTdcdY49v1BjS2WZvVV8CNnSBF3ISM
+         3HWrNXDrOZ8qYSGiZ60UCY9vh/bAfE5KtIm1Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787742774; x=1788347574;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qxK0YDq758BFaqD9s7iCBATXt0a1M5kbbbBPljI+lWU=;
+        b=KFcM6tTRnAS59z7jVTNFeHqqVwz5WssPoeyOhJtWND5L9f0ymrrFlZTuQpNNjKziVh
+         4dX9cBDJOnizZs8ykPrrmdbin9OfQr925waDlHiQHznSMSNq2Gv5+A+TYwLtx0j0CsXp
+         i/3vnfE4r+4iXn83JdmGGDDCM0GByVMsfst+ywy+0+tISQ3TXsu11wJTjj27Qrn/xvkS
+         /GLIVocqYf+tOAWIJNb/P7r3Ls2hqBMlgjm3NNpN75FA31jwoFpHvlGjs9oI+MO0bqM9
+         COejmCwaIHxb9VDdD3vtdt0zj+sGQmSKJGyvtwg3zJKLfduAXFSN5X3vDszFbifrvs2U
+         3A5g==
+X-Forwarded-Encrypted: i=1; AHgh+RrRB40hf8qsUIGlPVIREiDFLXYxxd6SEBlDE4wtTLJq9yHxJQJvlkbZL8zl7uU+vbzPlkjSuXc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAV/Afmf4A0dGdfNRaXvAuiDXUJK0aNNQBWd54M3RVfDRuiJ08
+	iMD/uN7g7CyU3nV/V8eO16kVpv0xuG5sFxo81SQn18VX7f1bvTOj1gYxGBbeJEZphulUbBWGpjm
+	ELR0h/1en/T4RmX55n81mtlWv6Vfb6oBa6IeCWA+KkQ==
+X-Gm-Gg: AR+sD1284GmCb4/+1mGzd3WattDmdKaS/93aiDSLsQRYu/W/CoclFDLQohn11xuv79v
+	fM7i0R4WJkRKIHQnb8xpmAXoKEqDHsyS78KQTsBxHfGAyj0FlnrRUyB6YDeEilL5KTjFTwXQbP4
+	J599JCkCAbNxKgJat+O+uB1RgsN7vsosQMt6LQdlhzwq7LAbtOD/9kCOw1ONU3AX+dM/nDBSoq4
+	5tyfOTv1ONIgv3X8190p4hxq02Yx02oNP70mtJmaqccRum6qj0x94G7JJzGzlNYZraqKOvZXeZp
+	ttfcmHYSi9IZJtAdLtzm/z7FNtPvLoNrrFZAuihM9gZp8hB/fJW6YF3DdgdYQaDmCtb+iLvC63U
+	hm14=
+X-Received: by 2002:a05:622a:598c:b0:51a:89db:95a4 with SMTP id
+ d75a77b69052e-52e42235c73mr56562851cf.6.1787742774296; Wed, 26 Aug 2026
+ 04:12:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <330789dd-94e2-4827-abdd-23671263608f@gmail.com>
+References: <20260717142932.71778-1-jefflexu@linux.alibaba.com>
+In-Reply-To: <20260717142932.71778-1-jefflexu@linux.alibaba.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Wed, 26 Aug 2026 13:12:41 +0200
+X-Gm-Features: AcwNN1Vo_Xquz6yQXC0Ul5m-lrRUzwHF_AGPWQxv0w2EORhRsYCELfowq71-yN0
+Message-ID: <CAJfpegs61t4v1OUp3t_LktaVM=yVj0W2bgEQ+a5EVKU4MNyCwg@mail.gmail.com>
+Subject: Re: [PATCH v2] fuse: don't bump attr_version for async direct read completion
+To: Jingbo Xu <jefflexu@linux.alibaba.com>
+Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	horst@birthelmer.de, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 26, 2026 at 05:21:51PM +0800, Vernon Yang wrote:
-> On Wed, Aug 26, 2026 at 09:35:38AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Wed, Aug 26, 2026 at 10:24:56AM +0200, David Hildenbrand (Arm) wrote:
-> > > On 8/26/26 10:16, David Hildenbrand (Arm) wrote:
-> > > > On 8/26/26 10:11, Lorenzo Stoakes (ARM) wrote:
-> > > >> On Wed, Aug 26, 2026 at 10:08:58AM +0200, David Hildenbrand (Arm) wrote:
-> > > >>>
-> > > >>> Elaborate.
-> > > >>
-> > > >> It's overly long, I read it and am confused as to what is 'problematic' or not,
-> > > >> it reads weirdly in English and pfn_xxx is the usual convention for naming of
-> > > >> pfn's anyway.
-> > > >
-> > > > Excuse me, what? Are you now just making up arguments?
-> > > To clarify, we have various users of "xxx_pfn" in the tree and I fail to see how
-> > > "this is a problematic pfn" -> "problematic_pfn" is odd and why
-> > > "pfn_problematic" would be any clearer.
-> > >
-> > > I do agree with the "problematic" aspect. "failed" might indeed be nicer.
-> >
-> > Right yeah. Mostly the push back is on the word being a bit confusing. Fair
-> > enough on the pfn thing, failed_pfn is actually the nicest name suggested so far
-> > :)
->
-> failed_pfn is good to me.
+On Fri, 17 Jul 2026 at 16:29, Jingbo Xu <jefflexu@linux.alibaba.com> wrote:
 
-Thanks.
+> Fix this by only bumping attr_version for write completions, consistent
+> with the synchronous DIO write path (fuse_write_update_attr) and the
+> cached write path.
 
->
-> > I still think:
-> >
-> >        	if (result == SCAN_SUCCEED) {
-> >                	...
-> >                	trace_mm_khugepaged_scan_file(mm, -1, file, present, swap, result);
-> >        	} else {
-> >                	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
-> > 					      swap, result);
-> >        	}
-> >
-> > Is a little neater as then it's only on the failure path that we trace the
-> > failed pfn, and otherwise we explicitly -1.
->
-> I understand what you're trying to say, but personally it isn't necessary,
-> because failed_pfn defaults to -1, and one
-> trace_mm_khugepaged_scan_file() already covers it.
->
-> If everyone clearly expresses that they want two
-> trace_mm_khugepaged_scan_file(), please let me know explicitly. Thanks!
+Sorry for the delay, seem to have fallen through the cracks.
 
-See David's reply, we'd like to go with this thanks.
+Applied, thanks.
 
---
-Cheers, Lorenzo
+Miklos
