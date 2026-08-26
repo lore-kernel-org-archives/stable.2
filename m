@@ -1,120 +1,112 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com [209.85.167.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4B11F938;
-	Wed, 26 Aug 2026 00:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9ACF1862
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787702634; cv=none; b=jCtXlVOGl+E82gDSd8oKynRU3hyXrwiuCjdHKM6lJFCcXcyoqfHy832dyhBrv33jJQE3zPKy5JcIHBgMZTUivtjyS1jo4KBlzYCuMxVAMMAPSDmWkADCWyR5I/mJqhDQyDKXVsbaRXXlgVJA6CsomWPENEBbP2qQ0BquIElXQfg=
+	t=1787702708; cv=none; b=MiyUBn9Kjc9+KQ+c3lYKwwGrOBFKtr62lIEpgm5wSD+ZIJkjyi2HIDzY7Z0v+zm8xl6dpvokJ9XhFgaZkHj8p2qEm6Dwhn8YumZPbH3NUyu9+xLZQ687bYwLvwlQVNPEq6SBY1iolrUsuqQ/l1BWX4tkW1SBpczUjwTkF0ge8W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787702634; c=relaxed/simple;
-	bh=TkV0yfnmttToJnctJPVJOk56LrLV7FXdcb6wtlTl14o=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=XBTbICydSQ5jmrMi0nyvzPxnt5HD7AZczIWZh5GzQJv2Bu43R9HrVPDr4H2Zwaqh0RuIzuiqefYx2p5kqfkz2hPOOHrI6dCiBjoNByM4kdWgdKt3sMYmnjYEOWIGKFFC+vvGsHEOFmj1Gk4ZsZXeEO/3a2o7IcI3fOreZTRKX9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=s6QNzEj+; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1787702708; c=relaxed/simple;
+	bh=6Ry5OlI3DAvR+ZQ5L+BY7qSCopLwoyQxpYMx6yvecJI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c/KlQZAVBv5KxJs5KQxTEugoQ2p8F216DAeSEiNreu5erCJWFgLrzAzIsNxdIjsvTOjxEsDeIrSzzy0zAs0hi7MVuJX6qyUpikpzmFMa0dVjAB5Dq+Y0Wg6c0TxOYVVdWqVC4fX9+4DaIk9G6wJfYk/XGVeD3YXfGzgpz+YGV8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NDv7/pfc; arc=none smtp.client-ip=209.85.167.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="s6QNzEj+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=dSyGYgQDWVGiejz01uIuvTstpuIaB2U4LpIO3bu8Ty8=; b=s6QNzEj+xuh4NqcuHTEEP9RBGf
-	egzbJU8I+rg2HMpwa6H4imnocGXiSfB2ecIL03MFbgcviIfFyc28j2r+E7jYK2PscOr49bIIF20g0
-	BysGKMdOBinKuiAmQV1g1ehZUDPJ6k2WNdlX3K4RtwmP2H5XFrqd1l3zdMTwBHRPvm6ErJAPr38Ob
-	fXFyc8GEerswPU3keOrg5dvfSO0a3bibo4dhmg1Vc+iiQ16n+zIbT8tQv3fWNEV7mDBQfgS5OQDFB
-	aR/hTt3UA9FANbzduzP8CybvSeRwZSum8SaCknba2X5Am6hQ+zazN5OPi84bCPTbUqyh5Co5WHtFF
-	R0Re0IlA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1wz17N-000000000Pi-3bpY;
-	Tue, 25 Aug 2026 21:03:49 -0300
-Message-ID: <b8ea942d21a0f0ede8518f33895def69@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Frank Sorenson <sorenson@redhat.com>, linux-cifs@vger.kernel.org
-Cc: linkinjeon@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] smb: client: fix heap overflow in cifs_do_set_acl()
-In-Reply-To: <20260825214328.3852168-1-sorenson@redhat.com>
-References: <20260825183229.3799705-1-sorenson@redhat.com>
- <20260825214328.3852168-1-sorenson@redhat.com>
-Date: Tue, 25 Aug 2026 21:03:49 -0300
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NDv7/pfc"
+Received: by mail-oi1-f172.google.com with SMTP id 5614622812f47-4b190cdc9feso88143b6e.0
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 17:05:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1787702705; x=1788307505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ztvec6OqI2y+QcETTkAO5HD4apNeH1K67L5ttNvGvIY=;
+        b=NDv7/pfcLVUPO937zWINVRrd5l7ln8Wau5Srzlw7MAZ0LyMyh4nrajzO2TyZGL5UrA
+         HpWPAmUcotWPboUrmqc+1nJiXJtMpagcEuUEJks3xuH9ZNg79kLGLGa9BKDKfd212e/i
+         +vOw9whHYxw2JlVkickHsEGoekC1pkAyUNlvY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787702705; x=1788307505;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ztvec6OqI2y+QcETTkAO5HD4apNeH1K67L5ttNvGvIY=;
+        b=GcTxSNvfTKRsdsHZZOZERxRbsmSqx6GFk8MKnIrNlgr4JyL16NEWpdw4OzjBWk+7EE
+         yDcIqTTqg/duLqdhWpFIEjJhgE2zZdgw/WA2z0x55gJwq1fzPEW5ERAl2AEji/3fRs9J
+         O2hSjvdxEYCS4BStXPhsKZwX7YEg5+A1b93fonw8VGlCAOS2xXbDXKeZjrt/t6sZsKoZ
+         19o88DPex018imdPnWLa5UK8rNvjL7kXb7erdKyLwTQszp3mOqpR7+JYu9NO+qKHgZB3
+         TdIpjMx5K2WEor7bSdpa9LCh/3nP/yJupyA2JCKsB/UuBdhNyiYZ8k7SrUSQbsn6oK95
+         GZdw==
+X-Forwarded-Encrypted: i=1; AHgh+RrqkH1ym/01fIMaaD83I8nd+QQlsTvg8WooRiK6TfrxBDbLMcqIUPyzyUk4I0RqF945tgCCgZQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nta7rWkNBDKMiqy7/+3r0HLs0VhQgr38Heg5YwFu5GPPLPjiuS
+	vxHU5k5JqmeEY3e1kyXwhtyvaic/5PjTzLvG+2ZOGI7FrsKZOan2JNYGWvt44GJYFaQ=
+X-Gm-Gg: AR+sD11Gx4b94oUETrsUhbPNaW9aJ1ORfx2EFdxaPBu9xD0EDoshbIwdmeF2v0DjvV4
+	WIVjS+p8lBEw9FnhgkiiDI0KUbZxIwOXelgziRUEQ2jKceSqyfBK+e9QakbCyK6q8nVirCQOxjm
+	NWPRegQ+ZSXUfYP1IMUlFeKVWP08jAjz2vOisA3CRtnjoJXK+KCqn+nAUxPYmQeBl7IJpcKmCjJ
+	w0wHCfYj8hbeZszjkycGOH82zVnsfN3/A0r2B8/HdCFlHplmg0DRwOuiHv2O2du3eBwPZla7Oce
+	lr35hnZBfV2eupip3JdP4vGHAKYN11UifEbu4zNZ2G989QVUB0I5AcwFUqH7t4AtrX7tRNm7dc1
+	yZF2jYNmMrFZUz4E/v/k9WO/G0zQJGD2PX9Ve+MpDkI5r8XJ6eqDT0OfxiKfA0N7c4Nm3MxlQuw
+	iCMJxPQAmh8EW+Cgb6AfW/vvLS3yD+3xHUDTrIOojEqa64/8TqhlTYcI58kMZ/kYmJnbYT2LW5J
+	foDvYkG
+X-Received: by 2002:a05:6808:4fe5:b0:4b2:5529:ed3c with SMTP id 5614622812f47-4b3668b9c28mr3926595b6e.7.1787702705584;
+        Tue, 25 Aug 2026 17:05:05 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b36a7506ddsm338061b6e.4.2026.08.25.17.05.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Aug 2026 17:05:04 -0700 (PDT)
+Message-ID: <6c3bd5e4-218f-480f-9ec5-bf8565b33d4a@linuxfoundation.org>
+Date: Tue, 25 Aug 2026 18:05:02 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 00/94] 6.18.47-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260825132541.887883084@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260825132541.887883084@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Frank Sorenson <sorenson@redhat.com> writes:
+On 8/25/26 07:24, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.47 release.
+> There are 94 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.47-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-> cifs_set_acl() validates ACL size using posix_acl_xattr_size():
->
->         4 + (count * 8)  // 4-byte header + 8 bytes per ACE
->
-> cifs_do_set_acl() then calls posix_acl_to_cifs() to write the CIFS
-> wire format into the same buffer:
->
->         6 + (count * 10)  // 6-byte header + 10 bytes per ACE
->
-> An ACL that passes the xattr-based check in cifs_set_acl() can
-> overflow the heap when posix_acl_to_cifs() writes the larger CIFS
-> format.
->
-> Validate the CIFS format size against the remaining buffer space and
-> USHRT_MAX before converting--data_count is __u16, so sizes above
-> USHRT_MAX truncate the on-wire packet length, causing the server to
-> apply a partial ACL.  Replace MaxDataCount = 1000 with
-> min(CIFSMaxBufSize, USHRT_MAX).
->
-> Fixes: dc1af4c4b4721 ("cifs: implement set acl method")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-> ---
-> v2 changes:
->  - Add USHRT_MAX bound to prevent u16 truncation of data_count for ACLs
->    with more than 6553 entries, which would cause a partial ACL to be
->    silently applied on the server
->  - limit MaxDataCount to min(CIFSMaxBufSize, USHRT_MAX)
->
->  fs/smb/client/cifssmb.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-> index f5aad5f61dce..621aca5d3b75 100644
-> --- a/fs/smb/client/cifssmb.c
-> +++ b/fs/smb/client/cifssmb.c
-> @@ -3555,6 +3555,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
->  	int rc = 0;
->  	int bytes_returned = 0;
->  	__u16 params, byte_count, data_count, param_offset, offset;
-> +	size_t cifs_acl_size, bytes_available;
->  
->  	cifs_dbg(FYI, "In SetPosixACL (Unix) for path %s\n", fileName);
->  setAclRetry:
-> @@ -3574,8 +3575,7 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
->  	}
->  	params = 6 + name_len;
->  	pSMB->MaxParameterCount = cpu_to_le16(2);
-> -	/* BB find max SMB size from sess */
-> -	pSMB->MaxDataCount = cpu_to_le16(1000);
-> +	pSMB->MaxDataCount = cpu_to_le16(min_t(unsigned int, CIFSMaxBufSize, USHRT_MAX));
->  	pSMB->MaxSetupCount = 0;
->  	pSMB->Reserved = 0;
->  	pSMB->Flags = 0;
-> @@ -3587,6 +3587,15 @@ int cifs_do_set_acl(const unsigned int xid, struct cifs_tcon *tcon,
->  	parm_data = ((char *)pSMB) + offset;
->  	pSMB->ParameterOffset = cpu_to_le16(param_offset);
->  
-> +	/* make sure we can fit the larger cifs_posix_aces in the buffer */
-> +	cifs_acl_size = sizeof(struct cifs_posix_acl) +
-> +		       (acl->a_count * sizeof(struct cifs_posix_ace));
-> +	bytes_available = (CIFSMaxBufSize + MAX_SMB2_HDR_SIZE) - offset;
+Compiled and booted on my test system. No dmesg regressions.
 
-Are you sure you want to use MAX_SMB2_HDR_SIZE?  This is SMB1 code, so I
-would expect to see MAX_CIFS_HDR_SIZE.  Alternatively, use
-MAX_HEADER_SIZE() helper.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Do you have any reproducer?
-
-What server did you test these changes against?
+thanks,
+-- Shuah
