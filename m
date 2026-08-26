@@ -1,115 +1,175 @@
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F473612E8
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:28:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12535361961;
+	Wed, 26 Aug 2026 06:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787725699; cv=none; b=eiyeFStJP4HB6oaLeqNcWAJcW7fs5ru3bDms1BCtxBjQ4AU7YGMHAlbxjMnqc1LFYeDQcCEuqA7nXlT2SqCtJCmY+BzZe3luUP0TvQkeJjacFfmbaR08g2wY9rveJILHzrehaGNUB5KKBrXRjf5InaPMNoRk5lcdGNHaczDxtmI=
+	t=1787725829; cv=none; b=AUKuqmj2YDWzV5qV7RQqqo+ZOnjLWc3CC/JZCQfJ9b1RGGyEYlUkf6pkCXF1bleG289th4DiPWvGkh3V7I7dk8A4AA4zOty/2OjM4P8bKcqOYMYsFsak4cUlSDxVrwDkb0Y/lON435TQwayCYpgnuGemKkOQKfHqzCM2NOR+9+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787725699; c=relaxed/simple;
-	bh=mvf9fptHrIytQWVX9TK4rpN4qT7IqRe5pzEuP38eHpA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G/7H7hadIruYn5tq/pUr5b3/QinH76oUYXD6T2iF3/yNCDaQSOY86MnLO1Wrj4i+WCPom1trewjiHBsjH0itJTVqDVNP6AOq/RKGejMGNRKDJlnaN1ojmsCVbRQeUM4ccR6v8F3SGRdlM6idcxQAoT5k2GxWNsRorWC7CF6SE+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=IG5WWDFO; arc=none smtp.client-ip=35.89.44.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1787725829; c=relaxed/simple;
+	bh=rDKvz/peGRfXq5YQmSPRC3KJaw3+ZougxMrFg0o5odI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=QWOqoYpjq2Rou/M9EhcsSkRHkxeFaFd+FzcbJJ6eztPdMlyZXah7g+YhObN3nenLxwrxChNqS6+X3En4G9y9VfL3OITKR+prp7bKGTulENVG3b4YnmSNPvLOIUmG4THB2HfJtzlhZol4sJz4U+SCiSFOcij7K67Y3QGZMycE22g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FUTiIvSl; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="IG5WWDFO"
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id z4PhwjEp3v0ndz77SwA7KU; Wed, 26 Aug 2026 06:28:18 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id z77RwxsdbUNmNz77RwHdaX; Wed, 26 Aug 2026 06:28:17 +0000
-X-Authority-Analysis: v=2.4 cv=BpKdwZX5 c=1 sm=1 tr=0 ts=6a8e8781
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=60u_ompe4jvr-0JMN7sA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=c1G0bHz62+Tp9r3PtaGtCDkfb+1PsO87/ndv7A4SLXE=; b=IG5WWDFO9/kfl64k3H/RsBG0Bq
-	Ez//TKCWCeL/3sDdJb5yLYexuBrtzKisGsz8NwJsV6UK4TjFjHwzethjWEPBHstIhX0/IYZTQYed4
-	oNfwyI6IdpUV4jw/d8pqnixlAug0qQ5S7QDWFgkFQEcr0O8ZL4m2ghs3YQ1bBbrlIBK9mXP4Jcf4x
-	BvdzEkiVW6zzs0clKwj6VDIofuQUQ5xqK1K0rzv0OUnn7r0A0xThXhQyEYNTuLVFohzYfj0o9AsqR
-	MBQIoRVL3UlMJSvoqq95EiwI144u57O0DcvhxXY9fCPRkY6U97z+Nsxdpv1NIPTkZ2CihKfytZwBX
-	0Bv+XVcA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:49304 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1wz77Q-00000004A1b-464V;
-	Wed, 26 Aug 2026 00:28:17 -0600
-Message-ID: <c5771e16-a355-4825-8c10-84c1034c68c9@w6rz.net>
-Date: Tue, 25 Aug 2026 23:28:15 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FUTiIvSl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787725825; x=1819261825;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   in-reply-to;
+  bh=rDKvz/peGRfXq5YQmSPRC3KJaw3+ZougxMrFg0o5odI=;
+  b=FUTiIvSlr+GzMmuGHF84g1oizqGFavAM7u55cuXsuq4eFenhOcappaH6
+   u1I6pHE2kFt0us70rDHtQX46pDJJL/lLyk2qXrdvr37yC0fTqb+7RT2ue
+   umBPw5eJ4LTLhFn5lHylqs4lImto2mKgKFFsi7+xSMd3N3aSlvNMBd+jY
+   xcS/vrbav4y/R4pLhCZFB+1ubm4xjB3mc7djoQhFeP30uayd7emyVVXI1
+   +RRY7zSW0CNT3ZmMT0ggMJTwANcqAt+uUn1dF40u4tPJ5Yen5z1vbuY/a
+   Nb6jTqOgJUR2RfPyTx9WIUBwhTCGgrEXn/M9lgC2aAS1LyhPqxoUD/upz
+   Q==;
+X-CSE-ConnectionGUID: ygv4qhVVSjietBPVRP9A6g==
+X-CSE-MsgGUID: tc+dz11HSz6FPlQ5F25JGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="113737053"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="113737053"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 23:30:16 -0700
+X-CSE-ConnectionGUID: ZfRpfErhTaqv3OW7pFIz3Q==
+X-CSE-MsgGUID: PADR+xa1RxuJ/tY1ZWnwdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="268067141"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 23:30:12 -0700
+Date: Wed, 26 Aug 2026 14:30:05 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Prakash Gupta <prakash.gupta@oss.qualcomm.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Prakash Gupta <prakash.gupta@oss.qualcomm.com>, yi1.lai@intel.com
+Subject: Re: [PATCH] mm/memcg: fix NULL nodeinfo[] dereference on
+ late-onlined nodes
+Message-ID: <202608261313.1d95c34d-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 00/79] 6.1.185-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.677185791@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260825132541.677185791@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wz77Q-00000004A1b-464V
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:49304
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 99
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNwuQlYW5jty0cAK5/WKSazyu1PLUeEDJK7K+ViLG8bIXm3JlscChP0u8iSiVxas3l0NY+4h0nLr5Zsul4jON0DKM+TPzl2SMLI42fM57nvAr29EDkmr
- ee0joV+IsDM5y2ThsBwnxwHlkizor5FlXcjkCdFkXuSlfL/L5/aoi58V7cGha4rZ4E/tMY7s+T794A==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com>
 
-On 8/25/26 06:25, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.185 release.
-> There are 79 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.185-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Hello,
 
-Tested-by: Ron Economos <re@w6rz.net>
+kernel test robot noticed "Oops:general_protection_fault,probably_for_non-canonical_address#:#[##]SMP_KASAN" on:
+
+commit: d793df2588b727e161c6586cafda1b3146216b36 ("[PATCH] mm/memcg: fix NULL nodeinfo[] dereference on late-onlined nodes")
+url: https://github.com/intel-lab-lkp/linux/commits/Prakash-Gupta/mm-memcg-fix-NULL-nodeinfo-dereference-on-late-onlined-nodes/20260810-111630
+patch link: https://lore.kernel.org/all/20260810-memcg-nodeinfo-null-guard-v1-1-77a73204d63a@oss.qualcomm.com/
+patch subject: [PATCH] mm/memcg: fix NULL nodeinfo[] dereference on late-onlined nodes
+
+in testcase: boot
+
+config: x86_64-randconfig-r132-20260821
+compiler: clang-22
+test machine: qemu-system-x86_64 -enable-kvm -cpu SandyBridge -smp 2 -m 32G
+
+(please refer to attached dmesg/kmsg for entire log/backtrace)
+
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202608261313.1d95c34d-lkp@intel.com
+
+
+[    4.964339][   T26] KASAN: probably user-memory-access in range [0x0000000000002040-0x0000000000002047]
+[    4.964822][    T1] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x1e3306b9ada, max_idle_ns: 440795224413 ns
+[    4.964364][   T26] CPU: 1 UID: 0 PID: 26 Comm: kworker/u10:0 Tainted: G                T   7.2.0-rc6-00001-gd793df2588b7 #1 PREEMPTLAZY  7c3d8f436a783d0b482149cc8be5fdb0e2064a33
+[    4.967167][   T26] Tainted: [T]=RANDSTRUCT
+[    4.967167][   T26] Workqueue: async async_run_entry_fn
+[    4.967167][   T26] RIP: 0010:mod_node_state+0x2d/0x180
+[    4.967167][   T26] Code: 41 56 41 55 41 54 53 89 cd 41 89 d4 41 89 f7 49 89 fe 48 8d 9f 40 20 00 00 48 89 d8 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <80> 3c 08 00 74 08 48 89 df e8 85 18 13 00 4c 8b 2b 44 89 fb 41 83
+[    4.967167][   T26] RSP: 0000:ffffc900001c7610 EFLAGS: 00010002
+[    4.967167][   T26] RAX: 0000000000000408 RBX: 0000000000002040 RCX: dffffc0000000000
+[    4.967167][   T26] RDX: 0000000000000001 RSI: 0000000000000013 RDI: 0000000000000000
+[    4.967167][   T26] RBP: 0000000000000000 R08: ffffffffffe8ac20 R09: 0000000000000001
+[    4.967167][   T26] R10: 0000000000000000 R11: fffff52000038ecc R12: 0000000000000001
+[    4.967167][   T26] R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000013
+[    4.967167][   T26] FS:  0000000000000000(0000) GS:ffff888799a99000(0000) knlGS:0000000000000000
+[    4.967167][   T26] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    4.967167][   T26] CR2: 0000000000000000 CR3: 00000000040c5000 CR4: 00000000000406b0
+[    4.967167][   T26] Call Trace:
+[    4.967167][   T26]  <TASK>
+[    4.967167][   T26]  mod_lruvec_state+0x47/0xc0
+[    4.967167][   T26]  ? lruvec_stat_mod_folio+0x22/0x300
+[    4.967167][   T26]  lruvec_stat_mod_folio+0x181/0x300
+[    4.967167][   T26]  __filemap_add_folio+0x758/0xb00
+[    4.967167][   T26]  ? workingset_activation+0x500/0x500
+[    4.967167][   T26]  filemap_add_folio+0x1ce/0x380
+[    4.967167][   T26]  __filemap_get_folio_mpol+0x3b5/0x940
+[    4.967167][   T26]  simple_write_begin+0x61/0x2c0
+[    4.967167][   T26]  page_symlink+0x1a8/0x300
+[    4.967167][   T26]  ramfs_symlink+0x8c/0x140
+[    4.967167][   T26]  vfs_symlink+0x12f/0x2c0
+[    4.967167][   T26]  filename_symlinkat+0xf4/0x280
+[    4.967167][   T26]  ? __asan_memcpy+0x40/0x80
+[    4.967167][   T26]  init_symlink+0x2e/0x80
+[    4.967167][   T26]  do_symlink+0xa5/0x180
+[    4.967167][   T26]  flush_buffer+0x6b/0x100
+[    4.967167][   T26]  ? unpack_to_rootfs+0x380/0x380
+[    4.967167][   T26]  __gunzip+0x8bd/0xdc0
+[    4.967167][   T26]  ? __gunzip+0xdc0/0xdc0
+[    4.967167][   T26]  ? decompress_method+0x1c0/0x1c0
+[    4.967167][   T26]  unpack_to_rootfs+0x21e/0x380
+[    4.967167][   T26]  ? flush_buffer+0x100/0x100
+[    4.967167][   T26]  ? xwrite+0x100/0x100
+[    4.967167][   T26]  do_populate_rootfs+0x21c/0x300
+[    4.967167][   T26]  async_run_entry_fn+0x95/0x3c0
+[    4.967167][   T26]  ? process_scheduled_works+0x7a6/0x1240
+[    4.967167][   T26]  process_scheduled_works+0x86b/0x1240
+[    4.967167][   T26]  worker_thread+0x749/0xbc0
+[    4.967167][   T26]  kthread+0x338/0x440
+[    4.967167][   T26]  ? alloc_worker+0x2c0/0x2c0
+[    4.967167][   T26]  ? __do_trace_sched_kthread_stop_ret+0x140/0x140
+[    4.967167][   T26]  ret_from_fork+0x291/0x5c0
+[    4.967167][   T26]  ? __do_trace_sched_kthread_stop_ret+0x140/0x140
+[    4.967167][   T26]  ret_from_fork_asm+0x11/0x20
+[    4.967167][   T26]  </TASK>
+[    4.967167][   T26] Modules linked in:
+[    4.967167][   T26] ---[ end trace 0000000000000000 ]---
+[    4.967167][   T26] RIP: 0010:mod_node_state+0x2d/0x180
+[    4.967167][   T26] Code: 41 56 41 55 41 54 53 89 cd 41 89 d4 41 89 f7 49 89 fe 48 8d 9f 40 20 00 00 48 89 d8 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <80> 3c 08 00 74 08 48 89 df e8 85 18 13 00 4c 8b 2b 44 89 fb 41 83
+[    4.967167][   T26] RSP: 0000:ffffc900001c7610 EFLAGS: 00010002
+[    4.967167][   T26] RAX: 0000000000000408 RBX: 0000000000002040 RCX: dffffc0000000000
+[    4.967167][   T26] RDX: 0000000000000001 RSI: 0000000000000013 RDI: 0000000000000000
+[    4.967167][   T26] RBP: 0000000000000000 R08: ffffffffffe8ac20 R09: 0000000000000001
+[    4.967167][   T26] R10: 0000000000000000 R11: fffff52000038ecc R12: 0000000000000001
+[    4.967167][   T26] R13: dffffc0000000000 R14: 0000000000000000 R15: 0000000000000013
+[    4.967167][   T26] FS:  0000000000000000(0000) GS:ffff888799a99000(0000) knlGS:0000000000000000
+[    4.967167][   T26] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    4.967167][   T26] CR2: 0000000000000000 CR3: 00000000040c5000 CR4: 00000000000406b0
+[    4.967167][   T26] Kernel panic - not syncing: Fatal exception
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20260826/202608261313.1d95c34d-lkp@intel.com
+
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 
