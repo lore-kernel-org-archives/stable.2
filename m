@@ -1,81 +1,75 @@
-Received: from mail-vs1-f99.google.com (mail-vs1-f99.google.com [209.85.217.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3993955CA
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 23:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2929119C553;
+	Wed, 26 Aug 2026 23:09:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787785667; cv=none; b=Vym/Lo8IfDHgWI/JTrxOFpFkyL/ODMkBVFSBp/pQPFCfztunyqe0t6frb7+mjS9je9u//lZFrmMPk/bIOM2Sf2SajVV4UAY5Uf5RA1UMxskokDdri0iD8nEFF55rU3sXPNnsBmxZIMyKnb58cb3u/SJMh9QV2/GBAMSF8gsF7A0=
+	t=1787785777; cv=none; b=KVdXWUyKGYDeEo8Vgm+nZKWQhIYKPPE8ERYbSdZ952L3SRBF5gQNFZLM5lYcEggR8gXX57xvlNDTjikERAgxzn7Zxl2Okrjn6I0amnUkZ5rxsuVNnsSHfKr5X5kSV+EX0YiIVsllsBxD9qHnSdq3sziRKeQigcWeCfyaNQVaMv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787785667; c=relaxed/simple;
-	bh=Cq8W4DBJfQRK4/SOiJmoUruPGW2kPce5PpiN31IZ8gw=;
+	s=arc-20240116; t=1787785777; c=relaxed/simple;
+	bh=h2xyDTHhZleCTIzEDZfZ7tqSUkbKcLqG+jV0RbApFjY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ePdyv4STi8vqbX75PzuLcc7LJwSzCF1WJzmzFdVLqfP+5HBs8X1E5L5+FzjVUTbZKOsm6P2KHShF5m8KhE/0f54oxhX/eJw40EMsR1hWqoWMXWu4Uo8sGeDxWgWuHwRuWIXur19ZZmaaG/x7tr+UZWsWL+magR4qybqs/15AJMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Kvk5azJC; arc=none smtp.client-ip=209.85.217.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	 In-Reply-To:Content-Type; b=EQSvTSYw7/cToD0D0ZqDEUuSI4JHYgmbkvMf/mP9jMBHwkizxP4invdVQs8dhREr4cayHsAjQQ++3ZtcEGUUlg6Oe5/ecpX7Vsr6mrKgp3DaFkg5C6imiX4P1owcYAmDTc+uMt9eNTvLH0gaLsS97Hkkb0Pd3PHqP37TbaNOWvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=pBxbfMlm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E3HjeY1c; arc=none smtp.client-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Kvk5azJC"
-Received: by mail-vs1-f99.google.com with SMTP id ada2fe7eead31-74a9ac9cda6so1052086137.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 16:07:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787785665; x=1788390465;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=q0gJbLAjrAkHetISJ9E7BaKmcamQMw9Vv0f9TbXVRXo=;
-        b=sagJj//deMqJMh8iivKuvA2fwFi5mEeQmuvp9rpshoHdcjaAghEgowFlRkUQcMb4+X
-         zlmEyKlWdVIl13dyDp2D491Z9FWkrtA+vYnhQSEop3RYjLxni+zE1JlhnTfLFuTq8Qzy
-         eV69LLcDLI8uGP72pvUNVBJcTSHdM0CU08t8faiHmlZas3UAD4PNlhft0GpftjxLi52h
-         O6x1chrdH7OXQBIY7wBW6KXQYARFXJMjU0WjChu3IvsGwFTtvV4zjCw4waFrlupsoWHN
-         wd6zKenu2LfZrfkvyOR+lVA6d64Caz84EvZc8ArnVJj7vDe/M6dWUOOrn3rB/VmlAk+K
-         +ZVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpTtUAWAaYBmXoyWkUkPwmBmfGJmg/YJvjc4GulNSQqxNOp1Id2dmdH0kbP0G0zo7alrwbZUAk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEXY5ZwbCCvEQWvaeZcx6aG3+RJiYNqLlQiZoZCCPgZ6I/H6mb
-	SZmOS9UHgxGhN9aYR9D4VvxAZcMHFshwIYwgAhovM85Ul+b8gwHjgOyhAo6/UWULcPwTB9NwpkO
-	ZNfS6Q1TxZ2H0B8sD4IAaK8/1FRMs1mYgT2QLg7q2q8ixcpxPiCdpv7Pslkjdklt12nulrSivps
-	78zXhL//UgfloGFt8o8RXyRQqtpyjkxmG1iw4QeCSXs0nSh7sCYxqoti3c1LeNHmgkOpyGV1zWA
-	Eoyn49RFa/Nwomd
-X-Gm-Gg: AR+sD11dCCm3uBV0ouK5zg4spWi1XEDIvz2Tlk/Clf6NxagO5NuJv/3JHV0/Dg3/dU+
-	O0tN6mQPHWjGK1qz+DQufh72pSxxsJzLCu2GhpPBuTTsPVNNCxabK64Pe1Ao7HFPUaIqAANoUE9
-	0XLsxjPGDCYQmDilhjiewvG7U9lKdw4rbfzzsptKMCe1hCJh68uQh7GTok6ZGzD15LwyH4KjpTN
-	4MyaNEnFfTQLuiS0XjofpBEQkgbvBr5wjCCq8Bst4K3BIfZ5AAns+4WrUFUXsWC+6asOyjkqehb
-	1Hmf7XZodjXle+iyrjlxudI8+iBZMJCRFhwg5Zk1WXr8qQHlnwKBsi0ghwRM5f9gBTrN35pDMoF
-	Kr55GpkduBPNo1QUlLyCgt3WX1y7k3zn4TKFM4fwQQC4KcwU8QP2yRf6SHaUTMH6zrIqju2zqUM
-	siLGJO64CATlQhi08uBXpUEhAmtx+oKb+mJ16F5x20
-X-Received: by 2002:a05:6102:448a:b0:77b:4751:76aa with SMTP id ada2fe7eead31-782bf9b9609mr4569829137.2.1787785665363;
-        Wed, 26 Aug 2026 16:07:45 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
-        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-97cbddfcb66sm842078241.0.2026.08.26.16.07.45
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 26 Aug 2026 16:07:45 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cee1ec30f2so21326345ad.3
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 16:07:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1787785664; x=1788390464; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q0gJbLAjrAkHetISJ9E7BaKmcamQMw9Vv0f9TbXVRXo=;
-        b=Kvk5azJCojfz7v/f7d4JbxTzKWcIeSmCKDlJoJA01DS/8IZE5VJGu9L8eVaW2Z5iSy
-         8E6nS37MfoV1y1jcXE40y/trhaAD8UULnfTi2RjRB7NMmgZjcTNi4SNILLg90DEHxFnP
-         PelQzO3atMWxAJTytUl5eEfvo93HcniI5M0Xw=
-X-Forwarded-Encrypted: i=1; AHgh+RoeMVCMXJWy/mOGPY1Ua2lno3YdfUKnLmF+t7gWBQiM1ya4KlD8UgYwJ9XLj4F/6YgBqjwTESw=@vger.kernel.org
-X-Received: by 2002:a17:902:f689:b0:2d6:dfaa:c26a with SMTP id d9443c01a7336-2d707aca9c0mr173322975ad.8.1787785664208;
-        Wed, 26 Aug 2026 16:07:44 -0700 (PDT)
-X-Received: by 2002:a17:902:f689:b0:2d6:dfaa:c26a with SMTP id d9443c01a7336-2d707aca9c0mr173276045ad.8.1787785628341;
-        Wed, 26 Aug 2026 16:07:08 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d885fb6sm11957547eec.14.2026.08.26.16.07.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 16:07:07 -0700 (PDT)
-Message-ID: <f4b6ab1a-44f1-4e50-ae43-c55b080ab327@broadcom.com>
-Date: Wed, 26 Aug 2026 16:07:06 -0700
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="pBxbfMlm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E3HjeY1c"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id CCFDE1D00156;
+	Wed, 26 Aug 2026 19:09:34 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-05.internal (MEProxy); Wed, 26 Aug 2026 19:09:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787785774;
+	 x=1787872174; bh=S/G7bUE8Vlrk1CuPohB8fUvt/EKzTRKc2E6xNtkOpCw=; b=
+	pBxbfMlm2Y7p9ufQBC8Im24ryEUnD9a7y077ciLwO/G3wKyLCLtjbHtNgZOv/8+2
+	e7ek57H2e+rvf73daw1iofizkD6GgOTFDxaPtirTpxbE0ki2FXISqix+D92HQtm6
+	FxyaAcWEjtJv0ebRoF5/oYMSqMd8ftu5oPaIgxZtnDmHq2C2mjaLBSG9oWbl/UJg
+	/EsEPHh1i1wSBidh2Q4uWYvA7/gLE49rZ7pxo4glQbJjpE0S3C9Ai+UK6N/CMS0t
+	0/+JxIaPMixkWR+GDB9NzVhp2QF+QOBW4dkFU3qheeVodrmaStit7X1B1V0MLkaN
+	RwvJ4ccg9Dr3jtzC+oqBXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787785774; x=
+	1787872174; bh=S/G7bUE8Vlrk1CuPohB8fUvt/EKzTRKc2E6xNtkOpCw=; b=E
+	3HjeY1cmuO0DwD1Xy3B991Hg8qo1EKWrsGz6r5glKiVQs2VUuHCZ4uNsY61pGtur
+	byXGpcl2CjZolB3HxXcvNHTs/kroihU0YgV8Oi17WU0PtALEOtlM6XXO3xKo0YFy
+	BKBIFGRt3WtP4pdVgSnuBTEG2DFG+ZYWUeGdusoyRe7V3edepDR0Lc3ndKckYyoC
+	hOgU9WvY5HIk01LlglJsOqcyit41QrCBwtLV8LJBeqALL83ZRKb15WxfQSI0xKF/
+	ms07k+CjXAv4aPY7S9yUiu6zhJDEpBbmyWnb4paCZYrPlnsoXsUgXs4oaRr7UDHD
+	rtBNTA+TpuILyjz7d5a0w==
+X-ME-Sender: <xms:LXKPanv4Lv7eRC7tCAv_-CZIS466EPToby4IbY2Dbn__YQWXBOd_lg>
+    <xme:LXKPakWdpQRearQJFMd_2L4kVRVglpbhocBd6_c0KCkmMZgO4zU8KyRF3MfGf1SiS
+    ycPqKXtdkhBbNNDUeljKwgLEKi4Wu5Nhw9mPVhmfNqEcfvV_HzHPI9n>
+X-ME-Received: <xmr:LXKPamTbf6BBtaYmktu03ny1Q47qWPDpL1R8-ee5989o-LzTbbsbAlUsK4zAOQs6KtnEH7BIO0B5kjMBCogX5U48mjKdM0aw>
+X-ME-Proxy-Cause: dmFkZTFp7X3afSFtnmzzZp4/7DjkhoE8WzoYs1E1c7EADsNeoxu238fXEBktOyAOtyMqLv
+    bkq7PbLhVtCdywuBJRkBNcR47HiTrWWwLC9xkjxwHJY9qb1pbLvIn8irDgJQDcMOCSFPZF
+    Df3rxRbsMkPnonAvkcY0VHVirL9V/Je+Z17eGCf2ar2O4PswlRKW253e0KCEuIySIV0Wgl
+    gfYzForDFhu7kBB4SinLjJFL1SxBuHbFqmUhiaf+ZzHhQdbvdCgXt1rtVk1hoyqT6BvTIh
+    DGbagQZEJ/82Q7R3u2h9H/WsvZfiroYhYuM+bPoxOhIKNj/ptHx+Et+a0GE28YU//M3AQA
+    Q0jQQU0zXsRtQ8E1NrWPFw64cYi59dNVaCXth6vA7rKjhsStzKfTJgpZ6y8fJJjKGCPuIX
+    uUZ4D5mQA5PnnKhC9PsfVyDUMSf+Q4chee5UNrEw41sGlTJGceXCSTblEpWonAKBoLuMgS
+    v6i1DgfLRppuRsajdTa6DTErM5JtGeRqZS2MsYj8OSq8zK4TTJm3YWoNf+VDCUjHqlbkD2
+    EQdpCBD+1E+UzbWJGqPj18H4c0G3cjBAoMMbl8gxp2xYMKhFAcjzjEjhbiY/fIgHZCHlF4
+    ZNWgxMon3NqxGJLHBgfc4X5c3/4wIKdFBf9xNTEiS8N/I0s2x7Gq1CMvkhpg
+X-ME-Proxy: <xmx:LXKPaqIrL4G4hmHPHGIcXGc_etqPpK-Kg1evUNlEtRMfvudR7TFJ0A>
+    <xmx:LXKPav3YDJOC56UDdcMjFX0jw54mKdg8qQ7VbFW3e5NdGMTG8DkAYw>
+    <xmx:LXKPalJIA1c-e9GGZEqtp_5hnwjAjdfO2kH8U2gkkQHfAhRJOaWWhA>
+    <xmx:LXKPanmYwdA1gagq39soBNAdhlNAneerJfEtwDHFULCME0QHe3D15A>
+    <xmx:LnKParEVdMXevcO6-4G5yGYrbztj6Ay8Iko0ahEdQWUGPEggYq-C2MKT>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Aug 2026 19:09:31 -0400 (EDT)
+Message-ID: <436c755d-a52c-416c-a1df-3ff7a40a9339@pobox.com>
+Date: Wed, 26 Aug 2026 16:09:30 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,80 +77,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] memory: brcmstb_dpfe: Fix out-of-bounds access due to
- DCPU offset
-To: Danesh Petigara <danesh.petigara@broadcom.com>, mmayer@broadcom.com,
- krzk@kernel.org
-Cc: bcm-kernel-feedback-list@broadcom.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Justin Chen <justin.chen@broadcom.com>, stable@vger.kernel.org
-References: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
- <20260826201500.3000125-2-danesh.petigara@broadcom.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260826201500.3000125-2-danesh.petigara@broadcom.com>
+Subject: Re: [PATCH 7.1 000/101] 7.1.11-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.986300899@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260825132541.986300899@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 8/26/26 13:14, Danesh Petigara wrote:
-> From: Justin Chen <justin.chen@broadcom.com>
+On 8/25/26 6:24 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.11 release.
+> There are 101 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> On API v1/v2 boards, the DCPU coprocessor can steer kernel readl_relaxed()
-> and writel_relaxed() to any address within 256 MB of the ioremapped DPFE
-> dmem or regs base. The DCPU firmware provides a 28-bit offset which the
-> driver adds to the ioremap base without any bounds checking in
-> get_msg_ptr().
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
 > 
-> This allows a compromised DCPU firmware to trick the host kernel into
-> reading or writing arbitrary memory-mapped I/O registers in vmalloc
-> space. When combined with a root-writable sysfs file like dpfe_refresh,
-> it provides an arbitrary MMIO write primitive. Similarly, world-readable
-> sysfs files can be used to leak other devices' register contents.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.11-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
 > 
-> Fix this by recording the resource_size() of the dmem and regs ioremaps
-> at probe time, and rejecting any offset that, along with the largest
-> field accessed (DRAM_VENDOR_ERROR + sizeof(u32)), exceeds the recorded
-> mapping size.
+> thanks,
 > 
-> Fixes: fee5f1ef6cf7 ("memory: brcmstb: dpfe: support new way of passing data from the DCPU")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Justin Chen <justin.chen@broadcom.com>
-> Assisted-by: Gemini:gemini-3.1-pro-preview cursor
-> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
+> greg k-h
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
+
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
 -- 
-Florian
+-Barry K. Nathan  <barryn@pobox.com>
