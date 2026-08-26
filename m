@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6BD470116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7DD3FADFD
 	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764463; cv=none; b=JfFUdRUzQPEGEDbhfAwamd5V52lzoTHGTswo/6rZqhRmscaUoLNtKto1mudAzySTYsIGXz1wWgqj5tAqBScBZsQHqFweF6o1cD/Fiw9AhmCkmdaecT0hyA3LW0vgccjhWSQESi0nrMcvkgpxfcxo4/GD/h5xIxO2M0nI5L+9zV0=
+	t=1787764466; cv=none; b=d56oPAA3bxItQeQJzPgufmsCk2a5lZQg0etl0KbItAtXAFgXZ8blAlXL3G5y9BBW7V6M4LdPTGFQO02kAeGKVvC0HgKRqOmBEA3+skVwIr9/FRiZY9aEbx0NwHGxKeop+jBEuX31Q5QWEVQgfVyzLFixhyHKj6veSt43cZTperU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764463; c=relaxed/simple;
-	bh=u2tVEqcJmCKu4cUAmhZgB9m3/fTTrf8K517ziBCDxAw=;
+	s=arc-20240116; t=1787764466; c=relaxed/simple;
+	bh=IiJVwXIQk++sL4g40QSCYaWMNes/851SggDne+A+f/4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=REOAk3wQwyyLyn7kbKcnfesmmsQQS6juxnrMLqrpPbqVaMbeU4u/nOhdT+Ek4zWmRipV56b/ElEPskYV25UlXW8LUhDfH4EOdsYTFmy+lSKAXErMFf6u1IMMKfYUo8coB3JWtG0c7zhvNGk/uyl5sYj2uNslF9mcHequbVL3BNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S2k2oRuq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qXWfqYDdJKK7CJpRmGUV40CGSkc+Y34Uv1FSXz7xS4W88Jw3d7/IHd1s+o3l7vobkRJ3ggEPY2qaafvL3bU/yGl1+BvYxtYCUc0Xgkwv9aySCyblQsafkfPu4WfEoyzwwhiXbnB42kWu9mTvnfCE8eyx9fV+4vd2fxA/mK0N0kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aXpjBZfJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S2k2oRuq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59AE81F00A3F;
-	Wed, 26 Aug 2026 17:14:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aXpjBZfJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63EE81F00A3A;
+	Wed, 26 Aug 2026 17:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787764445;
-	bh=OfmhlnhfeD/cAQVmn7h2ucOhOEOZ9sBQTH6QAXFForc=;
+	s=k20260515; t=1787764446;
+	bh=+MpD5I+21po6jjLTlbKgCGH/L+FO9m3CEz+94Xjk+Ow=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S2k2oRuqxAGK3xN5xD7VBaMakQs7LU3tUznq2HIpvs0MJ6gCJTpIcryQrFR9Ra8/D
-	 U4OuJ5eB72A3EXGzxMhVZhbwG2zxE0xfrH4LetyX8Rf8/dinPe06SI8olctB7WpzTx
-	 VEP6TK/EC5llc6PDs6KuaB8YWyRp4TWsNoBJnPQ5/u9qLhoIkx78FwLwM6BSU33O6k
-	 /WectmrBzYHeZpJbc71cIJEC55LHLBrLusUni25rMQa8K/uEtxPlcATydb324gzv3g
-	 qi9FNSPPT/UHucx6kvICA6FlnJvsnu/reXG8uFurwsl63bH5xOb2eDxXRIMorKhSFr
-	 z/eeStBopqjRA==
+	b=aXpjBZfJhxy2RkhfkNyv1b8Yd/gc9gKloghO2zYzyjrvFs7Wat1218mA8Gl9bPTS2
+	 WVkGw+xNAPDFi8wcRYIqjwFXVJHVaEYHkxvEqSSxNNFg13BwzExRkt8tPGFJI4D6aE
+	 olQ5cjrSPMC5AWFuXdE1zBbFpQWkcXwRWLqaJtegKUvM1/mjV07qx49j6zm/0lB6Pb
+	 xTystVS4IQxReB85ORTzE/sLjA3Xa6OxEIvwq5AB13mAPBjHe6uGgZFgSMDtUH2Q8x
+	 +3FjXj10+TzdnTPExIDs/oYa8Nn3rayYEQLiclBdYtGzECSWxs8/QiWIzsWWOTUjmX
+	 TSx4dyIvjzQhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ibrahim Hashimov <security@auditcode.ai>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] nvmet-tcp: bound SGL data length before allocating command buffers
-Date: Wed, 26 Aug 2026 13:14:02 -0400
-Message-ID: <20260826171402.2245576-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] HID: uclogic: fix use-after-free of inrange_timer on remove
+Date: Wed, 26 Aug 2026 13:14:04 -0400
+Message-ID: <20260826171405.2245642-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826171402.2245576-1-sashal@kernel.org>
-References: <2026082514-frill-epilogue-80ea@gregkh>
- <20260826171402.2245576-1-sashal@kernel.org>
+In-Reply-To: <2026082556-canned-ankle-ebed@gregkh>
+References: <2026082556-canned-ankle-ebed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,81 +47,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Ibrahim Hashimov <security@auditcode.ai>
 
-[ Upstream commit 4a3f00262a044e8e15064b1a6860968bf0500bf4 ]
+[ Upstream commit 506fd50a9027340f0e9dcc587d10ccb03312dba6 ]
 
-nvmet_tcp_map_data() reads the host-controlled 32-bit sgl->length
-and, for the in-capsule offset descriptor (type 0x01), checks it
-against port->inline_data_size before use. Any other SGL descriptor
-type -- including the non-inline transport SGL data-block descriptor
-(type (NVME_TRANSPORT_SGL_DATA_DESC << 4) | NVME_SGL_FMT_TRANSPORT_A,
-the type a real host uses for out-of-capsule writes) skips that check
-entirely and falls straight through to:
+uclogic_remove() cancels the pen in-range timer and then stops the
+device:
 
-	cmd->req.sg = sgl_alloc(len, GFP_KERNEL, &cmd->req.sg_cnt);
+	timer_delete_sync(&drvdata->inrange_timer);
+	hid_hw_stop(hdev);
 
-with len taken directly from the wire, unbounded up to 4 GiB.
+timer_delete_sync() only guarantees the timer is idle at that instant.
+uclogic_raw_event_pen() keeps delivering pen reports until hid_hw_stop()
+stops the transport several lines later, and every report with
+pen->inrange == UCLOGIC_PARAMS_PEN_INRANGE_NONE re-arms the timer:
 
-nvmet_req_init() only parses the command and never inspects
-sgl->length, and nvmet_check_transfer_len() -- the only other place
-transfer_len is validated -- runs later, from req->execute(), after
-the allocation has already happened. For a write command the target
-responds with an R2T and parks the command waiting for the host to
-send the data; if the host (or an unauthenticated peer that simply
-never follows up) never does, the sgl_alloc() buffer stays resident
-for the life of the command. NVMe/TCP has no mandatory authentication
-in the default configuration, so any peer able to reach the target
-portal and complete a Fabrics connect can drive this with a single
-crafted command, repeatable across queues and connections for
-amplification. This is unbounded kernel memory allocation
-triggered by a remote, effectively unauthenticated peer.
+	mod_timer(&drvdata->inrange_timer, jiffies + msecs_to_jiffies(100));
 
-Validate len against the same NVMET_TCP_MAXH2CDATA ceiling this file
-already uses to bound per-PDU H2C data, for every SGL descriptor type,
-before doing any allocation. This closes the gap for the non-inline
-descriptor while leaving the existing, tighter inline_data_size check
-in place for the in-capsule case.
+A report landing between the timer_delete_sync() call and the transport
+teardown in hid_hw_stop() re-arms inrange_timer after it was cancelled.
+uclogic_remove() then returns and the devm drvdata is freed, while
+hid_hw_stop() has already freed the input device drvdata->pen_input
+points at, so when the timer fires ~100 ms later
+uclogic_inrange_timeout() dereferences freed memory -- a use-after-free
+in timer-softirq context.
 
-Runtime-verified on a v6.19 KASAN stand: with this bound in place, a
-crafted write command carrying an oversized non-inline SGL length is
-rejected before sgl_alloc() runs, where the same request previously
-drove an unbounded ~256 MiB kernel allocation (up to 4 GiB) that
-stayed resident pending an R2T the host never satisfies.
+Swapping the two calls is not a fix: stopping the device first frees
+drvdata->pen_input via hidinput_disconnect() while the timer may still
+be pending, so a timer already armed before removal fires on the freed
+input device in the window before timer_delete_sync() runs.
 
-Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
+Use timer_shutdown_sync() before hid_hw_stop() instead. It cancels the
+timer, waits for a running callback while pen_input is still valid, and
+prevents any further re-arming -- a later mod_timer() from an in-flight
+report is silently ignored -- so the timer is provably dead before
+hid_hw_stop() frees the inputs. This is the ordering the timer core
+documents for this "timer re-armed from another path" teardown case.
+
+Fixes: 01309e29eb95 ("HID: uclogic: Support in-range reporting emulation")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
 Assisted-by: AuditCode-AI:2026.07
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+[ changed timer_delete_sync() to del_timer_sync() in the removed line to match the pre-rename API on this branch ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/tcp.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/hid/hid-uclogic-core.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index 337e364be82a2..f7ea540375d75 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -394,6 +394,19 @@ static int nvmet_tcp_map_data(struct nvmet_tcp_cmd *cmd)
- 	if (!len)
- 		return 0;
+diff --git a/drivers/hid/hid-uclogic-core.c b/drivers/hid/hid-uclogic-core.c
+index d4cf8846f326a..a265d3ab3fe8c 100644
+--- a/drivers/hid/hid-uclogic-core.c
++++ b/drivers/hid/hid-uclogic-core.c
+@@ -477,7 +477,17 @@ static void uclogic_remove(struct hid_device *hdev)
+ {
+ 	struct uclogic_drvdata *drvdata = hid_get_drvdata(hdev);
  
+-	del_timer_sync(&drvdata->inrange_timer);
 +	/*
-+	 * inline_data_size only bounds the in-capsule (type 0x01) SGL
-+	 * descriptor below. A non-inline transport SGL data-block
-+	 * descriptor skips that check entirely and would otherwise reach
-+	 * sgl_alloc() with an attacker-controlled len of up to 4 GiB,
-+	 * pinning that much kernel memory for a command that may never
-+	 * complete. Bound every descriptor type here, before allocating
-+	 * anything, using the same ceiling this file already applies to
-+	 * per-PDU H2C data.
++	 * Shut the in-range timer down before stopping the device.
++	 * uclogic_raw_event_pen() re-arms inrange_timer on every pen report
++	 * and keeps running until hid_hw_stop() stops the transport, so a
++	 * plain timer_delete_sync() here can be undone by a report landing in
++	 * the window before hid_hw_stop().  timer_shutdown_sync() cancels the
++	 * timer and makes any later re-arm a no-op, so it is provably dead
++	 * before hid_hw_stop() frees the input device drvdata->pen_input
++	 * points at.
 +	 */
-+	if (len > NVMET_TCP_MAXH2CDATA)
-+		return NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
-+
- 	if (sgl->type == ((NVME_SGL_FMT_DATA_DESC << 4) |
- 			  NVME_SGL_FMT_OFFSET)) {
- 		if (!nvme_is_write(cmd->req.cmd))
++	timer_shutdown_sync(&drvdata->inrange_timer);
+ 	hid_hw_stop(hdev);
+ 	kfree(drvdata->desc_ptr);
+ 	uclogic_params_cleanup(&drvdata->params);
 -- 
 2.53.0
 
