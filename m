@@ -1,143 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD043331200
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F18F3101A0
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:28:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743308; cv=none; b=Dw27wiEuANb5o8uPml8DeEbMm/BezPmWAbKWRB6vCcbeFUyYoZARKkeDj8QARAauDmXR69XgJ8Zk0naU+kMMwCsPvieJCtRrT2bGpJOEvyHOLwiNSMfKQ3kyZW8/+LbX/8LuZ5/UxnV7k0mY630qR7anTJG+9FVyMlYpiKcgF5s=
+	t=1787743722; cv=none; b=J9Q0f7B8N5pxcD6PUFyglgHNalBj317jsJccb00D9/GL7JlAR0cA1mxCBVmf1geA3OeAtmBk8Tcc7b+eUteaeejw9e2zaPoX0tr/HmgYIiLf30opJBHCBjB2qwWwE0wRxzfD3Manbbz3swiRhZ70UEMSlKFGqgEG9vhdBF3c3h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743308; c=relaxed/simple;
-	bh=n5Uv/GVOpnrsnSkV6/6aVFpp8k514RLgp7TD5lFitd8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KQdYBAG2en0Lzx6SpiCHdWq2uJ2FXcPrY7w7bCtTpVAqT1ZwHW3gMHMKzhM7lLzGD7qv9bEXWhYq/t1RwHBkGLzuBRCMlVovcXd1aNDWJu0SWflVJfRdhL+Y8N/D+KNjabLuoRgROHqgw/sHQD2HmntKqEJkdDSBldD84zNe9a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbDJzMCD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787743722; c=relaxed/simple;
+	bh=Wuo+bMt7X8tweXE396YuJxWT4Aq/RkDqSUllNrlHizk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ii9eH2mPFAkSjQKRQS3LaAHCqZNX6lbhsPcS/jB0y1WN7lhG/K776mgk/FuAhZN6of7edhQpAVTNXGD8JViZ0PqkvLujuHawWqqw0CK5LqfSpHe8nrzjugSEFD3aGk6tWx6ZZ/uYnIac8339ttaJwrBIB7whoFhJR/rmiKNEMF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7y0Hp19; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbDJzMCD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67351F00A3E;
-	Wed, 26 Aug 2026 11:21:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7y0Hp19"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071621F00A3E
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787743307;
-	bh=72WMU0Tf4V73P1d/sTFtMD8hWzADdwmAaBKtRE/mTNc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IbDJzMCD/jGwIm427006xPSjpM97vJUJV0C7U8gYEx/bqyWQR3WlkKpWoyo4wFi14
-	 xNYxOZih9wksdjcG1nIcHcWCUxdBc7koJns2CrwW6itWKkX7t2Ap3QtP5lGuQuxLG0
-	 DngiT8BJATCLepwosA7XBtf7WficduasG12AfA131HgBCEHA0ewqZLuOI8uDuI0gQv
-	 bnxjbjo68BUgTu6CTcIgMGTFk5QvT9hu4NwB1tiFf0a7GnsiFG98E229KJF1T9zohY
-	 trnyGJDCXrsWRdpHT6O5afi4v8CR56itmgaCDrrLqnpjj8a5vc04BgHTd9o4ueEsYY
-	 wdmozwDIdNoFA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>,
-	Alec Hall <signshop.alec@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] HID: magicmouse: prevent unbounded recursion in magicmouse_raw_event()
-Date: Wed, 26 Aug 2026 07:21:43 -0400
-Message-ID: <20260826112144.2645671-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826112144.2645671-1-sashal@kernel.org>
-References: <2026082523-agony-jeeringly-e4b9@gregkh>
- <20260826112144.2645671-1-sashal@kernel.org>
+	s=k20260515; t=1787743721;
+	bh=Wuo+bMt7X8tweXE396YuJxWT4Aq/RkDqSUllNrlHizk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=G7y0Hp19/Av66o950bB/VeUxWsvcU51z6yZRQve86t/JBI7xs2ETlgPKa2rlBZVdT
+	 +wzEuMW+D7IoREah0lJ8TB1aijmrMKi/dFINX9q2fGaIErIsRMb5QLohg2rLct63MC
+	 kl9xX8xjjeb3JP5V+Qa+9XeMVjV3E5A1i66uDvnaQ/08xAHacNx5w2VKZ5TQd0QW+o
+	 uUBbwLp21eMwiIWc7m52GfAvGdlRQ1FJmmr5WX5LSYjeLlNBcmenxr+7ZLPSZIMwJ2
+	 fAMNS0O0DPBEeXzQ7ipY2svMZLr7knrBKCr2Z3eY+7P3QrIYF9sfrTIVQZSNce4jrB
+	 KWnV8zG1SNgYA==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a5e392b2b3so1155109a12.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 04:28:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrpbCRFEPg/XC2rKOkoLbwTpVepmAa/xTudanvqb4eDe9EfG1LhqzjuhNYBJHlNtcQd2HU0Kkk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZWAMCrPBsL4uofbzq8eug1Gx9j38+0OQeRIl7sg8Wgzust6YT
+	QS8/bLwK+moqSzd+OQHb7OcHBOhf+k9cXPmkFwyaQmUdft3Y2TZjAbj656gmS19KIGBrqKFO5eq
+	5WzTXEjhKtd/oAqtiKqvKIzhfAtsr69s=
+X-Received: by 2002:a05:6402:42c5:b0:6a0:8885:e6f0 with SMTP id
+ 4fb4d7f45d1cf-6a5df5f0b61mr7500755a12.3.1787743719648; Wed, 26 Aug 2026
+ 04:28:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260824054115.114298-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260824054115.114298-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 26 Aug 2026 20:28:27 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8RD=NisPHjoD+8meAh6s-nnN7jeRYmyH6Fv+9UVhBzwA@mail.gmail.com>
+X-Gm-Features: AcwNN1Umr7HrHWw_6xgnr6FeYmdAF4X6UTN7nxBD-H1Af0wJVN52kVeriAwjaOQ
+Message-ID: <CAKYAXd8RD=NisPHjoD+8meAh6s-nnN7jeRYmyH6Fv+9UVhBzwA@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix incorrect MFT record pointer passed to ntfs_attr_record_resize
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-
-[ Upstream commit db8d634128d2ba88d79c0b601e983ebe14bb0519 ]
-
-magicmouse_raw_event() handles DOUBLE_REPORT_ID (0xf7) packets, which pack
-two touch reports into one, by splitting the packet and calling itself on
-each half. The only guard against runaway recursion is a "size < 1" check,
-which stops zero-sized calls but does not bound the recursion depth.
-
-A malicious HID device that matches this driver can send a report starting
-with DOUBLE_REPORT_ID and filled with the sequence [0xf7, 0x00]. Each level
-consumes two bytes and recurses on the remainder, so an incoming report of
-up to HID_MAX_BUFFER_SIZE (16 KiB) drives roughly 8000 nested calls. That
-easily exhausts the 16 KiB kernel stack, leading to a stack overflow: a
-panic with CONFIG_VMAP_STACK, or memory corruption without it.
-
-A double report only ever wraps two normal reports; it is never
-legitimately nested. Refuse to re-enter the DOUBLE_REPORT_ID case from a
-recursive call so the recursion depth is bounded to two, while all valid
-packets keep being parsed exactly as before.
-
-Fixes: a462230e16ac ("HID: magicmouse: enable Magic Trackpad support")
-Link: https://lore.kernel.org/linux-input/20260706181347.700DB1F00A3F@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-Reviewed-by: Alec Hall <signshop.alec@gmail.com>
-Tested-by: Alec Hall <signshop.alec@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/hid-magicmouse.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
-index f53839484c861..20ca2940e7432 100644
---- a/drivers/hid/hid-magicmouse.c
-+++ b/drivers/hid/hid-magicmouse.c
-@@ -383,8 +383,8 @@ static void magicmouse_emit_touch(struct magicmouse_sc *msc, int raw_id, u8 *tda
- 	}
- }
- 
--static int magicmouse_raw_event(struct hid_device *hdev,
--		struct hid_report *report, u8 *data, int size)
-+static int __magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size, bool nested)
- {
- 	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
- 	struct input_dev *input = msc->input;
-@@ -495,6 +495,15 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 		 * packet.
- 		 */
- 
-+		/*
-+		 * A double report only ever wraps two normal reports, so it is
-+		 * never nested. Refuse to recurse a second time; otherwise a
-+		 * malicious device could chain DOUBLE_REPORT_ID packets to drive
-+		 * unbounded recursion and overflow the kernel stack.
-+		 */
-+		if (nested)
-+			return 0;
-+
- 		/* Ensure that we have at least 2 elements (report type and size) */
- 		if (size < 2)
- 			return 0;
-@@ -506,9 +515,9 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 			return 0;
- 		}
- 
--		magicmouse_raw_event(hdev, report, data + 2, data[1]);
--		magicmouse_raw_event(hdev, report, data + 2 + data[1],
--			size - 2 - data[1]);
-+		__magicmouse_raw_event(hdev, report, data + 2, data[1], true);
-+		__magicmouse_raw_event(hdev, report, data + 2 + data[1],
-+			size - 2 - data[1], true);
- 		return 0;
- 	default:
- 		return 0;
-@@ -534,6 +543,12 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 	return 1;
- }
- 
-+static int magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size)
-+{
-+	return __magicmouse_raw_event(hdev, report, data, size, false);
-+}
-+
- static int magicmouse_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
--- 
-2.53.0
-
+On Mon, Aug 24, 2026 at 2:41=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
+.cn> wrote:
+>
+> ntfs_new_attr_flags() passes the wrong MFT record to ntfs_attr_record_res=
+ize().
+> When the attribute is in an extent record, ctx->mrec points to the extent
+> but the function receives the base record pointer m, causing incorrect
+> size calculations in memmove.
+>
+> Fix by passing ctx->mrec (the actual MFT record containing the attribute)
+> instead of m (the base MFT record) to ntfs_attr_record_resize().
+>
+> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
