@@ -1,74 +1,43 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A97472532
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 18:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41685409277
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 18:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787767905; cv=none; b=IJW+ys9fP97vhWoF8F8s2r33iWhDIQAD5sirKCTx3zkTYilrgFWkDeqPUE3Nk1/YKCrMAk5oHJyJw4TnoUfYL8/FxAAF2NH+JqUHjuI+7GZa1+fSSRN7idTQO99UaskS9dyFias6uDeFHq9OIXPQvdYZYZWfluQ01VbI4fTo7cQ=
+	t=1787768165; cv=none; b=nz22QFoA704vV/wfRyBTVAa8YNSKLfabn6hJQfgdikz45aY5Se6u45iEV0evF4ZPI9WRiuuMiRmW8d5qSokmeBeOG5OYgQlSrNEPDRsK/5+9QNa9XNSQZVVHpna18TOkXCN4N3/jiAABOMfOsDUwHbA8wq2oY0RLv+JfD8gkcc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787767905; c=relaxed/simple;
-	bh=zW/jWEywlJnLpPn3iSmZGT+bzd3gQc7ctNw4LFiA03I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SJz1G3ZYPzWrT/6AaOftz8nD3VXG/mCNQzMjjvxlyZzUnhOCrn5fB0RHUsGTYv6I22g1sjsOH3ws/xpwq7CbiLWpqzCr8M1SD1OwfVrOSVIgUV27ZZ06s0eWh/Mj2XwL0WZUeqTLhq1Y9mzMMxHPe1C9PO4mupSW1LpsiFl+7rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gz9pm1Tq; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787768165; c=relaxed/simple;
+	bh=6pbCXHdNGgbiqgt8/vU98hqM0k52oGF36U5x2YRnzgw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pv/X7atzJblYAq9MssbpSAnb0brrQbMH8ECguOSLFHR5qOOSAggBnWjIBLMNQWUKrDrJBgDtuhz2vFAIGMGSJ/38PpTiZ6bvht40ePZ+KjYSAHjk6ENkfdNCNlJXvaWDDBBZJ7ipRQH1yyhopBOUXwCTjm+7mEe+kPCvwoYPVaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AsphLC+s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gz9pm1Tq"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cbedf318752so1058162a12.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787767886; x=1788372686; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=70l+pktXnkTFw9cxbeR6NIJIADP4PanSEbbcQ2ECs8I=;
-        b=gz9pm1TqJOTSncpKxrHtHR+gKXIiKaMsZl7ID8N3qnZxQ6Xv7ZGTBBTHLTHLFMMNgV
-         criaun6l6F7vfYRZX+3SvzedIPUC7uK1gLdQCE4GciVKtPtjp3R2iuPfoxTCpSRy1ivB
-         73WfmekmKQ2SgM+Poqz1aHJJ0UtjQZWDfS+4sYpHqyjNVo/dwFD8oYyZizmDGgKlNZTK
-         Ylq6dDTaq1QU3/hu5oYuqfk+GcnJEJMrspdfeuvsLP+HQIATLWEOAuPCbOEivVp1WddA
-         toUAmxBLWrPFOibEOza3iqDxEjDBA+P/c0sfhjMDv6Zc8VeUOKs/3PCg3VxZBZKV+Aqa
-         6qpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787767886; x=1788372686;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=70l+pktXnkTFw9cxbeR6NIJIADP4PanSEbbcQ2ECs8I=;
-        b=Z8/IQCSTo3RikOt4s8y/rO0tPPNW66U6YOozV0opKZAoYoRyhlJEK+uGVrlpnJn2sm
-         9Cook4NgYONQvZ3/d0WI7/xUs8qzga/PNLoXS0dU26lyF6Tn7mujRMEPbQSlUPjeD37x
-         6pv4WABGKtwRBVFYCe8HcEgsHMi1puRNczbWtIJmuXDyTY26t4q9KB4O2ZekCL7gx72k
-         ifJ4RBmzWiSRfIazmje1jm4okmrn91Kgt/3ffpswv+aVp5vgwWvijArWuUVnoIFQEdxN
-         6FbELa7HWR3HWfCHfNsGP4cP+r/Je8JQ05mU6Mqf6lSxL1q3XuK6WQk86HRkuQ85cbs8
-         oq/A==
-X-Forwarded-Encrypted: i=1; AHgh+RoTA0iRP4R9qi276PKnUWL7ilhzX+lW25NZTVMDBXc4f4uuwDqHhqy8x9d1CuQfzG5k2snaMP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYwSxGZRvvMM9p+FGutKEdY9Sr+lHIkNdBax1RUBEo+Bwo5WE6
-	owbj7r8qNm/p1OC00fSHqj6YY5iMBdlHEA8NIUoaryz3QBHGNnlfZPJe
-X-Gm-Gg: AR+sD13bUY6uyUEjrjKH9FjE9BOKINpfmFi7ogOSgH7OrHSNNo/QIEwdBZJwVKcyBt/
-	xzHMe9oF3hMDF0wl55ORuFBPJblfox13d+aMwzT6eRcBdJTbvESRaG2cMJbYJOHF/d40Ma4L7gs
-	h369d7WpFj16Jo8rH2wzmAib+EP/mLfX7kR5QkJ3Xfx/1rsZaw6muUwjHEejvUMiUvRlxj7zDuR
-	n551TNpOzQVEakzJPz8s26sxAae6ZJBDD8GcqUnI60W8Eat5cGEeqHYHKSPqnDmoAunyfHmLsTq
-	+9V48thmIoGCqyh6RDWRA1xm7b7gh9uEV5UfkR0lHSeejj094RA4Phcef0235SfLQtfSNhEB/Cd
-	cuotVMpy4XU9DZejXA0wz4tzvZ/ORERYnAr0YKeLJrVW+io4gzHBFJxJrMI3WIFDzK4OJ2NomAO
-	1036d45yJHnx77PAJ1PPaU9QRBlORFtZYLTBbAW9rnKzQseXImlXyYWGUC+ZCoZ7V0hkmyf/hEM
-	n1n19swSXwIPLLFYdPc+CAExiihN7yh4Y9At7kOpLZE+paXC5Pkr8JSH9EcjS+I2m2WcM+lE38w
-	NZZ3cyMh9flM
-X-Received: by 2002:a05:6a20:94ce:b0:3c3:9df0:2d66 with SMTP id adf61e73a8af0-3cf7607a0ebmr19577158637.6.1787767886004;
-        Wed, 26 Aug 2026 11:11:26 -0700 (PDT)
-Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:d10e:986a:5a1c:babc])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a9036c85sm9334737c88.9.2026.08.26.11.11.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 11:11:25 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Wenjie Qi <qiwenjie@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mkfs.f2fs: enforce alias_filename to match device name
-Date: Wed, 26 Aug 2026 11:11:21 -0700
-Message-ID: <20260826181121.3825702-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AsphLC+s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80EE31F00A3D;
+	Wed, 26 Aug 2026 18:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787768151;
+	bh=+OEoiH1FSz995l7bkWhG4u1EhCiYXcOBI/5PjnAWTl8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AsphLC+sH6Fo8am5iManDxFzA6a/tr1nKZAThJeOot215jIyoroxR5jsKHbz6TBm7
+	 uICCOHFmRQry61J6MhTLXuNoNwzTojeZXevjEbhcrm+ylgl27EHfjBmPaN/OsXhpGW
+	 gV+s1jvMYTE4WSydGa9qhhVuP0DmOqnzK6nVrSS7PDXZZDpSOsiyQSjD7dpdwQ87bW
+	 +BM3VGqkNw3jo4BW7nZbcupyxvm5DqzesxbekvjH727Zc7dQVZ2ypZO7ALTOTZuPXj
+	 OskBqpbdIAiW43RCHLKIODCFZh3ph+ptRqO1ezMdBm00cbAAhfNrkIKT3cyp3mq+0+
+	 rX0jLXSxtd95w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] Bluetooth: hci_sync: Fix accept list UAF during suspend
+Date: Wed, 26 Aug 2026 14:15:48 -0400
+Message-ID: <20260826181548.2868994-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260826181548.2868994-1-sashal@kernel.org>
+References: <2026082512-chimp-sixties-ddb1@gregkh>
+ <20260826181548.2868994-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,104 +46,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-The kernel expects the device alias file in the root directory to match
-the device basename (strrchr(path, '/') + 1) to identify the target device
-both during mount in f2fs_restore_device_alias() and during reserve in
-f2fs_ioc_reserve_dev_alias().
+[ Upstream commit f57b399c4fa1501b2d5451f52d861ece86bcf3db ]
 
-If a custom alias filename that differs from the device name is used,
-the kernel fails to match the alias file at mount time (leaving
-FDEV(i).has_alias unset and allowing pinned files to allocate in that
-range) and subsequently fails to reserve the device range when requested.
+hci_update_event_filter_sync() walks hdev->accept_list while sending a
+synchronous HCI command for each remote-wakeup device.  The suspend path
+holds hdev->req_lock, but accept-list updates are serialized by hdev->lock.
+Consequently, remove_device() can free the current list entry during the
+controller wait.
 
-Enforce that if an alias filename is specified, it must match the device
-name. Also allow specifying just '-c <device>@' as a shorthand so users
-do not have to redundantly type the device basename twice.
+The following interleaving causes the use-after-free:
 
-Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Fixes: 8cc4e257ec20 ("mkfs.f2fs: add device aliasing feature")
+  hci_update_event_filter_sync()    remove_device()
+  fetch accept-list entry
+  hci_set_event_filter_sync()
+    wait for controller response    hci_dev_lock()
+                                    list_del()
+                                    kfree()
+                                    hci_dev_unlock()
+  read the freed list.next
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in hci_suspend_sync+0x835/0x910
+  Read of size 8 at addr ffff88810bec8440 by task kworker/0:1/10
+  Workqueue: events vhci_suspend_work
+  Call Trace:
+   hci_suspend_sync+0x835/0x910
+   hci_suspend_dev+0x182/0x450
+   process_one_work+0x661/0x1090
+   worker_thread+0x45b/0xd10
+
+  Allocated by task 86:
+   hci_bdaddr_list_add_with_flags+0x1a8/0x400
+   add_device+0x381/0x820
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+  Freed by task 91:
+   kfree+0x131/0x3c0
+   remove_device+0x429/0xb70
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+Snapshot the remote-wakeup addresses under hdev->lock.  Release the lock
+before sending HCI commands.  Clear the controller event filter before
+building the snapshot, and skip allocation and the second list traversal
+when there are no matching entries.  This preserves the original filter
+and scan-state updates without retaining an accept-list node across a
+controller wait.
+
+Fixes: 182ee45da083 ("Bluetooth: hci_sync: Rework hci_suspend_notifier")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Link: https://lore.kernel.org/linux-bluetooth/20260730092331.2069741-1-nicoyip.dev@gmail.com/
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- man/mkfs.f2fs.8         |  4 +++-
- mkfs/f2fs_format_main.c | 27 +++++++++++++++------------
- 2 files changed, 18 insertions(+), 13 deletions(-)
+ net/bluetooth/hci_sync.c | 46 ++++++++++++++++++++++++++++++++--------
+ 1 file changed, 37 insertions(+), 9 deletions(-)
 
-diff --git a/man/mkfs.f2fs.8 b/man/mkfs.f2fs.8
-index 9096646..430d180 100644
---- a/man/mkfs.f2fs.8
-+++ b/man/mkfs.f2fs.8
-@@ -121,10 +121,12 @@ Currently, the kernel is only able to mount f2fs filesystems where the
- block size matches the page size.
- The default value is 4096.
- .TP
--.BI \-c " device-list"
-+.BI \-c " device_name[@alias_filename]"
- Build f2fs with these additional devices, so that the user can
- see all the devices as one big volume.
- Supports up to 7 devices except meta device.
-+If '@' or '@alias_filename' is given, the device is configured as a device alias.
-+Note that alias_filename must match the device name.
- .TP
- .BI \-d " debug-level"
- Specify the level of debugging options.
-diff --git a/mkfs/f2fs_format_main.c b/mkfs/f2fs_format_main.c
-index 8d44a9b..99d92c5 100644
---- a/mkfs/f2fs_format_main.c
-+++ b/mkfs/f2fs_format_main.c
-@@ -191,6 +191,7 @@ static void f2fs_parse_options(int argc, char *argv[])
- 	int32_t option=0;
- 	int val;
- 	char *token;
-+	bool is_alias;
- 	int dev_num;
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index c16e1cea19076..be49e14d27239 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -6011,6 +6011,8 @@ static int hci_pause_discovery_sync(struct hci_dev *hdev)
+ static int hci_update_event_filter_sync(struct hci_dev *hdev)
+ {
+ 	struct bdaddr_list_with_flags *b;
++	bdaddr_t *accept_list;
++	size_t i, num_entries = 0;
+ 	u8 scan = SCAN_DISABLED;
+ 	bool scanning = test_bit(HCI_PSCAN, &hdev->flags);
+ 	int err;
+@@ -6027,23 +6029,49 @@ static int hci_update_event_filter_sync(struct hci_dev *hdev)
+ 	/* Always clear event filter when starting */
+ 	hci_clear_event_filter_sync(hdev);
  
- 	while ((option = getopt_long(argc,argv,option_string,long_opts,NULL)) != EOF) {
-@@ -218,6 +219,8 @@ static void f2fs_parse_options(int argc, char *argv[])
- 				mkfs_usage();
- 			}
+-	list_for_each_entry(b, &hdev->accept_list, list) {
+-		if (!(b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP))
+-			continue;
++	hci_dev_lock(hdev);
++
++	list_for_each_entry(b, &hdev->accept_list, list)
++		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
++			num_entries++;
  
-+			is_alias = (strchr(optarg, '@') != NULL);
+-		bt_dev_dbg(hdev, "Adding event filters for %pMR", &b->bdaddr);
++	if (!num_entries) {
++		hci_dev_unlock(hdev);
++		goto update_scan;
++	}
+ 
+-		err =  hci_set_event_filter_sync(hdev, HCI_FLT_CONN_SETUP,
+-						 HCI_CONN_SETUP_ALLOW_BDADDR,
+-						 &b->bdaddr,
+-						 HCI_CONN_SETUP_AUTO_ON);
++	accept_list = kmalloc_array(num_entries, sizeof(*accept_list),
++				    GFP_KERNEL);
++	if (!accept_list) {
++		hci_dev_unlock(hdev);
++		return -ENOMEM;
++	}
 +
- 			token = strtok(optarg, "@");
- 			if (strlen(token) > MAX_PATH_LEN) {
- 				MSG(0, "Error: device path should be equal or "
-@@ -226,21 +229,21 @@ static void f2fs_parse_options(int argc, char *argv[])
- 				mkfs_usage();
- 			}
- 			c.devices[dev_num].path = strdup(token);
--			token = strtok(NULL, "");
--			if (token) {
--				if (strlen(token) > MAX_PATH_LEN) {
--					MSG(0, "Error: alias_filename should "
--						"be equal or less than %d "
--						"characters\n", MAX_PATH_LEN);
--					mkfs_usage();
--				}
--				if (strchr(token, '/')) {
--					MSG(0, "Error: alias_filename has "
--						"invalid '/' character\n");
++	i = 0;
++	list_for_each_entry(b, &hdev->accept_list, list)
++		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
++			bacpy(&accept_list[i++], &b->bdaddr);
 +
-+			if (is_alias) {
-+				char *dev_name = strrchr(token, '/');
++	hci_dev_unlock(hdev);
 +
-+				dev_name = dev_name ? dev_name + 1 : token;
++	for (i = 0; i < num_entries; i++) {
++		bt_dev_dbg(hdev, "Adding event filters for %pMR",
++			   &accept_list[i]);
 +
-+				token = strtok(NULL, "");
-+				if (token && strcmp(token, dev_name)) {
-+					MSG(0,
-+						"Error: alias_filename (\"%s\") must match device name (\"%s\")\n",
-+						token, dev_name);
- 					mkfs_usage();
- 				}
- 				c.devices[dev_num].alias_filename =
--					strdup(token);
-+					strdup(dev_name);
- 				if (!c.aliased_devices)
- 					c.feature |= F2FS_FEATURE_DEVICE_ALIAS;
- 				c.aliased_devices++;
++		err = hci_set_event_filter_sync(hdev, HCI_FLT_CONN_SETUP,
++						HCI_CONN_SETUP_ALLOW_BDADDR,
++					 &accept_list[i],
++					 HCI_CONN_SETUP_AUTO_ON);
+ 		if (err)
+ 			bt_dev_err(hdev, "Failed to set event filter for %pMR",
+-				   &b->bdaddr);
++				   &accept_list[i]);
+ 		else
+ 			scan = SCAN_PAGE;
+ 	}
+ 
++	kfree(accept_list);
++
++update_scan:
+ 	if (scan && !scanning)
+ 		hci_write_scan_enable_sync(hdev, scan);
+ 	else if (!scan && scanning)
 -- 
-2.55.0.887.g758fc8c411-goog
+2.53.0
 
