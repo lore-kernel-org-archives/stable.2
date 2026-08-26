@@ -1,163 +1,170 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3679118A6CF;
-	Thu, 27 Aug 2026 06:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3F010F2;
+	Thu, 27 Aug 2026 06:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811153; cv=none; b=Vp6AZz3V8fPjRgKUYAbhVkGKdAis+pmxsxe6tv31mdYDo9OyNtRL2XJRKmgCMkYwqJE9sQeL0OOcL282GOW78PRPrqr7M1xFcfcZ+oV08AU4DRyrYg6LBm5Zi71MeZ9D5l+cQx/ruCl1hJTF7Y5cTo0NyRC5Iq1mufk98bz59eY=
+	t=1787811593; cv=none; b=s7TmnjoqjRT48nGo0AeVGKmYaS1SxRiPcpnvnTrTSfn1avxJ5KbhmZYmuBgZ4gPCnQUIPNLj9zKI1Xjvj2BiJrg6WPdiExG8ySAj6O4h9A3oOevNiUNR7Jn368SskDwMqexE7iKtpndUQt/gFM52GpMtKOOiiyshDJXm/grr120=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787811153; c=relaxed/simple;
-	bh=wkZeUQ4BQwpgXHTOgzgPRXmkOunhCqWXTRvfIjtuG7c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=g3TlQoaN6J5JIb4c8KfV5yH7Xv8h4wAF8u3ZXPLjAiBKTPrltLpb5tl4yuEQx6aEYoXP5zZKrzQHhX9OJFuK3EjhkeK4HGjFTmsoQNEJCMQskAjrLgLMt/R1yC9lUslW0oFeljajDpIYKTj3wm9s+qL8GXXCW/nijO0yhoZ2Hsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hrj2lziH; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787811593; c=relaxed/simple;
+	bh=tqdSVh4tu+sKz//fnE52AFmGPHLUgoLrEkCNCDhMouU=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=imeUR9wc6nbsS0B9bRUBQOxhbMUrt5k1nCfjv6zNri/YBNeiX22Q/jCMjdXcwoS9fr1eUjkORNBNktqUrcYXV+2CKjzoSho78RxBjSEowjGk2QusXiImtXOuK8xRLVxSSOQ9BlRla0sVeh6YUt9mPnZQ3kgZSKCxOQtqeSnchpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=iUMQVvvP; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hrj2lziH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Bv
-	wMe8T3Nrn9ZRYw4IEDwm3e+PQfQJg9sEXDb2z5Yeo=; b=hrj2lziHsgvjQ71KX4
-	5/8xsIbVTA3nbSgJUoRSJfkGbcFfhINsbKb44ZRoBPiEFZsHtO0LiN2duNvavO7+
-	1GiqfayDvzj4yAjKORBcbjG9MH/Ee3OFNuOWGejIIyDaynwUHviP/uKi8qx5ZQDn
-	n8qQm/7nwBrUi1z3WWDa/B2wY=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgC37aUx1Y9qkXlaPQ--.24874S3;
-	Thu, 27 Aug 2026 14:12:02 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="iUMQVvvP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1787811586; bh=ol9NWem2Kbehyx9Cpgz703s0E0cEuzeYR/vj23Pm2yA=;
+	h=From:To:Cc:Subject:Date:Reply-To;
+	b=iUMQVvvPDwhzsQVEbbV4CM7BKHCmZFKZfacilwNY6ryb6RJNdqdUIqxeyXvwV7Imq
+	 AfOlkQ2TWLPQ2jeRR/fj3GVJ7sRNsSRBVbNfTmSFRX0xcAj6YtUTVqJ5e+0j5yS+9m
+	 f+UDzrJFie1nI1OL9IoypfyX+/I52+qe7PpXD5qI=
+Received: from DESKTOP-5664AH9 ([14.153.63.166])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 4EC36EB3; Thu, 27 Aug 2026 14:19:44 +0800
+X-QQ-mid: xmsmtpt1787811584tas27j7c7
+Message-ID: <tencent_7C3B122A153CDB0DEF19FA4C03D779D27806@qq.com>
+X-QQ-XMAILINFO: NuBH63TBO+hCKmpKlYto7mny4Qs4fI/CZ58+P0XpukQyw7lrCB01B2cPJuCqh7
+	 NW/gf29k6+iKNIaW131oNH4AVTEnEyQH4d/Wr15aRVImlG97AQpFR6TFp1hkMMZ+0BZ+pVXWFBCg
+	 32t+en+YP5vjVu0uwx+WwypLAFV7dwq8htyriUEbgZWmhbP6ZefmhjXH9L0kqgmh/7jTobtOK17H
+	 JT3/qwKfuZjz7SMVSrfMCdLiUYSbh//6mOmlMea7MYK41HfKM0c8XKmIh2GTBVDrZeML5l/Icwro
+	 9mA2yDlQiEhVvl/uykAvUY+odWZ/XAy4sqKZekULjlCmbVGzKCxMhR6AFt6LeOgbK647KV+h0u7S
+	 WTS1wOgvh2/jQ7aW9ZjntV3ptE1pcnaMYOvlL18/IqY+cxnqyiS7mcNTxxSzJlhU4/sRuXuci5N3
+	 RU2NAn/VU8UF9e2XgKIM/BfUopOM77Q7AbxPVgbz2bXxmPPCsRURLanTS+6UM9rX4ACjGhicYFxN
+	 O5br+sKsZOuIsyLnuCe/F2UpQpzRe1AO/q0iQjwZkmRowZ6dBfFdQUL9QY6JcvG3LALfsGIolv5P
+	 X3NoWP9f37lQbREMZeXQOplxnLIclPxEW/6O/FN3BSWslktiZamifpMI2/MuOCdBD1ZO7FX9hy7p
+	 q48ulicPp8pYkjhMcaRBcCn/qC9e72UbSas8D0vchGrf60X1FLK0xedgpAxVFHpQRHx0PioeGGFE
+	 G90tEp1vfv24Xz2aSV8HHyPd8eZDxhpYOCYEH8J4PCADxLkRdy44ZRSRjqlfjHb7O+O1/6xZbpB2
+	 ddsvrFf5LgAaQ7ReV8ToB0w9JLRvvlA58rwRP6hz9IC8SwPNYRvQW+Vef4MU3chFQJF9GF3stL5W
+	 rw0cmXCDijx9oCEIIAxpJTGTA0NVieZRom2L/ReUEHa/cmgFb2ywTJK7Bj+7KVWJ2ab/Ovjp2MQU
+	 79gU7t7InSGJY5WNsdMdiU3G6jPS9O3Ay7x+tK56ZUmCHVTRtKfgdgP+w5kbsMed7l0t7Azb+/bD
+	 lpu+Al5Lz0/0EmdWiP10zW9vZBKQauYZwtEgtzO9F3/OMqIXJpThm4IrjLSKPipQg/0DcKejS2GD
+	 lVzvz4z3vl/Kivv1K7U5sCTUdEqC6fr9FkSwfwiq3/fZu2dHv1dFEs9M6nMuAYpkpN5Vt9E618YJ
+	 fTTW2KD+tfg/DExEEB3Lvco5bZDxTOV8cRvxcscaJfimweD4EID06an6/b
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: =?UTF-8?q?DUAN=20Xuejian=20=28=E6=AE=B5=E9=9B=AA=E5=81=A5=29?= <445735441@qq.com>
+To: greg@kroah.com
+Cc: linux-acpi@vger.kernel.org,
+	hansg@kernel.org,
+	rafael.j.wysocki@intel.com,
 	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2 2/3] md-cluster: propagate update_size() errors to callers
-Date: Thu, 27 Aug 2026 14:11:59 +0800
-Message-Id: <20260827061200.79753-2-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827061200.79753-1-ghuicao@163.com>
-References: <20260827025229.40138-1-ghuicao@163.com>
- <20260827061200.79753-1-ghuicao@163.com>
+	DUAN Xuejian <445735441@qq.com>
+Subject: [PATCH] ACPI: resource: Add MECHREVO GM5BG0E to irq1_edge_low_force_override[]
+Date: Thu, 27 Aug 2026 06:19:45 +0800
+X-OQ-MSGID: <20260826221945.1338-1-445735441@qq.com>
+X-Mailer: git-send-email 2.55.0.windows.3
+Reply-To: greg@kroah.com
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgC37aUx1Y9qkXlaPQ--.24874S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuFyrCFy7Xw1UArWDZrWxCrg_yoWrXw1kpF
-	W7KFyfGw15JrWFgw4UJFn7ua45K3s7trZrtry7GayxGFnIgrWkGF4rXF9Yqr4DGa4rXrsI
-	qws8Jw4Uu3s7Ww7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5AwxUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4BIAkmqP1TItNwAA34
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+The MECHREVO Jiaolong 15K (GM5BG0E), an AMD Ryzen 7 7435H based laptop,
+has a defective DSDT that declares the PS2K keyboard IRQ1 as ActiveLow,
+whereas the hardware is actually ActiveHigh. Starting with Linux 6.0,
+the kernel no longer auto-corrects this polarity mismatch on AMD Zen
+platforms, causing the internal keyboard to become non-functional.
 
-update_size() in md-cluster.c has a void return type, so the caller in
-md.c cannot detect cluster resize failures.  A capacity revert or
-message delivery failure is silently lost, and the MD layer reports
-success to userspace even when the cluster operation failed.
+Add the GM5BG0E board to the irq1_edge_low_force_override[] DMI quirk
+table so that the kernel forces the correct IRQ polarity for this model.
 
-Change the update_size() callback in struct md_cluster_ops and its
-implementation to return int, and propagate the error at the call sites
-in md.c.
-
-Fixes: 818da59f97d6 ("md-cluster: add the support for resize")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+Bug: https://bugzilla.kernel.org/show_bug.cgi?id=XXXXXX
+Link: https://lore.kernel.org/linux-acpi/XXXXXX@XXXXXX
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: DUAN Xuejian (段雪健) <445735441@qq.com>
 ---
- drivers/md/md-cluster.c | 11 ++++++-----
- drivers/md/md-cluster.h |  2 +-
- drivers/md/md.c        |  7 +++++--
- 3 files changed, 12 insertions(+), 8 deletions(-)
+ drivers/acpi/resource.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/md/md-cluster.c b/drivers/md/md-cluster.c
---- a/drivers/md/md-cluster.c
-+++ b/drivers/md/md-cluster.c
-@@ -1292,7 +1292,7 @@ static int cluster_check_sync_size(struct mddev *mddev)
-  *    let other nodes to perform it. If one node can't update sync_size
-  *    accordingly, we need to revert to previous value.
-  */
--static void update_size(struct mddev *mddev, sector_t old_dev_sectors)
-+static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- {
- 	struct md_cluster_info *cinfo = mddev->cluster_info;
- 	struct cluster_msg cmsg;
-@@ -1303,7 +1303,7 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 	md_update_sb(mddev, 1);
- 	if (lock_comm(cinfo, 1)) {
- 		pr_err("%s: lock_comm failed\n", __func__);
--		return;
-+		return -1;
- 	}
- 
- 	memset(&cmsg, 0, sizeof(cmsg));
-@@ -1325,12 +1325,12 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 			pr_err("%s:%d: failed to send METADATA_UPDATED msg\n",
- 			       __func__, __LINE__);
- 			unlock_comm(cinfo);
--			return;
-+			return ret;
- 		}
- 	} else {
- 		pr_err("md-cluster: No good device id found to send\n");
- 		unlock_comm(cinfo);
--		return;
-+		return -1;
- 	}
- 
- 	/*
-@@ -1355,6 +1355,7 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 			       __func__, __LINE__);
- 	}
- 	unlock_comm(cinfo);
-+	return ret;
- }
- 
- static int resync_start(struct mddev *mddev)
-diff --git a/drivers/md/md-cluster.h b/drivers/md/md-cluster.h
---- a/drivers/md/md-cluster.h
-+++ b/drivers/md/md-cluster.h
-@@ -34,7 +34,7 @@ struct md_cluster_operations {
- 	int (*resize_bitmaps)(struct mddev *mddev, sector_t newsize, sector_t oldsize);
- 	int (*lock_all_bitmaps)(struct mddev *mddev);
- 	void (*unlock_all_bitmaps)(struct mddev *mddev);
--	void (*update_size)(struct mddev *mddev, sector_t old_dev_sectors);
-+	int (*update_size)(struct mddev *mddev, sector_t old_dev_sectors);
+-- 
+2.49.0
+
+diff --git a/drivers/acpi/resource.c b/drivers/acpi/resource.c
+index xxxxxxx..xxxxxxx 100644
+--- a/drivers/acpi/resource.c
++++ b/drivers/acpi/resource.c
+@@ -xxx,x +xxx,x @@ static const struct dmi_system_id irq1_edge_low_force_override[] = {
+ 		},
+ 	},
++	{
++		/* MECHREVO Jiaolong 15K GM5BG0E */
++		.matches = {
++			DMI_MATCH(DMI_BOARD_NAME, "GM5BG0E"),
++		},
++	},
+ 	{ }
  };
  
- extern int md_setup_cluster(struct mddev *mddev, int nodes);
-diff --git a/drivers/md/md.c b/drivers/md/md.c
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -8023,7 +8023,7 @@ static int update_size(struct mddev *mddev, sector_t num_sectors)
- 	rv = mddev->pers->resize(mddev, num_sectors);
- 	if (!rv) {
- 		if (mddev_is_clustered(mddev))
--			mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+			rv = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
- 		else if (!mddev_is_dm(mddev))
- 			set_capacity_and_notify(mddev->gendisk,
- 						mddev->array_sectors);
-@@ -10615,8 +10615,12 @@ void md_reap_sync_thread(struct mddev *mddev)
- 	 */
- 	if (mddev_is_clustered(mddev) && is_reshaped &&
- 	    mddev->pers->finish_reshape &&
--	    !test_bit(MD_CLOSING, &mddev->flags))
--		mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+	    !test_bit(MD_CLOSING, &mddev->flags)) {
-+		int ret = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
-+
-+		if (ret)
-+			pr_warn("md: cluster update_size failed after reshape: %d\n", ret);
-+	}
- 	/* flag recovery needed just to double check */
- 	set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
- 	sysfs_notify_dirent_safe(mddev->sysfs_completed);
 -- 
-2.34.1
+2.49.0
+
+---
+
+# 中文版补丁说明
+
+## 问题描述
+
+MECHREVO 蛟龙15K (GM5BG0E) 搭载 AMD Ryzen 7 7435H 处理器，其 BIOS DSDT 表中存在错误：
+键盘 IRQ1 被声明为 ActiveLow（低电平触发），但硬件实际为 ActiveHigh（高电平触发）。
+
+从 Linux 6.0 内核开始，AMD Zen 平台不再自动修正此极性不匹配问题，导致内置键盘无法使用。
+
+## 修复方案
+
+将 GM5BG0E 主板添加到内核 `irq1_edge_low_force_override[]` DMI 兼容表中，
+使内核为该型号强制使用正确的 IRQ 极性。
+
+## 提交信息
+
+- **维护者**：Hans de Goede <hansg@kernel.org>
+- **邮件列表**：linux-acpi@vger.kernel.org
+- **抄送**：stable@vger.kernel.org（用于稳定版回溯）
+
+---
+
+# English Version - Patch Description
+
+## Problem Description
+
+The MECHREVO Jiaolong 15K (GM5BG0E), equipped with AMD Ryzen 7 7435H processor,
+contains a defective BIOS DSDT table. The PS2K keyboard interrupt (IRQ1) is
+declared as ActiveLow in the ACPI table, but the hardware is actually wired
+for ActiveHigh operation.
+
+Starting with Linux 6.0, the kernel no longer automatically corrects this
+polarity mismatch on AMD Zen platforms (commit 2d331a6ac481), causing the
+internal keyboard to become non-functional.
+
+## Solution
+
+Add the GM5BG0E board name to the irq1_edge_low_force_override[] DMI quirk
+table in drivers/acpi/resource.c. This forces the kernel to apply the correct
+IRQ polarity override for this specific hardware model.
+
+## Technical Details
+
+- **File modified**: drivers/acpi/resource.c
+- **Function affected**: acpi_dev_irq_override()
+- **Quirk table**: irq1_edge_low_force_override[]
+- **DMI match**: DMI_BOARD_NAME = "GM5BG0E"
+
+## Testing
+
+Verified on MECHREVO Jiaolong 15K with:
+- AMD Ryzen 7 7435H
+- BIOS N.1.23MRO20
+- Linux kernel 6.x
+
+After applying this patch, the internal keyboard functions correctly.
+
+## References
+
+- Similar fixes: GM6BGEQ, GM6BG5Q, GM6BG0Q (TongFang barebones)
+- upstream commit: 2d331a6ac481 ("ACPI: resource: Fix IRQ override quirk")
 
