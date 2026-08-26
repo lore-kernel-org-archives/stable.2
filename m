@@ -1,215 +1,182 @@
-Received: from mta0.migadu.com (out-47.mta0.migadu.com [91.218.175.47])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176583FA5D4
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0C9427F85
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751084; cv=none; b=B2tGQsR2K5RYzPnA5TttFJpApzZ/rww3NcE+/gtDu106z5qMbueiCttjeohimcVxUHtYU7c28P3fpOekOYzLaJhkGoL+2zTuO7P80gLdMPWLsKhU8CTGy5vEAjyTJEIOi/SgEmhrTWisM3UvYsRF9fqq0Ol+1GB6lYe9Ux5UMDU=
+	t=1787751411; cv=none; b=bq1ymzwEOBAClemCQDKDBeK1rM2I9kWBwUWbHXehhqce0TURGo+E+9FJW24pAQGcejXtpUPtyTjfkwjNm1M/oYTa9KyF8Xsy1V6sI5MnUw9JWrRsQsSznoxzAPqOpV2kZxANUHQ00Zt2xDthynF8KRz10WCuUcrAPGT5ktNYJSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751084; c=relaxed/simple;
-	bh=lR4mZ8qczUfYMvA6XHhKi70YkLbB/IMG+ilRAttzYlY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J54ZqYnVHCgIrZA9rtFu+B74SOX4/jJzA9+XsnTNeBPi7f4B018RjqG+a5+3BiuyCh2d+rq6xgun5opwIme0EzyLrnYmvdYStal7WNjtXExHDvg2E6RxAU+VVVdNCmlkm7hdHuHs/osce4B6gGlRJbCLBlI6DThccpRoFOCditI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RMJ/OfnN; arc=none smtp.client-ip=91.218.175.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787751411; c=relaxed/simple;
+	bh=jqpOnMHgbbqDbuHS/I7m/d6Hc9Shph1tNa+wCHuPmCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sXwF1h93q7a+Hgjh6W+T6H9khp8s+wq1e5JzI/1W6tglx05f6FLBHzbAB+GVhITjSnI3IXYl3FvHY4ZDywJkABLumFCYBmDnEI/U/w5Tm3CMf5bJtSHi/LV3bZqmYWQGflkBptbpmraFW8XP+zQrH5ryZLPwR+Hss5vroDM9h8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0X27YGa; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RMJ/OfnN"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lR4mZ8qczUfYMvA6XHhKi70YkLbB/IMG+ilRAttzYlY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787751079; v=1; x=1788355879;
- b=RMJ/OfnNf5glc2HTrO7xk+ubkDnht6HwAdoF4dB6PY+8/c0BHTw9+Egm7iNN5NZDPrl9oLX3
- LniZOv2r4dx62AFPUbxxUZQSTwNuv1gwS5sO/Xeisx0xJMvH4t+FWCKLz6qE354ISosRF1YQTUr
- cca2naq+lIqVQwqT2BYVOPFI=
-X-Envelope-To: stable@vger.kernel.org
-Received: from mi-ThinkCentre-M760t.mioffice.cn (14.29.108.92)
-	by smtp.migadu.com with ESMTPS id 57b289fe451a8707;
-	Wed, 26 Aug 2026 13:31:19 +0000
-X-Mizu-Trace-ID: 57b289fe451a8707
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Yu Zhao <yuzhao@google.com>,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [RFC PATCH] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
-Date: Wed, 26 Aug 2026 21:30:54 +0800
-Message-Id: <20260826133054.88529-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0X27YGa"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493b966dd74so4478285e9.3
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:36:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787751408; x=1788356208; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iac2l5x1G2euKklhoCcR1PZsgghWHKyc8OBHeXTFnfU=;
+        b=T0X27YGax8RU3tu9hj0Mc1HCf2lCtyvyZ9eZ6xCMpXPRYo3Ju6EgoaJaLpopJ5ACc/
+         sPCKvvBg9mxYdwODcSWe6+uUFSg6XLjZe7xSK9SCcDsszdC9GPFHvAPXeh4bFmhnyBmr
+         QhTzoU4GMOPwgO+ocXG+oUBhrVs+KmUMQ0kSJB7JculCooPGHYIGTq/hDHgUq8r10VwB
+         id9ep8zzvGpkWMfYKI5cF16ASCZCijRGYDoSsJTFWOcqn6hHd1mfXAkpFPdfEE+OliG5
+         cwP+LK03V/glWmkAPZJ1aVLMN/hFvfk5GZ1wK2VZCmioyR3lgic2NwOnSIF0XayOqK8c
+         EfAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787751408; x=1788356208;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iac2l5x1G2euKklhoCcR1PZsgghWHKyc8OBHeXTFnfU=;
+        b=CbRHvx4DiryrDwuyLh+Mu56YE+okPIFuugCFELzMtr/gdWqGui/iEQiCaRTwr138KP
+         6XsmzzLgmfNQ7eqGbqP5C0yEGmHTera96WymUxSWTFtfckubeZjy4hL5ATby9FWTFQP1
+         rPlkhbpNxjRMpZEucWYQFoF+/kOSUWNmK2935w18jFjUOZ99PHix68P2FwzAbxfZwt4Z
+         iA5jjd0ueKlJqMVz/lwwVcZgMvae7sXmMFh7uytPKiu4pn+KvluxnHX2nu71vCuluMG3
+         LbM11gsmx5HjgwVYawv6DdLDbOnlUokN3+GvZd+ydXQZ7JRM3N+V4CF07qUoNeexELV3
+         Bepw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1O2dVG0Kd+E8qvGTLzr1r1H0q8LiKd8b2DGrtFQ6Vb8xtKs2zvNvjK2kzhddp4ApcdQbYIUw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqHm+tJ7DyCC8QV04qk3vK8RnnmaqvvGKrp792zkBQX/oSqXP+
+	dMbVs/MWA+LtqYmIERddKqVjnv8roz2sPLb9OkiRW0ADMKy6fYiNh15r
+X-Gm-Gg: AR+sD139dVFj/NaniGTXWmOoWVRijqK4TUT/qgawI3RrFUoQocKI4jDi3Ozqle8QRbf
+	XTQdO6VAVhDgVvhKEWmuJLT8O0fLDAewYVRz12hm9fTKK9kgM3a7jo9IZrdPwRxK40WWNgtXCgD
+	sLEOahNR7EXWiSsm40lKbmobY+cs5YZrqtEdtK3zLEHf10kKGG3Q/UA+ctlhPNi3cXhM3nN9fZX
+	Eqwp+beckiaDmulUeP9kjLgDrNGIRLa2E5E1iH8fvhUHAqsoaDSQyFir9X9L3MEHue3g98C3H37
+	h+Ur/oJql+XXGLc/sjZCLDSV8lI76qxZyhFj+ImVqxXgT59Yb86vP3F8wDXoOeyDmLi13s+Y+0c
+	JBKV4xb7/Rs3Awf3cZcG8UfuL5Ji7UvEbBkPMIiLDkOfQS83ZkCo/yHTK0c/Q1kuR4F5P6Gtla9
+	ERGoCAWSMO60kW/6ap/FvFoghW1HLTn34mXff4xcRN8SdpCQLfzKlAiiIHEtQdenwqqtpU7y6Mb
+	LihmffpJOJMieWkNU1o3KsE7g==
+X-Received: by 2002:a05:600c:a0d:b0:499:bdf1:7578 with SMTP id 5b1f17b1804b1-499dc6e9b00mr69476415e9.3.1787751407615;
+        Wed, 26 Aug 2026 06:36:47 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dcad0cbasm26303825e9.10.2026.08.26.06.36.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 06:36:47 -0700 (PDT)
+Date: Wed, 26 Aug 2026 14:36:44 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Harry Yoo <harry@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter
+ <cl@gentwo.org>, David Rientjes <rientjes@google.com>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Alan Stern <stern@rowland.harvard.edu>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ syzbot+805630f1453e490427fa@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
+Message-ID: <20260826143644.5b3de07a@pumpkin>
+In-Reply-To: <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
+	<82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On Wed, 26 Aug 2026 11:28:12 +0200
+"Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
 
-memory.min/low is silently bypassed for MGLRU during global proactive
-reclaim (writing to the root memory.reclaim) and global direct reclaim.
-It can be reproduced as follows:
+> On 8/17/26 22:40, Zi Yan wrote:
+> > kmalloc is used to allocate physically contiguous memory for kernel
+> > allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc uses
+> > the page allocator and can only support up to KMALLOC_MAX_SIZE. For request
+> > sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
+> > because kmalloc allocates an order greater than MAX_PAGE_ORDER. Systems
+> > with panic_on_warn=1 crash because of this WARN. Fix it by rejecting any
+> > kmalloc size bigger than KMALLOC_MAX_SIZE.
+> > 
+> > Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher kmalloc requests")
+> > Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+> > Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@google.com/
+> > Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+> > Signed-off-by: Zi Yan <ziy@nvidia.com>
+> > Cc: stable@vger.kernel.org
+> > ---
+> > It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadgetfs
+> > requests excessively large memory from kmalloc. Instead of adding
+> > __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
+> > kmalloc to return NULL without a warning for this specific issue.
+> > 
+> > [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively large memory allocations")  
+> 
+> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
+> 
+>         /* Don't even allow crazy sizes */
+>         if (unlikely(size > INT_MAX)) {
+>                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
+>                 return NULL;
+>         }
+> 
+> This comes from Linus in commit 7661809d493b4. I'd do the same thing here
+> then. Thus there would be a useful warning for e.g. development mistakes
+> resulting in the size to be unexpectedly high.
+> 
+> Callers passing size that comes from userspace or similar untrusted source
+> can either pass __GFP_NOWARN or sanitize the size to what they expect to be
+> sane (which is context dependent and I assume actually way lower than
+> kmalloc limits in practice). Note that passing even sizes within but close
+> to/at the limit, trusting blindly some external source, can succeed the
+> allocations but effectively DoS the system with heavy reclaim/compaction. So
+> caller sanitization should still be preferred IMHO.
 
-  # echo 7 > /sys/kernel/mm/lru_gen/enabled
-  # cd /sys/fs/cgroup
-  # mkdir -p a/b
-  # echo 100M > a/memory.min
-  # echo +memory > a/cgroup.subtree_control
-  # echo 100M > a/b/memory.min
-  # echo $$ > a/b/cgroup.procs
-  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
-  # cat a/b/memory.current
-  222650368
-  # echo 500M > memory.reclaim
-  -bash: echo: write error: Resource temporarily unavailable
-  # cat a/b/memory.current
-  6070272
+Indeed, and sanitising the values early on saves all the size_add() and
+size_mult() operations (that are just saturating maths) but still let
+through the 'DoS the system' sizes.
+Mostly the actual maximum size is actually small. I suspect limits like
+64k, 1M or 16M would be appropriate.
 
-memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-protection.  The traditional LRU path is not affected because
-shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-visits during a top-down tree walk.
+David
 
-Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-moved the protection computation into lru_gen_age_node(), which only
-runs for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
-lru_gen_shrink_node() -> shrink_many() without any protection
-computation, so emin/elow remain stale or zero.
-
-Introduce mem_cgroup_protection_path() which computes emin/elow along
-the root-to-target path only by iterating through the cgroup ancestors
-array top-down.  This avoids the full tree traversal that would be
-needed with mem_cgroup_calculate_protection(), limiting the cost to
-O(depth) per memcg - typically 3-5 levels.
-
-Call it from shrink_one() for the non-kswapd path so that each memcg
-about to be shrunk has correct protection values.
-
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- include/linux/memcontrol.h |  7 +++++++
- mm/memcontrol.c            | 42 ++++++++++++++++++++++++++++++++++++++
- mm/vmscan.c                |  8 +++++++-
- 3 files changed, 56 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 7d1c0ce189a8..26be8277d64b 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -605,6 +605,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
- 
- void mem_cgroup_calculate_protection(struct mem_cgroup *root,
- 				     struct mem_cgroup *memcg);
-+void mem_cgroup_protection_path(struct mem_cgroup *root,
-+				struct mem_cgroup *memcg);
- 
- static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
- 					  struct mem_cgroup *memcg)
-@@ -1133,6 +1135,11 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
- {
- }
- 
-+static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
-+					      struct mem_cgroup *memcg)
-+{
-+}
-+
- static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
- 					  struct mem_cgroup *memcg)
- {
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 1271d390b617..c739db33b917 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5198,6 +5198,48 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
- 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
- }
- 
-+/**
-+ * mem_cgroup_protection_path - compute protection along root->memcg path
-+ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
-+ * @memcg: the target memory cgroup
-+ *
-+ * Walk the ancestor path from @root down to @memcg and compute the effective
-+ * protection at each level.  This is safe for isolated queries because it
-+ * ensures parents are computed before children.
-+ */
-+void mem_cgroup_protection_path(struct mem_cgroup *root,
-+				struct mem_cgroup *memcg)
-+{
-+	bool recursive_protection =
-+		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
-+	struct cgroup *cg;
-+	int root_level, i;
-+
-+	if (mem_cgroup_disabled())
-+		return;
-+
-+	if (!root)
-+		root = root_mem_cgroup;
-+
-+	if (memcg == root)
-+		return;
-+
-+	root_level = root->css.cgroup->level;
-+	cg = memcg->css.cgroup;
-+
-+	rcu_read_lock();
-+	for (i = root_level + 1; i <= cg->level; i++) {
-+		struct mem_cgroup *cur;
-+
-+		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
-+						    &memory_cgrp_subsys));
-+		if (cur)
-+			page_counter_calculate_protection(&root->memory,
-+					&cur->memory, recursive_protection);
-+	}
-+	rcu_read_unlock();
-+}
-+
- static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 			gfp_t gfp)
- {
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6dff207ad8c6..e572d2742c8c 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5102,7 +5102,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
- 
--	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
-+	/*
-+	 * For kswapd, lru_gen_age_node() has already called
-+	 * mem_cgroup_calculate_protection()
-+	 */
-+	if (!current_is_kswapd())
-+		mem_cgroup_protection_path(NULL, memcg);
-+
- 	if (mem_cgroup_below_min(NULL, memcg))
- 		return MEMCG_LRU_YOUNG;
- 
--- 
-2.34.1
+> Some of the recent
+> arguments from Linus [1] would apply to this too, I think.
+> 
+> [1]
+> https://lore.kernel.org/all/CAHk-=wiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=TBGGZbuhQ@mail.gmail.com/
+> 
+> > ---
+> >  mm/slub.c | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/mm/slub.c b/mm/slub.c
+> > index 0337e60db5ace..a3071f4ef1945 100644
+> > --- a/mm/slub.c
+> > +++ b/mm/slub.c
+> > @@ -5263,7 +5263,12 @@ static void *___kmalloc_large_node(size_t size, gfp_t flags, int node)
+> >  {
+> >  	struct page *page;
+> >  	void *ptr = NULL;
+> > -	unsigned int order = get_order(size);
+> > +	unsigned int order;
+> > +
+> > +	if (size > KMALLOC_MAX_SIZE)
+> > +		return NULL;
+> > +
+> > +	order = get_order(size);
+> >  
+> >  	if (unlikely(flags & GFP_SLAB_BUG_MASK))
+> >  		flags = kmalloc_fix_flags(flags);
+> > 
+> > ---
+> > base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+> > change-id: 20260817-limit_kmalloc_size-3a4a2c73beac
+> > 
+> > Best regards,
+> > --  
+> > Yan, Zi
+> >   
+> 
+> 
 
