@@ -1,121 +1,51 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC69E36A033;
-	Wed, 26 Aug 2026 05:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466A425DB12;
+	Wed, 26 Aug 2026 05:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787720642; cv=none; b=bH/G3pJ4vpzrbFTcAi5al1zIhL05/G2yBMMXkpghaWxvhoiatG/T0mO9Wqa5FtOzSVjEA/bPFBFD9WGg8luBhoBaQ29f+RecuhUW1PwPMxPN+0WC0eU2NzxvJXAQ2V/ce+0OxTy9QlNn3v06alFE9S1v69u6nHpRV4jBopkpdC8=
+	t=1787721010; cv=none; b=NJR62B8j0ZSkE7g/oQPh4QRz0hwPoKETJ2xc5W9zW6BKXAwHh0Mvli8p2n7zyBxngMbBAE4Hr7vMkkgpQp9x/Dx/TF89Dl4pJtzg49xZxfMSAmAXfTw7fzM9BDPm8Hhb71w4CVZCVphbOL0uKsgi/ufcBkT3u+x0JS4R0/xIjBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787720642; c=relaxed/simple;
-	bh=lkonS1j8XZzCCBkt3/6hLqSjwdXUu7RGlnrr+qq4CyY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X86PzggeaDJbY+veHvJ6pA/Mils40PVqKKcwS2XS7j2ql3HAI8Tvrp5Ktmhs6JOd64NYThed8Mw/K8i9K5KlAJgqdFdluxChqRhPZhROyZybsDAbfssUyVf0IG21jcpQPNcZ6iRjCHkwBxb+e+M+Z8vRY0MDK5bmlTx2ZTDLgCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=wYzP50Iq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LCHmWFe6; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="wYzP50Iq";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LCHmWFe6"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C9B7A140008D;
-	Wed, 26 Aug 2026 01:03:59 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-02.internal (MEProxy); Wed, 26 Aug 2026 01:03:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787720639;
-	 x=1787807039; bh=Hmh2sQRFnZT4fsjBrs4McWOGbWemtA52vs9VOTGtjTQ=; b=
-	wYzP50IqwkxaBsWEolMyHI8lC8Lkwg568AbSrjctUJZuLUuNt+WJ0n6X0EbgpdBh
-	uajD6msPve2UBa9qrSNjytFG5gnKguNLmTQNXiumvnsGxebRvbFVX4ejDPKXanDD
-	HI72jNjzf6vCgiPBHD/Z1kZWuJmWjg2Rhy7t1f5qdyvLd3grRWXxFnMgyaxB7AW3
-	sui6ag7kcUZnFVPDfjZOGEM2pTgXO0WHJruoiGfrL3VuaVWX3tShRy5w+TIXL4xf
-	HwwFf6gxzG2BXYW/44LOSx4FUQ44hM43PmKF8DjUp+LFQoiLcdbER+UqjL68soYl
-	ygc35j6ntXQLicjfEdDEXg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787720639; x=
-	1787807039; bh=Hmh2sQRFnZT4fsjBrs4McWOGbWemtA52vs9VOTGtjTQ=; b=L
-	CHmWFe6D+VjSwrpXkyWv6mPUaYmq/b8C/UCXkyocTaBy5aSX06t6hpiXKJPlE7s+
-	69m8z2lUKghvq1gKD5C8bpXZODK7PYGXOXnGZXyL2w++mLDVmxcViKBV4W2cAyvu
-	QMCtLvn7Mt4F+2W1b9FE5nsdXBSpvRUtXhr8zaebbF52k5gGHBcxmC41Buf4T6sT
-	uZWQdBuoS8JAVpRiZc/sTtV2Uww/su7V8a9PRi0nyX2sskT/qp2wgANIg8WCOYzY
-	cZzA7JKef0QCaXLZkd/3kssC/z1itcHNiwxIZDpJJn2njZ9SgeoXF4aaTZ8Uxm25
-	/Otgx3P25792PWG+9EY2w==
-X-ME-Sender: <xms:vnOOaiO6wwwwMvC77ujUtm05okbRmsXt8aYQAFpqpE0OB3OF7Vfslw>
-    <xme:vnOOas0B2RbLoLL8YNlD6sTBlPKoeR0asmBqvw33XYFQQFyuzWXxcgsjajbnLfybp
-    MKkMXODB6ybCxGCRnw10hOsv4_NVyymmzX-ket_w8-E0FBuTUqyQh0>
-X-ME-Received: <xmr:vnOOakzZEyrPyp8JWWKRbDrKpJaci97A3-5ZgcojtPuI2xVQTDS8vl2lh5n83-FerzKVdUoqnLWjYGOhbyHyqhN-V3MrMrku>
-X-ME-Proxy-Cause: dmFkZTEad7EeqEtnPQV944oIis2ZKhtdP3ahcWkQr5y2PpqhOmTlNDxTKpAuijSa4h1zTO
-    tIBW1Ky95rch5CjMSBAdKaMhj+asQgk9fPvChFzfy1fGZ0Xr26qXBDry2nA+In/F4s9N8p
-    WkDkb1rkGJNkKasMABYJU2vp65tHh1Fj3LIuWRYCMbVxTMf+9kNR8tv2SSUZ6TqVw3ecJo
-    6ppkK9wjVej2+EW/di2tpIuSCkjPnmF0EeKaGG/71EO0V7tDT50/N21e5k5879Nu39ghUc
-    jJPjcM/Ybg4rHuDPqVLVWaTRstfhYM1S1J+YuLvR8fVbasZ9QjN11Jx7xy87Q7x32o66fo
-    CKVdS6fKVBs1iqxkPyswYOi+1okQZaje3NNTvzOCnTz3I0K1oH8UEj+5sZDdvreDx4JYox
-    ozddzhbs9MJsdeGDVcAkYFhqv04AFG9zGjCpITWzuNWQ7i6yhppxTUyKoCtv2XYkT567Q/
-    egCDECQKfPlDCyFTGlZkq8y11MmwwYtiix3GK1tWSOwB8rU+EVE/WSCP4FB54Dvj6m2pAb
-    FVv78p9uhwsT58ZLazlVXcwo5+6010uCLSrtyhDPBhbj80OF7nB5QrLZr/JTlNAlsryuPF
-    eksdStMtVsAnYXWhDgEqLfU9KATOAO7lpRZ3w4TO6nGOzPNwnlp6GaUBiJ7w
-X-ME-Proxy: <xmx:vnOOamq3ME2AFSDHebZwXmDzJdvOS3ezS8fQyqgB-FtBkqi6CKyB_g>
-    <xmx:vnOOaiUNqx9hWi1nebxNyiwK-SvvG0UaOKP4texT4NA7DZFEDtFD1A>
-    <xmx:vnOOalptGx5ZSTAibUzwdPhaTxztOUrR_hi9ZMHy_SVTUi4UeaqqvQ>
-    <xmx:vnOOauGMrlpU3teGhJLfe-9XfqbtRg3kuwcwYjWUQeZCzsULTN2LWA>
-    <xmx:v3OOamAS-lUV2rYxv35wJP-HO-eTCdk58S0Ul2AKK-nh7xiVN3J4Wt2E>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 01:03:56 -0400 (EDT)
-Message-ID: <aad5aee7-d385-4978-ab22-fd30365e345a@pobox.com>
-Date: Tue, 25 Aug 2026 22:03:54 -0700
+	s=arc-20240116; t=1787721010; c=relaxed/simple;
+	bh=42Xp2xIARFZivE8Y5QeDfyjbtoM1WSVptRmqhh1fqY0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fKlGBNmqKOf8kNwmqdRhPxXAe94PkgO+BHNr4qdWh/I4FpMFNEZJqLaYjgDfsjFy1B2xU3lqo/ynPbo6gi59FjaMsYLM+/PnkWIJXVj/js2iyEZ5gLfO1r2McKgcevcQVp9m3c5Z+5r6yeBgWmrueIDLNCup4fM/Yd+XRD+IWDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 383C168AFE; Wed, 26 Aug 2026 07:10:05 +0200 (CEST)
+Date: Wed, 26 Aug 2026 07:10:05 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, cem@kernel.org, stable@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 1/5] xfs: always set xfs_healthmon::first_event when
+ inserting at front of list
+Message-ID: <20260826051005.GA15449@lst.de>
+References: <178760941052.944364.16602293998794359025.stgit@frogsfrogsfrogs> <178760941102.944364.11828316232110118627.stgit@frogsfrogsfrogs> <20260825064017.GA24532@lst.de> <20260825183308.GW6072@frogsfrogsfrogs> <20260826044820.GC14936@lst.de> <20260826045432.GB2114998@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 00/57] 5.10.267-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.342390421@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260825132541.342390421@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826045432.GB2114998@frogsfrogsfrogs>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On 8/25/26 6:26 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.267 release.
-> There are 57 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Tue, Aug 25, 2026 at 09:54:32PM -0700, Darrick J. Wong wrote:
+> > I think we should do this.  And merge __xfs_healthmon_push and
+> > __xfs_healthmon_insert that has a at_head argument to switch between
+> > list_add vs list_add_tail.  Thart would make this code much easier
+> > to understand and maintain.
 > 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.267-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+> Ok.  Do you want me to mash the list conversion into this patch?  Or
+> just do the bare fix here and the list_head stuff in the next patch?
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Either way is fine.  Personally I'd just fix it by using the library
+routines and probably split out the cleanup (merging the helpers),
+but if you prefer fixing the code before removing it I won't object.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
