@@ -1,150 +1,101 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554D53A7F75
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787731888; cv=pass; b=ihhw9CZ98HUa+WikjghmrZ5BWL2cmb/taH8KWxtDxv2dK5T/sW01LIrToYHty7KdXume91FwjCFYYkvwZ2C0Eff5QyzU2yLvO4Vogwpa1BRnX0d3fU6quaHKjPddfXiMPOYZNQoavX6ei5jy0IBYs/bese5ZvSFH730inCg3pmM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787731888; c=relaxed/simple;
-	bh=mXxLXyr21mdwImm9P7kpToLiwlq+gHr9hLXXNi9rmnI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m/WcvMKYMnGJfOPa+o9TkUr2KqrH+n5IBeryzNhUT88cmz36gd/zws26MbQIYa4khyQaZ+WXY7K5vEhRXZpiDsPBEJ+gIORFi9Tmxfn9lbeAL4dTXYNsYfdsdx2fY/aXy+ITh38rup5MeIU4K44R286lr9ukYdVpwACgEnL5X6U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mMiVLDMm; arc=pass smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DBB32C94A;
+	Wed, 26 Aug 2026 08:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787731908; cv=none; b=XF8yr1zqS3njmINeJ4CwHMPQ8Ubx+N2d0wrAV2Ao6aHwT646OkDAzmrHpBkVJfKz0XQ5Od6YG9MmxdsKqhsCTmHhwC8azKvH2OQ/GW+P4MhQATNZUBhHEW8WBjL0fBnxvZYT7tFaXo2eKRmZ7PbHs5cfG2sxNkhk4dDmev5VHSM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787731908; c=relaxed/simple;
+	bh=QbuA9sCDms1plCJVTFINo6UU8t19ff1R+sOLb+97I3Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JD5iMYbmZNsKCVKOLg4A+K2wlXmZXUJyzOatBn17ujbQHWdVo/IY5XX3fkbXNKZaIpnlckspMcQtMye4aqLInF9cY43IYFGaq4WqUakmlPXvaARY1YTYWwsV+ihrXjgoCpBSn+MDRfkQIerZgEB8aRp05LNSK3xWS4dLQc+s0mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePHnLnjC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mMiVLDMm"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66d1663c00dso562077d50.2
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:11:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787731886; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B8hEYFctczq+8EDO0HGNPFs/9cea0DCjegxY2hB2q6D9hK9Q9PnNB5K9iJx6jxqBJC
-         8yv7CjR2L7F+MNpmO29zKNmLMznk8N/XXnzeFZ8WU5MTqDoAHEg7LKlKSS8+r5YuL+Jq
-         yNquxafyGMMrqg9/cFS0HjO/hCG6TyrZ8sv5+wuEvGvDdxEstuF18hhK82QqCuMhhJnE
-         y24N4nDzW3nuX32k8Wc6K8pYCRMFGkvAiBUyjCONdfzlZFpC2pXjqEgcRJkZ3JA2Gua8
-         MDcras2Sj4qtD9n0Lwyeac4pEmVqkrk8X5XegXghQDsBbhlMFePUPLuti4EvuioSAI4v
-         YGBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=mXxLXyr21mdwImm9P7kpToLiwlq+gHr9hLXXNi9rmnI=;
-        fh=fQJD9xSa+M4n9/vP2jDjpt2w6PuEOs1IQsyTesheI2U=;
-        b=DTGIuSLOtQT0AHQbB36i3PPHnxDdCbf/jRYXG+My/Sf7fRC2CjnsQLNWkET5Re5W5v
-         P5ZEE/+pi4Yh9hgJOpGLTjUCwCW6ZDohPNEtOQVfB/MOfctOwGAGYWV316MK/V/aJOWE
-         ADD+OlFFYC844MomGEmNBonnudabB9lVtsmS50WnTZzr+/xsHChJS4k9MYbd7nypGsRj
-         PXF2GOWqYQMLT654BcsVZI2xZ/PPPvwYMbRQ8v0XaYgwsdxuXgLdivNvOce0WmPeKKHK
-         BeO5xPF4Ikfxf4cU1+0mfMypqDB5VzktoxNn4U8yK6tSnFozt8lAOFraycrqcPYYTcCB
-         UEDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787731886; x=1788336686; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mXxLXyr21mdwImm9P7kpToLiwlq+gHr9hLXXNi9rmnI=;
-        b=mMiVLDMmwbb6Qlsi9CZduOsXPgJsF6H1Uj8j0tv0PiLmvLtVs6pFNTXJrnQfzU7xEr
-         V9YtRBFvEEnkv1l7kaC8RidmhmLiS5Muh61UZ8tIuxlUIqo6iI/huUjiAHJXnfzw6TuD
-         X5jUcgkNusovlDXnjn7SpNL6Qd3bj+qH41jZxouLN3O8SZj+Q7AjZ63GlKBeGa8JjCQR
-         /CdY5joLpje6yQKkDuyI4GYKicovdX4iDGh8j5HGs1RqRXBnOZIu2KT5JP8rw93qyPaf
-         MZLa3rp9hRHKlYIO0ylKonXv97wKiShbWTME3uIjM3LlBId374OxX/H3w4ckENgbCSZp
-         GM/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787731886; x=1788336686;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mXxLXyr21mdwImm9P7kpToLiwlq+gHr9hLXXNi9rmnI=;
-        b=ZdHvYKw8M/vpHWVDPsBYRwG87KYGOIHZYYfukpOBMTcihqXDxlncv6Ii/VQrOLCK5Y
-         67j/s6MeG2N5NVLfy6GSLpjOqtdPDbBsigUANY7jrixhmcrautR5Kf9LjrB8iJIoI5Gc
-         If/S/4txccZmfy3q4GtHyMGjCczOMc5jBwkecz4hvjGjH1EZ0CZRimjK5Bx1yWEsLvOi
-         DGrSllql/hNFJAxUq56Y1UIiuit6+v03Vh7U5y52yiMetERZQ42lxb5vqL97g8U+rtsC
-         dEryxOqMe0RqyGnoqkuvfZHM6wTghNduCE7bJn2AGMGL+X9bqZ03pRCYafzcDi9eOIhH
-         YkHg==
-X-Forwarded-Encrypted: i=1; AHgh+RqRb/A8S0J1UJus1eU5+TIdK3zVuG3K+9+ETWR4SPMg0gy3srDMvjfmzwo7qmKo8fOwOunNsAw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhEWoRuoHavdvSlvx36fsknCckMiY1hVpebDbzxCncw61HXYJR
-	5MA03KoFiC+uYO/wtdBLCiv2WJWoJlZW3xR3wB4skfP20eXonTsWfePYn07w/V+e2iB7hiYckuq
-	f1KELel9YyXFt5mcD9/UgvBXOU1oix9A=
-X-Gm-Gg: AR+sD10oTyzNmkgPYdMegYB/dWjlOKM6f0/3/FF3/klOceVIYLtybxNs20Uhe4BQ93W
-	TYRPeLLmB+9closDJqrem3qPFjl+kVfakFPnukA9Mn2CPTm46z7R61L5BSctq9RHm4EHvrxPgN4
-	02ujqc/y2pcN6nlpg1m2L6EZkTRVtKxNYE/ldv5XdEd4PAlX22DNJV+g5fWpyZI9ex8u6Ksv5DD
-	31/w8dAeYewUQ7/TR2Z++Eb2CcTsoxVnCS6Fyh125/7Py9cgyrEY+U1TTt8vyav4EbLJzKpDe1R
-	oun7V1vqKcc/85RK8JziQxZajf6s1VqdQqFICz+u016d0zk=
-X-Received: by 2002:a53:e9c6:0:b0:66d:273e:1196 with SMTP id
- 956f58d0204a3-66d273e1c3fmr963616d50.42.1787731886356; Wed, 26 Aug 2026
- 01:11:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePHnLnjC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A965C1F000E9;
+	Wed, 26 Aug 2026 08:11:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787731907;
+	bh=NTz+XP2ZmEJS+adHOO/Ohz8zpeHQ/sJQxx0X7QLGjQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ePHnLnjC++XvojUVKd/BioxVavElfpLaXW3WK+6BYE6qBGUJ/b1aud5whdp1KQYDw
+	 ZtzgLxJ3Q1eV4ZNT+DivuCFM0UCNDK/Cj2ggZZxOxGQvbXExjKEQQKZ9wcv0M51jvk
+	 BA3JxyBdJr3e5VPvhNPJBXtuiKvaBAGYhkbsTxU7cHXLBYY52/B8B1BhZKgqBoh1cu
+	 eU57qdTZnBw+AZpKNTwyDHxCrin6ioJKb+2A6U4pHLPGOqDUKra7ncHmmoaixbFHv0
+	 PsyAul+BvYzKh0z6Dw93KDuotgBQlmN/aZPaXT5K9yLrTwvrK8SppYHorvfL7DEOGO
+	 7s7jfE9aFKyeg==
+Date: Wed, 26 Aug 2026 09:11:41 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org, 
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, 
+	lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
+	Vernon Yang <yanglincheng@kylinos.cn>
+Subject: Re: [PATCH v3 1/3] mm: khugepaged: fix swap entry value to
+ folio_pfn()
+Message-ID: <ao6fSHW_nX8YC9QK@gremlin>
+References: <20260824092935.73892-1-vernon2gm@gmail.com>
+ <20260824092935.73892-2-vernon2gm@gmail.com>
+ <edd7ed8d-0f2c-4de3-89e5-f2b23c2dd1e5@kernel.org>
+ <6a9c2369-5589-4f2a-bcfe-c6e3b46a1ccd@gmail.com>
+ <c8e3bb54-e4f1-45d3-8059-3ee1910a920a@kernel.org>
+ <ao6c6Oe_KV0O1LJn@gremlin>
+ <b6fbf952-c619-4fc7-8a8e-62a0ae64ff0d@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260808151736.2934050-1-lgs201920130244@gmail.com> <e2b658d5-e846-4ce3-a42f-16f86acbf3e3@kernel.org>
-In-Reply-To: <e2b658d5-e846-4ce3-a42f-16f86acbf3e3@kernel.org>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 26 Aug 2026 16:11:14 +0800
-X-Gm-Features: AcwNN1UKGI8R9J607Eo1-mfi7Ht697aKEM3_-BNKkot6vLunRSNsSea1sgiMWBk
-Message-ID: <CANUHTR-PqW=7k5HmC=qb4LA19qM90OBgnTx_r-p21Lva3zzO=w@mail.gmail.com>
-Subject: Re: [PATCH] HID: intel-thc-hid: intel-quickspi: fix autosuspend
- cleanup during teardown
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Even Xu <even.xu@intel.com>, Xinpeng Sun <xinpeng.sun@intel.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Danny D." <d3z.the.dev@gmail.com>, 
-	Abhishek Tamboli <abhishektamboli9@gmail.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b6fbf952-c619-4fc7-8a8e-62a0ae64ff0d@kernel.org>
 
-Hi Krzysztof,
-
-On Thu, 20 Aug 2026 at 22:50, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 08/08/2026 17:17, Guangshuo Li wrote:
-> > quickspi_probe() calls pm_runtime_use_autosuspend(), but
-> > quickspi_remove() does not call the matching
-> > pm_runtime_dont_use_autosuspend() during teardown.
+On Wed, Aug 26, 2026 at 10:08:58AM +0200, David Hildenbrand (Arm) wrote:
+> On 8/26/26 10:07, Lorenzo Stoakes (ARM) wrote:
+> > On Wed, Aug 26, 2026 at 09:57:05AM +0200, David Hildenbrand (Arm) wrote:
+> >> On 8/26/26 04:44, Vernon Yang wrote:
+> >>>
+> >>> When the `xas_for_each()` iteration to terminate and the folio operation
+> >>> preceding is normal, but pfn will be incorrect.
+> >>
+> >> The PFN is only relevant when a folio participated in the failure. Maybe the
+> >> following would be cleanest?
+> >>
+> >> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> >> index 75639298efc27..371ee0b16d10c 100644
+> >> --- a/mm/khugepaged.c
+> >> +++ b/mm/khugepaged.c
+> >> @@ -2683,6 +2683,7 @@ static enum scan_result collapse_scan_file(struct
+> >> mm_struct *mm,
+> >>         int present, swap;
+> >>         int node = NUMA_NO_NODE;
+> >>         enum scan_result result = SCAN_SUCCEED;
+> >> +       unsigned long problematic_pfn = -1;
 > >
-> > If the autosuspend delay is set to a negative value while autosuspend
-> > is enabled, the runtime PM core increments usage_count to prevent
-> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> > during teardown, this reference is not dropped.
-> >
-> > The documentation for pm_runtime_use_autosuspend() also notes that it
-> > is important to undo it with pm_runtime_dont_use_autosuspend() at
-> > driver exit time, unless runtime PM was initially enabled with
-> > devm_pm_runtime_enable().
-> >
-> > Add the missing pm_runtime_dont_use_autosuspend() call to the driver
-> > remove path.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: 6912aaf3fd24 ("HID: intel-thc-hid: intel-quickspi: Add PM implementation")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
+> > I find this name... problematic :)
 >
-> You sent vast amount of patches, all separate, making it very difficult
-> to track and respond in efficient way. Do not do that.
+> Elaborate.
+
+It's overly long, I read it and am confused as to what is 'problematic' or not,
+it reads weirdly in English and pfn_xxx is the usual convention for naming of
+pfn's anyway.
+
+I made a suggestion in the reply as to how to refactor this to avoid the need
+for assigning the name like that anyway, if you branch the result ==
+SCAN_SUCCEED then it's implied.
+
+I did wonder about pfn_folio but then that's confusing wrt the function, maybe
+pfn_fail if you really want the name not to be pfn.
+
 >
-> Group your work per subsystem.
+> --
+> Cheers,
 >
-> You were asked to clarify and respond to incorrect fixes statement. I do
-> not see how you clarified and responded at all.
->
-> Best regards,
-> Krzysztof
+> David
 
-Sorry about that. I should have replied to the earlier review comments
-explicitly, and I also should not have sent so many separate patches.
-
-I will group future patches by subsystem and make sure to respond
-clearly to review feedback before resending.
-
-Thanks for pointing this out.
-
-Best regards,
-Guangshuo
+--
+Cheers, Lorenzo
