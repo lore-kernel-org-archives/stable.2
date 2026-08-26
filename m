@@ -1,105 +1,91 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4997B3F8243;
-	Wed, 26 Aug 2026 12:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636EB3FB06D;
+	Wed, 26 Aug 2026 12:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787746192; cv=none; b=McGoRfpnebxmJAZB8hsihR4Ns62V4EUheA4eNNoBQn9KTiEd6LFtrcYVy/coxR7X+GXSA5VpQnK7Cj8MnxhKtIsgvIQ2ejN8bCHShmm0ESJ54sbZaC09y81agrDCGmlVadQgMTWy2lBkJSPrUzwthcq0Tvg5mUHp/kSCip82y6k=
+	t=1787746252; cv=none; b=jIURoa28jV8ilVaQvgy4yY2K5rVW7yR2cVq3PFm3dW6RaEYB96VOpwZ+zsUqVlj9evEwSquaMWI6WitaxBEwNz17VrG51kvZ+k7D9LqLJfy3tQi499qfUGncHAaO1A5ik2q52oE+zMwbFlWYJYIpKyWaWMet/+Ra/el7FwgpqnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787746192; c=relaxed/simple;
-	bh=tVESxrkysASDZtz8u5tIVzEav1NZ7JHJDUehOyzURc0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VSI24187p4/2BM8lI+DEEBrWXdUc5MLEktUJV6krxWNO33A60LRuPHORxoSSj0x3HhSEFdyv0wfD8NpMzW/wrPj6fQgg0ua8vMLBMYjLCuqPBunAF3HYgtNM1tQ0Js8IeNAT+lRlkAibGpVIobbaKfW/qVBo4ZRVV1rRUvHNx1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WezzRXDS; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WezzRXDS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=OR27lAMvT0wF9I/E939+cWjWXgTuo5inFEVMKcGCh9s=;
-	b=WezzRXDSeSh2wfN+BaAktVBWAV8ueUi3u4Yx6PxD0fKKEV1GC8MOisuie2BxR4
-	onplNV34E0svtUPrFZprnyJZA5MozC3aA6JjyEVwOGIoPChP7/LGQVHXl6oRzdU9
-	6GlUdMiittci76FFpjSY0EkFn7XHdm7LqTE4WpTnyS5Mk=
-Received: from [IPV6:2409:8900:1ef9:dee:fd7d:3170:e603:8258] (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wCnD5Ri145qRTSASA--.60674S2;
-	Wed, 26 Aug 2026 20:09:08 +0800 (CST)
-Message-ID: <28cce6b3-60ea-4ff5-b5bd-ff5c11516b08@163.com>
-Date: Wed, 26 Aug 2026 20:09:03 +0800
+	s=arc-20240116; t=1787746252; c=relaxed/simple;
+	bh=JpIesa/fLBZmyrTNpYeBq1jSvJ0edJ2eXvLD4abHwSs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a+/3XX14UlUuJUDqvQKddbkUeHIn9IWf9Z+tWr3MD4dGHVwjkSZHJ8ipHL1HrTdzi3D3UPwyrY+wEGRn+Pc9kD7606DTl8f2siGzfQUZr//dRfKPwV48ss13MnWeyHFyZBILbVbDbkYcMNoAiwDxzWE+lvkrTujRuXjnE9Hh79M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 20C9D202282;
+	Wed, 26 Aug 2026 14:10:39 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wzCSl-003R9I-05;
+	Wed, 26 Aug 2026 14:10:39 +0200
+Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id BDC9C58CD01;
+	Wed, 26 Aug 2026 12:10:38 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Cunhao Lu <1579567540@qq.com>,
+	stable@vger.kernel.org,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net 10/14] can: dev: can_put_echo_skb(): free skb on invalid echo index
+Date: Wed, 26 Aug 2026 14:02:20 +0200
+Message-ID: <20260826121036.2706424-11-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260826121036.2706424-1-mkl@pengutronix.de>
+References: <20260826121036.2706424-1-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs: fix race between fallocate and mmap reads
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260826054204.1364589-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260826054204.1364589-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnD5Ri145qRTSASA--.60674S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF15Wr17uF1kAw4DWrykZrb_yoW8ZF1xpr
-	ZIgF1rK34fXryjqF1kKw48uF1rWw4kW3y5Wr4Fq3WxuFn3tFn7Kw4jkrn5WFyxKF98Xr45
-	Xr12qrZrua42vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTCJQUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gRNGGqO12TEVgAA3+
 
+From: Cunhao Lu <1579567540@qq.com>
 
+can_put_echo_skb() consumes the skb on all paths except when the echo
+index is out of bounds. This leaves ownership with the caller on -EINVAL,
+unlike the other error paths, and can leak the skb if the caller expects
+consistent semantics.
 
-在 2026/8/26 13:42, Hongling Zeng 写道:
-> The fallocate implementation only takes invalidate_lock for punch hole,
-> collapse range, and insert range operations. For standard allocation modes
-> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
-> 
-> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
-> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). This
-> creates a window where concurrent mmap page faults can read uninitialized
-> disk data.
-> 
-> Since mmap uses filemap_fault() which takes invalidate_lock in shared mode,
-> it can fault in pages during this window and expose old disk contents to
-> userspace. This is an information leak and data integrity issue.
-> 
-> Fix by taking invalidate_lock for all fallocate operations, not just for
-> punch/collapse/insert modes. This prevents concurrent page faults from
-> accessing unzeroed clusters during the allocation window.
-> 
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/file.c | 8 +++-----
->   1 file changed, 3 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 88747217ba61..6958a1469fb0 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -1153,11 +1153,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
->   	}
->   
->   	inode_dio_wait(vi);
-> -	if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
-> -		    FALLOC_FL_INSERT_RANGE)) {
-> -		filemap_invalidate_lock(vi->i_mapping);
-> -		map_locked = true;
-> -	}
-> +	/* Take invalidate_lock for all fallocate operations to prevent races */
-> +	filemap_invalidate_lock(vi->i_mapping);
-> +	map_locked = true;
->   
->   	switch (mode & FALLOC_FL_MODE_MASK) {
->   	case FALLOC_FL_ALLOCATE_RANGE:
+Free the skb before returning -EINVAL so that all return paths consume it.
 
-I verified the race window exists and the fix looks correct.
+Fixes: 6411959c10fe ("can: dev: can_put_echo_skb(): don't crash kernel if can_priv::echo_skb is accessed out of bounds")
+Cc: stable@vger.kernel.org
+Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Link: https://patch.msgid.link/tencent_683AA16E643DE00211CD2FB62991264DC605@qq.com
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/dev/skb.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+index c7be21ed70dd..faafb1033d42 100644
+--- a/drivers/net/can/dev/skb.c
++++ b/drivers/net/can/dev/skb.c
+@@ -55,6 +55,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
+ 	if (idx >= priv->echo_skb_max) {
+ 		netdev_err(dev, "%s: BUG! Trying to access can_priv::echo_skb out of bounds (%u/max %u)\n",
+ 			   __func__, idx, priv->echo_skb_max);
++		dev_kfree_skb_any(skb);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.53.0
 
