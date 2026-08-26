@@ -1,146 +1,121 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F447184524;
-	Wed, 26 Aug 2026 10:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA32637F339;
+	Wed, 26 Aug 2026 10:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787738753; cv=none; b=coM1yFodB20P68hrYulynjWKsyjx+8tLWA6P9jWV3eWyOqm8/QhtJ+FyvSKX/TZ/n16k1ggzgY7EGOaeVe1LiFFLE1N2a92/8OvmwqsV19Lo4PZw0ZtEkOEXWjaj7UaDl+rk1agC47J9/swUYDwYCKCYCdi6WX9mRerlfQzl3os=
+	t=1787738769; cv=none; b=hqRYY24KL3g73wVybk6QvhG4RHrILZ8HQoqBW06Ho3vUTh9CI8e1gcoE2IT+MbyCEfpgaudV3rymtdAIKyBJJenpIoCZT6zz3XBj7u7k0/1pjaUfOVLD13YBBfQRVFHnmeFMxZ43zahnQH/ggvl43j3TtQrAC90p2cfUSSSFPUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787738753; c=relaxed/simple;
-	bh=glXVtIQdJhH2pcno9ro3WEksTGlJcK305M6o2dxO/CU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Mqx0KaqqPOFt+ljOJlwy34VfSi2OaulS8ij+c7jYKiX4WjgqIcgcOTcIA5Dav/fDo0+bl94thoiGovMOeit+PJ1OuHNwHbf9m6tfJgThlvpb4ZTnamRS8jPjPLYjUT4k3zRKTMs+4qfiXuWF2rSUl6zbCz7n0EUbHdqPejlbdAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oRB9S1fG; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787738769; c=relaxed/simple;
+	bh=le8OMlTOlsxaAIB65m7aJDrRyIC/2Kxw1/mA7tkT8F0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OKcNBr1udxxaXgyNF2Spyh+mZbVH/9x3q4ZuX0/qkFY/M5BgUIRtuwt3x769crpOlfsL2aOXX8c7+JvEOzqAEmIBiYEuHxOkXi1g58EIKVkLh4uOX2YGfFhrUJp94ZAx66xuodAIXrv68DUkkUPwJE5zL50ksaUiejAywS20lGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=VyOtJj+W; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RUypcvU0; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oRB9S1fG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9L
-	VqB061la4DYfd6hh7Xv4e5X+jspRnDO2GKLNTEToY=; b=oRB9S1fGVRWJcyYZua
-	QpW9QqCylTxS4BMKnrlat6bz1a5l2vRC6sgmkeB5Wqzfmmo5ZFpwIVRtui47mF5M
-	lYA+/Z+fP9JRLOcuaPbpWs4oBJ5ydaWWz765l8h03gLJQNoCk2d1kVLxkIhcjUj4
-	ym/GaVkEoNcw6V2ACBj7MOVrc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wCnHhlouo5qDh9vSA--.16080S2;
-	Wed, 26 Aug 2026 18:05:30 +0800 (CST)
-From: ghuicao@163.com
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2] scsi: target: iscsi: Reject CDB size exceeding available buffer in iscsit_setup_scsi_cmd
-Date: Wed, 26 Aug 2026 18:05:26 +0800
-Message-Id: <20260826100526.106011-1-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="VyOtJj+W";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RUypcvU0"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id C32B5EC00E7;
+	Wed, 26 Aug 2026 06:06:04 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-03.internal (MEProxy); Wed, 26 Aug 2026 06:06:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787738764;
+	 x=1787825164; bh=A/t1h9nEp7GIUkieJCgOemdJENah2+btWKbk5oZfpAI=; b=
+	VyOtJj+W9c5+RuU0Ip2jOleaAB1b51ILtd13c3cQUYFqVdfyAeyURKYPefrXpUqV
+	bnbLHo5PBNhf67UVFpI3P63/1IyyCol6f31N2OL9z+HMsDIej9Fbu5NWZqewZQmc
+	hufwuz7G16T4KvLtyRjKdYyZKPh02V372f7gJpHsUlE9msB5jW+ufyYiC5SB2iB3
+	mEECOuHPMvdUogHY3LLZtsYoF1zvRRFGUH9mjt+/9AoQu9k7Li2RLGLVWY/UqrUz
+	J60I16LE27MB0ICx1SXWQpgSy0eNt5svE+afrLX45YjJzECWfZQOAr/9ZVOQg/rc
+	/3PUxI94vrCbd8LbEGg1Og==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787738764; x=
+	1787825164; bh=A/t1h9nEp7GIUkieJCgOemdJENah2+btWKbk5oZfpAI=; b=R
+	UypcvU0GwYDVHVJu56GdnDh8BEh2GeHknxTIe3AaDfRdc8V7Ay/GmiM5QMuI1kDb
+	OVNhZGwA1/Dv8HQhcqgigSnQR0zDY5uFc/sIq6WqYiLaEfwPXpC/qc41cIY3tz/S
+	lLVx6+CGQ492dVAduG8+cWOe9ZHGwPaAGe1QRJuFx4JcjVVzj66pdyPa1DXldSCd
+	9h931Wer2/blw6yfM9Ryuq26FbIQJFZasdW1mvb3aCED29KUupabC9/QYWcYKW0P
+	8ePL+xvDilmVVAi+dNUNnekZZ7W6vQa9O50tl+wb5i46oY/bcgFUcpadfEcd87el
+	iic9mMoITuU7qI1eDj6qQ==
+X-ME-Sender: <xms:jLqOaisNExAES1rEQcRgxUpkWFulosaUiBswlFI6n6ZabpDr57Oijw>
+    <xme:jLqOajWMmD-ZC2Q1vUswmGdnRamhaktt8QmQfV8RZVScXi2S_JMe00v7Ppcz7L7Sh
+    FLxKwXomtT-MjKw9QbQbwhJUFzs2GXTkCmtFig5V0ATgwPHNHUO6MC3>
+X-ME-Received: <xmr:jLqOapQ322Fbryi9ikh5CXRBYgUyVgSPiJC454jgldhzsahTCMWZULKjth3ECKnc5HH9ZRWe8lH0N33QaWBqM4OTCsFn7PoJ>
+X-ME-Proxy-Cause: dmFkZTGuzYL1BNN0QJqYzOk4WDsr7ywCNBSvbQ3C2NmgDEJwIaAPX8Mv5ou/8X8FumRP4F
+    X05UJDj3n2W0RW8YUR4KR4sgDkRrSM2Fm/k4Khs91rNbVl5RxfMPYwYhFbAL4BSOL/FPmz
+    pAWLJeYNziONAmfC5fotiu1i5MAKd+gle3GUZCKyeJflYMdRCzKVPUw3Z+Pbad3wRlcAb2
+    u3zUF6dTWP+ANQF/TDbweRRmnqVUCu2g+0YzCZ9ynLsR11yHQ/U+5uaLf4axQIQ/pvwmcN
+    Bc/KnmcMf6BSXgPz8el/pMNqGNmQ0p8lyZbs5yqN3KjZgVeHJAlcSw3VYPbr7FfZVwpknI
+    mbVn+yjCjop9b5w4Cw5htzZji7zI+UDIGrj+Yl26KPCil9/6J1rewEco5iXZpmiJ8j+rz2
+    +Ayr+0G3eMZiQMB/DqqWC1Xr4Zbx8dkhUNXOsOgY3hx7AJL7w5GXXKwPSCAPQPsWdvvedJ
+    l1RJxvqGENOMaLLoQSv8G9gEW7kcV6fTWyGWIx7vd5Ls0FoJZmROkCbPOAfxzPW7jHMlAY
+    lQ+hVlbkYem486wSiGKvdtHFuUhBowdjZrhoH5D58ClQ3WNl2h4t9g0W34MNMyPEtx1+Bs
+    epXdZbUPpRoqduN8I6O/hsYFit8qLEnwlKkr3CX0ly8eM+sIDRgeQ/kAGwXg
+X-ME-Proxy: <xmx:jLqOahKMKIYtW5Uj7tyo62WJeI231ShtNUNLQzsDH9G0vLOFlSCXRQ>
+    <xmx:jLqOaq2IH8W8TH0UEGv-JOFjUZXOMJ2jud_MEuhkiThUXsb1-9agqg>
+    <xmx:jLqOakI2EAnPkere37xuTnGdrgODW4BiCU9VmVsFCW45Hi-BoV8Kog>
+    <xmx:jLqOaqmHSLfev-qr3qovNGJiVoCaJQsJUokVHOyca29DZlISZwCemQ>
+    <xmx:jLqOaujkRIohUIo23UDIcVdNj6e9RLUPM4U4ZqfbJEvrl_fpFebN5t5V>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Aug 2026 06:06:01 -0400 (EDT)
+Message-ID: <dfc986ed-6e89-420f-b281-d0fb3e6dbe11@pobox.com>
+Date: Wed, 26 Aug 2026 03:06:00 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnHhlouo5qDh9vSA--.16080S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF43Aw43Wr45Aw17Xry8AFb_yoWrWFy7pF
-	42gw1IyrWrZ3yIkwsxAFWYvry5Zrsaka4qka43K3yUCrnxGFW0gFy2ga43WayUJ3Z2gryU
-	Krs0va48GF4Utw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jY5lbUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC3woHmWqOumrD5gAA3a
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 00/87] 6.6.154-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.813800447@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260825132541.813800447@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+On 8/25/26 6:25 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.154 release.
+> There are 87 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.154-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-In iscsit_setup_scsi_cmd(), the CDB is later re-parsed by
-scsi_command_size() based on its SCSI opcode. For a VARIABLE_LENGTH_CMD
-(0x7f) the returned size is cdb[7] + 8, where both cdb[0] and cdb[7]
-come verbatim from the initiator-controlled PDU. The amount of CDB data
-actually available is never cross-checked against this opcode-declared
-length before the CDB is handed to target_cmd_init_cdb(), which does:
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-  memcpy(cmd->t_task_cdb, cdb, scsi_command_size(cdb));
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-An initiator can set cdb[0]=0x7f and cdb[7]=252 so that
-scsi_command_size() returns 260, while the available CDB space is only
-16 bytes (the basic header, when no Extended CDB AHS is present) or the
-AHS-provided length. target_cmd_init_cdb() then reads up to 244 bytes
-past the end of the CDB buffer, a heap out-of-bounds read. The leaked
-bytes are later parsed as the CDB and can be indirectly observed by the
-initiator through sense data and responses.
-
-Reject the command when the opcode-declared CDB size exceeds the
-available CDB space, before the CDB is passed on:
-
-- Without an Extended CDB AHS the CDB is limited to ISCSI_CDB_SIZE (16)
-  bytes in the basic header, so reject when scsi_command_size() >
-  ISCSI_CDB_SIZE.
-- With an Extended CDB AHS the buffer is allocated from the AHS-declared
-  length, so reject when scsi_command_size() > cdb_length.
-
-commit 2f3835771dff ("scsi: target: iscsi: reject invalid size Extended
-CDB AHS") fixed the zero-length ahslength overflows and the AHS-buffer
-overread, but did not cover the orthogonal "available CDB space vs.
-opcode-declared size" path.
-
-Fixes: 8f1f7d297bce ("scsi: target: iscsi: Add support for extended CDB AHS")
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
-v2:
-  - Add bounds check for standard path without AHS (hdr->hlength == 0)
-  - Use if/else to make the two paths explicit
-  
-drivers/target/iscsi/iscsi_target.c | 31 +++++++++++++++++++++++++++++
-1 file changed, 31 insertions(+)
-
-diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
-index 62ada3a52210..56f8fd461192 100644
---- a/drivers/target/iscsi/iscsi_target.c
-+++ b/drivers/target/iscsi/iscsi_target.c
-@@ -1100,7 +1100,22 @@ int iscsit_setup_scsi_cmd(struct iscsit_conn *conn, struct iscsit_cmd *cmd,
- 
- 	cdb = hdr->cdb;
- 
--	if (hdr->hlength) {
-+	if (!hdr->hlength) {
-+		/*
-+		 * Without an Extended CDB AHS the CDB is limited to the 16
-+		 * bytes in the basic header. The CDB is later re-parsed by
-+		 * scsi_command_size() based on its opcode, which may claim a
-+		 * larger length (e.g. VARIABLE_LENGTH_CMD with cdb[7]=252).
-+		 * Reject such a mismatch before handing the CDB to
-+		 * target_cmd_init_cdb() to avoid an out-of-bounds read.
-+		 */
-+		if (scsi_command_size(hdr->cdb) > ISCSI_CDB_SIZE) {
-+			pr_err("SCSI command size %u exceeds CDB size %u, protocol error.\n",
-+			       scsi_command_size(hdr->cdb), ISCSI_CDB_SIZE);
-+			return iscsit_add_reject_cmd(cmd,
-+				ISCSI_REASON_PROTOCOL_ERROR, buf);
-+		}
-+	} else {
- 		ecdb_ahdr = (struct iscsi_ecdb_ahdr *) (hdr + 1);
- 		if (ecdb_ahdr->ahstype != ISCSI_AHSTYPE_CDB) {
- 			pr_err("Additional Header Segment type %d not supported!\n",
-@@ -1124,6 +1139,20 @@ int iscsit_setup_scsi_cmd(struct iscsit_conn *conn, struct iscsit_cmd *cmd,
- 
- 		cdb_length = ahslength - 1 + ISCSI_CDB_SIZE;
- 
-+		/*
-+		 * The CDB buffer is later re-parsed by scsi_command_size()
-+		 * based on its opcode, which may claim a length larger than
-+		 * the AHS provided. Reject such a mismatch before allocating
-+		 * to avoid an out-of-bounds read of the CDB buffer in
-+		 * target_cmd_init_cdb().
-+		 */
-+		if (scsi_command_size(hdr->cdb) > cdb_length) {
-+			pr_err("Extended CDB AHS: SCSI command size %u exceeds AHS-provided CDB length %u, protocol error.\n",
-+			       scsi_command_size(hdr->cdb), cdb_length);
-+			return iscsit_add_reject_cmd(cmd,
-+				ISCSI_REASON_PROTOCOL_ERROR, buf);
-+		}
-+
- 		cdb = kmalloc(cdb_length, GFP_KERNEL);
- 		if (cdb == NULL)
- 			return iscsit_add_reject_cmd(cmd,
 -- 
-2.34.1
-
+-Barry K. Nathan  <barryn@pobox.com>
