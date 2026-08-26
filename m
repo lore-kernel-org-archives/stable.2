@@ -1,132 +1,121 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CFE399CF0
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BFC3B71B7
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787731438; cv=pass; b=lZ1tdcwvp3KydjmprZ93ei/LMrrQxBcTAm2BD42+Lz7tISrS/XoR6TlnPxKX6T1re8SGdJ2GcmEcb3LtdkBT1oDIP3lmmHatrgVAgwGKFDutXVoq/C+j9m2omfiV9k9Tthf97lTdwqA+gucK5tTsVYsGfdsVqirhx19YUEPSllE=
+	t=1787731459; cv=pass; b=eGhrWfqdG1I6Yrlfed9xqzNb9xnglE9ZcUpQ2LvxKh9WVEZV3TaqhlukNO//AlC+6vhwinWFApqRPBtMOcZGNnqUZPZdY55LXA5eSE2jszyL12OcCVI1RVdPsSav0ZVYNShM/mNyrGlmwbG6nfgKLJa7P5dvw30a6Jaj3rR4kRM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787731438; c=relaxed/simple;
-	bh=E527r35PH3U3M7/ba4/IfQXpLEJINpkZTHz2CHClcLI=;
+	s=arc-20240116; t=1787731459; c=relaxed/simple;
+	bh=qrqtL/BsYInvu4iu0wA+F970KXoh6jf8+iEGpJ3PU+A=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QqG4QrvcRbGkkbH0lPNLNctM5p+NP9vD1xaFIjr1TumNH3r4uFQUeRq1NpuzwHN7Rou7upMzX+ysh25TPzYr2tuIwNmex3ffzR6fXcUSnt1hN40YYtFK9wcrMmG6OTt+A353vFoV+7O+p+En//5qaf3cm3ioppARwqcBSsFexVQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bDn7FSM1; arc=pass smtp.client-ip=74.125.224.48
+	 To:Cc:Content-Type; b=pzWMcamxnPd3zGksS1+SuVKU+W+zKdH8+tGWHWjyQiDjtZNRijIYV0aaUeIqNwEWXVrgHhzBvoJl4pDvzSNAhLU5a00+pU9kX1QdxhKGna3ti1E6E98yyW3FgYsYWYvffXyBx6pZLfdwAZz2gMdBXxIs4NRKOMBHpJ6eEA3oKVI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fB5TxhS6; arc=pass smtp.client-ip=74.125.224.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bDn7FSM1"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66d146f04cfso547119d50.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:03:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787731435; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fB5TxhS6"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66c82b32121so1110570d50.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:04:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787731456; cv=none;
         d=google.com; s=arc-20260327;
-        b=iNBKkgahxR685Z21WnpZTRL9nUWj9hLBpbMLZqwpmQUuXRf8Eh7bzvpjItbU8cIcyZ
-         3LpuBIQMUY9LpzUVedEp0Zvhk+ssDCoJbtfucrXQQCJw1yw3BIpfKRf+jEwJ80LbnMxf
-         msDw6ARnKytQSf4dHPrs4yUHxf8XrsKolF0ztr2/UZDFmozTyOFBZBpa1OIi6c7mD0uy
-         6nAQoK/cmir3S3FGOAZhzQdum7gyF9rI2Gxa2RbV1z/35JrpLku2okXZ4yiUCEQjjPru
-         xRBOu1bnobSH7c73qtq7KsF3hfCJjI7/jSROM7WsXwPB9W/fKTAd+p+UTlQr92lBryl7
-         hhRA==
+        b=NNjDApKoW8C3t6tpOYOAuAohG50JVWjfx5j/rBYJTNHIW1Mg1tT3iOKr/IngK68ywe
+         FKehaM/v9nmU6zFzZCeJLqoZ0nniljmeCkyvCfdrIyrgE+/5uek8zoFrO/LZRnEPdd8C
+         WhyKj1+rqSUEq5ryuPLA6aRqa1rjbT/A2G30RmuGRD9/A3LBv+uV6RImw5u+yr3093do
+         A0PqedFVUdIZtGxFZitzndQyfaDCHtMsoJx0KWyXO6RgczwcJcoEAOngmvNIBd83OKXB
+         ONDLAhEoEYCLvY9a2nWq8Sw4ytLeZ4y4q6h89Qf7ySAVZnI8GKszZ7ghDkYT1XHZJRF0
+         L0Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=E527r35PH3U3M7/ba4/IfQXpLEJINpkZTHz2CHClcLI=;
-        fh=I2yw8vNEWK4UQiVc2gMz9rfu0cs3NlLIOp5zmgUBl/A=;
-        b=o00m6N7FkprMEX/6HG26sw7dBIroYtnuJwcEpYq9bBzGiZ4TeIHQtAkOBAPuVvOb6W
-         ObtjY32GPJlW32yiDkPRt2Z5LrCDK2KZZx9ZAuY5yQFel+LdNqWVyIhu8eL7P7/OMMVH
-         FzytwhrB751Y4E2q/txaqkWPw6Adn4B6IoXO2CJ4t/LWglYiY5ofu8q4NOq1cPMSWjc6
-         KzOh3JtnLdqiM8Fwh9aeDgrGTRAgFtgi2HyY2pQ0dxppfVfRBh92ZXznoQEkGH2xFduv
-         i9pjEECl/zHAw9SM3Yfh22uwd147c7wkQ81P1PSMG9MpKzckQflqQnf7FK73+7ktxhW4
-         ISKQ==;
+        bh=qrqtL/BsYInvu4iu0wA+F970KXoh6jf8+iEGpJ3PU+A=;
+        fh=gSTMDEKe/t1UMSZTAIJJ65Z+BQsFpL7/vDDnuA2dpQM=;
+        b=mbaxEeUAU2GrTO1ZdV2Z/T/UFXEFp6DewsEpRqI9y77+Qappshf8h+iHVc/12qOGiS
+         lklcDg6mXvMOZMD+JB7AuMMJxnfomh5UQU8HXqyVTgFMn0Xke4eqAcWveY/0gBTyN5wu
+         mH11GfVg4vbPkkipiVfBBt4aoiMpv8QFM2Otl6h24v2vP2984d3ldF6iC/igAigybB+U
+         +NPKwcdus9tI9pbPI6faDlGCYmVNAaD/8vlN/GMY0708qFqJdv1AYLPhyoDj8AjNXI+Z
+         9TKwrgAQ6GJw6gJwh049EQiYIkJ4w4PFKKc2H+7CJGlunqktHpLkWCcUZRCkIFyaCdFa
+         F8sA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787731435; x=1788336235; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787731456; x=1788336256; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E527r35PH3U3M7/ba4/IfQXpLEJINpkZTHz2CHClcLI=;
-        b=bDn7FSM1WZFQFoEKW1nXEJYOJrWzpzcOj/j4Mhgujo+5d2CG5JD3/VaXtDF8tAVIxq
-         h290EDcKlb1MabGtlk+chlDFF/eaWBgFTUvtrUGg4gq9ejH8iwWYJB6rPSR6+t65z/V8
-         cGJwJBtSjUfW8rEsIEt6rGcRzkyyCHTBkWqa2ww4m8mGvOu3pvWL4koHoRH/MpI1ysiy
-         mFCJRSEbbG2K7X/CLlWhDWJN5ZBqntvgwDkpKVPwM8xjSR51JJyJqSID4gfH27n8lZ0A
-         2kUqHzmjpWeOFmTn0jfqFG+uy4i9CN8BvkK5puJrPdvYmCHlRUknxQkxVlvrZ8/8GuXF
-         HQ3A==
+        bh=qrqtL/BsYInvu4iu0wA+F970KXoh6jf8+iEGpJ3PU+A=;
+        b=fB5TxhS65xz708KQVMljrC1emhQwLXzArjVEzxDLcRCUjsNt+pW4uWKW1I3GsdRu9d
+         hjKXzwNcqKXLjTwq5OVjPcbJR//6rNHuNXlXnAhU3RHqZV0jESIA+A6t5g1gfZFV5N0m
+         4sJAniOV/Y/4pj2DiDqQ1folhk/9654BLHYV5j85KI6YQKV/hhvLbGtYYxMYHvWAArRL
+         ZjIoSt95cAP3HsfEhIsOYYdT0FLnUsa7xSsgYb+L8bAjk1EKmIQ8mzIWqk6XFFqJyIDO
+         6Wrccod3Yl/TYE9p2k9JcjFKZvq5aCtvhwo5+Mws2BrkqrUMUd9Lw3hbuYcubLYSM4CE
+         bCRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787731435; x=1788336235;
+        d=1e100.net; s=20251104; t=1787731456; x=1788336256;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=E527r35PH3U3M7/ba4/IfQXpLEJINpkZTHz2CHClcLI=;
-        b=gj5JhJrkcJtoArZAE+vYKKzFdW4F0d2CEgSjW/VNe2+IF17z3vVXz+0ho3vG14/Dy8
-         7PBf3YPHP0yq2tFW52mwz4ITI32pTD1H7xCE1ZWTF4auQcJrmEhAR3WHV+3yS5U738xc
-         VOQzABvyHzCifkKDDEYeM8mCILJ7EQb5SW5pq3j0kF6QrT30v5lS872v1Pd08vGuP2ZW
-         9a1nW8ir6gcKDHAKu0FvuDUdVjXHpX7J9z5oisYIVwqaXvHS3voay5UgZyLAmrU+5DfY
-         g716IGHA2ulAKXbSW36o3QOJkASf0Khd6sL+nR5n/3ZcitzNB/XFgyLjp5+/otYRRVoF
-         mmYg==
-X-Forwarded-Encrypted: i=1; AHgh+RqQ4d2yxcFU1pIMFNEMDE9nlum1QtgwjAHdzspymy6JMCJGW/vHv/15yO0hKOiJnmpW1r9WYpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5YcePLZqGXOVUMYsjiGGcZ52NsMc+2RIJdCgrYQkO2Yutfap4
-	7nxfyyPACuP02GqhRWgHtRPqZI5noWC7SuQsQXmxzLKxvoLkN+vVHyQCI6vfxRcFLptuC6g7Zim
-	VHhjs5qTuF56Hv8eqzV38ciiFlrZok3O8u3n7tLX0mg==
-X-Gm-Gg: AR+sD10WswOiLn+zysIEkyW3aA8MGV6d8K3giNZ5NqPzYQKuOJgiyvrbzLR2ddFgtG5
-	oxVLPIooBX9o8k2DwDte4Otqm52KGMg366U+QvgajAlLTdFU3iS6DPeokoVDT60mMVuRiLi8yBf
-	GTBDrXiyUCnz4heQ2aP+M2JH0cF8Tx/0TvuZlCHknZRDHEaVvtlqSyLNcE9l02I+GLwfIK8PeRP
-	uMXxFgtgIyWgQ2OPUUzzu6/K5tHkpBGTpMu7LIteF+kEv0+/+Rn3w/1lK9c40hlh1gvVCbT7Lua
-	0Zygrx4EV0KBhv9jhDMI6rb7JBt9P94tYV4rUXjrkLd7iOs=
-X-Received: by 2002:a05:690e:2455:b0:667:f3d7:eb35 with SMTP id
- 956f58d0204a3-66d257691abmr1344105d50.6.1787731435407; Wed, 26 Aug 2026
- 01:03:55 -0700 (PDT)
+        bh=qrqtL/BsYInvu4iu0wA+F970KXoh6jf8+iEGpJ3PU+A=;
+        b=RgsKN8NS62VfAbAKLq2b7bF9thaH6hgmnvvE8KO6RJj4yOhw9ghwB1q8+mi1UgocxW
+         mtlhpGBbE4Lg/hmhB7Zf1niKUW54CTeOudMSvMSHTZLCDTbYoMjISCcSuJFhRD/5sdEF
+         SfW1W3lSHt158pdiU9gI53b2tAe3lpb/EnrsCCEVhv5vB7jgHERsO0advMPqni/a3R0c
+         kGfXRxLCCUv6OjGBRAxMNSRL1oC7QbbVeVc3T7MKqG/15jxjCKhv7T+IDcC18CXPfbei
+         nh2/BDt/fGM5kBeCdFyNn/OEhKRMsD54VIPIM66Xr6YqwapWz0Th0YFxBvn0BI5j8D0p
+         tOcQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrHHG4Jk1IvmlzN4NmfsCVfWcdgwzxfhVcg9CYXqMeuksYPEHhdAvX4hAG9g79Y9lgljf40GPc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFTiP+dmhGV8osc6ofJ9mrwo4q3MrqF4VH8mC3rkztaGYZ9epu
+	KqkDZJOcY6QvRVrNDVlcjBZBZKBgKvW0xLCHAN0lHG4FxTjNroAjX3rqzyvdmLFdiFZ1D6eTgYG
+	hPjLONSZX1d8pm8c4L4C7bEAv/8NaySs=
+X-Gm-Gg: AR+sD109cPoAHOSuhxzq2TzOP9Es86fxlhHBVgH+QQbcWA/HmJMbfSfAMa2Wfmp969V
+	EI8jhEpEWz2MwqaUQQ+7x4VdhOhpairTdtyKNN2e8R1Dr2IvsE4vIY22kjukw99uqZoCEE4fKBN
+	Nt/PWFVR49ToRF+QMLIQO6pCl9lcjBzS4+KkRcHXEXPDNKBCZozJiaOeTg2kBRTqkM29iGMNcef
+	iZX0mYO+29CLXWXXefzW7YOpPtEdxyhN8TyksXAE2EB/kvAGhGMWIMjOmN4tv7Q1lm1E0NJiMhS
+	BHgiNsPSCRUcRY5V9hgdHjlYe8Jm+KlXoTtMo0cj8Ww7EyU=
+X-Received: by 2002:a05:690e:4147:b0:66c:7dee:aa64 with SMTP id
+ 956f58d0204a3-66d2565d769mr1316085d50.4.1787731456528; Wed, 26 Aug 2026
+ 01:04:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260808121752.2819486-1-lgs201920130244@gmail.com> <626c4fa0-8e7f-4ef5-a027-b6ae2aa36099@kernel.org>
-In-Reply-To: <626c4fa0-8e7f-4ef5-a027-b6ae2aa36099@kernel.org>
+References: <20260812092322.3423217-1-lgs201920130244@gmail.com> <c2434012-7bcb-42fc-b520-8fbc71db196f@kernel.org>
+In-Reply-To: <c2434012-7bcb-42fc-b520-8fbc71db196f@kernel.org>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 26 Aug 2026 16:03:42 +0800
-X-Gm-Features: AcwNN1Vol6DpYyKDV-cri24sXXF_Z7PWR_q7g87D7ApkpF8hGkZUW9sBryzNqjI
-Message-ID: <CANUHTR8KWSjBgV0QSAeitKKoLL==fMkpmcrZV6Zv-LBYNz-vew@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: g2d: fix autosuspend cleanup on probe failure
+Date: Wed, 26 Aug 2026 16:04:04 +0800
+X-Gm-Features: AcwNN1UUkOd0ofctlZQa_UPVnhnAktZX_7rWwJDJ4MDJ_lmFWo9NXdickmLMju0
+Message-ID: <CANUHTR9LDcnLh_gw4TQULZcBoiK8W+Y+eS0h9=Bh_4yrzzD2+A@mail.gmail.com>
+Subject: Re: [PATCH] i2c: nvidia-gpu: fix autosuspend cleanup
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Joonyoung Shim <jy0922.shim@samsung.com>, 
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+Cc: Ajay Gupta <ajayg@nvidia.com>, Andi Shyti <andi.shyti@kernel.org>, 
+	Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Krzysztof,
 
-On Thu, 20 Aug 2026 at 22:49, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Thu, 20 Aug 2026 at 22:48, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> On 08/08/2026 14:17, Guangshuo Li wrote:
-> > g2d_probe() calls pm_runtime_use_autosuspend(), but its failure path
-> > does not call the matching pm_runtime_dont_use_autosuspend() before
-> > disabling runtime PM.
+> On 12/08/2026 11:23, Guangshuo Li wrote:
+> > gpu_i2c_probe() calls pm_runtime_use_autosuspend(), but the remove
+> > path does not call the matching pm_runtime_dont_use_autosuspend().
 > >
 > > If the autosuspend delay is set to a negative value while autosuspend
 > > is enabled, the runtime PM core increments usage_count to prevent
-> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> > during cleanup, this reference is not dropped and usage_count remains
+> > runtime suspend. Without undoing the autosuspend setting during
+> > teardown, this reference is not dropped and usage_count remains
 > > unbalanced.
 > >
-> > The documentation for pm_runtime_use_autosuspend() also notes that it
-> > is important to undo it with pm_runtime_dont_use_autosuspend() at
-> > driver exit time, unless runtime PM was initially enabled with
-> > devm_pm_runtime_enable().
-> >
-> > Add the missing pm_runtime_dont_use_autosuspend() call to the probe
-> > failure path before disabling runtime PM.
+> > Call pm_runtime_dont_use_autosuspend() during driver removal to
+> > properly undo the autosuspend setting.
 > >
 > > This issue was found by manual code inspection.
 > >
-> > Fixes: d7f1642c90ab ("drm/exynos: add G2D driver")
+> > Fixes: d4a4f927e4dd ("i2c: nvidia-gpu: add runtime pm support")
 > > Cc: stable@vger.kernel.org
 > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
 >
 > You sent vast amount of patches, all separate, making it very difficult
 > to track and respond in efficient way. Do not do that.
