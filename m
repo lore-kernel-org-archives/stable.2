@@ -1,153 +1,110 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C5F44CAC6
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 15:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787759490; cv=pass; b=ZYAfaUOKC8GvKgm7+FpXQ3GX1e6kVyMvZJtcNJlGSLpm1eqYZVQaTBI2pyqXLhtNH6nihSIyJc1RUEpmt9RfoqDLpnFAdr2QE5VjZwJv28JVJE+NtEHCuuQMrHM1QIV616q1tKnNpaubsmw6oujMdL5yx+hK3e7So9wPszGFvTI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787759490; c=relaxed/simple;
-	bh=H/D9eHn0i6FJn8ZBJnf+FHDFfjwn2LjENkZX51FloUM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wu/5eTirwI1fvoZ2nJAYmQkyKw0iDXgpEH5lo9cE3/G3YmoAfb5jR974N1UPE4N3nMM4GA/ef4pGOS4EFgGVZ468hbNan3B2EmBmAJP/jts5lYS7KZvaR+Z+20iEr57wSvQoB7Ke/RWrPPl0pTVDhMnQBAOEFRgofk3kjJpJtyU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AYHDUfNF; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5908416878
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 15:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787759757; cv=none; b=K+sDbKaP9bQ05xTgfdHTlWOVgeimfdgHjkZIgZ4mQz8qsNL2ez9+UIuKLPx3U6i9GJBqdSq8nATC/kY8HsRnHgyZLMSuWvrNyVJbSsvG3soaMN06WXOfSJUt1FW6Ac9I7D/HhNolH0nU8V8sjp7tPcxRw0vzFg8kmtn/xCVxflE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787759757; c=relaxed/simple;
+	bh=9oaiX63GtUT1PIJRby/zgJFxpdh3yK9f51Y3hyqry+s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RKOjyM3Bp9VO8onXiI7gCkdUDTHTKXKAPU0VmT6kl0ZsGUgIEqFHdd/ic0SZoZ1/JTG1XPgLept5VRexevvdTSZNTN7OnS2ksQZgRYDdFhbOrePdW5jHio76CynJ+SlEMlwO5Y2+uMPtJuBGDUoeXZU3k4DNFijwp/3av4IUY9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=ShwSFVqv; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AYHDUfNF"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-51c8e2e39easo12108121cf.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:51:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787759483; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WNJs1p60umygJ65R5U6wdU2jge62vQktp97ZXASc3dn26QWXLfbpasJSoZvm+/ekoA
-         eSJRFiQOB5DoUtSHNGwUR0xtzgoVLSUr4V8JpbWM94ZahMXJ1dMyotRLG/xKE28dHxQj
-         MVU19mFrDEH/GiWgPHZPS7fJOoygFmNqWs9kL0rpVordub2vRY5uQS2rmMETURyT2fdx
-         lIYCOK3pjYhuPhLsmihPqTRxg3vt7esnQqYZh7dfWVkuuyUoe/tYygj1AWvCw9BwuWf4
-         V7UI9VpG1t5UMDhRc3OllKBNJn4ohWPA1OsWnSeomDjBIQsd2dRfgyFYlDiMpq15KBiM
-         92Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=H/D9eHn0i6FJn8ZBJnf+FHDFfjwn2LjENkZX51FloUM=;
-        fh=YeUD9veA4Z+RWa1hNZIaxdeIdWDAR33SysUoFdiaMEM=;
-        b=qLInvFRzIKqJIzNmqQk1ADWxPRllZmdmC/0qAz/4rCU+RLv3IWOG2vaEvKhjOTtvh8
-         M5NiarMTBAHoYdOMAYkuF66mz8OOZpL7Rwdsn9o2YolFZogIWrW5bu3YWuHcDNWFNYE+
-         wv1tyqfJiiVceZ60o4nJQaUMXP10RoaDAYqnD/y827Y1lhLeQpetbWXKlKnAYTqT7hO+
-         MlPzY5pUzxW1a2FvIAZQpC8GljTB1U0fk0DMy/5guxk8fU4eKKDafGLCm6EvkeH+GwNy
-         do95gQH8+FUVxSW4upshPlC8WCt1kk7ybk+iF5AphJl0P9qzSOdc6oHwJ22mdCUWDJ0Q
-         2uYA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="ShwSFVqv"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c252cd2b3c1so101622866b.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:55:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787759483; x=1788364283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H/D9eHn0i6FJn8ZBJnf+FHDFfjwn2LjENkZX51FloUM=;
-        b=AYHDUfNFegDEmMNzE9qpyZLQfKBTi1s7pL2KWjAzzYywXTEwSMrXtkJrW+QC8uYCWE
-         OLXm+b/HpIaYwDcFt/nu0NJegTqWCBCRb1NJGTYo25nQjwRrXQUplD80ExdEXjDythQa
-         BD4TUB53FBbb9SIyjbSFD4PgEHbm383fWEP4u60woL8HVd3oFXnJIFgDeOF6cSq0B3V2
-         VHQaNf4prW6nVy0xWVZOsniEDa0qqCRmRU90RNnFYV0yd3CzFeQmIK1atp+j/ccmbtE7
-         2q3RD4cTuOoY76Pk7qc72IaRFs4ONOhnp2PAD6xJ//+ZqnVLgP9DXxkcn93ai7AFFpDF
-         7TzA==
+        d=googlemail.com; s=20251104; t=1787759754; x=1788364554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pDADV2/or4TSZWEIXH4l4CffO3MwLk2ZaPPDWt6sblI=;
+        b=ShwSFVqvH4P8qCWLos9cmxyCwIWOASjNxR6l0BoWaRuPMYD9lw+3c80d+2NBoB2sj+
+         MWcgjqWLn1wXdx+bPcX4FGd9NVOZSMKPUgHL756SAVcXOkp+caW8dGCMuxTkq8u1p4mj
+         FCwTZxV8htQiUVZAwu/0PHBUvZhvrFm5OC5qCtfrKovJzwKlhkh+z9UEkoj9klaMH6kQ
+         11AusgyLTqkLfJD74lWSMTF13X619VjELI+lcL3lbfGCHgOy3XFP6L08XbEVJn2W+A6K
+         GHLgz7Gmf06GC7SBKLvbwIJ2GfDHUaGFgbG8ef7Gfo8aIhbusKhBFI6zlveKTNDIQ5jC
+         hUKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787759483; x=1788364283;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H/D9eHn0i6FJn8ZBJnf+FHDFfjwn2LjENkZX51FloUM=;
-        b=Xvl0Jwjnahy3PIM/n1D0nEHgmCroYphbvXQf9onuL6lBcenhAebflk2eTw0mBf04fg
-         eNqWiWk+ixK6gNdEP50sCczW87vvAWQVE/2G45g/dT5EeAmZLj1817xFLHCZcTD2B2Pt
-         1e/YWo9no4kEKSDgM5Ek9aSiOwflqe6HDBoHFHRbbvAou9IEbqy0VD/+mSNoFqB8kOio
-         3F+j79miSlqIz3zAZLx3nymm1CrmBJYd4DeRwGpJPzL+ssuxLPuBPTl2r9Go8mJuZP+D
-         U9yJ3AyE7ONbF0nfPocpE3ZKQKWkpjdKgu8hq7AzZVDSp1mFdatMoV4E04pBvIYhVfJR
-         vDsw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0fFdHtSDe1MhCtfgLbGabdUxijxA09OZpJRJ6not6fzFmPzutPz60tSsu6auc08zdTA1sll8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmgZ7rYnvH8yQVDXVLkoMtVRMPQN41XQhYhHUNSZ2It6TlwJ5H
-	Ra0WzqkbHJ6/uZwCtDkK50zyNhMfKG5r0ctX6oOjwokRXxMtgal5F1aQwPPC8gxD2Ct+rBoCIvA
-	2kC+MK9OZ2U5YL0PtgI+Z4aAVaxO3mxtmssrsG6Pq
-X-Gm-Gg: AR+sD100w60J2RQOHoIIop75o+xepxb5XaOhQVvGG4vA99ow6XvDaaxRAsmdXb8/8iS
-	BKYNN2LMiHIzwUaNBrKYAOM/K+itJi9wBT6Kykpu1sUSeWIkVQ2JN3kFcDNOV1wMoyZWdoZ5HVk
-	ZORZLAw8WbafKzosvjOoQHzfWg2IexSQUCme6tXpNCrSHiqvDhuUfI5XGg/W/Rsyu5ZZRWDUuG3
-	j/BR4m9KiOS9hrOYsH3gehB2bo7qRaXdmqU6hgcVKO9vs7TAWWgjazV4Gz3V08S0XA6EdoMyGSh
-	Eb2KQ5OGZVXEwEezQrp+s+5hWn66wcxDuTKJ2O4MAHqhKqrPYcflGnTzCvEZu1CMlJQ3t9a9Spw
-	iQHWd+4AspA/1cnVnyl3RB8qK5wt1CEOniBGgNZiK8nNkjeTFnzFwVf35BIg=
-X-Received: by 2002:a05:622a:e109:20b0:517:875a:d634 with SMTP id
- d75a77b69052e-52e422daf0amr54023891cf.2.1787759482234; Wed, 26 Aug 2026
- 08:51:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787759754; x=1788364554;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pDADV2/or4TSZWEIXH4l4CffO3MwLk2ZaPPDWt6sblI=;
+        b=ct0BhoPisSSLtrNbTwzEtsIdCCdkxE34YEsY/L7NDlKkMv1p96BNL/2KfPKZJK5MRY
+         yt3l1UWyOnZdM9bS0unBT2pvVKZ7PX5SGPdI0LJsoxwPIRZk5aMOekem1Psz4dcPgfOs
+         RGXh6RJHirHeTpopdbxzgRWs8n9OO1NIAzPggwP5DsQHSJi/t2Wvbq9FfkuPtNDjvUUO
+         0lLRi4doRDAT0W8PlTQ2ngHTMsaHfArpmpOQyG93x2XqFSYOLMqfEOm4w+3jV9d7DfJr
+         E3w9H4XgwG3zsQp+swCgZJvi89dPOgy30hhU3bjSbZATQzWa6Kp3HYn/+9Thta15QusR
+         bEXA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5obOxI+Axh+TWQvsHXG0pEkD2PQRH8tQJjSdvTAM1i1zY901hhIc2Cxw/MuH6E6Equ1Foxvs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmAzu571B4WA35YAMfnqzMqQqskaIvlif0a/hGRJk3o/GxAHMn
+	wERt9p/cwdwnZ7hvPf8W5TXFv3xlMbiqCP+qMRrQunNxoHG1a4aqp+4=
+X-Gm-Gg: AR+sD12UE4uqFWhNTev9esw1Ahu0ZLcvT3QUQeTTDUtukdQPIKtyV+g8mXil0HKW803
+	pfV2AC7f7ihpGS6HccnPpUJOHj1Rm59iXN8PNhdxnBMgh6rqew+tzzEU5jTuD5tKESiZ8+ZPmR8
+	MsdYwTXYuYq9UtWBkz9vBgdusnK+tYlqTQHFQMw8dIcCEep1tSNHvbHmcdDEcjSBOD4qlN6FWVY
+	qme1LPFp63OEFKo/UbyFwjqfme6/PcaFAm3wLd6w/hhgwUqJ3qD1n7Y4XX5Hx/I5EO0lRARov/3
+	S4YIaiSnNKCU2nxGVkgQhnuMCGXWwlkV1W0xdfBHcyGhYhqe/JjZLtYCxHfI2DD0jeAeFe7WY+m
+	pZy7dG3BYIpZO5lSi9mDDEFg0fd1yGvrtwlEZUADVzXAQt5/dVCt30QawwcnvogpiOLpUq1D92l
+	hYYN7bSbGtB9rmFw5NBEnNK4mWzF5HfklBZXndeeKpZR8mvjX3QNuk1qUMmUac+92Unto7AE+5k
+	rWNux1D8oqVDs1pMSeGr1ebXi5++HwQKPUbgwI=
+X-Received: by 2002:a17:906:fd88:b0:c25:437:3dcf with SMTP id a640c23a62f3a-c250c3c07fcmr998270766b.21.1787759753471;
+        Wed, 26 Aug 2026 08:55:53 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ace5e.dip0.t-ipconnect.de. [91.42.206.94])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a5d62easm572120366b.6.2026.08.26.08.55.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 08:55:53 -0700 (PDT)
+Message-ID: <1e8ce437-3f87-4963-8f36-ed629bb9a984@googlemail.com>
+Date: Wed, 26 Aug 2026 17:55:52 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826143735.1819315-1-idosch@nvidia.com> <20260826143735.1819315-4-idosch@nvidia.com>
-In-Reply-To: <20260826143735.1819315-4-idosch@nvidia.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 26 Aug 2026 17:51:10 +0200
-X-Gm-Features: AcwNN1WtL_35bV2gm4CNNp-SeVW9846oHPeCQvxx9DnsMwAuCL8obm53SfRbHRw
-Message-ID: <CANn89iKDuub6PozapwA9hkjYKjYQOOccVxKzkj2N=MnUaq_H9g@mail.gmail.com>
-Subject: Re: [PATCH net 3/4] ipv6: udp: Create exceptions when socket matching failed
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, dsahern@kernel.org, horms@kernel.org, 
-	willemdebruijn.kernel@gmail.com, aksecurity@gmail.com, 
-	noam.caspi@mail.huji.ac.il, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.1 000/101] 7.1.11-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.986300899@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260825132541.986300899@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 4:39=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wr=
-ote:
->
-> Currently, when ICMPv6 Packet Too Big and Redirect Message packets are
-> locally delivered and quote a UDP packet, an exception is created in the
-> IPv6 exception cache only if the kernel can match the UDP packet to an
-> existing socket.
->
-> This behavior allows off-path attackers to conduct a side-channel attack
-> on the exception cache in order to discover the ephemeral port used by a
-> connected UDP socket.
->
-> Commit 4785305c05b2 ("ipv6: use siphash in rt6_exception_hash()") and
-> commit a00df2caffed ("ipv6: make exception cache less predictible") tried
-> to mitigate such attacks by making it harder for attackers to discover
-> hash collisions in the exception cache and by randomizing the number of
-> exceptions a hash bucket can hold, respectively. Unfortunately, both of
-> the mitigations can be bypassed.
->
-> Instead, mitigate such attacks by always creating an exception, even if
-> socket matching failed. Do that by calling ip6_update_pmtu() and
-> ip6_redirect(), the helpers used when the quoted packet did not
-> originate from a socket. The resulting exception is indistinguishable
-> from the one created when socket matching succeeded, both in terms of
-> cache occupancy and in terms of its contents.
->
-> Pass the ifindex of the ingress device and the default uid, in a similar
-> fashion to icmpv6_err(). Unlike IPv4, an oif of 0 would not match any
-> nexthop in ip6_redirect_nh_match() and no exception would be created in
-> response to a Redirect Message.
->
-> Note that this does not allow attackers to create exceptions that they
-> could not create before, as both helpers can already be reached with
-> little to no validation. For example, by sending an ICMPv6 error that
-> quotes an ICMPv6 Echo Reply or one that quotes a UDP source port that
-> matches a wildcard socket.
->
-> Also create an exception when a socket does not wish to accept PMTU
-> updates (e.g., by setting 'IPV6_PMTUDISC_OMIT'). Otherwise, the fact
-> that an exception was not created can indicate to an off-path attacker
-> that a socket exists. Unlike IPv4, the check is performed in udpv6_err()
-> and not in ip6_sk_update_pmtu(), as its only other caller, rawv6_err(),
-> does not consult ip6_sk_accept_pmtu() and therefore already creates an
-> exception unconditionally.
->
-> Fixes: 2b760fcf5cfb ("ipv6: hook up exception table to store dst cache")
-> Cc: stable@vger.kernel.org
-> Reported-by: Amit Klein <aksecurity@gmail.com>
-> Reported-by: Noam Caspi <noam.caspi@mail.huji.ac.il>
-> Reviewed-by: David Ahern <dsahern@kernel.org>
-> Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Am 25.08.2026 um 15:24 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.1.11 release.
+> There are 101 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
