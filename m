@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50E121CA13
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CC923507B
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 00:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787705409; cv=none; b=YDDNALVf0Yep+jeJyGjCZdRvFaHxRQLAc93FL8UV6pVnmeBqp3k4+nSYDTsTrLaNLKQJHfeA+w1TYwfDV77MZvCGZ93kg66Cvu0uHHtCctYX8/uWpErg02ixzA4HgNh2xnIMaJ4PmXgX8OSmxds3Vm3bKgbZL7a4+8gFDjGNhKs=
+	t=1787705410; cv=none; b=qQdwGTHH4Q0kYuom9w6Xm6tHnaiP9BsAVCqtVYAt16Aswivp68J3+/8kFiyoTXlHxqrbiI2xIooEgJ0oe0ogtsGcTrpy09PMQ2laN1eefDYhFc2V3EBBNwv2nLkazr+3h9k1JtPt73AliXzNpEj8FgcnvsU4+iQAEpZSLHmDSvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787705409; c=relaxed/simple;
-	bh=YvFv5a0O11ml7aPtUs3GUzsgXNOp++3dGUne/lcIpYY=;
+	s=arc-20240116; t=1787705410; c=relaxed/simple;
+	bh=LxaUrjlftyQiBJAXMzYGZfXfyl/Kf1OnXZbtgwBzfFo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=emMfpV/npoJRUS45Q8PdkKfO9ZLn1917J8bsqs1SdbLeK6tLi2GnjQIWH6QjMJSd6PZiPzT8rk2yPLBp1vs0asIy1dMzSqy6VzY+ZFfXvWzWNnTMtf1zWoFItFWxmfEpQ5adCZkX3Fu9tO4iIrV8CDCZtG/WS8zoV2ncjcZt7Nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0Uje5LZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sOWMRkzb0FQy+U61IH7GAwrNPpXFGsmreUYAlRBb1e3CGO9k/Ze/WEeLgcZzUn/0SDOqoj6Pp69yL5OaXRxHW6iJ7Z3WKK+WVomKEb/dncOB8wTSBSHL2VE6N3JkvRVkN1+eWB07Srwkd4UAEe7O1U6tjtpEVG0RGg/VU1bYC8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gl+3/l2u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0Uje5LZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3851F000E9;
-	Wed, 26 Aug 2026 00:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gl+3/l2u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C1401F00A3D;
+	Wed, 26 Aug 2026 00:50:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787705407;
-	bh=EgRkrBLxeXYkiQWxAhbNWtW9e7kzdhIJ9qu2UQZfAlo=;
+	s=k20260515; t=1787705408;
+	bh=djTXQmUnYWJWZ12wMmZ6v9wjcK6r8D2M8wWo0XSXMEo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F0Uje5LZcyIGvILRziN3lZAMOgzoM8Z1RmKXS1GgONtowRSWcoJGen3LW+6sMSQ8K
-	 Nr/xIs2ovv1ZiWGqqVbVc/XumJ/eyWqeRT9bo8JjiudGXePCrHPSHMwfA3IZeqe/yB
-	 iFusDZfK5yg2vJe15ECrw7Etk3+guaBa5lH8L87EYr2taUjTbgS/TY3ci5GG3EYy8K
-	 SeSQzOUiT1GHFeyD0VPf15C7HX8J3DWc7RECGRnWMzRPeeD4nsSrGpf8GDlJxpsAYh
-	 13BjLSUZgIVpFrAsOeBcRu8b8T77TUqEtSuw4MwYIb71QOoJLiES/kOeXf0hzH772U
-	 0nyGWwj3N98tg==
+	b=Gl+3/l2uH/B8WD5x6FvcLMzcEMWAyS3eeKTp2Kz5+3Qv0Ugcs17aRHXx3vxl8sCL7
+	 /Naj/t1XaidjCom+fgC6xEro4qyajvLgyNbdwy6N5809r/uOu6RVIlRn3nakirvTlm
+	 HtZ7OVUzRGkzyX2sJO6c8j4ZZt4dM7O91YCX71d3cn1x80nlyFnv+9iNY9YJyttAI0
+	 eT8vO2PC9tcHetYKbUs9T183nTiEbNh+3ufh5Ceay0ppbcYpqWzba14Znwal5iuLsU
+	 CN46TLZEWV5b6FR5WiRAp6uL5kO+Ssfni1i8YH/supgD21KuRYxf9HWjWPuECsCwVc
+	 gShwNABJhmzog==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Zhang Yi <yi.zhang@huawei.com>,
 	Jan Kara <jack@suse.cz>,
 	Theodore Ts'o <tytso@mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 1/2] ext4: track partial-zero outcome per edge in ext4_zero_partial_blocks()
-Date: Tue, 25 Aug 2026 20:50:04 -0400
-Message-ID: <20260826005005.830778-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/2] ext4: zero out whole block for clean edges in WRITE_ZEROES
+Date: Tue, 25 Aug 2026 20:50:05 -0400
+Message-ID: <20260826005005.830778-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082417-smokiness-hacker-071d@gregkh>
+In-Reply-To: <20260826005005.830778-1-sashal@kernel.org>
 References: <2026082417-smokiness-hacker-071d@gregkh>
+ <20260826005005.830778-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,134 +49,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhang Yi <yi.zhang@huawei.com>
 
-[ Upstream commit 4c1f6931395ad026415cbdb924ffc240f86eb557 ]
+[ Upstream commit a5179156ac1d9a6646da42254e4c461e1fc20096 ]
 
-Replace the single bool did_zero output of ext4_zero_partial_blocks()
-with a bitmask that records which edge (start, end, or both in the
-single-block case) was actually partial-zeroed. This allows callers to
-distinguish which edges have been zeroed, preparing for unaligned
-FALLOC_FL_WRITE_ZEROES handling in later patches.
+FALLOC_FL_WRITE_ZEROES requires that all blocks in the requested range
+end up as written extents with zeroed content. For unaligned edges that
+were already allocated, ext4_zero_partial_blocks() zeros them directly.
+However, for unaligned edges whose underlying extent is a clean
+unwritten extent or a hole, the extent type remains unwritten after
+partial zeroing, which does not align with the semantics of
+WRITE_ZEROES.
 
+Therefore, when ext4_zero_partial_blocks() skips partial zeroing, it
+indicates that the corresponding edges are clean unwritten extents or
+holes. In this case, we need to expand the aligned allocation range
+outward to cover such edges, so that ext4_alloc_file_blocks() can
+correctly allocate blocks for the unaligned range. Edges that were
+partial-zeroed (i.e., written or dirty) are left untouched.
+
+Fixes: f4265b8d32c4 ("ext4: add FALLOC_FL_WRITE_ZEROES support")
+Cc: stable@vger.kernel.org
 Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260714080044.4038124-7-yi.zhang@huaweicloud.com
+Link: https://patch.msgid.link/20260714080044.4038124-8-yi.zhang@huaweicloud.com
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-Stable-dep-of: a5179156ac1d ("ext4: zero out whole block for clean edges in WRITE_ZEROES")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/ext4.h    |  5 ++++-
- fs/ext4/extents.c |  2 +-
- fs/ext4/inode.c   | 36 ++++++++++++++++++++++++++++++------
- 3 files changed, 35 insertions(+), 8 deletions(-)
+ fs/ext4/extents.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 6569d1d575a01..bc25746c8b726 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -3119,8 +3119,11 @@ extern int ext4_chunk_trans_extent(struct inode *inode, int nrblocks);
- extern int ext4_meta_trans_blocks(struct inode *inode, int lblocks,
- 				  int pextents);
- extern int ext4_block_zero_eof(struct inode *inode, loff_t from, loff_t end);
-+
-+#define EXT4_PARTIAL_ZERO_START	0x1
-+#define EXT4_PARTIAL_ZERO_END	0x2
- extern int ext4_zero_partial_blocks(struct inode *inode, loff_t lstart,
--				    loff_t length, bool *did_zero);
-+				    loff_t length, unsigned int *partial_zeroed);
- extern vm_fault_t ext4_page_mkwrite(struct vm_fault *vmf);
- extern qsize_t *ext4_get_reserved_space(struct inode *inode);
- extern int ext4_get_projid(struct inode *inode, kprojid_t *projid);
 diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 125f628e738ab..c68feb1697090 100644
+index c68feb1697090..934f99cce2c60 100644
 --- a/fs/ext4/extents.c
 +++ b/fs/ext4/extents.c
-@@ -4715,7 +4715,7 @@ static long ext4_zero_range(struct file *file, loff_t offset,
- 	loff_t align_start, align_end, new_size = 0;
- 	loff_t end = offset + len;
- 	unsigned int blocksize = i_blocksize(inode);
--	bool partial_zeroed = false;
-+	unsigned int partial_zeroed = 0;
- 	int ret, flags;
- 
- 	trace_ext4_zero_range(inode, offset, len, mode);
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 4fce9ec176f88..ea0b2359ca0cb 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -4253,13 +4253,26 @@ int ext4_block_zero_eof(struct inode *inode, loff_t from, loff_t end)
- 	return 0;
- }
- 
-+/*
-+ * Zero out the unaligned head and tail of the [lstart, lstart+length)
-+ * range.
-+ *
-+ * On return, @partial_zeroed records which edges actually got
-+ * partial-zeroed.  Set EXT4_PARTIAL_ZERO_START/EXT4_PARTIAL_ZERO_END if
-+ * the head/tail block got actually partially zeroed (in written, dirty
-+ * unwritten or delalloc state).  Cleared if the head/tail block is a
-+ * hole or a clean unwritten block, in which case there is nothing that
-+ * needs zeroing.  When the head and tail land in the same block, both
-+ * bits are set together on a successful zeroing.
-+ */
- int ext4_zero_partial_blocks(struct inode *inode, loff_t lstart, loff_t length,
--			     bool *did_zero)
-+			     unsigned int *partial_zeroed)
- {
- 	struct super_block *sb = inode->i_sb;
- 	unsigned partial_start, partial_end;
- 	ext4_fsblk_t start, end;
- 	loff_t byte_end = (lstart + length - 1);
-+	bool did_zero = false;
- 	int err = 0;
- 
- 	partial_start = lstart & (sb->s_blocksize - 1);
-@@ -4271,21 +4284,32 @@ int ext4_zero_partial_blocks(struct inode *inode, loff_t lstart, loff_t length,
- 	/* Handle partial zero within the single block */
- 	if (start == end &&
- 	    (partial_start || (partial_end != sb->s_blocksize - 1))) {
--		err = ext4_block_zero_range(inode, lstart, length, did_zero,
-+		err = ext4_block_zero_range(inode, lstart, length, &did_zero,
- 					    NULL);
-+		if (did_zero)
-+			*partial_zeroed |= (EXT4_PARTIAL_ZERO_START |
-+					    EXT4_PARTIAL_ZERO_END);
- 		return err;
- 	}
- 	/* Handle partial zero out on the start of the range */
- 	if (partial_start) {
- 		err = ext4_block_zero_range(inode, lstart, sb->s_blocksize,
--					    did_zero, NULL);
-+					    &did_zero, NULL);
- 		if (err)
- 			return err;
-+		if (did_zero)
-+			*partial_zeroed |= EXT4_PARTIAL_ZERO_START;
- 	}
- 	/* Handle partial zero out on the end of the range */
--	if (partial_end != sb->s_blocksize - 1)
-+	if (partial_end != sb->s_blocksize - 1) {
-+		did_zero = false;
- 		err = ext4_block_zero_range(inode, byte_end - partial_end,
--					    partial_end + 1, did_zero, NULL);
-+					    partial_end + 1, &did_zero, NULL);
-+		if (err)
-+			return err;
-+		if (did_zero)
-+			*partial_zeroed |= EXT4_PARTIAL_ZERO_END;
+@@ -4754,6 +4754,21 @@ static long ext4_zero_range(struct file *file, loff_t offset,
+ 	/* Zero range excluding the unaligned edges */
+ 	align_start = round_up(offset, blocksize);
+ 	align_end = round_down(end, blocksize);
++
++	/*
++	 * In WRITE_ZEROES mode, edges that were not partial-zeroed (clean
++	 * unwritten or hole) must be allocated and zeroed as whole blocks.
++	 * Expand the aligned range outward to cover them.
++	 */
++	if (mode & FALLOC_FL_WRITE_ZEROES) {
++		if (!IS_ALIGNED(offset, blocksize) &&
++		    !(partial_zeroed & EXT4_PARTIAL_ZERO_START))
++			align_start = round_down(offset, blocksize);
++		if (!IS_ALIGNED(end, blocksize) &&
++		    !(partial_zeroed & EXT4_PARTIAL_ZERO_END))
++			align_end = round_up(end, blocksize);
 +	}
- 	return err;
- }
- 
-@@ -4434,7 +4458,7 @@ int ext4_punch_hole(struct file *file, loff_t offset, loff_t length)
- 	loff_t end = offset + length;
- 	handle_t *handle;
- 	unsigned int credits;
--	bool partial_zeroed = false;
-+	unsigned int partial_zeroed = 0;
- 	int ret;
- 
- 	trace_ext4_punch_hole(inode, offset, length, 0);
++
+ 	if (align_end > align_start) {
+ 		if (mode & FALLOC_FL_WRITE_ZEROES)
+ 			flags = EXT4_GET_BLOCKS_CREATE_ZERO | EXT4_EX_NOCACHE;
 -- 
 2.53.0
 
