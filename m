@@ -1,135 +1,108 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C73132B10B;
-	Wed, 26 Aug 2026 09:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4F33BCD0B;
+	Wed, 26 Aug 2026 09:47:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787737579; cv=none; b=C0VIeBU8KQF67yyAXHJA8AfgXn8hT6xHoC9tWSxJMyD7jSWl54EXfiu/7X9oCzFCUs0eYilCEkRJGpoWaVSCcEJAOi65UUkDEexqF9kfSET/o5ulIXFi+0GOqX5EKown8pTHGBvQLqNn5cGWij0zVCobNxQ87FgUxm6oGQhAkUg=
+	t=1787737680; cv=none; b=tkaq3NpypmCVQ35P9vgOkmz/9U/pLBqOgORDG2vOlvZxff0Ek/PJyzoAbzv2SksoUnx+ZpvrijoC5bRobfvNq4hydDVHfLw2lxSp1HrZGLgpquPZEcd7Qj/HZLT9kwoXqEoRXtJaL+N2R7C0U2rRl3rqgkG0W+AFRtuifB8ubjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787737579; c=relaxed/simple;
-	bh=+t2KcJ5tlM4+Pjs2MNqPtQte5b0m1yHKPB49s4VkRtI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=H18CQbvlN4PwzH8V0v6Wm573lnEOK4emIXEMB1Fj6GRG8MMxEp+soV3djR+9IcMYkyXVE8mHd8RczlMUDoVV7Ls+USm40Vk68HJvO6B0bHXKoY3QJhkFNsjg0qQ5bOBGeNgK7q/v5Uhwuar9tv0ajX61+mUVcXq3CXUNUF00FdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=ryNYs6k/; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1787737680; c=relaxed/simple;
+	bh=/08myWiVr98o2wIOyhU6OTEXsJu5xDUiiXJJ3NU59eM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hYytzaobMzevPVhkOchCm65fdJBMJht8UcuKxEuQ901Br5kjxuoGkXBgVsRdWdKO7nc2Y36RroFnucloWvQ/KWLcCL2R9Cs/HAz7DpFRw3cGFFAwYL2WGWxRdNuYefaE69oEPtKSBnrWgkRoXfXyM9H2Pkp4nfEH6harUGwIDDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=F17QjMdA; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="ryNYs6k/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=y/uf0Y1aBA/z9aveWUl9QUNJgPM8B4OYZLkqMImAs0A=; b=ryNYs6k/eiYAjrMc+IKVy9acY4
-	wyEHIrnngXYa/3wKjYuv2yZY7sSzjIEfesk8Q5JR7DMW4/zjtpl8NYyoiljrhk4C9b64fEt/d8yZL
-	8t3IBwm5L8BI/IyyofhH5fPnGaxdwKww8/e8mwyrLZt79XBpFS3YjbvCYvCLEOw9QPqbvEafVgTmx
-	Dt633veWbH/kQm1XEcIzozlBoeWjtzP7WDKar2giLY1iXqa/XhwgjuZljDO9zB12nc8kE5jelEUQz
-	XNGsrl66U+o5HycAq4eLo9TujqoWi4E4HAsZ++CBtvYvALKk/PNY1hIrqNNzLaRDY/BASbTA/+yw0
-	HG3PPD1Q==;
-Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154] helo=[192.168.1.206])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1wzACi-009SPr-Po; Wed, 26 Aug 2026 11:45:57 +0200
-Message-ID: <9aa246b6-5538-46c7-9751-ad9732c561af@igalia.com>
-Date: Wed, 26 Aug 2026 11:45:44 +0200
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="F17QjMdA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787737599;
+	bh=/08myWiVr98o2wIOyhU6OTEXsJu5xDUiiXJJ3NU59eM=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=F17QjMdAfwykneARg1+CTFkIiGF3VvoaOtdpJqigCqnjNd4nMaBPpMe+Nglek7I2w
+	 g48DGidFRXK46pCIgOkS0HV5QSndw0rLwMwcwoHxhMb7ZseSjNSftoC39OkFfv+xlq
+	 hYXip5C+w4AhztdyjQK1mdm62Rxc2dmZ29lCwQrI=
+X-QQ-mid: zesmtpgz7t1787737592tdcc00169
+X-QQ-Originating-IP: ENEuChos8Qz78gGHQtKW+AJSRrpWaai3sNQw+IJDh+M=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 26 Aug 2026 17:46:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2521073373441743776
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.6 00/87] 6.6.154-rc1 review
+Date: Wed, 26 Aug 2026 17:46:27 +0800
+Message-Id: <20260826094627.3189636-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260825132541.813800447@linuxfoundation.org>
+References: <20260825132541.813800447@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: Fix drm_crtc_commit leak if signaled when
- PAGE_FLIP_EVENT is used
-From: Melissa Wen <mwen@igalia.com>
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, stable@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-References: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
- <83e32ca0-56c9-4d3c-b337-a7c01199b4e1@igalia.com>
-Content-Language: en-US
-In-Reply-To: <83e32ca0-56c9-4d3c-b337-a7c01199b4e1@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NuVTqMOgygVlOvrhLkMjw2f1/ZzX4ZRqIph+07gAOPXPt9QygkZbMNz/
+	CHoZQFceZNNMfLH/vyC6emsZ+m9Dc14dOAWH3C7Om21Mba+xmCIdW3fdFTIBRyM4bST853T
+	evtKUmPh36bi4kBUWY+rWEcGrw/70+eRJADMtbv8vFSKQT2UaPbPW7xeuppNHRqhnLNgIGi
+	sgXfqJWcvw+U3uf/brM2pcXXrCyftixmgTDXrrgpJFXtktPsGO0DwE14VeOrE+hDjE8LLS8
+	JF+GnMJ7UH9lpzmmk7z2ZUlwmhJSnBSOPNfrQU8L8xXcjOPysrWwrnI0eWxsjj5/hZ9jcLk
+	ue5rd5JZw/5D9zYV4aUaMfsnXcD3X6NMr+T1D8r3HnLSaeQQWx3Z3Lg5si8UxLEImTWQ+3S
+	HBM7Ooy0Ju13gHFC+KmSICQJpwolKUgNtmWFwbg+CIEEexiseZkUdQ/FkNFt0Zju3ENt5Bg
+	mlKxQqR7/mcup4elMGLIw1Ii1tkSrvk+8mak4fmN+9HUKf4CK68rYqdUFknv5kq465VF4dG
+	EgcxDaRMFjGynaws9CF66nKlLzNoLMZ60BrBR3Y7i+bdYFIaH+iM8wSxv2rQ8siRu6j1Z03
+	wB9OhOxq7H6rfeophBklFZeNC7/CgKLAcZehKXrT5Q2cxGf6955cjjV85gg5xalUHgsn1zc
+	85pyKqYy70JK+Cy6ggx46VMcuun4qdScFYF4J3LfHJkG/eUZU12XG2Tw1pdi2AIzKov3P1r
+	0CteFrbKg7i7wNoU75HNioujaCUp8UT2+xlbeuA31/bkko7u6kYtlxDjXePJcHqWBT+cSGD
+	bSfVVXCLtC6g5ukKSWtGBPLJ6dgPrBq/y9WsXzUWoRGOmdXSEG84gxQoWVvlco7f+Xg7XtU
+	1cYDzxUdBFoCtPVQVRZpETRE7OVo/qQ90qCWBU4wkC230QLW2FJkw9wOqTLmEtI/ddSMdQB
+	1mgeYRwo5SxIKzCgFJLj4o34fjLW0HMzBUuH/CRYEzqNJe2D5cj2AUxA/ct5GMZzi6FPgjA
+	fGSYlYo5rRIdhU0AMquD1j2x4zUgFRccN2PMyScPb/ZmEPz6/EBQ+aoF8/YquV2YFNHFKq/
+	h0wVXMRIrR4f+2YrXJLa+/osWlkFZHgxg==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-On 18/08/2026 12:27, Melissa Wen wrote:
->
->
-> On 27/07/2026 22:45, Thadeu Lima de Souza Cascardo wrote:
->> Commit 1c6ceeee6ebb ("drm/atomic: Fix memleak on ERESTARTSYS during
->> non-blocking commits") fixed a very similar issue when the event was
->> allocated by drm_atomic_helper_setup_commit() itself.
->>
->> However, if the event is allocated in prepare_signaling(), it will 
->> also be
->> set to NULL in complete_signaling(), which prevents drm_crtc_commit from
->> being put in __drm_atomic_helper_crtc_destroy_state().
->>
->> Dropping the reference when the event is set to NULL at
->> complete_signaling() fixes the leak.
->>
->> The leak can be reproduced by sending a signal to the thread using
->> DRM_MODE_PAGE_FLIP_EVENT and using a sw_sync fence to cause the atomic
->> ioctl to block at drm_atomic_helper_wait_for_fences(). It happened both
->> with amdgpu and vkms.
->
-> Nice catch!
->
-> - Do you have a reproducer or is there an IGT test that triggers this 
-> issue?
->
-> - cc'ing Leo and Harry as well because they worked on the similar 
-> issue and must be interested in it.
->
-> - I think it should point to stable # v4.11+ as in commit 1c6ceeee6ebb
->
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
+Best Regards
+Wentao Guan
 
-Applied to drm-misc-fixes.
-commit: 4d4be202165e832d74849b4a68e289a2a377039c
-
-Melissa
-
->
-> Thanks!
->
->>
->> Fixes: 24835e442f28 ("drm: reference count event->completion")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->> ---
->>   drivers/gpu/drm/drm_atomic_uapi.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
->> b/drivers/gpu/drm/drm_atomic_uapi.c
->> index e997917819e8..7b951af5ab32 100644
->> --- a/drivers/gpu/drm/drm_atomic_uapi.c
->> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
->> @@ -1563,6 +1563,8 @@ static void complete_signaling(struct 
->> drm_device *dev,
->>            * to prevent a double free in drm_atomic_commit_clear.
->>            */
->>           if (event && (event->base.fence || event->base.file_priv)) {
->> +            if (crtc_state->commit && 
->> crtc_state->commit->abort_completion)
->> +                drm_crtc_commit_put(crtc_state->commit);
->>               drm_event_cancel_free(dev, &event->base);
->>               crtc_state->event = NULL;
->>           }
->>
->> ---
->> base-commit: d5efb1e1b1d7cd27c642654042f80d19a7ba3caf
->> change-id: 20260727-drm_crtc_atomic_commit_leak-4de5e75162b3
->>
->> Best regards,
->> -- 
->> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->>
->
+Log:
+Linux version 6.6.154-rc1-arm64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.6.154-rc1-arm64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Wed Aug 26 15:06:21 CST 2026
+Linux version 6.6.154-rc1-loong64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.6.154-rc1-loong64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Wed Aug 26 15:24:02 CST 2026
+Linux version 6.6.154-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP
+Linux version 6.6.154-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Wed Aug 26 15:40:33 CST 2026
+Linux version 6.6.154-rc1-amd64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.6.154-rc1-amd64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Aug 26 14:47:41 CST 2026
 
