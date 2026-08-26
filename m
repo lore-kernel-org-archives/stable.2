@@ -1,178 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C753F65EE
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A8835201D
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743048; cv=none; b=JN/EGOspN/tSNze2CBiqS6aT+CWsWPs4xbmu5t6S92N43vgvSeFkR61jTMUN+dq6EXGf+hlbc15/kafdw6XFWdLoXFy1250zxWOGXnUiNx1UftgNsgnZ5OAMfXGjguiRR7V22kjPd/SUy44ahbKgSsTa4SxTO7s7OjpsCcMjduw=
+	t=1787743210; cv=none; b=NX4OXyfhh/2wpwqV/WoyEhrpMnz0pxo541iQyIu0yvT6Y71KyPpovy8fuy6Fcr4Z47JsHayYKk0b7ZGoYeUswtvR3/IApBofn6F0kdngdTFIE9c08HPXldSneWaqZjtjtgcPGI2ZOZ3didWzmozRcUeyMZcvc7bNt1+wVsHNeyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743048; c=relaxed/simple;
-	bh=BacKFELyEFpOmVu8pcWp3VTaRmnfXqCkMNRKQbLpiEo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=etJDstSGSuXJ6i4lZqaN/nFpnfVVw5Z0VVaBEFeaxDB+189e41fcD2q8n0CsRe+/IURiD1r/tMEcGxy6/h4jtU6iYdDMe68pmNwyP3jgWr72QV3CCLeooc/8q8nfp4G847hLv91CVt/M6i5veZfcVlablwub2FV3JNeLYyGEG9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sdfy4aKY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787743210; c=relaxed/simple;
+	bh=fREDOjC/rZzD8mmhDib12jsIj3RCLQKntJ3tQjInWlo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HkjLfJedqp5GBNLpSK4aRRiz2BKC32b7R6bsBlXSsUQv4nNQutr4HCIGSHux2WGoKeCp8M06UMBg1qr5Hk4c8FSyje4+Y+8Mxnn30+YL7doBCy7ljRu+BXoCYYzScN57q+43a7ELOTPHC72abQmDpB4abJ5EFJ31eTI/dWZVr5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Jzqspc1H; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sdfy4aKY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A167E1F000E9;
-	Wed, 26 Aug 2026 11:17:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787743035;
-	bh=/T/qTAGgakzq9+AKeBg6nnaeHOYNlwifZ6He/Kp9X4A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sdfy4aKYut7IGV7+lsic9bnDeBqiSlDHd/GqtUFy59TWI98VeJW6Oo6xCmAP6fY+0
-	 TVofzqSLUeC5vesvcdRtCU547SJ+XTzf4FHb9kb8DFI6ZFHMvFniKK/Dq3dg9mB2By
-	 UGo1rmGSAT+U0qgQASoejKDrrSVoLtOAGUx+PSYCsEtq3LgU162zxFC9uqf4MzmS2Z
-	 qplAGp2nxC4KfZngmyQatsmoezkeT83xXrbSQuKH1LEzTKqMZTd70eRxC5lKB0igk1
-	 koZ3alXL++iuqczcJIBc/x0Vg/YBXIndmrdamcRr+wa9VKZeS6x13pAXwz7OFBXloT
-	 dPF+U2O3cJbFw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	David Heidelberg <david@ixit.cz>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] nfc: nci: add data_len bound checks to activation parameter extractors
-Date: Wed, 26 Aug 2026 07:17:12 -0400
-Message-ID: <20260826111712.2616583-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082454-salon-numerator-0e2a@gregkh>
-References: <2026082454-salon-numerator-0e2a@gregkh>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Jzqspc1H"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so1467178a12.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 04:20:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1787743207; x=1788348007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vdF8Pu7WrYTwQxk9ZxP/oVuw63AUNT/7Y+iY+aB9HzA=;
+        b=Jzqspc1HlS+iSH5dxC6wdcef+bLXFRDQK0ZxybpKTTDlgJDg/F5NYvjvYrZKEq74Sv
+         s6POEUu8DBqdM/zJg7x70zk7iwsPaEPICxJlYMTt3msCx4pip4Dk1zF+FmQmWNad/gAc
+         PW1050++yhc+GbM0CMkfDu6kV+jQ/oZ2uO2l5T5HyYHzUdEYBRsRNwOg+E9WreLzMQf/
+         wOnCmIHnkS4fZA5Uo2EhxruG3eXI3D7K7VjuKlQvEns5xG2LxZ6rAmK0avV2fJH5eaFU
+         UmCNPsZv9DaKt+oVIRlwoYyJjecfuFhLk4CUaYXQRpleVUi4gtmV2+MBARhphDjvxafG
+         UCYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787743207; x=1788348007;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vdF8Pu7WrYTwQxk9ZxP/oVuw63AUNT/7Y+iY+aB9HzA=;
+        b=SMAoyEX/sHfOdqJezg8sIJXI6Be0RmVvVlfXPWqmumFsNh1V1mWfeEbGv/mE7Ee5Qc
+         NXmSxuPoP9BIZ6H6Ith84nuMmJ0WaIqjKtbLYn+Y6TxRlYYHClphJIJJE3ltMo/kDOCK
+         UuVgnXC9g8nMC7M31IwJ2q1AAGYemHnBLPwUhs5ApnvgR8VxtRnmYofuehZqdeM/iNUY
+         eulCzaq7QHGr3Wm5yclrrDZQt3Aqs2z2rm8VTFFOviyI820Mysehxy3POsAJlK/XBnZL
+         E5OUbqZy1aVlv0HBo7Dzmhl/gpCTrpGFbbnSNsKO3vffP92rmnYxHPeaDxB/Ux8++eTH
+         yFOg==
+X-Forwarded-Encrypted: i=1; AHgh+RqD39PTWrNPMtASQIMdhOvvGk6QJw12D9vgX1s68C5EYrWqdXI5QJUUEUexlvCoPmLBChGvUzM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqiFc2iQs3b9HE9kvzHSAS8XnQk+kQ9PZpzVMlECYmAzST/t20
+	IRFd3oYue3hM8WR5xGcMCxUUnff+QdQlZXq7wNrkXtBBvqEBKbII/XM=
+X-Gm-Gg: AR+sD10kY6yYtGBJsCw7s4Q4JF0ZJSRFSiYGnIyyRSkVKuIHuhCcA7f47x3Txc6XCXp
+	QtGLF+ay6pk9YnC8VXP6TCQs1BaF/VAQxiYwxszdx2VXCvIu+W2dI/vnHmBTZYcFa2MH/UoRgPt
+	/LG3KT2Ths+c8JqJPnDnuUms+4+JddIFxYxE4wixWT3irjeANhbix0bg5HWmWvxkqbo1hh1J7/v
+	ltLzOF8P6f77wjjp/xWBU93Cjff2/TZ43SYNxJjSBVyAa6zLN0I9z4mBaZeUR8CszRy7BgTzY/9
+	U/7kKUFZ2T1WqXzbGQLnWQ5XLGViXKS/DMkIvr6Xw5Wl7Gs3kZMnQttBKReAQ4+aTWWXVXsFrc8
+	l/ozQ+C14+aLXEHnCv242voaPIdSTBD1txnf0R4sBy4OuK+zmIlYsU9X9VlsslQ/AlqMbNrS6ms
+	9tX6D0YD3tOigdc77gah2uOhoZMrNeXlEPOd6SZsTE7frKPLc+ZiM+tDoOzdgbBEv0YgHl1nw5K
+	6gjJIbuhJg4Qc2gS4zeYrqdf3aDVr8UjaeF8X0=
+X-Received: by 2002:a05:6402:21cc:b0:6a5:d58a:9640 with SMTP id 4fb4d7f45d1cf-6a5df61b209mr7656568a12.9.1787743206552;
+        Wed, 26 Aug 2026 04:20:06 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ace5e.dip0.t-ipconnect.de. [91.42.206.94])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5deb030bcsm5163127a12.31.2026.08.26.04.20.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 04:20:06 -0700 (PDT)
+Message-ID: <4ffa1d11-993a-47b2-90fa-07e1c8f623c7@googlemail.com>
+Date: Wed, 26 Aug 2026 13:20:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.1 00/79] 6.1.185-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.677185791@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260825132541.677185791@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+Am 25.08.2026 um 15:25 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.1.185 release.
+> There are 79 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-[ Upstream commit 0428fa2c22e2ba0cff766d3b80d461e149102045 ]
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-nci_extract_activation_params_iso_dep() and
-nci_extract_activation_params_nfc_dep() read an inner length byte from
-the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
-kernel buffers, but neither function receives the caller-validated
-activation_params_len.  A crafted NCI notification with
-activation_params_len=1 and an inner length byte of up to 20 (NFC-A) or
-50 (NFC-B) causes memcpy() to read that many bytes past the one valid
-byte in the activation params region -- a slab out-of-bounds read of
-kernel memory adjacent to the NCI skb.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-The sibling nci_extract_rf_params_*() family was given equivalent
-protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
-validation for packet data"), but the two activation parameter
-extractors were not updated at that time.
 
-Add a data_len parameter to both functions, guard against an empty
-region before consuming the inner length byte, decrement the remaining
-count after consuming it, and clamp the copy length to what is actually
-available.  Update both call sites to pass ntf.activation_params_len,
-which is already validated against the skb at ntf.c:801.
+Beste Grüße,
+Peter Schneider
 
-Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Link: https://patch.msgid.link/20260612-b4-disp-6d52d8b0-v3-1-e26221f8826d@proton.me
-Signed-off-by: David Heidelberg <david@ixit.cz>
-[ Replaced `NFC_ATS_MAXSIZE` with the literal `20` since that macro doesn't exist in this tree. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/nfc/nci/ntf.c | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
-
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index df0f1200082cf..9ed908c1230b6 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -525,15 +525,19 @@ static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
- 
- static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
- {
- 	struct activation_params_nfca_poll_iso_dep *nfca_poll;
- 	struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
- 
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfca_poll = &ntf->activation_params.nfca_poll_iso_dep;
- 		nfca_poll->rats_res_len = min_t(__u8, *data++, 20);
-+		data_len--;
-+		nfca_poll->rats_res_len = min_t(__u8, nfca_poll->rats_res_len, data_len);
- 		pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
- 		if (nfca_poll->rats_res_len > 0) {
- 			memcpy(nfca_poll->rats_res,
-@@ -542,8 +546,12 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 		break;
- 
- 	case NCI_NFC_B_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfcb_poll = &ntf->activation_params.nfcb_poll_iso_dep;
- 		nfcb_poll->attrib_res_len = min_t(__u8, *data++, 50);
-+		data_len--;
-+		nfcb_poll->attrib_res_len = min_t(__u8, nfcb_poll->attrib_res_len, data_len);
- 		pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
- 		if (nfcb_poll->attrib_res_len > 0) {
- 			memcpy(nfcb_poll->attrib_res,
-@@ -562,7 +570,7 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 
- static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
- {
- 	struct activation_params_poll_nfc_dep *poll;
- 	struct activation_params_listen_nfc_dep *listen;
-@@ -570,9 +578,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
- 	case NCI_NFC_F_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		poll = &ntf->activation_params.poll_nfc_dep;
- 		poll->atr_res_len = min_t(__u8, *data++,
- 					  NFC_ATR_RES_MAXSIZE - 2);
-+		data_len--;
-+		poll->atr_res_len = min_t(__u8, poll->atr_res_len, data_len);
- 		pr_debug("atr_res_len %d\n", poll->atr_res_len);
- 		if (poll->atr_res_len > 0)
- 			memcpy(poll->atr_res, data, poll->atr_res_len);
-@@ -580,9 +592,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 
- 	case NCI_NFC_A_PASSIVE_LISTEN_MODE:
- 	case NCI_NFC_F_PASSIVE_LISTEN_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		listen = &ntf->activation_params.listen_nfc_dep;
- 		listen->atr_req_len = min_t(__u8, *data++,
- 					    NFC_ATR_REQ_MAXSIZE - 2);
-+		data_len--;
-+		listen->atr_req_len = min_t(__u8, listen->atr_req_len, data_len);
- 		pr_debug("atr_req_len %d\n", listen->atr_req_len);
- 		if (listen->atr_req_len > 0)
- 			memcpy(listen->atr_req, data, listen->atr_req_len);
-@@ -784,12 +800,14 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
- 		switch (ntf.rf_interface) {
- 		case NCI_RF_INTERFACE_ISO_DEP:
- 			err = nci_extract_activation_params_iso_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_NFC_DEP:
- 			err = nci_extract_activation_params_nfc_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_FRAME:
 -- 
-2.53.0
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
