@@ -1,160 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDA1184540;
-	Wed, 26 Aug 2026 15:28:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18FD26E71E
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 15:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787758086; cv=none; b=nEpnHddOc0oOKZQ92OiC0A3aS9HEEDtPMUkQwz5pVuO3LX6WFunfpmwKLTsnjd9vyMJS270RrEThEhq6TRlq0y1IXHXNANi4hs/KRaCL3GTS1FxpPvme6XKQNb5VwN/pZMJjBWv+7oprNYLD1VQeAGsE9+K8T49cc01mMdr75BE=
+	t=1787758340; cv=none; b=hbfBvDNqw05iQ3dRZTloxkZ0XB5JXVcQ0z7nYDjJgk2Ut8Cmai1UzjbmteWPjAevGcxQVrlyd52UhszXCB+68duI7D9wgdtuBvf9pkWqMZqiQ6YGnyOiA0Js72AdMCdw1lBCOGwRESHrmDz4A6oiC82CK/yxeEjKDseenddejS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787758086; c=relaxed/simple;
-	bh=Ch9NdtJ4lt2NmqD363bK0fDFAzeeWkFcA86FtV1Ngnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MXAURbROM2Gpdlj726rQp7QfTO+uWcqU4jqu5feJjxu8Yj9o7UOlRLuy+K8rrBnlzkSPY9bR1pp/9z/VExxW0Hg0byUB+HBx3KuAJ7RS4eLKhDsDjmSRsVNXKad3v9n66Duxd5WQQnDy75DkbkL5+YF/TmcmWOLHu3oYO8wNYYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsEYIDxR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787758340; c=relaxed/simple;
+	bh=bnE+FSzqjNtL1H7wkLOmQEnV0PRbeLockTJl2iVs8IQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=naOD8ABVfxPh0TdvQusg0nZRjqBmfSfrWrxAmes5nf1NeJkvESIR/E9Q0Qf5P5OTkG7L4u6qy6EZn3s6AJuZSCfWhY1rG/g+zNQ00RWWkXiEXLaqf19eG5n08Ubnlv9J8Ogeq0IqECyX3s28qBRPFrsPJwnuQhvIfNUrG47mfNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H0F/Ed1/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=o/dMjbno; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsEYIDxR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71AE41F000E9;
-	Wed, 26 Aug 2026 15:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787758084;
-	bh=6wXM8GEdeoqPJq30nYuopobVQoNsL83eAnMuGSZS4qk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GsEYIDxRBh9KRJYS/157X7JLxKfDW+BFX7dfNMBTq748OE3mxl2W8DTY4tZPHUPK5
-	 gnhRfze/iY3wNJiDyJboLjz9ykD82R937fUz36SeVn9G/qHET1ZoyvazDvCACXY9nP
-	 Ql5QsqU+F3HWBPQUv6t/VCkWFaEmh0QNF3lvgnRnuKBXvFTzVUf19gg9UKoeeEwCNa
-	 FQ3ABSm+AS/XzFz58ZQSrD+9O+7+JbrpXO3eE7gxoWGrENpoX/2812y4/8C9McOPfc
-	 2YQU6m50W02azt/ocCehp838SkAF49yTMB1vTQcXEwi1s6D6n/StMh5u1F6nruY1XZ
-	 YnExIlmcgksJQ==
-Date: Wed, 26 Aug 2026 16:27:58 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Li Xinhai <lixinhai.lxh@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for
- MREMAP_DONTUNMAP
-Message-ID: <ao8F2ZO2GGvxIgcQ@gremlin>
-References: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
- <20260826151520.202465-1-kunwu.chan@linux.dev>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H0F/Ed1/";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="o/dMjbno"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787758334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Yc9hSSoUhAGZ2KNjDSvIAWtYSFJOBn5h7x8TSBvchF0=;
+	b=H0F/Ed1/gLdI/9WRORiT8bay9Imbuo4VPsAwdo4VX0CK00EruZ4c5v5KrTC2v+nLjBo3SQ
+	Pn5ixS5hJGJLNWmYplKju2pvZKWZC2aSgvmNecpnoPuYzFqEbdSmrYwmmAR8q2DgrBWlEU
+	n7FYWmM3qqHE4HtfhWXtc+e/uZDenKw=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-437-bxRLlTIePzWX5Wr259Cpdw-1; Wed, 26 Aug 2026 11:32:13 -0400
+X-MC-Unique: bxRLlTIePzWX5Wr259Cpdw-1
+X-Mimecast-MFC-AGG-ID: bxRLlTIePzWX5Wr259Cpdw_1787758333
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-845cc1ab48eso35717977b3.0
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787758333; x=1788363133; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yc9hSSoUhAGZ2KNjDSvIAWtYSFJOBn5h7x8TSBvchF0=;
+        b=o/dMjbnoaBTeVN0LHFAOzF6FspEQXz3wjY5qTs88juwCaecH959BDBf+NRIUCqbOOo
+         Ug/6mtl+nUc2B6/EZqWKnKc6wifHOUDqkulPfRjrjp2MQ+vaCw8ztIUL3ImT1fWaq/aV
+         Oe0M3Cjommh1oJ3Euf4PDp3KHHM9sDyIJB4SvfeweVBw1+NqcTKk5jZFeX4g0S6Lw17R
+         czar7tYjVe1iyoBh2N1zcblyAtmBcxoeP+bnYMqz0gZsHjg1lVRAmNQdbHA42JkjPOna
+         TiuXLY1bUQCGmCbHJ+gjo041xn1T1rZOsXRcUJkagKS/gPvkjKlFNOoZN9TEDDpy8xTx
+         qgQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787758333; x=1788363133;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yc9hSSoUhAGZ2KNjDSvIAWtYSFJOBn5h7x8TSBvchF0=;
+        b=hkoUMpHslg0zWPbG+5/si5sIzvt+ncjhrY7TjxN5rNrGrnwGBV1kVwBN9C5UM4Tts+
+         GaH6ctEGSPXlsp7a5lASKYsNxWyB5AceN/C6Ks+iquovOvkvYSAAbXGFWIAuLxLXfWSj
+         69p3brXs1YhNP82U1tk4GnB0ReloTNKSJrMZby8U8cTCr4XImISM1fJJ2JpTzEJS4o6G
+         sccll5eDL5F+m1RlPxeyjjciJBAcCw9jkPkh1lkhFqTUCue+5KJ7AH0BcKBGMTvM+pR/
+         ktOoQW/lM8Gkmcu76NgQKUh5o2Xh1g1nFiVXDWuiUC8rxfkIFTIIF3JGp7VZcP5/00qO
+         ojow==
+X-Forwarded-Encrypted: i=1; AHgh+RpDs9HJZZ0zcH1vDkzGTEea0TXnTn5mmk6/4abVWQGcSShsRMfKIedu/DhMEHD5FWP3jFZdWls=@vger.kernel.org
+X-Gm-Message-State: AFuF++mp0cPr8kuVynpiH+pFtbCf4hbqkyxMKmUyTljL186GtdODUwlM
+	+iVAhEA0WapMmimSjJbbjjWq7sFvLAWAG7rGxdAzGTfkoDCiwmULJCrVISmferwyAIN8xDVBScr
+	m3H4URXJ8w9oXMth2laMQdvL7uox0MP79jjSaqLouUZ5XhvejSCVcWzzorg==
+X-Gm-Gg: AR+sD12hEVgmZsv42CJDmDT7QsOGny7wrm2lEayduvWxAgXS4gxqQFN6JmKrAsiNInb
+	z2Tu6O5z43wi2O8i4oOwe8DfYy/Zm4bS1/1wssyoi+ZOcJf5dWcSGtiBxS+KiRYQBjH+QlwN3mx
+	s0ndNhxZMAIWE0Ki2/qRL40Hl3/i4YQM1TTSuC1gr0ocZX9n4FHSg0YYLOSnO3XGfxxjDvDAh/h
+	d1zANb3hwHCBKS2iL3fTo0MXBrxkuK0nKaiKUYFTuFSOAt1yj9+y6RVebInDmD1eF8gewksVO9U
+	rp/aOUEL8nvDPn+WnASTZhIrUfF76HXvYq+FZAZw0ZTqMPChpFGFKvqlKkhk5Gal2exXsi1+DWi
+	bmVrlYF2w4JjEqjlmlGaR03JBFRMg0qjOgDuE2jdF5YMaJTyJxhp60to/uw+Y1eOtDg==
+X-Received: by 2002:a05:690e:438c:b0:668:43f8:a83a with SMTP id 956f58d0204a3-66d256f88eamr2159813d50.15.1787758332410;
+        Wed, 26 Aug 2026 08:32:12 -0700 (PDT)
+X-Received: by 2002:a05:690e:438c:b0:668:43f8:a83a with SMTP id 956f58d0204a3-66d256f88eamr2159768d50.15.1787758331480;
+        Wed, 26 Aug 2026 08:32:11 -0700 (PDT)
+Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66d24592f24sm1598209d50.6.2026.08.26.08.32.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 08:32:11 -0700 (PDT)
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org
+Cc: pc@manguebit.org,
+	linkinjeon@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 01/11] smb: client: fix NextCommand bounds and aliasing UAF in receive_encrypted_standard()
+Date: Wed, 26 Aug 2026 10:31:37 -0500
+Message-ID: <20260826153147.4112943-2-sorenson@redhat.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260826153147.4112943-1-sorenson@redhat.com>
+References: <20260826153147.4112943-1-sorenson@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826151520.202465-1-kunwu.chan@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 11:15:18PM +0800, Kunwu Chan wrote:
-> On Tue, 25 Aug 2026 08:55:26 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
->
-> > Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> > a faulted VMA into an unfaulted one.
-> >
-> > It does so after the page tables have been moved to the copied VMA with
-> > MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> > as the page tables it had are no longer present.
-> >
-> > However, in doing so, it violates the invariant that the anonymous page
-> > offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-> >
-> > This is because a VMA may have been faulted in, mremap()'d (causing a delta
-> > between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> > mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-> >
-> > This condition is a violation of a fundamental assumption in mm, but now
-> > also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> > this condition.
-> >
-> > Correct it by resetting the VMA's page offset at the point of completing
-> > the MREMAP_DONTUNMAP operation.
-> >
-> > Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-> > Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-> > Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/mremap.c | 22 +++++++++++++++++-----
-> >  1 file changed, 17 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/mm/mremap.c b/mm/mremap.c
-> > index e8df5cdb0ac9..2b4b523a86b8 100644
-> > --- a/mm/mremap.c
-> > +++ b/mm/mremap.c
-> > @@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
-> >  {
-> >  	unsigned long start = vrm->addr;
-> >  	unsigned long end = vrm->addr + vrm->old_len;
-> > -	unsigned long old_start = vrm->vma->vm_start;
-> > -	unsigned long old_end = vrm->vma->vm_end;
-> > +	struct vm_area_struct *vma = vrm->vma;
-> > +	unsigned long old_start = vma->vm_start;
-> > +	unsigned long old_end = vma->vm_end;
-> >
-> >  	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
-> > -	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
-> > +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
-> >
-> >  	/*
-> >  	 * anon_vma links of the old vma is no longer needed after its page
-> >  	 * table has been moved.
-> >  	 */
-> > -	if (new_vma != vrm->vma && start == old_start && end == old_end)
-> > -		unlink_anon_vmas(vrm->vma);
-> > +	if (new_vma != vma && start == old_start && end == old_end) {
-> > +		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-> > +
-> > +		unlink_anon_vmas(vma);
-> > +		/*
-> > +		 * The VMA is now unfaulted and it is an invariant that
-> > +		 * unfaulted anonymous VMAs have page offset equal to
-> > +		 * vma->vm_start >> PAGE_SHIFT.
-> > +		 */
-> > +		vma_set_anon_pgoff(vma, pgoff_unfaulted);
-> > +		if (vma_is_anonymous(vma) && !vma->vm_file)
-> > +			vma_set_pgoff(vma, pgoff_unfaulted);
->
->
-> Hi Lorenzo,
->
-> I think the fix makes sense. One thing I wanted to make sure
-> I understand correctly is the distinction between anon_pgoff
-> and vm_pgoff here.
-> Is the intention that anon_pgoff should be reset when the
-> VMA becomes unfaulted, while vm_pgoff should only be reset
-> for a truly anonymous VMA, since it may retain file-offset
-> semantics for VMAs with a vm_file?
+Four related bugs in receive_encrypted_standard():
 
-Yes.
+Lower bound: next_cmd is not checked against MID_HEADER_SIZE(server).  A
+non-zero NextCommand smaller than the SMB2 header size passes the
+upper-bound check; memcpy pulls bytes from within the current PDU header
+into next_buffer, and the next iteration casts that region as a fresh
+smb2_hdr.
 
-This is to account for both MAP_PRIVATE file-backed and pure anon. But to
-keep everything consistent (+ simple) we always update anon pgoff for
-everything.
+Upper bound / trailing slice: the original check uses strict greater-than
+(`next_cmd > pdu_length`), so next_cmd == pdu_length passes; memcpy copies
+zero bytes, smb2_check_message() rejects the zeroed buffer, ret != 0, and
+free_rsp_buf() releases next_buffer (aliasing server->bigbuf) while
+allocate_buffers() still holds it: write-after-free.  Even with strict
+less-than enforced, a next_cmd satisfying next_cmd < pdu_length but
+pdu_length - next_cmd < MID_HEADER_SIZE(server) leaves a trailing slice too
+small to hold an SMB2 header.  The next iteration reads shdr->NextCommand
+from uninitialized slab content; if it reads as 0, the else-if (ret != 0)
+branch frees next_buffer, again aliasing server->bigbuf: another
+write-after-free.  Replace with three unsigned comparisons that avoid
+addition: `next_cmd > pdu_length` to guard against underflow, then
+`pdu_length - next_cmd < MID_HEADER_SIZE(server)` for the trailing slice
+minimum.  The addition form (`(size_t)next_cmd +
+MID_HEADER_SIZE(server) > pdu_length`) wraps to zero on 32-bit
+kernels for next_cmd near UINT_MAX, silently admitting out-of-bounds.
 
->
-> Thanks,
-> KunWu
->
-> > +	}
-> >
-> >  	/* Because we won't unmap we don't need to touch locked_vm. */
-> >  }
-> >
-> > ---
-> > base-commit: efecab401cb15fd3bb9bc05990609acb6b267ff2
-> > change-id: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
-> >
-> > Best regards,
-> > --
-> > Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >
-> >
->
+Aliasing after goto: once server->bigbuf = buf = next_buffer and the goto
+fires, next_buffer still holds the live server->bigbuf pointer.  If
+smb2_check_message() fails on that iteration, ret != 0 and the else-if path
+frees next_buffer, freeing server->bigbuf while it remains referenced.
+Set next_buffer = NULL before goto one_more to prevent the aliased pointer
+from being freed as a standalone buffer.
 
---
-Cheers, Lorenzo
+Decrypted extent: decrypt_raw_data() moves plaintext to buf[0..buf_size-1]
+via memmove, where buf_size = pdu_length -
+sizeof(struct smb2_transform_hdr).  Using pdu_length as the upper bound
+allows next_cmd values in (buf_size, pdu_length], letting buf + next_cmd
+land in the stale 52-byte transform-header residue and memcpy to copy
+stale ciphertext into next_buffer as if it were the next SMB2 frame.
+Assign pdu_length = buf_size after successful decryption so bounds checks
+and the per-iteration decrement operate on the correct plaintext extent.
+
+smb2_next_header() already enforces the equivalent lower-bound:
+
+    if (unlikely(*noff && *noff < MID_HEADER_SIZE(server)))
+        return -EINVAL;
+
+Apply the same constraint here.
+
+Fixes: b24df3e30cbf ("cifs: update receive_encrypted_standard to handle compounded responses")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+---
+ fs/smb/client/smb2ops.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 7d6738ffcb80..e75420dbe950 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -5242,6 +5242,7 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
+ 	length = decrypt_raw_data(server, buf, buf_size, NULL, false);
+ 	if (length)
+ 		return length;
++	pdu_length = buf_size;
+ 
+ 	next_is_large = server->large_buf;
+ one_more:
+@@ -5254,8 +5255,15 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
+ 	}
+ 
+ 	if (next_cmd) {
+-		if (WARN_ON_ONCE(next_cmd > pdu_length))
++		if (next_cmd < MID_HEADER_SIZE(server) ||
++		    next_cmd > pdu_length ||
++		    pdu_length - next_cmd < MID_HEADER_SIZE(server)) {
++			unsigned int max_next = pdu_length > (unsigned int)MID_HEADER_SIZE(server) ?
++					pdu_length - (unsigned int)MID_HEADER_SIZE(server) : 0;
++			cifs_server_dbg(VFS, "invalid NextCommand offset %u out of range [%zu, %u]\n",
++					next_cmd, MID_HEADER_SIZE(server), max_next);
+ 			return -1;
++		}
+ 		if (next_is_large)
+ 			next_buffer = (char *)cifs_buf_get();
+ 		else
+@@ -5291,6 +5299,7 @@ receive_encrypted_standard(struct TCP_Server_Info *server,
+ 			server->bigbuf = buf = next_buffer;
+ 		else
+ 			server->smallbuf = buf = next_buffer;
++		next_buffer = NULL;
+ 		goto one_more;
+ 	} else if (ret != 0) {
+ 		/*
+-- 
+2.55.0
+
