@@ -1,101 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066863822B1
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F29C22B594;
+	Wed, 26 Aug 2026 13:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751501; cv=none; b=j3hzsmdlHqmZOknzkFeRKPJH4Do1C9O4kifqWGTO4KjTEMhQe+R0JmmBALm+CVIdwzt3LFCLMIjIK1cBQ8vwYO8PSHPTR10YuA+dk3FmWfiWcIDs1ncrv9udakzRTpY2wMsJZgGebbB1BbDDoyeUqqHxGJ1IzLVIvllLPoRTyiI=
+	t=1787751622; cv=none; b=KBWILxc5L4YLBeNd11vDXuTO8VlcfW9bfPIjOFiJfApgU0o48fkDJ0JifZBCxIYmNX5DT6Wq3NOctbA7GT+UL2xHl1s8cCGbO/JjuStV11wd+THSurl7acmHSO1FhEvfZ8tNEPJybwtsQ9G0nKE6kBXQ2t0uIWl7pfdBHnobpng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751501; c=relaxed/simple;
-	bh=WiFLA9yIsaSjQGO65uy6XMFgjvqF6C0O48KGPGR5IAg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O9Xj5LpFFOSPzU8dWun3AtOLzcpMgLAy4af+eScNKu1+bYajTpcxQPgCLLD3JF/i5OF16EknE7McqbizPOP6NamYkk9i2BX96eQ91GeOxuVJOTK2V8HoXCH9fTqeouTt4Qbp2eddQLtUJoSHt+WirQ1iQIUMII0tBzNilHG+ILo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRj+pyzO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787751622; c=relaxed/simple;
+	bh=Fyp0nxIFNbe7zfR3Ow2mQCN57LdW8YlyAjLbvJz+CCE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ttmnxMhyy/2aTuKTGG2hLf8GJuf2v1W03dVpcE/GSKDJdVCUDDDHI/md3eJPGMsWBhkWt0PCnOMntuhWn0WrvPDNF4JtDuY3s7rykKC+sMxK1XtM+Xwret8TWaaufr48Ss/SbBBMXrG5PEJzfzHou5yY6+eeaBrLFZaI+Y+t5hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VQmjg79/; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRj+pyzO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE94D1F00ACF
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:38:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787751499;
-	bh=HfM5lr2mL1q2WkP1E6zRu0ypWHQyXIJSTRAPogksnNA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FRj+pyzOdWz50U+YouP9GmUDlZvJJz+FgLpyjThjuQWjtQBb7Sra2hdnih6Cc3az6
-	 gi5ZwjBQBk8l7LX8Wb4L69ZOHlJ35q2spINLOYQkiFC+9FsQeUGffEcw/EiF+c50hu
-	 reaft2BNafxxgm/UETpsOXvueWvq3xteVDEW83UVuFZURD0OOdjftZcoZqe/ffUmwe
-	 2EtzYmbzZ7AjNYvmJjxvwSLakpHE/qogggnxdcGVD4bxkKORtjHXKIrPASZsZ6E6Wd
-	 wh8ybkWwerxijQhgRzDkynw26ZLTLCbXtF5B8YoytUtjoO8I2mnIWuNrVk3P7NRtVm
-	 b3n9hw0Hwv5Ww==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aec201b582so932653e87.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:38:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr8kxvp4NqBIxSNKQr5rYuucXX9/IL6GQf5j+8XnmmDqmHvARDd+3tcuw7TtZrs2VgCLXsfTWQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtsdYyHbfuVXmgW84ZQf+IxSgAhzm1byZ9a/LqOwaM5RDvPlmx
-	KUQ/OU4UKaxtgZMrWN7EYJqHOaG97X+bq7yypcDnCWykgr8uiX8uAhg76/zviMzbVwb0PcIWxfT
-	CqlbCarhwkYlDqarB3Y8n39noU8ieZczTbCIRdiR8/w==
-X-Received: by 2002:a19:5507:0:b0:5ae:bbd3:27e3 with SMTP id
- 2adb3069b0e04-5b4a900a129mr1469735e87.5.1787751498522; Wed, 26 Aug 2026
- 06:38:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VQmjg79/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787751620; x=1819287620;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Fyp0nxIFNbe7zfR3Ow2mQCN57LdW8YlyAjLbvJz+CCE=;
+  b=VQmjg79//QHEnYeMi2wCnPHBQLLHhN549G9uMgSFEHQoAfYS3P9pSkym
+   b8/MVszLPe2Cw3zwrZ5hjxRjlRzqBlAouVeBYC4vt6WHhDdVAdKiK8SX2
+   eH4oyH81oXXp9HzCbytNCMeEyoREuLfvmnAPx/bYSv0B26TK5ckfrYG7/
+   MRlarVis05f9nZkt2pXsdAhx1laqhpSqvNPmVRk3/Gnk8L4Zm82Y10dDc
+   d8rl+fHgOBbToVCqS/J/3v2F/7DttZsDS45IntOJ4sSknRbl7M3/flZdV
+   weWf3N9ahLQu5En3S/2s29wc769ZQnLzdSBh+/BNsiUhLnEyqTQwKIg9M
+   g==;
+X-CSE-ConnectionGUID: OHx+Q8L+TwmWTq7f5agPmg==
+X-CSE-MsgGUID: vTeNLC/uQ9SEOcX1spkozQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88152217"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="88152217"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 06:40:20 -0700
+X-CSE-ConnectionGUID: wmZm78pzQvK22Badz8sj1g==
+X-CSE-MsgGUID: jd1MBS+bQSy9zvancwsbTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="264980330"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.238]) ([10.245.245.238])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 06:40:16 -0700
+Message-ID: <d5a395f7-06ad-401a-b026-e975f620f017@linux.intel.com>
+Date: Wed, 26 Aug 2026 16:40:14 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819152356.904023-1-shengchao.guo@oss.qualcomm.com>
- <000076bd-b3fd-42dc-bd43-96ee9492a638@oss.qualcomm.com> <aoZVKWTtdCQSSvaH@QCOM-aGQu4IUr3Y>
- <06acd175-0078-43ce-ae58-567005f62562@oss.qualcomm.com>
-In-Reply-To: <06acd175-0078-43ce-ae58-567005f62562@oss.qualcomm.com>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Wed, 26 Aug 2026 15:38:05 +0200
-X-Gmail-Original-Message-ID: <CAMRc=Meb72v3wJ+BB8ujjD-bxaCLuqWC+JFgmrz09BY5LZSuXg@mail.gmail.com>
-X-Gm-Features: AcwNN1UiDy7IM184TnRcFe0sRHIgizvqFCHfyw15xidHEhJx8LfFXXFO4tCjMnU
-Message-ID: <CAMRc=Meb72v3wJ+BB8ujjD-bxaCLuqWC+JFgmrz09BY5LZSuXg@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] 6.12.36+: usb: hub: post-resume delayed work
+ triggers > uncorrected MCE / data fabric sync flood on Threadripper 7970X >
+ (bisected to aec11e5f9c45)
+To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
+ Mathieu Fluhr <mathieu.fluhr@gmail.com>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>, linux-usb@vger.kernel.org,
+ regressions@lists.linux.dev, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>,
+ Forest <forestix@gaga.casa>, Slavik Dev <developer.slavik@gmail.com>
+References: <CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com>
+ <CAPyJwA9R=p8_uxyYODb00g_nUq26SRsWHBGgAAJnR0YMTRRo4A@mail.gmail.com>
+ <CAPyJwA9P48LDcOr7u_iT1WPFBCHxh9w6cxFvyi5GS3syM6crbQ@mail.gmail.com>
+ <07435e6b-ee30-4c85-8c8b-0ce3a4ead1d9@leemhuis.info>
+ <aosGtkE_diwVJJtB@eggarch> <20260823174059.46fec036.michal.pecio@gmail.com>
+ <aoser8dLytrwqBC2@eggarch>
+ <CAPyJwA8m_Xd2oyV1i9k+-6f7A-j0FiC97yXL=Ci8ZAErs5W4vA@mail.gmail.com>
+ <ao1ovvdPAy6n_F7I@eggarch>
+ <CAPyJwA-QALkCQn8J1+=U-nuE_7WSEPhVcUEKb+MMYMaA_1AVjQ@mail.gmail.com>
+ <ao7aLXk9q_v_jEyX@eggarch>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <ao7aLXk9q_v_jEyX@eggarch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 24, 2026 at 10:44=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 8/20/26 3:15 AM, Shawn Guo wrote:
-> > On Wed, Aug 19, 2026 at 05:27:34PM +0200, Konrad Dybcio wrote:
-> >> On 8/19/26 5:23 PM, Shawn Guo wrote:
-> >>> QUP1 SE2 and SE3 pack all four of their lanes pair-wise onto only two
-> >>> pins each: lanes 0/1 (I2C SDA/SCL) at mux value 2 and lanes 2/3 (UART
-> >>> TX/RX) at mux value 1, on gpio127/gpio128 and gpio129/gpio130
-> >>> respectively.
-> >>
-> >> [...]
-> >>
-> >>> +   msm_mux_qup1_se2_01,
-> >>
-> >> other drivers where this is necessary stick an 'l' before the
-> >> lane indices, e.g. se2_l2, let's keep this
-> >
-> > I can see that for single lane function. But for lane-pair function,
-> > it's not a new thing with nord, and the naming convention seems to be
-> > without 'l', based on what I see from shikra, eliza, hawi and maili
-> > drivers.
->
-> Hm, seems like that happened by oversight, but yeah let's stick to it
-> now.
->
-> >> The bindings change must be separate
-> >
-> > I understand that's mandatory for new feature changes, but for such
-> > a bug fix where both binding and driver changes are closely coupled,
-> > it seems more reasonable to not split.
->
-> Up to brgl
->
+On 8/26/26 15:35, Lovekesh Solanki wrote:
+> On Tue, Aug 25, 2026 at 11:43:22PM +0200, Mathieu Fluhr wrote:
+>> The patch you sent makes the issue go away. I am now running the exact same
+>> scenario for 2 hours, without any crash.
+> That's good, thanks for confirming.
+> 
+>> However, I am not sure if this can qualify for a proper fix, since I
+>> do not have any
+>> external hub connected to my motherboard: All my USB devices are directly
+>> plugged into root hubs (and at the moment, there is only a keyboard and a
+>> mouse).
+> Yeah that's the point it only skips the 200ms hold for root hubs. The
+> external hubs still get their fair hold since a parent exists for them.
+> So external hubs are completely unaffected by this patch.
+> 
+> On 'proper fix', I think it is, even if we keep this bug seperate for a
+> moment, it makes sense to not give root hubs hold they don't need.
+> 
+> I'd love to hear more thoughts on the patch.
+> 
 
-I'm fine with this. Krzyszof, Rob, Conor: any objections?
+Roothub needs some time to settle as well, but 200ms might be excessive.
 
-Thanks,
-Bartosz
+xHC can triggers wake (PME) when a connected USB3 device starts signalling wake,
+but port registers changes are not always visible to driver before link training
+between roothub and device is successful.
+
+My educated guess is that 120ms should always be enough for the roothub.
+This is also the lecagy msleep() still apparently left in xhci resume
+to detect port changes in xhci runtime resume if there are USB3 devices.
+That msleep was supposed to be removed now that we got the hub changes.
+
+This 120ms can probably be further tuned for roothub in some cases,
+especially if resume is due to userspace action instead of xHC wake signal (PME).
+
+Mathieu, would it be possible to test different values for
+USB_SS_PORT_U0_WAKE_TIME in hub.c? Especially 120ms is interesting.
+
+See when system no longer crashes
+
+Thanks
+Mathias
+
