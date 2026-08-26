@@ -1,178 +1,99 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from aer-iport-3.cisco.com (aer-iport-3.cisco.com [173.38.203.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B453B3BEF;
-	Wed, 26 Aug 2026 19:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3231847729E;
+	Wed, 26 Aug 2026 20:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.38.203.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787774148; cv=none; b=eHjMYgDE203Zj5cb3dbQEj8SpisB1tDZvdaIpRkhDMpzwHvL3hsuzjTXlhk/XWVdLYGRD8PFAtivsgDMDuYzskNuaOv5CnwvxOTJ6Qt/Zpoy4WhbMUamwKs3xaeHB2XC8ymhKQBcF68XMWlaiCLXik41GRHuGjHgYtpt3VlJVrk=
+	t=1787774980; cv=none; b=NVBd5mo93KZxDOJuXqlEtsA4WrijyorZLqsgabqdWXcc5HO0z0HUn8I+zrCLSvsvfVCAvLbfCk6TXJg5rbuDs43W+D9e9sHoxpcpL4C+kqyF3IyHscKEeAF9sbqLsvvjyAHUJOKlAYSgDZl70FSIRpQjMm7aaXGsBWHkukDUydM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787774148; c=relaxed/simple;
-	bh=hYgWRduNyAO3dp6CkGTfRSUHfMbOyGeaavjY3kfkW2E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P3oxSsuUJdeKxQFd5OdB7qmW4a65wHpQnF5Dm269LRuE82PlgrB1GofjwUherCKlEwkUi+N3LAovH2M0BoRq8rmJ985+woIxMJ34diHPCTHpBp3UYMIcsD5FCLKqK4WPeaAfcP8jjw5nMe3wrWX5eQsTmBwMoI+PfMv/KQXkjsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TMgh4/sv; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787774980; c=relaxed/simple;
+	bh=xFxKnBlj3v6Qc2mrCVc0d/tS+1MVh2H+i9VS2Fv0Lac=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type; b=tNeBhgusMjirIXRpZN0HEDlVOeqvmL5Q5bddkK3+iIU9T8YfeNMinffZdPtzKmZo/LOczUlpPw2ogKGOixm2JgbFGr2go1EdfQwDBBeEUbjDYIspak9YweIRCYX3eGj5TddBlyAEsNvknZyp/Z3aQWy5JHGlIJDkjmJdUuLNwqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com; spf=pass smtp.mailfrom=cisco.com; dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b=U+dLLb6x; arc=none smtp.client-ip=173.38.203.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TMgh4/sv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=oz
-	EVgNAPqGaijdplBS6VrYOY20Ejo09KRjCHLGuu6So=; b=TMgh4/sv61C/sQb+26
-	RpYJFfHMdyuQAj8aFPkIoSD+9Nictuewn1klXlNTK2frwaH3N3d+17o81RAHgnnt
-	x18DvZfVjtslwS+L6piD1aEN3IRdonwsa1QSMRuYe8FGnGcQO+MRHCw0KEzk06HJ
-	nVMQm8k4E/wfzkgtP8usiQf6w=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBHCiaqRI9qXCSUOQ--.35168S2;
-	Thu, 27 Aug 2026 03:55:23 +0800 (CST)
-From: microfish <f13208471983@163.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	microfish <f13208471983@163.com>,
-	microfish <microfish@kernel.org>
-Subject: [PATCH] tpm: crb: handle ACPI NVS memory region overlap
-Date: Thu, 27 Aug 2026 11:55:11 +0800
-Message-ID: <20260827035511.49582-1-f13208471983@163.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b="U+dLLb6x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=cisco.com; i=@cisco.com; l=110; q=dns/txt;
+  s=iport01; t=1787774975; x=1788984575;
+  h=date:message-id:from:to:cc:subject:in-reply-to:
+   references:content-transfer-encoding;
+  bh=xFxKnBlj3v6Qc2mrCVc0d/tS+1MVh2H+i9VS2Fv0Lac=;
+  b=U+dLLb6xdrGgPq/+ks63IWqEtnbKlvCb6F7RLEIJotHCZAuCqkNKpfMY
+   Qi2lXucR8sVo4nMzB9V8U9b9q9P4DqfIzv+szwebU+YcxyhB+5rOgSTP4
+   XPB1xdmDY8iQk1m5j0tljxqteHAjawBClfvmJVwCzYSDQgIdvx8j3DjuJ
+   ma6F8eG/BR0W7g2FwpehZtHDXnNnqMLdwxmhfHAL8fpUQOya6QFxOZnF/
+   ioa67RwtebnKy89lLtDjsBJ7mE9q87lXxA/rF6PZa8Y0Az3v9wRuFe1yE
+   YUbKuBFrfTvbf44MdghK6kntBjklYycwnUZMqexmjAxFSnJFKxNml2FxG
+   w==;
+X-CSE-ConnectionGUID: MwLpWujqTLq+BRhg/vp8hQ==
+X-CSE-MsgGUID: iIwTDY1OQCufgnlsUFnyCA==
+X-IPAS-Result: =?us-ascii?q?A0BxBQDRRo9q/8pK/pBaglmEKUOFIIRNiwWGUi2NPIwEg?=
+ =?us-ascii?q?X4PAQEBD1EEAQGBUQGDKQEJAo1sAiY0CQ4BAgQDAgMBAQEBAQEBAQEBAQEKA?=
+ =?us-ascii?q?QEFAQEBAgEHBYEOE4ZchlsCAQMjDwFGEAsODAImAgJWBhuCeoJ1A78oeoEyg?=
+ =?us-ascii?q?QGEftlJgXIVgQouiF4BhXiEfCcbgUlEhA8xPogegmoEgiKBDJNkLCZ4HANZL?=
+ =?us-ascii?q?AEPETUTFwsHBYEjQwOBBiMPPAUtHYEjIR0XFx5YGwYFEiAqQUQVDgM+gRlBA?=
+ =?us-ascii?q?oF1PyMZNnyBCV6BKylkAQIQF0YuFYIHAoJagSdeAgFJQw4HRz4LB2Y9NxQZB?=
+ =?us-ascii?q?AIBOnuUUpdLsCOEKKFkEhwXg3EBk22TDZkIqUOBaDyBWTMaCBsVgyNSGQ+OX?=
+ =?us-ascii?q?89fRW8BAQcCBw4DC4FokX4BAQ?=
+IronPort-Data: A9a23:OvUitavi9iCeNXajuklLLf2y0+fnVI1eMUV32f8akzHdYApBsoF/q
+ tZmKTvVa/mMY2XzLtp1YNm+pBwD7JOGmIMwTlc9q39hFClGgMeUXt7xwmUckM+xwmwvaGo9s
+ q3yv/GZdJhcokf0/0nrb/656yYghclkf5KkYMbcICd9WAR4fykojBNnioYRj5Vh6TSDK1vlV
+ eja/YuFZTdJ5xYuajhKs/LZ9ks11BjPkGpwUmIWNKgjUGD2zxH5PLpHTYmtIn3xRJVjH+LSb
+ 47r0LGj82rFyAwmA9Wjn6yTWhVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0NS+7vw60c+VZk
+ 72hg3AfpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn3bEm51T4E8K0YIw3/lTGV5T9
+ +UkDClORCqDiKWo2OK7c7w57igjBJGD0II3s3x6iDWcBvE8TNWbGuPB5MRT23E7gcUm8fT2P
+ pZFL2AyMFKfP1sVYg1/5JEWxI9EglH9bzpcrF+JjaE2+GPUigd21dABNfKIJYDSG5wKwS50o
+ ErH3nvFLiBDE+W01DSK9Ha3u8HJjAjSDdd6+LqQs6QCbEeo7mAaFhATfVeyv/S8jkmwR5RZJ
+ lB80jEio4A880mqRdnwQVu9rRasvBkcXZxeGvYm4QuAzKb87AOQB2xCRTlEAPQruNIzTC4ny
+ neGmNTmATEpu7qQIVqR/7GVoDeaOC8aIGYYbygUCw0I/7HLqZovphHCVNBuFOiylNKdMTH53
+ DOiryUkgbgXy8kR2M2T/k3Nihqvq4LPQwpz4R/YNkqs6A9jaZHmYYG05VXFxfJdKoDfRVnpl
+ HQYktSD6O0HJZeTlSCMSaMGG7TBz/KINzvGhnZpAZgt9j3r8HmmFahV6jV5L0dBNNgFdT7gJ
+ kTUvGt5/5ZeMXevRalpYo6wAoIhyq2IPcjsTPHNcvJIfJl9dQbB9yZrDWaP3nzwuE4ykK0+M
+ NGQdsPEJW4TA6lhzRKsSusd2KNtzSc7rUvZXZ7T0Ruqy/ydaWSTRLNDN0GBBsg97aWZsEDW/
+ sxZOs+i1RpSSqv9bzPR/IpVKkoFRVA/BJbru4lNeuuKChRpFXtnCPLLx74lPYt/kMx9kOrU8
+ nyjclFXxUC5hnDdLwiOLHd5Z9vHRop2p3Y2FTIjMEzu2HU5Z4urqqAFePMKkaIP/eF5iPoxR
+ P4fdoDYW7JESy/M/HIWapyVQJFeSSlHTDmmZ0KNCAXTtbY5L+AV0rcIpjfSyRQ=
+IronPort-HdrOrdr: A9a23:MyRuC69VFDpMh+gZk3puk+DyI+orL9Y04lQ7vn2ZhyY6TiX+rb
+ HKoB17726XtN9/YhsdcLy7VJVoBEm9yXcW2+Qs1N6ZNWGMhILrFvAA0WKI+Vzd8kPFmdJ15O
+ NHb7V0DsH2ABxRiMb35xT9LvMbqeP3lJxBQYzlvhFQpcYAUdAG0ztE
+X-Talos-CUID: 9a23:MzNqhW+hYn+B38i2U2+Vv2sLPtgab3/E8FPJYGWCCWkuVqXFSWbFrQ==
+X-Talos-MUID: 9a23:EuFodgjXrdA3OK5Hwne7OsMpNeZ334ifUWc0uogItM+ALhFePSa2pWHi
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.25,245,1779148800"; 
+   d="scan'208";a="57406177"
+Received: from aer-l-core-01.cisco.com ([144.254.74.202])
+  by aer-iport-3.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 26 Aug 2026 20:08:20 +0000
+Received: from localhost (unknown [10.189.105.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by aer-l-core-01.cisco.com (Postfix) with ESMTPS id 764D823BEB2;
+	Wed, 26 Aug 2026 20:08:20 +0000 (GMT)
+Date: Wed, 26 Aug 2026 22:08:19 +0200
+Message-ID: <19fceccafbe776dc0a989b00c971edd8@cisco.com>
+From: Jerome Tollet <jtollet@cisco.com>
+To: William Tu <witu@nvidia.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>, netdev@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com, leonro@nvidia.com, daniel@iogearbox.net, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v4 2/2] net/mlx5e: Prevent stale XSK buffer release on MPWQE refill retry
+In-Reply-To: <20260824141645.23700-3-jtollet@cisco.com>
+References: <20260824141645.23700-1-jtollet@cisco.com> <20260824141645.23700-3-jtollet@cisco.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Outbound-Client-TLS: ANONYMOUS;unknown [10.189.105.31];TLSv1.3;TLS_AES_256_GCM_SHA384;256
+X-Outbound-SMTP-Client: 10.189.105.31, [10.189.105.31]
+X-Outbound-Node: aer-l-core-01.cisco.com
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBHCiaqRI9qXCSUOQ--.35168S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxurWDKF4xWF4UWr4xZFyxKrg_yoWrAFWkpF
-	n7Ca13Crs5XF47XwsxJF1kuFWfZa4Iyay3trWfJwnavanxGry5Zr4DAFyj9F15Jry8tw15
-	trWkAryxuFWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEiSd-UUUUU=
-X-CM-SenderInfo: birtjiyyuximiyt6il2tof0z/xtbC0Qu5EGqPRKutrAAA34
 
-On certain Lenovo/AMD systems, the BIOS declares an ACPI NVS region
-that covers a large memory range (e.g. 0xccc40000-0xccd3efff) which
-includes the TPM CRB MMIO area (0xccd35000-0xccd38fff). The E820
-subsystem registers this NVS region with IORESOURCE_BUSY in the
-iomem_resource tree.
+Adding William Tu to Cc, as suggested by get_maintainer.pl.
+Apologies for the omission.
 
-When tpm_crb probes, it calls devm_ioremap_resource() to map the CRB
-registers, which internally calls devm_request_mem_region(). This fails
-with -EBUSY because the NVS region already claims that address range.
-
-Fix this by adding a crb_try_nvs_fallback() helper that detects the
-ACPI NVS overlap using region_intersects() and falls back to
-devm_memremap() when the resource falls inside ACPI NVS.
-devm_memremap() does not require exclusive resource reservation,
-making it safe to use on NVS-overlapping regions. This approach is
-identical to the one used by the WDAT watchdog driver (wdat_wdt_map_mem).
-
-The NVS fallback is applied in both code paths of crb_map_res():
-1. When iores is NULL (no ACPI resource encompasses the target address)
-2. When iores is non-NULL but devm_ioremap_resource() fails with EBUSY
-
-Before this patch:
-  tpm_crb MSFT0101:00: error -EBUSY: can't request region for resource
-  [mem 0xccd35000-0xccd38fff]
-  tpm_crb MSFT0101:00: probe with driver tpm_crb failed with error -16
-
-After this patch:
-  tpm_crb MSFT0101:00: [mem 0xccd35000-0xccd38fff] is inside ACPI NVS,
-  mapping without reservation
-  tpm_crb MSFT0101:00: of device registration complete, result 0: 0
-
-Signed-off-by: microfish <microfish@kernel.org>
-Signed-off-by: microfish <f13208471983@163.com>
----
- drivers/char/tpm/tpm_crb.c | 50 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-index ceb4100ba..c4e8b925c 100644
---- a/drivers/char/tpm/tpm_crb.c
-+++ b/drivers/char/tpm/tpm_crb.c
-@@ -13,6 +13,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/highmem.h>
-+#include <linux/mm.h>
- #include <linux/rculist.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-@@ -557,6 +558,39 @@ static int crb_check_resource(struct acpi_resource *ares, void *data)
- 	return 1;
- }
- 
-+/*
-+ * Try to map a resource region. If devm_ioremap_resource() fails with
-+ * -EBUSY because the region falls inside an ACPI NVS area (common on
-+ * certain Lenovo/AMD firmware), fall back to devm_memremap() which
-+ * does not require exclusive resource reservation. This is analogous
-+ * to the approach used by the WDAT watchdog driver (wdat_wdt_map_mem).
-+ */
-+static void __iomem *crb_try_nvs_fallback(struct device *dev, u64 start,
-+					   u32 size)
-+{
-+	struct resource res = {
-+		.start	= start,
-+		.end	= start + size - 1,
-+		.flags	= IORESOURCE_MEM,
-+	};
-+	void *addr;
-+
-+	if (region_intersects(res.start, resource_size(&res), IORESOURCE_MEM,
-+			     IORES_DESC_ACPI_NV_STORAGE) !=
-+			     REGION_INTERSECTS)
-+		return NULL;
-+
-+	dev_warn(dev,
-+		 "%pR is inside ACPI NVS, mapping without reservation\n",
-+		 &res);
-+
-+	addr = devm_memremap(dev, res.start, resource_size(&res), MEMREMAP_WB);
-+	if (IS_ERR(addr))
-+		return IOMEM_ERR_PTR(PTR_ERR(addr));
-+
-+	return (void __iomem __force *)addr;
-+}
-+
- static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
- 				 void __iomem **iobase_ptr, u64 start, u32 size)
- {
-@@ -565,18 +599,30 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
- 		.end	= start + size - 1,
- 		.flags	= IORESOURCE_MEM,
- 	};
-+	void __iomem *p;
- 
- 	/* Detect a 64 bit address on a 32 bit system */
- 	if (start != new_res.start)
- 		return IOMEM_ERR_PTR(-EINVAL);
- 
--	if (!iores)
-+	if (!iores) {
-+		p = crb_try_nvs_fallback(dev, start, size);
-+		if (p)
-+			return p;
- 		return devm_ioremap_resource(dev, &new_res);
-+	}
- 
- 	if (!*iobase_ptr) {
- 		*iobase_ptr = devm_ioremap_resource(dev, iores);
--		if (IS_ERR(*iobase_ptr))
-+		if (IS_ERR(*iobase_ptr)) {
-+			p = crb_try_nvs_fallback(dev, iores->start,
-+						 resource_size(iores));
-+			if (p) {
-+				*iobase_ptr = p;
-+				return p + (new_res.start - iores->start);
-+			}
- 			return *iobase_ptr;
-+		}
- 	}
- 
- 	return *iobase_ptr + (new_res.start - iores->start);
--- 
-2.47.3
-
+Regards,
+Jerome
