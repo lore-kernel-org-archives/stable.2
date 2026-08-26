@@ -1,65 +1,40 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4F33BCD0B;
-	Wed, 26 Aug 2026 09:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F447184524;
+	Wed, 26 Aug 2026 10:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787737680; cv=none; b=tkaq3NpypmCVQ35P9vgOkmz/9U/pLBqOgORDG2vOlvZxff0Ek/PJyzoAbzv2SksoUnx+ZpvrijoC5bRobfvNq4hydDVHfLw2lxSp1HrZGLgpquPZEcd7Qj/HZLT9kwoXqEoRXtJaL+N2R7C0U2rRl3rqgkG0W+AFRtuifB8ubjA=
+	t=1787738753; cv=none; b=coM1yFodB20P68hrYulynjWKsyjx+8tLWA6P9jWV3eWyOqm8/QhtJ+FyvSKX/TZ/n16k1ggzgY7EGOaeVe1LiFFLE1N2a92/8OvmwqsV19Lo4PZw0ZtEkOEXWjaj7UaDl+rk1agC47J9/swUYDwYCKCYCdi6WX9mRerlfQzl3os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787737680; c=relaxed/simple;
-	bh=/08myWiVr98o2wIOyhU6OTEXsJu5xDUiiXJJ3NU59eM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hYytzaobMzevPVhkOchCm65fdJBMJht8UcuKxEuQ901Br5kjxuoGkXBgVsRdWdKO7nc2Y36RroFnucloWvQ/KWLcCL2R9Cs/HAz7DpFRw3cGFFAwYL2WGWxRdNuYefaE69oEPtKSBnrWgkRoXfXyM9H2Pkp4nfEH6harUGwIDDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=F17QjMdA; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1787738753; c=relaxed/simple;
+	bh=glXVtIQdJhH2pcno9ro3WEksTGlJcK305M6o2dxO/CU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Mqx0KaqqPOFt+ljOJlwy34VfSi2OaulS8ij+c7jYKiX4WjgqIcgcOTcIA5Dav/fDo0+bl94thoiGovMOeit+PJ1OuHNwHbf9m6tfJgThlvpb4ZTnamRS8jPjPLYjUT4k3zRKTMs+4qfiXuWF2rSUl6zbCz7n0EUbHdqPejlbdAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oRB9S1fG; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="F17QjMdA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787737599;
-	bh=/08myWiVr98o2wIOyhU6OTEXsJu5xDUiiXJJ3NU59eM=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=F17QjMdAfwykneARg1+CTFkIiGF3VvoaOtdpJqigCqnjNd4nMaBPpMe+Nglek7I2w
-	 g48DGidFRXK46pCIgOkS0HV5QSndw0rLwMwcwoHxhMb7ZseSjNSftoC39OkFfv+xlq
-	 hYXip5C+w4AhztdyjQK1mdm62Rxc2dmZ29lCwQrI=
-X-QQ-mid: zesmtpgz7t1787737592tdcc00169
-X-QQ-Originating-IP: ENEuChos8Qz78gGHQtKW+AJSRrpWaai3sNQw+IJDh+M=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 26 Aug 2026 17:46:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2521073373441743776
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oRB9S1fG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9L
+	VqB061la4DYfd6hh7Xv4e5X+jspRnDO2GKLNTEToY=; b=oRB9S1fGVRWJcyYZua
+	QpW9QqCylTxS4BMKnrlat6bz1a5l2vRC6sgmkeB5Wqzfmmo5ZFpwIVRtui47mF5M
+	lYA+/Z+fP9JRLOcuaPbpWs4oBJ5ydaWWz765l8h03gLJQNoCk2d1kVLxkIhcjUj4
+	ym/GaVkEoNcw6V2ACBj7MOVrc=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wCnHhlouo5qDh9vSA--.16080S2;
+	Wed, 26 Aug 2026 18:05:30 +0800 (CST)
+From: ghuicao@163.com
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
 	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 00/87] 6.6.154-rc1 review
-Date: Wed, 26 Aug 2026 17:46:27 +0800
-Message-Id: <20260826094627.3189636-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260825132541.813800447@linuxfoundation.org>
-References: <20260825132541.813800447@linuxfoundation.org>
+	Cao Guanghui <caoguanghui@kylinos.cn>
+Subject: [PATCH v2] scsi: target: iscsi: Reject CDB size exceeding available buffer in iscsit_setup_scsi_cmd
+Date: Wed, 26 Aug 2026 18:05:26 +0800
+Message-Id: <20260826100526.106011-1-ghuicao@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,42 +42,105 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NuVTqMOgygVlOvrhLkMjw2f1/ZzX4ZRqIph+07gAOPXPt9QygkZbMNz/
-	CHoZQFceZNNMfLH/vyC6emsZ+m9Dc14dOAWH3C7Om21Mba+xmCIdW3fdFTIBRyM4bST853T
-	evtKUmPh36bi4kBUWY+rWEcGrw/70+eRJADMtbv8vFSKQT2UaPbPW7xeuppNHRqhnLNgIGi
-	sgXfqJWcvw+U3uf/brM2pcXXrCyftixmgTDXrrgpJFXtktPsGO0DwE14VeOrE+hDjE8LLS8
-	JF+GnMJ7UH9lpzmmk7z2ZUlwmhJSnBSOPNfrQU8L8xXcjOPysrWwrnI0eWxsjj5/hZ9jcLk
-	ue5rd5JZw/5D9zYV4aUaMfsnXcD3X6NMr+T1D8r3HnLSaeQQWx3Z3Lg5si8UxLEImTWQ+3S
-	HBM7Ooy0Ju13gHFC+KmSICQJpwolKUgNtmWFwbg+CIEEexiseZkUdQ/FkNFt0Zju3ENt5Bg
-	mlKxQqR7/mcup4elMGLIw1Ii1tkSrvk+8mak4fmN+9HUKf4CK68rYqdUFknv5kq465VF4dG
-	EgcxDaRMFjGynaws9CF66nKlLzNoLMZ60BrBR3Y7i+bdYFIaH+iM8wSxv2rQ8siRu6j1Z03
-	wB9OhOxq7H6rfeophBklFZeNC7/CgKLAcZehKXrT5Q2cxGf6955cjjV85gg5xalUHgsn1zc
-	85pyKqYy70JK+Cy6ggx46VMcuun4qdScFYF4J3LfHJkG/eUZU12XG2Tw1pdi2AIzKov3P1r
-	0CteFrbKg7i7wNoU75HNioujaCUp8UT2+xlbeuA31/bkko7u6kYtlxDjXePJcHqWBT+cSGD
-	bSfVVXCLtC6g5ukKSWtGBPLJ6dgPrBq/y9WsXzUWoRGOmdXSEG84gxQoWVvlco7f+Xg7XtU
-	1cYDzxUdBFoCtPVQVRZpETRE7OVo/qQ90qCWBU4wkC230QLW2FJkw9wOqTLmEtI/ddSMdQB
-	1mgeYRwo5SxIKzCgFJLj4o34fjLW0HMzBUuH/CRYEzqNJe2D5cj2AUxA/ct5GMZzi6FPgjA
-	fGSYlYo5rRIdhU0AMquD1j2x4zUgFRccN2PMyScPb/ZmEPz6/EBQ+aoF8/YquV2YFNHFKq/
-	h0wVXMRIrR4f+2YrXJLa+/osWlkFZHgxg==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:_____wCnHhlouo5qDh9vSA--.16080S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF43Aw43Wr45Aw17Xry8AFb_yoWrWFy7pF
+	42gw1IyrWrZ3yIkwsxAFWYvry5Zrsaka4qka43K3yUCrnxGFW0gFy2ga43WayUJ3Z2gryU
+	Krs0va48GF4Utw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jY5lbUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC3woHmWqOumrD5gAA3a
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+In iscsit_setup_scsi_cmd(), the CDB is later re-parsed by
+scsi_command_size() based on its SCSI opcode. For a VARIABLE_LENGTH_CMD
+(0x7f) the returned size is cdb[7] + 8, where both cdb[0] and cdb[7]
+come verbatim from the initiator-controlled PDU. The amount of CDB data
+actually available is never cross-checked against this opcode-declared
+length before the CDB is handed to target_cmd_init_cdb(), which does:
 
-Best Regards
-Wentao Guan
+  memcpy(cmd->t_task_cdb, cdb, scsi_command_size(cdb));
 
-Log:
-Linux version 6.6.154-rc1-arm64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.154-rc1-arm64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Wed Aug 26 15:06:21 CST 2026
-Linux version 6.6.154-rc1-loong64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.154-rc1-loong64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Wed Aug 26 15:24:02 CST 2026
-Linux version 6.6.154-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP
-Linux version 6.6.154-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Wed Aug 26 15:40:33 CST 2026
-Linux version 6.6.154-rc1-amd64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.6.154-rc1-amd64-desktop-hwe-g8147a3c12dd2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Aug 26 14:47:41 CST 2026
+An initiator can set cdb[0]=0x7f and cdb[7]=252 so that
+scsi_command_size() returns 260, while the available CDB space is only
+16 bytes (the basic header, when no Extended CDB AHS is present) or the
+AHS-provided length. target_cmd_init_cdb() then reads up to 244 bytes
+past the end of the CDB buffer, a heap out-of-bounds read. The leaked
+bytes are later parsed as the CDB and can be indirectly observed by the
+initiator through sense data and responses.
+
+Reject the command when the opcode-declared CDB size exceeds the
+available CDB space, before the CDB is passed on:
+
+- Without an Extended CDB AHS the CDB is limited to ISCSI_CDB_SIZE (16)
+  bytes in the basic header, so reject when scsi_command_size() >
+  ISCSI_CDB_SIZE.
+- With an Extended CDB AHS the buffer is allocated from the AHS-declared
+  length, so reject when scsi_command_size() > cdb_length.
+
+commit 2f3835771dff ("scsi: target: iscsi: reject invalid size Extended
+CDB AHS") fixed the zero-length ahslength overflows and the AHS-buffer
+overread, but did not cover the orthogonal "available CDB space vs.
+opcode-declared size" path.
+
+Fixes: 8f1f7d297bce ("scsi: target: iscsi: Add support for extended CDB AHS")
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+---
+v2:
+  - Add bounds check for standard path without AHS (hdr->hlength == 0)
+  - Use if/else to make the two paths explicit
+  
+drivers/target/iscsi/iscsi_target.c | 31 +++++++++++++++++++++++++++++
+1 file changed, 31 insertions(+)
+
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+index 62ada3a52210..56f8fd461192 100644
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -1100,7 +1100,22 @@ int iscsit_setup_scsi_cmd(struct iscsit_conn *conn, struct iscsit_cmd *cmd,
+ 
+ 	cdb = hdr->cdb;
+ 
+-	if (hdr->hlength) {
++	if (!hdr->hlength) {
++		/*
++		 * Without an Extended CDB AHS the CDB is limited to the 16
++		 * bytes in the basic header. The CDB is later re-parsed by
++		 * scsi_command_size() based on its opcode, which may claim a
++		 * larger length (e.g. VARIABLE_LENGTH_CMD with cdb[7]=252).
++		 * Reject such a mismatch before handing the CDB to
++		 * target_cmd_init_cdb() to avoid an out-of-bounds read.
++		 */
++		if (scsi_command_size(hdr->cdb) > ISCSI_CDB_SIZE) {
++			pr_err("SCSI command size %u exceeds CDB size %u, protocol error.\n",
++			       scsi_command_size(hdr->cdb), ISCSI_CDB_SIZE);
++			return iscsit_add_reject_cmd(cmd,
++				ISCSI_REASON_PROTOCOL_ERROR, buf);
++		}
++	} else {
+ 		ecdb_ahdr = (struct iscsi_ecdb_ahdr *) (hdr + 1);
+ 		if (ecdb_ahdr->ahstype != ISCSI_AHSTYPE_CDB) {
+ 			pr_err("Additional Header Segment type %d not supported!\n",
+@@ -1124,6 +1139,20 @@ int iscsit_setup_scsi_cmd(struct iscsit_conn *conn, struct iscsit_cmd *cmd,
+ 
+ 		cdb_length = ahslength - 1 + ISCSI_CDB_SIZE;
+ 
++		/*
++		 * The CDB buffer is later re-parsed by scsi_command_size()
++		 * based on its opcode, which may claim a length larger than
++		 * the AHS provided. Reject such a mismatch before allocating
++		 * to avoid an out-of-bounds read of the CDB buffer in
++		 * target_cmd_init_cdb().
++		 */
++		if (scsi_command_size(hdr->cdb) > cdb_length) {
++			pr_err("Extended CDB AHS: SCSI command size %u exceeds AHS-provided CDB length %u, protocol error.\n",
++			       scsi_command_size(hdr->cdb), cdb_length);
++			return iscsit_add_reject_cmd(cmd,
++				ISCSI_REASON_PROTOCOL_ERROR, buf);
++		}
++
+ 		cdb = kmalloc(cdb_length, GFP_KERNEL);
+ 		if (cdb == NULL)
+ 			return iscsit_add_reject_cmd(cmd,
+-- 
+2.34.1
 
