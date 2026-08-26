@@ -1,157 +1,325 @@
-Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB79046D55C
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 18:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A22743C061
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 18:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787769511; cv=none; b=WY45lxdpJl1UodOePhqQM4yV/DNi6MfX9AThIXsGxH4OG2CEAIjuYSKQrwR3KsIKctuCWcHmcxE5IUesfPmYDTMVXx0G1r1p71o0spEl6DiYFIBbx7OEAQ4mP4Cx3Zfqb0wO+LzV6RLFoYHcV2iUmDae5Ltn63HdTI4owcJg55w=
+	t=1787769875; cv=none; b=Fyzf0ZzAHgR303htG+Aq90Cg+ZiYE/Aj5Q5CxEj5ufkDFfUJUPL4oImKpyO1DjptK249EGaXbn4fjDSHoyfyW/Whm0+uvqkST0aTH9OB7HaSQybQFl2mT82PcqP2rJfUP124kAl6lMtcSEbYmh/8fEEndbt6MUlcaa2SO/oA9KU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787769511; c=relaxed/simple;
-	bh=rvhP7RaXDz6UJcdy0LpafQ28K6Jx0UmNaixps3g6iSk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UQFjWmAUszdTw5O+amIGhW+OfUEIa/QPCcNMbC27HWxsIN+7IuibfgMuFyuZudzH8kDzJrEzOXjMH4l4IopvFWMKHSWJW+uviVMRXWJ1iUShySvO2DWYmuTeRCLJbgYo5N0ok99ePzPWdKPsKD6WAzvcGv4VTodeLhXCDitHL/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+	s=arc-20240116; t=1787769875; c=relaxed/simple;
+	bh=K8+JXwQwIChfIJ86bGFQQylRGRVSXo+P9SL8keyK5g0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YAkrxNBpiTompkd/i72EEy3DWCdSUcHjHb/BLlxKkScfj/kLD+PJ4ru7MohLVi/vPx16P4mAsrhYcuPEczueB3vP2bgQsZ4upfc3XdcbsJo0MifqfSBtQVtVSSsuswC2rbV5WirdgO2QVbYZrGa/vJIJvhbMdWKPf/KGK0M0XzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cVAgCXmu; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c213bf6ad5bso53252466b.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:38:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787769498; x=1788374298;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cVAgCXmu"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8588583a7c3so11870857b3.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:44:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787769860; x=1788374660; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uQAJ6HWMnaptEaDKWJ2YFOon5oDggMOJCWfPqpLuh7Y=;
-        b=L61mu43XKnhZ44fCSHi60awEEn/V0SUkBhbgD5OcBL3SzQJEOboY7r8fkLfy1/2YKr
-         wHGk5jpkwm3jwfS8s2qtzFuEYFhJIqPP9UkncNdFT7GCGCS3HjLV+v5CmzOvimOEGZT3
-         RtKuo7rsl10Ho4yF5pG4/1GE6E/Ysd4QYHeroOFPxORwNGp+wG60ocL62N/k8Fv9fMge
-         oBHp/hd58F9l1EsOTFlHobmDUhC2hRlLh+iKbZ0+7Dbza8sesKapcJS/CkG70/xV5DVa
-         APZb782YvhvEGqGhjAC6j6efm/WGLIEyuvmUrKTV8ziL+r66bx4qVmxEzqXYxvj0avLL
-         5aUw==
-X-Forwarded-Encrypted: i=1; AHgh+RrT3/Z/nRgoR7B8FgkxdE6HisX3MjP70Z/gDNlBT9mvMqzCGpzps2N6gYFtf/KpDFnUEeqQbUI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDArS4cd9ql+8Bd+N9yvRaxWlPfUdRO1IjBHu3zvKXEZaUKN+g
-	Zve8d8zSSEoPMg7NYMQJhzoetN7lW33C32Tac+nD/FoGW6e+NubKnGFLjXe8ZXa8
-X-Gm-Gg: AR+sD11CxwyvsToirvXytH3BZkdwRIh5Tm9IzGUuSXDoOTarvl1B/keikxbkgKHlzaT
-	mafUgaX1HA0Kb7mNlmdkP0kveRpVfIoVmTG4/6BWdO3zIhIV70+kupDW0tqGm3y2dSHhRnL80GR
-	EMuutYN0m6xeb5KWBmFSX2mq9VnknCrhoTYvbhFM1ODSOkYgXFZFvp7ScwDmi9lYQVZQ65xQcgj
-	31D/aUydRdOF1O1KjO83yesjJJPp9eg6+ZevpB3cCDyfrL1w3eJc+ElP5THhVuPY/OEDphLW/eg
-	8dOa75zv6Xm7xh1uE80+jHsW+nAt1vWt6qcQzmC3b1W9HfA2ZLg0kv77yOvoBigP+ip+mptlaeI
-	Ev7eVbfgmDI5b1B34pgcXz1x2DExPIr9DbLXwmFEsy2CUPighVT46vOyVUDPb9JbT0SCMkrwfdM
-	gIIP6EseJNrFSMw83uGHlIm5usAhmpmPU2D3cTiWttr1CYqXK/s6yurFU+mdp5QCbdRNmXydRWv
-	LGlf35CUtLzcu8=
-X-Received: by 2002:a17:907:d07:b0:c19:5572:d234 with SMTP id a640c23a62f3a-c250bb3791amr1150758066b.1.1787769497364;
-        Wed, 26 Aug 2026 11:38:17 -0700 (PDT)
-Received: from [192.168.88.241] (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5de8ea655sm5491581a12.12.2026.08.26.11.38.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 11:38:16 -0700 (PDT)
-Message-ID: <7b1f615f-d435-4b83-a180-67cf9a4223a0@ovn.org>
-Date: Wed, 26 Aug 2026 20:38:15 +0200
+        bh=SNJYtUVMDII5y7fz/pInb4E0R2wJit2uplr7wHikXAw=;
+        b=cVAgCXmulKT4B4fewmojy29YPxzZOwe4PWMwS9I1qmMurSRxjkE+DJqW5Cq/XgVt7F
+         j+exYsyZYR767l/h3/cle3MCrAHyOr4nS5DrR0bsHHU105L5yuibqwCXmvU87xKk2ZLM
+         RBBsfGmnO/gEaYZskCCTBTxl5pH80RQndepGkFtnhG4WzANFKQxxP0/KhlkUqLYWPFEq
+         ay0oUwz+eTrATyhqNItzLjBdhen/LTTqj6BsWaP9wrCQHuv+pm0TKhlRVrb+VyTVfUXW
+         GDHwkKp/f4bNSdweh2Dfhq4Y5yeWuA4Lbshcndd+TV78jBNj4hGJOEvBqeu/carZIe3d
+         vwnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787769860; x=1788374660;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SNJYtUVMDII5y7fz/pInb4E0R2wJit2uplr7wHikXAw=;
+        b=De/Uy8vKMb1B81XzwvE1NY+6cXlMSsQqURze3a9bkOz/hH2KI0DcRRmNPUPJPMF6VN
+         3Rh1jO3tIPX1HrpyL6NNpfOUFMqCiiIFKX8RdYcqOk/J3sRlR7NT5+le13LSbpWQjz+7
+         zOF2bUMF/xl/yekiGQFIbQzFeh66+caTPFqWlpgMTXyjqrmI3QzdqP8e/i/ut2KsAxxV
+         jgRtNYgAnDWVvRSVEy3ZDLlMMA4aczDpMRGtOKYxKJcgmEqU67ECMZFUOvo4G/5YVr95
+         n1RrKImi8fmU/b2dtRgtITNvyc/jZS1adAaMXMcYUM22AGhROUdtIvOZF5qR9QXbSegJ
+         5wsg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpz+5TDKhRgBg8W7uBK0ytNWc6oZmS0zUJtFIgeRvYs8TqcrQ+Seb/PaeViHPlo5WIhuv3jT9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAILPuiH7qbktaaFT+AqiMI9Hc5I8/vN10qP3mokQ8jfMxuBrF
+	VBYTLup4Avoixm9hi4Dpa5WFdwPtPa9bs51zK0CaOmRI3iP7cNNARL85
+X-Gm-Gg: AR+sD10X3InuOtIWaJvp3L25W4MyC2KHMTZqfufqSneKpcyqIRjfmKRsARSKcGVxE30
+	NKUMCpEnarPicBfPgoj7e0oY0WDeVkIHMrmmpA76f3S5V6XNQvvWEomclCEE68lCJHJIhXNsr9f
+	jN59nfHvTzNkUhcFYgDd7FP7KyUFWeE4T6doxAwtjyP+husBKzECNrUn+s4RGgDCn4kzyptUH6g
+	UMH/QkRP6amL2zw+4rm1n+XPOXv5mvGA8AItBgx5Xl7Lm2vhJfyuKP1yuuSDJOLRdMs7TykpFr7
+	mgDol60lJSoHtvI9sCHwvk7SBJFpwWInd89yrVmVqQu1DQf1xCJaBXpPDvkN4a1Zrc5uqf9RZOY
+	HvCBV+pg+vPf0/NEpQsDA2TmuTLXhr0mMB9Eo3am/9IHAZ+baW3mcdCxxtb55RTzbP9Pn1F56BK
+	28lFyW2PMH56KQPlmp6uGWeDk8HMOMXrzya4ATVXmiOG3B5ElDbEH36XIs0OPJFUM5E647CMJwU
+	y0uSXE4MPOstv1vtW1YIOEYDcNvsuYug4gDNG0=
+X-Received: by 2002:a05:690c:f13:b0:81c:b865:2231 with SMTP id 00721157ae682-857440ff56cmr34556607b3.33.1787769859938;
+        Wed, 26 Aug 2026 11:44:19 -0700 (PDT)
+Received: from 4470NRD-ASU.ssi.samsung.com ([50.205.20.42])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8570d04e004sm20970317b3.36.2026.08.26.11.44.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 11:44:19 -0700 (PDT)
+From: Anisa Su <anisa.su887@gmail.com>
+X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
+To: linux-cxl@vger.kernel.org
+Cc: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Gregory Price <gourry@gourry.net>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Anisa Su <anisa.su@samsung.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] cxl/events: Bound the event log drain loop
+Date: Wed, 26 Aug 2026 11:43:08 -0700
+Message-ID: <20260826184417.1042-1-anisa.su@samsung.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1787768932.git.anisa.su@samsung.com>
+References: <cover.1787768932.git.anisa.su@samsung.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netlink: specs: fix the conntrack filter type
-To: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>,
- Ilya Maximets <i.maximets@ovn.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>,
- "Remy D. Farley" <one-d-wide@protonmail.com>,
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, stable@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260825155832.3685714-1-i.maximets@ovn.org>
- <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 8/26/26 7:20 PM, Asbjørn Sloth Tønnesen wrote:
-> On 8/25/26 3:58 PM, Ilya Maximets wrote:
->> The CTA_FILTER doesn't contain nested tuple attributes, instead it
->> contains bit masks that specify which tuple attributes to filter on.
->> The values for filtering are taken from the top-level CTA_TUPLE_ORIG
->> and CTA_TUPLE_REPLY.
-> 
-> As identified by Sashiko-NIPA[1], then CTA_TUPLE_ORIG and CTA_TUPLE_REPLY
-> are both absent from the GET DUMP request attribute list.
-> 
-> However this doesn't prevent ynl CLI from sending the attributes:
-> 
-> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
->    '{"nfgen-family": 2, "filter": {"orig-flags": 1}}'
-> Netlink error: Invalid argument
-> 
-> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
-> '{"nfgen-family": 2, "filter": {"orig-flags": 1}, "tuple-orig": {"tuple-ip": {"ip-v4-src": "192.255.0.255", "ip-v4-dst": 
-> "192.255.255.0"}}}'
-> []
-> 
-> Otherwise, LGTM.
-> 
-> [1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825155832.3685714-1-i.maximets%40ovn.org
+cxl_event_thread() drains every log named in the Event Status register and
+repeats until that register reads zero.  CXL 8.2.9.3.1 Table 8-203 marks
+the register RO and leaves clearing it to the device, so a misbehaving device
+that leaves a status bit set spins the thread forever, resending
+Get Event Records as fast as the mailbox completes.
 
-The reported issue is preexisting and a little orthogonal to the goal of
-this patch.  I.e. missing dump attributes vs wrong type of attributes that
-are specified.
+Bound the loop on work completed instead.  cxl_mem_get_records_log() and
+cxl_mem_get_event_records() report failures and which logs returned
+records; the thread stops on the first error and drops any log whose status
+bit was set while it returned nothing.  Every pass either drains a record
+or clears a bit from the mask, so the loop terminates whatever the device
+reports.  Logs are drained best effort, so a broken one does not suppress
+reporting from the rest.
 
-I can add all the missing attributes: tuple-orig, tuple-reply, mark-mask
-and status-mask.  Either as a separate patch, or fold the change into this
-one, but rename it into something like:
-  "netlink: specs: fix conntrack filtering attributes and types"
+Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Anisa Su <anisa.su@samsung.com>
+---
+ drivers/cxl/core/mbox.c      | 58 ++++++++++++++++++++++++++++--------
+ drivers/cxl/cxlmem.h         |  3 +-
+ drivers/cxl/pci.c            | 39 +++++++++++++++++++-----
+ tools/testing/cxl/test/mem.c |  4 +--
+ 4 files changed, 81 insertions(+), 23 deletions(-)
 
-WDYT?
+diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+index 7c6c5b7450a5..5954ba20f0be 100644
+--- a/drivers/cxl/core/mbox.c
++++ b/drivers/cxl/core/mbox.c
+@@ -1059,8 +1059,8 @@ static int cxl_clear_event_record(struct cxl_memdev_state *mds,
+ 	return rc;
+ }
+ 
+-static void cxl_mem_get_records_log(struct cxl_memdev_state *mds,
+-				    enum cxl_event_log_type type)
++static int cxl_mem_get_records_log(struct cxl_memdev_state *mds,
++				   enum cxl_event_log_type type, bool *drained)
+ {
+ 	struct cxl_mailbox *cxl_mbox = &mds->cxlds.cxl_mbox;
+ 	struct cxl_memdev *cxlmd = mds->cxlds.cxlmd;
+@@ -1068,12 +1068,15 @@ static void cxl_mem_get_records_log(struct cxl_memdev_state *mds,
+ 	struct cxl_get_event_payload *payload;
+ 	u8 log_type = type;
+ 	u16 nr_rec;
++	int rc = 0;
++
++	*drained = false;
+ 
+ 	mutex_lock(&mds->event.log_lock);
+ 	payload = mds->event.buf;
+ 
+ 	do {
+-		int rc, i;
++		int i;
+ 		struct cxl_mbox_cmd mbox_cmd = (struct cxl_mbox_cmd) {
+ 			.opcode = CXL_MBOX_OP_GET_EVENT_RECORD,
+ 			.payload_in = &log_type,
+@@ -1094,6 +1097,7 @@ static void cxl_mem_get_records_log(struct cxl_memdev_state *mds,
+ 		nr_rec = le16_to_cpu(payload->record_count);
+ 		if (!nr_rec)
+ 			break;
++		*drained = true;
+ 
+ 		for (i = 0; i < nr_rec; i++)
+ 			__cxl_event_trace_record(cxlmd, type,
+@@ -1112,31 +1116,59 @@ static void cxl_mem_get_records_log(struct cxl_memdev_state *mds,
+ 	} while (nr_rec);
+ 
+ 	mutex_unlock(&mds->event.log_lock);
++
++	return rc;
+ }
+ 
+ /**
+  * cxl_mem_get_event_records - Get Event Records from the device
+  * @mds: The driver data for the operation
+  * @status: Event Status register value identifying which events are available.
++ * @drained: Optional mask of the logs in @status that returned records.
+  *
+  * Retrieve all event records available on the device, report them as trace
+- * events, and clear them.
++ * events, and clear them.  Every log named in @status is drained even if
++ * another one fails, so that a broken log does not suppress reporting from
++ * the rest.
++ *
++ * Return: 0, or the first error encountered.
+  *
+  * See CXL rev 3.0 @8.2.9.2.2 Get Event Records
+  * See CXL rev 3.0 @8.2.9.2.3 Clear Event Records
+  */
+-void cxl_mem_get_event_records(struct cxl_memdev_state *mds, u32 status)
++int cxl_mem_get_event_records(struct cxl_memdev_state *mds, u32 status,
++			      u32 *drained)
+ {
++	static const struct {
++		u32 status;
++		enum cxl_event_log_type type;
++	} logs[] = {
++		{ CXLDEV_EVENT_STATUS_FATAL, CXL_EVENT_TYPE_FATAL },
++		{ CXLDEV_EVENT_STATUS_FAIL, CXL_EVENT_TYPE_FAIL },
++		{ CXLDEV_EVENT_STATUS_WARN, CXL_EVENT_TYPE_WARN },
++		{ CXLDEV_EVENT_STATUS_INFO, CXL_EVENT_TYPE_INFO },
++	};
++	int ret = 0;
++
+ 	dev_dbg(mds->cxlds.dev, "Reading event logs: %x\n", status);
+ 
+-	if (status & CXLDEV_EVENT_STATUS_FATAL)
+-		cxl_mem_get_records_log(mds, CXL_EVENT_TYPE_FATAL);
+-	if (status & CXLDEV_EVENT_STATUS_FAIL)
+-		cxl_mem_get_records_log(mds, CXL_EVENT_TYPE_FAIL);
+-	if (status & CXLDEV_EVENT_STATUS_WARN)
+-		cxl_mem_get_records_log(mds, CXL_EVENT_TYPE_WARN);
+-	if (status & CXLDEV_EVENT_STATUS_INFO)
+-		cxl_mem_get_records_log(mds, CXL_EVENT_TYPE_INFO);
++	if (drained)
++		*drained = 0;
++
++	for (int i = 0; i < ARRAY_SIZE(logs); i++) {
++		bool got_records;
++		int rc;
++
++		if (!(status & logs[i].status))
++			continue;
++
++		rc = cxl_mem_get_records_log(mds, logs[i].type, &got_records);
++		if (got_records && drained)
++			*drained |= logs[i].status;
++		ret = ret ?: rc;
++	}
++
++	return ret;
+ }
+ EXPORT_SYMBOL_NS_GPL(cxl_mem_get_event_records, "CXL");
+ 
+diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
+index ed419d0c59f2..cb5372eb2d85 100644
+--- a/drivers/cxl/cxlmem.h
++++ b/drivers/cxl/cxlmem.h
+@@ -803,7 +803,8 @@ void set_exclusive_cxl_commands(struct cxl_memdev_state *mds,
+ 				unsigned long *cmds);
+ void clear_exclusive_cxl_commands(struct cxl_memdev_state *mds,
+ 				  unsigned long *cmds);
+-void cxl_mem_get_event_records(struct cxl_memdev_state *mds, u32 status);
++int cxl_mem_get_event_records(struct cxl_memdev_state *mds, u32 status,
++			      u32 *drained);
+ void cxl_event_trace_record(struct cxl_memdev *cxlmd,
+ 			    enum cxl_event_log_type type,
+ 			    enum cxl_event_type event_type,
+diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+index 267c679b0b3c..3daf17835c06 100644
+--- a/drivers/cxl/pci.c
++++ b/drivers/cxl/pci.c
+@@ -514,21 +514,46 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+ 	struct cxl_dev_id *dev_id = id;
+ 	struct cxl_dev_state *cxlds = dev_id->cxlds;
+ 	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
+-	u32 status;
++	u32 mask = CXLDEV_EVENT_STATUS_ALL;
++
++	while (mask) {
++		u32 status, drained, stuck;
++		int rc;
+ 
+-	do {
+ 		/*
+ 		 * CXL 3.0 8.2.8.3.1: The lower 32 bits are the status;
+ 		 * ignore the reserved upper 32 bits
+ 		 */
+ 		status = readl(cxlds->regs.status + CXLDEV_DEV_EVENT_STATUS_OFFSET);
+-		/* Ignore logs unknown to the driver */
+-		status &= CXLDEV_EVENT_STATUS_ALL;
++		/* Ignore logs unknown to the driver, and logs given up on */
++		status &= mask;
+ 		if (!status)
+ 			break;
+-		cxl_mem_get_event_records(mds, status);
++
++		/*
++		 * A failed drain leaves the log's status bit set, so another
++		 * pass would resend the same query forever.
++		 */
++		rc = cxl_mem_get_event_records(mds, status, &drained);
++		if (rc)
++			break;
++
++		/*
++		 * The Event Status register is device owned and read only, so
++		 * it cannot bound this loop; records read can.  A device that
++		 * leaves a bit set with an empty log makes no progress, and
++		 * only the device can clear that state, so stop polling that
++		 * log rather than spin on it.
++		 */
++		stuck = status & ~drained;
++		if (stuck) {
++			dev_warn_once(cxlds->dev,
++				      "Event status %#x set with no records to read\n",
++				      stuck);
++			mask &= ~stuck;
++		}
+ 		cond_resched();
+-	} while (status);
++	}
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -682,7 +707,7 @@ static int cxl_event_config(struct pci_host_bridge *host_bridge,
+ 	if (rc)
+ 		return rc;
+ 
+-	cxl_mem_get_event_records(mds, CXLDEV_EVENT_STATUS_ALL);
++	cxl_mem_get_event_records(mds, CXLDEV_EVENT_STATUS_ALL, NULL);
+ 
+ 	return 0;
+ }
+diff --git a/tools/testing/cxl/test/mem.c b/tools/testing/cxl/test/mem.c
+index a7da279aa3ef..87e01612cea9 100644
+--- a/tools/testing/cxl/test/mem.c
++++ b/tools/testing/cxl/test/mem.c
+@@ -372,7 +372,7 @@ static void cxl_mock_event_trigger(struct device *dev)
+ 			event_reset_log(log);
+ 	}
+ 
+-	cxl_mem_get_event_records(mdata->mds, mes->ev_status);
++	cxl_mem_get_event_records(mdata->mds, mes->ev_status, NULL);
+ }
+ 
+ struct cxl_event_record_raw maint_needed = {
+@@ -1805,7 +1805,7 @@ static int cxl_mock_mem_probe(struct platform_device *pdev)
+ 	if (rc)
+ 		dev_dbg(dev, "No CXL FWCTL setup\n");
+ 
+-	cxl_mem_get_event_records(mds, CXLDEV_EVENT_STATUS_ALL);
++	cxl_mem_get_event_records(mds, CXLDEV_EVENT_STATUS_ALL, NULL);
+ 	cxl_mock_test_feat_init(mdata);
+ 
+ 	return 0;
+-- 
+2.43.0
 
-Best regrads, Ilya Maximets.
