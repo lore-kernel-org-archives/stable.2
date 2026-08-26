@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF09546AA96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D31456DE2
 	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787766503; cv=none; b=XAhjRPyuqav/wiAsFZIBwGPxeORPuciOkM7GgchuXgBFvqAqPsrcvZZV+EMIFrBz3R3hnJeFN6E5ex8j4j2snXN9hUB6oZA9JwO+j1QG3StR0sR+uW3qo69BiH+rujKHPD/ADQRMoIfvp1p3qvx15lQLbea75his+oC26IUJA0o=
+	t=1787766503; cv=none; b=H1j8Gkz6SCcDTNtiHBhXV6aQia3qKWWrNFqkKvxkdVdlTV64InsHaBN0yfTqGxW4hAQi6g4Z+1P4xXZDj9/Icdt9zxS0+SvEwfnjvTqaPZoVqA9S4nzS23HekqxyODifP5uFf/eg3o06o3bdSWc1x18HLCGqXO2aupPVqFliiz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787766503; c=relaxed/simple;
-	bh=amFDVCWT6g79MLaFrh2uc26g1eAPKwFS0ESm8xjSIfU=;
+	bh=8stgrRqQC0e7dtHzpwFstcQKVDc+tw67CefjZZunPfI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZAFFWi9ZsSvjV+X5dA5e/0S7V8BFmu/1MAXMk1QE4kJnjaEHrW1RvCxugEzpD+dBLWArJST1hyaLjgYen3VWTAtTsU0mHhz8VmyofQlARBSUP5h8GsM7dieroLMopMpF5ck7uOzNRNlRRQ4nGqW2Vnbggjno+z8HshjiWLw6C8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kRlcnHZa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FNa0ZMtGstii7dvjzRYyc+T0gKnnOIq+GHnR3dHCBcLiX6ptEhCCT2rmm/UhTTiObLKu87N78+US9uww0JfFiOjeDhpToCqbST7npKYnfSADi4XtTyHJPp8c5WQjnOEgCjHv0uG+0+NnpK8/sB4NSi+SuXJ67CpDVeIGDixUz+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O17jL9pc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kRlcnHZa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181BC1F00ACA;
-	Wed, 26 Aug 2026 17:48:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O17jL9pc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415621F00AC4;
+	Wed, 26 Aug 2026 17:48:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787766492;
-	bh=qfsv60XrPVYZ2qnJeXBnvyDWx5tU8Zn0KI4IF9oLQac=;
+	s=k20260515; t=1787766491;
+	bh=2TwbUhh0+fpxySfrcGwGe2y6bWfsmy+Vs2afw2LIPRI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kRlcnHZaylcBCjHWVaqIATXqn6YM+QVBoNLkiQ4TXaRd5jKRdNgula32BH2LcBAry
-	 Br781AyqpbmpsY8X3eRzYdK7CHezvAfks5bIacTGnyeCklI1p3Rxb7SJXAVcBOBpx5
-	 sQHfMBlsugqDjxrVIQXptHnKOq8vqwCSy/WR7ZiRE1NoH/qb7p9mTpuaaA6wxyhZ99
-	 Z5O+o8DDnqatwm/7ZXdLVcVo5jQ5vfK2IJP8EbLGxncFJDFsb67I7t54ZP6qIKS524
-	 9M0wsa5HH9nw2dtnStE2WZrYezciJl9vHiBd5K60YGin2XThsDpxzTnqQOR7JEGHB3
-	 cIy/6yoaEgItw==
+	b=O17jL9pcT93ZrWthXIRPdPUZPe1BAj5Hhe6wHe/XThz+nMUY3rqkGbLjBTXlwY6f6
+	 cRDA526d0+9q2Y/YXLmUPCVsEVO1b0RnSkHXy6aKsOWBjoEPVDLhw4ryzAVoFM22wB
+	 C/K3GXnuZv5Fkg0bEGlBF/H4cFRE+T/G19G5BdloiUT3CSl3wdXlapCXK4/bOSYdiN
+	 H/BTT3GxvHKy5tsEtH1yIpS3Sw0bD8Tvhetl9En1vhcXISt41PJzbffUPtfs34i3Uy
+	 mK62CZoaIvroSSQnCXWbkZEXvMMTJzpYzGWj+R/hdxBY1MKB/fXMj7j2oeJTebts7W
+	 KIOJOcetKmmRQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Michael Zaidman <michael.zaidman@gmail.com>,
 	Enrik Berkhan <Enrik.Berkhan@inka.de>,
 	Jiri Kosina <jkosina@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/7] HID: ft260: wake up device from power saving mode
-Date: Wed, 26 Aug 2026 13:48:05 -0400
-Message-ID: <20260826174808.2489782-4-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/7] HID: ft260: skip unexpected HID input reports
+Date: Wed, 26 Aug 2026 13:48:04 -0400
+Message-ID: <20260826174808.2489782-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260826174808.2489782-1-sashal@kernel.org>
 References: <2026082538-overhaul-surging-7a4a@gregkh>
@@ -49,68 +49,122 @@ Content-Transfer-Encoding: 8bit
 
 From: Michael Zaidman <michael.zaidman@gmail.com>
 
-[ Upstream commit 4b3da6853a619a952e8caf2e8393264dd42ffa27 ]
+[ Upstream commit b7121e3c04440cc2af9cabbabb24efd23741294a ]
 
-The FT260 can enter a power saving mode after being idle for longer
-than 5 seconds.
+The FT260 is not supposed to generate unexpected HID reports. However,
+in theory, the unsolicited HID Input reports can be issued by a specially
+crafted malicious USB device masquerading as FT260 when the attacker has
+physical access to the USB port. In this case, the read_buf pointer points
+to the final data portion of the previous I2C Read transfer, and the memcpy
+invoked in the ft260_raw_event() will try copying the content of the
+unexpected report into the wrong location.
 
-When being woken up from power saving mode by an I2C write request,
-a possible NACK is not correctly reported by the controller. As a
-workaround, the driver will issue an I2C status report two times in
-ft260_xfer_status() after the chip has been idle for more than 5s.
+This commit sets the Read buffer pointer to NULL on the I2C Read
+transaction completion and checks it in the ft260_raw_event() to detect
+and skip the unsolicited Input report.
 
-Co-developed-by: Enrik Berkhan <Enrik.Berkhan@inka.de>
-Signed-off-by: Enrik Berkhan <Enrik.Berkhan@inka.de>
+Reported-by: Enrik Berkhan <Enrik.Berkhan@inka.de>
 Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.cz>
 Stable-dep-of: bf3e39df3a39 ("HID: ft260: fix stack-use-after-return write in I2C read race")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-ft260.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/hid/hid-ft260.c | 41 +++++++++++++++++++++++++++--------------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 4c6c7dfdd6a71..3c4ca0016659b 100644
+index 854876b16880d..4c6c7dfdd6a71 100644
 --- a/drivers/hid/hid-ft260.c
 +++ b/drivers/hid/hid-ft260.c
-@@ -31,6 +31,8 @@ MODULE_PARM_DESC(debug, "Toggle FT260 debugging messages");
- #define FT260_REPORT_MAX_LENGTH (64)
- #define FT260_I2C_DATA_REPORT_ID(len) (FT260_I2C_REPORT_MIN + (len - 1) / 4)
+@@ -471,17 +471,13 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
+ 	struct ft260_i2c_read_request_report rep;
+ 	struct hid_device *hdev = dev->hdev;
+ 	int timeout;
+-	int ret;
++	int ret = 0;
  
-+#define FT260_WAKEUP_NEEDED_AFTER_MS (4800) /* 5s minus 200ms margin */
+ 	if (len > FT260_RD_DATA_MAX) {
+ 		hid_err(hdev, "%s: unsupported rd len: %d\n", __func__, len);
+ 		return -EINVAL;
+ 	}
+ 
+-	dev->read_idx = 0;
+-	dev->read_buf = data;
+-	dev->read_len = len;
+-
+ 	rep.report = FT260_I2C_READ_REQ;
+ 	rep.length = cpu_to_le16(len);
+ 	rep.address = addr;
+@@ -492,25 +488,36 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
+ 
+ 	reinit_completion(&dev->wait);
+ 
++	dev->read_idx = 0;
++	dev->read_buf = data;
++	dev->read_len = len;
 +
- /*
-  * The ft260 input report format defines 62 bytes for the data payload, but
-  * when requested 62 bytes, the controller returns 60 and 2 in separate input
-@@ -237,6 +239,7 @@ struct ft260_device {
- 	struct completion wait;
- 	struct mutex lock;
- 	u8 write_buf[FT260_REPORT_MAX_LENGTH];
-+	unsigned long need_wakeup_at;
- 	u8 *read_buf;
- 	u16 read_idx;
- 	u16 read_len;
-@@ -306,6 +309,20 @@ static int ft260_xfer_status(struct ft260_device *dev)
- 	struct ft260_get_i2c_status_report report;
- 	int ret;
+ 	ret = ft260_hid_output_report(hdev, (u8 *)&rep, sizeof(rep));
+ 	if (ret < 0) {
+ 		hid_err(hdev, "%s: failed to start transaction, ret %d\n",
+ 			__func__, ret);
+-		return ret;
++		goto ft260_i2c_read_exit;
+ 	}
  
-+	if (time_is_before_jiffies(dev->need_wakeup_at)) {
-+		ret = ft260_hid_feature_report_get(hdev, FT260_I2C_STATUS,
-+						(u8 *)&report, sizeof(report));
-+		if (unlikely(ret < 0)) {
-+			hid_err(hdev, "failed to retrieve status: %d, no wakeup\n",
-+				ret);
-+		} else {
-+			dev->need_wakeup_at = jiffies +
-+				msecs_to_jiffies(FT260_WAKEUP_NEEDED_AFTER_MS);
-+			ft260_dbg("bus_status %#02x, wakeup\n",
-+				  report.bus_status);
-+		}
+ 	timeout = msecs_to_jiffies(5000);
+ 	if (!wait_for_completion_timeout(&dev->wait, timeout)) {
++		ret = -ETIMEDOUT;
+ 		ft260_i2c_reset(hdev);
+-		return -ETIMEDOUT;
++		goto ft260_i2c_read_exit;
+ 	}
+ 
++	dev->read_buf = NULL;
++
+ 	ret = ft260_xfer_status(dev);
+-	if (ret == 0)
+-		return 0;
++	if (ret < 0) {
++		ret = -EIO;
++		ft260_i2c_reset(hdev);
++		goto ft260_i2c_read_exit;
 +	}
+ 
+-	ft260_i2c_reset(hdev);
+-	return -EIO;
++ft260_i2c_read_exit:
++	dev->read_buf = NULL;
++	return ret;
+ }
+ 
+ /*
+@@ -1033,6 +1040,13 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 		ft260_dbg("i2c resp: rep %#02x len %d\n", xfer->report,
+ 			  xfer->length);
+ 
++		if ((dev->read_buf == NULL) ||
++		    (xfer->length > dev->read_len - dev->read_idx)) {
++			hid_err(hdev, "unexpected report %#02x, length %d\n",
++				xfer->report, xfer->length);
++			return -1;
++		}
 +
- 	ret = ft260_hid_feature_report_get(hdev, FT260_I2C_STATUS,
- 					   (u8 *)&report, sizeof(report));
- 	if (unlikely(ret < 0)) {
+ 		memcpy(&dev->read_buf[dev->read_idx], &xfer->data,
+ 		       xfer->length);
+ 		dev->read_idx += xfer->length;
+@@ -1041,10 +1055,9 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 			complete(&dev->wait);
+ 
+ 	} else {
+-		hid_err(hdev, "unknown report: %#02x\n", xfer->report);
+-		return 0;
++		hid_err(hdev, "unhandled report %#02x\n", xfer->report);
+ 	}
+-	return 1;
++	return 0;
+ }
+ 
+ static struct hid_driver ft260_driver = {
 -- 
 2.53.0
 
