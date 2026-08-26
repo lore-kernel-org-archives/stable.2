@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C5F1E8826
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBC819AD90
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:17:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787707075; cv=none; b=L95MStno/y7ckD8P4O7man5ZhpFMJV8J02Pjwkji2OgXJtbr7+5cdBlI7kGznsovhnVElrOSuPZPJynwK9nGiFJqBUE3UExqUv3QS0hySq0Fx+MyyZN01c2InqK6vuTuXLiHVNOCppUWgTF4D2w9zWLONEGXLfkC/pBacmvzy94=
+	t=1787707078; cv=none; b=oUJMeEu3eJ+ye0jl5LRST2DaKSkY5HJBy3G40b6VY+D1ydUOQEAKPwyMMMs5yg1mJ2hJyUOK0rW76JZZJvyVwiCtw+tT5YErE+KsyZRn5nPV5yvuwpQaAObQm37V9w1Rv2gjDOuN8rRztaOQBm1v88lmTaljNzHJymtBnGSvzFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787707075; c=relaxed/simple;
-	bh=HZ2m7oPAJZpWLl02/KhqVo7paSBCe7GU2MlVbZmHbz8=;
+	s=arc-20240116; t=1787707078; c=relaxed/simple;
+	bh=+Iqok1xp3PGBZJsnVKh+aGEjW9BfCx+zGq3OyjgF4+Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CwhA5vIu6Sqa9bPcrjcuR7VxavjBJqFJ0Os/yd1xLNLbOmUWOrAgPnG7/W1MYRe4RM2bX28D7E1FtZMGCBFbu8uCmgWyLSh3b+ksnhMXdxVnuyLplURBsKMSBll+okIDpV5dNuKAWv6/e9B1gjnDfo8FDImHQbYzFixnuvC3/7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjK/lntN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d8lhBgYAmzZmE9EaG86CW+Z97S8hkPH4D6cuzzjbslPHb2JW1G3UGUFs89Oj+b+3iZoU2xITGcd7JCJBY3tsRFCpmp+bOtI3Jb+ETeLeEfLJ4AyMMcIV6/W7OBf/d6FGhrO3H/Oxhd3HZV4qBjYefTWr1PYchTkYVCvUxWgPjwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XZfc6R8X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjK/lntN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA001F00A3D;
-	Wed, 26 Aug 2026 01:17:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XZfc6R8X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3221F000E9;
+	Wed, 26 Aug 2026 01:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787707073;
-	bh=NKWKNHNMrqRBLr5VNJnFpXa56ZtCd5PmzMq5aF1Cj2w=;
+	s=k20260515; t=1787707076;
+	bh=OboyFfebPJ+XhrNR0C8nsxs14ZVxMwyCuR/wLWcr8TE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hjK/lntN8pxUtRfzmZ/ZpfZmaWB7TNngnmEwD2JMEY6zxnj1bPQ2iRjl8cCVHp9DJ
-	 CUbSiwogyGQimReRxQbZgukIk4ODvJzmyQQ999yCGmLzvtuj76g748hRX5rhSZNQ2A
-	 CgSEKa23vL/txm0flU0ndhIz6ZeEzndwxdNhOu/sNku77DaOGCbQSuqdMrDS9jGTlt
-	 M6cxuhhbZg0g08/9mJK0+AjXGNDQTHUeFRlGNEoCrAPMBBs2pnwQO54gyUT8Q4bd4Y
-	 r2Wwl3odUdFlKAng23TdPETUBIMWKilL5aJdD7i1pfIkMgsvLnlde48J/hE7NDvkKN
-	 AqdRboqu1THFw==
+	b=XZfc6R8Xg/XslIHOQjaYpniBCVquKkDdW7RopJ+aNYypsZGPqJFaT9jEj6JUEBbQX
+	 eOwbKhAp5bor/rcACXaTvLRZH9RXc0bU1gKzOhdMAV8aTx9b4iYHhjcRvxGk/ymqFn
+	 nY165J0KqIg/r/T4v1SHXn2IbY5NFMrrnzBBSWe+PizTvMg2K3sUdyXHLfu7Qx1ilV
+	 7QqmVckGPz+nbqz8F6z3FN6Ok5HyuScdY793dnAMAMOkE/hNwstdEn1EFCh7AJKupF
+	 XIrf4gd6g/hoRVqjDMHdAUIRVCxUsaN/D07UKIGc5HsVzIClEqItBoW5C0Z2ei4czU
+	 vHuqOkRidV4uA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	syzbot+c37bed40868932d790e9@syzkaller.appspotmail.com,
-	wuyankun <wuyankun@uniontech.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
+Cc: Zhang Yi <yi.zhang@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Theodore Ts'o <tytso@mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] nilfs2: reject invalid block index in GC ioctl
-Date: Tue, 25 Aug 2026 21:17:50 -0400
-Message-ID: <20260826011750.958726-2-sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] ext4: move partial block zeroing earlier in ext4_zero_range()
+Date: Tue, 25 Aug 2026 21:17:53 -0400
+Message-ID: <20260826011754.959071-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826011750.958726-1-sashal@kernel.org>
-References: <2026082454-equator-dexterous-7907@gregkh>
- <20260826011750.958726-1-sashal@kernel.org>
+In-Reply-To: <2026082452-contact-marsupial-dc79@gregkh>
+References: <2026082452-contact-marsupial-dc79@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,90 +46,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+From: Zhang Yi <yi.zhang@huawei.com>
 
-[ Upstream commit a1735eae55448bc79c2da6593455791e886f6ed8 ]
+[ Upstream commit b16e9d27a643a3cf8907c994d25ed52717f36418 ]
 
-Syzbot reported list corruption caused by a double list_add_tail() call on
-bh->b_assoc_buffers within nilfs_lookup_dirty_data_buffers().
+In ext4_zero_range(), move the ext4_zero_partial_blocks() call, which
+handles unaligned edges, into the same branch where the unaligned range
+is preallocated, immediately after ext4_alloc_file_blocks(). This is
+safe because there is no dependency between partial block handling and
+the subsequent full block handling.
 
-Analysis revealed that the root cause was the insertion of a page/folio
-with a page index of ULONG_MAX into the page cache via the GC ioctl.
-filemap_get_folios_tag(), called by nilfs_lookup_dirty_data_buffers(),
-repeatedly detects a dirty folio with a page index of ULONG_MAX due to
-index wrap-around, leading to duplicate processing of dirty buffers.
+This change will be used by later patches that handle unaligned
+FALLOC_FL_WRITE_ZEROES operations, which will need to check the partial
+zeroed result.
 
-As a preparatory step, the GC ioctl loads the page/folio of the block to
-be moved during GC and inserts it into the page cache based on information
-in the nilfs_vdesc structure passed as an argument.  Normally, this does
-not cause issues because the user-space GC library configures the
-nilfs_vdesc structure properly.  However, since there is no range check on
-the parameters determining the page index, a request with artificially
-crafted parameters -- such as those generated by Syzbot -- can result in a
-page/folio being inserted with a page index of ULONG_MAX, triggering the
-above problem.
-
-This resolves the issue by checking the ranges of 'vd_offset' and
-'vd_vblocknr' in the nilfs_vdesc structure that determine the page index,
-thereby preventing the invalid page/folio insertions.
-
-Reported-by: syzbot+c37bed40868932d790e9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c37bed40868932d790e9
-Fixes: 7942b919f732 ("nilfs2: ioctl operations")
-Cc: wuyankun <wuyankun@uniontech.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260714080044.4038124-5-yi.zhang@huaweicloud.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Stable-dep-of: d19d239ada9b ("ext4: write back partial-zeroed edges in WRITE_ZEROES")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nilfs2/ioctl.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ fs/ext4/extents.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index b0e7c26f0b93f..4e964549bc4ce 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -513,6 +513,7 @@ static int nilfs_ioctl_get_bdescs(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EEXIST	- Block conflict detected.
-+ * * %-EINVAL	- Invalid virtual block descriptor.
-  * * %-EIO	- I/O error.
-  * * %-ENOENT	- Requested block doesn't exist.
-  * * %-ENOMEM	- Insufficient memory available.
-@@ -522,15 +523,30 @@ static int nilfs_ioctl_move_inode_block(struct inode *inode,
- 					struct list_head *buffers)
- {
- 	struct buffer_head *bh;
-+	__u64 limit_blkidx = (__u64)inode->i_sb->s_maxbytes >> inode->i_blkbits;
- 	int ret;
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index 125f628e738ab..27ca641e701b9 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -4734,10 +4734,16 @@ static long ext4_zero_range(struct file *file, loff_t offset,
+ 	}
  
--	if (vdesc->vd_flags == 0)
+ 	flags = EXT4_GET_BLOCKS_CREATE_UNWRIT_EXT;
+-	/* Preallocate the range including the unaligned edges */
 +	/*
-+	 * vblocknr 0 is reserved as an invalid pointer.  Also, limit_blkidx
-+	 * ensures that the page index converted from vd_vblocknr never
-+	 * overflows the page cache limit and respects the architecture's bmap
-+	 * key width.
++	 * Preallocate the range including the unaligned edges, and zero
++	 * out partial blocks if they already contain data.
 +	 */
-+	if (unlikely(vdesc->vd_vblocknr == 0 ||
-+			vdesc->vd_vblocknr >= limit_blkidx))
-+		return -EINVAL;
-+
-+	if (vdesc->vd_flags == 0) {
-+		if (unlikely(vdesc->vd_offset >= limit_blkidx))
-+			return -EINVAL;
-+
- 		ret = nilfs_gccache_submit_read_data(
- 			inode, vdesc->vd_offset, vdesc->vd_blocknr,
- 			vdesc->vd_vblocknr, &bh);
--	else
-+	} else {
- 		ret = nilfs_gccache_submit_read_node(
- 			inode, vdesc->vd_blocknr, vdesc->vd_vblocknr, &bh);
-+	}
+ 	if (!IS_ALIGNED(offset | end, blocksize)) {
+ 		ret = ext4_alloc_file_blocks(file, offset, len, new_size,
+ 					     flags);
++		if (!ret)
++			ret = ext4_zero_partial_blocks(inode, offset, len,
++						       &partial_zeroed);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -4770,10 +4776,6 @@ static long ext4_zero_range(struct file *file, loff_t offset,
+ 	if (IS_ALIGNED(offset | end, blocksize))
+ 		return ret;
  
- 	if (unlikely(ret < 0)) {
- 		if (ret == -ENOENT)
+-	/* Zero out partial block at the edges of the range */
+-	ret = ext4_zero_partial_blocks(inode, offset, len, &partial_zeroed);
+-	if (ret)
+-		return ret;
+ 	if (((file->f_flags & O_SYNC) || IS_SYNC(inode)) && partial_zeroed) {
+ 		ret = filemap_write_and_wait_range(inode->i_mapping, offset,
+ 						   end - 1);
 -- 
 2.53.0
 
