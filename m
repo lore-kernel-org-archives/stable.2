@@ -1,59 +1,59 @@
-Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA54423645D;
-	Thu, 27 Aug 2026 06:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BEC3446CB;
+	Thu, 27 Aug 2026 06:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810451; cv=none; b=h/GYsoMKS69sbFrAlO2AoaV9LvPlSWjA8fZqkYebBtD3evrKpO5E5JvLUfSj9GxBaur5XvU7/FA/14l6qoQQP9rejQySNx199YmqWkhKL5Nc5Q5YzIGzOu1ZXqOw+g3bTy3RkdkwS7bXbZvAJT1xBaxlZG321HuGieJGYGPSv7g=
+	t=1787810468; cv=none; b=QslaJ7HOVPSd5q2I16UKkNsdM+YWEb+UyVwTdiDw/37939GqqWHXlFH8cDOEjX2Rzl6AK4X3alNceZSVRebu/iG58uAPqffTrv/c4LeDPnqlYhy1CJP2+IQcTvKaT1/ZKbCvCAaAdDOUkK8O5r7/lUmTLWjReHijQYU9eX84//k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810451; c=relaxed/simple;
-	bh=0A+ZVSHmTZpBWDaeE60eIZ0qBxxkdFlAWVSwRqqWT9Q=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=JVb5fPc2euKYT8iLSoo/ElbtxiXa+PISnmXpc6d7lyrLc4JWz7jZgI3DTEIjl+c5GePcvutHaabevBEvSPNM4AVb83KnIh5ACU5c8mSbr+QmxExWZa+hN/1pP9HVxhbeO1zRdM9bNjPKTeMR+1uh8IAVvNqDR5uAkACjOEtcuu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=pjUW00sj; arc=none smtp.client-ip=203.205.221.205
+	s=arc-20240116; t=1787810468; c=relaxed/simple;
+	bh=K3LE3CxFoRqAxi1u1JZaBoTnYvyPdZ8P+bMBjk/bQrw=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=XALIeJS8PA8Wv1lo9BTU5fqWcwP6CZXgdTBk5TjWjaqVwqFsPR1NDk66Mh2EcqGlD++Vn4N791LMtG6SDcE8cucVgSCJrx+fLlIGwyaRFabVktyqKYjBZltp/p+rwFzTkSHANEPQm2FjzFDZPT25bkuQerMcUfIdpIBJc5t85+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=oyW0vK6p; arc=none smtp.client-ip=162.62.57.87
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="pjUW00sj"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="oyW0vK6p"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1787810440; bh=XRQFRVMDjVp4EOP0fZkF//N4HCPkekJ5nXepNdiemsk=;
+	t=1787810461; bh=egJjo69zPhQ3Ed7bLeyXQZn2udHcoJp/WnXH+5ieBO4=;
 	h=From:To:Cc:Subject:Date:Reply-To;
-	b=pjUW00sjEsfsas1uTRfho3CI/SdERh3gtDdHlkXy23vn8jSNG1JMw3Dvsjua+SLbl
-	 1T0WZ8JsWYe2n+3jCS/K6H2YqiKWfogSJrp3NbuEDuMjXX2PdiiH+wJgrY8iY2+a1y
-	 5rKOTU98A0Sc7Eb7h3e+jfuoEoD/jwvNrCu8xJF8=
+	b=oyW0vK6pevnYULP8+j8FQ+3AW1X2MONIs7MDUPRBpBaayyLyqjPcCs/MNzPziEXux
+	 6BpZxR12n8O+u3k1+LYxIylZ0f8FytG6bXhgzNEUefWgP0QjsRhH/l5Q2Pcyh+4iXI
+	 qw2r1YvfdLLYOhh5MaEIpWNUF7x/M/B5v5R/pY+Q=
 Received: from DESKTOP-5664AH9 ([14.153.63.166])
 	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 25326CB; Thu, 27 Aug 2026 14:00:37 +0800
-X-QQ-mid: xmsmtpt1787810437tqimq57ru
-Message-ID: <tencent_4AF524857605546F78F39BBB33D2192B2E07@qq.com>
-X-QQ-XMAILINFO: NP9KN8CSKc3GH6Ii3xUWB3lwVuITMftJuyh1IMlHOp+DLSoK2iVHNK2vhShzwc
-	 2IUR4hEZ+P4yhJZ5lnkJwbCqEstfkhc0zksY4wN9h57P2T/fw7zxAEdbtodzZi1gXRGIK2YrE6mi
-	 8WP7pNzYTaiSu94SktzGwfgSzNw1KrCGzPetR11ynjgx3vMXcP4cUPPdB70na39vIfZPeXZ17jgy
-	 d1y7Z5AUvq51HbzPfoAQfqx20oJB2iaIEScHO6BJHyuzsC5sJlcuqLitZL+FULyBaiztNNXt5njE
-	 BALZY9KK1r5NIDucOKVePK7JI4AL3fuPdfAOZOTZD6Bovz4CWFinlg9ejoh1QvGO2HRU47z18rWX
-	 7OUkIdWvriE+K/FCbrD13f6/V6fjW7IK//mQiPa2uFPR67HA5FqJ2knLocUGZMEtRCryf9raidSp
-	 CvmVuMr9LGNoWniNCj1i3INpRwelz+rC0+O3zP1XzCljT1FWwkYNIIOVBpiG3IdOo2lv8vaJ19UZ
-	 WhGuvX+Pq3VDSmnPZTguiH0Vl0Qgf0EhzTuhJdVHY4CeZENA1ijeufTqU5JX+g168TBAF2+WG39q
-	 O5TT0F+C2oNj3QteMT1i004KAxQXfP8NE/KcP6iX5nYefYU6iToA1tPczVjJzYlx5GErFXu4VXVx
-	 4ztLnDk2llSVgxg9JQ/+sP3kEITYNTMVKav7Dw6Js09mFvL5bLvnQkwqmkbwawJ99cGLwo9jUHCI
-	 xmafeMtbSuMHsmiAnYdI2vmEaUDlVB9fdaz45CRxLmhwRExB29nbxyjk4DzpE25LdDA3dPHMUY8X
-	 2iiV3qjpbW2bwAyTQPT1F+mMg/+0g2LLBf8OHU7fO7pxh+dQv6V7oVT+LJrs209YoMJsZxay/csw
-	 LjS2F5dt/1JQE+RquO7RkfCevRI5axBDA4rLG5SH5R1pBOv22PyLN2yyR3rE30GdIwxR1c3q+Use
-	 L7NUIYUB/ZiLSUtrM7sPOtAHZY4+vuEvYjryCs0OrnpDo7apXfA4KfhXroxxSC3zjCnYIa4rV6vy
-	 yKiZC327YaNzBc6uNmRfmpPiQDY7D3HyanIhwFrWuEzN1UzUUgZCWhkR5fjvy4kvftyaXX8jsCvv
-	 76g4/A/qyfwK552jw76aHDlwVndHtEdtvyPdJTy/hLRPqTzTPKWTUI/+kGAtIvDf1jPzclcLkiaq
-	 JmT4s=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Hackdale <445735441@qq.com>
+	id 3A98221; Thu, 27 Aug 2026 14:00:58 +0800
+X-QQ-mid: xmsmtpt1787810458tqo50y1r6
+Message-ID: <tencent_1CDBA55083E12B6E42CFC06618B826929809@qq.com>
+X-QQ-XMAILINFO: MbZTZajbPtIOSxv3fXdIAArYI4l6SmrYkHRSyyRRfgvzyb+abZENVMBvmEXhYo
+	 JdewAY3eugnx+WkZeV+ARkizj25RpHHttmCqpnfIAXNhjsgqrBnWdr2zo8Jn3joYMW/Mvr9ZuT6e
+	 yRECFxgYF3U7Wxqed8qPGGhGZc9Q7XfO2XuNNbPiFVBcPPkqATt+iER5H651GNXK37i6z3p7drN6
+	 TxXS8fYwJa7b6hTJFUbWCrF7VOxzXJot2GlyDafrQfZ5Q0S4e2vGuiF34+Ua9BUCi1EfsYE0IhJK
+	 wPcfwYvOoJUvk+x58wCUSIk23uy7u4dyo/+TEPNFSGiXz4XM8+YTr5vh0hibAvZun5LfXSfXpIMM
+	 kXURWTC+pGmqQjZfn94QTQJdOxKZAlIXi+5pMKfDNEeMrwfWGjZPweu5OJOXe1Ul/UyzUmNIlqyK
+	 UOt8T7g87E+gO68OgVOjuVczQF7bOLjLwakDFtgPPvV1DA7pHPF90o9IwM1bnb5dkLC9alpTEaAu
+	 +XJXWAGjm4k4TDsPHUhhm1UXNqsU61qDhVN8sNgq2loajna6nK9ggAQ238nD08I1JPl+ujqye1xC
+	 qfwIpWGAUvElJpoFxwjXIT8FfAZKFSgEnX91MLaIBT1dinUj2u0kpBp32EynT9RJ9kqV9ijRPPDg
+	 KkwVBNKPRo+qOFrpyHS9l39nPvyWWGgOxaXn49bmwhyWJKga1cioockE6dBi+fdIlUs1QZhHNbZT
+	 B5x9qGjm+6R5yTkGkXNVCYQ4InotlOaTHUeJJPZHfCui+YUAwirISQhqXC9fv6FzDUb1DzdkHMrS
+	 iGi0IM0OkSsy49CE2gen4JJcGEiLAj7JB2TWfVyki/grxARCnM4HNmZzvS0ZHnj95wfTZm+R6cNm
+	 80/RWdkNACYB5ysdBjAUHN+CUgGLK/9NX31kcUWzgXL0EduSO6IxxzvEGsZKkjEvLzr9ERQh0H9T
+	 vPk2hrTH51uO2ee+WeLZy3aWaB1n/lqEtPfonVtTuHRd1iZuTvhZVREHeiAlzFV6heTUm9Roamsr
+	 5vcf39WKLywQKcXSTfUd4kRE0LJpXD82g69yYDlwrf4dqlm1aK47iix4oXWmzymBbZdJw38nyGXU
+	 8xAgiBsEM2d5qpB5CY1PfmkGuPrSUrEr0aDoSj6Xc93VyQ8JS0RYIuS9Zn4BXQF5aS8tDKaoX6jy
+	 2s/HSAdeXl5Uauog==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: =?UTF-8?q?DUAN=20Xuejian=20=28=E6=AE=B5=E9=9B=AA=E5=81=A5=29?= <445735441@qq.com>
 To: greg@kroah.com
 Cc: linux-acpi@vger.kernel.org,
-	hdegoede@redhat.com,
+	hansg@kernel.org,
 	rafael.j.wysocki@intel.com,
 	stable@vger.kernel.org,
 	DUAN Xuejian <445735441@qq.com>
 Subject: [PATCH] ACPI: resource: Add MECHREVO GM5BG0E to irq1_edge_low_force_override[]
-Date: Thu, 27 Aug 2026 06:00:37 +0800
-X-OQ-MSGID: <20260826220038.358-1-445735441@qq.com>
+Date: Thu, 27 Aug 2026 06:00:59 +0800
+X-OQ-MSGID: <20260826220059.780-1-445735441@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.3
 Reply-To: greg@kroah.com
 Precedence: bulk
@@ -64,8 +64,6 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-
-From: DUAN Xuejian (段雪健) <445735441@qq.com>
 
 The MECHREVO Jiaolong 15K (GM5BG0E), an AMD Ryzen 7 7435H based laptop,
 has a defective DSDT that declares the PS2K keyboard IRQ1 as ActiveLow,
