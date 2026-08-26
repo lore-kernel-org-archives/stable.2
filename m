@@ -1,82 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826A9400988;
-	Wed, 26 Aug 2026 12:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA940415F39
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 12:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787746786; cv=none; b=pA3qMKB3v24o8a1o3DfEEBhQr033PXGvkj0WYlZQLqStiEd0Zl5ecH+SD2vLOD4RpLnEFk/CKhpT41MTvltb+gLbyiQfsc1fwlJfGIsdhnkPwjPa62zTNo1Gh9zkZaxD+vAVAnHAE+gpTBC/RRwQZOtLlXEAvTxn2G0g+AhnIhM=
+	t=1787747065; cv=none; b=G/swBxIZltH/aQPaNqPwFu27MvuDtx/ZKoxnoorCtVfd30JnhVqhXGotlUAF/Gy+iCs3iAsVbkDSIg6nYpKktnArwRQCpNNgZgK+gxVujq8PMk1pxIdCidjO8+IH+R8r895HLq8rCLhrho25L1xzfkFEU//nVxMafg5MM4+EGS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787746786; c=relaxed/simple;
-	bh=b+aI+IkU+2jAt1PT+cjqSfchKtM3tNI8W45M1QnfmcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hRwQGBj1Plh0rJ3vIoHEHnkgKBnD9PqJrwwxb76qzt8J4YeNXCOUsHbCWcB4S9ffMERWCEGASYnrsLosaWdx4G+dJPgJ20dknjGbw64lTIMarEoP5kwaDDYqGrPAov6ptczBdESG3b/rh4X53xaOvYb60LLEYUDMG2x6JvDLLBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqqAiRBn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787747065; c=relaxed/simple;
+	bh=+Uh0HtyP1rf+sBtMlezUPUsG6Ast7DrhMsUoEv/PKHk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H6kQ98bJyTCe65cMEgFpdBVljHf3ifYKCNLZb6ZrWNreEjwgDm2hRffili99sxktwSJxPeoQUOJttrBm8GdxYoUxUA0/Kdu0RsHU4CjahWUFzudn+laZh6aflmTB10PE7ZohmvEdWeR4SG2BnXTVzWj92X8tsfRNlui/n5NbJqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rDA4naUQ; arc=none smtp.client-ip=95.215.58.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqqAiRBn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A632E1F000E9;
-	Wed, 26 Aug 2026 12:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787746783;
-	bh=ybwBACGxki8ldvnbLYa3fr2CykJlOGaZJ6ZEcMXLni0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nqqAiRBnbNo7qeTLz/u/PTgmENyJHXSpwBqH5celZrhkZNkzI//BxmqUJG42E7NAr
-	 iHmyhpTetqEoPTu040JnUnC6kha3mDPs1Y5/WtKbr96LZ+Jsf9I/9jPV3roOiiXGjc
-	 byNqS9UIO14E9kpGhhUCnZGc6BDBDPYRzQlLMMKb3oV/+8ANhiDatdJnAkuwTlq458
-	 AzLfuAQIBVCyBZmdFPWZiwm0Qqa8KmzN4s/1tOSobg25YvZTV6X6gfpQ8vA2r4duNE
-	 coZuFshRDy2YxhePToi7jPzKjjXVSwmdB3guD8W5Gbf6/O2R/MDbTSsny2i7V6LUNW
-	 RAXjOnptR2FIw==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.18 00/94] 6.18.47-rc1 review
-Date: Wed, 26 Aug 2026 14:19:28 +0200
-Message-ID: <20260826121928.32535-1-ojeda@kernel.org>
-In-Reply-To: <20260825132541.887883084@linuxfoundation.org>
-References: <20260825132541.887883084@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rDA4naUQ"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+Uh0HtyP1rf+sBtMlezUPUsG6Ast7DrhMsUoEv/PKHk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787747061; v=1; x=1788351861;
+ b=rDA4naUQ2m42ml3EwhT0nEBC4RVaaMPBm2N2nqEWN2braVv/BM2M0NHHbgUMlu/J5ImoK5kZ
+ 8wmMu3xe20a01T19MnyHaplrahgHV3HxGdqG/8UBhwFbVRRa6vxGXeWHLOxG7IYpv8oP4CFbI7E
+ fEzAFpISp/QNLJfuFKF8PFW0=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [IPV6:2a03:83e0:111e:2:c6:2f62:38ca:59d8] (2620:10d:c092:500::4:fc9b)
+	by smtp.migadu.com with ESMTPS id 4c8703f01af32397;
+	Wed, 26 Aug 2026 12:24:21 +0000
+X-Mizu-Trace-ID: 4c8703f01af32397
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e9c97286-d121-40ca-b6f1-4c63641e7283@linux.dev>
+Date: Wed, 26 Aug 2026 13:24:20 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1] ptp: fix NULL deref when adjtime/adjfine are
+ missing
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>
+Cc: richardcochran@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, arnd@arndb.de,
+ john.stultz@linaro.org, jacob.e.keller@intel.com,
+ linux-kernel@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260826101004.100979-1-xuanqiang.luo@linux.dev>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260826101004.100979-1-xuanqiang.luo@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 25 Aug 2026 15:24:56 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 6.18.47 release.
-> There are 94 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 26/08/2026 11:10, Xuanqiang Luo wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 > 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
+> ptp_clock_adjtime() invokes ->adjtime and ->adjfine unconditionally,
+> but both callbacks are optional. 
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+Could you please link to the source of this statement?
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+clock_adjtime() with ADJ_SETOFFSET
+> or ADJ_FREQUENCY therefore oopses on a PHC that implements neither.
+> 
+> iavf registers such a read-only clock: no adjtime/adjfine, and
+> max_adj left at 0. ADJ_SETOFFSET hits the NULL ->adjtime after the
+> offset is validated. ADJ_FREQUENCY with freq 0 converts to 0 ppb,
+> passes the max_adj check, and hits the NULL ->adjfine.
+> 
+> Return -EOPNOTSUPP when the requested callback is missing, as the
+> adjphase path already does, rather than adding driver stubs.
 
-Thanks!
-
-Cheers,
-Miguel
+If PHC does not implement adjtime/adjfine/adjphase then it is a free-
+running clock. ptp_clock_adjtime() has the check for such clocks.
+To properly fix core part we have to extend ptp_clock and/or
+ptp_clock_info to properly signal that registered clock is
+free-running/read-only.
