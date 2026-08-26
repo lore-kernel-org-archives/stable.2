@@ -1,84 +1,142 @@
-Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BE9357CFA;
-	Wed, 26 Aug 2026 17:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764941; cv=none; b=LkGTWQ5hvHd4YFCRQm8JVMdxEq+9309syQYIJqHS1gKl/xeCuw6S5dysfiMkW4nXyef2Rrh+eqGkqLGdOJdgnhVSycCzML5JPQP8V7ZQnsAbhVL7VPesQpTwPnhj+H28dGETQLax0ph81negx4aEx4sNm6ZfZ4C57JgF+0vCgJk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764941; c=relaxed/simple;
-	bh=xm90s1d0AKYkw+yeXHP8vErY/xzXMyujQ56myC4Oz7g=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=B/jxBe/pe1EAC0euaxBYn0WSzUhDertTn7yNL067PB1Lfm0g14obxRo/YMiPp4IkUIdhpFxz6Wb9Xvegx4VuKmyS3Z6xTR9NzMPbAYoTP7XzJpc2OIbMP6b+aLt3uiKKJprkTcoDLbSSBvIGqBVEnkG6y0eBlA6LyJboGXWnJtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=cKBWgSQ4; arc=none smtp.client-ip=193.104.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2140437BE95
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787765447; cv=pass; b=X5AU2MQoJlWIV9gIxNONb//q2zAfFpKQ6XTN6Y3Co48ohaAAe+3vmiMwqTymwRN+RtC9SjQ6hGgVB22WV2/7DOvBm4EIwr+JlJvpzGkAhFSA1muuQVzCP4AS2vk5AI5F0EUICRvzOQMJEP29oeNEi2cYUnPjahK5ZICOvSD4ROI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787765447; c=relaxed/simple;
+	bh=6I/1+qMQ471+4RYnld66Y6RCA6m5prbOV7XKezci6Co=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cDUyUD6ulNe4Z1JXYIYh+fT6y6eW3AE/6UAUJkSPK+2+n7aB9kRrH+1OrjlAOFHPt16bodlQtj/9jjh7LgAj7o6ig1/r/yf6T2rxK4aEYQAye97wLAUSu5HyNNmJocYd2axuVWiPjuS8dCbkgBaqHZ+dj+7WReNXnjblzHx6Yak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vYo6voBC; arc=pass smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="cKBWgSQ4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
-	s=202008; t=1787764925;
-	bh=xm90s1d0AKYkw+yeXHP8vErY/xzXMyujQ56myC4Oz7g=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=cKBWgSQ4uH5wIjTKbJLmPSA4m+WXocr5mXOU+8iI1EyF2/YviK++67256+gfo24/y
-	 YD70o6ElUID2JrDgyDMjx0phtgFaDybOJhPbmZWSidJkgchKoKxjpWkxwpmBqsG16e
-	 aBUtfPZbgvON9NkPZ+sqNI7o1zk2jHMVnlP7Y7jup90lfbP6BYt/6kzLl0Zar26t1T
-	 +0fw/UPXM1jtUe5GeblqzSjXtt+n9GZMnLfl8kz3SXGVIjt+P6lrLpJRfAhA/QW3cm
-	 A2nT8m0EeQ3ngT1u6TbCF+mgYkZblpw1yMP7BCCvD1s+1oXP69sX++NGt1EMRi1KK+
-	 orBiBHC9SITPw==
-Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id A78B960075;
-	Wed, 26 Aug 2026 17:21:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by x201s (Postfix) with ESMTP id AB16820079C;
-	Wed, 26 Aug 2026 17:20:47 +0000 (UTC)
-Message-ID: <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
-Date: Wed, 26 Aug 2026 17:20:47 +0000
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vYo6voBC"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-52de50e77ffso11778871cf.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:30:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787765427; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UMuOPaEA3rLxJP2F12W5v3H3ZABz6GkN4v5dEi0/1M8AeQKBOTfT8I8XNufzpMn00Y
+         6geZBbE2mTBtLnxu4IALgRqCy03bq+0UHBdhhfAX3FJEjViVn9j32ReR6Gp4hy4Ih+69
+         2q0QPv2YZd7/Hp2atb4aKzM7RL6VcUNiH2dYAXMyV8ClGmVWgRjHtIqKmoA4aceAI1QW
+         wCUvXqSEZBCb7HDjDGgsqNasVmnqnZEj39vhlcJXTEb9xGEc9Tsa+ZY/41B+Axw5eEjf
+         VoKrhHn0VJ72Ssi4A0IUU2DZcCYYAm85gDwNVfwXFrXLEd8MbZrL0gcqATjCVbvlvzNo
+         bLGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mADOW/zXjYAYuEehDtg7mIumLwYtucuRE6QwBoqgK9s=;
+        fh=0Tlpuz24mwtAYJBdTUoU2z7qCFXTqsKgXfQmxKoUhXM=;
+        b=k0Et9ellbT+lOy007A1ggYyX3T78RDcvCaEJ4B/7PnR7hXwyx08sSJQMb5bVYcqwRA
+         hXRMkgIWAUwmHP99T+GVBYBLUMTHUADxeeFldTyCXZFqUmBavP95DIuYWIdXUIiGrgss
+         lJKPtjmrHsMU5UfrntuuFQzZgy0Mr2xDoT5QULAIeZBXCQtIdo0cxboCZF9I5/8nXv7S
+         bFEhbB6NuEuiK4DbLj5XJUc/9PMfDngI33z2lqzS4ei0LJUGUutXVMW0ceZrRz/GHae0
+         snvOTJZQfqVr1h/6g/7H9GyQjL7wGmgV8X1fFsqqbzvoT0mj33SWA7gcBEq8L8wCABbv
+         wJwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787765427; x=1788370227; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mADOW/zXjYAYuEehDtg7mIumLwYtucuRE6QwBoqgK9s=;
+        b=vYo6voBC/2BgFQ4SxwiD2n2bJd0GVjymeEjikMl35kpmLBdbj3NS+ATEh6MTsXyqeN
+         x2+Ou/joYg0moRd7b5+C2fHD/vYehytTAipnHAKslOVZJFwbMk6SO2ZKlrX1kXH3/lOt
+         9CE0b0S/lXKVdJsuykaDUPWbP3Orz24rAv0lEqxRce1FuHIOz1iWL5tCdHT2xAaWzemA
+         LPK8dTKM3Ty7wgKLYUZXx7o26GJ6BHPcVw17LrBgDJ126Uux28+82Gn1FfVMdoCs7uIE
+         Qmoai63ljmAoeGWb/eK9aZqyiNYk8bLfWNhsWmdaPptimLbIisT5uwbtukhoHO7g/kfY
+         439A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787765427; x=1788370227;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mADOW/zXjYAYuEehDtg7mIumLwYtucuRE6QwBoqgK9s=;
+        b=Swi5qg65zogC/UdaeCxberY1o/408cWTQRFcPpYAcm/2SVjYvElTZfDBV62V+oPor4
+         Si16G1LZCi8inCOjyfmfpiFTQIJQGLPZfk5TSOIjo6u6nueKkVUjoJBHaZvXOs+C8rJu
+         ZP1eNUNdAeo76qdGd9WYtOB6uRGJTe9qxi+gvK7tnElgrwtQiYtMDxjMsQqXoZns7Kx5
+         GIGCdKVW4rFmTKuAfh4P3ICb7eHUWvEsL9ZD+IJ9/xEb8IccADKYuTYsbkKWVZXQzCd+
+         gRfuBNMPiSMhPXjLHQAKo2RyvDaL5XZebP81/3MAq0E/NfIMCl4qaKIv1jcyqofIG8o7
+         PVGw==
+X-Forwarded-Encrypted: i=1; AHgh+RpwDdafA2Mu4eAQcfOHyUH99mRxzif6S5r30oqGA+69zYuKJntYLRkvZm1CKBJYKYEbLaPkqQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXS9bu9JlV7omx+6e83bja+vQcCdasnDJpSnya8cpsEogYAqJz
+	UOR+WP+R1cTOMiD3hC9U6VKX70ban4JsEFePOpu8SBxBOPdy95P5kCu+b7e4ApNGXlVSIwSqkBR
+	aPOtwtUP8kQobiHYZsp4eMKzNnGbeYWP6kIcebWhV
+X-Gm-Gg: AR+sD11Z/JQ+iiuZAHRywxofMeN9zzitjuQUXRBPzOoOr/GJkpcMcBr/bKMzxRyuI6k
+	aJPRJ3f28oAk4GS44C7CuKKoiH142o6xDwpRizgog/M9tHrgc1sGHuJctgV4FBL/kf0t0rft+2p
+	p7ZTKujl9ZLTq9jxXOZOyaHPgDe0GSaSZ9dV0Oyb/zkcMrBD53OHFxp2qO4iAroQ+FJrcKWsLil
+	34D9jcnmH5fNbSjxXnno5aO2blBYENSWVpEEWhiHZ2kvhoGnMoqwtAtfo+ZmD1XB9u81WpdpQGr
+	QxRYGJeIHxmCa2ki5JinlxZZJZtwpLRL/NMdlcLfmoEIiatSvKWpDFFVnS6aHgRsC5xidOrAloo
+	DmcdlHI0u7oZ/7f1jVQYSS3eLvNoXFl6zpjHxC3TLls8eMQM2V55boEuqR08=
+X-Received: by 2002:a05:622a:3d4:b0:52d:7b2a:93f with SMTP id
+ d75a77b69052e-52e422d73camr87475071cf.3.1787765426178; Wed, 26 Aug 2026
+ 10:30:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
-Subject: Re: [PATCH net] netlink: specs: fix the conntrack filter type
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>,
- "Remy D. Farley" <one-d-wide@protonmail.com>,
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, stable@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260825155832.3685714-1-i.maximets@ovn.org>
-Content-Language: en-US
-In-Reply-To: <20260825155832.3685714-1-i.maximets@ovn.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260826171344.4133-1-blbllhy@gmail.com> <20260826171344.4133-2-blbllhy@gmail.com>
+In-Reply-To: <20260826171344.4133-2-blbllhy@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 26 Aug 2026 19:30:13 +0200
+X-Gm-Features: AcwNN1XFn8gzzgrjQfG4ZiFeGArbznLUn8IBe3QpZkDe5XgxFwMYGCWbJrGLGFE
+Message-ID: <CANn89i+5+3-u3T0Tbu_NeDSc2L1_Fpqtf_inKB5k0tN=9SUaiQ@mail.gmail.com>
+Subject: Re: [PATCH net v2 1/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
+To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+Cc: ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, kuniyu@google.com, horms@kernel.org, matttbe@kernel.org, 
+	martineau@kernel.org, geliang@kernel.org, yhs@fb.com, kafai@fb.com, 
+	andriin@fb.com, ast@kernel.org, netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu, 
+	tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/25/26 3:58 PM, Ilya Maximets wrote:
-> The CTA_FILTER doesn't contain nested tuple attributes, instead it
-> contains bit masks that specify which tuple attributes to filter on.
-> The values for filtering are taken from the top-level CTA_TUPLE_ORIG
-> and CTA_TUPLE_REPLY.
+On Wed, Aug 26, 2026 at 7:14=E2=80=AFPM Cen Zhang (Microsoft) <blbllhy@gmai=
+l.com> wrote:
+>
+> From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+>
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+> rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+> tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+> allocated BPF struct_ops memory that may be freed concurrently via
+> setsockopt(TCP_CONGESTION), leading to a use-after-free.
+>
+>   BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+>   Read of size 16 at addr ffff888013505260 by task exploit/149
+>    _copy_to_user+0x37/0x60
+>    do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+>    tcp_getsockopt+0x91/0xf0
+>    __sys_getsockopt+0xf7/0x170
+>
+> Fix this by holding rcu_read_lock() around the ca_ops->name access,
+> using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+> stack buffer before releasing the lock. Also annotate every explicit
+> icsk_ca_ops store with WRITE_ONCE() to fix the accompanying KCSAN
+> data-race issue.
+>
+> Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
+> Suggested-by: Eric Dumazet <edumazet@google.com>
+> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+> Link: https://lore.kernel.org/all/20260821182449.79785-2-blbllhy@gmail.co=
+m/
+> Cc: AutonomousCodeSecurity@microsoft.com
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub-Copilot:claude-opus-4.6
+> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.c=
+om>
+> ---
 
-As identified by Sashiko-NIPA[1], then CTA_TUPLE_ORIG and CTA_TUPLE_REPLY
-are both absent from the GET DUMP request attribute list.
+Reviewed-by: Eric Dumazet <edumazet@google.com>
 
-However this doesn't prevent ynl CLI from sending the attributes:
-
-$ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
-   '{"nfgen-family": 2, "filter": {"orig-flags": 1}}'
-Netlink error: Invalid argument
-
-$ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
-'{"nfgen-family": 2, "filter": {"orig-flags": 1}, "tuple-orig": {"tuple-ip": {"ip-v4-src": "192.255.0.255", "ip-v4-dst": 
-"192.255.255.0"}}}'
-[]
-
-Otherwise, LGTM.
-
-[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825155832.3685714-1-i.maximets%40ovn.org
+Thanks.
