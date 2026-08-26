@@ -1,81 +1,100 @@
-Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA940415F39
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 12:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE6E3F4DDD;
+	Wed, 26 Aug 2026 12:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787747065; cv=none; b=G/swBxIZltH/aQPaNqPwFu27MvuDtx/ZKoxnoorCtVfd30JnhVqhXGotlUAF/Gy+iCs3iAsVbkDSIg6nYpKktnArwRQCpNNgZgK+gxVujq8PMk1pxIdCidjO8+IH+R8r895HLq8rCLhrho25L1xzfkFEU//nVxMafg5MM4+EGS4=
+	t=1787747266; cv=none; b=Igbx7ztG1HSAQiLpwrLWKTtu7mok2BavLgXizeIqP5/WoLg+IF7fcaI2Kowhc+P2DKH/RB27OakU7YUqjvDysKdS9rw13+xl+5CLn89vwfoPy7YbNmsxjeM8M1Qz8SCZ/rrWGIuNmk0A1SnHFySp64582PRnOc95orZlNrJ/duw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787747065; c=relaxed/simple;
-	bh=+Uh0HtyP1rf+sBtMlezUPUsG6Ast7DrhMsUoEv/PKHk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H6kQ98bJyTCe65cMEgFpdBVljHf3ifYKCNLZb6ZrWNreEjwgDm2hRffili99sxktwSJxPeoQUOJttrBm8GdxYoUxUA0/Kdu0RsHU4CjahWUFzudn+laZh6aflmTB10PE7ZohmvEdWeR4SG2BnXTVzWj92X8tsfRNlui/n5NbJqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rDA4naUQ; arc=none smtp.client-ip=95.215.58.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787747266; c=relaxed/simple;
+	bh=0huXDNxiAgXvdBueO8aSY5wnslPpGJ0jhBYcdCVvBNE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bHUiBrPFfRh0Jqz8Y2US2B3wEay/zUE2+nx64Bm+nBkL4r8Ur75M7cjqfplXKNrxnLuLKWKqcl5qx/QMXNer49A+KKugTM0P0rwXF4iSCIY9AzaLVVsap3cazS3Q2xHZ8edumIPOj86UKvfeLA17iMa4lAB/aAZPP2F4mJc2/O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsVkkBrY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rDA4naUQ"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+Uh0HtyP1rf+sBtMlezUPUsG6Ast7DrhMsUoEv/PKHk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787747061; v=1; x=1788351861;
- b=rDA4naUQ2m42ml3EwhT0nEBC4RVaaMPBm2N2nqEWN2braVv/BM2M0NHHbgUMlu/J5ImoK5kZ
- 8wmMu3xe20a01T19MnyHaplrahgHV3HxGdqG/8UBhwFbVRRa6vxGXeWHLOxG7IYpv8oP4CFbI7E
- fEzAFpISp/QNLJfuFKF8PFW0=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [IPV6:2a03:83e0:111e:2:c6:2f62:38ca:59d8] (2620:10d:c092:500::4:fc9b)
-	by smtp.migadu.com with ESMTPS id 4c8703f01af32397;
-	Wed, 26 Aug 2026 12:24:21 +0000
-X-Mizu-Trace-ID: 4c8703f01af32397
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e9c97286-d121-40ca-b6f1-4c63641e7283@linux.dev>
-Date: Wed, 26 Aug 2026 13:24:20 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsVkkBrY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5652C1F000E9;
+	Wed, 26 Aug 2026 12:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787747265;
+	bh=1b5BxBxCYq15T9gNAV57zTWWKhZfPx1TqqHG5wvtAXQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DsVkkBrYnfLWX2J0XzWx/I8Gk5t/f+H/dn9Tp1KG2VT8WMYzgJ97E+BO+x1ZvvIrW
+	 OKAv/fTWBIRStE39pq+e6HfXvZl8eSRlu42FOc4v3AzQRIXiJsrnE4o6rGF37Tzw17
+	 rBGNBW9aVnNkMEh0cLUL+aDgPreQ79Htq0o4VIKyNYqizyfSqMZupeA91Ybftvhldz
+	 ASCvuBao68bXfPEmHYfdBtTil1dsDUDnd5C9RtV1pQU2QBi6Qxgjg8Gzgz5ybGg1YM
+	 v9X74JouanhZaTVK+KR+gPsm1O6z5eznrDJRY62RIPWBUMLnRIjqpD2IBliNwqI8rb
+	 l9F2MaDb8lP9A==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	loongarch@lists.linux.dev
+Subject: Re: [PATCH 7.1 000/101] 7.1.11-rc1 review
+Date: Wed, 26 Aug 2026 14:27:31 +0200
+Message-ID: <20260826122731.33748-1-ojeda@kernel.org>
+In-Reply-To: <20260825132541.986300899@linuxfoundation.org>
+References: <20260825132541.986300899@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v1] ptp: fix NULL deref when adjtime/adjfine are
- missing
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>
-Cc: richardcochran@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, arnd@arndb.de,
- john.stultz@linaro.org, jacob.e.keller@intel.com,
- linux-kernel@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260826101004.100979-1-xuanqiang.luo@linux.dev>
-Content-Language: en-US
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260826101004.100979-1-xuanqiang.luo@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 26/08/2026 11:10, Xuanqiang Luo wrote:
-> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-> 
-> ptp_clock_adjtime() invokes ->adjtime and ->adjfine unconditionally,
-> but both callbacks are optional. 
+On Tue, 25 Aug 2026 15:24:38 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.11 release.
+> There are 101 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
 
-Could you please link to the source of this statement?
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-clock_adjtime() with ADJ_SETOFFSET
-> or ADJ_FREQUENCY therefore oopses on a PHC that implements neither.
-> 
-> iavf registers such a read-only clock: no adjtime/adjfine, and
-> max_adj left at 0. ADJ_SETOFFSET hits the NULL ->adjtime after the
-> offset is validated. ADJ_FREQUENCY with freq 0 converts to 0 ppb,
-> passes the max_adj check, and hits the NULL ->adjfine.
-> 
-> Return -EOPNOTSUPP when the requested callback is missing, as the
-> adjphase path already does, rather than adding driver stubs.
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-If PHC does not implement adjtime/adjfine/adjphase then it is a free-
-running clock. ptp_clock_adjtime() has the check for such clocks.
-To properly fix core part we have to extend ptp_clock and/or
-ptp_clock_info to properly signal that registered clock is
-free-running/read-only.
+In loongarch64, I am seeing:
+
+    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.o: warning: objtool: amdgpu_vm_handle_fault+0x140: sibling call from callable instruction with modified stack frame
+
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: loongarch@lists.linux.dev
+
+Thanks!
+
+Cheers,
+Miguel
