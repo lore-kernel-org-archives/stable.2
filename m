@@ -1,44 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C949D43A80C
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 15:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA5F8287E
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 15:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787757091; cv=none; b=X6/rTFsly/EFN5/auVInFVEudjIm6HrAmEFdUdV8OPoWYlzHQedD37oirIWbDvG/I2p+j4T0q4kttYwUNVyQQP8TdTfH0/4CkmVOeWytERSkSlkNHmU4jQxTt1CybgfxSpmPqHFvbDTAIp04vZQiXblTYQx1YoaVDpbwqJo5VlU=
+	t=1787757335; cv=none; b=lPyGqEse9U2MQPvsskFB4y9PIzjx6gjTP6PuK/mVnoMdW3sJua4SznqkqRrTFm2nViemsFYtNgQw8MqFbLBtQ0ujnrIhxdxhxd4sOS8WmIouqIp18gYxcySTXvUNsHR9m7Frf8FhFN4nHrVXnneBRwDIVIpQjE/3z5zt446IuNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787757091; c=relaxed/simple;
-	bh=+9MqKtzkf2i4VXYCyXbCZQ3W/j6Vif18fYxZFe01zrw=;
+	s=arc-20240116; t=1787757335; c=relaxed/simple;
+	bh=AOSallpxcBi0KuMs56qQjt8eo7EPNvMoCUYPq2fkzMo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gt3LVxo0TnYX/3/7qv2gdQv2vBuGKLwTdRrT+LKK2i3l/mnkUz4Ua1vk73pjW6R4tlQ+xM9FfnfML760+VGQTSHuaVYxe3lNvai021BsX/JSfS09oOAOCNj5DvkerSXfUPfSCMfrkcXYkUOE96ViAJdSUj/qfBO1+mIlGr2b3rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g60NKP6E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=abpVpVokvarZHnv2qofLNBgCXpeGFMABy2gZb3DiqNcZPcSxdEkwdjpMnvuu1xueUaHV7wvVDqEdZzaz1aFh+OkmAGqx1lkDpOqiQ4O54rdcfPYUqZi13drVBLwraBosYoHl3FPL1K/VHLwC1FmYVYEaoyHpM4UrfzrCm0zYt2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GTa+VWSc; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g60NKP6E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D957D1F00A3D;
-	Wed, 26 Aug 2026 15:11:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787757089;
-	bh=8acED0/qv3VzJoiH0dssI0SwgRKlax8isT5WVn9dXEg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g60NKP6EMTPOhFzww6wIRrgcawrzE4yE+Baos9bK0NSY/KMgwUKR9j5ITHdGfsvud
-	 FxLq4Fy2t+Wt3iadBRf14NowPq21RlY+K3IUJFEVV49xgnyf+yGyZjJZr1ALsvLBEx
-	 k0IayBg98byAQDX71zrlou9P72EY5dUzVDEJCXdoHBHl21JpfnU/kmB5ROsgc14Hf/
-	 06bylYhz4ANgDHDETND3i2MCTpQWi1Rt3EjGr63SnVRV8kI3kKPtosoU46PUs8dCRv
-	 U6eeY69Fx8i0nUP2PfozWsAA01JuGC4uQ+AteVg7ndxy2DFCTEAY1ozpriBfFur+uL
-	 GNeV1cLC/+pkw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>,
-	Michael Zaidman <michael.zaidman@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] HID: ft260: fix stack-use-after-return write in I2C read race
-Date: Wed, 26 Aug 2026 11:11:25 -0400
-Message-ID: <20260826151125.985276-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826151125.985276-1-sashal@kernel.org>
-References: <2026082536-statue-starlet-dc1b@gregkh>
- <20260826151125.985276-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GTa+VWSc"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d560775ca2so9598875ad.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:15:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787757332; x=1788362132; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iabL4kgmT7SgLzPah6x1/xIKKVEsvB6N2EyVIOlzTHg=;
+        b=GTa+VWSctTY88mIo66LXnMi8IyIGl+LEbV0sw+9C+95YTlqVKJGL8QPj9FpzZl47bs
+         lehTRE3WoxNJchkOGn9F7X8HZpG2pvWc9Ep2ENr7nCxYchX/7Dtev99var6XVBcwP9MS
+         hcwgkqAnPG9ZUcpRv8xWcuAHMFSa6aXWcFphCu3jeLJV9W0P/t+4OImfpKBLOBtDRwfV
+         AxyOR6wK0WApodKm4XZB7Y9rkNzbRCe3XfwYG7d/IwNtqXrjGZx2MPodtGzGT4QhyIZn
+         Y07RU2xHn1Mng3/5jSE5o3UQ0+hNUPO55IIaXAc1Q7AeYPgPg34jSKLAEal6oqKoQLf3
+         HyFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787757332; x=1788362132;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iabL4kgmT7SgLzPah6x1/xIKKVEsvB6N2EyVIOlzTHg=;
+        b=grYS6gdl+bYciVPG34tNO8LZIPxYRipcnGxxQlkJyBVa3Ar+ED/teq3b0+gQbBfkTC
+         CurH5SqAX8m1o2sI4jGFlnhiEIFTHHYkloOIoVRJygAXX2uHUmbnbE4I8g2jD0udFrW+
+         pgDSFsI5rHtqH2KSc1OzBnqJwbVeeNOIiSn/UDvU/LxiWQnaFY1edzY3SG5vVP1d+dUb
+         YfqLy/tIlZDCCYSO+Y+ZnYAFT3r1ORs0PUxfAWR4tQpFpkk2m41j0X9Q16phTruGHvGg
+         MUoh07IgEewAygIM8tMMGlyQZSkUNcC1e4XPxmF7WhyZNT2/s326uTWi9Aq1YzZW6GUV
+         +A6w==
+X-Forwarded-Encrypted: i=1; AHgh+RrDyYG67P8wfC9YNj6f8qB9OSvauK/ZEjeTg79rOANxPouLYG9axbbYQi6Bgu6qxWdZKNnPjq0=@vger.kernel.org
+X-Gm-Message-State: AFuF++luqorlq/SSFog5WUUysd96K1j+T8TM8DZoztbuqdO1NWFVTJjk
+	oNcXufILypeUXD42D5R82Uy+XQSmfufTt0w+ClO+HKWpQUXHMA4ocB16
+X-Gm-Gg: AR+sD11AxIoHczPvGUpXoVnHCLA6elU9WjbWAc8d2ZGNtvslTzdHu09mA4zwgPFMdS4
+	3YrCTMFnapt3FhyL2q4CjUXYFp6NwFPAjZUKicPcgQ9P44/pF8Ap+dzMMDrq7tJ8waofL1FfjPm
+	+ewFd54BNfjFEdsFydesodCXIB2odMKYvVZTIc4V+7srvyKc/9SrlORQnhIVwNvjk+xjNoo6FAd
+	uSqgFG7yjsw8ij8ZJB0tYHCox+4hwbGqiJk31rX4r8PtrPdJ6EOR+WR9R3X60sMtMzWPA1wQO2f
+	zE6HiFo1Qfy1NNqF/IgD0eDq0AfJBVkW8YJsHLxFUcP8OQku1g8suO6ZUyqPra5UKwI15azaBKl
+	JGsj1uk+yDHcWjB1gMiqG540pEqUf2G9BL12Pq7EG5Ra8Scvoa6129sqg+QD+x8g5jhBtdaX77L
+	1BVXPtfwfzBf4lW+9R2nyzKdXSi5wu7rUoMWSBXNiPEbDHxeE5EzF7+o8RG+Wp1KELgizAh9cL9
+	zjHCxg=
+X-Received: by 2002:a17:903:2c03:b0:2d6:ee6b:1b08 with SMTP id d9443c01a7336-2d707a2f363mr134001285ad.3.1787757331763;
+        Wed, 26 Aug 2026 08:15:31 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([116.128.244.169])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d704baa758sm8932645ad.52.2026.08.26.08.15.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 08:15:31 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Kunwu Chan <kunwu.chan@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Li Xinhai <lixinhai.lxh@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
+Date: Wed, 26 Aug 2026 23:15:18 +0800
+Message-ID: <20260826151520.202465-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,150 +87,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
+On Tue, 25 Aug 2026 08:55:26 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-[ Upstream commit bf3e39df3a397fd82967a31d17c4e02c7feab221 ]
+> Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
+> a faulted VMA into an unfaulted one.
+> 
+> It does so after the page tables have been moved to the copied VMA with
+> MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
+> as the page tables it had are no longer present.
+> 
+> However, in doing so, it violates the invariant that the anonymous page
+> offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
+> 
+> This is because a VMA may have been faulted in, mremap()'d (causing a delta
+> between its page offset and vma->vm_start >> PAGE_SHIFT), and then
+> mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
+> 
+> This condition is a violation of a fundamental assumption in mm, but now
+> also triggers an assert in assert_sane_pgoff() which explicitly checks for
+> this condition.
+> 
+> Correct it by resetting the VMA's page offset at the point of completing
+> the MREMAP_DONTUNMAP operation.
+> 
+> Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
+> Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/mremap.c | 22 +++++++++++++++++-----
+>  1 file changed, 17 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/mremap.c b/mm/mremap.c
+> index e8df5cdb0ac9..2b4b523a86b8 100644
+> --- a/mm/mremap.c
+> +++ b/mm/mremap.c
+> @@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+>  {
+>  	unsigned long start = vrm->addr;
+>  	unsigned long end = vrm->addr + vrm->old_len;
+> -	unsigned long old_start = vrm->vma->vm_start;
+> -	unsigned long old_end = vrm->vma->vm_end;
+> +	struct vm_area_struct *vma = vrm->vma;
+> +	unsigned long old_start = vma->vm_start;
+> +	unsigned long old_end = vma->vm_end;
+>  
+>  	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+> -	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
+> +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+>  
+>  	/*
+>  	 * anon_vma links of the old vma is no longer needed after its page
+>  	 * table has been moved.
+>  	 */
+> -	if (new_vma != vrm->vma && start == old_start && end == old_end)
+> -		unlink_anon_vmas(vrm->vma);
+> +	if (new_vma != vma && start == old_start && end == old_end) {
+> +		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
+> +
+> +		unlink_anon_vmas(vma);
+> +		/*
+> +		 * The VMA is now unfaulted and it is an invariant that
+> +		 * unfaulted anonymous VMAs have page offset equal to
+> +		 * vma->vm_start >> PAGE_SHIFT.
+> +		 */
+> +		vma_set_anon_pgoff(vma, pgoff_unfaulted);
+> +		if (vma_is_anonymous(vma) && !vma->vm_file)
+> +			vma_set_pgoff(vma, pgoff_unfaulted);
 
-ft260_i2c_read() points dev->read_buf at a caller-supplied buffer
-(often an on-stack variable), arms a completion and waits up to five
-seconds for the device to return the data. The HID input callback
-ft260_raw_event() runs in the input/IRQ path, independent of the
-dev->lock mutex held by the read path, and copies the device-supplied
-payload into dev->read_buf after a plain NULL check.
 
-These two paths share read_buf, read_idx and read_len with no
-serialization. If the device delays its response until the read
-times out, ft260_i2c_read() resets the controller, clears read_buf
-and returns, unwinding the stack frame the buffer lived in. A
-response that arrives at that moment lets ft260_raw_event() pass the
-NULL check and then memcpy() the device-controlled payload into the
-now-freed stack location, a bounded but attacker-influenced
-stack-use-after-return write triggerable by malicious or
-malfunctioning hardware.
+Hi Lorenzo,
 
-Add a dedicated spinlock that serializes every access to read_buf,
-read_idx and read_len. ft260_raw_event() now holds it across the
-NULL check, the memcpy and the index update, while the read path
-takes it when arming and when clearing the buffer, so the teardown
-can no longer slip between the check and the copy.
+I think the fix makes sense. One thing I wanted to make sure 
+I understand correctly is the distinction between anon_pgoff 
+and vm_pgoff here. 
+Is the intention that anon_pgoff should be reset when the 
+VMA becomes unfaulted, while vm_pgoff should only be reset 
+for a truly anonymous VMA, since it may retain file-offset 
+semantics for VMAs with a vm_file?
 
-Fixes: 6a82582d9fa4 ("HID: ft260: add usb hid to i2c host bridge driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
-Reviewed-by: Michael Zaidman <michael.zaidman@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/hid-ft260.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+Thanks,
+KunWu
 
-diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 70e2eedb465af..f479459544aee 100644
---- a/drivers/hid/hid-ft260.c
-+++ b/drivers/hid/hid-ft260.c
-@@ -240,6 +240,8 @@ struct ft260_device {
- 	struct mutex lock;
- 	u8 write_buf[FT260_REPORT_MAX_LENGTH];
- 	unsigned long need_wakeup_at;
-+	/* Protects read_buf, read_idx and read_len against ft260_raw_event() */
-+	spinlock_t read_lock;
- 	u8 *read_buf;
- 	u16 read_idx;
- 	u16 read_len;
-@@ -501,6 +503,7 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 	int timeout, ret = 0;
- 	struct ft260_i2c_read_request_report rep;
- 	struct hid_device *hdev = dev->hdev;
-+	unsigned long irqflags;
- 	u8 bus_busy = 0;
- 
- 	if ((flag & FT260_FLAG_START_REPEATED) == FT260_FLAG_START_REPEATED)
-@@ -526,9 +529,11 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 
- 		reinit_completion(&dev->wait);
- 
-+		spin_lock_irqsave(&dev->read_lock, irqflags);
- 		dev->read_idx = 0;
- 		dev->read_buf = data;
- 		dev->read_len = rd_len;
-+		spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 
- 		ret = ft260_hid_output_report(hdev, (u8 *)&rep, sizeof(rep));
- 		if (ret < 0) {
-@@ -543,7 +548,9 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 			goto ft260_i2c_read_exit;
- 		}
- 
-+		spin_lock_irqsave(&dev->read_lock, irqflags);
- 		dev->read_buf = NULL;
-+		spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 
- 		if (flag & FT260_FLAG_STOP)
- 			bus_busy = FT260_I2C_STATUS_BUS_BUSY;
-@@ -562,7 +569,9 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 	} while (len > 0);
- 
- ft260_i2c_read_exit:
-+	spin_lock_irqsave(&dev->read_lock, irqflags);
- 	dev->read_buf = NULL;
-+	spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 	return ret;
- }
- 
-@@ -1018,6 +1027,7 @@ static int ft260_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		 "FT260 usb-i2c bridge");
- 
- 	mutex_init(&dev->lock);
-+	spin_lock_init(&dev->read_lock);
- 	init_completion(&dev->wait);
- 
- 	ret = ft260_xfer_status(dev, FT260_I2C_STATUS_BUS_BUSY);
-@@ -1067,6 +1077,7 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- {
- 	struct ft260_device *dev = hid_get_drvdata(hdev);
- 	struct ft260_i2c_input_report *xfer = (void *)data;
-+	unsigned long irqflags;
- 
- 	if (size < offsetof(struct ft260_i2c_input_report, data)) {
- 		hid_err(hdev, "short report %d\n", size);
-@@ -1075,6 +1086,8 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- 
- 	if (xfer->report >= FT260_I2C_REPORT_MIN &&
- 	    xfer->report <= FT260_I2C_REPORT_MAX) {
-+		bool complete_read;
-+
- 		ft260_dbg("i2c resp: rep %#02x len %d size %d\n",
- 			  xfer->report, xfer->length, size);
- 
-@@ -1085,8 +1098,15 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- 			return -1;
- 		}
- 
-+		/*
-+		 * Hold read_lock so a timed-out ft260_i2c_read() cannot
-+		 * clear read_buf between the NULL check and the memcpy.
-+		 */
-+		spin_lock_irqsave(&dev->read_lock, irqflags);
-+
- 		if ((dev->read_buf == NULL) ||
- 		    (xfer->length > dev->read_len - dev->read_idx)) {
-+			spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 			hid_err(hdev, "unexpected report %#02x, length %d\n",
- 				xfer->report, xfer->length);
- 			return -1;
-@@ -1095,8 +1115,11 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		memcpy(&dev->read_buf[dev->read_idx], &xfer->data,
- 		       xfer->length);
- 		dev->read_idx += xfer->length;
-+		complete_read = dev->read_idx == dev->read_len;
-+
-+		spin_unlock_irqrestore(&dev->read_lock, irqflags);
- 
--		if (dev->read_idx == dev->read_len)
-+		if (complete_read)
- 			complete(&dev->wait);
- 
- 	} else {
--- 
-2.53.0
+> +	}
+>  
+>  	/* Because we won't unmap we don't need to touch locked_vm. */
+>  }
+> 
+> ---
+> base-commit: efecab401cb15fd3bb9bc05990609acb6b267ff2
+> change-id: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
+> 
+> Best regards,
+> -- 
+> Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> 
+> 
 
