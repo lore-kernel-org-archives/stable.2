@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760C2329C48;
-	Wed, 26 Aug 2026 08:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C6138B7DB;
+	Wed, 26 Aug 2026 08:23:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787732451; cv=none; b=fTyMYuvYahBui05hQ8uwQCX7tN2Q65SmqzdQIGpA2Bvwsb8H4cX08Kbi/pDTCHP2az6FCYtij/K8Aa8iVtda5qX8O2TkbSKpbRBt3/8R9Ba8w9KEYvnMx58w1j5yCg8IrIku34tcK7/hVN8U/USsOXPbf3S5NB72HJY5TxhvLN0=
+	t=1787732601; cv=none; b=nRwqnTjDByYJForQJuTKhCiHPjp7DNsTivK3mupk3KzlKGDRTNX9iuE3qtSyOsiA5wnIjFwfforVynZ9HeDWeBkqddwyICCdaFJAxTFFxpJ0xv1C8iqX07zu3Uh4vFJVJBB+CMTWjK5JvnbSPBjrhy3uDVtuYNS+7Vh4E9Bkfxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787732451; c=relaxed/simple;
-	bh=L2jTBik34L4IKN2v7U1iuFA+B2KK/86axUcteVoIGs0=;
+	s=arc-20240116; t=1787732601; c=relaxed/simple;
+	bh=qSlNADoOyqAJEpBJLjZgDAKsxtt0+35c6vqLhuQFXYM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VylZtSwFDHKZPyytiSacaplbd58vsRVR7G35ooa0BPO+JVn99YwOi11OO5L4a8jizA3SM/cRPyrjZRIe7EJYDhPRuwh1yfQxfUugDpqsVr4Y77SKNmG1jeDotB52H7FxcfplfTptIZlfz6/qUA79fG+HJlRgytqJ9ci1C3NselE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RBOcPlY2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=s+DqMkr2q7PGAGwmt9gG1183831ZBkY07BMhagX3hBoO+bwtqFjhsAgQk7CymNOl4M4KT5tfLb6nujWyS4Kipxvlj1MoD7p8311QT9xFYnS1QPSezNOEGcUJuoQyx7jRIVYu58F9IONudM8ZDFeE5/VTvW/FVdgZvPJQO3vY9tM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uu/P4OIR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RBOcPlY2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF7A1F000E9;
-	Wed, 26 Aug 2026 08:20:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787732450;
-	bh=6rtIpVWOsH4xqmhu92q/l09e9sAzYoHSkvy5CikzJQ0=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uu/P4OIR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3588B1F000E9;
+	Wed, 26 Aug 2026 08:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787732599;
+	bh=qSlNADoOyqAJEpBJLjZgDAKsxtt0+35c6vqLhuQFXYM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RBOcPlY2q8hy9XyizLTVpKS9GEJAKZR3ojVM+wDmpO7/MwIeKs0nXb1jYQK2dzb7h
-	 xV0q/S9u8xwTF56BdzRDPOmxDvu2VnDYO452GTxY1BWApQs5wpRgS40Bkz2oJBFaRg
-	 3IR20jJhiOcOtqCZZg+wAcuWl6x3forJ9E+SznjE=
-Date: Wed, 26 Aug 2026 10:20:44 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ruslan Valiyev <linuxoid@gmail.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Lukas Wunner <lukas@wunner.de>, Gerhard Engleder <eg@keba.com>,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+9f57c1b2792029198fcf@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] serial: core: fix NULL pointer dereference in
- serial_core_unregister_port()
-Message-ID: <2026082650-outgoing-cane-6c3f@gregkh>
-References: <20260826073237.1377668-1-linuxoid@gmail.com>
- <2026082645-stench-backpack-6e07@gregkh>
- <178773158689.1384029.3121943722878545406@gmail.com>
+	b=Uu/P4OIRNL63avNQFUualVWA3ANWRe6rGU1tEW52kAsy3mssgrwHsPqNcVO7tqX7M
+	 3vZivTBTrTm3faFZsdpzzqigGWyk2/fTQTp7xncuOGzf4Wi4iNnjjjmI6Nfys7fZyS
+	 V8/R/kN744EiRsi9cKutwFaex1J83GbfqkWmq5T8nH1bUMNHmkgzIUHuTf4V5h/fxI
+	 RthXtMgGZFZB/qUNW83YLYt5bo6LUx3Z38Hb2uduyhoBX8a9Zj5aiGpCeDYI2XIS30
+	 YnWP4UAJarDSQExdRiMpvzcfcM3eesPzQVCJtY+BmrtSK2iV0ny5GYuoUYMi3TrgTK
+	 u6KFbPVflf9dg==
+Date: Wed, 26 Aug 2026 09:23:13 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org, 
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, 
+	lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
+	Vernon Yang <yanglincheng@kylinos.cn>
+Subject: Re: [PATCH v3 3/3] mm: khugepaged: fix folio is used after
+ folio_put/unlock()
+Message-ID: <ao6hClAw33UnGmET@gremlin>
+References: <20260824092935.73892-1-vernon2gm@gmail.com>
+ <20260824092935.73892-4-vernon2gm@gmail.com>
+ <ao6e9RxwQ-KC1Ikq@gremlin>
+ <77412338-b54c-455b-84da-1f39db641c90@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,36 +49,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178773158689.1384029.3121943722878545406@gmail.com>
+In-Reply-To: <77412338-b54c-455b-84da-1f39db641c90@kernel.org>
 
-On Wed, Aug 26, 2026 at 10:06:26AM +0200, Ruslan Valiyev wrote:
-> On Wed, Aug 26, 2026 at 09:53:34AM +0200, Greg Kroah-Hartman wrote:
-> > It's an invalid syzbot reproducer, if root tells the kernel to unbind
-> > from a device when it is being used, it gets to keep the pieces when
-> > things break :(
-> >
-> > Let me go polish off my "taint the kernel if bind/unbind runs" patch to
-> > keep this from happening...
-> 
-> Understood, thanks for looking at it so quickly. I'll drop the patch.
+On Wed, Aug 26, 2026 at 10:14:43AM +0200, David Hildenbrand (Arm) wrote:
+> Note that the monstrosity we called pfn_t no longer exits. :)
 
-It's not an invalid change, just fix it up to be sane and we can take
-it.
+Oops! :) Fair enough. I mistook it for one of the various benign typedef
+unsigned long xxx_t decls and forgot (repressed?) the horror show elements of
+struct { ... } with flags and what not.
 
-> > Did you forget an Assisted-by: tag?
-> 
-> Yes. The patch was AI-assisted and should have included
-> 
->   Assisted-by: Claude:claude-opus-5
->   Assisted-by: Codex:gpt-5.6-sol
-> 
-> I worked from submitting-patches.rst for the tag order and did not read
-> coding-assistants.rst. My mistake, and it will be on anything I send in future.
+Vernon - please disregard the pfn_t feedback, obviously :)
 
-Your LLM should have read that file and added it automatically.  If not,
-you're "holding it wrong" when using those tools as there's lots of text
-in there that it should be reading.
+>
+> --
+> Cheers,
+>
+> David
 
-thanks,
-
-greg k-h
+--
+Cheers, Lorenzo
