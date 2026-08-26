@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA94445AC8
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:43:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287B14279E0
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:47:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787755403; cv=none; b=irNW6m5k4a8PxiKVw4I5Ga2kJMk1nS5Dn04Wf+0nO3X46S61FxB/ZijyrfFFF5BR/H1G5wfIAIz54X7IxMTxWdbgN204M3t2NTnUQ5/8WIMVgO7ASkOhDncdmfC9IBu2AN1Nn8h+kojBxnmTHKNkHpFdmpm4J5nvyv0JmJtHcQY=
+	t=1787755655; cv=none; b=tJknXrH7X7ekYJ8wacOoTXl5CMsLcb7seWEIeF/Azfr1jd3UYV3wV3uQWcoeGk38ND2Z1+0yb9yCLdu338c2KtgbBFP6LT3Ppfw9jvwC6RtGnK5D4dTtirCreZ4LOp7tC1BH6tOFpMRO5A6OcH3m7+fd9nLMUngSjidQ8Axj4V8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787755403; c=relaxed/simple;
-	bh=PA6KcrhquVmCEKg7pgkOcNMDcdSS3oTS9YVfziY3ST8=;
+	s=arc-20240116; t=1787755655; c=relaxed/simple;
+	bh=bsb16MfJEJTafXvWBalO8wjWA2ZDIB3FNT1YYni/xf4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FAyDbntw00HuJYTYirQPgr0z2Yag8UJtoi3yTqIOSQR92FRHUG+pDvAsbem0SjlRkCpFyMNZ2Vkfv1Gmq4RFMfkd5lcyX2q1EjJkaUyzil1F+1MN1YLViG/45c2kMejmlgrbCW60lYxrnB7jlP7A60alSmP2MzxrJn3Cf7wyxgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSjOFtvN; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=DV9YKohdV4Z7iOc9pEPgTmE/Fd8BzhBOqGMxG5FJTg5N+II0TK42ddH3rMbU+HidAhZiktDYRjxt0kMJbhMWBmZQjtPo/MIYygj8bzE2uhY0tZ1y64KXAeoMuvs7Zj0jeI1cTJBDkzQkNyXnePsNEPlYtIUhhKBuRM9ff27yWj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLoZWgrg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSjOFtvN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0A6E1F00A3E
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:43:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLoZWgrg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32501F00A3A
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:47:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787755401;
-	bh=bNgeNmZxyomQdJfOtLgfM3/AddEDANBB3tTF+LgZj7A=;
+	s=k20260515; t=1787755653;
+	bh=/hkGLgOgCbSG4XlKrTJXG5o2tDCxM1rct+mIi4Fw+ao=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KSjOFtvNFpEL9VWrlynnlEYFL4b7J/LYuICmOipe1AqzQjufOvfYkx7fVsU4JDz1W
-	 RSYIe9U3KkDvhMtv+PI6/+PiG2NvOPU1rExVcgSyBr17UVhrVWad/BOCh7Epme2rER
-	 qxPJc7AUqM8nACHx7DM7+7HmLQ4QjVPEhyKES0cedtoEftesqHXu0WrdakLZi7Wtnb
-	 kbU40wLKme7qShZvKWv8CFYk3PRnrghJEDKcgNnxbuJt6C8RqQCEwQz3wYcT3p2NJ5
-	 /855uiX8Co0QnRiHIBA2Tiixr9SYnLOfjRlaS+emiY/Fn5W84G8YyhEGa1u+F5HTwD
-	 K+LETS6p1yqxw==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15e2dab83eso159014866b.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 07:43:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpwwhTM+URnXs844F3uMkh9LRFhg400kHXYa/Wl98e21uYU/sepFJ4TrTprQ2c1uiE0uXRM9xk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhdPEDbIbrzsPcFIrB1s3ggRR6E6Gpyx1VE1dk0eeXrTWQrI9x
-	K8U0QFSweDTaW5tSR3+B7s9PHtDb8hZgIRmeG2K624KW2xfCxxCBhquzISmp4U33KqcILFKRsAl
-	h9Z/sHTY9jt0mdK/E3yX15jiGqt68kXQ=
-X-Received: by 2002:a17:906:f5a2:b0:c20:88a6:8210 with SMTP id
- a640c23a62f3a-c250bc072a2mr890743166b.9.1787755400243; Wed, 26 Aug 2026
- 07:43:20 -0700 (PDT)
+	b=BLoZWgrgJf6WCsdQ/qUF/S0H413ktVk/Wl03LqVX1PsdDl6J366J1afpb0dPIrVIz
+	 QhdN9rzDTBT4yXuJSTR87m0hvLWefEz0jFYCPBw9OfXfp/7coDepzpGpQPcY65nUQ8
+	 UrkqV531GfppFQO8lZEMtN3fv4gxyqtZA3EC+TAOEa74Wb0UwwMKfWrnV3U0eIRSGt
+	 55Q/Up8BlxLJ4p51FowHVsAN04/B139YdUGga29BgCgfEhUfUJixZA/kU3ln9taw9g
+	 /3oPLqnqIC4DnrzpOtkuq0K570AAHHsKeElx9dLFPkSMaQ4zQ2kVoC64w7sIrXhC9+
+	 hHTm22tUtFlFQ==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2530cabcf4so51932466b.0
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 07:47:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rodlzk+DFgu8uq7Lg0TqnrEp43PABjQ8szp4M9bFgjOp/fwENHhAdV/v3TKsA55knW5bLM/M64=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTELtbj8L06XtMv550Ewb9PKYsortfshprpvUj+exHKbXfx0O2
+	UVRyV6MXtmoJsT2odrji2riM+xHXMWaIR0EMp88bI0WllqKDRd7I2Wmk/LyiPa2d2g2BS4XZ82c
+	WiUHbUAskSAQWpts04HUKs60P46bU4O8=
+X-Received: by 2002:a17:907:7249:b0:c21:752f:c3f7 with SMTP id
+ a640c23a62f3a-c250bc127b0mr922359666b.18.1787755652562; Wed, 26 Aug 2026
+ 07:47:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,92 +42,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
- <20260818123921.3600606-2-chenhuacai@loongson.cn> <0b8371b8-408c-48a3-a41f-2e2f1079d315@oss.qualcomm.com>
-In-Reply-To: <0b8371b8-408c-48a3-a41f-2e2f1079d315@oss.qualcomm.com>
+ <20260818123921.3600606-3-chenhuacai@loongson.cn> <e07d3a93-390f-405e-85ec-21e5ad9a6738@oss.qualcomm.com>
+In-Reply-To: <e07d3a93-390f-405e-85ec-21e5ad9a6738@oss.qualcomm.com>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 26 Aug 2026 22:43:17 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6c5Ys8uF41UDC9b6u_856D1QW-iDRwP+XzfXr93R83Qg@mail.gmail.com>
-X-Gm-Features: AcwNN1VqNPqAA0e5DEYRJDeXTIaP-SyNSqBFLwktU3BLY28qyYibW28AcZk32e8
-Message-ID: <CAAhV-H6c5Ys8uF41UDC9b6u_856D1QW-iDRwP+XzfXr93R83Qg@mail.gmail.com>
-Subject: Re: [PATCH 1/5] cpufreq: loongson3: Make this drvier depend on MACH_LOONGSON64
+Date: Wed, 26 Aug 2026 22:47:29 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H62o3v+Bk=0AO7+C2VWb=AGPMZfv1L6XbZ0uUNq0Pc3bg@mail.gmail.com>
+X-Gm-Features: AcwNN1VbsWACZ1FoGXrDjINZIB0qn-Xvk6-RmuNdwyO2LcHvD1ghERhIkxW0tVc
+Message-ID: <CAAhV-H62o3v+Bk=0AO7+C2VWb=AGPMZfv1L6XbZ0uUNq0Pc3bg@mail.gmail.com>
+Subject: Re: [PATCH 2/5] cpufreq: loongson3: Adjust the width of id and val in smc_message
 To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 Cc: Huacai Chen <chenhuacai@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
 	Viresh Kumar <viresh.kumar@linaro.org>, loongarch@lists.linux.dev, 
 	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org
+	Xuerui Wang <kernel@xen0n.name>, Jiaxun Yang <jiaxun.yang@flygoat.com>, stable@vger.kernel.org, 
+	Hongliang Wang <wanghongliang@loongson.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi, Zhongqiu,
 
-On Thu, Aug 20, 2026 at 5:23=E2=80=AFPM Zhongqiu Han
+On Thu, Aug 20, 2026 at 6:03=E2=80=AFPM Zhongqiu Han
 <zhongqiu.han@oss.qualcomm.com> wrote:
 >
-> Hello Huacai,
-> Just share a few inline comments/questions below:
+> Hi Huacai,
+>
+> Please feel free to comment on the question below, or simply ignore it
+> if you do not think it is worth addressing from an architectural
+> perspective.
 >
 > On 8/18/2026 8:39 PM, Huacai Chen wrote:
-> > 32BIT Loongson machines don't have SMC and FreqCtrl registers, so make
-> > this drvier depend on MACH_LOONGSON64.
+> > The id field of smc_message is usually stand for the CPU ID. In the pas=
+t
+> > this driver was only tested for desktop and laptop productions so 4-bit=
+s
+> > are enough. But now we have servers that can have as many as 256 cores,
+> > so we need 8-bits CPU ID.
+> >
+> > On the other hand, the val field is usually stand for CPU frequency so
+> > 12-bits are enough to represent 4GHz, and for higher frequencies there
+> > is an extra bit to extend (enough for 8GHz).
 >
-> Typo --> driver? Likewise the subject.
-Yes, thank you very much.
+> The extra bit appears to be unused in the current implementation.
+> Perhaps it would be better to enforce the limit explicitly for id and
+> val bits, for example by using FIELD_MAX().
+OK, we can do it in the future.
+
+>
+> >
+> > In theory, this is a incompatible change, but fortunately the old SMC
+> > firmwares are not widely shipped and can be updated on the air, thus we
+> > can safely adjust the widths.
+>
+> Not sure if using CMD_GET_VERSION check can avoid such incompatible
+> issue?
+Since the original SMC firmware and the current one has the same
+version number and the current one was shipped widely, we can no
+longer use CMD_GET_VERSION here.
+
+Huacai
 
 >
 > >
 > > Cc: stable@vger.kernel.org
->
-> Nit, it is better to add fixes tag?  For example:
->
-> ccf51454145b ("cpufreq: Add Loongson-3 CPUFreq driver support")
-OK, I will add it.
-
->
+> > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
 > > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 > > ---
-> >   drivers/cpufreq/Kconfig | 1 +
-> >   1 file changed, 1 insertion(+)
+> >   drivers/cpufreq/loongson3_cpufreq.c | 4 ++--
+> >   1 file changed, 2 insertions(+), 2 deletions(-)
 > >
-> > diff --git a/drivers/cpufreq/Kconfig b/drivers/cpufreq/Kconfig
-> > index db83f3365698..edc1299098d4 100644
-> > --- a/drivers/cpufreq/Kconfig
-> > +++ b/drivers/cpufreq/Kconfig
-> > @@ -288,6 +288,7 @@ endif
-> >   if LOONGARCH
-> >   config LOONGSON3_CPUFREQ
-> >       tristate "Loongson3 CPUFreq Driver"
-> > +     depends on MACH_LOONGSON64
->
-> Small nit:
->
-> Please feel free to correct me.
->
-> There are two MACH_LOONGSON64 symbols in the tree:
->    arch/loongarch/Kconfig: config MACH_LOONGSON64
->                                   def_bool 64BIT
->
->    arch/mips/Kconfig:      config MACH_LOONGSON64
->                                   bool "Loongson 64-bit family of
->                                   machines"
->                                   select ...
->
-> The one that actually applies here is the LoongArch one, i.e. this is
-> really just "depends on 64BIT".  Since drivers/cpufreq/Kconfig is a
-> shared file that also contains an "if MIPS" block, please at least
-> is it better to mention it in the changelog which MACH_LOONGSON64 is
-> using, because the LoongArch one has no prompt and is therefore
-> invisible in menuconfig. Or just write "depends on 64BIT"?
-Hmmm, in theory MIPS-based Loongson3 can also use this driver, because
-it also has SMC and FreqCtrl registers. But we haven't tested MIPS.
-
-Anyway, I will improve the commit message, but keep the code as is.
-
-
->
->
-> >       help
-> >         This option adds a CPUFreq driver for Loongson processors which
-> >         support software configurable cpu frequency.
+> > diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loon=
+gson3_cpufreq.c
+> > index 1e8715ea1b77..630f679aa739 100644
+> > --- a/drivers/cpufreq/loongson3_cpufreq.c
+> > +++ b/drivers/cpufreq/loongson3_cpufreq.c
+> > @@ -21,9 +21,9 @@
+> >   union smc_message {
+> >       u32 value;
+> >       struct {
+> > -             u32 id          : 4;
+> > +             u32 id          : 8;
+> >               u32 info        : 4;
+> > -             u32 val         : 16;
+> > +             u32 val         : 12;
+> >               u32 cmd         : 6;
+> >               u32 extra       : 1;
+> >               u32 complete    : 1;
 >
 >
 > --
