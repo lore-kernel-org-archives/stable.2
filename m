@@ -1,174 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB1F4052AF
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:14:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB103FFACC
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:14:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787764482; cv=none; b=kJ9vMCsrUgWkKt+QjrUkgBofP8vMJJ19WSx7M2bHPoeN0vziLPZsBV7xEcnqiD5tW4YDD86IoczQo4nq9u7gnsPVn3ZeYmWRE1aVRLyEu/b28Zn4tn1jc1X8Y7d+d9MiOf0SSJ7syuiV5fNENbcanarFc9MSUwFG2X+TflVUbHw=
+	t=1787764490; cv=none; b=LqtN306TZcumE+vXQTtotTQ/7mNLe+icuumVBLKEpk5SISJznMSoAHtjTXqGbTVHAlbPDFIxy9ZsrrvMoHFLgJQAiJr0RuxGkoykd7fqDRGcUGKkfg+1oDW3rCL1GAcQgXyiccBdEgrWOMpDyWZXqH2YDJ03flKqHTUMfb3MFBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787764482; c=relaxed/simple;
-	bh=dhi4CuSlo3deekKLuRhul8dsM8AxG5ziC3l7X5DKmno=;
+	s=arc-20240116; t=1787764490; c=relaxed/simple;
+	bh=M8+7JWOdEYT95B5KxsxXeqCq2g+xERyT47Nv0fcLi/A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PxGSm1Lp7b2tqkPN3ClGs1m0bf19F7C8t6evOUOXtoiHPRnxHx5XSIgvFmncX/dyAceInR0AmH6xcwO2rnlW0Mmxv5I68KVLT5mMZunng+IEXVyCACOmefa24DHkTI+E4G32VNNOyySGeR9aZUm4cSNitLVFTqrIpZvtj1Pr4pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVAuuKLv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W/KlrdSpeGeL/aaZQaNtvZtVkfYGXuOUANQu/9slJrH3wm77NSjZPq3S/N/eCfU+z/gPktkDQjvW6H/SeUc3/pzkv33BNYdN8sB7FhlPW8O8rN/OnoKEuu6AI2KRlif5+nro8XP0FKxjRs1dqU79f/bhEr2iIeS8u9B1q55If9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M1kOm3mJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVAuuKLv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FBD31F00ACF;
-	Wed, 26 Aug 2026 17:14:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M1kOm3mJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76A51F0155A;
+	Wed, 26 Aug 2026 17:14:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787764457;
-	bh=2RdEi8qdUEq9ztMjg1pgKntLwRyTupRlyyeIIyHLtzk=;
+	s=k20260515; t=1787764452;
+	bh=2813CSk61E8k4CB1jjOBMi0MfnvnpGVUW9OHBP5TwZo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aVAuuKLv/lLy7DAHy1Y5ynPR/yeirhAM39sUIQI224aHtCi3Cph7DPPlQMQnUe8cJ
-	 on7btNsgawwX7ICUS1EZw1C6HBLweXQ9PirzS7XzTlZfjtAc9O/95UV+S2/jWga+88
-	 81/zwC5FqN5tiwBzbgrcJPskYYCPqLeD39e4YsrQs6JPlIlHUdUjR63elegpa2yIzR
-	 +Aa1lwZMWzv5JiP2njpzd+75fS8j1d0qd035OC6k36JEj6F706tAa/lv+r+ZH6AkCL
-	 r4JutV/2gyWsNPlDLcexOU4Mrl2OLUn5ZCKtkNL3vpaZtUfrOjJ5lP8/tt4Afi++HL
-	 +TZhvgW44OQZw==
+	b=M1kOm3mJWDBX5+YOPWPIEsr8x9j+lyDOiyfFQrmyiEZj10/l1Fc9WG6RRe89cNkYO
+	 d1kmTvPAx1EaE+5YtFeWFnh1uXm2R8Hb7FsKP6LJ0f4umGTsqLjeu3yYqPIR0qUirx
+	 gZJ95ppZbuYDMb199FOyudScIKqZa7NJW7cLzd0g+oLCS9BQpT8tKjF77apiKFgFLL
+	 1skNo/7QLxXPcLPL2pwZOQvNH9+8FgeL+GlKHf+voNwvSd6KTJwDOmOmJwg02mSlwQ
+	 GyXnIl9IlWC5R0Jn5UyL33dIsYXLbMoRMPYs0zE983uoyM4SqGv5Nkof8HsPLCSan2
+	 A5wFuXXzPHv+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>,
-	Alec Hall <signshop.alec@gmail.com>,
+Cc: Baul Lee <baul.lee@xbow.com>,
+	Federico Kirschbaum <federico.kirschbaum@xbow.com>,
 	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] HID: input: read battery capacity from its actual report offset
-Date: Wed, 26 Aug 2026 13:14:14 -0400
-Message-ID: <20260826171414.2246040-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] HID: pidff: fix OOB write when hid->inputs is empty
+Date: Wed, 26 Aug 2026 13:14:08 -0400
+Message-ID: <20260826171408.2245886-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826171414.2246040-1-sashal@kernel.org>
-References: <2026082541-tightwad-rinsing-012b@gregkh>
- <20260826171414.2246040-1-sashal@kernel.org>
+In-Reply-To: <20260826171408.2245886-1-sashal@kernel.org>
+References: <2026082518-countless-imply-6af9@gregkh>
+ <20260826171408.2245886-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jose Villaseñor Montfort <pepemontfort@gmail.com>
+From: Baul Lee <baul.lee@xbow.com>
 
-[ Upstream commit d07644524b6511b622ee7b0e2e68c9ee43d522a4 ]
+[ Upstream commit 67bb1074e3d2d12fa059a9cc707e89398a4e4704 ]
 
-hidinput_query_battery_capacity() assumes the state-of-charge value is
-the first byte following the report ID (buf[1]) and ignores where the
-battery field actually sits within the report.
+hid_pidff_init_with_quirks() derives its input_dev from
 
-An Apple Magic Trackpad 2 precedes the AbsoluteStateOfCharge byte with a
-byte of status flags in its battery reports, so this query returns the
-flags byte instead of the charge level.
+	list_entry(hid->inputs.next, struct hid_input, list)
 
-The device happens to make that easy to observe, because it exposes the
-same cell twice: its report descriptor declares AbsoluteStateOfCharge in
-two reports (0x90 and 0x9b), so hidinput_setup_battery() registers two
-power supplies. Only the first one is refreshed by hid-magicmouse -- it
-uses hid_get_battery(), which returns the first battery of the list --
-and that refresh goes through the report event path, which parses the
-field correctly. Nothing ever reports the second one, so every read of
-its capacity takes the query path above. On a USB-C Magic Trackpad over
-USB, on an unpatched 7.1.5:
+without first checking that hid->inputs is non-empty.  The list member
+of struct hid_input is at offset 0, so on an empty list list_entry()
+yields &hid->inputs itself and the following hidinput->input load reads
+an unrelated member of struct hid_device.  dev is then a type-confused
+pointer, and force-feedback init writes through it: each
+set_bit(FF_*, dev->ffbit) stores 8 bytes at dev + 192, past the end of
+the object dev actually aliases, and input_ff_create() adds further
+writes of a heap pointer and two function pointers.
 
-  hid-<serial>-battery-144 = 100%  (Charging)      <- report event path
-  hid-<serial>-battery-155 =   3%  (Discharging)   <- query path
+Until hid-universal-pidff the only caller was hid_pidff_init() from
+usbhid, which runs under HID_CLAIMED_INPUT and therefore always has at
+least one hid_input.  universal_pidff_probe() starts the device with
+HID_CONNECT_DEFAULT & ~HID_CONNECT_FF and then calls
+hid_pidff_init_with_quirks() directly whenever the descriptor carries a
+PID usage page, bypassing that gate.  A report descriptor whose only
+application collection is on HID_UP_PID leaves hid->inputs empty while
+hid_connect() still succeeds through the hidraw claim, so probe reaches
+the unguarded list_entry().
 
-Both are the same physical battery. A raw HIDIOCGINPUT of the two
-reports at that same moment:
+The write happens in the USB probe path, on the hotplug workqueue, so
+plugging in a malicious device is enough to trigger it; no attacker
+software and no logged-in user are required.  KASAN reports an 8-byte
+out-of-bounds write in hid_pidff_init_with_quirks() reached from
+universal_pidff_probe().
 
-  report 0x90 -> [90 03 64]
-  report 0x9b -> [9b 03 64 64 00 00 10 00 00 00 00 00 00 00]
-                     ^flags ^SoC = 0x64 = 100%
+Check for an empty list before deriving dev and return -ENODEV, as the
+other HID force-feedback drivers already do.  universal_pidff_probe()
+propagates the error and unwinds.
 
-The device answers correctly in both cases; only the offset the kernel
-reads the capacity from is wrong. 0x03 is the flags byte (present,
-charging), reported as "3%".
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
 
-Bluetooth takes the same query path for its capacity, where the trackpad
-reported a bogus near-constant ~4% -- 0b100, the FullyCharged flag --
-regardless of the real charge.
-
-Store the battery field's offset within the report at setup time and use
-it when querying, so the capacity is read from its real position. The
-report event path already parses the field correctly through the HID
-core; only the explicit GET_REPORT query was wrong.
-
-Devices whose capacity field is the first field in the report have a
-report_offset of 0 and are unaffected (buf[1 + 0] == buf[1]).
-
-Fixes: 581c4484769e ("HID: input: map digitizer battery usage")
+Fixes: f06bf8d94fff ("HID: Add hid-universal-pidff driver and supported device ids")
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Reported-by: Baul Lee <baul.lee@xbow.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-Reviewed-by: Alec Hall <signshop.alec@gmail.com>
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-input.c | 17 +++++++++++++----
- include/linux/hid.h     |  2 ++
- 2 files changed, 15 insertions(+), 4 deletions(-)
+ drivers/hid/usbhid/hid-pidff.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
-index 7a9259d8a37d6..00d3b85527d3e 100644
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -433,17 +433,25 @@ static int hidinput_scale_battery_capacity(struct hid_battery *bat,
- static int hidinput_query_battery_capacity(struct hid_battery *bat)
+diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
+index ad0636ca71776..cf03400a47381 100644
+--- a/drivers/hid/usbhid/hid-pidff.c
++++ b/drivers/hid/usbhid/hid-pidff.c
+@@ -1298,13 +1298,20 @@ static int pidff_check_autocenter(struct pidff_device *pidff,
+ int hid_pidff_init_with_quirks(struct hid_device *hid, __u32 initial_quirks)
  {
- 	int ret;
-+	/*
-+	 * The capacity field may not be the first field in the report: some
-+	 * devices (e.g. the Apple Magic Trackpad 2 over Bluetooth) precede it
-+	 * with status flags. Read it from its actual byte offset in the report
-+	 * (report_offset is in bits; the leading byte is the report id).
-+	 */
-+	int offset = 1 + bat->report_offset / 8;
-+	int len = offset + 1;
+ 	struct pidff_device *pidff;
+-	struct hid_input *hidinput =
+-		list_entry(hid->inputs.next, struct hid_input, list);
+-	struct input_dev *dev = hidinput->input;
++	struct hid_input *hidinput;
++	struct input_dev *dev;
+ 	struct ff_device *ff;
+ 	int max_effects;
+ 	int error;
  
--	u8 *buf __free(kfree) = kmalloc(4, GFP_KERNEL);
-+	u8 *buf __free(kfree) = kmalloc(max(len, 4), GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
++	if (list_empty(&hid->inputs)) {
++		hid_err(hid, "no inputs found\n");
++		return -ENODEV;
++	}
++
++	hidinput = list_first_entry(&hid->inputs, struct hid_input, list);
++	dev = hidinput->input;
++
+ 	hid_dbg(hid, "starting pid init\n");
  
--	ret = hid_hw_raw_request(bat->dev, bat->report_id, buf, 4,
-+	ret = hid_hw_raw_request(bat->dev, bat->report_id, buf, max(len, 4),
- 				 bat->report_type, HID_REQ_GET_REPORT);
--	if (ret < 2)
-+	if (ret < len)
- 		return -ENODATA;
- 
--	return hidinput_scale_battery_capacity(bat, buf[1]);
-+	return hidinput_scale_battery_capacity(bat, buf[offset]);
- }
- 
- static int hidinput_get_battery_property(struct power_supply *psy,
-@@ -568,6 +576,7 @@ static int hidinput_setup_battery(struct hid_device *dev, unsigned report_type,
- 	bat->max = max;
- 	bat->report_type = report_type;
- 	bat->report_id = field->report->id;
-+	bat->report_offset = field->report_offset;
- 	bat->charge_status = POWER_SUPPLY_STATUS_DISCHARGING;
- 	bat->status = HID_BATTERY_UNKNOWN;
- 
-diff --git a/include/linux/hid.h b/include/linux/hid.h
-index d1f105def0fbc..14f42560602f4 100644
---- a/include/linux/hid.h
-+++ b/include/linux/hid.h
-@@ -642,6 +642,7 @@ enum hid_battery_status {
-  * @max: maximum battery value from HID descriptor
-  * @report_type: HID report type (input/feature)
-  * @report_id: HID report ID for this battery
-+ * @report_offset: bit offset of the capacity field within its report
-  * @charge_status: current charging status
-  * @status: battery reporting status
-  * @capacity: current battery capacity (0-100)
-@@ -655,6 +656,7 @@ struct hid_battery {
- 	__s32 max;
- 	__s32 report_type;
- 	__s32 report_id;
-+	__s32 report_offset;
- 	__s32 charge_status;
- 	enum hid_battery_status status;
- 	__s32 capacity;
+ 	if (list_empty(&hid->report_enum[HID_OUTPUT_REPORT].report_list)) {
 -- 
 2.53.0
 
