@@ -1,94 +1,78 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCEB211466
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BE6279907
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787708404; cv=none; b=IUM1ud+/vk7aqRRrugnApFvma3hlS4t8GKYanCwiiYdBiCsUDeASms0BMVWkoA7IO4yE9JcceW6xCbLvMH4pekf0huUO8+S1OVcH9UHjkgm7pfR6j2MNiZg/0S+GxwrvgbD+Pua8BgTn+wybsrfNK7AZg0s5K8Glm41i+6UutKs=
+	t=1787708569; cv=none; b=qdGiLVfn/1zXHKdH3jS0r0gePBji4dzso4wSqzjWs1rbTM9ZvlVJsXHc61MnkP9CS3GSMU7Q/HyR0UZcfHchBeTEogtnsIbsfj6/1Tc5/sYk57XmW0E33nOQJNOmFKhwbfeeooVQELVQdp4WcmBgvaaVsIzg6Rpw6rLcGIpwQhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787708404; c=relaxed/simple;
-	bh=xddEwg9RunMRuvB/k049ds1rBCYLv2ELWCpHxLMwfus=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bfoHCWjZbW8LBDVL0/ZIyG+QBZ9Elp2gYqHipg+LZRgW6/0q5O6cUZ9T9VDJ4BaZG+yKNYU14QQ2RYBlHUZCI0Z8993A4Z8/qwdH8y6nW/DGw8rUUW+pby7unlH8lqqmrL4Ox0gWFSZF2H+UASii3JpFVTvnTZapVZQ59oRkB9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YFoWZiby; arc=none smtp.client-ip=209.85.216.46
+	s=arc-20240116; t=1787708569; c=relaxed/simple;
+	bh=xkHYSMpPHPn5UAznXrMTLNZUM0GY8dMnzzBw3PK9Ecw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JiVg9D/yaFugFOWky58etubGt5LOAsxHZgakfPzlHcFmMv+ctNGQDv3auJLBmULWided5WgQeYP7Ff7uboNn4JwEQ6gJ83+T9D4NXpb+ucbPGLLoBW3uQMPqTjgQTfds3dnJMnW7g620NWCyfUf3Ikg6cxI60c1D4th2vYuyh0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B9HoidBc; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YFoWZiby"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964b061528so649313a91.1
-        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:40:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B9HoidBc"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc891373e0so6254975ad.2
+        for <stable@vger.kernel.org>; Tue, 25 Aug 2026 18:42:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787708402; x=1788313202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9D0ya7fAGHD4mh1WhP+JBRzlt0nXa7uSYqgCddP+Sco=;
-        b=YFoWZibyJ9THs0OTsUudD2LnUXl4W3tn0eE9KBlZVzb95U94ymGYhGfYtC3Z5hTI2f
-         jLymFKwlMIoHwur59BfZeR21MqmI7o7WaAt6lMh+XifUk9B1usC0CszpVUufpG7etk/I
-         uucNDtjhL7r/fLhR2JrpPQeGxgePxmhAftqmJvsjq6Iu3soavwL8BEjs0Q+KFS/XyM+p
-         pEn6iFi8ZhFRwJ6mPCE/ZY4T+mhGL+VAOzhkW6VrF2k3lh5ED4RK9lKnDllaY7wYRErx
-         TfkyrSJjM1JvwxJAipciqVPy85DFpSAOGZp/P4uxJfuuWNfB4q/4CncH3A5dalyqZvDa
-         KHlg==
+        d=gmail.com; s=20251104; t=1787708566; x=1788313366; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uX7w3zYS1582cLpnHIAGQCV970wUYP+EwxQlHWpL6X4=;
+        b=B9HoidBcZfe0MNEqv7cPNTqvIn2B9ESx4YCTXc7sA/nCA3hQAb4DZ2oStAr7BbfnWo
+         4Uvsye6HVBhZxqSZEA51IRGDDeBJUt6rfo8qioljVPGUt2knqgya5Jk1t89WkDcfIy9q
+         ofI3QlaByJiUx3PKNhaKfp14dqxzBjVRfM2dSSzP3CSEfuzpTqFTWz0MUyYx/iUHsIpT
+         53mxZjPWO5T6/X5pB60hgD9sdTk69yYp72TwWyOJ8CfLQYGMCBUufM55/Um18aNGUHsr
+         avaI3LKTZ5DB4AcC+LQHA2U3svJh+Mu0/04k1RfO2GGnoYGnuJeAfo1qepqSbitFf2mP
+         pE1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787708402; x=1788313202;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9D0ya7fAGHD4mh1WhP+JBRzlt0nXa7uSYqgCddP+Sco=;
-        b=FPndX0BPvuELkycIv8S4dhZo5Mf/1/hxjIEuHIVg6u8F0EPU3TDERSikGCOZdPgpNL
-         hGKXVdMaFFqpY+D/UqCXJTEpwizUFZXpM3q0wcVz/Pn/bSI2qNuMZY5l1fVLh5DZO/df
-         VqfiF6DhhnrO4iAU2bDeyNoE8LuNJOklaReYLCauEK4Nlf/Ojewr+YMNqA2heCTScArJ
-         wS09e6MjF3kyM7GooCh4MzFqf5uGCT9jsX9GUHiGCnQCEgrLzC2GAVqBDK4B674ptynQ
-         kZ94gRhKg9fbF5mKnQwofun63ziFySdfQw6hqKqI1LToCoufMiQIK+vF/+pSi8hG6b1f
-         lCgA==
-X-Forwarded-Encrypted: i=1; AHgh+RpaWeeLanc57FPKZrGZcomHStZRug8e6ewW2fNiO0qY0kUL3CZNd/GMKpxoh2NhgeebCd/jQtI=@vger.kernel.org
-X-Gm-Message-State: AFuF++luk4QX6F3rxx4n7wAmsGxmBwwCiOJsN7MnoJskqciPvL2ofR8H
-	mFfVvAyxfYnhylVtxJEo+V93Bvt9Cfvs/RDaihfdMQLUdW874WaOIKX3
-X-Gm-Gg: AR+sD12pNMhfm9JL4KFK9/MgohRpAe6Tk8Vr14I/l7F+iCdlqOFGqaRZ6dOvgAhZS5G
-	27Npftvgaj7P0gi9SP4ROU8PqSkny05cuuHLUYVrYaiUzmBfBzClaWHJVvzGoU3IQ1RXOigyxz9
-	838xeuyXkfGXG0SNjCvZ2et4tEO1MjTFCfemXsDAhpJ9KzfEo6xyYWpT7dfgvt2McPFa36cqhEe
-	ztNlfzcWWymymhWO4kNvtEVjR8gSbDHmMFANMOLJRUr4TiuZH/Yb4iOJv1X0W+UHuoEHj0Wj/xv
-	5XxSTc59cj+VJq7Qn50U7OALLGE7u9Lkbdy1fQAnq69Udm8iFSCTiCxVGBcYsuWeWqBNOqNf84k
-	tbjEO9tID1X3ulKgnD02tRxk6LTpkh0jPFuSk/2Lb9zCfBIRRvrLhNQBWOOA/CBo1HFtV1IHiW/
-	DWlg5m10NhwerPNepriiyUAsC+PB/uvYG9FN9XlYg/tnOwQUok8qf9re92mII7jRk/+0l/SbSl
-X-Received: by 2002:a17:90b:3cc3:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-3966d20cde1mr7186084a91.8.1787708402417;
-        Tue, 25 Aug 2026 18:40:02 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3965d119724sm3674887a91.2.2026.08.25.18.39.56
+        d=1e100.net; s=20251104; t=1787708566; x=1788313366;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uX7w3zYS1582cLpnHIAGQCV970wUYP+EwxQlHWpL6X4=;
+        b=frEa9dLY79BwmSmXpLQW4naX4AAvBIaNqo1j0JzS7fZrBGdpSBM1oqJgRplkh29/Cx
+         oBDZEnLBSBg7xoK0avy5kjI/trL0AmwFkeKycBbUjHraq9s/vpuzyQmODDWlHeeK019F
+         BI0oRi30vIQOincgTZo6K4kt60AEBDXyds3KUCBPqgXoqa6xIsxXXd9BIgZcb57NSwqu
+         Lh1hzw+/pdemc5ZX7xMoRyMnak7gvB+baHKoiPwb/E33+/MXC/QEpVvfabILqc1y73ov
+         9n7hXqcNT+xv47nCBo5cH2GnsG+PHbblzuSEVTG9nGOyqDpB1mbBCPlPXMCxsy4j0KC6
+         oiEw==
+X-Forwarded-Encrypted: i=1; AHgh+RoaLMnABgCvl/h2wEfWuxOg2zFo3syTxQky8i9z+SddVX32Vf0j3I0w7oPpLzzv6QB0DXUoky4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxwbUng0Wp8OjejpDX364rRES028rlEsAMqfVHqTMOySv69OiH
+	vOmoHwOnRMlKqlah1hb6LTXD1WHWaR21wqT+wMmQlbr98kFv2foJTMKR
+X-Gm-Gg: AR+sD10dJpEM7pCz6A9ZDCFfuhCQpHKxLawEYnC/MQEpELzHFt85IX7DptHamtPg6T/
+	/BjzMumQQ05v4xCPdCBlE8WP+y28Hf6exNBRGH/tOvRmQMIgCScdNRU6p1Vuy9Y8V6kGMyMM0wH
+	dO8qPJz/2TBPwvOyNzo6Ve59Kv5pjy3riMFjC+nxkeYz2niyZrgpqK3kLLdrduUicbhRVF/ne7S
+	Y+PasQxogmHNXtJXtu0llw/qx9QwR9iwxUCPutu+WxaACT7oQKe1j8XJdjl72pLGz1ePi9w1ZQ+
+	DVP70hZJsuMVmsu/fuvVgLyZgC4CRKjc98YRvFHq4qOYy8Bt+N393aJaw3ezRpQpo/v1bRMcT03
+	fAE9u1o/aHieqfmrDgKVfMSP72vbrh8XkiSNGKQHN9+S6Enx+mmC+nMybQhOQ6suueB67Oaag9D
+	fbd6GrLkmdwqtPyhUFHUqczKZegoGJUsA0ZcAzIp9F2ro3rvCcI46271QszLKC+w==
+X-Received: by 2002:a17:903:2c03:b0:2d6:ee6b:1b08 with SMTP id d9443c01a7336-2d707a2f363mr42050785ad.3.1787708565680;
+        Tue, 25 Aug 2026 18:42:45 -0700 (PDT)
+Received: from TENCENT64.site ([103.7.29.106])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7049aac32sm2943735ad.33.2026.08.25.18.42.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 18:40:01 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	"David S . Miller" <davem@davemloft.net>,
+        Tue, 25 Aug 2026 18:42:45 -0700 (PDT)
+From: Jun Yang <littleddfu@gmail.com>
+To: Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Hagen Paul Pfeifer <hagen@jauu.net>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	stable@vger.kernel.org,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	bridge@lists.linux.dev,
 	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/secretmem: properly account locked pages
-Date: Wed, 26 Aug 2026 10:39:48 +0900
-Message-ID: <20260826013948.1325213-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
-References: <20260822-secretmem-accounting-v2-1-fe445a7c6eb1@kernel.org>
+	Jun Yang <junvyyang@tencent.com>
+Subject: [PATCH net v2] net: bridge: mcast: don't truncate the port group walk on teardown
+Date: Wed, 26 Aug 2026 09:41:44 +0800
+Message-ID: <20260826014200.362304-1-littleddfu@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,32 +81,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Lorenzo,
+From: Jun Yang <junvyyang@tencent.com>
 
-I tested the exact v2 from this Message-ID on its stated base with an x86_64
-KASAN kernel. The supplied memfd_secret selftest passed 6/6 in three boots,
-and my accounting-boundary suite also passed in three boots. I saw no
-patch-attributable KASAN report, warning, Oops, or panic.
+__br_multicast_disable_port_ctx() and br_multicast_del_port() walk
+port->mglist with hlist_for_each_entry_safe(). However,
+br_multicast_find_del_pg() can also delete other entries from the same
+list through br_multicast_fwd_src_remove() or __fwd_del_star_excl().
 
-A v1/v2 differential also confirms that v2 fixes the CAP_IPC_LOCK creator
-delegation issue Mike identified:
+If such an entry is the iterator's saved next node, hlist_del_init()
+clears its ->next and terminates the walk early. The reproducer triggers
+this in both teardown walks, leaving port groups in the bridge mdb with
+a dangling ->key.port after del_nbp() frees the port:
 
-  v1: CAP_DELEGATION creator_cap_ipc_lock=1 receiver_uid=2001 receiver_pages=2
-  v2: CAP_DELEGATION creator_cap_ipc_lock=1 receiver_uid=2001 receiver_pages=1
+  BUG: KASAN: slab-use-after-free in __mdb_fill_info+0x1191/0x1320
+   __mdb_fill_info+0x1191/0x1320
+   br_mdb_dump+0x594/0xe40
+   rtnl_mdb_dump+0x1cf/0x5d0
 
-I have one policy question before adding Tested-by. With a one-page soft and
-hard RLIMIT_MEMLOCK, a non-root task whose only effective and permitted
-capability was CAP_IPC_LOCK produced this on v2:
+Use hlist_del_init_rcu() to unlink the group while preserving ->next.
+br_multicast_del_pg() and the teardown walks run under
+br->multicast_lock. The GC worker must acquire the same lock before
+detaching the group for destruction, so the node remains alive while
+the walk uses the preserved pointer.
 
-  CAP_ONLY uid=2002 cap_ipc_lock=1 mlock_two_pages=1 faulted_pages=1 raise_hard_rc=-1 raise_hard_errno=1
+Fixes: b08123684bd5 ("net: bridge: mcast: install S,G entries automatically based on reports")
+Cc: stable@vger.kernel.org
+Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Assisted-by: tencentos-corvus-ai:kimi-k3
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
+---
+v2: delete with hlist_del_init_rcu() to preserve ->next for an in-progress
+    teardown walk, per Nikolay's suggestion, instead of restarting the walks.
+    Tested on 7.2-rc7 with KASAN: the original use-after-free is no longer
+    reported.
 
-Thus ordinary mlock() of two pages succeeded, while only one secretmem page
-could be faulted. Raising the hard limit failed with EPERM because that
-requires CAP_SYS_RESOURCE. Is this divergence from ordinary mlock() the
-intended consequence of removing the CAP_IPC_LOCK exemption for secretmem?
+v1: https://lore.kernel.org/all/20260812113435.1854275-1-junvyyang@tencent.com/
 
-I saw the planned selftest split and cleanup in the follow-up discussion. I
-will retest the revised patch before adding Tested-by.
+ net/bridge/br_multicast.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Thanks,
-Daehyeon
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index 00aa9b2879d6..8022c7f12169 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -808,7 +808,11 @@ void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
+ 	struct hlist_node *tmp;
+ 
+ 	rcu_assign_pointer(*pp, pg->next);
+-	hlist_del_init(&pg->mglist);
++	/* Keep ->next (held under multicast_lock, freed later by the GC work):
++	 * a port->mglist teardown walk may have latched this node as its next,
++	 * and deleting other groups of the same port must not truncate it.
++	 */
++	hlist_del_init_rcu(&pg->mglist);
+ 	br_multicast_eht_clean_sets(pg);
+ 	hlist_for_each_entry_safe(ent, tmp, &pg->src_list, node)
+ 		br_multicast_del_group_src(ent, false);
+-- 
+2.43.7
+
