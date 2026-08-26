@@ -1,119 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881FE439F91;
-	Wed, 26 Aug 2026 14:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C7D425872
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787753478; cv=none; b=qbDPhRG+LvSWD2QgqGzBT7jjHFgoeC4z13IeHrlsdSSMh5AjJ/5Fqfx6CY1jOFdeDnE8Ui7qp7VbWax5gQR61/SN3tBuHO6MaWMsOs4v6bDGXencz5FKiUBRKBhyCtVecYzJW6lLwV1sNZ9T6ML44vTsIOa8hXUZHDipp6De5Kc=
+	t=1787753655; cv=none; b=qnDDEHp++TM7gqKEZjsmTUbPE7WXg075bHHxDHd5+9kMkl7BEJRqEWcWXA5bTCowBlSldCaegckPgS2z55czD7ooLb9khf4FebkPmLMrrp4c8fYIX+zcM+mAe/iNQiwXm4cAZf5dfd4u2YNqhSh3bxkC+m13IviI7DudvCjeqpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787753478; c=relaxed/simple;
-	bh=C2wFX4a7JH+wAsDrmBFi2nJ+gTPgJlOiAawjFmE9MPo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QxtYJMUC3czFOhCAmwWt0oQWRNhDBV6QWTp8ZvgurwzgMIWNdw4RwRP+EEzMB+eCxZYRaM1elTBiY7S2yb9cD9obc+HZhnR9rpIp/qQqKFl5A2tbt5HpTGs91KwyElRRsPYOpP6u9JvPdqamCc7ufdMAF5nJR6WHt6zgEvPT9qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2IecTteg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787753655; c=relaxed/simple;
+	bh=7VaVSmbAIKeSdzFb/kmFo/elSfqVEZgtkpl5F28SgLo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YT5O0lQfp7xOV09wlcldsUUW2Blss4fyPWjgRvQ9cX21/64e3VXZ7ITsEO8UFT7eH8vLMWpOY2r8AOLtAGek+AAVaJ6x/slJpEAFNz1hvyOWWD+XFM1VbBF7qgHQU/D6kUv4iton/Abf5dsKV3VZRM0VFpwJbhf56t38rE63VU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=SfXQoK8/; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2IecTteg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89C31F000E9;
-	Wed, 26 Aug 2026 14:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787753475;
-	bh=CrzOdB/wPEZMMB6aZYaBXZVWcP1Br6WDZGYvIB/24Ik=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=2IecTtegQL4jO7bnZ4BG17uFcbFjqVTY+aUCBHHmVCvIYgVmNLXtA69pnYufrrMn6
-	 gSja34YePJxcZ50PEINz1/plmIZCgpjoKZBnueDfFFnWjQ7lc2RVo9mR7pj68TAmAM
-	 GOTZrOqZnhHMo+tW8UDagy2n5N7SPxjf1ExGITls=
-Date: Wed, 26 Aug 2026 16:11:12 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Aleksandr Nogikh <nogikh@google.com>
-Cc: syzbot <syzbot+1a01783ea233350598b5@syzkaller.appspotmail.com>,
-	heikki.krogerus@linux.intel.com, jeffinphilip14@gmail.com,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	mika.westerberg@linux.intel.com, stable@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzkaller <syzkaller@googlegroups.com>
-Subject: Re: [syzbot] [usb?] general protection fault in wcove_typec_probe
-Message-ID: <2026082602-compile-bogged-877d@gregkh>
-References: <6a88012e.dbb3a75c.13dd47.0007.GAE@google.com>
- <6a8d0f6c.dbb3a75c.7844.001d.GAE@google.com>
- <2026082540-tarantula-gigantic-b786@gregkh>
- <CANp29Y5YH=O35brw55HFo_hVmFDz5Y4Yw7buBc-rOjETU2DNjg@mail.gmail.com>
- <2026082507-ecosystem-giant-0b79@gregkh>
- <CANp29Y5hnOWaqGw8BbPu1TCr00TbvNRciYvs_VCd6Jtk=8kSPg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="SfXQoK8/"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1677c91969so107563766b.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 07:14:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1787753652; x=1788358452; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xYjyxtMvSao8mYDot9PzKrn7HcKiXU+v6QRh0L40jjw=;
+        b=SfXQoK8/DTn0d+rFiRe/PA+ro6kzgekTDQCuai8t7VbejTe8x20zyd4/D0trFri4Pe
+         00NLhvTwyM8+q6EZpjvPV1v+oH4rXOEMV6lBWPP87aOxw16AvUDyMwKcc4yfHQEh5WsN
+         /t99L/zcmFlth3Wo8VkUlkyKiV+JH4J4XD5PIluz1Sls3+bIjwBJ8f0OHkelmYh81A4E
+         AJI5Gq+D6Upm/q9haRX3Q9Tf1N3/UbC0vxehvA8yD6JRTkCAvVE3ErPTy03DpRl7sMOB
+         we1o8Nqh7exxgMYMM6KIuIR7rnomrzHNWZeT20uhappaMZ7Q9Sraj5b1kIEBR822XCVB
+         QnPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787753652; x=1788358452;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xYjyxtMvSao8mYDot9PzKrn7HcKiXU+v6QRh0L40jjw=;
+        b=G5Ra9bbcCeOEPcCKbXqkfEjRw4Cwpu4VdoR1M0rCuzi0MvpP5OFwPtCN9z1xlMXsmm
+         16V1xGjXMkkq2TIozcfAMPa6RvuKEA4Nbkw8EKsv/4Fc+SJptJwfx3FGpJ9w4jdiw0ro
+         J+a20erHFSIj/fQ7SnrBufqD5Cf5in8l692nOkSF13MM19Wmgpr9Z7NG+zlvGfqnLWaO
+         QppMpdkweh/tGK3b1bO9LUXFL84f8nBdvQbQxikxpuCsGCh2njLhoJTW/MXUXFY1eAVn
+         WxFhWL6pQw9uyYP0bFZnLrvzSnJJL1cU6cp6OcJa9XQudIgAtTkSCkquW39TZml+9ipN
+         aVww==
+X-Forwarded-Encrypted: i=1; AHgh+Ron2M5RFfEhUimXk7Y7PGrldbSTa2epVTIaX7RXYYmCZZv9qzsalXWKJU4fAVKguGEBYAnxSqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdcYSBNByh5YUgMkQBs0tYympa0O9g4DNuIkD/ZCxBHXbSNixI
+	N3tZ02gaAaNw2qlep8swrFyf608gveEX0FWXEMuBWG6fXRMnmihAre8=
+X-Gm-Gg: AR+sD12wr2c8HM/LKf02nxHJzljGs7NZkv9WmhtG7YnvqTaDXzt3ehU8OA0IzzQp8hO
+	zbeap93ZXHGt23Ky0jv2OUrSbUNT0PPA94YWrcbyvB4Ys5PQ8Jcdi5YmRwPSRnuqcNtQS0a/aeB
+	/ysrDg2nMukL13VC+pMWmm9mDWszftryrzG6vfmOXhkrXHu1ERy3qLUh2ZWxKWE0K6jsZ3JmmTd
+	nytc0msU3Ch18Hy6wFv7pZnvNOGYaEtKf1A0t0T3cT0pqCRPsoujxvxHXfnkypi63P2zNdEeVca
+	IwQ/k/ysCejcrV6rmvobrbmggL5au92ksTvl5DryCXr+zicKAS205xCnPnpRKdMJ/VH/4bN9XqY
+	+hkqKRS/DsAgG7Nj8BmFA7ARtP58BxMOH9qxLs9LiU3W0HWnKMsRNhNwhmaHCrW3pCjeTEoXsXQ
+	7F12Q9cFeCIcGNncOyKAPI8IxTrLL9s01vQ+INlCq6CArFsfBHlTx7Oj9MEKuCnz5zS6HRmAaG6
+	zlwuxugJSHJaaKS1GRNAk5qcWW2BzCG1F44X8g=
+X-Received: by 2002:a17:907:1888:b0:c20:23fb:bb05 with SMTP id a640c23a62f3a-c250c3089dbmr1012549966b.15.1787753651849;
+        Wed, 26 Aug 2026 07:14:11 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ace5e.dip0.t-ipconnect.de. [91.42.206.94])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a9b28basm377102566b.46.2026.08.26.07.14.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 07:14:11 -0700 (PDT)
+Message-ID: <be9cfaf6-7188-480b-950e-22f124bf90a2@googlemail.com>
+Date: Wed, 26 Aug 2026 16:14:10 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 00/94] 6.18.47-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.887883084@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260825132541.887883084@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANp29Y5hnOWaqGw8BbPu1TCr00TbvNRciYvs_VCd6Jtk=8kSPg@mail.gmail.com>
 
-On Wed, Aug 26, 2026 at 03:26:23PM +0200, Aleksandr Nogikh wrote:
-> On Tue, Aug 25, 2026 at 11:07 AM Greg KH <gregkh@linuxfoundation.org> wrote:
-> >
-> > On Tue, Aug 25, 2026 at 11:04:54AM +0200, Aleksandr Nogikh wrote:
-> > > Hi Greg,
-> > >
-> > > On Tue, Aug 25, 2026 at 7:12 AM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > > >
-> < .. >
-> > > >
-> > > > Please do not think that this is a valid path for syzbot to be
-> > > > fuzzing...
-> > > >
-> > >
-> > > Can you please elaborate on this?
-> > > Do you mean driver binding sysfs interface in general or something
-> > > more specific?
-> >
-> > That is the specific thing, don't have syzbot do random bind/unbind
-> > calls, having it attempt to bind any random driver to any random
-> > hardware device.  That's not how bind/unbind is supposed to work at all,
-> > it's for developers who "know what they are doing" and you get to keep
-> > the broken system if you mess it up.
-> >
-> > Same for unbind.
-> >
-> > This is a root-only api for that reason.
-> 
-> Thanks for clarifying!
-> 
-> Some context from the syzkaller side:
-> Restricting the fuzzer is always tricky, especially when the
-> problematic operation is just opening a file and writing to it.
-> 
-> We normally constrain openat to:
-> 1) An allowlist of safe absolute paths (so it won't open /dev/mem,
-> etc.), blocking any other path starting with '/'.
-> 2) Relative paths under CWD (so we can still fuzz normal file operations).
-> 
-> Here the problem is that one can mount sysfs under CWD, which leaves
-> syzkaller full access to everything inside it.
-> 
-> Tightening the access to /bind, /unbind, /driver_override sounds
-> reasonable, but trying to catch all workarounds purely in userspace
-> (e.g., creating symlinks to these paths before opening them) will
-> easily turn into a whack-a-mole.
-> 
-> Would you be open to adding some kernel config option or a boot
-> parameter to disable manual sysfs driver bind/unbind and
-> driver_override? We had a similar problem with writing to a block
-> device while a filesystem was being mounted, which was perfectly
-> solved by CONFIG_BLK_DEV_WRITE_MOUNTED.
+Am 25.08.2026 um 15:24 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.47 release.
+> There are 94 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-I've submitted a patch to taint the kernel if these files are written
-to, so that should "catch" syzbot and let you know to ignore these
-reports if it runs into them:
-	https://lore.kernel.org/r/20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-Is that sufficient?
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-If not, no, I really don't want to make a kernel config option just for
-this type of thing.
 
-thanks,
+Beste Grüße,
+Peter Schneider
 
-greg k-h
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
