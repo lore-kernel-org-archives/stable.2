@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287B14279E0
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:47:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAF5432BF4
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:49:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787755655; cv=none; b=tJknXrH7X7ekYJ8wacOoTXl5CMsLcb7seWEIeF/Azfr1jd3UYV3wV3uQWcoeGk38ND2Z1+0yb9yCLdu338c2KtgbBFP6LT3Ppfw9jvwC6RtGnK5D4dTtirCreZ4LOp7tC1BH6tOFpMRO5A6OcH3m7+fd9nLMUngSjidQ8Axj4V8=
+	t=1787755759; cv=none; b=m08gfTbpAA4xZ/gyH3e2Cz0wvCvM7Z825YHqXwlynZTfdvny1R+kMUqy7RQJTqbS8Jpjt2Gdq00VHwtji32gqeVo6rKmlseDnw2AoLMwrL+YyNH0bEqrUhXjvQBKV7mGM54F+5uIidOh3SSkxTAxRlyVVDJzHQZQ3UVE9ac2z0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787755655; c=relaxed/simple;
-	bh=bsb16MfJEJTafXvWBalO8wjWA2ZDIB3FNT1YYni/xf4=;
+	s=arc-20240116; t=1787755759; c=relaxed/simple;
+	bh=MpOTDdeT3bZaQiGndCvq/Va6CUct8aokUQORS0TMbLY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DV9YKohdV4Z7iOc9pEPgTmE/Fd8BzhBOqGMxG5FJTg5N+II0TK42ddH3rMbU+HidAhZiktDYRjxt0kMJbhMWBmZQjtPo/MIYygj8bzE2uhY0tZ1y64KXAeoMuvs7Zj0jeI1cTJBDkzQkNyXnePsNEPlYtIUhhKBuRM9ff27yWj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLoZWgrg; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=uN1WCqAMTiFSD4feCv4wRfzliLxtnq6qdbV0zTRpbErI6PfCLbVd+gK2xCZvuMoz9NsfikygD9Za2QBoNF3GpQ2dP86RSKj83w6ZDtR8tFVYK29pGLoo2aGVvjSJexwoeIM84YKiQ/qnTziyQ1mJwSq6hUNoPSPNF1VjyhoSAuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIDUneYj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLoZWgrg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32501F00A3A
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:47:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIDUneYj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C5E1F000E9
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787755653;
-	bh=/hkGLgOgCbSG4XlKrTJXG5o2tDCxM1rct+mIi4Fw+ao=;
+	s=k20260515; t=1787755758;
+	bh=rud/Q9HeSKhNKPTtAJCWQV5WiQ/mLprflA5WGwiU49E=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BLoZWgrgJf6WCsdQ/qUF/S0H413ktVk/Wl03LqVX1PsdDl6J366J1afpb0dPIrVIz
-	 QhdN9rzDTBT4yXuJSTR87m0hvLWefEz0jFYCPBw9OfXfp/7coDepzpGpQPcY65nUQ8
-	 UrkqV531GfppFQO8lZEMtN3fv4gxyqtZA3EC+TAOEa74Wb0UwwMKfWrnV3U0eIRSGt
-	 55Q/Up8BlxLJ4p51FowHVsAN04/B139YdUGga29BgCgfEhUfUJixZA/kU3ln9taw9g
-	 /3oPLqnqIC4DnrzpOtkuq0K570AAHHsKeElx9dLFPkSMaQ4zQ2kVoC64w7sIrXhC9+
-	 hHTm22tUtFlFQ==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2530cabcf4so51932466b.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 07:47:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rodlzk+DFgu8uq7Lg0TqnrEp43PABjQ8szp4M9bFgjOp/fwENHhAdV/v3TKsA55knW5bLM/M64=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTELtbj8L06XtMv550Ewb9PKYsortfshprpvUj+exHKbXfx0O2
-	UVRyV6MXtmoJsT2odrji2riM+xHXMWaIR0EMp88bI0WllqKDRd7I2Wmk/LyiPa2d2g2BS4XZ82c
-	WiUHbUAskSAQWpts04HUKs60P46bU4O8=
-X-Received: by 2002:a17:907:7249:b0:c21:752f:c3f7 with SMTP id
- a640c23a62f3a-c250bc127b0mr922359666b.18.1787755652562; Wed, 26 Aug 2026
- 07:47:32 -0700 (PDT)
+	b=UIDUneYj2xnutD2YIM6X6HmUbmPJJpE+W9eQ0yNjGrsGSY0lted3lMvY4Q5qnDlRg
+	 PldyYwb5/M8+7Gfo6BqFQJCnCBYqP+4bkcxL5odA7ujiommtGehGh+SEbAWq/TqlEv
+	 fy5jIilPzNsWYLneca20MPsTKGc2pOTeRCedTPwNOC0Ggq5SJ4DIvFM3jBr7DDaZhd
+	 SiK9rBvCf0oFAgs7GIsiTV4cKIQMoWRFxSJzhUfnFWaQhBPVt5bSr8Y1WczbcZN7AP
+	 tVD+Bw+1HZ9VI3x3+eCNXvjB/0A3iVTplj/sZWubqD5qGQb/79U1JYi1ooGHDw8acl
+	 1juYRnaNRd+dg==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c20e70a0962so155413466b.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 07:49:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr5M6XZgPYLSCmSce3FX7hX5YwsFbzWlFZZ7sEoqgkAZRKQllyer8RqtSii0SY9IKyU5mccpms=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSuuRndYwbeIjiqLosye560xMr03pc+FvcrDYWX4XYPhN1Rjo1
+	CH4DHoB1raGp4Q8y1pIuTcb5xDI+yn8YgcKCfs+GsWELxCSSFnK5/9SKguh4ch5BUlBoXRKnHHK
+	l5vGkeCkjLKIPJyErk2gHmSltSvqWiQc=
+X-Received: by 2002:a17:907:1907:b0:c20:23f8:99a5 with SMTP id
+ a640c23a62f3a-c250c2e9dd9mr941189066b.15.1787755756855; Wed, 26 Aug 2026
+ 07:49:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,14 +42,14 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260818123921.3600606-1-chenhuacai@loongson.cn>
- <20260818123921.3600606-3-chenhuacai@loongson.cn> <e07d3a93-390f-405e-85ec-21e5ad9a6738@oss.qualcomm.com>
-In-Reply-To: <e07d3a93-390f-405e-85ec-21e5ad9a6738@oss.qualcomm.com>
+ <20260818123921.3600606-4-chenhuacai@loongson.cn> <3f352680-7090-456a-ab08-2d3367641783@oss.qualcomm.com>
+In-Reply-To: <3f352680-7090-456a-ab08-2d3367641783@oss.qualcomm.com>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 26 Aug 2026 22:47:29 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H62o3v+Bk=0AO7+C2VWb=AGPMZfv1L6XbZ0uUNq0Pc3bg@mail.gmail.com>
-X-Gm-Features: AcwNN1VbsWACZ1FoGXrDjINZIB0qn-Xvk6-RmuNdwyO2LcHvD1ghERhIkxW0tVc
-Message-ID: <CAAhV-H62o3v+Bk=0AO7+C2VWb=AGPMZfv1L6XbZ0uUNq0Pc3bg@mail.gmail.com>
-Subject: Re: [PATCH 2/5] cpufreq: loongson3: Adjust the width of id and val in smc_message
+Date: Wed, 26 Aug 2026 22:49:12 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6bq7R_0YiAQwFeveZEW7xenEceixJDuZDmOKCihCTbXg@mail.gmail.com>
+X-Gm-Features: AcwNN1XxNLvNZ4RDduvU0vO2hQJFT7eFm5aoCSIOk7FzLkC_iTiaUlOcaa7vqJY
+Message-ID: <CAAhV-H6bq7R_0YiAQwFeveZEW7xenEceixJDuZDmOKCihCTbXg@mail.gmail.com>
+Subject: Re: [PATCH 3/5] cpufreq: loongson3: Replace per-package mutex with per-node
 To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 Cc: Huacai Chen <chenhuacai@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
 	Viresh Kumar <viresh.kumar@linaro.org>, loongarch@lists.linux.dev, 
@@ -61,72 +61,89 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi, Zhongqiu,
 
-On Thu, Aug 20, 2026 at 6:03=E2=80=AFPM Zhongqiu Han
+On Thu, Aug 20, 2026 at 7:35=E2=80=AFPM Zhongqiu Han
 <zhongqiu.han@oss.qualcomm.com> wrote:
 >
-> Hi Huacai,
->
-> Please feel free to comment on the question below, or simply ignore it
-> if you do not think it is worth addressing from an architectural
-> perspective.
->
 > On 8/18/2026 8:39 PM, Huacai Chen wrote:
-> > The id field of smc_message is usually stand for the CPU ID. In the pas=
-t
-> > this driver was only tested for desktop and laptop productions so 4-bit=
-s
-> > are enough. But now we have servers that can have as many as 256 cores,
-> > so we need 8-bits CPU ID.
-> >
-> > On the other hand, the val field is usually stand for CPU frequency so
-> > 12-bits are enough to represent 4GHz, and for higher frequencies there
-> > is an extra bit to extend (enough for 8GHz).
->
-> The extra bit appears to be unused in the current implementation.
-> Perhaps it would be better to enforce the limit explicitly for id and
-> val bits, for example by using FIELD_MAX().
-OK, we can do it in the future.
-
->
-> >
-> > In theory, this is a incompatible change, but fortunately the old SMC
-> > firmwares are not widely shipped and can be updated on the air, thus we
-> > can safely adjust the widths.
->
-> Not sure if using CMD_GET_VERSION check can avoid such incompatible
-> issue?
-Since the original SMC firmware and the current one has the same
-version number and the current one was shipped widely, we can no
-longer use CMD_GET_VERSION here.
-
-Huacai
-
->
+> > Our server productions (e.g. Loongson-3D6000/3E6000) can have multiple
+> > nodes in one package and SMC mailboxes are also per-node. So replace th=
+e
+> > per-package mutex with per-node one.
 > >
 > > Cc: stable@vger.kernel.org
 > > Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
 > > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 > > ---
-> >   drivers/cpufreq/loongson3_cpufreq.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
+> >   drivers/cpufreq/loongson3_cpufreq.c | 14 +++++++-------
+> >   1 file changed, 7 insertions(+), 7 deletions(-)
 > >
 > > diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loon=
 gson3_cpufreq.c
-> > index 1e8715ea1b77..630f679aa739 100644
+> > index 630f679aa739..e3cd78a5ab18 100644
 > > --- a/drivers/cpufreq/loongson3_cpufreq.c
 > > +++ b/drivers/cpufreq/loongson3_cpufreq.c
-> > @@ -21,9 +21,9 @@
-> >   union smc_message {
-> >       u32 value;
-> >       struct {
-> > -             u32 id          : 4;
-> > +             u32 id          : 8;
-> >               u32 info        : 4;
-> > -             u32 val         : 16;
-> > +             u32 val         : 12;
-> >               u32 cmd         : 6;
-> >               u32 extra       : 1;
-> >               u32 complete    : 1;
+> > @@ -169,7 +169,7 @@ struct loongson3_freq_data {
+> >       struct cpufreq_frequency_table table[];
+> >   };
+> >
+> > -static struct mutex cpufreq_mutex[MAX_PACKAGES];
+> > +static struct mutex cpufreq_mutex[MAX_NUMNODES];
+> >   static struct cpufreq_driver loongson3_cpufreq_driver;
+> >   static DEFINE_PER_CPU(struct loongson3_freq_data *, freq_data);
+> >
+> > @@ -177,14 +177,14 @@ static inline int do_service_request(u32 id, u32 =
+info, u32 cmd, u32 val, u32 ext
+> >   {
+> >       int retries;
+> >       unsigned int cpu =3D raw_smp_processor_id();
+> > -     unsigned int package =3D cpu_data[cpu].package;
+> > +     unsigned int nid =3D cpu_to_node(cpu);
+> >       union smc_message msg, last;
+> >
+> > -     mutex_lock(&cpufreq_mutex[package]);
+> > +     mutex_lock(&cpufreq_mutex[nid]);
+> >
+> >       last.value =3D iocsr_read32(LOONGARCH_IOCSR_SMCMBX);
+> >       if (!last.complete) {
+> > -             mutex_unlock(&cpufreq_mutex[package]);
+> > +             mutex_unlock(&cpufreq_mutex[nid]);
+> >               return -EPERM;
+> >       }
+> >
+> > @@ -208,11 +208,11 @@ static inline int do_service_request(u32 id, u32 =
+info, u32 cmd, u32 val, u32 ext
+> >       }
+> >
+> >       if (!msg.complete || msg.cmd !=3D CMD_OK) {
+> > -             mutex_unlock(&cpufreq_mutex[package]);
+> > +             mutex_unlock(&cpufreq_mutex[nid]);
+> >               return -EPERM;
+> >       }
+> >
+> > -     mutex_unlock(&cpufreq_mutex[package]);
+> > +     mutex_unlock(&cpufreq_mutex[nid]);
+>
+> An optimization independent of this patch: considering to use
+> guard(mutex)(xxx.lock)
+This can be improved in the future, but not suitable in the bug fix patches=
+.
+
+Huacai
+
+>
+> >
+> >       return msg.val;
+> >   }
+> > @@ -337,7 +337,7 @@ static int loongson3_cpufreq_probe(struct platform_=
+device *pdev)
+> >   {
+> >       int i, ret;
+> >
+> > -     for (i =3D 0; i < MAX_PACKAGES; i++) {
+> > +     for (i =3D 0; i < MAX_NUMNODES; i++) {
+> >               ret =3D devm_mutex_init(&pdev->dev, &cpufreq_mutex[i]);
+> >               if (ret)
+> >                       return ret;
 >
 >
 > --
