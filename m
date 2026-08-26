@@ -1,71 +1,87 @@
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291D6361656;
-	Wed, 26 Aug 2026 16:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF67535BDAA
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 17:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787762554; cv=none; b=fbAh4UO8xoPObDYTBlrQ9XvnAeCWMtiNRfDPf5ZM+sUWWHSlJZu2MpDrGzftuh2r5EGfqtQKE+PuGfTHfV4FILOAJvcK+Lo8edi7Vg1Rr+51/ddLEU2LeisQTho+kHwkWMda4SeGg73cfSj7uilF807EWI/Q5Y+9mpwCilZ0p28=
+	t=1787764093; cv=none; b=NdnaLvZLP5BsvYV6P3/opO/d2S2uU1PMJP9ctHZUzefH2S96mmIG1RQD/2Hz0L/CCFpjJKT99MtynWl+C1Ufctj5vj8iD10TMSf7gIrTU81ArWSQG2uX8TN9bKEmNHtu8zYMOnCR0gIyc89ZDBv+Hg3FslfViNwdbZvI5Z46yWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787762554; c=relaxed/simple;
-	bh=fg868J4uDWFS21uMCvxgr4OunoSVURs0RnHrOmzESnk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P+UkochPrwjc4sNoE+FROOk84mnjPS+USjX+JDYgfQ7b2NqvZgga6AtYhdY8bGEk9S8k2DDIQh8ne09bNEWrp+tv4SyPNpSw2WyN5JJiN5lM10iSYVb7OLOZY+2Mel37Rv1dQ60sRwSp2asv/TBMEwgSy+VREFqYSCM8zvSqATk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id 14F2D6033B; Wed, 26 Aug 2026 18:42:17 +0200 (CEST)
-Date: Wed, 26 Aug 2026 18:42:16 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: netfilter-devel@vger.kernel.org,
-	Pablo Neira Ayuso <pablo@netfilter.org>, Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Romain Bellan <romain.bellan@wifirst.fr>,
-	Florent Fourcot <florent.fourcot@wifirst.fr>,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH nf] net: netfilter: report NLM_F_DUMP_FILTERED when all
- is filtered out
-Message-ID: <ao8XYCjgS6OoEo9y@strlen.de>
-References: <20260825152725.3678225-1-i.maximets@ovn.org>
+	s=arc-20240116; t=1787764093; c=relaxed/simple;
+	bh=lA8uhkZaDW7Vi5VTYYunr4NGhJoC8vUeSIjSRZVsHBI=;
+	h=In-Reply-To:From:Date:Cc:References:Content-Type:Subject:
+	 Message-Id:Mime-Version:To; b=ri4Hpv2L4fPtZVmCsscaIyHAeDpl7C0MFMQbtw1VXADoI7ncIcp6WFma0mSG19HUAJaJzXbglsydnUDPGcidnZcapsDIQLkt6sFawxCdUtf24F59bOCNk4UGdwPiQAu8kCKb2YyH556U+4qgHMAQ9Fqhu3taQHqcpa8DoVQiXmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=psu6tyQd; arc=none smtp.client-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="psu6tyQd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787764069; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=YouVmwbOXKFmVb2f6IWbuJ+2i64UrcZ34QAzG438L0c=;
+ b=psu6tyQdcrrnkkO6tYEsVLTgEuM9t/ECaJrSNYZ+9r+u1wLDWxXa15wn5Z8d3LMttpDfm2
+ iDxQrR/OfIfczWBvpJ5w2Alwl8svTFTOBOpgKaUUXSIuzYXfeTOfdPQFViK7vjvUEFCStl
+ SaVDvkAveNE3f9VKE69mgGCQb7fMJkGU/zbcLV6ZwPD2M6eb4vJBNrVTLXWXkTBZaZ2ggy
+ +jblA9mio1YLjLeLuct5e0lG9J6o6DDpW31OZGl3R/pCMNBuaKrlaFDIlGb58iOKuLY/d5
+ whvXsw0EgrVBEFqnQwHgOSZYaYDvFQqNUwzLhsunEUa/nnA3RKOxNz9GQWkguA==
+In-Reply-To: <20260827-p54-pda-validation-v1-0-bdc2b0675056@cherr.cc>
+From: "Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 27 Aug 2026 01:07:40 +0800
+Content-Transfer-Encoding: 7bit
+Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+X-Lms-Return-Path: <lba+26a8f1d63+78bd87+vger.kernel.org+me@cherr.cc>
+References: <20260827-p54-pda-validation-v1-0-bdc2b0675056@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Subject: [PATCH 2/2] wifi: p54: require a full exp_if record in PDR_INTERFACE_LIST
+Message-Id: <20260827-p54-pda-validation-v1-2-bdc2b0675056@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825152725.3678225-1-i.maximets@ovn.org>
+Mime-Version: 1.0
+Received: from [192.168.9.107] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 01:07:46 +0800
+X-Mailer: b4 0.14.2
+To: "Christian Lamparter" <chunkeey@googlemail.com>, 
+	"Michael Wu" <flamingice@sourmilk.net>, 
+	"John W. Linville" <linville@tuxdriver.com>, 
+	"David S. Miller" <davem@davemloft.net>
 
-Ilya Maximets <i.maximets@ovn.org> wrote:
-> NLM_F_DUMP_FILTERED is only set on data elements in the conntrack dump.
-> But when everything is filtered out it is confusing for the user space,
-> since the flag is not reported anymore and it looks like the table was
-> empty, which may or may not be the case.
-> 
-> 'answer_flags' were introduced precisely for this use case, and the
-> conntrack dump should set the flag in there in case the filtering was
-> applied.
-> 
-> This is important, for example, to be able to tell if the filters are
-> supported or not by the kernel without modifying the kernel state.
-> 
-> With the proper reporting of NLM_F_DUMP_FILTERED on NLMSG_DONE, an
-> application in user space can just try and dump with an arbitrary
-> filter without worrying that there could be no matching entry.  The
-> reported flag will signal that the filtering was applied and therefore
-> supported.
-> 
-> Fixes: cb8aa9a3affb ("netfilter: ctnetlink: add kernel side filtering for dump")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+The PDR_INTERFACE_LIST loop only checks that the record start is within
+the entry before reading an entire struct exp_if from it. A truncated
+trailing record makes the if_id/variant reads cross the entry boundary
+into the heap beyond the EEPROM buffer (verified with a KASAN
+reproducer of the loop). The variant also feeds the synth front-end
+selection, so this is not only a leak.
 
-Reviewed-by: Florian Westphal <fw@strlen.de>
+Advance only while a full record still fits in the entry.
 
-FWIW this also passes libnetfilter_conntrack and conntrack userspace tests.
+Fixes: eff1a59c48e3 ("[P54]: add mac80211-based driver for prism54 softmac hardware")
+Cc: stable@vger.kernel.org
+Assisted-by: GLM:5.3
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+ drivers/net/wireless/intersil/p54/eeprom.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+index 968ce9a411358e0e6b83117b1a077becc3207090..472edecf55772893afdf8be3020e6baaf80097a5 100644
+--- a/drivers/net/wireless/intersil/p54/eeprom.c
++++ b/drivers/net/wireless/intersil/p54/eeprom.c
+@@ -817,7 +817,8 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
+ 			break;
+ 		case PDR_INTERFACE_LIST:
+ 			tmp = entry->data;
+-			while ((u8 *)tmp < entry->data + data_len) {
++			while ((u8 *)tmp + sizeof(struct exp_if) <=
++			       entry->data + data_len) {
+ 				struct exp_if *exp_if = tmp;
+ 				if (exp_if->if_id == cpu_to_le16(IF_ID_ISL39000))
+ 					synth = le16_to_cpu(exp_if->variant);
+
+-- 
+2.47.3
