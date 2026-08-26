@@ -1,162 +1,152 @@
-Received: from mail-qv2-f2.google.com (mail-qv2-f2.google.com [74.125.230.130])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AAC3B6C05
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 09:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAF63B6C05
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 09:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787736226; cv=none; b=b+mLmxZZtFdJyqQztsIFpd9aBdYyEiUvJV95XTLvA7xgJMmD5fRXt5FMBBvzp6AkjyGsufQBoKHmTxkpFCf0uaG/QWkp08o/2PYFy42rGJJxkw+zW90Ol+oZ8v+IYNu2Qx3eJhPbnwKNC7hko4QqJ5qmWFxkvbM52o9/Rgd5Lcs=
+	t=1787736248; cv=none; b=HiCxTnJ7SC6E5mRm5onzdEc5yBicZu+XdidqqjTPfmk3QtEVg6cehHkW1vYByOzk2/Ba06ufvoP3cSo+AHdL3Ty+osEfJSQDTSNyCtvunSzp8jlhGz2ayXNdErje72Gw8Qv2LBtl7QFF8O3+WBkfpl+daHDnlqQlO2/XxAr1/Bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787736226; c=relaxed/simple;
-	bh=J5zNJQ3X4/N9a6M+pUzl/r33rH88D8R2hEMYOhygnB8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hLyKTHwOBlrlSlGZmO5qJhCgJlne0GAun6N2pJJFvD1AxJvXMZKkf+V3k7CljjlOITRHjQxnQKRY938dbUAJQ2Mk4c+oTxb0KwkNj6fSFpZN9b8mFRp3RNGcDmLlIrhsHXlDyrswJtpHKGYrDZkJqlHR6e979jfZ2HBWfuwf5p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mlXB1oXI; arc=none smtp.client-ip=74.125.230.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787736248; c=relaxed/simple;
+	bh=HqnDvKEanItWN4sZGrC35XsJJ1cF3PJL+CnWLNUiuN8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EeIGDinTjvPMh6D7VqWehOTYHehU0Q5fH1GcJU8ZY865nHTuKALQ2J4NXv5RpkFc90kN9zcWCn4y2ams/SD45QMzYPHNci+OQM4RtZm2eJUXabOZLa+Uu59qXKThFChWiLkuMGXX5xDrWB2renwLs/smU4SVTEdrJZ8ix07JKSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=KyluUFwF; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mlXB1oXI"
-Received: by mail-qv2-f2.google.com with SMTP id 6a1803df08f44-90c4d223e0bso3751226d6.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 02:23:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="KyluUFwF"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c16794450aeso75157766b.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 02:24:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787736223; x=1788341023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iLS2FTkBwTZO9cFIxC30lB3zfdCwRmbbW10fAQY6Wo8=;
-        b=mlXB1oXIPYXbvUujLmUz61qITi1xf3hJUij42nHx8jN7O2dYnZa6ao2T2sdji6WaQb
-         MuaNGIyXokHrORx9BUJJvuUp9/0oZ3M6oYJFrlsMhiZiGG1z2ZL4ChIi4kTkAgr3fHVJ
-         DYCJ//miFlerQi7bIj83c7+wWy8OHJGc5wP3NwMixH0PIEqBYjisQb7jWNR+T3k1ZFTW
-         IKnVGPGdVRhGuNGov/ojgoYSoAH/9266pzeYWwySYQbB2qJzroV8UJZlNCG/MDdhmPbt
-         UZpQeQg5OZOeyT9iBlMNIJfkvyftGiWDz/murxiG2ucVs+gqRurHzseIYnn1APT5rKdX
-         un+g==
+        d=suse.com; s=google; t=1787736245; x=1788341045; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jCn0c8on5VhTMPvJMk79IvJUhN4ps8pLKsOfBaE2aTk=;
+        b=KyluUFwFXoyN/tfgV/Tz4QF3bTjfmxkyRl/Sq65/7GnZ3UGKkb8obPY8gIl3nDJONZ
+         XojL2AXT7C5nwlXXQNlUdbJPjkpz39mH6oX3gmcjSr0KsHQ7MmL1zeUC6YlufOS7IYNn
+         CMzQ5/d06NOMJXrOpVeDxQ8M3u+2wGKmg9TFFdKp+F1sHH2lQS3vgXZ5OYz8k6njjY5w
+         Yx3KAMNcp5/eVnqIYOKtSVzkm8YkAqnQLNdOpMDnmZRtCQsvyFjcvoyZ1A7Q9kTC+O4B
+         rDF5dQF4dHOtEZtT5kiL8eLIYxMe0KTg31wcPJmi4O1cRbJYVXAyWStJ9bEXbsry6Emw
+         Z6bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787736223; x=1788341023;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787736245; x=1788341045;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iLS2FTkBwTZO9cFIxC30lB3zfdCwRmbbW10fAQY6Wo8=;
-        b=GsWUsN1R3SboBGyTfFQvXzcIZoZvNYn/ZKZ1Qd3OkeKrQrKsidF3vZfuu0qvY4B/Ba
-         JJhTNcRyT3/4vgf/JzncDMJB2eOmhWa8zzhOwT4aV+6nY93KFcZZwaHsXMS2JmyTQ3tV
-         VOvjnNlhYv7EaDrBr+eiJM8oMwgf8n/nkyO2kRY47uZQdXQCaSyHZumuCUtHMWJTPTcV
-         /9bvr4HBIgr06WXEYjayDyBxfuhgky+8bCiH0e8Owm+12zTCSKD9h1SF4snKxGfy2gKZ
-         9HW7t1NkcGn0/k0XU9xjqqq+RqzOm7M+6Hsd8DpblgEnpzMMQual5TCD6eQX7g1tCKlz
-         Rzdg==
-X-Forwarded-Encrypted: i=1; AHgh+RpqIK0qubjpVL3RjmBTfjmUbN/kUbRfUD9tOzDnIDmBGZmBwh/l4bfZYDOGTS8HUW22AZ7XJB8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZCHdWk/5CWHCBU5le+hFrZ6WMcWQNp/vlu82QmFj1Q6CIhP94
-	6nTpZuwnyv/xYorCcEbv3/yk62c0zhXeIBtHLj/w06tJU3WFtXzdCcP3AZtprofiAEY=
-X-Gm-Gg: AR+sD132aqraqrBkqkKeO9zqHIMr6BTyxbRV7A0fGlYE0LQIDACCmjL6Whg6Uo4HOlZ
-	7tS9k2na05gJ5T9jA2GobLHtL2bpRUN23w182/eW9gJdO8uUnzBA46KEfwJixoO4neKnEpM5vLa
-	ju8EstjaIOPIHE6FN13Ukv3Q9NN3Xy6nVaIQPjLpEqonENuVxW4uE46r4OLpev+1MeWQUAXay0D
-	OtVY12DpnltEHtBO70iXieGlfTT5oB1aj/U93yICsjJV6Vegnbmqs4eegRd0FxJdviqMhFSGYRQ
-	7jGGlLEPLlZ2qV6/DjM8vNPFxs8srC5ILZxhfS9HaBt6MZT47NOA8kP6dq2Up4YTv+99F2AUj2+
-	ENlrFAU+WmHz0INfAo3EjA5wPM+X7fG41Qjr5kfQ5Y4C/aaJIWvTIvw8kWgAGWM4mipZzWyOsKk
-	wT/V1bWlc59Qhws3wIo9Nu9/0zgvOgiPxmUOMhtBsUxoBeQAQZkBcE6Qt6iydoJAQqgwl/LgUvi
-	li4D9QkHuteug==
-X-Received: by 2002:a05:6214:4102:b0:90c:c39e:486 with SMTP id 6a1803df08f44-90cc7976c14mr43064136d6.31.1787736223075;
-        Wed, 26 Aug 2026 02:23:43 -0700 (PDT)
-Received: from localhost.localdomain ([2606:6d00:39f:4500:5acb:2301:2b5a:c076])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90cc63e3108sm21248046d6.11.2026.08.26.02.23.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 02:23:42 -0700 (PDT)
-From: Mark Anthony Agarro <markanthonyagarro@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org,
-	Mark Anthony Agarro <markanthonyagarro@gmail.com>,
-	rajeshkc-lx <rajeshkc-lx@users.noreply.github.com>,
-	Devin Wittmayer <lucid_duck@justthetip.ca>
-Subject: [PATCH wireless] wifi: mt76: mt76x02: validate TX-status rate index before mac80211 handoff
-Date: Wed, 26 Aug 2026 05:23:31 -0400
-Message-ID: <20260826092331.476016-1-markanthonyagarro@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        bh=jCn0c8on5VhTMPvJMk79IvJUhN4ps8pLKsOfBaE2aTk=;
+        b=N/rL40AacCE/9A1tH+s43TCYwlZtHU94B8ehdkeuC96U8BIxpsy2SDOLpyCPoTJTwl
+         r80GOwOpd31RHRPb4JfbqSS9TSOMHzp2ONHEbxkpbWAZnHI3g/iqG/jlQUYOFfeOeisE
+         80uxNlx48/LjQOUk0fr9CBZ6DdWWtBvIB+vy/CeHbohb4xw3jKj54daBiPCUouThDGvP
+         Sns5EgD9hnHENKvEtj34yUS2Hl+oh2m6H5sc7asV5KE6L2XijaIUKaAMmeB3o7Q5fUBx
+         lsGuDM/zpVJX3U6zX30LT7brMWMXsOFV5Zy/Y5u64lkEkORaemrjMdYHTnZwLrMZ2Jdy
+         wlSw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4L2dC7MfXPx1/PF4N+YTpPxK+OnxSg0kbY9gHxkmY9FgjdsKD7omgm98XVQw0yx8SQ8so0CA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l45s6N76CyjVImEbVZG24J8CK2b8MLac04Jc0VuSrMC7CjXDFM
+	dXyvCjnG/bjmRdztgtdZoCA/cDHo49vJZUwcw0wfDCj9LJu7vIOa7FzTjxLiS3TOjCc=
+X-Gm-Gg: AR+sD10nqX+3icYexEjJFBJHsM6T3HI4qOC3YTWG1M1Vm6qDFqajPZVKUsDJw+erD4v
+	lJhSuNdoS8ePBZa6Il/KEvG9v3ylMBzhWpYwZwnBcwVAUvuDtbwK0Djmp/eqElrW9h0yGq3SDQT
+	Sbhr7CZy05mmSKnZ37k/TkGGTyatyeAWYpt7aLsjrQUt3SpS7nvnwz6eZI7+qht6sCwLBWDb7f0
+	yZjj9NUs0HRjtMV9MqexgcRyt6/IgeYd6kyVgrS2eJHu+rejZhddLcN5A2zAYp4PuE0L6RMXz8X
+	hoEdyfQ+mi+T0Z6GgbNInw5UqGHeco2iSb5uZGXpOfVuQA0AG2Oh47USbxNqhXsNZ+FRb53pn1K
+	qL0T0Gfug8H5FfiwakthDNm3SS5Liivv9Xru5hdRq1n8FPRmDf9D+qqAzvUyQ8Goge30rv7GdUN
+	p3NK5tSy0/8vnf5bgvtAxh3NqAksFDcK+jeofIBmoAOyGTwkd1WYz7JZfhyvubAK0MHMugbqs3Y
+	1FHHEX4w1yG5nLfmCRzDH6S
+X-Received: by 2002:a17:907:8749:b0:c25:2fb5:e572 with SMTP id a640c23a62f3a-c252fb5efa7mr36929566b.23.1787736244662;
+        Wed, 26 Aug 2026 02:24:04 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:fc6c:f9a2:4a0a:6354? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5dea83a25sm3726306a12.18.2026.08.26.02.24.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 02:24:04 -0700 (PDT)
+Message-ID: <cd6b372d-cc68-445d-bcae-6cfc83d9e4db@suse.com>
+Date: Wed, 26 Aug 2026 11:24:03 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] module: fix lost error code from codetag_load_module()
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260824014736.35026-1-hao.ge@linux.dev>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260824014736.35026-1-hao.ge@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mt76x02_mac_process_tx_rate() extracts the rate index straight from
-the hardware's raw TX-status word with no bounds check for the
-HT/HT_GF/VHT cases, and mt76x02_mac_fill_tx_status() ignores its
-return value. A stale or corrupt hardware index reaches mac80211's
-minstrel_ht rate control, whose per-group rate array is a fixed 10
-entries (MCS_GROUP_RATES), causing an out-of-bounds write.
+On 8/24/26 3:47 AM, Hao Ge wrote:
+> If codetag_load_module() fails, err is never set and load_module()
+> returns 0 after the module has been torn down.
+> 
+> Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as module load failures")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> ---
+>  kernel/module/main.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index 46dd8d25a605..afb810f0154c 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -3568,7 +3568,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
+>  			goto sysfs_cleanup;
+>  	}
+>  
+> -	if (codetag_load_module(mod))
+> +	err = codetag_load_module(mod);
+> +	if (err)
+>  		goto sysfs_cleanup;
+>  
+>  	/* Get rid of temporary copy. */
 
-Validate the index in mt76x02_mac_process_tx_rate() (HT: 0-31,
-VHT: MCS nibble 0-9) and have mt76x02_mac_fill_tx_status() bail out
-cleanly on failure instead of passing an invalid index through.
+This looks ok to me but there appears another bug related to this code
+that would be good to fix at the same time. If the module is
+a livepatch, the preceding call to copy_module_elf() allocates
+mod->klp_info. However, if codetag_load_module() fails, the code doesn't
+free it.
 
-Fixes: 7c1f88812690 ("mt76: unify send_tx_status and related helpers")
-Cc: stable@vger.kernel.org
-Reported-by: rajeshkc-lx <rajeshkc-lx@users.noreply.github.com>
-Closes: https://github.com/morrownr/mt76/issues/88
-Tested-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Signed-off-by: Mark Anthony Agarro <markanthonyagarro@gmail.com>
----
- .../net/wireless/mediatek/mt76/mt76x02_mac.c  | 27 ++++++++++++++-----
- 1 file changed, 21 insertions(+), 6 deletions(-)
+I think we want something like this (not tested):
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
-index 14ee5b3b9..d77356a2e 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
-@@ -302,10 +302,22 @@ mt76x02_mac_process_tx_rate(struct ieee80211_tx_rate *txrate, u16 rate,
- 		txrate->flags |= IEEE80211_TX_RC_GREEN_FIELD;
- 		fallthrough;
- 	case MT_PHY_TYPE_HT:
-+		/* Raw hardware TX-status index is unvalidated; a stale or
-+		 * corrupt value here overflows mac80211/minstrel_ht's
-+		 * per-group rate array (MCS_GROUP_RATES == 10) and crashes.
-+		 * Valid 802.11n MCS indices are 0-31 (four streams x 8).
-+		 */
-+		if (idx > 31)
-+			return -EINVAL;
- 		txrate->flags |= IEEE80211_TX_RC_MCS;
- 		txrate->idx = idx;
- 		break;
- 	case MT_PHY_TYPE_VHT:
-+		/* Same overflow risk for VHT: mac80211 expects the MCS
-+		 * nibble (bits 3:0) in range 0-9, nss packed above it.
-+		 */
-+		if ((idx & 0xf) > 9)
-+			return -EINVAL;
- 		txrate->flags |= IEEE80211_TX_RC_VHT_MCS;
- 		txrate->idx = idx;
- 		break;
-@@ -493,18 +505,21 @@ mt76x02_mac_fill_tx_status(struct mt76x02_dev *dev, struct mt76x02_sta *msta,
- 		first_rate = st->rate & ~MT_PKTID_RATE;
- 		first_rate |= st->pktid & MT_PKTID_RATE;
- 
--		mt76x02_mac_process_tx_rate(&rate[0], first_rate,
--					    dev->mphy.chandef.chan->band);
-+		if (mt76x02_mac_process_tx_rate(&rate[0], first_rate,
-+						dev->mphy.chandef.chan->band))
-+			return;
- 	} else if (rate[0].idx < 0) {
- 		if (!msta)
- 			return;
- 
--		mt76x02_mac_process_tx_rate(&rate[0], msta->wcid.tx_info,
--					    dev->mphy.chandef.chan->band);
-+		if (mt76x02_mac_process_tx_rate(&rate[0], msta->wcid.tx_info,
-+						dev->mphy.chandef.chan->band))
-+			return;
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index d0e1e0bd2ad0..c1b34dc1e89a 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -3581,8 +3581,9 @@ static int load_module(struct load_info *info, const char __user *uargs,
+ 			goto sysfs_cleanup;
  	}
  
--	mt76x02_mac_process_tx_rate(&last_rate, st->rate,
--				    dev->mphy.chandef.chan->band);
-+	if (mt76x02_mac_process_tx_rate(&last_rate, st->rate,
-+					dev->mphy.chandef.chan->band))
-+		return;
+-	if (codetag_load_module(mod))
+-		goto sysfs_cleanup;
++	err = codetag_load_module(mod);
++	if (err)
++		goto livepatch_cleanup;
  
- 	for (i = 0; i < ARRAY_SIZE(info->status.rates); i++) {
- 		retry--;
--- 
-2.47.3
+ 	/* Get rid of temporary copy. */
+ 	free_copy(info, flags);
+@@ -3592,6 +3593,9 @@ static int load_module(struct load_info *info, const char __user *uargs,
+ 
+ 	return do_init_module(mod);
+ 
++ livepatch_cleanup:
++	if (is_livepatch_module(mod))
++		free_module_elf(mod);
+  sysfs_cleanup:
+ 	mod_sysfs_teardown(mod);
+  coming_cleanup:
 
+-- 
+Thanks,
+Petr
