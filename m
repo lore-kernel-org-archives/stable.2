@@ -1,110 +1,105 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A8A383305
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 12:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4997B3F8243;
+	Wed, 26 Aug 2026 12:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787745885; cv=none; b=AuqoJohqKLiWNyHcfJ/ZsswQc/iyMicqJmsKy/+jyS5B20oJXCPi55riSfue8qH2iTxekt3T7mzqRvEB6LyajHaDmAHtzVxBkKx7VVHpD1SFB75P6V+JLVgWwQvSseWlv58GUcHvl56+f8LlaKK+GvN+hieLPgXIW6jyT/76okw=
+	t=1787746192; cv=none; b=McGoRfpnebxmJAZB8hsihR4Ns62V4EUheA4eNNoBQn9KTiEd6LFtrcYVy/coxR7X+GXSA5VpQnK7Cj8MnxhKtIsgvIQ2ejN8bCHShmm0ESJ54sbZaC09y81agrDCGmlVadQgMTWy2lBkJSPrUzwthcq0Tvg5mUHp/kSCip82y6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787745885; c=relaxed/simple;
-	bh=t8r9fwHDfwrrDslghKcdGeSg+FPh7HR538uqlbJfIIs=;
+	s=arc-20240116; t=1787746192; c=relaxed/simple;
+	bh=tVESxrkysASDZtz8u5tIVzEav1NZ7JHJDUehOyzURc0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YFCU6AhQRSzwmEntOcWRQRZdWzkPYemsAFUhDm3pbFIrqOzKZ2fDyF2U/uj40v6KIZ5U30iP9f07IlnLXBb3sJ6iffvqY5436nLM00l/s8WJpWGsybcQdvo/vEsroOU1b2fOhB4FpCCAmS7GNmazwC7PaT3TUPBJENo8LHKfafQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=h+Xp92A6; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	 In-Reply-To:Content-Type; b=VSI24187p4/2BM8lI+DEEBrWXdUc5MLEktUJV6krxWNO33A60LRuPHORxoSSj0x3HhSEFdyv0wfD8NpMzW/wrPj6fQgg0ua8vMLBMYjLCuqPBunAF3HYgtNM1tQ0Js8IeNAT+lRlkAibGpVIobbaKfW/qVBo4ZRVV1rRUvHNx1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WezzRXDS; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="h+Xp92A6"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-482c58a8683so656078f8f.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 05:04:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1787745879; x=1788350679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LUtXgdw64E4AMmrHZa4KMdOAunPgCi0nfhsHNUCmvGQ=;
-        b=h+Xp92A6JT8K9M/eIAOaduLyo42C5MT1xbj+AKhqSB+O38iXn+UoxtPpPWnftY21/t
-         XAzVR72sxW9wY0YdtlF5tqCrZToxl8QlCSK1TyheUGAH3HAclPDcZc1PoqjquwDIjWeB
-         hHK0KfnrzB9IvkgB/gyVzI9AW70PzmYlz2/v99/G0z3Fbo+x9Ic4EnljKk/pxgrRn3hi
-         qM6YPQuC0wAy5TUe15+viLMwikVUn8Q/EjcZMoG7hOnL7Q1xRI0eJ8eoYax+O9bt3mqD
-         jCnaHnebvxqlUnshXkMZ+c2Isj7aiXFXClyJOlv62gluwI/39ITLrkVb5uUHYfpe6/wV
-         sH9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787745879; x=1788350679;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LUtXgdw64E4AMmrHZa4KMdOAunPgCi0nfhsHNUCmvGQ=;
-        b=erorMOJIYjgm1EY13yGa4tJnF5l/XDphy9uDAksfmzzVB/VJAYGx7aBaLRDtY89IeM
-         idZi9x5DxXuYX/LjHkNj1soGROzoajJS12NnQcE0KQeauO274QXUNokeqswXjElCREpQ
-         EnFKXWptrtxHaO6SUJkTFXboSuAAjsLPoDChHfjzYtD8egz00ZDpbbaYjh/7mfo1XIM4
-         7LtpYCJAcLr5tUhYC+JTibuuAOoseWVc5WZFXT2drrujxQoEGZuC9LGbNcThhsFk/kvV
-         DzElGwKwHJTsq5s71jDhnroFDY6rbZOuAwFcnuGN2v3g15H4qqYXVLyGVTXSQu1T/ILb
-         tEGQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrH7z58kTR9QyzHdarL+nxGfxvHsgbMA8SI4z8axhUgtmX8paSw5pWnSnAexJGYdCeemGkd5tY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3+kExK6WQHzlB91BmQmON5h2/1gdf1cnRjnCKCVV0LNLlmLB1
-	Tc6Mx938vMFUReQBF+80S57aaRFIzXKxrUZ8t2tWnFG4pMWpnqG15mhcEhA4
-X-Gm-Gg: AR+sD12UAjRpvCjmMTZQf/ud938Dbh4PWfTfo7MifpHHJzWpdZNdkKWdKvIbpKrvrfr
-	T5eEsGEQ5zzzyEqtwerV3aUIXJhFCvIya3F7hzVNo/UgG9tiFFr6iZ1y1CZLYCSM6APWJ21BR/f
-	CrUEfmhtaob2GyBi96RN9Pz1zpNkiN0mcr3aFIInHZmPfMPPDOJt5RqTWTJHZUD8P9OolYt5VKA
-	XZHUbzEcjVNMxQtMyhTqDpH4ewDb3W+L3bUS4W3nIk+9Fv8bcaUM8uSUv1lKeWF8ErJjLWKs87w
-	Mu4U0TCX/QV7+7CyaLupULRhLLGk5tO7oCcrpbdFLcgm9aTJMXpScBTCylw5mJYJXVknk+5dl6o
-	ixt22D/qmY1FbE0qPKE3/XguSoneSi1GsCi1B+5GnzXMEM5Re72kwSaMxSDemqmgxGbntDBNTHQ
-	0woPB7dMEYkr5VEJnMJ5w9DALp9F14YE1reGEf46ep5HjAzv0j7M93Q2bxtzdCzMhKNQUHlVqHl
-	tpUEwfGVwY+d7Dv/7OmXYry1XjBCxR7eik4LWU=
-X-Received: by 2002:a17:906:9c8a:b0:c16:3187:997e with SMTP id a640c23a62f3a-c250bb69c32mr689989466b.7.1787745842844;
-        Wed, 26 Aug 2026 05:04:02 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ace5e.dip0.t-ipconnect.de. [91.42.206.94])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250dfd6e6asm350863266b.19.2026.08.26.05.04.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 05:04:02 -0700 (PDT)
-Message-ID: <5c014a1c-9139-4b7d-83a7-746b4a7d14a9@googlemail.com>
-Date: Wed, 26 Aug 2026 14:04:01 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WezzRXDS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=OR27lAMvT0wF9I/E939+cWjWXgTuo5inFEVMKcGCh9s=;
+	b=WezzRXDSeSh2wfN+BaAktVBWAV8ueUi3u4Yx6PxD0fKKEV1GC8MOisuie2BxR4
+	onplNV34E0svtUPrFZprnyJZA5MozC3aA6JjyEVwOGIoPChP7/LGQVHXl6oRzdU9
+	6GlUdMiittci76FFpjSY0EkFn7XHdm7LqTE4WpTnyS5Mk=
+Received: from [IPV6:2409:8900:1ef9:dee:fd7d:3170:e603:8258] (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wCnD5Ri145qRTSASA--.60674S2;
+	Wed, 26 Aug 2026 20:09:08 +0800 (CST)
+Message-ID: <28cce6b3-60ea-4ff5-b5bd-ff5c11516b08@163.com>
+Date: Wed, 26 Aug 2026 20:09:03 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 00/87] 6.6.154-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.813800447@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260825132541.813800447@linuxfoundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: fix race between fallocate and mmap reads
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260826054204.1364589-1-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260826054204.1364589-1-zenghongling@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-
-Am 25.08.2026 um 15:25 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.6.154 release.
-> There are 87 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
-
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+X-CM-TRANSID:_____wCnD5Ri145qRTSASA--.60674S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF15Wr17uF1kAw4DWrykZrb_yoW8ZF1xpr
+	ZIgF1rK34fXryjqF1kKw48uF1rWw4kW3y5Wr4Fq3WxuFn3tFn7Kw4jkrn5WFyxKF98Xr45
+	Xr12qrZrua42vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTCJQUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gRNGGqO12TEVgAA3+
 
 
-Beste Grüße,
-Peter Schneider
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+在 2026/8/26 13:42, Hongling Zeng 写道:
+> The fallocate implementation only takes invalidate_lock for punch hole,
+> collapse range, and insert range operations. For standard allocation modes
+> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
+> 
+> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
+> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). This
+> creates a window where concurrent mmap page faults can read uninitialized
+> disk data.
+> 
+> Since mmap uses filemap_fault() which takes invalidate_lock in shared mode,
+> it can fault in pages during this window and expose old disk contents to
+> userspace. This is an information leak and data integrity issue.
+> 
+> Fix by taking invalidate_lock for all fallocate operations, not just for
+> punch/collapse/insert modes. This prevents concurrent page faults from
+> accessing unzeroed clusters during the allocation window.
+> 
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/file.c | 8 +++-----
+>   1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 88747217ba61..6958a1469fb0 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -1153,11 +1153,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+>   	}
+>   
+>   	inode_dio_wait(vi);
+> -	if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
+> -		    FALLOC_FL_INSERT_RANGE)) {
+> -		filemap_invalidate_lock(vi->i_mapping);
+> -		map_locked = true;
+> -	}
+> +	/* Take invalidate_lock for all fallocate operations to prevent races */
+> +	filemap_invalidate_lock(vi->i_mapping);
+> +	map_locked = true;
+>   
+>   	switch (mode & FALLOC_FL_MODE_MASK) {
+>   	case FALLOC_FL_ALLOCATE_RANGE:
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+I verified the race window exists and the fix looks correct.
+
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+
