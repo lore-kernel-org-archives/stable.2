@@ -1,121 +1,146 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010003.outbound.protection.outlook.com [52.101.46.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2929119C553;
-	Wed, 26 Aug 2026 23:09:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787785777; cv=none; b=KVdXWUyKGYDeEo8Vgm+nZKWQhIYKPPE8ERYbSdZ952L3SRBF5gQNFZLM5lYcEggR8gXX57xvlNDTjikERAgxzn7Zxl2Okrjn6I0amnUkZ5rxsuVNnsSHfKr5X5kSV+EX0YiIVsllsBxD9qHnSdq3sziRKeQigcWeCfyaNQVaMv4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787785777; c=relaxed/simple;
-	bh=h2xyDTHhZleCTIzEDZfZ7tqSUkbKcLqG+jV0RbApFjY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EQSvTSYw7/cToD0D0ZqDEUuSI4JHYgmbkvMf/mP9jMBHwkizxP4invdVQs8dhREr4cayHsAjQQ++3ZtcEGUUlg6Oe5/ecpX7Vsr6mrKgp3DaFkg5C6imiX4P1owcYAmDTc+uMt9eNTvLH0gaLsS97Hkkb0Pd3PHqP37TbaNOWvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=pBxbfMlm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E3HjeY1c; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424B43515F3
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 23:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.3
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787786294; cv=fail; b=Rpe1W8G1V6LGyyuEuMVktiRzsT//4XD+6UVeC4rIUjwMSKzaSRam7pzIsMzC6lE7TxDUWFY52NhodW/CxAUTNHtkdTneBzr6FZav2rSn4Mym0bd+T2boNNzfVHmxsweSmJK1TByNccLh+skPZx3+2gZVbD7DVClj5AMGILVFsTo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787786294; c=relaxed/simple;
+	bh=SQdM/E1jd8eK59OPXKWg4K9M62BUVCmE34/nfufsJmg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dDSRkuJ94szxPU1i7ediub3NdrvjV4NIY5mrFSHnba+qr4CAj25QnnNIfM4EhK4qXfq5wmMvaYp6Ibl/A8oLGO9p/Tcnvv9+dlIGNkQucf7NoaMuIE8N46bsiF9VkWw77jWDL+uCVd33pfbT3tj7uf2VMl8d2rsJxWbz3rdXTRg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0la4YOi0; arc=fail smtp.client-ip=52.101.46.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="pBxbfMlm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E3HjeY1c"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id CCFDE1D00156;
-	Wed, 26 Aug 2026 19:09:34 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-05.internal (MEProxy); Wed, 26 Aug 2026 19:09:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787785774;
-	 x=1787872174; bh=S/G7bUE8Vlrk1CuPohB8fUvt/EKzTRKc2E6xNtkOpCw=; b=
-	pBxbfMlm2Y7p9ufQBC8Im24ryEUnD9a7y077ciLwO/G3wKyLCLtjbHtNgZOv/8+2
-	e7ek57H2e+rvf73daw1iofizkD6GgOTFDxaPtirTpxbE0ki2FXISqix+D92HQtm6
-	FxyaAcWEjtJv0ebRoF5/oYMSqMd8ftu5oPaIgxZtnDmHq2C2mjaLBSG9oWbl/UJg
-	/EsEPHh1i1wSBidh2Q4uWYvA7/gLE49rZ7pxo4glQbJjpE0S3C9Ai+UK6N/CMS0t
-	0/+JxIaPMixkWR+GDB9NzVhp2QF+QOBW4dkFU3qheeVodrmaStit7X1B1V0MLkaN
-	RwvJ4ccg9Dr3jtzC+oqBXw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787785774; x=
-	1787872174; bh=S/G7bUE8Vlrk1CuPohB8fUvt/EKzTRKc2E6xNtkOpCw=; b=E
-	3HjeY1cmuO0DwD1Xy3B991Hg8qo1EKWrsGz6r5glKiVQs2VUuHCZ4uNsY61pGtur
-	byXGpcl2CjZolB3HxXcvNHTs/kroihU0YgV8Oi17WU0PtALEOtlM6XXO3xKo0YFy
-	BKBIFGRt3WtP4pdVgSnuBTEG2DFG+ZYWUeGdusoyRe7V3edepDR0Lc3ndKckYyoC
-	hOgU9WvY5HIk01LlglJsOqcyit41QrCBwtLV8LJBeqALL83ZRKb15WxfQSI0xKF/
-	ms07k+CjXAv4aPY7S9yUiu6zhJDEpBbmyWnb4paCZYrPlnsoXsUgXs4oaRr7UDHD
-	rtBNTA+TpuILyjz7d5a0w==
-X-ME-Sender: <xms:LXKPanv4Lv7eRC7tCAv_-CZIS466EPToby4IbY2Dbn__YQWXBOd_lg>
-    <xme:LXKPakWdpQRearQJFMd_2L4kVRVglpbhocBd6_c0KCkmMZgO4zU8KyRF3MfGf1SiS
-    ycPqKXtdkhBbNNDUeljKwgLEKi4Wu5Nhw9mPVhmfNqEcfvV_HzHPI9n>
-X-ME-Received: <xmr:LXKPamTbf6BBtaYmktu03ny1Q47qWPDpL1R8-ee5989o-LzTbbsbAlUsK4zAOQs6KtnEH7BIO0B5kjMBCogX5U48mjKdM0aw>
-X-ME-Proxy-Cause: dmFkZTFp7X3afSFtnmzzZp4/7DjkhoE8WzoYs1E1c7EADsNeoxu238fXEBktOyAOtyMqLv
-    bkq7PbLhVtCdywuBJRkBNcR47HiTrWWwLC9xkjxwHJY9qb1pbLvIn8irDgJQDcMOCSFPZF
-    Df3rxRbsMkPnonAvkcY0VHVirL9V/Je+Z17eGCf2ar2O4PswlRKW253e0KCEuIySIV0Wgl
-    gfYzForDFhu7kBB4SinLjJFL1SxBuHbFqmUhiaf+ZzHhQdbvdCgXt1rtVk1hoyqT6BvTIh
-    DGbagQZEJ/82Q7R3u2h9H/WsvZfiroYhYuM+bPoxOhIKNj/ptHx+Et+a0GE28YU//M3AQA
-    Q0jQQU0zXsRtQ8E1NrWPFw64cYi59dNVaCXth6vA7rKjhsStzKfTJgpZ6y8fJJjKGCPuIX
-    uUZ4D5mQA5PnnKhC9PsfVyDUMSf+Q4chee5UNrEw41sGlTJGceXCSTblEpWonAKBoLuMgS
-    v6i1DgfLRppuRsajdTa6DTErM5JtGeRqZS2MsYj8OSq8zK4TTJm3YWoNf+VDCUjHqlbkD2
-    EQdpCBD+1E+UzbWJGqPj18H4c0G3cjBAoMMbl8gxp2xYMKhFAcjzjEjhbiY/fIgHZCHlF4
-    ZNWgxMon3NqxGJLHBgfc4X5c3/4wIKdFBf9xNTEiS8N/I0s2x7Gq1CMvkhpg
-X-ME-Proxy: <xmx:LXKPaqIrL4G4hmHPHGIcXGc_etqPpK-Kg1evUNlEtRMfvudR7TFJ0A>
-    <xmx:LXKPav3YDJOC56UDdcMjFX0jw54mKdg8qQ7VbFW3e5NdGMTG8DkAYw>
-    <xmx:LXKPalJIA1c-e9GGZEqtp_5hnwjAjdfO2kH8U2gkkQHfAhRJOaWWhA>
-    <xmx:LXKPanmYwdA1gagq39soBNAdhlNAneerJfEtwDHFULCME0QHe3D15A>
-    <xmx:LnKParEVdMXevcO6-4G5yGYrbztj6Ay8Iko0ahEdQWUGPEggYq-C2MKT>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 19:09:31 -0400 (EDT)
-Message-ID: <436c755d-a52c-416c-a1df-3ff7a40a9339@pobox.com>
-Date: Wed, 26 Aug 2026 16:09:30 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0la4YOi0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AmoGHwusoKnp1tAvMvUBDtzkKJWkF1ygk8jJ+5+5FZVSQ8eViToiOCCdEiN1TH28uEKxHJeX/Yr4b9XPymcSgexgoPfQdPLvrHRhpeIvOcfXWyKaDmbv3OvrVVP7coDshwuthFfi4b1S4nfFy3rVY3O6t3lEWAarBDoUVlWQhLkVFCyXnb0IEXmDcgrhdqn6VVS622cEK2Qwn8qtyVJnBnZTPei7k6Z3x5qzwMMXCZTucT+KLxRW1mIPVeEmy6++3CJI+JrE+sJCnn0pxfhobki1vYmwH/HHlPy4s2KG9UDHup+AqTKgkD79SN93GgMNs+Rt+U6rjr1O7jFpt1n3UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gDU4Nb5CuIP2IE4txldWHJwHB8PKg5ZkxYwwrVumj28=;
+ b=tHa6Ade4D8TWSSTkqruho04rN8sQRTYmRhkz7GVj/sUKuOWiECh26DjTrM34X4e0EKOYzTWb7GonJXONt9JnbAJkRINdKWRGJ9P8XwskG8rYDIvGVWsyZrdgJsUy4q93v37I9rU2WFcEHMJQIefUzhAEdtxKThkJeXuo8ZbVDhVmgtNKuOI4Fnn1g71JHMFn1er12waTV+ZOmMapEJ9OVnYVtvUpcaM5exDQ3pmeuJmmAdnoPVTxHTuuKGAOXo3NyWumggITQq36aECRsV6N9mxxOSBdWUExIknLqF5PTW0/SQUUT5mMjlLPtOdh2Y/8hYowubgaousdF/4zQYW+xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
+ action=quarantine header.from=amd.com; dkim=none (message not signed);
+ arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gDU4Nb5CuIP2IE4txldWHJwHB8PKg5ZkxYwwrVumj28=;
+ b=0la4YOi0i6QWM8aBQoKv+D3YdRvhD6OsRV9OHeukjT0gypArEIzttWAhwsayAI8VVs21vAXytjEXykTKaOmeDUwCjVjkWWcygBFxDaaLL+CT+A6MC9EWPLeTrVjInsRtMCjNLuJZyq2fOf6wVLQfSbno7GPjWVzPQyeDnQjQDNM=
+Received: from CY8PR11CA0005.namprd11.prod.outlook.com (2603:10b6:930:48::18)
+ by MW6PR12MB9000.namprd12.prod.outlook.com (2603:10b6:303:24b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 23:18:09 +0000
+Received: from CY4PEPF0000FCC5.namprd03.prod.outlook.com
+ (2603:10b6:930:48:cafe::6d) by CY8PR11CA0005.outlook.office365.com
+ (2603:10b6:930:48::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.9 via Frontend Transport; Wed, 26
+ Aug 2026 23:18:09 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=amd.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ amd.com discourages use of 149.199.90.133 as permitted sender)
+Received: from satlexmb07.amd.com (149.199.90.133) by
+ CY4PEPF0000FCC5.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:18:08 +0000
+Received: from localhost.localdomain (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
+ 2026 18:18:02 -0500
+From: Alex Hung <alex.hung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+	Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+	<Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+	<alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
+	<Chen-Yu.Chen@amd.com>, Roman Li <Roman.Li@amd.com>, Mario Limonciello
+	<mario.limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH 07/59] drm/amd/display: Set gpuvm min page size to 4K on dcn35/36
+Date: Wed, 26 Aug 2026 17:04:38 -0600
+Message-ID: <20260826231519.881949-8-alex.hung@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260826231519.881949-1-alex.hung@amd.com>
+References: <20260826231519.881949-1-alex.hung@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 000/101] 7.1.11-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.986300899@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260825132541.986300899@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC5:EE_|MW6PR12MB9000:EE_
+X-MS-Office365-Filtering-Correlation-Id: e919fa4a-e850-4f9f-19e7-08df03c84a92
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|30052699003|1800799024|82310400026|36860700016|22082099003|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	nz2FIsFmP4zZ1apuiZIA93x9BI/Li3JITz931SMzW6BjAYkqT7lGyMfxldjEtTjCnxhAdXr8+0q1hffQDHMU1i0FRBaFn3oLUV7DntRT+OQUNIWoM8NEM15hVf68ly/8NtMNIHaeJOoZZSrWznWCF76zkc2dfEB16I83SH1qJzTTq2kcEyAvgtb4NzGRZyj0kvRReiSnxRWhf2yWiCkQhpzdj9h/r5vElBAdqeP7w3WxvbJiDYQ1AeOsP9HHSzqFrAyO5+3k1yV3Fa3VyOf6TQuS7+qz5xewZy3sEQUfRdEAvuW3t1MBiu2+xZQ0WQ1p1gIx/x113KPruZLqjcgX0ZM631KOTOuzU7VFbV3VFn12t+F5O/q2XhTEce6j4MNad0JuRGfuENdQG6HSmNCNiy2eomWnqbZlJ41N38US/xp5MRNCBSZ8/z4IldnQTb+jHyAzykbdMS5FTKgEi8m/uIGQNy7ewYctBzzp7Ri1TLnb6a9+/jctxFG2ffzuF50ImXjAEkr4XHb/PIvSaUtgtE1WIjkVzcdzd6rwQSxB92UoY07ZGwKUa6wiHbML6jIcGdjTJMd1mUWf342zGCBhOQ51fHWRTA0PN6anw9e55qI7cy9ysbObvRNF/W+gRoRxG12EG2IWICoZaDxabGVDIXGsjEQ4NWh/HUj9Ztq/6ywZkOevSfbQ1JE0fYDlx3LCfbEOW8mZgfgyXELZltwtRA==
+X-Forefront-Antispam-Report:
+	CIP:149.199.90.133;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:unknown-90-133.xilinx.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(30052699003)(1800799024)(82310400026)(36860700016)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	F6OqfXwkUjmJFuABQ08WmW8om2LLu86rLYDOxgLe6V75cGRqbJVJ6nj6/MiQYnDCdyNW9JXaROQ0+g4sOYFOykT3aclChCc/q/uuzzVQbfRMPNqeMOG5eKLUZEwjEaxgXjAJqylW3Zlz+1EibAyBuwdL2s0QxOG/JbsL5FSkBkkTJwd0t/sK6kHalG0n/vPrjS+bMf/KXJt+M62snu+G6FTvUoF/DKbgdFvdvWyBYXD2WjJ4V4RsIe6TOqM4idh25uK71CAdWCre9x0M1odD+1ue1HV1mRVDiHa/sBuG5VkU57gSs9POw5Zj/W9GAog80IIi8SXNJKP1QSk6L31fq9gW5BgskbDO5bgQ2Y/j+wcGSb8ZgOQziFXZSavA6xgNeC9A1G6ZB8GqLMyLhu/JNKi4Mc7CGW0GGIsWiwJB9GvEM9QE7wgzgVgr/6VkkgCL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:18:08.8443
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e919fa4a-e850-4f9f-19e7-08df03c84a92
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[149.199.90.133];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000FCC5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9000
 
-On 8/25/26 6:24 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.11 release.
-> There are 101 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.11-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Roman Li <Roman.Li@amd.com>
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+[WHY]
+Splash screen corruption on some 8K monitors.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+[HOW]
+Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
+calculations, avoiding the corruption path observed during splash.
 
+Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
+index 166f10b8862f..c82886323a51 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
+@@ -301,6 +301,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
+ 		out->smn_latency_us = 2;
+ 		out->dispclk_dppclk_vco_speed_mhz = 3600;
+ 		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
++		out->gpuvm_min_page_size_kbytes = 4;
+ 		break;
+ 
+ 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.0
+
