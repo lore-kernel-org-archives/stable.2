@@ -1,178 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E6C3B27CE;
-	Wed, 26 Aug 2026 07:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787731089; cv=none; b=OLjXBnwOA4z7vU3lB9o5o4s5U17hDFyge51vvvBGsnqeNok0oerCBqXLXEIYEzy9jJ138DNVOMNDbFmcOb/jHzWdFEj2EQHPX2FokiHqN6DOQyGALM34UbvXia8dJmev73sOicOOGDHkYPmFS20MG5CbM0qd6ZvZixU/C8vRthk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787731089; c=relaxed/simple;
-	bh=+0o/xLwG07ZP7IQqxutgkCxe6yvNt8B+ZvyfuDX8p6E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AucvTQjJd6PkN5eb3Y02zWh00vnp4x3GiuxVS+vEVkAO/+CQGdUebA/iWkVffiU6BmdgqD6Hsjhey5uyVDBp+2Tfev6tAorvx3yu2ex2QsUeGe/23WQRe9K5siIg9tuZWoTxdEsSf0ripxNoqxOVqZZh2KyV4zxy3EYxfvXr3JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2dV6cTX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051603B6C15
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 08:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787731361; cv=pass; b=gpVxjKcv/CLrGx3lthYTpImNmOq6rkTnPxRv4Zg7AviCfCb1T9KN1FHadXMQ2ghqu14+twyIbK36cOsBnFRcQ62h3O3kt806Yk4daodDs/k2hxHQltryLPmP+SXNRJUYH0fk/i+TQZRHCyPQMcdZ+i5gYgCj73P3FeYdsIEGE0c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787731361; c=relaxed/simple;
+	bh=HNb54WhmzGWfVXwTVFcpIHzscspSYwASA3WPZN7wCaE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IsGz0bl0pkWLowpUz7+bkcOl3EEx+8NtUDV22/01C5LYSvXP0RizJYBL8is6ovo3oFXd4DuhBEZIjyN42rlg2jswpxVJk+9fbKPstSs4CfSh+q+5zevLOH4cYDOwQIcnHP9Pxxf5RnN0iGBOfRHWxUfVi4d6lbTSGJS78cyuiGc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BeAsBtAy; arc=pass smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2dV6cTX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5871F00A3D;
-	Wed, 26 Aug 2026 07:58:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787731087;
-	bh=nnoL+gJ+u5T/AkuD/0NsDWUD538fTPQqnzcWVX2qpxM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R2dV6cTXD9GdewtiqUfKySuqcT6BtP0s9bpk5E/nuQKxpyfzmQdAeT8kun1/uuhNm
-	 kCGNmi/jBZ+YLddStZKk73F6XLoeDG1SPP22G8ydWHNhrToXRbi9CkD5HXxI9Do7Rt
-	 IgEjFf/K/szKePsOjZChVM7HHeMcXy4pT0b4+P5sRHTlMZi6PeUGEDmic8uqFMQZVo
-	 41fkV8rV4sKs//ct96ax6jAgzdGCIRCsguG/AtU7QubMSLtUVX3hfrn8WFMXCdubtE
-	 XEenT5Z0YTD/YsPX/67csAQeFNMvq+cmKrqB2vHyAV5XeJoN5OtvSU3Y+aMzNZQI1b
-	 5CDvbfo3S8jog==
-Message-ID: <d057f5f3-e2e1-42b3-bbbe-c3ae61764887@kernel.org>
-Date: Wed, 26 Aug 2026 09:58:01 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BeAsBtAy"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66c7e3a2332so572116d50.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 01:02:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787731359; cv=none;
+        d=google.com; s=arc-20260327;
+        b=smITdGmpufbY2OiEl+po0MyDe/taWie6ABjfxz6jTxNDl2cSKoBUlSJ/Hgzt/eC37I
+         Cz99dFy8gMfdE55rDZCmMINq8nc5PU0Q5ZRJLV9tQTRKj249akrb2RQnIJdjPSkbCRFC
+         BKb7xAIvybf/184JRI20wt+rLUy+eAdPurr/uj4lURYRqeYPkTgTytzS1I2znlshXwR0
+         Pcy/JwtC9rvzjhYK+7oyRpPpVkVOSKISYXi4xN2sgmb/lWAFl6ucrFOXWTo8fngv+GE1
+         TBjLbQtjWYMI9cEoMduC2Jutxci1P5jK3KdT28sSPRlMHSsxlmuwapo/QHg3x8M5GWiF
+         Px5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HNb54WhmzGWfVXwTVFcpIHzscspSYwASA3WPZN7wCaE=;
+        fh=7yXYPZuARNOmI8cQ1LjbpGYLsgee6OqvtLsa72VeFeg=;
+        b=mGbmq3cKse1rodMmjonJZddXs5K7Zd4LAWEuPM+qsJ9T4njOX+SoPDMe9e+7tb4i3p
+         /TSicEbT/8137jqG/Z6ClCJIq9m3QSHvlevVkdDxyc3qBWnmgRCNduPetI8lWRYkeKEw
+         jRECCj418mVsltL8XeG2lfEiyIO/UgcdLO1tO42jAF0ciJb9o90tqxlhaNh+lwFVtT2A
+         0sashuH0vtF5uY29O1LN58g/xztEXO8VJbGCC30tlBAdeMXanka4ENhpivaAxtN2dCM9
+         JNIcWeacuk9XogH1BlE8pi4Z5wshHpm4d30FQj+Kh6SGa6GtAQKCItejKi0lepNcnTWw
+         MzkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787731359; x=1788336159; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HNb54WhmzGWfVXwTVFcpIHzscspSYwASA3WPZN7wCaE=;
+        b=BeAsBtAyyyOYMKhxdAaPX78/e+c9eat2Wt2963pTLWIYhAeAtk9Z34RKZacIYvMP7S
+         k0cFbzvMchtY7WlvDrRxl8PiOaNIsxnIX2w940kO9G1A2zCNj3EmXZI5sHlZ8nOeunsr
+         uyyLlTJM9Ur/+f8mrI/eyjIHgYhvdWX4MU+Dmeb1q0yUIrueO5RUmiMyoZbZtEQ9FOZY
+         9t9RNZPFhtZacur2pL/ZBrhge019Romind+3033oM5Fk3Ed+mB6mniSM743IKSLkxtWO
+         1iuSjAp2TNtmi0tGxgHVh+weIMC+SoX5KuOjF9aZCyTUYraFkLIf0XZOdTCvAgMMipmu
+         Kk/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787731359; x=1788336159;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HNb54WhmzGWfVXwTVFcpIHzscspSYwASA3WPZN7wCaE=;
+        b=nAv5eh2cqcQQwSu3ALNy+0mp2xKkwhHbZBpYLMrfeX+MYSxqwo3yOh5Xd4MWrkbDfD
+         sR2dXH+QRbmrl/Qt/TGvZtv1Y7NfteE2Avq88IS45VMrwHfCJp0uT1FmFurV7dK1Zqzm
+         HbLnEFfckqtwvb8U8KD7gttJksYt0rcv7AJOeTlEohGGmKeenfL4pGXeldsvX1f47oQF
+         50sNV9ETysT9fKVG7Y0viP+Ep2upHhSj0opq54GcoxKoYOkmlOiYLYK9+BXAE81z9XTp
+         6Jc5w2xENxtzpy9HHBLoA4a4K6+asFrNT6Aj5IvNIAAuEfoqIBJzyw6GVEBXhBNzgVDj
+         cgEQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrEK/81QvZmNWfSF8pu8Onf9FjdnozvlaFhGSBQRJWjYT163j/vz7vz7nDuGsyHvAH/6pQdsig=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPV9MPNireYUFAhT/IRxs3Z5tPv+UCdufLXSNqkRzjR6pIOSzo
+	VZ971sJMPlI2T0p0lh9YSEXUtkrbbp8flC7Z5QNxK8gllYuUVaEcD/o+HLY+6fUCPQ6LxhpybxV
+	qmGvTSar3eOELnqBrhad03MMOAlldxel2IvZ74TII1w==
+X-Gm-Gg: AR+sD11DfZ2b47Lz3lgVSHWTJOXgRCxWHH8v5uwf0B+N7gfmyEKk/ChyQS1JcXiqXcI
+	Hd5UjAH4BjDUgDnQalXxs3bUD+uVdpqHtR0MA79gHDwIa438bZjGVktlQ/+LBb/wbmVTRBXq4Pb
+	Syf6O6WBvYNkycuOJLQya+NbdibKEoCg3bH6zNySthp/0d+VVLL/LEvfrDjmS/eWv2TP5L+hWWI
+	379S17mjyzYVksHYZj/EYYB9LIoHBk+Rdv2XeBTpte6DZBevkkUsYVNHsOjkHqrLu7I6oLiWgYC
+	DhVjMwZCO2hHhKC14tSKxE87Ng8yi0TaQiqLy8qx3Xh956cC
+X-Received: by 2002:a53:ec85:0:b0:66c:484c:867f with SMTP id
+ 956f58d0204a3-66d257d6fb4mr912561d50.45.1787731358946; Wed, 26 Aug 2026
+ 01:02:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] mm: khugepaged: fix folio is used after
- pte_unmap_unlock()
-To: Vernon Yang <vernon2gm@gmail.com>
-Cc: akpm@linux-foundation.org, ljs@kernel.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
- Vernon Yang <yanglincheng@kylinos.cn>
-References: <20260824092935.73892-1-vernon2gm@gmail.com>
- <20260824092935.73892-3-vernon2gm@gmail.com>
- <0bc399df-2555-4378-bee4-eacbff434bdd@kernel.org>
- <f285e26a-b790-4afb-91e9-a2b404df018f@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <f285e26a-b790-4afb-91e9-a2b404df018f@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260808091734.2727295-1-lgs201920130244@gmail.com> <2d997800-b7b5-4700-919c-c4b6e5e926aa@kernel.org>
+In-Reply-To: <2d997800-b7b5-4700-919c-c4b6e5e926aa@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 26 Aug 2026 16:02:25 +0800
+X-Gm-Features: AcwNN1WB7uMO3ABJ0oP8Rynn4S9aYtnBveYSbDNyJacRweQS6TxxzJZhtRXy8y4
+Message-ID: <CANUHTR89nZ=GQGte0iE2Fa=VeiiEAXZhLu5S+osfXg0OORcNZw@mail.gmail.com>
+Subject: Re: [PATCH] crypto: ccree: fix autosuspend cleanup during teardown
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Gilad Ben-Yossef <gilad@benyossef.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/26/26 04:46, Vernon Yang wrote:
-> On Mon, Aug 24, 2026 at 01:57:15PM +0200, David Hildenbrand (Arm) wrote:
->> On 8/24/26 11:29, Vernon Yang wrote:
->>> From: Vernon Yang <yanglincheng@kylinos.cn>
->>>
->>> After the page table lock has dropped, the folio can be freed
->>> concurrently. The trace_mm_khugepaged_scan_pmd() is left with
->>> a dangling folio pointer.
->>>
->>> So using the folio_pfn() before dropping the page table lock,
->>> closing use-after-free window.
->>>
->>> Fixes: 7d2eba0557c1 ("mm: add tracepoint for scanning pages")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
->>> ---
->>>  include/trace/events/huge_memory.h | 6 +++---
->>>  mm/khugepaged.c                    | 5 ++++-
->>>  2 files changed, 7 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
->>> index 7b526528f85b..fa828967e1fb 100644
->>> --- a/include/trace/events/huge_memory.h
->>> +++ b/include/trace/events/huge_memory.h
->>> @@ -55,10 +55,10 @@ SCAN_STATUS
->>>
->>>  TRACE_EVENT(mm_khugepaged_scan_pmd,
->>>
->>> -	TP_PROTO(struct mm_struct *mm, struct folio *folio,
->>> +	TP_PROTO(struct mm_struct *mm, unsigned long pfn,
->>>  		 int referenced, int none_or_zero, int status, int unmapped),
->>>
->>> -	TP_ARGS(mm, folio, referenced, none_or_zero, status, unmapped),
->>> +	TP_ARGS(mm, pfn, referenced, none_or_zero, status, unmapped),
->>>
->>>  	TP_STRUCT__entry(
->>>  		__field(struct mm_struct *, mm)
->>> @@ -71,7 +71,7 @@ TRACE_EVENT(mm_khugepaged_scan_pmd,
->>>
->>>  	TP_fast_assign(
->>>  		__entry->mm = mm;
->>> -		__entry->pfn = folio ? folio_pfn(folio) : -1;
->>> +		__entry->pfn = pfn;
->>>  		__entry->referenced = referenced;
->>>  		__entry->none_or_zero = none_or_zero;
->>>  		__entry->status = status;
->>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->>> index 00337405c0e0..4e0fca5942dd 100644
->>> --- a/mm/khugepaged.c
->>> +++ b/mm/khugepaged.c
->>> @@ -1618,6 +1618,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
->>>  	enum scan_result result = SCAN_FAIL;
->>>  	struct page *page = NULL;
->>>  	struct folio *folio = NULL;
->>> +	unsigned long pfn = -1;
->>>  	unsigned long addr;
->>>  	unsigned long enabled_orders;
->>>  	spinlock_t *ptl;
->>> @@ -1780,6 +1781,8 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
->>>  		result = SCAN_SUCCEED;
->>>  	}
->>>  out_unmap:
->>> +	if (folio)
->>> +		pfn = folio_pfn(folio);
->>
->> Should we reset the folio to NULL at the beginning of the loop? Then we really
->> only trace the PFN if it really was problematic.
-> 
-> Yes, this is a pre-existing bug, and I'll fix it together. Thanks!
-> 
-> But it is not at the beginning of the loop, it is at the __ending__ of
-> the loop, for the same reason as PATCH#1.
+Hi Krzysztof,
 
-See my reply to patch #1, hth.
+On Thu, 20 Aug 2026 at 22:03, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 08/08/2026 11:17, Guangshuo Li wrote:
+> > init_cc_resources() calls pm_runtime_use_autosuspend(), but neither
+> > the probe failure path nor cleanup_cc_resources() calls the matching
+> > pm_runtime_dont_use_autosuspend() before disabling runtime PM.
+> >
+> > If the autosuspend delay is set to a negative value while autosuspend
+> > is enabled, the runtime PM core increments usage_count to prevent
+> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> > during teardown, this reference is not dropped and usage_count remains
+> > unbalanced.
+> >
+> > Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+> > probe failure and device cleanup paths before disabling runtime PM.
+> >
+> > This issue was found by manual code inspection.
+> >
+> > Fixes: 4c3f97276e15 ("crypto: ccree - introduce CryptoCell driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+>
+> You sent vast amount of patches, all separate, making it very difficult
+> to track and respond in efficient way. Do not do that.
+>
+> Group your work per subsystem.
+>
+> You were asked to clarify and respond to incorrect fixes statement. I do
+> not see how you clarified and responded at all.
+>
+> Best regards,
+> Krzysztof
 
--- 
-Cheers,
+Sorry about that. I should have replied to the earlier review comments
+explicitly, and I also should not have sent so many separate patches.
 
-David
+I will group future patches by subsystem and make sure to respond
+clearly to review feedback before resending.
+
+Thanks for pointing this out.
+
+Best regards,
+Guangshuo
