@@ -1,85 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88ACE438036
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:47:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2B03EC803
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752024; cv=none; b=DEQ+fi0blfI489MKTzYv5munSQNaTX8Tcdq1Y7TqWAOx62MnidhspQtIcUL84BRHVv+Owi4wca023DdDP9fP9GzvqWENMECxEcJFT5tlIyIm+FYyTId8BhYXDxc521UuVKvx/aC/h/mXCvOZyE59JLLImPcpy+/lUpgYij61Fs0=
+	t=1787752025; cv=none; b=Erw1nUVvYhxfmb1ou8pq52fa2jd8z8dIAOirdgMMMAWlo9REwQ88zgOrjvj8RZyRUYk/KqfIyUCLwyonz2YnnUSas+7D62x/oIURbfvLMXcwdmstcob9W5QPKGZPzsRQlEAKLc4JDj6qp/7JsdXTcXN7JAyxXzxg6U2xfKm4sDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752024; c=relaxed/simple;
-	bh=bDirCRv9ZLQu1dVzv043voUwENN6qxhcSZleYJAuBDw=;
+	s=arc-20240116; t=1787752025; c=relaxed/simple;
+	bh=B6VwNBWiTuntjuDWYReoSqZP+B08PSlKElK9MuJiX4k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WtTYLegE8wPp3a/KL4Yh/W6+Z9I0lPv85erTmyyHx3ueXB8deA2qCz7l4rAxm6iacgwsxacT/zttNhmHjSIaftzwalgdfaphn7uMNiUWfflzMxMZsPKpgL0etdOZ1xBmY3OgUjQYMyr3yLjw32fpwk9St/mRJtwBIqNeSBAbT4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WBuSSXC1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CWrJh4zDJ3kXAVnbeoALjNLUQQ3wrYaYB//iYRvjznC6X/gLyHZoE0SZLyGZd62AWF18qpJHZbw0nBNN90igLxujdL5bt1Ae80n9U2M0Nvc8Uk9PH6l5nEQI0EMGfQGD7H5fwb+hzgKS4oBfN3Kg/znVOA3/9lico+3Iof92YAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARwXuMeQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WBuSSXC1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A511B1F00A3A;
-	Wed, 26 Aug 2026 13:47:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARwXuMeQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8A51F000E9;
+	Wed, 26 Aug 2026 13:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787752021;
-	bh=IAhaWF+qF/Pb+mVyrskP0mBvERMAJk7SMM9lm+0Usas=;
+	s=k20260515; t=1787752020;
+	bh=9Yqq/LquNSE2Z8ZstUXlm6FLvjSJicvahIJ9x3dB6yY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WBuSSXC1GROZejTcjBOYS1jKyQ/jcd6EpEVzPZc7rStxLfmskLrJlqTsGWOlULtGM
-	 +sVZKlB+ICrOtSaPhtPSqFEMsBSBvphsbtHu5gAfl+GVlKdLhiPOQAMQPdHj1LQs2D
-	 BmNlMFphrvWd0zQOZck4h09AH/IkdL90THUd1OOX6N2h7aTRyHlSsDI9R9fSQfInw1
-	 Ic9wUJwV4xIIAoYlVzDDZKrl8vD+ta5KqV1S7BBiej6GkvmYXHMfkfJ/KIl+q6/2Uq
-	 SEoDjEnQakjL+K09ryf3AmB82kGPvS6Y+RkKnx6nQrnhh9v6AT5ZpR4v2std17tNJ0
-	 davDdgDvP+MOQ==
+	b=ARwXuMeQF76M9IXB2G8r/jZz5xBvBpQtvnD9MnBFtWN6Y+iTb62Gjl2p6kjrbZIVi
+	 m/zdI5Puw4KXGbu01Oj9Rf1HjDjTnSRvGsqm8ngnNT8gFTf7ApLPEHHxbTQLEsjpWh
+	 xm0ciEMp1gyWsBFdg5//7W1zOTKyVKXLATnffWaCK9Q+WitS7WwPT07mAqUz8iTIZX
+	 J6w296KXFf1bervLAQkILHGWo6t7hSQS+AEQxNbUtXCfnp5MrD45FwWxaClcPh4WAM
+	 8EYJrlP1M4BPFxcAY3p/gmV15+e3Lo4HnCy3X23TZJyGy2KpnMb/lPAar2GNN/EiAD
+	 lZpU8n6tS8fUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Antheas Kapenekakis <lkml@antheas.dev>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] HID: asus: fix missing hid_is_usb() check
-Date: Wed, 26 Aug 2026 09:46:56 -0400
-Message-ID: <20260826134657.3953358-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] HID: asus: simplify RGB init sequence
+Date: Wed, 26 Aug 2026 09:46:55 -0400
+Message-ID: <20260826134657.3953358-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826134657.3953358-1-sashal@kernel.org>
+In-Reply-To: <2026082550-stinging-mushily-fa27@gregkh>
 References: <2026082550-stinging-mushily-fa27@gregkh>
- <20260826134657.3953358-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jann Horn <jannh@google.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
 
-[ Upstream commit 02bf61dfb44f17ec187d1da1a82495951bbd12df ]
+[ Upstream commit 56d1b33e644cca1bedffbc73d28778ed4ae30f64 ]
 
-to_usb_interface() can only be used on a hid_device whose parent is really
-USB; uhid can create devices that identify as being on BUS_USB, but don't
-actually have a USB parent.
-Fix the use of to_usb_interface() without a hid_is_usb() check.
+Currently, RGB initialization forks depending on whether a device is
+NKEY. However, in reality both initialization forks are the same, other
+than the NKEY initialization initializing the LED_REPORT_ID1,
+LED_REPORT_ID2 endpoints, and the non-NKEY initialization having a
+functionality check which is skipped for the NKEY path.
 
-I have verified that it is currently possible to trigger a kernel splat due
-to this bug in an ASAN build, and that this commit fixes the issue.
+Therefore, merge the if blocks, gate the ID1/ID2 initializations
+behind the NKEY quirk instead, and introduce the functionality check
+for NKEY devices (it is supported by them).
 
-Fixes: 00e005c952f7 ("hid-asus: check ROG Ally MCU version and warn")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+There should be no functional change with this patch.
+
+Acked-by: Benjamin Tissoires <bentiss@kernel.org>
+Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+Link: https://patch.msgid.link/20260122075044.5070-2-lkml@antheas.dev
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Stable-dep-of: 02bf61dfb44f ("HID: asus: fix missing hid_is_usb() check")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-asus.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hid/hid-asus.c | 52 ++++++++++++++++++------------------------
+ 1 file changed, 22 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index e1ae518bfb217..185bcdb538f24 100644
+index 1746e8ea50ddf..e1ae518bfb217 100644
 --- a/drivers/hid/hid-asus.c
 +++ b/drivers/hid/hid-asus.c
-@@ -667,7 +667,7 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+@@ -638,13 +638,20 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+ 	unsigned char kbd_func;
+ 	int ret;
+ 
+-	if (drvdata->quirks & QUIRK_ROG_NKEY_KEYBOARD) {
+-		/* Initialize keyboard */
+-		ret = asus_kbd_init(hdev, FEATURE_KBD_REPORT_ID);
+-		if (ret < 0)
+-			return ret;
++	ret = asus_kbd_init(hdev, FEATURE_KBD_REPORT_ID);
++	if (ret < 0)
++		return ret;
+ 
+-		/* The LED endpoint is initialised in two HID */
++	/* Get keyboard functions */
++	ret = asus_kbd_get_functions(hdev, &kbd_func, FEATURE_KBD_REPORT_ID);
++	if (ret < 0)
++		return ret;
++
++	/* Check for backlight support */
++	if (!(kbd_func & SUPPORT_KBD_BACKLIGHT))
++		return -ENODEV;
++
++	if (drvdata->quirks & QUIRK_ROG_NKEY_KEYBOARD) {
+ 		ret = asus_kbd_init(hdev, FEATURE_KBD_LED_REPORT_ID1);
+ 		if (ret < 0)
  			return ret;
+@@ -652,34 +659,19 @@ static int asus_kbd_register_leds(struct hid_device *hdev)
+ 		ret = asus_kbd_init(hdev, FEATURE_KBD_LED_REPORT_ID2);
+ 		if (ret < 0)
+ 			return ret;
++	}
+ 
+-		if (dmi_match(DMI_PRODUCT_FAMILY, "ProArt P16")) {
+-			ret = asus_kbd_disable_oobe(hdev);
+-			if (ret < 0)
+-				return ret;
+-		}
+-
+-		if (drvdata->quirks & QUIRK_ROG_ALLY_XPAD) {
+-			intf = to_usb_interface(hdev->dev.parent);
+-			udev = interface_to_usbdev(intf);
+-			validate_mcu_fw_version(hdev,
+-				le16_to_cpu(udev->descriptor.idProduct));
+-		}
+-
+-	} else {
+-		/* Initialize keyboard */
+-		ret = asus_kbd_init(hdev, FEATURE_KBD_REPORT_ID);
+-		if (ret < 0)
+-			return ret;
+-
+-		/* Get keyboard functions */
+-		ret = asus_kbd_get_functions(hdev, &kbd_func, FEATURE_KBD_REPORT_ID);
++	if (dmi_match(DMI_PRODUCT_FAMILY, "ProArt P16")) {
++		ret = asus_kbd_disable_oobe(hdev);
+ 		if (ret < 0)
+ 			return ret;
++	}
+ 
+-		/* Check for backlight support */
+-		if (!(kbd_func & SUPPORT_KBD_BACKLIGHT))
+-			return -ENODEV;
++	if (drvdata->quirks & QUIRK_ROG_ALLY_XPAD) {
++		intf = to_usb_interface(hdev->dev.parent);
++		udev = interface_to_usbdev(intf);
++		validate_mcu_fw_version(hdev,
++			le16_to_cpu(udev->descriptor.idProduct));
  	}
  
--	if (drvdata->quirks & QUIRK_ROG_ALLY_XPAD) {
-+	if ((drvdata->quirks & QUIRK_ROG_ALLY_XPAD) && hid_is_usb(hdev)) {
- 		intf = to_usb_interface(hdev->dev.parent);
- 		udev = interface_to_usbdev(intf);
- 		validate_mcu_fw_version(hdev,
+ 	drvdata->kbd_backlight = devm_kzalloc(&hdev->dev,
 -- 
 2.53.0
 
