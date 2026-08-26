@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557032BFC85
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:54:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227753F6613
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 14:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787756050; cv=none; b=gKZT3y7G/p+vmWxNvWFD7382EULq2eQVoD51+d4y30pCMDLzon1NpyPRcyV3zgATbVlIPCQbfNA9kcGVHfTSjYJ1m/8FD3evI4YJxXq5Aq2YoxbimLHBiZgbddxpoyT0clizmIe+1RRQzziVYTbWccsxaXJxx8J1KJhIshjS0xE=
+	t=1787756051; cv=none; b=ugZH4Mp7JJVWf7LkRo7TZBXAKNcL3yJa6vCUSch1B0dWJTWPqTi3e0x0VTFB0a7YYgaalPN7w4Uq+G+uJZCPAHoIc6vbZhxZaZoi/nkHyc1xUSkJV4Kf9tC9fYpXAPFDGgidtfXkB0wtb6yr4IF0ooawsXjvYoXXcp2abewNDKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787756050; c=relaxed/simple;
-	bh=RR3aY1d6vSHbXs0rTYmhVJiWGOYHjmjDZx73n7N5Weg=;
+	s=arc-20240116; t=1787756051; c=relaxed/simple;
+	bh=vYr91Jzuqr6ZXi11WKR30nnv2ljkHTHC9j4LI1+++5Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gcwO0F0MJy0aLJPbqzoM/4hxAIGcIK1ZKecPwgVXKcGKlPmL4e0QpBRqmWqd4C9ZxRrc1KztXQtagGLO7J1VIEOgL4tAW4wwDhUiR1RAfA60RzMgOlCNUhP8Ln1eO6jbf9mDtVxT0E9YYntOgvvncJ2HccCcdtfgGlFoXB2aj0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BKTPir3G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cAqab/s/o/RLKp2jeofYgM08aYZwPeI8ssfXLgWvI/vAaly7IkQjDrN3Ipfwi0AAcJNj2M+QNbbm9YWokQ2Es6U/8plLFpcusJ7su8RIyYBzOxA903iuwZYB3+cEt/H8HxF5tdBTiDKeplY+A558+a3Vg/TPuHiTAhYyUGC7WL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXfk70rB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BKTPir3G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8931F000E9;
-	Wed, 26 Aug 2026 14:53:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXfk70rB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842801F00A3A;
+	Wed, 26 Aug 2026 14:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787756039;
-	bh=V067F3AZa9Zh8ILJJEyfkOQRjBSr7hmEL08kKx34gp0=;
+	s=k20260515; t=1787756050;
+	bh=8Di/QAttjn474wR7eVAa6Dnc1xQv+b599MX0FEVykQU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BKTPir3GSJyOMTIpIC+c/LcVAGLiYSSFupXHNVB2eySpCXIb/gAG9MULHlVmE31ER
-	 CQQBNbp2rG3y1xnOTdfNWGJOwzTwOGaJW0V/P08FHApeLi4+g7NsMC/pmrsLNB2rEg
-	 TkBgEPsg/oY8o8VTDHPmdhP1foxez0FZedw4Uu5RMiEwc/NA84VGj4X621t8oVCaxi
-	 LILHWRFV6PWc+f4wGfMCIP+DT2SckBzJTf34/1rKvqOjmq31cZZNAeaaJUTn0bnika
-	 FJpuLM6OtOM7boV+BOzI343mIj01dkaLUDxJuS6p7AEi8xuFmdvuCIoQnlm2uAPWfq
-	 HvcKrb2F3cBrQ==
+	b=QXfk70rBY169KQhdJ1akWaW+Mw2RCDQ1oLNaEFQLRjU4y0B/9W7jZrQLcxcosFNgo
+	 cD6Vzw3/qmqXyrYD/s5cri1uLBxKqS2oFRzRVTHBLFYmUngGOVBNpFAo/sFSzlhe1b
+	 0GBovAthfyiF3O9TF05oC/NSq/NnCJcte75oZQRR4hSOieNntMDBItRy6ymIrtawhF
+	 TT5rJbI9QiL6FYEq6rNtqxQ/BB2oec/9cQMUpWXsqnB7okbrcyNGyoJzpIOVE3imSb
+	 1O4sOIQGOrFDP6htK+YdCsdmGbJ2+Y4WRyQdSSf90GXdJzNdHgvHH7pTs9C6eypzvx
+	 jZi9/LH+6uWcA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	David Heidelberg <david@ixit.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] HID: nintendo: stop device IO before hid_hw_stop on probe failure
-Date: Wed, 26 Aug 2026 10:53:57 -0400
-Message-ID: <20260826145357.873394-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] nfc: nci: add data_len bound checks to activation parameter extractors
+Date: Wed, 26 Aug 2026 10:54:07 -0400
+Message-ID: <20260826145407.876854-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082537-drown-acquaint-6edf@gregkh>
-References: <2026082537-drown-acquaint-6edf@gregkh>
+In-Reply-To: <2026082456-cyclist-thirteen-0fc9@gregkh>
+References: <2026082456-cyclist-thirteen-0fc9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,86 +45,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 1f74d3bff6fe04a64e02ab3661d2e0d554565aa6 ]
+[ Upstream commit 0428fa2c22e2ba0cff766d3b80d461e149102045 ]
 
-nintendo_hid_probe() calls hid_device_io_start() before joycon_init()
-and joycon_leds_create().  If either fails, the error path jumps to
-err_close which calls hid_hw_close()/hid_hw_stop() without first calling
-hid_device_io_stop().
+nci_extract_activation_params_iso_dep() and
+nci_extract_activation_params_nfc_dep() read an inner length byte from
+the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
+kernel buffers, but neither function receives the caller-validated
+activation_params_len.  A crafted NCI notification with
+activation_params_len=1 and an inner length byte of up to 20 (NFC-A) or
+50 (NFC-B) causes memcpy() to read that many bytes past the one valid
+byte in the activation params region -- a slab out-of-bounds read of
+kernel memory adjacent to the NCI skb.
 
-hid_hw_stop() does not stop device IO, so hid_input_report() may still
-run and access driver data that is being torn down, resulting in a
-use-after-free.
+The sibling nci_extract_rf_params_*() family was given equivalent
+protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
+validation for packet data"), but the two activation parameter
+extractors were not updated at that time.
 
-Add an err_io_stop label that calls hid_device_io_stop() before
-hid_hw_close(), and point the two post-io_start error paths at it.
+Add a data_len parameter to both functions, guard against an empty
+region before consuming the inner length byte, decrement the remaining
+count after consuming it, and clamp the copy length to what is actually
+available.  Update both call sites to pass ntf.activation_params_len,
+which is already validated against the skb at ntf.c:801.
 
-Fixes: 2af16c1f846b ("HID: nintendo: add nintendo switch controller driver")
+Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[ dropped the absent `err_ida:`/`ida_free()` context and retargeted all five `goto err_close` paths to the new `err_io_stop` label ]
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Link: https://patch.msgid.link/20260612-b4-disp-6d52d8b0-v3-1-e26221f8826d@proton.me
+Signed-off-by: David Heidelberg <david@ixit.cz>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-nintendo.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ net/nfc/nci/ntf.c | 28 ++++++++++++++++++++++++----
+ 1 file changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
-index 4850e915a57d4..66331f1a86b69 100644
---- a/drivers/hid/hid-nintendo.c
-+++ b/drivers/hid/hid-nintendo.c
-@@ -2345,34 +2345,34 @@ static int nintendo_hid_probe(struct hid_device *hdev,
- 	ret = joycon_init(hdev);
- 	if (ret) {
- 		hid_err(hdev, "Failed to initialize controller; ret=%d\n", ret);
--		goto err_close;
-+		goto err_io_stop;
- 	}
+diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
+index f8b20cddd5c96..4710c0478e89d 100644
+--- a/net/nfc/nci/ntf.c
++++ b/net/nfc/nci/ntf.c
+@@ -371,15 +371,20 @@ static void nci_rf_discover_ntf_packet(struct nci_dev *ndev,
+ }
  
- 	ret = joycon_read_info(ctlr);
- 	if (ret) {
- 		hid_err(hdev, "Failed to retrieve controller info; ret=%d\n",
- 			ret);
--		goto err_close;
-+		goto err_io_stop;
- 	}
+ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+-			struct nci_rf_intf_activated_ntf *ntf, __u8 *data)
++			struct nci_rf_intf_activated_ntf *ntf, __u8 *data,
++			__u8 data_len)
+ {
+ 	struct activation_params_nfca_poll_iso_dep *nfca_poll;
+ 	struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
  
- 	/* Initialize the leds */
- 	ret = joycon_leds_create(ctlr);
- 	if (ret) {
- 		hid_err(hdev, "Failed to create leds; ret=%d\n", ret);
--		goto err_close;
-+		goto err_io_stop;
- 	}
+ 	switch (ntf->activation_rf_tech_and_mode) {
+ 	case NCI_NFC_A_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		nfca_poll = &ntf->activation_params.nfca_poll_iso_dep;
+ 		nfca_poll->rats_res_len = min_t(__u8, *data++, 20);
++		data_len--;
++		nfca_poll->rats_res_len = min_t(__u8, nfca_poll->rats_res_len, data_len);
+ 		pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
+ 		if (nfca_poll->rats_res_len > 0) {
+ 			memcpy(nfca_poll->rats_res,
+@@ -388,8 +393,12 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+ 		break;
  
- 	/* Initialize the battery power supply */
- 	ret = joycon_power_supply_create(ctlr);
- 	if (ret) {
- 		hid_err(hdev, "Failed to create power_supply; ret=%d\n", ret);
--		goto err_close;
-+		goto err_io_stop;
- 	}
+ 	case NCI_NFC_B_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		nfcb_poll = &ntf->activation_params.nfcb_poll_iso_dep;
+ 		nfcb_poll->attrib_res_len = min_t(__u8, *data++, 50);
++		data_len--;
++		nfcb_poll->attrib_res_len = min_t(__u8, nfcb_poll->attrib_res_len, data_len);
+ 		pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
+ 		if (nfcb_poll->attrib_res_len > 0) {
+ 			memcpy(nfcb_poll->attrib_res,
+@@ -407,7 +416,8 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
+ }
  
- 	ret = joycon_input_create(ctlr);
- 	if (ret) {
- 		hid_err(hdev, "Failed to create input device; ret=%d\n", ret);
--		goto err_close;
-+		goto err_io_stop;
- 	}
+ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+-			struct nci_rf_intf_activated_ntf *ntf, __u8 *data)
++			struct nci_rf_intf_activated_ntf *ntf, __u8 *data,
++			__u8 data_len)
+ {
+ 	struct activation_params_poll_nfc_dep *poll;
+ 	struct activation_params_listen_nfc_dep *listen;
+@@ -415,9 +425,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
+ 	switch (ntf->activation_rf_tech_and_mode) {
+ 	case NCI_NFC_A_PASSIVE_POLL_MODE:
+ 	case NCI_NFC_F_PASSIVE_POLL_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		poll = &ntf->activation_params.poll_nfc_dep;
+ 		poll->atr_res_len = min_t(__u8, *data++,
+ 					  NFC_ATR_RES_MAXSIZE - 2);
++		data_len--;
++		poll->atr_res_len = min_t(__u8, poll->atr_res_len, data_len);
+ 		pr_debug("atr_res_len %d\n", poll->atr_res_len);
+ 		if (poll->atr_res_len > 0)
+ 			memcpy(poll->atr_res, data, poll->atr_res_len);
+@@ -425,9 +439,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
  
- 	ctlr->ctlr_state = JOYCON_CTLR_STATE_READ;
-@@ -2380,7 +2380,8 @@ static int nintendo_hid_probe(struct hid_device *hdev,
- 	hid_dbg(hdev, "probe - success\n");
- 	return 0;
+ 	case NCI_NFC_A_PASSIVE_LISTEN_MODE:
+ 	case NCI_NFC_F_PASSIVE_LISTEN_MODE:
++		if (data_len < 1)
++			return NCI_STATUS_RF_PROTOCOL_ERROR;
+ 		listen = &ntf->activation_params.listen_nfc_dep;
+ 		listen->atr_req_len = min_t(__u8, *data++,
+ 					    NFC_ATR_REQ_MAXSIZE - 2);
++		data_len--;
++		listen->atr_req_len = min_t(__u8, listen->atr_req_len, data_len);
+ 		pr_debug("atr_req_len %d\n", listen->atr_req_len);
+ 		if (listen->atr_req_len > 0)
+ 			memcpy(listen->atr_req, data, listen->atr_req_len);
+@@ -597,12 +615,14 @@ static void nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
+ 		switch (ntf.rf_interface) {
+ 		case NCI_RF_INTERFACE_ISO_DEP:
+ 			err = nci_extract_activation_params_iso_dep(ndev,
+-								    &ntf, data);
++								    &ntf, data,
++								    ntf.activation_params_len);
+ 			break;
  
--err_close:
-+err_io_stop:
-+	hid_device_io_stop(hdev);
- 	hid_hw_close(hdev);
- err_stop:
- 	hid_hw_stop(hdev);
+ 		case NCI_RF_INTERFACE_NFC_DEP:
+ 			err = nci_extract_activation_params_nfc_dep(ndev,
+-								    &ntf, data);
++								    &ntf, data,
++								    ntf.activation_params_len);
+ 			break;
+ 
+ 		case NCI_RF_INTERFACE_FRAME:
 -- 
 2.53.0
 
