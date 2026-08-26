@@ -1,178 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB78F3DFC7F
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743961; cv=none; b=FeHHXkQjd4EEtTuPl9icajsqDuJPbJ+B/uerjE3K/SsYXn3KM/xD7BSv/JqBVBuW2CNlyBCtkUVo0xfzyo8hfq2a/BcEz6JtaTDiiHuVMGEEIq6g5dNl/dVzn0mZYUo4zdeu/NWfgqavVH+YaYEB+tTvPzxEC6QvmptaskLBZPY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743961; c=relaxed/simple;
-	bh=BacKFELyEFpOmVu8pcWp3VTaRmnfXqCkMNRKQbLpiEo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lX5M2cITaAg77qRSq2LB12QSI53p0qFIHoW2Y8MxbOJeOf0MkEuCn2pve5qS2x/qfJVzkJc/926MQOnbg2ZX1bURF8w5GX0lnM8a7vNhXPGJAJWQ23jCbeXuD6VIEJfpvM55wyds6D9X/9kBDZ1eYBpli7SoQOj/pZIVG5V7ndY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=coVeNBdt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDB43E49FF
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 11:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787743999; cv=fail; b=Y+ksXWNB0+S4PKvf5VCyTI68mxns13yrAF2bIozEqz5jeEG1WVfAkCTX5salsqpvFTnz50nfEqJNhy13lTRdEl8oqonNKxbjpiuJPR47+9yyN7QSlJztRCLB8O8mb+if+dYj/OfKSUFr0GN/816JD9gxeM+hO5+iZmo/iVALkZU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787743999; c=relaxed/simple;
+	bh=5YRArHk2X5tul8f4lUcO7YZIcx2x+RT+0RlHefSbTyw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ijQI06Uo2HxI8TUW5zImJt9zcGIVos89JSGiqjgsAgXuAFmk2N/a0PZqUnPK0TscOFUSBQKC65YgAmVej7CHjQIoNmKiamVCN5WjXAMm092qOy9eNGGpiBIEcn0debzLRO74mME18kcGJk2Uvra+ezb3tECuUwupEwjWAaT0ehM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TYZrZOpd; arc=fail smtp.client-ip=52.101.201.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="coVeNBdt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008F41F000E9;
-	Wed, 26 Aug 2026 11:32:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787743959;
-	bh=/T/qTAGgakzq9+AKeBg6nnaeHOYNlwifZ6He/Kp9X4A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=coVeNBdtLRAx9hxuxaguYwctRIhXPoAcgLNFOXNBQlOOh3pwlX/A8HsNLOgqSRuR5
-	 AczeC1el2s2bMoPYc6OZ6E1tGZ+fE7sQkuoxQZWh6w3qzv6kF2wVScXeOtbTN4PUjE
-	 DJUNZlzzNx+dHD+NjQZ7/aVwtJ+bx9Lpuvhpw7fgi7Yol/sFFT/3CO61pQ9ZRufmpA
-	 NR0eFwL7i06Tk7hXafxO/57fglTSqPkpwL6/NoFpXYcaKcMWIez3gwZ77nSBLblx9a
-	 AliZsji7WzlzKqE0NkuMp1XirbZiAU8eDuk8FFaBbNmh5xgJVuLOF8mEzAKGdPG2QK
-	 J8QhkkmkN00lA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	David Heidelberg <david@ixit.cz>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nfc: nci: add data_len bound checks to activation parameter extractors
-Date: Wed, 26 Aug 2026 07:32:37 -0400
-Message-ID: <20260826113237.2856485-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082455-premises-stinking-36ac@gregkh>
-References: <2026082455-premises-stinking-36ac@gregkh>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TYZrZOpd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WTfPn79NbY7YgTY51VLPqlDudDJCSdRR8FGrPtk+d0dR9RvbmI48kLVe7wiilIRjwRpwKkrOtzAgintrf3HRgHfzsMVDuRNPsNqjMBG07cAOLHUSKRrmYjFG+QGD90RtvEzStkIJCMZyY1GGFw7nxjHubFwavjXNPphaLCbMgVhtGAWWOqznud+3GJui9wgQ8XJqJj/qodfaU3f4CLRkZg5C42+DOIG+g22cQCRqPo03ZqAkQsIPcIFZzj0KUp/7oAe/SL3YWdGOmZtQR2GwKaapcG9utyg2+zcRL47hau1BeE6WzBQ6i8mP6hJEXTE8zj/KrV7JS0zNM4TW41HSXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=USL0AjDU9h/WqRHVMrW94+Y7FuuECP5naYh/Zawnkhw=;
+ b=uL/T7OLb5oJYWoy7IGqJfoQyJr9D+fB/89jAjWYaca30ncTZ5d9E5lfyuKq9hGAqzjNnaeVeco7uYcA2NnCMICeQlYqP8VD96KwJ15aQc6BOu0oVeudwTq804LZ/1DI5aL/V1c0DBibQWWE2PVZ/E6pq3wuYpYUT+Ry27b7rGHtkMY4/FvT3xwaW/wayiw38eoGL3lUPiEK1DCsLtr6eSuj75iMfQCqlGQ3NyLft6wR9c0yQNfPcL/4dLLwOyCWu3Kzoi3QmLOUwSEO2C/87WZ9+FcbgIQVgedzqCbwBf6up40NHb/oicVrNeEKTI4/k3TQ6r+9ddlQiC/G0IO6zpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=USL0AjDU9h/WqRHVMrW94+Y7FuuECP5naYh/Zawnkhw=;
+ b=TYZrZOpdyRpCUpiM+0YuwK+jT8OyuUviYJwOpxdj9I7vqi+AqqH0w5ypyMMqRoz4SciwqoCyqFvssFflEOPmmXY5diiDNMm7zxgE26FBNTX+NlAL9O+D3Aru5YTrj9iH0vJP/eTqogbCSlq62+ZlZzu+TgKbBbcN3J59lFU7I8o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by IA0PR12MB8225.namprd12.prod.outlook.com (2603:10b6:208:408::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 11:33:14 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0360.008; Wed, 26 Aug 2026
+ 11:33:14 +0000
+Message-ID: <80abfa09-5b23-4522-9ff8-649588d8eaff@amd.com>
+Date: Wed, 26 Aug 2026 17:03:07 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0019/1611] iommu/amd: Use maximum PPR log buffer size
+ when SNP is enabled on Family 0x19
+To: Usama Arif <usama.arif@linux.dev>, Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ Borislav Petkov <bp@alien8.de>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Joerg Roedel <joerg.roedel@amd.com>,
+ Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>,
+ samuelcrossley@gmail.com
+References: <20260813132447.3396830-1-usama.arif@linux.dev>
+ <20260814193000.12@kernel.org>
+ <0a97021b-7fdf-4e29-b59d-d9fe07c6c409@linux.dev>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <0a97021b-7fdf-4e29-b59d-d9fe07c6c409@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0057.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ac::15) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|IA0PR12MB8225:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd31e95f-fd07-4ce3-28cb-08df0365d0ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	8Nmcb2hQ8NpSN0WpDB0243Ubwc6Aeep93cy/Jd1JNYELIemxEKD/Y9IVmTXarX3rb3FSXSPvX4LReJOiivbdN2CS//hw7RGYdoYxnHeGD18M+o7zxHaD4m2M3LJuJRpgdCk1/GobnbktBzJcqMicDk/WEikavEuvPVt2C4975ee+5eePEiIWhUG8yglHMezv+DjaP1N7GrfMFFBwwGVGbW9Lh/TDOU2N1HS6PYLDgk0ZqvurarbzfZpuW8Ot8mZSOMKGtXYFpRHM/RXWT2Zinso0ybpcDOqnrLjh5CVXX0voPOpvg3pFZePZWRXpppsba2nSJdy7o2C9PQUCdJqrjSaLqksUFDyVcBsSmu/guw/5ck0nzbD3xiSQHqI0BiTi3STmvY9EXC/V9qL78ozRma+XCHpp6TG+GqPbqRP6hvSF8borkhmEGUZmnDvJvUO0aBcdEi/Ku3Nd0kUz/AwuHPGhDnymLJaqFwjxQpffJMJXHMLqqlCLd09FUlpF2eD2TehzIoF/5aujdL+atjeSQ0PIKYfLLjusvCJD74tcBACUUsLjSdFjVUnuigVbnNQfacvpoUn7t2kxcT4Zdsd88WKqbAdubNkSiiWrXvtl1h84en7Ct1gdF/jp0udCaCDUFLq3g5wa3Dv/+7IZvHnGl1/ImJb1P8qNBiHXzriE+Cc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ckcvelVZclQzczNKcWhHUllESUh6alIyZk1vcDhYeDRwQ2Q2RkY2T3Z2Z3p0?=
+ =?utf-8?B?NkpsWUEweFFxMXNXKzdTUTNUckhaOUgvbWxMZVNIcGo4SnlBQ0JTMUNMSWZj?=
+ =?utf-8?B?ZW9GdjlwMWk1LzJ4eFRuRU02Yks1V2hTYTdmZmFEY0ZtWnF0amV4eC9pVGda?=
+ =?utf-8?B?QTErc2VKcGxMZ3NMT0xrUjJ6bVpxU3hYYTNNQWxhYjhiZFhpK04zUTFTbnF6?=
+ =?utf-8?B?YmkyS1VFNWNiK1loMG11Rk1VajNFdFhqZTVEaWJUVzc0aFBlem1kaWdvZ082?=
+ =?utf-8?B?UmpEMHFkZ0RJQmwzZ3lPQ2pBMGJRNUM3ak5saklJczNuVE1vK2ZjMFU3cCs4?=
+ =?utf-8?B?bm1XQnVFR0N3NE12ZDFxb1ZBdDhFcUpWa013QW9MOHlnVkZpcDBQMjRSaFAy?=
+ =?utf-8?B?V2c2djRNNG94QzNIblVWdndESWRDK3BrQTVvOHdMK2d5OHRjdWpJR0pTeW9n?=
+ =?utf-8?B?YmxHbDZYcU5ub2ZoOE0yL3Jadm5nNzhyRE5iU2pzRm9CaXdXcHY5SDQ4WXhK?=
+ =?utf-8?B?OGJYQjRIRHVvMHZETmwyRHl1ZHZielFEd0xIYkNoNzNoSlFPb1R6c0M2ZzRF?=
+ =?utf-8?B?L05KYUMvNEFUMEV2ckp5RVZFWlFlWTErZzNxUlJxMDNjcWFRTWZUb3E3dEVC?=
+ =?utf-8?B?UUt1bFVuRE1FTkRnMmZuOXplMFh5cnBZbG9JcEdoZkM3MUNIZnlFSnF6OGM1?=
+ =?utf-8?B?RHp1cUViK3RwUjJiMm9waXY5dWFaamdGV2g4eVl0Y3l1ZXl6TmtqTHJpTGtM?=
+ =?utf-8?B?YXdvQy85NmRsanJZVnBrT0NSR0JvMVlNeDYwM2FlU3NPNTBjTmkxNWhTRnpJ?=
+ =?utf-8?B?Yjd2S3VMQ0VXS2Znais2NXJwTlk0TnpOSWhoL0RUQ05uUUE5V1diWmR6M28y?=
+ =?utf-8?B?bG9wbnNEdURHRjJDbXRjYlZOaUFKaHBwcFlJTWpIbnYycG55dmhxZTloN2FQ?=
+ =?utf-8?B?azdQcER2d2pkN3grRnlrR200ejFWODFiZkluOHhDc1JkeDk4cWFXMXRWNFg1?=
+ =?utf-8?B?WHZMcEFoM3htb3Y5b3VOV0hvcGN5dHBDMUVySzZlVTkwN2tnaGRzRCtESzRW?=
+ =?utf-8?B?bkIwd1FROWFpUzJzR2FWckU4UGVGY1RvdEI2WElsbldkcEh5VkNTNWxxb2F6?=
+ =?utf-8?B?N0czWXVkTm1oUndyRkVUdS9jeTRYaWdYTWN1dnJuVFhVa2lqOUFtMUZVSWly?=
+ =?utf-8?B?NkpvQUpCTEowdnRJQklJc2l0VXhMR0crNVFCbEwycnl2Tzd3ZDloczFMc25j?=
+ =?utf-8?B?Q3Y4aGpFMlUyR3ZGZHg5V2RWNzgvOXFLcGZMQUtIaUJrbnFGTkFEZjdTUUho?=
+ =?utf-8?B?MGhFajRXUDlMSXVTNndqOXJIbGxlVHpwRDd1ZVNVVStKV2NsYTcvcXNMRjFw?=
+ =?utf-8?B?WWNXN2lFR1krS3B3Z3JTamdXYkc1bXdic2Vib0xNSzE1ell1QVpzTkN1cUV6?=
+ =?utf-8?B?VDNiOU9UVDVOd1dUZDhZOWdlbk9DeG9SUHFqUlBUZEpPMVQ3NmtMQzNHZEVn?=
+ =?utf-8?B?Y0ZHb0tTUVIwMlRWeHJSYXhPS2FmTmpVckdSYis3WDFkdk0rN09DZDk0dWZI?=
+ =?utf-8?B?OEJuQ3hmdTluUmNxRlJNeTV4RG9OdjE4NVF5ZGNyZDN1ZFFzWjBTVmU4K2xU?=
+ =?utf-8?B?UEtoU2Q5aVlOejNOd2U0aS81WkxWNktsSE1qRjVhY2lNMEovd1ZjWks1Zy9O?=
+ =?utf-8?B?WHB4NnZVN1hBbWh0cGRmM0JvN2l5WmtnSnRhY0V1Qm9ReHVwTXVCbVYwZ1Ns?=
+ =?utf-8?B?Uk5Vdmw1MnFJMVNyd3FJeTVMUHluekhHaVZuL2lQZ28yMnVTMkhHWFVlUmVT?=
+ =?utf-8?B?NmhnZ1hXd2Jaa0RWTFlBdnJIYjcvc2FVaWhSdDlwZzRCOU5jNDY4K2tLNzVQ?=
+ =?utf-8?B?dkFyZnBhRm1YTEVObGYvRDF4LzRkcjZxOWZCUWhETnhOY1BMWUtnZFppWkRx?=
+ =?utf-8?B?T3luWjAwM3JZc2MvQ2RZSXU0M1NBNHVnNTdnOHFqK2FkOFBTcG5FV3lpcGph?=
+ =?utf-8?B?N2gwYWZoT1JtY0JyTmZIMHlmbmxvV2M2bTVKT1FjVmd1emdpcGZZeE1kZVBm?=
+ =?utf-8?B?amtTN2hJZkE1ZXBDcFdUclU3d284dUJ0enhjSjVyL25DQkJXcU1vZkl5SnVv?=
+ =?utf-8?B?RG1DSUdGUDZDM0JBNk9oT3Evdm1waDI3L2MraUMrSUZYR3dtU2MzaUU5ZlNa?=
+ =?utf-8?B?Sm9NQzY4eS92T05UdW5rbGY4M1orWEdNNmF2VkZqditiWVJ0ZWdNTG9sdFBJ?=
+ =?utf-8?B?Q2pLQnFEanBEYS83YWNUNmtEV0JQbDRQcXdzbHlQb2VIKzdCVTl6NlJCM1ZV?=
+ =?utf-8?B?MnQvL3RES1JZeFlqVTJ2OXhUOXY2ampNK1h5dUVaZElPRzZHN25mdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd31e95f-fd07-4ce3-28cb-08df0365d0ec
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 11:33:14.4767
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mEVFrwG5kOlXPNki/CLz0C8/uQVKkF7gCZFiJ/k7IuPAMH4hBWI5fju/Jn8Gmf3kcbQzvCIpFeNfffDMRJawFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8225
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+Sasha,
 
-[ Upstream commit 0428fa2c22e2ba0cff766d3b80d461e149102045 ]
 
-nci_extract_activation_params_iso_dep() and
-nci_extract_activation_params_nfc_dep() read an inner length byte from
-the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
-kernel buffers, but neither function receives the caller-validated
-activation_params_len.  A crafted NCI notification with
-activation_params_len=1 and an inner length byte of up to 20 (NFC-A) or
-50 (NFC-B) causes memcpy() to read that many bytes past the one valid
-byte in the activation params region -- a slab out-of-bounds read of
-kernel memory adjacent to the NCI skb.
+On 8/15/2026 5:33 PM, Usama Arif wrote:
+> 
+> 
+> On 15/08/2026 03:33, Sasha Levin wrote:
+>>> I have raised this in [1] but also raising it here, this series seems to break
+>>> kexec on Milan hosts.
+>>>
+>>> kexec starts working on SNP hosts once we do:
+>>> Revert "iommu/amd: Use maximum PPR log buffer size when SNP is enabled on Family 0x19"
+>>> Revert "iommu/amd: Use maximum Event log buffer size when SNP is enabled on Family 0x19"
+>>>
+>>> on top 6.18.43 release.
+>>
+>> Does the kexec hang also reproduce on v7.1.y, or on mainline? That would tell
+>> us whether this is the code itself rather than anything specific to the 6.18
+>> backport, and it decides whether a stable-side revert is the right remedy at
+>> all.
+>>
 
-The sibling nci_extract_rf_params_*() family was given equivalent
-protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
-validation for packet data"), but the two activation parameter
-extractors were not updated at that time.
+We have investigated this issue internally and confirmed its FW issue. Since its
+CVE fix, I'd recommend upgrading the FW.
 
-Add a data_len parameter to both functions, guard against an empty
-region before consuming the inner length byte, decrement the remaining
-count after consuming it, and clamp the copy length to what is actually
-available.  Update both call sites to pass ntf.activation_params_len,
-which is already validated against the skb at ntf.c:801.
+Hence no changes required in stable/mainline kernel.
 
-Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Link: https://patch.msgid.link/20260612-b4-disp-6d52d8b0-v3-1-e26221f8826d@proton.me
-Signed-off-by: David Heidelberg <david@ixit.cz>
-[ Replaced `NFC_ATS_MAXSIZE` with the literal `20` since that macro doesn't exist in this tree. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/nfc/nci/ntf.c | 26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
-
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index df0f1200082cf..9ed908c1230b6 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -525,15 +525,19 @@ static int nci_rf_discover_ntf_packet(struct nci_dev *ndev,
- 
- static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
- {
- 	struct activation_params_nfca_poll_iso_dep *nfca_poll;
- 	struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
- 
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfca_poll = &ntf->activation_params.nfca_poll_iso_dep;
- 		nfca_poll->rats_res_len = min_t(__u8, *data++, 20);
-+		data_len--;
-+		nfca_poll->rats_res_len = min_t(__u8, nfca_poll->rats_res_len, data_len);
- 		pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
- 		if (nfca_poll->rats_res_len > 0) {
- 			memcpy(nfca_poll->rats_res,
-@@ -542,8 +546,12 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 		break;
- 
- 	case NCI_NFC_B_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfcb_poll = &ntf->activation_params.nfcb_poll_iso_dep;
- 		nfcb_poll->attrib_res_len = min_t(__u8, *data++, 50);
-+		data_len--;
-+		nfcb_poll->attrib_res_len = min_t(__u8, nfcb_poll->attrib_res_len, data_len);
- 		pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
- 		if (nfcb_poll->attrib_res_len > 0) {
- 			memcpy(nfcb_poll->attrib_res,
-@@ -562,7 +570,7 @@ static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 
- static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
- {
- 	struct activation_params_poll_nfc_dep *poll;
- 	struct activation_params_listen_nfc_dep *listen;
-@@ -570,9 +578,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
- 	case NCI_NFC_F_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		poll = &ntf->activation_params.poll_nfc_dep;
- 		poll->atr_res_len = min_t(__u8, *data++,
- 					  NFC_ATR_RES_MAXSIZE - 2);
-+		data_len--;
-+		poll->atr_res_len = min_t(__u8, poll->atr_res_len, data_len);
- 		pr_debug("atr_res_len %d\n", poll->atr_res_len);
- 		if (poll->atr_res_len > 0)
- 			memcpy(poll->atr_res, data, poll->atr_res_len);
-@@ -580,9 +592,13 @@ static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 
- 	case NCI_NFC_A_PASSIVE_LISTEN_MODE:
- 	case NCI_NFC_F_PASSIVE_LISTEN_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		listen = &ntf->activation_params.listen_nfc_dep;
- 		listen->atr_req_len = min_t(__u8, *data++,
- 					    NFC_ATR_REQ_MAXSIZE - 2);
-+		data_len--;
-+		listen->atr_req_len = min_t(__u8, listen->atr_req_len, data_len);
- 		pr_debug("atr_req_len %d\n", listen->atr_req_len);
- 		if (listen->atr_req_len > 0)
- 			memcpy(listen->atr_req, data, listen->atr_req_len);
-@@ -784,12 +800,14 @@ static int nci_rf_intf_activated_ntf_packet(struct nci_dev *ndev,
- 		switch (ntf.rf_interface) {
- 		case NCI_RF_INTERFACE_ISO_DEP:
- 			err = nci_extract_activation_params_iso_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_NFC_DEP:
- 			err = nci_extract_activation_params_nfc_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_FRAME:
--- 
-2.53.0
+-Vasant
 
