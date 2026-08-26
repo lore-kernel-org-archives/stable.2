@@ -1,143 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FF93C2BA4
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D0A41B8EB
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787749884; cv=none; b=GJdafXpAT9P+GjRHebfK5WSeAq+ymZ1D/C4vIM1m73VPTgg/0wZnTq+2YhLZvXDEvNUlBMkuRPw0BdZhGU25rV5/YMd/8nXC9HxfKsIMM33NQ13t3F37DQUqaldEhJa7wlJsZRI++dAVAFhcCjZuHn5MKb0+o2tjjvgj72oTlog=
+	t=1787749911; cv=none; b=r6Gz3Yz38mpvJkKHu8VruGnSaQD3sCIkHgl9jGX7c2EebCUt5LRLj/Dy7btlR4NRF1ju+NkPt7F1Feo9rxFU1YuDmm1OCmmufC+YlB+KvC8YyceUB1yiaDJJUDSniQwu9QCZoz9GU23TYHIaqwdU8Xs2cXYHrDga+UWmdvi92FM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787749884; c=relaxed/simple;
-	bh=hDJ5utMxynrQhpxEw04mx/UVUa5b22tXo2jjob7Q5u8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JTJ5scfkjYdtQP/2RB+BDhkZSkTzcQ9cCnKp8CxJ+aFl6x+huk7NEfOgKIu/opRo/z9KcLdddNetDo7t2mfsVxKohcrAKPBRd2qzGiFruRTv+1AXG90/WdeBe1o0CFX+3/3KE3gFB2/vK8csoaRPZP6ofdwHlK5NN7LvBRbPigA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1BzLy0U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787749911; c=relaxed/simple;
+	bh=iYXUe0s8goeacHQlmKJ3f9w79aXm+BLB+1SI5FmNLhs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CJzQIg0osSNME0ifXUS7VpA/2kHjCLIK4Or/j/OyO9/BHu62ak86iPHDy8ZXLkKTY7PnzvzXfmQjrf9FqHmP2iFOUHxE5QWqt2qKOUNALnXy6FIgdA5nPJtGv0qdt6dXVsG118bDWC/sLinYop1S4APn/I1pS0a37Chqcqo0/Aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHcOEytK; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1BzLy0U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E441F00A3D;
-	Wed, 26 Aug 2026 13:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787749882;
-	bh=ZhSAsh08zX2PgmKorY1o2j2OnxAggYmFvaVkBJLwUv4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P1BzLy0Ux4/2p4CW4bF86Y2tiO8F8o3OW6iQJxyMarUF2eH1g/IdKJoHORpTa4z/K
-	 Pgnz/meXj3cPCSl2h9cXYOL8z7IaMOg5/e4TP/vhyNWt/b9IPltAYO9nHFfc82OmRq
-	 5gvKs6TNNWJI+vAy+zotixahLIx1SNn2MtMtR0RoTEHMHsi9QYfQ2ojb1YJ0whUK4p
-	 vX/xelHWptU0ZZwoIpmGlGDAiTrIKEYsJbFYB0xIqXDp9fvdhtySD3tAFqscGwFVCc
-	 VISqKsjdvLvqNs3NvzC46Iqlftjn2uqpiwuacQrYID3rXjGKgm54v71pnn2IiOSOfr
-	 0LlM9t52X/RIA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>,
-	Alec Hall <signshop.alec@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] HID: magicmouse: prevent unbounded recursion in magicmouse_raw_event()
-Date: Wed, 26 Aug 2026 09:11:19 -0400
-Message-ID: <20260826131119.3036540-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826131119.3036540-1-sashal@kernel.org>
-References: <2026082526-status-turbine-ec0a@gregkh>
- <20260826131119.3036540-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHcOEytK"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c207cb16cf5so136028166b.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:11:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787749908; x=1788354708; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7M5t9v5XwKSZ3VZcQrdmnixl9ZSmqbJvPFx6wEt+sCo=;
+        b=UHcOEytKwqTrP3/bYCFJYliOVV16KXbK4jB07J+DBzs1nHlo/HpmkzDDeYAWMPpmDk
+         F4mk8jncnnay3idLSKlr54JYrRHfs9sci+n72qoQhNbsYJ4fU6APFW1sDTij+nVKdvBK
+         963ARIFZdSp1SY1WwIsY44rQ9zBowd2MRtl/p8rAaJUQpoW/HF5FYGqf8n7Fca/VcaR/
+         EPyrZkiBF7VyfGY3NJPBo5ntwgp3tuWWXUs61iaMP/V9m14ZPGGT7cmTivHX3D168z8J
+         clemAPbXxJ/lOTevAT01WcXMN947RngN7wdj5AiAus0fGQ9GP25pu7dCix8TM9Y+FVzm
+         h/Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787749908; x=1788354708;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7M5t9v5XwKSZ3VZcQrdmnixl9ZSmqbJvPFx6wEt+sCo=;
+        b=mvW6BcZbqSroMHUdQ01vsv2NYHAxgQGZtAG1evc/ATVxX6oZCnGWEaPgp+dCzMy8KS
+         ELMchIk5dcue9Rgggij214WaOejFtwVcJYEEGGJj3HAnriN3zTMyFF9fHjz5OCeNg30/
+         vOWeG9QHcW64V6AexmW1/jK/vmaNSgiez1kY9XqQgrZnwXRhsNrnXJBC68jhAxdySgRZ
+         1Jsb0knXd7jEOcVqOwOOl4jTgKA0JbMPqxVIzVWehBaWnZgJB+FSFJMIcFw8/6bvI67E
+         BcMxYdnNrrfKrX9u4nD5L04aXbVjZccu/IixjFt9QdUXYa37lkrNU+5ieCBwwB3WGunx
+         yGpw==
+X-Forwarded-Encrypted: i=1; AHgh+RrV1ByiFsoSV56dSuWZDkO1CWBrogmAYIJHH8bQLOKiHcwDlU2yqZBHYxqPzhOgi09KUFTWB4c=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncJz38rwAe5faefYUgCA7qbwv+N2s2KDkASkRj6I50K5xSh4OB
+	v2r04w8rPzTYGWF9BNNn8giXk/uXKtYEXeG7BIibNiwmPIMRySsEbsFs
+X-Gm-Gg: AR+sD11Ky39xat5d4tKXp/I0qyMqRsT77gI/97r4sKGuEdShX1SvMBK7HKMfhp1mgws
+	+se+vc/3TSlIaaY7GEGh1ae+d70OuU42Ly83mc8mUuxOVT5tT8oSC0kQOj1SnlN5mG17Bg6J497
+	gvJ+cTOx3whRAWHmxgJUC5rlv1E6csdjMDQS6owOALXdymYpqQNREFDdRUKusaNgoP8JxqJXXQL
+	9XsOiLrRIiQ6V1LJcnvP6YnRcLa6/OVo3mW16+jiV9AmECLONeYmRgDDXxc1V9rvGqm+XxafiIC
+	teSmXdJQnxq9i768zy7w+J+sM6Nl17PMW35u55AF/SYcAymhY3heLdSs3vogwmodZjZ7BWFr+1C
+	5RcjPWAdjCt0QDA5DsmTBWnQfjcOD1hV0O+PJq+hdf0LfZJ/umPQsoqa2Qyu7KsjIqeSf6FnNdD
+	OWpjoTKrZHTKw8k82cEp1yJfJt18BljSDfUKGaIuMDjCwRrQmV
+X-Received: by 2002:a17:907:3d44:b0:c25:5a7:87f with SMTP id a640c23a62f3a-c250ba06e3cmr876138966b.0.1787749908066;
+        Wed, 26 Aug 2026 06:11:48 -0700 (PDT)
+Received: from krava ([173.38.220.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2523ea83a1sm299172666b.60.2026.08.26.06.11.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 06:11:47 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Wed, 26 Aug 2026 15:11:46 +0200
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Christian Simon <simon@swine.de>, bpf@vger.kernel.org, ast@kernel.org,
+	andrii@kernel.org, daniel@iogearbox.net, martin.lau@kernel.org,
+	tj@kernel.org, yonghong.song@linux.dev, stable@vger.kernel.org,
+	andrii.nakryiko@gmail.com, olsajiri@gmail.com
+Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable
+ programs
+Message-ID: <ao7mEnrgVNj7prrI@krava>
+References: <20260822225444.2774461-1-simon@swine.de>
+ <20260822225444.2774461-2-simon@swine.de>
+ <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
 
-From: Jose Villaseñor Montfort <pepemontfort@gmail.com>
+On Tue, Aug 25, 2026 at 06:20:16PM -0700, Alexei Starovoitov wrote:
+> On Sat Aug 22, 2026 at 3:54 PM PDT, Christian Simon wrote:
+> > A JITed BPF program can use one private stack per program and CPU.
+> > Sleepable programs can be preempted, allowing another task to run the
+> > same program on the same CPU. The second invocation then reuses and can
+> > overwrite the first invocation's private stack.
+> 
+> I'm confused by this. sleepable progs go through __bpf_prog_enter_sleepable_recur()
+> which has per-prog recurison counter. So preemption of the prog
+> doesn't break private stack.
+> If the same prog attemps to execute on the same cpu it will be skipped.
+> 
+> syscall prog types go via bpf_prog_run_array_sleepable()
+> that have per prog recursions counter.
+> 
+> Looks like we're not doing it for bpf_prog_run_array_uprobe().
+> I'm not sure what the right trade off here.
+> I feel universally checking for recursion is better
+> then selectively disabling private stack for uprobe.
 
-[ Upstream commit db8d634128d2ba88d79c0b601e983ebe14bb0519 ]
+also during the load we can't tell if kprobe program will be attached
+as kprobe or uprobe [1] so having a way to disable private stack for
+a program would solve this as well
 
-magicmouse_raw_event() handles DOUBLE_REPORT_ID (0xf7) packets, which pack
-two touch reports into one, by splitting the packet and calling itself on
-each half. The only guard against runaway recursion is a "size < 1" check,
-which stops zero-sized calls but does not bound the recursion depth.
+jirka
 
-A malicious HID device that matches this driver can send a report starting
-with DOUBLE_REPORT_ID and filled with the sequence [0xf7, 0x00]. Each level
-consumes two bytes and recurses on the remainder, so an incoming report of
-up to HID_MAX_BUFFER_SIZE (16 KiB) drives roughly 8000 nested calls. That
-easily exhausts the 16 KiB kernel stack, leading to a stack overflow: a
-panic with CONFIG_VMAP_STACK, or memory corruption without it.
 
-A double report only ever wraps two normal reports; it is never
-legitimately nested. Refuse to re-enter the DOUBLE_REPORT_ID case from a
-recursive call so the recursion depth is bounded to two, while all valid
-packets keep being parsed exactly as before.
+[1] https://lore.kernel.org/bpf/ao2f-rBgT0SqX6Pw@krava/
 
-Fixes: a462230e16ac ("HID: magicmouse: enable Magic Trackpad support")
-Link: https://lore.kernel.org/linux-input/20260706181347.700DB1F00A3F@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-Reviewed-by: Alec Hall <signshop.alec@gmail.com>
-Tested-by: Alec Hall <signshop.alec@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/hid-magicmouse.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
-index a459fc62cb739..cf8a10752f4c8 100644
---- a/drivers/hid/hid-magicmouse.c
-+++ b/drivers/hid/hid-magicmouse.c
-@@ -368,8 +368,8 @@ static void magicmouse_emit_touch(struct magicmouse_sc *msc, int raw_id, u8 *tda
- 	}
- }
- 
--static int magicmouse_raw_event(struct hid_device *hdev,
--		struct hid_report *report, u8 *data, int size)
-+static int __magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size, bool nested)
- {
- 	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
- 	struct input_dev *input = msc->input;
-@@ -480,6 +480,15 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 		 * packet.
- 		 */
- 
-+		/*
-+		 * A double report only ever wraps two normal reports, so it is
-+		 * never nested. Refuse to recurse a second time; otherwise a
-+		 * malicious device could chain DOUBLE_REPORT_ID packets to drive
-+		 * unbounded recursion and overflow the kernel stack.
-+		 */
-+		if (nested)
-+			return 0;
-+
- 		/* Ensure that we have at least 2 elements (report type and size) */
- 		if (size < 2)
- 			return 0;
-@@ -491,9 +500,9 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 			return 0;
- 		}
- 
--		magicmouse_raw_event(hdev, report, data + 2, data[1]);
--		magicmouse_raw_event(hdev, report, data + 2 + data[1],
--			size - 2 - data[1]);
-+		__magicmouse_raw_event(hdev, report, data + 2, data[1], true);
-+		__magicmouse_raw_event(hdev, report, data + 2 + data[1],
-+			size - 2 - data[1], true);
- 		return 0;
- 	default:
- 		return 0;
-@@ -516,6 +525,12 @@ static int magicmouse_raw_event(struct hid_device *hdev,
- 	return 1;
- }
- 
-+static int magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size)
-+{
-+	return __magicmouse_raw_event(hdev, report, data, size, false);
-+}
-+
- static int magicmouse_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
--- 
-2.53.0
-
+> 
+> > Disable private stack for sleepable programs so they use the regular kernel
+> > stack, which handles preemption correctly. This change is intentionally
+> > limited to programs marked sleepable; preemptible non-sleepable dispatch
+> > paths require separate protection.
+> >
+> > Fixes: 7d1cd70d4b16 ("bpf, x86: Support private stack in jit")
+> > Fixes: 6c17a882d380 ("bpf, arm64: JIT support for private stack")
+> > Fixes: 156d985123b6 ("powerpc64/bpf: Implement JIT support for private stack")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Christian Simon <simon@swine.de>
+> > ---
+> >  kernel/bpf/verifier.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> > index 5e37ca75e5c4..038753ef07a9 100644
+> > --- a/kernel/bpf/verifier.c
+> > +++ b/kernel/bpf/verifier.c
+> > @@ -5237,6 +5237,15 @@ static enum priv_stack_mode bpf_enable_priv_stack(struct bpf_prog *prog)
+> >  	if (!bpf_jit_supports_private_stack())
+> >  		return NO_PRIV_STACK;
+> >  
+> > +	/*
+> > +	 * Sleepable programs can be preempted, allowing another task to run
+> > +	 * the same program on the same CPU. Since private stack is per-CPU
+> > +	 * and per-program, the second invocation would corrupt the first's
+> > +	 * stack. Disable private stack for sleepable programs.
+> > +	 */
+> > +	if (prog->sleepable)
+> > +		return NO_PRIV_STACK;
+> 
+> This is not true in genreal. sleepable progs can use priv stack.
+> 
+> pw-bot: cr
