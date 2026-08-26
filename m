@@ -1,115 +1,111 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC90633937B
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 05:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA2538AC75;
+	Wed, 26 Aug 2026 06:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787723855; cv=none; b=anL+gq31aQLucnO/dXEJgqZ5VWvRW05WsOxcNyLIV/1J/oFWIX5NXVTLsKhK2l0/YVjfQ7OK15CLYkMICeg5ShZ2wq1Xejds0GX9KIn2GFSuoV5m50UWzydVxgx+FPBr1BlsRffUIMUtYVdagD5QiRIpCP3EgObGZwQoxVd5+Uw=
+	t=1787724006; cv=none; b=AHx63kfD7AFLmzht6s96/VkMmHyWsB2q7s76wGHr9bXU2DjdoB6UPRQWxGx2mstn79Y+1X3Cd8FxZP2TZn+Urs4KtfUSPPPlUOooWyzCV95LMBrX1uXalIanxbD2HBHeLy0XdCd88us+zKn9WcAWhTacmKla7Mh/sHN3BKQ046o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787723855; c=relaxed/simple;
-	bh=Kb4zXA/7EKlfHzyKa/blTu6mmK9yfF4dEutV4ZSBq/c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A2FRheKjmLDP4Mg5cuSLvSI+MJUCDvVX+SwbrSHv2zkfwUvOjdXu4l3SYJ2THK5nS2iU/cHj24br7OBzWnPAFo4c4+cuyrXctAAxn66hQ+6J580Fkr8PQqf+9HiZF/C6jSjh7pbuEmCx+0FPiKO7IgqRXQoa+xblRUmPSg3IEpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=WO+YCyO8; arc=none smtp.client-ip=35.89.44.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="WO+YCyO8"
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id z0ZtwyTpOhJKMz6dbwwVjM; Wed, 26 Aug 2026 05:57:27 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id z6dawqb5cn6N5z6dbwWGBn; Wed, 26 Aug 2026 05:57:27 +0000
-X-Authority-Analysis: v=2.4 cv=LJJmQIW9 c=1 sm=1 tr=0 ts=6a8e8047
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=60u_ompe4jvr-0JMN7sA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=vQUGvzCftAGF0Kwtxy8vX1y6TzTfxwLNVfh7O+RzosE=; b=WO+YCyO85TFIR9gV2DXCO9L25u
-	B24H+t5moIG9VGZITYSf9V3ii8BD15r+IRlCs18je9KkrCVA6kNt0q/MyJ6mof7/P7v43fwrWy0iZ
-	5791GbbVADk6VtuBWEWUsquK7sNIFjC1ejZCm2iikNHwaV6WxN735OqqaGjWSzEjPl6atDitjhSLW
-	8oLUJkuVZVlPSC9N7zsGRHMCdGLNnROh8hsin9YL476esqBhDfT090TU5rBRtKnzZyjNujlJnyocK
-	PVHNLeQAwOgy93oktjBGxKY+/axjFouNZ5WuwIiJZtom3c+Q2tn2Km/hs5CTxqAmyHi8zGAgL3jPC
-	2iWaaOlA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:58022 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1wz6da-00000003rxZ-114o;
-	Tue, 25 Aug 2026 23:57:26 -0600
-Message-ID: <40f84483-e8c7-473a-a9e2-8a93c6963a24@w6rz.net>
-Date: Tue, 25 Aug 2026 22:57:24 -0700
+	s=arc-20240116; t=1787724006; c=relaxed/simple;
+	bh=dJ8zHLxh75koeGnAhUjt/ZtyAlrqxVcaqAAHLkZIpl4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bbQu4u62EHQgTETfGB4+zVFHXDFgQtC7Fab55W+AUuWL8AnQDirfqA1iNUArsi9vqh7FmcgGuXRLGOp44Nf/3H27dWAOkoAbHCSDASRy7woK2yn/nzF0x5C64dhO0PYLa2yVcCeLzZowsGw4QiTIjaRCAd9f/lUMFYRSiutzRdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5e22f32aa11311f19a56ed5b684f684d-20260826
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:a9f11fd1-1881-4dac-a326-ecbf187bef64,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:d615874be65cdd41e698268807d626b7,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5e22f32aa11311f19a56ed5b684f684d-20260826
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1797813150; Wed, 26 Aug 2026 13:59:58 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs: handle signal interruption in fallocate
+Date: Wed, 26 Aug 2026 13:59:53 +0800
+Message-Id: <20260826055953.1372417-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.560541185@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wz6da-00000003rxZ-114o
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:58022
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGUjPPcb1Vl2hn1Gyt5sUV8mhjeu5FHiWJmUZfaXrwp/XkJVDWXrZ0NPrpu8BNFbbWTqsycFsQzEQI5MsiOdGWIa0m9t8gsXwtc/XlQ13EAO8Mcp+fLZ
- 5YMF9dz+kCijDIDS2BxTQUsS+1AjFupIMisWEqzMbqFhHDixGGCdqarbo4TSrM9nk595bqs1fbFUVA==
+Content-Transfer-Encoding: 8bit
 
-On 8/25/26 06:24, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.1 release.
-> There are 82 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.1-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+The ntfs_attr_fallocate() function checks for pending signals during
+allocation loops and exits early via 'out' label. However, when a signal
+interrupts the operation with err == 0, the function returns 0 (success)
+instead of -EINTR.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+The signal_pending() checks at the allocation loops jump to 'out' without
+setting err = -EINTR, so the function returns success even when interrupted
+by a signal.
 
-Tested-by: Ron Economos <re@w6rz.net>
+Set err = -EINTR when jumping to the signal exit path, and only override
+when no other error is pending. This ensures:
+
+- Allocation interrupted by signal returns -EINTR
+- Allocation that completed successfully before signal arrived returns 0
+- Other errors are preserved and not overwritten by -EINTR
+
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/attrib.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index 60264833bb63..c898250f63a7 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -5709,7 +5709,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+ 				}
+ 
+ 				if (signal_pending(current))
+-					goto out;
++					goto signal_out;
+ 
+ 				vcn += alloc_cnt;
+ 				try_alloc_cnt -= alloc_cnt;
+@@ -5730,7 +5730,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+ 		up_write(&ni->runlist.lock);
+ 		mutex_unlock(&ni->mrec_lock);
+ 		if (err || signal_pending(current))
+-			goto out;
++			goto signal_out;
+ 
+ 		vcn += alloc_cnt;
+ 		try_alloc_cnt -= alloc_cnt;
+@@ -5756,4 +5756,8 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+ 	mutex_unlock(&ni->mrec_lock);
+ out:
+ 	return err >= 0 ? 0 : err;
++signal_out:
++	if (!err)
++		err = -EINTR;
++	goto out;
+ }
+-- 
+2.25.1
 
