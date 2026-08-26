@@ -1,137 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B507E3C0635
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 10:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653CF23BCED;
+	Wed, 26 Aug 2026 11:04:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787741877; cv=none; b=h+uBtwE8uX3hSgLwO+GLXZMyEVmJRkFmv0ux4OTt84qKv7iaZhGKPBTqcwmyaccu1d7Fhk6KoG11DZlx/QpVq3Im+tSaoMRRwKqE8fXR6oJuOvvcIsRT3T5AzHk5tEM7m/epLO1I2FAkGL+d7s9qjuAvxrg/NOnn0Y+b6fNe/SU=
+	t=1787742275; cv=none; b=tnV6XA2gVQueSzNhngx18LIGV3CBxWk57X4rGLdUyQEMQubbo0reQrp31AspHg+mBfyVQAGIx8k8B+5GHb7APKPuuawoU8yH5nzAOAbVD+zs7eBNvHJakidIrVeGFeRzRTfvmxsmohgH0xcweJE6ZSOsRNUW2xD8lrkvWUTAFZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787741877; c=relaxed/simple;
-	bh=4+WSJvq7FFCohKxrQHlR5eQEC0xO+sYnwruNN1Q4LeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z6PSAyjp312P7zGaJnabXiLzaUF7waX842dXiZGCyMFTxOlRpj7stvKaf4fKROEmqbpuWC3z2hYkSTVS8KOH9dK2E6ikG78nkC2pFVwkffUPCDh/l13okzBMZ+39xtnMo6PYoFqB17bPx17/nVyzDK5cPzWAF6cLKZM2y47R5V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuQ49L0k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787742275; c=relaxed/simple;
+	bh=0t+7/e3oqGqmDt1r1bHIZ7l8ibPqxkX9cD03J04DFG8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A/kDELBd/2tXY5S/sWWT33DE2JcyWwFEuJtAlNNUu7qjw7dptTYA6K1RsVLe/Ljha50mPF5ibmxvXTYKlMFPmdGt565PhX4YPmJeEmUjveO4Rqg+0SvQxyBvi2tz7jZPlNNRw22K/urJ1jpm7Ah9i2LcqTHZbsCW+quUOHKqWo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZrL8Cym; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuQ49L0k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45531F00A3D;
-	Wed, 26 Aug 2026 10:57:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZrL8Cym"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E301F000E9;
+	Wed, 26 Aug 2026 11:04:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787741865;
-	bh=vSJT/4FeUPugkKjaAn4dyHqgKVdnIenxrBdYCvzvGzw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UuQ49L0kk9cTGdwiDCD7UgRgtOcE01i9ACZOpyH4JGIKuwLpIZdNhiw77FSaGyCGi
-	 mbhVYSCfzxXmxGlWJ9p0tL8jqcsWOk1dcvIEldIHkYPGvEKYKI6q5VsU9rytVyz5oO
-	 HuoNTkKTY629HmiUp5x9oR7rJudCISYwwgcEtBQJOA3++7+8Er4awB380A0faBU6UN
-	 xkETLax5DHz3FLj65lKKDVK6Vx5A6bcWr0c/fHKHrBiAP1wZXMNASSWOKmmvjvFadf
-	 3DjX3cIgBMVJj9YK5+z9MJdAUsCFR+OwZ1jHQ2fjrKIwzvVKq/e18gsKnchiiGDaI4
-	 YFD6rd3QzlPnQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	syzbot+c37bed40868932d790e9@syzkaller.appspotmail.com,
-	wuyankun <wuyankun@uniontech.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] nilfs2: reject invalid block index in GC ioctl
-Date: Wed, 26 Aug 2026 06:57:42 -0400
-Message-ID: <20260826105742.2608961-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082455-batch-papyrus-5e86@gregkh>
-References: <2026082455-batch-papyrus-5e86@gregkh>
+	s=k20260515; t=1787742267;
+	bh=uBmI5fOjIx+W9VbSYdym76cV4ZkOfJL66crn6l8h18I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bZrL8Cym9mcGQkJcKIk7xOUgiBjZIJX94P+HYk4/+Y98Rcj+dtnsz2aAJKHXYSjcP
+	 crRdTnHRa+gDVBDG32Gh8c2MqG8su06iqxXVIfZLr+asmvfVqRc5Rl+QiazfLF3ib7
+	 5mnAvpmPaYX75J1rq0YD+FW3QYIO9xsMzeQq3b/J8u/OZYHujlTzEU0QbtWhIl2nKe
+	 MSEgzBWAyJp6Uw3/tBOXmG3KDJwf5OkuOjD040J2mhSCdB9CPGxUbINA5LTqwVkhpq
+	 Gaegv6rmFp9/gxAZuGvCw3YBo28aoTkAxX9IQaOZ27ytBKyrVfd+vufJEaGNnUzhXW
+	 TIILx9bal2q6A==
+Date: Wed, 26 Aug 2026 12:04:21 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	akpm@linux-foundation.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, zokeefe@google.com, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
+	Vernon Yang <yanglincheng@kylinos.cn>
+Subject: Re: [PATCH v3 1/3] mm: khugepaged: fix swap entry value to
+ folio_pfn()
+Message-ID: <ao7IG-tK1NY5n9ac@gremlin>
+References: <edd7ed8d-0f2c-4de3-89e5-f2b23c2dd1e5@kernel.org>
+ <6a9c2369-5589-4f2a-bcfe-c6e3b46a1ccd@gmail.com>
+ <c8e3bb54-e4f1-45d3-8059-3ee1910a920a@kernel.org>
+ <ao6c6Oe_KV0O1LJn@gremlin>
+ <b6fbf952-c619-4fc7-8a8e-62a0ae64ff0d@kernel.org>
+ <ao6fSHW_nX8YC9QK@gremlin>
+ <42695df0-3962-4126-9afb-9a1905d096a0@kernel.org>
+ <49aa013f-f613-42be-bc58-35956ef189de@kernel.org>
+ <ao6jVbVHLUmuY2UA@gremlin>
+ <330789dd-94e2-4827-abdd-23671263608f@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <330789dd-94e2-4827-abdd-23671263608f@gmail.com>
 
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+On Wed, Aug 26, 2026 at 05:21:51PM +0800, Vernon Yang wrote:
+> On Wed, Aug 26, 2026 at 09:35:38AM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Wed, Aug 26, 2026 at 10:24:56AM +0200, David Hildenbrand (Arm) wrote:
+> > > On 8/26/26 10:16, David Hildenbrand (Arm) wrote:
+> > > > On 8/26/26 10:11, Lorenzo Stoakes (ARM) wrote:
+> > > >> On Wed, Aug 26, 2026 at 10:08:58AM +0200, David Hildenbrand (Arm) wrote:
+> > > >>>
+> > > >>> Elaborate.
+> > > >>
+> > > >> It's overly long, I read it and am confused as to what is 'problematic' or not,
+> > > >> it reads weirdly in English and pfn_xxx is the usual convention for naming of
+> > > >> pfn's anyway.
+> > > >
+> > > > Excuse me, what? Are you now just making up arguments?
+> > > To clarify, we have various users of "xxx_pfn" in the tree and I fail to see how
+> > > "this is a problematic pfn" -> "problematic_pfn" is odd and why
+> > > "pfn_problematic" would be any clearer.
+> > >
+> > > I do agree with the "problematic" aspect. "failed" might indeed be nicer.
+> >
+> > Right yeah. Mostly the push back is on the word being a bit confusing. Fair
+> > enough on the pfn thing, failed_pfn is actually the nicest name suggested so far
+> > :)
+>
+> failed_pfn is good to me.
 
-[ Upstream commit a1735eae55448bc79c2da6593455791e886f6ed8 ]
+Thanks.
 
-Syzbot reported list corruption caused by a double list_add_tail() call on
-bh->b_assoc_buffers within nilfs_lookup_dirty_data_buffers().
+>
+> > I still think:
+> >
+> >        	if (result == SCAN_SUCCEED) {
+> >                	...
+> >                	trace_mm_khugepaged_scan_file(mm, -1, file, present, swap, result);
+> >        	} else {
+> >                	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
+> > 					      swap, result);
+> >        	}
+> >
+> > Is a little neater as then it's only on the failure path that we trace the
+> > failed pfn, and otherwise we explicitly -1.
+>
+> I understand what you're trying to say, but personally it isn't necessary,
+> because failed_pfn defaults to -1, and one
+> trace_mm_khugepaged_scan_file() already covers it.
+>
+> If everyone clearly expresses that they want two
+> trace_mm_khugepaged_scan_file(), please let me know explicitly. Thanks!
 
-Analysis revealed that the root cause was the insertion of a page/folio
-with a page index of ULONG_MAX into the page cache via the GC ioctl.
-filemap_get_folios_tag(), called by nilfs_lookup_dirty_data_buffers(),
-repeatedly detects a dirty folio with a page index of ULONG_MAX due to
-index wrap-around, leading to duplicate processing of dirty buffers.
+See David's reply, we'd like to go with this thanks.
 
-As a preparatory step, the GC ioctl loads the page/folio of the block to
-be moved during GC and inserts it into the page cache based on information
-in the nilfs_vdesc structure passed as an argument.  Normally, this does
-not cause issues because the user-space GC library configures the
-nilfs_vdesc structure properly.  However, since there is no range check on
-the parameters determining the page index, a request with artificially
-crafted parameters -- such as those generated by Syzbot -- can result in a
-page/folio being inserted with a page index of ULONG_MAX, triggering the
-above problem.
-
-This resolves the issue by checking the ranges of 'vd_offset' and
-'vd_vblocknr' in the nilfs_vdesc structure that determine the page index,
-thereby preventing the invalid page/folio insertions.
-
-Reported-by: syzbot+c37bed40868932d790e9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c37bed40868932d790e9
-Fixes: 7942b919f732 ("nilfs2: ioctl operations")
-Cc: wuyankun <wuyankun@uniontech.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nilfs2/ioctl.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index e56e871927417..9f10a9cec3e0a 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -544,6 +544,8 @@ static int nilfs_ioctl_get_bdescs(struct inode *inode, struct file *filp,
-  * Return Value: On success, 0 is returned. On error, one of the following
-  * negative error codes is returned.
-  *
-+ * %-EINVAL - Invalid virtual block descriptor.
-+ *
-  * %-EIO - I/O error.
-  *
-  * %-ENOMEM - Insufficient amount of memory available.
-@@ -557,15 +559,30 @@ static int nilfs_ioctl_move_inode_block(struct inode *inode,
- 					struct list_head *buffers)
- {
- 	struct buffer_head *bh;
-+	__u64 limit_blkidx = (__u64)inode->i_sb->s_maxbytes >> inode->i_blkbits;
- 	int ret;
- 
--	if (vdesc->vd_flags == 0)
-+	/*
-+	 * vblocknr 0 is reserved as an invalid pointer.  Also, limit_blkidx
-+	 * ensures that the page index converted from vd_vblocknr never
-+	 * overflows the page cache limit and respects the architecture's bmap
-+	 * key width.
-+	 */
-+	if (unlikely(vdesc->vd_vblocknr == 0 ||
-+			vdesc->vd_vblocknr >= limit_blkidx))
-+		return -EINVAL;
-+
-+	if (vdesc->vd_flags == 0) {
-+		if (unlikely(vdesc->vd_offset >= limit_blkidx))
-+			return -EINVAL;
-+
- 		ret = nilfs_gccache_submit_read_data(
- 			inode, vdesc->vd_offset, vdesc->vd_blocknr,
- 			vdesc->vd_vblocknr, &bh);
--	else
-+	} else {
- 		ret = nilfs_gccache_submit_read_node(
- 			inode, vdesc->vd_blocknr, vdesc->vd_vblocknr, &bh);
-+	}
- 
- 	if (unlikely(ret < 0)) {
- 		if (ret == -ENOENT)
--- 
-2.53.0
-
+--
+Cheers, Lorenzo
