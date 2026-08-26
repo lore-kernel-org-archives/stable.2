@@ -1,135 +1,92 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.207])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E1148382E
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 20:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787775736; cv=pass; b=Y7XQi1AFeRn1XwUCb923fZDOYZWo15slcwFM/qqmr6vgk7IHwprh8YDZsma9FXk6InoRXXGOlvV3+ivMfI+cUNMpvE/4FgRKgsUOYsJwVmM3DpZv36COna4nEkkPXS0bqc4cHHTJQQQYdddK17xLAwiCTqbqR9w/gvL8Ikl2eZk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787775736; c=relaxed/simple;
-	bh=L4nicArUy3sBy3nVh9y3Yt0LV2goWnN7UEFMNz3Hy8s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L6et4ImRhn0V09QqWpCcRw1KFYwAF34BzYUMm7lBJWEAKehzKHy5u0C0xciUeL/Yfu4biSOEsK/5SDVCR281aZghsQLv6Rrt//i49HMlIgxQ3iYiWkgiRnAxNUavUCdBJf6Q4TXNum9U+tsSVs94ic5aQW5b5I+kPPUt+51G4YQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qqXNSCs0; arc=pass smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC0647ACC6;
+	Wed, 26 Aug 2026 20:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787775829; cv=none; b=Z0CgYueEqyvRLE6yKPyW3DABQj9OwTMH6GPberDo8hCEG+26kblB3ua0AOkMLmDCjogLHukWKoZQ2Bjwwej1L6sFWYEXiWr6gRcr7PreyPdjGWlw/pszT80E8rNTb0lBuqTkRY5ocuqD5FuSbLAVIWxZGxxB6005TEZB75Nq3TY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787775829; c=relaxed/simple;
+	bh=zYr4xm/hZ57XjrhWkYpqW/TwlIUd4MCyuqKjtJCS4so=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hD5BCGcv7lsJiqB5l/8cvZr9ZaVU2E/BfvFBMf/epqfTj5JikkjQB5Lx78qcyI8jLU3K9ZtXIVQFU/BOJxMqDN2UeSTXmzaPonlDVVBL8FxHusX6NSatrT8qCKWTy1nSaYYCwxw6p6D3K6O+5SbwVJL4F4wZD3ziVptMNqImaxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=IABba8sP; arc=none smtp.client-ip=192.19.144.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qqXNSCs0"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3856d4015e0so241662a91.2
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:22:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787775735; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AQn+KS115nbwvRGamne3E5qssm2TvAlH59glWsG3hSTkEypeOD8wmGAPNYhnmcABKf
-         U19t3/4GjCdZCe1BupfdjXMcr6LZ59FtZuE1ybbq+W7mYCgnx2XKJmuuKerZQa6i8MoG
-         YXBpJ/6TdXD/IhrtRcO5oB9XdtO/TX1jKBo9fMva09cxeLfALTO97+HL/7+w1KOsLuJF
-         lzQek8DxVLqtG+LPhHvItZP5RaUNleHXrY4uGpWyUPRRO28WAkIP87QikKRzO9fotZzx
-         Ief6/4BltqxXK6ege4IwBUFgAMMj5QjTlo2+9k3bnIOG6MZpAh7r7bdc1KwDNDBnrg+y
-         gThg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BEAHXUxB2VWuC97VageNwTEoOJOcxIW3TPD295GmCv4=;
-        fh=J+hLsZfh/JI8S5LM3w0QZVgu21+fwp/xATgDdePFnKQ=;
-        b=LRDXan9qks2HFeYqd1sKMasepPoSvYlSgo18H2tn/4AfwOfURQ4fLf+E/L2yIVa3fO
-         XtzIxka8RTaCBSTmt+5N6jCAHwZoUY5a9ytkW/YGFiFCk7H1qX9CKhLeuMxUj53z/IgO
-         C9aG3xEVsFXvCModv8mjn5AQgeYCDKze2pYyNT8HTTMC7Tozw0rv7L1lJIdBeobRuwks
-         FfiIVC/JUu6CdR0IWyh5VZHAQXfye7uiNyNQwHjc4yX1ChpvQXHubCijHXypGiwQ/WrZ
-         lT/HVESfog/rUt2mOyqbVG6e2/jumfZmNUUS827zUUtZV4vwQWCOU2rpDPx34HMZqAs5
-         YW7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787775735; x=1788380535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BEAHXUxB2VWuC97VageNwTEoOJOcxIW3TPD295GmCv4=;
-        b=qqXNSCs0s0D8xBSbpHMryxQwuCOBptuBxs8acRV7nm7MljLBBEr0Klwvg1Eqz+8Qna
-         jC8q64qeQC5twjGdqzq16fxaeqAnlzI1H455cLG/kAJ8LiVzdmi6gTJ7hW/GerV94VWg
-         Oh79heMgHURHlsMXczWlklt+jgsIpv9ttR7ff41Z/6QijrQy/D11/ztkO3HFjtBWfc3r
-         NHxcVsKe9wWJ++9oC2HZ5tDAyhd0jWMq/9Ri4eCvQJk12NnfUirSVZGG+ZFCoZU5z6f3
-         vIJgVSbHCuTIGCn7m8LV1qo56z8VgI+WNS1QqTJVcdRACgMXYqaEb/rpP2yPvowNT1Bu
-         /14A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787775735; x=1788380535;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BEAHXUxB2VWuC97VageNwTEoOJOcxIW3TPD295GmCv4=;
-        b=RzBHs/IAmjqKRjqj6wMpOoaMVa72pH1CHV2SbhxhXD8nCsZ6ypvECdJcnDOkpG4hO2
-         5UHP7z7+lBuC1rQaduszgEDZv6Z11SdOVRPAsfirAf+9ft1yp9hbVJTQo6omGw27HDVw
-         EsSLzroBx1MAcTEuyVx/LR5gwYXK+4+MvNfh+NaeKddZ3z0cAK+CtBpfDGHAML0ISxDn
-         wWN8C0/CAyFbGElA0gnu/CFPYI9Wscf2E8SRnocGy+98spEdAhtSPfnwWXJm2CXjfORa
-         grXyBKmW3J7tfHZQmUbVJFV0U7kBasr76Hrh1oP0HL8e0THnESmK5vTCoY9Sv4tM1ykU
-         6TeQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqubh70yMf5QX51QBQz7ckt2aOu9vbXdDgH1CWMETyvFssTqaeGrU1MrJ0L2hriIsl4qM1h0jk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVRbDchN/LxtSz9oZoH3EVRXwsWgBAA5+GILZWYxwowSqtqrw8
-	LFZbHYagC7pNFnuNKMBpmtouFKvquwShCITQm8RSm1Zrl3AU4/8RYPJFDdyzR3+zSMPnMJIc2jW
-	KqHtgxua/SD1Wp1/GRGyR97f8D59phsM=
-X-Gm-Gg: AR+sD12TUkB3+S/+XRvi1/LejOwBQath5Zz6UFdDd/ZVTT9Wiaec4l/TDLs7bkEee5R
-	URZxCjY/SwMqnMGnlHts005sGJPBMrpadKAkC1ULV34uO8apN7ud2uzqQ2TrDX9R7xTrIKZyapA
-	EPTy3Df8MhVHo7RP0SkLAym3dUphrI9XvAjYo34xSrvLALwOlbDcegT/YN0UDFjn3n6SEB2UJM1
-	jSqSAXPku/PGGzvLAZq+CbOl81UcUXktGwxXV30E60xxoiTk3sV7zybb3gBckqerx8dTmQTyWvq
-	9Colhv5H0y+FRAT/F95Pro+g90tLYAyFPx91ram5umOtiYhHEfl7IC+9mssIdYuDxabygEoIp7y
-	XjroIh4ICtFxuM1ZpLD2L5J7vEGVPeqY=
-X-Received: by 2002:a17:90a:ec8b:b0:396:54a9:8d87 with SMTP id
- 98e67ed59e1d1-396976a3e62mr2440677a91.1.1787775734966; Wed, 26 Aug 2026
- 13:22:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="IABba8sP"
+Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id B39E4C000C69;
+	Wed, 26 Aug 2026 13:15:37 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com B39E4C000C69
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+	s=dkimrelay; t=1787775337;
+	bh=zYr4xm/hZ57XjrhWkYpqW/TwlIUd4MCyuqKjtJCS4so=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=IABba8sPB9wCMLvRuFrzzJPUw/+Yl0dxMe7t4ZMYEsGHRtAd+kiB81gCuK7BMH8id
+	 rR8FByLK1653yeQb9+OuQGImDAkvITQz5xY6CFMqRw4IZlsYD5ZHBEnuoStq6Oh32v
+	 v7wpvSB/o1KB6BFmfFOxpUEkLx/xRF04+pWG090w=
+Received: from bse-build-07.ric.broadcom.net (unknown [10.136.28.187])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 139EBA9A;
+	Wed, 26 Aug 2026 13:15:37 -0700 (PDT)
+From: Danesh Petigara <danesh.petigara@broadcom.com>
+To: mmayer@broadcom.com,
+	krzk@kernel.org,
+	florian.fainelli@broadcom.com
+Cc: bcm-kernel-feedback-list@broadcom.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Justin Chen <justin.chen@broadcom.com>,
+	stable@vger.kernel.org,
+	Danesh Petigara <danesh.petigara@broadcom.com>
+Subject: [PATCH 2/2] memory: brcmstb_dpfe: Bounds check DCPU-supplied MSG_ARG_COUNT
+Date: Wed, 26 Aug 2026 13:14:59 -0700
+Message-ID: <20260826201500.3000125-3-danesh.petigara@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
+References: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826185102.2269511-1-mario.limonciello@amd.com>
-In-Reply-To: <20260826185102.2269511-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Aug 2026 16:22:02 -0400
-X-Gm-Features: AcwNN1Xv4Dw5HMxryl0YtcgdqHYDqXKXfb2-Aic9flqetBfAx3wECFQmD2BdJPY
-Message-ID: <CADnq5_NFjs_i_bgjKjsk1atzZ2VKvoyH9Lx8CagEzSkOxgfsqg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: restrict BAR0 fallback read to SR-IOV VFs only
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org, gloveless@jqluv.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 4:10=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> The BAR0 fallback read path was introduced as a workaround for SR-IOV VFs
-> where the VRAM aperture is not available during early init. Restrict this
-> workaround to only SR-IOV VFs where it's needed.
->
-> Cc: stable@vger.kernel.org
-> Reported-by: gloveless@jqluv.com
-> Fixes: ea8ac194077d ("drm/amdgpu: reduce early full GPU access during SR-=
-IOV init")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+From: Justin Chen <justin.chen@broadcom.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+A compromised or buggy DCPU coprocessor can make any user who reads
+world-readable /sys/devices/.../dpfe_info|dpfe_dram trigger a kernel
+stack out-of-bounds read of arbitrary extent. This bounds checks
+chksum_idx against MSG_FIELD_MAX after reading the response from DCPU
+message RAM.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 3603f7109703c..251c4aea013fc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -765,6 +765,9 @@ static int amdgpu_device_read_fb_via_bar0(struct amdg=
-pu_device *adev,
->         if (!buf || !size)
->                 return -EINVAL;
->
-> +       if (!amdgpu_sriov_vf(adev))
-> +               return -EINVAL;
-> +
->         flags =3D pci_resource_flags(adev->pdev, 0);
->         if ((flags & IORESOURCE_UNSET) || !(flags & IORESOURCE_MEM))
->                 return -EINVAL;
-> --
-> 2.43.0
->
+Fixes: 5d06f53d9509 ("memory: brcmstb: dpfe: Compute checksum at __send_command() time")
+Cc: stable@vger.kernel.org
+Signed-off-by: Justin Chen <justin.chen@broadcom.com>
+Assisted-by: Gemini:gemini-3.1-pro-preview cursor
+Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
+---
+ drivers/memory/brcmstb_dpfe.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/memory/brcmstb_dpfe.c b/drivers/memory/brcmstb_dpfe.c
+index 66343205f585..7b02c36c7fca 100644
+--- a/drivers/memory/brcmstb_dpfe.c
++++ b/drivers/memory/brcmstb_dpfe.c
+@@ -503,6 +503,8 @@ static int __send_command(struct brcmstb_dpfe_priv *priv, unsigned int cmd,
+ 		for (i = 0; i < MSG_FIELD_MAX; i++)
+ 			result[i] = readl_relaxed(regs + DCPU_MSG_RAM(i));
+ 		chksum_idx = result[MSG_ARG_COUNT] + MSG_ARG_COUNT + 1;
++		if (chksum_idx >= MSG_FIELD_MAX)
++			ret = -EINVAL;
+ 	}
+ 
+ 	/* Tell DCPU we are done */
+-- 
+2.54.0
+
