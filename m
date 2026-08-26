@@ -1,44 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B13F43CE76
-	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8024543846E
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787752043; cv=none; b=O/JY84znlc3tlm3fqKdGsIyPCErmU34dqwpG8xtF7UKrP2e7/wcB46hei+6/ZtglIeGWcn+M1ndACYHVljvgDt54ECwu1uunFT4zDFhet1vVwb7KWFJ1OVfL6NjxPTFCHjBxrLY0jb39F4V2cotKFgbnfoeEr+LZEzYOfB5/UMQ=
+	t=1787752497; cv=none; b=EsFcXzr7Q1HNR/5lRDCjh3VcbhulcpNo1CJeJpvI9aFURDEZaTu6LITNB22HAzlp1m45XjRudi4wfEtxehkAQSDZFNzVgKsTIZtEvloxyDGig6ixs5SYwUL/M9ZQLBvS4q1rUP17RHQJLuE+wjvL1jGYuYIS/c+DR09nvhtMMK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787752043; c=relaxed/simple;
-	bh=D+/pzhpch6/SKPu+P++wIgwOegNFS3aHHk1MutxllQ8=;
+	s=arc-20240116; t=1787752497; c=relaxed/simple;
+	bh=KHfW4skYneuB7R8T7OJQcC5K2V6xhXLwCVM4bph5ulU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pmejaPBWFyV077BCBoasq+Tf9H5GZ7E4MtebyedoOyPm5AaUnes9qQMloEzMVt3UNAwftDD+gR4406F4hKNdmSdQL6ps14IfqPwesvXjTBGrLYPGt6jeelTPcLgfcRfJ7HokJwmxFGjWo3QCGUl8phNgoonM2jZXY03dFB9KGtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMTuMzfM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qPHi+cUGecm07lOr2Xrz0Xao+rXD+Ycp3M+Z7OBAR9RoNmEJus6jzC3Vwbe/pA1qywP/ZrAw7BzO7dNnRLwPKtnQPiUmKn0s7dWm1IYGE3/Irlq2SyOwOI69uL2Wi4NoYTd514+I/P0EJcWBIcTbSdCsyvoqIXhGTUyYgiiRShY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KBvC4CsN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=juO3kZB8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMTuMzfM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE251F00A3E;
-	Wed, 26 Aug 2026 13:47:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787752040;
-	bh=G0W4RsLOVDkQJgAaZcSDGP0SKS+yZ6ZewuneX5I0Mbo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XMTuMzfMEnkYje3/F/bExGOaLjhJ+zUTOXyQK9zG1My5vbKlF0PVhtV6FuxOnM41p
-	 LAvrcb0VvYXmn//76ENJZEFEZ1nM12kzDpaKN5r7cTZyLw4ZwAbVyKZ1igGgSLem7F
-	 N7WrNugBE58dSwwB/sqPlInAqQ2X7NIRTS+t2Qys35Id0h2vis8y+4Dbt7R0EfX7nK
-	 7WucGMC3dCT/WqxuEcynFWcRiIzYiu0Ra4QOgZJ4T1q3EA4svJQsAnnqEcvEWBv6Ig
-	 wsbyjQj4oegMcQjDJq2JNecdjmMW6UJiNXx829/MJLpDPEW+hYlb60xs+9UYcnphy0
-	 iv+xzP3mTtJHw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Baul Lee <baul.lee@xbow.com>,
-	Federico Kirschbaum <federico.kirschbaum@xbow.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] HID: pidff: fix OOB write when hid->inputs is empty
-Date: Wed, 26 Aug 2026 09:47:15 -0400
-Message-ID: <20260826134715.3968449-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826134715.3968449-1-sashal@kernel.org>
-References: <2026082517-petroleum-anaerobic-3fd3@gregkh>
- <20260826134715.3968449-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KBvC4CsN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="juO3kZB8"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCUFx7948999
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:54:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=NVdl4MhXtb4
+	OnEN33//nZ96kPgkyUxM2ldx28fo594M=; b=KBvC4CsNn8Mzjl/09HcUBJomHZ3
+	BRovjXgJp7MgsSExeRNqSGvtg7Lw89mZbrQihz7FyhVtVKVWAKuGVSGWpOBSE7pn
+	Y8fnLhLhuaG0omKeEBz3MLRN61vY18GzV2WNHBGzhXW7AoWGFhyDNNH0JSrpn9gD
+	49KFsQpBxySlpoiFpTEbEFzAhq5d4+pP3B0XFhC+xRikBxJuFkGd7RbI0C46MYxu
+	JC2ySnHr3MqIJbTU6hvtTMl1dAA0tM+/DgyDsqZo4i9rUmAIHgaV+LpLCeWmmu0K
+	cBpycXOxAZEPDu5B1Drw6XL15I9j+wGsP8E+C9AcFMyGfiWEUehlxcRZ6qQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ga0758ats-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 26 Aug 2026 13:54:52 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-526da7e3c9dso9723171cf.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 06:54:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787752491; x=1788357291; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NVdl4MhXtb4OnEN33//nZ96kPgkyUxM2ldx28fo594M=;
+        b=juO3kZB8fVLyf/ZI6gE3qGLd7u41D5yNHon0c56oy8zlY0ZUrYw1kd69GcpqVphc3Z
+         GD2H+DKP7srN4clK22q8mWoUpwvwaIywcDzAG+0TsdwvFMRdOnRrylNscwylg5bDrrLR
+         ogNhB9PoMp2ANS2iBv6oQbE7252VxYFI/e0ZdGRvbijBVft7CDL3JX/kXZnnwM6pvLN7
+         8jwQQKzDxJuZ7WPS3Ivk9L29LdrScZH6EgvYjFHRLEKHQZj6ABTjMvgMIpRNsTgRD9c5
+         GTAN9s4vQYZaFQt+pKgeRo+M1BtWoj9KmKgis39C0cHnCImew6XflFDJKW6Sqc2I6YSg
+         KFFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787752491; x=1788357291;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NVdl4MhXtb4OnEN33//nZ96kPgkyUxM2ldx28fo594M=;
+        b=FzXMsDoT+7r3xGG7ViwSFEAZlWXIAmljVeOgQsBAt3lp50ouvnrKZvjf2V2IAfKd4+
+         TeHdiLh9DzSjrUsf/w044ID434mi8rLZPkueGnBDH+ur6BnqO16mP9/AlhQipZho6CIF
+         nEfRgnSSaKin2zYvtAVzamliNQVuS9tEWM2JtMMWRjtHttBjWlBrqJf8NpAwXaZ6LKQj
+         NWh6a3VYglAC4Vb5jHyZiGk3o7S5XgrcLGiV+j1KsRXD2fwQUhilMlPKpqjSdQyZ/QiL
+         aDTgGnBAhbu5ObDZdCN9rztbT0mhnhr48IZYTFNTU6Ib77WSo3CcyOtVGuorBeMTrgMN
+         m3XQ==
+X-Gm-Message-State: AFuF++lwdFzXZ62W3qMogwSkiREYKGvvHcYOEc3nQry8o7AXvDxKhxuy
+	dq01tzXGKAjK4/pj4tBiWMUqjkYN9o1zG4PIrKmdJn/dvg8HcbgDoqqwPn6je564YwVcBScRh5g
+	dSVmKKIqfgSOYS+aEYk1OeTZuE0EJ+QT/LnW+oApwn8i4GN3E5J/ElEDJj40=
+X-Gm-Gg: AR+sD105JJ+raDl0hI888uYWxcJCSeIlrx4+jYtIq3blg07yIFuZt00SMrI3kxeEAar
+	4n7TG8ke2M/5fze+esQm40nJbqcRX3hjx0tz2WeZVBZp1MH2fktc6nw+MlBw/jMcPEGdnJ1tBsh
+	DzNfjNrYVEjkazh48SHeD1V6BvC81HptQGf9cgQm0vargim9t+oyj/QsFBDGZHNpFx9FnZNRrMO
+	sF2y09ZJlLbZcEJj780KBy8hplxktmTIDU0JxDHpN3G9KXYP6sMEhcN58p+XWJ006NAw/EOxOLe
+	VmiFZEIw/06hUBJu0h37AkX1XCGFjeqorUL8VlDR80IrJWxC7VqEK5Plyb57l7TJiiMYApjhOwP
+	kX28ywMWCWsebu4kD2I2Vw2y7dJYNWiE2534/Wl7l
+X-Received: by 2002:a05:622a:550d:b0:52e:3cf7:2fa4 with SMTP id d75a77b69052e-52e423a723bmr73041801cf.29.1787752491411;
+        Wed, 26 Aug 2026 06:54:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:550d:b0:52e:3cf7:2fa4 with SMTP id d75a77b69052e-52e423a723bmr73040741cf.29.1787752490708;
+        Wed, 26 Aug 2026 06:54:50 -0700 (PDT)
+Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dc96bff9sm27905055e9.5.2026.08.26.06.54.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 06:54:49 -0700 (PDT)
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+To: kernel-team@lists.ubuntu.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH 1/1] net: qrtr: ns: Raise node count limit to 512
+Date: Wed, 26 Aug 2026 15:54:47 +0200
+Message-ID: <20260826135447.447480-2-youssef.abdulrahman@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260826135447.447480-1-youssef.abdulrahman@oss.qualcomm.com>
+References: <20260826135447.447480-1-youssef.abdulrahman@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,85 +92,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: nlpnO360hnmqzeR7ZYPLeKxMEZOErZVY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExNSBTYWx0ZWRfXwvn2sB80FpcU
+ 3JhECRlkjmmfTCSDD2hwEnCB/a1HOyvUxlITUnvsbaqmmKTsW9Thuiyk6pDtP/oABG3MTqRPX/w
+ zt4cchJDIlMP4F32gZgpxp6Cepq66AFD76/8T18V2QquAknzBy7n3TUqh9uY4mxFVwXNwBEW8EO
+ rdlUO3MOaVtQeVQrqSVGHKM+Xd/QEw0YQATsAlKLZFpRSfZ9LqHlY62c2KnxhLh7klrCsuGdYUK
+ uh9Dvo6pISj/M6G63zsm2SlDHvxQIgT7o5QAlcPG72FgqcTA+RgoNRyMaDRC01MdgUuHTs03INy
+ 2gfT/P4EI3ta6tUfck7frpcVirQ6wstCKvisplekCyCGwHNh1BSPhmzBcU7u0Isd01SN7dLnNv7
+ rQmC8V507JSvXBhhZFIUnpnGuG0l8OZwF4yj709GpRuLptYZ3QViGa6pre1kKDvbtIRSWWvRvBf
+ rKih36P1WU9fYXmMUtw==
+X-Proofpoint-GUID: nlpnO360hnmqzeR7ZYPLeKxMEZOErZVY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExNSBTYWx0ZWRfX8eva+B/ORl9a
+ ahJXWF8mS/AVrlDb+BSPYKoYWhcVAqVM02kDohn0H4YfQVEWkXkWzN74iLpdnvyyt4WTcIldBQW
+ tN72IN66PeH3H7S3rs+ojqfMY2Yh5dg=
+X-Authority-Analysis: v=2.4 cv=RPiD2Yi+ c=1 sm=1 tr=0 ts=6a8ef02c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=danhDmx_AAAA:8
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=4pVNa4VuK2S7h9LEhL4A:9
+ a=a_PwQJl-kcHnX1M80qC6:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260115
 
-From: Baul Lee <baul.lee@xbow.com>
+BugLink: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2165140
 
-[ Upstream commit 67bb1074e3d2d12fa059a9cc707e89398a4e4704 ]
+The current node limit of 64 breaks the functionality for a number of AI200
+deployments that have up to 384 nodes. Raise the limit to 512.
 
-hid_pidff_init_with_quirks() derives its input_dev from
-
-	list_entry(hid->inputs.next, struct hid_input, list)
-
-without first checking that hid->inputs is non-empty.  The list member
-of struct hid_input is at offset 0, so on an empty list list_entry()
-yields &hid->inputs itself and the following hidinput->input load reads
-an unrelated member of struct hid_device.  dev is then a type-confused
-pointer, and force-feedback init writes through it: each
-set_bit(FF_*, dev->ffbit) stores 8 bytes at dev + 192, past the end of
-the object dev actually aliases, and input_ff_create() adds further
-writes of a heap pointer and two function pointers.
-
-Until hid-universal-pidff the only caller was hid_pidff_init() from
-usbhid, which runs under HID_CLAIMED_INPUT and therefore always has at
-least one hid_input.  universal_pidff_probe() starts the device with
-HID_CONNECT_DEFAULT & ~HID_CONNECT_FF and then calls
-hid_pidff_init_with_quirks() directly whenever the descriptor carries a
-PID usage page, bypassing that gate.  A report descriptor whose only
-application collection is on HID_UP_PID leaves hid->inputs empty while
-hid_connect() still succeeds through the hidraw claim, so probe reaches
-the unguarded list_entry().
-
-The write happens in the USB probe path, on the hotplug workqueue, so
-plugging in a malicious device is enough to trigger it; no attacker
-software and no logged-in user are required.  KASAN reports an 8-byte
-out-of-bounds write in hid_pidff_init_with_quirks() reached from
-universal_pidff_probe().
-
-Check for an empty list before deriving dev and return -ENODEV, as the
-other HID force-feedback drivers already do.  universal_pidff_probe()
-propagates the error and unwinds.
-
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-
-Fixes: f06bf8d94fff ("HID: Add hid-universal-pidff driver and supported device ids")
-Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
-Reported-by: Baul Lee <baul.lee@xbow.com>
+Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
 Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/hid/usbhid/hid-pidff.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ net/qrtr/ns.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 72ed11e054665..751570de7f52a 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -1405,13 +1405,20 @@ static int pidff_check_autocenter(struct pidff_device *pidff,
- int hid_pidff_init_with_quirks(struct hid_device *hid, u32 initial_quirks)
+diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
+index b3f9bbcf9ab9..e5b2adb161d9 100644
+--- a/net/qrtr/ns.c
++++ b/net/qrtr/ns.c
+@@ -76,11 +76,11 @@ struct qrtr_node {
+  * requirements. If the requirement changes in the future, these values can be
+  * increased.
+  */
+-#define QRTR_NS_MAX_NODES   64
++#define QRTR_NS_MAX_NODES   512
+ #define QRTR_NS_MAX_SERVERS 256
+ #define QRTR_NS_MAX_LOOKUPS 64
+ 
+-static u8 node_count;
++static u16 node_count;
+ 
+ static struct qrtr_node *node_get(unsigned int node_id)
  {
- 	struct pidff_device *pidff;
--	struct hid_input *hidinput =
--		list_entry(hid->inputs.next, struct hid_input, list);
--	struct input_dev *dev = hidinput->input;
-+	struct hid_input *hidinput;
-+	struct input_dev *dev;
- 	struct ff_device *ff;
- 	int max_effects;
- 	int error;
- 
-+	if (list_empty(&hid->inputs)) {
-+		hid_err(hid, "no inputs found\n");
-+		return -ENODEV;
-+	}
-+
-+	hidinput = list_first_entry(&hid->inputs, struct hid_input, list);
-+	dev = hidinput->input;
-+
- 	hid_dbg(hid, "starting pid init\n");
- 
- 	if (list_empty(&hid->report_enum[HID_OUTPUT_REPORT].report_list)) {
 -- 
-2.53.0
+2.43.0
 
