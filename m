@@ -1,36 +1,36 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.155.80.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32093F6615
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 08:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28D93F44C0
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 08:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.155.80.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820062; cv=none; b=BLj3G174UG6eV4CTddII/eyqvjoAraiAZJJwa7rtu1fv/f+gTtejfHwctVBJ6D60LLZVbMC3fMJpipFRuHgSifm6T/vYB1m5MUY5rMByDgA+iCpEN2GF2w8GWTLqLavY+GACc8PELAOkDRTHj+wZkqOSAH6hfv+Ac6uKBO5GyJk=
+	t=1787820065; cv=none; b=GLq1gS5UMAnotOcBcU9RbLvqAokgWz+4kzmU1KZWqA3AdXONHNgU+vqxW/4Fi/K/ienMH4Gv8j5loSz5L+8/WZ7kijGXXMXBHqvSDNixQURX/qa9yrTuOtDy9EceMTiDEP8cQv/jG0VeZgbPk9JvgUQE7MP5mAsg7sVDpvoLHJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820062; c=relaxed/simple;
-	bh=KJ/H4uur7rV/C1KvMg8qZtEfyXFQOULg0Foeqf+3pfk=;
+	s=arc-20240116; t=1787820065; c=relaxed/simple;
+	bh=YqikJddJ+nsACmbS8QHt1ILKOktcUhagv9TUR9L7tio=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=F6yhykpISiybdnlKY9TMlBy3zxzTQcr8PhGS3f++fKDdEKdoqdJqkvv2STIvcKb5TKmOUGexE3K61jsHUUAOWED53+3VksHmr59M/F7+aTOAshGcfUdV9VBs6qVaxCFTRsCVsfdcVnJwhR7r161Nz0lHCOa0lnjGAdj7ZPp+PQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=QLk4Dm/7; arc=none smtp.client-ip=54.254.200.92
+	 MIME-Version; b=VbqdkgrW0aXYC+o3IzT/nRZvDvOLYtahls6eTxN/62GgBNPHxGCq5/2Z1FDfdQEXl2EFAQ3BY6znhnglV5qKmwlu5WKFn+bdkZuGI6bgKjacQA7BQd2ZDdFyv7ko037i3Q63lWOAJ6380WGj2iGvA5kbVyYXCSwQfWuZtklyMTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=mqHl5etR; arc=none smtp.client-ip=43.155.80.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="QLk4Dm/7"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="mqHl5etR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787820025;
-	bh=nhXNDgQ7+9tvSAAvZ/YxKuqpSnIQUi8hQ2icKPePmdw=;
+	s=onoh2408; t=1787820013;
+	bh=Tx3darQ+PkVqePO2SCnjhvTxgORpT85DwVbifMCE9+I=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=QLk4Dm/78zgJ0Qj3KxIQNF4JFGcvDAZO9VNwbeunxP7tBvIwDXEI5/4OkjKAdLBmB
-	 qiKArn5lFKhPPRuOBH7Dgu4Nz2oItpknkPj+IZd3/18optQ8WCY/2EdL2JrxXUYAor
-	 D7h4EypsTldfgFV9znpzKNcb8gk7nsLUmOcjsfH4=
-X-QQ-mid: zesmtpsz5t1787820020t602c6764
-X-QQ-Originating-IP: dL+nX6Mjl/tmF12G8vaznkDrfxb6vzcaZUiTneaqX4E=
+	b=mqHl5etRx1jrjTPdg6XmcytjnZoqrw3v62pCj5YRgL/ZwN+7tB6gtCOFgsmTNiyeT
+	 mF6M6wyD7i1msjTXqjqtqedAtV89YRDW2IAi1/oLBX2leSSCG2B3AUUan5XAJQu0BG
+	 YxifI7Z8To25D+BS3Q2RDetarI7NrIDpfXHXhlqs=
+X-QQ-mid: zesmtpsz5t1787820007t5068cd48
+X-QQ-Originating-IP: lEz+pVygJ/4uhI8jmR5uSA3IUujGugbAxh9XiFVTck8=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 27 Aug 2026 16:40:10 +0800 (CST)
+	id ; Thu, 27 Aug 2026 16:39:32 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9896568804142354700
+X-BIZMAIL-ID: 3432798356390099978
 EX-QQ-RecipientCnt: 6
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org
@@ -39,9 +39,9 @@ Cc: guanwentao@uniontech.com,
 	paul@paul-moore.com,
 	stable@vger.kernel.org,
 	stephen.smalley.work@gmail.com
-Subject: [PATCH 6.18.y 04/10] Revert "selinux: reject a permission value exceeding the class permission count"
-Date: Thu, 27 Aug 2026 16:38:02 +0800
-Message-Id: <20260827083802.4044165-4-guanwentao@uniontech.com>
+Subject: [PATCH 6.18.47-rc1 03/10] Revert "selinux: use u16 for security classes"
+Date: Thu, 27 Aug 2026 16:38:00 +0800
+Message-Id: <20260827083802.4044165-3-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260827050834.10002.stable-daily@kernel.org>
 References: <20260827050834.10002.stable-daily@kernel.org>
@@ -54,53 +54,121 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M4lPCacZ9YleLVFffrnlSzR7GH7xBUO1lyLwD7cI+3puotTTO99AL8BY
-	4IwH1OfW8tPx8qUYiQtT6BbLzZmD6jAUT66oJgb5a5rcEyEWTxgWhemAsHY6MNvElSljGgK
-	Ed3jPu4N7jWfwRZT8A+0W4KlqcvLAa8hiVJ9kDe/JtuXukYowMLiEWtEFMx67YM7i/wDJhp
-	cz0HLseHt7LaM1U7cPkAFp4JWdgSjbYUrhZAiK4EP/F5PpNHL/uRqn/H7i0Laqmsjk/YtKT
-	yWJM45dWc/iTURQBp8IhYpiFvSt4411DtbN/WjdB6noiP9vHNnyNW3tvz1X9j3BBAwubBlm
-	esd6NvrEgTUfbi48IzKOWw0g3Wrhwp97dpti31ZvMcujsfiZlASeAFOqWvFMJzgiXTCWzBF
-	3sYRmmhw7UzOgt6XhsZM34YAbknEyGXu/rZoeigK4Nhnv+23VUeGFkIxXsILCZfXkkWnlKD
-	17kh3KwlHjO8vvIXAo6fKpiaGtj2Wt2m5lQjyvvkl6D7djznoO+RTmT++UkBMz3Xs9lRQUs
-	6cMP7CqP+tTsQQ0lbVLw+4k8sWHwgIQRn0V0tMKq3+seLMpFiJyNfJfdf31jPJSiac4KBNZ
-	yo3ZWtfi0No1JLTVAeNWULjIVYlLAJznZR6Zpk+qzIIJ496JWC7P/VRWqGwnpF50G5DAfjB
-	0dmOcHtBVL1J3HQY6HpoBMZt1h/MeLu9wEJDYeLkR8A9bCJR+omwJoSYfVvUBPZ6YO212CR
-	wtUpxfEF/CBQoBQmTeoJsf7C2JBYm76R1Fy5hbQDTq+PPA18YLoW2Zni7e3DmTlgidDaiMu
-	vNwuEqYodMQR7i0++rPIVfFawFHaXOR68LLRX77TLEFJgtV1AkjmFKLmH/McqST0F4/FFDC
-	LHKPMAAVHQi4/7vnn/OEipNV76C5C6O3DuS6vKsGTp1vfqqqSwjZzmq+lOFCR2DeH3DZcPl
-	K7fGGGi83xY1zK9YWxNJ/X4bO+APu7RE9yW7rQNgIR1fQnqdFE3PrfxPX9sIwj8vh4hGc79
-	m3oSCYZ8qdShAJroTzOhWu4Cn+/Avne3myXjD534oZhXvIK1kOBvkl94Uj8jD9ArKxvAIwh
-	im6C6tMqwSBCwHMgd/Z0Tk=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: MSuk5L0FboZSf87nu0kRJEsY0zA7k/9rDLdnIiG/VSk5/gO8ZaKNLKZW
+	gCZec2LrJs4E6UiqXZWG92RQK7WTWK18588okgqgl9/XR62DrRx/LucWURvF8xkXiqv9WV+
+	TLOWrOeBz7GruQa/ckNH/yd9Dyd943Ce8aMUP8ftxdQMpu9JFRw6wpv3qy5uGKPLeG5KAwx
+	bulqnR+YIwdJmuH/mVspUt7j2FCLfUbFhUvN02yBmVVsH/ekPVVkJxmu4LT3jff7UPFehNJ
+	6vH/rgUDul+bYlS5bIIeiVeI21O8fnWNfAN5qqNZvl2G+nTXEP3CC55dhVLEH+cdZDRkhA2
+	pv7GH4AzU2xtqXVe5uR8kDL118+4T3lOG2wUueocmrJ/uP76iOKv2c8S1gpSLc8q/oBOkI2
+	LqEmZFGmg2pnCbEwSjkoVMdGbKZ6JqdMJgry1bzsXk1ZO/P0Dkuoc9OFCSLNQNLzZzvXlrZ
+	cYbyLN7I2rAKedZV2CqJORhmo/2H59xaGVBbP3aGJmqEVJ2V8VbNxrb3sYE+nY3Avspdfqu
+	QDrsMZmKPRLJ7iC7+D/It8Q8Im+DZrPQA4JG47E+YQimLrAEeL997/i+ufYZcE7vbPbG2A2
+	svnxsaCShje2hA/QuP2N5C0oO0DhZ/PuJKkzjGiIX5Y0hQ7hQL9hNz/90+q4BIXf2uCE2/L
+	Pd9shg7U+PG38GdY/5UxhvlEsX43gZ/qLSuLnYuqobPjOWQDDZ2cMJ7fT5Q4t8ycEd0GUHg
+	Dj4Ylcy01SOYhVEQDfZKmNM5Yv55lvKO/blT3KnLT3pObGdDrbtWiomfAvlkHD8rROZDuvP
+	d3mUyENvcvsTXICpfqy11L9qnVpq2FLzw1znZqgcqw1V4a33VPDBk/Nxo2IJJAvjCLf+D6m
+	yE1NfRzfKURu2lYaHLO1803I53x8oeqnJ/iaNXNQZ+MyWHCj0qPRx3f/rMfkS8UTWkE3VH1
+	ufAbOuEDlixRfx6B4CHDzNo+/3LUUzOIU0pX7wJt7ELscycnPHPdZpfOvrmRGY4/UZxfyrH
+	uV2HWHt21iVUQusluGQd/kYagayayNmSBxmsQzh6HIy+nkM6epYDni70dG99kBup49fbJ4V
+	N4mYvPXoquuk7luXKUqW5mLf43l1hTbrVMo1UU32OclcNIyZSVcEzq7B2Vgks4VuA==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 X-QQ-RECHKSPAM: 0
 
-This reverts commit 62be2361da29505d3183da854f1c98d2e208e852.
-
-This pick was applied without its upstream prerequisites (commit
-fa79a596848f "selinux: use u16 for security classes" and commit
-18fa21f10d00 "selinux: more strict policy parsing") and is therefore
-incomplete. Drop it here; it is re-applied later in this series in the
-correct upstream order.
+This reverts commit 3683f35c14816f827a80e217072018eb6c37422e.
+NOTE the commit revert the commit in stable-rc/linux-6.18.y
 
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- security/selinux/ss/policydb.c | 3 ---
- 1 file changed, 3 deletions(-)
+ security/selinux/ss/policydb.c |  5 ++---
+ security/selinux/ss/policydb.h | 10 +++++-----
+ security/selinux/ss/services.c |  2 +-
+ 3 files changed, 8 insertions(+), 9 deletions(-)
 
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index fdb8a62da04ad..69c19ef4b8817 100644
+index 37e0735b0dc8d..fdb8a62da04ad 100644
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -1168,9 +1168,6 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	rc = symtab_insert(s, key, perdatum);
- 	if (rc)
- 		goto bad;
--	/* indexes an nprim-sized array in security_get_permissions() */
--	if (perdatum->value > s->nprim)
--		goto bad;
- 
+@@ -951,7 +951,7 @@ int policydb_load_isids(struct policydb *p, struct sidtab *s)
  	return 0;
- bad:
+ }
+ 
+-int policydb_class_isvalid(struct policydb *p, u16 class)
++int policydb_class_isvalid(struct policydb *p, unsigned int class)
+ {
+ 	if (!class || class > p->p_classes.nprim)
+ 		return 0;
+@@ -2042,8 +2042,7 @@ static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp
+ 	struct filename_trans_key *ft = NULL;
+ 	struct filename_trans_datum **dst, *datum, *first = NULL;
+ 	char *name = NULL;
+-	u32 len, ttype, ndatum, i;
+-	u16 tclass;
++	u32 len, ttype, tclass, ndatum, i;
+ 	__le32 buf[3];
+ 	int rc;
+ 
+diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
+index a49275d1168d8..89a180b1742fb 100644
+--- a/security/selinux/ss/policydb.h
++++ b/security/selinux/ss/policydb.h
+@@ -48,7 +48,7 @@ struct common_datum {
+ 
+ /* Class attributes */
+ struct class_datum {
+-	u16 value; /* class value */
++	u32 value; /* class value */
+ 	char *comkey; /* common name */
+ 	struct common_datum *comdatum; /* common datum */
+ 	struct symtab permissions; /* class-specific permission symbol table */
+@@ -82,7 +82,7 @@ struct role_datum {
+ struct role_trans_key {
+ 	u32 role; /* current role */
+ 	u32 type; /* program executable type, or new object type */
+-	u16 tclass; /* process class, or new object class */
++	u32 tclass; /* process class, or new object class */
+ };
+ 
+ struct role_trans_datum {
+@@ -139,7 +139,7 @@ struct cat_datum {
+ struct range_trans {
+ 	u32 source_type;
+ 	u32 target_type;
+-	u16 target_class;
++	u32 target_class;
+ };
+ 
+ /* Boolean data type */
+@@ -195,7 +195,7 @@ struct ocontext {
+ 		} ibendport;
+ 	} u;
+ 	union {
+-		u16 sclass; /* security class for genfs */
++		u32 sclass; /* security class for genfs */
+ 		u32 behavior; /* labeling behavior for fs_use */
+ 	} v;
+ 	struct context context[2]; /* security context(s) */
+@@ -322,7 +322,7 @@ struct policy_file {
+ extern void policydb_destroy(struct policydb *p);
+ extern int policydb_load_isids(struct policydb *p, struct sidtab *s);
+ extern int policydb_context_isvalid(struct policydb *p, struct context *c);
+-extern int policydb_class_isvalid(struct policydb *p, u16 class);
++extern int policydb_class_isvalid(struct policydb *p, unsigned int class);
+ extern int policydb_type_isvalid(struct policydb *p, unsigned int type);
+ extern int policydb_role_isvalid(struct policydb *p, unsigned int role);
+ extern int policydb_read(struct policydb *p, struct policy_file *fp);
+diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+index cbc101b095a30..82608b34260fd 100644
+--- a/security/selinux/ss/services.c
++++ b/security/selinux/ss/services.c
+@@ -3290,7 +3290,7 @@ static int get_classes_callback(void *k, void *d, void *args)
+ {
+ 	struct class_datum *datum = d;
+ 	char *name = k, **classes = args;
+-	u16 value = datum->value - 1;
++	u32 value = datum->value - 1;
+ 
+ 	classes[value] = kstrdup(name, GFP_ATOMIC);
+ 	if (!classes[value])
 -- 
 2.30.2
 
