@@ -1,36 +1,36 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643EC3126C2
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:15:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F4441DDE5
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858141; cv=none; b=NZwFTIYXaxiYwtdclAuBcvdC6oBcycWMwi5+aY4h560SOS+e93Wi71i90vFK2AE97wpV4COHSH5qTwcK0b11lemUciygDVFyWNIY6Q7ZVr8RmRTB+h7ZpyFFLBg4t3Mwze5CdRAqrkNMxFa/o/1YT8EryLUS7cVj6k7xzioH5T0=
+	t=1787858161; cv=none; b=Y/1/ZPDO+0H2f8WNjAyFa6wlqRzYcC8P+DEsIa9LTjUjiyoGuqMhOeJ8wxQN65ZpUGoHYaLG3kaL4eAAtFukdCXoqOAPoSIXNCSwWkEDKF5EuQaM2C7xZeezy9jJkEu2FuTt/Tod/vHccEuE4ujQGk4OXtqSY0mFOOwcwbGWjC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858141; c=relaxed/simple;
-	bh=9JpC01dmcCz9H/ptklHW8D9XXq6/qu2NBP+XEOSLXpU=;
+	s=arc-20240116; t=1787858161; c=relaxed/simple;
+	bh=6FGiplFS0PDPmhzOGWvwT2A0VHqpdcx456DsSKjTm/o=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SVfwdMeo01CPxl3Re5rMI53t7zmU9qI4p4c0TSQqutiaWFXyDSFaCUZGOjD4Qt2qN5S632n9HNgWayudfuYDpDcCy6g5zPd0HkdiFwcw/3VQoSs/vFYO5NDZfMDQ2AjoLDL/RFhcRDE0XjxAABsDKT6VlQIiU5WpunNaKj2treg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=W4G84Wox; arc=none smtp.client-ip=54.254.200.128
+	 MIME-Version; b=nhXFBKlBziaiaVGro8Ep7IGTmW931uY88onlg3dtUC9lGzbSvZm/GT8FVqCYmLKvaIxu9OiLbu+RmbnWSxLmqQsqKIRzPXejkum2dd3G7iAxydBrrU68rm4EzIvgnItUSUcMoqvpK0LSyCmtZhsdv9Cf3VTQRLtNp6i3wfS1Jlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ZX2c+84i; arc=none smtp.client-ip=18.169.211.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="W4G84Wox"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ZX2c+84i"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787858100;
-	bh=LQXQgl0+UFfsoBQai4g+76Bq2QEkECCmKI5qmvT1xi0=;
+	s=onoh2408; t=1787858116;
+	bh=SAUzBYq9taxXghTxKxGoz4mGITjhJTIVae+/V3Xb5dU=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=W4G84Wox4Ec+tsJf1n+vDA1MO9E4xBEK9/Wm7eevU69n0FzYqQPAq8Pb1w1Uy8tO0
-	 qx9GF+Z9WI3BtzgrVu9vk9MyQcpEQKaAzFroJgTgS85Fiz1ZtXBT1q1fFZj/cF5g4B
-	 wuIIfJTJ+J3ks6LmmL19yPgyeT1NPJNzJckNl5HY=
-X-QQ-mid: esmtpgz15t1787858082t991fac4e
-X-QQ-Originating-IP: l4AM1v2YOlzIiCZLGMlYTFub1rURN8v0tqLnKehOU8A=
+	b=ZX2c+84ib4Z8ptTnoCXbWD1PDekw/RZWv3YawXEARlct+Gp8kWEExnDDHQWHCRAGi
+	 o3troH1Uze0URJb+ycIjFbCreO/cblXD/u8G/QbgxgtKzs/bJiKksCXh8LaAxOzlOV
+	 qh5QkXd8DneFfKDgoZ//uikdp+n887urr+DkYKN8=
+X-QQ-mid: esmtpgz15t1787858097tfd018a9c
+X-QQ-Originating-IP: 73ZAEjuy+9WcmhEsSN0wC6JAMWIgB12ydY6U7KVAoes=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 28 Aug 2026 03:14:32 +0800 (CST)
+	id ; Fri, 28 Aug 2026 03:14:45 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5757795152073921487
+X-BIZMAIL-ID: 1701920421467550347
 EX-QQ-RecipientCnt: 7
 From: Wentao Guan <guanwentao@uniontech.com>
 To: gregkh@linuxfoundation.org
@@ -40,9 +40,9 @@ Cc: guanwentao@uniontech.com,
 	sashal@kernel.org,
 	stable@vger.kernel.org,
 	Stephen Smalley <stephen.smalley.work@gmail.com>
-Subject: [PATCH 6.12.y 6/7] selinux: reject a permission value exceeding the class permission count
-Date: Fri, 28 Aug 2026 03:13:22 +0800
-Message-Id: <20260827191317.18119-7-guanwentao@uniontech.com>
+Subject: [PATCH 6.12.y 7/7] selinux: require a class's permission values to cover its permission count
+Date: Fri, 28 Aug 2026 03:13:24 +0800
+Message-Id: <20260827191317.18119-8-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260827191317.18119-1-guanwentao@uniontech.com>
 References: <20260827191317.18119-1-guanwentao@uniontech.com>
@@ -55,66 +55,172 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NEJQrEAwC9KXTHeBHfHCn5p14JCtadAIiUuX5bdhssqOwFts9kMnr+Qg
-	cYVbYP3AF8XT4+wKcvx7qeYjkHQc95r5jWNcWmUluQT8/PBmDnewfT2li8vr4B1QxG4fhZO
-	e3A0DNvzzErmp8kh8U8yWCbPBQYoxTFs+Kgx4vow8tUmiIeC8mo8vwxhPDbK5vurakyKwoX
-	nUD6JDSKAlDzwqApKqVj0dEZRn/9rQIng4OjBNR3GjN3G8wXPmciyI95JGorPBIcoXgSWTj
-	TRCbHRrhAvQfRuHEQdExyRMDyZ8pwyo05ab3JlRn30iQvbVrG8pxW3J4ncHIVvEomUFDH3J
-	Tlyuh7azPD+vBQY4FZQdHmcawMPeEZNZ738NdkUKPmPyR1foPqdKIzd4SdLcnGSTNjn11Nd
-	IfZ7R50Cz+Y9rToOyvLhI2ibu/8bk8Xv0UtqIqa42genh35WeV1lQx6hpwomnAC9cpTz4bA
-	Du6xrmq1EnohkB+Fejp3YhVpa0X1fdGc2YkKTseR9e7kFg8gG1viQEDU+JBkceaxlDaIVF7
-	jxkgXQKOxb82isHuQ0CCDJ14whlwrdorNql6U3VNNr2b2yII/sdCunk7iYaq928lvUnJ5Wx
-	5dwXsxMpk4Iv0SIK2H6QM0lzofFDtrZ0RwjbvTcvDPRrlOeblDSmtZIabDs+Z6puy9vUfh6
-	oXRBE0UqSLHXordAUy8oe7VsETEBXKNYUhc1qDJi6ALAq7mQGtDmayyqEMe8uA8biDdyDgd
-	JVuZSu98A1GzataSK6li3kxZXorXVIYdLJ4KvM/AZMs/+KIRDDARNrTLLNKrvqUJKmTBwRz
-	wrmGYmpHJUz22oUrWg/lLiW1ff2pzEwM+Mb7ttRifMPi0tAEiLchPf3EJWHM2PP0ShEPOvg
-	8lHc/tlBdd1LHGq2yiTKIknaa0+i6mI8ItCt8Cp3FEBG+NonEqZnnFLrNDPxMzxIuRrrmGX
-	qI69ZfVaM/XFQhK2NKc3HKrl2ZUduM0mZCh+v9wmGp/eyTKz8XkMgPugZeMIZS5cnvPNAtL
-	HlplpUDVvkAZw+TzLVN3rN6ccT2EYp4tCLnbbfmJIt4GOWF70JrUKhvOIZ4/7qMIEex3rQm
-	l+gxxAH/hkTlCcudNtALD50VGFZAfzJizB5QyYwl8b/MYsHpyVFu7lsGPxHtWBO7tf4Z1qe
-	tCKiN8mzn2a221uo986owb+YfcGcCMWzGzIU
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-XMAILINFO: MLTNW9da3g2Os9Xpq2RPcKeSne5ayBhjYaHuFZKN+9TIA4EF8SdA7pFt
+	xRUB5dZP7qCL9qTSQhXHaTB70jkSiynS7MEo2aOctxlJ9xKxnMl0y+XFK+/yRiJVd5qM3n6
+	I8vUQrwyLEzm4lSpxsieyxRKu6Piy3pQFXbGsT3g0kGhkTgpjayKFiIlbEd8N4cHLhGUbBh
+	fBQg0OUtpKhIyboImevjqQumyxkssU444WSwwxlr5Tb1uvX8OVGx+4D46AtWAL/gwD1k62i
+	RdKTl5ib2iRCdjorvc1EEZ2hH0ljU1y22Mxnewl5y/OkUV2Zxcil6QJp/ZdDYCkokiwDqp8
+	JP5XdqMTQEOf7k29GS3axEN5BBU5vhAhFwvXchKchpZIpG30L4/1tglFnHWhcNFotPkfmdG
+	6Mc+BE0W3bKW4t8+g07uUNdiNZoI8SWw7K8gcmGH2itqbFXIqwo6iXlqg4K4YbwzZTf1voG
+	s01T0OLnpysG5Wlj+InLXXrPScu16O1xg7okFO5FE0qSPL1PaAro82QyrRNMZs4PXuIDkTl
+	ITqHoZX5j0u3ssEqGbfI3pDjtlgTa4XtSayh0s56ncPXGcSyngnvBwohw0hKa6OQLq0o+OL
+	Vw1Rl4n9vh81Uj0v0VkQtjNcc0+M3M9WPg2sC5sWQDQGiKo7YbukMz9eVO66Gv2SA7whJeE
+	GryAV5T24OuE3XgCno5LvqbwO9MexAKQ9bSaWTV5P7qtnn0mF1lGKQzQ0TBMkEp4/mfYmXO
+	6ZRYRrtOjFWqRG9UYmGDfQWr9ivfS1ckHmtYRiGjAxtJWhHQz/bXCuoq4xl33QBk9SPR9Qd
+	qbUxBfZEYwlo75+9UYTF1lNW0M3ryDnBaHi7V7VyOYp3IcoTT/fWpGTwdxMUIFJV42jdgw2
+	1rZqFQcUlYYH4VAvSX5xfhW6RCyobtXxObtZku6vLWpJgiWLzuGONFdafHqrRMLZXYKv7tr
+	n6L2D1kz3c5LnPjy6/ge+2FPf/qYdlNMHzrO8rbJ3tuSvJKOvADciWiv/GWGOig21jiQKoD
+	pERTHSiOiV+8tvatLM6US5vBrwIpmzDWYjTAqZs4RCaK4mkU7k44IGvAIP/1df/1nTS39sK
+	EZhZKoLKHpytZUBR1s+q4RxFWEAO3DnWpkbaq+H64hleUjOGB9/zBzmivipct4QK8ZRUPwy
+	8MTZBFaLDAPstbg7/hsJANcTpQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 X-QQ-RECHKSPAM: 0
 
 From: Bryam Vargas <hexlabsecurity@proton.me>
 
-perm_read() bounds a permission value by SEL_VEC_MAX but never by the
-nprim of the owning class or common, which is taken verbatim from the
-policy image.  security_get_permissions() then writes perms[value - 1]
-into an nprim-sized kcalloc() array, so a class declaring fewer
-permissions than its largest permission value drives an out-of-bounds
-heap write.  The top-level symbol tables are validated this way; the
-nested per-class permission table is not.
+security_get_permissions() sizes an array by the class's permissions.nprim
+and fills it at value - 1, from the inherited common's permission table and
+then the class's own. A value no permission defines leaves a NULL that
+sel_make_perm_files() passes to d_alloc_name(), an oops inside
+sel_write_load() that strands selinux_state.policy_mutex and leaves every
+later load in uninterruptible sleep; two permissions sharing a value
+overwrite the first kstrdup(). Bounding each value by nprim catches
+neither, and neither would a count: the symbol table is keyed on the
+permission name, so duplicates pass.
 
-Reject a permission whose value exceeds nprim, which is already set when
-perm_read() runs.  Well-formed policies are unaffected.
+Track the values each permission table claims and require them to cover
+exactly what its count declares, rejecting a count no value can reach.
+Conforming policies are unaffected.
 
 Cc: stable@vger.kernel.org
 Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
 Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-[PM: tweak comment for line length]
 Signed-off-by: Paul Moore <paul@paul-moore.com>
-(cherry picked from commit d14b5d0e97fccd27974fedc03b903408872907fd)
+(cherry picked from commit b98a8ac50775540f3804397ed08f61ef9910bcab)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- security/selinux/ss/policydb.c | 3 +++
- 1 file changed, 3 insertions(+)
+ security/selinux/ss/policydb.c | 51 ++++++++++++++++++++++++++++++----
+ 1 file changed, 46 insertions(+), 5 deletions(-)
 
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index f93b10ce19652..3dc6d3057a89a 100644
+index 3dc6d3057a89a..9df804f8625fd 100644
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -1148,6 +1148,9 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	rc = -EINVAL;
- 	if (perdatum->value < 1 || perdatum->value > SEL_VEC_MAX)
+@@ -1127,7 +1127,18 @@ int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
+ 	return 0;
+ }
+ 
+-static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
++/*
++ * Bitmap of the permission values a symtab has claimed.  Values are 1-based
++ * and bounded by SEL_VEC_MAX, the width of an access vector, so the whole set
++ * fits in a u32 and the callers reject an nprim past that width.
++ */
++static u32 perm_claimed_mask(u32 nprim)
++{
++	return nprim ? U32_MAX >> (SEL_VEC_MAX - nprim) : 0;
++}
++
++static int perm_read(struct policydb *p, struct symtab *s,
++		     struct policy_file *fp, u32 *claimed)
+ {
+ 	char *key = NULL;
+ 	struct perm_datum *perdatum;
+@@ -1151,6 +1162,10 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
+ 	/* indexes an nprim-sized array in security_get_permissions() */
+ 	if (perdatum->value > s->nprim)
  		goto bad;
-+	/* indexes an nprim-sized array in security_get_permissions() */
-+	if (perdatum->value > s->nprim)
++	/* two permissions cannot share one slot of that array */
++	if (*claimed & (1U << (perdatum->value - 1)))
++		goto bad;
++	*claimed |= 1U << (perdatum->value - 1);
+ 
+ 	rc = str_read(&key, GFP_KERNEL, fp, len);
+ 	if (rc)
+@@ -1171,7 +1186,7 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
+ 	char *key = NULL;
+ 	struct common_datum *comdatum;
+ 	__le32 buf[4];
+-	u32 i, len, nel;
++	u32 i, len, nel, claimed = 0;
+ 	int rc;
+ 
+ 	comdatum = kzalloc(sizeof(*comdatum), GFP_KERNEL);
+@@ -1193,17 +1208,28 @@ static int common_read(struct policydb *p, struct symtab *s, struct policy_file
+ 	if (rc)
+ 		goto bad;
+ 	comdatum->permissions.nprim = le32_to_cpu(buf[2]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
++	rc = -EINVAL;
++	if (comdatum->permissions.nprim > SEL_VEC_MAX)
 +		goto bad;
  
  	rc = str_read(&key, GFP_KERNEL, fp, len);
  	if (rc)
+ 		goto bad;
+ 
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &comdatum->permissions, fp);
++		rc = perm_read(p, &comdatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
+ 
++	rc = -EINVAL;
++	if (claimed != perm_claimed_mask(comdatum->permissions.nprim)) {
++		pr_err("SELinux:  common %s does not define every permission it declares\n",
++		       key);
++		goto bad;
++	}
++
+ 	hash_eval(&comdatum->permissions.table, "common_permissions", key);
+ 
+ 	rc = symtab_insert(s, key, comdatum);
+@@ -1339,7 +1365,7 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 	char *key = NULL;
+ 	struct class_datum *cladatum;
+ 	__le32 buf[6];
+-	u32 i, len, len2, ncons, nel, val;
++	u32 i, len, len2, ncons, nel, val, claimed = 0, inherited = 0;
+ 	int rc;
+ 
+ 	cladatum = kzalloc(sizeof(*cladatum), GFP_KERNEL);
+@@ -1367,6 +1393,10 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 	if (rc)
+ 		goto bad;
+ 	cladatum->permissions.nprim = le32_to_cpu(buf[3]);
++	/* no permission value can reach a slot past SEL_VEC_MAX */
++	rc = -EINVAL;
++	if (cladatum->permissions.nprim > SEL_VEC_MAX)
++		goto bad;
+ 
+ 	ncons = le32_to_cpu(buf[5]);
+ 
+@@ -1401,11 +1431,22 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 		}
+ 	}
+ 	for (i = 0; i < nel; i++) {
+-		rc = perm_read(p, &cladatum->permissions, fp);
++		rc = perm_read(p, &cladatum->permissions, fp, &claimed);
+ 		if (rc)
+ 			goto bad;
+ 	}
+ 
++	/* the class's own permissions must claim the slots the common leaves */
++	if (cladatum->comdatum)
++		inherited = cladatum->comdatum->permissions.nprim;
++	rc = -EINVAL;
++	if (claimed != (perm_claimed_mask(cladatum->permissions.nprim) &
++			~perm_claimed_mask(inherited))) {
++		pr_err("SELinux:  class %s does not define every permission it declares\n",
++		       key);
++		goto bad;
++	}
++
+ 	hash_eval(&cladatum->permissions.table, "class_permissions", key);
+ 
+ 	rc = read_cons_helper(p, &cladatum->constraints, ncons, 0, fp);
 -- 
 2.30.2
 
