@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446EE1B4223;
-	Thu, 27 Aug 2026 06:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C4349362B;
+	Thu, 27 Aug 2026 06:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810789; cv=none; b=REXeBLKwCoUIFCRWkhJpuYvYFIkkKaWEa3BWYh8RMpSXcfFnXO8/N0huyMgAKssJU3alrrFivNsZLd1AUTMtxcR0+txvi3DmJBl+bqD07wrNvfClrQKE0a//viVvtfmEsjt9wo3ByDUs9rzdUTw7exxevIyVyuhfMSFPRc53FNE=
+	t=1787810790; cv=none; b=VfJFBoKcXyhVI+fl/a59ZNfXMHFMIceYqCbvYR0Hu3p2wqY2j9VNWSsPcQJ75LxXLyz3IV1fj+BCHMVWV8MZ4eIZy7fnMxZ0f2mfz4hhK0AVwdP9aOybyuzSbBQZpDAdrg9n5pBrINkNcEbrA2G4LJZIV6bUQU1EvJZqmc6yTRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810789; c=relaxed/simple;
-	bh=9BuPj2Q6nnqmomxr5ojIWuAlLQGEjeEupTUTB2nIRY8=;
+	s=arc-20240116; t=1787810790; c=relaxed/simple;
+	bh=2lgJVWDLJSRQTDln7hZ5jKmiXAVgwNTHvtaG7S34XZE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mfz3j4esKR95qDumhyZcnEftfU+gJhVCCTzr6YMu5QLqpY5F+/Mk5uPdXCHu3SG1c4B9EOImkxqEK+QgYG1ErkfM202DTAJNLSqbSa0NZjqVOoOs3dypKcKTVMKAQQq3hrcC0DsmSvvbPvZ5yG8wGfVLhZX/HbRpbcXlg/oRKqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SAjoJuRP; arc=none smtp.client-ip=220.197.31.4
+	 MIME-Version; b=hnE0dxsJWAyHcOLrhrPFN+ueTDBJs4sDUyEbm33x8uvy5xfZByGGAQzGoAtXAm7Tt2laNGG4ZFME3ZjzGjfpw0jJfFcTesLFfUYCy917kDhg6FW/kMy9zRoi4DoKXEFicfroyQQ3f6z/TbCvVGotK5pEkwqDv43F/tLCKwTHrnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dIsr/un7; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SAjoJuRP"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dIsr/un7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wa
-	CNnpILeDgl2UscKzIFsRiLjz7qOYqJMN3bvwNOKRo=; b=SAjoJuRPtHadpTReHu
-	+2V7XUOxTsUHWuB32YQXsi/sH+ieyfS4BkWE+0XuSGOQJuKTmV1osXptlK6AGHSM
-	GtWIDsu5cBKRsSJHh2n+Wh95zebbEAsbjcGCfDHWMHPSRbYI/FMHSgsmgXTUvTEv
-	Qt9sQD4Bz5FRL9DPfPniPyuiE=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kF
+	XxZJ9VVh7dL52uS7/oN/owmsUDo+btzoy5sSb0lOE=; b=dIsr/un7qiogKeFSki
+	Gt8+QPLhpk/1j5d+eJu1/eQluQdvxfOe5UrW+hXXUfwtSrI9sxgObVNSiU+K6uAh
+	DAl6uOqC/jjDXlFNvqqd80SsMR/pTOKAgasmxVNaGsCq18F/J+OajraWonxG1G0z
+	LDibWqh7StVz4G5qRXbYGV6aI=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyvF049q9Y7gOQ--.42204S3;
-	Thu, 27 Aug 2026 14:05:59 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyvF049q9Y7gOQ--.42204S2;
+	Thu, 27 Aug 2026 14:05:58 +0800 (CST)
 From: ghuicao@163.com
 To: Song Liu <song@kernel.org>
 Cc: Yu Kuai <yukuai@fygo.io>,
@@ -34,13 +34,12 @@ Cc: Yu Kuai <yukuai@fygo.io>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2 2/3] md/raid5: fix leak and use-after-free in resize_stripes error path
-Date: Thu, 27 Aug 2026 14:05:53 +0800
-Message-Id: <20260827060554.77849-2-ghuicao@163.com>
+Subject: [PATCH v2 1/3] md/raid5: set pool_size before extra_page allocation to fix leak on error path
+Date: Thu, 27 Aug 2026 14:05:52 +0800
+Message-Id: <20260827060554.77849-1-ghuicao@163.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827060554.77849-1-ghuicao@163.com>
+In-Reply-To: <20260827023803.36602-1-ghuicao@163.com>
 References: <20260827023803.36602-1-ghuicao@163.com>
- <20260827060554.77849-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,88 +47,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBnFyvF049q9Y7gOQ--.42204S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCryUuryDCF1ktFW8CF13twb_yoW5Xw48pr
-	W3KFs3Z3WUW3s3twnrCw48uF1fG3yvqFWrGFya9w4vvFs8Kr10yr1rKrWDWryjyrn3tay2
-	qFZ0q395JF1vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-a93UUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4AekN2qP08cChAAA3D
+X-CM-TRANSID:PygvCgBnFyvF049q9Y7gOQ--.42204S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tryDXFy3Zw47uF4fZFyxXwb_yoW8Ar1Upw
+	srWw1Yg345WryrGry7C3y8uF1rtw40qrWxCFW5W3yqvr9Iqr9agF4rXa4YgrWkAFnakayj
+	qFZ0yrs8Jry5taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joBT5UUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-AakN2qP08aQpwAA3u
 
 From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-resize_stripes() has two issues in how conf->disks is replaced:
+In setup_conf(), conf->disks is allocated with max_disks slots and
+extra_page is allocated for each slot.  However, pool_size remains 0
+(uninitialized from kzalloc) until grow_stripes() sets it later.  If
+any allocation or initialization between the extra_page loop and
+grow_stripes() fails and jumps to abort, free_conf() iterates
+pool_size (= 0) times and skips the extra_page freeing loop entirely,
+leaking max_disks pages.
 
-1. Memory leak: conf->disks is replaced with ndisks in Step 3, but
-   pool_size is only updated at the end with "if (!err)".  If Step 4
-   (allocating pages for new stripe slots) fails, pool_size retains the
-   old value.  On teardown, free_conf() iterates only pool_size entries,
-   leaking (newsize - pool_size) extra_page allocations.
+Set pool_size to max_disks right after the disks array allocation
+succeeds, so that free_conf() correctly frees all allocated
+extra_page entries on any error path.  This is safe because:
 
-2. Use-after-free: conf->disks is freed and replaced without holding
-   mddev->lock, while raid5_status() (called from /proc/mdstat via
-   md_seq_show) reads conf->disks[i].rdev under mddev->lock.  The
-   freeing and replacement happen under reconfig_mutex and
-   cache_size_mutex, which do not exclude mddev->lock holders.
+- If kzalloc_objs(disks) fails, pool_size stays 0 and free_conf
+  skips the loop (kfree(NULL) is safe).
+- grow_stripes() later sets pool_size = devs, which equals max_disks,
+  so the early assignment does not change the final value.
+- resize_stripes() only updates pool_size on success and reallocates
+  the disks array in lockstep.
 
-Fix both by deferring the conf->disks replacement until after Step 4
-succeeds, and performing the pointer swap under mddev->lock so that
-concurrent readers in raid5_status() see either the old or new array,
-never a freed one.  If Step 4 fails, ndisks is freed instead.
-
-This also preserves the original retry behavior: pool_size is only
-updated on full success, so check_reshape() correctly calls
-resize_stripes() again on retry.
-
-Fixes: ad01c9e3752f ("[PATCH] md: Allow stripes to be expanded in preparation for expanding an array")
+Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
-
-Changes in v2:
-  - Defer conf->disks replacement to after Step 4 instead of setting
-    pool_size early, which would break reshape retry logic (Sashiko)
-  - Add spinlock protection around the pointer swap to fix a concurrent
-    use-after-free in raid5_status() (Sashiko)
-
- drivers/md/raid5.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ drivers/md/raid5.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
 --- a/drivers/md/raid5.c
 +++ b/drivers/md/raid5.c
-@@ -2639,9 +2639,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 				if (ndisks[i].extra_page)
- 					put_page(ndisks[i].extra_page);
- 			kfree(ndisks);
--		} else {
--			kfree(conf->disks);
--			conf->disks = ndisks;
-+			ndisks = NULL;
- 		}
- 	} else
- 		err = -ENOMEM;
-@@ -2685,8 +2683,20 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 	}
- 	/* critical section pass, GFP_NOIO no longer needed */
+@@ -7732,8 +7732,9 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 	conf->disks = kzalloc_objs(struct disk_info, max_disks);
  
--	if (!err)
-+	if (!err && ndisks) {
-+		struct disk_info *old_disks = conf->disks;
-+
-+		spin_lock_irq(&conf->mddev->lock);
-+		conf->disks = ndisks;
-+		spin_unlock_irq(&conf->mddev->lock);
-+		kfree(old_disks);
- 		conf->pool_size = newsize;
-+	} else if (ndisks) {
-+		for (i = conf->pool_size; i < newsize; i++)
-+			if (ndisks[i].extra_page)
-+				put_page(ndisks[i].extra_page);
-+		kfree(ndisks);
-+	}
- 	mutex_unlock(&conf->cache_size_mutex);
+ 	if (!conf->disks)
+ 		goto abort;
++	conf->pool_size = max_disks;
  
- 	return err;
+ 	for (i = 0; i < max_disks; i++) {
+ 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
+ 		if (!conf->disks[i].extra_page)
 -- 
 2.34.1
 
