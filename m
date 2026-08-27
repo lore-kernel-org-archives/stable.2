@@ -1,170 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740C54DBD6B;
-	Thu, 27 Aug 2026 19:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F7A41BA61
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857657; cv=none; b=LdskBy5/8X/sTEd1g0N0qn10HBY5CXDzBssblH6oXdQVhz9Io1IACRom/ExHnnOWbsxTzMd3De+sTWaHRn6ZxqDxURC+yObSdOmtDA5huNzymSAo5vFjVo7ZI3zvFGVphWUJQBzdjij6K2H3nN/3YcWPpAiZA1Y7YzHXbFC3JA0=
+	t=1787858049; cv=none; b=SAp3Y7BFYX5mAb6TdAevxl80lfF37i5JKKytHKTNDiz0l4UNLHp1NqGBUYfEvLcB1uks3rDMw/OArvpWtoBAHjoy9haxFLApVfog6iCS8aIwqWZ+0AeFIuz5RXM77j17qivNTZg6UaCHzGRSfHL+WmefBTY4GcDV+z3/qi4Oa7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857657; c=relaxed/simple;
-	bh=KkdxcIZKprn2SFoi+QLVfX4qZUuOLk0CJyhIUgbyh8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AoOhXcwaAfwGgcsMl8XNxZvJdobrcEika1jJbfboimpjZDFYB44FbIf5WXKFTSREtdgE8tVLuTi0kNKE/+6Y/3MkOi3o6OKc70gZhY2xEsPqgH4Ug7PqdsvIcXFO+AClgc9a0/cGr8BaKzN9q+iIA+uW/PsFHhnQQjRYkCu1sCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Si0YVzBe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787858049; c=relaxed/simple;
+	bh=fv288bfpPP2vb/wKLjyXyeFBiEZdm2rpRgZVgXItemY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=WJ2/4Xou0d6ypJ0SpFnI49sZYf4euye0abhYORIBtJd6z+++6xdA1SLqz5qtJV15tDkIZpyLLi8IxJ3nTXBSSCghmkc+wRiEU5yzfysh1OgMmbHNt1N9oo9PpsBJnB/AbFT2q56V9Knjdi8f/3vEKVr/OVAt6bN8Y2Kte7nzXC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=VM8b3Bn9; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Si0YVzBe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE671F000E9;
-	Thu, 27 Aug 2026 19:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787857649;
-	bh=C8VpFOlmPgffnFEeX8nl5YuUn5qSwQ0vYhndKu61bvY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Si0YVzBe90Bo6kyWp/sK37715ykrLbOvSo9HnYmzKA1AsiW9+q2MVkNvKF15JfvlZ
-	 fxFmCyLimA9VAxgypmcWkd3UHi/h+iXgGUqdoXjgmrZy6iVSyVG7Xdpe50una8VkuJ
-	 Wrg+1YnxWa06CsET/F1QTK6yYmSqKpHzG0QRn/XHEAEewbVvmBJGO/ykHyyTbUCuh8
-	 lRXBy+Njms89v9AloiHGZRrB41X2ljpUrIsbuAF0Rj6TvDQ2DboED7gBIo6AyhJw5Q
-	 gwbnd2dOeDiRFNR28O+EK5r+Q0QpW5jLEn6O3U8Ozoq547ul3jEecLUaXp245+FVg/
-	 WMiODP8DUE58g==
-From: Jakub Kicinski <kuba@kernel.org>
-To: matttbe@kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	martineau@kernel.org,
-	geliang@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="VM8b3Bn9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787858007;
+	bh=MiP66az1ZbIx12zB1/VBIL6a2SdjBxPDU5WuWqVcJcE=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=VM8b3Bn9/KHHl/hEefpvXzpawl84E8ZyFkzbmzstk70sEPBb37JHEdb4mKOy3J35S
+	 UCPO119oi7uwJe+ShDQMVjcF+lhVzMC693xUndiOQiDitmz71i/HX3vwuqa/GjPtUN
+	 IbuMIWRK2HpI8zCt8Ont3zXIbZ8udCMgSbPMIlnw=
+X-QQ-mid: esmtpgz15t1787858001td12925d6
+X-QQ-Originating-IP: t+A6z3UCWrBW/a43jQ/zo6Ogjsrs3oZ5dk3N/M8cdAM=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 28 Aug 2026 03:13:20 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7827614739459102309
+EX-QQ-RecipientCnt: 6
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: guanwentao@uniontech.com,
+	hexlabsecurity@proton.me,
+	paul@paul-moore.com,
+	sashal@kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net 08/14] mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
-Date: Thu, 27 Aug 2026 12:07:28 -0700
-Message-ID: <20260827190728.3998323-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-8-a92309d121ca@kernel.org>
-References: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-8-a92309d121ca@kernel.org>
+Subject: [PATCH 6.12.y 0/7] Backport bugfixes for selinux
+Date: Fri, 28 Aug 2026 03:13:10 +0800
+Message-Id: <20260827191317.18119-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MRgdQjHFXWe69plgssvUs7+kdWKLjbCOUJJiY/eS70ASuNPsOzT9qRTQ
+	IZqymZiP6Pu7jLaaNTEsWgG3hh2oPmgw2gjv57O8lIyi7CUsxTWtOhbjbbqd3tvZrYaoFo5
+	aO0fJ9QJUfK91Xs0HBcfxavUr5kpHIWHJROD5pViUhCyL8CnMQAtjv7Dw6xuCN6efakZvGs
+	9INmOAsdZ9ML4/M9aTXvU81wI/zboxvuRzw+aRvcOGv3Ie8cofEBcN3XRN9RwcEhH4z2u+7
+	3HGJNfnS4vXnYI1z30ChHqcSvtQgwwPSoM0OZ1ZPsSRk/GWZ1hrJXeape/iJWXspfvAOrFe
+	+5h4QiHgpomJFl7ofCzBRcj/6Yp+n93Vnk4jfLx0sI7fBHmgW/hE2PHZjNX9iXIiW8vH2Qe
+	4bpU8ycFgFsnHJGK1oQS+qvWl8Q4bHhCOIt8Qj2F3U0ZZoyTcbO70TqUGL6xCP8XJAKadVf
+	ruZPrfCJDs31vgYrGhTm4VkESHhN2moGLC5z/DnCwq63jhMQmTxY60mWDrVRovwk8L0mfmX
+	dvztWNeuenJm71iKfts28xtwr75W8cRzyakL3GPGqP7CG+zs8DvNAc/2WPeeYD3L2AWueuH
+	SSUdDPLBZwCkt7IWLBmw5Vhb4aS9JC6gmYDZQL48PIKzjcsL1Rfp5Ir3+yfV0gceZHqKnyb
+	F9IeCS5hxTiXGB1iHu940287EQfcqu/WkuNjyqaNl51bg6qNQpZrIPTzA2iXFJMkHnzQWmM
+	BwQTR7rG6YAFBD1p4ddMwadNJooE6zG3+9jE90eYBTEC2ITLY3BF/UC37zknal1h6mnjXuM
+	l7UalpluB2j3/Ge320jAGg/q3aK1tCwF4016qgNHqBobCsNhtAQApdPn567216yTBO/Ie4h
+	gSf+jQ6SZpkOnA8JQHwNLw4Yt7N6TeDA1Y/prbFb1wNwtzFICIK8QrGXmoBZS3KWEFYLTMW
+	NaG6zq47Dcb4eU+uam3sQhIPEw9OQpMM4fQXLyAn5ILKNBLpGXqCult9iESzN+GoEBS65qs
+	1lS67O4Ud/Nz/5lyN8vGxLSMnln6A/FMR4mPmnGKsB4KqX0iU8M1C0X1VOH9PmvIzJ3WJE5
+	ghr2SpkKhQeSOLNR+EmKz4x3PTCtkTfMfhqGwRKoZNojvE0XPffV+FtGuCuz0poDI94mmzQ
+	emUW
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
+Backport "selinux: require a class's permission values to cover its"
+more cleanly, base on Sasha`s backport for 6.6 before to point out for 6.12.
 
-This moves the retrans_times reset from the fresh-allocation path into the
-shared reset_timer block of mptcp_pm_announced_alloc(), so a reused
-ADD_ADDR entry gets its retransmission budget back when the timer is
-re-armed.
+The only commit difference than upstream was
+("selinux: more strict policy parsing"),
+use trival way to resolve the conflict instead of change more:
+adapt sens_index() to this tree's pointer-based level_datum;
+drop the AVTAB_XPERMS_NLMSG case, netlink xperm support
+(d1d991efaf34 "selinux: Add netlink xperm support") is not present
+in this tree 
 
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664%40kernel.org?part=4
+Link: https://lore.kernel.org/stable/2026082735-footbath-absolute-3048@gregkh/
+Link: https://lore.kernel.org/stable/2026082021-tubby-passerby-6f34@gregkh/
 
-> diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
-> index 8b68868255c50..b0b71adefb8fe 100644
-> --- a/net/mptcp/pm.c
-> +++ b/net/mptcp/pm.c
-> @@ -462,10 +462,10 @@ bool mptcp_pm_announced_alloc(struct mptcp_sock *msk,
->  
->  	add_entry->addr = *addr;
->  	add_entry->sock = msk;
-> -	add_entry->retrans_times = 0;
->  
->  	timer_setup(&add_entry->timer, mptcp_pm_add_addr_timer, 0);
->  reset_timer:
-> +	add_entry->retrans_times = 0;
->  	add_entry->timer_done = false;
->  	timeout = mptcp_adjust_add_addr_timeout(msk);
->  	if (timeout)
+Bryam Vargas (2):
+  selinux: reject a permission value exceeding the class permission
+    count
+  selinux: require a class's permission values to cover its permission
+    count
 
-[Severity: High]
-This isn't a bug introduced by this patch, since the reset_timer block
-already contained the timer_done = false plus sk_reset_timer() pair, but
-since the patch adds another store into exactly this block, is the block
-sufficiently serialized against the timer callback?
+Christian Göttsche (5):
+  selinux: use known type instead of void pointer
+  selinux: avoid unnecessary indirection in struct level_datum
+  selinux: make more use of str_read() when loading the policy
+  selinux: use u16 for security classes
+  selinux: more strict policy parsing
 
-The reuse path runs from mptcp_pm_nl_announce_doit(), which holds
-lock_sock(sk) and msk->pm.lock:
+ security/selinux/include/security.h |   1 +
+ security/selinux/ss/avtab.c         |  43 +++-
+ security/selinux/ss/avtab.h         |  21 +-
+ security/selinux/ss/conditional.c   |  40 ++-
+ security/selinux/ss/conditional.h   |   6 +-
+ security/selinux/ss/constraint.h    |   1 +
+ security/selinux/ss/ebitmap.c       |   4 +-
+ security/selinux/ss/ebitmap.h       |   5 +-
+ security/selinux/ss/mls.c           |   6 +-
+ security/selinux/ss/policydb.c      | 375 ++++++++++++++++++++--------
+ security/selinux/ss/policydb.h      |  51 ++--
+ security/selinux/ss/services.c      |   8 +-
+ 12 files changed, 382 insertions(+), 179 deletions(-)
 
-net/mptcp/pm_userspace.c:mptcp_pm_nl_announce_doit() {
-	lock_sock(sk);
-	spin_lock_bh(&msk->pm.lock);
+-- 
+2.30.2
 
-	if (mptcp_pm_announced_alloc(msk, &addr_val.addr)) {
-	...
-}
-
-mptcp_pm_add_addr_timer() writes timer_done under bh_lock_sock() only, and
-its TCP_CLOSE early-out comes before the sock_owned_by_user() deferral:
-
-net/mptcp/pm.c:mptcp_pm_add_addr_timer() {
-	bh_lock_sock(sk);
-	if (unlikely(inet_sk_state_load(sk) == TCP_CLOSE))
-		goto out;
-
-	if (sock_owned_by_user(sk)) {
-		/* Try again later. */
-		timeout = HZ / 20;
-		goto out;
-	}
-	...
-out:
-	if (timeout)
-		sk_reset_timer(sk, timer, jiffies + timeout);
-	else
-		/* if sock_put calls sk_free: avoid waiting for this timer */
-		entry->timer_done = true;
-	bh_unlock_sock(sk);
-	sock_put(sk);
-}
-
-In TCP_CLOSE the callback reaches out: with timeout == 0 and stores
-timer_done = true even when a process-context task owns the socket, since
-lock_sock() only sets the owned flag and bh_lock_sock() still succeeds.
-The reuse path does not take slock and the callback does not take pm.lock
-around that store, so can the two stores interleave like this?
-
-CPU0 (MPTCP_PM_CMD_ANNOUNCE re-announce, msk in TCP_CLOSE)
-mptcp_pm_announced_alloc()
-    add_entry->timer_done = false;
-    sk_reset_timer()   /* timer becomes pending again */
-
-CPU1 (previously armed timer expiring)
-mptcp_pm_add_addr_timer()
-    bh_lock_sock(sk);
-    inet_sk_state_load(sk) == TCP_CLOSE -> goto out
-    entry->timer_done = true;   /* lands after CPU0 re-armed */
-
-That would leave the timer pending with timer_done == true, and teardown
-via mptcp_pm_destroy()->mptcp_pm_free_announced_list() skips the sync stop
-in that case:
-
-net/mptcp/pm.c:mptcp_pm_free_announced_list() {
-	list_for_each_entry_safe(entry, tmp, &free_list, list) {
-		if (!entry->timer_done)
-			sk_stop_timer_sync(sk, &entry->timer);
-		kfree_rcu(entry, rcu);
-	}
-}
-
-Can the still-queued timer then fire on the freed entry after the RCU
-grace period, reading entry->sock and calling sock_put() on it? The
-remaining expiry can be as long as the add_addr_timeout value, which is
-much longer than a grace period.
-
-For reachability, mptcp_pm_announced_alloc() only rejects
-MPTCP_PM_DESTROYING, and mptcp_pm_nl_announce_doit() does no socket-state
-check, so an msk sitting in TCP_CLOSE with a live token and an open fd
-still reaches the reuse path.
-
-Would stopping the timer (or taking bh_lock_sock()) before re-arming in
-the reset_timer block, or moving the TCP_CLOSE check after the
-sock_owned_by_user() check in mptcp_pm_add_addr_timer(), close this?
-
-Also noting that no later patch in this series touches net/mptcp/pm.c, so
-this state persists at the end of the series.
