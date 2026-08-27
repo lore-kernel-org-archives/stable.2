@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C663F1052;
-	Thu, 27 Aug 2026 21:31:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CAE349CD2;
+	Thu, 27 Aug 2026 21:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787866293; cv=none; b=ajZC5PNkZNFtB9YLW5GZbCgSmC20/Qzf5l7wfL9nI+cTPOxMCU/XwD03H0nk8diAWrXfKqbNj99s/Poy96pDl7ebz4W6hDGwFIyMswmBnKF8DHcMaJtUNbpaZ+ntdzGt54LN/ZMbhXe85GbutDFNaDjYAa/ZLklswSpGVzLzJ4A=
+	t=1787866370; cv=none; b=QKiOv9eMUefLjXnnU/mM4bCe6geeg01ocsg7h9rPClta8+WqCEpzP6QjwsGMYqGBq3wEk9V3VVJkwUV6ZMZQgqJR9JrwHGuZwrK6Ajx02OXd9UOyfVNPZWG4KU+hUJ2NlthQuO3hu0nfY5UIbM8g8kt+M0g+glee27djCe7ZxG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787866293; c=relaxed/simple;
-	bh=soFAUHtvdICcBVLleRu5AZdyHAhV3DnN6SyMS8PK9QI=;
+	s=arc-20240116; t=1787866370; c=relaxed/simple;
+	bh=Nr0Cy+uBT0Flm2v7WVmkxQoA9wjhO9C0Wl0ja0+g8yg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qektqjT1nOoilaGOiDQFfKq62H8+03nQ/x5BB07NfjpH10zKu25PnjbrZ+az+N9KdzghKfhspdpffRXDE2Y5XzvW6Lb8rt63Sk4OmPPL+lVkSRhF30pR+/WsWNnG3baR1wqNY7qG0C7v8dFxIPhejggxpS4HJ/Htt0Z/BzgMP0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLn7syWK; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=DA/5jfYwUxJ8jbOCJfopQShVCzzC+0UBbLO1FxoTx+2pRaxeMhmBt2H/kQXtYDVqh5seyGLfiL60T1cWO2Mezhd1FDnF3nZTxCk92aOo2kdmCgAtcnWouqw5L1RF6IQASUX4QNX3VA3Ybn74rq8bnczDefn9yFq0wL6ue846BkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edygtnii; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLn7syWK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 718181F000E9;
-	Thu, 27 Aug 2026 21:31:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edygtnii"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46ACC1F000E9;
+	Thu, 27 Aug 2026 21:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787866291;
-	bh=9unVKK1/5iVSwUwtUvNBODIAkXlxY/1QEcZHNF7mjeg=;
+	s=k20260515; t=1787866368;
+	bh=LkJBPyUwA+hyO/JesG4AiAf3V7aNlVVXoW+RmWZs2F4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TLn7syWKfMb8Yas5bKfX/vd2E0ck7RCGWtxrjsqJNwPCxgP7HimTFF4CfhAEG+VOE
-	 /8OfD5usJxt1CaNNniDxSUEjnrzZEER5RRcjIwRR23Qk1ZJsB2BE7joJlpjjlnuXCA
-	 37HxnBWjaFfP+qT9oMeLjnkdWXNeFKcOFBV9iVgy9moxnHysQ/CUpUZV0vK+kduD5c
-	 NmYTo23XieBfiUGiB4dQLGZ8Xw5D0D03VOevZuk8aOVVdKQZqpMvatAf1uaJHJPnq8
-	 EhGODtx8xLhIXOZlAw7d8HhI+LyKqyspxbu9YcD06h9eMUGJiYfEQhr4ZwOf9WPINa
-	 0rjhcbhcKFnAg==
-Message-ID: <e21a7302-44db-4e20-805b-5c1de1f59c56@kernel.org>
-Date: Thu, 27 Aug 2026 23:31:25 +0200
+	b=edygtnii9K6HXbSrjcTddfpEsrJ3lPRpekgDoU9c+ejrv97vEuWw7hayd6mX76tse
+	 RpsRg76wTwrW04lUOZ+4xjGfSXEJRWsNvttoa1AGgmgIHtbRkhxuwwjNABf2fVOeU2
+	 ORI9eBfeEDmAxX3CF24bt3lnEpidjRD1wbuYOGjwn0/N7DWCY/VsAHoDcBJvTRr14p
+	 LEiBb4OgbOtb3p/Kjg3+v/h3yxq1NRXnYgU28jWWgzIjMoSDAUyVLCB8VqDPAfYNo9
+	 K4sY0ejVdaNvY+nnRuurlKdNDejPCqmFSvVGP+v9WYCQg9+7W4+Cw6Sn7gYpsGfTnI
+	 60UomytggBGeA==
+Message-ID: <164b4f99-a642-4c88-8ff9-78930264d093@kernel.org>
+Date: Thu, 27 Aug 2026 23:32:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,17 +35,23 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] memory: brcmstb_dpfe: Fix out-of-bounds access due to
- DCPU offset
-To: Florian Fainelli <florian.fainelli@broadcom.com>,
- Danesh Petigara <danesh.petigara@broadcom.com>, mmayer@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Justin Chen <justin.chen@broadcom.com>, stable@vger.kernel.org
-References: <20260826201500.3000125-1-danesh.petigara@broadcom.com>
- <20260826201500.3000125-2-danesh.petigara@broadcom.com>
- <067b7e2e-f2b2-4462-96f1-3a1e35bd25e8@kernel.org>
- <682b68a0-03b7-4ec9-9d17-698fe134b57a@broadcom.com>
+Subject: Re: [PATCH v7 2/3] wifi: mwifiex: add dt flag to avoid conflict with
+ platform reg domain
+To: George Valkov <gvalkov@gmail.com>
+Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
+ krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com,
+ kees@kernel.org, miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com,
+ wenst@chromium.org, rafael.beims@toradex.com, avraham.stern@intel.com,
+ error27@gmail.com, s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
+ peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260827130335.6606-1-gvalkov@gmail.com>
+ <20260827130335.6606-2-gvalkov@gmail.com>
+ <fbde1932-5433-48e8-b352-bf27eb545149@kernel.org>
+ <CADOrJmY5jZvn8zEu-jCntGChXSY9wRd3bsOy1GB0EWNTY9GK6Q@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,135 +97,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <682b68a0-03b7-4ec9-9d17-698fe134b57a@broadcom.com>
+In-Reply-To: <CADOrJmY5jZvn8zEu-jCntGChXSY9wRd3bsOy1GB0EWNTY9GK6Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/08/2026 19:37, Florian Fainelli wrote:
-> On 8/26/26 23:48, Krzysztof Kozlowski wrote:
->> On 26/08/2026 22:14, Danesh Petigara wrote:
->>> From: Justin Chen <justin.chen@broadcom.com>
+On 27/08/2026 19:27, George Valkov wrote:
+> On Thu, 27 Aug 2026 at 18:33, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>> [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+>>> [2] https://github.com/openwrt/openwrt/issues/9956
 >>>
->>> On API v1/v2 boards, the DCPU coprocessor can steer kernel readl_relaxed()
->>> and writel_relaxed() to any address within 256 MB of the ioremapped DPFE
->>> dmem or regs base. The DCPU firmware provides a 28-bit offset which the
->>> driver adds to the ioremap base without any bounds checking in
->>> get_msg_ptr().
->>>
->>> This allows a compromised DCPU firmware to trick the host kernel into
->>> reading or writing arbitrary memory-mapped I/O registers in vmalloc
->>> space. When combined with a root-writable sysfs file like dpfe_refresh,
->>> it provides an arbitrary MMIO write primitive. Similarly, world-readable
->>> sysfs files can be used to leak other devices' register contents.
+>>> Tested-on: WRT3200ACM, OpenWrt
 >>
->> If someone can compromise firmware to provide different addresses, then
->> what stops this person to change DTB with completely different MMIO
->> ranges for this device?
-> 
-> On our platforms the DTB is part of the boot loader which is 
-> signed+encrypted and customers do not build any UART driver or 
-> user-interface so changing the DTB is somewhat difficult. Same goes with 
-> the Linux kernel, it's also signed+encrypted. This is defense in depth 
-> at this point.
-
-Ack
-
-> 
+>> OK, so this comment from v6 was not about binding, but this is still
+>> wrong - there is no such tag. Just make it a standard sentence.
 >>
->> Isn't better just to drop root-writeable sysfs interfaces, since they
->> are the insecure parts?
+>> Do not introduce OpenWRT rules in to the upstream kernel.
 > 
-> Yes that would probably be an acceptable move forward. Markus do you 
-> remember what was the use case for the dpfe_refresh file to be R/W?
-
-That's in this case separate solution, worth anyway investigating.
-
+> Dropped the invalid tag. I hope this is suitable:
+> The change has been tested on OpenWrt and fixes the issue where
+> phy0 does not start on WRT3200ACM-EU when a DFS channel is used
 > 
->>
->>>
->>> Fix this by recording the resource_size() of the dmem and regs ioremaps
->>> at probe time, and rejecting any offset that, along with the largest
->>> field accessed (DRAM_VENDOR_ERROR + sizeof(u32)), exceeds the recorded
->>> mapping size.
->>>
->>> Fixes: fee5f1ef6cf7 ("memory: brcmstb: dpfe: support new way of passing data from the DCPU")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Justin Chen <justin.chen@broadcom.com>
->>> Assisted-by: Gemini:gemini-3.1-pro-preview cursor
->>> Signed-off-by: Danesh Petigara <danesh.petigara@broadcom.com>
->>> ---
->>>   drivers/memory/brcmstb_dpfe.c | 22 ++++++++++++++++++++--
->>>   1 file changed, 20 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/memory/brcmstb_dpfe.c b/drivers/memory/brcmstb_dpfe.c
->>> index 08d9e05b1b33..66343205f585 100644
->>> --- a/drivers/memory/brcmstb_dpfe.c
->>> +++ b/drivers/memory/brcmstb_dpfe.c
->>> @@ -182,6 +182,8 @@ struct brcmstb_dpfe_priv {
->>>   	void __iomem *regs;
->>>   	void __iomem *dmem;
->>>   	void __iomem *imem;
->>> +	resource_size_t regs_size;
->>> +	resource_size_t dmem_size;
->>>   	struct device *dev;
->>>   	const struct dpfe_api *dpfe_api;
->>>   	struct mutex lock;
->>> @@ -401,9 +403,14 @@ static void __iomem *get_msg_ptr(struct brcmstb_dpfe_priv *priv, u32 response,
->>>   	 */
->>>   	switch (msg_type) {
->>>   	case 1:
->>> +		if (DCPU_MSG_RAM_START + offset + DRAM_VENDOR_ERROR +
->>> +		    sizeof(u32) > priv->regs_size)
->>> +			goto bad_offset;
->>>   		ptr = priv->regs + DCPU_MSG_RAM_START + offset;
->>>   		break;
->>>   	case 0:
->>> +		if (offset + DRAM_VENDOR_ERROR + sizeof(u32) > priv->dmem_size)
->>> +			goto bad_offset;
->>>   		ptr = priv->dmem + offset;
->>>   		break;
->>>   	default:
->>> @@ -415,6 +422,12 @@ static void __iomem *get_msg_ptr(struct brcmstb_dpfe_priv *priv, u32 response,
->>>   	}
->>>   
->>>   	return ptr;
->>> +
->>> +bad_offset:
->>> +	dev_err(priv->dev, "DCPU returned out-of-range offset %#x\n", offset);
->>> +	if (buf && size)
->>> +		*size = sprintf(buf, "ERROR: DCPU offset out of range\n");
->>> +	return NULL;
->>>   }
->>>   
->>>   static void __finalize_command(struct brcmstb_dpfe_priv *priv)
->>> @@ -858,6 +871,7 @@ static int brcmstb_dpfe_probe(struct platform_device *pdev)
->>>   {
->>>   	struct device *dev = &pdev->dev;
->>>   	struct brcmstb_dpfe_priv *priv;
->>> +	struct resource *res;
->>>   	int ret;
->>>   
->>>   	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->>> @@ -869,17 +883,21 @@ static int brcmstb_dpfe_probe(struct platform_device *pdev)
->>>   	mutex_init(&priv->lock);
->>>   	platform_set_drvdata(pdev, priv);
->>>   
->>> -	priv->regs = devm_platform_ioremap_resource_byname(pdev, "dpfe-cpu");
->>> +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "dpfe-cpu");
->>
->> You cannot use devm_platform_get_and_ioremap_resource()? Are the 'reg'
->> entries flexible/random?
-> 
-> IIRC the names and indexes are stable so we could do a positional index 
-> resource lookup, but maybe what we want is to introduce a 
-> devm_platform_get_and_ioremap_resource_by_name()?
 
-If the bindings enforces strict order, that could be a way, but I do not
-want to push towards new
-devm_platform_get_and_ioremap_resource_by_name() because that could lead
-to long patchset with bikeshedding about how many wrappers we need...
-
-Approach is fine then. New wrapper can be brought on top.
+Thanks.
 
 Best regards,
 Krzysztof
