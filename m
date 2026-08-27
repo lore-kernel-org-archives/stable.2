@@ -1,98 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D65C2D249B;
-	Thu, 27 Aug 2026 04:51:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC20D146A66;
+	Thu, 27 Aug 2026 05:02:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787806285; cv=none; b=mzHOx/2xg79mvHndQ28BlSNCqwEumLfqEndR+oRJAzhstGH142EyTZ97USvXONS/1z1ohVX98QC9RanadQw1X5/hcmtaKKfotU2J4vCxOr5HEeZv2r0N6OCJZiC5lLCCo1AqChsAERjPE/aHmY5bBCe360emDSBp6eaADkeVt6U=
+	t=1787806959; cv=none; b=RnwLZPfz7g2xQlUPXaB8D6ECxTuUjwWUGR0nvdFLQuW72eNxDYH/Dr5GsyzmuozLeYW33MvSto2bpMKWbutmXzmkUcYcULy+lXVRFWPnyE0aJj2pD5Wj4QT3V4VAogb93OJGZB9ehTHjc6NSkyjI/mxDBdhNp2cjvG4AxdRqY8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787806285; c=relaxed/simple;
-	bh=2PVJUMRIGdBgdYhtfLUqslgdMUPalwr9L3uqDL4BfhE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TG8S2evusjB4I4ReOUUOlhvgLNjW+7+q+++CbCtqjvIZKTCnWTlSRsi/JHM+1v1mdvl7j5HnzwnO+ew+AxN6NyUWG88QiO/tLLQbWMnSKnLX2zVlphbYZQG9c9hMqhqk0mZbSYE5tHPdWU3BERVzZOpvYw2LjDoM12yMsW1g8W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mrgfsavx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787806959; c=relaxed/simple;
+	bh=i+wUeZ7MG3m3VkG7W2VNpMGVyi3HjT0iKIkWo7X32lc=;
+	h=Date:To:From:Subject:Message-Id; b=ZmZRYZvZZB1mLBvbb71WfGOzrlJlqlOqSxkW7Ey/aSFwgY+Xtmw81PHY3MU68goc890ycWIDgpfMh3t4SNqyrvwK4dJc4SmUxzu9jtvNrFrs9MnpMXgVUTYJZnr5B887nimFhah4j9o5gvGtVeFIHjcYYUf2K4qevsrC10jSIAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ViSiM7Dm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mrgfsavx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4230D1F000E9;
-	Thu, 27 Aug 2026 04:51:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787806283;
-	bh=wjVZd0huYEMVFiNAJ3n+nO8GVkhWb7AlzOb28Smkp/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mrgfsavx0r2eMDVwlPziwy2L385VnsLzFyB13COBWTr25W3lMohgo/UEZ7BJ1BY2M
-	 b4j9jYFspt/It1wb4S5p0dgwuyyVsLr5xsJhA7YECa8BgTj9X0maXkukrm35n1PTGh
-	 KeILD3lqrQ81dJnKegCtwP7DTH7ZhZJ4mWWf99ak=
-Date: Thu, 27 Aug 2026 06:51:21 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, mchehab@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
-Subject: Re: [RFC PATCH] media: vidtv: fix uaf in
- vidtv_bridge_on_new_pkts_avail
-Message-ID: <2026082737-traitor-shorter-a4cc@gregkh>
-References: <20260827042229.12561-1-jeffinphilip14@gmail.com>
- <20260827042615.12777-1-jeffinphilip14@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ViSiM7Dm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 674031F000E9;
+	Thu, 27 Aug 2026 05:02:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787806957;
+	bh=n9K6NnDFncTQqWWWL1iB6Yfdc9HxPxQG0Xb1YgqGWgw=;
+	h=Date:To:From:Subject;
+	b=ViSiM7DmBjdt4lz/GUvPtU8zehg/cZrfSBIbAm7oc9bAVez3z60UsHs0i6Hh4isJj
+	 B5PDNfidp5iN47DGVwkz7bp3m72tR5MAMiLZISkAnhDYyuSvTNiXxhikMsKQ9IWU/Y
+	 eALXtizHlvP2HKeIYdjDax1fgOWosZgYyySBOMmc=
+Date: Wed, 26 Aug 2026 22:02:36 -0700
+To: mm-commits@vger.kernel.org,yanquanmin1@huawei.com,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-damon-core-initialize-damos_quota_goal-last_psi_total.patch removed from -mm tree
+Message-Id: <20260827050237.674031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827042615.12777-1-jeffinphilip14@gmail.com>
 
-On Thu, Aug 27, 2026 at 09:56:15AM +0530, Jeffin Philip wrote:
-> >Attempting to unbind a dvbdevice that is in the process of feeding
-> >data causes a UAF as we free the underlying device without
-> >stopping the feed first. Fix this by stopping the stream first using
-> >vidtv_stop_streaming(). However, our codepath in the reproducer
-> >(mentioned in the below reply) does not decrement our users
-> >(dmxdev->dvr_dvbdev->users) to 1 after it has been incremented to 2
-> >by our read() in the reproducer, that is only possible on .release.
-> >This can cause a task hang as dvb_dmxdev_release() uses wait_event()
-> >in the wait_queue unless we use a close(fd)(in the reproducer).
-> >Is this a problem? Please advise.
-> 
-> Reproducer:
-> 
-> #include <fcntl.h>
-> #include <unistd.h>
-> #include <pthread.h>
-> #include <linux/dvb/dmx.h>
-> #include <sys/ioctl.h>
-> 
-> static void *feed_thread(void *arg)
-> {
->     int i = 100;
->     int fd = open("/dev/dvb/adapter0/demux0", O_RDWR | O_NONBLOCK);
->     struct dmx_sct_filter_params params = {
->         .pid = 0,
->         .filter = { .filter = {0}, .mask = {0} },
->         .flags = DMX_IMMEDIATE_START,
->     };
->     ioctl(fd, DMX_SET_FILTER, &params);
->     char buf[188];
->     read(fd, buf, sizeof(buf));
->     //no close(fd) here
->     return NULL;
-> }
-> 
-> int main(void)
-> {
->     pthread_t t;
->     pthread_create(&t, NULL, feed_thread, NULL);
->     sleep(1);
->     int fd = open("/sys/bus/platform/drivers/vidtv/unbind", O_WRONLY);
 
-While "fun", this is not a normal path that users ever will hit.  See
-this thread where I propose tainting the kernel if you attempt to do
-this:
-	 https://lore.kernel.org/r/20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org
+The quilt patch titled
+     Subject: mm/damon/core: initialize damos_quota_goal->last_psi_total
+has been removed from the -mm tree.  Its filename was
+     mm-damon-core-initialize-damos_quota_goal-last_psi_total.patch
 
-thanks,
+This patch was dropped because an updated version will be issued
 
-greg k-h
+------------------------------------------------------
+From: SJ Park <sj@kernel.org>
+Subject: mm/damon/core: initialize damos_quota_goal->last_psi_total
+Date: Wed, 26 Aug 2026 21:29:18 -0700
+
+Patch series "mm/damon: fix wrong behaviors in DAMOS PSI goal and sysfs
+refresh_ms".
+
+PSI based DAMOS auto-tuning and DAMON sysfs refresh_ms file have bugs that
+can produce non critical but still unexpected behaviors.  Fix the two
+bugs.
+
+
+This patch (of 2):
+
+When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
+delta for the feedback loop is calculated using
+damos_quota_goal->last_psi_total.  However, it is initialized only after
+the first feedback loop.  The first iteration of the loop uses the
+uninitialized value.  As a result, the feedback loop can change the
+effective quota in an unexpected way at the first iteration.
+
+The user impact of the issue is not big, because the issue impacts only
+the first iteration of the feedback loop.  The feedback loop also has an
+internal cap of the quota adjustment.  The wrong adjustment will soon be
+corrected over a few iterations.  For this reason, doing no initialization
+at commit time was intentional.  It is also explicitly commented.  That
+said, nobody likes behaviors that are unexpected or difficult to be
+expected.  Fixing it is also simple and not expensive.
+
+Initialize the field at the beginning of kdamond and each commit of
+SOME_MEM_PSI_US type quota goals.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260827042920.93580-2-sj@kernel.org
+Link: https://lore.kernel.org/20260718005316.89585-1-sj@kernel.org [1]
+Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: Quanmin Yan <yanquanmin1@huawei.com>
+Cc: <stable@vger.kernel.org> # 6.9.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/damon/core.c |   16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+--- a/mm/damon/core.c~mm-damon-core-initialize-damos_quota_goal-last_psi_total
++++ a/mm/damon/core.c
+@@ -1122,6 +1122,9 @@ static void damos_commit_quota_goal_unio
+ 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+ {
+ 	switch (dst->metric) {
++	case DAMOS_QUOTA_SOME_MEM_PSI_US:
++		dst->last_psi_total = damos_get_some_mem_psi_total();
++		break;
+ 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
+ 	case DAMOS_QUOTA_NODE_MEM_FREE_BP:
+ 		dst->nid = src->nid;
+@@ -1143,7 +1146,6 @@ static void damos_commit_quota_goal(
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+-	/* keep last_psi_total as is, since it will be updated in next cycle */
+ 	damos_commit_quota_goal_union(dst, src);
+ }
+ 
+@@ -3727,6 +3729,17 @@ static int kdamond_wait_activation(struc
+ 	return -EBUSY;
+ }
+ 
++static void damos_init_quota_goal_last_psi(struct damos *s)
++{
++	struct damos_quota_goal *goal;
++
++	damos_for_each_quota_goal(goal, &s->quota) {
++		if (goal->metric != DAMOS_QUOTA_SOME_MEM_PSI_US)
++			continue;
++		goal->last_psi_total = damos_get_some_mem_psi_total();
++	}
++}
++
+ static void kdamond_init_ctx(struct damon_ctx *ctx)
+ {
+ 	unsigned long sample_interval = ctx->attrs.sample_interval ?
+@@ -3743,6 +3756,7 @@ static void kdamond_init_ctx(struct damo
+ 	damon_for_each_scheme(scheme, ctx) {
+ 		damos_set_next_apply_sis(scheme, ctx);
+ 		damos_set_filters_default_reject(scheme);
++		damos_init_quota_goal_last_psi(scheme);
+ 	}
+ }
+ 
+_
+
+Patches currently in -mm which might be from sj@kernel.org are
+
+mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+
