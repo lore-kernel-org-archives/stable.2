@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF2F3B6341;
-	Thu, 27 Aug 2026 08:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4463B6344;
+	Thu, 27 Aug 2026 08:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817853; cv=none; b=OFpEy0BtUoSelACXrjA/WTeG41OvmuFCdZmwbVOKJMX+cv9TlMOzcCFv085F0Bv4Tchpk7qBwu908eYP+JFkk4rGTSZQI2KjvTZ4ICH6bClyWt/DjKooJkOfLqmJN86wWC3KqDohhKKzNIeqwxKCtZBIV3ujNYgRyek9E5iHNFg=
+	t=1787817863; cv=none; b=A5SkkjBh4vgf7ckLtMiqm1bszLk1Q2EJ+G+/B7JdqDe2F82e93GY2AdYY5qZc9gUoCStf/j8W/0dfnIp9dOP8BMMphlBv1QTeO60m1tb2Iqrp8SH7HYwrx4TDPpbTKBtc+kwI5VUQg30STY6N2DSiNRyJWTusOiwBsL5uBl7pQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817853; c=relaxed/simple;
-	bh=SZK2uKu99FCmOiH6CtTNvIURwBng/uRczIPfDS5zYAo=;
+	s=arc-20240116; t=1787817863; c=relaxed/simple;
+	bh=ef5P4NbGxhl4+Uk1F0KDET9+Ox/yvMBq5hL20NFEXW0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rhNssCEJq0s6UVWyMb9hK93V9ZIRHsC2AFsmln1VMFNTvaoeNlLeiyw319Fej4XC7Xm1WkugjYI0T1hweb7nDq9MOc+n45S6FIk9ELMXlDX6rBZge4FPo/W3g/8ltLUGgf+bcxWX5/fsURkwijv7h0tcbM7F15L17F/xDFSqWLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eBbC7aWG; arc=none smtp.client-ip=220.197.31.4
+	 MIME-Version; b=dVQ6Fc3q4JwBxLNQsGmwEifDdXX1Kn0LOxx3OZiVL8aB6ouo34da1zsYhWSYpcpJgIpu2ySmDbVqTwIVE9hpuXVMguAFmUz5dDXsQrwpP1fSbfcQ6ZmEC8UnOKj9pH8vB2ImIYrRIarEF1eeBKiZeQ7neckhIifyGuqTfgzFmSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IclEnoYL; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eBbC7aWG"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IclEnoYL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=th
-	hfpAm3W3+gvrnvVKZRRufjJwObxV/nCEwA2o7XeDY=; b=eBbC7aWG8ej8FBJoOg
-	QBSN3swUdVuTqvzMBxDOQEMGZ42Mzj5iAKbl3vUGDPn3pnkLYlXYtSd5hQzFg3wz
-	QZYXv8ea2vMM1KTwM5m9REbkdVg5bRn7yez0KNLz36rywLLAOeSpsY6hfviuaSps
-	txsj5pJFtQS0oC2xYFLLqPh6Y=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=11
+	Gtp5Lb3rQoJvuk/TZT1JfLzY2fuTvHNx2t9ky+IIQ=; b=IclEnoYLn3LzHMnA+5
+	ATZ/rAs3S4xWlMqJmklkgfalYLDIjzF3DsdDkJklqo3WMalPQvQfFHbJ+oJkrw32
+	Y19O/bgforKyYx6rBV7T8N7cS26gMmkTxViC+CBtjLKAUtpgFphijeNjwrq/UzsS
+	zf3HFeMcO+iScuKpbiokOt7Ds=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_wxe749qoz9pPQ--.29344S2;
-	Thu, 27 Aug 2026 16:03:43 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_wxe749qoz9pPQ--.29344S3;
+	Thu, 27 Aug 2026 16:03:44 +0800 (CST)
 From: ghuicao@163.com
 To: Song Liu <song@kernel.org>
 Cc: Yu Kuai <yukuai@fygo.io>,
@@ -34,12 +34,13 @@ Cc: Yu Kuai <yukuai@fygo.io>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v4 1/2] md/raid5: track disks array size to fix extra_page leak on error paths
-Date: Thu, 27 Aug 2026 16:03:40 +0800
-Message-Id: <20260827080341.112296-1-ghuicao@163.com>
+Subject: [PATCH v4 2/2] md/raid5: fix NULL pointer dereference in raid5_free_percpu
+Date: Thu, 27 Aug 2026 16:03:41 +0800
+Message-Id: <20260827080341.112296-2-ghuicao@163.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827063235.85375-1-ghuicao@163.com>
+In-Reply-To: <20260827080341.112296-1-ghuicao@163.com>
 References: <20260827063235.85375-1-ghuicao@163.com>
+ <20260827080341.112296-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,87 +48,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgD3_wxe749qoz9pPQ--.29344S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuFy5Ar4UJr4kJryfuw48WFg_yoW5XrWrpw
-	sru34UZa1UWrs3Jr17Z3yUuF15Kw4qqrWxGFW3W3yvvF9agrySyr1rGFZ0krWjyF93Kayf
-	tFZ8trnxJr1rtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrYFZUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-B+RJGqP71872AAA3g
+X-CM-TRANSID:PigvCgD3_wxe749qoz9pPQ--.29344S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ury7Kr1xuFWrZw1fKF48WFg_yoW8Ww4xpw
+	4DJr4Yg3s5AanYk3s2vw4UuF15XwsrGrW8Aas3Ww4rZFs5ZrnFywsxZFW8uFy8AFZaqayx
+	J3s8XrnxJa1DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5AwxUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4ACSJWqP72CvhwAA3V
 
 From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-free_conf() iterates conf->pool_size entries to free extra_page
-allocations, but pool_size may not reflect the actual size of the
-conf->disks array.  Two scenarios cause a mismatch:
+If cpuhp_state_add_instance() fails in raid5_alloc_percpu() (e.g., the
+startup callback raid456_cpu_up_prepare fails due to an allocation
+failure), conf->node is never added to the cpuhp instance list and
+its pprev remains NULL (from kzalloc initialization).
 
-1. setup_conf() early abort: pool_size is 0 (not yet set by
-   grow_stripes) but conf->disks has max_disks entries with
-   extra_page allocated.  The loop iterates 0 times, leaking all
-   pages.
+When setup_conf() then jumps to abort, free_conf() calls
+raid5_free_percpu(), which checks conf->percpu (non-NULL, since it was
+allocated before the cpuhp failure) and proceeds to call
+cpuhp_state_remove_instance().  This calls hlist_del() on the unhashed
+node, which dereferences node->pprev (NULL), causing a kernel panic.
 
-2. resize_stripes() Step 4 failure: conf->disks was replaced with
-   a newsize-entry array in Step 3, but pool_size is only updated
-   on success.  The loop iterates pool_size (old, smaller value)
-   times, leaking (newsize - pool_size) pages.
+Guard the removal with hlist_unhashed_lockless() so that the cpuhp
+instance is only removed if it was actually added.  The lockless variant
+uses READ_ONCE() for the pprev read, which is safe here because the
+actual removal is synchronized by cpuhp_state_mutex inside
+cpuhp_state_remove_instance().
 
-Add a dedicated disks_cnt field to track the actual number of
-entries in conf->disks.  Set it immediately after each allocation
-or replacement (in setup_conf and resize_stripes Step 3, where the
-array is safely stalled with no concurrent access), and use it in
-free_conf() instead of pool_size.
-
-This leaves pool_size untouched, preserving the check_reshape()
-retry behavior that depends on pool_size only being updated on
-full success.
-
-Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
+Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
- drivers/md/raid5.c | 4 +++-
- drivers/md/raid5.h | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/md/raid5.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
 --- a/drivers/md/raid5.c
 +++ b/drivers/md/raid5.c
-@@ -2642,6 +2642,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 		} else {
- 			kfree(conf->disks);
- 			conf->disks = ndisks;
-+			conf->disks_cnt = newsize;
- 		}
- 	} else
- 		err = -ENOMEM;
-@@ -7552,7 +7553,7 @@ static void free_conf(struct r5conf *conf)
- 	free_thread_groups(conf);
- 	shrink_stripes(conf);
- 	raid5_free_percpu(conf);
--	for (i = 0; i < conf->pool_size; i++)
-+	for (i = 0; i < conf->disks_cnt; i++)
- 		if (conf->disks[i].extra_page)
- 			put_page(conf->disks[i].extra_page);
- 	kfree(conf->disks);
-@@ -7733,7 +7734,7 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+@@ -7539,7 +7539,8 @@ static void raid5_free_percpu(struct r5conf *conf)
+ {
+ 	if (!conf->percpu)
+ 		return;
  
- 	if (!conf->disks)
- 		goto abort;
--
-+	conf->disks_cnt = max_disks;
- 	for (i = 0; i < max_disks; i++) {
- 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
- 		if (!conf->disks[i].extra_page)
-diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
---- a/drivers/md/raid5.h
-+++ b/drivers/md/raid5.h
-@@ -667,6 +667,7 @@ struct r5conf {
- 	unsigned long		cache_state;
- 	struct shrinker		*shrinker;
- 	int			pool_size; /* number of disks in stripeheads in pool */
-+	int			disks_cnt; /* number of entries in disks[] array */
- 	spinlock_t		device_lock;
- 	struct disk_info	*disks;
- 	struct bio_set		bio_split;
+-	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
++	if (!hlist_unhashed_lockless(&conf->node))
++		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
+ 	free_percpu(conf->percpu);
+ }
 -- 
 2.34.1
 
