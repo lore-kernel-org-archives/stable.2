@@ -1,177 +1,95 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F382FBE1F;
-	Thu, 27 Aug 2026 04:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6CF3812DB
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787805250; cv=none; b=MkMaU4qcmUjkWdY8qPhSiHb90bbSYWbzXsr4OfG3zZEc34NxDBGvXak55nNNgz+E/GGFnncBAh2RvBR5lcXsZdzBc/cgWg8JgjseJAMOWLj+JlRsY7b16vSz0//m5qHn1jLoksTvQUK5RhPTZGmytFiClIw/YXDOFL5HeU6ngOk=
+	t=1787805496; cv=none; b=ty37yP40PKbrhdlQkA1C5ACU75WP3Vb6qk+woT8mXcs2aodLy92IeG3Girh+SzPieKpK63FeOvHcsjahvMhQp5+gidpQ3N+xqdAwJ9qgLXzA2mWI02z4374QWibo+EPkZVNUqEYYJ2YDgK5vMKLNe9PRcnyoSKCdrD98h7P0bk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787805250; c=relaxed/simple;
-	bh=1BH16QiWc0Qjb48YHhn9W5XUR+q9xRxcLUk2RYcQIi0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hiBOI49VnchY6xmEEM29t0AGKU6Lk3WiPyNE7ne6zGhWWLNXmSjtPARHFk0U9UAy/TlI4uHfCkWrfkiqF0SNJlbVrIpZXgyes61NR1l9N2eLOjlXiaG9M3xZy9lgJM6vnv5shdxOiLrfaydD1eyS4t3u6B+aomZhcGndxdbKtzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CxbT6Z72; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787805496; c=relaxed/simple;
+	bh=0P+Ppehm+2rMxkEV+1Euuypk94PflIXQ90MtgsW7QNE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QpVxAvtf/UfZJNlkhNr8kxiKx3p6FQ/VBANF7u4t6IUZnt1PUqQSKLddtCKPscPiNc6XMrdN3JNLYybUK76mMd8TWQyRsaHMH9peueefQSmMt8JBnTjWi0cNgoeipCy3CZ1GWjDfOIWH3S7oWosAwM1Wjg7t4QAh9+NDtSvFN9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ANXRAwja; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CxbT6Z72"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=PRoXD4sZgycHw3w5/hnLgpayzzS06vs5edBN/I94MWc=;
-	b=CxbT6Z72WSbtkVnrJTNytTTxgQQdQXdSv+j1NOkIYbnVqwReA5n0r7zb507ScU
-	uZgqQg49YPRIQgd8bGPnfxGYR008ITLwLE8H6e7k6wLW0BvWxjILF5HyDkPZTS3Q
-	Yp3DJtakRQ85VpRXHsKhbfwrwC0zfqoJn++Oygjh5UrLA=
-Received: from [IPV6:2409:8900:1ef4:8f82:6a1b:f1a6:cbdd:11fe] (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wCnoe0dvo9q_WUwDw--.46122S2;
-	Thu, 27 Aug 2026 12:33:35 +0800 (CST)
-Message-ID: <6bf63800-e169-4ff7-baa2-52c4d42bb35e@163.com>
-Date: Thu, 27 Aug 2026 12:33:33 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ANXRAwja"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so476667a12.0
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 21:38:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787805494; x=1788410294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0P+Ppehm+2rMxkEV+1Euuypk94PflIXQ90MtgsW7QNE=;
+        b=ANXRAwja2tPvK/Lmozql6U9jtUI8WKVTpz5dr0cqfuy+MMN11iGJwcuhGk4hh/guma
+         /8imGq/AfwincljYvn+NWp5QX6AoWJqoyMUMfNyXPVdRUWuXYEEwzDRx1E5xuIva79jR
+         m2pTsYPeet7fSJAVAtBL+moHhDnMXu5+/HcINAzAohPeRaHZcReBN4/qSFSLY2/Ox8P1
+         JaBC1cCF+J+LVlCUeLDn+LuYedX8cbfLE+00D4KDKnV2ZTm68UtjUIeDQAWgKi6Na/XW
+         osYrWcy8AJx06h5OrNbEMqe9qrEZ5RvqDgB1eZuSRczHXo/YwXmperkDWAEW4oEm0gsM
+         vS+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787805494; x=1788410294;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0P+Ppehm+2rMxkEV+1Euuypk94PflIXQ90MtgsW7QNE=;
+        b=KXiSATt1CucinHYaHL3MxWdNELvIDw1q0ojb7mEHl4VnloibdDC2+31NQ34t7DlGbW
+         9h2BLEV/5Dss5dV3rYkWjBesid5xgWeiMHBygm+13hYUUtCY2JN5p72acqG/mNhgJo4O
+         VA4mFRgs7NTyC6aZLlsXlqcFKMwyul4Yu60JDCE+wpdzqAr04zJiW50jvr7uhbOWa8zV
+         KoOWn7lvkiC/yEKDx4GwCT7G339wffpRdrbBoKJIOaEnSRmIvdCi9u9qeclU5vfQVEd9
+         m4r4jmtxDar7AVv6Mp4SRtiez8+9NFRQ9DvsJNIh5Q2XUonhcrdAkBkSWeV97nvmxPDM
+         kclg==
+X-Forwarded-Encrypted: i=1; AHgh+RpaC2Uf50qoVrhJiXEUhPlHNw0s0fgMBIHrcDr17Vbfk1vJMIp9365rAQ8QxtDNMwCjQoRfGnA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnwj2qiG87yabsfIthThP+B0kchBqetBGSfTwwfiMrYD8N8tYY
+	HNhkHCr3O+UQd0Dfo7iyMG/bw2ptU2nnu91FrR9ASjnu1X/lwKh0FnNc
+X-Gm-Gg: AR+sD10YuN3haO+oXLTLIgtTbj5i0K+Tgs++tkLn4Zq+Y3qVS7TV33Wu8VJkHFySCoL
+	xBJeu/Q+ifzJ5fQaLup+VxKE82G8LXUT2cNAgBAU5q7kW6IUwOFkQ1QTyf25ecvy2KiN2iGiioG
+	wvLLaEcyUs7BoKUlNz5qIlKQT1kZqDSbJzUu9z9YWyExSvx7wVck3b12EnHLauyjW1kefmE4GzD
+	28ZQsV9ZrWHuNLlUctUU5ESzjKH0UAzTewgHT6woLly3bFeJamtlhGimh6aRjcnamJ2skiEFNmo
+	GMvV7+vPFBBezzuwwHUwivA4J1nctwmy6Trs+y7rSW34EZ0SXDSsujfTSfggaoQRfqxxF6ZqYOA
+	MQTVk2ieqTqSqloV8/Doguze06xB83HzmK+lXsMJmBg65wVs8aAtxacdn8kG4ddqdet3UW2L3eS
+	h0X8mShXUcUEgpOU+nFn7Q/AOiyZ+CIArQ9GckeFTjD9+2wenNoHWb1xx2i2kSTo6etA==
+X-Received: by 2002:a17:90b:35d1:b0:396:65b3:c05e with SMTP id 98e67ed59e1d1-3969bb1e82bmr5197069a91.9.1787805494011;
+        Wed, 26 Aug 2026 21:38:14 -0700 (PDT)
+Received: from Default ([2409:40f4:1012:4330:756d:2890:a615:2db9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3285f3cd3b0sm118260eec.12.2026.08.26.21.38.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 21:38:13 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: jeffinphilip14@gmail.com
+Cc: balbi@ti.com,
+	bigeasy@linutronix.de,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+fd6ef980cf1c722be639@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: gadget: fix null pointer dereference in usb_put_function_instance()
+Date: Thu, 27 Aug 2026 10:07:46 +0530
+Message-ID: <20260827043746.13087-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260816061712.15547-1-jeffinphilip14@gmail.com>
+References: <20260816061712.15547-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs: fix race between fallocate and mmap reads
-To: Hongling Zeng <zhongling0719@126.com>,
- Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
-References: <20260827031647.1605970-1-zenghongling@kylinos.cn>
- <bd197da8-a8ec-40ad-a50d-dc579840d680@163.com> <6A8FB73D.30104@126.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <6A8FB73D.30104@126.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnoe0dvo9q_WUwDw--.46122S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw45tFyrtry7ArWkZFW5Wrg_yoWrGw1fpr
-	WqgF4jkr48XrWUuF1vgw4j9F1Fg340grW5urW3J3WIvrn8KFn2gF1UKr4xuryFyFZ3Jrs3
-	X3WUJrZruFyYv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UaJPiUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwh81AGqPvh-OlwAA31
 
+On Sun, 16 Aug 2026 11:47:12 +0530, Jeffin Philip wrote:
 
+>usb_put_function_instance() attempts to dereference fd inside fi struct
+>to get mod in uvc_alloc_inst() error path. However, fd is not allocated
+>until later in try_get_usb_function_instance() after allocating fi in
+>uvc_alloc_inst() and thus guranteed to be null in error path. Fix this
+>by adding a null check for fi->fd that returns if fd is null.
 
-在 2026/8/27 12:04, Hongling Zeng 写道:
-> 
-> 在 2026年08月27日 11:37, liubaolin 写道:
->>
->>
->> 在 2026/8/27 11:16, Hongling Zeng 写道:
->>> The fallocate implementation only takes invalidate_lock for punch hole,
->>> collapse range, and insert range operations. For standard allocation 
->>> modes
->>> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
->>>
->>> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
->>> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). 
->>> This
->>> creates a window where concurrent mmap page faults can read 
->>> uninitialized
->>> disk data.
->>>
->>> Since mmap uses filemap_fault() which takes invalidate_lock in shared 
->>> mode,
->>> it can fault in pages during this window and expose old disk contents to
->>> userspace. This is an information leak and data integrity issue.
->>>
->>> Fix by taking invalidate_lock for all fallocate operations, not just for
->>> punch/collapse/insert modes. This prevents concurrent page faults from
->>> accessing unzeroed clusters during the allocation window.
->>>
->>> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->>> Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
->>> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
->>> ---
->>> Change in v2:
->>>   -Remove now-unnecessary map_locked variable.
->>> ---
->>>   fs/ntfs/file.c | 7 ++-----
->>>   1 file changed, 2 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
->>> index 88747217ba61..779baafa0319 100644
->>> --- a/fs/ntfs/file.c
->>> +++ b/fs/ntfs/file.c
->>> @@ -1153,11 +1153,8 @@ static long ntfs_fallocate(struct file *file, 
->>> int mode, loff_t offset, loff_t le
->>>       }
->>>         inode_dio_wait(vi);
->>> -    if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
->>> -            FALLOC_FL_INSERT_RANGE)) {
->>> -        filemap_invalidate_lock(vi->i_mapping);
->>> -        map_locked = true;
->>> -    }
->>> +    /* Take invalidate_lock for all fallocate operations to prevent 
->>> races */
->>> +    filemap_invalidate_lock(vi->i_mapping);
->>>         switch (mode & FALLOC_FL_MODE_MASK) {
->>>       case FALLOC_FL_ALLOCATE_RANGE:
->>
->> Hi Hyunchul and Hongling,
->>
->> I think map_locked might still be needed though.
->>
->> Before filemap_invalidate_lock() is taken, there's this check:
->>
->>         inode_lock(vi);
->>         if (NInoCompressed(ni) || NInoEncrypted(ni) || 
->> NInoWofCompressed(ni)) {
->>                 err = -EOPNOTSUPP;
->>                 goto out;
->>         }
->>
->>         inode_dio_wait(vi);
->>         filemap_invalidate_lock(vi->i_mapping);
->>
->> If that goto is taken, we reach the exit path without having locked.
->> Without map_locked, we'd call filemap_invalidate_unlock() on a lock
->> we never took.
->>
->> Would it make sense to either:
->> 1. Keep map_locked as a guard for the unlock, or
->> 2. Change that goto to inode_unlock() + direct return, so the shared
->>      exit path always holds the lock?
->>
->> I'd appreciate your thoughts on this.
->>
->> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
->>
->> Thanks,
->> Baolin.
-> Hi  Baolin and Hyunchul
->   You're right — that's exactly the unbalanced-unlock path we spotted while
->    preparing v3, and option 2 is what v3 implements. The early exit now 
-> does
->    inode_unlock() + direct return, so every path reaching out: holds
->    invalidate_lock, which let us drop map_locked entirely:
-> 
->     inode_lock(vi);
->     if (NInoCompressed(...) ) {
->             inode_unlock(vi);
->             return -EOPNOTSUPP;
->     }
->     inode_dio_wait(vi);
->     filemap_invalidate_lock(vi->i_mapping);
->     ...
->     out:
->             filemap_invalidate_unlock(vi->i_mapping);
->     v3 with this cleanup is on its way / attached.
-> 
->   Would this v3 approach be OK with you?
-> 
->     Thanks,
->     Hongling
+Friendly ping, let me know if you want me to fix anything.
 
-Hi Hyunchul,
-    I think this approach is good.Looking forward to your feedback.
-
-Thanks,
-Baolin.
-
+Thanks.
+Jeffin.
