@@ -1,42 +1,39 @@
-Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
+Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAB04749D4
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 15:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E23947DD7B
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 15:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787845401; cv=none; b=u/vSMoeAU85bES/X6ezNj8pqgfuVq7dzYe/Uj3Dja1e/u3lzL+R6jWU65Kpu9lBYorS52drbjjJ/MLqjlEm+7prwKL3rtg/xhwrkaiZEDg2HP4HYrj45KbV79g2gIE7WU92h6SON8oWpdyoFW9Q9vaMZ1t1W6jmHvK1uOr/LdiY=
+	t=1787845402; cv=none; b=VOQwD3On7le2c4wPlxn+jLx6d/4ougpG8PgKItnLahSVvayrPCnSx3fmaKvJDvt002S/Gi4cZxlLSIG/JGNOF2KHRxuG8oCVVqG3MfjrNEGepRtQtDlILmaLPSOYdV4uRNO4dUAKLvqSbHou+PEowrFO3IlnS0tb6gnZX+QqJq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787845401; c=relaxed/simple;
-	bh=/oqgHYDPvMDVagPO7AKnMT/fGfUZ6coiSZBJygQnBzM=;
-	h=Date:Mime-Version:Subject:Content-Type:To:From:Cc:Message-Id; b=onDdD/vBiG3yVzNHhqiJm9eAA617JtWxPKJKek9JjlcSX6TtzF/bn3U90bIWKNpBqyumhs/bjiDLbVWz6QDY63fjyXZqYS9mZ2btJ4UOCYaF8uHpHH/Tr+VYDyGpbVcJnhKx/VOtvbO0P/UFCRw1vvjmMcL+x6u+iCI6pWxPXi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=V00chBgz; arc=none smtp.client-ip=71.18.227.4
+	s=arc-20240116; t=1787845402; c=relaxed/simple;
+	bh=rSxuM1d4cYZHnuQacRlMsdbipcymSj10Y4cSAWHHFcQ=;
+	h=Mime-Version:To:Cc:Subject:Date:In-Reply-To:References:
+	 Content-Type:From:Message-Id; b=O+sGDEdqb4frFFXSYxlVHBDja66lrwvAGFBDfww7Ce3xgeacfq7s+j+aLHb+BObBqENoICcr+7nsPKekZSQbGd8ZzqiUSbm69w4stnknK8A2GsrMeMisTtnqJIgFaJD/h05iMaNQvay+KrAH878/psgR1eQN4qJmtNHsUAzRzUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=cQlOX5YZ; arc=none smtp.client-ip=71.18.227.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="V00chBgz"
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="cQlOX5YZ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787845391; h=from:subject:
+ s=feishu2604220257; d=cherr.cc; t=1787845393; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=Bh0KpptlHo4EabAVwVEP+7z/2v5dfwz3z0l/dDVT/I0=;
- b=V00chBgzzYgCqNjsuHPKFjsaKDb0LkzBjsxut47JqxA7+5W4pM0BccR2F2R7vQes0TTFpB
- CqsGB8gZYtZG+s6NxpTU9ZmZgDVVrYWPC/nmikjbHWJdGVzsm8GmCSaQTPhUpQQ2wntGhb
- lC8z9JgzYZrDvEA/PA+1hqfz3syOhXPy19RLct8Go+Q+MGt1GTJVX5k1Z+2NSwciBV4wHB
- DyOUkyR6J2fz6xSV1BkC1cNjkQuxBMO2tJ6StH4Bu3/x9/vJkye70qdlRUjYsoOTS8zCCj
- GPBhaAbl57rJBKTSBN5cujFZ/cDy16J+ritY4XpZDlhHLIIE+TjR3THmtvlw1A==
-Date: Thu, 27 Aug 2026 23:43:00 +0800
+ bh=tD7GuzBUX3nmgWtzY2TDrWC7XWIHAdLF+AgXdDtgONY=;
+ b=cQlOX5YZUnsizO0yBXOAmOLHnoBlYJeyupTMPXSqzJvAfekWhSe4tL2abr0QDSV0Db8joO
+ a3SLcT+yY9IW8KdWTpHPSwI9Ym0oPh5gBzjpuyWyE0hoXU/FY3EP++JY3WlXQepbwW7aQh
+ G154Ld2hi7qM3fzvS5aPvEcBZkdT8OMXUFs84DytcSYwrst/+uCnNMYkiloWsUB4xTOuUJ
+ zMeJkPMkRO0LOTUfec+T9c2acwbphfsUOq6fQwQ7DkdTDRFgslzdLgu3/82jTh+T4HNzc3
+ el/Kmdewud5/DBfrSvUPW8WXeMJ5XJL6d+PFBWWeBdaeAdrBbecQV+fsWI5TjQ==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-Change-Id: 20260827-i2c-dma-channel-leak-b58522243736
-Subject: [PATCH 0/3] i2c: fix DMA channel leaks on probe error and remove
-Content-Type: text/plain; charset=UTF-8
-Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 23:43:09 +0800
-Content-Transfer-Encoding: 7bit
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-Mailer: b4 0.16.0
 To: "Codrin Ciubotariu" <codrin.ciubotariu@microchip.com>, 
 	"Andi Shyti" <andi.shyti@kernel.org>, 
 	"Nicolas Ferre" <nicolas.ferre@microchip.com>, 
@@ -55,45 +52,101 @@ To: "Codrin Ciubotariu" <codrin.ciubotariu@microchip.com>,
 	"Vinod Koul" <vkoul@kernel.org>, 
 	"Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, 
 	"Praveen Talari" <praveen.talari@oss.qualcomm.com>
-From: "Shengzhuo Wei" <me@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Lms-Return-Path: <lba+26a905b0e+0576c5+vger.kernel.org+me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIAAVbkGoC/yXMQQ6CMBCF4auQWTMJTi0Qr0JctGXUAayko8ak4 e4WXX55eX8G5SSscKoyJH6LyiMWHOoKws3FK6OMxUANtU1PHQoFHO8O9zXyggu7Gb3tLREdTWd aKNc18UU+v+xw/ltffuLw3FuwbV9sRvTUeAAAAA==
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26a905b10+84026c+vger.kernel.org+me@cherr.cc>
 Cc: <linux-i2c@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, 
 	<linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>, 
 	<linux-arm-msm@vger.kernel.org>, <stable@vger.kernel.org>, 
 	"Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <20260827-i2c-dma-channel-leak-v1-0-271d4adc03a0@cherr.cc>
-X-Mailer: b4 0.16.0
+Subject: [PATCH 1/3] i2c: at91: release DMA channels on remove and probe error
+Date: Thu, 27 Aug 2026 23:43:01 +0800
+Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 23:43:11 +0800
+In-Reply-To: <20260827-i2c-dma-channel-leak-v1-0-271d4adc03a0@cherr.cc>
+References: <20260827-i2c-dma-channel-leak-v1-0-271d4adc03a0@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <20260827-i2c-dma-channel-leak-v1-1-271d4adc03a0@cherr.cc>
 
-Three I2C bus drivers request exclusive DMA channels before
-registering their adapter, but none of them releases the channels on
-the probe error path (the remove callback is not invoked after a
-failed probe), and the at91 driver never releases them on remove
-either. Same class as 777979e62711 ("i2c: mxs: fix DMA channel leak on
-probe error"), which used devm_dma_request_chan() for mxs; here the
-drivers own non-devm state, so the fixes release the channels
-explicitly on the error paths.
+at91_twi_configure_dma() requests exclusive tx/rx DMA channels, but
+nothing ever releases them on driver detach, and the probe error path
+after the channels are acquired (i2c_add_numbered_adapter() failure)
+returns without releasing them either, because the remove callback is
+not invoked after a failed probe.
 
-The three drivers are otherwise unrelated; the series exists only
-because the bug shape and the fix shape are identical.
+Move the release into a helper, call it from the existing
+configure-failure path, the adapter-registration failure path, and
+at91_twi_remove().
 
+Fixes: 60937b2cdbf9 ("i2c: at91: add dma support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Assisted-by: GLM:5.3
 ---
-Shengzhuo Wei (3):
-      i2c: at91: release DMA channels on remove and probe error
-      i2c: imx: release DMA channels on probe error
-      i2c: qcom-geni: release DMA channels on probe error
-
  drivers/i2c/busses/i2c-at91-core.c   |  3 +++
  drivers/i2c/busses/i2c-at91-master.c | 12 +++++++++++-
  drivers/i2c/busses/i2c-at91.h        |  1 +
- drivers/i2c/busses/i2c-imx.c         |  2 ++
- drivers/i2c/busses/i2c-qcom-geni.c   |  4 +++-
- 5 files changed, 20 insertions(+), 2 deletions(-)
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-i2c-dma-channel-leak-b58522243736
+ 3 files changed, 15 insertions(+), 1 deletion(-)
 
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+diff --git a/drivers/i2c/busses/i2c-at91-core.c b/drivers/i2c/busses/i2c-at91-core.c
+index b64adef778d4..8ca4556d9664 100644
+--- a/drivers/i2c/busses/i2c-at91-core.c
++++ b/drivers/i2c/busses/i2c-at91-core.c
+@@ -255,6 +255,7 @@ static int at91_twi_probe(struct platform_device *pdev)
+ 	if (rc) {
+ 		pm_runtime_disable(dev->dev);
+ 		pm_runtime_set_suspended(dev->dev);
++		at91_twi_dma_release(dev);
+ 
+ 		return rc;
+ 	}
+@@ -270,6 +271,8 @@ static void at91_twi_remove(struct platform_device *pdev)
+ 
+ 	i2c_del_adapter(&dev->adapter);
+ 
++	at91_twi_dma_release(dev);
++
+ 	pm_runtime_disable(dev->dev);
+ 	pm_runtime_set_suspended(dev->dev);
+ }
+diff --git a/drivers/i2c/busses/i2c-at91-master.c b/drivers/i2c/busses/i2c-at91-master.c
+index 894cedbca99f..68238cc8aee0 100644
+--- a/drivers/i2c/busses/i2c-at91-master.c
++++ b/drivers/i2c/busses/i2c-at91-master.c
+@@ -817,11 +817,21 @@ static int at91_twi_configure_dma(struct at91_twi_dev *dev, u32 phy_addr)
+ error:
+ 	if (ret != -EPROBE_DEFER)
+ 		dev_info(dev->dev, "can't get DMA channel, continue without DMA support\n");
++	at91_twi_dma_release(dev);
++	return ret;
++}
++
++void at91_twi_dma_release(struct at91_twi_dev *dev)
++{
++	struct at91_twi_dma *dma = &dev->dma;
++
+ 	if (dma->chan_rx)
+ 		dma_release_channel(dma->chan_rx);
+ 	if (dma->chan_tx)
+ 		dma_release_channel(dma->chan_tx);
+-	return ret;
++	dma->chan_rx = NULL;
++	dma->chan_tx = NULL;
++	dev->use_dma = false;
+ }
+ 
+ static int at91_init_twi_recovery_gpio(struct platform_device *pdev,
+diff --git a/drivers/i2c/busses/i2c-at91.h b/drivers/i2c/busses/i2c-at91.h
+index 942e9c3973bb..d68fcbbc3e0f 100644
+--- a/drivers/i2c/busses/i2c-at91.h
++++ b/drivers/i2c/busses/i2c-at91.h
+@@ -172,6 +172,7 @@ void at91_twi_irq_restore(struct at91_twi_dev *dev);
+ void at91_init_twi_bus(struct at91_twi_dev *dev);
+ 
+ void at91_init_twi_bus_master(struct at91_twi_dev *dev);
++void at91_twi_dma_release(struct at91_twi_dev *dev);
+ int at91_twi_probe_master(struct platform_device *pdev, u32 phy_addr,
+ 			  struct at91_twi_dev *dev);
+ 
+
+-- 
+2.47.3
