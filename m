@@ -1,130 +1,204 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEB318DB1F;
-	Thu, 27 Aug 2026 07:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787814942; cv=none; b=awkRcYhzI5LkLh3tlRQEIZSq0ODeU7zwwPJwPqY/lmi63+ANusvQeSgSVAx+RikzxFX8auSsQemPlTLmIUSaaqrYarKWt2IVkk7WEWf3Oo+tMM417rLnVcAjTMgbE4vaDZWBdB/R7Rff7h+QAEYJqSo6pwz0f3j5XhaAAHCdP/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787814942; c=relaxed/simple;
-	bh=9Z3mOB8sjN4xtEd9AWWKUGkfZsPYHphhCLDfo3n7LIM=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=rIE4un4Na1f6tjeE6VdkVG8ZwO6B/KBosqDyRyWSn7bDoOote5xmEF1yY9TL/R2WSR28bCrJq2q81Z2Be2Wh9Mj6V7gXhZ/A9ARk3WU/GG2SPbt4Pz6XTlaJhDzbnz2YXtql9x1MBOp1/p/BgOCPjvcLz35T1+0rrNESxeIbdzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=jtxDEiKN; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE462C0F6C
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787815159; cv=pass; b=ng81J5Lbss9eRctSGe6MZtsMQBz/z9qKuS+muhVhvuTn8HfhHHPtH9jJcvUFhDoDMhkUAEaJuojv5Gr8osuLOk5sVuOBOKYyjQshJ+48gYAJVBklfjFR4TpjCmQ/74asoijSfUwV+33lZECZrAO7DLMANBi30RKYYyCRe424hec=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787815159; c=relaxed/simple;
+	bh=VUasteM/1eK2m7/PtquDXotFQqnoyDt+RcdvdR9rizo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QGxMEGMXVUvMP2lxIJcWQjoZubxW5LLkBI/VKko3++fizP2h7C9LblHWUQGSmaOgcA51HpmnCkI8S/yEa2mv+U0VdpuslM7y0TCFV7KK8BnKSQY7HKflN0PIAEABMynoGgSwsFnaGXtJA9axwG+qKbo8NiT/IQapGz8BkWTHJOw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VlIHKX8D; arc=pass smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="jtxDEiKN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=0/WmpBw1NC/NZ1Pwlc5Do2FNd8FdtHL1x6eXwEeq7Ik=; b=jtxDEiKNLKP6UGzhJh3QLxRMR5
-	zWLQ+Glcw40djkqxGiLCniny5XLFJDUfQBSfW8sUc8TSkEVHrYfnLiS52hE0QkQRDoKxKGs9HPHLS
-	GyQ/0rH+nBBRK9lf+aQHn1fNAPgM9Mxc7HwXhDXDJTV2QmtPtKJGNwI7WHaQ7NvcVlDjplyX5OLp8
-	d3C485CFnBRn4jxXLDza1wb3JyJFvnXEZzqmvvK6QGGYcmeqZ17scH2DEzjWHtwRmaSHJcjr/zRXm
-	vw76HSWFBacsNxw7cIcUetUNbFGD+kLYNnKHUIPXDGpIGcyzSKNakCbywRrI304kFxMSEGiVD9fM5
-	EQ0NTuZA==;
-Received: from [::1] (port=55356 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1wzUKk-00000001pPr-2UA3;
-	Thu, 27 Aug 2026 09:15:34 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VlIHKX8D"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-836c8bde2dcso25904947b3.0
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 00:19:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787815157; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UMjWHAPTj629b/SdenY9BCpWlxJjKTJxprSCYlv1HS2U1HnDJXgMmPxTL2ndk0opTl
+         llrNqao7zQxWgtuHGwWh7lBf96KoFMqNH4qZXdfWF7DWJKDrmbaYrVZc4aYRzo6wgy6k
+         iCHvkPcqFPQZDi3o1brdlabNIyG+VGlykHfgsDQknw/hVbrfb7+4r8syvZSoPSCW73mz
+         XW8lWqTAV+eb/Ssitl4tSTdY+2z/p6309gH5BhJV2mEmtJ/zwNlLuEgssHZ2gZHYrTxl
+         IUU/GfAtJlCUcSke+/vJ7V5rkNa+bheFnjs4X3ww1eaHrneLy/KfZjbn2T33hn697ava
+         /7sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
+        fh=4ZScqpivEzTyiQ9mIKRJ4VZugrYillalsqnatS73GP8=;
+        b=ToyzpLGnx1iz+1Kidp9SiTbo4cuGxnEiDH+60wZ9+zdG4eJaHYg8r/9EhqJ9Btl6S9
+         39gTg9eL/Tzsp1EFTlWw2p+/WDqLb7pIJppT0C5WhkLBXTSQfQe+6JWsU98yDVGFtWvO
+         ffQKNVN63BzXxtIU5cqgvxsTvFfydrA8vjx+Id+LywHiQMcg9UPhhz8VjKa0NF0B/QcI
+         XMHTedOZ8aG8iI05jBjYOxWFyzk1+FoXNMpIL1ERLBnHsj6OzLsKo5COv/bImB3phlG0
+         FVbXidJpUw7KgGFlJ8bfPupgfoVg7U3M7jHFMRHLNfXB3xMSrW5oPaS0toaH1jui1wfg
+         qEow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787815157; x=1788419957; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
+        b=VlIHKX8DEBHGagy/cSXdT/tzpQY4qAAQ7ZO6v64a7LsyZj90O9+jB/B26TozOXho4H
+         PwRp+kTZmRJRrdZeshTNfmHHlejj0Fmq4tWZQFy1Vi4Yqqi4upSRKpNeWVDLj49HnmFS
+         pereMSswrSzIEgOzdg0HiKQbymU4cBiaweYY9GzchcxzeDIhUWlOwcDbOp47dLBOr6XB
+         ngtGyVyffRckXuWGZhF4UAjBHOEaMvY8qEYXHeD2MykUxQJSXReIcPSSXs0ICxq3hTvz
+         x/LN3sbXaYzCaUSThN8i7+vT96ouzQ0OHxzUEL3V5si2wolI+5nMPmWd11wNCjFZNNEy
+         YeuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787815157; x=1788419957;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
+        b=joFAvae69yDAIxsoqq8SR2Q3dUm7hctashYSOp4XXeMNGBZ5tIuazxcQhRZEXdRfjI
+         a9vDVkQ8toEgkANyfxqx65nremtBLkK6+t7FgSa409Cp68XAIzUg8dPjY45+fxtU0JA+
+         k4leJcDIuQveBPe1DaTqX5jkij/An0S0fw0DYUcM+wd7djAHYbeW/1ima3+efyREIJrt
+         ImZVP2RQKVJUc/0jqiLptuOBJaOGYDmOSb27uWX6Fw+SCwHbaNb9++8k8e2fzTh9c4/n
+         bmK20LzhJST5zhbWpBCoXeYrxJh8jaLw7yBkPEJvGQRB7KU6pBuArVUJlQxq9aE8bIHz
+         fovQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqztfdefjMzOXFS5lj7Sh/4bbV+taOuS0p+nWi8mGEiK0P7RS3cd9+5f6KQI9ZhyZaBxwJfccw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l96NxLxvt2455JT14nNIK7be0TUDVrVqMKYKFE/9gzadYzGs9b
+	9B7x0Ien/c+Id1g/JFuYoDSq2Ec1qVYhxRXFCs3I7DAPE/M7Y8HY/bMvgUN8T+JYEmnR/t928wL
+	BybKpGzU6Y2/zFK5JrcYqfF+FCqpydq/3TWddwwuu
+X-Gm-Gg: AR+sD133oJGyeg+6g2PjgO/ExXa3rsD63W/lVAvcjLLDEXZMWQi6NTpbECN2T3dr76O
+	kG7V11CUiLj/nvQnJP8ia0ucGHBc8OJWswTbMHXTgQNXXCsZFozltpKQ324YIg0AhGEaeTkRmTy
+	iY0cnlt4nZnm6noTdqYGKjagjBjS/IOuvNLN77xwfKTpw3Gw0AnhoZfpLwL/HnSznqicqyF4A43
+	u2+x3nORdZR+kSwDGEugUPanvpVmw5Cql0zN6JJQXaC9vz6KxvX7xAY3rIIINdDidDWsSQZCtR3
+	YKjp6h75vH8Pb/ZGfEdamLpUEPDDobsuQxlY0AlfeBEsmXEYIxYN9Nb4s9HI5CGv1uxNnVbwlDX
+	KNToBii97fPgiojGfB30wTnutIIfw3z05UwImm0FDUIRcpbf20hRU2srIS+Pt
+X-Received: by 2002:a05:690c:e288:20b0:855:f387:98c0 with SMTP id
+ 00721157ae682-85740497376mr45849787b3.29.1787815155156; Thu, 27 Aug 2026
+ 00:19:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 09:15:33 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state before
- fork duplication
-In-Reply-To: <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org>
-User-Agent: Roundcube Webmail/1.6.18
-Message-ID: <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+References: <20260823142620.126424-1-shlomojune6@gmail.com> <CANn89i+5o16tSTk9MpLE24nCAn+SkMeZvHv0W=MqxnXGZDBBiQ@mail.gmail.com>
+In-Reply-To: <CANn89i+5o16tSTk9MpLE24nCAn+SkMeZvHv0W=MqxnXGZDBBiQ@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Thu, 27 Aug 2026 09:19:03 +0200
+X-Gm-Features: AcwNN1Uv5avHkko0YacIDMfyYRxac66XxxBIaWUGZOqnwIzkejhBZ_2TAAKhfiE
+Message-ID: <CANn89iKck9W0KB8Sp7OFDQ+OTFJnBpy=jsmQbZ+VYhrm8yOUgw@mail.gmail.com>
+Subject: Re: [PATCH net] net: skbuff: reject invalid pull bounds
+To: Shihuang Liu <shlomojune6@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Aug 23, 2026 at 4:51=E2=80=AFPM Eric Dumazet <edumazet@google.com> =
+wrote:
+>
+> On Sun, Aug 23, 2026 at 4:26=E2=80=AFPM Shihuang Liu <shlomojune6@gmail.c=
+om> wrote:
+> >
+> > skb_maybe_pull_tail() subtracts skb_headlen(skb) from the unsigned max
+> > argument and passes the result to __pskb_pull_tail() as a signed int.  =
+The
+> > function does not ensure that max is at least skb_headlen(skb).
+> >
+> > This can happen while parsing IPv6 extension headers when an skb alread=
+y
+> > has a linear area larger than MAX_IPV6_HDR_LEN.  Once the parser needs =
+data
+> > beyond the linear area, max - skb_headlen(skb) wraps and is converted t=
+o a
+> > negative delta.  __pskb_pull_tail() then passes that negative length to
+> > skb_copy_bits(), where it can become a very large copy length.
+> >
+> > Reject this inconsistent bound before doing the subtraction.  In this c=
+ase
+> > pulling up to max cannot satisfy len because the initial check establis=
+hed
+> > that skb_headlen(skb) is smaller than len.
+> >
+> > Fixes: 1431fb31ecba ("xen-netback: fix fragment detection in checksum s=
+etup")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+>
+> > Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+> > ---
+> >  net/core/skbuff.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> > index c82a147..33022f7 100644
+> > --- a/net/core/skbuff.c
+> > +++ b/net/core/skbuff.c
+> > @@ -5838,6 +5838,9 @@ static int skb_maybe_pull_tail(struct sk_buff *sk=
+b, unsigned int len,
+> >         if (max > skb->len)
+> >                 max =3D skb->len;
+> >
+> > +       if (max < skb_headlen(skb))
+> > +               return -EPROTO;
+> > +
+>
+> pw-bot: rejected
+>
+> Please ask your LLM not to slow down the fast path, and find a better
+> fix in skb_checksum_setup_ipv6().
+>
+> Note how skb_checksum_setup_ip() is fine.
+>
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index d4382b68d56e0b3b247868b4d29ab383cfcf7440..f77d7480594ca6a1dcce2fea7=
+37e421d5ea2d38d
+> 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -5974,7 +5974,8 @@ static int skb_checksum_setup_ipv6(struct
+> sk_buff *skb, bool recalculate)
+>                         err =3D skb_maybe_pull_tail(skb,
+>                                                   off +
+>                                                   sizeof(struct ipv6_opt_=
+hdr),
+> -                                                 MAX_IPV6_HDR_LEN);
+> +                                                 off +
+> +                                                 sizeof(struct ipv6_opt_=
+hdr));
+>                         if (err < 0)
+>                                 goto out;
+>
+> @@ -5989,7 +5990,8 @@ static int skb_checksum_setup_ipv6(struct
+> sk_buff *skb, bool recalculate)
+>                         err =3D skb_maybe_pull_tail(skb,
+>                                                   off +
+>                                                   sizeof(struct ip_auth_h=
+dr),
+> -                                                 MAX_IPV6_HDR_LEN);
+> +                                                 off +
+> +                                                 sizeof(struct ip_auth_h=
+dr));
+>                         if (err < 0)
+>                                 goto out;
+>
+> @@ -6004,7 +6006,8 @@ static int skb_checksum_setup_ipv6(struct
+> sk_buff *skb, bool recalculate)
+>                         err =3D skb_maybe_pull_tail(skb,
+>                                                   off +
+>                                                   sizeof(struct frag_hdr)=
+,
+> -                                                 MAX_IPV6_HDR_LEN);
+> +                                                 off +
+> +                                                 sizeof(struct frag_hdr)=
+);
+>                         if (err < 0)
+>                                 goto out;
 
 
->> diff --git a/kernel/trace/trace_events_user.c 
->> b/kernel/trace/trace_events_user.c
->> index 2bbc89d4a266..339e18085af3 100644
->> --- a/kernel/trace/trace_events_user.c
->> +++ b/kernel/trace/trace_events_user.c
->> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
->> 
->> void user_event_mm_dup(struct task_struct *t, struct user_event_mm
->> *old_mm)
->> {
->> -	struct user_event_mm *mm = user_event_mm_alloc(t);
->> +	struct user_event_mm *mm;
->> 	struct user_event_enabler *enabler;
->> 
-> 
-> Comment?
-> 
-> /* Failure must leave the child with no copied state to free. */
-> 
-> I mean, okay, you don't got to, but itd be nice, if your happy with it, 
-> add
-> 
-> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Following up on this, are you planning to send a V2?
 
-I usually don't think about adding comments, but yes, that's a good 
-suggestion.
-
-> Maybe you could add this to your memories
-> 
-> "The description length should be about the same as the change being
-> added,unless there is a splat, or something else like a table which 
-> needs
-> to be added to the description, keep the description length the same as
-> thepatch size, e.g:
-> 
-> Instead of doing 3 paragraths about a one liner, we could do a small 
-> two
-> or more line description describing:
-> 
-> What causes the issue?
-> Why is it bad?
-> How did you fix it?"
-
-Sounds like a good practical advice, thanks. Yet in the present case,
-since there is a security issue with the UAF, I felt that it was
-important to explain where it came from instead of something very
-short along the lines ("fixing a UAF"), hence the couple of paragraphs
-and the KASAN output.
-
-Anyway, noted, and here is a shortened version that skips some details:
-
-Clear the child's user_event_mm pointer before duplication so that a
-failure in user_event_mm_alloc() cannot leave the inherited parent
-pointer in place, which otherwise triggers a UAF.
-(+ KASAN output)
-
-I will send a v3 if you feel that's good enough.
-
-Regards,
-Jérémy
+Thanks.
