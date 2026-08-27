@@ -1,90 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122FC427F91;
-	Thu, 27 Aug 2026 09:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1A143BDD2;
+	Thu, 27 Aug 2026 09:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823822; cv=none; b=RG8eGn9w7rslFgvbbtAbCUUki5vqsrd7RWnSoqorUnyOdM8jpWgs4OtXS0iJRlcOi+LTwabW4bki5AcxCyqhvWE7xr87e63ee8OOupQ+0wABhpHLgQeVKxZVOc3S6sA+tIYOo6faUDtyXsC8EOMj3dRZPdwQvAQhENgSptBJBz8=
+	t=1787823989; cv=none; b=D5ZzDFQBLYED6L9iV11kQVmJmrwgAWUSiGFPB6N9vKsYWwGrOPDNXG/PTwAA4c0HAZvhuzPgnaAQWMRNc41P1Rki52n2LIssYlO1h6VoyIg1APi8deMj4ajxbII08rw2m+kpi0/1CtydsKDN644XKDY5XYdnXU+/rUtl7vy0PSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823822; c=relaxed/simple;
-	bh=Kml3UFpqKmuyNf6MPWVigrUiYTDyfoerBU7UcsXJHck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hiTInyXVJvDuWXEVKfKaGoWVK83iHB98NFNZvW1njBTi6OW7qeoc35cvQj5xPnflpCrdPLyZBX1+28oaBrYTwZDaiAX/HqnHc8r7DR/0L6PgMjxz3cYKR8Vd1AaxwsRVKbQQzqQpNTjoe3Z9stydErLQnyxm1hTA5woparlZ4XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpGWjk39; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787823989; c=relaxed/simple;
+	bh=dh3vG164APjYii4z2Xh7/2PK1JpXQxJG9m23Lli66T0=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=ZTmLmzQUtcqrvXuW5MwHeD4wAYJWSf9WPFyeYQFEUDDy64bWw6E7zXBLYSKKbS0t2FWfCZQm7ASrBj1aUSDy5vO9j7ptKtV9tSBA6CnKXeNSG4LIAKIPjhuhOdkEtri/wDvYNSKEk0stJX66VbuOHla3RGuZaFhMxQdEVqN7GFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YrOJM0cK; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=UvdP5/x/; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpGWjk39"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA2B1F000E9;
-	Thu, 27 Aug 2026 09:43:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787823817;
-	bh=Y4cZ0UoCXxH9qXg2RynlUOzzxRFmakF4LP9Cl47C+ak=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PpGWjk39akJN778WuJcEBg1B5/32So6V0zQonbpf5DoI+Q4CWlAJJNNIh3pfjv8md
-	 u91T8xEgnqA6GLetH4c/IDHs2exbv4ofeoBiCnY97zOljqsJYym6b4a8o+87X4x1G3
-	 rrFBWwA+hsMUnIt3jPcU4puz0Dan2h997V21PNLqzvxlROPPyBbRG4Th5vdsBanIkR
-	 8UmZrfuCz5sNHFQ3KdvINnlMxEQpAkmcFbAFa10BZFILKRq8JsRbOZgzKWg4fM8pyA
-	 V6zlmMojIYiNFCHItBvQCi9VZk9Zww7EocOGrPD6XrtS/0Oq++89LPJ+kSX6LQlmca
-	 lF90qjvqR15nw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1wzWdy-00000002iAA-30xi;
-	Thu, 27 Aug 2026 11:43:34 +0200
-Date: Thu, 27 Aug 2026 11:43:34 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] i2c: dev: fix blocked adapter deregistration
-Message-ID: <apAGxmeDmdTTYgCQ@hovoldconsulting.com>
-References: <20260827090804.638565-1-johan@kernel.org>
- <20260827090804.638565-2-johan@kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YrOJM0cK";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="UvdP5/x/"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787823929; bh=V2GO/ymiyRXc2KVf5bJHpIK
+	KtBTztJDEc9YYiaIiBy8=; b=YrOJM0cKLUM5HxZ/zfajojwVriXDownnfGzUGlrroFAPxZTp7R
+	xLblzXFdgLYy/okKPJYaDhO5wEHKLp/IKgXBpN1HP1mOc/DL+ef81bWMZFdEMeDV/PiAfcZ6gdh
+	iGSUdwP0NkrSapzQENFpFXo72uHzIQRLT4MvAZVVh7/xWBai+i3RnZZFptYa7gueBZ5EDbB6lmt
+	ZR2zoZStjXC5KFEWTxO95l+UbB6etdCKfIsNixYtK1eecsQdw0gpsSidygoQ3ATMKDjQYlCqfft
+	b3rQVnY8pRXeAOm6cIOLAONlsbk4HEkMJptL/QZqSqcj0CgF4guT+vvQnnIOmArJAgQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787823929; bh=V2GO/ymiyRXc2KVf5bJHpIK
+	KtBTztJDEc9YYiaIiBy8=; b=UvdP5/x//IitHMxRTvfXNjEuA8Defdp7HN40m2+W1/AT9GbF4J
+	saaK/p1cfzPeBxtC5hGf4yxmH62cPEKmJjDg==;
+Date: Thu, 27 Aug 2026 10:45:29 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+CC: rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_tracing/user=5Fevents=3A_Clear_c?=
+ =?US-ASCII?Q?opied_tracing_state_before_fork_duplication?=
+In-Reply-To: <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
+References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr> <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org> <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
+Message-ID: <DAC674C5-A6BE-4D99-9721-2805640BA8A3@mainlining.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827090804.638565-2-johan@kernel.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 11:08:02AM +0200, Johan Hovold wrote:
-> The i2c subsystem allows controllers to be used by non-child devices
-> that may remain registered after an adapter goes away.
-> 
-> To handle this, adapter deregistration blocks until the last reference
-> to the adapter is released. Albeit unorthodox, this is mostly fine for
-> the vast majority of controllers but can cause some trouble when
-> controllers reside on hotpluggable buses.
-> 
-> Specifically, userspace can prevent an adapter from being deregistered
-> indefinitely by holding an i2c-dev character device file open. And with
-> USB attached controllers this prevents further hub events from being
-> processed by the parent hub until the file is closed.
-> 
-> Fix the i2c-dev implementation by dropping the additional reference
-> taken at open() and using an rwsem to make sure the adapter is only
-> accessed while registered.
-> 
-> Note that before commit 611e12ea0f12 ("i2c: core: manage i2c bus device
-> refcount in i2c_[get|put]_adapter") an adapter going away would instead
-> have resulted in a use-after-free.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Johan Hovold <johan@kernel.org>
- 
->  static int i2cdev_open(struct inode *inode, struct file *file)
->  {
-> -	unsigned int minor = iminor(inode);
-> +	struct i2c_dev *i2c_dev = container_of(inode->i_cdev, struct i2c_dev, cdev);
-> +	struct i2c_adapter *adap = i2c_dev->adap;
+On 27 August 2026 08:15:33 BST, "Jérémy Jean"
+<jeremy.jean@oss.cyber.gouv.fr> wrote:
+>
+>>> diff --git a/kernel/trace/trace_events_user.c
+>b/kernel/trace/trace_events_user.c
+>>> index 2bbc89d4a266..339e18085af3 100644
+>>> --- a/kernel/trace/trace_events_user.c
+>>> +++ b/kernel/trace/trace_events_user.c
+>>> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
+>>> 
+>>> void user_event_mm_dup(struct task_struct *t, struct user_event_mm
+>>> *old_mm)
+>>> {
+>>> -	struct user_event_mm *mm = user_event_mm_alloc(t);
+>>> +	struct user_event_mm *mm;
+>>> 	struct user_event_enabler *enabler;
+>>> 
+>> 
+>> Comment?
+>> 
+>> /* Failure must leave the child with no copied state to free. */
+>> 
+>> I mean, okay, you don't got to, but itd be nice, if your happy with it,
+>add
+>> 
+>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>
+>I usually don't think about adding comments, but yes, that's a good
+>suggestion.
+>
+>> Maybe you could add this to your memories
+>> 
+>> "The description length should be about the same as the change being
+>> added,unless there is a splat, or something else like a table which
+>needs
+>> to be added to the description, keep the description length the same as
+>> thepatch size, e.g:
+>> 
+>> Instead of doing 3 paragraths about a one liner, we could do a small two
+>> or more line description describing:
+>> 
+>> What causes the issue?
+>> Why is it bad?
+>> How did you fix it?"
+>
+>Sounds like a good practical advice, thanks. Yet in the present case,
+>since there is a security issue with the UAF, I felt that it was
+>important to explain where it came from instead of something very
+>short along the lines ("fixing a UAF"), hence the couple of paragraphs
+>and the KASAN output.
+>
 
-Bah, I of course need to take the rwsem here as well as pointed out by
-Sashiko.
+umm, you could include a ASCII table or something, that signifies the bug?
 
-Let me respin.
+>Anyway, noted, and here is a shortened version that skips some details:
+>
+>Clear the child's user_event_mm pointer before duplication so that a
+>failure in user_event_mm_alloc() cannot leave the inherited parent
+>pointer in place, which otherwise triggers a UAF.
+>(+ KASAN output)
 
-Johan 
+Hmm, I'm iffy on this,
+
+As in, You saying "which triggers a uaf"
+
+Wait no, that does sound right, yeah that's fine, you don't need to su
+Bmit
+a v3, since the length is fine, but yeah.
+
+
+>I will send a v3 if you feel that's good enough.
+>
+>Regards,
+>Jérémy
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
