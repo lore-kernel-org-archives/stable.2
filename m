@@ -1,126 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D425450F2;
-	Thu, 27 Aug 2026 05:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05842367B72
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787807543; cv=none; b=ufgu49u+qwDH3adUXh2QZ6/jUPSUVPuuMOV+DALfyjQjlYU4Y72hGDBtvQrYmCzpPzfXAI2rZO48QgVMaiui/oGSFxbQw5ftJ2vB3oQKwwCQxPz49PBSXYxSCvvkVhrxpbgNDCU9+N1R/V7eg7phyCMHbXukVPfmY4Kdv+at59A=
+	t=1787807727; cv=none; b=NjQrfT57epW4dpWk2JlMVPL3sEiFMYRlJZsmLb42IwyU1TSyEB7i4KrmwRrI2mkat4tFv+jihTO/D7B6qy0n13mkKQ35Lx7z6vuMcKNVZRZ0OzgdH8OQcAJaqv2ShxSB9ZqxPRxHuAB+liYqGqlkl92vNt3JLypiVc9Y25OHoLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787807543; c=relaxed/simple;
-	bh=jplI6Oc3+3ZSXLSuE+Ach9nhgnX57Rptzw/LsuGgC1g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qsWKxl0LdeqWFrSKmMWksb5nNqcyETicOgMpwdlX2dFhiBu95xF0TI/rkK1Jkoe+pgIluXuv9I+nLA0MHM1MMjshPLGL+5FqRGe563ydSGG6ak9sje07XBxN2jAzJ4gfdeUvhf7CF0yhX7gUJ4cRytwpnUfsTEelzKVEsDm2fDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=corzzDPd; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787807727; c=relaxed/simple;
+	bh=uM4ffWRXxgqJu6oQ+yqYabPlZlqlVfdb1R0U6/DgtsY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OIebZTegB4eJr+mUaao+KiGojl3y/Hd/7aAQ+gmQF5INzAGEtEHfMEJW1Q35meby8jlz3WQUu7kUO4xelaM6HpTY6S039GdGss1Pm/COwOEjRnwrietkc8N+OC+dHSYrM6d3naZ2RZPn0XWYJuxU/rCbducTzPSw3Oo/7cTnj3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qWzX3N4s; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="corzzDPd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787807540; x=1819343540;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=jplI6Oc3+3ZSXLSuE+Ach9nhgnX57Rptzw/LsuGgC1g=;
-  b=corzzDPdmDv2ptTfvm9Lec4fz47fPBg9JbkjWka6DXDe7j1E5Sc5w9mk
-   JddnGMztueciBrQBlAgh97ZyCPPJLu1m8tD07jm9Mx7nSCI5tE3bjoV68
-   Ct0EgIGqfjcr2a+rLqE+Cz1Olqkg5fbBuF0Ko+rgpyaOTitHYcO+9Wd+5
-   Yk94ib4MjbCm4qkMpasvy8OfoKevm6CiXM+2iuwnZhx3zhlmPOSTQuuTp
-   1AthY3cPY8THJdu+mpSb9cc7ptf6MxmQVkf66kcpyMdtImwdSKn3p7aQS
-   FyJ0Id4UFj/7CCyXq/iPU9vYoXQ3mUK6H+IMGvEhL0gHCxgUOjkA18HSQ
-   w==;
-X-CSE-ConnectionGUID: /aP5u6BNST2uNnk3CUTy0A==
-X-CSE-MsgGUID: mBam4IEjQm672oLcJNByow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88159967"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88159967"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 22:12:19 -0700
-X-CSE-ConnectionGUID: K1BmynRxRiqXZKLk7KJeng==
-X-CSE-MsgGUID: 3f+bCbmmQxa+S5aPjgo3eQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="271979932"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 22:12:17 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Thu, 27 Aug 2026 08:11:56 +0300
-Subject: [PATCH v2] mtd: mtd_intel_dg: reset poll counter for each erase
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qWzX3N4s"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2caced6038eso7406255ad.0
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 22:15:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787807725; x=1788412525; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n7iOkDdvwOpGToX3CuLu1TzqG3e80H5C6wqSpJxbfBo=;
+        b=qWzX3N4ssA8hOX82cMRVj3LVznCWUzn7VC+Js0gAlYZWhm6V8pcHmhJPS5DL+4994a
+         ZPbiRQMX4viy8QvEDNjT7moZnkqo6FtLKWMoelRbwhE+Z00cz2GEYiaO0gFnz9OfEQ4l
+         VP3Ikhk7EThrbDuwR+l7Yb8lSuBw6uqLIGvJl+1qPprgthyAeSklMJXaM7hAd9Z18Ice
+         NGC/e0GYavKghVXz/M7lBTJsFCChixGGIcD2qmChYTRS2BBxZA9Gzfbp8hzM20degPy5
+         AWpVHI/P0zkcYmhzDlI9jGA1bSmFCqinAqHlcP0w5u+z+S5+Gk1Ms3ZvnMcwYSncqjRS
+         zwgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787807725; x=1788412525;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n7iOkDdvwOpGToX3CuLu1TzqG3e80H5C6wqSpJxbfBo=;
+        b=iyFMbyR/RMyVX6Qjfy33NPt4Sa0YQjCyoA/pkUlnqLZgHnlz1JP5QIAIPWDggZnnpg
+         U148/zWdwefid+7lOFSGCgo6bWScJZdLxk/CIvPmFzBu9Br91Xptoq2ToPWZiThPHKuG
+         S22ICvLPKqv9q3WhtNwX7IAQV3HupLrQ/cy0RBYnIXOkA2fFylwFuOv84CKXwNvarAsG
+         wzQUtd6F/fdZ23XnJSBMiW1QG/rMHDYq6JeCyaWABTzTvTzehofzfafpSQfevnyK+IQN
+         +37hmaBJZMEdUorwpLN28Zz64B6LuVWDAiBJ+BM6mEEH47nKzJfB8Yo5ewfAaNJMotoj
+         gsRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp//IbsQneXKfAPp80Lej2wQvJeomw1/nt6Wkxl9dVdn97zUGJSpV3vuaOCwfLeMpvEt1cczfk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTSlPYn53t1fdjESgghN5nN6CyGFVxED8Gz1XAFBvpYy3jzKx1
+	Gbr9CkGlVyHWMNnxWBhwaKN79Q38rsrITnYieNNdHwm55NUl152MFDDt
+X-Gm-Gg: AR+sD13h9E92BpTAHlbsY97Rrstd17ruJ1JYxL8633Ju9/YMI0/ImGaM4P3BzJOiQAt
+	muuhwIutIQau6qDhs6/IyzGM8+I2Ys4aXJXdR1RHNGiIWxHbl4Hs+Mjz6y5Hcfjr8eruguX/j5O
+	pzRGhIzCp87e4hzPC1F2LvjD3bDKfxot+ifTXpfaWgFcDyfA/a/0UjIUcP0UwErnYTURZjU6JKQ
+	HSdhv/waEexGVmG8YCa3Jmno/6rkqMHTs5UjszedzQPd8sYxm6Y/2eFvbVhPLgN/YaFBTzgoE+H
+	0z2vJo9YK2C03kjh+GC9O88xln0kUGzfp0w2wyeCQAfml/SbLCDMEzk95A4IrCIEyIJL9zFVG3b
+	wIkSRiTbeyWBtUKY/Id1o2HSqUWYkaaB5iBVb4CEQsZpHXlXsuT4P/N9yHP4lZNi+/00pIOu0a3
+	sSAPXGZrTeoPq4UU+8+e6KBlGdGrzYNZZ6PbuJzfbRmnMytbI4aZuh8ZDv22GUyKPGpkTf1lRJJ
+	JXM
+X-Received: by 2002:a17:902:f647:b0:2d7:1cbd:9ceb with SMTP id d9443c01a7336-2d7269d6badmr53564155ad.12.1787807725203;
+        Wed, 26 Aug 2026 22:15:25 -0700 (PDT)
+Received: from Default ([2409:40f4:1012:4330:756d:2890:a615:2db9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d730c3csm15176377eec.9.2026.08.26.22.15.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 22:15:24 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: dwlsalmeida@gmail.com,
+	jeffinphilip14@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
+Subject: Re: [RFC PATCH] media: vidtv: fix uaf in vidtv_bridge_on_new_pkts_avail
+Date: Thu, 27 Aug 2026 10:45:08 +0530
+Message-ID: <20260827051508.13989-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026082737-traitor-shorter-a4cc@gregkh>
+References: <2026082737-traitor-shorter-a4cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-mtd_eraze_to_fix-v2-1-1395ae4fb795@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6DIBREr2L+ujSAqUJXvUdjCOq3/qSKAULaG
- u5e6gE6uzfJvNkhoCcMcK128JgokFsLyFMFw2zXBzIaC4PksuFKNmyJo0FvP2iiMxO9WN1yhXz
- SuhcWymzzWOpDee8KzxSi8+/jIYlf+0eWBBOsV1bpuoS3lxutEZ/nwS3Q5Zy/ww6QcbAAAAA=
-X-Change-ID: 20260826-mtd_eraze_to_fix-3708e0f99b1a
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Menachem Adin <menachem.adin@intel.com>, stable@vger.kernel.org, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787807537; l=1851;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=vXZtjOotZCVR+xsRZA0rIviHyugLPf2qFp/jodZPmYw=;
- b=SYT4x5TEJSV6W7tgkrgpQLF0ikG4f8qzCFOJoR2z39DBB/6wsTT8T1Dn0HXd1IZ8/fFnEeiVO
- oNbiqwvN28uDGyWKghXGft1r5donYh+ihopCaM5fzS51hEWOuE04Vr+
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Transfer-Encoding: 8bit
 
-From: Menachem Adin <menachem.adin@intel.com>
+On Thu, 27 Aug 2026 06:51:21 +0200, Greg KH wrote:
 
-The non-posted erase polling counter is initialized only once per MTD
-erase request. Large requests therefore share the polling budget across
-all 4K erase commands and can fail with -ETIME even though no individual
-command timed out.
+>While "fun", this is not a normal path that users ever will hit.  See
+>this thread where I propose tainting the kernel if you attempt to do
+>this:
+>	 https://lore.kernel.org/r/20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org
 
-Reset the counter for each 4K erase command so every operation gets the
-intended completion timeout.
+Thanks for the reference. The task hang is not possible
+then. However, the UAF will be triggered anyway as we are just simulating
+an unbind. Even if the driver's .release is called naturally, if we are
+streaming data, it could cause the UAF, no?
 
-Cc: stable@vger.kernel.org
-Fixes: a1c940cbf505 ("drm/xe/nvm: add support for non-posted erase")
-Signed-off-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
-Changes in v2:
-- Add Fixes tag and stable cc
-- Link to v1: https://lore.kernel.org/r/20260826-mtd_eraze_to_fix-v1-1-b8a893333075@intel.com
----
- drivers/mtd/devices/mtd_intel_dg.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mtd/devices/mtd_intel_dg.c b/drivers/mtd/devices/mtd_intel_dg.c
-index f2fa8f68d190..6e226c0c7f17 100644
---- a/drivers/mtd/devices/mtd_intel_dg.c
-+++ b/drivers/mtd/devices/mtd_intel_dg.c
-@@ -387,7 +387,7 @@ idg_erase(struct intel_dg_nvm *nvm, u8 region, loff_t from, u64 len, u64 *fail_a
- 	void __iomem *base2 = nvm->base2;
- 	void __iomem *base = nvm->base;
- 	const u32 block = 0x10;
--	u32 iter = 0;
-+	u32 iter;
- 	u32 reg;
- 	u64 i;
- 
-@@ -396,6 +396,7 @@ idg_erase(struct intel_dg_nvm *nvm, u8 region, loff_t from, u64 len, u64 *fail_a
- 		iowrite32(region << 24 | block, base + NVM_ERASE_REG);
- 		if (nvm->non_posted_erase) {
- 			/* Wait for Erase Done */
-+			iter = 0;
- 			reg = ioread32(base2 + NVM_DEBUG_REG);
- 			while (!(reg & NVM_NON_POSTED_ERASE_DONE) &&
- 			       ++iter < NVM_NON_POSTED_ERASE_DONE_ITER) {
-
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260826-mtd_eraze_to_fix-3708e0f99b1a
-
-Best regards,
--- 
-Alexander Usyskin <alexander.usyskin@intel.com>
-
+Thanks,
+Jeffin.
