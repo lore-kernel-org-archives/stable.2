@@ -1,128 +1,72 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1A143BDD2;
-	Thu, 27 Aug 2026 09:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E039C43A7E9;
+	Thu, 27 Aug 2026 10:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823989; cv=none; b=D5ZzDFQBLYED6L9iV11kQVmJmrwgAWUSiGFPB6N9vKsYWwGrOPDNXG/PTwAA4c0HAZvhuzPgnaAQWMRNc41P1Rki52n2LIssYlO1h6VoyIg1APi8deMj4ajxbII08rw2m+kpi0/1CtydsKDN644XKDY5XYdnXU+/rUtl7vy0PSw=
+	t=1787825861; cv=none; b=PaE4y/6fvBLQQQgNgFZGfOdOdbgzdOxnK21nGy7ZLePVTPrY5iDfiEPD7wet8sau1xMzEyPcu7vP+W4trV2DMLFCGpAOLT8n0o1V/jmt8+YeQlIQJuUK9owJt6AljZU1cVgJu5hoo3sKXLwdI/5ts0c/qtuhPaaXIlK/2hOH5cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823989; c=relaxed/simple;
-	bh=dh3vG164APjYii4z2Xh7/2PK1JpXQxJG9m23Lli66T0=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=ZTmLmzQUtcqrvXuW5MwHeD4wAYJWSf9WPFyeYQFEUDDy64bWw6E7zXBLYSKKbS0t2FWfCZQm7ASrBj1aUSDy5vO9j7ptKtV9tSBA6CnKXeNSG4LIAKIPjhuhOdkEtri/wDvYNSKEk0stJX66VbuOHla3RGuZaFhMxQdEVqN7GFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YrOJM0cK; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=UvdP5/x/; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1787825861; c=relaxed/simple;
+	bh=r4HsTiHvzg2AlQkD8+AeG2tkKnoHBQ5COc+qj98xNQU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=su/ktyn3bjf5cJaWZqGRrLShtMbUoucLUCIT4XoNAE+0ME4IuqEZ3BAF/FaA6E3wXI7LYyi/feglduh2QO/4y2Pk1yUXPtc6khknvjTcX1tLajSuF34TbbjQGHMlpRkRe1CIrtE+8mLk8j7ZfqDcp5QXplquXBY4YwvSKdL3xqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MHYCBGUv; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YrOJM0cK";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="UvdP5/x/"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787823929; bh=V2GO/ymiyRXc2KVf5bJHpIK
-	KtBTztJDEc9YYiaIiBy8=; b=YrOJM0cKLUM5HxZ/zfajojwVriXDownnfGzUGlrroFAPxZTp7R
-	xLblzXFdgLYy/okKPJYaDhO5wEHKLp/IKgXBpN1HP1mOc/DL+ef81bWMZFdEMeDV/PiAfcZ6gdh
-	iGSUdwP0NkrSapzQENFpFXo72uHzIQRLT4MvAZVVh7/xWBai+i3RnZZFptYa7gueBZ5EDbB6lmt
-	ZR2zoZStjXC5KFEWTxO95l+UbB6etdCKfIsNixYtK1eecsQdw0gpsSidygoQ3ATMKDjQYlCqfft
-	b3rQVnY8pRXeAOm6cIOLAONlsbk4HEkMJptL/QZqSqcj0CgF4guT+vvQnnIOmArJAgQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787823929; bh=V2GO/ymiyRXc2KVf5bJHpIK
-	KtBTztJDEc9YYiaIiBy8=; b=UvdP5/x//IitHMxRTvfXNjEuA8Defdp7HN40m2+W1/AT9GbF4J
-	saaK/p1cfzPeBxtC5hGf4yxmH62cPEKmJjDg==;
-Date: Thu, 27 Aug 2026 10:45:29 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-CC: rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_tracing/user=5Fevents=3A_Clear_c?=
- =?US-ASCII?Q?opied_tracing_state_before_fork_duplication?=
-In-Reply-To: <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr> <5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org> <faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
-Message-ID: <DAC674C5-A6BE-4D99-9721-2805640BA8A3@mainlining.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MHYCBGUv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=r4
+	HsTiHvzg2AlQkD8+AeG2tkKnoHBQ5COc+qj98xNQU=; b=MHYCBGUvRT02yksjJD
+	Du8ID5eA70iOL/FxASbW+cMh2+ikbhM/kz16lBW1M328kl0Jzw4Y2lbFq9KmHttS
+	RlMVquDx+x//EzyD2s4fuVeGbNsLgaxfWRkvZE9Bwzt+H7yDPElHPfturOkgHia0
+	IVNUYIq0PHobitI9unFdXFU5I=
+Received: from localhost (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgCXX71tDpBqwQL_OQ--.51270S2;
+	Thu, 27 Aug 2026 18:16:14 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com
+Cc: vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH] sched/deadline: Fix DL server divide-by-zero for inactive CPUs
+Date: Thu, 27 Aug 2026 18:16:13 +0800
+Message-ID: <20260827101613.2664218-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <an2BH9a8PWlZUGj6@jlelli-thinkpadt14gen4.remote.csb>
+References: <20260812123252.2355986-3-sh_def@163.com> <an2BH9a8PWlZUGj6@jlelli-thinkpadt14gen4.remote.csb>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgCXX71tDpBqwQL_OQ--.51270S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUjWlkDUUUU
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6g5dvGqQDm49hgAA3k
 
-On 27 August 2026 08:15:33 BST, "Jérémy Jean"
-<jeremy.jean@oss.cyber.gouv.fr> wrote:
+Hi Peter, Ingo,
+
+Gentle ping on this fix. Juri has provided an Acked-by.
+
+> Looks good to me, thanks!
 >
->>> diff --git a/kernel/trace/trace_events_user.c
->b/kernel/trace/trace_events_user.c
->>> index 2bbc89d4a266..339e18085af3 100644
->>> --- a/kernel/trace/trace_events_user.c
->>> +++ b/kernel/trace/trace_events_user.c
->>> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
->>> 
->>> void user_event_mm_dup(struct task_struct *t, struct user_event_mm
->>> *old_mm)
->>> {
->>> -	struct user_event_mm *mm = user_event_mm_alloc(t);
->>> +	struct user_event_mm *mm;
->>> 	struct user_event_enabler *enabler;
->>> 
->> 
->> Comment?
->> 
->> /* Failure must leave the child with no copied state to free. */
->> 
->> I mean, okay, you don't got to, but itd be nice, if your happy with it,
->add
->> 
->> Reviewed-by: Bradley Morgan <brads@mainlining.org>
->
->I usually don't think about adding comments, but yes, that's a good
->suggestion.
->
->> Maybe you could add this to your memories
->> 
->> "The description length should be about the same as the change being
->> added,unless there is a splat, or something else like a table which
->needs
->> to be added to the description, keep the description length the same as
->> thepatch size, e.g:
->> 
->> Instead of doing 3 paragraths about a one liner, we could do a small two
->> or more line description describing:
->> 
->> What causes the issue?
->> Why is it bad?
->> How did you fix it?"
->
->Sounds like a good practical advice, thanks. Yet in the present case,
->since there is a security issue with the UAF, I felt that it was
->important to explain where it came from instead of something very
->short along the lines ("fixing a UAF"), hence the couple of paragraphs
->and the KASAN output.
->
+> Acked-by: Juri Lelli <juri.lelli@redhat.com>
 
-umm, you could include a ASCII table or something, that signifies the bug?
+Please let me know if any additional testing or changes are needed.
 
->Anyway, noted, and here is a shortened version that skips some details:
->
->Clear the child's user_event_mm pointer before duplication so that a
->failure in user_event_mm_alloc() cannot leave the inherited parent
->pointer in place, which otherwise triggers a UAF.
->(+ KASAN output)
+Thanks,
+Hui
 
-Hmm, I'm iffy on this,
-
-As in, You saying "which triggers a uaf"
-
-Wait no, that does sound right, yeah that's fine, you don't need to su
-Bmit
-a v3, since the length is fine, but yeah.
-
-
->I will send a v3 if you feel that's good enough.
->
->Regards,
->Jérémy
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
