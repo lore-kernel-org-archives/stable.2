@@ -1,59 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA06E1E5B68
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:18:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980BA30F543;
+	Thu, 27 Aug 2026 05:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787807890; cv=none; b=AnFPtjTOeAOIJ/Pi7D0iJMn/C72eBidWa8dURgQK4ZQNe/KkxpussN1L718pfz6VLrt8R2BIEO5AfHypLyW4fVRwcF0KcpH9LMrVPLcGg1gZ5+aALPPVR/Uk5WqaBjUoQLVR53CBX7MSxsNSNZlxiaHirKDnorGl1HqQsumMwRQ=
+	t=1787808034; cv=none; b=bOe9fm5a9czglOwFKWaPYySHS8nsWyrVIYry1/ct7oapaioQ4bloSWFsDfSKbHuFs/pPAuLGBNeD+TcFCXqfr/kYNlSTG6H5rAeVRYDmw/qpvq6LfHTMADLpVrzwH6R9clZRR6X9IloSEVLU6tWTV0QbsaXi96512hWu9ncEfKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787807890; c=relaxed/simple;
-	bh=ML2LwIzGOG70YUAqiW2PZcqGzN7QuuZwkfSVia1K5HA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a5NQ3Ojwd/vCqqotex6piRuu3QdTRaYTlgt56slySy+tPveKu/0QXyqbfS36VJkNR3Ceg32UUmpSvxPuuK0Z9ZVixJatxDMYrck2AIJtkfTwrBlgR71ZUEQHg0kmbeI2EBYgMaLnt1aLLmAPEbrjOYjlnF6vGKS86q4PHHb0m5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APCNtRvX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787808034; c=relaxed/simple;
+	bh=NwvmLZBB5FDCrhX9KcmQC98f16VXXpblOu6ah0ssUM4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dmHbSX0WZJyVuhmWl2zeU6dbQCiWKJxrUaDkiwmLOpIswPsf/A/OSuS76l7FYIoi7Qxy7KGDPZ2nKVYbNXY77tPhuagPnCcYsGfq+U7grKa+r+zAmTcbo9oXCL+FL4C6CHfI5EyZ+v233CiOJpcHSmg9J4qDdikQkrYZ4Jl8q9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yU4TJXco; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APCNtRvX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BE11F00A3A;
-	Thu, 27 Aug 2026 05:18:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787807889;
-	bh=kMJ//ncsK9Ne4loUeHLcu4O+SP/N8HAzb86Gnh6jLzI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=APCNtRvXz0jv1LYgx98Kv49HEwhbCpMmhd1LjvjNZf7R67F9SObBDXYlmkQrJzHL4
-	 ayZWWiZrVnI2K9J/adxxKbLqIS99kNp+FlCRAfl6JHVO7fiuRuQd1wXoYLBksNcErE
-	 aV4LDKuaT3UaXJAsb1Qe/oXE3Dbteo+wPR+iZcMkMmIB4PQr0UcWTwq1FLrHwsiQwX
-	 zce3B9IenWZ9t6CzMe5wG/gW+aC5+8p/qtD4PwdpL8YrtgyY23sKrDaXmxGmDvPo75
-	 XaEM8omrg3jw/90S6VdW7jpndAFpxZ7C0SVs/1NfBzrZPD9ls7Exq5icglE9Tn2SIE
-	 DNOrdOnSfHkBQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Jia Yao <jia.yao@intel.com>,
-	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH 6.18.y 1/3] drm/xe/guc_ads: allocate UM queues in a separate BO
-Date: Thu, 27 Aug 2026 01:17:59 -0400
-Message-ID: <20260827050834.10009.stable-daily@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825233053.1504506-1-jia.yao@intel.com>
-References: <20260825233053.1504506-1-jia.yao@intel.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yU4TJXco"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E771F000E9;
+	Thu, 27 Aug 2026 05:20:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787808033;
+	bh=vLBb6HhqmhPJ+9yrEnnJou4XlhOnsykA1SP0EOkS2bk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=yU4TJXcotY7tgwIjdLlEW92NJfj/z9OPzct5awmZ8G+qKISedXXHbhJSr1gx9UobE
+	 jALugNVyov/2ai1uOoNnubxtJ541lyRURov/rUG7gocAIOBVfMqX3Ww9izLove/GCw
+	 WNC7C+xbKE35iJBjgDNuj7yGBfBqVTFrhIRPgpI4=
+Date: Thu, 27 Aug 2026 07:20:31 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, mchehab@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
+Subject: Re: [RFC PATCH] media: vidtv: fix uaf in
+ vidtv_bridge_on_new_pkts_avail
+Message-ID: <2026082710-curse-hardwired-baaa@gregkh>
+References: <2026082737-traitor-shorter-a4cc@gregkh>
+ <20260827051508.13989-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827051508.13989-1-jeffinphilip14@gmail.com>
 
-> Move the UM queues into a dedicated BO (ads->um_queue_bo) and avoid
-> CPU memset operations on it, which eliminates the CPU as a potential
-> cacheline-polluting agent and helps maintain consistency between GAM
-> writes and GuC reads.
+On Thu, Aug 27, 2026 at 10:45:08AM +0530, Jeffin Philip wrote:
+> On Thu, 27 Aug 2026 06:51:21 +0200, Greg KH wrote:
+> 
+> >While "fun", this is not a normal path that users ever will hit.  See
+> >this thread where I propose tainting the kernel if you attempt to do
+> >this:
+> >	 https://lore.kernel.org/r/20260826-bind_taint-v1-0-52b05f4a965c@linuxfoundation.org
+> 
+> Thanks for the reference. The task hang is not possible
+> then. However, the UAF will be triggered anyway as we are just simulating
+> an unbind. Even if the driver's .release is called naturally, if we are
+> streaming data, it could cause the UAF, no?
 
-Queued for 6.18, thanks.
+I'm not saying your patch is incorrect, just that using bind/unbind in a
+way to justify code changes isn't ok on it's own (we are seeing some
+crazy platform and pci driver patches being proposed because of this...)
 
--- 
-Thanks,
-Sasha
+It's up to the maintainers here, just wanted to point out that this is
+NOT a normal codepath that users can ever exercise and think it's not
+going to possibly cause problem.
+
+thanks,
+
+greg k-h
