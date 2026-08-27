@@ -1,110 +1,178 @@
-Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D641847CC8E;
-	Wed, 26 Aug 2026 19:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B453B3BEF;
+	Wed, 26 Aug 2026 19:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787773332; cv=none; b=tQQXSFjz/e1BPN2xn3Ll8npDXCUzi7mK8xobqeGHoXoIbo9rtQy+VpiK5UVqIHBDbhSFXMHihdJYzTROmWiTDCQkhLRWVFURB8W1r2t42Nscu3JTafZjg3SpMsRtY6dloVut8nWn9F0g9+sKVwdjrUPYspg/IHhXI2plO/cqZGM=
+	t=1787774148; cv=none; b=eHjMYgDE203Zj5cb3dbQEj8SpisB1tDZvdaIpRkhDMpzwHvL3hsuzjTXlhk/XWVdLYGRD8PFAtivsgDMDuYzskNuaOv5CnwvxOTJ6Qt/Zpoy4WhbMUamwKs3xaeHB2XC8ymhKQBcF68XMWlaiCLXik41GRHuGjHgYtpt3VlJVrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787773332; c=relaxed/simple;
-	bh=n5+zW/sLXcx1YtKY8np6uGvCc7Muo5pDQvEIJAesLos=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RvMA4Nj7C7RUVmpXOYkYMdyH29Gtpas6EdDiYKjZceGgBGH9FrcQq+gTVoc3Lh6QpHuB71b0/7ABVHKyZHv2IA45dVv4d0hNuNBq6IcQ1Vc09hmvJ1vUSjGXXTkUpJUkdLTukOy28/PPj24n3GAw5NtT8FTvcoCye0RtDCiDFV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=ET8CBYu+; arc=none smtp.client-ip=193.104.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
+	s=arc-20240116; t=1787774148; c=relaxed/simple;
+	bh=hYgWRduNyAO3dp6CkGTfRSUHfMbOyGeaavjY3kfkW2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P3oxSsuUJdeKxQFd5OdB7qmW4a65wHpQnF5Dm269LRuE82PlgrB1GofjwUherCKlEwkUi+N3LAovH2M0BoRq8rmJ985+woIxMJ34diHPCTHpBp3UYMIcsD5FCLKqK4WPeaAfcP8jjw5nMe3wrWX5eQsTmBwMoI+PfMv/KQXkjsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TMgh4/sv; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="ET8CBYu+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
-	s=202008; t=1787773316;
-	bh=n5+zW/sLXcx1YtKY8np6uGvCc7Muo5pDQvEIJAesLos=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ET8CBYu+Q7E+A8tRwIXw4hZxzpB2sJWVTf+2MNuxXBaQqArP+IhNrnuUyluPP2LWB
-	 AwfTiWPjzemIeRrxpIfocAKolIq15Ou5SG198lf6FmiagknC80bNkhOICQylpykH9D
-	 RrA586cpC4LRyARW/6JWCvgxgtHJtKlmWaExWH+71uQe7QkGuPuEwM2qTu/cLujix2
-	 E8xOWGyMvB1jd3iE5/QKkZ26Zwh1YXD2blO1R12zNGD13/Rta/BeZAnJJk45eEz17q
-	 lMj1+MNS5A/X66cknx2NQNQGME2qFPfJCiruJoWOF7z+bIR7wE1Tg0M0By8PppuO33
-	 tbHHfpIuB13Gg==
-Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id CBB6D60075;
-	Wed, 26 Aug 2026 19:41:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by x201s (Postfix) with ESMTP id 6C1EB20079C;
-	Wed, 26 Aug 2026 19:40:35 +0000 (UTC)
-Message-ID: <2e89120d-c18d-4d0b-9e7c-149611475271@fiberby.net>
-Date: Wed, 26 Aug 2026 19:40:35 +0000
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TMgh4/sv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=oz
+	EVgNAPqGaijdplBS6VrYOY20Ejo09KRjCHLGuu6So=; b=TMgh4/sv61C/sQb+26
+	RpYJFfHMdyuQAj8aFPkIoSD+9Nictuewn1klXlNTK2frwaH3N3d+17o81RAHgnnt
+	x18DvZfVjtslwS+L6piD1aEN3IRdonwsa1QSMRuYe8FGnGcQO+MRHCw0KEzk06HJ
+	nVMQm8k4E/wfzkgtP8usiQf6w=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgBHCiaqRI9qXCSUOQ--.35168S2;
+	Thu, 27 Aug 2026 03:55:23 +0800 (CST)
+From: microfish <f13208471983@163.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	microfish <f13208471983@163.com>,
+	microfish <microfish@kernel.org>
+Subject: [PATCH] tpm: crb: handle ACPI NVS memory region overlap
+Date: Thu, 27 Aug 2026 11:55:11 +0800
+Message-ID: <20260827035511.49582-1-f13208471983@163.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netlink: specs: fix the conntrack filter type
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>,
- "Remy D. Farley" <one-d-wide@protonmail.com>,
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- Florian Westphal <fw@strlen.de>, linux-kernel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, stable@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260825155832.3685714-1-i.maximets@ovn.org>
- <94842eea-a296-4ab9-a026-2475757a82b8@fiberby.net>
- <7b1f615f-d435-4b83-a180-67cf9a4223a0@ovn.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
-In-Reply-To: <7b1f615f-d435-4b83-a180-67cf9a4223a0@ovn.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgBHCiaqRI9qXCSUOQ--.35168S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxurWDKF4xWF4UWr4xZFyxKrg_yoWrAFWkpF
+	n7Ca13Crs5XF47XwsxJF1kuFWfZa4Iyay3trWfJwnavanxGry5Zr4DAFyj9F15Jry8tw15
+	trWkAryxuFWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEiSd-UUUUU=
+X-CM-SenderInfo: birtjiyyuximiyt6il2tof0z/xtbC0Qu5EGqPRKutrAAA34
 
-On 8/26/26 6:38 PM, Ilya Maximets wrote:
-> On 8/26/26 7:20 PM, Asbjørn Sloth Tønnesen wrote:
->> On 8/25/26 3:58 PM, Ilya Maximets wrote:
->>> The CTA_FILTER doesn't contain nested tuple attributes, instead it
->>> contains bit masks that specify which tuple attributes to filter on.
->>> The values for filtering are taken from the top-level CTA_TUPLE_ORIG
->>> and CTA_TUPLE_REPLY.
->>
->> As identified by Sashiko-NIPA[1], then CTA_TUPLE_ORIG and CTA_TUPLE_REPLY
->> are both absent from the GET DUMP request attribute list.
->>
->> However this doesn't prevent ynl CLI from sending the attributes:
->>
->> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
->>     '{"nfgen-family": 2, "filter": {"orig-flags": 1}}'
->> Netlink error: Invalid argument
->>
->> $ sudo ./tools/net/ynl/pyynl/cli.py --family conntrack --dump get --json \
->> '{"nfgen-family": 2, "filter": {"orig-flags": 1}, "tuple-orig": {"tuple-ip": {"ip-v4-src": "192.255.0.255", "ip-v4-dst":
->> "192.255.255.0"}}}'
->> []
->>
->> Otherwise, LGTM.
->>
->> [1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825155832.3685714-1-i.maximets%40ovn.org
-> 
-> The reported issue is preexisting and a little orthogonal to the goal of
-> this patch.  I.e. missing dump attributes vs wrong type of attributes that
-> are specified.
-> 
-> I can add all the missing attributes: tuple-orig, tuple-reply, mark-mask
-> and status-mask.  Either as a separate patch, or fold the change into this
-> one, but rename it into something like:
->    "netlink: specs: fix conntrack filtering attributes and types"
-> 
-> WDYT?
+On certain Lenovo/AMD systems, the BIOS declares an ACPI NVS region
+that covers a large memory range (e.g. 0xccc40000-0xccd3efff) which
+includes the TPM CRB MMIO area (0xccd35000-0xccd38fff). The E820
+subsystem registers this NVS region with IORESOURCE_BUSY in the
+iomem_resource tree.
 
-I agree that it is a little orthogonal, but OTOH the patch doesn't really fix
-anything meaningful when the YNL spec doesn't allow actually making the request.
-The commit message directly refers to attributes not allowed in the YNL spec,
-without declaring it as intentionally deferred (like the filter bitmasks).
+When tpm_crb probes, it calls devm_ioremap_resource() to map the CRB
+registers, which internally calls devm_request_mem_region(). This fails
+with -EBUSY because the NVS region already claims that address range.
 
-I see mark-mask and status-mask as a fully orthogonal issue, as they don't
-clash with the commit message.
+Fix this by adding a crb_try_nvs_fallback() helper that detects the
+ACPI NVS overlap using region_intersects() and falls back to
+devm_memremap() when the resource falls inside ACPI NVS.
+devm_memremap() does not require exclusive resource reservation,
+making it safe to use on NVS-overlapping regions. This approach is
+identical to the one used by the WDAT watchdog driver (wdat_wdt_map_mem).
 
-I would just fold tuple-orig and tuple-reply into this patch, and leave
-mark-mask and status-mask for another patch.  Alternatively make it a series.
+The NVS fallback is applied in both code paths of crb_map_res():
+1. When iores is NULL (no ACPI resource encompasses the target address)
+2. When iores is non-NULL but devm_ioremap_resource() fails with EBUSY
+
+Before this patch:
+  tpm_crb MSFT0101:00: error -EBUSY: can't request region for resource
+  [mem 0xccd35000-0xccd38fff]
+  tpm_crb MSFT0101:00: probe with driver tpm_crb failed with error -16
+
+After this patch:
+  tpm_crb MSFT0101:00: [mem 0xccd35000-0xccd38fff] is inside ACPI NVS,
+  mapping without reservation
+  tpm_crb MSFT0101:00: of device registration complete, result 0: 0
+
+Signed-off-by: microfish <microfish@kernel.org>
+Signed-off-by: microfish <f13208471983@163.com>
+---
+ drivers/char/tpm/tpm_crb.c | 50 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
+index ceb4100ba..c4e8b925c 100644
+--- a/drivers/char/tpm/tpm_crb.c
++++ b/drivers/char/tpm/tpm_crb.c
+@@ -13,6 +13,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/highmem.h>
++#include <linux/mm.h>
+ #include <linux/rculist.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+@@ -557,6 +558,39 @@ static int crb_check_resource(struct acpi_resource *ares, void *data)
+ 	return 1;
+ }
+ 
++/*
++ * Try to map a resource region. If devm_ioremap_resource() fails with
++ * -EBUSY because the region falls inside an ACPI NVS area (common on
++ * certain Lenovo/AMD firmware), fall back to devm_memremap() which
++ * does not require exclusive resource reservation. This is analogous
++ * to the approach used by the WDAT watchdog driver (wdat_wdt_map_mem).
++ */
++static void __iomem *crb_try_nvs_fallback(struct device *dev, u64 start,
++					   u32 size)
++{
++	struct resource res = {
++		.start	= start,
++		.end	= start + size - 1,
++		.flags	= IORESOURCE_MEM,
++	};
++	void *addr;
++
++	if (region_intersects(res.start, resource_size(&res), IORESOURCE_MEM,
++			     IORES_DESC_ACPI_NV_STORAGE) !=
++			     REGION_INTERSECTS)
++		return NULL;
++
++	dev_warn(dev,
++		 "%pR is inside ACPI NVS, mapping without reservation\n",
++		 &res);
++
++	addr = devm_memremap(dev, res.start, resource_size(&res), MEMREMAP_WB);
++	if (IS_ERR(addr))
++		return IOMEM_ERR_PTR(PTR_ERR(addr));
++
++	return (void __iomem __force *)addr;
++}
++
+ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
+ 				 void __iomem **iobase_ptr, u64 start, u32 size)
+ {
+@@ -565,18 +599,30 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
+ 		.end	= start + size - 1,
+ 		.flags	= IORESOURCE_MEM,
+ 	};
++	void __iomem *p;
+ 
+ 	/* Detect a 64 bit address on a 32 bit system */
+ 	if (start != new_res.start)
+ 		return IOMEM_ERR_PTR(-EINVAL);
+ 
+-	if (!iores)
++	if (!iores) {
++		p = crb_try_nvs_fallback(dev, start, size);
++		if (p)
++			return p;
+ 		return devm_ioremap_resource(dev, &new_res);
++	}
+ 
+ 	if (!*iobase_ptr) {
+ 		*iobase_ptr = devm_ioremap_resource(dev, iores);
+-		if (IS_ERR(*iobase_ptr))
++		if (IS_ERR(*iobase_ptr)) {
++			p = crb_try_nvs_fallback(dev, iores->start,
++						 resource_size(iores));
++			if (p) {
++				*iobase_ptr = p;
++				return p + (new_res.start - iores->start);
++			}
+ 			return *iobase_ptr;
++		}
+ 	}
+ 
+ 	return *iobase_ptr + (new_res.start - iores->start);
+-- 
+2.47.3
+
