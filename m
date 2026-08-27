@@ -1,108 +1,159 @@
-Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6CE4432FD
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 14:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDD8383993;
+	Thu, 27 Aug 2026 15:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842772; cv=none; b=AJXDa6rH6t38GcrAt1pvpMiGspjT+paHxecv7rDIH3qrZKeHvpmt1SwJHuX1PirIzh9lSt5qn1rsFUwxID8PFeb4jO/l1HggBWix0rD/CXYQaZEoVtEBSLwT2CT7JxiET9xddIuF5iEZDgIi5cu1DnN7mZ62zZsoQewDccwC4fM=
+	t=1787842846; cv=none; b=NVUKFb/kBei5ISgv7HO+fvnD3Uch9/dH54KLN0dUIMsJDXMTB2oNZpgcK4wTnrIHiUBxXUMlCEUKKwa8/cZRxAsCQ+vw3gNd6nujTnUZBy/sBAADwIhkK7XheVsNY0xYCVm2dFtb09gHkFma5SIDIzRMl+RhQDahJJlteg9rFNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842772; c=relaxed/simple;
-	bh=uJqwj486hWxLAALuJR7oWC34BqTBbz7uaJxgRsqpTIY=;
-	h=From:Message-Id:Subject:Date:Content-Type:To:Cc:Mime-Version; b=Q+GrrQX7l7HKemCE9lfKk23U8CktJtc6uDcf2LGT08Uiw9vwWwL1i2QobGFHxjdhC5S9HS3A0ihBVIcZ0ARRj6GIzL/TtqgvmMmejASrjMwJOOoYq+pBRYfxx8yYf3l1yVgH3u5wE8kxwRmZ+i0strxIPkLXTZGQOZk8tifMrR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=jb6S7Wkf; arc=none smtp.client-ip=71.18.227.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787842846; c=relaxed/simple;
+	bh=oOR5Bw39qTo7+ULeAO9TLlF4bQZXPfJUr2P2MfnW6c4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rr+4H6MQqcIaW0bYgdmw5xFgK73u91bjwJqD5y33vztdI8GtJzBFC04JV44Eq2dU3wjhOgtfDrVm6jo4jfy5SrJnPRhPSVtUiKov8kAffTuVZtAxABys831kssnzGJDkw9tQC13MVEUQVMsIhvhQnQm4ICpH1KyhQVUiRFmdiG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kfSaef0t; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="jb6S7Wkf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787842756; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=jvHVGXLRnB/myR7QpYOFvo9mljYI+Hq1VtE6Y8mURT8=;
- b=jb6S7WkfQpSCK9yBnW3/+Em4FtbZmkwoZs7ODGIRwldP2sGfN5l5hMc6q0l1TLfWFdJoMo
- VA0ggLye3QfPAdR0EIsKK77aONYXHehIkVBeawNxS+aXtlqGOcnEX5Jq1CmBUQv6nsYVtv
- q7hD17nwqQ++jHSU6XG45MTZT5eGqs0AIrliEIidoWiTQ2H6zzvdTvonVkK4FoHsyDSVhb
- P+Ditwn80FpT9rNRxMf9cK+cqspMgpzn1RN6oF/ZDyVxk+Ab6CADAUphnPZN+KUQcSi7vz
- UOtqOpKGlHfSZzJjUbeYZu0eE45u8zZLcWW3BNO2zuVOzo0mPr9vdh3UG279Vg==
-From: "Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <20260827-go7007-i2c-buf-bound-v2-1-82b185f9cb82@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 22:59:14 +0800
-X-Lms-Return-Path: <lba+26a9050c2+fa4d82+vger.kernel.org+me@cherr.cc>
-Content-Transfer-Encoding: 7bit
-X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
-Subject: [PATCH v2] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
-Date: Thu, 27 Aug 2026 22:59:10 +0800
-X-Mailer: b4 0.16.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-To: "Hans Verkuil" <hverkuil@kernel.org>, 
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Greg Kroah-Hartman" <gregkh@suse.de>
-Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kfSaef0t"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787842839; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=bs3P8qUrpqQYo5gu3WjsOBtkbsx6dtb75aGZvmg2wZg=;
+	b=kfSaef0t/H6cH6YXbhC/O48dNUlZZQacac/HWfZhC8EqjA0IwefDROGiOhKyBSj5iYdP0LU+an5rexc5VLo4eYI1j3yuyQl64bOf1VlYSxFYc8m+/flXhIdtpW5KGOW1By3dQx3hz72HSFd9PdgdZ+oSxjGEQ4jgAbMSTw//+Oo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0X9jzaec_1787842836;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0X9jzaec_1787842836 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 27 Aug 2026 23:00:37 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org
+Cc: hpa@zytor.com,
+	xin@zytor.com,
+	luto@kernel.org,
+	jpoimboe@kernel.org,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	akpm@linux-foundation.org,
+	rdunlap@infradead.org,
+	elver@google.com,
+	andreyknvl@gmail.com,
+	glider@google.com,
+	gor@linux.ibm.com,
+	kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	Yuanhe Shu <xiangzao@linux.alibaba.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] stacktrace: Provide arch_in_irqentry_text() hook
+Date: Thu, 27 Aug 2026 23:00:21 +0800
+Message-ID: <20260827150022.1618235-2-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260827150022.1618235-1-xiangzao@linux.alibaba.com>
+References: <20260827150022.1618235-1-xiangzao@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAL1QkGoC/4WNQQ6CMBBFr0Jm7ZhSC1VX3sOwoNMBxgUlLRAN4 e4CHsDlS95/f4HEUTjBPVsg8ixJQr+BPmVAXd23jOI3Bq10qa7aYhusUhZFE7qpQRem3qM3jWO ja1PbG2zTIXIj7yP7rH6cJvdiGvfWbnSSxhA/x++c796fiznHHE1RFEQXr0xpHtRxjGciqNZ1/ QJ5d9kqyQAAAA==
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
-a 16-byte buffer embedded in struct go7007, without any length check.
-The adapter declares no transfer limits, so an SMBus block transfer
-issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
-the struct fields that follow the buffer.
+in_irqentry_text() decides whether a stack address belongs to interrupt
+entry code by checking the .irqentry.text and .softirqentry.text section
+ranges.  filter_irq_stacks() uses it to truncate interrupt stacks at the
+entry point, which stack depot depends on to deduplicate them: traces
+that continue past the interrupt entry lead to unbounded depot growth,
+see commit e94006608949 ("lib/stackdepot: always do filter_irq_stacks()
+in stack_depot_save()").
 
-Bound the transfer size with i2c_adapter_quirks so the I2C core
-rejects oversized messages before they reach the driver.
+An architecture may deliver interrupts through entry code that cannot be
+placed in .irqentry.text.  in_irqentry_text() then never recognizes the
+entry point and the truncation silently stops happening.  The markers are
+meant to cover all interrupt entry functions; when they do not, the depot
+ends up holding essentially random stacks:
 
-Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+  https://lore.kernel.org/all/CACT4Y+aReMGLYua2rCLHgFpS9io5cZC04Q8GLs-uNmrn1ezxYQ@mail.gmail.com/
+
+Add an optional arch_in_irqentry_text() hook, consulted in addition to
+the section range checks, gated on a new ARCH_HAS_IN_IRQENTRY_TEXT
+symbol.  Gating keeps the default a static inline returning false, which
+folds away entirely on every architecture that does not opt in, instead
+of a __weak stub that every architecture would have to call.  This
+mirrors the existing ARCH_HAS_* hooks in lib/Kconfig such as
+ARCH_HAS_COPY_MC.
+
+No functional change on its own.
+
+The first user is the FRED fix in the follow-up patch, which carries a
+Fixes: tag and is Cc'ed to stable; tag this prerequisite for stable too,
+so the two are picked up as a pair.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-Assisted-by: GLM:5.3
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
 ---
-The EZ-USB I2C adapter in the go7007 driver copies message payloads
-into the 16-byte usb_buf embedded in the go7007 device struct without
-any length limit, so an SMBus block transfer through /dev/i2c-N can
-write past the buffer and corrupt the struct fields that follow it.
-Bound the transfer size through i2c_adapter_quirks.
----
-Changes in v2:
-- Drop the Cc: tag for the maintainer from the commit message; the
-  recipient is already covered by the Cc email header.
-- Link to v1: https://patch.msgid.link/20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc
----
- drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ include/linux/stacktrace.h | 16 ++++++++++++++++
+ kernel/stacktrace.c        |  3 ++-
+ lib/Kconfig                |  3 +++
+ 3 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
-index c0cb92fa6ab9..867548d655b3 100644
---- a/drivers/media/usb/go7007/go7007-usb.c
-+++ b/drivers/media/usb/go7007/go7007-usb.c
-@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
- 	.functionality	= go7007_usb_functionality,
- };
+diff --git a/include/linux/stacktrace.h b/include/linux/stacktrace.h
+index 525cf60673fe..e933ce86447f 100644
+--- a/include/linux/stacktrace.h
++++ b/include/linux/stacktrace.h
+@@ -62,6 +62,22 @@ void arch_stack_walk_user(stack_trace_consume_fn consume_entry, void *cookie,
+ 			  const struct pt_regs *regs);
+ #endif /* CONFIG_ARCH_STACKWALK */
  
-+static const struct i2c_adapter_quirks go7007_usb_quirks = {
-+	.max_write_len	= 12,
-+	.max_read_len	= 15,
-+};
++/*
++ * Optional arch provided check for additional IRQ entry text, called
++ * in addition to the .irqentry.text and .softirqentry.text range
++ * checks in in_irqentry_text().  Implement this if the architecture
++ * delivers interrupts or exceptions through entry code which cannot
++ * reside in those sections.
++ */
++#ifdef CONFIG_ARCH_HAS_IN_IRQENTRY_TEXT
++bool arch_in_irqentry_text(unsigned long addr);
++#else
++static inline bool arch_in_irqentry_text(unsigned long addr)
++{
++	return false;
++}
++#endif
 +
- static struct i2c_adapter go7007_usb_adap_templ = {
- 	.owner			= THIS_MODULE,
- 	.name			= "WIS GO7007SB EZ-USB",
- 	.algo			= &go7007_usb_algo,
-+	.quirks			= &go7007_usb_quirks,
- };
+ #ifdef CONFIG_STACKTRACE
+ void stack_trace_print(const unsigned long *trace, unsigned int nr_entries,
+ 		       int spaces);
+diff --git a/kernel/stacktrace.c b/kernel/stacktrace.c
+index afb3c116da91..9e85ac900889 100644
+--- a/kernel/stacktrace.c
++++ b/kernel/stacktrace.c
+@@ -379,7 +379,8 @@ static inline bool in_irqentry_text(unsigned long ptr)
+ 	return (ptr >= (unsigned long)&__irqentry_text_start &&
+ 		ptr < (unsigned long)&__irqentry_text_end) ||
+ 		(ptr >= (unsigned long)&__softirqentry_text_start &&
+-		 ptr < (unsigned long)&__softirqentry_text_end);
++		 ptr < (unsigned long)&__softirqentry_text_end) ||
++		arch_in_irqentry_text(ptr);
+ }
  
- /********************* USB add/remove functions *********************/
+ /**
+diff --git a/lib/Kconfig b/lib/Kconfig
+index 4e6b34c3346d..45ff30d0a995 100644
+--- a/lib/Kconfig
++++ b/lib/Kconfig
+@@ -551,6 +551,9 @@ config ARCH_HAS_COPY_MC
+ config ARCH_STACKWALK
+        bool
+ 
++config ARCH_HAS_IN_IRQENTRY_TEXT
++	bool
++
+ config STACKDEPOT
+ 	bool
+ 	select STACKTRACE
+-- 
+2.43.5
 
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
