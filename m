@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B9E483BD0;
-	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE3F483BD8;
+	Thu, 27 Aug 2026 15:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843366; cv=none; b=mPaUvuwFFPwLIRxvKYrtVcpV8eRqVjRUTC9qFwvI//feduwwwvn0Rkq4e+jjQS7izeTjFmkYoHscAgH6I7044TVg0PrEdMzDkRqZ5YcMqukKmz18XzKdrtAOm+KMgoVsdS13tvCqYuFPlppDP8ufPD7Am1L0frN5CC+dQN+n8sM=
+	t=1787843366; cv=none; b=qE368lZyAQiPXWqYQ+eoJqJvHICWtBBrcOWGMRXAIEl8BDYEYz9IiWLh+eXRRSXliiXci1C3e9qpG9fylQHYkgLfNvDC2egn3nCcSTuHKYRVn10PK2nK0qair9moz+hqAV5rfgdTPfPg/s1q2EkWB7qpcZAaxMwt3dMoPnSMjlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787843366; c=relaxed/simple;
-	bh=kyz2dtWICwa7+Pyo/t4DfHeokFCJ25WI2pLckoWiW1c=;
+	bh=3IpjydfBdKSdOv0gibALtpPNd7MBnOHOPknnrtM0Q3k=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=JDjTcgg6En79GohHo0fC4qXdIfxzYp+QRaa4lp3YVGz2gk2Rj5RqY0Am4YdlxrILR1Fffvuuj2Vtn1G83RbyGoPE44Oc1kY7kjf2Daz02Q2xzITnVtzuir+ACnKIV0bD/ADA7CurHeZcQSWYW3+t1PAu9gbKhMuVUfr/MFi653s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+vYhec+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=Vb0dU2zoCSm36FeVfigWSnSnQNt57fRm5YBBQxNrdmJP2iRc9h5NvMOY14QYjD4aMNvcSiLsIiIDqLxEmkQUHy9Sk6YvuhVLdf1aNISuk+4JWRkAUQxyLc9Ohx4+mGD/cEXFxAi24x+HiTbGMTF0Lu8l77+RkYBynpgrFHRGWS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LqqeF/iJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+vYhec+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64BD01F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LqqeF/iJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3ED61F00AC4;
 	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787843363;
-	bh=6/5YtY7kTxdIotP3/iaXXG+tvNSlRhJ1vz2QoNLsBNU=;
+	bh=bKsi1VJGfYifc0X2FDO2ozZA/yp+juJv4gMOzdPOn4I=;
 	h=Date:From:To:Cc:Subject:References;
-	b=O+vYhec+QDe6tmChCFszDHwFHqr9pNe954APZp4RJhDTkUXBnJ33QHe+HCwKFcKhG
-	 ok86UbA/x1jGB/tnbCN3eqQMVuxWlkysy+IwfhHW7kGTaM6BfoTz0GFwOC+6yGcfyN
-	 2lrTqxof0O1odZ7JuDKms9ofSp78XQv9MsRiknu62D/fpY61iy770LB7TtRL7yZXMB
-	 ZYi7LGoa/AocK3+CgyPLr5NB2YTwzfoVu2H5sj/mjDh98cMqvwbs98htz2W2jlYtRq
-	 gKfZ5baz0l+Xbe85JNhyWTNIeI6bqc/t8rEc4HIDiaM4fHJwrZkLXSXboZVzGGjpgg
-	 7af/JEB2IHRWw==
+	b=LqqeF/iJaW2SL6kaq5B7Gg5biJKDjXYb/ghEhhcbZFM5+6H0UxanehvkgQtGpQCiG
+	 LjLnSM40jhLWFFQ5kZRTR7eKHuQ2AlRFBdxZo4H8HqGT8WWNx7KKFpxNw+Usih8HGk
+	 kSMHVmtS+dnKXJMlmNJKTf7vfOeu3/ivWTSikmdLmDoVk9vJTxuen1JhyUum9nq422
+	 ivkacrQeNfRb6xv/zqmwtnxBEIXcilnrnE29RsCeJeWIMIDB1w3tQF078lLGIrr7dD
+	 3hA8DxIPlKJKDyolFPzTollsNXFR/vQbXVGUELUmfPOjZ1vnAW4PhuWVfbwMTCK5qm
+	 SmDoF+wTSspEA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wzbk3-00000008PFW-0teQ;
+	id 1wzbk3-00000008PGU-2ByI;
 	Thu, 27 Aug 2026 11:10:11 -0400
-Message-ID: <20260827151011.069475087@kernel.org>
+Message-ID: <20260827151011.389282397@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 27 Aug 2026 11:09:52 -0400
+Date: Thu, 27 Aug 2026 11:09:54 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -43,8 +43,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Haotian Zhang <vulab@iscas.ac.cn>,
  Hui Su <sh_def@163.com>,
  Vincent Donnefort <vdonnefort@google.com>,
- stable@vger.kernel.org
-Subject: [for-linus][PATCH 3/7] tracing: Fix crash passing ERR_PTR to kthread_stop()
+ stable@vger.kernel.org,
+ syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+Subject: [for-linus][PATCH 5/7] eventfs: Initialize ei->children and ei->list in init_ei()
 References: <20260827150949.304280511@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,41 +55,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Hui Su <sh_def@163.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
 
-event_test_stuff() calls kthread_run() and unconditionally passes the
-returned task_struct pointer to kthread_stop(). kthread_run() returns an
-error pointer such as ERR_PTR(-ENOMEM) when kthread creation fails, for
-example under memory pressure during the boot-time event self-test.
-kthread_stop() then dereferences the invalid pointer, crashing the kernel.
+eventfs_create_dir() allocates the eventfs_inode and initializes it with
+init_ei(). But this does not initialize the eventfs_inode list_heads. If
+the eventfs_create_dir() fails due to memory pressure, it will call
+free_ei() before it initialized the lists, and that checks to make sure
+the eventfs_inode has no children. But because the list wasn't
+initialized, it will give a false warning.
 
-Check the result of kthread_run() before passing it to kthread_stop(). Use
-WARN_ON() so that a failure to create the self-test thread does not go
-unnoticed, matching the ring-buffer self-test fix in commit
-91542863abad ("ring-buffer: Fix crash passing ERR_PTR to kthread_stop()").
+Fix it by moving the list initialization into init_ei().
 
 Cc: stable@vger.kernel.org
-Fixes: e6187007d6c3 ("tracing/events: add startup tests for events")
-Link: https://patch.msgid.link/20260817120642.668375-3-sh_def@163.com
-Signed-off-by: Hui Su <sh_def@163.com>
+Fixes: 5790b1fb3d67 ("eventfs: Remove eventfs_file and just use eventfs_inode")
+Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
+Link: https://patch.msgid.link/20260824144653.54044-1-kartikey406@gmail.com
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+[ Rewrote change log ]
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/tracefs/event_inode.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index 9f8f2d02276c..1d39eaf6a0f7 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -5019,6 +5019,8 @@ static __init void event_test_stuff(void)
- 	struct task_struct *test_thread;
- 
- 	test_thread = kthread_run(event_test_thread, NULL, "test-events");
-+	if (WARN_ON(IS_ERR(test_thread)))
-+		return;
- 	msleep(1);
- 	kthread_stop(test_thread);
+diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
+index 604ba3e841d2..6e3513b13cfa 100644
+--- a/fs/tracefs/event_inode.c
++++ b/fs/tracefs/event_inode.c
+@@ -438,6 +438,8 @@ static inline struct eventfs_inode *init_ei(struct eventfs_inode *ei, const char
+ 	if (!ei->name)
+ 		return NULL;
+ 	kref_init(&ei->kref);
++	INIT_LIST_HEAD(&ei->children);
++	INIT_LIST_HEAD(&ei->list);
+ 	return ei;
  }
+ 
+@@ -729,8 +731,6 @@ struct eventfs_inode *eventfs_create_dir(const char *name, struct eventfs_inode
+ 	ei->entries = entries;
+ 	ei->nr_entries = size;
+ 	ei->data = data;
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
+ 
+ 	scoped_guard(mutex, &eventfs_mutex) {
+ 		if (!parent->is_freed)
+@@ -802,9 +802,6 @@ struct eventfs_inode *eventfs_create_events_dir(const char *name, struct dentry
+ 	ei->attr.uid = uid;
+ 	ei->attr.gid = gid;
+ 
+-	INIT_LIST_HEAD(&ei->children);
+-	INIT_LIST_HEAD(&ei->list);
+-
+ 	ti = get_tracefs(inode);
+ 	ti->flags |= TRACEFS_EVENT_INODE;
+ 	ti->private = ei;
 -- 
 2.53.0
 
