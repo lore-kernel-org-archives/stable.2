@@ -1,183 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF3721CA03;
-	Thu, 27 Aug 2026 03:42:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41602282F29;
+	Thu, 27 Aug 2026 03:42:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787802129; cv=none; b=UxrlC7EU+vjtFzCGPkNgD1l2HVkHXazKYdzqRMtXa/9SrnvztiTQIk9tRBVnFYbRRcYoWiJjmoINTYlBe/eaHZeA0mo1Mp2tQSYKxARq/AQrsbIzHioz10yHfK2YOo/Sof3eWpbON8XMQvAdSKvhoggbqIdGmG1G3hPiUVhi8aQ=
+	t=1787802143; cv=none; b=UAbtqQqojXGJp7+/Ke+QNbV7n1eDtQ1GPxb0z3uCU4RNK+NUCo746gQVBOC5hnlzbUbbSW3foWmztnxLtnUbZYxEK2i2M6H6ZI2zMgxMUBiJAX2PMptfZuBH9bRhCJ48VBwHFpITGW5U7hECVeoLfCdhAbXylpKDObWARndI5pA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787802129; c=relaxed/simple;
-	bh=PBYIZ8VrIJzpJ+EJhjaqnD4wQ2qWdr+aQNuBJvy/hKI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KCK2jncuUbqFkTfcfWXAJFFbgBKr2TvjU5Yc7AkGEdijghNi3Ru4BsQMchMSFqUVO+uvlm+SrD2Hd1VcdKi1pV0v9ftCUJn52HBgFJo27TaJMI9Z0t8efmAFIWrJaiHILtWf7+kBIi3ruTKBpDRI77Euv3t/GwZG/TDH6NP7yw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B0qNBQqu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787802143; c=relaxed/simple;
+	bh=TCFJmpAOJ0/g4qYRlZzzBW4rTpK+LCl8iFxmAe2tVvA=;
+	h=Date:To:From:Subject:Message-Id; b=COKcqEF7v26w+rB1z5543bA1ynIfvZLfBVSCyq6XGszZ0Dm9YyBaSbKgUl7BqflIQwlHsIMLQvJOPdA/fGkZfuwBrlo0ecLwvS0Tcw3QPQRi/u2yg5J/tB5HbaCKmIe4YScIFQW55AmSh44UIqVCc/LEF6uRejE1eF3NXqtreYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hq03bEYI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B0qNBQqu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 208781F000E9;
-	Thu, 27 Aug 2026 03:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787802127;
-	bh=jxXIQXsYcDcztJfTD/FuGQF/hzwWq/iFEhIaSs9Kyzs=;
-	h=From:To:Cc:Subject:Date;
-	b=B0qNBQquD4BWIbGz1/Rh/ldsiSwUlbVUETuMabOfYfi2X6Po1FvNYnEwnJ3WOhYZX
-	 zHT0QxIjSYMZohthWUBCB/c3pgwy6er9uWFuvJXFEV5bBVGXXD91d1LUGUcl1H56Eg
-	 84Y0qT22F2rtsbPygyacbJcS2Ibw7dVFN+BV38k6FpLVMGy/3LoCL1GAv3yIwhUw3z
-	 U2Qu74g/7svVyHkZwIEIIdS320q7BSSnXRsuKR9MRNn6r/Rmfp4DXDd3YMPEbVnX/i
-	 ljbzpCMKVfnKEIPW4THzSEeCiY/DbIECWv4zekXuDD7/x+x85g602mMZlOdIt5eBnu
-	 PP3GKa2tRk8sQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-ext4@vger.kernel.org,
-	linux-fscrypt@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Disha Goel <disgoel@linux.ibm.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>
-Subject: [PATCH 5.15] ext4: don't enable DAX on new encrypted files
-Date: Wed, 26 Aug 2026 20:38:33 -0700
-Message-ID: <20260827033833.135937-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hq03bEYI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78111F000E9;
+	Thu, 27 Aug 2026 03:42:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787802141;
+	bh=2je84qf+S2pflcI+01dAh5z8yP8Itf7kLEicUcEAqis=;
+	h=Date:To:From:Subject;
+	b=hq03bEYIMPH+byExtgel4hMClMJ8OlTDCsfo+LRZdqIVYY3HXORGnYDoI5wM/E3yy
+	 vZIzJeL4lZNqovp5dg9DHoz+NHYDPFABsx7NbyuytyfTIzzb/mWYU9HMEREXtc4ZT0
+	 ODYOl5ckDO+8XvLdhgn0oj0gQHMC8IOvKGHq+s5A=
+Date: Wed, 26 Aug 2026 20:42:21 -0700
+To: mm-commits@vger.kernel.org,surenb@google.com,stable@vger.kernel.org,sashiko-bot@kernel.org,kent.overstreet@linux.dev,hao.ge@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled.patch added to mm-new branch
+Message-Id: <20260827034221.B78111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-commit da32af420d6d466e247c43ac0b829edeac7ae0ad upstream.
 
-Currently, when a new encrypted regular file is created, the call to
-ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
-before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
-filesystem is mounted with "-o dax=always".
+The patch titled
+     Subject: alloc_tag: skip percpu counter allocation when profiling is disabled
+has been added to the -mm mm-new branch.  Its filename is
+     alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled.patch
 
-EXT4_INODE_ENCRYPT then actually gets set a bit later in
-__ext4_new_inode(), when it calls fscrypt_set_context() which calls
-ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
-calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled.patch
 
-This was intended to clear S_DAX as well.  However, this was broken by
-commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
-causes data written to the file to bypass encryption, also causing
-xfstests failures such as generic/548 (when "-o dax=always" is used).
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fix this by simplifying the flow by making __ext4_new_inode() set
-EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
-ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
-place on new encrypted inodes.  Then it doesn't need to be cleared.
+The mm-new branch of mm.git is not included in linux-next
 
-As a result of these simplifications, ext4_set_context() no longer needs
-to change inode flags or state when 'handle != NULL'.  Remove that too.
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-Reported-by: Disha Goel <disgoel@linux.ibm.com>
-Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
-Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Tested-by: Disha Goel <disgoel@linux.ibm.com>
-Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260730175212.36923-1-ebiggers@kernel.org
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Hao Ge <hao.ge@linux.dev>
+Subject: alloc_tag: skip percpu counter allocation when profiling is disabled
+Date: Mon, 17 Aug 2026 14:27:25 +0800
+
+Patch series "alloc_tag: fix a leak and a deadlock around
+shutdown_mem_profiling()", v2.
+
+Two fixes for issues reported by sashiko:
+
+  1. percpu counter leak on modules loaded after profiling is disabled.
+  2. AB-BA deadlock between module load and /proc/allocinfo readers.
+
+
+This patch (of 2):
+
+After shutdown_mem_profiling() clears mem_profiling_support,
+needs_section_mem() returns false, so later modules have their codetag
+section placed as regular data and never enter the alloc_tag maple tree. 
+codetag_load_module() still called load_module(), which allocated a percpu
+counter for every tag; release_module_tags() could not find these modules
+on unload, so the counters leaked.
+
+Return -EOPNOTSUPP from load_module() when profiling is off:
+codetag_module_init() drops the module's cmod, no counters are allocated
+and the module loads without its tags.  codetag_unload_module() now always
+calls free_section_mem(), since a module whose module_load() returned
+-EOPNOTSUPP is not in the idr but may still hold a reserved section.
+
+Link: https://lore.kernel.org/20260817062726.106511-1-hao.ge@linux.dev
+Link: https://lore.kernel.org/20260817062726.106511-2-hao.ge@linux.dev
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Suggested-by: Suren Baghdasaryan <surenb@google.com>
+Acked-by: Suren Baghdasaryan <surenb@google.com>
+Cc: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- fs/ext4/ialloc.c |  4 ++++
- fs/ext4/super.c  | 40 ++++++++++++++++++++--------------------
- 2 files changed, 24 insertions(+), 20 deletions(-)
 
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index 2ee7467c0a6a..9f5d8acf31db 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
-@@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct user_namespace *mnt_userns,
- 		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
- 		if (err)
- 			goto out;
-+		if (encrypt)
-+			i_flags |= EXT4_ENCRYPT_FL;
+ lib/codetag.c  |   10 ++++++++--
+ mm/alloc_tag.c |    4 ++++
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+--- a/lib/codetag.c~alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled
++++ a/lib/codetag.c
+@@ -240,7 +240,9 @@ static int codetag_module_init(struct co
+ 
+ 	if (err < 0) {
+ 		kfree(cmod);
+-		return err;
++		/* -EOPNOTSUPP means we can load the module without its tag. */
++		if (err != -EOPNOTSUPP)
++			return err;
  	}
  
- 	err = dquot_initialize(inode);
-@@ -1312,6 +1314,8 @@ struct inode *__ext4_new_inode(struct user_namespace *mnt_userns,
- 	ei->i_extra_isize = sbi->s_want_extra_isize;
- 	ei->i_inline_off = 0;
- 	if (ext4_has_feature_inline_data(sb) &&
-+	    /* Encrypted inodes cannot have inline data */
-+	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
- 	    (!(ei->i_flags & EXT4_DAX_FL) || S_ISDIR(mode)))
- 		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
- 	ret = inode;
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 48628e917b70..c89e460180b8 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1487,7 +1487,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	if (inode->i_ino == EXT4_ROOT_INO)
- 		return -EPERM;
- 
--	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
-+	/*
-+	 * For new encrypted inodes, S_DAX is never set in the first place.
-+	 *
-+	 * For existing inodes, this is called only on empty directories.  ext4
-+	 * never sets S_DAX on directories.
-+	 */
-+	if (WARN_ON_ONCE(IS_DAX(inode)))
- 		return -EINVAL;
- 
- 	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
-@@ -1506,21 +1512,18 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	 */
- 
- 	if (handle) {
--		res = ext4_xattr_set_handle(handle, inode,
--					    EXT4_XATTR_INDEX_ENCRYPTION,
--					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
--					    ctx, len, 0);
--		if (!res) {
--			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--			ext4_clear_inode_state(inode,
--					EXT4_STATE_MAY_INLINE_DATA);
--			/*
--			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--			 * S_DAX may be disabled
--			 */
--			ext4_set_inode_flags(inode, false);
--		}
--		return res;
+ 	return 0;
+@@ -388,7 +390,11 @@ void codetag_unload_module(struct module
+ 			++cttype->content_id;
+ 		}
+ 		up_write(&cttype->mod_lock);
+-		if (found && cttype->desc.free_section_mem)
 +		/*
-+		 * __ext4_new_inode() should have already set the encrypt flag
-+		 * on the inode and avoided enabling inline data.
++		 * A module whose module_load() returned -EOPNOTSUPP is not
++		 * in the idr but may still hold reserved section memory.
 +		 */
-+		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
-+			return -EINVAL;
-+		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
-+			return -EINVAL;
-+		return ext4_xattr_set_handle(handle, inode,
-+					     EXT4_XATTR_INDEX_ENCRYPTION,
-+					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-+					     ctx, len, 0);
++		if (cttype->desc.free_section_mem)
+ 			cttype->desc.free_section_mem(mod, true);
  	}
+ 	mutex_unlock(&codetag_lock);
+--- a/mm/alloc_tag.c~alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled
++++ a/mm/alloc_tag.c
+@@ -975,6 +975,10 @@ static int load_module(struct module *mo
+ 	struct alloc_tag *stop_tag;
+ 	struct alloc_tag *tag;
  
- 	res = dquot_initialize(inode);
-@@ -1541,10 +1544,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 				    ctx, len, 0);
- 	if (!res) {
- 		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--		/*
--		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--		 * S_DAX may be disabled
--		 */
-+		/* Update inode->i_flags to set S_ENCRYPTED. */
- 		ext4_set_inode_flags(inode, false);
- 		res = ext4_mark_inode_dirty(handle, inode);
- 		if (res)
++	/* Profiling disabled: load the module without its tags. */
++	if (!mem_profiling_support)
++		return -EOPNOTSUPP;
++
+ 	/* percpu counters for core allocations are already statically allocated */
+ 	if (!mod)
+ 		return 0;
+_
 
-base-commit: 945fa863f02cf8b1638546907f72dd0fc4d6ba85
--- 
-2.55.0
+Patches currently in -mm which might be from hao.ge@linux.dev are
+
+module-fix-lost-error-code-from-codetag_load_module.patch
+alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled.patch
+alloc_tag-remove-proc-allocinfo-outside-of-mod_lock.patch
 
