@@ -1,30 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127953B27FB
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 22:20:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2323B3BE7
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 22:20:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869235; cv=none; b=BhtUWdF+uDUjfZUvIjGYTVm92YqZjEPPW/q9BpkHdhwxXJYyIqof42crkKr51HWgOS1KLf9R66yk1CR1hJlhXiHZk5ZF0AXcJeRDftUFn596qSUNR/sMFyHJosILKpbmSVhzB/fXo5K1cmpmlgxyrBQMJKO+mR0UAyAMq/o5QnQ=
+	t=1787869239; cv=none; b=azb29t2Eul3fP3l4kt8DUFoq66chJw9RFd71mw7Qf+wzbyvyCWF1nFxxf7gJf9LQlKpkqjAzdAmOc7WHLk9Q9jj2xwwxaja6YCJY7KYnDI0WQsEO9guftNUYcvHFQV6LR511VajV3BmpBN7Rn10C5HkInr7QJ2cRK9ng7m3NF8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869235; c=relaxed/simple;
-	bh=/s2ufDmNmfINSb2vZ49mS3SRQRwzOriZXcOxqdpLOis=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cxvApT0T+i0ZmmPMYSiuoRmM4UnrTd5Gma/w9X6Cn5BF8fUEfgiP6evXuictCQYF/AsgNPi7j3r40C8N3jYS0KI30K1VbRSXhu+7og0ClIau4Lx03tL/tOxHXgd0Pd/P7VJy7Mm+jBFUP4NN0lXnBvKjGyfEifNPPzS/3ysOrVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HO63WuWr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787869239; c=relaxed/simple;
+	bh=9hFkLIq2e6XBYKHxlS54q+sMO49yBClDBuFDFOT1N6k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d9ZaKbOw5g9gGkRdbnnzmTxqI++znwWYQCiMh+RobdqQpDuQ77GhemACNJefqpfsMffnts3hyJ68/Y1iS9ftSTUtCynGjLkBTJYs2Bnih7ysvSKSV3dhYpFf7/be08EQjz4KFZEbBCtZlb8oYcwID87pbUhLZjrv1iLgpj13c2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1ikjFfB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HO63WuWr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 793F11F000E9;
-	Thu, 27 Aug 2026 22:20:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1ikjFfB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B8C1F00A3D;
+	Thu, 27 Aug 2026 22:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787869221;
-	bh=+83/0PiMldbSoZ2zfBwj9o6WmDNxUA+kO11sfip3qvQ=;
+	s=k20260515; t=1787869227;
+	bh=SS0ynuIrGmem4mBhJbEvUL85Mkzd/B/SVmok/JajQps=;
 	h=From:To:Cc:Subject:Date;
-	b=HO63WuWraL4Vvt9RGjcapfPVtVaKT8rekjljQBHAXOSgpud95A73xskPjxcmX0wve
-	 bbTyVTzTwZTtqZOrykQY8M6WX1BYH+px/EDoOtfB4kXqbgS+xYd+IUIDsHHDRg1Knk
-	 EbixeNCBuCgIRPt0uxIJKOkfjQEnnUnYoX4p/tVgjjctaW7cFXMozQdN6Ik42sOk6p
-	 Ed7ITQhPNcvVrL4Jv0DIT1a47hjlfGe1vTOKhJYRlj+wQCWf2ynYC+nXT8QraL/F9f
-	 +ykxg0L2/wsh9nBGcNaT7oUPcdrquTIh3z0gmytVqcDIQaxzSKNHEShXeVSjjRoAB8
-	 ndIXO7nQOI/1w==
+	b=d1ikjFfBQ8oQfL2cpDYjuZHBWMUbRdyPFGkyJOx5FR4A+LO/oxZeHz1dRa+qVGrXh
+	 WqMhEchkAS5g/T20ph4eX2zL3Skwo88SBe7wlfiB6/QMc946WyMbjewPeQJYnby85C
+	 yLPxD6NzhxPDrYsQDPzuSCdaMkLmFpdvfjrBkE7Kj6KpEsm/B5ikzFZDH/PDtPNF1G
+	 muVSKTQzeCfwmaij7kcmPy2UDCIa+cSjVARY19ZaETk3IsOvgQTVogBOQZarzufNcS
+	 yVOdmbnKuyrxs+QwRgqWMR6CNPPjDwxaXC6tn/WKNTgOP2b7svv+NaP4p3JH9RJOLZ
+	 OJpKcPycgCIYg==
 From: "Carlos Bilbao (Lambda)" <carlos.bilbao@kernel.org>
 To: stable@vger.kernel.org
 Cc: kbusch@kernel.org,
@@ -41,9 +41,9 @@ Cc: kbusch@kernel.org,
 	eduardo.habkost@lambdal.com,
 	brian.kopp@lambdal.com,
 	Carlos Bilbao <carlos.bilbao@kernel.org>
-Subject: [PATCH 6.12.y] nvme-tcp: fix usage of page_frag_cache
-Date: Thu, 27 Aug 2026 15:20:15 -0700
-Message-ID: <20260827222015.45415-1-carlos.bilbao@kernel.org>
+Subject: [PATCH 7.1.y] nvme-tcp: fix usage of page_frag_cache
+Date: Thu, 27 Aug 2026 15:20:24 -0700
+Message-ID: <20260827222024.45443-1-carlos.bilbao@kernel.org>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -85,15 +85,15 @@ Signed-off-by: Carlos Bilbao (Lambda) <carlos.bilbao@kernel.org>
 Context conflict in nvme_tcp_free_queue due to 19bdb70c77d3; context-only
 adjustment, no functional change.
 
-Build-tested: 6.12.106 (x86_64 defconfig + CONFIG_NVME_TCP=m).
-Also needed in 6.18.y, 7.1.y (backports submitted separately); 7.2.y
+Build-tested: 7.1.11 (x86_64 defconfig + CONFIG_NVME_TCP=m).
+Also needed in 6.12.y, 6.18.y (backports submitted separately); 7.2.y
 takes the upstream commit cleanly.
 
  drivers/nvme/host/tcp.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 3140643..dc91706 100644
+index 68a1d76..bd53ee5 100644
 --- a/drivers/nvme/host/tcp.c
 +++ b/drivers/nvme/host/tcp.c
 @@ -146,6 +146,7 @@ struct nvme_tcp_queue {
@@ -104,7 +104,7 @@ index 3140643..dc91706 100644
  	struct llist_head	req_list;
  	struct list_head	send_list;
  
-@@ -552,9 +553,11 @@ static int nvme_tcp_init_request(struct blk_mq_tag_set *set,
+@@ -557,9 +558,11 @@ static int nvme_tcp_init_request(struct blk_mq_tag_set *set,
  	struct nvme_tcp_queue *queue = &ctrl->queues[queue_idx];
  	u8 hdgst = nvme_tcp_hdgst_len(queue);
  
@@ -116,7 +116,7 @@ index 3140643..dc91706 100644
  	if (!req->pdu)
  		return -ENOMEM;
  
-@@ -1452,9 +1455,11 @@ static int nvme_tcp_alloc_async_req(struct nvme_tcp_ctrl *ctrl)
+@@ -1424,9 +1427,11 @@ static int nvme_tcp_alloc_async_req(struct nvme_tcp_ctrl *ctrl)
  	struct nvme_tcp_request *async = &ctrl->async_req;
  	u8 hdgst = nvme_tcp_hdgst_len(queue);
  
@@ -128,7 +128,7 @@ index 3140643..dc91706 100644
  	if (!async->pdu)
  		return -ENOMEM;
  
-@@ -1485,6 +1490,7 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
+@@ -1468,6 +1473,7 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
  	kfree(queue->pdu);
  	mutex_destroy(&queue->send_mutex);
  	mutex_destroy(&queue->queue_lock);
@@ -136,7 +136,7 @@ index 3140643..dc91706 100644
  }
  
  static int nvme_tcp_init_connection(struct nvme_tcp_queue *queue)
-@@ -1807,6 +1813,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+@@ -1790,6 +1796,7 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
  	INIT_LIST_HEAD(&queue->send_list);
  	mutex_init(&queue->send_mutex);
  	INIT_WORK(&queue->io_work, nvme_tcp_io_work);
@@ -144,7 +144,7 @@ index 3140643..dc91706 100644
  
  	if (qid > 0)
  		queue->cmnd_capsule_len = nctrl->ioccsz * 16;
-@@ -1946,6 +1953,7 @@ err_sock:
+@@ -1921,6 +1928,7 @@ err_sock:
  err_destroy_mutex:
  	mutex_destroy(&queue->send_mutex);
  	mutex_destroy(&queue->queue_lock);
