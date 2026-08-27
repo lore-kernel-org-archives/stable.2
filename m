@@ -1,127 +1,110 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F6C368D4C;
-	Thu, 27 Aug 2026 18:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A017D441600
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 18:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853925; cv=none; b=YRlLOuWK1d3g0aIxQ+zmy6VdtVEXMWEojfagMbdenbcJ1B9bFoz3OB9Ifa1YekOXu3nuf5z5naDZ5gr5iFyHYdvF5aRETZIQCR0GMU1ChRHRlkl069I4s+lir44wvnAtFOaClY14au5KJWWuyI6NVP4PDI68H4rWvm3NSfUJpWQ=
+	t=1787854018; cv=none; b=kpry0V9Q13VD2xdfE9hK1VYJCp78pRt7Mr0WmhDW4V68XBsyO0O0w+H5Nmh0QqlJi3cdyaLi8taI1WOuLHTts7NBf5J5DVSiKOqliE1R+dlnfkjCVxw/iCk3hdlFeo1SDZLgX1A7DdWZNxJhyUB2EuJV7RkWRIrtGlmKDsJwm8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853925; c=relaxed/simple;
-	bh=39xHH2vSkwxps+NccOz6k0tJCTNnVs/T6Y2fM6jJYRs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=o2EMyI/8Qk5SnfOkqnylDYUae3YI0CeGQgoErJ+D0+1JPgFcD0Tp9pq4AeyA36C2KLeGwxhh9iAuNHu2za4N/AP4niX6PDGaXlkl5FhJrKocIA15jOlg4i4zX12dGgoaC+0f0EHGd7IEpEyPNzrYrRc+XpM4EK6TvVeM+Fonsa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Fsio+jNz; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1787854018; c=relaxed/simple;
+	bh=BjP9z76Z68AgBQQePVV0nStVVznHGb7fbiLCMYRv2vM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=M1pM44K+Jhd7iPfju0l0PLyvaE5wgbP4NA8R4JKEKyVRz0hIMbq7ZBqM+uwggeK7dxTlgWv51ltY6B2I2Ds30GjSlfCZtUBV+hGWTz3RxmRDyP/6maGwO45JTsW0yEodWyKJPYmJ7NFuZS8zTPF0OXnZ/h1zROaJ10zG3SRV7UM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=IA2fEYOA; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Fsio+jNz"
-Received: from ehlo.thunderbird.net (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id E7C211FCB8;
-	Thu, 27 Aug 2026 20:05:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1787853920;
-	bh=39xHH2vSkwxps+NccOz6k0tJCTNnVs/T6Y2fM6jJYRs=; h=From:To:Subject;
-	b=Fsio+jNzaXaB/awgLvrTU3AWTs7NhEG6KhTQkrhZ+LXqh9Dg93laXFvMyWGiOxKyI
-	 fjUE1tV7bmgfoPR1/009476IlemlpIF8Pc5fw4d+9dTz1cYRHi2zPmi4R1l6VNKLse
-	 TMYTQoEyjRdjWjBFTk1vyV2U1BV9N6HfC3wHwnIClMs9Z6ai5vY4Sb4k5s3UTydlAP
-	 96nzYP4VuYFuCDzRX3Yu9vygq7NXZ8/Zb/LwKqTMbpUWHy52yTGtqFXosEfoZWPJCe
-	 CpqHeiP2j/D9/EkhL8vsPjJNglj/d5JRf83hF6i4XvD9aDzFdpOWi3dJutVdPN+lG2
-	 FUBSP+1TYUO5A==
-Date: Thu, 27 Aug 2026 20:05:17 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: George Valkov <gvalkov@gmail.com>
-CC: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch,
- krzk+dt@kernel.org, johannes.berg@intel.com, kees@kernel.org,
- miriam.rachel.korenblit@intel.com, rongqianfeng@vivo.com, wenst@chromium.org,
- rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com,
- s.kerkmann@pengutronix.de, gregory.clement@bootlin.com,
- sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org,
- Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
- peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v8_3/3=5D_ARM=3A_dts=3A_armada=3A_WRT32?=
- =?US-ASCII?Q?00ACM=3A_add_marvell=2Cinvalid-reg-hint-in-rom?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <CADOrJmae24XCgxFwtHssdoWc4rv1Q743hfgjG=kUrVPgf6urmw@mail.gmail.com>
-References: <20260827171937.28878-1-gvalkov@gmail.com> <20260827171937.28878-3-gvalkov@gmail.com> <15F55ACD-E206-4B79-9E8D-1ED24427BB19@dolcini.it> <CADOrJmae24XCgxFwtHssdoWc4rv1Q743hfgjG=kUrVPgf6urmw@mail.gmail.com>
-Message-ID: <A7FBAD8C-3AAD-4268-9BBC-3BDE071481E1@dolcini.it>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="IA2fEYOA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1787853976;
+	bh=8fvYzigmIaHBclVtoxZt/Znc0+dppTLvTfG04EkK7Zg=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=IA2fEYOAr+W2JYcQRLrqKYl2UGynLLemDvGgpP76SFQy7jxNseCMX5gcSL40DrHFZ
+	 6XgLRHoCKl3dzFwarEAkY2XyyDwZrcOtzMPQVBKnNT58cNyzWENOh9O0gz/8ZF6Uwy
+	 XSwxGvUH4kMRmSkyOwg1T3KDFABUYcrnX11/5KkQ=
+X-QQ-mid: zesmtpsz9t1787853971tfa33f842
+X-QQ-Originating-IP: vw8vO6Mvq5Je/RuOavWHu80sOY2vxT2lGVpPsZaIQME=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 28 Aug 2026 02:06:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 17252097616795653787
+EX-QQ-RecipientCnt: 6
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: guanwentao@uniontech.com,
+	hexlabsecurity@proton.me,
+	paul@paul-moore.com,
+	sashal@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 6.18.y v2 0/5] Backport bugfixes for selinux
+Date: Fri, 28 Aug 2026 02:06:00 +0800
+Message-Id: <20260827180605.4187309-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NKyKeo1CJKGEushPvccyBHQctUcWgScHjhezcmutBKpqmTWrw4eYdnze
+	XQcPA1JM+5SXmiy/t57vbX+rKYX3MDfjs8MVc6GDMLNAX3Iqdue2Bv0SqhyZDHXNxfE66tB
+	D+GQhqu47Qu/cSZGjExn8RXC78P983Tyv6j/WVTv5U5LoDqDZ9JVk/5q5818LW0vrDaDP9h
+	syqa2qDyU1KjiER2utjxLSwdg5qMkXYq+GvxT2ul1zqbpfRqGTZ5jzs1bEfWN0pfKxFlTko
+	YIB0SRHa669fiTwyfFswsRe8R2q9rpUZYrAvwlzmvNjfiHAqjP+AXWIflHfdzrdSkpMIuge
+	FwMMhMsPJc1C4vYKhCheGjNrN4GyjRYDX29c2NAM0PA63lw4bScW0HushIDvyqr0evrRCkV
+	WTxTjIqKaEfjbI+Jmc+RKnqcV4Gm5o6ZYfK4ZXqyNEhVC7NbHcU7QySxHXZRd14YMMGTq5h
+	39znXaBfWrL4xUB0nmCznSltfk9yw4iseMQ1OIMiZlE1pMRd/I+QNpu8plAWc3llU30R91w
+	tO+b5zkdYIz3vjWfL+4LwsvNOqVPelKzQSEPh7uM6GXG3cXH+dLhYj2UKWG6n0WeTSxmsm9
+	3Yxk0f9kVYZiHxvbb9uegMUiQPOLPO8BQxHnYBUZXBWvPFV5SGY3FcZXVt8+395j3lN1Wry
+	zK1IsvCNe0Doh0GKlsjC4bYGMsmzi+5pF8xk5WHDA3xTfSMmVC5+0M41g/aOLPatR1FkkVb
+	xnHpv0PbfWrmdyyKsJSgr65euPcYvqm7zOjrH1++r3dYCG/ZJF8b6JlGoOmF4SBUDjx8k9p
+	Vd2a5BzENf5hK787IxtoOTXRQjKuIpdDFooWK/32DXnqRwC4t0isX53/JZ4u/2Cdu4/W24A
+	1Ado6xb06xPeEKkESUyoBuW/gsj6oPlkBd7gwBizbtsnBSHexkZXGosjNMW6VKqoujF8YVl
+	XM0Et4GgT63ZrIhJTwcPt3ruKWtmT785Wvq3Qj5GmZFh3qs8+rLKGqKAtr0fIXpWVLXRO57
+	ubOBO78zSKTrrPPjuIcur23mfZHaGyzjaRmHv1YPskVQpb+hkekQ1ArXc2WtPd/0I08HY5E
+	SiqfAWetFOp9JNY2Bvp0/9jVVrLVIzII/hpR3T6jltEZqsgwk6LsKM06M0cl7WPgasgJ8SN
+	qs0x8yq6/7K92Ic=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
+changelog v2:
+Rebase on v6.18.47, and revert only necessnary commit.
 
+v1 link: https://lore.kernel.org/stable/20260825100338.4039846-1-guanwentao@uniontech.com/
 
-On 27 August 2026 20:02:27 CEST, George Valkov <gvalkov@gmail=2Ecom> wrote=
-:
->On Thu, 27 Aug 2026 at 20:40, Francesco Dolcini <francesco@dolcini=2Eit> =
-wrote:
->>
->>
->>
->> On 27 August 2026 19:19:37 CEST, Georgi Valkov <gvalkov@gmail=2Ecom> wr=
-ote:
->> >WRT3200ACM and WRT32x routers always report a fixed US regulatory doma=
-in
->> >from the mwifiex ROM, which conflicts with the platform regulatory
->> >configuration on units sold outside the US market=2E For example:
->> >- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
->> >- phy1 mwlwifi 2=2E4 GHz, hard-coded region 98 EU mapped to FR
->> >- phy2 mwifiex 2=2E4 and 5 GHz, hard-coded region US
->> >
->> >When the system boots, it detects a conflict between the user selected
->> >region and the radios, e=2Eg=2E BG FR US, and applies extreme restrict=
-ions,
->> >preventing phy0 from starting on any DFS channel=2E phy2 works=2E
->> >
->> >Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
->> >WRT3200ACM device-tree, which signals mwifiex that its regulatory
->> >hint from ROM conflicts with the platform and should be ignored, so th=
-e
->> >platform regulatory domain can be used=2E This does not allow the user=
- to
->> >change the regulatory config of any radio=2E It only allows phy0 to st=
-art
->> >and operate according to its certified configuration=2E All radios in
->> >WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
->> >they are certified=2E
->> >
->> >On WRT3200ACM, the platform configuration is stored on the devinfo mtd=
-3
->> >partition, which is read-only: cert_region=3DEU modelNumber=3DWRT3200A=
-CM-EU
->> >
->> >The Linux kernel sources do not have support for WRT32x=2E An equivale=
-nt
->> >patch for these routers has to be sent to OpenWrt=2E
->> >
->> >[1] https://github=2Ecom/kaloz/mwlwifi/issues/173#issuecomment-3078796=
-99
->> >[2] https://github=2Ecom/openwrt/openwrt/issues/9956
->> >
->> >Cc: stable@vger=2Ekernel=2Eorg
->>
->> This whole series is not material for stable=2E Please drop thia tag fr=
-om all the patches=2E
->
->Dropped CC: stable from all patches, and sent v9:
->https://lore=2Ekernel=2Eorg/linux-wireless/20260827175850=2E89395-1-gvalk=
-ov@gmail=2Ecom/T/#t
+Sasha`s original link:
+Link: https://lore.kernel.org/stable/20260824220022.435960-1-sashal@kernel.org/
 
-Please, you are not supposed to send a new patch series revision every tim=
-e you get a single comment and you did send the previous version just 2 hou=
-rs ago=2E
+Bryam Vargas (2):
+  selinux: reject a permission value exceeding the class permission
+    count
+  selinux: require a class's permission values to cover its permission
+    count
 
-It does not work like that, you just create additional overhead=2E
+Christian Göttsche (2):
+  selinux: use u16 for security classes
+  selinux: more strict policy parsing
 
-I assume this is all documented, please look into the Documentation direct=
-ory=2E
+Wentao Guan (1):
+  Revert "selinux: reject a permission value exceeding the class
+    permission count"
 
+ security/selinux/include/security.h |   1 +
+ security/selinux/ss/avtab.c         |  35 +++-
+ security/selinux/ss/avtab.h         |  13 ++
+ security/selinux/ss/conditional.c   |  18 +-
+ security/selinux/ss/constraint.h    |   1 +
+ security/selinux/ss/policydb.c      | 254 +++++++++++++++++++++++-----
+ security/selinux/ss/policydb.h      |  31 +++-
+ security/selinux/ss/services.c      |   8 +-
+ 8 files changed, 288 insertions(+), 73 deletions(-)
+
+-- 
+2.30.2
 
