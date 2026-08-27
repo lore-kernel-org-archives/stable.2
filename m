@@ -1,109 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE0743B6ED
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 09:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122FC427F91;
+	Thu, 27 Aug 2026 09:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787823544; cv=none; b=SdZhQYmlgLoO5Qbh+6dy13wEmgq5cLNYeZPkJw8bSpFDfqc4mStqx4DSa5vfqN26bP/sU2K8MGFKDgjtOT0ax/hMwyugpmRs0/v3jrwWqF1trCOuXXloMZooVjikIUSVIsiD4URcTrznqf1j1M4Yr3tm3ydOQ+yAzbeJFbnK1WE=
+	t=1787823822; cv=none; b=RG8eGn9w7rslFgvbbtAbCUUki5vqsrd7RWnSoqorUnyOdM8jpWgs4OtXS0iJRlcOi+LTwabW4bki5AcxCyqhvWE7xr87e63ee8OOupQ+0wABhpHLgQeVKxZVOc3S6sA+tIYOo6faUDtyXsC8EOMj3dRZPdwQvAQhENgSptBJBz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787823544; c=relaxed/simple;
-	bh=gZJj56dXZ3m5mpuWg5Y32mLuivOuA0n2jQSSKK4Lf/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AM9N9BwMxpSL1saH8CYbbs89oQCGygmfXycpxlg5aP1D6W8t0VZDBUMnt5PRG57ywiUflSOP1CPone7MDygT2c3phLD6/EG/fj0fGJItr7PcgqqBUpiQRa03yclZeh9vDEFqvqpSdGcr6Octqdt9wSiasgxDkSS6Xr5l4JKi4gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Mf2z1oDH; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787823822; c=relaxed/simple;
+	bh=Kml3UFpqKmuyNf6MPWVigrUiYTDyfoerBU7UcsXJHck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hiTInyXVJvDuWXEVKfKaGoWVK83iHB98NFNZvW1njBTi6OW7qeoc35cvQj5xPnflpCrdPLyZBX1+28oaBrYTwZDaiAX/HqnHc8r7DR/0L6PgMjxz3cYKR8Vd1AaxwsRVKbQQzqQpNTjoe3Z9stydErLQnyxm1hTA5woparlZ4XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpGWjk39; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Mf2z1oDH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787823535;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b4i/vAlF7TVRLwxgQcCoqCNsYOQic8KZ0Txwd6Khtt8=;
-	b=Mf2z1oDH59YqXyiAA50ceTGOXZI34Vcvlt8yJQrZp0AZVwS4zyaP+t01385KYUs8kmS/1G
-	w0/CyIQQ/Pya8uX/gPLlDP7zwAU1O2BQ3r866VmNvNdJ701DWmUYGvP0xPAnbbHkONjPHR
-	/9t7ux0M4haWVcGzQPg/yiVnVfKQbqM=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-99-29C6pAf6M6KyBp40UdNyVQ-1; Thu,
- 27 Aug 2026 05:38:49 -0400
-X-MC-Unique: 29C6pAf6M6KyBp40UdNyVQ-1
-X-Mimecast-MFC-AGG-ID: 29C6pAf6M6KyBp40UdNyVQ_1787823526
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1F6D2195423A;
-	Thu, 27 Aug 2026 09:38:46 +0000 (UTC)
-Received: from warthog.com (unknown [10.22.88.47])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3072E423;
-	Thu, 27 Aug 2026 09:38:42 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Mehltretter <kmehltretter@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpGWjk39"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA2B1F000E9;
+	Thu, 27 Aug 2026 09:43:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787823817;
+	bh=Y4cZ0UoCXxH9qXg2RynlUOzzxRFmakF4LP9Cl47C+ak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PpGWjk39akJN778WuJcEBg1B5/32So6V0zQonbpf5DoI+Q4CWlAJJNNIh3pfjv8md
+	 u91T8xEgnqA6GLetH4c/IDHs2exbv4ofeoBiCnY97zOljqsJYym6b4a8o+87X4x1G3
+	 rrFBWwA+hsMUnIt3jPcU4puz0Dan2h997V21PNLqzvxlROPPyBbRG4Th5vdsBanIkR
+	 8UmZrfuCz5sNHFQ3KdvINnlMxEQpAkmcFbAFa10BZFILKRq8JsRbOZgzKWg4fM8pyA
+	 V6zlmMojIYiNFCHItBvQCi9VZk9Zww7EocOGrPD6XrtS/0Oq++89LPJ+kSX6LQlmca
+	 lF90qjvqR15nw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wzWdy-00000002iAA-30xi;
+	Thu, 27 Aug 2026 11:43:34 +0200
+Date: Thu, 27 Aug 2026 11:43:34 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 01/10] netfs: Fix uninitialized return value in netfs_unbuffered_write()
-Date: Thu, 27 Aug 2026 10:38:16 +0100
-Message-ID: <20260827093828.1956211-2-dhowells@redhat.com>
-In-Reply-To: <20260827093828.1956211-1-dhowells@redhat.com>
-References: <20260827093828.1956211-1-dhowells@redhat.com>
+Subject: Re: [PATCH 1/3] i2c: dev: fix blocked adapter deregistration
+Message-ID: <apAGxmeDmdTTYgCQ@hovoldconsulting.com>
+References: <20260827090804.638565-1-johan@kernel.org>
+ <20260827090804.638565-2-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827090804.638565-2-johan@kernel.org>
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
-
-If preparation of the first subrequest fails,
-netfs_unbuffered_write() exits its loop before ret is initialized. The
-empty-iterator check can do the same.
-
-For synchronous writes, netfs_unbuffered_write_iter_locked() may then
-return an unrelated error instead of wreq->error. This is reachable
-through CIFS if cifs_prepare_write() fails to reopen the file or obtain
-credits.
-
-Initialize ret to 0 so the caller returns wreq->error if no data was
-written, or the number of bytes already written otherwise.
-
-Found with Clang's -Wconditional-uninitialized.
-
-Fixes: a0b4c7a49137e ("netfs: Fix unbuffered/DIO writes to dispatch subrequests in strict sequence")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
----
- fs/netfs/direct_write.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/netfs/direct_write.c b/fs/netfs/direct_write.c
-index c16fbad286a1..b04019097ab8 100644
---- a/fs/netfs/direct_write.c
-+++ b/fs/netfs/direct_write.c
-@@ -95,7 +95,7 @@ static int netfs_unbuffered_write(struct netfs_io_request *wreq)
- {
- 	struct netfs_io_subrequest *subreq = NULL;
- 	struct netfs_io_stream *stream = &wreq->io_streams[0];
--	int ret;
-+	int ret = 0;
+On Thu, Aug 27, 2026 at 11:08:02AM +0200, Johan Hovold wrote:
+> The i2c subsystem allows controllers to be used by non-child devices
+> that may remain registered after an adapter goes away.
+> 
+> To handle this, adapter deregistration blocks until the last reference
+> to the adapter is released. Albeit unorthodox, this is mostly fine for
+> the vast majority of controllers but can cause some trouble when
+> controllers reside on hotpluggable buses.
+> 
+> Specifically, userspace can prevent an adapter from being deregistered
+> indefinitely by holding an i2c-dev character device file open. And with
+> USB attached controllers this prevents further hub events from being
+> processed by the parent hub until the file is closed.
+> 
+> Fix the i2c-dev implementation by dropping the additional reference
+> taken at open() and using an rwsem to make sure the adapter is only
+> accessed while registered.
+> 
+> Note that before commit 611e12ea0f12 ("i2c: core: manage i2c bus device
+> refcount in i2c_[get|put]_adapter") an adapter going away would instead
+> have resulted in a use-after-free.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Johan Hovold <johan@kernel.org>
  
- 	_enter("%llx", wreq->len);
- 
+>  static int i2cdev_open(struct inode *inode, struct file *file)
+>  {
+> -	unsigned int minor = iminor(inode);
+> +	struct i2c_dev *i2c_dev = container_of(inode->i_cdev, struct i2c_dev, cdev);
+> +	struct i2c_adapter *adap = i2c_dev->adap;
 
+Bah, I of course need to take the rwsem here as well as pointed out by
+Sashiko.
+
+Let me respin.
+
+Johan 
