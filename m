@@ -1,131 +1,140 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E7E35F5F8
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 03:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787802734; cv=none; b=F2ZcbM2oULc15i+HbLvu6kaDF7p9EHYxsgpN6ymtFr1/EhkVv3HwCzsQeRkWwtRWtNmS3v407MKzc4urIVdlWIu639K1J6UaPh8QCIbiwx5Yyxl0Uft6vvYXYD/dMNR/vpeHnmTFrqea5TiCPgpnWHIWt3Bkuh7DhshMQ9YG36c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787802734; c=relaxed/simple;
-	bh=wqAOpz+o/OmBXLvAWwJjaJJz1u7kCcgSqoUoQrl5Sbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MyfAEPgGIhbiFB8V7/YFZNauU41lpRG45tdK/Z6imrbj22fGNOdpUS5w7YL+hLI1DY/CmKbig+dBauswF/Q6Fd/SNCCMcLXgdISMWkqxpVhmmLZoNCzsh+U156yZtWOnVLuHUIK0HpR+SzeL8auWlRjLmed7WdGCD283QBaNDic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8e7AZIs; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34DC21474CC
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 03:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787802996; cv=pass; b=QlBPsC1Y3bGiH3pFsKlXxiCgzbueW60L32jWlMGQcWDOy0h+yb4tE8MciObmLTPPtwBKmxP6S2bnLqytITVCziv3ajN2NiIzIgfOV+LUIw/I5/hdsI8LddNsVoc84bHuf9FAqPJnAtO6k6hbRzMKy0cdaRLgRymk4wKuyBJBS00=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787802996; c=relaxed/simple;
+	bh=4YhYn5FSlPPx84gvttWg80Ipc0md//aTq9lSol72NVc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mgqP280Pc0Ow2seQznvaxvsYoncJjeG6gNbuwojINbIB+hdtI6qkwHk872TWJkepkU6mNb4NE8mPlHLzZVy5jGUJjtbZ4VR8AGenwGPAKAK+Wg01gz1N7C2K7pW4AUiXGCcvLBRNr6PGxtBxuKxnx3wvBali/pPlZO9vj2myV0I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q66HE5R/; arc=pass smtp.client-ip=209.85.208.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8e7AZIs"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so387063a91.0
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 20:52:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q66HE5R/"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c86945164so13718181fa.1
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 20:56:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787802993; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JetALNL5pAnQ9xYoMOKm2gsBTnOdMUHn99A5NGATvBI3PP3bzuuaSIz5+ClfPIiJu/
+         kMyYV+mmRYE/AtSSnmEl1gI/QmDJ1i5EWEWb8xZ7HiPMEvLD7aJ9soLaoq9VLlYQ5fsg
+         2h81ekRXQVoWxD15TGe0dlSzaGxfHozcYwKRu+UWy6lYK5POBvzFaEm2re07YVvmymJb
+         0WcTPTHaNxZ8+S9wYsldFPQPxRrY4slS3LuBGmURgf0+m6tNN7BMEbYArxpRsDfwWHQe
+         QyCInpFU2jgNJtIfPSvFdr63ROxtaCMjE8k2dtDC6BTrpSskBu52VihC/om8Eki/j0Fk
+         eqBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MhmHfBCxwPWUairZ9+s6ng99fn2LZtkTw0G10u+xfDk=;
+        fh=pdoSZ5Xll/ImSIM+NILii6opt2pGZwSRQshvy4h2xcE=;
+        b=RcLdUzGPmgjcgzasz+BdWm7ObpHoleX32oqnIHtZZP6FdYL65NCGlTi+GkQ/S16HAM
+         GQckaRDnOKgdbTX9Vu0KxzoTiH42Co2hhm0HeojCZhlbyj0L1GxJIe7vuIlMeLd+UQ/x
+         73WnFxIgSwxQFOzS49T/C7mREUtl0tDT0Qu/Zp9tfExL3KE40VI4RajpvV/KFpSx5Mfg
+         T+UuYqB5Ldoq1rlrVsJbTkAp9U1FgKY1yYdtRBVT1/tlYaCEg7yLEjdBZzgKQNKr66BF
+         Fw+yjuiqVbrQkXLKPG3a7f+1PPkSNwcCvxTdl38la4rieAeDjBplshGhhDbrOoabkbHT
+         wcuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787802733; x=1788407533; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cJfrPdFq+EA9k3+W6F0OPeNTLDq5MohHxFERw6Hx1bo=;
-        b=m8e7AZIsD7kdqLgeokh8eqNjcdbuW+SWyNNlOIq2Id//PyKBds3Af0j19qHjQ2YWvH
-         QMnEECy6gj6wnO4kNrer746kaCvGAz419/bWKL016PF0scpROiPolCW2+RFGx7dSvBbl
-         IArOfoFr79l83SZQs4tVIoZ7/hhs8ESe/ThAD9+sMa5LhBTrdPYxYSsStpATxr0ZAPwe
-         eyUzoP3yeszLkDw0jpSiGX1IH18mD4LOxoq0qoXjBmA04RFG7wRDv2l0i5w7MHrMPlc3
-         MoCfeBeG/w3sAry88pKSdEp+rIf3IdGl2w/OVWo2SkASkgcPpCYrhoia8OwBkdsM1tXj
-         2+eg==
+        d=gmail.com; s=20251104; t=1787802993; x=1788407793; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MhmHfBCxwPWUairZ9+s6ng99fn2LZtkTw0G10u+xfDk=;
+        b=q66HE5R/GoOX0JjShNlrmv//Lg23/9HXmHDRaqdrglasD7bPuJaLk2zdLWJpUyzAcz
+         UHuAlegXqBMXmYr+kBKkNowGmSAHdyVnKr0uhls0oc40dA33TugpD0mY+DCkSprG/JQi
+         jdUwjPWj00qb4wwdSiYo0nfHRaoFfogNr0pPm8oXmFplxZBZvUzYJJuHmcwXmr8P2cFs
+         OSnNmlYBmUGIAQflafBhgobCrLTXom/jknrwe6q/Nwku4SrdkBz/5OIlFCwixlHeVF1M
+         sCyAWT9EHnkGBF2nXBUP4pZyEKq22S61Vc+AkQGli32gYqEharC9O6N18Iu59bcgQbN5
+         FKfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787802733; x=1788407533;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cJfrPdFq+EA9k3+W6F0OPeNTLDq5MohHxFERw6Hx1bo=;
-        b=bpON0qc6vDrw5giwzsbYo7Nw2sqn+o5doxjbxZHiaQjFFB01mNgGKO9qEO3h3rVe9V
-         jsUW8fZ2YXMpX1Z4xaVqbV+u/MYewiRg+BOmwZeDExrtNXd7bBINe3gNFxsX1KD4Z+uh
-         az9JA0kBs1AXyhHfdQNrSDNgf56/GwPJyhbXkuobOChfkIGItjmRYElgFv6gWPhoXDdD
-         DOBNou/hD1waLR3UUGm/+i0cfRt6G13yFhU5OSLs/A7+cnMp48ELFStlZjWqAqHAoDte
-         2zqCTxfexZ3LRx7GowP+qigrBkRMliR9ADxRSqzsq6H0JaYIe910ss9aeZm0ZMgIIeaz
-         40aQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoNYRN+Ig/Dsuh1iUutZoagVQT5beqBNrx5yU9b3rrZj2LgPUwhINKijdnoLfMxPl4ncBWB3wY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcUDWYBS/ejeWfeTGbPph2rT3Yx/i3YxzO+9b9khg+Emgf+kVH
-	mCR6fj7hyj3rxRp81ujWy0fqHl8KRQTwvmb5DhjlyhTVQO20mxd1CxcU
-X-Gm-Gg: AR+sD10YGr2sLIQ37rNCbTOapI5g/rJTrU3wAfyUKrZjTECr1aZLCHMH/XQWReem9br
-	2ZHMOHux/8V0c5t8oZHRjSx8WVBKj/it9FrdnHrQNRXRLPXmdipBy6J9jd5AyQa2Me5xdqlgmrv
-	K6EffI+7MqEomZRGW6WqiRc7sR9Y8NosCLyRwfEQVYFHXAR5ORviY/S72cl+jN52zCl+J2JDpEv
-	Vi69FBCtn4IqJAkHilJ1ycOP1rNM1zd3kYi4Ei6BuyhFsDeAcUXCsGRmmWMfROiiygjd+NFL6gI
-	xjjFhL+OWhLT8S9p3hrJmbnYPbN+vYEx9vOhk2jYQaiCMBwmcO3NgM71fl75PNDPoukUNspcqSr
-	hZqlg/58pV0dwrpoLfBpVO17uu0cePjRlkH4fK3v8iiArA77KQ1+/8J7x7aEcExaZZ+vvkboETT
-	Z/LL9nfHaXaNEZX9t+ygqLS0OR9DBw1/zLQXYmW651vXmLwJCiL2NbgTAq7GcsuGedvZKt5bdw9
-	h8/jQ==
-X-Received: by 2002:a17:90a:d2ce:b0:393:1d92:db5 with SMTP id 98e67ed59e1d1-3966d3dc5ecmr25814435a91.10.1787802732642;
-        Wed, 26 Aug 2026 20:52:12 -0700 (PDT)
-Received: from Default ([2409:40f4:1012:4330:756d:2890:a615:2db9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c2b4sm20222630eec.5.2026.08.26.20.52.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 20:52:11 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: jeffinphilip14@gmail.com
-Cc: hverkuil+cisco@kernel.org,
-	kees@kernel.org,
-	linma@zju.edu.cn,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	ribalda@chromium.org,
-	sakari.ailus@linux.intel.com,
-	stable@vger.kernel.org,
-	syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-Subject: Re: [PATCH] media: dvbdev: fix uaf in dvb_remove_device()
-Date: Thu, 27 Aug 2026 09:21:55 +0530
-Message-ID: <20260827035155.10725-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260822112256.12346-1-jeffinphilip14@gmail.com>
-References: <20260822112256.12346-1-jeffinphilip14@gmail.com>
+        d=1e100.net; s=20251104; t=1787802993; x=1788407793;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MhmHfBCxwPWUairZ9+s6ng99fn2LZtkTw0G10u+xfDk=;
+        b=PrAQpMnaCNDam8CTu4etnP+jmqQgPbvEa2/i2lXKwg74TWSFS/J0lKGppeA3Lb/ixb
+         Kky6gF1ScD74kOTkXHLpTwSpY3F2SEZzt7ssIGuYyl9r9yryxHfatMlfMklIMQt3Z4h1
+         j3NelnuIramYRJ3FTYFreqvQnxS9PGJAcBOX25lAz3bzbC+rdiFaR+EsDnYSJSpYQdH9
+         qOxBO1MFJRAVfqKzQZZ+KFyYlovUsudVdrMQ4Shgdh3HC7dfleqF43ttbdZw8tlTwESl
+         X4Aa28ZcK1DQpyWb1CBYFSCHzDip1niay/tYK+eG3uvW3PfDvP45FM5Ifd0fhe9lV3Dx
+         SSRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/6fbVKNaNFALWtYaDeKvz6hp9plG6xMvJNOZ5dt2YgWsKbkuinksAjWlfhvXuJVxoa446toQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYRz+EVStuUDz7Qippc3fPdtxjDJUDMB9nYM1HocsIbeRFovJ0
+	+oZZzj6Pvk2pJEsrR89tbfGzSXxi1PxnuAN25H9yFzG4ntdF2Hplrgea7EI468DL50OAcsK1lzn
+	nBcD0nFJ4XYcUEgY0ZO+KCw1V/y/2oXU=
+X-Gm-Gg: AR+sD1399EqZVZ03f/96UB5QZB721EzQ4QBKtfm77GbbMPoS/dTFZtixxz36u0Sm+p9
+	dC7mPB2+cW/SyIsODPDlYZ0rr5mBe5cWHjJ00fLH6MADN99vvVNE9FT6XkcU8Uh2I5/H94Tfc1F
+	JJPZYGveEDxbD1JEKydDU63iyvuZb2m5TKcxYQHE9NaYeGyHKRUyfmOBDz2xgi4H301mD0CDRcQ
+	BB16don5y3HcunsXRc3l/lHB3BX1pE0W14YtGwRGWySfLMiVkbT75P9V3RSjmDZpq/Ky7DeVwPt
+	boxDCe5ZuoaI06/8Us44Ijx3viiuFuPJBJgnEiIpu0Dv6HA0AwAiIQNg
+X-Received: by 2002:a05:651c:2124:b0:39f:75f5:907d with SMTP id
+ 38308e7fff4ca-3a1fd454d23mr24384781fa.2.1787802992881; Wed, 26 Aug 2026
+ 20:56:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260824075935.170457-1-zenghongling@kylinos.cn>
+ <CANFS6bZczfbx3HKO9pN2wOm9Wy8oCX0GAA_uAoXzhu1j34Jo7w@mail.gmail.com> <6A8D37D1.7010800@126.com>
+In-Reply-To: <6A8D37D1.7010800@126.com>
+From: Hyunchul Lee <hyc.lee@gmail.com>
+Date: Thu, 27 Aug 2026 12:56:21 +0900
+X-Gm-Features: AcwNN1W4ADiFsA1DExE0Miz_nGo___YnVaIMS7fjmTlaGnkmeF19MvmI3fsDMKk
+Message-ID: <CANFS6bbfYTTyg_3vUi6i42mGczQyAVeQJc59SMvcu2xqOg5y8Q@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix memmove overlap in ntfs_new_attr_flags
+To: Hongling Zeng <zhongling0719@126.com>
+Cc: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org, ntfs@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 22 Aug 2026 16:52:56 +0530, Jeffin Philip wrote:
->In dvb_remove_device(), dvb_media_device_free(), device_destroy()
->and list_del() all dereference dvbdev regardless of its refcount.
->Thus, if refcount for dvbdev is 1, it can be freed and we
->operate on freed memory causing a UAF. Fix this by moving
->dvb_device_put() at the end of dvb_remove_device() so dvbdev
->members can be safely freed and assigned NULL when dvbdev is alive.
+2026=EB=85=84 8=EC=9B=94 25=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 3:36, H=
+ongling Zeng <zhongling0719@126.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 >
->Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
->Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
->Cc: stable@vger.kernel.org
->Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
->---
-> drivers/media/dvb-core/dvbdev.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
 >
->diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
->index d753d329502a..9aa4b8fd7379 100644
->--- a/drivers/media/dvb-core/dvbdev.c
->+++ b/drivers/media/dvb-core/dvbdev.c
->@@ -598,7 +598,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> 
-> 	down_write(&minor_rwsem);
-> 	dvb_minors[dvbdev->minor] = NULL;
->-	dvb_device_put(dvbdev);
-> 	up_write(&minor_rwsem);
-> 
-> 	dvb_media_device_free(dvbdev);
->@@ -606,6 +605,8 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> 	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
-> 
-> 	list_del(&dvbdev->list_head);
->+
->+	dvb_device_put(dvbdev);
-> }
-> EXPORT_SYMBOL(dvb_remove_device);
-> 
->-- 
+> =E5=9C=A8 2026=E5=B9=B408=E6=9C=8825=E6=97=A5 13:45, Hyunchul Lee =E5=86=
+=99=E9=81=93:
+> > Hi Hongling,
+> >
+> > 2026=EB=85=84 8=EC=9B=94 24=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 4:5=
+9, Hongling Zeng <zenghongling@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
+=84=B1:
+> >> When the record shrinks while the payload offsets increase (e.g., enab=
+ling
+> >> compression reduces padding, making arec_size < old_arec_size, but the=
+ header
+> >> grows by 8 bytes), moving the name first can overwrite the old mapping=
+_pairs
+> >> before they are copied. Move mapping_pairs first in this case.
+> > Can this situation occur even when
+> > it is not a crafted image?
+> Hi Hyunchul
+>
+>    Yes. This can occur during normal operations when modifying
+> system.ntfs_attrib
+>    on a file with a named non-resident attribute. The header grows
+> (adding the
+>    compressed_size field) while the total record shrinks (reduced padding=
+),
+>    causing name_ofs and mp_ofs to increase and creating the memmove overl=
+ap.
+>
+>    No crafted image is required - a valid NTFS filesystem with the right
+>    attribute layout will trigger this path.
 
-Friendly ping, let me know if you want me to fix anything.
+What I am wondering was whether there had been
+cases where such padding existed.
+I has been considering where we should guard
+against that case.
 
-Thanks,
-Jeffin.
+This patch looks good to me.
+
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
