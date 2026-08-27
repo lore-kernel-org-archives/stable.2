@@ -1,95 +1,101 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C395A3FFAC6;
-	Thu, 27 Aug 2026 12:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79112433023;
+	Thu, 27 Aug 2026 12:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832599; cv=none; b=bO1Klj8PdsHryioo0iMGBxbNE86RgVA/fis4r8zeGxECENSDyIcW4TvovM4/1QlbwfmrBKdWpwB69t6xBJQvp7sFPv3QNtkuirc56hX8AqiuUWcYbjDunN0oPPt7xPzPCg4znL82OOgBDo48wOAGh5Uq1dNltrLfyRGJ4liV11s=
+	t=1787832889; cv=none; b=XzknLx2SZ9YSc1TVoPM9K3xFdagePAJTJiprUBkUo72vadVKxLmAAczJHmz+C3svGmAHqzBgDl8ANJu7GKOGbvGNpg2xlVogKM5FNe6un9RgiqITT2OONHi7gUH/T91+HCW0T4UXMCX0nxHT+u+NbrNB2VCZxnJIithKePnNfGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832599; c=relaxed/simple;
-	bh=YlZfnPJHRSXq3i6qKHvB6jw0SkWZ4mfUiGtPf+tphj8=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=kY/ep8TCtvCYO+yNll90jaden3PIYR2uhk+OEVrqa0icf39YZnkrTWV2khH2aT3c5DbD/68W5CQxqanj1tsPEov6FuM4ICLN8HI2tLRNiu9rlLluswW2eLT5v7Jn8vTZ7fYANFqbh6a1DMm7rDMEL5OHs3HG18QHDK3InQq7uXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=MzEXrpFJ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=bUjuZ0tq; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1787832889; c=relaxed/simple;
+	bh=JweVJnPZbjTU/iCvv7QOaxJ5XsyS4njOBPpsA8yaLJ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kolQLaJY+ah8ql7fTRS7dZRx/KH27rrYLhJtZKalSqBEeUIEsx/qxVfpZ/XB80WjIrmVp4kOXy02pMxilcH6kYPv1X5tHU/wMHFxj3mSuZYnho2VfSTmFQ1CU8P5VrLmBihiGhvHGugXhJfsPJrY0this8cI3sW332aCyOTcgbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=5rXebqdT; arc=none smtp.client-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="MzEXrpFJ";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="bUjuZ0tq"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787832586; bh=UmwF9grtCB3dzPlHdm4Hh/r
-	NUgB8p50M7R7mwTGZHM4=; b=MzEXrpFJHC56lYwfvcJ8PdLgofNClmP/NU9l/pbESfWEpCzT88
-	BpiL+IhwsaoJrvYm7h3BzjpR0i51gS8Ig3dOVrTkgPlnZSzV/hL53TNg3lCoZiIQmbrhbHL8GDE
-	s6JUe3RDHenta9b3nPQS2s7N24+VYA1dqflHFsYz+XdpQHEzNEidEgOx4Rw25O0u3n0r7rKqHll
-	V4Qr8jdBsQxIhzueGQ/n5bOjOiUzVpCve+Pfv/tEif2jVFeZyYA4tznA2aloFLrtKRQehYBCDFK
-	Ptyitr1URGm36i+neDKqXL3UhM1M1py/xx0szTvbXeutsruJDpkXtEBJoX1XVr7klAA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1787832586; bh=UmwF9grtCB3dzPlHdm4Hh/r
-	NUgB8p50M7R7mwTGZHM4=; b=bUjuZ0tq7ASAgfWWb6xzSIvijEDJarrqhOteP48w+j6pUDstHX
-	bT7bgcjN4PoTQD6nvHDDwz037I35fjPnTYAg==;
-Date: Thu, 27 Aug 2026 13:09:44 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
- =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-CC: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="5rXebqdT"
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id ED30AA2FFE;
+	Thu, 27 Aug 2026 12:14:45 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 12C1A20029;
+	Thu, 27 Aug 2026 12:14:44 +0000 (UTC)
+Date: Thu, 27 Aug 2026 08:15:31 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: =?UTF-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
  linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_tracing/user=5Fevents=3A_Clear_c?=
- =?US-ASCII?Q?opied_tracing_state_before_fork_duplication?=
-In-Reply-To: <20260827080839.35e44d04@gandalf.local.home>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr> <20260827080839.35e44d04@gandalf.local.home>
-Message-ID: <A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org>
+Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state
+ before fork duplication
+Message-ID: <20260827081531.092fafbc@gandalf.local.home>
+In-Reply-To: <DAC674C5-A6BE-4D99-9721-2805640BA8A3@mainlining.org>
+References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	<5B7C72AA-5655-4916-AB17-03A8B94F5D7C@mainlining.org>
+	<faa62ef4d9144b3145a8a6254ac3fea6@oss.cyber.gouv.fr>
+	<DAC674C5-A6BE-4D99-9721-2805640BA8A3@mainlining.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 12C1A20029
+X-Stat-Signature: bbr3ktzrnx7x6g1and6im3mq66grncjb
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+hta78uvxumIsJiB183Q/uKWtyiwhvV1Q=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=LacdG2PJKc+onT338ZjkAVCz9OlZBbmRoNzbD+Geshc=; b=5rXebqdTbLt81rA5XQ3gwjXsxyK9vrwPtwViXy2biULWQE6tLSqkGvaY8Ufa32B1tmmlS84w1tClmNrBJqBchOC76HoRmizNzOWA2Ku0rIUA/IsxuTGtmYcZBVCv6plhJkcXfG1oACkrkl9Kt7I84bI0UkF8/MH4hVOT+IBearc=
+X-HE-Tag: 1787832884-722874
+X-HE-Meta: U2FsdGVkX1/Gf3Qk9QGudf5a9ud3QWJ15SBRcnMlEU7K3G5mvTGSizg/soW3VeQaaafihhDRDm+LKjS/r2wV7R5C8BNYkUI2FTK3AEjdxGlqMZiygosbqf/v4YC0xLD74XIQ6eB2N1CzoBqfb3BbnQkZEllFfMNaOJn6bu0pKudjS5E7XkUV7N12bDhLwVtLnxSBI76dV5LmBwa1oLFHt7Zjq/nPbTyxPLDwpCX/lSZPs1436waKtt+vTqieJqxttE3YddaE1GKdFFAozTKWcaaJLGGhKCKbQw33FTjOlIkHWCUzErQJcCSt1GSDqgCEMybhbYSb4/QY3bC2Zq22GSz1qumBanNmHh/Fo6lViixr/LVAvi2Lci9bspaS6GwJ
 
-On 27 August 2026 13:08:39 BST, Steven Rostedt <rostedt@goodmis.org> wrote:
->On Wed, 26 Aug 2026 21:44:15 +0000
->Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->> diff --git a/kernel/trace/trace_events_user.c
->b/kernel/trace/trace_events_user.c
->> index 2bbc89d4a266..339e18085af3 100644
->> --- a/kernel/trace/trace_events_user.c
->> +++ b/kernel/trace/trace_events_user.c
->> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
->>  
->>  void user_event_mm_dup(struct task_struct *t, struct user_event_mm
->*old_mm)
->>  {
->> -	struct user_event_mm *mm = user_event_mm_alloc(t);
->> +	struct user_event_mm *mm;
->
->Why this change?
->
->>  	struct user_event_enabler *enabler;
->>  
->> +	t->user_event_mm = NULL;
->> +	mm = user_event_mm_alloc(t);
->
->I don't see why you moved the mm assignment down here. The
->t->user_event_mm
->is not used in user_event_mm_alloc().
+On Thu, 27 Aug 2026 10:45:29 +0100
+Bradley Morgan <brads@mainlining.org> wrote:
 
-Uff, not wrong, I must be dummy dumb dumb, well, I base my reviews off 
+> >I usually don't think about adding comments, but yes, that's a good
+> >suggestion.
+> >  
+> >> Maybe you could add this to your memories
+> >> 
+> >> "The description length should be about the same as the change being
+> >> added,unless there is a splat, or something else like a table which  
+> >needs  
+> >> to be added to the description, keep the description length the same as
+> >> thepatch size, e.g:
 
-Does this fix the bug? And is this a small fix?
+No that is not correct. In fact, some of my longest change logs are
+one-liners and my big changes are small descriptions.
 
+A one-line can be extremely subtle and require a deep description of the
+problem. Big changes may be "Implement this feature" with a description of
+the feature that is much shorter than the code used to create it.
 
->
->-- Steve
->
->> +
->>  	if (!mm)
->>  		return;
->>  
->
+> >> 
+> >> Instead of doing 3 paragraths about a one liner, we could do a small two
+> >> or more line description describing:
+> >> 
+> >> What causes the issue?
+> >> Why is it bad?
+> >> How did you fix it?"  
+> >
+> >Sounds like a good practical advice, thanks. Yet in the present case,
+> >since there is a security issue with the UAF, I felt that it was
+> >important to explain where it came from instead of something very
+> >short along the lines ("fixing a UAF"), hence the couple of paragraphs
+> >and the KASAN output.
+> >  
+> 
+> umm, you could include a ASCII table or something, that signifies the bug?
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+I think the change log is fine and doesn't need to be changed.
+
+The added comment to the code is fine though.
+
+Thanks,
+
+-- Steve
