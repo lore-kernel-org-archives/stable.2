@@ -1,234 +1,159 @@
-Received: from mta1.migadu.com (out-199.mta1.migadu.com [95.215.58.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCE137C0FE
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 01:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365DE1D9A70
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 01:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787794646; cv=none; b=REGIg0BMOccloRqiH/mscchcMaoEPqLE4y7ydCB17pEN23VdI3TrNIJSwgbLLgi6xLdyMZjRcoJjJEJIg2BuE/O7u05sC0aiYzTFHPPggAJT0XhG3/zgNr/QuOVwNpchOX6DN8uiiYMaB6z8vU2d19KaeOvc9AxyTTWNLjwYo7s=
+	t=1787795865; cv=none; b=VEQa4J3oaf1SmwGwMeq07Wx7bsTLyu5OLsw+ozq+XdjUtfMHMSt6INlel3G7y08SQ0KQE97sC4ovsJnC44YLS8sSQwi+QcIC7YVs64RAFl9Kfvd7VS7KBiMBok5PNXlzxG/VNOW0ZkkMVChv8HKHPhkBfj57MR2InmRYZqcnBeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787794646; c=relaxed/simple;
-	bh=htyAKBUKag4BkmqelGoVlxjJ7s9eT/i2PDyfgKhi+pQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JQ8B6LDGZ7CsBSnBqd+hx9SdM/AbgoM1Rar9oRFHrbqgeUPlF3sAQzi+fUq9C5X/PTLOqUPWB1BPfD55r9fyoaPKN26of7NLHLh5wmNMqOX7KGhV9mFi+tZomXb3Er5+yJ4FVLGNPT1gsaCzWPlIWbnAZGwFrNkIK4+89XPFZ6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=utTf4NcU; arc=none smtp.client-ip=95.215.58.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787795865; c=relaxed/simple;
+	bh=jhENR7oMROtVLiOxg0U+CVD+L+2JPr5RtX6xHqYhPz4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Fq/WCGwInlbeHVx6nttrLAvAMPee6MMTuGsJ8sUdxPUv4YCfKPoQct325eCsruVwFcYOXR69U5WhEIMeQrHvPguharvr7ZXwLfhMxTKyDQcDtr+71r2+VRUm6W5qPYKwvE0m6pNHjusm+VBkDVeX9ssv3adZgOhpM+bPkiY4Ozg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YDJHp0DS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CXTch8+z; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="utTf4NcU"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=htyAKBUKag4BkmqelGoVlxjJ7s9eT/i2PDyfgKhi+pQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787794641; v=1; x=1788399441;
- b=utTf4NcU4n4TAvT83CXkJlQuWI5F9l6oAwfGYXPaHINyrIH/Dv9j91QVa6tPrjNMJsgSzrVM
- oA7331wY/Z/ZOOCr+e+LdDsf9BveJqQUKuokTVX3RQHi/SyJWXio1XQ0pHcLLcIea8PI53GlPw0
- c6utCRWxj5NUf4p8C7tf2zmM=
-X-Envelope-To: stable@vger.kernel.org
-Received: from [10.63.107.123] (14.29.108.92)
-	by smtp.migadu.com with ESMTPS id 00f404dab48392af;
-	Thu, 27 Aug 2026 01:37:21 +0000
-X-Mizu-Trace-ID: 00f404dab48392af
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <49c19d73-beca-473f-96b9-23ff8ee9d445@linux.dev>
-Date: Thu, 27 Aug 2026 09:37:11 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YDJHp0DS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CXTch8+z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787795863;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=djdjWCEotBxmszXLMf1uKi2y2pajf3EcVhrRc+8hkLY=;
+	b=YDJHp0DSa58DmWoXOlSwduRaTxV2NT9EMsl+bGU5RrAZsZfWjZQ9jLkbofL1sfmXlgnos+
+	Sb/HpFnIkp7m4Qmy0YWjMtBsgMfkMXaXrHCPL3TjYxx32xCUo5FGHpfrQio9EXVJ2N14kb
+	s0JcIS4VX7VOd4J0bTwqfuZzLMy6FW4=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-63-8vGMxgXJPkymQjIldwTpYA-1; Wed, 26 Aug 2026 21:57:41 -0400
+X-MC-Unique: 8vGMxgXJPkymQjIldwTpYA-1
+X-Mimecast-MFC-AGG-ID: 8vGMxgXJPkymQjIldwTpYA_1787795861
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9377829a759so132314785a.0
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 18:57:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787795861; x=1788400661; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=djdjWCEotBxmszXLMf1uKi2y2pajf3EcVhrRc+8hkLY=;
+        b=CXTch8+zZIvvr6BeJIjvnY70kovmGMThfo4IxZdvn6OLYAAeI0lKKDt446itszZTak
+         /mPn1E7D2kX9mL9vXXH2jXRBuO2EFQcRyDOtrTwiWJKwej5ejSoPk23lP4hYP10oFMBV
+         iska0Lk6sGupX8qs0le/kf928LTq3uImM4DtZPIi08QKBoPRKpdLP2+bl5c7Bh7TF4WK
+         AU1G8aO3FxC8cXXtKRHh/CSjrUT9qIrUe/zz7lYoIkj4aOT3ySsvpQWDj8VGJExCb67l
+         MJBVOEMEmPfKY4TnSUBXjBi+1qyAL/X61HUbX7yrpMHd+7GHIk8zYJgb3xGrDX5O1Ehq
+         PRDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787795861; x=1788400661;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=djdjWCEotBxmszXLMf1uKi2y2pajf3EcVhrRc+8hkLY=;
+        b=tJY8KlR0773a16Az/LH045W3DKwZn8Hh5CkkI5KnhAK3IzwH5ggIrckq7ckgOktg5f
+         p5qEydqw7GHzYPXJ7OtgPpte1oEO6CyrrdVw6jaqdnX0Fmz7HI/mShhVeTav6aOPi2ck
+         3oGhNz6aU2B7rSg0k1866qZbx2uSJKSais5FXYoBU3+FHW5CvJ0b3vBNNPwH59I9ZBjt
+         bTECZvRa03p9lb955qyZmtwrXlDklWwSG20cNbMYB4ADbRjchWwp9HskVxQN4sGyiQn+
+         DtmvltAJgfr9+DUGkaKZ5sI+/t8HQ/NKRKTJC7wPR7GstHsRfPSisYNN1vsoKEY+UTof
+         187g==
+X-Forwarded-Encrypted: i=1; AHgh+RodomWTyHx8xSIE1WZuvugls/JNtQg/HNs1Idxd3wjfk1cjp5uc8u6gC3I3+JT5E7SgOA9Eylk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqE1pyBqq7pUuGFC6NyKil/msqNfv6ZoeLVOJHrZF820IrB7jW
+	Dc6deWP1FZFaMnE5oIJW1aNKk9vN0bv1/Z7Q36Sja88BPneikN6BZ1iZWqnJ2PkbDK8hs6l76Vx
+	pN7El8drjqzL5sc0lrGmHYBT0l9kMtvu3GLD/eoQsYzmPck98h7rDg+gAAomosgb0Zg==
+X-Gm-Gg: AR+sD1133oGM7RlF/ccLbLyydblec5Bnkm7vbsWi8ySBGNJmsU5wsR1PP1LJGAF0hQd
+	mA7ou8kqytei12vJKyi7p+XRcbCkxV6A3fL8s/11cfmMziSnCFwVGPdPblF3x8tvctrX6viK6nk
+	Hlp/fK/PfezDbP1I6Cl6hZaZIlfqTnPv6c5kHW8m+yF6faA3eMaYVFf7OdpchV5jN7CDrPfh7QB
+	lkkuU5enWaCoMorWnTyYpYg7f/WIyiDutwHH6v/PirBo+3DhTYYf7VuKxOZjrbysZQGbd3E6bMr
+	tUS3CYy7JHbapOvAo0q5IFN5TBNrKttCZ5dTSfWyEMiJF4ohXlwgCwP7v4eMetznBB657fCDKE1
+	/FPCEtfTmWq7hdvxb3IxxGKBppJ/vVLXQxhrLcMldBiN6Z0sYk4SJ15nQ7s9J
+X-Received: by 2002:a05:620a:36c4:b0:92e:7cc9:a888 with SMTP id af79cd13be357-937800dde60mr1010324885a.2.1787795861226;
+        Wed, 26 Aug 2026 18:57:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:36c4:b0:92e:7cc9:a888 with SMTP id af79cd13be357-937800dde60mr1010322585a.2.1787795860727;
+        Wed, 26 Aug 2026 18:57:40 -0700 (PDT)
+Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9377e30adcesm341042385a.4.2026.08.26.18.57.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 18:57:40 -0700 (PDT)
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org
+Cc: pc@manguebit.org,
+	linkinjeon@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5] cifs: don't update i_size in cifs_do_truncate without a cached handle
+Date: Wed, 26 Aug 2026 20:57:38 -0500
+Message-ID: <20260827015738.79123-1-sorenson@redhat.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <c5ae6c999664ec603d3ca6aa8a226439d89eed48@manguebit.org>
+References: <c5ae6c999664ec603d3ca6aa8a226439d89eed48@manguebit.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] mm/mglru: fix ineffective memory protection for
- non-kswapd reclaim
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>, David Hildenbrand
- <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Yu Zhao <yuzhao@google.com>,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
-References: <20260826133054.88529-1-ridong.chen@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260826133054.88529-1-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+If find_writable_file() returns null, cifs_file_flush will return
+0 without issuing set_file_size, and the outer 'if (!rc)' block
+will set i_size to 0 before telling the server to truncate.  If
+the cifs_open() then fails, the inode will have size 0, while
+the server file is unchanged.
 
+Move the netfs_resize_file() and cifs_setsize() into the 'if
+(cfile)', so they only run after a successful set_file_size.
 
-On 8/26/2026 9:30 PM, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> memory.min/low is silently bypassed for MGLRU during global proactive
-> reclaim (writing to the root memory.reclaim) and global direct reclaim.
-> It can be reproduced as follows:
-> 
->    # echo 7 > /sys/kernel/mm/lru_gen/enabled
->    # cd /sys/fs/cgroup
->    # mkdir -p a/b
->    # echo 100M > a/memory.min
->    # echo +memory > a/cgroup.subtree_control
->    # echo 100M > a/b/memory.min
->    # echo $$ > a/b/cgroup.procs
->    # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
->    # cat a/b/memory.current
->    222650368
->    # echo 500M > memory.reclaim
->    -bash: echo: write error: Resource temporarily unavailable
->    # cat a/b/memory.current
->    6070272
-> 
-> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-> protection.  The traditional LRU path is not affected because
-> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-> visits during a top-down tree walk.
-> 
-> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-> moved the protection computation into lru_gen_age_node(), which only
-> runs for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
-> lru_gen_shrink_node() -> shrink_many() without any protection
-> computation, so emin/elow remain stale or zero.
-> 
-> Introduce mem_cgroup_protection_path() which computes emin/elow along
-> the root-to-target path only by iterating through the cgroup ancestors
-> array top-down.  This avoids the full tree traversal that would be
-> needed with mem_cgroup_calculate_protection(), limiting the cost to
-> O(depth) per memcg - typically 3-5 levels.
-> 
+In the no-handle else branch, evict stale pages with
+truncate_inode_pages before the O_TRUNC open to dispose of old
+cache pages, and let the open response set the i_size.
 
-Hi all,
+Fixes: 110fee6b9bb5 ("smb: client: fix missing timestamp updates with O_TRUNC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+---
+v5 changes:
+ - take inode_lock/filemap_invalidate_lock as required
 
-This is an RFC patch.
+ fs/smb/client/file.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
-My initial attempt to address this issue involved traversing the entire memcg 
-tree, similar to what kswapd does. However, Sashiko raised concerns that this 
-could introduce performance regressions [1].
-
-To address that, this patch instead walks the cgroup ancestors array in a 
-top-down manner, as outlined above, and I'd like to gather feedback on this 
-approach.
-
-[1] https://lore.kernel.org/linux-mm/20260723130559.2343690-1-ridong.chen@linux.dev/
-
-> Call it from shrink_one() for the non-kswapd path so that each memcg
-> about to be shrunk has correct protection values.
-> 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->   include/linux/memcontrol.h |  7 +++++++
->   mm/memcontrol.c            | 42 ++++++++++++++++++++++++++++++++++++++
->   mm/vmscan.c                |  8 +++++++-
->   3 files changed, 56 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index 7d1c0ce189a8..26be8277d64b 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -605,6 +605,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
->   
->   void mem_cgroup_calculate_protection(struct mem_cgroup *root,
->   				     struct mem_cgroup *memcg);
-> +void mem_cgroup_protection_path(struct mem_cgroup *root,
-> +				struct mem_cgroup *memcg);
->   
->   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
->   					  struct mem_cgroup *memcg)
-> @@ -1133,6 +1135,11 @@ static inline void mem_cgroup_calculate_protection(struct mem_cgroup *root,
->   {
->   }
->   
-> +static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
-> +					      struct mem_cgroup *memcg)
-> +{
-> +}
-> +
->   static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
->   					  struct mem_cgroup *memcg)
->   {
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 1271d390b617..c739db33b917 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5198,6 +5198,48 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
->   	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
->   }
->   
-> +/**
-> + * mem_cgroup_protection_path - compute protection along root->memcg path
-> + * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
-> + * @memcg: the target memory cgroup
-> + *
-> + * Walk the ancestor path from @root down to @memcg and compute the effective
-> + * protection at each level.  This is safe for isolated queries because it
-> + * ensures parents are computed before children.
-> + */
-> +void mem_cgroup_protection_path(struct mem_cgroup *root,
-> +				struct mem_cgroup *memcg)
-> +{
-> +	bool recursive_protection =
-> +		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
-> +	struct cgroup *cg;
-> +	int root_level, i;
-> +
-> +	if (mem_cgroup_disabled())
-> +		return;
-> +
-> +	if (!root)
-> +		root = root_mem_cgroup;
-> +
-> +	if (memcg == root)
-> +		return;
-> +
-> +	root_level = root->css.cgroup->level;
-> +	cg = memcg->css.cgroup;
-> +
-> +	rcu_read_lock();
-> +	for (i = root_level + 1; i <= cg->level; i++) {
-> +		struct mem_cgroup *cur;
-> +
-> +		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
-> +						    &memory_cgrp_subsys));
-> +		if (cur)
-> +			page_counter_calculate_protection(&root->memory,
-> +					&cur->memory, recursive_protection);
-> +	}
-> +	rcu_read_unlock();
-> +}
-> +
->   static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
->   			gfp_t gfp)
->   {
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 6dff207ad8c6..e572d2742c8c 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -5102,7 +5102,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
->   	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
->   	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
->   
-> -	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
-> +	/*
-> +	 * For kswapd, lru_gen_age_node() has already called
-> +	 * mem_cgroup_calculate_protection()
-> +	 */
-> +	if (!current_is_kswapd())
-> +		mem_cgroup_protection_path(NULL, memcg);
-> +
->   	if (mem_cgroup_below_min(NULL, memcg))
->   		return MEMCG_LRU_YOUNG;
->   
-
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 389083f9ce00..100acc76e9be 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -1012,10 +1012,26 @@ static int cifs_do_truncate(const unsigned int xid, struct dentry *dentry)
+ 			server = tcon->ses->server;
+ 			rc = server->ops->set_file_size(xid, tcon,
+ 							cfile, 0, false);
+-		}
+-		if (!rc) {
+-			netfs_resize_file(&cinode->netfs, 0, true);
+-			cifs_setsize(inode, 0);
++			if (!rc) {
++				inode_lock(inode);
++				filemap_invalidate_lock(inode->i_mapping);
++				netfs_resize_file(&cinode->netfs, 0, true);
++				cifs_setsize(inode, 0);
++				filemap_invalidate_unlock(inode->i_mapping);
++				inode_unlock(inode);
++				cifs_invalidate_cache(inode, 0);
++			}
++		} else {
++			/*
++			 * No cached handle; evict stale pages so they can't
++			 * be served after the file is later extended; let
++			 * the server's O_TRUNC open response set the i_size
++			 */
++			inode_lock(inode);
++			filemap_invalidate_lock(inode->i_mapping);
++			truncate_inode_pages(inode->i_mapping, 0);
++			filemap_invalidate_unlock(inode->i_mapping);
++			inode_unlock(inode);
+ 			cifs_invalidate_cache(inode, 0);
+ 		}
+ 	}
 -- 
-Best regards
-Ridong
+2.55.0
 
