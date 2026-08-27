@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37DF2D5932;
-	Thu, 27 Aug 2026 08:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2573F7872;
+	Thu, 27 Aug 2026 08:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820328; cv=none; b=NHJNl/cyqr3S4CyUp9E777mnn+bNJEIS0Ln5ZiPaBx68FN7FRSEEc/+W3DM+R9Aw8fYGOVGiljzaKpm6bVQ2N0WPX+GD4qwSwuC0KdtIYCqyh94RO0U087/kQAQ630HZIZiq3ZNhwZaEePDsec45gJSDNwzP/E8sj/7xj5sdckY=
+	t=1787820337; cv=none; b=aW8gQzbCtSMQ1dzOC7qFUZPuLBpE1jWcFV/L9FGeJUDjUtQjm7IuHW3KcvJ43zaAGgVDfYlr3vySpMshbBW0gmQQn/ADZDcLjfAfHlQb/AgnpnEcNOcgN7x+rQA+wcmPSW2CuusL44Go8wZC4Dz25rInE7PjeEUNEGReIlpsnag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820328; c=relaxed/simple;
-	bh=aP4fy6ACXfxpP6LX6pmb1BbnS44opMeYKNjuTW+xXjg=;
+	s=arc-20240116; t=1787820337; c=relaxed/simple;
+	bh=h7yOX4VW/wztNU8fp4bdk4euKzrz9m/US0S6jcGkJ5s=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mBdoH6Q5GUeRLSht1/ZkrD97JiADw5TuDslvD1Wb1C96MI/8JLSDvgVtw72xgig4pgtYPMkizGwG4FzZxhzWIxUMSY4c6XhLwGTaIfmMsc689Z5cEuxMRD6R+sWeYvYzQLj68XycoZbzkoK5wsMt5+4FfOJ7jg+uWOM3e5HwzAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nmNTxUyc; arc=none smtp.client-ip=117.135.210.3
+	 MIME-Version; b=N+GuacyvF2Y7GLjM9IaavVxEI0APFj0d0pDm7VfjtI2QGBXxEK5YjMqIzDHxH2swfrZwR3BtY1wRf/I3uZ5rgb0aooVVW+yhr/6C04wuiOG4KPVzZBVpc1DbHm4XYYrlG+TEf+Z1AFzCmgBpkJ49uz/o66jTYUw0/cinXDWJzQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jG5Zw4X5; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nmNTxUyc"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jG5Zw4X5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2+
-	2rxZUJikTUeYYrMEtvl3brnsfonW3c9eKEJTK4i8E=; b=nmNTxUycL/Zkofnn0a
-	OkcKx9fAAkFymG38ta+53gJm/AlQWKPRIrHNQFw1hWfuQ6d2qSPaSF9TSvEZ+Mbr
-	GzElA72b6mhxH0ld2J+rg+r7RuOZNInRLjVkYkichJp9/kR2uhLZ1h82z6V6Il9R
-	dbUfZ+co/bW7O2HD1bTLTpVdA=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=TI
+	hGwWka/nqHDgf+s1AOlrgAG1nkUwUC/B6fUMbS5hM=; b=jG5Zw4X5mg0JpttLSz
+	d0rPvwo2Rg4paBZiV+j8oT7eQJZo7biegdoppmpkhNnXNXGFMLTXXNffjgGAcPhD
+	i0t8W1FDiNg9LwnylU9ebGi/dzYazFr2zwg4knsfX7HC6HNsQSXLoT2d6H7lgd//
+	hBEdWoyK+h9BRqzegiYeb624c=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgAXY_kG+Y9q545uPQ--.26825S3;
-	Thu, 27 Aug 2026 16:44:56 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgAXY_kG+Y9q545uPQ--.26825S4;
+	Thu, 27 Aug 2026 16:44:57 +0800 (CST)
 From: ghuicao@163.com
 To: Song Liu <song@kernel.org>
 Cc: Yu Kuai <yukuai@fygo.io>,
@@ -34,9 +34,9 @@ Cc: Yu Kuai <yukuai@fygo.io>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v3 2/3] md-cluster: fix error handling and superblock consistency in update_size
-Date: Thu, 27 Aug 2026 16:44:52 +0800
-Message-Id: <20260827084453.124629-2-ghuicao@163.com>
+Subject: [PATCH v3 3/3] md-cluster: revert local resize and propagate cluster errors
+Date: Thu, 27 Aug 2026 16:44:53 +0800
+Message-Id: <20260827084453.124629-3-ghuicao@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260827084453.124629-1-ghuicao@163.com>
 References: <20260827061200.79753-1-ghuicao@163.com>
@@ -48,131 +48,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgAXY_kG+Y9q545uPQ--.26825S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF47Ar47try8JF4UWw1Utrb_yoWrWFyxpF
-	WUWa43Gw4Ut3y8Ww15JFn7ua4Fy3s7t3y8tryxGayIkrn0grZ7GF4FqF90qFn8CF9xXFsF
-	qws8AF4Uu397Zw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-yCJUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-Aj+kWqP+QgPaQAA3p
+X-CM-TRANSID:PigvCgAXY_kG+Y9q545uPQ--.26825S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CryUXw4fJFW7ZFykAF1UJrb_yoW8urykp3
+	yxKF95try8GrZIgw47X3Z29FW5K34xtrWqqFyaka48JFn7Ar4ktF1ruF95XrWqk3s5Zrs8
+	Xws8Ja18ur1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jThFxUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC+wr+kWqP+Qp-hAAA3z
 
 From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-update_size() has multiple issues in the revert path when
-cluster_check_sync_size() detects that not all nodes have confirmed
-the new size:
+In md.c:update_size(), the local array is resized via pers->resize()
+before calling the cluster update_size() callback.  If the cluster
+operation fails, the local node has the new size while the rest of
+the cluster does not, causing a split-brain state.
 
-1. (pre-existing) The return value of resize() is immediately
-   overwritten by __sendmsg(), so a resize failure is silently lost.
-
-2. (pre-existing) The on-disk superblock still retains the new size
-   from the earlier md_update_sb() call.  Other nodes re-read it and
-   adopt the new size while the initiator runs with the reverted old
-   size.
-
-3. (pre-existing) The function returns void, so callers cannot detect
-   failures.
-
-Fix all of the above by:
-- Using a separate variable for __sendmsg result so resize failure
-  is not overwritten
-- Calling md_update_sb() after unlock_comm() to write the reverted
-  size back to disk.  This must be outside the locked section because
-  md_update_sb() internally acquires MD_CLUSTER_SEND_LOCK via
-  metadata_update_start(), which would self-deadlock if already held.
-- Changing return type from void to int with proper error codes
-  (-EIO for lock failure, -ENODEV for no device, ret for others)
+Propagate the cluster update_size() return value and revert the local
+resize on failure.  Also check the return value in the reshape
+completion path (md_reap_sync_thread) and log a warning on failure.
 
 Fixes: 818da59f97d6 ("md-cluster: add the support for resize")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
- drivers/md/md-cluster.c | 28 +++++++++++++++++++++++++---
- drivers/md/md-cluster.h |  2 +-
- 2 files changed, 25 insertions(+), 5 deletions(-)
+ drivers/md/md.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/md/md-cluster.c b/drivers/md/md-cluster.c
---- a/drivers/md/md-cluster.c
-+++ b/drivers/md/md-cluster.c
-@@ -1302,18 +1302,19 @@ static int cluster_check_sync_size(struct mddev *mddev)
-  *    let other nodes to perform it. If one node can't update sync_size
-  *    accordingly, we need to revert to previous value.
-  */
--static void update_size(struct mddev *mddev, sector_t old_dev_sectors)
-+static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- {
- 	struct md_cluster_info *cinfo = mddev->cluster_info;
-+	bool reverted = false;
- 	struct cluster_msg cmsg;
- 	struct md_rdev *rdev;
--	int ret = 0;
-+	int ret = 0, msg_ret = 0;
- 	int raid_slot = -1;
- 
- 	md_update_sb(mddev, 1);
- 	if (lock_comm(cinfo, 1)) {
- 		pr_err("%s: lock_comm failed\n", __func__);
--		return;
-+		return -EIO;
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -8022,9 +8022,11 @@ static int update_size(struct mddev *mddev, sector_t num_sectors)
  	}
- 
- 	memset(&cmsg, 0, sizeof(cmsg));
-@@ -1335,12 +1336,12 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 			pr_err("%s:%d: failed to send METADATA_UPDATED msg\n",
- 			       __func__, __LINE__);
- 			unlock_comm(cinfo);
--			return;
-+			return ret;
- 		}
- 	} else {
- 		pr_err("md-cluster: No good device id found to send\n");
- 		unlock_comm(cinfo);
--		return;
-+		return -ENODEV;
+ 	rv = mddev->pers->resize(mddev, num_sectors);
+ 	if (!rv) {
+-		if (mddev_is_clustered(mddev))
+-			mddev->cluster_ops->update_size(mddev, old_dev_sectors);
+-		else if (!mddev_is_dm(mddev))
++		if (mddev_is_clustered(mddev)) {
++			rv = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
++			if (rv)
++				mddev->pers->resize(mddev, old_dev_sectors);
++		} else if (!mddev_is_dm(mddev))
+ 			set_capacity_and_notify(mddev->gendisk,
+ 						mddev->array_sectors);
  	}
- 
- 	/*
-@@ -1359,12 +1360,28 @@ static int update_size(struct mddev *mddev, sector_t old_dev_sectors)
- 	} else {
- 		/* revert to previous sectors */
- 		ret = mddev->pers->resize(mddev, old_dev_sectors);
--		ret = __sendmsg(cinfo, &cmsg);
- 		if (ret)
-+			pr_err("%s:%d: failed to revert array size\n",
-+			       __func__, __LINE__);
-+		reverted = true;
-+		msg_ret = __sendmsg(cinfo, &cmsg);
-+		if (msg_ret) {
- 			pr_err("%s:%d: failed to send METADATA_UPDATED msg\n",
- 			       __func__, __LINE__);
-+			if (!ret)
-+				ret = msg_ret;
-+		}
- 	}
- 	unlock_comm(cinfo);
+@@ -10615,8 +10617,12 @@ void md_reap_sync_thread(struct mddev *mddev)
+ 	 */
+ 	if (mddev_is_clustered(mddev) && is_reshaped &&
+ 	    mddev->pers->finish_reshape &&
+-	    !test_bit(MD_CLOSING, &mddev->flags))
+-		mddev->cluster_ops->update_size(mddev, old_dev_sectors);
++	    !test_bit(MD_CLOSING, &mddev->flags)) {
++		int ret = mddev->cluster_ops->update_size(mddev, old_dev_sectors);
 +
-+	if (reverted)
-+		/* Update on-disk superblock to match reverted in-memory
-+		 * size. Must be after unlock_comm() to avoid self-deadlock
-+		 * since md_update_sb() acquires the cluster send lock.
-+		 */
-+		md_update_sb(mddev, 1);
-+
-+	return ret;
- }
- 
- static int resync_start(struct mddev *mddev)
-diff --git a/drivers/md/md-cluster.h b/drivers/md/md-cluster.h
---- a/drivers/md/md-cluster.h
-+++ b/drivers/md/md-cluster.h
-@@ -34,7 +34,7 @@ struct md_cluster_operations {
- 	int (*resize_bitmaps)(struct mddev *mddev, sector_t newsize, sector_t oldsize);
- 	int (*lock_all_bitmaps)(struct mddev *mddev);
- 	void (*unlock_all_bitmaps)(struct mddev *mddev);
--	void (*update_size)(struct mddev *mddev, sector_t old_dev_sectors);
-+	int (*update_size)(struct mddev *mddev, sector_t old_dev_sectors);
- };
- 
- extern int md_setup_cluster(struct mddev *mddev, int nodes);
++		if (ret)
++			pr_warn("md: cluster update_size failed after reshape: %d\n", ret);
++	}
+ 	/* flag recovery needed just to double check */
+ 	set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
+ 	sysfs_notify_dirent_safe(mddev->sysfs_completed);
 -- 
 2.34.1
 
