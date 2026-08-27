@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF49477995;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94271483BC0;
 	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787843365; cv=none; b=XwXIIFS9JZyWKAgrUuBnhc3Mke5OtokBbV52PO2FhEZhtX47sZlWuGRe7psXZxQ5lA6MO24LoKDgecFCx73S1d9VZRLp44CNzrSVRsnta0SFgtYYFQj0YAKKeSFrw1PKoFQ6EK2livtmAd7xhkr0de1IA9umvcXUrZl4vOww/E8=
+	t=1787843365; cv=none; b=P7BFmadwPDWEp7Y4rvD4K/SAfnVLaP9vI6xslabs7QfFdXCZXJvmD04kzly1oNy4fgETKRxeav7bKQV8I1U627EUBAd8Bmzu6e4QGTkgWGov3HR+OEUV9GHjHNaE260RZ9bvV9THzERJw/2jAhI75Pqgudmik6ibSmnwszXRYA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787843365; c=relaxed/simple;
-	bh=JPELbtqDwmev8QYHC4CJVOnU1QVGCPg6zDW7t3hN2BI=;
+	bh=rE9ONnbb64DmnGnBJPTYkqY0J4giVPlIuQ5Z+fpA4+g=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=pO07s3q2HhDihoQOb4sm11/H2Pym8eW+ctYec1nEuzIyqR02DzHBr/YrVDq665dnGIND+6GPUsnZ8iheAVUEEqOtvjil26mI2YucXHC52mr/uMb8UUg2EGs9k8eM2vjKrgG1/8ec7ThoQZvbG//wLmuLgsDDp5euDLuuFXnyzww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2dFF7+2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=SL65XPJG76UUANvW22cMAISbpyFKO7nQFS0joPlrH4MhOw5dnYgPYCjFhCQfApXDtVrHnJaJ+Vvl0whYrzLArB9Ij58VQcx+YDgABqgi5O+N2aHwRHGNg0dbfRuO4a+XjZvSeyldKiNzs3s+33PSRys5WAhTSp66w+Ho9caTJxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gkfPyTx9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2dFF7+2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC9E1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gkfPyTx9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778EB1F00A3F;
 	Thu, 27 Aug 2026 15:09:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787843363;
-	bh=5EI51HQq89GNPsww2hRYcznaJIDs1nehxu0amxKuebQ=;
+	bh=zyjyAs9XuohXcWHmBc/uGuYEOCdR4P0MDF3YsN/etfQ=;
 	h=Date:From:To:Cc:Subject:References;
-	b=M2dFF7+2iJR3VaGO+VmUr/x0KYGvHzQJoodyYFFpjxLXMyCGdp9mwSSujt7AcoUAU
-	 +oR9HKyUGgBjdFcVlblHEydPKb/UTsspMbXPJKXpK+aOtgrJDN2STTtpfa33G1CSg6
-	 hoJX/0dbLdT0tg7uwmcJpv4DdzQobI+0ieNG0cFenzYpYMNZRJgNG7bOF12oOHrH8N
-	 pVVPVcOKAs6mAWrO3NongioS+zSjQ3UvmJDd/YEt9OBP4nRZ2ecaiZFqm8RWVq8bn3
-	 GhR4Dt6lvJM6YmwVQxkMiIKzsCjVOMDXZjptjJA8BOFn8rpHbc7iGLS2mPuG+GToV7
-	 dILqDrtEaJMXA==
+	b=gkfPyTx9Rm4YIxdb+n+U6v8o5UD4k//4Hjy2Unt5WkmBglKjo24E6DmZJmJLLILL1
+	 Sst4R7kz0LpKU42qyItGkz3A27chHcP3LAGjBMuM1C/a5517wvVa99AqJnuoRRlBcL
+	 c4UH1Iie/gxhzxTCdqG+gKT0Ut3pEAhsuMt64upsqBGZU504mEro83FvprHeJTbeTw
+	 V2ROIXtIdxyN9XZ4HqsTMWUcHc5I8tm4pn/ZX7/06vq+hnzK4n6O6J4BGU+KBFiMLp
+	 FVcQ+hQjqBiq7+aovssRNC31XnmzAU2eRc//64cK5IjE18NA8wdbWHbGDhNcflR3kL
+	 TO+7+JhgosH/Q==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wzbk3-00000008PF2-0E0v;
+	id 1wzbk3-00000008PG0-1ZBc;
 	Thu, 27 Aug 2026 11:10:11 -0400
-Message-ID: <20260827151010.884247572@kernel.org>
+Message-ID: <20260827151011.232932653@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 27 Aug 2026 11:09:51 -0400
+Date: Thu, 27 Aug 2026 11:09:53 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -43,8 +43,11 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Haotian Zhang <vulab@iscas.ac.cn>,
  Hui Su <sh_def@163.com>,
  Vincent Donnefort <vdonnefort@google.com>,
- stable@vger.kernel.org
-Subject: [for-linus][PATCH 2/7] tracing: Fix use-after-free with same-name named triggers
+ stable@vger.kernel.org,
+ syzbot+685955db58555575fdd2@syzkaller.appspotmail.com,
+ Bradley Morgan <include@grrlz.net>
+Subject: [for-linus][PATCH 4/7] tracing: Fix use-after-free in trace_pipe read on sub-buffer order
+ change
 References: <20260827150949.304280511@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,84 +57,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Hui Su <sh_def@163.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
 
-When two hist triggers on different events are registered with the same
-name=, the second one reuses the first as named_data.  Both are added to
-tr->hist_vars by save_hist_vars() during event_hist_trigger_parse(),
-because save_hist_vars() is called before event_trigger_register() while
-the named reuse is only detected later, in hist_register_trigger().
+Writing to buffer_subbuf_size_kb calls ring_buffer_subbuf_order_set(),
+which frees every sub-buffer of the ring buffer, including the reader
+page, and replaces them with newly allocated ones.
 
-In the named-data branch hist_register_trigger() then frees the second
-histogram's hist_data via destroy_hist_data(), but never removes its
-tr->hist_vars list entry, leaving a dangling pointer and leaking the
-trace_array reference it holds.
+Readers of trace_pipe hold pointers into those pages. ring_buffer_peek()
+looks up an event under cpu_buffer->reader_lock but returns the event
+pointer after dropping the lock, and peek_next_entry() then calls
+ring_buffer_event_length() and ring_buffer_event_data() on it. If the
+sub-buffer order is changed in that window, the reader dereferences
+freed memory:
 
-A later hist trigger that references a variable makes find_var_file()
-walk tr->hist_vars and dereference the freed hist_data.  The bug is
-reproducible from userspace by writing three hist triggers to tracefs:
+  BUG: KASAN: use-after-free in ring_buffer_peek+0x3e0/0x430
+  Read of size 1 at addr ffff88802a4cf010 by task syz-executor989/6002
 
-  cd /sys/kernel/tracing
-  echo 'hist:keys=common_pid:x=common_pid:name=mh' > events/sched/sched_switch/trigger
-  echo 'hist:keys=common_pid:x=common_pid:name=mh' > events/sched/sched_process_fork/trigger
-  echo 'hist:keys=common_pid:vals=$x' > events/sched/sched_process_exit/trigger
+  Freed by:
+   free_buffer_page kernel/trace/ring_buffer.c:398 [inline]
+   ring_buffer_subbuf_order_set+0x1325/0x18e0 kernel/trace/ring_buffer.c:7444
+   buffer_subbuf_size_write+0x182/0x280 kernel/trace/trace.c:8221
 
-The third write panics the kernel:
-
-  BUG: KASAN: slab-use-after-free in find_var_file.part.0+0x272/0x290
-  Read of size 8 at addr ffff888001f8a0e0 by task sh/1
-  CPU: 1 UID: 0 PID: 1 Comm: sh Tainted: G      D          N
-  Call Trace:
-    find_var_file.part.0
-    find_event_var
-    parse_atom
-    parse_expr
-    __create_val_field
-    event_hist_trigger_parse
-    trigger_process_regex
-    event_trigger_write
-    vfs_write
-    ksys_write
-    do_syscall_64
-    entry_SYSCALL_64_after_hwframe
-  Allocated by task 1:
-    event_hist_trigger_parse
-  Freed by task 1:
-    hist_register_trigger+0x618/0xa30
-    event_hist_trigger_parse
-  The buggy address belongs to freed 2048-byte region
-  Oops: general protection fault ... RIP: find_var_file.part.0
-  Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
-
-Fix by removing the hist_data from tr->hist_vars and releasing the
-trace_array reference in the named-data branch of hist_register_trigger()
-before freeing the hist_data.
+Take trace_access_lock(RING_BUFFER_ALL_CPUS) around the order change.
+This is the lock trace_pipe readers already hold across their entire
+peek-and-print loop, so the swap can no longer race with a reader that
+is dereferencing a peeked event.
 
 Cc: stable@vger.kernel.org
-Fixes: 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers list")
-Link: https://patch.msgid.link/20260816100427.33642-3-sh_def@163.com
-Signed-off-by: Hui Su <sh_def@163.com>
+Link: https://patch.msgid.link/20260817140655.5694-1-kartikey406@gmail.com
+Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
+Reported-by: syzbot+685955db58555575fdd2@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=685955db58555575fdd2
+Tested-by: syzbot+685955db58555575fdd2@syzkaller.appspotmail.com
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/trace/trace.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 893bd8b0e48a..963e0d6b61fd 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6661,8 +6661,10 @@ static int hist_register_trigger(char *glob,
- 		tracing_set_filter_buffering(file->tr, true);
- 	}
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 740c5f358b75..60c87977f1e3 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -8214,6 +8214,8 @@ buffer_subbuf_size_write(struct file *filp, const char __user *ubuf,
+ 	/* Do not allow tracing while changing the order of the ring buffer */
+ 	tracing_stop_tr(tr);
  
--	if (named_data)
-+	if (named_data) {
-+		remove_hist_vars(hist_data);
- 		destroy_hist_data(hist_data);
-+	}
++	trace_access_lock(RING_BUFFER_ALL_CPUS);
++
+ 	old_order = ring_buffer_subbuf_order_get(tr->array_buffer.buffer);
+ 	if (old_order == order)
+ 		goto out;
+@@ -8253,6 +8255,7 @@ buffer_subbuf_size_write(struct file *filp, const char __user *ubuf,
+ #endif
+ 	(*ppos)++;
   out:
- 	return ret;
- }
++	trace_access_unlock(RING_BUFFER_ALL_CPUS);
+ 	if (ret)
+ 		cnt = ret;
+ 	tracing_start_tr(tr);
 -- 
 2.53.0
 
