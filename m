@@ -1,81 +1,78 @@
-Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F23368B7
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA29727A916
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787807385; cv=none; b=bq2CUijRFp/0XuOOov/aqO7nRu+IIZ2117H+grCI09nugKGJnT2VwvLxe0mgJzagrppg6VQZ1A5KkwxW7lJG3KbEfCxsbzr6t5teaELTEhFadkieKuUBB8wxXQXcV72hsbDmp97zT6srXX4Bb3e/OEKIm4czYeLXN66IU+Y9XC4=
+	t=1787807445; cv=none; b=hLA1YnwVf72nBQqPny7VMlqYA6F5NebHQKZ2h2lN72JCe8MUmiLgs4xbMhNz6HNKWOK5jkb9JM40MyPKzTr53891t1TXjk6CEvRIoJ3NhMCq9r9ql4fNHGvDHiq6f0sYtBA+S4DiBD/j0kryWNyDt0Br60UWn4bfiIiToOeyepg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787807385; c=relaxed/simple;
-	bh=6omL23lJxDKzkICqDYDEGlfVYv+4KkkRM+ZmzAJY2mY=;
-	h=References:In-Reply-To:Content-Type:Content-Disposition:Cc:
-	 Subject:Message-Id:From:Date:Mime-Version:To; b=ZzG/zZBXkTTw5QBbz3OVA+VpAvhOYWv9KDcq4sIZehRfgBU6j6NMdkE7uyZQJhOWU5GV/hYrM9Bx1+8FdreYn3ALVdIP37WujjzBJ5XTCFAtzu/hBD+mkzxRp9fBQfiHkZftGubifjz/qwHuAuDZWydF1GRU4qBXaJvMfpdKvYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=3KffcCBL; arc=none smtp.client-ip=71.18.227.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787807445; c=relaxed/simple;
+	bh=yeDeV28S3v7B6V9tk/ojACStlIjjWAgekxdrXg8ZHM8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tq43N6MyWSbI3vAelB+apIszT1309+OsM81mewep1C5HbKT7pFU9W4YLgMe+jrJ5YoK4bfxdGCLKvtVED5joDdQ4RZDbWu2cRWr5XPAyfaQsAEdBu9QCxJZ02W9zA0uqt9E5g7ZYZ+kPdJdVUUNIJRrdqM2a2lggn24tiGWAmZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xBE5/53E; arc=none smtp.client-ip=91.218.175.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="3KffcCBL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787807376; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=6omL23lJxDKzkICqDYDEGlfVYv+4KkkRM+ZmzAJY2mY=;
- b=3KffcCBL9A2EkfsmVtODocLxFrT7L7qIY9fZ/eZM/5LLb+X/snoZM+LtvoqfcSfklr/LOC
- egPUD936O17TGAjr5jJ3ExPH9D36r6Auvgt08rJn++mfBLouAU6KB9ErTj6MjbizyTPpYA
- HfZ3Y+vB/5BRr/P5g4cgIE6UjmTh7MIPOCsKd+/kmSmIim/908GZKqa9wKHzx96JGUSQ1w
- ILFECkj/FWN81DS7ktTWJF+84UXKBvnRi3RSQ/SUcHi6k4j2fybFJncBvPMsD5EDWv70ez
- n2UtV7PcyjVKVWdXZoh7ESAnQtXGypC7sVqvUS56ZcZ00+Xsnq3CFVufop+0ZA==
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-References: <20260827-hsi-char-uaf-v1-1-4f824216a541@cherr.cc> <2026082727-hacker-flaky-2578@gregkh>
-In-Reply-To: <2026082727-hacker-flaky-2578@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Disposition: inline
-Cc: "Shengzhuo Wei" <me@cherr.cc>, <sre@kernel.org>, <kees@kernel.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Andras Domokos" <andras.domokos@nokia.com>, 
-	"Carlos Chinea" <carlos.chinea@nokia.com>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] HSI: hsi_char: Fix use-after-free on device removal
-Message-Id: <ao_Gi6O2VQw7RUQd@pve>
-Received: from pve ([111.40.58.243]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 13:09:33 +0800
-X-Lms-Return-Path: <lba+26a8fc68e+761686+vger.kernel.org+me@cherr.cc>
-Content-Transfer-Encoding: quoted-printable
-From: "Shengzhuo Wei" <me@cherr.cc>
-Date: Thu, 27 Aug 2026 13:09:31 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xBE5/53E"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yeDeV28S3v7B6V9tk/ojACStlIjjWAgekxdrXg8ZHM8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787807440; v=1; x=1788412240;
+ b=xBE5/53E9sb5fFBcFEL5npSNud+LpH9kqJDljiYTof9/UfJbLNwLCgByxuhK+qmw3W2i6yec
+ hsGzwhGjO9JKJjGU083QxSmkwNEp5cJoMGb7aMlk5XGFsK8CkzRDeQ6K13VFVyl0ytAignKw0pK
+ dqbvvKg27iOsCbdXSicCxsw0=
+X-Envelope-To: stable@vger.kernel.org
+Received: from [10.54.25.56] (210.22.144.162)
+	by smtp.migadu.com with ESMTPS id ea5506ddd254f497;
+	Thu, 27 Aug 2026 05:10:30 +0000
+X-Mizu-Trace-ID: ea5506ddd254f497
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7488c912-76bc-4412-a03f-5435ad6d4d93@linux.dev>
+Date: Thu, 27 Aug 2026 13:10:26 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-To: "Greg KH" <gregkh@linuxfoundation.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/2] bonding: reject frames with insufficient headroom
+ in bond_header_create
+To: Qihang <q.h.hack.winter@gmail.com>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: jv@jvosburgh.net, jiri@resnulli.us, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, willemb@google.com, netdev@vger.kernel.org,
+ stable@vger.kernel.org, Hangbin Liu <hangbin.liu@linux.dev>
+References: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
+ <willemdebruijn.kernel.2ec10017f4836@gmail.com>
+ <CAH78GvvF-mBij7exwgkthJC2puz1-1Ti=WkNr2PwFcKr_v5U4Q@mail.gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <CAH78GvvF-mBij7exwgkthJC2puz1-1Ti=WkNr2PwFcKr_v5U4Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-27 06:48, Greg KH wrote:
 
-> You now have 2 reference counts for the same structure, which is not how
-> to handle this at all :(
->=20
-> Please either make the cdev be a pointer, or use the correct cdev api
-> for handling this type of common problem.
+在 8/27/26 11:13 AM, Qihang 写道:
+> Hi Willem,
+>
+> I'll resend this as v2 with a cover letter.
+>
+> On scope: I grepped every header_ops->create.  Five devices delegate to a
+> lower device (bond, team, macvlan, ipvlan, 6lowpan), but only bond and
+> team re-select that lower device under RCU -- the rest bind it at netdev
+> creation.  So bond and team are the full scope.
+>
+> Re Fixes: I used 950803f because it introduced bond_header_create (where
+> this check lives); before it the type-confusion BUG masked this race.
+> Happy to point at 1284cd3a2b74 instead if you prefer.
+Can you check whether IPoIB + bond hits the issue you describe? That combo
+isn't affected by 950803f (ipoib_hard_header doesn't use netdev_priv, no 
+type
 
-Right, adding the kref on top of the embedded cdev was the wrong call.
-Thanks for catching it.
+confusion), so if it overflows, the Fixes tag shouldn't point to 950803f.
 
-I'd like to go with the pointer option, because of how this driver is
-structured: one hsc_client_data serves 16 minor numbers through a
-single cdev_add(&cl_data->cdev, hsc_dev, HSC_DEVS), and cdev_device_add()
-pairs one cdev with one struct device, so switching to it would mean
-inventing 16 device objects for no other purpose.
 
-With a dynamically allocated cdev (cdev_alloc() in probe, cdev_del() in
-remove), the kobject reference that chrdev_open() already takes on the
-cdev would keep the containing object alive until the last file
-descriptor is closed, and the final release would go through the cdev's
-kobject release callback instead of a hand-written kref =E2=80=94 no second
-reference count anywhere.
-
-Does that sound like the right direction to you? If so I'll send a v2
-along those lines.
-
-Regards,
-Shengzhuo
