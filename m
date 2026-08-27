@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C77A3469EE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B11349CD2;
 	Thu, 27 Aug 2026 06:12:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787811153; cv=none; b=ErFLjtv3CAEcsGV6VKnKzepODDNKB2xwY3ADeJqotPOlkBgPsRZTSuR/W0MKRQAGNKsx9pbbgpC1Cy1mW5ileXetpvH4q2tc1mJcGJp8MApgnsz0g9y+KbZh8EIcRbwiaIHtnT5wld5Vm1RfN29NwjBnZtd4x7lGm/aPCqdPU04=
+	t=1787811153; cv=none; b=Ocr1rhO2bN2NaTmNKQpF0yEKTka6qPnjB7u0UU/O5X3CYxJBgNIb6Td8PhjsVsNcbrnXxnohceHdSEOc4J5UafbxTQJncLl15upmzoIV65EA2xCuVaAfCs6UerNmLzXxWGvesm3uuxFSAZ4J5RGgoeVBDbwpJ1L28sKboRgkE58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787811153; c=relaxed/simple;
-	bh=t5MYV7cZdDIsmBbUr6XOpq3yhqcIhkeeK3ZUJYW7opk=;
+	bh=QTGU2DYrPRgSDUTLKI6uT39M3G0dRr/WuHBBOu901m8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=S7HpilO9HqjNEf5FRX4Iwc3ntbguCZg9HOnhxqFIZQQyQ1kZZb0dYMg8OxlvXwV2MaOWE/MRYnnElq+HT8odR/I70fxCeVdn+AsW0/jHqNvL5p33ROyffx4gKaWlTQwGDccDw479P7yEi8oJqPxrFm1H/K2GUy/PVIoJUxknKNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Db99sqGZ; arc=none smtp.client-ip=220.197.31.2
+	 MIME-Version; b=IVuMgxQlczwd/vRDd1fXQIisCc18CCcjr5DW/+X7dWurLDCTae/T/9aMokjx89887hALkAIGnjTmfOf6aH+BQkdk/RtEc8xpXVq0pkUfP0nnTwcQm6C8HpCwdDMrCbppABBEB8vugOnwYIOZoM+HV01rla8nZCiA/xENmxb8Nws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hgLQWAVj; arc=none smtp.client-ip=117.135.210.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Db99sqGZ"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hgLQWAVj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Xx
-	TRVen0aBOT3RRXArt3lC+66Pa7fnlDOtTYDDGX8Fc=; b=Db99sqGZg3ubxFqzFF
-	YEblsfLn+826MEu9B8wUsiupFGaY7MWmKkTfdpq/K9BdsZDQTeKWVmdSESN1NCnq
-	/LEvDXVGCF+wsIKaAyw+hB8eeR4nDgI5DwqtN0iVJNQ5xX2YicNV5mQsM6yYWkaI
-	nhPrQCcO/9loYtoF11QXerUM0=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=CR
+	OxOA+PJzwhkCPgSsF7XPYb1lchYZZ6knL6OH1ElmQ=; b=hgLQWAVj+M528DbUdd
+	CDzjwT9JfHhxnSadDHZh/fSh+ILjSfcR3wDmB/BM6ffqRdOUTuRdEQ9BE+IKJnsI
+	ngaenRfn8uyEZ4FynMXVWSCMM+7NuFAd2nlnQTVUBUvVrw9Eoa3f21rXFIkDqlD7
+	XNUbDlQKxXfVYojtzcj4PGDPs=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgC37aUx1Y9qkXlaPQ--.24874S4;
-	Thu, 27 Aug 2026 14:12:03 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgC37aUx1Y9qkXlaPQ--.24874S2;
+	Thu, 27 Aug 2026 14:12:01 +0800 (CST)
 From: ghuicao@163.com
 To: Song Liu <song@kernel.org>
 Cc: Yu Kuai <yukuai@fygo.io>,
@@ -34,13 +34,12 @@ Cc: Yu Kuai <yukuai@fygo.io>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2 3/3] md-cluster: fix ack_lockres leak in __sendmsg error path
-Date: Thu, 27 Aug 2026 14:12:00 +0800
-Message-Id: <20260827061200.79753-3-ghuicao@163.com>
+Subject: [PATCH v2 1/3] md-cluster: fix error handling and superblock update in update_size revert
+Date: Thu, 27 Aug 2026 14:11:58 +0800
+Message-Id: <20260827061200.79753-1-ghuicao@163.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827061200.79753-1-ghuicao@163.com>
+In-Reply-To: <20260827025229.40138-1-ghuicao@163.com>
 References: <20260827025229.40138-1-ghuicao@163.com>
- <20260827061200.79753-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,44 +47,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgC37aUx1Y9qkXlaPQ--.24874S4
-X-Coremail-Antispam: 1Uf129KBjvdXoW7XFy8Jr4xtFyUJFWxWw45Jrb_yoWkuFg_Cw
-	1Yq342gFyrKr1fGFW8Kw1fZryI9w1kWrs7JF1xKF43Cwn8Xrn5Cw1UWasxuw1kXFWjy3Z8
-	Jw1kZwn3K34xKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU89mitUUUUU==
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4BMAkmqP1TMtVAAA3b
+X-CM-TRANSID:PigvCgC37aUx1Y9qkXlaPQ--.24874S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WF48XFW7GryrAry7Xw17GFg_yoW8Zr1rpr
+	WxWFyYy3yDK3y8Gw47Ka97ua4Fk3s7J3yUtr9Ika1SkryDKrs2kFn7Jas8Xa1q9rZxXFnr
+	tws8XF4kua1kuaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joiihUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC+xEAkmqP1TEs6gAA3-
 
 From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-In __sendmsg(), if the down-conversion of ack_lockres from EX to CR
-fails (step 5), the code jumps to failed_ack which only unlocks
-message_lockres.  The ack_lockres is left in EX state, causing a
-cluster-wide deadlock as other nodes cannot acquire the ack lock.
+In update_size(), when cluster_check_sync_size() detects that not all
+nodes have updated their sync_size, the initiator reverts the array
+size via pers->resize().  Two issues exist in this revert path:
 
-Restore ack_lockres to CR in the failed_ack path when an error occurred,
-so the lock is not leaked in EX state.
+1. The return value of resize() is immediately overwritten by
+   __sendmsg(), so a resize failure is silently lost.  The array
+   remains at the new size while other nodes have not confirmed the
+   change, with no error logged.
 
-Fixes: 601b515c5dcc ("Communication Framework: Sending functions")
+2. The on-disk superblock still retains the new size written by the
+   earlier md_update_sb() call.  Other nodes that receive the
+   METADATA_UPDATED message will re-read the on-disk superblock and
+   adopt the new size, while the initiator runs with the reverted old
+   size, causing a cluster-wide metadata inconsistency.
+
+Fix by checking the resize() return value and logging an error, then
+calling md_update_sb() so the on-disk superblock matches the in-memory
+array size before broadcasting the message.
+
+Fixes: 818da59f97d6 ("md-cluster: add the support for resize")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
- drivers/md/md-cluster.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Changes in v2:
+  - Fold in the md_update_sb() fix (was a separate patch in v1)
+  - Combine error check and superblock update into one coherent fix
+
+ drivers/md/md-cluster.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/md/md-cluster.c b/drivers/md/md-cluster.c
 --- a/drivers/md/md-cluster.c
 +++ b/drivers/md/md-cluster.c
-@@ -801,8 +801,10 @@ static int __sendmsg(struct md_cluster_info *cinfo, struct cluster_msg *cmsg)
+@@ -1349,7 +1349,11 @@ static void update_size(struct mddev *mddev, sector_t old_dev_sectors)
+ 	} else {
+ 		/* revert to previous sectors */
+ 		ret = mddev->pers->resize(mddev, old_dev_sectors);
++		if (ret)
++			pr_err("%s:%d: failed to revert array size\n",
++			       __func__, __LINE__);
++		md_update_sb(mddev, 1);
+ 		ret = __sendmsg(cinfo, &cmsg);
+ 		if (ret)
+ 			pr_err("%s:%d: failed to send METADATA_UPDATED msg\n",
+ 			       __func__, __LINE__);
  	}
- 
- failed_ack:
-+	if (error)
-+		dlm_lock_sync(cinfo->ack_lockres, DLM_LOCK_CR);
- 	while ((unlock_error = dlm_unlock_sync(cinfo->message_lockres)))
- 		pr_err("md-cluster: failed convert to NL on MESSAGE(%d)\n",
- 			unlock_error);
- 
- 	return error;
 -- 
 2.34.1
 
