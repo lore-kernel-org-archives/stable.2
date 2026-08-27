@@ -1,91 +1,162 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3998B4078CE
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 10:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A617B40681A;
+	Thu, 27 Aug 2026 10:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787827075; cv=none; b=cY9vYvsqD0TuP17q30T+xWAeG0JTXQxFxVXDL3g7/BcrWVn9V+UC3Uv/3PX+ukaDAd9cHgsfCClCSM8xiY1Oq7n1rmpoMkrXTIyBUucdN/YOxS11jw7ym/6eIexOU3AdaPGWBbz7S3kvXK6h6CUUPS8azZKHe20opFg5fyDIWSU=
+	t=1787827127; cv=none; b=ba12gvsJ5iWWl8Y45cCxOG1eNDcokuNdgzCNcDKKt3wb0DSOnBt1KNWLpAqucN+hp1P6xh59UEl+Zpln6Zizg7UOGq3PQzqebS7/E1W7CsNf+idODFNRBrPpVZGuHcm/a0gOH5Zt8LP2uGpuAD08+ovnDkkap5mpQnhsdXrJv5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787827075; c=relaxed/simple;
-	bh=4pBTvAdBoPF6wOxw+WCNvqxYFFg3eyX58kUJCG1pYR4=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=cTokUjK5ctBCHSmTitPBRizgv45wsU29dwP21yKofEB+h97CXbxW4+bA/3m25nN7pNnVfDznTTt841rdM8my6mX34rMumYepV6/o5SmGWClezs1xUAifkTVyOvmfYG6YhR5PYtyVqpifd3jyYfbqFk+jVzZPI8vsfoRnRA6yr34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=YpmZuZ56; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1787827127; c=relaxed/simple;
+	bh=kpzBoAMi5QggTL5lNB84wb6f/X4wKnX7vzY1aZ287bo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i/pt7f34luX/+sQj0M1C7G6pyMP6wzmyJHS/sXflcklkguyz3LzjqDumN+kwb30dqZ+PNHGt7TPAVutVfED5CWGUxwgLxaqRs9T6ezcpn147hG+wMNznBZOOA5xzz/k34EwpxcGYtbRyZpnaemPjGkEHM/h281Y3cGIigrba+1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBNy4Mrn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="YpmZuZ56"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787827031;
-	bh=4pBTvAdBoPF6wOxw+WCNvqxYFFg3eyX58kUJCG1pYR4=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=YpmZuZ56jZJmjVZMcI/2qgrVWmX8xERSNGhIKh5sJLX9T2WEi9DlqnpYjMfUqCxWR
-	 jEvnEWMYaaoJUXQXCWnoF51Iu3YuKKJjJAW4aM2nzVvufX1sA1alIBKp9Whv9SrlgM
-	 llpsuXLCUTXNxsHflWYmkIcpUAAji6EFgcqv0T+I=
-EX-QQ-RecipientCnt: 6
-X-QQ-GoodBg: 1
-X-QQ-SSF: 0000000000000000
-X-QQ-FEAT: erT/nm0/TTfETJZcetRxk6GKE8CXETpi
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: eiQuQV5IvJnmCIEOLI8Xyz4ikV3WBggYiQktLd4pDOlGRrng1Qu5V8oaeWk5X4re2Hd2vh64wJPgXspbkx0ASQ==
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1787827026t33382169
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?R3JlZyBLSA==?=" <gregkh@linuxfoundation.org>
-Cc: "=?utf-8?B?aGV4bGFic2VjdXJpdHk=?=" <hexlabsecurity@proton.me>, "=?utf-8?B?cGF1bA==?=" <paul@paul-moore.com>, "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>, "=?utf-8?B?c3RlcGhlbi5zbWFsbGV5Lndvcms=?=" <stephen.smalley.work@gmail.com>
-Subject: Re: [PATCH 6.18.47-rc1 01/10] Revert "selinux: require a class's permission values to cover its permission count"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBNy4Mrn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D631F000E9;
+	Thu, 27 Aug 2026 10:38:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787827126;
+	bh=r6z877gxLUjF1he0Whhgpdx8cqepvMD7a1r258OVDAE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fBNy4MrnnA1ynQhVv3YdZW09m0BES4DXEHnrrtkkj20FSFVf3vTTo08Aq4AuEiX0N
+	 mMOVetoPjV0ckoGv/vYgvmmesyYdGTORHIn5KeKPRk0ThB1mY8OLDZ4CybGmABo/U/
+	 ih0+HyCMqtlKdVq7Xi1iaA/SlyQvD/vAZu+JayCy/K7JWAXRnE6n2QxxSF6uKwj2E+
+	 NsPX09H4275jyHceu1ob6tDUXi2JFNkgIWNoNkjK4xW56crkBX9NbNwOgp/7uMypP7
+	 8KICB0UykoMqXnGzWxMIsgPSz50ZNVzPfdOOoSocIq5fVjhyHtdYQ5xWlaEzszIW1c
+	 9Jg/HFEpbxGGA==
+Message-ID: <1db6cf46-c3cf-49e2-ad97-752afdd78c00@kernel.org>
+Date: Thu, 27 Aug 2026 12:38:36 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 27 Aug 2026 18:37:06 +0800
-X-Priority: 3
-Message-ID: <tencent_13FEDEFE3555FA9325EE9C35@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <2026082735-footbath-absolute-3048@gregkh>
-	<20260827093227.4050399-1-guanwentao@uniontech.com>
-	<2026082752-aviator-isolating-5239@gregkh>
-In-Reply-To: <2026082752-aviator-isolating-5239@gregkh>
-X-QQ-ReplyHash: 1859000407
-X-BIZMAIL-ID: 1805027223581237088
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Thu, 27 Aug 2026 18:37:06 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NgqWyBMNfxS2X9fdkna5OOc8QvOe/zzZv/w6FfRBPoJniomm1GPhbcYR
-	eX2cjXbVo1+l27bT5l1vwdXg3tkL3vR75Lh6rdaxPIVv4mYwAlKI3MXJw/PREwwAf57wg1X
-	gJohyMP8EI+KlhMZWAqxT6m4irCbq9nT1lXVia65eV9sYSOdBh7v/hyflbQ5XWc31sC32i6
-	xkq3YhGNuUGrHkFyUFhxCInmGllRI2EcDQnAGzvxll0Pfufk8UJlStdTrvpPQyhUCODfbjf
-	BwXncEIuGecgx1Ru33w5cCUtMBRcmNIRTTarF0B14MWKg5utVRR2/VLJHhcrIjgu8WWI7hV
-	FSk9ihpEzdS7JUBA+PqGezlsdngel9PSZXANdDY80AvoG7XCSiLqja3Y8PxoSSv6e2tacwI
-	FazYdioZMxLTCLslWiDr6TUypeTfoSlqsSAUn1VbQJHPe3+9hLKcvFueCVp4CNpdCTkIFSU
-	o72Bh86aksv638Xa3h2Rrl6E/COEC0+42m8cra3LRDBEfX4zQep1wiYOQoMe4poKftBqjPN
-	JZ7kEB0mu2QTS4VohbMME/iXf1mYAAIxdU6ojr8ou6BTsZH7bbCsurpLFYNHc5eiso20Gho
-	zmArsM5eXnI5Sdv7UKkb8V1UNV0VCziu/FePul74oAoyz/et0ycOZjw0TzJ4T3DH98eGkc1
-	iFRg8F/T1i8BgjK+XuSk3A/zkFCyNptk9zmlvpehBtqkMntaTMgIRosRV4gHdM5JtUJJ8Nt
-	2HJ6t0/OYZbnu6Zafe/Kt7RXCUsSibf4xuuP0Faxo1uY+pX3O6oe5u+NsHrqBRx9nferQAQ
-	B7DZNYIBvix41Xx/A12w1iJ4jK1V4CxbE+WS61fu2CyaijenNyBO6w2hvRAWcdpP0Ysi9Vg
-	WmXSLz1YuhczmsZhSXRrbZEODmh0lGho9zvAvSL63l2EWxCKcAiP8M55JVgKs/j8t988xCG
-	Va3dJDIiS50d2DbzrZFILBmbMO7rywpjB5H3t77++yKi8V7a+NA6ozVKrkp5a02nJZHMe+C
-	UCnSLleD6FAZoSi70kSI2AanGwek3ynqiHghSh8ll/8kfFFqjbvN22wcXtn25xtn2DWH7dr
-	07Ko/XkEZoukdbV2hNWfrchU1MS64ZbhevEBwLhv49o2iVYbmS3Zys=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v2 1/2] tcp: fix use-after-free in
+ do_tcp_getsockopt(TCP_CONGESTION)
+To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+Cc: kuniyu@google.com, horms@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, yhs@fb.com, kafai@fb.com, andriin@fb.com,
+ ast@kernel.org, netdev@vger.kernel.org, mptcp@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
+ tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org,
+ edumazet@google.com, ncardwell@google.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com
+References: <20260826171344.4133-1-blbllhy@gmail.com>
+ <20260826171344.4133-2-blbllhy@gmail.com>
+From: Matthieu Baerts <matttbe@kernel.org>
+Content-Language: fr
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20260826171344.4133-2-blbllhy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-PiBBZ2FpbiwgSSBhbSB0b3RhbGx5IGNvbmZ1c2VkLiAgSSdsbCBnbyBkcm9wIEFMTCBvZiB0
-aGUgc2VsaW51eCBjaGFuZ2VzDQo+IGluIEFMTCBvZiB0aGUgcXVldWVzIGFuZCB3YWl0IGZv
-ciB0aGUgbmV4dCByb3VuZCBvZiByZWxlYXNlcyBiZWZvcmUgSQ0KPiBwaWNrIHVwIHRoZSBh
-Ym92ZSBvbmVzIChhbmQgd2UgbmVlZCB0aGF0IHNhbWUgc2VyaWVzIGZvciBvbGRlciB0cmVl
-cw0KdG9vLikNCg0KT0ssIEkgd2lsbCB0YWtlIGEgbG9vayBmb3Igb2xkZXIgdHJlZSBhbmQg
-c2VuZCBiYWNrcG9ydHMuDQoNCkJScw0KV2VudGFvIEd1YW4=
+Hi Cen,
+
+On 26/08/2026 19:13, Cen Zhang (Microsoft) wrote:
+> From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+> 
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+> rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+> tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+> allocated BPF struct_ops memory that may be freed concurrently via
+> setsockopt(TCP_CONGESTION), leading to a use-after-free.
+> 
+>   BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+>   Read of size 16 at addr ffff888013505260 by task exploit/149
+>    _copy_to_user+0x37/0x60
+>    do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+>    tcp_getsockopt+0x91/0xf0
+>    __sys_getsockopt+0xf7/0x170
+> 
+> Fix this by holding rcu_read_lock() around the ca_ops->name access,
+> using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+> stack buffer before releasing the lock. Also annotate every explicit
+> icsk_ca_ops store with WRITE_ONCE() to fix the accompanying KCSAN
+> data-race issue.
+
+(...)
+
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index b4237d0e994d..4918f48ba76d 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -4577,16 +4577,24 @@ int do_tcp_getsockopt(struct sock *sk, int level,
+>  		val = !inet_csk_in_pingpong_mode(sk);
+>  		break;
+>  
+> -	case TCP_CONGESTION:
+> +	case TCP_CONGESTION: {
+> +		char ca_name[TCP_CA_NAME_MAX] = {};
+> +
+>  		if (copy_from_sockptr(&len, optlen, sizeof(int)))
+>  			return -EFAULT;
+>  		len = min_t(unsigned int, len, TCP_CA_NAME_MAX);
+>  		if (copy_to_sockptr(optlen, &len, sizeof(int)))
+>  			return -EFAULT;
+> -		if (copy_to_sockptr(optval, icsk->icsk_ca_ops->name, len))
+> +
+> +		rcu_read_lock();
+> +		ca_ops = READ_ONCE(icsk->icsk_ca_ops);
+
+It looks like you (or your assistant) forgot to declare ca_ops:
+
+  const struct tcp_congestion_ops *ca_ops;
+
+Also, I *guess* a 'rcu_read_lock' is needed in mptcp_ca_reset() from
+net/mptcp/protocol.c, above the modification you did, to get the name, no?
+
+Apart from that, the modifications look good to me.
+
+Cheers,
+Matt
+-- 
+Sponsored by the NGI0 Core fund.
 
