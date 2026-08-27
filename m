@@ -1,82 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B42A43A7F3;
-	Thu, 27 Aug 2026 12:19:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA57448BB6;
+	Thu, 27 Aug 2026 12:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787833144; cv=none; b=PaXKST7P4IxMLoX19oJ1i5xLejkFAELSvmCGYqs6mwDpa7gh9gzo0AlDobK1s8ZrtP/NWpb1jZhHgs2H7/GfNqgpSpQs8L2pL3vapS/2QhQPjhAnhLwWghnG6VARhrQFEJoJOJbIamgmGghKP7TjeKDvWOLP8G2S2gIKd1i3Ibs=
+	t=1787833492; cv=none; b=AGqTZIw49Ob1VPyO6J8AJdPmYIfRG69U3Km2Gys9yFuHHoLxx3Tnx3u5qENyppV7kMMoBdLa7bFbbgf2uGyN1D1nIOvJAacZvhMP/4R/EuOhePYunU9xBaK49K7IjgvdtEmAUIr2UVYRcF5NHF1ObGCGRSw6H2YJ3t8lYr+cdvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787833144; c=relaxed/simple;
-	bh=ZlJcLdkdpL0Te8QZvFs4GA3wpwItrqQnrYnrwnSODro=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qYj8GTXn8xRv7eo89TXZRHMhDVWPL4vILX3wcRE1AGeyFzO8wHz2sr3q/qcNuWRNDdAqRu9CC6rOsB6z4GIAuRNXKjXdaE/WEGPRzCQyLzf2dSEqgxp4smpgn7frltGXeVSD8qzZ6gyxgFOR+OV0kgaahnvAbM7bjr+sNhgAqPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDCaVvES; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787833492; c=relaxed/simple;
+	bh=ivf53OgFtMjyPnLKACr+7rsvdM7IpLqa4fkvzX2elFM=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=XzCVfy5nChtBlZDIUkx8qKoG7nCmV/sZQisl1p+tYNDWRcFQXc5Sbb5Z4ZWPcWwSK0esGjSNfp8RGPDC7zUYmUEm7OS2PKpcwxotjiGlViTCXKs9i731gMGcUYwkVRenGdF1LcwsabANEazTI3BqOgqvPk4skwLc1uCe0Ir8ut0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=H/f7wP+F; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=JOw5lk16; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDCaVvES"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34901F000E9;
-	Thu, 27 Aug 2026 12:18:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787833142;
-	bh=4Qs29KcnwoyMzvas4pVDhwqppVcxQsyz3i5GRnW+BHc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hDCaVvESn4UCKrFBf+1sYOqotBicNf10vwuhmw8jIRr5tX5wW84gmzg1iud9AgsdR
-	 Rnt1o66gSVs3a/Q+H82bRVGylUZvsJ7UUUp2dy1OMw+V24unErF6E6eIIKCw/s2+Jx
-	 tYeKEawgNW29KHceUwMZCRLN6rW8HcfCnQFd1eisOiL02NGYp1JlRus0neRqJOdgkL
-	 JR6xa/C5nQ5Fnr+B8J2iTptF1pvravU6OGBLDE0EsvYKa2NALgcMByRraGh8MyhdmI
-	 dBuw+lkx/l2LfbHDTGDtQtS2HESY2Dk427RpLL70rJZcbL3YN3CyCQTQ665BxaFzvO
-	 PoJ3y5ZuBAq8A==
-Date: Thu, 27 Aug 2026 13:18:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
-Message-ID: <46163062-47f8-4028-9d11-29171f9b6dae@sirena.org.uk>
-References: <20260825132541.560541185@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="H/f7wP+F";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="JOw5lk16"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787833475; bh=JxKthkBcIEQZDO2wxHRAzfg
+	xeEEMbJD0usxwKTdeUaE=; b=H/f7wP+FXUO+yxa+q5vMus7cTVI+8nucqzx0Wp+UYsGKinys03
+	4pG4JJ1IkakhM0gsWPYanau/YtRvLuEcZfz+tXmgVUjDaToLzIaxnOotvSAf+houXm45s7awPUe
+	3Eu6PJL/VNZnE/TkBM8OF0xh0ZJDvSoijKpAI5m4vKUCneKFeF8V5YL20NRBypDSWmv3I4xOegz
+	V/ntvXmHlDiMvC674mCk2RQMUUSygeVGrZCOazYNvtGi6BoBOZ7YzjEPJ6fbmuFzJHQxeRMZY97
+	FAeA+NJlCv85yztUJ6Gczxsyuhi16LumrzaFVDQqfOUPoBtfab8UOvvUjw0jzR1Kszg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1787833475; bh=JxKthkBcIEQZDO2wxHRAzfg
+	xeEEMbJD0usxwKTdeUaE=; b=JOw5lk16fOmp4jIc3b+JiIh8o2Vx7r00pCxMUo7g2SxJbzFbNy
+	/f9IF5SKpBnHdKbYez1ePgLmSbdH4Bn9UZAw==;
+Date: Thu, 27 Aug 2026 13:24:31 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+CC: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_tracing/user=5Fevents=3A_Clear_c?=
+ =?US-ASCII?Q?opied_tracing_state_before_fork_duplication?=
+In-Reply-To: <20260827081915.320fe2c3@gandalf.local.home>
+References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr> <20260827080839.35e44d04@gandalf.local.home> <A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org> <20260827081915.320fe2c3@gandalf.local.home>
+Message-ID: <E0B041DD-5A2A-4120-95F6-BDCA947495A9@mainlining.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ifOI/kR6j7bCVOZY"
-Content-Disposition: inline
-In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
-X-Cookie: Alimony is the high cost of leaving.
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
+On 27 August 2026 13:19:15 BST, Steven Rostedt <rostedt@goodmis.org> wrote:
+>On Thu, 27 Aug 2026 13:09:44 +0100
+>Bradley Morgan <brads@mainlining.org> wrote:
+>
+>> >> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
+>> >>  
+>> >>  void user_event_mm_dup(struct task_struct *t, struct user_event_mm  
+>> >*old_mm)  
+>> >>  {
+>> >> -	struct user_event_mm *mm = user_event_mm_alloc(t);
+>> >> +	struct user_event_mm *mm;  
+>> >
+>> >Why this change?
+>> >  
+>> >>  	struct user_event_enabler *enabler;
+>> >>  
+>> >> +	t->user_event_mm = NULL;
+>> >> +	mm = user_event_mm_alloc(t);  
+>> >
+>> >I don't see why you moved the mm assignment down here. The
+>> >t->user_event_mm
+>> >is not used in user_event_mm_alloc().  
+>> 
+>> Uff, not wrong, I must be dummy dumb dumb, well, I base my reviews off 
+>> 
+>> Does this fix the bug? And is this a small fix?
+>> 
+>
+>The bug is fixed because it needs to NULL out that value. I asked from v1
+>to move that change to this function. But this function only needs to add
+>that line before the return. It doesn't need to modify anything else in
+>that function.
+>
+>That is, something like this:
+>
+>diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+>index 8c82ecb735f4..6b89d225b189 100644
+>--- a/kernel/trace/trace_events_user.c
+>+++ b/kernel/trace/trace_events_user.c
+>@@ -868,6 +868,9 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+> 	struct user_event_mm *mm = user_event_mm_alloc(t);
+> 	struct user_event_enabler *enabler;
+> 
+>+	/* On failure, do not free parent's copy */
+>+	t->user_event_mm = NULL;
+>+
 
---ifOI/kR6j7bCVOZY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sorry to be mr begfortags here, but this also LGTM, this fixes the bug,
+andit's short, thanks for the patch, since I'm busy rn, add my tag if jean
+is to submit this 
 
-On Tue, Aug 25, 2026 at 03:24:47PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.1 release.
-> There are 82 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+> 	if (!mm)
+> 		return;
+> 
+>
+>-- Steve
 
-Tested-by: Mark Brown <broonie@kernel.org>
-
---ifOI/kR6j7bCVOZY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqQKy8ACgkQJNaLcl1U
-h9DFTAf/URJjHRxYnJK15iZqT4rhflqlDUXv1eGp8gE43DrrO0C6REDak5Ydo4n6
-T+bj77+hhmiSavzmPyrqb0rkLJV4ApAuaKmdrSa5K5no1QjcU8UsBsZ+SE3NY1KG
-W1AYLXfMz3wshFNE68Dw672vV7FdfjnO0dosFcnhogk2sakIBKxYp002QGzKz61P
-cCyuLppFHpKFmK8Ra/SCPoqTB9ChvTHejzINsZxZDJEkBJLSuAaXSH5csnRgcyRf
-5NBBGXcrhhzJJiYhGcEDm6oBLuw4ebmEGWWQaOk2xIPLJ6Dut8rd008Ic7hQxoxt
-fbmdsQjBQ5n+Dqw1NIXp4jHTWTE3yw==
-=S695
------END PGP SIGNATURE-----
-
---ifOI/kR6j7bCVOZY--
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
