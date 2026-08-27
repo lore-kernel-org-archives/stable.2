@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1CE30566F
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:18:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4731D3033EB
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:18:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787807886; cv=none; b=ASHnlpJ0KsaVo9uYRc0dk+81x4DGKyuuaXRHzq4XXveMlR6yH4NEXGJYydlNEIrx8otIbHM68M/h7n3tLFxq/8V/MYXCXuHNksEtKOTMsM4vOVHLYAu8YbE2bbI7RrtDNFW5xaRjxfgPvBLxTm6RB9zJgfbtFiEn7n4sbGssXto=
+	t=1787807887; cv=none; b=uc2N42wDXFFl27nj37tBdRoll4mU9U1ThvrqKkMr/vOjg/j1qeyKFI+S5v0xdi7eyeDm/UfaLKzTc6g7Fh/vPmna8fEL9dOU9nI83OUYqyr5AXgy6Ffj4dYs4JFghyGzI/+hPlz8JC8Usk8V90kRnqoZCkKy16VbTmts6T2VKUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787807886; c=relaxed/simple;
-	bh=CWUCNjitEV75q1Bd3YVzQloqBubjs0RELvG3WVz8FdI=;
+	s=arc-20240116; t=1787807887; c=relaxed/simple;
+	bh=kjTXdFx0hYlZSg0bJOrOECOIPiG76y6pgmYhTKFgpik=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lII+vi00hREL84qtjHILGKvvh6vFVIMpMGtE+hT6kBwoAAXEOsbups+siLLFfqeWLKHELRFdblAfmYxuHsNh3ttDZj8pG986z33LSWIrFhZib3B5LkoUlcw45bUsC64zMU3bh63U2vIC3k62o3Hzf9bzzcgjqtQgF6fKkhytwuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzksqZ5r; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VWqTyOm9H1gEQMQneunc0NONK3lqY5HNmW00Mr+V7R6WPcCWg7LFTMVywkmRZhngPgTKwM9/j7KBBB3up0V/ppmOgmyVK4UjEUVY+IdzhDPenq4UpHTG6VD7wuHaqOZ6GlgmWTt7eOzClOhpWX9VXA832XUjVpFiROyn/TDCDYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBdbeA+x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzksqZ5r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61B81F00A3A;
-	Thu, 27 Aug 2026 05:18:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBdbeA+x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 921B81F000E9;
+	Thu, 27 Aug 2026 05:18:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787807885;
-	bh=eIYcgk46Q30+VGtwawVmp4nAzVX6RXrkT8Y0uNj4RPY=;
+	s=k20260515; t=1787807886;
+	bh=hHGfECbOChgmTOLrziXlJ3w/j+HKsp8cs7KmczNlu94=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BzksqZ5rc7/J0eNkbnh4PQSgEeoGjcf2hETnhGfQjQs6Kzl+2f8ltfx2Q4xpIthyz
-	 DCp1MHxUDC+7i5or5LkLFcBwoDSaZzTn6hsGw2cZ75gyRqodGuP4jW1LLZKHRg8x+j
-	 l3BxSnGSkJfbYtl0+f4M3saDNxQFXHCaSJTk8aWCXPpx3DPF3G5Z1SS7iT07FUChRA
-	 E/m83LUq297fqU7uK0A96W7TQL45Rcuse+uN4Ji60cgWiOhK+NkrWziqkjEpf2Fayl
-	 2+i3KMSB0CB8fIxWLLzlPDWxBCysLecDLYjucZbtT8I5PbnPKswdXaXnLic2E4sItV
-	 /cvBoCjYlHbSA==
+	b=bBdbeA+xoVTbLH7WvqH5kwDqyGt9ZeRNO/EKR5monyaanbnCRgj5wLeO0GE97nGlP
+	 M18SnSYCCyZmTWGHjhfK4bQWMP2hcZdZKCpvImPUCoh0lhhp8u9zQ7iTVF3CJ4pcK1
+	 q3Fg0g3T2bvItzvcUh294mvcZecI3zy5Ntc2VqKp5fxva/FtXN9N/0LE2c4xpWMJ48
+	 PU4xpW+bw7I2Mrj1rrwMWvqkzlsW8kzIdZ4fdnzm5z9/DP/B3JkocHMEGJ7SiDHHK5
+	 brRqlb69fizaqrBRmoQTFdapySwmQkH+FbiT96yVAXnrJcOuz5auD5RnYoU7d01Vkd
+	 G6S4BDkbVeQKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Peiyang He <peiyang_he@smail.nju.edu.cn>,
 	Zhu Yanjun <yanjun.zhu@linux.dev>,
 	Leon Romanovsky <leonro@nvidia.com>
-Subject: Re: [PATCH 6.1.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
-Date: Thu, 27 Aug 2026 01:17:54 -0400
-Message-ID: <20260827050834.10004.stable-daily@kernel.org>
+Subject: Re: [PATCH 5.15.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+Date: Thu, 27 Aug 2026 01:17:55 -0400
+Message-ID: <20260827050834.10005.stable-daily@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260825201121.1686721-1-yanjun.zhu@linux.dev>
-References: <20260825201121.1686721-1-yanjun.zhu@linux.dev>
+In-Reply-To: <20260825201314.1687660-1-yanjun.zhu@linux.dev>
+References: <20260825201314.1687660-1-yanjun.zhu@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,7 +51,7 @@ Content-Transfer-Encoding: 8bit
 > free path walk past the old allocation and trigger a slab out-of-bounds
 > write catched by KASAN:
 
-Queued for 6.1, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
