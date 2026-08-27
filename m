@@ -1,198 +1,174 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF6E1D6DA9
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 17:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787851831; cv=pass; b=CiUmwl2JwkhV+6MvLAjh00Di7ZGFkoRHqWcEkVXZz2qX1Z3qe4Ko+4s2wT7AJMgonP7kGLCw6btQFUvfjkNYwmKjxfgXZIVJckNH/LFZbwZ0avibn4LOgUwgmWWAnQtgFQBpDFL1URyRBhBIL7nungBKTWG5+eUXTDRW0PONAyM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787851831; c=relaxed/simple;
-	bh=JHGHTCIHkS7ZtSd/nhPlvivP9R4MXEl6d74i8khb/Yg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DQkhL+Y1EnLANi5tCv3gUzw/vu3/5N8y/mzYa3438uxnGPvExfTymHJF9grewtL6dk705UGZ1/gP5cE3byjC9+eWoR8sMZLPBZjJO7BqXXBv+Y3D36Z1H4LrTs8E6HcDMgbHoVR7F7eZVAg7/tFINcVyetUZ3VECrv2MwxH0yBg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=PE92KcBx; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1174947CA87
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 17:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787852232; cv=none; b=bzXZQ/SRQoeWk8JVzroXLVL5luVLgHtzdcIIWPRTwVHNlz8bgZEsfimRrMP1lYm3DMuZFymx56cJacZl1MJhb5uL6I2evdM07Vc9sv/C4T/VzhzQq0AQhgHuEM71SmxnRpQGB/MSh5g0eQjM3az+3nLNiS0ZOvtcOoG0lnYfMCk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787852232; c=relaxed/simple;
+	bh=qPsUp4IBU702AYv5m5TMwKUH3RCsApcpmsXTAVAyBAs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=NvliDki0PULK5R5uiE/Vkw9ZWnS2Ryqk6VwQkaRcpmAFmc5Xd6QadtL3mjSoBz3MrvYLeP5zW+/Fxady/7heUncGyBRtUMZPVfa58yE1wDVcVrPHjTswowX8d9m0HObX8I5k8O6VCOJYSVK+OP0EhFXleUgw4lcNCE8knKltwiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W4mLZd1h; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PBswFAB4; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="PE92KcBx"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso154013a12.0
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 10:30:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787851829; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rX7wrK4DycVM6JxOUSYotwiXeooRUMSYovS8PVGLVRH5B05e19hQBvguZrpQ+7Kqld
-         BdwZg3v1Xs0vDTmCsGD0+q6eSsfiLYb3kGummMSdU/VaIhLNuJKczDveYS+dvjGoOMcT
-         Q7i9fB5glrB+KiGAswSPkko4KGh4P+AouXPS51dIEK2OWGMlndqKfrntvru4W10/Vc65
-         WfAr6H2fCxfyIckq4DM2BBeSrel2QLWqMg/Eyxux2KTIwUcDDEVK5Ia1Eh/T2sNLZY+r
-         9H56zYE3vJ7C+UeTHb71L1eYbuXE48q9p8fc76c5B0zGzS3KI1EwN+4UovtuSTPNrJNY
-         oi+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iLLGcbVfuf7yTVoqHZ5vu3n3AKk5F6JdfA/5wggXb4w=;
-        fh=jvzhawluuDEzGk84bB7w6AXG06cpC8i45AW66K3BBf4=;
-        b=Ay5TlCB6a9xAJ/anozn2v0TKe1r4o+T/SIwogPpRh5MGG/Ttn0H1fe9lA4ypo2Tjve
-         7u0F0+rA5uOVU8jQh6YDqBHxsGcrpaZgrb0Sy4IdEsq+cPm64FAt9x7YMfWaG/QM2LSc
-         WtHjR9kvhmrkB/UYa73RO6nYlTAWmhdb32LdJ7I26aqOxKFvQXVmCgLYzKXzjYi/42Bl
-         xXFq7DBJureQoft8YkXfco5/Z/SaeIFK4tl8aTQ32CNmFUqF2E3Y01vt48zDLOhn4m4l
-         OX0YiFyG4flSBS/yob4sakiuLQssXoZbDRD7BXoUDxGm5U7RgPfGxEMqO9631CYZwlbM
-         pJ1Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W4mLZd1h";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PBswFAB4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787852229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=kjNPRgM2Y7JIhIV41NJgBnIZmEAkNtWdFSBVc2llNG8=;
+	b=W4mLZd1h66BvXosEdWaMafoyeRILtiqIdyGejgLt3iizqJ6ttHn0M8cWXUsigd8OZChsPt
+	EIj5My3ezIABvi35d46eYCgOQgbpWYS0gb9NJ46dS0xMuA4ol4v+jv2bXafnNEQYa88DAV
+	9Le5qlDnQPTPvpVSAA+m4MIfxe0ybqo=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-593-9VBnU6fIPxi_7XULz3XjlQ-1; Thu, 27 Aug 2026 13:37:07 -0400
+X-MC-Unique: 9VBnU6fIPxi_7XULz3XjlQ-1
+X-Mimecast-MFC-AGG-ID: 9VBnU6fIPxi_7XULz3XjlQ_1787852226
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c213d5fb55aso9395566b.1
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 10:37:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787851829; x=1788456629; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iLLGcbVfuf7yTVoqHZ5vu3n3AKk5F6JdfA/5wggXb4w=;
-        b=PE92KcBxaKBdKSIPDJ8c1DK1dY7foYtGGdx7Cybh3RXQGzUO/I8/AmmJo65cytftMc
-         RxvfG3hVusk51XRvnpDKrCCln3wE5jIrV460l5N9zCxG61TZ/PBAyxXYLowdmb8AFy+y
-         rr3745dDjaBJC8BuWOL4vS0ASRaxXdJcVdUCM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787851829; x=1788456629;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1787852226; x=1788457026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iLLGcbVfuf7yTVoqHZ5vu3n3AKk5F6JdfA/5wggXb4w=;
-        b=GKMjtwdE4jSNqHsRsEuel8LlHB2esoeklaBxRO1dQunXc36rmgtAdUE1FgM1vhDWd4
-         cUeo/pRDGxO1n5aat6QWWock+S8YjK3Xc9fHzjYEUOWYzmiqyhZK/HJeEt4kSWrRb1af
-         pBeXUSKdKraJqRgeT5vqyGeROTVDb/XRFtgYPSNeRRVVEpr2WN6SSyKu1ClyYoGYErYy
-         y4mzH+djCbbg56YL3LBXa2KGm7nKyNVm0rE9Y5SUX7Fv49u2pIltC5BvmHKkY4Rn3I5m
-         To2LDuSDLIPPq/87eIf+VPr1Ee7Es9qDrt8l+qi3xf7EEr0wvDtPT7RdpU5Jl0wHfhkc
-         f0tw==
-X-Forwarded-Encrypted: i=1; AHgh+RpxQUsY8Yj/l9nwP5WdDqBLIy3xjB02VXS4uZ2RRBupU56hJk9w55oJktfalChNegck+8A+218=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/Rr+Lo6UZTN4g4xzegyZD31/UxW2jwe+4lYSB0jPulEI/ye2u
-	O5WdYk/+OXkWf0Thj/fcur7TBgMKWfBI0pU9dSqOpWOOztm9kZSU0dQrPuDmdDHzfAu3FmiZFFa
-	nuotLcGp/QOqyf48lDQhnQauwVC4VSY2jfrT73TWm
-X-Gm-Gg: AR+sD11q/wlj+wkzfFZ2e/IAXVJ/YRI1gJqGkF10uH04sw2aYJy9msPDa1SH4PYcQty
-	SO5ZzS4aOq2EeVE2iSOUW02n3wJXoISpPbvYYIAVr8WFeiOVddP1caCXWqXhY55y5MUTIWSrv6p
-	Vl/94b5jKkgA/VRtRBuQzyvN7wKRj9LycQ+A/ORgxVKDZs/a32SAed3c0f+ky7G4QG4YaqSAJuj
-	/HFXFkP5jEqv+hNqSKcoq6ENyyM4srUxYTivhBbMZ9VqcvJPGFl0sy3fM+Y+htN5Pp16u4QSzxp
-	hzFkw7PV3mo3KuTKmfg3ACEQqgKCL5CTSj58+i5ZA1X2Sg==
-X-Received: by 2002:a05:6a00:1da4:b0:847:8acd:747c with SMTP id
- d2e1a72fcca58-8562ba7dcb8mr1537496b3a.13.1787851829194; Thu, 27 Aug 2026
- 10:30:29 -0700 (PDT)
+        bh=kjNPRgM2Y7JIhIV41NJgBnIZmEAkNtWdFSBVc2llNG8=;
+        b=PBswFAB49bQzhdoRiI5Pb4sad49xfOIRRXr0/kD+YkAQFrhTvlAdwZrtg1TbJyt8aD
+         4hGD3YPRp9ojsJpG8dwFtICQJ+vGSX1AB0Ib5UcPB23feMWhF8s6ndiQYCNpop9/le5+
+         h/DIkC1DxDuGv+fR7aBKnSPmHrjzbzm5ZohBrUCvGR2GLBN8YqOyynCShkScZvBVuZPG
+         a3KhrGYRCEYSfu4JZrq2aTbUnFLaMnGW98PmHKiWQ6HNM832H2wOaFc83Drkj9jydP+c
+         +XEXmQqQfnROUJ2bDpenLSJX4Wbnjy8bMC+rfi77GqI1mmFZZmx6mqKXT5Ue+szyrlik
+         xhWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787852226; x=1788457026;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kjNPRgM2Y7JIhIV41NJgBnIZmEAkNtWdFSBVc2llNG8=;
+        b=ah3jFhHu7kxHamJxDQUhcwtdG9qtkrIWnpVAbSvUde27jdl7zEcAbc81uHYW53l3XH
+         YccQaDaGW7aWlytYe4qL64oIx9gVSKg2cGYLgbVU4iHgWp3C2yXsxbYQNEeeyusYHCop
+         JgQSLcvgGvblFJfSKU/6By/h8eQ6MXll2hsElBDD9d2IQUZBiullancIM9zjqMOXBl+o
+         yKP1BdS9PxoTuxSnPdrYIFrnSI3C6eVIRFh7JMLu61FAzPkEMfVb0GoNfGxMn5LrEjc9
+         7AVY/bJF2KdVVs8SINPo/I8nXiluV+3O7SnUNMMQUGzdnYZwd5qeb0kpia2TJBuRFsyW
+         VzmA==
+X-Forwarded-Encrypted: i=1; AHgh+RrsiBmQJHvf8nx5U9bRftMoJTRCoY6NkHKxzh28v54wVRxhd2SbyEnNzoXui3mgRCT/jRbJoic=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHgOZlhqwb+LHMMogbTWM2pOIjaKD4a2DbCcABCv8cjQ2NS6fI
+	JK5SzRy7G9x8ok2UUM0B6Ypr1FnMsTaNVYfgeUTSJ0XzXXo62CV8dKka2n7sPrcP4+T7v77DK4S
+	yLRyTyQUzERabKh3UkUAtnQcF0mCAGztOS26cshaKWMOTa/p6ZDRmnrHccQ==
+X-Gm-Gg: AR+sD10+IorMYg/j+rBtfkev1buNUOPpjgmKeNn2v4ieHhdNogEOXZdf8tDbB6RhxX6
+	siWY/CnFoH5bkTzpFonz0h/uqCtSCa6yVhZaZN5fCXdKqf7v8VElUIPbR07R2q0WyZ4yBz5loJS
+	UMILAo9JDa4MrCJz3tXqxl5uG3jQfp2CB9Dcncg+LPxUWVcE6beiz8NTGP7gzLU2SwlmUslwONb
+	Mae5wllnPxyuPDqT9GONJ2d26Aai/49m/WgCXJEAY1UFG4/9EiJ/WbhtJnPeBaKAQDmsEomlqPR
+	VD/vyIp+SbC3GSHeBKpISFUlKH0TUPOX9F2D5DNdk1TnB418Sc1w581y29wMhidM/9MGlggXXz1
+	UIZzOCeujClOjHkUAhouW2g9vSHpjLGgXIA==
+X-Received: by 2002:a17:907:60cc:b0:c24:dd7f:3254 with SMTP id a640c23a62f3a-c2556c195e2mr24617366b.3.1787852226165;
+        Thu, 27 Aug 2026 10:37:06 -0700 (PDT)
+X-Received: by 2002:a17:907:60cc:b0:c24:dd7f:3254 with SMTP id a640c23a62f3a-c2556c195e2mr24613466b.3.1787852225685;
+        Thu, 27 Aug 2026 10:37:05 -0700 (PDT)
+Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a88ab82sm799262066b.31.2026.08.27.10.37.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 10:37:05 -0700 (PDT)
+From: Alex Markuze <amarkuze@redhat.com>
+To: Ilya Dryomov <idryomov@gmail.com>
+Cc: Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>,
+	Xiubo Li <xiubo.li@clyso.com>,
+	ceph-devel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] libceph: avoid infinite loop in ceph_pg_is_split()
+Date: Thu, 27 Aug 2026 17:37:03 +0000
+Message-Id: <20260827173703.2762844-1-amarkuze@redhat.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825081052.133898-1-jhs@mojatatu.com> <81ad3c6c-85d3-4ba0-b36e-3db21138416d@redhat.com>
-In-Reply-To: <81ad3c6c-85d3-4ba0-b36e-3db21138416d@redhat.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Thu, 27 Aug 2026 13:30:17 -0400
-X-Gm-Features: AcwNN1W5MtHUvt907HbvKT0Wx9tpkEAYjM1m7_cW7ZJ1J38wEThkvR6LGeVp2lI
-Message-ID: <CAM0EoMk1b8kFf_FNH5vJvT4g6Nc3+affDB1PrJcm=p8nyoaAeQ@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/2] net/sched: cls_u32: fix duplicate handle when
- node ID pool is exhausted
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, stable@vger.kernel.org, 
-	vega@nebusec.ai, Victor Nogueira <victor@mojatatu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 6:30=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
-te:
->
-> On 8/25/26 10:10 AM, Jamal Hadi Salim wrote:
-> > gen_new_kid() falls back to returning max (htid | 0xFFF) when both
-> > idr_alloc_u32() ranges are full, instead of reporting an error.
-> > u32_change() trusts that value and inserts a new knode with a handle
-> > that is already live in the hash table, breaking handle uniqueness
-> > within the table's node ID space.
-> >
-> > The handle was never reserved in ht->handle_idr, so every later error
-> > path that does idr_remove(&ht->handle_idr, handle) removes the
-> > reservation of a different, live knode, which is then reused =E2=80=94 =
-one
-> > failed add compounds into further duplicates.
-> >
-> > The 4095 limit is per (table, bucket) =E2=80=94 ht->handle_idr is per h=
-ash
-> > table and the range is derived from htid (bucketid), so a table with
-> > divisor 256 can legitimately hold 256*4095 knodes.
-> >
-> > The sibling helper gen_new_htid() has the same silent in-band failure:
-> > it returns 0 when the tp_c handle pool (1..0x7FF) is full, and
-> > u32_init() publishes the root hash table with handle 0 without
-> > checking.  Two root tables with handle 0 alias in u32_lookup_ht(),
-> > allowing cross-tcf_proto knode add/lookup/delete.  Add the same
-> > exhaustion check that the divisor path already has.
-> >
-> > Return an error so u32_change() fails with ENOSPC/ENOMEM when the
-> > node ID space is exhausted, and so u32_init() fails with -ENOMEM
-> > when the hash table ID space is exhausted.  The extack message
-> > distinguishes pool exhaustion (-ENOSPC) from a transient allocation
-> > failure (-ENOMEM).
-> >
-> > Conditions to recreate the bug:
-> > - CONFIG_NET_SCHED=3Dy, CONFIG_CLS_U32=3Dy (or =3Dm with module loaded)
-> > - Create a clsact qdisc on a device, then add 4095 u32 filters with
-> >   auto-generated handles to fill the node ID space for the root hash
-> >   table (single bucket). The 4096th auto-handle filter add triggers
-> >   the duplicate handle (fh 800::fff reused). Reachable at Level 2
-> >   (unshare -Urn, namespace-local CAP_NET_ADMIN).
-> > - For gen_new_htid: create 2047 u32 proto entries on the same block
-> >   to fill the tp_c handle pool, then create one more. The root table
-> >   gets handle 0 and aliases with other handle-0 root tables.
-> >
-> > Fixes: 7801db8aec95 ("net_sched: avoid generating same handle for u32 f=
-ilters")
-> > Reported-by: vega@nebusec.ai
-> > Tested-by: Victor Nogueira <victor@mojatatu.com>
-> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > ---
-> > v2 -> v3:
-> > - Fixed tdc test that sashiko (correctly) pointed potential security
-> >   issue on.
-> > - extack: condition the "Hash table node ID pool exhausted" message on
-> >   -ENOSPC; emit a neutral "Failed to allocate node ID" for -ENOMEM
-> >   Introduce small extack helper. The v2 message was misleading for
-> >   -ENOMEM (Sashiko nipa gpt-5-6-sol-1-2).
-> It looks like that sashiko was able to think more about this patch and
-> found new stuff:
->
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825081052.133898=
--1-jhs%40mojatatu.com
->
-> I'm unsure if that falls under the 'same bug' category and should
-> addressed here or separately. WDYT?
+old_pg_num and new_pg_num come from the OSD map. When old_pg_num is at
+least 2^31, calc_bits_of() returns 32 and both (1 << 32) and
+n << (old_bits - 1) are undefined in 32-bit signed arithmetic. On
+machines that mask the shift count, next_bit toggles between 0 and
+2^31 so s never reaches new_pg_num and the loop never exits. old_pg_num
+== 0 hits n << -1, which is also undefined.
 
-Separately. The Sashiko findings on v3 are the same pre-existing
-issues it flagged on v2.
-All three are different root causes (IDR key mismatch, refcount
-management) from the silent exhaustion failure this patch fixes.
+Do the shift in u64, build the 2^n-1 mask without a 32-bit overflow,
+treat old_pg_num == 0 as not-a-split, and compute stable_mod in
+unsigned so seeds in the high half of the u32 range stay well-defined.
+A hostile map can no longer pin the client in this helper.
 
-I am tracking them as separate follow-up patches for net-next. Here's
-the list just from this one patch from the sashikos, none of them
-wrong, but none "regression" and worth fixing for net in my opinion:
+Reported-by: Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>
+Link: https://lore.kernel.org/ceph-devel/d1dc7faa-2373-4c96-ba0e-0e6d3e3b8457@tu-ilmenau.de/
+Fixes: 63244fa123a7 ("libceph: introduce ceph_osd_request_target, calc_target()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alex Markuze <amarkuze@redhat.com>
+---
+ net/ceph/osdmap.c | 34 ++++++++++++++++++++++++----------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
-1. handle2id() alloc/remove key asymmetry in the divisor path causes
-hnode handle duplication
-2. ht_down refcount leak on new knode hw offload failure errunbind cleanup
-3. ht_down spurious refcount_inc on update knode hw offload failure
+diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
+index e3448915bdec..558c7c3a4a84 100644
+--- a/net/ceph/osdmap.c
++++ b/net/ceph/osdmap.c
+@@ -2307,25 +2307,39 @@ void ceph_osds_copy(struct ceph_osds *dest, const struct ceph_osds *src)
+ bool ceph_pg_is_split(const struct ceph_pg *pgid, u32 old_pg_num,
+ 		      u32 new_pg_num)
+ {
+-	int old_bits = calc_bits_of(old_pg_num);
+-	int old_mask = (1 << old_bits) - 1;
+-	int n;
++	unsigned int old_bits;
++	u32 old_mask, n;
+ 
+-	WARN_ON(pgid->seed >= old_pg_num);
+-	if (new_pg_num <= old_pg_num)
++	if (!old_pg_num || new_pg_num <= old_pg_num)
+ 		return false;
+ 
+-	for (n = 1; ; n++) {
+-		int next_bit = n << (old_bits - 1);
+-		u32 s = next_bit | pgid->seed;
++	WARN_ON(pgid->seed >= old_pg_num);
++
++	old_bits = calc_bits_of(old_pg_num);
++	if (old_bits >= 32)
++		old_mask = ~0U;
++	else
++		old_mask = (1U << old_bits) - 1;
++
++	for (n = 1; n; n++) {
++		u64 next_bit, s;
++		u32 parent;
++
++		next_bit = (u64)n << (old_bits - 1);
++		if (next_bit >= new_pg_num)
++			break;
+ 
++		s = next_bit | pgid->seed;
+ 		if (s < old_pg_num || s == pgid->seed)
+ 			continue;
+ 		if (s >= new_pg_num)
+ 			break;
+ 
+-		s = ceph_stable_mod(s, old_pg_num, old_mask);
+-		if (s == pgid->seed)
++		if ((s & old_mask) < old_pg_num)
++			parent = s & old_mask;
++		else
++			parent = s & (old_mask >> 1);
++		if (parent == pgid->seed)
+ 			return true;
+ 	}
+ 
+-- 
+2.34.1
 
-There's a bunch of minor ones, that may be worth fixing for niceness
-but as you know no good deed goes unpunished with sashiko, the moment
-i post a new patch it will find something to complain about.
-
-These are:
-- Commit message range "1..0x7FF"   being inaccurate - which is true.
-- Extack should say "bucket" not "table"  - which is a minor refinement
-- tdc test to check and assert for ENOSPC, i think the explanation it
-made is sensible. We only check for failures not which exact return
-code it made, but if i change this it will meaning changing a good
-number of tdc tests to follow the same approach.
-
-I could probably sneak some of these in in net-next or i could just
-resend only fixing this. What says you?
-
-cheers,
-jamal
-
-> /P
->
