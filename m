@@ -1,36 +1,36 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BBE41BA61
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CA741BA61
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858093; cv=none; b=fTyQnMb1VokR8eWLlrE/o05jgwenkzylr++YjruJtup/0CrjsBN0n/LK/z0xD0IND8F3IZOdOlfC74NTQoWH7Cpj6kk1kkycU1Q4wM8eyodaKgY77LVKgVLPwUgxYTTor8EEDCGpdUosnM0LmfM5yIlepggGBmCMW4uR0dPH1bs=
+	t=1787858097; cv=none; b=KOb5GupavP+WBV4EPGsLOE1DJP28qBuLJjg3UTjm5FV/K82iNgfhUAjPvJlQ8k2nJpZFxUUnweOWLQK96RD+7UIbVf7iLwmEW1IgEvuogRsj0QPCdZ2w/3y++IQn1v/x0cS6+B5RjfA+grE2qPq7D92EWVoxHUVJZU78paTyGoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858093; c=relaxed/simple;
-	bh=zxKZSToaCxy2kb5EkZXFKZrhhgavzhRpy8Ow7HV1FMk=;
+	s=arc-20240116; t=1787858097; c=relaxed/simple;
+	bh=tBnzkueQWoVusvnN3zQB6x0IV8A1rfcLEyJ9Xm6GLec=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MQyJIc5tANCC+4bwGQAq5PUunNRn5psH5sHsN+Xrj7iS+s6RVxKtGK9X0TDY4G/smOPLYpG2Bx8+N2AhVXp07NKL96eBqKnLjw2QqTvYaC7lN5mruuYlFnDuc+qXj1LPhYNI9fJUbIO+7AAAb3roUEUbdnq6CxPmWtC953+sMas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=LaLoKLEu; arc=none smtp.client-ip=52.59.177.22
+	 MIME-Version:Content-Type; b=EP2j5JxRMhWr3OLqN0IvW16TB2zixvE+/lQxfPEo1Bghs4OPcUHEfNVLZA1i5Nq2uQqs3qs1HiX+LV7YwH8rqMGM2l+tJqdoyTtXLMSrRr2iJk4dU+sSNDkLWYgDdQ+2RYso+lnsuv7QYnNPY6dFNoRu9/5MngGa2jaBO656OfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=OkJlqRNb; arc=none smtp.client-ip=54.254.200.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="LaLoKLEu"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="OkJlqRNb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787858061;
-	bh=RzSDVLNTsXnsQklOuaK0tg7kLbF8kaxPSdcCiNCPf9w=;
+	s=onoh2408; t=1787858047;
+	bh=xcIHcbLWZ5suiyPAxyTHATGjWg8iD2KXk+/KRfBBv4A=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=LaLoKLEulidQqyltRwuL1EFuLc/H3EG8bjxvLiKFAqJR1pRdIGWObk+TKCmzhKFbq
-	 1pun9EuKJj68tcNKG+V1dLtEDzlMQTP+dF6dcNPs37/MC1xlcLnBJMd1s8rSNpNOIB
-	 CxX7gEn+NUrRNg5AhsjP+6D1YNfysncMinIaIfSo=
-X-QQ-mid: esmtpgz15t1787858043t4e798121
-X-QQ-Originating-IP: lVfxajGY5u4x6EGCyVtlagLcytL4NsC45YJpbI7ojWY=
+	b=OkJlqRNb4tu32svO2ZcSbP1lpprtiDHBQAXYR8qaR8pwTl/2kzbNPHdBjAQiPLUiR
+	 Ki4Ajt9O6daAAxTcOgWBeBIXJxGP0QfgQsbHrrnRNq2/+tu+TJsShCIZbJ5Qu2K/FI
+	 /7VQosEql7lEbRe/JL457aHR6nLWr6s1cxjUbheY=
+X-QQ-mid: esmtpgz15t1787858029t3c7cab1d
+X-QQ-Originating-IP: EbB/peMXCDpOcH8MNFcUky4veo3o2ZqI5BbP7kwKtEU=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 28 Aug 2026 03:13:52 +0800 (CST)
+	id ; Fri, 28 Aug 2026 03:13:37 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2291408826472805554
+X-BIZMAIL-ID: 1186095464526028897
 EX-QQ-RecipientCnt: 7
 From: Wentao Guan <guanwentao@uniontech.com>
 To: gregkh@linuxfoundation.org
@@ -40,9 +40,9 @@ Cc: guanwentao@uniontech.com,
 	sashal@kernel.org,
 	stable@vger.kernel.org,
 	=?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>
-Subject: [PATCH 6.12.y 3/7] selinux: make more use of str_read() when loading the policy
-Date: Fri, 28 Aug 2026 03:13:16 +0800
-Message-Id: <20260827191317.18119-4-guanwentao@uniontech.com>
+Subject: [PATCH 6.12.y 2/7] selinux: avoid unnecessary indirection in struct level_datum
+Date: Fri, 28 Aug 2026 03:13:14 +0800
+Message-Id: <20260827191317.18119-3-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260827191317.18119-1-guanwentao@uniontech.com>
 References: <20260827191317.18119-1-guanwentao@uniontech.com>
@@ -56,124 +56,138 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OCd5OxnoBMVVk83VN+i6qRLWwQ7A12P9TJbKRebTSXeKEqlXhwzS/pBe
-	JJW/LHRpUTHGVxrA9V7WKztl+TV86ZhtwCSGzlGryzl8Iwzu7PGna8Hx7OL7dAF0d5p+sQV
-	+nKx+yVPHSsZ4kdzC8S7XrhN/qqcTwBAWN41a1l4RWRkFpFIOff1OrTUrSBThvIJ24ryDiC
-	V+w7m/lzkLl5X9T09cBcOFEPFQ9M6jxULy6BhH1HCF74v9N6WU2ROW2rkXF6mplNLuaU3Xl
-	KvoYtHRMc1MbnqfsD6d0VuSAiQ4IIFhIbqyBx+uLgqrwDPLVLAS9qYao0IaRmcBe/yGtSG1
-	2Q+1MrefFf+uOIM2Z7e5yVyFl1e+mtm4kHf/6K9D0YsY7ipEj/kPuVz2LSVpOVhktCvyfSF
-	t14h/hgoeWUt3Q7XS9in6AVMrpud9Jah2lgAmbOjWpbjaA4J7fxP+eBToCorO40LGNNr3iL
-	VzGk7dX67MG24YnSbGM1QxsPQS032qz2VQEtPZu7hh4ikizTrsXYwA5FV+73bEakS9W0pk/
-	JsQGfBIudqFDQt8ZuxgDDGoT59mgAxOm/5JSOtEI/StIYyAMKF59h3exSOo4J+0kAcMcHZ5
-	J5dUjLvvl39n05wgjaoIQH0fVdAQjK49dDlX27wc159cXl4zeTIlS1HGlJmvY07hpSfglC6
-	8RdGVAw/6CZj5o74NsNVODnycEHj4zkcK7pbXA6LafUdEez6sneYo7VcPFMeXiWrrQrPlIO
-	an3VgGM3V9jdy639ARsdaJftlcW+VptqAvrLlrf2ReHR2n+YTiRZcQyhCbLb5QgHC7HE/YL
-	55XcQECHuieNMLs/O4L7+7KeKuyAcoqrW4HpRiq1nRLw28NESm/INq2EMaSfwUIJA/V+vyW
-	dy5kBQwJNbXDA2uYWQPbus3CHazAM9oL0UVUsmNSPyphDF8IpPfn19/KC1bhAhbnZVuMLHp
-	I3HCSzMWC7FUpbZ5KN+lHGliFSVI0rYChA3iOuUHjO0fArAfwUq/JDKf/sdznxKG7akiliY
-	myWC4uEw1FEQeW4quYoSz2/NW20reKutUC4c7kRZGeakpG25kCTJl/o7ZTQJaVmTGVDebDT
-	1dRhQ6FUYvRyxch9+3g3POLXmChvCCfuzLewnuvaTMrJ0fIY+5uDVPnDDLng99whg6luPfA
-	NY9F
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: N0abMa1jyQCF52bKawP184wrSwCwXoLY4zt3QHWfWDIJdj0bSlZ1+bBb
+	hg2qbnGjYqX1TUb3BW/5JZJZVMMZznJuxzHtJFFHx6OAThIr2f4a0Obt3iIyGkl9fVxvZOC
+	tLvSm4pdJ46l0Ol9ZsvJgDAFockVaP8Grz2gqPh+7ALniX6UY6k5cGvPzEj/ZdZ5WlqIFOI
+	Kq9plnhx/Kj7+WpUv43MngNnAAqamL8WWOD697ggSQ2nCslLpEhkfCWWsjcSriWttk7qNWA
+	zkTu4JdTs00HaGnSim+h4ic0mb6cEzVXjC8lsZc0pfKXhHoIhGEbciVAOhtessub0onZAY+
+	Fce6xGIUwNVUizYlWp1SPIJCISL0wPWoLx2FUTROdKjIaaSvdP4r40k//kXJk77rr2Sf9sL
+	YY5/Jy9O97Zgfz/6dRdUp6mwSTIikseKzd+KAQl9EBASMgMaN66MtAhhodE0UtagMGlCwz+
+	tRd/1uE9qrt8ku53iaLoDn7ZWmdcB+0Ko3lzVOdwg9/pvOvWZ81KBoJOA8tcf1uIXkC9ZCq
+	XyToVE+sTbo8GBZzrkBAb9dzWuNKrzMTl4HscUnyFqvaO0IcZCoSH+kX+QQ5izeZaz1EBu4
+	iaU2CYyl2SRVNfCbfgRDSDbDZjg/s3Ip1BSq3WP8YOzvAfxAUWyd5s1gjb28OLI1aNar2hZ
+	8sD2Fk6jJNdxMUDLp7+Fnd7CoogECb2LcQcy5hn8f9+HyF9h8qBzpUGsKOxvoFs8s41SeTK
+	J+mgvzoB1x20raOWuGA0dapndxN61DW1yuatFLbOjstAE+7Pur+9mYLq3DOaKVVM5UBkJrq
+	a5mJG+gX/CCohrlFH2NK1O03fBWGLdETcVAVp4sX1uk88LFdH1OmsEiwz1yE6xfjKpkVNvH
+	jsxobTbkJ1rjDPfanDeA121CExZOYgVK3YyUbNqe/sg1L+fYUSbG14/LJVrGVKKMeyXCkT2
+	xrHcNt32p/lP/BhEt4G7eB5qIttjDjtNdlDEIPzP/ihdJwmQBIuq5temI8pjNh0+yLWkiCQ
+	mvc0bvH5bWmHXe/RtJBd5eZLNLHdLIeKM9VRq92LPKUM62N1cK2rDq2EkhZJRjsy7vJtrif
+	1zwmSMlNI2oZaWehQ+4vAJaEIVwEPoNEB4NVK2ZsJTOZEIWy3HwSeUbXCDeJ+1g6ByXFHtV
+	Lqt8
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
 X-QQ-RECHKSPAM: 0
 
 From: Christian Göttsche <cgzones@googlemail.com>
 
-Simplify the call sites, and enable future string validation in a single
-place.
+Store the owned member of type struct mls_level directly in the parent
+struct instead of an extra heap allocation.
 
 Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
-[PM: subject tweak]
 Signed-off-by: Paul Moore <paul@paul-moore.com>
-(cherry picked from commit 01c2253a0fbdccb58cd79d4ff9ab39964bfb4474)
+(cherry picked from commit 749153636643aaa793f14e84e864fdaf5ed0620d)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- security/selinux/ss/conditional.c | 10 ++--------
- security/selinux/ss/policydb.c    | 22 ++++++++--------------
- security/selinux/ss/policydb.h    |  2 ++
- 3 files changed, 12 insertions(+), 22 deletions(-)
+ security/selinux/ss/mls.c      |  6 +++---
+ security/selinux/ss/policydb.c | 19 ++++++-------------
+ security/selinux/ss/policydb.h |  2 +-
+ 3 files changed, 10 insertions(+), 17 deletions(-)
 
-diff --git a/security/selinux/ss/conditional.c b/security/selinux/ss/conditional.c
-index 244dc82791133..f8a21d10ff929 100644
---- a/security/selinux/ss/conditional.c
-+++ b/security/selinux/ss/conditional.c
-@@ -230,17 +230,11 @@ int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
- 		goto err;
- 
- 	len = le32_to_cpu(buf[2]);
--	if (((len == 0) || (len == (u32)-1)))
--		goto err;
- 
--	rc = -ENOMEM;
--	key = kmalloc(len + 1, GFP_KERNEL);
--	if (!key)
--		goto err;
--	rc = next_entry(key, fp, len);
-+	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
- 		goto err;
--	key[len] = '\0';
-+
- 	rc = symtab_insert(s, key, booldatum);
- 	if (rc)
- 		goto err;
-diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index 449458edec732..db200b7518fc7 100644
---- a/security/selinux/ss/policydb.c
-+++ b/security/selinux/ss/policydb.c
-@@ -1107,7 +1107,7 @@ static int context_read_and_validate(struct context *c, struct policydb *p,
-  * binary representation file.
-  */
- 
--static int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
-+int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
- {
- 	int rc;
- 	char *str;
-@@ -2499,24 +2499,18 @@ int policydb_read(struct policydb *p, struct policy_file *fp)
- 		goto bad;
- 	}
- 
--	rc = -ENOMEM;
--	policydb_str = kmalloc(len + 1, GFP_KERNEL);
--	if (!policydb_str) {
--		pr_err("SELinux:  unable to allocate memory for policydb "
--		       "string of length %d\n",
--		       len);
--		goto bad;
--	}
--
--	rc = next_entry(policydb_str, fp, len);
-+	rc = str_read(&policydb_str, GFP_KERNEL, fp, len);
- 	if (rc) {
--		pr_err("SELinux:  truncated policydb string identifier\n");
--		kfree(policydb_str);
-+		if (rc == -ENOMEM) {
-+			pr_err("SELinux:  unable to allocate memory for policydb string of length %d\n",
-+			       len);
-+		} else {
-+			pr_err("SELinux:  truncated policydb string identifier\n");
-+		}
- 		goto bad;
- 	}
- 
- 	rc = -EINVAL;
--	policydb_str[len] = '\0';
- 	if (strcmp(policydb_str, POLICYDB_STRING)) {
- 		pr_err("SELinux:  policydb string %s does not match "
- 		       "my string %s\n",
-diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
-index e7a6f1a6c1461..d95a3941f327c 100644
---- a/security/selinux/ss/policydb.h
-+++ b/security/selinux/ss/policydb.h
-@@ -386,6 +386,8 @@ static inline char *sym_name(struct policydb *p, unsigned int sym_num,
- 	return p->sym_val_to_name[sym_num][element_nr];
+diff --git a/security/selinux/ss/mls.c b/security/selinux/ss/mls.c
+index 989c809d310d6..a6e49269f5351 100644
+--- a/security/selinux/ss/mls.c
++++ b/security/selinux/ss/mls.c
+@@ -171,7 +171,7 @@ int mls_level_isvalid(struct policydb *p, struct mls_level *l)
+ 	 * levdatum->level->cat and no bit in l->cat is larger than
+ 	 * p->p_cats.nprim.
+ 	 */
+-	return ebitmap_contains(&levdatum->level->cat, &l->cat,
++	return ebitmap_contains(&levdatum->level.cat, &l->cat,
+ 				p->p_cats.nprim);
  }
  
-+extern int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len);
-+
- extern u16 string_to_security_class(struct policydb *p, const char *name);
- extern u32 string_to_av_perm(struct policydb *p, u16 tclass, const char *name);
+@@ -289,7 +289,7 @@ int mls_context_to_sid(struct policydb *pol, char oldc, char *scontext,
+ 		levdatum = symtab_search(&pol->p_levels, sensitivity);
+ 		if (!levdatum)
+ 			return -EINVAL;
+-		context->range.level[l].sens = levdatum->level->sens;
++		context->range.level[l].sens = levdatum->level.sens;
+ 
+ 		/* Extract category set. */
+ 		while (next_cat != NULL) {
+@@ -456,7 +456,7 @@ int mls_convert_context(struct policydb *oldp, struct policydb *newp,
+ 
+ 		if (!levdatum)
+ 			return -EINVAL;
+-		newc->range.level[l].sens = levdatum->level->sens;
++		newc->range.level[l].sens = levdatum->level.sens;
+ 
+ 		ebitmap_for_each_positive_bit(&oldc->range.level[l].cat, node,
+ 					      i)
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index 27407cb6f18a8..449458edec732 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -296,9 +296,7 @@ static int sens_destroy(void *key, void *datum, void *p)
+ 	kfree(key);
+ 	if (datum) {
+ 		levdatum = datum;
+-		if (levdatum->level)
+-			ebitmap_destroy(&levdatum->level->cat);
+-		kfree(levdatum->level);
++		ebitmap_destroy(&levdatum->level.cat);
+ 	}
+ 	kfree(datum);
+ 	return 0;
+@@ -630,11 +628,11 @@ static int sens_index(void *key, void *datum, void *datap)
+ 	p = datap;
+ 
+ 	if (!levdatum->isalias) {
+-		if (!levdatum->level->sens ||
+-		    levdatum->level->sens > p->p_levels.nprim)
++		if (!levdatum->level.sens ||
++		    levdatum->level.sens > p->p_levels.nprim)
+ 			return -EINVAL;
+ 
+-		p->sym_val_to_name[SYM_LEVELS][levdatum->level->sens - 1] = key;
++		p->sym_val_to_name[SYM_LEVELS][levdatum->level.sens - 1] = key;
+ 	}
+ 
+ 	return 0;
+@@ -1644,12 +1642,7 @@ static int sens_read(struct policydb *p, struct symtab *s, struct policy_file *f
+ 	if (rc)
+ 		goto bad;
+ 
+-	rc = -ENOMEM;
+-	levdatum->level = kmalloc(sizeof(*levdatum->level), GFP_KERNEL);
+-	if (!levdatum->level)
+-		goto bad;
+-
+-	rc = mls_read_level(levdatum->level, fp);
++	rc = mls_read_level(&levdatum->level, fp);
+ 	if (rc)
+ 		goto bad;
+ 
+@@ -2870,7 +2863,7 @@ static int sens_write(void *vkey, void *datum, void *ptr)
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = mls_write_level(levdatum->level, fp);
++	rc = mls_write_level(&levdatum->level, fp);
+ 	if (rc)
+ 		return rc;
+ 
+diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
+index e01de17e569bf..e7a6f1a6c1461 100644
+--- a/security/selinux/ss/policydb.h
++++ b/security/selinux/ss/policydb.h
+@@ -126,7 +126,7 @@ struct user_datum {
+ 
+ /* Sensitivity attributes */
+ struct level_datum {
+-	struct mls_level *level; /* sensitivity and associated categories */
++	struct mls_level level; /* sensitivity and associated categories */
+ 	unsigned char isalias; /* is this sensitivity an alias for another? */
+ };
  
 -- 
 2.30.2
