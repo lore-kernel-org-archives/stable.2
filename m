@@ -1,121 +1,360 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8219D499F11
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 18:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787855981; cv=pass; b=HBlKE0vGArOxzsKSZWMLiCCv9vOMkrEJPt9VTpa0xyaTNpD4iKHVVf6cuD+JsR85xNgmUOXhlehjcC9uxuVqt+YK1UKrotLpT6GcvpEtrfagAFp3nsFhrJtiR7fdf0+9KCtMeXHV7SE09/b7tRwj6Y/xk2u0aW7HtSboqMGWeF0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787855981; c=relaxed/simple;
-	bh=445iCSTTCoBe15Hu3Q0tcs0o1U+eeAp83PGi5YJxTA4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jmy/8Y6SADYzjtqIKfBrrNeXL2ucGG9nKoOcl3VlAG6TV+62a3R6kYBQlKN54UDVkmmnr1M52XjSlTlACi6aJjvIHkYh/5BlQkqU0NCC6d1rqAP3LUK2AhfsLIPB5mRTusFsWv9CC14aQ3yCzZW2SCs770IJxsVg9dH2xWnx/Zg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kM/LTmSz; arc=pass smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487D84A1387
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 18:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787856044; cv=none; b=kYrY+rE3hHkzGAupCq8sYDEQFpOCkxD+7kBsTZPcV0R27IibVw1rPZ3zrJBagECnWkAVbpeercI6nus4/6kYIvzkoOziz1pHY/9JshmgOLkF+Nj/24x5eM2Pj3iek90r3htrdlcozhwVqqk99tYrOi/Nxu2B9SXsBT0vIKC7FQQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787856044; c=relaxed/simple;
+	bh=s38raES+aYLadiG+3JXZ2zNKydA9RD56IOss05saA6E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hMhpthh3jwRK39vRyIcc2B97ZPVRO4HkqvzE+8/A/FDioDN1t1q/ZGxeOmc2L2YazA7YIhTpS3NV+2b3sjEfB8jSYoGp0EcxCpO2SRUIqwe3BTB9tntLDMPI2MCWxDlz5FuGaFbFx/JX9rrzlt9scAKFU7aXy57N0fvZX94khJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=BjcytC7E; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kM/LTmSz"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92e7632b193so12480385a.2
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 11:39:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787855979; cv=none;
-        d=google.com; s=arc-20260327;
-        b=h78Nn9ldTtVAloh5bfxk3iosm9Mg5mrAyE49S58c2bJEXZqGdBiMjdFmILSCkmutGY
-         +dhmjtQg91B8wlzf+P+yXwx3eCFtKYMa0oybn//la3c6AXqE2eAPcKQEoWRdZ4ZmEFEI
-         4wF8qYLWO08m5L9mZWuS0KdzvVZkQ7xM3stVEsCGcomHr0T/t9Pap+iDbU6CZZy7/TjW
-         h8TWTUmxgka+2ktyo1gOAWOdcjdnJw3tw7uLm09kwLiRkSlP3WhgEF3b0e7rOUvn7uOT
-         ggq/TrYHPi4rOE/R93POqqOH2iLxdU7/U0IumqyGKAs3taY5iAzh11OhdT9GQshD5rZf
-         6OvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=445iCSTTCoBe15Hu3Q0tcs0o1U+eeAp83PGi5YJxTA4=;
-        fh=DrF2qftbRuzmtZYBDcUb8s1CoMQYNPIFaSAHHJEwcbM=;
-        b=Twgk1/pwwo9J67LTs2rvYb6P4JW1PQP9sGc9osnKKRONmJzu1P7dci4W2jJXE3Gvea
-         dIqOlbH9AbXbUhJtRpdHbdIiyBWugshi6wqWt1aqC09ft23RDj9pKfC5lyYUy3cbLe+O
-         nBVLCJVan7ODjOomrEFJaPoPbi0R4park4vxSyrJ3MqpRdBCkV/5UDiaAVeXhnUDSjsT
-         DScfwcOsVjpuNyMYzOgGxBewgcP39BzGIcfsZAHw2s+QClNCG0n63EUkT3rkpKfqEiar
-         jZLdD1m9rJ5cJXs6/FN/f5NoYqFjN/RCtOwREj73CQSs66/S3oOIul/XzXEaSTKWH53d
-         QC3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="BjcytC7E"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d01663d816so1444715ad.1
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 11:40:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787855979; x=1788460779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=445iCSTTCoBe15Hu3Q0tcs0o1U+eeAp83PGi5YJxTA4=;
-        b=kM/LTmSzoS6Y0PH8bT/wWDKBss0HJQa4+UtDuu4tsV+f8lcM/e59BQoVQk+TD3rHYf
-         HRjMpjBdYA397FQ+PswQQ/mBIctZ0IAnbJEJMOEayRBlBCj7a+DHserTNqqBThW+pPVO
-         oUpiCEwH3fQ01bqkvELj4mpZQe1HKZwpwrcIOoMOJWygu665SNII7aAbzMf3FJq+fc4N
-         IH2Zo0Qai2el/M/3Q7BdQ7/U1GAFW/+Vk0Mc4dYRZRQV2M72Xcg7lqarVALQ8gqIZa7e
-         gNF2tuGnFF5JYfncshb8qj3uKm7QHV9YpzGHxbaPfEqHAsyG1ulNX1BeuY+jUabnGWRh
-         I8cQ==
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1787856041; x=1788460841; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XejAmH/KP2JAkT0dl9by3HENDzeG7XsT4Hjw5tlQtvk=;
+        b=BjcytC7EngX77ZT0CBzXfyIWi/6zrwODKinxvh/rUbJE21IC/kFXRVMHAvNV+XxleM
+         k5ZMcroEpgbB3pao9L62mIUIRtp6lPKggUdRpd+ScI7zd9cBckASjOWgJ3xgnPARE8zi
+         Th+1WAGEl385smDZeCNCIPO13bEmsL+iOKjSm9ptntCx+49TXwp0hVKzsVWjBwpr49Ix
+         GBb4OmdNj+jzvHPW1VbF8hZANGkQsaiVNXBWnCiDwNqNLha5xiNIbDbz+VX7e3fcoow3
+         ZazImkDPzOFzhz3LSqkBFdIleQfs/JjakYAeRU3G37UEeFEaRzhstlDDDRtIJeoTTw6X
+         dWig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787855979; x=1788460779;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=445iCSTTCoBe15Hu3Q0tcs0o1U+eeAp83PGi5YJxTA4=;
-        b=LE0BlYB6m62c8Fkk5W5xwyVd2XWpL5QgclQ9wtwsmuUU5WYnlwBfdi6aUJh/W5SExY
-         9ZwAdRBcSp9X9nl1uWLTS9SeZZ8Q6TXEupex0b16euRknMe/g/o6LHGlVx6srm3+OTXP
-         Zd5SVlCT7wlavxhiMtEtwWaBhQdNM8FVF4OVpAL4QkqE+CAbpT+t81Es/ZGINdQUhLx3
-         5rz3qeWFvj5pOekYNgAJzvCMnW4RFWMn7+NoLsPUpkYHQTfCdAktYNuJ5XrwDVgYGEst
-         +utV6MCC1sZJIJK/HNKFYdfblHJcI2sQZasoG3qTc/a0kszxdTXhIkpEiw5gCE1Z1kD2
-         HqLA==
-X-Forwarded-Encrypted: i=1; AHgh+RpfXuakEu/Ya+SU7vqG1bFDJoQ5/rM+ZTGXyrjzrj0Id2rCkB+8siLIQUFQnRbScevA72i0UQI=@vger.kernel.org
-X-Gm-Message-State: AFuF++klwVmHM9g9o2LgWJWr/ml6GGJBezbK0HXid72UPGO9K4vFIb7r
-	F0fUMP1YjV3FHK30tDCDmgdNB1257l9PmKZ9OrqlFlv1cZ5BupU8VJy5yypeJ6s1jVi/VPGVt5y
-	7xS3ZkAomTCkqQnTWGMQKGEG1idt3pGa7EY2dyjp1
-X-Gm-Gg: AR+sD13xkKmWDfaO2JTlYoaeNujwMhOa+LL4OaKZSe7+0LKl99V2E1qQAiOxKyrpzhz
-	1QHhVP2Aw+wzxQAYFHREeuBDNLibE6mQQVmp5uhlzVMBSt1BdbFxqiUm2HYgpFjehpkqGgfLldN
-	W7MMYqUt6BUrsjodAZiS5RrUPz+oF3kpg9TqPNISd810CROj8IsPUwHrFQk5UQ2664p0EkQLJk7
-	+KhARi4qDOuLdLVUdOxamgIJqVsXJ3klKtK3p72bHsTndMMjbE7D3sHjFFIAp39+L4ymNTy5SVA
-	gccG7MsiS9DFsJ3ao79uE25+F6b/SAJDDQbBd6Tla8p5jhQRZHQ2yVIwJt5LHKg1fX9CQV9P5WN
-	lcz2roBSOEqWtUdA6pUuuxe8r3PyXoSFkVv9mfx+2Vgaxc4p30jBNfCRrEdk=
-X-Received: by 2002:a05:620a:a913:b0:939:2e1:91b1 with SMTP id
- af79cd13be357-939139b0e77mr79071685a.42.1787855973945; Thu, 27 Aug 2026
- 11:39:33 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787856041; x=1788460841;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XejAmH/KP2JAkT0dl9by3HENDzeG7XsT4Hjw5tlQtvk=;
+        b=mOMZITj8HtwkjcDj7IfwWimLmnDrsWTq7+Ict4cpps4fnNTWtq/BEfKTNbFm7HM+y5
+         qqHOODeh904xWGzJmrISA0plMFultchmSq9MPvH+3Zc5Dsb6PuGx7kv4xYPmLvJrSIiF
+         10BqNJwMHcSs9EEupsgxtq35D0EtfrdZvP8nCb7UhCYDYBuW82Febpe5gX5cP4F1zpY9
+         ek3M3EYr5BW2jTA12MINU6544rjsjXpBx9gggj4uYTBnLy/fNVQlNr9z3ucEfJSFNnZF
+         b78dSFTAcIONzAAaPJW0DVrfV7FB4g9LH6VAq1SZ66aOjz4BA8IswP6E3DaBNgo3GTAe
+         8ICQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqcHZFiqCMS2hNK9fDycqSFPhaT212Nl8ybN2lutAHJovJHrd9if6w/BQTFYcO+WKX7lw6Wv1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsgNtHxOi098sVRjlauo6AzMC60XnsnBj9/UhX+k+7IomCBZBJ
+	6D+6H2a92NmSYWR+zmEiC4E6klmxYYYP1WZOxZo/wj4yLmbblwTb4Qoot8yBveDcBZg=
+X-Gm-Gg: AR+sD113JmilX578XTqwECwUnkVCt4TYhCUfaRSCs5DSeuP/lp6UeDEPCPaXTuYkOtU
+	ZZzFjqLMiI24hENeE1ltLosILm44BJ7pQPyZNy1XMAsRLUOd00DHTwstHypWfL/h+ODsKEXhQWY
+	FTGmM5Vib5wZYu5/3YhldggEUReJAfMRUt+mfz5+G5VkpDU+Mb0uYtJTeisllS3B/n1GihxHPvZ
+	sM/p9PPTkhjz1n8vNIdtmIZFifj2Ev9z6V4SN0KHdRu5o+xajUcxF7DbeeOAaJEDRqNefWNhv3Z
+	uA3eCyZ9eXSEsDg38sBnw+HTVJBPlpIX9BBZ1S2b2bzXROl3algEwJdJe/geGXIR4TP+qeH0p0m
+	NT0FSRp7xBoFI7UTMyD+e16YCtkl45mt8TvvgZ4IhltNHKk1CcyPosUgPmve4DpurFRbLsUxq8T
+	2Q4VMIZmGqZxUxEP0ZJYVJglaDmR+4Xhpim4AHFdHQzw==
+X-Received: by 2002:a17:903:324c:b0:2c2:62ee:5a0d with SMTP id d9443c01a7336-2d74df1c634mr18207755ad.14.1787856041391;
+        Thu, 27 Aug 2026 11:40:41 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:72::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d70498ca3csm20150005ad.31.2026.08.27.11.40.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 11:40:40 -0700 (PDT)
+Date: Thu, 27 Aug 2026 11:40:40 -0700
+From: Joe Damato <joe@dama.to>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com,
+	justinstitt@google.com, colin.winegarden@broadcom.com,
+	rukhsana.ansari@broadcom.com, horms@kernel.org,
+	kalesh-anakkur.purayil@broadcom.com, linux-kernel@vger.kernel.org,
+	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH net v2] bnxt_en: Bound SW TPA IDs to prevent crashes
+Message-ID: <apCEqAkcuo27VOp/@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com,
+	justinstitt@google.com, colin.winegarden@broadcom.com,
+	rukhsana.ansari@broadcom.com, horms@kernel.org,
+	kalesh-anakkur.purayil@broadcom.com, linux-kernel@vger.kernel.org,
+	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
+References: <20260825001842.2501798-1-joe@dama.to>
+ <20260827083139.91346-1-pabeni@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827182514.4667-1-zihanx@nebusec.ai> <20260827182514.4667-2-zihanx@nebusec.ai>
-In-Reply-To: <20260827182514.4667-2-zihanx@nebusec.ai>
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 27 Aug 2026 20:39:22 +0200
-X-Gm-Features: AcwNN1VRhQVJWnUjimjnCssYVB-RsZLLiLw-RwPls-JFeJyYJ0GNI-z6p5Tnrm8
-Message-ID: <CANn89iLL7g9iZ-pZZw321GFNVKKW=xs-6exMxeoM7=krsL2T3g@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] ipv4: avoid divide by zero in fib_rebalance
-To: Zihan Xi <zihanx@nebusec.ai>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, =?UTF-8?Q?Peter_N=C3=B8rlund?= <pch@ordbogen.com>, 
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827083139.91346-1-pabeni@redhat.com>
 
-On Thu, Aug 27, 2026 at 8:27=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrote:
->
-> fib_rebalance() computes the total eligible nexthop weight in one pass
-> and programs upper bounds in a second pass. A concurrent change to
-> ignore_routes_with_linkdown can make the first pass return zero while
-> the second pass sees an eligible nexthop, resulting in division by zero.
->
-> If the first pass reports a zero total, set each nexthop upper bound to
-> -1 and skip the division. This matches the IPv6 fix in commit
-> d2c26c2911dd ("ipv6: avoid divide by zero in rt6_multipath_rebalance")
-> and preserves the lock-free rebalance path.
->
-> Fixes: 0e884c78ee19 ("ipv4: L3 hash-based multipath")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Assisted-by: Codex:gpt-5.4
-> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+On Thu, Aug 27, 2026 at 10:31:39AM +0200, Paolo Abeni wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+> ---
+> bnxt_en: Bound SW TPA IDs to prevent crashes
+> 
+> The patch allocates rxr->rx_tpa with bp->max_tpa rounded up to the next
+> power of two, stored in a new bp->max_tpa_roundup_size field, and masks the
+> firmware TPA ID with that size in bnxt_alloc_agg_idx() instead of using
+> MAX_TPA_P5_MASK.  All of the TPA info allocation and free loops now use the
+> new field as their bound.
+> 
+> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > index 9c2cc50276a59..ba710704b1921 100644
+> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > @@ -1517,14 +1517,16 @@ static int bnxt_discard_rx(struct bnxt *bp, struct bnxt_cp_ring_info *cpr,
+> >  	return 0;
+> >  }
+> >  
+> > -static u16 bnxt_alloc_agg_idx(struct bnxt_rx_ring_info *rxr, u16 agg_id)
+> > +static u16 bnxt_alloc_agg_idx(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
+> > +			      u16 agg_id)
+> >  {
+> >  	struct bnxt_tpa_idx_map *map = rxr->rx_tpa_idx_map;
+> > -	u16 idx = agg_id & MAX_TPA_P5_MASK;
+> > +	u16 idx = agg_id & (bp->max_tpa_roundup_size - 1);
+> >  
+> >  	if (test_bit(idx, map->agg_idx_bmap)) {
+> > -		idx = find_first_zero_bit(map->agg_idx_bmap, MAX_TPA_P5);
+> > -		if (idx >= MAX_TPA_P5)
+> > +		idx = find_first_zero_bit(map->agg_idx_bmap,
+> > +					  bp->max_tpa_roundup_size);
+> > +		if (idx >= bp->max_tpa_roundup_size)
+> >  			return INVALID_HW_RING_ID;
+> >  	}
+> >  	__set_bit(idx, map->agg_idx_bmap);
+> 
+> [Severity: Medium]
+> 
+> This isn't a bug introduced by this patch, but the value stored is now
+> bounded while the index it is stored at is still the raw firmware ID, just
+> below the last quoted line:
+> 
+> 	map->agg_id_tbl[agg_id] = idx;
+> 
+> agg_id comes from TPA_START_AGG_ID_P5(), whose descriptor field is 12 bits
+> wide:
+> 
+> 	#define RX_TPA_START_CMP_AGG_ID_P5	(0x0fff << 16)
+> 
+> and the table it indexes is 1024 entries, immediately followed by the
+> in-use bitmap:
+> 
+> struct bnxt_tpa_idx_map {
+> 	u16		agg_id_tbl[1024];
+> 	DECLARE_BITMAP(agg_idx_bmap, MAX_TPA_P5);
+> };
+> 
+> Can an ID of 1024 or above write past agg_id_tbl[] into agg_idx_bmap?
 
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+I don't think this is possible. bp->max_tpa is min_t(u16, bp->max_tpa_v2,
+MAX_TPA_P5), never going above 256. 1024 is 4x the headroom and if FW returned
+that, it would be ignoring the count it advertised... which seems like a FW
+bug.
+
+> The same raw ID is used for the read side in bnxt_lookup_agg_idx(), whose
+> result is used unchecked by bnxt_tpa_end() and bnxt_tpa_agg():
+> 
+> 	agg_id = bnxt_lookup_agg_idx(rxr, agg_id);
+> 	tpa_info = &rxr->rx_tpa[agg_id];
+> 
+> The commit message says "TPA IDs are generated by FW and can be up to
+> 1024", which matches the table size, and I could not find a capability
+> field that would allow firmware to emit an ID above 1023, so this may not
+> be reachable in practice.
+
+Agreed, it is not reachable.
+
+> 
+> > @@ -3784,7 +3786,7 @@ static void bnxt_free_one_tpa_info(struct bnxt *bp,
+> >  	kfree(rxr->rx_tpa_idx_map);
+> >  	rxr->rx_tpa_idx_map = NULL;
+> >  	if (rxr->rx_tpa) {
+> > -		for (i = 0; i < bp->max_tpa; i++) {
+> > +		for (i = 0; i < bp->max_tpa_roundup_size; i++) {
+> >  			kfree(rxr->rx_tpa[i].agg_arr);
+> >  			rxr->rx_tpa[i].agg_arr = NULL;
+> >  		}
+> > @@ -3810,13 +3812,14 @@ static int bnxt_alloc_one_tpa_info(struct bnxt *bp,
+> >  	struct rx_agg_cmp *agg;
+> >  	int i;
+> >  
+> > -	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info, bp->max_tpa);
+> > +	rxr->rx_tpa = kzalloc_objs(struct bnxt_tpa_info,
+> > +				   bp->max_tpa_roundup_size);
+> >  	if (!rxr->rx_tpa)
+> >  		return -ENOMEM;
+> >  
+> >  	if (!(bp->flags & BNXT_FLAG_CHIP_P5_PLUS))
+> >  		return 0;
+> > -	for (i = 0; i < bp->max_tpa; i++) {
+> > +	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
+> >  		agg = kzalloc_objs(*agg, MAX_SKB_FRAGS);
+> >  		if (!agg)
+> >  			return -ENOMEM;
+> 
+> [Severity: High]
+> 
+> This is a pre-existing issue, but this loop now runs up to
+> bp->max_tpa_roundup_size times (for example 33 becoming 64), so there are
+> more chances for the 272 byte kzalloc_objs(*agg, MAX_SKB_FRAGS) to fail.
+> 
+> On failure, bnxt_alloc_one_tpa_info() returns before rx_tpa_idx_map is
+> replaced, and the caller for a queue restart goes to the cleanup path:
+> 
+> 	if (bp->flags & BNXT_FLAG_TPA) {
+> 		rc = bnxt_alloc_one_tpa_info(bp, clone);
+> 		if (rc)
+> 			goto err_free_tpa_info;
+> 	...
+> err_free_tpa_info:
+> 	bnxt_free_one_tpa_info(bp, clone);
+> 
+> clone is a shallow copy of the live ring made in bnxt_queue_mem_alloc():
+> 
+> 	memcpy(clone, rxr, sizeof(*rxr));
+> 	bnxt_init_rx_ring_struct(bp, clone);
+> 	bnxt_reset_rx_ring_struct(bp, clone);
+> 	...
+> 	clone->rx_agg_bmap = NULL;
+> 
+> Only rx_agg_bmap is cleared there, and bnxt_reset_rx_ring_struct() does not
+> touch rx_tpa or rx_tpa_idx_map.
+> 
+> So does bnxt_free_one_tpa_info(bp, clone) free the running ring's map here?
+> 
+> 	kfree(rxr->rx_tpa_idx_map);
+> 	rxr->rx_tpa_idx_map = NULL;
+> 
+> The live ring's own rx_tpa_idx_map field is not cleared by that, and the
+> NAPI path writes through it on every TPA completion, in
+> bnxt_alloc_agg_idx():
+> 
+> 	__set_bit(idx, map->agg_idx_bmap);
+> 	map->agg_id_tbl[agg_id] = idx;
+> 
+> with a second kfree() of the same pointer when the source ring is torn down.
+> Should clone->rx_tpa and clone->rx_tpa_idx_map be set to NULL alongside
+> clone->rx_agg_bmap before allocating?
+
+I think this is a real bug, but as mentioned above this is a pre-existing
+issue and not related to the patch I posted.
+
+I can send a separate patch in the future addressing this, if desired, but I
+don't think it makes sense to try to address this in this patch since it would
+need a different fixes.
+ 
+> > @@ -3843,6 +3846,8 @@ static int bnxt_alloc_tpa_info(struct bnxt *bp)
+> >  			bp->max_tpa = MAX_TPA_P5;
+> >  	}
+> >  
+> > +	bp->max_tpa_roundup_size = roundup_pow_of_two(bp->max_tpa);
+> > +
+> >  	for (i = 0; i < bp->rx_nr_rings; i++) {
+> >  		struct bnxt_rx_ring_info *rxr = &bp->rx_ring[i];
+> >  
+> 
+> [Severity: Medium]
+> 
+> Can the early return earlier in bnxt_alloc_tpa_info() skip this assignment
+> while bp->max_tpa is already set?
+> 
+> 	bp->max_tpa = MAX_TPA;
+> 	if (bp->flags & BNXT_FLAG_CHIP_P5_PLUS) {
+> 		if (!bp->max_tpa_v2)
+> 			return 0;
+> 
+> On a P5+ device whose firmware does not report max_aggs_supported,
+> bp->max_tpa_v2 is 0, so bp->max_tpa_roundup_size keeps its zero value while
+> bp->max_tpa is MAX_TPA.
+> 
+> bnxt_alloc_one_tpa_info() is also reachable from bnxt_queue_mem_alloc(),
+> which is gated only on the TPA flag and not on max_tpa_v2:
+> 
+> 	if (bp->flags & BNXT_FLAG_TPA) {
+> 		rc = bnxt_alloc_one_tpa_info(bp, clone);
+> 
+> With a count of 0, does kzalloc_objs(struct bnxt_tpa_info, 0) return
+> ZERO_SIZE_PTR and pass the following check?
+> 
+> 	if (!rxr->rx_tpa)
+> 		return -ENOMEM;
+> 
+> And in bnxt_alloc_agg_idx(), does the new mask become a no-op when the field
+> is 0?
+> 
+> 	u16 idx = agg_id & (bp->max_tpa_roundup_size - 1);
+> 
+> That would leave idx as large as 4095 for the test_bit()/__set_bit() calls
+> on the 256 bit agg_idx_bmap and for &rxr->rx_tpa[idx] in bnxt_tpa_start().
+> 
+> BNXT_FLAG_TPA can be set in that state because bnxt_set_rx_skb_mode(), which
+> bnxt_xdp_set() calls on XDP detach, adds NETIF_F_LRO to hw_features without
+> a BNXT_SUPPORTS_TPA() check:
+> 
+> 		if (rx > 1) {
+> 			bp->flags &= ~BNXT_FLAG_NO_AGG_RINGS;
+> 			bp->dev->hw_features |= NETIF_F_LRO;
+> 		}
+> 
+> Would setting bp->max_tpa_roundup_size next to every bp->max_tpa assignment
+> keep the two in sync?
+
+OK, this is real and I will fix this in the v3.
+
+> > @@ -4554,7 +4559,7 @@ static int bnxt_alloc_one_tpa_info_data(struct bnxt *bp,
+> >  	u8 *data;
+> >  	int i;
+> >  
+> > -	for (i = 0; i < bp->max_tpa; i++) {
+> > +	for (i = 0; i < bp->max_tpa_roundup_size; i++) {
+> >  		data = __bnxt_alloc_rx_frag(bp, &mapping, rxr,
+> >  					    GFP_KERNEL);
+> >  		if (!data)
+> 
+> [Severity: High]
+> 
+> This is a pre-existing issue, but this loop now performs up to twice as many
+> GFP_KERNEL allocations, and the queue restart caller ignores the -ENOMEM
+> that follows the quoted check, in bnxt_queue_mem_alloc():
+> 
+> 	if (bp->flags & BNXT_FLAG_TPA)
+> 		bnxt_alloc_one_tpa_info_data(bp, clone);
+> 
+> 	return 0;
+> 
+> The open path checks the same call, so is the missing check here
+> intentional?
+> 
+> If the first __bnxt_alloc_rx_frag() fails, the remaining rxr->rx_tpa[i]
+> entries keep data == NULL and mapping == 0, and bnxt_queue_start() installs
+> the array into the live ring:
+> 
+> 	rxr->rx_tpa = clone->rx_tpa;
+> 	rxr->rx_tpa_idx_map = clone->rx_tpa_idx_map;
+> 
+> Does bnxt_tpa_start() then post a zero DMA address to the device and a NULL
+> buffer into the software ring for such an entry?
+> 
+> 	prod_rx_buf->data = tpa_info->data;
+> 	prod_rx_buf->data_ptr = tpa_info->data_ptr;
+> 
+> 	mapping = tpa_info->mapping;
+> 	prod_rx_buf->mapping = mapping;
+> 	...
+> 	prod_bd->rx_bd_haddr = cpu_to_le64(mapping);
+> 
+> When that descriptor completes, bnxt_rx_pkt() uses rx_buf->data without a
+> NULL check.
+
+This seems like it is real, but also not related to this patch and this would
+needs its own fixes, so I don't think it is worth wrapping that into the
+proposed bugfix.
