@@ -1,150 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734792F747A;
-	Thu, 27 Aug 2026 04:39:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB731DB95E
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787805600; cv=none; b=RsAZYFqrIuMeylbyERy2qqHayO/KQ6tfTESU2szekf2yQfML1+Mo+FLQCkeqI37lM3SfRyCbi8mTVHM6pAWd2DKL0XtYJa49AM6foijjtRs/Tj85Vo9y43DsA2/bhVKDCn9b696ii6jtHmeye1TR1hLZbd3fgpm0TRRhss4GUqY=
+	t=1787805610; cv=none; b=L8k6uzkvkGzD/NWD7cg3McYNySL/vP+hLXCXG2vXUEPKUe6QHJM7X+XkRCTz9kkRTcTSBU/wQmLqity3Rt8FfXvEQQ1qwL1wNlkwmhChYkB1Fxn0iWKWCQPnNmIc1oYzTN8THFH/XphY7X5Gc4ZZblzEH+A+8wh6hxd4kk3YI/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787805600; c=relaxed/simple;
-	bh=/NV80uNMJqEeFxKjupDnF07etdByNEox6A4cxY1EhEQ=;
-	h=Date:To:From:Subject:Message-Id; b=Qghe29cdkxvMAQVADXzTT1Wh97FQbUymiCFYMgL/X96Cdg604NX/UO76aE9+eXZm+ybSG0oJ53/sz7QcnlSBdtK/2mACnhi99cuxwX4ufsTVPUGtZX0ptQzD8oNVIG20EttpJ2I0ikzuFl01SdopSeIbuFU4sP1V8OkbgjhAYl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=rgprP/WM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787805610; c=relaxed/simple;
+	bh=liInS31UGC1KKymx8A0Dwahv8aXPkIl+Jsd+BWwAq5Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n8KnRy6ONJ+tOz+iMguJ739Dfj6/VDYj01rF0tmcHQGmtfGoPW26+FTmqewL37pE6IRSleoUfvS+5G9LMkluhpKGq9H+bjy2lJd1G5lKP8p5aEUVy+3+WBLq85VaMI/1yCJAM+7GM4MoDGHUFIHm6RXoHsQO/r2GKKpWWFU9WJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OPTIhicm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="rgprP/WM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA481F000E9;
-	Thu, 27 Aug 2026 04:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787805599;
-	bh=wrRffFyd9tlWMBes0w/UZ6GVLgsRxDGW4jbmF3/SflM=;
-	h=Date:To:From:Subject;
-	b=rgprP/WMHNSqvIjV6FzaK460Jxrkq/5GX+XfeMotQM1XxBdCnG8ZdIBWLSmah9mQK
-	 s3/zxUY7qsrpmPnOgF+nQRCPRaw/L74DBeHows5psawJpn7/h8hYGXedN+t9M/CRzI
-	 osLzAKI25lj+QwVRoXQArSTmTpmugOCNUw1RHcUE=
-Date: Wed, 26 Aug 2026 21:39:58 -0700
-To: mm-commits@vger.kernel.org,yanquanmin1@huawei.com,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch added to mm-new branch
-Message-Id: <20260827043958.EDA481F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OPTIhicm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EBC1F000E9;
+	Thu, 27 Aug 2026 04:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787805609;
+	bh=GlWODAKZAHdFAC0nGluZXS7Ss050+y1wvHT+Y8zPST0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OPTIhicmDYF44BjBXtNCToPRR54OzkDpxSEN/WPSlprEmFlOV2/DQlXDL78phXOgA
+	 e6wwa1VamfwOhot/0gYYVo/0jvU5uzgYgOMGSb8jAWEjkFSDRK6UsYmfmU45VN8FKx
+	 mziZg9f65qBFfVNRM9SDap6HauDaZhKfK41BQU4o2hAZZfljjGM83G76Q0wBCFFioc
+	 jId8TFgIZzZKxCNKvn7pwVq9VLTPM3wMUyU2Bx8jXKWDq2uTvKFv+1D5n4veh2cHeZ
+	 Z6HUCkRFIyb45SAngIO54/7Z/+wDSnXNVUChXH/8aRuym0lYmqNKLRbuKXkmK77Wnl
+	 xgd8c/CnfOROA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Michael Zaidman <michael.zaidman@gmail.com>,
+	Germain Hebert <germain.hebert@ca.abb.com>,
+	Jiri Kosina <jkosina@suse.cz>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/8] HID: ft260: fix i2c probing for hwmon devices
+Date: Thu, 27 Aug 2026 00:39:59 -0400
+Message-ID: <20260827044007.3635916-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082538-obstacle-cogwheel-cfc1@gregkh>
+References: <2026082538-obstacle-cogwheel-cfc1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Michael Zaidman <michael.zaidman@gmail.com>
 
-The patch titled
-     Subject: mm/damon/sysfs: set next refresh jiffies per sysfs context
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+[ Upstream commit a94f61e63f337d95001e1a976ab701100fa1d666 ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+The below scenario causes the kernel NULL pointer dereference failure:
+1. sudo insmod hid-ft260.ko
+2. sudo modprobe lm75
+3. unplug USB hid-ft260
+4. plug USB hid-ft260
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+[  +0.000006] Call Trace:
+[  +0.000004]  __i2c_smbus_xfer.part.0+0xd1/0x310
+[  +0.000007]  ? ft260_smbus_write+0x140/0x140 [hid_ft260]
+[  +0.000005]  __i2c_smbus_xfer+0x2b/0x80
+[  +0.000004]  i2c_smbus_xfer+0x61/0xf0
+[  +0.000005]  i2c_default_probe+0xf9/0x130
+[  +0.000004]  i2c_detect_address+0x84/0x160
+[  +0.000004]  ? kmem_cache_alloc_trace+0xf6/0x200
+[  +0.000009]  ? i2c_detect.isra.0+0x69/0x130
+[  +0.000005]  i2c_detect.isra.0+0xbf/0x130
+[  +0.000004]  ? __process_new_driver+0x30/0x30
+[  +0.000004]  __process_new_adapter+0x18/0x20
+[  +0.000004]  bus_for_each_drv+0x84/0xd0
+[  +0.000003]  i2c_register_adapter+0x1e4/0x400
+[  +0.000005]  i2c_add_adapter+0x5c/0x80
+[  +0.000004]  ft260_probe.cold+0x222/0x2e2 [hid_ft260]
+[  +0.000006]  hid_device_probe+0x10e/0x170 [hid]
+[  +0.000009]  really_probe+0xff/0x460
+[  +0.000004]  driver_probe_device+0xe9/0x160
+[  +0.000003]  __device_attach_driver+0x71/0xd0
+[  +0.000004]  ? driver_allows_async_probing+0x50/0x50
+[  +0.000004]  bus_for_each_drv+0x84/0xd0
+[  +0.000002]  __device_attach+0xde/0x1e0
+[  +0.000004]  device_initial_probe+0x13/0x20
+[  +0.000004]  bus_probe_device+0x8f/0xa0
+[  +0.000003]  device_add+0x333/0x5f0
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+It happened when i2c core probed for the devices associated with the lm75
+driver by invoking 2c_detect()-->..-->ft260_smbus_write() from within the
+ft260_probe before setting the adapter data with i2c_set_adapdata().
 
-The mm-new branch of mm.git is not included in linux-next
+Moving the i2c_set_adapdata() before i2c_add_adapter() fixed the failure.
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Wed, 26 Aug 2026 21:29:19 -0700
-
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next refresh
-is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it. 
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
-
-The user impact is not very critical.  It does not leak, corrupt or crash.
-The update will not be faster or slower than the lowest and largest
-refresh_ms values of the contexts, respectively.  The user can also
-manually ask the updates on demand using kdamond state commands.  That
-said, clearly this is a bug.
-
-Link: https://lore.kernel.org/20260827042920.93580-3-sj@kernel.org
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Quanmin Yan <yanquanmin1@huawei.com>
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
+Signed-off-by: Germain Hebert <germain.hebert@ca.abb.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.cz>
+Stable-dep-of: bf3e39df3a39 ("HID: ft260: fix stack-use-after-return write in I2C read race")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-
- mm/damon/sysfs.c |   11 +++++------
+ drivers/hid/hid-ft260.c | 11 +++++------
  1 file changed, 5 insertions(+), 6 deletions(-)
 
---- a/mm/damon/sysfs.c~mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context
-+++ a/mm/damon/sysfs.c
-@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
+diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
+index 183eeb3863b38..79505c64dbfe7 100644
+--- a/drivers/hid/hid-ft260.c
++++ b/drivers/hid/hid-ft260.c
+@@ -969,24 +969,23 @@ static int ft260_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	mutex_init(&dev->lock);
+ 	init_completion(&dev->wait);
  
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_bui
- 	return ctx;
- }
- 
--static unsigned long damon_sysfs_next_update_jiffies;
--
- static int damon_sysfs_repeat_call_fn(void *data)
- {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
- 
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
- 
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(str
++	ret = ft260_xfer_status(dev);
++	if (ret)
++		ft260_i2c_reset(hdev);
++
++	i2c_set_adapdata(&dev->adap, dev);
+ 	ret = i2c_add_adapter(&dev->adap);
+ 	if (ret) {
+ 		hid_err(hdev, "failed to add i2c adapter\n");
+ 		goto err_hid_close;
  	}
- 	kdamond->damon_ctx = ctx;
  
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
+-	i2c_set_adapdata(&dev->adap, dev);
+-
+ 	ret = sysfs_create_group(&hdev->dev.kobj, &ft260_attr_group);
+ 	if (ret < 0) {
+ 		hid_err(hdev, "failed to create sysfs attrs\n");
+ 		goto err_i2c_free;
+ 	}
  
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-core-initialize-damos_quota_goal-last_psi_total.patch
-mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+-	ret = ft260_xfer_status(dev);
+-	if (ret)
+-		ft260_i2c_reset(hdev);
+-
+ 	return 0;
+ 
+ err_i2c_free:
+-- 
+2.53.0
 
