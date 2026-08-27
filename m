@@ -1,77 +1,73 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A708C370D54
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8853783AE
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787804311; cv=none; b=tIthcFyRn0rA+zVQ83sGoIfjOf/TZ2Witxtu5NAyX2XoqLY1uCWPNszhP82YzSWLoe+nfVovuHfinzeBCvUD1KVmSYWo8ummGL2bnX7Yg+OFLh7B0pt8mlUTdJfKiiW97rc/hJCL3l2FGhY9HHfvNE81ChvxNUiac9Zq1trc9r0=
+	t=1787804577; cv=none; b=QRsaoh9oe6LgVU8f2Agcmlp9O5wSOGWLFImzYTw0X01Y9Ih+2uZmaJWhZh4YAGaFn9oDWkpOL7UrQjt1/6w02p8mjN9ZZAg5dBKiV2XNpjZyEEIyKLq4F0thmDhL2ZA41MbSBVGlCnIk1K19vFdnpjgksA7nWf67uxcV+cONY9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787804311; c=relaxed/simple;
-	bh=uSMkf3RwzjItLUAPe9EhTmetvptyKOyoUUkhMvsgRCQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PtJHTWwXKODlmr45Baf6W4iFPt9LA8Fy/kJ1UdFCspNShxGRYn7l0dsxG02n74HknRiP25iiCM82no7zA/cwKCuBadSqWw0AX4YhbLyrZqJ81CDhnTOmpdNzvPQpif+ff4GOg4YP5QyBBDEtMDUTXMaOwnCR8bQj4wSGUnaOenA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fw5dYrta; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1787804577; c=relaxed/simple;
+	bh=i5j4N3jc9IGaXr4Y8SA04YnztwfrViAVW8ve5zNs9Go=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xt2PuJR8ysvXThs86HxLGchji3WwSWrekzP1NlVUhhhBmmK6hlpvH5wKdGuAeMjRYog8HnulgjqcGpUhpWyxrZxoT23WDd7mCvautw5xsY8acaZBrgq6ozm1HSCqS4v0gb7/AlVkQjcdUT4tUFPtSuAKXd8HSKR8Ju1OOBWzduo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPEiYx8t; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fw5dYrta"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso2369375e9.3
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 21:18:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPEiYx8t"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so1737671a91.3
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 21:22:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787804308; x=1788409108; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787804575; x=1788409375; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tSfRa8BgrZI/TGibDtUnpQi8XG0Nol/aLRpoLE1ncnY=;
-        b=Fw5dYrtaeB3jCEnXs6TWFROTJIFbx+YCORThlSVQXWM3SrfXsEBICVbNTicynxwWRv
-         LDwqg2OP4tL1PB5gBQ3XqZ1IqqEFAJUhxWQVyxeMR9lh7hcZ9OaaUhJjHiWVdrs9IOxW
-         AYugMe4IkbEwSimVQbCWc68Hpx/rRO/ZBD8x5EDd26e9ubcMTgN/UJjJxW/95Ru0bMvC
-         IRyugGf7WC1umwBsFdRQiYGQqEuYH4LyfVuRQx0sqlMLtvcZPnKqWNjAVMrfEI2dhQby
-         3eoFFLTPzZWnkZzlNKTZrpWjoYKWLuT5mEJrHCA48vh5U9Irz7uM+CCcyAMR0Zjr+6oT
-         ZBDw==
+        bh=7U1BnFeXoGQfM9V4KkXP+ZPWf072nK5WtXag0RShRII=;
+        b=JPEiYx8t50DXnUk7PJlui5zwWPbxoKKJbKF9HnYBMEJWch61cnAHjw9A9F6R59ODle
+         /6ycmoQ7IxQr/JvIGoSYL0B/rY2dOjFJRLrrFehQYpxA9zFPJw8YohJ20lkJMojeK1v8
+         M/gBa+NsGH99tbOIUdQgpibMw1LPhEGaqFfovYo+VKp/X6kv1+deCcmf4hIJYHV5AMlj
+         RGN6iS9s5bF2sPpeEzGsakGoPgtzxNMPJhOskQhJXzUpl4/4oyjuYutUD/6lwf7s7EHh
+         0QA55NjCeGenkUYiQvB5P8vgE8YgCbo59QYohSirur3vkdbAhRq4Iz6vyFtI+yB9QlKT
+         Qq4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787804308; x=1788409108;
+        d=1e100.net; s=20251104; t=1787804575; x=1788409375;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tSfRa8BgrZI/TGibDtUnpQi8XG0Nol/aLRpoLE1ncnY=;
-        b=KIOIORTiwO5MTnBSqjSe0p9k8pMI0h1HitUphQ+ZS8zQyYSTaBG8wlKRfSzggWO/J2
-         UZ53zULOTaUr4ivgNBAW4LarsDcfzkGSJCUUzdOzLTq/HO1d8iGlFTH6Kr6UQ3VwyLhc
-         QImQf/h38Ige1KX65PE8ZB3Z0t+cipyc1OMYz72ddQ+sknoUaSLTg2sK50/O4b9vLkX4
-         2NXp+s1zeRqN6lqzuLP9X6Pay618mcUG4BcCWr5fZKNROxLmzKeNZWYZ21/b+tTRh1Kd
-         SRLLpGXCjKYkuhHy0HLkBAq9VEvJhpKJc8KC4Ufyj//cGQ5feMFqXMLxowgSazEHpGWh
-         EISw==
-X-Forwarded-Encrypted: i=1; AHgh+RqH2LP1UQQ0GCHigrwj3PV1fB/oxGCCnDqFVlI9RaMD0OOurgabUWJvbZm0uhp23X4GZf2hW0E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSsXusaPU+N2qB7YYW1i/xH6cFZIr29sLkBh9GFQ6p4gjQvpUH
-	jTw8wO5L5ovU2XWbMqQC3lSNTR7XLA3LffLnd4MQckkCD7WLmAYkwJSI
-X-Gm-Gg: AR+sD127TfpUNDLQv6vXundHj1fQcnnobFkVLV7wl2psmpdABbzCBosgKmalzBXu4Lp
-	AJmBm2Mb2XPCQrFzhro1SdthNEF6a3KbHWhqgJe+MM+ZXcXzA4VaoiZ2XKmM2WYaewk38z0U04V
-	ZTvqTTi0YTXPtKchWAT71Kh9DEwpmHu8Thh6eDRENekroz8326IwNWhQkLbOR37uF3y8DP0GoQq
-	jZExX85ZFTz4D1AG0lAzn4lzsfsqdVWhmmR3S1qB3zE7o0nnFnbWq9mlT2f6tOK/WotKQS1L+B/
-	8oGyXkr/tKFUr2JXRr4TkXeRFQBSeBfKcUOSRa2DRw00h4RaPh32DQtHwSSCy5dgGJkH3N4zHAh
-	zMZnWheg3OeBg8rWnkUmKegk4e1A+ObFjc/AR00NFmS4eiL3Q/nxBYFD0gd+Xjqg9jp9QyEbp5s
-	glKkzGdBIaytVXSLPdyxK/iKOR0uZu02ypNaEBHLRAG2V9FYzl7UPrptRyHGfclQ4vkrNaTUteO
-	zxImBw9MqB2BbkcR73GZh/5KBK5xHIoqqGBrOcEts8FfYCVIDIxT6os9A8c6ZvPZRM1FGdlcEs/
-	kiYJeeIxwnOt6a5hVR879JQ5Gw==
-X-Received: by 2002:a05:600c:6088:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-499dc6f3248mr130645735e9.3.1787804307537;
-        Wed, 26 Aug 2026 21:18:27 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-154-097.95.114.pool.telefonica.de. [95.114.154.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499dd5616f7sm44613445e9.2.2026.08.26.21.18.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 26 Aug 2026 21:18:27 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	driver-core@lists.linux.dev,
+        bh=7U1BnFeXoGQfM9V4KkXP+ZPWf072nK5WtXag0RShRII=;
+        b=Zj5Qm1IJ8TFhsgjQAEZgRkV1kmxPObZUjiPGG6vgGIbe7LKtFnyh/ob/WP8wE+NGk5
+         FBjlRoSJkcrBxmb86WKeqxkw2i4hdCeZZdfQv1EUOr+S8Jf910AVD/BFEGC2rJXCsIj6
+         RM5M5le+1ziYq736B2pwW2wvFefYoJYwDtiqgVX+q2FO0FO0tM0qBNV6lMhcrkXuyq3m
+         dmNM+03/UWAdiA5mvQhBp+3JvtPDwtpFFGm9lkWsCTTPZJ1AiLrdzudtgQsik3KOV3aW
+         4s5otHMrRGVnShuxZbsgk30BGOo3HW+J6xx/EzQnBfebxaiU2mUaM6vVrck9rdhp+CVZ
+         hNKw==
+X-Forwarded-Encrypted: i=1; AHgh+RqOQhOsMGiFj0kP6GTrjDruH37KNuIU7ujvY3nfiR2oD3ydagK2l1OpzBoHp0cec1GE7X4jCSY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lB/lAFBm8W1mGAOCg99QCtZjyuFcvQoZcH8MMCGGZJVHux2IB0
+	FkO3je9eRZcDrOeLmCah54iEQh4uthiBOqOHtpo7pffWBXpYoch2VYiej80JyA==
+X-Gm-Gg: AR+sD12pTnR9Amr/Ckksp3rhZp/X7355brCfOGKVv1tt+vwlfjPptvuYg2CG2FLgp19
+	ST43M/1e9mKYzIoj47ieBDydO5qlqUhZdKMLpI9zEYbBQ/0xGNzaOVLONUa8rDItEh8PNwms3bY
+	ulVcMKnWUwRskj1eJ1EVQizVyyeGQ5yFGH5eQOK3ZOqxgvQmnhnZF/yAthJ4hoYYv1KsJQMcR7U
+	8aGszXPRN8U789ddJkefAWV+AfKd9sqfp36XhwiCt/vhO/onHvvS0wDX7e3vFyrUdqpqNtQMkXq
+	N6lufavzyUvJaNvNYwt6zsXMkLIMe0da1HQW+jdZoTO8KN9aqjVr0yM6IykPyv+Ksygg4PDcfSv
+	WVijayh2fT2VdVkqo7FMLG8Zt3rNGXGdz4vXQZqggyGHxrE0td8tVICRjryDJJriFyHl9boFyjT
+	aw7qjM0lGaIuxZcyyGrQtwRiBSoVvJTJjS941Tue4MbVRT3ijAQhb4RGJwcqvRO2iS7A==
+X-Received: by 2002:a17:90a:e70f:b0:38e:11ba:992c with SMTP id 98e67ed59e1d1-3966d4587b7mr25543337a91.12.1787804573880;
+        Wed, 26 Aug 2026 21:22:53 -0700 (PDT)
+Received: from Default ([2409:40f4:1012:4330:756d:2890:a615:2db9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905cf38sm19697942c88.12.2026.08.26.21.22.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 21:22:53 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: dwlsalmeida@gmail.com
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2] klist: avoid accesses after waking klist_remove()
-Date: Thu, 27 Aug 2026 06:17:08 +0200
-Message-Id: <20260827041708.31682-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: [RFC PATCH] media: vidtv: fix uaf in vidtv_bridge_on_new_pkts_avail
+Date: Thu, 27 Aug 2026 09:52:29 +0530
+Message-ID: <20260827042229.12561-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,95 +76,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-klist_remove() waits until a node is unreferenced so that its caller can
-free the containing object.  klist_release() currently publishes
-waiter->woken and wakes the waiter before its final accesses to the waiter
-and node.  klist_remove() can then return, allowing its stack waiter and
-the containing object to be freed or reused while klist_release() is still
-running.  In particular, bus_remove_driver() can free drv->p while
-__device_attach() walks the same bus klist with bus_for_each_drv().
+Attempting to unbind a dvbdevice that is in the process of feeding
+data causes a UAF as we free the underlying device without
+stopping the feed first. Fix this by stopping the stream first using
+vidtv_stop_streaming(). However, our codepath in the reproducer
+(mentioned in the below reply) does not decrement our users
+(dmxdev->dvr_dvbdev->users) to 1 after it has been incremented to 2
+by our read() in the reproducer, that is only possible on .release.
+This can cause a task hang as dvb_dmxdev_release() uses wait_event()
+in the wait_queue unless we use a close(fd)(in the reproducer).
+Is this a problem? Please advise.
 
-On an arm64 Cortex-A72 system, an unpatched 7.2.0-rc3 kernel with
-CONFIG_PREEMPT_RT=y and CONFIG_KASAN=y reproduced the bug through the
-in-tree I2C/at24 path.  KASAN reported a use-after-free in
-klist_dec_and_del() reached from klist_next()/bus_for_each_drv() while
-at24 was being unregistered.
-
-Clear n_klist and take a task reference before publishing woken.  Use
-release/acquire accesses for that publication and wake the referenced task.
-The task reference keeps the waiter task alive if it returns and exits
-before wake_up_process().
-
-Fixes: 8b0c250be489 ("[PATCH] add klist_node_attached() to determine if a node is on a list or not.")
-Fixes: 210272a28465 ("driver core: Remove completion from struct klist_node")
+Reported-by: syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c7fc4794e59786f5b4dc
+Fixes: f90cf6079bf6 ("media: vidtv: add a bridge driver")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
 ---
-v2:
-- Explain the use-after-free and document an in-tree driver path; drop the
-  syzbot tags (Greg).
-- Keep the mb(); removing it was NAKed before:
-  https://lore.kernel.org/r/20220614144443.6566-1-wuchi.zero@gmail.com/
-- Add an arm64 Cortex-A72 PREEMPT_RT + KASAN reproduction through the
-  in-tree I2C/at24 driver path; the first run hit KASAN after 32 module
-  unregisters and 397 device operations.
+ drivers/media/test-drivers/vidtv/vidtv_bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Link to v1:
-  https://lore.kernel.org/r/20260825040408.59225-1-kmehltretter@gmail.com/
-
- lib/klist.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/lib/klist.c b/lib/klist.c
-index 332a4fbf18ff0..f133740b1c2cb 100644
---- a/lib/klist.c
-+++ b/lib/klist.c
-@@ -36,6 +36,7 @@
- #include <linux/klist.h>
- #include <linux/export.h>
- #include <linux/sched.h>
-+#include <linux/sched/task.h>
+diff --git a/drivers/media/test-drivers/vidtv/vidtv_bridge.c b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+index fd69b4ee16f4..98d918c7f0ff 100644
+--- a/drivers/media/test-drivers/vidtv/vidtv_bridge.c
++++ b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+@@ -550,6 +550,8 @@ static void vidtv_bridge_remove(struct platform_device *pdev)
  
- /*
-  * Use the lowest bit of n_klist to mark deleted nodes and exclude
-@@ -187,18 +188,24 @@ static void klist_release(struct kref *kref)
+ 	mutex_destroy(&dvb->feed_lock);
  
- 	WARN_ON(!knode_dead(n));
- 	list_del(&n->n_node);
-+	knode_set_klist(n, NULL);
- 	spin_lock(&klist_remove_lock);
- 	list_for_each_entry_safe(waiter, tmp, &klist_remove_waiters, list) {
-+		struct task_struct *p;
++	vidtv_stop_streaming(dvb);
 +
- 		if (waiter->node != n)
- 			continue;
- 
-+		p = waiter->process;
-+		get_task_struct(p);
- 		list_del(&waiter->list);
--		waiter->woken = 1;
-+		/* Publish only after the final waiter and n accesses */
-+		smp_store_release(&waiter->woken, 1);
- 		mb();
--		wake_up_process(waiter->process);
-+		wake_up_process(p);
-+		put_task_struct(p);
- 	}
- 	spin_unlock(&klist_remove_lock);
--	knode_set_klist(n, NULL);
- }
- 
- static int klist_dec_and_del(struct klist_node *n)
-@@ -250,7 +257,8 @@ void klist_remove(struct klist_node *n)
- 
- 	for (;;) {
- 		set_current_state(TASK_UNINTERRUPTIBLE);
--		if (waiter.woken)
-+		/* Pairs with the release store in klist_release() */
-+		if (smp_load_acquire(&waiter.woken))
- 			break;
- 		schedule();
- 	}
+ 	for (i = 0; i < NUM_FE; ++i) {
+ 		dvb_unregister_frontend(dvb->fe[i]);
+ 		dvb_module_release(dvb->i2c_client_tuner[i]);
 -- 
-2.53.0
+2.55.0
+
