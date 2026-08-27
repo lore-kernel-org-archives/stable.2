@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF7638F935
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C94381AE7
 	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:40:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787805612; cv=none; b=WkucYurBjovNvVyJGPg3q2ixgBBg3gNkOFfgyMyX/Pba8wXpNkETF29s6kYo7o3XIBoJQiwnUBrD2gTMAk6jpFrm1kr8X76QCeIV9Owq6fKBr4AiDN3J2oGB4YHBfKShBfJ6kUmVOSZ83EPyjB3wB3OI4qDCQM+3BQhk7EWH4w0=
+	t=1787805612; cv=none; b=HUtZgpnRKW7+lEvqvIfk+GrwrRl0v60xQsC2pEvjjmGt+VJQU7qTV6DCmH+q5il0CNLXd+biEFQWs4+4OGFy5l8KnD0MbR1wRBkqN/8ryAwjoHQM133hTCopg4acUZy8olExb12/KNcUzu4Vb290q7VRBBZhkyMme/sWuSvfnAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787805612; c=relaxed/simple;
-	bh=2UMFA1CfdBdsczLSK9sjfVZ/0wyGD4ZTPzwpEX0r8Hs=;
+	bh=N4+yKr4auqjEJsxKvIE7c7peGPATWqfKsrNx8qFx/W4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YHONVZABHyf4UVdCb57kBpeaaE1qcjKYNCVRmrnwaaci3XiIhVvCdeQZcxrlZM3IVdN2YOPaMNInl5pF6Yml8xf7i1VpGx4a3n3kIH1PbV5MlFuIuyuVJIi43D7P68ErF6w84Q40WuPD2Ow1UKgEPU04hfm+8if0z836ubTPhXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdEo4722; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Z3YAdyjIYQgjhLJCpVO14NMiYQ5H9jrhAGorj2Rl9157eRQOEpWmJG0X3c9tfN0TX0wEcjVwkPD60bqxtBKSh9F06w3cnOgxCKTaqpvsM6PpDRniCQ7r55m3jxxAzL/QrBvQycVd+H7Pg/ZM66pFHnKh07R4aXsI6InDbM8zClk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L3a8GEP/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdEo4722"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442D91F00A3E;
-	Thu, 27 Aug 2026 04:40:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L3a8GEP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747E01F00A3D;
+	Thu, 27 Aug 2026 04:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787805610;
-	bh=5CbsEqmDirjdFSbzKTJdU9APnp9lJ0Y2huDNp8OmpM4=;
+	bh=rE+8iL4lHr+JKkuSZJk2gTEKTXF+d11ZfVdUUKpSS+Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZdEo47223VVzkYGP0Qvw22YwoePzCX+a+3mYsk7XzT2DqWkP14IZYhiDhp4K96WNN
-	 i7QhZQ0j4p2IZrzbx86jEs2X6yZpdZ6nS1HPNmSjTSP6h0fDR5D3HZEmqyNHAInDwu
-	 BUZuq1bh2zwqZgNRqHxcygvYq+VgK8IVpKSHBMtZEfD8a4EwAPLzx1Q0jbSL8DELiM
-	 AWDWxOYFMrQmUeERA8Y+nAcXx+1xiTccueKknweCQ0Z2mqdLS/VPg7NVUUywmc1Xo5
-	 knZICnQImqcVpNnq1QAvmkXVW/RY3jDVANIUC5XzKLCTWxqyclf/+FDH73Y9Jm5HtA
-	 /dDzHRQWaEESA==
+	b=L3a8GEP/Y81hvb9YfpX0qlcpsKRQr6n8vY+m6PXSgRQfdTCLj6dxqVGHlRmcFE0rg
+	 lynqVVrZn1tbh4xmopX3cUSrW4dRYwkbKis6TGSM366UJkvFYHM8u3yjHm09dY2qB6
+	 2DjBKwh7pyCcFIDAaLRKNOruVfkFJiILULKKNqVVLTsCD/zKYrGO0PgqNp7Cy6a+oh
+	 yFPVoHZt3pG/PJaK7wWB/RgY8k3MyLbDzfhYUg0C8HbXegVc/4miumnzEvIvTrydbq
+	 bzcMul9nPfWSmGgtVHc3Fv4wUzogaHLJ0dzNORHYSogX7KhUuYS+UZ94AtAfPbxz1y
+	 C+pCK7vZPjQXg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Michael Zaidman <michael.zaidman@gmail.com>,
-	Enrik Berkhan <Enrik.Berkhan@inka.de>,
+	Guillaume Champagne <champagne.guillaume.c@gmail.com>,
 	Jiri Kosina <jkosina@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/8] HID: ft260: improve i2c large reads performance
-Date: Thu, 27 Aug 2026 00:40:01 -0400
-Message-ID: <20260827044007.3635916-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/8] HID: ft260: improve i2c write performance
+Date: Thu, 27 Aug 2026 00:40:00 -0400
+Message-ID: <20260827044007.3635916-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260827044007.3635916-1-sashal@kernel.org>
 References: <2026082538-obstacle-cogwheel-cfc1@gregkh>
@@ -49,79 +49,143 @@ Content-Transfer-Encoding: 8bit
 
 From: Michael Zaidman <michael.zaidman@gmail.com>
 
-[ Upstream commit 54410c14800ad652c77e5c6fc5c17baad6e42cb6 ]
+[ Upstream commit 6fca5e3f5574ca1bd5bade5737848c816f924c6a ]
 
-The patch increases the read buffer size to 180 bytes. It reduces
-the number of ft260_i2c_read() calls by three, improving the big
-reads performance.
+The patch improves the I2C write performance by 20 - 30 percent by
+revising the sleep time in the ft260_hid_output_report_check_status()
+in the following ways:
 
-$ sudo i2ctransfer -y -f 13 w2@0x51 0x0 0x0 r180
+1. Reduce the wait time and start to poll earlier.
 
-Before:
+Sending a large amount of data at a low I2C clock rate saturates the
+internal FT260 buffer and causes hiccups in status readiness, as shown
+below in the log fragment. Aligning the status check wait time to the
+worst case significantly reduces the write performance.
 
-[  +4.071878] ft260_i2c_write_read: off 0x0 rlen 180 wlen 2
-[  +0.000005] ft260_i2c_write: rep 0xd0 addr 0x51 off 0 len 2 wlen 2 flag 0x2 d[0] 0x0
-[  +0.001097] ft260_xfer_status: bus_status 0x41, clock 100
-[  +0.000175] ft260_xfer_status: bus_status 0x40, clock 100
-[  +0.000004] ft260_i2c_read: rep 0xc2 addr 0x51 len 180 rlen 60 flag 0x3
-[  +0.008579] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000208] ft260_xfer_status: bus_status 0x40, clock 100
-[  +0.000001] ft260_i2c_read: rep 0xc2 addr 0x51 len 120 rlen 60 flag 0x0
-[  +0.008794] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000181] ft260_xfer_status: bus_status 0x40, clock 100
-[  +0.000002] ft260_i2c_read: rep 0xc2 addr 0x51 len 60 rlen 60 flag 0x4
-[  +0.008817] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000223] ft260_xfer_status: bus_status 0x20, clock 100
+[Oct22 10:28] ft260_i2c_write: rep 0xd8 addr 0x51 off 0 len 34 d[0] 0x0
+[  +0.005296] ft260_xfer_status: bus_status 0x20, clock 100
+[  +0.013460] ft260_i2c_write: rep 0xd8 addr 0x51 off 0 len 34 d[0] 0x0
+[  +0.003244] ft260_hid_output_report_check_status: wait 1920 usec, len 38
+[  +0.000190] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.015324] ft260_i2c_write: rep 0xd8 addr 0x51 off 0 len 34 d[0] 0x0
+[  +0.003491] ft260_hid_output_report_check_status: wait 1920 usec, len 38
+[  +0.000202] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.016047] ft260_i2c_write: rep 0xd8 addr 0x51 off 0 len 34 d[0] 0x0
+[  +0.002768] ft260_hid_output_report_check_status: wait 1920 usec, len 38
+[  +0.000150] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.011389] ft260_i2c_write: rep 0xd8 addr 0x51 off 0 len 34 d[0] 0x0
+[  +0.003467] ft260_hid_output_report_check_status: wait 1920 usec, len 38
+[  +0.000191] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000172] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000131] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000241] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000233] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000190] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000196] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.011314] ft260_i2c_write: rep 0xd8 addr 0x51 off 0 len 34 d[0] 0x0
+[  +0.003334] ft260_hid_output_report_check_status: wait 1920 usec, len 38
+[  +0.000227] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000204] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000198] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000147] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.011060] ft260_i2c_write: rep 0xd8 addr 0x51 off 0 len 34 d[0] 0x0
 
-After:
+  Before:
+    $ sudo ./i2cperf -f 2 -o 2 -s 32 -r 0-0xff 13 0x51 -S
 
-[ +11.611642] ft260_i2c_write_read: off 0x0 rlen 180 wlen 2
-[  +0.000005] ft260_i2c_write: rep 0xd0 addr 0x51 off 0 len 2 wlen 2 flag 0x2 d[0] 0x0
-[  +0.008001] ft260_xfer_status: bus_status 0x20, clock 100
-[  +0.000001] ft260_i2c_read: rep 0xc2 addr 0x51 len 180 rlen 180 flag 0x7
-[  +0.008994] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.007987] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.007992] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000206] ft260_xfer_status: bus_status 0x20, clock 100
+      Fill block with increment via i2ctransfer by chunks
+      -------------------------------------------------------------------
+      data rate(bps)  efficiency(%)  data size(B)  total IOs   IO size(B)
+      -------------------------------------------------------------------
+      40510           80             256           8           32
 
-Suggested-by: Enrik Berkhan <Enrik.Berkhan@inka.de>
+  After:
+    $ sudo ./i2cperf -f 2 -o 2 -s 32 -r 0-0xff 13 0x51 -S
+
+      Fill block with increment via i2ctransfer by chunks
+      -------------------------------------------------------------------
+      data rate(bps)  efficiency(%)  data size(B)  total IOs   IO size(B)
+      -------------------------------------------------------------------
+      52584           80             256           8           32
+
+2. Do not sleep if the estimated I2C transfer time is below 2 ms since
+   the first xfer status query frequently takes around 1.5 ms, and the
+   following status queries take about 200us on average. So we usually
+   return from the routine after the first 1 - 3 status checks.
+
+[Oct22 11:14] ft260_i2c_write: rep 0xd4 addr 0x51 off 0 len 18 d[0] 0x0
+[  +0.004270] ft260_xfer_status: bus_status 0x20, clock 100
+[  +0.013889] ft260_i2c_write: rep 0xd4 addr 0x51 off 0 len 18 d[0] 0x0
+[  +0.000856] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000138] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.013352] ft260_i2c_write: rep 0xd4 addr 0x51 off 0 len 18 d[0] 0x0
+[  +0.001501] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000177] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.014477] ft260_i2c_write: rep 0xd4 addr 0x51 off 0 len 18 d[0] 0x0
+[  +0.001377] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000233] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000191] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.013197] ft260_i2c_write: rep 0xd4 addr 0x51 off 0 len 18 d[0] 0x0
+
+  Before:
+    $ sudo ./i2cperf -f 2 -o 2 -s 16 -r 0-0xff 13 0x51 -S
+
+      Fill block with increment via i2ctransfer by chunks
+      -------------------------------------------------------------------
+      data rate(bps)  efficiency(%)  data size(B)  total IOs   IO size(B)
+      -------------------------------------------------------------------
+      28826           73             256           16          16
+
+  After:
+    $ sudo ./i2cperf -f 2 -o 2 -s 16 -r 0-0xff 13 0x51 -S
+
+      Fill block with increment via i2ctransfer by chunks
+      -------------------------------------------------------------------
+      data rate(bps)  efficiency(%)  data size(B)  total IOs   IO size(B)
+      -------------------------------------------------------------------
+      45138           73             256           16          16
+
 Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
+Tested-by: Guillaume Champagne <champagne.guillaume.c@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.cz>
 Stable-dep-of: bf3e39df3a39 ("HID: ft260: fix stack-use-after-return write in I2C read race")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-ft260.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ drivers/hid/hid-ft260.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 539d311bb9b9d..854876b16880d 100644
+index 79505c64dbfe7..539d311bb9b9d 100644
 --- a/drivers/hid/hid-ft260.c
 +++ b/drivers/hid/hid-ft260.c
-@@ -30,12 +30,19 @@ MODULE_PARM_DESC(debug, "Toggle FT260 debugging messages");
+@@ -355,7 +355,7 @@ static int ft260_hid_output_report(struct hid_device *hdev, u8 *data,
+ static int ft260_hid_output_report_check_status(struct ft260_device *dev,
+ 						u8 *data, int len)
+ {
+-	int ret, usec, try = 3;
++	int ret, usec, try = 100;
+ 	struct hid_device *hdev = dev->hdev;
  
- #define FT260_REPORT_MAX_LENGTH (64)
- #define FT260_I2C_DATA_REPORT_ID(len) (FT260_I2C_REPORT_MIN + (len - 1) / 4)
+ 	ret = ft260_hid_output_report(hdev, data, len);
+@@ -366,10 +366,14 @@ static int ft260_hid_output_report_check_status(struct ft260_device *dev,
+ 		return ret;
+ 	}
+ 
+-	/* transfer time = 1 / clock(KHz) * 10 bits * bytes */
+-	usec = 10000 / dev->clock * len;
+-	usleep_range(usec, usec + 100);
+-	ft260_dbg("wait %d usec, len %d\n", usec, len);
++	/* transfer time = 1 / clock(KHz) * 9 bits * bytes */
++	usec = len * 9000 / dev->clock;
++	if (usec > 2000) {
++		usec -= 1500;
++		usleep_range(usec, usec + 100);
++		ft260_dbg("wait %d usec, len %d\n", usec, len);
++	}
 +
- /*
-- * The input report format assigns 62 bytes for the data payload, but ft260
-- * returns 60 and 2 in two separate transactions. To minimize transfer time
-- * in reading chunks mode, set the maximum read payload length to 60 bytes.
-- */
--#define FT260_RD_DATA_MAX (60)
-+ * The ft260 input report format defines 62 bytes for the data payload, but
-+ * when requested 62 bytes, the controller returns 60 and 2 in separate input
-+ * reports. To achieve better performance with the multi-report read data
-+ * transfers, we set the maximum read payload length to a multiple of 60.
-+ * With a 100 kHz I2C clock, one 240 bytes read takes about 1/27 second,
-+ * which is excessive; On the other hand, some higher layer drivers like at24
-+ * or optoe limit the i2c reads to 128 bytes. To not block other drivers out
-+ * of I2C for potentially troublesome amounts of time, we select the maximum
-+ * read payload length to be 180 bytes.
-+*/
-+#define FT260_RD_DATA_MAX (180)
- #define FT260_WR_DATA_MAX (60)
- 
- /*
+ 	do {
+ 		ret = ft260_xfer_status(dev);
+ 		if (ret != -EAGAIN)
 -- 
 2.53.0
 
