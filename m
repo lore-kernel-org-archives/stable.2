@@ -1,173 +1,113 @@
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310103644BE;
-	Thu, 27 Aug 2026 06:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E51322DB7;
+	Thu, 27 Aug 2026 06:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812961; cv=none; b=M2NjKfscgDqTBjMxPE3ha691owaDCnV+ME+ehU1fByjktIOHK/QawDuKq4i8k+1yvc1LsvmiP2KXOrLlT+XseSwNufJW6WSyeVNzEcT/jHbzV9FR8ttIsBSIZ6l8MmP7BFqwM94NAmFPdQOf3qqv9TmXrif3K40t3uUN+rYrsAk=
+	t=1787812979; cv=none; b=KwtDII8WujDWiU8sTNz2mAcs/l+spRf6gIc5+IiP3V51GZ5iw9Ts/tyIKIVBNMs+wu/mvbUGafY91HS50uEviSd79knrHcojEWzUSHGrnEuRYhlKrxzlGWZE52QmPisHgWgNwktZgNw0q07b0OorNx0bccgd7yQFjImHeVx6iFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812961; c=relaxed/simple;
-	bh=YVZtFrajDbpPflOWP7G1rE6Ax3pnPOPv3Z9dYQLRObc=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=IRTn6XG9BAL9K09ITZ3Chl8xKT4dSNaiZ5+juxsQ3vE2Z7Z4DDYjU5ohkV+scZNwCYH6iD7e7fc20hZ77JOCZrGqNvizkR4DFH87032JLqQCU1o+t8AsFHJIP75zmUO/mYsXOdlNpvZWzNFGFASsK7FZypXjh4GgTkpUGp9iS2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=kOY5F4Zo; arc=none smtp.client-ip=203.205.221.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1787812979; c=relaxed/simple;
+	bh=pw1sL4GCKzOrVaTCSIyFIIP6qDP3kJo7hS6eJKxXYP0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=AOzJjEb29E5BArlOic8pR9imL4gftzuUwyaftv6FrFvnu5Vg4DFppVvBAplLfFDG2KgtLfLOLddbytRvdz7WVA1PvsY096EkM0Pcxwl3fubp7+55aLWf4ME5KkD/uuP/xbGIPdCLY+14pKdgohyRizqj8Tk835nC3FIjWOsQmbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jCwVpxmw; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="kOY5F4Zo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1787812949; bh=JN9cwocoVSnc4dJa47FODR20clQofla8GnMhi3yDhV8=;
-	h=From:To:Cc:Subject:Date:Reply-To;
-	b=kOY5F4ZotXa0qDnYqIZ15Ts6E3vtH2XM3JAbOqAhMukEAneeLwdjFHHpc7mI+BIcB
-	 BWlyFvvpz9UKC0zwzOi1I2xYzY4WVtf2i2D/ErIdOMZhKsP6LkY9JVkybndFeOdjoS
-	 lm4D75hHEngq7wcyKP82ozvw5agrzRpT8NPpiqBI=
-Received: from DESKTOP-5664AH9 ([2408:8459:3840:c746:b80c:e0bd:3b46:8260])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id A9A38C9F; Thu, 27 Aug 2026 14:42:26 +0800
-X-QQ-mid: xmsmtpt1787812946t05jmb08z
-Message-ID: <tencent_262C335D5C0549C6ED9EA88FF00437B26708@qq.com>
-X-QQ-XMAILINFO: ObqHjTnQtDvTAcFSH+C+DJDy0FfoQfjZrD7wmIzsexCrOt/9BJ7V2jG0bHco6+
-	 GvsF5sYMpJE4XNp9lp5q1gpgTeNymM9IwhkcG0vNTLNmrcUFPflvxp6Z25PTj2bdPNyevL0ZRDHg
-	 D6ppZBxKuad4ND4OlTzvuQ6RlHxbabMu+GBLizJK9c/ugt5cipOvCacteJ0bYr+EXaJoSk9A6OPQ
-	 3CahuzVEBzhRI5N58/D1LnBl5ULcE9g3F1aDAlhd6SQPJj668yvY0mbc3gpC56RFu2amjchD2l/H
-	 mDUP29fYhTeqVXQkR7gerRhlw+kPzrgTsZg580xlH5h+Zqr5eJLUSPEdIIraTZ9RQhfN4KYY3mbD
-	 dCxdQ8ARJkHzNhgtU1xv4zN47TUiP+oFnvd7Bgr+FoOuXchJSJGEFvsL7+XfrUfOYFX6UEbfYNnG
-	 qcJW+yW6S02Kwn5qxoEu6SDLWys6BBeqoGghmWmIih/4/La9yiRqVPGSgaqZKexDinK2WIutb/dN
-	 1vNl0JF0g/sQSU5wNRSyqsQ5ne+39oFv1AC1iGwFWDyd2VGNv6jSjC/yplqqJlzf9bShGlkeDNj0
-	 q7dfN4Kb5bu2+qc64Rm6RjkaR9vLqWynoF/HhzeQBEKClIVUg/7f0+5p/Q00RkUqbHL3jlIrDIib
-	 QHuOdE0dbLRgw4K2e6T+XuHeuPXdR/cg7UBsU+6EYPp5m81++WduC7scW4bYogEjEUcuF2z9kqOH
-	 CmPhwlPCNvvFCcHu8EX2cn3mybbgkgeL74Ae/K0LoKRUw1QJa1QtyMWFdbXtynMmX+Tv3QYAha3r
-	 rAsVeogBqjGCY/dxiJT3W3xTar5wRhquiEZdDjjeJ1uvVn4H65MpVQR22Sl4tz4s6gWL9sDpKlo9
-	 gElDYP1M6xRDxJl/MUdLwaBAV4QCAiSCRm5WeJZ1GkGLKzyG71JUDlQCbXAWhuIIepCgSw1prs2j
-	 w5is7tjC142yoQ63pgwCBL7su+rxsP19Zye0pE6bDJU0gqHiZhyn8tFryR+awdowOk2H3NmElx7F
-	 Ac8SA7rdbSW+DgwOMhp5RuUZQ8sD5gRYkWYeyAJW6IN31OPP9qg/h6PNOq0MKV9SYy13SsPJqH6b
-	 5I8AZ9IUZX9PI2j6MzPQ7ZOOyy6sztrjjyrf1zdtfbHJMUJ3rp8mu7z+5qp909ISLVCBen
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: =?UTF-8?q?DUAN=20Xuejian=20=28=E6=AE=B5=E9=9B=AA=E5=81=A5=29?= <445735441@qq.com>
-To: greg@kroah.com
-Cc: linux-acpi@vger.kernel.org,
-	hansg@kernel.org,
-	rafael.j.wysocki@intel.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jCwVpxmw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nr
+	cvEP3Xhkd19RV4CkWuoVyi53edPcp87hFyJB/+lYw=; b=jCwVpxmwOv2d8zH0Ez
+	B00RYhAtKeo14GoFrOGKgIgg7N0D+rZLZSoQDU4V2FXasvRW0x71XiADEVHQEoWr
+	xLs10uPOCZ+VKHr/7x17oCMmAsWKVtbG2NT0mKh4hxX976q7uaE7EhuYYE9SsofL
+	IblR5TAzN8/os3n7qQRqifT9Y=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3n1Ji3I9qCBuTRQ--.33879S3;
+	Thu, 27 Aug 2026 14:42:44 +0800 (CST)
+From: ghuicao@163.com
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	DUAN Xuejian <445735441@qq.com>
-Subject: [PATCH v2] ACPI: resource: Add MECHREVO GM5BG0E to irq1_edge_low_force_override[]
-Date: Thu, 27 Aug 2026 06:42:27 +0800
-X-OQ-MSGID: <20260826224227.1489-1-445735441@qq.com>
-X-Mailer: git-send-email 2.55.0.windows.3
-Reply-To: greg@kroah.com
+	Cao Guanghui <caoguanghui@kylinos.cn>
+Subject: [PATCH v4 2/2] scsi: target: iscsi: Fix HeaderDigest to cover AHS data
+Date: Thu, 27 Aug 2026 14:42:41 +0800
+Message-Id: <20260827064241.88352-2-ghuicao@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260827064241.88352-1-ghuicao@163.com>
+References: <20260827013245.21289-1-ghuicao@163.com>
+ <20260827064241.88352-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n1Ji3I9qCBuTRQ--.33879S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWUAFWDZF1fCF4kKrWrAFb_yoW8ury3pw
+	s8Ww1jvr45u3y5ur47AF4Yqw1YqayrGFWjvFWfG34093Z8JFWq9a4Iga4agFy8trWvgF1a
+	vr4qg345tF40qw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUXocUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4ATOYWqP3GTxpQAA3C
 
-Changes since v1:
-- Use real name (DUAN Xuejian) instead of nickname (Hackdale)
-- Add real Link to mailing list discussion
-- Update maintainer email (hansg@kernel.org)
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-The MECHREVO Jiaolong 15K (GM5BG0E), an AMD Ryzen 7 7435H based laptop,
-has a defective DSDT that declares the PS2K keyboard IRQ1 as ActiveLow,
-whereas the hardware is actually ActiveHigh. Starting with Linux 6.0,
-the kernel no longer auto-corrects this polarity mismatch on AMD Zen
-platforms, causing the internal keyboard to become non-functional.
+In iscsit_get_rx_pdu(), the HeaderDigest CRC32C is computed over only
+the 48-byte basic header (ISCSI_HDR_LEN), excluding any Additional
+Header Segments.  However, RFC 3720 Section 10.2.1.2 specifies that
+the header digest covers "all the header segments of a PDU, i.e., BHS
+and AHS."
 
-Add the GM5BG0E board to the irq1_edge_low_force_override[] DMI quirk
-table so that the kernel forces the correct IRQ polarity for this model.
+The iSCSI initiator (libiscsi) correctly computes the digest over
+BHS + AHS (task->hdr_len = 48 + hlength * 4), so any valid PDU with
+both HeaderDigest negotiated and AHS present (e.g., SCSI commands with
+Extended CDB) would fail CRC verification on the target side and be
+falsely rejected.
 
-Link: https://lore.kernel.org/linux-acpi/tencent_7C3B122A153CDB0DEF19FA4C03D779D27806@qq.com/
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: DUAN Xuejian (段雪健) <445735441@qq.com>
+Track the total header length in a local variable and use it for the
+CRC computation so that the digest covers the full header as required
+by the RFC.
+
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
- drivers/acpi/resource.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/target/iscsi/iscsi_target.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
--- 
-2.49.0
-
-diff --git a/drivers/acpi/resource.c b/drivers/acpi/resource.c
-index xxxxxxx..xxxxxxx 100644
---- a/drivers/acpi/resource.c
-+++ b/drivers/acpi/resource.c
-@@ -xxx,x +xxx,x @@ static const struct dmi_system_id irq1_edge_low_force_override[] = {
- 		},
- 	},
-+	{
-+		/* MECHREVO Jiaolong 15K GM5BG0E */
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_NAME, "GM5BG0E"),
-+		},
-+	},
- 	{ }
- };
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -4026,6 +4026,6 @@ static void iscsit_get_rx_pdu(struct iscsit_conn *conn)
+ {
+ 	int ret;
+ 	u8 *buffer, *tmp_buf, opcode;
+-	u32 checksum = 0, digest = 0;
++	u32 checksum = 0, digest = 0, header_length;
+ 	struct iscsi_hdr *hdr;
+ 	struct kvec iov;
+@@ -4053,8 +4053,10 @@ static void iscsit_get_rx_pdu(struct iscsit_conn *conn)
+ 		}
  
+ 		hdr = (struct iscsi_hdr *) buffer;
++		header_length = ISCSI_HDR_LEN;
+ 		if (hdr->hlength) {
+ 			iov.iov_len = hdr->hlength * 4;
++			header_length = ISCSI_HDR_LEN + iov.iov_len;
+ 			tmp_buf = krealloc(buffer,
+ 					  ISCSI_HDR_LEN + iov.iov_len,
+ 					  GFP_KERNEL);
+@@ -4082,5 +4084,5 @@ static void iscsit_get_rx_pdu(struct iscsit_conn *conn)
+ 			}
+ 
+-			checksum = iscsit_crc_buf(buffer, ISCSI_HDR_LEN, 0,
+-						  NULL);
++			checksum = iscsit_crc_buf(buffer, header_length, 0,
++						  NULL);
+ 			if (digest != checksum) {
 -- 
-2.49.0
-
----
-
-# 中文版补丁说明
-
-## 问题描述
-
-MECHREVO 蛟龙15K (GM5BG0E) 搭载 AMD Ryzen 7 7435H 处理器，其 BIOS DSDT 表中存在错误：
-键盘 IRQ1 被声明为 ActiveLow（低电平触发），但硬件实际为 ActiveHigh（高电平触发）。
-
-从 Linux 6.0 内核开始，AMD Zen 平台不再自动修正此极性不匹配问题，导致内置键盘无法使用。
-
-## 修复方案
-
-将 GM5BG0E 主板添加到内核 `irq1_edge_low_force_override[]` DMI 兼容表中，
-使内核为该型号强制使用正确的 IRQ 极性。
-
-## 提交信息
-
-- **维护者**：Hans de Goede <hansg@kernel.org>
-- **邮件列表**：linux-acpi@vger.kernel.org
-- **抄送**：stable@vger.kernel.org（用于稳定版回溯）
-
----
-
-# English Version - Patch Description
-
-## Problem Description
-
-The MECHREVO Jiaolong 15K (GM5BG0E), equipped with AMD Ryzen 7 7435H processor,
-contains a defective BIOS DSDT table. The PS2K keyboard interrupt (IRQ1) is
-declared as ActiveLow in the ACPI table, but the hardware is actually wired
-for ActiveHigh operation.
-
-Starting with Linux 6.0, the kernel no longer automatically corrects this
-polarity mismatch on AMD Zen platforms (commit 2d331a6ac481), causing the
-internal keyboard to become non-functional.
-
-## Solution
-
-Add the GM5BG0E board name to the irq1_edge_low_force_override[] DMI quirk
-table in drivers/acpi/resource.c. This forces the kernel to apply the correct
-IRQ polarity override for this specific hardware model.
-
-## Technical Details
-
-- **File modified**: drivers/acpi/resource.c
-- **Function affected**: acpi_dev_irq_override()
-- **Quirk table**: irq1_edge_low_force_override[]
-- **DMI match**: DMI_BOARD_NAME = "GM5BG0E"
-
-## Testing
-
-Verified on MECHREVO Jiaolong 15K with:
-- AMD Ryzen 7 7435H
-- BIOS N.1.23MRO20
-- Linux kernel 6.x
-
-After applying this patch, the internal keyboard functions correctly.
-
-## References
-
-- Similar fixes: GM6BGEQ, GM6BG5Q, GM6BG0Q (TongFang barebones)
-- upstream commit: 2d331a6ac481 ("ACPI: resource: Fix IRQ override quirk")
+2.34.1
 
