@@ -1,119 +1,125 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31DE3557F3
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B24338737B;
+	Thu, 27 Aug 2026 07:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815665; cv=none; b=tpO8fId4gFVtP80nMybbux4owi7WfQ4/qToxG1DwRsoHvXp47HLRNNpRn7yNfvv/zbXlUT5/NGIkxreKz3MK4tF87URXdUxIOo2aqBHbC1qDIXm04FMUFo1gLGJGXnVGszKdjA9NyDajYY14qYwjkaxJpo7btfwJjNId0VIZ9q0=
+	t=1787816838; cv=none; b=RZVjKJh92uD1msLGin+utF0yEZK0mncKsNejUlnlbjJC1kSz+ncUuhyKnPZ+yss/NzgfFveeO2FsJl4VCw/kHg98+fYKYGx5JKt9upcW0pbU6bJOAJd/XVD4+sgf8zxJHVk04/bhpG/zZ2D+IiXjmmdIQIzFmZ5UxfLAMEwcN4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815665; c=relaxed/simple;
-	bh=RW+2FLygnkT7VKSaO3nDahuHx/wOKYtQk2ensP7S75Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L6+aaqZnUNdhcR4RqBbG5tX+Go5Bks7M+YmF5JV5GzKZpBDJKSlHN/R3NKgpuiX7DdhM5iYw7ponbCvBodx2PkMERn0XQhLM7o6NJBBKIZ/TTZdVBnLgADTgTevFQsKrNu2/U4r3LxnHRQT16kVDcoMCdGWHI1xs/Zme8MwBo4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H4KA730I; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787816838; c=relaxed/simple;
+	bh=D9iRynStFiinHNFk3YUubpgCjzHKcAiB1h/04CNvTa8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U3zaHU+Ncb6Km0NDV/4uv+OcUVSS/sjnrQq0EAq4Ws44Y6tO4XTRUKh1bidpx9jnyaJ1ZUnKHpWmwQaakk7wSnAeO1CC3VsUH6HrKejLzXHXKNx+MQ3/SUbYUiNmomTmQYy/ZAUynkpXhlWAv0BkmQhf9q4rOWfH/IWLxILO8pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXJQAfnV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H4KA730I"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e347638adso2331363a91.0
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 00:27:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787815663; x=1788420463; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jhgeScSczCiBwmHIIxWPTFb5OADckPp/7bxTknyDE6w=;
-        b=H4KA730IG6fHs1R2p4nUSj+Hpok6dD6Zd8Ij3DbHqbsvjqCXkquc4CLaaGRtSA5tYb
-         ddcYs9ZEaJ4h7TQ1C9iQq+/yn+XlLgKIGX/Ia2ZAF6/45jsFTj5f4kL5Z8EEX5x0q1Hf
-         fYqyu7ipVheyDM9e1sAODuAAdIZeB9a58kVlGgeah9GiJs851R4c1tNylJb8ZaFWWgdd
-         GQIzG0bUYapTzerdza2VUEH5t5Qum5s6PE9SqXITOkObM60r9S2i9UNMgW1MuNfJGDXv
-         9u0BDbZ7dn2oLGDJTCiM/ZrrzQdJfH7eE58kKhxqosk0nBCZU8n1+j4q+IuuOfZ6RT6u
-         NVXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787815663; x=1788420463;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jhgeScSczCiBwmHIIxWPTFb5OADckPp/7bxTknyDE6w=;
-        b=PYdwiMFyyYJM8kxJfThJzxlNpyyzDoruaf8ZLTUVpt8wkNEn4TNkVpvcHObkjEyU7s
-         UwjbGDdt5IPhnK91rQz95iwyBItkywg+L9iPkW+GwDSXsvKBOnxi1ZKOJ0KmV7SQ0TaK
-         18WP8U0vF20o9KzPqLmToSPR2MyV6XQ+2q7Ap6/v5L58dxN7BW26zdDccPB/zFUyvRt3
-         G5LZwU7IqA2csSrTbhtJTgxQvLepvIXLID/bT6Yp3GXKfvWx1edZWdgbKd70B18JWcli
-         Y4a68WonFC15wd/p84zaN4BjO4z8FnlmUL2xwXOGBuLrTCjgbWtR7JTDIDuuWzRqt8Uz
-         guaw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/vyMOupMVADvCfGWyqNsKuXLT5Sz9EF085UHyyiFpsFs/QwPFw4bvXScWErqH7N9039KEOvU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAKDmvCPYuGLg/fRSPRBREPf2/8TUa0Glc7nmY13F9Iw34LHnH
-	pUmY+VEuMcz3n6rPKAEKQaMxB0RqhcPcjbzB7kUItJiiSU5xnDcmrYTs
-X-Gm-Gg: AR+sD11uLITWAsHD6Sms3aex13aDQUKxTQAe2U1lo1icY/Bv+7OjQTOffOKmLD8W83U
-	7RKrjPaP6hrcTPLjo27k11Ta7KRSGZ+M1Ni8tiBRg8r29HJ8BM6YfB8eOrqs0Dr9SFBhiMhG8LR
-	6RUtj+/DDasXFPpGdDs8CSn4H7t1EOOyTN2TMLEGekjfOBDX9QWboFN4WdL0f4jbBciKYMm5wpF
-	oi41NjPxpDWYEs8zO3/XvCG4fAM6LXKob8JPw5w70oeHZ8pfZX7zmMJVQl3uvPpmPj3tAIT2bFn
-	II/vGeoHvIlIRW9oXOCljWyoMm0gZCRZzLHwEjPynV6R1uybl+9JdZU8viKOezMgCr3rxgslOCg
-	l06F5xZx8d2qfWmswBDX3Fs4s86XXjKF8bcxMMTp4hlZK3ID3ztAxnHRf86P5xWb55ttJ0Fz5LK
-	ztt0PJkpuVBJWqDm4OTcDR+BC1Qp7sloUOq7qcpcqSHarKMXkBCVlQlwWLWVMD3O4BmiTrsemyU
-	EWlsqLqEOwqgoRWfbhjKguwZ582QOy5W4FfHw==
-X-Received: by 2002:a17:90b:4c8e:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-3966d44daf1mr21255453a91.14.1787815663140;
-        Thu, 27 Aug 2026 00:27:43 -0700 (PDT)
-Received: from urmom.192.168.1.1 ([14.170.170.155])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396705f6106sm1791052a91.0.2026.08.27.00.27.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 00:27:42 -0700 (PDT)
-From: Lucas Sproule <lucas.sproule.42@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Rob Herring <robh@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] remoteproc: qcom_wcnss: Fix error check after devm_ioremap_wc() switch
-Date: Thu, 27 Aug 2026 14:27:33 +0700
-Message-ID: <20260827072735.2262888-1-lucas.sproule.42@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXJQAfnV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4451F00A3A;
+	Thu, 27 Aug 2026 07:47:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787816834;
+	bh=HAx27bjYWIezR+l7iw/n59Tjpp+JZqYjQalST4GROaY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jXJQAfnVvTVWEWNE4VPcqMrW72bz1eQ9s0q/9pxGB/zaGdI3wBRdVVIhDL5nvhCmY
+	 lC3j0jOHD+sfzJqcAIE01FVPTZ5zMFBDKqvdCxB4RdEUGSVHfsxj9pAUyDem3DiiDc
+	 Cs/0u+1y1bxBZ0NGH32qI+TEeFnu2EmwnR4ii55QrS9wtra/TlmA1P96dBkZ2ounLw
+	 KWrarGBk+zvC9/3bFuYSbxLGuHNb/v8r0LAC3s1+v8nHQmhrn8SW4gcaOnq9pU2cJ/
+	 y0Lk4h7yDpuPuQXAVg9pKeTOuPqRAwSr8o0SOA8bMx6ZPREh+zz8paYvSEhJSAIbRr
+	 KJlwyQO2cFMPQ==
+Message-ID: <c4684212-f44a-4aff-a02d-f3f26095ebc1@kernel.org>
+Date: Thu, 27 Aug 2026 09:47:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
+To: Zi Yan <ziy@nvidia.com>, Harry Yoo <harry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ syzbot+805630f1453e490427fa@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
+ <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
+ <ao9dPUpHxP5uOOcw@MacBook-Air.tail10959e.ts.net>
+ <DKZ7J9HNUDR6.BP9KG5Q7HYMJ@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+In-Reply-To: <DKZ7J9HNUDR6.BP9KG5Q7HYMJ@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Commit f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region
-mapping failure") switched back from devm_ioremap_resource_wc() to
-devm_ioremap_wc(), but kept the IS_ERR() check that had been added to
-match the resource variant.
+On 8/26/26 11:52 PM, Zi Yan wrote:
+> On Wed Aug 26, 2026 at 5:47 PM EDT, Harry Yoo wrote:
+>> On Wed, Aug 26, 2026 at 11:28:12AM +0000, Vlastimil Babka (SUSE) wrote:
+>>> On 8/17/26 22:40, Zi Yan wrote:
+>>>> kmalloc is used to allocate physically contiguous memory for kernel
+>>>> allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc uses
+>>>> the page allocator and can only support up to KMALLOC_MAX_SIZE. For request
+>>>> sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
+>>>> because kmalloc allocates an order greater than MAX_PAGE_ORDER. Systems
+>>>> with panic_on_warn=1 crash because of this WARN. Fix it by rejecting any
+>>>> kmalloc size bigger than KMALLOC_MAX_SIZE.
+>>>>
+>>>> Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher kmalloc requests")
+>>>> Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+>>>> Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@google.com/
+>>>> Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
+>>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>>> Cc: stable@vger.kernel.org
+>>>> ---
+>>>> It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadgetfs
+>>>> requests excessively large memory from kmalloc. Instead of adding
+>>>> __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
+>>>> kmalloc to return NULL without a warning for this specific issue.
+>>>>
+>>>> [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively large memory allocations")
+>>>
+>>> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
+>>>
+>>>         /* Don't even allow crazy sizes */
+>>>         if (unlikely(size > INT_MAX)) {
+>>>                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
+>>>                 return NULL;
+>>>         }
+>>>
+>>> This comes from Linus in commit 7661809d493b4. I'd do the same thing here
+>>> then.
+>>
+>> But the purpose of this patch is to avoid the warning in the page
+>> allocator. Should we fix this in the caller (gadgetfs) then? 
+> 
+> It is fixed by: https://lore.kernel.org/all/20260820223719.A4A3C1F000E9@smtp.kernel.org/
+> 
+> Please disregard this patch, but we can keep the discussion going.
 
-devm_ioremap_wc() returns NULL on failure rather than an error pointer,
-so IS_ERR() never fires and wcnss_alloc_memory_region() returns success
-with wcnss->mem_region left NULL.  Probe completes, and every subsequent
-firmware boot then fails with a bare -EINVAL from qcom_mdt_load_no_init(),
-masking the real mapping failure.
+I still think this patch has some value if done as proposed above. Yes
+in practice it will just replace the page allocator's warning with a
+different warning, but IMHO it's "nicer" if kmalloc() sanitizes its own
+requests to the page allocator, using the KMALLOC_MAX_SIZE value.
 
-Check for NULL instead, and return -ENOMEM to match the other remoteproc
-drivers.
-
-Fixes: f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region mapping failure")
-Cc: stable@vger.kernel.org # v7.0+
-Signed-off-by: Lucas Sproule <lucas.sproule.42@gmail.com>
----
- drivers/remoteproc/qcom_wcnss.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
-index c856a92af43c..90747af237f7 100644
---- a/drivers/remoteproc/qcom_wcnss.c
-+++ b/drivers/remoteproc/qcom_wcnss.c
-@@ -542,9 +542,9 @@ static int wcnss_alloc_memory_region(struct qcom_wcnss *wcnss)
-  wcnss->mem_phys = wcnss->mem_reloc = res.start;
-  wcnss->mem_size = resource_size(&res);
-  wcnss->mem_region = devm_ioremap_wc(wcnss->dev, wcnss->mem_phys, wcnss->mem_size);
-- if (IS_ERR(wcnss->mem_region)) {
-+ if (!wcnss->mem_region) {
-    dev_err(wcnss->dev, "unable to map memory region: %pR\n", &res);
--   return PTR_ERR(wcnss->mem_region);
-+   return -ENOMEM;
-  }
- 
-  return 0;
--- 
-2.53.0
+>>
+>>> Thus there would be a useful warning for e.g. development mistakes
+>>> resulting in the size to be unexpectedly high.
+>>>
+>>> Callers passing size that comes from userspace or similar untrusted source
+>>> can either pass __GFP_NOWARN or sanitize the size to what they expect to be
+>>> sane (which is context dependent and I assume actually way lower than
+>>> kmalloc limits in practice). Note that passing even sizes within but close
+>>> to/at the limit, trusting blindly some external source, can succeed the
+>>> allocations but effectively DoS the system with heavy reclaim/compaction. So
+>>> caller sanitization should still be preferred IMHO. Some of the recent
+>>> arguments from Linus [1] would apply to this too, I think.
+>>>
+>>> [1]
+>>> https://lore.kernel.org/all/CAHk-=wiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=TBGGZbuhQ@mail.gmail.com/
+> 
+> 
+> 
+> 
 
