@@ -1,36 +1,36 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59EA40EB99
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BBE41BA61
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787858087; cv=none; b=hpUXyj2RvH6jpeek9ySANKirXPItZPsIUrl/m3P965dI7MXus80pmKF4u5TNjpRGoS9WhTiToID2Oi3hhP4T946yiCK34ZnDo2zm0guzJ8Eh8w9okJJBePE4LU6rKeOEoBX+FaI/ARJI+6b2bMPN7T/hUCnBFhTKCM+ma9DnJa0=
+	t=1787858093; cv=none; b=fTyQnMb1VokR8eWLlrE/o05jgwenkzylr++YjruJtup/0CrjsBN0n/LK/z0xD0IND8F3IZOdOlfC74NTQoWH7Cpj6kk1kkycU1Q4wM8eyodaKgY77LVKgVLPwUgxYTTor8EEDCGpdUosnM0LmfM5yIlepggGBmCMW4uR0dPH1bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787858087; c=relaxed/simple;
-	bh=o3PDREqMdivUQ9lZCnFf7Cl7x4ljmbGuCrfDY+fHsZc=;
+	s=arc-20240116; t=1787858093; c=relaxed/simple;
+	bh=zxKZSToaCxy2kb5EkZXFKZrhhgavzhRpy8Ow7HV1FMk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O0E+JAkfdjD1d2joet1dpHQj/fEhdjzqEjxvyODwjG7+hqBSsGcA9+ef+QPcUbY2NtcfEOnXXqpyVKduBu+rkZzqs1sv9nuX4EHTsubsE/E60UhnnMR20Ikisxju4ouQ0uiQNFFJw40O25EMfM5yY0GTARNLgam3QkBcZ0X9hDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=S5Y0hdjs; arc=none smtp.client-ip=54.207.19.206
+	 MIME-Version:Content-Type; b=MQyJIc5tANCC+4bwGQAq5PUunNRn5psH5sHsN+Xrj7iS+s6RVxKtGK9X0TDY4G/smOPLYpG2Bx8+N2AhVXp07NKL96eBqKnLjw2QqTvYaC7lN5mruuYlFnDuc+qXj1LPhYNI9fJUbIO+7AAAb3roUEUbdnq6CxPmWtC953+sMas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=LaLoKLEu; arc=none smtp.client-ip=52.59.177.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="S5Y0hdjs"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="LaLoKLEu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787858033;
-	bh=K8KVUbKv96vCFiBR8Fc5YP1cXSQcY8SdT+jwHHLyNq4=;
+	s=onoh2408; t=1787858061;
+	bh=RzSDVLNTsXnsQklOuaK0tg7kLbF8kaxPSdcCiNCPf9w=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=S5Y0hdjsQ6o1enbQMaSxgNwaldy2ydz02JZyhJS0Eg7N0Qvu5LcH09mQPSQH8VpfQ
-	 OY8Nl4FI4xDqSVpT6aD+x0JE0zrjcbtFl9XlDKpSl0+OZh76X5fGdDrAL++aomOhzm
-	 N8tcbbjZ/9WNIb3hSrL3beu0lZSNz5qkFJ3dajGA=
-X-QQ-mid: esmtpgz15t1787858015t2ac0fd9a
-X-QQ-Originating-IP: zTVks2FOZuPHAcj98EUqXmSgBZ5O72cfuJvk31z11JM=
+	b=LaLoKLEulidQqyltRwuL1EFuLc/H3EG8bjxvLiKFAqJR1pRdIGWObk+TKCmzhKFbq
+	 1pun9EuKJj68tcNKG+V1dLtEDzlMQTP+dF6dcNPs37/MC1xlcLnBJMd1s8rSNpNOIB
+	 CxX7gEn+NUrRNg5AhsjP+6D1YNfysncMinIaIfSo=
+X-QQ-mid: esmtpgz15t1787858043t4e798121
+X-QQ-Originating-IP: lVfxajGY5u4x6EGCyVtlagLcytL4NsC45YJpbI7ojWY=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 28 Aug 2026 03:13:24 +0800 (CST)
+	id ; Fri, 28 Aug 2026 03:13:52 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 4721249464301565004
+X-BIZMAIL-ID: 2291408826472805554
 EX-QQ-RecipientCnt: 7
 From: Wentao Guan <guanwentao@uniontech.com>
 To: gregkh@linuxfoundation.org
@@ -40,9 +40,9 @@ Cc: guanwentao@uniontech.com,
 	sashal@kernel.org,
 	stable@vger.kernel.org,
 	=?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>
-Subject: [PATCH 6.12.y 1/7] selinux: use known type instead of void pointer
-Date: Fri, 28 Aug 2026 03:13:12 +0800
-Message-Id: <20260827191317.18119-2-guanwentao@uniontech.com>
+Subject: [PATCH 6.12.y 3/7] selinux: make more use of str_read() when loading the policy
+Date: Fri, 28 Aug 2026 03:13:16 +0800
+Message-Id: <20260827191317.18119-4-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260827191317.18119-1-guanwentao@uniontech.com>
 References: <20260827191317.18119-1-guanwentao@uniontech.com>
@@ -56,676 +56,125 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OW4JKxETGMY2AdWH+9zetbx5duTLc2UopOIbs3TJItUCrb6wkBTYSVY1
-	yGF3Gr+yBJG8JeJMMqkXgsSxLFZ/3EHXaUzgDjccROAHBDPD+sIeNdTO7Q5I/2Qy6BQEJeo
-	s3HxwowuhU5VWT/frDsRlKHT9XNIsysSJ9vg9HUHtbD/FKXPW35Pe+qSWN0VNNjTpUvdGod
-	ZQTMrBkRgBXIjnNrlA1hfPCIDTJjVSpwJBFzwUmbcDQwd3xYjqKlE2WHqfiF8zHOrBc3W9z
-	n6vORMWrM3baXeojTsQv9MJvN8ZVV/Q3rv/DlF3fCyzQL+rBvApOU1Jq+lyO/siZ0PEqQwP
-	mXGoo6xf5HTgKRDhWj8lGJq7mouV40tRdSgFBpXK/mUm50fKgQicn9XHqerDm4rS/9CkZWK
-	5Z7HH4kjCnOgExkKtCjr7nMQpxKfPxDVtvKI/bsrbcxcsSpQ0TDL0wkFwmBS+rYXjl8GMX5
-	fAfflMlo1A6SSMSzU5kGR5kKNWnGOOR+oQlAKSI3dTqTk5Wi+ThsvL12EATHLBWbYI1JMdm
-	zzCEWoSzQN5OYQMnAIppgkpSNBb9RO4uz+D/+QC2wW7js1w2KG6R/4cILlUyvlfZWCHUqk1
-	pKbuSdcV1V9pRXrY0eh6ExcQJexAERhiz+1r9ll5UZAHLb/Aez5LyJwmqr0sVU6P8JPS4j9
-	qlQoazG0zRMFxLph9+5T2wDXWrcGDToVrKEQVAv6MUFV86WVXvBlblkY1QR2aDNXVws1u0Z
-	lycmChJpw4u9e2d3B/Go84p+oMo/bnLvK2SWu+oGJsMNSjA5WoRzkMY6FYxvEHsLqKZy4DK
-	GJgGfwVZpVjqxn4aDniGvjr13hKJMspBRgY8nTYJ3zl3LMBTuVngw2coYTS64duBhQn8Spl
-	1t7igmVJo1B9kBz8XTeQEfCfUlDXpok2PbnmKJAFlftS3TCvEI6b5LddFoARcGJ/HtSsqpi
-	f5XpVUmlnUT/KAxn3uTpPtBTHx/byFNma2HHXZmgJ2raZJJ6GL4BatezR/3NLBATwIIf6Qf
-	6QsIsqLc3MtBjiVM3z/38+Dynsd9exwzLXoG0DTMrgnraqOaK7XF9Urhz3m6hbQaHB54Mnw
-	J2UvidYPQBL
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: OCd5OxnoBMVVk83VN+i6qRLWwQ7A12P9TJbKRebTSXeKEqlXhwzS/pBe
+	JJW/LHRpUTHGVxrA9V7WKztl+TV86ZhtwCSGzlGryzl8Iwzu7PGna8Hx7OL7dAF0d5p+sQV
+	+nKx+yVPHSsZ4kdzC8S7XrhN/qqcTwBAWN41a1l4RWRkFpFIOff1OrTUrSBThvIJ24ryDiC
+	V+w7m/lzkLl5X9T09cBcOFEPFQ9M6jxULy6BhH1HCF74v9N6WU2ROW2rkXF6mplNLuaU3Xl
+	KvoYtHRMc1MbnqfsD6d0VuSAiQ4IIFhIbqyBx+uLgqrwDPLVLAS9qYao0IaRmcBe/yGtSG1
+	2Q+1MrefFf+uOIM2Z7e5yVyFl1e+mtm4kHf/6K9D0YsY7ipEj/kPuVz2LSVpOVhktCvyfSF
+	t14h/hgoeWUt3Q7XS9in6AVMrpud9Jah2lgAmbOjWpbjaA4J7fxP+eBToCorO40LGNNr3iL
+	VzGk7dX67MG24YnSbGM1QxsPQS032qz2VQEtPZu7hh4ikizTrsXYwA5FV+73bEakS9W0pk/
+	JsQGfBIudqFDQt8ZuxgDDGoT59mgAxOm/5JSOtEI/StIYyAMKF59h3exSOo4J+0kAcMcHZ5
+	J5dUjLvvl39n05wgjaoIQH0fVdAQjK49dDlX27wc159cXl4zeTIlS1HGlJmvY07hpSfglC6
+	8RdGVAw/6CZj5o74NsNVODnycEHj4zkcK7pbXA6LafUdEez6sneYo7VcPFMeXiWrrQrPlIO
+	an3VgGM3V9jdy639ARsdaJftlcW+VptqAvrLlrf2ReHR2n+YTiRZcQyhCbLb5QgHC7HE/YL
+	55XcQECHuieNMLs/O4L7+7KeKuyAcoqrW4HpRiq1nRLw28NESm/INq2EMaSfwUIJA/V+vyW
+	dy5kBQwJNbXDA2uYWQPbus3CHazAM9oL0UVUsmNSPyphDF8IpPfn19/KC1bhAhbnZVuMLHp
+	I3HCSzMWC7FUpbZ5KN+lHGliFSVI0rYChA3iOuUHjO0fArAfwUq/JDKf/sdznxKG7akiliY
+	myWC4uEw1FEQeW4quYoSz2/NW20reKutUC4c7kRZGeakpG25kCTJl/o7ZTQJaVmTGVDebDT
+	1dRhQ6FUYvRyxch9+3g3POLXmChvCCfuzLewnuvaTMrJ0fIY+5uDVPnDDLng99whg6luPfA
+	NY9F
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 
 From: Christian Göttsche <cgzones@googlemail.com>
 
-Improve type safety and readability by using the known type.
+Simplify the call sites, and enable future string validation in a single
+place.
 
 Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+[PM: subject tweak]
 Signed-off-by: Paul Moore <paul@paul-moore.com>
-(cherry picked from commit f07586160fd5492f8d48e7667e7a5d8797aa5090)
+(cherry picked from commit 01c2253a0fbdccb58cd79d4ff9ab39964bfb4474)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- security/selinux/ss/avtab.c       |  8 +--
- security/selinux/ss/avtab.h       |  9 +--
- security/selinux/ss/conditional.c | 12 ++--
- security/selinux/ss/conditional.h |  6 +-
- security/selinux/ss/ebitmap.c     |  4 +-
- security/selinux/ss/ebitmap.h     |  5 +-
- security/selinux/ss/policydb.c    | 91 ++++++++++++++++---------------
- security/selinux/ss/policydb.h    | 16 +++---
- 8 files changed, 77 insertions(+), 74 deletions(-)
+ security/selinux/ss/conditional.c | 10 ++--------
+ security/selinux/ss/policydb.c    | 22 ++++++++--------------
+ security/selinux/ss/policydb.h    |  2 ++
+ 3 files changed, 12 insertions(+), 22 deletions(-)
 
-diff --git a/security/selinux/ss/avtab.c b/security/selinux/ss/avtab.c
-index 8e400dd736b7a..23210faaa0465 100644
---- a/security/selinux/ss/avtab.c
-+++ b/security/selinux/ss/avtab.c
-@@ -336,7 +336,7 @@ static const uint16_t spec_order[] = {
- };
- /* clang-format on */
- 
--int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
-+int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *pol,
- 		    int (*insertf)(struct avtab *a, const struct avtab_key *k,
- 				   const struct avtab_datum *d, void *p),
- 		    void *p)
-@@ -500,7 +500,7 @@ static int avtab_insertf(struct avtab *a, const struct avtab_key *k,
- 	return avtab_insert(a, k, d);
- }
- 
--int avtab_read(struct avtab *a, void *fp, struct policydb *pol)
-+int avtab_read(struct avtab *a, struct policy_file *fp, struct policydb *pol)
- {
- 	int rc;
- 	__le32 buf[1];
-@@ -543,7 +543,7 @@ int avtab_read(struct avtab *a, void *fp, struct policydb *pol)
- 	goto out;
- }
- 
--int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp)
-+int avtab_write_item(struct policydb *p, const struct avtab_node *cur, struct policy_file *fp)
- {
- 	__le16 buf16[4];
- 	__le32 buf32[ARRAY_SIZE(cur->datum.u.xperms->perms.p)];
-@@ -579,7 +579,7 @@ int avtab_write_item(struct policydb *p, const struct avtab_node *cur, void *fp)
- 	return 0;
- }
- 
--int avtab_write(struct policydb *p, struct avtab *a, void *fp)
-+int avtab_write(struct policydb *p, struct avtab *a, struct policy_file *fp)
- {
- 	u32 i;
- 	int rc = 0;
-diff --git a/security/selinux/ss/avtab.h b/security/selinux/ss/avtab.h
-index 8e8820484c55b..80c4a6064328e 100644
---- a/security/selinux/ss/avtab.h
-+++ b/security/selinux/ss/avtab.h
-@@ -104,15 +104,16 @@ static inline void avtab_hash_eval(struct avtab *h, const char *tag)
- #endif
- 
- struct policydb;
--int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
-+struct policy_file;
-+int avtab_read_item(struct avtab *a, struct policy_file *fp, struct policydb *pol,
- 		    int (*insert)(struct avtab *a, const struct avtab_key *k,
- 				  const struct avtab_datum *d, void *p),
- 		    void *p);
- 
--int avtab_read(struct avtab *a, void *fp, struct policydb *pol);
-+int avtab_read(struct avtab *a, struct policy_file *fp, struct policydb *pol);
- int avtab_write_item(struct policydb *p, const struct avtab_node *cur,
--		     void *fp);
--int avtab_write(struct policydb *p, struct avtab *a, void *fp);
-+		     struct policy_file *fp);
-+int avtab_write(struct policydb *p, struct avtab *a, struct policy_file *fp);
- 
- struct avtab_node *avtab_insert_nonunique(struct avtab *h,
- 					  const struct avtab_key *key,
 diff --git a/security/selinux/ss/conditional.c b/security/selinux/ss/conditional.c
-index 64ba95e40a6fe..244dc82791133 100644
+index 244dc82791133..f8a21d10ff929 100644
 --- a/security/selinux/ss/conditional.c
 +++ b/security/selinux/ss/conditional.c
-@@ -206,7 +206,7 @@ static int bool_isvalid(struct cond_bool_datum *b)
- 	return 1;
- }
+@@ -230,17 +230,11 @@ int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
+ 		goto err;
  
--int cond_read_bool(struct policydb *p, struct symtab *s, void *fp)
-+int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct cond_bool_datum *booldatum;
-@@ -323,7 +323,7 @@ static int cond_insertf(struct avtab *a, const struct avtab_key *k,
- 	return 0;
- }
+ 	len = le32_to_cpu(buf[2]);
+-	if (((len == 0) || (len == (u32)-1)))
+-		goto err;
  
--static int cond_read_av_list(struct policydb *p, void *fp,
-+static int cond_read_av_list(struct policydb *p, struct policy_file *fp,
- 			     struct cond_av_list *list,
- 			     struct cond_av_list *other)
- {
-@@ -375,7 +375,7 @@ static int expr_node_isvalid(struct policydb *p, struct cond_expr_node *expr)
- 	return 1;
- }
- 
--static int cond_read_node(struct policydb *p, struct cond_node *node, void *fp)
-+static int cond_read_node(struct policydb *p, struct cond_node *node, struct policy_file *fp)
- {
- 	__le32 buf[2];
- 	u32 i, len;
-@@ -415,7 +415,7 @@ static int cond_read_node(struct policydb *p, struct cond_node *node, void *fp)
- 	return cond_read_av_list(p, fp, &node->false_list, &node->true_list);
- }
- 
--int cond_read_list(struct policydb *p, void *fp)
-+int cond_read_list(struct policydb *p, struct policy_file *fp)
- {
- 	__le32 buf[1];
- 	u32 i, len;
-@@ -453,7 +453,7 @@ int cond_write_bool(void *vkey, void *datum, void *ptr)
- 	char *key = vkey;
- 	struct cond_bool_datum *booldatum = datum;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	__le32 buf[3];
- 	u32 len;
- 	int rc;
-@@ -536,7 +536,7 @@ static int cond_write_node(struct policydb *p, struct cond_node *node,
- 	return 0;
- }
- 
--int cond_write_list(struct policydb *p, void *fp)
-+int cond_write_list(struct policydb *p, struct policy_file *fp)
- {
- 	u32 i;
- 	__le32 buf[1];
-diff --git a/security/selinux/ss/conditional.h b/security/selinux/ss/conditional.h
-index 8827715bad751..468e98ad3ea14 100644
---- a/security/selinux/ss/conditional.h
-+++ b/security/selinux/ss/conditional.h
-@@ -68,10 +68,10 @@ int cond_destroy_bool(void *key, void *datum, void *p);
- 
- int cond_index_bool(void *key, void *datum, void *datap);
- 
--int cond_read_bool(struct policydb *p, struct symtab *s, void *fp);
--int cond_read_list(struct policydb *p, void *fp);
-+int cond_read_bool(struct policydb *p, struct symtab *s, struct policy_file *fp);
-+int cond_read_list(struct policydb *p, struct policy_file *fp);
- int cond_write_bool(void *key, void *datum, void *ptr);
--int cond_write_list(struct policydb *p, void *fp);
-+int cond_write_list(struct policydb *p, struct policy_file *fp);
- 
- void cond_compute_av(struct avtab *ctab, struct avtab_key *key,
- 		     struct av_decision *avd, struct extended_perms *xperms);
-diff --git a/security/selinux/ss/ebitmap.c b/security/selinux/ss/ebitmap.c
-index 99c01be15115a..cd84357db2c47 100644
---- a/security/selinux/ss/ebitmap.c
-+++ b/security/selinux/ss/ebitmap.c
-@@ -360,7 +360,7 @@ void ebitmap_destroy(struct ebitmap *e)
- 	e->node = NULL;
- }
- 
--int ebitmap_read(struct ebitmap *e, void *fp)
-+int ebitmap_read(struct ebitmap *e, struct policy_file *fp)
- {
- 	struct ebitmap_node *n = NULL;
- 	u32 mapunit, count, startbit, index, i;
-@@ -478,7 +478,7 @@ int ebitmap_read(struct ebitmap *e, void *fp)
- 	goto out;
- }
- 
--int ebitmap_write(const struct ebitmap *e, void *fp)
-+int ebitmap_write(const struct ebitmap *e, struct policy_file *fp)
- {
- 	struct ebitmap_node *n;
- 	u32 bit, count, last_bit, last_startbit;
-diff --git a/security/selinux/ss/ebitmap.h b/security/selinux/ss/ebitmap.h
-index ba2ac3da11539..e0150695566cb 100644
---- a/security/selinux/ss/ebitmap.h
-+++ b/security/selinux/ss/ebitmap.h
-@@ -129,8 +129,9 @@ int ebitmap_contains(const struct ebitmap *e1, const struct ebitmap *e2,
- int ebitmap_get_bit(const struct ebitmap *e, u32 bit);
- int ebitmap_set_bit(struct ebitmap *e, u32 bit, int value);
- void ebitmap_destroy(struct ebitmap *e);
--int ebitmap_read(struct ebitmap *e, void *fp);
--int ebitmap_write(const struct ebitmap *e, void *fp);
-+struct policy_file;
-+int ebitmap_read(struct ebitmap *e, struct policy_file *fp);
-+int ebitmap_write(const struct ebitmap *e, struct policy_file *fp);
- u32 ebitmap_hash(const struct ebitmap *e, u32 hash);
- 
- #ifdef CONFIG_NETLABEL
+-	rc = -ENOMEM;
+-	key = kmalloc(len + 1, GFP_KERNEL);
+-	if (!key)
+-		goto err;
+-	rc = next_entry(key, fp, len);
++	rc = str_read(&key, GFP_KERNEL, fp, len);
+ 	if (rc)
+ 		goto err;
+-	key[len] = '\0';
++
+ 	rc = symtab_insert(s, key, booldatum);
+ 	if (rc)
+ 		goto err;
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index 304746b503a0c..27407cb6f18a8 100644
+index 449458edec732..db200b7518fc7 100644
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -1011,7 +1011,7 @@ int policydb_context_isvalid(struct policydb *p, struct context *c)
-  * Read a MLS range structure from a policydb binary
-  * representation file.
-  */
--static int mls_read_range_helper(struct mls_range *r, void *fp)
-+static int mls_read_range_helper(struct mls_range *r, struct policy_file *fp)
- {
- 	__le32 buf[2];
- 	u32 items;
-@@ -1071,7 +1071,7 @@ static int mls_read_range_helper(struct mls_range *r, void *fp)
-  * from a policydb binary representation file.
-  */
- static int context_read_and_validate(struct context *c, struct policydb *p,
--				     void *fp)
-+				     struct policy_file *fp)
- {
- 	__le32 buf[3];
- 	int rc;
-@@ -1109,7 +1109,7 @@ static int context_read_and_validate(struct context *c, struct policydb *p,
+@@ -1107,7 +1107,7 @@ static int context_read_and_validate(struct context *c, struct policydb *p,
   * binary representation file.
   */
  
--static int str_read(char **strp, gfp_t flags, void *fp, u32 len)
-+static int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
+-static int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
++int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len)
  {
  	int rc;
  	char *str;
-@@ -1132,7 +1132,7 @@ static int str_read(char **strp, gfp_t flags, void *fp, u32 len)
- 	return 0;
- }
+@@ -2499,24 +2499,18 @@ int policydb_read(struct policydb *p, struct policy_file *fp)
+ 		goto bad;
+ 	}
  
--static int perm_read(struct policydb *p, struct symtab *s, void *fp)
-+static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct perm_datum *perdatum;
-@@ -1165,7 +1165,7 @@ static int perm_read(struct policydb *p, struct symtab *s, void *fp)
- 	return rc;
- }
+-	rc = -ENOMEM;
+-	policydb_str = kmalloc(len + 1, GFP_KERNEL);
+-	if (!policydb_str) {
+-		pr_err("SELinux:  unable to allocate memory for policydb "
+-		       "string of length %d\n",
+-		       len);
+-		goto bad;
+-	}
+-
+-	rc = next_entry(policydb_str, fp, len);
++	rc = str_read(&policydb_str, GFP_KERNEL, fp, len);
+ 	if (rc) {
+-		pr_err("SELinux:  truncated policydb string identifier\n");
+-		kfree(policydb_str);
++		if (rc == -ENOMEM) {
++			pr_err("SELinux:  unable to allocate memory for policydb string of length %d\n",
++			       len);
++		} else {
++			pr_err("SELinux:  truncated policydb string identifier\n");
++		}
+ 		goto bad;
+ 	}
  
--static int common_read(struct policydb *p, struct symtab *s, void *fp)
-+static int common_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct common_datum *comdatum;
-@@ -1217,7 +1217,7 @@ static void type_set_init(struct type_set *t)
- 	ebitmap_init(&t->negset);
- }
- 
--static int type_set_read(struct type_set *t, void *fp)
-+static int type_set_read(struct type_set *t, struct policy_file *fp)
- {
- 	__le32 buf[1];
- 	int rc;
-@@ -1236,7 +1236,7 @@ static int type_set_read(struct type_set *t, void *fp)
- }
- 
- static int read_cons_helper(struct policydb *p, struct constraint_node **nodep,
--			    u32 ncons, int allowxtarget, void *fp)
-+			    u32 ncons, int allowxtarget, struct policy_file *fp)
- {
- 	struct constraint_node *c, *lc;
- 	struct constraint_expr *e, *le;
-@@ -1330,7 +1330,7 @@ static int read_cons_helper(struct policydb *p, struct constraint_node **nodep,
- 	return 0;
- }
- 
--static int class_read(struct policydb *p, struct symtab *s, void *fp)
-+static int class_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct class_datum *cladatum;
-@@ -1439,7 +1439,7 @@ static int class_read(struct policydb *p, struct symtab *s, void *fp)
- 	return rc;
- }
- 
--static int role_read(struct policydb *p, struct symtab *s, void *fp)
-+static int role_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct role_datum *role;
-@@ -1496,7 +1496,7 @@ static int role_read(struct policydb *p, struct symtab *s, void *fp)
- 	return rc;
- }
- 
--static int type_read(struct policydb *p, struct symtab *s, void *fp)
-+static int type_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct type_datum *typdatum;
-@@ -1548,7 +1548,7 @@ static int type_read(struct policydb *p, struct symtab *s, void *fp)
-  * Read a MLS level structure from a policydb binary
-  * representation file.
-  */
--static int mls_read_level(struct mls_level *lp, void *fp)
-+static int mls_read_level(struct mls_level *lp, struct policy_file *fp)
- {
- 	__le32 buf[1];
- 	int rc;
-@@ -1570,7 +1570,7 @@ static int mls_read_level(struct mls_level *lp, void *fp)
- 	return 0;
- }
- 
--static int user_read(struct policydb *p, struct symtab *s, void *fp)
-+static int user_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct user_datum *usrdatum;
-@@ -1621,7 +1621,7 @@ static int user_read(struct policydb *p, struct symtab *s, void *fp)
- 	return rc;
- }
- 
--static int sens_read(struct policydb *p, struct symtab *s, void *fp)
-+static int sens_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct level_datum *levdatum;
-@@ -1662,7 +1662,7 @@ static int sens_read(struct policydb *p, struct symtab *s, void *fp)
- 	return rc;
- }
- 
--static int cat_read(struct policydb *p, struct symtab *s, void *fp)
-+static int cat_read(struct policydb *p, struct symtab *s, struct policy_file *fp)
- {
- 	char *key = NULL;
- 	struct cat_datum *catdatum;
-@@ -1697,7 +1697,7 @@ static int cat_read(struct policydb *p, struct symtab *s, void *fp)
- 
- /* clang-format off */
- static int (*const read_f[SYM_NUM])(struct policydb *p, struct symtab *s,
--				    void *fp) = {
-+				    struct policy_file *fp) = {
- 	common_read,
- 	class_read,
- 	role_read,
-@@ -1867,7 +1867,7 @@ u32 string_to_av_perm(struct policydb *p, u16 tclass, const char *name)
- 	return 1U << (perdatum->value - 1);
- }
- 
--static int range_read(struct policydb *p, void *fp)
-+static int range_read(struct policydb *p, struct policy_file *fp)
- {
- 	struct range_trans *rt = NULL;
- 	struct mls_range *r = NULL;
-@@ -1944,7 +1944,7 @@ static int range_read(struct policydb *p, void *fp)
- 	return rc;
- }
- 
--static int filename_trans_read_helper_compat(struct policydb *p, void *fp)
-+static int filename_trans_read_helper_compat(struct policydb *p, struct policy_file *fp)
- {
- 	struct filename_trans_key key, *ft = NULL;
- 	struct filename_trans_datum *last, *datum = NULL;
-@@ -2029,7 +2029,7 @@ static int filename_trans_read_helper_compat(struct policydb *p, void *fp)
- 	return rc;
- }
- 
--static int filename_trans_read_helper(struct policydb *p, void *fp)
-+static int filename_trans_read_helper(struct policydb *p, struct policy_file *fp)
- {
- 	struct filename_trans_key *ft = NULL;
- 	struct filename_trans_datum **dst, *datum, *first = NULL;
-@@ -2118,7 +2118,7 @@ static int filename_trans_read_helper(struct policydb *p, void *fp)
- 	return rc;
- }
- 
--static int filename_trans_read(struct policydb *p, void *fp)
-+static int filename_trans_read(struct policydb *p, struct policy_file *fp)
- {
- 	u32 nel, i;
- 	__le32 buf[1];
-@@ -2159,7 +2159,7 @@ static int filename_trans_read(struct policydb *p, void *fp)
- 	return 0;
- }
- 
--static int genfs_read(struct policydb *p, void *fp)
-+static int genfs_read(struct policydb *p, struct policy_file *fp)
- {
- 	int rc;
- 	u32 i, j, nel, nel2, len, len2;
-@@ -2273,7 +2273,7 @@ static int genfs_read(struct policydb *p, void *fp)
- }
- 
- static int ocontext_read(struct policydb *p,
--			 const struct policydb_compat_info *info, void *fp)
-+			 const struct policydb_compat_info *info, struct policy_file *fp)
- {
- 	int rc;
- 	unsigned int i;
-@@ -2470,7 +2470,7 @@ static int ocontext_read(struct policydb *p,
-  * Read the configuration data from a policy database binary
-  * representation file into a policy database structure.
-  */
--int policydb_read(struct policydb *p, void *fp)
-+int policydb_read(struct policydb *p, struct policy_file *fp)
- {
- 	struct role_allow *ra, *lra;
- 	struct role_trans_key *rtk = NULL;
-@@ -2793,7 +2793,7 @@ int policydb_read(struct policydb *p, void *fp)
-  * Write a MLS level structure to a policydb binary
-  * representation file.
-  */
--static int mls_write_level(struct mls_level *l, void *fp)
-+static int mls_write_level(struct mls_level *l, struct policy_file *fp)
- {
- 	__le32 buf[1];
- 	int rc;
-@@ -2814,7 +2814,7 @@ static int mls_write_level(struct mls_level *l, void *fp)
-  * Write a MLS range structure to a policydb binary
-  * representation file.
-  */
--static int mls_write_range_helper(struct mls_range *r, void *fp)
-+static int mls_write_range_helper(struct mls_range *r, struct policy_file *fp)
- {
- 	__le32 buf[3];
- 	size_t items;
-@@ -2854,7 +2854,7 @@ static int sens_write(void *vkey, void *datum, void *ptr)
- 	char *key = vkey;
- 	struct level_datum *levdatum = datum;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	__le32 buf[2];
- 	size_t len;
- 	int rc;
-@@ -2882,7 +2882,7 @@ static int cat_write(void *vkey, void *datum, void *ptr)
- 	char *key = vkey;
- 	struct cat_datum *catdatum = datum;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	__le32 buf[3];
- 	size_t len;
- 	int rc;
-@@ -2907,7 +2907,7 @@ static int role_trans_write_one(void *key, void *datum, void *ptr)
- 	struct role_trans_key *rtk = key;
- 	struct role_trans_datum *rtd = datum;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	struct policydb *p = pd->p;
- 	__le32 buf[3];
- 	int rc;
-@@ -2927,7 +2927,7 @@ static int role_trans_write_one(void *key, void *datum, void *ptr)
- 	return 0;
- }
- 
--static int role_trans_write(struct policydb *p, void *fp)
-+static int role_trans_write(struct policydb *p, struct policy_file *fp)
- {
- 	struct policy_data pd = { .p = p, .fp = fp };
- 	__le32 buf[1];
-@@ -2941,7 +2941,7 @@ static int role_trans_write(struct policydb *p, void *fp)
- 	return hashtab_map(&p->role_tr, role_trans_write_one, &pd);
- }
- 
--static int role_allow_write(struct role_allow *r, void *fp)
-+static int role_allow_write(struct role_allow *r, struct policy_file *fp)
- {
- 	struct role_allow *ra;
- 	__le32 buf[2];
-@@ -2969,7 +2969,7 @@ static int role_allow_write(struct role_allow *r, void *fp)
-  * Write a security context structure
-  * to a policydb binary representation file.
-  */
--static int context_write(struct policydb *p, struct context *c, void *fp)
-+static int context_write(struct policydb *p, struct context *c, struct policy_file *fp)
- {
- 	int rc;
- 	__le32 buf[3];
-@@ -3022,7 +3022,7 @@ static int common_write(void *vkey, void *datum, void *ptr)
- 	char *key = vkey;
- 	struct common_datum *comdatum = datum;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	__le32 buf[4];
- 	size_t len;
- 	int rc;
-@@ -3047,7 +3047,7 @@ static int common_write(void *vkey, void *datum, void *ptr)
- 	return 0;
- }
- 
--static int type_set_write(struct type_set *t, void *fp)
-+static int type_set_write(struct type_set *t, struct policy_file *fp)
- {
- 	int rc;
- 	__le32 buf[1];
-@@ -3066,7 +3066,7 @@ static int type_set_write(struct type_set *t, void *fp)
- }
- 
- static int write_cons_helper(struct policydb *p, struct constraint_node *node,
--			     void *fp)
-+			     struct policy_file *fp)
- {
- 	struct constraint_node *c;
- 	struct constraint_expr *e;
-@@ -3117,7 +3117,7 @@ static int class_write(void *vkey, void *datum, void *ptr)
- 	char *key = vkey;
- 	struct class_datum *cladatum = datum;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	struct policydb *p = pd->p;
- 	struct constraint_node *c;
- 	__le32 buf[6];
-@@ -3202,7 +3202,7 @@ static int role_write(void *vkey, void *datum, void *ptr)
- 	char *key = vkey;
- 	struct role_datum *role = datum;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	struct policydb *p = pd->p;
- 	__le32 buf[3];
- 	size_t items, len;
-@@ -3242,7 +3242,7 @@ static int type_write(void *vkey, void *datum, void *ptr)
- 	struct type_datum *typdatum = datum;
- 	struct policy_data *pd = ptr;
- 	struct policydb *p = pd->p;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	__le32 buf[4];
- 	int rc;
- 	size_t items, len;
-@@ -3283,7 +3283,7 @@ static int user_write(void *vkey, void *datum, void *ptr)
- 	struct user_datum *usrdatum = datum;
- 	struct policy_data *pd = ptr;
- 	struct policydb *p = pd->p;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	__le32 buf[3];
- 	size_t items, len;
- 	int rc;
-@@ -3332,7 +3332,8 @@ static int (*const write_f[SYM_NUM])(void *key, void *datum, void *datap) = {
- /* clang-format on */
- 
- static int ocontext_write(struct policydb *p,
--			  const struct policydb_compat_info *info, void *fp)
-+			  const struct policydb_compat_info *info,
-+			  struct policy_file *fp)
- {
- 	unsigned int i, j;
- 	int rc;
-@@ -3468,7 +3469,7 @@ static int ocontext_write(struct policydb *p,
- 	return 0;
- }
- 
--static int genfs_write(struct policydb *p, void *fp)
-+static int genfs_write(struct policydb *p, struct policy_file *fp)
- {
- 	struct genfs *genfs;
- 	struct ocontext *c;
-@@ -3526,7 +3527,7 @@ static int range_write_helper(void *key, void *data, void *ptr)
- 	struct range_trans *rt = key;
- 	struct mls_range *r = data;
- 	struct policy_data *pd = ptr;
--	void *fp = pd->fp;
-+	struct policy_file *fp = pd->fp;
- 	struct policydb *p = pd->p;
- 	int rc;
- 
-@@ -3548,7 +3549,7 @@ static int range_write_helper(void *key, void *data, void *ptr)
- 	return 0;
- }
- 
--static int range_write(struct policydb *p, void *fp)
-+static int range_write(struct policydb *p, struct policy_file *fp)
- {
- 	__le32 buf[1];
- 	int rc;
-@@ -3575,7 +3576,7 @@ static int filename_write_helper_compat(void *key, void *data, void *ptr)
- 	struct filename_trans_key *ft = key;
- 	struct filename_trans_datum *datum = data;
- 	struct ebitmap_node *node;
--	void *fp = ptr;
-+	struct policy_file *fp = ptr;
- 	__le32 buf[4];
- 	int rc;
- 	u32 bit, len = strlen(ft->name);
-@@ -3612,7 +3613,7 @@ static int filename_write_helper(void *key, void *data, void *ptr)
- {
- 	struct filename_trans_key *ft = key;
- 	struct filename_trans_datum *datum;
--	void *fp = ptr;
-+	struct policy_file *fp = ptr;
- 	__le32 buf[3];
- 	int rc;
- 	u32 ndatum, len = strlen(ft->name);
-@@ -3657,7 +3658,7 @@ static int filename_write_helper(void *key, void *data, void *ptr)
- 	return 0;
- }
- 
--static int filename_trans_write(struct policydb *p, void *fp)
-+static int filename_trans_write(struct policydb *p, struct policy_file *fp)
- {
- 	__le32 buf[1];
- 	int rc;
-@@ -3689,7 +3690,7 @@ static int filename_trans_write(struct policydb *p, void *fp)
-  * structure to a policy database binary representation
-  * file.
-  */
--int policydb_write(struct policydb *p, void *fp)
-+int policydb_write(struct policydb *p, struct policy_file *fp)
- {
- 	unsigned int num_syms;
- 	int rc;
+ 	rc = -EINVAL;
+-	policydb_str[len] = '\0';
+ 	if (strcmp(policydb_str, POLICYDB_STRING)) {
+ 		pr_err("SELinux:  policydb string %s does not match "
+ 		       "my string %s\n",
 diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
-index 4bba386264a3d..e01de17e569bf 100644
+index e7a6f1a6c1461..d95a3941f327c 100644
 --- a/security/selinux/ss/policydb.h
 +++ b/security/selinux/ss/policydb.h
-@@ -312,14 +312,19 @@ struct policydb {
- 	u32 process_trans_perms;
- } __randomize_layout;
+@@ -386,6 +386,8 @@ static inline char *sym_name(struct policydb *p, unsigned int sym_num,
+ 	return p->sym_val_to_name[sym_num][element_nr];
+ }
  
-+struct policy_file {
-+	char *data;
-+	size_t len;
-+};
++extern int str_read(char **strp, gfp_t flags, struct policy_file *fp, u32 len);
 +
- extern void policydb_destroy(struct policydb *p);
- extern int policydb_load_isids(struct policydb *p, struct sidtab *s);
- extern int policydb_context_isvalid(struct policydb *p, struct context *c);
- extern int policydb_class_isvalid(struct policydb *p, unsigned int class);
- extern int policydb_type_isvalid(struct policydb *p, unsigned int type);
- extern int policydb_role_isvalid(struct policydb *p, unsigned int role);
--extern int policydb_read(struct policydb *p, void *fp);
--extern int policydb_write(struct policydb *p, void *fp);
-+extern int policydb_read(struct policydb *p, struct policy_file *fp);
-+extern int policydb_write(struct policydb *p, struct policy_file *fp);
+ extern u16 string_to_security_class(struct policydb *p, const char *name);
+ extern u32 string_to_av_perm(struct policydb *p, u16 tclass, const char *name);
  
- extern struct filename_trans_datum *
- policydb_filenametr_search(struct policydb *p, struct filename_trans_key *key);
-@@ -342,14 +347,9 @@ policydb_roletr_search(struct policydb *p, struct role_trans_key *key);
- #define POLICYDB_MAGIC	SELINUX_MAGIC
- #define POLICYDB_STRING "SE Linux"
- 
--struct policy_file {
--	char *data;
--	size_t len;
--};
--
- struct policy_data {
- 	struct policydb *p;
--	void *fp;
-+	struct policy_file *fp;
- };
- 
- static inline int next_entry(void *buf, struct policy_file *fp, size_t bytes)
 -- 
 2.30.2
 
