@@ -1,104 +1,143 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7074B421225
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 09:18:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766EE12F585;
+	Thu, 27 Aug 2026 09:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822352; cv=none; b=mzP9sYBtMB9NTBoPCyi1vzfPrlYnzJxIXndWEVXlBoxQZws1Ygb0rKVEETJZta7PkPjr2InpSWu6zf97R5UqNi7w3ja+4qgqqt5HxbtAK+ZO/ku4w+5bDiRMgFN38wxZE5KyElkWAzUWZHLa/HwvXCJAsiTBmQxuGU7zEdzoz+0=
+	t=1787822492; cv=none; b=kHiwzDbXtV40kQAhAq3nMPTp/zkc4HlLDoZJOLkYpRT6HWvM4yDqf5cLhcMrZpxtOmkDQ++h1JN6bavtZBWNiiJdiT5A30rM3EycJNJmtS9PRioqnIn1J9N+GuhICv9BwCeLXLZIqZT35/ym/W050B68DfZxS/soidmESVS7Ga0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822352; c=relaxed/simple;
-	bh=V27kDcCUQkDyVkh3n0TQe1CJ07XNDXMlZliW+M6tkq0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cFApoo11DPxGudwX8qCrmBbunXG+S7rNpedsR/mjwfCClRDaXmlmWY1quim9BqELC/FGISgbav2LcvUYmXFhGa3EfMiF8QRtH5k/sFloZJy9GTSQiWHj5zhP+VRc4gDiG++ac8tNjDc3Md/wcPc/7I0TPsdOl98gLThkEpzwpvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=CafXWYEC; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1787822492; c=relaxed/simple;
+	bh=4IzhJh3lBWAOHfE4wJbpsM9iGrvkz87YVBb3Imb3jJM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Lh+hDmD+TsidZ2uDP6VFSuODTkee2CzB0nYi2iNAIwelXDaKk7l3QveOdrSkXegFMoBUrryRejGIx1GvMrWy/bzrPyo7zdn7SHXpn9HHYDoWvDgyp167K7+RB5lhz9dy4L1x25s1r69rcpRhcg+cPUtZR2l3pjMwft6KTs84T0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=dPRMr4HX; arc=none smtp.client-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="CafXWYEC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787822299;
-	bh=ks1WHociNsR1BBx71i/JkFOyjWEllH/qSRlA5meZWeg=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=CafXWYECrB81CCgqP66iESii6OHwgn0K54BIap9zStDsro5B4ODRcSWmBnXDhHOiC
-	 0EM+uxpDzTQ++gTIqpOmvAtzkclAaJzfzBSiJBsIvfH5EZEQtH8aF8meoXq/nwZE0y
-	 5d2Qr2JYoSt+1e05YdcFfhsl0oKVpPPuugSV/7ZI=
-X-QQ-mid: esmtpsz21t1787822280tc51fe3e9
-X-QQ-Originating-IP: VdquQgaZTADIqF8jiOJUhaTOlS67Tiwl1mZuKq78d5E=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 27 Aug 2026 17:17:58 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 7797810617439821836
-EX-QQ-RecipientCnt: 7
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: guanwentao@uniontech.com,
-	hexlabsecurity@proton.me,
-	paul@paul-moore.com,
-	sashal@kernel.org,
-	stable@vger.kernel.org,
-	stephen.smalley.work@gmail.com
-Subject: Re: [PATCH 6.18.47-rc1 03/10] Revert "selinux: use u16 for security classes"
-Date: Thu, 27 Aug 2026 17:17:57 +0800
-Message-Id: <20260827091757.4048562-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <2026082728-sneer-ecosystem-fce3@gregkh>
-References: <2026082728-sneer-ecosystem-fce3@gregkh>
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="dPRMr4HX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1787822490; x=1819358490;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=x7TNb3PzZ5LF/z0aOAcLHf9VQM7UzSXd9dJnzyzxr1A=;
+  b=dPRMr4HX8uEBgzbwATOM8D755h7xcAGuGer1Z80qt+JWXoCvDZb1q/da
+   e2ExPLrLGjutSQyNMXGGMJPVahdXT+LjoCDrl83eYn8GyBBZNRTRLMBrD
+   LxfbpH357Ez6KueLWxSaLHUeFSAVc9/Fj3TCZ1RhVj1zOSxQWffxbjD39
+   GdVaOrPnIBbC2u0pTmpAs3IklouK69/8g5t2WVujyzgD9JcnxWJeBaDk0
+   EN+82sqJEhzZwfYTFuflFwFckTVtJcHefBXZw7+BWdtvdEdzF0zKtQczA
+   If8BaTRJ9GYKXxNZPAc+cBgPqbimbHy212DRj37pZB1xEiBebLRzAFK1d
+   A==;
+X-CSE-ConnectionGUID: TIVzVIwxQRGxNhHQ7zupIg==
+X-CSE-MsgGUID: HUlh8tT+SpuI9Eceq6oHvA==
+X-IronPort-AV: E=Sophos;i="6.25,246,1779148800"; 
+   d="scan'208";a="26899945"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 09:21:28 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:31814]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.0.244:2525] with esmtp (Farcaster)
+ id 3d6197ce-b226-432b-8cc0-0137c0d8e6d7; Thu, 27 Aug 2026 09:21:27 +0000 (UTC)
+X-Farcaster-Flow-ID: 3d6197ce-b226-432b-8cc0-0137c0d8e6d7
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Thu, 27 Aug 2026 09:21:27 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Thu, 27 Aug 2026
+ 09:21:24 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <vbabka@kernel.org>, <hannes@cmpxchg.org>, <willy@infradead.org>
+CC: <abuehaze@amazon.com>, <akpm@linux-foundation.org>, <alisaidi@amazon.com>,
+	<blakgeof@amazon.com>, <rvvandan@amazon.com>, <brauner@kernel.org>,
+	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
+	<djwong@kernel.org>, <hch@infradead.org>, <jackmanb@google.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <linux-xfs@vger.kernel.org>, <mhocko@suse.com>,
+	<ritesh.list@gmail.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+	<ziy@nvidia.com>
+Subject: Re: [PATCH v3] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Thu, 27 Aug 2026 09:21:00 +0000
+Message-ID: <20260827092100.3988386-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <7ddb704c-76a9-4071-8969-06fa1403eb07@kernel.org>
+References: <7ddb704c-76a9-4071-8969-06fa1403eb07@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N61MakLYUF4qO8xLFRh9YWBfSyrlOFrPg8h6/0ykl5yw+6DjIR1aSaHj
-	t0t989IxxsQu/qn+jMrEnWmlCk93Gf9uTeIoewaQsLoqndMCLHaBfZxwDOK/xRocda3iDUi
-	FJq6bWKq7U30zwFQj1LTET7x8n0awPRSimev96Kg6muyadn3QJgE00OmEnzlyTgJLMyhOlv
-	uKExE7Ltv0xj/EUvxC11KIusCtjwisOlxJFcXLzeaR4dMTJHkToLvyvj9Yc+E4mPpEfXGd6
-	lDO/zcxl5XcynsJbofw0dtW2nGnddS1oohNkH/oOZ4DlijpqSzv6HGBM5nBUP+tSft4GXui
-	VZ48YtRt1/3u27OZMh1raoE4njKq9Ar3g+h2oLousboZa6VT/QFZCrtiw24Xvtb77JhFqMg
-	yLSiql8U9Ph/slL+L5w6J5UlKaHnQ/9O4Qd1gvRZyZ/xO/pxW4l2qyUTvHDbNTdfKonzEWC
-	ChhZc2dt6I2HogZ4ilKeuFn8hSQtEWXFP72+yWtMDGqYxLe0HIcUiAuf6KFXXVXwUJO1bze
-	v404SSw+DjXSw50cU4HSosdvdmBEJGtXyjda7eU8XZLgoM9UbUB7X4vhgaAwOjeRVny+xO9
-	mdryZ9e0V7dqMTLl/wNeu6i/v+uWyFESSbbHNHsMOI8fUbi3LNUcLw4jI3LQ+57AeYEqfex
-	DlcWZxdG1qo1OPburkbB/+fj2jGxs4RE6pGfBEOVwVH/B0Kf6w9kg2YsqNciZN4sSYpuSbs
-	EuNiGoSajcNmHoAj+sYZH+esQBxb8vOdGrYOtI6dC65cKXs0E3SjxBQZOhLThWIJKJCOU0Y
-	eX0sl5+kBAsKz09zimPkx7sbxruqeK7IpgiIrJdZS1LB7UhJukjkPsLKmiHg+CsOFn8VAvA
-	esuRxdQPuJy915MTvVmoI6+szz2ff7lWHuFOd+36sD+eHOIV/tSLYVZi7OdOIrfINL67Igi
-	Kr1K4oPaPjqiGWUZZDsX7B2g+UlTR1ua4EffqGq/jGUA9Wqp5Lo1pIz4p2cqYtGRf3V2KUb
-	YDNxDnY3t5QtI28h0yKQp1j+W2QKuZ7Xk3y9s4W+Z0cUi7AqD7xJDqT+d1XlAesRZvKdhnR
-	PD7R6nXGHI6Jtn7eJDmMmVsN/Vl+VhOVTLGzH7HQVMd9FZFDy+ChYUoJGzclQaizx8Aud3g
-	0gsxz5jXG2Ej3JA5675K7kroYWehB2HddVYu
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
-
-> On Thu, Aug 27, 2026 at 04:38:00PM +0800, Wentao Guan wrote:
-> > This reverts commit 3683f35c14816f827a80e217072018eb6c37422e.
-> > NOTE the commit revert the commit in stable-rc/linux-6.18.y
-> 
-> But why?
-Revert and cleanly applied and not olny follow the mainline seq, 
-but also final state is aligned with mainline instead of context different
- in security/selinux/ss/policydb.c perm_read():
-
-+       /* indexes an nprim-sized array in security_get_permissions() */
-+       if (perdatum->value > s->nprim)
-+               goto bad;
-+       /* two permissions cannot share one slot of that array */
-+       if (*claimed & (1U << (perdatum->value - 1)))
-+               goto bad;
-+       *claimed |= 1U << (perdatum->value - 1);
+X-ClientProxiedBy: EX19D040UWA003.ant.amazon.com (10.13.139.6) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
 
-> 
-> And a blank line should go after the "this reverts".  Or just use the
-> standard git text here?
-OK, and i seem there can replace the patches in 6.18.47-rc1.
+On Wed, Jul 22, 2026 at 02:35:00PM +0200, Vlastimil Babka (SUSE) wrote:
+> AFAICS both your v3 and the implemented Johannes' suggestion effectively
+> make all the compact_first logic dead code - at least for the intended THP
+> use case based on costly_order. It will only continue to do something for
+> the non-movable order>0  case. So that's a significant change which will not
+> show up in your results, but might affect other workloads (I'd expect mainly
+> by having fewer THPs).
 
-BRs
-Wentao Guan
+Right - the change above modifies THP allocation requests as well. So instead
+of applying it to every costly __GFP_NORETRY allocation, I restrict it to
+callers that do not ask for __GFP_THISNODE. That leaves the local-node THP
+attempt untouched: the same bit pair is already tested further down the function 
+to bail out of the compact_first block (page_alloc.c:4899), and alloc_pages_mpol()
+sets both flags on the local-node-first attempt (mempolicy.c:2476-2478).
+
+I tested this with my PostgreSQL workload on kernel v7.2-rc7 and results look good:
+
+Baseline:       70,735 tps
+This version:  144,670 tps  (145,280 / 144,037 / 144,694)  +104.5%
+
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ee902a468c2f..1e4b0c1e7296 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4725,10 +4725,10 @@ static inline struct page *
+ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 						struct alloc_context *ac)
+ {
+-	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+-	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+-	bool nofail = gfp_mask & __GFP_NOFAIL;
+ 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
++	bool can_direct_reclaim;
++	bool can_compact;
++	bool nofail;
+ 	struct page *page = NULL;
+ 	unsigned int alloc_flags;
+ 	unsigned long did_some_progress;
+@@ -4743,6 +4743,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	bool can_retry_reserves = true;
+ 	unsigned long alloc_start_time = jiffies;
+
++	/*
++	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
++	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
++	 */
++	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
++	    !(gfp_mask & __GFP_THISNODE))
++		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++
++	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
++	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
++	nofail = gfp_mask & __GFP_NOFAIL;
++
+ 	if (unlikely(nofail)) {
+ 		/*
+ 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
 
