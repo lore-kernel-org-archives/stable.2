@@ -1,66 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8F22BD00C;
-	Thu, 27 Aug 2026 05:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F23368B7
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787806991; cv=none; b=c0X1pyNBGBTTSTLOAXJF/5EJsyKpYQs5DFbzjruTfaR4PEKOuN7yO4gdd6ZDVfkDZbHI6QSAU6HjX6KDXsKLVQ4reptnk4aZucZELAzPrOto2CjHSlCr2n3DiQTZwzGoEv49HfwdYsruzfosN4A8kBx5pBgwGYMZfnGykpQokIE=
+	t=1787807385; cv=none; b=bq2CUijRFp/0XuOOov/aqO7nRu+IIZ2117H+grCI09nugKGJnT2VwvLxe0mgJzagrppg6VQZ1A5KkwxW7lJG3KbEfCxsbzr6t5teaELTEhFadkieKuUBB8wxXQXcV72hsbDmp97zT6srXX4Bb3e/OEKIm4czYeLXN66IU+Y9XC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787806991; c=relaxed/simple;
-	bh=+qARVZ3Vn+bsJZVhP/UquKzhmNyNprXMkZymPd3mNyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qtnMAPvpMqEkJ+EuIUXGk+LoZwh7xz0b8khHEDUT95QXWEkWrecT0HpZ3/rQ8IkRT8llS7Kc0ppKBDFN6H0ZfXWhIc5x9X68BJx4pF+FSY5Gz8Sdquq3orwvgEsISEPK08NWfdVLLYY4qgqzctsSicqsz1vhpLJqLS6lDtZwSrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WBXIqTCB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787807385; c=relaxed/simple;
+	bh=6omL23lJxDKzkICqDYDEGlfVYv+4KkkRM+ZmzAJY2mY=;
+	h=References:In-Reply-To:Content-Type:Content-Disposition:Cc:
+	 Subject:Message-Id:From:Date:Mime-Version:To; b=ZzG/zZBXkTTw5QBbz3OVA+VpAvhOYWv9KDcq4sIZehRfgBU6j6NMdkE7uyZQJhOWU5GV/hYrM9Bx1+8FdreYn3ALVdIP37WujjzBJ5XTCFAtzu/hBD+mkzxRp9fBQfiHkZftGubifjz/qwHuAuDZWydF1GRU4qBXaJvMfpdKvYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=3KffcCBL; arc=none smtp.client-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WBXIqTCB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55E61F000E9;
-	Thu, 27 Aug 2026 05:03:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787806990;
-	bh=CkOiFqyPeNWAL1IU6w4pHRdEzxW6E2h2tS/Qf1gbZBg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WBXIqTCB7zZMoB816mnWlxYNCo+Q0vWrji+WlGQgkyuRh1HzojIHGzGCHTgkSxjgC
-	 TD2ByP8IAh1ywdDQ75RG1s6AwHZ4U3oUzM/7toI1OSKmfkm22QdpcY8FHAgCUna0o8
-	 CTnX2jUN7IaL/TooiMAuN9fFF6yWWP0AErAKGbx0=
-Date: Thu, 27 Aug 2026 07:03:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: balbi@ti.com, bigeasy@linutronix.de, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, stable@vger.kernel.org,
-	syzbot+fd6ef980cf1c722be639@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: gadget: fix null pointer dereference in
- usb_put_function_instance()
-Message-ID: <2026082739-shudder-stylist-86ac@gregkh>
-References: <20260816061712.15547-1-jeffinphilip14@gmail.com>
- <20260827043746.13087-1-jeffinphilip14@gmail.com>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="3KffcCBL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787807376; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=6omL23lJxDKzkICqDYDEGlfVYv+4KkkRM+ZmzAJY2mY=;
+ b=3KffcCBL9A2EkfsmVtODocLxFrT7L7qIY9fZ/eZM/5LLb+X/snoZM+LtvoqfcSfklr/LOC
+ egPUD936O17TGAjr5jJ3ExPH9D36r6Auvgt08rJn++mfBLouAU6KB9ErTj6MjbizyTPpYA
+ HfZ3Y+vB/5BRr/P5g4cgIE6UjmTh7MIPOCsKd+/kmSmIim/908GZKqa9wKHzx96JGUSQ1w
+ ILFECkj/FWN81DS7ktTWJF+84UXKBvnRi3RSQ/SUcHi6k4j2fybFJncBvPMsD5EDWv70ez
+ n2UtV7PcyjVKVWdXZoh7ESAnQtXGypC7sVqvUS56ZcZ00+Xsnq3CFVufop+0ZA==
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+References: <20260827-hsi-char-uaf-v1-1-4f824216a541@cherr.cc> <2026082727-hacker-flaky-2578@gregkh>
+In-Reply-To: <2026082727-hacker-flaky-2578@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Disposition: inline
+Cc: "Shengzhuo Wei" <me@cherr.cc>, <sre@kernel.org>, <kees@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Andras Domokos" <andras.domokos@nokia.com>, 
+	"Carlos Chinea" <carlos.chinea@nokia.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] HSI: hsi_char: Fix use-after-free on device removal
+Message-Id: <ao_Gi6O2VQw7RUQd@pve>
+Received: from pve ([111.40.58.243]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 13:09:33 +0800
+X-Lms-Return-Path: <lba+26a8fc68e+761686+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: quoted-printable
+From: "Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 27 Aug 2026 13:09:31 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827043746.13087-1-jeffinphilip14@gmail.com>
+Mime-Version: 1.0
+To: "Greg KH" <gregkh@linuxfoundation.org>
 
-On Thu, Aug 27, 2026 at 10:07:46AM +0530, Jeffin Philip wrote:
-> On Sun, 16 Aug 2026 11:47:12 +0530, Jeffin Philip wrote:
-> 
-> >usb_put_function_instance() attempts to dereference fd inside fi struct
-> >to get mod in uvc_alloc_inst() error path. However, fd is not allocated
-> >until later in try_get_usb_function_instance() after allocating fi in
-> >uvc_alloc_inst() and thus guranteed to be null in error path. Fix this
-> >by adding a null check for fi->fd that returns if fd is null.
-> 
-> Friendly ping, let me know if you want me to fix anything.
+On 2026-08-27 06:48, Greg KH wrote:
 
-It's the middle of the merge window, we can't do anything until after
--rc1 is out.
+> You now have 2 reference counts for the same structure, which is not how
+> to handle this at all :(
+>=20
+> Please either make the cdev be a pointer, or use the correct cdev api
+> for handling this type of common problem.
 
-In the meantime, please help review other patches on the list so that
-yours rises to the top.
+Right, adding the kref on top of the embedded cdev was the wrong call.
+Thanks for catching it.
 
-thanks,
+I'd like to go with the pointer option, because of how this driver is
+structured: one hsc_client_data serves 16 minor numbers through a
+single cdev_add(&cl_data->cdev, hsc_dev, HSC_DEVS), and cdev_device_add()
+pairs one cdev with one struct device, so switching to it would mean
+inventing 16 device objects for no other purpose.
 
-greg k-h
+With a dynamically allocated cdev (cdev_alloc() in probe, cdev_del() in
+remove), the kobject reference that chrdev_open() already takes on the
+cdev would keep the containing object alive until the last file
+descriptor is closed, and the final release would go through the cdev's
+kobject release callback instead of a hand-written kref =E2=80=94 no second
+reference count anywhere.
+
+Does that sound like the right direction to you? If so I'll send a v2
+along those lines.
+
+Regards,
+Shengzhuo
