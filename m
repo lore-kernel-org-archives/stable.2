@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B24338737B;
-	Thu, 27 Aug 2026 07:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7996239EF2C
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787816838; cv=none; b=RZVjKJh92uD1msLGin+utF0yEZK0mncKsNejUlnlbjJC1kSz+ncUuhyKnPZ+yss/NzgfFveeO2FsJl4VCw/kHg98+fYKYGx5JKt9upcW0pbU6bJOAJd/XVD4+sgf8zxJHVk04/bhpG/zZ2D+IiXjmmdIQIzFmZ5UxfLAMEwcN4Q=
+	t=1787817057; cv=none; b=OgZwklg9CkoRVYOfc7baqcj8InsuGfulhbVSxZ7NCs2rjv38Gjzm7PMss2UHSOeAIvbSnnbmYperhCy4rFfASwZyJIncWbKk2nnNoXIXVJnvV2tb7rOSb9h+fDnvVQWZEC11XItsznY1cQevgEnzcS0DNX86ml2zpfYpQl5tX/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787816838; c=relaxed/simple;
-	bh=D9iRynStFiinHNFk3YUubpgCjzHKcAiB1h/04CNvTa8=;
+	s=arc-20240116; t=1787817057; c=relaxed/simple;
+	bh=o9SfOayrWajRW/+NG/zMKHW/ffcQ2S0g3uodt2BKZtE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U3zaHU+Ncb6Km0NDV/4uv+OcUVSS/sjnrQq0EAq4Ws44Y6tO4XTRUKh1bidpx9jnyaJ1ZUnKHpWmwQaakk7wSnAeO1CC3VsUH6HrKejLzXHXKNx+MQ3/SUbYUiNmomTmQYy/ZAUynkpXhlWAv0BkmQhf9q4rOWfH/IWLxILO8pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXJQAfnV; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=jntgumfBT6gw3UnD4W9aAZDtQ4i7JEqGFcFf4rl0An3XIB3o2N4btFYecyt6/c5Qr06JAYI/ovSUl3YaWqDd1a5dkMC9Cw7YSX/OYAllhG7Hha2kw6c2nZ8L8NkjGorIWbwXe+tt2FGDNHCGp4F6ykoc/oYSzM9un9hy1bUwQV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=Us1jmtvQ; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXJQAfnV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4451F00A3A;
-	Thu, 27 Aug 2026 07:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787816834;
-	bh=HAx27bjYWIezR+l7iw/n59Tjpp+JZqYjQalST4GROaY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jXJQAfnVvTVWEWNE4VPcqMrW72bz1eQ9s0q/9pxGB/zaGdI3wBRdVVIhDL5nvhCmY
-	 lC3j0jOHD+sfzJqcAIE01FVPTZ5zMFBDKqvdCxB4RdEUGSVHfsxj9pAUyDem3DiiDc
-	 Cs/0u+1y1bxBZ0NGH32qI+TEeFnu2EmwnR4ii55QrS9wtra/TlmA1P96dBkZ2ounLw
-	 KWrarGBk+zvC9/3bFuYSbxLGuHNb/v8r0LAC3s1+v8nHQmhrn8SW4gcaOnq9pU2cJ/
-	 y0Lk4h7yDpuPuQXAVg9pKeTOuPqRAwSr8o0SOA8bMx6ZPREh+zz8paYvSEhJSAIbRr
-	 KJlwyQO2cFMPQ==
-Message-ID: <c4684212-f44a-4aff-a02d-f3f26095ebc1@kernel.org>
-Date: Thu, 27 Aug 2026 09:47:08 +0200
+	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="Us1jmtvQ"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c250f28f1cdso311438766b.0
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 00:50:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1787817051; x=1788421851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3TC/uq2OAWBJlRWDS0+FgLZUaW3+hNg8rcbu4E+WX7w=;
+        b=Us1jmtvQ5pmBNvHxw8AS0DXXd2Q63sIGJuBeYkO4Qz3HOZFdHzVohMwPxz9Y0xhPQx
+         FXcGbF2HavRovHFtKDHIMgYQY1qzvIzhf/6NuYLMuZdg4neRhdtKMV/Q56FtL1h85Vcu
+         g/ID7qaw6izcA8x/+7gLznEmxsDrwSj5Ng8P7knMZu51YjVizOTwQDkRumMP9uOXYRfd
+         dyQKdLLfSvUVs52Xb4a9hu4li/+HWs/YmhagFrWH+bY1L9u0SRSYK9n0ResDrDPU53r3
+         3nz0B59yvpWSlt5OBbTU3m0QDvhx2sbDwfRmahfUaEPncykrolIpuUG0Ayc/EPZlNDUM
+         kscw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787817051; x=1788421851;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3TC/uq2OAWBJlRWDS0+FgLZUaW3+hNg8rcbu4E+WX7w=;
+        b=mp19RRNVu/rYG65NsL5VxjYnHUXjNfhaymQ8HiI1bGac4wZHsrCmCVhdEMzcjDmdUG
+         IZXkfm2jLB9Z03aduL5nOzE8DdBRgxGH53ZUXDQExlLcBPInM4rJAhrT5inRxkHW7/O8
+         K0vgZlK0yZLBDDcJsZw9KG/yJiXDJG4VVed9EbilupgrPm1i6vQYzLKY5dfieH2Fivdz
+         KPLysSsfItAsB3fUgP46ca8V3+K8p/DMHXTLwTP7iigktAhGT7N8QkOeSHZtxLMcyGZS
+         ZSQKZbgD46ovuWDAXcw1LQZE/6kLh8r5UXj8AA5owcHhfPRTsNHfze1vPMyODhhsOj63
+         4/YA==
+X-Forwarded-Encrypted: i=1; AHgh+RqwfiFXPZlGeG7BGthkoaD0ASV4E8LLmgu/L6scRXEUMOmnHOQ0QH56Z4yw4w/vv2QjgjjTSpM=@vger.kernel.org
+X-Gm-Message-State: AFuF++npeTMPKUImvRwoafqLA7h8RMz8K3HjmGXh/dOjHhOi/RevUY1j
+	V+bgJ2OduuHr5mTQQo08RChTl2Odagh8rizzx+hyM5RmEYSdHEom6KYDN8qdZ1DbPg==
+X-Gm-Gg: AR+sD13Z5mQZCW5TZZ2V2QfQ8x+/f/2Vz8vQ84kwtZ4tdtnLf57CL2xxDA2kdAFtQ7i
+	qlRAHr38U9XqX9wxI8XbUejr70gx46iDtyJfZUtsmJ5cGc/GtuN3diB4IkEsPLufqmsvTdZEWTw
+	G3QKwF0W45oNYg2pJAexjfSHP2VeLAdQThrap+pU2D+vXGBDsBQFUKPUd+Tn6GTZToI/RIUuytb
+	DtANsHFS/WlkByun5pWUJrhou5X/yS+5FbWhGEK5dDf30TNMcMDzAchGl/+iQK5ZpgE0RjujT1T
+	KXmxlfV4r8BqJ31Z7djFuSKU1N9OOuXmcuQIrlm9okHemWRVJBcfS4x54naqF1DdfGZ0SeCsJTz
+	6s1O8pUluycG8NGVVSkABdoxhKfyK3KH071Z6Dv+4iQ7cAXplUkiNUzTOG0soRviYCLNElwS5Hg
+	5crjFfWoeUw9NRNha+k4enMg1N3LjW/jMab+vYx8dUlElqoy5Ar6MgWYQZTIX7hZFytw8yrNXnt
+	qHXwr+MWaT8PtRDmUPG5Q==
+X-Received: by 2002:a17:907:930b:b0:c24:680b:3944 with SMTP id a640c23a62f3a-c250c330febmr1350343566b.13.1787817050958;
+        Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
+Received: from [10.254.183.223] ([149.199.62.131])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a722400sm652641166b.23.2026.08.27.00.50.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
+Message-ID: <702a199e-6439-4890-9dbf-0111aa76aee1@monstr.eu>
+Date: Thu, 27 Aug 2026 09:50:43 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,91 +70,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/slab: reject unsupported kmalloc sizes
-To: Zi Yan <ziy@nvidia.com>, Harry Yoo <harry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Alan Stern <stern@rowland.harvard.edu>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- syzbot+805630f1453e490427fa@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20260817-limit_kmalloc_size-v1-1-5bef487701cc@nvidia.com>
- <82f138f5-11d4-4839-94a3-c226fd982715@kernel.org>
- <ao9dPUpHxP5uOOcw@MacBook-Air.tail10959e.ts.net>
- <DKZ7J9HNUDR6.BP9KG5Q7HYMJ@nvidia.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Subject: Re: [PATCH] microblaze: Fix MB_MANAGER build with older binutils
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Appana Durga Kedareswara rao <appana.durga.kedareswara.rao@amd.com>,
+ kernel test robot <lkp@intel.com>, oe-kbuild-all@lists.linux.dev,
+ Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260813024026.5402-1-kmehltretter@gmail.com>
+ <ao-3jrT0aP0_fSBA@gmail.com>
 Content-Language: en-US
-In-Reply-To: <DKZ7J9HNUDR6.BP9KG5Q7HYMJ@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Simek <monstr@monstr.eu>
+In-Reply-To: <ao-3jrT0aP0_fSBA@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 8/26/26 11:52 PM, Zi Yan wrote:
-> On Wed Aug 26, 2026 at 5:47 PM EDT, Harry Yoo wrote:
->> On Wed, Aug 26, 2026 at 11:28:12AM +0000, Vlastimil Babka (SUSE) wrote:
->>> On 8/17/26 22:40, Zi Yan wrote:
->>>> kmalloc is used to allocate physically contiguous memory for kernel
->>>> allocations. For requests larger than KMALLOC_MAX_CACHE_SIZE, kmalloc uses
->>>> the page allocator and can only support up to KMALLOC_MAX_SIZE. For request
->>>> sizes bigger than KMALLOC_MAX_SIZE, the page allocator can emit a WARN
->>>> because kmalloc allocates an order greater than MAX_PAGE_ORDER. Systems
->>>> with panic_on_warn=1 crash because of this WARN. Fix it by rejecting any
->>>> kmalloc size bigger than KMALLOC_MAX_SIZE.
->>>>
->>>> Fixes: aadb4bc4a1f9 ("SLUB: direct pass through of page size or higher kmalloc requests")
->>>> Reported-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
->>>> Closes: https://lore.kernel.org/all/6a820ebc.9ebadd4d.20b15e.001b.GAE@google.com/
->>>> Tested-by: syzbot+805630f1453e490427fa@syzkaller.appspotmail.com
->>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
->>>> Cc: stable@vger.kernel.org
->>>> ---
->>>> It fixes a page allocator warning (order > MAX_PAGE_ORDER) when gadgetfs
->>>> requests excessively large memory from kmalloc. Instead of adding
->>>> __GFP_NOWARN to suppress the warning, as was done for usbfs[1], change
->>>> kmalloc to return NULL without a warning for this specific issue.
->>>>
->>>> [1] commit 4f2629ea67e72 ("USB: usbfs: Don't WARN about excessively large memory allocations")
->>>
->>> So I checked and for kvmalloc() we have in __kvmalloc_node_noprof()
->>>
->>>         /* Don't even allow crazy sizes */
->>>         if (unlikely(size > INT_MAX)) {
->>>                 WARN_ON_ONCE(!(flags & __GFP_NOWARN));
->>>                 return NULL;
->>>         }
->>>
->>> This comes from Linus in commit 7661809d493b4. I'd do the same thing here
->>> then.
->>
->> But the purpose of this patch is to avoid the warning in the page
->> allocator. Should we fix this in the caller (gadgetfs) then? 
-> 
-> It is fixed by: https://lore.kernel.org/all/20260820223719.A4A3C1F000E9@smtp.kernel.org/
-> 
-> Please disregard this patch, but we can keep the discussion going.
 
-I still think this patch has some value if done as proposed above. Yes
-in practice it will just replace the page allocator's warning with a
-different warning, but IMHO it's "nicer" if kmalloc() sanitizes its own
-requests to the page allocator, using the KMALLOC_MAX_SIZE value.
 
+On 8/27/26 06:06, Karl Mehltretter wrote:
+> On Thu, Aug 13, 2026 at 04:40:26AM +0100, Karl Mehltretter wrote:
+>> The suspend mnemonic is an alias for mbar 24, and both encode as
+>> 0xbb020004. Use the underlying instruction, which GNU as 2.30 already
+>> supports.
 >>
->>> Thus there would be a useful warning for e.g. development mistakes
->>> resulting in the size to be unexpectedly high.
->>>
->>> Callers passing size that comes from userspace or similar untrusted source
->>> can either pass __GFP_NOWARN or sanitize the size to what they expect to be
->>> sane (which is context dependent and I assume actually way lower than
->>> kmalloc limits in practice). Note that passing even sizes within but close
->>> to/at the limit, trusting blindly some external source, can succeed the
->>> allocations but effectively DoS the system with heavy reclaim/compaction. So
->>> caller sanitization should still be preferred IMHO. Some of the recent
->>> arguments from Linus [1] would apply to this too, I think.
->>>
->>> [1]
->>> https://lore.kernel.org/all/CAHk-=wiSmgwwLKCqJwGS-dVHnSLU8W+7q1UQq-G9=TBGGZbuhQ@mail.gmail.com/
+>> Fixes: 88707ebe77e2 ("microblaze: Add custom break vector handler for mb manager")
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202310310151.UhB396Qs-lkp@intel.com/
+>> Suggested-by: Michal Simek <monstr@monstr.eu>
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Codex:gpt-5.6-sol
+>> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > 
-> 
-> 
-> 
+> Just a friendly ping in case this got missed.
+
+will look at it after rc1.
+
+M
+-- 
+Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
+w: www.monstr.eu p: +42-0-721842854
+Maintainer of Linux kernel - Xilinx Microblaze
+Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
+U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
+TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
 
