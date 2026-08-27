@@ -1,110 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E504481FA8;
-	Thu, 27 Aug 2026 14:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842398; cv=none; b=AU2EyADyafinHqUXU6r/y7xVoRNpRvdpEJoxDywYhjNL1YANRDwy9Rni1uMj/rCeuktG9Hv7ucbQ3UKsxc/kKNp21Bn6u+HHEddT6HkdTJavRRWp1woFuRKbt8/kZFDVpeR4Dhf3S6LSA0gGmoCP5V3TR6jhygVG+l52piLzDNk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842398; c=relaxed/simple;
-	bh=81QOSb6WHiTKKuL4HTBq9LMB2pHRbvz1D7SZ4iyMt5Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iLeL837iVqxWWuxq61duGkzNGl+v0hLxZ3XPGOvg71oXRDCyVcx+A9/k331jsXfJtIG9klrrjr9EVocD/aDt9FllXQKzhv03dNM2ith9yidiZliEDXg5SLQmLWxkzyIB7A8T4qp2AXfNA8vlCMEwN7bzZTvNZYp4HULIGBc92E8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=X/51bqOV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3146C427F93
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 14:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787842587; cv=pass; b=Qr6iNY5H5WYNWp9q3xZbyt+6+WsWOjzDrJnNZOvpKbLweF3mNIFs9D5td/goyDmLzpzx/tVss/DumKSD54qKXXBk7tquolC5oX3TpdKv/HazxrGAa7p8Yuk07iLuJ6sYxWGYCCvOWKrnP3VqBog/UIcQ+IUagb0w5tKisn76Qdk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787842587; c=relaxed/simple;
+	bh=0mstDLpNE5HqJ37WPV2/6GB6JwYfKQBjPJNFkn1B/H0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hGmggxZGSCQQBaVnm3WUOFY3YntxQMuwNQC8s5tgg27e23n17TlAYxk7vXxwa/h9dXRbJNOujB4fmbvEcaReT2SAXK8P8bp/Bpg7wcbzxiR3Auzch7UbXrd2114MbmERfBqgGOJLu1EqP1XxMj4qqf1a0QmbXrMD/kfg0Fyi55M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZqejJpi7; arc=pass smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="X/51bqOV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BD5D1F000E9;
-	Thu, 27 Aug 2026 14:53:00 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=X/51bqOV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1787842379;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n0sCK6SUbWHFXdTQsqY/bqP4+Ssz96ab2ersrw+ylnU=;
-	b=X/51bqOVZ/euTp5hF3rLnoHGZX97rol+LUHQEvTOnu5HbJobEUwiu4fL+LKVDyx9qOVSlC
-	9EvVlqsECxsGxZYFSICDJRjly2+GFAR9zGJDxd+XEV+x/6xvcsjQO76Me0pBdCybiOQ1+o
-	xqdDpjLMIuB9eaQyfVJj6iX6Xnkb+Bc=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id d311fca1 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Thu, 27 Aug 2026 14:52:59 +0000 (UTC)
-Date: Thu, 27 Aug 2026 16:52:58 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Zhichen Wang <wangzhichen@manus.ai>
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] virt: vmgenid: set driver_data before registering
- notification handlers
-Message-ID: <apBPSpFLsjlOTcxi@zx2c4.com>
-References: <20260825135054.54883-1-wangzhichen@manus.ai>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZqejJpi7"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8520161fdb9so2574287b3a.3
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:56:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787842585; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qWReRBvvLyWbljFLysxvdR19e1p4MfpRTKKnb1imqrVX3MyCT1YQOHQ3CnayNqR3LG
+         ZOO86NoLQ+LqytqcnGf2XKPyN/1VXzF4Z1hV5tzDnxsa6gMrxAsEOGhxYM0oHzDAK9mD
+         bxNKwKJ9uF5BB8c58fjk5N9b8KZDh3A7G/Sv1RdLU+B+dr9ycaldpFLJQsu2Fa5JCGzJ
+         qHMyIcZFGLUxXx/tn0pLXEF66E+kqvSKNOkmADsTR2d21Q42PEITwGdq7yPktKTTCV9r
+         BJqWIeWwzk9iSykka4xDPsGwDPrQZn8w3ni82RLnvuHCBxKy61Vr2UqJyYeKZorqr1wl
+         cNLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=n2MTw88jVLBTmyVxQrGtyl4vuDsvFs0qyxjhjgsnHbI=;
+        fh=PgQAizvM2Qe6tgydlk2pEk1aNLCcUZlJto0n2ameo88=;
+        b=jrxndkSNDceo7f8e/xuFQDDvkDxizSE8ro1LqCSmtkjSuSpVKhYzZigMc2c5pli//+
+         k4v6SpusI2BvHMACS4AFrgr8qJpRk2ksznVxDtvO/qHXTKyqFGReUnwIpe2NS+fzSbC7
+         iVu2iB65LF50RwLjnL7vqRRUaxgqe1tiw+Ubas/QI8fRqeL1UljTfetmbPACmCG01QCd
+         +MKh/pcq46KmMwNBbQ2AD+e6UHnQs5yTcesI9ooi0Q4Z3e1V0rK9Y1v635WAcv5O36sI
+         3M7fQspwFKlZVEJL81c9SbkmtSgKhrtBSCnwu8p6ID9Uxlc4Ifsbn/Fk64aaMrtK5GEd
+         HAbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787842585; x=1788447385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n2MTw88jVLBTmyVxQrGtyl4vuDsvFs0qyxjhjgsnHbI=;
+        b=ZqejJpi72YkEooyXZ/y46qcvpKhrepGfPp2G8lrP2ejv2GCOgguXBmpkvVQVzKWuzB
+         2YePS/6hypACVMQ6odCH7XZ5eh/ZS/C1VN04tIdHiX0/6GErV8xxEWMNdMARIyalYlXV
+         t7hVzBy7jt6DGd5kqIInJd0C5v8UUEmohfTrXThbUYH5SKCxAqnJQRa5mB0p9XzH0wSo
+         IeuQUCNwP2Uhft1iF/30b7oMOeAU8b8CCcxapCZbuJpfrfIRwptegSPS3GJef+XxsKYT
+         lOvw+Z6e6wHnI2FNbjMnNQ2BpBkInCqrvnGwDllt+RGu6unZ/JZbNQLZogQ9zH4awfbb
+         soqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787842585; x=1788447385;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n2MTw88jVLBTmyVxQrGtyl4vuDsvFs0qyxjhjgsnHbI=;
+        b=Anb5ceRaBfsmVrhM9Cjo5DPO8BoJZe2iZxHDrN4b7i4FsOBn3auHHEYDkeW6kgDGYs
+         pLvtZ/cI/yVDAAPcXMKm+NAUuVseIu7WchfKi3f/A3UNhZt2fXg4Xy0icpnVq+O0giMb
+         o5uYDK8OFiOeL30Ecl50mtTPCbKmvFFm5JsdBKzYIxDwGsZhOgtyFt3Bs6u0XkhbVBqR
+         wesyIaHnvNq2nQwO0BHTy4r7SMNsQAuFGqY4jvIvKtxWax4aduuKkTf5kS2MwJXk7bbY
+         k411QRls/lZ9iMNfJe748WUeCU6OIEq9q05WIkb3XGYlvf8WhFIVsWwqv7F6vpHbX9+N
+         eUMw==
+X-Forwarded-Encrypted: i=1; AHgh+RoWkPtebywkg8NuL0+yoNVkUayRWpK6jJfmR8RttM3WBq5Cn8o+S00YUrOmTZtucxVoXtdh9p8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCCLhXvd3kIQmGh1Ph+Kp2gSxxE9i6ygDFGDL33lDlwhLG2Rj7
+	r186+EO9w9eRHLm3z53CblSE8NNlirrJtPI/tt5RTNhsThL67+LSf7u6ymCjA4rwgzRESHE7Hwe
+	1ncOK4E64wyAszVtXltIKIrvS2K5cTIk=
+X-Gm-Gg: AR+sD10PtIFg1xHBiyji80dsIHqH2BNQwnOedN2JnbStRUB1MSZia7fkOrpfzMLj3mj
+	Z7Bk4VBu3JzmxRz4aB7Fot7Wsuk5pDWYKOBLyFoz7Cq/GVSEQyVJdJv3FmUTcnbAFjxdUJt896V
+	BX0gJppZd/l0wHgWviDdtMOmQ1ECkHV+R5MF0vvQnwYdB2pEipDkhKyThG9rirR/0C6YD0N9UWU
+	jAvNnmyCYhSTCS3iAvqwW+xLpqaHfvwxWVv3GJi90KRVCaoPe3VBMv8tiWsZNMeVKu05/xeP4Jq
+	7ADc1HOHhwtwjx7IB0t+qtdrBnVmBpjwbD5Fh9fHul2P8qOah6Iu2+hC/5OEAlEJjgWwheryXxk
+	ogGMyuutKAQ43/BzI5esPY+GalnGioJEdkFEN
+X-Received: by 2002:a05:6a00:3984:b0:84f:dfce:966b with SMTP id
+ d2e1a72fcca58-85373bb8dc8mr26253345b3a.8.1787842585290; Thu, 27 Aug 2026
+ 07:56:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260825135054.54883-1-wangzhichen@manus.ai>
+References: <20260822225444.2774461-1-simon@swine.de> <20260822225444.2774461-2-simon@swine.de>
+ <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
+In-Reply-To: <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Thu, 27 Aug 2026 07:56:13 -0700
+X-Gm-Features: AcwNN1WJoNUFqCJjOSLU7Hm184I3k4u300g0JamTEyCvcDlP-yF2LMrAI2A8EVc
+Message-ID: <CAEf4Bzb0YOku2mgpASY_e-tMHfFtEzz4S01ZviH5QBsgzQmx_g@mail.gmail.com>
+Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable programs
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Christian Simon <simon@swine.de>, bpf@vger.kernel.org, ast@kernel.org, andrii@kernel.org, 
+	daniel@iogearbox.net, martin.lau@kernel.org, tj@kernel.org, 
+	yonghong.song@linux.dev, stable@vger.kernel.org, olsajiri@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 09:50:54PM +0800, Zhichen Wang wrote:
-> Both probe paths register their notification handler before assigning
-> driver_data, which the handler dereferences.
-> 
-> In the devicetree path, the notification IRQ can fire as soon as
-> devm_request_irq() registers the handler: the interrupt may already be
-> pending at probe time, for example when a VMM injects the
-> generation-changed notification while restoring a guest from a snapshot
-> that was taken before the driver had probed (Firecracker does exactly
-> this on snapshot restore). The IRQ is also requested with IRQF_SHARED,
-> so another device sharing the line can trigger the handler just as
-> early. The handler then calls vmgenid_notify(), which dereferences the
-> still-NULL driver_data and panics:
-> 
->   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
->   CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.18.38+ #1 PREEMPT(none)
->   Hardware name: linux,dummy-virt (DT)
->   pc : vmgenid_notify.isra.0+0x24/0x8c
->   lr : vmgenid_of_irq_handler+0x14/0x34
->   Call trace:
->    vmgenid_notify.isra.0+0x24/0x8c (P)
->    vmgenid_of_irq_handler+0x14/0x34
->    __handle_irq_event_percpu+0x44/0x1bc
->    handle_irq_event+0x4c/0xb4
->    handle_fasteoi_irq+0xf8/0x1f8
-> 
-> The ACPI path has the same ordering problem: the handler is installed
-> with acpi_install_notify_handler() before driver_data is assigned.
-> ACPI notifications are dispatched asynchronously from a workqueue, so
-> the window is narrow, but a notification arriving between the two calls
-> hits the same NULL dereference.
-> 
-> Assign driver_data before registering the handlers. The state is fully
-> initialized at that point, so the handlers are safe to run. Should
-> registration fail, the probe error path leaves no dangling pointer
-> behind: the driver core clears driver_data in device_unbind_cleanup().
-> 
-> Fixes: 7b1bcd6b50a6 ("virt: vmgenid: add support for devicetree bindings")
-> Fixes: e07606713a90 ("virt: vmgenid: change implementation to use a platform driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhichen Wang <wangzhichen@manus.ai>
-> ---
-> Verified on Firecracker v1.14 (aarch64, devicetree) with a snapshot
-> taken before the vmgenid driver had probed, so the injected
-> notification IRQ is pending when the restored guest reaches probe:
-> the unpatched kernel panics with the trace above, while the patched
-> kernel handles the pending IRQ as soon as devm_request_irq()
-> registers the handler (/proc/interrupts shows the vmgenid IRQ count
-> at 1) and boot completes normally. The ACPI path change is
-> compile-tested; the window there is analogous but much harder to hit.
- 
+On Tue, Aug 25, 2026 at 6:20=E2=80=AFPM Alexei Starovoitov
+<alexei.starovoitov@gmail.com> wrote:
+>
+> On Sat Aug 22, 2026 at 3:54 PM PDT, Christian Simon wrote:
+> > A JITed BPF program can use one private stack per program and CPU.
+> > Sleepable programs can be preempted, allowing another task to run the
+> > same program on the same CPU. The second invocation then reuses and can
+> > overwrite the first invocation's private stack.
+>
+> I'm confused by this. sleepable progs go through __bpf_prog_enter_sleepab=
+le_recur()
+> which has per-prog recurison counter. So preemption of the prog
+> doesn't break private stack.
+> If the same prog attemps to execute on the same cpu it will be skipped.
+>
+> syscall prog types go via bpf_prog_run_array_sleepable()
+> that have per prog recursions counter.
+>
+> Looks like we're not doing it for bpf_prog_run_array_uprobe().
+> I'm not sure what the right trade off here.
+> I feel universally checking for recursion is better
+> then selectively disabling private stack for uprobe.
 
-This patch went to gmail spam! I only saw it by accident just now.
+I'd really like to avoid adding this "recursion protection" to uprobe.
+With uprobes, there is no recursion, it's called from well defined
+context in the kernel and you can't have recursive uprobe BPF
+programs.
 
-Thanks for this. I'll try to test and verify this on Monday. Do you have
-a handy repro script you were using that you can share? Also, wondering
-if you saw this happen in the wild.
+All you can have is a very valid and possible sleepable uprobe
+interleaving, which the user cannot prevent or work around, they have
+no control over this and it's just a fact of life.
 
-Jason
+ E.g., a simple scenario, we attach one bpf program (let's call it U)
+to some USDT. BPF program U is sleepable and actually can sleep due to
+page faults (e.g., unwinding Python stack trace requires sleepable
+mode for reliably getting filename strings from Python runtime, which
+are not always paged in).
+
+In such a case, you can have thread A and thread B both hitting the
+same USDT (e.g., somewhere in memory allocator or whatnot). Let's say
+thread A hits it first on CPU X, BPF program U starts executing and
+unwinding Python stack, does bpf_copy_from_user() for string contents
+and causes page fault, is taken off CPU X. Meanwhile thread B hits
+USDT on the same CPU X, kernel runs program U, and it is supposed to
+work completely independently and concurrently (no shared state or
+whatever) from U's execution in thread A.
+
+Yet, if we add this per-CPU "recursion check", we'll just skip U's
+execution for thread B. This is data loss, and it's very bad in
+practice because it frequently just invalidates the entire data
+collection trustworthiness.
+
+So I think we should disable private stack for uprobes (sleepable or
+not) instead. I'm not sure private stack buys us anything for uprobe
+cases.
+
+As Jiri mentioned, at verification/jitting time we can't tell kprobe
+from uprobe, though, so that's a bit of a problem, but it's a separate
+discussion we should have. Perhaps having an extra expected attach
+type, or type, or some program flag to designate uprobe program as
+such would be appropriate, not sure. Let's discuss that.
+
+But please, let's not make uprobes unreliable for no good reason.
+
+>
+> > Disable private stack for sleepable programs so they use the regular ke=
+rnel
+> > stack, which handles preemption correctly. This change is intentionally
+> > limited to programs marked sleepable; preemptible non-sleepable dispatc=
+h
+> > paths require separate protection.
+> >
+> > Fixes: 7d1cd70d4b16 ("bpf, x86: Support private stack in jit")
+> > Fixes: 6c17a882d380 ("bpf, arm64: JIT support for private stack")
+> > Fixes: 156d985123b6 ("powerpc64/bpf: Implement JIT support for private =
+stack")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Christian Simon <simon@swine.de>
+> > ---
+> >  kernel/bpf/verifier.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> > index 5e37ca75e5c4..038753ef07a9 100644
+> > --- a/kernel/bpf/verifier.c
+> > +++ b/kernel/bpf/verifier.c
+> > @@ -5237,6 +5237,15 @@ static enum priv_stack_mode bpf_enable_priv_stac=
+k(struct bpf_prog *prog)
+> >       if (!bpf_jit_supports_private_stack())
+> >               return NO_PRIV_STACK;
+> >
+> > +     /*
+> > +      * Sleepable programs can be preempted, allowing another task to =
+run
+> > +      * the same program on the same CPU. Since private stack is per-C=
+PU
+> > +      * and per-program, the second invocation would corrupt the first=
+'s
+> > +      * stack. Disable private stack for sleepable programs.
+> > +      */
+> > +     if (prog->sleepable)
+> > +             return NO_PRIV_STACK;
+>
+> This is not true in genreal. sleepable progs can use priv stack.
+>
+> pw-bot: cr
