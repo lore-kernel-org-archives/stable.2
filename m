@@ -1,97 +1,121 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B731C84D0;
-	Thu, 27 Aug 2026 02:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DE71C84D0;
+	Thu, 27 Aug 2026 02:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787798315; cv=none; b=A1sbtqBWty2JvuGZKtUhKMtsUtcqNS0BZ2Mil8z3S/l/2up/oH0Y4dvXFLFtYQJalVBVXuzVpga0QLLX/qAUX2dzyjLQvS4QwAstfa3fOcnsTaD+5EXf90YjRIOiKtomqgEjXZMkZ3K3WsO61xU+z8NI+7ZlKI9Rz2uTe1G8hw4=
+	t=1787798410; cv=none; b=AMO4qG9LTujcWOsEtECgnxFZgDNrFg32V4u/ebMKUWQnL1a0B8bQrA/iZBNVeZdFlv866lGWN/slV1WaHUmku4iPKcpt4bkb3UMI2xS/RbyT9lRaujN1pMMS1lOnuzDIDp4CWPS+aofPpmj3W/fzAKwf1EJC40gVXmi2Kkt10AI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787798315; c=relaxed/simple;
-	bh=2lgJVWDLJSRQTDln7hZ5jKmiXAVgwNTHvtaG7S34XZE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kd72S5VdcspK1bpDGz98mxkkfa7EM1ICJ1b24jv7f5cDy48oszdJqXKjnN+xGF0pGa6HZmvRnb+uO74gLjQepGu3ps9gh/sbIUwtZ8y8dk9d3+RE0e7rUPRfjC/4DCwt/1/AXHrYwW7ncx2h63odye8GvTLaMKl3vYFjmeK9xn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GfpjjMLa; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787798410; c=relaxed/simple;
+	bh=a6PJlX2eDjqG6eTem80WGbWpxw0WOCwQ48T60BYfyfY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bIIVSm1gE0yq80KEOOXxGvunebVV3+UJNeqOSVBXnx+fpjBDWltPVVMl4mpoe680kmedCP17IqKkLAY18pWLNirGo0pE0DlNyoLnX5GOHui8kqmhW0w12OZ2MbvNZOQUqhaitjxCAP1Gdf1gMQqNrBQW4thuD4oYWgBakiXrpas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=YRWCZdp0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SNRWVki5; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GfpjjMLa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kF
-	XxZJ9VVh7dL52uS7/oN/owmsUDo+btzoy5sSb0lOE=; b=GfpjjMLakO0ItZmIMX
-	llkpuWlDpg7BZIDbwBb328GCKFg4HMJcfm+zb1CPYwfaTLbJHphKA16tusGcMHrH
-	1DbCpHcIMu7iPmAwVWiBFvUT24d0gGTASm9e4LK9+34Abyw1X03ltjCFegGP0Ck8
-	J92e//fSsCnd0fWH5F824gEBY=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3XyQOo49qe0dfSQ--.11609S2;
-	Thu, 27 Aug 2026 10:38:08 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH] md/raid5: set pool_size before extra_page allocation to fix leak on error path
-Date: Thu, 27 Aug 2026 10:38:03 +0800
-Message-Id: <20260827023803.36602-1-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="YRWCZdp0";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SNRWVki5"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3B0921D000D0;
+	Wed, 26 Aug 2026 22:40:06 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-03.internal (MEProxy); Wed, 26 Aug 2026 22:40:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787798406;
+	 x=1787884806; bh=hWMp3cXukM5aYcw/dN/YYGhsXf9+BYduq0DgOXDKtYU=; b=
+	YRWCZdp0YJ4TxwI9X8YehchX3imdHe5sVY13fJLhGd6i3sCQPov9ZNY2FvvxqzB6
+	euZkQ1DO0//LNRWQgartBjqXBmjktIj8ndCOF1BGQt9E6CEIp7a63NEEWDlL7A8i
+	pwLNdZAHCUdYBNsYJ6CggOcMROfom08i948CyP0fKX/TUvfiRZCFGf8R/ZpezcQm
+	NM9ZgfrAZFncByBUMkOBdM4HwEo8MrWQjxMSVo3BgQRD9nRpBTuj1Q4yozFgWTB/
+	Ou/ji45wXnPfZBF+Mi+xU4ZL0Nr+k1Gej46LYhCJYJL3JMa71d3t6EOMYNTisOb8
+	TgNWqxN+H9SRL1L7pFQ5JA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787798406; x=
+	1787884806; bh=hWMp3cXukM5aYcw/dN/YYGhsXf9+BYduq0DgOXDKtYU=; b=S
+	NRWVki50UnPJ7mNgDQPxe/8km7Ahc3E/c6WlF5VoDYf/GuyNwdicJuIcz5Hk+cmK
+	ysuHDtKbaSku7ass3LN9Mn+YggCyndVRuC/zaHHA2YwvEuBG/qIpphEyrtQPQbWh
+	Kmg0XVcfKEbPquTqDK+3QxaILPyLTNokIK6mLtU5iKq0v4TA29Lc9UfSByM+zACJ
+	gR4uVfm+6DGkVwYo6BkW//buAuIwNbnG+1IQznvH+YiPJ7W2bFKPgqbjbLgpUoKJ
+	nogEjkNTEQqDhE6EiwnIymSQuGFVXWNrkH/ovq004ARaSna1zsQX1KLNkSsoGJx7
+	W1QOWJ1ptbyqygWliLj6Q==
+X-ME-Sender: <xms:haOPasgGxHjENguA8tgCogUhHBFEtwtyta2YiwFbrRMZJAzgthc_gw>
+    <xme:haOPag7i8RWRGRtyASeoU5W3vrheF8bg7Sxtr05SZnXpaaC6walbXJTBboEf7IVqk
+    GLsppMtiLfew-Z-BQzA26Urcyf1-ZXdPR7RTj654Q0PUGrlFMTm3zM>
+X-ME-Received: <xmr:haOPavm6ETtfYUUTTsJShkuL757KoE7aNGeRwZ8zBeowth6xkMo14jgFS350cQqCHJzXeVALpZxqfDKa69iDRCnmzoWz46V->
+X-ME-Proxy-Cause: dmFkZTFB/oj+N6i/pB1QH6sVmwIZNNP9xM3v2B0i8HNXDDWrLjkdHN/fNOcO9f13+P+buo
+    y3lyLGvEjK+enk5yoB19S2msvURE7st1oi7p+nWxEA7T/whKEKnYo9bVjG2IFyiKwa53Xt
+    gCuB8lu3otyFfudhiM9vztRPkVFkT6roqNZqkPdfCDG020fIUJ9K6QPn8vVrDKsiUqkYiM
+    ie1VkYgF95DtlNfLjt7iSCkFGp4DQvbE6m406xdtFFtseYiTy1Acc7kA7/k3+wbnTt5D+s
+    FUccso02ytCoE6v5jURM2JimKW0WOC++EPvSm6z8Co5I83VNjbqseCaO1l/k+Ppm2lBaO7
+    +fnnubVB59ni+OpMtHf9IueQGMNLQiMPlBbn3i9hCjLJUaYWHk3zhiAINvGZy+sGrRo7Ry
+    Oce9KbfhLrWSww1X7/tZQ1OCqKAuRM+ZPp/AfSJI3ILJheF70ogyNpzdkOj1+JGGBTobOY
+    /aSbQv57ndLYdhPdfin6c/b6V6qWoJwZqyO4yvVu0IZiBYTTUre+FqwMUquYs+Y/wx4HhW
+    wrGubNLorde/U1e7Hj8hZBYklxki70oWYuUooEUeyCzLIVgplQ5qbwpZCs56JxRH3Yjcec
+    V3zIY3JfTzkOgUj97i1ahS1bD5fy0TOs753fnRNP22D1KEgZE9i4B1fB7BLA
+X-ME-Proxy: <xmx:haOPahM8h7MJoT5VNpj40JqcHjKHb_9lABee0Vub8sgv1U_ICT6vUQ>
+    <xmx:haOPahpffUeBYIDmGFsiJCHQ-WfX5QrPguCPpzh8LyaBnPeA2Ij5cA>
+    <xmx:haOPaqtwJgx66IFQxbuqfchSDFbLhZgqK6XJQBs-1Ftk37P285q1IQ>
+    <xmx:haOPal68Bec9ZFd4j4E2NzuLij3-pc_SveDwULhMcvcwb3knHWR2Pg>
+    <xmx:hqOParWC3FxdOOUfDnDfplIX5IkuGt_IZdOkkqdlBFTQ_pVm1gbxxbP1>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Aug 2026 22:40:03 -0400 (EDT)
+Message-ID: <d478e59a-ddf1-40f3-8cbf-306a9fbad206@pobox.com>
+Date: Wed, 26 Aug 2026 19:40:01 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3XyQOo49qe0dfSQ--.11609S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tryDXFy3Zw47uF4fZFyxXwb_yoW8Ar1Upw
-	srWw1Yg345WryrGry7C3y8uF1rtw40qrWxCFW5W3yqvr9Iqr9agF4rXa4YgrWkAFnakayj
-	qFZ0yrs8Jry5taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFeHDUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC+xBr-WqPoxDdbwAA3Z
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 00/79] 6.1.185-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260825132541.677185791@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260825132541.677185791@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+On 8/25/26 6:25 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.185 release.
+> There are 79 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.185-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-In setup_conf(), conf->disks is allocated with max_disks slots and
-extra_page is allocated for each slot.  However, pool_size remains 0
-(uninitialized from kzalloc) until grow_stripes() sets it later.  If
-any allocation or initialization between the extra_page loop and
-grow_stripes() fails and jumps to abort, free_conf() iterates
-pool_size (= 0) times and skips the extra_page freeing loop entirely,
-leaking max_disks pages.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-Set pool_size to max_disks right after the disks array allocation
-succeeds, so that free_conf() correctly frees all allocated
-extra_page entries on any error path.  This is safe because:
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-- If kzalloc_objs(disks) fails, pool_size stays 0 and free_conf
-  skips the loop (kfree(NULL) is safe).
-- grow_stripes() later sets pool_size = devs, which equals max_disks,
-  so the early assignment does not change the final value.
-- resize_stripes() only updates pool_size on success and reallocates
-  the disks array in lockstep.
-
-Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
----
- drivers/md/raid5.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7732,8 +7732,9 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	conf->disks = kzalloc_objs(struct disk_info, max_disks);
- 
- 	if (!conf->disks)
- 		goto abort;
-+	conf->pool_size = max_disks;
- 
- 	for (i = 0; i < max_disks; i++) {
- 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
- 		if (!conf->disks[i].extra_page)
 -- 
-2.34.1
-
+-Barry K. Nathan  <barryn@pobox.com>
