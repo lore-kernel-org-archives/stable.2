@@ -1,100 +1,90 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D574E499F3A;
-	Thu, 27 Aug 2026 17:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C30E23E334;
+	Thu, 27 Aug 2026 17:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787852458; cv=none; b=RbxSUTY+Ty+GJPNObXtKoh/+Qz8cUlGOtGJd685ladD7fqPG1RwpnLO7gkZNljg8dikedW6WJkyu1t2msv7vZRHSBc/GeKP9ZXxf9opCh6R4XTZh7IxLqxls8iUHcTW9aVvmIeLBfwGLLX/afUPGuyVDaJ8c04cxw3TQi2uC2M4=
+	t=1787852638; cv=none; b=r3vou7A382zISGwh5ZJhwfMA6KOsVgM1BSXtsaHAAnXjWIoB1QX9v8WIr8DExg7noFzjjH787ndHJ/a4p+4YCSdCteaslQnZ7ORg+zXlqBhpM6TkFIfe7QQ+P9c4zV9LHQh5Z/ajgMS8xrYS5xsBDHsitING0KjtVF75nyEjQUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787852458; c=relaxed/simple;
-	bh=Hg55+g+2sDxRj0S/u4Rec3c5AtKBMNduDaEDI/9xCII=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=ZI/LqtiKyfjyG4cnUjJzNxv0b5PgEE0w6hJJSTnAIPWw0O5UkxJP3TiYD1EAquPOz065PEgp5TmwL4OkdE5TTs++Krq0lfKVSyCeUDrkdoLi82pyIl0aLRGmCuDuz25IX6synqwc1Q5QfbH5LZQIl8n6Xie9ioo4RpDAirhDsp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=rtPCcZtZ; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1787852638; c=relaxed/simple;
+	bh=5mRXSQ+a87YtlJ6UtHzXO4UFEtS28CTeQ+vXCkYcGPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sx37jcfspn+rctBKYBGLvnvrP9RsqV4qIqfVxLyHYjp3MhgyQodQsi2NvSoCsVa2gqCAAzMpjiJ1KAMZgDgLoWhgOL4AefRiMiN98f9vZrCFbWTLKwRvbhzFybbuCn+dXVFIGYaHD+4dyZU9MukM5EiVbkKjbvs/7E9BXiYRy7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ejFXhYtp; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HLM1QfNj; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="rtPCcZtZ"
-Received: from ehlo.thunderbird.net (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id D45DB1F8DA;
-	Thu, 27 Aug 2026 19:40:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1787852445;
-	bh=Hg55+g+2sDxRj0S/u4Rec3c5AtKBMNduDaEDI/9xCII=; h=From:To:Subject;
-	b=rtPCcZtZZLMg2hlmuRelXiAc9nkNWnlk+KZ/tNxhU9gp5XfzD64NF844FzFHh+mo2
-	 eSPRF3GmpK1FQcWOs3xdzcU4P/+MY+f8C3hboy4tUQUjVnk/JQnXblCyl7Iuvc+yZB
-	 yilCfKzwO2OgHaz/Tnsi8xdf9V14bstx1vqWQXB05SRwytH4uELlpHWVqCMtvlL9nz
-	 iP1QNwR2z8jpUOTv9M02XNAbHPbBcG8H1HrG+j7QHvwUOhmITFErOHTzbEOAbGkAS6
-	 WgRiTIn6k8CEMmPpPkX9ln+JDsv8un5A5cVQqyoiFXZxvkxV228eI9qK56nzi/6xCI
-	 zrwCc2KFJ1izw==
-Date: Thu, 27 Aug 2026 19:40:42 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Georgi Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
- johannes@sipsolutions.net, andrew@lunn.ch, krzk+dt@kernel.org
-CC: johannes.berg@intel.com, kees@kernel.org, miriam.rachel.korenblit@intel.com,
- rongqianfeng@vivo.com, wenst@chromium.org, rafael.beims@toradex.com,
- avraham.stern@intel.com, error27@gmail.com, s.kerkmann@pengutronix.de,
- gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com,
- robh@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
- chunfan.chen@gmail.com, arend.vanspriel@broadcom.com,
- peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, stable@vger.kernel.org, gvalkov@gmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v8_3/3=5D_ARM=3A_dts=3A_armada=3A_WRT32?=
- =?US-ASCII?Q?00ACM=3A_add_marvell=2Cinvalid-reg-hint-in-rom?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260827171937.28878-3-gvalkov@gmail.com>
-References: <20260827171937.28878-1-gvalkov@gmail.com> <20260827171937.28878-3-gvalkov@gmail.com>
-Message-ID: <15F55ACD-E206-4B79-9E8D-1ED24427BB19@dolcini.it>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ejFXhYtp";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HLM1QfNj"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1787852620; bh=YB79QfroFRVBxYJA1d72Jo/
+	dU55gRVR2euQiCawh/dk=; b=ejFXhYtp3oyFqnP2IIusctEG/iz3BqbpmsFfvBYHceqFDMgthD
+	Iu5iAEBcMAZ40g7ivdWxtQZtVQ26Z0nbEV1ctCIqX9iG3HWK78LZ5OsgEZHMmnhvbfYufbP9FUW
+	m6OxBJqxiDJmcad3Us/ZLvB0SKAxNd5JjTD+zD9HA+w+RjxuopJqeZB6CSUDdbwSFNCWEfQiQ4s
+	uTPX7bL9p+P+wW/a9piWw18C7PPV1T21npsZz/jMwzbubGWrbTxNBzT0P7jB/grPBoFV9JRwvib
+	vdGfKEUVCIORBNKfBl3RB556cSz1DTLEbg1nJWwXDr0/CiINiQEu7iDDa7b8+C8Xhxw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1787852620; bh=YB79QfroFRVBxYJA1d72Jo/
+	dU55gRVR2euQiCawh/dk=; b=HLM1QfNjTzNsCMBihdlWbDxHGXhnpSi0plQdeibij2eljAPpuY
+	jOCbRbP5XRitLZl2I9ftUXurnPQ6BIbjCkBg==;
+From: Bradley Morgan <brads@mainlining.org>
+To: Mimi Zohar <zohar@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	brads@mainlining.org,
+	stable@vger.kernel.org,
+	syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+Subject: [PATCH] ima: Check for ERR_PTR from dentry_path() in validate_hash_algo()
+Date: Thu, 27 Aug 2026 17:43:38 +0000
+Message-ID: <20260827174339.1729-1-brads@mainlining.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+dentry_path() returns ERR_PTR(-ENAMETOOLONG) when the path exceeds the
+buffer. validate_hash_algo() passes the result straight to
+integrity_audit_msg() without checking. ERR_PTR is not NULL, so
+integrity_audit_message() sees a valid pointer and calls strlen() on
+it, which faults:
 
+    BUG: unable to handle page fault for address: ffffffffffffffdc
+    RIP: 0010:strlen+0x30/0xa0
+    Call Trace:
+     audit_log_untrustedstring+0x19/0x30
+     integrity_audit_message+0x366/0x4f0
+     ima_inode_setxattr+0x512/0x5f0
 
-On 27 August 2026 19:19:37 CEST, Georgi Valkov <gvalkov@gmail=2Ecom> wrote=
-:
->WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
->from the mwifiex ROM, which conflicts with the platform regulatory
->configuration on units sold outside the US market=2E For example:
->- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
->- phy1 mwlwifi 2=2E4 GHz, hard-coded region 98 EU mapped to FR
->- phy2 mwifiex 2=2E4 and 5 GHz, hard-coded region US
->
->When the system boots, it detects a conflict between the user selected
->region and the radios, e=2Eg=2E BG FR US, and applies extreme restriction=
-s,
->preventing phy0 from starting on any DFS channel=2E phy2 works=2E
->
->Add node wifi@1 with a flag marvell,invalid-reg-hint-in-rom to the
->WRT3200ACM device-tree, which signals mwifiex that its regulatory
->hint from ROM conflicts with the platform and should be ignored, so the
->platform regulatory domain can be used=2E This does not allow the user to
->change the regulatory config of any radio=2E It only allows phy0 to start
->and operate according to its certified configuration=2E All radios in
->WRT3200ACM/WRT32x are locked to the hard-coded configuration for which
->they are certified=2E
->
->On WRT3200ACM, the platform configuration is stored on the devinfo mtd3
->partition, which is read-only: cert_region=3DEU modelNumber=3DWRT3200ACM-=
-EU
->
->The Linux kernel sources do not have support for WRT32x=2E An equivalent
->patch for these routers has to be sent to OpenWrt=2E
->
->[1] https://github=2Ecom/kaloz/mwlwifi/issues/173#issuecomment-307879699
->[2] https://github=2Ecom/openwrt/openwrt/issues/9956
->
->Cc: stable@vger=2Ekernel=2Eorg
+Check for IS_ERR() and use NULL instead, which makes the audit message
+skip the name= field instead of crashing.
 
-This whole series is not material for stable=2E Please drop thia tag from =
-all the patches=2E
+Fixes: 4f2946aa0c45 ("IMA: introduce a new policy option func=SETXATTR_CHECK")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/6a8f89e5.1d9ded08.62e62.00bf.GAE@google.com/
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ security/integrity/ima/ima_appraise.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
+index ced2e131b061..b280488e15fc 100644
+--- a/security/integrity/ima/ima_appraise.c
++++ b/security/integrity/ima/ima_appraise.c
+@@ -748,6 +748,8 @@ static int validate_hash_algo(struct dentry *dentry,
+ 		return -EACCES;
+ 
+ 	path = dentry_path(dentry, pathbuf, PATH_MAX);
++	if (IS_ERR(path))
++		path = NULL;
+ 
+ 	integrity_audit_msg(AUDIT_INTEGRITY_DATA, d_inode(dentry), path,
+ 			    "set_data", errmsg, -EACCES, 0);
+-- 
+2.47.3
 
