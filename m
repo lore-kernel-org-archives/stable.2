@@ -1,242 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7682F36E466;
-	Thu, 27 Aug 2026 22:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0929C3D75CF
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 22:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787869635; cv=none; b=trt7uVVXeM6M8IshsaOIpk7VHcDWLWH1Rrd+osbxGPcmzzWMpJxuWjDOUd6xIl0sGZ0XLDg4zeiEQF+TifHaE1jS8HmqBHKIsXPWbamSSpzRp+76KDeetncwhfL2YP5P+Nd+jRN0H+yoOCcGthug0cUhUY5Rnq39eB8/F7wbr9Y=
+	t=1787869958; cv=none; b=UzL30H3UO7z/IRYr/9XkQkVxZzFJtlGp0QKC65f8E4B/uijiX8P06LqZaigCt1IKFUt4D7GRFevtN161covogyjcdng5VE3OhZmE49UzHPF4w8XY/+s7reokvdCUa0L6eQLXxEhsPcpZbGrsMuP35MRyeVlsolOsZHQS30EpNGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787869635; c=relaxed/simple;
-	bh=ir+u/BIyH0UGHaoQfDvrpSYsSvPmVWBT0ttdvMmWCIo=;
-	h=Date:To:From:Subject:Message-Id; b=EtZiQr3BGwRfJ1M8Huw1dzZsNFeGgKORHSj92aNH9tUujRAZXGQu7aY96q8JEog8RJkV8kXKmJ4i4axrY6xNYPwZTxymNwL08rcDPFxzPMqG5kw/tCpyPcgb6MyWgekadHHVoBHhp06sqo8B0a68kM8Kjldv8iUItMT7C1W9Pz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=i9BL62iY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787869958; c=relaxed/simple;
+	bh=0KS9yDRF5ufQr71N4f6ELYPxUEqie2Ct2GuCnnm+4D4=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HNOny9wrcXcod6tndCF8W/KaVVwslUbhtArXIlIHVWUpKno36u2n/M+VsSiEeVsCEkpE/CysFb655JaS3IYbLZT2IFMCWRDJnSTkv8bqoxauFJbymBeIrIBtbly61JRExMvMxgUY8Mf4WpT4dD46J/Mslge/7huBzAX1V97/lyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGjJ0P1V; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="i9BL62iY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B872B1F000E9;
-	Thu, 27 Aug 2026 22:27:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGjJ0P1V"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso2855835e9.1
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 15:32:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787869626;
-	bh=vTfqSTr4v780KZ+odRCLmC14WKzxRmYuIZ2zJohksUo=;
-	h=Date:To:From:Subject;
-	b=i9BL62iYJq6fA/WZnYSMkSv23ZX7CidSoXaFoZwnwm+c1TdfqxQGpHb/ePkdRmGqj
-	 vx6Css2Pz57BXMysl+vMeHfHw7ZTJwX1AM2eal1EUQi6CGJcrES7qNZNF63hwtdO/q
-	 zE+XvD6fp5RyprH2e+CNrzISzcRnAvSFNhmYVQAg=
-Date: Thu, 27 Aug 2026 15:27:06 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,stable@vger.kernel.org,saravanand@crusoe.ai,ryan.roberts@arm.com,peterx@redhat.com,liam@infradead.org,lance.yang@linux.dev,jgg@ziepe.ca,dev.jain@arm.com,david@kernel.org,clg@redhat.com,baolin.wang@linux.alibaba.com,baohua@kernel.org,ljs@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-huge_memory-bypass-thp-tuneables-for-huge-pfnmap-mappings.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260827222706.B872B1F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1787869953; x=1788474753; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NfHSf/Xnpm7vI/oia3ddZqw/6ZjMqOWbQV8t0TtjrWE=;
+        b=cGjJ0P1V/ejP6XpS6pTvqW0+Rak5crvE0dpMXglt5y5lV4dIOm4wOxzKfzGutVYTlg
+         Nu5RP2drKVbc8WvgKPIf6pHLDwsOWAI/7lLkpoUDItpPns561uKtfUhlAjjGRlUvT8Gq
+         VqO8oND824Q2EWFSpLKkP239YnG8LlYOb3kS8lJ/b0LGC6HuByMlkI4UMySd6PwVqwRI
+         ZqyMZiEDRj1M1WAdHyoKVhF9ceFfQtIzez4EaN87cAyjsBjJ0hFhorRv03e/lkQnPfHp
+         izCBohRlA80yZmwO4BIyux0jvN/pzHpd5U4218/htq9gWdGcbQNvGVs4D/wAesTQJ10j
+         DYcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787869953; x=1788474753;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NfHSf/Xnpm7vI/oia3ddZqw/6ZjMqOWbQV8t0TtjrWE=;
+        b=sEFXBXy6YLUHaz3EZFE2nLjKoHjrM62ZIWGrGaCPq/19MOYn7AE939VZIBfhKrWz8e
+         1MtpI/O7FEoJL0+8/wbR/8h0mFlILKPlwm281ZzZ49krFW2iS6wqkybuokeh081LFwp/
+         xpgrDd3ycsYBsukNnfB/hSDYWQm9r75dAtJhTWvhNrCMOkiz/+5fqC4IkozrkjUu8Sq+
+         I7mKLxOJ0Vfv0c1kon22aOgkbSTwXO0c0r2l/eUMzQWDriY1z6oizNCdZc0LxfbcUYPF
+         CK47ZqgTKWVv/81D6XTdc+ipgtkSZ0hTyYgEyvikPftFATS1H0og3Z9XCI8R70Tif26N
+         yPMA==
+X-Forwarded-Encrypted: i=1; AHgh+RqMfr1kRgkzGTS2cBl9bCcQhA+MuDjzxoxAnBoDW6LnnGinMvUki9Y8ZtC1K7uRGgLRqAfB1es=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngD8kWSfBwY6S6RCKLIU9ZOv505h4i2GEqZwG/zTm8EE00ks2u
+	hPSJlNt86TWA6xZhqLveSxQOteKuSDkIR5lqk8xBKTDg9TQHlDFuKEcD
+X-Gm-Gg: AR+sD11VLZ12JV4STOtfAXSV56Q/7JR9rCnVO5vKzggB95vzTc5xOAxGI/JwutubXKe
+	Nm0F/WsAu4ko4aI8Tyv5lHkcsVNaK2K62h9NzrrVol/Kdz3Omf+4FxmD5lXu01z7rDkoLOLEabp
+	Q7GGdykpoynVcEuJwYj7KgAirczvz/FWPFe5zHQdpSYQm5BJTLSn6NeOQIm+MFklhy1QsE5g1mt
+	WlaQ8nYn8N92E0KA9UFsxbjR3eKLQXbHLsAsqoMdgF8NaqnkCspxccjBfj0ZYFr+GkG2h3YQ4So
+	+MD77v4KImitA7dw+n3DAF0cwy/agBMyiRiGWHw2uPnWDbAbbFM0MA203UxtOT+iDbfO3MI7N85
+	mZMaK1wj91IBpcOyN8dsNLEPDPxIyNUkMBOOb1zW+UYeoIDpWfTB3FjCU3Ip/JJOya+laW1e08Z
+	9l+/YgNCtsONjt0sudQ2S1mPVPlY1F/zkmylM5aOxMy3w=
+X-Received: by 2002:a05:600c:1d11:b0:496:c1f3:e8f8 with SMTP id 5b1f17b1804b1-49b91c25414mr28676775e9.7.1787869952896;
+        Thu, 27 Aug 2026 15:32:32 -0700 (PDT)
+Received: from krava ([77.78.87.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91ca11d0sm14821055e9.1.2026.08.27.15.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 15:32:30 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Fri, 28 Aug 2026 00:32:27 +0200
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Andrii Nakryiko <andrii.nakryiko@gmail.com>,
+	Christian Simon <simon@swine.de>, bpf <bpf@vger.kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Martin KaFai Lau <martin.lau@kernel.org>, Tejun Heo <tj@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	stable <stable@vger.kernel.org>, Jiri Olsa <olsajiri@gmail.com>
+Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable
+ programs
+Message-ID: <apC6-9YqBpOjFLGr@krava>
+References: <20260822225444.2774461-1-simon@swine.de>
+ <20260822225444.2774461-2-simon@swine.de>
+ <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com>
+ <CAEf4Bzb0YOku2mgpASY_e-tMHfFtEzz4S01ZviH5QBsgzQmx_g@mail.gmail.com>
+ <CAADnVQKD1eOG7cnDHvFwfJOEGZ0g8wZKEzMri27en7uoA-MT5A@mail.gmail.com>
+ <CAEf4BzaB+EDyf2exV8XGq_x4TvhTii7gJnWU0nq3380guaWF7Q@mail.gmail.com>
+ <CAADnVQ+MCsQxn5KTp-y7pZu9DrV0Lhy9=+T4yofCfZEZGZcWdg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAADnVQ+MCsQxn5KTp-y7pZu9DrV0Lhy9=+T4yofCfZEZGZcWdg@mail.gmail.com>
 
+On Thu, Aug 27, 2026 at 09:55:08AM -0700, Alexei Starovoitov wrote:
+> On Thu, Aug 27, 2026 at 9:40 AM Andrii Nakryiko
+> <andrii.nakryiko@gmail.com> wrote:
+> >
+> > On Thu, Aug 27, 2026 at 9:35 AM Alexei Starovoitov
+> > <alexei.starovoitov@gmail.com> wrote:
+> > >
+> > > On Thu, Aug 27, 2026 at 7:56 AM Andrii Nakryiko
+> > > <andrii.nakryiko@gmail.com> wrote:
+> > > >
+> > > > On Tue, Aug 25, 2026 at 6:20 PM Alexei Starovoitov
+> > > > <alexei.starovoitov@gmail.com> wrote:
+> > > > >
+> > > > > On Sat Aug 22, 2026 at 3:54 PM PDT, Christian Simon wrote:
+> > > > > > A JITed BPF program can use one private stack per program and CPU.
+> > > > > > Sleepable programs can be preempted, allowing another task to run the
+> > > > > > same program on the same CPU. The second invocation then reuses and can
+> > > > > > overwrite the first invocation's private stack.
+> > > > >
+> > > > > I'm confused by this. sleepable progs go through __bpf_prog_enter_sleepable_recur()
+> > > > > which has per-prog recurison counter. So preemption of the prog
+> > > > > doesn't break private stack.
+> > > > > If the same prog attemps to execute on the same cpu it will be skipped.
+> > > > >
+> > > > > syscall prog types go via bpf_prog_run_array_sleepable()
+> > > > > that have per prog recursions counter.
+> > > > >
+> > > > > Looks like we're not doing it for bpf_prog_run_array_uprobe().
+> > > > > I'm not sure what the right trade off here.
+> > > > > I feel universally checking for recursion is better
+> > > > > then selectively disabling private stack for uprobe.
+> > > >
+> > > > I'd really like to avoid adding this "recursion protection" to uprobe.
+> > > > With uprobes, there is no recursion, it's called from well defined
+> > > > context in the kernel and you can't have recursive uprobe BPF
+> > > > programs.
+> > > >
+> > > > All you can have is a very valid and possible sleepable uprobe
+> > > > interleaving, which the user cannot prevent or work around, they have
+> > > > no control over this and it's just a fact of life.
+> > > >
+> > > >  E.g., a simple scenario, we attach one bpf program (let's call it U)
+> > > > to some USDT. BPF program U is sleepable and actually can sleep due to
+> > > > page faults (e.g., unwinding Python stack trace requires sleepable
+> > > > mode for reliably getting filename strings from Python runtime, which
+> > > > are not always paged in).
+> > > >
+> > > > In such a case, you can have thread A and thread B both hitting the
+> > > > same USDT (e.g., somewhere in memory allocator or whatnot). Let's say
+> > > > thread A hits it first on CPU X, BPF program U starts executing and
+> > > > unwinding Python stack, does bpf_copy_from_user() for string contents
+> > > > and causes page fault, is taken off CPU X. Meanwhile thread B hits
+> > > > USDT on the same CPU X, kernel runs program U, and it is supposed to
+> > > > work completely independently and concurrently (no shared state or
+> > > > whatever) from U's execution in thread A.
+> > > >
+> > > > Yet, if we add this per-CPU "recursion check", we'll just skip U's
+> > > > execution for thread B. This is data loss, and it's very bad in
+> > > > practice because it frequently just invalidates the entire data
+> > > > collection trustworthiness.
+> > >
+> > > ok. fair
+> > >
+> >
+> > great, thanks!
+> >
+> > > > So I think we should disable private stack for uprobes (sleepable or
+> > > > not) instead. I'm not sure private stack buys us anything for uprobe
+> > > > cases.
+> > >
+> > > why disable priv stack for non-sleepable uprobes?
+> > > While non-sleepable bpf prog is executing the same or different
+> > > uprobe cannot execute on the same cpu.
+> > > So bpf prog can be preempted by kernel execution,
+> > > but a user task cannot start preempt bpf prog,
+> > > so 2nd uprobe cannot start running,
+> > > no?
+> >
+> > I think that changes on preemptible kernels, this was called out in
+> > discussions on previous versions of this patch. So only for that
+> > reason.
+> 
+> my understanding is that preemptable kernel doesn't mean that
+> bpf prog can be preempted by user space.
+> only by kernel.
+> 
+> I looked up earlier thread, but don't understand what Jiri meant.
+> 
+> Jiri,
+> please clarify what problem do you see with non-sleepable uprobes?
 
-The patch titled
-     Subject: mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-huge_memory-bypass-thp-tuneables-for-huge-pfnmap-mappings.patch
+hum.. non-sleepable uprobe prog is run by bpf_prog_run_array_uprobe
+and it disables only task migration, preemption is not disabled and
+holds rcu_read_lock (which seems ok for preemption)
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-bypass-thp-tuneables-for-huge-pfnmap-mappings.patch
+so I'm not sure why it wouldn't be preemptible by another task
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
-Date: Thu, 27 Aug 2026 20:55:57 +0100
-
-The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-confusingly only control the behaviour of THP in some instances.
-
-They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
-
-Long-term, THP is predicated upon compaction being able to obtain large
-folios to populate THP ranges.
-
-However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-reference count is maintained by the driver, not core mm.
-
-As a consequence, the folios are not subject to reclaim nor compaction, so
-are not truly part of the THP mechanism at all.
-
-However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-introduced the ability to establish huge PFN maps, they have been subject
-to THP tuneables.
-
-This is incorrect - if a huge PFN map is available (defined by
-vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-should be mapped huge upon fault-in.
-
-Correct this by explicitly checking for this while ensuring that smaps
-continues to accurately report THPeligible statistics.
-
-While here, abstract the entire file-backed THP check in
-vma_can_map_huge_file(), with sensible separation of logic into helper
-functions.
-
-Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
-maps of shmem folios, however they are marked unevictable in
-drm_gem_get_pages(), and in any case would fail the reference check in
-__remove_mapping() even if they weren't.
-
-Failing to map huge PFN maps has resulted in significant real-world
-performance degradation, see links for details.
-
-Link: https://lore.kernel.org/20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org
-Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: Cedric Le Goater <clg@redhat.com>
-Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-Reported-by: Saravanan D <saravanand@crusoe.ai>
-Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/huge_memory.c |   86 +++++++++++++++++++++++++++++++++------------
- 1 file changed, 64 insertions(+), 22 deletions(-)
-
---- a/mm/huge_memory.c~mm-huge_memory-bypass-thp-tuneables-for-huge-pfnmap-mappings
-+++ a/mm/huge_memory.c
-@@ -92,7 +92,7 @@ unsigned long huge_anon_orders_madvise _
- unsigned long huge_anon_orders_inherit __read_mostly;
- static bool anon_orders_configured __initdata;
- 
--static inline bool file_thp_enabled(struct vm_area_struct *vma)
-+static inline bool file_thp_enabled(const struct vm_area_struct *vma)
- {
- 	struct inode *inode;
- 
-@@ -118,6 +118,67 @@ static bool vma_is_special_huge(const st
- 	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
- }
- 
-+static bool vma_bypass_thp_tuneables_file(const struct vm_area_struct *vma,
-+		enum tva_type type)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
-+
-+	/* MADV_COLLAPSE ignores tuneables. */
-+	if (type == TVA_FORCED_COLLAPSE)
-+		return true;
-+	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
-+	if (vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault)
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_thp_tuneables_allow_file(vm_flags_t vm_flags)
-+{
-+	/* THP=always? */
-+	if (hugepage_global_always())
-+		return true;
-+	/* THP=madvise and marked MADV_HUGEPAGE? */
-+	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
-+		return true;
-+	return false;
-+}
-+
-+static bool vma_check_thp_tuneables_file(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, enum tva_type type)
-+{
-+	return vma_bypass_thp_tuneables_file(vma, type) ||
-+		vma_thp_tuneables_allow_file(vm_flags);
-+}
-+
-+static bool vma_can_map_huge_file(const struct vm_area_struct *vma,
-+		vm_flags_t vm_flags, enum tva_type type)
-+{
-+	const bool has_huge_fault = vma->vm_ops->huge_fault;
-+
-+	/*
-+	 * Enforce THP collapse requirements as necessary. Anonymous vmas
-+	 * were already handled in thp_vma_allowable_orders().
-+	 */
-+	if (!vma_check_thp_tuneables_file(vma, vm_flags, type))
-+		return false;
-+
-+	switch (type) {
-+	case TVA_PAGEFAULT:
-+		/*
-+		 * Trust that ->huge_fault() handlers know what they are doing
-+		 * in fault path.
-+		 */
-+		return has_huge_fault;
-+	case TVA_SMAPS:
-+		if (has_huge_fault)
-+			return true;
-+		fallthrough;
-+	default:
-+		/* Only regular file is valid in collapse path. */
-+		return file_thp_enabled(vma);
-+	}
-+}
-+
- unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 					 vm_flags_t vm_flags,
- 					 enum tva_type type,
-@@ -190,27 +251,8 @@ unsigned long __thp_vma_allowable_orders
- 						   vma, vma_start_pgoff(vma), 0,
- 						   forced_collapse);
- 
--	if (!vma_is_anonymous(vma)) {
--		/*
--		 * Enforce THP collapse requirements as necessary. Anonymous vmas
--		 * were already handled in thp_vma_allowable_orders().
--		 */
--		if (!forced_collapse &&
--		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
--						    !hugepage_global_always())))
--			return 0;
--
--		/*
--		 * Trust that ->huge_fault() handlers know what they are doing
--		 * in fault path.
--		 */
--		if (((in_pf || smaps)) && vma->vm_ops->huge_fault)
--			return orders;
--		/* Only regular file is valid in collapse path */
--		if (((!in_pf || smaps)) && file_thp_enabled(vma))
--			return orders;
--		return 0;
--	}
-+	if (!vma_is_anonymous(vma))
-+		return vma_can_map_huge_file(vma, vm_flags, type) ? orders : 0;
- 
- 	if (vma_is_temporary_stack(vma))
- 		return 0;
-_
-
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-mremap-reset-unfaulted-vma-page-offset-for-mremap_dontunmap.patch
-mm-secretmem-properly-account-locked-pages.patch
-mm-huge_memory-bypass-thp-tuneables-for-huge-pfnmap-mappings.patch
-
+jirka
