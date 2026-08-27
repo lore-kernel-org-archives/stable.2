@@ -1,166 +1,418 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC3431D72E
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 02:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787798643; cv=pass; b=kWeUP9sn/ZO6M6FtPorQRz8t80ccHOzRwl//heLqkQqGHt65LmgojGXbviqF2LI9OcfSUGgjMlB+RThdOqEy/RJPLbqooVuOGpzFX0s0bQe3UOz/7bufsUZF4axIeDkCaORK5v9WJTJ8xHHXY0Gy9kb37xH4CRUurinvNl4/CJk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787798643; c=relaxed/simple;
-	bh=TTZYNnPP9NazSWxhID0pmfTudmtLXlSKGgVSNsokZpI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oYaHtFP4UNr/K/o5CnPFN9y+5iiB2+BnqvOT6xrMFId2d61aylxQUGaF6ntVRcECsa95rBGGnBb3w221qvSsHT9xxO4HUSYKj0E4ii+9hVCRmV/gUfKBiZxoUGa3f1vKYXPyk737T5DFV7lOFD/0Xa68s9M4vgOe8TRsC2Akkn4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APPs2eR7; arc=pass smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53952F7F14;
+	Thu, 27 Aug 2026 02:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787799143; cv=none; b=ZRgCrvtX6U1LIGCUbFvdDc9j2BPydm6H2f8s+wkJVNMcw6buFS0LBwdx4RkgvrRsxJBWDWwwEOIVCjGgUq5GBbPMqECWWzjIj8alCD2LLaTrE/VMq/aMeoPq0Ml9HDOTOZl/hhfIY7wlAby3veO8FlVWxCsQJIlA7X+j7ZJ0wuI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787799143; c=relaxed/simple;
+	bh=y0v282jOcA8Kgx70jfEXIqVORj8O84zpt+XP8ic8DxE=;
+	h=Date:To:From:Subject:Message-Id; b=L7SjNvA1R+Sw1HY40t3EuKXKvaNN5srh7H0h9CQQuKQdSmFPtY5rD0pSeiZtiMJdFMy9OBxohZ+BfESDjN1Mtz9CjsukMSe4Z26tMFwKywzl1i7hFyU9SRAINUdJwjO9/hOAmP5qqvu3YNkviVg2W12qlPKihHWztvPPpOJt+Kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cTU9Lk5w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APPs2eR7"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b0f19bea2fso1514775e87.1
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 19:44:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787798639; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pfHjvsTXdZ+PSqRPiTQ7k3RrgNVG+bvWy6KlbgQasQE6QL6GPorXvM9hOzuhUFShLj
-         7TqGmOTz6soi+cCxmjDDf0tw19RLWQ5OaO7WIaTJJ28NK4oZe2sU4LzV1hgqaTMbx2Fj
-         wQRve3lzr9lLS1qE0m2uDEpcp8VstEIh4GFpfppuQBWJlt+sHYc7Yz7LAFPQu6KYZvqG
-         HGZVuoWpFfC/e4W3mHkQCFHpe01gMV6xMiJxzI87QymKSrX+w+GnoIbIXSAj4CIeE8m8
-         pJ4vJEtusbreyG5EzdO8wxOQWJ3K19U2u+b1OPQ/0MCW81ARx/jvLTc9UOEyaE4kPcUA
-         fyMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zqvJoTlziQDX70znP8ECNAInbQoTi/mvAJEVOqS/Uf0=;
-        fh=FNscpCu/cdQF0DlcWQXawwaWB5wz7tCrZACrwMWogRM=;
-        b=B+qg/jSBJrzLiehpRyXNlVptRQ26MnAV7ehBmQGqQjwZFcS2lvlwm0v4L38oTQLlHg
-         b0n2Ceb8t1Tbsk6ne6GFY4xluYyXPhd4ThhepUS1gOZhvG/KpHWFttM7htt80lE8KIsc
-         OMCxldklG+daqwzeGrVjJb9Iy6FkmsbKZMi/Z1BM61GoxM4PZPNS4BCjbfsC/PHiGQdO
-         bPNylBurQF8jtnyigy5zy/vBwKYY4VC664vGC0lQNS4h1pWmOlYxN3eCC5zALkcWQn+h
-         MIN1qO54AS8BH06yfoUitr0XI2uPkpUtN1t6fZM55ge0vjfNiGwUtHlTEzXrFCVE9n30
-         2kgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cTU9Lk5w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B071F000E9;
+	Thu, 27 Aug 2026 02:52:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787798639; x=1788403439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zqvJoTlziQDX70znP8ECNAInbQoTi/mvAJEVOqS/Uf0=;
-        b=APPs2eR7LGjXSZS2tCOFtLY1l3p6l/TwBl8zL/tnrNVk0pLF9E5fDKDmaYwhgAZaVU
-         vmmCjpVl8p2Xz5rsqcyWffuzqabaQ4Y2Z1fGjIEXVUCOuXOmHb9RPMx5wmJRtaI4b0+k
-         i4ycxMOEdAnSi+5LpY1/VRx7fJ9SlwoNKYrOl9+66310zH6/GS8iGSZm88I8ckcwDBfi
-         7NZq7c5+VxnYnMy/NP0pFPQC4cPCLJC7wNTJs925DfCBNoUz7yQu2SWZnKDzhEkmw/Ri
-         TdF0CHXRxjoy+FbvGBVhXBZ7KOuubk+tjXCoYwMyJUKi7ufPKfTvaoHnyeIM2BqF9EYf
-         a8Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787798639; x=1788403439;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zqvJoTlziQDX70znP8ECNAInbQoTi/mvAJEVOqS/Uf0=;
-        b=Eu8tSoOocXB0EUSX33H/jBmOUQ9ufNfqYoqiIFR1tZFqVQ/p+1kfRr9ViLxmjnRxs4
-         wET5urGRkQYGRIe9CRq4Yx3xsnDhCqOTYg3z8yOy4V1MWsR4tETzXW6VV21+KwSyGfHN
-         /rNbzvFHgzlmZFUlEUZslJ8rbEbc0GQgzU2f4DAJWm9tgZ9SrajPIu1w5cnRx9LgOGWy
-         uA5aPHWNUlAbHl70atONlGBeffSkp1dyFzaQ0/6njGy1nKydSEtIpPvjCs5AlbVsKNL4
-         pen5QZWDgUgpA2qHXCt3g2m0upABDajNH5AnlWDz9wOHzuAULh4IPKUTkIuz/S0KgWXE
-         ubhA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrdhj1jiQYe1wP+QntaHFC6X3G4d7BGhe/Mljew7jcYrebccnWmsNo2xSQJNhm3CIisAx0RHqE=@vger.kernel.org
-X-Gm-Message-State: AFuF++keL6LCsXzKyMvU2NMLSii6tgQtvYkjStj5M8sqSvCksqIwwSUa
-	UzC2e5Ujb3UQN1l4KJQ4ob2ZOAxrZeNWeNiBR9AruiSkRhYuh6o4IxkQQYxgCF+XkqY3EQ9xXQl
-	8xKcNTS2d9Svk8m0789OoglaLzW8k8LFROw==
-X-Gm-Gg: AR+sD13Ehj5wO+vNVelmpLep995T6KbRX3E6CbbTi7xMolmr3J+rbhhMW6dzzhsVmku
-	XIvVZZxXWWsnzTsHXDL0nxQwhVrmaKztgwvmNuF+UzPnBkhw0r82Sqk7641eUo/bmhyAbeVYe4P
-	oZNIuozMuZg3cEZju1H6zwCFiSL0Ts+0N/CSsnkTEVkTGRgMc3ZDVGxQ+FAH1BvEvsNTsng7X+e
-	/Db/LPmNGwmOSA3vmV7IgWlJ9OmqRuSlalgT/VW2cDznn0XYQCLb7swhoQGBXloVJba+4ripzK4
-	R3X5lvMhdh9ATcsCxtyGceSU62nxjJRtXM0NCUZNSJQ4
-X-Received: by 2002:a05:6512:10cf:b0:5ae:b969:417d with SMTP id
- 2adb3069b0e04-5b4a8e672f0mr3686763e87.0.1787798639149; Wed, 26 Aug 2026
- 19:43:59 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1787799141;
+	bh=mwOha+kiU/9Oec1FuTyalrZCaVkRGFbKZppViozaEmU=;
+	h=Date:To:From:Subject;
+	b=cTU9Lk5wmx4/IpavcRqz+uufMPF6oh7ll4oELON86D83bv2tKfOP0V2zlOb6yg+JS
+	 DEiDdBWuCWZDriYVjvmGm4pjvRAmIRf2bFBQvKPNbiRuPyOjovDGl9EGJe6ks6xD0B
+	 myVobTMMHYfhHrV/mQ2esbYE7H+AI0yLne/0A2rs=
+Date: Wed, 26 Aug 2026 19:52:20 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,sdf@fomichev.me,rppt@kernel.org,mhocko@suse.com,liam@infradead.org,kuba@kernel.org,john.fastabend@gmail.com,james.bottomley@HansenPartnership.com,hawk@kernel.org,hagen@jauu.net,david@kernel.org,davem@davemloft.net,ast@kernel.org,4ncienth@gmail.com,ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-secretmem-properly-account-locked-pages.patch added to mm-new branch
+Message-Id: <20260827025221.43B071F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260826054204.1364589-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260826054204.1364589-1-zenghongling@kylinos.cn>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Thu, 27 Aug 2026 11:43:46 +0900
-X-Gm-Features: AcwNN1UkaDT5W_Z6HI7OoA4IkQTjvljt2A2kTCf4G4MSGG4h02_YbW9SMmzlD1E
-Message-ID: <CANFS6bbVZ3jZa+a8FTjz1w3RuPvFTgjfBh134J4a-9fK549UxQ@mail.gmail.com>
-Subject: Re: [PATCH] ntfs: fix race between fallocate and mmap reads
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Hongling,
-
-2026=EB=85=84 8=EC=9B=94 26=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 2:42, H=
-ongling Zeng <zenghongling@kylinos.cn>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
-:
->
-> The fallocate implementation only takes invalidate_lock for punch hole,
-> collapse range, and insert range operations. For standard allocation mode=
-s
-> (mode =3D=3D 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
->
-> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
-> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). Thi=
-s
-> creates a window where concurrent mmap page faults can read uninitialized
-> disk data.
->
-> Since mmap uses filemap_fault() which takes invalidate_lock in shared mod=
-e,
-> it can fault in pages during this window and expose old disk contents to
-> userspace. This is an information leak and data integrity issue.
->
-> Fix by taking invalidate_lock for all fallocate operations, not just for
-> punch/collapse/insert modes. This prevents concurrent page faults from
-> accessing unzeroed clusters during the allocation window.
->
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->  fs/ntfs/file.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
->
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 88747217ba61..6958a1469fb0 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -1153,11 +1153,9 @@ static long ntfs_fallocate(struct file *file, int =
-mode, loff_t offset, loff_t le
->         }
->
->         inode_dio_wait(vi);
-> -       if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
-> -                   FALLOC_FL_INSERT_RANGE)) {
-> -               filemap_invalidate_lock(vi->i_mapping);
-> -               map_locked =3D true;
-> -       }
-> +       /* Take invalidate_lock for all fallocate operations to prevent r=
-aces */
-> +       filemap_invalidate_lock(vi->i_mapping);
-> +       map_locked =3D true;
-
-map_locked can be removed.
-Otherwise it looks good to me.
-
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
 
->
->         switch (mode & FALLOC_FL_MODE_MASK) {
->         case FALLOC_FL_ALLOCATE_RANGE:
-> --
-> 2.25.1
->
+The patch titled
+     Subject: mm/secretmem: properly account locked pages
+has been added to the -mm mm-new branch.  Its filename is
+     mm-secretmem-properly-account-locked-pages.patch
 
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-secretmem-properly-account-locked-pages.patch
 
---
-Thanks,
-Hyunchul
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/secretmem: properly account locked pages
+Date: Wed, 26 Aug 2026 17:30:35 +0100
+
+secretmem accounts folios by treating memory as if it were mlock()'d and
+thus limited by the RLIMIT_MEMLOCK limit.
+
+However the folios are unevictable and remain so until the inode is
+evicted, eliminating usual mlock() semantics - mapping folios then
+unmapping them does not clear their unevictable state, since it depends on
+AS_UNEVICTABLE, not PG_mlocked.
+
+A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
+map then unmap and VmLck no longer counts the secretmem range.  Worse,
+folios are not accounted in the process's RSS, meaning the OOM killer
+won't know to kill the process.
+
+Repeatedly mapping/unmapping (or forking) can then result in the
+consumption of all available system memory with unevictable folios and
+cause system instability.
+
+A secretmem fd can be passed between processes and over fork so a
+per-process limit simply does not make sense, so follow the precedent set
+by io_uring, perf, skbuff, iommufd and xdp by tracking the number of
+locked pages in user_struct->locked_vm.
+
+Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
+applies per-user not per-process, so it doesn't make sense to bypass for
+users with CAP_IPC_LOCK, therefore remove this bypass.
+
+There is simply no reason to carry on marking the mapping as mlock()'d
+since it's misleading and the lifecycle is now correctly handled, so
+remove this too.
+
+Note that secretmem does not support any form of truncation (including
+hole punching) and the folios are unreclaimable, so the folios need only
+be accounted on fault and unaccounted on inode destruction.
+
+__secretmem_account_pages() is more or less a duplicate of the code that
+io_uring etc.  use, but since this is a bug fix that needs backporting,
+defer any de-duplication efforts to a follow-up.
+
+test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
+been removed, so remove the test altogether for the fix.  A new test will
+be sent separately for upstream.
+
+Link: https://lore.kernel.org/20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org
+Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Hagen Paul Pfeifer <hagen@jauu.net>
+Cc: Jakub Kacinski <kuba@kernel.org>
+Cc: James Bottomley <james.bottomley@HansenPartnership.com>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ include/linux/sched/user.h                |    3 
+ mm/secretmem.c                            |  116 ++++++++++++++++++--
+ tools/testing/selftests/mm/memfd_secret.c |   30 -----
+ 3 files changed, 110 insertions(+), 39 deletions(-)
+
+--- a/include/linux/sched/user.h~mm-secretmem-properly-account-locked-pages
++++ a/include/linux/sched/user.h
+@@ -25,7 +25,8 @@ struct user_struct {
+ 
+ #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
+ 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
+-	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
++	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
++	defined(CONFIG_SECRETMEM)
+ 	atomic_long_t locked_vm;
+ #endif
+ #ifdef CONFIG_WATCH_QUEUE
+--- a/mm/secretmem.c~mm-secretmem-properly-account-locked-pages
++++ a/mm/secretmem.c
+@@ -18,6 +18,8 @@
+ #include <linux/secretmem.h>
+ #include <linux/set_memory.h>
+ #include <linux/sched/signal.h>
++#include <linux/sched/user.h>
++#include <linux/cred.h>
+ 
+ #include <uapi/linux/magic.h>
+ 
+@@ -47,10 +49,69 @@ bool secretmem_active(void)
+ 	return !!atomic_read(&secretmem_users);
+ }
+ 
++struct secretmem_inode_state {
++	struct user_struct	*user;
++	atomic_long_t		nr_pages_accounted;
++};
++
++static bool __secretmem_account_pages(struct user_struct *user,
++		unsigned long nr_pages)
++{
++	unsigned long page_limit, cur_pages, new_pages;
++
++	if (!nr_pages)
++		return true;
++
++	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
++
++	cur_pages = atomic_long_read(&user->locked_vm);
++	do {
++		new_pages = cur_pages + nr_pages;
++		if (new_pages > page_limit)
++			return false;
++	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
++					  &cur_pages, new_pages));
++	return true;
++}
++
++static bool secretmem_account_folio(struct secretmem_inode_state *state,
++		const struct folio *folio)
++{
++	const unsigned long nr_pages = folio_nr_pages(folio);
++
++	if (!__secretmem_account_pages(state->user, nr_pages))
++		return false;
++
++	atomic_long_add(nr_pages, &state->nr_pages_accounted);
++	return true;
++}
++
++static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
++		unsigned long nr_pages)
++{
++	atomic_long_sub(nr_pages, &state->user->locked_vm);
++	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
++}
++
++static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
++		struct folio *folio)
++{
++	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
++}
++
++static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
++{
++	const unsigned long nr_pages_accounted =
++		atomic_long_read(&state->nr_pages_accounted);
++
++	__secretmem_unaccount_pages(state, nr_pages_accounted);
++}
++
+ static vm_fault_t secretmem_fault(struct vm_fault *vmf)
+ {
+ 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct secretmem_inode_state *state = inode->i_private;
+ 	pgoff_t offset = vmf->pgoff;
+ 	gfp_t gfp = vmf->gfp_mask;
+ 	unsigned long addr;
+@@ -72,8 +133,15 @@ retry:
+ 			goto out;
+ 		}
+ 
++		if (!secretmem_account_folio(state, folio)) {
++			folio_put(folio);
++			ret = VM_FAULT_SIGBUS;
++			goto out;
++		}
++
+ 		err = set_direct_map_invalid_noflush(folio_page(folio, 0));
+ 		if (err) {
++			secretmem_unaccount_folio(state, folio);
+ 			folio_put(folio);
+ 			ret = vmf_error(err);
+ 			goto out;
+@@ -82,6 +150,7 @@ retry:
+ 		__folio_mark_uptodate(folio);
+ 		err = filemap_add_folio(mapping, folio, offset, gfp);
+ 		if (unlikely(err)) {
++			secretmem_unaccount_folio(state, folio);
+ 			/*
+ 			 * If a split of large page was required, it
+ 			 * already happened when we marked the page invalid
+@@ -112,22 +181,30 @@ static const struct vm_operations_struct
+ 	.fault = secretmem_fault,
+ };
+ 
++static void secretmem_destroy_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state = inode->i_private;
++
++	secretmem_unaccount_all_folios(state);
++	free_uid(state->user);
++	kfree(state);
++	inode->i_private = NULL;
++}
++
+ static int secretmem_release(struct inode *inode, struct file *file)
+ {
+ 	atomic_dec(&secretmem_users);
++	secretmem_destroy_inode_priv(inode);
++
+ 	return 0;
+ }
+ 
+ static int secretmem_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	const unsigned long len = vma_desc_size(desc);
+-
+ 	if (!vma_desc_test_any(desc, VMA_SHARED_BIT, VMA_MAYSHARE_BIT))
+ 		return -EINVAL;
+ 
+-	vma_desc_set_flags(desc, VMA_LOCKED_BIT, VMA_DONTDUMP_BIT);
+-	if (!mlock_future_ok(desc->mm, /*is_vma_locked=*/ true, len))
+-		return -EAGAIN;
++	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT);
+ 	desc->vm_ops = &secretmem_vm_ops;
+ 
+ 	return 0;
+@@ -187,20 +264,40 @@ static const struct inode_operations sec
+ 
+ static struct vfsmount *secretmem_mnt;
+ 
++static int secretmem_init_inode_priv(struct inode *inode)
++{
++	struct secretmem_inode_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return -ENOMEM;
++
++	state->user = get_uid(current_user());
++	inode->i_private = state;
++	return 0;
++}
++
+ static struct file *secretmem_file_create(unsigned long flags)
+ {
+ 	struct file *file;
+ 	struct inode *inode;
+ 	const char *anon_name = "[secretmem]";
++	int err;
+ 
+ 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
+ 	if (IS_ERR(inode))
+ 		return ERR_CAST(inode);
+ 
++	err = secretmem_init_inode_priv(inode);
++	if (err)
++		goto err_free_inode;
++
+ 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
+ 				 O_RDWR | O_LARGEFILE, &secretmem_fops);
+-	if (IS_ERR(file))
+-		goto err_free_inode;
++	if (IS_ERR(file)) {
++		err = PTR_ERR(file);
++		goto err_free_priv;
++	}
+ 
+ 	mapping_set_gfp_mask(inode->i_mapping, GFP_USER);
+ 	mapping_set_unevictable(inode->i_mapping);
+@@ -215,10 +312,11 @@ static struct file *secretmem_file_creat
+ 	atomic_inc(&secretmem_users);
+ 
+ 	return file;
+-
++err_free_priv:
++	secretmem_destroy_inode_priv(inode);
+ err_free_inode:
+ 	iput(inode);
+-	return file;
++	return ERR_PTR(err);
+ }
+ 
+ SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
+--- a/tools/testing/selftests/mm/memfd_secret.c~mm-secretmem-properly-account-locked-pages
++++ a/tools/testing/selftests/mm/memfd_secret.c
+@@ -57,33 +57,6 @@ static void test_file_apis(int fd)
+ 		pass("file IO is blocked as expected\n");
+ }
+ 
+-static void test_mlock_limit(int fd)
+-{
+-	size_t len;
+-	char *mem;
+-
+-	len = mlock_limit_cur;
+-	if (len % page_size != 0)
+-		len = (len/page_size) * page_size;
+-
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem == MAP_FAILED) {
+-		fail("unable to mmap secret memory\n");
+-		return;
+-	}
+-	munmap(mem, len);
+-
+-	len = mlock_limit_max * 2;
+-	mem = mmap(NULL, len, prot, mode, fd, 0);
+-	if (mem != MAP_FAILED) {
+-		fail("unexpected mlock limit violation\n");
+-		munmap(mem, len);
+-		return;
+-	}
+-
+-	pass("mlock limit is respected\n");
+-}
+-
+ static void test_vmsplice(int fd, const char *desc)
+ {
+ 	ssize_t transferred;
+@@ -297,7 +270,7 @@ static void prepare(void)
+ 				   strerror(errno));
+ }
+ 
+-#define NUM_TESTS 6
++#define NUM_TESTS 5
+ 
+ int main(int argc, char *argv[])
+ {
+@@ -319,7 +292,6 @@ int main(int argc, char *argv[])
+ 	if (ftruncate(fd, page_size))
+ 		ksft_exit_fail_msg("ftruncate failed: %s\n", strerror(errno));
+ 
+-	test_mlock_limit(fd);
+ 	test_file_apis(fd);
+ 	/*
+ 	 * We have to run the first vmsplice test before any secretmem page was
+_
+
+Patches currently in -mm which might be from ljs@kernel.org are
+
+maintainers-remove-myself-as-thp-co-maintainer.patch
+mm-mremap-reset-unfaulted-vma-page-offset-for-mremap_dontunmap.patch
+mm-secretmem-properly-account-locked-pages.patch
+
