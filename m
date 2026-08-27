@@ -1,176 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EBC36C588;
-	Thu, 27 Aug 2026 16:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787847503; cv=none; b=jL2aIOTECUbKosHjo64on0MZ8qW/5+6oQZqCUhsr20gWh8V5ffQpAlW8b18SZWWO9xX/2tZSEeNnX0B3YixJePKn93yS+UZ56gJoDC0sDi3AReil25B2Bs3wvUdwF+y/l3IWlT9uELydl7ducKuEnbFMhFiR/T3SuMTV+dAdwMo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787847503; c=relaxed/simple;
-	bh=NcrmYDp3/x1knGoO/dIS8c/CdSMEhACAx1xS7AEVeFc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R/gBBam6rPIwavS+5ZoRLZtJpEmOkNI4zJ46Qvtv0+p0WezFWlhaLAdIgiwTMKx6fCMJLi6hjDb0kWtbpm3suoVnYbmc6smHnYEmkrBLGXrhAdWyap7yNz3Dvjys3qaVSxdhegXMY+n6zskuH4JyqF9usyyLONpxE9p8mA3X8po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTh/KTi+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43C637C108
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 16:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787848535; cv=pass; b=dX/kRZqIYOCOnHi8Ddok9mCC/RoK8wzLZKwW5ImskLiNLZk+qHjg2Y45OeeEnomr4uTUImNcsvkE2K4o1yEXJ2INQ5CoF8LZS+FJHH5VDzhxrhnZLiiVrjiukUS+mY4J0+/QI73GGHYHH16zkddIzHRE3kKWTCj0oZ+6hEGQ6B0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787848535; c=relaxed/simple;
+	bh=A8g4Pymc1MEXz3s6wr9IMDJPVnfJWtg9yfQCM6OV9iA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UrdNO9hKuCfz1D/Vd7Zr+42l17zrCsgpIj2iiLT9vhLNU7ltvFcViUWZVYBvyYwaaDYeMLXkLoVNB+1TmiZBjXLBaSlluv/dervOm8MdgcAaGaL4Z6wPbK8algYeCCudYeF+3BKJPtXOfB1K69CIoozpTVor1QW8HgxVG+e1sKc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UzT4efA2; arc=pass smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTh/KTi+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B8B1F000E9;
-	Thu, 27 Aug 2026 16:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787847502;
-	bh=mOqEaDKgcLq2GJL2+kULDh7kIMO3nrYg/DVzSD/Tr6w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CTh/KTi+UnPULcjofyifqpF+4INUxrIxK1gcckqL7oc9RqIeS6Q9PPPW0/Klsh945
-	 NvwUXOgyOJ2rBoRiXjeI6ybstSPM20ii8QW5oLKWzV7h9+B4PO0qS3MxguFEECZ2UQ
-	 RbaBwtwE9Az8wteDRrlyBsaLuSyDopsgPef+udTF/yJMasfN1uoLd9Q41KZMBY1SH5
-	 QXcYZbSEe7dMPURmcn6t5tqTH3rwowFs02sz6LsFCKGV/uiaEDNETEVX249P3mDN24
-	 GrtUgY3OhcqKmv8uRxn6/UuIf1p2y2BaadVtKHm5szTwagBtiCwIYiU5v+UneEPXh+
-	 fcBBwXznJ7NAg==
-From: Jakub Kicinski <kuba@kernel.org>
-To: ljp1205831794@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	achender@kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-kernel@vger.kernel.org,
-	kerneljasonxing@gmail.com,
-	henrymei@tencent.com,
-	corvus@tencent.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: rds: fix uninitialized trans dereference in CM event handler
-Date: Thu, 27 Aug 2026 09:18:20 -0700
-Message-ID: <20260827161820.3867858-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260825021223.3483044-1-ljp1205831794@gmail.com>
-References: <20260825021223.3483044-1-ljp1205831794@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UzT4efA2"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d049069377so849985ad.0
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 09:35:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787848533; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kM/jKt1w4tWIpEc1LXL3VNfag9EM+FBp24KtCrzwvC1vtG4MJSt0op87GJJ9wjipk7
+         NRWVdlMR3bv9MaVa50dpmWbAGVxh2kj3WWUADxKUKSoqaJrec3saO+Qfavm71/vuXwm8
+         lwPH7DBXukQ4gQ5CxLgS4uq8jm8VMfzEKrX1f3l5ERI8B3JlvZs2K5Xn1zer764F0FRg
+         jltleuqBvMvruty7WPFGyoXpKDIlhG6S4FxGsNecLXv+BFuMevW1tTre9avsnNlp8k+U
+         ttdxZhJbwCvxqTsrAc8+9LNFp6Qfa95xiuUQB9WQBIIN8lhac7tqYrUU9bMxNEQClsWx
+         Ez5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Rpc0eHrdIxpOXoVsl6L+vsh/x6xcGHAy9PMg+4n6EIU=;
+        fh=Q39RejPo/hL0Yv6O3dYz8oFL4DoZySioVQMef7B1mZU=;
+        b=Ysfdz9b1vRLV8DBXqowVILvDLEGygR/jh4L+TMG7gOPbeAGcvZlOwNCdKPJFHxCK1x
+         hbtalILlxfmM7mBq/Yv9h/EPOlR4n17BNEm3saNyTGjj4ABbbRxC+lT4gJcj0sV1aIgF
+         SeXPsOgx9cl2reIZb8sY7YatmB3bMfMtS23ZeuCBMlYqw9XsBMeM7yoU85J3GcLU9H12
+         PavbMa7qrSUP3Wr7vsK9JcZHSo5tgE3GlQDaYxw1WF9ccygaBCkGSpE+qGM6ggBbt6zI
+         KN031LWvwMoRaUR13GmP020ua+oTy1daFYA5xh4FrqWTZoVgGH5uQw4e/3lsxEo+kW1C
+         7M7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787848533; x=1788453333; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rpc0eHrdIxpOXoVsl6L+vsh/x6xcGHAy9PMg+4n6EIU=;
+        b=UzT4efA2fiprP1kC8M2qprS74ZTn4n5B6AFBj/UOpsa8GwN310l3PA3oeyIYoOax9I
+         6JmTbaGrHL0cX/aLbB1tcoBRgQjZJpoRN52OomnLCmYYBCecqLz9QkCYPLC8s7bSo5cy
+         qMD8wn1UPo01BpZcBN6hq87rWVDcLkmjiK2uNRgO5VWbmcZnYikHZ/G8S8cyPU/ZdlbX
+         kBIpxXG/T8P4Tq6lS0LNXCpbVRlZn5PTM0dGDfkQJCITFK/GO9S3/o1C79DVFSsc16pD
+         zV2NDtdlfVc6mgrXBvYxvsSEt9BNeLYgDFFtQNSsAjbv8I+ZBdpKwAoVfMiqtcVM+Ucs
+         9KLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787848533; x=1788453333;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rpc0eHrdIxpOXoVsl6L+vsh/x6xcGHAy9PMg+4n6EIU=;
+        b=P9H47l63lANKKH2uL9b/fq27hDHzxgMKo6/leJgLwwrXmj41yPGufS70TX+2F6Z0ZZ
+         XECGAIQHzXC7UHkvp7TA6cSDd7GWRuV+/EvhY9EuOTPIVB5zrSyXPJsMhgLtCT8MJOrM
+         nYRMr/IrwnBdi4ynoHPrbitxkjfTKlNbiyPHKxaxV1QddJQFIqP3tnEFcXemyh9cwmgY
+         saM7W+TR58gvBlHptFlIoeVXippaYjkUonyuK7Q91oKOti/CNyhKjSS70l2/3EUdfNSL
+         FyIzf6N9e5311ZsBu6yHZ439wkY5bhKPFs/TTR4g4Qo8YuZs1ySX/+rwVA4m/LJIkZ1F
+         vWqg==
+X-Forwarded-Encrypted: i=1; AHgh+RoIfxCeCiBUQXy3NZiY0PcMg1fkPglw7zB/ibSkvu9d+Nto90lEC8iyvyE2X++udsipPNzv1qA=@vger.kernel.org
+X-Gm-Message-State: AFuF++km0r6CXHjpHNK8daeDIsINL1ew7v8XQRzeteC2bcZrxXLby5me
+	ZkSOM5lJFJA2UVKMutwRQKTgc0jNz0t35Fqi6AX5oC7mgTxjt453qoI3Pls0O+buprQ0/+K6vi0
+	WhP1uJppp3cCjAfd4oIMMY7tfRW/aIpQ=
+X-Gm-Gg: AR+sD11latkjOnBRrRal2XlCnPC2OVrabJwfzU3XqEBsh0hgFVduk2XPU+i4NS/UmPA
+	u1/AkSXbkMyIgmHGVJA22kOSWolAybx7kTSjTjvIYDlc+gjbvoR5Owv5x8aBCRUJSDgqSlqTrAM
+	knN+2jQZhvxAXSeCUvEmdPfUNRRYz+njOAwl15B1+pddtCsxz5JgHru5Lp7pwyybj1vRDlMzJR/
+	qfC/7rrJ8kKGhh9gczqq/wsGoRjlhBnLqYwwr7aHw0gqOIwcRKvYhePxWK2eihjTWw8CiEQeco7
+	4/K10zoCYcUS6QoxqnKy03eYUvBQdYvO3CHuqf9GOfmhWs8ERna/Cs6WBB1s7DukEzwyP/DfCGb
+	+LZmh67AwzennWB3HowJ4u8xBq13S5XnCKPrsyVsnxsRfS5em2n4kfLZZk8j5RzNrvrLwUrQ=
+X-Received: by 2002:a17:902:f70f:b0:2d0:cc92:f7a9 with SMTP id
+ d9443c01a7336-2d74dc0da0bmr5053105ad.4.1787848533014; Thu, 27 Aug 2026
+ 09:35:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260822225444.2774461-1-simon@swine.de> <20260822225444.2774461-2-simon@swine.de>
+ <DKYHBHNAMR03.B8SKDLC9FQ94@gmail.com> <CAEf4Bzb0YOku2mgpASY_e-tMHfFtEzz4S01ZviH5QBsgzQmx_g@mail.gmail.com>
+In-Reply-To: <CAEf4Bzb0YOku2mgpASY_e-tMHfFtEzz4S01ZviH5QBsgzQmx_g@mail.gmail.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Thu, 27 Aug 2026 09:35:21 -0700
+X-Gm-Features: AcwNN1UD7kCYmFQWu6pjFf0INYDYIBRN0LWvAetdFdlQdjr9z-bGvTU59CvqtiY
+Message-ID: <CAADnVQKD1eOG7cnDHvFwfJOEGZ0g8wZKEzMri27en7uoA-MT5A@mail.gmail.com>
+Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable programs
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Christian Simon <simon@swine.de>, bpf <bpf@vger.kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Martin KaFai Lau <martin.lau@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, stable <stable@vger.kernel.org>, 
+	Jiri Olsa <olsajiri@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: rds: fix uninitialized trans dereference in CM event handler
+On Thu, Aug 27, 2026 at 7:56=E2=80=AFAM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
+>
+> On Tue, Aug 25, 2026 at 6:20=E2=80=AFPM Alexei Starovoitov
+> <alexei.starovoitov@gmail.com> wrote:
+> >
+> > On Sat Aug 22, 2026 at 3:54 PM PDT, Christian Simon wrote:
+> > > A JITed BPF program can use one private stack per program and CPU.
+> > > Sleepable programs can be preempted, allowing another task to run the
+> > > same program on the same CPU. The second invocation then reuses and c=
+an
+> > > overwrite the first invocation's private stack.
+> >
+> > I'm confused by this. sleepable progs go through __bpf_prog_enter_sleep=
+able_recur()
+> > which has per-prog recurison counter. So preemption of the prog
+> > doesn't break private stack.
+> > If the same prog attemps to execute on the same cpu it will be skipped.
+> >
+> > syscall prog types go via bpf_prog_run_array_sleepable()
+> > that have per prog recursions counter.
+> >
+> > Looks like we're not doing it for bpf_prog_run_array_uprobe().
+> > I'm not sure what the right trade off here.
+> > I feel universally checking for recursion is better
+> > then selectively disabling private stack for uprobe.
+>
+> I'd really like to avoid adding this "recursion protection" to uprobe.
+> With uprobes, there is no recursion, it's called from well defined
+> context in the kernel and you can't have recursive uprobe BPF
+> programs.
+>
+> All you can have is a very valid and possible sleepable uprobe
+> interleaving, which the user cannot prevent or work around, they have
+> no control over this and it's just a fact of life.
+>
+>  E.g., a simple scenario, we attach one bpf program (let's call it U)
+> to some USDT. BPF program U is sleepable and actually can sleep due to
+> page faults (e.g., unwinding Python stack trace requires sleepable
+> mode for reliably getting filename strings from Python runtime, which
+> are not always paged in).
+>
+> In such a case, you can have thread A and thread B both hitting the
+> same USDT (e.g., somewhere in memory allocator or whatnot). Let's say
+> thread A hits it first on CPU X, BPF program U starts executing and
+> unwinding Python stack, does bpf_copy_from_user() for string contents
+> and causes page fault, is taken off CPU X. Meanwhile thread B hits
+> USDT on the same CPU X, kernel runs program U, and it is supposed to
+> work completely independently and concurrently (no shared state or
+> whatever) from U's execution in thread A.
+>
+> Yet, if we add this per-CPU "recursion check", we'll just skip U's
+> execution for thread B. This is data loss, and it's very bad in
+> practice because it frequently just invalidates the entire data
+> collection trustworthiness.
 
-This initializes trans to &rds_ib_transport at declaration in
-rds_rdma_cm_event_handler_cmn(), drops the conditional assignment based on
-cm_id->device->node_type, and adds an early bail-out that returns 1 for any
-event arriving on a device that is not RDMA_NODE_IB_CA.
+ok. fair
 
-> diff --git a/net/rds/rdma_transport.c b/net/rds/rdma_transport.c
-> index b15cf316b23a2..2c5481f1fcb4f 100644
-> --- a/net/rds/rdma_transport.c
-> +++ b/net/rds/rdma_transport.c
+> So I think we should disable private stack for uprobes (sleepable or
+> not) instead. I'm not sure private stack buys us anything for uprobe
+> cases.
 
-[ ... ]
+why disable priv stack for non-sleepable uprobes?
+While non-sleepable bpf prog is executing the same or different
+uprobe cannot execute on the same cpu.
+So bpf prog can be preempted by kernel execution,
+but a user task cannot start preempt bpf prog,
+so 2nd uprobe cannot start running,
+no?
 
-> @@ -80,6 +77,12 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma_cm_id *cm_id,
->  		}
->  	}
->  
-> +	/* Only the IB transport is supported. */
-> +	if (cm_id->device->node_type != RDMA_NODE_IB_CA) {
-> +		ret = 1;
-> +		goto out;
-> +	}
-> +
+> As Jiri mentioned, at verification/jitting time we can't tell kprobe
+> from uprobe, though, so that's a bit of a problem, but it's a separate
+> discussion we should have. Perhaps having an extra expected attach
+> type, or type, or some program flag to designate uprobe program as
+> such would be appropriate, not sure. Let's discuss that.
 
-[Severity: High]
-Should this non-zero return be limited to RDMA_CM_EVENT_CONNECT_REQUEST?
-As written it applies to every event type.
-
-include/rdma/rdma_cm.h documents what a non-zero return means:
-
-/**
- * rdma_cm_event_handler - Callback used to report user events.
- *
- * Notes: Users may not call rdma_destroy_id from this callback to destroy
- *   the passed in id, or a corresponding listen id.  Returning a
- *   non-zero value from the callback will destroy the passed in id.
- */
-
-The cma dispatchers implement exactly that, for example addr_handler() and
-cma_work_handler() in drivers/infiniband/core/cma.c:
-
-	if (cma_cm_event_handler(id_priv, &event)) {
-		destroy_id_handler_unlock(id_priv);
-		return;
-	}
-
-But RDS keeps ownership of connection cm_ids.  rds_ib_conn_path_connect()
-stores it:
-
-	ic->i_cm_id = rdma_create_id(&init_net, handler, conn,
-				     RDMA_PS_TCP, IB_QPT_RC);
-
-and rds_ib_conn_path_shutdown() later dereferences and destroys the same
-pointer, clearing it only afterwards:
-
-	if (ic->i_cm_id) {
-		rdsdebug("disconnecting cm %p\n", ic->i_cm_id);
-		err = rdma_disconnect(ic->i_cm_id);
-	...
-		rdma_destroy_id(ic->i_cm_id);
-	...
-		ic->i_cm_id = NULL;
-
-So if any event other than CONNECT_REQUEST is delivered with conn != NULL on
-a cm_id whose device node_type is not RDMA_NODE_IB_CA, does the core free the
-cm_id while ic->i_cm_id still points at it?  Can the following conn drop,
-socket close or module unload then hit freed memory in
-rds_ib_conn_path_shutdown(), including a second rdma_destroy_id() on the same
-id?
-
-A reachable path without any race: rds_ib_laddr_check() short-circuits via
-rds_ib_get_device(), which only walks the ipaddr_list of RDS's own IB
-devices:
-
-net/rds/ib_rdma.c:rds_ib_get_device() {
-	list_for_each_entry_rcu(rds_ibdev, &rds_ib_devices, list) {
-		list_for_each_entry_rcu(i_ipaddr, &rds_ibdev->ipaddr_list, list) {
-			if (i_ipaddr->ipaddr == ipaddr) {
-	...
-}
-
-while the device actually bound for the outgoing connection is picked later
-by cma_acquire_dev_by_src_ip(), which walks the global cma dev_list and can
-match a siw device on the same address.  siw_device_create() sets:
-
-	base_dev->node_type = RDMA_NODE_RNIC;
-
-In that configuration, rdma_resolve_addr() from rds_ib_conn_path_connect()
-binds a RDMA_NODE_RNIC device, and the resulting RDMA_CM_EVENT_ADDR_RESOLVED
-with conn != NULL now returns 1, so addr_handler() destroys the id while RDS
-still tracks it.
-
-The same function a few lines above already documents the opposite
-convention:
-
-		/* If the connection is being shut down, bail out
-		 * right away. We return 0 so cm_id doesn't get
-		 * destroyed prematurely */
-		if (rds_conn_state(conn) == RDS_CONN_DISCONNECTING) {
-			/* Reject incoming connections while we're tearing
-			 * down an existing one. */
-			if (event->event == RDMA_CM_EVENT_CONNECT_REQUEST)
-				ret = 1;
-			goto out;
-		}
-
-Separately, does the unconditional goto out also skip the rds_conn_drop()
-that the ADDR_ERROR, ROUTE_ERROR, CONNECT_ERROR, UNREACHABLE,
-DEVICE_REMOVAL, ADDR_CHANGE, DISCONNECTED and TIMEWAIT_EXIT cases perform,
-leaving the RDS connection stuck in CONNECTING or UP with no error
-propagated?
-
-Would something along these lines match the existing convention, while still
-dropping the conn for the remaining events:
-
-	ret = (event->event == RDMA_CM_EVENT_CONNECT_REQUEST) ? 1 : 0;
-
-or moving the node_type test into the RDMA_CM_EVENT_CONNECT_REQUEST case?
+we don't have sleepable kprobes.
+So disable sleepable && [ku]probe type is enough. no?
