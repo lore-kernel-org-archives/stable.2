@@ -1,126 +1,156 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E014746AB
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 13:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E913847424F;
+	Thu, 27 Aug 2026 14:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838329; cv=none; b=fvUo6vuxG+nD7XXD09YqCgvI5jDUJyQjXIgof2gc0CD20007DyMiI/EKIvjrZ8p/J/7N6quZCkw2SdAaRQUvB4MpDUPDs1jBioLLIXHD46n64aXu1q+HzzKnaq11vSNmldnuqtkaUYmCrngQ2a1TgTieTyApa+gPjSdn+kgWjl0=
+	t=1787839995; cv=none; b=mS5ZA/C4Xue3WB6dZBtKtYAaAbhYPmK9E/ubkwcmOsZ3dmlOtKyjoxR8BpWxSPPvfsg0QZplwnLT8kGxsmDp+FTpsrQcg/luXXYd1zEihxNPFHsehxXdGozdjHoMV9Y8ip0qRfVWYwqpr+swRuM7Eo5nRZBmM79cGg9xwKTXCBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838329; c=relaxed/simple;
-	bh=+dI2iwCHyEnM/wK0AhPsWh7w7YUkwpqVsloo4ng0xAs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oxu7kwzRsp26qFN89PfhENBCF+YweJ6saxv5PfaQPy2XHPgtIuBqVNmBXa911EC9tKDr1kMprgQtZ4S3wN5lauiNDUF0a3LHWKjwjRifxVTERyo0lavVW7Bc1uIPKRuc50Y1YkUDLn9kzvIoKhsT8fehSMHgMeJk9dZ0mecg5ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CF3crQb7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qPaH5D5E; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787839995; c=relaxed/simple;
+	bh=qgoTk0FffKkqSpgQvoC0WiZvAqC3Sczemg8Y1gXFwzI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aa24add7BPW3S1vNPsu5VA4mCpKttGjPHJFHaViJ42IwNbnQvvjgEMhlSthH/FmX2luO2biey7uNZBSXHXXYyMAqK/fQZxZychIdzdmTh0qm1lud7ZIxAlBeVxs3S71TWjGI5I8Av++I7xhyNoWG7eKveoHhubeIq3cMCyRa+6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=q4UtTmqE; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CF3crQb7";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qPaH5D5E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787838319;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f2Pe2JsSBSamTxW+jC0IgTUMPFV5cHIlg1QJSOQvf+0=;
-	b=CF3crQb7/OpO9+l1sejIwET9l3126+OTV+SnDexcnZhdXQHES7TgYomr4oFMrBntMD0lhA
-	CFmZl421e+oIXbinwjFY7gTsaNazGX4jb+V3MOkE+Qi8DxT6fkjJ7rvybjsIYgBNSfbUXL
-	9I7ZRpZLHNIgm0m88u516eXjF6psfG4=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-562-od01HMB5MrmPjFER7Dxoiw-1; Thu, 27 Aug 2026 09:45:18 -0400
-X-MC-Unique: od01HMB5MrmPjFER7Dxoiw-1
-X-Mimecast-MFC-AGG-ID: od01HMB5MrmPjFER7Dxoiw_1787838318
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52fb2a46cb5so4978471cf.3
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 06:45:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787838318; x=1788443118; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f2Pe2JsSBSamTxW+jC0IgTUMPFV5cHIlg1QJSOQvf+0=;
-        b=qPaH5D5EOlXQnsjT6OHquhXSrYxfVI35qr0pZeaOzH2v9QxVOm0AgD8t6ZHaqJ0xxD
-         Ypjb0kdNOR9rcafCnzxInE4+ZTujycE675YGBUTmykbcrG9YZcQlexkkEfqjJtJr33p2
-         F+dkaX2/NbeDHp/mO/BOaYDEBZnMVV8MxjMLJo2yJwEfItsYVrpv/pofV47idFpOYuxk
-         o3lkYfrjt2YWXeUjcn3Pn7LLjG3N+aXdmre1FUIff2tIyNOpfAqABFHD2bCL5CJA589o
-         upmhuCWiGouhHtTxmEkMabTOs6yFYvS/v97Q8dqpt+iO3sAX0q02CcPOR5iqKdt3hr4l
-         8/Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787838318; x=1788443118;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f2Pe2JsSBSamTxW+jC0IgTUMPFV5cHIlg1QJSOQvf+0=;
-        b=gtaxn0WJ6aA46F8PP0vZ6OUf3ArI3GraIKjTUoC5j/FI5aDwSSCBU0k5OPKgIBDSZb
-         Ety3HppOm89ESJPV3cQOKyIP9oSIqK+sBZSxwF2gY5syTDNHIcCpjsRd4MileliHFBUT
-         hKg1mdn4dFdiMxzQmk0qf2mglwNFJpo9WVz62chCKE/HFdoo0LqMoavSHKZt374qsP7T
-         1s9VynwtxlmI9cw1hqOCHJxyOjdo6Eh3DM0iAt0zBKjx6eTOSQkp/esfoI0cRqohAkI3
-         00WIRo6L7TS/h4Yp+8sl/A7t0E1TtyK+fhFVvsF8Y1Zq70AOMKnyaNZxoPLCPdEO5TVY
-         Glyw==
-X-Forwarded-Encrypted: i=1; AHgh+RpxW4XfuGogSvJNuzuPDaJI2WNZ9z0r4J9bYclJS5ESt7Wckoi/uAeP4lfeT8rRlFRiQQjRoXA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWhU39BeBSttRUaz2AZjAGjKOkvZh+rkrzL1FAK6D8RYyrgFLG
-	1MzsBX9Hd/MUAK6/OYJCDhbEgLNRhjYOQa8wKR/A/CXwCGHjzDZqG6t8JnPweIvWyZq6H3YOmh0
-	ZNkK9uogyVbSii2X2spTPWKa2iL1KOBoQ8bPOzq/Zc/F964GvkiVbwqidpw==
-X-Gm-Gg: AR+sD10EFLQsDi8XY2nJR4PMOFCfvWkT9WwrYO8/B3KaIuGpzkqCzTsukKcaMcpcq7a
-	vx20GFc3snvX/MSatHPWVsK+jBhGzcX4FMLNYZSz+1sbxP4gnNhj0/Jecv/TAEv2OcwSYgrR2Rw
-	gAwYNJ9qc+Nvh4LdiEPc5suVAefj9vpRCxgufHPbbiF+j2dmbfUPuFhfclLHcBZlJKMLjGiFluo
-	ci1bE+n0E78hogcVzVExtnNdc1ogMfha3Ac959skiUBAC7nhF46/D6Cc46EBpzzUARKml8goKrm
-	JwVMB4IinXVeh3dpzVZtuecdwBU/3Ob4pcV9+sl1cbfZKpJH48mt+nYM7pX/Gm8+sA46ZfcFnoe
-	oJ3ysbPM6GUd5/3Yvg7/rqm179VxgZnmfVqZx/pgt
-X-Received: by 2002:ac8:7fc1:0:b0:52f:b627:6091 with SMTP id d75a77b69052e-52fb62761bcmr13206141cf.5.1787838317852;
-        Thu, 27 Aug 2026 06:45:17 -0700 (PDT)
-X-Received: by 2002:ac8:7fc1:0:b0:52f:b627:6091 with SMTP id d75a77b69052e-52fb62761bcmr13205291cf.5.1787838317300;
-        Thu, 27 Aug 2026 06:45:17 -0700 (PDT)
-Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52e4270a950sm36897281cf.15.2026.08.27.06.45.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 06:45:16 -0700 (PDT)
-Message-ID: <8b7e30ff-fbd9-499e-b371-725c7b85a189@redhat.com>
-Date: Thu, 27 Aug 2026 08:45:15 -0500
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="q4UtTmqE"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1787839986; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=F6giDRd0p/yf7qoIy3FaS4PKsSAbcJZMzUCM/HAW+00=;
+	b=q4UtTmqEPO/YZApv0sR3Zll9k9ZBBfq3EeLiBMEcid2nanA2J5o4CVfsuVxWzIo5BdLEfcPxOmIIdd5igbaw0N8R4vtBq+J3IamXvrHFcYmhIzeoH3Gi5lB0SFmtLAR8F14Gpz8g/3/qGSytKPJzBQ1Gb4ehMzu+4TRd/ScGIXg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R251e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0X9jskyo_1787839660;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0X9jskyo_1787839660 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 27 Aug 2026 22:07:41 +0800
+Date: Thu, 27 Aug 2026 22:07:40 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, alibuda@linux.alibaba.com, sidraya@linux.ibm.com,
+	hidayath@linux.ibm.com
+Cc: pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com, netdev@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net/smc: serialize clcsock teardown in
+ smc_accept_dequeue
+Message-ID: <apBErK3BBw0KHd6Y@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20260824065851.1070988-1-mjambigi@linux.ibm.com>
+ <ao5bB9OCbJ5PQbEp@linux.alibaba.com>
+ <bd56d983-e5bf-4343-910e-8965c3ff57dc@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sorenson@redhat.com
-Subject: Re: [PATCH] smb: client: tighten validate_t2() offset bounds against
- actual buffer size
-To: Paulo Alcantara <pc@manguebit.org>, linux-cifs@vger.kernel.org
-Cc: linkinjeon@kernel.org, stable@vger.kernel.org
-References: <20260825030948.3577275-1-sorenson@redhat.com>
- <f67877e37eeede299fbbe86914cd58f2@manguebit.org>
-From: Frank Sorenson <sorenson@redhat.com>
-Content-Language: en-US
-In-Reply-To: <f67877e37eeede299fbbe86914cd58f2@manguebit.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <bd56d983-e5bf-4343-910e-8965c3ff57dc@linux.ibm.com>
 
-On 8/26/26 6:03 PM, Paulo Alcantara wrote:
-> Besides all these LLM-generated messages and comments, would you have a
-> reproducer or a real use case that would require such changes?
+On 2026-08-26 14:42:31, Mahanta Jambigi wrote:
+>
+>
+>On 26/08/26 8:48 am, Dust Li wrote:
+>> On 2026-08-24 08:58:51, Mahanta Jambigi wrote:
+>>> smc_accept_dequeue() open-codes clcsock teardown for SMC_CLOSED child sockets
+>>> without taking clcsock_release_lock:
+>>>
+>>>  new_sk->sk_prot->unhash(new_sk);
+>>>  if (isk->clcsock) {
+>>>      sock_release(isk->clcsock);
+>>>      isk->clcsock = NULL;
+>>>  }
+>>>
+>>> This bypasses the clcsock_release_lock discipline used elsewhere in SMC clcsock
+>>> lifetime handling. In particular, other paths serialize clcsock access and
+>>> updates with clcsock_release_lock, but this local teardown path does not.
+>>>
+>>> Fix it by taking clcsock_release_lock around the local teardown and by storing
+>>> NULL before sock_release(), matching the established ordering used by other
+>>> clcsock teardown paths.
+>>>
+>>> Fixes: 127f49705823 ("net/smc: release clcsock from tcp_listen_worker")
+>>> Reviewed-by: Hidayath Khan <hidayath@linux.ibm.com>
+>>> Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+>>> ---
+>>> net/smc/af_smc.c | 12 ++++++++----
+>>> 1 file changed, 8 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+>>> index 00403175b740..bbf8269876ee 100644
+>>> --- a/net/smc/af_smc.c
+>>> +++ b/net/smc/af_smc.c
+>>> @@ -1833,10 +1833,14 @@ struct sock *smc_accept_dequeue(struct sock *parent,
+>>> 		smc_accept_unlink(new_sk);
+>>> 		if (new_sk->sk_state == SMC_CLOSED) {
+>>> 			new_sk->sk_prot->unhash(new_sk);
+>>> -			if (isk->clcsock) {
+>>> -				sock_release(isk->clcsock);
+>>> -				isk->clcsock = NULL;
+>>> -			}
+>>> +			mutex_lock(&isk->clcsock_release_lock);
+>>> +			if (isk->clcsock) {
+>>> +				struct socket *clcsock = isk->clcsock;
+>>> +
+>>> +				isk->clcsock = NULL;
+>>> +				sock_release(clcsock);
+>>> +			}
+>>> +			mutex_unlock(&isk->clcsock_release_lock);
+>> 
+>> Why not call smc_clcsock_release() here ?
+>
+>I initially considered *smc_clcsock_release()*, but it unconditionally
+>calls cancel_work_sync() for child sockets (since listen_smc is always
+>set and current_work() != &smc->smc_listen_work is always true here).
+>Even though smc_listen_work has already completed before
+>smc_accept_enqueue() is called, cancel_work_sync() is not truly free on
+>that path — it still acquires the worker pool spinlock and scans the
+>executing-worker list before determining the work is idle. The inline
+>open-coding avoids that overhead entirely.
 
-I just want to apologize for going so far overboard.  I identified a
-potential type of issue, and then kept expanding the scope without
-finding a concrete problem or reproducer.  That's a definite
-overcorrection; I tried to fix things that have no known impact in
-practice ('malicious SMB1 server' is a pretty weak threat).
+OK
 
-And as you noted, I relied too heavily on AI assistance; that's on
-me.  I'll be more careful about both the scope of what I do and how
-I get there.
+>
+>> 
+>> After looking deeper into this issue, I found smc_diag_msg_common_fill()/
+>> smc_getname() and many other branches hasn't hold lock_sock() and may also
+>> have the race issue ? For example, smc_getname() calling smc->clcsock->ops->getname()
+>> while the other workqueue is releasing the clcsock.
+>
+>I am addressing the smc_diag_msg_common_fill() issue via a separate
+>patch[1].
 
-I'll obviously withdraw this
+What about other places that dereference clcsock, like smc_getname()/smc_set_keepalive() ?
 
-Frank
--- 
-Frank Sorenson
-sorenson@redhat.com
-Principal Software Maintenance Engineer, filesystems
-Red Hat
 
+>
+>> 
+>> Since SMC has long been plagued by this kind of locking issue, I think we
+>> should consider a long-term solution to address it.
+>> 
+>> What about stop releasing the clcsock early and tie its lifetime to the SMC
+>> socket itself. The early paths don't really need to release it ??? a
+>> kernel_sock_shutdown()/tcp_abort() is enough to stop it, and calling them more
+>> than once is safe because the TCP layer already handles that.  sock_release()
+>> is different: it frees the socket, so it must happen exactly once. If we move
+>> this single release to the final teardown of the SMC socket, no user can exist
+>> at that point anymore (fd users are gone after smc_release(), and every
+>> work/accept-queue context holds a sock reference), which makes both
+>> clcsock_release_lock and all the if (smc->clcsock) NULL checks removable.
+>> 
+>> Ideas ?
+>
+>I agree, but it is a significant refactor touching every early-release
+>path in af_smc.c, smc_close.c etc & it warrants its own patch series
+>with careful ordering of changes.
+
+Yes, that should be a bit refactor, are you interested in doing that ?
+
+Best regards,
+Dust
