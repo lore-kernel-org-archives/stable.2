@@ -1,30 +1,30 @@
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C4349362B;
-	Thu, 27 Aug 2026 06:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1989313527;
+	Thu, 27 Aug 2026 06:06:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810790; cv=none; b=VfJFBoKcXyhVI+fl/a59ZNfXMHFMIceYqCbvYR0Hu3p2wqY2j9VNWSsPcQJ75LxXLyz3IV1fj+BCHMVWV8MZ4eIZy7fnMxZ0f2mfz4hhK0AVwdP9aOybyuzSbBQZpDAdrg9n5pBrINkNcEbrA2G4LJZIV6bUQU1EvJZqmc6yTRI=
+	t=1787810792; cv=none; b=uvTBxIu6RB4XgOVZSOoAzWKFSOzRTcgVgKO37kM4Ekct2uBUKlbimgpEe7RK4eztCXMAcBeZMX6NddBYTdG9cGTWcYRJnSUQNiECAjayvB93lKLmppR48qb7v653rukRZ1ug+DvHSugTvDIR42IhmUMPtulBOyduipFgC1ugE54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810790; c=relaxed/simple;
-	bh=2lgJVWDLJSRQTDln7hZ5jKmiXAVgwNTHvtaG7S34XZE=;
+	s=arc-20240116; t=1787810792; c=relaxed/simple;
+	bh=bAruQZ0cIRVmOCmhEQYA1wQoiKdmxyMg6Rgx4pWc0MI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hnE0dxsJWAyHcOLrhrPFN+ueTDBJs4sDUyEbm33x8uvy5xfZByGGAQzGoAtXAm7Tt2laNGG4ZFME3ZjzGjfpw0jJfFcTesLFfUYCy917kDhg6FW/kMy9zRoi4DoKXEFicfroyQQ3f6z/TbCvVGotK5pEkwqDv43F/tLCKwTHrnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dIsr/un7; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=O0ErSUVIaULrWHk0nsO1OMzYu3SMMb9C5QQlbLt4WywwwEvZ9XeCknHHq65J6kAF6FpO7E5q4YKc5HcoXE4OnGjtapQIdErdpXRlkhdPCqjXk8AQFky1tspDH83dCgrBYYn/TQydcnw8EymHegpts2i6buicq94V6XkgPwc0NbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZWd9ZSo6; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dIsr/un7"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZWd9ZSo6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kF
-	XxZJ9VVh7dL52uS7/oN/owmsUDo+btzoy5sSb0lOE=; b=dIsr/un7qiogKeFSki
-	Gt8+QPLhpk/1j5d+eJu1/eQluQdvxfOe5UrW+hXXUfwtSrI9sxgObVNSiU+K6uAh
-	DAl6uOqC/jjDXlFNvqqd80SsMR/pTOKAgasmxVNaGsCq18F/J+OajraWonxG1G0z
-	LDibWqh7StVz4G5qRXbYGV6aI=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=o2
+	kY95xCwNWCpsR/iyxyWE5K4DUXGZxG7v6ikeJdzPI=; b=ZWd9ZSo6zbsyrAR05x
+	4hUbeh7XAJHX1oXcPv2i7D/30y9Q/kE5D5Nm8cnNY1TYq3JKOhjaZXey6Ev351sI
+	8Qwcq5549lkLu0y5Fw5lByYs55MkcMcArtQwawgP94sDS1XqtRfGD5mzDfQM1oYV
+	OsqQQ0o21YYOe4fkJq5bmhVnY=
 Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyvF049q9Y7gOQ--.42204S2;
-	Thu, 27 Aug 2026 14:05:58 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyvF049q9Y7gOQ--.42204S4;
+	Thu, 27 Aug 2026 14:06:00 +0800 (CST)
 From: ghuicao@163.com
 To: Song Liu <song@kernel.org>
 Cc: Yu Kuai <yukuai@fygo.io>,
@@ -34,12 +34,13 @@ Cc: Yu Kuai <yukuai@fygo.io>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2 1/3] md/raid5: set pool_size before extra_page allocation to fix leak on error path
-Date: Thu, 27 Aug 2026 14:05:52 +0800
-Message-Id: <20260827060554.77849-1-ghuicao@163.com>
+Subject: [PATCH v2 3/3] md/raid5: fix NULL pointer dereference in raid5_free_percpu
+Date: Thu, 27 Aug 2026 14:05:54 +0800
+Message-Id: <20260827060554.77849-3-ghuicao@163.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827023803.36602-1-ghuicao@163.com>
+In-Reply-To: <20260827060554.77849-1-ghuicao@163.com>
 References: <20260827023803.36602-1-ghuicao@163.com>
+ <20260827060554.77849-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,54 +48,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBnFyvF049q9Y7gOQ--.42204S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tryDXFy3Zw47uF4fZFyxXwb_yoW8Ar1Upw
-	srWw1Yg345WryrGry7C3y8uF1rtw40qrWxCFW5W3yqvr9Iqr9agF4rXa4YgrWkAFnakayj
-	qFZ0yrs8Jry5taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joBT5UUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-AakN2qP08aQpwAA3u
+X-CM-TRANSID:PygvCgBnFyvF049q9Y7gOQ--.42204S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ury7Kr1xuFWrZw1fKF48WFg_yoW8Xry8pw
+	4DAr1Yg34rAanYk3s2vw4UuF1YqanrGrW8Aas3Wws5ZFs5Zr9Fyw45ZFW8WFy8AFZaqayx
+	A3s8XrnxJF4DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYrWrUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-AmlOGqP08mQ4wAA3k
 
 From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-In setup_conf(), conf->disks is allocated with max_disks slots and
-extra_page is allocated for each slot.  However, pool_size remains 0
-(uninitialized from kzalloc) until grow_stripes() sets it later.  If
-any allocation or initialization between the extra_page loop and
-grow_stripes() fails and jumps to abort, free_conf() iterates
-pool_size (= 0) times and skips the extra_page freeing loop entirely,
-leaking max_disks pages.
+If cpuhp_state_add_instance() fails in raid5_alloc_percpu() (e.g., the
+startup callback raid456_cpu_up_prepare fails due to an allocation
+failure), conf->node is never added to the cpuhp instance list and
+its pprev remains NULL (from kzalloc initialization).
 
-Set pool_size to max_disks right after the disks array allocation
-succeeds, so that free_conf() correctly frees all allocated
-extra_page entries on any error path.  This is safe because:
+When setup_conf() then jumps to abort, free_conf() calls
+raid5_free_percpu(), which checks conf->percpu (non-NULL, since it was
+allocated before the cpuhp failure) and proceeds to call
+cpuhp_state_remove_instance().  This calls hlist_del() on the unhashed
+node, which dereferences node->pprev (NULL), causing a kernel panic.
 
-- If kzalloc_objs(disks) fails, pool_size stays 0 and free_conf
-  skips the loop (kfree(NULL) is safe).
-- grow_stripes() later sets pool_size = devs, which equals max_disks,
-  so the early assignment does not change the final value.
-- resize_stripes() only updates pool_size on success and reallocates
-  the disks array in lockstep.
+Guard the removal with hlist_unhashed() so that the cpuhp instance is
+only removed if it was actually added.
 
-Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
+Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
- drivers/md/raid5.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/md/raid5.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
 --- a/drivers/md/raid5.c
 +++ b/drivers/md/raid5.c
-@@ -7732,8 +7732,9 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	conf->disks = kzalloc_objs(struct disk_info, max_disks);
+@@ -7539,7 +7539,8 @@ static void raid5_free_percpu(struct r5conf *conf)
+ {
+ 	if (!conf->percpu)
+ 		return;
  
- 	if (!conf->disks)
- 		goto abort;
-+	conf->pool_size = max_disks;
- 
- 	for (i = 0; i < max_disks; i++) {
- 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
- 		if (!conf->disks[i].extra_page)
+-	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
++	if (!hlist_unhashed(&conf->node))
++		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
+ 	free_percpu(conf->percpu);
+ }
 -- 
 2.34.1
 
