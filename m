@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCA4429028;
-	Thu, 27 Aug 2026 19:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E954DB54B;
+	Thu, 27 Aug 2026 19:07:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857652; cv=none; b=lInVx8jzEiZejxMnHBVbRr4EvNpAF95wOws5SJ1PRv13xXCrNQMU3qfXwW/8uI1w4Dct/mWkz0u4zsDbILZNz7/fVkF2XYn3tRJt67pxqUka06zyypQUxCRU1VuoTPav9wUcREHkpVIv8SBNVBlfLyrDQJ44vCHiQnPRaRHAnmU=
+	t=1787857653; cv=none; b=q6+Cm/qYdSjKViiCawYTx617wQYRI/5xcQwchU2/0bVBv7nzXjxCIDnCxz72Jz8ww4S862wt9MYpvTOHHwCcKwPh8JBDCmDCMGTqRm7qKMzxxx6wKZKenlIl29yCL591W4EQn6SUQXpK4yaVfLTuUZncrKIgbYHso3XS9hYsUPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857652; c=relaxed/simple;
-	bh=YpYSES87WPrgAdE7OrzEO6FtBE+7w8+kLhZwaOxLLJc=;
+	s=arc-20240116; t=1787857653; c=relaxed/simple;
+	bh=9K91xs1LoNGvs0q+jYYkVc0Ld554sqyE/4hNxzZIZtw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l347oThg3bxTDYp5qwKlnidKkblERhbRjUfd00kADoxvt1RqgV+2qmSNZQKB+KeS84cT6CMTTPK+iBSCP+CChfqSw8b9EUaWW2xCM6QA3FR4pGTQCxcPMimBJQFJQbl9xoMK33UUTH6Pc+G305G0hj6zegTvqjZX2Hh5nyVK3M8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YU+ce9Tn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=H39Mb+AmdIMHbsF2p95sSsnK8Rkkot4z7hgXUcpHMumIVqrXA1vYaRWoWhn6KfyczNdNbSUEkW/PaeywWtOCbOWNfoGYtuJ/Jt6Rw7/gd7YhqvAS5i2Cko6DqhM3YhGmwGT1exz59IzWUKrKL9fVf7+5RSJn/c2Uhr8VsUpu1G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ahv7Kimq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YU+ce9Tn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF90C1F00A3D;
-	Thu, 27 Aug 2026 19:07:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ahv7Kimq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7341F00A3E;
+	Thu, 27 Aug 2026 19:07:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787857647;
-	bh=vIQJNH2KLqYBzZvmfQ5tpu5nrmZ5vzmiIncZrLnScqE=;
+	s=k20260515; t=1787857648;
+	bh=8fr17X89R+htO3pXl2NdsMPY0Yh2gQM2QBdTe2Z82bo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YU+ce9TnejCuIOPtUC0NIl7jqYHK+iQv4059Ruuj8LkA0Ic15CM4f5hXddG4Od97m
-	 hVf9DaWBG9Dohto9l/2l/OhND5/CDnxyDMy9uhwAS9JlB/MQuKxeaLj2O//piZ+5zd
-	 IJTG9hBizPOa5nGge6Rw78fwotV/gxefC91jIhcZzf7mglw3bJ6glhV6wjvMdOofEK
-	 Bcv+PYhBf5X4LKZXne26ZB6RD5HCUH4He3E6sf65rTiCE5sIMuGRxNU45rHTSAbz7R
-	 HBbEQxQ1g6lRCJCuhAM/6EhIJClaudCqM3QlzWU327M6Dh0+nM8IrGCVp6e4vmY7+7
-	 0bmZxLc6133+Q==
+	b=Ahv7KimqeSM01voPHFN58EibCndjppUpVap9m1ZAUyKzZh7rn4rhY94yNQUtSg9sC
+	 eAr5g+HAvWTKxaLBakpMJ1TBnZSdG/XlfxUY75+xe+GEi0OZFbm6fGyirWbN6CiZ0W
+	 hh95WnbR0X+SKWp3f8tadcz3JZCW7/rVVOTC9kDKI1XGcAsz8EOnCbeGMvsgYT8Cle
+	 d7myvY8XSUm1ja08x5MjBAOmhDovvhNthaRV5DBJF7k3xy+ldW3y8l4tbLEd2hVVlo
+	 W0/kBxndIpx+RPlulhLTUvY9ESvDSg0YKYzaWhuHYEvyp18MsGbmjWLReqX/PQqwd9
+	 gqAZAi75QseiQ==
 From: Jakub Kicinski <kuba@kernel.org>
 To: matttbe@kernel.org
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -39,12 +39,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	mptcp@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net 04/14] mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
-Date: Thu, 27 Aug 2026 12:07:26 -0700
-Message-ID: <20260827190726.3998256-1-kuba@kernel.org>
+Subject: Re: [PATCH net 05/14] mptcp: options: handle MPC data + csum reqd + no csum
+Date: Thu, 27 Aug 2026 12:07:27 -0700
+Message-ID: <20260827190727.3998288-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-4-a92309d121ca@kernel.org>
-References: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-4-a92309d121ca@kernel.org>
+In-Reply-To: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-5-a92309d121ca@kernel.org>
+References: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-5-a92309d121ca@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,151 +56,121 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
+mptcp: options: handle MPC data + csum reqd + no csum
 
-This makes the in-kernel path manager's id 0 removal path tear down a
-pending ADD_ADDR announcement, matching what the non-zero id path already
-does, and decrements pm.add_addr_signaled when an entry was removed.
-The lookup key is built from the msk local address with the port forced to
-zero.
+The parser in mptcp_parse_option() no longer sets OPTION_MPTCP_CSUMREQD from
+the MP_CAPABLE 'A' flag when the option carries a data-len, so only the
+presence of the 2-byte checksum field marks a data-bearing MP_CAPABLE as
+checksummed.  This avoids using the uninitialised 'csum' field when a peer
+sets the flag but omits the checksum bytes.
 
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/620
+Link: https://datatracker.ietf.org/doc/html/rfc8684#section-3.1-23
 
-A few questions on the changelog and on the new lookup key.
+> diff --git a/net/mptcp/options.c b/net/mptcp/options.c
+> index b8318e0301389..92f27b9e087a6 100644
+> --- a/net/mptcp/options.c
+> +++ b/net/mptcp/options.c
+> @@ -93,7 +93,8 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+>  		 * In other words, the only way for checksums not to be used
+>  		 * is if both hosts in their SYNs set A=0."
+>  		 */
+> -		if (flags & MPTCP_CAP_CHECKSUM_REQD)
+> +		if ((flags & MPTCP_CAP_CHECKSUM_REQD) &&
+> +		    opsize < TCPOLEN_MPTCP_MPC_ACK_DATA)
+>  			mp_opt->suboptions |= OPTION_MPTCP_CSUMREQD;
 
-> When the PM later reselects id 0 after adding another signal endpoint, it
-> finds the stale anno_list entry and hits WARN_ON_ONCE(mptcp_pm_is_kernel())
-> in mptcp_pm_alloc_anno_list().
->
-> Root cause: asymmetry between removal paths.
-> - Non-zero id path: mptcp_nl_remove_subflow_and_signal_addr() calls
->   mptcp_pm_remove_anno_addr() to clean up.
+[Severity: Medium]
+On the passive side, is the third ACK's 'A' bit not the only place where the
+peer's checksum requirement is recorded?
+
+subflow_init_req() derives the request state purely from the local sysctl:
+
+net/mptcp/subflow.c:subflow_init_req() {
+	...
+	subflow_req->csum_reqd = mptcp_is_checksum_enabled(sock_net(sk_listener));
+	...
+}
+
+There is only that single store of csum_reqd in net/mptcp/subflow.c, so the
+'A' bit seen in the remote SYN is not saved anywhere.  The only server-side
+promotion into connection state is in mptcp_sk_clone_init():
+
+net/mptcp/protocol.c:mptcp_sk_clone_init() {
+	...
+	if (mp_opt->suboptions & OPTION_MPTCP_CSUMREQD)
+		WRITE_ONCE(msk->csum_enabled, true);
+	...
+}
+
+With net.mptcp.checksum_enabled=0 (the default in net/mptcp/ctrl.c) and a
+peer whose SYN had A=1, does the new opsize test mean msk->csum_enabled now
+stays false for a 22-byte MP_CAPABLE + ACK that carries a data-len, sets A=1
+and omits the checksum field?  That option length is still accepted by the
+size check just above:
+
+		if (opsize != expected_opsize &&
+		    (expected_opsize != TCPOLEN_MPTCP_MPC_ACK_DATA ||
+		     opsize != TCPOLEN_MPTCP_MPC_ACK_DATA_CSUM))
+			break;
+
+Downstream, mptcp_incoming_options() then sets mpext->csum_reqd = 0, and
+get_mapping_status() compares:
+
+net/mptcp/subflow.c:get_mapping_status() {
+	...
+	/* Cfr RFC 8684 Section 3.3.0 */
+	if (unlikely(subflow->map_csum_reqd != csum_reqd))
+		return MAPPING_INVALID;
+	...
+}
+
+Both sides being false, the mapping is accepted rather than rejected, so no
+RST is sent for the non-conforming peer and the connection runs without
+checksums even though the peer asked for them.  Our own writer still emits
+the bit on data-carrying MPC + ACKs:
+
+net/mptcp/options.c:mptcp_write_options() {
+	...
+	if (opts->csum_reqd)
+		flag |= MPTCP_CAP_CHECKSUM_REQD;
+	...
+}
+
+Related to this, the changelog says the csum field "is only used to compare
+with the expected one, if previously negotiated in the 3WHS".  Since the
+passive side never records the peer's SYN 'A' bit, does that statement hold
+for a listener?
 
 [Severity: Low]
-Do these two helper names exist in this tree?  Grepping for
-mptcp_pm_alloc_anno_list and mptcp_pm_remove_anno_addr at this commit
-returns no matches.
+This isn't an issue introduced by this patch, but while touching this area:
+the trailing pr_debug() in mptcp_parse_option() prints fields that are only
+conditionally assigned:
 
-The WARN_ON_ONCE(mptcp_pm_is_kernel(msk)) described here lives in
-mptcp_pm_announced_alloc() in net/mptcp/pm.c, and the non-zero id path
-calls mptcp_pm_remove_announced() from
-mptcp_nl_remove_subflow_and_signal_addr() in net/mptcp/pm_kernel.c.
+		pr_debug("MP_CAPABLE version=%x, flags=%x, optlen=%d sndr=%llu, rcvr=%llu len=%d csum=%u\n",
+			 version, flags, opsize, mp_opt->sndr_key,
+			 mp_opt->rcvr_key, mp_opt->data_len, mp_opt->csum);
 
-The mechanism described looks right, so should the names be updated to the
-current spelling?
+sndr_key is only set for opsize >= TCPOLEN_MPTCP_MPC_SYNACK, rcvr_key for
+opsize >= TCPOLEN_MPTCP_MPC_ACK, data_len for opsize >=
+TCPOLEN_MPTCP_MPC_ACK_DATA and csum only for opsize ==
+TCPOLEN_MPTCP_MPC_ACK_DATA_CSUM.
 
-> diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
-> index 424f1a7f92482..1a77508132354 100644
-> --- a/net/mptcp/pm_kernel.c
-> +++ b/net/mptcp/pm_kernel.c
+mptcp_get_options() only clears the status group:
 
-[ ... ]
-
-> @@ -1146,7 +1148,13 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
->  			goto next;
->  
->  		lock_sock(sk);
-> +		/* Drop a possibly pending ADD_ADDR for this address. */
-> +		anno_addr = msk_local;
-> +		anno_addr.port = 0;
-> +		announced = mptcp_pm_announced_remove(msk, &anno_addr);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, since before it the id 0 path
-removed no announcement at all, but does forcing the port to zero here miss
-signal endpoints that carry a port?
-
-The commit message says:
-
-	Subtle detail: signal endpoints are stored in anno_list with port 0
-
-Is that always true?  mptcp_pm_nl_add_addr_doit() explicitly accepts a
-non-zero port for signal-only endpoints:
-
-	if (addr.addr.port && !address_use_port(&addr)) {
-		NL_SET_ERR_MSG_ATTR(info->extack, attr,
-				    "flags must have signal and not subflow when using port");
-
-and mptcp_pm_nl_append_new_local_addr() only zeroes the port when
-!address_use_port(), so an endpoint A:P can end up announced as A:P in
-anno_list.  mptcp_pm_announced_lookup() always compares the port:
-
-net/mptcp/pm.c:mptcp_pm_announced_lookup() {
-	list_for_each_entry(entry, &msk->pm.anno_list, list) {
-		if (mptcp_addresses_equal(&entry->addr, addr, true))
-			return entry;
-}
-
-For an msk accepted on an MPTCP listener bound to A:P, msk_local is A:P and
-mptcp_mpc_endpoint_setup() -> __lookup_addr() can match that endpoint
-(use_port = entry->addr.port), so mpc_endpoint_id becomes its id and the
-announcement is stored with port P.
-
-In that case the port-zeroed key never matches, announced stays false and
-the entry stays linked, while __mark_subflow_endp_available(msk, 0) still
-re-arms the mpc_endpoint_id bit.  On the next pass select_signal_address()
-reselects that endpoint (port-carrying endpoints are put at the head of
-endp_list by mptcp_pm_nl_append_new_local_addr()), and
-mptcp_pm_announced_alloc() finds the surviving entry:
-
-net/mptcp/pm.c:mptcp_pm_announced_alloc() {
-	add_entry = mptcp_pm_announced_lookup(msk, addr);
-	if (add_entry) {
-		if (WARN_ON_ONCE(mptcp_pm_is_kernel(msk)))
-			return false;
-
-Is that the same splat the patch is meant to remove, and would a
-port-insensitive lookup (or a second lookup with the original port) close
-this case too?
-
->  		spin_lock_bh(&msk->pm.lock);
-> +		if (announced)
-> +			msk->pm.add_addr_signaled--;
->  		mptcp_pm_remove_addr(msk, &list);
-
-[Severity: Medium]
-Can the entry freed here belong to a different id than the RM_ADDR that is
-queued right after?
-
-mptcp_pm_announced_remove() passes check_id == false, so
-mptcp_pm_announced_del_timer() unlinks whatever address matches, regardless
-of the announced id:
-
-net/mptcp/pm.c:mptcp_pm_announced_del_timer() {
-	entry = mptcp_pm_announced_lookup(msk, addr);
-	if (entry && (!check_id || entry->addr.id == addr->id)) {
+net/mptcp/options.c:mptcp_get_options() {
 	...
-	if (!check_id && entry)
-		list_del(&entry->list);
+	*(u32 *)&mp_opt->status = 0;
+	...
 }
 
-while mptcp_nl_remove_id_zero_address() always queues id 0:
+and struct mptcp_options_received in net/mptcp/protocol.h places sndr_key,
+rcvr_key, data_len and csum before struct_group(status, ...), while callers
+such as mptcp_incoming_options(), subflow_check_req() and
+mptcp_subflow_init_cookie_req() declare the struct on the stack without a
+memset.
 
-	list.ids[list.nr++] = 0;
-
-With a signal endpoint A:P (id M) matched as mpc_endpoint_id, and a second
-signal endpoint A with port 0 (id N), mptcp_pm_create_subflow_or_signal_addr()
-keeps id N because endp_id != mpc_endpoint_id:
-
-	endp_id = local.addr.id;
-	if (endp_id == msk->mpc_endpoint_id)
-		local.addr.id = 0;
-
-so anno_list holds {A, port 0, id N}.  A following del id 0 A matches this
-msk and the port-zeroed, id-agnostic lookup frees that id N entry and
-decrements add_addr_signaled for it, while the peer is only told id 0 was
-removed.
-
-If endpoint N is deleted later at a moment when no subflow in conn_list has
-saddr A, mptcp_pm_remove_announced() sees announced == false and force ==
-false, so no RM_ADDR is sent:
-
-	announced = mptcp_pm_announced_remove(msk, addr);
-	if (announced || force) {
-
-Does the peer then keep advertising that address indefinitely?  The commit
-message describes the change only as making the id 0 path symmetric and does
-not mention this cross-id effect.
-
->  		mptcp_pm_rm_subflow(msk, &list);
->  		__mark_subflow_endp_available(msk, 0);
+When the dynamic-debug callsite is enabled, does this print stale caller
+stack bytes for MP_CAPABLE SYN, SYN/ACK, plain MPC + ACK, and the
+data-without-checksum case this patch targets?  Would initialising csum and
+data_len (or extending the zeroed region) make the stated goal of the patch
+hold regardless of the debug setting, including for the stable backport?
