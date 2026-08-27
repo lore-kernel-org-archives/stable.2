@@ -1,88 +1,103 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AF723B63E
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 08:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1EE3EA955;
+	Thu, 27 Aug 2026 08:35:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819601; cv=none; b=iiKBkQfG6Fw3IFFf6KO+ev2Ia48uu7lyBUjUpM47JItFsX/p41KHe0VpkHk//FvDnWdMsdezy8hGLKsbgzLJFl5vIU9CcDy7rFim5bJ8rWRMS+s3/fkYT37YylLmkIkHp1I8fpN0lflIAK1S+TyHeIZbcaqgam+ccdnV0er3gQo=
+	t=1787819764; cv=none; b=X3HKVbRMjgl+mgjr38SjlxqW6sBnembfOFGW5YIKiaZMeH+92p3R2mCw2rJX2+i9kcBfFR/n8NCvKxoDw74MzUDqA3VGL8nq9ViCdbzjvGoXVOYKvYC7WJmUfUTCj8db971uOycoWv08ZuGHsJqhO60nWfxtX1uCZgUvNehmcq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819601; c=relaxed/simple;
-	bh=MXcYU0wpdxigUdN91eobDqnjz/40R6iSKgJHLhVwIdQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ibLpUz5OQxu7wO2EkXmnw2X+YTGE1VSOyoqFKS38KXFlj7YJsEWwz4k50wjCSwtexnWiN4S/+5c1lWuD8D9nIk/J+s3OnmueuHxhDXkA8mDd0q+vgWaQP561PKoS3kRWmh1FanprMp7ZSX2SHiGRN9xRVyMLgXNlimVU0JHkw2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BDFAZGrB; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1787819764; c=relaxed/simple;
+	bh=e/55QVn9aufb6zfxdyRMdImmwi3pzG+ui6ogDO3Cvds=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=p8ECbJtIzHyP/F+BH1P0fNc1xBUQU3vYh1JtKhHKOVHtl57Q05B99nlcIU47cUGikEXl9mbsnI69KQ8bx9hZ35sbd7Ai6gGBvr/Z2a9lDiLg181N6x6zZTCjKLUq/WXKXqPVypH5NYYgKAEULLs69blSgQ2/OcVQGJwidTL4nhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=dogSwoPq; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BDFAZGrB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E1951A1849;
-	Thu, 27 Aug 2026 08:33:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 10273602B8;
-	Thu, 27 Aug 2026 08:33:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE5B111C783F8;
-	Thu, 27 Aug 2026 10:33:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1787819587; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MXcYU0wpdxigUdN91eobDqnjz/40R6iSKgJHLhVwIdQ=;
-	b=BDFAZGrBnc9OcX8stWh9bwubCZ56sqUXoivFmTfpmjZhlbZqWZwfETMzz7ge4To9Np0x1H
-	Lb0yLVUQ3r87bdcbEq0bPc6t4SiO6aGh8pqM4Q/RQ4Ug1e6GnCUFxkPKNL0a9aavJU0Pwk
-	khI1c9118GZG4hBU54JkCL6yTBsnMDorIYywjd5+XPG1L8OXm4qeCmOpg2xRaonarPieKQ
-	CXqibtoCNgmGWsrGXAD+M+AHRfRX1ukEaJzCmHbuECUO+hO/YcQqiTOtYa2A4F6xlcddDq
-	LSoHgN6+LAxGGAlvD4A3Dk6w8Q6dgkgBOUK6Rlx1LSmoo1B2yzVQmM1AbxX8UQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,  Pratyush Yadav
- <pratyush@kernel.org>,  Michael Walle <mwalle@kernel.org>,  Takahiro
- Kuwano <takahiro.kuwano@infineon.com>,  Richard Weinberger
- <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,
-  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org,  Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH v5] mtd: spi-nor: core: Fix mutex leak in
- spi_nor_rww_start_exclusive()
-In-Reply-To: <20260827082656.2772784-1-runyu.xiao@seu.edu.cn> (Runyu Xiao's
-	message of "Thu, 27 Aug 2026 16:26:56 +0800")
-References: <87tsoigz8x.fsf@bootlin.com>
-	<20260827082656.2772784-1-runyu.xiao@seu.edu.cn>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 27 Aug 2026 10:33:03 +0200
-Message-ID: <87jypcdku8.fsf@bootlin.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="dogSwoPq"
+X-UUID: 5064104aa1f211f1b1788b6acf885367-20260827
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=T9KjIx7ZadBUzHUWCfAL4tzhAc97aaQhw/JtKmqQ4Z8=;
+	b=dogSwoPqycf3xQdrabf5DunXi358MLeORqMeugopgogGf8+xvD4RklpCJqsDB6fCuNwmjfj6f/Q5+s/pa7gol3GRx+olwHIEgyMmU8ezHHk0ZMtGV4HT2n5UFpFc9uDaB7PL4qFpu4YKdh/1hni+HpFKvCm+TZSjRmy9lWKeIT8=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:509a339a-bbf0-4b25-9d2f-b7db9f5f3deb,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:e35a69b9-70a6-46ee-89b5-5e757858aa60,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5064104aa1f211f1b1788b6acf885367-20260827
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw01.mediatek.com
+	(envelope-from <eason.lai@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1831531367; Thu, 27 Aug 2026 16:35:52 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 27 Aug 2026 16:35:51 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 27 Aug 2026 16:35:51 +0800
+From: Eason Lai <eason.lai@mediatek.com>
+To: <nbd@nbd.name>, <lorenzo@kernel.org>
+CC: <linux-wireless@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
+	<kun.wu@mediatek.com>, <deren.wu@mediatek.com>, <sean.wang@mediatek.com>,
+	<quan.zhou@mediatek.com>, <ryder.lee@mediatek.com>, <leon.yen@mediatek.com>,
+	<litien.chang@mediatek.com>, <jb.tsai@mediatek.com>,
+	<lucid_duck@justthetip.ca>, <eason.lai@mediatek.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH v4 1/2] wifi: mt76: mt792x: fix UAF in SDIO TX path when out of memory
+Date: Thu, 27 Aug 2026 16:35:25 +0800
+Message-ID: <20260827083526.1621600-2-eason.lai@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260827083526.1621600-1-eason.lai@mediatek.com>
+References: <20260819082129.1062282-1-eason.lai@mediatek.com>
+ <20260827083526.1621600-1-eason.lai@mediatek.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 27/08/2026 at 16:26:56 +08, Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
+Using __skb_pad() instead of skb_pad() in mt76_skb_adjust_pad()
+to prevent double-free, as the caller handles cleanup.
 
-> spi_nor_rww_start_exclusive() is used as a wait_event_killable()
-> condition. When an RWW operation is already in progress, it returns
-> false while still holding nor->lock. The wait condition is then retried,
-> but spi_nor_rww_end_exclusive() needs the same lock to clear the RWW
-> state, so the wait can deadlock.
+Fixes: 808f2767d421 ("wifi: mt76: mt792x: Fix memory leak in SDIO TX path")
+Cc: stable@vger.kernel.org
+Closes: https://github.com/morrownr/mt76/issues/83
+Co-developed-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Signed-off-by: Eason Lai <eason.lai@mediatek.com>
+---
+v2: no v2 change
+v3: add Signed-off-by: Devin Wittmayer and send as series
+v4: add CC stable
+---
+ drivers/net/wireless/mediatek/mt76/tx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This paragraph is a bit irrelevant, we don't really care about the
-feature itself: there was a conversion to scoped mutexes, this
-conversion missed one place, you fix it. That is the justification, but
-fine, let's stop iterating on such a trivial fix.
+diff --git a/drivers/net/wireless/mediatek/mt76/tx.c b/drivers/net/wireless/mediatek/mt76/tx.c
+index 3707ee19e4ae..ec503521ae63 100644
+--- a/drivers/net/wireless/mediatek/mt76/tx.c
++++ b/drivers/net/wireless/mediatek/mt76/tx.c
+@@ -879,7 +879,7 @@ int mt76_skb_adjust_pad(struct sk_buff *skb, int pad)
+ 		}
+ 	}
+ 
+-	if (skb_pad(last, pad))
++	if (__skb_pad(last, pad, false))
+ 		return -ENOMEM;
+ 
+ 	__skb_put(last, pad);
+-- 
+2.45.2
 
-> Use the same guard(mutex) pattern as the other RWW helpers so nor->lock
-> is released on both the busy and successful return paths.
->
-> Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-
-Didn't I send a Reviewed-by tag already?
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Miqu=C3=A8l
