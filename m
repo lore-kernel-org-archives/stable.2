@@ -1,108 +1,108 @@
-Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-b-105.mailbox.org (mout-b-105.mailbox.org [195.10.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5080B486637
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 15:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9ECE1862;
+	Thu, 27 Aug 2026 15:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787845412; cv=none; b=kQGbbkxhhCh4dKYjFJwb+p/loZwO8k45Dr8OJ65+OnXNuTOwZv6a890izl6Of06OAQlo5NJtzwTOr9DzUzbAl8PY+Npk5mpQyRX+MHJc4DRIZWllPnRnfY6ctktqycgq6AgxVyt7J4GaZXzf2TZYN0WqJt3dS1rxAlWHgUfNK9s=
+	t=1787845863; cv=none; b=jhT+UqwPdiSQLeO5fHYCl+VYUBPjvCnQG4LWBO/Xr1jDEBijIP10sR7JDdbFFVrG4bO/52WRxO47o9+yobymnHgn3mS6pwRFCOwAwyEn8/7OupHST2NDe5XXOGqosfb6PvjZJWk/8N/aeEumOT9U0He4IpmdCofigsNRyCiLuv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787845412; c=relaxed/simple;
-	bh=Pg4NFUX8JDPIXbUkkwq0Ml6GLH1igP4ZUMKg6RWzpA8=;
-	h=Content-Type:To:Cc:Mime-Version:Subject:Date:References:From:
-	 Message-Id:In-Reply-To; b=fR8cmVPEYFnPY4eDU/TMBLqxJ4e8iDYL5yHphSM05vtlIWNvOK10pkgW7TJeGM1V+q6AUGz29N6BHk5FHjydAft2YyWOONb3GAdNKuAjZUbiWljwzkQNbVAyw3UEqwfJS5fIs5PV37Ohzj3/qcT7pzF5Ae9u3TR1Yi+iRmeHPiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=hRfo/+JA; arc=none smtp.client-ip=71.18.227.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787845863; c=relaxed/simple;
+	bh=hJFzBlJooUj9tMP3pBp8imx/OWxNH+mZjIyHiIkw7DI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rxd2yCRdSQE4U9h6uCdb4nkwk8/q5FTSAgravYFUB1gp+nZlwxpKrL56rJK/kSMhyO3SxXv4Al9ZB4oTnX6OMXca63Pze3sL/xL9/Pea+wpKlSzl2DLUJKDwjmCT39hFOZI2+WCVNXXusIe/2hR03ZPb39wprhoesi8vuWZPAz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=q6LIjY6o; arc=none smtp.client-ip=195.10.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="hRfo/+JA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787845398; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=OOFci7YOWRONRU2EkJ/P6bDmKOzzj+GtBTW31kETtbg=;
- b=hRfo/+JAVjLKlzsS4SxiGLQzJKUn+O/szLDgLqQwnP3IvCNV+IbQ2fL05KaAdvV2GGcRxS
- V++0JZmCazu9q34jjtknWEhpBZocfYq3PHlCRGn35DXTnDhaXoJwoVq2Lh4eyh7iVmNeJd
- awasnakxT820dUAVk39gW3DOVsCbPVVadnK7nQZiyY5bzLNaHVUE7+srrDd/WDSPx9pEG2
- 7mZFGHW795o4atz4ekhVg7j6t7wA3nGVCGbmmRWk3RqBzAMGHIz4SfbiXf6STZPFbbZcel
- H9fxf4Z/se/OXHinYVASncGItAygVUpRMshhRy4opCMIx5AvWRFgK+GclWQ5bg==
-Content-Type: text/plain; charset=UTF-8
-To: "Codrin Ciubotariu" <codrin.ciubotariu@microchip.com>, 
-	"Andi Shyti" <andi.shyti@kernel.org>, 
-	"Nicolas Ferre" <nicolas.ferre@microchip.com>, 
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, 
-	"Claudiu Beznea" <claudiu.beznea@tuxon.dev>, 
-	"Wolfram Sang" <wsa@kernel.org>, 
-	"Ludovic Desroches" <ludovic.desroches@atmel.com>, 
-	"Oleksij Rempel" <o.rempel@pengutronix.de>, 
-	"Pengutronix Kernel Team" <kernel@pengutronix.de>, 
-	"Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, 
-	"Fabio Estevam" <festevam@gmail.com>, 
-	"Yao Yuan" <yao.yuan@freescale.com>, 
-	"Mukesh Kumar Savaliya" <mukesh.savaliya@oss.qualcomm.com>, 
-	"Viken Dadhaniya" <viken.dadhaniya@oss.qualcomm.com>, 
-	"Bjorn Andersson" <andersson@kernel.org>, 
-	"Vinod Koul" <vkoul@kernel.org>, 
-	"Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, 
-	"Praveen Talari" <praveen.talari@oss.qualcomm.com>
-Cc: <linux-i2c@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>, 
-	<linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>, 
-	<linux-arm-msm@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
+	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="q6LIjY6o"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-105.mailbox.org (Postfix) with ESMTPS id 4hW5Q715KNz9rvZ;
+	Thu, 27 Aug 2026 17:43:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1787845391;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+WUyt0i+GSy2Gq4Mu2qBP0O11Puo1gl4vVXEYTcZH7E=;
+	b=q6LIjY6ou2T1gmaRHTci14DgO7omruedHRTLJyx2DpsJe5EipztVpTzRbbDoqlZr9nmTVF
+	3Y3nQWBhIGITdaifNHrvzv/INCP8rW11sPpT9Tg1Ob8xAOE5n9ehpVCNdKwzvJLt4Rixe9
+	yrMBOhgSjUz/gPXmD58ISfgi70M4p7/fSZ4n5p7t9vlrOe2xZ4SKpjQpgYjDvXpAp456Uf
+	GRvhNABCgPiazVHStvFjggVi+7ogCFmzWOQd/i3cR0t5ZsNYXI7rHhXG/rOhrdMPluNW64
+	RnRvjbsTgPwlTsJ6WN89D4w7CcRhmGYXP0t95dP80/PO7gPRywG6vu8Ycsk1Sw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
+From: Ralf Lici <ralf@mandelbit.com>
+To: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ran Wang <ran.wang_1@nxp.com>,
+	Duoming Zhou <duoming@zju.edu.cn>,
+	linux-usb@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	Ben Hutchings <ben@decadent.org.uk>
+Subject: [REGRESSION] 6.1.y/6.6.y: fsl-usb fails to build
+Date: Thu, 27 Aug 2026 17:43:00 +0200
+Message-ID: <20260827154302.706689-1-ralf@mandelbit.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH 3/3] i2c: qcom-geni: release DMA channels on probe error
-Date: Thu, 27 Aug 2026 23:43:03 +0800
-X-Mailer: b4 0.16.0
-References: <20260827-i2c-dma-channel-leak-v1-0-271d4adc03a0@cherr.cc>
-X-Lms-Return-Path: <lba+26a905b14+718575+vger.kernel.org+me@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <20260827-i2c-dma-channel-leak-v1-3-271d4adc03a0@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-In-Reply-To: <20260827-i2c-dma-channel-leak-v1-0-271d4adc03a0@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 23:43:15 +0800
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4hW5Q715KNz9rvZ
 
-geni_i2c_init() grabs exclusive GPI tx/rx DMA channels when the serial
-engine runs in GPI mode. If i2c_add_adapter() subsequently fails, probe
-returns without releasing the channels, because the remove callback is
-not invoked after a failed probe.
+Hi,
 
-The adapter-registration failure path used to release the channels via
-its err_dma label; that release was dropped when the probe tail was
-restructured into geni_i2c_init().
+While working on some backport patches for an out-of-tree module and
+looking for the exact versions containing the disable_delayed_work_sync
+symbol, I stumbled upon occurrences of that function on longterm v6.1
+and v6.6 in drivers/usb/phy/phy-fsl-usb.c despite not being declared or
+defined anywhere. In fact, disable_delayed_work_sync was introduced by
+upstream commit 86898fa6b8cd ("workqueue: Implement disable/enable for
+(delayed) work items") and is only available since v6.10. Neither 6.1.y
+nor 6.6.y defines it.
 
-Release the channels on the adapter-registration failure path, mirroring
-geni_i2c_remove().
+Consequently, kernels built with CONFIG_FSL_USB2_OTG fail with:
 
-Fixes: d8d3bb127ad1 ("i2c: qcom-geni: Isolate serial engine setup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-Assisted-by: GLM:5.3
----
- drivers/i2c/busses/i2c-qcom-geni.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+drivers/usb/phy/phy-fsl-usb.c:990:2: error: call to undeclared function 'disable_delayed_work_sync'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  990 |         disable_delayed_work_sync(&fsl_otg_dev->otg_event);
+      |         ^
+drivers/usb/phy/phy-fsl-usb.c:990:2: note: did you mean 'cancel_delayed_work_sync'?
+include/linux/workqueue.h:470:13: note: 'cancel_delayed_work_sync' declared here
+  470 | extern bool cancel_delayed_work_sync(struct delayed_work *dwork);
+      |             ^
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 658636c1ee0e..45c770552bd2 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -1189,8 +1189,10 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	ret = i2c_add_adapter(&gi2c->adap);
--	if (ret)
-+	if (ret) {
-+		release_gpi_dma(gi2c);
- 		return dev_err_probe(dev, ret, "Error adding i2c adapter\n");
-+	}
- 
- 	dev_dbg(dev, "Geni-I2C adaptor successfully added\n");
- 
+I reproduced the failure on PowerPC using corenet64_smp_defconfig with
+CONFIG_FSL_USB2_OTG=m, building drivers/usb/phy/phy-fsl-usb.o with
+Clang.
+
+AFAICT, in 6.1.y, the regression was introduced in v6.1.160 by commit
+4476c73bbbb0 ("usb: phy: fsl-usb: Fix use-after-free in delayed work
+during device removal") and remains present in v6.1.185.
+
+In 6.6.y, it was introduced in v6.6.120 by commit 319f7a85b3c4 ("usb:
+phy: fsl-usb: Fix use-after-free in delayed work during device removal")
+and remains present in v6.6.154.
+
+Note that the same problem was pointed out by Ben Hutchings during the
+5.10.y review:
+https://lore.kernel.org/all/d147f0eb71f9cefbfb7605e95d98564d7f0ed346.camel@decadent.org.uk/
+
+The corresponding patches were dropped from 5.10.y and 5.15.y, but
+appear to have been retained in 6.1.y and 6.6.y.
+
+Simply replacing disable_delayed_work_sync with cancel_delayed_work_sync
+at its current location may not be sufficient: it looks like the delayed
+work can also be scheduled from fsl_otg_set_host and from the IRQ
+handler but I'm not familiar with this part of the kernel.
+
+Cheers!
 
 -- 
-2.47.3
+Ralf Lici
+Mandelbit Srl
