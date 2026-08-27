@@ -1,46 +1,43 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4463B6344;
-	Thu, 27 Aug 2026 08:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048BD3A3830;
+	Thu, 27 Aug 2026 08:27:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817863; cv=none; b=A5SkkjBh4vgf7ckLtMiqm1bszLk1Q2EJ+G+/B7JdqDe2F82e93GY2AdYY5qZc9gUoCStf/j8W/0dfnIp9dOP8BMMphlBv1QTeO60m1tb2Iqrp8SH7HYwrx4TDPpbTKBtc+kwI5VUQg30STY6N2DSiNRyJWTusOiwBsL5uBl7pQ0=
+	t=1787819237; cv=none; b=gyhlWgJgTeeLMr6P4uqSZABcWTrL/fBmDVCrhbquTVZUxxp3ca5u/kHefplKIx6HBW6gPAE9i99gRHuHfee8lqyHmMkKFGgNUdYpNmFewClRAJjAclhoTp8c3dEduOweYXWDLW3Ft8nSYRtTIDpcSqJuqR5FgudM8hcr22/M+1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817863; c=relaxed/simple;
-	bh=ef5P4NbGxhl4+Uk1F0KDET9+Ox/yvMBq5hL20NFEXW0=;
+	s=arc-20240116; t=1787819237; c=relaxed/simple;
+	bh=lsZIkzEcjrmcIEtAu9HM+xpvR7gUTF5bSS8k7yfDvxI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dVQ6Fc3q4JwBxLNQsGmwEifDdXX1Kn0LOxx3OZiVL8aB6ouo34da1zsYhWSYpcpJgIpu2ySmDbVqTwIVE9hpuXVMguAFmUz5dDXsQrwpP1fSbfcQ6ZmEC8UnOKj9pH8vB2ImIYrRIarEF1eeBKiZeQ7neckhIifyGuqTfgzFmSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IclEnoYL; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	 MIME-Version; b=m7XRosOFqpDBWBRaPNiZfIklJuGy8jG3YLxR36HWgJpDYXvxOCNl23+Wt2Hm/VQoP4Mnp1s/qXXGbE7lMMpJkrCK6YOh4LvFQwOZeuJEoxBx6MGWfsQlUMfhre/fYzKbQ2fMDn/z7V7mLA3OlL+dqtdSGKAo7dUoPv5KNH057pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=mP1ZkGPg; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IclEnoYL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=11
-	Gtp5Lb3rQoJvuk/TZT1JfLzY2fuTvHNx2t9ky+IIQ=; b=IclEnoYLn3LzHMnA+5
-	ATZ/rAs3S4xWlMqJmklkgfalYLDIjzF3DsdDkJklqo3WMalPQvQfFHbJ+oJkrw32
-	Y19O/bgforKyYx6rBV7T8N7cS26gMmkTxViC+CBtjLKAUtpgFphijeNjwrq/UzsS
-	zf3HFeMcO+iScuKpbiokOt7Ds=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_wxe749qoz9pPQ--.29344S3;
-	Thu, 27 Aug 2026 16:03:44 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mP1ZkGPg"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4b890ca46;
+	Thu, 27 Aug 2026 16:27:00 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v4 2/2] md/raid5: fix NULL pointer dereference in raid5_free_percpu
-Date: Thu, 27 Aug 2026 16:03:41 +0800
-Message-Id: <20260827080341.112296-2-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827080341.112296-1-ghuicao@163.com>
-References: <20260827063235.85375-1-ghuicao@163.com>
- <20260827080341.112296-1-ghuicao@163.com>
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v5] mtd: spi-nor: core: Fix mutex leak in spi_nor_rww_start_exclusive()
+Date: Thu, 27 Aug 2026 16:26:56 +0800
+Message-Id: <20260827082656.2772784-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <87tsoigz8x.fsf@bootlin.com>
+References: <87tsoigz8x.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,52 +45,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgD3_wxe749qoz9pPQ--.29344S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ury7Kr1xuFWrZw1fKF48WFg_yoW8Ww4xpw
-	4DJr4Yg3s5AanYk3s2vw4UuF15XwsrGrW8Aas3Ww4rZFs5ZrnFywsxZFW8uFy8AFZaqayx
-	J3s8XrnxJa1DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5AwxUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4ACSJWqP72CvhwAA3V
+X-HM-Tid: 0aa042545fa603a1kunm50d5e1a85c8a5
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQx1MVk1LGRoaQhoYHx9OGlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=mP1ZkGPgEVq7JP7GWZquTpOr+Vv6+NTWEyYXIVs0wUN3kw0fSZ9l9n5kMUQle+mb+DZYJ6b6BfNxTNe4KAsSItjPWZTyxlUUAmWWvYzhHpfdNV7wQsWX31bRrKzB3YDWIb+D9aAzwNBjpWoqO196wszGkWdsTirceZCDWX5/QkY=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=0YHVsFg6BoIIn7D9s6VZmkuiKmYY6gmtcPRgsQPlfj8=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+spi_nor_rww_start_exclusive() is used as a wait_event_killable()
+condition. When an RWW operation is already in progress, it returns
+false while still holding nor->lock. The wait condition is then retried,
+but spi_nor_rww_end_exclusive() needs the same lock to clear the RWW
+state, so the wait can deadlock.
 
-If cpuhp_state_add_instance() fails in raid5_alloc_percpu() (e.g., the
-startup callback raid456_cpu_up_prepare fails due to an allocation
-failure), conf->node is never added to the cpuhp instance list and
-its pprev remains NULL (from kzalloc initialization).
+Use the same guard(mutex) pattern as the other RWW helpers so nor->lock
+is released on both the busy and successful return paths.
 
-When setup_conf() then jumps to abort, free_conf() calls
-raid5_free_percpu(), which checks conf->percpu (non-NULL, since it was
-allocated before the cpuhp failure) and proceeds to call
-cpuhp_state_remove_instance().  This calls hlist_del() on the unhashed
-node, which dereferences node->pprev (NULL), causing a kernel panic.
-
-Guard the removal with hlist_unhashed_lockless() so that the cpuhp
-instance is only removed if it was actually added.  The lockless variant
-uses READ_ONCE() for the pprev read, which is safe here because the
-actual removal is synchronized by cpuhp_state_mutex inside
-cpuhp_state_remove_instance().
-
-Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
+Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/md/raid5.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v5:
+- Drop the interrupted-wait cleanup patch because an equivalent fix is
+  already pending upstream.
+- Restore the focused guard(mutex) change for the exclusive RWW helper.
+- Restore the original Fixes tag and keep the other RWW helpers unchanged.
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7539,7 +7539,8 @@ static void raid5_free_percpu(struct r5conf *conf)
+Changes in v4:
+- Add the interrupted-wait cleanup as a separate patch.
+- Convert all RWW start helpers used as wait conditions to conditional
+  scoped mutex guards.
+- Update the subject and change the Fixes tag while reworking the patch.
+
+Changes in v3:
+- Use guard(mutex) in spi_nor_rww_start_exclusive() so the lock is
+  released on both return paths.
+- Update the subject to describe the guard-based fix.
+
+Changes in v2:
+- Explicitly unlock nor->lock before returning from the busy path.
+- Clarify the lock leak and its effect on the matching end helper.
+
+ drivers/mtd/spi-nor/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..8bc117b46e02 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -1310,7 +1310,7 @@ static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
  {
- 	if (!conf->percpu)
- 		return;
+ 	struct spi_nor_rww *rww = &nor->rww;
  
--	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
-+	if (!hlist_unhashed_lockless(&conf->node))
-+		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
- 	free_percpu(conf->percpu);
- }
+-	mutex_lock(&nor->lock);
++	guard(mutex)(&nor->lock);
+ 
+ 	if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
+ 		return false;
 -- 
 2.34.1
-
