@@ -1,105 +1,82 @@
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF743C0635;
-	Thu, 27 Aug 2026 12:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B42A43A7F3;
+	Thu, 27 Aug 2026 12:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787833118; cv=none; b=iAYuoBpCN3TlIYpzIs/UnVPoY3QLwU6/AVT9DHckuzkzWoOwoe0igA9t1GeAQtEm2mq8SVEIV0xO5bFlAOaelYI/1OCjpOo7RCIoLn5s4sXzUfL56yLoQGV4Q0yYrn22SVIpRbuCmfMXGWx7p1UkCGd9ZoVscBToOoZohv4m8no=
+	t=1787833144; cv=none; b=PaXKST7P4IxMLoX19oJ1i5xLejkFAELSvmCGYqs6mwDpa7gh9gzo0AlDobK1s8ZrtP/NWpb1jZhHgs2H7/GfNqgpSpQs8L2pL3vapS/2QhQPjhAnhLwWghnG6VARhrQFEJoJOJbIamgmGghKP7TjeKDvWOLP8G2S2gIKd1i3Ibs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787833118; c=relaxed/simple;
-	bh=zBWr/35bR3H2jkfu2LGG9Vs/UroHh+OvaZbpBWggNGA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GAGPT5vkHa9jEG38lwWxMBk9BJ7QB5pdDwW6MM1SyLc8I6ipPp1aNjS8QGdVlVBQyk6djoahkz6h5cR8XY0fds7PVNDVvy0rZjsBGUXWeaemJ+FJ+hUO7v8dgb5AXqi4hyGAWu6LiZcVcUHLcYBHWV4wQ9F2D1OHdQcnsabUVds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=uHbSlip8; arc=none smtp.client-ip=216.40.44.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1787833144; c=relaxed/simple;
+	bh=ZlJcLdkdpL0Te8QZvFs4GA3wpwItrqQnrYnrwnSODro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qYj8GTXn8xRv7eo89TXZRHMhDVWPL4vILX3wcRE1AGeyFzO8wHz2sr3q/qcNuWRNDdAqRu9CC6rOsB6z4GIAuRNXKjXdaE/WEGPRzCQyLzf2dSEqgxp4smpgn7frltGXeVSD8qzZ6gyxgFOR+OV0kgaahnvAbM7bjr+sNhgAqPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDCaVvES; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="uHbSlip8"
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 2A6D7403F6;
-	Thu, 27 Aug 2026 12:18:30 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id 4C4A920027;
-	Thu, 27 Aug 2026 12:18:28 +0000 (UTC)
-Date: Thu, 27 Aug 2026 08:19:15 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: =?UTF-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>,
- mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/user_events: Clear copied tracing state
- before fork duplication
-Message-ID: <20260827081915.320fe2c3@gandalf.local.home>
-In-Reply-To: <A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org>
-References: <20260826214414.1971632-2-Jeremy.Jean@oss.cyber.gouv.fr>
-	<20260827080839.35e44d04@gandalf.local.home>
-	<A4F580CE-2211-4D05-9D3D-15AB427C74A4@mainlining.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDCaVvES"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34901F000E9;
+	Thu, 27 Aug 2026 12:18:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787833142;
+	bh=4Qs29KcnwoyMzvas4pVDhwqppVcxQsyz3i5GRnW+BHc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hDCaVvESn4UCKrFBf+1sYOqotBicNf10vwuhmw8jIRr5tX5wW84gmzg1iud9AgsdR
+	 Rnt1o66gSVs3a/Q+H82bRVGylUZvsJ7UUUp2dy1OMw+V24unErF6E6eIIKCw/s2+Jx
+	 tYeKEawgNW29KHceUwMZCRLN6rW8HcfCnQFd1eisOiL02NGYp1JlRus0neRqJOdgkL
+	 JR6xa/C5nQ5Fnr+B8J2iTptF1pvravU6OGBLDE0EsvYKa2NALgcMByRraGh8MyhdmI
+	 dBuw+lkx/l2LfbHDTGDtQtS2HESY2Dk427RpLL70rJZcbL3YN3CyCQTQ665BxaFzvO
+	 PoJ3y5ZuBAq8A==
+Date: Thu, 27 Aug 2026 13:18:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 00/82] 7.2.1-rc1 review
+Message-ID: <46163062-47f8-4028-9d11-29171f9b6dae@sirena.org.uk>
+References: <20260825132541.560541185@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: fj7kjbcuwmphixa4tb8tiep7wuyuumer
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 4C4A920027
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/sDFoMoh6N2xeCPxBd+jXdpMeXfTGB2Xk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=akNnSyt/DG1u9KFJTg36bQGZncIw4FqwwxZ/3QLG7V4=; b=uHbSlip8Xa1Q51X6qrwD8ZzIf7jkARGI827JEDvVa3b2vNklL6RA0xf6VPGIS+KrUyaE6o1aydQnYK0lAs/Qpoc9ZDH/g0fDHe5KKz3Z4YHis6TXSFPJMGj09yugKoTaRS2EruLSHnCis7EVqmhP/0+7tw+MzmjsvCCwjZ39oao=
-X-HE-Tag: 1787833108-911114
-X-HE-Meta: U2FsdGVkX1/LaFxpwkDESwqvJ0GhQTwYpZA2DssHFtoYdzH3mJfnoS2ua5tlh7fE/7rDwKC1CH20lrlBxfKdCXvISkzMkQuVzoiLeEfYs7z9G6b+DPI9Q//7V7x9TzxLDJsCk/cPy2XH5gWc8XnVpQeLMBSe51oWAV/jH9/CXF7TYQbmPC7lnNJ+EyO2m0dFGR+6yVJcoZN2p29PXY9d9rNnXo4wBKnv2F6xvMVY5NkLHw/ZQ5qUBQOjXqkI8aimlGU02BGO7ZpzfCWB7bUy8Pwe6c5vsyNkW7rvjy4UXXgIvKiutWx0vydmonPBzWJgV5QeaHRZErKfhtzxk3yrSb5gRMxNEIBy2/8q8CjvfVa2qqEDZbHnGtHOCRp5PSc0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ifOI/kR6j7bCVOZY"
+Content-Disposition: inline
+In-Reply-To: <20260825132541.560541185@linuxfoundation.org>
+X-Cookie: Alimony is the high cost of leaving.
 
-On Thu, 27 Aug 2026 13:09:44 +0100
-Bradley Morgan <brads@mainlining.org> wrote:
 
-> >> @@ -865,9 +865,12 @@ void user_event_mm_remove(struct task_struct *t)
-> >>  
-> >>  void user_event_mm_dup(struct task_struct *t, struct user_event_mm  
-> >*old_mm)  
-> >>  {
-> >> -	struct user_event_mm *mm = user_event_mm_alloc(t);
-> >> +	struct user_event_mm *mm;  
-> >
-> >Why this change?
-> >  
-> >>  	struct user_event_enabler *enabler;
-> >>  
-> >> +	t->user_event_mm = NULL;
-> >> +	mm = user_event_mm_alloc(t);  
-> >
-> >I don't see why you moved the mm assignment down here. The
-> >t->user_event_mm
-> >is not used in user_event_mm_alloc().  
-> 
-> Uff, not wrong, I must be dummy dumb dumb, well, I base my reviews off 
-> 
-> Does this fix the bug? And is this a small fix?
-> 
+--ifOI/kR6j7bCVOZY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The bug is fixed because it needs to NULL out that value. I asked from v1
-to move that change to this function. But this function only needs to add
-that line before the return. It doesn't need to modify anything else in
-that function.
+On Tue, Aug 25, 2026 at 03:24:47PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.1 release.
+> There are 82 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-That is, something like this:
+Tested-by: Mark Brown <broonie@kernel.org>
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index 8c82ecb735f4..6b89d225b189 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -868,6 +868,9 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
- 	struct user_event_mm *mm = user_event_mm_alloc(t);
- 	struct user_event_enabler *enabler;
- 
-+	/* On failure, do not free parent's copy */
-+	t->user_event_mm = NULL;
-+
- 	if (!mm)
- 		return;
- 
+--ifOI/kR6j7bCVOZY
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- Steve
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqQKy8ACgkQJNaLcl1U
+h9DFTAf/URJjHRxYnJK15iZqT4rhflqlDUXv1eGp8gE43DrrO0C6REDak5Ydo4n6
+T+bj77+hhmiSavzmPyrqb0rkLJV4ApAuaKmdrSa5K5no1QjcU8UsBsZ+SE3NY1KG
+W1AYLXfMz3wshFNE68Dw672vV7FdfjnO0dosFcnhogk2sakIBKxYp002QGzKz61P
+cCyuLppFHpKFmK8Ra/SCPoqTB9ChvTHejzINsZxZDJEkBJLSuAaXSH5csnRgcyRf
+5NBBGXcrhhzJJiYhGcEDm6oBLuw4ebmEGWWQaOk2xIPLJ6Dut8rd008Ic7hQxoxt
+fbmdsQjBQ5n+Dqw1NIXp4jHTWTE3yw==
+=S695
+-----END PGP SIGNATURE-----
+
+--ifOI/kR6j7bCVOZY--
