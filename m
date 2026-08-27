@@ -1,96 +1,134 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1989313527;
-	Thu, 27 Aug 2026 06:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C1230DECB
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 06:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787810792; cv=none; b=uvTBxIu6RB4XgOVZSOoAzWKFSOzRTcgVgKO37kM4Ekct2uBUKlbimgpEe7RK4eztCXMAcBeZMX6NddBYTdG9cGTWcYRJnSUQNiECAjayvB93lKLmppR48qb7v653rukRZ1ug+DvHSugTvDIR42IhmUMPtulBOyduipFgC1ugE54=
+	t=1787810904; cv=none; b=O5/Ni+l8k86hOBib/+EIz1TXiI2RoycUoSAm0YKOOCmmLEaOtScMoNQL8yr6L7RLm87Yx0vXfNKPERwvRKVBy6kvXFCrm7yl/QyOACfY4FP4sAFhqRzGxcvuTJbWA1/bPrdCrrdRWCBnUGeR/h/HCqxtqJfrn/C9W5ye124oLlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787810792; c=relaxed/simple;
-	bh=bAruQZ0cIRVmOCmhEQYA1wQoiKdmxyMg6Rgx4pWc0MI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=O0ErSUVIaULrWHk0nsO1OMzYu3SMMb9C5QQlbLt4WywwwEvZ9XeCknHHq65J6kAF6FpO7E5q4YKc5HcoXE4OnGjtapQIdErdpXRlkhdPCqjXk8AQFky1tspDH83dCgrBYYn/TQydcnw8EymHegpts2i6buicq94V6XkgPwc0NbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZWd9ZSo6; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787810904; c=relaxed/simple;
+	bh=JjeV6SBxpTEvPk4yf54OpOKenr/0yhaA7f6S2rHJ1sQ=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=GXPQMTyrfO0oIkCYRwZbn9yVnAmFhptJq1hxCwfl8waxhgY/kIVzECECLU8el1Pr12HYdDa4y/PDzQEwkxf0u8fOjJjW+Qq+/zlh3KSdpAUMNum6wOe0l9QQSrme4RwCf1aUHSNjG2WcvPBhXtDh4jvyJuOaMZw8rUuqibdKoYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AIRi4BXQ; arc=none smtp.client-ip=209.85.222.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZWd9ZSo6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=o2
-	kY95xCwNWCpsR/iyxyWE5K4DUXGZxG7v6ikeJdzPI=; b=ZWd9ZSo6zbsyrAR05x
-	4hUbeh7XAJHX1oXcPv2i7D/30y9Q/kE5D5Nm8cnNY1TYq3JKOhjaZXey6Ev351sI
-	8Qwcq5549lkLu0y5Fw5lByYs55MkcMcArtQwawgP94sDS1XqtRfGD5mzDfQM1oYV
-	OsqQQ0o21YYOe4fkJq5bmhVnY=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBnFyvF049q9Y7gOQ--.42204S4;
-	Thu, 27 Aug 2026 14:06:00 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v2 3/3] md/raid5: fix NULL pointer dereference in raid5_free_percpu
-Date: Thu, 27 Aug 2026 14:05:54 +0800
-Message-Id: <20260827060554.77849-3-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827060554.77849-1-ghuicao@163.com>
-References: <20260827023803.36602-1-ghuicao@163.com>
- <20260827060554.77849-1-ghuicao@163.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AIRi4BXQ"
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e62e3459fso163069185a.0
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 23:08:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787810902; x=1788415702; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/iiOyDOkD+5yeEIfVUarugFT3BFykOT3O/N/YLpxQ+0=;
+        b=AIRi4BXQldp8RWyWLmFiAH8xSAn2z1EehQlC9YKmmxPOivtUZvLcGzQLMxhxo7fM1w
+         jV11F/1t3IcSOY+qTIp7dqKuMqxT3PMNOTGZdTKDSMuEP9oBVc6oo2jRgxW0UXy2lFFe
+         D/BBoOqzCpLApPrV6KTrSyN4zwXuWeWISBkmBOCENeX0cjuVCfq1ACkgodBVwLF0SV0C
+         o028sz7Lm8MlN9xpZK+1Ygvtmx7WemEbP76+ZsU3laTT4nUKxkIAZq+yLVjSHqsasgvG
+         GS/7JsG2SiHs61LdaHdUjLIHV4xe9HknKZuGjJgvqRdT5sm3QOYSDxRGMZHpfefIsnlx
+         yiYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787810902; x=1788415702;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/iiOyDOkD+5yeEIfVUarugFT3BFykOT3O/N/YLpxQ+0=;
+        b=SD0qTvGqoRkNV8ctcuWytA9h6Tgutq6FbL4NylB8DCD6+pomCR6tbzizEGjNCfOk1O
+         UT5xfo6wgtiTNKEh2rHIEdRIQlHQGIb4X1Z1eTo3MXdF1wViBgrVJdC2v0du/fAQlS5t
+         +gpPdEStw8guyg7MOWKSWa943HL4VlXTJE5mWX8McZEI8+DbwI3YOa9JqtkczT4EqrI5
+         84vCgGRU+6jqbP+MOd+x9xnLnJRqKyEacY+k0nXU8DI1pPJRTxXADlxA+hs4pzw+6BoC
+         tqClJ8QwyGHuBVGPrbwvfOgxHqgA3X3IQwPTvOyR0EO22C04J9G6VREwpxmkOp0TcG2X
+         qv7Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqTj3BUJ71WwNy+TpLaUilA3ftk7yxlSw0A5jHUJwptAiXeFd02evOO1i2RKPd82va/v0j7//w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq872yXxR4IBK9DPdbS/iFegm9yShJmJkWvmCTPw2Mmo57MyjM
+	+LHknadHdwalMu9vDaXWPqvO76yBe/cuDOyDbb3AT325jnLRSbFfGDfyAcXOtnDUeOGFl4anwN1
+	paAGq3EbfqdLx0g==
+X-Received: from qkbt7.prod.google.com ([2002:a05:620a:1287:b0:92e:5eda:6273])
+ (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:620a:4396:b0:937:2f3c:fed6 with SMTP id af79cd13be357-937801054bfmr1185869885a.5.1787810901759;
+ Wed, 26 Aug 2026 23:08:21 -0700 (PDT)
+Date: Thu, 27 Aug 2026 06:08:01 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBnFyvF049q9Y7gOQ--.42204S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ury7Kr1xuFWrZw1fKF48WFg_yoW8Xry8pw
-	4DAr1Yg34rAanYk3s2vw4UuF1YqanrGrW8Aas3Wws5ZFs5Zr9Fyw45ZFW8WFy8AFZaqayx
-	A3s8XrnxJF4DtaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYrWrUUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-AmlOGqP08mQ4wAA3k
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.887.g758fc8c411-goog
+Message-ID: <20260827060801.229990-1-edumazet@google.com>
+Subject: [PATCH] net: gro: properly validate BIG TCP aggregation criteria
+From: Eric Dumazet <edumazet@google.com>
+To: Greg KH <gregkh@linuxfoundation.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, eric.dumazet@gmail.com, 
+	Eric Dumazet <edumazet@google.com>, Sam Dlinn <sledge@meta.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+When GRO attempts to aggregate packets beyond GRO_LEGACY_MAX_SIZE (64KB),
+BIG TCP should only be permitted for plain IPv4 TCP and plain IPv6 TCP
+(with sufficient MAC header room to insert the temporary HBH jumbo header).
 
-If cpuhp_state_add_instance() fails in raid5_alloc_percpu() (e.g., the
-startup callback raid456_cpu_up_prepare fails due to an allocation
-failure), conf->node is never added to the cpuhp instance list and
-its pprev remains NULL (from kzalloc initialization).
+However, commit b1a78b9b9886 ("net: add support for ipv4 big tcp")
+loosened the check in skb_gro_receive(), leading to several issues:
 
-When setup_conf() then jumps to abort, free_conf() calls
-raid5_free_percpu(), which checks conf->percpu (non-NULL, since it was
-allocated before the cpuhp failure) and proceeds to call
-cpuhp_state_remove_instance().  This calls hlist_del() on the unhashed
-node, which dereferences node->pprev (NULL), causing a kernel panic.
+1. skb_gro_receive() checked skb_headroom(p) instead of the actual space
+   before the MAC header (p->mac_header). Because skb_headroom(p) includes
+   mac_len, crafted frames (e.g. injected via AF_PACKET) can pass the check
+   with p->mac_header < 8 bytes. When ipv6_gro_complete() inserts the
+   temporary HBH jumbo header, the memmove() starts before skb->head,
+   causing an out-of-bounds write and wrapping skb->mac_header.
+2. It allowed non-IP protocols such as software VLAN (ETH_P_8021Q /
+   ETH_P_8021AD) to aggregate beyond 64KB because
+   p->protocol != ETH_P_IPV6 was true.
+3. It checked p->encapsulation instead of NAPI_GRO_CB(skb)->encap_mark,
+   allowing encapsulated flows (e.g. SIT / IPv6-in-IPv4) to aggregate
+   beyond 64KB.
 
-Guard the removal with hlist_unhashed() so that the cpuhp instance is
-only removed if it was actually added.
+Fix skb_gro_receive() to strictly enforce:
+- NAPI_GRO_CB(skb)->proto == IPPROTO_TCP
+- Not encapsulated (!NAPI_GRO_CB(skb)->encap_mark && !p->encapsulation)
+- Protocol must be either ETH_P_IP or ETH_P_IPV6
+- If ETH_P_IPV6, p->mac_header must be at least
+  sizeof(struct hop_jumbo_hdr)
 
-Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
+Returning -E2BIG from skb_gro_receive() ensures that packets which cannot
+become BIG TCP are cleanly flushed at <= 64KB and delivered intact without
+dropping.
+
+This issue does not exist in mainline (7.0+) because the subsystem was
+rewritten in commit 81be30c1f5f2 ("net/ipv6: Drop HBH for BIG TCP on RX
+side"), making this fix relevant only for older stable branches like
+6.18.y.
+
+Fixes: 0fe79f28bfaf ("net: allow gro_max_size to exceed 65536")
+Fixes: b1a78b9b9886 ("net: add support for ipv4 big tcp")
+Reported-by: Sam Dlinn <sledge@meta.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
 ---
- drivers/md/raid5.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/core/gro.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7539,7 +7539,8 @@ static void raid5_free_percpu(struct r5conf *conf)
- {
- 	if (!conf->percpu)
- 		return;
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 70770f9f9c45bdebbf09c00815ca21bc50a09ac1..252d7851d1aee55a8a65f656224a98da1140916d 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -118,9 +118,12 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
  
--	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
-+	if (!hlist_unhashed(&conf->node))
-+		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
- 	free_percpu(conf->percpu);
- }
+ 	if (unlikely(p->len + len >= GRO_LEGACY_MAX_SIZE)) {
+ 		if (NAPI_GRO_CB(skb)->proto != IPPROTO_TCP ||
++		    NAPI_GRO_CB(skb)->encap_mark ||
++		    p->encapsulation ||
+ 		    (p->protocol == htons(ETH_P_IPV6) &&
+-		     skb_headroom(p) < sizeof(struct hop_jumbo_hdr)) ||
+-		    p->encapsulation)
++		     p->mac_header < sizeof(struct hop_jumbo_hdr)) ||
++		    (p->protocol != htons(ETH_P_IPV6) &&
++		     p->protocol != htons(ETH_P_IP)))
+ 			return -E2BIG;
+ 	}
+ 
 -- 
-2.34.1
+2.55.0.887.g758fc8c411-goog
 
