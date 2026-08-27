@@ -1,101 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C330D1ABEDE;
-	Thu, 27 Aug 2026 02:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C1332B100;
+	Thu, 27 Aug 2026 02:05:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787796176; cv=none; b=ppu4INu7VXdk4Ir5jNZ54caNerJrkpmKxgIhqFQ8xOOAMI5RTw7RAD6vxVDnWWmPBaCwfT42kcXr1niMwvKOk/wBWZVQlVbUUC9iUdOXIrnPFyQ5iNn4vd3pdgW7G8ctTiLrRPJCBhnwGst5RnCMEmdwpd3NlEPx81NFGZEbc8M=
+	t=1787796358; cv=none; b=P5XJAJ5eghqtAicEY3mm3On3aTYy1awq3bLL0hZEOtBmNqimUaZgnruTxE7Rp06hgBX11Al364NGvBolTqJF4MizJF7ca1kGfZd1got/dqQ1cNWAhGhDiRPMYx+bD/g2MxmH10TVPzikC4yNJ13W7OGBm+n79YLtKNLc287nY3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787796176; c=relaxed/simple;
-	bh=2Y3wHWGSJgk4/PsN6xJagMe6gGZvMijyJyQYtpUh9u8=;
-	h=Date:To:From:Subject:Message-Id; b=YgeZorelSWmjlpGKDeQJgB3NFcZnR0pOFq3vc+57PlWGmn5kUH/LItQJt0xflYb/08Rghthcyx5CfZi3BsuBR76QyTG4KCZcpN4p9QAWHkuIyl1RRVcvjXRZITFZvKz2DDKvopnj/BynnpBGEV6/j+RU+QMBeORyIMvxKJ6tjg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1NdsYVhU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787796358; c=relaxed/simple;
+	bh=pw1sL4GCKzOrVaTCSIyFIIP6qDP3kJo7hS6eJKxXYP0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YPfAX94R1axgTpMBYSZOkXsEW17v5bNBHTTqA4CnKQC8Ua40qxl2uQxg4nyCtk7o+7uu7rB+Ui5xk8OHAbDcXAIYK+8YgrIl/MT1zee8CNwjSjp8hIXGniUJXKWYB361YhPzuuhdU70oDpNks8R7Xttj5AOZhTNle8SPtea+gtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CMdP1DJA; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1NdsYVhU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3ED1F000E9;
-	Thu, 27 Aug 2026 02:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787796174;
-	bh=m3jj90jfuXHNsTd4F9jG4VMGJ3o+E1cT8bTUYQKrA+A=;
-	h=Date:To:From:Subject;
-	b=1NdsYVhU/j4JGif2yUfVEequccLbSplF8aKPOQEUxo1eXBQlK/CKtjb4iLvYr71od
-	 GqMu3bl/CZmM7qXM8nbhZfQakRKRo8ENo1PGYeDhTokLQEI04+jLJQwoX/mqOzZcgO
-	 vErYUqw6yHTQ7fR+ogTt6F/TEGJJdLRqcWReaJsU=
-Date: Wed, 26 Aug 2026 19:02:53 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,dmoulding@me.com,blum@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + init-fix-early-boot-crash-with-bare-hostname-parameter.patch added to mm-nonmm-unstable branch
-Message-Id: <20260827020254.2D3ED1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CMdP1DJA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nr
+	cvEP3Xhkd19RV4CkWuoVyi53edPcp87hFyJB/+lYw=; b=CMdP1DJAFwPy8JzRU0
+	X7TPU1yNvXphzYMhQ6Y5I+7veNJk/jArNfQjVDmqIyADlDYFW7SArGqbb4C3Y63L
+	+KQ7smXiI1amx0W5IT9p6/QIQzYx1VBVclR8mgabcNvqfDPwc7AbwoAtXMwfdfcJ
+	n474uzCQ/2lSiCBnvndIc1gzQ=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXXx91m49q9OxpOQ--.43841S2;
+	Thu, 27 Aug 2026 10:05:42 +0800 (CST)
+From: ghuicao@163.com
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Cao Guanghui <caoguanghui@kylinos.cn>
+Subject: [PATCH] scsi: target: iscsi: Fix HeaderDigest to cover AHS data
+Date: Thu, 27 Aug 2026 10:05:36 +0800
+Message-Id: <20260827020536.29835-1-ghuicao@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgDXXx91m49q9OxpOQ--.43841S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWUAFWDZF1fCF4kKrWrAFb_yoW8ury3pw
+	s8Ww1jvr45u3y5ur47AF4Yqw1YqayrGFWjvFWfG34093Z8JFWq9a4Iga4agFy8trWvgF1a
+	vr4qg345tF40qw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UpCJQUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4BaCFWqPm3bpagAA3q
 
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-The patch titled
-     Subject: init: Fix early boot crash with bare hostname parameter
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     init-fix-early-boot-crash-with-bare-hostname-parameter.patch
+In iscsit_get_rx_pdu(), the HeaderDigest CRC32C is computed over only
+the 48-byte basic header (ISCSI_HDR_LEN), excluding any Additional
+Header Segments.  However, RFC 3720 Section 10.2.1.2 specifies that
+the header digest covers "all the header segments of a PDU, i.e., BHS
+and AHS."
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/init-fix-early-boot-crash-with-bare-hostname-parameter.patch
+The iSCSI initiator (libiscsi) correctly computes the digest over
+BHS + AHS (task->hdr_len = 48 + hlength * 4), so any valid PDU with
+both HeaderDigest negotiated and AHS present (e.g., SCSI commands with
+Extended CDB) would fail CRC verification on the target side and be
+falsely rejected.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Track the total header length in a local variable and use it for the
+CRC computation so that the digest covers the full header as required
+by the RFC.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Thorsten Blum <blum@kernel.org>
-Subject: init: Fix early boot crash with bare hostname parameter
-Date: Wed, 26 Aug 2026 12:09:03 +0200
-
-When a bare hostname parameter is specified on the kernel command line
-without the '=' separator, early parameter parsing passes NULL to
-early_hostname(), which dereferences it in strscpy() and can crash the
-system during early boot.
-
-Reject NULL values in early_hostname() and return -EINVAL instead.
-
-Link: https://lore.kernel.org/20260826100904.296151-2-blum@kernel.org
-Fixes: 5a704629f2c1 ("init: add "hostname" kernel parameter")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Cc: Dan Moulding <dmoulding@me.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
 ---
+ drivers/target/iscsi/iscsi_target.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
- init/version.c |    3 +++
- 1 file changed, 3 insertions(+)
-
---- a/init/version.c~init-fix-early-boot-crash-with-bare-hostname-parameter
-+++ a/init/version.c
-@@ -23,6 +23,9 @@ static int __init early_hostname(char *a
- 	size_t maxlen  = bufsize - 1;
- 	ssize_t arglen;
+diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
+--- a/drivers/target/iscsi/iscsi_target.c
++++ b/drivers/target/iscsi/iscsi_target.c
+@@ -4026,6 +4026,6 @@ static void iscsit_get_rx_pdu(struct iscsit_conn *conn)
+ {
+ 	int ret;
+ 	u8 *buffer, *tmp_buf, opcode;
+-	u32 checksum = 0, digest = 0;
++	u32 checksum = 0, digest = 0, header_length;
+ 	struct iscsi_hdr *hdr;
+ 	struct kvec iov;
+@@ -4053,8 +4053,10 @@ static void iscsit_get_rx_pdu(struct iscsit_conn *conn)
+ 		}
  
-+	if (!arg)
-+		return -EINVAL;
-+
- 	arglen = strscpy(init_uts_ns.name.nodename, arg, bufsize);
- 	if (arglen < 0) {
- 		pr_warn("hostname parameter exceeds %zd characters and will be truncated",
-_
-
-Patches currently in -mm which might be from blum@kernel.org are
-
-maintainers-mailmap-update-entries-for-thorsten-blum.patch
-init-fix-early-boot-crash-with-bare-hostname-parameter.patch
+ 		hdr = (struct iscsi_hdr *) buffer;
++		header_length = ISCSI_HDR_LEN;
+ 		if (hdr->hlength) {
+ 			iov.iov_len = hdr->hlength * 4;
++			header_length = ISCSI_HDR_LEN + iov.iov_len;
+ 			tmp_buf = krealloc(buffer,
+ 					  ISCSI_HDR_LEN + iov.iov_len,
+ 					  GFP_KERNEL);
+@@ -4082,5 +4084,5 @@ static void iscsit_get_rx_pdu(struct iscsit_conn *conn)
+ 			}
+ 
+-			checksum = iscsit_crc_buf(buffer, ISCSI_HDR_LEN, 0,
+-						  NULL);
++			checksum = iscsit_crc_buf(buffer, header_length, 0,
++						  NULL);
+ 			if (digest != checksum) {
+-- 
+2.34.1
 
