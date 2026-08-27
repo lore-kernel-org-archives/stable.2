@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB731DB95E
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:40:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF7638F935
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:40:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787805610; cv=none; b=L8k6uzkvkGzD/NWD7cg3McYNySL/vP+hLXCXG2vXUEPKUe6QHJM7X+XkRCTz9kkRTcTSBU/wQmLqity3Rt8FfXvEQQ1qwL1wNlkwmhChYkB1Fxn0iWKWCQPnNmIc1oYzTN8THFH/XphY7X5Gc4ZZblzEH+A+8wh6hxd4kk3YI/w=
+	t=1787805612; cv=none; b=WkucYurBjovNvVyJGPg3q2ixgBBg3gNkOFfgyMyX/Pba8wXpNkETF29s6kYo7o3XIBoJQiwnUBrD2gTMAk6jpFrm1kr8X76QCeIV9Owq6fKBr4AiDN3J2oGB4YHBfKShBfJ6kUmVOSZ83EPyjB3wB3OI4qDCQM+3BQhk7EWH4w0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787805610; c=relaxed/simple;
-	bh=liInS31UGC1KKymx8A0Dwahv8aXPkIl+Jsd+BWwAq5Q=;
+	s=arc-20240116; t=1787805612; c=relaxed/simple;
+	bh=2UMFA1CfdBdsczLSK9sjfVZ/0wyGD4ZTPzwpEX0r8Hs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n8KnRy6ONJ+tOz+iMguJ739Dfj6/VDYj01rF0tmcHQGmtfGoPW26+FTmqewL37pE6IRSleoUfvS+5G9LMkluhpKGq9H+bjy2lJd1G5lKP8p5aEUVy+3+WBLq85VaMI/1yCJAM+7GM4MoDGHUFIHm6RXoHsQO/r2GKKpWWFU9WJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OPTIhicm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YHONVZABHyf4UVdCb57kBpeaaE1qcjKYNCVRmrnwaaci3XiIhVvCdeQZcxrlZM3IVdN2YOPaMNInl5pF6Yml8xf7i1VpGx4a3n3kIH1PbV5MlFuIuyuVJIi43D7P68ErF6w84Q40WuPD2Ow1UKgEPU04hfm+8if0z836ubTPhXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdEo4722; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OPTIhicm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EBC1F000E9;
-	Thu, 27 Aug 2026 04:40:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdEo4722"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442D91F00A3E;
+	Thu, 27 Aug 2026 04:40:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787805609;
-	bh=GlWODAKZAHdFAC0nGluZXS7Ss050+y1wvHT+Y8zPST0=;
+	s=k20260515; t=1787805610;
+	bh=5CbsEqmDirjdFSbzKTJdU9APnp9lJ0Y2huDNp8OmpM4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OPTIhicmDYF44BjBXtNCToPRR54OzkDpxSEN/WPSlprEmFlOV2/DQlXDL78phXOgA
-	 e6wwa1VamfwOhot/0gYYVo/0jvU5uzgYgOMGSb8jAWEjkFSDRK6UsYmfmU45VN8FKx
-	 mziZg9f65qBFfVNRM9SDap6HauDaZhKfK41BQU4o2hAZZfljjGM83G76Q0wBCFFioc
-	 jId8TFgIZzZKxCNKvn7pwVq9VLTPM3wMUyU2Bx8jXKWDq2uTvKFv+1D5n4veh2cHeZ
-	 Z6HUCkRFIyb45SAngIO54/7Z/+wDSnXNVUChXH/8aRuym0lYmqNKLRbuKXkmK77Wnl
-	 xgd8c/CnfOROA==
+	b=ZdEo47223VVzkYGP0Qvw22YwoePzCX+a+3mYsk7XzT2DqWkP14IZYhiDhp4K96WNN
+	 i7QhZQ0j4p2IZrzbx86jEs2X6yZpdZ6nS1HPNmSjTSP6h0fDR5D3HZEmqyNHAInDwu
+	 BUZuq1bh2zwqZgNRqHxcygvYq+VgK8IVpKSHBMtZEfD8a4EwAPLzx1Q0jbSL8DELiM
+	 AWDWxOYFMrQmUeERA8Y+nAcXx+1xiTccueKknweCQ0Z2mqdLS/VPg7NVUUywmc1Xo5
+	 knZICnQImqcVpNnq1QAvmkXVW/RY3jDVANIUC5XzKLCTWxqyclf/+FDH73Y9Jm5HtA
+	 /dDzHRQWaEESA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Michael Zaidman <michael.zaidman@gmail.com>,
-	Germain Hebert <germain.hebert@ca.abb.com>,
+	Enrik Berkhan <Enrik.Berkhan@inka.de>,
 	Jiri Kosina <jkosina@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/8] HID: ft260: fix i2c probing for hwmon devices
-Date: Thu, 27 Aug 2026 00:39:59 -0400
-Message-ID: <20260827044007.3635916-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/8] HID: ft260: improve i2c large reads performance
+Date: Thu, 27 Aug 2026 00:40:01 -0400
+Message-ID: <20260827044007.3635916-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026082538-obstacle-cogwheel-cfc1@gregkh>
+In-Reply-To: <20260827044007.3635916-1-sashal@kernel.org>
 References: <2026082538-obstacle-cogwheel-cfc1@gregkh>
+ <20260827044007.3635916-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,90 +49,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Michael Zaidman <michael.zaidman@gmail.com>
 
-[ Upstream commit a94f61e63f337d95001e1a976ab701100fa1d666 ]
+[ Upstream commit 54410c14800ad652c77e5c6fc5c17baad6e42cb6 ]
 
-The below scenario causes the kernel NULL pointer dereference failure:
-1. sudo insmod hid-ft260.ko
-2. sudo modprobe lm75
-3. unplug USB hid-ft260
-4. plug USB hid-ft260
+The patch increases the read buffer size to 180 bytes. It reduces
+the number of ft260_i2c_read() calls by three, improving the big
+reads performance.
 
-[  +0.000006] Call Trace:
-[  +0.000004]  __i2c_smbus_xfer.part.0+0xd1/0x310
-[  +0.000007]  ? ft260_smbus_write+0x140/0x140 [hid_ft260]
-[  +0.000005]  __i2c_smbus_xfer+0x2b/0x80
-[  +0.000004]  i2c_smbus_xfer+0x61/0xf0
-[  +0.000005]  i2c_default_probe+0xf9/0x130
-[  +0.000004]  i2c_detect_address+0x84/0x160
-[  +0.000004]  ? kmem_cache_alloc_trace+0xf6/0x200
-[  +0.000009]  ? i2c_detect.isra.0+0x69/0x130
-[  +0.000005]  i2c_detect.isra.0+0xbf/0x130
-[  +0.000004]  ? __process_new_driver+0x30/0x30
-[  +0.000004]  __process_new_adapter+0x18/0x20
-[  +0.000004]  bus_for_each_drv+0x84/0xd0
-[  +0.000003]  i2c_register_adapter+0x1e4/0x400
-[  +0.000005]  i2c_add_adapter+0x5c/0x80
-[  +0.000004]  ft260_probe.cold+0x222/0x2e2 [hid_ft260]
-[  +0.000006]  hid_device_probe+0x10e/0x170 [hid]
-[  +0.000009]  really_probe+0xff/0x460
-[  +0.000004]  driver_probe_device+0xe9/0x160
-[  +0.000003]  __device_attach_driver+0x71/0xd0
-[  +0.000004]  ? driver_allows_async_probing+0x50/0x50
-[  +0.000004]  bus_for_each_drv+0x84/0xd0
-[  +0.000002]  __device_attach+0xde/0x1e0
-[  +0.000004]  device_initial_probe+0x13/0x20
-[  +0.000004]  bus_probe_device+0x8f/0xa0
-[  +0.000003]  device_add+0x333/0x5f0
+$ sudo i2ctransfer -y -f 13 w2@0x51 0x0 0x0 r180
 
-It happened when i2c core probed for the devices associated with the lm75
-driver by invoking 2c_detect()-->..-->ft260_smbus_write() from within the
-ft260_probe before setting the adapter data with i2c_set_adapdata().
+Before:
 
-Moving the i2c_set_adapdata() before i2c_add_adapter() fixed the failure.
+[  +4.071878] ft260_i2c_write_read: off 0x0 rlen 180 wlen 2
+[  +0.000005] ft260_i2c_write: rep 0xd0 addr 0x51 off 0 len 2 wlen 2 flag 0x2 d[0] 0x0
+[  +0.001097] ft260_xfer_status: bus_status 0x41, clock 100
+[  +0.000175] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.000004] ft260_i2c_read: rep 0xc2 addr 0x51 len 180 rlen 60 flag 0x3
+[  +0.008579] ft260_raw_event: i2c resp: rep 0xde len 60
+[  +0.000208] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.000001] ft260_i2c_read: rep 0xc2 addr 0x51 len 120 rlen 60 flag 0x0
+[  +0.008794] ft260_raw_event: i2c resp: rep 0xde len 60
+[  +0.000181] ft260_xfer_status: bus_status 0x40, clock 100
+[  +0.000002] ft260_i2c_read: rep 0xc2 addr 0x51 len 60 rlen 60 flag 0x4
+[  +0.008817] ft260_raw_event: i2c resp: rep 0xde len 60
+[  +0.000223] ft260_xfer_status: bus_status 0x20, clock 100
 
+After:
+
+[ +11.611642] ft260_i2c_write_read: off 0x0 rlen 180 wlen 2
+[  +0.000005] ft260_i2c_write: rep 0xd0 addr 0x51 off 0 len 2 wlen 2 flag 0x2 d[0] 0x0
+[  +0.008001] ft260_xfer_status: bus_status 0x20, clock 100
+[  +0.000001] ft260_i2c_read: rep 0xc2 addr 0x51 len 180 rlen 180 flag 0x7
+[  +0.008994] ft260_raw_event: i2c resp: rep 0xde len 60
+[  +0.007987] ft260_raw_event: i2c resp: rep 0xde len 60
+[  +0.007992] ft260_raw_event: i2c resp: rep 0xde len 60
+[  +0.000206] ft260_xfer_status: bus_status 0x20, clock 100
+
+Suggested-by: Enrik Berkhan <Enrik.Berkhan@inka.de>
 Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
-Signed-off-by: Germain Hebert <germain.hebert@ca.abb.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.cz>
 Stable-dep-of: bf3e39df3a39 ("HID: ft260: fix stack-use-after-return write in I2C read race")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-ft260.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/hid/hid-ft260.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 183eeb3863b38..79505c64dbfe7 100644
+index 539d311bb9b9d..854876b16880d 100644
 --- a/drivers/hid/hid-ft260.c
 +++ b/drivers/hid/hid-ft260.c
-@@ -969,24 +969,23 @@ static int ft260_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	mutex_init(&dev->lock);
- 	init_completion(&dev->wait);
+@@ -30,12 +30,19 @@ MODULE_PARM_DESC(debug, "Toggle FT260 debugging messages");
  
-+	ret = ft260_xfer_status(dev);
-+	if (ret)
-+		ft260_i2c_reset(hdev);
+ #define FT260_REPORT_MAX_LENGTH (64)
+ #define FT260_I2C_DATA_REPORT_ID(len) (FT260_I2C_REPORT_MIN + (len - 1) / 4)
 +
-+	i2c_set_adapdata(&dev->adap, dev);
- 	ret = i2c_add_adapter(&dev->adap);
- 	if (ret) {
- 		hid_err(hdev, "failed to add i2c adapter\n");
- 		goto err_hid_close;
- 	}
+ /*
+- * The input report format assigns 62 bytes for the data payload, but ft260
+- * returns 60 and 2 in two separate transactions. To minimize transfer time
+- * in reading chunks mode, set the maximum read payload length to 60 bytes.
+- */
+-#define FT260_RD_DATA_MAX (60)
++ * The ft260 input report format defines 62 bytes for the data payload, but
++ * when requested 62 bytes, the controller returns 60 and 2 in separate input
++ * reports. To achieve better performance with the multi-report read data
++ * transfers, we set the maximum read payload length to a multiple of 60.
++ * With a 100 kHz I2C clock, one 240 bytes read takes about 1/27 second,
++ * which is excessive; On the other hand, some higher layer drivers like at24
++ * or optoe limit the i2c reads to 128 bytes. To not block other drivers out
++ * of I2C for potentially troublesome amounts of time, we select the maximum
++ * read payload length to be 180 bytes.
++*/
++#define FT260_RD_DATA_MAX (180)
+ #define FT260_WR_DATA_MAX (60)
  
--	i2c_set_adapdata(&dev->adap, dev);
--
- 	ret = sysfs_create_group(&hdev->dev.kobj, &ft260_attr_group);
- 	if (ret < 0) {
- 		hid_err(hdev, "failed to create sysfs attrs\n");
- 		goto err_i2c_free;
- 	}
- 
--	ret = ft260_xfer_status(dev);
--	if (ret)
--		ft260_i2c_reset(hdev);
--
- 	return 0;
- 
- err_i2c_free:
+ /*
 -- 
 2.53.0
 
