@@ -1,115 +1,133 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7996239EF2C
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:50:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF2F3B6341;
+	Thu, 27 Aug 2026 08:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787817057; cv=none; b=OgZwklg9CkoRVYOfc7baqcj8InsuGfulhbVSxZ7NCs2rjv38Gjzm7PMss2UHSOeAIvbSnnbmYperhCy4rFfASwZyJIncWbKk2nnNoXIXVJnvV2tb7rOSb9h+fDnvVQWZEC11XItsznY1cQevgEnzcS0DNX86ml2zpfYpQl5tX/4=
+	t=1787817853; cv=none; b=OFpEy0BtUoSelACXrjA/WTeG41OvmuFCdZmwbVOKJMX+cv9TlMOzcCFv085F0Bv4Tchpk7qBwu908eYP+JFkk4rGTSZQI2KjvTZ4ICH6bClyWt/DjKooJkOfLqmJN86wWC3KqDohhKKzNIeqwxKCtZBIV3ujNYgRyek9E5iHNFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787817057; c=relaxed/simple;
-	bh=o9SfOayrWajRW/+NG/zMKHW/ffcQ2S0g3uodt2BKZtE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jntgumfBT6gw3UnD4W9aAZDtQ4i7JEqGFcFf4rl0An3XIB3o2N4btFYecyt6/c5Qr06JAYI/ovSUl3YaWqDd1a5dkMC9Cw7YSX/OYAllhG7Hha2kw6c2nZ8L8NkjGorIWbwXe+tt2FGDNHCGp4F6ykoc/oYSzM9un9hy1bUwQV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=Us1jmtvQ; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
+	s=arc-20240116; t=1787817853; c=relaxed/simple;
+	bh=SZK2uKu99FCmOiH6CtTNvIURwBng/uRczIPfDS5zYAo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=rhNssCEJq0s6UVWyMb9hK93V9ZIRHsC2AFsmln1VMFNTvaoeNlLeiyw319Fej4XC7Xm1WkugjYI0T1hweb7nDq9MOc+n45S6FIk9ELMXlDX6rBZge4FPo/W3g/8ltLUGgf+bcxWX5/fsURkwijv7h0tcbM7F15L17F/xDFSqWLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eBbC7aWG; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="Us1jmtvQ"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c250f28f1cdso311438766b.0
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 00:50:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1787817051; x=1788421851; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3TC/uq2OAWBJlRWDS0+FgLZUaW3+hNg8rcbu4E+WX7w=;
-        b=Us1jmtvQ5pmBNvHxw8AS0DXXd2Q63sIGJuBeYkO4Qz3HOZFdHzVohMwPxz9Y0xhPQx
-         FXcGbF2HavRovHFtKDHIMgYQY1qzvIzhf/6NuYLMuZdg4neRhdtKMV/Q56FtL1h85Vcu
-         g/ID7qaw6izcA8x/+7gLznEmxsDrwSj5Ng8P7knMZu51YjVizOTwQDkRumMP9uOXYRfd
-         dyQKdLLfSvUVs52Xb4a9hu4li/+HWs/YmhagFrWH+bY1L9u0SRSYK9n0ResDrDPU53r3
-         3nz0B59yvpWSlt5OBbTU3m0QDvhx2sbDwfRmahfUaEPncykrolIpuUG0Ayc/EPZlNDUM
-         kscw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787817051; x=1788421851;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3TC/uq2OAWBJlRWDS0+FgLZUaW3+hNg8rcbu4E+WX7w=;
-        b=mp19RRNVu/rYG65NsL5VxjYnHUXjNfhaymQ8HiI1bGac4wZHsrCmCVhdEMzcjDmdUG
-         IZXkfm2jLB9Z03aduL5nOzE8DdBRgxGH53ZUXDQExlLcBPInM4rJAhrT5inRxkHW7/O8
-         K0vgZlK0yZLBDDcJsZw9KG/yJiXDJG4VVed9EbilupgrPm1i6vQYzLKY5dfieH2Fivdz
-         KPLysSsfItAsB3fUgP46ca8V3+K8p/DMHXTLwTP7iigktAhGT7N8QkOeSHZtxLMcyGZS
-         ZSQKZbgD46ovuWDAXcw1LQZE/6kLh8r5UXj8AA5owcHhfPRTsNHfze1vPMyODhhsOj63
-         4/YA==
-X-Forwarded-Encrypted: i=1; AHgh+RqwfiFXPZlGeG7BGthkoaD0ASV4E8LLmgu/L6scRXEUMOmnHOQ0QH56Z4yw4w/vv2QjgjjTSpM=@vger.kernel.org
-X-Gm-Message-State: AFuF++npeTMPKUImvRwoafqLA7h8RMz8K3HjmGXh/dOjHhOi/RevUY1j
-	V+bgJ2OduuHr5mTQQo08RChTl2Odagh8rizzx+hyM5RmEYSdHEom6KYDN8qdZ1DbPg==
-X-Gm-Gg: AR+sD13Z5mQZCW5TZZ2V2QfQ8x+/f/2Vz8vQ84kwtZ4tdtnLf57CL2xxDA2kdAFtQ7i
-	qlRAHr38U9XqX9wxI8XbUejr70gx46iDtyJfZUtsmJ5cGc/GtuN3diB4IkEsPLufqmsvTdZEWTw
-	G3QKwF0W45oNYg2pJAexjfSHP2VeLAdQThrap+pU2D+vXGBDsBQFUKPUd+Tn6GTZToI/RIUuytb
-	DtANsHFS/WlkByun5pWUJrhou5X/yS+5FbWhGEK5dDf30TNMcMDzAchGl/+iQK5ZpgE0RjujT1T
-	KXmxlfV4r8BqJ31Z7djFuSKU1N9OOuXmcuQIrlm9okHemWRVJBcfS4x54naqF1DdfGZ0SeCsJTz
-	6s1O8pUluycG8NGVVSkABdoxhKfyK3KH071Z6Dv+4iQ7cAXplUkiNUzTOG0soRviYCLNElwS5Hg
-	5crjFfWoeUw9NRNha+k4enMg1N3LjW/jMab+vYx8dUlElqoy5Ar6MgWYQZTIX7hZFytw8yrNXnt
-	qHXwr+MWaT8PtRDmUPG5Q==
-X-Received: by 2002:a17:907:930b:b0:c24:680b:3944 with SMTP id a640c23a62f3a-c250c330febmr1350343566b.13.1787817050958;
-        Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
-Received: from [10.254.183.223] ([149.199.62.131])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c250a722400sm652641166b.23.2026.08.27.00.50.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 00:50:50 -0700 (PDT)
-Message-ID: <702a199e-6439-4890-9dbf-0111aa76aee1@monstr.eu>
-Date: Thu, 27 Aug 2026 09:50:43 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eBbC7aWG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=th
+	hfpAm3W3+gvrnvVKZRRufjJwObxV/nCEwA2o7XeDY=; b=eBbC7aWG8ej8FBJoOg
+	QBSN3swUdVuTqvzMBxDOQEMGZ42Mzj5iAKbl3vUGDPn3pnkLYlXYtSd5hQzFg3wz
+	QZYXv8ea2vMM1KTwM5m9REbkdVg5bRn7yez0KNLz36rywLLAOeSpsY6hfviuaSps
+	txsj5pJFtQS0oC2xYFLLqPh6Y=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgD3_wxe749qoz9pPQ--.29344S2;
+	Thu, 27 Aug 2026 16:03:43 +0800 (CST)
+From: ghuicao@163.com
+To: Song Liu <song@kernel.org>
+Cc: Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Cao Guanghui <caoguanghui@kylinos.cn>
+Subject: [PATCH v4 1/2] md/raid5: track disks array size to fix extra_page leak on error paths
+Date: Thu, 27 Aug 2026 16:03:40 +0800
+Message-Id: <20260827080341.112296-1-ghuicao@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260827063235.85375-1-ghuicao@163.com>
+References: <20260827063235.85375-1-ghuicao@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] microblaze: Fix MB_MANAGER build with older binutils
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Appana Durga Kedareswara rao <appana.durga.kedareswara.rao@amd.com>,
- kernel test robot <lkp@intel.com>, oe-kbuild-all@lists.linux.dev,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260813024026.5402-1-kmehltretter@gmail.com>
- <ao-3jrT0aP0_fSBA@gmail.com>
-Content-Language: en-US
-From: Michal Simek <monstr@monstr.eu>
-In-Reply-To: <ao-3jrT0aP0_fSBA@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgD3_wxe749qoz9pPQ--.29344S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuFy5Ar4UJr4kJryfuw48WFg_yoW5XrWrpw
+	sru34UZa1UWrs3Jr17Z3yUuF15Kw4qqrWxGFW3W3yvvF9agrySyr1rGFZ0krWjyF93Kayf
+	tFZ8trnxJr1rtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrYFZUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC-B+RJGqP71872AAA3g
 
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
+free_conf() iterates conf->pool_size entries to free extra_page
+allocations, but pool_size may not reflect the actual size of the
+conf->disks array.  Two scenarios cause a mismatch:
 
-On 8/27/26 06:06, Karl Mehltretter wrote:
-> On Thu, Aug 13, 2026 at 04:40:26AM +0100, Karl Mehltretter wrote:
->> The suspend mnemonic is an alias for mbar 24, and both encode as
->> 0xbb020004. Use the underlying instruction, which GNU as 2.30 already
->> supports.
->>
->> Fixes: 88707ebe77e2 ("microblaze: Add custom break vector handler for mb manager")
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202310310151.UhB396Qs-lkp@intel.com/
->> Suggested-by: Michal Simek <monstr@monstr.eu>
->> Cc: stable@vger.kernel.org
->> Assisted-by: Codex:gpt-5.6-sol
->> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> 
-> Just a friendly ping in case this got missed.
+1. setup_conf() early abort: pool_size is 0 (not yet set by
+   grow_stripes) but conf->disks has max_disks entries with
+   extra_page allocated.  The loop iterates 0 times, leaking all
+   pages.
 
-will look at it after rc1.
+2. resize_stripes() Step 4 failure: conf->disks was replaced with
+   a newsize-entry array in Step 3, but pool_size is only updated
+   on success.  The loop iterates pool_size (old, smaller value)
+   times, leaking (newsize - pool_size) pages.
 
-M
+Add a dedicated disks_cnt field to track the actual number of
+entries in conf->disks.  Set it immediately after each allocation
+or replacement (in setup_conf and resize_stripes Step 3, where the
+array is safely stalled with no concurrent access), and use it in
+free_conf() instead of pool_size.
+
+This leaves pool_size untouched, preserving the check_reshape()
+retry behavior that depends on pool_size only being updated on
+full success.
+
+Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+---
+ drivers/md/raid5.c | 4 +++-
+ drivers/md/raid5.h | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -2642,6 +2642,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
+ 		} else {
+ 			kfree(conf->disks);
+ 			conf->disks = ndisks;
++			conf->disks_cnt = newsize;
+ 		}
+ 	} else
+ 		err = -ENOMEM;
+@@ -7552,7 +7553,7 @@ static void free_conf(struct r5conf *conf)
+ 	free_thread_groups(conf);
+ 	shrink_stripes(conf);
+ 	raid5_free_percpu(conf);
+-	for (i = 0; i < conf->pool_size; i++)
++	for (i = 0; i < conf->disks_cnt; i++)
+ 		if (conf->disks[i].extra_page)
+ 			put_page(conf->disks[i].extra_page);
+ 	kfree(conf->disks);
+@@ -7733,7 +7734,7 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 
+ 	if (!conf->disks)
+ 		goto abort;
+-
++	conf->disks_cnt = max_disks;
+ 	for (i = 0; i < max_disks; i++) {
+ 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
+ 		if (!conf->disks[i].extra_page)
+diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
+--- a/drivers/md/raid5.h
++++ b/drivers/md/raid5.h
+@@ -667,6 +667,7 @@ struct r5conf {
+ 	unsigned long		cache_state;
+ 	struct shrinker		*shrinker;
+ 	int			pool_size; /* number of disks in stripeheads in pool */
++	int			disks_cnt; /* number of entries in disks[] array */
+ 	spinlock_t		device_lock;
+ 	struct disk_info	*disks;
+ 	struct bio_set		bio_split;
 -- 
-Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
-w: www.monstr.eu p: +42-0-721842854
-Maintainer of Linux kernel - Xilinx Microblaze
-Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
-U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
-TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
+2.34.1
 
