@@ -1,115 +1,108 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385B543E4A1
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 14:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6CE4432FD
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 14:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842763; cv=none; b=LvqZTZm6UUaaqoYN7rJXrQhyvaBuDvMI4AcCb0SD+Inb8Z/4BqhMe9J0k0dapCNKZfPcTdL0vD81eZcw3sivP4EJot0O2tu75rwncz6kx/qKGdqtRTbHgWpGTcnTe0avXMkySDJ380E1dZkA0fGCHbDPO+t4OF91hkJNMnIzqn4=
+	t=1787842772; cv=none; b=AJXDa6rH6t38GcrAt1pvpMiGspjT+paHxecv7rDIH3qrZKeHvpmt1SwJHuX1PirIzh9lSt5qn1rsFUwxID8PFeb4jO/l1HggBWix0rD/CXYQaZEoVtEBSLwT2CT7JxiET9xddIuF5iEZDgIi5cu1DnN7mZ62zZsoQewDccwC4fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842763; c=relaxed/simple;
-	bh=RR+IUy6BeU23gJRdnSXxRw8SirU1x2z1Zv0XN+mlf+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cZ0KIkYRXGQoe7HGcVZmfi/0HdPniTIuFv9OTPXOErAMV/Ww+GrEmKEJ5WcLmJVCnDLX3zLjqeSiMl89CD7v0sFIUNSBc54aR3YtmrGKMCcir/GMSlLpEifCebVklPS3zrVn9i/4Ya+SsDkoJrVLqflPDW3pmWG4+5/OyL1XBfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=lFoZFqjD; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1787842772; c=relaxed/simple;
+	bh=uJqwj486hWxLAALuJR7oWC34BqTBbz7uaJxgRsqpTIY=;
+	h=From:Message-Id:Subject:Date:Content-Type:To:Cc:Mime-Version; b=Q+GrrQX7l7HKemCE9lfKk23U8CktJtc6uDcf2LGT08Uiw9vwWwL1i2QobGFHxjdhC5S9HS3A0ihBVIcZ0ARRj6GIzL/TtqgvmMmejASrjMwJOOoYq+pBRYfxx8yYf3l1yVgH3u5wE8kxwRmZ+i0strxIPkLXTZGQOZk8tifMrR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=jb6S7Wkf; arc=none smtp.client-ip=71.18.227.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="lFoZFqjD"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-81ea0b7d137so25067847b3.2
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1787842759; x=1788447559; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d4lPcSEVrhw95aM0IABtxJRmbb0KihXHWFn9jTHO+gA=;
-        b=lFoZFqjDq9phDt72Un3JCDMdeZIOtIYGQ3jWW4EYhWYAo5CbPp0QcKiOnE+AJbaaYq
-         AYjewtTUfh+eGHC5p6ImFm9/Suxn0PAei/84jTYezOcu6QW30E9jfACTJl3odUB/rzki
-         mXWCYw1x4fZuy+MmpstiAfGk3sl6X36ssgJwW9lsGhJpoSk7uYIXCAHFGb1ng5Cc6NTt
-         Zts2ACxDcGj2hFRNU3hH5dnRzXIo5r+odb8Gmqkw55/zT0jn53Io4y5DmActQiBp2s0b
-         lQ6r9IjvBlj1GWtJt1uv0b+KMPvK7WieOrL7WAbrIMcYwe2XgIao6ZCexzg2yfuP6uBD
-         svRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787842759; x=1788447559;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d4lPcSEVrhw95aM0IABtxJRmbb0KihXHWFn9jTHO+gA=;
-        b=ECeViF2axOpiapeJtwog7JmjSA+UwnRteXGN/x6+a82z3p9snMWBVRgNRMvVIjo7H/
-         74QgyXMOJYtbCuAccGcdtmBR+v3Hbwzlyvk0S4r1lI2+9zr9SRDyeFzmQ10LvbqITcLV
-         TnD98Zc6akUWcC3ON/kHMU7rETOP/mwT5wAGP0ls7H5maJtQIYoKmCZLbFqcwa6DA5Nw
-         izRYmfcbIroV3x/I8mFNxStodFrW2p7hOlQ4nJIqE+/zDC+foq3rirBQOsYZ23hYnDCK
-         vAVe10B8KQtLV5QnGbBwtphhCgc3xC4qRlKPI65H+59ojpx+wzJgtVJ5MywvrHqN5Mxy
-         w2yQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpaNbtjFjkG9yGPxToJYRnbzC/ACQf6uhsbtTlAT00Y1wFrgpx3xiweF0AHuKUtDs+PDnmjkbo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0JpW5Fs2tAJlB8Zfr/1nyCqyrDmLQAH/pYzvt48VredK1x52t
-	DxG1uGdDE8zUMb1L7DZP9rDfMU/EX7onoHUdazAZPQz1sCAgG9jKcqI8fvkb6vdqWpY=
-X-Gm-Gg: AR+sD121whi7d81zYzDDe94r7h2hR53aiju8si19q5SzU78sU5kJit8u6HhDjzmmET3
-	wqW2xp8TmTsfr9QgsopHGfbxaDUJO9SfqmRZnRZ/XbdNSxAxbwjIrEu4TwEXSunVv45ZxjTZVGo
-	zevH7ONuaB7APg7STGCZH7Wy6jrLUG3iSDF9w0axdFAMFPOYT6AyiLokz382y1+fhqqvAhZgwCl
-	KAbbRcTEkI72kJglPZxJc6Rv+0XU/hTLdSFWZjYeJi3p2F971Vuy2YPSiiE563xtmUJxWi3xb5y
-	lC9jz/pLSsuWL9xeg3XU3H4x+9+PpGqfwHfEwYPWVG2ph8+lFbcXg7fqPBzlOru6uW7VQH3rwl5
-	d7GXZwxba7d4OXShhhXdEeIOxhaxQKfM27AvQLFpGHSk9fhFJo6q3MRnVxWwT2XUlQohabjk8MM
-	4BQXjFswCeSrCkxscPDaj5vMhuQeHtRDeJTAaiTvcn2yLERwky0RJFhcDOjUe9
-X-Received: by 2002:a05:690c:e288:10b0:858:def3:3422 with SMTP id 00721157ae682-858def3356cmr38360687b3.27.1787842759108;
-        Thu, 27 Aug 2026 07:59:19 -0700 (PDT)
-Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85b5bc34efasm11365667b3.7.2026.08.27.07.59.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 07:59:18 -0700 (PDT)
-Date: Thu, 27 Aug 2026 10:59:17 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: linux-mm@kvack.org, stable@vger.kernel.org,
-	syzbot+ced4d9a8cadb5ef3adae@syzkaller.appspotmail.com,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yosry Ahmed <yosry@kernel.org>, Chris Li <chrisl@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
-	Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/memcontrol: fix data-race on reading jiffies_64
-Message-ID: <20260827145917.GB3004@cmpxchg.org>
-References: <20260827025457.116191-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="jb6S7Wkf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787842756; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=jvHVGXLRnB/myR7QpYOFvo9mljYI+Hq1VtE6Y8mURT8=;
+ b=jb6S7WkfQpSCK9yBnW3/+Em4FtbZmkwoZs7ODGIRwldP2sGfN5l5hMc6q0l1TLfWFdJoMo
+ VA0ggLye3QfPAdR0EIsKK77aONYXHehIkVBeawNxS+aXtlqGOcnEX5Jq1CmBUQv6nsYVtv
+ q7hD17nwqQ++jHSU6XG45MTZT5eGqs0AIrliEIidoWiTQ2H6zzvdTvonVkK4FoHsyDSVhb
+ P+Ditwn80FpT9rNRxMf9cK+cqspMgpzn1RN6oF/ZDyVxk+Ab6CADAUphnPZN+KUQcSi7vz
+ UOtqOpKGlHfSZzJjUbeYZu0eE45u8zZLcWW3BNO2zuVOzo0mPr9vdh3UG279Vg==
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <20260827-go7007-i2c-buf-bound-v2-1-82b185f9cb82@cherr.cc>
+Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 22:59:14 +0800
+X-Lms-Return-Path: <lba+26a9050c2+fa4d82+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+Subject: [PATCH v2] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
+Date: Thu, 27 Aug 2026 22:59:10 +0800
+X-Mailer: b4 0.16.0
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+To: "Hans Verkuil" <hverkuil@kernel.org>, 
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	"Greg Kroah-Hartman" <gregkh@suse.de>
+Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827025457.116191-1-jiayuan.chen@linux.dev>
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAL1QkGoC/4WNQQ6CMBBFr0Jm7ZhSC1VX3sOwoNMBxgUlLRAN4 e4CHsDlS95/f4HEUTjBPVsg8ixJQr+BPmVAXd23jOI3Bq10qa7aYhusUhZFE7qpQRem3qM3jWO ja1PbG2zTIXIj7yP7rH6cJvdiGvfWbnSSxhA/x++c796fiznHHE1RFEQXr0xpHtRxjGciqNZ1/ QJ5d9kqyQAAAA==
 
-On Thu, Aug 27, 2026 at 10:54:56AM +0800, Jiayuan Chen wrote:
-> KCSAN reported a data-race between tick_do_update_jiffies64() updating
-> jiffies_64 and mem_cgroup_flush_stats_ratelimited() reading it directly.
-> 
-> Unlike jiffies, jiffies_64 is not volatile, so raw reads are plain
-> accesses and can even be torn on 32-bit. Use get_jiffies_64() instead,
-> and fix the same pattern in mem_cgroup_flush_foreign().
-> 
-> Cc: <stable@vger.kernel.org>
-> Fixes: 508bed884767 ("mm: memcg: change flush_next_time to flush_last_time")
-> Fixes: 97b27821b485 ("writeback, memcg: Implement foreign dirty flushing")
-> Reported-by: syzbot+ced4d9a8cadb5ef3adae@syzkaller.appspotmail.com
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
+a 16-byte buffer embedded in struct go7007, without any length check.
+The adapter declares no transfer limits, so an SMBus block transfer
+issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
+the struct fields that follow the buffer.
 
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Bound the transfer size with i2c_adapter_quirks so the I2C core
+rejects oversized messages before they reach the driver.
 
-Minor nit:
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Assisted-by: GLM:5.3
+---
+The EZ-USB I2C adapter in the go7007 driver copies message payloads
+into the 16-byte usb_buf embedded in the go7007 device struct without
+any length limit, so an SMBus block transfer through /dev/i2c-N can
+write past the buffer and corrupt the struct fields that follow it.
+Bound the transfer size through i2c_adapter_quirks.
+---
+Changes in v2:
+- Drop the Cc: tag for the maintainer from the commit message; the
+  recipient is already covered by the Cc email header.
+- Link to v1: https://patch.msgid.link/20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc
+---
+ drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> @@ -785,7 +785,7 @@ void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->  void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg)
->  {
->  	/* Only flush if the periodic flusher is one full cycle late */
-> -	if (time_after64(jiffies_64, READ_ONCE(flush_last_time) + 2*FLUSH_TIME))
-> +	if (time_after64(get_jiffies_64(), READ_ONCE(flush_last_time) + 2 * FLUSH_TIME))
->  		mem_cgroup_flush_stats(memcg);
+diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
+index c0cb92fa6ab9..867548d655b3 100644
+--- a/drivers/media/usb/go7007/go7007-usb.c
++++ b/drivers/media/usb/go7007/go7007-usb.c
+@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
+ 	.functionality	= go7007_usb_functionality,
+ };
+ 
++static const struct i2c_adapter_quirks go7007_usb_quirks = {
++	.max_write_len	= 12,
++	.max_read_len	= 15,
++};
++
+ static struct i2c_adapter go7007_usb_adap_templ = {
+ 	.owner			= THIS_MODULE,
+ 	.name			= "WIS GO7007SB EZ-USB",
+ 	.algo			= &go7007_usb_algo,
++	.quirks			= &go7007_usb_quirks,
+ };
+ 
+ /********************* USB add/remove functions *********************/
 
-time_is_after_jiffies64()
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
