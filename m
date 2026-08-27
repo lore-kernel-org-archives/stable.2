@@ -1,177 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6BD383993;
-	Thu, 27 Aug 2026 02:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B731C84D0;
+	Thu, 27 Aug 2026 02:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787797606; cv=none; b=mOD/RVg3pPoSOmhpobpiFQiUkRSRIlp8n6N2FUTE2NMSjuY1Q5unymNcqCgnP/OdK8jpwRGaeVGSBPz7ZbHBdicA1nsr5WeuB7yY9J9cLywaaofNWMCH3DFDwQqpJhmo5UJHPXs18b9ZP6dleqcWyirHpUWXd83XRzPXFJp3Uq0=
+	t=1787798315; cv=none; b=A1sbtqBWty2JvuGZKtUhKMtsUtcqNS0BZ2Mil8z3S/l/2up/oH0Y4dvXFLFtYQJalVBVXuzVpga0QLLX/qAUX2dzyjLQvS4QwAstfa3fOcnsTaD+5EXf90YjRIOiKtomqgEjXZMkZ3K3WsO61xU+z8NI+7ZlKI9Rz2uTe1G8hw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787797606; c=relaxed/simple;
-	bh=/9OWLxuUHxdkQHuoIuL5Wxp2c62Zch87SWkdGBvLMKs=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=JP3m8eFA1oZ+JlbXLM2rXh2Pn1DM4+v5W35AgnpquLv6ECXxkgwj7VnlFfyren9jO0e94QVqJJJ1PfZOAM7tn3j6xIQFNTYnGbbayX1Xof9/Dq9qZMqaXIzphmyOo7uFoAPpz5SkbbdRZ3JeWswfNXi05D02EQMuuJxCS0PLkbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=SrGToG6W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787798315; c=relaxed/simple;
+	bh=2lgJVWDLJSRQTDln7hZ5jKmiXAVgwNTHvtaG7S34XZE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kd72S5VdcspK1bpDGz98mxkkfa7EM1ICJ1b24jv7f5cDy48oszdJqXKjnN+xGF0pGa6HZmvRnb+uO74gLjQepGu3ps9gh/sbIUwtZ8y8dk9d3+RE0e7rUPRfjC/4DCwt/1/AXHrYwW7ncx2h63odye8GvTLaMKl3vYFjmeK9xn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GfpjjMLa; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="SrGToG6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8FDB1F000E9;
-	Thu, 27 Aug 2026 02:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787797603;
-	bh=KRCoeguRNXQjKf/J1BJkLL0r/nvVajBk63KtuoCwr8g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SrGToG6W0G0ii7P5TP8t46WK6UMhhyLRfGMQYo+3BynPCsSu/G5jy8oZGuAyd1J1g
-	 scsANe3Hw/iwJNEEx50FiGhSv/LDUezqEXYjStUi2WJHbxv8VEn+KqXpGOyrKDQJhu
-	 hQoeKqOiIgBaRhanIjyZX383vWTsESelzA2ESxwg=
-Date: Wed, 26 Aug 2026 19:26:42 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
- <pfalcato@suse.de>, Li Xinhai <lixinhai.lxh@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- syzbot+f12658786a4153df5113@syzkaller.appspotmail.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for
- MREMAP_DONTUNMAP
-Message-Id: <20260826192642.980c3aba921bf20cef425591@linux-foundation.org>
-In-Reply-To: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
-References: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GfpjjMLa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kF
+	XxZJ9VVh7dL52uS7/oN/owmsUDo+btzoy5sSb0lOE=; b=GfpjjMLakO0ItZmIMX
+	llkpuWlDpg7BZIDbwBb328GCKFg4HMJcfm+zb1CPYwfaTLbJHphKA16tusGcMHrH
+	1DbCpHcIMu7iPmAwVWiBFvUT24d0gGTASm9e4LK9+34Abyw1X03ltjCFegGP0Ck8
+	J92e//fSsCnd0fWH5F824gEBY=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3XyQOo49qe0dfSQ--.11609S2;
+	Thu, 27 Aug 2026 10:38:08 +0800 (CST)
+From: ghuicao@163.com
+To: Song Liu <song@kernel.org>
+Cc: Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Cao Guanghui <caoguanghui@kylinos.cn>
+Subject: [PATCH] md/raid5: set pool_size before extra_page allocation to fix leak on error path
+Date: Thu, 27 Aug 2026 10:38:03 +0800
+Message-Id: <20260827023803.36602-1-ghuicao@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3XyQOo49qe0dfSQ--.11609S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tryDXFy3Zw47uF4fZFyxXwb_yoW8Ar1Upw
+	srWw1Yg345WryrGry7C3y8uF1rtw40qrWxCFW5W3yqvr9Iqr9agF4rXa4YgrWkAFnakayj
+	qFZ0yrs8Jry5taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFeHDUUUUU=
+X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC+xBr-WqPoxDdbwAA3Z
 
-On Tue, 25 Aug 2026 08:55:26 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-> Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> a faulted VMA into an unfaulted one.
-> 
-> It does so after the page tables have been moved to the copied VMA with
-> MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> as the page tables it had are no longer present.
-> 
-> However, in doing so, it violates the invariant that the anonymous page
-> offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-> 
-> This is because a VMA may have been faulted in, mremap()'d (causing a delta
-> between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-> 
-> This condition is a violation of a fundamental assumption in mm, but now
-> also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> this condition.
-> 
-> Correct it by resetting the VMA's page offset at the point of completing
-> the MREMAP_DONTUNMAP operation.
+In setup_conf(), conf->disks is allocated with max_disks slots and
+extra_page is allocated for each slot.  However, pool_size remains 0
+(uninitialized from kzalloc) until grow_stripes() sets it later.  If
+any allocation or initialization between the extra_page loop and
+grow_stripes() fails and jumps to abort, free_conf() iterates
+pool_size (= 0) times and skips the extra_page freeing loop entirely,
+leaking max_disks pages.
 
-Thanks.  I'll park this in mm-new until mm.git is all merged up
-(simplifying my life..)
+Set pool_size to max_disks right after the disks array allocation
+succeeds, so that free_conf() correctly frees all allocated
+extra_page entries on any error path.  This is safe because:
 
+- If kzalloc_objs(disks) fails, pool_size stays 0 and free_conf
+  skips the loop (kfree(NULL) is safe).
+- grow_stripes() later sets pool_size = devs, which equals max_disks,
+  so the early assignment does not change the final value.
+- resize_stripes() only updates pool_size on success and reallocates
+  the disks array in lockstep.
 
-Unrelatedly, Sashiko thinks we're messing up locked_vm accounting with
-MREMAP_DONTUNMAP on a locked VMA.
-	https://sashiko.dev/#/patchset/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
+Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+---
+ drivers/md/raid5.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-
-I had Sashiko write code to demonstrate this but am too lazy to test it
-on a current kernel.  If someone could oblige?
-
-
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <fcntl.h>
-
-/* Read VMLck (in kB) from /proc/self/status */
-static long get_vmlck_kb(void) {
-    FILE *f = fopen("/proc/self/status", "r");
-    if (!f) {
-        perror("fopen /proc/self/status");
-        return -1;
-    }
-
-    char line[256];
-    long vmlck = -1;
-    while (fgets(line, sizeof(line), f)) {
-        if (strncmp(line, "VMLck:", 6) == 0) {
-            sscanf(line + 6, "%ld", &vmlck);
-            break;
-        }
-    }
-    fclose(f);
-    return vmlck;
-}
-
-int main(void) {
-    size_t size = 4096 * 10; // 40 kB
-    long initial_vmlck, post_mlock, post_mremap, post_munmap;
-
-    initial_vmlck = get_vmlck_kb();
-    printf("[1] Initial VMLck:      %ld kB\n", initial_vmlck);
-
-    /* 1. Allocate initial VMA */
-    void *addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
-                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (addr == MAP_FAILED) {
-        perror("mmap initial");
-        return 1;
-    }
-
-    /* 2. Lock the VMA (increments mm->locked_vm) */
-    if (mlock(addr, size) != 0) {
-        perror("mlock");
-        return 1;
-    }
-    post_mlock = get_vmlck_kb();
-    printf("[2] Post-mlock VMLck:   %ld kB (+%ld kB)\n", 
-           post_mlock, post_mlock - initial_vmlck);
-
-    /* 3. mremap with MREMAP_DONTUNMAP 
-     * move_vma() increments mm->locked_vm for the destination VMA,
-     * while dontunmap_complete() clears VMA_LOCKED_MASK on source VMA
-     * without decrementing mm->locked_vm.
-     */
-    void *new_addr = mremap(addr, size, size, 
-                            MREMAP_MAYMOVE | MREMAP_DONTUNMAP, NULL);
-    if (new_addr == MAP_FAILED) {
-        perror("mremap MREMAP_DONTUNMAP");
-        return 1;
-    }
-    post_mremap = get_vmlck_kb();
-    printf("[3] Post-mremap VMLck:  %ld kB (+%ld kB from initial)\n", 
-           post_mremap, post_mremap - initial_vmlck);
-
-    /* 4. Unmap source VMA 
-     * Since VMA_LOCKED_BIT was cleared on source VMA, 
-     * munmap fails to decrement mm->locked_vm for this region.
-     */
-    munmap(addr, size);
-    post_munmap = get_vmlck_kb();
-    printf("[4] Post-munmap source: %ld kB\n", post_munmap);
-
-    /* 5. Clean up destination VMA */
-    munmap(new_addr, size);
-    long final_vmlck = get_vmlck_kb();
-    printf("[5] Final VMLck:        %ld kB\n", final_vmlck);
-
-    /* Evaluation */
-    printf("\n--- Result ---\n");
-    if (final_vmlck > initial_vmlck) {
-        printf("BUG DEMONSTRATED: Leaked %ld kB in mm->locked_vm counter.\n",
-               final_vmlck - initial_vmlck);
-    } else {
-        printf("NO LEAK: mm->locked_vm returned to initial state.\n");
-    }
-
-    return 0;
-}
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -7732,8 +7732,9 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 	conf->disks = kzalloc_objs(struct disk_info, max_disks);
+ 
+ 	if (!conf->disks)
+ 		goto abort;
++	conf->pool_size = max_disks;
+ 
+ 	for (i = 0; i < max_disks; i++) {
+ 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
+ 		if (!conf->disks[i].extra_page)
+-- 
+2.34.1
 
