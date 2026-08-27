@@ -1,137 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295D23E49DD;
-	Thu, 27 Aug 2026 08:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AF723B63E
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 08:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787819545; cv=none; b=ZsdDT/1WdOrFMJxrldA7RnM+iChMX1w8EmPaL86VkuGlNLc0nfIYzUFb9cM5qPZvfjIOwkl8XpPCR+mVWrAZxafbgn3sIZhcuvK3vrtzaduX73t89bZ4hZLSSXmyZaPHXQ8AbdOiGTWSM/viBEKnr/iN+VHNoZcu8dfxwaxPxuY=
+	t=1787819601; cv=none; b=iiKBkQfG6Fw3IFFf6KO+ev2Ia48uu7lyBUjUpM47JItFsX/p41KHe0VpkHk//FvDnWdMsdezy8hGLKsbgzLJFl5vIU9CcDy7rFim5bJ8rWRMS+s3/fkYT37YylLmkIkHp1I8fpN0lflIAK1S+TyHeIZbcaqgam+ccdnV0er3gQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787819545; c=relaxed/simple;
-	bh=M21bck+NFEu8xKeBdD9HbU118hBwm+qcHuPDkVTy+50=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PXnzXrLk7qRebMb9T871v/+vLCS/hA5SI83CQQhCJrACuJpOrYHM20kRv6qtNCSWaJfAsnifbaNXWY/RjMrkxy6C8RgP09SHZ7dopSygR6JZ7xJ0Dypc7StpDMsTQV4uEHy1QbyYv9CHVzLX8VFMSOUnko/oOiMXtRLREQS242c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HSzghWaD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787819601; c=relaxed/simple;
+	bh=MXcYU0wpdxigUdN91eobDqnjz/40R6iSKgJHLhVwIdQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ibLpUz5OQxu7wO2EkXmnw2X+YTGE1VSOyoqFKS38KXFlj7YJsEWwz4k50wjCSwtexnWiN4S/+5c1lWuD8D9nIk/J+s3OnmueuHxhDXkA8mDd0q+vgWaQP561PKoS3kRWmh1FanprMp7ZSX2SHiGRN9xRVyMLgXNlimVU0JHkw2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BDFAZGrB; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HSzghWaD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6181F000E9;
-	Thu, 27 Aug 2026 08:32:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787819541;
-	bh=ukRIzjVW3PJew+TIHS6IrkoYjfe4R4pVLgU+bG3uWL0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HSzghWaDE8ySlLE8IXAL3A7zR55UAstoOY8K5pk/GrZfGVcuGZRHCy8t5WuZTZDu2
-	 bzz5DUYMQrmdpgSQBxKADa7P59Ak/qukYQsjkJx2xN9G/HxlK1SgvITEy66G2nFS4E
-	 fV/PSNxw/mqa5me1sGrPDFc3pOdaskXANHHlr8ZWFvlwoUPSnkng8IY4szbMEusVrH
-	 XsAiDBBi9Ss4dxXAYIjX/s0YELdSLfp0V8FZOCyLTd7C6Taw/WqkXgqNbuYOPmDZRu
-	 HhOq1zGzjTqN4zLYtNMyJt5aYGQwGjB4AL7LVDvgoyGApjsHw4pLiCmsUsPuNo0e6a
-	 x/sU2NVOlFwXQ==
-Message-ID: <34fa1a4d-e5fb-4e27-a53b-b57b96be3f8c@kernel.org>
-Date: Thu, 27 Aug 2026 10:32:15 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BDFAZGrB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E1951A1849;
+	Thu, 27 Aug 2026 08:33:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 10273602B8;
+	Thu, 27 Aug 2026 08:33:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE5B111C783F8;
+	Thu, 27 Aug 2026 10:33:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787819587; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=MXcYU0wpdxigUdN91eobDqnjz/40R6iSKgJHLhVwIdQ=;
+	b=BDFAZGrBnc9OcX8stWh9bwubCZ56sqUXoivFmTfpmjZhlbZqWZwfETMzz7ge4To9Np0x1H
+	Lb0yLVUQ3r87bdcbEq0bPc6t4SiO6aGh8pqM4Q/RQ4Ug1e6GnCUFxkPKNL0a9aavJU0Pwk
+	khI1c9118GZG4hBU54JkCL6yTBsnMDorIYywjd5+XPG1L8OXm4qeCmOpg2xRaonarPieKQ
+	CXqibtoCNgmGWsrGXAD+M+AHRfRX1ukEaJzCmHbuECUO+hO/YcQqiTOtYa2A4F6xlcddDq
+	LSoHgN6+LAxGGAlvD4A3Dk6w8Q6dgkgBOUK6Rlx1LSmoo1B2yzVQmM1AbxX8UQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>,  Pratyush Yadav
+ <pratyush@kernel.org>,  Michael Walle <mwalle@kernel.org>,  Takahiro
+ Kuwano <takahiro.kuwano@infineon.com>,  Richard Weinberger
+ <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,
+  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org,  Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v5] mtd: spi-nor: core: Fix mutex leak in
+ spi_nor_rww_start_exclusive()
+In-Reply-To: <20260827082656.2772784-1-runyu.xiao@seu.edu.cn> (Runyu Xiao's
+	message of "Thu, 27 Aug 2026 16:26:56 +0800")
+References: <87tsoigz8x.fsf@bootlin.com>
+	<20260827082656.2772784-1-runyu.xiao@seu.edu.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 27 Aug 2026 10:33:03 +0200
+Message-ID: <87jypcdku8.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for
- MREMAP_DONTUNMAP
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Li Xinhai <lixinhai.lxh@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- syzbot+f12658786a4153df5113@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 8/25/26 9:55 AM, Lorenzo Stoakes (ARM) wrote:
-> Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> a faulted VMA into an unfaulted one.
-> 
-> It does so after the page tables have been moved to the copied VMA with
-> MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> as the page tables it had are no longer present.
-> 
-> However, in doing so, it violates the invariant that the anonymous page
-> offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-> 
-> This is because a VMA may have been faulted in, mremap()'d (causing a delta
-> between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-> 
-> This condition is a violation of a fundamental assumption in mm, but now
-> also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> this condition.
+On 27/08/2026 at 16:26:56 +08, Runyu Xiao <runyu.xiao@seu.edu.cn> wrote:
 
-Oof. So what's the worst thing that could happen before the assert was
-added? We'd use the "unfaulted" state to allow a merge, but the wrong
-pgoff could mess up the result of the merge somehow?
+> spi_nor_rww_start_exclusive() is used as a wait_event_killable()
+> condition. When an RWW operation is already in progress, it returns
+> false while still holding nor->lock. The wait condition is then retried,
+> but spi_nor_rww_end_exclusive() needs the same lock to clear the RWW
+> state, so the wait can deadlock.
 
-> Correct it by resetting the VMA's page offset at the point of completing
-> the MREMAP_DONTUNMAP operation.
-> 
-> Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
-> Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
+This paragraph is a bit irrelevant, we don't really care about the
+feature itself: there was a conversion to scoped mutexes, this
+conversion missed one place, you fix it. That is the justification, but
+fine, let's stop iterating on such a trivial fix.
+
+> Use the same guard(mutex) pattern as the other RWW helpers so nor->lock
+> is released on both the busy and successful return paths.
+>
+> Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers=
+")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Didn't I send a Reviewed-by tag already?
 
-> ---
->  mm/mremap.c | 22 +++++++++++++++++-----
->  1 file changed, 17 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index e8df5cdb0ac9..2b4b523a86b8 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
->  {
->  	unsigned long start = vrm->addr;
->  	unsigned long end = vrm->addr + vrm->old_len;
-> -	unsigned long old_start = vrm->vma->vm_start;
-> -	unsigned long old_end = vrm->vma->vm_end;
-> +	struct vm_area_struct *vma = vrm->vma;
-> +	unsigned long old_start = vma->vm_start;
-> +	unsigned long old_end = vma->vm_end;
->  
->  	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
-> -	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
-> +	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
->  
->  	/*
->  	 * anon_vma links of the old vma is no longer needed after its page
->  	 * table has been moved.
->  	 */
-> -	if (new_vma != vrm->vma && start == old_start && end == old_end)
-> -		unlink_anon_vmas(vrm->vma);
-> +	if (new_vma != vma && start == old_start && end == old_end) {
-> +		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
-> +
-> +		unlink_anon_vmas(vma);
-> +		/*
-> +		 * The VMA is now unfaulted and it is an invariant that
-> +		 * unfaulted anonymous VMAs have page offset equal to
-> +		 * vma->vm_start >> PAGE_SHIFT.
-> +		 */
-> +		vma_set_anon_pgoff(vma, pgoff_unfaulted);
-> +		if (vma_is_anonymous(vma) && !vma->vm_file)
-> +			vma_set_pgoff(vma, pgoff_unfaulted);
-> +	}
->  
->  	/* Because we won't unmap we don't need to touch locked_vm. */
->  }
-> 
-> ---
-> base-commit: efecab401cb15fd3bb9bc05990609acb6b267ff2
-> change-id: 20260824-fix-mremap-dontunmap-pgoff-a687134e995e
-> 
-> Best regards,
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
+Miqu=C3=A8l
