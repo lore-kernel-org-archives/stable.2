@@ -1,138 +1,183 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C599427AC57;
-	Thu, 27 Aug 2026 03:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF3721CA03;
+	Thu, 27 Aug 2026 03:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787801879; cv=none; b=L2pbwxftAioWG8u470PpkSDDGGlZ2E6opv1QlCwv41LLWlvip02lB5XEEFKWMI/2t2G5cPsUGPMhynuHRSGaMbtGlQD+gtivMYVCK/Y9DQ4xV39hsbKBYYRMKvd6NZYl2MhYZ2JXVzDcK1Ku0FmBMkXZ3degpwvV81O+oKnUNW8=
+	t=1787802129; cv=none; b=UxrlC7EU+vjtFzCGPkNgD1l2HVkHXazKYdzqRMtXa/9SrnvztiTQIk9tRBVnFYbRRcYoWiJjmoINTYlBe/eaHZeA0mo1Mp2tQSYKxARq/AQrsbIzHioz10yHfK2YOo/Sof3eWpbON8XMQvAdSKvhoggbqIdGmG1G3hPiUVhi8aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787801879; c=relaxed/simple;
-	bh=30xqhXVuW50Xi8gBUXoBjow+R6JQELvl8rH7ykpfKKA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N23d5gNOVZmwCWBjNHoLp9DyX2ICcLx8oFgRyBv39kdj/0jRvBYl8CoorYhgyfxhVgZgtvchgu9r0en2eBjcFawpy1TOpLYeCQHt80hrq3ZZX9sJJFjfhy8weHRGlwEzJq4AZsH27egrlOyL+ikcjnyJFxZHoWDjAicj30eeWHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=dpFrl0GO; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787802129; c=relaxed/simple;
+	bh=PBYIZ8VrIJzpJ+EJhjaqnD4wQ2qWdr+aQNuBJvy/hKI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KCK2jncuUbqFkTfcfWXAJFFbgBKr2TvjU5Yc7AkGEdijghNi3Ru4BsQMchMSFqUVO+uvlm+SrD2Hd1VcdKi1pV0v9ftCUJn52HBgFJo27TaJMI9Z0t8efmAFIWrJaiHILtWf7+kBIi3ruTKBpDRI77Euv3t/GwZG/TDH6NP7yw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B0qNBQqu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="dpFrl0GO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=XtavyOH0DxwVIQ6iw4IhqocgatWfmZ/qQBc1GNH3Eq0=;
-	b=dpFrl0GOCgCvm6neta/l37pfeO/G20EGmWglOxh765BB+hJ6muU9tF7mxwcJVd
-	XU61eTQTWLKAaMYEv5LGo9tDV2idgc0geHlMXgC+hsJCKwNyArfmuUos2qhNtryq
-	KWrSsm2n5HB01P1AGqz76iPowKWrc1iJek2CHbbFUVZtc=
-Received: from [IPV6:2409:8900:1ef4:8f82:6a1b:f1a6:cbdd:11fe] (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wC3NIn0sI9qO69oSQ--.57593S2;
-	Thu, 27 Aug 2026 11:37:25 +0800 (CST)
-Message-ID: <bd197da8-a8ec-40ad-a50d-dc579840d680@163.com>
-Date: Thu, 27 Aug 2026 11:37:24 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B0qNBQqu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 208781F000E9;
+	Thu, 27 Aug 2026 03:42:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787802127;
+	bh=jxXIQXsYcDcztJfTD/FuGQF/hzwWq/iFEhIaSs9Kyzs=;
+	h=From:To:Cc:Subject:Date;
+	b=B0qNBQquD4BWIbGz1/Rh/ldsiSwUlbVUETuMabOfYfi2X6Po1FvNYnEwnJ3WOhYZX
+	 zHT0QxIjSYMZohthWUBCB/c3pgwy6er9uWFuvJXFEV5bBVGXXD91d1LUGUcl1H56Eg
+	 84Y0qT22F2rtsbPygyacbJcS2Ibw7dVFN+BV38k6FpLVMGy/3LoCL1GAv3yIwhUw3z
+	 U2Qu74g/7svVyHkZwIEIIdS320q7BSSnXRsuKR9MRNn6r/Rmfp4DXDd3YMPEbVnX/i
+	 ljbzpCMKVfnKEIPW4THzSEeCiY/DbIECWv4zekXuDD7/x+x85g602mMZlOdIt5eBnu
+	 PP3GKa2tRk8sQ==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-ext4@vger.kernel.org,
+	linux-fscrypt@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	Disha Goel <disgoel@linux.ibm.com>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Jan Kara <jack@suse.cz>,
+	Theodore Ts'o <tytso@mit.edu>
+Subject: [PATCH 5.15] ext4: don't enable DAX on new encrypted files
+Date: Wed, 26 Aug 2026 20:38:33 -0700
+Message-ID: <20260827033833.135937-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs: fix race between fallocate and mmap reads
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260827031647.1605970-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260827031647.1605970-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC3NIn0sI9qO69oSQ--.57593S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFWxXw4Dtw1rurW7Gw4UJwb_yoW5Wryxpr
-	ZFgF1UKws3XrWjgF1kKw48uF1rWw4Ig3y5urWfJ3WxZFn5KFn2gw1jkFs3WFyftFZ3Jr45
-	Xr1UXrZrua4av3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U39N-UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRbnsmqPsPYVKgAA3e
 
+commit da32af420d6d466e247c43ac0b829edeac7ae0ad upstream.
 
+Currently, when a new encrypted regular file is created, the call to
+ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
+before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
+filesystem is mounted with "-o dax=always".
 
-在 2026/8/27 11:16, Hongling Zeng 写道:
-> The fallocate implementation only takes invalidate_lock for punch hole,
-> collapse range, and insert range operations. For standard allocation modes
-> (mode == 0, FALLOC_FL_KEEP_SIZE), the lock is not held.
-> 
-> During ntfs_attr_fallocate(), new clusters are mapped to the runlist via
-> ntfs_attr_map_cluster() before being zeroed by ntfs_dio_zero_range(). This
-> creates a window where concurrent mmap page faults can read uninitialized
-> disk data.
-> 
-> Since mmap uses filemap_fault() which takes invalidate_lock in shared mode,
-> it can fault in pages during this window and expose old disk contents to
-> userspace. This is an information leak and data integrity issue.
-> 
-> Fix by taking invalidate_lock for all fallocate operations, not just for
-> punch/collapse/insert modes. This prevents concurrent page faults from
-> accessing unzeroed clusters during the allocation window.
-> 
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-> Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-> ---
-> Change in v2:
->   -Remove now-unnecessary map_locked variable.
-> ---
->   fs/ntfs/file.c | 7 ++-----
->   1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 88747217ba61..779baafa0319 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -1153,11 +1153,8 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
->   	}
->   
->   	inode_dio_wait(vi);
-> -	if (mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
-> -		    FALLOC_FL_INSERT_RANGE)) {
-> -		filemap_invalidate_lock(vi->i_mapping);
-> -		map_locked = true;
-> -	}
-> +	/* Take invalidate_lock for all fallocate operations to prevent races */
-> +	filemap_invalidate_lock(vi->i_mapping);
->   
->   	switch (mode & FALLOC_FL_MODE_MASK) {
->   	case FALLOC_FL_ALLOCATE_RANGE:
+EXT4_INODE_ENCRYPT then actually gets set a bit later in
+__ext4_new_inode(), when it calls fscrypt_set_context() which calls
+ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
+calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
 
-Hi Hyunchul and Hongling,
+This was intended to clear S_DAX as well.  However, this was broken by
+commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
+causes data written to the file to bypass encryption, also causing
+xfstests failures such as generic/548 (when "-o dax=always" is used).
 
-I think map_locked might still be needed though.
+Fix this by simplifying the flow by making __ext4_new_inode() set
+EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
+ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
 
-Before filemap_invalidate_lock() is taken, there's this check:
+Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
+place on new encrypted inodes.  Then it doesn't need to be cleared.
 
-         inode_lock(vi);
-         if (NInoCompressed(ni) || NInoEncrypted(ni) || 
-NInoWofCompressed(ni)) {
-                 err = -EOPNOTSUPP;
-                 goto out;
-         }
+As a result of these simplifications, ext4_set_context() no longer needs
+to change inode flags or state when 'handle != NULL'.  Remove that too.
 
-         inode_dio_wait(vi);
-         filemap_invalidate_lock(vi->i_mapping);
+Reported-by: Disha Goel <disgoel@linux.ibm.com>
+Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
+Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Tested-by: Disha Goel <disgoel@linux.ibm.com>
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260730175212.36923-1-ebiggers@kernel.org
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+---
+ fs/ext4/ialloc.c |  4 ++++
+ fs/ext4/super.c  | 40 ++++++++++++++++++++--------------------
+ 2 files changed, 24 insertions(+), 20 deletions(-)
 
-If that goto is taken, we reach the exit path without having locked.
-Without map_locked, we'd call filemap_invalidate_unlock() on a lock
-we never took.
+diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
+index 2ee7467c0a6a..9f5d8acf31db 100644
+--- a/fs/ext4/ialloc.c
++++ b/fs/ext4/ialloc.c
+@@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct user_namespace *mnt_userns,
+ 		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
+ 		if (err)
+ 			goto out;
++		if (encrypt)
++			i_flags |= EXT4_ENCRYPT_FL;
+ 	}
+ 
+ 	err = dquot_initialize(inode);
+@@ -1312,6 +1314,8 @@ struct inode *__ext4_new_inode(struct user_namespace *mnt_userns,
+ 	ei->i_extra_isize = sbi->s_want_extra_isize;
+ 	ei->i_inline_off = 0;
+ 	if (ext4_has_feature_inline_data(sb) &&
++	    /* Encrypted inodes cannot have inline data */
++	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
+ 	    (!(ei->i_flags & EXT4_DAX_FL) || S_ISDIR(mode)))
+ 		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
+ 	ret = inode;
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 48628e917b70..c89e460180b8 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1487,7 +1487,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+ 	if (inode->i_ino == EXT4_ROOT_INO)
+ 		return -EPERM;
+ 
+-	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
++	/*
++	 * For new encrypted inodes, S_DAX is never set in the first place.
++	 *
++	 * For existing inodes, this is called only on empty directories.  ext4
++	 * never sets S_DAX on directories.
++	 */
++	if (WARN_ON_ONCE(IS_DAX(inode)))
+ 		return -EINVAL;
+ 
+ 	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
+@@ -1506,21 +1512,18 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+ 	 */
+ 
+ 	if (handle) {
+-		res = ext4_xattr_set_handle(handle, inode,
+-					    EXT4_XATTR_INDEX_ENCRYPTION,
+-					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
+-					    ctx, len, 0);
+-		if (!res) {
+-			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
+-			ext4_clear_inode_state(inode,
+-					EXT4_STATE_MAY_INLINE_DATA);
+-			/*
+-			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
+-			 * S_DAX may be disabled
+-			 */
+-			ext4_set_inode_flags(inode, false);
+-		}
+-		return res;
++		/*
++		 * __ext4_new_inode() should have already set the encrypt flag
++		 * on the inode and avoided enabling inline data.
++		 */
++		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
++			return -EINVAL;
++		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
++			return -EINVAL;
++		return ext4_xattr_set_handle(handle, inode,
++					     EXT4_XATTR_INDEX_ENCRYPTION,
++					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
++					     ctx, len, 0);
+ 	}
+ 
+ 	res = dquot_initialize(inode);
+@@ -1541,10 +1544,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+ 				    ctx, len, 0);
+ 	if (!res) {
+ 		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
+-		/*
+-		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
+-		 * S_DAX may be disabled
+-		 */
++		/* Update inode->i_flags to set S_ENCRYPTED. */
+ 		ext4_set_inode_flags(inode, false);
+ 		res = ext4_mark_inode_dirty(handle, inode);
+ 		if (res)
 
-Would it make sense to either:
-1. Keep map_locked as a guard for the unlock, or
-2. Change that goto to inode_unlock() + direct return, so the shared
-      exit path always holds the lock?
-
-I'd appreciate your thoughts on this.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-
-Thanks,
-Baolin.
+base-commit: 945fa863f02cf8b1638546907f72dd0fc4d6ba85
+-- 
+2.55.0
 
