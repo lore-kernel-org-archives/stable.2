@@ -1,36 +1,35 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452264B048B
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 17:52:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CB74C6F1B
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 17:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787853182; cv=none; b=mI6t59+w6Yntl9II0U+Fx+QYbeJxqnGyGMTAp5m4pmlK7EPuE3b5OCMcUzx7sXipgXbS4AiFMN/kPWVx9mOP678wd/kPqWakjcdRmcq4kwKRjuaByllmfCq7mLdDdykrHfX4w67r95DdQmPp7QkLSpZYI7rchmhxh4pH3HBQC6g=
+	t=1787853202; cv=none; b=d7tWHkbRFnqeZzIJnhjZCLvg15dkmtPKF/PPR1Wl8s/OtsN/gq46hpC5ktLHbPpHv+EFyOwudU9RhZlHZw7Jadew3wtG6Vc3jRWvDXrxSni/mEzsCPb2P8x3aBb+48DWkXb1VTogy1po26r6DfS8XEMRHXsCgx08DlXSp6qex6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787853182; c=relaxed/simple;
-	bh=HHDceGy99wVBw7g6/6TQ+nFftJu8s6G3f7hwMWjS/1k=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iKSY+xsdj3NCawPenzOQg+/OpBEebBceP+dU51D3KjCASr8wnK3EoVzPTw9dB1/mG1W0jbiT/jO0S4wmRntzCnGLenhvt2ngkmEOKiNBnozwlzUx37YUVueWs8HngHPFHceHM28ooMMKvWPtmJs8zhgJ+OXhGGgu9ZOlOB/umtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=T8p6F2yy; arc=none smtp.client-ip=54.207.22.56
+	s=arc-20240116; t=1787853202; c=relaxed/simple;
+	bh=hVNp82pyTXQONuy4VBxGPMuCv4e2YdgTiJuokG0YGqs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=pivrzHaqMGvXGdsd+x/gr88DGH0wgEKFktZztzNq2Nztrb+EEH5yQhNAjZ8pPjxgr78HYQCR4x7z7MHf7oI2Hgl6XSO7oBgu6aFAxNDk9uKFGjP8NDOQwCfvdufe6Z8Epi5DqGC9ELTQKeA4DknrSttv4NFUtqIs07KbC1be8f4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=H5VrBvdC; arc=none smtp.client-ip=54.207.19.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="T8p6F2yy"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="H5VrBvdC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787853132;
-	bh=MCTKQlaBXzi++1VNsG3lfOQgcAW+3d2QGwo2jFZrZ+8=;
+	s=onoh2408; t=1787853115;
+	bh=z78Wzn29XACuPLhOj6AnLWDDC+/WfESzF7T1X0kdMt4=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=T8p6F2yyssiZVsy5hxlFnrh46QwvLR7pOJ9v4WXzP6kkcExaOZWofQjHUT27uLYAl
-	 erSXWf6AneslTyqBMaj09oVZ3zr07NKIuqa8CF/FJDsI4tXFLh3vaNU+fS1IXMLbRv
-	 KB7JauqUzX5NDzamm4/o2IfkGgRp8IfZQec/LTeg=
-X-QQ-mid: esmtpgz15t1787853127t861c1e8c
-X-QQ-Originating-IP: jlDFwuyWZRsxyxddvXOFadCoe5IeUTL4ebqPs1dUSYc=
+	b=H5VrBvdCtAVqiSUA/+Az3CAbO3LyX66FggHrwjQZ5yPOylhgTdf7rfZLbDF1o4qdB
+	 8ozgh/OHSefleY0VU1pNg/gIoPnhnhiq7F0Sv8cnEu8ryxEPRU6DaVfVTtudIlE083
+	 QA7M6AYXEljQRi9+1QzjXbb86uwJLuzHVuZcIKps=
+X-QQ-mid: esmtpgz15t1787853110t32e51db0
+X-QQ-Originating-IP: 7P9dAT7HPKl2tfJyuSpwm30Sd+1yZ24DpkuEi5apXcA=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 28 Aug 2026 01:51:53 +0800 (CST)
+	id ; Fri, 28 Aug 2026 01:51:48 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11917769301011810815
+X-BIZMAIL-ID: 15811411992996364456
 EX-QQ-RecipientCnt: 6
 From: Wentao Guan <guanwentao@uniontech.com>
 To: gregkh@linuxfoundation.org
@@ -39,72 +38,72 @@ Cc: guanwentao@uniontech.com,
 	paul@paul-moore.com,
 	sashal@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 7.1.y 1/5] Revert "selinux: reject a permission value exceeding the class permission count"
-Date: Fri, 28 Aug 2026 01:51:41 +0800
-Message-Id: <20260827175144.4174620-2-guanwentao@uniontech.com>
+Subject: [PATCH 7.1.y 0/5] Backport bugfixes for selinux
+Date: Fri, 28 Aug 2026 01:51:39 +0800
+Message-Id: <20260827175144.4174620-1-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260827175144.4174620-1-guanwentao@uniontech.com>
-References: <20260827175144.4174620-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MCAP4yZN65pfjybUKajEoaVq1GhbrKbY/KgK0kP+R/iT14yp8GOHIoxT
-	RdvjlBgvMBZt6s6chAfJwGeTA95a9jlri1WA+USgK3yhtDvxIKkJfLRkrEOjVL86fcHytRC
-	79ry0UJFWdFS8QNEu7kCswmRQ8KuwXvztcFe1A0n3hfDH50YdZGxgmn1ulsZ6/EMErSodXM
-	QkgsgBYKQguHflGXgP9ln9W2AVC8W5hUVqKkhWXoggkIkDgDLUJTx/qcAdUUpqeBilqj86O
-	poE9G8OoimPvytYVQG5rYzj1x3KlwSwj+JQZbl4kSqd0fvmA6iSp3wmiP9tw9EqmYzhKFWq
-	GVMQqKI6blQQuE3PwLDakfSd0Sn4JfGvGDqKU+vd0d8Z5XbUWi/MMq7Xt+FhxqaCChBrcsi
-	Ge7BSAljjauRtWfBSab13QJLCKAcFMZYFAojTcKnIlD/4AJGsLMoUH3UX7e3a4j7k/UdYKz
-	NVTLUy7iyyjyb8OBwdmYR+b01Lv6uJVktquMdwa++nPZ37ZxxlUk8TqTrlQ2J897xh20cs0
-	8vtsrlsHSqu9sND5nZAthOAMpEz21CjoX/0tiwdDEbC2YA1Sa6aqxhq4o9/o/AN3R1Y6xBP
-	gpCfwcJTx9WJNmhdWzRaRyT78NVRGTKy0PwiGNtLLiLjQn54i6Pw3NA2i0oo9z7EbRSIfqp
-	oAyC+n0oAY6tuQsxdFY1ylDrjscHDprww5wAH7YipoL3khJSF4PRJAnsPnFIFT6NTQnSwpx
-	ERUtT+4bcqPOI7crQyL47C7+p9wTbcvOzwzN6jJR3I0wS6GIkGCTtRtsSbXX9tRqxRGeds/
-	ZbeHX7rVIVbL0oN6SkyVkxPzX+iDpDP4cwY72Uuw4e4zt9OZm8goH+RlWrdd3+MolEScnIx
-	uIS0dzLte1DYC81BddOOgEG6robC81eZQAhDMwfjf1amY3Uk8B4TJ0M8EEhrDOlQmsvSlPP
-	mIGB/1nZ1lFpIgL0wABDh5lZVTHPHe7pTz5a96X3XPfxOhuep0C9VFYLBej3X8lRnrKeB9R
-	PzBPl9h7qJBtauTSZASXgGigQ4gVrCWKQhkQGfwpLEpkKRO5nPe5fsZ1TCrOegaRES0+RPq
-	J0yQQs2yehdw+wVOBIyeAXkt4jYk8xY+uWulTNo9bK8CxJRKXn5TRM9dPV+Zz1TTQ==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-XMAILINFO: OTFBPccPEb+dlYMqOUG76xNuZx6d7hOPTyfPyRVh5OngjQEgwM93f54K
+	iQzqMoH83De3LDECAdvnU3+CxkNU9mvbAtSnV0RZ7PYEDzrm52aIQo35QHInEWXzbRBDVQu
+	EtSTqSpdlMGJiQb/u9FzXwLvqLQBh9XlEyb54Lfc+J/3kuWNB0dqRx+/H8tBnsU6FoIlqsZ
+	HWxOYBRaY7aouDcjdXlI3bbe4jZjHMT2g1muHqwjS3v6PpRhWVfLIZQkJfWwr01SGZHAD4x
+	Q9ubSO3pO4W4frD9/fePkcEaylqcdTHM1ZvZD72I+SJV95RXpX/q7yExFfYxdEbWKyYnxmK
+	G9iXwTogKKasxYE3qNCoq8N5KPWEG68lET6Pm5uIRRoFeFFs6KkKkzORMrHL/v4fa6y+/tN
+	NgZXMzeZqu3LV51H+RbdVyggNd45xgbzEDYo8Gp1JGfl6gVp1FKMH87lKH6hV+9mHNeISGU
+	fKrcog+xtC/6XoASEy0cPzDu8f3ZqVvntT7kWD5/J1aC5SYTwgXGhXeKXOiZo/uIrNynt/0
+	duS3QePBx5BXV5SBma+BQbvn3zW04FQn8cMkSwnBXU6V0piUKvPE0SJEL6ee9RKAuLIACrK
+	3nkz7s1VhK/I1ttOBw/4MvBxHGwuEpckCt4838XTDqORg7+iYqBqQf8jeUlaYufWnwy9Xfv
+	bTOUooCs73DB0g7irLGXlMPryNYcTDJxsfsUI0s2xSCjFtR/+2bAgUT+sM4N7AM0fF7P/g9
+	/kAYsbDbum8axKywOSKTN/aZdgQTlzEFAq1bC1CSYyutJoLSA6nLwnTcNy3qeV4GwjSBCQq
+	cEzXHQFtn2Mx/A+PcZWE3dI15MeGlCemfjzklQeXJTbsKP5VQFkbykfCMNtosoMEb1lkpcZ
+	yj1LsGWcPpCe/s1RU9Nl+v0pSqZ2EY4U0Vl/OAsLZBwDi5wi5URcT67XzgNSmWVvgLNRTpI
+	f8Mu7EB0Dh6N0UTVUeBuJIA8K4/X81hUQX5zUtPVe2RxbtgEIotqeL9wbIek+WYb8csLoi0
+	PzJzBTQVE/UXGsEm0gow6Sgh6neLaq96L6p/vt9VN2L5Rhsh81md20BLxCOwq+hztIkdSDp
+	p7STxKe6cDLlZdiTCVy+dQ8PdzUcUsnPA==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 X-QQ-RECHKSPAM: 0
 
-This reverts commit d81bda85d95f3a2b9eb906c7a818d88645413bb4.
+changelog v2:
+Rebase on v7.1.10, and explain what and why the first commit need be reverted.
 
-The stable pick applied the nprim bound after symtab_insert() because
-the upstream context (the SEL_VEC_MAX check from commit 18fa21f10d00
-"selinux: more strict policy parsing") does not exist in this tree.
-On that error path perm_destroy() frees a key/datum pair that is
-already linked into the symtab, leading to a double free when the
-failed policydb is torn down.
+v1 link: https://lore.kernel.org/stable/20260827054709.4027356-1-guanwentao@uniontech.com/
 
-Drop it here; it is re-applied later in this series in its upstream
-form, after its strict-parsing prerequisite.
+Sasha`s original link:
+Link: https://lore.kernel.org/stable/20260824215605.432476-1-sashal@kernel.org/
 
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- security/selinux/ss/policydb.c | 3 ---
- 1 file changed, 3 deletions(-)
+Bryam Vargas (2):
+  selinux: reject a permission value exceeding the class permission
+    count
+  selinux: require a class's permission values to cover its permission
+    count
 
-diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index e4fa4be4823f9..b788916f5ed07 100644
---- a/security/selinux/ss/policydb.c
-+++ b/security/selinux/ss/policydb.c
-@@ -1167,9 +1167,6 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	rc = symtab_insert(s, key, perdatum);
- 	if (rc)
- 		goto bad;
--	/* indexes an nprim-sized array in security_get_permissions() */
--	if (perdatum->value > s->nprim)
--		goto bad;
- 
- 	return 0;
- bad:
+Christian Göttsche (2):
+  selinux: use u16 for security classes
+  selinux: more strict policy parsing
+
+Wentao Guan (1):
+  Revert "selinux: reject a permission value exceeding the class
+    permission count"
+
+ security/selinux/include/security.h |   1 +
+ security/selinux/ss/avtab.c         |  35 +++-
+ security/selinux/ss/avtab.h         |  13 ++
+ security/selinux/ss/conditional.c   |  18 +-
+ security/selinux/ss/constraint.h    |   1 +
+ security/selinux/ss/policydb.c      | 254 +++++++++++++++++++++++-----
+ security/selinux/ss/policydb.h      |  31 +++-
+ security/selinux/ss/services.c      |   8 +-
+ 8 files changed, 288 insertions(+), 73 deletions(-)
+
 -- 
 2.30.2
 
