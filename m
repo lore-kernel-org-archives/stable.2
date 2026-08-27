@@ -1,119 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00324746B6;
-	Thu, 27 Aug 2026 13:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787838284; cv=none; b=QYtYIskXAM7wgl+goCjBHb8EIYSkmB0kyEPmcUI3g/fF2O4rcWvqAoyTRgAK8IPNk6yMAoEMgdBCz6Qk82asywTAKs5OqhZfYCtIM5zcjUITb9Fut4IIETkovWbQXaUI1YN2JU2+Yd22pUiLUNiCHNuEzoOkRNcZUAqv9Wpv2Eo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787838284; c=relaxed/simple;
-	bh=ncX71bZRwu4AuWDsk7FltFFxkbG60aAYKLG941OcN9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GdGuVnRQA3wGimyFjq8pQDsdtmL6++iFk/cbP1IZd66/hjIJGgpTjTLN+08jSsr5mEgOt5OdU+m19WpZyGDM2VqDZ94RKQAVfT8zv0pPQYfDoajhZnVbg7AdZrQ5Z4bOZIsGh0n03KuL7mH8znkxaYqG2LIkM7WiTGQeBlpheQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUFLAjiq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5426477991
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 13:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787838295; cv=pass; b=iyqzjoqbAS7KJUMaEvjNNUfsmKFGE+noVQtMo54Gu5iV4sx6ACu4fRs5W7yuvTXfol3r7isHy8lfeH7Wd9b+UpsQ2Wum/Dwsac4X9qXKEaky+UtnmuNHAiyoOArG82pOSXCCUFd9GqCAwky4jjIzEr636cUV2D4L7Pfma39wWAo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787838295; c=relaxed/simple;
+	bh=Mzu4lSA71TnUpIkFlRqeJimp6Rqi1HOQl6MU/Vy3sxw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cEl+ZG2N+2EDwuo0bVx7IWDrwlPJfP/YskyKdj4NlS/Q8BQ8yb1xlvY0UUh74GcoZCedLyLczqLp7iilbaEREowF2ngSPcwzQI0xwXCNZWdevZXULg5wXvn+m3LmCQVk9+RDBPmpNmgEJxS1750HRExxYYyZ3OGD60FOqlKM6rE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bpV24GdT; arc=pass smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUFLAjiq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30561F00A3F;
-	Thu, 27 Aug 2026 13:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787838277;
-	bh=9nWd2JiHbGpFxdKtIgR1/mA2jBP+r1D6KF4ucSMyulY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BUFLAjiqHJqs/KvRm8Y+02p8G9HG/HkY+T2ptguC+9wUOH88glOR13lJQ6rZISAAX
-	 lm3zIA4U63MfGBv4Pfi2VtjrLpaPai2PlBokszEmUKOOmJgbwERCXMptu4a72rKfGd
-	 7ZTAZDKkV70zKT+2f7CkRwa9eGYpT/AOeSA5yqq4Eu1X/9OcDx9E22Ruv1LRJOqhaP
-	 EZ5n6GMzcEiWX8Clf1FsxQz/KmQsfFzMPovlSKjN/YFqraZ/MIszhm59tj0V6m5BFu
-	 PULYTwAcBDBzKc9iM1Si+qx44h5MNPDwOe1S26QLeMyS3hzAjSwzyqxYCvw9CwyRqX
-	 9ZY1pFc/+sYVw==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v1.1 3/3] mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Thu, 27 Aug 2026 06:44:28 -0700
-Message-ID: <20260827134429.123023-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260827134429.123023-1-sj@kernel.org>
-References: <20260827134429.123023-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bpV24GdT"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-52fa9c055b5so4420121cf.1
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 06:44:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787838289; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gwDoOu/BSUoJVZ6hxYHs8vAaqyeni5TPFj7yHMATB5D0ry7jZvebOEQTPYCK/wI1lf
+         vZDrWMV1RL0uDaYseITgCnIT4mpoIBB5v36yt3exWCkhi5lg7Xu+UelGfKRlzwWTdmD1
+         QFeeVXMdUGbUT1pw1G/95sFpV3ltDQrsbpZb7YryQRN8NPw/4rGZFRTJl1PAqX+zjNqY
+         +qHFg8h0gI365ipN2J8l/QY9gjOdYuso/wxi+IJ9BFnIkOTp+49qgpWt/Pl5mQbRX3es
+         EHsTJb+TD044tCbnZXqhgCIBnXCkIb8VGTn+VR4H4FOAocPhGwHm9Ukf12pFVoBaBy/L
+         roww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TiarfUjA5o3AcHVmQi+rQTGlDx3EfO+y+iS+w99lDxU=;
+        fh=RsP867qwuLq/g04AWMczulEh1C8NWUvqkjIN1aY/L7g=;
+        b=fgShrcxQ8u7e2eaPeUnzi8ovuv20wUfg+vxTaeubKmHCWtOlIV/RvmEd+7TmADLDgH
+         4qWK0Lo19FotXhSfZ2uQSBwI8K0ywUTb5FtE6Orf6TST85ywSbuZRMDeZZtz+byQ8t3Y
+         cJ7mH/okeEDXYmFG6KGiHo72O04MbQiPnWS6L7l4lIY+0wmuBXdJXHCe6MmgfUmSZkwT
+         M2qn6+m9Bo2gtyYji9b16rFjJTT+4dkM54407Afm0MSNk7Q2H4G9hta2msJzbdamX0r7
+         fbSOkCPW+NYhZdBfy6Cs8d7gE33gIfvONFk1rKavtfE0OebyNz6Ml8rjCMVocpbLVtac
+         c+rA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787838289; x=1788443089; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TiarfUjA5o3AcHVmQi+rQTGlDx3EfO+y+iS+w99lDxU=;
+        b=bpV24GdTMFBEm6u82o+JoRDDkfAlcFUN4HBmtPkCRmU2qQrPiEKqf1ct3XU5w1TVsI
+         6aA9pwgm0sV7SlYAmWfovTRchDMJVO9F/ea6o989B1wZzoDJ0bhPCBTsy6PKm3P/QaJD
+         QomcPu+ygzVVzi37+KYo9S0cASPmYbVL1uUoJmvB/1VyV2oYcj8ZnBx5a7jtEqgkklyJ
+         wXIbKGjP0124LsLVtoTIXnxzq0kse3a4Mtk6g2ANjSdR4KXdr3cwVb5/55GGOnapdtco
+         MvynFb2gv0qbfIi847uq7EtJoMI2SEixevEZrYFtyAvR1Xegz4RoDRKnOlOEvj6HdK4h
+         e1NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787838289; x=1788443089;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TiarfUjA5o3AcHVmQi+rQTGlDx3EfO+y+iS+w99lDxU=;
+        b=kpbboMppH4iTdxNqoOe3mQXxwztzvWPLEYSj+/aKXvfaagxYrO83rYj40gQA+wyTP1
+         +qpO4Fj49qJQrMX0085l2QWZS5hARx35tjXrfp1YYn1hG1TD1y6sef+6tOUY64Ptl76c
+         eQslS4BOtAj4/RMJYeIpZD3LWGu5d87VwvZwORNvEXslVA7J+KnwODqAPQSnTVrKMZta
+         xMrlv/VEQTxH05ptqQ9xQu+cW5a1skRBIRyfALU2/4frMCkVHvaYBxdYW9es838krXIo
+         uGMjlx7I4H8UjXp7G2p4BDB/RHiymasZQwtYbOaLe4BSilD17SVoj2ZtMJMCpX2ochJE
+         51Cg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpwv8ROcV+7/YJqpR56Zc9sitzr3DHqe4D8btI9sMb5QuaWoOXApeHw5ytFF/LNbTSgV76Uerw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lE8C7EPRfiBus7aGzT6B+BdMHRzFVgszdaQazVXX+Vvyg1f+6F
+	E06dzL/qLc6G5t8psQFHn21W4knn7pJsyOYR9rmKS5y21+pniRPItNBWOtkfnlAEzS9G+3qV4Nm
+	vpJAiGFzgEEboEtiKwVklC6Jrv8TSwedcKgUtfCgY
+X-Gm-Gg: AR+sD11fJWgK1orBcMUn0KWXiMs5Zoy06iQlDMAKWzekwklTjQlmR+hz7RIJsCf/v5X
+	+HCeGW26KHcUsBW+dFUYE1cQSk9Zs13Rjxv2etSv9aR057rgYgdDsKAEskgcIhJfAJLJVPNzrOa
+	DOFBD1KCv0/pdoT08llHC4+1Gf2bAkE+jn4LKFmEL5VQEiGNR1OZBuVuzYeUKmLAUULL9kWSAt8
+	xZW69WAz0vMIpEDEhL2G1pWwxEou/zO4ALTVSyisuxK4GcxnnRkUm7yIA8VqfruBFpo+8Ehv/q5
+	qBt/2n3p2TCbKmFwHPaQqbXvJhkpnPLq0SnHktiUgrLst1F96phmzDC9h5HAHk7DDbu3Y8oOJVc
+	zwnV3vYLsiqu5G+mC4LoKGEKytBzYLxv3Yuf540l5wMN/tW46wtv1gU8owCa5820IRIRiiQ==
+X-Received: by 2002:a05:622a:1aa9:b0:517:c65c:4987 with SMTP id
+ d75a77b69052e-52fa1def2bamr71264701cf.22.1787838287984; Thu, 27 Aug 2026
+ 06:44:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827132820.11815-1-2045gemini@gmail.com>
+In-Reply-To: <20260827132820.11815-1-2045gemini@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Thu, 27 Aug 2026 15:44:36 +0200
+X-Gm-Features: AcwNN1VTeP4O74Z9FZNjuIihE6nD92fIGVkcW9WBbJsfoH-8owf1Wfnzar0YN5c
+Message-ID: <CANn89iL_6foOEX5_bhDq5i9yXBFMyeyPy=uZHSxhsw8q_71B4g@mail.gmail.com>
+Subject: Re: [PATCH net] net: gso: always scan dodgy frag_list for linear heads
+To: Guidong Han <2045gemini@gmail.com>, Xinyang Ge <xinyang@anthropic.com>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Shmulik Ladkani <shmulik@metanetworks.com>, 
+	Alexander Duyck <alexander.h.duyck@linux.intel.com>, Cen Zhang <zzzccc427@gmail.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next
-refresh is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it.
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
+On Thu, Aug 27, 2026 at 3:28=E2=80=AFPM Guidong Han <2045gemini@gmail.com> =
+wrote:
+>
+> skb_segment() moves frag_list data into the segments either by sharing
+> page frags (zero-copy, requires the source memory to be page backed)
+> or by copying. Sharing into a linear kmalloc head is invalid, so for
+> SKB_GSO_DODGY skbs (untrusted GSO metadata, e.g. from a virtio net
+> header supplied by a VM guest or an AF_PACKET/TUN user) the frag_list
+> gets a defensive scan: if any member has a linear head without
+> head_frag set, NETIF_F_SG is cleared to force the copying fallback.
+> Without it, segmentation dies at BUG_ON(!list_skb->head_frag).
+>
+> The scan is skipped when mss =3D=3D skb_headlen(head_skb), on the
+> assumption that the frag_list members then terminate on exact mss
+> boundaries, so segments never cut into the middle of a member and
+> page sharing stays safe. That assumption comes from GRO-built lists,
+> where every member holds exactly one received segment. It does not
+> hold in general: the first segment also contains head_skb's paged
+> frags, so even with mss =3D=3D skb_headlen(head_skb) a frag_list member
+> need not start on an mss boundary.
+>
+> Such a layout is reachable from a guest: it sends two IPv4 fragments
+> through virtio-net, the first with a forged gso_size equal to the
+> reassembled linear head length, and conntrack defrag appends the
+> second, kmalloc-backed fragment to the frag_list. Forwarding then
+> forces software GSO (gso_size > egress MTU, or the egress lacks
+> NETIF_F_FRAGLIST) and panics the host: an unprivileged guest can take
+> down the host and all co-located VMs. The same layout is reachable
+> from host userspace via AF_PACKET PACKET_VNET_HDR or TUN with
+> IFF_VNET_HDR, given any conntrack user.
+>
+> Drop the mss !=3D skb_headlen(head_skb) test so the scan runs for all
+> dodgy frag_list skbs.
+>
+> Fixes: 3dcbdb134f32 ("net: gso: Fix skb_segment splat when splitting gso_=
+size mangled skb having linear-headed frag_list")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Cen Zhang <zzzccc427@gmail.com>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Signed-off-by: Guidong Han <2045gemini@gmail.com>
+> ---
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index ba3dbac80fb4..e97b27ec13fd 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -4796,7 +4796,7 @@ struct sk_buff *skb_segment(struct sk_buff *head_sk=
+b,
+>         int nfrags, pos;
+>
+>         if ((skb_shinfo(head_skb)->gso_type & SKB_GSO_DODGY) &&
+> -           mss !=3D GSO_BY_FRAGS && mss !=3D skb_headlen(head_skb)) {
+> +           mss !=3D GSO_BY_FRAGS) {
+>                 struct sk_buff *check_skb;
+>
+>                 for (check_skb =3D list_skb; check_skb; check_skb =3D che=
+ck_skb->next) {
+> @@ -4804,11 +4804,13 @@ struct sk_buff *skb_segment(struct sk_buff *head_=
+skb,
+>                                 /* gso_size is untrusted, and we have a f=
+rag_list with
+>                                  * a linear non head_frag item.
+>                                  *
+> -                                * If head_skb's headlen does not fit req=
+uested gso_size,
+> -                                * it means that the frag_list members do=
+ NOT terminate
+> -                                * on exact gso_size boundaries. Hence we=
+ cannot perform
+> -                                * skb_frag_t page sharing. Therefore we =
+must fallback to
+> -                                * copying the frag_list skbs; we do so b=
+y disabling SG.
+> +                                * The frag_list members cannot be truste=
+d to terminate
+> +                                * on exact gso_size boundaries: head_skb=
+'s paged frags
+> +                                * take part in the first segment, so eve=
+n
+> +                                * mss =3D=3D skb_headlen(head_skb) does =
+not guarantee the
+> +                                * alignment. Hence we cannot perform skb=
+_frag_t page
+> +                                * sharing. Therefore we must fallback to=
+ copying the
+> +                                * frag_list skbs; we do so by disabling =
+SG.
+>                                  */
+>                                 features &=3D ~NETIF_F_SG;
+>                                 break;
 
-The user impact is not very critical.  It does not leak, corrupt or
-crash.  The update will not be faster or slower than the lowest and
-largest refresh_ms values of the contexts, respectively.  The user can
-also manually ask the updates on demand using kdamond state commands.
-That said, clearly this is a bug and can easily be reproduced.
+This is not enough.
 
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+We have a better fix coming from Xinyang Ge soon.
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index e3858ffab4b22..f05b256c90ee7 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
- 
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 	return ctx;
- }
- 
--static unsigned long damon_sysfs_next_update_jiffies;
--
- static int damon_sysfs_repeat_call_fn(void *data)
+pw-bot: rejected
+
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index fc0cb993959f9b6506063a4118078abde12521d9..c17e57ec7d5cdb6aac4b26777ab=
+96254940b1945
+100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -435,6 +435,13 @@ int inet_frag_queue_insert(struct inet_frag_queue
+*q, struct sk_buff *skb,
  {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
- 
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
- 
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 	}
- 	kdamond->damon_ctx = ctx;
- 
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
- 
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
--- 
-2.47.3
+        struct sk_buff *last =3D q->fragments_tail;
+
++       /* An IP fragment is never a GSO packet, but an untrusted source
++        * (virtio_net_hdr) may have attached GSO metadata to it. Do not le=
+t
++        * that reach the reassembled skb, whose head keeps the first
++        * fragment's shinfo and whose frag_list is not GRO-shaped.
++        */
++       skb_gso_reset(skb);
++
+        /* RFC5722, Section 4, amended by Errata ID : 3089
+         *                          When reassembling an IPv6 datagram, if
+         *   one or more its constituent fragments is determined to be an
