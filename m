@@ -1,146 +1,192 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94AD3E44F9
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 13:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787836159; cv=pass; b=mKTt6JvRmSkQjzkmligcftFox4zDYL3oEmBaKdxstwTlEcsVk+4d1oGaaw2WOKudKU5TfRFAFO0d2BTV1Rg+QKcvSpINBXFztUSJTqtd89hOhQmLRJ3KNpVG9jBbG+yssqpxo7iqo+Y2aMR+y40OFjrNY/vr+MsLFZTvdr4So+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787836159; c=relaxed/simple;
-	bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LeFi8G2NS1reidH55MFt3CYY+vvdsE0u2BugFP+iSXXWxCg30bECyUYwYfhuir5NUlhGazqhUispQs6feZIvA+bR4EGlSkxUn/Csmmq2fTIKvEM1pnL+AW6EkbMKwPX+Nr0T5TXZ2LhHPJgs2GZSWPPEsXynhzVlpbA2Gta5Jcw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lRcTrciv; arc=pass smtp.client-ip=209.85.208.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A8A4746B3;
+	Thu, 27 Aug 2026 13:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787837103; cv=none; b=GeM+TaHUgXf+rVQiuvk22CK1dS/gY7mUishDs34YddemsVJQVHfDHQHZblnQZRwCq81teDyWj+akJCA268rAMsOJ5P0M7dCpQunUM+L8bL4m3E4geeELmGhEKXHe6ooy66EyigUv38r+5HTWZpV05QJTxvtkiE1BRrGEXObwtrw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787837103; c=relaxed/simple;
+	bh=DW5ur2GDgaG0fQ1YnY1EXxVbeJL9kHSUUwchijPqb08=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SS5r3LPEz8eMTqXpVw8IiyQ5dB63wqW9oYb7dUDeydCloI9m24LUK5R0yPs4lT99BWLfELlyraiRd6Df1QaR/qRVuV33vDs8AnRnNepYbqGRPU5l9Xdfp/XjJr0/3jr6KVzFFCD2mYmx1zz7l5gL7rPB66KNZfe3ugiaEdbeP1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=T2JcyhzH; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lRcTrciv"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c86945164so17471921fa.1
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 06:09:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787836145; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cQU+srnd7fKMcQOYUYS/ljIjZcwmhmWf5oRnrq9q9nkULKy1K0tfwTsMzOl4myrjHf
-         P0PrOTuhmUzOaJUV894vIFJxyBgHlO3e2RrcQesLlAo0LysfHhUaqyVRWw9L7cZ1+EHt
-         p/KGzgYyjEv43LgW/aFK5ZZMwNUNUjFwz4SeqLT3hnD72+qY8NHnOKEai45VEab7X4d/
-         sgFOkbotuw9bz5TES+9SnJd4srogCFIjcYxcTj6ie/ew/PG0EM7183SbKCaLkGpWgCNf
-         TnaMr37ZnL0YdxtG4PetnK/xFxCJ0+ZolhTCxqBJEGaWOxx0tffzrQH5OwtZrZM4RMGE
-         CoiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-        fh=5b4BCADoSeaounrRkaNFQfNm6IDLN6IIUtq/N6WU0zY=;
-        b=joydXqI5MORJsckyMzSDa1ThKDIFMxPaqaCkQC/hlVCuulsPt3PmfEFinhlwrcsllN
-         wsPjLjF2B8tqXnKuF4fqZ5nOlVmUPKPFanDzGBmcTeC4GTqyGBU++7E0/bDGo10xQX0x
-         UA0Mgr0sjny9+dCB/D4sjQ+cVOr3p1cclVHcI9xZBzahMEg2cgcHR3KaCh4DA7VAPhkG
-         XoIKaD/MOpfcdjTVn/U8yE/Wxx6sHrv+Obzo9KXiyeN46jTaCA5tB9ep0ICi7nnz7JDe
-         5dUy+3oVcnSvVFaOxR3XvEazqzuvBbFrdr/e4u+F2yZMV0XpjgMA+IGMVCdA0FpKMQoj
-         QJKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787836145; x=1788440945; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-        b=lRcTrciv1tpI+038IVPgCI2tC2Pcj6vTAlv+YwTWScJuGM4KIs5fvLPs3iLlRepcd8
-         AdoyoJLWwxxvYyFHX1e8Vrly9rpYjMkUYmPfyLUB3ebqKwIBSdiB7pXJwi8iA9WaMSxB
-         IBhFCqTLUDfJ+VQjvOtZ8RDl5NdtzoxL1rUDrKwfTkkgAOA8khrsn12UMfyXWZmOne/l
-         AcMVSb5VCFypAc8pyurjApvpr2NtCKy7Z/KKJsMWspF8VIFzfY6Sd4qGkDwseP32tF54
-         mxNQtguRbY57Gfq7Ease6C27QqN7v8YjofkIHg1zkG0uKKk69kos5EZ+laUGa7rZA1c4
-         mOVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787836145; x=1788440945;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yVbl3Z9HVr6Uibx2P5f7A2CJaisyDJjFLYgGyEoH47M=;
-        b=AG087nVX2WTUztHI6F+X2UCPYbhaVb6OKojvkXpaPjuMWOH9yEKWA0v8rznJa9kBSv
-         FrM7NzZzIpZbv090Ema3oMTKWBNH4aCxeKKKAyo/5T9MF6leTONtr9tBODaPu69sNSuT
-         sPV9aniNVl8ejD4nE+LSh7PKe1MGIXSNYr9wfiTtOHHVBmSK8xt5vVUO3iLtH3+HJqtI
-         GmNFGp24oJnJbQHF+fdTtAmQd1vSuuxpJlo29RkMJm/OioVLTrhlvjzrXK31qK6S+Z+X
-         CZeP10L+CtaHpM9Px3uzIjpT1qqbjHFBmmA/lq9UCDVYyaX6sPkUQhoxIB95RhR4kV+5
-         zPgg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8e0xHpwHkHDe4md1StGySOER+GOXhCxR+dNLZAu36Qn8UiZsQSmTW60I0FNliL4yjHXMFXA4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYJn6zp8CMm78w4obWKPw7KhjuzNevLrErEvtmh2XfP6mCALVM
-	uArR1IOYXTC/8+hbkC1lxsGlvdKShQ0JQ/UQonbgx9aYJ/BwA92TYTJNtTcmSDHlUxDyouN28yz
-	ZgMDSb/Y7GbhGRg08ilQiY9K2jDDjIMo=
-X-Gm-Gg: AR+sD12Bq18qjKRiIPmZu0jy1msunqbamOw/o0qjc4j+3JmfcAPNKPH8P58Sf8DgNPe
-	HrJxjUOcJHvynvnXzssDzP5Kna2zn1m/a+qE/dCQsUKsquju9LGtZU/T81lMJPMKi72eUF58qlI
-	RLnFA7b0KqOr+a8ATc5TSOP6lE3DbHJ4mLuaueZyfJl8uQbP+0aCz/+wh0sx9W3z5K9fxZGl/BT
-	ZyJi6ug6fs2qyWAVHF4eaKF/9BEasOTzG9mE98YDPf+M+UBmEflu2XXk1sEv3d6yn02DopuFnSK
-	N/ib71g9U77v9QFM2NXJP4RtnIU47zhYSWujoMqcH/7cp46jCu9iGjjuRKTTOf5XLD9ELjApjLk
-	384DjuxfcHhBc40C4ladkPdJA2OhPqsGft+EwuGVjWC6pAqDkLCu1FPT6Sw==
-X-Received: by 2002:a2e:be27:0:b0:3a1:d468:f988 with SMTP id
- 38308e7fff4ca-3a1fd453e09mr37025921fa.1.1787836144417; Thu, 27 Aug 2026
- 06:09:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="T2JcyhzH"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67RCVfGM3056500;
+	Thu, 27 Aug 2026 13:24:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=y//a/1dejuvCbPOiC
+	esY4wmqgti970P35/cIGN/9af4=; b=T2JcyhzHL3SeLLzYFlDwbwxfM/cRKrSU9
+	FP+s2A2v+dpDSF2FGs4r52nnaYtBBrxkOC4iQe4l0bfsE5lU7dqabzYLtJAP0+zj
+	8ytw3B3hGTn+p7vuzBR+jTIhaJYFLE3BzA7e008jZk7p87rvNjljvjAQwhhb9uHR
+	1AMWWmmqyAesTw0eM6tFfdTaPxq5k4M47RV+jJ3KbMO9q8V1ib+sJ003ba+6Yex2
+	8toO1Wm+fyU6x+8cgzGX4zjoeXUFd7Lm/8TnWqkoICJfInY56GZtk0D6XdVOAhHC
+	LudBeyBAv+p1m7GifiaTvVWZK3caIXBMtgNUnJS8zZXdAKA15YmPg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73dxn84g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 13:24:49 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67RCuGYJ031730;
+	Thu, 27 Aug 2026 13:24:49 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4g7qkhg6n0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 13:24:49 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67RDOlxH33817288
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 13:24:48 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A35535806B;
+	Thu, 27 Aug 2026 13:24:47 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 71F7F58057;
+	Thu, 27 Aug 2026 13:24:46 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.15.38])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 13:24:46 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v3 3/4] s390/vfio-ap: Fix unbounded loop in apq_reset_check()
+Date: Thu, 27 Aug 2026 09:24:29 -0400
+Message-ID: <20260827132441.555866-4-akrowiak@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260827132441.555866-1-akrowiak@linux.ibm.com>
+References: <20260827132441.555866-1-akrowiak@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821010728.45065-1-gvalkov@gmail.com> <20260827-helpful-icy-donkey-9bfdaf@quoll>
-In-Reply-To: <20260827-helpful-icy-donkey-9bfdaf@quoll>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 27 Aug 2026 16:08:52 +0300
-X-Gm-Features: AcwNN1UImZDtg3-upEabUa_XGggulmtbmlnjP2_UXhZYxbNMdjonIxEdG5ok4DI
-Message-ID: <CADOrJmaF0UpRefk1+BDyn5iU5La4ke1gFWwzyRr5-9wp7Zr2+A@mail.gmail.com>
-Subject: Re: [PATCH v6 1/3] dt-bindings: net: wireless: add flag marvell,invalid-reg-hint-in-rom
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: briannorris@chromium.org, johannes@sipsolutions.net, andrew@lunn.ch, 
-	krzk+dt@kernel.org, francesco@dolcini.it, johannes.berg@intel.com, 
-	kees@kernel.org, miriam.rachel.korenblit@intel.com, wenst@chromium.org, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, error27@gmail.com, 
-	s.kerkmann@pengutronix.de, gregory.clement@bootlin.com, 
-	sebastian.hesselbarth@gmail.com, robh@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, chunfan.chen@gmail.com, arend.vanspriel@broadcom.com, 
-	peddolla.reddy@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDEwOSBTYWx0ZWRfX8izkl8UHCXN/
+ NGjmIX1VQT+sIn1lX8br1Wjf0J5eb4fC+MKCCgSQcfhqgSSSDVaoDKmyVxzhZfjZIn6B4pmLFR+
+ MGMercti2jQTIRzq0kYYyfi2e7u98Rs=
+X-Authority-Analysis: v=2.4 cv=AYuB2XXG c=1 sm=1 tr=0 ts=6a903aa1 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=qRifxZYimwebPS9KaUgA:9
+X-Proofpoint-ORIG-GUID: XJUstwI26qh1Kac69caNV2xLmf0rIPjG
+X-Proofpoint-GUID: XJUstwI26qh1Kac69caNV2xLmf0rIPjG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDEwOSBTYWx0ZWRfXwJPId3/NJsAj
+ YJeHBeBcvMhhKBE+Vwq2sW7iQY9GBhj9Sb/uimUJQSqWzvj60pQTzJO+MOyq9trAoqy1jxENHwP
+ n0Qi8P3WOwFiFbX0bRgCY4AKWay9GpR3bbqCSGts46OjdzKMQ+K49OHbF7loBkvLwqJgiyqv+8v
+ ZyWH+mVpqtXgpREUM+MPbnHsXGLcf/uMNxE+9t7/giohBZpuTtrQJD3FzPUGnjLYaURH2FNoskB
+ o2IPXMnBI7xAM6sbMHj4ToYRsF+lXTHIZG+uLmFALPCEmJUOg3Z6OIMWyYHtZHxaSpgyy26/+8O
+ 7ZoOL69LnETKCtk+ZS4eNAgzr++FplU5U24eHBvPL7qGFE0LJDbyTzCtmewdGmdilNWZD5GXnNh
+ 9peTdBpROhAsKbImSilLPiqw3k0vw4kv/qGGKus5VFqY3iTEL3bFvT76zyyj5f5HcXitePD5TfR
+ BnhWGNMcsyJ0/s4WYtw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_05,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608270109
 
-On Thu, 27 Aug 2026 at 13:34, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On Fri, Aug 21, 2026 at 04:07:26AM +0300, Georgi Valkov wrote:
-> > WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-> > from the mwifiex ROM, which conflicts with the platform regulatory
-> > configuration on units sold outside the US market. For example:
-> > - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-> > - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-> > - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
-> >
-> > When the system boots, it detects a conflict between the user selected
-> > region and the radios, e.g. BG FR US, and applies extreme restrictions,
-> > preventing phy0 from starting on any DFS channel. phy2 works.
-> >
-> > Add a device-tree flag, which allows affected devices, where the radio
-> > conflicts with the platform to ignore the incorrect regulatory hint in
-> > the ROM of the radio, so the platform regulatory domain can be used.
-> > This does not allow the user to change the regulatory configuration of
-> > any radio. It only allows phy0 to start and operate according to its
-> > certified configuration.
-> >
-> > [1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-> > [2] https://github.com/openwrt/openwrt/issues/9956
-> >
-> > Cc: stable@vger.kernel.org
->
-> I don't think there is any bug to be fixed here. Support was incomplete,
-> so you add a missing quirk, but there was no bug in the binding.
-> Binding was correct.
->
-> With stable dropped:
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The apq_reset_check() worker polls ap_tapq() in a while(true) loop
+waiting for a queue reset to complete. When ap_tapq() returns
+AP_RESPONSE_BUSY or AP_RESPONSE_RESET_IN_PROGRESS,
+apq_status_check() returns -EBUSY and the loop continues after
+sleeping AP_RESET_MAX_WAIT (20ms). There is no upper bound on how
+many times the loop iterates, so if the hardware continuously
+returns a busy response the worker runs indefinitely.
 
-I added Reviewed-by to the first patch and sent v7 with these changes:
-1. drop Cc: stable, the first patch only documents a binding
-2. restore colon after Tested-on as requested by openwrt-ai
-3. mention the added wifi@1 node
-https://lore.kernel.org/linux-wireless/20260827130335.6606-1-gvalkov@gmail.com/T/#t
+This is particularly harmful because several callers of
+vfio_ap_mdev_reset_queues() and vfio_ap_mdev_reset_qlist() call
+flush_work() on each queue's reset_work while holding one or more
+of the global matrix_dev locks (guests_lock, mdevs_lock) or the
+KVM lock. An indefinitely spinning worker permanently blocks all
+of those locks, hanging mdev removal, KVM guest teardown, and the
+VFIO_DEVICE_RESET ioctl path.
 
-Thank you for your help and patience!
-Georgi Valkov
+Fix this by introducing AP_RESET_MAX_WAIT (2000ms) and breaking out
+of the poll loop when elapsed time reaches that threshold. On
+timeout the final busy status is written back to q->reset_status
+so that callers inspecting reset_status.response_code after
+flush_work() see a non-zero value and can return an appropriate
+error.
+
+The AQIC resources associated with this queue - the pinned page
+containing the NIB and the registered guest ISC - cannot be freed
+in this case. The NIB is the active DMA target for AP interrupt
+delivery until the reset completes; freeing the pinned page while the
+hardware may still write to it would result in a use-after-free
+kernel crash. If the reset eventually completes, interrupts will be
+terminated, but the pinned NIB page and ISC registration will be leaked.
+This is preferable to either a use-after-free or waiting indefinitely.
+
+Fixes: dd174833e44e ("s390/vfio-ap: remove upper limit on wait for queue reset to complete")
+Cc: stable@vger.kernel.org
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+---
+ drivers/s390/crypto/vfio_ap_ops.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 4c32fd6eaaa6..a9a33f4949a0 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -31,6 +31,7 @@
+ #define AP_QUEUE_IN_USE "in use"
+ 
+ #define AP_RESET_INTERVAL		20	/* Reset sleep interval (20ms)		*/
++#define AP_RESET_MAX_WAIT		2000	/* Maximum wait for reset (2000ms)	*/
+ 
+ static int vfio_ap_mdev_reset_queues(struct ap_matrix_mdev *matrix_mdev);
+ static int vfio_ap_mdev_reset_qlist(struct list_head *qlist);
+@@ -2016,8 +2017,32 @@ static void apq_reset_check(struct work_struct *reset_work)
+ 		elapsed += AP_RESET_INTERVAL;
+ 		status = ap_tapq(q->apqn, NULL);
+ 		ret = apq_status_check(q->apqn, &status);
+-		if (ret == -EIO)
++		if (ret == -EIO) {
++			memcpy(&q->reset_status, &status, sizeof(status));
+ 			return;
++		}
++		if (elapsed >= AP_RESET_MAX_WAIT) {
++		/*
++		 * Timed out waiting for reset to complete.
++		 *
++		 * The AQIC resources associated with this queue - the pinned page
++		 * containing the NIB and the registered guest ISC - cannot be freed
++		 * here. The NIB is the active DMA target for AP interrupt delivery
++		 * until the reset completes; freeing the pinned page while the
++		 * hardware may still write to it would result in a use-after-free
++		 * kernel crash.
++		 *
++		 * If the reset eventually completes, interrupts will be terminated
++		 * and the pinned NIB page and ISC registration will be leaked. This
++		 * is preferable to either a use-after-free or waiting indefinitely:
++		 * the caller of apq_reset_check() holds mdevs_lock while flush_work()
++		 * blocks holds the matrix_dev->mdevs_lock mutex, which
++		 * serializes access to all mdev objects system-wide, so blocking
++		 * here would stall all other guests using AP queues.
++		 */
++			memcpy(&q->reset_status, &status, sizeof(status));
++			return;
++		}
+ 		if (ret == -EBUSY) {
+ 			pr_notice_ratelimited(WAIT_MSG, elapsed,
+ 					      AP_QID_CARD(q->apqn),
+-- 
+2.53.0
+
