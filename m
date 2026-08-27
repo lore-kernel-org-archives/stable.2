@@ -1,36 +1,36 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C03C1A5B8A
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0197D1A5B8A
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 05:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787809706; cv=none; b=SuvFOHjAAAQuCpkfZvR9Gts69abNuQs3q/FDfUAu/ul9QUHcQ9Yh39cGcXDFZjx8ZxXV6aITfxn9Ct5ZgtQPz7FI7UTgd+q1FzM83YZiJI5bguJLImKo4MlGRdmhGZdIFN9zCiwFT0Jbhbs9P1g8+A1WxLiebt5E8yvUuBV9a2c=
+	t=1787809716; cv=none; b=WzhUHhQ5bRUt91zhSI2g+d4vjqYmjof6BQ/Owz85Cf9Q4EY5ze1Dnx6HS70/c1Qy0HMwTyLOEjBNDoncBoCaJZS9PKrhy/pEgVLio89Qlk/6THtH1w1mrse5qp42F3kY/bsm5+uejZxs/nQWxSLPTxVTPlKAbKFggF8YVjuwKVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787809706; c=relaxed/simple;
-	bh=+p0wB2Q6n7mLTyahB9rkL70hZqV95S/b5n06+OBMylQ=;
+	s=arc-20240116; t=1787809716; c=relaxed/simple;
+	bh=zLClaVM+YW2OUWUWD2wBGVrmp+BVavYYnCOCPqLWqh8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=c8XrrjLGqAYRn0szabm+lCBMsfaXBVzDiAQWbn9R5i3JP9+qL/PCoS8RFIlxiQR0Bcz5mdbLJE91UKJOMTrlt3hAX5ODNspLhyfG3sairufFMschLfz2VGzBVXrSzROOyLqqT8cH3WgRfuU0eV4Ls9DFnO/AeYBrNe89oDErn4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=foXEs0HV; arc=none smtp.client-ip=18.169.211.239
+	 MIME-Version; b=i0IRXhctkiEPv3zdsCm5oocfGBvjMw74ug3K0c7pF/4BgmU7PfONItsxkHIBwVb4P1H3vmkrOii8+RdRbozszm4jFb5kOpqAcDtCUTRhAlJD0u4GD+A0oRWRJk1a4oXIdrQhWzr6Hc9XkZAZ/59XOZdnOUfJ9fX3RYxRybfkp2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=LY5FcO0j; arc=none smtp.client-ip=52.59.177.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="foXEs0HV"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="LY5FcO0j"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1787809674;
-	bh=cu+rdKNqEj9W4XC8VeG7CoxrlVfBbnEBtXTxHt5ygNk=;
+	s=onoh2408; t=1787809688;
+	bh=1SdNzIAZxBCda4mRgOx9wNM7QzwvCBBWAPPiduSKQpU=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=foXEs0HVW+A9glV32pV2ndlFGiUAYOsAjNqF1Xt4LTo8TPJrkdIN62dncGn6St9ix
-	 aGrvSd1DevYhE0LfR0Sos/RY2wwiOKKt+AlvOI5sPLAXLjsDjAaIR6xAGhc52Xz8cc
-	 MRtZN0MvU5fgIL7lyp7WxL+7ctTwwrkFTKq1P1eQ=
-X-QQ-mid: esmtpgz13t1787809669t46b54ece
-X-QQ-Originating-IP: 6Q1+5rT2ts9q8ct+XvyQwFLwuhHLNribzErJIS9gGNg=
+	b=LY5FcO0jsjyGuNL+N2nAvEzPIJSpOmB5Itqk3xmvHQioCUpObyBqdNqil+2isLSL7
+	 DCR/lslGNvL0EpYwq5mwY7Nb0CpAEwsuvRldDsRWf28P0tuddlQTeqRZUq48F85E3m
+	 Wi9XHAjTR3aevKqdL942n3YXGCur4sDS10hl4p1k=
+X-QQ-mid: esmtpgz13t1787809682tc9212d3f
+X-QQ-Originating-IP: 2zDDm1ecplyzEJAckVEaCvclqaWbYygtImd5/TFqvrU=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 27 Aug 2026 13:47:39 +0800 (CST)
+	id ; Thu, 27 Aug 2026 13:47:52 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 18135225362963407065
+X-BIZMAIL-ID: 9066219241035851612
 EX-QQ-RecipientCnt: 6
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org
@@ -39,9 +39,9 @@ Cc: guanwentao@uniontech.com,
 	paul@paul-moore.com,
 	stable@vger.kernel.org,
 	stephen.smalley.work@gmail.com
-Subject: [PATCH 7.1.y 3/5] selinux: reject a permission value exceeding the class permission count
-Date: Thu, 27 Aug 2026 13:47:10 +0800
-Message-Id: <20260827054709.4027356-3-guanwentao@uniontech.com>
+Subject: [PATCH 7.1.y 4/5] selinux: reject a class permission count below its inherited common
+Date: Thu, 27 Aug 2026 13:47:12 +0800
+Message-Id: <20260827054709.4027356-4-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260827050834.10002.stable-daily@kernel.org>
 References: <20260827050834.10002.stable-daily@kernel.org>
@@ -54,65 +54,74 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OO2wLqYBHUeBkxucrQIDehusGpEWih9SGT5t0RBDcUOpmhM/pRzgAFtX
-	xwg3lTT2c1QT0/C1Bu5RB7BJ4dptW5MAPa8PfsD/QiE62/PQfk8XsbLBLd2YZan2TnYeGli
-	7rOQm36eo75DaW6XNIIq7qN49KfG5UHta3HnU9YHM0DxwAQLH+DlJ75KX6EBV11A5Z/nIMH
-	UY6PMSljT1xuu7oltvobi5p0BqcBbd7MM0HOhcXNYT85hvsWAsqDlOXA6lhGuBOj7qDvjx/
-	JCdNJ3P3pmxZTvO+ELTmW+1qRRVxID0/xwPSQKiCAMF/x1JfJ75uIlktFurzqWrbNOefuaX
-	JvUXN2hSbfzuAlJuKSu7pyCj0DayJXvGIi/qiXA7OeFkQB9zU/wgRYP317DMhSssinTD+hr
-	nCSFoKMoL7/e+uEQK16qYTrmPpl0+l0AfZLIL1VjEH4mnIzCH7OhwVMCEJ5/hp2o3VnXHog
-	yJReXLkTVFLygyTvUU5H7XwgtEdKADTOBBkHgJsCkotvcO33BPRfztM6CuLDXa3PtXaZCaL
-	OhrSzrJOxe2zxCSosjU1B4UWRJKJ/gqE4NjNOBpEVQDsSz/FfajjBFgVARbDR+332HYKQ+p
-	dfMqBQ6eB5Kotlqq0q1MgUrnfWg7QFxZ7wo70XBcltuwIydPm55nWkgALIiTEM1vJ03lRb0
-	YebOZCklWCPMvUk6uXJDi2AfNDpf+/NCy6OipEc6SKdKq2MjfjQ4WH4T9bs1HHKVEO84G76
-	ioYoS3vZs+OQc5P6cHgXsqrsXf5FNnCXJVV4IwFBHxDQRck+AdItD1lQabPonRR9SvmOjP8
-	f4gDH2FPceX09vrdW6/AIB7tcmO3xLvpoR8JX/KkyO8I+oxLaLKiSkh0OIrMYtYvb6yxLcj
-	JlcTDUCWBU8/Fo4Xrnpky3lB2eooJtURmA+fZeTQa9vcJgj89/D031GCdl0915Z0WAKlcHl
-	7lSl6cz7CMAj2iNPmiujKRT8StHygy7thGOBwg6HjSpim4MLeIBNW+XYvqUoGOnT14jDmEo
-	2OA4P2P5iOyJ6OqaSUDayOAXmIloOgZ4lFqE8nctDyr0Bq+3cH4JTvJwdEHaW97o3GLXtsw
-	POWoERC5vje
+X-QQ-XMAILINFO: Mb1BOhWcNIRMfrdDp2LrTowISxecZAZxO39S/cZ7PjhA0lLuAoXwFJaJ
+	GEsmgfok9hYjHwBTnKhvBBzvb+R4Un3wsjv4f7gSiFxs3eKq3AuHGxiTwD1P5kmHee8y+XP
+	Wvm9ClwEztiPdlZ7Oq3/vypnCkEaN0y9MR+m0muarnUFhZFQiJ6Deyznkr/24GdjmYubSuK
+	6vyFcp1fBBoALQkGJQShXyNj1aUB/NXgN4Qb733Rejb+k+kIZXXREmIvUixjso0d+BaIqUH
+	eOH+G7iIxlY0jhNwhy5FLEuI9FoeHVOCkjr33KB3eoP+HDbDkjzmJGBR4UTKUgLbgXIZfMq
+	hTRO4UmRVCndZdW72YVf6cMdAXx0Fx/Vk5wt68f8/jjOqT7NwiRuPwy//KfBd95C6fXoEsS
+	OK/QawdoyoQMLWK467iliD2lvHF2An6/uJfGwmXyxyMDZdXIs0q8AyjnrHhS89Nl8GWvOlv
+	T2KEsgPO0GktqvidWk0a/kjm/Og6x4eL6+u29aFi37tn9raz3KCuXVofo4perwhclFLBids
+	D5A2zHri63s+E6ZD2lYY6iubxREOc0luiIQ3BaO/5z1amFu0HL3PSEE84Fl35xUET59QPWw
+	KcZCrb5ONyP45eN5yWIu4Q4IGwYLg8x1NYPVRAntZLNQuO89htO7nbt9oK6grEd/kpnoYs/
+	9zgftz9LBfBCFa1b6/q/Qr5FcRYjXRhKhQwKieSIbpm/vMnjbRkoOD8gDIz/cbIDjfe6vNy
+	ug7tn8Xz5sb5Vif0q6pvWf9DlFwqE+wRyB6oyD6nJ19vdTHYVUX8FERGwMsWzG1ToOKRD5D
+	0aEVo84IYzIP1LYqU39MZP6FZFPWioYm0kAEt1auRsJSPbywI9veikIQS1XkXY3QtY0myWe
+	1/XvH0lS3qxYDG9vo9Yo3dn3JpWICJzp0RnvqANMKMT8rK6etYbzQUKO9Z6ITh/flOtpXOz
+	zm5deZSy2enUnhEFdENbxVYBltO7Th/NgTo4ddrzpiY16Q/CQtwep5p2XKr2+dwPGMshQuZ
+	k8GHocd24W8qwsjKB9sgSsMhHo8hX6cmtcsJzEhyk7gSwg3y9Vo86BgXWkSZ+OY11jOQVDS
+	CmffyV7RgIbtJArUJM59CFsU92CJ3Ell1wF6QJZclrf
 X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 X-QQ-RECHKSPAM: 0
 
 From: Bryam Vargas <hexlabsecurity@proton.me>
 
-perm_read() bounds a permission value by SEL_VEC_MAX but never by the
-nprim of the owning class or common, which is taken verbatim from the
-policy image.  security_get_permissions() then writes perms[value - 1]
-into an nprim-sized kcalloc() array, so a class declaring fewer
-permissions than its largest permission value drives an out-of-bounds
-heap write.  The top-level symbol tables are validated this way; the
-nested per-class permission table is not.
+security_get_permissions() maps an inherited common's permissions into
+an array sized by the class's own permissions.nprim, but class_read()
+takes that nprim verbatim from the policy image and never checks that it
+covers the common.  A class that inherits a common of N permissions while
+declaring a smaller nprim is accepted, and on load the common's
+permissions are written past the class-sized array -- an out-of-bounds
+heap write.
 
-Reject a permission whose value exceeds nprim, which is already set when
-perm_read() runs.  Well-formed policies are unaffected.
+Reject a class whose permission count is below its inherited common's.
+Well-formed policies, where the class count already includes the
+inherited permissions, are unaffected.
 
 Cc: stable@vger.kernel.org
 Fixes: 55fcf09b3fe4 ("selinux: add support for querying object classes and permissions from the running policy")
 Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-[PM: tweak comment for line length]
 Signed-off-by: Paul Moore <paul@paul-moore.com>
-(cherry picked from commit d14b5d0e97fccd27974fedc03b903408872907fd)
+(cherry picked from commit 9a82dcd98b6e6e11cfd162410967951f12152528)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- security/selinux/ss/policydb.c | 3 +++
- 1 file changed, 3 insertions(+)
+ security/selinux/ss/policydb.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index f0be99481c585..73fd6f06ec98a 100644
+index 73fd6f06ec98a..6f085f4307bf2 100644
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -1140,6 +1140,9 @@ static int perm_read(struct policydb *p, struct symtab *s, struct policy_file *f
- 	rc = -EINVAL;
- 	if (perdatum->value < 1 || perdatum->value > SEL_VEC_MAX)
- 		goto bad;
-+	/* indexes an nprim-sized array in security_get_permissions() */
-+	if (perdatum->value > s->nprim)
-+		goto bad;
- 
- 	rc = str_read(&key, GFP_KERNEL, fp, len);
- 	if (rc)
+@@ -1377,6 +1377,18 @@ static int class_read(struct policydb *p, struct symtab *s, struct policy_file *
+ 			       cladatum->comkey);
+ 			goto bad;
+ 		}
++
++		/*
++		 * security_get_permissions() maps the common's permissions
++		 * into an array sized by this class's nprim, so a class must
++		 * declare at least as many as the common it inherits.
++		 */
++		if (cladatum->permissions.nprim <
++		    cladatum->comdatum->permissions.nprim) {
++			pr_err("SELinux:  class %s has fewer permissions than common %s\n",
++			       key, cladatum->comkey);
++			goto bad;
++		}
+ 	}
+ 	for (i = 0; i < nel; i++) {
+ 		rc = perm_read(p, &cladatum->permissions, fp);
 -- 
 2.30.2
 
