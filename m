@@ -1,121 +1,138 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DE71C84D0;
-	Thu, 27 Aug 2026 02:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDF130149F
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 02:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787798410; cv=none; b=AMO4qG9LTujcWOsEtECgnxFZgDNrFg32V4u/ebMKUWQnL1a0B8bQrA/iZBNVeZdFlv866lGWN/slV1WaHUmku4iPKcpt4bkb3UMI2xS/RbyT9lRaujN1pMMS1lOnuzDIDp4CWPS+aofPpmj3W/fzAKwf1EJC40gVXmi2Kkt10AI=
+	t=1787798562; cv=none; b=etbAqEbgDR3MkEspH8U5n+2RaSwbM/jkRe3b8n+NUrr4oCywA/d4qLMHsFA+7k6I/Ka+Q8956+akcZVThV2VfO29YBiWHxRAoswvHzMaL9O8Gww87AA2VLMW/ccL/uTnQz2O3TlxGtu4TVw3MaKv172mowM/4SCodnfVl3R6nPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787798410; c=relaxed/simple;
-	bh=a6PJlX2eDjqG6eTem80WGbWpxw0WOCwQ48T60BYfyfY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bIIVSm1gE0yq80KEOOXxGvunebVV3+UJNeqOSVBXnx+fpjBDWltPVVMl4mpoe680kmedCP17IqKkLAY18pWLNirGo0pE0DlNyoLnX5GOHui8kqmhW0w12OZ2MbvNZOQUqhaitjxCAP1Gdf1gMQqNrBQW4thuD4oYWgBakiXrpas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=YRWCZdp0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SNRWVki5; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1787798562; c=relaxed/simple;
+	bh=3yR1F6BTQPpbwdc5QIQK+grUD3F+EAAG+HlcztscTOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IaF4Ot3F5EEtj1DMvIbYSORtE6Pf8Qlv/VulmOzD5dkYZKxYh8tqUwNNE3SqKtRITPXix5Fqkm5v7jYHphzzBUr9ajrwR7sNNZaNLR34YQP5WYUeIdOSpV3592cWXEP2odo04APbKL4vRwfG89dEU4pBRPuqZm/0kdBjF6YmAD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anthonyvardaro.com; spf=none smtp.mailfrom=anthonyvardaro.com; dkim=pass (2048-bit key) header.d=anthonyvardaro-com.20251104.gappssmtp.com header.i=@anthonyvardaro-com.20251104.gappssmtp.com header.b=yYWJ1uiF; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anthonyvardaro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=anthonyvardaro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="YRWCZdp0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SNRWVki5"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 3B0921D000D0;
-	Wed, 26 Aug 2026 22:40:06 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Wed, 26 Aug 2026 22:40:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787798406;
-	 x=1787884806; bh=hWMp3cXukM5aYcw/dN/YYGhsXf9+BYduq0DgOXDKtYU=; b=
-	YRWCZdp0YJ4TxwI9X8YehchX3imdHe5sVY13fJLhGd6i3sCQPov9ZNY2FvvxqzB6
-	euZkQ1DO0//LNRWQgartBjqXBmjktIj8ndCOF1BGQt9E6CEIp7a63NEEWDlL7A8i
-	pwLNdZAHCUdYBNsYJ6CggOcMROfom08i948CyP0fKX/TUvfiRZCFGf8R/ZpezcQm
-	NM9ZgfrAZFncByBUMkOBdM4HwEo8MrWQjxMSVo3BgQRD9nRpBTuj1Q4yozFgWTB/
-	Ou/ji45wXnPfZBF+Mi+xU4ZL0Nr+k1Gej46LYhCJYJL3JMa71d3t6EOMYNTisOb8
-	TgNWqxN+H9SRL1L7pFQ5JA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787798406; x=
-	1787884806; bh=hWMp3cXukM5aYcw/dN/YYGhsXf9+BYduq0DgOXDKtYU=; b=S
-	NRWVki50UnPJ7mNgDQPxe/8km7Ahc3E/c6WlF5VoDYf/GuyNwdicJuIcz5Hk+cmK
-	ysuHDtKbaSku7ass3LN9Mn+YggCyndVRuC/zaHHA2YwvEuBG/qIpphEyrtQPQbWh
-	Kmg0XVcfKEbPquTqDK+3QxaILPyLTNokIK6mLtU5iKq0v4TA29Lc9UfSByM+zACJ
-	gR4uVfm+6DGkVwYo6BkW//buAuIwNbnG+1IQznvH+YiPJ7W2bFKPgqbjbLgpUoKJ
-	nogEjkNTEQqDhE6EiwnIymSQuGFVXWNrkH/ovq004ARaSna1zsQX1KLNkSsoGJx7
-	W1QOWJ1ptbyqygWliLj6Q==
-X-ME-Sender: <xms:haOPasgGxHjENguA8tgCogUhHBFEtwtyta2YiwFbrRMZJAzgthc_gw>
-    <xme:haOPag7i8RWRGRtyASeoU5W3vrheF8bg7Sxtr05SZnXpaaC6walbXJTBboEf7IVqk
-    GLsppMtiLfew-Z-BQzA26Urcyf1-ZXdPR7RTj654Q0PUGrlFMTm3zM>
-X-ME-Received: <xmr:haOPavm6ETtfYUUTTsJShkuL757KoE7aNGeRwZ8zBeowth6xkMo14jgFS350cQqCHJzXeVALpZxqfDKa69iDRCnmzoWz46V->
-X-ME-Proxy-Cause: dmFkZTFB/oj+N6i/pB1QH6sVmwIZNNP9xM3v2B0i8HNXDDWrLjkdHN/fNOcO9f13+P+buo
-    y3lyLGvEjK+enk5yoB19S2msvURE7st1oi7p+nWxEA7T/whKEKnYo9bVjG2IFyiKwa53Xt
-    gCuB8lu3otyFfudhiM9vztRPkVFkT6roqNZqkPdfCDG020fIUJ9K6QPn8vVrDKsiUqkYiM
-    ie1VkYgF95DtlNfLjt7iSCkFGp4DQvbE6m406xdtFFtseYiTy1Acc7kA7/k3+wbnTt5D+s
-    FUccso02ytCoE6v5jURM2JimKW0WOC++EPvSm6z8Co5I83VNjbqseCaO1l/k+Ppm2lBaO7
-    +fnnubVB59ni+OpMtHf9IueQGMNLQiMPlBbn3i9hCjLJUaYWHk3zhiAINvGZy+sGrRo7Ry
-    Oce9KbfhLrWSww1X7/tZQ1OCqKAuRM+ZPp/AfSJI3ILJheF70ogyNpzdkOj1+JGGBTobOY
-    /aSbQv57ndLYdhPdfin6c/b6V6qWoJwZqyO4yvVu0IZiBYTTUre+FqwMUquYs+Y/wx4HhW
-    wrGubNLorde/U1e7Hj8hZBYklxki70oWYuUooEUeyCzLIVgplQ5qbwpZCs56JxRH3Yjcec
-    V3zIY3JfTzkOgUj97i1ahS1bD5fy0TOs753fnRNP22D1KEgZE9i4B1fB7BLA
-X-ME-Proxy: <xmx:haOPahM8h7MJoT5VNpj40JqcHjKHb_9lABee0Vub8sgv1U_ICT6vUQ>
-    <xmx:haOPahpffUeBYIDmGFsiJCHQ-WfX5QrPguCPpzh8LyaBnPeA2Ij5cA>
-    <xmx:haOPaqtwJgx66IFQxbuqfchSDFbLhZgqK6XJQBs-1Ftk37P285q1IQ>
-    <xmx:haOPal68Bec9ZFd4j4E2NzuLij3-pc_SveDwULhMcvcwb3knHWR2Pg>
-    <xmx:hqOParWC3FxdOOUfDnDfplIX5IkuGt_IZdOkkqdlBFTQ_pVm1gbxxbP1>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Aug 2026 22:40:03 -0400 (EDT)
-Message-ID: <d478e59a-ddf1-40f3-8cbf-306a9fbad206@pobox.com>
-Date: Wed, 26 Aug 2026 19:40:01 -0700
+	dkim=pass (2048-bit key) header.d=anthonyvardaro-com.20251104.gappssmtp.com header.i=@anthonyvardaro-com.20251104.gappssmtp.com header.b="yYWJ1uiF"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38511175ad3so237227a91.2
+        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 19:42:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=anthonyvardaro-com.20251104.gappssmtp.com; s=20251104; t=1787798560; x=1788403360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3yR1F6BTQPpbwdc5QIQK+grUD3F+EAAG+HlcztscTOs=;
+        b=yYWJ1uiFqGKwrgz+u3j41c66Oot5aGwZH7HzkcsZVBmOloj/oFXs7jpHJ4USzf3BTY
+         FNL0yoKUNdHt3lRo2gUixQQjX/SAmkjy9ou0l0E4cOaOzrYFHB8anjDfzsdiyk1FXnTq
+         PAAUKmyc4thgl9oLbqK7tyrij0i5Odk7Tx9fEJi1fFpeCG6ajTaAOm2vak0lshEVcrdu
+         /1xwnD1Ce8EqR6hpSsiCTgfEhUibJqiyLNrHenLmTsLp9zUyoir4vMi4GjYpNo0XYY1t
+         2TGiwv9CeKj1Uauamie1SxDKZER/6abKzOpgepILdC9VqXXXct1vf9++3eCOVsDTb2sp
+         7T3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787798560; x=1788403360;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3yR1F6BTQPpbwdc5QIQK+grUD3F+EAAG+HlcztscTOs=;
+        b=ALhl2BrW7SDy22tk2r695zIbturz+geYB8ngsFrfazatGSbBpxVJODZybztYbSKNB0
+         jQHkIaZwzGLuEZ6zrItmMUyASA4LjdCEpFAdsCCrO4hVMqdWst7CUA7Z7VTgm/wj7EO3
+         Wzbf753hGrSw+QzkYAoTbtojSWhIK6rZFIeufAE73XSjLpLbjhs3eJPhErm2b8GaQSoo
+         5FCf2mG1+l+iLHg3jWZJybRG/g4pfj1xflzWqhIjXASQOfzwTDwJ65yfsLRqo3MjBsYT
+         0QwlW1Kc9CLka+ZNE02WXtl+m7nKdWcKgyYQu+S7G+/EHaBoc6WAmS7AGfw29gyN+iDX
+         T5Sw==
+X-Forwarded-Encrypted: i=1; AHgh+RqIVjHmCX8kriqYw/l7JPUCaTMD/kPkuLxfdQ1RN/UGBXqRglIa2Y+Q3IeB5nJd8rFeeheHhfE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nW+kjPjSAA/9vBlPXl77aywOlQowlsGmD5983LbmQlughfiSBL
+	7DjfG6w+cJjc42jsI9gsjrwugV3rJCgD/GiQR89nEg7GCxZ72tLS8xDfQ5C0G9rSsYY=
+X-Gm-Gg: AR+sD10EDTcq0jCCb3vd/HNa9TQM7gKPwPshgUitwlfdDIox0ICv7JDBwg55oYgOFUn
+	km1R/WYtPmZodZCerIQj35nPkNANPB8w9zrWIS3EBiTMavE0Ikl0GeQd1t9bitfwZ4gVsWHKdBE
+	YXvh4t94ctYQiJDEXHYoBkxmqxBpKf8fSCKKtX8FN2udtjElYoGJrDRYN3uIravYIxME+aaqpsl
+	gwsjIeh24knIaMlBGb0SivOXJwrms4lWUHwe35b2DjgG89CBCGDnN1QoohDXKIqdMDFd3fVf1yr
+	goB0/x0KLu38Bi/XQP/0lX1fJpP2fHP3hWEk9Oq7Uotj92y6FqNetwb1RoihJT9QzDFuVMHwhl8
+	T6d3ANjDCfpxLtniBbIX1xHCPDku3sJgM5aNSfbkLycls4/Oe3R29TkaqbnFE6qDFc8OrlpaZMA
+	4kULw7a3XHPLccQyBrEPmNEllE5AaUOO7xeZePmgASPDi2USD1mobUkgfEH8cInBKgclTg3eV2f
+	DR4JhHWXsNI1Clq1Sr6+oF3MQZD95nJ0jnvU0Ctr3CjXNWxU65pla/s5zUjkPiQmNL1IMZymHQv
+	ZEnieFqFUjM8acBNGoa5e1f5WH9zomSdANOeWvKwoT0MaQQEzm/Ui7+Sz+GRHg==
+X-Received: by 2002:a17:90b:554c:b0:38e:1497:af5b with SMTP id 98e67ed59e1d1-3966d1396famr25274711a91.1.1787798560279;
+        Wed, 26 Aug 2026 19:42:40 -0700 (PDT)
+Received: from coder-vardaro-vardaro-2-0.tail2dda0.ts.net (ec2-16-145-69-213.us-west-2.compute.amazonaws.com. [16.145.69.213])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fa2f46sm701617a91.9.2026.08.26.19.42.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 19:42:39 -0700 (PDT)
+From: "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>
+To: Dave Chinner <dgc@kernel.org>
+Cc: "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: revalidate cached COW fork mappings during writeback
+Date: Thu, 27 Aug 2026 02:42:04 +0000
+Message-ID: <20260827024204.197650-1-me@anthonyvardaro.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <aojPFYhD4SNPv30o@dread>
+References: <20260820-b4-xfs-cow-wb-revalidate-v1-1-8a19080799ea@anthonyvardaro.com> <20260820161123.GH6072@frogsfrogsfrogs> <aojPFYhD4SNPv30o@dread>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 00/79] 6.1.185-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260825132541.677185791@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260825132541.677185791@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 8/25/26 6:25 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.185 release.
-> There are 79 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.185-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Sat, Aug 22, 2026 at 08:20:05AM +1000, Dave Chinner wrote:
+> Have you reproduced this and tested that it the change actually
+> fixes the supposed bug?
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Thank you for the feedback. I have, on 6.18.y and on current for-next
+(412f89fb3988). The reproducer is a small C program that makes a reflink
+clone whose size isn't cowextsize aligned, dirty a few dozen blocks so
+the COW reservation gets rounded out past EOF, then start one background
+pass with sync_file_range(). Once the pass has converted the first folio
+and cached the mapping, close the first writable fd (or truncate to the
+current size), which trims the post-EOF COW blocks, and append one
+block. The pass gets to the new folio, xfs_imap_valid() is happy with
+the cached mapping on range alone, and the append lands in the extent
+that was just freed. After fsync and FADV_DONTNEED the block reads back
+as zeroes and GETBMAPX still shows delalloc there.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+With the wb_delay_ms errortag widening the gap between
+xfs_map_blocks() calls it hits 25/25; in a tight loop with no
+injection, 200/200; those two I ran on both trees. On 6.18.y I also
+ran it with nothing but the periodic flusher, about 2%, and a variant
+that lets a second file pick up the freed block first, which ends with
+that file holding my appended data 4/4. With the patch every one of
+those is 0/N, and xfs_wb_cow_iomap_invalid fires where the hit used
+to be. I'll put the program in the v2 cover letter and turn it into
+an fstests case next to xfs/558.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+> So, before a fix is made, we need to decide what the correct
+> behaviour is for writeback on mixed mode inodes. Given the imapct of
+> getting this wrong, I think that should be unconditionally tossing
+> the cached iomap if either the cow fork or data fork changes.
+
+That works for me. I also agree xfs_iomap_inode_sequence() as it
+stands would quietly drop the COW check on data fork mappings, and
+you're right that the data fork path never samples cow_seq, so that
+check can only ever fail today.
+
+So for v2, xfs_map_blocks() samples both if_seq values under the
+ILOCK_SHARED it already takes for the lookups, and only stores them
+alongside the mapping they were taken for; xfs_imap_valid() throws out
+any cached mapping, shared or not, if either one has moved. I'd keep
+the private data_seq/cow_seq for now so it backports cleanly. A cookie
+could replace them later but it would have to carry both forks
+unconditionally.
+
+Since that makes COW mappings revalidate a lot more often, I'd like to
+add a second patch that maps an already-real COW extent right there
+under ILOCK_SHARED rather than bouncing through
+xfs_bmapi_convert_delalloc() and cancelling a transaction, which is
+more or less what xfs_map_cow() did before the writeback rework
+removed it. Does that line up with what you had in mind?
+
+Anthony
