@@ -1,152 +1,123 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B777477280
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 14:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606BF335BDB;
+	Thu, 27 Aug 2026 14:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840174; cv=none; b=XP8yPqqb5/7058an+UnMPSUh7suPJQjr28AggruJhvUBeCz3y4ZscNn30mo8wMygQ7I3lXbDv/0geSXW8zMgKnW37KN3VsYcY4SELugJc2HRI+Z+mYTj7DuYltGoX7i8E5qaIdn+LzaIypfddtiIyO3PfeCm70rzTooOKFAhC74=
+	t=1787840870; cv=none; b=jsfOMc1/FFU7J6MGczGDs9w3F0s79Wyqd1LPXhXvO6knM2AlOHUcZ88i2fNij+cw+BBWnp99UFICfgUL2xTzXu7+HVnzarUS+3zd6DcOQuSPexMut0SOvgRVWTOS6kkrJRKpbtumHo0eUulvC6vEg3946UP+kU42+O27ixqPiIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840174; c=relaxed/simple;
-	bh=AdoxcsSG8MqZdrkqtRD5a/Lc5TO2Q0+hl0JpN6zOIO4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NYXxpOfnwtEGSu/CA8W9Lhb2LXvBf6MPjo/zxSXNKe4HjRSyRCEO6KK4NgWd85ZKam3mnReTPUfHloFZFRadMC3t9Fxfxg7g0w77jjvMyKdnKd6l7vmdrmhACOp6ZXp+V88n/bDTURcL0b4g/W8J5m7jQyw9y1wpz5hFzz3nalI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ECrHisqp; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1787840870; c=relaxed/simple;
+	bh=96d1y6IwNLTHpd55ifEQd9+Whi3rWgelovKHkNLq1J8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Qdx3M+I4KZ2WA+9zhT6QCbTiWH8XbzlrRHTuvaN07F+idPWn5nUE0a0k/OOteDS3PWShOQfRl0EcyKTWDcR1BQFrpiN6ovgGABF+OAwgY0yf5swmd+9FOBnLhejcJIv//muGComOToYaOivhLmsYywiFHd/x3lRuySq4ay7uAY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxPXoCr3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ECrHisqp"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso10887445e9.2
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:16:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787840169; x=1788444969; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CVoIwDlF3yETw9iWFWyYa/WcXPQgoIbsjIMm89Vx28E=;
-        b=ECrHisqpiMyd8VTdx6Y93vwc1JGlIwBTzO6nZDxmrU6cCWgABxzXU/GfeCRc3PLWQu
-         RQ7mK3HHLr+8ZOdlUrZ4dQehbV+Rc4z12POYmkErQZBIMsJ2sPUBUmshJu19FCHErd4i
-         jejWWGRPpd2ltgcXDfoieXb8ys/ZpjAL1W+PKvcRJV9yG/ZnTt9b8NSD9RO1DU67Bfpg
-         9Bx38/drzBKTob80+W6klawHHUHQcy3BeXBl4n8cxLp7Z2tVDrWFMhfkwHMCvtxhdubB
-         lir4M6WJyWh3VjUKFncnRuojyK5YTuMW4YN9EutnG0Nm1DComk5N2lP0PfwcvHAtLrst
-         appw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787840169; x=1788444969;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CVoIwDlF3yETw9iWFWyYa/WcXPQgoIbsjIMm89Vx28E=;
-        b=hyF/+KVZpHidVa4aou5ZPWsEvzdOhqASqmel0TsgJcx2xFz5EV6Re366yH9rSyXO7J
-         mos4fsRCcWYFlpEoSBLZaTb/mKFuhpV8YK6n3jGuvbhleST25edMDteRI2ZmLS+G2vPD
-         twaXTlPL9YXWxqbIJs1JA/lzt5W3vcikGhQEPCHotn+9wc/NjkjaNhGpSMILgxXUczWS
-         ijSR8w9LumhhXgDWqLVAL4SKoD1sLmIN5Qct1DV3GJ2gPQgnG6WVHR+Pt85dcx/cnHZK
-         +b3/oK9EZShOis26WDDUDdHPuTOA+MI/QP4ZwmpnBZ0U/J653NsMbRH0FXPeJJu8KtSV
-         QpUQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqynReGBKg5kYmTPH7qmwspe6/Yx678lZKFFtEDzhICXTa9ro9A7t+9NFf/dlox3f8mmn4yFKc=@vger.kernel.org
-X-Gm-Message-State: AFuF++klZJxtNX2DMtN9IQEHdQjyYRdLk6CJdnvZNgK1e6bhVbjE85Mz
-	G8PjLi9jI927JD7ZkawvJRbcvVGhFILUmjXj1f97t3JXwe3umkCM2DNm4nJXS5CmR3Y=
-X-Gm-Gg: AR+sD10tLT7sWYndOfWl0/XJGOiMbEGgU3pZlLEruGuyFnGtuVY9gnZnUcf9lOB6Mu3
-	Pa+VQNVfq8orRWDsQDHOApBEtgOZL+k8y5jkLVw9fpRJGA/KB6t3vg2xma37EXfJdodPPuBdSwL
-	+jK+hPJNiAt83+ly743lmy7xzfDLXLi/DTUZrPzVEg1gySCXZ8CLtfegWYlSzvrC7sonnV5rSCU
-	UiL2NY2fdBH7BMMEqdx+tR1Wd1Y75bfpCySzyWQHad7iPmSp5232AuATcx1dasP/q4hafX1W+xr
-	qHvIW79ulFogL0o7K1k0A7nzte9d/A1QfDWvL3eWUTgQuTQYEtvuNy34RDue/pIvakF936qK2Qm
-	alm6rhlBmjOOwVcir3gs9n3dcIm0g7iHOWc/r5mXmiJYGBap8GVquaQzJfhy0CTfn6QkAfTkwcr
-	RGbieLoSHVjw2s0KhD5D9WecP0kGc0ImM/l2X2SVOo4BoWGENnh9x3OeeRrDF40RxPa8kftTzJv
-	24=
-X-Received: by 2002:a05:600c:3f08:b0:499:d513:e507 with SMTP id 5b1f17b1804b1-499dc6efdf9mr208752205e9.2.1787840169409;
-        Thu, 27 Aug 2026 07:16:09 -0700 (PDT)
-Received: from localhost (109-81-32-216.rct.o2.cz. [109.81.32.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b0dd3e148sm44345705e9.1.2026.08.27.07.16.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 07:16:08 -0700 (PDT)
-Date: Thu, 27 Aug 2026 16:16:07 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: linux-mm@kvack.org, stable@vger.kernel.org,
-	syzbot+ced4d9a8cadb5ef3adae@syzkaller.appspotmail.com,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yosry Ahmed <yosry@kernel.org>, Chris Li <chrisl@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
-	Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/memcontrol: fix data-race on reading jiffies_64
-Message-ID: <apBGp2BF1RJVYiXP@tiehlicka>
-References: <20260827025457.116191-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxPXoCr3"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DB34FC19425;
+	Thu, 27 Aug 2026 14:27:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787840869;
+	bh=96d1y6IwNLTHpd55ifEQd9+Whi3rWgelovKHkNLq1J8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=BxPXoCr3q80QCcbic4B0BLtj9jdQ3mYAVR33/5vBgGLshojZEINb0A+4G1EOgLYsw
+	 Ofs5xhQAapyLZST8J0xNRDXYD+4I23cnaNTeOp7ZmeRWUAYk0ECvjHKAUhm6+jLnJF
+	 h7tXvQO9EfXR9QEFiLju9Kbd3UGptrNuNoGFa/r7vJFzyMLWjMMfDfmeOKQPRMUE+s
+	 al0qK0ZP+UelcpsOS0sELbdpBJUxn0071z93pJQwaKHBExYhuIxhZEnHyiFCpQhK3s
+	 FCZVV8vECzzRggG/tlvn3sG2Pk0KLSmiyH3JnkkPkd0ggNhHVzKz6r63YcDuHW8T6k
+	 yqen3UKtrn4Qg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7E51C61DB9;
+	Thu, 27 Aug 2026 14:27:49 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Thu, 27 Aug 2026 16:27:41 +0200
+Subject: [PATCH] mfd: Fix MAX77705 dependency on regmap
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827025457.116191-1-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-deps-reg-max77705-v1-1-c83a74d3d428@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrmlSxkAHrkJcjFCxJvxkimYSw
+ t0ddfkt3jvAJKoYdMUBUd5qui4ZVVnA8AjLJKhjNjhyDXnHOMpmGGXCOSRmphrJX+rQkm+ZG8j
+ dFuWu6ffsr3/b6/aUYf+O4Dw/ONQoLnUAAAA=
+X-Change-ID: 20260827-deps-reg-max77705-0835a9089776
+To: Lee Jones <lee@kernel.org>, Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, stable@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1508; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=QX7JkiZbHlW0D55dPU0RlQr972FkBkLXUTJRO6pdqeY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqkElknuZIm/NYkZXg7Xt2bid7sZ6JEAFx+AMRt
+ PXGnID3HHaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapBJZAAKCRBgAj/E00kg
+ chMOEACpS6o4pAozT1WKpIs7KcZyTvKxndxnrZpXi1iGLUPhkGd5dU0GZoiOEk+D5iyY50emJvR
+ nw9iLvGZn2TyTgtQzB18XwMVPxUlv6DBYvoR2shXdxRxF5Rll8jh0PCxLPOeT82XOUsudOXmc6B
+ 1vBGgiCMc8SbRBTw0zK9CLfyKZfUGubRlKxMeNJbgf1MmJh026Pil2SSxNIDQnLH2MVmVmJQzEv
+ w5alpjNGPM6T+TIqeBIUoTuZupSHihh4sQTT7OGm7vfHp3IU8BOGqHfFlZRBU3hE/9YaPHsReyL
+ NPIFv83r1s1ylog3+sThQItEyqPrJfQH7YCrDT18yYkCeU3hE9+dWWbbf1ujQJvxA17A25u3yjo
+ F7pFiz3y/OBO0c8G2XoDnlcDbbenW60rKAPj+mKW6aL7qy5oJ6us/GYM8VNImtA/VFhDMPOT1AF
+ R87hOY7D1WRvpeBvGL+7KmwsT2GPkcRksmjqa6avPJC60w83i4dcUuloDoOJoy/bSdjS7f9ROiV
+ kQJmPI6l9RmJBpsER/lXnxcTYACTJldjwY9+ATB2ZADpWVrmcseYjD8eMWnQBjVSpavYm4BNyqt
+ 7RlSi0i+Uzv915slto0Y7TWUU7PUpJbUDD+ALd+Du11DSVUi2qajmCnE4yyxx0GkwhIgYE95/29
+ ffzu6KRdQQwYyRQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Thu 27-08-26 10:54:56, Jiayuan Chen wrote:
-> KCSAN reported a data-race between tick_do_update_jiffies64() updating
-> jiffies_64 and mem_cgroup_flush_stats_ratelimited() reading it directly.
-> 
-> Unlike jiffies, jiffies_64 is not volatile, so raw reads are plain
-> accesses and can even be torn on 32-bit. Use get_jiffies_64() instead,
-> and fix the same pattern in mem_cgroup_flush_foreign().
+From: David Heidelberg <david@ixit.cz>
 
-Yes, this looks more correct. I do not expect this to have any
-practically visible effects, right?
+The max77705 uses devm_regmap_add_irq_chip(), so add REGMAP_IRQ
+and REGMAP_I2C to what the core driver selects in order to provide
+thise APIs.
+This fixes a build error:
 
-> Cc: <stable@vger.kernel.org>
-> Fixes: 508bed884767 ("mm: memcg: change flush_next_time to flush_last_time")
-> Fixes: 97b27821b485 ("writeback, memcg: Implement foreign dirty flushing")
-> Reported-by: syzbot+ced4d9a8cadb5ef3adae@syzkaller.appspotmail.com
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+drivers/mfd/max77705.o: in function `max77705_i2c_probe':
+max77705.c:(.text+0x250): undefined reference to `devm_regmap_add_irq_chip'
 
-Acked-by: Michal Hocko <mhocko@suse.com>
+Cc: stable@vger.kernel.org
+Fixes: c8d50f029748 ("mfd: Add new driver for MAX77705 PMIC")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/mfd/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> ---
-> feel free to drop Fixes tag.
-> ---
->  mm/memcontrol.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 11b85f4b6828..5a3fe057debc 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -757,7 +757,7 @@ static void __mem_cgroup_flush_stats(struct mem_cgroup *memcg, bool force)
->  		return;
->  
->  	if (mem_cgroup_is_root(memcg))
-> -		WRITE_ONCE(flush_last_time, jiffies_64);
-> +		WRITE_ONCE(flush_last_time, get_jiffies_64());
->  
->  	css_rstat_flush(&memcg->css);
->  }
-> @@ -785,7 +785,7 @@ void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->  void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg)
->  {
->  	/* Only flush if the periodic flusher is one full cycle late */
-> -	if (time_after64(jiffies_64, READ_ONCE(flush_last_time) + 2*FLUSH_TIME))
-> +	if (time_after64(get_jiffies_64(), READ_ONCE(flush_last_time) + 2 * FLUSH_TIME))
->  		mem_cgroup_flush_stats(memcg);
->  }
->  
-> @@ -3945,7 +3945,7 @@ void mem_cgroup_flush_foreign(struct bdi_writeback *wb)
->  {
->  	struct mem_cgroup *memcg = mem_cgroup_from_css(wb->memcg_css);
->  	unsigned long intv = msecs_to_jiffies(dirty_expire_interval * 10);
-> -	u64 now = jiffies_64;
-> +	u64 now = get_jiffies_64();
->  	int i;
->  
->  	for (i = 0; i < MEMCG_CGWB_FRN_CNT; i++) {
-> -- 
-> 2.43.0
-> 
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index e4fd4572472f9..857ca3bb0d5bf 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -1001,16 +1001,18 @@ config MFD_MAX77693
+ 	  additional drivers must be enabled in order to use the functionality
+ 	  of the device.
+ 
+ config MFD_MAX77705
+ 	tristate "Maxim MAX77705 PMIC Support"
+ 	depends on I2C
+ 	select MFD_CORE
+ 	select MFD_SIMPLE_MFD_I2C
++	select REGMAP_I2C
++	select REGMAP_IRQ
+ 	help
+ 	  Say yes here to add support for Maxim Integrated MAX77705 PMIC.
+ 	  This is a Power Management IC with Charger, safe LDOs, Flash, Haptic
+ 	  and MUIC controls on chip.
+ 	  This driver provides common support for accessing the device;
+ 	  additional drivers must be enabled in order to use the functionality
+ 	  of the device.
+ 
 
--- 
-Michal Hocko
-SUSE Labs
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260827-deps-reg-max77705-0835a9089776
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
