@@ -1,46 +1,71 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5155233E34B;
-	Thu, 27 Aug 2026 06:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C031E332601;
+	Thu, 27 Aug 2026 06:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787812398; cv=none; b=u8dbKd3qpFtng0srzD7KSOcNoyWN+A1FJt0a6zS5TeXrtZWwAqvKLmAdj63Gx6yL3S4qTlj89hrm/wfhvQMhBLodcRzhlqYUaAF1n7dRqCkB7yHOmN9mtny4xnmvh26Pd6oTJH0gy7dyHpyPsS/OZSQHUAyBFXYy3nui69es2ro=
+	t=1787812463; cv=none; b=qTf2rISQqFHoRr1dRt7LreD7kqMrTbDrpj+45Mf8eFYEF1RuyamjzVo/JQhjoC9Mh/WB0K/r5FrXOGFeKw6HpIVFhOjtGYOU2sjl5KisQjhBSjy4sr6eHGbGy8Amv0fi6BVRsI6FziR17lVkmUV8fT8CfKF7XpjBj/I4T0sVw1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787812398; c=relaxed/simple;
-	bh=9BuPj2Q6nnqmomxr5ojIWuAlLQGEjeEupTUTB2nIRY8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=r/EPDHMbJYBebLKTjXk5+hxXn3Bklt32EuLyFQh6B0jvciI3jIFvGr4vDZY/JxdzxUlhE0P+Rmo/ZJWzb2CjqZHghimTPhkrD/ou/AxroF8yotlByg0hHvzo53qHnUsK1A67roL2Ei52SY5t3MwDY6ToWX5sfKZOyFgSV49fBC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nOvRnxZT; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787812463; c=relaxed/simple;
+	bh=xJc+PFbYXZlDDxBThfzDJhi4RR2IJmSUnfUaEbcKXzk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mr0evGwzG6kLNOTzZ2k5hecd7uMzsFW5uiu+OISTOIFMimHEFnSnq2Wy/GWm/X8WG6HZ+hUOsx7yLXMrIq06er8Dw32wB4EkNtgy1u+0G7XJspXX2QEm0cRF74AHzDXoMVx9lW/SHVHu1mU5fiefCFPjqQtIFnlOadlRIvhX96Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qiMKPu92; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nOvRnxZT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wa
-	CNnpILeDgl2UscKzIFsRiLjz7qOYqJMN3bvwNOKRo=; b=nOvRnxZT4C9KY3YSRH
-	BD42IJCb+EwMyFMzMikH7+NlUVlX2O3fjSiUYSS2/jqo/l44LkgPPUqPBxIo5DX8
-	/+CIyD9A+Gct6w4fD1g+/JKLxLGitPVdVti+RDnBSEIfYsrgwZfm3vkk7oqJoEZ9
-	S3ovoYCYHZQ/hz5dec2t06kv0=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3j4oG2o9q0hcgSQ--.17256S3;
-	Thu, 27 Aug 2026 14:32:40 +0800 (CST)
-From: ghuicao@163.com
-To: Song Liu <song@kernel.org>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cao Guanghui <caoguanghui@kylinos.cn>
-Subject: [PATCH v3 2/3] md/raid5: fix leak and use-after-free in resize_stripes error path
-Date: Thu, 27 Aug 2026 14:32:34 +0800
-Message-Id: <20260827063235.85375-2-ghuicao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827063235.85375-1-ghuicao@163.com>
-References: <20260827023803.36602-1-ghuicao@163.com>
- <20260827063235.85375-1-ghuicao@163.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qiMKPu92"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67R6Vd4E2210175;
+	Thu, 27 Aug 2026 06:34:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=Ucz1NzMG7UG1Ra9zk0/01qWlK+f/HZv573tGt0HO1
+	ec=; b=qiMKPu926FcTEGyqxbzXEbs69pLR3pFGjZ04enEhRRg2Fh4aWpTb4hyox
+	ei5n1F11A3U78xXtNXpmlDyJs8ivBpkyuWqSb7rv00RN1zGwC8PYcGFeRF2CDhxL
+	bwjskWDb0E03wxVlI1wJOMfr2RDgpJ9Im8kSqwaaPHpK8whQY2UTHykZNtp4nKq6
+	52i73yMMq4oa39DRNZcbadSY6iprMdQqZa9/BJXN52ZzhfQf/DhezHA31tUlxsXI
+	mTzNFm8NZSuC9l+t1WtrYAhATz/09tTvNDNLxuFOyKGh5Ngy3OU0r3OdJ9ZUxMvR
+	h1rG+okdZycq3EWiUONXBNYcnxSuw==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g73g53pkt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 06:34:13 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67R6Qfw2028939;
+	Thu, 27 Aug 2026 06:34:13 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rsye96g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 27 Aug 2026 06:34:12 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67R6Y94B47382904
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 27 Aug 2026 06:34:09 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1FD1020043;
+	Thu, 27 Aug 2026 06:34:09 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D339020040;
+	Thu, 27 Aug 2026 06:34:08 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 27 Aug 2026 06:34:08 +0000 (GMT)
+From: Aswin Karuvally <aswin@linux.ibm.com>
+To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Alexandra Winter <wintera@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH net v2] s390/ctcm: Prevent XID null dereference
+Date: Thu, 27 Aug 2026 08:34:08 +0200
+Message-ID: <20260827063408.2168914-1-aswin@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,88 +73,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3j4oG2o9q0hcgSQ--.17256S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCryUuryDCF1ktFW8CF13twb_yoW5Xw48pr
-	W3KFs3Z3WUW3s3twnrCw48uF1fG3yvqFWrGFya9w4vvFs8Kr10yr1rKrWDWryjyrn3tay2
-	qFZ0q395JF1vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jTD73UUUUU=
-X-CM-SenderInfo: 5jkxxuldr6il2tof0z/xtbC4Ag3yWqP2giuVgAA3Z
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 762s6FFUaum0lzydxH7_aC0VwQ_7nxTh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI3MDA1MiBTYWx0ZWRfX+EJCg15VLrsJ
+ s6nNOcFjveuvQZMHOElkVVAkqEnJ4DNiOS1Pf3SPl+5yPDCBQCyAOC6COdvODQVD/e4+HIPhc1e
+ HBXtocShl2Rxf81A5zlhkB+O3AIBbyA=
+X-Proofpoint-GUID: xeY1t9zm4bbETlLclys8avAOd8CZdbBa
+X-Authority-Analysis: v=2.4 cv=JZyMa0KV c=1 sm=1 tr=0 ts=6a8fda66 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=OtRM_J3iQteCy_yeMqoA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI3MDA1MiBTYWx0ZWRfX7OytTd7l2ozB
+ zCMfqgcHE0KQr9y/RhsSC29TlD23zXiJQJxduO9jJ7S+FZhioAgyACl1Wb/3s119Y3IiXiaJmG3
+ R1rbSD3v8AdNIyVsChJpE8r/eVB5HovD3lOp6ciLskpUpmnKhdzefUcf1osrwMOwNTrMXzAst9l
+ HA98mNMnZP0kfdQG2yAZ5fUWoj1EhYkEcoZZYrMATt3dOFIN3N1A+PX34I0aKCgnbWb04P+eYlr
+ ybWCRYAWp+YNsye020YINESg0HX6TVAvSX6xX9fdleROB5lmvO36t1wUT3raTPrizX7dBLxUQOQ
+ Bl4ktFzjqcijUPyXNZ84QYf437h1NRN29Y/0CYUJykulvktU+lP0x+pqYUEDxdFS66xrxXOmz7F
+ BEj4TAQCJEnKj75WkpsysNlVDbR9QjecqAwd1bgXL03zDFD+YIFX4pW3F/xinHDdqY4ZcXJbcOk
+ fhYu1kQ/OmvfkSS1fPA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-27_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608270052
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+The mpc_validate_xid() function sets grp->saved_xid2->xid2_flag2 to 0x40
+to signal XID validation error. If peer XID is NULL or r/w channel
+pairing mismatch happens, grp->saved_xid2 is never initialized. An
+attempt to set the flag in such case leads to NULL dereference.
 
-resize_stripes() has two issues in how conf->disks is replaced:
+Fix this by using the always available priv->xid->xid2_flag2 instead of
+grp->saved_xid2->xid2_flag2 for validation errors.
 
-1. Memory leak: conf->disks is replaced with ndisks in Step 3, but
-   pool_size is only updated at the end with "if (!err)".  If Step 4
-   (allocating pages for new stripe slots) fails, pool_size retains the
-   old value.  On teardown, free_conf() iterates only pool_size entries,
-   leaking (newsize - pool_size) extra_page allocations.
-
-2. Use-after-free: conf->disks is freed and replaced without holding
-   mddev->lock, while raid5_status() (called from /proc/mdstat via
-   md_seq_show) reads conf->disks[i].rdev under mddev->lock.  The
-   freeing and replacement happen under reconfig_mutex and
-   cache_size_mutex, which do not exclude mddev->lock holders.
-
-Fix both by deferring the conf->disks replacement until after Step 4
-succeeds, and performing the pointer swap under mddev->lock so that
-concurrent readers in raid5_status() see either the old or new array,
-never a freed one.  If Step 4 fails, ndisks is freed instead.
-
-This also preserves the original retry behavior: pool_size is only
-updated on full success, so check_reshape() correctly calls
-resize_stripes() again on retry.
-
-Fixes: ad01c9e3752f ("[PATCH] md: Allow stripes to be expanded in preparation for expanding an array")
+Fixes: 293d984f0e36 ("ctcm: infrastructure for replaced ctc driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+Signed-off-by: Aswin Karuvally <aswin@linux.ibm.com>
 ---
-
 Changes in v2:
-  - Defer conf->disks replacement to after Step 4 instead of setting
-    pool_size early, which would break reshape retry logic (Sashiko)
-  - Add spinlock protection around the pointer swap to fix a concurrent
-    use-after-free in raid5_status() (Sashiko)
+* Ensure FSM goes to INOP for XID validation failure of either channel
 
- drivers/md/raid5.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ drivers/s390/net/ctcm_mpc.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -2639,9 +2639,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 				if (ndisks[i].extra_page)
- 					put_page(ndisks[i].extra_page);
- 			kfree(ndisks);
--		} else {
--			kfree(conf->disks);
--			conf->disks = ndisks;
-+			ndisks = NULL;
- 		}
- 	} else
- 		err = -ENOMEM;
-@@ -2685,8 +2683,20 @@ static int resize_stripes(struct r5conf *conf, int newsize)
+diff --git a/drivers/s390/net/ctcm_mpc.c b/drivers/s390/net/ctcm_mpc.c
+index 08e36685e578..61c88fe853c5 100644
+--- a/drivers/s390/net/ctcm_mpc.c
++++ b/drivers/s390/net/ctcm_mpc.c
+@@ -826,7 +826,7 @@ static void mpc_action_go_ready(fsm_instance *fsm, int event, void *arg)
+ 
+ 	fsm_deltimer(&grp->timer);
+ 
+-	if (grp->saved_xid2->xid2_flag2 == 0x40) {
++	if (priv->xid->xid2_flag2 == 0x40) {
+ 		priv->xid->xid2_flag2 = 0x00;
+ 		if (grp->estconnfunc) {
+ 			grp->estconnfunc(grp->port_num, 1,
+@@ -1636,7 +1636,6 @@ static int mpc_validate_xid(struct mpcg_info *mpcginfo)
+ 			"The XID used in the MPC protocol is not valid, "
+ 			"rc = %d\n", rc);
+ 		priv->xid->xid2_flag2 = 0x40;
+-		grp->saved_xid2->xid2_flag2 = 0x40;
  	}
- 	/* critical section pass, GFP_NOIO no longer needed */
  
--	if (!err)
-+	if (!err && ndisks) {
-+		struct disk_info *old_disks = conf->disks;
-+
-+		spin_lock_irq(&conf->mddev->lock);
-+		conf->disks = ndisks;
-+		spin_unlock_irq(&conf->mddev->lock);
-+		kfree(old_disks);
- 		conf->pool_size = newsize;
-+	} else if (ndisks) {
-+		for (i = conf->pool_size; i < newsize; i++)
-+			if (ndisks[i].extra_page)
-+				put_page(ndisks[i].extra_page);
-+		kfree(ndisks);
-+	}
- 	mutex_unlock(&conf->cache_size_mutex);
- 
- 	return err;
+ 	return rc;
+
+base-commit: f967455fb2a5a2079b9eb5823e9ccf359174bf9f
 -- 
-2.34.1
+2.53.0
 
