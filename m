@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E954DB54B;
-	Thu, 27 Aug 2026 19:07:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740C54DBD6B;
+	Thu, 27 Aug 2026 19:07:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787857653; cv=none; b=q6+Cm/qYdSjKViiCawYTx617wQYRI/5xcQwchU2/0bVBv7nzXjxCIDnCxz72Jz8ww4S862wt9MYpvTOHHwCcKwPh8JBDCmDCMGTqRm7qKMzxxx6wKZKenlIl29yCL591W4EQn6SUQXpK4yaVfLTuUZncrKIgbYHso3XS9hYsUPU=
+	t=1787857657; cv=none; b=LdskBy5/8X/sTEd1g0N0qn10HBY5CXDzBssblH6oXdQVhz9Io1IACRom/ExHnnOWbsxTzMd3De+sTWaHRn6ZxqDxURC+yObSdOmtDA5huNzymSAo5vFjVo7ZI3zvFGVphWUJQBzdjij6K2H3nN/3YcWPpAiZA1Y7YzHXbFC3JA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787857653; c=relaxed/simple;
-	bh=9K91xs1LoNGvs0q+jYYkVc0Ld554sqyE/4hNxzZIZtw=;
+	s=arc-20240116; t=1787857657; c=relaxed/simple;
+	bh=KkdxcIZKprn2SFoi+QLVfX4qZUuOLk0CJyhIUgbyh8Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H39Mb+AmdIMHbsF2p95sSsnK8Rkkot4z7hgXUcpHMumIVqrXA1vYaRWoWhn6KfyczNdNbSUEkW/PaeywWtOCbOWNfoGYtuJ/Jt6Rw7/gd7YhqvAS5i2Cko6DqhM3YhGmwGT1exz59IzWUKrKL9fVf7+5RSJn/c2Uhr8VsUpu1G4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ahv7Kimq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AoOhXcwaAfwGgcsMl8XNxZvJdobrcEika1jJbfboimpjZDFYB44FbIf5WXKFTSREtdgE8tVLuTi0kNKE/+6Y/3MkOi3o6OKc70gZhY2xEsPqgH4Ug7PqdsvIcXFO+AClgc9a0/cGr8BaKzN9q+iIA+uW/PsFHhnQQjRYkCu1sCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Si0YVzBe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ahv7Kimq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7341F00A3E;
-	Thu, 27 Aug 2026 19:07:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Si0YVzBe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE671F000E9;
+	Thu, 27 Aug 2026 19:07:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787857648;
-	bh=8fr17X89R+htO3pXl2NdsMPY0Yh2gQM2QBdTe2Z82bo=;
+	s=k20260515; t=1787857649;
+	bh=C8VpFOlmPgffnFEeX8nl5YuUn5qSwQ0vYhndKu61bvY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ahv7KimqeSM01voPHFN58EibCndjppUpVap9m1ZAUyKzZh7rn4rhY94yNQUtSg9sC
-	 eAr5g+HAvWTKxaLBakpMJ1TBnZSdG/XlfxUY75+xe+GEi0OZFbm6fGyirWbN6CiZ0W
-	 hh95WnbR0X+SKWp3f8tadcz3JZCW7/rVVOTC9kDKI1XGcAsz8EOnCbeGMvsgYT8Cle
-	 d7myvY8XSUm1ja08x5MjBAOmhDovvhNthaRV5DBJF7k3xy+ldW3y8l4tbLEd2hVVlo
-	 W0/kBxndIpx+RPlulhLTUvY9ESvDSg0YKYzaWhuHYEvyp18MsGbmjWLReqX/PQqwd9
-	 gqAZAi75QseiQ==
+	b=Si0YVzBe90Bo6kyWp/sK37715ykrLbOvSo9HnYmzKA1AsiW9+q2MVkNvKF15JfvlZ
+	 fxFmCyLimA9VAxgypmcWkd3UHi/h+iXgGUqdoXjgmrZy6iVSyVG7Xdpe50una8VkuJ
+	 Wrg+1YnxWa06CsET/F1QTK6yYmSqKpHzG0QRn/XHEAEewbVvmBJGO/ykHyyTbUCuh8
+	 lRXBy+Njms89v9AloiHGZRrB41X2ljpUrIsbuAF0Rj6TvDQ2DboED7gBIo6AyhJw5Q
+	 gwbnd2dOeDiRFNR28O+EK5r+Q0QpW5jLEn6O3U8Ozoq547ul3jEecLUaXp245+FVg/
+	 WMiODP8DUE58g==
 From: Jakub Kicinski <kuba@kernel.org>
 To: matttbe@kernel.org
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -39,12 +39,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	mptcp@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net 05/14] mptcp: options: handle MPC data + csum reqd + no csum
-Date: Thu, 27 Aug 2026 12:07:27 -0700
-Message-ID: <20260827190727.3998288-1-kuba@kernel.org>
+Subject: Re: [PATCH net 08/14] mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
+Date: Thu, 27 Aug 2026 12:07:28 -0700
+Message-ID: <20260827190728.3998323-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-5-a92309d121ca@kernel.org>
-References: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-5-a92309d121ca@kernel.org>
+In-Reply-To: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-8-a92309d121ca@kernel.org>
+References: <20260824-net-mptcp-misc-fixes-7-3-rc1-v1-8-a92309d121ca@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,121 +56,115 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-mptcp: options: handle MPC data + csum reqd + no csum
+mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
 
-The parser in mptcp_parse_option() no longer sets OPTION_MPTCP_CSUMREQD from
-the MP_CAPABLE 'A' flag when the option carries a data-len, so only the
-presence of the 2-byte checksum field marks a data-bearing MP_CAPABLE as
-checksummed.  This avoids using the uninitialised 'csum' field when a peer
-sets the flag but omits the checksum bytes.
+This moves the retrans_times reset from the fresh-allocation path into the
+shared reset_timer block of mptcp_pm_announced_alloc(), so a reused
+ADD_ADDR entry gets its retransmission budget back when the timer is
+re-armed.
 
-Link: https://datatracker.ietf.org/doc/html/rfc8684#section-3.1-23
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664%40kernel.org?part=4
 
-> diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-> index b8318e0301389..92f27b9e087a6 100644
-> --- a/net/mptcp/options.c
-> +++ b/net/mptcp/options.c
-> @@ -93,7 +93,8 @@ static void mptcp_parse_option(const struct sk_buff *skb,
->  		 * In other words, the only way for checksums not to be used
->  		 * is if both hosts in their SYNs set A=0."
->  		 */
-> -		if (flags & MPTCP_CAP_CHECKSUM_REQD)
-> +		if ((flags & MPTCP_CAP_CHECKSUM_REQD) &&
-> +		    opsize < TCPOLEN_MPTCP_MPC_ACK_DATA)
->  			mp_opt->suboptions |= OPTION_MPTCP_CSUMREQD;
+> diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
+> index 8b68868255c50..b0b71adefb8fe 100644
+> --- a/net/mptcp/pm.c
+> +++ b/net/mptcp/pm.c
+> @@ -462,10 +462,10 @@ bool mptcp_pm_announced_alloc(struct mptcp_sock *msk,
+>  
+>  	add_entry->addr = *addr;
+>  	add_entry->sock = msk;
+> -	add_entry->retrans_times = 0;
+>  
+>  	timer_setup(&add_entry->timer, mptcp_pm_add_addr_timer, 0);
+>  reset_timer:
+> +	add_entry->retrans_times = 0;
+>  	add_entry->timer_done = false;
+>  	timeout = mptcp_adjust_add_addr_timeout(msk);
+>  	if (timeout)
 
-[Severity: Medium]
-On the passive side, is the third ACK's 'A' bit not the only place where the
-peer's checksum requirement is recorded?
+[Severity: High]
+This isn't a bug introduced by this patch, since the reset_timer block
+already contained the timer_done = false plus sk_reset_timer() pair, but
+since the patch adds another store into exactly this block, is the block
+sufficiently serialized against the timer callback?
 
-subflow_init_req() derives the request state purely from the local sysctl:
+The reuse path runs from mptcp_pm_nl_announce_doit(), which holds
+lock_sock(sk) and msk->pm.lock:
 
-net/mptcp/subflow.c:subflow_init_req() {
-	...
-	subflow_req->csum_reqd = mptcp_is_checksum_enabled(sock_net(sk_listener));
-	...
-}
+net/mptcp/pm_userspace.c:mptcp_pm_nl_announce_doit() {
+	lock_sock(sk);
+	spin_lock_bh(&msk->pm.lock);
 
-There is only that single store of csum_reqd in net/mptcp/subflow.c, so the
-'A' bit seen in the remote SYN is not saved anywhere.  The only server-side
-promotion into connection state is in mptcp_sk_clone_init():
-
-net/mptcp/protocol.c:mptcp_sk_clone_init() {
-	...
-	if (mp_opt->suboptions & OPTION_MPTCP_CSUMREQD)
-		WRITE_ONCE(msk->csum_enabled, true);
+	if (mptcp_pm_announced_alloc(msk, &addr_val.addr)) {
 	...
 }
 
-With net.mptcp.checksum_enabled=0 (the default in net/mptcp/ctrl.c) and a
-peer whose SYN had A=1, does the new opsize test mean msk->csum_enabled now
-stays false for a 22-byte MP_CAPABLE + ACK that carries a data-len, sets A=1
-and omits the checksum field?  That option length is still accepted by the
-size check just above:
+mptcp_pm_add_addr_timer() writes timer_done under bh_lock_sock() only, and
+its TCP_CLOSE early-out comes before the sock_owned_by_user() deferral:
 
-		if (opsize != expected_opsize &&
-		    (expected_opsize != TCPOLEN_MPTCP_MPC_ACK_DATA ||
-		     opsize != TCPOLEN_MPTCP_MPC_ACK_DATA_CSUM))
-			break;
+net/mptcp/pm.c:mptcp_pm_add_addr_timer() {
+	bh_lock_sock(sk);
+	if (unlikely(inet_sk_state_load(sk) == TCP_CLOSE))
+		goto out;
 
-Downstream, mptcp_incoming_options() then sets mpext->csum_reqd = 0, and
-get_mapping_status() compares:
-
-net/mptcp/subflow.c:get_mapping_status() {
+	if (sock_owned_by_user(sk)) {
+		/* Try again later. */
+		timeout = HZ / 20;
+		goto out;
+	}
 	...
-	/* Cfr RFC 8684 Section 3.3.0 */
-	if (unlikely(subflow->map_csum_reqd != csum_reqd))
-		return MAPPING_INVALID;
-	...
+out:
+	if (timeout)
+		sk_reset_timer(sk, timer, jiffies + timeout);
+	else
+		/* if sock_put calls sk_free: avoid waiting for this timer */
+		entry->timer_done = true;
+	bh_unlock_sock(sk);
+	sock_put(sk);
 }
 
-Both sides being false, the mapping is accepted rather than rejected, so no
-RST is sent for the non-conforming peer and the connection runs without
-checksums even though the peer asked for them.  Our own writer still emits
-the bit on data-carrying MPC + ACKs:
+In TCP_CLOSE the callback reaches out: with timeout == 0 and stores
+timer_done = true even when a process-context task owns the socket, since
+lock_sock() only sets the owned flag and bh_lock_sock() still succeeds.
+The reuse path does not take slock and the callback does not take pm.lock
+around that store, so can the two stores interleave like this?
 
-net/mptcp/options.c:mptcp_write_options() {
-	...
-	if (opts->csum_reqd)
-		flag |= MPTCP_CAP_CHECKSUM_REQD;
-	...
+CPU0 (MPTCP_PM_CMD_ANNOUNCE re-announce, msk in TCP_CLOSE)
+mptcp_pm_announced_alloc()
+    add_entry->timer_done = false;
+    sk_reset_timer()   /* timer becomes pending again */
+
+CPU1 (previously armed timer expiring)
+mptcp_pm_add_addr_timer()
+    bh_lock_sock(sk);
+    inet_sk_state_load(sk) == TCP_CLOSE -> goto out
+    entry->timer_done = true;   /* lands after CPU0 re-armed */
+
+That would leave the timer pending with timer_done == true, and teardown
+via mptcp_pm_destroy()->mptcp_pm_free_announced_list() skips the sync stop
+in that case:
+
+net/mptcp/pm.c:mptcp_pm_free_announced_list() {
+	list_for_each_entry_safe(entry, tmp, &free_list, list) {
+		if (!entry->timer_done)
+			sk_stop_timer_sync(sk, &entry->timer);
+		kfree_rcu(entry, rcu);
+	}
 }
 
-Related to this, the changelog says the csum field "is only used to compare
-with the expected one, if previously negotiated in the 3WHS".  Since the
-passive side never records the peer's SYN 'A' bit, does that statement hold
-for a listener?
+Can the still-queued timer then fire on the freed entry after the RCU
+grace period, reading entry->sock and calling sock_put() on it? The
+remaining expiry can be as long as the add_addr_timeout value, which is
+much longer than a grace period.
 
-[Severity: Low]
-This isn't an issue introduced by this patch, but while touching this area:
-the trailing pr_debug() in mptcp_parse_option() prints fields that are only
-conditionally assigned:
+For reachability, mptcp_pm_announced_alloc() only rejects
+MPTCP_PM_DESTROYING, and mptcp_pm_nl_announce_doit() does no socket-state
+check, so an msk sitting in TCP_CLOSE with a live token and an open fd
+still reaches the reuse path.
 
-		pr_debug("MP_CAPABLE version=%x, flags=%x, optlen=%d sndr=%llu, rcvr=%llu len=%d csum=%u\n",
-			 version, flags, opsize, mp_opt->sndr_key,
-			 mp_opt->rcvr_key, mp_opt->data_len, mp_opt->csum);
+Would stopping the timer (or taking bh_lock_sock()) before re-arming in
+the reset_timer block, or moving the TCP_CLOSE check after the
+sock_owned_by_user() check in mptcp_pm_add_addr_timer(), close this?
 
-sndr_key is only set for opsize >= TCPOLEN_MPTCP_MPC_SYNACK, rcvr_key for
-opsize >= TCPOLEN_MPTCP_MPC_ACK, data_len for opsize >=
-TCPOLEN_MPTCP_MPC_ACK_DATA and csum only for opsize ==
-TCPOLEN_MPTCP_MPC_ACK_DATA_CSUM.
-
-mptcp_get_options() only clears the status group:
-
-net/mptcp/options.c:mptcp_get_options() {
-	...
-	*(u32 *)&mp_opt->status = 0;
-	...
-}
-
-and struct mptcp_options_received in net/mptcp/protocol.h places sndr_key,
-rcvr_key, data_len and csum before struct_group(status, ...), while callers
-such as mptcp_incoming_options(), subflow_check_req() and
-mptcp_subflow_init_cookie_req() declare the struct on the stack without a
-memset.
-
-When the dynamic-debug callsite is enabled, does this print stale caller
-stack bytes for MP_CAPABLE SYN, SYN/ACK, plain MPC + ACK, and the
-data-without-checksum case this patch targets?  Would initialising csum and
-data_len (or extending the zeroed region) make the stated goal of the patch
-hold regardless of the debug setting, including for the stable backport?
+Also noting that no later patch in this series touches net/mptcp/pm.c, so
+this state persists at the end of the series.
