@@ -1,204 +1,119 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE462C0F6C
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787815159; cv=pass; b=ng81J5Lbss9eRctSGe6MZtsMQBz/z9qKuS+muhVhvuTn8HfhHHPtH9jJcvUFhDoDMhkUAEaJuojv5Gr8osuLOk5sVuOBOKYyjQshJ+48gYAJVBklfjFR4TpjCmQ/74asoijSfUwV+33lZECZrAO7DLMANBi30RKYYyCRe424hec=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787815159; c=relaxed/simple;
-	bh=VUasteM/1eK2m7/PtquDXotFQqnoyDt+RcdvdR9rizo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QGxMEGMXVUvMP2lxIJcWQjoZubxW5LLkBI/VKko3++fizP2h7C9LblHWUQGSmaOgcA51HpmnCkI8S/yEa2mv+U0VdpuslM7y0TCFV7KK8BnKSQY7HKflN0PIAEABMynoGgSwsFnaGXtJA9axwG+qKbo8NiT/IQapGz8BkWTHJOw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VlIHKX8D; arc=pass smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31DE3557F3
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 07:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787815665; cv=none; b=tpO8fId4gFVtP80nMybbux4owi7WfQ4/qToxG1DwRsoHvXp47HLRNNpRn7yNfvv/zbXlUT5/NGIkxreKz3MK4tF87URXdUxIOo2aqBHbC1qDIXm04FMUFo1gLGJGXnVGszKdjA9NyDajYY14qYwjkaxJpo7btfwJjNId0VIZ9q0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787815665; c=relaxed/simple;
+	bh=RW+2FLygnkT7VKSaO3nDahuHx/wOKYtQk2ensP7S75Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L6+aaqZnUNdhcR4RqBbG5tX+Go5Bks7M+YmF5JV5GzKZpBDJKSlHN/R3NKgpuiX7DdhM5iYw7ponbCvBodx2PkMERn0XQhLM7o6NJBBKIZ/TTZdVBnLgADTgTevFQsKrNu2/U4r3LxnHRQT16kVDcoMCdGWHI1xs/Zme8MwBo4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H4KA730I; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VlIHKX8D"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-836c8bde2dcso25904947b3.0
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 00:19:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787815157; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UMjWHAPTj629b/SdenY9BCpWlxJjKTJxprSCYlv1HS2U1HnDJXgMmPxTL2ndk0opTl
-         llrNqao7zQxWgtuHGwWh7lBf96KoFMqNH4qZXdfWF7DWJKDrmbaYrVZc4aYRzo6wgy6k
-         iCHvkPcqFPQZDi3o1brdlabNIyG+VGlykHfgsDQknw/hVbrfb7+4r8syvZSoPSCW73mz
-         XW8lWqTAV+eb/Ssitl4tSTdY+2z/p6309gH5BhJV2mEmtJ/zwNlLuEgssHZ2gZHYrTxl
-         IUU/GfAtJlCUcSke+/vJ7V5rkNa+bheFnjs4X3ww1eaHrneLy/KfZjbn2T33hn697ava
-         /7sQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
-        fh=4ZScqpivEzTyiQ9mIKRJ4VZugrYillalsqnatS73GP8=;
-        b=ToyzpLGnx1iz+1Kidp9SiTbo4cuGxnEiDH+60wZ9+zdG4eJaHYg8r/9EhqJ9Btl6S9
-         39gTg9eL/Tzsp1EFTlWw2p+/WDqLb7pIJppT0C5WhkLBXTSQfQe+6JWsU98yDVGFtWvO
-         ffQKNVN63BzXxtIU5cqgvxsTvFfydrA8vjx+Id+LywHiQMcg9UPhhz8VjKa0NF0B/QcI
-         XMHTedOZ8aG8iI05jBjYOxWFyzk1+FoXNMpIL1ERLBnHsj6OzLsKo5COv/bImB3phlG0
-         FVbXidJpUw7KgGFlJ8bfPupgfoVg7U3M7jHFMRHLNfXB3xMSrW5oPaS0toaH1jui1wfg
-         qEow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H4KA730I"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e347638adso2331363a91.0
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 00:27:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787815157; x=1788419957; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
-        b=VlIHKX8DEBHGagy/cSXdT/tzpQY4qAAQ7ZO6v64a7LsyZj90O9+jB/B26TozOXho4H
-         PwRp+kTZmRJRrdZeshTNfmHHlejj0Fmq4tWZQFy1Vi4Yqqi4upSRKpNeWVDLj49HnmFS
-         pereMSswrSzIEgOzdg0HiKQbymU4cBiaweYY9GzchcxzeDIhUWlOwcDbOp47dLBOr6XB
-         ngtGyVyffRckXuWGZhF4UAjBHOEaMvY8qEYXHeD2MykUxQJSXReIcPSSXs0ICxq3hTvz
-         x/LN3sbXaYzCaUSThN8i7+vT96ouzQ0OHxzUEL3V5si2wolI+5nMPmWd11wNCjFZNNEy
-         YeuQ==
+        d=gmail.com; s=20251104; t=1787815663; x=1788420463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jhgeScSczCiBwmHIIxWPTFb5OADckPp/7bxTknyDE6w=;
+        b=H4KA730IG6fHs1R2p4nUSj+Hpok6dD6Zd8Ij3DbHqbsvjqCXkquc4CLaaGRtSA5tYb
+         ddcYs9ZEaJ4h7TQ1C9iQq+/yn+XlLgKIGX/Ia2ZAF6/45jsFTj5f4kL5Z8EEX5x0q1Hf
+         fYqyu7ipVheyDM9e1sAODuAAdIZeB9a58kVlGgeah9GiJs851R4c1tNylJb8ZaFWWgdd
+         GQIzG0bUYapTzerdza2VUEH5t5Qum5s6PE9SqXITOkObM60r9S2i9UNMgW1MuNfJGDXv
+         9u0BDbZ7dn2oLGDJTCiM/ZrrzQdJfH7eE58kKhxqosk0nBCZU8n1+j4q+IuuOfZ6RT6u
+         NVXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787815157; x=1788419957;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IhU91M+LW4kUF2uW8BgolP2/H8Gx1gryC+2FQXRk+lc=;
-        b=joFAvae69yDAIxsoqq8SR2Q3dUm7hctashYSOp4XXeMNGBZ5tIuazxcQhRZEXdRfjI
-         a9vDVkQ8toEgkANyfxqx65nremtBLkK6+t7FgSa409Cp68XAIzUg8dPjY45+fxtU0JA+
-         k4leJcDIuQveBPe1DaTqX5jkij/An0S0fw0DYUcM+wd7djAHYbeW/1ima3+efyREIJrt
-         ImZVP2RQKVJUc/0jqiLptuOBJaOGYDmOSb27uWX6Fw+SCwHbaNb9++8k8e2fzTh9c4/n
-         bmK20LzhJST5zhbWpBCoXeYrxJh8jaLw7yBkPEJvGQRB7KU6pBuArVUJlQxq9aE8bIHz
-         fovQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqztfdefjMzOXFS5lj7Sh/4bbV+taOuS0p+nWi8mGEiK0P7RS3cd9+5f6KQI9ZhyZaBxwJfccw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l96NxLxvt2455JT14nNIK7be0TUDVrVqMKYKFE/9gzadYzGs9b
-	9B7x0Ien/c+Id1g/JFuYoDSq2Ec1qVYhxRXFCs3I7DAPE/M7Y8HY/bMvgUN8T+JYEmnR/t928wL
-	BybKpGzU6Y2/zFK5JrcYqfF+FCqpydq/3TWddwwuu
-X-Gm-Gg: AR+sD133oJGyeg+6g2PjgO/ExXa3rsD63W/lVAvcjLLDEXZMWQi6NTpbECN2T3dr76O
-	kG7V11CUiLj/nvQnJP8ia0ucGHBc8OJWswTbMHXTgQNXXCsZFozltpKQ324YIg0AhGEaeTkRmTy
-	iY0cnlt4nZnm6noTdqYGKjagjBjS/IOuvNLN77xwfKTpw3Gw0AnhoZfpLwL/HnSznqicqyF4A43
-	u2+x3nORdZR+kSwDGEugUPanvpVmw5Cql0zN6JJQXaC9vz6KxvX7xAY3rIIINdDidDWsSQZCtR3
-	YKjp6h75vH8Pb/ZGfEdamLpUEPDDobsuQxlY0AlfeBEsmXEYIxYN9Nb4s9HI5CGv1uxNnVbwlDX
-	KNToBii97fPgiojGfB30wTnutIIfw3z05UwImm0FDUIRcpbf20hRU2srIS+Pt
-X-Received: by 2002:a05:690c:e288:20b0:855:f387:98c0 with SMTP id
- 00721157ae682-85740497376mr45849787b3.29.1787815155156; Thu, 27 Aug 2026
- 00:19:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787815663; x=1788420463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jhgeScSczCiBwmHIIxWPTFb5OADckPp/7bxTknyDE6w=;
+        b=PYdwiMFyyYJM8kxJfThJzxlNpyyzDoruaf8ZLTUVpt8wkNEn4TNkVpvcHObkjEyU7s
+         UwjbGDdt5IPhnK91rQz95iwyBItkywg+L9iPkW+GwDSXsvKBOnxi1ZKOJ0KmV7SQ0TaK
+         18WP8U0vF20o9KzPqLmToSPR2MyV6XQ+2q7Ap6/v5L58dxN7BW26zdDccPB/zFUyvRt3
+         G5LZwU7IqA2csSrTbhtJTgxQvLepvIXLID/bT6Yp3GXKfvWx1edZWdgbKd70B18JWcli
+         Y4a68WonFC15wd/p84zaN4BjO4z8FnlmUL2xwXOGBuLrTCjgbWtR7JTDIDuuWzRqt8Uz
+         guaw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/vyMOupMVADvCfGWyqNsKuXLT5Sz9EF085UHyyiFpsFs/QwPFw4bvXScWErqH7N9039KEOvU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAKDmvCPYuGLg/fRSPRBREPf2/8TUa0Glc7nmY13F9Iw34LHnH
+	pUmY+VEuMcz3n6rPKAEKQaMxB0RqhcPcjbzB7kUItJiiSU5xnDcmrYTs
+X-Gm-Gg: AR+sD11uLITWAsHD6Sms3aex13aDQUKxTQAe2U1lo1icY/Bv+7OjQTOffOKmLD8W83U
+	7RKrjPaP6hrcTPLjo27k11Ta7KRSGZ+M1Ni8tiBRg8r29HJ8BM6YfB8eOrqs0Dr9SFBhiMhG8LR
+	6RUtj+/DDasXFPpGdDs8CSn4H7t1EOOyTN2TMLEGekjfOBDX9QWboFN4WdL0f4jbBciKYMm5wpF
+	oi41NjPxpDWYEs8zO3/XvCG4fAM6LXKob8JPw5w70oeHZ8pfZX7zmMJVQl3uvPpmPj3tAIT2bFn
+	II/vGeoHvIlIRW9oXOCljWyoMm0gZCRZzLHwEjPynV6R1uybl+9JdZU8viKOezMgCr3rxgslOCg
+	l06F5xZx8d2qfWmswBDX3Fs4s86XXjKF8bcxMMTp4hlZK3ID3ztAxnHRf86P5xWb55ttJ0Fz5LK
+	ztt0PJkpuVBJWqDm4OTcDR+BC1Qp7sloUOq7qcpcqSHarKMXkBCVlQlwWLWVMD3O4BmiTrsemyU
+	EWlsqLqEOwqgoRWfbhjKguwZ582QOy5W4FfHw==
+X-Received: by 2002:a17:90b:4c8e:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-3966d44daf1mr21255453a91.14.1787815663140;
+        Thu, 27 Aug 2026 00:27:43 -0700 (PDT)
+Received: from urmom.192.168.1.1 ([14.170.170.155])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396705f6106sm1791052a91.0.2026.08.27.00.27.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 00:27:42 -0700 (PDT)
+From: Lucas Sproule <lucas.sproule.42@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Rob Herring <robh@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] remoteproc: qcom_wcnss: Fix error check after devm_ioremap_wc() switch
+Date: Thu, 27 Aug 2026 14:27:33 +0700
+Message-ID: <20260827072735.2262888-1-lucas.sproule.42@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260823142620.126424-1-shlomojune6@gmail.com> <CANn89i+5o16tSTk9MpLE24nCAn+SkMeZvHv0W=MqxnXGZDBBiQ@mail.gmail.com>
-In-Reply-To: <CANn89i+5o16tSTk9MpLE24nCAn+SkMeZvHv0W=MqxnXGZDBBiQ@mail.gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 27 Aug 2026 09:19:03 +0200
-X-Gm-Features: AcwNN1Uv5avHkko0YacIDMfyYRxac66XxxBIaWUGZOqnwIzkejhBZ_2TAAKhfiE
-Message-ID: <CANn89iKck9W0KB8Sp7OFDQ+OTFJnBpy=jsmQbZ+VYhrm8yOUgw@mail.gmail.com>
-Subject: Re: [PATCH net] net: skbuff: reject invalid pull bounds
-To: Shihuang Liu <shlomojune6@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 23, 2026 at 4:51=E2=80=AFPM Eric Dumazet <edumazet@google.com> =
-wrote:
->
-> On Sun, Aug 23, 2026 at 4:26=E2=80=AFPM Shihuang Liu <shlomojune6@gmail.c=
-om> wrote:
-> >
-> > skb_maybe_pull_tail() subtracts skb_headlen(skb) from the unsigned max
-> > argument and passes the result to __pskb_pull_tail() as a signed int.  =
-The
-> > function does not ensure that max is at least skb_headlen(skb).
-> >
-> > This can happen while parsing IPv6 extension headers when an skb alread=
-y
-> > has a linear area larger than MAX_IPV6_HDR_LEN.  Once the parser needs =
-data
-> > beyond the linear area, max - skb_headlen(skb) wraps and is converted t=
-o a
-> > negative delta.  __pskb_pull_tail() then passes that negative length to
-> > skb_copy_bits(), where it can become a very large copy length.
-> >
-> > Reject this inconsistent bound before doing the subtraction.  In this c=
-ase
-> > pulling up to max cannot satisfy len because the initial check establis=
-hed
-> > that skb_headlen(skb) is smaller than len.
-> >
-> > Fixes: 1431fb31ecba ("xen-netback: fix fragment detection in checksum s=
-etup")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
->
-> > Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
-> > ---
-> >  net/core/skbuff.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> > index c82a147..33022f7 100644
-> > --- a/net/core/skbuff.c
-> > +++ b/net/core/skbuff.c
-> > @@ -5838,6 +5838,9 @@ static int skb_maybe_pull_tail(struct sk_buff *sk=
-b, unsigned int len,
-> >         if (max > skb->len)
-> >                 max =3D skb->len;
-> >
-> > +       if (max < skb_headlen(skb))
-> > +               return -EPROTO;
-> > +
->
-> pw-bot: rejected
->
-> Please ask your LLM not to slow down the fast path, and find a better
-> fix in skb_checksum_setup_ipv6().
->
-> Note how skb_checksum_setup_ip() is fine.
->
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index d4382b68d56e0b3b247868b4d29ab383cfcf7440..f77d7480594ca6a1dcce2fea7=
-37e421d5ea2d38d
-> 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -5974,7 +5974,8 @@ static int skb_checksum_setup_ipv6(struct
-> sk_buff *skb, bool recalculate)
->                         err =3D skb_maybe_pull_tail(skb,
->                                                   off +
->                                                   sizeof(struct ipv6_opt_=
-hdr),
-> -                                                 MAX_IPV6_HDR_LEN);
-> +                                                 off +
-> +                                                 sizeof(struct ipv6_opt_=
-hdr));
->                         if (err < 0)
->                                 goto out;
->
-> @@ -5989,7 +5990,8 @@ static int skb_checksum_setup_ipv6(struct
-> sk_buff *skb, bool recalculate)
->                         err =3D skb_maybe_pull_tail(skb,
->                                                   off +
->                                                   sizeof(struct ip_auth_h=
-dr),
-> -                                                 MAX_IPV6_HDR_LEN);
-> +                                                 off +
-> +                                                 sizeof(struct ip_auth_h=
-dr));
->                         if (err < 0)
->                                 goto out;
->
-> @@ -6004,7 +6006,8 @@ static int skb_checksum_setup_ipv6(struct
-> sk_buff *skb, bool recalculate)
->                         err =3D skb_maybe_pull_tail(skb,
->                                                   off +
->                                                   sizeof(struct frag_hdr)=
-,
-> -                                                 MAX_IPV6_HDR_LEN);
-> +                                                 off +
-> +                                                 sizeof(struct frag_hdr)=
-);
->                         if (err < 0)
->                                 goto out;
+Commit f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region
+mapping failure") switched back from devm_ioremap_resource_wc() to
+devm_ioremap_wc(), but kept the IS_ERR() check that had been added to
+match the resource variant.
 
+devm_ioremap_wc() returns NULL on failure rather than an error pointer,
+so IS_ERR() never fires and wcnss_alloc_memory_region() returns success
+with wcnss->mem_region left NULL.  Probe completes, and every subsequent
+firmware boot then fails with a bare -EINVAL from qcom_mdt_load_no_init(),
+masking the real mapping failure.
 
-Following up on this, are you planning to send a V2?
+Check for NULL instead, and return -ENOMEM to match the other remoteproc
+drivers.
 
-Thanks.
+Fixes: f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region mapping failure")
+Cc: stable@vger.kernel.org # v7.0+
+Signed-off-by: Lucas Sproule <lucas.sproule.42@gmail.com>
+---
+ drivers/remoteproc/qcom_wcnss.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
+index c856a92af43c..90747af237f7 100644
+--- a/drivers/remoteproc/qcom_wcnss.c
++++ b/drivers/remoteproc/qcom_wcnss.c
+@@ -542,9 +542,9 @@ static int wcnss_alloc_memory_region(struct qcom_wcnss *wcnss)
+  wcnss->mem_phys = wcnss->mem_reloc = res.start;
+  wcnss->mem_size = resource_size(&res);
+  wcnss->mem_region = devm_ioremap_wc(wcnss->dev, wcnss->mem_phys, wcnss->mem_size);
+- if (IS_ERR(wcnss->mem_region)) {
++ if (!wcnss->mem_region) {
+    dev_err(wcnss->dev, "unable to map memory region: %pR\n", &res);
+-   return PTR_ERR(wcnss->mem_region);
++   return -ENOMEM;
+  }
+ 
+  return 0;
+-- 
+2.53.0
+
