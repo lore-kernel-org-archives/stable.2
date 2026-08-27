@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E11138DC49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DECD381AE7
 	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787805615; cv=none; b=qGUGkAoWepV5BDY258FKCGv+k16DZw213ZImhwHVur6YhNZyVf/ocN4dT62nMY5aTzKeeuBy24wz6SNlmT8xRUcHQq/XQSoful/DW9GUNjx5O2ztIi0jD2ha3TpWLxKz9OB/Yf4MmOGOl06rpFfaYujBsVOykg1PGE4i3PyjWiM=
+	t=1787805615; cv=none; b=FitYQNJlpdRTb1rQg588FKFki9ZvYkAmJMDpiIt6SZVb01yrodqzJaWiUav89ZnwaoEkwOMKGUV7qdgq0Mui7M5u++Yp+YxKLBkwT8qiC1fmSpfJFf/UxhLziSY5+peg2cq3P/thKZxtZVmfawLIZkV7E54p8regNLphEKJKYVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787805615; c=relaxed/simple;
-	bh=ujt1yZpUJTflwkHoefXSnIUdkAF3eqchzFgBftv2sWU=;
+	bh=JR+BAavfGuIg39zVLKH2JKfTzMNGZ9I/JrpvjJkNa+s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L7doi0Eazhjx9Y8fT3vqfMoxeBKtO+e+abqBtcdR6AXJIN/ZndzqJxHDXQNcX4jzzCGkoz9Bgp4kpoXEepKO0RhuEvDb/+QtiGefPf6mpwQslNHebNn0T2kbetyj2DT8bT8ortD/2uTMcOwv0pRU4X4jsckLgrbe0MV8d09Y/1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAXhdx4J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KVyBfmvjsfrxENzCsUug0nwRplnPZzJZP28PZ+ElYnwPbS8i98iORrVVUEHnFSoIbiI5MTq+QETQApP6ckmaqj6BJGOWj8D1G0hNoTnLiiEGEexB6ydjXRWl27Ph69PBosF1R8N1bXkS7WcjNHFn+TDA0mjbNIKqZHsjdYUJ738=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kB+LdkMM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAXhdx4J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8E11F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kB+LdkMM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C961F00A3D;
 	Thu, 27 Aug 2026 04:40:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1787805614;
-	bh=C9gRWlnAFc1Wa58nDSs5oh1xOsSa/dUEj0fytL4Z/rc=;
+	bh=XUepsNuHfUEmjlfYSvcYjGA0ZbSMJxxo36mPw4qXLo8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BAXhdx4Jbnq3W7zstb57Jbc68UBv1qlL72j1LNtwFafWz5+1NghgSKpFwaQAW5wS3
-	 NYSkoz3SJngCw2ZutFl5IkFD11YvDo0hwZT14LzqXNxZypQdXEWnGwdmjBMvqyKN43
-	 Ob30RZ4Bh/XjJC8eUyQA3Wn1yfKCFJYdq2I9nF1IfI5fASlrIdqrkGgMMRnZWAw8wR
-	 L6rVJGLpnLuYc1sns2H9My1TCaU2SKNEAwdE1CIAo4INEs63MEknT7tF882QclPTtM
-	 A55UIAIZIQSQYwefqe7QYV0VuLTM3jchplX2JZigxIgPqBDEI+PiD4KF9cwzx0lDiv
-	 2zCeCkFq8Hwtg==
+	b=kB+LdkMMn5YuMer14+4GDZR0CmccgNVU3bii9OpFBVSiwXUHqVEs+OdXkoaZNDA9u
+	 c955cBbVbtXgS1aW+g4litKTyZmLhWYC03BwGFqp8kTxasXwVHtBiBnDjPtKHEGFsv
+	 FUtXIxk2I2L88R1YdO0886Es3d+4NdT4MaeanLyVmjqBVPfliLIgE171e07M4ctgI+
+	 2u1pZzOt+Jv4TdwoY47b8QM9uupU72ihAudlLv69e9rWhrs5aKeC4kJDLBwCZR58al
+	 pC+LIqX+KPvQpAFaYCz6Nk/OEDkl8mv8kfl6QrqCdsVS9Acdo9gWv+mBzc7FydUPaI
+	 GSBBcv1GRz9LA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Zaidman <michael.zaidman@gmail.com>,
-	=?UTF-8?q?Sebasti=C3=A1n=20Josu=C3=A9=20Alba=20Vives?= <sebasjosue84@gmail.com>,
+Cc: =?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>,
+	Alec Hall <signshop.alec@gmail.com>,
 	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 7/8] HID: ft260: validate i2c input report length
-Date: Thu, 27 Aug 2026 00:40:05 -0400
-Message-ID: <20260827044007.3635916-7-sashal@kernel.org>
+Subject: [PATCH 5.15.y] HID: input: read battery capacity from its actual report offset
+Date: Thu, 27 Aug 2026 00:40:12 -0400
+Message-ID: <20260827044012.3636019-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827044007.3635916-1-sashal@kernel.org>
-References: <2026082538-obstacle-cogwheel-cfc1@gregkh>
- <20260827044007.3635916-1-sashal@kernel.org>
+In-Reply-To: <2026082544-profusely-glaucoma-4d1e@gregkh>
+References: <2026082544-profusely-glaucoma-4d1e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,61 +47,122 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Michael Zaidman <michael.zaidman@gmail.com>
+From: Jose Villaseñor Montfort <pepemontfort@gmail.com>
 
-[ Upstream commit 80c4bbb2b38513e9c3d84805fa61a0ee16d79c45 ]
+[ Upstream commit d07644524b6511b622ee7b0e2e68c9ee43d522a4 ]
 
-Add two checks to ft260_raw_event() to prevent out-of-bounds reads
-from malicious or malfunctioning devices:
+hidinput_query_battery_capacity() assumes the state-of-charge value is
+the first byte following the report ID (buf[1]) and ignores where the
+battery field actually sits within the report.
 
-First, reject reports shorter than the 2-byte header (report ID +
-length fields). Without this, even accessing xfer->length on a
-1-byte report is an OOB read.
+An Apple Magic Trackpad 2 precedes the AbsoluteStateOfCharge byte with a
+byte of status flags in its battery reports, so this query returns the
+flags byte instead of the charge level.
 
-Second, validate xfer->length against the actual data capacity of
-the received HID report. Each I2C data report ID (0xD0 through
-0xDE) defines a different report size in the HID descriptor, so the
-available payload varies per report. A corrupted length field could
-cause memcpy to read beyond the report buffer.
+The device happens to make that easy to observe, because it exposes the
+same cell twice: its report descriptor declares AbsoluteStateOfCharge in
+two reports (0x90 and 0x9b), so hidinput_setup_battery() registers two
+power supplies. Only the first one is refreshed by hid-magicmouse -- it
+uses hid_get_battery(), which returns the first battery of the list --
+and that refresh goes through the report event path, which parses the
+field correctly. Nothing ever reports the second one, so every read of
+its capacity takes the query path above. On a USB-C Magic Trackpad over
+USB, on an unpatched 7.1.5:
 
-Reported-by: Sebastián Josué Alba Vives <sebasjosue84@gmail.com>
-Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
+  hid-<serial>-battery-144 = 100%  (Charging)      <- report event path
+  hid-<serial>-battery-155 =   3%  (Discharging)   <- query path
+
+Both are the same physical battery. A raw HIDIOCGINPUT of the two
+reports at that same moment:
+
+  report 0x90 -> [90 03 64]
+  report 0x9b -> [9b 03 64 64 00 00 10 00 00 00 00 00 00 00]
+                     ^flags ^SoC = 0x64 = 100%
+
+The device answers correctly in both cases; only the offset the kernel
+reads the capacity from is wrong. 0x03 is the flags byte (present,
+charging), reported as "3%".
+
+Bluetooth takes the same query path for its capacity, where the trackpad
+reported a bogus near-constant ~4% -- 0b100, the FullyCharged flag --
+regardless of the real charge.
+
+Store the battery field's offset within the report at setup time and use
+it when querying, so the capacity is read from its real position. The
+report event path already parses the field correctly through the HID
+core; only the explicit GET_REPORT query was wrong.
+
+Devices whose capacity field is the first field in the report have a
+report_offset of 0 and are unaffected (buf[1 + 0] == buf[1]).
+
+Fixes: 581c4484769e ("HID: input: map digitizer battery usage")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
+Reviewed-by: Alec Hall <signshop.alec@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Stable-dep-of: bf3e39df3a39 ("HID: ft260: fix stack-use-after-return write in I2C read race")
+[ Adapted `bat->report_offset` and other `struct hid_battery` accessors to the flat `dev->battery_*` fields on `struct hid_device` and replaced `__free(kfree)` with manual `kfree(buf)` calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-ft260.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/hid/hid-input.c | 17 +++++++++++++----
+ include/linux/hid.h     |  1 +
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 58dacc271a7f1..4c085ede74152 100644
---- a/drivers/hid/hid-ft260.c
-+++ b/drivers/hid/hid-ft260.c
-@@ -1068,10 +1068,22 @@ static int ft260_raw_event(struct hid_device *hdev, struct hid_report *report,
- 	struct ft260_device *dev = hid_get_drvdata(hdev);
- 	struct ft260_i2c_input_report *xfer = (void *)data;
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index d03a447dbe6b8..12b94ea3b64df 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -367,19 +367,27 @@ static int hidinput_query_battery_capacity(struct hid_device *dev)
+ {
+ 	u8 *buf;
+ 	int ret;
++	/*
++	 * The capacity field may not be the first field in the report: some
++	 * devices (e.g. the Apple Magic Trackpad 2 over Bluetooth) precede it
++	 * with status flags. Read it from its actual byte offset in the report
++	 * (report_offset is in bits; the leading byte is the report id).
++	 */
++	int offset = 1 + dev->battery_report_offset / 8;
++	int len = offset + 1;
  
-+	if (size < offsetof(struct ft260_i2c_input_report, data)) {
-+		hid_err(hdev, "short report %d\n", size);
-+		return -1;
-+	}
-+
- 	if (xfer->report >= FT260_I2C_REPORT_MIN &&
- 	    xfer->report <= FT260_I2C_REPORT_MAX) {
--		ft260_dbg("i2c resp: rep %#02x len %d\n", xfer->report,
--			  xfer->length);
-+		ft260_dbg("i2c resp: rep %#02x len %d size %d\n",
-+			  xfer->report, xfer->length, size);
-+
-+		if (xfer->length > size -
-+		    offsetof(struct ft260_i2c_input_report, data)) {
-+			hid_err(hdev, "report %#02x: length %d exceeds HID report size\n",
-+				xfer->report, xfer->length);
-+			return -1;
-+		}
+-	buf = kmalloc(4, GFP_KERNEL);
++	buf = kmalloc(max(len, 4), GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
  
- 		if ((dev->read_buf == NULL) ||
- 		    (xfer->length > dev->read_len - dev->read_idx)) {
+-	ret = hid_hw_raw_request(dev, dev->battery_report_id, buf, 4,
++	ret = hid_hw_raw_request(dev, dev->battery_report_id, buf, max(len, 4),
+ 				 dev->battery_report_type, HID_REQ_GET_REPORT);
+-	if (ret < 2) {
++	if (ret < len) {
+ 		kfree(buf);
+ 		return -ENODATA;
+ 	}
+ 
+-	ret = hidinput_scale_battery_capacity(dev, buf[1]);
++	ret = hidinput_scale_battery_capacity(dev, buf[offset]);
+ 	kfree(buf);
+ 	return ret;
+ }
+@@ -497,6 +505,7 @@ static int hidinput_setup_battery(struct hid_device *dev, unsigned report_type,
+ 	dev->battery_max = max;
+ 	dev->battery_report_type = report_type;
+ 	dev->battery_report_id = field->report->id;
++	dev->battery_report_offset = field->report_offset;
+ 
+ 	/*
+ 	 * Stylus is normally not connected to the device and thus we
+diff --git a/include/linux/hid.h b/include/linux/hid.h
+index a321d4c293a94..515b645f7abc8 100644
+--- a/include/linux/hid.h
++++ b/include/linux/hid.h
+@@ -620,6 +620,7 @@ struct hid_device {							/* device report descriptor */
+ 	__s32 battery_max;
+ 	__s32 battery_report_type;
+ 	__s32 battery_report_id;
++	__s32 battery_report_offset;					/* bit offset of the capacity field within its report */
+ 	enum hid_battery_status battery_status;
+ 	bool battery_avoid_query;
+ 	ktime_t battery_ratelimit_time;
 -- 
 2.53.0
 
