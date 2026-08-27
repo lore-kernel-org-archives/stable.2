@@ -1,101 +1,103 @@
-Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C046445AC1;
-	Thu, 27 Aug 2026 11:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A837445AD3
+	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 12:02:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787830819; cv=none; b=sSveqGmZkkV0AFhjQeY3957YnXPMiKs8AOmGPWex4/sjwtstNcPBo0/3JD1IojS9qvetVYcA2OFoNepGyGCngbhlum/XSYCm4u9tAK0RzFkP8JcPmCU9MCvCHfp37Z3ncMqSexJBtfWRd/Osm6Tvl0zb9OmJdcclRf4vPgjDRAA=
+	t=1787832144; cv=none; b=jhUGLNi0SVTcgY23FWo/tKq7WLU8oJds6Vah8uArNnwJ67LlDt4elxMUOw3W2EjODcdC0Q02mvsf9VPt/5RK9JPFnQoTn4rEoOLWm9d+0g2FCrBs4spRq2TlC23r8ypBnpwgv/ipo9oHxq8+NQNgdKxnZnFvyCa/N6l6WAkaia0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787830819; c=relaxed/simple;
-	bh=P0zyNeIAZtPBTyCCY2YhnIKir0eAEwMza9FTKf/SPrk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jRHoC/OiVcH86oauaiRla3RWhozQFKeSTh4b7e381MrShjNkBnnyTAnLg4NiiED0DiHB2JzK6/RPA5/X0NoM7HIEhChVMX5s0/lgdIcYoXGg6XGQYGlJdlSy1LOSiinmWN4ZduquR1id0PSBz301u4wbzMNWkwfPh6kITRihmvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=FFCu+v42; arc=none smtp.client-ip=193.104.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
+	s=arc-20240116; t=1787832144; c=relaxed/simple;
+	bh=jbkWxXQHrVMLMxBZ+dP2Rs/rmyCOkzm7VYJsPlAsWks=;
+	h=Message-Id:Content-Type:To:Subject:Mime-Version:From:Cc:Date; b=BFiFj65p8wO0IUMpWva3XQZhIg4PaVjDCKN4cY8EbJ3iHOHueeVI4jhmafhWBS6v4imfoxHT2eIRsB6OYIGcRKvdyEy3gFwiZyG7B8mJlQhZrgmd83DS14p95da+WDKquZiSf/xpdK1xGRXpBUYoM692mtFEdSDeoEnWgQygKfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=zkM0RHiU; arc=none smtp.client-ip=71.18.227.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="FFCu+v42"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
-	s=202008; t=1787830811;
-	bh=P0zyNeIAZtPBTyCCY2YhnIKir0eAEwMza9FTKf/SPrk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FFCu+v42kkQ1bre2fmgPLmoe2U3j2QCH67Q+OI8W9FuxjNdifVS3WNIe5bsIesGbD
-	 NNLUy4UYMB/5GVrh808wQOXSRZbIQpfXFBxrr6KopM9Qg1PZlibXmb+t1Xc5LbkzTb
-	 XUxWej1uHNdRx3WjvUcqM/sHVI3zlINQZhB2/1VHO4yD9rAQ8RDlxLqbVnTTgeAwdO
-	 BkgNpiu00XYBxITPhpSJ8QBIGGOnCNNsJn418Oo5anoxNyB34FXuvdN4oqM/rdjWci
-	 RIgs5fRiiwmLyB+Jd7cZraZETPROoGWedhQc7ZyJC30D06AdZWMkK9w5P2498bOP4X
-	 /pdyUumNO+JjA==
-Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id 873BE60075;
-	Thu, 27 Aug 2026 11:40:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by x201s (Postfix) with ESMTP id 5A889200DEF;
-	Thu, 27 Aug 2026 11:39:31 +0000 (UTC)
-Message-ID: <83c08bb5-7977-405b-9a92-d846fec8e9ab@fiberby.net>
-Date: Thu, 27 Aug 2026 11:39:30 +0000
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="zkM0RHiU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787832135; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=HYI4526PYKexYfh8uePtoxBT5q11xKZ7dZyYzPC/mxU=;
+ b=zkM0RHiUKAIHO2B6qvlHCAwdrvtgcdNTX7Wh4OJyYfGUxU24IQ23km763sEhTDffYonycP
+ vFmpo3ueIaDfYpVIReqeFmQz9I1+BnEYFnkkXEX+KlWHLM9rIKQMqGc1KkQuiS+XltZz7F
+ p9kXjGWR66BLYu/xIMzsx1NYR+dlaRyNoGGJ4tzQPwZTbTpIV9L+BAnF6utZYXHCzFyESN
+ 1YVRUA22OW1xcn2v3/VQTrcdbrubCAXUZZQX+KjkEnLES7nuCxdNsKID4Mr+b9mXYpq06U
+ 8WuPtywb4XGKdszaRfakiHqVvHYizMpgwkLtA6399CUk8p34uTMEFrucu9x71g==
+X-Lms-Return-Path: <lba+26a902745+2f3288+vger.kernel.org+me@cherr.cc>
+Message-Id: <20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+Received: from [192.168.9.107] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 20:02:12 +0800
+To: "Hans Verkuil" <hverkuil@kernel.org>, 
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	"Greg Kroah-Hartman" <gregkh@suse.de>
+Subject: [PATCH] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] netlink: specs: rt-link: fix ipv6 devconf doc
-To: Paolo Abeni <pabeni@redhat.com>, Donald Hunter <donald.hunter@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
- Felix Maurer <fmaurer@redhat.com>, Danielle Ratson <danieller@nvidia.com>,
- Fernando Fernandez Mancera <fmancera@suse.de>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260824103816.40040-1-ast@fiberby.net>
- <08c53736-eaaa-47b9-a65c-b920d21b2993@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
-In-Reply-To: <08c53736-eaaa-47b9-a65c-b920d21b2993@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+From: "Shengzhuo Wei" <me@cherr.cc>
+X-B4-Tracking: v=1; b=H4sIADsnkGoC/yXMTQ7CIBBA4as0s3YSOiGlehXjgp+hThfQgBiTp ncX6/JbvLdD5SJc4TbsUPgtVXLqGC8D+KdNC6OEbiBFk5rJ4JKNUgaFPLoW0eWWAgYdHWuy2po r9HQrHOVzbu+Pv2tzK/vX7wXH8QXT0grmeAAAAA==
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 27 Aug 2026 20:02:04 +0800
+X-Mailer: b4 0.16.0
 
-On 8/27/26 10:55 AM, Paolo Abeni wrote:
-> On 8/24/26 12:38 PM, Asbjørn Sloth Tønnesen wrote:
->> devconf is even odder than described in the blamed commit, where bpth
->> IPv4 and IPv6 are described in an identical way:
->> "u32 indexed by ipv?-devconf - 1 on output, on input it's a nest".
->>
->> There are two issues with that line for IPv6:
->>
->> 1) The subtraction is an IPv4 specific quirk, to avoid having an unused
->>     u32 at index 0, thus saving 4 bytes per net device being dumped:
->>
->>     - In include/uapi/linux/ip.h the IPV4_DEVCONF_* enum begins with
->>       IPV4_DEVCONF_FORWARDING = 1, so the enum starts at 1, which is
->>       the reason for the subtraction in the IPv4 variant.
->>
->>     - In include/uapi/linux/ipv6.h the DEVCONF_* enum begins with
->>       DEVCONF_FORWARDING = 0, so subtraction would underflow.
->>
->>     - ipv6_store_devconf() in net/ipv6/addrconf.c also doesn't do the
->>       subtraction in the output path.
->>
->> 2) Setting IPv6 devconf through Netlink is not yet supported, as
->>     IFLA_INET6_CONF is not handled in inet6_set_link_af().
->>
->> Fixes: 720447bd0b24 ("netlink: specs: rt-link: remove implicit structs from devconf")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Asbjørn Sloth Tønnesen <ast@fiberby.net>
-> Nowadays net PRs are already too big due more-or-less security-relevant
-> changes. I think this is better suited for net-next, with no 'fixes' tag
-> nor stable cc, WDYT?
+go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
+a 16-byte buffer embedded in struct go7007, without any length check.
+The adapter declares no transfer limits, so an SMBus block transfer
+issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
+the struct fields that follow the buffer.
 
-The unsupported input is the main doc correction, that I would like to go into
-v7.3 and earlier, as Fernando is planning to add that support for v7.4.
+Bound the transfer size with i2c_adapter_quirks so the I2C core
+rejects oversized messages before they reach the driver.
 
-I stumbled upon this, as I was trying to getting rid of some sysctl calls
-in an internal provisioning tool.
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+Cc: stable@vger.kernel.org
+Cc: Hans Verkuil <hverkuil@kernel.org>
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+The EZ-USB I2C adapter in the go7007 driver copies message payloads
+into the 16-byte usb_buf embedded in the go7007 device struct without
+any length limit, so an SMBus block transfer through /dev/i2c-N can
+write past the buffer and corrupt the struct fields that follow it.
+Bound the transfer size through i2c_adapter_quirks.
+---
+ drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-If the PR size is already an issue for rc1, then I can resubmit when net-next opens.
-(I assumed that you were trying to make the net PR sizes into an reversed xmas tree)
+diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
+index c0cb92fa6ab9..867548d655b3 100644
+--- a/drivers/media/usb/go7007/go7007-usb.c
++++ b/drivers/media/usb/go7007/go7007-usb.c
+@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
+ 	.functionality	= go7007_usb_functionality,
+ };
+ 
++static const struct i2c_adapter_quirks go7007_usb_quirks = {
++	.max_write_len	= 12,
++	.max_read_len	= 15,
++};
++
+ static struct i2c_adapter go7007_usb_adap_templ = {
+ 	.owner			= THIS_MODULE,
+ 	.name			= "WIS GO7007SB EZ-USB",
+ 	.algo			= &go7007_usb_algo,
++	.quirks			= &go7007_usb_quirks,
+ };
+ 
+ /********************* USB add/remove functions *********************/
 
-It's likely going to end up in stable regardless, it's just easier for Greg and
-Sasha when it's tagged.
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
