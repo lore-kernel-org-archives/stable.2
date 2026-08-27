@@ -1,121 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0B9282F18;
-	Thu, 27 Aug 2026 05:02:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8F22BD00C;
+	Thu, 27 Aug 2026 05:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787806960; cv=none; b=iINA4iiTF3SiPnHapDndWRLjSehX7XmoZfkgzLvxwV8UHwdHfEuuNz6Er/GyazX3bdmMeMu2wOpW3xiOOgSbPPxGkFBJwwPqarl2f/iyq2bN+QcR00sX02ZHurOEQYZyfGJOUo8iAhSiGpKr9oAkk2UnqttZ1hGALQjtnhmpnLI=
+	t=1787806991; cv=none; b=c0X1pyNBGBTTSTLOAXJF/5EJsyKpYQs5DFbzjruTfaR4PEKOuN7yO4gdd6ZDVfkDZbHI6QSAU6HjX6KDXsKLVQ4reptnk4aZucZELAzPrOto2CjHSlCr2n3DiQTZwzGoEv49HfwdYsruzfosN4A8kBx5pBgwGYMZfnGykpQokIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787806960; c=relaxed/simple;
-	bh=Ej4CGjqUqytbGbQfJQxJNK7rkTwNAg0tKv8uNCJqoDo=;
-	h=Date:To:From:Subject:Message-Id; b=TiuDtTLD/cH4XhP7zGVf/ThtPJo1pzgYo64xShhUFiZ8W8XamFI2J0KUIRFOcgu+WTl/aOVVq5kGpe6Dg+dGKgC1AFqqGZuy7R/5PmfFQR2DAkKp8/Ar6n7p7lRVNDuEqhSjTGtPgykRsy9k6XYsmholkLR5hGfHsBF0S3k4BiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hW4IwCM1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787806991; c=relaxed/simple;
+	bh=+qARVZ3Vn+bsJZVhP/UquKzhmNyNprXMkZymPd3mNyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qtnMAPvpMqEkJ+EuIUXGk+LoZwh7xz0b8khHEDUT95QXWEkWrecT0HpZ3/rQ8IkRT8llS7Kc0ppKBDFN6H0ZfXWhIc5x9X68BJx4pF+FSY5Gz8Sdquq3orwvgEsISEPK08NWfdVLLYY4qgqzctsSicqsz1vhpLJqLS6lDtZwSrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WBXIqTCB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hW4IwCM1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756161F00A3A;
-	Thu, 27 Aug 2026 05:02:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787806958;
-	bh=J2/kDQ8ug4iRS9oU35CJWlTITXHBkDIGvZZgnRveZEY=;
-	h=Date:To:From:Subject;
-	b=hW4IwCM1xAp8g+P7I1EcYM5pjMFew7D8gqs3ESePQ1SJElM0a/maojoFu8Ea4ydjK
-	 5QRB0r5dlQouy5NWbhlB5mOalEiaJyY0NWWdraA/VAGA14M/X2P0Fb/DyD11mU/6Ob
-	 /uUiDcTubPyo+DkIquoW+KZcnu/s1/7Cbsj2023I=
-Date: Wed, 26 Aug 2026 22:02:38 -0700
-To: mm-commits@vger.kernel.org,yanquanmin1@huawei.com,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [to-be-updated] mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch removed from -mm tree
-Message-Id: <20260827050238.756161F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WBXIqTCB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55E61F000E9;
+	Thu, 27 Aug 2026 05:03:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1787806990;
+	bh=CkOiFqyPeNWAL1IU6w4pHRdEzxW6E2h2tS/Qf1gbZBg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WBXIqTCB7zZMoB816mnWlxYNCo+Q0vWrji+WlGQgkyuRh1HzojIHGzGCHTgkSxjgC
+	 TD2ByP8IAh1ywdDQ75RG1s6AwHZ4U3oUzM/7toI1OSKmfkm22QdpcY8FHAgCUna0o8
+	 CTnX2jUN7IaL/TooiMAuN9fFF6yWWP0AErAKGbx0=
+Date: Thu, 27 Aug 2026 07:03:08 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: balbi@ti.com, bigeasy@linutronix.de, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, stable@vger.kernel.org,
+	syzbot+fd6ef980cf1c722be639@syzkaller.appspotmail.com
+Subject: Re: [PATCH] usb: gadget: fix null pointer dereference in
+ usb_put_function_instance()
+Message-ID: <2026082739-shudder-stylist-86ac@gregkh>
+References: <20260816061712.15547-1-jeffinphilip14@gmail.com>
+ <20260827043746.13087-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827043746.13087-1-jeffinphilip14@gmail.com>
 
+On Thu, Aug 27, 2026 at 10:07:46AM +0530, Jeffin Philip wrote:
+> On Sun, 16 Aug 2026 11:47:12 +0530, Jeffin Philip wrote:
+> 
+> >usb_put_function_instance() attempts to dereference fd inside fi struct
+> >to get mod in uvc_alloc_inst() error path. However, fd is not allocated
+> >until later in try_get_usb_function_instance() after allocating fi in
+> >uvc_alloc_inst() and thus guranteed to be null in error path. Fix this
+> >by adding a null check for fi->fd that returns if fd is null.
+> 
+> Friendly ping, let me know if you want me to fix anything.
 
-The quilt patch titled
-     Subject: mm/damon/sysfs: set next refresh jiffies per sysfs context
-has been removed from the -mm tree.  Its filename was
-     mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+It's the middle of the merge window, we can't do anything until after
+-rc1 is out.
 
-This patch was dropped because an updated version will be issued
+In the meantime, please help review other patches on the list so that
+yours rises to the top.
 
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Wed, 26 Aug 2026 21:29:19 -0700
+thanks,
 
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next refresh
-is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it. 
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
-
-The user impact is not very critical.  It does not leak, corrupt or crash.
-The update will not be faster or slower than the lowest and largest
-refresh_ms values of the contexts, respectively.  The user can also
-manually ask the updates on demand using kdamond state commands.  That
-said, clearly this is a bug.
-
-Link: https://lore.kernel.org/20260827042920.93580-3-sj@kernel.org
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Quanmin Yan <yanquanmin1@huawei.com>
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/sysfs.c |   11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
-
---- a/mm/damon/sysfs.c~mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context
-+++ a/mm/damon/sysfs.c
-@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
- 
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_bui
- 	return ctx;
- }
- 
--static unsigned long damon_sysfs_next_update_jiffies;
--
- static int damon_sysfs_repeat_call_fn(void *data)
- {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
- 
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
- 
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(str
- 	}
- 	kdamond->damon_ctx = ctx;
- 
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
- 
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-
+greg k-h
