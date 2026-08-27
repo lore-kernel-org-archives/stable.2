@@ -1,128 +1,120 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317C935F5F8
-	for <stable@vger.kernel.org>; Thu, 27 Aug 2026 04:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E0536F915;
+	Thu, 27 Aug 2026 04:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787804801; cv=none; b=BrXLpuOMcCzSstn3QGjNlqkxBbp43/Xi9S77WQHLnXMpHbYvuY3QqA5lAn9z3gaL7x4zIjPoYSHy1ig/ed3sNoBl9xsSOhKFQ/b2PABMxPCKD2Ztm6JspKqukVAzPuOqK4qYdnODKYo6ZOUW0pb89AZYHGr+6qUMseeQzDjfBLc=
+	t=1787804912; cv=none; b=JJQj2VMbZgf7Uzolghoqt00AdQJNdl4uRXKJEvzBOWfGceUrv+zIGyyzuWrW65s1Y4fxFgVEjn1UXpF6/K23+r/EPfX/buHwXHoCtL61KoBS5YyYSNKnb8xRrRJSOuDClR7RayPsjYLAmE0nJjVkidCzyKKMYe2k5B4bfiyQz/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787804801; c=relaxed/simple;
-	bh=wpkEA3uwodU/PU3/gbkkjbA9WUXgO3SwzfpC2pZp1bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jV9boQmETj1S6aCRmDgAykAsKvU2lIXrO3GlHhCPtFuu6AxBsJkwrmTHh2zllGeS9wCR8f2RI8pel+O8+JfqQs79zdpgiBaTFIP2x+Gub58fmfnWgJ6JWvq0Gm+KydI1Df6NogOlpJOH2fUP3Ob/fQ4tqCd5C7LZfdltBeXFAJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cG4q7Use; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787804912; c=relaxed/simple;
+	bh=xyaJQFMX64NE0fQPeOs6YcPoLcOTNqOsPrTJQ29j1IU=;
+	h=Date:To:From:Subject:Message-Id; b=Eudx8F/8Njh7uU5UZMt61H29NC1dbOo5tc9DRDKnfqE16iZCA52DvccUGhdHgsu4GtPCO1mgI0ic3sUKX2YNnL8S0PwUFlJNXBq+zu2p1vTwTf4H8OEr50h3Dhyo1MjiEarizXlWaNWbyKO3SGuVpYNKtyFmrANvAoFHFbHTKgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=clzflJQC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cG4q7Use"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d5cad1a6baso3297655ad.3
-        for <stable@vger.kernel.org>; Wed, 26 Aug 2026 21:26:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="clzflJQC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5B21F000E9;
+	Thu, 27 Aug 2026 04:28:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787804799; x=1788409599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fsygry22qQnjiHZyuRcED7KjHJNfEol8psEK33LfexU=;
-        b=cG4q7Use9xAv/AYHKCU96p0CINjC1VGAG52qp6dW0w3WMr26CCL3RxGCR/NI+3pcqS
-         sz9zCy3XCRIt48wDM8gByJFSNTYSx4F18X6JGOLUNej2jHB6cu9bC9afThERno5E3ErJ
-         lsAgJdmpa9JKXQbdGUNpDmx51GH4K5B+ONBmSNWX3qAWY0wgQBp1Sz7nRdMl7RZkxmgA
-         p36FOPM0OCxjufjCXsPs7wJGxyP48TKoO/0Q1rV8s7MNLZe0ck3TTLXA2uwhRxxuRMOn
-         W3PJDO9p5WtqJaktDHDVTQCJ9RgRbBIpb8QczxRxiocXNg8D79yr7CJ7EkLkxNPCGmK/
-         HzsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787804799; x=1788409599;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Fsygry22qQnjiHZyuRcED7KjHJNfEol8psEK33LfexU=;
-        b=HQRCp6wqeMroDLn5pE9M1Za3PU+d/xj3edwc8hYnYivACM3uf18aSO6RlBnfT7P+ut
-         Dt4n8/+QlOFzZWigZmHs+KVRWcRcg78rhXw2IZfWOtq6g9/m8SasEWpaEaBko0CoXed9
-         1BsGJAJT4SbgqNRYrwRtfZgy14DXaKLYeNmxpw9fDHryHUPKdrGt0uWo7zdOZeMBVKUO
-         Rt8iCcMQxlMHBgHK249+up1P18E9GtohwN3vYxPPkBlM7c8ysSnXRguHWwBRIjx9Y/J9
-         jFzt+O/YTa7j7VOWPLrqXsle8+u7Z2hIN9ObOGv5KSw96JxeZjCl1CeLD87HrcwoRIvy
-         vPrQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqozNJ8Zc9pLH3+0vw6nYrLHclK3bOQDYCw2jjASJpfEKviZjLgzxxk8QVApvO00IwKkrvl6TI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsoVWkczXlxxDYmS1plIs2R7M2oulnVTZRb0fVoSX7Zj/rFucZ
-	QAQMB+jXweDH9PBYep+wFMRBvNgsruRXs+4d2w1uQQegaIfPOnHeIMpw
-X-Gm-Gg: AR+sD120fIPONYnErz3AA1+oVJfxGpG8esula2WhY66WcHoB8TWwHQUBog6V7L2RTQa
-	90x4Mk4lh9MBO723FsIvEAlcv2gBmulDdMPxtq1zdUrIirObdV1CPChUVjZQ8Z5gPv5TTpi/bRx
-	Y68aA7n6i9p7JdBl3opLG15yD5A73u3vIlSDKez17DOIUCFRL2ynBeEggLzHdGf+D1+Q0xARo1/
-	dKhL1FwlVgLQiOviJineeBNmfOLdBRJfLDGBlEPTxT6XkM4e9pCFq7sMXfwFd4Czhu/ghR77zGc
-	Zn7F9+2OROyVD18TufYeHapKWwoFc2g9CJTxqqeXVXQufzIbKHqHIhVDOW7ZigcJxMjgeTSNoYk
-	kg/SkCkv+JwJCyNxDiQMglYlfVQ9gSHbK1Se6F9KumoAv8EiGd9mp6Hk/NLe2q8FWPHojXneAFd
-	+epdSWStlZr7FoM11rbLecidZW2gG/2dvgedK13wtmNuvWO8WaqKTslovUgm8E11iL/w==
-X-Received: by 2002:a17:902:e550:b0:2ca:1479:d9dc with SMTP id d9443c01a7336-2d707b64aecmr219904355ad.12.1787804799444;
-        Wed, 26 Aug 2026 21:26:39 -0700 (PDT)
-Received: from Default ([2409:40f4:1012:4330:756d:2890:a615:2db9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d8d208csm13662685eec.23.2026.08.26.21.26.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 21:26:39 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: jeffinphilip14@gmail.com
-Cc: dwlsalmeida@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
-Subject: Re: [RFC PATCH] media: vidtv: fix uaf in vidtv_bridge_on_new_pkts_avail
-Date: Thu, 27 Aug 2026 09:56:15 +0530
-Message-ID: <20260827042615.12777-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260827042229.12561-1-jeffinphilip14@gmail.com>
-References: <20260827042229.12561-1-jeffinphilip14@gmail.com>
+	d=linux-foundation.org; s=korg; t=1787804910;
+	bh=cEmfQx0GIdLmQUNDrS4RoFXHd18+tiRb8JE2ZPVSGuc=;
+	h=Date:To:From:Subject;
+	b=clzflJQCR4t8O0JC3FFOKsVhGs5guz4vpvus23UMTTCZfYXjG784CPf43/KsZYGBF
+	 jDYgoTh6CeLI5Ugv9GV5VMlAsbkZbOaS803X+y4eoo83/NJaW526PgSBhe+aLdAgTf
+	 y5th+kKv1vugPiOeJLZlrRkOuCCQ8qmvHT16cof0=
+Date: Wed, 26 Aug 2026 21:28:30 -0700
+To: mm-commits@vger.kernel.org,surenb@google.com,stable@vger.kernel.org,sashiko-bot@kernel.org,samitolvanen@google.com,petr.pavlu@suse.com,mcgrof@kernel.org,brads@mainlining.org,atomlin@atomlin.com,hao.ge@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + module-fix-lost-error-code-from-codetag_load_module.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260827042830.7F5B21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
->Attempting to unbind a dvbdevice that is in the process of feeding
->data causes a UAF as we free the underlying device without
->stopping the feed first. Fix this by stopping the stream first using
->vidtv_stop_streaming(). However, our codepath in the reproducer
->(mentioned in the below reply) does not decrement our users
->(dmxdev->dvr_dvbdev->users) to 1 after it has been incremented to 2
->by our read() in the reproducer, that is only possible on .release.
->This can cause a task hang as dvb_dmxdev_release() uses wait_event()
->in the wait_queue unless we use a close(fd)(in the reproducer).
->Is this a problem? Please advise.
 
-Reproducer:
+The patch titled
+     Subject: module: fix lost error code from codetag_load_module()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     module-fix-lost-error-code-from-codetag_load_module.patch
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <linux/dvb/dmx.h>
-#include <sys/ioctl.h>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/module-fix-lost-error-code-from-codetag_load_module.patch
 
-static void *feed_thread(void *arg)
-{
-    int i = 100;
-    int fd = open("/dev/dvb/adapter0/demux0", O_RDWR | O_NONBLOCK);
-    struct dmx_sct_filter_params params = {
-        .pid = 0,
-        .filter = { .filter = {0}, .mask = {0} },
-        .flags = DMX_IMMEDIATE_START,
-    };
-    ioctl(fd, DMX_SET_FILTER, &params);
-    char buf[188];
-    read(fd, buf, sizeof(buf));
-    //no close(fd) here
-    return NULL;
-}
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-int main(void)
-{
-    pthread_t t;
-    pthread_create(&t, NULL, feed_thread, NULL);
-    sleep(1);
-    int fd = open("/sys/bus/platform/drivers/vidtv/unbind", O_WRONLY);
-    write(fd, "vidtv.0", 7);
-    pthread_join(t, NULL);
-    return 0;
-}
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Hao Ge <hao.ge@linux.dev>
+Subject: module: fix lost error code from codetag_load_module()
+Date: Thu, 27 Aug 2026 11:05:03 +0800
+
+If codetag_load_module() fails, err is not set to reflect the failure
+and load_module() returns 0 after the module has been torn down.
+
+Also, if the module is a livepatch, mod->klp_info allocated by
+copy_module_elf() leaks on this error path.  Free it via a new
+livepatch_cleanup label.
+
+Link: https://lore.kernel.org/20260827030503.49171-1-hao.ge@linux.dev
+Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as module load failures")
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Cc: Aaron Tomlin <atomlin@atomlin.com>
+Cc: Luis Chamberalin <mcgrof@kernel.org>
+Cc: Sami Tolvanen <samitolvanen@google.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ kernel/module/main.c |    8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+--- a/kernel/module/main.c~module-fix-lost-error-code-from-codetag_load_module
++++ a/kernel/module/main.c
+@@ -3568,8 +3568,9 @@ static int load_module(struct load_info
+ 			goto sysfs_cleanup;
+ 	}
+ 
+-	if (codetag_load_module(mod))
+-		goto sysfs_cleanup;
++	err = codetag_load_module(mod);
++	if (err)
++		goto livepatch_cleanup;
+ 
+ 	/* Get rid of temporary copy. */
+ 	free_copy(info, flags);
+@@ -3579,6 +3580,9 @@ static int load_module(struct load_info
+ 
+ 	return do_init_module(mod);
+ 
++ livepatch_cleanup:
++	if (is_livepatch_module(mod))
++		free_module_elf(mod);
+  sysfs_cleanup:
+ 	mod_sysfs_teardown(mod);
+  coming_cleanup:
+_
+
+Patches currently in -mm which might be from hao.ge@linux.dev are
+
+module-fix-lost-error-code-from-codetag_load_module.patch
+alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled.patch
+alloc_tag-remove-proc-allocinfo-outside-of-mod_lock.patch
 
