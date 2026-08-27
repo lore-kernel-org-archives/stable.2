@@ -1,144 +1,135 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010068.outbound.protection.outlook.com [52.101.193.68])
+Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5100247ACFA;
-	Thu, 27 Aug 2026 19:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787859313; cv=fail; b=j79g93n8XfX98vG/keq0O+extTt5I2DnDV7lN7nzmtVtlOYaNX+aaym3S6gO2jTTigexKiMUBoWJ78i7up1snJAWBMDXOCWCbjR/DFyayWbigGKPSHb1CAx+NmYiDU/0sbhLNXk+GTKCkiQIbehr3vhLIjJ8qg8+lyAvuRe2y9I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787859313; c=relaxed/simple;
-	bh=2xyrxPcljIUszz7JIpljVHxthi4SO3vkl3X7pYfqVhM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=lXFDGE3EGpB+OiLbd8g6YU0rhDS2Ru64UZm10CL0itKCRrJix9ILlASM6Wkdo53y5x9u4+eXwmZJohrRIy/IeoDkFKW5yMoecG1vEu11RbhRIaQC84ZQ1wqzLt3gG63R7zWdHC/y6udv9u0MqgIu83RbVWGv/bNOEXztvuiYrag=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EELF85he; arc=fail smtp.client-ip=52.101.193.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD56443A98;
+	Thu, 27 Aug 2026 19:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.162.73.231
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787859520; cv=none; b=LlakZfGXvrMmYltFZ3nmTg8ua2kmYmiqfdNVJMtZenpYH0TT9Cw48CHO+a9AkgJ9ezAfWUABnNWo+fD/nydZTqUuZXKWMEZSzchbJa7cgAqGFc8G7Jx78eXy/ZVnj1fVAgn0Nw0H1dbrCb7c9gNFNnVcwe/Ht7+xkUiKJPwCw3o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787859520; c=relaxed/simple;
+	bh=eP/hk2DNSiSupAaKn6szi62QjYKLXlDV8zQagv49aiQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OrukahlYovVVDHXZ3WVJjfvQNveeF3JRIiT7/LChtYRlEvm0/Vo2af+LWBDAG+CZlhYB3h+p8OyFRH3FOFbqDUJrBak3k3N/lADctI/OXDoy1kVVUf9h5atIxYtO97iGzdZjkH1djWzok5sYRhE2zLw2yFD4zonpWY2ZimRKAxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=qKBwYd22; arc=none smtp.client-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EELF85he"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YfPVii1Vo7Jb1aa+VbwFf0tidmlxm9szxzodqi43j7nZnQ/1xfQjXECkbdfqoZnLc12rYfWY7gTTUVQ8QU1CWc8e07wgt8yDtTuLdYs7SofQ7EdWX7m2DeERdtl0P8gnMtPmqzctnL04endnHhV+3M7YaZarak6ZIn4lW4tfajS0IuHjcaJlj46VpCPjAdXSpjSk/AnXvEKGSb/+SvmaCcgPp3RyTBIlq7ApI7keoC+GqbaddzvJ4Lyia598fVHgI3fNcfyWDJOszs7Uu1ElM5S0oHJ9UbfRWqOUiWLv7DU35joBv6wz8V203TcmzQ0PFO/HC1yVR/A8bMkPBLzfDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nUMSoxn0FaGvbhnQt/41Mbnme5KZ96sXGUo82hO/5Po=;
- b=TJJbtnQN8vFdhFugFUsHSPfT7xNfrpE+Reu93A0mEGmSAoVdsiQHaF7eCGO57G14SK0MH/dvGnU83ux/Q1b+x3G1IjPAs39J4I7Hi+6qmZFNkhWrgFe4vGD8hcF2W0zsmlIGhBQBXZTL5YQASOl1ZjpUSGTvNVIXCKeuVmyMGJfzhQqr3ddvOx69M0+MXdLlD64FgZd/oaXZI47k8nXTPSk+yROaR6CQN/HXFz9SrtykatM0orc5G3Ugzwobr9d1SGv5hWcZGo3vyneCyeyPgxRyqTH0+Ny+sf3akrRewAKOd61jl8bD3nOQ3jKwr3qoBeWs7TvKzx7LEtyj/0nf1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nUMSoxn0FaGvbhnQt/41Mbnme5KZ96sXGUo82hO/5Po=;
- b=EELF85heG5CKRQh5VylyGiV0jOOuuwENJYCjGiyCZbSA3QXGzxjUgZ52mrfaoAUAK8F1VDJqf+YzcHaYrgrse+yOHekKeOIainci/cKDCIA1PbxbtZfclw2pfXImwK8y+yQ7kbU300bmVcIR/JeY7wc89De1JcH78Ca4/rhbPfUSLy3LqoTEvo7mchEfcFnEdyJJjdV1/qJb/BVr0HeS52XzC6tC3WkFhgg2Qq+X6uyrovVViF+fz9eSU/AaSCeNDMznhlZyzaCrzS88jYhNQ3Y44AhBI+eB1SgAmBekt0endRuZ8zSSmQms5NIGiyp3QdkT1JJnW4GbMg5gDcQm3w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by IA0PR12MB7674.namprd12.prod.outlook.com (2603:10b6:208:434::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
- 2026 19:35:03 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
- 19:35:03 +0000
-Date: Thu, 27 Aug 2026 22:34:54 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Zihan Xi <zihanx@nebusec.ai>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Peter =?iso-8859-1?Q?N=F8rlund?= <pch@ordbogen.com>,
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Subject: Re: [PATCH net v2 1/1] ipv4: avoid divide by zero in fib_rebalance
-Message-ID: <20260827193454.GA2320979@shredder>
-References: <20260827182514.4667-1-zihanx@nebusec.ai>
- <20260827182514.4667-2-zihanx@nebusec.ai>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827182514.4667-2-zihanx@nebusec.ai>
-X-ClientProxiedBy: TLZP290CA0014.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::13) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="qKBwYd22"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1787859519; x=1819395519;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=oLAeOmZrtq36A1IcHxniw47pbRoh1qR6Um5nSXbPo1A=;
+  b=qKBwYd22K1Ojz4OmfLVoLdQbkdN8XXtvzM9CgqsnFoJYs+hpRCEpDbCH
+   Tc8bURvnevO8oOp3jn+iRccmRG9qDh3BLEQjqi1EnmirsCmn8YW8dsFhP
+   BP9EKkqNuI7LKUaDmBy3qjYrJVBDWLMPkiQU0nSQJQWw9HKNPAi9/ShjH
+   OguRXBDFISYhPpa9+g/u7pR/QboiMn4KQA+uOsHMKwRNA7kIhazJ3mA00
+   pLctVM9unzLVX/h/cQMt2X7mcOGXayQLAf4xsROm4QDHsruN0GFsbgtfC
+   oC0yuNSBOZf2BhgHucMleuYQL1SMTecM97Xd9oqpkk0jT6kPoVjybwth1
+   w==;
+X-CSE-ConnectionGUID: ZMdiy7luSDy5KUaN1uRScw==
+X-CSE-MsgGUID: LWv9H5gNTwqEPlTS5WdLNQ==
+X-IronPort-AV: E=Sophos;i="6.25,247,1779148800"; 
+   d="scan'208";a="26951848"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 19:38:39 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:24810]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.33.27:2525] with esmtp (Farcaster)
+ id 2c62c1b5-ce79-4e1b-b168-d99646deb830; Thu, 27 Aug 2026 19:38:39 +0000 (UTC)
+X-Farcaster-Flow-ID: 2c62c1b5-ce79-4e1b-b168-d99646deb830
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Thu, 27 Aug 2026 19:38:38 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.26) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Thu, 27 Aug 2026 19:38:38 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: <sj@kernel.org>, <akpm@linux-foundation.org>
+CC: <damon@lists.linux.dev>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>, Nathan Gao
+	<zcgao@amazon.com>, <stable@vger.kernel.org>
+Subject: [PATCH] mm/damon: use a page-aligned sampling address
+Date: Thu, 27 Aug 2026 12:38:21 -0700
+Message-ID: <20260827193821.46115-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|IA0PR12MB7674:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb13e689-8c06-4064-ba0f-08df04724a7e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	bDCZwYMEpHzu9xO0lUBteaNuvi0YTBrRAZLBe4yyoqbwyZENt4XccNVI74gx5tXrozOPW+RZRAHGcksrgKS0+UOPLm4ZzSdDKsU8nsvkt/ezYqgwQpaMSCeDiW9MIjRfvZj400aJsf7FeE5CH17OaBedUWQs5YviSFGLLOMJBRi/ivMdxmQlqrFwz3V4sZCw//O4Jr7aw0TAY5TY4x9pGfzGb4FzmNPwk5UUfB4VCgLk9FVHk/maTHgJWrET90LgIEwyKOf9RXQKNzMTYf2hu91Hx1gdh4XAgmkxFKN8YHrdvfY5ZQGGU6RphnehIVIqK4I7LcSqPfIJOaVmjxTVLDyKbDsKzKh95/Ejq9oHHTVTjX4r9rjwZT3eiT9fIOvSjeLJFi//WG0v+AssPy1OUAdSvfq2jOSaNPd0PWMnSyiYNqQKONpnu0u8KGKAmco3oaQJ+BcVkS2CFZ/qvYCsCJVX4p8f59wPfOZCqckgbki6Urf5TprVWInNBJb0gTVK1Ic6q7ufefW/Q4XfFB1KOXUHn7Q7S24zzMmKV55DyYfcYHCKAvcA43ZS1ZNxZE58/IvZTeDBQ997ESDk2IZXY6LEy+bIWwzs/8OcbgHTzPQPrBVMub728TyBBG73bTiqjS58nl7alM7gPOhITjURq79HcDOgApajEgtk11wpzM4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?l4K0FT7rHP1YDZIOb+AN3R8wqrXzVHtO3uaUjUPdj9Cj79t2MqNrKXTf9emW?=
- =?us-ascii?Q?Ys+71oLcwexdkbdbdk0A8wQo2lObkdwwx01yvIGTD78Kl64Ugr6aC998Y+Bm?=
- =?us-ascii?Q?JjI5zT+IawvV8IYZD3zF24Ci+tG/rPG/8EZkgh/zZyg/X3pTzeQP9Ip2KxZN?=
- =?us-ascii?Q?Z8+kXY1Vax+rC7DGndeGpn0U5fV+jCxiBseCYFw23d5NvDUzZn12xyuCLcSV?=
- =?us-ascii?Q?WYDhqECU7nqntO2EF9I/G87E1KPdiPjWcQG5Xc1B9CyiHJA10gy+k6JaUiro?=
- =?us-ascii?Q?jcv26DzrlRfToN5v0MtpBu2Y7LpzpkAAGLkZW0IHhIJKW4WQdu0BZbptphUV?=
- =?us-ascii?Q?iSZZ2aP8LX5DEayhs977V7Wwwke+QPWazr0fcqmJnr+maTanhUvLLnKcu+uc?=
- =?us-ascii?Q?8MUi0CVliH9Ff5QmRHR9rdol4LlaAvHw/btL6y79JeHrJewikbh9Ju91zeaW?=
- =?us-ascii?Q?BsDfwdhnse6Xan4w/dBaWxPvGaL7Nx8Hh/pzdydRIEtpY8SlyyN7ZJgMXnX+?=
- =?us-ascii?Q?weSx9oRjrhNkFWhsoheQMRfusRyE0dHehcfplu8F1FF1UesAE78HKeO8vBZy?=
- =?us-ascii?Q?ELlP/slk7wumVwSyZzUc4Du0IeL3dOi/xNMvVykxD5AGjM+6gcfpyAysWfh3?=
- =?us-ascii?Q?jg1KPjcZpZyuBFG0R/17gQ/AV0dPAuyzZB6THNG+Escf1NUfJ6IR3nD1RNSb?=
- =?us-ascii?Q?TgVuDTWBXB8HVmLQD7AnUtR1ohEdiImI04Umbj4WZ6kJvgcve4ISkqiTASJ1?=
- =?us-ascii?Q?CW8KGoG5jSIBi8W07Y+Z41G0RX1y49liM23sutyazMzwYZ8psoWB9CJFrZTE?=
- =?us-ascii?Q?R+xkL2I3fK9KIwPS8M3F3npOdFwiBeqnGYLw2mrOzAik3v4femiMvyz37aeL?=
- =?us-ascii?Q?n7UcmVMiklPZeO82xrQs62JDhMnDHLNr5s6nq/lDH4dFWvMdrrYOVWDPDhfS?=
- =?us-ascii?Q?kF0LGIbB7LeiF5sx86PXLtnRExwGEhTQVGGW2P/65Ce/l/II7I+YpwuuGKs2?=
- =?us-ascii?Q?NdiVkRvnTPmhPd3A6NH8kH1useVJPiIlGF1Q5LzdoS7bjdbgPk6vFOh3BlIL?=
- =?us-ascii?Q?ZgzTFnIJMkDNgraJWj7aMxd1HPCpIRlyy/CM8oEoear3ZCEIXLxw6nXl9LPY?=
- =?us-ascii?Q?jXoIp+wOUp30KwJjJpFe65ezG2FnOa4UAs5Cl5XIepIVI00We2G+Ie95COvj?=
- =?us-ascii?Q?8gqNVLn69Qi5ctq/EoJ9CU26T5EzSNPki/T7wI8VRL37oiv0K/mzYIhYbYTE?=
- =?us-ascii?Q?0pVXXoSXyNLRnv8ob9UoHUkWWjDvMGaVkQXrSRigbaiQbn4D0NbQvreEDvk3?=
- =?us-ascii?Q?tuCh0cnV5+rlWJgkTaGklYL6+N22S1bw2oFQQ3CuiQW5EWRvcFTB02J6tkuz?=
- =?us-ascii?Q?Mwp/HpWpSptbXlN3PUaAPL5uaMsoH88mXZuDFWflFN7f6V9WrODZad/w3M0E?=
- =?us-ascii?Q?89BPxosXbQKKatwlERKUuPGqKgcESarIsAQ2HZQ9aJhyweVovedQA28ElsX5?=
- =?us-ascii?Q?aNlvl4Kt5D53imrRq2m7GmNAPJls2ma3wa8IxRT5+TIyDnAKoG3w7wdUnMJv?=
- =?us-ascii?Q?BSUPpZXXonSGAVeNvFgAbOIeSdCFg3v2rIJh9ZlPZOP1I72A3ZvcDSjI5hOg?=
- =?us-ascii?Q?24cq6JMDH3PFgy9vy3ESdxpQ4GpcV9hLI04yDBHgveliuudWVYPahS1niUYl?=
- =?us-ascii?Q?xH+ox8VuCLic9kauvebmaEVWx9Gsb7Z4HwlKvPSv96R8nPWYOAqkuCjM+uGw?=
- =?us-ascii?Q?+zS+BMIOTg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb13e689-8c06-4064-ba0f-08df04724a7e
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 19:35:03.7639
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ll/HJzEEvjfIC5Mg0EtWdwkIfY7tSjkkJPaDWoZMVr07K+1cNx7yTkuvOrPfcM7A+cbzlTMQwPNIOtm5AM1x6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7674
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D032UWB002.ant.amazon.com (10.13.139.190) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Thu, Aug 27, 2026 at 06:25:14PM +0000, Zihan Xi wrote:
-> fib_rebalance() computes the total eligible nexthop weight in one pass
-> and programs upper bounds in a second pass. A concurrent change to
-> ignore_routes_with_linkdown can make the first pass return zero while
-> the second pass sees an eligible nexthop, resulting in division by zero.
-> 
-> If the first pass reports a zero total, set each nexthop upper bound to
-> -1 and skip the division. This matches the IPv6 fix in commit
-> d2c26c2911dd ("ipv6: avoid divide by zero in rt6_multipath_rebalance")
-> and preserves the lock-free rebalance path.
-> 
-> Fixes: 0e884c78ee19 ("ipv4: L3 hash-based multipath")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Assisted-by: Codex:gpt-5.4
-> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+__damon_va_prepare_access_check() picks a random byte address within the
+region and stores it in r->sampling_addr. There are two users of
+r->sampling_addr in vaddr.c that pass it into a page table walk, and
+both use it as the address of a page.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+  damon_va_mkold(mm, r->sampling_addr)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_mkold_pmd_entry()
+        damon_ptep_mkold(pte, vma, addr)
+          ptep_test_and_clear_young(vma, addr, pte)
+          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+
+  damon_va_young(mm, r->sampling_addr, &folio_sz)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_young_pmd_entry()
+        ptep_get(pte)
+        mmu_notifier_test_young(walk->mm, addr)
+
+test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
+arm64, documents @addr as "Address the first page is mapped at".
+
+For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+clearing of the young flag for large folios"), the contpte helper walked
+exactly CONT_PTES entries from the aligned-down page table pointer and
+used @addr only to pass down to each entry, so an unaligned value was
+harmless:
+
+        ptep = contpte_align_down(ptep);
+        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+
+Now the range to walk is derived from @addr instead: end = addr +
+nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+page of a contpte block, the sub-page offset puts end just past the
+block boundary, so the round-up lands a whole block further and the
+walk clears PTE_AF in CONT_PTES entries beyond the sampled block. Seen
+on an arm64 guest running the DAMON selftests as random slab and page
+table corruption.
+
+Align the sampled address down to a page boundary. It is the address of
+the page to sample, so this matches its intended meaning and fixes both
+users in vaddr.c.
+
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
+---
+ mm/damon/vaddr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index 2c1c1952c008d..e26e426a56af2 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -360,7 +360,8 @@ static void __damon_va_prepare_access_check(struct mm_struct *mm,
+ 					struct damon_region *r,
+ 					struct damon_ctx *ctx)
+ {
+-	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
++	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
++						      r->ar.end));
+ 
+ 	damon_va_mkold(mm, r->sampling_addr);
+ }
+-- 
+2.50.1
+
