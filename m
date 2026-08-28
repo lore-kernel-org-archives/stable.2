@@ -1,176 +1,140 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E65E37C11C
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 22:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787954721; cv=pass; b=uas4Usf5gzcWMVPtLJWr6UmftLs9OksKop9iA0KeK8y8RUSpi/Y5jMfgErzUirG52w+zI/PFKDGk42Va5yYqE3ZIP9hKGXaxYtmxtvVHlQe0lYAq57If0Ytk+X1C++colNqU+ZMbrsSlTzcofypDihMt2/DxJED3JF5qcMkxlYs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787954721; c=relaxed/simple;
-	bh=ywb1KJ1Y2s6u3tEahxyzMtIqPZn9+T2wYc+dlk5oD7o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Br2iBVPT/DMoailmdYipf2U5YM4ro3EGEjUXu5QM0bPKyeDAp/7QElOliMBHDRiaeTRhJOsIjhu31wl2m9EPHZ4p4TuId2oVUK7TEDr0qxUGQa2ZWL+0MUmv7R2t4HJwVZeN6dM3o5ynDZeyDtnTdLY8qNFfTf1BYtPV6/3SdFo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=PX+Q3V/7; arc=pass smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2563AAF57
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 22:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787956010; cv=none; b=QI+AXpqLqd+cAPhEMKRavEOiADqxMQkIOXmiBf6GPr+Ir0ktZfYJaRtI+RLcGKcgbMv9FMOmiqw1VhV4O5uW7ND5yeP1+Qv4wYXqflRVLNNfbWJA2//92jnIxvIIdQifKGG1byHB9CgFRPIbp1Yn9D4ZHRFNiGMl97MfjFRwkDc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787956010; c=relaxed/simple;
+	bh=m1+rCSt91Jphcwaj86X1T10TuVUcrZvXIyXWFpploj8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=aySrLu+60o2Sa3WyWzk6oFrvRioJdAueLBIoNWtXGbw9n01Vd5YGYHtysiQGGdineTjkJ8gZjqJGZPWh8rPnjmWcMWgPUTuh8H/rMSg+RqMV24rj3oX9k5/ZvDflsukCOF0+xCcHEWzeKIZ6QGGGHNKxWVxHbkAx1PTy/2xlxGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U+dBzxuR; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthoughton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="PX+Q3V/7"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso1390170b3a.1
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 15:05:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787954719; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lqeUqEDDvuFe7nUf322zUbwQIJiaVd/lE9sJKSMXnfpCYx4gbKJtr6CmyjoIcQ+DyI
-         hVRYOmiUeCfZxkQ/pMMmbGubquqWqXYclHSZoAAJBVWTamhtu274sBkGFKvGNZOznOcl
-         HFPz8Kprn/uL6xZEk+MbTJ6+vDK/gCla5cMQrW6OKD861EStAqkFn1b7UaVBFBftxikY
-         FLkfMfHw5dIdoBonSL5SwRMpKNdfYcJoQyLGncXFzmLapS5jYd5sHnDw4GZWs01dZLL1
-         +Ry/l89WLSJY5DcKLNyfbD+D5wn/HSt4gQ3fHpkne1WrpIRQYxbSno5MlMfqsaJggOLO
-         pp8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4JU/PBBK6zKmaR3Ao9o2l7RAKkP3IvAVlF4SOyruE94=;
-        fh=8YmdZMciEViFgZa4GHGrhMgTzgvfVAMHnWhtQEV0t5M=;
-        b=QJG6dkoXw/ej26geDbL7l8PMvPi9iusdS0V+eEi21ic1kEAoqED4OxxW2A2zGxmIui
-         LG+IKoQcCbNbxb+mBGS9Pku12j+LGABYToV/ExcxIED8KColuX5+G1OIKr5G8n1AmQln
-         mLXbdqCYCkdkq4OHXpCvpE2xJbNL3k2MxSR9i4ZQSbuTL3bUGFXouoHUf+w3zYWabLi4
-         4AEev+ag9c8ZTd17sR2/9VweaddjJ6CTWuz8MwPvp237ZWtVuqM0ecQmpy1Hw2UUl6yD
-         /Yr9FsfuZ3vo1TiTWqeGYspOiRfuTKvLztmVlUNJ6gfqke/R73p+B2GF6+PFigyQYw2g
-         rS4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U+dBzxuR"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84a251c2e3eso386089b3a.1
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 15:26:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1787954719; x=1788559519; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4JU/PBBK6zKmaR3Ao9o2l7RAKkP3IvAVlF4SOyruE94=;
-        b=PX+Q3V/7J+jTHe5kPXf0pCwDFcvh8oFYK8FD46DS9WljLL9w5lQtDNbO+dYEv/MlCn
-         VYHR/+0xTCOePqIiCP0K/ubFqheBkfHe3LFHFgF3MEQkSdooG0OCjmPVtBlPNpXFfiq1
-         J496SkaZt3AOalbUBTgLysrVqZM/W9jftrOHy658bqwx2X0izBS1fBWlU/eSx9enPQnW
-         mtz/eooPLcSgm1GV9qBNoFKcuMRVOiZmLxfbahNmX889zGT6s6LOvWDPceNiFXW716rN
-         UcDyFd2RDL4x3R0QrOqNQQf/G2X6Ftcelx3lY+HQzwY1BEX2v/1y5k70Qru+oLYSh2cs
-         G9Lg==
+        d=google.com; s=20251104; t=1787956009; x=1788560809; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2hySmi/S0MNUtUUZ5XQrsRwLdmYAgAagHNThvawMZTs=;
+        b=U+dBzxuRBjErwRo91jTMeW7C5WOC/28nsI4jCSFH3lXNJgRahfzs/HOIBlEbFzmD8t
+         bod0UhbzLVkzdX0E+2RgSYyI4UuGIqJQUqEM5UpCrdPuFnkYTx6dQNLS/t/3DU6zeDQb
+         cTo+7lNThsPvPm4jqu8mIJAvkkHHdU7m55LIkAGXGsSCFuMxURiUT3pw50chsA3PQQf1
+         5esZ6pi4oA9g8Bi03br/PD7kC5qNdi9/bBR6bknjSWYMpP7T0Hn8V+LTl3JJJCF1d8qV
+         /mkcGz33Zwfolr4x6dE1+9/ZVH6QInnmcFWizkgrla+Dwb2S0G7Kqj9vLC/Y2TtbpGfA
+         IzdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787954719; x=1788559519;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787956009; x=1788560809;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4JU/PBBK6zKmaR3Ao9o2l7RAKkP3IvAVlF4SOyruE94=;
-        b=l3QdR3nG0vpp+jZjy3009SMmN6CDarv74wUAzjEnrsMFVvAZamtikbRdkKX4iN3aGQ
-         Rn+jxbNqr8JQYyWiE/LpOsdslVSo63NXMUlLHzN1sO4zsfUqsGL6rcxIw2s0LwBYPHcn
-         HBdvBvO49KJTLhf3CnaFkJYs02KhyTiC72t/zHoEvLLvlgVSgHaCVOA01zF8qi7xE0gU
-         7Vaan/HEex44XgmmEqm/UFYtWPCAF+D2h2ol0mRCD25Haw0IMA0x5wEj8XrG+d9RADyX
-         BcDzmbLWncU0LmwsoZBHLFAAk3hrezohiefqCNkp8pwJzcb2BLBlWumC2jumiqT5zIHH
-         HxSQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpg9ABGbErqIA/IWMV61UdVT2b5KMutC1CvZ8anaeJeil7mQVw+x0LxYrllkQYystHplGiJKjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcRdGqP7D9IgX2NQYihvpolY2jHv9lz4Hih8nQtbXkIM5xXIcr
-	AgcbVvNgLxPhX+oKesh1ibJbEgMLg3WbZVpJnPMBZPnlB3Cg6gVV2n5xg5DJ/uOfL7MPPgYofKV
-	Xgrs7EG+r68otuNj1zZZ2tPrJGS8HiPGBzvj2thDn
-X-Gm-Gg: AR+sD11fkA6F1s1FX9WbbwWy7LwcguTxS2W21i2/5VqL2GLqU7ezY3L3W0Y6zeFZCWY
-	PIJscifyFVco/0EAWePyXyYVgpRjjlVf9s+Lbl1mx5N+MYOw95Yw6GS8/KoitDSOvSgo3Jou2mb
-	sHskXOyDLUNtbAZ4/bZ+ew15zEhfbQmmb2g+V/pDGeiIyADcF3zp6zR86tx0XCrlsNse6DTpeeG
-	rNqkFqigMgjbUJ87BPXXsX8YT0DpmweOaR2bgzj7+YZRgnQRVNH/XuAwdZJhPDsqKAqeEvVD/qQ
-	00FsE+X3ewIpR1Ha0q0rGVebL/In94WCzfEDBv9IQ/+l
-X-Received: by 2002:a05:6a00:8012:b0:84e:242:4bb2 with SMTP id
- d2e1a72fcca58-8576e187183mr2599254b3a.4.1787954718985; Fri, 28 Aug 2026
- 15:05:18 -0700 (PDT)
+        bh=2hySmi/S0MNUtUUZ5XQrsRwLdmYAgAagHNThvawMZTs=;
+        b=Vegib2zIRGgkxhcI76YaHyDTv+QLxTBE5fa7jY0Sh4RalUg85qVHJNcSLjiDTS7FiY
+         MmU7MiikzhPR+hrU1gJbjyx+M2mQ92O50RlQG8mvUc2G6bClbCZHSOY9xJAwTvBJot0r
+         9biEbIHUNarak2VJuofWvBzKpmkQ8lOq8jnUW5Cfn3S3exsnOJUNqI+KNGIOMa8ykuZy
+         +9VfVaj08ap+Ly+iBZCZZv/tICviImtz+xcYhxQgJYtRjuKSalybYxsRV/NwvbeWevhj
+         P0sCvge0GIsm9vFo82m7Q+/tTrzVnKNR4W3TeorFAI5F7oTZgJyBwRRkK2DOJYbYEVTF
+         u87w==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4ARATuNJlDfweF0s8oVtw0dxceHkux9znYfUfsIfI6KqsZq1vTLcPgfkUI78oP2X0rW/LiAo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+v4YmnhMEL44gw6jaiUtq1GCGcPheSwCynOp6eLZJZ279hQBf
+	N9Y7UI8QBWzEta1jprwAPqlGA89XKwbWSEQzVgaINAow+DlaxEW/KAaHZNBJ/WvGVRUv31+vYeV
+	5PchUcH/5471YYaHzkodA8w==
+X-Received: from pfo26.prod.google.com ([2002:a05:6a00:2fa:b0:84a:3b83:9673])
+ (user=jthoughton job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:2d0b:b0:851:80de:db56 with SMTP id d2e1a72fcca58-854c892307bmr20792523b3a.13.1787956008574;
+ Fri, 28 Aug 2026 15:26:48 -0700 (PDT)
+Date: Fri, 28 Aug 2026 22:26:40 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260820175832.44512-1-kmehltretter@gmail.com>
- <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com> <CAOQ4uxjn3sWjkrV8KbA-V+eno3E4OskTnCznNBex6FOstEbJ-A@mail.gmail.com>
-In-Reply-To: <CAOQ4uxjn3sWjkrV8KbA-V+eno3E4OskTnCznNBex6FOstEbJ-A@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 28 Aug 2026 18:05:06 -0400
-X-Gm-Features: AcwNN1XzAxZAeZ9YbWbmD6gATJOUq2kxB8OX1cUcN_SgCoVZnhreW3OY7Y6Acvs
-Message-ID: <CAHC9VhQ5oQWL7bj745U5UzSWm2OfyKMjHVeaEYXZvzO0Em0iZA@mail.gmail.com>
-Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, selinux@vger.kernel.org, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260828222640.1638457-1-jthoughton@google.com>
+Subject: [PATCH v2] mm/khugepaged: Don't install PMDs in uffd-minor-registered VMAs
+From: James Houghton <jthoughton@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, zokeefe@google.com, 
+	hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, jthoughton@google.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2026 at 5:05=E2=80=AFAM Amir Goldstein <amir73il@gmail.com>=
- wrote:
-> On Thu, Aug 27, 2026 at 9:39=E2=80=AFPM Paul Moore <paul@paul-moore.com> =
-wrote:
-> > On Aug 20, 2026 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+Userfaultfd minor faults provides userspace with the ability to manually
+install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+map holes in the VMA when a naturally-aligned THP is present without
+explicit action from userspace.
 
-...
+This is a problem, as it bypasses userfaultfd minor faults that
+userspace is expecting to handle.
 
-> > > diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> > > index 1ead2eee1944..171b90412ff1 100644
-> > > --- a/security/selinux/hooks.c
-> > > +++ b/security/selinux/hooks.c
-> > > @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(struct=
- file *file)
-> > >       return 0;
-> > >  }
-> > >
-> > > +static inline u32 selinux_file_user_sid(const struct file *file)
-> > > +{
-> > > +     if (unlikely(file->f_mode & FMODE_BACKING))
-> > > +             return selinux_backing_file(file)->uf_sid;
-> > > +     return selinux_file(file)->sid;
-> > > +}
-> >
-> > I'm a little concerned that this only works for one additional level of
-> > filesystem stacking.  Yes, I know that OVL_MAX_NESTING and
-> > FILESYSTEM_MAX_STACK_DEPTH are currently set at "2", but it's not an
-> > unreasonable concern that at some point in the future that number will
-> > increase without proper notification or testing and we will once again
-> > have a problem.
-> >
-> > At the absolute minimum we should have a BUILD_BUG_ON() for the stackin=
-g
-> > depth.  It would be good if we could watch both the overlayfs and vfs
-> > constants, but the overlayfs constant isn't available outside
-> > fs/overlayfs/inode.c (thankfully it is currently set to the vfs limit).
-> >
-> >   BUIILD_BUG_ON(FILESYSTEM_MAX_STACK_DEPTH > 2);
-> >
-> > Ideally, the code would be written to keep diving down the stack until
-> > it hit the true backing file.  No one likes to see recursion, but at th=
-e
-> > point where this function is called there should already be a reasonabl=
-e
-> > bound on the stacking depth and the work involved.
->
-> Unless I am missing something, stack depth should not matter.
-> file_user_path() should hold the user visible path, for all the backing f=
-iles
-> in all the depths of the backing files stack.
->
-> This is the issue that was fixed with commit
-> f2381b546e7e6 fs: fix user path of nested backing files
->
-> This patch makes uf_sid behave the same way and also documents this:
->
-> struct backing_file_security_struct {
-> -       u32 uf_sid; /* associated user file fsec->sid */
-> +       u32 uf_sid; /* top-level user file fsec->sid */
->  };
+If userspace implements post-copy live migration using userfaultfd minor
+faults, this situation is currently possible:
+1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+   is mapped in the page tables.
+2. A stale copy of a page is present in a naturally-aligned THP (from
+   pre-copy live migration).
+3. khugepaged collapses the mapping of the THP, installs a PMD.
+4. The VM now has access to the stale contents => VM is broken.
+5. After installing the correct contents, userspace attempts to map the
+   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+   unexpectedly mapped the page.
 
-Perhaps I'm not understanding your comment correctly (it's the end of
-a long week), but selinux_backing_file_alloc() and the newly created
-selinux_file_user_sid() functions don't operate on the
-file_user_path() path struct.  In fact the path which is resolved in
-backing_file_open() isn't even passed into the
-security_backing_file_alloc() LSM hook.
+The naturally-aligned THP case is the only case where this is a problem.
+khugepaged otherwise requires all PTEs to be present for
+userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+correct. This check is essentially bypassed for naturally-aligned THPs.
 
-Are you trying to explain that the way the backing files are allocated
-in a stacked filesystem, regardless of the number of layers, is that
-they will be allocated from the top down in such a way that the uf_sid
-will trickle down to the bottommost backing file?
+No changes are needed for file_backed_vma_is_retractable(), as zapping
+PTEs is safe. Userspace must already handle cases where PTEs are zapped
+without explicit action (e.g. due to reclaim).
 
---=20
-paul-moore.com
+Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
+Cc: <stable@vger.kernel.org> # 6.1
+Suggested-by: Lance Yang <lance.yang@linux.dev>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: James Houghton <jthoughton@google.com>
+---
+v1->v2:
+ - Applied Lance's change to move the userfaultfd_minor() check to the
+   right place.
+ - Suggested-by: and Tested-by: Lance. Thank you!
+ - Adjusted the commit description.
+
+v1: https://lore.kernel.org/linux-mm/20260828005004.2870750-1-jthoughton@google.com/
+---
+ mm/khugepaged.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index b237f6e7662a..22356229c1e4 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1899,6 +1899,13 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 	if (userfaultfd_protected(vma))
+ 		return SCAN_PTE_UFFD;
+ 
++	/*
++	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
++	 * userspace is expecting to explicitly install PTEs.
++	 */
++	if (userfaultfd_minor(vma))
++		return SCAN_PTE_UFFD;
++
+ 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
+ 			       linear_page_index(vma, haddr));
+ 	if (IS_ERR(folio))
+
+base-commit: 26260251022fbc2f248a3d747a9b2b961b18d2d8
+-- 
+2.55.0.897.gb25b4bd76c-goog
+
