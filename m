@@ -1,49 +1,36 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E003C9429;
-	Fri, 28 Aug 2026 06:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A02C3C9EEC;
+	Fri, 28 Aug 2026 06:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787897782; cv=none; b=qzmBtfOZd4wbl7aOUEfLsTo6ylrGSjevmHD1oD4A3bih80WE3PYcrmMSyZSd5IBrYuSAmWemXG1N3u02m45p1cHrPLZXU17vEtCr1m/f2cPGBgZHtdudOOyP2udFH3Yo9N7xOLHVhhsOdSNIB/hq0Uk3xuXYAM2yP/vVPmuYYss=
+	t=1787897978; cv=none; b=VRDcK5LNpgpfLt0RjXv8uGBKjGF8KZG+0YYn9pWJfcvJMytLtq2NcApGp+uOY+PH0SD+tCls8OhJCvIG7yvwrEkk/zm2f68O/oWBY9Pa008a76lI8u8XBTZS2fA6S04MTnZ5n9rigvemH9FG3FKm02wBFQp7Np/xyNQEuMqsdb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787897782; c=relaxed/simple;
-	bh=DWJ30wLWoVajnNOPaxy/O0aOU7mPN/98OXXWAwisxiI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DbKGSJkX+QV35JN8Y22+4dvSpUVJxAKiElUQacuvYy3C425l0yYDdLaY0zWKQPzeQSvLlmejpQWLW5nRpfKNzLA9MqXsio83g4Y6FJwK11i0GRGQYSHfLoVidF8kg7NhbbFJBOCnYUqZryIkICWnmftGLYIOd4b0PpttrqHkj7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f72ca04ea2a711f19a56ed5b684f684d-20260828
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:81e1f6fd-7911-45dd-8e47-bd7da3343c25,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:ad210ab366befcb778d841f078b303ec,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f72ca04ea2a711f19a56ed5b684f684d-20260828
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1622525588; Fri, 28 Aug 2026 14:16:11 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1787897978; c=relaxed/simple;
+	bh=xYw48ef/vDfXP2n9x+v2CBAjj0jq85If0TTTR2sW9QU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B8LgGz+xTw2aA37dMclxrzxBIsOfxN2KpOY9/TYUI/qcQ52fYpjx6xO5X1GozgyAGb/VD/aRCIMkIqU+28xSZAjr9yYBERnyTN/qEFTSBUqLDUjMq41X6t07dPrCLAogTVig5iqzxeIYZKLGRC2rEdUFrSmmpT8MwZxjB1BP9eI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn; spf=pass smtp.mailfrom=whut.edu.cn; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whut.edu.cn
+Received: from Mogu.localdomain (unknown [223.73.65.69])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4ba921c56;
+	Fri, 28 Aug 2026 14:19:30 +0800 (GMT+08:00)
+From: MoGGuU <Naixumogu@whut.edu.cn>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] ntfs: take invalidate_lock in ntfs_setattr_size()
-Date: Fri, 28 Aug 2026 14:16:06 +0800
-Message-Id: <20260828061607.240845-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH v4 1/3] accel/rocket: Validate BO handle counts on job submission
+Date: Fri, 28 Aug 2026 14:19:14 +0800
+Message-ID: <20260828061916.20405-2-Naixumogu@whut.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260828061916.20405-1-Naixumogu@whut.edu.cn>
+References: <20260828061916.20405-1-Naixumogu@whut.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,60 +38,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04705fda303a1kunmbcc13c968b1e3
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaH0IYVk1KTUlDSk4ZHRhMGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 
-ntfs_setattr_size() updates i_size and resizes the on-disk attribute
-without holding mapping->invalidate_lock.  Page faults take the lock
-shared, so a fault racing the resize can resolve a VCN against the
-transient runlist state of ntfs_non_resident_attr_expand() and fail
-with a spurious SIGBUS, and can interleave with the size-change
-epilogue (truncate_pagecache(), i_size_write(),
-pagecache_isize_extended()).
+The input and output BO handle counts are __u32, while GEM lookup and
+reservation helpers take int counts. A count above INT_MAX cannot be
+represented safely by the GEM lookup helper.
 
-Take invalidate_lock exclusively around the whole resize after
-inode_dio_wait(), matching the fallocate path and other filesystems
-such as xfs, which wraps truncate in its mmaplock (= invalidate_lock).
+Reject each count above INT_MAX before looking up the BOs.
 
-Fixes: 9c87959601e8 ("ntfs: update file operations")
+rocket_job_push() already uses check_add_overflow() for the combined count,
+but stores the result in u32, so it only detects unsigned wraparound. Store
+the result in int so sums above INT_MAX are rejected before the count is
+passed to the reservation helpers.
+
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
+Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
 ---
- fs/ntfs/file.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/accel/rocket/rocket_job.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 1969e4f444f7..585ab2145797 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -270,18 +270,25 @@ static int ntfs_setattr_size(struct inode *vi, struct iattr *attr)
- 		return err;
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index bb77b6bf0f231..e6052d1973afa 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -190,7 +190,7 @@ static int rocket_job_push(struct rocket_job *job)
+ 	struct rocket_device *rdev = job->rdev;
+ 	struct drm_gem_object **bos;
+ 	struct ww_acquire_ctx acquire_ctx;
+-	u32 bo_count;
++	int bo_count;
+ 	int ret = 0;
  
- 	inode_dio_wait(vi);
+ 	if (check_add_overflow(job->in_bo_count, job->out_bo_count, &bo_count))
+@@ -556,6 +556,11 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 	if (job->task_count == 0)
+ 		return -EINVAL;
+ 
++	/* GEM lookup takes a signed object count. */
++	if (job->in_bo_handle_count > INT_MAX ||
++	    job->out_bo_handle_count > INT_MAX)
++		return -EINVAL;
 +
-+	/*
-+	 * Serialize with page faults and pagecache instantiation so that
-+	 * readers cannot observe the size change until the attribute
-+	 * updates below have completed.
-+	 */
-+	filemap_invalidate_lock(vi->i_mapping);
- 	if (attr->ia_size > old_size) {
- 		truncate_pagecache(vi, old_size);
- 		i_size_write(vi, attr->ia_size);
- 		pagecache_isize_extended(vi, old_size, attr->ia_size);
--	} else
-+	} else {
- 		truncate_setsize(vi, attr->ia_size);
-+	}
- 
- 	err = ntfs_truncate_vfs(vi, attr->ia_size, old_size);
--	if (err) {
-+	if (err)
- 		i_size_write(vi, old_size);
--		return err;
--	}
-+	filemap_invalidate_unlock(vi->i_mapping);
- 
- 	return err;
- }
+ 	rjob = kzalloc_obj(*rjob);
+ 	if (!rjob)
+ 		return -ENOMEM;
 -- 
-2.25.1
+2.43.0
 
