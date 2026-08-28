@@ -1,28 +1,27 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A453DC878;
-	Fri, 28 Aug 2026 06:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7123DDDB1;
+	Fri, 28 Aug 2026 06:53:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787900009; cv=none; b=cjgfnobJNsf6rjnGE9bgnuRnUIp6CSh6IaO3kIGGu3j/xRfp3WkyUG68P59MBeqsWx7ki7lKH8M5zZIwDWkQUb+LkmTzcglTLW9Wrksh4jjcewvhFXusCwTa1JQO92TM02DMleDzZdiPd0vtc05+ByiVg0+BWfm+zaNFvn4COfg=
+	t=1787900011; cv=none; b=S8noDHq0FM1oJZgw8KxzqwYqQdKFA+NMZkt8/QYydNAN5XkHzt/u+6FV1utGKozIVeLHCoC6qA0xWW0TPBOX1Ce3zDezYJ3eWY6x2gEGPv5N5t4c9KY12BltIMpP5cbZQgXOZMDct5sDie9rm6You3ko8jvaAryw+q4d+plXArg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787900009; c=relaxed/simple;
-	bh=dfUItArVWGO/brTsVUN8c0acKmUyhhL77mGvIdJFRFE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tixRERwy7XBQZOPSsZkCaRSIzGYHlmvbnmXnAlH+15b16zMBKip/UAi3I9RO5s8ov5X0eVCr7Mdy9HHXzTGqnL54x2innoB6oyDFCoyhOoJGcGb2hQE4HLW5CJyaos66t31bjIX1dXgh39l6jL/bPWaQ0l/93fAGUjx9Qk7GAm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HsihsEc1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787900011; c=relaxed/simple;
+	bh=J6yH8CLYlx/zXIseED9Ob4/tIzZQjFiLWUWAEo+qjBg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=svpYoXJ1FmP+k5xhIRgYPi58fBhWMBJl7dYBJ4bmPVLw5MwXkV7riL3HuJr9oX/h9/6+soqBniflsYNVhlu8NS/VB02tVpxsYk6xJb6KxNz2+X4Fn+7n+6b/1msMy0ouBmlj/bq27jt91LiGWUkVjdxkMHD3wp6u5SsnhxPrPEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=We7KXfVU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HsihsEc1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED031F00A3A;
-	Fri, 28 Aug 2026 06:53:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="We7KXfVU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148CC1F000E9;
+	Fri, 28 Aug 2026 06:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787900007;
-	bh=sqPglnPd/ozaFVSE4GLYgyBCrX0bJJb7Hc6mdtmt0Mw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HsihsEc1MAPhcPaOnVUVeEa97YXCdegfamqB2kUsjd3EvD9LxrcloIXTnfRqDDjpz
-	 7vgTov27EniwZTxBRkkr9Qvzd2k/OjX8HkZZ/uB33ONC8L/1cDrj3eqPyWriERIuOa
-	 AQEKVej36pRCSXVnY9VMF4btvFMVZLXsKneiWpsM=
+	s=korg; t=1787900010;
+	bh=b4FLQ3e7DRlVH3wt08JDfHjDeGJSKv8ryYTGA9nQs70=;
+	h=From:To:Cc:Subject:Date;
+	b=We7KXfVUilN8riOCSna92eRTIyhWZFyIQIVctmHpJ/v+jM14x/EzIiutMw4H7Fx1h
+	 fsQxeYzqqVlortiL/1gzM+hlxTlp5KK1PDTNRWw5Ps558kaQoddQzd0uv9KOwLZlfM
+	 AiirkNfxzq6SOjlwDW9KIZdcobYcS7ehSdey3dbw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -31,12 +30,10 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 6.12.107
-Date: Fri, 28 Aug 2026 08:50:00 +0200
-Message-ID: <2026082859-dividing-steerable-7ac0@gregkh>
+Subject: Linux 6.12.107
+Date: Fri, 28 Aug 2026 08:49:59 +0200
+Message-ID: <2026082859-lake-stuck-2d9c@gregkh>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082859-lake-stuck-2d9c@gregkh>
-References: <2026082859-lake-stuck-2d9c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,34 +42,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-diff --git a/Makefile b/Makefile
-index 957003198a2b..18d3abab7dcb 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- VERSION = 6
- PATCHLEVEL = 12
--SUBLEVEL = 106
-+SUBLEVEL = 107
- EXTRAVERSION =
- NAME = Baby Opossum Posse
- 
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index ea3f15f59c72..09d208cf8b1b 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -435,6 +435,13 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- {
- 	struct sk_buff *last = q->fragments_tail;
- 
-+	/* An IP fragment is never a GSO packet, but an untrusted source
-+	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
-+	 * that reach the reassembled skb, whose head keeps the first
-+	 * fragment's shinfo and whose frag_list is not GRO-shaped.
-+	 */
-+	skb_gso_reset(skb);
-+
- 	/* RFC5722, Section 4, amended by Errata ID : 3089
- 	 *                          When reassembling an IPv6 datagram, if
- 	 *   one or more its constituent fragments is determined to be an
+I'm announcing the release of the 6.12.107 kernel.
+
+All users of the 6.12 kernel series must upgrade.
+
+The updated 6.12.y git tree can be found at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-6.12.y
+and can be browsed at the normal kernel.org git web browser:
+	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
+
+thanks,
+
+greg k-h
+
+------------
+
+ Makefile                 |    2 +-
+ net/ipv4/inet_fragment.c |    7 +++++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+Greg Kroah-Hartman (1):
+      Linux 6.12.107
+
+Xinyang Ge (1):
+      inet: frags: strip GSO state from fragments before reassembly
+
