@@ -1,132 +1,114 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0523CF698
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 06:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BCF3CBE9C;
+	Fri, 28 Aug 2026 06:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899348; cv=none; b=X/6UVzipELt/Re/QfiZ2XVa0yDZonbHWIPTeFVoX3Tx6ppEDKjdLL6lCUBv4ussWhbKNF9UsqmampVgtgROZmB7XIOHuzpoCmKxYkQuiNX93EhsXYYlr/415iYdY3Rf6nRb/gZs8cz9xz9DUGAElJ0RdQdB8cPRuHuIaLFb9d00=
+	t=1787899708; cv=none; b=Z6e4+btnA/52sNRfFD+ON+ylJzvVz3PQcvod7y2epv7Ep4RrWdxPpxF7N4HtB2sBmXqp3Kki43Kn10QIojYkpFgsa+Z8WCK3PHdYhY2wXu6OeAd85MQnyoRi4mc5pBXwnIWTrXE2jPjj/mt830fJNzKI0xX9qZw9684pWjEyYZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899348; c=relaxed/simple;
-	bh=pN6HPYj8rgpgCZ536OcBznzjQHlM6JH7IBNXpCmtsPk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ETjKVmBL+WbfHNsN8jr6fwNKUI0gow5O3CVR4jaVRf5FaYtJN32dxcM8/MHocPE+QY5u0NPOWLg11keSwJsPU2zAJaQQ7MpkkHZDMQejpjcWCiqn8QjY3mepUJYJ6u4O1m7FWPQiQcF4hS8aP16VQm/wh8HWhKWKaf6es9JP4W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zy2ZoHmE; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787899708; c=relaxed/simple;
+	bh=0mXVft9VFASRJxd9qA9xwN3xqCiX+uuUuRmmj5XXj8U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MHBzBiLJYzJvOOaHKXrqGnxNZ9/0IRsw235FEPKPLPYTFn+4Bg9iUiOTwYSMZZF5WjzLZPyQcADHWszzEmYpwKLk09Znc15ffbdIXGXMA3lBtwAkMSXjy4o1F3TbWmG6pghJpBjV68EsqbJC7JpTSB0GPubZyf0mXRfoT/xkgjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FZ+VEU6E; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zy2ZoHmE"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47fe45db360so80032f8f.2
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 23:42:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787899343; x=1788504143; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ktRMVezOHSXu+KrKQhXPWvOXAM5roEQ780FkS0ZUNoU=;
-        b=Zy2ZoHmE9bPRGgA/zVEbKE0zeNGvMe7s6MV7AMBmLYGSgaoPj999n5fciHkQDjdL2o
-         bgy7VsgfpZRTxw+uRdH9eSBSSTvY/b9sSgxz5k3b3VEp7rzIx/e+/TjhVg/5Qlu4iUdN
-         eRim4rwmkT+oS1y3a8pObamAU99gMIMKOumkd80awTLiI19ZcBvqyWffqfGoEgPIjqRN
-         IExDlTlcrgThnFWcjrMhHs8HF7DbLevnd5D1tnMmqgoUpNP1O/BjwezBErCW7RfF3EpT
-         6FLBzRl8q996yngtcydnYSfQg+n9FNCQOMesffC4Cq4u6W0yVT3Uls4dpJ+Pax7PIaTS
-         OIQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787899343; x=1788504143;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ktRMVezOHSXu+KrKQhXPWvOXAM5roEQ780FkS0ZUNoU=;
-        b=h3uFdk5hsbYXftvr8KE8FGU7iZevS2dyvpMBYBYoRBpu4d7Fkv8A8jxcfj78SeWME0
-         wIkLVEKvEIkl1uWRulaF0X6qChOhoYf3wHjAcSbyqDyPVDOzhXCqYa0VK7OcV9hg+9sa
-         ap3B1LSonTo44+hxNCL6mr+W2Z9FWTZHn5ur7peNJtJeioTYBwxuJEb0o0Pnm6pILgEP
-         fOHn01EvSackIcLKS4gCM7XhutGt0UVrruZMfQlGIY/rz8g8p3qItyHQHnF2bjaiJJ64
-         3yHLohGIQbprPb9gyJM6UFMAUZmIXaAv7JNIo5FDFyKxM8HizBrvheF3Hb9ID9sqsAjn
-         hKDA==
-X-Gm-Message-State: AFuF++kRulHZGJDP950r6w1EZeAT8V/Emrk6OlAZOflcCw0/5maMHb7P
-	Lcjbqw02g/EN7H2VT5bytM5nLlFCpen78dIhixef6InV8MShjj3eUOFqBnMrsWVdQCk=
-X-Gm-Gg: AR+sD11VlxXFPKsZlDrbk2btGLAZe7qqflsyEjQfKHJCXY/ieE02C2oOw89M6C3BeDN
-	Myl60FAdU0mF+ygFkCyKhmc2QZmNf2RCojwB7ULuTq88HabTqnOPK5Ae9QXUYyE5U9GKIRXEC/B
-	MdqtZ/lSVslF/5sPmHK45vESzoeeA+NXyQEux1zYlKiS+6ce/APNhE3S6/ZsKIlxZt4ZGKb9Bkf
-	VmuOUbvHgdkuG8llqBeHp3GaV93rI5g0Hj2hjmX8B4CbqsqJEMxB2EYEeDomayEJK5x6HTA9k2j
-	WnyTH6DyVv9tD/aBGFfd671PEX+QDUJnI13V2JEfT/H/5hOWTYilDtltGIIuyM3Lh59n768c6Gw
-	EmybPLZKsnHNv0rQrp/mtxByBlq1fnhSwhaUpE8iAhbnPqIFnmKrtSdhE95p+ZtDrddmOyFjgdh
-	Zx+wsdNDUYcjQIj3/h/G78kcM0pOCBncbOxgTuUKA3PERnxRxgoQd+rBmGUacSpAj224A0ztCgL
-	plBaWZ9oiWGVw==
-X-Received: by 2002:a05:600c:3103:b0:499:cef6:104c with SMTP id 5b1f17b1804b1-49b91c39a77mr31949355e9.1.1787899343257;
-        Thu, 27 Aug 2026 23:42:23 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm33472195e9.8.2026.08.27.23.42.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 23:42:22 -0700 (PDT)
-From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	lvc-project@linuxtesting.org,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Andrey Gusakov <andrey.gusakov@cogentembedded.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Archit Taneja <architt@codeaurora.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: tc358767: prevent overflow in PLL calculation
-Date: Fri, 28 Aug 2026 09:42:09 +0300
-Message-ID: <20260828064209.4314-1-dokunevdmitriy@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FZ+VEU6E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=2FbCZn1u3S4FNsq+8mb+8/B/FxJeLPY3PhoFGphQemo=;
+	b=FZ+VEU6Euw2F+sd7L1oGYnfNB9+lG92Anefg9gsI1iM/wqvFHFUwYGXUKlsSkN
+	YZHfcQlddf4pgrahZ+9fwuhjUsrB7GOrN+sZWKyuQ8qrqexN9nGd7ChH3CU8zp3a
+	gcxFuTORs5UNODbbbwJEmGt3fj/97wSBCze3Qc1Juok3Q=
+Received: from [IPV6:2409:8900:1ef4:8f82:3f8a:6d15:2d07:8d9d] (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDXgQEQL5Fq8_wWPg--.50199S2;
+	Fri, 28 Aug 2026 14:47:46 +0800 (CST)
+Message-ID: <ba9fa26c-dd72-48bc-b938-b3cff9a4f323@163.com>
+Date: Fri, 28 Aug 2026 14:47:44 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ntfs: take invalidate_lock in ntfs_setattr_size()
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260828061607.240845-1-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260828061607.240845-1-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgDXgQEQL5Fq8_wWPg--.50199S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw4kWrWrJr4fGw4fGr15Jwb_yoW8ZrWfpF
+	ZIkF1rK345tr4DWrnrGa1UW3WrW34kW3yUury2yw47CF97twnrKF18K3yvg397trZ7Jw45
+	tr4DAFs3Cr4xZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRpVbQUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhLOmWqRLxL4TwAA32
 
-In the tc_pxl_pll_calc() function, the expression `pixelclock *
-ext_div[i_pre] * ext_div[i_post] * div` is calculated using
-32‑bit arithmetic, since all operands are of type u32 or int.
 
-pixelclock takes the maximum value of 154 MHz (in accordance
-with tc_edp_mode_valid()), ext_div[...] takes the value 7, and
-div ranges from 1 to 16, inclusive. The maximum product
-(154,000,000 * 7 * 7 * 16) is approximately 1.2e11, which is much
-larger than UINT32_MAX, leading to an overflow and, as a result,
-to an incorrect value of the PLL multiplier.
 
-Fix this by casting `pixelclock` to `u64` before the multiplication,
-ensuring all arithmetic is performed in 64-bit precision.
+在 2026/8/28 14:16, Hongling Zeng 写道:
+> ntfs_setattr_size() updates i_size and resizes the on-disk attribute
+> without holding mapping->invalidate_lock.  Page faults take the lock
+> shared, so a fault racing the resize can resolve a VCN against the
+> transient runlist state of ntfs_non_resident_attr_expand() and fail
+> with a spurious SIGBUS, and can interleave with the size-change
+> epilogue (truncate_pagecache(), i_size_write(),
+> pagecache_isize_extended()).
+> 
+> Take invalidate_lock exclusively around the whole resize after
+> inode_dio_wait(), matching the fallocate path and other filesystems
+> such as xfs, which wraps truncate in its mmaplock (= invalidate_lock).
+> 
+> Fixes: 9c87959601e8 ("ntfs: update file operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/file.c | 15 +++++++++++----
+>   1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 1969e4f444f7..585ab2145797 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -270,18 +270,25 @@ static int ntfs_setattr_size(struct inode *vi, struct iattr *attr)
+>   		return err;
+>   
+>   	inode_dio_wait(vi);
+> +
+> +	/*
+> +	 * Serialize with page faults and pagecache instantiation so that
+> +	 * readers cannot observe the size change until the attribute
+> +	 * updates below have completed.
+> +	 */
+> +	filemap_invalidate_lock(vi->i_mapping);
+>   	if (attr->ia_size > old_size) {
+>   		truncate_pagecache(vi, old_size);
+>   		i_size_write(vi, attr->ia_size);
+>   		pagecache_isize_extended(vi, old_size, attr->ia_size);
+> -	} else
+> +	} else {
+>   		truncate_setsize(vi, attr->ia_size);
+> +	}
+>   
+>   	err = ntfs_truncate_vfs(vi, attr->ia_size, old_size);
+> -	if (err) {
+> +	if (err)
+>   		i_size_write(vi, old_size);
+> -		return err;
+> -	}
+> +	filemap_invalidate_unlock(vi->i_mapping);
+>   
+>   	return err;
+>   }
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: 7caff0fc4296 ("drm/bridge: tc358767: Add DPI to eDP bridge driver")
-Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
----
- drivers/gpu/drm/bridge/tc358767.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
-index e3a57f8228da..39633f618664 100644
---- a/drivers/gpu/drm/bridge/tc358767.c
-+++ b/drivers/gpu/drm/bridge/tc358767.c
-@@ -640,7 +640,7 @@ static int tc_pxl_pll_calc(struct tc_data *tc, u32 refclk, u32 pixelclock,
- 				if (iclk < 6000000 || iclk > 40000000)
- 					continue;
- 
--				tmp = pixelclock * ext_div[i_pre] *
-+				tmp = (u64)pixelclock * ext_div[i_pre] *
- 				      ext_div[i_post] * div;
- 				do_div(tmp, refclk);
- 				mul = tmp;
--- 
-2.53.0
+Looks good to me.
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
