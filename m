@@ -1,119 +1,126 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D8935F5F8
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 16:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DB936606A;
+	Fri, 28 Aug 2026 16:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787935614; cv=none; b=Z4/6YAIkrCOrLfJ1FZ0EJ+3RstyI3Ksb03XCMw+9dIOo+NaO+AQYse1zCvK9CsgxT/iy4gRqSIAgsW18hCwIfBJNpVngmxa5p6JEs8wEzBI2WFB0/hd+M9/WtJAgXb0cxtlOhAzipxfWh5yitGAR1Pfdpg2u1799ADw9JDcSCPE=
+	t=1787935949; cv=none; b=f3BUDy9KBBtyBVTKTDQGbIl0EmP6qZts6yKiDSx6TinQ5R9QB7o0x6iICbKlOY8eyo2l2tiijAJ0jx6ylwHSUZ+qoxizQnZStf5AJratx0Rt98jtCPtnxSyV+2BSbLbqOZJfXZ/vKa1a3T2y8vCVVlPAKwFdbqWuTcIKER6mEk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787935614; c=relaxed/simple;
-	bh=K/goC4AJrkO5X5CWpHMZBHdgUtrswgL/G2WnogRSeq8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CPTE7JNWChnIiX35C+8GQWgli3IZu2nrr5P364htIIBZrdhKkK2P8WqcDgf29niYsNBgj3D7lLkdgpz8WhF0gsrxJpuvxlNUM8nnVFM24+na6qfx+QSMw3NpJR5zqwVeA0zWlwd0t3iTkereilYVsUShZwkx54LkUS0DIZM2veU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=baqgU5RU; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	s=arc-20240116; t=1787935949; c=relaxed/simple;
+	bh=xcFaBX/yGiww1B/zi6hp59SmM4SUpOLpxK8XViOzfO8=;
+	h=Date:To:From:Subject:Message-Id; b=J2g6Ec1U0HPtuMrHzI/BAQBH4GTpPBuTdo1sZCUnjiB5Twm0V0URhcm8mSiPvEni48iu0XAlwugAzMoAO4FM898vyDs5bj+saBcG2KDHD2S/RpWCyhgZh+lVhjt6Zrv7nac2S09KvOLUvNBGj3ypgXtgFlRFvMAYF+0Id1JES1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=a5Gxi5+0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="baqgU5RU"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d58efc7356so12431125ad.1
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 09:46:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="a5Gxi5+0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8BA81F000E9;
+	Fri, 28 Aug 2026 16:52:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1787935613; x=1788540413; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pBVClgdpKmfnkM4Cu3SaLQRKw2oS/EQYOdlTnpUMlbs=;
-        b=baqgU5RUiLtxq3hbdjqp2LgIz0O8nwGxEMvno6sXlMZ8s8q51wBUF5BbJLNNtQjOqT
-         xZhEa2eU0SAZDhnotU/1tjvxrHQ+ftK9/puNh/SEQdfOKkTdlSxEvjoi7urQHAFbVdYF
-         +pSTyCYUAsn8ihnQzIbPUHiR4r+5Ko3s0+3ljAaJpfjoQ4J4iWA4Vb1kSwyxJFJWN5wU
-         /8fxVq4Coc5aat2Od0aT2g5/PXvD+QeZ5+9039GQeqltupHRhCIj5/4T7F7z9egmFdro
-         aYf7GIWyczwefLl+nYlscEPt7MNWrTiAMEhepO5yzgVGcSMGKqdaSIDyY0VAWbsIuj4t
-         pHqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787935613; x=1788540413;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pBVClgdpKmfnkM4Cu3SaLQRKw2oS/EQYOdlTnpUMlbs=;
-        b=GVqhKFfUiuGHIiJuETvs/7RYbk+0f9w9w0Aui+YvPHIkkj6awPgWZ4UAcDMc9/gMbf
-         4cPWdanAkh4Ta1m6hdx1MHSLRl+61jzUB+gpAq70yuLX4Acj1CddWNsZ1tvWceH/+zQv
-         jTqM96su3poOVxBhWTzeH5WWd+EHGbYVdH60OUwc4Ztx2VE5Nt8KjKraxrpIZJp7GDwg
-         spi75AgwdaFs1GyRWRe+dT4MyFY8TjFk6voOWk3nqI+XIPV02awfxo8qmsE3pQ2Rz9Ix
-         bLYhfHxfv1DduUIfDaLLNZbiIuhr3ka0+Vs32v/5Nh42nUdGB58KSgPThwRSX99tgo8u
-         wC5w==
-X-Forwarded-Encrypted: i=1; AHgh+RolU7Q2Gx7AbwRSkLyH3ta2hkg9lHw37gIJUAam+x3sEnntZFfErjNV2ASAx92RhIf6oqroBpM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kb9TBJ4Esrn6M8LQf0SBOf64A/jAifQAl7noRm/0Lqe1DDQDsl
-	aTbaNKF5k9ktduqj8B8zZPSxe9ogJ6nHAvEnFbPf3MWENLRG7S2FZ8sJFuCFxT5NUMQ=
-X-Gm-Gg: AR+sD13WRLiEKA4GQr6sWfqXkWor/V7YbcicMpXKWeK2KBgCdMzghOZZ2YJJPb9QbsQ
-	IWiqULDX+DF7U/kZ/6Lp77kfab/tBE8OOub0dv5aHxgDdd5WMxP063Gzy8sqvbRgapoPcCGjEyf
-	LzNir8mtW03MorvZzFvviyBEM395xU+T5/UyJLRk+hGmqSuCl0fPMyk7zjpyUvLqt22TN3QjpAU
-	egjEpUKaS5zwj//Lft3av2DYYIipbWfMguLbGnl87K4lnMVNaF4uq/5h0ddB4qWsHj0SqNRyRAs
-	kz5Bzg6Y0IzkvWBJADbVD+QF4pVx9lNv5Z//PIwZEfnZ20ODU0esU+srUP+xJ4I2O/dvVq3uf4q
-	4/+rHeedlGbaegKmMTH6f+Aj455SoUTCaPRb5FJHnDhcNJLAYbfiU5T9FFWN9CdSrNd9cC6hS0Y
-	xq0+dYYVejnq18x31xcNV3PdkGURu2xIXM1RzQa4PkACgnh8WiF6m7Rk0+hG8+mhMNHe7tghqAd
-	nPTZKO9E8bfhFcnqGRSsc2v0jgiG3lgg1GXA9NOK7292ySJVJN4puSnghiQCXxYuajxgKvQQdI2
-	66ju9w==
-X-Received: by 2002:a17:903:1a26:b0:2d5:c099:16e2 with SMTP id d9443c01a7336-2d74e070456mr160099615ad.13.1787935612681;
-        Fri, 28 Aug 2026 09:46:52 -0700 (PDT)
-Received: from MBP-Saravanan-D.civet-hops.ts.net (c-73-240-212-25.hsd1.or.comcast.net. [73.240.212.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988a1d6sm7487845ad.55.2026.08.28.09.46.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 28 Aug 2026 09:46:52 -0700 (PDT)
-From: Saravanan D <saravanand@crusoe.ai>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Peter Xu <peterx@redhat.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Saravanan D <saravanand@crusoe.ai>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Cedric Le Goater <clg@redhat.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap mappings
-Date: Fri, 28 Aug 2026 09:46:49 -0700
-Message-ID: <20260828164649.77283-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
+	d=linux-foundation.org; s=korg; t=1787935948;
+	bh=pf52ODsl1feCknhVqPeO3xiaQTjUuzN0crTPYEgM1Mo=;
+	h=Date:To:From:Subject;
+	b=a5Gxi5+03WEiv5bZcurrnMRZ/nlpGLZztGZLLdvjkmVHPjUSgk+AHVUWiggfwMg2/
+	 gg0vH9N6SQ0J6wdjWsGwHbn9kf0p7wp0cLvv14aMLhXIRH2RI4Sdx6lkBeHLmWBnXR
+	 iu+zfQatrNypVdEFSXwfvwVMuSgGQ4mQL6FEEI50=
+Date: Fri, 28 Aug 2026 09:52:27 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-exit-recovery-thread-on-mount-error-path.patch added to mm-nonmm-unstable branch
+Message-Id: <20260828165227.D8BA81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 27, 2026 at 08:55:57PM +0100, Lorenzo Stoakes (ARM) wrote:
-> This is incorrect - if a huge PFN map is available (defined by
-> vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-> should be mapped huge upon fault-in.
-[...]
-> Correct this by explicitly checking for this while ensuring that smaps
-> continues to accurately report THPeligible statistics.
 
-I backported this to a 6.17 based kernel and tested it under
-cloud-hypervisor with THP left at the Ubuntu default of madvise, on
-two GPU generations:
+The patch titled
+     Subject: ocfs2: exit recovery thread on mount error path
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-exit-recovery-thread-on-mount-error-path.patch
 
-  - 4x H100, 128 GiB BAR1 each
-  - 8x B300, 512 GiB BAR1 each
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-exit-recovery-thread-on-mount-error-path.patch
 
-With the patch every BAR faults in entirely at PUD (1 GiB)
-granularity, one entry per GiB of BAR, so 128 for each H100 BAR and
-512 for each B300 BAR, and smaps reports THPeligible: 1 for every
-vfio-device VMA. Total time in the huge_fault path was 4.5 ms on the
-H100 node and 130 ms on the B300 node, and the VMs booted in 11.6s
-and 32s respectively.
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Tested-by: Saravanan D <saravanand@crusoe.ai>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: exit recovery thread on mount error path
+Date: Fri, 28 Aug 2026 19:28:23 +0800
+
+When a mount fails after the cluster connection has been established, e.g.
+in ocfs2_mount_volume(), ocfs2_fill_super() unwinds via
+out_debugfs/out_super and frees the osb without disabling recovery.
+
+A node failure event can concurrently launch the recovery thread, which
+blocks in __ocfs2_wait_on_mount() waiting for the volume state to become
+VOLUME_MOUNTED or VOLUME_DISABLED.  As the mount error path neither sets
+VOLUME_DISABLED nor wakes osb_mount_event, the thread can never make
+progress: the kthread leaks and stays blocked on the wait queue embedded
+in the freed osb, which may then be accessed as freed memory.
+
+Fix it by setting VOLUME_DISABLED and waking osb_mount_event on this path
+so the thread bails out, and replace the plain kfree(osb->recovery_map)
+with ocfs2_recovery_exit(), which waits for a running recovery thread to
+exit before the recovery map is freed.
+
+Link: https://lore.kernel.org/20260828112825.666097-1-joseph.qi@linux.alibaba.com
+Fixes: f1e75d128b46 ("ocfs2: rewrite error handling of ocfs2_fill_super")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ fs/ocfs2/super.c |   11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+--- a/fs/ocfs2/super.c~ocfs2-exit-recovery-thread-on-mount-error-path
++++ a/fs/ocfs2/super.c
+@@ -1169,8 +1169,17 @@ out_dismount:
+ out_debugfs:
+ 	debugfs_remove_recursive(osb->osb_debug_root);
+ out_super:
++	/*
++	 * A recovery thread launched by a node failure event may still be
++	 * waiting for the volume to be mounted.  Set VOLUME_DISABLED and
++	 * wake it up, then wait for it to exit before osb is freed,
++	 * otherwise the kthread would leak and stay blocked on the wait
++	 * queue embedded in the freed osb.
++	 */
++	atomic_set(&osb->vol_state, VOLUME_DISABLED);
++	wake_up(&osb->osb_mount_event);
+ 	ocfs2_release_system_inodes(osb);
+-	kfree(osb->recovery_map);
++	ocfs2_recovery_exit(osb);
+ 	ocfs2_delete_osb(osb);
+ 	kfree(osb);
+ out:
+_
+
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
+
+ocfs2-fix-deadlock-in-inline-data-truncate-transactions.patch
+ocfs2-exit-recovery-thread-on-mount-error-path.patch
+ocfs2-free-replay-slots-in-ocfs2_recovery_exit.patch
+ocfs2-defer-suballocator-block-group-reclaim-to-workqueue.patch
+
