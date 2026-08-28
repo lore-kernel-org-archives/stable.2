@@ -1,112 +1,134 @@
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35AE44A3E2
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ADDF3D3D10
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787918712; cv=none; b=lFznNmLywhzAjbEsZ700zawTflZqdL5Ss+r59+b+zFCd/S+H+HlkT9Yfa11AH9HYB1KRzsubP8aJuJzbVNoDKpPV5WHSBgyC+X3yC0Sj776eJg7yDHpqN9MZh3qp1mRv/ifCrd5UiAJYb+mZQr1zyZCIgecsfajxQUva6eTDlDI=
+	t=1787919337; cv=none; b=L0zRNHKC+juW6h5lMdAjuuLV03UwOz7c76mKCr+7MNdboPRgHO7mcAljWYwWffzRkz9VwJa7Eg3OBHpN3zA1X1ZZyyR72G+B0mLJUm6S/32rIUa/F1s1Srgnz8PmqJoNQeNspx0y85zwIs95+YoX49RKGRqg0SvLmD64Q7rm2P0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787918712; c=relaxed/simple;
-	bh=g7/k4uisB3yiRQCJKrGol/lrSc+9m+nkgTGpTG9dJqk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J7HMR1U6hSTu0p+RLbXjpMLxCFblqN1cXTzGu3bpkYKaUDhRu0hD4iDpgI5M5S2Q0TaP47YqS0O3jXR7E3YClQjlvldAoyHvdwOy2XUVbDdxBJVA9IfHQhSMxyLrq2W6ZwwkJ0EglzGVBo+Qb76lIXeb+romsTj/NZQeIKQ8C/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xsgpn7Yt; arc=none smtp.client-ip=209.85.210.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787919337; c=relaxed/simple;
+	bh=vcByxpE39A/RXZndYAY1qXdtm5GityOgD5yynVi4hq0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BkELkOVJCoMEl23Hm4nvjmgsIIjLbMbbd6LouS6OiOa9TGm1LXCUSoZiNldbjkMsy0IHHggYmlhXp/3NJmLGLlfsUV5t1HK8LC9c7v3CzbtWtVQBzJ9Unpi4LPUSxb5sacy7G2eM7Qbw4yfZ6ZWq+Y7obC6+HFoDngZ3L/d0HCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=N8BpTQrt; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xsgpn7Yt"
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7eb6573bd52so1030582a34.3
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:04:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787918689; x=1788523489; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lWqQxoK7O394GAzySBcQeCr6jt4vv9YmvdIACmdtGGM=;
-        b=Xsgpn7YtNYvW1F1t+i+s/PdkQ27wofqFDAPjvgqNsdY/+Jc/MUoI4D8X+zVj/3rR4u
-         kjI2uNCqvK2HI1YYbTAwUyuEkJDXU5kX9cyyIHUpliA4ym8WAMdTi0qZll4c//piBoBd
-         Cuq/4GoK/OA18D8D7E7eVgt7OHjXqwiTyL+QxGexhIZ51eSDCbrosszVNzol67MibKmy
-         X6e81LpnDCdYZZb8MESf/Cm9i/GR2VEsI/Ty9Rmmm/Q9Db2ig+x2fouec7W7hdwUCZF7
-         YUwPsyvWVZdusOF354K0S2wyhzUNgG3s3y2Si+1YMMT6WdSVE7B4xjRLOUH60cYJRNPl
-         QPtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787918689; x=1788523489;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lWqQxoK7O394GAzySBcQeCr6jt4vv9YmvdIACmdtGGM=;
-        b=oXLzyQHWAbYr++4f9uiG1efZNckk/PqC54behO+/8HweY0nMXSWgoD2PpjPryEGCXS
-         +eZECOPzxsRywi6xHfaxP158s6F0PNcJQlT37XZ20L/nPGzq/bi+HWowf6AoaFgXcPMM
-         rRpZLZSgPbJ1disHsGrWQUUwuVzEd3/oDcExyu4N6AK9wParGagwyTtl2Z7Nxq9+iAKx
-         89VCvQ+JkDmPyd1a2W7A6cDX27CHr52zU1BxnkwwLTsmsFhu7SS1hOVKmKJzNgpd9uHP
-         qOdaCYX76ZmVjgDu4nnEVWNnBr2GYPCftsSbtU5AuPH02knYi46A5yyLPOwkjhcwi3sU
-         eQug==
-X-Forwarded-Encrypted: i=1; AHgh+RqMULtIfNY/oMFqaFNCMeZZGNAJw+4mA1VfNjm7fTtGb/fE6+l1ivSpdYzYaOlgRfAuESc8zuQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l62HAQ1s+tCk0ZHM4496CtzLiBKfWKjJsWmfVvBf9nO3tx2mgt
-	Q52G0Iz41I8tBGkjLmSYFuw2l5nwKl24Cg+5nj+3Fy9pFv9VnffWhM6B
-X-Gm-Gg: AR+sD13V6SLvu1CNhfz5Ww4vuih10a6JxQt3uPBsEFaEKf1OBHIZMpUVG4jAEWcxH/A
-	yaY9gJ84VYL5ON0P/xCxVNtq34Lwd2tTyoD7h4CPpXjuy4vzKbGPjHXDuTOt6xudSHyLE8qixz+
-	+INCSrMTmhBUGCYjVMGXKujapvdGegwFlR5hha5J2+9lOykjRIwl7w9e1wGSsz71FOaAX7igaA3
-	d4eR1EyH1PhpCh4LTPCyLcqrg/2zeOHiDMaNMeXzvXZXdzBbxYxDUthJtTki/mn+sNEBRustTDR
-	Q04VRpJ/GD6HwBR+/CAq4uhjIhBHuKC89dxG1gRpyGt+vbg8NAHANEI1XKCLiJ6YuwJ8XbInq5N
-	VkdmBA9j0IhG/PvD8uA4Uaqq3ifpYKyGszpg5eEry3r1q9d4S+NwkTAxydkzWGecFUxyz4fjpGm
-	geiEF2e7a9KL5t6HnyPzsdzFXx/DeYtTXkDPGVSzQ0OzSQmS+AG00bDQPp7R5owa5xnWjo+rNDX
-	9Jl0bzhRHZ0Kq+qHVkxMEp8wwCqwg==
-X-Received: by 2002:a4a:e7c8:0:b0:6ac:8e23:3078 with SMTP id 006d021491bc7-6b1c6422a9bmr4115615eaf.5.1787918689511;
-        Fri, 28 Aug 2026 05:04:49 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:590d:7e37:c87d:136d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8095bcsm5559760eec.12.2026.08.28.05.04.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 05:04:48 -0700 (PDT)
-Date: Fri, 28 Aug 2026 05:04:45 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Alexei Turtanov <9alexei9@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Xiaomi Redmi Book Pro
- 16 2026
-Message-ID: <apF5WFQU9LPM2lYL@google.com>
-References: <20260828112239.18081-1-9alexei9@gmail.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="N8BpTQrt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787919318; x=1788178518;
+	bh=4aETwO+HWa6/9prvfd6xAdoS7kNHmevdV5KhT0yiN/c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=N8BpTQrtoWGBF31g1eZt384TBlYg/vRBHP0CUdPtwRyxmjatZ+lfpd9jzJZpE/f4O
+	 Pdj7tyiLD7XAun20b1OoY7HhBK5Xt0nXVk1deAAYYFsrQfzTzMAOGdrfMGfrUf5CgE
+	 pe04hdbAc1nEYRm64LeLOpVnow9K8CQnipLsX19HUtlRQXbs0oWB+s/jgoE1RbU67F
+	 jdF8VahKFzaFjPSZ/l6mCFQr2iOPTR5SUeoiHxdWDSIUX4xNEhcLCZ7UAuHXvYgPgh
+	 1dC5PL2RykTjy8F++0E4IIpldzVIApDtfJ3J/NKJTSrWt+vmPz1GOdlaeVviZXUAOz
+	 /dJdAG378Gx5g==
+X-Pm-Submission-Id: 4hWclm1vQYz2ScP2
+From: Esben Haabendal <esben@geanix.com>
+To: "Herve Codina" <herve.codina@bootlin.com>
+Cc: "Luca Ceresoli" <luca.ceresoli@bootlin.com>,  "Andrzej Hajda"
+ <andrzej.hajda@intel.com>,  "Neil Armstrong" <neil.armstrong@linaro.org>,
+  "Robert Foss" <rfoss@kernel.org>,  "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman" <jonas@kwiboo.se>,
+  "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>,  "Maxime Ripard"
+ <mripard@kernel.org>,  "Thomas Zimmermann" <tzimmermann@suse.de>,  "David
+ Airlie" <airlied@gmail.com>,  "Simona Vetter" <simona@ffwll.ch>,  "Linus
+ Walleij" <linusw@kernel.org>,  "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>,  "Marek Vasut" <marex@denx.de>,
+  <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
+  <stable@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
+In-Reply-To: <20260819113253.5d602b2d@bootlin.com> (Herve Codina's message of
+	"Wed, 19 Aug 2026 11:32:53 +0200")
+References: <20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com>
+	<20260810-ti-sn65dsi83-fixes-v4-1-ae9c95c8d162@geanix.com>
+	<BAolbDDI0aiCzU2P4vC8Ym-ffhydGSVEvFuW-aVRTvqdzKqwFi53nnr3ps6bh1e6B-ioI-Jh9tKY76dHj6kkrw==@protonmail.internalid>
+	<20260819113253.5d602b2d@bootlin.com>
+Date: Fri, 28 Aug 2026 14:15:15 +0200
+Message-ID: <87cxv2xwz0.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828112239.18081-1-9alexei9@gmail.com>
+Content-Type: text/plain
 
-On Fri, Aug 28, 2026 at 02:22:39PM +0300, Alexei Turtanov wrote:
-> The internal keyboard of the Xiaomi Redmi Book Pro 16 2026 (board TM2425)
-> does not work: atkbd_probe() succeeds and every command is ACKed, but no
-> scancodes ever arrive afterwards.
-> 
-> Testing on the hardware through serio_raw shows that ATKBD_CMD_RESET_DIS
-> (0xF5) is the culprit. After 0xF5 the embedded controller keeps ACKing
-> commands but stops delivering scancodes, and neither ATKBD_CMD_ENABLE
-> (0xF4) nor ATKBD_CMD_RESET_BAT (0xFF) bring them back. Only re-enabling
-> the keyboard interface at the controller level (i8042 command 0xAE, or
-> rewriting the command byte as i8042_port_close() does) revives it.
-> Running the init sequence without 0xF5 (0xED 0x00, 0xF3 0x00, 0xF4)
-> keeps the keyboard working.
-> 
-> 'i8042.dumbkbd=1' also works around this, but then the driver never
-> writes to the keyboard and the LEDs cannot be controlled. Use the
-> existing atkbd_deactivate_fixup quirk instead, as done for the sibling
-> TM2424 by commit 3a046db33bb9 ("Input: atkbd - skip deactivate for
-> Xiaomi Book Pro 14's internal keyboard"). Tested on v7.2: keyboard,
-> Caps Lock LED and s2idle suspend/resume all work.
-> 
-> DMI: XIAOMI REDMI Book Pro 16 2026/TM2425, BIOS RMAPT6B0P0909 05/22/2026
-> 
-> Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alexei Turtanov <9alexei9@gmail.com>
+"Herve Codina" <herve.codina@bootlin.com> writes:
 
-Applied, thank you.
+> Hi Esben,
+>
+> On Mon, 10 Aug 2026 09:19:40 +0200
+> Esben Haabendal <esben@geanix.com> wrote:
+>
+>> The error handling of sn65dsi83_reset_pipe() failure in
+>> sn65dsi83_reset_work() has been a bit strange all the time, missing both
+>> enable_irq() and drm_bridge_exit() in case of failure. But since
+>> sn65dsi83_reset_pipe() have never been failing (always returning 0), it has
+>> not caused any problems.
+>>
+>> As we are going to change sn65dsi83_reset_pipe() to return error values in
+>> case of failure, we need to fix this.
+>>
+>> Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>> ---
+>>  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 5 ++---
+>>  1 file changed, 2 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>> index 42b451432bbb..0ccfff401b2a 100644
+>> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>> @@ -417,10 +417,9 @@ static void sn65dsi83_reset_work(struct work_struct *ws)
+>>
+>>  	/* Reset the pipe */
+>>  	ret = sn65dsi83_reset_pipe(ctx);
+>> -	if (ret) {
+>> +	if (ret)
+>>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+>> -		return;
+>> -	}
+>> +
+>>  	if (ctx->irq)
+>>  		enable_irq(ctx->irq);
+>>
+>>
+>
+> In this v4, enable_irq() is called even if we cannot reset the pipe. I know that
+> sn65dsi83_reset_pipe() always returns 0 (and this will be change) but we have to
+> take care here.
+>
+> If the pipe cannot be reset, the sn65dsi83 component could be in a state where
+> it can force the interrupt line. This was the reason the irq is disabled
+>   https://elixir.bootlin.com/linux/v7.2/source/drivers/gpu/drm/bridge/ti-sn65dsi83.c#L455
 
--- 
-Dmitry
+Do we agree that this patch series (patch 1 and 2 combined) does not
+change this behavior compared to the current state?
+
+Currently, because sn65dsi83_reset_pipe() always returns 0, we call
+enable_irq() even if we cannot reset the pipe. So I am not changing
+behavior.
+
+I agree, that this might not be the right approach, but it makes more
+sense to me to address that specifically on top of the change in this
+patch, so we can all agree on what we are changing and why.
+
+Can we keep this commit?
+
+Should I add a new patch that makes the change to this series, or is it
+okay to postpone this to later?
+
+Or alternatively, do you want me to drop this patch? And if so, I guess
+we should at least add some comment to the next patch about the behavior
+change that it introduces in sn65dsi83_reset_work().
+
+/Esben
