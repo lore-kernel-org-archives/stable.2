@@ -1,122 +1,71 @@
-Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CD11A38F9
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 01:12:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9721250BF2;
+	Fri, 28 Aug 2026 01:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787879568; cv=none; b=mLKZJ+Dl+ATPoV3OQ0n6+/YX3k9LKZqTjn4F3tr9h7z686g1d37iOMA6+bhLtK0I4jNvMCMf2E44t2fXSnt0xtxjCDSWzVZ7CnM7mep/Oq1DJzuijduJtlb222o6OBzAFaGLa01TCVclEoceXxMMzmjkReQKFp9ld0pJ8p02lZk=
+	t=1787879934; cv=none; b=Bd13HUU0Rd8ps4G2FVBqxfnrkARbpDZSxdnCLs3yJ6sPSXVvRyjqLGqa7rumNrLobfyVyTQdBmJsMOXoKRRMTO3M4ruAqnqDHG6iagtsH2/8v+15GfC3RPb6ZIBbvy/Dc4MikoztccluA+HiuCO9oVzXShw9JUzePxR6i8JT1Zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787879568; c=relaxed/simple;
-	bh=LxnVsBbSKAllbT7hbPBLZruqjqy7W5pVTer8CwkRN78=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ggjX5u0mf2AUsz16EClTcNwbnRYkOgMlX6Ea8pCEt+1XK+/HVvH4nrovXnrKdvInJHL5Qtd4oY48PPUkVucgV+hgPb8jb4zD0w7nWcnAGde7h2lfLdobswhruYNsz9riLqH13UgWc5//yFF3wzzk2LIzOVetenF9fG+jCqwmEno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sItprG4b; arc=none smtp.client-ip=91.218.175.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787879934; c=relaxed/simple;
+	bh=Qe4mCoHxygk4njy6Ur1jGezMg1XgEb9Q2Nv1clomcMY=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=opJ+faH3TgfuRQq32WlxvVKXsb3fz8MvQX7Qu5POqFQohH6OPwZoNBEc6tFp7qm83yivYxWfn714Gd1dpF9Qfm3D5YgptzgG5VUMbnUJCPuNkLccU9LsdAU4reynJNH4j0FGrgCQIG/c5UAyflNbxVTdSW/x/a+fF04QNZMWOBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=6LkjVqiV; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sItprG4b"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LxnVsBbSKAllbT7hbPBLZruqjqy7W5pVTer8CwkRN78=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787879563; v=1; x=1788484363;
- b=sItprG4bghK7oANCupztWS27Veojya5KD7GlaVbQzBLnt+8bDhWtUfNQmMBEyoP6h5l4nP/X
- khy8QNZjjxaznohc5wYH2ly1Wb21B8ZAFScEFNp4miqM1Z3fxU8cv+eEHaQ/oRHS5hCH2e3H77b
- Fv67zO/4CJWvMl8hkX90uOPo=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f68c53f74fe6287d;
-	Fri, 28 Aug 2026 01:12:33 +0000
-X-Mizu-Trace-ID: f68c53f74fe6287d
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 28 Aug 2026 09:12:24 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Qihang <q.h.hack.winter@gmail.com>, jv@jvosburgh.net, jiri@resnulli.us,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, willemb@google.com,
-	netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net 1/2] bonding: reject frames with insufficient
- headroom in bond_header_create
-Message-ID: <apDgeCLGiHTd7fAC@fedora>
-References: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
- <willemdebruijn.kernel.2ec10017f4836@gmail.com>
- <CAH78GvvF-mBij7exwgkthJC2puz1-1Ti=WkNr2PwFcKr_v5U4Q@mail.gmail.com>
- <willemdebruijn.kernel.361c9e585560e@gmail.com>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="6LkjVqiV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=5jarugf1sC0sAToCWV6Ei9ZozdfdRPpJJVCVS6c84g0=; b=6LkjVqiVdg2IDGvNydFthWY8zv
+	iqq5mMkoWz1AE0V9lq4E43dWUPSUzQESCVRN1sxMv2MLdQbav3/omCv1m1nVrPPqx+4VSczG70+NM
+	pnuxEF/zoXmezRSvmsM4WPrRGG+KUw4O92xW8FBr9DM77TJZa+KzjDlLiHQDpqTQnrYPBxJg5d9A5
+	6RhOGzB3MKcAYpiW7dzqPEyXN3zhF0Omr9+S5cWGeNve/k5P11RVKn7u+9prY8rP0CqG+8L90Ks9+
+	x6NsxSIw0EEdCUsXNw+H054ReqqpaSCzNy1j2yc34qNAEudiBAG2HEAzsYaAvgVcl9bhOUhSGqqcU
+	Xd27PSaA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1wzlF3-000000008xO-0IMS;
+	Thu, 27 Aug 2026 22:18:49 -0300
+Message-ID: <4d1df965d61b1c091d4c0e90dff0e8e0@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Frank Sorenson <sorenson@redhat.com>, linux-cifs@vger.kernel.org
+Cc: linkinjeon@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4] smb: client: fix heap overflow in cifs_do_set_acl()
+In-Reply-To: <20260827021336.82730-1-sorenson@redhat.com>
+References: <4475a3bab754e633b20f78a6827cbc75@manguebit.org>
+ <20260827021336.82730-1-sorenson@redhat.com>
+Date: Thu, 27 Aug 2026 22:18:48 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <willemdebruijn.kernel.361c9e585560e@gmail.com>
+Content-Type: text/plain
 
-On Thu, Aug 27, 2026 at 05:37:09PM -0400, Willem de Bruijn wrote:
-> Qihang wrote:
-> > Hi Willem,
-> > 
-> > I'll resend this as v2 with a cover letter.
-> > 
-> > On scope: I grepped every header_ops->create.  Five devices delegate to a
-> > lower device (bond, team, macvlan, ipvlan, 6lowpan), but only bond and
-> > team re-select that lower device under RCU -- the rest bind it at netdev
-> > creation.  So bond and team are the full scope.
-> > 
-> > Re Fixes: I used 950803f because it introduced bond_header_create (where
-> > this check lives); before it the type-confusion BUG masked this race.
-> > Happy to point at 1284cd3a2b74 instead if you prefer.
-> > 
-> > On the fix location, I'd rather get your read before writing more.  The
-> > options I see:
-> > 
-> >   1. per-wrapper headroom reject in bond/team only -- small, safe,
-> >      backport-friendly, but not generic (the next stacked device needs
-> >      its own).
-> > 
-> >   2. central check in dev_hard_header on dev->hard_header_len -- one
-> >      place, but I think it's unsafe for bond: bond_dev->hard_header_len
-> >      only follows the first slave (bond_setup_by_slave),
-> >      bond_change_active_slave flips curr_active_slave without touching
-> >      it, and same-type slaves can have different hard_header_len (two GRE
-> >      tunnels).  So it can under-reject.  Would need bond to maintain
-> >      hard_header_len differently first.
-> > 
-> >   3. resolve the effective {dev, ops, hard_header_len} as one RCU triple
-> >      via a generic callback, so the caller never cares which subordinate
-> >      the master picks.  Truly generic and race-free, but it's a new ndo --
-> >      net-next material, awkward for stable backport.
-> > 
-> >   4. make header_ops->create() take an explicit headroom contract and
-> >      fail cleanly instead of pushing blind -- cleanest long-term, but
-> >      touches every create() in the tree.  Too heavy for now.
-> > 
-> > My v1 is option 1 (per-wrapper).  Want one of these, a combination,
-> > or something else entirely?
-> 
-> Thanks for the analysis.
-> 
-> I agree that 3 nd 4 are too invasive for the scope of the bug.
-> 
-> It's a bit odd that bond and team just take the hard_header_len of the
-> first slave. And that bond_create_header just passes to
+Frank Sorenson <sorenson@redhat.com> writes:
 
-Actually, bond will use the max hard_header_len of all slaves, see
+> cifs_set_acl() validates ACL size using posix_acl_xattr_size():
+>
+>         4 + (count * 8)  // 4-byte header + 8 bytes per ACE
+>
+> cifs_do_set_acl() then calls posix_acl_to_cifs() to write the CIFS
+> wire format into the same buffer:
+>
+>         6 + (count * 10)  // 6-byte header + 10 bytes per ACE
+>
+> An ACL that passes the xattr-based check in cifs_set_acl() can
+> overflow the heap when posix_acl_to_cifs() writes the larger CIFS
+> format.
+>
+> Validate the CIFS format size against the remaining buffer space and
+> USHRT_MAX before converting--data_count is __u16, so sizes above
+> USHRT_MAX truncate the on-wire packet length, causing the server to
+> apply a partial ACL.  Replace MaxDataCount = 1000 with
+> min(CIFSMaxBufSize, USHRT_MAX).
+> ...
 
-netdev_compute_master_upper_features()
-
-
-> curr_active_slave, while various bond modes like LAG will have
-> multiple concurrently active slaves.
-> 
-> That indicates that the intent is for all slaves to have the same
-> header length and header_ops->create callback.
-
-And here seem you want to all saves also sync the header length?
-
-I'm not sure if we should/could do this in the same function
-netdev_compute_master_upper_features().
-
-Thanks
-Hangbin
+Applied.
