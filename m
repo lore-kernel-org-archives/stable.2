@@ -1,163 +1,222 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F74B368276
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 17:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939402; cv=pass; b=IO2f8uYioGBjksR2Jipj59w3llfbQl46R0IP82w2HwinKICCMA/sCLFMXMmp51Sr89jzUSpBuvfmLrqksLvXLLsOoFCWVVPe5Bs5BZpvbgxLtjj+to6NDzkopxLmfu+dAjrWAeSa6MrX7NFZd8lv1jqJCBodnai/EXAx6YjCYFw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939402; c=relaxed/simple;
-	bh=LQ3fjEooKPETFdFoQWnDo3gh5Lmoo6R1vHkIQ7xHji4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IRq+kU5JvLl16hwjxS4esVM6fkF9+DEQsYQ1x1mBexptGdATJ3G9Kad9BiYKrprIOsGXHwkikU8vx8vGSEUV0FeAEfZFLfPvV+q5dd2m2vOZi3rxb1hBIkHTBoUNDqlhxwHmVN+wNXcm7oEiHLg7hZn+q/yYHz6WPL2Wx8PWr60=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DiaVi47i; arc=pass smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E086A3822AA;
+	Fri, 28 Aug 2026 17:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787939604; cv=none; b=oAZXrg6wWdm/VBnZgM8g8AT+oRnRPQeqByAVw1PY3b8SB8gUogB/mxUzzWdikT7AeSx66B0owxOlRfoS9LP0kOx4Vp7d5lcxIgLM1W+CFfSu4Fm6o1E9L/e/9s0ayKrLjZfqDUqJvnJeBiLronRWgdhsj6HuUm/OuRgz0/shbxg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787939604; c=relaxed/simple;
+	bh=RfyZVkz8TQ7BelpNBK9E9ZCOF73SLAaEuDtzvVaJcq4=;
+	h=Date:To:From:Subject:Message-Id; b=pBQTZ/h3GICkzUNB7aS3svfBYCcEHMrXlQy4jtQwxlOz/71n3Y20tk6Fh92TJZTQc6oBTyqybaUDGrK2jaFBkDb7ThSAX1GzZ5NUtraAombAnXv8PPriOc7XUeD/P56vAC7W+JPjCnUFf6sYIUzAtL790o7lZJ/dgFH07rrzsnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=R0W8xtYt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DiaVi47i"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1b838f9b6so1523109a12.3
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 10:50:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787939400; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Rg/JZbQcE92yNQIZhIyFibsKWZiX3Q/D+56LHZBySAjK+6xRenznaoLW/lPPfPdxVp
-         U1JjN3t7scKEnw9ZkLGMoruEtT5dI6OAy8oJpmfRakB3WZu7B34mAswox6grJpSzyhQ/
-         ON6S+QxoOwV25svVQPbJbtcROId7j3h9NXAqZHE7JFzJVlNGA9sEnuqKnRcNVQmeE3FK
-         KZmPd39a73A/9HHGELuJLVm/Denii53gN5zt75DWt8EKasRZefGJxsaSMz9g9HDSX5xO
-         7rO0fAWL2PnIK9KRRQNdZ7/lm/aO4GHeBsucfOxduo7ZLpmLlBQhmrPKDqLhTteK3TLm
-         QWoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=caNOEyBkHtDSXs15jKiYwMl0jYwy/fOio1tRTmfPcyQ=;
-        fh=AH0ARvr/YxPEqCbIoXPcEQh/6nkaqzVpsfVKT2mLneY=;
-        b=RoNcwW5g6BMh3nHkj+Q/m0AcqKPOPdFZ0vg/u7aFVI7jFB/hmQBz0uFjVPempnA7/5
-         DNkKRUaw9UpQ44uJr97Mw5Armxzt8ZouwL+MLsfUudkfBOYZMUVyKBQv+fxj75ABv8Zr
-         Rg6jcMKd8EAg/DouM2tm0lBwc78tq4SYpXFiYYr8K2AYqZrO/Bissps52MjuQ7iHqBxw
-         tDlQYO0oL0kCcZn7PRApldyEh7bLOjleV8cRvirAJCMkfA8kb0fVZDFqi3Jc+9OKgLXE
-         yGxS5pCel5m4/QY+NRjF9cdDfMxiZNYgy5pjm6i6kSRlqlZy1r16tMEFa8fCo3spLK6G
-         vkeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="R0W8xtYt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0A51F000E9;
+	Fri, 28 Aug 2026 17:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787939400; x=1788544200; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=caNOEyBkHtDSXs15jKiYwMl0jYwy/fOio1tRTmfPcyQ=;
-        b=DiaVi47iuaIxIr7onVzlILA5JLViLwHqlP08CqzqSJD/j/cHy9VyF8BwxyBxYXc7R9
-         iCH67b3MjMhGH6t/gj108IkA5KTJBGPSJlwTaCZQCzj5AwYSQR90c3VdAQzga+VWnLLm
-         fEVvweIfFALBmCIUpc87hthmH1VlGHJZAmtbWYlvHXsHmXQdPi9pUOsci3vP2ctAo9gl
-         bmll1eFz2ZhjIBG9L2sXGhgoZ2N/D+TM0oHwJqVdA87wMU48upNtos8fsvuYGDSiATp1
-         jPoP6LNcystR8cQS7T9To+pX4GyTW2xCsnSTN8cBfrhU8akVQD6uOdQij+Mha5VL2qn0
-         MqNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787939400; x=1788544200;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=caNOEyBkHtDSXs15jKiYwMl0jYwy/fOio1tRTmfPcyQ=;
-        b=GOTVsH0zfTwXc0i7UO2zmJgSHzpc3CtAiWRcD5zUNC6i2LRcuNhSxjnRVvD29nxXx+
-         wo8SWzRNENP/faLOsWRfV67VxcIxqn33j2sVJE47DftsHQY12HG2Ue89Dx+4EdAjvL+R
-         etq0caxpHTg8vA14kmDUuhdtnFwlJhUuT36s9W2rZEqxlOe+bmjosx1v5KegSS2xjEao
-         wfjJv85lYM+mPlAUcYX9cRdq3L9EliplIxDllA9quUBaMPHo177lAUfVYli9/mpT49Yx
-         HXVMsm0Li6mCn9e7U5JijDmHKS0CsWjC9rqsEw84QgNXARrxFq8DBeBhKCan8fVyfDPo
-         i2vQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7lctQZtlNvdoYyn3VvqX2WXW95PuBjyOQb8JRax+kprHaTh7XXvI9T1lGXeLO0kEMSQ6klyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvhagtTqsucYu/Dfia6hpu4LnZfgcxZDCEqjqdm0yjBRGTJnLA
-	Gy6VJHDrdlEPKYX2W4VYUV8YgbBfyS2ovT3dqr6uH6ZdCzZAKTA8n1lXiaE5eGPUXIn9A+EnwQQ
-	3kquKWh1fdvjpFX/soEyjtt1x6S/2w0y7mF4m6O2BbnJV4LvYi4z7RzlgkuY6Zw==
-X-Gm-Gg: AR+sD12A/T4YJVHTUo+mx6z4wRZAwUeurvilnqFFQWU1eeJnmb5eFFRdt6s7s4JW15A
-	saJ2cGR59ure8uEbShvAqQWiCrKDmkvIFGKK8j5fGA4W8ITLaK50kLqUVER9iIIKX7QuuPevfDh
-	xJOzZSfVASnUNCOospV5y5gxiVKFfU5HZK7gHyNofaf3M8qxuiV6ocGqJQRxqn6W6Vz5ChypOda
-	f2LRIg96ENEzr51+AIbqahHaFzIwo0hr+J+Xz10wkH+qi7JrAb8gKRv9mvZcaVFqk35Bt37pIV1
-	IJNMXF/BQOMOP9VFTRPF1j/bBCFzqDoeldFNHY9V/5Ak3Mx/DNVR7U6/+yd1kG4aZPmPYc7858Z
-	sfAA3SRM7zEYfgOhHFkgCrI47bQz02pW8TeRTGo8YVSPt9h3BVSmNm6Ml71p/vTDjy81WrVlGT7
-	HiRcs7I8CIRd2nRQ==
-X-Received: by 2002:a05:6a21:a02:b0:3c4:36ef:3dc9 with SMTP id
- adf61e73a8af0-3d26992c505mr19587950637.17.1787939399901; Fri, 28 Aug 2026
- 10:49:59 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1787939602;
+	bh=5BSVN/YTIZN+FuKrEoE1Zm1rBkdxSOJiHVdZfMgdigI=;
+	h=Date:To:From:Subject;
+	b=R0W8xtYt5ceVtp+vhz3TVMWQURJQaEkPFM88KzLiHKq0/jweULV7I8rWqyeJ/41Ze
+	 EpiycF51xJbJUUxg99z4cOu04vJXVcL6Te4uRL3RuYUuKj88fW+wlw6xGHrsHYBG+V
+	 nTmQVgixch0yFEHbBKpMQksPcMeCttUVQIZOCdwg=
+Date: Fri, 28 Aug 2026 10:53:22 -0700
+To: mm-commits@vger.kernel.org,zokeefe@google.com,stable@vger.kernel.org,ryan.roberts@arm.com,ljs@kernel.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baohua@kernel.org,yanglincheng@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-khugepaged-fix-swap-entry-value-to-folio_pfn.patch added to mm-new branch
+Message-Id: <20260828175322.7E0A51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <tencent_4AD5738B48FDD2FC84E21FE59338C8DBAA05@qq.com>
-In-Reply-To: <tencent_4AD5738B48FDD2FC84E21FE59338C8DBAA05@qq.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Fri, 28 Aug 2026 10:49:48 -0700
-X-Gm-Features: AcwNN1WiA2DqZa6xhYX9EXD9Vx1_P4xPxzbugNgugTs7I0_MkH5lekI5Z7p3LZE
-Message-ID: <CAAVpQUAYOo1hRXD_fFx9oa2bqTV_x17i7Y=vajcx1knYNLjdsQ@mail.gmail.com>
-Subject: Re: [PATCH net] net: unix: reject negative max_dgram_qlen values
-To: Yingjie Wang <1075151112@qq.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Aug 25, 2026 at 11:10=E2=80=AFPM Yingjie Wang <1075151112@qq.com> w=
-rote:
->
-> net.unix.max_dgram_qlen is documented as the maximum length of an AF_UNIX
-> datagram socket receive queue. Its sysctl entry accepts a signed integer.
-> The configured value is copied to sock::sk_max_ack_backlog, which is u32,
-> when a UNIX socket is created.
->
-> As a result, writing -1 is accepted and reads back as -1, but newly creat=
-ed
-> sockets receive UINT_MAX as their datagram queue limit.
-
-I'm not sure if this was intended, but passing -1 for sk_max_ack_backlog
-is known hacky config to get max, see __sys_listen_socket().
 
 
-> A nonblocking
-> sender can therefore enqueue past the configured finite limit instead of
-> receiving EAGAIN.
->
-> Use proc_dointvec_minmax
+The patch titled
+     Subject: mm: khugepaged: fix swap entry value to folio_pfn()
+has been added to the -mm mm-new branch.  Its filename is
+     mm-khugepaged-fix-swap-entry-value-to-folio_pfn.patch
 
-At least, this effectively limits the upper bound to half,
-sk_buff_head.qlen is also u32.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-khugepaged-fix-swap-entry-value-to-folio_pfn.patch
+
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Vernon Yang <yanglincheng@kylinos.cn>
+Subject: mm: khugepaged: fix swap entry value to folio_pfn()
+Date: Fri, 28 Aug 2026 13:59:24 +0800
+
+Patch series "mm: khugepaged: fix tracepoint UAF", v4.
+
+The khugepaged tracepoints take a folio pointer and call folio_pfn(), but
+by then the folio may no longer be valid: freed after folio_put(),
+folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
+xarray-encoded swap entry.  On classic SPARSEMEM, dereferencing it oopses
+khugepaged as soon as the trace event is enabled; on other memory models
+it merely prints a bogus pfn.
+
+Pass the pfn to the tracepoints directly, captured while the folio is
+still pinned, closing the use-after-free windows in
+mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
+mm_khugepaged_collapse_file().
 
 
-> with a zero lower bound, rejecting negative input
-> while preserving the existing nonnegative range and the zero-value
-> behavior.
->
-> The issue was reproduced on 6.12.80 and 6.12.105. With
-> max_dgram_qlen=3D10, an unprivileged local workload sent 11 of 16 datagra=
-ms
-> before EAGAIN. With max_dgram_qlen=3D-1, all 16 sends succeeded. After th=
-is
-> change, writing -1 fails with EINVAL, while the 10 and zero-value control=
-s
-> retain their prior behavior.
->
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5
-> ---
->  net/unix/sysctl_net_unix.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/net/unix/sysctl_net_unix.c b/net/unix/sysctl_net_unix.c
-> index 47660d5..2782095 100644
-> --- a/net/unix/sysctl_net_unix.c
-> +++ b/net/unix/sysctl_net_unix.c
-> @@ -19,7 +19,8 @@ static const struct ctl_table unix_table[] =3D {
->                 .data           =3D &init_net.unx.sysctl_max_dgram_qlen,
->                 .maxlen         =3D sizeof(int),
->                 .mode           =3D 0644,
-> -               .proc_handler   =3D proc_dointvec
-> +               .proc_handler   =3D proc_dointvec_minmax,
-> +               .extra1         =3D SYSCTL_ZERO,
->         },
->  };
->
-> --
-> 2.43.0
->
+This patch (of 3):
+
+When the swap entries found exceed max_ptes_swap, the loop is left via
+break with folio still holding the xarray value that encodes the swap
+entry, not valid folio pointer.
+
+That value is passed to trace_mm_khugepaged_scan_file(), which feeds it to
+folio_pfn().  On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is plain
+pointer arithmetic, so the trace event merely prints bogus scan_pfn.  On
+classic SPARSEMEM, the page_to_pfn() reads page->flags, dereferencing the
+tiny encoded integer and oopsing khugepaged whenever the trace event is
+enabled.
+
+So when folio is the swap entry value, simply set pfn to -1, just like
+exhausted scan naturally.
+
+And the folio_put() has maybe dropped the last reference of folio.  The
+trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.  so
+using the folio_pfn() before dropping the reference, closing
+use-after-free window.
+
+About calling the respective trace_xxx() functions separately on success
+and failure, refer to [1].
+
+Link: https://lore.kernel.org/20260828055926.346744-1-vernon2gm@gmail.com
+Link: https://lore.kernel.org/20260828055926.346744-2-vernon2gm@gmail.com
+Link: https://lore.kernel.org/linux-mm/ao6jVbVHLUmuY2UA@gremlin/ [1]
+Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Zach O'Keefe <zokeefe@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ include/trace/events/huge_memory.h |    6 +++---
+ mm/khugepaged.c                    |   11 ++++++++++-
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+--- a/include/trace/events/huge_memory.h~mm-khugepaged-fix-swap-entry-value-to-folio_pfn
++++ a/include/trace/events/huge_memory.h
+@@ -178,10 +178,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin
+ 
+ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+-	TP_PROTO(struct mm_struct *mm, struct folio *folio, struct file *file,
++	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
+ 		 int present, int swap, int result),
+ 
+-	TP_ARGS(mm, folio, file, present, swap, result),
++	TP_ARGS(mm, pfn, file, present, swap, result),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct mm_struct *, mm)
+@@ -194,7 +194,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+ 	TP_fast_assign(
+ 		__entry->mm = mm;
+-		__entry->pfn = folio ? folio_pfn(folio) : -1;
++		__entry->pfn = pfn;
+ 		__assign_str(filename);
+ 		__entry->present = present;
+ 		__entry->swap = swap;
+--- a/mm/khugepaged.c~mm-khugepaged-fix-swap-entry-value-to-folio_pfn
++++ a/mm/khugepaged.c
+@@ -2683,6 +2683,7 @@ static enum scan_result collapse_scan_fi
+ 	int present, swap;
+ 	int node = NUMA_NO_NODE;
+ 	enum scan_result result = SCAN_SUCCEED;
++	unsigned long failed_pfn = -1;
+ 
+ 	present = 0;
+ 	swap = 0;
+@@ -2715,6 +2716,7 @@ static enum scan_result collapse_scan_fi
+ 
+ 		if (is_pmd_order(folio_order(folio))) {
+ 			result = SCAN_PTE_MAPPED_HUGEPAGE;
++			failed_pfn = folio_pfn(folio);
+ 			/*
+ 			 * PMD-sized THP implies that we can only try
+ 			 * retracting the PTE table.
+@@ -2726,6 +2728,7 @@ static enum scan_result collapse_scan_fi
+ 		node = folio_nid(folio);
+ 		if (collapse_scan_abort(node, cc)) {
+ 			result = SCAN_SCAN_ABORT;
++			failed_pfn = folio_pfn(folio);
+ 			folio_put(folio);
+ 			break;
+ 		}
+@@ -2733,12 +2736,14 @@ static enum scan_result collapse_scan_fi
+ 
+ 		if (!folio_test_lru(folio)) {
+ 			result = SCAN_PAGE_LRU;
++			failed_pfn = folio_pfn(folio);
+ 			folio_put(folio);
+ 			break;
+ 		}
+ 
+ 		if (folio_expected_ref_count(folio) + 1 != folio_ref_count(folio)) {
+ 			result = SCAN_PAGE_COUNT;
++			failed_pfn = folio_pfn(folio);
+ 			folio_put(folio);
+ 			break;
+ 		}
+@@ -2771,9 +2776,13 @@ static enum scan_result collapse_scan_fi
+ 		} else {
+ 			result = collapse_file(mm, addr, file, start, cc);
+ 		}
++		trace_mm_khugepaged_scan_file(mm, -1, file, present, swap,
++					      SCAN_SUCCEED);
++	} else {
++		trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
++					      swap, result);
+ 	}
+ 
+-	trace_mm_khugepaged_scan_file(mm, folio, file, present, swap, result);
+ 	return result;
+ }
+ 
+_
+
+Patches currently in -mm which might be from yanglincheng@kylinos.cn are
+
+mm-khugepaged-fix-swap-entry-value-to-folio_pfn.patch
+mm-khugepaged-fix-folio-is-used-after-pte_unmap_unlock.patch
+mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch
+
