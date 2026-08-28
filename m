@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C76286A4
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:24:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE063C061F;
+	Fri, 28 Aug 2026 05:29:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787894679; cv=none; b=U21hyFLZL2TdOfdaKFCBggsEsIxgr7g11xhGzq3NEkcPPGbZ06gGdZRRjsjFfc8tFGMryQqnBs3WjVjLuJBI5VUZ0Lkz/Pw/DGnr3T9G5x3ujHoOP4nUD8qc9U5bBLR1gq+NVzovCszPvnr0CM2sBAdqWa0ehdKkkJL7xDaoaPY=
+	t=1787894955; cv=none; b=AQvoBgjrfWdWuDUUBFpUdB6AkDlst+Zz3tpoBsaKJ9ZYThFlOZcYa0qtu0mSiFvkgEzazeqfekCVZM4pUZny+9J9SKlIl93zW/H6z0HH3oHQ+Sohug8doTMJ8xzgG9kL8frzkSzn1lFLowr5wYLQq9yBNCeciqu+GOuXFMP98Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787894679; c=relaxed/simple;
-	bh=6WN2JkoPbYZ9NZ5dzE10soK8jNGJFGFbCkCw+y6FUNY=;
+	s=arc-20240116; t=1787894955; c=relaxed/simple;
+	bh=0k6PkJInVVXv/85VY0NCTXtHaDeumCTk900gNoK0JQc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J3IWulUpoHuw+YoswrL9pkoHX9CuSDU4X7uEWpPepeks7TBJ7akqReGeF2h3FpVGpTJ4AbSZRJoCqh1kFa7XpMuL37K/frIZHpCeJfqOI56vlg3HDum+asFFR5gEx31iA7R5tE9h90YPS/6LdUF19BoHEB9BcweotNDATl19fQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nOG53LJP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=V9j2F7MWdyFNU2Nv5pqd8fF+rPFBjJ3wbCzW9Q3fgb8D0M54pCCLG1ejC+vtUTYHIeXJ8SKB+QxwaVl11cGmP+GQFV0pk3yu5I9f2bCfAgSt2MTc3bjAdQ/Mwc37VReIru+P6zRtgWQhCdUX04/QaA7o8hxzg7Y0+FCHbOOHL7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ykyRmVNb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nOG53LJP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C81B1F000E9;
-	Fri, 28 Aug 2026 05:24:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ykyRmVNb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869571F000E9;
+	Fri, 28 Aug 2026 05:29:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787894677;
-	bh=9HjnIjN8C6NSppf+gxQ0+N5ReF7iI5M5fvAjyT+VSe0=;
+	s=korg; t=1787894954;
+	bh=Gw8XvP9Oug30eH2z0I3AColYTqEB16CCQilFRfP4eSk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nOG53LJPpfXtE9uDcWjk97Ucv4hSUX0LljfLVW1nB2mUS08gYXnKesycwY3KzMSdN
-	 1+ST884tBKFDMRl+x/lb3nZ+8yDXs0ufNlZ8un90B9oa2V+va/CIaIdOR6tx9lOl05
-	 HhrridFaCjLT+FiJc3ePelwZVS45CvafpBPbWDgs=
-Date: Fri, 28 Aug 2026 07:24:35 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-Cc: Willy Tarreau <w@1wt.eu>, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>, security@kernel.org,
-	andrii@kernel.org, memxor@gmail.com, eddyz87@gmail.com,
-	Amery Hung <ameryhung@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] bpf: Invalidate dynptr slices by dynptr_id on release
-Message-ID: <2026082817-strangely-brute-f06e@gregkh>
-References: <apDz2usnU7NuPNQm@1wt.eu>
- <apESnzAPQa0cMeK0@DESKTOP-F439VFF.localdomain>
+	b=ykyRmVNbU/Yqy6i44TjeayDpIjf1JXQ0zqsWfLkuWpU7sUuFtVn/oyvvvDJDU4gCI
+	 WKSByXQ/EXG+Il+Dh/SVwEsCWjZzaLJYspjKGSs+mgK8kkejGTQc1dAjmBE27aU2K3
+	 pdvn9clPLJsDZy9PBK7Jn4UbZNz8UpbNqiz4u6sU=
+Date: Fri, 28 Aug 2026 07:29:11 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+Cc: cel@kernel.org, jlayton@kernel.org, neil@brown.name,
+	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
+	bfields@fieldses.org, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
+	tgopinath@linux.microsoft.com, kys@microsoft.com
+Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
+Message-ID: <2026082828-palpable-dingo-241b@gregkh>
+References: <20260828041925.36758-1-blbllhy@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,33 +43,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <apESnzAPQa0cMeK0@DESKTOP-F439VFF.localdomain>
+In-Reply-To: <20260828041925.36758-1-blbllhy@gmail.com>
 
-On Fri, Aug 28, 2026 at 12:46:23PM +0800, Xu Yunxiang wrote:
-> unmark_stack_slots_dynptr() comments say it invalidates slices associated
-> with the released dynptr, but the implementation only calls
-> release_reference(ref_obj_id). bpf_dynptr_slice() / slice_rdwr() stamp
-> dynptr_id and deliberately leave ref_obj_id at 0, so those slices survive
-> bpf_ringbuf_submit_dynptr() / discard_dynptr() and the verifier still
-> allows LDX/STX through them. bpf_dynptr_data() slices are already covered
-> because they carry ref_obj_id (see data_slice_use_after_release1).
+On Fri, Aug 28, 2026 at 12:19:25AM -0400, Cen Zhang (Microsoft Security FORGE Labs) wrote:
+> client_has_openowners() walks clp->cl_openowners and reads so_stateids
+> without clp->cl_lock. nfs4_put_stateowner() unhashes that openowner under
+> cl_lock and then frees it, so a concurrent EXCHANGE_ID with mismatched
+> creds can use-after-free the nfs4_openowner.
 > 
-> Walk registers with a matching dynptr_id, the same way
-> destroy_if_dynptr_stack_slot() already does when a dynptr stack slot is
-> overwritten. Do this for the released dynptr, for each clone, and for
-> the non-refcounted path.
+> BUG: KASAN: slab-use-after-free in client_has_state+0x10a/0x140
+>   fs/nfsd/nfs4state.c:3718 client_has_openowners()
+>   nfsd4_exchange_id
+>   nfsd4_proc_compound
+>   nfsd_dispatch
+>   svc_process
 > 
-> This is the minimal stable equivalent of the slice half of 308c7a0ae8859
-> ("bpf: Refactor object relationship tracking and fix dynptr UAF bug").
-> That series is an 11-patch bpf-next refactor (parent_id, DFS, folding
-> ref_obj_id into id) aimed at qdisc/file parent-object UAF; it is not a
-> viable cherry-pick for 6.6.y / 6.12.y / 6.18.y. This hunk is.
+> Take clp->cl_lock while client_has_state() walks the openowner list.
 > 
-> The same change applies to 6.6.y and 6.18.y; unmark_stack_slots_dynptr()
-> is the same shape there.
-> 
-> Cc: stable@vger.kernel.org # 6.6.y 6.12.y 6.18.y
-> 
-> Signed-off-by: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
+> Fixes: 4eaea1342507 ("nfsd: improve client_has_state to check for unused openowners")
+> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+> Cc: AutonomousCodeSecurity@microsoft.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
 
-And again, no authorship :(
+Please use your microsoft.com email address, and not a random gmail.com
+address.  It's kind of odd that Microsoft would have to rely on Google
+to send kernel patches :)
+
+thanks,
+
+greg k-h
