@@ -1,81 +1,64 @@
-Received: from mail-wm2-f1.google.com (mail-wm2-f1.google.com [74.125.225.129])
+Received: from mta1.migadu.com (out-221.mta1.migadu.com [95.215.58.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6085539AD2A
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 09:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0906E39B971
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 09:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787908977; cv=none; b=fIRzqgOJyUgOS9h2m8PVCVl46XzMwp/eo0j1WKSt5HLtfQNM6CwGG0S+kM6BjcYL9kA8dIyR+rn/X6wHbKTrj13pSuvqccyGUYrEjO52CnkpJK31blZAHwgdngCQ9JELvIieSyF8O+oaNUFJ1GsywEIjv/eAPUiRfQzKG8URJIA=
+	t=1787909112; cv=none; b=U0uZXgnR8zXaDKja4BeHjngmMvXtKaE0JcQljin45/YlSSJ0omLokIsWjQnt+Zk285ezgerM2LRjbDJ375V/BRnj50RtZmRCoYnCOfvI5VIsf3w3eO27Dxl973OdwLcA5KvhGbq2NVoZUK5FLw0gOeOaL1Ybt0e/wXPKP/HF4Dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787908977; c=relaxed/simple;
-	bh=ey7QBCaDld1Q/XVKLLwtP0hYutZJghLE6jPBnqkv3CE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jkHniii6tSAhzMylUh5ohDmVreRczSsSezlhOKoqrcPFW4PxmEz4pmrFwkN+JtK6AXCvT95IM2IzAkmAyBSQKEIp1iecpAbVsIvkDc83JIEFxt3j55rW2XSJN0v5CPUcuQgOyCCWqYjCSt4+8cPih2Sj7cw1Pq7YOtPeF232GIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iit.org.ua; spf=pass smtp.mailfrom=iit.org.ua; dkim=pass (2048-bit key) header.d=iit.org.ua header.i=@iit.org.ua header.b=u4IrY0Z6; arc=none smtp.client-ip=74.125.225.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iit.org.ua
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iit.org.ua
+	s=arc-20240116; t=1787909112; c=relaxed/simple;
+	bh=dBqn/fwXS6Yqu7+OeooRTuVzLOlPePdPqVBD4zdNuTA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=txxXBUHqdhmqGA8kd6xFb/ol9U54L348rBlYr4l2RSs8KeSl3Hm5N4TvwAxK0VujWaoasA5rR5Vs+6WlbkxPGQ3Im0ohWJB4nR1snfC0kGQXEqnunafNAaeoFaySc1fzjtR+odAl+DXOmEJD3ngG2f25bY1DDJ0TTQ/yHJRnPKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S9ChDKaL; arc=none smtp.client-ip=95.215.58.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iit.org.ua header.i=@iit.org.ua header.b="u4IrY0Z6"
-Received: by mail-wm2-f1.google.com with SMTP id 5b1f17b1804b1-492367f3094so2109955e9.0
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 02:22:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iit.org.ua; s=google; t=1787908972; x=1788513772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/oMl6tXRVOo96S1AJPzpgtCrziqZeX/47A+u1zT3/48=;
-        b=u4IrY0Z6hqWgpA1FMsAbYBIcOgHWh7Nk0FJXvpNEYfcCEWAS2WAV3CVQ24LgDm+Q0F
-         hvE+QaUyE+AS+eQhAQ5XCxC3Gme54/cnzvun9C4EcjGTHRMB21pEN6duj+XGcdV8sV71
-         DSknZ27sYfUghik0ypBqjqTSMVfFp2V+2vRs4prCSYkMzrM1eT01oLfS9R2fuQvd22IH
-         7GB0HSZzyyVTlDBKTsXOAP6t/ndpl97rR4EQceDsS3hCxd/rG85tm4tdx2l9XDwjPVox
-         LN2GPJh4hRBz+qtoQSaBUiJT9BeIzg6rS9UVgdjZEgsZYtvROG8a5OxSTgDzHZaZDdvq
-         g/pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787908972; x=1788513772;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/oMl6tXRVOo96S1AJPzpgtCrziqZeX/47A+u1zT3/48=;
-        b=gwNu0IAHclFMucxHEGY2PNIBX5Kng2+aE00aCw8qn9j41rAR9EKidAkzL48yKoMk+4
-         TrM6qBvSsl3neWPrgGm8uo8ShVwJp8FZMbxtHvSxJcJf5+RSBPL4iIH/cb3vDY0TcAHB
-         768zwNjNXYMCbzN3MfxfPQNMGo8UvxMxuJcyGjRl1gu1bTSodPEdrNPl75yPHN2KULK3
-         oKphRDEqP6qCHhJIY7TTIxmVLYF/jptjAVSEL6vlm4eJ/cxbop9dKjqHHjbxLyXnIUhO
-         k1Iv6E6hdeRjLeuIccuUD7kQHQteKd79Vd04ygUhlyZwuTomUkDN8sQB5NLi0RknzQvy
-         YFUw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3TQ7uDqOZ4Q6WX+Ox8t70a09gMNfSvPOGzALHCylZAmIQATRVoVxk8dWbe9mLx6HlDIIMtMQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzRiUGururgVI5bjXiAfHr/oDU55RO8brkclQ7zdx5b5RrUkx4
-	KXcR1PkkubprYaKrf7VWWgdrjq6amujVvo64x8TdZoqbDkHq5vWMaiVGH6cvRd51ZLg=
-X-Gm-Gg: AR+sD11vayB4tnLCOE4e1oeP1A5ysyCcOCS7EGuNOYkWCk8wzH1r9ooKZvgTT0V051O
-	AxXQwuh/3mWyKmQRTg0l+GeU99Me8cGoJvQVYiK4kEi34vkP5/uoowsVFl1JSzS8go7mzEkhc1C
-	qcn/MQDtyJrSeg1kH91RFCeANWi/4xY0D3Bu9rJeiS9b1cc7YhnK7ggDDFHIoFsgFEKLTidOCOZ
-	bJPFOns0GyQB/mTW2O7b5Q9W9ZypDK0Zh63YNK1CnluVtTgmeu8cjw/QW1x+vEClrUW2B8pUG6F
-	OVmUxBCIZ+R/qQEeyl3s83CfR0ah6yXIjhnQOQyaPhl6Ka8xA6ssDlxMQ6npOf7wt5YvTCCy2BP
-	t64aOEKSBvnmK07huaN2vEZygkHj2GuNTH1Pb7A+0om0ssub8KRUOR88JEJQ6rP1WQUTiFALzfq
-	a3bNVhr08zhEEl8gjG4RdBnnQEoWgBOwObJtWAc+2P2zf1sREbECnscQ==
-X-Received: by 2002:a05:600c:45d4:b0:499:7219:122f with SMTP id 5b1f17b1804b1-49b91c1ebd7mr67005445e9.4.1787908972528;
-        Fri, 28 Aug 2026 02:22:52 -0700 (PDT)
-Received: from archbtw ([212.1.106.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b497fa9c5sm111484255e9.4.2026.08.28.02.22.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 02:22:52 -0700 (PDT)
-From: Stepan Svatenko <ssvatenko@iit.org.ua>
-To: Raju.Rangoju@amd.com,
-	PrashanthKumar.K.R@amd.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S9ChDKaL"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dBqn/fwXS6Yqu7+OeooRTuVzLOlPePdPqVBD4zdNuTA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787909107; v=1; x=1788513907;
+ b=S9ChDKaLDw1RrTJFJfcqJNeTpafUMPONVvbaQW8JqDshbUn0LnQJnL6RgjNKr8Q28oSO42RH
+ oIOmhPqXy1J60mbKDF+3BJIHk3ZR/AigbVTa+TlmkrewN5JVFuvc41K+K6B8C4FsVfdpUIlwNN/
+ noG+AmmaXTB9yQ7GDxneWt6s=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 770e0ca2d72166ed;
+	Fri, 28 Aug 2026 09:25:07 +0000
+X-Mizu-Trace-ID: 770e0ca2d72166ed
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Chris Down <chris@chrisdown.name>,
+	Tejun Heo <tj@kernel.org>,
+	Yu Zhao <yuzhao@google.com>,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
 	linux-kernel@vger.kernel.org,
-	Stepan Svatenko <ssvatenko@iit.org.ua>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net 2/2] amd-xgbe: fix an_irq leak causing permanent -EBUSY on PHY (re)start
-Date: Fri, 28 Aug 2026 12:20:23 +0300
-Message-ID: <20260828092023.105405-3-ssvatenko@iit.org.ua>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828092023.105405-1-ssvatenko@iit.org.ua>
-References: <20260828092023.105405-1-ssvatenko@iit.org.ua>
+Subject: [PATCH 1/2] mm/page_counter: avoid integer overflow in effective_protection()
+Date: Fri, 28 Aug 2026 17:24:31 +0800
+Message-Id: <20260828092432.1257917-2-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828092432.1257917-1-ridong.chen@linux.dev>
+References: <20260828092432.1257917-1-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,78 +67,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xgbe_phy_start() requests the separate AN/PCS interrupt (an_irq) and,
-on any failure past that point, is expected to free it again via the
-err_irq/err_stop labels before returning an error. The last error path
-skips that cleanup:
+From: Ridong Chen <chenridong@xiaomi.com>
 
-  pdata->phy_started = 1;
-  xgbe_an_init(pdata);
-  xgbe_an_enable_interrupts(pdata);
-  return xgbe_phy_config_aneg(pdata);   <- returns directly on error
+effective_protection() distributes a parent's protection among its
+children with two proportional calculations:
 
-xgbe_phy_config_aneg() (via __xgbe_phy_config_aneg()) can genuinely
-fail, e.g. when phy_impl.an_config() fails against a non-functional
-SFP module. When it does, xgbe_phy_start() returns that error without
-going through err_irq/err_stop, so:
+	protected * parent_effective / siblings_protected
 
- - an_irq is never freed with devm_free_irq(), and
- - pdata->phy_started is left set to 1, even though the caller
-   (xgbe_start()) now treats this as a failed start and does not call
-   phy_if->phy_stop() itself on that path.
+and, for recursive protection:
 
-Any later retry of xgbe_phy_start() (interface bring-up retried by
-userspace, or the driver's own recovery logic) then calls
-devm_request_irq() for the same still-registered an_irq and gets
--EBUSY every time, with no way to recover short of a reboot/power
-cycle:
+	(parent_effective - siblings_protected) * (usage - protected)
+		/ (parent_usage - siblings_protected)
 
-  genirq: Flags mismatch irq 63. 00200000 (enp8s0f3-pcs) vs. 00200000 (enp8s0f3-pcs)
-  amd-xgbe 0000:08:00.3: error -EBUSY: request_irq(63) xgbe_an_isr [amd_xgbe] 0x0 enp8s0f3-pcs
-  amd-xgbe 0000:08:00.3 enp8s0f3: phy irq request failed
+All operands are page counts in unsigned long, and the multiplication is
+done at unsigned long width before the division. On systems with >= 16TB
+RAM the product can exceed 2^64 and wrap, yielding a bogus effective
+protection value and silently breaking memory.min/low enforcement. This
+was reported by the sashiko review tool [1].
 
-Reproduced on a SolidRun Bedrock V3000 (AMD Ryzen Embedded V3C48) by
-inserting a non-functional SFP module, then bringing the interface up.
+Use mul_u64_u64_div_u64() for both expressions, which performs the
+multiply in a 128-bit intermediate before dividing. The divisors are
+non-zero on the paths that reach them: siblings_protected >
+parent_effective in the first case and parent_usage > siblings_protected
+in the second.
 
-Fix this by routing the xgbe_phy_config_aneg() failure through
-xgbe_phy_stop(), which already contains the correct, symmetric
-teardown (disables AN, frees an_irq if separate, cancels the bh work,
-stops the PHY implementation) and is safe to call here because it is
-gated on pdata->phy_started.
+[1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
 
-Fixes: 7c12aa08779c ("amd-xgbe: Move the PHY support into amd-xgbe")
+Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
 Cc: stable@vger.kernel.org
-Signed-off-by: Stepan Svatenko <ssvatenko@iit.org.ua>
-Assisted-by: Claude Code:claude-sonnet-5 [Bash] [Read] [Edit]
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 ---
- drivers/net/ethernet/amd/xgbe/xgbe-mdio.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ mm/page_counter.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c b/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
-index 12770af031eb..638c24b9c83c 100644
---- a/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
-+++ b/drivers/net/ethernet/amd/xgbe/xgbe-mdio.c
-@@ -1445,7 +1445,19 @@ static int xgbe_phy_start(struct xgbe_prv_data *pdata)
- 	xgbe_an_init(pdata);
- 	xgbe_an_enable_interrupts(pdata);
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index 661e0f2a5127..311153b0e002 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -8,6 +8,7 @@
+ #include <linux/page_counter.h>
+ #include <linux/atomic.h>
+ #include <linux/kernel.h>
++#include <linux/math64.h>
+ #include <linux/string.h>
+ #include <linux/sched.h>
+ #include <linux/bug.h>
+@@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
+ 	 * otherwise get a smaller chunk than what they claimed.
+ 	 */
+ 	if (siblings_protected > parent_effective)
+-		return protected * parent_effective / siblings_protected;
++		return mul_u64_u64_div_u64(protected, parent_effective,
++					   siblings_protected);
  
--	return xgbe_phy_config_aneg(pdata);
-+	ret = xgbe_phy_config_aneg(pdata);
-+	if (ret) {
-+		/* Tear down what was just brought up above (including
-+		 * freeing the an_irq) instead of returning with phy_started
-+		 * left set and an_irq still registered - otherwise a retry
-+		 * calls devm_request_irq() on an already-owned an_irq and
-+		 * gets stuck in a permanent -EBUSY loop.
-+		 */
-+		xgbe_phy_stop(pdata);
-+		return ret;
-+	}
-+
-+	return 0;
+ 	/*
+ 	 * Ok, utilized protection of all children is within what the
+@@ -399,9 +401,9 @@ static unsigned long effective_protection(unsigned long usage,
+ 	    usage > protected) {
+ 		unsigned long unclaimed;
  
- err_irq:
- 	if (pdata->dev_irq != pdata->an_irq)
+-		unclaimed = parent_effective - siblings_protected;
+-		unclaimed *= usage - protected;
+-		unclaimed /= parent_usage - siblings_protected;
++		unclaimed = mul_u64_u64_div_u64(parent_effective - siblings_protected,
++						usage - protected,
++						parent_usage - siblings_protected);
+ 
+ 		ep += unclaimed;
+ 	}
 -- 
-2.55.0
+2.34.1
 
