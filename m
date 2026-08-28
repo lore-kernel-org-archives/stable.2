@@ -1,76 +1,47 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mta0.migadu.com (out-76.mta0.migadu.com [91.218.175.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5815034F49F
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 15:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2A7355F49
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 15:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787930837; cv=none; b=MyruslRdhYm/JCdQeZn5IEO9eCVE6MUHS8DaFokeCFizcjxx51kHghkPLuU8nOWa/MtTTuAI3f4SG0yiBbP6f9hBmW9t7CDN3bUlOM5lP/vC/GjnSRDzHMnUKEgT6U+W+Nht0Mkc5qTrHucZZ9Ilxn7ezQa5s88V05Kp3AkY0oM=
+	t=1787931671; cv=none; b=ivnHUMjKuOXNFZk187rIn1rmi1pH7BVudSntcLJkrnj8iDmngcFIBMaMvZfcJC4PZbonEdhXSlhERj+EkJfXCTfA+qyUqis6gYPD/AbvVYqupfWloA21giUTHeFcSbc9h/ZMMdIa8iZ0ftqM+CeaMxTz77IqxGXYhYMWzkOgxC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787930837; c=relaxed/simple;
-	bh=fTXzeBLnEwSLNlykRWsZWxQUorLdfVyJ1wnL91ZHAx8=;
+	s=arc-20240116; t=1787931671; c=relaxed/simple;
+	bh=/n/dFd41yw+qx+BtMq6OW0k8OGtbcgNeqCbFA/CFiRE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fdwhz0l1pcqteHsDohDS3GqZ6MGrurHfqoMNgNl84g1UvA5OdS3wq7W70V+xetVS062y0BE4Jz/0GWdtvevYU2fJiE0Bue0KYPFqwWEO22Hjdtw2nCS29+0UsqpxhgsFVXtY4Zos9yVyKTYIH+KhBJXHROXYuMXM7iYIsdrY1U8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T7q5Q4ap; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=fSXl6byFixrq2/hmDobpDHY4JH3pjLwa7WLHXRvRMSUje+Vm/h0neS7ZpnqmK+gyho7qm1CD+RABnHJBY9L6P29t3KwdEJ9l3OhEvPNQlEso8Ti2VXJ1cRoszGGHG9I6Dh7JFTXa4/Ud9DiZZw9lYoXjOF2IbrWxiqZt4+UwNvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DQkEsqQd; arc=none smtp.client-ip=91.218.175.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T7q5Q4ap"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9aea40d799so643661a12.0
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:27:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787930836; x=1788535636; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TMn12g7nMPDjiVbYrfmAJ+ZFl1D02Qwt4sVGSEjJmtM=;
-        b=T7q5Q4apesQ8F+FN6igO5+vJy8NlxnXxSZPl7eSKMaGV+LpCZo3hY8+CdKNcecfbt8
-         mnHMrfcr000pgb47P0i1EY5NoAAo0CnK4zU4rmE/2Bk4uT4i0mePQI5XjYSZeX9ecJ+l
-         5ER6SMt2X5jbTgLVXQOhDZ/SFuahCVxe7VkON4eOAM3HavDDJqf34BsaxVUaL3dzV8wk
-         CMN6qmmYZQ7YG387ftFo1Z2LA3KGU5PyG4oiyEPEJzKfM/hDe9fXw8OmiiYXfLhOwH95
-         PGYS6FqYkmYqVg9/UmFpSNRbNUTFbX5s/CGsSODZ9gbsORt9IAZnXI1nn9hDYBDi6kMe
-         vGWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787930836; x=1788535636;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TMn12g7nMPDjiVbYrfmAJ+ZFl1D02Qwt4sVGSEjJmtM=;
-        b=ds8T20GLcmWyAyXEX0edFEPeVI8aU5lR3LxFlpp0eNBiUg+SQ7j+0zpaeBh3I4tmIp
-         5+24eIPO+zvD2Ibexjn7E3mT0+6UkGXUSL80pg0B1v76pA++EkcSqWrzXbsDCQub/a3y
-         u/pWieZvcDieYw4C6whVoLFaZsUBSrJh6CYt5Tmu/XdVqM+wgOn1yu1wpRfia3Wmbino
-         NYhpJ2neX7StfS4SyMQ0EyhE/g5kP9bC7KO7hNfWq6nwU3d1/mC2dnikKQ8uPo1szzps
-         K/24au1454k67owuF2WTqMBKoRAlmQ5T6xkFSgfFbgIgvHiDFSLzP3ga83zCvNjhoNX5
-         mJgQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqqZSvH1CRJmqYPn4tziXLfui4fSpowe7EndrJCixEoSwPKx2aiRPbPpC69GO48fPpw8Qki8Bo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQghZqdkLqbHcKQx1izcT8zxhKvjN1fhf75SJ5SjAPeKJeMI6G
-	gq1oET6AKgJxqiX/lXasrrE01TSlhI7gxtG7dfnUAfQRfmVUjfTngfSO
-X-Gm-Gg: AR+sD13Y908pZg6JNiaOhl2XybYcOiUEGS5Jm9Ca8aov995h1UOkDfbi3g4LZr7jzjK
-	2AiLw5x626GcGj/Ec0WpOjvRsUFU4OtaW5AaG08r4KX6YUHaoviRb6k2mwV95j/shRqPcoToP9r
-	GH4mReLUHlX/vdCaPSIQqW80LCOA29TANuTDPWaM0STuBA+0IzF3Z0rc5TtLQbmGx0hbzlZyV7k
-	GfX2SWLKine9Zf4oSnqXmKdLZPBnWdFxJXnr+Zlaqz/AjmG7UUfa7lPV8tSImRAUi3+Z37+sUnv
-	lzvV7uyrkeDq6Qndum9PeJXTzCYNWMo1EN+1QXFYCtIXYovWc0Bp2bb/RINP7iM6GpR6m1++rff
-	Ao0Dc3MgTUjyJnpkqzjenqwOakPcve6gfFiFOrwxW13wtrE5sZjnkvA2rQ/SPql/RuFhpk/RyvB
-	b5Qab6AsBYGqJZmFIcc5Eqf8sZ4NZ343RJ17OBjlKwcnkXmVuDbJFtrsxpgowOoRg3CZL1o0Nmo
-	8OvHpZt8Y/G
-X-Received: by 2002:a17:90b:5626:b0:398:9bd1:3216 with SMTP id 98e67ed59e1d1-3989bd135fcmr1179927a91.23.1787930835644;
-        Fri, 28 Aug 2026 08:27:15 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm7252880c88.10.2026.08.28.08.27.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 08:27:15 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 28 Aug 2026 08:27:14 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] hwmon: chipcap2: fix channels in humidity alarm
- notifications
-Message-ID: <1e34a397-32a6-4a90-93e4-eadb64f0297a@roeck-us.net>
-References: <20260823-chipcap2_locks-v2-0-6a26c8e9e2fc@gmail.com>
- <20260823-chipcap2_locks-v2-1-6a26c8e9e2fc@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DQkEsqQd"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/n/dFd41yw+qx+BtMq6OW0k8OGtbcgNeqCbFA/CFiRE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787931665; v=1; x=1788536465;
+ b=DQkEsqQd5vayNizX9figHd6tQSzlQ9exuguxF4XKOvPoRAmUzTV9KlAxX4kiikyUxQZJCnTe
+ kHJ7QhLBeGHoVJGZ3MnKAEhXz2t/vBTeAvhgMkMDi0KlBgfMd7DayINMqURAP37vI0SXl1RatrQ
+ MhQuRqco50MiJOOqSwqyVF5U=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 10b1ae10f3c69f4c;
+	Fri, 28 Aug 2026 15:41:05 +0000
+X-Mizu-Trace-ID: 10b1ae10f3c69f4c
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 28 Aug 2026 08:41:03 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Michal Hocko <mhocko@suse.com>
+Cc: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit on
+ isolated cpus
+Message-ID: <apGro0MJ-brPJfoa@linux.dev>
+References: <cover.1787890328.git.riel@surriel.com>
+ <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
+ <apGaZdxAPH68kkCc@tiehlicka>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,24 +50,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260823-chipcap2_locks-v2-1-6a26c8e9e2fc@gmail.com>
+In-Reply-To: <apGaZdxAPH68kkCc@tiehlicka>
 
-On Sun, Aug 23, 2026 at 07:59:01PM +0200, Javier Carrasco wrote:
-> hwmon_notify_event() expects the channel number as its last argument,
-> taken into account with the type parameter that it is a humidity sensor
-> type. Given that this device only provides one humidity channel, 0 must
-> be passed. The custom construct to enumerate the channels makes wrong
-> assumptions by listing all types together (temperature and humidity).
+On Fri, Aug 28, 2026 at 04:25:41PM +0200, Michal Hocko wrote:
+> On Fri 28-08-26 09:46:21, Rik van Riel wrote:
+> > drain_all_stock() can leave FLUSHING_CACHED_CHARGE set after the
+> > work is dropped.  It sets the bit before checking isolation and
+> > schedule_drain_work() checks isolation and queues in a separate RCU
+> > critical section, so housekeeping_update()'s synchronize_rcu() can
+> > race the second check.
+> > 
+> > drain_local_stock() only clears the bit for work that ran, so the bit
+> > remains set and the stock is never drained again.
+> > 
+> > Reorganize the drain_all_stock() loop, reducing nesting, splitting
+> > out local vs remote cpu handling, and skipping everything on isolated
+> > cpus, which solves the stuck FLUSHING_CACHED_CHARGE flag.
 > 
-> Remove the custom channel enumeration and pass the right channel to
-> hwmon_notify_event() for hwmon_humidity_min_alarm and
-> hwmon_humidity_max_alarm.
+> Is there any reason why we cannot simply clear the flag if the work is
+> not scheduled?
+> ---
 > 
-> Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 69b37f63a307..907ac63e5067 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2261,8 +2261,10 @@ static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
+>  	return flush;
+>  }
+>  
+> -static void schedule_drain_work(int cpu, struct work_struct *work)
+> +static bool schedule_drain_work(int cpu, struct work_struct *work)
+>  {
+> +	int ret = false;
+> +
+>  	/*
+>  	 * Protect housekeeping cpumask read and work enqueue together
+>  	 * in the same RCU critical section so that later cpuset isolated
+> @@ -2270,8 +2272,12 @@ static void schedule_drain_work(int cpu, struct work_struct *work)
+>  	 * pending work on newly isolated CPUs.
+>  	 */
+>  	guard(rcu)();
+> -	if (!cpu_is_isolated(cpu))
+> -		queue_work_on(cpu, memcg_wq, work);
+> +	if (!cpu_is_isolated(cpu)) {
+> +		queue_work_on(cpu, memcg_wq, &memcg_st->work);
+> +		ret = true;
+> +	}
+> +
+> +	return ret;
 
-Applied.
+Let's go with this patch. We can simplify above by inversing the check:
 
-Thanks,
-Guenter
+	if (cpu_is_isolated(cpu))
+		return false;
+	
+	queue_work_on(cpu, memcg_wq, &memcg_st->work);
+	return true;
+
+>  }
+>  
+>  /*
+> @@ -2303,8 +2309,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
+>  				      &memcg_st->flags)) {
+>  			if (cpu == curcpu)
+>  				drain_local_memcg_stock(&memcg_st->work);
+> -			else
+> -				schedule_drain_work(cpu, &memcg_st->work);
+> +			else if (!schedule_drain_work(cpu, &memcg_st->work))
+> +				clear_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags)
+>  		}
+>  
+>  		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
+> @@ -2313,8 +2319,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
+>  				      &obj_st->flags)) {
+>  			if (cpu == curcpu)
+>  				drain_local_obj_stock(&obj_st->work);
+> -			else
+> -				schedule_drain_work(cpu, &obj_st->work);
+> +			else if (!schedule_drain_work(cpu, &obj_st->work))
+> +				clear_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags);
+>  		}
+>  	}
+>  	migrate_enable();
+> -- 
+> Michal Hocko
+> SUSE Labs
