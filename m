@@ -1,148 +1,127 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C943DAADD
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 14:57:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787929062; cv=pass; b=TBsTpk+Qn25w2GJ4K+2K67gplPF6D8N7F5Ta1nHzls1Qp08V5dCxQSqlUnAbIVc+BDDvqkkjggeHDEya4tKRCA2aItQSBcEXbPvm8uaPs8ugM4Mr14pGj30wfmhFs30Dc8CtJOn34h+h6yRroDXuAHKsNao+V58VzduHNAJ35mI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787929062; c=relaxed/simple;
-	bh=kAyeEhSjNccNcnTFgFj7n9DSA0wrFShWyms0f0y15AY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VIzYbFWXW/jnYA4DSV4NdGTOa6hNEl2hNxPchSO3QHGkm8TMR771T49BFYD/tN5ySKReF7YTKcpViUjh+nEFmDGeboRmb+2Zng6IGwfmuOvj8IuNiBvBHYrdhKdS8jPqhGxdFTi91wOv5KB0FEFojUIdLb9iY0SEgjjQ7AqnD5I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uSg/N1iS; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C12367B6D
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 15:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787929366; cv=none; b=h0tTDvY4dSiOqFOh57Vj79w0FirVfRSvGhbEBaQgjmF3AP10r7lbsX7vHfCDzoROMTZyH9jXwYQhb6OaPf2ZwFKXj+1/wlc7GZbfWsB20PO/NBEVuRsfGCvk1rssG9MlkHh21P55v4z/j2q/kx4lcKaXwLkcE26BIaKLsrSfUtM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787929366; c=relaxed/simple;
+	bh=3PzgDiqiy1oNIWRe2oB+sNV62Q+Jw0+EhuWagGqurb0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nSTfxBeepP6nO3aaVnPG+DOqoCJ9EcDjGwacoqOQ1YhvLUNP4zvvEH1ln+BDGOgCnB0qI0Q8pEq+YNbCogIAhd+EOylrPV/EJB2E7wOUneW6Fibi1nv/r0vXBlYkZihJOHLorGkaFQZRhx7LI/Uz7nlnArowIMSuAi8BUwHMilE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DC9l9AWh; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uSg/N1iS"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-52d5bfa4bafso11979621cf.3
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 07:57:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787929059; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q/R7Y6YsMbYaf0i5bt3022nB6w2K3IGD9fF0ntescSJcPpVSvLvG/aikaCeHYCwhDc
-         aYHLTwySfPewg1k/q/jLZdM7IE62H/CL0qO7Oh6WrMrv82+uFj2IOHZmo77HFTwoQihD
-         ViijxcmK48dYuaNhvT8HIhu62nBueqTgC9UjJL3in1tITeEqTVHvRl678iGZ/y8IZqzc
-         jqKqekLZn9dpeMxhdHWhY//W0k3YK/0qhlK2EmIOg1YtLJYE83V40kWmwcf7HyLSL7//
-         QOT+ZjuZQfcv+NHEqwYwxDapmnjaZDVzWVPg6cAyizTMWC7udiXoQgjssvX8dkh3vKhJ
-         kEZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kAyeEhSjNccNcnTFgFj7n9DSA0wrFShWyms0f0y15AY=;
-        fh=sB0i806TsHvZFl01C6glDP5p3VWda0wOWb0RWNr4qsw=;
-        b=UntGWUbbF7D9fKppt49h+sl3PS4ajPuIEsI2G98iUlObWS8hxyBCoWgV0mqe7Vv0u3
-         WsIsju28Q3a6cQFt6QrKrteb/TSJwDiQM5GZN+FRSLKjfDpcMpnGJEONDKlty0alRSrX
-         aSFVwYDGg0AjnCTTbgwdLKin3GXId6AOZ4BEm7XymASNNQ6zPH0fWLM2ndXenty+dG7e
-         Z8U29KPIEipFPdFSSPCS1aTVlPoyc0FRPc8c/1TKJe9hyvqhYg9Q3rZBumiCWmX3XyKl
-         zlmSiNo9PF53SFRIKxG5hhzs3fDryZ3J/cSI7Tbt4Glkk82m834QEaZBthDO3i2oKgTg
-         lTjg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DC9l9AWh"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so887374a12.2
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:02:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787929059; x=1788533859; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kAyeEhSjNccNcnTFgFj7n9DSA0wrFShWyms0f0y15AY=;
-        b=uSg/N1iS9wRCLSsaEb5RIKeZW6B1H07+sjbyyMr7O6RyDSp6qcgD9gGPwKE8fkXcW+
-         wCy2Sby5T+FoRqJZmVcZVIEl/UWrxrHG5yrCXHR3enIVXI6RIDwDKz7geaIx8LfzJ4tf
-         MPU9b1K2TUG5oFg3i/aKQt67q4Mr+hNaGgruUh/dgo95iRtN7th41rv01tEewQgnAICI
-         vHVfHjfD6GMeuclYPtxIsn0lBAwh4StJwePMr06+NBmJp7nwMYPR8irKqToaySbYqOOU
-         +//iUnCtw87PflVAXOAJ21UI07sKgulVqLgtFe7WHhf4opRFRcL2jkD3y2027K0iwc8K
-         10tA==
+        d=gmail.com; s=20251104; t=1787929364; x=1788534164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NOOUEhwDmB12LFQNSiGGCOAzSpgGLKnq2vsZHwr0Wgg=;
+        b=DC9l9AWh2tEERohee0xTeMTX1jaMWPyFSqqJrgyAi+O+9AomXM4stMgrZu9EpZ0CO8
+         VTzj7daDu4fZlkKT9QaSHlMk1GV8SFKrWMGlom+Meh9c8LNZiLCwTO//We/bpQtRTuZg
+         QbCS3SoGX53dVqjo9abU/wkJL6qIIWVfLLLu40tru+akgdd+HW74MBiMyR/5R3if9LCN
+         FUJeJNrQdUsCpW6gKcx3NBnkAESilUo+L6w83OTj/KokRL4vq4iOJ3sRjlD+/UPeJgxw
+         6O7h2gRCxZkAHjax096yG5UQFrO95Oh1PPhqfwIHJR6KJvDPZbvyYVCHZ9BN35vDI2XZ
+         OkRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787929059; x=1788533859;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kAyeEhSjNccNcnTFgFj7n9DSA0wrFShWyms0f0y15AY=;
-        b=Db/1HhTz69VeNsHRg/LuNDxilg0jgvYttBmcf4rErGx0KjsMejZ6lzlG68PbQT/GB/
-         drYHB58L3C3NhM+rES/5cTJFbDaU6uqhs8qy92QnI4xls/4RoaYJAIjLF/BRn17er19k
-         2QhHFZRcfhZBwick8KPdAotKsu0TFI/n4rHAuLRRn4xDOTkDf7brPAaNOOX3h+bJCQLR
-         uvviDrvUeeEbDZdLtOLTorFel8mRY+68cbT+6QNT60BVLiMEIw7Uu87cw/aqAK/l5hrm
-         LlJ88/WOYJ6wf5LqhHHXgF50p4UOJbfyy69I/7Q+8mCJNw86T8RA2eoD7WaRoyv9Fz/u
-         5kPg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpyc7wsas+K3DuZlP4bHrdSesghTD0/pFHjlcn+A8m4AAJo64o3qDoXKnHbTwRa//HmcLb64bY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7ulczpm3U7+1IM1+s54ctW5Q/CF+jI56axTDfNIEPRVEtaPwM
-	qkqOVczRzYh+772pYNZTbZKEPu0g86De4o635HyXf9OSCZnm0fZBdZpzwT2QhuXze0qFcJRTLN6
-	Gnp0GXjwludjhXBru2xUGmvuiVal5t3Lge4HMnODJ
-X-Gm-Gg: AR+sD10Qq4TZb79BZDrAYTttyGeR48Ut8b6Pjw6DdYyM3dcNzn7nd1AWQowrdBgxQDD
-	ph3NkZ1w1Sk2NT6dZMtjm23fX7BC6xknHptnazELNgfW1pkz8y6uEF+oegF2uk0uzqM1jumW5w5
-	+FVaQSey9MQyOkBtYmWae6C7MwyjiRBtSVUVva3dS4Cn94IOpkv8OLH9Swk7J5USB54fVEJFiHB
-	xX7/i+fUtS0eH4kI76efiKmbEqB527zxwqruENrXUxx0e1eoFnObO6F7fH/47p3Nmcw+gXEThkb
-	T8WMZVlpBBKqViDmhr/5WtkvFjbE3c4aITWoE/PktuWhp86PH6FgDvUXu2fNZQ0f65y8mg+c+tj
-	ek2zIBzlYl29k/8eszlerKfbtnV3fpXMXvvMnNBiMKBe2iB5CGV2PXtKw/3d0+7R8rtCqKA==
-X-Received: by 2002:a05:622a:58c:b0:52f:b36e:4075 with SMTP id
- d75a77b69052e-52fb93b2b20mr87332321cf.10.1787929058786; Fri, 28 Aug 2026
- 07:57:38 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787929364; x=1788534164;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NOOUEhwDmB12LFQNSiGGCOAzSpgGLKnq2vsZHwr0Wgg=;
+        b=OognncsPDKPDEyRsrIwZR5yI+5+roK7egjsUVuGm1A03xMPWEonTP//H0w+j+gtnlQ
+         jqqNeJVe2VraLC8M63MX1t4156jVNnpv2h8gFyRbIN8+B+RruIU30PWRW0oKvkYj5LWW
+         m/RVHQx+qjOV5LTUq2D5xC4+bK2K+ZeC5dKKYvo7/A7wz1mWvPicWGzb78vh7Decns8n
+         rJYLBBChhAkqdftT+I5lxRf6FxbODFVdD48y67nbqH0UaR1hr0JaDniyXP7h/6PediUa
+         lLvKZ1xdVoAAxcg4Cij6CJZJ6GHWo1SWVK0mcy/fUrLS9I/sQzpf9g1nLD2jTSRUDx2N
+         ukWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrFQvTL5X4I28PueVbtK/xASx+BVVUUBPUiw3roI2GfgPY4S+/CWtrJYpDDgsf7JioIkOkGv0c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kT3u/6XF9jYvo5iTrkr9/WmCgF0tY9UMdW5RvyhpWUlUkOz2lA
+	aaDRT3eMAQm6M2fLL8Ik2NyJjNotjY2Uuh1joK/zpocu9cy42oQH4GPE
+X-Gm-Gg: AR+sD13y+cjMfUjMXZLE7i+LioLOoz2gDB1su7X2SNUXfTloeg/xQz3VgKhKkA9yhrQ
+	3rwSuMd8k5uOrNTweF0XNwMRA9qLVe9NNMHYPgxYg//7SdFh3H60oLkc+3rdkfKOjZAnfyOB6Fe
+	diTP8TxO9v468QIm8xGrQ9zxSNNKe0/yDKsJ6jPJx5+MsqrA5O5MMNEmAL7FFWrh1uxarY9QwHN
+	9Cx54obsKac/ZqMX+k+Z7XxD3BUylszSBIak7mphphTapcy7nDl2EJl0qHwA4wQ05jF0url6lkn
+	n7YYrSk7tKHzlEhFjE64OTwsw4Vt8ezq38X7awOAaVZoMfCusyyzFdG4Fu+u3/QyJluLXGJhNFH
+	eW8f1t25J4Fm9UrgtsnnfI5bLsm0gOsMKYTqxeSO3BdEJQUVq+5YtIKvhBc202MAuXDspts9DZI
+	Rn9q3dlOOKScPDS3czWJ6uf6fgYd0EAsn52icgmZjw89/bDOFTF/DGWdRU7MAwKx1x5Rz4r1lMP
+	pa4KyJJlg==
+X-Received: by 2002:a17:90b:5188:b0:396:5fce:8e24 with SMTP id 98e67ed59e1d1-396d0ea530emr17557004a91.4.1787929360339;
+        Fri, 28 Aug 2026 08:02:40 -0700 (PDT)
+Received: from cfarm424.jing.rocks (cfarm424.jing.rocks. [2600:3c18:e002:2e11::c424])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396db196903sm2911068a91.0.2026.08.28.08.02.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 08:02:39 -0700 (PDT)
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+To: Felix Fietkau <nbd@nbd.name>
+Cc: Ridham Khurana <khurana.ridham222@gmail.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: mt76: mt7915: validate default EEPROM firmware size
+Date: Fri, 28 Aug 2026 15:02:22 +0000
+Message-ID: <20260828150227.1062217-1-khurana.ridham222@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827230233.94878-1-joe@dama.to>
-In-Reply-To: <20260827230233.94878-1-joe@dama.to>
-From: Eric Dumazet <edumazet@google.com>
-Date: Fri, 28 Aug 2026 16:57:27 +0200
-X-Gm-Features: AcwNN1VizoTZVZB2sDoB94siA40iAhF_z9QOM3aJZ-MfaTs6002ngL1t8IbRvxk
-Message-ID: <CANn89iJTkVw17sM=8Y80yh40vEHDe=tDWicGVsoLNdKBv9GDMQ@mail.gmail.com>
-Subject: Re: [PATCH net] bnxt_en: Prevent queue stop with deferred completions
-To: Joe Damato <joe@dama.to>
-Cc: netdev@vger.kernel.org, Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	horms@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 1:09=E2=80=AFAM Joe Damato <joe@dama.to> wrote:
->
-> When the driver receives a burst of packets, it can mark a BD with the
-> NO_CMPL bit to defer completions. The expectation is that the last
-> packet in the ring will have this bit unset and the completion generated
-> by that packet will cleanup that packet and the ones preceding it. This
-> helps to reduce the number of completions fired.
->
-> The suppressed completions are controlled by the driver and the number
-> of packets with suppressed completions scales with the size of the ring.
-> SW USO packets, on the other hand, have an upper bound on the maximum
-> number of BDs which can be consumed which does not scale with the ring
-> size.
->
-> So, for small rings it is possible that: a burst of packets is handed to
-> the driver, the driver defers completions for all of the packets because
-> the number of free descriptors stays above the threshold in the driver.
-> Then, a USO packet arrives, but the number of BDs available is not
-> enough and the USO code exits early with NETDEV_TX_BUSY.
->
-> In this case, you end up in a state where the ring is full of packets
-> with their completions suppressed, which can cause the queue to stop and
-> never be restarted.
->
-> Assuming default CONFIG_MAX_SKB_FRAGS, this is only possible for small
-> rings (<=3D 457 descriptors, below the driver default value) when
-> a burst of packets fills the ring, followed by a large USO packet that
-> can't fit. For larger rings, the delta between the completion
-> suppression threshold and the BDs required for SW USO is large enough
-> that completions will fire and this case is unreachable.
->
-> This issue was pointed out by Sashiko and while it seems fairly unlikely
-> given that the queue size must be small to trigger this, it is indeed
-> possible.
->
-> Fix this by tracking the last BD which deferred completions. If SW USO
-> exits early and there is a doorbell pending, enable completions for the
-> last packet in the ring with disabled completions. This ensures that a
-> completion will be generated and avoids stopping the queue with no way
-> to start it again.
->
-> Fixes: cc5d90667db8 ("net: bnxt: Implement software USO")
-> Cc: <stable@vger.kernel.org> # v7.1+: 4e15e89faac9: net: bnxt: ring the d=
-oorbell when SW USO exits early
-> Signed-off-by: Joe Damato <joe@dama.to>
-> ---
+mt7915_eeprom_load_default() checks that the default EEPROM firmware was
+loaded, but not how big it is. It then copies mt7915_eeprom_size() bytes
+out of it, which is 3584 on MT7915 and 4096 on MT7916.
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+If the file is smaller than that, the copy reads past the end of the
+firmware buffer. The extra bytes are whatever happens to follow it in
+memory, and they end up in the EEPROM buffer that is later used for band
+configuration, chainmask and TX power.
+
+Check the size before copying, the same way
+mt7996_eeprom_check_or_use_default() already does.
+
+Fixes: bbc1d4154ec1 ("mt76: mt7915: add default calibrated data support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+---
+Based on next-20260828; applies cleanly to v7.2.
+
+ drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
+index fe7b29ebc0bf..145d14a1012d 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/eeprom.c
+@@ -111,6 +111,12 @@ mt7915_eeprom_load_default(struct mt7915_dev *dev)
+ 		goto out;
+ 	}
+ 
++	if (fw->size < mt7915_eeprom_size(dev)) {
++		dev_err(dev->mt76.dev, "Invalid default bin size\n");
++		ret = -EINVAL;
++		goto out;
++	}
++
+ 	memcpy(eeprom, fw->data, mt7915_eeprom_size(dev));
+ 	dev->flash_mode = true;
+ 
+-- 
+2.47.3
+
