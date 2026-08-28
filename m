@@ -1,40 +1,37 @@
-Received: from mout-b-206.mailbox.org (mout-b-206.mailbox.org [195.10.208.51])
+Received: from mout-b-201.mailbox.org (mout-b-201.mailbox.org [195.10.208.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB71348C66;
-	Fri, 28 Aug 2026 07:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3133C1D7C;
+	Fri, 28 Aug 2026 07:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.61
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787902446; cv=none; b=mttSwgW/a2hHoMTsWcEuA3M3jEMPM7r1+U7vbaIA35/5Ud9c2n488BvM5HpJhCalKi/DUKkuIzLhO5OGzbgcBsAQEg3XyKjUcr9Tvb5AvL3/eYFx33utCRDr7OG0HGUZaCTMyEsWrVMc9DP4FhhB+Wgct4dZurlovsum0MVe95U=
+	t=1787902469; cv=none; b=Szw+HJrOQRAFK/LVtZQ2Wh3hKv7s/PdiDf5z4aIGinm9bd56lQwVMGGyxXeIjchUSOZnyTazM2iPbdnWnqutElHcmJfPo8In8nwycOxEvniHSZW5mOoKLoQZUP3SiM29LePZYqnONumkbQJOrMhDLFCkvQKiiTYLS+q+PA8e0SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787902446; c=relaxed/simple;
-	bh=t+tiAOGT0OvohOIDQAsWh4svMsXwwz3aYaSwU8y4XJA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ruaLdx3uY4yCg9/qSye13CfICF73uTMqmgUMVQsNGCHTeI7d/gBVicD8cVBXKkn4ISdN8PNA50ubc0FaAaIZ1vdNlomg2Fs7EiBSmngT/XqxtlZL2GDye+FxgbcGHe1lxF1xNuI6f+Ks437ukgtG2+/vj/MLZqH3oy3Sw45sMRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=yNS5dyAB; arc=none smtp.client-ip=195.10.208.51
+	s=arc-20240116; t=1787902469; c=relaxed/simple;
+	bh=W5D3O+R9VURSSgSzCJKhXBOgALY1Sf/WRIMArY72PwQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M4FYOx+iWRxkmSTYxLqXmz4lJSzmaJINARoYZ8FM4YeQ0Dk07C9tbFOzpacwklGpAW34tgSUNnXomGPGai+tLjCxxvMERjbaqxoMwsnxsDDlcFMdRDSJkrvRjA16VqVNtrbARRlTl2vbXg2Fxu9VWzgF5fh7Y/AtYHoN3w0Rs/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=nTKPEt/g; arc=none smtp.client-ip=195.10.208.61
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="yNS5dyAB"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="nTKPEt/g"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-b-206.mailbox.org (Postfix) with ESMTPS id 4hWVMw6C0yzJF;
-	Fri, 28 Aug 2026 09:27:40 +0200 (CEST)
+	by mout-b-201.mailbox.org (Postfix) with ESMTPS id 4hWVMD18qVzLlr8;
+	Fri, 28 Aug 2026 09:27:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1787902060;
+	s=MBO0001; t=1787902024;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=Wp8Cfi0TykYT6FODsDy0pOVzbapztWfE+Fg8egS0CPY=;
-	b=yNS5dyAByIsjlxBeOsUbRNFbYm4Uoq+VfB6pjKhIVzgvMVAbjUD5dq1V5m4NiJvtonwknH
-	gbqgbW9bn7dWghveeHVd0KYjBDlnvcg3d6RjWwr5eeU3QlVBBUBdNJIn/RC22SKmmVgfaN
-	Q9kp4plCBY1eyon/alJUS9jVG9/dWi1Ly+sCg94XgesPWfcwV9yIRKypLGWwMAI9LrTrub
-	iRfh8v+YV6GsqR7gn6+rVdrmE6TkaBmAw/7Hl/y1bazLhiYhisZmt69boKlgrq/4pSM4qe
-	0fXvyvhL7MBexxYYXM/gTqYsHm6JBDtZS6LgrmhEs/CnuexKA/nL4GmX9oFBag==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
+	bh=uu2quDv9BXIJXVAu8nYVgirdDkUUo0uu4AfJYmAk8Io=;
+	b=nTKPEt/gXykPqT7gsEUv856eL0gw7J+sfgcroVjAb40gPzJr1OuG6pS7EmL3NxhIY1p7jA
+	3CpQGTZuzzVQ9UMp5gfV4/ubCOisaxjQdslUaZwH9FCnKvX74RRtNgbox3VNcXoDLn2o9s
+	8TmAUg49Tb1FWrPaI+1jZzb5+6NGCEEOIZq1wmW1UgOqd2M5tO294GjUYSg3e17wU81qbP
+	IBhO8wAqBhcq2ZCO8czmdTnGzpKE9l3nUIke1e7q7/Izf135pjkA8N34VPUy/20/lfd7ii
+	7ZfbwnAYdn7sXci1sx70CMAHwYCy31ODbG3Prqd8n579IaaUEqunueuZ7o4n0w==
 From: Ralf Lici <ralf@mandelbit.com>
 To: stable@vger.kernel.org
 Cc: Ralf Lici <ralf@mandelbit.com>,
@@ -43,9 +40,9 @@ Cc: Ralf Lici <ralf@mandelbit.com>,
 	linux-kernel@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-usb@vger.kernel.org
-Subject: [PATCH 6.6.y] Revert "usb: phy: fsl-usb: Fix use-after-free in delayed work during device removal"
-Date: Fri, 28 Aug 2026 09:27:27 +0200
-Message-ID: <32dc704af59ce1a137f076a1bdec4f2aa0034463.1787901681.git.ralf@mandelbit.com>
+Subject: [PATCH 6.1.y] Revert "usb: phy: fsl-usb: Fix use-after-free in delayed work during device removal"
+Date: Fri, 28 Aug 2026 09:26:45 +0200
+Message-ID: <de6cc86708372c418d670cf8ec4d5929538c3417.1787901520.git.ralf@mandelbit.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,20 +50,19 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4hWVMw6C0yzJF
 
-This reverts commit 319f7a85b3c4e34ac2fe083eb146fe129a556317.
+This reverts commit 4476c73bbbb09b13a962176fca934b32d3954a2e.
 
 The reverted commit uses disable_delayed_work_sync, which was introduced
 by commit 86898fa6b8cd ("workqueue: Implement disable/enable for
 (delayed) work items") in v6.10. The function is therefore unavailable
-in 6.6.y, causing configurations that enable CONFIG_FSL_USB2_OTG to fail
+in 6.1.y, causing configurations that enable CONFIG_FSL_USB2_OTG to fail
 to build.
 
 The upstream commit is unaffected; only its incompatible stable backport
 is being reverted.
 
-Fixes: 319f7a85b3c4 ("usb: phy: fsl-usb: Fix use-after-free in delayed work during device removal")
+Fixes: 4476c73bbbb0 ("usb: phy: fsl-usb: Fix use-after-free in delayed work during device removal")
 Link: https://lore.kernel.org/stable/20260827154302.706689-1-ralf@mandelbit.com/
 Signed-off-by: Ralf Lici <ralf@mandelbit.com>
 ---
@@ -74,10 +70,10 @@ Signed-off-by: Ralf Lici <ralf@mandelbit.com>
  1 file changed, 1 deletion(-)
 
 diff --git a/drivers/usb/phy/phy-fsl-usb.c b/drivers/usb/phy/phy-fsl-usb.c
-index 552899fa985e..79617bb0a70e 100644
+index ab4df5819ef8..972704262b02 100644
 --- a/drivers/usb/phy/phy-fsl-usb.c
 +++ b/drivers/usb/phy/phy-fsl-usb.c
-@@ -987,7 +987,6 @@ static void fsl_otg_remove(struct platform_device *pdev)
+@@ -987,7 +987,6 @@ static int fsl_otg_remove(struct platform_device *pdev)
  {
  	struct fsl_usb2_platform_data *pdata = dev_get_platdata(&pdev->dev);
  
@@ -86,7 +82,7 @@ index 552899fa985e..79617bb0a70e 100644
  	free_irq(fsl_otg_dev->irq, fsl_otg_dev);
  
 
-base-commit: a4a971135a2ff64382ae4235b3ae60503bb1036a
+base-commit: d64a499eea6b62b5121beceed9e8a1f57b00d863
 -- 
 2.55.0
 
