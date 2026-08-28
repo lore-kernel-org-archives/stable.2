@@ -1,84 +1,76 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9487D3BBFD3
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6EF23909C
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787905568; cv=none; b=J3OEBLWbVkT8OcJT9JUHKYKlrg9yAn9BeGE65PzKkfvQ6It53+O0ukOhBlN+vhNPJflC52pTWrm57VROW382kRt0FZhsALOH74/hkiuC+++QNRBAF24GhjnKETXVA3PnGVu7kgQSjcSSiMM+nvetrudGdbWYDVMb0rVG0Q/cMQ4=
+	t=1787905924; cv=none; b=L08YzUDONGdKFZDyErX69DNVctXvtgXJvxFYp9NcLWl8U6U0Hi3b3addc1Vp1ZNIPWSKfxMKm4IpQSlXduX4EJMj0ElFqfZDydaLk/25GC0xhTzSy9c7vUXgz1dLT9Vv0TFSdbyOqw4EYXuz4kQQTcLC+7cidRtKd/kMnV2idBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787905568; c=relaxed/simple;
-	bh=9vvFhf7L87Mua5XxUTwM8H1VweoULNF8Iy1tWAzHRSQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A7si63MwlXkiwUWTm/NHOVi2LP0JQYg4WF+n5B5ntpaYMVOuS6aGne+DoAAp5zfQVXC5X+RbztSjnQxNmtV68c4AMZHNxzn/DnyMA7aLT17Nnzc8HZAFy2MooHm1eGEfCmUH0OE0BItK628qHpxITTEBreo+ZL9NNCIY7bxDxSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QS6hECGr; arc=none smtp.client-ip=209.85.215.172
+	s=arc-20240116; t=1787905924; c=relaxed/simple;
+	bh=lY9wqR5/ikqnh+/RV8zDWcYa0uqcVqHsypPo+22s70Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iIM0fNryXfe+dJXmP/tdWoyPpUple8gD2WJT0jAhYO2xFH57+PQ3aAAt6H26reD4/5vucSL2letmHhRtlNmqE4Xk3mLUZKHuH8/Gp56rYZhEM0VZ9myyIKU6Gk/eDrq6W2af0sScwC81ViExOdfRlZedXZX+UJXkCmzSQlGcvk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LtKboi9Z; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QS6hECGr"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so615571a12.3
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 01:26:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LtKboi9Z"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cace91f112so5620425ad.0
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 01:32:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787905566; x=1788510366; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=57gbJ6PuWdyL+kyJ8Dp9UoiQ0ikR2cC7cGndc/5JOIA=;
-        b=QS6hECGrqlocQF7FLE8R3e4lrmhfiKBLV3aOic+tc4iUQ3E7wBYhL5Yce7PetURnOo
-         MumZ3EQDi1B46ECuxaiIy76811E4d5yE/09cVzXt4U7ypIwItDkz4MhWek/Jp2hhGKxP
-         SQ247IbxOJxgXfJyeJm4hDfW3109l3Zfak8vl0nsr3edtXvTlZTojfTtcrNirsRmNtZ7
-         Z2YXG5gq0u1hWcWIce9sDEbJtfKv2dtnnvAK3aIagfPnPHgxbojwz303ad+dB51BydWj
-         DLkqrCtHMyQCbxfzn+x2KSyznlpEV54aGAOKD6n91LZGoD8txQBly60dWzW75p7Qr3zh
-         USyA==
+        d=gmail.com; s=20251104; t=1787905922; x=1788510722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mhr2QiA56aojMpA07bo8qE5RApOWiL6TjFXkbxkAUgg=;
+        b=LtKboi9Zu+B4e7ak5omHnrRHIx/jN4FdGqoV2mye7trB4bWRrHL8xqVAiiReDQHb75
+         P1dXbSOTfEi9lyY9MbB/lBoFCycUKwxOEndPt73JTESIBIDwYviKRGvuoz4HcTqtzX+J
+         Knxjgsp8VMcA3tuKy3uruwC3VEevz1JE9jRHDjJvIZM88u7zzFHkLVFLPObD0wjt6xRb
+         mJiBXFwHQPqA3qVYiLj8x3t33cUCqkMwYCKlYIOj1m9LY1FRyfkr8BjwPq46bPao0cPH
+         srQ7wIx2QThR43GYj+IeIqRDzlX3fFWHqyEb7OUYzTfvCtQRLYsGv5ITYuQL94SFe7sf
+         Posg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787905566; x=1788510366;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=57gbJ6PuWdyL+kyJ8Dp9UoiQ0ikR2cC7cGndc/5JOIA=;
-        b=YnW6+vGSULQ1OLUw/uPkjjKyXttCTOy0nxdxxSOFAhDTD0byee6kvXnwHt2NVlH9tS
-         6Md9/wEfK65Ocu4SJpW9OhJSbT/KMD3W7QYTzDf+2z+TSs3ZyUk8wfvCFSZrKxetbLmF
-         OxdpASPGZpmT5FAYGmz0bTwtTbdDwpGJteHenElQ/Twf5Q9Wm46AE0EmhoDUNeIztxH1
-         gqeFduUcQ4c7BVeM/gLe13yTgszXSjIIGfbQOn4dRBNCxlaf646hc0uqaBHNzbmaogIS
-         YGTqew0o+nkKm55w2LsL55BfTwmGkXaVleURdMWhUBEDfTZANdh0yw+CX99cMeIWTnxq
-         0/IA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrlf6IYil9dZZsp1pvPhPxeFrFUmVyarpjuXqScTw9Qzw2RaqxM2gZQeckfLh/hoHn+i6LiDVs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mU+WRh7DePtA4WQTble635Qi128uKiqyNeqXaigygqm3OsdhO/
-	2h7Jj8LZtYP+ZDE3dRuGLLR9B18G6dVQ4Oj7VQj5ll0UX7r3gPq0l49m
-X-Gm-Gg: AR+sD12D65+uFJHvlXNccTzZPL8Pk07i8AHNUUQxggVthYkJdeTTHbPbEI2rAUjNKDB
-	r2U8ljvk1FfyquK+cnMh94pIk1clsX+jGiewBUelnfJzRGy8knHcoun3tj0rM7U5F6bQwqLQeCW
-	XYDa0MIhoKwGG1QUNVq13lazHgDOjwvOT9/mGcW5/2SUglAeVgBi+XgfpP9t5OUiGqmHW017Wyb
-	htg1C3cJkO1+K/RnX+bwHcl3CPQ0kLo9YbyELrTm13Lne0JRk21qWD59GoS1AMckcsMeraFsDWB
-	s3ZWWcw7rY8xDUXD9duwSnY95hfOUL5QtAoZLXz/QDDZGSo873QQOjs+0UHkruZiKq48OPQz9iQ
-	ATp/AAvR9CMwzSP9czuHKjd0f0JVrZRXg5gIYsARbD+jtR1JLVCfODu+fUkL6FC8jGvMNoXAF0D
-	RIbIaiBwbYSWcjGG1/NBxIZK1wGehtrjiAX4OwdItQBXJb1Hm79tHPrBY/1JW1CZ9THTQDNKtfp
-	u7SR+rn2uqVhoY+dQ==
-X-Received: by 2002:a05:6a21:496:b0:3d1:c0e2:936b with SMTP id adf61e73a8af0-3d26765e5f3mr12417876637.7.1787905565243;
-        Fri, 28 Aug 2026 01:26:05 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f36dc602sm310894a12.24.2026.08.28.01.26.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 01:26:04 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Li Xinhai <lixinhai.lxh@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f12658786a4153df5113@syzkaller.appspotmail.com,
+        d=1e100.net; s=20251104; t=1787905922; x=1788510722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mhr2QiA56aojMpA07bo8qE5RApOWiL6TjFXkbxkAUgg=;
+        b=i9KtHbdxNurFP99LE2d8JxxioGR6rBQQvnnz04/mkOPIMzTCPleZVRoNQBDU2DoG/v
+         UmL6j21wy3film2mgq6XeOktkCI3lv+jojx1lg4Zv05Phgkk9YfCvzZuMf6xBpjdU4r4
+         cYGa29QKmVRuihx67Km1onKw1wT2xneFERf9ZYpV6LXmwXUVuObTAouZFTv8VRfWHu7f
+         dnNT55g9WetLPgVPkkraCer6TVNN990orO4kF6aYjPboUn9mcG24/VW8ryIBehyLdKPu
+         AHqVMVhOS3kPv2ZbX2PsS8rvRWMIyVtpq5vaT3lDsLQm53TgqOnMEGmrluMl8a5/JyP2
+         wN8w==
+X-Forwarded-Encrypted: i=1; AHgh+Rpk185Nu7rtinLBl34z/jqd0NA5rJ5pp5jFrQTRevAsii57hVQDmWpf6LjU32PATUxdPXKhNjk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhGcf7DYw7PiUVzd3z8hBWosBqAIK0UcB6z9ujeP3TZom91wB5
+	Rzl/zakj4mMAPWgU9pHj/U7JTORzJxwfovpoNE9Axby2kuZz+02EiMbK
+X-Gm-Gg: AR+sD11U/Bl9dJPzXVAwPj/BhwUGKu4xWLHscNZUkExTILWqfcp2NlFBiEJfin1OcGe
+	spMreYhEFx+qdO+wiu6W9g4bSd7sA+xopJCRl3ROzfgt0m4JoGQ6lz3NogtHioqHRXGvCfUBFzV
+	W6sq5QWQ2lYCphAZ1xNYEqVxPK03fvZyG9hOftgVHXljMz+oC8dqlBuxMu/CE2F7WUu/97gY6H9
+	qK4E3u/BjaxJIukMcbIMw564m4LIsGRytFr9x4ESf/Uqi4rmnzBjETIjrsMCSYHzBoWX5pUkoQs
+	/CvtUCPMa21eFcn8OH9Z2xuA3PnQDDFUaA9ZDemC8a6ZnCLbjZnQ6nFeCzWQas+lKnxslvWpV2t
+	lKxxVnpYgmzUXs8wdaBTTdVl40NbL6+pyvDEvbX3XBz3YFe22BPUujXJq+xBL7JKgj0p3QoFdJH
+	VI+Fm6WRoubKoYyWxtSPzvZpdXfQB63m49aUBhHYnT6ahbFFxPGssUYAqRpakaOmY0CYoRfwYVu
+	63/iSpQwrwLplmT0qP4i4+rgg==
+X-Received: by 2002:a17:903:22d0:b0:2d6:ccc5:a3dd with SMTP id d9443c01a7336-2d74dc2ff23mr87286795ad.4.1787905922221;
+        Fri, 28 Aug 2026 01:32:02 -0700 (PDT)
+Received: from localhost.localdomain ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75986d3b7sm3306095ad.41.2026.08.28.01.31.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 28 Aug 2026 01:32:01 -0700 (PDT)
+From: Hao Jia <jiahao.kernel@gmail.com>
+To: minchan@kernel.org,
+	senozhatsky@chromium.org,
+	axboe@kernel.dk,
+	akpm@linux-foundation.org,
+	bgeffon@google.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	Hao Jia <jiahao1@lixiang.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
-Date: Fri, 28 Aug 2026 16:25:39 +0800
-Message-ID: <20260828082540.584610-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260826192642.980c3aba921bf20cef425591@linux-foundation.org>
-References: 
+Subject: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
+Date: Fri, 28 Aug 2026 16:31:49 +0800
+Message-Id: <20260828083149.45760-1-jiahao.kernel@gmail.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,170 +79,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 26 Aug 2026 19:26:42 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+From: Hao Jia <jiahao1@lixiang.com>
 
-> On Tue, 25 Aug 2026 08:55:26 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> 
-> > Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
-> > a faulted VMA into an unfaulted one.
-> > 
-> > It does so after the page tables have been moved to the copied VMA with
-> > MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
-> > as the page tables it had are no longer present.
-> > 
-> > However, in doing so, it violates the invariant that the anonymous page
-> > offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
-> > 
-> > This is because a VMA may have been faulted in, mremap()'d (causing a delta
-> > between its page offset and vma->vm_start >> PAGE_SHIFT), and then
-> > mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
-> > 
-> > This condition is a violation of a fundamental assumption in mm, but now
-> > also triggers an assert in assert_sane_pgoff() which explicitly checks for
-> > this condition.
-> > 
-> > Correct it by resetting the VMA's page offset at the point of completing
-> > the MREMAP_DONTUNMAP operation.
-> 
-> Thanks.  I'll park this in mm-new until mm.git is all merged up
-> (simplifying my life..)
-> 
-> 
-> Unrelatedly, Sashiko thinks we're messing up locked_vm accounting with
-> MREMAP_DONTUNMAP on a locked VMA.
-> 	https://sashiko.dev/#/patchset/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-> 
-> 
+After commit 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking"),
+idle_store() computes the idle cutoff as:
 
-Hi Andrew,
+	cutoff = ktime_sub((u32)ktime_get_boottime_seconds(), age_sec);
 
-> I had Sashiko write code to demonstrate this but am too lazy to test it
-> on a current kernel.  If someone could oblige?
-> 
+Because the left operand is cast to u32, when age_sec exceeds the current
+uptime the subtraction wraps modulo 2^32 and the huge result is
+zero-extended into the s64 cutoff. mark_idle() then marks every entry as
+idle instead of matching nothing. For instance, running
 
-I tested Sashiko's reproducer on mm-new (7.2.0-rc5) and confirmed the
-locked_vm accounting issue. There is a minor typo in the reproducer:
-VMLck should be VmLck to match /proc/self/status.
+	echo 86400 > /sys/block/zramX/idle
 
-On the mm-new baseline, I get:
-[1] Initial VmLck:      0 kB
-[2] Post-mlock VmLck:   40 kB (+40 kB)
-[3] Post-mremap VmLck:  80 kB (+80 kB from initial)
-[4] Post-munmap source: 80 kB
-[5] Final VmLck:        40 kB
+on a machine up for only two minutes marks all newly written pages idle
+and hands them to idle writeback and recompression.
 
---- Result ---
-BUG DEMONSTRATED: Leaked 40 kB in mm->locked_vm counter.
+No slot can have been accessed before the system booted, so an age_sec
+that reaches back past uptime cannot match any slot. Return early in that
+case, without walking the table or taking any slot locks.
 
-With Lorenzo's pgoff fix applied on top, the results are
-unchanged, so the locked_vm issue is independent of that fix.
+Track the cutoff as time64_t rather than ktime_t. Both cutoff and
+ac_time are boot-time values in seconds, so a plain arithmetic
+comparison against ac_time in mark_idle() is correct and no ktime
+helpers are needed.
 
-The issue is that vrm_stat_account() increments mm->locked_vm while
-the source VMA is still VM_LOCKED. With MREMAP_DONTUNMAP, the source
-VMA is left in place and dontunmap_complete() clears
-VMA_LOCKED_MASK, so the later munmap of the source VMA cannot undo
-that increment.
+Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
+Cc: stable@vger.kernel.org
+Suggested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+---
+ drivers/block/zram/zram_drv.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-I have prepared a separate fix which undoes this accounting in
-dontunmap_complete() before clearing VMA_LOCKED_MASK.
-
-I will send the fix separately after completing the testing.
-
-Thanks,
-KunWu
-
-> 
-> #define _GNU_SOURCE
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <unistd.h>
-> #include <sys/mman.h>
-> #include <fcntl.h>
-> 
-> /* Read VMLck (in kB) from /proc/self/status */
-> static long get_vmlck_kb(void) {
->     FILE *f = fopen("/proc/self/status", "r");
->     if (!f) {
->         perror("fopen /proc/self/status");
->         return -1;
->     }
-> 
->     char line[256];
->     long vmlck = -1;
->     while (fgets(line, sizeof(line), f)) {
->         if (strncmp(line, "VMLck:", 6) == 0) {
->             sscanf(line + 6, "%ld", &vmlck);
->             break;
->         }
->     }
->     fclose(f);
->     return vmlck;
-> }
-> 
-> int main(void) {
->     size_t size = 4096 * 10; // 40 kB
->     long initial_vmlck, post_mlock, post_mremap, post_munmap;
-> 
->     initial_vmlck = get_vmlck_kb();
->     printf("[1] Initial VMLck:      %ld kB\n", initial_vmlck);
-> 
->     /* 1. Allocate initial VMA */
->     void *addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
->                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->     if (addr == MAP_FAILED) {
->         perror("mmap initial");
->         return 1;
->     }
-> 
->     /* 2. Lock the VMA (increments mm->locked_vm) */
->     if (mlock(addr, size) != 0) {
->         perror("mlock");
->         return 1;
->     }
->     post_mlock = get_vmlck_kb();
->     printf("[2] Post-mlock VMLck:   %ld kB (+%ld kB)\n", 
->            post_mlock, post_mlock - initial_vmlck);
-> 
->     /* 3. mremap with MREMAP_DONTUNMAP 
->      * move_vma() increments mm->locked_vm for the destination VMA,
->      * while dontunmap_complete() clears VMA_LOCKED_MASK on source VMA
->      * without decrementing mm->locked_vm.
->      */
->     void *new_addr = mremap(addr, size, size, 
->                             MREMAP_MAYMOVE | MREMAP_DONTUNMAP, NULL);
->     if (new_addr == MAP_FAILED) {
->         perror("mremap MREMAP_DONTUNMAP");
->         return 1;
->     }
->     post_mremap = get_vmlck_kb();
->     printf("[3] Post-mremap VMLck:  %ld kB (+%ld kB from initial)\n", 
->            post_mremap, post_mremap - initial_vmlck);
-> 
->     /* 4. Unmap source VMA 
->      * Since VMA_LOCKED_BIT was cleared on source VMA, 
->      * munmap fails to decrement mm->locked_vm for this region.
->      */
->     munmap(addr, size);
->     post_munmap = get_vmlck_kb();
->     printf("[4] Post-munmap source: %ld kB\n", post_munmap);
-> 
->     /* 5. Clean up destination VMA */
->     munmap(new_addr, size);
->     long final_vmlck = get_vmlck_kb();
->     printf("[5] Final VMLck:        %ld kB\n", final_vmlck);
-> 
->     /* Evaluation */
->     printf("\n--- Result ---\n");
->     if (final_vmlck > initial_vmlck) {
->         printf("BUG DEMONSTRATED: Leaked %ld kB in mm->locked_vm counter.\n",
->                final_vmlck - initial_vmlck);
->     } else {
->         printf("NO LEAK: mm->locked_vm returned to initial state.\n");
->     }
-> 
->     return 0;
-> }
-> 
-> 
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index a9b3bb1d3bef..4ba0f77b2abd 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -415,7 +415,7 @@ static ssize_t mem_used_max_store(struct device *dev,
+  * Mark all pages which are older than or equal to cutoff as IDLE.
+  * Callers should hold the zram init lock in read mode
+  */
+-static void mark_idle(struct zram *zram, ktime_t cutoff)
++static void mark_idle(struct zram *zram, time64_t cutoff)
+ {
+ 	int is_idle = 1;
+ 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
+@@ -439,7 +439,7 @@ static void mark_idle(struct zram *zram, ktime_t cutoff)
+ 
+ #ifdef CONFIG_ZRAM_TRACK_ENTRY_ACTIME
+ 		is_idle = !cutoff ||
+-			ktime_after(cutoff, zram->table[index].attr.ac_time);
++			cutoff > zram->table[index].attr.ac_time;
+ #endif
+ 		if (is_idle)
+ 			set_slot_flag(zram, index, ZRAM_IDLE);
+@@ -453,21 +453,26 @@ static ssize_t idle_store(struct device *dev, struct device_attribute *attr,
+ 			  const char *buf, size_t len)
+ {
+ 	struct zram *zram = dev_to_zram(dev);
+-	ktime_t cutoff = 0;
++	time64_t cutoff = 0;
+ 
+ 	if (!sysfs_streq(buf, "all")) {
+ 		/*
+ 		 * If it did not parse as 'all' try to treat it as an integer
+ 		 * when we have memory tracking enabled.
+ 		 */
++		time64_t uptime;
+ 		u32 age_sec;
+ 
+-		if (IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) &&
+-		    !kstrtouint(buf, 0, &age_sec))
+-			cutoff = ktime_sub((u32)ktime_get_boottime_seconds(),
+-					   age_sec);
+-		else
++		if (!IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) ||
++		    kstrtouint(buf, 0, &age_sec))
+ 			return -EINVAL;
++
++		/* No slot can be older than the system uptime */
++		uptime = ktime_get_boottime_seconds();
++		if (age_sec >= uptime)
++			return len;
++
++		cutoff = uptime - age_sec;
+ 	}
+ 
+ 	guard(rwsem_read)(&zram->dev_lock);
+-- 
+2.34.1
 
