@@ -1,137 +1,87 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE37391E76;
-	Fri, 28 Aug 2026 13:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18D9469834;
+	Fri, 28 Aug 2026 13:50:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787924793; cv=none; b=Uu78/4LHJQYYHVWNERCBKbimDut+THj5voqx72y/zECwOAZQEl9OsTOA8swCDzdAJUvFIltcaVUaMq39rn+Zquu2Z2QGjDGQtUuOZ82A6lChNxobiv7vcoOioiHHzx2QOtZdRHx5dq192AmLt3z4BBi2LkSylqBr7L/SdS+2ves=
+	t=1787925010; cv=none; b=YsfPrB5coo3GY1rW0e2fQTqq12rTcYVbiVU1XKZ04YHl8Uz1AAmeIRuFHNyGRZWhuP6INBHuOFzntCMJh+nPwp71Lw0NUE1nM1XKyApmt7uZLB0wq6lM0APh3Efpc6FuiV+otIEewGDBWT/IM+ZOHExKxg9cSQVjFD5O2weeTo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787924793; c=relaxed/simple;
-	bh=/AUbOXLbCVCQjm0+YW4SW5lQPjQLIXY9ybWXRRosM6M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jQb/hK2gvnF3KlGcTHVOdqmY1qZGGwvuBGHcu7CwIPEx6/xl17k80lw264cMTc5Twvl417ykwwDVVUhXeKJJf+45IEv2ZlWzn/DXQHYLacaobik/yugv+E+c3YZ3kYzd7a+sLo+oumEw0dP7OBjzbShX/SlQNMd3mIhav989nf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=NnZNH0/K; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1787925010; c=relaxed/simple;
+	bh=MNM2Sraq4K3iY6iYHq8qBZekPaB//ruHF0n2Pe5EE9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s/orXk/wXG5bh4j/Ol7lHnwmdTqECyF54F4Bs5t4DQBCuoxLiuRYT7GvZWxTbqmMy4dU3z5Zm7qt3Igf6BOXBGyHjbLgikvD0dMc+bGLpZllsEXEbN7EBerN7mwCEMOgmEFit0h0czDBd1v5SdyUcFTJzbvm0v/OJ0qQULUnuoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=NrfI9ypO; arc=none smtp.client-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="NnZNH0/K"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=9TfgXIoukN/RPVFm1I+e7bggSQFoinJyk03xgumztOQ=; b=NnZNH0
-	/Kz1ZEAaFeSw5eQJXsW2aeU6YbzoXE+iOLimV0vZZtb1oVYNMYEUZCo8JMBjKpMZ5yH3S+fV7vcOO
-	qKk461zeTFImkVEIeTIpUS67b/cbPvv3oafPXwDHdNEvexeCxV7yIC+3LB96cKgC5sPzpJRSvRdbh
-	010F/tSvQC0fN4cxlXGclzSXZr30Ef+qTdbZ8anTTk9OJG99VpeaZlkMMnKqTjBwdyzPVONjx6mDP
-	Em0DOkkIWD5/vDbr5QmPWTt8vECuVzUT9VG1tCybO8bgQ4lmCMr3+GuPwOzV4reJwTTlSiEurXxNN
-	xGPVYZIIcqD5gp6WYwvyp/Ai+onA==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn.surriel.com)
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1wzwuY-00000008zmT-0utG;
-	Fri, 28 Aug 2026 13:46:26 +0000
-From: Rik van Riel <riel@surriel.com>
-To: linux-kernel@vger.kernel.org
-Cc: Rik van Riel <riel@surriel.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit on isolated cpus
-Date: Fri, 28 Aug 2026 09:46:21 -0400
-Message-ID: <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1787890328.git.riel@surriel.com>
-References: <cover.1787890328.git.riel@surriel.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="NrfI9ypO"
+Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id BB1FA1403BE;
+	Fri, 28 Aug 2026 13:50:05 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id CD8B780011;
+	Fri, 28 Aug 2026 13:50:02 +0000 (UTC)
+Date: Fri, 28 Aug 2026 09:50:52 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: syzbot <syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com>
+Cc: akpm@linux-foundation.org, kartikey406@gmail.com,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, mark.rutland@arm.com,
+ mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@kernel.org,
+ sh_def@163.com, stable@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+ vdonnefort@google.com, vulab@iscas.ac.cn
+Subject: Re: [syzbot] [fs?] [trace?] WARNING in eventfs_create_events_dir
+Message-ID: <20260828095052.442529a5@gandalf.local.home>
+In-Reply-To: <6a91709f.4d659fcc.734b4.001c.GAE@google.com>
+References: <6a8c13ee.91706f20.16b6e3.02d5.GAE@google.com>
+	<6a91709f.4d659fcc.734b4.001c.GAE@google.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: CD8B780011
+X-Stat-Signature: z491yxqsyqgox5f3i1worag15f1a6ykj
+X-Rspamd-Server: rspamout03
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+h7Gtx0qv3xGNpLED3o53D4lmvvufA+OM=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cr5uBqV5JgJ9Fno9O8Jwk+stMeWknF2R8YkK6zixjtA=; b=NrfI9ypOB/5PcxsukxvRyrA6I6XQt1we0foMDhOOuB7M3PtxvXCkTwHfJLBgpzX7efTahJkGv18ODlOJWCaVEmyR7Vb+wts6NrdgCjbhTiNb4FzBY4fxD4sY+CDmGsoL7PP6pbuiJE/LTbZ2uxD3tdPpx+v+f1L4MGf84aeIV6o=
+X-HE-Tag: 1787925002-802069
+X-HE-Meta: U2FsdGVkX1/eeJ/t4MKwRAoHEzQcGc24lczz+hypsh98K9gSWHbTmlNAHiHlEFYQ8CpueE9anMnhhDL7Gj/HTsoVQO6kacDuHsh3deNArKrdAJjut3lskN/Oimq9NUuRtzxFhHk6ZEdULqVPP5OJci8v5aYr1wrB/UNOMAz3iUsnE+CN9sFmN8waoPDBgS1nYHKba+bj6sJAhcis9M+ANr0vhcZwKXFD2ObeaaOr5XasTIpgJ8WkCjJJu27J/SmwWnfhIxDLepeqm63B/I3ZeUl327m5/uJvzT3Om5jYjsOhwRRnbDFFTBmpsCYdayul1ttT5go6qou/uG/JXsrulf5Zh3RN2JqwIL19XOIpf7v/x4yUt44EQMQ4IfPrbfvgvwQWq1fwnOL3WHSRAvofrjtF2iwpFatlioqctPpffkY4B4HlAPkH5KB/HDCYC2lbcuc2AZJxeCsmV9m9Mx2Mww==
 
-drain_all_stock() can leave FLUSHING_CACHED_CHARGE set after the
-work is dropped.  It sets the bit before checking isolation and
-schedule_drain_work() checks isolation and queues in a separate RCU
-critical section, so housekeeping_update()'s synchronize_rcu() can
-race the second check.
+On Fri, 28 Aug 2026 04:27:27 -0700
+syzbot <syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com> wrote:
 
-drain_local_stock() only clears the bit for work that ran, so the bit
-remains set and the stock is never drained again.
+> syzbot has found a reproducer for the following issue on:
+> 
+> HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=16eddd49580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+> dashboard link: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17986d79580000
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+> 
+> R10: 0000000000000000 R11: 0000000000000202 R12: 00007fae2ca35a9f
+> R13: 00007fae2ca35adb R14: 00007fae2ca5ccc0 R15: 0000000000000002
+>  </TASK>
+> ------------[ cut here ]------------
+> !list_empty(&ei->children)
+> WARNING: fs/tracefs/event_inode.c:128 at free_ei fs/tracefs/event_inode.c:128 [inline], CPU#0: syz-executor340/6037
+> WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:150 [inline], CPU#0: syz-executor340/6037
+> WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:145 [inline], CPU#0: syz-executor340/6037
+> WARNING: fs/tracefs/event_inode.c:128 at eventfs_create_events_dir+0xa3d/0xbe0 fs/tracefs/event_inode.c:838, CPU#0: syz-executor340/6037
 
-Reorganize the drain_all_stock() loop, reducing nesting, splitting
-out local vs remote cpu handling, and skipping everything on isolated
-cpus, which solves the stuck FLUSHING_CACHED_CHARGE flag.
+This should be fixed by: https://lore.kernel.org/all/20260827151011.389282397@kernel.org/
 
-Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
-Cc: stable@vger.kernel.org
-Assisted-by: Hermes:muse-spark-1.2
-Signed-off-by: Rik van Riel <riel@surriel.com>
+Which is in my queue to send to Linus (and currently in my "fixes" branch).
+I have some more patches to process before I send Linus my pull request.
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index a660ea0f820b..b0d8ec042d48 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2330,19 +2330,6 @@ static bool obj_stock_should_drain(struct obj_stock_pcp *stock,
- 	return true;
- }
- 
--static void schedule_drain_work(int cpu, struct work_struct *work)
--{
--	/*
--	 * Protect housekeeping cpumask read and work enqueue together
--	 * in the same RCU critical section so that later cpuset isolated
--	 * partition update only need to wait for an RCU GP and flush the
--	 * pending work on newly isolated CPUs.
--	 */
--	guard(rcu)();
--	if (!cpu_is_isolated(cpu))
--		queue_work_on(cpu, memcg_wq, work);
--}
--
- /*
-  * Drains all per-CPU charge caches for given root_memcg resp. subtree
-  * of the hierarchy under it.
-@@ -2366,19 +2353,23 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 		struct memcg_stock_pcp *memcg_st = &per_cpu(memcg_stock, cpu);
- 		struct obj_stock_pcp *obj_st = &per_cpu(obj_stock, cpu);
- 
--		if (memcg_stock_should_drain(memcg_st, root_memcg)) {
--			if (cpu == curcpu)
-+		if (cpu == curcpu) {
-+			if (memcg_stock_should_drain(memcg_st, root_memcg))
- 				drain_local_memcg_stock(&memcg_st->work);
--			else
--				schedule_drain_work(cpu, &memcg_st->work);
--		}
--
--		if (obj_stock_should_drain(obj_st, root_memcg)) {
--			if (cpu == curcpu)
-+			if (obj_stock_should_drain(obj_st, root_memcg))
- 				drain_local_obj_stock(&obj_st->work);
--			else
--				schedule_drain_work(cpu, &obj_st->work);
-+			continue;
- 		}
-+
-+		/* Pairs with RCU barrier in housekeeping_update(). */
-+		guard(rcu)();
-+		if (cpu_is_isolated(cpu))
-+			continue;
-+
-+		if (memcg_stock_should_drain(memcg_st, root_memcg))
-+			queue_work_on(cpu, memcg_wq, &memcg_st->work);
-+		if (obj_stock_should_drain(obj_st, root_memcg))
-+			queue_work_on(cpu, memcg_wq, &obj_st->work);
- 	}
- 	migrate_enable();
- 	mutex_unlock(&percpu_charge_mutex);
+-- Steve
