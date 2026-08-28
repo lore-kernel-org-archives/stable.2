@@ -1,207 +1,77 @@
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4223DDB1E
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:09:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE58F39A04A;
+	Fri, 28 Aug 2026 08:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787904593; cv=none; b=rkNaHxJipJL+m6FV4uA+VC9uQvcO5Fb23g6wUHDiXZzFeOVbPAS+1eE8VJnHVs8cgv2YMByEa6o2VOpN0eNjpFm/MdNSudrcdbjWz/3IELmIv0PvUWN/yEpaJTsd86DTZBX0+7A2XQKmVEHDIdpmWpZ1pvW9uaopxT+sPl9McVw=
+	t=1787905393; cv=none; b=WcU9XB+PK+w0e1Xbx+wzEAq1f6pAPu0HxSIFzPb7JkHQNcpbEXQv9s3Z8ncTtJBFpNdK8Xqe5rZMMHn/iPkydwgfkAZuFjC+MuAXyCkt2AJ13CM0sdcYdzS0JOOvbS3B49LwSUGcx8loKASNpN852JQ3I/CT6TsSVank0uXkYYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787904593; c=relaxed/simple;
-	bh=sYZOuS5bdKiPDKa8vVkK+d9Ee9FAX3CLv0HydD51KCA=;
-	h=Date:Message-Id:Mime-Version:Content-Type:From:Subject:Cc:To; b=iImgf085eEu0ctDZSpl0RGbuXYRgTTLmPlFfdxHOhhk3nfZpEdCL/MRkJeasZ8oiD1hywQ+9HgRhrQIsemNpB6hi18qSdZQeeAlNEEFA1YPYzNY7LsIW/x2ku6KT+yJLxb6f4IXrztq3/kxmDulqER1AUuie4/rDhpEcKe8leAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=HZpGNRw2; arc=none smtp.client-ip=71.18.227.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787905393; c=relaxed/simple;
+	bh=hDydiq7AQMDQDpd+0whVhGG1pczvBtYNIPt4W2hjzK4=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=entGZ25cVUxZZvgaHPdRSK0EGa/cMPE7AU36FlWBdiKrCuezKicx0Lj1vDaiuqicdNnbD1WZTINbRXwxzRthjp4eErmJpvUQcWj3ivaAteOB5zCVIozS+Qp+z7HGYSF9vqCtkWZrf7DtOt3nWCdxRBdFuI1eKYAju0sXSeusJRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZUjvASJ0; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="HZpGNRw2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787904572; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=HR83UriVsIUTznJzO8x3qhujDb3DFBhw9+CN77nXxOE=;
- b=HZpGNRw2xwoFsIKbwIKvBOt9X+BzKCBoy90WS2scOxDqMaabtLmXN/Cc5G7E65+bj/piFL
- y49kcOVizC4xYmmW1eMPB1zAHyA2BGnbx+jIJF0aAElO89zlj1PyoT2ANpqZGIrtoZM0kc
- zbnaL8E1jdXheDZu/tPXHXCFtkXZhZzlKfyXCVRB9fw5BI3haKJuFPfgh+ZUm3XwpdOEpp
- 8di7/en52aI5i2A98jqfOO8rMBCxAer4XZWmU46mwJrZi7bHAf/rztyGh1rlidWhtxiegZ
- 1WU2eXfkJ1xjkDVlHnb7t/JQ2PXAAoIjMsuG9dCED0WSO5ABj09ZZBfBewbuXA==
-Date: Fri, 28 Aug 2026 16:09:27 +0800
-Message-Id: <20260828-cmt-speech-uaf-v1-1-1fed740dd225@cherr.cc>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZUjvASJ0"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hWWbn2kJTzKmTr;
+	Fri, 28 Aug 2026 10:23:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1787905381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YsmP5wmnG/UQyhwJAqUcew+uGLtul3Yjk3sK/pL/sxc=;
+	b=ZUjvASJ0A06DSzNfhieJCepU83N6DnapX+ofTuJtugpd2B/7ZvgnwvKQjEqquhexYHMOT+
+	S3cyCdu/gMfdDcVJI3MADuPTwetpDSI0CY1WjpBOWuggv7zyyaSNeu0C+9tBceY88dO8Hx
+	shJQUn9RbYYfD1VPTdzuEvy9kyvF2KyJCuL4eq5Z28QS0z2BLo3C74Hy84RvW1TWju46Kd
+	O2dLb1C8fH9mBGAHpRMHJLvpDpkk7Qfl0KVL/oFdLwZ4T6v0xNWJB3E/2Qu/bx+OaBnDL3
+	ksgulA3doXWxY6utUF+lcrF//Kth3L8pLlcEIZ/9nk2qAj/qC3O6OXc3T3tOdQ==
+Date: Fri, 28 Aug 2026 16:22:59 +0800 (CST)
+From: Ming Qing <a0yami@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>,
+	Daniel Starke <daniel.starke@siemens.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	stable@vger.kernel.org
+Message-ID: <2073007787.358333.1787905379172@app.mailbox.org>
+In-Reply-To: <2026082810-vastness-detest-6637@gregkh>
+References: <20260828031949.18580-1-a0yami@mailbox.org>
+ <2026082810-vastness-detest-6637@gregkh>
+Subject: Re: [PATCH] tty: n_gsm: pin DLCI during configuration ioctls
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: b4 0.16.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-B4-Tracking: v=1; b=H4sIADZCkWoC/yXMQQqDQAxG4atI1g3YAU3pVUoXNv5TU6iViUpBv LujLr/Fews5ksHpXiyUMJvbr8+4XgrSrunfYGuzKZShLm9BWL8j+wBox1MTuY1BpRJRCChHQ0K 0/zF8PE/79PpAx/1C67oBbcvcrnIAAAA=
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH] HSI: cmt_speech: Fix crash on device removal with open file descriptor
-X-Change-Id: 20260827-cmt-speech-uaf-df2c7577ce7e
-X-Lms-Return-Path: <lba+26a91423b+7a9ed7+vger.kernel.org+me@cherr.cc>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Fri, 28 Aug 2026 16:09:30 +0800
 Content-Transfer-Encoding: 7bit
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-To: "Sebastian Reichel" <sre@kernel.org>, 
-	"Kai Vehmanen" <kai.vehmanen@nokia.com>, 
-	"Aaro Koskinen" <aaro.koskinen@iki.fi>, 
-	"Joni Lapilainen" <joni.lapilainen@gmail.com>, 
-	"Carlos Chinea" <carlos.chinea@nokia.com>
+X-Priority: 3
+Importance: Normal
+X-MBO-RS-META: 6ofpc3x46i99rjc9c3yefquruusuc86o
+X-MBO-RS-ID: 21c49ce813949b09834
 
-misc_deregister() does not drain file descriptors that are already
-open, so after cs_hsi_client_remove() clears and frees
-cs_char_data.hi, the ioctl and write paths still dereference it
-without any lock or NULL check:
 
-  open("/dev/cmt_speech")                          [userspace]
-  rmmod cmt_speech                                 [removal]
-  ioctl(fd, CS_GET_STATE, 0)                       [userspace]
+> On 08/28/2026 1:50 PM CST Greg Kroah-Hartman wrote:
+> Please have your llm read the email archives for why you shouldn't be
+> touching this file at all, UNLESS you have the real hardware and system
+> to test it with.
+> 
+> thanks,
+> 
+> greg k-h
 
-Fix it by reading cs_char_data.hi under cs_char_data.lock and
-rejecting calls with -ENODEV once the interface is gone;
-cs_char_release() now steals the pointer under the lock like
-cs_hsi_client_remove() does, so the interface is stopped exactly
-once between them.
+Thanks for the reminder. 
 
-Fixes: 7f62fe8a5851 ("HSI: cmt_speech: Add cmt-speech driver")
-Cc: stable@vger.kernel.org
-
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-Verified on a KASAN kernel with a software HSI controller: opening the
-character device, unbinding the client and issuing the ioctl gives
-
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: 0010:cs_char_ioctl+0x29e/0x340
-
-and with the patch applied the same sequence returns -ENODEV.
----
- drivers/hsi/clients/cmt_speech.c | 47 ++++++++++++++++++++++++++++++++++------
- 1 file changed, 40 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
-index 7226677ebde7..4325152a5a62 100644
---- a/drivers/hsi/clients/cmt_speech.c
-+++ b/drivers/hsi/clients/cmt_speech.c
-@@ -732,6 +732,17 @@ static int cs_hsi_write_on_data(struct cs_hsi_iface *hi, unsigned int slot)
- 	return ret;
- }
- 
-+static struct cs_hsi_iface *cs_char_hsi_get(struct cs_char *csdata)
-+{
-+	struct cs_hsi_iface *hi;
-+
-+	spin_lock_bh(&csdata->lock);
-+	hi = csdata->hi;
-+	spin_unlock_bh(&csdata->lock);
-+
-+	return hi;
-+}
-+
- static unsigned int cs_hsi_get_state(struct cs_hsi_iface *hi)
- {
- 	return hi->iface_state;
-@@ -1180,6 +1191,7 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
- 	u32 data;
- 	int err;
- 	ssize_t	retval;
-+	struct cs_hsi_iface *hi;
- 
- 	if (count < sizeof(data))
- 		return -EINVAL;
-@@ -1189,7 +1201,10 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
- 	else
- 		retval = count;
- 
--	err = cs_hsi_command(csdata->hi, data);
-+	hi = cs_char_hsi_get(csdata);
-+	if (!hi)
-+		return -ENODEV;
-+	err = cs_hsi_command(hi, data);
- 	if (err < 0)
- 		retval = err;
- 
-@@ -1205,8 +1220,11 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	switch (cmd) {
- 	case CS_GET_STATE: {
- 		unsigned int state;
-+		struct cs_hsi_iface *hi = cs_char_hsi_get(csdata);
- 
--		state = cs_hsi_get_state(csdata->hi);
-+		if (!hi)
-+			return -ENODEV;
-+		state = cs_hsi_get_state(hi);
- 		if (copy_to_user((void __user *)arg, &state, sizeof(state)))
- 			r = -EFAULT;
- 
-@@ -1214,6 +1232,7 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	}
- 	case CS_SET_WAKELINE: {
- 		unsigned int state;
-+		struct cs_hsi_iface *hi;
- 
- 		if (copy_from_user(&state, (void __user *)arg, sizeof(state))) {
- 			r = -EFAULT;
-@@ -1225,7 +1244,10 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 			break;
- 		}
- 
--		cs_hsi_set_wakeline(csdata->hi, !!state);
-+		hi = cs_char_hsi_get(csdata);
-+		if (!hi)
-+			return -ENODEV;
-+		cs_hsi_set_wakeline(hi, !!state);
- 
- 		break;
- 	}
-@@ -1239,12 +1261,17 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
- 	}
- 	case CS_CONFIG_BUFS: {
- 		struct cs_buffer_config buf_cfg;
-+		struct cs_hsi_iface *hi;
- 
- 		if (copy_from_user(&buf_cfg, (void __user *)arg,
--							sizeof(buf_cfg)))
-+							sizeof(buf_cfg))) {
- 			r = -EFAULT;
--		else
--			r = cs_hsi_buf_config(csdata->hi, &buf_cfg);
-+			break;
-+		}
-+		hi = cs_char_hsi_get(csdata);
-+		if (!hi)
-+			return -ENODEV;
-+		r = cs_hsi_buf_config(hi, &buf_cfg);
- 
- 		break;
- 	}
-@@ -1334,10 +1361,16 @@ static void cs_free_char_queue(struct list_head *head)
- static int cs_char_release(struct inode *unused, struct file *file)
- {
- 	struct cs_char *csdata = file->private_data;
-+	struct cs_hsi_iface *hi;
- 
--	cs_hsi_stop(csdata->hi);
- 	spin_lock_bh(&csdata->lock);
-+	hi = csdata->hi;
- 	csdata->hi = NULL;
-+	spin_unlock_bh(&csdata->lock);
-+
-+	if (hi)
-+		cs_hsi_stop(hi);
-+	spin_lock_bh(&csdata->lock);
- 	free_page(csdata->mmap_base);
- 	cs_free_char_queue(&csdata->chardev_queue);
- 	cs_free_char_queue(&csdata->dataind_queue);
-
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-cmt-speech-uaf-df2c7577ce7e
+I'll be more careful with fixes like this in the future.
 
 Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+Qing Ming
