@@ -1,110 +1,101 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC3D2C3255
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 13:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EEB4503F0
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 13:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787922136; cv=none; b=KGIG8o3K4rnpr5mT8s83pHL3JuWkm/VgfHWfOH3xFtlqAEnYXasHjXHyFepaDy1UyyG+eE5mJ2aXs4Wdr7vsoBjTyWOPcbOh2Wr8JsKRvG2mR5q4Bj5dmN/aPEkHKg+e9RDC9U4PVBz3OgNl/kjMspVCAkGyx+/4AQMJw8qaD/Y=
+	t=1787922439; cv=none; b=ajbWa53uWzei9HwNgvnEX3JMlUN91ZugSC9qJJOs5Jw2gdL74s27km6yYoD4n7h1kzovPdmAldcYwhO2fdJDX4FtQEYcqgPHzMKI5nwLQlCR+6x9nN0HpME5Ux6ytcf+8mWc4HiSyadZungMGe5tyMiY++XSEQ5W0mcvWV8g4rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787922136; c=relaxed/simple;
-	bh=QqzBBu7p8nODo/RmFJm1kAQ41J+L+8YvaBuNF7HBWYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z0CEHacp5ZOLiw0Dq37ccDMSnmY17383OAh5Kn6hUgi2xmyMWCwd9yAvuofqLhG1ML1pzZxdJJvbON+szgJG2R3qjt3EEPgf0bRYrsuZ6osyM/NnoMxPrTGA/RrC1cWtP3js2kzhdJWHx23P1/qbffYEkHDHeWPj2IzfO2At2ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MKsP1TlU; arc=none smtp.client-ip=74.125.224.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787922439; c=relaxed/simple;
+	bh=FGXU9hCiXREruV/PI5jXJyYiXmjNo/cxlv1BBKCwWyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EoET8GO8ek93/tlumTe4gEMTATr/A8WUq6kE2ArSWyfyPjncmphFs03aAJkDdxYrB2RpMl0+5+zfPyIZC72oWv/GSvKQd5gjmv7iDbFPb2MZxruq5z4mBPkoC8YEtlWJHwzRFsi2Bz87rInn9giZHpXjemOKWeFqK+ZGZFu80rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRm7LaJJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MKsP1TlU"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66d2b3092c1so1605582d50.3
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 06:02:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787922134; x=1788526934; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QqzBBu7p8nODo/RmFJm1kAQ41J+L+8YvaBuNF7HBWYk=;
-        b=MKsP1TlUYUeUNOdu8V1C9pJvBi81lkXLkE4S1OivElINshuP9DPCx7gJEDVul60aHQ
-         O6B8RkCPTl/CJXugP8mwR1OJ1p9m7ehYskD57AhN2ZDz4e3nRDERritZPgjVEu15LVRy
-         nBSSaGRzdLC6jxTKqV4u0vJrtDSn3xph1F3hUgPdoFYxF7vkLRnykoDYMNBik2gI0Hdo
-         lf2KGngS4ZsxTN9ChjAxBffVjb+DNyb+QTNJN9V28T1YjgIyqb3CULf4ziTeNelTNhBK
-         xFeJxN+/grPnN1+fjaQDj8OD7TNyOnM0mfJ4naf1cgSoxicUCvnF8EEiZIsnEijpR/0v
-         RPfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787922134; x=1788526934;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QqzBBu7p8nODo/RmFJm1kAQ41J+L+8YvaBuNF7HBWYk=;
-        b=IJX1b8GFBm7emlhJ70FWE/Q7o0VM9rg1rK9LoUc5FsBPtMwNIg/oYypPEw1NNA+Ub+
-         FtAiGIPQaW7i1CekKYtpwzp6Z0M66ehybpmJKbEhZ7/FNmqPY2PxcY8WLkifuWDJz75C
-         tbwqGXliAXnU3E6kH3Sdjdn2/FjmDTpXP6KdBekoahOyLUoo6KdjAWl1jTOdnp4NZAnv
-         H0PTd7XLdpt9FsiI2/8WCaCtKqocvrdliICSVjbnCywRwvtrrjFgjq+tTIh7dg0Ed3DK
-         N2/Yh6dLsSWoWRptDNWcCeasohHBjqF8Mo/19lfyQsj7dAj0+zr6kQJD5HXUop3CfMlR
-         RNmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxchRCUhLzrA8C/onEEyXRrPjMwyqFdjIqueqjSTkMreTZvqCrdtJegPENPrzkow+ZmIcQ8dNc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbsFmUiaGVfto92R0SHacpNOU6Hk8zXpp+BSJS3OX5tHp9NqGY
-	jolJapMILlPed5x/TF45kwfcWlRkc8zXZXrKQu2cMMayxFNFVcLbHquF
-X-Gm-Gg: AYBFou26mACsO/WKXuEPosOIb/1kX+zoNRdPAPFCsdZAdkqwe3OZ3iYhWw9jImiAcqo
-	oxGTdnHBvAGvVRV7YOgjmU2MtA60IaU4igNJ6qdvu/dNE2JigQzRuJSIKCpiSvDWyv8NGGBEkP3
-	iYfaNfy5w/pjuLM7RKMY/gzjOBx5EUUAfQJc0N+uwnH7S33tabMuJI3UBoMPBPOBjduMi7k7Q+E
-	Vr3QNZvpYttHGL0T5GCIxNsHtIEhszP9DX30UgJbBN4+6wVBElvAP6AZof2DcMCxyc0nz8Wi1fy
-	dm4JDDF87qyy7Yi97mlvtI5k99avXuuSFBY2IS3ryOD5Q2dYQ1D8Vyn2LbxZR0+xRUcqDtMcyX7
-	9jMRS/yNpzQoYFP/BlSjyPhDNntgcIB8bsEnvsRlMYbRBNSupGVx2ql4ulcGmwM/RQhj9u9K5uq
-	Cp1KNA80GaH4lFY9xSA1m7MZysZVgT0wHV5nFApBFwuUfQnzj04QQuoKVh0D0PvfeWhpQM8pkOh
-	loMfA==
-X-Received: by 2002:a53:c550:0:b0:66d:264e:88f2 with SMTP id 956f58d0204a3-66e4c6eb8f4mr1512029d50.16.1787922134170;
-        Fri, 28 Aug 2026 06:02:14 -0700 (PDT)
-Received: from mac.lan ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed39d4csm770568d50.21.2026.08.28.06.02.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 28 Aug 2026 06:02:13 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: leitao@debian.org
-Cc: AutonomousCodeSecurity@microsoft.com,
-	andriin@fb.com,
-	ast@kernel.org,
-	blbllhy@gmail.com,
-	bpf@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	geliang@kernel.org,
-	horms@kernel.org,
-	kafai@fb.com,
-	kuba@kernel.org,
-	kuniyu@google.com,
-	kys@microsoft.com,
-	linux-kernel@vger.kernel.org,
-	martineau@kernel.org,
-	matttbe@kernel.org,
-	mptcp@lists.linux.dev,
-	ncardwell@google.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	tgopinath@linux.microsoft.com,
-	xmei5@asu.edu,
-	yhs@fb.com
-Subject: Re: [PATCH net v3 1/2] tcp: fix use-after-free in do_tcp_getsockopt(TCP_CONGESTION)
-Date: Fri, 28 Aug 2026 09:02:12 -0400
-Message-ID: <20260828130212.32968-1-blbllhy@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <apGBE3XHKeNohHF1@gmail.com>
-References: <apGBE3XHKeNohHF1@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRm7LaJJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D26F31F00A3A;
+	Fri, 28 Aug 2026 13:07:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787922435;
+	bh=1YZkfUvCoyZHLzyn7ea4/HyPggA3fnupl8cIKNYULpk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HRm7LaJJEXTiDiGTKCZo5l2w5kN1TcYSeJ9E48rQNiz6LBaQNFB2bKP4AHBipiq8h
+	 YVxk60l2Cn6/hAurga4ATD+2RfrWaG4ySotIPL7Qda9iFoOVBwRrySKhWI8pVMwDPW
+	 lCDMccPUxYtiMTthIsnC6uiu4nk97j9lDetGFeNSCozb1O9uQ4k+wY1cGB85jY0D/9
+	 HG/1aEtypMZePyyCdCDCBGjvrTFQevBEIc9mmBs0A7lESv4ehPD3de7jcMP8UmyqWS
+	 CpNiIA0gRbnxwzBMFGltYkgXGmzpSvL10YP+gw9pKHpmgRulYhQx1YLoWpnGkiSuur
+	 62G+Oi3GG3uow==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8728C1980050;
+	Fri, 28 Aug 2026 09:07:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Fri, 28 Aug 2026 09:07:12 -0400
+X-ME-Sender: <xms:_IeRajK6RgmVJ46FUccIDzQvRWEdjch6S8dmzrIwx7mNvrjRLqG7zg>
+    <xme:_IeRaj5d4x5Ci1XWPIS3TCKpiy900dh4rtEnSxl0BmtA2Hvig2tLEFQgvutnIBzvt
+    q-3uKArInhGg4BUL7xC7LGPevdSWe3B556Hsl5I7aVUYZBSs3HQWTNv>
+X-ME-Received: <xmr:_IeRarQx3u1kQ-ANzyD1p3Zn1y5BMkxZDV4rCBfD6g3cXh-AC77MPiRcsKQ>
+X-ME-Proxy-Cause: dmFkZTG28vjlh/jrZIe0v56Xspzegu6WkfWJNqumN3G8EyZWPE+j12ot5ZQ3BXZTGKKstt
+    ZACDkBdMBDCfrwUht/IM7FreRRPd/qVf2YDZto2H7EgwYkYS27XFH+pXmy/RPr+F+MDrsf
+    L+M6NlBc7fDRfJh75IZbb7iLqdI3hKiB5ge75aGaLPYMy9mJJzFOP7p05J2IydJrP/bG4c
+    REgPSHsV2nJfQa6/FnBSFrR3eMVRFHifx+Yr8b64twmyBRJDjYQw6NhC3aieIKvXOMWsy+
+    TO3LcTQWOtP630Du3jcNhUsiowPO+C1L8ObqZY8hPhIDBpkKC3Uz1fq/qkSZgG4wHmyNiX
+    /YsWahIsRswdahPS/RnCCuJqsB6QI9chbdBNs2y8P7C3T99TFvj81/pjghD3wPX4HK46da
+    kIlJ4yxv2DsBYdzz88j+nU4qQ5fSYMcudHkWfwlJI6RaXwB8iYWuMY/GVCXuAA3ew9Hutn
+    tRBjvnnwqr0KtyFuc1yF7Hmm+J4qAf+YYGCnYgSB9DQDByGDAiWz7yfrLAatv4oB3zv/vH
+    FA+guGwkq2fcEAqa1rqntNvVw3v2Q4sz8ggF0bvtDruPLp2A8/9IEnu+HNxu4Q9dyll+ke
+    hRhuzhqFAVi9qeaU79QXUHkzTljt91CieuIiTqkTwGV5JSGXglvecUZ+eKuw
+X-ME-Proxy: <xmx:_YeRalA8l6VZYNUAL523U4zKBUeKGTVSBMqVhBRXp4dByHijVRZrQA>
+    <xmx:_YeRaurwvuIXQV4TICc9DpTz0uopuoDCICelKcfyiSBlqbYvg0p68g>
+    <xmx:_YeRav8TUHC98idjHudjlc7xIlQ1JOP7Od1yroJF3wU565HPgpM_5g>
+    <xmx:_YeRavCLtUu7799PTwqr0lEzWreAQyfzE7VLVjdXIhhJFZxK-zf-Ng>
+    <xmx:_YeRahHffYdExHOR8YLyQK-sgTeSh9Ne3OqfShBzHiGSV2BlMVVT6m_e>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Aug 2026 09:07:08 -0400 (EDT)
+Date: Fri, 28 Aug 2026 14:07:07 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: jthoughton@google.com, akpm@linux-foundation.org, david@kernel.org, 
+	ljs@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
+	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, usama.arif@linux.dev, shy828301@gmail.com, zokeefe@google.com, 
+	hughd@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+Message-ID: <apGHG9LJtDpe2kdG@thinkstation>
+References: <20260828005004.2870750-1-jthoughton@google.com>
+ <20260828094703.11081-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828094703.11081-1-lance.yang@linux.dev>
 
-> nit: Do you need to zero this string? It will be safely overwritten
-> below, no?
+On Fri, Aug 28, 2026 at 05:47:03PM +0800, Lance Yang wrote:
+> 
+> On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
+> >Userfaultfd minor faults provides userspace with the ability to manually
+> >install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+> >map holes in the VMA when a naturally-aligned THP is present without
+> >explicit action from userspace.
+> >
+> >This is a problem, as it bypasses userfaultfd minor faults that
+> >userspace is expecting to handle.
+> 
+> One basic question first. Should MADV_COLLAPSE refuse to collapse a
+> UFFD-minor-registered VMA, regardless of whether all PTEs are present?
 
-Thanks for catching this. That initialization is unnecessary. Would
-you prefer a new version for this, or are you okay with keeping it
-as-is? I may need a few days before I can send a new version due to an
-ongoing email account approval process.
+I think the line is not between MADV_COLLAPSE vs khugepaged, it is if
+vma->vm_mm is current->mm or not.
 
-Cen
+In other words, we might want to allow collapse if workload itself asks
+for it, but not for khugepaged or *external* process_madvise(MADV_COLLAPSE).
+is_khugepaged is not the right proxy.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
