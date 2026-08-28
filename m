@@ -1,78 +1,77 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070262AE8D
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F85380FC4
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787919576; cv=none; b=A+1LS6a+IelwCKefTAMUP53FKsa0HJb5G2xpfnoOKy2e0Fr9MpcfBM850Z9QzdNoMljdsMmURS6E7fFoUcV8NnPt8kGOkO5C32LjV7VyjPJXXGBGi5p3Swi1SfynjJr6GG9C19bzHfup3IoSH4PAmAag7KD+uUF4CzqI4cK+aGU=
+	t=1787919913; cv=none; b=Z/efkMYSt0ASqh0cB/vX2+ZREfIjiZ9lwF9T8mFqTFns63PxyGwfmZ/ctGWG5QdyX9I2jEPUGSMTrRA/71bMvltuaIHfKrgHGFKkJ+Asf22s2Sxm9VQ55EZSxgY2FxWzHDigkkknyXhncLKjZyv1Xe7RaP+8gG/is8Bt2+chDws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787919576; c=relaxed/simple;
-	bh=A1R0s7u+JChv9Ss8a/PFkaOtOi6o6Mi+M9DnbV7Za0o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ju0XGZmHDArqTAnW8a9D6d7xwU1hHyBQ9BwIjrhtujQoZr78F0vZCMBx380TzFBC/shIOIvoeJQy4QZAoB9/zcnUHz6w7K7hhSRCP0Q4PeA2382B4Wd2SCJJmfSM16gJ/fp2JGuu9R8x4ngK7OVc0/fry5GN5ytSJ/f0HBQgoz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=YeBjtbQg; arc=none smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1787919913; c=relaxed/simple;
+	bh=pWoBE0Ap013VoeV2vp85NB4S53A3uBMfxaaPmtJIfxQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cI+KflKJbYZTA/ucGzZEO5WfTpkfB1e7jJP6yJ4wEr+ziMzFDE0YSdvri2zRewLEDV/a9jSADoV2GOXBxh0xeNkbT/BjZJiCmPq0ozlKvS6Vvp251hb5uBPoFj8WR8BH1MqlF80u0IJH2Nl0BX9+gmmhhtdhtrG+O70WfgxdLLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FNSVbBat; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="YeBjtbQg"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-51bfad59921so6974221cf.0
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:19:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FNSVbBat"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cc891373e0so7224335ad.2
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:25:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787919557; x=1788524357; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787919900; x=1788524700; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jeXsbVKGJ8b2tXZYkkCjnNDpr+fkfs4wKW6CIseyfpk=;
-        b=YeBjtbQg5qzNwQwvgj7C2mBOlk8DmyAtHd6cVfB+AzGWCghS7kOBZb4ymqJ2kFhgnu
-         yYzkklheGgyhGMQjd6dNRgTMj9Gmh7kp1ePuKQBsttyXE8N83Rmid6QjsOxNIyNu4/bo
-         Jw22TuaBNhQcCyb6uZbvpLV3w27AJ5EGmAj4c=
+        bh=ghL++ZvF6V2+SKQri2NFYRwIeM8mcziADY1V3awfvk0=;
+        b=FNSVbBatkQeZNEeKJGramg+chWGwQfHIyvV95kioQRtt79F83HLA/07KFs4Be2nHQs
+         1YCkqjLplZDNUhN8XK+CLsPGSoJ2uK3R9C7OLfCd9TWc1LORtR2RWw44FqgJvfixTfbk
+         5gIy1Lpn1FiJnGCbeoePoKceET/pkkTrl9Nz/Olt9nO09IFJ8IPnQ/vRh3VpEKGp5IFJ
+         Ptatx2FssVk44TfCab2xlauTFIZz/9Nn7T48vEl9Qrebzs0ytzb7j/G3f2kZhY/ATsq3
+         ajpDgq+VcJkqExKYbdgx+PbNmlV/iDs5WVNst6usgnHG2kY+oHjkBGQ5Wspkl2urh1me
+         agEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787919557; x=1788524357;
+        d=1e100.net; s=20251104; t=1787919900; x=1788524700;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jeXsbVKGJ8b2tXZYkkCjnNDpr+fkfs4wKW6CIseyfpk=;
-        b=GyX0gQxQPSniKFFDU+kPPz9lEkkvs51vVaqKYsgJRJG2vY1n4H4gCl+GAzh4Kf/Ui8
-         izHRuS+iY9wwkg1P7IMYohuLGOuusp4xHIsnGvyWzkXzjCLvoVesDUvjN13gNeAJOw6O
-         yaDS/GRP9rLJ0QZ9y+Rc9B/iit5DXkUKOpKqgefgwyeqfGpAUqdMlNKIeXfMVGIIPvy1
-         8cja8fW9HfVeCbqCoFyCgLyRlizCBhXrKKyKj/B3ONyriLpjICOVm6tIGulgnuK75/bF
-         MzI0pdMv6e9l1jk6s4kAIBktA0nqNEAE6OtDpB+s/mEiuMBdTdmAgjwkI+DAO4PsPygN
-         MJ5w==
-X-Forwarded-Encrypted: i=1; AHgh+RrcaydkCdbWMoxl+CdTa2+X1qjaoTRzHn5rHM/tJxLxtt2WrMev6Tr2FYfu1ODBBU8WVDELDPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkvStHUJq5uLiRHgjQiCcA2cyo/fZggZ86RnFWwKSdy+dl7603
-	Q9xO4jz5p1dlOvTPKGLLrFVVN6grQ8sV8fuuauy+qqvTX6D1y4DSqxeOZDc2JBderA==
-X-Gm-Gg: AR+sD103STgvE8iV8sWi22CwZfywHjUfnTWGPTBOSJJxRQXmiLf3KpUXwOPUqdwgrL9
-	te5krSghDzWppWp5pOZSOunhMlcsBG4a+VSC14KcP4jhUf15Y7qAS0+lsJk9IPXbmkUh9a58y9X
-	C7c0NwUu70KY7/HxK10Yw5Fc5EvWemIxNCTA10n50abImlzBltwaJ+TFiTnQ/znJrPCVkkAYIun
-	0efHsSgaJLzUOu7za0darcN5WqVmMsmkA/90bWqBWUY1/gao7amuYwChJl5LC8W33kbMAINh0Nj
-	CzLLUsZ/plrWcjI6w4hov7QS284W0BBSiJqYDTw3BRrh+QXJl4vXZqEqPeOWka0yywhaK2XxHX2
-	wwtW02xsIKNqw0ktR5nbmZR6tPMLu8SZModeEg/hSdXaM66CH/+UxoLksA9NWFDzxpNCh6ij6mW
-	eCv4ooxXtgp7tK960yADotH0bLMUDZ1EwvPm7yTQeQKzHvfUoWsDDXqTb2rodtsIClCXnjotVO+
-	k89hfq/lrwZS5QbFmIrv3jHjFgeILW4oBlLuw==
-X-Received: by 2002:a05:620a:27d4:b0:930:adac:1e99 with SMTP id af79cd13be357-93913988103mr688492485a.38.1787919556836;
-        Fri, 28 Aug 2026 05:19:16 -0700 (PDT)
-Received: from majuu.waya ([184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391740a306sm128672885a.42.2026.08.28.05.19.14
+        bh=ghL++ZvF6V2+SKQri2NFYRwIeM8mcziADY1V3awfvk0=;
+        b=EOFq3A7uf3+Hgdp3VcHdHxBh7ZVMy8czMcVJ5WYLItFqmtpc/FCAY5pHX+EqzqB4Q5
+         TRKL1BOpfaKbcb2w5UnSj+PPjlRR7wGpHqCek/7of4/G3dvtEn3+kcvsz1bvIelbHder
+         umfnlrmvO1kO8IhpoH9K/R9WJg/0uwOglbD+bnnp2lk5c4tM/X+Aa6FReDU0Ur0kZcaJ
+         EL+MQ8gtS/V4recXFVgK49F5dOt6h2ltwWfU/EknKyxfOCo4880A9aEmBimFbJtlcKVJ
+         GARRjLwr9MFJuQIcAF6H9xDnXifCPfyCZUbjFqp/Tt7O+BVXdSzBjUUxfoTJpChcIkV/
+         p7ew==
+X-Forwarded-Encrypted: i=1; AHgh+RoGYbJ1w/v47rFeoG6AiSJjodWFWzAlGOzugyNeM626WiZIhw3eX93uF8hFVBhgfhkSeTCafiQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++moP+h4kClYHFmfHLFzP0bTgsi38HnZG1/y9vposCJLzzq8VfGT
+	ngq7UgYkOmrjV7e8hNP9nmOF19X7fxKUkzUMwhWmDRyrwUzLvYnOaqgn
+X-Gm-Gg: AR+sD133svRxcu6KLDvgrPuoRgCpLJ0DRGjyVT1KKtTPtSeq+xqkwsAW63MEGHY0Amn
+	UIiD0NmeyEPcMdCD5AaLB4K8akaXh+QQg/dSyQ8XMCHnWa3LQwsdOzInA7mX7daf8NH0u9XnNqn
+	JoZgWZFpFA/F6AeHoV7MSdvOZf4vqLHugCnAeVKVcU4vV0/OGwJB4a28+nMNNqOeamVrYMa7rdW
+	cqkLoLoS++QQM3WvJTu14CzUARqNEe7nqS+18tFrGsoOfDQYaNRJao7WFIjsIitxrakQVnXJID7
+	XU4T0t2OGnTcpCX7JODmrWpVc6p6hgLBRxSZR8qfofIa876r1QIBojMg1XGHD7rmdV0HtisYOhV
+	jrZ9U5Ty9N8DmTSgTZRYXsQheBPHNV42mF+P8zebgsqL3VixZhPrlak8wGtOmiViCTLCV6S+f3B
+	qMBH0QtdO1aeu5zxjvH8o9Z5csuQWlaGpnKMNCgXjexZd+sUBPAGAF4JJj1UlECIgv2fT4NjygR
+	cInCOMmGY7teRuamAeaqTiW
+X-Received: by 2002:a17:903:22d0:b0:2d6:ccc5:a3dd with SMTP id d9443c01a7336-2d74dc2ff23mr111979445ad.4.1787919900181;
+        Fri, 28 Aug 2026 05:25:00 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fb48dsm4969115ad.14.2026.08.28.05.24.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 05:19:15 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	stable@vger.kernel.org,
-	vega@nebusec.ai,
-	Victor Nogueira <victor@mojatatu.com>
-Subject: [PATCH net 1/2] net: cap tx_queue_len at S16_MAX to prevent oversized ring allocations
-Date: Fri, 28 Aug 2026 08:19:01 -0400
-Message-Id: <20260828121902.66837-1-jhs@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+        Fri, 28 Aug 2026 05:24:59 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org,
+	daehojeong@google.com,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] f2fs: sync pending discards before reserving device alias
+Date: Fri, 28 Aug 2026 20:24:51 +0800
+Message-ID: <20260828122451.1154128-1-qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,62 +80,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several subsystems allocate ring buffers sized by dev->tx_queue_len
-with no upper bound. An unprivileged user (via unshare -Urn) can set a
-huge tx_queue_len and create many devices/queues to exhaust global
-memory, causing a system-wide OOM:
+A released device-alias range can accumulate pending discard
+commands. The reserve path later makes the same range valid again
+through f2fs_reserve_device_alias().
 
-- pfifo_fast: pfifo_fast_init() and pfifo_fast_change_tx_queue_len()
-  allocate 3 skb_array rings of tx_queue_len entries each.
-- tun: tun_queue_resize() and the queue-attach path resize ptr_rings
-  to tx_queue_len on the NETDEV_CHANGE_TX_QUEUE_LEN notifier.
-- tap (macvtap/ipvtap): tap_queue_resize() and tap_init() resize/init
-  ptr_rings to tx_queue_len on the same notifier.
+If pending discards in that range are not synchronized first, the
+discard thread can still submit them and hit __check_sit_bitmap().
 
-netif_change_tx_queue_len() is the single entry point for IFLA_TXQLEN,
-sysfs, and the SIOCSIFTXQLEN ioctl. Cap new_len at S16_MAX (32767)
-there so the oversized value is rejected at set time. This will take 
-effect whether the device is up or down before dev->tx_queue_len is
-written or any notifier fires or any ring is allocated. So a good
-choke spot.
+Handle the synchronization under sit_i->sentry_lock by moving the
+range wait into f2fs_reserve_device_alias().
 
-S16_MAX is the virtio virtqueue size limit: the virtio specification
-stores the queue size as a u16 with a maximum of 32768, so 32767 is
-the largest tx_queue_len any in-tree driver can meaningfully use.
-Values above that only serve to inflate ring allocations.
-
-Conditions to recreate the bug:
-- CONFIG_NET_SCHED=y, CONFIG_VETH=y, CONFIG_USER_NS=y, CONFIG_NET_NS=y.
-- Unprivileged user in a fresh user+net namespace (unshare -Urn).
-- pfifo_fast: create veth pairs, set tx_queue_len to 500000, attach
-  mq+pfifo_fast. ~28 iterations OOMs a 2GB guest.
-- tun: create 50 tun devices with IFF_MULTI_QUEUE, set tx_queue_len to
-  500000, open 8 queues each. ~1.6GB of ptr_ring allocations OOMs a
-  512MB guest.
-- tap: same as tun with IFF_TAP. ~960MB OOMs a 512MB guest.
-- On the fixed kernel the oversized tx_queue_len is rejected with
-  -ERANGE at set time.
-
-Fixes: 6a643ddb5624 ("net: introduce helper dev_change_tx_queue_len()")
-Reported-by: vega@nebusec.ai
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
 ---
- net/core/dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2:
+- move the discard wait under sit_i->sentry_lock in
+  f2fs_reserve_device_alias()
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 38336858c168..1d3fc0a268a5 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -9982,7 +9982,7 @@ int netif_change_tx_queue_len(struct net_device *dev, unsigned long new_len)
- 	unsigned int orig_len = dev->tx_queue_len;
- 	int res;
+  kernel BUG at fs/f2fs/segment.c:1228!
+  Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
+  CPU: 1 UID: 0 PID: 79 Comm: f2fs_discard-25
+  RIP: 0010:__check_sit_bitmap+0x2e1/0x4e0
+  Call Trace:
+   __submit_discard_cmd+0x921/0x1140
+   __issue_discard_cmd+0x524/0x12f0
+   issue_discard_thread+0x686/0xe20
+
+ fs/f2fs/segment.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 1e7e745be71..50d49ba3e11 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -1916,6 +1916,15 @@ static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
+ 		__wait_one_discard_bio(sbi, dc);
+ }
  
--	if (new_len != (unsigned int)new_len)
-+	if (new_len > S16_MAX)
- 		return -ERANGE;
++static void f2fs_wait_discard_bios(struct f2fs_sb_info *sbi, block_t blkaddr,
++				   unsigned int len)
++{
++	block_t end = blkaddr + len;
++
++	while (blkaddr < end)
++		f2fs_wait_discard_bio(sbi, blkaddr++);
++}
++
+ void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi)
+ {
+ 	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
+@@ -2684,6 +2693,7 @@ void f2fs_reserve_device_alias(struct f2fs_sb_info *sbi, block_t addr,
+ 	seg_num = GET_SEGNO(sbi, addr_end) - segno + 1;
  
- 	if (new_len != orig_len) {
+ 	down_write(&sit_i->sentry_lock);
++	f2fs_wait_discard_bios(sbi, addr, len);
+ 
+ 	if (seg_num == 1)
+ 		cnt = len;
 -- 
 2.43.0
-
