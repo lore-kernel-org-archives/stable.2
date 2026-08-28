@@ -1,158 +1,102 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8DB2377AA2;
-	Fri, 28 Aug 2026 16:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FE737E5E7;
+	Fri, 28 Aug 2026 16:13:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933445; cv=none; b=umaeOZwRai3RUDlxJ/XXV+mWaAHpWxCH0amy6rW3oVWinjbT0zv8Si0l7kGlL7ZqIqKJk5SuVe/8SnQAFW4C7OB6bW0G3K4XIykb0f7DltCuAM47XAH7n7SbLVpGAZm34YPCEWkQQ4KU+godO8nU8C3Ym9EdY4ZxxaZSnkiNgpQ=
+	t=1787933638; cv=none; b=kzrMkdrWrue95RC4rM6UKZkUuwP3KXXGdxbOf8OpcbIgmLjkstGe57zQWWvQ0Mzy/en8d3f9e2DzzgNXysxikMhN257flSgWUYx9eofZnH62ck4l3uO30/ayNnkzpDAmzZvEe+jEoY7VSfjlbtOrhTAaARMKRu+tisnkBQPA9V4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933445; c=relaxed/simple;
-	bh=hZASkD01ARriCg6zFtXG0Fn1zGv8l7hHUFpbKwIkbgg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mHvIXAquJIb/LHH4QvhrTBNU8xdSLlfsUA/cqNuTct0rYvxT6mloauMZGnGFFgnc2tHvD0sQ1bh7sqoFDdgaX2LODTktz0Gn3fKy65Wk0nvUC4efb52AdfiLILJJW5GsNE2n5QS4bZV60e7KDpwb497ITkbUb2pKvcGgSw0Gryo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fBomY1Zy; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787933638; c=relaxed/simple;
+	bh=IFcfwBysJINcxMfSNDFyM7b2wk60J46XwABn1gllY0o=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Lm2I9RC+2igAaL+XHGQCLM0K2iA/U0JXkyIL6WzQk6OSjuZUJhfTNjAByY19uxTcqwgeMe+H6o3E0X5Ckv4R8p3Xsxe+mnV7wuKRbyz3cjnFDT57PyBwNLP/mQn5s6WBNJysEsS9Lk9mdS4NVqsGbd5KKe7WqXlsqeOp+uNMUA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=D7QqSmOb; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fBomY1Zy"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AF1231476;
-	Fri, 28 Aug 2026 09:10:37 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.5.212])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B2BED3F66F;
-	Fri, 28 Aug 2026 09:10:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787933441; bh=hZASkD01ARriCg6zFtXG0Fn1zGv8l7hHUFpbKwIkbgg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=fBomY1ZyF6kjBJGXIkhUoIjy1Rf+9QTrWyMi9e2OrPV4EzLEp0/lq8Zv/UPZvzNaJ
-	 CKZRHwo1zcAuBp8VU16X+cAS8o233cVmh+xfOhoYFoPGS/kRGBq4xUjVM4gpPUnek8
-	 NKFE8mPrxFSf8zXmnBUkGWzG9+8ez/b6wxI4huLg=
-From: Christian Loehle <christian.loehle@arm.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>,
-	Jassi Brar <jassisinghbrar@gmail.com>
-Cc: linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH] mailbox: pcc: Synchronize channel IRQ before unmapping shared memory
-Date: Fri, 28 Aug 2026 17:10:33 +0100
-Message-Id: <20260828161033.3783599-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="D7QqSmOb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=2TOHanlDmqs1MCHJU5mQ5YIvRXJl2lupzJtXXmLOVuc=; b=D7QqSm
+	Ob0+hY6lYjhI0Mzw0AH2csJnCE+N3S4MXGbqzhQ59iETcGH/paxg1sekw1Ygx1ZKzTXEhTRgQGH74
+	2+Hjj+2rJ31B4kZ6geCR5VjVJ1ECb5Y4zN2O61xgAyM1pECogqFvNTczfLyeY5zUhLzYI5xjGZDl+
+	rDEyeUw+8BQx91da9opjZX/b5GK0YyyTWRKNs6kmDjvgN0yc5KhvnFDayjmbz9rpytl+SpzPzmOFP
+	KcZMn+JX2emjqoo9RBmWuAxjyi71NAC5WTDZ0daFU2aTGlu+Gifv053Xdb3qgbTPgih7rDEqpnvGi
+	Nog8LJW6h20W4JwnPPoFtvH0VH1Q==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1wzzDA-0000000927k-3eII;
+	Fri, 28 Aug 2026 16:13:48 +0000
+Message-ID: <35008c3b1d00766116bc9b6768d42238099117b8.camel@surriel.com>
+Subject: Re: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit
+ on isolated cpus
+From: Rik van Riel <riel@surriel.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>
+Cc: linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song
+ <muchun.song@linux.dev>, Andrew Morton	 <akpm@linux-foundation.org>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, 	kernel-team@meta.com,
+ stable@vger.kernel.org
+Date: Fri, 28 Aug 2026 12:13:48 -0400
+In-Reply-To: <apGro0MJ-brPJfoa@linux.dev>
+References: <cover.1787890328.git.riel@surriel.com>
+	 <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
+	 <apGaZdxAPH68kkCc@tiehlicka> <apGro0MJ-brPJfoa@linux.dev>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-pcc_mbox_free_channel() unmaps the PCC shared-memory region before
-mbox_free_channel() invokes the controller shutdown callback. For
-interrupt-capable extended subspaces, an in-flight handler may
-consequently access the mapping after it has been invalidated.
+On Fri, 2026-08-28 at 08:41 -0700, Shakeel Butt wrote:
+>=20
+> Let's go with this patch. We can simplify above by inversing the
+> check:
+>=20
+> 	if (cpu_is_isolated(cpu))
+> 		return false;
+>=20
+At that point, we could also clear the bit here, and
+have the function return void again, so there's no
+duplication of that check and clear in drain_all_stock()
+> =09
+> 	queue_work_on(cpu, memcg_wq, &memcg_st->work);
+> 	return true;
 
-Release the mailbox channel first so its IRQ is disabled and synchronized
-before unmapping the shared-memory region. Serialize PCC channel
-acquisition and release across this sequence: once mbox_free_channel()
-makes the channel available, another client must not replace the
-shared-memory mapping until the old one has been unmapped.
+Let me send that.
 
-Fixes: 7f9e19f207be ("mailbox: pcc: Check before sending MCTP PCC response ACK")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- drivers/mailbox/pcc.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
-index 9888dab64639..4654b028df9f 100644
---- a/drivers/mailbox/pcc.c
-+++ b/drivers/mailbox/pcc.c
-@@ -47,12 +47,14 @@
-  */
- 
- #include <linux/acpi.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/io.h>
- #include <linux/init.h>
- #include <linux/interrupt.h>
- #include <linux/list.h>
- #include <linux/log2.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/mailbox_controller.h>
- #include <linux/mailbox_client.h>
-@@ -113,6 +115,8 @@ struct pcc_chan_info {
- #define to_pcc_chan_info(c) container_of(c, struct pcc_chan_info, chan)
- static struct pcc_chan_info *chan_info;
- static int pcc_chan_count;
-+/* Serializes PCC channel ownership changes with shared-memory teardown. */
-+static DEFINE_MUTEX(pcc_mbox_lock);
- 
- /*
-  * PCC can be used with perf critical drivers such as CPPC
-@@ -392,18 +396,23 @@ pcc_mbox_request_channel(struct mbox_client *cl, int subspace_id)
- 	if (subspace_id < 0 || subspace_id >= pcc_chan_count)
- 		return ERR_PTR(-ENOENT);
- 
-+	mutex_lock(&pcc_mbox_lock);
-+
- 	pchan = chan_info + subspace_id;
- 	chan = pchan->chan.mchan;
- 	if (IS_ERR(chan) || chan->cl) {
- 		pr_err("Channel not found for idx: %d\n", subspace_id);
--		return ERR_PTR(-EBUSY);
-+		rc = -EBUSY;
-+		goto err_unlock;
- 	}
- 
- 	pcc_mchan = &pchan->chan;
- 	pcc_mchan->shmem = acpi_os_ioremap(pcc_mchan->shmem_base_addr,
- 					   pcc_mchan->shmem_size);
--	if (!pcc_mchan->shmem)
--		return ERR_PTR(-ENXIO);
-+	if (!pcc_mchan->shmem) {
-+		rc = -ENXIO;
-+		goto err_unlock;
-+	}
- 
- 	rc = pcc_mbox_validate_signature(pcc_mchan, subspace_id);
- 	if (rc)
-@@ -413,11 +422,14 @@ pcc_mbox_request_channel(struct mbox_client *cl, int subspace_id)
- 	if (rc)
- 		goto err_unmap_shmem;
- 
-+	mutex_unlock(&pcc_mbox_lock);
- 	return pcc_mchan;
- 
- err_unmap_shmem:
- 	iounmap(pcc_mchan->shmem);
- 	pcc_mchan->shmem = NULL;
-+err_unlock:
-+	mutex_unlock(&pcc_mbox_lock);
- 	return ERR_PTR(rc);
- }
- EXPORT_SYMBOL_GPL(pcc_mbox_request_channel);
-@@ -436,14 +448,18 @@ void pcc_mbox_free_channel(struct pcc_mbox_chan *pchan)
- 
- 	if (!chan || !chan->cl)
- 		return;
-+	guard(mutex)(&pcc_mbox_lock);
-+
- 	pchan_info = chan->con_priv;
- 	pcc_mbox_chan = &pchan_info->chan;
-+
-+	/* Disable and synchronize the channel IRQ before unmapping its data. */
-+	mbox_free_channel(chan);
-+
- 	if (pcc_mbox_chan->shmem) {
- 		iounmap(pcc_mbox_chan->shmem);
- 		pcc_mbox_chan->shmem = NULL;
- 	}
--
--	mbox_free_channel(chan);
- }
- EXPORT_SYMBOL_GPL(pcc_mbox_free_channel);
- 
--- 
-2.34.1
-
+--=20
+All Rights Reversed.
