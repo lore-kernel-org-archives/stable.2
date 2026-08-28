@@ -1,147 +1,140 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D431A3E5EC6
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787906643; cv=pass; b=bAkT02f/IjBjBFd+OyMX8Iwxo5ly3xVotKB3SpwSkjtWIfbf6KP/SzCqUI/NEEinlC7vMipWUrMQI07Qhsp5H4/317nFHcMAGrNxp5a64/4asehFv91QyEE7NataRLB3ginN0ddJvGA0dYoENtwTNRFA9aY6zo5YVvnvjOVVL+U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787906643; c=relaxed/simple;
-	bh=+SsljDUXUlaGkl/5WsILjVk/5Y4d+UkaNdguJIKngg4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PNKvPrmYOmw5s5lRwP3aAAs6MFegcLhLpatAA80D+QEHmgmqLV/hRVyxEWyCuP1Xk1UhQf6cAcuLpPLO/RW9HLAwmMaiDEf7f2Vyxabq8t9Fo+rgmQciNoTPlpfV7EsPLZlL2QJxewbRZbr+Ih4W8QMz/PT7SaifF+lnDJL066E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJxqxCUi; arc=pass smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D786A3EB11C;
+	Fri, 28 Aug 2026 08:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787906760; cv=none; b=Ev5nTgsVSE6tMHYAW8nmtqAg99dli449NlUUj2p0hjyb0o/DsOB3lXr/N/5C+7VR6S6QMu5kanzgpfBD8wO4p2xVlCD2EMmJOEL4QMSjHTbACN7JKfGM7u+Me16S79rHWfTzr5fXd81tT8Bq0jdXk8L8dRoalxIKoXl1QxdmrXw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787906760; c=relaxed/simple;
+	bh=Vk/Jx5HL1xRIxo0j0/Ivy2To1Yi2AQV0lo9JC6GWpWo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iKLa4t6otTPIPAoTs32kuUs4dVcWLIf/uCQY5+Q2AYHItUmlu4jtmyPk4jLULvCwP/0Qw+6REidyIdX3v0FQFzD++lAy8WDAnDDuJLHc5Iovn5UcROS+5BHd8AmK6RnW6scdO6KHowPusxdgLzTXdmU6XBP7h0ZJzakUkLl3PVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0GmtX80; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJxqxCUi"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39c95395230so5813201fa.2
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 01:44:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787906639; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b8UQv//Cs4TL5Ti19wu8x/rVJUiBqygLZnkkxmBGid68v6zIugdtv0OR5oOIamFStd
-         PBYMWMX9snC2JAyHsEvTS4QiTs79k1nc2dbjYpWqOGLQ+AkB6zXJ5im5GXw5LPPRxNvn
-         d89id78UhOP89Ds9+UW+QzG/8H2vldjBs+TXBw0lhTST1xk+B5D4pFAxux+qChx62fNH
-         suCB9XUJmzNHMOV0MNGaSxy2DCRD/ZGeA9LO1ndSUlzKaDFZVLuprOXs8u3kyxuagf1A
-         ATNUd/RNa6ly3p5n+otkIui4TNduN8WX0NVJrDr/thfvvy5FvFFnsVt8C/QhUACRucaz
-         eLpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zhsiaAmVjzmzESFqvr2tri1C/08hg86tA9bCn5YqmwM=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=WiQ4vUyX0/IuU0dKvU/Hy2u2N9jBAa5+6EJxUeYJmwqlHdVJXPHH4SNmZ0ulXskfqw
-         h/4mxI2VnZEjuSL4D7LcES0l9eaVpwyO76nZUeokvhxZZaT4+v3feVZlEgT4ZD8uzsVX
-         Q3p4BB+3GA1h/IIJqV5FJLb/2i65lupTPecuD2Wclnd2+QGjtv2RTGjGm5NiYnKbDh2J
-         UmZi8mbxvmh+gH5NwYveiDuGW8SqxIRxR9ZE2Q7pef5wRg1HxSpZi54xTeapNyi+v9wY
-         qCnrhaLBc/rsYLl5Z/3KoWskAyvlN5nea2APeZbphKLF+u3tFj9YxiV76MoG+TwsPRQP
-         DjZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787906639; x=1788511439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zhsiaAmVjzmzESFqvr2tri1C/08hg86tA9bCn5YqmwM=;
-        b=MJxqxCUiRoJIE5Qatenl7pu69VjGL37LU8XrEU8F6S/bD0N2wn1waEbQLvyrzb9rRC
-         7KMvT8HwQsyojBBkZPlA8syUGjBMjQiCFbjrPtLZeTurdP+BDaM6iVt0PsWhYgfFg8Ud
-         zbIAqTEL4CMMT58wkfToDMXGBdk/SE+Ab4dueSgNewMThW3kSkQ3Bj84+llUOidpbFkb
-         6CNbbmoTOgMEZzFN/l1kfZXTZL/v/mwUCXfK3aPrex2wtFRO1CgIHD3MDHzjh6GHDwKC
-         Fjroq0/52tN56RVCXSnljT5P3s3HdsM8X70lZxyTeFimyvHqYzI+0GQGXbnckG7WwiAz
-         g6MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787906639; x=1788511439;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zhsiaAmVjzmzESFqvr2tri1C/08hg86tA9bCn5YqmwM=;
-        b=Tj3jCChMeZBcq1TpyYEjWAVnVF52c4moe1B/la2ng2crNGE4THl+1B6VX0LMCMiZVq
-         O5iNozQWzWE9tavLcDOCc+KZ+6m4YiSJueVylZdgIj8EMQeWrQUCxAA+8/SEi+RqQJnQ
-         vcw7t97koIwW5oeL17aYt43SWL3ABvG8/ia8+AYwd8WGaaibkgYigGqNuL8vgP/nCOjr
-         8D8eTfAGj4cW8iQ4ffXWLyxxhX0/BR+2Nh7QE1dHfhDKExnGmby13zq41KIL48rYqBMA
-         VNG4gUT0lSLHR8X4P70VUyeM9KHRHs+zIR7jntzDUxoage6yutGcdMxL7LD2OkVHtYEN
-         wKFQ==
-X-Gm-Message-State: AFuF++ktb6sz5QSqy7Zcs0onfa3al8UZTd5y+CxJnmkJJgnBgGqX/JdC
-	Esgz6xl9oCJsk7V/tFMCIq3w3Zd9v6OFcTuzv+97YvuAKeCpnwJb4Jrmkdh4+VTCuOr5KlVKDie
-	ANmx3juZ4uggoeU5IgjfpADSGQXejbgTmgaDZ
-X-Gm-Gg: AR+sD11WSat3zAJkQz5KG+2iR565hz5+eZLBh268+IkkQy2LSt1PYllFYpGIK9H5Wr3
-	zhJxzzhBQIWwlOsZuj5XB+7S9NUy1NNN/7Hb9kQTWYjY0R8/mSlExBCF7YuFh9V1lCkHhy5xwgy
-	FWGOjvMhRbT9Loa4yYPyJEgSvoVY9kwroaOSEc2fM02qL2K/UyY41Ng14YshMTQBG+iFeN089B5
-	nUo403IuKYTZsq6S/lMdPjmVbNSBFPt0bl2c1sC5Fqo0FdLST1fVRB2apUeqSeSboci37aM3jPp
-	dmWnN9CHS8GU9yiV4Eqcimm8wnrT/RaBs1kIPzbHQLhoa40SSA2lRaITIVufg/3KoxbTq4rbaLw
-	0yH0=
-X-Received: by 2002:a2e:bc0a:0:b0:3a1:94fc:e1cf with SMTP id
- 38308e7fff4ca-3a301b26568mr8446061fa.10.1787906638442; Fri, 28 Aug 2026
- 01:43:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0GmtX80"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C351F000E9;
+	Fri, 28 Aug 2026 08:45:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787906758;
+	bh=0TR0uRWDlZn4hcSy+1eDkkclABFE/m9WQ+o6MX2CdCM=;
+	h=From:To:Cc:Subject:Date;
+	b=J0GmtX80uQS026ZsfQnLaoxoBfWyF6vVp48IDugUpD9xUxLN8qDIG/ssWecLbpjIs
+	 sxV9ziTgc4hZVZDHMB5ymCey4Td+d7BXMyjcEo65YPjlC9Jy2kwQEWE7RQrTcWj+pF
+	 qldTn06x4bF0fmquVfS7SJX63APOjM7y7eMtSH/CnpAsrmdw5WlS66e4DD4En7LWj3
+	 Ar+YKM4yUE8hUkC+ugDir81mw38ld/b9SRyW5fJK71PZvJ9Tvg7aWa1omwqVSVvmMi
+	 b5vEvjL0uLPavSIGD+5IBtT5g/XyEbzdAdRcJiYQ6nEaALcHTvHt7xmHsYdxHZ+A3Q
+	 nn8YlAIHHP0iw==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: airlied@redhat.com
+Cc: linux-kernel@vger.kernel.org,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Gemini <gemini@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	stable@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/qxl: fix use-after-free and NULL pointer deref
+Date: Fri, 28 Aug 2026 10:45:53 +0200
+Message-ID: <20260828084553.124037-1-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825132541.986300899@linuxfoundation.org>
-In-Reply-To: <20260825132541.986300899@linuxfoundation.org>
-From: Dileep malepu <dileep.debian@gmail.com>
-Date: Fri, 28 Aug 2026 14:13:44 +0530
-X-Gm-Features: AcwNN1UhUoRQqGS--MuKqVVwHa7REQ0stzNan3AFZ6MJrTOOBIX7BijorBSHvPw
-Message-ID: <CAC-m1rq1FSDpRMR4+hYrg0KnJVuiE4R6ggPyCKGfFKu8OqFdKQ@mail.gmail.com>
-Subject: Re: [PATCH 7.1 000/101] 7.1.11-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 7:20=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.1.11 release.
-> There are 101 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 27 Aug 2026 13:25:02 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.1.11-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
-> -------------
-Build and Boot Report  7.1.11-rc1
+When allocating a `qxl_release` structure with `kmalloc()`, the underlying
+memory contained uninitialized garbage. Specifically, `release->base.flags`
+(part of the embedded `dma_fence`) was not cleared.
 
-I built and tested Linux kernel version 7.1.11-rc1 using the default
-configurations
-on both x86_64 and arm64 architectures in a virtualized environment.
+This garbage in `base.flags` caused helper functions such as
+`dma_fence_was_initialized()` to return true even for releases where the
+fence was never actually initialized (e.g. via `dma_fence_init()`).
 
-The kernel compiled successfully on both architectures and booted
-without issues.
-I did not observe any regressions or new warnings in dmesg during boot.
+Consequently, during release cleanup in `qxl_release_free()`, the driver
+attempted to put/free an uninitialized `dma_fence`, leading to refcount
+underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
+pointer dereferences in `dma_fence_signal_timestamp_locked()`.
 
-Kernel version: 7.1.11-rc1
-Configurations tested: x86_64_defconfig, defconfig
-Architectures tested: x86_64, arm64
-Kernel source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux=
--stable-rc.git
-Commit: 822f846a60fc16f7c944c77d54276d8932b2c4e0
+Fix this by switching from `kmalloc()` to `kzalloc()` in `qxl_release_alloc()`,
+ensuring all fields (including embedded fence flags) are properly zero-initialized
+upon allocation, and remove redundant explicit zero-initializations.
 
-Tested-by: Dileep Malepu <dileep.debian@gmail.com>
+The dumps in question:
+ refcount_t: underflow; use-after-free.
+ WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, CPU#0: kworker/0:0/1534
+ Modules linked in: af_packet nft_fib_inet ...
+ CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  b041a6527f6e58424f4cd3de0fade8d408b378fd
+ ...
+ RIP: 0010:refcount_warn_saturate+0x59/0x90
+ ...
+ Call Trace:
+  <TASK>
+  qxl_release_free+0xee/0xf0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  qxl_garbage_collect+0xd1/0x1b0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  process_one_work+0x19e/0x3a0
+ ...
 
-Best regards,
-Dileep Malepu.
+And then of course:
+ BUG: kernel NULL pointer dereference, address: 0000000000000028
+ ...
+ RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
+
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Assisted-by: Gemini <gemini@google.com> # only commit log
+Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function v2")
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: stable@vger.kernel.org
+---
+Cc: virtualization@lists.linux.dev
+Cc: spice-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+---
+ drivers/gpu/drm/qxl/qxl_release.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..92c88f9c17a8 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -91,15 +91,12 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+ 	int handle;
+ 	size_t size = sizeof(*release);
+ 
+-	release = kmalloc(size, GFP_KERNEL);
++	release = kzalloc(size, GFP_KERNEL);
+ 	if (!release) {
+ 		DRM_ERROR("Out of memory\n");
+ 		return -ENOMEM;
+ 	}
+-	release->base.ops = NULL;
+ 	release->type = type;
+-	release->release_offset = 0;
+-	release->surface_release_id = 0;
+ 	INIT_LIST_HEAD(&release->bos);
+ 
+ 	idr_preload(GFP_KERNEL);
+-- 
+2.55.0
+
