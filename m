@@ -1,138 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC643F1048;
-	Fri, 28 Aug 2026 11:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E943DAAC5
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 11:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916055; cv=none; b=ACWSC1OfmhemYHoKiuHgmOqEswX4K+F+XcO81TwRQfetdB/xuZ3NCRW1PImw4ZiK0xiWV2/8aUb+DAHapLDlSafUkv8NESYMZ/aswy19Xu6/lFgF71BYJJz8DdTGYbREVBXNjgPjRZ0bSQoUO7m4QaTOOFf11NjU/CCw+r48CeE=
+	t=1787916174; cv=none; b=UwOTJwysOAz/KRnrYd3woxC2pvlDujKN6zZgo5m/LGP2z8CCXWREG/4WtWfWGMlaZkCSNzLx7/S73T+PDmDa5ce7T0dMphJSxYFT4ftRuczNhszUzFvH665lEFTU8Num6hEz0SPeG627yyuj9LW/hMeTJws26UfEHVAHQZT81RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916055; c=relaxed/simple;
-	bh=MPZihmBDJp3NmShFBO9v65wDHg8y158TzBgEEqykUB0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sCF2Dgyz4a0uYX96jrf2N0NcJNceDtl4/OhkrQ4ufBZ/zBFcAIPHlQgcCnUZkdlZ8I1Uj1/o4mC/AsKT8+U1RFsLGj99oAL0BbODsgIp0Sx6scdstyUjpSjIV7E6iadlwPNNx+H9N/VG4BVZbqQt9z883Kbgy7EwPcW6Li5nKOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oxZKMQwU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787916174; c=relaxed/simple;
+	bh=OxFQh/aLZ1OUP2E1LefOggZ7DwLj/Zk0YBH/aEcICnU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ARwENd3d4LAP8LynvJF8SEbKAXJIbU0oFBIZza96tAl9L6fyX2nffpNsz2xgYLhGgp8m9s8xO2GFPWplMY1u924dfhsrg1SlYPCxb7/u1KmOUl987OgYLKGhzf2Y7/M0MEKhSCwANHjCLHq+zqrNi9Z3fwuo4N2eyJL3ZIK0MoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brZEtbdB; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oxZKMQwU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2AC1F000E9;
-	Fri, 28 Aug 2026 11:20:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787916054;
-	bh=/pc6re8PSjo9zjwKnd2Zf7CA9PyDezj2GQ4G0IaICR4=;
-	h=From:Date:Subject:To:Cc;
-	b=oxZKMQwUK484geEAy0aRc/4rxzyuz1n99jKBDpSjxzvpmmMVllFFQjHFwzBiCd5di
-	 U4oS4gipBZEoqN5loE3X2wthQFOvzlrWGoySsd60wzig4xcNhTfAHNqIjqkhBHWgOK
-	 8w4mW9sQOkR5v9D01d4HOqHpXl48fDwt+tsbh9lepHIwFpCYXcukQQdnWyP1zMqAG/
-	 z6iIiY7sSOWCz+ruPEkNhFwqs4k0t8HNQcIqAfqtdvj268U7XZSspPoZ0U2GCoSdQn
-	 qR4YLb5oVjOIxgPTQ/6qho0o13PXwNuNnJuV3+ud5ty5xXtThV8BS2CG4mTa3apBZc
-	 EG/zhX/VXGG+g==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 28 Aug 2026 12:20:37 +0100
-Subject: [PATCH] mm/mremap: account mm->locked_vm correctly for
- MREMAP_DONTUNMAP
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brZEtbdB"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so11821545e9.1
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 04:22:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787916171; x=1788520971; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1FBr2xjXI0W0kVvyJ3QGqA4i4KCrVvOwh1gtI60HpT4=;
+        b=brZEtbdBgVvv/bmqZ59/aDSktlynXGJk3SDskdXYPh3MVXvdwpODkxpIFjhZLrkcin
+         4FggJ2PxPLaeuNN1DQS8lbzo2id/0+wzPZy6p8vxdvyQbbWX6qLBzXjMQqLkq70TwfRn
+         kldTdjCyb6ASglyuqoYkFJCsZKDhA/OMl2WEI+ZhMGrDQxe1JAPCBY7j+ggBudvkVNeb
+         NxKJIFz/ck41YI/qPWcHPnbEYVljkm4FAvnswqzUb1f9qfrL3diK1TA8lD8LCy79kg60
+         ocIAQ/cd/hB2jQngdPf5FWIoTSdEjkXwVaSGuQLnallpSO9xXQQRdvpLPxuYTAPXuI4n
+         t0Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787916171; x=1788520971;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1FBr2xjXI0W0kVvyJ3QGqA4i4KCrVvOwh1gtI60HpT4=;
+        b=QcsYWnQTDcCyGfHk4OclShFrMqv8n7DYnQx2fLKT4dffrEa3Apgk7JPIb+SldBnANk
+         n929OwX1OaFCjE7MLMGiZdoxJT6I05gxGOh4NcMceu7MuQJkM/sNihq1phY/zBTwoIa5
+         5LPaUAVnLEC8G0pVVxc24eJ9pHgGwpWLNBEmfLToJbXSuQLCR+exgPEgcZ+TjIPJ5FPP
+         ZsrnfIDX9Q5SSQJSuIk8OS4Em7vkJQL4yVTCn34fPS/3yol7gxScddIEr+ap7NUm00/P
+         mL/W0ZQ+b9RwTVMQx7IfbFvYo3HfTOEdqVS5zc3uzLHiNsin33NruwZ8jOrg8pWZBZaR
+         K/Rg==
+X-Forwarded-Encrypted: i=1; AHgh+RqOkHppamop4QLIxRknNPID8dou3F1ITxA5RHGm6h0faEaHL+4i2DWk6yCgwmpOrmiXqyJpSos=@vger.kernel.org
+X-Gm-Message-State: AFuF++mApbc/VbHkHaa5QwudNe/XMqO+DB9OfYHkAf1xMi/kWO0NwV/m
+	59CWudyciCH2RnO4m0mQvf126E49BrjpJYfsIUGBa208kM+39bXUj87sWyeNFfo6NmMe4Q==
+X-Gm-Gg: AR+sD11FilY5dW1gq2sDeDvAyg+7Mbps5vPWzM6E4xv7ak+pzphiuuOUhvf8NAVHgnp
+	fvn5PtoigmB5pnayfK139Fl/6df8w4ckRHMOHIeHJNLmAe4Fy6ebf0Pn3yWaGFERW32jSYnQw/l
+	+nRZ7/lvyVfesJbH+Vbwlchbq2v8LfdkbWs/9Rln69K/5WrX3sFa2cLDG6NhmT+IlmrzpEEEMl/
+	PIFp6aVylQl1CwihC8LH9ILa3be2VFrcyJ3Q/nYaiLzDNKSqYJunhhzEOwJfmNpZG1UPxMWqmmL
+	6cdGkerQcAbbMQivmIIGab//s2pbD01s8pbfJj8rGBKk8rXR3MntcdFFBGPj5FCabJ3iZCfSQ0C
+	+Gg/G73a7B81BJG4a1hvacJCEwPZF+dnRQYLfcpMHkDturjikkzy08MH44gjE2cVgNSMbH3LIbx
+	DDyMSCSbJoL3HHJ30tsKbA5GrLTI+qCGv3B5bo473EhxML+FieBdOmOTp6+j4WsLc=
+X-Received: by 2002:a05:600c:4f95:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49b91a2b7eamr64094345e9.1.1787916170837;
+        Fri, 28 Aug 2026 04:22:50 -0700 (PDT)
+Received: from cachyos-x8664 ([212.227.119.226])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b95013d1dsm40237315e9.13.2026.08.28.04.22.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 04:22:50 -0700 (PDT)
+From: Alexei Turtanov <9alexei9@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexei Turtanov <9alexei9@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: atkbd - skip deactivate for Xiaomi Redmi Book Pro 16 2026
+Date: Fri, 28 Aug 2026 14:22:39 +0300
+Message-ID: <20260828112239.18081-1-9alexei9@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-mremap-fix-locked-vm-v1-1-c80be7505d1e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7biElwvpKdDBbaylLFCQQ/550H
- JiZDJECU4SpyRAoceTnriDaBsyh752Qt8ogOzl0Sip0gZz2aPnF6zEnbZgcrmochbWmF0pATX2
- gKvzbeSnlA71oK+RmAAAA
-X-Change-ID: 20260828-mremap-fix-locked-vm-b8991ffc4181
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- sashiko-bot <sashiko-bot@kernel.org>, Kunwu Chan <kunwu.chan@gmail.com>, 
- stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2839; i=ljs@kernel.org;
- h=from:subject:message-id; bh=MPZihmBDJp3NmShFBO9v65wDHg8y158TzBgEEqykUB0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIm5gucmiU3z/fgPv3a9oQrPHM/dDz+ftbxgGd5rvlkx
- sC0ZxpcHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhIvjEjw6VjDzZvPmMzYbex
- LpPXD67JCp9a18z9VN7Rpfegbeq2Q1MZ/qfwvDAKmOvmuuultKL0rpN3379PTTwY/Vv5cdOKsFY
- jMR4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-When a VMA is mremap()'d with MREMAP_DONTUNMAP set, that results in the VMA
-being copied, but the source VMA not being unmapped.
+The internal keyboard of the Xiaomi Redmi Book Pro 16 2026 (board TM2425)
+does not work: atkbd_probe() succeeds and every command is ACKed, but no
+scancodes ever arrive afterwards.
 
-If the VMA is mlock()'d this is a legal operation, though the source VMA
-has its VMA_LOCKED_BIT cleared.
+Testing on the hardware through serio_raw shows that ATKBD_CMD_RESET_DIS
+(0xF5) is the culprit. After 0xF5 the embedded controller keeps ACKing
+commands but stops delivering scancodes, and neither ATKBD_CMD_ENABLE
+(0xF4) nor ATKBD_CMD_RESET_BAT (0xFF) bring them back. Only re-enabling
+the keyboard interface at the controller level (i8042 command 0xAE, or
+rewriting the command byte as i8042_port_close() does) revives it.
+Running the init sequence without 0xF5 (0xED 0x00, 0xF3 0x00, 0xF4)
+keeps the keyboard working.
 
-However this is done in dontunmap_complete(), after mm->locked_vm was
-incremented via vrm_stat_account(), resulting in double-counting.
+'i8042.dumbkbd=1' also works around this, but then the driver never
+writes to the keyboard and the LEDs cannot be controlled. Use the
+existing atkbd_deactivate_fixup quirk instead, as done for the sibling
+TM2424 by commit 3a046db33bb9 ("Input: atkbd - skip deactivate for
+Xiaomi Book Pro 14's internal keyboard"). Tested on v7.2: keyboard,
+Caps Lock LED and s2idle suspend/resume all work.
 
-Worse, this is not even corrected when source VMA is unmapped, due to
-the VMA_LOCKED_BIT flag having been cleared.
+DMI: XIAOMI REDMI Book Pro 16 2026/TM2425, BIOS RMAPT6B0P0909 05/22/2026
 
-This all works fine in the usual mremap() case (without MREMAP_DONTUNMAP),
-as the source VMA is unmapped with VMA_LOCKED_BIT intact, at which time
-mm->locked_vm is decremented accordingly.
-
-Resolve the issue by invoking vrm_stat_account() only after
-dontunmap_complete() has run.
-
-Note that MREMAP_DONTUNMAP requires old_len == new_len, so no need to
-account for a delta in size in this case.
-
-The bug was introduced by commit b714ccb02a76 ("mm/mremap: complete
-refactor of move_vma()") which incorrectly reordered the accounting and the
-clearing of the VMA_LOCKED_BIT flag.
-
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
-Reported-by: Kunwu Chan <kunwu.chan@gmail.com>
-Closes: https://lore.kernel.org/all/20260828094823.594279-1-kunwu.chan@linux.dev/
-Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
+Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Alexei Turtanov <9alexei9@gmail.com>
 ---
- mm/mremap.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 2b4b523a86b8..7c368440fafe 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1355,12 +1355,11 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 		if (vma_is_anonymous(vma) && !vma->vm_file)
- 			vma_set_pgoff(vma, pgoff_unfaulted);
- 	}
--
--	/* Because we won't unmap we don't need to touch locked_vm. */
- }
- 
- static unsigned long move_vma(struct vma_remap_struct *vrm)
- {
-+	const bool is_dontunmap = vrm->flags & MREMAP_DONTUNMAP;
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *new_vma;
- 	unsigned long hiwater_vm;
-@@ -1401,10 +1400,10 @@ static unsigned long move_vma(struct vma_remap_struct *vrm)
- 	 */
- 	hiwater_vm = mm->hiwater_vm;
- 
--	vrm_stat_account(vrm, vrm->new_len);
--	if (unlikely(!err && (vrm->flags & MREMAP_DONTUNMAP)))
-+	if (unlikely(is_dontunmap && !err))
- 		dontunmap_complete(vrm, new_vma);
--	else
-+	vrm_stat_account(vrm, vrm->new_len);
-+	if (!is_dontunmap || err)
- 		unmap_source_vma(vrm);
- 
- 	mm->hiwater_vm = hiwater_vm;
+Notes:
+    The DMI match is deliberately limited to the model I could test. The 14"
+    Redmi Book Pro 2026 most likely has the same EC and needs the same
+    quirk, but I have no unit to confirm it on.
 
----
-base-commit: aeddb4d52acfcc5ce5e988acd48f2906fe966ca3
-change-id: 20260828-mremap-fix-locked-vm-b8991ffc4181
+ drivers/input/keyboard/atkbd.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Best regards,
+diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
+index 4c82e98..5041443 100644
+--- a/drivers/input/keyboard/atkbd.c
++++ b/drivers/input/keyboard/atkbd.c
+@@ -1954,6 +1954,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
+ 		},
+ 		.callback = atkbd_deactivate_fixup,
+ 	},
++	{
++		/* Xiaomi Redmi Book Pro 16 2026 (TM2425) */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "XIAOMI"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "REDMI Book Pro 16 2026"),
++		},
++		.callback = atkbd_deactivate_fixup,
++	},
+ 	{ }
+ };
+ 
 -- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
+2.55.0
 
