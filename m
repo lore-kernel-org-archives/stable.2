@@ -1,132 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A5B381EA3;
-	Fri, 28 Aug 2026 03:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29613815DC
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 03:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787886810; cv=none; b=mSgDgJfeBBj9RsL6aTj83BgXH4b95DpwwMIsuuMxoyIXC0wW46ngGTtINblzDF5rm42V6M4bw2/9aca6yuJB+ojsWOu436yqXrXglX7/eJev6uA/8Jv7NfjQVtTzl7f+oZS2EWldJkqHM8E240e1vFDfRWXF8pmTHwMfJI2TBgY=
+	t=1787886901; cv=none; b=ummLtM7Fgj+k9jDFf3rm+njCbwb6IBNlxTxHoQmAXc/KsYs82Ulxuz7DvZwaKxtN4fVfV9Bv+KylyV8QXKvOGYFKTl1SK5LLgwIFtgOtIIXskphnscywlU4yGzfR9VcM5mTfFc3xnUzw8sbo9FXV9ZBiv23237BgcqC0PdnzHX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787886810; c=relaxed/simple;
-	bh=ZsF9BHMV8HOeRUybQmeX5BLLV0crMaLcBiNlhT8/+zQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O9wvyDMX5cpKW8ZlU/p0l4DehaZ+R2ZcAG5k1du5HBxI/dzIFboeaQKPY2d9H2dmgcDoPfoeK83S/oEubmTKtr2oMBC8XBY3oMpKyap1KpRtsy9MgVbE+rdO7AkEEDZeATsXvqAUtKBK4qO2AZMD8yXDsq84CIHXxll+UJv8XB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410DA1F000E9;
-	Fri, 28 Aug 2026 03:13:24 +0000 (UTC)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xuerui Wang <kernel@xen0n.name>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	stable@vger.kernel.org,
-	Xi Ruoyao <xry111@xry111.site>
-Subject: [PATCH V2 5/5] cpufreq: loongson3: Replace IOCSR read/write with MMIO ones
-Date: Fri, 28 Aug 2026 11:12:01 +0800
-Message-ID: <20260828031201.1500767-6-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260828031201.1500767-1-chenhuacai@loongson.cn>
-References: <20260828031201.1500767-1-chenhuacai@loongson.cn>
+	s=arc-20240116; t=1787886901; c=relaxed/simple;
+	bh=yUa3Hro+MdJZiWBpMPxBnVciF+EbzJuiaZoNiXMvROI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d8QvoXf2Jyx3mH8L3raPtR9mcfZsBZmIoY1uIMqfulDjbMm7hH7SPs2t+JSdTPzeZm2jqsvUIzyWCOFfZ2oEOSYOLj3eNxOdafurbUPZqiraVPcUXvJ1LeFf5jXMrk7i1cCjnUMiPxbf3zfM4VleiUWLkjzJ++CRgvRlfgfWCRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kehrhWx3; arc=none smtp.client-ip=91.218.175.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kehrhWx3"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yUa3Hro+MdJZiWBpMPxBnVciF+EbzJuiaZoNiXMvROI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787886894; v=1; x=1788491694;
+ b=kehrhWx3snTYnmhUkHFtA7UTAzfqBqFkqYKzA4DFvGyX6F8pfiQN9TSnPeH4aifbwzrddyjq
+ aXktoqeJdS6f1PEwKRLdrmJ6c9xBYLYN3S8CXXm3LgPKoeaFp5hY50VU6XRFxuMEA3avmByR2ST
+ 0nkQHRHtZ8b/FZLyikIuSvxA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a9c4a572758bbc32;
+	Fri, 28 Aug 2026 03:14:54 +0000
+X-Mizu-Trace-ID: a9c4a572758bbc32
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <451c8ea9-dc48-4ec4-a35a-76707c3bd580@linux.dev>
+Date: Fri, 28 Aug 2026 11:14:44 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 2/2] tcp: fix use-after-free in
+ do_tcp_getsockopt(TCP_CC_INFO)
+To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, edumazet@google.com,
+ ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
+Cc: kuniyu@google.com, horms@kernel.org, matttbe@kernel.org,
+ martineau@kernel.org, geliang@kernel.org, yhs@fb.com, kafai@fb.com,
+ andriin@fb.com, ast@kernel.org, netdev@vger.kernel.org,
+ mptcp@lists.linux.dev, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
+ tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
+References: <cover.1787870710.git.blbllhy@gmail.com>
+ <65fd3816ed5d541d9edd4bf4fcf97104a2cf907a.1787870710.git.blbllhy@gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <65fd3816ed5d541d9edd4bf4fcf97104a2cf907a.1787870710.git.blbllhy@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Our server productions (e.g. Loongson-3D6000/3E6000) can have multiple
-nodes in one package and SMC mailboxes are also per-node. However, IOCSR
-read/write can only perform on the current node, while sometimes we want
-to perform on other nodes (e.g. when switch governor, the get and target
-callbacks are not run on target core). So replace IOCSR read/write with
-MMIO ones.
 
-Cc: stable@vger.kernel.org
-Fixes: ccf51454145b ("cpufreq: Add Loongson-3 CPUFreq driver support")
-Tested-by: Xi Ruoyao <xry111@xry111.site>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
----
- drivers/cpufreq/loongson3_cpufreq.c | 34 +++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 7 deletions(-)
+在 8/28/26 7:55 AM, Cen Zhang (Microsoft) wrote:
+> From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+>
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops and dereferences the
+> get_info function pointer without rcu_read_lock(). With BPF struct_ops
+> congestion control, ca_ops can point to dynamically allocated memory
+> that is freed concurrently, resulting in a use-after-free when the
+> kernel dereferences or calls through the stale pointer.
+>
+>    BUG: KASAN: slab-use-after-free in do_tcp_getsockopt+0x2037/0x23e0
+>    Read of size 8 at addr ffff888013701258 by task exploit/149
+>     do_tcp_getsockopt+0x2037/0x23e0 (net/ipv4/tcp.c:4564)
+>     tcp_getsockopt+0x91/0xf0
+>     __sys_getsockopt+0xf7/0x170
+>
+> Fix this by wrapping the ca_ops load and get_info call within
+> rcu_read_lock()/rcu_read_unlock(), and using READ_ONCE() to load
+> the icsk_ca_ops pointer.
+>
+> Fixes: 0baf26b0fcd7 ("bpf: tcp: Support tcp_congestion_ops in bpf")
+> Suggested-by: Eric Dumazet <edumazet@google.com>
+> Cc: AutonomousCodeSecurity@microsoft.com
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub-Copilot:claude-opus-4.6
+> Reviewed-by: Eric Dumazet <edumazet@google.com>
+> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
 
-diff --git a/drivers/cpufreq/loongson3_cpufreq.c b/drivers/cpufreq/loongson3_cpufreq.c
-index 3a5bf970077a..dcb6c70c0def 100644
---- a/drivers/cpufreq/loongson3_cpufreq.c
-+++ b/drivers/cpufreq/loongson3_cpufreq.c
-@@ -16,6 +16,7 @@
- #include <asm/loongarch.h>
- #include <asm/loongson.h>
- #include <asm/smp.h>
-+#include <asm/numa.h>
- 
- /* Message */
- union smc_message {
-@@ -164,6 +165,12 @@ union smc_message {
- 
- #define FREQ_MAX_LEVEL			16
- 
-+#define MMIO_SMCMBX(node) \
-+	((void __iomem *)(nid_to_addrbase(node) | IO_BASE | LOONGSON_REG_BASE | LOONGARCH_IOCSR_SMCMBX))
-+
-+#define MMIO_MISC_FUNC(node) \
-+	((void __iomem *)(nid_to_addrbase(node) | IO_BASE | LOONGSON_REG_BASE | LOONGARCH_IOCSR_MISC_FUNC))
-+
- struct loongson3_freq_data {
- 	unsigned int def_freq_level;
- 	struct cpufreq_frequency_table table[];
-@@ -176,13 +183,27 @@ static DEFINE_PER_CPU(struct loongson3_freq_data *, freq_data);
- static inline int do_service_request(u32 id, u32 info, u32 cmd, u32 val, u32 extra)
- {
- 	int retries;
--	unsigned int cpu = raw_smp_processor_id();
--	unsigned int nid = cpu_to_node(cpu);
-+	unsigned int cpu = 0, nid;
- 	union smc_message msg, last;
- 
-+#ifdef CONFIG_SMP
-+	switch (cmd) {
-+	case CMD_GET_FREQ_INFO:
-+	case CMD_SET_FREQ_INFO:
-+	case CMD_GET_FREQ_LEVEL_NUM:
-+	case CMD_GET_FREQ_LEVEL_INFO:
-+	case CMD_GET_FREQ_BOOST_LEVEL:
-+		cpu = cpu_number_map(id);
-+		break;
-+	default:
-+		cpu = raw_smp_processor_id();
-+	}
-+#endif
-+	nid = cpu_to_node(cpu);
-+
- 	mutex_lock(&cpufreq_mutex[nid]);
- 
--	last.value = iocsr_read32(LOONGARCH_IOCSR_SMCMBX);
-+	last.value = readl(MMIO_SMCMBX(nid));
- 	if (!last.complete) {
- 		mutex_unlock(&cpufreq_mutex[nid]);
- 		return -EPERM;
-@@ -195,12 +216,11 @@ static inline int do_service_request(u32 id, u32 info, u32 cmd, u32 val, u32 ext
- 	msg.extra	= extra;
- 	msg.complete	= 0;
- 
--	iocsr_write32(msg.value, LOONGARCH_IOCSR_SMCMBX);
--	iocsr_write32(iocsr_read32(LOONGARCH_IOCSR_MISC_FUNC) | IOCSR_MISC_FUNC_SOFT_INT,
--		      LOONGARCH_IOCSR_MISC_FUNC);
-+	writel(msg.value, MMIO_SMCMBX(nid));
-+	writel(readl(MMIO_MISC_FUNC(nid)) | IOCSR_MISC_FUNC_SOFT_INT, MMIO_MISC_FUNC(nid));
- 
- 	for (retries = 0; retries < 10000; retries++) {
--		msg.value = iocsr_read32(LOONGARCH_IOCSR_SMCMBX);
-+		msg.value = readl(MMIO_SMCMBX(nid));
- 		if (msg.complete)
- 			break;
- 
--- 
-2.52.0
+
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
