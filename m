@@ -1,28 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3BD3D4119;
-	Fri, 28 Aug 2026 06:53:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E201833E360;
+	Fri, 28 Aug 2026 06:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899994; cv=none; b=MVqDA9/aGfqzPMrwbbCOtRREqw1I3jrE6U1f8pTE58mGA3ytaDAhVpFc+RO3IblLQ4s2/tTmfRr4vWuBLwLIQ6NYhjGR74WkL5GJ2yT68u6eOw3IWP2rk1qLd+6y3MIHGPmxyXmD7799UKr+1x5zyLWqXc5Ej3EM132F7dbJWIw=
+	t=1787900000; cv=none; b=rHjghUoMPM+Y8O/g571qM6VGjX91AXpDuhjAZicGj/G1Sz1Y6OwIHANvBurlzP0ccIArB7eNn5tsUtbmZ8JRgu16vAfkpUvIK809KWrhE7+Eqz8fl2xaCVy98I0Yl5fh4M4n9A2CjUIovT/5Mnx9fCtfWNMOvxPz4NDXE+mjboM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899994; c=relaxed/simple;
-	bh=wtKVJC4Unc97CEohmGNB8ztybcB+BsLp7Wtz9ep9fq0=;
+	s=arc-20240116; t=1787900000; c=relaxed/simple;
+	bh=O2YSVDaG6/IhIaWmBsKvQwpQJGBr00z8FlsljnMoIjM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d6Ui9J8nvmTwbdkXpS6VHNmmdgpQ/aPZzFWbcHyUXF7qPsrM7UUXa9koqfstlavb/R02q2E+DyCLgqZsAjxcg8G2LMMlmgXqI/9ZIJOu2gy42odFcAtAmygXoAg7PF37oEbBKw25KTbR6NAG61b+Jqhgh/UuoQD3oKkizFF4Z3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y0eGbW9F; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uvP0H4pUgER9hZ0RrM4VCahcw632/ASuMg/W5goESkDaoOPh9zBHjQE9LO7K53C6n8pMIFAuM8VFm+3atmfGV9PPY2Tz+gnoZVphIKbpQYqR+X+2hceRp1FGbp2QzNoKSCD0KfxdbEjZXt/4F0RDxg5CELOa6X5uCYp2YdWwydE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EY/SBZJz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y0eGbW9F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DE51F000E9;
-	Fri, 28 Aug 2026 06:53:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EY/SBZJz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D2B1F000E9;
+	Fri, 28 Aug 2026 06:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787899993;
-	bh=9+S4bc4iVGK4FXCDTtB1q32fAl3V1ONUWSDGoisHMIc=;
+	s=korg; t=1787899996;
+	bh=a/oKmYcPetHn5PUKcxWyjsFT3dtBD+PsSwmrFvUuVP4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y0eGbW9FOet+dioiMnm2G5bs2AMB0FBFUBzspwsI4k/KBQ0gjhZs8lOjpPqbaAOnm
-	 8Y8AMnzMedVFJhHg1oI4E7erequUGXPEcoAlCs0rAE0bRxKX0kF6QgwLcX3+hoYe+P
-	 9/0zjwopHIt6Kawacxe+SLsyCJJv5lGVL4EGwR3U=
+	b=EY/SBZJzCj/CLM7dJch4Z1nKTwy4sfkcK9r+MoTQ+vsvFrAq4JIJdD97bEdLMC7g3
+	 xodJlRmzV7i/EZzuJtG8IwBkn8F9vALRjfwH06R/yBFvs4mcVfbuAmM8mV9Qc1QQrI
+	 SXlTjNICMzAiv7OIX5RB7QdFKsXVjKqiRbYVuQws=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -31,12 +31,12 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 5.15.219
-Date: Fri, 28 Aug 2026 08:49:27 +0200
-Message-ID: <2026082827-laborer-relish-a0f6@gregkh>
+Subject: Re: Linux 6.1.186
+Date: Fri, 28 Aug 2026 08:49:33 +0200
+Message-ID: <2026082833-blah-rimless-2750@gregkh>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082827-mankind-mandate-ca8f@gregkh>
-References: <2026082827-mankind-mandate-ca8f@gregkh>
+In-Reply-To: <2026082833-disclose-numbing-29e5@gregkh>
+References: <2026082833-disclose-numbing-29e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,20 +46,20 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 diff --git a/Makefile b/Makefile
-index 9d11ba195a16..d74985973e40 100644
+index 6f596e155f7b..4d31942b6800 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  # SPDX-License-Identifier: GPL-2.0
- VERSION = 5
- PATCHLEVEL = 15
--SUBLEVEL = 218
-+SUBLEVEL = 219
+ VERSION = 6
+ PATCHLEVEL = 1
+-SUBLEVEL = 185
++SUBLEVEL = 186
  EXTRAVERSION =
- NAME = Trick or Treat
+ NAME = Curry Ramen
  
 diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 7922b10f360e..6e6b46ebfc40 100644
+index 0cfad7ab9f96..9586bbbe92f9 100644
 --- a/net/ipv4/inet_fragment.c
 +++ b/net/ipv4/inet_fragment.c
 @@ -384,6 +384,13 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
