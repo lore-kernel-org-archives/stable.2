@@ -1,141 +1,214 @@
-Received: from 1.mo560.mail-out.ovh.net (1.mo560.mail-out.ovh.net [46.105.63.121])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1D233938C
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 14:04:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.63.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB32627A47F;
+	Fri, 28 Aug 2026 14:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787925894; cv=none; b=cKM+mEyjmoxqdL1rXE91gJp+4GLrJ9qRNehCVNgR913XIxtT/DSwdqPc8MpNRL0HtiinaABtsdWHT6qvO0byZOH8DSb7tvBcpIiUudAIJP1qi4f4jOkqIgePRQLuAebaidAC4CM0yEGlL23IsBxqeLxpk587jW+blUx5E2q5Ddg=
+	t=1787926076; cv=none; b=tGPcFc2xEjmEYiKL/Br8ND/lq5fkjkzPsb+YweDhzpcexwUFlwexbuMOqThnB6jfZbU2jMWhCFO2EFXN+vSBwUuIIHJ2dUgLIY3OFYNM4m3XIVwxH9lyjIuZ0A6t+Tdn22W4kFrjkU5acLNMpwRHTkNAoFOmD4NUIapyFPugH6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787925894; c=relaxed/simple;
-	bh=ckAlqpaspq2k2x8q7tJLW4PNigmQWx+PWjnkQyMu16I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FBD1anDM1b4BhacfBgmGYc3kS4rvMn0oW0XY7QcgAC+l75ANK6EsZoERA7NpAO251I0tZ4CwSq3QPeOPw8grBBhrech4wo82y1D0ZYtTqFMesNg6ITcFh31UVrvUauAN0l5d5pFGVoPArsTibv8EUNW7SNrQ+am+V0As1QR4/AA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr; spf=pass smtp.mailfrom=quelquesmots.fr; dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b=RLCaeniO; arc=none smtp.client-ip=46.105.63.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quelquesmots.fr
+	s=arc-20240116; t=1787926076; c=relaxed/simple;
+	bh=TBH83RWzbPi3hPQhZL8SsrLTL7ByIAO3rQTk5wzs14g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Dny9JWtjDTikaQxWU/OWMnRLXIrptS+pZNKKv0lOc5lk1pakV2++Jws7NnFbi9D732qUpRzSu1V9L1ZEkIVVsPn2ezXfUZyxjCIbkpXVfO7E0/Z2KGGius68kPqz/dG6OVgt6Uah0GmOaooFEHVuwPEZNbElpISc2fRu5kgU5MU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QIY+qGWg; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b="RLCaeniO"
-Received: from director4.ghost.mail-out.ovh.net (unknown [10.109.254.29])
-	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4hWg2l0QJnzBQJ2
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 13:58:23 +0000 (UTC)
-Received: from ghost-submission-c7b579475-6dj84 (unknown [10.111.174.132])
-	by director4.ghost.mail-out.ovh.net (Postfix) with ESMTPS id D17FCC2A79;
-	Fri, 28 Aug 2026 13:58:21 +0000 (UTC)
-Received: from quelquesmots.fr ([37.59.142.109])
-	by ghost-submission-c7b579475-6dj84 with ESMTPSA
-	id Q4JXJP2TkWrQ9hYAscvRaw
-	(envelope-from <l.wandrebeck@quelquesmots.fr>); Fri, 28 Aug 2026 13:58:21 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-109S00330f99484-d9bf-4ef1-a8a9-35eefa7e57e9,
-                    860BA029DBC89C9CB79CD437547027D697208083) smtp.auth=l.wandrebeck@quelquesmots.fr
-X-OVh-ClientIp:109.190.254.62
-From: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD F15h
-Date: Fri, 28 Aug 2026 15:57:47 +0200
-Message-Id: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QIY+qGWg"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 351CD4E41404;
+	Fri, 28 Aug 2026 14:07:51 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F3D3360537;
+	Fri, 28 Aug 2026 14:07:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EE66011C781A7;
+	Fri, 28 Aug 2026 16:07:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1787926066; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=MzRL6iatWiMUl1WDoUNGb9uivqjfifE5/OyTjMxiP0o=;
+	b=QIY+qGWgooTFrFCwGPBcxL03vPh6RlrDZ9RtufOUQqJQAwMN9AM2g7AKzAomR8kCKkI5A5
+	cIB/1dVCWmwn/iTab4/gsSIcalZcbamok4k07nLteIOmKFv0JX2j30Xncd4x3XbJqfoXTl
+	1tT7RAwRwpoALX4GdtAfyN2RQdKd3Eq2jNHrl76yfLKVNKIhWbfrze7bEsGrYyphfzcflU
+	KMXR4fzaR0dxFnPWK9dj+EvSjXBj2HKG8jMjQ8hEm6qaixLmS8JPSd0USFZlh5NVNyu/3M
+	mRzcAAlA1g7zpNdDQcAEq2/rd4ekPPAIAZc7huu9xU2DZQiR88GJYOFOk6cg5g==
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Date: Fri, 28 Aug 2026 16:07:33 +0200
+Subject: [PATCH] mips: select CONFIG_WEAK_REORDERING_BEYOND_LLSC from
+ CONFIG_EYEQ
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 10664242445692042523
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEkLbPYNbrxSHojy+RWJ8f4V182xAxBMjKkkHL9k0wwpb33zjs6+hqGEBBil6YU4oF5EiuB3yR1lArnsvLdr7t2c1Undp+KBabI/CsDy0O1uFYgfQI+DcvaALXXKVevP+MwP71PkXEeVfjKK/N35zEm6lTBWreGsF0kVsntRcV4dBcxRBJo2ohvQVSIbl3SXTr9mrgq/BQ/qmCepoMIe+ga9lqDhAdqSXpFkPiNx2ZTGQJwKOutfjqkABscfzXiAvfIRKikKW9QTQ/KQjtZO5UICr1q39vU2695843rnLoi+QjrM9Tj7E4s8zhAXcnz797JXDmjwRk14H4KfZ4rOGzslt9oAV7iP9JSyYhXF1NhvZyLlmc9kTBy9qDJPOlHnzIoPC6kgErO0aRg4J9O9lpYR4CLZaM9s1CxLamegjs3F/9P4dQSCN4AVun+3fffWGcPvNWH2FQcPZBqBUw5G+kwIxapkKBFfjO7RPF4+7lVaDfNg/NrR12elMVfu8Jf7HlF2GVom/BZxmDIyV5xQgWhBiGI5sSTH0Vntwfg72CWNJM+XBNJHooWGsZRbAz+67xfZSINKP8Np6msXpMLpN3HfO/iVCFLlZGsb0YKR8NBBvNf3vdsSv7nVO+x1ZxmQ8vBffaOVbuNKozsTszJU1q4V2+6Cx8C3jl67aEvP1rWYQ
-DKIM-Signature: a=rsa-sha256; bh=764ev2N3KwIgGapMuVWioNnBS/1ILv2C77z2qZJCBdE=;
- c=relaxed/relaxed; d=quelquesmots.fr; h=From; s=ovhmo4049951-selector1;
- t=1787925503; v=1;
- b=RLCaeniOviPMBqhBZH3W5fa3Uo77l7WOsSx4uxRQsc5IzTxoYrbrxZwG1zlOi78OClQ81+yi
- BQ87VEWsrJTF/2xpDxCKYEcTF2lULWUufMBazeZB7GPq5TiWq6kp5CCwIYKYOCU07QC4K1x3vHV
- Yk2krafDhigmY+m+bP+qFjDo4UbpFpbAoD2zmJU8EC4gI+xG/dDGVbsEMxC1tOgRgrwkVKk19Ug
- Mp2vJdIIyHkndFM3oPsd1OLPX8DGZmaogOoeO6hsAdQ8PKxjRh3ms7S1afXoaSpD8C9IHHmoDQn
- tWWhUvnU5puuCbrCZ/JSo6IVC0FOTg+EV1FPGCHLpTmmw==
+Message-Id: <20260828-eyeq-reordering-llsc-v1-1-0c5a69fc5124@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxG4auQrm0CDRlHr2JcyPCLNWTQVg2Gc
+ HdHXX6L9xZymMJpXy1keKnrlAuaTUXpcsoDWPtiklpCHSUy3rizYbK+hHngcfTEIYVGdrETtFs
+ q6c1w1vm3PRz/9md3RXp8X7SuH95mw7N4AAAA
+X-Change-ID: 20260828-eyeq-reordering-llsc-6c61298b2e47
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-Commit 1317a5e7f7b1 ("arch/x86: teach arch_get_unmapped_area_vmflags to
-handle hugetlb mappings") taught get_align_mask() to return
-huge_page_mask_align() for a hugetlbfs file, and skipped the pgoff-derived
-align_offset for one. It missed the other write to align_offset:
+On I6500 CPU cores, lld and scd give no ordering guarantees (same as all
+other instructions). To respect the assumption that arch_cmpxchg() is
+fully ordered, we must inject sync instructions above and below our
+lld/scd loops using the already in place WEAK_REORDERING_BEYOND_LLSC
+infrastructure.
 
-	if (filp) {
-		info.align_mask = get_align_mask(filp);
-		info.align_offset += get_align_bits();
+Otherwise, bad things can happen:
+
+[   34.054496] CPU 3 Unable to handle kernel paging request at virtual address 0000000000000000, epc == a80000080838e01c, ra == a80000080838dfc4
+[   34.054559] Oops[#1]:
+[   34.069561] CPU: 3 UID: 0 PID: 170 Comm: pipe_race Not tainted 7.2.0-rc6-01553-gb73c35220968-dirty #103 VOLUNTARY
+[   34.079932] Hardware name: Mobile EyeQ5 MP5 Evaluation board
+[   34.085592] $ 0   : 0000000000000000 0000000000000001 0000000000000000 0000000000000000
+[   34.093616] $ 4   : a800000808ee2618 000000000b7a879d 0000000000001000 0000000000000000
+[   34.101638] $ 8   : 0000000000e3f2c9 0000000000000000 a800000808a2a9f8 0000000000000000
+[   34.109660] $12   : a8000008139ffcd8 ffffffff84080018 a80000080837fae0 7878787878787878
+[   34.117682] $16   : a800000807e82940 0000000000001000 0000000000000000 0000000000000000
+[   34.125704] $20   : a800000802920e00 a8000008139ffdf8 a800000802649400 0000000000e3f2c9
+[   34.133726] $24   : 0000000000000006 00000001200406e0
+[   34.141783] $28   : a8000008139fc000 a8000008139ffd10 0000000000e3f2c8 a80000080838dfc4
+[   34.149837] epc   : a80000080838e01c anon_pipe_read+0xd4/0x428
+[   34.155697] ra    : a80000080838dfc4 anon_pipe_read+0x7c/0x428
+[   34.161549] Status: 140000e3  KX SX UX KERNEL EXL IE
+[   34.166551] Cause : 40800408 (ExcCode 02)
+[   34.170574] BadVA : 0000000000000000
+[   34.174161] PrId  : 0001b028 (MIPS I6500)
+[   34.178183] Process pipe_race (pid: 170, threadinfo=000000005ca35720, task=00000000e1013890, tls=000000014ebbb780)
+[   34.188568] Stack : a800000802649400 0000000000000000 0000000000000000 a8000008139ffdd0
+[   34.196623]	 0000000000000fba a800000808ee0000 0000000000000001 a8000008130c3e80
+[   34.204676]	 a8000008080d1280 a8000008139ffd58 a8000008139ffd58 1dbd2b22ea1dd500
+[   34.212729]	 a800000802649400 a800000808ee0000 ffffffffffffffea 0000000000000001
+[   34.220783]	 0000000000001000 0000000000000000 00000001200ae518 ffffffffffffffff
+[   34.228836]	 000000fffbe0e530 a80000080837edf4 000000fffbe0e530 0000000000000000
+[   34.236890]	 0000000000000000 0000000000000000 000000014ebb55a0 0000000000001000
+[   34.244943]	 0000000000000001 a800000802649400 0000000000000000 0000000000000000
+[   34.252996]	 0000000000000000 0000400400000000 0000000000000000 1dbd2b22ea1dd500
+[   34.261049]	 00000000140000e3 a800000802649400 a800000802649400 a800000808ee0000
+[   34.269103]	 ...
+[   34.271568] Call Trace:
+[   34.274026] [<a80000080838e01c>] anon_pipe_read+0xd4/0x428
+[   34.279533] [<a80000080837edf4>] vfs_read+0x25c/0x318
+[   34.284607] [<a80000080837faac>] ksys_read+0x104/0x138
+[   34.289763] [<a80000080802b9cc>] syscall_common+0x44/0x68
+[   34.295187]
+[   34.296689] Code: f84000cf  02209825  de020010 <dc420000> d8400004  02002825  0040f809  02802025  f84000c3
+[   34.306504]
+[   34.308099] ---[ end trace 0000000000000000 ]---
+
+My initial reproducer was the xdp-tools test suite. A standalone
+reproducer would be an lld/scd loop that, when the read is reordered by
+the CPU, triggers a fault. We can achieve this from userspace by
+stressing an anonymous pipe, which uses a mutex. Program used:
+
+	// SPDX-License-Identifier: GPL-2.0
+	// pipe_race.c - reproducer for MIPS LL/SC reordering vs fs/pipe.c
+	//
+	// Two userspace processes on an anonymous pipe:
+	//   parent  = writer: tight write() loop
+	//   child   = reader: tight read() loop
+
+	#define _GNU_SOURCE
+	#include <assert.h>
+	#include <errno.h>
+	#include <sched.h>
+	#include <signal.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+	#include <sys/types.h>
+	#include <sys/wait.h>
+	#include <time.h>
+	#include <unistd.h>
+
+	int main(void)
+	{
+		long wrsize = 70;	// bytes per write()
+		long rdsize = 4096;	// bytes per read()
+		int pfd[2];
+		char *buf;
+		pid_t pid;
+		int ret;
+
+		ret = pipe(pfd);
+		assert(!ret);
+
+		pid = fork();
+		assert(pid >= 0);
+
+		if (pid == 0) {			/* reader */
+			close(pfd[1]);
+			buf = malloc(rdsize);
+			assert(buf);
+			for (;;) {
+				ssize_t n = read(pfd[0], buf, rdsize);
+
+				if (n < 0 && errno == EINTR)
+					continue;
+				if (n <= 0)
+					_exit(n < 0 ? 1 : 0);
+			}
+		}
+
+		close(pfd[0]);			/* writer */
+		buf = malloc(wrsize);
+		assert(buf);
+		memset(buf, 'x', wrsize);
+
+		for (;;) {
+			ssize_t n = write(pfd[1], buf, wrsize);
+
+			if (n < 0 && errno == EINTR)
+				continue;
+			if (n != wrsize)
+				break;
+		}
+
+		kill(pid, SIGKILL);
+		wait(NULL);
+		return 0;
 	}
 
-get_align_bits() calls get_align_mask(NULL), so a hugetlbfs file still gets
-the F15h I$ anti-aliasing randomization that its own align_mask already
-excludes it from. vm_unmapped_area() therefore returns an address
-deliberately offset from the huge page boundary, the hugetlb VMA's vm_start
-is only PAGE_SIZE aligned, and tearing it down trips
-BUG_ON(start & ~huge_page_mask(h)) in __unmap_hugepage_range():
-
-  kernel BUG at mm/hugetlb.c:5161!
-  RIP: 0010:__unmap_hugepage_range+0x64f/0x660
-  RAX: 000000003fffffff  RDX: 00007e9280003000
-  Call Trace:
-   __zap_vma_range+0x523/0x680
-   unmap_vmas+0xa5/0x1a0
-   exit_mmap+0x13b/0x3f0
-   do_exit+0x1e4/0x470
-
-That is a 1 GiB mapping on an A10-8770E (family 0x15, model 0x65) running
-7.2.0, 0x3000 below a 1 GiB boundary, RAX being ~huge_page_mask(h). Both
-hstates crash, and so do both on an FX-8370E (family 0x15, model 0x02)
-running 7.1.8, there 0x5000 low. The offset is va_align.bits, drawn once
-per boot: identical across hstates within a boot, different between boots
-and machines, and a boot that draws zero does not reproduce at any size -
-hence the apparent intermittency. The crash is in the teardown path, so the
-reservation leaks as well, HugePages_Rsvd owned by nobody until reboot.
-
-Reproduced by mmap()ing MAP_HUGETLB and returning. A Ryzen 5 2500U (family
-0x17) on the same 7.2.0 does not reproduce it, as expected since va_align
-is only set up for family 0x15. With the patch both hstates return aligned
-addresses, and PostgreSQL has mapped a 4 GB hugetlbfs segment for 18.8 h on
-2 MiB and 4+ h on 1 GiB pages with no BUG and no leaked reservations.
-
-Fixes: 1317a5e7f7b1 ("arch/x86: teach arch_get_unmapped_area_vmflags to handle hugetlb mappings")
-Cc: stable@vger.kernel.org # 6.13+
-Signed-off-by: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+Fixes: fbe0fae601b7 ("MIPS: mobileye: Add EyeQ6H support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
 ---
- arch/x86/kernel/sys_x86_64.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ arch/mips/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/kernel/sys_x86_64.c b/arch/x86/kernel/sys_x86_64.c
-index 776ae6fa7f2d..6b2be065304f 100644
---- a/arch/x86/kernel/sys_x86_64.c
-+++ b/arch/x86/kernel/sys_x86_64.c
-@@ -157,7 +157,8 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr, unsigned long len,
- 	}
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		if (!is_file_hugepages(filp))
-+			info.align_offset += get_align_bits();
- 	}
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+index e2eb9627bd14..5713a7e325dc 100644
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -661,6 +661,7 @@ config EYEQ
+ 	select USB_UHCI_BIG_ENDIAN_MMIO if CPU_BIG_ENDIAN
+ 	select USE_OF
+ 	select HOTPLUG_PARALLEL if HOTPLUG_CPU
++	select WEAK_REORDERING_BEYOND_LLSC
+ 	help
+ 	  Select this to build a kernel supporting EyeQ SoC from Mobileye.
  
- 	return vm_unmapped_area(&info);
-@@ -222,7 +223,8 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr0,
- 
- 	if (filp) {
- 		info.align_mask = get_align_mask(filp);
--		info.align_offset += get_align_bits();
-+		if (!is_file_hugepages(filp))
-+			info.align_offset += get_align_bits();
- 	}
- 	addr = vm_unmapped_area(&info);
- 	if (!(addr & ~PAGE_MASK))
--- 
-2.34.1
+
+---
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
+change-id: 20260828-eyeq-reordering-llsc-6c61298b2e47
+
+Best regards,
+--  
+Théo Lebrun <theo.lebrun@bootlin.com>
 
