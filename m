@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069A33191D3;
-	Fri, 28 Aug 2026 01:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76722307AC7;
+	Fri, 28 Aug 2026 01:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881598; cv=none; b=a7rnF3oZmlWwnl2BujFmufeTrspfp4KoObh/Grv3E+RoKXSO7xIFWpU69ccq9sZDwDE1YRdK/OHvjberqLS+tAR8aDuBD4fdQyuHr3NwSQJ3RrouCIXAXFw809aEuwQLmTm4aEjqQ9dAjpyK0mvRLP6LgDi5KRIhyu12vur4uyw=
+	t=1787881599; cv=none; b=OzyJW5cA4lssUTawKCGW3qQL8//ycNITLojdTOtN5GFIAiHAKJ3BsU+y/ADD5Mgy2pmfYr0e7qcBd0bvF3Q9YcbUIrWjOInZDaSNmYK2VpUa1Q6FQvaHb5lfqHiqVUC8f5ziID/adFNFdXDTNdNWcL8oOEG7dRKA1KVn6SJRS3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881598; c=relaxed/simple;
-	bh=Iev3FFYXi5AYPhW5lBfhhUf0Btit7mD1cuip284qy5I=;
+	s=arc-20240116; t=1787881599; c=relaxed/simple;
+	bh=iEsZqn+XWqlhJ9rwbPm5N6paUN0B5ERQ9QKwXdZZzKY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DJHng7PzAWcwV5HIKGLvhJDzoXTAKTLGSfu+WRwY9LZ5JRoSRmvmg1teMJ5glDgrOZ5ydJOMR1VdVoHGS9g4qwobFTdT8W/h+f3khouBDMPF+QIKIdpR1KtYsYv7AT7GVLqEcrtwnDwnzgfjuaJv6f8YyJKuU8lQHB7ngx+4arc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EY+gq8Sc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nFuNagmnsSLZpTucDRAwXHRAXF9A2uqbXaaFrL7gNl5pF3tcxt7DefaSA5qBOHGGKvOWLOlI7moL4F0pvPhi5nJzkzGy4q9AMA6m/1cK8bzU9hacEQg8BWgs0MjLh2SGDvE176F7aR4hbuLMymPZQeYo7PYfnrB5tPz3OsL87iQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fwh1HqFa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EY+gq8Sc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833D61F00AC4;
-	Fri, 28 Aug 2026 01:46:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fwh1HqFa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA51F1F000E9;
+	Fri, 28 Aug 2026 01:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787881593;
-	bh=Olh6RMSTsOFHOMphK+mTMik9juqloGkuzkP0GbXEUrA=;
+	s=k20260515; t=1787881595;
+	bh=pNGJHhIXVxYxmgJCk+uDLn44MhxqSdn0CIlCukn3f7g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EY+gq8Sc0EENAFxyEfUjIIdVc2O5HZbJV5BRuKeWEEw6miLFC5UdI2yCJ8oquYm+k
-	 aNvQaZIsctf0Td5fXek7UnbP+2dVNhWPZp+hIj0Xay4shXwk0zPNkvTBkFa3pHFUXj
-	 rHtI7+Lj3h6lZKmf8pOvn3WwgDEA4iYlhijO80X1yAnXuqhMy3OfKLOm3DiOnWv7TY
-	 CfGMvoi/FrIqGP3Gsi0iaYrZs1Em94dnGEyTtwEMCozF61JllBCdQ45t/lPreC+MPp
-	 kwt83C9FpM92qUowfRvVaA+vEVKkYsbmfCVMLdP1s8sxdWkSrdN+wVlsFyIoIdp1Up
-	 6Cf9scWiT6qgQ==
+	b=fwh1HqFavPSO5oO6qyJmo7thwNRGdYReUQaVwr/WibOz2F/xEHEQdizaWMUnZBELS
+	 1kUjdZIZERDWvqr9iWC/FqRoU8LsYvBsdZSDZbDGduCaTUAMD3aY3kZrRTXd1BVle/
+	 PTvKUqDo3o7kzmSgjT0NR66DBTYyxtXE8emFU1if2aF+Sg74B6uYSMKmczl5AGGSiP
+	 X291wECCgp2dsgEm9EPrHqwpQv5Vyt7rjuzm9ppIL11R/cAMxvfgQ77Wk0W2ziL06l
+	 bJ/es+nyRGYQL4Gtqu1z5/iTRbYOFDR3B7QSsZrObDm9+cciFVIiNN0nGCeWfob1BB
+	 9b5niuOCiFhfg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	seanjc@google.com,
-	pbonzini@redhat.com,
-	kimjw04271234@gmail.com,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.6.y+6.1.y 0/2] KVM: x86/mmu: Check write tracking in all address spaces
-Date: Thu, 27 Aug 2026 21:46:18 -0400
-Message-ID: <20260827-stable-daily-0005-kvm-write-tracking@kernel.org>
+	linux-ext4@vger.kernel.org,
+	linux-fscrypt@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	Disha Goel <disgoel@linux.ibm.com>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Jan Kara <jack@suse.cz>,
+	Theodore Ts'o <tytso@mit.edu>
+Subject: Re: [PATCH 6.6] ext4: don't enable DAX on new encrypted files
+Date: Thu, 27 Aug 2026 21:46:20 -0400
+Message-ID: <20260827-stable-daily-0007-ext4-dax-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826201655.9198-1-artem@trailofbits.com>
-References: <20260826201655.9198-1-artem@trailofbits.com>
+In-Reply-To: <20260827032857.82762-1-ebiggers@kernel.org>
+References: <20260827032857.82762-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,13 +50,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> 7.1.y, 6.18.y, 6.12.y: please cherry-pick the upstream commit directly.
-> No patch is included for these trees.
+> commit da32af420d6d466e247c43ac0b829edeac7ae0ad upstream.
 >
-> 6.6.y and 6.1.y need adapted backports; they are patches 1/2 and 2/2 of
-> this series.
+> Currently, when a new encrypted regular file is created, the call to
+> ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
+> before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
+> filesystem is mounted with "-o dax=always".
 
-Queued for 7.1, 6.18, 6.12, 6.6 and 6.1, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
