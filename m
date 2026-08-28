@@ -1,114 +1,160 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BCF3CBE9C;
-	Fri, 28 Aug 2026 06:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20CF3B6C14
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 06:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787899708; cv=none; b=Z6e4+btnA/52sNRfFD+ON+ylJzvVz3PQcvod7y2epv7Ep4RrWdxPpxF7N4HtB2sBmXqp3Kki43Kn10QIojYkpFgsa+Z8WCK3PHdYhY2wXu6OeAd85MQnyoRi4mc5pBXwnIWTrXE2jPjj/mt830fJNzKI0xX9qZw9684pWjEyYZA=
+	t=1787899981; cv=none; b=eY/p1vytXRyViatPk6bqOGHnWu9YVAlmiB97KotWfzOpPmcsWRRFC1334KVnwI2sv113a/alKSMZs3o+53Zd2vT598BiGhxMTNO8xzm4n8w/JWWbXh5BPQKyTgnW3ZzSyHREs5y0wJoRm8SHp1ysL9alJf9pDvWOoxBWioHXhgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787899708; c=relaxed/simple;
-	bh=0mXVft9VFASRJxd9qA9xwN3xqCiX+uuUuRmmj5XXj8U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MHBzBiLJYzJvOOaHKXrqGnxNZ9/0IRsw235FEPKPLPYTFn+4Bg9iUiOTwYSMZZF5WjzLZPyQcADHWszzEmYpwKLk09Znc15ffbdIXGXMA3lBtwAkMSXjy4o1F3TbWmG6pghJpBjV68EsqbJC7JpTSB0GPubZyf0mXRfoT/xkgjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FZ+VEU6E; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787899981; c=relaxed/simple;
+	bh=9Panq1zT+LS9VhnDPcBHUWdw9iHh3DGpGXcE3+Ojqb8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rKcqHlBkoOL0f6cD0Tb3jheX3nrSJzXFjRryCPWRCe8nPqFXa+7/HfH57p5BgrfGeGAiFyxQ7o9Je07MVCa4sUC2/dywOZPFNlrZ9TDEPwi2Psht4RAI/j2VjvRDC5jtS9XP+R9bV6SM19Tf/vYfja39D+HPtoHh35SCdC9Sl4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=QKZnPidt; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FZ+VEU6E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=2FbCZn1u3S4FNsq+8mb+8/B/FxJeLPY3PhoFGphQemo=;
-	b=FZ+VEU6Euw2F+sd7L1oGYnfNB9+lG92Anefg9gsI1iM/wqvFHFUwYGXUKlsSkN
-	YZHfcQlddf4pgrahZ+9fwuhjUsrB7GOrN+sZWKyuQ8qrqexN9nGd7ChH3CU8zp3a
-	gcxFuTORs5UNODbbbwJEmGt3fj/97wSBCze3Qc1Juok3Q=
-Received: from [IPV6:2409:8900:1ef4:8f82:3f8a:6d15:2d07:8d9d] (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDXgQEQL5Fq8_wWPg--.50199S2;
-	Fri, 28 Aug 2026 14:47:46 +0800 (CST)
-Message-ID: <ba9fa26c-dd72-48bc-b938-b3cff9a4f323@163.com>
-Date: Fri, 28 Aug 2026 14:47:44 +0800
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="QKZnPidt"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so563046a12.3
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 23:52:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1787899974; x=1788504774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w6NOIIwhRVBbBiq++fjDRhLDbXTEcUDbCMW9A7eSR+c=;
+        b=QKZnPidtkKA9Olx1871W5xKodKWrJgz7Lo52PFUXtJ2HxZG38UirwL+Jc+PXiKUYK7
+         pvdpYU33GylgopTjt8RIqt64eSGmIsQsoFSVGyBHnPkCbzRp6Ll0w4/q2bim6gJUGd8z
+         L7SwDZyv6zb5BplyKMSLY94/PuCMhTnSqPGYLlZELHiXf8AwSr0FPAWCeQKipnZ/rgoj
+         SRpYURTqg0wA14XvlzXOXYc9/xwAzaTyMiglsc7nx2GkfoiuSUm+Ku/zHKfWGqRq51fQ
+         jNx+6cbdZmbj6XYZnjd+TJhobitTCjSXD38psF5zun7TDT7OauYuLJpQTEbXk1x2m/UO
+         4F/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787899974; x=1788504774;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w6NOIIwhRVBbBiq++fjDRhLDbXTEcUDbCMW9A7eSR+c=;
+        b=AmG0eBFxLZg8S8u3pd2p3ljowDsQjgMtyUS6vG7c8qUpfFfRh0/T4aSEcPsDMFO+U1
+         Grsie4t2gdJQcuTvYvPKaJwrNS1CVot0zfNuZRHThVvkDbwbUIH/WPVa4QtiyiykmpFT
+         OZH+vPQig/zOdGBOZlFCSw6TGRzr1wMwnIOYxYIjClGjFVl8LFba6K13A1dKNSxIs6Q9
+         ItOuRRi9Ppf+41TxnvZqeQyKEDTiWJl9JmSZirTY0AHdEVJRmPHt5DUK5Z6XHtFCITTc
+         FC8mSmjUSLo2qaYnrRnAVL8y/YGL5OnzaHzqJeAOxgQFlgmnn0H4MEi3ONfNe/lNmhxW
+         4wsg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6uzJmWmoQ8bs8e4Rf41ibxl+Fa/pyMkgd1fHstIU/hDFC43l9PPQR8M1yoZAsqT2MS33i82c=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktivVlJLUyau3jNDIKQ9Jl/81EpHyFcuNQ3gfyXvyHT6V0fgol
+	ryaLQVffNFbhtILZyHY/wAozjMRi/uVgXFm5/my161plF7ut5Hs0n8CloYuA8Xm9krV0
+X-Gm-Gg: AR+sD10PaPdRWKnY9iuOl0jg5SBUf8DNjXN5lAjksj77iVq8QgRmLxJh9Uw/b4HO9lE
+	BElSwifCnPc4Q7Y7KhixwlX24PUjT64jYoEHP7AQM0T5PlV2q7ls0gGA0JAwPT64KSHvbhb7zOW
+	jHet8xiySsyXf3qtXqJvnXGfBNFdJYkPhMwxdZRtw2Phb+TZo4JNaclw3xouHrlLJ9fxLR3ycn/
+	g4mNL6dP8CbUPxCf3uCOkxnhjAiOA0FbrjXZ8CwxO5L9/y1Sl24kw8UdTTpPpWtn2pNmPWoajwP
+	c1tbKiMWgk+WdPgC1LR2xuuJZxZ4T55viPlfqgrVPRvxoGEMpTBGpHpxP4f4tL2F7ayYqCBnhzq
+	qUYdPGRGssOzpmuZsDcFITOqZ3M5MBV1Jmh2Jr1VJQy8bw3VQ0DeI47M4pWPv3vo2cNgLUESQRY
+	8ifrtPyjv7/bl/A8mbOviYAFTgPVq0QVhtUX7sALoW4NbtOu5r+GzR/G9qkr+8Obw4JBDvDQonq
+	nxsx+ZVkSgKqRbZwgovb/zt
+X-Received: by 2002:a17:90b:2d82:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-396d0f2f709mr10170367a91.11.1787899973886;
+        Thu, 27 Aug 2026 23:52:53 -0700 (PDT)
+Received: from gmail.com ([202.201.11.204])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39675867f73sm3896705a91.4.2026.08.27.23.52.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 23:52:53 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Zihan Xi <zihanx@nebusec.ai>,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH net 1/1] ipmr: restore a limit for unresolved cache entries
+Date: Fri, 28 Aug 2026 06:52:35 +0000
+Message-ID: <a31c6fb1ab9846c85e245fcf34948ac2bc27e521.1787854085.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1787854085.git.zihanx@nebusec.ai>
+References: <cover.1787854085.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ntfs: take invalidate_lock in ntfs_setattr_size()
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260828061607.240845-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260828061607.240845-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDXgQEQL5Fq8_wWPg--.50199S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw4kWrWrJr4fGw4fGr15Jwb_yoW8ZrWfpF
-	ZIkF1rK345tr4DWrnrGa1UW3WrW34kW3yUury2yw47CF97twnrKF18K3yvg397trZ7Jw45
-	tr4DAFs3Cr4xZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRpVbQUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhLOmWqRLxL4TwAA32
 
+Unresolved multicast cache entries retain up to four received skbs while
+waiting for userspace to install an MFC route.  The cache entry count was
+tracked but no longer bounded, so a stream of distinct source and group
+pairs could retain packet memory until the system ran out of memory.
 
+Restore the unresolved-entry limit for both IPv4 and IPv6 multicast
+routing.  Reject new cache entries once the limit is reached while keeping
+existing entries available for normal route resolution.
 
-在 2026/8/28 14:16, Hongling Zeng 写道:
-> ntfs_setattr_size() updates i_size and resizes the on-disk attribute
-> without holding mapping->invalidate_lock.  Page faults take the lock
-> shared, so a fault racing the resize can resolve a VCN against the
-> transient runlist state of ntfs_non_resident_attr_expand() and fail
-> with a spurious SIGBUS, and can interleave with the size-change
-> epilogue (truncate_pagecache(), i_size_write(),
-> pagecache_isize_extended()).
-> 
-> Take invalidate_lock exclusively around the whole resize after
-> inode_dio_wait(), matching the fallocate path and other filesystems
-> such as xfs, which wraps truncate in its mmaplock (= invalidate_lock).
-> 
-> Fixes: 9c87959601e8 ("ntfs: update file operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/file.c | 15 +++++++++++----
->   1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 1969e4f444f7..585ab2145797 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -270,18 +270,25 @@ static int ntfs_setattr_size(struct inode *vi, struct iattr *attr)
->   		return err;
->   
->   	inode_dio_wait(vi);
-> +
-> +	/*
-> +	 * Serialize with page faults and pagecache instantiation so that
-> +	 * readers cannot observe the size change until the attribute
-> +	 * updates below have completed.
-> +	 */
-> +	filemap_invalidate_lock(vi->i_mapping);
->   	if (attr->ia_size > old_size) {
->   		truncate_pagecache(vi, old_size);
->   		i_size_write(vi, attr->ia_size);
->   		pagecache_isize_extended(vi, old_size, attr->ia_size);
-> -	} else
-> +	} else {
->   		truncate_setsize(vi, attr->ia_size);
-> +	}
->   
->   	err = ntfs_truncate_vfs(vi, attr->ia_size, old_size);
-> -	if (err) {
-> +	if (err)
->   		i_size_write(vi, old_size);
-> -		return err;
-> -	}
-> +	filemap_invalidate_unlock(vi->i_mapping);
->   
->   	return err;
->   }
+Fixes: 0079ad8e8dc3 ("ipmr: remove hard code cache_resolve_queue_len limit")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: Codex:gpt-5.4
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+ include/linux/mroute_base.h | 3 +++
+ net/ipv4/ipmr.c             | 6 ++++++
+ net/ipv6/ip6mr.c            | 5 +++++
+ 3 files changed, 14 insertions(+)
 
-Looks good to me.
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+diff --git a/include/linux/mroute_base.h b/include/linux/mroute_base.h
+index 4d55827e9705..af9247bb3f4d 100644
+--- a/include/linux/mroute_base.h
++++ b/include/linux/mroute_base.h
+@@ -224,6 +224,9 @@ struct mr_table_ops {
+ 	void *cmparg_any;
+ };
+ 
++/* Bound unresolved MFC entries and their queued skbs. */
++#define MFC_UNRES_QUEUE_LEN_MAX	10
++
+ /**
+  * struct mr_table - a multicast routing table
+  * @work: used for table destruction
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index e5f2b1c6150d..3155ad921ddc 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -1165,6 +1165,12 @@ static int ipmr_cache_unresolved(struct mr_table *mrt, vifi_t vifi,
+ 
+ 	if (!found) {
+ 		/* Create a new entry if allowable */
++		if (mrt->cache_resolve_queue_len >= MFC_UNRES_QUEUE_LEN_MAX) {
++			c = NULL;
++			err = -ENOBUFS;
++			goto err;
++		}
++
+ 		c = ipmr_cache_alloc_unres();
+ 		if (!c) {
+ 			err = -ENOBUFS;
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index 3f2ed9b77deb..551b04d4fa7c 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -1207,6 +1207,11 @@ static int ip6mr_cache_unresolved(struct mr_table *mrt, mifi_t mifi,
+ 		/*
+ 		 *	Create a new entry if allowable
+ 		 */
++		if (mrt->cache_resolve_queue_len >= MFC_UNRES_QUEUE_LEN_MAX) {
++			c = NULL;
++			err = -ENOBUFS;
++			goto err;
++		}
+ 
+ 		c = ip6mr_cache_alloc_unres();
+ 		if (!c) {
+-- 
+2.43.0
 
