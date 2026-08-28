@@ -1,79 +1,82 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3148A3C1D5E
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6B7355F4E;
+	Fri, 28 Aug 2026 05:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787893402; cv=none; b=VIrb6/h12gzJw/CaOFvNQ0YqM62d7tq5aAFCTBxMrwc/0VrNokcXdEI1n+nd/PaXuZU3WuWwzGwLTExNTx+CethHJ33ti+uTRSKLq97DA5F54JJ+gPMl1J+Pp85b8Uyef5hfo+hvQ7HJdEsKnWXVhCvpcSZbK4qbL2GG8H6EyME=
+	t=1787893709; cv=none; b=cMPB7wTCVhjrBoG8au1BzOM3wtEEwlAnOr78uQ4z4ooAJVe+S59qs6emVmEh5GbCdiVLFiwQm1gwH0NoNznP9AooYG0A1ynWrSNIpDcSUjZ+N0SQIKM8MlNWfx+HMPq3wMfRJVpCeYKxtJahY2XBT7rW/n98GnI+SvEtQrdJy/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787893402; c=relaxed/simple;
-	bh=M+wPeWwztp48tQ9qKtDyy8FDQr3NRT/x27ohW2wCg0M=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:References; b=FqlQotJl9VFLbUP+WB0SBLluhsB2wCuBjRL/npjxaXdwkLbSr8QLtEnBiTzety8mGGePRiWGDCpK3NSA/k0+SyCbx6VKOmEeId91WA4L1tDJO7MuBaMybHtu7TN9ukbt5QtI04wVOXS7DIX2ZLv0rWxm9JFm6FOU/8TZeo2IUSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=Scs2K5q3; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="Scs2K5q3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:Date:From:To:Cc:Subject:
-	Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	In-Reply-To:References; bh=M+wPeWwztp48tQ9qKtDyy8FDQr3NRT/x27ohW
-	2wCg0M=; b=Scs2K5q3kQgXw0FR9FfEIIFgXgRLwl0DvlpBuXPFsDTOGfoaAvjdo
-	XFZYB1FK5mXnnBuO6URTs0Q8WNGoRBuGSM/1KwXQNLuIzNG46ku601r1x5soUzx1
-	Pt2bLTBAmkujnoV95iQzuRDY4U37xG1MlbVILh2ePK7u2BPufKhghU=
-Received: from localhost (unknown [183.216.9.64])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHeiGJFpFqcNOsAA--.684S2;
-	Fri, 28 Aug 2026 13:03:05 +0800 (CST)
-Date: Fri, 28 Aug 2026 13:03:05 +0800
-From: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-To: w@1wt.eu
-Cc: ast@kernel.org, daniel@iogearbox.net, security@kernel.org,
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
-	tao.lyu@epfl.ch, gregkh@linuxfoundation.org, ameryhung@gmail.com,
+	s=arc-20240116; t=1787893709; c=relaxed/simple;
+	bh=X0Gep0btEjJu/T+EyYd0jpqhvft7cu7/20fyUne6dDY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O3UCvgptLcOIJNY4ZwoOmAVAvLkXHd9oBf1SNDf8W1VaCGfSJ+4xzTRdc1CceCN0rKyixPzL0sl+nhrdvVcQFqOCq/PGIThFodI9QOOmypnx6y1tlJhkqk2UeIIUzzSksItmlrXcFDVTjJoBYvPFPZUpMBtC/PkBeEBKoVrFWNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn; spf=pass smtp.mailfrom=whut.edu.cn; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=whut.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=whut.edu.cn
+Received: from Mogu.localdomain (unknown [223.73.65.69])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4ba72fe23;
+	Fri, 28 Aug 2026 13:08:22 +0800 (GMT+08:00)
+From: MoGGuU <Naixumogu@whut.edu.cn>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Please ignore the four patch follow-ups sent earlier today
-Message-ID: <apEWiWm3Hq6TPams@DESKTOP-F439VFF.localdomain>
+Subject: [PATCH v3 3/3] accel/rocket: Propagate job submission errors
+Date: Fri, 28 Aug 2026 13:08:05 +0800
+Message-ID: <20260828050805.38548-4-Naixumogu@whut.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
+References: <20260828050805.38548-1-Naixumogu@whut.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apDx0_GdOE3g65qd@1wt.eu>
-References: <apDx0_GdOE3g65qd@1wt.eu>
-X-CM-TRANSID:3pYKCgCHeiGJFpFqcNOsAA--.684S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYG7k0a2IF6w1UM7kC6x804xWl14x267AK
-	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26ryj
-	6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26r
-	xl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS
-	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
-	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
-	Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxAIw28IcxkI7VAKI48JMxAqzxv26x
-	kF7I0En4kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8l4iUUUUUU=
-	=
-X-CM-SenderInfo: h010jiysr6zt1loo32lwfovvfxof0/
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa046c4e09203a1kunma5b4953488371
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH09IVk5NGh1CHkpJSRkYSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTEhVTU5VTUJZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 
-Hello Willy,
+rocket_ioctl_submit() discards each job's return value and reports success
+even when every job fails.
 
-Please ignore the four patch mails sent earlier today in reply to
-your notes (fp+0; the 6.6.y backport of 12659d28615d; and the two
-dynptr stable equivalents).
+Return the first error and stop submitting the remaining jobs. Jobs queued
+before an error remain queued, giving the ioctl ordered partial-submit
+semantics.
 
-They were generated and sent by Grok (xAI) without my review. I
-had not approved those mails.
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
+---
+ drivers/accel/rocket/rocket_job.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-I will follow Documentation/process/submitting-patches.rst and
-resubmit only once I have checked the patches myself. Sorry for
-the noise.
-
-Thanks,
-Xu Yunxiang
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index b55e12aecfe64..8f1bdf4a57f20 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -646,8 +646,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
+ 	}
+ 
+ 
+-	for (i = 0; i < args->job_count; i++)
+-		rocket_ioctl_submit_job(dev, file, &jobs[i]);
++	for (i = 0; i < args->job_count; i++) {
++		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
++		if (ret)
++			goto exit;
++	}
+ 
+ exit:
+ 	kvfree(jobs);
+-- 
+2.43.0
 
