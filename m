@@ -1,104 +1,128 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18EA3B2D18;
-	Fri, 28 Aug 2026 09:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85DC3B38B0;
+	Fri, 28 Aug 2026 09:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909810; cv=none; b=PBxqMxlAwBE6UgU9aTOjrDe2aOsK4jQycpF2YiSWqafTosdmAKIFmFeQwVYYupgLL76Pv6hL4hEEGCEnv6BC2kDwDUf1vPjyMZwtxKIjsmK0WGyY2qmYop2qq/FUsoWjvnBHdcsQWlt57/PyZf33EbGDqh8GRs1TV3ZTaELGDBw=
+	t=1787910118; cv=none; b=CqIj9VO0tnExY3IizoRxwhDumJRz6UskKN1P6jNEXm7UQ9a1RXPyccm27T7mHZ87sePe0JuL4BYuK4d0/4hmCCEilnw8I49lurULfrspVjh6VqmRt/Qoe3Fnq9EBJazH32/2J9aTJkdzRlrm3eSKqabSz6qDF6dZrrQ/9TSYJBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909810; c=relaxed/simple;
-	bh=CV5337KllrqzoibVYKGVHEwImKxG5nbm4g/avDe9flY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O2u3v8TpTgcUzUD0HLZGNpFKYt+urtlMdO8XC1vgrvZTtL56zo1iBpV7lC8AXmeork9sOGsZz5sXx2bdHx59+duF/+Jte3WUm/QGk60vqIOlpWd20XbJ8BZGLGGwGcJ3v7MJQ8M29S/sw1FfUfrxknIgvmSmCOo70fXALRVjp80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G6Up8Fd/; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1787910118; c=relaxed/simple;
+	bh=3OEuy4BD1dsHy197xzLSBLtBnyzQJ4BNrMV6jDbgf8g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MrtASGPu0i2jeWxvt2XpgCjcyOXvJcqN82JQE09ZCvgz+DoYPUth3MOML01pJJz41YFilrvHLwjca4RDqFi48vj8x3RnNoSIYpX7Zj9Q7qkWMasd4FtFeZy7YUD+Osq6nvLiHQUyGBy+gxVSmfX2AUo6iZTp95vqDxowC5VwP1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQipGGLc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G6Up8Fd/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=LW
-	o5zQbL1k2n17EXASJEhxs5Bp+/4dt02LXAxbY6d6I=; b=G6Up8Fd/pwGPHmcmAl
-	Px82zVC3pV6/8342SMlatKnZmUZTZA7kRUjQZtWGzJF9H10CItp8iEzCKPnOGxe7
-	OmHU12jZ661RybDqdlBUzeomc6rSPUuC1nBgVKVM047Je9w2krHvLyEwNI20efL5
-	LVbOUgz6DhedC4ZeB0bHE2roo=
-Received: from zengchi (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXJzaGVpFqVvfGEA--.15969S2;
-	Fri, 28 Aug 2026 17:36:06 +0800 (CST)
-From: Zeng Chi <zeng_chi911@163.com>
-To: zhaotianrui@loongson.cn,
-	maobibo@loongson.cn,
-	chenhuacai@kernel.org
-Cc: yury.norov@gmail.com,
-	kvm@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zengchi@kylinos.cn,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] LoongArch: KVM: Validate MSI data before routing it to EIOINTC
-Date: Fri, 28 Aug 2026 17:36:04 +0800
-Message-Id: <20260828093604.56622-1-zeng_chi911@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQipGGLc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19981F000E9;
+	Fri, 28 Aug 2026 09:41:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787910117;
+	bh=LPr7Cgdghm1Kz2vcUzEZZn5UouwztW/+50mQHoKvomA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iQipGGLc7zqwEKjY4rWswUBu1HBNTwly6FGF0zyFghS2j+cgmvVf6hgdZIcboHM//
+	 EPtlXIV6dfyElr0U3yvBij0FoZtl5eluuNA283pXk/WKV9IxQccyKpMhFX3qlTFr3O
+	 uzVsbth6cw+h/Q4e/oF/Hf7NfJH0nNZkPKT1wPvwPhXpI828SzOmIns5LDvxtgLeuc
+	 ZLe4M/lvIGhc018PEbDw4V87Ti/Edzp3i/qJhvJm2UAGSRbkwqCA5rg/witGBk1ja+
+	 cmzTj/ZeFArBwDg1qSkbFQaq+S8oT/XYGCmKerfeZb6Q0n+P2oDlZBLl063F0lhA5F
+	 XvvifETVZg9Yw==
+Message-ID: <d5eac10c-48f1-4c09-b871-b946c6417399@kernel.org>
+Date: Fri, 28 Aug 2026 11:41:49 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXJzaGVpFqVvfGEA--.15969S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF15XFWfJr4kXF4UAry8uFg_yoW8CrW7pF
-	W5uws8tF4rGw17ZFWvg34kW3y5ua1fXFsxWF1a9a43CFn0yF15CryrZFsrX3WYk3yrKrW0
-	gFnIgw1Yva4DJa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUVysUUUUU=
-X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwAe1cWqRVoc-hAAA3S
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net v3 1/2] tcp: fix use-after-free in
+ do_tcp_getsockopt(TCP_CONGESTION)
+Content-Language: fr
+To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, edumazet@google.com,
+ ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
+Cc: kuniyu@google.com, horms@kernel.org, martineau@kernel.org,
+ geliang@kernel.org, yhs@fb.com, kafai@fb.com, andriin@fb.com,
+ ast@kernel.org, netdev@vger.kernel.org, mptcp@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
+ tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
+References: <cover.1787870710.git.blbllhy@gmail.com>
+ <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Zeng Chi <zengchi@kylinos.cn>
+On 28/08/2026 01:55, Cen Zhang (Microsoft) wrote:
+> From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
+> 
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
+> rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
+> tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
+> allocated BPF struct_ops memory that may be freed concurrently via
+> setsockopt(TCP_CONGESTION), leading to a use-after-free.
+> 
+>   BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
+>   Read of size 16 at addr ffff888013505260 by task exploit/149
+>    _copy_to_user+0x37/0x60
+>    do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+>    tcp_getsockopt+0x91/0xf0
+>    __sys_getsockopt+0xf7/0x170
+> 
+> Fix this by holding rcu_read_lock() around the ca_ops->name access,
+> using READ_ONCE() to load icsk_ca_ops, and copying the name to a
+> stack buffer before releasing the lock. Also annotate the relevant
+> icsk_ca_ops stores with WRITE_ONCE() to fix the accompanying KCSAN
+> data-race issue.
 
-pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
-the irq number.  The MSI data comes from userspace, either via a
-KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
-and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
-against EIOINTC_IRQS.
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
-eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
-256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
-the per-cpu coreisr/sw_coreisr bitmaps with it.  A data value >= 256
-therefore reads and writes memory past the end of those arrays, i.e.
-any process holding a VM fd can corrupt kernel memory beyond the
-loongarch_eiointc allocation.
-
-Reject MSI data that doesn't fit in the EIOINTC irq space.  The DMSINTC
-path is unaffected as it decodes the vector from the address and masks
-it.
-
-Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kernel.org/
-Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
----
- arch/loongarch/kvm/intc/pch_pic.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-index e7b77705c516..81fb534ce8dd 100644
---- a/arch/loongarch/kvm/intc/pch_pic.c
-+++ b/arch/loongarch/kvm/intc/pch_pic.c
-@@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int
- 		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
- 	}
- 
-+	if (e->msi.data >= EIOINTC_IRQS)
-+		return -EINVAL;
-+
- 	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
- 
- 	return 0;
+Cheers,
+Matt
 -- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+Sponsored by the NGI0 Core fund.
 
