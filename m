@@ -1,205 +1,167 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EFF24DCF6
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 20:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A587A3B9927;
+	Fri, 28 Aug 2026 20:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787948146; cv=none; b=hiOeuingOEAEVSrLZtHRl0dVdC6SjkwZhzcR1BBFsEtTUi/eTTNrx41lJjw6ieFENW9V1muZSVriTbrFhzg2LlMt3gZE1z9PXrmLSgYUJzTry/37jc+OPw5GF625FgeuwOZ8YK2A1/BS5Xr/JbIF7pVj2F9sEKytKty0lsl1N8o=
+	t=1787948274; cv=none; b=Ps9YZTv73ozZel+l16JSANsQBrO6FQ3Ig+5aiyT71iBAz1NSeU5wq/nV+wDEbIaDnCMEGxbFrO4x/Ui1xiDWNpUUCbRCqhDj/Z0qnwvUbkBPytmNx9SZUyY/9JBlYZisgtlPafSipn2ZRjDFLrKHnEIPeX0PasfOfARePu6fLtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787948146; c=relaxed/simple;
-	bh=lMQmMsI6NESUnC9Kx4umf7FdQATWdGD+CG9btCbCLUo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gO3SEKQ0fqt6Eyx5katHR4aEDR0J2XRybUujlS2q7n9c4wnEySmAnqlidsIoyTHqpuHWdmtjIxYuVg2UXLIJBGpdtSitYnissw4nWporiTAh4DIbOhlNlDA2ciwx8EO/b4WO5ql21NJMoPeUoL/fNHKljUAd6BM5qb4RiLwV7rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=H6RYja6H; arc=none smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1787948274; c=relaxed/simple;
+	bh=FgfYKGFgSetuMUHy4hEzMQsH1/zi/8Fq0psKJoL29Yk=;
+	h=Date:To:From:Subject:Message-Id; b=kpzcxHn99fry+f4b7Fo7FF5MBKOEdhw2Ew025Q5HlMUNuDwKsHMk0sviLmf8EVxywuNyrB01djROuJKVFa6Nl9AIX2PHrcaCjdBL4P91pdt4s+h1pnV/I2lFn4sw/vzZAoWNtCDnFJK+wPGrcbYWz5nTDrkWPuA/GYQYUJn8xKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NmhaaV4A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="H6RYja6H"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-85845398586so21363167b3.3
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 13:15:44 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NmhaaV4A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110651F000E9;
+	Fri, 28 Aug 2026 20:17:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1787948144; x=1788552944; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NvI2H7PobHESDZp6R8jIuA+Sv8hMFNQgqwyCoicMNzw=;
-        b=H6RYja6H817J7kjArgpvFRu1hEKaxZiAiNsHsg8rVp9CbYeF4VIiO7B+jk9lCxb8gS
-         ooBZmrM0sr2/iBb7if+9X3IPxrDnow4Nalx+vQ2vElAfTb6NOR2lTjJSCEGvhqk/MOM6
-         Nk78QsAQXaH1bxifR5u4m+cjWk5MSwrE5ctlXd7gssmUpgyJi6mwcwrSP/MNWHCgXXZR
-         BT9uxSax7/kuIx9iG86KI9QP7j90riyS9j2HwkO/Dt5IuoaDND3C/Z0B+15rrUU0okra
-         ETMs4drbGX/HyFb0n50wC4lurktOIP2UHq85n1zJtUD/lTwuvIIKcRkNEQDBF8QHvBdh
-         vhpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787948144; x=1788552944;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NvI2H7PobHESDZp6R8jIuA+Sv8hMFNQgqwyCoicMNzw=;
-        b=OMPuPAOOrvftoLMlUs5T1bMz40px/0jDaSWCLXaO8vrlDz6DF//JK6VhtZ5Bj9enVR
-         lNdHZvpAKIdb7Qmt0GuaPF68WSaB04ehMVpTw1hgA5ml2OPe/DaKyuuAI8euSix5S0x4
-         UvTqfhgE/5nHHoxBPBYRJlNyR30wtwqRNNcyeq7i7g9Qe15lpUWoiZAWZ6JnWFQXneto
-         t/x4NQ+1POTU3//3XxmWl7HI8ARgVvulG2jX6U4fjBpc/bPFfvvQDQDL6PgVqklw25KY
-         hSkU0lhiiZ6GG1ma8dJs8t+DjfVKJBGITJ+mEVhQ2O9BajltWxq5XIxszoAl2VsqsJ7t
-         52lQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxW7JMG+hzUTM5gBfFDAiZ2g8CCFGvEjnSiHZ7ZjcpqUtcbhvzLb7mt/5SVauR37YE4WltMDjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kudrJg4n9UF/cL0OxWSje8vWFfT7vgbGfH9LRCCd9A4oWJqniL
-	qylyLJTzWaSLqJCXE89ElDmYRslHDpdnMV4nGn08z+SuLb1SBAQpbg0HrYVR/pyCjO4=
-X-Gm-Gg: AYBFou3J2Mzt6oEAhCPIC1Xb0vZp3BzU8s9YeYPtcpe1X4PgxMvt9HAEvmThlzbpTSM
-	wAD4CWWcbHODk1xJ3pJIN2R5lguZymskqL6pwgTC5k/QKHeK5s36PY53D/7hHbBhg/PxpJ6Q703
-	j895BrxXOKHViRc7rjBtY4IY/ETnTzCRcwdv21oGTNa6nqkLVwkbUfFstBWUggbb5RA+HSf1pbB
-	HUWSYXwo2R0alVqKIaVzT8lGSbUpSGGaEzftd0gf1cypJdFNbEUuQ8i5Key88og70zCHi7Tlre/
-	sJxk5E8mEaIGwT1HNZZo7RYZ7suROX03IvObZww8TyEYENZOvo3beCtdEfVjb3X4r20+X5KDuGn
-	A7G4LKrxon625CSUpbwcfVej7zoxi96zRWnnxYvUw+gJXv5fSaI25fexiB0VNht9FVY8HLSR/xm
-	Ma/2rTITZ2dUam0gem29ORG5N40QQbiTesPrIjkcVH4mN7RopWf6ivOFehMAm5FaQvo3nwL+bmD
-	lgODAB73lLE598hWnXDK/YVfoyuGAppXMNsx3/+fzo/DLv2yqsV6CV8YBBW58a06slAGayZa87T
-	mf1oS469xWe5bs7oAA==
-X-Received: by 2002:a05:690c:a1cd:b0:85a:634:169f with SMTP id 00721157ae682-85d6d4a8561mr34088607b3.28.1787948143021;
-        Fri, 28 Aug 2026 13:15:43 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:ea83:524e:5ab7:94d1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5e180b20sm11971547b3.3.2026.08.28.13.15.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 13:15:42 -0700 (PDT)
-Message-ID: <14ac44cb09ba3a7f22f14fb4d5c6818d235c0297.camel@dubeyko.com>
-Subject: Re: [PATCH] hfsplus: fix truncated xattr names in listxattr()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: maurycy@maurycy.com, John Paul Adrian Glaubitz
-	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, Kees Cook
-	 <kees@kernel.org>, Justin Stitt <justinstitt@google.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Fri, 28 Aug 2026 13:15:36 -0700
-In-Reply-To: <20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com>
-References: <20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	d=linux-foundation.org; s=korg; t=1787948272;
+	bh=mKg6eCvSdJocWjYIk+kQAcRn1zZ7RT3pb0vDWn04DRI=;
+	h=Date:To:From:Subject;
+	b=NmhaaV4Ar6dLDOGgb1rQTgMHNGGZUtNsi6a2kuM+Wld7MSsnBjyi/0bhQThZSceiW
+	 rRczXMZpdRCJAzeAHLaZuJ7LLPOskxRCk4W3YvzbIn0+01dczpdjzR0RKCqHNO1ols
+	 /MDr6/DwsWoud++j3jYbLI9f6ttLUcVEymMJafRU=
+Date: Fri, 28 Aug 2026 13:17:51 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,urezki@gmail.com,stable@vger.kernel.org,rakie.kim@sk.com,matthew.brost@intel.com,joshua.hahnjy@gmail.com,david@kernel.org,chenwandun@huawei.com,chelsyratnawat2001@gmail.com,byungchul@sk.com,apopple@nvidia.com,gourry@gourry.net,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch added to mm-new branch
+Message-Id: <20260828201752.110651F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Fri, 2026-08-28 at 15:38 +0200, Maurycy Pawlowski-Wieronski via B4
-Relay wrote:
-> From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
->=20
-> Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
-> strncpy")
-> changed copy_name() to build names in the osx. namespace with
-> scnprintf().
->=20
-> The supplied buffer size includes room for the prefix and the name,
-> but
-> not for the terminating NUL:
->=20
-> =C2=A0 $ python3 -c "import os; print(os.listxattr('/mnt/tm/.DS_Store'))"
-> =C2=A0 ['osx.com.apple.FinderInf']
->=20
-> The truncated names cannot be passed back to getxattr(), so getfattr
-> -d,
-> rsync -X, cp --preserve=3Dxattr and tar --xattrs etc. seem to lose all
-> Apple attributes on hfsplus volumes.
->=20
-> Names in other namespaces go through the strscpy() branch, which
-> already
-> sizes the buffer correctly. That's `why xfstests generic/377 does not
-> catch it.
 
-Do you mean that you can reproduce some issue for generic/377? I don't
-see any issues with this test-case.
+The patch titled
+     Subject: mm/mempolicy: take a cpuset cookie for the interleave node count
+has been added to the -mm mm-new branch.  Its filename is
+     mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
 
->=20
-> Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
-> strncpy")
-> Cc: stable@vger.kernel.org=C2=A0# v6.10+
-> Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
-> ---
-> =C2=A0fs/hfsplus/xattr.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-> index 21a1c196c71f..4a3c97373682 100644
-> --- a/fs/hfsplus/xattr.c
-> +++ b/fs/hfsplus/xattr.c
-> @@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char
-> *xattr_name, size_t name_len)
-> =C2=A0	memset(buffer, 0, name_len);
-> =C2=A0
-> =C2=A0	if (!is_known_namespace(xattr_name)) {
-> -		len =3D scnprintf(buffer, name_len +
-> XATTR_MAC_OSX_PREFIX_LEN,
-> -				 "%s%s", XATTR_MAC_OSX_PREFIX,
-> xattr_name);
-> +		len =3D scnprintf(buffer, name_len +
-> XATTR_MAC_OSX_PREFIX_LEN + 1,
-> +				"%s%s", XATTR_MAC_OSX_PREFIX,
-> xattr_name);
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
 
-I don't quite follow how this could solve anything. If we have enough
-buffer size that was defined by caller, then this buffer should be
-zeroed and NUL is already there. If we have not enough buffer size,
-then we write out of available memory. Could you please explain your
-fix? Have you tested the fix by running all xfstests?
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Thanks,
-Slava.
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-> =C2=A0	} else {
-> =C2=A0		len =3D strscpy(buffer, xattr_name, name_len + 1);
-> =C2=A0		if (len < 0) {
->=20
-> ---
-> base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
-> change-id: 20260828-hfsplus-copy_name-fix-a6e2a0a4485e
->=20
-> Best regards,
-> --=C2=A0=20
-> Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
->=20
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Gregory Price <gourry@gourry.net>
+Subject: mm/mempolicy: take a cpuset cookie for the interleave node count
+Date: Fri, 28 Aug 2026 15:31:11 -0400
+
+alloc_pages_bulk_interleave() counts pol->nodes without a cpuset cookie:
+
+	nodes = nodes_weight(pol->nodes);
+	nr_pages_per_node = nr_pages / nodes;
+
+nodemask_t spans several words once MAX_NUMNODES exceeds BITS_PER_LONG, so
+a concurrent cpuset rebind can tear that read and yield an empty mask even
+though neither version of it was empty.  The call then allocates nothing
+and returns 0.
+
+Some compilers will hoist the loop entry test above the division,
+because nr_pages_per_node is dead when the loop does not run.
+
+	682e:	call	...		<- nodes_weight()
+	6838:	test	%eax,%eax
+	683a:	jle	692d		<- nodes <= 0 skips the loop
+	684a:	div	%rcx
+
+So in most deployments, this div/0 is unreachable - but nothing in the
+source guarantees that, it's just not easily exercised.
+
+Take the cookie around the count and bail if the mask really is empty. 
+Only the count needs it, interleave_nodes() takes the cookie itself so so
+a torn read there is already retried.
+
+A rebind landing mid-loop can still leave the count disagreeing with the
+mask, so the loop may revisit a node or skip one - but a rebind where
+nodes change causes migration, so a handful of misplaced pages isn't
+catastrophic in any sense.
+
+Measured on a 72 node VM (NODES_SHIFT=10) with a cgroup v2 cpuset flipping
+cpuset.mems between a word 0 and a word 1 node set, and the two word read
+artificially widened: 330 zero counts in 130414 calls without the cookie,
+and 401 retries with it.
+
+Link: https://lore.kernel.org/20260828193111.1023497-1-gourry@gourry.net
+Fixes: c00b6b961099 ("mm/vmalloc: introduce alloc_pages_bulk_array_mempolicy to accelerate memory allocation")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reported-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
+Link: https://lore.kernel.org/all/20250907160829.91628-1-chelsyratnawat2001@gmail.com/
+Assisted-by: Claude:claude-opus-5
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Chenwandun <chenwandun@huawei.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/mempolicy.c |   12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+--- a/mm/mempolicy.c~mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count
++++ a/mm/mempolicy.c
+@@ -2592,6 +2592,7 @@ static unsigned long alloc_pages_bulk_in
+ 		struct mempolicy *pol, unsigned long nr_pages,
+ 		struct page **page_array)
+ {
++	unsigned int cpuset_mems_cookie;
+ 	int nodes;
+ 	unsigned long nr_pages_per_node;
+ 	int delta;
+@@ -2599,7 +2600,16 @@ static unsigned long alloc_pages_bulk_in
+ 	unsigned long nr_allocated;
+ 	unsigned long total_allocated = 0;
+ 
+-	nodes = nodes_weight(pol->nodes);
++	/* count the nodes, retry if a rebind happened during the read */
++	do {
++		cpuset_mems_cookie = read_mems_allowed_begin();
++		nodes = nodes_weight(pol->nodes);
++	} while (read_mems_allowed_retry(cpuset_mems_cookie));
++
++	/* if the nodemask has become invalid, we cannot do anything */
++	if (!nodes)
++		return 0;
++
+ 	nr_pages_per_node = nr_pages / nodes;
+ 	delta = nr_pages - nodes * nr_pages_per_node;
+ 
+_
+
+Patches currently in -mm which might be from gourry@gourry.net are
+
+mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
+
