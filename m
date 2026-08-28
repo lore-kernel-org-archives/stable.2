@@ -1,46 +1,42 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79343BB9F8;
-	Fri, 28 Aug 2026 18:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647FA379EE4;
+	Fri, 28 Aug 2026 18:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787942230; cv=none; b=Sp4Q/J07JyxQ0KIm7w1J++Evdiku6dtcWqyhC0Q0aYuO528BeQ2O4XejCUtJsvxCpsrQf1ay+bsvW0CkZLNhyp2B3Ik03W24Zwf0hZPRwisgOQRZti5lRZdKgOWNozYnEsGnHdPvwdZqlG2rOZAYx8xsyAShD3hu6WwuFYiSXEk=
+	t=1787942625; cv=none; b=AQN52/kZ58wcxYkq+xh1RRli9VBBS9SgrJH8H/X1GpUm2SepLy47K9ksDyzrKyY7gaIo2S8QKNOW9tNpl1WSeCWW78ScjmJkCsWxCTbWeuuLK44KFb6B+7CyQQOpmyGca0rPHAawse2sbb0d8x+L67yl3fWDnRpIYu31b/TKbd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787942230; c=relaxed/simple;
-	bh=ncX71bZRwu4AuWDsk7FltFFxkbG60aAYKLG941OcN9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u/t+T+HMIQGhIqrEiPasPHsGOVlfn/Pvw5AfEhJaaHJnYlAiqtxf4waDrofkuKA1LEBae0KIttNzlEmoOkkCzjqLYlDB8+BRemnnbkvTm18XpA6Lz3zNOnW3IO8gB3peMIQNklyKGvWbRRWHMqnxXsji0U9b/QzmCxOSzA/p5gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j9FMR5Jn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787942625; c=relaxed/simple;
+	bh=2h3DDa//eNay2ZbolqGNQSd9EYRIEmORHIbYAWxoYz4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KILzXI/0vc0Fayam98wauIVT8xOlEp71U0ucP/h/7pExgvdm5w9Lb/dMGrxGoyb9SZm0LweNyuRdDgxUsxyxHaAMmrHqzOEO7EE/4tvwCUpt5RmePU83Ltpghrfo4XPUWn9dZIGap0F4AESa9AgILgNv4Tpwz2jXnC72hE+pt8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=N2g3K6DL; arc=none smtp.client-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j9FMR5Jn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 949BC1F00AC4;
-	Fri, 28 Aug 2026 18:36:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787942219;
-	bh=9nWd2JiHbGpFxdKtIgR1/mA2jBP+r1D6KF4ucSMyulY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j9FMR5JnmSH7efPrQrLnpZLbc7Yz1AcigZ2oXDJSOH7R3q+6I7rgrm+O0sLvmBJK8
-	 xZf8nG4qvXcOnt+j9VyThzjR9Sfe3zfany2jSS/bQRGk1Rr/6KjiU0F8H06/dTsaff
-	 D2XKwF71uHMP5vP2RsodJkj97KtLehKD5EUkQDx5qRFZcxQJlgmYpmSv4Z1t7DDOLd
-	 uM4q1bVIScrAheTmJpDfRBCKmyWltOYiXf2K77JvOG+WoAsNObZLOQifqSFck50JXP
-	 MrkarOd6d6n+JAFTYqptHsuEHsamarp6wWpKvoYtcBSbiamIrOvZH8V2T/3pmMuVBI
-	 8/uwDVYOpXdVg==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	damon@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="N2g3K6DL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
+	s=mail; t=1787942620;
+	bh=2h3DDa//eNay2ZbolqGNQSd9EYRIEmORHIbYAWxoYz4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=N2g3K6DLjRfl1umNwjS4XsbBBeIolmVcBVC8MBzOWa0oNP6q26SFaFkFMcy2ulMEq
+	 sELwj+byihFT+UPzGBT+8cQ+EBK/fgnWOIUbfI1yZhZlleQkjCk+Tng+PwOjt8gSQ1
+	 sSxKbJQarYlq1/KP7LMReURl/BJAZqS/Ln/C2ABU=
+From: Paul Cercueil <paul@crapouillou.net>
+To: Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v1.3 4/4] mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Fri, 28 Aug 2026 11:36:48 -0700
-Message-ID: <20260828183649.71192-5-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260828183649.71192-1-sj@kernel.org>
-References: <20260828183649.71192-1-sj@kernel.org>
+	Paul Cercueil <paul@crapouillou.net>,
+	stable@vger.kernel.org
+Subject: [PATCH] ARM: dts: samsung: exynos4210-i9100: Fix Bluetooth node
+Date: Fri, 28 Aug 2026 20:43:31 +0200
+Message-ID: <20260828184331.655804-1-paul@crapouillou.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,71 +45,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next
-refresh is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it.
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
+The BCM4330 is connected using CTS/RTS too, so add the 'uart-has-rtscts'
+property.
 
-The user impact is not very critical.  It does not leak, corrupt or
-crash.  The update will not be faster or slower than the lowest and
-largest refresh_ms values of the contexts, respectively.  The user can
-also manually ask the updates on demand using kdamond state commands.
-That said, clearly this is a bug and can easily be reproduced.
+Also add the missing 'max-speed' property and set it to 4 Mbps, which is
+the maximum baud rate supported by this Bluetooth chip.
 
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: SJ Park <sj@kernel.org>
+This fixes extremely choppy audio when connected to a Bluetooth speaker.
+
+Fixes: 8620cc2f99b7 ("ARM: dts: exynos: Add devicetree file for the Galaxy S2")
+Cc: stable@vger.kernel.org # v5.8+
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 ---
- mm/damon/sysfs.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ arch/arm/boot/dts/samsung/exynos4210-i9100.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index e3858ffab4b22..f05b256c90ee7 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
+diff --git a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+index 8a635bee59fa..96db40102adb 100644
+--- a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
++++ b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+@@ -875,11 +875,14 @@ &serial_0 {
+ 	status = "okay";
  
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 	return ctx;
- }
+ 	pinctrl-names = "default";
++	uart-has-rtscts;
+ 	pinctrl-0 = <&bt_en>, <&bt_res>, <&uart0_data>, <&uart0_fctl>;
  
--static unsigned long damon_sysfs_next_update_jiffies;
--
- static int damon_sysfs_repeat_call_fn(void *data)
- {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
+ 	bluetooth {
+ 		compatible = "brcm,bcm4330-bt";
  
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
- 
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 	}
- 	kdamond->damon_ctx = ctx;
- 
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
- 
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
++		max-speed = <4000000>;
++
+ 		shutdown-gpios = <&gpl0 4 GPIO_ACTIVE_HIGH>;
+ 		reset-gpios = <&gpl1 0 GPIO_ACTIVE_LOW>;
+ 		device-wakeup-gpios = <&gpx3 1 GPIO_ACTIVE_HIGH>;
 -- 
-2.47.3
+2.53.0
+
