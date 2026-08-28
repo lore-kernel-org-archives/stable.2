@@ -1,166 +1,166 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20455175A5
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 00:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787875503; cv=pass; b=IC4t1o3s4cSKQnTkkFZcy4D8PpKcRBw7W9aGK/bJVEzYjMdKSAWD7OlQtwCKwb1JO9wL4GyY3g+m7JcHu9Ns6dW6yMXvfoFvDM0PyhmPQYOftnacVcxLxuyStfOpQNhxeoep5kfLIYol86QspvXCVhzdB31iKa3Xi2Kjqhk1rz4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787875503; c=relaxed/simple;
-	bh=PFyr2Yax0psAjbVNGRDUr1d6xTY3B4cnOPN1BhDgrd8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BRG5lp9Uvrf4P5rLcst/+r8XeeLjz+gjujnEYxJqZ+vGt3YG7HbFA4mwu6XYeEf2neVjG6ckFndHq1RapMcnEMaEqerHk8tROzQUZ6W78SDbhEs5IN/MzTbaYRjILJRCiYMAhhXe58iKLZTLtpb172Wr/RiYP++HierYT+LzGNw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k7a4nifx; arc=pass smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8741B2AE7A;
+	Fri, 28 Aug 2026 00:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787876540; cv=none; b=A0pzIuA3MtGDG7YBJ1EYIOiEZt6FGJXd6VKwb4rxN1itL6EqfT7RSCKDqHzKKARL8aWt638tuUhupASk2hEJEfYi/ZtkFpi/Pt7kOkHI+IpkeNSd8WnWJOOvGHuNiViluLbH6cOPZN/HXpo+kW4NQIvhUrvDIkEBWwNeBKRCYfE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787876540; c=relaxed/simple;
+	bh=GsCY0/mgkP6ZiqiIqH+Jk2bSk3UtTuADAya67mpycIw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TQFxDALB3Fb5hTmdf74LGap0GDTZOC4SMCgiINukr4S8yhLdXcA0LOe8APINDmdTcwDJ1UwWejvG/YQMB1u26p365ZXxefQn9OFNp0uvEQoyJFozkrgkcENR5/mCKrCEvorcctnGJ6iIVvnO2gxkFPZdRmS5x6PfnhKKqtMcdmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Esu5YeSZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k7a4nifx"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-851cbd64814so27336b3a.1
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 17:05:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787875500; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Y2W8VYsWBf0vrWtsPzRWgSYPewif22HYDEnelGC+ymwJKky3Dt+KoCOx1cmpNiUtAz
-         NoRtfvjrwNT/XXf7QuVBpeiNqIeT+Kaz3t4sDdT7W8HaJidkgCRbORB0vVRXYv9HItA5
-         LIuuiYmGAddY5skvo9kxA3lwEYrIGfEcM7JAA2CRwbAZiUzHslrqfCR7NpI6TUM8XNlC
-         bi3T3+vbWekkG7lD8uOqFpAspKbIGpIV+HZMefkdjGV7yfvRuFHIQCcXh4fyy04Bmc5Y
-         Pb9Ot/bPDWQikCPaIPk6W78JCkfN+STfOKhy0Sl/SJDFHDJAJEKnObNNX0QDpzKkj7y8
-         oAbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yPMW9cNcy0b0Gxn9756IDFDtVnIcdjZAJDlCv5e1zT0=;
-        fh=VBX2gd2Uwe3rYEhFdQGRrtjHOjcbTwDEx+zbykFIet0=;
-        b=FQDZ1LoVANOsvSy5UCWcIRc65jn0e8jRE1Oxmo1KsB3HcaRIN13Y5fLPD8w5BI3jYQ
-         Hmit9Xw+QarsrGXz7xvxJ2g6mgsaPqYTD0yaN4THe2sKQNo6DrEKxKEIttF/0g8p1/4f
-         e8mzcaE8pvhfbvjquWvoXl7lvUtWgGm7DA0My7uhXUMxo96TsU6Ui+BDDk56bPOWbzI+
-         0/2tTgpanbKWitEupxa7QdEcD6dCL6S1SWNHS9bIbR2FUcFoIN8dEtaQkiE271zbaH/w
-         7v0KymUxahm98nEMlKwsgI+6Q0rZSK5vuw/DiHpseL3ehNBM4CqLdoRL3N/l/bVmwcWR
-         SrNA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787875500; x=1788480300; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yPMW9cNcy0b0Gxn9756IDFDtVnIcdjZAJDlCv5e1zT0=;
-        b=k7a4nifxqJ1hE3gMfPYwb05fzwmsB0oWkzDMau3cwCaQNfnYPz8mQRW74VDY7/AL0i
-         w5tvACJF7CD9AIBrl/GE//9O3mE4ffwqPWmX/kmyaq7EYONLaG7TT8HrblxODDvkc9QP
-         tCymoBN+2/ly4v0HSwsr1DVUTKOL2SXeb3W8IfGKEVoc1bm3NUAOX9LVyu8kRqZu9cv/
-         Zt3QYBQGsqKe7X2IZ7otRwHgHw/xlBkyrrcqoa53dUgiRc1W1ASz5aVGKe851NtO+0vQ
-         JevwzzgE40VSwS07a64pm0aAxbzetUNFs/b97wiAdml2mtCaGFgHSn0N9IQ3hKqFbvCi
-         9vUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787875500; x=1788480300;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yPMW9cNcy0b0Gxn9756IDFDtVnIcdjZAJDlCv5e1zT0=;
-        b=E9WpzsA1T5k+063UtOBwQLUitUPyF5VKxlTjv5Mn8dWTYnHZgpAP6AOEV9QU4AuXle
-         RNwF5UTSv1FLLt6mDVd7121mR76pqmasBlLuQ+OKz5YHinh6XcyJwWTvU2K3lESR2jbm
-         2+Db9qXMMqEVBmezVWgubv3wawiH29vT+ocgWSBhaaxvvPcrPjDzj5WmxG7S3RDAsyBk
-         7Pb5eM95ZEygemOiGOK2Hmu/RBvOVTKxM8KUOAlstnOcEl/sk3cxA1tbITR2+lQvGdOs
-         fV7a9AqPbZTq2sKSZ7+cDjWcikKXRw3juCEGAmPYv6ySqmNIYBJPHymi4I3GvCj5J6j7
-         0DyA==
-X-Forwarded-Encrypted: i=1; AHgh+RqQeH8Z81WvfbyBO22LZnIsXg8WRJJuuq2QJbpvLJv/q2gexdaKWHESrAEAjS5r63rcP+ZvqgE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKE+eQKqnd+/3DKd7xKehhqdwscKutvQ4CgJJNe0lFUVArcQRt
-	LgvoZK/L7HyIDLSat5RqqsadfO5OEwo7cJ7lpiXlkPVGSI5N4CofQTL8+mqPT/EO82Ppd6yM33Z
-	IFaJo9B+O9XJL7bn+CDzzLD8U97Z9PO0=
-X-Gm-Gg: AR+sD10oCzowU5DIHgKwZrCh8Mm9Fnky475QUjQYH+bj2L4dnuHjqthxAqLuy43hEJ7
-	eAKYOoa8FbAuJyxTQK7LrXUWg1bP3xJJ37e5qX29qjUDF3BpLOa0dktZnPzpW/X5IbgUJT8KJD6
-	yIpMmCH+EN7EOAibxnWALQMy679dboWajPI16g/0L58AACagVrt0oMoFQNz7tIiOSNO/reAG2vl
-	4RCNQPkgu4Mla/tBovQmZ1uzD2XTu+ZyscIbCr29NTsO7UaI1xRKO1hdOVjjyQVEditOkbGnMGz
-	dBhFg7dUxXZM/0/v5NvhqYwf/gQZeTWBRKRGIovghfEPlmtVqR3LIOv5vZcjSCsHnT20yDQHqM7
-	O6pMZosVX/KqvSlj/w6t/LsVhzg==
-X-Received: by 2002:a05:6a00:3309:b0:835:6388:655d with SMTP id
- d2e1a72fcca58-8562ba7dae0mr6302793b3a.14.1787875500260; Thu, 27 Aug 2026
- 17:05:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Esu5YeSZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8B511F000E9;
+	Fri, 28 Aug 2026 00:22:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787876539;
+	bh=uuq5TYRcr4zdL+6SIrH3ElNXfBDv1DRk+u7g+8PVaIk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Esu5YeSZSNMWD9tBCB8DahS8k8M9uqUSF5bWl3RuhQKyrW/PTxWvALeZxk/QiIJA7
+	 dZcm28dZW0IuSJKS3UniMrmUvEkrZtD06Fz+uw6dnV0Wb9OOssMzvRLwi3ehtI4PL+
+	 KSEe+MxE40XZnFyBcb3dlPQvBv35/2kTqJUUy4imkkpf/UGnkkPlNvZ3DrK4AjtWjl
+	 Nmg7vjm4DOG5somXIcNo2QbAYYbQX3a1ZdYHOPBiBBpH6H6CjJcTbKmGH95CKe0CwC
+	 ZMHnKr/ONgrLy1woPLtV/lCmbnF2jTy11iDBMHDOHrO5ioIGtdNXiGrh7vResI7Rag
+	 LdmKd3XSZI6HA==
+From: SJ Park <sj@kernel.org>
+To: Nathan Gao <zcgao@amazon.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	baolin.wang@linux.alibaba.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon: use a page-aligned sampling address
+Date: Thu, 27 Aug 2026 17:22:11 -0700
+Message-ID: <20260828002211.61987-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260827193821.46115-1-zcgao@amazon.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAEf4BzbGe74OuUKiDz7oBrWzQCD54JVhYuCTQEWNHOHmnBEtbQ@mail.gmail.com>
- <20260824083327.1708560-1-chenyuan_fl@163.com> <20260824083327.1708560-2-chenyuan_fl@163.com>
-In-Reply-To: <20260824083327.1708560-2-chenyuan_fl@163.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Thu, 27 Aug 2026 17:04:47 -0700
-X-Gm-Features: AcwNN1UBYnS7FD610auS33NR1yghL6FPy5aMSeXhTY-PLjZTBWjuSmerZRMWxYg
-Message-ID: <CAEf4BzYLUTO+6bcp8X8M_wbc=JaxZMo4PZCgS0e-t=8zMO9tSQ@mail.gmail.com>
-Subject: Re: [PATCH bpf v4 1/2] bpf: Fix queue/stack map u32 index overflow
-To: chenyuan_fl@163.com
-Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, Yuan Chen <chenyuan@kylinos.cn>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 24, 2026 at 1:34=E2=80=AFAM <chenyuan_fl@163.com> wrote:
->
-> From: Yuan Chen <chenyuan@kylinos.cn>
->
-> The queue/stack map addresses elements[] with the product of a u32
-> head/tail index and value_size, but the storage itself is allocated in
-> 64-bit arithmetic.  When max_entries * value_size reaches or exceeds
-> U32_MAX, the product wraps and push/peek/pop operate on the wrong
-> element, corrupting map data and leaking stale values to user space.
-> max_entries =3D=3D U32_MAX would also make the u32 capacity counter
-> qs->size (max_entries + 1) wrap to 0 and permanently break the map.
->
-> The original bound check was removed by commit a37fb7ef24a4 ("bpf:
-> Eliminate rlimit-based memory accounting for queue_stack_maps maps"),
-> which deleted the bpf_map_charge_init() call and with it the
-> U32_MAX - PAGE_SIZE check that had earlier been moved into
-> bpf_map_charge_init() by c85d69135a91.  Oversized queue/stack maps can
-> therefore be created again.
->
-> Restore the bound in queue_stack_map_alloc_check() with a single
-> comparison that rejects any max_entries/value_size combination whose
-> element storage would reach or exceed U32_MAX bytes, keeping the u32
-> index multiplication overflow-free and the capacity counter valid.
->
-> Fixes: a37fb7ef24a4 ("bpf: Eliminate rlimit-based memory accounting for q=
-ueue_stack_maps maps")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+Hello Nathan,
+
+On Thu, 27 Aug 2026 12:38:21 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+
+> __damon_va_prepare_access_check() picks a random byte address within the
+> region and stores it in r->sampling_addr. There are two users of
+> r->sampling_addr in vaddr.c that pass it into a page table walk, and
+> both use it as the address of a page.
+> 
+>   damon_va_mkold(mm, r->sampling_addr)
+>     damon_va_walk_page_range(mm, addr, addr + 1)
+>       damon_mkold_pmd_entry()
+>         damon_ptep_mkold(pte, vma, addr)
+>           ptep_test_and_clear_young(vma, addr, pte)
+>           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+> 
+>   damon_va_young(mm, r->sampling_addr, &folio_sz)
+>     damon_va_walk_page_range(mm, addr, addr + 1)
+>       damon_young_pmd_entry()
+>         ptep_get(pte)
+>         mmu_notifier_test_young(walk->mm, addr)
+> 
+> test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
+> arm64, documents @addr as "Address the first page is mapped at".
+> 
+> For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+> clearing of the young flag for large folios"),
+
+The @addr documentation is also introduced by this commit.  This commit is
+authored at 2026-02-09.
+
+> the contpte helper walked
+> exactly CONT_PTES entries from the aligned-down page table pointer and
+> used @addr only to pass down to each entry, so an unaligned value was
+> harmless:
+> 
+>         ptep = contpte_align_down(ptep);
+>         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+>         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+
+So, there was no issue before the commit.
+
+> 
+> Now the range to walk is derived from @addr instead: end = addr +
+> nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+> page of a contpte block, the sub-page offset puts end just past the
+> block boundary, so the round-up lands a whole block further and the
+> walk clears PTE_AF in CONT_PTES entries beyond the sampled block. Seen
+> on an arm64 guest running the DAMON selftests as random slab and page
+> table corruption.
+
+Thank you for sharing the finding with us!
+
+> 
+> Align the sampled address down to a page boundary. It is the address of
+> the page to sample, so this matches its intended meaning and fixes both
+> users in vaddr.c.
+
+This indeed sounds like can fix the issue to me.  However, was it a clear rule
+that we should pass only contepte-aligned addrss to
+ptep_test_and_clear_young()?  And is DAMON the only ptep_test_and_clear_young()
+caller that is mistakenly passing the unaligned address?
+
+If not, it might make sense to make contpte_test_and_clear_young_ptes() support
+unaligned adress again in my opinion.  May I ask your opinion, Baolin?
+
+> 
+> Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+
+I think 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for
+large folios") would be mroe correct 'Fixes:', if there was no issue before the
+commit.
+
+> Cc: s6f0e1142173a ("arm64: mm: support batch
+> clearing of the young flag for large folios"),table@vger.kernel.org
+> Signed-off-by: Nathan Gao <zcgao@amazon.com>
 > ---
-> v4: simplify the bound to a single division-based comparison as
->     suggested by Andrii Nakryiko; this also rejects max_entries =3D=3D U3=
-2_MAX
->
->  kernel/bpf/queue_stack_maps.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/kernel/bpf/queue_stack_maps.c b/kernel/bpf/queue_stack_maps.=
-c
-> index c1c9dee4dcdd..0d9e0b807a50 100644
-> --- a/kernel/bpf/queue_stack_maps.c
-> +++ b/kernel/bpf/queue_stack_maps.c
-> @@ -59,6 +59,15 @@ static int queue_stack_map_alloc_check(union bpf_attr =
-*attr)
->                  */
->                 return -E2BIG;
->
-> +       /*
-> +        * The u32 head/tail index is multiplied by value_size to address
-> +        * elements[], and qs->size (max_entries + 1) is stored in a u32.
-> +        * Bound max_entries so neither the product nor the capacity
-> +        * counter can wrap (this also rejects max_entries =3D=3D U32_MAX=
-).
-> +        */
+>  mm/damon/vaddr.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+> index 2c1c1952c008d..e26e426a56af2 100644
+> --- a/mm/damon/vaddr.c
+> +++ b/mm/damon/vaddr.c
+> @@ -360,7 +360,8 @@ static void __damon_va_prepare_access_check(struct mm_struct *mm,
+>  					struct damon_region *r,
+>  					struct damon_ctx *ctx)
+>  {
+> -	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
+> +	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
+> +						      r->ar.end));
 
-nit: drop the comment, it took me longer to read it than looking at
-the code would
+If we need to have the fix in DAMON, this kind of change would be needed.
 
+However, what happens if the address is backed by large folios?
 
-> +       if (attr->max_entries >=3D U32_MAX / attr->value_size)
-> +               return -E2BIG;
-> +
->         return 0;
+Before the commit 6f0e1142173a, also, it was aligning to CONT_PTE_SIZE.  Should
+we do same?
+
+Also, I think we should pass aligned address to only the functions that
+require alignement.  Making the alignment to the sampling address in general
+sounds too much to me.  Particularly, we are working on supporting new page
+access check primitives other than PTE Accessed bit, like AMd IBS.  In the
+case, we might support <PAGE_SIZE granularity monitoring.  Aligning sampling
+address in general will make it more complicated.
+
+>  
+>  	damon_va_mkold(mm, r->sampling_addr);
 >  }
->
-> --
-> 2.43.0
->
+> -- 
+> 2.50.1
+
+
+Thanks,
+SJ
