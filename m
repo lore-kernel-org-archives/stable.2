@@ -1,135 +1,140 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F90390613
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 23:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A331397;
+	Fri, 28 Aug 2026 23:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787959755; cv=none; b=RVI2NgXSoXeQ/mqA3FSrVssXZT3InPYR00xWpcX9W5dKS+euQNyQxCMTUUKFZjTeRbZfvctA6rmHnWVqlR/63awuh2JWnUwDJPXng5tmV/yCW/nnomyLurnZ2A7z1nOG+wGcZjVTpJWcUk9c5LcsGA4PgFmxtlgyH+E1oc70hx8=
+	t=1787960374; cv=none; b=PXfsXqd+DjowkDPiriTAqfpjdrp21e5tY48ZyoN2iTPlT9yMsISdarrncgj2b5rzkJh7rkSheccTfgRao4O0MVwFSmP98+fiUAzWQBm1ep2c8bhpyrLhm4lHyAqlwum9i4Y57SB0w1x93y0sbnzDciHBNBtrrS9wFVHlpCP5Pcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787959755; c=relaxed/simple;
-	bh=CpMaQebAzYeI70xeEljb9o15ZAoc1ekDK+GkpHHfD+g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I5ZDabIZab9A/IJP5z7jdeQ58BYlul9eo2lE81fA7z9l00YF4DavgjcOIScfxnIbHcfq3xC1n5r4qBUFW6S7nFg2mKSmjRZMEmsobKnjJ2k1yD8ycl3/PcB5rZCztkd6LM8VCDnX6+YHGBrfVkn7JTmicd/fCG3Z2qpsOrXCgBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Ry3jVK/+; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1787960374; c=relaxed/simple;
+	bh=jW7wHBgg0ykThPgRjT9Dn01f3Yonr88GIOEzNzbJqDA=;
+	h=Date:To:From:Subject:Message-Id; b=ALhYSq8VJN36SkD05l773bMrL2YXw5GtAYJlL1hN1X9ZTHvZpS/szyJ4QsU6qAn3h0eGNwdtlG693gfDNDN4MNEUIReIWN5WUurAtSC9ka7Eu7JnxQ/3CUPQY0ymRIe/bx4jIbnP4g/Orbl/XFGBag0v6n6QIJjpi4AX6ceNPqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KC3mwurV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Ry3jVK/+"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cc891373e0so13057295ad.2
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 16:29:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KC3mwurV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F6021F000E9;
+	Fri, 28 Aug 2026 23:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1787959753; x=1788564553; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yr2zBj7nYXXRW9RKYDy2oJYD0P54gbEL/sVS3zkkhtg=;
-        b=Ry3jVK/+XGQ/JmErroCRrGFzQDhAgMeDdHj4uMbMieHiJonOHr2gH67w5/wOSBYZzW
-         PL2Tso7BMwbh01tY2HHzJSiKDeqb0ydkOkTmXzrY/4Enk+TK/26vu8fy0o/j1PkiMwVa
-         VJ66cD1UoQlWmRlDZe2lyubgfuVaearLadal2vF6FwWtZNlGzOjvw5PqqCXQV/vHCZoT
-         FiLroWdTSDc5BKoKS7493feu+pQpnDUAYFrOqoLMQRcyvGXmcfG4CsJT+16j9RuRNPSR
-         Y6d/7fVtkJBTN6A+oGBVBFbiP/tvz13rM8b6JtBHahx9PqLeWMFqOwsFHGoD7TU3eEQ8
-         G2jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787959753; x=1788564553;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yr2zBj7nYXXRW9RKYDy2oJYD0P54gbEL/sVS3zkkhtg=;
-        b=LYQQoRC3eEij/QCbmgGzLO3ZlXz8CbKwSjvNIB59/5WvoikKdwluiITANBDMSqa23e
-         1CpdrLAIuuChACd0gabrPddPXLvlgrYifi4IMWQtt8taIgxssYvmPYlrK4QMK2Iwjm0v
-         t9ESZmOP/Ews/oE4djvOdC4JAsFmNcgBFCQubcElULBgjLtZz//2fEXgYNwbL4xzOE4n
-         AK1mzdrxhaz4xGJ79OBjIsv7Au+LjMchUwLR19ka40wXJ6b7v86Iv1znI/5hvP2wI58p
-         DBqRXnYkKNyUTDw82y+iZT24zBGpNi9evncZaAXGA3SxeLpt0t7CyGuqaJW+miYCIGWm
-         Ltag==
-X-Gm-Message-State: AFuF++knWAA4W9TwGsOx4cgjTL7ZKlzAIZQv2ot+9p7+pHsBBAlmceY9
-	5DP2vlCZC8t4RqAVKerqB3qw8QN2aMnIiYwATgRqyk0CKK/r+xF5DVF9k+o+YYEkyoHYpQBZq92
-	QIEH4
-X-Gm-Gg: AYBFou0gfPzbplhvgXr0YZeSe0orKYE9b9xiGKgsHDvYiutBh4s0rnPl4pgizPpdHn2
-	mxxEo2r9DHt5dV7v/L7F2PXQ90EgN7xbDn1VFhhPPK9E62c8hq7DpyfaCjw9bQZqc9pWsjAW+cT
-	y4nRQERZ/rvNdM1aGkn5pltvZsRbWkjflmPLs9swne4JjtbMSIFUTvThtHtexePv7mEZShAZ+7E
-	H79uwtI1L8TxemwUIpeKu+YgxFbw8uIAiwTEd66+adsrBMVFkRH95LOxvoQ3LOAbZ8xY+/kfZ3C
-	/9tTywWevDp/ZpHTFeQ+QYEENGTe7QrBkIkM1cZqKYPyxWhKGD86wqoOj1s+56Klq7Eupa5Dqfu
-	l7WKlBNxrp5uZe5Q8BP5niitUxMppf1YHiKqAQcvTEoy9X+GEfZ4vqeVmyfceZsQ7aoOl7ZBzxX
-	FKb73CzywmjKiQfuyTaHDB6uxquQQJURpdmaVKD3LWolQ0zwKBucyADzz7kkoaDh1DGS6qyxxl2
-	G5CDIKPFqKl1peiwTWK4hqvgjcz/imxEmqH49G+TqI0w1wmP6/2PfW9Hg8SZw==
-X-Received: by 2002:a17:903:1a27:b0:2d8:d4d3:3fbb with SMTP id d9443c01a7336-2d8d4d34074mr49394955ad.15.1787959753207;
-        Fri, 28 Aug 2026 16:29:13 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:4969:94c8:87bc:d69d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f784845sm10453543eec.2.2026.08.28.16.29.12
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 28 Aug 2026 16:29:12 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Please consider these upstream CVE fixes for 6.1.y
-Date: Fri, 28 Aug 2026 19:29:04 -0400
-Message-ID: <20260828232904.91398-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	d=linux-foundation.org; s=korg; t=1787960373;
+	bh=68NDZ1+i31lU9wiQD7AAoJk1WCdt3GDf3tL9njpHcF4=;
+	h=Date:To:From:Subject;
+	b=KC3mwurV8M0XTG63uhJ45N42dZOL23BzeKTt36RYtnN1u8S2mExoEByq2QLmyzxze
+	 AP6JSYWuEgfOPiMLXSd9decl7M1YGtETdTxQ7r5nxMcc3qgw659Yq6j8w9roTPGKra
+	 /kwppDiq4ZX8wM2f+h6Mho2QcmZ5C4IdP8UJJ76g=
+Date: Fri, 28 Aug 2026 16:39:32 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,phillip@squashfs.org.uk,kmehltretter@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch added to mm-nonmm-unstable branch
+Message-Id: <20260828233933.1F6021F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Greg and Sasha,
 
-The fixes below are in mainline but still missing from 6.1.y. The Linux CNA
-records list v6.1.185 as affected by each CVE.
+The patch titled
+     Subject: squashfs: fix fragment index table sizing overflow on 32-bit
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch
 
-I cherry-picked this exact set, without changes, onto v6.1.185. The x86_64
-allmodconfig kernel and modules built with CONFIG_WERROR=y. It emitted four
-pre-existing objtool warnings in Xen and interrupt-mitigation code. None of
-these commits touches those paths. I also got warning-free targeted builds
-for arm64 KVM and Exynos4 media, PowerPC ibmvnic, and the RISC-V
-compatibility-register path using their related config options. I did not
-runtime-test these fixes.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch
 
-Could you please queue these commits for 6.1.y?
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-  ce282d8de71f07f0056ea319541141152c65f552 (CVE-2023-54141)
-    wifi: ath11k: Add missing hw_ops->get_ring_selector() for IPQ5018
-  ea293f823a8805735d9e00124df81a8f448ed1ae (CVE-2023-54263)
-    drm/nouveau/kms/nv50-: init hpd_irq_lock for PIOR DP
-  c13fda93aca118b8e5cd202e339046728ee7dddb (CVE-2024-46754)
-    bpf: Remove tst_run from lwt_seg6local_prog_ops.
-  b5799dd77054c1ec49b0088b006c9908e256843b (CVE-2024-58094)
-    jfs: add check read-only before truncation in jfs_truncate_nolock()
-  0176e69743ecc02961f2ae1ea42439cd2bf9ed58 (CVE-2024-58095)
-    jfs: add check read-only before txBeginAnon() call
-  d93a6caab5d7d9b5ce034d75b1e1e993338e3852 (CVE-2025-22104)
-    ibmvnic: Use kernel helpers for hex dumps
-  a4685408ff6c3e2af366ad9a7274f45ff3f394ee (CVE-2025-38203)
-    jfs: Fix null-ptr-deref in jfs_ioc_trim
-  1f3d9724e16d62c7d42c67d6613b8512f2887c22 (CVE-2025-38206)
-    exfat: fix double free in delayed_free
-  bd9f6ce7d512fa21249415c16af801a4ed5d97b6 (CVE-2025-38237)
-    media: platform: exynos4-is: Add hardware sync wait to fimc_is_hw_change_mode()
-  97766512a9951b9fd6fc97f1b93211642bb0b220 (CVE-2025-39833)
-    mISDN: hfcpci: Fix warning when deleting uninitialized timer
-  7fcbe5b2c6a4b5407bf2241fdb71e0a390f6ab9a (CVE-2025-39925)
-    can: j1939: implement NETDEV_UNREGISTER notification handler
-  3d3466878afd8d43ec0ca2facfbc7f03e40d0f79 (CVE-2025-40064)
-    smc: Fix use-after-free in __pnet_find_base_ndev().
-  0aa1b76fe1429629215a7c79820e4b96233ac4a3 (CVE-2025-40102)
-    KVM: arm64: Prevent access to vCPU events before init
-  935d783e5de9b64587f3adb25641dd8385e64ddb (CVE-2025-40139)
-    smc: Use __sk_dst_get() and dst_dev_rcu() in in smc_clc_prfx_set().
-  235f81045c008169cc4e1955b4a64e118eebe61b (CVE-2025-40168)
-    smc: Use __sk_dst_get() and dst_dev_rcu() in smc_clc_prfx_match().
-  dbd3fd05cddfdeec1e49b0a66269881c09eebd17 (CVE-2026-45963)
-    ASoC: nau8821: Cancel delayed work on component remove
-  a0c584fc18056709c8e047a82a6045d6c209f4ce (CVE-2026-53089)
-    bpf: Fix use-after-free in offloaded map/prog info fill
-  6ebcbb53fc9bc30843054ed99fd60b8e542628f4 (CVE-2026-64082)
-    riscv: Fix register corruption from uninitialized cregs on error
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-I used Codex to compare the histories and run the builds. I checked the
-final list against vulns.git and the branch history.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Assisted-by: Codex:GPT-5.6
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-Thanks,
-Artem Dinaburg
-Trail of Bits
+------------------------------------------------------
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Subject: squashfs: fix fragment index table sizing overflow on 32-bit
+Date: Sat, 22 Aug 2026 16:33:27 +0200
+
+Patch series "squashfs: harden fragment index table sizing".
+
+Two integer overflows undermine fragment index table handling.  One is in
+the original fragment sizing macros.  The other is in a bounds check added
+by commit 1cac63cc9b2f ("Squashfs: add sanity checks to fragment reading
+at mount time").
+
+Patch 1: the fragment byte count wraps on 32-bit, so the index table is
+allocated too small and squashfs_frag_lookup() reads out of bounds.  A
+crafted image triggers a KASAN out-of-bounds read on a 32-bit build.  With
+the fix the same image fails cleanly at mount.
+
+Patch 2: the check that the table fits before the next one adds two u64
+values controlled by the filesystem image and can wrap.
+
+
+This patch (of 2):
+
+SQUASHFS_FRAGMENT_BYTES() multiplies the on-disk fragment count (an
+unsigned int) by sizeof(struct squashfs_fragment_entry), a size_t.  On a
+32-bit kernel that product is 32-bit and can wrap.
+
+squashfs_read_fragment_index_table() sizes the fragment index table from
+it, but squashfs_frag_lookup() bounds the fragment number against
+msblk->fragments, the unwrapped superblock value.  The two disagree: an
+image declaring 0x10000001 fragments wraps the product to 16, so a single
+index entry is allocated, yet the lookup still accepts fragment
+0x0fffffff:
+
+	if (fragment >= msblk->fragments)
+		return -EIO;
+	block = SQUASHFS_FRAGMENT_INDEX(fragment);
+	...
+	start_block = le64_to_cpu(msblk->fragment_index[block]);
+
+block is then 524287 and the read lands ~4MB past an 8-byte allocation. 
+On a 32-bit build KASAN catches it when the crafted image is mounted and
+the file is stat'd.
+
+Cast to u64 in the macro so the multiplication is 64-bit on all targets. 
+After conversion to index-table entries, SQUASHFS_FRAGMENT_INDEX_BYTES()
+is at most 64 MiB for any u32 count, so it fits both the unsigned int
+local and the int argument it feeds.  64-bit builds are unchanged.
+
+Link: https://lore.kernel.org/20260822143328.68867-1-kmehltretter@gmail.com
+Link: https://lore.kernel.org/20260822143328.68867-2-kmehltretter@gmail.com
+Fixes: ffae2cd73a9e ("Squashfs: header files")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: Phillip Lougher <phillip@squashfs.org.uk>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ fs/squashfs/squashfs_fs.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/fs/squashfs/squashfs_fs.h~squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit
++++ a/fs/squashfs/squashfs_fs.h
+@@ -136,7 +136,7 @@ static inline int squashfs_block_size(__
+ 
+ /* fragment and fragment table defines */
+ #define SQUASHFS_FRAGMENT_BYTES(A)	\
+-				((A) * sizeof(struct squashfs_fragment_entry))
++			((u64)(A) * sizeof(struct squashfs_fragment_entry))
+ 
+ #define SQUASHFS_FRAGMENT_INDEX(A)	(SQUASHFS_FRAGMENT_BYTES(A) / \
+ 					SQUASHFS_METADATA_SIZE)
+_
+
+Patches currently in -mm which might be from kmehltretter@gmail.com are
+
+klist-avoid-accesses-after-waking-klist_remove.patch
+squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch
+squashfs-make-the-fragment-index-table-bounds-check-overflow-safe.patch
+
