@@ -1,82 +1,104 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7A73905F0;
-	Fri, 28 Aug 2026 09:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18EA3B2D18;
+	Fri, 28 Aug 2026 09:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787909591; cv=none; b=fe21VfLeVC3KGvVPz3LiHdp1yLUb9MxEZkxdgosR+iXpf4oDMRqaYEUUXV5MGF62pvR67OY7l4wNY5grV1K4bg+QACdxdN0cBFZbkE8bWEUZizwnum4AK9EyE6vcKlYFyMerigeMWASNrrOQH/f4Ibgo3GUtTJeGJRkdkUhwTbc=
+	t=1787909810; cv=none; b=PBxqMxlAwBE6UgU9aTOjrDe2aOsK4jQycpF2YiSWqafTosdmAKIFmFeQwVYYupgLL76Pv6hL4hEEGCEnv6BC2kDwDUf1vPjyMZwtxKIjsmK0WGyY2qmYop2qq/FUsoWjvnBHdcsQWlt57/PyZf33EbGDqh8GRs1TV3ZTaELGDBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787909591; c=relaxed/simple;
-	bh=gFGESkEnaYY6xmTzY8wle3SNahbizO9UAow6Oloksrg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cilhajQ2+8IfUUwUrq8cGNx9rgzQXBztrjOjgKGDQWICTrpRo9sqF3yLyYNrGVldvSbVKmiZCue/tAz1EmcSPtZqnVUaTBZ2nAFh7q8RA8bWoPozCIIfxTzIbQLvRvtRUwNkZAQ7lh8WF8FpMYa2WvjMxgIBDhn7EZRyOE6MB4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=SVnjDUpz; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1787909810; c=relaxed/simple;
+	bh=CV5337KllrqzoibVYKGVHEwImKxG5nbm4g/avDe9flY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O2u3v8TpTgcUzUD0HLZGNpFKYt+urtlMdO8XC1vgrvZTtL56zo1iBpV7lC8AXmeork9sOGsZz5sXx2bdHx59+duF/+Jte3WUm/QGk60vqIOlpWd20XbJ8BZGLGGwGcJ3v7MJQ8M29S/sw1FfUfrxknIgvmSmCOo70fXALRVjp80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G6Up8Fd/; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="SVnjDUpz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6UJWbhtuWI0OcYV8DoACzNDsaVGPnMK9sBA1/f6ey/M=; b=SVnjDUpzFczRCwN6Z0P0ywFRqy
-	2SdxrvFcxickFaj8pE3LuY/7HJWy0cTvF9IXAyD8LHSlQLm1jfU7oi2GzHgIQaOqCgTuuoSfZKcjz
-	RFPEAtu3UmGwAS8ieseE44ecCZEKaZUemsj24ea6e8gai+zkr+o1Ut21ZoZD+4FL1ykiLPXTwe2OD
-	iLzcihXaoXe5PNnmL1PK5od9W8jyWPHZddppGJU8swLPv1JLhLvfCHXRq4iXpeaMUCC12eL6UyeDL
-	Yr16JrhDvzRNBySXXodm+UOn7k3XB0GgD0JlzgPJGy25SDh1T+cA1xBlAAn2DJpKEgKUzayCxZOFc
-	T9t5IbRA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wzsxD-00Gg0A-2O;
-	Fri, 28 Aug 2026 09:32:55 +0000
-Date: Fri, 28 Aug 2026 02:32:50 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Denis Arefev <arefev@swemel.ru>
-Cc: stable@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Wensong Zhang <wensong@linux-vs.org>, 
-	Simon Horman <horms@verge.net.au>, Julian Anastasov <ja@ssi.bg>, 
-	Pablo Neira Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.org>, 
-	Florian Westphal <fw@strlen.de>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Dwip Banerjee <dwip@linux.vnet.ibm.com>, netdev@vger.kernel.org, 
-	lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5.10/6.1] ipvs: reload ip header after head reallocation
-Message-ID: <apFViEhRXxJOb3SC@gmail.com>
-References: <20260828085522.31015-1-arefev@swemel.ru>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G6Up8Fd/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=LW
+	o5zQbL1k2n17EXASJEhxs5Bp+/4dt02LXAxbY6d6I=; b=G6Up8Fd/pwGPHmcmAl
+	Px82zVC3pV6/8342SMlatKnZmUZTZA7kRUjQZtWGzJF9H10CItp8iEzCKPnOGxe7
+	OmHU12jZ661RybDqdlBUzeomc6rSPUuC1nBgVKVM047Je9w2krHvLyEwNI20efL5
+	LVbOUgz6DhedC4ZeB0bHE2roo=
+Received: from zengchi (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXJzaGVpFqVvfGEA--.15969S2;
+	Fri, 28 Aug 2026 17:36:06 +0800 (CST)
+From: Zeng Chi <zeng_chi911@163.com>
+To: zhaotianrui@loongson.cn,
+	maobibo@loongson.cn,
+	chenhuacai@kernel.org
+Cc: yury.norov@gmail.com,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zengchi@kylinos.cn,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] LoongArch: KVM: Validate MSI data before routing it to EIOINTC
+Date: Fri, 28 Aug 2026 17:36:04 +0800
+Message-Id: <20260828093604.56622-1-zeng_chi911@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828085522.31015-1-arefev@swemel.ru>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXJzaGVpFqVvfGEA--.15969S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF15XFWfJr4kXF4UAry8uFg_yoW8CrW7pF
+	W5uws8tF4rGw17ZFWvg34kW3y5ua1fXFsxWF1a9a43CFn0yF15CryrZFsrX3WYk3yrKrW0
+	gFnIgw1Yva4DJa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUVysUUUUU=
+X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwAe1cWqRVoc-hAAA3S
 
-On Fri, Aug 28, 2026 at 11:55:21AM +0300, Denis Arefev wrote:
-> From: Florian Westphal <fw@strlen.de>
-> 
-> commit a2f57827bf7c695b8c72dc4511cae8e86582369d upstream.
-> 
-> __ip_vs_get_out_rt() calls skb_ensure_writable() which may
-> reallocate skb->head.
-> 
-> Fixes: 8d8e20e2d7bb ("ipvs: Decrement ttl")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-sonnet-4-6
-> Acked-by: Julian Anastasov <ja@ssi.bg>
-> Signed-off-by: Florian Westphal <fw@strlen.de>
-> [Denis Arefev: adapted for 5.10/6.1: keep EnterFunction/LeaveFunction
-> instrumentation]
+From: Zeng Chi <zengchi@kylinos.cn>
 
-yea, the backport seems fine and match commit a2f57827bf7c69 ("ipvs:
-reload ip header after head reallocation")
+pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
+the irq number.  The MSI data comes from userspace, either via a
+KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
+and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
+against EIOINTC_IRQS.
 
-> Signed-off-by: Denis Arefev <arefev@swemel.ru>
+eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
+256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
+the per-cpu coreisr/sw_coreisr bitmaps with it.  A data value >= 256
+therefore reads and writes memory past the end of those arrays, i.e.
+any process holding a VM fd can corrupt kernel memory beyond the
+loongarch_eiointc allocation.
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Reject MSI data that doesn't fit in the EIOINTC irq space.  The DMSINTC
+path is unaffected as it decodes the vector from the address and masks
+it.
+
+Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kernel.org/
+Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
+---
+ arch/loongarch/kvm/intc/pch_pic.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+index e7b77705c516..81fb534ce8dd 100644
+--- a/arch/loongarch/kvm/intc/pch_pic.c
++++ b/arch/loongarch/kvm/intc/pch_pic.c
+@@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int
+ 		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
+ 	}
+ 
++	if (e->msi.data >= EIOINTC_IRQS)
++		return -EINVAL;
++
+ 	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
+ 
+ 	return 0;
+-- 
+2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
