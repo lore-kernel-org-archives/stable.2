@@ -1,77 +1,86 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F85380FC4
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECBC449B24
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787919913; cv=none; b=Z/efkMYSt0ASqh0cB/vX2+ZREfIjiZ9lwF9T8mFqTFns63PxyGwfmZ/ctGWG5QdyX9I2jEPUGSMTrRA/71bMvltuaIHfKrgHGFKkJ+Asf22s2Sxm9VQ55EZSxgY2FxWzHDigkkknyXhncLKjZyv1Xe7RaP+8gG/is8Bt2+chDws=
+	t=1787920403; cv=none; b=PqeOcf2+rOlu+pwzGQ04ByWHX9BqCFtyjpBqSHaadIhlllBjjYL9uE+xuMh/sgiaUo0lTVxd+6MndwfwxQtNJDPrgwn4K4V4S6NKzTLTRY0cKZhsY2Yu0CIFo1A9TJN3nggInQRFxkbmGzytyJoJ70aeCnU0emyVarRWQbRmD7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787919913; c=relaxed/simple;
-	bh=pWoBE0Ap013VoeV2vp85NB4S53A3uBMfxaaPmtJIfxQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cI+KflKJbYZTA/ucGzZEO5WfTpkfB1e7jJP6yJ4wEr+ziMzFDE0YSdvri2zRewLEDV/a9jSADoV2GOXBxh0xeNkbT/BjZJiCmPq0ozlKvS6Vvp251hb5uBPoFj8WR8BH1MqlF80u0IJH2Nl0BX9+gmmhhtdhtrG+O70WfgxdLLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FNSVbBat; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1787920403; c=relaxed/simple;
+	bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NDDjKBnHjdsAl6oUx8vD5LSsfSud4BmAyAa97OqxLDLW2+T1g+CS4z+uov+3kfHc42+KgoIaBon/Bn8Rx2iuQ00jGA88wft5BBnQhMMhIRJI3VJAYHyqB1PZrNfiAY+O0BHyyAPrpIZA3d7TohuTEGP03Xj2TCMP1CBwBn6p1ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BfVCfqsl; arc=none smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FNSVbBat"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cc891373e0so7224335ad.2
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:25:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BfVCfqsl"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81f64e8dfbcso15869587b3.2
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:33:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787919900; x=1788524700; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ghL++ZvF6V2+SKQri2NFYRwIeM8mcziADY1V3awfvk0=;
-        b=FNSVbBatkQeZNEeKJGramg+chWGwQfHIyvV95kioQRtt79F83HLA/07KFs4Be2nHQs
-         1YCkqjLplZDNUhN8XK+CLsPGSoJ2uK3R9C7OLfCd9TWc1LORtR2RWw44FqgJvfixTfbk
-         5gIy1Lpn1FiJnGCbeoePoKceET/pkkTrl9Nz/Olt9nO09IFJ8IPnQ/vRh3VpEKGp5IFJ
-         Ptatx2FssVk44TfCab2xlauTFIZz/9Nn7T48vEl9Qrebzs0ytzb7j/G3f2kZhY/ATsq3
-         ajpDgq+VcJkqExKYbdgx+PbNmlV/iDs5WVNst6usgnHG2kY+oHjkBGQ5Wspkl2urh1me
-         agEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787919900; x=1788524700;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787920394; x=1788525194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ghL++ZvF6V2+SKQri2NFYRwIeM8mcziADY1V3awfvk0=;
-        b=EOFq3A7uf3+Hgdp3VcHdHxBh7ZVMy8czMcVJ5WYLItFqmtpc/FCAY5pHX+EqzqB4Q5
-         TRKL1BOpfaKbcb2w5UnSj+PPjlRR7wGpHqCek/7of4/G3dvtEn3+kcvsz1bvIelbHder
-         umfnlrmvO1kO8IhpoH9K/R9WJg/0uwOglbD+bnnp2lk5c4tM/X+Aa6FReDU0Ur0kZcaJ
-         EL+MQ8gtS/V4recXFVgK49F5dOt6h2ltwWfU/EknKyxfOCo4880A9aEmBimFbJtlcKVJ
-         GARRjLwr9MFJuQIcAF6H9xDnXifCPfyCZUbjFqp/Tt7O+BVXdSzBjUUxfoTJpChcIkV/
-         p7ew==
-X-Forwarded-Encrypted: i=1; AHgh+RoGYbJ1w/v47rFeoG6AiSJjodWFWzAlGOzugyNeM626WiZIhw3eX93uF8hFVBhgfhkSeTCafiQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++moP+h4kClYHFmfHLFzP0bTgsi38HnZG1/y9vposCJLzzq8VfGT
-	ngq7UgYkOmrjV7e8hNP9nmOF19X7fxKUkzUMwhWmDRyrwUzLvYnOaqgn
-X-Gm-Gg: AR+sD133svRxcu6KLDvgrPuoRgCpLJ0DRGjyVT1KKtTPtSeq+xqkwsAW63MEGHY0Amn
-	UIiD0NmeyEPcMdCD5AaLB4K8akaXh+QQg/dSyQ8XMCHnWa3LQwsdOzInA7mX7daf8NH0u9XnNqn
-	JoZgWZFpFA/F6AeHoV7MSdvOZf4vqLHugCnAeVKVcU4vV0/OGwJB4a28+nMNNqOeamVrYMa7rdW
-	cqkLoLoS++QQM3WvJTu14CzUARqNEe7nqS+18tFrGsoOfDQYaNRJao7WFIjsIitxrakQVnXJID7
-	XU4T0t2OGnTcpCX7JODmrWpVc6p6hgLBRxSZR8qfofIa876r1QIBojMg1XGHD7rmdV0HtisYOhV
-	jrZ9U5Ty9N8DmTSgTZRYXsQheBPHNV42mF+P8zebgsqL3VixZhPrlak8wGtOmiViCTLCV6S+f3B
-	qMBH0QtdO1aeu5zxjvH8o9Z5csuQWlaGpnKMNCgXjexZd+sUBPAGAF4JJj1UlECIgv2fT4NjygR
-	cInCOMmGY7teRuamAeaqTiW
-X-Received: by 2002:a17:903:22d0:b0:2d6:ccc5:a3dd with SMTP id d9443c01a7336-2d74dc2ff23mr111979445ad.4.1787919900181;
-        Fri, 28 Aug 2026 05:25:00 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fb48dsm4969115ad.14.2026.08.28.05.24.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 05:24:59 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
+        bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
+        b=BfVCfqslo3GL69I4crMY3JvAWuL1m8zKifTWvhLHX9ZJ0lvcRnd5tgmPS8Iawn1TAC
+         AyJoMvWzkWa9omMRR+MBal0KqwgbkTGs8QVDnqjjQwwlwgQgw0KFdKTrzDTFz7eKDCwm
+         9/mRXG0nRs59A5rIQjS+D4dCD9dXwbo2m5v9UhjHUCaZLZOIWbmr4fqc9Ol5E4/CrktN
+         TPb1hnJ0EoD494j4suTvjbCFRcAEPUAflFQ1YHVSVNUVoVt428h9r2eiLhrEREumUo6c
+         RCvdaGqCOaULFd5+EgTVuP2WqtyY2Xi9Pba3susZ034rQMDHhvlvldqKoBAUtBlkUGEP
+         HZMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787920394; x=1788525194;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
+        b=h9hRa2t37oNF09PLi1YR0gKEDS5Sj7eBFPVTm8BKKBXM7Zk3OnvqhXTIhqLRg2udi5
+         p8jdIk9qUdmtmUrz6pgJsxBVfstg321jhIodMVGYXuwuYlaK/Wu57N+vohh7Nbuv4WnE
+         /3hs+xA7tQNqGG5tk3t87LJAEODQgNoC25FX05T038jfV2/Fwj3daPtzKM6wwMmjh7GY
+         SLBnuI8KUZWWC0CVVajTtacoFqg+tBQfIebyT+X42Pn/sSHvNxafkYFCIHSW+5bWjD1m
+         2x7hwIVbUCMhlBfZlMWNjfq4U4NgMOTZwGgR6cB5dUuDKNzkYzOfpZP0AzAstGAATQ3D
+         T40w==
+X-Forwarded-Encrypted: i=1; AKwUvBxQhqH/0/xfrz4NTfKaB1b/3/WHSKcyEyhhmbB/QqLHEGzWOiMgpjSuf8SfQTlQwrkAlvaFsio=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7UpWGB7OtefaVMj6s9sMlQQARlIm7dnq+Q2IgzO93d74Skb4y
+	8PIluIAmhsfrbA706OPNvQ8zrdFyzeJ9wq3ix8BATUwfmiXO+UziQrIB
+X-Gm-Gg: AYBFou2iwhH0RRmPD8zWTu1DS2Hyuuhc4UcS6x1nJFCbhBakE0bkZD1mn+OTv1+VPsM
+	d5i6JBNAiA9YSf/dYQSd7XnpaQ4TwbD+k/cvyTAv0VcNfb86LSRxXhdcWx9XLF2uUPgxZ2Z+so2
+	Td4zZr+4PJ+3DFjqgRt7F9hv+zxr0bWdLqXQw5XhCpb9qvG67TLmZo+TM7I6Qr2msvUg/DbO9Fl
+	kYLkvZOIDFVvejfSWESGtPjUce1+BkB+OtBKSB1pkXvO2Ld3Dkb6GREmIu1tMQf/Da4DX8MTtEd
+	OapQfruMQzMVj/YJxhWjqYjb2A3sFHu2RlLgHbItr3KmVw7yrWq1Si41rhH4GVJjTqMkXPwChVq
+	ggGqKP3aaafERsGY/Pv7j5MxwT/khPTiAe3tDzdiZlAvkBSgmcvtmF5G2TiIA12ljFsqi9BN+rQ
+	adKTFgAd+zAOeBtrELANeNatdUJKhIHWUzIPThzi1MzloH8/czwvdioJ/8EOIFQmX0T3s=
+X-Received: by 2002:a05:690c:6ac6:b0:854:4fdc:cab9 with SMTP id 00721157ae682-85d65ee9995mr32089877b3.6.1787920394110;
+        Fri, 28 Aug 2026 05:33:14 -0700 (PDT)
+Received: from mac.lan ([136.55.173.105])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5f4f3b6csm5435987b3.20.2026.08.28.05.33.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 28 Aug 2026 05:33:13 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: AutonomousCodeSecurity@microsoft.com,
+	Dai.Ngo@oracle.com,
+	bfields@fieldses.org,
+	blbllhy@gmail.com,
+	cel@kernel.org,
+	jlayton@kernel.org,
+	kys@microsoft.com,
 	linux-kernel@vger.kernel.org,
-	stable@kernel.org,
-	daehojeong@google.com,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] f2fs: sync pending discards before reserving device alias
-Date: Fri, 28 Aug 2026 20:24:51 +0800
-Message-ID: <20260828122451.1154128-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	linux-nfs@vger.kernel.org,
+	neil@brown.name,
+	okorniev@redhat.com,
+	stable@vger.kernel.org,
+	tgopinath@linux.microsoft.com,
+	tom@talpey.com,
+	xmei5@asu.edu
+Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
+Date: Fri, 28 Aug 2026 08:33:12 -0400
+Message-ID: <20260828123312.26927-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026082828-palpable-dingo-241b@gregkh>
+References: <2026082828-palpable-dingo-241b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,63 +89,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A released device-alias range can accumulate pending discard
-commands. The reserve path later makes the same range valid again
-through f2fs_reserve_device_alias().
+> Please use your microsoft.com email address, and not a random gmail.com
+> address.
 
-If pending discards in that range are not synchronized first, the
-discard thread can still submit them and hit __check_sit_bitmap().
+Sorry for making you raise this again. I will hold off on new patch
+submissions until my approved Microsoft email address is available,
+which should be soon.
 
-Handle the synchronization under sit_i->sentry_lock by moving the
-range wait into f2fs_reserve_device_alias().
-
-Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
-v2:
-- move the discard wait under sit_i->sentry_lock in
-  f2fs_reserve_device_alias()
-
-  kernel BUG at fs/f2fs/segment.c:1228!
-  Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
-  CPU: 1 UID: 0 PID: 79 Comm: f2fs_discard-25
-  RIP: 0010:__check_sit_bitmap+0x2e1/0x4e0
-  Call Trace:
-   __submit_discard_cmd+0x921/0x1140
-   __issue_discard_cmd+0x524/0x12f0
-   issue_discard_thread+0x686/0xe20
-
- fs/f2fs/segment.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 1e7e745be71..50d49ba3e11 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -1916,6 +1916,15 @@ static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
- 		__wait_one_discard_bio(sbi, dc);
- }
- 
-+static void f2fs_wait_discard_bios(struct f2fs_sb_info *sbi, block_t blkaddr,
-+				   unsigned int len)
-+{
-+	block_t end = blkaddr + len;
-+
-+	while (blkaddr < end)
-+		f2fs_wait_discard_bio(sbi, blkaddr++);
-+}
-+
- void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi)
- {
- 	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
-@@ -2684,6 +2693,7 @@ void f2fs_reserve_device_alias(struct f2fs_sb_info *sbi, block_t addr,
- 	seg_num = GET_SEGNO(sbi, addr_end) - segno + 1;
- 
- 	down_write(&sit_i->sentry_lock);
-+	f2fs_wait_discard_bios(sbi, addr, len);
- 
- 	if (seg_num == 1)
- 		cnt = len;
--- 
-2.43.0
+Thanks,
+Cen
