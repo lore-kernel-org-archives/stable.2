@@ -1,42 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330521990A7;
-	Fri, 28 Aug 2026 00:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CD11A38F9
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 01:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787878579; cv=none; b=i9P1r4dsik0M80M3gdVzEB3sRTdNGPFEcUNnrE1Isj3j7NEPrYB658dmScb0F8DKPAsmvugmJgKEVhZjdXdSPwblupGeXygHwMbKc6/5lQccTNSsXPw25eizJDTMrMwGNTPgtPx2voDwcBFjIkLMqrbQCoEymX6dY4fnZXmKWMI=
+	t=1787879568; cv=none; b=mLKZJ+Dl+ATPoV3OQ0n6+/YX3k9LKZqTjn4F3tr9h7z686g1d37iOMA6+bhLtK0I4jNvMCMf2E44t2fXSnt0xtxjCDSWzVZ7CnM7mep/Oq1DJzuijduJtlb222o6OBzAFaGLa01TCVclEoceXxMMzmjkReQKFp9ld0pJ8p02lZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787878579; c=relaxed/simple;
-	bh=yvPeGpWHCbKwTZF/cuBsW0J2qtW6g9A2DtckzYmO4S4=;
+	s=arc-20240116; t=1787879568; c=relaxed/simple;
+	bh=LxnVsBbSKAllbT7hbPBLZruqjqy7W5pVTer8CwkRN78=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lLoTXSOVvmjTTG47IUcUkGvqJ4FYgyO8qlzecs+69HIeXiT40emEyNSuSiR22OufzrWxUNeQ73jIxPZL5xSyawilP/K/3/HkbaT7YVKrpw+53eeJQ8j4/y44TyN5/p4QdF0OTUb/LzcSVL5rRzIDxJluDBLZ3O0h1+UWsQIWPv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ma5x5bYK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ggjX5u0mf2AUsz16EClTcNwbnRYkOgMlX6Ea8pCEt+1XK+/HVvH4nrovXnrKdvInJHL5Qtd4oY48PPUkVucgV+hgPb8jb4zD0w7nWcnAGde7h2lfLdobswhruYNsz9riLqH13UgWc5//yFF3wzzk2LIzOVetenF9fG+jCqwmEno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sItprG4b; arc=none smtp.client-ip=91.218.175.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ma5x5bYK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ABC91F000E9;
-	Fri, 28 Aug 2026 00:56:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787878577;
-	bh=EKWVIMLjuqiZHTIRgJpFJCAMP4yhuBa8RStZMoMCJvY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ma5x5bYKNbUbVoQsSNtkqRSCDgvzI0KIplOOmZKIdS4JeBRkaR+qU1eLueQd12c9t
-	 +4A67GawOdELSWMcaD75YAIBGP8h+Brc2VKIpHVdAO4sZhxayEZHA+P+vIszzYaGw6
-	 MyhMqu1iDr/SPeFRTbXQj3zVjufmcBBq0vDGLpBo1ZRbftlOLGKiXVoOUPB9EvEKhH
-	 Z66aksnNI9GR9Y1OUJZxGqPXCVLS18uUersdt2RLVbT/Z4EXX5vm+XJea3rc5FsbB7
-	 xm90uszTUaq/lCXL/RZvGROiUvSTVwPNm59DVl0fZrK7C4m7wKcCjy+GM/WVRZUA3d
-	 O1Fj8MV9HA/tQ==
-Date: Fri, 28 Aug 2026 02:56:15 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, Wolfram Sang <wsa@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] i2c: qcom-cci: fix autosuspend cleanup
-Message-ID: <apDcMmn6GB46gXfU@zenone.zhora.eu>
-References: <20260812094425.3515179-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sItprG4b"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LxnVsBbSKAllbT7hbPBLZruqjqy7W5pVTer8CwkRN78=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787879563; v=1; x=1788484363;
+ b=sItprG4bghK7oANCupztWS27Veojya5KD7GlaVbQzBLnt+8bDhWtUfNQmMBEyoP6h5l4nP/X
+ khy8QNZjjxaznohc5wYH2ly1Wb21B8ZAFScEFNp4miqM1Z3fxU8cv+eEHaQ/oRHS5hCH2e3H77b
+ Fv67zO/4CJWvMl8hkX90uOPo=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f68c53f74fe6287d;
+	Fri, 28 Aug 2026 01:12:33 +0000
+X-Mizu-Trace-ID: f68c53f74fe6287d
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 28 Aug 2026 09:12:24 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Qihang <q.h.hack.winter@gmail.com>, jv@jvosburgh.net, jiri@resnulli.us,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, willemb@google.com,
+	netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] bonding: reject frames with insufficient
+ headroom in bond_header_create
+Message-ID: <apDgeCLGiHTd7fAC@fedora>
+References: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
+ <willemdebruijn.kernel.2ec10017f4836@gmail.com>
+ <CAH78GvvF-mBij7exwgkthJC2puz1-1Ti=WkNr2PwFcKr_v5U4Q@mail.gmail.com>
+ <willemdebruijn.kernel.361c9e585560e@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,35 +51,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260812094425.3515179-1-lgs201920130244@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.361c9e585560e@gmail.com>
 
-Guangshuo,
+On Thu, Aug 27, 2026 at 05:37:09PM -0400, Willem de Bruijn wrote:
+> Qihang wrote:
+> > Hi Willem,
+> > 
+> > I'll resend this as v2 with a cover letter.
+> > 
+> > On scope: I grepped every header_ops->create.  Five devices delegate to a
+> > lower device (bond, team, macvlan, ipvlan, 6lowpan), but only bond and
+> > team re-select that lower device under RCU -- the rest bind it at netdev
+> > creation.  So bond and team are the full scope.
+> > 
+> > Re Fixes: I used 950803f because it introduced bond_header_create (where
+> > this check lives); before it the type-confusion BUG masked this race.
+> > Happy to point at 1284cd3a2b74 instead if you prefer.
+> > 
+> > On the fix location, I'd rather get your read before writing more.  The
+> > options I see:
+> > 
+> >   1. per-wrapper headroom reject in bond/team only -- small, safe,
+> >      backport-friendly, but not generic (the next stacked device needs
+> >      its own).
+> > 
+> >   2. central check in dev_hard_header on dev->hard_header_len -- one
+> >      place, but I think it's unsafe for bond: bond_dev->hard_header_len
+> >      only follows the first slave (bond_setup_by_slave),
+> >      bond_change_active_slave flips curr_active_slave without touching
+> >      it, and same-type slaves can have different hard_header_len (two GRE
+> >      tunnels).  So it can under-reject.  Would need bond to maintain
+> >      hard_header_len differently first.
+> > 
+> >   3. resolve the effective {dev, ops, hard_header_len} as one RCU triple
+> >      via a generic callback, so the caller never cares which subordinate
+> >      the master picks.  Truly generic and race-free, but it's a new ndo --
+> >      net-next material, awkward for stable backport.
+> > 
+> >   4. make header_ops->create() take an explicit headroom contract and
+> >      fail cleanly instead of pushing blind -- cleanest long-term, but
+> >      touches every create() in the tree.  Too heavy for now.
+> > 
+> > My v1 is option 1 (per-wrapper).  Want one of these, a combination,
+> > or something else entirely?
+> 
+> Thanks for the analysis.
+> 
+> I agree that 3 nd 4 are too invasive for the scope of the bug.
+> 
+> It's a bit odd that bond and team just take the hard_header_len of the
+> first slave. And that bond_create_header just passes to
 
-On Wed, Aug 12, 2026 at 05:44:25PM +0800, Guangshuo Li wrote:
-> cci_probe() calls pm_runtime_use_autosuspend(), but the remove path
-> does not call the matching pm_runtime_dont_use_autosuspend() before
-> disabling runtime PM.
-> 
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without undoing the autosuspend setting during
-> teardown, this reference is not dropped and usage_count remains
-> unbalanced.
-> 
-> Use devm_pm_runtime_set_active_enabled() to manage the runtime PM
-> state. Its managed cleanup disables autosuspend and runtime PM and
-> restores the suspended state on probe failure and driver removal.
-> Remove the now redundant manual runtime PM cleanup.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Actually, bond will use the max hard_header_len of all slaves, see
 
-Although Krzysztof's comment is very valid, I can't ignore the
-reviews that have already been done. I pushed this patch to
-i2c/i2c-fixes.
+netdev_compute_master_upper_features()
 
-Thanks,
-Andi
+
+> curr_active_slave, while various bond modes like LAG will have
+> multiple concurrently active slaves.
+> 
+> That indicates that the intent is for all slaves to have the same
+> header length and header_ops->create callback.
+
+And here seem you want to all saves also sync the header length?
+
+I'm not sure if we should/could do this in the same function
+netdev_compute_master_upper_features().
+
+Thanks
+Hangbin
