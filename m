@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85DC3B38B0;
-	Fri, 28 Aug 2026 09:41:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B403B42D6;
+	Fri, 28 Aug 2026 09:42:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910118; cv=none; b=CqIj9VO0tnExY3IizoRxwhDumJRz6UskKN1P6jNEXm7UQ9a1RXPyccm27T7mHZ87sePe0JuL4BYuK4d0/4hmCCEilnw8I49lurULfrspVjh6VqmRt/Qoe3Fnq9EBJazH32/2J9aTJkdzRlrm3eSKqabSz6qDF6dZrrQ/9TSYJBQ=
+	t=1787910132; cv=none; b=vCAiVKueubVFFGCI06Tew0IiFcdVSVgK21zXNWUz6duaT41shtkMNvgEy+rmopXp+wGtIepMrBrx/vhM/8VRUQEousGsZRkHggRdvYETZkgZKLoNNBehmRQiP4AIrLFGS8LY+8egpBJuzygV6gpKyDXYTkphftJvL7LUB8XWQt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910118; c=relaxed/simple;
-	bh=3OEuy4BD1dsHy197xzLSBLtBnyzQJ4BNrMV6jDbgf8g=;
+	s=arc-20240116; t=1787910132; c=relaxed/simple;
+	bh=zcB7UvL7Jhfz5N9lBQILFqJPra6I9cL/Pv3afISp4xw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MrtASGPu0i2jeWxvt2XpgCjcyOXvJcqN82JQE09ZCvgz+DoYPUth3MOML01pJJz41YFilrvHLwjca4RDqFi48vj8x3RnNoSIYpX7Zj9Q7qkWMasd4FtFeZy7YUD+Osq6nvLiHQUyGBy+gxVSmfX2AUo6iZTp95vqDxowC5VwP1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQipGGLc; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=pwPrfK+c66vPL9EAW6cJbc9jFP5Ramk3r/1l4gkSfcFUmsyYKxJepa3tKRdeBxq4UYAQmCk1y6geQwPuXM1arlU4UYkGCD9d+ewSSGHFFF/IIONtH3agGk41HFE2TEKJYIUzdkb7D15zF64F4yXoGPrc11oTdupcd6/4qlNEkms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZbKiGhd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQipGGLc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19981F000E9;
-	Fri, 28 Aug 2026 09:41:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZbKiGhd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28CC1F000E9;
+	Fri, 28 Aug 2026 09:42:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787910117;
-	bh=LPr7Cgdghm1Kz2vcUzEZZn5UouwztW/+50mQHoKvomA=;
+	s=k20260515; t=1787910130;
+	bh=mio8eIoOsTCV6e9ECS4B/zS7+rgQx1V39ySBpk38acA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iQipGGLc7zqwEKjY4rWswUBu1HBNTwly6FGF0zyFghS2j+cgmvVf6hgdZIcboHM//
-	 EPtlXIV6dfyElr0U3yvBij0FoZtl5eluuNA283pXk/WKV9IxQccyKpMhFX3qlTFr3O
-	 uzVsbth6cw+h/Q4e/oF/Hf7NfJH0nNZkPKT1wPvwPhXpI828SzOmIns5LDvxtgLeuc
-	 ZLe4M/lvIGhc018PEbDw4V87Ti/Edzp3i/qJhvJm2UAGSRbkwqCA5rg/witGBk1ja+
-	 cmzTj/ZeFArBwDg1qSkbFQaq+S8oT/XYGCmKerfeZb6Q0n+P2oDlZBLl063F0lhA5F
-	 XvvifETVZg9Yw==
-Message-ID: <d5eac10c-48f1-4c09-b871-b946c6417399@kernel.org>
-Date: Fri, 28 Aug 2026 11:41:49 +0200
+	b=WZbKiGhdYtgEEMLJM1RqM87/2KzUYawbHMtg1+FD51JIg1mFQ1mKh/m4qHNw+sGAB
+	 yUawTKWA9HdhA685Xov55gEqtGOO/qGGqAJuEBaXLBIUj/rmCNoitpGAiO1ufTdAtE
+	 /fMtpOU8whH2lV0YWq5ZLxkrI2A7CUeXGKftxyPqiq+Tk8puQPKuTvTY5/oU2NfeQL
+	 zsqdoNSHB8IdxERsDi54/J4ZI0Pz+Pm+r2hRc+YUFg71sdt0JAnkOrNorzMHx7FVj/
+	 0eZq+A9BzmelkvY62P3JztYr46ILxamB21CEovvEq5zLfxwe2c7+5uA4Wy5lxTef3Q
+	 +dmmM2VjQgUIA==
+Message-ID: <782901a4-1c5a-4d9b-9baa-c8e6c31bf971@kernel.org>
+Date: Fri, 28 Aug 2026 11:42:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v3 1/2] tcp: fix use-after-free in
- do_tcp_getsockopt(TCP_CONGESTION)
+Subject: Re: [PATCH net v3 2/2] tcp: fix use-after-free in
+ do_tcp_getsockopt(TCP_CC_INFO)
 Content-Language: fr
 To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, edumazet@google.com,
  ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
@@ -47,7 +47,7 @@ Cc: kuniyu@google.com, horms@kernel.org, martineau@kernel.org,
  AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
  tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
 References: <cover.1787870710.git.blbllhy@gmail.com>
- <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+ <65fd3816ed5d541d9edd4bf4fcf97104a2cf907a.1787870710.git.blbllhy@gmail.com>
 From: Matthieu Baerts <matttbe@kernel.org>
 Autocrypt: addr=matttbe@kernel.org; keydata=
  xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
@@ -93,31 +93,28 @@ Autocrypt: addr=matttbe@kernel.org; keydata=
  JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
  lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
 Organization: NGI0 Core
-In-Reply-To: <d3f97f1acbf0010898148be6e6406e4b8b4a5c84.1787870710.git.blbllhy@gmail.com>
+In-Reply-To: <65fd3816ed5d541d9edd4bf4fcf97104a2cf907a.1787870710.git.blbllhy@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28/08/2026 01:55, Cen Zhang (Microsoft) wrote:
 > From: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
 > 
-> do_tcp_getsockopt() reads icsk->icsk_ca_ops->name without holding
-> rcu_read_lock(). Since commit 0baf26b0fcd7 ("bpf: tcp: Support
-> tcp_congestion_ops in bpf"), icsk_ca_ops can point to dynamically
-> allocated BPF struct_ops memory that may be freed concurrently via
-> setsockopt(TCP_CONGESTION), leading to a use-after-free.
+> do_tcp_getsockopt() reads icsk->icsk_ca_ops and dereferences the
+> get_info function pointer without rcu_read_lock(). With BPF struct_ops
+> congestion control, ca_ops can point to dynamically allocated memory
+> that is freed concurrently, resulting in a use-after-free when the
+> kernel dereferences or calls through the stale pointer.
 > 
->   BUG: KASAN: slab-use-after-free in _copy_to_user+0x37/0x60
->   Read of size 16 at addr ffff888013505260 by task exploit/149
->    _copy_to_user+0x37/0x60
->    do_tcp_getsockopt+0x158a/0x2460 (net/ipv4/tcp.c:4585)
+>   BUG: KASAN: slab-use-after-free in do_tcp_getsockopt+0x2037/0x23e0
+>   Read of size 8 at addr ffff888013701258 by task exploit/149
+>    do_tcp_getsockopt+0x2037/0x23e0 (net/ipv4/tcp.c:4564)
 >    tcp_getsockopt+0x91/0xf0
 >    __sys_getsockopt+0xf7/0x170
 > 
-> Fix this by holding rcu_read_lock() around the ca_ops->name access,
-> using READ_ONCE() to load icsk_ca_ops, and copying the name to a
-> stack buffer before releasing the lock. Also annotate the relevant
-> icsk_ca_ops stores with WRITE_ONCE() to fix the accompanying KCSAN
-> data-race issue.
+> Fix this by wrapping the ca_ops load and get_info call within
+> rcu_read_lock()/rcu_read_unlock(), and using READ_ONCE() to load
+> the icsk_ca_ops pointer.
 
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
