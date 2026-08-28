@@ -1,207 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500CE3911AB;
-	Fri, 28 Aug 2026 03:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D99AD21C173;
+	Fri, 28 Aug 2026 04:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787889325; cv=none; b=HmuEeIi1+jq0IS9qBYPTCuKiQFIHYd1v2e4kAi4MZ5X6ZcVNcwwlteN4VuT2DT0Ny1Lv69ZW02rpgkQOhCqfSINJhsp3Gh9avpFr59LZ+xgDKAOzHCKBo6xPbSse308GcRiEyQuyoBakGNO+VNQ1fF1VOLzGoOm5CI21iAg0EFI=
+	t=1787889915; cv=none; b=Ib8DfPudxCxCvPJSwDBGat/gpjCNbzeFFPX0dc1xit1Y3d4q1uo9N7ZkYJVDLJeBHy3ayMdQmvpbe2nAzDRNnne7evOednVX/U5TfDxD7FZg0GVoHhqjd71lDmEl4seYgaexAnbhu/lO0QWdf2K9eeSV5Js6c1NDrXGB2o3NawI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787889325; c=relaxed/simple;
-	bh=FCpEZDxc4jEepPZ3bdAy23c/UIgwajhvEbvF74xOfpA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z6Oa8bCtmXnMieZSqFEXQcyUaIBZLsde8QjTZHL8Yc6PiysfrpDz0QtYJixIeGaYplGDLTh689cmU2hJ060nbWy6mM8A3z9sAvUFFrvdUgjKiF3K4f4Ea8wCmmE2KQBHf86C38N266kz+VU2MHMkhFtNA2NHM3gBM2Rx4nkTvvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UoNaC3y+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UoNaC3y+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A801F000E9;
-	Fri, 28 Aug 2026 03:55:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787889324;
-	bh=4+zCmYDgwdjFjvy4pwMM+TuoalPKK3GwFiN1mmUURkE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UoNaC3y+DvalM35SWgtiNtZVjEaqCu7pHPeVItgXMgS2fUheBfbH8H5WccHo9bxqw
-	 nJLYCC/TqBI/GZ73S+AF/SSuBJACyhLQW9pKFTF/QgVO8DASb+3XQ+Em1Of70X0kM3
-	 eeyN2M95I1Px1ecEbqqPr0nFjrnvQpYPa9ZR8xmlVxP6/q4ecFd8l2GTCC5vk7W0qW
-	 dVlcSrEsABZC9SR2B+0Rm0rosuR3HJ0bH85lmjFnQwUKEhbyDSNA/SGpBpw16jbLKe
-	 iUqKmX/0Poacbsxy/wAzm+9RB+xbalIgbdD711xj404sPmJPecDSm4bA+JCwtXyZB9
-	 gUoA79kiMmNdw==
-Message-ID: <f61be21da825131657194f9fec83a77d7a92fe8a.camel@kernel.org>
-Subject: Re: [PATCH net v2] net: rds: fix uninitialized trans dereference in
- CM event handler
-From: Allison Henderson <achender@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>, ljp1205831794@gmail.com
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	rds-devel@oss.oracle.com, linux-kernel@vger.kernel.org, 
-	kerneljasonxing@gmail.com, henrymei@tencent.com, corvus@tencent.com, 
+	s=arc-20240116; t=1787889915; c=relaxed/simple;
+	bh=ug4Wy3wBJUcuCXxvPXvLKPYJRwW8MtrVX/USNQJOnmg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kWT7rn0NR9aol/aZfi8l2JdfrMXPpyGLM2AoO6A2vOv2ABv5SLULIefJRjqcrvFaDcc4lmCbDmv1iAgnsAw9Fyxoi5PTtvwmussp/IDydJadSlboNiNxDetH6x/pdgGPlyWGRlXfX2UNNykdTqkbjeyl6lHjhDJbrEvlNxQZYi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBXQT_hCJFqZhXOAA--.1313S3;
+	Fri, 28 Aug 2026 12:04:50 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBn2c7dCJFqX_QuBA--.63973S2;
+	Fri, 28 Aug 2026 12:04:47 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: gregkh@linuxfoundation.org,
+	tj@kernel.org
+Cc: chenridong@huawei.com,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
 	stable@vger.kernel.org
-Date: Thu, 27 Aug 2026 20:55:22 -0700
-In-Reply-To: <20260827161820.3867858-1-kuba@kernel.org>
-References: <20260825021223.3483044-1-ljp1205831794@gmail.com>
-	 <20260827161820.3867858-1-kuba@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Subject: [PATCH v3] kernfs: recheck of->released after acquiring the active reference
+Date: Fri, 28 Aug 2026 04:03:48 +0000
+Message-Id: <20260828040348.1809278-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgBn2c7dCJFqX_QuBA--.63973S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?FOFEVgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI3gGUhJIyk5DkEkhl6m75AgdOplLpL3Hqq6nhqan3ICX0ks
+	AbKSuAhYMJqOa/3GhZKp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxZFW5GrW8XF4UZF13Jr13trc_yoW5uF48pF
+	WrKF45XFZ7JFyDCrsrA3Wxua4Fv3s3tFW3G3s2gwnYy3W5Kwn3t34Ygr4qvwn5XrWrJF4j
+	v3W2gryUtw15ZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-On Thu, 2026-08-27 at 09:18 -0700, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: rds: fix uninitialized trans dereference in CM event handler
->=20
-> This initializes trans to &rds_ib_transport at declaration in
-> rds_rdma_cm_event_handler_cmn(), drops the conditional assignment based o=
-n
-> cm_id->device->node_type, and adds an early bail-out that returns 1 for a=
-ny
-> event arriving on a device that is not RDMA_NODE_IB_CA.
->=20
-> > diff --git a/net/rds/rdma_transport.c b/net/rds/rdma_transport.c
-> > index b15cf316b23a2..2c5481f1fcb4f 100644
-> > --- a/net/rds/rdma_transport.c
-> > +++ b/net/rds/rdma_transport.c
->=20
-> [ ... ]
->=20
-> > @@ -80,6 +77,12 @@ static int rds_rdma_cm_event_handler_cmn(struct rdma=
-_cm_id *cm_id,
-> >  		}
-> >  	}
-> > =20
-> > +	/* Only the IB transport is supported. */
-> > +	if (cm_id->device->node_type !=3D RDMA_NODE_IB_CA) {
-> > +		ret =3D 1;
-> > +		goto out;
-> > +	}
-> > +
->=20
-> [Severity: High]
-> Should this non-zero return be limited to RDMA_CM_EVENT_CONNECT_REQUEST?
-> As written it applies to every event type.
->=20
-> include/rdma/rdma_cm.h documents what a non-zero return means:
->=20
-> /**
->  * rdma_cm_event_handler - Callback used to report user events.
->  *
->  * Notes: Users may not call rdma_destroy_id from this callback to destro=
-y
->  *   the passed in id, or a corresponding listen id.  Returning a
->  *   non-zero value from the callback will destroy the passed in id.
->  */
->=20
-> The cma dispatchers implement exactly that, for example addr_handler() an=
-d
-> cma_work_handler() in drivers/infiniband/core/cma.c:
->=20
-> 	if (cma_cm_event_handler(id_priv, &event)) {
-> 		destroy_id_handler_unlock(id_priv);
-> 		return;
-> 	}
->=20
-> But RDS keeps ownership of connection cm_ids.  rds_ib_conn_path_connect()
-> stores it:
->=20
-> 	ic->i_cm_id =3D rdma_create_id(&init_net, handler, conn,
-> 				     RDMA_PS_TCP, IB_QPT_RC);
->=20
-> and rds_ib_conn_path_shutdown() later dereferences and destroys the same
-> pointer, clearing it only afterwards:
->=20
-> 	if (ic->i_cm_id) {
-> 		rdsdebug("disconnecting cm %p\n", ic->i_cm_id);
-> 		err =3D rdma_disconnect(ic->i_cm_id);
-> 	...
-> 		rdma_destroy_id(ic->i_cm_id);
-> 	...
-> 		ic->i_cm_id =3D NULL;
->=20
-> So if any event other than CONNECT_REQUEST is delivered with conn !=3D NU=
-LL on
-> a cm_id whose device node_type is not RDMA_NODE_IB_CA, does the core free=
- the
-> cm_id while ic->i_cm_id still points at it?  Can the following conn drop,
-> socket close or module unload then hit freed memory in
-> rds_ib_conn_path_shutdown(), including a second rdma_destroy_id() on the =
-same
-> id?
->=20
-> A reachable path without any race: rds_ib_laddr_check() short-circuits vi=
-a
-> rds_ib_get_device(), which only walks the ipaddr_list of RDS's own IB
-> devices:
->=20
-> net/rds/ib_rdma.c:rds_ib_get_device() {
-> 	list_for_each_entry_rcu(rds_ibdev, &rds_ib_devices, list) {
-> 		list_for_each_entry_rcu(i_ipaddr, &rds_ibdev->ipaddr_list, list) {
-> 			if (i_ipaddr->ipaddr =3D=3D ipaddr) {
-> 	...
-> }
->=20
-> while the device actually bound for the outgoing connection is picked lat=
-er
-> by cma_acquire_dev_by_src_ip(), which walks the global cma dev_list and c=
-an
-> match a siw device on the same address.  siw_device_create() sets:
->=20
-> 	base_dev->node_type =3D RDMA_NODE_RNIC;
->=20
-> In that configuration, rdma_resolve_addr() from rds_ib_conn_path_connect(=
-)
-> binds a RDMA_NODE_RNIC device, and the resulting RDMA_CM_EVENT_ADDR_RESOL=
-VED
-> with conn !=3D NULL now returns 1, so addr_handler() destroys the id whil=
-e RDS
-> still tracks it.
->=20
-> The same function a few lines above already documents the opposite
-> convention:
->=20
-> 		/* If the connection is being shut down, bail out
-> 		 * right away. We return 0 so cm_id doesn't get
-> 		 * destroyed prematurely */
-> 		if (rds_conn_state(conn) =3D=3D RDS_CONN_DISCONNECTING) {
-> 			/* Reject incoming connections while we're tearing
-> 			 * down an existing one. */
-> 			if (event->event =3D=3D RDMA_CM_EVENT_CONNECT_REQUEST)
-> 				ret =3D 1;
-> 			goto out;
-> 		}
->=20
-> Separately, does the unconditional goto out also skip the rds_conn_drop()
-> that the ADDR_ERROR, ROUTE_ERROR, CONNECT_ERROR, UNREACHABLE,
-> DEVICE_REMOVAL, ADDR_CHANGE, DISCONNECTED and TIMEWAIT_EXIT cases perform=
-,
-> leaving the RDS connection stuck in CONNECTING or UP with no error
-> propagated?
->=20
-> Would something along these lines match the existing convention, while st=
-ill
-> dropping the conn for the remaining events:
->=20
-> 	ret =3D (event->event =3D=3D RDMA_CM_EVENT_CONNECT_REQUEST) ? 1 : 0;
->=20
-> or moving the node_type test into the RDMA_CM_EVENT_CONNECT_REQUEST case?
+kernfs_get_active_of(), added by commit 3c9ba2777d6c ("kernfs: Fix UAF
+in polling when open file is released"), tests @of->released before
+acquiring the active reference on @of->kn. A hide/drain/show cycle can
+run between the two steps: the drain path releases the open file, and
+the reactivation lets kernfs_get_active() succeed again, so a file
+operation can run on an already released open file. On the cgroup
+pressure files, the poll callback dereferences of->priv while forming
+&ctx->psi.trigger and can hit either stale, freed memory or NULL.
 
-I think the cleaner solution here would be to hoist the check into the call=
-ing function.  So in
-rds_rdma_cm_event_handler_cmn():
+Re-check @of->released after the successful acquisition and drop the
+active reference again if it has been set. No lock is needed:
+@of->released is only ever set to true, the drain which sets it
+precedes the reactivation under kernfs_rwsem, and the fully-ordered
+RMW on @kn->active in kernfs_get_active() then orders the read after
+that reactivation.
 
-        case RDMA_CM_EVENT_CONNECT_REQUEST:
-		/* Only the IB transport is supported. */
-                if (cm_id->device->node_type =3D=3D RDMA_NODE_IB_CA)
-                        ret =3D trans->cm_handle_connect(cm_id, event, isv6=
-);
-                else
-                	ret =3D 1;
-                break;
+To allow the lockless reads to use READ_ONCE(), drop the :1 storage
+from @released and store it with WRITE_ONCE() to match.
 
-Thanks for working on this!
-Allison
+This issue was found by an in-house static analysis tool.
+
+Fixes: 3c9ba2777d6c ("kernfs: Fix UAF in polling when open file is released")
+Cc: stable@vger.kernel.org
+Suggested-by: Tejun Heo <tj@kernel.org>
+Acked-by: Tejun Heo <tj@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes in v3:
+- Drop the :1 bit-field storage from @released so that READ_ONCE() can
+  be applied to it, use READ_ONCE() for both lockless reads of the
+  field, and add the matching WRITE_ONCE() on the store side.
+  READ_ONCE() on a bit-field does not build, as reported by the
+  kernel test robot on v2. The logic is unchanged from v2, where the
+  Acked-by was obtained; happy to drop it if you prefer a fresh one.
+
+v2: <20260821050720.14848-1-fanwu01@zju.edu.cn>
+lkp report on v2: <202608230046.Ixvo8Av6-lkp@intel.com>
+---
+ fs/kernfs/file.c       | 10 ++++++++--
+ include/linux/kernfs.h |  2 +-
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/fs/kernfs/file.c b/fs/kernfs/file.c
+index 9adf36e6364b..98adceddbcfa 100644
+--- a/fs/kernfs/file.c
++++ b/fs/kernfs/file.c
+@@ -74,12 +74,18 @@ static struct kernfs_open_node *of_on(struct kernfs_open_file *of)
+ static struct kernfs_open_file *kernfs_get_active_of(struct kernfs_open_file *of)
+ {
+ 	/* Skip if file was already released */
+-	if (unlikely(of->released))
++	if (unlikely(READ_ONCE(of->released)))
+ 		return NULL;
+ 
+ 	if (!kernfs_get_active(of->kn))
+ 		return NULL;
+ 
++	/* @of may have been drained in between: recheck. */
++	if (unlikely(READ_ONCE(of->released))) {
++		kernfs_put_active(of->kn);
++		return NULL;
++	}
++
+ 	return of;
+ }
+ 
+@@ -762,7 +768,7 @@ static void kernfs_release_file(struct kernfs_node *kn,
+ 		 * and being drained.  Don't use kernfs_ops().
+ 		 */
+ 		kn->attr.ops->release(of);
+-		of->released = true;
++		WRITE_ONCE(of->released, true);
+ 		of_on(of)->nr_to_release--;
+ 	}
+ }
+diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
+index b5a5f32fdfd1..e95e333e24ea 100644
+--- a/include/linux/kernfs.h
++++ b/include/linux/kernfs.h
+@@ -269,7 +269,7 @@ struct kernfs_open_file {
+ 
+ 	size_t			atomic_write_len;
+ 	bool			mmapped:1;
+-	bool			released:1;
++	bool			released;
+ 	const struct vm_operations_struct *vm_ops;
+ };
+ 
 
