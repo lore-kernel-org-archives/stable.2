@@ -1,100 +1,109 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from h1008.onnet.my (svr2.mailcentre.com.my [103.17.211.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECBC449B24
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B707F43A7E7
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.17.211.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787920403; cv=none; b=PqeOcf2+rOlu+pwzGQ04ByWHX9BqCFtyjpBqSHaadIhlllBjjYL9uE+xuMh/sgiaUo0lTVxd+6MndwfwxQtNJDPrgwn4K4V4S6NKzTLTRY0cKZhsY2Yu0CIFo1A9TJN3nggInQRFxkbmGzytyJoJ70aeCnU0emyVarRWQbRmD7c=
+	t=1787920553; cv=none; b=A7xeWR2g/M9ST4nF6bjsOuvbaheKkUokDUPbBDpzXjLVNAby+pMwBr84iRuY1Dcz2pQcKu2L96fk6ly+zWnnZKPoWCXvLjBEZRFdV0xv8NVONlsEp++hNRAGNnb75jdjeDOQehOurRZafSNxgdhzeDC3KJ8/20pPS1+c3qA131k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787920403; c=relaxed/simple;
-	bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NDDjKBnHjdsAl6oUx8vD5LSsfSud4BmAyAa97OqxLDLW2+T1g+CS4z+uov+3kfHc42+KgoIaBon/Bn8Rx2iuQ00jGA88wft5BBnQhMMhIRJI3VJAYHyqB1PZrNfiAY+O0BHyyAPrpIZA3d7TohuTEGP03Xj2TCMP1CBwBn6p1ME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BfVCfqsl; arc=none smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787920553; c=relaxed/simple;
+	bh=O0xsDZ1Gk90qqmPhKGsCswkNddv7z02AZ1lr+clqk7o=;
+	h=Message-ID:From:To:Subject:Date:MIME-Version:Content-Type; b=UewFzOteGfWc/EMbZ+BNTfztzF0HzJePB6yvRPA8RP50d5OS2PeYfEw6uk1546XfpmLPbyAGhYj/AqMNDr1e5ZjqrFcdFekl2hafLKfrnWA35I5n/46Fo1Zaqft3apUJtynkCjd2PBix74x+ffCm4mshhWxm6yAiRGTJXzpQgao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svr2.mailcentre.com.my; spf=pass smtp.mailfrom=svr2.mailcentre.com.my; dkim=fail (2048-bit key) header.d=svr2.mailcentre.com.my header.i=@svr2.mailcentre.com.my header.b=FTyVCpyr reason="signature verification failed"; arc=none smtp.client-ip=103.17.211.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svr2.mailcentre.com.my
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svr2.mailcentre.com.my
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BfVCfqsl"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81f64e8dfbcso15869587b3.2
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:33:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787920394; x=1788525194; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
-        b=BfVCfqslo3GL69I4crMY3JvAWuL1m8zKifTWvhLHX9ZJ0lvcRnd5tgmPS8Iawn1TAC
-         AyJoMvWzkWa9omMRR+MBal0KqwgbkTGs8QVDnqjjQwwlwgQgw0KFdKTrzDTFz7eKDCwm
-         9/mRXG0nRs59A5rIQjS+D4dCD9dXwbo2m5v9UhjHUCaZLZOIWbmr4fqc9Ol5E4/CrktN
-         TPb1hnJ0EoD494j4suTvjbCFRcAEPUAflFQ1YHVSVNUVoVt428h9r2eiLhrEREumUo6c
-         RCvdaGqCOaULFd5+EgTVuP2WqtyY2Xi9Pba3susZ034rQMDHhvlvldqKoBAUtBlkUGEP
-         HZMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787920394; x=1788525194;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bqfJK6AvjcrjKxv8vWiaGOdrwD/fsLSuibq+C9S1YR8=;
-        b=h9hRa2t37oNF09PLi1YR0gKEDS5Sj7eBFPVTm8BKKBXM7Zk3OnvqhXTIhqLRg2udi5
-         p8jdIk9qUdmtmUrz6pgJsxBVfstg321jhIodMVGYXuwuYlaK/Wu57N+vohh7Nbuv4WnE
-         /3hs+xA7tQNqGG5tk3t87LJAEODQgNoC25FX05T038jfV2/Fwj3daPtzKM6wwMmjh7GY
-         SLBnuI8KUZWWC0CVVajTtacoFqg+tBQfIebyT+X42Pn/sSHvNxafkYFCIHSW+5bWjD1m
-         2x7hwIVbUCMhlBfZlMWNjfq4U4NgMOTZwGgR6cB5dUuDKNzkYzOfpZP0AzAstGAATQ3D
-         T40w==
-X-Forwarded-Encrypted: i=1; AKwUvBxQhqH/0/xfrz4NTfKaB1b/3/WHSKcyEyhhmbB/QqLHEGzWOiMgpjSuf8SfQTlQwrkAlvaFsio=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7UpWGB7OtefaVMj6s9sMlQQARlIm7dnq+Q2IgzO93d74Skb4y
-	8PIluIAmhsfrbA706OPNvQ8zrdFyzeJ9wq3ix8BATUwfmiXO+UziQrIB
-X-Gm-Gg: AYBFou2iwhH0RRmPD8zWTu1DS2Hyuuhc4UcS6x1nJFCbhBakE0bkZD1mn+OTv1+VPsM
-	d5i6JBNAiA9YSf/dYQSd7XnpaQ4TwbD+k/cvyTAv0VcNfb86LSRxXhdcWx9XLF2uUPgxZ2Z+so2
-	Td4zZr+4PJ+3DFjqgRt7F9hv+zxr0bWdLqXQw5XhCpb9qvG67TLmZo+TM7I6Qr2msvUg/DbO9Fl
-	kYLkvZOIDFVvejfSWESGtPjUce1+BkB+OtBKSB1pkXvO2Ld3Dkb6GREmIu1tMQf/Da4DX8MTtEd
-	OapQfruMQzMVj/YJxhWjqYjb2A3sFHu2RlLgHbItr3KmVw7yrWq1Si41rhH4GVJjTqMkXPwChVq
-	ggGqKP3aaafERsGY/Pv7j5MxwT/khPTiAe3tDzdiZlAvkBSgmcvtmF5G2TiIA12ljFsqi9BN+rQ
-	adKTFgAd+zAOeBtrELANeNatdUJKhIHWUzIPThzi1MzloH8/czwvdioJ/8EOIFQmX0T3s=
-X-Received: by 2002:a05:690c:6ac6:b0:854:4fdc:cab9 with SMTP id 00721157ae682-85d65ee9995mr32089877b3.6.1787920394110;
-        Fri, 28 Aug 2026 05:33:14 -0700 (PDT)
-Received: from mac.lan ([136.55.173.105])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e5f4f3b6csm5435987b3.20.2026.08.28.05.33.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 28 Aug 2026 05:33:13 -0700 (PDT)
-From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: AutonomousCodeSecurity@microsoft.com,
-	Dai.Ngo@oracle.com,
-	bfields@fieldses.org,
-	blbllhy@gmail.com,
-	cel@kernel.org,
-	jlayton@kernel.org,
-	kys@microsoft.com,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	neil@brown.name,
-	okorniev@redhat.com,
-	stable@vger.kernel.org,
-	tgopinath@linux.microsoft.com,
-	tom@talpey.com,
-	xmei5@asu.edu
-Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
-Date: Fri, 28 Aug 2026 08:33:12 -0400
-Message-ID: <20260828123312.26927-1-blbllhy@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082828-palpable-dingo-241b@gregkh>
-References: <2026082828-palpable-dingo-241b@gregkh>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=svr2.mailcentre.com.my header.i=@svr2.mailcentre.com.my header.b="FTyVCpyr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=svr2.mailcentre.com.my; s=x; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Date:Subject:To:From:Reply-To:Message-ID:Sender:Cc:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=0P/a0bWrggEYODb55tKIPsN457Pdh9dkVBJKkZtsDts=; b=FTyVCpyrgV8ZUmBEwGKBYUDm2s
+	p61CPU3WHTbMDh+qNC/GRP5+0NSvMNrO5MjDvmWw6xhwJFiKKtdgrgi4gDMp019VNnDqGwKUVECJ4
+	zcWYmv3X23jn3j1tZ6ubSFnz6dmcqXE2DG2ST9uBjfnv6fF4BqbLePVLePq4BeoYbsinFh2MEXGW3
+	6Yb55QrnE4CKXjiHMYTa26Ua5LiRrmyayRNDAIOmue8SiSokzMmpQH0+BJb5E4ca9VlRQbFe8UO/q
+	7NoK1/70GSG+y+ThEBrNnFm3l4UvXJRzifl8lQ0KoMfVtWmmJCItNFWkPESsMurA1PO06PHeTTJbY
+	U6Bp/GaA==;
+Received: from [185.184.171.186] (helo=zxld)
+	by h1008.onnet.my with esmtpsa  (TLS1.2) tls TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <rivercity@svr2.mailcentre.com.my>)
+	id 1wzuYf-0000rV-8a
+	for stable@vger.kernel.org;
+	Fri, 28 Aug 2026 19:15:41 +0800
+Message-ID: <069cd104f0343198bb15cc6793521812263bd9f9@svr2.mailcentre.com.my>
+Reply-To: =?utf-8?B?0IfQttCw0Log0KPQu9C40YfQsNC9INCW0LTQsNC90L7QstC40Yc=?= <ssu@gov.ua>
+From: =?utf-8?B?0IfQttCw0Log0KPQu9C40YfQsNC9INCW0LTQsNC90L7QstC40Yc=?= <rivercity@svr2.mailcentre.com.my>
+To: stable@vger.kernel.org
+Subject: =?utf-8?B?0IbQvdGE0L7RgNC80LDRhtGW0Y8gKNCy0LjQvNCw0LPQsNGUINGA0LXQsNCz?=
+	=?utf-8?B?0YPQstCw0L3QvdGPKSAt0KbQuNCx0LXQvdC60L4g0ITRgNC10LzRltC5INCh?=
+	=?utf-8?B?0LLRltGC0LDQvdC+0LLQuNGH?=
+Date: Fri, 28 Aug 2026 14:15:32 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authenticated-Id: rivercity@svr2.mailcentre.com.my
 
-> Please use your microsoft.com email address, and not a random gmail.com
-> address.
+=D0=AF =D0=A8=D0=BF=D0=B0=D1=80=D0=B0 =D0=90=D0=B2=D0=BA=D1=81=D0=B5=D0=BD=
+=D1=82=D1=96=D0=B9 =D0=9A=D0=BE=D1=81=D1=82=D1=8F=D0=BD=D1=82=D0=B8=D0=BD=
+=D0=BE=D0=B2=D0=B8=D1=87,=D0=9F=D0=BE=D0=BF=D0=B5=D1=80=D0=B5=D0=B4=D0=B6=
+=D0=B0=D1=8E =D0=92=D0=B0=D1=81, =D1=89=D0=BE =D1=8F =D0=B7=D0=B0=D0=BC=D1=
+=96=D0=BD=D1=83=D0=B2=D0=B0=D0=B2 =D0=BE=D1=84=D1=96=D1=81=D0=BD=D1=83 =D0=
+=B1=D1=83=D0=B4=D1=96=D0=B2=D0=BB=D1=8E =D0=B7=D0=B0 =D0=B0=D0=B4=D1=80=D0=
+=B5=D1=81=D0=BE=D1=8E =D0=BC. =D0=9C=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D1=97=D0=
+=B2, =D0=B2=D1=83=D0=BB. =D0=9C=D0=B0=D0=BB=D0=B0 =D0=9C=D0=BE=D1=80=D1=81=
+=D1=8C=D0=BA=D0=B0, =D0=B1=D1=83=D0=B4. 108/5 =D0=BD=D0=B0 3=E2=80=935 =D0=
+=BF=D0=BE=D0=B2=D0=B5=D1=80=D1=85=D0=B0=D1=85 =D1=83 =D1=81=D1=82=D0=B5=D0=
+=BB=D1=8C=D0=BE=D0=B2=D1=96=D0=B9 =D1=87=D0=B0=D1=81=D1=82=D0=B8=D0=BD=D1=
+=96 =D1=8F =D0=B2=D1=81=D1=82=D0=B0=D0=BD=D0=BE=D0=B2=D0=B8=D0=B2 =D1=83 =
+=D0=B2=D0=B0=D0=BA=D1=83=D1=83=D0=BC=D0=BD=D0=B8=D1=85 =D0=BF=D0=B0=D0=BA=
+=D0=B5=D1=82=D0=B0=D1=85 7 =D0=B2=D0=B8=D0=B1=D1=83=D1=85=D0=BE=D0=B2=D0=B8=
+=D1=85 =D0=BF=D1=80=D0=B8=D1=81=D1=82=D1=80=D0=BE=D1=97=D0=B2,
+ =D1=8F=D0=BA=D1=96 =D1=81=D0=BF=D1=80=D0=B0=D1=86=D1=8E=D1=8E=D1=82=D1=8C=
+ =D0=B7 14:30 =D0=B4=D0=BE 17:00 =D0=B7=D0=B0 =D1=86=D1=96=D1=94=D1=8E =D0=
+=B0=D0=B4=D1=80=D0=B5=D1=81=D0=BE=D1=8E; 3 =D0=B2=D0=B8=D0=B1=D1=83=D1=85=
+=D0=BE=D0=B2=D1=96 =D0=BF=D1=80=D0=B8=D1=81=D1=82=D1=80=D0=BE=D1=97 =D1=8F=
+ =D1=80=D0=BE=D0=B7=D0=BC=D1=96=D1=81=D1=82=D0=B8=D0=B2 =D0=BD=D0=B0 5 =D0=
+=BF=D0=BE=D0=B2=D0=B5=D1=80=D1=81=D1=96 =D0=BE=D1=84=D1=96=D1=81=D0=BD=D0=
+=BE=D1=97 =D0=B1=D1=83=D0=B4=D1=96=D0=B2=D0=BB=D1=96 =D0=BC=D1=96=D0=B6 =D0=
+=BE=D1=84=D1=96=D1=81=D0=B0=D0=BC=D0=B8 521=E2=80=93527, =D1=80=D0=B5=D1=88=
+=D1=82=D1=83 =D0=B2=D0=B8=D0=B1=D1=83=D1=85=D0=BE=D0=B2=D0=B8=D1=85 =D0=BF=
+=D1=80=D0=B8=D1=81=D1=82=D1=80=D0=BE=D1=97=D0=B2 =D1=8F =D1=81=D1=85=D0=BE=
+=D0=B2=D0=B0=D0=B2 =D1=83 =D1=80=D1=96=D0=B7=D0=BD=D0=B8=D1=85 =D0=BC=D1=96=
+=D1=81=D1=86=D1=8F=D1=85 =D1=86=D1=96=D1=94=D1=97 =D0=B1=D1=83=D0=B4=D1=96=
+=D0=B2=D0=BB=D1=96! =D0=AF =D0=B2=D1=81=D1=96=D1=85 =D0=BF=D1=96=D0=B4=D1=
+=96=D1=80=D0=B2=D1=83,
+ =D1=96 =D0=BB=D1=8E=D0=B4=D0=B8 =D0=B7=D0=B0=D0=B3=D0=B8=D0=BD=D1=83=D1=82=
+=D1=8C; =D0=BF=D1=80=D0=BE=D1=88=D1=83 =D0=B2=D1=81=D1=96=D1=85 =D0=BC=D0=
+=B8=D1=80=D0=BD=D0=B8=D1=85 =D0=BC=D0=B5=D1=88=D0=BA=D0=B0=D0=BD=D1=86=D1=
+=96=D0=B2 =D0=BF=D0=BE=D0=BA=D0=B8=D0=BD=D1=83=D1=82=D0=B8 =D0=B1=D1=83=D0=
+=B4=D1=96=D0=B2=D0=BB=D1=96. =D0=AF =D1=96=D0=BD=D0=B2=D0=B0=D0=BB=D1=96=D0=
+=B4, =D0=BC=D0=B5=D0=BD=D1=96 =D0=B2=D1=82=D1=80=D0=B0=D1=87=D0=B0=D1=82=D0=
+=B8 =D0=BD=D1=96=D1=87=D0=BE=D0=B3=D0=BE, =D0=B2=D0=B8 =D0=B2=D1=81=D1=96=
+ =D0=B7=D0=B0=D0=B3=D0=B8=D0=BD=D0=B5=D1=82=D0=B5! =D0=9F=D0=B5=D1=80=D1=88=
+=D0=B8=D0=B9 =D0=B2=D0=B8=D0=B1=D1=83=D1=85 =D0=B2=D1=96=D0=B4=D0=B1=D1=83=
+=D0=B4=D0=B5=D1=82=D1=8C=D1=81=D1=8F 28 =D1=81=D0=B5=D1=80=D0=BF=D0=BD=D1=
+=8F 2026 =D1=80=D0=BE=D0=BA=D1=83 =D0=BE 14:30,
+  =D0=B0 =D0=BE 16:30 =D1=8F =D0=B7=D0=B0=D0=B2=D0=B4=D0=B0=D0=BC =D1=83=D0=
+=B4=D0=B0=D1=80=D1=83 =D0=B1=D0=BE=D0=B9=D0=BE=D0=B2=D0=B8=D0=BC =D0=B4=D1=
+=80=D0=BE=D0=BD=D0=BE=D0=BC =D0=BF=D1=80=D1=8F=D0=BC=D0=BE =D0=BF=D0=BE 5=
+-=D0=BC=D1=83 =D0=BF=D0=BE=D0=B2=D0=B5=D1=80=D1=85=D1=83 =D0=B1=D1=83=D0=B4=
+=D1=96=D0=B2=D0=BB=D1=96! =D0=AF =D0=BA=D0=BE=D0=BD=D1=82=D1=83=D0=B6=D0=B5=
+=D0=BD=D0=B8=D0=B9, =D0=BC=D0=B5=D0=BD=D1=96 =D0=B2=D1=82=D1=80=D0=B0=D1=87=
+=D0=B0=D1=82=D0=B8 =D0=BD=D1=96=D1=87=D0=BE=D0=B3=D0=BE. =D0=90=D0=B4=D0=BC=
+=D1=96=D0=BD=D1=96=D1=81=D1=82=D1=80=D0=B0=D1=86=D1=96=D1=8F =D0=9C=D0=B8=
+=D0=BA=D0=BE=D0=BB=D0=B0=D1=97=D0=B2=D1=81=D1=8C=D0=BA=D0=BE=D1=97 =D0=BE=
+=D0=B1=D0=BB=D0=B0=D1=81=D1=82=D1=96 =D0=BF=D0=BE=D0=B7=D0=B1=D0=B0=D0=B2=
+=D0=B8=D0=BB=D0=B0 =D0=BC=D0=B5=D0=BD=D0=B5 =D0=B2=D1=81=D1=96=D1=85 =D0=B2=
+=D0=B8=D0=BF=D0=BB=D0=B0=D1=82, =D1=96 =D1=8F =D0=B1=D1=83=D0=B4=D1=83 =D0=
+=BC=D1=81=D1=82=D0=B8=D1=82=D0=B8=D1=81=D1=8F
 
-Sorry for making you raise this again. I will hold off on new patch
-submissions until my approved Microsoft email address is available,
-which should be soon.
 
-Thanks,
-Cen
