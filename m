@@ -1,129 +1,180 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973180.qiye.163.com (mail-m1973180.qiye.163.com [220.197.31.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EC11A262A
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 11:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CF9420475;
+	Fri, 28 Aug 2026 11:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787916449; cv=none; b=BO0wCcdCI8hp10lmJpyFl+o29dE2N7eZH/0AEf3kJCLYLlUeojgowAC4SNF65/bu4TLYKSOuySyB0LAGgw7SxFTUHCZ+Pv+oPLBrGkMJvH3HPMbkFGyOgB7wd/rS6c6vdREFvDT49qbMjkaRAd/eCPtHKPcno4E9L/okNo9y9bA=
+	t=1787916520; cv=none; b=qiGXChnE8DWaeRzfzhyFK4LAtfLyC+/Uxlwe/c2xL7hqphl7PCx64OhisrSyng0DGCB46cL0EiztKJCjC2sSBQ04p7cUQJeBnZWVJcztmPWdKT7IPYN1B4Lp3qpyReN31PCpoJLqT0x2dTfWNBfNLo+5k3L8Xi4zg8T/j3iBO/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787916449; c=relaxed/simple;
-	bh=5xtlgA5vHCXpabX1E6ApXm9OLw17V/cAeGETIc9pLmU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=WD+IxN7OtQD4Zsd2eFobbZpuOMebqplztv4zf8wEYtsRUNTYgc+F32fXJ9VARAwN3GTDqn+CgCUVQxn5RbpnAQpeL+pxrmYit+7Qd0RZhQsVjLOALqvU87xJ/8VqTS+WKxRPIlYxFb1CEsxrz72IXryHwtrUKa95KDNX/8y0FQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab4f652f9bso525930b6e.0
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 04:27:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787916447; x=1788521247;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AkRz50F5kxQk8r1w8lTDqf7Ji8sdF1ZuHE2PMMhiBaA=;
-        b=PWmzkX0D8CFzco6fNGC93lJGhpVD/xw4JGzF8P7ncHwyhITdAXiP9yybFacoAZADPL
-         N+wHJouEHhYLHluvUls+WGcKPM2JrmLryW2keyN+Jyj/v+ts2yV6UTpJRw1DGN+flA8J
-         zVBkHkYUFSnOETc2C0WCtK7EYAVlg+fN7Ok/0ETk1h8mL9KCvdakSYng3MJYAaLBSeDV
-         BgMjD4VB3gq+5mLnHNho0b+YmtAOzYXj+NkK82ptELV3/2Dk19bi1lRsZ+yBc9T24+Pv
-         WPS2c2Lsia9QhOFqrkXMINops+/gtbSO/tJ/VkQ20CSOllGbmhi7pAlpasqchpN2WG83
-         FzmQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrOUKefsSUA7AE+1euwg5LHU/01jHyUO6N2nRNE0ZllnqDrbeYShrbS8KUNh98vdwZN5Qk6eL0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFwZIZviCqMYDPlEEvLtfbg/DHa+kMsDEqDbiFJDzSAYISCZOy
-	jmaqBGR+kqEcbw9f0InSA7wU9f6uMsNQreqmYpwHCV0gijUdGdfjkyXaQnECaZqGOEA6SxiwK5J
-	tRmfcKOxWEyRQhefHCxdmQa71gZcIlHQ9c81DGgabpm+Db82Lu7S6glnLNAI=
+	s=arc-20240116; t=1787916520; c=relaxed/simple;
+	bh=IHeGAa96lm6icbclR8lQggZd1zZDtCfIdDQ9Mci1siw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kQ39cwS47KCPereX8CIu3QiyhksLahObxb+/1xruFp5F3YBuhs6UMWSItjhZ4H3Owcmw8nPqd5ejONSrnNbb/taR6TGjlATGh0rRqq0igVjRoN3OUgAiILJKf5cbnndNZWLHTblSgIUhgPyNgBBNCzVa6TqPGO5n/AXjGPrk6qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=ByNkXqq/; arc=none smtp.client-ip=220.197.31.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="ByNkXqq/"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bab2d5aa;
+	Fri, 28 Aug 2026 14:52:07 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v8 3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+Date: Fri, 28 Aug 2026 14:51:51 +0800
+Message-Id: <20260828065153.590802-4-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f0b:b0:4ab:318c:6b38 with SMTP id
- 5614622812f47-4b397f71712mr6006346b6e.1.1787916447328; Fri, 28 Aug 2026
- 04:27:27 -0700 (PDT)
-Date: Fri, 28 Aug 2026 04:27:27 -0700
-In-Reply-To: <6a8c13ee.91706f20.16b6e3.02d5.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a91709f.4d659fcc.734b4.001c.GAE@google.com>
-Subject: Re: [syzbot] [fs?] [trace?] WARNING in eventfs_create_events_dir
-From: syzbot <syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, kartikey406@gmail.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, mark.rutland@arm.com, 
-	mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@goodmis.org, 
-	rostedt@kernel.org, sh_def@163.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, vdonnefort@google.com, vulab@iscas.ac.cn
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa04723dd4503a8kunm9cc188d5188355
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRhLTVYZHkhKHU1PHk
+	5KQxhWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=ByNkXqq/v1UABNZl10lnleLwzvhNuRZWIBYWszscHeWdufztyE7+W7VSC+dWoNFk87VgQlRbjZ7o39DSth9TxFS26u3zjhK8+2phaobHx+y6QNuYEyMfiPhQAzY7SWZl0N3BZr/vBJnJD6dxvMH9k/VuNoSNTPalwSLyugZbZN4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=Qt759fseXk6TL4BSquCkp6QINrVvbZDF08qVXgT34mA=;
+	h=date:mime-version:subject:message-id:from;
 
-syzbot has found a reproducer for the following issue on:
+Revert the change that made samsung,link-rate and samsung,lane-count
+optional for Exynos DP. Add error checking to fail probe early if the
+required DT properties are missing.
 
-HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16eddd49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=3ef80b4ed02226d04a06
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17986d79580000
+If these properties are missing, video_info->max_link_rate and
+video_info->max_lane_count remain zero, and so do link_train.link_rate
+and link_train.lane_count used in the subsequent link training flow,
+resulting in link training failure.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3ef80b4ed02226d04a06@syzkaller.appspotmail.com
+There is no way at all a device can work without these properties.
+Here is the code flow when either max_link_rate or max_lane_count is 0:
 
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007fae2ca35a9f
-R13: 00007fae2ca35adb R14: 00007fae2ca5ccc0 R15: 0000000000000002
- </TASK>
-------------[ cut here ]------------
-!list_empty(&ei->children)
-WARNING: fs/tracefs/event_inode.c:128 at free_ei fs/tracefs/event_inode.c:128 [inline], CPU#0: syz-executor340/6037
-WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:150 [inline], CPU#0: syz-executor340/6037
-WARNING: fs/tracefs/event_inode.c:128 at cleanup_ei fs/tracefs/event_inode.c:145 [inline], CPU#0: syz-executor340/6037
-WARNING: fs/tracefs/event_inode.c:128 at eventfs_create_events_dir+0xa3d/0xbe0 fs/tracefs/event_inode.c:838, CPU#0: syz-executor340/6037
-Modules linked in:
-CPU: 0 UID: 0 PID: 6037 Comm: syz-executor340 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:free_ei fs/tracefs/event_inode.c:128 [inline]
-RIP: 0010:cleanup_ei fs/tracefs/event_inode.c:150 [inline]
-RIP: 0010:cleanup_ei fs/tracefs/event_inode.c:145 [inline]
-RIP: 0010:eventfs_create_events_dir+0xa3d/0xbe0 fs/tracefs/event_inode.c:838
-Code: 00 e8 e7 82 fa 00 e9 ab fb ff ff e8 1d 4e e1 fd 48 8b 7c 24 10 be 03 00 00 00 e8 ce 82 fa 00 e9 c2 fd ff ff e8 04 4e e1 fd 90 <0f> 0b 90 e9 59 fe ff ff e8 e6 21 54 fe e9 4b f7 ff ff 48 89 44 24
-RSP: 0018:ffffc90005867b88 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff888045883028 RCX: 0000000000000000
-RDX: ffff88802ecd2580 RSI: ffffffff8429b3cc RDI: ffffffff8e69c920
-RBP: ffff888030052f10 R08: 00000000ffffffff R09: fffffbfff1dff612
-R10: ffffffff8effb093 R11: 0000000000000001 R12: ffff888030052f50
-R13: 0000000000000003 R14: ffff888030052f4c R15: ffff888030052f00
-FS:  000055555739d400(0000) GS:ffff8880d5ba2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055c8902f3204 CR3: 0000000022b49000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- create_event_toplevel_files+0x12d/0x1a0 kernel/trace/trace_events.c:4709
- event_trace_add_tracer+0x72/0x260 kernel/trace/trace_events.c:4740
- trace_array_create_dir+0x8e/0x210 kernel/trace/trace.c:8550
- trace_array_create_systems+0x8b3/0xc30 kernel/trace/trace.c:8641
- trace_array_create kernel/trace/trace.c:8668 [inline]
- instance_mkdir+0xca/0x140 kernel/trace/trace.c:8683
- tracefs_syscall_mkdir+0x10e/0x180 fs/tracefs/inode.c:121
- vfs_mkdir+0x364/0x850 fs/namei.c:5410
- filename_mkdirat+0x48b/0x5e0 fs/namei.c:5443
- __do_sys_mkdir fs/namei.c:5470 [inline]
- __se_sys_mkdir fs/namei.c:5467 [inline]
- __x64_sys_mkdir+0x6b/0x90 fs/namei.c:5467
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fae2c9d8ec7
-Code: 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 53 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffcc38a20c8 EFLAGS: 00000202 ORIG_RAX: 0000000000000053
-RAX: ffffffffffffffda RBX: 0000000000000006 RCX: 00007fae2c9d8ec7
-RDX: 0000000000000000 RSI: 00000000000001ed RDI: 00007ffcc38a2160
-RBP: 00007ffcc38a2160 R08: 0000000000000001 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007fae2ca35a9f
-R13: 00007fae2ca35adb R14: 00007fae2ca5ccc0 R15: 0000000000000002
- </TASK>
+  analogix_dp_commit()
+    -> analogix_dp_full_link_train(dp, max_lanes = 0, max_rate = 0)
 
+  analogix_dp_full_link_train(max_lanes, max_rate):
+      // Read sink capabilities via DPCD and sanitize them
+      link_rate  = read_dpcd(DP_MAX_LINK_RATE);  // >= 0x06 after fixup
+      lane_count = read_dpcd(DP_MAX_LANE_COUNT); // >= 1 after fixup
+
+      // Clamp by the limits from DT
+      if (link_rate > max_rate)    // 0x06 > 0, always true
+          link_rate = max_rate;    // link_rate = 0
+      if (lane_count > max_lanes)  // 1 > 0, always true
+          lane_count = max_lanes;  // lane_count = 0
+
+      // Configure TX with the zeroed values
+      set_link_bandwidth(link_rate = 0)
+          // writel() is only executed for bwtype == 0x06/0x0a,
+          // so LINK_BW_SET is never written and stays at
+          // reset value; phy_configure() gets link_rate = 0.
+
+      set_lane_count(lane_count = 0)
+          // writel(0, ANALOGIX_DP_LANE_COUNT_SET) enables 0 lanes;
+          // phy_configure() is called with lanes = 0.
+
+      // Program sink for link training
+      drm_dp_dpcd_write(DP_LINK_BW_SET, {link_rate = 0/lane_count = 0})
+          // DP spec requires link rate in {0x06, 0x0a, 0x14} and
+          // lane count in {1, 2, 4}. Writing zeros is illegal, so
+          // the sink cannot enter the training state.
+
+      // Training loop
+      for (lane = 0; lane < lane_count /* 0 */; lane++)
+          // loop body never executes; training_lane[] stays
+          // uninitialized and no training register is programmed
+
+Since the sanitized sink values are always non-zero (link_rate >= 0x06,
+lane_count >= 1), the clamping with a zero maximum unconditionally
+forces the training parameters to zero. Clock recovery can never be
+achieved, so link training fails deterministically.
+
+Consequently, making these properties mandatory again cannot break
+any existing device: a DT without them could never have worked in
+the first place. Failing probe early with a clear error message is
+more helpful than a silent link training failure at runtime.
+
+Fixes: 0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane count limit for RK3288")
+Cc: stable@vger.kernel.org
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+
+Changes in v8:
+- Expand the commit message with the detailed link training failure
+  analysis,
+- Add Reviewed-by tag.
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 566f1e5eb8cd..ddb15d6de05f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1248,6 +1248,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ {
+ 	struct device_node *dp_node = dp->dev->of_node;
+ 	struct video_info *video_info = &dp->video_info;
++	u32 val;
+ 
+ 	switch (dp->plat_data->dev_type) {
+ 	case RK3288_DP:
+@@ -1269,10 +1270,14 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 		 * NOTE: those property parseing code is used for
+ 		 * providing backward compatibility for samsung platform.
+ 		 */
+-		of_property_read_u32(dp_node, "samsung,link-rate",
+-				     &video_info->max_link_rate);
+-		of_property_read_u32(dp_node, "samsung,lane-count",
+-				     &video_info->max_lane_count);
++		if (of_property_read_u32(dp_node, "samsung,link-rate", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,link-rate\n");
++		video_info->max_link_rate = val;
++		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
++			return dev_err_probe(dp->dev, -EINVAL,
++					     "Failed to get samsung,lane-count\n");
++		video_info->max_lane_count = val;
+ 		break;
+ 	}
+ 
+-- 
+2.34.1
+
