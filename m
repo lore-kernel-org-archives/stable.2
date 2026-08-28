@@ -1,185 +1,207 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013017.outbound.protection.outlook.com [40.93.196.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D033DDAFB
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:07:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787904436; cv=fail; b=D0LTAuA9Oe5ausORjgHr+lm8Ecc3SdoQcUEdOzIzvb9347G8yTALsPfMy/eaJaeYxL+4vNTPB2LSSGtU5ZvohEuGiJPS8nDLnMfFrjDEQkGaRjChWYjQ6nyQSis8Etvhr9b9ire38E06T/ayUxXwTTBSYAgnOJtMLdtd2a9WqdI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787904436; c=relaxed/simple;
-	bh=yEd9Db9FiN/8uqvrlc8iaZQvs9RBI0jYrEdx7agZJNU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=QTi3LVRyOXBF0mgTsf0t/+DKAKI7PZSUD94u0CyQ+kcTk2oGFDJqp5ZGDjhWQeFW3mwo+ZhZ58wIsPG6I2n3Ek7NP34cHW1iFPZpgm5Ql7emOCqA9/Oela4ZtGNIJydDXm+Lrn9BgP3vKFNkH9cWxsvrD4+WgNjYFFyxL7ExTf8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ZViFu7IS; arc=fail smtp.client-ip=40.93.196.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4223DDB1E
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 08:09:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787904593; cv=none; b=rkNaHxJipJL+m6FV4uA+VC9uQvcO5Fb23g6wUHDiXZzFeOVbPAS+1eE8VJnHVs8cgv2YMByEa6o2VOpN0eNjpFm/MdNSudrcdbjWz/3IELmIv0PvUWN/yEpaJTsd86DTZBX0+7A2XQKmVEHDIdpmWpZ1pvW9uaopxT+sPl9McVw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787904593; c=relaxed/simple;
+	bh=sYZOuS5bdKiPDKa8vVkK+d9Ee9FAX3CLv0HydD51KCA=;
+	h=Date:Message-Id:Mime-Version:Content-Type:From:Subject:Cc:To; b=iImgf085eEu0ctDZSpl0RGbuXYRgTTLmPlFfdxHOhhk3nfZpEdCL/MRkJeasZ8oiD1hywQ+9HgRhrQIsemNpB6hi18qSdZQeeAlNEEFA1YPYzNY7LsIW/x2ku6KT+yJLxb6f4IXrztq3/kxmDulqER1AUuie4/rDhpEcKe8leAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=HZpGNRw2; arc=none smtp.client-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ZViFu7IS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ao1NfbTi1fdVm2zHrRl3pg48MKghBpaRfWZOiHYUqGNfPFTxGqV2VxLYJblrgC2oKfUmV0Pw65zHmeJJk1YuI4Xwk9PtZmR4rGuVqejZgDkSOzp8YzpxP+u7yNMlBm7Vx6Rape8X/naBu9vw+T9y8bjSwKxJ8LwJ52q54BokotfCD+jMIBkBjMV53Gbclyjc69EKvUrd6TB4VV2sDCAjyEc/HfytohD7mBMmXYzbf+iby480S5x3ibSuiTgi0Gbua8M1WjhcqzmJtiFy/jumdUSFuH2AwRDngHdcH70Kd+9Ckb92HaCBYyiGvSjVuMbiUjjhn+wE706MwRamzbNTCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z95Hu0eYgMlGXPDbZUsVJ7P0YVu43ni1LfczHfwwFFE=;
- b=hz5iHjbtFS/eAr2YPGcrveD+LpPjTgoxb/WqMUXf2qjDsP+qAh7fP8dDoryPxROMhAUUj2rq+6yhvuGM/zPdRhhSx86REMG8OmpYIIUEcXnylRJkdwXe4OVX+9aT0oCCbcanakCm/yLypqIpjrkdACDPaXvTqms4nWvmY1j+FYxKyssr9Hjm2V03wGWaiKIUlx84FrEvouYHgr2Ip5oiBqcAkGo4IcPzlO4CsQhcoD7bkisNGn5Y2YHGrwpz7MprSSsF54lGHjVpM90yHHd0QwshPUOLZYnRA71bBrAm6tgf6bP9KdLGrl50zSbXMN438y9s9A4xvJWbVMNjBITTFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z95Hu0eYgMlGXPDbZUsVJ7P0YVu43ni1LfczHfwwFFE=;
- b=ZViFu7IS0CRmWQ1mMF0TDkNwcoLASj2UnKPyNbRoWz8Xptu/+3bryNIKW07NnzFRPMuLaL3QrJkIk1eB3+sDsdFYKgbJ8GMsL3/jniUxkX40eCISfyfvi1P3ZK1UdXqmb4Q5vZ0DaUnQbXt7LS3eLmysWwr7OEO8M5ynaOldok0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB9138.namprd12.prod.outlook.com (2603:10b6:a03:565::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 08:07:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Fri, 28 Aug 2026
- 08:07:11 +0000
-Message-ID: <794bd530-3fa6-4cf5-bfed-202f80a68a3a@amd.com>
-Date: Fri, 28 Aug 2026 10:07:08 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: skip the VMID 0 flush for VRAM
- clear-on-release
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-References: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0094.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="HZpGNRw2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787904572; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=HR83UriVsIUTznJzO8x3qhujDb3DFBhw9+CN77nXxOE=;
+ b=HZpGNRw2xwoFsIKbwIKvBOt9X+BzKCBoy90WS2scOxDqMaabtLmXN/Cc5G7E65+bj/piFL
+ y49kcOVizC4xYmmW1eMPB1zAHyA2BGnbx+jIJF0aAElO89zlj1PyoT2ANpqZGIrtoZM0kc
+ zbnaL8E1jdXheDZu/tPXHXCFtkXZhZzlKfyXCVRB9fw5BI3haKJuFPfgh+ZUm3XwpdOEpp
+ 8di7/en52aI5i2A98jqfOO8rMBCxAer4XZWmU46mwJrZi7bHAf/rztyGh1rlidWhtxiegZ
+ 1WU2eXfkJ1xjkDVlHnb7t/JQ2PXAAoIjMsuG9dCED0WSO5ABj09ZZBfBewbuXA==
+Date: Fri, 28 Aug 2026 16:09:27 +0800
+Message-Id: <20260828-cmt-speech-uaf-v1-1-1fed740dd225@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB9138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c8758e0-a0f8-47e7-657f-08df04db5d23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	kG7sWkWY51TAMidlSYr4O5el6/3bZliueIJjUk6DbXuyLFzeGOrOh0abUJP2Ywnt4yf36P/1EWcxCOy8d1qtLkYR6kNkUQUoGsR7Qe+lInXWqRWcE8qhtdFMJW77ZHgDVl6Cai5EHi5KjMq87b36jDNulvnPL/1uaB9HYjtaGGtXJpxp7pa93SqzhWJc0s4Qy6Qg0gEKMphE4Ryj0H0fL4vDkCuXu0QNDFVcPNLBKMwzuFeDJhPq7WfBdVQLdIGnIq7Cy7UBzCpgOjAoITuL6Wp6ztLcUSRzWOziIi8NyPSLR89Xy8EFN/Lu7TNFZy/ogRgkYN4OCGw7wm2h3GMGH+T4Tviw3UBEg5SYuXkrt0IFt05gA/v0IW1GdPkylMkUpqc3kcPkcysieWGeD8yKM28MV+etMk82nNdViYgZrv8t3f5RvIE+XVp5gKJhudhgxrfWQq9Xfzu49o9NFQgKHejj4Hc+lYmfYh3VnSGCA2UKfO3ScX3lOYvxozEpTm+xhaMNQBA2YfAuTAX6u8wRbYEIhWK+7/c2jktlaHKMKBKDoIwWqPLiZcf4xTiIkYei+QRgioFvROVJV1NG1rDkdXGCjntJ/nl5pagEezsOVgWqR49A9tDJLwLS6G5HjPsKeFVk4pnFM8EbMmT4vR5mySEQ9k+pIm4uo1usYNeUdEg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NGJXQllDc0QxeVRKNUQwYy8raWs1RkZvQjVpQXRIMjRodHlQZVB5SHRtYUsx?=
- =?utf-8?B?M0Evd2o2L3NpWi9obEw4SVY0N2ZydXYvbitCQ1MvOFRtZGpsejI4cnpGOE4v?=
- =?utf-8?B?NVJSYkd5dURISGhmMFJmcGlPZ1J5M2hBd3FhdWhKR0c0OVh2YkZ4ejJVNVA5?=
- =?utf-8?B?YnRTZ0pXZUVoejFiaVdOdGJuNExxeXp5ZXZ0N3BIZ1ZkSmxXOGluMHR2VWww?=
- =?utf-8?B?V3NTNlVnQkU1RHR3b2xYRXF5UmxoT3pLZUFKekpUb0t3MU11YlVSbW1yZ2pl?=
- =?utf-8?B?TjVXUzZQNWlwRXdSU01MWkN1UXRJbk9LK1IzcURTczkyS1BQRHgxZWJDVis4?=
- =?utf-8?B?Q2dNeHc3b0ZDMjk3U1lJaHVmWi9pSTZ5Y0pFWVYySmhFY2FaVk9mVmxKMGpX?=
- =?utf-8?B?bkNVbHh2bTNRZ2FvMnJSUU12d25PZW5aTXN4aXRWTEN6ZUFoRXBsdVYrV25i?=
- =?utf-8?B?b0VYYVNicTIxU3dybzhxUHVZRzlBVEpvTTZlSjY1WVJsSDBiYzJnTkNBc3lV?=
- =?utf-8?B?MHhyY2IrdC9SQWpYcWhmclkrTWlHbTlYNmhRZzFMQXVXMjVISTVlTUtjWmlR?=
- =?utf-8?B?czYwRi90cytqT0doNHIxQy9xVFdyT2hlVzVaNnExRmVjRlJXSTcrQmNYN3U5?=
- =?utf-8?B?a0g5SjBoQndQQWVUOUUyanQ2azZuRW4xZDFmM3BEMU4vRWNkeDRLUFBjbzJo?=
- =?utf-8?B?amhieWdlbHFmY1NoWmpiOElpTDBtRGVtTFZlZFE3UFVob2l0OUlHbmQ2ZDF2?=
- =?utf-8?B?THJCcFdzZ2IrSWpNanNrS1VpeUhHMHlPWTcwZUlxKzlraGNOMmRoOEZ6S1dT?=
- =?utf-8?B?SU5rTzhrSG42TlpOMXEwQWYwNUY2ZkR0RU5jekE3Q0h5bFQzRWtWaXNGR0Qx?=
- =?utf-8?B?emtudjZGSXg0RnArYXRWamdBVktFckRLU29mNEtRL0MrbTUyVkdVNXdHSk1m?=
- =?utf-8?B?OFZNQk5POXloQ2JqdzBSRWdnTGZNMlVqb2pwMVVQUi9ZbGRxNVh3ZTluRU92?=
- =?utf-8?B?SWgrcGozWVFyTzVaSzIzZXN2bkJRUlFGZWFPR0pONHJlOEE5ZVh1MGQ5aVlv?=
- =?utf-8?B?cHZuaTgzNEdqLzhxWUY4d2hzUm9wK0FWOHdNVjMvS2VVc0xYR0o0d0Y5a2dy?=
- =?utf-8?B?N2dFVFdqR0x6MXJ4R1BCRnpRdzhOV1o5WDQrbGt4RXNSRjkzRFJtbjlWMWZR?=
- =?utf-8?B?bHRkZUo2ZjI1aUdBRlpFbnJILzhON1V0MUxrZHVYS0pSRE1wRURXR1pMUVl2?=
- =?utf-8?B?aGdsN2N4c015Vkx6Qk1sMllvL1hLRjlRMWczSDNlTGRwY0dQZzhjeFc3L3Nx?=
- =?utf-8?B?VnduM1MvQStXdHp0L3g0OGtJMUd2QU0vUHI5bGZzQzZVakMzQ0tHK3hBd1Nh?=
- =?utf-8?B?eUVrZllxVGJSZEdkRlhNeGVLZmQ2TGRpbENLQjJrVU5IYkZKWXhCSUdLZzls?=
- =?utf-8?B?YTUyM0JtbEV4U2d0UHhVUUlBZ1ZGWmtTUjdSZzNxM2lOL2tFVWVnY01LMi9o?=
- =?utf-8?B?VmpFZWRIK2tMaDVXMVAzVkJaUCt0c2ZBZnBTaGRlNmtta0xFd1lUb3dUd2Rj?=
- =?utf-8?B?MEtHcG5MOGFOZWhiSHdCdGpFdVpxbXYrY0dIWWo0S0V3Qkp6Z0pDek03QTdM?=
- =?utf-8?B?Vlo0UVlnMHJud0RVdGZBOU1oNHFpbGVHWDlFZE9wak9tYlViS2FXQ1BrZlZT?=
- =?utf-8?B?SzJ6ajZEc1IvZWd1amFjQ2lZYXIrZWJuUnZiWHhybGwra2F5L2dmbjR1ZThO?=
- =?utf-8?B?eitPVTg2NjM5ci9lT3VtVGIrTEpYdXdOOUdnQW1DbjRrR21xaHE3Y2tTUjl6?=
- =?utf-8?B?Q29wckx0VXJOaGRyRS9FSGh0M1dabDNZWWozTXRObkEvb0wvN21JUU5BNUFM?=
- =?utf-8?B?UHVMRVhhK1FaVVZ2VFprYVRxRWJvZVdqYUpMY1Z3TmY2cXBwWGFqZVZpTFBU?=
- =?utf-8?B?TDZpWitPWllUSTcvSDgrd1Foc0RrbVNabEt0ZWFBZDVCdDB1L2MybWJaN1Va?=
- =?utf-8?B?Z3BJbmZXdmdvRnk0NXM5SllpNlVZVitueWtpSWRrdGRKUFBLaE43d1lUV1JJ?=
- =?utf-8?B?RFRjR3lGejI0VTYvMUNucGhjajdWOXRYdWMvKzNQR0d3QmdFSlFpQVd1dHNq?=
- =?utf-8?B?TWNFT1hqODZBYTY4UkdqTjBWRS9UaXpWelB6ZWtJckdjZWlyVm9tcGhucmZU?=
- =?utf-8?B?VDhEMjdqcFR3MXdsbHVLQ0k3T3pNMlFudUwrWW9iQWI3RkdmNXhPR1ZoVEgr?=
- =?utf-8?B?eDN3UER4M2lQdy9HcUpzSE1QM2pTNFNMNHFWUGpaMUo1VUNsRlV4M0FTaVVs?=
- =?utf-8?Q?V3mdT1eMikHtOnR5ZO?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c8758e0-a0f8-47e7-657f-08df04db5d23
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 08:07:11.8724
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z/XvJfOEGCM9ak7o1spc75iRD51tOGCBpV3GSqRSOdXzt+Jp8zSnS8dwFtjuWjaW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9138
+Mime-Version: 1.0
+X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=UTF-8
+X-B4-Tracking: v=1; b=H4sIADZCkWoC/yXMQQqDQAxG4atI1g3YAU3pVUoXNv5TU6iViUpBv LujLr/Fews5ksHpXiyUMJvbr8+4XgrSrunfYGuzKZShLm9BWL8j+wBox1MTuY1BpRJRCChHQ0K 0/zF8PE/79PpAx/1C67oBbcvcrnIAAAA=
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] HSI: cmt_speech: Fix crash on device removal with open file descriptor
+X-Change-Id: 20260827-cmt-speech-uaf-df2c7577ce7e
+X-Lms-Return-Path: <lba+26a91423b+7a9ed7+vger.kernel.org+me@cherr.cc>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Fri, 28 Aug 2026 16:09:30 +0800
+Content-Transfer-Encoding: 7bit
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+To: "Sebastian Reichel" <sre@kernel.org>, 
+	"Kai Vehmanen" <kai.vehmanen@nokia.com>, 
+	"Aaro Koskinen" <aaro.koskinen@iki.fi>, 
+	"Joni Lapilainen" <joni.lapilainen@gmail.com>, 
+	"Carlos Chinea" <carlos.chinea@nokia.com>
 
+misc_deregister() does not drain file descriptors that are already
+open, so after cs_hsi_client_remove() clears and frees
+cs_char_data.hi, the ioctl and write paths still dereference it
+without any lock or NULL check:
 
+  open("/dev/cmt_speech")                          [userspace]
+  rmmod cmt_speech                                 [removal]
+  ioctl(fd, CS_GET_STATE, 0)                       [userspace]
 
-On 8/28/26 06:47, Arunpravin Paneer Selvam wrote:
-> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
-> via its direct MC address without programming a GART window, yet the wipe
-> still forces a VMID 0 flush. On GFX11 (e.g. Navi33) that spurious SDMA
-> flush can wedge the engine; only flush when a GART window is actually used.
-> 
-> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-> Cc: stable@vger.kernel.org
-> Cc: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 6c07cee8e8777..2e6c98c2f1efa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2578,6 +2578,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->  	struct dma_fence *fence = NULL;
->  	struct amdgpu_res_cursor dst;
-> +	bool vm_needs_flush;
->  	int r;
->  
->  	if (!entity)
-> @@ -2585,6 +2586,8 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->  
->  	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
->  
-> +	vm_needs_flush = bo->tbo.resource->start == AMDGPU_BO_INVALID_OFFSET;
+Fix it by reading cs_char_data.hi under cs_char_data.lock and
+rejecting calls with -ENODEV once the interface is gone;
+cs_char_release() now steals the pointer under the lock like
+cs_hsi_client_remove() does, so the interface is stopped exactly
+once between them.
 
-It would be better if amdgpu_ttm_map_buffer() returns if the VMID0 flush is needed or not.
+Fixes: 7f62fe8a5851 ("HSI: cmt_speech: Add cmt-speech driver")
+Cc: stable@vger.kernel.org
 
-Apart from that looks good to me.
+Assisted-by: GLM:5.3
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+Verified on a KASAN kernel with a software HSI controller: opening the
+character device, unbinding the client and issuing the ioctl gives
 
-Thanks,
-Christian.
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:cs_char_ioctl+0x29e/0x340
 
-> +
->  	mutex_lock(&entity->lock);
->  	while (dst.remaining) {
->  		struct dma_fence *next;
-> @@ -2605,7 +2608,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->  
->  		r = amdgpu_ttm_fill_mem(adev, entity,
->  					0, to, cur_size, resv,
-> -					&next, true, k_job_id);
-> +					&next, vm_needs_flush, k_job_id);
->  		if (r)
->  			goto error;
->  
+and with the patch applied the same sequence returns -ENODEV.
+---
+ drivers/hsi/clients/cmt_speech.c | 47 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 40 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_speech.c
+index 7226677ebde7..4325152a5a62 100644
+--- a/drivers/hsi/clients/cmt_speech.c
++++ b/drivers/hsi/clients/cmt_speech.c
+@@ -732,6 +732,17 @@ static int cs_hsi_write_on_data(struct cs_hsi_iface *hi, unsigned int slot)
+ 	return ret;
+ }
+ 
++static struct cs_hsi_iface *cs_char_hsi_get(struct cs_char *csdata)
++{
++	struct cs_hsi_iface *hi;
++
++	spin_lock_bh(&csdata->lock);
++	hi = csdata->hi;
++	spin_unlock_bh(&csdata->lock);
++
++	return hi;
++}
++
+ static unsigned int cs_hsi_get_state(struct cs_hsi_iface *hi)
+ {
+ 	return hi->iface_state;
+@@ -1180,6 +1191,7 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
+ 	u32 data;
+ 	int err;
+ 	ssize_t	retval;
++	struct cs_hsi_iface *hi;
+ 
+ 	if (count < sizeof(data))
+ 		return -EINVAL;
+@@ -1189,7 +1201,10 @@ static ssize_t cs_char_write(struct file *file, const char __user *buf,
+ 	else
+ 		retval = count;
+ 
+-	err = cs_hsi_command(csdata->hi, data);
++	hi = cs_char_hsi_get(csdata);
++	if (!hi)
++		return -ENODEV;
++	err = cs_hsi_command(hi, data);
+ 	if (err < 0)
+ 		retval = err;
+ 
+@@ -1205,8 +1220,11 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	switch (cmd) {
+ 	case CS_GET_STATE: {
+ 		unsigned int state;
++		struct cs_hsi_iface *hi = cs_char_hsi_get(csdata);
+ 
+-		state = cs_hsi_get_state(csdata->hi);
++		if (!hi)
++			return -ENODEV;
++		state = cs_hsi_get_state(hi);
+ 		if (copy_to_user((void __user *)arg, &state, sizeof(state)))
+ 			r = -EFAULT;
+ 
+@@ -1214,6 +1232,7 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	}
+ 	case CS_SET_WAKELINE: {
+ 		unsigned int state;
++		struct cs_hsi_iface *hi;
+ 
+ 		if (copy_from_user(&state, (void __user *)arg, sizeof(state))) {
+ 			r = -EFAULT;
+@@ -1225,7 +1244,10 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 			break;
+ 		}
+ 
+-		cs_hsi_set_wakeline(csdata->hi, !!state);
++		hi = cs_char_hsi_get(csdata);
++		if (!hi)
++			return -ENODEV;
++		cs_hsi_set_wakeline(hi, !!state);
+ 
+ 		break;
+ 	}
+@@ -1239,12 +1261,17 @@ static long cs_char_ioctl(struct file *file, unsigned int cmd,
+ 	}
+ 	case CS_CONFIG_BUFS: {
+ 		struct cs_buffer_config buf_cfg;
++		struct cs_hsi_iface *hi;
+ 
+ 		if (copy_from_user(&buf_cfg, (void __user *)arg,
+-							sizeof(buf_cfg)))
++							sizeof(buf_cfg))) {
+ 			r = -EFAULT;
+-		else
+-			r = cs_hsi_buf_config(csdata->hi, &buf_cfg);
++			break;
++		}
++		hi = cs_char_hsi_get(csdata);
++		if (!hi)
++			return -ENODEV;
++		r = cs_hsi_buf_config(hi, &buf_cfg);
+ 
+ 		break;
+ 	}
+@@ -1334,10 +1361,16 @@ static void cs_free_char_queue(struct list_head *head)
+ static int cs_char_release(struct inode *unused, struct file *file)
+ {
+ 	struct cs_char *csdata = file->private_data;
++	struct cs_hsi_iface *hi;
+ 
+-	cs_hsi_stop(csdata->hi);
+ 	spin_lock_bh(&csdata->lock);
++	hi = csdata->hi;
+ 	csdata->hi = NULL;
++	spin_unlock_bh(&csdata->lock);
++
++	if (hi)
++		cs_hsi_stop(hi);
++	spin_lock_bh(&csdata->lock);
+ 	free_page(csdata->mmap_base);
+ 	cs_free_char_queue(&csdata->chardev_queue);
+ 	cs_free_char_queue(&csdata->dataind_queue);
+
+---
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+change-id: 20260827-cmt-speech-uaf-df2c7577ce7e
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
