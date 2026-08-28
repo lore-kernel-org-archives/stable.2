@@ -1,222 +1,132 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D8339A073;
-	Fri, 28 Aug 2026 21:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033D8356749
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 21:53:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787953631; cv=none; b=kcklftwMX27msiBfPmNrCzF6MFhelmrLrGXTEPu8AoJfgaF3eo6Wy5BjMJwTmuHDyoit12WLW0FEG12UiKjXHIdrr9j/Yom1HWG4pM223rsRtnO23tZ3uZv91VUmtLIZ3DNM4+VsJrB93g8TulPBj2+uPJCmLTs0y42EPOjI6fk=
+	t=1787953989; cv=none; b=EGS3hq+CPntqMcYUI5R8ZTGYtGFtI6eupt81FMHLJ5B31wY5eZrRe1DJzfZ+Nh9fwI6NgkGPo/p0vKWrub5k7einvYCK8MJeQXirkNue8MR7RXk/37s+eKQJylcq5o9zH69IwptXajQvI2IjMneNmRyzsMAVdKueFWDoBsZl2RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787953631; c=relaxed/simple;
-	bh=5IP86hzRbbjhxxfQNEOYVuSqYDhdRiUR2Bns/Bl/xr4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bHQwm3BVZEachhr/N24YnvPFzRYS1UDlwZ4EmDraYfBifXSh/WxcXevhz2VptrnvL/iRmASHK/2QVSVW4g3pjUo8pPByqODUDCVXk1c392ibBdPi/CeRltSC66WkZWM03mZpJKqwWXTnjgo6XO1FgxPS+1ouv6vVDRyf8clTSeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=irKkpzT/; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1787953989; c=relaxed/simple;
+	bh=WbiNCMptjrmcEYIdC33C0eKNoewr84F/bHo0BDCR3Cg=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=jTwWv0NTZI+f3gwRnMPn/xE+6AokKj1BMEXqwKVIm3wCbJe1LSxkyxFG+4a31wJ5/ft0J10hIDYUo+yvVSJTVHELm8eg8IYu1JRCqn7ibDbfsdkJnN/JxVAGtCr3zlo9KindkGpx9F8xHGdbCGimlz8BxxJ8zoyY0vNFu3l05Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--eperot.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jw+H3Kax; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eperot.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="irKkpzT/"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67SJVkGM2906405;
-	Fri, 28 Aug 2026 21:47:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=6PvKm4sscKTZCn5rw
-	plFou5k5vTrXQv6GtfdgHswfLE=; b=irKkpzT/nkU8PPQrKFl/O3fu15V0Ol+fG
-	oUHiiQweq/iebdGx65RJMEUVzoVP9ujZa1lZEeD69fX1o+PVE4YToh+rQ0cJijHx
-	FwcSp1BX4B24YTO+hsrHV7zMsLEtzq83FpuZg1a4GJtFvBZMuFCaFjsL6G6XdfkB
-	d5nyQoT01Ng20Yd34ebtlBsQmpgla7GYMH6YB80w/sEUPwN/MNT8ABWwU79LH0Yt
-	u9oz7WENB/LP3pIe87txOqfD/PA5Kb87ApzEs5lfDs0gwHeugFliKelOn6Vg0ZN1
-	Gmb4snIk+ka71EKSkmJb7r/SRisshf1KJ+GRTj9I6UNh3vCmOXtTA==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4g716jfc4p-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 21:47:04 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67SLfGHi003244;
-	Fri, 28 Aug 2026 21:47:03 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4g7rah0s01-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 28 Aug 2026 21:47:03 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67SLl2k847972692
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 28 Aug 2026 21:47:02 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2270E58058;
-	Fri, 28 Aug 2026 21:47:02 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6A9435805C;
-	Fri, 28 Aug 2026 21:47:00 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.33.14])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 28 Aug 2026 21:47:00 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH v4 3/4] s390/vfio-ap: Fix unbounded loop in apq_reset_check()
-Date: Fri, 28 Aug 2026 17:46:52 -0400
-Message-ID: <20260828214653.1087009-4-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260828214653.1087009-1-akrowiak@linux.ibm.com>
-References: <20260828214653.1087009-1-akrowiak@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jw+H3Kax"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb6cf425e86so1768107a12.1
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 14:53:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1787953987; x=1788558787; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YpFWj3Pa3XG+6oUGMVressHFkgt3PbCUN84lnIAsqyo=;
+        b=jw+H3KaxkeQBk7rLDHnuEFQyBMjGhyfs4r+GysHgqJp46O7VqrC1/+8jAg59wIYYMl
+         1fzo0xKm6GKPi/f3I7LfX7T6EWyO68z+jzi1X3y7bGKQNWI/tpWCyVXb9hrspC1ihzS1
+         1qK25xhOGnVbL53t+JkZhNRxXXZhdfOy7no1Mvpyfu+GqvgUcIvwU4FFHP8TrHU12AEF
+         HOfOY20l5ZNopfTeOVAgxkDQCMWi/jVgzkoKM7xtBOQUZWEguz6SipOOyg++NcW5bKjd
+         3zrzl8hI1+TEB9z+0IwDFUW+1Bd7zmg03h7mtGB+5LvYdMzYgkm1gU9DoUVDVqOi7DXP
+         YY9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787953987; x=1788558787;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YpFWj3Pa3XG+6oUGMVressHFkgt3PbCUN84lnIAsqyo=;
+        b=UnmgFyPstEIphKjZufuYt5Fqc8R5Zk79XiUYNxDBmN62CU+/45+Id6ujeCzqXapyY3
+         Q9NiNJSyZwcJCXMQcJqhuLsZqTD6l4n3XaJD9UWYXQZGgrJ75epFSR/w9Kv38y5189V0
+         SL3UDNZX1oCMUYWQZMDaXC6wLrBBoB9UN2iFWshtwOl8GHDAO+FQOOQ4NhfxiXyRnUMd
+         7mC2+Euk3j9E5lV28C55QTnaVDLRQWG6anaKZWCdHjSUfMTyPW0f8r1G0Z9UZSWm9Xnn
+         CaSA4EO/Mfe3fTUneXAjhmHeyR7xSCQxWiAn1kOzXkI6nFVa/MhISodz4GtP3Swm/wt7
+         eL2w==
+X-Forwarded-Encrypted: i=1; AKwUvBx5J4YS+iTTOsgr6Jw7f6Sg56oIAYGqorVBUXKZb3Vcjv/k0Wq9rxGXS8Npj5LShfcqvsHiHrw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEfdxM+CB1otRguW8c/US+vY5aezdHzzb3wiCZotDA7vGBbH2q
+	mwjMq5YQVjwQ4lX+NkmlAtlLhiHtwNjNDc1AunXtNi46Rrb7edMqP1bi0Oiw/k1v1wQjKKbU1Bv
+	6cxEtzA==
+X-Received: from dyay16.prod.google.com ([2002:a05:693c:62d0:b0:323:c18c:3b31])
+ (user=eperot job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2f0d:b0:2c9:aae1:a61a
+ with SMTP id d9443c01a7336-2d74e07003dmr185797365ad.14.1787953986865; Fri, 28
+ Aug 2026 14:53:06 -0700 (PDT)
+Date: Fri, 28 Aug 2026 21:52:51 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI4MDE4NyBTYWx0ZWRfXz5/qKkvooyEf
- j1NeskfGAIK5vS1J9OEWMvjHUOFdupzG0hVe9ADmv/doO4VKyxjb0drPsUfH2JE6/2YiR/OvpsF
- hVrzpAjTIR+ZQoOrZqmC8XBpr3a4VO0=
-X-Proofpoint-GUID: nNPGGOFxVeArsPRkcw1rfjp7axZFfYku
-X-Proofpoint-ORIG-GUID: nNPGGOFxVeArsPRkcw1rfjp7axZFfYku
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI4MDE4NyBTYWx0ZWRfX5vBEwZX9zOT+
- qn3c5rLMuR4Uqa4gkR4NcW0NsZO9nKDsGIAH9gNPnz4g5/VX/tGRlQBhSufW65ZWpcoSvfj/koJ
- O8r6ErsS18j7VP+e3KeqM9JRVuEM6wNOWIlJLjRhwif02H0+oauTLRgb/MauPBz3LuKxDsBlQP0
- GYNnxGA+87ktUTSfuRdJxFG/i5wgycbIW1kzq1NrksZTO+zpk8Q5bQvUz7Ll8GXWNbb6q1lsZNV
- 5ki/sq1DQEC5+WqJ4ZCybbG2Z8c9QbMjzE5WB3JRzf4s1D5U23VpTXo09OWonA8BJTiXO0H1mSG
- 6xbIc/NdwxGskrrltSlBlLdh3hEA2/kMTIf4fas0exDquwBHwle85hmQCL0RuCuG0LX6ElV23Uj
- z5wP+iHJK5zy6YRK3EDephVD3vGw+Bu+Q8cWexjO7sHDqmMCO1MKFTyW7a/R2Q17MseWpftJRe0
- WMdYlkvSXn1ER6FUA3g==
-X-Authority-Analysis: v=2.4 cv=H7brBeYi c=1 sm=1 tr=0 ts=6a9201d8 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=QSCR_LEHqxABJDgvvGYA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-28_06,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608280187
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260828215252.4126811-1-eperot@google.com>
+Subject: [PATCH 1/2] cgroup: fix spurious SIGKILL of CLONE_INTO_CGROUP children
+From: Etienne Perot <eperot@google.com>
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	"=?UTF-8?q?Michal=20Koutn=C3=BD?=" <mkoutny@suse.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Christian Brauner <brauner@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Etienne Perot <eperot@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The apq_reset_check() worker polls ap_tapq() in a while(true) loop
-waiting for a queue reset to complete. When ap_tapq() returns
-AP_RESPONSE_BUSY or AP_RESPONSE_RESET_IN_PROGRESS,
-apq_status_check() returns -EBUSY and the loop continues after
-sleeping AP_RESET_MAX_WAIT (20ms). There is no upper bound on how
-many times the loop iterates, so if the hardware continuously
-returns a busy response the worker runs indefinitely.
+Since commit b69bb476dee9 ("cgroup: fix race between fork and
+cgroup.kill"), the fork path snapshots the kill_seq of the child's
+future cgroup into kargs->kill_seq, and cgroup_post_fork() SIGKILLs
+the child if that cgroup's kill_seq has changed in the meantime, to
+catch forks racing with a cgroup.kill sweep.
 
-This is particularly harmful because several callers of
-vfio_ap_reset_queue() - such as vfio_ap_mdev_reset_queues(),
-vfio_ap_mdev_reset_qlist() and vfio_ap_mdev_remove_queue - call
-flush_work() on the queue's reset_work while holding one or more
-of the global matrix_dev locks (guests_lock, mdevs_lock) or the
-KVM lock. An indefinitely spinning worker permanently blocks access
-to all ap_matrix_mdev objects which could hang other guests that are
-using them.
+For CLONE_INTO_CGROUP, however, the snapshot in cgroup_css_set_fork()
+is taken before the target cgroup has been resolved: kargs->cgrp is
+always NULL at this point (it is only set at the end of the function).
+So the "if (kargs->cgrp)" branch is dead code and the snapshot always
+records the kill_seq of the parent's cgroup. cgroup_post_fork() then
+compares it with the kill_seq of the target cgroup, so the child gets
+SIGKILLed whenever the two cgroups have been killed a different number
+of times.
 
-Fix this by introducing AP_RESET_MAX_WAIT (2000ms) and breaking out
-of the poll loop when elapsed time reaches that threshold. On
-timeout, if the apq_reset_check() on that last loop has determined
-that the reset has completed or that the queue is not operational,
-the AQIC resources associated with this queue - the pinned page
-containing the NIB and the registered guest ISC - will be cleared
-because a successful reset disables interrupts nor can interrupts
-be signaled from a non-operational queue.
+As a result, once cgroup.kill has been written to a cgroup, every
+child subsequently cloned into it with clone3(CLONE_INTO_CGROUP) is
+killed on the spot, for as long as the cgroup exists: kill_seq is not
+exposed to userspace and never resets.
 
-If the apq_reset_check() did not verify completion of the reset,
-the AQIC resources associated with this queue cannot be freed
-because the NIB is the active DMA target for AP interrupt
-delivery until the reset completes; freeing the pinned page while the
-hardware may still write to it would result in a use-after-free
-kernel crash. If the reset eventually completes, interrupts will be
-terminated, but the pinned NIB page and ISC registration will be leaked.
-This is preferable to either a use-after-free kernel crash or waiting
-indefinitely and blocking access to all mdevs, hanging the guests to
-which they are attached.
+Re-snapshot kill_seq from the target cgroup once it has been resolved,
+and drop the dead branch at the early snapshot site.
 
-Note that on timeout, q->reset_status will hold the status from the most
-recent reset operation so that callers inspecting
-q->reset_status.response_code after flush_work() will see the value
-and can return an appropriate return code.
+This does not reopen the race fixed by b69bb476dee9. For
+CLONE_INTO_CGROUP, everything from the snapshot to the check in
+cgroup_post_fork() runs with cgroup_mutex held, and kill_seq is
+only ever incremented under cgroup_mutex.
 
-Fixes: dd174833e44e ("s390/vfio-ap: remove upper limit on wait for queue reset to complete")
+Fixes: b69bb476dee9 ("cgroup: fix race between fork and cgroup.kill")
 Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Etienne Perot <eperot@google.com>
 ---
- drivers/s390/crypto/vfio_ap_ops.c | 40 ++++++++++++++++++++++++++++---
- 1 file changed, 37 insertions(+), 3 deletions(-)
+ kernel/cgroup/cgroup.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 363d9e53e249..3f5b012be450 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -34,6 +34,7 @@
- #define AP_IRQ_ENABLED	1
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index c3a12fee7528..2d532bf2c0c7 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -6873,10 +6873,7 @@ static int cgroup_css_set_fork(struct kernel_clone_args *kargs)
+ 	spin_lock_irq(&css_set_lock);
+ 	cset = task_css_set(current);
+ 	get_css_set(cset);
+-	if (kargs->cgrp)
+-		kargs->kill_seq = kargs->cgrp->kill_seq;
+-	else
+-		kargs->kill_seq = cset->dfl_cgrp->kill_seq;
++	kargs->kill_seq = cset->dfl_cgrp->kill_seq;
+ 	spin_unlock_irq(&css_set_lock);
  
- #define AP_RESET_INTERVAL		20	/* Reset sleep interval (20ms)		*/
-+#define AP_RESET_MAX_WAIT		2000	/* Maximum wait for reset (2000ms)	*/
+ 	if (!(kargs->flags & CLONE_INTO_CGROUP)) {
+@@ -6940,6 +6937,7 @@ static int cgroup_css_set_fork(struct kernel_clone_args *kargs)
  
- static int vfio_ap_mdev_reset_queues(struct ap_matrix_mdev *matrix_mdev);
- static int vfio_ap_mdev_reset_qlist(struct list_head *qlist);
-@@ -2067,6 +2068,37 @@ static void apq_reset_check(struct work_struct *reset_work)
- 		ret = apq_status_check(q->apqn, &status);
- 		if (ret == -EIO)
- 			return;
-+		if (elapsed >= AP_RESET_MAX_WAIT) {
-+			/*
-+			 * If the status check determined that the reset completed
-+			 * successfully or the queue is not operational, clean up
-+			 * the AQIC resources because queue reset disables
-+			 * interrupts, or because interrupts are not possible on a
-+			 * non-operational queue.
-+			 */
-+			if (!ret)
-+				goto done;
-+			/*
-+			 * Timed out without being able to verify reset completed.
-+			 *
-+			 * The AQIC resources associated with this queue - the pinned page
-+			 * containing the NIB and the registered guest ISC - cannot be freed
-+			 * here. The NIB is the active DMA target for AP interrupt delivery
-+			 * until the reset completes; freeing the pinned page while the
-+			 * hardware may still write to it would result in a use-after-free
-+			 * kernel crash.
-+			 *
-+			 * If the reset eventually completes, interrupts will be terminated
-+			 * and the pinned NIB page and ISC registration will be leaked. This
-+			 * is preferable to either a use-after-free or waiting indefinitely:
-+			 * the caller of apq_reset_check() holds mdevs_lock while flush_work()
-+			 * blocks holds the matrix_dev->mdevs_lock mutex, which
-+			 * serializes access to all mdev objects system-wide, so blocking
-+			 * here would stall all other guests using AP queues.
-+			 */
-+
-+			return;
-+		}
- 		if (ret == -EBUSY) {
- 			pr_notice_ratelimited(WAIT_MSG, elapsed,
- 					      AP_QID_CARD(q->apqn),
-@@ -2083,11 +2115,13 @@ static void apq_reset_check(struct work_struct *reset_work)
- 				memcpy(&q->reset_status, &status, sizeof(status));
- 				continue;
- 			}
--			if (q->saved_isc != VFIO_AP_ISC_INVALID)
--				vfio_ap_free_aqic_resources(q);
--			break;
-+			goto done;
- 		}
- 	}
-+
-+done:
-+	if (q->saved_isc != VFIO_AP_ISC_INVALID)
-+		vfio_ap_free_aqic_resources(q);
- }
+ 	put_css_set(cset);
+ 	kargs->cgrp = dst_cgrp;
++	kargs->kill_seq = dst_cgrp->kill_seq;
+ 	return ret;
  
- static void vfio_ap_mdev_reset_queue(struct vfio_ap_queue *q)
+ err:
 -- 
-2.53.0
+2.55.0.897.gb25b4bd76c-goog
 
