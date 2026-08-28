@@ -1,79 +1,81 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D02389116
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 14:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6372D47140B
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 14:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787927147; cv=none; b=jO//eGFMHVbail08zm53Rqf4BaM03J4P7GOBXLeyr3HbQsS1u2V9hLMsgFRvlpcWVw0/lEGdWEa42BUgr8afD5vCgCILXg64BSYMCKrcUEVbZBykSmPIxyyqVvaCq1HeI+o6/dLe5fhE0DWyiby53n70TG3PmYW/BQLjYuObgVM=
+	t=1787928061; cv=none; b=Vt0JXeX9oRLzboIktqmEYnV5kDN9cvkF3KdfXdx1MfCHNw6edWICtn4u9azDx+64YnAjOdl2viQaBh7tyxnLH5qphXCE+eVrM4wAdM1pHqTSl8xPPNXUhM6fmQ7fClJ04X5JKABFlhdpl3M5y5TtbD2h0Jp1+Fy8Rna6JaSTZAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787927147; c=relaxed/simple;
-	bh=gF7RjPEJRFWajt/OLcEI/3tzHIgjMyeLim53Upe2oFY=;
+	s=arc-20240116; t=1787928061; c=relaxed/simple;
+	bh=8bS40oV4jEPLs9Cs2elpr2P5JyOnyCM4culKHiPewYs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHyhGwlFpC1dSvUK+4ewVPZ5DgdVqirHnz9q3kBlJRYiCOuyJrVGxqhYd4RNSHKZE9zcNtwgNW5SdCqb01JkpyYqSx2soZmLvqaEAmPZ1+GFNRQK7P0yyEpaa6pg3nw5hgjhNdmvxDc5XtVYjO642amPICe5jNnPWEzH54UM3ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eXnuON0z; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=s7w4Oq7Ooe/0I19iXf7lK8cHsR8Na9FV/s9jxv9rt/J3zh+FfvqF4O0eHgPCFIVUoZpaZ2Y6MTG0TpRT9Gn5n7ZTRpZuIGyVvOyNyyLjromuP5LoqTsPq/KS/ssz7iHkN8qiX/Dd0rY8F+6Yj3v+c1GjMq2kLK3DbDk0Q/VQEHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MzPYzCVI; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eXnuON0z"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so9902645e9.2
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 07:25:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MzPYzCVI"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38e347638adso1052999a91.0
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 07:40:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1787927144; x=1788531944; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787928059; x=1788532859; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BoxMq16+fYtVCLi36Xsb9nn9RavJ5HgJioRujA1lSB0=;
-        b=eXnuON0z7SL4oznMBGst9qSBcOo3fOl/LXUzgaBWnOHkjqXCUiOSiSCofWmNzhHuFt
-         C9xsrjVFAkWVcRXUi26Je2nO0TvJRYOAaewoLpq1ve3q6g2jZk8jh2rGROy/4aQSRHYW
-         6ORnDst3cZZHfeFdJYvQqM8KJRef48cFX+G9wSS4GUWORN26q6PcvCDEPdVPjduqDrSO
-         9vGlee0KGMyx+Rz+pfZl09rQERxM146WBE1qkQ4AbtGa1c7YMbrzTbyjtusCuT+t6sx/
-         wXzZ4Jzs2EDS2Xsncu2VaGp0cy3O4sJ5uuq+Wj2Y9vtpma1BhqyAA09utlk4JNEbTIql
-         uxSw==
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bTIogw4TSRkuHDeXsegqU7KIhcr5PJJOjQw48d6uweM=;
+        b=MzPYzCVIVYQyyLIja3YyOiiedr3Prl0zqCx+F2B+e3HeyAW43HXlxqsePkTSncQ9jx
+         D3lCl95YSTX5uqpYILI+eUq8ukE4ImpVFZ+VAokMq3nb/rBy0vrXpo/7/1XGuXzL0jQa
+         qt6Y7XQ7bzBjV8yW8d3XSV0OG37OfRXASv7p2IpI/bW7iVmnZP+m2/EBH+dzeL6m8MrH
+         lWVwptsRLM9vJ2qkjzei6vyzaL46rlSHAOG1mwhB32zNYodNZwa5gbbMNEgUI9qWavT1
+         N8ETDQaYpIhMykRO+V69zJSYZfSuwn68fV9nnJa80rBr0GvI4C+RvFji49KSfReQTwXM
+         TG0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787927144; x=1788531944;
+        d=1e100.net; s=20251104; t=1787928059; x=1788532859;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BoxMq16+fYtVCLi36Xsb9nn9RavJ5HgJioRujA1lSB0=;
-        b=BLPTvX1J+ta2cW/BKc4rawV6lxaYpnLAh01ziUKlIe39ZQcujMkaR0zaiJucmPAiAD
-         sTqtQi4gTCTPQezLjHc/FWPkwDVsLCg4VOtuUoRYeqpWalgT1mFFWlQqUdChpjVnRxpD
-         eUX4Y5Nl5T9PGI9H6X7NHaafeY/tuSwrsbLDfvmJeblYblPCaYoxl8IpvlzQ1LEWNko7
-         GhHfwcUrA1z0WY1lyuB41MrmC6oPDhXpWGeXyHYS15TElFfzX8x14PYs+5o4eH2dOW0t
-         2nm6fZ8JzkKrAIqoDHOFX/IhcQ7OeM6VYzojq7a4inTqsAESzTNIJZvDX+2d4wHRC4LN
-         Zw8A==
-X-Forwarded-Encrypted: i=1; AHgh+RrdYGMvT+pLUHC/lXJSzDkWD5xWkNqR+y5Rjj9yXXbADjAQQNYUlCjfNrElCN80BHriZsykeiQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBc6WdltlYxFFA/qXWAzh8KquLdGuZgFiiB3of4fAg63+TU6E6
-	GG2TNInAQ6+F6Eb03r1a3pBDfBV00qmypkCYULBhoyOIU3sqZo47dA5vn+M19tdJxSk=
-X-Gm-Gg: AR+sD13JT7plFixhGwYsnKaBcXhAJGWugRWdnijkdpF0SgL3XKQsi53XJTztrwx8Q4b
-	+tp8eYG/XWdviq2ALwIZ89zmZZe44PeGVJOWckkuByY+uoTK3vT6HU7lblDruHxWd5xKTQ0CCJh
-	2+ys936odUBPOKFr1rU5wbYuo0Rj1E680AH7Crg3ouXD23/exOo+tG6FPrthFhXBubH3vDhEMoj
-	ZJhne9ZWsYzsw7ggin1hSfwUsiZvt4DNwE7tlwvb3Q324DqpEpqCKExyScPqBGzaF4d5xutqZ5D
-	8Ic1VzatH8rWiVjJv5PhTm9ARuwraNfeAaZw3SGFNWxh+h7x/4PKjKn7TzCq8n2SwAgt4w4pYi8
-	rF2gJPw1143a/XziOxm6uX11fE+1Jb/FkEhiYuwECLu2BWoInatGM6de+y+bWMO5m2wsFYCZpDJ
-	N9KE0iIoCkRv9L8LFd0Maud3C1ygSIQmrXgrzzXvPxj8wI+VXbXX03FyyqcmyQd1nnTOou5gr4Q
+        bh=bTIogw4TSRkuHDeXsegqU7KIhcr5PJJOjQw48d6uweM=;
+        b=JXat8nKFiTOwEo1YCD8oCzEdfq+GDiDug0URfs/ii7rBq2a1NTzjOcLFW1JSzhi6oP
+         2p2Nzzyn6sV1Nr9rqiJYnxX/4Vl+UToQuXLtNWBT5x5waZZZhHjQEgkzsFA6ZAHtZ9VR
+         dsSaqTdbMTwaNRaqrU2QcL05VBN8JKXSNcQ0qjXiD+plL7AzZ6wvhG0SswhO8393LjVN
+         ywPlWzlMKOXtTxue5ExXDlg3luxWR/f5plK6VNgO9LQmwquFM8hj6H8zDNs+/xeieOn7
+         peaGrDPlaBzKuTb415+kv36WjgSEMfnfGqTSyGUOyaSyH9Iq8SZ/gnoWYeCR/xxmuhxn
+         LWJg==
+X-Forwarded-Encrypted: i=1; AHgh+RqpK4iDqjOd8/+sc8VjkiZ1xQrlDCweGhHWIsJjIYWTxmENMpJT/wsUWX8WLnzbZRgGjwTA020=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVF2uFxnsE6QpWd0k9nxVetVP7uHeqio509Poy/9gFayJmEyyd
+	8Ujs4KO4CrM0vOjqpYvFPZntD6RYlwLNJWzFjpB5Q/v74gdbl9dAO/r+
+X-Gm-Gg: AR+sD10TJ2R8xNJGLcA5I7II3xpeFmtEjQ+80smj3SowOWhKCSR8I44N1v6JrqPJNTS
+	ATKpVGs75lNy3TQk0bYqYj7GSEDaSbCCkByL7tJn66tDhDRBMgtDqwJQpHyKN446GXay8f1LGV+
+	GfR0FihY65FvnzxIf3Kza+qz7kPTSSRh8fAXX49n+oedztuJsou2RGDDcUutTGnaN+Ca/3JLNcj
+	nO8+1Vd+Ge+AvJFwsfs4bkDzaT0kX62FfRLzt26Zcr4ZzFNzWfZuCLT+YwLOBDm+AVeIr4abVO/
+	0quG1mjVipFvN1ICewQRoTD5BklVSIAK1KzTe0Ay1KLoHxBFfRUgLR/IlrxMsAp7XM2DKNgTA9L
+	MgP4uJf/1yGwoYl/8558nQB9zog8Q+NW3aBPPjTDAiEwxcVDKtVIo9N3DD9M0GfNcJ74Imb5MVg
+	o1DCOAn1Wq71ZkceZ4jLvt8GW10AZN7YCJSwmhB/MwB2/BcNkYDGVm7RuH3kXcH5+dUg8LSt/3z
 	Q==
-X-Received: by 2002:a05:600c:b85:b0:49c:c96a:d36b with SMTP id 5b1f17b1804b1-49cc96ad411mr23596595e9.12.1787927143838;
-        Fri, 28 Aug 2026 07:25:43 -0700 (PDT)
-Received: from localhost (109-81-85-229.rct.o2.cz. [109.81.85.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a903eebsm17011155e9.4.2026.08.28.07.25.42
+X-Received: by 2002:a17:90b:5284:b0:38e:bfe:81e9 with SMTP id 98e67ed59e1d1-396d0e5f5ffmr15894627a91.1.1787928058655;
+        Fri, 28 Aug 2026 07:40:58 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9e3cf8sm6759748eec.24.2026.08.28.07.40.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 07:25:43 -0700 (PDT)
-Date: Fri, 28 Aug 2026 16:25:41 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/memcontrol: avoid stuck FLUSHING_CACHED_CHARGE bit on
- isolated cpus
-Message-ID: <apGaZdxAPH68kkCc@tiehlicka>
-References: <cover.1787890328.git.riel@surriel.com>
- <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
+        Fri, 28 Aug 2026 07:40:58 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 28 Aug 2026 07:40:56 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Carlo Caione <carlo.caione@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Wim Van Sebroeck <wim@iguana.be>, linux-watchdog@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] watchdog: sunxi_wdt: preserve boot-enabled watchdog
+Message-ID: <e1332541-1751-4a9f-92b6-60636ffa0a99@roeck-us.net>
+References: <20260827-submit-sunxi-wdt-boot-enabled-v1-v2-1-610d37dccc97@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,79 +84,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a611f2bc40d30f9c14a6f41b173185975c46a203.1787890328.git.riel@surriel.com>
+In-Reply-To: <20260827-submit-sunxi-wdt-boot-enabled-v1-v2-1-610d37dccc97@gmail.com>
 
-On Fri 28-08-26 09:46:21, Rik van Riel wrote:
-> drain_all_stock() can leave FLUSHING_CACHED_CHARGE set after the
-> work is dropped.  It sets the bit before checking isolation and
-> schedule_drain_work() checks isolation and queues in a separate RCU
-> critical section, so housekeeping_update()'s synchronize_rcu() can
-> race the second check.
+On Thu, Aug 27, 2026 at 10:42:31PM -0600, James Hilliard wrote:
+> sunxi_wdt_probe() unconditionally stops the watchdog even when firmware
+> left it running. This opens an unprotected interval during boot and
+> prevents CONFIG_WATCHDOG_HANDLE_BOOT_ENABLED from taking over the active
+> watchdog.
 > 
-> drain_local_stock() only clears the bit for work that ran, so the bit
-> remains set and the stock is never drained again.
+> Detect an enabled watchdog and decode its programmed interval. Preserve
+> representable timeouts, and round the 0.5-second interval up to the
+> minimum representable one-second timeout. Use the configured timeout for
+> reserved interval encodings. Set the Linux reset mode and ping the
+> watchdog without clearing its enable bit, then mark it hardware-running
+> before registration so the watchdog core services it until userspace
+> takes control. Leave disabled watchdogs untouched.
 > 
-> Reorganize the drain_all_stock() loop, reducing nesting, splitting
-> out local vs remote cpu handling, and skipping everything on isolated
-> cpus, which solves the stuck FLUSHING_CACHED_CHARGE flag.
+> Fixes: d00680ed0026 ("watchdog: sunxi: New watchdog driver for Allwinner A10/A13")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-Is there any reason why we cannot simply clear the flag if the work is
-not scheduled?
----
+Applied.
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 69b37f63a307..907ac63e5067 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2261,8 +2261,10 @@ static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
- 	return flush;
- }
- 
--static void schedule_drain_work(int cpu, struct work_struct *work)
-+static bool schedule_drain_work(int cpu, struct work_struct *work)
- {
-+	int ret = false;
-+
- 	/*
- 	 * Protect housekeeping cpumask read and work enqueue together
- 	 * in the same RCU critical section so that later cpuset isolated
-@@ -2270,8 +2272,12 @@ static void schedule_drain_work(int cpu, struct work_struct *work)
- 	 * pending work on newly isolated CPUs.
- 	 */
- 	guard(rcu)();
--	if (!cpu_is_isolated(cpu))
--		queue_work_on(cpu, memcg_wq, work);
-+	if (!cpu_is_isolated(cpu)) {
-+		queue_work_on(cpu, memcg_wq, &memcg_st->work);
-+		ret = true;
-+	}
-+
-+	return ret;
- }
- 
- /*
-@@ -2303,8 +2309,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 				      &memcg_st->flags)) {
- 			if (cpu == curcpu)
- 				drain_local_memcg_stock(&memcg_st->work);
--			else
--				schedule_drain_work(cpu, &memcg_st->work);
-+			else if (!schedule_drain_work(cpu, &memcg_st->work))
-+				clear_bit(FLUSHING_CACHED_CHARGE, &memcg_st->flags)
- 		}
- 
- 		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
-@@ -2313,8 +2319,8 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 				      &obj_st->flags)) {
- 			if (cpu == curcpu)
- 				drain_local_obj_stock(&obj_st->work);
--			else
--				schedule_drain_work(cpu, &obj_st->work);
-+			else if (!schedule_drain_work(cpu, &obj_st->work))
-+				clear_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags);
- 		}
- 	}
- 	migrate_enable();
--- 
-Michal Hocko
-SUSE Labs
+Thanks,
+Guenter
