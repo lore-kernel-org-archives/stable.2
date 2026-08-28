@@ -1,66 +1,142 @@
-Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A0531B823
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 03:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B09639D6D5;
+	Fri, 28 Aug 2026 03:26:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887327; cv=none; b=ouUvRgiaqIhdFd7RRkfnJDtrYYlGFmh/WaScFAiBxXuwOHUmp7sR23hLlOJNh/sfMYwhe28BNlJJynE2viQjMCNM8aUZVaMvRgf7ZrNPD+DjnQ7MsZ02MYwnw8VvXwIKo2XLz5kjvdJkJH0PpAeyQnG1G1N5ra1DkcwRLjaVTxc=
+	t=1787887596; cv=none; b=cy66+Js7zvtJR4sVFtZpWTpNnol7v0PJe1I36i2eEBfyePqpLcPE02ew5A6heYAmnP3tbx7RFupNJEMZToVvcwqXCzkpur9R0S/DKVx5d91i0t/G9faz/6iz/8mru707g/VU/zDJiDfrFA+EhteKZxe/jJg5QmiahzY2Qff0SfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887327; c=relaxed/simple;
-	bh=Y7MwWHl6NJBPv/ecTi1oEv8BmOJQcKwIr5Mi4FgkMhI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZoE+IIEsld12rtywzFLN4bR2FJ5VoQXgz9zqQGLWQk33IKPpJRexZ/1rpB6PLhqT550ZnxQ7F10Ya+Y1RO6b+9SWxnQH3rHhMSgB5HEHo2rbBWQO+ypvy0aYKp29Je2S0mFqt4ymQhOP8W6jaIFmpLcESsgmGa2e3Fu7wwzmr6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TCGKqa85; arc=none smtp.client-ip=91.218.175.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787887596; c=relaxed/simple;
+	bh=0GpNrVVrmEOOsCTGUmHM+m+P/u6f+qiX5vW1iPo1G64=;
+	h=Date:To:From:Subject:Message-Id; b=huVIW2GAobjCyNvTRj5tJEobLW2LpWi0bAAEMyAgoLZshFYJErdSBl6/eBk++YthvhMW82SGnBezzarbHi0H0EgNZLR3VSvbi5D2/hjBAJ+/i02yv0rtDVld4PFas0M3cuhwqYln1CmZv6DiCWF0A+/nFK9semkeL9A64NFP/og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=T9dXug4u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TCGKqa85"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Y7MwWHl6NJBPv/ecTi1oEv8BmOJQcKwIr5Mi4FgkMhI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787887322; v=1; x=1788492122;
- b=TCGKqa85sxSLp/3OcP3+ycx+VCmKYiVTB4BPeN4/CD6CVP2J2kXKZ0zt+8Qw2jJzfn1XErJO
- +MT/h+4jL9UZMJ813rusDsi8Azptsw3X7CBMmoofcjK6s8ZFDmJKZdZaIBbPNec5GkI2MzB/mwF
- P6qYqUMWAObBNYbCvuyBlUrs=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 83a847a7e7c0d7ab;
-	Fri, 28 Aug 2026 03:21:52 +0000
-X-Mizu-Trace-ID: 83a847a7e7c0d7ab
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <eb9b2a50-70f0-4410-b3fc-3fda6a4ddce6@linux.dev>
-Date: Fri, 28 Aug 2026 11:21:44 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="T9dXug4u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1BD1F000E9;
+	Fri, 28 Aug 2026 03:26:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1787887591;
+	bh=tK1jNK07xAbnZDO8ZMs5looH5ZrzdcieXtERFBlDfAA=;
+	h=Date:To:From:Subject;
+	b=T9dXug4uk+dGjLM2DqhmwzemxCPM1Hg9QzwqCEvfSu1OgEe0HXu6lFBILgBrWNqBm
+	 s0VeiRmJqbwCyCzbcaSX7GW9cPj1gUtEAt/o0TVeGDIKSVRIiUwqwWokHI3+m7SUrS
+	 GGz23ktwZdkIEQIEbaQqpG20ztsgfEN2CBtC/X6c=
+Date: Thu, 27 Aug 2026 20:26:30 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,axboe@kernel.dk,jiahao1@lixiang.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + zram-fix-idle-age_sec-underflow-in-idle_store.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260828032631.0F1BD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] bnxt_en: Prevent queue stop with deferred completions
-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org
-Cc: horms@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Michael Chan <michael.chan@broadcom.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-References: <20260827230233.94878-1-joe@dama.to>
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-In-Reply-To: <20260827230233.94878-1-joe@dama.to>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-> +	if (txr->kick_pending) {
-> +		u16 kick_prod = txr->kick_prod;
-> +		struct tx_bd *txbd0;
-> +
 
-Please follow netdev’s reverse-xmas-tree convention:
+The patch titled
+     Subject: zram: fix idle age_sec underflow in idle_store()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     zram-fix-idle-age_sec-underflow-in-idle_store.patch
 
-https://docs.kernel.org/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/zram-fix-idle-age_sec-underflow-in-idle_store.patch
 
-Thanks,
-Xuanqiang
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Hao Jia <jiahao1@lixiang.com>
+Subject: zram: fix idle age_sec underflow in idle_store()
+Date: Tue, 25 Aug 2026 17:23:16 +0800
+
+After commit 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking"),
+idle_store() computes the idle cutoff as follows:
+
+	cutoff = ktime_sub((u32)ktime_get_boottime_seconds(), age_sec);
+
+Because the left operand is cast to a 32-bit unsigned integer, when
+age_sec exceeds the current uptime, the subtraction wraps modulo 2^32 and
+the huge result is zero-extended into the s64 cutoff.  mark_idle()
+subsequently marks every entry as idle instead of matching nothing,
+breaking the intended semantics of /sys/block/zramX/idle.  For instance,
+running echo 86400 > idle on a machine up for only two minutes causes all
+newly written pages to be marked as idle and handed over to idle writeback
+and recompression.
+
+Drop the explicit cast to perform the subtraction in signed arithmetic
+again, restoring the previous behavior: an age_sec greater than uptime
+yields a negative cutoff, and one equal to uptime yields 0.  Since a
+cutoff of 0 is now a valid computed value, it can no longer double as the
+"all" sentinel.  Switch to KTIME_MIN instead, which no ac_time can be
+after.
+
+Link: https://lore.kernel.org/20260825092316.69658-1-jiahao.kernel@gmail.com
+Fixes: 2e8ff2f51dde ("zram: use u32 for entry ac_time tracking")
+Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ drivers/block/zram/zram_drv.c |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+--- a/drivers/block/zram/zram_drv.c~zram-fix-idle-age_sec-underflow-in-idle_store
++++ a/drivers/block/zram/zram_drv.c
+@@ -438,7 +438,7 @@ static void mark_idle(struct zram *zram,
+ 		}
+ 
+ #ifdef CONFIG_ZRAM_TRACK_ENTRY_ACTIME
+-		is_idle = !cutoff ||
++		is_idle = cutoff == KTIME_MIN ||
+ 			ktime_after(cutoff, zram->table[index].attr.ac_time);
+ #endif
+ 		if (is_idle)
+@@ -453,7 +453,7 @@ static ssize_t idle_store(struct device
+ 			  const char *buf, size_t len)
+ {
+ 	struct zram *zram = dev_to_zram(dev);
+-	ktime_t cutoff = 0;
++	ktime_t cutoff = KTIME_MIN;
+ 
+ 	if (!sysfs_streq(buf, "all")) {
+ 		/*
+@@ -464,7 +464,7 @@ static ssize_t idle_store(struct device
+ 
+ 		if (IS_ENABLED(CONFIG_ZRAM_TRACK_ENTRY_ACTIME) &&
+ 		    !kstrtouint(buf, 0, &age_sec))
+-			cutoff = ktime_sub((u32)ktime_get_boottime_seconds(),
++			cutoff = ktime_sub(ktime_get_boottime_seconds(),
+ 					   age_sec);
+ 		else
+ 			return -EINVAL;
+@@ -475,7 +475,7 @@ static ssize_t idle_store(struct device
+ 		return -EINVAL;
+ 
+ 	/*
+-	 * A cutoff of 0 marks everything as idle, this is the
++	 * A cutoff of KTIME_MIN marks everything as idle, this is the
+ 	 * "all" behavior.
+ 	 */
+ 	mark_idle(zram, cutoff);
+_
+
+Patches currently in -mm which might be from jiahao1@lixiang.com are
+
+zram-fix-idle-age_sec-underflow-in-idle_store.patch
 
