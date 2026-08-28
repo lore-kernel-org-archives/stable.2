@@ -1,253 +1,141 @@
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82D837D10A
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 09:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE0557C9F
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 09:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910433; cv=none; b=TgJavEel4ZzGWff5w/y5grD6oBqRlqWdwUG/ZU16U/hEIUAH/L6ove4j68cB4WT239EDWRvf/Vh3lP43IHRe4A9T9siDo6hxFo6UQR1nTqU5+E6SBGZnAZkcv1KWiQYJfRxU1XuDiUYIhBpVRakjt+oQQuGUsp6QHlz4cyg1kV4=
+	t=1787910517; cv=none; b=miM+QRQsUfT6dZfoAtcqAqEqiOSx9weW01uxK2lgYuVXptOMZSO5qg8R5j+bMRn9x468U/W8i1xsV4XMrKA4AfrKt6SXZnfLeySWY8V/FlbWceBUDRjWj63oac91QLDwewbbfazd7EgSIGAC8aBtVE1THHpMLIrlHPjEKTiVFLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910433; c=relaxed/simple;
-	bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dCiP9R2Dgbev68EpB/x9YG+pAFFXxl7C1qm1fxYkklU95G1TqjwQD3p+61wMoc5dymkicP8b+xPL5tfVdjOcG6d4IB4dQ4yY3jiT5uFaBdjrarF/20Mxqmzio4LKrjBJWc1dqawvFiCiqTVehmXh9rWAEN5RvNFdj5cBhBMYpAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BUAGsXYB; arc=none smtp.client-ip=95.215.58.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787910517; c=relaxed/simple;
+	bh=8IuohYJIFQq7XvofNgNPwVDtDoQLhfZC62FmH3VKmfM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MNvErqoMog/BcP8MNitOwATbzwgwe+lVYLKnwGWod2tvRIAqfIAfSuTI4f+G9SGzzraWVIo2MlwNLH9FDrffWXMf5nafrcIgBzu3dAZZ6+88/hjrVz65SsLkBVcGNPjRqBs3P0wACORwEiqHtPnRiBTCneQ6YmivUvp+3N/LzCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IIVI867I; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BUAGsXYB"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787910428; v=1; x=1788515228;
- b=BUAGsXYBx+Rokivd7rlvfoNWfnV64jtTMEi7zJIHkW4AXYkB9XeqMwdSoaKgc4io9Y2KlrZW
- BXjvNHue82Lh5hcvVAXnNrdb4PtSpvURr95RH31RAVcdzIXQgcMPcAVT6k9c96dU0xecJY+quK6
- fSmRTc2YsbwmbErcVIouTIDE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e425fa70d8e74725;
-	Fri, 28 Aug 2026 09:47:08 +0000
-X-Mizu-Trace-ID: e425fa70d8e74725
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: jthoughton@google.com
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IIVI867I"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d7200b2e15so8992335ad.3
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 02:48:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787910516; x=1788515316; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=glXaJJLLc7413zYTPQe8CxMRLtRUMADuZ7/9ajV0cjY=;
+        b=IIVI867IcRoqi9VOfWGb0hpKKI/vEC3ZJcN/3n9jveYsiJaU/Z0R3y43lfPa+FM61s
+         vEvJvBqoDmkM3VeKbxfkHt0kNlRCSucw7ZguMoZ74dlvLKdpxfeKVt+BNJp8LbST/UIB
+         CG2KRMHfFXcHxxj2igGRixUz7LZIcE736TAFuZ90hcFUKo18EpoCbbxV2eb5Yen7Srid
+         Xr90QHSmPQj1krce9k6W9Dhvl2RuefA80UmVNGSTatQnE3RzD6JdKt9s2RqvOa5fS2R6
+         LCKuavItkaWAWefLjLmn9O05Rv83abIk8evGKtadFwTXYxW8LpUY1yUXKbosyZDxBzu8
+         CP/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787910516; x=1788515316;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=glXaJJLLc7413zYTPQe8CxMRLtRUMADuZ7/9ajV0cjY=;
+        b=YGpqH8RSlf24BD1yx0YEFCim7CpWo/pzLQUZ00+vKDrb4iTk+q9NWZ20+c1wsC3xsC
+         HSMcdkcvdCthR9J/OisvqZO3wBf4vGTbiIdkYh770rDUHEbofmg/djOSToOQpRGEA0ag
+         47bJ23AM0+GxtsoyR30hsJzY6si1sraMxybENU8RjU1M4t0w3MrNzds5DIliTBtdEcdM
+         6IJ7GXUmLHIYw59svFNB19YCmluwrwfvtcz/gqEiLBVt3/OYOZhzEqBwcgYxqCiSmywu
+         0xOcHQ8cbZKFM2L3N4PI327nOcjKaNI+FMekk5c6qExmYa8RWx0xiyf0LT5AlGb2K1aT
+         dyVw==
+X-Forwarded-Encrypted: i=1; AHgh+RoSMhJfiQkipzIivxEYJWvlUj6sA0qzlEriP8Rv1NGYBY3ax524xhh/0eb93a7zp/7EUtFysS4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgIPEUZLm0ShYkMHiFdt2OIRgy7wfQDFAtns3wdwIL1NF/u5LK
+	pGv3BE8EvALJOssWBTVXQOzrTGLXKlX/hj8z/VEi29RKjdKZqVId914hT23W8GvIDE0=
+X-Gm-Gg: AR+sD13dATSVBRjtCfIbfowTxGYzbEbhJ2TyuEFjg5WC6TEPK8R6/AG+ZInZZDEmtpy
+	pHUHCpht4P0KNto6Qfnz4PNinj7l09i5hc3fHaIhE39H0hO70zYhenYJV0j5+y+diDdREugU2aH
+	m9pb7iCFQaMg/pmbuLztuV9s+UFEqPBvw+vSWziw4YHf/fELRh7+4Vyy/i7mwI8gM7zw7RQfZ6D
+	QVY5TpCsBWzJpzNmulsRr08Tb5vPz/qTd0CCyvesUF/key/76IZJYdezi0clbxJc1i6O8AxT8Cd
+	WWbBLK54Q+gUkwKFPEFuWoVAeexEahWFJ94DHdo59ddAI9hxOKSsyg/YdESXGfq0VPfdfEY5IJO
+	tg3uL8G7nyx8//mGPCe/BgaZJeHouoE+3dwEX1EdK3wK5xxo2e/1Mv0RpmLZKNYx0o00hRzmdWP
+	orCNtsE/sG7K9aRvcHx8O7J3FScEajHFq4Fqzp88zKP6ylb+Wfn66DLC9//xRgvLe0V59rqvHiN
+	t5KoCs=
+X-Received: by 2002:a17:903:3a8b:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d74dee96b5mr108548445ad.9.1787910515336;
+        Fri, 28 Aug 2026 02:48:35 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([116.128.244.169])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759531f5csm3778075ad.28.2026.08.28.02.48.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 02:48:34 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: akpm@linux-foundation.org,
 	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	shy828301@gmail.com,
-	zokeefe@google.com,
-	hughd@google.com,
-	kas@kernel.org,
-	linux-mm@kvack.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de
+Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
-Date: Fri, 28 Aug 2026 17:47:03 +0800
-Message-Id: <20260828094703.11081-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260828005004.2870750-1-jthoughton@google.com>
-References: <20260828005004.2870750-1-jthoughton@google.com>
+Subject: [PATCH] mm/mremap: fix locked_vm accounting for MREMAP_DONTUNMAP
+Date: Fri, 28 Aug 2026 17:48:22 +0800
+Message-ID: <20260828094823.594279-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Kunwu Chan <kunwu.chan@gmail.com>
 
-On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
->Userfaultfd minor faults provides userspace with the ability to manually
->install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
->map holes in the VMA when a naturally-aligned THP is present without
->explicit action from userspace.
->
->This is a problem, as it bypasses userfaultfd minor faults that
->userspace is expecting to handle.
+When mremap() is called with MREMAP_DONTUNMAP on a locked VMA,
+vrm_stat_account() increments mm->locked_vm for the new VMA while the
+source VMA is still marked VM_LOCKED.
 
-One basic question first. Should MADV_COLLAPSE refuse to collapse a
-UFFD-minor-registered VMA, regardless of whether all PTEs are present?
+For a normal mremap(), the source VMA is subsequently unmapped and the
+munmap path decrements mm->locked_vm, balancing this accounting.
 
-I'd leave that to the maintainers :D
+With MREMAP_DONTUNMAP, the source VMA is left in place and
+dontunmap_complete() clears VMA_LOCKED_MASK.  When the source VMA is
+subsequently unmapped, VMA_LOCKED_BIT is already clear, so the munmap
+path does not undo the increment from vrm_stat_account().  This leaves
+mm->locked_vm over-accounted.
 
-Anyway, assuming the answer is yes, I wonder whether the new check is
-sufficient. See below.
+Undo the locked_vm increment in dontunmap_complete() before clearing
+VMA_LOCKED_MASK.  MREMAP_DONTUNMAP requires old_len == new_len, and
+only VMA_LOCKED_BIT is checked to match the accounting performed by
+vrm_stat_account().
 
->
->If userspace implements post-copy live migration using userfaultfd minor
->faults, this situation is currently possible:
->1. The VMA for guest memory is userfaultfd-minor-registered and nothing
->   is mapped in the page tables.
->2. A stale copy of a page is present in a naturally-aligned THP (from
->   pre-copy live migration).
->3. khugepaged collapses the mapping of the THP, installs a PMD.
->4. The VM now has access to the stale contents => VM is broken.
->5. After installing the correct contents, userspace attempts to map the
->   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
->   unexpectedly mapped the page.
->
->The naturally-aligned THP case is the only case where this is a problem.
->khugepaged otherwise requires all PTEs to be present for
->userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
->correct. This check is essentially bypassed for naturally-aligned THPs.
->
->To deal with this issue, completely disallow collapsing in
->userfaultfd-minor-registered VMAs. This is slightly pessimistic; it
->would be nice to allow MADV_COLLAPSE to work if all PTEs are in fact
->present, but that seems more complex than it is worth.
->
->Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
->Cc: <stable@vger.kernel.org> # 6.1
->Signed-off-by: James Houghton <jthoughton@google.com>
->---
->This was caught with manual review while diagnosing a related issue
->that came up with in Google's live migration testing.
->
->I've uploaded a mostly-AI-generated reproducer here[1]. As long as
->/sys/kernel/mm/transparent_hugepage/shmem_enabled is not set to 'deny',
->the repro should work.
->
->[1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
->---
-> mm/khugepaged.c | 9 +++++++++
-> 1 file changed, 9 insertions(+)
->
->diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->index b237f6e7662a..66f956d3dd67 100644
->--- a/mm/khugepaged.c
->+++ b/mm/khugepaged.c
->@@ -2804,6 +2804,15 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
-> 		goto end;
-> 	}
-> 
->+	/*
->+	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
->+	 * userspace is expecting to explicitly install PTEs.
->+	 */
->+	if (userfaultfd_minor(vma)) {
->+		result = SCAN_PTE_UFFD;
->+		goto end;
->+	}
+Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ mm/mremap.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Assume UFFDIO_REGISTER_MODE_MINOR completes after collapse_single_pmd()
-drops the mmap read lock and before it reacquires it.
-
-Doesn't this still leave a registration race, no?
-
-
-int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
-		     unsigned long end, bool *lock_dropped)
-{
-...
-	cc->is_khugepaged = false;
-...
-		result = collapse_single_pmd(addr, vma, &mmap_unlocked, cc);
-...
-}
-
-static enum scan_result collapse_single_pmd(unsigned long addr,
-		struct vm_area_struct *vma, bool *lock_dropped,
-		struct collapse_control *cc)
-{
-...
-	if (userfaultfd_minor(vma)) {
-		result = SCAN_PTE_UFFD;
-		goto end;
-	}
-...
-	mmap_read_unlock(mm);
-	*lock_dropped = true;
-...
-	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
-		mmap_read_lock(mm);
-		if (collapse_test_exit_or_disable(mm))
-			result = SCAN_ANY_PROCESS;
-		else
-			result = try_collapse_pte_mapped_thp(mm, addr,
-							     !cc->is_khugepaged);
-...
-		mmap_read_unlock(mm);
-	}
-...
-}
-
-static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
-		bool install_pmd)
-{
-...
-	struct vm_area_struct *vma = vma_lookup(mm, haddr);
-...
-	if (!vma || !vma->vm_file ||
-	    !range_in_vma(vma, haddr, haddr + HPAGE_PMD_SIZE))
-		return SCAN_VMA_CHECK;
-...
-	if (userfaultfd_protected(vma))
-		return SCAN_PTE_UFFD;
-...
-	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
-	switch (result) {
-	case SCAN_SUCCEED:
-		break;
-	case SCAN_NO_PTE_TABLE:
-...
-		goto maybe_install_pmd;
-	default:
-		goto drop_folio;
-	}
-...
-maybe_install_pmd:
-	/* step 5: install pmd entry */
-	result = install_pmd
-			? set_huge_pmd(vma, haddr, pmd, folio, &folio->page)
-			: SCAN_SUCCEED;
-...
-}
-
-
-static inline bool userfaultfd_minor(struct vm_area_struct *vma)
-{
-	return vma_test_any_mask(vma, VMA_UFFD_MINOR);
-}
-
-static inline bool userfaultfd_protected(struct vm_area_struct *vma)
-{
-	return userfaultfd_wp(vma) || userfaultfd_rwp(vma);
-}
-
-Emm ... userfaultfd_protected() only covers WP and RWP. MADV_COLLAPSE
-passes install_pmd=true, so the SCAN_NO_PTE_TABLE case can still reach
-set_huge_pmd() after UFFDIO_REGISTER_MODE_MINOR has completed ...
-
-Maybe:
-
----8<---
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 33c41bc32af8..0eada7265d59 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1893,6 +1893,8 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+diff --git a/mm/mremap.c b/mm/mremap.c
+index e8df5cdb0ac..37ea5ee1986 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1334,6 +1334,14 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ 	unsigned long old_start = vrm->vma->vm_start;
+ 	unsigned long old_end = vrm->vma->vm_end;
+ 
++	/*
++	 * vrm_stat_account() accounted the new VMA while the source VMA
++	 * was still locked.  Since DONTUNMAP leaves the source VMA in
++	 * place after clearing VMA_LOCKED_MASK, undo that accounting here.
++	 */
++	if (vma_test(vrm->vma, VMA_LOCKED_BIT))
++		vrm->vma->vm_mm->locked_vm -= vrm->old_len >> PAGE_SHIFT;
++
+ 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+ 	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
+ 
+@@ -1343,8 +1351,6 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
  	 */
- 	if (userfaultfd_protected(vma))
- 		return SCAN_PTE_UFFD;
-+	if (userfaultfd_minor(vma))
-+		return SCAN_PTE_UFFD;
+ 	if (new_vma != vrm->vma && start == old_start && end == old_end)
+ 		unlink_anon_vmas(vrm->vma);
+-
+-	/* Because we won't unmap we don't need to touch locked_vm. */
+ }
+ 
+ static unsigned long move_vma(struct vma_remap_struct *vrm)
+-- 
+2.43.0
 
- 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
- 			       linear_page_index(vma, haddr));
---
-
-With that, LGTM.
-
-Tested-by: Lance Yang <lance.yang@linux.dev>
-
-Cheers, Lance
