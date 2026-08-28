@@ -1,119 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0612F8EAC;
-	Fri, 28 Aug 2026 01:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231952E764D
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 01:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787881631; cv=none; b=QXNAGqAeGOMARK/MTT0kDg5KSQn42pQApS7+Xw0tLO7Azut8rL2hy/6aAVp/Y3ng63HtaS4DpvJannagCFb19tvWsZ9yFBKoCHPWYMJMekaWB0TzVwoPmA90Otmogap/21KqGKUn0wjD47jWLOagOSt4Pq3Md8sa8QUZ+KgCZu8=
+	t=1787881928; cv=none; b=OYWx87su6bEKLlV54DlEdOVrV05UwfvgMTW3xEsqmTBou1FstDYwvG5a4irb4j7fQWASHJOdA+csUnRrtvw0VIEJWnDxbvgmUCRz4NurZb5nwzRML1efa2RpCiLViVogD9R71J/LlBDTYAqJWu7pvD+58TK/JTNQPXjDU3ADy7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787881631; c=relaxed/simple;
-	bh=ncX71bZRwu4AuWDsk7FltFFxkbG60aAYKLG941OcN9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oc0jQA8Md6YV6PK0wjLAutbdRB2E6qx01gw61nmoowzOVG8An6lzBhj4eFdBR8MBVdunb0pX/ha9HPSa3yXf5fkYkInqiVbOtQli2UYpShIrUr9JvnqzV9Z++O+3bOoEYRDuS1Niz+yWzMmwL+rSlqxpHytEoZsK1y05odT6Ld8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtbX8mVL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787881928; c=relaxed/simple;
+	bh=y7yB0bB4nuU8iui0WepOTzhFkm2WtSs4RSCP5Ouvwks=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pR7ClYPJeCuOfo2THTY63oebrQPKtj2Smmh+VRMginyfm83puOp55qFeHv3c6iaGiJ0mKOLNo0k7uVanMoA8Qh//UiYZyYkaA3f/FNMrfVgw70Akr9H9JhB0LUS4ADdkYqIeABlOxxCmHb/0Sd1q6+YowuSFkIvimr5epI4tCKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ff5/NPe8; arc=none smtp.client-ip=95.215.58.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtbX8mVL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1101F00AC4;
-	Fri, 28 Aug 2026 01:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787881629;
-	bh=9nWd2JiHbGpFxdKtIgR1/mA2jBP+r1D6KF4ucSMyulY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dtbX8mVLoREWGaHmBM5m9kXliDsh2AQfn0hrzWT7rWHB/eaufkaZ43YdaBE5485NG
-	 qMUCaHb0VIsQUV5/EfZdhs25mD+BsRV0UyBoYHNBAyzu0KrQkWdogw8wF/puukDrDd
-	 BT3HFeCdQ97JhybLUtgPXRR55Jrav7TuPg7gGKmxukLTLgA321GvoZQRVNPmoXJfqc
-	 g89xd3XGWdfQvhoOp7ENaxFZDliNMY2sqMSNtgZMozkfskvuRXe83gB2jeQyFPLLyR
-	 5LrwkykKG96zwmt1q3iBUqlPekmRTXzAhNkjdKNnDlUJa5iUPIf0I0c1SS2qvnv6/O
-	 79c9OP49m95zA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 4/4] mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Thu, 27 Aug 2026 18:46:58 -0700
-Message-ID: <20260828014659.121058-5-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260828014659.121058-1-sj@kernel.org>
-References: <20260828014659.121058-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ff5/NPe8"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y7yB0bB4nuU8iui0WepOTzhFkm2WtSs4RSCP5Ouvwks=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787881924; v=1; x=1788486724;
+ b=Ff5/NPe8hoo92rcRwqW0841g7IcPUpQDb+WPq4vz+gZjaDI5v3c4Qs8Aoi3H+ir3FbAynx+v
+ B+J1oVRNdhfJtFK+yC/iXY5Ym0iy77CGWRGvUSMTATd75e+lPMzPhI/X9MSlj9Xlb4JKj1b7rlM
+ /HTMB8teWPQXSQnnjspd/AcY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e5cd93c861d874df;
+	Fri, 28 Aug 2026 01:52:03 +0000
+X-Mizu-Trace-ID: e5cd93c861d874df
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <02305fa3-775a-42fd-a53f-9e611d5cf3a1@linux.dev>
+Date: Fri, 28 Aug 2026 09:51:57 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Yu Zhao <yuzhao@google.com>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260826133054.88529-1-ridong.chen@linux.dev>
+ <20260827172141.GF3004@cmpxchg.org>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260827172141.GF3004@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next
-refresh is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it.
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
 
-The user impact is not very critical.  It does not leak, corrupt or
-crash.  The update will not be faster or slower than the lowest and
-largest refresh_ms values of the contexts, respectively.  The user can
-also manually ask the updates on demand using kdamond state commands.
-That said, clearly this is a bug and can easily be reproduced.
 
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+On 8/28/2026 1:21 AM, Johannes Weiner wrote:
+> On Wed, Aug 26, 2026 at 09:30:54PM +0800, Ridong Chen wrote:
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> memory.min/low is silently bypassed for MGLRU during global proactive
+>> reclaim (writing to the root memory.reclaim) and global direct reclaim.
+>> It can be reproduced as follows:
+>>
+>>    # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>>    # cd /sys/fs/cgroup
+>>    # mkdir -p a/b
+>>    # echo 100M > a/memory.min
+>>    # echo +memory > a/cgroup.subtree_control
+>>    # echo 100M > a/b/memory.min
+>>    # echo $$ > a/b/cgroup.procs
+>>    # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+>>    # cat a/b/memory.current
+>>    222650368
+>>    # echo 500M > memory.reclaim
+>>    -bash: echo: write error: Resource temporarily unavailable
+>>    # cat a/b/memory.current
+>>    6070272
+>>
+>> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+>> protection.  The traditional LRU path is not affected because
+>> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+>> visits during a top-down tree walk.
+>>
+>> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+>> moved the protection computation into lru_gen_age_node(), which only
+>> runs for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
+>> lru_gen_shrink_node() -> shrink_many() without any protection
+>> computation, so emin/elow remain stale or zero.
+>>
+>> Introduce mem_cgroup_protection_path() which computes emin/elow along
+>> the root-to-target path only by iterating through the cgroup ancestors
+>> array top-down.  This avoids the full tree traversal that would be
+>> needed with mem_cgroup_calculate_protection(), limiting the cost to
+>> O(depth) per memcg - typically 3-5 levels.
+> 
+> Right, because of the memcg-lru...
+> 
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index e3858ffab4b22..f05b256c90ee7 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1789,6 +1789,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
- 
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2215,17 +2216,15 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 	return ctx;
- }
- 
--static unsigned long damon_sysfs_next_update_jiffies;
--
- static int damon_sysfs_repeat_call_fn(void *data)
- {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
- 
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
- 
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2273,8 +2272,8 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 	}
- 	kdamond->damon_ctx = ctx;
- 
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
- 
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
+Yep, that's it.
+
+>> --- a/mm/memcontrol.c
+>> +++ b/mm/memcontrol.c
+>> @@ -5198,6 +5198,48 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>>   	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
+>>   }
+>>   
+>> +/**
+>> + * mem_cgroup_protection_path - compute protection along root->memcg path
+>> + * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
+>> + * @memcg: the target memory cgroup
+>> + *
+>> + * Walk the ancestor path from @root down to @memcg and compute the effective
+>> + * protection at each level.  This is safe for isolated queries because it
+>> + * ensures parents are computed before children.
+>> + */
+>> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+>> +				struct mem_cgroup *memcg)
+>> +{
+>> +	bool recursive_protection =
+>> +		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
+>> +	struct cgroup *cg;
+>> +	int root_level, i;
+>> +
+>> +	if (mem_cgroup_disabled())
+>> +		return;
+>> +
+>> +	if (!root)
+>> +		root = root_mem_cgroup;
+>> +
+>> +	if (memcg == root)
+>> +		return;
+>> +
+>> +	root_level = root->css.cgroup->level;
+>> +	cg = memcg->css.cgroup;
+>> +
+>> +	rcu_read_lock();
+>> +	for (i = root_level + 1; i <= cg->level; i++) {
+>> +		struct mem_cgroup *cur;
+>> +
+>> +		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
+>> +						    &memory_cgrp_subsys));
+>> +		if (cur)
+>> +			page_counter_calculate_protection(&root->memory,
+>> +					&cur->memory, recursive_protection);
+>> +	}
+>> +	rcu_read_unlock();
+>> +}
+> 
+> Please wrap this in a #ifdef CONFIG_LRU_GEN block.
+
+Will add.
+
 -- 
-2.47.3
+Best regards
+Ridong
+
