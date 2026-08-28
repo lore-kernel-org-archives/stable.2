@@ -1,78 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C831E46A5F4;
-	Fri, 28 Aug 2026 14:54:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2D3472520
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 14:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787928892; cv=none; b=McynGhj5TE3z6d8nSvEOSD/4LhjnIkyxRk1VTVjy9Yzt8tNW7dJWK9MB1D5HaQL/wNbUzkUj4vw1MW8nypklfikJ4Ub3YhIlfdu/2qjIWzEGAsRJSrn0CBafC+tKdnBmCLTu/u0OuzfIBw1DQzNtEbFyoXBmSxEm9snBrM1VxEY=
+	t=1787928960; cv=none; b=POFHhJtncWpi0tCLR6AecOp3UQN/wd+B7+fJ+jL6gxry4JJVgcaoIbJo2SQzspLCiYFVywBWaw7YIq7W02FRC/4hgYpzOJX78JqmHjoKi36o6gzyqE3fyigaH47aa6Ao/FAuScq9G/nTSmJxAV9Frex2TMD1l4+2hg2/9pxoB9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787928892; c=relaxed/simple;
-	bh=Qi4fq5yRDYCm5yxBv2eI7oZYhUMCLweIkaX7hT0TbyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GuQzfgKA8tWi9ntzh7yp9bJsbFFc940uee5FV7d5Cnox89HJgzpwpwqCNrBieeVVEW8WbiuDFyUKsrSRaOLUUS+KGnkggwZryiHtXsM+xreEOiFuYdY0cGxG0KSHZzoxxzsYlu+BPJurYVZM/bGZ54aZbIj8QCehfZN45O/LbLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVPmzN1j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787928960; c=relaxed/simple;
+	bh=Dw2FiA4mmLfH1Z22Wh2fY/8OwNamo0N71MLJCGPpkXU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=c8TIxAGRoaqd61KQ9XXx2EelUK8RrSbQN5aS7cIR7ancbVIWP7Z57M3C2jzAnG32a5Im1PiPgmptiv3hUpxLXeDOtHHer1b41zFhx2JZed9buMgvlR7YsmSgaDp1I7neyBoC0QGid3sGLaOdBlCVvPwcCh2RoGKgudU4cLgxMPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=EDUkg90q; arc=none smtp.client-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVPmzN1j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0C51F000E9;
-	Fri, 28 Aug 2026 14:54:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787928891;
-	bh=afwzFz6pgw53RO7iRa3gPG8Bfet+3GwiW3Ldk6cTG3I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UVPmzN1jqFjyEIF7uanEuZTXI3HpY1urU2eDK7IvUarAMM9v0W+P3WoohDmZ4lrIj
-	 69Vl5iTP6p/XzITRAEsZMVIAZsvw/mMXKtq50hNhk2RRm/X9Sgc+3kqBHtzsgNrVri
-	 DT7wSSfiTe5KyzsX2y+2uRFIDzITbyz5BbEIaaigJ4sM7K8YagTBOUianbXwcCsn46
-	 +LlYMWYaPrGqseSw+IeEOyIEB+x2UoUb6h1w5lxinpq+ZPQQhZChJF+zje345WXxWO
-	 UGMCHyZSrEL84ykBG4MdLm1LKMfFTjAcOxkBeFiJYKPyx5GXyEpEw1Mdh1PCevRR1n
-	 h083g2aecb6VA==
-Date: Fri, 28 Aug 2026 10:54:49 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: stable@vger.kernel.org, asml.silence@gmail.com, vrazdan@openai.com,
-	krisman@suse.de, io-uring@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	Vishnu Razdan via B4 Relay <devnull+vrazdan.openai.com@kernel.org>
-Subject: Re: [PATCH 6.6.y] io_uring/io-wq: fix worker accounting when
- canceling creation callbacks
-Message-ID: <apGhOS6PQwdz1JW7@laps>
-References: <20260825-stable-io-wq-6-6-y-v1-1-c9f890168485@openai.com>
- <20260827-stable-daily-0011-io-wq-6-6@kernel.org>
- <ea042ae2-f3bf-4f3b-bfaa-9a7676a9b043@kernel.dk>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="EDUkg90q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1787928952; x=1788188152;
+	bh=V0hb2voKgSJqDmgc2p7cOkarJ7UY6K7MCbTZpq1OfA8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=EDUkg90q7sYiVD99e5kRcamXugkXAPb7OJCzk3f6XUt8OO4OQkr9khgExN4TPVqGB
+	 cJG5cj4F4GqjgZdyg0enFW0VzGhYnZQU/9dk4i+VykNrNgZ3sm2tzGhnKvGaUqZHai
+	 +JT6fsMy04hv+GgeZyqlEtXYHmDQRnX4kHYOiFT6AHkd9VcUUN+ilodlmmgQSQTQKH
+	 Z/Ntp1lefA88utBtyHfXqoE2ndrsr3+1VxhpegkXKt3jFix4WWyrwLREXT8N1rpE0b
+	 rjtqtNDvSJW2eDW5vqAVAz9wUD4y6qFzpnAs6cFilxixubKNblBNdSCs50HQbqC0E8
+	 ZIApObSSBRv1A==
+X-Pm-Submission-Id: 4hWhK12291z2Scpm
+From: Esben Haabendal <esben@geanix.com>
+To: "Herve Codina" <herve.codina@bootlin.com>
+Cc: "Luca Ceresoli" <luca.ceresoli@bootlin.com>,  "Andrzej Hajda"
+ <andrzej.hajda@intel.com>,  "Neil Armstrong" <neil.armstrong@linaro.org>,
+  "Robert Foss" <rfoss@kernel.org>,  "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman" <jonas@kwiboo.se>,
+  "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>,  "Maxime Ripard"
+ <mripard@kernel.org>,  "Thomas Zimmermann" <tzimmermann@suse.de>,  "David
+ Airlie" <airlied@gmail.com>,  "Simona Vetter" <simona@ffwll.ch>,  "Linus
+ Walleij" <linusw@kernel.org>,  "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>,  "Marek Vasut" <marex@denx.de>,
+  <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
+  <stable@vger.kernel.org>
+Subject: Re: [PATCH v4 1/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
+In-Reply-To: <87cxv2xwz0.fsf@geanix.com> (Esben Haabendal's message of "Fri,
+	28 Aug 2026 12:15:16 +0000")
+References: <20260810-ti-sn65dsi83-fixes-v4-0-ae9c95c8d162@geanix.com>
+	<20260810-ti-sn65dsi83-fixes-v4-1-ae9c95c8d162@geanix.com>
+	<BAolbDDI0aiCzU2P4vC8Ym-ffhydGSVEvFuW-aVRTvqdzKqwFi53nnr3ps6bh1e6B-ioI-Jh9tKY76dHj6kkrw==@protonmail.internalid>
+	<20260819113253.5d602b2d@bootlin.com>
+	<rCL-JIGAxmoKXwK9d57EdKhnA4BEacPZQUCiEpnkDXaA3_MBTYj59kYlKla68QKigl2jMCdFsLA_iUgbc0rN_A==@protonmail.internalid>
+	<87cxv2xwz0.fsf@geanix.com>
+Date: Fri, 28 Aug 2026 16:55:48 +0200
+Message-ID: <874igewayz.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <ea042ae2-f3bf-4f3b-bfaa-9a7676a9b043@kernel.dk>
+Content-Type: text/plain
 
-On Thu, Aug 27, 2026 at 08:02:34PM -0600, Jens Axboe wrote:
->On 8/27/26 7:46 PM, Sasha Levin wrote:
->>> Decrement nr_workers only when the canceled callback is not
->>> create_worker_cb(). Continuation callbacks still release their reserved
->>> slot, and both callback types retain the existing running-count,
->>> reference-count, and create-state cleanup.
->>>
->>> [ Backport: retain the existing wq->lock protecting worker accounting. ]
->>
->> Queued for 6.6, thanks.
->>
->> I also used this patch for 6.12.
+"Esben Haabendal" <esben@geanix.com> writes:
+
+> "Herve Codina" <herve.codina@bootlin.com> writes:
 >
->Thanks for doing this - and I'm assuming the AUTOSEL stuff is both
->adapting patches so they apply, and pulling in prerequisites? If
+>> Hi Esben,
+>>
+>> On Mon, 10 Aug 2026 09:19:40 +0200
+>> Esben Haabendal <esben@geanix.com> wrote:
+>>
+>>> The error handling of sn65dsi83_reset_pipe() failure in
+>>> sn65dsi83_reset_work() has been a bit strange all the time, missing both
+>>> enable_irq() and drm_bridge_exit() in case of failure. But since
+>>> sn65dsi83_reset_pipe() have never been failing (always returning 0), it has
+>>> not caused any problems.
+>>>
+>>> As we are going to change sn65dsi83_reset_pipe() to return error values in
+>>> case of failure, we need to fix this.
+>>>
+>>> Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>>> ---
+>>>  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 5 ++---
+>>>  1 file changed, 2 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>>> index 42b451432bbb..0ccfff401b2a 100644
+>>> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>>> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+>>> @@ -417,10 +417,9 @@ static void sn65dsi83_reset_work(struct work_struct *ws)
+>>>
+>>>  	/* Reset the pipe */
+>>>  	ret = sn65dsi83_reset_pipe(ctx);
+>>> -	if (ret) {
+>>> +	if (ret)
+>>>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+>>> -		return;
+>>> -	}
+>>> +
+>>>  	if (ctx->irq)
+>>>  		enable_irq(ctx->irq);
+>>>
+>>>
+>>
+>> In this v4, enable_irq() is called even if we cannot reset the pipe. I know that
+>> sn65dsi83_reset_pipe() always returns 0 (and this will be change) but we have to
+>> take care here.
+>>
+>> If the pipe cannot be reset, the sn65dsi83 component could be in a state where
+>> it can force the interrupt line. This was the reason the irq is disabled
+>>   https://elixir.bootlin.com/linux/v7.2/source/drivers/gpu/drm/bridge/ti-sn65dsi83.c#L455
+>
+> Do we agree that this patch series (patch 1 and 2 combined) does not
+> change this behavior compared to the current state?
+>
+> Currently, because sn65dsi83_reset_pipe() always returns 0, we call
+> enable_irq() even if we cannot reset the pipe. So I am not changing
+> behavior.
+>
+> I agree, that this might not be the right approach, but it makes more
+> sense to me to address that specifically on top of the change in this
+> patch, so we can all agree on what we are changing and why.
+>
+> Can we keep this commit?
+>
+> Should I add a new patch that makes the change to this series, or is it
+> okay to postpone this to later?
+>
+> Or alternatively, do you want me to drop this patch? And if so, I guess
+> we should at least add some comment to the next patch about the behavior
+> change that it introduces in sn65dsi83_reset_work().
 
-Exactly! It can also do minor adaptations to the prereqs as needed (think cases
-like tree-wide changes).
+Scratch that. I will squash the two patches into one, go back to only
+calling enable_irq() when sn65dsi83_reset_pipe() succeeds, but ensure
+that drm_bridge_exit() is always called. Basically what I had in v3,
+which you both (Luca and Herve) seemed fine with.
 
->so, I love it, imho this is exactly what it should be doing. Helps
->maintainers out a lot.
+I try to explain the situation a bit better in the new squashed commit
+message. If nothing else, it helped myself understand what was going on :)
 
-Thanks for the feedback!
+Is it okay to send v5 with this or do I have to wait a bit longer?
 
--- 
-Thanks,
-Sasha
+/Esben
