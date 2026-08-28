@@ -1,195 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BE3385509
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 06:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E3B3385A7;
+	Fri, 28 Aug 2026 06:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898498; cv=none; b=J7kPIcM2pQuyqV5Xjh9vnNhTtzIJlT/wcXGBYz09TkIJ2lkLmaXPLcXW1Fy1Gz9uVMGVIJbGgy9leKTniJjSQoSce4dm85YY3KWmfqvbnOJQp+C2aKd4VwpRA9VYCB9eF+tMgktwOfdZotf6iKiO1l7k0UAlEdJStCwA9XcvDho=
+	t=1787898809; cv=none; b=KY7hVFF16JSxNeWQs+Y3lvu0i/g33+uWTnl1tOSB6bopu/cW3nCeRV6GtH4izHc8C8Q5ZZB5Fh1jYrRikSkwxRWiv5aw3C2T0f+MVff42CxrG0gxwiGNHuLGu6Gcr1Iv0wyldpXZg5XTXz8QH65nICWPtPfcSQj/Sro9Wwpyn+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898498; c=relaxed/simple;
-	bh=iylSaV0d0HRd+S2GPFe5/jKSghYie3AtA0Grqnoy3Ew=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TM72pENG+RcAQcNdEEXaNrTfKzx22hshg1ulwbW998EV4oU8R/NnEzJJn4JZnv3Vq1HnE+t5POZc1VhbbxmqiIh3G3GB2VrI5O+mUM8iERCVhVRDXjKcueN2LaCvg8S22DKQz4Rq0IQol7+L3nG3BpadIENRFRgthlv71wYA80k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Gp4X1x1N; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rRMW9X81; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787898809; c=relaxed/simple;
+	bh=HZQcu4aZ8tTxFfRNjQw0G/6Q2BP49d5qaYhZXQFGLlg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nyii2bTL1k/kxBSyinyIzZK4kDAg/3wWctwgWbooJ29Zz9GHfXlBVOH1uUnmYDZ90fKuQsP7OWieO88A6udeuJp91BOdYTkpp31z2XDIFvz1bYzzHD9XVT+RFWqzqie17olNV7Y3v3u/EgUnY6hO/nxE+KUhs9cb/xRqxDU82lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=GdFz8X0M; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=g7Iih7PK; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Gp4X1x1N";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rRMW9X81"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787898495;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wHGnCVhNuLFnG/5OVisM5ogzmWXFPIK5JB6VW53vdI8=;
-	b=Gp4X1x1NvFSonWO1zi30Z+4PTcqD3AiU5mpF6bon+uKlh3wbwTj50oTi0lyLn4R8wj18WA
-	wXB8yS1fbJ1VctnxEWXYt5IhuQGVaFhe2QumGO5Xqunzco3haQGvsQlxcfhnKk1Qcm9G96
-	WyLw+rfS1v28NjspYgDCgRBvrlLaTjs=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-220-q3N6hZF9POOgO1Rk7KK_DA-1; Fri, 28 Aug 2026 02:28:13 -0400
-X-MC-Unique: q3N6hZF9POOgO1Rk7KK_DA-1
-X-Mimecast-MFC-AGG-ID: q3N6hZF9POOgO1Rk7KK_DA_1787898492
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4994aebe932so5177855e9.3
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 23:28:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787898492; x=1788503292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wHGnCVhNuLFnG/5OVisM5ogzmWXFPIK5JB6VW53vdI8=;
-        b=rRMW9X81b9CrhGuXaITMFePihVy5/SmN5y0/evcgDuyCZkWWbeuYchgP5HlPSCk19b
-         FO35/KDF2An3GpiLPTQpxQWU1uJr75AldE3nGNrtwH/1AGzMLWPF+ZWVbvq4R7c2Vs0F
-         g1e5eoaE2pu8Fy86ycXVMMpj/6rvHK5tpLLkkGhcDmCOBcuGUt/3muZumYOJX4Y8NoYL
-         3pe9nddakxY3nMnQ4hLZdnlVxKPNHfWvX/88faS8GoMTZj9qNvHnaCHn7HFwnfI2Fi3Q
-         nx6SGvnI/5K+jxljzFZNrOIGox0CdvdWaSylu1QjmNBaN+QKZJHs7hC5rF/uupYilJLO
-         ASdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787898492; x=1788503292;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wHGnCVhNuLFnG/5OVisM5ogzmWXFPIK5JB6VW53vdI8=;
-        b=AibXoy0saikaIWLuU20caAxvObC7/KeQsDK44P8BO7V5pDQnqqiig1II13ygO6SbcO
-         lXzlXQ3kO4R9kUBGl7F2MigvnN6sFTjnVn/7zjb3limGtdJYtHoNApNnnM03Tt7PttP4
-         HGbysnmmtBG6YQ+VA7HoonV3sHr71/wr/0joGPqfJqORIttgDxo4BQsbFI2khG8BcFdF
-         +/RUl2Erdg1zEof936V2CZt0p8g7n2UlU7N21u1UxYXCZGmIMtPQOPgA88Z132bffhmX
-         19AnTY2wNsBLBV9QkPBVob2AGk4YMf7odv0yTTBYo8G+0vCyubql7PbMsCPcT3slAbbW
-         Tmdw==
-X-Forwarded-Encrypted: i=1; AHgh+RpuqHi+fqa3ky9uwOHvL8J+fPbRAqBvjaF01c+LEZ7frP2ArBPbIegabTR4dTBGuINJboCdalY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOycqfG3Th2QQfHTm9C0AuHEF4VuDm4QUKakjetEIhEYU96H3R
-	nQMIl3EjIiNMT0ywt+2VpdMBh28SFdOHQeyuJk8Mo195d4Bff0bhGL4h6h8fSHhas7Dt4dAk7h9
-	wXDNbvhMwlJQbdCyeHdSVfDz5MCCdsAwPnKtXhqKkyzopn2QJvsdqCFpzEw==
-X-Gm-Gg: AR+sD13Vu0h+KCAFmpknk8ei+MRrJcYIx3NB/6ARmv0QrBCJujBlyjwoE5mRicc77ot
-	5BaLdxLObBPECaP+Kw5FoHZ1EjXxPJe+DCVGIQs1luTpguYA5Dkr9X7UrSvnvBR4088mWNVTeoW
-	ZWq1gS0PgyBg9WOJNvU+ajcthWYK0K6qM3AfaJMiSDCQ/OFq96gxTICXFaxztoIjbvaOF3DTjLX
-	OA4CwRksTl5/5z7O2JkJ3CZBR0QHK1xzJ6NCl2bMnSMlX2RBeHDe7e7oj1EwC8Cu6bVX4EXJhY/
-	5Rxphh9H0+q+F6lW2Qa0pbJ/w1I98RdUV1+5zy981zRn3bsGTZlVBUdXFnbAHBe0teEs/gWHsrK
-	b3Dy5R4lLgC2yzObf3Pc2gN9nrXhBhvHQapEdgjTb2ljfFG3Vgy4c2q1morXOzx+OsK2ryXc=
-X-Received: by 2002:a05:600c:3493:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49b91c4792bmr62737995e9.10.1787898491944;
-        Thu, 27 Aug 2026 23:28:11 -0700 (PDT)
-X-Received: by 2002:a05:600c:3493:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49b91c4792bmr62736365e9.10.1787898490772;
-        Thu, 27 Aug 2026 23:28:10 -0700 (PDT)
-Received: from [192.168.188.103] (ip46-47-231-195.pool-bba.aruba.it. [195.231.47.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4942366asm99143435e9.3.2026.08.27.23.28.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 23:28:10 -0700 (PDT)
-Message-ID: <38a2e111-799f-4c8c-b46b-501999f71e52@redhat.com>
-Date: Fri, 28 Aug 2026 08:28:09 +0200
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="GdFz8X0M";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="g7Iih7PK"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 6C4A11D00084;
+	Fri, 28 Aug 2026 02:33:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Fri, 28 Aug 2026 02:33:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1787898806; x=1787985206; bh=1TqSf34J+R
+	Q18DtwXjAHDC4SqrdULRczMIhIFP3i3+w=; b=GdFz8X0MY9cmkbgl6QfrCC4VS9
+	rKjVtsXJZ5epg+LMH5OWXNnzGGDf9p8G3HHL1DICmeJlKKWXyKl5ykoLdcAGjVYV
+	3a/yls5UFkiua6wX3w0ZpP+7d/wYFNBSGtKliTAncauLT38SMnJjURESqQn/ujGg
+	myVXTrumdHNSvbbIWT5Fg9Ul7Yi71Bi1ZLV/c/UoyzaalywZSbOQMsRdv/8xkxEc
+	6CPXqew827WiJLF7GbcFazCq/Pl8t2WCYrtFDjKC7clG+XUpaVzcwmqYWTOBNaFd
+	fxCz3PQlxvtbo+yliZ0uKs4AG8b4itBxZ2zXLFwzzbzVHt8uHvGCFkyMYI/g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1787898806; x=1787985206; bh=1TqSf34J+RQ18DtwXjAHDC4SqrdULRczMIh
+	IFP3i3+w=; b=g7Iih7PK8tvCvBEUj6QnvP9IL1R7+DBhfVryzTU78H5OseZohJK
+	bHVaoNP5dwP2w4B4THVhvDfvb3VMc+1px98laaNbtkc2ESng6SgsKRDm4Swp82Eu
+	RZkwcZ0FZWQb4OnnVToJiMDR/qiP7FEtHw26JDNd/4TcuvzbRzqOOnS/WpuEGteh
+	1a/dZGqvI+9Q3oZW9mn1OlU+H+KSGoBs1MMjQV1gAMZ7qBNbkf9T6hvKvXl6eCB/
+	hiFgJN/Jq6j9IqjQWL1vnTobpRd5yTf9Ah+1pTVdgmLvw2cIlAzqB6bdJJkvZ3Y2
+	B62OQhiJr/D0CD0rhvDVsGZSV8MJddOkKbw==
+X-ME-Sender: <xms:tiuRakW_FBxdJVM1A3o5vL9pFn30_smYpYxIjMwpuA2tnQWG9unlXQ>
+    <xme:tiuRahUKcl_OHmJv2RpOolxjtNcRnZUYiJonZCxPeBaNoMFli932Edp0EjivZxC1s
+    YB1eJunMmUZqiIGdCUgCb4NooVyhB2zHpR8Z-puk4vfsWib6zI>
+X-ME-Received: <xmr:tiuRanFImOQiRxMHqXzDUNuqnXNO99xqFKnHHc7LcLTUmHHZRw6GqhHW8D1ZqO6yaQQyEQayKwDWHME3aRj5509MPpSqWGNTHiKK4MTS4Mw>
+X-ME-Proxy-Cause: dmFkZTEZ6B3DcKaFrRdVvEemO7U2LvZ0RsCSSwPpTRLaLJLYhJAIQ0Nn1nUfkVjiVzd3oa
+    UnCZAHz9G9A7+WApVEQKKvIk+nVQ24CYPVQXoxzQLDx4JwV/s8wRHc/jEMVAciVKAoRHhF
+    8OMHM/9MqeL06uV7TVE/j+sdXUag5LQ2Sq2W5VEvRBYTvdOz5XDDl0vQAIfPwCWiopyp6R
+    sujEFnNDD9E+e886nZMvGUJGnavx58HAj0qlQYZb7M67J708f3YfuKHVC4050T8Fob1oqz
+    poaFxfh6k6bSlK+hlrig2pru0zAfU/LqTeKY6xUVpoY85bvu8A3wwGLp/kPG2uMgCDT7n0
+    9QOqorTXt8e0O0djv3Jp6jvyUpTdyUyFtDoauKXeZ4xuIRgfvoHr8dN8rzOumPYlk6TJRG
+    oHafcBjOkeTl41J+ZbLCBdizg1K3KuYT9Fuv9IK1JUgf3wTfrjUabcjX93yRzmKeRidyhc
+    m74fOYK54J2eePZK5ybZg4/yKHloO7jQ4ZlvCBakCrJQKxxeAIrw9Cp7kRFod+0KVqWEXv
+    FLwiduJaHaa02Ftdk/1RJpjWZlfWVw80va9YGxSSI4n2c+SQtgrdtQOFETewaLrmClMe7s
+    nLGaui8b660VrVMIiYLJe8CWykNnOZ21xqDiJ7khzQtZidl4UVMOPX7QbZ2w
+X-ME-Proxy: <xmx:tiuRalv1Mk5zkil4m4mpNPJZ80jlRSeR5B89-1jAYKbBpsB2be89YQ>
+    <xmx:tiuRaib5vMmGGq01R9U0iuQW_FXg4T0ZQJY6yOEkIOF9ymzGFG6Vjw>
+    <xmx:tiuRatXvTFTjvisSHnS73ypHe7tsb8J6tuDL-7hHy6wtl0HhhwDbxA>
+    <xmx:tiuRakKFPehDAo0Mf2Sg7PJGKfejKVr5QzZwPmaPXp5MzJzgHMb70w>
+    <xmx:tiuRav8A06Lpw-jyF9lqVLlzlSjJPFvY-eFk-Kyp5h2GUcin661mxm2O>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 28 Aug 2026 02:33:25 -0400 (EDT)
+Date: Fri, 28 Aug 2026 08:33:24 +0200
+From: Greg KH <greg@kroah.com>
+To: MoGGuU <Naixumogu@whut.edu.cn>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] accel/rocket: Validate BO handle counts on job
+ submission
+Message-ID: <2026082816-regular-doze-e442@gregkh>
+References: <20260828061916.20405-1-Naixumogu@whut.edu.cn>
+ <20260828061916.20405-2-Naixumogu@whut.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 1/2] net/sched: pfifo_fast: reject oversized ring
- and account to memcg
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, stable@vger.kernel.org,
- vega@nebusec.ai, Victor Nogueira <victor@mojatatu.com>
-References: <20260825081751.134086-1-jhs@mojatatu.com>
- <daceef26-eae7-49c3-acd8-0908bd6a31dd@redhat.com>
- <CAM0EoMkJdo_e5VYPRcPN2mZpNyrTQ43FxNvkqFSNDjyV9x45dA@mail.gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CAM0EoMkJdo_e5VYPRcPN2mZpNyrTQ43FxNvkqFSNDjyV9x45dA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828061916.20405-2-Naixumogu@whut.edu.cn>
 
-On 8/27/26 7:39 PM, Jamal Hadi Salim wrote:
-> On Thu, Aug 27, 2026 at 7:26 AM Paolo Abeni <pabeni@redhat.com> wrote:
->> On 8/25/26 10:17 AM, Jamal Hadi Salim wrote:
->>> pfifo_fast_init() and pfifo_fast_change_tx_queue_len() allocate skb
->>> ring arrays sized by dev->tx_queue_len with GFP_KERNEL and no upper
->>> bound. An unprivileged user (via unshare -Urn) can set a huge
->>> tx_queue_len and attach many pfifo_fast qdiscs to exhaust global
->>> memory, causing a system-wide OOM.
->>>
->>> Reject tx_queue_len values exceeding S16_MAX (32767) with -ERANGE
->>> in both pfifo_fast_init() and pfifo_fast_change_tx_queue_len().
->>> Note: For the init path, NL_SET_ERR_MSG_FMT_MOD reports the error
->>> via extack whereas for the resize path, the error propagates to
->>> netif_change_tx_queue_len() which rolls back dev->tx_queue_len to
->>> the original value. Use GFP_KERNEL_ACCOUNT so the ring allocations
->>> are charged to the allocating process's memory cgroup.
->>>
->>> S16_MAX is the virtio virtqueue size limit: the virtio specification
->>> stores the queue size as a u16 with a maximum of 32768, so 32767 is
->>> the largest tx_queue_len any in-tree driver can meaningfully use.
->>>
->>> Conditions to recreate the bug:
->>> - CONFIG_NET_SCHED=y, CONFIG_VETH=y, CONFIG_USER_NS=y, CONFIG_NET_NS=y.
->>> - Unprivileged user in a fresh user+net namespace (unshare -Urn).
->>> - Create a veth pair, set tx_queue_len to a huge value (e.g. 500000)
->>>   while the devices are down.
->>> - Attach mq at root, then replace each child queue with pfifo_fast:
->>>     tc qdisc replace dev veth0 root handle 1: mq
->>>     tc qdisc replace dev veth0 parent 1:1 pfifo_fast
->>>     tc qdisc replace dev veth0 parent 1:2 pfifo_fast ...
->>> - Repeat across many veth pairs. Each pfifo_fast allocates 3 skb_array
->>>   rings of tx_queue_len entries (~12MB per qdisc at QLEN=500000).
->>> - On the unfixed kernel this exhausts global memory in ~28 iterations
->>>   on a 2GB guest -> OOM panic. On the fixed kernel the oversized
->>>   tx_queue_len is rejected with -ERANGE.
->>>
->>> Fixes: c5ad119fb6c0 ("net: sched: pfifo_fast use skb_array")
->>> Reported-by: vega@nebusec.ai
->>> Tested-by: Victor Nogueira <victor@mojatatu.com>
->>> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
->>> ---
->>> v1 -> v2:
->>> - Replaced silent clamp + pr_warn_ratelimited with reject (-ERANGE) (Jakub)
->>> - Changed cap from 65535 to S16_MAX (32767), matching virtio's
->>>   virtio16 ring size limit.
->>> - Dropped the doubled module prefix in extack (NL_SET_ERR_MSG_FMT_MOD
->>>   already prepends KBUILD_MODNAME).
->>> - Added resize-path tdc test case (Sashiko nipa gpt-5-6-sol-1-2).
->>> - Fixed tdc teardown to use JSON list form for acceptable exit codes.
->>> ---
->>>  net/sched/sch_generic.c | 14 ++++++++++++--
->>>  1 file changed, 12 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
->>> index ef2b4bf51564..eb5c0d3f67c2 100644
->>> --- a/net/sched/sch_generic.c
->>> +++ b/net/sched/sch_generic.c
->>> @@ -910,11 +910,18 @@ static int pfifo_fast_init(struct Qdisc *qdisc, struct nlattr *opt,
->>>       if (!qlen)
->>>               return -EINVAL;
->>>
->>> +     if (qlen > S16_MAX) {
->>> +             NL_SET_ERR_MSG_FMT_MOD(extack,
->>> +                                    "ring size %u too large (max %d)",
->>> +                                    qlen, S16_MAX);
->>> +             return -ERANGE;
->>
->> Sashiko noted that setting a large tx_queue_len to a down
->> interface gives an inconsistent behavior:
->>
->> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260825081751.134086-1-jhs%40mojatatu.com
->>
->> (all other comments are IMHO noise and should be ignored)
->>
->> I don't see and effective way to avoid that, short of falling
->> back to v1, WDYT?
+On Fri, Aug 28, 2026 at 02:19:14PM +0800, MoGGuU wrote:
+> The input and output BO handle counts are __u32, while GEM lookup and
+> reservation helpers take int counts. A count above INT_MAX cannot be
+> represented safely by the GEM lookup helper.
 > 
-> I changed my mind on this. See this thread and let me know what you think:
-> https://lore.kernel.org/netdev/CAM0EoMk8fAACt11fe1pUsFeG9np3SdsV0YUNmEevLu=i=b+xKg@mail.gmail.com/
-Whoops, I missed the last message in such a thread. I think it makes
-sense and will cover all the sashiko-reported concerns. You can probably
-also additionally get rid of the old test:
+> Reject each count above INT_MAX before looking up the BOs.
+> 
+> rocket_job_push() already uses check_add_overflow() for the combined count,
+> but stores the result in u32, so it only detects unsigned wraparound. Store
+> the result in int so sums above INT_MAX are rejected before the count is
+> passed to the reservation helpers.
+> 
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Cc: stable@vger.kernel.org
+> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> Reviewed-by: Sidong Yang <sidong.yang@furiosa.ai>
+> Signed-off-by: MoGGuU <Naixumogu@whut.edu.cn>
 
-	 if (new_len != (unsigned int)new_len)
-                return -ERANGE;
+Real name please.
 
-/P
+thanks,
 
+greg k-h
