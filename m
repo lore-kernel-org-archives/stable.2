@@ -1,159 +1,112 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD24443E47
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 11:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35AE44A3E2
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 12:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787917307; cv=none; b=skFkpkK3HrA6GCIGcUp1+fcLgqTaXmyZUG1OT2rz9/XFmXp4jQs+DlqPAPp4dIB7SOrCNHevWfsGvfubYBAAaeGloVbu8PHyLTJMGKR0c1rOm3cE9Xpsj6E+iE/QGLMkJoCAm+xf7ZGQOUTEY7pyzot4It0QdBdN6nLjX5uvlvE=
+	t=1787918712; cv=none; b=lFznNmLywhzAjbEsZ700zawTflZqdL5Ss+r59+b+zFCd/S+H+HlkT9Yfa11AH9HYB1KRzsubP8aJuJzbVNoDKpPV5WHSBgyC+X3yC0Sj776eJg7yDHpqN9MZh3qp1mRv/ifCrd5UiAJYb+mZQr1zyZCIgecsfajxQUva6eTDlDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787917307; c=relaxed/simple;
-	bh=ZP6xotN5uZtQbHX3m25BhnIUixzq566HNZAVTOsxM3g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=inEwXU/cntywWLepM/a4vbgXitzjRXn/BjFVF3Ueg+geglY2OnabdIuNtnI2FQRwOskmQbAkaYo/32RJWUGKwohaUeKsYKRiZUsQmAmY0QNtr4G3FONNGdL+gsw1D+w3zntyiEwA7AksL4mItf3mxGCJEe9OvLMBaphuLtv+dSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TcdRDsQv; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1787918712; c=relaxed/simple;
+	bh=g7/k4uisB3yiRQCJKrGol/lrSc+9m+nkgTGpTG9dJqk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J7HMR1U6hSTu0p+RLbXjpMLxCFblqN1cXTzGu3bpkYKaUDhRu0hD4iDpgI5M5S2Q0TaP47YqS0O3jXR7E3YClQjlvldAoyHvdwOy2XUVbDdxBJVA9IfHQhSMxyLrq2W6ZwwkJ0EglzGVBo+Qb76lIXeb+romsTj/NZQeIKQ8C/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xsgpn7Yt; arc=none smtp.client-ip=209.85.210.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TcdRDsQv"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d72ae08fa1so7868265ad.2
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 04:41:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xsgpn7Yt"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7eb6573bd52so1030582a34.3
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:04:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787917292; x=1788522092; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zYlvfP1aWzjYvT/xolEYx3UQdxCu1UNNLVMYIqVN0H0=;
-        b=TcdRDsQvF21WbY8MHHN5JdW2pTh+h3AKpqoshxDLvGnjaXbriSI+yJ+mLO7zGv5AKY
-         Kjv97BaZvi5o7yhInkc/2DCl2XnjdEnwuTHyw+9BdPOIyvZPm39scb/EnWJrZ5HoFa9M
-         gip2Rj1eDyNcso+MHrPfowo+QcZBgUDfemed6DOY95+ZQHtWiK/R/UedNZDs6x9BAZiK
-         j1F/TLbSLY/prRIkyHzynRD1oAsVzDJiE7TT2PYvU8/UTGT8IOwKidPG8Z74A4AzTciN
-         BkW2DWbZr3U4FeoDsduBT75reZrr8nvYwPbxicn3BilTSJn4vAZ43cPld5iCRQxo4Q4Z
-         ypPA==
+        d=gmail.com; s=20251104; t=1787918689; x=1788523489; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lWqQxoK7O394GAzySBcQeCr6jt4vv9YmvdIACmdtGGM=;
+        b=Xsgpn7YtNYvW1F1t+i+s/PdkQ27wofqFDAPjvgqNsdY/+Jc/MUoI4D8X+zVj/3rR4u
+         kjI2uNCqvK2HI1YYbTAwUyuEkJDXU5kX9cyyIHUpliA4ym8WAMdTi0qZll4c//piBoBd
+         Cuq/4GoK/OA18D8D7E7eVgt7OHjXqwiTyL+QxGexhIZ51eSDCbrosszVNzol67MibKmy
+         X6e81LpnDCdYZZb8MESf/Cm9i/GR2VEsI/Ty9Rmmm/Q9Db2ig+x2fouec7W7hdwUCZF7
+         YUwPsyvWVZdusOF354K0S2wyhzUNgG3s3y2Si+1YMMT6WdSVE7B4xjRLOUH60cYJRNPl
+         QPtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787917292; x=1788522092;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zYlvfP1aWzjYvT/xolEYx3UQdxCu1UNNLVMYIqVN0H0=;
-        b=krj5c8sdWSZyTA8yRWCiNuy9wIqY0OMTRENhSzhLk4wVSXXr00ExGApXOBPtUcocrd
-         sq3m8ml/e9rpRgFCVyG9ZlVBxwOJ276PQ9iT6cU1A9llI8gXqKLE8Wks1JAlSb/hVM+1
-         aurydUCIYM5g+fh0AaYeFEbDBr218tAsAQCtJQ+UyfFb/mLjhvzE8VBeS1tXhI9VQDIo
-         dKTSxuIi10IISBRbyuRrkgUJbn3Lt/Nx4W6EFXN+4y/xnImvDLnW15uFzQaJUCjXQrVJ
-         uZ9tBObkK76xN1I3Xz/j5qvuRswebWP8kuhHq+Gy+X4UgtTGAvmQ8VOMg8cykKF3mGCK
-         EwJA==
-X-Forwarded-Encrypted: i=1; AHgh+RrRgiZvrULPsH2ve/X5Cxt8EVpXhmC7SqskCUXelge5aJS/q2yeqi+c21Hfe8MZa5e7r+3gAFc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPzaBuuXQhcQFiKxFeCMhB3cPCCG/8dkJskb93QMXEzxkmabMN
-	GqoyzgLK8jcDxRf7j/bEEc/Zwxf+hYuqbKFAO3qAwiFbku6iULNDnSYS
-X-Gm-Gg: AR+sD11BVV2ZUUbyOGVp0pkagT/ZRsFvwjKAfp7Q8cV4uh17R+V2JHVV0qP5hZbE3KF
-	e3fU9+hLWFLJNSgpKf+rNZlZJYdMnNnWAT0BJWFojzqTggMXVAKKuh3bLeYL1GW7KBGWiGxU+Xi
-	vMS2F1d4VpsER1ry3nozCiIItFm8dFI09PpqY3R1L7bcq1wKuSL+zy32CCGPVBIJ3jr2SFpKUSu
-	jSnhPgLvCjYkzEsvd2KBPpnSsfuhgsLfDgdB8jTTydxMLOke1Ek05nPrlKSQqISf5PK8CJur/s8
-	xcdeswxePlawi8SBAex+HkTc4h92bDfbYpTKQ/O85qGKqMMlPBSp0CRIt7G5v7cSRBo6g80k/l9
-	HgjEOoOuth9MJEhXatygy5midSYkt/54oir1QNil0A+o6N3Yo6g8kx6u4se2ckVAWlIZ3GlzVBu
-	1gxeg5uyjbHngDJYjmxgk+nWWYYxJwRqhsiE4bNH1zEukYZlNmkFP1WmGv6Y9xPdjsqYMMDb7iD
-	BbB/u/8g1CPQd1Gca8mxgG1
-X-Received: by 2002:a17:90b:4fc7:b0:395:bbfe:fc6f with SMTP id 98e67ed59e1d1-396d0e26cb3mr13722493a91.3.1787917292018;
-        Fri, 28 Aug 2026 04:41:32 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fcfa3asm6888747a91.6.2026.08.28.04.41.28
+        d=1e100.net; s=20251104; t=1787918689; x=1788523489;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lWqQxoK7O394GAzySBcQeCr6jt4vv9YmvdIACmdtGGM=;
+        b=oXLzyQHWAbYr++4f9uiG1efZNckk/PqC54behO+/8HweY0nMXSWgoD2PpjPryEGCXS
+         +eZECOPzxsRywi6xHfaxP158s6F0PNcJQlT37XZ20L/nPGzq/bi+HWowf6AoaFgXcPMM
+         rRpZLZSgPbJ1disHsGrWQUUwuVzEd3/oDcExyu4N6AK9wParGagwyTtl2Z7Nxq9+iAKx
+         89VCvQ+JkDmPyd1a2W7A6cDX27CHr52zU1BxnkwwLTsmsFhu7SS1hOVKmKJzNgpd9uHP
+         qOdaCYX76ZmVjgDu4nnEVWNnBr2GYPCftsSbtU5AuPH02knYi46A5yyLPOwkjhcwi3sU
+         eQug==
+X-Forwarded-Encrypted: i=1; AHgh+RqMULtIfNY/oMFqaFNCMeZZGNAJw+4mA1VfNjm7fTtGb/fE6+l1ivSpdYzYaOlgRfAuESc8zuQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l62HAQ1s+tCk0ZHM4496CtzLiBKfWKjJsWmfVvBf9nO3tx2mgt
+	Q52G0Iz41I8tBGkjLmSYFuw2l5nwKl24Cg+5nj+3Fy9pFv9VnffWhM6B
+X-Gm-Gg: AR+sD13V6SLvu1CNhfz5Ww4vuih10a6JxQt3uPBsEFaEKf1OBHIZMpUVG4jAEWcxH/A
+	yaY9gJ84VYL5ON0P/xCxVNtq34Lwd2tTyoD7h4CPpXjuy4vzKbGPjHXDuTOt6xudSHyLE8qixz+
+	+INCSrMTmhBUGCYjVMGXKujapvdGegwFlR5hha5J2+9lOykjRIwl7w9e1wGSsz71FOaAX7igaA3
+	d4eR1EyH1PhpCh4LTPCyLcqrg/2zeOHiDMaNMeXzvXZXdzBbxYxDUthJtTki/mn+sNEBRustTDR
+	Q04VRpJ/GD6HwBR+/CAq4uhjIhBHuKC89dxG1gRpyGt+vbg8NAHANEI1XKCLiJ6YuwJ8XbInq5N
+	VkdmBA9j0IhG/PvD8uA4Uaqq3ifpYKyGszpg5eEry3r1q9d4S+NwkTAxydkzWGecFUxyz4fjpGm
+	geiEF2e7a9KL5t6HnyPzsdzFXx/DeYtTXkDPGVSzQ0OzSQmS+AG00bDQPp7R5owa5xnWjo+rNDX
+	9Jl0bzhRHZ0Kq+qHVkxMEp8wwCqwg==
+X-Received: by 2002:a4a:e7c8:0:b0:6ac:8e23:3078 with SMTP id 006d021491bc7-6b1c6422a9bmr4115615eaf.5.1787918689511;
+        Fri, 28 Aug 2026 05:04:49 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:590d:7e37:c87d:136d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f8095bcsm5559760eec.12.2026.08.28.05.04.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 04:41:31 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com,
-	daehojeong@google.com,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: sync pending discards before reserving device alias
-Date: Fri, 28 Aug 2026 19:41:25 +0800
-Message-ID: <20260828114125.637513-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 28 Aug 2026 05:04:48 -0700 (PDT)
+Date: Fri, 28 Aug 2026 05:04:45 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Alexei Turtanov <9alexei9@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] Input: atkbd - skip deactivate for Xiaomi Redmi Book Pro
+ 16 2026
+Message-ID: <apF5WFQU9LPM2lYL@google.com>
+References: <20260828112239.18081-1-9alexei9@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828112239.18081-1-9alexei9@gmail.com>
 
-A released device-alias range can accumulate pending discard
-commands. The reserve path then marks the same range valid again
-through f2fs_reserve_device_alias() without first synchronizing
-those discards.
+On Fri, Aug 28, 2026 at 02:22:39PM +0300, Alexei Turtanov wrote:
+> The internal keyboard of the Xiaomi Redmi Book Pro 16 2026 (board TM2425)
+> does not work: atkbd_probe() succeeds and every command is ACKed, but no
+> scancodes ever arrive afterwards.
+> 
+> Testing on the hardware through serio_raw shows that ATKBD_CMD_RESET_DIS
+> (0xF5) is the culprit. After 0xF5 the embedded controller keeps ACKing
+> commands but stops delivering scancodes, and neither ATKBD_CMD_ENABLE
+> (0xF4) nor ATKBD_CMD_RESET_BAT (0xFF) bring them back. Only re-enabling
+> the keyboard interface at the controller level (i8042 command 0xAE, or
+> rewriting the command byte as i8042_port_close() does) revives it.
+> Running the init sequence without 0xF5 (0xED 0x00, 0xF3 0x00, 0xF4)
+> keeps the keyboard working.
+> 
+> 'i8042.dumbkbd=1' also works around this, but then the driver never
+> writes to the keyboard and the LEDs cannot be controlled. Use the
+> existing atkbd_deactivate_fixup quirk instead, as done for the sibling
+> TM2424 by commit 3a046db33bb9 ("Input: atkbd - skip deactivate for
+> Xiaomi Book Pro 14's internal keyboard"). Tested on v7.2: keyboard,
+> Caps Lock LED and s2idle suspend/resume all work.
+> 
+> DMI: XIAOMI REDMI Book Pro 16 2026/TM2425, BIOS RMAPT6B0P0909 05/22/2026
+> 
+> Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexei Turtanov <9alexei9@gmail.com>
 
-If the discard thread later submits one of the stale commands,
-__check_sit_bitmap() can still see valid blocks in that range and
-trigger a BUG.
+Applied, thank you.
 
-Synchronize pending discard commands in the alias range before
-making it valid again.
-
-Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
-  kernel BUG at fs/f2fs/segment.c:1228!
-  Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN PTI
-  CPU: 1 UID: 0 PID: 79 Comm: f2fs_discard-25
-  RIP: 0010:__check_sit_bitmap+0x2e1/0x4e0
-  Call Trace:
-   __submit_discard_cmd+0x921/0x1140
-   __issue_discard_cmd+0x524/0x12f0
-   issue_discard_thread+0x686/0xe20
-
- fs/f2fs/f2fs.h    | 2 ++
- fs/f2fs/file.c    | 1 +
- fs/f2fs/segment.c | 9 +++++++++
- 3 files changed, 12 insertions(+)
-
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 16720f1f0a9..2b9c6bf310b 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4067,6 +4067,8 @@ int f2fs_start_discard_thread(struct f2fs_sb_info *sbi);
- void f2fs_drop_discard_cmd(struct f2fs_sb_info *sbi);
- void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi);
- bool f2fs_issue_discard_timeout(struct f2fs_sb_info *sbi, bool need_check);
-+void f2fs_wait_discard_bios(struct f2fs_sb_info *sbi,
-+			    block_t blkaddr, unsigned int len);
- void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
- 					struct cp_control *cpc);
- void f2fs_dirty_to_prefree(struct f2fs_sb_info *sbi);
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index d440231b8cb..58cea2aa314 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3847,6 +3847,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	write_unlock(&et->lock);
- 	clear_inode_flag(inode, FI_NO_EXTENT);
- 
-+	f2fs_wait_discard_bios(sbi, ei.blk, ei.len);
- 	f2fs_reserve_device_alias(sbi, ei.blk, ei.len);
- 
- 	i_size_write(inode, (loff_t)ei.len << sbi->log_blocksize);
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 1e7e745be71..7f4fe8c34c2 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -1916,6 +1916,15 @@ static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
- 		__wait_one_discard_bio(sbi, dc);
- }
- 
-+void f2fs_wait_discard_bios(struct f2fs_sb_info *sbi,
-+			    block_t blkaddr, unsigned int len)
-+{
-+	block_t end = blkaddr + len;
-+
-+	while (blkaddr < end)
-+		f2fs_wait_discard_bio(sbi, blkaddr++);
-+}
-+
- void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi)
- {
- 	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
 -- 
-2.43.0
+Dmitry
