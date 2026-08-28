@@ -1,78 +1,80 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E20331EB2
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 03:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2805623A564
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 03:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787887779; cv=none; b=sKMble6lF1RlyTaBBje5XR0Z4GO2t4US38hor2P9fCriFtn8m54x0c8c98Y0JmR93I8a3vA7Dp9Aawd2OS8ZrKVcRLGhqf5wJNqJXo28LD9wzgADaxSM4p5gCVgAezmiSgOZHYpnriV02PwLHA9X/iRCk/as6Ih+zBFyIK61jF0=
+	t=1787888037; cv=none; b=njXRnqNey94zvcf3DlKWznGSRR8pRJc9u1EgoG/gpymQ2fdhQ7Icd/Nns3RFIC4WppG/YH1HqGSw6yBzA6iCPVr2ZmtYJYAE02xC0zM91XjCfKsmaQY3urX9fBvLPBpjlL13biiJWBPCYdLLmXOH0eZ82YGIXycmA9g8cXqJrcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787887779; c=relaxed/simple;
-	bh=jPjlin0tmMCDRTUW+snF3PCNw9aRjkrQLg8rejx6Ly4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bJjfZJfspEeWhFzC0JjJG9yYwQNGRtBRzfN0azPwBgtas52mUWpewPHSzp1wuCbzaqoNA0ltnN9EthlC6HV6131hMMrnXz/TUl30moxzgnX/YhAPQuywQDv+Ogudtd9nm6WZvp+U0nXfeYVimshke/OQLRPezhimQOIleC+JEgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQZGM383; arc=none smtp.client-ip=209.85.210.173
+	s=arc-20240116; t=1787888037; c=relaxed/simple;
+	bh=O3W5OLmm62pgM3CpEscJNvH3qzmki9b+xvjyTSf3kDA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dNCALyZmAi0SYcsUrPtUmIFqyIQqnH29Uys+S92ok2LQWm0k3FG6FXnJiWVjpacaqWjZIW8qGzmPKcvgADXD+C3x2TlM871tLAqhFGOC60H37fsjQi0KvvDQxVAeferELsS5dRYmrUVu5tgXkwTwlHAbcUn6ctdJyqgKCPTytMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P4JJH539; arc=none smtp.client-ip=209.85.215.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQZGM383"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84fa3b14ee1so610779b3a.0
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 20:29:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P4JJH539"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so367559a12.3
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 20:33:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787887777; x=1788492577; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nm+oSzw2CJimOwrmR4fmonPKPbwcboKbls/SrfJtGuk=;
-        b=ZQZGM383K2s1zkYeHdJcoSVFaHA33CHT89DmYEYIU/ylCJmPbAibUdK2EHIWXFeiZx
-         /Vxd+Fwop1tgVMKhpcu8b4SYswRqcH+CcaMsS75+BF1ft6hist5CHui2eF/HrSjmeRFY
-         9fDvRwiht1K1b6VRVBskyFS1IYBwzKMdHsKnctvQN78nIY6yBMB9rxUmQO8uyy99e0kL
-         8NnmthT4C/vDWRNPc4w4jPy245ICoqprQHkj3dq7Quev+rf2g62ZsySiK4O+1ilwKr1A
-         /59neHNjS3Gn8uqdahUPhODiFG9kg0Ryv/n97JsvQaNIhkNJ2G3UGOnfUwPPNgeOmTPl
-         cIUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787887777; x=1788492577;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787888035; x=1788492835; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Nm+oSzw2CJimOwrmR4fmonPKPbwcboKbls/SrfJtGuk=;
-        b=IId+wS7k4KO8FkyGEgZhxdWbB9I1YX9mlyALFgD15DAnXurHwgCKRe5dPWZ0xlLw3Z
-         XiTQBuSKA+kXTZkFN3VrfkH+oVegBOTNrwkvVgSD+v3XxrnleEYUqGf9VdNg4wPf9wV4
-         Xj7Hq/+4K6fDk1fVj/OMOMnQoREdJqYT0bSoSNSLrOjJO+1mO+e27TAiZO7pof8pOG+t
-         U0JuqqcU2UUmDWW5LIBd813W8Tv8vEDWA8mNBBfazP+sIv1FbaLXpxfG8AVsVDAArtMJ
-         BPpITrLpFSiIyRJMSo6dRPFTcTHLwz5XLlQl9cmYcUNi3nklex38/CJ7LYsvpz7TAtNW
-         CO9A==
-X-Forwarded-Encrypted: i=1; AHgh+RpsjmhESwgbJm5PJlSqMPLsE11vrmqkkFxRdXXaj3ZoFt48q8j3szrXMcoVQfTCqxc64e756Zo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nv9V3i1x+Ovgz+j9ogkk/9xZ75OqvGNXbJC0FV1cIWQketHQel
-	abxmv5lfGp3xftQ4CC8bCr+asx0oKu9I/eMU0Hopm4fTmhPRlfGgyDsJno2HOfqe/R+mTKI0
-X-Gm-Gg: AR+sD13Ro8rLQO8EvlCeoZs0dGJODsVpEG6IwLoPD6U3JyAKvDzCiasow6ocHyGLQ8E
-	xZvn9yg0x3aJdrDXdWG2sd/YYmweqJEpz4f3e2uCN0l9Yb9rM+X4Nc4x22HarRkfghIuqfUzW0l
-	dAnPiia06Yv2Qr1CzeM/33b2PuvbhWkO2NmviMTAK+kTjffD0sRe9prfvF/EryK4DjnCs8bhWGR
-	a5lS7LO7irCaJaU5cQfz4MFqNENDLwexGXmNftdX4eDJFhdezMNhYzhHkCd2dxuwl7mb/Ck8MLL
-	6535CLMLSFegnR2KvBZQhaGg6LJfChnetLcqPqTyeIsRPihlmoiQFZ36WTFihc8YkWM+VNXtDWw
-	jt0iiUlmBBAAT77MMZbv4XV3uJ1NepqNrnuZmvaZVFnnmUM4bvkMqdv/97P8vWFo/pRDgDOw/wP
-	7NzJai1NSMzDbj3TO/9xp4ZOylQWdmHWtiXLsia1/0OT6UoA6vRSncuvCeattxosoJ
-X-Received: by 2002:a05:6a00:13a0:b0:855:a211:6679 with SMTP id d2e1a72fcca58-85628b7d138mr6941183b3a.5.1787887776957;
-        Thu, 27 Aug 2026 20:29:36 -0700 (PDT)
-Received: from DESKTOPHOME.lan ([240e:3a3:9304:9820:f4a6:931b:cf31:308])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a3d6c845sm135770b3a.59.2026.08.27.20.29.33
+        bh=z2kWriAmVnRHA0BfpSMWspXCORRWDebvQgjhpMlIH/M=;
+        b=P4JJH539rleEnVHOnsvJayV1l7Pa0KoLHxg15S1UMQYmPOrAboYOmLhQM37GIZaCyw
+         rAdWgsXzpdUv6knad1o++llKqQYe7c6yqygqdt+6zLT86+YORESFiPerxSTzx55KMRHJ
+         +IGsL441UPiRYVgyzDoZXF4LhK69oe7v55/b0+AWUjgrpj2ocAhIvmKNxFCgr0Sec9U+
+         INXCUgYlaNpiOC1YBo4YcslwLnQq1qMbH3qJ8a6s6fT0Qs3ed+3jbyCVq7J+kmzrvdVv
+         HQ8hAluCl77iv/Infl4nj/FIGIO7cbRPcE6lLlclKPdgrAXvmPXWvwYIHdkvxA0gTd9e
+         6DyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787888035; x=1788492835;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z2kWriAmVnRHA0BfpSMWspXCORRWDebvQgjhpMlIH/M=;
+        b=KtgRfvQ3LwQAtFCOuF4L8ViR+Lutbp3fYSPoJtyr2EmnLbTQsYGQpfIlEYzJBUVCqR
+         UU86GIiKQmETKPqiT0yGJ+9gi5nbuvW0KP50i7THAbdkL2mQdMoqNzWJqCzV/aXcoHxj
+         TJcTWSNz+qSWiQo0FouJGaCvFGQwu6pmJQL7bZWMeNzd9H88FdWTVRDyjAaIApOpPqyi
+         8aWsM2cDazqfZyhMM8zZ6ra/Qxuf413yZSyu5PbRbOiXAaRQzKwwpYdptOBQGCLb04U8
+         cnspf1f7gCFfOR/GzDXDzYn+wpjPlN06G3ylJg8jgGPxzmMmWajzc9x4PTCejtH2YFuj
+         rlzw==
+X-Forwarded-Encrypted: i=1; AHgh+RpqxAHXCw7f8sH6Bg5v/EdF1kWjvRHYZZ53cN1e7fqvy28TCheQ6wy4MezxZoh6D7jsYtydYzE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+zIlCI5AACZHr5NMN4oUfeiRdpVylPZIlBxVGru0l9rZ4bxLc
+	n4UsMrIHI8BgKDAqIajOIKtuVPoa3iQGRooB7nB7fa2uuq8AZ4q6rr7V
+X-Gm-Gg: AR+sD13JXprd/ZoH6KQQkCORgnZVrNQqY3mqhCweSDx0BpboOfV1W5rTFD9iA69kc6w
+	ZfdQBcUsJby/znUXu/qX5YPJ/HFZ5fU+akhg5EMYl6LVzugaLAlFswBbxP2Ev9r+gC0tqGv46a+
+	gHkjOTVCvsdqAjZekez6t3b0NgktpLstrAaj0svSYpruEGcJfzRRD3Y2Yuu1Uo/Uue5dtgNaos+
+	RBZ+wLSSNDoCPjMZDBRH2S7jaXLSFrK2cXunew3vd2e/Cwb/773sYPbklI6HljBlsnwH/KJ5wPu
+	ro3TNrwZ3+qODzph0/7H+RdteFz2CONPJ6Qzxtx8WKLiPjGdqeuECTwYb4z7w634T8+ViE3Lkg3
+	B26TB87DlndDFsvgF6DT0SsGKkwsRzBrQF+r+r29O8ELSXnWXgGDWDgvRsQG7ADPC8F0IRWjcwq
+	qHUrq19EdndCTJruUf6OmzwwWyo7xEsjROI29qAQZPiT6ubyw2cjW5z9MihygjgaszshvPuKhgb
+	/883QIUsGjgtuUV9E6CIxoiUZ6ktaHc6kmy8VknNpZR0c3Aug2wu4gKPqrYVSLO3moquJ1Klw==
+X-Received: by 2002:a17:90b:1d05:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-396d0ff519cmr7783691a91.14.1787888035408;
+        Thu, 27 Aug 2026 20:33:55 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain ([203.125.131.137])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddca5bfbsm695369a91.17.2026.08.27.20.33.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 20:29:36 -0700 (PDT)
-From: Ziyou Xu <xuziyougm@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	bjorn@mork.no,
-	ericwouds@gmail.com,
+        Thu, 27 Aug 2026 20:33:54 -0700 (PDT)
+From: Wei Jie LAW <98lawweijie@gmail.com>
+To: Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: phy: air_en8811h: restore AN8811HB LED GPIO after MCU restart
-Date: Fri, 28 Aug 2026 11:29:22 +0800
-Message-ID: <20260828032922.469449-1-xuziyougm@gmail.com>
+	stable@vger.kernel.org,
+	Jason Gerecke <killertofu@gmail.com>,
+	Wei Jie Law <98lawweijie@gmail.com>
+Subject: [PATCH v3] HID: wacom: fix OOB read in wacom_wac_pen_serial_enforce()
+Date: Fri, 28 Aug 2026 11:33:23 +0800
+Message-ID: <20260828033323.82958-1-98lawweijie@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANRwn3TWTHxP=ZEpgZzjRweC8vqifoi2koKgSQTEuPuY4FZxcQ@mail.gmail.com>
+References: <CANRwn3TWTHxP=ZEpgZzjRweC8vqifoi2koKgSQTEuPuY4FZxcQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,77 +83,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 03b4702fc5e3 ("net: phy: air_en8811h: move LED GPIO
-configuration to config_init") moved the EN8811H LED GPIO setup from
-probe to config_init because an MD32 restart clears the output-enable
-bits.
+From: Wei Jie Law <98lawweijie@gmail.com>
 
-AN8811HB follows the same initialization sequence: an8811hb_probe()
-enables GPIO3/4/5, and later config_init() calls restart MD32.
+wacom_wac_pen_serial_enforce() iterates over a field's usages (up to
+field->maxusage) but indexes the report bits by j * report_size, the
+position of value slot j -- and only the field->report_count value
+slots reserved by the Report Count exist in the report:
 
-Move the AN8811HB GPIO setup to the end of an8811hb_config_init(),
-matching the current EN8811H path.
+	for (i = 0; i < report->maxfield; i++) {
+		for (j = 0; j < report->field[i]->maxusage; j++) {
+			...
+			value = hid_field_extract(hdev, raw_data + 1,
+						  offset + j * size, size);
 
-Fixes: 5afda1d734ed ("net: phy: air_en8811h: add Airoha AN8811HB support")
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
+hid_add_field() sizes the usage array with max(usage_index,
+report_count), so a report descriptor can declare far more usages
+than its Report Count reserves room for in the report.  One listing
+12288 usages against Report Count 1 has the loop extract the usage
+at index 12287 from bit offset 98296 -- about 12 KB past a 2-byte
+received report.  The value is stored in wacom_wac->serial[0] and
+can reach userspace as an MSC_SERIAL event, making this an
+information disclosure.
+
+Clamp the loop to field->report_count, the number of value slots the
+report holds. Value slots past the last declared usage are still
+scanned; they reuse that usage (HID 1.11, 6.2.2.8).
+
+Verified on v6.12.105 with a UHID reproducer: a 2-byte report from
+such a descriptor trips KASAN before the patch and not after it.
+
+Fixes: 83417206427b ("HID: wacom: Queue events with missing type/serial data for later processing")
+Suggested-by: Jason Gerecke <killertofu@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Ziyou Xu <xuziyougm@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Assisted-by: GLM:glm-5.3
+Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
 ---
-Changes in v2:
-- Drop the EN8811H change, merged independently as commit 03b4702fc5e3
-  ("net: phy: air_en8811h: move LED GPIO configuration to config_init").
-- Apply the same fix to AN8811HB per Jakub's review.
-- Rebase onto netdev/main.
+Changes in v3, per Jason Gerecke's review:
 
-Not tested on AN8811HB hardware.
+ - reworded the explanation: the usage array is sized for maxusage;
+   the descriptor just declares more usages than its Report Count
+   reserves room for in the report, and the loop trusted maxusage
+   over report_count
 
-v1: https://lore.kernel.org/netdev/20260820141034.1400439-1-xuziyougm@gmail.com/
+ - bound inner loop to field->report_count
 
----
- drivers/net/phy/air_en8811h.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+The reproducer is available on request.
 
-diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-index 0eeb7b9a4..6ee5df63c 100644
---- a/drivers/net/phy/air_en8811h.c
-+++ b/drivers/net/phy/air_en8811h.c
-@@ -1125,13 +1125,6 @@ static int an8811hb_probe(struct phy_device *phydev)
- 	if (ret)
- 		goto err_dev_create;
+Compile-tested on 6ba2c27cb9aa (x86_64, wacom_sys.o); the runtime
+verification used the identical wacom_sys.c built as a module for
+v6.12.105.
+
+v2: https://lore.kernel.org/linux-input/20260825103104.12090-1-98lawweijie@gmail.com/
+v1: https://lore.kernel.org/linux-input/20260822120926.153849-1-98lawweijie@gmail.com/
+
+ drivers/hid/wacom_sys.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 0eafa483b7f7..40770affdbde 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -113,8 +113,9 @@ static int wacom_wac_pen_serial_enforce(struct hid_device *hdev,
  
--	/* Configure led gpio pins as output */
--	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
--					  AN8811HB_GPIO_OUTPUT_345,
--					  AN8811HB_GPIO_OUTPUT_345);
--	if (ret < 0)
--		goto err_dev_create;
--
- 	return 0;
- 
- err_dev_create:
-@@ -1265,10 +1258,19 @@ static int an8811hb_config_init(struct phy_device *phydev)
- 
- 	ret = air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
- 			    AIR_LED_MODE_USER_DEFINE);
--	if (ret < 0)
-+	if (ret < 0) {
- 		phydev_err(phydev, "Failed to initialize leds: %d\n", ret);
-+		return ret;
-+	}
- 
--	return ret;
-+	/* Restore LED GPIO output enables after MCU initialization. */
-+	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
-+					  AN8811HB_GPIO_OUTPUT_345,
-+					  AN8811HB_GPIO_OUTPUT_345);
-+	if (ret < 0)
-+		return ret;
+ 	/* Queue events which have invalid tool type or serial number */
+ 	for (i = 0; i < report->maxfield; i++) {
+-		for (j = 0; j < report->field[i]->maxusage; j++) {
+-			struct hid_field *field = report->field[i];
++		struct hid_field *field = report->field[i];
 +
-+	return 0;
- }
- 
- static int en8811h_config_init(struct phy_device *phydev)
-
-base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
++		for (j = 0; j < field->report_count; j++) {
+ 			struct hid_usage *usage = &field->usage[j];
+ 			unsigned int equivalent_usage = wacom_equivalent_usage(usage->hid);
+ 			unsigned int offset;
 -- 
 2.43.0
+
