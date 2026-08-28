@@ -1,111 +1,113 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6479B391E51
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 06:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787897265; cv=pass; b=ZhuO6fmrrR4qi3L5YTFaZJH66aBKHr8S+24wIApEakKeI49BwY0OWONYwWpcYaoUxaYufTTDv6cNOdSfy2/fhkTzwushQwWCsnXa9bmIe0o/bEon+T0ibeZJo+lnipfKFrrI5XjLPW99rCml9EwrbAJPv/ukDxTxLQVqWNNxNU0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787897265; c=relaxed/simple;
-	bh=XJcCZg/vwrseqg3yh55My36FSapqIT8tQQ/7UaaNxRI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qcbb5JWwLUhrcIe1me6VI2l8m+v91/peDpQDCKV9NH+bO2RM7+Cs+i9rv84bViUKmvUmpygPI/1Gc22HnDnh0Jp4eS1tieWCZUbZXYrwJTtg13jdAlmaxcMal6AMdnwNPX0ysc+c/npR4zm9GCP5RzwQJC5fd/5sEAFdMP0I7V4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sMQCONaT; arc=pass smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sMQCONaT"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ccdce28edeso544585ad.0
-        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 23:07:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787897264; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NIFXNtrYRNalG1MbC8iVg0BtDe8cKCLa3XRi8CUfLzy/XeLe/e5kADQIojXnvXegFV
-         im5ZglU8TfSDwI79ORnElCgRola3n9bshXZu0wtBY4JSmhwhBpUkPWeP2BEnk1TcH/GR
-         va8WMSdLt95eV/TVzo1uFY9VquFs0WAXQ7JrzUierPTdbSHRHboOaDnAkn2eoM7qPOd5
-         MHzYQuDrFT8ydP164Pzz87Dvlotgf/xFw6KyIesrudnNo+6aTqbf5bYvzADcg47aZeUT
-         GlQlwrFzT8C2ek2zOLk0WFrUxHPUU4uvicbtsqiwMN/eO4xMRBWPWiFWjrWdZdme//eY
-         Pmuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XJcCZg/vwrseqg3yh55My36FSapqIT8tQQ/7UaaNxRI=;
-        fh=UbHXpB1qely/+wyUFRFrlvN92y4g9kdMZyeoJ+YR2tM=;
-        b=CyEGCKmyMnYTmvqyWBts7vrmzuZaRAN4k3UQYIvRX6C7mYFXmLCrBCFv0LIwklASmN
-         2aZjXAdjp9XQ+3TYJB0+BdiTH+cXwEmKI2DNBICsPLwM7oZg4AFb8rjLNuw2t9Fzxs97
-         dOz9GpjuTjZ2zWiQ9QESh3zLGsdO+ZnkgiaiaGsf5CH+Wj/g5X/xCVBPNnVSlS5gwJC3
-         Smg7hfocmCfjXRSuuxJnO58BTJpkuM2UPHd0e7U/z0+9UFY9yAEl5WBeV3j4SDhwvzVL
-         qUfu73gVZw2YxFK6hU4HQKQahKBC0c3I3mifQRHknm6YPsvLy4GDlnvit0vhuoCmcjAA
-         HRPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787897264; x=1788502064; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XJcCZg/vwrseqg3yh55My36FSapqIT8tQQ/7UaaNxRI=;
-        b=sMQCONaTjSW6m+MpET9Nt1FHTXp4Atvz/zy+uQ7O6WMPAAZyNYUws9em7C/fRERWWj
-         ozAvGzvwdQO1TWxmVkRzIFBCv4iEIWWIt7/sFpOJNotUK/eO5OSHs75ZmHSlstyN6I03
-         81JU9tzAT/6Ok2crepLWo34Q8YLe0rgIFf15S5fAWsdXWZEfT0ix3ODf1F4o/meSc9KH
-         qBKCm3BKgUYHKBJ6dQAJOeDUGtWdWmgv53AoqmKKW7OkCB88h01vxeGbURQJaxuaREvc
-         Sjiwmgr/Yb8ciaV/YcwDs0JZxiMo3xjQucNhDKpZC8fMbAzN9/vdzSqxMG8HJ6dhXogb
-         gbOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787897264; x=1788502064;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XJcCZg/vwrseqg3yh55My36FSapqIT8tQQ/7UaaNxRI=;
-        b=SQSj5rvZpGbtNRLlaY1IR5wf9B7WvA9Gh3D/NgI783P+kC4tIORF6lmYzBzfVgDldl
-         DmRyJJhfJz4tPQT5dF/DOmWC+rFm0frnhsl+WQ1lgAPPtYJr+FObJumvXRJY61G+UJ5A
-         VTSfkX/Zl2+j3spkJZXmoRkvwvPHivBQJGp3xNVQ3AYPjtzQAK3PG68U6Ej7MUMz7Io0
-         zoOAskKDvk2zZRKdsKH2r1LDUMjyomoYpNTGvBcr5hY3uRCkFaNH1ul7JwzDO/xhwq6x
-         71jg69xoSxuwQ3+PvqhjwHz1phPDVM5vzA3mqBcZGjnsdd/pRb3Ib1k2xKKW2IpkIkI+
-         sY+w==
-X-Forwarded-Encrypted: i=1; AHgh+RohMtWKsm4LlkAeB3KpFOB+Et60GUAhut9Aw1DRYTaBn+yBI1xUCKLq1dWwKRPpNBpPmRseau8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOHF93ePI/0WaUeXOVGZ71sD2DuaMoKaoEUEJcHfCIpcLLQh8U
-	G2VKfaYpuunXXINSZiEG+uvxn1nDCrLWbxfAKfsiuEamxUc2HnoJhiG9Bf91/8ijRISBrOmXu7Q
-	688dSGDzdni5ZBLqVBTv7mZY7apyKNHQ=
-X-Gm-Gg: AR+sD13+PiF53gU1s3KXuh/BrDdN7gVfvgb6LTNvDEhm3SwNyfEVH9hVnrhU/Yg32NY
-	VvyIUdKILvHfAA9ehbuKjm4eKaocVHSzYzdEhEh12UYctnzBsDpXrC30ovC4C/QSQffw7Jj5/1N
-	c41arYvo/ksVFsTVJFXlE0RCVn1gkB61cKPhfxVgQVS94NSv9904bkRt4viMT1LpISHk4GOn9TS
-	3+61dlZXtyd/7kc/KJDIkUFceXQ62cpn3Ned2LPrbcGEZsHx5irlUZmw6UJqtHl8Yc4oKR92MJZ
-	hT0qnkA25/fGyPvgbuoQCZPwJUZGRLL5kDyIAfhQsBlosbgb7eYKddMyIRxCJtOCBIYIYjVAAUu
-	vKpGbDQvfea7+Y63+CBWn93sJCw76ADYbsAI=
-X-Received: by 2002:a17:903:4b27:b0:2d5:cbd3:8eb1 with SMTP id
- d9443c01a7336-2d74df3de99mr39705555ad.3.1787897263642; Thu, 27 Aug 2026
- 23:07:43 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717F33C0625;
+	Fri, 28 Aug 2026 06:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787897782; cv=none; b=tkAL9vwhAN5euZl1V+RRukMhFrCfZqDQ4GplAcuw+Kcsk1O9ZEukvrbNZ+EiLJkARbCQdwdkoIb062byYOL4aagQzpsV12VVrtZUvmkIyv2XAcO1PxHZifXjdZhxWJqRjfQALmEZhS2FSFyBwi7laVDB3yU/V3/hnsBfMTDTpvE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787897782; c=relaxed/simple;
+	bh=ivk4EpjbT7l4wfqHN29nL82xAGXLcKGpJoWO1LAemrc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=pYZeAFTwXv6Cd0eVfq7MTsNHUpvtU4vwOcftKZ40k1qR0o+8HVlqwvO3Aj/dtwHlMYMycyztmMTsJeGO6vBZ2WI4Zn/UZNsw5Nd1M3WVLrDVzPs2Xv2lHmwUP2+TOSh5Jgos49ARdEnWwDhrs1FN8IVJMBHU+Dx9RtuTD1nL28g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f7878036a2a711f19a56ed5b684f684d-20260828
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:8728223b-14a0-4cc9-bbea-30d92b2ffa2c,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:1c4637a6193b801e528a8545aa4929ed,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50,EDM:-
+	3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
+	V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f7878036a2a711f19a56ed5b684f684d-20260828
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 208692169; Fri, 28 Aug 2026 14:16:12 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] ntfs: take invalidate_lock in ntfs_filemap_page_mkwrite()
+Date: Fri, 28 Aug 2026 14:16:07 +0800
+Message-Id: <20260828061607.240845-2-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260828061607.240845-1-zenghongling@kylinos.cn>
+References: <20260828061607.240845-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824021802.90369-1-q.h.hack.winter@gmail.com>
- <willemdebruijn.kernel.2ec10017f4836@gmail.com> <CAH78GvvF-mBij7exwgkthJC2puz1-1Ti=WkNr2PwFcKr_v5U4Q@mail.gmail.com>
- <willemdebruijn.kernel.361c9e585560e@gmail.com> <apDgeCLGiHTd7fAC@fedora> <willemdebruijn.kernel.3786f2ddb8b17@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.3786f2ddb8b17@gmail.com>
-From: Qihang <q.h.hack.winter@gmail.com>
-Date: Fri, 28 Aug 2026 14:07:31 +0800
-X-Gm-Features: AcwNN1XaaWDKqbwKCHnytMQ3rVZm_zSvGLS8Vs_yD6xeEOe67vJOUocYV7nkFHA
-Message-ID: <CAH78GvtPSzvaRtph3d9j5CV+wBZNhLEuUN7bvsQVc6DmcfFY1A@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] bonding: reject frames with insufficient headroom
- in bond_header_create
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, jv@jvosburgh.net, jiri@resnulli.us, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, willemb@google.com, 
-	netdev@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Yeah, agreed on steady state.
+ntfs_filemap_page_mkwrite() calls iomap_page_mkwrite() without holding
+mapping->invalidate_lock, so a concurrent truncate or fallocate can be
+in the middle of invalidating pagecache and rewriting the runlist while
+the write fault maps blocks and dirties the folio.  This races with
+ntfs_attr_fallocate(), which merges clusters into the in-memory
+runlist, drops the runlist lock, and only afterwards zeroes the newly
+allocated clusters on disk; and with the punch-hole/insert/collapse
+paths that free clusters after truncating the cache.
 
-One thing to flag: packet_snd snapshots dev->hard_header_len at
-af_packet.c:3023 (no lock) but pushes the header at :3059 onto whatever
-curr_active_slave is then. A concurrent enslave that bumps it in between
--- first non-Ethernet slave 14->24, or a bigger-header failover -- can
-leave the in-flight frame short and trip skb_under_panic (oops/panic,
-not silent corruption; local DoS for a privileged user).
+Per Documentation/filesystems/locking.rst, ->page_mkwrite() must ensure
+there are no truncate/invalidate races, "usually mapping->invalidate_lock
+is suitable for proper serialization".  xfs takes its mmaplock (= the
+invalidate_lock rwsem) shared in exactly this path.
 
-Happy to drop v1, or hand over the create-time check if you want it closed.
+Take invalidate_lock shared around iomap_page_mkwrite().  The read-only
+fault path is already covered because filemap_fault() itself grabs
+invalidate_lock shared on instantiation/read paths; only page_mkwrite
+was bypassing it in this driver.
+
+Fixes: 9c87959601e8 ("ntfs: update file operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/file.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 585ab2145797..df5c9d79ed09 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -676,6 +676,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
+ {
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct address_space *mapping = inode->i_mapping;
+ 	vm_fault_t ret;
+ 
+ 	if (NInoWofCompressed(NTFS_I(inode)))
+@@ -684,7 +685,14 @@ static vm_fault_t ntfs_filemap_page_mkwrite(struct vm_fault *vmf)
+ 	sb_start_pagefault(inode->i_sb);
+ 	file_update_time(vmf->vma->vm_file);
+ 
++	/*
++	 * Serialize against truncate/fallocate which hold the lock
++	 * exclusively while invalidating pagecache and changing extents.
++	 */
++	filemap_invalidate_lock_shared(mapping);
+ 	ret = iomap_page_mkwrite(vmf, &ntfs_page_mkwrite_iomap_ops, NULL);
++	filemap_invalidate_unlock_shared(mapping);
++
+ 	sb_end_pagefault(inode->i_sb);
+ 	return ret;
+ }
+-- 
+2.25.1
+
