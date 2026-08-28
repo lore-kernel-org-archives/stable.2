@@ -1,63 +1,62 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D1022A4E1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7202D2673AA
 	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 02:30:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787884231; cv=none; b=CKa8/7pMtYckY3B0gwVA82e6wCWzi4pj5MSnzM653lmC3q6o7ZsSINLvbC+JKOc69K6sADJbmrEzYZV2/QBY3WGh/jax1OIIuPL4yyEfuluy730XPkyfQA/np7iLdKKj9MOfw/1vYIKA6QS82p3ZMTlWMdUnk22S6mul/bVLfGs=
+	t=1787884231; cv=none; b=Uvr5I/+vP7FwUz2hkHchlNy1bT+C9KjtWPIwAkVlLqAB9/gODm2Qsq5Py/Nu18mljIRDInrN626wvIwBCPz/A/KN/D6fb3qthr8yeuGv8Re1phICDyhsHdGzGBobtw1nrhJiXdF/9yajw3/YzOyIFN/51D6va4jrhVENUMPm040=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787884231; c=relaxed/simple;
-	bh=84zXg62ENGNT6uLCYPJYYPiXMEKGguYVxFHj23c7sw8=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=QzTLaAsv0VDUVAdLESJcOdoCjqeyEkxBiEOV7iHmSeU+5U0oLBqRQVO7pY+TIIASqDfHEPgcd8FGoZ3TMlP67cf5ViGQ4ItM5zPIBNvRzW1svwu3i+SDuGxGJ+aBKyzmyry493/k9KH/ivf1b8sS94bFxQuuHWuuFqrjp0GjpcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=DXSHNMC4; arc=none smtp.client-ip=209.85.215.179
+	bh=tKLJ9E2pTd0Bn4fh2p6YdHSZn2qZId14xZ+rQ6ss2/k=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=KDFiVVtsgZuB2rkmAYsUxEQZFt91PYRspAHjHsIiyEcrFJOkLpKhTgUnqAezDBq/FzMrk600YXZ7rvbga2wnk6OOmvjWMHWItdsvoLG4/QBqbDBVrrZNgalgxKghYatRXoBSttop4gTCL5/q2rtDL3ZwPsGlarvIKEt++w3A/SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=MWoBhfb0; arc=none smtp.client-ip=209.85.215.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="DXSHNMC4"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9e7391839cso587859a12.0
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="MWoBhfb0"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc11a905ba5so414107a12.2
         for <stable@vger.kernel.org>; Thu, 27 Aug 2026 19:30:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=kernelci.org; s=google; t=1787884230; x=1788489030; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=U2ZhFsRzcCrZ6/cSrpc1CKMBUefqDsIuxoaZ6O299i0=;
-        b=DXSHNMC44UuczzzxPvQHsjI/4/329oBIt6yUU/zTSZg0v0QaoT72BSt0S2YFrrTPzo
-         /PxltypqCoVKNFm63SJSzUPSQkh6bohj9G4B5UFIFQy3tlW8AHI9HSYRg6uwbYgT+pcP
-         7x9afK1LzmfE7kh8lsNbLPN/b/P3SXQFP/5gJL5fvwct6LAjCWzmrQJQW/nFJLbnLbHb
-         ikW99/SpVkPngay376el5rnetywcXoWuG41FqCl8uQmJkeU3SxPxF/ATwyN0XeFu88eZ
-         Lv2UCzPUSp2WJf/6PEx3DlDDZaImsmqq5Xt8T9SXuLgUO5AX+wOP6Z89nBD9YBqrTgj9
-         ZeEQ==
+        bh=uXR6D4qEjPWcNgjAKv4Sbbp8hRU6DXrwNMSdoXUy3Ww=;
+        b=MWoBhfb03NSwZb8P6AZbFryalyRqReidS7E8a+jFghsRQwnoRUZSuF7e0py4ld9Z2T
+         7mmLok5ECpLVeyosV2qZm42YC+eBki7L2Q0+m729xgrnWaTVUuPoJdDXnAjfweXOiY2c
+         VgsnYR8kr61E9MfuzVnpo9QKdmI26lutl+ar3sfD4bQelQatLqA47Dv/4l+O5v2TAMW7
+         fcaLAmPC5KLbxt3S1eWwgDgG2jAgIOt3VnFgwNusADhpkdKJk44fdWgf4fbYyExaepUd
+         QZZ1JuC1u7xVmg5WYRk1yTtZYZZT582RDRpK9fQAy86NCXhsQc+jt6F1qimMs2kvqYcB
+         EbCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1787884230; x=1788489030;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U2ZhFsRzcCrZ6/cSrpc1CKMBUefqDsIuxoaZ6O299i0=;
-        b=pblMr0bib2yCOLoYnhBtyWgjuDfAUacBAglkVd4YkJD8zMhB0Vqtz1yg17hmetFlIM
-         9/UUfMu8B/MTqND85CssTeg6Cb2sTLQdu6q/qsahjP183YWqGakwVoknZ9yv2Si2eqQh
-         ZoD/RaTvmiuT031kxv3Eg3B2OSoyeJlWF1SYpwnoYT6HLePs5v9Dc6myIjtfWUN/7vxd
-         TGFqFQMCWyb8961Ml+uJ8q1bK8VYCGiQL5YTWZcfXuDyoUj38eeuHiQUeCxHt5TyNeIf
-         CDE+KQA4DeYj5GUz0OFaMGwOTo+RCry6RmCj4P8n5N+LOn37nS/4BbBIQRxMZCGeQKeD
-         iUdw==
-X-Gm-Message-State: AFuF++k/xm1Fz/6vP55M9rSnFP5C13qV2PPRs34VVgvYRmpBpHKz1elJ
-	znnR3gf6NOlAfjYeYIXFe+81lXuA2rfCUouzCc3pJ58Ne2gECpUAJ9H32zBdtThQdaM7wMuc14v
-	bJvuG
-X-Gm-Gg: AR+sD10JxGUrQWKpUvjlhIZPNoWN/vH8loqAw01B/flHccck6YsgtVt8bacm6Q4RySB
-	vdwmIranKsGZJ2M3VCM6RLzoWrLKcA9ho/Zun8OXO5p0rMo03iV4/xeIRjGBrLgu4gsbDNFS6m9
-	KjEoMVS8ESJCM9ia2PiR2zJ/8nXmXq7pJcDyGDTwhSPdCqPC8+cPdPVvrYc4w74bu7K90DNsntc
-	R9PuX+E3bxjfR9YCIz0HCqeDwQ3QWlNfzS1YYlJQfNxI2/vBIFnh90IRvbZq3iGXGH2fbFN+bNj
-	Af+Hj0LQVkA7TcdPMG/+0TLTQ/Yn2IIQpnsT7o/W9pweYFtWc/dpoQNARzL89O0s+1f+TPjX4xN
-	g1bjMSjcwjfstoKz4c9Ar6rY2W4Gg7+S/oTPgiVG/ntAh/7sYppRxDvI4MMDBntJ1+Utty+RqOS
-	ruPeui/RXoCsgJkrULj9Kf6nowtQhIs5uPM+CoM075z1DkhPuvzrGS
-X-Received: by 2002:a05:6a21:6004:b0:3d1:9166:5c68 with SMTP id adf61e73a8af0-3d265f403d0mr7652956637.8.1787884228418;
-        Thu, 27 Aug 2026 19:30:28 -0700 (PDT)
+        bh=uXR6D4qEjPWcNgjAKv4Sbbp8hRU6DXrwNMSdoXUy3Ww=;
+        b=TyFmWPr7nlPHxDL3A0KlzvJ0YQClB7N72Y6bisvIjIHxlDgcwXNYpp8oP2epg82H32
+         S4pBRzEKpOW7JUQl8dmC+XGPnQoS92HnoWu2zvJiA20LUHHiETXJ782ujjL4nktEtn3V
+         xfBf5toOkk8NpNQOQd8GpiNEIUN+/NeJnUngrYyMjpO6eKN2do8InfdB/L+YDqskIElO
+         43YOGNl2qrR5vQyaXDwDKa2vWym9UTGsctNbC4HmDxhvG7JTyJ9YxnglwU8KKnPXfJ3f
+         qoT8TbglvlkZUCcE38tr3cSVkp1eKoVmlScG8MWyLewVmS4hSYaaUHd19/zOz471cmIh
+         +SKA==
+X-Gm-Message-State: AFuF++nEMxHCyVMdM4vlbp5XYQyqQ3lCgfkAmz0NWzKqkBwsdhbclBmM
+	e0TWGyxmQoS78k0PIhOKI/Fn5j7UjfjUwlVbXlr8omFv/qSY9YkgQDPMbKtVVByuUr8=
+X-Gm-Gg: AR+sD10q2139bByHSNi3+jcBfSACM2q2mVLAhiFhJwERXJzCjVHw/EqljlLZ1cyqbsg
+	LtPJpDajoAeDj2BvLaPbrm6KgmRPjSdnH1qvTnRi0vobv110QP0QR8IgOUqwDR8JSxS/8o/vehs
+	ysZqwK1lT3DNhFZmsbRx6fjjwZ98/FRon+DPaUgCyhVcNJvNWOCxzwf+j4wUG5cqfOos2x6LOPi
+	Esm+x0ynq4tPsYbD1pdfXsW2op5lf6EZsKCPCgJ5AtWYVwQGxLw2afqIC7g8/4DDFI3LzSiibgd
+	KZ8hIwdHI5ANpjthKJClPw9tnZ9+ph7MdE3bfkFOCbM58p0zrHG8f9UY+EZraVKRowOHeo0iGAs
+	XPdVAEXV1KAdJMqfoN/z0kwK4fVG0PYj7GbDf99e8m77GBxUrCq91YkRKcSBR1QZ7tL0JNnO2h6
+	Z0GY3BpYEcbZgNlfr7w/q+6CAsy6q9uovRuzKYP2FGpX7apaBMI6qN
+X-Received: by 2002:a05:6a20:748d:b0:3bf:7bf7:7913 with SMTP id adf61e73a8af0-3d26951c53dmr4775440637.14.1787884229772;
+        Thu, 27 Aug 2026 19:30:29 -0700 (PDT)
 Received: from b455de3d9de8 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm1954948c88.4.2026.08.27.19.30.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f959575sm638693eec.15.2026.08.27.19.30.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 19:30:27 -0700 (PDT)
+        Thu, 27 Aug 2026 19:30:29 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -66,33 +65,33 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.1.y -
- 79a9660d699e69fa523d2c3d1d8af95d6b857c93
+Subject: [STATUS] stable/linux-5.10.y -
+ 86012429e213eafc10371e3de39868c4b8240e8e
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Fri, 28 Aug 2026 02:30:27 -0000
-Message-ID: <178788422752.5582.2420132993224360146@b455de3d9de8>
+Date: Fri, 28 Aug 2026 02:30:29 -0000
+Message-ID: <178788422862.5582.15327723677586527681@b455de3d9de8>
 
 
 
 Hello,
 
-Status summary for stable/linux-6.1.y
+Status summary for stable/linux-5.10.y
 
 Dashboard:
-https://d.kernelci.org/c/stable/linux-6.1.y/79a9660d699e69fa523d2c3d1d8af95d6b857c93/
+https://d.kernelci.org/c/stable/linux-5.10.y/86012429e213eafc10371e3de39868c4b8240e8e/
 
 giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.1.y
-commit hash: 79a9660d699e69fa523d2c3d1d8af95d6b857c93
+branch: linux-5.10.y
+commit hash: 86012429e213eafc10371e3de39868c4b8240e8e
 origin: maestro
-test start time: 2026-08-27 13:10:46.826000+00:00
+test start time: 2026-08-27 13:10:45.941000+00:00
 
-Builds:	   48 ✅    1 ❌    0 ⚠️
-Boots: 	   29 ✅    0 ❌    0 ⚠️
-Tests: 	 3168 ✅  230 ❌  120 ⚠️
+Builds:	   50 ✅    0 ❌    0 ⚠️
+Boots: 	   23 ✅    0 ❌    0 ⚠️
+Tests: 	 2197 ✅  252 ❌    2 ⚠️
 
 ### POSSIBLE REGRESSIONS
 
@@ -100,14 +99,8 @@ Tests: 	 3168 ✅  230 ❌  120 ⚠️
 
 
 ### FIXED REGRESSIONS
-    
-Hardware: imx8mp-verdin-nonwifi-dahlia
-  > Config: defconfig+arm64-chromebook+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.kvm.shardfile-kvm
-      last run: https://d.kernelci.org/test/maestro:6a90e128c5867fba9469ba7a
-      history:  > ❌  > ✅  
-            
+
+  No fixed regressions observed.
 
 
 ### UNSTABLE TESTS
@@ -116,13 +109,10 @@ Hardware: qemu-arm64
   > Config: defconfig+netdev+nfs-root-boot+kselftest
     - Architecture/compiler: arm64/gcc-15
       - ltp
-      last run: https://d.kernelci.org/test/maestro:6a9042b7c5867fba94641a93
+      last run: https://d.kernelci.org/test/maestro:6a9042bbc5867fba94641b19
       history:  > ✅  > ❌  > ✅  > ✅  > ✅  
             
 
-
-
-This branch has 1 pre-existing build issues. See details in the dashboard.
 
 Sent every day if there were changes in the past 24 hours.
 Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
