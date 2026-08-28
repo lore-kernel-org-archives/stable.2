@@ -1,75 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE063C061F;
-	Fri, 28 Aug 2026 05:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA07A3BB4A
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 05:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787894955; cv=none; b=AQvoBgjrfWdWuDUUBFpUdB6AkDlst+Zz3tpoBsaKJ9ZYThFlOZcYa0qtu0mSiFvkgEzazeqfekCVZM4pUZny+9J9SKlIl93zW/H6z0HH3oHQ+Sohug8doTMJ8xzgG9kL8frzkSzn1lFLowr5wYLQq9yBNCeciqu+GOuXFMP98Wo=
+	t=1787895175; cv=none; b=Ixb6vj1zGQeQjjr9gSEJZywqAWSja+cRvb4c9j/FPLqVQUaIfQeIValp1/n26oXrq1l8dXMIUpzywhxnfdG82jhxUcNkaflNZcjtQi+KdUsbhwvaMs4vvijPHF2FukGD+wbuG8HLi5e1l0Ol2z0TaG5m3M7hlLdU0U+Ag8yAk3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787894955; c=relaxed/simple;
-	bh=0k6PkJInVVXv/85VY0NCTXtHaDeumCTk900gNoK0JQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V9j2F7MWdyFNU2Nv5pqd8fF+rPFBjJ3wbCzW9Q3fgb8D0M54pCCLG1ejC+vtUTYHIeXJ8SKB+QxwaVl11cGmP+GQFV0pk3yu5I9f2bCfAgSt2MTc3bjAdQ/Mwc37VReIru+P6zRtgWQhCdUX04/QaA7o8hxzg7Y0+FCHbOOHL7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ykyRmVNb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787895175; c=relaxed/simple;
+	bh=/GdYAOcGtW4ZEPQ+TChDIHhN3tLRFCYSsNmY5MWYC6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PVxbZGoDi2nozU+/6h72XicY8vsX4cqCNRLA9XRtK/G927SB0ZNY42KkW7r36nfxvv1xNF8dlu3jVVXuqcQmjrGnLy6IEidGvgdTNO9GMb8llEURr4/hpuYsDW+c6YNKupjRIYzFOpGc2XbkfH6aNH3XLdpMrJJ9nA7q2tYZEdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TEzUTatD; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ykyRmVNb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869571F000E9;
-	Fri, 28 Aug 2026 05:29:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1787894954;
-	bh=Gw8XvP9Oug30eH2z0I3AColYTqEB16CCQilFRfP4eSk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ykyRmVNbU/Yqy6i44TjeayDpIjf1JXQ0zqsWfLkuWpU7sUuFtVn/oyvvvDJDU4gCI
-	 WKSByXQ/EXG+Il+Dh/SVwEsCWjZzaLJYspjKGSs+mgK8kkejGTQc1dAjmBE27aU2K3
-	 pdvn9clPLJsDZy9PBK7Jn4UbZNz8UpbNqiz4u6sU=
-Date: Fri, 28 Aug 2026 07:29:11 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Cen Zhang (Microsoft Security FORGE Labs)" <blbllhy@gmail.com>
-Cc: cel@kernel.org, jlayton@kernel.org, neil@brown.name,
-	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
-	bfields@fieldses.org, linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
-	tgopinath@linux.microsoft.com, kys@microsoft.com
-Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
-Message-ID: <2026082828-palpable-dingo-241b@gregkh>
-References: <20260828041925.36758-1-blbllhy@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TEzUTatD"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso743358a91.1
+        for <stable@vger.kernel.org>; Thu, 27 Aug 2026 22:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787895173; x=1788499973; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bd4HWqdqCRRUfdjHaCwJvNT3mp6cdXyqAafiod8JiSo=;
+        b=TEzUTatDcMqiz0XuCT8jdS0vRPw9jaYD5rCK2u4RKmaFx8M8VgIKdV7ZkXOHGEZe5w
+         pYMHpGaFaJBcGVJH652bOpBmYBHdctoV+OOYmwN6IKzTl1tBXu5OV81UhY7q3hlQRC22
+         tI2jjh5X69NXlAxDk+NiH/d3t552FxcjUnH3t6y79ZGc/xgxe61uKTA794CyHolSsaz/
+         MjvXbDfnZh+lG94hkcHzr3ok0UBv8owj14AYI63Vc5RFJFH7MyhIfxQxfCo4vQzCQM/G
+         Ov3I2ly80HrKrEu/riKz+x38Eo7piPFH5nRxUqaZrZEP1POcQfkjy1mV5U3FT+JmJQwj
+         k5OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787895173; x=1788499973;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bd4HWqdqCRRUfdjHaCwJvNT3mp6cdXyqAafiod8JiSo=;
+        b=fIKK9ey9ewQBftJ/4x1AuMFZ7LnLFlLCFoKpTQbHlYfi31ccXNIsivE4z/cNE66kWK
+         YGsMdJ0DG3SFSXM3BmrMWu9c25hZMkBIoMNFq/1lfZC7oPCrh/42Y9LsM0dReEKTpJ8w
+         WnkGg57o2yW8hBml8fW2LPSm1op+I9PGnu3SvSMI7tcTWZ3s0eB1HE2rZDOXWVh+yVyo
+         uZKAPMnBYdowGRyJbX5eReVb2xQWIkOqYBJGhB6E7B7kmPdBB1lgnCz9ASMbtPUy4Olt
+         xxhuuFG/cP5lO0XufRfE/XhxoNINeovx8mk9FUoLvWenXxFWsZE+yXZmu3ccl0OY1wxV
+         2QeA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr38yaZsaO7gI+3jvObVPKAsOaRu8QRzcbabdZnuVelnoN9MO1Uy0+W83vaKzdF8KcFVLj6KD4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9/iOD4v6pCRvCwMqF5gaJSdlvJO9EdYlL+V9HM8eNcgwBpJKk
+	nSOEm5wrnNfiSLqYntYZI8GOUuFeEgbR+ec79EJn/IPXQZGRjmGKARgb
+X-Gm-Gg: AR+sD138GGALSx36tgJk/GAG1lDsQxNRrP+4cGC2Lj2McAE3yH9NNDahxkYWdt0zfBl
+	3DAT+Gj5C5+WnufsLI4QYF17A5uyQLchngTriodq31CsUslznAez+T3r66SCLCM2x3Z14c5FEYS
+	a4MNMZ2klxW7+x+o0hVycxAudqrlxGOogai5d61ke+cNUll99LL01T3eGDK7OkFm7OPrIx9KmRH
+	zNkrrLhvGkjgtAd/++Iu5cqyLDiXy9XdooE2v2Nkj/97L0pHtE5Kg1noGGAyXt6YsrpEKCAaBIN
+	yOmJuQmxJwOLEE5puRLwulDkoE2tWm1k4l64s0ZP0uLhM2z0iBheBVV7eIufbWu44i6U2prke1O
+	tfOKlOJEFZvJ3qOaSEqL646nxR3Rtg8oVPEYyqgTKiIDMo2AqeRbqlkCzE8gON1iPlD7V33LdkE
+	gJTY20PAgLos06ao8WmhZlasXwDD79Dc8eo1KU7klulRDZD5cuNiFgs40iTetzG/saFIowIRDvf
+	cg3LgCExspbzD6sOP8aQR/UXpE4GNn5ETiT//O3lPs=
+X-Received: by 2002:a17:90b:3e43:b0:37f:fd1f:d30f with SMTP id 98e67ed59e1d1-396d0f67646mr9008068a91.12.1787895172935;
+        Thu, 27 Aug 2026 22:32:52 -0700 (PDT)
+Received: from hnkz-ubuntu-vm1.mshome.net (flh4-125-195-69-140.tky.mesh.ad.jp. [125.195.69.140])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396ddc07cbbsm1003093a91.10.2026.08.27.22.32.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 22:32:52 -0700 (PDT)
+From: Kazuki Hanai <hnkz.64@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kazuki Hanai <hnkz.64@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: dvb-core: synchronize section timer on feed stop
+Date: Fri, 28 Aug 2026 14:32:44 +0900
+Message-ID: <20260828053244.2010009-1-hnkz.64@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260828052852.1975097-1-hnkz.64@gmail.com>
+References: <20260828052852.1975097-1-hnkz.64@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828041925.36758-1-blbllhy@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 12:19:25AM -0400, Cen Zhang (Microsoft Security FORGE Labs) wrote:
-> client_has_openowners() walks clp->cl_openowners and reads so_stateids
-> without clp->cl_lock. nfs4_put_stateowner() unhashes that openowner under
-> cl_lock and then frees it, so a concurrent EXCHANGE_ID with mismatched
-> creds can use-after-free the nfs4_openowner.
-> 
-> BUG: KASAN: slab-use-after-free in client_has_state+0x10a/0x140
->   fs/nfsd/nfs4state.c:3718 client_has_openowners()
->   nfsd4_exchange_id
->   nfsd4_proc_compound
->   nfsd_dispatch
->   svc_process
-> 
-> Take clp->cl_lock while client_has_state() walks the openowner list.
-> 
-> Fixes: 4eaea1342507 ("nfsd: improve client_has_state to check for unused openowners")
-> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-> Cc: AutonomousCodeSecurity@microsoft.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <blbllhy@gmail.com>
+The section filter timeout callback dereferences its dmxdev_filter and
+parent dmxdev. dvb_dmxdev_feed_stop() currently uses timer_delete(),
+which can return while the callback is already running.
 
-Please use your microsoft.com email address, and not a random gmail.com
-address.  It's kind of odd that Microsoft would have to rely on Google
-to send kernel patches :)
+The close path can then release filter-owned resources and allow device
+teardown to vfree the filter array while the callback is still executing,
+resulting in a use-after-free.
 
-thanks,
+Use timer_delete_sync() at the common section-feed stop boundary. This
+waits for an active callback before teardown continues while preserving
+timer reuse across DMX_STOP and later filter restarts.
 
-greg k-h
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+---
+ drivers/media/dvb-core/dmxdev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Changes in v2:
+- Add Fixes and stable Cc tags.
+- Document the pre-rename timer API equivalent for stable backports.
+
+For stable trees predating the timer API rename, the equivalent change is
+del_timer_sync().
+
+diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
+index 6a825d9bae43..0f5a35bf062d 100644
+--- a/drivers/media/dvb-core/dmxdev.c
++++ b/drivers/media/dvb-core/dmxdev.c
+@@ -486,7 +486,7 @@ static int dvb_dmxdev_feed_stop(struct dmxdev_filter *dmxdevfilter)
+ 
+ 	switch (dmxdevfilter->type) {
+ 	case DMXDEV_TYPE_SEC:
+-		timer_delete(&dmxdevfilter->timer);
++		timer_delete_sync(&dmxdevfilter->timer);
+ 		dmxdevfilter->feed.sec->stop_filtering(dmxdevfilter->feed.sec);
+ 		break;
+ 	case DMXDEV_TYPE_PES:
+-- 
+2.53.0
