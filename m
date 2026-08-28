@@ -1,147 +1,253 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011045.outbound.protection.outlook.com [40.107.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780ED3B4E8F
-	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 09:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787910167; cv=fail; b=kmecru/wF0VgCxo+REtCUGNtw4kGwguS6l70H9SY1eJ/nXQgyRqs3xhUTj1iDgK6N6xjmL9l/ZuipTHpvHqOEg2imDv87uwF9Q5fzOm0x1I3X+zMijN2neSsJL2IKCrRm70FvL3KSZgd19muoL9OvrymZOT9r3Yd9WmjCoKaTfo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787910167; c=relaxed/simple;
-	bh=W9cSCpt/NCMAiTSt/iNNO9+pz/jZdP/qjrv5USNiI70=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=P1NIynoNLUMcRsPbfegRogkLpcNXo5re686CKE2ifKo0hcGRP8AamxhMUZ4X9xsEs+gD9X7jvkjw2iheRg61THlTOcaTV024lQmSrkZtK8jYsd+VHKq1hu/qDgDoDKmWp5CtFK3DF2Xf70bsRaNkbaXaGVGVx1OIPb76q34b7wI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xW7fBVbM; arc=fail smtp.client-ip=40.107.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82D837D10A
+	for <stable@vger.kernel.org>; Fri, 28 Aug 2026 09:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787910433; cv=none; b=TgJavEel4ZzGWff5w/y5grD6oBqRlqWdwUG/ZU16U/hEIUAH/L6ove4j68cB4WT239EDWRvf/Vh3lP43IHRe4A9T9siDo6hxFo6UQR1nTqU5+E6SBGZnAZkcv1KWiQYJfRxU1XuDiUYIhBpVRakjt+oQQuGUsp6QHlz4cyg1kV4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787910433; c=relaxed/simple;
+	bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dCiP9R2Dgbev68EpB/x9YG+pAFFXxl7C1qm1fxYkklU95G1TqjwQD3p+61wMoc5dymkicP8b+xPL5tfVdjOcG6d4IB4dQ4yY3jiT5uFaBdjrarF/20Mxqmzio4LKrjBJWc1dqawvFiCiqTVehmXh9rWAEN5RvNFdj5cBhBMYpAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BUAGsXYB; arc=none smtp.client-ip=95.215.58.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xW7fBVbM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tbqlT937PQ4bPvz7gkVTMZImsNCMJAfxX3QXFR5xl6GqHBxQSHOnVnZM0JuZtzaefL+GkzaWB6e7VifcEFOnr6ikaRckJrf0Cc3yBxENba593568BAE1EypVqGc6ycrHlNz06w0ZAmiuiEWTkpuTFpoiMiQn5TmB8A4/mqQxQKuTq681ylDG3VefLgzToOYvGTq6PoGG7vvPqWu3SWt6w0b45pEG2sPwIFPtnTzQ5XK6WvrT9iS6HyfLKEiMFJmDmuZ0iwdf6qylU6qlUK9PT4HuQPmaOo3J7L26NDPC7+vVBVPdzd9+hw2o9xJW6ncJnHbprZvlp2kJwQTQ+MnHLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8tflE23/ioiS7u4QdBaCjGh3k6Vbof+LxAraumQYV8o=;
- b=e1G/lIGA6Og+xn7r8IW4ngA5wL1oefTGELAsDOmW4L2E/K29NoMUa7O0jVLG7/PPjv6RWkaqPaKbCY/x1kyxDj6MvjXwRuGBZ5Sdz3pILXzxpg7bPBF6jh79DyPszgDCbSFLK2EAFJojn5yhdR7MDjxX0o/IOJ0q51qyuvD/nH6jjGnF6AadhMeabTeDnLfzbgk4abAKM7QUnGTH3Iay6/lxTB2a9eOVoiqgehB40nqAMkk1xdiJz1S4Vhm8CnttqJXhU6zNhZD352Jqs4KxQ8ujCXvon69+eaCvoDAWi/0/WIMmtOjSjvU4LtmBkgbIcykXNwp5GuN7LzETcqOTPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8tflE23/ioiS7u4QdBaCjGh3k6Vbof+LxAraumQYV8o=;
- b=xW7fBVbMsulPGGDv06UeTf22PcxcEBNjTHKQkNb8qyg3yzk1rZ4UGzmakcdZAYslEFRUL2ZmTlu98F+vXdOS26ICeuZhd/X7yh42v22zDW8POKIFr9YgUOMf0WneHuRBjzSjt1CAXPkHT1z7SVIqdcXxUDewp6JmaPxE0khg604=
-Received: from BN9PR03CA0546.namprd03.prod.outlook.com (2603:10b6:408:138::11)
- by IA0PR12MB8839.namprd12.prod.outlook.com (2603:10b6:208:493::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
- 2026 09:42:38 +0000
-Received: from LV8PEPF0000005D.namprd02.prod.outlook.com
- (2603:10b6:408:138:cafe::c) by BN9PR03CA0546.outlook.office365.com
- (2603:10b6:408:138::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Fri,
- 28 Aug 2026 09:42:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- LV8PEPF0000005D.mail.protection.outlook.com (10.167.245.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 09:42:38 +0000
-Received: from amd-X570.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
- 2026 04:42:36 -0500
-From: Yogesh Mohan Marimuthu <yogesh.mohanmarimuthu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
-	<sukhatri@amd.com>, <pierre-eric.pelloux-prayer@amd.com>, "Yogesh Mohan
- Marimuthu" <yogesh.mohanmarimuthu@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_device padding for 32bit compile
-Date: Fri, 28 Aug 2026 15:12:20 +0530
-Message-ID: <20260828094220.36104-1-yogesh.mohanmarimuthu@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BUAGsXYB"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xyDcspAYGvgEUA23FnFj1KgLyE0byA+vZxYmYfg/wOw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787910428; v=1; x=1788515228;
+ b=BUAGsXYBx+Rokivd7rlvfoNWfnV64jtTMEi7zJIHkW4AXYkB9XeqMwdSoaKgc4io9Y2KlrZW
+ BXjvNHue82Lh5hcvVAXnNrdb4PtSpvURr95RH31RAVcdzIXQgcMPcAVT6k9c96dU0xecJY+quK6
+ fSmRTc2YsbwmbErcVIouTIDE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e425fa70d8e74725;
+	Fri, 28 Aug 2026 09:47:08 +0000
+X-Mizu-Trace-ID: e425fa70d8e74725
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: jthoughton@google.com
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	shy828301@gmail.com,
+	zokeefe@google.com,
+	hughd@google.com,
+	kas@kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+Date: Fri, 28 Aug 2026 17:47:03 +0800
+Message-Id: <20260828094703.11081-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20260828005004.2870750-1-jthoughton@google.com>
+References: <20260828005004.2870750-1-jthoughton@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005D:EE_|IA0PR12MB8839:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef78dba2-d957-4c4f-4a01-08df04e8b2b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|10067099003|11063799006|56012099006|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	VGrD9r2JrHLcobxMzKhha9EykjGEDPwvOkMLf85kNoo2PuDhhP8Ks88Oc3dt3JG4MtLuny8Qlo8Pa3fZO79rhxz8MU9hT2oTeTe1RyV5EcA073Fy2OnOVKX7M9cIkv/wmdMB4WN9PLmhQ6POKfZwlqD55MU5qWDRd8Kg+8fr3XWIS80n/NfVhGRXDB8On7ieZOR77qur6sJ3NzqXaSLbcY3lqo2AwYFJljSZx8NgRRgQPYjHcRLEhvfkOxmDflS35jEz4V8cgSaPBToums1DzV/H4Y2XDWyE7tunoFyQ/9jQqUIIP2s0lzTlR4eVF+o4tObefc6IaTU9SEfsIUMrqXI+zOkvhMe4ZZVRqgr0ADAztXqaGJxJxqh9OyNsRXk50ek0KX0QxDYprsxnEXfvoW1xsDBz29WyUAXe2PFlj1KJkTdhUD+qUYZWu2UrkvA6CdIN3sbPsocJoUTdWQfKq6DvfVeln2uNjpDWdpAg5GZg+Dn0u/aSGK1pd1Hf9bjzDkhcDxzdmhjBCMozw1U+lpvjPypRMjS/rIwIyWm/Y/yzHWyhC+GAZDw1IlmNJwhrOv8u/SQv+fwdeS7PxWqTTF9cI053nZb3hhfWDavHmsnZo+1R+JzeMzBOFIbmLie+t/5uhKkx5xx8oEN49weSI8vlDZU5xXTfzdu556D1rFmqRi2NmBfyq41JVJraHXak9v9c4SJHkTU4B3YJPvJKaQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wdH/Z+wcdmsMwg3z9SNG+rp+ZIFk8sUUXCbIwFDsjZed3mUi0SKd3Hv8b5knpRAybNqA+7YZWX8ZviaLMxviC5FtyslNYbt2M5VayLBMr80E0/1VwpPhEwKMSH465U13HH6lyuf96h7U8Z606xQ/frchxxdn7YfwPdYLgVGeKzjL1zz2komELnzPspgkvb+3DT79IydCFIMzcgQ51IO1QRhaS7hW6Nw1GYLzEVwciTwxYlO7FtMKagtgv67Wx0oLq7ovA/zooM5vz17ppESkVeJT4EGWbBMLUo1Wofkm720d8lgEaAZ/t5ATBaF6ktj39layDY79R4SKj9YUhUO3HXpdvxHda8NB9ywbXJRU1TbS7FPoFkN9qGmM/KvJpcom5zflgb2/D4m0a1P5sheYAbaaBZ2ZQMb/GxZK0F3mFKvBEMThrQzLfGPgEEBN6I6y
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:42:38.6424
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef78dba2-d957-4c4f-4a01-08df04e8b2b2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000005D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8839
 
-need to pad before __u64 tcc_disabled_mask variable.
 
-This patch fixes 64bit Kernel + 32 bit mesa combination. But at the same
-time it will break 32bit Kernel(using this patch) + older 32bit mesa(not
-using this patch).
+On Fri, Aug 28, 2026 at 12:50:04AM +0000, James Houghton wrote:
+>Userfaultfd minor faults provides userspace with the ability to manually
+>install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+>map holes in the VMA when a naturally-aligned THP is present without
+>explicit action from userspace.
+>
+>This is a problem, as it bypasses userfaultfd minor faults that
+>userspace is expecting to handle.
 
-This issue was discussd with alexander.deucher@amd.com,
-christian.koenig@amd.com and pierre-eric.pelloux-prayer@amd.com.
-Currently today 32 bit kernel + 32 bit userspace and 64 bit kernel and
-64 bit userspace work.  Mixed 64 bit kernel and 32 bit userspace is
-currently broken.  Since 32 bit kernel and userspace is probably pretty
-rare these days and the data affected by this is not critical, Hence
-we can go ahead with this patch.
+One basic question first. Should MADV_COLLAPSE refuse to collapse a
+UFFD-minor-registered VMA, regardless of whether all PTEs are present?
 
-Fixes: cf21e76a6005 ("drm/amdgpu: return tcc_disabled_mask to userspace")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yogesh Mohan Marimuthu <yogesh.mohanmarimuthu@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- include/uapi/drm/amdgpu_drm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'd leave that to the maintainers :D
 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 0a113529b..5beef3eaa 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -1517,6 +1517,7 @@ struct drm_amdgpu_info_device {
- 	__u64 high_va_max;
- 	/* gfx10 pa_sc_tile_steering_override */
- 	__u32 pa_sc_tile_steering_override;
-+	__u32 pad;
- 	/* disabled TCCs */
- 	__u64 tcc_disabled_mask;
- 	__u64 min_engine_clock;
-@@ -1541,7 +1542,6 @@ struct drm_amdgpu_info_device {
- 	__u32 csa_alignment;
- 	/* Userq IP mask (1 << AMDGPU_HW_IP_*) */
- 	__u32 userq_ip_mask;
--	__u32 pad;
- };
- 
- struct drm_amdgpu_info_hw_ip {
--- 
-2.43.0
+Anyway, assuming the answer is yes, I wonder whether the new check is
+sufficient. See below.
 
+>
+>If userspace implements post-copy live migration using userfaultfd minor
+>faults, this situation is currently possible:
+>1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+>   is mapped in the page tables.
+>2. A stale copy of a page is present in a naturally-aligned THP (from
+>   pre-copy live migration).
+>3. khugepaged collapses the mapping of the THP, installs a PMD.
+>4. The VM now has access to the stale contents => VM is broken.
+>5. After installing the correct contents, userspace attempts to map the
+>   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+>   unexpectedly mapped the page.
+>
+>The naturally-aligned THP case is the only case where this is a problem.
+>khugepaged otherwise requires all PTEs to be present for
+>userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+>correct. This check is essentially bypassed for naturally-aligned THPs.
+>
+>To deal with this issue, completely disallow collapsing in
+>userfaultfd-minor-registered VMAs. This is slightly pessimistic; it
+>would be nice to allow MADV_COLLAPSE to work if all PTEs are in fact
+>present, but that seems more complex than it is worth.
+>
+>Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
+>Cc: <stable@vger.kernel.org> # 6.1
+>Signed-off-by: James Houghton <jthoughton@google.com>
+>---
+>This was caught with manual review while diagnosing a related issue
+>that came up with in Google's live migration testing.
+>
+>I've uploaded a mostly-AI-generated reproducer here[1]. As long as
+>/sys/kernel/mm/transparent_hugepage/shmem_enabled is not set to 'deny',
+>the repro should work.
+>
+>[1] https://gist.github.com/48ca/d399bf534158e80241fb4937ef1ff664
+>---
+> mm/khugepaged.c | 9 +++++++++
+> 1 file changed, 9 insertions(+)
+>
+>diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>index b237f6e7662a..66f956d3dd67 100644
+>--- a/mm/khugepaged.c
+>+++ b/mm/khugepaged.c
+>@@ -2804,6 +2804,15 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
+> 		goto end;
+> 	}
+> 
+>+	/*
+>+	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
+>+	 * userspace is expecting to explicitly install PTEs.
+>+	 */
+>+	if (userfaultfd_minor(vma)) {
+>+		result = SCAN_PTE_UFFD;
+>+		goto end;
+>+	}
+
+Assume UFFDIO_REGISTER_MODE_MINOR completes after collapse_single_pmd()
+drops the mmap read lock and before it reacquires it.
+
+Doesn't this still leave a registration race, no?
+
+
+int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+		     unsigned long end, bool *lock_dropped)
+{
+...
+	cc->is_khugepaged = false;
+...
+		result = collapse_single_pmd(addr, vma, &mmap_unlocked, cc);
+...
+}
+
+static enum scan_result collapse_single_pmd(unsigned long addr,
+		struct vm_area_struct *vma, bool *lock_dropped,
+		struct collapse_control *cc)
+{
+...
+	if (userfaultfd_minor(vma)) {
+		result = SCAN_PTE_UFFD;
+		goto end;
+	}
+...
+	mmap_read_unlock(mm);
+	*lock_dropped = true;
+...
+	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
+		mmap_read_lock(mm);
+		if (collapse_test_exit_or_disable(mm))
+			result = SCAN_ANY_PROCESS;
+		else
+			result = try_collapse_pte_mapped_thp(mm, addr,
+							     !cc->is_khugepaged);
+...
+		mmap_read_unlock(mm);
+	}
+...
+}
+
+static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
+		bool install_pmd)
+{
+...
+	struct vm_area_struct *vma = vma_lookup(mm, haddr);
+...
+	if (!vma || !vma->vm_file ||
+	    !range_in_vma(vma, haddr, haddr + HPAGE_PMD_SIZE))
+		return SCAN_VMA_CHECK;
+...
+	if (userfaultfd_protected(vma))
+		return SCAN_PTE_UFFD;
+...
+	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
+	switch (result) {
+	case SCAN_SUCCEED:
+		break;
+	case SCAN_NO_PTE_TABLE:
+...
+		goto maybe_install_pmd;
+	default:
+		goto drop_folio;
+	}
+...
+maybe_install_pmd:
+	/* step 5: install pmd entry */
+	result = install_pmd
+			? set_huge_pmd(vma, haddr, pmd, folio, &folio->page)
+			: SCAN_SUCCEED;
+...
+}
+
+
+static inline bool userfaultfd_minor(struct vm_area_struct *vma)
+{
+	return vma_test_any_mask(vma, VMA_UFFD_MINOR);
+}
+
+static inline bool userfaultfd_protected(struct vm_area_struct *vma)
+{
+	return userfaultfd_wp(vma) || userfaultfd_rwp(vma);
+}
+
+Emm ... userfaultfd_protected() only covers WP and RWP. MADV_COLLAPSE
+passes install_pmd=true, so the SCAN_NO_PTE_TABLE case can still reach
+set_huge_pmd() after UFFDIO_REGISTER_MODE_MINOR has completed ...
+
+Maybe:
+
+---8<---
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 33c41bc32af8..0eada7265d59 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1893,6 +1893,8 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 	 */
+ 	if (userfaultfd_protected(vma))
+ 		return SCAN_PTE_UFFD;
++	if (userfaultfd_minor(vma))
++		return SCAN_PTE_UFFD;
+
+ 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
+ 			       linear_page_index(vma, haddr));
+--
+
+With that, LGTM.
+
+Tested-by: Lance Yang <lance.yang@linux.dev>
+
+Cheers, Lance
