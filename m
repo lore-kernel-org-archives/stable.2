@@ -1,160 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419AB3A9DA2;
-	Fri, 28 Aug 2026 17:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1EA3A4505;
+	Fri, 28 Aug 2026 18:29:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787939609; cv=none; b=lAdJaMpRPdM9ewtQlwR4bW1/gbFfT66YkpSC6foSWQObQ2bxsLUzuiPyzbBI5+WJo+qvHjNJm+B4aZAfmB14stXzcOHn+FF+rM27UNz1Ug42gie/24LoMAzcn7ugiXKQTH84ANa2KxSJKpXvtHPNOLpf0ukRQAw4MkeoU67gXNg=
+	t=1787941759; cv=none; b=HmJFBWifJsEWnslpD5gVNsUqTBrbHNBR7LzxT0AlfQwnupHBuDXAMPQKFcxziMpV712Ymy2iXL5mXEezj4ZtCOJvPXYNDomgeG/9X42X1rU+oPTjVmRpSRerJQR0bylOETdgq4YmS9vS3vZGpViQ0Udc5g8UW6YplpDymiiegqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787939609; c=relaxed/simple;
-	bh=kqUZJGesjqLOGE0OnnvnVs6UIaEzluoX0RmjWm/1rPg=;
-	h=Date:To:From:Subject:Message-Id; b=Ee55J1zLg8En9jNJlqTSs7lhybjnYlz+hSqgrGfSRydVUMnrxHEDoQOZMT09ZyvJhf2tGN1Q1DUD71ssi1oXh4ICX+vcJcHS68noucDVkmFzeINGrC9+06GObgmlLlUeykVWV8vSBQo2L96xoSF+OpqTE0L0stiM2aftqPMq6u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RR9j3r/L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787941759; c=relaxed/simple;
+	bh=tYCi2x5F+r0yfVDr8C945+5FuD0jcgPWMELcRlga2pw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dlWscIAKNfRfnTm2jAcZ7Yr+KQpCXrwWBgzgfxjCorNkDTx+dyQidmiPFdm0480WU2UBoHXTwIHgwYV6pWV3YWLCoU6xiS7d75OpiFUipiStqKFubYSSt0BgE6C5+AjY0hVXS/D27FczRXcO/xk2x3PXKrYn3EmYYqSnKPN7LXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5vOSBrJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RR9j3r/L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2B81F000E9;
-	Fri, 28 Aug 2026 17:53:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787939607;
-	bh=T9mvozqe6ox4n8Pq0cTNiCzZfPRTNsAZ92MuVXTQfd8=;
-	h=Date:To:From:Subject;
-	b=RR9j3r/LnOx4acdIGKcioggU+xQchzsRx/lmWmenhmWyD0jAEe87DRcO+u01LE/wu
-	 4LR8hJTiXHJap/jn5HG0w2XWsHfVsEnsBnj92z/YuBY6P8uB/0rYsh6Sk3pmiYO0GC
-	 sClmalwp7+ynj/GQAK8j6U1X5tLP1USPu4mlrRuw=
-Date: Fri, 28 Aug 2026 10:53:27 -0700
-To: mm-commits@vger.kernel.org,zokeefe@google.com,stable@vger.kernel.org,ryan.roberts@arm.com,ljs@kernel.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baohua@kernel.org,yanglincheng@kylinos.cn,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch added to mm-new branch
-Message-Id: <20260828175327.AF2B81F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5vOSBrJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183801F000E9;
+	Fri, 28 Aug 2026 18:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787941757;
+	bh=QeOHqKFwwRXxKDoOadJ6pEtYZjxux1n/oCSHCxWNGR0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V5vOSBrJlYoEX0iEEqFMvHyD/qvqqQD6D8XY4ZUpfg4jNKBDyLgJq5Zb+GQQ3GSI/
+	 ZqWPV5YPCatrwZazeLHntHVDTKLi6fSFRzXWNQs45KQ4n+kQG4BYp5jfIT16Q/H/mh
+	 jZezdZv/flg6Ym5n/H7JQPAzZ4VVOf40vu3kb0evCD8LtY2M0tY/YkZ9xDDJy2XYlw
+	 gsz9GiW4nm1b9HNHCGwf0QXiqrYgq4k9zjigo3iWlrcJGULrFs5g8emNh+35bHcc3b
+	 5q0NugBsnP6oRcJ2jZGthMU9G5y+5NPSUpvTyzXgTXsBE7EQZDwiBwATFOvhMZtzhx
+	 gRtHWBUzW9fbw==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/damon: fix unconditionally skip last region
+Date: Fri, 28 Aug 2026 11:29:09 -0700
+Message-ID: <20260828182910.70304-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260828084737.290024-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+On Fri, 28 Aug 2026 16:47:37 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-The patch titled
-     Subject: mm: khugepaged: fix folio is used after folio_put/unlock()
-has been added to the -mm mm-new branch.  Its filename is
-     mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch
+> Once quota set, the charge_{target,addr}_from unconditionally skips and
+> resets at the last region of the tracked target, so the last region can
+> be skipped even when it has not been processed.
+> 
+> Example:
+> 
+>     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+>     2. Quota is configured to process only 50 bytes per window.
+>     3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved
+>        at (Target, 50).
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch
+Cursor means charge_{target,addr}_from, right?  Let's explain that, or just
+keep using the terms (charge_{target,addr}_from).
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+>     4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is
+>        full. Cursor is saved at (Target, 100), which is exactly the
+>        start of R2.
+>     5. Window 3: The loop reaches R2.  Because R2 is
+>        damon_last_region(t), the old code unconditionally returns true,
+>        skipping R2 entirely and resetting the cursor.
+> 
+>     Result: R2 is permanently skipped even though it has never been
+>     processed.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Let's make example simpler by setting R1 (0-50 bytes) and R2 (50-100 bytes) or
+quota size 100 bytes per window.
 
-The mm-new branch of mm.git is not included in linux-next
+Also, it continues being skipped only in a corner case that the region
+addresses and the access patterns are kept.  So the user impact is mild.  Let's
+clarify that to not make users unnecessarily afraid.
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+> 
+> Fix this by only skipping the last region after it has been applied.
+> 
+> Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+> Cc: <stable@vger.kernel.org> # v5.16.x
+> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+> ---
+> 
+> Changes from RFC v1:
+> - Minimal fix, only fixes the issue where the last-region is skipped.
+> - Add an example to the commit message to demonstrate that this error
+>   occurs very rarely.
+> - RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
+> 
+> ---
+>  mm/damon/core.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 644daf5a1656..21dc6b086c42 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -2347,14 +2347,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
+>  	if (quota->charge_target_from) {
+>  		if (t != quota->charge_target_from)
+>  			return true;
+> -		if (r == damon_last_region(t)) {
+> -			quota->charge_target_from = NULL;
+> -			quota->charge_addr_from = 0;
+> -			return true;
+> -		}
+>  		if (quota->charge_addr_from &&
+> -				r->ar.end <= quota->charge_addr_from)
+> +				r->ar.end <= quota->charge_addr_from) {
+> +			if (r->ar.end == quota->charge_addr_from ||
+> +					damon_is_last_region(r, t)) {
+> +				quota->charge_target_from = NULL;
+> +				quota->charge_addr_from = 0;
+> +			}
+>  			return true;
+> +		}
+>  
+>  		if (quota->charge_addr_from && r->ar.start <
+>  				quota->charge_addr_from) {
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+As Sashiko pointed out, this doesn't work if the the last region's start
+address is smaller than charge_addr_from and the end address is larger than
+charge_addr_from, but the size to skip (charge_addr_from - r->ar.start) is
+smaller than min_region_sz.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+As you replied to Sashiko, let's do the last region handling in every case.
+While doing that, let's do the charge_{target,addr}_from reset in only one
+place, like below.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+'''
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2688,36 +2688,40 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ {
+        struct damos_quota *quota = &s->quota;
+        unsigned long sz_to_skip;
++       bool skip = false;
 
-------------------------------------------------------
-From: Vernon Yang <yanglincheng@kylinos.cn>
-Subject: mm: khugepaged: fix folio is used after folio_put/unlock()
-Date: Fri, 28 Aug 2026 13:59:26 +0800
+        /* Skip previously charged regions */
+        if (quota->charge_target_from) {
+                if (t != quota->charge_target_from)
+                        return true;
+-               if (r == damon_last_region(t)) {
+-                       quota->charge_target_from = NULL;
+-                       quota->charge_addr_from = 0;
+-                       return true;
+-               }
+                if (quota->charge_addr_from &&
+-                               r->ar.end <= quota->charge_addr_from)
+-                       return true;
++                               r->ar.end <= quota->charge_addr_from) {
++                       skip = true;
++                       goto out;
++               }
 
-On the rollback path, folio_put() has already dropped the last reference
-of new_folio.  On the success path, new_folio is already unlocked and can
-be freed concurrently.  The trace_mm_khugepaged_collapse_file() is left
-with a dangling folio pointer.
-
-So using the folio_pfn() before dropping the reference, closing
-use-after-free window.
-
-Link: https://lore.kernel.org/20260828055926.346744-4-vernon2gm@gmail.com
-Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Zach O'Keefe <zokeefe@google.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- include/trace/events/huge_memory.h |    6 +++---
- mm/khugepaged.c                    |    4 +++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
---- a/include/trace/events/huge_memory.h~mm-khugepaged-fix-folio-is-used-after-folio_put-unlock
-+++ a/include/trace/events/huge_memory.h
-@@ -211,10 +211,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
- );
- 
- TRACE_EVENT(mm_khugepaged_collapse_file,
--	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
-+	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
- 			unsigned long addr, bool is_shmem, struct file *file,
- 			int nr, int result),
--	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
-+	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
- 	TP_STRUCT__entry(
- 		__field(struct mm_struct *, mm)
- 		__field(unsigned long, hpfn)
-@@ -228,7 +228,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
- 
- 	TP_fast_assign(
- 		__entry->mm = mm;
--		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
-+		__entry->hpfn = new_pfn;
- 		__entry->index = index;
- 		__entry->addr = addr;
- 		__entry->is_shmem = is_shmem;
---- a/mm/khugepaged.c~mm-khugepaged-fix-folio-is-used-after-folio_put-unlock
-+++ a/mm/khugepaged.c
-@@ -2256,6 +2256,7 @@ static enum scan_result collapse_file(st
- 	struct address_space *mapping = file->f_mapping;
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
-+	unsigned long new_pfn = -1;
- 	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
-@@ -2275,6 +2276,7 @@ static enum scan_result collapse_file(st
- 	result = alloc_charge_folio(&new_folio, mm, cc, HPAGE_PMD_ORDER);
- 	if (result != SCAN_SUCCEED)
- 		goto out;
-+	new_pfn = folio_pfn(new_folio);
- 
- 	mapping_set_update(&xas, mapping);
- 
-@@ -2678,7 +2680,7 @@ rollback:
- 	folio_put(new_folio);
- out:
- 	VM_BUG_ON(!list_empty(&pagelist));
--	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
-+	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
- 	return result;
+                if (quota->charge_addr_from && r->ar.start <
+                                quota->charge_addr_from) {
+                        sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+                                        r->ar.start, min_region_sz);
+                        if (!sz_to_skip) {
+-                               if (damon_sz_region(r) <= min_region_sz)
+-                                       return true;
++                               if (damon_sz_region(r) <= min_region_sz) {
++                                       skip = true;
++                                       goto out;
++                               }
+                                sz_to_skip = min_region_sz;
+                        }
+                        damon_split_region_at(t, r, sz_to_skip);
+-                       return true;
++                       skip = true;
+                }
++       }
++out:
++       if (r == damon_last_region(t)) {
+                quota->charge_target_from = NULL;
+                quota->charge_addr_from = 0;
++               return true;
+        }
+-       return false;
++       return skip;
  }
- 
-_
 
-Patches currently in -mm which might be from yanglincheng@kylinos.cn are
+ static void damos_update_stat(struct damos *s,
+'''
 
-mm-khugepaged-fix-swap-entry-value-to-folio_pfn.patch
-mm-khugepaged-fix-folio-is-used-after-pte_unmap_unlock.patch
-mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch
+Btw, I think damos_skip_charged_region() may deserve a kunit test.
 
+[1] https://lore.kernel.org/20260828090410.40AEA1F000E9@smtp.kernel.org
+[2] https://lore.kernel.org/20260828115047.332978-1-aethernet65535@gmail.com
+
+
+Thanks,
+SJ
+
+[...]
