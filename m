@@ -1,424 +1,544 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E7B332EC8
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 08:37:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5871734D901
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 08:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787992660; cv=none; b=O4tk3lOEh68uqJVjWZy7UsXilOln9ATxXV8E4xMC8RnErhWpCcP5H+b4F4y+UHeoGo5frPj1v+fAkgBxJODvJPw6YxvUMUyBuMyAS09FwGoz+1BDYiXwOQVh6HEE1uC349+w60dFWcooyI5RDh+tpc9rG0TupRSl9CUBhCKvH14=
+	t=1787993725; cv=none; b=H/rc6fZiZCKtl+C8kVy4iIHjhjtNpGex/QUU9G5Hy283+bnBcxIlc5HMTyFsWYjgQg/98cqXZI9oNraWwtNT4yplqCGXBm4ysJE5BCAT39Jbyq6430pLQqS18cahes+AQErLjVtY9Te8fjWGys3YE3VxSiCFTFkvccsEthQOPpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787992660; c=relaxed/simple;
-	bh=0W57UE75lT0JWXkqYkhmkWBGe2aIvBBA8agCtfF8vLE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NqVWRhi+8iwFxKeS+IkuzL3tR87Aj8Q881ctZ9bxpGEqPram5OKPvxjcKvB8G0cosYAoWv5IfPRJR0+epvtXqlTnKf1u9h9IPXxd+Mw6MkJt3fou7EQUZf0lw4EINQ8tzHy+txig+R8iTY200+/a5qFaGehq3Pq9ylkobF81qEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oe7ITDte; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787993725; c=relaxed/simple;
+	bh=klWAKI1xdzKm+nupPY6CjSPUAbK2mZHi41rxwu10ixc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T4v702K68AxjfCb43BYBxOSK5QzLfucAJljp2AT+ruhhp49HAab6cXLKRS2ZKF8r2IJS/6jmQcVeslUTz2NTvdCi44FLpwK0ZH3/i/6UN3U3tz2RP7Yz4q948GXXtUw/QP0KQ8GMFn3Vvf8oqRDtP1K2a2mjehxpa49efEgOke0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eQ6pFDxk; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oe7ITDte"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d71ae3455aso26909105ad.1
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 01:37:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eQ6pFDxk"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49557167508so17396385e9.1
+        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 01:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787992657; x=1788597457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A4IwbgMrRyJTDKTZ/KQuUur9K0X+mbmrk/E1Z34LTpY=;
-        b=Oe7ITDteXKwSfQafATKAMTZHlYOgihG0S1ShPekbCmqdndjJws7LdktstnkhkRpWLv
-         N9BEw/LSISnJdi52RK3CkHZHvtj/6KNCapt8puelQLAN7Gh2I36zNtsWT+1pHtmEmoaC
-         9Lukp8zuwGiA7wg1PysU7bxOySbzDrGgp9ld/QO9HEXgJqfGrLwg/vYUtwV/9/vjcuCa
-         VuzzQmLFBNvzrptfHw/rr0InFPcD8QIVSGMITr0u2LUnVpZJcyejXwvrsEJ4+XOyWNUo
-         SNWDFFSTfCeELOyOnDSIKX6XSYEhpbg6RBD3uSf63XYnZrSy2GEemGZMCmV3+B4ZQ7uN
-         U9Mg==
+        d=suse.com; s=google; t=1787993718; x=1788598518; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WEjM648ER5aishfL1JIqeHwOsItXTvc1vL4fQj7q6AM=;
+        b=eQ6pFDxkT3dDy4J5KqFGMmiobA6JUz0g3/Q8VF9sA2fW3oH/uH+ET4wuirwl6QZQfc
+         d9H/jc2WUZaT69nR8x1z9/9vrXOdDRl9e7+5vpEQl53NmrE18vhnGf2h43oqs2Vx/sl3
+         p86DH+Cu8MeeLfZ+E6X3+1D2lIX65C4cYffH/q3y2/c2QjJNtoUXwmHQGu/86QIU1TZE
+         X/fddH6ONlCTR7VhE44XK0HAvrUfSzKSl+hYHpEFqnT/NvImvrFnM7zNWmSkB11faHv2
+         oZ2pOOXSgFd96PxFRl/QRUnZxmdfR9otscl1YRTR/PJnewOst92LJGila+QKOp/625tk
+         9baA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787992657; x=1788597457;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A4IwbgMrRyJTDKTZ/KQuUur9K0X+mbmrk/E1Z34LTpY=;
-        b=o25Wa48OrJTJdUc8Q+7AdHG9lFauxKdsAxlsSlSuRlJ54BuSv7sOV1gEsDCeDmxA1C
-         P0bfSBpMKxwSPf3tvxxCYhce55ZUKMFdGdhVf02aFcnYDvpMXtOlSe0gRKjAvOFqk9rK
-         wQ+uloJHUbvm8/oYeYnCSz2xRvgPolbTc1+nEaEyDdoX/gDiZqYmFp0zIDdIXQZQ9c0s
-         vBduxYxI0YWQO8rens7RpXQ4dIgMop/p8V4/r4ZLT2YCWtH4SvKAET66QaUTS7OzXHaV
-         JBVzCb7FuL5VfLilGFcBoZAyiKrSwaHtr4Efb8qv91dYDtj/5hj6hag+/u0oeYOJ1Ra5
-         7A3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwh50CeZBajyOSWfseap0Mc/X4SAW5FdlELBqVESwlq+4x7loEGRl37rA0dCWpz+qBXaiOjR34=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2m2d91sLQyDVHC0orgxtbwcEnh9Mlpe7BfwEDx4oR0z1GPhgy
-	fFN1gmp29xObN8jsdYJNQZ8mJaFLeaP8abvHsh0fZXRpq+LGh1LFoUZY+Dd4SQ==
-X-Gm-Gg: AR+sD11LsS7Xu667RAwuvFnqFkysD5s9R8kVv+v4W22xN3Zq0oQiAzCfgfSov7BzoO2
-	Lpd+TBfndsOpksT9aZTkwgCf9S6XATTRfouW/F+iZCDyQXA412QgNoe9IX68SC9cumoX1YVq3uB
-	z0vn+ITLqKfBqpO/4ByHxRl37KRqdYqskJHf83Ezlskox/DWmpO8EFfuUwkiMftgc+V+j6CS2x7
-	hRy65AyKsHIH90u89CAr91aS7PXXIYjCKuERft2L/YhvMsDBUPqJu5Lqd+MCPpomrBt55PCSu2p
-	UnjY/3BQMVS9jhekE+vUl1fU5wiikLZqXHEHD6tCT0hSg1LtK/OiBKdB4K1WSOT6kCvVmd0L+ko
-	Lp2nBgH2no4vEIYtkA5wfGju9NPwXBowswJwzKc6SnJIKHRqz8LrAkM8/5tySriOZPuJaMJdMJ9
-	nL91V66VyWR8r4fTJ421RlTt7TkpQvzuZMxyB4YNf7HjlPDS4IX/4XhEp9p3c6wHGdUeQzK76jy
-	tdIRxDX/YLq+gRG884/JOFj1GfG
-X-Received: by 2002:a17:902:ffce:b0:2d8:d4d2:dc9a with SMTP id d9443c01a7336-2d8d4d2dfadmr79579325ad.22.1787992656523;
-        Sat, 29 Aug 2026 01:37:36 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:88cd:27c4:5897:46d2:587d:19e7])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594ffc94sm12819105ad.5.2026.08.29.01.37.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 01:37:35 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/damon: fix unconditionally skip last region
-Date: Sat, 29 Aug 2026 16:34:26 +0800
-Message-ID: <20260829083744.73299-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828182910.70304-1-sj@kernel.org>
-References: <20260828182910.70304-1-sj@kernel.org>
+        d=1e100.net; s=20251104; t=1787993718; x=1788598518;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WEjM648ER5aishfL1JIqeHwOsItXTvc1vL4fQj7q6AM=;
+        b=q2IWzH6xZ7OG5YIF/6d9jyj9eP5E3EZX2fFx8rq6WRR/TGwgPrQR3CrHBN4OM8gW8h
+         Pf2uYdKpk0+/JeM02Jo3zLLcnLBEKNwb876YMFTr0y46rHjQRCxHXNURnKhu1yxjBDMU
+         eA3CkfHQD/frsFgcaEd+x2/7GCgBKOBy+T8VG8C4PpJrKkBR8Wtw2vfZjc1ZZzjdX+Gv
+         ftS81RMx3DW8jyO/dap415ArelRmszBjsaW1UbecIDlvp3Dk2KS0l9+c/pxlutAXHRYJ
+         tGN+QIIZhDkMWsBbFRv1PuJ+Pxvzw6gPnKMXrXESA4p6fR8s1nmDvnyfKKzmQtDBcKU/
+         xQ1w==
+X-Forwarded-Encrypted: i=1; AHgh+RrfBnCgrLgAK7Z36MshYPA3aauJOwzbHZogJzeDzf8NI82NMKad/4KKm5wP7Oh2D8WyWOD3JPM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mM9y7mm/W9pVKeJVJSIiSdn4bppgmkAPbek1faBgH+BdZ3RzL8
+	W52I8ZDl4U0UbR6CmqqeAJeNkJncX2NcAp/yg6JAcMUlqJmPk81+ZSlJNetMuMLudlE=
+X-Gm-Gg: AR+sD11YwtMOIvGnG+hoNshhQ0dDlJ3s6rLfkMeougSmpVZQU1hNZXNjTXhWzY16lxH
+	NI69NLTvwZZ9NqCmdCWuAlxHFW9/+0LZQS5EIXT3ywSskE7MjMmfCCqv8a+ejqPEM9URAYKSntA
+	w/yldrUN7o+dE1YIc539l5s7okkWiNOeWrly51JrfIGL+jEdW5oVz2IPjoEPRdLAIfar3hq2h5s
+	o0H7Jlj8bbWLDWRQiyP7YFXEc5eqY7Yc8+RiQOJInMRuUxLo+SIeA4UZc5b3zcmTSyMm8tCDD+O
+	otOZtevi5EqULndfihwDpRpXa/h819SnnB/gdgQNZPCxiRH5xscDd068IS44VQ8C+K670btEKHW
+	5J1xfWKEf00NAlO8x6B6LwZzfBgrk38Z6STYIp87uD2M6bXbVcjun72qC282irNCgHg6aViVp4d
+	wuvhpnTzDlz6vK7fhfMJSkMu3f6FZkbRfkAtFZ7OL0GTx6gBhnvKGc
+X-Received: by 2002:a05:600c:6215:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49b91c1d5f4mr193915025e9.3.1787993718277;
+        Sat, 29 Aug 2026 01:55:18 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f32f68bdsm1529837a12.3.2026.08.29.01.55.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 29 Aug 2026 01:55:17 -0700 (PDT)
+Message-ID: <bbcc2791-442f-4bf5-aabf-40eb2edc0165@suse.com>
+Date: Sat, 29 Aug 2026 18:25:11 +0930
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: fix deadlocks with transaction commit when cloning
+ inline extents
+To: Melon Liu <melon1335@163.com>, clm@fb.com, dsterba@suse.com,
+ fdmanana@suse.com
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 11:29:09 -0700 SJ Park <sj@kernel.org> wrote:
 
-> On Fri, 28 Aug 2026 16:47:37 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+
+在 2026/8/29 17:09, Melon Liu 写道:
+> Commits b48c980b6a7e ("btrfs: fix deadlock between reflink and transaction
+> commit when using flushoncommit") and 532085d00eb5 ("btrfs: fix deadlock
+> cloning inline extent when using flushoncommit") moved the destination
+> i_size update before btrfs_start_transaction() to prevent
+> extent_writepage() from invalidating a folio beyond EOF.  However, two
+> deadlock windows remain.
 > 
-> > Once quota set, the charge_{target,addr}_from unconditionally skips and
-> > resets at the last region of the tracked target, so the last region can
-> > be skipped even when it has not been processed.
-> > 
-> > Example:
-> > 
-> >     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-> >     2. Quota is configured to process only 50 bytes per window.
-> >     3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved
-> >        at (Target, 50).
+> First, after the folio is dirtied but before i_size is updated,
+> extent_writepage() can still see the folio beyond EOF.  It calls
+> folio_invalidate(), and btrfs_invalidate_folio() waits for the destination
+> extent range lock held by the clone task.
 > 
-> Cursor means charge_{target,addr}_from, right?  Let's explain that, or just
-> keep using the terms (charge_{target,addr}_from).
+> Second, if extent_writepage() sees the folio within EOF, it proceeds to
+> writepage_delalloc(), which also waits for the destination extent range
+> lock.
 
-Yes, thank you for pointing that out!  I changed cursor to
-charge_{target,addr}_from now.
+What about letting the agent to create a reproducer, trigger it and 
+paste the lockdep/hang calltrace?
 
-> 
-> >     4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is
-> >        full. Cursor is saved at (Target, 100), which is exactly the
-> >        start of R2.
-> >     5. Window 3: The loop reaches R2.  Because R2 is
-> >        damon_last_region(t), the old code unconditionally returns true,
-> >        skipping R2 entirely and resetting the cursor.
-> > 
-> >     Result: R2 is permanently skipped even though it has never been
-> >     processed.
-> 
-> Let's make example simpler by setting R1 (0-50 bytes) and R2 (50-100 bytes) or
-> quota size 100 bytes per window.
-
-This is the updated example:
-
-'''
-Example:
-
-    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-    2. Quota is configured to process only 100 bytes per window.
-    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-        addr}_from is saved at (Target, 100).
-    4. Window 2: The loop reaches R2.  Because R2 is
-        damon_last_region(t), the old code unconditionally returns true,
-        skipping R2 entirely and resetting the charge_{target,addr}_from.
-
-    Result: R2 is permanently skipped even though it has never been
-    processed.
-'''
+Also an ASCII chart showing the window between involved threads?
 
 > 
-> Also, it continues being skipped only in a corner case that the region
-> addresses and the access patterns are kept.  So the user impact is mild.  Let's
-> clarify that to not make users unnecessarily afraid.
-
-I will add this clarification in the next revision:
-
-'''
-However, it is important to note that this is a very minor issue.  This
-is because it is triggered only when the previous window saved/kept
-charge_{target,addr}_from, and in the next window, all regions except
-the last region were skipped by damos_skip_charged_region().
-'''
-
+> In both cases the transaction commit waits for writeback to complete,
+> while the clone task waits in btrfs_start_transaction() for the
+> committing transaction to become unblocked.
 > 
-> > 
-> > Fix this by only skipping the last region after it has been applied.
-> > 
-> > Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-> > Cc: <stable@vger.kernel.org> # v5.16.x
-> > Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-> > ---
-> > 
-> > Changes from RFC v1:
-> > - Minimal fix, only fixes the issue where the last-region is skipped.
-> > - Add an example to the commit message to demonstrate that this error
-> >   occurs very rarely.
-> > - RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
-> > 
-> > ---
-> >  mm/damon/core.c | 13 +++++++------
-> >  1 file changed, 7 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/mm/damon/core.c b/mm/damon/core.c
-> > index 644daf5a1656..21dc6b086c42 100644
-> > --- a/mm/damon/core.c
-> > +++ b/mm/damon/core.c
-> > @@ -2347,14 +2347,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
-> >  	if (quota->charge_target_from) {
-> >  		if (t != quota->charge_target_from)
-> >  			return true;
-> > -		if (r == damon_last_region(t)) {
-> > -			quota->charge_target_from = NULL;
-> > -			quota->charge_addr_from = 0;
-> > -			return true;
-> > -		}
-> >  		if (quota->charge_addr_from &&
-> > -				r->ar.end <= quota->charge_addr_from)
-> > +				r->ar.end <= quota->charge_addr_from) {
-> > +			if (r->ar.end == quota->charge_addr_from ||
-> > +					damon_is_last_region(r, t)) {
-> > +				quota->charge_target_from = NULL;
-> > +				quota->charge_addr_from = 0;
-> > +			}
-> >  			return true;
-> > +		}
-> >  
-> >  		if (quota->charge_addr_from && r->ar.start <
-> >  				quota->charge_addr_from) {
+> To close both windows, first call btrfs_start_transaction() after reserving
+> delalloc space and before creating and dirtying the folio.
+> However, a commit may still start writeback before all extwriters have left
+> the transaction.  Therefore, when the copied range extends beyond EOF,
+> update i_size while the folio is still locked and before marking it dirty,
+> so that extent_writepage() cannot treat it as being beyond EOF.  The
+> resulting ordering also makes BTRFS_INODE_NO_DELALLOC_FLUSH unnecessary, so
+> remove the flag and its associated logic.
 > 
-> As Sashiko pointed out, this doesn't work if the the last region's start
-> address is smaller than charge_addr_from and the end address is larger than
-> charge_addr_from, but the size to skip (charge_addr_from - r->ar.start) is
-> smaller than min_region_sz.
+> Fixes: 05a5a7621ce6 ("Btrfs: implement full reflink support for inline extents")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Melon Liu <melon1335@163.com>
+
+And AI disclosure.
+
+> ---
+>   fs/btrfs/btrfs_inode.h |  14 +----
+>   fs/btrfs/dev-replace.c |   2 +-
+>   fs/btrfs/disk-io.c     |   2 +-
+>   fs/btrfs/inode.c       |  16 ++----
+>   fs/btrfs/ioctl.c       |   4 +-
+>   fs/btrfs/qgroup.c      |   4 +-
+>   fs/btrfs/reflink.c     | 117 ++++++++++-------------------------------
+>   fs/btrfs/send.c        |   4 +-
+>   fs/btrfs/space-info.c  |   2 +-
+>   9 files changed, 45 insertions(+), 120 deletions(-)
 > 
-> As you replied to Sashiko, let's do the last region handling in every case.
-> While doing that, let's do the charge_{target,addr}_from reset in only one
-> place, like below.
-> 
-> '''
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -2688,36 +2688,40 @@ static bool damos_skip_charged_region(struct damon_target *t,
->  {
->         struct damos_quota *quota = &s->quota;
->         unsigned long sz_to_skip;
-> +       bool skip = false;
-> 
->         /* Skip previously charged regions */
->         if (quota->charge_target_from) {
->                 if (t != quota->charge_target_from)
->                         return true;
-> -               if (r == damon_last_region(t)) {
-> -                       quota->charge_target_from = NULL;
-> -                       quota->charge_addr_from = 0;
-> -                       return true;
-> -               }
->                 if (quota->charge_addr_from &&
-> -                               r->ar.end <= quota->charge_addr_from)
-> -                       return true;
-> +                               r->ar.end <= quota->charge_addr_from) {
-> +                       skip = true;
-> +                       goto out;
-> +               }
-> 
->                 if (quota->charge_addr_from && r->ar.start <
->                                 quota->charge_addr_from) {
->                         sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
->                                         r->ar.start, min_region_sz);
->                         if (!sz_to_skip) {
-> -                               if (damon_sz_region(r) <= min_region_sz)
-> -                                       return true;
-> +                               if (damon_sz_region(r) <= min_region_sz) {
-> +                                       skip = true;
-> +                                       goto out;
-> +                               }
->                                 sz_to_skip = min_region_sz;
->                         }
->                         damon_split_region_at(t, r, sz_to_skip);
-> -                       return true;
-> +                       skip = true;
->                 }
-> +       }
-> +out:
-> +       if (r == damon_last_region(t)) {
->                 quota->charge_target_from = NULL;
->                 quota->charge_addr_from = 0;
-> +               return true;
->         }
-> -       return false;
-> +       return skip;
->  }
-> 
->  static void damos_update_stat(struct damos *s,
-> '''
+> diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+> index 1082fa92c..aafe47b23 100644
+> --- a/fs/btrfs/btrfs_inode.h
+> +++ b/fs/btrfs/btrfs_inode.h
+> @@ -68,15 +68,6 @@ enum {
+>   	 * to an inode.
+>   	 */
+>   	BTRFS_INODE_NO_XATTRS,
+> -	/*
+> -	 * Set when we are in a context where we need to start a transaction and
+> -	 * have dirty pages with the respective file range locked. This is to
+> -	 * ensure that when reserving space for the transaction, if we are low
+> -	 * on available space and need to flush delalloc, we will not flush
+> -	 * delalloc for this inode, because that could result in a deadlock (on
+> -	 * the file range, inode's io_tree).
+> -	 */
+> -	BTRFS_INODE_NO_DELALLOC_FLUSH,
+>   	/*
+>   	 * Set when we are working on enabling verity for a file. Computing and
+>   	 * writing the whole Merkle tree can take a while so we want to prevent
+> @@ -531,9 +522,8 @@ int btrfs_add_link(struct btrfs_trans_handle *trans,
+>   int btrfs_delete_subvolume(struct btrfs_inode *dir, struct dentry *dentry);
+>   int btrfs_truncate_block(struct btrfs_inode *inode, u64 offset, u64 start, u64 end);
+>   
+> -int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_reclaim_context);
+> -int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+> -			       bool in_reclaim_context);
+> +int btrfs_start_delalloc_snapshot(struct btrfs_root *root);
+> +int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr);
+>   int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
+>   			      unsigned int extra_bits,
+>   			      struct extent_state **cached_state);
+> diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+> index dc0834f92..ea1e43b9a 100644
+> --- a/fs/btrfs/dev-replace.c
+> +++ b/fs/btrfs/dev-replace.c
+> @@ -899,7 +899,7 @@ static int btrfs_dev_replace_finishing(struct btrfs_fs_info *fs_info,
+>   	 * flush all outstanding I/O and inode extent mappings before the
+>   	 * copy operation is declared as being finished
+>   	 */
+> -	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   	if (ret) {
+>   		/* Stays started/resumable; keep both denied. */
+>   		mutex_unlock(&dev_replace->lock_finishing_cancel_unmount);
+> diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
+> index 819727460..fcd627251 100644
+> --- a/fs/btrfs/disk-io.c
+> +++ b/fs/btrfs/disk-io.c
+> @@ -4403,7 +4403,7 @@ void __cold close_ctree(struct btrfs_fs_info *fs_info)
+>   	 * getting delayed iputs than are never run. So flush delalloc and wait
+>   	 * for ordered extents.
+>   	 */
+> -	btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +	btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   	btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
+>   
+>   	/*
+> diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+> index 3c10a0ef0..00795c3de 100644
+> --- a/fs/btrfs/inode.c
+> +++ b/fs/btrfs/inode.c
+> @@ -8901,7 +8901,7 @@ static struct btrfs_delalloc_work *btrfs_alloc_delalloc_work(struct inode *inode
+>    * of all the inodes with pending delalloc and forces them to disk.
+>    */
+>   static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+> -				 bool snapshot, bool in_reclaim_context)
+> +				 bool snapshot)
+>   {
+>   	struct btrfs_delalloc_work *work, *next;
+>   	LIST_HEAD(works);
+> @@ -8919,10 +8919,6 @@ static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+>   
+>   		list_move_tail(&inode->delalloc_inodes, &root->delalloc_inodes);
+>   
+> -		if (in_reclaim_context &&
+> -		    test_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags))
+> -			continue;
+> -
+>   		tmp_inode = igrab(&inode->vfs_inode);
+>   		if (!tmp_inode) {
+>   			cond_resched_lock(&root->delalloc_lock);
+> @@ -8971,17 +8967,16 @@ static int start_delalloc_inodes(struct btrfs_root *root, long *nr_to_write,
+>   	return ret;
+>   }
+>   
+> -int btrfs_start_delalloc_snapshot(struct btrfs_root *root, bool in_reclaim_context)
+> +int btrfs_start_delalloc_snapshot(struct btrfs_root *root)
+>   {
+>   	struct btrfs_fs_info *fs_info = root->fs_info;
+>   
+>   	if (unlikely(BTRFS_FS_ERROR(fs_info)))
+>   		return -EROFS;
+> -	return start_delalloc_inodes(root, NULL, true, in_reclaim_context);
+> +	return start_delalloc_inodes(root, NULL, true);
+>   }
+>   
+> -int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+> -			       bool in_reclaim_context)
+> +int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr)
+>   {
+>   	long *nr_to_write = nr == LONG_MAX ? NULL : &nr;
+>   	struct btrfs_root *root;
+> @@ -9003,8 +8998,7 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
+>   			       &fs_info->delalloc_roots);
+>   		spin_unlock(&fs_info->delalloc_root_lock);
+>   
+> -		ret = start_delalloc_inodes(root, nr_to_write, false,
+> -				in_reclaim_context);
+> +		ret = start_delalloc_inodes(root, nr_to_write, false);
+>   		btrfs_put_root(root);
+>   		if (ret < 0 || nr <= 0)
+>   			goto out;
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index 72bc9d4f7..43a956a00 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -926,7 +926,7 @@ static noinline int btrfs_mksnapshot(struct dentry *parent,
+>   	 */
+>   	btrfs_drew_read_lock(&root->snapshot_lock);
+>   
+> -	ret = btrfs_start_delalloc_snapshot(root, false);
+> +	ret = btrfs_start_delalloc_snapshot(root);
+>   	if (ret)
+>   		goto out;
+>   
+> @@ -5586,7 +5586,7 @@ long btrfs_ioctl(struct file *file, unsigned int
+>   	case BTRFS_IOC_SYNC: {
+>   		int ret;
+>   
+> -		ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +		ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   		if (ret)
+>   			return ret;
+>   		ret = btrfs_sync_fs(inode->i_sb, 1);
+> diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
+> index f68b696b4..a4e01403c 100644
+> --- a/fs/btrfs/qgroup.c
+> +++ b/fs/btrfs/qgroup.c
+> @@ -1321,7 +1321,7 @@ static int flush_reservations(struct btrfs_fs_info *fs_info)
+>   {
+>   	int ret;
+>   
+> -	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX, false);
+> +	ret = btrfs_start_delalloc_roots(fs_info, LONG_MAX);
+>   	if (ret)
+>   		return ret;
+>   	btrfs_wait_ordered_roots(fs_info, U64_MAX, NULL);
+> @@ -4228,7 +4228,7 @@ static int try_flush_qgroup(struct btrfs_root *root)
+>   		return 0;
+>   	}
+>   
+> -	ret = btrfs_start_delalloc_snapshot(root, true);
+> +	ret = btrfs_start_delalloc_snapshot(root);
+>   	if (ret < 0)
+>   		goto out;
+>   	btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+> diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
+> index d2a410191..11950a2cd 100644
+> --- a/fs/btrfs/reflink.c
+> +++ b/fs/btrfs/reflink.c
+> @@ -58,7 +58,8 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   			       char *inline_data,
+>   			       const u64 size,
+>   			       const u64 datal,
+> -			       const u8 comp_type)
+> +			       const u8 comp_type,
+> +			       struct btrfs_trans_handle **trans_out)
+>   {
+>   	struct btrfs_fs_info *fs_info = inode->root->fs_info;
+>   	const u32 block_size = fs_info->sectorsize;
+> @@ -84,6 +85,18 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (ret)
+>   		goto out;
+>   
+> +	/*
+> +	 * Start the transaction before creating and dirtying the folio, otherwise
+> +	 * commit writeback can deadlock on the destination range locked by the
+> +	 * caller.
+> +	 */
+> +	*trans_out = btrfs_start_transaction(inode->root, 1);
+> +	if (IS_ERR(*trans_out)) {
+> +		ret = PTR_ERR(*trans_out);
+> +		*trans_out = NULL;
+> +		goto out_unlock;
+> +	}
+> +
+>   	folio = __filemap_get_folio(mapping, file_offset >> PAGE_SHIFT,
+>   					FGP_LOCK | FGP_ACCESSED | FGP_CREAT,
+>   					btrfs_alloc_write_mask(mapping));
+> @@ -100,19 +113,6 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (ret)
+>   		goto out_unlock;
+>   
+> -	/*
+> -	 * After dirtying the page our caller will need to start a transaction,
+> -	 * and if we are low on metadata free space, that can cause flushing of
+> -	 * delalloc for all inodes in order to get metadata space released.
+> -	 * However we are holding the range locked for the whole duration of
+> -	 * the clone/dedupe operation, so we may deadlock if that happens and no
+> -	 * other task releases enough space. So mark this inode as not being
+> -	 * possible to flush to avoid such deadlock. We will clear that flag
+> -	 * when we finish cloning all extents, since a transaction is started
+> -	 * after finding each extent to clone.
+> -	 */
+> -	set_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
+> -
+>   	if (comp_type == BTRFS_COMPRESS_NONE) {
+>   		memcpy_to_folio(folio, offset_in_folio(folio, file_offset), data_start,
+>   					datal);
+> @@ -140,6 +140,14 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (datal < block_size)
+>   		folio_zero_range(folio, datal, block_size - datal);
+>   
+> +	/*
+> +	 * A commit may start writeback before all extwriters have left the
+> +	 * transaction.  Update i_size while the folio is still locked and before
+> +	 * marking it dirty, so that writeback cannot treat it as being beyond EOF.
+> +	 */
+> +	if (file_offset + datal > i_size_read(&inode->vfs_inode))
+> +		i_size_write(&inode->vfs_inode, file_offset + datal);
+> +
+>   	btrfs_folio_set_uptodate(fs_info, folio, file_offset, block_size);
+>   	btrfs_folio_set_dirty(fs_info, folio, file_offset, block_size);
+>   out_unlock:
+> @@ -150,6 +158,10 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
+>   	if (ret)
+>   		btrfs_delalloc_release_space(inode, data_reserved, file_offset,
+>   					     block_size, true);
+> +	if (ret && *trans_out) {
+> +		btrfs_end_transaction(*trans_out);
+> +		*trans_out = NULL;
+> +	}
+>   	btrfs_delalloc_release_extents(inode, block_size);
+>   out:
+>   	extent_changeset_free(data_reserved);
+> @@ -180,12 +192,11 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+>   	struct btrfs_drop_extents_args drop_args = { 0 };
+>   	int ret;
+>   	struct btrfs_key key;
+> -	bool copied_inline_to_page = false;
+>   
+>   	if (new_key->offset > 0) {
+>   		ret = copy_inline_to_page(inode, new_key->offset,
+> -					  inline_data, size, datal, comp_type);
+> -		copied_inline_to_page = (ret == 0);
+> +					  inline_data, size, datal, comp_type,
+> +					  &trans);
+>   		goto out;
+>   	}
+>   
+> @@ -290,73 +301,6 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+>   	if (unlikely(ret))
+>   		btrfs_abort_transaction(trans, ret);
+>   out:
+> -	if (!ret && !trans) {
+> -		if (copied_inline_to_page &&
+> -		    new_key->offset + datal > i_size_read(&inode->vfs_inode)) {
+> -			/*
+> -			 * If we copied the inline extent data to a page/folio
+> -			 * beyond the i_size of the destination inode, then we
+> -			 * need to increase the i_size before we start a
+> -			 * transaction to update the inode item. This is to
+> -			 * prevent a deadlock when the flushoncommit mount
+> -			 * option is used, which happens like this:
+> -			 *
+> -			 * 1) Task A clones an inline extent from inode X to an
+> -			 *    offset of inode Y that is beyond Y's current
+> -			 *    i_size. This means we copied the inline extent's
+> -			 *    data to a folio of inode Y that is beyond its EOF,
+> -			 *    using the call above to copy_inline_to_page();
+> -			 *
+> -			 * 2) Task B starts a transaction commit and calls
+> -			 *    btrfs_start_delalloc_flush() to flush delalloc;
+> -			 *
+> -			 * 3) The delalloc flushing sees the new dirty folio of
+> -			 *    inode Y and when it attempts to flush it, it ends
+> -			 *    up at extent_writepage() and sees that the offset
+> -			 *    of the folio is beyond the i_size of inode Y, so
+> -			 *    it attempts to invalidate the folio by calling
+> -			 *    folio_invalidate(), which ends up at btrfs' folio
+> -			 *    invalidate callback - btrfs_invalidate_folio().
+> -			 *    There it tries to lock the folio's range in inode
+> -			 *    Y's extent io tree, but it blocks since it's
+> -			 *    currently locked by task A - during reflink we
+> -			 *    lock the inodes and the source and destination
+> -			 *    ranges after flushing all delalloc and waiting for
+> -			 *    ordered extent completion - after that we don't
+> -			 *    expect to have dirty folios in the ranges, the
+> -			 *    exception is if we have to copy an inline extent's
+> -			 *    data (because the destination offset is not zero);
+> -			 *
+> -			 * 4) Task A then does the 'goto out' below and attempts
+> -			 *    to start a transaction to update the inode item,
+> -			 *    and then it's blocked since the current
+> -			 *    transaction is in the TRANS_STATE_COMMIT_START
+> -			 *    state. Therefore task A has to wait for the
+> -			 *    current transaction to become unblocked (its
+> -			 *    state >= TRANS_STATE_UNBLOCKED).
+> -			 *
+> -			 * This leads to a deadlock - the task committing the
+> -			 * transaction waiting for the delalloc flushing which
+> -			 * is blocked during folio invalidation on the inode's
+> -			 * extent lock and the reflink task waiting for the
+> -			 * current transaction to be unblocked so that it can
+> -			 * start a new one to update the inode item (while
+> -			 * holding the extent lock).
+> -			 */
+> -			i_size_write(&inode->vfs_inode, new_key->offset + datal);
+> -		}
+> -		/*
+> -		 * No transaction here means we copied the inline extent into a
+> -		 * page of the destination inode.
+> -		 *
+> -		 * 1 unit to update inode item
+> -		 */
+> -		trans = btrfs_start_transaction(root, 1);
+> -		if (IS_ERR(trans)) {
+> -			ret = PTR_ERR(trans);
+> -			trans = NULL;
+> -		}
+> -	}
+>   	if (ret && trans)
+>   		btrfs_end_transaction(trans);
+>   	if (!ret)
+> @@ -376,8 +320,7 @@ static int clone_copy_inline_extent(struct btrfs_inode *inode,
+>   	btrfs_release_path(path);
+>   
+>   	ret = copy_inline_to_page(inode, new_key->offset,
+> -				  inline_data, size, datal, comp_type);
+> -	copied_inline_to_page = (ret == 0);
+> +				  inline_data, size, datal, comp_type, &trans);
+>   
+>   	goto out;
+>   }
+> @@ -665,8 +608,6 @@ static int btrfs_clone(struct btrfs_inode *src, struct btrfs_inode *inode,
+>   	}
+>   
+>   out:
+> -	clear_bit(BTRFS_INODE_NO_DELALLOC_FLUSH, &inode->runtime_flags);
+> -
+>   	return ret;
+>   }
+>   
+> diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+> index dca357016..e0febffaf 100644
+> --- a/fs/btrfs/send.c
+> +++ b/fs/btrfs/send.c
+> @@ -7908,7 +7908,7 @@ static int flush_delalloc_roots(struct send_ctx *sctx)
+>   	int i;
+>   
+>   	if (root) {
+> -		ret = btrfs_start_delalloc_snapshot(root, false);
+> +		ret = btrfs_start_delalloc_snapshot(root);
+>   		if (ret)
+>   			return ret;
+>   		btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+> @@ -7916,7 +7916,7 @@ static int flush_delalloc_roots(struct send_ctx *sctx)
+>   
+>   	for (i = 0; i < sctx->clone_roots_cnt; i++) {
+>   		root = sctx->clone_roots[i].root;
+> -		ret = btrfs_start_delalloc_snapshot(root, false);
+> +		ret = btrfs_start_delalloc_snapshot(root);
+>   		if (ret)
+>   			return ret;
+>   		btrfs_wait_ordered_extents(root, U64_MAX, NULL);
+> diff --git a/fs/btrfs/space-info.c b/fs/btrfs/space-info.c
+> index 39a28e1be..7915819d7 100644
+> --- a/fs/btrfs/space-info.c
+> +++ b/fs/btrfs/space-info.c
+> @@ -770,7 +770,7 @@ static void shrink_delalloc(struct btrfs_space_info *space_info,
+>   		long nr_pages = min_t(u64, temp, LONG_MAX);
+>   		int async_pages;
+>   
+> -		btrfs_start_delalloc_roots(fs_info, nr_pages, true);
+> +		btrfs_start_delalloc_roots(fs_info, nr_pages);
+>   
+>   		/*
+>   		 * We need to make sure any outstanding async pages are now
 
-I noticed a potential subtle issue in the suggested fix above:
-
-'''
-+out:
-+       if (r == damon_last_region(t)) {
-                quota->charge_target_from = NULL;
-                quota->charge_addr_from = 0;
-+               return true;
-        }
-'''
-
-If 'skip' is false (region should be processed), but it happens to be
-the last region, the condition 'if (r == damon_last_region(t))' would
-still be met.  This would cause it to reset the state and 'return true'
-(skip it), which inadvertently re-introduces the original bug we are
-trying to fix.
-
-To ensure the reset logic is centralized and correct, I refined the fix
-as follows.  The comment is intended to help you and other reviewers
-quickly understand the rationale behind the compound condition.  I will
-remove this comment in the next revision.
-
-'''
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 644daf5a1656..82c5aed8a417 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2342,36 +2342,48 @@ static bool damos_skip_charged_region(struct damon_target *t,
- {
-        struct damos_quota *quota = &s->quota;
-        unsigned long sz_to_skip;
-+       bool skip = false;
- 
-        /* Skip previously charged regions */
-        if (quota->charge_target_from) {
-                if (t != quota->charge_target_from)
-                        return true;
--               if (r == damon_last_region(t)) {
--                       quota->charge_target_from = NULL;
--                       quota->charge_addr_from = 0;
--                       return true;
--               }
-                if (quota->charge_addr_from &&
--                               r->ar.end <= quota->charge_addr_from)
--                       return true;
-+                               r->ar.end <= quota->charge_addr_from) {
-+                       skip = true;
-+                       goto out;
-+               }
- 
-                if (quota->charge_addr_from && r->ar.start <
-                                quota->charge_addr_from) {
-                        sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
-                                        r->ar.start, min_region_sz);
-                        if (!sz_to_skip) {
--                               if (damon_sz_region(r) <= min_region_sz)
--                                       return true;
-+                               if (damon_sz_region(r) <= min_region_sz) {
-+                                       skip = true;
-+                                       goto out;
-+                               }
-                                sz_to_skip = min_region_sz;
-                        }
-                        damon_split_region_at(t, r, sz_to_skip);
--                       return true;
-+                       skip = true;
-                }
-+       }
-+out:
-+       /*
-+        * The last region may remain unapplied for extended period due to
-+        * various regions (e.g., it is invalid or has been filtered out),
-+        * preventing other regions from being applied (those preceding the last
-+        * region and all regions with different targets).  Therefore, when
-+        * encountering a region that needs to be processed, reset
-+        * charge_{target,addr}_from.  If necessary, this parameters will be set
-+        * to the correct value in damos_do_apply() due to quota is full.
-+        */
-+       if ((r == damon_last_region(t) && skip) || !skip) {
-                quota->charge_target_from = NULL;
-                quota->charge_addr_from = 0;
-        }
--       return false;
-+       return skip;
- }
- 
- static void damos_update_stat(struct damos *s,
-'''
-
-> 
-> Btw, I think damos_skip_charged_region() may deserve a kunit test.
-
-I agree that a kunit test would be valuable.  While I am still getting
-familiar with the kunit and it might take me a little time, I plan to
-work on it.
-
-Should the tests include these scenarios?  Note that I use 1-based index
-in here since it is easier to understand.
-
-1. Baseline test:
-
-    - Parameters: charge_target_from = NULL, charge_addr_from = 0,
-      nr_target = 1, nr_region = 3.
-
-    - Expected: Returns false three times in a row.
-      charge_{target,addr}_from remains (NULL, 0).
-
-2. Skip test:
-
-    - Parameters: charge_target_from = target[1], charge_addr_from =
-      region[2]->ar.end, nr_target = 1, nr_region = 3.
-
-    - Expected: Returns true, true (for region[1] and region[2]), then
-      false (for region[3]).  charge_{target,addr}_from is reset to
-      (NULL, 0) after region[1].
-
-3. Split test:
-
-    - Parameters: charge_target_from = target[1], charge_addr_from =
-      midpoint of region[2], nr_target = 1, nr_region = 3.
-
-    - Other: Ensure region[2] is large enough for the split to succeed.
-
-    - Expected: Returns true (region[1]), true (region[2] first half),
-      false (region[3] second half), false (region[4]).  Total nr_region
-      becomes 4.  charge_{target,addr}_from is reset to (NULL, 0) after
-      region[0].
-
-4. Sashiko's edge case (Split failure on last region):
-
-    - Parameters: charge_target_from = target[1], charge_addr_from =
-      midpoint of region[3], nr_target = 1, nr_region = 3.
-
-    - Other: Ensure region[3] is small enough so that the split is
-      guaranteed to fail (sz_to_skip < min_region_sz).
-
-    - Expected: Returns true three times in a row.  Crucially,
-      charge_{target,addr}_from is reset to (NULL, 0) on the third call,
-      preventing permanent state leakage.
-
-5. Last region processing test:
-
-   - Parameters: charge_target_from = target[1], charge_addr_from =
-     region[2]->ar.end, nr_target = 1, nr_region = 3.
-
-    - Expected:
-
-        - Round 1: Returns true (region[1]), true (region[2]), false
-          (region[3], resets charge_{target,addr}_from because !skip).
-
-        - Round 2: Since the charge_{target,addr}_from is now (NULL, 0),
-          it should return false three times in a row, proving that
-          subsequent regions are not incorrectly blocked.
-
-If there are any issues or missing edge cases in these scenarios, please
-let me know!
-
-> 
-> [1] https://lore.kernel.org/20260828090410.40AEA1F000E9@smtp.kernel.org
-> [2] https://lore.kernel.org/20260828115047.332978-1-aethernet65535@gmail.com
-
-Best regards,
-Rui Yan
