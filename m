@@ -1,350 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A033BF682;
-	Sat, 29 Aug 2026 16:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6B5414A30
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 16:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788020123; cv=none; b=TPLOtDw4pSm5zcCN7nn0aqqsywJODO+nq9cinBnIVUbtSdshhfdpb+zChpczsUnrAzL8tmwjCdGkX7mlCpodwXb4ZxquVHx5fIUsXz9sc6ntcQlSAS2sAc/8/kaT1VP8jjXQheibiTPPchHFHcrJ258IBV7k3RWTyn+tihHsovI=
+	t=1788020781; cv=none; b=c9coRySSTD8oiZvCuO9xhEspCexMzoDRKPW3w0KQ23nrkxVmlh2ZeP0NMfD98pQguCfYTGOUNMMWljjM9783a5JxeuoouP37P44+vnUnDrYiJo4DpRc2Pp/EfrSnnMfQMJfQiQZjeSMi2dGGCj5wlrphYaT6xM8h25VcV9RwP40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788020123; c=relaxed/simple;
-	bh=3scNfc+eBX0pgTp4OdIPYF8CHtNuGXmO8m+bRduI/Ro=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mLzSYveJ3gay1q1PIXNrCcEsKyaRuY1X05BGPyGR7wimz/mRruFPcMWyuXivCjqG74gW353uqBb82tlflmoqnEj/RAR3HTV2ZH15YxcEDVRJSo58Wbm5VeVnHoJtn0vWCU83nSreC0lgRIjDx390iy31mqnvbocJDo6sDsvHwk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NaLTpNLq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788020781; c=relaxed/simple;
+	bh=5bR150FonEhgq898E4phhk0OEo9sB3sk2J9h59+uRUE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Bdygqt+s5Xw1G0kLoY8WlJj1S+wB9xz2LsNj+BSNp2FjPf5yywW7RPwX+H59L/nzdLlJMlVMSHIz6TK7RoKv9+Y66XATWQWEzyhWp1fjZHyb/Yh0eu6N0H/jL5Eo8YixAqeqoDu55ojohhHA+emEd0pVOEMAwHW4GTBJMRuZVPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ivy4PC2B; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=kDTlXO74; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NaLTpNLq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2737B1F00A3D;
-	Sat, 29 Aug 2026 16:15:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788020116;
-	bh=wZr1a/F+Sc8g5BvxIyPT8YsObTtkfsEdSZ4r6duieVE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NaLTpNLqvu1UCGFvLYNYwktZI2PcU10lT9/bP/yj93FZ2wVvVLLfYeIbmwmeAGGzV
-	 LzKmgSmNvxujHh7QJk9YlyN5PqI0U+zyl1SSVrEgledcqxAIO5lQEyZyG+Oq8c3Ojb
-	 c26pIbWHR/prgcEsbMsC1ypIPQzaVCV7hsJb3qVpXaVYoWg1zjXa3hXCq3753Anoga
-	 EyYQaCI9HWopdTZzkGF4pJrKfGMeVhOPFXnaIYLm/mSELk57B3Hh0D3ekS5nYGUJr1
-	 PhZAHBJvQjUFB1RrwpEYUqj3JZPZ200SYjSp0Zhkg9H4adrNxvENn5eabw7I9Gx+Ct
-	 FoWM8HLvrGphQ==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/damon: fix unconditionally skip last region
-Date: Sat, 29 Aug 2026 09:15:08 -0700
-Message-ID: <20260829161509.77406-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260829083744.73299-1-aethernet65535@gmail.com>
-References: 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ivy4PC2B";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="kDTlXO74"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788020772;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=In8PJoJM7TuliZupFW2/GUoBwBsuu3ZJ9uWEGEaBgFk=;
+	b=Ivy4PC2BHZWtJ0NlD5PkfMQSTQnwCfzesHdYGpD04D+nGEo3WcOaNwOPgqZsm9QXnNMMq0
+	ZVXkRgf0fu/jDyQ0MomhP4qHjZPGmlW7IZoq+GD8EFgLTe/UG8CZ/iLTilYb0M9PLYo6Fr
+	yMz4uV+Qs5MpZ2cVogHrVxAFCP0yBjk=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-672-2wgfFRY8MlCLqTV1w1c2oQ-1; Sat, 29 Aug 2026 12:26:11 -0400
+X-MC-Unique: 2wgfFRY8MlCLqTV1w1c2oQ-1
+X-Mimecast-MFC-AGG-ID: 2wgfFRY8MlCLqTV1w1c2oQ_1788020771
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e7db8d191so9499236d6.1
+        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 09:26:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788020771; x=1788625571; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=In8PJoJM7TuliZupFW2/GUoBwBsuu3ZJ9uWEGEaBgFk=;
+        b=kDTlXO74/Cz6EBb3zuNipRjny+FvkIV6RTZjZGGNFKFc0+ukhxXNGxMkJ92/kocLXa
+         MRQ47qYRo61tc5YXseUVn2c3YWFsgMUC9lfOvBcuZ3FyvX4To5gZ4TKtpyHjHQbUgV8p
+         DxLOLTCM3FWgXJu7Uf8ySea63/86Xm92DAxwgNTQeMywETWkNXGFVuf1u1eAW5t0Ps0A
+         0Ig1rbLoChJZJm9ERk5uv1ZhFaHpGMeG2+gxk+fklgfLIq2HIYkpqfUZOVRW5eR8C1xd
+         O+MQvadrBuzmMq1nrq/DJ7lYD3LSZwP0QaQTB2S66vOlndM4DRy4JCy1x/0Y7OUqORb5
+         agQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788020771; x=1788625571;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=In8PJoJM7TuliZupFW2/GUoBwBsuu3ZJ9uWEGEaBgFk=;
+        b=IEGEtIdD7NjrwUK2vK6AL8Y2vZyaRF1b5GSZYRt/n9CZqT2KCZEUTGvmWquX+IGt8g
+         dchuuughslVHNk342QSyzb2cxL4U2JU7W7LFyV4Pr9qADrsfsTSuOG9KAkmsvmIP3ngl
+         bKDqzWjb56yMOqFWTADyM8LvRjy55vE4f5xTf24R8FZW9I0n3pgy8bO1W4eLyGASElqW
+         OPJxk85/DWMiFcKBfHWqNL1N2KFAnuG3vKGnlZK/z2pdiCXbwqiEIjOzaXqImjHJVpvh
+         bFNkBs9U49Pn/Lsuv+U8sQb2ooS+MHS6juPvbloL7vFxFpsriJuhuK8YcA3ub2Q0w3BC
+         4J0A==
+X-Forwarded-Encrypted: i=1; AKwUvBwe/LGERc/a5SuRugyiXx5uo0v54H3HGH0cPs8NS6BdEryiq9Kg3Y39bYiVVJ1MRkYSS+wbJZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNe6xcnup/iMB8J2savrw9KeurLnFF84uBQ8P1tLrWp0M+J1VD
+	1IW0NYAusoLlBllOBWZlpWi1nYIjK0bOhX2fHUPmmZcrXBr93w5oK+/1STRY9ljlF+jpHGXyelW
+	DynRKVVDNhwcIvsb78z939YSEXAv5wNmQKcgGzdFyAiXQw5k1ipelLgeBzA==
+X-Gm-Gg: AYBFou1PY57W3lNVJIcaa4myHvfi041FHrv1VarC2Zf4VvcZo2C8eNSG+2qeZIjX4Ie
+	7xws+3U5MA+hKcx4wU0NKJbEDKl0316pfStgPEYLPdp8jz5B5X0AKbJfUaOsQcpBM0vsua5GEfX
+	VdKXcocarKPfLbEEoWpUo+uG1v8oDBZ9cbxM/0BkXzRp7LW76mDfnS1J1rnMmRYV5wK+AwCi4cp
+	IxXa99YXuHycGXZbgE9A07R8rm/QM4PYuvhnxx3nozb/IAWfLJQin7bAnodPKjhS7BybHujP4/k
+	at+ntVeVPz28MO90fMZEVf6oguxTNXNEW0n4NwWLlC3ufnlrQN8uBRM8i5by8pdlvx87LYGdURQ
+	FQi8hHgcCdPS3uiNQ9egr6QpKcbwfbDLOUr8xRvti
+X-Received: by 2002:a05:6214:6344:b0:90c:e135:51e6 with SMTP id 6a1803df08f44-90ce13553cdmr149410466d6.9.1788020770514;
+        Sat, 29 Aug 2026 09:26:10 -0700 (PDT)
+X-Received: by 2002:a05:6214:6344:b0:90c:e135:51e6 with SMTP id 6a1803df08f44-90ce13553cdmr149410066d6.9.1788020770092;
+        Sat, 29 Aug 2026 09:26:10 -0700 (PDT)
+Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4534ebesm42678606d6.48.2026.08.29.09.26.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 29 Aug 2026 09:26:09 -0700 (PDT)
+Message-ID: <666879b8-5117-4c41-ab1d-e50637e68a5d@redhat.com>
+Date: Sat, 29 Aug 2026 11:26:08 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Reply-To: sorenson@redhat.com
+Subject: Re: [PATCH v3 11/11] smb: client: fix NameOffset and Next field
+ validation in smb2_parse_contexts()
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org
+References: <20260826153147.4112943-1-sorenson@redhat.com>
+ <20260826153147.4112943-12-sorenson@redhat.com>
+ <CAKYAXd8_jvTz6DX-1OjkCu1UAe7qKKHKOyW7-yOqrqVtxC6dPQ@mail.gmail.com>
+From: Frank Sorenson <sorenson@redhat.com>
+Content-Language: en-US
+In-Reply-To: <CAKYAXd8_jvTz6DX-1OjkCu1UAe7qKKHKOyW7-yOqrqVtxC6dPQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Sat, 29 Aug 2026 16:34:26 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-> On Fri, 28 Aug 2026 11:29:09 -0700 SJ Park <sj@kernel.org> wrote:
-> 
-> > On Fri, 28 Aug 2026 16:47:37 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > 
-> > > Once quota set, the charge_{target,addr}_from unconditionally skips and
-> > > resets at the last region of the tracked target, so the last region can
-> > > be skipped even when it has not been processed.
-> > > 
-> > > Example:
-> > > 
-> > >     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-> > >     2. Quota is configured to process only 50 bytes per window.
-> > >     3. Window 1: Processes R1 (0-50).  Quota is full.  Cursor is saved
-> > >        at (Target, 50).
-> > 
-> > Cursor means charge_{target,addr}_from, right?  Let's explain that, or just
-> > keep using the terms (charge_{target,addr}_from).
-> 
-> Yes, thank you for pointing that out!  I changed cursor to
-> charge_{target,addr}_from now.
-> 
-> > 
-> > >     4. Window 2: Skips R1 (0-50).  Processes R1 (50-100).  Quota is
-> > >        full. Cursor is saved at (Target, 100), which is exactly the
-> > >        start of R2.
-> > >     5. Window 3: The loop reaches R2.  Because R2 is
-> > >        damon_last_region(t), the old code unconditionally returns true,
-> > >        skipping R2 entirely and resetting the cursor.
-> > > 
-> > >     Result: R2 is permanently skipped even though it has never been
-> > >     processed.
-> > 
-> > Let's make example simpler by setting R1 (0-50 bytes) and R2 (50-100 bytes) or
-> > quota size 100 bytes per window.
-> 
-> This is the updated example:
-> 
-> '''
-> Example:
-> 
->     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
->     2. Quota is configured to process only 100 bytes per window.
->     3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
->         addr}_from is saved at (Target, 100).
->     4. Window 2: The loop reaches R2.  Because R2 is
->         damon_last_region(t), the old code unconditionally returns true,
->         skipping R2 entirely and resetting the charge_{target,addr}_from.
-> 
->     Result: R2 is permanently skipped even though it has never been
->     processed.
-> '''
-> 
-> > 
-> > Also, it continues being skipped only in a corner case that the region
-> > addresses and the access patterns are kept.  So the user impact is mild.  Let's
-> > clarify that to not make users unnecessarily afraid.
-> 
-> I will add this clarification in the next revision:
-> 
-> '''
-> However, it is important to note that this is a very minor issue.  This
-> is because it is triggered only when the previous window saved/kept
-> charge_{target,addr}_from, and in the next window, all regions except
-> the last region were skipped by damos_skip_charged_region().
-> '''
-> 
-> > 
-> > > 
-> > > Fix this by only skipping the last region after it has been applied.
-> > > 
-> > > Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-> > > Cc: <stable@vger.kernel.org> # v5.16.x
-> > > Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-> > > ---
-> > > 
-> > > Changes from RFC v1:
-> > > - Minimal fix, only fixes the issue where the last-region is skipped.
-> > > - Add an example to the commit message to demonstrate that this error
-> > >   occurs very rarely.
-> > > - RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
-> > > 
-> > > ---
-> > >  mm/damon/core.c | 13 +++++++------
-> > >  1 file changed, 7 insertions(+), 6 deletions(-)
-> > > 
-> > > diff --git a/mm/damon/core.c b/mm/damon/core.c
-> > > index 644daf5a1656..21dc6b086c42 100644
-> > > --- a/mm/damon/core.c
-> > > +++ b/mm/damon/core.c
-> > > @@ -2347,14 +2347,15 @@ static bool damos_skip_charged_region(struct damon_target *t,
-> > >  	if (quota->charge_target_from) {
-> > >  		if (t != quota->charge_target_from)
-> > >  			return true;
-> > > -		if (r == damon_last_region(t)) {
-> > > -			quota->charge_target_from = NULL;
-> > > -			quota->charge_addr_from = 0;
-> > > -			return true;
-> > > -		}
-> > >  		if (quota->charge_addr_from &&
-> > > -				r->ar.end <= quota->charge_addr_from)
-> > > +				r->ar.end <= quota->charge_addr_from) {
-> > > +			if (r->ar.end == quota->charge_addr_from ||
-> > > +					damon_is_last_region(r, t)) {
-> > > +				quota->charge_target_from = NULL;
-> > > +				quota->charge_addr_from = 0;
-> > > +			}
-> > >  			return true;
-> > > +		}
-> > >  
-> > >  		if (quota->charge_addr_from && r->ar.start <
-> > >  				quota->charge_addr_from) {
-> > 
-> > As Sashiko pointed out, this doesn't work if the the last region's start
-> > address is smaller than charge_addr_from and the end address is larger than
-> > charge_addr_from, but the size to skip (charge_addr_from - r->ar.start) is
-> > smaller than min_region_sz.
-> > 
-> > As you replied to Sashiko, let's do the last region handling in every case.
-> > While doing that, let's do the charge_{target,addr}_from reset in only one
-> > place, like below.
-> > 
-> > '''
-> > --- a/mm/damon/core.c
-> > +++ b/mm/damon/core.c
-> > @@ -2688,36 +2688,40 @@ static bool damos_skip_charged_region(struct damon_target *t,
-> >  {
-> >         struct damos_quota *quota = &s->quota;
-> >         unsigned long sz_to_skip;
-> > +       bool skip = false;
-> > 
-> >         /* Skip previously charged regions */
-> >         if (quota->charge_target_from) {
-> >                 if (t != quota->charge_target_from)
-> >                         return true;
-> > -               if (r == damon_last_region(t)) {
-> > -                       quota->charge_target_from = NULL;
-> > -                       quota->charge_addr_from = 0;
-> > -                       return true;
-> > -               }
-> >                 if (quota->charge_addr_from &&
-> > -                               r->ar.end <= quota->charge_addr_from)
-> > -                       return true;
-> > +                               r->ar.end <= quota->charge_addr_from) {
-> > +                       skip = true;
-> > +                       goto out;
-> > +               }
-> > 
-> >                 if (quota->charge_addr_from && r->ar.start <
-> >                                 quota->charge_addr_from) {
-> >                         sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
-> >                                         r->ar.start, min_region_sz);
-> >                         if (!sz_to_skip) {
-> > -                               if (damon_sz_region(r) <= min_region_sz)
-> > -                                       return true;
-> > +                               if (damon_sz_region(r) <= min_region_sz) {
-> > +                                       skip = true;
-> > +                                       goto out;
-> > +                               }
-> >                                 sz_to_skip = min_region_sz;
-> >                         }
-> >                         damon_split_region_at(t, r, sz_to_skip);
-> > -                       return true;
-> > +                       skip = true;
-> >                 }
-> > +       }
-> > +out:
-> > +       if (r == damon_last_region(t)) {
-> >                 quota->charge_target_from = NULL;
-> >                 quota->charge_addr_from = 0;
-> > +               return true;
-> >         }
-> > -       return false;
-> > +       return skip;
-> >  }
-> > 
-> >  static void damos_update_stat(struct damos *s,
-> > '''
-> 
-> I noticed a potential subtle issue in the suggested fix above:
-> 
-> '''
-> +out:
-> +       if (r == damon_last_region(t)) {
->                 quota->charge_target_from = NULL;
->                 quota->charge_addr_from = 0;
-> +               return true;
->         }
-> '''
-> 
-> If 'skip' is false (region should be processed), but it happens to be
-> the last region, the condition 'if (r == damon_last_region(t))' would
-> still be met.  This would cause it to reset the state and 'return true'
-> (skip it), which inadvertently re-introduces the original bug we are
-> trying to fix.
+On 8/29/26 9:01 AM, Namjae Jeon wrote:
+>>                  case 16:
+>> -                       if (posix && !memcmp(name, smb3_create_tag_posix, 16))
+>> +                       if (dlen && posix && !memcmp(name, smb3_create_tag_posix, 16))
+> Could we check that dlen is large enough for the fixed POSIX fields
+> before calling parse_posix_ctxt()? It reads 12 bytes even when
+> DataLength is smaller.
 
-Ah, good catch.  The 'return true' is a wrong copy-pasta.  Let's drop the line.
+so this needs to be:
+                      if (dlen > 12 && posix && !memcmp(name, smb3_create_tag_posix, 16))
 
-> 
-> To ensure the reset logic is centralized and correct, I refined the fix
-> as follows.  The comment is intended to help you and other reviewers
-> quickly understand the rationale behind the compound condition.  I will
-> remove this comment in the next revision.
-> 
-> '''
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 644daf5a1656..82c5aed8a417 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -2342,36 +2342,48 @@ static bool damos_skip_charged_region(struct damon_target *t,
->  {
->         struct damos_quota *quota = &s->quota;
->         unsigned long sz_to_skip;
-> +       bool skip = false;
->  
->         /* Skip previously charged regions */
->         if (quota->charge_target_from) {
->                 if (t != quota->charge_target_from)
->                         return true;
-> -               if (r == damon_last_region(t)) {
-> -                       quota->charge_target_from = NULL;
-> -                       quota->charge_addr_from = 0;
-> -                       return true;
-> -               }
->                 if (quota->charge_addr_from &&
-> -                               r->ar.end <= quota->charge_addr_from)
-> -                       return true;
-> +                               r->ar.end <= quota->charge_addr_from) {
-> +                       skip = true;
-> +                       goto out;
-> +               }
->  
->                 if (quota->charge_addr_from && r->ar.start <
->                                 quota->charge_addr_from) {
->                         sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
->                                         r->ar.start, min_region_sz);
->                         if (!sz_to_skip) {
-> -                               if (damon_sz_region(r) <= min_region_sz)
-> -                                       return true;
-> +                               if (damon_sz_region(r) <= min_region_sz) {
-> +                                       skip = true;
-> +                                       goto out;
-> +                               }
->                                 sz_to_skip = min_region_sz;
->                         }
->                         damon_split_region_at(t, r, sz_to_skip);
-> -                       return true;
-> +                       skip = true;
->                 }
-> +       }
-> +out:
-> +       /*
-> +        * The last region may remain unapplied for extended period due to
-> +        * various regions (e.g., it is invalid or has been filtered out),
-> +        * preventing other regions from being applied (those preceding the last
-> +        * region and all regions with different targets).  Therefore, when
-> +        * encountering a region that needs to be processed, reset
-> +        * charge_{target,addr}_from.  If necessary, this parameters will be set
-> +        * to the correct value in damos_do_apply() due to quota is full.
-> +        */
+I think we'll need similar before the calls to the 
+server->ops->parse_lease_buf:
+                     if (dlen && !strncmp(name, 
+SMB2_CREATE_REQUEST_LEASE, 4)) {                                   
+*oplock = server->ops->parse_lease_buf(cc, epoch,                       
+                                                    lease_key);
 
-Looks too verbose to me.  Let's drop this.
+for smb2: smb2_parse_lease_buf(void *buf, __u16 *epoch, char *lease_key) 
+{         struct create_lease *lc = (struct create_lease *)buf;         
+*epoch = 0; /* not used */         if (lc->lcontext.LeaseFlags & 
+SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)                 return 
+SMB2_OPLOCK_LEVEL_NOCHANGE;         return 
+le32_to_cpu(lc->lcontext.LeaseState);
 
-> +       if ((r == damon_last_region(t) && skip) || !skip) {
+/* See MS-SMB2 2.2.13.2.8 */ struct lease_context {         __u8 
+LeaseKey[SMB2_LEASE_KEY_SIZE];         __le32 LeaseState;         __le32 
+LeaseFlags;         __le64 LeaseDuration; } __packed;
 
-Why this becomes this complex?  We should reset charge_{target,addr}_from if it
-is the last region, always.  Am I missing something?
+for smb2, we only access through LeaseFlags (24 bytes), but the entire 
+struct is 32
 
->                 quota->charge_target_from = NULL;
->                 quota->charge_addr_from = 0;
->         }
-> -       return false;
-> +       return skip;
->  }
->  
->  static void damos_update_stat(struct damos *s,
-> '''
+static __u8 smb3_parse_lease_buf(void *buf, __u16 *epoch, char 
+*lease_key) {         struct create_lease_v2 *lc = (struct 
+create_lease_v2 *)buf;         *epoch = le16_to_cpu(lc->lcontext.Epoch); 
+         if (lc->lcontext.LeaseFlags & 
+SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)                 return 
+SMB2_OPLOCK_LEVEL_NOCHANGE;         if (lease_key)                 
+memcpy(lease_key, &lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);         
+return le32_to_cpu(lc->lcontext.LeaseState);
 
-> 
-> > 
-> > Btw, I think damos_skip_charged_region() may deserve a kunit test.
-> 
-> I agree that a kunit test would be valuable.  While I am still getting
-> familiar with the kunit and it might take me a little time, I plan to
-> work on it.
+/* See MS-SMB2 2.2.13.2.10 */ struct lease_context_v2 {         __u8 
+LeaseKey[SMB2_LEASE_KEY_SIZE];         __le32 LeaseState;         __le32 
+LeaseFlags;         __le64 LeaseDuration;         __u8 
+ParentLeaseKey[SMB2_LEASE_KEY_SIZE];         __le16 Epoch;         
+__le16 Reserved; } __packed; and for smb3, we'll need through Epoch, so
 
-Nice.  Looking forward to your patch.
+     SMB2_LEASE_KEY_SIZE + 4 + 4 + 8 + SMB2_LEASE_KEY_SIZE + 2 = 50,
 
-> 
-> Should the tests include these scenarios?
+with the entire struct being 52 bytes
 
-Let's not add new topics.  We can discuss this on your kunit patch.  Please
-ensure it covers at least the corner case this patch is trying to fix.
+and also before the call to parse_query_id_ctxt():
+                           } else if (dlen > 16 && buf &&               
+                        !strncmp(name, SMB2_CREATE_QUERY_ON_DISK_ID, 4)) 
+{                                   parse_query_id_ctxt(cc, buf);
+parse_query_id_ctxt(struct create_context *cc, struct smb2_file_all_info *buf)
+{
+         struct create_disk_id_rsp *pdisk_id = (struct create_disk_id_rsp *)cc;
+
+         cifs_dbg(FYI, "parse query id context 0x%llx 0x%llx\n",
+                 pdisk_id->DiskFileId, pdisk_id->VolumeId);
+         buf->IndexNumber = pdisk_id->DiskFileId;
+
+/* See MS-SMB2 2.2.14.2.9 */
+struct create_disk_id_rsp {
+         struct create_context_hdr ccontext;
+         __u8   Name[8];
+         __le64 DiskFileId;
+         __le64 VolumeId;
+         __u8  Reserved[16];
+} __packed;
 
 
-Thanks,
-SJ
+With varying sizes, how do we handle the check prior to the call to the version-specificserver->ops->parse_lease_buf ?
 
-[...]
+
+-- 
+Frank Sorenson
+sorenson@redhat.com
+Principal Software Maintenance Engineer, filesystems
+Red Hat
+
