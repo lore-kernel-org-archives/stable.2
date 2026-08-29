@@ -1,375 +1,307 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB64B3CF200
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 21:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788039193; cv=none; b=Sc19kd0eXQDujyN652IaKZUQ+f10N/5W6pbDIA19kEOtxQGLjHkCfQkHgEfACO0pSO3QIOzU5z5ocisIBTfiN/5w8vxjOCwwtjrCeYhEeGb92LF1X5H8HTax/P6dQ+5i7JU/M93b5Oe+ZdDvdAVe4qBHtrq3KKZ/LLHTl8EMtII=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788039193; c=relaxed/simple;
-	bh=co+2fxzxIKsrqg4QHh3FK11V9lST4YMEzCqjZ1hMMe4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=N5BQiJBi8Ci/8V5B/zmS/xTEMgbCb/fb7eBHDLiB7t4VIZOhWTYARcLV9uCHvI9hMp3Lc9RzLfDMrG612bJHfZHL7W9zx+ADjujBt1/tow4DV9ro7Ng39xvdFFBOxFxVwpEMISEL8IlV5aVxLAsTPYaZ7rUT+wcVTEPHchTqh1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OI3OzQYj; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776BA3BB123
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 21:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788039228; cv=fail; b=nOJncoaVonbqspAYEWXxp//i0RrWwJ0255j96DKiTAoZW5UczoIRr49U2mVsZibcNZP0vu1oCGQAZ/59P1Yo0VwHaoC5P5ETgJwoAQsb3SC3eLL5lVWUPA+BJja/1gq31KKKWjtYmmfOcTkL45jnteVpborAMnpNt7QBBW3WkbY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788039228; c=relaxed/simple;
+	bh=TckY5NpF5XEUBbMFMczKegAUbu1di/V3zh7hQLDNwsw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=hotdxtHD8RPkWmsqXr1qXkhZGSBrxDprdpNRFAuqY9opXBpJqet+nGjFIspScNhD5ofbfFWGC4+SRW3jpWVI3anPIDik8J1WzH9lUsIkR7vQehNtLheGmYKUcjqpjzK9hGyk+hUYoU/mMQFo89dN0ALXTdHBTZJ/5B9R3p6TDHk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=hw1GTK5T; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=hmwcHpbf; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OI3OzQYj"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4815bce4652so1591134f8f.1
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 14:33:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="hw1GTK5T";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="hmwcHpbf"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TLB1Tp1707328;
+	Sat, 29 Aug 2026 21:33:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=GekL70h/o85ceRvozHTYHGp5N+GxNi8E+SpVdpp5Vbg=; b=
+	hw1GTK5T2jLDvRITTCYYE34Ns5GSeHKl25XC1cMsGM3BcAmjJEPc7C7a6W0Wp3HY
+	qXbOOEA7ABAkReNTon5v9pVkuNOwA/a3Y7yRCqnbh9tQL21VZmSQLWCgL41qHWqe
+	jbnLh1laCpgGojB3D0+dWcXrmcq3EbFk3pV2GCvPt/Os3rxDVr7l2ezL38pt1V/4
+	/I1WbQRfH6UK2wKbiEAObOcoENp2BJNiq+4qvutDumRZw7WYKYhiDTD6PveNGlVD
+	6NWfJLR4FmwrvjbK2HCoXCT15h/s6WPWRF7rhd/IaTQQKtD/UCs3V6i61694/mUE
+	mTjcU1SNSipzxjZKjiHISQ==
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gbp0xrp1w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 29 Aug 2026 21:33:35 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 67TLPWng015036;
+	Sat, 29 Aug 2026 21:33:34 GMT
+Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11010051.outbound.protection.outlook.com [52.101.61.51])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4gbnvn8hpe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sat, 29 Aug 2026 21:33:34 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nMhBaCnVXIGKK3hZZqisCh+w90C3SEIyQVJwjbzazksHHg44ah4zced47cMimuTune+g6HFj28eR9+YmNvJNhSyLuxebdGPmINK91yZmatzw/XCHX/KmWXQ1RKEyuhFuIRUsylXtI+kwvIKSYBc+zyUeGwkLp+Wkkfdgn3jNVOelCXWrCaInZqSVkiA8K9u29PzqODztbSWJrpbdCRYtK3DH6PbyN9X1Eo74ssObl0/6WCjtZuYlIf7TI16HxmRk3dOyw73MDRRW/oHDIiYDZB5nX+WeCopJQZVUNqYqaViFBL4CMwsWHqzCUX8MwH9wBN0ZSfoG0il/rlKeLcIXew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GekL70h/o85ceRvozHTYHGp5N+GxNi8E+SpVdpp5Vbg=;
+ b=Xl26C9nylF42h/U1C1jALnTAwpYEMH4DjwZUgO5Xsvf1KNMIgzL1cp3ImMfqbKSgJBjsrYnmNB3ZYFF4LmiyzRNKcie20w70uIvW3vOEkcNZTfTAP5DGgBmG3awwZYFQshlbjhHJYaeG9aLk7J9LzE/8DLZ+VrHg0vZ9hER1fLK7VtWro67czn7WxClXiciKZS1TXUm3YTUwX9j57VkQ//g13fDWGyl5TVm3VXhawfwp49fFll59yMYIJQkeUllGtWuGsVjrzqawYVt8Wi0AiGqRTQbRfiJMHmT1rKkT3zoZHLro1XzIgDlcLwzKJRTz4oBdPB3WU9gN+3oXmHLPUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788039188; x=1788643988; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kgtzxw+fLI0xgDG63CMY9iJwpkHw7jAnoCmbSNosjoM=;
-        b=OI3OzQYjMJaScY9Nrt4ilDXIt8x6p9Q4tC4RBQgBhP59cHu7C5RuBq77vzRPPpcReh
-         EEyTwZpVEblQZcfv9Nnls1xaausUUCgGJgV6OvlrPmDIWFxOz1NO5VM9vq5U34BxcLFJ
-         bm2XuLp0Yzxd3ZsebduwI/tZBcpxTn7HO1Bkl4w4XW5EmBNjIrkJ0xpule2yT2ltgS/D
-         mmDaKU9KgMvhmRMx6t1UG7turKc0ODGrU0RLJ8CwZi/9ij7+qXw+Ol6/qoY+vimcwfwB
-         1g44DxI1L1PL3DnJ8P8BNooRQaMFEpFBNMQzzs3d19PJB5ghYxW7vsjDIYTNPhbDPndi
-         1GkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788039188; x=1788643988;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kgtzxw+fLI0xgDG63CMY9iJwpkHw7jAnoCmbSNosjoM=;
-        b=fvrdZrW1EzYUVqj5nrjLnuDibcFtDdbWgLWiDxQyIqxeAi+wjJyuTRqjfdiM6r1Hcq
-         ZTKQ57mwZ3y2BcRvxxewfHcfReqipMzzsstVXM3I1S85EH1kxYojGG1yZKIIIV8Evneq
-         oQAZYzoVko9lAbDExBS2lqI7Jvt3QcWSJ+Z+i0W16JdA+UwypvjwDu5OKawB+mQ1N4E2
-         gu5bopl5Ks0HBWWSNB4OTsA99JEIyPtCzeXjiNsv1mCbNObjY+tp36MWSA34yrx5pnE8
-         AkBlodlWTFeYs5tzm9UMT2P24qIPY2iRmPZoVGQ7pmjsvpVA7eKItJQWM8txDfIMO77e
-         0/PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw1KINqFAV06P0NK/nKnSTsUP0HUEOr5eHfMhl+iJ4fs3eCvm9nuxnu3uJnz7aZ1A6TMXb+/kY=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncBTWyWSSfxUmkcLnlAIokH7jKwRHHa5N9VtV3grGDgnufwT5q
-	NIG+8lYxxiDZeqLO0qWyV6y6XJvO5ei4E5Nmsxkm3g4eY0WWOKeFfpV3
-X-Gm-Gg: AYBFou0rSHi4jQkOqUMZ80G3ptoMo49Xo0ppzqHh2/eyoxixM9dwQEHttgc5nx0v3eQ
-	L4eA9HJrJQSof4gHntjQzP2EgxH3r5L0vniIq56Om0yeFICaG/KnNyX9A+RuX0PG/2d6DO9pR8K
-	bN8RxcS0GN1n7CaZgKEP/6FjSyyQt3jAE7IGr+Tc6bOmCMQK3CxKKc/wca+Gzle2OfzWYNicpgH
-	lv6h9Yr8z8KQOPrBEEK6bh1W0iAiMOq75lkW/Agt8Z9Lr+xrbaeG+T+mb4ErGoK78VKez9oQH9f
-	MJam7KdfkKAvG535zFqaW4wddvXSNwIaVYDO1yPUaV8te7NYI7olHn2CGgXWSvaNv9RN100MsRr
-	2wQd1xzPU2THPRECzqY4NTImmeEcqZg+Armxnic2cL6a7llBRD9y5K5OtsP5VPmz1WEyLp3VSFn
-	UdvRPx86PqrXkKMQ7V1NgzSYttdkVAw8AhWW/HpxalLmKhUjoB3WUSU/fYE4Nb4ty9+VoDUKmC7
-	r14UsWL5V/H3WjfionerU7OutBurxeja87DdFhtpJ20YxEfnGAus9rVwZm/cq98/EqTJpZbUR8H
-	RoUhGuWdMVq7Qoa59kvc9t6ewnY6elboF4TaG1AG+aDjhQapDvS/sogCiVMqGyYwpLo=
-X-Received: by 2002:a05:6000:420b:b0:482:e10e:58df with SMTP id ffacd0b85a97d-482f7a03ba8mr20017068f8f.21.1788039187820;
-        Sat, 29 Aug 2026 14:33:07 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ae86-1b01-80e2-8851-4221-68d8.310.pool.telefonica.de. [2a02:3100:ae86:1b01:80e2:8851:4221:68d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbb33070sm12540616f8f.36.2026.08.29.14.33.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 29 Aug 2026 14:33:06 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: selinux@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Ondrej Mosnacek <omosnace@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] selinux: recheck intermediate backing files on mprotect
-Date: Sat, 29 Aug 2026 23:32:56 +0200
-Message-Id: <20260829213256.51527-3-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260829213256.51527-1-kmehltretter@gmail.com>
-References: <20260829213256.51527-1-kmehltretter@gmail.com>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GekL70h/o85ceRvozHTYHGp5N+GxNi8E+SpVdpp5Vbg=;
+ b=hmwcHpbf4ZfxHYATIGvYFPYbU+SYtaEpLKz8CR3/qS7uhfepM2ZLPnQ+NbjfB5q55QzznrWjiuBJUYM9gqqM+6BX5HIw+rda1TPt6FHhoMLI2ebsAPbUjrWv9q4vdTeE/ZPLHEgw60nZyYZk5VBI4ElHtv1k4QJMfro7bBvLdq0=
+Received: from DS3PR10MB997700.namprd10.prod.outlook.com (2603:10b6:8:347::19)
+ by SN7PR10MB7002.namprd10.prod.outlook.com (2603:10b6:806:344::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.9; Sat, 29 Aug
+ 2026 21:33:29 +0000
+Received: from DS3PR10MB997700.namprd10.prod.outlook.com
+ ([fe80::4c1c:3bb:c4c9:8e7a]) by DS3PR10MB997700.namprd10.prod.outlook.com
+ ([fe80::4c1c:3bb:c4c9:8e7a%6]) with mapi id 15.21.0382.007; Sat, 29 Aug 2026
+ 21:33:29 +0000
+Message-ID: <24f50ccf-4a9a-40b5-a1db-cc48a7acf556@oracle.com>
+Date: Sun, 30 Aug 2026 03:03:22 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 372/456] bpf: Preserve pointer state for commuted
+ arithmetic
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+        Vegard Nossum <vegard.nossum@oracle.com>
+Cc: patches@lists.linux.dev, Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>,
+        Daniel Wade <danjwade95@gmail.com>,
+        Shung-Hsi Yu <shung-hsi.yu@suse.com>,
+        Eduard Zingerman <eddyz87@gmail.com>, Sasha Levin <sashal@kernel.org>
+References: <20260817132539.792407575@linuxfoundation.org>
+ <20260817132554.044665534@linuxfoundation.org>
+Content-Language: en-US
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+In-Reply-To: <20260817132554.044665534@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0141.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:bf::21) To DS3PR10MB997700.namprd10.prod.outlook.com
+ (2603:10b6:8:347::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PR10MB997700:EE_|SN7PR10MB7002:EE_
+X-MS-Office365-Filtering-Correlation-Id: 055add1e-37a2-4fb7-4f60-08df06152b01
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10067099003|4143699003|56012099006|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ml7zxS56LKnw79MC5RXANFIkKpvuc7//pFJkByV5F7PLpb06yK/jJ9U2+yj8zmrUs0oCR8iMuaj0m6XMJSmcjAhoynP1d1mD3k1rtane8xUR7aCzbZw9pbt7M1v/dmSCvw85hd2e589pmSQ9HAz2YjdhBZ5r4PuTriMNBw6yxRmd6EslPWwz71TYCcBOxJ62c2Pbs+9ef1MSgudTa2x6njkY4KGrXV+qB0T2dAEgndVIW+Q1UHnPycJFv3CNaYaJtWY8EExXyVf6TkmNca4nQee70q2vVoX3Zo9styR3ln45c0ejVqaJr/mxo11X2SJsohgh4hDWPchXbRgeEw9vd9JtYWvtIrdbjXzrz0qf80brdSXMz8K1bbHbS/z0yrS6BNryLY0ammRXTyMe0bamtFb9ndrSb3FnpnG49WvWRzzBiW9ujtovivmM56duT8UmXV8yASrSRpcz62Ka3FGpCul6K8XLMYkO/nCdX9wXRGeucMh7PwBZNARxUcqewHSH3+cIhj3GfbFkEisWTzWRCQRlQRPmLOx5hdoUmEip+uy5eYCGTT7aJB1GvHkQKvjqKVl446MQ1Vtj8cMqYFMDilWl77lNU7J48dWj7wmdO1k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR10MB997700.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(4143699003)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWk4eXkxRU53S0lvNWF3dFVFNzFsRnNRSWJrUlNKaW5SZTZ3aGpCb1AxRFQ0?=
+ =?utf-8?B?Skw2akswdjRGQXVhZ1Z1UGRFV0h0ZkxkVTNLNmhJd2M4WElibGpjbUZjRy9D?=
+ =?utf-8?B?SDZPTFdERUszdlF2cVZ3YmZwTDFyQXNFa3JQa3NNc1ZyM3hvaHE4dGVwQ0RU?=
+ =?utf-8?B?YTFiZHBybUtXN3NOdGhYQ3hxbHhqbVVSZUJ2dnRsZW1EWk12UGVmMDZaZU1y?=
+ =?utf-8?B?cDRJRzlodTZXQzgrOTlyNUMxZmNNSmdTSmhra3E4UG8yMkthYUVFVGtXTlZt?=
+ =?utf-8?B?OE5QN3lTZXdhdndteWRaampLQjB5TXhqRVpuZWVHdkNyN2UzNHpMTGhxaDFx?=
+ =?utf-8?B?dHRuZ2dkM3FSYzEvbGtpUnpkT0gxMnF1L1cvcEowcmROSmdDMUcyMXk1MDh6?=
+ =?utf-8?B?YWYvNURqd3lST2FWejJmc1FDa05XUzR6Y0ttTFRmeWN1STlBdUxCK2JPMHdy?=
+ =?utf-8?B?aEw2MDB5M2FFSnNmQVV1Ri9wK2dMWFcvOTVjUVRFd3NqR2hpV3FaQWh6cU5F?=
+ =?utf-8?B?Tk1hWFkyNEFVY3habEE1QUhCY3JjTlByNzRxUWhLc0d6Z0lOZEJ5Y0FKTnIv?=
+ =?utf-8?B?UW9DT1JudHNDNENKMG5lcDZtbXY0b2RSWkhMTHdDRXRJWjR2YzhyTGgyT25B?=
+ =?utf-8?B?QWc2ZTlVV08vVG9mOHBEbmxHZzI1Vmo3RmorNFkyZHFFeGQvMlUzSHpPUVdh?=
+ =?utf-8?B?RFhSZUhaRVZ1ZnV2aXFSeGtsN0pVQjR2ZmxFYkh6dFVaNW5UL2k1SjBWMndX?=
+ =?utf-8?B?MWVJMGl4bCttd20rS21pQzhlend6c3AwNjVuTUxETlpONEQ5d05LVGQzR0lw?=
+ =?utf-8?B?MTA5L3dqamdaVm0yWTRKRllMVWhFc2NIYStsUnF3U2xJcGN1ZnRPQ1pIOUo3?=
+ =?utf-8?B?eGt2OFAyTFZuT29LWlErSFdmMXBLM1VoU3p0dHB0cWNHeHZSS3prbWtnRERr?=
+ =?utf-8?B?VHE2eFowU1pmMmx1MThyeFZNMER4ZjdZbmJXSVZjblZFZVkwRHdlTFpKTEpp?=
+ =?utf-8?B?ak0zb2NESWhyNEVoa3d2UFQ2eEU4SUpIUlcreUxaNFFZVjMrVksxdGRteHlX?=
+ =?utf-8?B?dms3ajNKOHdaQmdqVitFRUxCZElHb2NQdFdxakJTcHRxNk1ZUmVPdnExOEtr?=
+ =?utf-8?B?RlBiK2h2YjBoY3duRUNlZGJnOXdOWjdKcnJuKzNUTnh6ejNDaitKaTRTRFFX?=
+ =?utf-8?B?TlB0M0lJd01pRXJzSllrcDV1dytxVndPYmFEL3hUbWlHd0NLdlVrZzhSVnU2?=
+ =?utf-8?B?WGE4d1pHRmJEMEJ2UHpCR2Z2WnVwQkJnRGNGRnJYdURrS0dCZ203cTlsU1JR?=
+ =?utf-8?B?VEpaaU55QXZFYVlHTHJBUDcrTllYWUdhejBMeGQ4NmZieGpDUDNhbmxNc0Y2?=
+ =?utf-8?B?SjRXWDMwNnlQNUh5T2F3cGw3aUoybWNuU0JObzJROGVyNXJITnV0TTVJQkUz?=
+ =?utf-8?B?dThYMnJ0eFlSUWRmNWZzamxVWlhadnJBNlVacmFKMkEwbHNPRk1qMmRFNVJ0?=
+ =?utf-8?B?M3RRUVpoeXZJbWFsOXBseUdFeW13ZVBTamVTbzlwM2FHM1c0NVJVUGtoZTRz?=
+ =?utf-8?B?U1U3NEpvdkc3L2szR1ZOUEV6VVVKNEIyYWZVTllwTWpXTDBNZUhpMWN3ZXpp?=
+ =?utf-8?B?bUJBMUpxc3ZsMG9nbDhvYXFGR1hPRlpIcmNGS1o3MSszRHhONWpuMi9Celp6?=
+ =?utf-8?B?WFRjdVVKSnRPQkxJL3hRZHlHcG1INDVSVEN0R3I0Y3JWSkFNeEc0dnk2SkN5?=
+ =?utf-8?B?TERHMzVhQVJMc0xQNm1uTW9QQ2pKZ0IzL0poYVNOK2ZsOTJXWDMwR3lldHlP?=
+ =?utf-8?B?WXhIY3c4dG9VNjBKc1Rya3JCdU85TVpSc2hIbGNza1dtcHc1aGorWUV4clZM?=
+ =?utf-8?B?Y014eWpZUnd6K3JlcDdqTDF0b1AxT3g5UGY2YjFBQ1VUejhaVWhycCsyOUpm?=
+ =?utf-8?B?WjNub2JNNHErcE1WSlF1djRNK3JBSVRkR2pyZ0RzM2NVV0lqZW1VZW1pdFc0?=
+ =?utf-8?B?alRlQU1EdUR1Tkw1V0p1K0U2ckxmS3RxVUN3YTBYaVF4MkZRYlRaa1pyVkRa?=
+ =?utf-8?B?bWNWbHNZazdPTmU1bUIrRFhQYW0xZXJjZm5vVGM5c2Y3a1g2WFRFNUpvVmRG?=
+ =?utf-8?B?a1ozZk95eUE0MWRkVFo0cUJaeDB3clJyY3k1Y1ZOY1BqT09JV0ZGTUs4cjcx?=
+ =?utf-8?B?UWZhb0hiZnpoZ2Q3QVh6THpqZ05HeFpsdHExazhPQ0FSR2VWNzlSRzNsTTBl?=
+ =?utf-8?B?OFpvZzhaYnRWMGYxbnU5ZkdBQnFpb055OGNHdDVQWGdta21EdmlGenVxc1dX?=
+ =?utf-8?B?VVcrbUZ1VW9LZUNiZUs3eCtYcXZ0Vmw5dDBiVTBWelRueE1jUEk3aEx0SWlU?=
+ =?utf-8?Q?ACctHLsCcAk6vFuyUVj6BMFsfaymiMCzBe/3w?=
+X-Exchange-RoutingPolicyChecked:
+	UUpQg5ko8k76uC9KlNjzZu3uFBjw9iT/SRBI7KGhZc3Qo/L6f8n2Al6aypYvzJsq9Yq6wp91owGZJJkq9zKQWfGsrje+4GOe5oEuxzNr5z2Duzz0VEXMekil/WsRI/MDI9ZEhEew9Qf+Il8rN01FxtvpsdvClEVOUTJTpMSVkn9V51nAh3G6e6ywMRwbdTsnwa+dnFnN20ISFF5WX5WhHAmdA5p4VafcR7i7lxlYmPF9G0tTzGbzhaHrJV8JYQyM3bF9pqqAqG8T4koQ6SwnATDLGnFqDSQPnH3rQHxjGIt+VhhmoShowIOApjgNK/M4+aMXb2kz/0d52k8o3Hrt+Q==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	T/liX3+8IXbAZtVpjFMDctjsuADXuzW2Uz4Qf9dUnFggwwIo0a+CIPN2hNcdXV/d8epzXpiyhvYLCqE/CKr7+uHXhxS2NZDjaf65zPv1UyXFs03xVlzP9BI1TEcKuYZIB4q+AefHgepMlMnGx0hJP2Qa5CU9MkzRknjEkYALqDrUIZ0zilm54gXbbXhVjxGiCcYSGCejPCsHpGZsNlubyn8DaNUJzfABBhWL72u9yHGnGxcSgFuDkxiLMDxgojGt9bP6K9NVW27YQc135/dpz25C3q92RzEZbwUO8i08XR0KbNHD1znREby9i4uKCXxiBOpdH7ZE7aF4FXuaXLt7EnVRaTIi1y8v1BLBzMQOZQRmRubpnWp5tP5oesoz37LCQp4t2buFxOxrSbhM8s4UTq2MJ6C48G6Zj3Mw0l79ZBtUITIjriBQXXGXkDLwfcLtRzB2RuUjOYKtCQ6FFZurT3UVwhZ0ovCo4+ZrtdQBBNqLI3zx2cTzzPjmo/3CRi6PZ7Q7lEb+k8ixyeAxaHFW9TuNaLFbA12fGDW6K6dDNtpmuSvJl8GdHDNuviopPEmFB9cK7t9MeZvZz+VWvRekhwpI5Kxvoz9mR2VU2JHg/LA=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 055add1e-37a2-4fb7-4f60-08df06152b01
+X-MS-Exchange-CrossTenant-AuthSource: DS3PR10MB997700.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 21:33:29.6165
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T4UBcvaEYLIe3NQGIXvN6IkGZAM0dLm5UR8ZthWFSgDf5yWPLkHuhQCEaaBpuFD7Xw9gT6YBZLv/3rTuGqi0cR8NQaDINeUTojKUgbEJijVpx1chiTVqxS8rUjOiaOO5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB7002
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-29_06,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ mlxlogscore=999 spamscore=0 suspectscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2608290186
+X-Proofpoint-ORIG-GUID: qqgqp7ScjF08w6lj9oLABZ5xU9OLLFiD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE4NyBTYWx0ZWRfX03fr9++wo4jj
+ JiRFj7zgZYWdr8t0yUJJjwC1GOk4iCJ1hXeTcZtlM35B+f8V3J+4RbTPBRjdO4UDBNv5T7Jak4D
+ dqwvRduhpiB0rj88d7ziRaLb4Vh/VDmoZgd1+iI34z1v7VAeuFN6blgotZUgnOtTvRVMIsXAjuV
+ L2htjh1Q3Ab1D8wtT158fatRr3exPad98kJTyT4wFBQuWNnyXTIwuGPCLGGDwV1LTR9CKpM2zWJ
+ D/v2j198uXG48Ymd4AWdzsITZE2nXE4eMuDasye8Hx2ijQtQ7cpZcF3eoV+ZKjd4IrfKBFqtQeU
+ 036W1D96bmHbMBqRENlBoo6Kadrj3ZdBLQCDLOA7XxFOiVMRwIrujTv0/W7rshmFdlsiq++T+Yc
+ G17+Kpe1HXCg0pQseriE8WG+4ERMq+EXFBuMk3H4V2q2mp+S0pKN/fWO5JOluSsuntnUgpSQ3rA
+ OwbMVHOmW14FR39zqrgo0j9SCFR6WoXb8WTi1pys=
+X-Authority-Analysis: v=2.4 cv=Ebb4hvmC c=1 sm=1 tr=0 ts=6a93502f b=1 cx=c_pps
+ a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=bC-a23v3AAAA:8
+ a=pGLkceISAAAA:8 a=iox4zFpeAAAA:8 a=VwQbUJbxAAAA:8 a=xV0_5odhADDP_reDE2EA:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=WzC6qhA0u3u7Ye7llzcV:22
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12101
+X-Proofpoint-GUID: qqgqp7ScjF08w6lj9oLABZ5xU9OLLFiD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE4NyBTYWx0ZWRfX6HQkR9C5r/+z
+ TPoFRTX6fOnYhUtbWujULYPPQqwmTglxvKuE6KrEEcCXQwI7+//Lr0p0gtsWYYSsj5NL1RFOgIU
+ PZvo2dcHrLOPzmzWYNG6HlG4JWGtwQTat5zyk/dvQtOWLgzg9bdM
 
-mprotect() can be used to bypass the SELinux checks that mmap() performs
-against the intermediate layers of a stacked filesystem.
+Hi Greg/Sasha,
 
-mmap() checks every backing layer as the request descends through the
-stack.  mprotect() only has the lowest backing file in vma->vm_file, so it
-rechecks the top-level user and the lowest mounter, but skips the mounters
-of every layer in between.  With two nested overlayfs mounts and a policy
-denying mounter_t -> middle_file_t:file { execute }, a direct
-mmap(PROT_EXEC) is denied:
+On 17/08/26 7:02 pm, Greg Kroah-Hartman wrote:
+> 5.15-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>
+> 
+> [ Upstream commit a4c6f804b44c5c790269b25e0e61cf4e9f117c86 ]
+> 
+> When scalar += pointer is handled in adjust_ptr_min_max_vals(), the
+> destination register inherits the pointer state from the source pointer.
+> Copying only selected fields is fragile because pointer provenance is
+> tracked by several bpf_reg_state fields.
+> 
+> Use the caller's temporary offset register to preserve the scalar operand
+> while replacing the destination with the full pointer state. This preserves
+> the frame number for PTR_TO_STACK registers and keeps parent identity
+> fields consistent.
+> 
+> Fixes: f4d7e40a5b71 ("bpf: introduce function calls (verification)")
+> Signed-off-by: Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>
+> Tested-by: Daniel Wade <danjwade95@gmail.com>
+> Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+> Link: https://patch.msgid.link/20260729-c3-035-public-bpf-v4-v4-2-8ee297e2346b@mails.tsinghua.edu.cn
+> Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   kernel/bpf/verifier.c | 15 ++++++++-------
+>   1 file changed, 8 insertions(+), 7 deletions(-)
+> 
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 5e71d58e4a300..a0163090309a4 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -7388,11 +7388,12 @@ static int adjust_ptr_min_max_vals(struct bpf_verifier_env *env,
+>   		break;
+>   	}
+>   
+> -	/* In case of 'scalar += pointer', dst_reg inherits pointer type and id.
+> -	 * The id may be overwritten later if we create a new variable offset.
+> +	/* For 'scalar += pointer', dst_reg inherits the complete pointer
+> +	 * register state. Individual fields may be adjusted later by pointer
+> +	 * arithmetic. Callers guarantee that below does not overwrite off_reg.
+>   	 */
+> -	dst_reg->type = ptr_reg->type;
+> -	dst_reg->id = ptr_reg->id;
+> +	if (dst_reg != ptr_reg)
+> +		*dst_reg = *ptr_reg;
 
-  avc:  denied  { execute } for  pid=71 comm="nested_exec"
-    path="/payload" dev="overlay" ino=9
-    scontext=user_u:base_r:mounter_t
-    tcontext=user_u:object_r:middle_file_t tclass=file permissive=0
+^^^
+>   
+>   	if (!check_reg_sane_offset(env, off_reg, ptr_reg->type) ||
+>   	    !check_reg_sane_offset(env, ptr_reg, ptr_reg->type))
+> @@ -7460,7 +7461,7 @@ static int adjust_ptr_min_max_vals(struct bpf_verifier_env *env,
+>   		}
+>   		break;
+>   	case BPF_SUB:
+> -		if (dst_reg == off_reg) {
+> +		if (dst_reg != ptr_reg) {
+>   			/* scalar -= pointer.  Creates an unknown scalar */
+>   			verbose(env, "R%d tried to subtract pointer from scalar\n",
+>   				dst);
+> @@ -8319,8 +8320,8 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
+>   				err = mark_chain_precision(env, insn->dst_reg);
+>   				if (err)
+>   					return err;
+> -				return adjust_ptr_min_max_vals(env, insn,
+> -							       src_reg, dst_reg);
+> +				off_reg = *dst_reg;
+> +				return adjust_ptr_min_max_vals(env, insn, src_reg, &off_reg);
 
-while mmap(PROT_NONE) followed by mprotect(PROT_EXEC) succeeds.
+^^^
 
-Preserve each intermediate path, mounter SID and file-description SID in
-the backing-file security blob, copying the saved entries when another
-backing layer is opened.  Allocate the array only for nested backing files,
-and release it and the path references in the backing_file_free hook.
+I ran an AI-assisted backport review of 8109c25e0c41 and checked the
+finding against the 5.15 BPF verifier state model. The full
+pointer-state copy needs a branch-specific adaptation.
 
-During mprotect(), recheck fd { use } and the requested inode permissions
-for every saved mounter, and include the intermediate layers in the execmod
-checks.  Policy for nested stacking may then need to grant intermediate
-mounters what a direct mmap() already requires, and execmod on intermediate
-labels for binaries using text relocations.
+Current upstream no longer stores verifier liveness in bpf_reg_state;
+it has pointer-provenance fields such as parent_id and frameno.
+Upstream a4c6f804b44c can therefore use:
 
-Tested on arm64 QEMU with a small BusyBox initramfs and a purpose-built
-SELinux policy, on a mainline tree containing
-commit f2381b546e7e ("fs: fix user path of nested backing files").
+         if (dst_reg != ptr_reg)
+                 *dst_reg = *ptr_reg;
 
-Fixes: 82544d36b172 ("selinux: fix overlayfs mmap() and mprotect() access checks")
-Cc: <stable@vger.kernel.org>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- security/selinux/hooks.c          | 141 ++++++++++++++++++++++++++----
- security/selinux/include/objsec.h |   8 ++
- 2 files changed, 133 insertions(+), 16 deletions(-)
+The 5.15 bpf_reg_state still contains:
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 232b7e7bfcafd..b6750edcc4783 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -1674,26 +1674,32 @@ static int cred_has_capability(const struct cred *cred,
- 	return rc;
- }
- 
--/* Check whether a task has a particular permission to an inode.
--   The 'adp' parameter is optional and allows other audit
--   data to be passed (e.g. the dentry). */
--static int inode_has_perm(const struct cred *cred,
--			  struct inode *inode,
--			  u32 perms,
--			  struct common_audit_data *adp)
-+/*
-+ * Check whether a SID has a particular permission to an inode.  The 'adp'
-+ * parameter is optional and allows other audit data to be passed (e.g. the
-+ * dentry).
-+ */
-+static int inode_sid_has_perm(u32 sid, struct inode *inode, u32 perms,
-+			      struct common_audit_data *adp)
- {
- 	struct inode_security_struct *isec;
--	u32 sid;
- 
- 	if (unlikely(IS_PRIVATE(inode)))
- 		return 0;
- 
--	sid = cred_sid(cred);
- 	isec = selinux_inode(inode);
- 
- 	return avc_has_perm(sid, isec->sid, isec->sclass, perms, adp);
- }
- 
-+static int inode_has_perm(const struct cred *cred,
-+			  struct inode *inode,
-+			  u32 perms,
-+			  struct common_audit_data *adp)
-+{
-+	return inode_sid_has_perm(cred_sid(cred), inode, perms, adp);
-+}
-+
- /* Same as inode_has_perm, but pass explicit audit data containing
-    the dentry to help the auditing code to more easily generate the
-    pathname if needed. */
-@@ -3854,13 +3860,63 @@ static int selinux_backing_file_alloc(struct file *backing_file,
- 				      const struct file *user_file)
- {
- 	struct backing_file_security_struct *bfsec;
-+	const struct backing_file_security_struct *ubfsec;
-+	struct backing_file_security_layer *layer;
-+	u32 i;
- 
- 	bfsec = selinux_backing_file(backing_file);
- 	bfsec->uf_sid = selinux_file_user_sid(user_file);
-+	if (!(user_file->f_mode & FMODE_BACKING))
-+		return 0;
-+
-+	ubfsec = selinux_backing_file(user_file);
-+	/* a wrapped count would make kmalloc_array() return ZERO_SIZE_PTR */
-+	if (unlikely(ubfsec->layer_count == U32_MAX))
-+		return -EOVERFLOW;
-+
-+	/*
-+	 * The final VMA only retains the lowest backing file, so record the
-+	 * whole chain here rather than in the mmap hook, where concurrent
-+	 * mappings would have to be serialized.  Size it dynamically: erofs
-+	 * inode sharing adds a backing file without bumping s_stack_depth.
-+	 */
-+	bfsec->layers = kmalloc_array(ubfsec->layer_count + 1,
-+				      sizeof(*bfsec->layers), GFP_KERNEL);
-+	if (!bfsec->layers)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < ubfsec->layer_count; i++) {
-+		layer = &bfsec->layers[i];
-+		*layer = ubfsec->layers[i];
-+		path_get(&layer->path);
-+	}
-+
-+	/* f_path, not file_user_path(): this layer, not the top-level file */
-+	layer = &bfsec->layers[i];
-+	layer->path = user_file->f_path;
-+	layer->mounter_sid = cred_sid(user_file->f_cred);
-+	layer->fd_sid = selinux_file(user_file)->sid;
-+	path_get(&layer->path);
-+	bfsec->layer_count = ubfsec->layer_count + 1;
- 
- 	return 0;
- }
- 
-+static void selinux_backing_file_free(struct file *backing_file)
-+{
-+	struct backing_file_security_struct *bfsec;
-+
-+	/* security_backing_file_free() may be called twice after an error */
-+	if (!backing_file_security(backing_file))
-+		return;
-+
-+	bfsec = selinux_backing_file(backing_file);
-+	while (bfsec->layer_count)
-+		path_put(&bfsec->layers[--bfsec->layer_count].path);
-+	kfree(bfsec->layers);
-+	bfsec->layers = NULL;
-+}
-+
- /*
-  * Check whether a task has the ioctl permission and cmd
-  * operation to an inode.
-@@ -3978,6 +4034,53 @@ static int selinux_file_ioctl_compat(struct file *file, unsigned int cmd,
- 
- static int default_noexec __ro_after_init;
- 
-+static u32 file_map_prot_to_av(unsigned long prot, bool shared)
-+{
-+	u32 av = FILE__READ;
-+
-+	if (shared && (prot & PROT_WRITE))
-+		av |= FILE__WRITE;
-+	if (prot & PROT_EXEC)
-+		av |= FILE__EXECUTE;
-+
-+	return av;
-+}
-+
-+static int backing_mounters_has_perm(const struct file *file, u32 av)
-+{
-+	const struct backing_file_security_struct *bfsec;
-+	const struct backing_file_security_layer *layer;
-+	struct common_audit_data ad;
-+	struct inode *inode;
-+	u32 i;
-+	int rc;
-+
-+	if (WARN_ON_ONCE(!(file->f_mode & FMODE_BACKING)))
-+		return -EIO;
-+
-+	bfsec = selinux_backing_file(file);
-+	for (i = 0; i < bfsec->layer_count; i++) {
-+		layer = &bfsec->layers[i];
-+		inode = d_inode(layer->path.dentry);
-+
-+		ad.type = LSM_AUDIT_DATA_PATH;
-+		ad.u.path = layer->path;
-+
-+		if (layer->mounter_sid != layer->fd_sid) {
-+			rc = avc_has_perm(layer->mounter_sid, layer->fd_sid,
-+					  SECCLASS_FD, FD__USE, &ad);
-+			if (rc)
-+				return rc;
-+		}
-+
-+		rc = inode_sid_has_perm(layer->mounter_sid, inode, av, &ad);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	return 0;
-+}
-+
- static int __file_map_prot_check(const struct file *file, unsigned long prot,
- 				 bool shared, bool mounter_check,
- 				 bool bf_user_file)
-@@ -4011,14 +4114,10 @@ static int __file_map_prot_check(const struct file *file, unsigned long prot,
- 	if (file) {
- 		const struct cred *cred = mounter_check ?
- 				file->f_cred : current_cred();
--		/* "read" always possible, "write" only if shared */
--		u32 av = FILE__READ;
--		if (shared && prot_write)
--			av |= FILE__WRITE;
--		if (prot_exec)
--			av |= FILE__EXECUTE;
- 
--		return __file_has_perm(cred, file, av, bf_user_file);
-+		return __file_has_perm(cred, file,
-+				       file_map_prot_to_av(prot, shared),
-+				       bf_user_file);
- 	}
- 
- 	return 0;
-@@ -4113,6 +4212,7 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 	int rc;
- 	const struct cred *cred = current_cred();
- 	u32 sid = cred_sid(cred);
-+	u32 av;
- 	const struct file *file = vma->vm_file;
- 	bool backing_file;
- 	bool shared = vma->vm_flags & VM_SHARED;
-@@ -4156,6 +4256,10 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 			if (rc)
- 				return rc;
- 			if (backing_file) {
-+				rc = backing_mounters_has_perm(file,
-+							       FILE__EXECMOD);
-+				if (rc)
-+					return rc;
- 				rc = file_has_perm(file->f_cred, file,
- 						   FILE__EXECMOD);
- 				if (rc)
-@@ -4168,6 +4272,10 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
- 	if (rc)
- 		return rc;
- 	if (backing_file) {
-+		av = file_map_prot_to_av(prot, shared);
-+		rc = backing_mounters_has_perm(file, av);
-+		if (rc)
-+			return rc;
- 		rc = file_map_prot_check(file, prot, shared, true);
- 		if (rc)
- 			return rc;
-@@ -7642,6 +7750,7 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(file_permission, selinux_file_permission),
- 	LSM_HOOK_INIT(file_alloc_security, selinux_file_alloc_security),
- 	LSM_HOOK_INIT(backing_file_alloc, selinux_backing_file_alloc),
-+	LSM_HOOK_INIT(backing_file_free, selinux_backing_file_free),
- 	LSM_HOOK_INIT(file_ioctl, selinux_file_ioctl),
- 	LSM_HOOK_INIT(file_ioctl_compat, selinux_file_ioctl_compat),
- 	LSM_HOOK_INIT(mmap_file, selinux_mmap_file),
-diff --git a/security/selinux/include/objsec.h b/security/selinux/include/objsec.h
-index 853f7266ed189..2f21568251ffe 100644
---- a/security/selinux/include/objsec.h
-+++ b/security/selinux/include/objsec.h
-@@ -86,8 +86,16 @@ struct file_security_struct {
- 	u32 pseqno; /* Policy seqno at the time of file open */
- };
- 
-+struct backing_file_security_layer {
-+	struct path path; /* this layer's real path */
-+	u32 mounter_sid; /* SID of the mounter that opened it */
-+	u32 fd_sid; /* SID of its open file description */
-+};
-+
- struct backing_file_security_struct {
- 	u32 uf_sid; /* top-level user file fsec->sid */
-+	u32 layer_count; /* number of intermediate backing files */
-+	struct backing_file_security_layer *layers;
- };
- 
- struct superblock_security_struct {
--- 
-2.53.0
+         struct bpf_reg_state *parent;
+         enum bpf_reg_liveness live;
+
+and this branch already provides the intended copy helper from
+34ad5d8885f5 ("bpf: Fix to preserve reg parent/live fields when copying
+range info"):
+
+         copy_register_state(dst_reg, ptr_reg);
+
+8109c25e0c41 uses the raw assignment instead. It overwrites the
+destination register's parent/live lineage with the source pointer's
+liveness state, even though those fields track register history rather
+than pointer provenance on 5.15. That can make verifier liveness
+propagation and state pruning incorrect.
+
+Maybe we should replacing the raw assignment in 
+adjust_ptr_min_max_vals() with copy_register_state(dst_reg, ptr_reg) and 
+rerunning the verifier selftests.
+
+
+thanks,
+Harshit
+>   			}
+>   		} else if (ptr_reg) {
+>   			/* pointer += scalar */
 
