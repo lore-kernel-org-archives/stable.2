@@ -1,144 +1,92 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FAD3ABD80
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 18:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788028484; cv=pass; b=cqcnQdTEye/lNh80cEGbM5ITTViyZ2/JCJfS5nim0OnyNHV6KQ/ua6pNGUBHaxNQ0kbTRSdi7V9K3S7ZqTfcbMpSgeXy9p8fZgZmmm/4gCMAlU9qtAp974peGpC9r+kXpek3hA+JUT/NFTzRoG3gWOA0CHlvEa5JQiLBTA5KWPQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788028484; c=relaxed/simple;
-	bh=tW30C4gOY3Z4+diiNN9rry3cF4JPQrHbh8csErsc7Og=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nrx5oLczwpQf5Q0eWzCypsr7MgJDRk68z3l1xpFzXouxYMaGtVgt29CqNAYnDLiv5bDCApxnPb28NpdLbqT/gFTwMq+n2dnJHI8gY6re/RmiYmGjweX/Dx+n95YjzITbMFGRLNOOEariHP6qH0ftmF3ODplCHGjYfA/3ndiEb6Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i19xLT0X; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC413335091;
+	Sat, 29 Aug 2026 18:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788029512; cv=none; b=cKln6ShXQKvNRcTivtpPlnw3HkLHhro9MgOqa6ZEvhkcr26XoUZx77RRwScaUMfrLZnvhZgqKExQW0UM9Y8c9E7PztKCUuDsimVKaXKqXgT4EvaHQ7fwK/75NPX/w6UxOoGfQdfrzjwwjkyi5B0BNnGOPTfX2GXkRfmpFe1hvbg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788029512; c=relaxed/simple;
+	bh=Lnr0xoIIe8mBmFr02cK4zW5rfqJSEJ2lV75/O9dlbhU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AdnvRGSoHY9F6Sb50BHfsSPkxlJgeOhwwTWbKpSKtXhCl4OPQaAIbKWGCBMA+FJHHLyiHJebQzuCMWrUnNmpE1pJbqE6htAyYx+oshd7nRAVgVeiyo0d6eRLzoepXdOR48q1XAeontTsYSaY8qy6OBne46SUQ9YODkF4HuzmMsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=CLeTw5i5; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i19xLT0X"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69c600f76ccso2725579a12.0
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 11:34:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788028478; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RmBHz/d4u23d15nAekqcrHTXubApXDsU03VSeUrB5u+Sz3O2mbwlr6jQq2VASuNdsb
-         hCz35p7kRTxRn5wqdM7wt1uCYTvmO8nkz3QgDhrEbTSCsQqtTW31UP3Cw7yquC/flMM9
-         mmoqggmmoOmeaToQwfNjig5KiwBqXHteqI7IX7zQG5NDkCVMyZgqUfhQ9fePohUNWHiy
-         7Y/r3gQoZD1yYxO00rVzYj7+1nd//AUi5J3Ciy5i9yMplUAzLSkbg1V+VDZ7oqpqyi3u
-         g0L8X1zVu/I1qhDPQheAJf/usVAhwN+Xuu1WZqGswRV+kVaVn75aj6pCCAyuWSUbkpMJ
-         Mhmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GxySuSJTNKHJC/xfEjR8zEsk03gGnur0eoevwy4Hv20=;
-        fh=0quejsl8uWNQkQ5qy00iK5XDYCe9pNKduIavMwCsxDM=;
-        b=Bczw36WaWvIKs4dZ60NSgZb2AnqnHTptDe0wRz0e8WUOEhQMeCzXcdyq9yEuYWlws8
-         33jYVArH26zujbu4DBg1cehr76WkXC8prZjjY5tVmYfofUYcqTPOQ5rr41KWB24WEP93
-         fewVHRJ0r9aZ0R9/6EaPd5kl8dHeC/LSEvYV6relfffQck56LqKZDuYs2A964DcCiB6d
-         gD22sElJQlpPYHiWRwB8Rz9Gr/l2YH3XJiIyWZLo1X4teDUgBKUdm6hfZ615htDe+9Zv
-         wnHf9sKzURMF77FThxJvdRDYXZbR68/vGdg6Mn4xu4NGxn7EAvrm66Xcj30U+8QoHbYw
-         Y2uQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788028478; x=1788633278; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GxySuSJTNKHJC/xfEjR8zEsk03gGnur0eoevwy4Hv20=;
-        b=i19xLT0Xh9BkhSDiSkRINCsSCYVvwrMIGdY9NK18nGcAZUMX/jidc345gCROpBJjsZ
-         0mnL/sT02Yi6HuQFaAq6O8uHOv3pFggrdujFZJsKGlpJDbNCOJp9/4it9/D11mH2d3HU
-         e2frDE6aTIgWmzA/YmJ/6bKtgaDYZdgM2HtLwj/viWWBepYp4hoVyt7La2+ACXgTIzb6
-         tyqo/R88d4rUL97jQiPT/gkxzcFGvVegrv+pk3f8rlpa+ZGUnjtRdZf1yamMir0PyhqH
-         c2kyH5gRoW7DWMLf/kBJKRdcpTZ+Ded5eaU+8J1ikT5CaKp6DSNfYcmMG28qA0fsV7r5
-         YTqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788028478; x=1788633278;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GxySuSJTNKHJC/xfEjR8zEsk03gGnur0eoevwy4Hv20=;
-        b=gTsiIbe/rm9SnvqzNf1zWPnO8gy7lhagiRo0OGKfpMSuQAliu7dpI2OMDgC47rS93t
-         92YV4yEvk2xfnVrSQMRJqUFKjMfrNy8Uv6KqiuUUXi+VhXeI6XW5wAAs49DL2VMhyOo3
-         3vHgN/+j7zL57pS+yMFsTkZT5UmHUv+CaGC6SqCzVYUrGQ6dDAapz2Rqm6gVRWb+B5sE
-         xTPagL85OXu3xoA4EjwA1I2Es9v6JpscPSaQMQKv1KCCFeoWO821DUGYXFDOxgHvud2m
-         CoBzgDn3ZOZaiK4XY0fwyZr683z29P/EeJQtG/EJQ6gDn7J8APscRFI5kT0k6dO1Lfus
-         YhAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBhiuAveitrN4w6CIxuE0hjhzxlnsy5DRJD8UnJl/nlVNz+hDLcnkU7qYw+RqsP2EWfiH2rhE=@vger.kernel.org
-X-Gm-Message-State: AFuF++luO6JA2zDGxcA4eoUVW96hbpP8X/j+kmSMnIoSc+yZD61rqcAm
-	Lvpb0/OE5wsg8kb74mhhDsxAuG4zzzEQh+Zmle6k70URVxWa2ftAl3Ic0mp5HLPA381wZq0DlVZ
-	fsEOQKxsoPbXFozRV7BPIylYSvKNBiwbowyb20B0p0UQH
-X-Gm-Gg: AYBFou12VU7iYHmFyfIdtqZW/TI4PuLs9dHWDK9/4wJmxX4w2MB/dteQgPeR4xQ8drI
-	WmYlz8ESVF3yNZekKuOT+X+7WHZ7FGtt7EbBnbt/zBsSO0I2ag3PPZ3lumip6HSiKCKRo03U1dI
-	wv5sYISDlN/GZyDhsa124JDnTw28cuBEoHV6Zr4hmpYdVlx3C7t91LbJa/eTrLi4kNqkyPy5JHq
-	ozhFI3CafHkNMaRULTSD9uVDZCIWR/p8+bFsYHh9TQ/1nLwcBNdUm+Yf1lIX8DEZb13NsYGNLnf
-	r/a8vQ/gWKiKU4mArXD2qXj4c+koonOoVKNbEoucc4tV/x1Xqf75THmK/6H9UlcKUVb34NPXiGd
-	DMlw=
-X-Received: by 2002:a05:6402:5418:b0:698:663d:d7bd with SMTP id
- 4fb4d7f45d1cf-6a60d3b384dmr10419034a12.11.1788028478183; Sat, 29 Aug 2026
- 11:34:38 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="CLeTw5i5"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 539BE40E0377;
+	Sat, 29 Aug 2026 18:51:47 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id aucMWHzsGWSk; Sat, 29 Aug 2026 18:51:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788029497; bh=BjZBpwXh61Zg34YTjMfi+r2qrk6tlOIm/PzmccxuVvI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CLeTw5i5DTZMs08uq3JaXiURTG2XmSrvSZF0tWuOjRnWEmuQvcc6tEe4A/Yl7h+p7
+	 +Wn3J01doWBgt7isRHYb82tbgFnK1mdRK9p6pUn/VYCYjdX9jRtePYamQmB+IYNrjK
+	 ueM924sIyQbqNeGafH31Zd2FennB5QsAopwbWkcVszpa3Tc7NLNKb0+K5sKm/kjLUl
+	 3ElY7kXK1sKInuladrrP/ndI+lUyRs9Gb/ZjhEaLyy9H7kw9B20LJLL7FXqVkNb/Xm
+	 M+g3V94tXQqgBPuCHnveERi91TvejTQJIxuldh4I7UFVkmRz0qeQZx4yC9T0tnjy8E
+	 AzADIzwYZ2gVgTbE0U2L4w669zAaEurD4Q/ew0VF1hqn781+HjQPgiIRo0y6SVzVOn
+	 vk4Bn8Ed8QE5nhFoip0W4Hwm+ZzByQOh8P9R5NWV1ZDzqr/1y4GtmMSJv3KrCyCFik
+	 4cS0cmjwkgGbjE5X/ZWCPqVk+xtfpTWqcO10pQKe/PgZHv3c/mRUq0IsdwIZJ3AE6Q
+	 lb3TAfkFNIdUZun+kKXrEaaZSmEI63vv+KZYsHqAULYQfQ581PI9Kzi83dZ484S4Rh
+	 FjDZM+CtVuhY+IbNzxsBe5qlgUO7SKJbrxOsTDEWWVFeHpwqFfMAF8Z8CbXHWbBDlL
+	 fq6oJE4LSqgFFN34IogLwUYQ=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A2F3D40E014B;
+	Sat, 29 Aug 2026 18:51:24 +0000 (UTC)
+Date: Sat, 29 Aug 2026 11:51:20 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+Cc: Dave Hansen <dave.hansen@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD
+ F15h
+Message-ID: <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
+References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+ <3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.com>
+ <20260829174704.GAapMbGAZMwImcvIN7@fat_crate.local>
+ <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829164945.2691317-1-samuel.thibault@ens-lyon.org> <20260829164945.2691317-3-samuel.thibault@ens-lyon.org>
-In-Reply-To: <20260829164945.2691317-3-samuel.thibault@ens-lyon.org>
-From: Weiming Shi <thebestswings@gmail.com>
-Date: Sun, 30 Aug 2026 02:34:01 +0800
-X-Gm-Features: AcwNN1V9KtG8SrYpsXXYYxYM1PVbFmhtio5CYS_rfRmw3khsCuCHGO4aE8ypct8
-Message-ID: <CANgPUi3PnuhZUPzN-LwyviZAWbCiaZVF549shZ4JoR6GhC7Oig@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Fix NULL pointer dereference on VT switch + selection
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, kirk@reisers.ca, 
-	w.d.hubbs@gmail.com, co+e5693071d903b832@bugs.sh, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
 
-Samuel Thibault <samuel.thibault@ens-lyon.org> =E4=BA=8E2026=E5=B9=B48=E6=
-=9C=8830=E6=97=A5=E5=91=A8=E6=97=A5 00:49=E5=86=99=E9=81=93=EF=BC=9A
->
-> When selecting/pasting very quickly after VT switch, the tty is not set
-> yet, leading to a NULL dereference. We can just abort the operation.
->
-> Reported-by: co+e5693071d903b832@bugs.sh
-> Signed-off-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-> Cc: stable@vger.kernel.org
-> ---
->  drivers/accessibility/speakup/selection.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/accessibility/speakup/selection.c b/drivers/accessib=
-ility/speakup/selection.c
-> index 1713ce4e0ba5..a04a7e8c307b 100644
-> --- a/drivers/accessibility/speakup/selection.c
-> +++ b/drivers/accessibility/speakup/selection.c
-> @@ -61,6 +61,9 @@ static struct speakup_selection_work speakup_sel_work =
-=3D {
->
->  int speakup_set_selection(struct tty_struct *tty)
->  {
-> +       if (!tty)
-> +               return -ENODEV;
-> +
->         /* we get kref here first in order to avoid a subtle race when
->          * cancelling selection work. getting kref first establishes the
->          * invariant that if speakup_sel_work.tty is not NULL when
-> @@ -120,6 +123,9 @@ static struct speakup_selection_work speakup_paste_wo=
-rk =3D {
->
->  int speakup_paste_selection(struct tty_struct *tty)
->  {
-> +       if (!tty)
-> +               return -ENODEV;
-> +
->         tty_kref_get(tty);
->         if (cmpxchg(&speakup_paste_work.tty, NULL, tty)) {
->                 tty_kref_put(tty);
-> --
-> 2.47.3
->
->
+On Sat, Aug 29, 2026 at 08:15:40PM +0200, Laurent Wandrebeck wrote:
+> My homelab is indeed composed of 5 thinkcenter with a10-8770e, and
+> desktop has fx-8370e. Actually I hit that bug running 26.04/7.0 and
+> reproduced with 7.1, 7.2 so I dug a bit more and AI (I'm no kernel
+> hacker) proposed this patch. I'll happily test and report on whatever
+> you'll propose if that one does not fit. SSH+sudo access is possible too
+> if you want.
 
-Tested-by: Weiming Shi <bestswngs@gmail.com>
+Thanks, just please do not send HTML mails and put your reply under the text
+you're referring to when you reply. Like I just did.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
