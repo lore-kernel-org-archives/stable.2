@@ -1,63 +1,63 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093BB38F930
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 08:12:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF612D9ECB
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 08:12:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787991169; cv=none; b=JlCAQW7Ni+SQ+PMBIjZST8eZQi8NcASxK70swd/BxrKveBOQB3iYF1hc8PeIYT0AUG2Q0ACYWlrIWhQsmdxmS1oK0z27kcEFJyKH6OWCloXKR1KSrzK7THRX6NmgUHbvKo9ejVSmpXykZndvNydXqn4hPl8QdcOAwajmP+vNJ4g=
+	t=1787991172; cv=none; b=hhKpHe1Cd+v9ve/8DXXnD0tYn2Ubxyrb+R5t2aJJBt8GMuVlAYFy2m3fr7XvPKWmpBzNXW4L5eIDSnw8todVUvziZnI2ym6ghyaBx7RKtQKFs7Qbt3nlVoFACTUuusqqR4Moa2VHnjZfFATlCxy6r0wpAnqVCXqFwB5JijJHtE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787991169; c=relaxed/simple;
-	bh=BNvdFc28OirNme4nOiVVSm2N77c4+Bdl5E11EpJUi04=;
+	s=arc-20240116; t=1787991172; c=relaxed/simple;
+	bh=quY2v/bxKM12diO99BUeH4YNwCXkhOs+d0lDHqZyEAM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n6mo1UOVatgmZMHa7mfspr7IAqr5z+lH75EwqYJweskkBGeneAp9d3X1oEKiA55OpPfHOySec5Hm4LwQ3hNA/NDbTTkH1wiFvewYIbgSTK8A0DB84l71JDrfxFsWIOhUzOjyNeyBc85tgQVhHTvkNdHOsZRVoSOZSBsZplpIPIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=Sbt1qy00; arc=none smtp.client-ip=209.85.222.178
+	 MIME-Version:Content-Type; b=BVgyPXbAdA5qtDi3L/yjvLY6w7wS/ZHQJQLyCN8wgY5sZqVy3RYqSeVN/HQ/VAoZ9cPuLQ8+jOxRdENa5zfG4nPJx5jhzP45T7EzL8BlfTupPweaRF+yd86mqJ3Ytvt1yTib0+wUnn5C7D3lrI0shoug2mjBe4BGAnDHaU82lXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=ObHqJsU+; arc=none smtp.client-ip=209.85.219.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="Sbt1qy00"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-92edb12cdf2so117829085a.3
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 01:12:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="ObHqJsU+"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90c522298d2so22177536d6.2
+        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 01:12:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1787991167; x=1788595967; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1787991170; x=1788595970; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fgwAcg2QIz2kJViuMyXUOwt7mGNsxAiO6To1hWCAJdQ=;
-        b=Sbt1qy00QaANYG63qlkFr0IKMnRoChwc4op7Qp86DxNWwjYc02ris+GjnjWC0Vnlun
-         thFlZs7KSaAcH3++E1Sd7fJGsqd0EE5j76V0sL16lrMpjj2VXIzoEtxXf0xXjPBDnQdF
-         wbIyA0x+E4B5MDtkF4LD7CUMmTx4cWOKh1u98=
+        bh=8mUybPresjzuEz0a7d65wBNDKIGpxh5TFrub1P9rfiQ=;
+        b=ObHqJsU+wpNl9WM1iVhF5VLf4YoonbZZDche3jw6vgC9A2SLZ/bPo7CEY5qbQr0TKd
+         Mfp0kxZlxGoUQP1IE89HQauL4FLpa/YkBgNpcDfKUxrzSEIOeNrLJ08YtBupyO6DqQ1q
+         9T4Cct93afLUYUmeDh7kb+gmXa1UEN+Y7UmMc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787991167; x=1788595967;
+        d=1e100.net; s=20251104; t=1787991170; x=1788595970;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fgwAcg2QIz2kJViuMyXUOwt7mGNsxAiO6To1hWCAJdQ=;
-        b=sb2NAq266OtcESZHe5pT18Ggigwuf9T3M8eLzkZ/UzgOsS5daGHFqIg4eCptgTfan+
-         /9PYx60BI9vkLyHEy1v8+VsR/q98vOcGlPwqYTAq/lUaZA1iGqiJS0zefXFw9qyMd5EQ
-         fr9jsyQk3A4rwxKtcVJNe67UyF9MlwQ1c6eVxOPJ2MgSOlo/JOn0e6ROLEOAUzfm/qIm
-         AupXUUH5FCGh0QZ+teM32q64+WoBXv+yvq6XeSLXd0CCKf3OKPhcVyieUEi3O/xIc0cH
-         DlPf6IY2zYEPMuDaDqqxjyrUG+DKLRAF2ZHj8Dis6wIBk+2geDSpJXmRgjTsd2AGzxZs
-         mKAQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrat3J1mpQnpLfr2NHZZhSVBqgqsxKqlNgbR75/AcFBewjNFTZkV53AnO+j7zmW64K5Zhju7yo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkWx0S3YPMGpwB//azqlRLc3ykokCvpK7SRhqU6kDW8WXxHwSZ
-	DBYmKoKohjCdA0lgF3LWOBMudr/wt8hvj/HYHJqwer18zUdQWkVYL20N3QPEs6Gucw==
-X-Gm-Gg: AR+sD12Op3jryJH0vP3/PJgxFKYglj/oKN6ZD3UBsN6DTZmzt6v5KAOARheM2RSlMj2
-	JmMUpuuCZkox5jyRFADZ3R11AnuXdHmwAaTpSaNsFRw/2156rz9rJ7Th1t2Sv/im73XuOub/V6A
-	uuj4+pmlo/Y9aojw5XCP2pbmtt/AZXpb6YDm/PAbsBuh5/yViGYqi0JnFa3Hf4lwuYa03gz/yF0
-	f/9x+biV4YnOM57Nf7EkGewTPLVN0EpSS0lla7I0R7bEHUYk+cFO+O0rOkqMvHzajNdVd3s62+k
-	3lrDv3x0LoWNIhfLzfEeti3sTa+fZvZGyOnyvHsE5viRE5mgtlsRrYZaho1OtRMyR5qeKD+rgEW
-	TRUHQzm2UAc6s5lARFFgn1TEZCWy6qwZrU9hEDk6DH0nyIc5eqRPB3B0edkp/V2l+gLGOoA5Saz
-	NDpElFvUaBsygWb3GUle9i5y7BP/KTBPCDi9uRG/nI423uhTkUC3xIIQH6+i1P8hsUKFayCV6tO
-	IUIoBJLdTBq60xKJoBQvSs6lv8qSr9l5F5egpq/EHcQ+05LNtUiVpiTvl1uSCsIBaFmpnWrfA/K
-	pSIANUFEoJBKV0N6veGD4QSxaAE=
-X-Received: by 2002:a05:620a:371b:b0:939:820:2e71 with SMTP id af79cd13be357-93913904558mr1311203185a.33.1787991166842;
-        Sat, 29 Aug 2026 01:12:46 -0700 (PDT)
+        bh=8mUybPresjzuEz0a7d65wBNDKIGpxh5TFrub1P9rfiQ=;
+        b=UH299QabNk4585id6cyGd9/QCmcYUk8CCnoCmIbj2UOpfqsu//yD5naM0bNV0crzVc
+         uy918wG1biM9f95NnHrxIhIjT2fx6kRnHhF8+mi7gQkFbvnpCh3jM94Sw2ISLqDXE+Yx
+         g6Kk5NWV5Nblj1boLqxjijkebkjSIxCDiYWern8h8Vh+9f5RgFX1uVujjXXORtqrF7eF
+         pg+gMy9eDpP5mg2aRFAv88KdWGBSA42i8imrFNKejb7YYU+YEHqkNqfxaTNB3X2F0EAD
+         8rMlJY4raIM6XLUtZN9h83df8lzlJnKfAVDZbkm8UHjB3bTn2h48wBR5ijIQvX6eqf70
+         XFRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rre5+T0NfCFYtJgWJro88+2VrGlnNp3E4cqBX53Qv1zN8GHIOkRjuyk2//lE67mCb+9kHxXT3g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nptw99sBDVLWx/t4VL5kmWAG0AtFOldrEM9DCvV52x6hsbJYxW
+	OsjjSdsL5gCBzzEh388PutyzNew0+XG6WkI3Q4y/pynKxeghl+vhv8ah8W1yaNTFIQ==
+X-Gm-Gg: AR+sD13U+b55y+cgnlk2bPTnzBC3EGqOYdenD0YWFhhIZ324i38vLx0y+gBVj6wLfsI
+	cmw+Oc3H9lTna8unQIIJJl4poB+MlniDGuGph3tMneUv4rCCwioImCyI9kRDfYi4D4iDwU+xWGG
+	ucj8wkvFIDTDUlZmuM/NlC9qGeaoroxBMOX9kxBY4cviDU4xheS1oFuCmxOUEDwN893klPfReiL
+	96GtUmbeHQShhQQ/36x+5wzwnFaGeWY79qIMv5XZ/MBlGkD3ayE8SsA+RKPU1eLkaQwUEUAON+E
+	mPIH4HYzWth+q9xLYrm/Za0S0OkpBffhC819m3ZsWUkpyoQw7/IPMKWBabNHg+xxrNXM7LHfHLh
+	66T8CTQ7qxUbl8+QT35gpwbxVUSpJPkZQJTepPh6spRMmFLaRImyMrlsGHAZ2R/PaCTKIhL87Bk
+	3mMr9e0GE8OdNGWlu1rKUSlju6Vv8q/qBkkfNz/QQGDk+QAj2SNKhMETXh5RbJQGM5bfhRSUenc
+	lk7H5dYnUccjGat4vXBEOOlxybU7tDuYZpmRAD1L5aNwVGUIADIMyl+cR5Xlo7YD9peoxhFQ3L7
+	rVdUDVu/zoQ19Q0WWhZNusjlm6Q=
+X-Received: by 2002:a05:620a:379e:b0:939:9b9:c121 with SMTP id af79cd13be357-9391385e9camr1004133485a.28.1787991164986;
+        Sat, 29 Aug 2026 01:12:44 -0700 (PDT)
 Received: from majuu.waya (bras-base-kntaon1621w-grc-04-184-144-29-222.dsl.bell.ca. [184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917014c56sm325358385a.10.2026.08.29.01.12.45
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917014c56sm325358385a.10.2026.08.29.01.12.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 01:12:46 -0700 (PDT)
+        Sat, 29 Aug 2026 01:12:44 -0700 (PDT)
 From: Jamal Hadi Salim <jhs@mojatatu.com>
 To: netdev@vger.kernel.org
 Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
@@ -74,9 +74,9 @@ Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
 	chia-yu.chang@nokia-bell-labs.com,
 	subramanian.vijay@gmail.com,
 	petrm@nvidia.com
-Subject: [PATCH net v2 3/8] net/sched: sfq: clamp quantum in change path
-Date: Sat, 29 Aug 2026 04:12:24 -0400
-Message-Id: <20260829081229.81708-4-jhs@mojatatu.com>
+Subject: [PATCH net v2 2/8] net/sched: fq_pie: clamp quantum in change path
+Date: Sat, 29 Aug 2026 04:12:23 -0400
+Message-Id: <20260829081229.81708-3-jhs@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260829081229.81708-1-jhs@mojatatu.com>
 References: <all>
@@ -90,56 +90,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-sfq_change() accepts any non-negative quantum (only rejects
-(int)ctl->quantum < 0). With a crafted size table qdisc_pkt_len reaches
-~2 GiB, so quantum=1 makes the deficit-refill loop spin ~2^31 times
-under the qdisc lock (a soft lockup / denial of service).
+fq_pie_change() accepts any quantum value from userspace, including 1.
+With a crafted size table qdisc_pkt_len reaches ~2 GiB, so quantum=1
+makes the deficit-refill loop spin ~2^31 times under the qdisc lock
+(a soft lockup / denial of service).
 
-Add max(256U, ...) matching fq_codel_change(). Reject quantum > 1<<20
-with -EINVAL, matching fq_codel_change() and the init clamp.
+Add max(256U, ...) matching fq_codel_change().
 
 Conditions to recreate the bug:
-  CONFIG_NET_SCH_SFQ=y. Requires CAP_NET_ADMIN (namespace-local via
+  CONFIG_NET_SCH_FQ_PIE=y. Requires CAP_NET_ADMIN (namespace-local via
   unshare -Urn suffices).
 
-  tc qdisc add dev dummy0 root sfq
-  tc qdisc change dev dummy0 root sfq quantum 1 stab data 32768 size_log 15 cell_log 0
+  tc qdisc add dev dummy0 root fq_pie
+  tc qdisc change dev dummy0 root fq_pie quantum 1 stab data 32768 size_log 15 cell_log 0
 
-Fixes: e4650d7ae425 ("net_sched: sch_sfq: handle bigger packets")
+Fixes: ec97ecf1ebe4 ("net: sched: add Flow Queue PIE packet scheduler")
 Reported-by: vega@nebusec.ai
 Reviewed-by: Toke Høiland-Jørgensen <toke@redhat.com>
 Tested-by: Victor Nogueira <victor@mojatatu.com>
 Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 Cc: stable@vger.kernel.org
 ---
- net/sched/sch_sfq.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/sched/sch_fq_pie.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/sched/sch_sfq.c b/net/sched/sch_sfq.c
-index 187d3ed578f2..8bbcfc9e85d9 100644
---- a/net/sched/sch_sfq.c
-+++ b/net/sched/sch_sfq.c
-@@ -660,6 +660,11 @@ static int sfq_change(struct Qdisc *sch, struct nlattr *opt,
- 		return -EINVAL;
- 	}
+diff --git a/net/sched/sch_fq_pie.c b/net/sched/sch_fq_pie.c
+index b27d95418707..5982847df8f8 100644
+--- a/net/sched/sch_fq_pie.c
++++ b/net/sched/sch_fq_pie.c
+@@ -341,7 +341,8 @@ static int fq_pie_change(struct Qdisc *sch, struct nlattr *opt,
+ 			   nla_get_u32(tb[TCA_FQ_PIE_BETA]));
  
-+	if (ctl->quantum > 1 << 20) {
-+		NL_SET_ERR_MSG_MOD(extack, "quantum too large");
-+		return -EINVAL;
-+	}
-+
- 	if (ctl->perturb_period < 0 ||
- 	    ctl->perturb_period > INT_MAX / HZ) {
- 		NL_SET_ERR_MSG_MOD(extack, "invalid perturb period");
-@@ -688,7 +693,7 @@ static int sfq_change(struct Qdisc *sch, struct nlattr *opt,
+ 	if (tb[TCA_FQ_PIE_QUANTUM])
+-		WRITE_ONCE(q->quantum, nla_get_u32(tb[TCA_FQ_PIE_QUANTUM]));
++		WRITE_ONCE(q->quantum,
++			   max(256U, nla_get_u32(tb[TCA_FQ_PIE_QUANTUM])));
  
- 	/* update and validate configuration */
- 	if (ctl->quantum)
--		quantum = ctl->quantum;
-+		quantum = max(256U, ctl->quantum);
- 	if (ctl->flows)
- 		maxflows = min_t(u32, ctl->flows, SFQ_MAX_FLOWS);
- 	if (ctl->divisor) {
+ 	if (tb[TCA_FQ_PIE_MEMORY_LIMIT])
+ 		WRITE_ONCE(q->memory_limit,
 -- 
 2.43.0
 
