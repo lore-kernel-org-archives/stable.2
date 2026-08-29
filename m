@@ -1,91 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E5F816F288;
-	Sat, 29 Aug 2026 01:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36682EEE91;
+	Sat, 29 Aug 2026 01:36:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787966975; cv=none; b=nXqZao0y3EO8s8sjRmp41MnxaLPloacCh4z4NXsSaY7o7jBEpNq0d80587ZRX6LyUO75EPYApnfEMh+zo8XGgSaLTF0UoNeIFGnV+CknnsaxuTxX2ntYY5ik/MbBhuBYjs/lV+V/N9KE7BslZi8cddFm5QUXn2BhmzQza658/A8=
+	t=1787967420; cv=none; b=RCv59uczLBl/jqe+Q/Yi3gIvmfmPqYi0DS5TDkfCnnhp6s5O0Qa7QN60ZwK4TUgVkizNqM7GnurTsk7D4fsYZYauPR3O5E7PoBSIEaPoC9f0eeZM8iU36xmboi9VOH0ErWSL/Ij7bLx8lB32k+wHBluxWK6Z3le3+BSsnUYkRd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787966975; c=relaxed/simple;
-	bh=fKRcyFcyHKFbk+UYZrpXsvckb8il91988v/zAh+Ph5A=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=iciGbGXnNzBNjYtWdzf0V6ezyq2rnLXBkBHVo8cjWVohL9s6Umxo7ThRUk5IP1wB5jbbWMTzXEzWI4G+SxzUWqgZe/l/zaKfbaV/KkxmSIX7sJSK5k9rhCZlhfp3GPd9F+Yri/IZd1QYdJkQuOy8pOneqE6TplwxJAfH90JPvS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HiX3f7UE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787967420; c=relaxed/simple;
+	bh=katZUr6+yF7b2HTv2jkIb7ULQbV16Nnzg5UU5WHdbfw=;
+	h=To:Cc:Subject:From:In-Reply-To:Message-ID:References:Date:
+	 MIME-Version:Content-Type; b=qzsuO9jUpDm32qBw9RlJQhafq1HZY+iOjpgQs2XudmMwHWMgqn/3+SHhFIZJXNANYZhuTfjaq7X8kt54WSRSJdhxpZ87ykifFQVs2cEml8VvVlxVGclg2QEhapIxVeVO9dqA6G0RDzsSAlHp8FsmIrcNKfybciOIzH/ofvk9tUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gt4f3IOD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HiX3f7UE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473A21F000E9;
-	Sat, 29 Aug 2026 01:29:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787966973;
-	bh=As5WzZ21e2lE9qQzcY6pB/XU8R4yuk56z+VgIeeRdPw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HiX3f7UEQ6C8SnqLgz+pze4w+flhncZZJ+hrrW1e2fhGWobXBunQRoT5Ze0cPRwpH
-	 /9Xvu0b5vTlF16HB2AVvL2GEySXbbh+Q/7oRcfp7o32NWpobNyUyajlq4nZeO7GTlf
-	 QQxuO5cU0J8QywTc4nEPLFIibz+xSKHwaqbPODKQ=
-Date: Fri, 28 Aug 2026 18:29:32 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: James Houghton <jthoughton@google.com>
-Cc: Lance Yang <lance.yang@linux.dev>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, liam@infradead.org, Nico Pache
- <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain
- <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Usama Arif
- <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, zokeefe@google.com,
- hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/khugepaged: Don't install PMDs in
- uffd-minor-registered VMAs
-Message-Id: <20260828182932.96529e36e992740eb8132185@linux-foundation.org>
-In-Reply-To: <CADrL8HVzfEXgE9OQfULhe6wh1kMMOALsYuCNOUkgBqtzk_LUVg@mail.gmail.com>
-References: <20260828222640.1638457-1-jthoughton@google.com>
-	<20260828173302.29778f1bf802a1db932778ad@linux-foundation.org>
-	<CADrL8HVzfEXgE9OQfULhe6wh1kMMOALsYuCNOUkgBqtzk_LUVg@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gt4f3IOD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C2F1F000E9;
+	Sat, 29 Aug 2026 01:36:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787967419;
+	bh=oCbFk4XmjAKOD7UIbVFDdzWsCAjhAN7hz6x9575oE1s=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=gt4f3IOD4IuwUVuw6mVnQuY2s4yMXsjAC/HAtJobBotIzqQ4VS5PbIKErIfMiI5/J
+	 BvamN3m+EtkapmP5opnd5r49QeqG8DqUIZqRg9mZONFQE+U23vKemBjYI15ThNXi3J
+	 uyDGiUQQnskKj/8tx/ECPec7hSkR6StbrxIbeJrblfnQ9ETSxoz23NUI0qu5LnbQxq
+	 pZ8q5EQTL2SEFHuLSXJWw0yIsYDdzpR6a3SN83zB5bLEHaz+nTM4z4zxYTSVNHJgyg
+	 Hp192B+Ddkd79NBjuajBeB7xhMDgNOm0+lCSj0RBr6CYfEBz9RY3wrsS+YmUFPLzv+
+	 tJda+9BxNCtiQ==
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Jack Wang <jinpu.wang@cloud.ionos.com>,  "James E . J . Bottomley"
+ <James.Bottomley@HansenPartnership.com>,  "Martin K . Petersen"
+ <martin.petersen@oracle.com>,  linux-scsi@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org,  Jianhao Xu
+ <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] scsi: pm8001: use rollback index when freeing MSI-X
+ vectors
+From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
+In-Reply-To: <20260824113618.2239100-1-runyu.xiao@seu.edu.cn> (Runyu Xiao's
+	message of "Mon, 24 Aug 2026 19:36:18 +0800")
+Message-ID: <yq1ik4tk8r6.fsf@mail.kernel.org>
+References: <20260824113618.2239100-1-runyu.xiao@seu.edu.cn>
+Date: Fri, 28 Aug 2026 21:36:57 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain
 
-On Fri, 28 Aug 2026 18:09:39 -0700 James Houghton <jthoughton@google.com> wrote:
 
-> [lots of good stuff]
+Runyu,
+
+> pm8001_request_msix() unwinds previously registered handlers with
+> free_irq() when request_irq() fails. The rollback loop uses the
+> failing index i for every iteration instead of the already registered
+> vector index j.
 >
+> That passes the wrong IRQ/dev_id pair to free_irq() and leaves the
+> earlier handlers installed. Use j for both pci_irq_vector() and the
+> matching irq_vector entry in the rollback loop.
 
-OK, thanks.
+Applied to 7.3/scsi-staging, thanks!
 
-> >
-> > > Suggested-by: Lance Yang <lance.yang@linux.dev>
-> > > Tested-by: Lance Yang <lance.yang@linux.dev>
-> >
-> > Wondering what Lance tested.  Was he able to reproduce the bug?
-> 
-> I assume he just re-ran my repro, but yeah I'm not sure, heh. Lance,
-> what did you test?
-
-Wait, there was a reproducer?
-
-Oh yeah, found it.  You changed the patch Subject: between versions,
-dangnabbit.
-
-I asked Gemini to write me a reproducer and it basically said "sorry
-andrew, I can't do that".  ChatGPT was much more accommodating but
-after a few iterations it was still pretty mind-bending.  I came away
-thinking "nobody has ever hit this".
-
-But that's not the point.  Now that it's out there and known about,
-Black Hats might be working away to find and utilize a reproducer, so
-yes, we backport it.
-
-> > Sashiko might have found another race in there:
-> >
-> >         https://sashiko.dev/#/patchset/20260828222640.1638457-1-jthoughton@google.com
-> 
-> Let me get back to you on this. Best case, I'll send another
-> (separate) patch. :)
-
-Great, another patch ;)
+-- 
+Martin K. Petersen
