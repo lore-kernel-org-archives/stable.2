@@ -1,150 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2D2149DF1;
-	Sat, 29 Aug 2026 00:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A884231E83B
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 01:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787963653; cv=none; b=HP4ibvoUMdfILmLWyhCKqA1hL/yEjVVaiN6UNzx/HiyqSrRhRy19Qze2RlY12CDIBekSq3D3JTOVIyVR7fyeMuWFfyuzh84W304Lzp1udPBc3xFV04Uh8Jf4OeU3n6/4OWIdkyBZCUbkAa5LTh1O2GDfolmjlEvnkJPkpbW2GWU=
+	t=1787965472; cv=none; b=Pa+KbzUCohms+DL4aG6usCKQbF3536BtOf0I4ySZfk7rhcrnpIouIr55iClnCovY/RNNIzxTuD7H6cTWfDT0bx/HTKI99rTyTDJEuKYLfwslvqRoNU7XYiO1WTKCVs/2anAPmvym7WkruDBqBhoM2bNQyz44M8aXyJYHBtawDDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787963653; c=relaxed/simple;
-	bh=s9wOJv5dJWhnxMAHkHNRmdEP9raMWIH6tvOa9iEKluw=;
-	h=Date:To:From:Subject:Message-Id; b=GuaAPytTIziSkWpy4+ijJGWIrwQgW/dbJrzYNLBMyg/IPbbQVS7COecWT7IgfNW7SYD+mkPzpH5Mn/ViLv2+SOQiG9O7s8iMW6/E5nHqID+ixxHmIqV2lSUrd4xBHM5FTGFE+4x8es9HdO/MAsngteJMb9bQ7zvLwUbm9hZkulI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=LOXSAE28; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787965472; c=relaxed/simple;
+	bh=8YWpV4BxrKzVyIl/iwj/YMPjck27je3e2lc5dcgDYFU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sy+V6I9iTD7fW588LnyX0yjl5bpC/19heB3/5JDYEuq2pqll8UaRmrz74T8QVBUHEtFvHlp1Z+DfQWoMmA6OZqosYTkyCfQUNOVyewIulvuCFwl9Mt805WlpfEq8Mq1KHEJomEej65vYHksn3loXny/4jpUB81EfD1VRhIodH7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X6I+F1f4; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="LOXSAE28"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014151F000E9;
-	Sat, 29 Aug 2026 00:34:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X6I+F1f4"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c96c92c0980so1094559a12.3
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 18:04:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1787963652;
-	bh=24Fn+Nqnz50wFBBOOvyTcomEshFsKwXbErgU6etUu2I=;
-	h=Date:To:From:Subject;
-	b=LOXSAE28qSlJ6SX7ZLCOqzbnn752QOKgh3UiFKbXR9fdb/4lXnM+M4GLNjOCf21DW
-	 0NSbl2aos3H/8BnDv5Tk8HhwwD6MiIZ7tvuHoA51n0Mnmw2wzqBtXF81BeaK0akd4F
-	 Ph2sTXAPg6ZQKak17tRNoJZgVCeKxrYCGHPghNo4=
-Date: Fri, 28 Aug 2026 17:34:11 -0700
-To: mm-commits@vger.kernel.org,zokeefe@google.com,ziy@nvidia.com,stable@vger.kernel.org,shy828301@gmail.com,ryan.roberts@arm.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,hughd@google.com,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,jthoughton@google.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-khugepaged-dont-install-pmds-in-uffd-minor-registered-vmas.patch added to mm-new branch
-Message-Id: <20260829003412.014151F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1787965470; x=1788570270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=whJWdgZLbjtRSnzZmPCdoj842hOmWmmPzuhg02zkVIw=;
+        b=X6I+F1f4Y1yuquyP9TKTplvq14zi0U7Xcf/4iFkEw05pOLcGh64YQCKIKxBBmHVUA0
+         pUjMhPGmlLkzqdr/aGrNT4OpvXCxK6RQLRmaiz/BOBPjdr9dEUUIVEN9ZAcU/rZ4UNep
+         eroO57JaIaFo6l30iYkIg4iIvU+ti9J4kYIRHGUibMT898OzYHUeLfYs+NCb+08jXhzK
+         M02joZsnhI9zfniE5mOQWfwdpogxo+rAGZ2pAlFA+gp9qIJGC4qRT5qgjho3v76xxDkQ
+         pUk4ywZCB8IUE3k/RsV7pIS7G3NVOn+xJoeuheLyYpGa407Xk5jfEUYTzvyaERMY4sKl
+         uxbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787965470; x=1788570270;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=whJWdgZLbjtRSnzZmPCdoj842hOmWmmPzuhg02zkVIw=;
+        b=ZmUc47huFoHgfWIjVOoB9o6d50caJkAvmcmaxs2f+QgzRzMP+xd0X6L+FFkOf9PRxq
+         7GwhT6Gc2/5nfxjT5Yl3z1w+zjDwEruf2xmHpx2ACDG1lIL9QwJ8nMsdjBo33noak8KW
+         xvLme8qhMEYAlBp5EBPnunPAqQNShCGwb/ImrXf+PiXeRbpIUuDe550ohVshQhNy9CZe
+         i5UB1A/4ev8iw8BkMqOh0DJ7np0bqhXc59ZyQl6lAzq5ptocDkPsuDsWByonaerJ9LYX
+         Rqxpv+IBPRULeAwe+uiJzxbMMpQJbC6bI9zPOXCRn8K+FJvb3cWaHkWRxnzwGyWYhmV+
+         eupg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMz6pUbVrT0DiDaN6dpFAiFnLtKhQVFgLJbNhS5UGI96WcP09LEkRoPMPhWRfnsNgfSwXc3WE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPR1hWgzXvAz4dmPo8EuzK5CQeGFBF2ETsx9Ui2GHsZzAcq0ZZ
+	c34Tb5WZH/jXUlmSrN8DKHgk9ud3ST176zA8hWXcx7yYG7eGjlh7LSdz
+X-Gm-Gg: AYBFou07FIWs4uPCM+64fuZOymtIbUZjytTBQ1RAlhbXc//j32w3RoL3+gAw4wOo552
+	oGCCs9uO6aeXEsJm5ubVJSLWJYx2aSy8TtzABu4wNWUwcLsG/9XXPQ2FkFVxG2TTT3z9yMnhRqy
+	ZtrcWjxrsn6pfi3KtQLrLNGsNLQzfjhdAQS9MCqoduc4EGO3x+GKXDuxNMyYGfmr/R9LbALxHT1
+	EkWvSwmxFDli491E9ssC+EXbczIULiBxCTqavYEypJE2b2W5R/WQ0fn9UA5XWEe7hyujjhhDtT+
+	CCWxvQ3rk/vHwr5RYMDHc6lXgRJoCOog6hIdXrbmxUwTAY36OOGgF7ciLBqppodmm7vcgD4dMpw
+	b2o04PjgD+nFahgc8leHAY9BcovGoGNm+4MEdWcpKI0Mz6N22kbMdDZqdHCQBTu7UkFzl2LY75s
+	JQ4szEqINkat3CEzuJDZNFboaNzpzVDo/+NrOJSyslr/LgSwvxpuP3lBZs6SIlvCIG0NgqXyP8V
+	ZWyf7103SLiz5U/nDeS+DNeaopFpWKHNZLDeVC/6yDgSUC/9EB+vM7qtyQtSVvk0HBFpwXg6uWw
+	Ooy0yAzFKSgxcZtFTbBKB3gE
+X-Received: by 2002:a17:90b:3ec7:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-396d1041324mr16954197a91.16.1787965469892;
+        Fri, 28 Aug 2026 18:04:29 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186803asm9247989a91.11.2026.08.28.18.04.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 18:04:29 -0700 (PDT)
+From: Wei Jie Law <98lawweijie@gmail.com>
+To: Jason Gerecke <killertofu@gmail.com>
+Cc: Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] HID: wacom: fix OOB read in wacom_wac_pen_serial_enforce()
+Date: Sat, 29 Aug 2026 09:04:09 +0800
+Message-ID: <20260829010411.7874-1-98lawweijie@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANRwn3TWTHxP=ZEpgZzjRweC8vqifoi2koKgSQTEuPuY4FZxcQ@mail.gmail.com>
+References: <20260825103104.12090-1-98lawweijie@gmail.com> <CANRwn3TWTHxP=ZEpgZzjRweC8vqifoi2koKgSQTEuPuY4FZxcQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On Thu, Aug 27, 2026 at 12:02 PM Jason Gerecke <killertofu@gmail.com> wrote:
+> I would appreciate an update to this patch with less confusing wording.
 
-The patch titled
-     Subject: mm/khugepaged: don't install PMDs in uffd-minor-registered VMAs
-has been added to the -mm mm-new branch.  Its filename is
-     mm-khugepaged-dont-install-pmds-in-uffd-minor-registered-vmas.patch
+Reworded in v3:
+https://lore.kernel.org/all/20260828033323.82958-1-98lawweijie@gmail.com/
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-khugepaged-dont-install-pmds-in-uffd-minor-registered-vmas.patch
+> I don't believe there is any situation where maxusage could be less
+> than report_count since it is initialized as max(usage_index,
+> report_count).
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+You are right. Thanks for the correction.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+> We would also *want* to read fields beyond the last-declared usage
 
-The mm-new branch of mm.git is not included in linux-next
+Agreed; the submitted v3 keeps that, and the changelog 
+notes the 6.2.2.8 reuse rule.
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+> Given the above, I propose simply making the loop condition " j <
+> field->report_count". Thoughts?
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+That is v3, with Suggested-by: you.  Retested on v6.12.105 with a
+kprobe on hid_field_extract(): with your condition the 12288-usage /
+Report Count 1 descriptor extracts nothing in the driver loop (the one
+remaining call is the core's own in-bounds fetch) and trips no KASAN;
+stock extracts at bit offset 98296 and does.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+As a side note, I am also looking into a separate but related read in 
+the same function based on Sashiko's review. I do not want to hold 
+up this patch over it or speculate before I have it pinned down. 
+If it turns out to be a real bug I will send it as its own patch.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+Also my bad, I realised I had not replied to this thread addressing 
+some things you have said, after submitting the v3 patch.
 
-------------------------------------------------------
-From: James Houghton <jthoughton@google.com>
-Subject: mm/khugepaged: don't install PMDs in uffd-minor-registered VMAs
-Date: Fri, 28 Aug 2026 22:26:40 +0000
-
-Userfaultfd minor faults provides userspace with the ability to manually
-install PTEs with UFFDIO_CONTINUE.  Right now, khugepaged collapse can map
-holes in the VMA when a naturally-aligned THP is present without explicit
-action from userspace.
-
-This is a problem, as it bypasses userfaultfd minor faults that userspace
-is expecting to handle.
-
-If userspace implements post-copy live migration using userfaultfd minor
-faults, this situation is currently possible:
-1. The VMA for guest memory is userfaultfd-minor-registered and nothing
-   is mapped in the page tables.
-2. A stale copy of a page is present in a naturally-aligned THP (from
-   pre-copy live migration).
-3. khugepaged collapses the mapping of the THP, installs a PMD.
-4. The VM now has access to the stale contents => VM is broken.
-5. After installing the correct contents, userspace attempts to map the
-   page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
-   unexpectedly mapped the page.
-
-The naturally-aligned THP case is the only case where this is a problem. 
-khugepaged otherwise requires all PTEs to be present for
-userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is correct. 
-This check is essentially bypassed for naturally-aligned THPs.
-
-No changes are needed for file_backed_vma_is_retractable(), as zapping
-PTEs is safe.  Userspace must already handle cases where PTEs are zapped
-without explicit action (e.g.  due to reclaim).
-
-Link: https://lore.kernel.org/20260828222640.1638457-1-jthoughton@google.com
-Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed pte-mapped THPs by pmds")
-Signed-off-by: James Houghton <jthoughton@google.com>
-Suggested-by: Lance Yang <lance.yang@linux.dev>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Yang Shi <shy828301@gmail.com>
-Cc: Zach O'Keefe <zokeefe@google.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org> # 6.1
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/khugepaged.c |    7 +++++++
- 1 file changed, 7 insertions(+)
-
---- a/mm/khugepaged.c~mm-khugepaged-dont-install-pmds-in-uffd-minor-registered-vmas
-+++ a/mm/khugepaged.c
-@@ -1905,6 +1905,13 @@ static enum scan_result try_collapse_pte
- 	if (userfaultfd_protected(vma))
- 		return SCAN_PTE_UFFD;
- 
-+	/*
-+	 * Userfaultfd-minor-registered VMAs should not be collapsed, as
-+	 * userspace is expecting to explicitly install PTEs.
-+	 */
-+	if (userfaultfd_minor(vma))
-+		return SCAN_PTE_UFFD;
-+
- 	folio = filemap_lock_folio(vma->vm_file->f_mapping,
- 			       linear_page_index(vma, haddr));
- 	if (IS_ERR(folio))
-_
-
-Patches currently in -mm which might be from jthoughton@google.com are
-
-mm-khugepaged-dont-install-pmds-in-uffd-minor-registered-vmas.patch
-
+Wei Jie
