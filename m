@@ -1,46 +1,78 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B10483033DE;
-	Sat, 29 Aug 2026 03:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED85D33F58D
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 03:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787974662; cv=none; b=gp9qXGUylzG18n+7n2SMyVExssqseN2jGfYRnk5ocoHBMlnl5fYfSHSywgmTvWHCtw0wpuWLUAKpaBuOl6V2P7w8GiBhpDYRscbzuN1TO20wmsIWXHu0NFupGlAe+JHlRF8Eh+AshttB7MYiZ1GG69QAHnHM2SMrzyFvluJR910=
+	t=1787974885; cv=none; b=PTalxQKvyg4g5PzfIfpi4g63S9r8XfeF2ysMKPOAZufzsz6bLIFRwAGYzXZGEZD6CqAHdWPlI5H94/kVdtGe3sEd9+m//XD121WhUe+COMhXJ9pSVROtfPqJs+ytSARVIxXcN2KYQWfjMyJohoHJADHpy0TzMoftNN1z4JDCAGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787974662; c=relaxed/simple;
-	bh=LUwuw8SwoNLDZvetPeStfZ8kQvyEP/ySTwseZ0aPHdQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YlkmtzXSB50o8EiRgX+3uberUQd3/hxB9cVCbGh72t7GvJtUJtLbJeDQlQRVDQdpXvtVpRYWUucKplSbYoj90UNESVTIS7ekdUN5q9Crw+TwdscrMloUphjIgMk79e8eHSFvj1oaU58CjHDErsSC+VtWbwkGMSCWZlPtW83l4jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=FAvsONFf; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	s=arc-20240116; t=1787974885; c=relaxed/simple;
+	bh=Oyzr0NbbRntUhfVfyint/OMfL9PMoXNLK9GrLWCD/II=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rYekt90u1nhZ5xVXHchfRqwXnhPfBza+NF/QG1GSspWcQCgPHcr94cV3Ebxgq9banpG4Xd4ZzwA7BsLMsYuw4bLEkwrU/KV3cGFHbxfgsndOHgKyIYUULXsulfVZXJMIfChjg7dxs17wwdBtzgq8ZuEQXaoyQnaFqxzJyphdpkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cRF3X1Kc; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="FAvsONFf"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cRF3X1Kc"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398a5aad413so365707a91.3
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 20:41:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=rRvGaXigj9AE1DnAORB1B6ums6TuZS9Ob5
-	iJQWHymV8=; b=FAvsONFfH3GhFYa0dOlDYtLSA97WqRtQxh+GphtT8W6kgqqyhc
-	Z0ZsdSv5UJQ2vwpJnqH5GWeUG1s9FSX4dxQWzjQJo3oqmFEVL4yWydNfupqbbZ6t
-	fVfXmMdyJXsVr6vNusEJgHYqQEYeowdT7KDVrh57aPafeaxXWdBy509ZE=
-Received: from localhost (unknown [183.216.9.64])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBnazL8U5Jq91+zAA--.221S2;
-	Sat, 29 Aug 2026 11:37:33 +0800 (CST)
-From: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	bpf@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	martin.lau@linux.dev,
-	ameryhung@gmail.com,
-	joannelkoong@gmail.com
-Subject: [PATCH 6.12.y v2 2/2] bpf: Invalidate dynptr clones in every call frame on release
-Date: Sat, 29 Aug 2026 11:37:25 +0800
-Message-ID: <20260829033725.2365697-3-xyx2021@mail.ustc.edu.cn>
+        d=gmail.com; s=20251104; t=1787974883; x=1788579683; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UhmCGz4O2Sg0rYh2f0GjlwZofbGMWZdgyMVeCKxxLm0=;
+        b=cRF3X1KcAFlhu+9utsa4YBJ9gyzsEoLS7exUkC//8oUGA95LjbWzQFV6UOGFb2O+u7
+         5SrcaFloiVundhC8r8mCIVbd4MuHvUXAh2VWkN+T9H5wdxmFYMvUyArQB+MjBpda0fib
+         9HirL9mUxxEdoAQS7CbVSpNXnYDt1IJC+Ux6Y+DhTA4S6DRhfcVRfYj0i+QYJxws8ZY3
+         2mZ9EkiG1eNRgjLBG25ghJtKEofw3cvs3+fDVg8aWCLvReesUxreUncDNCD2sWs20WC3
+         Vuyyr0gw0JmTvkHxhHKX00XKWv7e5YAPGY+l1o0Kam0N3b7hhL3ebUz9ysE5t5k+ebC2
+         /pGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787974883; x=1788579683;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UhmCGz4O2Sg0rYh2f0GjlwZofbGMWZdgyMVeCKxxLm0=;
+        b=M8u5NnXJEreFojDPRsjKenS0DcUPpFu2iQUOslGBvU7RVDSssIlzPSjgmKniOgmx3U
+         q4Shb7fiiCU8wW8VL1gwyLDhb71RZLsackzCeMFAFsEpiCV5QCyOkASSXBH0TxFwF9L0
+         +iEp5D47D58nxGd/ATeB+SO1sEUazRqMs6zK/be3vTItJuOXi0i56Ws1a6wCQdtm2TOl
+         5Ssxt32ScJ5uApC7WeTPebXf2nQdEJKNSkaJyAczT63MZxXX3fQRnN+BYuInRQknOS3F
+         pR9+KV4uC66hWMI4qrcCjOG2KokH67XGzIXPo5OqP7Zi2YQF/loWJceKsRY+ILfk8dmg
+         /aug==
+X-Forwarded-Encrypted: i=1; AKwUvBy5gyZbivTk3KCxgNXGRpZZoaMeF9ZXr7+sGRYnlCfHk6IKUqTCLdCkzFfCHZMSrDcF+wSzU08=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrxyazBax9InxTXqTpeJoo/Ikl8SnzTXJdFPDQxdHSc1bc/KOw
+	Lqs20g9fLObKipC63DEyr1H0W8hmP92PDJMG+MhH3m/RhOga8b/2pLP1
+X-Gm-Gg: AYBFou26WjvY8AWXiOxm+vermNhmayKJeq2uZAAyCGnWmpUKtyBYDKJ62g+9yf6Q9CL
+	6As4tVtrjRdchRGrms9YZDHbGCDOYm1/g/WHIs9yHiFGBWfqoPnq7bvvrun3+nGup2pd527RJTd
+	xClj0NWBFGr+MdJe4TkaOTepbx0ALkEChHSxy7EkpGInG74ahDuPJ8yO14alOj2ZnJrb9UeNmNo
+	cuLbC6rGhqNND3VcnIkrFWPOvwxsXBCxJnHkvrYigg+8VmO7si/b6axGUib/gFIcbdjSH1qeSp4
+	87ps7g8+T0wFAY91EjyuQbbNT3F3w1SUUtM0GEWDsJGjQI71h+Qs1Fxw8POQxzeQgUrCEYjaRtA
+	GTaiXd3fhNEo7tFTc/8aVWypUwdjTDLAzQHVHlpHUSl1jdDk7le/oH9ngvyzoQeX+B/OgRzT0Mi
+	DVoJG99KEPdRBEqATmeAFHvb4NDlivJCiefLNR4uo7bxvy6lL71Ldore3B4fdQ/IWJ
+X-Received: by 2002:a17:90a:d2c7:b0:398:9bd1:3210 with SMTP id 98e67ed59e1d1-3989bd135c0mr6264616a91.17.1787974883056;
+        Fri, 28 Aug 2026 20:41:23 -0700 (PDT)
+Received: from DESKTOPHOME.lan ([240e:3a3:9304:9820:9199:f1d:64d0:73a2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda36ed6sm5097134a91.2.2026.08.28.20.41.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 20:41:22 -0700 (PDT)
+From: Ziyou Xu <xuziyougm@gmail.com>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	bjorn@mork.no,
+	ericwouds@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] net: phy: air_en8811h: restore AN8811HB LED GPIO after MCU restart
+Date: Sat, 29 Aug 2026 11:38:43 +0800
+Message-ID: <20260829033844.1975-1-xuziyougm@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260829033725.2365697-1-xyx2021@mail.ustc.edu.cn>
-References: <20260829033725.2365697-1-xyx2021@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,163 +80,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBnazL8U5Jq91+zAA--.221S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKF17ZFWDZF4rZF4UXw48Xrb_yoW7ZFW5pF
-	Z5Ka9IqryxJF48Krn7Jws7Wr4FgF4kXrW7GFWrt3yrAF1Yvr98ZF1fKryUXr9ayFWFkw4Y
-	yw4SqFsxAw4UXaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
-	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtw
-	Av7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
-	M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI4
-	8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07bOJ5wUUUUU=
-X-CM-SenderInfo: h010jiysr6zt1loo32lwfovvfxof0/
 
-From: Amery Hung <ameryhung@gmail.com>
+Commit 03b4702fc5e3 ("net: phy: air_en8811h: move LED GPIO
+configuration to config_init") moved the EN8811H LED GPIO setup from
+probe to config_init because an MD32 restart clears the output-enable
+bits.
 
-[ Upstream commit 308c7a0ae8859b34d9d90a3dff953b2d14242145 ]
+AN8811HB follows the same initialization sequence: an8811hb_probe()
+enables GPIO3/4/5, and later config_init() calls restart MD32.
 
-This is a 6.12.y-sized equivalent, not a cherry-pick of the upstream
-diff.
+Move the AN8811HB GPIO setup to the end of an8811hb_config_init(),
+matching the current EN8811H path.
 
-unmark_stack_slots_dynptr() walked clones only in the submitting
-pointer's frame. A program that clones a ringbuf dynptr in a subprog,
-submits the clone, then submits the original in the caller is
-accepted: the caller's STACK_DYNPTR slot is never cleared. The second
-bpf_ringbuf_commit() flips BUSY on an already-committed header and a
-userspace consumer stalls.
-
-Walk every frame and invalidate matching STACK_DYNPTR slots. Leave
-WARN_ON_ONCE(release_reference()) as a swallow: a hard -EINVAL would
-reject legitimate programs that release once in a different frame
-than they acquired.
-
-Depends on "bpf: Invalidate dynptr slices by dynptr_id on release"
-only for the slice helper call inside the new loop.
-
-The upstream commit is Amery Hung's parent_id refactor. It cannot be
-applied here (see the previous patch). Deviations from 308c7a0ae8859:
-keep dynptr_id / ref_obj_id; walk frames with the 6.12 STACK_DYNPTR
-slot loop instead of the parent_id DFS.
-
-Fixes: 870c28588afa ("bpf: net_sched: Add basic bpf qdisc kfuncs")
-Signed-off-by: Amery Hung <ameryhung@gmail.com>
-Acked-by: Eduard Zingerman <eddyz87@gmail.com>
-Link: https://lore.kernel.org/r/20260529014936.2811085-6-ameryhung@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-[ Xu Yunxiang: Split the upstream parent_id refactor into two
-  stable-sized equivalent fixes and rewrite the subject and changelog
-  to describe each one. This second patch keeps dynptr_id/ref_obj_id
-  and scans every call frame instead of using the upstream parent_id
-  DFS. Add a cross-frame clone regression test. ]
-Fixes: 361f129f3cc1 ("bpf: Add bpf_dynptr_clone")
-Reported-by: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-Assisted-by: Pi:GLM-5.3
-Signed-off-by: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
+Fixes: 5afda1d734ed ("net: phy: air_en8811h: add Airoha AN8811HB support")
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ziyou Xu <xuziyougm@gmail.com>
 ---
- kernel/bpf/verifier.c                         | 39 ++++++++++++-------
- .../testing/selftests/bpf/progs/dynptr_fail.c | 22 +++++++++++
- 2 files changed, 46 insertions(+), 15 deletions(-)
+Changes in v3:
+- Return the GPIO register update result directly, as suggested by
+  Andrew Lunn.
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 5d0874a09a8db0..9f314360551f8e 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -811,7 +811,7 @@ static void invalidate_slices_of_dynptr(struct bpf_verifier_env *env, int dynptr
- static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_reg_state *reg)
- {
- 	struct bpf_func_state *state = func(env, reg);
--	int spi, ref_obj_id, i;
-+	int spi, ref_obj_id, i, frm;
+Changes in v2:
+- Drop the EN8811H change, merged independently as commit 03b4702fc5e3
+  ("net: phy: air_en8811h: move LED GPIO configuration to config_init").
+- Apply the same fix to AN8811HB per Jakub's review.
+- Rebase onto netdev/main.
+
+Not tested on AN8811HB hardware.
+
+v2: https://lore.kernel.org/netdev/20260828032922.469449-1-xuziyougm@gmail.com/
+v1: https://lore.kernel.org/netdev/20260820141034.1400439-1-xuziyougm@gmail.com/
+
+---
+ drivers/net/phy/air_en8811h.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
+index 0eeb7b9a4..38eb18f0e 100644
+--- a/drivers/net/phy/air_en8811h.c
++++ b/drivers/net/phy/air_en8811h.c
+@@ -1125,13 +1125,6 @@ static int an8811hb_probe(struct phy_device *phydev)
+ 	if (ret)
+ 		goto err_dev_create;
  
- 	spi = dynptr_get_spi(env, reg);
- 	if (spi < 0)
-@@ -841,22 +841,31 @@ static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_re
- 	WARN_ON_ONCE(release_reference(env, ref_obj_id));
- 	invalidate_slices_of_dynptr(env, state->stack[spi].spilled_ptr.id);
+-	/* Configure led gpio pins as output */
+-	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
+-					  AN8811HB_GPIO_OUTPUT_345,
+-					  AN8811HB_GPIO_OUTPUT_345);
+-	if (ret < 0)
+-		goto err_dev_create;
+-
+ 	return 0;
  
--	/* Invalidate any dynptr clones */
--	for (i = 1; i < state->allocated_stack / BPF_REG_SIZE; i++) {
--		if (state->stack[i].spilled_ptr.ref_obj_id != ref_obj_id)
-+	/* Invalidate any dynptr clones, including those in other frames.
-+	 * Do not turn a failing release_reference() into -EINVAL: that
-+	 * rejects legitimate cross-frame single releases on 6.6/6.12/6.13.
-+	 */
-+	for (frm = 0; frm <= env->cur_state->curframe; frm++) {
-+		struct bpf_func_state *f = env->cur_state->frame[frm];
-+
-+		if (!f)
- 			continue;
-+		for (i = 1; i < f->allocated_stack / BPF_REG_SIZE; i++) {
-+			if (f->stack[i].spilled_ptr.ref_obj_id != ref_obj_id)
-+				continue;
+ err_dev_create:
+@@ -1265,9 +1258,15 @@ static int an8811hb_config_init(struct phy_device *phydev)
  
--		/* it should always be the case that if the ref obj id
--		 * matches then the stack slot also belongs to a
--		 * dynptr
--		 */
--		if (state->stack[i].slot_type[0] != STACK_DYNPTR) {
--			verbose(env, "verifier internal error: misconfigured ref_obj_id\n");
--			return -EFAULT;
--		}
--		if (state->stack[i].spilled_ptr.dynptr.first_slot) {
--			invalidate_slices_of_dynptr(env, state->stack[i].spilled_ptr.id);
--			invalidate_dynptr(env, state, i);
-+			/* it should always be the case that if the ref obj id
-+			 * matches then the stack slot also belongs to a
-+			 * dynptr
-+			 */
-+			if (f->stack[i].slot_type[0] != STACK_DYNPTR) {
-+				verbose(env, "verifier internal error: misconfigured ref_obj_id\n");
-+				return -EFAULT;
-+			}
-+			if (f->stack[i].spilled_ptr.dynptr.first_slot) {
-+				invalidate_slices_of_dynptr(env, f->stack[i].spilled_ptr.id);
-+				invalidate_dynptr(env, f, i);
-+			}
- 		}
- 	}
+ 	ret = air_leds_init(phydev, EN8811H_LED_COUNT, AIR_PHY_LED_DUR,
+ 			    AIR_LED_MODE_USER_DEFINE);
+-	if (ret < 0)
++	if (ret < 0) {
+ 		phydev_err(phydev, "Failed to initialize leds: %d\n", ret);
++		return ret;
++	}
  
-diff --git a/tools/testing/selftests/bpf/progs/dynptr_fail.c b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-index a896701855a4b0..1787289a5218f9 100644
---- a/tools/testing/selftests/bpf/progs/dynptr_fail.c
-+++ b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-@@ -1512,6 +1512,28 @@ int clone_invalid2(struct xdp_md *xdp)
++	/* Restore LED GPIO output enables after MCU initialization. */
++	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
++					  AN8811HB_GPIO_OUTPUT_345,
++					  AN8811HB_GPIO_OUTPUT_345);
+ 	return ret;
  }
  
- /* Invalidating a dynptr should invalidate its clones */
-+static __noinline void submit_dynptr_clone(struct bpf_dynptr *ptr)
-+{
-+	struct bpf_dynptr clone;
-+
-+	bpf_dynptr_clone(ptr, &clone);
-+	bpf_ringbuf_submit_dynptr(&clone, 0);
-+}
-+
-+SEC("?raw_tp")
-+__failure __msg("is an unacquired reference")
-+int clone_invalidate_cross_frame(void *ctx)
-+{
-+	struct bpf_dynptr ptr;
-+
-+	bpf_ringbuf_reserve_dynptr(&ringbuf, sizeof(struct sample), 0, &ptr);
-+	submit_dynptr_clone(&ptr);
-+
-+	/* The clone release in the callee must invalidate the caller's ptr. */
-+	bpf_ringbuf_submit_dynptr(&ptr, 0);
-+	return 0;
-+}
-+
- SEC("?raw_tp")
- __failure __msg("Expected an initialized dynptr as arg #2")
- int clone_invalidate1(void *ctx)
+
+base-commit: 1b78070aaef63512688aebfbc82365ef9d6660f1
 -- 
 2.43.0
-
