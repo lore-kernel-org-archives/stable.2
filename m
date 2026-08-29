@@ -1,307 +1,313 @@
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776BA3BB123
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 21:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788039228; cv=fail; b=nOJncoaVonbqspAYEWXxp//i0RrWwJ0255j96DKiTAoZW5UczoIRr49U2mVsZibcNZP0vu1oCGQAZ/59P1Yo0VwHaoC5P5ETgJwoAQsb3SC3eLL5lVWUPA+BJja/1gq31KKKWjtYmmfOcTkL45jnteVpborAMnpNt7QBBW3WkbY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788039228; c=relaxed/simple;
-	bh=TckY5NpF5XEUBbMFMczKegAUbu1di/V3zh7hQLDNwsw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=hotdxtHD8RPkWmsqXr1qXkhZGSBrxDprdpNRFAuqY9opXBpJqet+nGjFIspScNhD5ofbfFWGC4+SRW3jpWVI3anPIDik8J1WzH9lUsIkR7vQehNtLheGmYKUcjqpjzK9hGyk+hUYoU/mMQFo89dN0ALXTdHBTZJ/5B9R3p6TDHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=hw1GTK5T; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=hmwcHpbf; arc=fail smtp.client-ip=205.220.165.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 711D441CB20;
+	Sat, 29 Aug 2026 23:06:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788044782; cv=none; b=NLpz3r4TN3qiX/jr2Zycn9LSi6q9tjaOWYQNkNme5Y9E1SwFQT9jtLRas3nH05esiaKkZYXm6HllARx93gQ6MP/78fwHJL/AnT7BXA+gXhe3eHfPI95TlU2BIL0qy0EZ13s2wEbVH+pRzXFUB9vx/HNc2DQRipKwLQsIIie7zVU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788044782; c=relaxed/simple;
+	bh=coxFC9Jvzwa+3cEeUXWg9Kzs/9GFfoG/2TmGIVDzqwo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cw6hDlwp4x5hf7IHOrVD72TTrmxpJht+o1TQAIp+Mjw/BrW8ersyKeMuJlAY6UfjYAykpjNwVeopvzT855Jc+C6NJ93RykzVhDU9Szh17H/HZZaQG65eYEnFlPdwZUC0FPZbhrdNQ6EwX1+qq4Kwmu384oiBVhPY4nv1mC1a2+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=AqW8GiOV; arc=none smtp.client-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="hw1GTK5T";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="hmwcHpbf"
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67TLB1Tp1707328;
-	Sat, 29 Aug 2026 21:33:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=GekL70h/o85ceRvozHTYHGp5N+GxNi8E+SpVdpp5Vbg=; b=
-	hw1GTK5T2jLDvRITTCYYE34Ns5GSeHKl25XC1cMsGM3BcAmjJEPc7C7a6W0Wp3HY
-	qXbOOEA7ABAkReNTon5v9pVkuNOwA/a3Y7yRCqnbh9tQL21VZmSQLWCgL41qHWqe
-	jbnLh1laCpgGojB3D0+dWcXrmcq3EbFk3pV2GCvPt/Os3rxDVr7l2ezL38pt1V/4
-	/I1WbQRfH6UK2wKbiEAObOcoENp2BJNiq+4qvutDumRZw7WYKYhiDTD6PveNGlVD
-	6NWfJLR4FmwrvjbK2HCoXCT15h/s6WPWRF7rhd/IaTQQKtD/UCs3V6i61694/mUE
-	mTjcU1SNSipzxjZKjiHISQ==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gbp0xrp1w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 29 Aug 2026 21:33:35 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 67TLPWng015036;
-	Sat, 29 Aug 2026 21:33:34 GMT
-Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11010051.outbound.protection.outlook.com [52.101.61.51])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4gbnvn8hpe-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sat, 29 Aug 2026 21:33:34 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nMhBaCnVXIGKK3hZZqisCh+w90C3SEIyQVJwjbzazksHHg44ah4zced47cMimuTune+g6HFj28eR9+YmNvJNhSyLuxebdGPmINK91yZmatzw/XCHX/KmWXQ1RKEyuhFuIRUsylXtI+kwvIKSYBc+zyUeGwkLp+Wkkfdgn3jNVOelCXWrCaInZqSVkiA8K9u29PzqODztbSWJrpbdCRYtK3DH6PbyN9X1Eo74ssObl0/6WCjtZuYlIf7TI16HxmRk3dOyw73MDRRW/oHDIiYDZB5nX+WeCopJQZVUNqYqaViFBL4CMwsWHqzCUX8MwH9wBN0ZSfoG0il/rlKeLcIXew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GekL70h/o85ceRvozHTYHGp5N+GxNi8E+SpVdpp5Vbg=;
- b=Xl26C9nylF42h/U1C1jALnTAwpYEMH4DjwZUgO5Xsvf1KNMIgzL1cp3ImMfqbKSgJBjsrYnmNB3ZYFF4LmiyzRNKcie20w70uIvW3vOEkcNZTfTAP5DGgBmG3awwZYFQshlbjhHJYaeG9aLk7J9LzE/8DLZ+VrHg0vZ9hER1fLK7VtWro67czn7WxClXiciKZS1TXUm3YTUwX9j57VkQ//g13fDWGyl5TVm3VXhawfwp49fFll59yMYIJQkeUllGtWuGsVjrzqawYVt8Wi0AiGqRTQbRfiJMHmT1rKkT3zoZHLro1XzIgDlcLwzKJRTz4oBdPB3WU9gN+3oXmHLPUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="AqW8GiOV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GekL70h/o85ceRvozHTYHGp5N+GxNi8E+SpVdpp5Vbg=;
- b=hmwcHpbf4ZfxHYATIGvYFPYbU+SYtaEpLKz8CR3/qS7uhfepM2ZLPnQ+NbjfB5q55QzznrWjiuBJUYM9gqqM+6BX5HIw+rda1TPt6FHhoMLI2ebsAPbUjrWv9q4vdTeE/ZPLHEgw60nZyYZk5VBI4ElHtv1k4QJMfro7bBvLdq0=
-Received: from DS3PR10MB997700.namprd10.prod.outlook.com (2603:10b6:8:347::19)
- by SN7PR10MB7002.namprd10.prod.outlook.com (2603:10b6:806:344::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.9; Sat, 29 Aug
- 2026 21:33:29 +0000
-Received: from DS3PR10MB997700.namprd10.prod.outlook.com
- ([fe80::4c1c:3bb:c4c9:8e7a]) by DS3PR10MB997700.namprd10.prod.outlook.com
- ([fe80::4c1c:3bb:c4c9:8e7a%6]) with mapi id 15.21.0382.007; Sat, 29 Aug 2026
- 21:33:29 +0000
-Message-ID: <24f50ccf-4a9a-40b5-a1db-cc48a7acf556@oracle.com>
-Date: Sun, 30 Aug 2026 03:03:22 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 372/456] bpf: Preserve pointer state for commuted
- arithmetic
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
-        Vegard Nossum <vegard.nossum@oracle.com>
-Cc: patches@lists.linux.dev, Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>,
-        Daniel Wade <danjwade95@gmail.com>,
-        Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-        Eduard Zingerman <eddyz87@gmail.com>, Sasha Levin <sashal@kernel.org>
-References: <20260817132539.792407575@linuxfoundation.org>
- <20260817132554.044665534@linuxfoundation.org>
-Content-Language: en-US
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-In-Reply-To: <20260817132554.044665534@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0141.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:bf::21) To DS3PR10MB997700.namprd10.prod.outlook.com
- (2603:10b6:8:347::19)
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=xjP/UFJyS+
+	A7gQjIZNcHYCqPTF5l/4vl+KkN4WXx3x0=; b=AqW8GiOVwlMBTOoxASm4fx0KtZ
+	nBRjLsb7kSOzBBAPJDvuu1Crp+CdD/vdaNhgvy1Z+JCBNM6LJ4IU8UBomNtObyP/
+	5OwZSEYFnIgWlplZuuNzfEdQJsVwslNB8iMzO13Xyc6gSIvo/TDR/3uqBPm9Pfx9
+	fpwklxxaw9Vk/kItk=
+Received: from skw.ustc.edu.cn (unknown [211.86.152.107])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgD3+C_RZZNq3oO3AA--.2566S2;
+	Sun, 30 Aug 2026 07:06:05 +0800 (CST)
+From: Kaiwen Shi <skwkevin@mail.ustc.edu.cn>
+To: Alexander Aring <alex.aring@gmail.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	linux-wpan@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kaiwen Shi <skwkevin@mail.ustc.edu.cn>,
+	Xuanqiang Luo <xuanqiang.luo@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] mac802154: fix data race and NULL deref on local->assoc_dev
+Date: Sun, 30 Aug 2026 07:05:51 +0800
+Message-Id: <20260829230551.1787432-1-skwkevin@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PR10MB997700:EE_|SN7PR10MB7002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 055add1e-37a2-4fb7-4f60-08df06152b01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10067099003|4143699003|56012099006|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ml7zxS56LKnw79MC5RXANFIkKpvuc7//pFJkByV5F7PLpb06yK/jJ9U2+yj8zmrUs0oCR8iMuaj0m6XMJSmcjAhoynP1d1mD3k1rtane8xUR7aCzbZw9pbt7M1v/dmSCvw85hd2e589pmSQ9HAz2YjdhBZ5r4PuTriMNBw6yxRmd6EslPWwz71TYCcBOxJ62c2Pbs+9ef1MSgudTa2x6njkY4KGrXV+qB0T2dAEgndVIW+Q1UHnPycJFv3CNaYaJtWY8EExXyVf6TkmNca4nQee70q2vVoX3Zo9styR3ln45c0ejVqaJr/mxo11X2SJsohgh4hDWPchXbRgeEw9vd9JtYWvtIrdbjXzrz0qf80brdSXMz8K1bbHbS/z0yrS6BNryLY0ammRXTyMe0bamtFb9ndrSb3FnpnG49WvWRzzBiW9ujtovivmM56duT8UmXV8yASrSRpcz62Ka3FGpCul6K8XLMYkO/nCdX9wXRGeucMh7PwBZNARxUcqewHSH3+cIhj3GfbFkEisWTzWRCQRlQRPmLOx5hdoUmEip+uy5eYCGTT7aJB1GvHkQKvjqKVl446MQ1Vtj8cMqYFMDilWl77lNU7J48dWj7wmdO1k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR10MB997700.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(4143699003)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZWk4eXkxRU53S0lvNWF3dFVFNzFsRnNRSWJrUlNKaW5SZTZ3aGpCb1AxRFQ0?=
- =?utf-8?B?Skw2akswdjRGQXVhZ1Z1UGRFV0h0ZkxkVTNLNmhJd2M4WElibGpjbUZjRy9D?=
- =?utf-8?B?SDZPTFdERUszdlF2cVZ3YmZwTDFyQXNFa3JQa3NNc1ZyM3hvaHE4dGVwQ0RU?=
- =?utf-8?B?YTFiZHBybUtXN3NOdGhYQ3hxbHhqbVVSZUJ2dnRsZW1EWk12UGVmMDZaZU1y?=
- =?utf-8?B?cDRJRzlodTZXQzgrOTlyNUMxZmNNSmdTSmhra3E4UG8yMkthYUVFVGtXTlZt?=
- =?utf-8?B?OE5QN3lTZXdhdndteWRaampLQjB5TXhqRVpuZWVHdkNyN2UzNHpMTGhxaDFx?=
- =?utf-8?B?dHRuZ2dkM3FSYzEvbGtpUnpkT0gxMnF1L1cvcEowcmROSmdDMUcyMXk1MDh6?=
- =?utf-8?B?YWYvNURqd3lST2FWejJmc1FDa05XUzR6Y0ttTFRmeWN1STlBdUxCK2JPMHdy?=
- =?utf-8?B?aEw2MDB5M2FFSnNmQVV1Ri9wK2dMWFcvOTVjUVRFd3NqR2hpV3FaQWh6cU5F?=
- =?utf-8?B?Tk1hWFkyNEFVY3habEE1QUhCY3JjTlByNzRxUWhLc0d6Z0lOZEJ5Y0FKTnIv?=
- =?utf-8?B?UW9DT1JudHNDNENKMG5lcDZtbXY0b2RSWkhMTHdDRXRJWjR2YzhyTGgyT25B?=
- =?utf-8?B?QWc2ZTlVV08vVG9mOHBEbmxHZzI1Vmo3RmorNFkyZHFFeGQvMlUzSHpPUVdh?=
- =?utf-8?B?RFhSZUhaRVZ1ZnV2aXFSeGtsN0pVQjR2ZmxFYkh6dFVaNW5UL2k1SjBWMndX?=
- =?utf-8?B?MWVJMGl4bCttd20rS21pQzhlend6c3AwNjVuTUxETlpONEQ5d05LVGQzR0lw?=
- =?utf-8?B?MTA5L3dqamdaVm0yWTRKRllMVWhFc2NIYStsUnF3U2xJcGN1ZnRPQ1pIOUo3?=
- =?utf-8?B?eGt2OFAyTFZuT29LWlErSFdmMXBLM1VoU3p0dHB0cWNHeHZSS3prbWtnRERr?=
- =?utf-8?B?VHE2eFowU1pmMmx1MThyeFZNMER4ZjdZbmJXSVZjblZFZVkwRHdlTFpKTEpp?=
- =?utf-8?B?ak0zb2NESWhyNEVoa3d2UFQ2eEU4SUpIUlcreUxaNFFZVjMrVksxdGRteHlX?=
- =?utf-8?B?dms3ajNKOHdaQmdqVitFRUxCZElHb2NQdFdxakJTcHRxNk1ZUmVPdnExOEtr?=
- =?utf-8?B?RlBiK2h2YjBoY3duRUNlZGJnOXdOWjdKcnJuKzNUTnh6ejNDaitKaTRTRFFX?=
- =?utf-8?B?TlB0M0lJd01pRXJzSllrcDV1dytxVndPYmFEL3hUbWlHd0NLdlVrZzhSVnU2?=
- =?utf-8?B?WGE4d1pHRmJEMEJ2UHpCR2Z2WnVwQkJnRGNGRnJYdURrS0dCZ203cTlsU1JR?=
- =?utf-8?B?VEpaaU55QXZFYVlHTHJBUDcrTllYWUdhejBMeGQ4NmZieGpDUDNhbmxNc0Y2?=
- =?utf-8?B?SjRXWDMwNnlQNUh5T2F3cGw3aUoybWNuU0JObzJROGVyNXJITnV0TTVJQkUz?=
- =?utf-8?B?dThYMnJ0eFlSUWRmNWZzamxVWlhadnJBNlVacmFKMkEwbHNPRk1qMmRFNVJ0?=
- =?utf-8?B?M3RRUVpoeXZJbWFsOXBseUdFeW13ZVBTamVTbzlwM2FHM1c0NVJVUGtoZTRz?=
- =?utf-8?B?U1U3NEpvdkc3L2szR1ZOUEV6VVVKNEIyYWZVTllwTWpXTDBNZUhpMWN3ZXpp?=
- =?utf-8?B?bUJBMUpxc3ZsMG9nbDhvYXFGR1hPRlpIcmNGS1o3MSszRHhONWpuMi9Celp6?=
- =?utf-8?B?WFRjdVVKSnRPQkxJL3hRZHlHcG1INDVSVEN0R3I0Y3JWSkFNeEc0dnk2SkN5?=
- =?utf-8?B?TERHMzVhQVJMc0xQNm1uTW9QQ2pKZ0IzL0poYVNOK2ZsOTJXWDMwR3lldHlP?=
- =?utf-8?B?WXhIY3c4dG9VNjBKc1Rya3JCdU85TVpSc2hIbGNza1dtcHc1aGorWUV4clZM?=
- =?utf-8?B?Y014eWpZUnd6K3JlcDdqTDF0b1AxT3g5UGY2YjFBQ1VUejhaVWhycCsyOUpm?=
- =?utf-8?B?WjNub2JNNHErcE1WSlF1djRNK3JBSVRkR2pyZ0RzM2NVV0lqZW1VZW1pdFc0?=
- =?utf-8?B?alRlQU1EdUR1Tkw1V0p1K0U2ckxmS3RxVUN3YTBYaVF4MkZRYlRaa1pyVkRa?=
- =?utf-8?B?bWNWbHNZazdPTmU1bUIrRFhQYW0xZXJjZm5vVGM5c2Y3a1g2WFRFNUpvVmRG?=
- =?utf-8?B?a1ozZk95eUE0MWRkVFo0cUJaeDB3clJyY3k1Y1ZOY1BqT09JV0ZGTUs4cjcx?=
- =?utf-8?B?UWZhb0hiZnpoZ2Q3QVh6THpqZ05HeFpsdHExazhPQ0FSR2VWNzlSRzNsTTBl?=
- =?utf-8?B?OFpvZzhaYnRWMGYxbnU5ZkdBQnFpb055OGNHdDVQWGdta21EdmlGenVxc1dX?=
- =?utf-8?B?VVcrbUZ1VW9LZUNiZUs3eCtYcXZ0Vmw5dDBiVTBWelRueE1jUEk3aEx0SWlU?=
- =?utf-8?Q?ACctHLsCcAk6vFuyUVj6BMFsfaymiMCzBe/3w?=
-X-Exchange-RoutingPolicyChecked:
-	UUpQg5ko8k76uC9KlNjzZu3uFBjw9iT/SRBI7KGhZc3Qo/L6f8n2Al6aypYvzJsq9Yq6wp91owGZJJkq9zKQWfGsrje+4GOe5oEuxzNr5z2Duzz0VEXMekil/WsRI/MDI9ZEhEew9Qf+Il8rN01FxtvpsdvClEVOUTJTpMSVkn9V51nAh3G6e6ywMRwbdTsnwa+dnFnN20ISFF5WX5WhHAmdA5p4VafcR7i7lxlYmPF9G0tTzGbzhaHrJV8JYQyM3bF9pqqAqG8T4koQ6SwnATDLGnFqDSQPnH3rQHxjGIt+VhhmoShowIOApjgNK/M4+aMXb2kz/0d52k8o3Hrt+Q==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	T/liX3+8IXbAZtVpjFMDctjsuADXuzW2Uz4Qf9dUnFggwwIo0a+CIPN2hNcdXV/d8epzXpiyhvYLCqE/CKr7+uHXhxS2NZDjaf65zPv1UyXFs03xVlzP9BI1TEcKuYZIB4q+AefHgepMlMnGx0hJP2Qa5CU9MkzRknjEkYALqDrUIZ0zilm54gXbbXhVjxGiCcYSGCejPCsHpGZsNlubyn8DaNUJzfABBhWL72u9yHGnGxcSgFuDkxiLMDxgojGt9bP6K9NVW27YQc135/dpz25C3q92RzEZbwUO8i08XR0KbNHD1znREby9i4uKCXxiBOpdH7ZE7aF4FXuaXLt7EnVRaTIi1y8v1BLBzMQOZQRmRubpnWp5tP5oesoz37LCQp4t2buFxOxrSbhM8s4UTq2MJ6C48G6Zj3Mw0l79ZBtUITIjriBQXXGXkDLwfcLtRzB2RuUjOYKtCQ6FFZurT3UVwhZ0ovCo4+ZrtdQBBNqLI3zx2cTzzPjmo/3CRi6PZ7Q7lEb+k8ixyeAxaHFW9TuNaLFbA12fGDW6K6dDNtpmuSvJl8GdHDNuviopPEmFB9cK7t9MeZvZz+VWvRekhwpI5Kxvoz9mR2VU2JHg/LA=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 055add1e-37a2-4fb7-4f60-08df06152b01
-X-MS-Exchange-CrossTenant-AuthSource: DS3PR10MB997700.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 21:33:29.6165
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T4UBcvaEYLIe3NQGIXvN6IkGZAM0dLm5UR8ZthWFSgDf5yWPLkHuhQCEaaBpuFD7Xw9gT6YBZLv/3rTuGqi0cR8NQaDINeUTojKUgbEJijVpx1chiTVqxS8rUjOiaOO5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB7002
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-29_06,2026-08-27_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- mlxlogscore=999 spamscore=0 suspectscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2608290186
-X-Proofpoint-ORIG-GUID: qqgqp7ScjF08w6lj9oLABZ5xU9OLLFiD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI5MDE4NyBTYWx0ZWRfX03fr9++wo4jj
- JiRFj7zgZYWdr8t0yUJJjwC1GOk4iCJ1hXeTcZtlM35B+f8V3J+4RbTPBRjdO4UDBNv5T7Jak4D
- dqwvRduhpiB0rj88d7ziRaLb4Vh/VDmoZgd1+iI34z1v7VAeuFN6blgotZUgnOtTvRVMIsXAjuV
- L2htjh1Q3Ab1D8wtT158fatRr3exPad98kJTyT4wFBQuWNnyXTIwuGPCLGGDwV1LTR9CKpM2zWJ
- D/v2j198uXG48Ymd4AWdzsITZE2nXE4eMuDasye8Hx2ijQtQ7cpZcF3eoV+ZKjd4IrfKBFqtQeU
- 036W1D96bmHbMBqRENlBoo6Kadrj3ZdBLQCDLOA7XxFOiVMRwIrujTv0/W7rshmFdlsiq++T+Yc
- G17+Kpe1HXCg0pQseriE8WG+4ERMq+EXFBuMk3H4V2q2mp+S0pKN/fWO5JOluSsuntnUgpSQ3rA
- OwbMVHOmW14FR39zqrgo0j9SCFR6WoXb8WTi1pys=
-X-Authority-Analysis: v=2.4 cv=Ebb4hvmC c=1 sm=1 tr=0 ts=6a93502f b=1 cx=c_pps
- a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=bC-a23v3AAAA:8
- a=pGLkceISAAAA:8 a=iox4zFpeAAAA:8 a=VwQbUJbxAAAA:8 a=xV0_5odhADDP_reDE2EA:9
- a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=WzC6qhA0u3u7Ye7llzcV:22
- a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12101
-X-Proofpoint-GUID: qqgqp7ScjF08w6lj9oLABZ5xU9OLLFiD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI5MDE4NyBTYWx0ZWRfX6HQkR9C5r/+z
- TPoFRTX6fOnYhUtbWujULYPPQqwmTglxvKuE6KrEEcCXQwI7+//Lr0p0gtsWYYSsj5NL1RFOgIU
- PZvo2dcHrLOPzmzWYNG6HlG4JWGtwQTat5zyk/dvQtOWLgzg9bdM
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgD3+C_RZZNq3oO3AA--.2566S2
+X-Coremail-Antispam: 1UD129KBjvJXoWfGrWrJr4rWr17Gr13JF1UWrg_yoWDWr43pF
+	Wj9ws8KF1DXFnavws7Jw1rtry3Zr48u3y7Gw17XFZ0v3Z8WF1rZr4aqrnFvF1Utr4kZayr
+	ZFWDJay5AF4qk37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_uwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU7xhLUUUUU=
+X-CM-SenderInfo: 5vnzyvxylqqzxdloh3xvwfhvlgxou0/
 
-Hi Greg/Sasha,
+local->assoc_dev is shared between the association path and the
+association-response worker without common synchronization.
 
-On 17/08/26 7:02 pm, Greg Kroah-Hartman wrote:
-> 5.15-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>
-> 
-> [ Upstream commit a4c6f804b44c5c790269b25e0e61cf4e9f117c86 ]
-> 
-> When scalar += pointer is handled in adjust_ptr_min_max_vals(), the
-> destination register inherits the pointer state from the source pointer.
-> Copying only selected fields is fragile because pointer provenance is
-> tracked by several bpf_reg_state fields.
-> 
-> Use the caller's temporary offset register to preserve the scalar operand
-> while replacing the destination with the full pointer state. This preserves
-> the frame number for PTR_TO_STACK registers and keeps parent identity
-> fields consistent.
-> 
-> Fixes: f4d7e40a5b71 ("bpf: introduce function calls (verification)")
-> Signed-off-by: Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>
-> Tested-by: Daniel Wade <danjwade95@gmail.com>
-> Acked-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-> Link: https://patch.msgid.link/20260729-c3-035-public-bpf-v4-v4-2-8ee297e2346b@mails.tsinghua.edu.cn
-> Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   kernel/bpf/verifier.c | 15 ++++++++-------
->   1 file changed, 8 insertions(+), 7 deletions(-)
-> 
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index 5e71d58e4a300..a0163090309a4 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -7388,11 +7388,12 @@ static int adjust_ptr_min_max_vals(struct bpf_verifier_env *env,
->   		break;
->   	}
->   
-> -	/* In case of 'scalar += pointer', dst_reg inherits pointer type and id.
-> -	 * The id may be overwritten later if we create a new variable offset.
-> +	/* For 'scalar += pointer', dst_reg inherits the complete pointer
-> +	 * register state. Individual fields may be adjusted later by pointer
-> +	 * arithmetic. Callers guarantee that below does not overwrite off_reg.
->   	 */
-> -	dst_reg->type = ptr_reg->type;
-> -	dst_reg->id = ptr_reg->id;
-> +	if (dst_reg != ptr_reg)
-> +		*dst_reg = *ptr_reg;
+mac802154_perform_association() stores the coordinator pointer and waits
+for a response. Its timeout and error paths clear the pointer and return
+to mac802154_associate(), which may then free the coordinator object.
+Meanwhile, mac802154_rx_mac_cmd_worker() may observe the associating bit
+and enter mac802154_process_association_resp(), which dereferences
+assoc_dev.
 
-^^^
->   
->   	if (!check_reg_sane_offset(env, off_reg, ptr_reg->type) ||
->   	    !check_reg_sane_offset(env, ptr_reg, ptr_reg->type))
-> @@ -7460,7 +7461,7 @@ static int adjust_ptr_min_max_vals(struct bpf_verifier_env *env,
->   		}
->   		break;
->   	case BPF_SUB:
-> -		if (dst_reg == off_reg) {
-> +		if (dst_reg != ptr_reg) {
->   			/* scalar -= pointer.  Creates an unknown scalar */
->   			verbose(env, "R%d tried to subtract pointer from scalar\n",
->   				dst);
-> @@ -8319,8 +8320,8 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
->   				err = mark_chain_precision(env, insn->dst_reg);
->   				if (err)
->   					return err;
-> -				return adjust_ptr_min_max_vals(env, insn,
-> -							       src_reg, dst_reg);
-> +				off_reg = *dst_reg;
-> +				return adjust_ptr_min_max_vals(env, insn, src_reg, &off_reg);
+The worker's bit test and the handler's pointer dereference are not
+atomic with respect to cleanup. Cleanup can clear assoc_dev between them,
+causing a NULL dereference, or free the coordinator while the response
+handler still uses the pointer.
 
-^^^
+The recorded result is exposed to the same window. assoc_status and
+assoc_addr are written by the handler but read by the association path
+while the associating bit is still set, so a second response for the same
+request - a malicious one, for instance - can replace them between those
+reads and leave the caller with an incoherent status and address pair.
 
-I ran an AI-assisted backport review of 8109c25e0c41 and checked the
-finding against the 5.15 BPF verifier state model. The full
-pointer-state copy needs a branch-specific adaptation.
+The response handler only needs the coordinator extended address.
+Replace assoc_dev with a cached address, removing the pointer lifetime
+dependency. Protect the cached address and the associating bit with a
+dedicated spinlock. A READ_ONCE()/WRITE_ONCE() pair would not guarantee
+an atomic __le64 access on all 32-bit architectures.
 
-Current upstream no longer stores verifier liveness in bpf_reg_state;
-it has pointer-provenance fields such as parent_id and frameno.
-Upstream a4c6f804b44c can therefore use:
+wpan_dev->association_lock cannot be reused here: nl802154_associate()
+holds it across rdev_associate(), hence for the whole of
+mac802154_perform_association() including the wait for the response.
+A response handler taking that lock would only get it once the
+association has already given up.
 
-         if (dst_reg != ptr_reg)
-                 *dst_reg = *ptr_reg;
+Reset the completion, publish the cached address, and set the associating
+bit while holding the lock. The response handler takes the lock, rechecks
+the bit and the cached address, records the response, clears the bit, and
+only then completes the waiter. Thus cleanup cannot pass the handler
+between its state check and completion, and the cached 64-bit value
+cannot tear.
 
-The 5.15 bpf_reg_state still contains:
+The handler clears the bit before completing, not the woken waiter:
+otherwise complete() is issued under the lock and a second (e.g.
+malicious) response can reacquire it before the waiter and replace the
+result. So a wait that returns success implies the bit is already clear,
+and the success and negative-response paths return directly. The
+transmit-error and timeout paths still clear it under assoc_lock, which
+serializes any racing response against the cleanup while the call returns
+the error it already selected. Both paths snapshot assoc_status and
+assoc_addr under the same lock.
 
-         struct bpf_reg_state *parent;
-         enum bpf_reg_liveness live;
+Both users run in process context, so a plain spinlock is sufficient.
+The lock is not held while waiting for the completion.
 
-and this branch already provides the intended copy helper from
-34ad5d8885f5 ("bpf: Fix to preserve reg parent/live fields when copying
-range info"):
+Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Suggested-by: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Fixes: fefd19807fe9 ("mac802154: Handle associating")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kaiwen Shi <skwkevin@mail.ustc.edu.cn>
+---
 
-         copy_register_state(dst_reg, ptr_reg);
+v4:
+ - move clear_bit(IEEE802154_IS_ASSOCIATING) out of
+   mac802154_perform_association() and into
+   mac802154_process_association_resp(), after the first valid response
+   is saved and before complete(). Clearing it only once the waiter is
+   woken still leaves a window: complete() is issued under assoc_lock,
+   and before the waiter reacquires that lock another response can pass
+   the in-lock recheck and replace the result (Xuanqiang);
+ - say in the commit message why wpan_dev->association_lock cannot be
+   reused for this;
+ - complete the assoc_lock comment.
 
-8109c25e0c41 uses the raw assignment instead. It overwrites the
-destination register's parent/live lineage with the source pointer's
-liveness state, even though those fields track register history rather
-than pointer provenance on 5.15. That can make verifier liveness
-propagation and state pruning incorrect.
+v3:
+ - clear IEEE802154_IS_ASSOCIATING and snapshot assoc_status/assoc_addr
+   under assoc_lock right after wait_for_completion returns, so a second
+   (e.g. malicious) response can no longer pass the recheck and overwrite
+   them while perform_association() consumes the result (Miquel).
 
-Maybe we should replacing the raw assignment in 
-adjust_ptr_min_max_vals() with copy_register_state(dst_reg, ptr_reg) and 
-rerunning the verifier selftests.
+v2:
+ - replace assoc_dev with the cached coordinator extended address, as
+   suggested by Miquel;
+ - use a plain spinlock instead of spin_lock_bh(), since both users run
+   in process context;
+ - protect the cached address and the association-state transitions
+   with the same lock;
+ - recheck the association state in the response handler and signal the
+   completion before releasing the lock;
+ - add Cc: stable@vger.kernel.org.
 
+Link to v3:
+https://lore.kernel.org/r/20260827221339.885245-1-skwkevin@mail.ustc.edu.cn
 
-thanks,
-Harshit
->   			}
->   		} else if (ptr_reg) {
->   			/* pointer += scalar */
+Link to v2:
+https://lore.kernel.org/r/20260826225959.682483-1-skwkevin@mail.ustc.edu.cn
+
+Link to v1:
+https://lore.kernel.org/r/20260824175938.11143-1-skwkevin@mail.ustc.edu.cn
+ net/mac802154/ieee802154_i.h |  7 ++++-
+ net/mac802154/main.c         |  1 +
+ net/mac802154/scan.c         | 51 +++++++++++++++++++++++++++---------
+ 3 files changed, 45 insertions(+), 14 deletions(-)
+
+diff --git a/net/mac802154/ieee802154_i.h b/net/mac802154/ieee802154_i.h
+index 8f2bff268392..c53aa293a222 100644
+--- a/net/mac802154/ieee802154_i.h
++++ b/net/mac802154/ieee802154_i.h
+@@ -76,7 +76,12 @@ struct ieee802154_local {
+ 	struct work_struct rx_mac_cmd_work;
+ 
+ 	/* Association */
+-	struct ieee802154_pan_device *assoc_dev;
++	/* assoc_lock protects assoc_dev_extended_addr, assoc_addr,
++	 * assoc_status, the assoc_done reinit/complete pairing and the
++	 * IEEE802154_IS_ASSOCIATING bit in @ongoing.
++	 */
++	spinlock_t assoc_lock;
++	__le64 assoc_dev_extended_addr;
+ 	struct completion assoc_done;
+ 	__le16 assoc_addr;
+ 	u8 assoc_status;
+diff --git a/net/mac802154/main.c b/net/mac802154/main.c
+index ea1efef3572a..63e89bd586e3 100644
+--- a/net/mac802154/main.c
++++ b/net/mac802154/main.c
+@@ -104,6 +104,7 @@ ieee802154_alloc_hw(size_t priv_data_len, const struct ieee802154_ops *ops)
+ 	INIT_WORK(&local->rx_mac_cmd_work, mac802154_rx_mac_cmd_worker);
+ 
+ 	init_completion(&local->assoc_done);
++	spin_lock_init(&local->assoc_lock);
+ 
+ 	/* init supported flags with 802.15.4 default ranges */
+ 	phy->supported.max_minbe = 8;
+diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
+index 005338f89b75..dd156c01ac49 100644
+--- a/net/mac802154/scan.c
++++ b/net/mac802154/scan.c
+@@ -536,7 +536,9 @@ int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
+ 	struct ieee802154_association_req_frame frame = {};
+ 	struct ieee802154_local *local = sdata->local;
+ 	struct wpan_dev *wpan_dev = &sdata->wpan_dev;
++	__le16 resp_short_addr;
+ 	struct sk_buff *skb;
++	u8 resp_status;
+ 	int ret;
+ 
+ 	frame.mhr.fc.type = IEEE802154_FC_TYPE_MAC_CMD;
+@@ -578,9 +580,11 @@ int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
+ 		return ret;
+ 	}
+ 
+-	local->assoc_dev = coord;
++	spin_lock(&local->assoc_lock);
+ 	reinit_completion(&local->assoc_done);
++	local->assoc_dev_extended_addr = coord->extended_addr;
+ 	set_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing);
++	spin_unlock(&local->assoc_lock);
+ 
+ 	ret = ieee802154_mlme_tx_one_locked(local, sdata, skb);
+ 	if (ret) {
+@@ -599,25 +603,37 @@ int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
+ 		goto clear_assoc;
+ 	}
+ 
+-	if (local->assoc_status != IEEE802154_ASSOCIATION_SUCCESSFUL) {
+-		if (local->assoc_status == IEEE802154_PAN_AT_CAPACITY)
++	/* The association is complete: mac802154_process_association_resp()
++	 * cleared the associating bit before waking us, so a second (e.g.
++	 * malicious) ASSOC RESP can no longer pass the recheck and overwrite
++	 * the result.  Snapshot assoc_status/assoc_addr under the lock.
++	 */
++	spin_lock(&local->assoc_lock);
++	resp_status = local->assoc_status;
++	resp_short_addr = local->assoc_addr;
++	spin_unlock(&local->assoc_lock);
++
++	if (resp_status != IEEE802154_ASSOCIATION_SUCCESSFUL) {
++		if (resp_status == IEEE802154_PAN_AT_CAPACITY)
+ 			ret = -ERANGE;
+ 		else
+ 			ret = -EPERM;
+ 
+ 		dev_warn(&sdata->dev->dev,
+ 			 "Negative ASSOC RESP received from %8phC: %s\n", &ceaddr,
+-			 local->assoc_status == IEEE802154_PAN_AT_CAPACITY ?
++			 resp_status == IEEE802154_PAN_AT_CAPACITY ?
+ 			 "PAN at capacity" : "access denied");
+-		goto clear_assoc;
++		return ret;
+ 	}
+ 
+-	ret = 0;
+-	*short_addr = local->assoc_addr;
++	*short_addr = resp_short_addr;
++
++	return 0;
+ 
+ clear_assoc:
++	spin_lock(&local->assoc_lock);
+ 	clear_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing);
+-	local->assoc_dev = NULL;
++	spin_unlock(&local->assoc_lock);
+ 
+ 	return ret;
+ }
+@@ -639,19 +655,28 @@ int mac802154_process_association_resp(struct ieee802154_sub_if_data *sdata,
+ 		     dest->mode != IEEE802154_EXTENDED_ADDRESSING))
+ 		return -EINVAL;
+ 
+-	if (unlikely(dest->extended_addr != wpan_dev->extended_addr ||
+-		     src->extended_addr != local->assoc_dev->extended_addr))
++	spin_lock(&local->assoc_lock);
++	if (unlikely(!test_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing) ||
++		     dest->extended_addr != wpan_dev->extended_addr ||
++		     src->extended_addr != local->assoc_dev_extended_addr)) {
++		spin_unlock(&local->assoc_lock);
+ 		return -ENODEV;
++	}
+ 
+ 	memcpy(&resp_pl, skb->data, sizeof(resp_pl));
+ 	local->assoc_addr = resp_pl.short_addr;
+ 	local->assoc_status = resp_pl.status;
++	/* Clear the associating bit before waking the waiter: once the result
++	 * is saved, any subsequent (e.g. malicious) ASSOC RESP must fail the
++	 * test_bit() recheck above and can no longer overwrite the result.
++	 */
++	clear_bit(IEEE802154_IS_ASSOCIATING, &local->ongoing);
++	complete(&local->assoc_done);
++	spin_unlock(&local->assoc_lock);
+ 
+ 	dev_dbg(&skb->dev->dev,
+ 		"ASSOC RESP 0x%x received from %8phC, getting short address %04x\n",
+-		local->assoc_status, &deaddr, local->assoc_addr);
+-
+-	complete(&local->assoc_done);
++		resp_pl.status, &deaddr, resp_pl.short_addr);
+ 
+ 	return 0;
+ }
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+
+-- 
+2.34.1
 
