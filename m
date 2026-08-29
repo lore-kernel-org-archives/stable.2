@@ -1,112 +1,141 @@
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DA72C0303;
-	Sat, 29 Aug 2026 16:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C4B3803DE
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 16:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788022191; cv=none; b=L4UcP4plgIm6+lSXos+b3TIZ5IKGC5YGeQn81Vv3bSKC4GD//D/+Hc4zRwtGaZKOTx7jbuDYz1Lz6w3AvfzYl3fQhqVv4bdP+yWnfQGLXEgRPXTZueE+oAzeghbTbNkwth+XLjBpopyXgq0raMHTH6w0rQIpv5FbZEwJI/dKxnA=
+	t=1788022367; cv=none; b=BYG+y7w4Q2RN/zQJKqLb/kUXwZa3Jky0uiAnlZVzQ4+iaBvXvWUlXJXjvLA7IA1bqfTLMJtv63uK00hMsbd4xW9MVp2UEheepKU4+Mjug3/BwpmyJYuPM43NxBW7XhWAY/EOdKtBXY0VGZHsYGjQ/tFMDg1iIp7uCFigzxDVqbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788022191; c=relaxed/simple;
-	bh=gPlqbRhQE7ty70KtWsc7oE5oEYx+ZNOSm/Bh+jDmG84=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r/85ScfnAajrIg3jNr3BpKgAyGtZbxekLgwOzAbinf/1dFOK/Rql7MSkgqejiQDRHfYXVQMlj86eaA6opLha+hDROorRHZafcH6B8tW8QBITLwpuDhyXBr9/FJoNozOIDy1Z7qgHObqK5XGysZsfZF1MnFq/AE0ARC2d2wbKRmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=wKrGcTVY; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=wKrGcTVY; arc=none smtp.client-ip=140.77.166.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
+	s=arc-20240116; t=1788022367; c=relaxed/simple;
+	bh=1yKwZ6ZvkRR6i5NPWjGVEMUG4997wUO12yeLzomVEHk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=crh2+hw8W94uOyUujNothrqpFNG5mHMRv/nby03i7le5cmpCxiT7CJJSc40fiM48Jw1I2v0EL0VcK2k9y+NAC6RsRsgDCyoL8sFzNyI+Ve4nDaOwZYGVxhdQveec5m4VCOtB9BI4NtN6aixO4eRj+Ta/hr7C23OoV3ELdDJNmCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jAZ4iFM9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fldFLEwk; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="wKrGcTVY";
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="wKrGcTVY"
-Received: from localhost (localhost [127.0.0.1])
-	by sonata.ens-lyon.org (Postfix) with ESMTP id CD5C5A0191;
-	Sat, 29 Aug 2026 18:49:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1788022186; bh=gPlqbRhQE7ty70KtWsc7oE5oEYx+ZNOSm/Bh+jDmG84=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=wKrGcTVYXuClBJI9HHYI/nFppuBr7lzXYEhYipws0czvBCrmRr/ZPv5gzlId6Ib2x
-	 Kr9fK7dhoA+bZf8FVJF7fAxbBWuyquYTWrjdHa0WEdEnI4WVszls6wsaQjrG4QJuZc
-	 FaoiVe+YWf33aF3E6MbYzjUeCFw3y+vdGn7fKosVXEXN3mL8kb2BN88LqLskEzm3rb
-	 iuqPIWGffEAaR5ECRtn54uKqj+0QF8gXa8YDOeJMeXgC4UP+OGc9LIkDP9SKo75Fng
-	 GUWBp46NBulzP8tfr+wpebbRntmJ4c/wzVcZvMkWHQEFHMxKuBymOJS7Jl6eK+0rzz
-	 VW08mhs/4y14Q==
-Received: from sonata.ens-lyon.org ([127.0.0.1])
-	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id ah3xixdBzOKX; Sat, 29 Aug 2026 18:49:46 +0200 (CEST)
-Received: from end (aamiens-653-1-40-48.w83-192.abo.wanadoo.fr [83.192.199.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by sonata.ens-lyon.org (Postfix) with ESMTPSA id 2FC34A03B7;
-	Sat, 29 Aug 2026 18:49:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1788022186; bh=gPlqbRhQE7ty70KtWsc7oE5oEYx+ZNOSm/Bh+jDmG84=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=wKrGcTVYXuClBJI9HHYI/nFppuBr7lzXYEhYipws0czvBCrmRr/ZPv5gzlId6Ib2x
-	 Kr9fK7dhoA+bZf8FVJF7fAxbBWuyquYTWrjdHa0WEdEnI4WVszls6wsaQjrG4QJuZc
-	 FaoiVe+YWf33aF3E6MbYzjUeCFw3y+vdGn7fKosVXEXN3mL8kb2BN88LqLskEzm3rb
-	 iuqPIWGffEAaR5ECRtn54uKqj+0QF8gXa8YDOeJMeXgC4UP+OGc9LIkDP9SKo75Fng
-	 GUWBp46NBulzP8tfr+wpebbRntmJ4c/wzVcZvMkWHQEFHMxKuBymOJS7Jl6eK+0rzz
-	 VW08mhs/4y14Q==
-Received: from samy by end with local (Exim 4.100-RC3)
-	(envelope-from <samuel.thibault@ens-lyon.org>)
-	id 1x0MFV-0000000BI8Z-2ah4;
-	Sat, 29 Aug 2026 18:49:45 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: gregkh@linuxfoundation.org
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	linux-kernel@vger.kernel.org,
-	kirk@reisers.ca,
-	w.d.hubbs@gmail.com,
-	co+e5693071d903b832@bugs.sh,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] Fix NULL pointer dereference on VT switch + selection
-Date: Sat, 29 Aug 2026 18:49:45 +0200
-Message-ID: <20260829164945.2691317-3-samuel.thibault@ens-lyon.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260829164945.2691317-1-samuel.thibault@ens-lyon.org>
-References: <20260829164945.2691317-1-samuel.thibault@ens-lyon.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jAZ4iFM9";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fldFLEwk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788022364;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OjinuWNCoCWPerwCVDP7RZ6stRlkZpmuayoAvTI4RDI=;
+	b=jAZ4iFM9F0KCDckPZr8uhnxXbnyqXE+qo7KSMdXPa08l0/I4JrPWPSmryOG4gdYDRNAsrv
+	U8uK1zQdcVAhCLy+RBvp5INuO4z3fumXS4lzXZJbXUbpxv8cD9JanYU3X4sAI8ACMhmJ6f
+	CrQWa4PrK8WsNXJHJs1R1+pGkhw+bUs=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-609-2GA7ctRFOQeR5W5GHWCeeQ-1; Sat, 29 Aug 2026 12:52:42 -0400
+X-MC-Unique: 2GA7ctRFOQeR5W5GHWCeeQ-1
+X-Mimecast-MFC-AGG-ID: 2GA7ctRFOQeR5W5GHWCeeQ_1788022362
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e4f946461so294216085a.2
+        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 09:52:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788022362; x=1788627162; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OjinuWNCoCWPerwCVDP7RZ6stRlkZpmuayoAvTI4RDI=;
+        b=fldFLEwkCxG6KPtP6zSm+FXKGM50ZOQYCvWIPiV1r0G/E6CiQKSKzQ47gblwah5W5i
+         9PaA2Z19w+cJoJMP5jC7D1GVHVI6+vBARZThHXOu/hV8byhapZvyrVXkIZ2P7wZwhBAN
+         whICqOb9x8ou9t8CD3q9B0guaoY0cY391hIGs2Bw24DcwCFWlezqrLM5qDSt+VFJRceb
+         YBObaEN40U3Oz+jrGIYLo3P83X/Y4KeObHs7cSlAIt9RBANU08AVuJj9NCx8Ug8ESW3c
+         Xa1ZpBVdPnvu6DDIpbm5w89RgGY97tF8r1zeKfLBQWgxqj3Q0lSTdoyv1NsnQYJnCxCj
+         881g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788022362; x=1788627162;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:reply-to:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OjinuWNCoCWPerwCVDP7RZ6stRlkZpmuayoAvTI4RDI=;
+        b=iTPoFdclXJALp7qSt5MRv6qJ6jvP+ITKvX//vd1/xAI/2+eVSH+G6BqVqvPFAySUwM
+         DdidncTKIGGGmMFHqnpTnWwwXA91dBfr12TC0y/IsIxhzX08ZN3tu1RvvuTXoJDLIA/w
+         DS5FmxCRtWNSZlCJuJFeId3UFc3SiXFuvxF+DqMl0DWvdnfBfupB3/hjmjMwV8zyu2Cq
+         mV9msSR7Xu5/VNVXjAW6TVVtatkLFMm5LpnSbqaRrXMnAXn4PisziPTdGnefx4si8UHn
+         nX+/9iS82//UagKXc+bTOdx3mLpNVJfQZG8HBbsc4PnQO/5YPADGY09K4vrwxBE4cex9
+         whrw==
+X-Forwarded-Encrypted: i=1; AHgh+Roi5SFaJlLTB0Uxu8enf7ZK6ZhaJ0n2USdSgxggMoTiE1CK2ur4U1qXvve7ULMLkZX0+o0FuOA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuuaj+qx88unp0IpbWv1N/yzMTQGWDkFl6lr0PJcibImb0THNv
+	Ci0ZOvV8XQKy9RBlumSEG1cB6qZ+MhhqiBjOmACegO9T6cpFO2CNibpcJMXS0g5W1YZYIL3L114
+	rqDSZcvdtcK2PLQpyjSz+zEM7ytc/RSsrWfrS7nkxkjEf8c1MolSEA6AbGHW9JxeNHg==
+X-Gm-Gg: AR+sD127mRti3O5AjtIW9ZkPvrSd946qQbAJKbsaQ9iyeLCe4NZ0RK3UpUZORW2Yi4v
+	fcDO+CzY+Mv55OvRUNqeIg6VovyyidznEPvadpV8nUc25lmD4m4Rh3CDMbFVrLD3ipqaTpFRmxR
+	8JnID4mHQnBMQO++W/61f42qofgtp1A4B3z5327601tK8F/L4qfwmMjbJWPtaslceRDbGetALpO
+	PywmDj52z7Z64um0YK2PUasouTDb16iBRBb89paf4tzK7cBH05uUc0uAQsM0O6SB4pI2pIukh2R
+	n7Dc04wjCdDqrMOR/jFevtPTTP7VNE/Oi+f4jLbzMjYo8C2gZFIvrJloq6I/yuXZOhhmik78ZCQ
+	ipKvY80CycyNkC6keaZRLmtBwqZwx/q4e2SUTtRxc
+X-Received: by 2002:a05:620a:6c0d:b0:938:fd60:4f9 with SMTP id af79cd13be357-939138ffdc0mr1669554885a.27.1788022362051;
+        Sat, 29 Aug 2026 09:52:42 -0700 (PDT)
+X-Received: by 2002:a05:620a:6c0d:b0:938:fd60:4f9 with SMTP id af79cd13be357-939138ffdc0mr1669550885a.27.1788022361613;
+        Sat, 29 Aug 2026 09:52:41 -0700 (PDT)
+Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939173db029sm393233285a.35.2026.08.29.09.52.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 29 Aug 2026 09:52:41 -0700 (PDT)
+Message-ID: <9b064466-4403-4ced-b6f9-7f92829f3414@redhat.com>
+Date: Sat, 29 Aug 2026 11:52:38 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Reply-To: sorenson@redhat.com
+Subject: Re: [PATCH v3 11/11] smb: client: fix NameOffset and Next field
+ validation in smb2_parse_contexts()
+From: Frank Sorenson <sorenson@redhat.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org
+References: <20260826153147.4112943-1-sorenson@redhat.com>
+ <20260826153147.4112943-12-sorenson@redhat.com>
+ <CAKYAXd8_jvTz6DX-1OjkCu1UAe7qKKHKOyW7-yOqrqVtxC6dPQ@mail.gmail.com>
+ <666879b8-5117-4c41-ab1d-e50637e68a5d@redhat.com>
+Content-Language: en-US
+In-Reply-To: <666879b8-5117-4c41-ab1d-e50637e68a5d@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-When selecting/pasting very quickly after VT switch, the tty is not set
-yet, leading to a NULL dereference. We can just abort the operation.
 
-Reported-by: co+e5693071d903b832@bugs.sh
-Signed-off-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-Cc: stable@vger.kernel.org
----
- drivers/accessibility/speakup/selection.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+On 8/29/26 11:26 AM, Frank Sorenson wrote:
+>
+> On 8/29/26 9:01 AM, Namjae Jeon wrote:
+>>>                  case 16:
+>>> -                       if (posix && !memcmp(name, 
+>>> smb3_create_tag_posix, 16))
+>>> +                       if (dlen && posix && !memcmp(name, 
+>>> smb3_create_tag_posix, 16))
+>> Could we check that dlen is large enough for the fixed POSIX fields
+>> before calling parse_posix_ctxt()? It reads 12 bytes even when
+>> DataLength is smaller. 
 
-diff --git a/drivers/accessibility/speakup/selection.c b/drivers/accessibility/speakup/selection.c
-index 1713ce4e0ba5..a04a7e8c307b 100644
---- a/drivers/accessibility/speakup/selection.c
-+++ b/drivers/accessibility/speakup/selection.c
-@@ -61,6 +61,9 @@ static struct speakup_selection_work speakup_sel_work = {
- 
- int speakup_set_selection(struct tty_struct *tty)
- {
-+	if (!tty)
-+		return -ENODEV;
-+
- 	/* we get kref here first in order to avoid a subtle race when
- 	 * cancelling selection work. getting kref first establishes the
- 	 * invariant that if speakup_sel_work.tty is not NULL when
-@@ -120,6 +123,9 @@ static struct speakup_selection_work speakup_paste_work = {
- 
- int speakup_paste_selection(struct tty_struct *tty)
- {
-+	if (!tty)
-+		return -ENODEV;
-+
- 	tty_kref_get(tty);
- 	if (cmpxchg(&speakup_paste_work.tty, NULL, tty)) {
- 		tty_kref_put(tty);
+
+make that 24 bytes for smb2 and 50 bytes for smb3
+
+
+so if we test inside the version-specific function, can we simply return 
+0 if the DataLength is not large enough:
+
+
+smb2_parse_lease_buf(void *buf, __u16 *epoch, char *lease_key)
+{
+     struct create_lease *lc = (struct create_lease *)buf;
+
+     *epoch = 0;
+     if (le32_to_cpu(lc->ccontext.DataLength) < 24)
+         return 0;
+
+
 -- 
-2.47.3
+Frank Sorenson
+sorenson@redhat.com
+Principal Software Maintenance Engineer, filesystems
+Red Hat
 
