@@ -1,81 +1,46 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A3B2D12ED
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 09:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 05A413793DF;
+	Sat, 29 Aug 2026 10:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787997302; cv=none; b=OodcVMoBxI6OKyDML+RzdrdWYk5hxcNHGkk3B4kNjgtnLmN9R/B72h8JavIz5R0wUuseuITas/ahcIFdu7WhZ7K5HjR51gqCjJvvVQuNo+2IOAd/mVqQPGJht/CzvZcVXp/MEfADh9rpVU2t3KpAJaOwMxDzZP2A0+aWceUmGNw=
+	t=1787999201; cv=none; b=ghAAQR7yMUm3VZtsbz91avmJ5QibC0iF9c7hO0oES2KQGLla06tfgpx0A14hNRCiagrsZ5EAfWmNSHGZEH9d/72xcuXVCZlObNEgkj5EE2cTIaIqSgAZjOAX2ellTgPkWuU7JMzLeiQZDXkgZu/BFWt8GEv6jaHKvRt08Yrl9gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787997302; c=relaxed/simple;
-	bh=tGg7OnyL8/9JmC2shM+2pm7rQpu1dy5h3ZLrB4k//cU=;
+	s=arc-20240116; t=1787999201; c=relaxed/simple;
+	bh=Hj0ta3Eu+x7sjXgwb8J8jJ4p6RmEKsz07ce1JVcDKqA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QdoyKkb8xaebRnoAm0ufE814cjXGRYJ+3ihgvAYPr6B91U9YxbBzHWDT4K52k76oLA4jClYLG+n13btVxDp4Hq9PzCQhcL5scuHZGYVWyyjCcPF0E6bFZJpGQ3mm8QFveDXzqUHU7f7XwSvpllEvqp24ZctYdTgN7gLe8+To/u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kTB0P2os; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=OJsjDbU6Gwtg3f7WwEIagWwjEzsJw5KOdHlGl+XGoHpDrzPpTNn7YL6CFTQrW5icOrXwlEq9/IhZjgICCmgB981tnWQp3ggV8/I7D+QWILZZHEj21dJF77iMlFj3Q7rGMEYjROhKLQO7V2hbSzsczILcrxRH2cacXOQxfV2lj5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=APouihov; arc=none smtp.client-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kTB0P2os"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d70066b704so1579115ad.2
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 02:55:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="APouihov"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787997301; x=1788602101; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r+XYc/uhp00twA6hJyfMPfZH8ZjPnbMc9r1vC8WbHMM=;
-        b=kTB0P2osEwYH7u+U9W9rnjkE1jsj5xpqGXD7R6EJLXyvjV/gtzAYRTjZ+irtalDgeD
-         gM2X+o+6/cLbTPaHr9Ybfleyqge4eTX8tqwAQv7PEMbwAf6zb1dZ+PHk+TEVuFKR9uT6
-         AL5YvsdNoqHH+kHXanuZEqeKCoC5FQEOI+gtD1e7UVIzXBW/kLWYamBHVq/F4CTGNLjZ
-         qlYXKh+4lpvXUeCPYQpe0NR8nZdiGyl3tOeivAJkXz5gBZVI7RKxX3kNeT618UXtLaWC
-         C4eARuRrFyMuhGkqMzcp3U5Ylzt/BQj54CX4bVsmkvbrGa32LAdzVBHLsH4CJrNzVmbu
-         VOpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787997301; x=1788602101;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r+XYc/uhp00twA6hJyfMPfZH8ZjPnbMc9r1vC8WbHMM=;
-        b=C4SvVFVN/5Zbsxx6WToENMGziZrKt60UzGprZ8pzSNMzzSe7WotkhqLWsyQvCO6siQ
-         0/nG9/q8aEb3QtjIewfvsJ5khk9vyf8R2O7tXm0muySVlaOeaK/qSLDE1c0ey3LQ6/Nn
-         TvNGTDEvzQO0YpSGbPViS4Uss6bVVYoebL5cMTuoh3BQ/YP3lOOjMAeQTza/PXQtL1gi
-         AbL5+Mv8UJ0z35iU+wukqiwv8Y6pmRxbUmiBqovsYs8DY3cv45SbWyBiTQ48TgtvTa60
-         obBX+GBci65/XScP0PVWDlQf9iZ6dnM7Mt62hDK0IBPf80meo/WdKKBOCcsXZ8jJPZkI
-         fljw==
-X-Forwarded-Encrypted: i=1; AKwUvByBDJ97l+zVce5dnKch+XVNX6Aa33otZmiE38iV8jBUtDcWTp390vcEsCqkt3EagNOsVoHGKa4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l863tvvSWgnp2troPpOANl+Ur4DeR/m+MhzmxBoGZEG9qnSyw+
-	T3jWhwF1h1//RP+Z/3nYkSgo+9nWwk+ZLalTLStlXu7atQFxrxsv3OGF
-X-Gm-Gg: AYBFou08I9ack9hyfTLoR7+IKJVH+UlmVyb9UlHPgBdmuc3fsJhg8K9Q8iVPkxTnLy4
-	MxFCmaDRM8AnySSdy4ZDoByPMGQkbp+LUcllAbVAgC8eGj8hh+wZasIMCYPbtC0zLX3Prg74nJv
-	HUCxtQvrST+fJFY+gmeCNDBaZkOLoJlw4QOXMlvKB8/6tEHwY8WeJ0rhJce2uH3i2Ke0JCqDATJ
-	roko3icQhHKYoIWZq1hatUs5U73TWZxN+a4ZF/pq9aLim29DGzupwTLqwhPdC30WXtbcPT/wtJK
-	oiU824ceGgaaX+CFLs0S5lnjfX6zsxjvvPU3AHXHLb1lqly9r2HnA9si+4KnczAAxD/fRlT6E9f
-	Orj+25VHRpDZ7ijtU+gSC7n57a8+Gkj4hU2mGwBmvFD2HvJ4BGQf3AuaJPj3S54iej4e9gCiX3r
-	J8RoL0+bZOYNTjtwAD+PqUjYjZyh4JiYWn6VJa/FuJd1xyqOowZs4NJIiL5tq5VaCL+rAVq0zOV
-	9CCh2dGsdqyZ9692gS20LwuyYzX1l7Vbnk=
-X-Received: by 2002:a17:903:228a:b0:2cb:2b50:d9da with SMTP id d9443c01a7336-2d74df53523mr116538065ad.3.1787997301027;
-        Sat, 29 Aug 2026 02:55:01 -0700 (PDT)
-Received: from cachyos-aura ([2409:40f2:3104:d691:c7eb:3b03:2c8d:127f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f783c37sm15775697eec.6.2026.08.29.02.54.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 02:55:00 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: miriam.rachel.korenblit@intel.com,
-	linux-wireless@vger.kernel.org
-Cc: nika@nikableh.moe,
-	emmanuel.grumbach@intel.com,
-	helgaas@kernel.org,
-	markpearson@lenovo.com,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Navon John Lukose <navonjohnlukose@gmail.com>
-Subject: [PATCH wireless 2/2] wifi: iwlwifi: pcie: request a product reset when the device is gone after resume
-Date: Sat, 29 Aug 2026 15:24:37 +0530
-Message-ID: <20260829095437.44716-3-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829095437.44716-1-navonjohnlukose@gmail.com>
-References: <20260829095437.44716-1-navonjohnlukose@gmail.com>
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=gLS7pT3T4v7xrlIuSY8uY9IyBACFKGJNjm
+	QL1BB2GzI=; b=APouihovRrmi+dlpFaS8xKUpx8WPZeq+sLA+flJEc90msrDx2J
+	T5YIeHYFuiSG+6XboK80e1e0N9FONs7Dgh+d+BexdYWLk92wFacqcHad+Mw2SyKd
+	AD8B/xBa63Ot1jb/IuwBjHpORbRtRoioHozr4NIW1vpjw7RjYwKyY5wRs=
+Received: from localhost (unknown [183.216.9.64])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBXUyrLs5JqiPC0AA--.1346S2;
+	Sat, 29 Aug 2026 18:26:20 +0800 (CST)
+From: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	bpf@vger.kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	ameryhung@gmail.com,
+	joannelkoong@gmail.com
+Subject: [PATCH 6.6.y v2 0/3] bpf: fix dynptr release handling
+Date: Sat, 29 Aug 2026 18:26:15 +0800
+Message-ID: <20260829102618.105116-1-xyx2021@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260829032754.2324760-1-xyx2021@mail.ustc.edu.cn>
+References: <20260829032754.2324760-1-xyx2021@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,48 +48,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgBXUyrLs5JqiPC0AA--.1346S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCFyfGF1UGw48tr4fZr4UXFb_yoW5CF1fpF
+	WFkayYqF1kJrnrCrs7AF48X3WFkrs3Xw43GFyfKrySyan8Jry5ZrWagFyUXFsxKryfA3yj
+	qw4Yq3ZxCa1UZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Kb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgXdbDUUUU
+X-CM-SenderInfo: h010jiysr6zt1loo32lwfovvfxof0/
 
-On platforms where D3cold removes the WiFi module's power rail, the
-device can come back from suspend completely absent from the bus: config
-space reads 0xffffffff and the downstream link never trains.
-_iwl_pci_resume() currently notices only a subset of this (scratch ==
-~0U, and only when the device was enabled), then "hopes for the best" by
-re-initialising over PCI, which cannot work - the hardware is not there.
-The result is several seconds of handshake timeouts and a bogus
-ADVANCED_SYSASSERT dump before giving up, and the device stays gone
-until reboot.
+Upstream commit 308c7a0ae885 ("bpf: Refactor object relationship
+tracking and fix dynptr UAF bug") fixes these lifetime bugs as part of
+an 11-file parent_id refactor.  That refactor cannot be applied to
+6.6.y, which still represents the relationships with dynptr_id and
+ref_obj_id.
 
-Check whether the device answers config cycles at all, and if not ask
-for a product reset, which power-cycles the module and re-enumerates it.
+This series supplies three stable-sized equivalents using the existing
+6.6.y representation.  Patch 1 invalidates slice registers with the
+released dynptr_id.  Patch 2 propagates a referenced-dynptr release
+error instead of turning a callback rejection into a kernel warning.
+Patch 3 scans every active call frame when invalidating cloned dynptr
+stack slots.  They are split because the bugs have different
+introducing commits and independently testable effects.
 
-The check is deliberately placed before the STATUS_DEVICE_ENABLED block:
-that block is skipped entirely when the device was idle or down at
-suspend time, which is a common case (e.g. the radio was switched off)
-and one where the device is just as dead.
+All three patches preserve Amery's upstream authorship and complete
+trailer chain.  Each commit message explicitly documents the deviations
+from 308c7a0ae885 and the reason for the stable-only implementation.
 
-Fixes: 9673c35486d4 ("wifi: iwlwifi: implement product reset for TOP errors")
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221695
-Cc: stable@vger.kernel.org
-Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
----
---- a/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/drv.c
-@@ -1232,6 +1232,18 @@
- 	if (!trans->op_mode)
- 		return 0;
- 
-+	/* Not answering config cycles: it fell off the bus and will not come
-+	 * back from a PCI-level re-init. Deliberately checked before the
-+	 * STATUS_DEVICE_ENABLED block below, which is skipped entirely if the
-+	 * device was idle or down when we suspended.
-+	 */
-+	if (!pci_device_is_present(pdev)) {
-+		IWL_ERR(trans,
-+			"device is not on the bus after resume, requesting product reset\n");
-+		iwl_trans_pcie_reset(trans, IWL_RESET_MODE_PROD_RESET);
-+		return 0;
-+	}
-+
- 	if (test_bit(STATUS_DEVICE_ENABLED, &trans->status)) {
- 		/*
- 		 * Scratch value was altered, this means the device was powered
+Changes in v2:
+
+- check that a register has base type PTR_TO_MEM before reading its
+  dynptr_id union member, while retaining DYNPTR_TYPE_* flags;
+- add a bpf_dynptr_slice() use-after-submit regression that reaches the
+  dynptr_id-only slice path on the target stable verifier;
+- add a separate patch that propagates release_reference() errors from
+  referenced dynptr release and a callback regression test.  This avoids
+  the verifier WARN, and the panic it causes with panic_on_warn=1, when a
+  callback tries to release its caller's dynptr;
+- make the cross-frame clone regression use bpf_dynptr_data() after the
+  callee releases a clone, so it uniquely tests caller-slot invalidation
+  instead of a repeated release already rejected by patch 2;
+- check STACK_DYNPTR before reading dynptr metadata while scanning call
+  frames, so a partially overwritten ordinary spill with stale metadata
+  is ignored, and add a success regression test;
+- investigate the separately reported slice escape through a returned
+  subprogram frame.  A minimal reproducer is also accepted by current
+  mainline after 308c7a0ae885, so that issue is not folded into this
+  stable-only series and needs a separate mainline fix.
+
+Tested on Linux 6.6.155 with panic_on_warn=1:
+
+- test_progs -t dynptr -v --workers=1: 2/92 passed, 0 failed;
+- the slice-after-submit and cross-frame stale-use programs were
+  rejected, while their control programs loaded successfully;
+- the callback-release reproducer was rejected without a verifier
+  warning;
+- the independent submit/discard, stale-spill, and cross-frame
+  reproducers produced the expected results.
+
+Amery Hung (3):
+  bpf: Invalidate dynptr slices by dynptr_id on release
+  bpf: Propagate referenced dynptr release errors
+  bpf: Invalidate dynptr clones in every call frame on release
+
+ kernel/bpf/verifier.c                         | 55 +++++++++----
+ .../testing/selftests/bpf/progs/dynptr_fail.c | 79 +++++++++++++++++++
+ 2 files changed, 119 insertions(+), 15 deletions(-)
+
+
+base-commit: a4a971135a2ff64382ae4235b3ae60503bb1036a
+-- 
+2.43.0
+
