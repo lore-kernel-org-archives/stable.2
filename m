@@ -1,64 +1,50 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mta1.migadu.com (out-83.mta1.migadu.com [95.215.58.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758962AF00
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 02:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CEA27FD76
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 02:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787970661; cv=none; b=UzrHmrWKn9NJzDsRgYETYyWMLGO9vgmankjMg2H4S3ryyquxOt2lbmF//kHs9Ouvb3z0+6P8G8mk1A73gllfAGfAoR7dxnwonUQcKONW9WU9NAROlF//DJ8RgkJITEJzTzsCfO+/MrQDBIf5ccOWPpG46J3mlGspRaXdeOmWlXU=
+	t=1787970777; cv=none; b=RVBcZ+5BHX+A1folFfo1BGjym1kUO9XIkP+t6vDpzKV7GbJR679NP1+7tc3xackLTVy4Hlc99PXidEe6cqsVEdQsCcvZqD+ye25ap9o37dcEl/MMZ8UZ/Ocfy0kBfwlc3Qe3TD8tQAPiqjYqrqvXA6tLWMwVUBrH/RBu8tzEuqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787970661; c=relaxed/simple;
-	bh=JLRqHca6V5+8EONR3KrMaVml6BhoNvZisjlrB4PMfVQ=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=lbnzWvoYL6f851Dd1IAYgGjUVDCpAxUWspZ25qrtx+CYm2FBm7+3YcTs7eKjCtkI2rjTW3sP4mtjtHJnj+7PFrN1xShUoE7N6NRaRo9AoLDua4Z9b6Kaa/l5afCIkGUJbSglCuobAjo5pZW9Wch7f8WIGut9oMFsv2kYtgqKv6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=eyFiyo6b; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1787970777; c=relaxed/simple;
+	bh=H1xtjBEAg3BPif39hck2d213NLc0Z1FDsX7jcBX47e4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZiNFKKSk2dTqPbI2JNNIwWEsYFCSbDwXWchDYPTkMYpkhS097+0KIAbr9cs9hJQKBkHVm0giao7OmhsQJnap6RJHhCBTiTpp7Oy6/iFrqH8DV8VRsuDRX5sqDCURQHfKf26SvZ+IkKL7f1SV0S7zc4JQvP3UBs1G4VcoZeMkYvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e9qHmgdf; arc=none smtp.client-ip=95.215.58.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="eyFiyo6b"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-853c401326eso1031913b3a.2
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 19:31:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1787970660; x=1788575460; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Db3JAqua+/rhxmKBrFo8UwBAuuZcADahbrV4QQKckH0=;
-        b=eyFiyo6booJvf/e1lVcuT32xg6fkbyfkgCfu3EQQx5qFRA3T8zMJ+f9k72nhF/AEUd
-         LEPXrEbGKByy/y0ibXAn8JI/mRmd8ueIPszhvufpC993NJvTwsmBZ4AgOovH/RRqOqaQ
-         rYRXfnHhgpilYMZSXjS6TMG7bPXr28Lxm1ptwmt8FeufjzCbvT/Rxc1sh8Y5E0AawJsI
-         AttKgOsskXzy0n8RAxCFP0Sup6r5vYYlapXgMFKDQBE3TwnPU51Rx+QUr09A7TMH8iC3
-         okBTl9keJoplX7G9mapcCNz4lcq4HHyxsxg2DiTePWYOKn6dusMyUrjbDKdHvxfmqr3i
-         ZnzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787970660; x=1788575460;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Db3JAqua+/rhxmKBrFo8UwBAuuZcADahbrV4QQKckH0=;
-        b=g5LdzucfOvM9657a9r7TodIVN1tMDJZu6n4rOUXbeInnDn1T3RzGvNKKMFmiNX+yja
-         jZlyuLgzTkedmtntQlqG4OK+Xc+NL4XaXqZOFcQ94bqGix5meiwIwwc72+aT3jSMLrVO
-         Nk4af4fosD26q8zV/pBvEUk3OZMum4p5iN8HiWn71X5DDjgpbmg5b5sxortuOca1IMZI
-         zLb2jWdhGKDJHAx+wcYdEhfGRlOYZoPZk0qXFfjHhvDe9tVIZxzZz9a7ml6gyu5XQXtk
-         eIkD1NJHMmg1xE5zpksMNbQswkhxSCFAvmCw1vr2c7TOzNho5TqJ3gm+wqxeSQJzm+7G
-         8dRw==
-X-Gm-Message-State: AFuF++kmTpfWkmB4SVoMNybtEVvuD0Hf+HuwGUdJ6OtJBI2EgaekOhjL
-	X2u3OYBirX65GpjJVln95SxYAk+KxEAGuabTTL5zPa9Ty6weXAyO8+IRV4HorQ8qeqrTPU2Tm2d
-	bfMJx
-X-Gm-Gg: AR+sD10b9QDZ8ov/TgWub1v9v+fyAaVtSlAjqEUH+oryK0JXp05jUCsC/TzyWFLVHXV
-	VPPBn0D5FB9ACfuH2adBUSI/DUx2zC2wqmOEvTnHSgDlErFl7yYS/QgUvAegXcrAwm9TDsq9Gqk
-	RoQWh3BcAGY10jsFF1etffE8nR3kiiimRkox9W8PzVI8OnLzu2YWC9WnaRWyrYolk56zK4qJFxc
-	R67ts0DCm7nkYl5SqaHbQ3lYO/ePM9djC4XEX4fCw8Zlfm14/1G5Iaf+QGq97Ssqy3iL91nRmj4
-	UXaSCKoPqE/aj7ZY8285t/hlfIPsJdFAtDQziE0LZ6Dr/wtRp1+S1x6reiQTIDOf/X1eAlCiV4d
-	yzbJdDbNMzJF6lbPVGXX81se5uE2UDWUjffhZfpJQZknCjv9l+uIIa7pN7opCU9LYH0GW/7IDae
-	6Gd/Zh+aJYO7YkUbBRkbDaBsAtPIhf5OmjZjVmtdWPqh2cJzb9oVIB
-X-Received: by 2002:a05:6a20:3ca1:b0:3d3:adbf:777e with SMTP id adf61e73a8af0-3d3adbf81b8mr5321368637.19.1787970659732;
-        Fri, 28 Aug 2026 19:30:59 -0700 (PDT)
-Received: from b455de3d9de8 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bc825sm11600770eec.9.2026.08.28.19.30.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 19:30:59 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e9qHmgdf"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=H1xtjBEAg3BPif39hck2d213NLc0Z1FDsX7jcBX47e4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1787970774; v=1; x=1788575574;
+ b=e9qHmgdffEAllsCyb3XwlS1rkgZlJ+NInPSUhsjHQBBpLcbnM72Sqa9kufFDnea4Tv1p6xZD
+ sDGOTlrdvt8vXOZHdHr0d9g1mFa6Q7Gd47tBmMEe6Iw3EBGaff36Iq5/7Mo9+LfWUS1VcWeqLKQ
+ 8QEvlD0bKue2ELQbhlMl9y0g=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dddd84c8fda15912;
+	Sat, 29 Aug 2026 02:32:53 +0000
+X-Mizu-Trace-ID: dddd84c8fda15912
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Farhad Alemi <farhad.alemi@berkeley.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] memcg: avoid charging the root memcg from obj_cgroup_charge_pages()
+Date: Fri, 28 Aug 2026 19:32:51 -0700
+Message-ID: <20260829023251.474083-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,150 +52,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.12.y -
- f717995cb7dcd8998ab15516b8006aea09cfde0d
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+
+obj_cgroup_charge_pages() resolves the objcg to its memcg and calls
+try_charge_memcg(), which does not short circuit the root memcg.  That
+memcg can be the root memcg: obj_cgroup_is_root() reflects the memcg the
+objcg was created for and is never updated, while memcg_reparent_objcgs()
+does redirect objcg->memcg to the parent on rmdir.  An objcg of a dying
+child of root therefore passes every obj_cgroup_is_root() filter but
+resolves to the root memcg.
+
+Folios keep the objcg they were charged with, so this is easy to reach
+through zswap: allocate anon memory in a cgroup, move the task out,
+remove the cgroup, then write to the root cgroup's memory.reclaim.  The
+reclaimed folios are charged through the reparented objcg and end up in
+refill_stock() with the root memcg:
+
+  WARNING: mm/memcontrol.c:2198 at refill_stock+0x644/0x940
+   refill_stock+0x644/0x940
+   try_charge_memcg+0x12d6/0x1570
+   __obj_cgroup_charge+0x35/0xf0
+   obj_cgroup_charge+0x1de/0x210
+   obj_cgroup_charge_zswap+0x83/0x270
+   zswap_store+0x1620/0x2000
+   swap_writeout+0x94c/0x14c0
+   shrink_folio_list+0x3388/0x52b0
+   [...]
+   try_to_free_mem_cgroup_pages+0x30d/0x830
+   user_proactive_reclaim+0x504/0x840
+   memory_reclaim+0x1f/0x30
+
+Beyond the warning, the charge is asymmetric: obj_cgroup_uncharge_pages()
+skips refill_stock() for the root memcg, so the root's page counter grows
+and is never uncharged.  It is not user visible, since memory.current is
+not exposed on the root, but it is a leak.
+
+Use try_charge(), which returns early for the root memcg, restoring the
+symmetry with obj_cgroup_uncharge_pages().
+
+The above sequence was scripted into a standalone reproducer (zswap on,
+swap on a virtio disk, 512MB of anon memory faulted in inside a child of
+the root cgroup, the task then migrated to the root cgroup, the child
+removed, followed by "echo 600M swappiness=max > memory.reclaim" on the
+root) and run in a CONFIG_DEBUG_VM=y VM.  It reproduces the splat on the
+first zswap store of a reparented folio, with the same call chain as the
+report.  With this patch applied the splat is gone while the zswap store
+count over the run is unchanged, so the same path is still exercised.
+cgroup selftests test_zswap, test_kmem and test_memcontrol show no new
+failures.
+
+Fixes: 20d6c1725228 ("memcg: avoid refill_stock for root memcg")
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Closes: https://lore.kernel.org/all/CA+0ovCgWzUMK+nNbbtH7eV65Ca=fDN4Ozu7iASgryjvv8Tk8zQ@mail.gmail.com/
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Sat, 29 Aug 2026 02:30:58 -0000
-Message-ID: <178797065856.6229.10796431688656345044@b455de3d9de8>
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
 
+Note: I kept it simple for easy backports. I will followup with more cleanups
+where I will remove try_charge().
 
+ mm/memcontrol.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hello,
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 4a18ee4509ab..1709ac96bbde 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -3157,7 +3157,7 @@ static int obj_cgroup_charge_pages(struct obj_cgroup *objcg, gfp_t gfp,
+ 
+ 	memcg = get_mem_cgroup_from_objcg(objcg);
+ 
+-	ret = try_charge_memcg(memcg, gfp, nr_pages);
++	ret = try_charge(memcg, gfp, nr_pages);
+ 	if (ret)
+ 		goto out;
+ 
+-- 
+2.53.0-Meta
 
-Status summary for stable/linux-6.12.y
-
-Dashboard:
-https://d.kernelci.org/c/stable/linux-6.12.y/f717995cb7dcd8998ab15516b8006aea09cfde0d/
-
-giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.12.y
-commit hash: f717995cb7dcd8998ab15516b8006aea09cfde0d
-origin: maestro
-test start time: 2026-08-28 07:16:01.786000+00:00
-
-Builds:	   52 ✅    0 ❌    0 ⚠️
-Boots: 	   48 ✅    0 ❌    0 ⚠️
-Tests: 	 7800 ✅  484 ❌  271 ⚠️
-
-### POSSIBLE REGRESSIONS
-    
-Hardware: mt8183-kukui-jacuzzi-juniper-sku16
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-get-timeout
-      last run: https://d.kernelci.org/test/maestro:6a91485fc5867fba946b0051
-      history:  > ✅  > ❌  
-            
-Hardware: mt8195-cherry-tomato-r2
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-get-timeout
-      last run: https://d.kernelci.org/test/maestro:6a9146a1c5867fba946af8f9
-      history:  > ✅  > ❌  
-            
-
-
-### FIXED REGRESSIONS
-    
-Hardware: asus-CM1400CXA-dalboz
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a917231c5867fba946ba40a
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: sc7180-trogdor-kingoftown
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-trigger-reset
-      last run: https://d.kernelci.org/test/maestro:6a91467dc5867fba946ad9d6
-      history:  > ❌  > ✅  
-            
-Hardware: asus-CX3402CVA-brya
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916ac1c5867fba946b708e
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: acer-chromebox-cxi5-brask
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916afac5867fba946b73cb
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: acer-cp514-3wh-r0qs-guybrush
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916afcc5867fba946b743b
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: acer-R721T-grunt
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916af5c5867fba946b72fa
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: dell-latitude-3445-7520c-skyrim
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916af9c5867fba946b738d
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: hp-x360-14a-cb0001xx-zork
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916b00c5867fba946b7764
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: lenovo-TPad-C13-Yoga-zork
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916b5cc5867fba946b7a58
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: acer-cbv514-1h-34uz-brya
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916af7c5867fba946b7332
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: acer-cp514-2h-1130g7-volteer
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916af4c5867fba946b72eb
-      history:  > ❌  > ✅  > ✅  
-            
-Hardware: acer-cp514-2h-1160g7-volteer
-  > Config: x86_64_defconfig+lab-setup+x86-board+kselftest
-    - Architecture/compiler: x86_64/gcc-14
-      - kselftest.iommu.shardfile-iommu
-      last run: https://d.kernelci.org/test/maestro:6a916ac1c5867fba946b70dc
-      history:  > ❌  > ✅  > ✅  
-            
-
-
-### UNSTABLE TESTS
-
-  No unstable tests observed.
-
-
-Sent every day if there were changes in the past 24 hours.
-Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
