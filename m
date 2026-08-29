@@ -1,201 +1,142 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F74397936
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 12:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788006063; cv=pass; b=qXuppW8W8eN0Iy9VBv04jc1JJNIbkeiHb/6VsDx+OHt8ny5EnPjOXCaKoRwc+9gaMV1xWI5skxZawHRQQH9GmzfUII7Hm4N1cVubZlaOvy+m7GQXuuwx62iroAlNhNLKk1tuwvWnAOqXEKZkiXSCGMI/HM34SVpOZjA+y7qWBWQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788006063; c=relaxed/simple;
-	bh=YhhiT+lMqx5HjW0/PRoXbfXIAG7+7GDtlBab+gtNpMk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kAy4JBUAzYC4BORJZIneL8EhEg/4kKpzCMB7HoilXBLC2n8RuSrZSofcmOoTjBoqtG5GatCs3JRfKHdPB6zmxFja61ccKm/313GSvyIFosYwocVXPJjBPI5O0fOyVkDDnE67s+bZ1Qo+iqN1cqfyJMDV2OEvfN/4mET/IHGw9JU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=HFcDzDb6; arc=pass smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A886D2DC783;
+	Sat, 29 Aug 2026 12:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788006483; cv=none; b=poFe93Zx4xowCtbVSIITpR3L4jK+yaV965KkQK8oHTMsso8tjlQs3+M7uzKOlXoOSv+VfUzkOSmJFIDMJUROJdiV5rmHXUIpRKVpe9bukyk83rxBEAosudyFQI2LKUP5dyJwf49JWloDJuwx7HcgFgTm3bXww41aaEjpbgwcwc0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788006483; c=relaxed/simple;
+	bh=VwUiMkZBnNI69pBkdAmD5Xsm/G/FSJcHnsrHJ3DRI1s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bY86FerpZ3rfeK67RTleK3MgJZNtvntqgNawA7qvs0C1qzWQoaqhpeOKsSIvpl8AISB13qwLv/ZptYZ/x8Gvpjz4mrLSqo7GZ4BxXBURg+ayaI6jzi0RVoqZKiFo+SzWP7Closr/exvAi49ewUvmGG80au49GA0H79+GoyCWhdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mcV3yJPc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="HFcDzDb6"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so1833779e87.0
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 05:21:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788006059; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dZgPomDf1ggCMPIbR2pLXN86ODgvS1PN6v9TFMZmsX2NL3H8IOyukuGFd1garmg2eV
-         yJVfLUwfsesG+W39NAZN1vUEwp2Ey8p/STVcDPzDOOHPeNSu9oq2wwHeh9W9QGFrcJmX
-         zvjFXUSyk28SVPiznW20o37jw4VWm7I/fASRcOPwyZKjq4XrttpEwHOJuD8Jw1p+Sa9/
-         4B3vF2gAkuPvpn8uoMIaHD9+OmhXBATzowXJJJAj0AWOHYUHwIQ52Sz1XwAhBw7Bh9xN
-         Klglfb4AhS6KAwBdZBtVIIadfwrGgA33d4UtlHTBRoiRPIh5v/1u/HjtSpBk+5NExzj2
-         MKJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
-        fh=Y4EGbx8WC5AszsrvzPo1JPhC4i0vqt7e3RhbXQ2DrnA=;
-        b=nvI6eoK2E00JGHmzE3vWN4cBrPKRdfwEgba/bi4OTe/uD23O4/mBHU8irqKamP6DJ/
-         7K9o7LB7wF611MZQcM1621DAUrmvAyqaumOidHmJFGhWxc/OGuYllvcm1meSDBx5szj0
-         U+wLrZkuquEEC+NDXJcnB4DgAFP4oManNwnC6tZcvOeG1Ou4dSefPMKhHrQ+kRHnZJkL
-         /h/jxCSah+cPLardy9o/VhNFJIA3PFSs6EW0fY8Ekhlz+7QjrCDVQOWFzagoptbrHWMn
-         B9sqDuleSx+EJclJasHwt0nZ7QiXxe1TemmMhB+qM8sTtWa1usKjXZQ3FW3aIbWq+ZwF
-         qfLA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788006059; x=1788610859; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
-        b=HFcDzDb6kRKB9Quw6R/ZsGMk2g6xONxRRL7G7ZagrcGy+LkN9nw+h/uLM4ZNMHF89I
-         tMhKA+J4t0yIa2OombsSE6wxqK8xzFqfdZ1J4d25kNOfiszRZz20uL6iVVZhfwMPi5mw
-         qfJwwsnO6XEwWGBm1L3GmKfQGjjL1DlLzcjx1QWFS8Qe+MUd1Zwgdwreoj1Ii7Sj4Ze3
-         foymhnRv0iaJcgMc149nibCZNX5NuEcyBvm1v2nrYHyugSC/F8aByY+rzAzRdbxzxnZP
-         zNR7VMmsxXmV5gPT0prLq7SK1Ya4sQz8vjoJmg7tZ/1KY0HSPSxH+z5YR2EpPWP+JSsp
-         Ey4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788006059; x=1788610859;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nE/f8PbdH5aPK+fOdkT8SOOm4R+FJIcq6dMyrpYaz8g=;
-        b=ajPGt60tckumOAQXmGBTA0vQKwATbh7BKYdXASRe7qVnDGAbkAMUJoql4k5qTz2wIe
-         N9B8FwZuRUXBjAI4G1PrpxpPB08npFw2CX/7KQxkaBjiOJc0QPRNaIQoDBFUWZUBDerc
-         oT7FNk12rmKFlKHgXwfGTmfZG6WWgT3LKsH/UJOrZM8h+/aMncpxiAQ7hjtEG+6wWdMX
-         iMTxVKC4WcS0A7XffCsnh75jH5uY20PYcOT7yLDBJTuscPD/0t5TEwQsfwupyHcUS885
-         SQKAJsYukrz+9CZDpmAGWQSJK/P8XCUMhqO3FahEleDpgXhk3MxNqXc+Q32AjwNWfAIb
-         0sIQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNuFsjpAqeoARc6H7tlFzeelCLqN4aZoo487ffUt/ZFQr+C5Addfue3duw+OOZAvxazBtAmfs=@vger.kernel.org
-X-Gm-Message-State: AFuF++maWRUCrmH9UzteGFt3SPTtbfHqEJ1ARd9+yf/94fwF5DwZm52y
-	BqCy7uQruOXDX9WuqGszMqytyxX8h23CDKVgjb6/GFVx0sHEIZrxJ8tPh+4NqVYq4J7KmBjRHfg
-	9smTEuZU6/IjyLHTkUuptkF/TL6evuimhZlw7EKJueYo=
-X-Gm-Gg: AYBFou0Cy8XN11FJztXJPMMOHFkB0jar/eJhEjd3Q6EFkCNfFYgO23vtktYsd7nNRIO
-	HTUFhLtXX9d8kYHoiU8p9WwUZZz5kLuhHQlKsbeVth/rvC3qTh3HKana4itix9MNGxg1+ERohld
-	Ez5znnrgmCpPsVQonXpk5AbbIq/re7/tHN5IjIBMNYXgyCyzNaqYopgUMNnneK6nLrL7xqPOODm
-	pWY/FWvqq0PrmwJIjnsmKaIzpm/5pK1L4r22PnOCijThabiVxr7fySs/ARn9HW5CV50yDsOyr/J
-	PsQFtjBLi62gDRpsElrjIv0YLLPqMN40dzPMtmLwsh/cVvAyE6QbyR+65O7jm+CSewlCxO8JaXD
-	USo063l/MASw=
-X-Received: by 2002:a05:651c:2227:b0:3a3:2127:8ef3 with SMTP id
- 38308e7fff4ca-3a321279098mr394261fa.10.1788006058169; Sat, 29 Aug 2026
- 05:20:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mcV3yJPc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 28CDDC2BCF5;
+	Sat, 29 Aug 2026 12:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788006483;
+	bh=VwUiMkZBnNI69pBkdAmD5Xsm/G/FSJcHnsrHJ3DRI1s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=mcV3yJPcCp7qluBM9FSrIzefUajMd/IEYQEJ71Cx6CcccjcVnHwI880PimSqx3Mlx
+	 kbPFgfTuY7C9IDAZT2P/i5ODPJlUzoum4Z9WbHU4Z0Bo/6RNnB7uqECqXB1xifKlH9
+	 C0gaW4YoHda97rHmLywqsD1kM0v9gGljK19m6enX3Ifbo+i4mBP5fVUxOJrpy7VAYo
+	 /pY/2cLsiQIINJ9gxFWKgq7NYBnKYcgmN6kmtXsYLIckCcHamEHnRz2CGHQ93iORlP
+	 OfOo/7UgZZFINxp7GDhuSGvcH86aMYptPiJCYX+InR7/oLBQbOsCkHkOX45KcprGa+
+	 gcW6MyV2hYJfA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B4A1C61DDE;
+	Sat, 29 Aug 2026 12:28:03 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Sat, 29 Aug 2026 05:28:00 -0700
+Subject: [PATCH v2 2/2] ceph: don't wait forever for undrainable dirty refs
+ in vmtruncate
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787903722.git.zihanx@nebusec.ai> <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
- <apKl65BbdyWCtre7@strlen.de>
-In-Reply-To: <apKl65BbdyWCtre7@strlen.de>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Sat, 29 Aug 2026 20:20:44 +0800
-X-Gm-Features: AcwNN1WiZi8R9J8wiesRuFh5zNnD6DxT-pHV8VKVtagX319I_sL7Cv1N8NzmPJ4
-Message-ID: <CAANe3eT8ycDkomgpzZmni7hMrUX1fr2dE4QvQOcKCPEcw=J=2A@mail.gmail.com>
-Subject: Re: [PATCH nf 1/1] netfilter: nf_dup: prevent asynchronous duplicate recursion
-To: Florian Westphal <fw@strlen.de>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, coreteam@netfilter.org, 
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-b4-ceph-fix-null-oldest-snapc-new-v2-2-71fb4aa49968@clyso.com>
+References: <20260829-b4-ceph-fix-null-oldest-snapc-new-v2-0-71fb4aa49968@clyso.com>
+In-Reply-To: <20260829-b4-ceph-fix-null-oldest-snapc-new-v2-0-71fb4aa49968@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, Sage Weil <sage@newdream.net>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788006479; l=3073;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=9a3HsBuwTPgOP5z1+94cCYsCp9toglPrah46KIsV2Vs=;
+ b=rxokNK7vuqrMhJnHCmuCtU+X2bPSReQnMp+IKA9037NojxQHfRb0q2Qx/kx6p2dqBHJFVXkym
+ tvNbBQHXHtvCepq/sxMUo6j7g1uyRraWUfXK5Y8J4QGu+vPQNpLk6wk
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
 
-On Sat, Aug 29, 2026 at 5:27=E2=80=AFPM Florian Westphal <fw@strlen.de> wro=
-te:
->
-> Zihan Xi <zihanx@nebusec.ai> wrote:
-> > nf_dup_ipv4() and nf_dup_ipv6() use current->in_nf_duplicate to keep
-> > duplicated packets from being duplicated again while ip_local_out() or
-> > ip6_local_out() walks netfilter hooks. The task flag is cleared as soon
-> > as the output function returns.
-> >
-> > NFQUEUE can retain a duplicate and return from the output hook. A later
-> > NF_ACCEPT verdict resumes the same skb at the following hook from the
-> > verdict task, after in_nf_duplicate has been cleared. A later TEE targe=
-t
-> > or dup expression can then duplicate it again. With an earlier queue
-> > hook and a later duplication hook, one packet can sustain an unbounded
-> > packet generation loop.
-> >
-> > Record the duplication state in the cloned skb as well as the task. The
-> > skb flag survives queuing, reinjection, and skb metadata copies, so an
-> > asynchronously resumed duplicate cannot enter either IPv4 or IPv6
-> > duplication helper again. Copy the flag through nf_copy() so fragments
-> > retain the same state. Keep the task flag for the nested xtables jumpst=
-ack.
->
-> Not sure about this one.  I think this is a case of "behaves as
-> intended", you get oops because you *ask* the kernel to oops.
->
-> I think there are a great many other ways to OOM the kernel,
-> outside of dup/TEE/nfqueue.
->
-> IFF we prented that this is a real problem, then I would
-> prefer to solve this in nf_dup, not involving sk_buff changes.
->
-> I cannot see a sensible use case for nf_dup outside of
-> physical hardware (sending packets to some external
-> packet logging machine for instance).
->
-> So. I think a better solution would be to either disable
-> dup in user namespaces entirely, or, restore the "old" behaviour
-> of passing the clone directly (no reentry) if we were configured
-> from user namespace.
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Hi Florian,
+When a session is lost, ceph_purge_inode_cap() removes all cap_snaps
+of the inode, but the dirty folios referencing their snap contexts
+survive in the page cache.  Their refs are left in i_wrbuffer_ref
+while no cap_snap owns them, so i_wrbuffer_ref_head stays below
+i_wrbuffer_ref forever, and the flush in __ceph_do_pending_vmtruncate()
+can never drain them: get_oldest_context() returns NULL and
+ceph_writepages_start() bails out with -ENODATA without writing
+anything.  The retry loop then spins forever while holding
+i_truncate_mutex, starving concurrent truncates and unlinks on the
+same inode.
 
-Thanks for the review and for outlining the two possible directions.
+Detect the orphaned refs (i_wrbuffer_ref - i_wrbuffer_ref_head exceeds
+the sum of the cap_snaps' dirty_pages) and skip the flush in that
+case: there is no snapped data left to preserve, and
+truncate_pagecache() below discards the folios and drops the refs,
+which ceph_put_wrbuffer_cap_refs() tolerates for a missing cap_snap.
 
-I take your suggestion to mean that, if we decide this is worth addressing,=
- the
-fix should stay within nf_dup rather than add state to struct sk_buff. Befo=
-re
-deciding whether to pursue a patch, I rechecked the practical impact.
+Fixes: 355da1eb7a1f9 ("ceph: inode operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
+---
+ fs/ceph/inode.c | 37 +++++++++++++++++++++++++++++++------
+ 1 file changed, 31 insertions(+), 6 deletions(-)
 
-The current reproducer intentionally drives the system into OOM, and this i=
-s
-not a memory-corruption issue. An unprivileged trigger requires user and
-network namespaces, NFQUEUE, TEE/dup support, and a userspace verdict servi=
-ce.
-CAP_NET_ADMIN is available in the child network namespace when user namespa=
-ces
-are enabled. However, vm.panic_on_oom is global and cannot be enabled by th=
-e
-child namespace. With the normal panic_on_oom=3D0 setting, the demonstrated=
- effect
-is resource pressure and possible OOM-killer activity, rather than a direct
-kernel panic. I have not demonstrated privilege escalation or a memory-safe=
-ty
-impact.
+diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
+index 9ea0588a18f9..44d99fab5716 100644
+--- a/fs/ceph/inode.c
++++ b/fs/ceph/inode.c
+@@ -2334,12 +2334,37 @@ void __ceph_do_pending_vmtruncate(struct inode *inode)
+ 	 * possibly truncate them.. so write AND block!
+ 	 */
+ 	if (ci->i_wrbuffer_ref_head < ci->i_wrbuffer_ref) {
+-		spin_unlock(&ci->i_ceph_lock);
+-		doutc(cl, "%p %llx.%llx flushing snaps first\n", inode,
+-		      ceph_vinop(inode));
+-		filemap_write_and_wait_range(&inode->i_data, 0,
+-					     inode->i_sb->s_maxbytes);
+-		goto retry;
++		struct ceph_cap_snap *capsnap;
++		int snap_dirty = 0;
++
++		list_for_each_entry(capsnap, &ci->i_cap_snaps, ci_item)
++			snap_dirty += capsnap->dirty_pages;
++
++		/*
++		 * i_wrbuffer_ref - i_wrbuffer_ref_head should equal
++		 * the sum of capsnap->dirty_pages.  A session loss
++		 * removes all cap_snaps (ceph_purge_inode_cap()) while
++		 * the dirty folios referencing their contexts survive
++		 * in the page cache, leaving orphaned refs that no
++		 * flush can drain: get_oldest_context() returns NULL
++		 * and ceph_writepages_start() bails out with -ENODATA.
++		 * Waiting here would spin forever while holding
++		 * i_truncate_mutex.  In that case skip the flush and let
++		 * truncate_pagecache() discard the folios and drop the
++		 * refs; ceph_put_wrbuffer_cap_refs() tolerates the
++		 * missing cap_snap.
++		 */
++		if (ci->i_wrbuffer_ref - ci->i_wrbuffer_ref_head > snap_dirty) {
++			doutc(cl, "%p %llx.%llx orphaned dirty refs\n",
++			      inode, ceph_vinop(inode));
++		} else {
++			spin_unlock(&ci->i_ceph_lock);
++			doutc(cl, "%p %llx.%llx flushing snaps first\n", inode,
++			      ceph_vinop(inode));
++			filemap_write_and_wait_range(&inode->i_data, 0,
++						     inode->i_sb->s_maxbytes);
++			goto retry;
++		}
+ 	}
+ 
+ 	/* there should be no reader or writer */
 
-The crash log in the cover letter came from a separate root validation run =
-with
-panic_on_oom=3D1. It should not be taken as evidence that an unprivileged u=
-ser can
-directly panic the host.
+-- 
+2.53.0
 
-Based on this reassessment, I do not think the original struct sk_buff guar=
-d
-series is justified. My current preference is therefore to withdraw that
-series, unless you think a defense-in-depth change is still desirable.
 
-If you do prefer to keep a small nf_dup-only change, I can prepare either:
-
-1. disable IPv4/IPv6 dup in network namespaces owned by a non-initial user
-   namespace; or
-2. restore the historical direct ip_output()/ip6_output() path there.
-
-The second option preserves one duplicate but bypasses the clone's LOCAL_OU=
-T and
-POST_ROUTING netfilter processing, so it changes observable semantics. The
-first option removes dup/TEE functionality in those namespaces but avoids t=
-hat
-hook bypass.
-
-Please let me know whether you prefer that I withdraw the series or prepare=
- one
-of these defense-in-depth changes. I will hold off on sending a v2 of the
-struct sk_buff-field patch until then.
-
-Best regards,
-Zihan Xi
