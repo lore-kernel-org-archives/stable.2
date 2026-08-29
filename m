@@ -1,122 +1,195 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A884231E83B
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 01:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECD431E844;
+	Sat, 29 Aug 2026 01:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787965472; cv=none; b=Pa+KbzUCohms+DL4aG6usCKQbF3536BtOf0I4ySZfk7rhcrnpIouIr55iClnCovY/RNNIzxTuD7H6cTWfDT0bx/HTKI99rTyTDJEuKYLfwslvqRoNU7XYiO1WTKCVs/2anAPmvym7WkruDBqBhoM2bNQyz44M8aXyJYHBtawDDg=
+	t=1787965506; cv=none; b=gQZOLkJUqxJCfRxtipV7LnWYKdyQAgyisnkzvWHnC5Qp5LMjUXBd7/4YLrfIog5lL4jU2uGrbmR1NsGwjZ/2jLKqDQXKYrfvJuyaTRGkb/VQOHQJl4CEueizRbEocfbZNgimPVGo8NU32HFXjImSJ+o7sx7evSOoUhcmGC1cP+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787965472; c=relaxed/simple;
-	bh=8YWpV4BxrKzVyIl/iwj/YMPjck27je3e2lc5dcgDYFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sy+V6I9iTD7fW588LnyX0yjl5bpC/19heB3/5JDYEuq2pqll8UaRmrz74T8QVBUHEtFvHlp1Z+DfQWoMmA6OZqosYTkyCfQUNOVyewIulvuCFwl9Mt805WlpfEq8Mq1KHEJomEej65vYHksn3loXny/4jpUB81EfD1VRhIodH7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X6I+F1f4; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787965506; c=relaxed/simple;
+	bh=noRaLKn3d8hkU/f2BlkUAVCZtnsrYifs5lbJRrRTCJA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EYCn86S7KgTaQtZZH0CuOaiiDBWBvEZqBexfV1tAOgota8flxRnuWS3pn8HJvbjPHlKNL9iwCsE8hlpgw8moAabKACrTjgOcp0UIezikO4PTRNCFIAsvj71LvviwoRkU5TnPfTTxfMM6No2KtPF8wjhHQJgiREPtAIMWUhL+nw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=VcEyAolK; arc=none smtp.client-ip=44.246.77.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X6I+F1f4"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c96c92c0980so1094559a12.3
-        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 18:04:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="VcEyAolK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787965470; x=1788570270; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=whJWdgZLbjtRSnzZmPCdoj842hOmWmmPzuhg02zkVIw=;
-        b=X6I+F1f4Y1yuquyP9TKTplvq14zi0U7Xcf/4iFkEw05pOLcGh64YQCKIKxBBmHVUA0
-         pUjMhPGmlLkzqdr/aGrNT4OpvXCxK6RQLRmaiz/BOBPjdr9dEUUIVEN9ZAcU/rZ4UNep
-         eroO57JaIaFo6l30iYkIg4iIvU+ti9J4kYIRHGUibMT898OzYHUeLfYs+NCb+08jXhzK
-         M02joZsnhI9zfniE5mOQWfwdpogxo+rAGZ2pAlFA+gp9qIJGC4qRT5qgjho3v76xxDkQ
-         pUk4ywZCB8IUE3k/RsV7pIS7G3NVOn+xJoeuheLyYpGa407Xk5jfEUYTzvyaERMY4sKl
-         uxbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787965470; x=1788570270;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=whJWdgZLbjtRSnzZmPCdoj842hOmWmmPzuhg02zkVIw=;
-        b=ZmUc47huFoHgfWIjVOoB9o6d50caJkAvmcmaxs2f+QgzRzMP+xd0X6L+FFkOf9PRxq
-         7GwhT6Gc2/5nfxjT5Yl3z1w+zjDwEruf2xmHpx2ACDG1lIL9QwJ8nMsdjBo33noak8KW
-         xvLme8qhMEYAlBp5EBPnunPAqQNShCGwb/ImrXf+PiXeRbpIUuDe550ohVshQhNy9CZe
-         i5UB1A/4ev8iw8BkMqOh0DJ7np0bqhXc59ZyQl6lAzq5ptocDkPsuDsWByonaerJ9LYX
-         Rqxpv+IBPRULeAwe+uiJzxbMMpQJbC6bI9zPOXCRn8K+FJvb3cWaHkWRxnzwGyWYhmV+
-         eupg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMz6pUbVrT0DiDaN6dpFAiFnLtKhQVFgLJbNhS5UGI96WcP09LEkRoPMPhWRfnsNgfSwXc3WE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPR1hWgzXvAz4dmPo8EuzK5CQeGFBF2ETsx9Ui2GHsZzAcq0ZZ
-	c34Tb5WZH/jXUlmSrN8DKHgk9ud3ST176zA8hWXcx7yYG7eGjlh7LSdz
-X-Gm-Gg: AYBFou07FIWs4uPCM+64fuZOymtIbUZjytTBQ1RAlhbXc//j32w3RoL3+gAw4wOo552
-	oGCCs9uO6aeXEsJm5ubVJSLWJYx2aSy8TtzABu4wNWUwcLsG/9XXPQ2FkFVxG2TTT3z9yMnhRqy
-	ZtrcWjxrsn6pfi3KtQLrLNGsNLQzfjhdAQS9MCqoduc4EGO3x+GKXDuxNMyYGfmr/R9LbALxHT1
-	EkWvSwmxFDli491E9ssC+EXbczIULiBxCTqavYEypJE2b2W5R/WQ0fn9UA5XWEe7hyujjhhDtT+
-	CCWxvQ3rk/vHwr5RYMDHc6lXgRJoCOog6hIdXrbmxUwTAY36OOGgF7ciLBqppodmm7vcgD4dMpw
-	b2o04PjgD+nFahgc8leHAY9BcovGoGNm+4MEdWcpKI0Mz6N22kbMdDZqdHCQBTu7UkFzl2LY75s
-	JQ4szEqINkat3CEzuJDZNFboaNzpzVDo/+NrOJSyslr/LgSwvxpuP3lBZs6SIlvCIG0NgqXyP8V
-	ZWyf7103SLiz5U/nDeS+DNeaopFpWKHNZLDeVC/6yDgSUC/9EB+vM7qtyQtSVvk0HBFpwXg6uWw
-	Ooy0yAzFKSgxcZtFTbBKB3gE
-X-Received: by 2002:a17:90b:3ec7:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-396d1041324mr16954197a91.16.1787965469892;
-        Fri, 28 Aug 2026 18:04:29 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b186803asm9247989a91.11.2026.08.28.18.04.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 18:04:29 -0700 (PDT)
-From: Wei Jie Law <98lawweijie@gmail.com>
-To: Jason Gerecke <killertofu@gmail.com>
-Cc: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] HID: wacom: fix OOB read in wacom_wac_pen_serial_enforce()
-Date: Sat, 29 Aug 2026 09:04:09 +0800
-Message-ID: <20260829010411.7874-1-98lawweijie@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CANRwn3TWTHxP=ZEpgZzjRweC8vqifoi2koKgSQTEuPuY4FZxcQ@mail.gmail.com>
-References: <20260825103104.12090-1-98lawweijie@gmail.com> <CANRwn3TWTHxP=ZEpgZzjRweC8vqifoi2koKgSQTEuPuY4FZxcQ@mail.gmail.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1787965505; x=1819501505;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=AnDR6DMNIm8190T9Mj0ZWeFFqjC7wiMNtZlDelqgd7U=;
+  b=VcEyAolKIB3y81QYBNQN+OoUr9dzNcIUsqIl9AwZcUcrOAfqKAXIOYY8
+   7vVy0VuIOP004QOhayfAwW38MdlhyOF60UQFxp/y+ZJ5ta/6rnceDwbgM
+   KCJARiiu5rNVz2euuqoDC5lTrl18zJxYhbZ1W2xMDnzMl8DilxOJl1Pex
+   IiM/LRftIPK1wKufNipNRhvVFLdE/6cnPRPim8nVS8Mfs2NdN7TeZwwNc
+   7W456h9A8rPNgQlG563Rb6Gx52m2Li/aSpwthxNy4XFDJ7rKOulvhPulh
+   VuplP2SkagGbHjvSpp9DqgX8SUAnc1ILySxM4zyiX6+G0qF2hGhrDgSHI
+   g==;
+X-CSE-ConnectionGUID: l3w405B6Q3qTp7vJELniRA==
+X-CSE-MsgGUID: XfIREu1fQeiEvPbPMsGFZQ==
+X-IronPort-AV: E=Sophos;i="6.25,249,1779148800"; 
+   d="scan'208";a="27259169"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Aug 2026 01:05:04 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:17926]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.30.13:2525] with esmtp (Farcaster)
+ id b56c57eb-15a2-4d68-b802-e011e4869232; Sat, 29 Aug 2026 01:05:04 +0000 (UTC)
+X-Farcaster-Flow-ID: b56c57eb-15a2-4d68-b802-e011e4869232
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Sat, 29 Aug 2026 01:05:04 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.21) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Sat, 29 Aug 2026 01:05:03 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: <sj@kernel.org>
+CC: <akpm@linux-foundation.org>, <baolin.wang@linux.alibaba.com>,
+	<damon@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <stable@vger.kernel.org>, <zcgao@amazon.com>
+Subject: Re: [PATCH] mm/damon: use a page-aligned sampling address
+Date: Fri, 28 Aug 2026 18:04:55 -0700
+Message-ID: <20260829010455.28607-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260828002211.61987-1-sj@kernel.org>
+References: <20260828002211.61987-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D037UWB001.ant.amazon.com (10.13.138.123) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Thu, Aug 27, 2026 at 12:02 PM Jason Gerecke <killertofu@gmail.com> wrote:
-> I would appreciate an update to this patch with less confusing wording.
+Hi SJ,
 
-Reworded in v3:
-https://lore.kernel.org/all/20260828033323.82958-1-98lawweijie@gmail.com/
+Thanks for your review!
 
-> I don't believe there is any situation where maxusage could be less
-> than report_count since it is initialized as max(usage_index,
-> report_count).
+On Thu, 27 Aug 2026 17:22:11 -0700 SJ Park <sj@kernel.org> wrote:
 
-You are right. Thanks for the correction.
+> Hello Nathan,
+> 
+> On Thu, 27 Aug 2026 12:38:21 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+> 
+> > __damon_va_prepare_access_check() picks a random byte address within the
+> > region and stores it in r->sampling_addr. There are two users of
+> > r->sampling_addr in vaddr.c that pass it into a page table walk, and
+> > both use it as the address of a page.
+> > 
+> >   damon_va_mkold(mm, r->sampling_addr)
+> >     damon_va_walk_page_range(mm, addr, addr + 1)
+> >       damon_mkold_pmd_entry()
+> >         damon_ptep_mkold(pte, vma, addr)
+> >           ptep_test_and_clear_young(vma, addr, pte)
+> >           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+> > 
+> >   damon_va_young(mm, r->sampling_addr, &folio_sz)
+> >     damon_va_walk_page_range(mm, addr, addr + 1)
+> >       damon_young_pmd_entry()
+> >         ptep_get(pte)
+> >         mmu_notifier_test_young(walk->mm, addr)
+> > 
+> > test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
+> > arm64, documents @addr as "Address the first page is mapped at".
+> > 
+> > For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+> > clearing of the young flag for large folios"),
+> 
+> The @addr documentation is also introduced by this commit.  This commit is
+> authored at 2026-02-09.
+> 
+> > the contpte helper walked
+> > exactly CONT_PTES entries from the aligned-down page table pointer and
+> > used @addr only to pass down to each entry, so an unaligned value was
+> > harmless:
+> > 
+> >         ptep = contpte_align_down(ptep);
+> >         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+> >         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+> 
+> So, there was no issue before the commit.
+> 
 
-> We would also *want* to read fields beyond the last-declared usage
+Right. Before 6f0e1142173a, unaligned addresses were tolerated but I don't
+think this is guaranteed.
 
-Agreed; the submitted v3 keeps that, and the changelog 
-notes the 6.2.2.8 reuse rule.
+> > 
+> > Align the sampled address down to a page boundary. It is the address of
+> > the page to sample, so this matches its intended meaning and fixes both
+> > users in vaddr.c.
+> 
+> This indeed sounds like can fix the issue to me.  However, was it a clear rule
+> that we should pass only contepte-aligned addrss to
+> ptep_test_and_clear_young()?  And is DAMON the only ptep_test_and_clear_young()
+> caller that is mistakenly passing the unaligned address?
+> 
 
-> Given the above, I propose simply making the loop condition " j <
-> field->report_count". Thoughts?
+It is not spelled out as an explicit rule, but the documented "Address
+the first page is mapped at" implies it, and these callers are using
+aligned addresses:
 
-That is v3, with Suggested-by: you.  Retested on v6.12.105 with a
-kprobe on hid_field_extract(): with your condition the 12288-usage /
-Report Count 1 descriptor extracts nothing in the driver loop (the one
-remaining call is the core's own in-bounds fetch) and trips no KASAN;
-stock extracts at bit offset 98296 and does.
+ mm/page_idle.c: page_idle_clear_pte_refs_one()
+ fs/proc/task_mmu.c: clear_refs_pte_range()
 
-As a side note, I am also looking into a separate but related read in 
-the same function based on Sashiko's review. I do not want to hold 
-up this patch over it or speculate before I have it pinned down. 
-If it turns out to be a real bug I will send it as its own patch.
+> If not, it might make sense to make contpte_test_and_clear_young_ptes() support
+> unaligned adress again in my opinion.  May I ask your opinion, Baolin?
+> 
+> > 
+> > Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+> 
+> I think 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for
+> large folios") would be mroe correct 'Fixes:', if there was no issue before the
+> commit.
+> 
 
-Also my bad, I realised I had not replied to this thread addressing 
-some things you have said, after submitting the v3 patch.
+Will use that in v2.
 
-Wei Jie
+> > -	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
+> > +	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
+> > +						      r->ar.end));
+> 
+> If we need to have the fix in DAMON, this kind of change would be needed.
+> 
+> However, what happens if the address is backed by large folios?
+> 
+> Before the commit 6f0e1142173a, also, it was aligning to CONT_PTE_SIZE.  Should
+> we do same?
+
+Passing a page-aligned address restores the pre-6f0e1142173a behavior.
+Before the change, the helper aligned ptep down to the block start and
+walked a fixed CONT_PTES entries, regardless of addr.  After the
+change, the walk covers [ALIGN_DOWN(addr, CONT_PTE_SIZE),
+ALIGN(addr + nr * PAGE_SIZE, CONT_PTE_SIZE)).  With a sub-page offset,
+addr + PAGE_SIZE lands just past the block boundary, so the round-up
+extends the walk a whole block further.  With a page-aligned addr,
+addr + PAGE_SIZE is at most the block end, so the round-up lands
+exactly on the block end and the walk covers the same CONT_PTES
+entries as before the commit.
+
+We also can't align to CONT_PTE_SIZE in DAMON since it's defined only under
+arch/arm64/:
+
+  #define CONT_PTES		(1 << (CONT_PTE_SHIFT - PAGE_SHIFT))
+  #define CONT_PTE_SIZE		(CONT_PTES * PAGE_SIZE)
+
+
+> Also, I think we should pass aligned address to only the functions that
+> require alignement.  Making the alignment to the sampling address in general
+> sounds too much to me.  Particularly, we are working on supporting new page
+> access check primitives other than PTE Accessed bit, like AMd IBS.  In the
+> case, we might support <PAGE_SIZE granularity monitoring.  Aligning sampling
+> address in general will make it more complicated.
+
+Makes sense. I will keep sampling_addr as is and align inside damon_va_mkold()
+and damon_va_young() in v2.
+
+Thanks,
+Nathan
