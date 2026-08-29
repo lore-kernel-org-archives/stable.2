@@ -1,62 +1,64 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B004B357D0E
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 09:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4101C341650
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 09:54:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787997291; cv=none; b=RySqqGKkjGxHm4KMOcTRddteOcobZNsxobV8SpAD+FvpLOkQOSZnZsdgNaXx5UlRnG4kHRiP4F19UPyTqhqTphZAQHhqKudSOXrQrMJY8veyu1lpPcNQ26GYQfXMnmK21F0b8szvVfCHBERgWRQx/4+g4FyGJSqykXOk2PPe2Lo=
+	t=1787997297; cv=none; b=uZxUr8Aq3MSsrm3MsKaXhm/EMWxMNWdJrpL17n4RfibRfGoXQ8uzhD4BVX49/TDu2i1+s3SjFzrex5gpM/oyEde7qPfY0wd5znu/ZEbOdH9yHdSjhmNOUzO8EQw6r5h4h6ZwIUmofYIvyCbtkj9QtOnWyS3pu1M5NRJ+iEabFuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787997291; c=relaxed/simple;
-	bh=l9tqnFzFrSjN8cXxumhwXJEJ078VRqZiI4KHy0mccoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gx3ECZ8JhxOIjiA6nVxwItbfBViIHjjW4UjcS4FhEAW1PmG9yWqjPqT6DL+ip+9QwmGDtZMOLIadLuS0YwJs60mIT57trTjXhsT0klmFObtUoo2NFv93hnRBvzoPMFQb86sIwwUS2GfP3UmS0E2bRekJhKCuRVt2dr9wKIFuVlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E2HHUwXU; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1787997297; c=relaxed/simple;
+	bh=7hM5WaRrHs2c3LW1CjwRnik2dDd+6Q2n4lB4uydT71o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bpiY9/3OtGm/OcEQR4UqS6oVtcLGTsZ65I51AjHdleDG934pzn44FEehALqgbX0i6lrQep1/s7liT+9ipvlUGhad/v/8rNksG6yTA1Ifrt9iLcDcaIf79vZvejLPCGIks8gUmiEbdhNRN9BxtE/bhjUJBcepfImZUiTGtUyg9Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CpXUncpn; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E2HHUwXU"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-396affa9420so216531a91.3
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 02:54:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CpXUncpn"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ccae46de39so2601865ad.3
+        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 02:54:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787997289; x=1788602089; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oC0I9ujd++ODGJE/sqEk3NvSSAuaZ1MshchVq7tKt20=;
-        b=E2HHUwXUzOOEuH4jge23rKbOvEj3NkiBJSrjK2KkiRC8m2Oph52BG6qNUi3S/3Rjpq
-         PdnNVuozclVabXc6Pm2xva8UH41XAovWTbYPbbWvPXFMYbdlfhA3lH/0eLoRwLWzH3dP
-         PrcFO3w7LqFtOxn+zSES1LBX8OCGnxQULVnyr6GkI7I6Kzts6BixNWuLHMgzNm06L9Rc
-         SasOEwzf6CMb7474fg8a/r+5eZRYV7MZOaNW34UlSqwsc6pebq1EJhEHI301v0UOK7Yq
-         N9dvERzwzPpqbWt3a94zrE3SnGvF6kQlYI2vDefiollttAaALtPVYXRdAv6Pclc5QXLw
-         iOyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787997289; x=1788602089;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787997295; x=1788602095; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oC0I9ujd++ODGJE/sqEk3NvSSAuaZ1MshchVq7tKt20=;
-        b=HaLiK7eu5ZYQj5TECNyT9vnaB8MJG/uK+FpwgQ1ef3MxDPwcq+Ee6xsOUUHLBj59WL
-         7aTNvHhS3ghQiMjBBCjAa3r1TW2w2NAx/c59rgAMtLXlJkzrj6AqD7xJj/DukXQBZhzf
-         v5q316ukN/xvDGdEj5JjR7L61dkdY1Xb9YximBzA/MsgH4orBBEjAppj/d4PWnS3TzP8
-         8qE+in9fZVzyZ06CRx8xAYoiGjp0tzYiTUsar201Jpbjy8xczqhwcAMt+ybjZcsj40J0
-         r+V+Wmd4S3gwxhJOsOdzqwERSGKoAsgrRAP5PqzsDn+M+IS/hgF/09yjx73C8SSa+okh
-         R6Mw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1aWrz2RXjqTR4JmOFclU2DboeYsCczvKNJuZpzrxbDOEA4gsE/baNffS2N6TOEIykzK31AR4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+2w1IgBvBFg87IRURhcKeCc23pXWA9Y7pm8Q0aFNNukAoz3x0
-	qzMaNR9Gr+rjznpsbHUNAf8ex0rB0KFO0s9QrYJKt9UnFQNCA918IvAr
-X-Gm-Gg: AYBFou2uJ+e/0abqmLivF1BA/fN8kFxfkSWrxgo6x5mqa6M/hD6o0ET7y5T2IJB1fYq
-	M3glGpbhxRZqt5rZkcDbCGHsGxG0OmFMifyIdt0j8eQmq7boDGuTOkPcTWnKqLvTMIcCdk2OVzE
-	0OZ9Tuj7zNto44Q0M3/fR7w/BTPtTe7l23+c8xSAeWNz18//gi/xZ4uf6CzpTr0mKNHviHKtji1
-	u85YEk+1fp9vsIG03mK175sC8UB3257s0Ddu8bcPsavw1NOR/iiyZqBBtkabFPszM5saeb8geK4
-	43xcjCXLr3fB3dggbGvG8/WB3MqYa/JeI6QWZr847Eb0qbHvhG1OvXD4nVHwspv437bQHlmqz9R
-	ul6Rygc1lHTJqtKRnyZLwjrCHcgizPqEJoHSLbnFF6a2kS41tmfPxu/pc0nlpo4RsXz0yZBniTu
-	0HePw1QlfRBsKtqjGqT7TquIUPogzXoT8nuotMM+hlq5Oso2gO4MlFnvgBycDlOtgpeWijDKftJ
-	qelxH+ZB/L4neJYVRe2Syxzyc3zMMSoTA==
-X-Received: by 2002:a17:90b:5543:b0:38e:c140:2a0b with SMTP id 98e67ed59e1d1-398bab83160mr1221956a91.3.1787997288891;
-        Sat, 29 Aug 2026 02:54:48 -0700 (PDT)
+        bh=u+bx+HWR1lJgM1IpCVaNlI18J07SWUFh64Ef3O2YpAQ=;
+        b=CpXUncpnnvrvuLB+Fg4ojrZzSGnwrTN3kZkN69xW619n0Zst/ynY1HhErtHPEvrQUA
+         n86qnV3ppao0z4gDC39rjx+sFtZTtkJmT8FrYg9V1ekF3QbTY3x9I9PkowZFzDF5kbaU
+         K1cVlVh1kj7CzSCY6pjDhwwb58Kwh7NZOSbjE1dWi8VeU8WaxKlGYxabWy45CUcu+9az
+         PArZv4c5Sp48HZrLiClVn8GkvNz5OvgAmDiaAE9wSXBQJzzin+E4YJD8wRl+enlRmgz0
+         3bw50s5V4iNvPlCsKqdDV3lwL1ajGex+vnOF7T2/5TYfhlDGvv1f/Pu5XRULq4wTT1BX
+         M3fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787997295; x=1788602095;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u+bx+HWR1lJgM1IpCVaNlI18J07SWUFh64Ef3O2YpAQ=;
+        b=Wrf9QmKoidGNs1MMXXNO/L3XtjP2WhJNZxp8bzTVdfk7MeQRLgnn4aRhPtmEy0aBvr
+         wJBkXBuGfVc0cl3V3BPi0VsNYgLup0h+BjJ21b9Ff8xTMsM9Cknx9lsSCMpllR6326S9
+         7Vc9hiIxKxzdfGAh7tStnQGtExnR9ctDOkg92web7vu1S/kD9oo/IqXjL+m+zUya2mJH
+         5AP4wcut5npNM3hPnt4l5vZgl1c1kabriTMb6pBqeaTAmbD55tT9b/Zbob1TXhzSBUHe
+         y8/Oteo0WC1ezZS85J0L6pgAMkjUpUw6J1rJqtvm5klYisd2t3v80Qjm5+InKB3j3zJR
+         eVuA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKnBIx6t0TiNKeF5ZNcm3013qMH+C3zQYdIq+73ejiswtg6eEFi5egShiGbwfjM5Z2k9iwYoA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvslFU50PCaevMfa/w7wfVw1cEo/Qaikb+mn1BsmtF4Io7sxYo
+	TTBhSWXgAbE7NdE2VMzYqDfpeUM7X6BXSIZ7nMIb0I6Iy7A6mKOWCOpp
+X-Gm-Gg: AYBFou1+k9q9MUNkFG+Rly4SUJu/kaZ0Mq5vlfSYVz9TWiof1dbBc1BagI0zvhqyEgz
+	S3FEW9R/BaVrTPtVDBaxYzhxqtc49zhdR0Ni7Wptq46gkGK15/ORTxcqLkGfHHGfj4sAplrhlRT
+	ojlYOuoEgm0IbVxK1XIYQfcM+/7MNhzZsP7jTyRWm6qhJB2KX5tvsYlyyU+c6F+a2qWihqa7D49
+	Vs2jA/y+4h26zzoAW3BqqT7cb7+V3jbeE28hnXBHOk3wRpLKics1grk662zf6Ax0Yy++IqkNQIp
+	MzYdB3onAgV17cZ/+rhuNQyYiC6p2j77ILA4HEe+TRuzHDv8HHnVQxZB/o6+PP1sZfoxFv+PEga
+	XB19qxqns8AwoH5agTl5zNO4+aEA35UO7ewWn29L1O2OJrcowotGlyuFSBseGCT/ut4uNqpbCuF
+	5mIHc4kkl5wFOPB6Gbp+l4uoJUttrWo0Y0C9PzQOp8lb76bhJXSxM8BgY0gMYQoonAVpVDSy8wr
+	NgrTbjarzcb/WdZwj6yBdGuf+6crVnbKQ==
+X-Received: by 2002:a17:902:d2c7:b0:2c9:ed4a:c3a4 with SMTP id d9443c01a7336-2d74ce38075mr120434055ad.0.1787997295482;
+        Sat, 29 Aug 2026 02:54:55 -0700 (PDT)
 Received: from cachyos-aura ([2409:40f2:3104:d691:c7eb:3b03:2c8d:127f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f783c37sm15775697eec.6.2026.08.29.02.54.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f783c37sm15775697eec.6.2026.08.29.02.54.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 02:54:48 -0700 (PDT)
+        Sat, 29 Aug 2026 02:54:54 -0700 (PDT)
 From: Navon John Lukose <navonjohnlukose@gmail.com>
 To: miriam.rachel.korenblit@intel.com,
 	linux-wireless@vger.kernel.org
@@ -68,10 +70,12 @@ Cc: nika@nikableh.moe,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Navon John Lukose <navonjohnlukose@gmail.com>
-Subject: [PATCH wireless 0/2] wifi: iwlwifi: recover the device after it loses power in D3cold
-Date: Sat, 29 Aug 2026 15:24:35 +0530
-Message-ID: <20260829095437.44716-1-navonjohnlukose@gmail.com>
+Subject: [PATCH wireless 1/2] wifi: iwlwifi: pcie: arm the product reset at probe
+Date: Sat, 29 Aug 2026 15:24:36 +0530
+Message-ID: <20260829095437.44716-2-navonjohnlukose@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829095437.44716-1-navonjohnlukose@gmail.com>
+References: <20260829095437.44716-1-navonjohnlukose@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,51 +84,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On several Meteor Lake laptops the Intel BE200 does not survive a D3cold
-transition: the platform's _PR3 power resource genuinely removes the M.2
-module's rail, and the card does not restart when the rail and PERST# are
-restored. Config space reads 0xffffffff, the link never trains, and the
-device stays gone until a reboot.
+The driver already implements the platform-level device reset (PLDR):
+iwl_trans_pcie_call_reset() walks _PRR and evaluates _RST, and
+iwl_trans_pcie_set_product_reset() arms it over the vendor _DSM. But it
+is armed too late to ever help.
 
-iwlwifi already has everything needed to recover it. The platform-level
-device reset walks _PRR and evaluates _RST, and the vendor _DSM that arms
-it is already spoken. The problem is ordering: arming happens from the
-removal path, by which point the device no longer answers, and the _DSM is
-gated on the firmware reading the device's PCI ID back out of config
-space. So arming can never succeed at the one moment it matters.
+set_product_reset() is only called from iwl_trans_pcie_removal_wk(),
+i.e. once the device is already being torn down. On these platforms the
+_DSM dispatch is gated on the firmware reading the device's PCI ID back
+out of config space:
 
-Patch 1 arms it at probe, while the device still answers. Patch 2 asks for
-a product reset when the device is not on the bus after resume, instead of
-re-initialising hardware that is not there.
+    Method (WIST) { Switch (ToInteger (VDID)) { Case (0x272B8086) {...} } }
 
-Analysis, register dumps and the discussion this came out of:
-Link: https://lore.kernel.org/all/20260829093922.37103-1-navonjohnlukose@gmail.com/
+If the device has lost power VDID reads 0xffffffff, WIST() returns 0,
+the _DSM never reaches the vendor functions and acpi_check_dsm() fails:
 
-Tested on a Lenovo Yoga Pro 7 14IAH10 (BIOS QGCN35WW), BE200
-SUBSYS_00F48086: the card dies in D3cold on every s2idle exactly as
-before, and recovers on its own in about 5s, repeatedly, with wifi both
-connected and idle at suspend time. With the reset skipped but everything
-else identical it stays absent, so the reset is what recovers it rather
-than the remove/rescan.
+  scheduling reset (mode=6)
+  ACPI _DSM not available (-19), cannot do product reset
 
-Caveats: one machine and one BIOS, discrete (!integrated) path only - I
-have no CNVi hardware, so the integrated arming mask is untested.
-Recovery costs ~4.3s of Sleep() inside the platform's _RST, which is
-firmware and not something we can shorten.
+So the reset stays disarmed, _RST falls back to a plain function-level
+reset and the device is unrecoverable in exactly the case PLDR exists
+for. Observed on Intel BE200 (8086:272b) on Meteor Lake laptops, where a
+D3cold transition removes the M.2 module's power rail and the card does
+not restart when the rail and PERST# are restored.
 
-Tagged for stable: the PLDR path has never worked on platforms with this
-_DSM gate, and both changes are small and self-limiting - every _RST
-evaluation is already preceded by set_product_reset() setting the mode
-that reset wants, so arming at probe cannot alter the behaviour of any
-later reset.
+Arm it during probe instead, while the device still answers. The mode is
+sticky in the platform's namespace, so it is still set when the device
+later disappears. _RST is only evaluated when the driver actually asks
+for a reset, and a subsequent non-product reset re-runs the existing
+disarm path as before. On platforms with no such _DSM this is a no-op.
 
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221695
+Fixes: 9673c35486d4 ("wifi: iwlwifi: implement product reset for TOP errors")
+Cc: stable@vger.kernel.org
 Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
-
-Navon John Lukose (2):
-  wifi: iwlwifi: pcie: arm the product reset at probe
-  wifi: iwlwifi: pcie: request a product reset when the device is gone
-    after resume
-
- drivers/net/wireless/intel/iwlwifi/pcie/drv.c          | 12 ++++++++++++
- drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c |  5 +++++
- 2 files changed, 17 insertions(+)
+---
+--- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
++++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
+@@ -4252,6 +4252,11 @@
+ 	iwl_trans_pcie_check_product_reset_status(pdev);
+ 	iwl_trans_pcie_check_product_reset_mode(pdev);
+ 
++	/* must be armed while the device still answers: the _DSM is gated on
++	 * reading its PCI ID out of config space
++	 */
++	iwl_trans_pcie_set_product_reset(pdev, true, mac_cfg->integrated);
++
+ 	/* set the things we know so far for the grab NIC access */
+ 	iwl_trans_set_info(iwl_trans, &info);
+ 
