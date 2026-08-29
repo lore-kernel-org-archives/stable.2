@@ -1,187 +1,195 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6B5414A30
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 16:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788020781; cv=none; b=c9coRySSTD8oiZvCuO9xhEspCexMzoDRKPW3w0KQ23nrkxVmlh2ZeP0NMfD98pQguCfYTGOUNMMWljjM9783a5JxeuoouP37P44+vnUnDrYiJo4DpRc2Pp/EfrSnnMfQMJfQiQZjeSMi2dGGCj5wlrphYaT6xM8h25VcV9RwP40=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788020781; c=relaxed/simple;
-	bh=5bR150FonEhgq898E4phhk0OEo9sB3sk2J9h59+uRUE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bdygqt+s5Xw1G0kLoY8WlJj1S+wB9xz2LsNj+BSNp2FjPf5yywW7RPwX+H59L/nzdLlJMlVMSHIz6TK7RoKv9+Y66XATWQWEzyhWp1fjZHyb/Yh0eu6N0H/jL5Eo8YixAqeqoDu55ojohhHA+emEd0pVOEMAwHW4GTBJMRuZVPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ivy4PC2B; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=kDTlXO74; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA7C39794B
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 16:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788021764; cv=pass; b=KjWLVO7cWhRnFpSViziDFbPweAcTKwMeA1LeLZk/HOhgvZmv+/81G93QIp8pldKLdQoW9NB5j7lycFiWkEcAr30mJ6eD53hxhIkJqF4NYAvXu/yiP6KO514ekmGsOcHPGy0UIVbGWvTqx7nNbOyx9JTQH/KG4fg0zrpnMxKQFjc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788021764; c=relaxed/simple;
+	bh=gVZFIq7E6DUEA7UcHTTV0g77Ncrm6ajPHymyOnK3Cyw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u94WwTtvb+o3n8NpNyan1yiJUyIlOuYsHLbVSkvrQqy+KUr7pjuf88X816iu6hiASdFA41NZ4ZDQjtlH052deLjJZ2qDg/qWODDhqpYrnrBIZBDwproCby9i1Aw2QHmqiwdgR9nxS88YYga9aJ8Od6UdDg04NbyjSWmZZIH3cKs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTetC3FY; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ivy4PC2B";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="kDTlXO74"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788020772;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=In8PJoJM7TuliZupFW2/GUoBwBsuu3ZJ9uWEGEaBgFk=;
-	b=Ivy4PC2BHZWtJ0NlD5PkfMQSTQnwCfzesHdYGpD04D+nGEo3WcOaNwOPgqZsm9QXnNMMq0
-	ZVXkRgf0fu/jDyQ0MomhP4qHjZPGmlW7IZoq+GD8EFgLTe/UG8CZ/iLTilYb0M9PLYo6Fr
-	yMz4uV+Qs5MpZ2cVogHrVxAFCP0yBjk=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-672-2wgfFRY8MlCLqTV1w1c2oQ-1; Sat, 29 Aug 2026 12:26:11 -0400
-X-MC-Unique: 2wgfFRY8MlCLqTV1w1c2oQ-1
-X-Mimecast-MFC-AGG-ID: 2wgfFRY8MlCLqTV1w1c2oQ_1788020771
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e7db8d191so9499236d6.1
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 09:26:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTetC3FY"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c1c52d920b8so247143066b.2
+        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 09:42:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788021761; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G+aC/xy+YDCPHhTJ5EpgE3Cff1sxWPQ1r1fhPpWFaDmUs83Ji7UR5PMacR17hfewSH
+         aEVkCOTR+CQahN+QjIUfWCeWTIMi7kUrYvPyJgXe2ISggRR3aF3nePDdjkI7O+xFEQMd
+         ChwB/7Zl+Gp/9pGxIE9mJNCWiQQcuifxGpVw8jshodWHNKZh5ognVjmf4lucqleNQcJt
+         zvf62mDNl84zqChlHZHjGMxLMaWMaAUV/5KW7ikMXp3Q4r5B55wzKARyazN/71uYQVYo
+         lFy/yw8qbazM2v0I/XhYO3Mt04FiyKIT6zuZrxMIHflK1wNBKq4tygVuB7s/Yhp1ZbD/
+         kS5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cDbJApH470Nb27U1ofVrGiRQ548vKaC8I4YjQ8kLrVI=;
+        fh=7P205/wIE6AuJ95I4G7UgtXfL8wqMR7JhT/AV4V6cMs=;
+        b=U5RTAA+CmAzzQayUBopULZ5CbNEsqWDyjp588Tqq0aGPawy8kBl6mBEgKYzYOZFK4i
+         QzcqQVR1z4Wg4Nac32kQBXc4WyKgOzgpVf6meZmBl08lObgt23tu2gLHwmJpH/C0TPU4
+         oyzrPCYyioXnHxnCQWBO62/QpQ8/aNsRLRI+nnEvJR0+n5dute9gOrO7OUkVc9h8n4fb
+         H5GYY6GZpCzXELSJVBYwBu69KAH2Dx+7RD7e3u2lOOY4LMig6yxIMA2lDeUoFo1cZzZv
+         CMk1cEomDttJB36TzSLgwUjoVSPd4ajJ6yQnqnRmIfbl5DaX0sAIBmRwAf4n7iRTy1vi
+         uY7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788020771; x=1788625571; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=In8PJoJM7TuliZupFW2/GUoBwBsuu3ZJ9uWEGEaBgFk=;
-        b=kDTlXO74/Cz6EBb3zuNipRjny+FvkIV6RTZjZGGNFKFc0+ukhxXNGxMkJ92/kocLXa
-         MRQ47qYRo61tc5YXseUVn2c3YWFsgMUC9lfOvBcuZ3FyvX4To5gZ4TKtpyHjHQbUgV8p
-         DxLOLTCM3FWgXJu7Uf8ySea63/86Xm92DAxwgNTQeMywETWkNXGFVuf1u1eAW5t0Ps0A
-         0Ig1rbLoChJZJm9ERk5uv1ZhFaHpGMeG2+gxk+fklgfLIq2HIYkpqfUZOVRW5eR8C1xd
-         O+MQvadrBuzmMq1nrq/DJ7lYD3LSZwP0QaQTB2S66vOlndM4DRy4JCy1x/0Y7OUqORb5
-         agQw==
+        d=gmail.com; s=20251104; t=1788021761; x=1788626561; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cDbJApH470Nb27U1ofVrGiRQ548vKaC8I4YjQ8kLrVI=;
+        b=OTetC3FY9YR2dT91pmq0tWTCBVQw98A+ro76zO0jrdRuA8IZtsnSh7UkqJxyoJsput
+         QYkwqUcp//atCTeq9nNabFfVtR3cltA4BnJlSN/uar5m/kgT+3MEs42eO0e02wospduc
+         rd7a0zJaN5uoUP6GJRavB4PZ8F3hyZZHH4PEbtX9YmOgSbCfGFN/PElptV+PHQz0J9vf
+         Bkx0xSdvVwNswH+ipIw1CNfsIk4PAx0dQAqh41NWWhrjuJmVCLhS+IToYESJMrG28Xbz
+         dtUzdafCWjb87kTs+7MK86BNNaSyY3rkhvgNFqCPfd9b+Pbk5DgfsG4pW4torbn/l2sa
+         A84w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788020771; x=1788625571;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=In8PJoJM7TuliZupFW2/GUoBwBsuu3ZJ9uWEGEaBgFk=;
-        b=IEGEtIdD7NjrwUK2vK6AL8Y2vZyaRF1b5GSZYRt/n9CZqT2KCZEUTGvmWquX+IGt8g
-         dchuuughslVHNk342QSyzb2cxL4U2JU7W7LFyV4Pr9qADrsfsTSuOG9KAkmsvmIP3ngl
-         bKDqzWjb56yMOqFWTADyM8LvRjy55vE4f5xTf24R8FZW9I0n3pgy8bO1W4eLyGASElqW
-         OPJxk85/DWMiFcKBfHWqNL1N2KFAnuG3vKGnlZK/z2pdiCXbwqiEIjOzaXqImjHJVpvh
-         bFNkBs9U49Pn/Lsuv+U8sQb2ooS+MHS6juPvbloL7vFxFpsriJuhuK8YcA3ub2Q0w3BC
-         4J0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwe/LGERc/a5SuRugyiXx5uo0v54H3HGH0cPs8NS6BdEryiq9Kg3Y39bYiVVJ1MRkYSS+wbJZ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNe6xcnup/iMB8J2savrw9KeurLnFF84uBQ8P1tLrWp0M+J1VD
-	1IW0NYAusoLlBllOBWZlpWi1nYIjK0bOhX2fHUPmmZcrXBr93w5oK+/1STRY9ljlF+jpHGXyelW
-	DynRKVVDNhwcIvsb78z939YSEXAv5wNmQKcgGzdFyAiXQw5k1ipelLgeBzA==
-X-Gm-Gg: AYBFou1PY57W3lNVJIcaa4myHvfi041FHrv1VarC2Zf4VvcZo2C8eNSG+2qeZIjX4Ie
-	7xws+3U5MA+hKcx4wU0NKJbEDKl0316pfStgPEYLPdp8jz5B5X0AKbJfUaOsQcpBM0vsua5GEfX
-	VdKXcocarKPfLbEEoWpUo+uG1v8oDBZ9cbxM/0BkXzRp7LW76mDfnS1J1rnMmRYV5wK+AwCi4cp
-	IxXa99YXuHycGXZbgE9A07R8rm/QM4PYuvhnxx3nozb/IAWfLJQin7bAnodPKjhS7BybHujP4/k
-	at+ntVeVPz28MO90fMZEVf6oguxTNXNEW0n4NwWLlC3ufnlrQN8uBRM8i5by8pdlvx87LYGdURQ
-	FQi8hHgcCdPS3uiNQ9egr6QpKcbwfbDLOUr8xRvti
-X-Received: by 2002:a05:6214:6344:b0:90c:e135:51e6 with SMTP id 6a1803df08f44-90ce13553cdmr149410466d6.9.1788020770514;
-        Sat, 29 Aug 2026 09:26:10 -0700 (PDT)
-X-Received: by 2002:a05:6214:6344:b0:90c:e135:51e6 with SMTP id 6a1803df08f44-90ce13553cdmr149410066d6.9.1788020770092;
-        Sat, 29 Aug 2026 09:26:10 -0700 (PDT)
-Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4534ebesm42678606d6.48.2026.08.29.09.26.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 29 Aug 2026 09:26:09 -0700 (PDT)
-Message-ID: <666879b8-5117-4c41-ab1d-e50637e68a5d@redhat.com>
-Date: Sat, 29 Aug 2026 11:26:08 -0500
+        d=1e100.net; s=20251104; t=1788021761; x=1788626561;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cDbJApH470Nb27U1ofVrGiRQ548vKaC8I4YjQ8kLrVI=;
+        b=iawQDKcGuhDMSE4y2/RP1lZQW6BDKw2Nm++z2mLGXSzIjDlhMtvhm8SF24uE4naknk
+         cRR1F3DqVJ6FQYIssARzFTGWBuDvgo6QBAIqYpDpPkcOk3TZqNnFZqpHxhOI9+T9jDhn
+         aFdPsO9a6Gd2BNZnaRn8f8Ykd+J6xAOlxX4LbaG8HPVMaq8nxPuXIg5inVU1l2iD/NRD
+         QNTYosdRsVvF6v1CDGXdCiVzSg3uwsPLHJ4+h0f1R0J12hXDU9Ez0kg/y8/566JZF81F
+         p7esZX4C1d95xf5pU4ue+Dg8uyAy4DhUokimoBnDGvYPA7eVwt/igct15JrCK2Tt2QGD
+         G15A==
+X-Forwarded-Encrypted: i=1; AHgh+RqYaFP2n+MtEACxgWUU/C3VmDc7rLbJ9pWnZ/fXlhyPfihLed8V2Z8I1s1cLc9IY75rSXfBt4w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mubojIUE5O2YIMmkA7Ld31ok6zB5C8c+1w/K/1msu+XCIyvC78
+	kYIDP1ynYHeh1WRZ7A179JPQne9Anp2EK5sK4ZcYj9QwgY818Jafcso8xW8XTEBoLsf/aW3FySV
+	UAtSeIPvHCTdoHUMVBF/85EycsnQxtSU=
+X-Gm-Gg: AR+sD13WROpd9/e7/uaZ/V8fsmUjPsPzXKmLEWlPg4f9Umltr4IanuzoFTw/e6nzLsf
+	ahhreC1leYX9C9W0wo1dn2vNI/4TXpoXXyFzzZ+8FcocPdE1OZ0JBeXxKY7sqNGyiugbvaEW+pm
+	Uitd0O5s9cxFaHpoCvuu1CLcXpIX/iC3sfGDyqaNRSmcHNVPoCxYbXKlvY8LlFlmKu4H10G4939
+	rL5SdL2bVsiUFl5C6TeJfN9b1LMFUoH4G9dVVReOLXvDuZrX+ViYQZsQ81pdgBHWT8HCWQKZ40+
+	JqZtIMtx/nXwiMW3bcg9i35GX6L4l/FZBA1bKPspeU9usA==
+X-Received: by 2002:a17:907:3ccc:b0:c15:f26a:3438 with SMTP id
+ a640c23a62f3a-c255741f461mr1048868466b.24.1788021760941; Sat, 29 Aug 2026
+ 09:42:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sorenson@redhat.com
-Subject: Re: [PATCH v3 11/11] smb: client: fix NameOffset and Next field
- validation in smb2_parse_contexts()
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stable@vger.kernel.org
-References: <20260826153147.4112943-1-sorenson@redhat.com>
- <20260826153147.4112943-12-sorenson@redhat.com>
- <CAKYAXd8_jvTz6DX-1OjkCu1UAe7qKKHKOyW7-yOqrqVtxC6dPQ@mail.gmail.com>
-From: Frank Sorenson <sorenson@redhat.com>
-Content-Language: en-US
-In-Reply-To: <CAKYAXd8_jvTz6DX-1OjkCu1UAe7qKKHKOyW7-yOqrqVtxC6dPQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260820175832.44512-1-kmehltretter@gmail.com>
+ <5fa5ef078f41cd57d0e52ab2ab023094@paul-moore.com> <CAOQ4uxjn3sWjkrV8KbA-V+eno3E4OskTnCznNBex6FOstEbJ-A@mail.gmail.com>
+ <CAHC9VhQ5oQWL7bj745U5UzSWm2OfyKMjHVeaEYXZvzO0Em0iZA@mail.gmail.com>
+In-Reply-To: <CAHC9VhQ5oQWL7bj745U5UzSWm2OfyKMjHVeaEYXZvzO0Em0iZA@mail.gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sat, 29 Aug 2026 18:42:28 +0200
+X-Gm-Features: AcwNN1VZx95EdI2tjlNCAWiVqqkY5zejH9GYUNhl8FvdsMNeGPTwmtuy5Ph3m7k
+Message-ID: <CAOQ4uxioiwVPntt1=QeXXftehoPPb5LFZHuctfJzkNJzrNq9Ng@mail.gmail.com>
+Subject: Re: [PATCH v2] selinux: preserve user SID across nested backing files
+To: Paul Moore <paul@paul-moore.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, selinux@vger.kernel.org, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, Aug 29, 2026 at 12:05=E2=80=AFAM Paul Moore <paul@paul-moore.com> w=
+rote:
+>
+> On Fri, Aug 28, 2026 at 5:05=E2=80=AFAM Amir Goldstein <amir73il@gmail.co=
+m> wrote:
+> > On Thu, Aug 27, 2026 at 9:39=E2=80=AFPM Paul Moore <paul@paul-moore.com=
+> wrote:
+> > > On Aug 20, 2026 Karl Mehltretter <kmehltretter@gmail.com> wrote:
+>
+> ...
+>
+> > > > diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> > > > index 1ead2eee1944..171b90412ff1 100644
+> > > > --- a/security/selinux/hooks.c
+> > > > +++ b/security/selinux/hooks.c
+> > > > @@ -3843,13 +3843,20 @@ static int selinux_file_alloc_security(stru=
+ct file *file)
+> > > >       return 0;
+> > > >  }
+> > > >
+> > > > +static inline u32 selinux_file_user_sid(const struct file *file)
+> > > > +{
+> > > > +     if (unlikely(file->f_mode & FMODE_BACKING))
+> > > > +             return selinux_backing_file(file)->uf_sid;
+> > > > +     return selinux_file(file)->sid;
+> > > > +}
+> > >
+> > > I'm a little concerned that this only works for one additional level =
+of
+> > > filesystem stacking.  Yes, I know that OVL_MAX_NESTING and
+> > > FILESYSTEM_MAX_STACK_DEPTH are currently set at "2", but it's not an
+> > > unreasonable concern that at some point in the future that number wil=
+l
+> > > increase without proper notification or testing and we will once agai=
+n
+> > > have a problem.
+> > >
+> > > At the absolute minimum we should have a BUILD_BUG_ON() for the stack=
+ing
+> > > depth.  It would be good if we could watch both the overlayfs and vfs
+> > > constants, but the overlayfs constant isn't available outside
+> > > fs/overlayfs/inode.c (thankfully it is currently set to the vfs limit=
+).
+> > >
+> > >   BUIILD_BUG_ON(FILESYSTEM_MAX_STACK_DEPTH > 2);
+> > >
+> > > Ideally, the code would be written to keep diving down the stack unti=
+l
+> > > it hit the true backing file.  No one likes to see recursion, but at =
+the
+> > > point where this function is called there should already be a reasona=
+ble
+> > > bound on the stacking depth and the work involved.
+> >
+> > Unless I am missing something, stack depth should not matter.
+> > file_user_path() should hold the user visible path, for all the backing=
+ files
+> > in all the depths of the backing files stack.
+> >
+> > This is the issue that was fixed with commit
+> > f2381b546e7e6 fs: fix user path of nested backing files
+> >
+> > This patch makes uf_sid behave the same way and also documents this:
+> >
+> > struct backing_file_security_struct {
+> > -       u32 uf_sid; /* associated user file fsec->sid */
+> > +       u32 uf_sid; /* top-level user file fsec->sid */
+> >  };
+>
+> Perhaps I'm not understanding your comment correctly (it's the end of
+> a long week), but selinux_backing_file_alloc() and the newly created
+> selinux_file_user_sid() functions don't operate on the
+> file_user_path() path struct.  In fact the path which is resolved in
+> backing_file_open() isn't even passed into the
+> security_backing_file_alloc() LSM hook.
 
-On 8/29/26 9:01 AM, Namjae Jeon wrote:
->>                  case 16:
->> -                       if (posix && !memcmp(name, smb3_create_tag_posix, 16))
->> +                       if (dlen && posix && !memcmp(name, smb3_create_tag_posix, 16))
-> Could we check that dlen is large enough for the fixed POSIX fields
-> before calling parse_posix_ctxt()? It reads 12 bytes even when
-> DataLength is smaller.
+Right.
+But the file that is passed into the hook has the top-level uf_sid
+in selinux_file_user_sid().
 
-so this needs to be:
-                      if (dlen > 12 && posix && !memcmp(name, smb3_create_tag_posix, 16))
+>
+> Are you trying to explain that the way the backing files are allocated
+> in a stacked filesystem, regardless of the number of layers, is that
+> they will be allocated from the top down in such a way that the uf_sid
+> will trickle down to the bottommost backing file?
 
-I think we'll need similar before the calls to the 
-server->ops->parse_lease_buf:
-                     if (dlen && !strncmp(name, 
-SMB2_CREATE_REQUEST_LEASE, 4)) {                                   
-*oplock = server->ops->parse_lease_buf(cc, epoch,                       
-                                                    lease_key);
+Yes, both selinux_file_user_sid() and file_user_path() should follow
+the same pattern independently - they always stash the top-most user visibl=
+e
+path/creds.
 
-for smb2: smb2_parse_lease_buf(void *buf, __u16 *epoch, char *lease_key) 
-{         struct create_lease *lc = (struct create_lease *)buf;         
-*epoch = 0; /* not used */         if (lc->lcontext.LeaseFlags & 
-SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)                 return 
-SMB2_OPLOCK_LEVEL_NOCHANGE;         return 
-le32_to_cpu(lc->lcontext.LeaseState);
-
-/* See MS-SMB2 2.2.13.2.8 */ struct lease_context {         __u8 
-LeaseKey[SMB2_LEASE_KEY_SIZE];         __le32 LeaseState;         __le32 
-LeaseFlags;         __le64 LeaseDuration; } __packed;
-
-for smb2, we only access through LeaseFlags (24 bytes), but the entire 
-struct is 32
-
-static __u8 smb3_parse_lease_buf(void *buf, __u16 *epoch, char 
-*lease_key) {         struct create_lease_v2 *lc = (struct 
-create_lease_v2 *)buf;         *epoch = le16_to_cpu(lc->lcontext.Epoch); 
-         if (lc->lcontext.LeaseFlags & 
-SMB2_LEASE_FLAG_BREAK_IN_PROGRESS_LE)                 return 
-SMB2_OPLOCK_LEVEL_NOCHANGE;         if (lease_key)                 
-memcpy(lease_key, &lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);         
-return le32_to_cpu(lc->lcontext.LeaseState);
-
-/* See MS-SMB2 2.2.13.2.10 */ struct lease_context_v2 {         __u8 
-LeaseKey[SMB2_LEASE_KEY_SIZE];         __le32 LeaseState;         __le32 
-LeaseFlags;         __le64 LeaseDuration;         __u8 
-ParentLeaseKey[SMB2_LEASE_KEY_SIZE];         __le16 Epoch;         
-__le16 Reserved; } __packed; and for smb3, we'll need through Epoch, so
-
-     SMB2_LEASE_KEY_SIZE + 4 + 4 + 8 + SMB2_LEASE_KEY_SIZE + 2 = 50,
-
-with the entire struct being 52 bytes
-
-and also before the call to parse_query_id_ctxt():
-                           } else if (dlen > 16 && buf &&               
-                        !strncmp(name, SMB2_CREATE_QUERY_ON_DISK_ID, 4)) 
-{                                   parse_query_id_ctxt(cc, buf);
-parse_query_id_ctxt(struct create_context *cc, struct smb2_file_all_info *buf)
-{
-         struct create_disk_id_rsp *pdisk_id = (struct create_disk_id_rsp *)cc;
-
-         cifs_dbg(FYI, "parse query id context 0x%llx 0x%llx\n",
-                 pdisk_id->DiskFileId, pdisk_id->VolumeId);
-         buf->IndexNumber = pdisk_id->DiskFileId;
-
-/* See MS-SMB2 2.2.14.2.9 */
-struct create_disk_id_rsp {
-         struct create_context_hdr ccontext;
-         __u8   Name[8];
-         __le64 DiskFileId;
-         __le64 VolumeId;
-         __u8  Reserved[16];
-} __packed;
-
-
-With varying sizes, how do we handle the check prior to the call to the version-specificserver->ops->parse_lease_buf ?
-
-
--- 
-Frank Sorenson
-sorenson@redhat.com
-Principal Software Maintenance Engineer, filesystems
-Red Hat
-
+Thanks,
+Amir.
