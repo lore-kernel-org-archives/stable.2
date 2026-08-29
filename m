@@ -1,195 +1,209 @@
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECD431E844;
-	Sat, 29 Aug 2026 01:05:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787965506; cv=none; b=gQZOLkJUqxJCfRxtipV7LnWYKdyQAgyisnkzvWHnC5Qp5LMjUXBd7/4YLrfIog5lL4jU2uGrbmR1NsGwjZ/2jLKqDQXKYrfvJuyaTRGkb/VQOHQJl4CEueizRbEocfbZNgimPVGo8NU32HFXjImSJ+o7sx7evSOoUhcmGC1cP+4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787965506; c=relaxed/simple;
-	bh=noRaLKn3d8hkU/f2BlkUAVCZtnsrYifs5lbJRrRTCJA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EYCn86S7KgTaQtZZH0CuOaiiDBWBvEZqBexfV1tAOgota8flxRnuWS3pn8HJvbjPHlKNL9iwCsE8hlpgw8moAabKACrTjgOcp0UIezikO4PTRNCFIAsvj71LvviwoRkU5TnPfTTxfMM6No2KtPF8wjhHQJgiREPtAIMWUhL+nw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=VcEyAolK; arc=none smtp.client-ip=44.246.77.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0994F3A5E89
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 01:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787965823; cv=pass; b=IRv+PjT1fELDnk0Zwly1echdnw4Ivod59cR+iwQKzjkpht1PqiohHghsn8q2vnVSwAmiHyomZZ5UmbTuWoymoXldN+E4fJIT5Ha7qYqvtpyxk2BzptxS+TgnnQqLZjfGTuNCAXTMQFVRfZvtmjvJmJ70wyXwaTTYQ4RVClZbw6I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787965823; c=relaxed/simple;
+	bh=1mrl5vfsxPOcxX49j/Nr+QxRQPhhznHCQB+r9IYmE4g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qjVpFLPyzZnNz4T0osPus84zYi+GLW0q3MwEa6tbTtdSgomNnHbNN2V/m8TclE0SHCrd4pq4L4tdbrJ7mvyqM4HA+nBXQuxJzXT6PK/8V+l2PTlLToeZQGStR1Z+dsIULfbb/Gu6esMCp+nmifYg5MeOSglnGgr+qb8yyJq8pUM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sKdAwxe+; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="VcEyAolK"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sKdAwxe+"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so221153266b.2
+        for <stable@vger.kernel.org>; Fri, 28 Aug 2026 18:10:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787965817; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aD2ZAH5XQphm2p1xdubelxcOxs6T5iHeMIeuH2V8thtac/vKUlQPH6++ehE+UKRVem
+         qhRHKFeb5OhVJMhaf1++Q9RuEShs9FHAX12USPQbce1z7Xl2deUBanqBKVZYqwX0pZvg
+         IqCL9EYWKKEJVjm1IhpDSbTmhJ++Y5IgrSpwChFIVi3fyF6g9Ip3TODF2I9F5uuFymAS
+         NLBgFOfXSkYY0lGamwvUyW1uT2Syu47Bwg/n/qLtERi9YREBE/qmNZc0YCpoaBjsanv+
+         h+bjEJsVTuFCpmhtDvFcL7yK7fDmdk3AES476deB5GRFiNy/WUClFPdF2GqE6RPIJJbe
+         QJqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LDkUuQMIHGGiLSZiYVg4s5IjnV+PlGExO2xnMcJB/98=;
+        fh=P9NpIStKG18miU5Lr8XKpy1PzJan5bAplhMhSolnVSg=;
+        b=C0z8M1lWzDSjme7Y4474bE8Z/mQhyISYZOfNcLUi+nOCOgSXOLH9h6866cq9mUa8TC
+         jspb6eL1ItLLp0qwO2GN8n0t8FlBl4waEXMtwkFfdSa8lgr5h46ECGxzGJsXs3r/mqzO
+         Buz6yGq/K9m9LRuGCmB9c1ZGu3PS49mUM9veP0dHNScEx6cKb6WySMXTPB5J7kNcRA9F
+         n0mD1+88PnFn8XPdOGJSlLtwtrARmhtmszJcr2U49bfl+zIZAc+/DJ5HFY3PxfUH947h
+         Ccwr8j4L61tXT/aV+PZ5Gnp/zMYo25MziUEo4Tu7Cn67DpDQRAlMc/2c7d7mm1iFdE2X
+         3QDw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1787965505; x=1819501505;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=AnDR6DMNIm8190T9Mj0ZWeFFqjC7wiMNtZlDelqgd7U=;
-  b=VcEyAolKIB3y81QYBNQN+OoUr9dzNcIUsqIl9AwZcUcrOAfqKAXIOYY8
-   7vVy0VuIOP004QOhayfAwW38MdlhyOF60UQFxp/y+ZJ5ta/6rnceDwbgM
-   KCJARiiu5rNVz2euuqoDC5lTrl18zJxYhbZ1W2xMDnzMl8DilxOJl1Pex
-   IiM/LRftIPK1wKufNipNRhvVFLdE/6cnPRPim8nVS8Mfs2NdN7TeZwwNc
-   7W456h9A8rPNgQlG563Rb6Gx52m2Li/aSpwthxNy4XFDJ7rKOulvhPulh
-   VuplP2SkagGbHjvSpp9DqgX8SUAnc1ILySxM4zyiX6+G0qF2hGhrDgSHI
-   g==;
-X-CSE-ConnectionGUID: l3w405B6Q3qTp7vJELniRA==
-X-CSE-MsgGUID: XfIREu1fQeiEvPbPMsGFZQ==
-X-IronPort-AV: E=Sophos;i="6.25,249,1779148800"; 
-   d="scan'208";a="27259169"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Aug 2026 01:05:04 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:17926]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.30.13:2525] with esmtp (Farcaster)
- id b56c57eb-15a2-4d68-b802-e011e4869232; Sat, 29 Aug 2026 01:05:04 +0000 (UTC)
-X-Farcaster-Flow-ID: b56c57eb-15a2-4d68-b802-e011e4869232
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Sat, 29 Aug 2026 01:05:04 +0000
-Received: from 6c7e67c92ceb.amazon.com (10.187.170.21) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Sat, 29 Aug 2026 01:05:03 +0000
-From: Nathan Gao <zcgao@amazon.com>
-To: <sj@kernel.org>
-CC: <akpm@linux-foundation.org>, <baolin.wang@linux.alibaba.com>,
-	<damon@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <stable@vger.kernel.org>, <zcgao@amazon.com>
-Subject: Re: [PATCH] mm/damon: use a page-aligned sampling address
-Date: Fri, 28 Aug 2026 18:04:55 -0700
-Message-ID: <20260829010455.28607-1-zcgao@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260828002211.61987-1-sj@kernel.org>
-References: <20260828002211.61987-1-sj@kernel.org>
+        d=google.com; s=20251104; t=1787965817; x=1788570617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LDkUuQMIHGGiLSZiYVg4s5IjnV+PlGExO2xnMcJB/98=;
+        b=sKdAwxe+TdDSUVtnEMTy34PjYuYffS21Gj1+W31yG6GX2bVQxLnJuEiAGvz8+QlL7h
+         gDaRTGAxgD9odwoshYI5pQOS4wOv+bG/u9uAMckdXwEmSt/rP4qomh0jT0SlzhMmduh9
+         5Vl1GP1v4srPUFBZlwNuA/okJPQDdVM523TJjPQtUELhc5QBAVlPmStuYcrL3NIfPG3L
+         hPLo7wxOQ61536+Nr/buUYmj7LXAoCj+WWL9r+UR/AaY8Ts5YBvOsXTa9Rdpa8CUCKWh
+         eZpIJJ6NPukZ4qlZd7C2Hzs8bMLoVa31L/NnOpqWyAtq3h3i8u/akFztvDj3mfIAlA1E
+         h77Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787965817; x=1788570617;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LDkUuQMIHGGiLSZiYVg4s5IjnV+PlGExO2xnMcJB/98=;
+        b=YcbPR1gDFsfHCnjcbuHghL/kl6+DZdSMyS7YKyvZJy9IZuhw0v/kHaBi0XCLOMBMOJ
+         X2WBPooUqABO0aBe5HPSa2rQdyUc1OvDkWU2eTE8Cr8w5k500Qk6Pug+KHQtlj17ynxa
+         eHjUBJ5ut3w1GJWB4SsekRbVc92gC/1e3K4ngZugyTSEwA7r4xNXEe20mL44PVzf442b
+         v8g5GTtXqoTrVkFuHR9ey3II3BG4oQ5uMvoU1/8zErIMA7PXrTda7PWMhpKkoQpvO/7v
+         6znxU5qqYUv8jdxfzoCqZ0F5cf3b7BCYhnP0dicIvYzNG3v7RJ3KDWEhRG2sctRTYM8c
+         5HGw==
+X-Forwarded-Encrypted: i=1; AHgh+RpjPHfJjvwVISCaPjHwhDupESU8p8GoWAcAso2tBVou4axdGhdeIUGHnpPxO8HJ9uEk1zIstgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltCk5WeKgSBNdVwod1NulpK2K3hovRBxwKMIbVuA0y2hA/4xKL
+	C04QeKkef6ChYzF7ydoTV/jrrAez+TH0criGOw2ewJhlT4zWi/a6sd0lKzvT4oh9KKDGMNCdvNd
+	hCMJs/kMsO5aCP74BgeXRIv6AASXnwj9wo3q75MYX
+X-Gm-Gg: AR+sD10Nd2WBtzEmS3VfbcVguhMDWWjezrm3nRfolyP23zHs8FGe+nS95uv1rJzV2ze
+	xteX1zT2tey/maiwmCeRhKr1n9d4HUBO8/HvrWIQx8hE/BMjququU1Bm92Kca0W2GEX+sgOoiUU
+	rrZvyjuinaU5WKTxgUOkbo5UW/vfUbMb6pir6KlrKguZj//MnOvOzy4YJ1hc5H/OSg9DCrq4dwv
+	Fcr56nv7ZvzGhC3qrtVrjboKPDpq7+kyubU60LFl6V7igApuQA9RbwQa5wAdUoOmtKk1nIqxeqF
+	EBJTq/eDMS5r7jn9XmFxKoVNvaHB8qRuHdjnqgMgiYxq6OjoKkfo/BfZUDBlFU4IYM+93bYLYhu
+	jvrQih2LkyfUvrZTrqx4QJb7tiAofjpeKegMdeC1labcRrEeLObCFGQR/F1VVSQJ9l4qit6Rdrd
+	/HGqDimiQnjkx9
+X-Received: by 2002:a17:906:f592:b0:c25:d03:6794 with SMTP id
+ a640c23a62f3a-c2557416218mr792240166b.16.1787965816803; Fri, 28 Aug 2026
+ 18:10:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWB001.ant.amazon.com (10.13.138.123) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20260828222640.1638457-1-jthoughton@google.com> <20260828173302.29778f1bf802a1db932778ad@linux-foundation.org>
+In-Reply-To: <20260828173302.29778f1bf802a1db932778ad@linux-foundation.org>
+From: James Houghton <jthoughton@google.com>
+Date: Fri, 28 Aug 2026 18:09:39 -0700
+X-Gm-Features: AcwNN1UYXr9aSh6ZJb7y7EO3U_vx_4UVQ4qPVOOoPdPKw3zhEMSrjR8DApQcQpU
+Message-ID: <CADrL8HVzfEXgE9OQfULhe6wh1kMMOALsYuCNOUkgBqtzk_LUVg@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/khugepaged: Don't install PMDs in
+ uffd-minor-registered VMAs
+To: Andrew Morton <akpm@linux-foundation.org>, Lance Yang <lance.yang@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, liam@infradead.org, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, Yang Shi <shy828301@gmail.com>, 
+	zokeefe@google.com, hughd@google.com, Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi SJ,
+On Fri, Aug 28, 2026 at 5:33=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Fri, 28 Aug 2026 22:26:40 +0000 James Houghton <jthoughton@google.com>=
+ wrote:
+>
+> > Userfaultfd minor faults provides userspace with the ability to manuall=
+y
+> > install PTEs with UFFDIO_CONTINUE. Right now, khugepaged collapse can
+> > map holes in the VMA when a naturally-aligned THP is present without
+> > explicit action from userspace.
+> >
+> > This is a problem, as it bypasses userfaultfd minor faults that
+> > userspace is expecting to handle.
+> >
+> > If userspace implements post-copy live migration using userfaultfd mino=
+r
+> > faults, this situation is currently possible:
+> > 1. The VMA for guest memory is userfaultfd-minor-registered and nothing
+> >    is mapped in the page tables.
+> > 2. A stale copy of a page is present in a naturally-aligned THP (from
+> >    pre-copy live migration).
+> > 3. khugepaged collapses the mapping of the THP, installs a PMD.
+> > 4. The VM now has access to the stale contents =3D> VM is broken.
+> > 5. After installing the correct contents, userspace attempts to map the
+> >    page with UFFDIO_CONTINUE; it gets EEXIST, indicating that something
+> >    unexpectedly mapped the page.
+>
+> Did I read somewhere that this it biting you in a real-life scenario?
+> That would use useful info to spell out.
+>
+> Or is this a theoretical thing?
 
-Thanks for your review!
+So far it is only theoretical (but please do keep reading). I caught
+this while debugging a related, real problem.
 
-On Thu, 27 Aug 2026 17:22:11 -0700 SJ Park <sj@kernel.org> wrote:
+The real problem was that userspace was doing MADV_COLLAPSE (*without*
+userfaultfd registered) and assuming that page tables wouldn't be
+created. This is of course incorrect, but for some reason we only
+started hitting this after moving from a 6.6-based kernel to a
+6.18-based kernel. I don't know what change caused this (most likely a
+downstream change), but the real fix was for userspace to instead do
+something like:
+1. MADV_COLLAPSE (let's assume this must be done)
+2. UFFD_REGISTER_MODE_MINOR
+3. MADV_DONTNEED
+and we're good to go, right? Wrong, in fact!
 
-> Hello Nathan,
-> 
-> On Thu, 27 Aug 2026 12:38:21 -0700 Nathan Gao <zcgao@amazon.com> wrote:
-> 
-> > __damon_va_prepare_access_check() picks a random byte address within the
-> > region and stores it in r->sampling_addr. There are two users of
-> > r->sampling_addr in vaddr.c that pass it into a page table walk, and
-> > both use it as the address of a page.
-> > 
-> >   damon_va_mkold(mm, r->sampling_addr)
-> >     damon_va_walk_page_range(mm, addr, addr + 1)
-> >       damon_mkold_pmd_entry()
-> >         damon_ptep_mkold(pte, vma, addr)
-> >           ptep_test_and_clear_young(vma, addr, pte)
-> >           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
-> > 
-> >   damon_va_young(mm, r->sampling_addr, &folio_sz)
-> >     damon_va_walk_page_range(mm, addr, addr + 1)
-> >       damon_young_pmd_entry()
-> >         ptep_get(pte)
-> >         mmu_notifier_test_young(walk->mm, addr)
-> > 
-> > test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
-> > arm64, documents @addr as "Address the first page is mapped at".
-> > 
-> > For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
-> > clearing of the young flag for large folios"),
-> 
-> The @addr documentation is also introduced by this commit.  This commit is
-> authored at 2026-02-09.
-> 
-> > the contpte helper walked
-> > exactly CONT_PTES entries from the aligned-down page table pointer and
-> > used @addr only to pass down to each entry, so an unaligned value was
-> > harmless:
-> > 
-> >         ptep = contpte_align_down(ptep);
-> >         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
-> >         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
-> 
-> So, there was no issue before the commit.
-> 
+I noticed that there was indeed a circumstance where khugepaged could
+create PMDs even when userfaultfd *was* registered, making the
+userspace fix technically incomplete. That's what this patch fixes.
 
-Right. Before 6f0e1142173a, unaligned addresses were tolerated but I don't
-think this is guaranteed.
+I haven't yet seen this in our production environment (as far as I am
+aware, hence "theoretical"); we don't actually have that many VMs
+running a userfaultfd-based live migration stack anymore though (maybe
+tens of thousands).
 
-> > 
-> > Align the sampled address down to a page boundary. It is the address of
-> > the page to sample, so this matches its intended meaning and fixes both
-> > users in vaddr.c.
-> 
-> This indeed sounds like can fix the issue to me.  However, was it a clear rule
-> that we should pass only contepte-aligned addrss to
-> ptep_test_and_clear_young()?  And is DAMON the only ptep_test_and_clear_young()
-> caller that is mistakenly passing the unaligned address?
-> 
+I hope that extra context is helpful.
 
-It is not spelled out as an explicit rule, but the documented "Address
-the first page is mapped at" implies it, and these callers are using
-aligned addresses:
+> > The naturally-aligned THP case is the only case where this is a problem=
+.
+> > khugepaged otherwise requires all PTEs to be present for
+> > userfaultfd-registered VMAs (i.e., max none PTEs is 0), which is
+> > correct. This check is essentially bypassed for naturally-aligned THPs.
+> >
+> > No changes are needed for file_backed_vma_is_retractable(), as zapping
+> > PTEs is safe. Userspace must already handle cases where PTEs are zapped
+> > without explicit action (e.g. due to reclaim).
+> >
+> > Fixes: 58ac9a8993a1 ("mm/khugepaged: attempt to map file/shmem-backed p=
+te-mapped THPs by pmds")
+> > Cc: <stable@vger.kernel.org> # 6.1
+>
+> From the changelog it isn't clear why a -stable backport is proposed?
+> I assume the userspace-visible runtime effect is a rare and bogus
+> -EEXIST from UFFDIO_CONTINUE?
 
- mm/page_idle.c: page_idle_clear_pte_refs_one()
- fs/proc/task_mmu.c: clear_refs_pte_range()
+Although this bug is likely pretty inconsequential (I'm not sure how
+many users of userfaultfd minor faults there are), but rarely getting
+EEXIST back when UFFDIO_CONTINUE is a userspace-visible bug that
+doesn't really have a great workaround.
 
-> If not, it might make sense to make contpte_test_and_clear_young_ptes() support
-> unaligned adress again in my opinion.  May I ask your opinion, Baolin?
-> 
-> > 
-> > Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
-> 
-> I think 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for
-> large folios") would be mroe correct 'Fixes:', if there was no issue before the
-> commit.
-> 
+Because this bug essentially breaks userfaultfd minor faults,
+*technically* live migration implemented with it can sometimes corrupt
+guest memory, and the hypervisor (like QEMU, but QEMU doesn't use
+minor faults) only learns about it after the fact, after we get EEXIST
+back. IMO this is enough to backport the patch to stable. But if
+others disagree, I don't really mind.
 
-Will use that in v2.
+>
+> > Suggested-by: Lance Yang <lance.yang@linux.dev>
+> > Tested-by: Lance Yang <lance.yang@linux.dev>
+>
+> Wondering what Lance tested.  Was he able to reproduce the bug?
 
-> > -	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
-> > +	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
-> > +						      r->ar.end));
-> 
-> If we need to have the fix in DAMON, this kind of change would be needed.
-> 
-> However, what happens if the address is backed by large folios?
-> 
-> Before the commit 6f0e1142173a, also, it was aligning to CONT_PTE_SIZE.  Should
-> we do same?
+I assume he just re-ran my repro, but yeah I'm not sure, heh. Lance,
+what did you test?
 
-Passing a page-aligned address restores the pre-6f0e1142173a behavior.
-Before the change, the helper aligned ptep down to the block start and
-walked a fixed CONT_PTES entries, regardless of addr.  After the
-change, the walk covers [ALIGN_DOWN(addr, CONT_PTE_SIZE),
-ALIGN(addr + nr * PAGE_SIZE, CONT_PTE_SIZE)).  With a sub-page offset,
-addr + PAGE_SIZE lands just past the block boundary, so the round-up
-extends the walk a whole block further.  With a page-aligned addr,
-addr + PAGE_SIZE is at most the block end, so the round-up lands
-exactly on the block end and the walk covers the same CONT_PTES
-entries as before the commit.
+> Sashiko might have found another race in there:
+>
+>         https://sashiko.dev/#/patchset/20260828222640.1638457-1-jthoughto=
+n@google.com
 
-We also can't align to CONT_PTE_SIZE in DAMON since it's defined only under
-arch/arm64/:
-
-  #define CONT_PTES		(1 << (CONT_PTE_SHIFT - PAGE_SHIFT))
-  #define CONT_PTE_SIZE		(CONT_PTES * PAGE_SIZE)
-
-
-> Also, I think we should pass aligned address to only the functions that
-> require alignement.  Making the alignment to the sampling address in general
-> sounds too much to me.  Particularly, we are working on supporting new page
-> access check primitives other than PTE Accessed bit, like AMd IBS.  In the
-> case, we might support <PAGE_SIZE granularity monitoring.  Aligning sampling
-> address in general will make it more complicated.
-
-Makes sense. I will keep sampling_addr as is and align inside damon_va_mkold()
-and damon_va_young() in v2.
-
-Thanks,
-Nathan
+Let me get back to you on this. Best case, I'll send another
+(separate) patch. :)
