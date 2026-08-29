@@ -1,126 +1,127 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1832B3515EC
-	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 07:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AD02DB7B8
+	for <stable@vger.kernel.org>; Sat, 29 Aug 2026 07:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787988880; cv=none; b=nxq+tuYWSWb1v7IGDuHt1D2V5uekkfk6T4LKZ8Igd/nsP/FBpF1+rHXpUMqSnxvPweONWE/dVWz0KwccAj2xeCuKUsV4p1c2p9oKpQVJrZVeHrhra8AGkYVZOOQg1LCtnnWUtQd1hL9JSwPLwBVZn2bVExznZ/4K9+KToPLSWLc=
+	t=1787989170; cv=none; b=YYRz3pxERB0A6wDEjQyS6cUNgcMdJw6TYr44tfgVlxKEp2l1pY5XJGS9LUOuts2sUL9QJpqAmeYCKNYgQK28QtWFE1bZ6+e68YepP56394bDD/9CdaSi4UF9O2FeV2mMKBVnZFQdvfKkjtb2Vl3meWc9y0VR1DCC8Drm+8KDSx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787988880; c=relaxed/simple;
-	bh=Q9A4HLLOLJ4VZXp2cZoje9vbqTGlzIJq57FlolcxsN4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EY78Y3BRve2mNwBbBh+iQR3mygfqQ8sEsnHZbaRhHINg0J5KsUEpcdqRkQ95bp0PLb8o/s5fTA97PDGLB6ZWdDk295WUn+Zv2JYkSjHaYYuywi3hKyBQgn4RYo+Osytk4kp3tGQ4dWl6tDBc169oc7J0wU9+Km6/2N/887Eew3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdSe0/bJ; arc=none smtp.client-ip=209.85.214.178
+	s=arc-20240116; t=1787989170; c=relaxed/simple;
+	bh=Fl0jnXaPEWiKqd7Q32TYDalsVlXkvLPGZIAW6itNGmg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CFTjW0RVQ/0EdNTYP7nR3Sirxw4hVgU2bfWa2pFCt5et2OkezZjrknKMArPC4q1iNqaKWUACfysWR6LgrVwsvwvWqD0D+AnSD96YF1GtyTiyl1y1j35skZZlEqt6TChJa9ONlymB5lL63jTf/TalTAKdZ5uLAgvw3gk6Rv7aKL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SC/fSue1; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdSe0/bJ"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d71ae3455aso26379075ad.1
-        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 00:34:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SC/fSue1"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ceaf8a1265so22567625ad.2
+        for <stable@vger.kernel.org>; Sat, 29 Aug 2026 00:39:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787988878; x=1788593678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4s3+xh6Th5r06sJ9n1pY67GE12kX/ek/r1hd+DmHod0=;
-        b=NdSe0/bJ/l6qQxnYTCnoHNeijgFnGd0WhYquBENMPWDZ+lH6EN20MIZOPwHsaGj6H/
-         nTRXGYKsh2Q4nAZaJHQOO6HSSe6tq3EJU/l+I1JXMoRjfd3g6hySrpVQjuRdlPA/uQgd
-         oQh+tCGnQ6KJYOW8kcmOYDt53BaD8OoUZvkPWMG5J4yMwt8QGe4zvz7xx/2Uqabqqb6A
-         vwPDmWXWSW4NqbLa1EJENuw7H4/LJTM8wA8ZGU5eIGr3+G41xvREVbHb0Yqqt8VE4fQo
-         6Kb6XFrTplAjFWKAyAlAjPiRgvzbkxfFQAajeVW59PH2xn66W2QsS/YYf7ixqTd2VvL8
-         e8lw==
+        d=gmail.com; s=20251104; t=1787989168; x=1788593968; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E+jXy+0y1xn3HgSoRA0hzYr820gLXgKV38btGuCIEbE=;
+        b=SC/fSue1wzc46H0xezHE37Ice6kEbzcKtOoe0r8/QjtH5+4fewpc3OGVAhdyIrAUBK
+         xj5WtCx7jfRdAKqi3CwN3CK6gZp2mXg0dUfZtnB3HvT5lhKN0tFOq/Eszg3kpnYFUqiJ
+         vMHBfs6EZHzJBSPcK1zggB03BnNrJbne1FH09LOHmz1wckpmRzVtmbacQC5Ll55AFg03
+         CWj5K8su++/LW9IeRb8Jz1Da1iRWsjU7twlqH0d9N6DMYdme2wuAUrpl5xsYElZJHiJr
+         vjZn77x0iEsjmRUytqb2dFGTCYWEdg9WbjeXUASi6JagBpHZXhQnxjNYAkAzi/WjWySj
+         vdqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787988878; x=1788593678;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4s3+xh6Th5r06sJ9n1pY67GE12kX/ek/r1hd+DmHod0=;
-        b=oqut8xxNUXkv33aYMmF3WbWwEdgEs57PRY2LAUhUkAL0FkvOZSy8Y4h8iXspFF2+oU
-         tNf2OGcAat3wN1te7krMlgL2Y2a/Vpm/Jh4lgNxI7hmnlHRNoD8bExSN8mz18R0cVMo7
-         DYDh1Kt7yp/Imvh7QjijCbLwgADI63Qv7HMCxqL/1/O7PuhoPau5M+MjNU0xhNrI4gBG
-         uWuC75+zPQB7+8/uoKAn+hLSeanPF0NEz5DLYlgYrodJvn6LX0pNBKCRtN41iMmb8AZX
-         chz5wSNNV+hXNfoIssTWMdsIdRqusXUv8PZZ7O78dHA6rT3Ng7qkwceTUOhPh3vU3q8G
-         fz+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxEW2GsFVTEXKBM9gXSc7YhiXuQqDwbB9u0BjGzibQaIebOTR+yqe3sk2+0ytswrq+MxTBqOQE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfDQm1ovqbOE+2UUgRSBau8laqXKKiI/QEytB/kuj88jQOOVSH
-	7fgV1Eoqlmr5TdIXWVHn7Q3WojbDQyWttdP+16ZIaQRoWrsQ7fy/dpwN
-X-Gm-Gg: AR+sD13zaqF/yYmDnZs0W+BPSmIYn47UmfYrUvCAgtjbxpzRfj4uVvvjUoKmkmE5PFN
-	ua+/BRvywdVkoR3HnT5ibrmo6trnJi4begW1rsxlYaxy3htT+UZjG+UkTO8QXpUti5U9798B3oS
-	/oNjy0HiFE0zUA3cIzumm/q+7BZeEoZrWi1s+GNndyHbawPrQOyMzuDfZdPJaYvlRp/AptSPVbZ
-	DEJ/Fj8QYynRbzidcemIKfhivgRbB7BH15HBqXdNJtbHWVLmNikBqpEWcB5ntT9NYiiwbXZ0FdV
-	lCHc/9WozpHHPUHcvGwMiyClntVXE7SrXPGBbRmmdfKhgzR58rC8az2gSoBfwgGYUx4AKkBLxfH
-	gtx0kXMm1pj24o9vjDNkQli1QbHGT0XaRLxLMwQYBKAzVWzLQZD4H/No3kUb0ZKmBdmkoD7Mwl3
-	8n+UkZy+sUD7WsrQbl0r1/uOrPSTtIr5X4cM1OQQgSnOD7/k6c+HNqTQo9Ct+8Ayb9/L9z3K7yg
-	Xxq6ABqdt55OSX2EzxG4B0MxJKWh+pC+kcIbugdyjfMeT7sPhi0G35AEsXIDhjOGiVzbD7tPITK
-	WxiC/Rbj6kHazAJVPBtyLYBN+g==
-X-Received: by 2002:a17:902:f54e:b0:2ca:61bc:317c with SMTP id d9443c01a7336-2d74def63d7mr207522675ad.13.1787988878335;
-        Sat, 29 Aug 2026 00:34:38 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b944bsm12510169eec.27.2026.08.29.00.34.36
+        d=1e100.net; s=20251104; t=1787989168; x=1788593968;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=E+jXy+0y1xn3HgSoRA0hzYr820gLXgKV38btGuCIEbE=;
+        b=cenBz54tzz+HxiIrZ8yBLGCu4bMsa7/7W3nMkwQ+MoD5hJ/CmQj8SQeCL/UPoCsV7R
+         wSJ6BITPHBPh4Rgp5sWdQ+BCgTjaC7qOz0jMj2p9gUBFyRxQCNZPianVEea395F9h3mG
+         h/DZFPyVMucGJMoQVeGjkTKHJoqYx7y8R8YqThRoYrveroYOg214kduPce0HR6PIMMEr
+         H56LWaEgS6lOvnwNeVcs/sjdUFjAQ6ykhTBODhU8QgU0hLR2l/mwmEpXYgihBCyziuez
+         HjS+Qk4sol/GtIOZ/ndsExo727dXjod3qiQdtD0VyQ7E8Smrhr9s8VZfydPwIyvwkvZ5
+         YkRA==
+X-Forwarded-Encrypted: i=1; AKwUvBx0S2YH5jS5/uSjpq3Ne/0AUDqLQJxyg4pd4SmIB6juTSyUj0cdQIYQI9dYs+Km+RvWpnlby4I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIPX0qtJto59l0rqWScsEcjuh00a1nWIwJR8QEyQl1y1b33x0a
+	6IoF2yVNrWX2giPLxNBF7JUB667rdfs3ckRpQYRhU1rT0tNB6I63gPEC
+X-Gm-Gg: AYBFou0OTH/Fmp4Rd7PV21pmkRmhBsAtlXqc/ptIO+omL7f4FOF/qgQ/zes66rSvdlk
+	yAPlAnu/kp/Z8MOoTTvotBFrPlN5UbnwKPCYhpAIjVvq14ED0FFNQ7MdeNjsO1waifLIky3OVCQ
+	fgatBj8B5Bsxqw7nK+/g6Y8cLnFogz1swgHZCjr0q91xFO0hH8vq6iJXV0OhVNJPQTS9TcsnKEa
+	4phr9geyVk6drIHl4G1sRjJidPemfZxC1gI7wXuUthoqkjAiRrRT1vgttsBENsGi8zn1G1u8KJ0
+	ABbQXW5Gv0G5Znq9KMJuX/e+Fu+ngfQR7t2mRZHyqPSRlcGlICWlLqxLHbEjgC38HSOo2jBgK2W
+	1F85qJRKCjaOrTHLCmJiFx/8jvtVDTnrBOpzHJf5oJgB/ZSHAXsPwPvtZdjUX7xRjjeAtmHewz/
+	Spv4vp+6XonyYnr5d0wPza7kW0b6H96ZPbLOyeXPh8dE1AFFpWbqJgqNMR/O9gElUoW2mY0psDt
+	IQZocco2Hc9AzR+3GVB4FfF9EXExHGfBm0h9vSNXcN/7WqZJW6eO7UZZA==
+X-Received: by 2002:a17:90b:3ec3:b0:37f:e177:f58 with SMTP id 98e67ed59e1d1-396d0ebd7eemr19840989a91.9.1787989168442;
+        Sat, 29 Aug 2026 00:39:28 -0700 (PDT)
+Received: from archlinux ([2405:201:1b:20ef:268a:fa82:9f05:61a5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0de4de3sm17201372c88.12.2026.08.29.00.39.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Aug 2026 00:34:37 -0700 (PDT)
-From: Wei Jie LAW <98lawweijie@gmail.com>
-To: 98lawweijie@gmail.com,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: aduggan@synaptics.com,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5] HID: rmi: fix OOB access with undersized RMI reports
-Date: Sat, 29 Aug 2026 15:34:26 +0800
-Message-ID: <20260829073426.16390-1-98lawweijie@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260825103117.12180-1-98lawweijie@gmail.com>
-References: <20260825103117.12180-1-98lawweijie@gmail.com>
+        Sat, 29 Aug 2026 00:39:28 -0700 (PDT)
+Date: Sat, 29 Aug 2026 13:09:24 +0530
+From: Krishna Chomal <krishna.chomal108@gmail.com>
+To: Arda =?utf-8?B?RG/En3U=?= Ari <arfeliousheres@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: hp-wmi: Fix board_params typo for 8DD6
+ board
+Message-ID: <apKKuL5lh2OK-6lq@archlinux>
+References: <20260827235139.154462-1-arfeliousheres@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260827235139.154462-1-arfeliousheres@gmail.com>
 
-Impact information for this patch, in case it is useful for prioritising
-it. No change to the patch is required.
+On Fri, Aug 28, 2026 at 02:51:39AM +0300, Arda Doğu Ari wrote:
+>When adding support for board 8DD6, &omen_v1_no_ec_thermal_params
+>was passed as driver_data instead of &omen_v1_no_ec_board_params.
 
-I have a working local privilege escalation on this bug. An
-attacker-controlled USB device plus an unprivileged process on the target
-gives root. Both halves are needed -- it is not remote, and not
-device-only.
+Hi,
 
-The disclosure half needs is via USB-only. The initial commit 
-already explains the vulnerable path.
+When I added support for 8DD6 [1] &omen_v1_no_ec_thermal_params was
+indeed the correct quirk. But because Radhey Kalra's board-specific
+feature data patch [2] was accepted first, my patch probably lead to a
+merge conflict that had to be resolved manually, which is why this is
+subtle bug got introduced in the first place.
 
-Reproduced to a root shell on three kernels. All with KASLR, 
-SLAB_FREELIST_RANDOM, SLAB_FREELIST_HARDENED, 
-INIT_ON_ALLOC_DEFAULT_ON and HARDENED_USERCOPY
-on, and no debug options or debug allocator:
+>Because active_board_params expects a pointer to struct
+>hp_wmi_board_params, dereferencing active_board_params->thermal_profile
+>results in a type confusion bug and invalid memory access. Update the entry
+>to point to omen_v1_no_ec_board_params.
 
-  6.12.69+                  own config     RKC=n    root
-  v6.12.105                 own config     RKC=n    root
-  v6.12.105                 Ubuntu config  RKC=n    root
-  Ubuntu 7.0.0-28-generic   stock          RKC=y    disclosure only
+Thank you very much for observing and sending a patch for the same.
 
-RKC is CONFIG_RANDOM_KMALLOC_CACHES, =y on current Ubuntu, n upstream.
-The last two rows are a controlled pair: Ubuntu's own config, rebuilt on
-v6.12.105 with that one option off and nothing else changed. With it off
-the victim object is adjacent on the first plug and the chain completes;
-with it on the device saw no usable neighbour in eight plugs. So on
-Ubuntu that option is what stops the write. It does not stop the
-disclosure -- KASLR still falls there.
+[1]: https://lore.kernel.org/platform-driver-x86/20260623141314.33947-1-krishna.chomal108@gmail.com
+[2]: https://lore.kernel.org/platform-driver-x86/20260615091034.987029-1-radheykalra901@gmail.com
 
-Unsure if CONFIG_RANDOM_KMALLOC_CACHES=y will stop the write every
-time or only most of the time as per-boot seed is fixed, and I have
-only tested a single boot.
-
-The bug still exists in LTS 6.12.y, as well as mainline. The
-code dates to 9fb6bf02e3ad, so this reaches every supported tree.
-
-I have not published the PoC and will not before this is merged. 
-If it will be useful for review, do let me know and I will send it
-privately to any of you who requests.
-
-Thanks,
-Wei Jie Law
+>Fixes: a7320d6eb9c42 ("platform/x86: hp-wmi: Add support for OMEN MAX 16-ak0xxx (8DD6)")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Arda Doğu Ari <arfeliousheres@gmail.com>
+>---
+> drivers/platform/x86/hp/hp-wmi.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+>index b2773fc1aca4..615b4cf6fc45 100644
+>--- a/drivers/platform/x86/hp/hp-wmi.c
+>+++ b/drivers/platform/x86/hp/hp-wmi.c
+>@@ -337,7 +337,7 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
+> 	},
+> 	{
+> 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8DD6") },
+>-		.driver_data = (void *)&omen_v1_no_ec_thermal_params,
+>+		.driver_data = (void *)&omen_v1_no_ec_board_params,
+> 	},
+> 	{
+> 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8E35") },
+>-- 
+>2.55.0
+>
