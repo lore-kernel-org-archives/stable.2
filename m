@@ -1,130 +1,149 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0905D10F2
-	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 07:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788073303; cv=none; b=Xv2kqAJAsg9g68qtQqCoiz5aBgAkNDzvxVpMOim0e9SVaZYb3aZrwF/85vXlzERA2iyKYs5J7I63jpF1iBzPN0fF2xtkcEUQNrX5jiMaoyskbl2A+8nPRBJ6NArdPQtJDMiEP326Tj/8hl2iBgnrv0jk+/7BihxJD77s8ZQ1T1w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788073303; c=relaxed/simple;
-	bh=TjYtPl/j554glQJWmPU/xoPlEoAnKmGzpt4JeYVoUIE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cOs6AZcx6GnXEEpDv8EbpT9Td+wEqIjovAyOtuX30L5jy25ZlUbV2ZlIEFOURXw3xrimGINCHVZ4Rn9cReTgfX9i9YralYVQEeRaN5YBaaeq9eCRsyabtufJk1yHbkGBYYz1ONkswZM3TWaRl7uuzH6POFwNg9LUwpT9Z6705Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MM/u22FK; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189C67082D
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 07:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788074481; cv=pass; b=A8/WlLdQhP94LFiTARxMKTlrjtnnmJ1Jy2Lxk6KnaAYy6Tk0lBz0XghPOgzq39C0Gz50qG2Bz5pgoxoPo6y3dCyufIztYLmZy5OThnUY8IQ2C36jUMsc6WdiOrKw4q3nt4tMInZaS0t8zbOvmKWoFmK3YhQdoGPvVkwYVDxLNNM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788074481; c=relaxed/simple;
+	bh=vxqRkode1N5DmJUSeBRsPBQbQlVjSFbN5aGURVmKVs0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iZ1ODCtx/H2n93Aw7PQJ3EV/LgzgLWjRncn0dx3qc/FQbb5JgpOY/QbVuy4qDoMZPrGgPE5QIx4TE0MdF059mbsYSvlTEeH03WFoBgm+jtLP3ketKplocL/cVaJ3597lOpAa224GRpvSlKLS0L+VCcH25UsWcZG73EFypLK4pdc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cFMiuHnY; arc=pass smtp.client-ip=209.85.161.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MM/u22FK"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-39266382df6so2050831a91.3
-        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 00:01:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cFMiuHnY"
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6b0496f4bbcso582458eaf.0
+        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 00:21:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788074479; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r1vCzk5HerB/boy+iCGDnRIAmneOQqqFPxWc+dvvwUQq1wHUAXdK5sa6JQOL4aVsyE
+         Tct1x01ituBV158FBuQ1H3zQ04tBL+PpUjI7Jz3EVIjXH5W8z8crnjzi/TdqqBrNGR+X
+         sZkaB5XQ9I6b/X6Tdux0HWbZgH88JllbZGnhDe8TZXdt0QG5NmJ5DADE3go8DXE2/p5r
+         WTmqxLzEyWRqoumvU+LDGAthmtCUIckXliy8VqEIBeTL78+31biIPX7OMp5lCAaCKWXL
+         5aN21KHGBaozFJXT2eSVnQekQjhxgkFXukwt9Be9Nj8L806A1b5gkEGfreQvz1Rz8ZD4
+         nMsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MxFE0zUp+nNkdON9i2WoUi61XXQ1qTC1IWyKmYd9e3E=;
+        fh=WlxAqZneDDcGhepTgOSdGz21hXG1UPYRnQzzc2uxEv0=;
+        b=sORkL2Rny4rIXFK+8ze/bY/qCp/kBiBfr++gzGVS6pKoKEUzfCllnlpvB7f5ISYSe/
+         LK5MLKWXWjM2YgsqVO0QbDUQyTGwNWU4VICCidhz7aeP4q04FihgzTOsJZcSGPy8kIiu
+         vGfyOneXhsQLVT7qO26zRC2FjK+RWfh2aWx5WT6sqR6N3c5SKdqK9i6EPq5hP/oiSkgu
+         9veZUsm2x6Z90O3DTiGNonEbDZjIV+XKSc1PZlVSMdDY+xDdFP6bWDWD534ObpcMDdvd
+         GUCrGIHItEKFrNZf0aL9tolv+LVzDHQM4XJKAzkUX7AUUKehoTJ0D59BhcfUkl6NqH1/
+         uJiA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788073301; x=1788678101; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vaCVJ+LOOuM6dyxWqxk8vRI4Jf0X3ny9jaek/3um9y0=;
-        b=MM/u22FKDMx/EgBjiHCtAup6iSOG07WdTURvJL8aEqp4Iv35E3wigyr/F1a/VCYf7C
-         Re75m1iMMAA6ExATaLnHPp+em65YxPjm31pf2axswt91zGvidykTU0xYY6UJ/ruhJUvg
-         78tPIG+5odHRY26V4sethKiTX8PXP4bsLU2eDcRB2EIGqcqMAXuASuUZhNm3z7Y6xIrM
-         1sb++mIwuEPLNMbcTtG03AsQB3FhlAXF3ZS/94QaQjxa6yrFaVUj9N2UEwb45uFRFzRN
-         ufJNvinnA6AU8HY6f9eDom/WNYtNCUpePYHwRERmUIQEyJquwtlrMBMpZbzYjTC/ibTi
-         2RQw==
+        d=gmail.com; s=20251104; t=1788074479; x=1788679279; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MxFE0zUp+nNkdON9i2WoUi61XXQ1qTC1IWyKmYd9e3E=;
+        b=cFMiuHnYDCu6WWrm9fFrQ6n9xXiknf1Fu/Al7gKNoU9cK/B6QcRBPCqczBZf1Zg3Dt
+         GbXTpLh5zJmjt/cTOlX/5J3Yuqul3s2bJ6H9QU/YMrbx1g8FC8vGzaC6RMZWJXVMYUn/
+         gVyAhtGncAbOD3DJvrucrXoG3YZ/y9td0O4+VG28Ch4CdFTaTbbdJJ5jkv+vN01o0q/v
+         GvPsud4Ow0ID5mwjmaFdM8GmuYR8otFG6NOaRPMjAu7JTJXPdTJmVIbjgIYPRmmay6II
+         ejz0TVyd3aVVSu7G67/UrryM+Md+nOL32kIyEKY/h4vayw6mhhwirESOVplVndDIl830
+         Q5WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788073301; x=1788678101;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vaCVJ+LOOuM6dyxWqxk8vRI4Jf0X3ny9jaek/3um9y0=;
-        b=dD+u66bzMMozCVg8ETCAt3sBwNJmjSmwOcmFyeByWIr1ijAUqlSPJHlpe9ThctvzWu
-         6mMdofwbTBg8R2RKP+ru8ap1h0afmEURX5yCskSxQns+gAahH61vuDl4JMMKVfsQmkXv
-         JO+sCoRFTcl20tsrxwAQsQkHPG+qtG/GyBVZouQSW5gWFyMZfFmUuvDizHUx0amqgCQJ
-         ydJtHdisrlqIjJDarX6xunMO1Jp/SsAPZx8QjH/L/7gwRIj+Qc8qlW/i+jCc9hPLfElX
-         C6irJ21QDlIokh1JPvwxZYddb/iqmVxmbZWUPcvWRG+20M16TXln9nT57QsIPNXxemhK
-         BKFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwK03B3Y2Cvv3vW+gv0BwTeSPXqiJ6O2lyWHQZCBTVspZppE77Lnba4yOkPy6u/3Cl40i7OCqg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/Tmzd25yJ/oLd4CcI/EUhDFHdZs+chBigYW0iH7H4kkCrKpdL
-	gaHnknSOKfze/cu8DRoFWcY2k2vP5jxHSDaU9kkWAAEi6NiWgk0YLBZs
-X-Gm-Gg: AYBFou37whrHLJ7km74PgMggrUQuTMLofq6vrrLzsJzETEjn/xGDz8udbOY36ZEJlq3
-	PtD/wmHHdf4jYIabBYe7v3TuQbDPjDDyvISjX5qKymsI6H50frtVkfqCqDodRL5BzUtFxnrifOM
-	yIBrPwBkkP65XMfC5vrGW710HRNNbHZxUcET5p1pL1J867Mv9Sbl6ZTFaAGN3wBj5JnKjIL1F6U
-	WJi2os6zCqCaksg69H9FgVp/divoPaOcceZ9x0DA8zRCI6HR7WoTbxo7LK17mE7yZfmb9LFx9oY
-	XKRSXNodvp70Gz6Qp0JqudaeqOofmFuoc9viijYXdl8SHZYC3v0qbO4ggGBS2A6peuOl5628V4k
-	lUvQm8RrbIi+cyjnm/xwFOow3eeOoOPN4YL4ISwVTahoqvudkR9oua2cvsx57jvb1vsaSYeLs4L
-	nRYbDZ0cETKh7vwGn7ImAz/z85FuiwbVnp8Uo6hDHp7h+5N8JdJGAwkIgYGR+j+87OG90kMYef4
-	IYaqirfMp2Y18Dj4WjqdCZFIKwKaKEguwOgkLyTOxd9j7TcCCAyzmF597euNqXLCSb1RzuJqfZZ
-	dHvuhh20rA8GdASVB5vIFc1c9P5ecHD0pJ/fGWx6Pjb0VjUZuvPNt1y6V0rPVgAZo9+isTKzjrI
-	ZKHi+qRjcArO4tyMEEco8EaQCL3AtCbxAVPb3hbc4Ze5QP2GyFbOIHQ+NnPkMnpE+aEoX1wCzUh
-	kIlxriSEo=
-X-Received: by 2002:a17:90b:6c5:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-396d0f9d0famr31991593a91.12.1788073301303;
-        Sun, 30 Aug 2026 00:01:41 -0700 (PDT)
-Received: from HEXER.localdomain ([175.157.17.45])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0bf8a13sm30220400c88.0.2026.08.30.00.01.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 00:01:40 -0700 (PDT)
-From: Kanishka De Silva <kpskanna1915@gmail.com>
-To: greg@kroah.com
-Cc: tom.leiming@gmail.com,
-	security@kernel.org,
-	stable@vger.kernel.org,
-	Kanishka De Silva <kpskanna1915@gmail.com>
-Subject: [PATCH] ublk: clear VM_MAYWRITE on read-only ublk char device mmap
-Date: Sun, 30 Aug 2026 12:31:33 +0530
-Message-ID: <20260830070133.559-1-kpskanna1915@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083055-isotope-broiler-88e5@gregkh>
-References: <2026083055-isotope-broiler-88e5@gregkh>
+        d=1e100.net; s=20251104; t=1788074479; x=1788679279;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MxFE0zUp+nNkdON9i2WoUi61XXQ1qTC1IWyKmYd9e3E=;
+        b=lnfBaq7vWZhR2OV6WdId2l9jhCBemjZvpODDJ/I/DM7/tL4n6liUsRu6aFd4Z/2j8W
+         gEBaLyY3uGB/BkUg16ik+9COaByfAKcjpRBte5dfr/ycwaIX+PnFHg6XTwzl3oOBGfo2
+         7uPM7cMPbNyew8TefQNlqw3vf4VyKyReaqpP7I3DLBFaDAteVwyvmNtBlFFuyif3Yall
+         WBQ158ZjttKD6NKRaK3l9MKR1iOajeICvGXHlWkK6RlKjLQbMYZ9+flEzaZJ+tWM44IQ
+         x6/Tx87i5KqvHcDRDRCviFlwzfVfQIqpVFLabjq3/i3V+Vxkv7/EngGHc0Bo4WbRrGk/
+         6XnQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqckY5eoexB2WstxA74EbfcgJtLFLYtohyLJ3dGVCX+vFPfdz2bd1gq/pgH2YSweu8WWH6YEGk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzshEBpZ7qv9KP8jC3lXd7kIUlczBt/qQ5QH+zi2veOZrtaqqw
+	g4yFr68k2xtB0nKvG6k62k3krCFlR2q2IUo6KmAqalli2OthRQKJekcGArImg6u+tgPqxc2d1au
+	JdfXHf2N3qCkHFu8vC9ewEmeTSudL+KE=
+X-Gm-Gg: AR+sD12igHYStWHtrjqTbPtKjO1v26I4LSg/TazVaVO+GvJNOBn+fxjmz4gtiTtOZFt
+	oR32mwUIqTk5xDi8j7p9MjW6e3HV+msreOqPJq2R2ukntCQSaIoxheSaII9Jh1X4Kf5OmGuiF4A
+	iR6LvqgkfYzLVz5/7ab52D+hZLiBv+8YnzS5164lve5WPMEHNWgMQxK/HVcjPJZoiymFYPdF2Wq
+	mPcZrboYBtz94mj+eRkzUF9tLwBKE6rF136Q/vZmOWV6kxW2GEI/ZR2sO/acrv/5e+oiQoswGxP
+	KKjvpNba5eSBFfq+9d9CUpEKi1J0T/ZGCB1VCBMvDVeaDLIcn1W/Y54LaMSUx5q8ILTwLI/XwV1
+	Y5qZmSrmJhEpf8bePiml/8mdhKkYOy3gJKuR75jYUW2Wv
+X-Received: by 2002:a05:6820:278:b0:6ae:84e6:2de0 with SMTP id
+ 006d021491bc7-6b1c6781b73mr11380362eaf.26.1788074478778; Sun, 30 Aug 2026
+ 00:21:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <2026083055-isotope-broiler-88e5@gregkh> <20260830070133.559-1-kpskanna1915@gmail.com>
+In-Reply-To: <20260830070133.559-1-kpskanna1915@gmail.com>
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Sun, 30 Aug 2026 02:21:07 -0500
+X-Gm-Features: AcwNN1XuQXBOm0cta1RACNdrN1XSlRBY5mMzk6tirgVNAPg-vNkK-Ups_ZUSHbc
+Message-ID: <CACVXFVNajkuPLmLbUA83KRCQTqfZHGcpTf+ROJbRPuy3oChhQg@mail.gmail.com>
+Subject: Re: [PATCH] ublk: clear VM_MAYWRITE on read-only ublk char device mmap
+To: Kanishka De Silva <kpskanna1915@gmail.com>
+Cc: greg@kroah.com, security@kernel.org, stable@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ublk_ch_mmap() rejects mmap requests with VM_WRITE set, but never
-clears VM_MAYWRITE on the resulting read-only mapping. This allows
-a userspace daemon to mmap the per-queue command buffer PROT_READ,
-then upgrade it to PROT_WRITE via mprotect(), since VM_MAYWRITE was
-never cleared.
+On Sun, Aug 30, 2026 at 2:01=E2=80=AFAM Kanishka De Silva
+<kpskanna1915@gmail.com> wrote:
+>
+> ublk_ch_mmap() rejects mmap requests with VM_WRITE set, but never
+> clears VM_MAYWRITE on the resulting read-only mapping. This allows
+> a userspace daemon to mmap the per-queue command buffer PROT_READ,
+> then upgrade it to PROT_WRITE via mprotect(), since VM_MAYWRITE was
+> never cleared.
+>
+> The command buffer holds struct ublksrv_io_desc entries that are
+> kernel-written ABI; a writable mapping lets an unprivileged daemon
+> process corrupt fields such as addr, op_flags, nr_sectors, and
+> start_sector.
+>
+> Same bug class as the drm/panthor and drm/vc4 VM_MAYWRITE fixes, and
+> the 2026-08-13 ptp/vmclock fix (a5edadbae57e).
+>
+> Verified via mprotect() PoC: before the fix, a PROT_READ mapping can
+> be upgraded to PROT_READ|PROT_WRITE and a write into the command
+> buffer corrupts io_desc fields (confirmed under KASAN). After the
+> fix, mprotect() returns -EACCES.
+>
+> Fixes: 3fee8d7599e1 ("ublk_drv: add io_uring based userspace block driver=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kanishka De Silva <kpskanna1915@gmail.com>
+> ---
+>  drivers/block/ublk_drv.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index 6c5bec7..e5ba07d 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -2653,6 +2653,12 @@ static int ublk_ch_mmap(struct file *filp, struct =
+vm_area_struct *vma)
+>         if (vma->vm_flags & VM_WRITE)
+>                 return -EPERM;
+>
+> +       /*
+> +        * The per-queue command buffer is kernel-written ABI; prevent
+> +        * the daemon from upgrading to writable via mprotect().
+> +        */
+> +       vm_flags_clear(vma, VM_MAYWRITE);
+> +
 
-The command buffer holds struct ublksrv_io_desc entries that are
-kernel-written ABI; a writable mapping lets an unprivileged daemon
-process corrupt fields such as addr, op_flags, nr_sectors, and
-start_sector.
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
-Same bug class as the drm/panthor and drm/vc4 VM_MAYWRITE fixes, and
-the 2026-08-13 ptp/vmclock fix (a5edadbae57e).
 
-Verified via mprotect() PoC: before the fix, a PROT_READ mapping can
-be upgraded to PROT_READ|PROT_WRITE and a write into the command
-buffer corrupts io_desc fields (confirmed under KASAN). After the
-fix, mprotect() returns -EACCES.
-
-Fixes: 3fee8d7599e1 ("ublk_drv: add io_uring based userspace block driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kanishka De Silva <kpskanna1915@gmail.com>
----
- drivers/block/ublk_drv.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 6c5bec7..e5ba07d 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2653,6 +2653,12 @@ static int ublk_ch_mmap(struct file *filp, struct vm_area_struct *vma)
- 	if (vma->vm_flags & VM_WRITE)
- 		return -EPERM;
- 
-+	/*
-+	 * The per-queue command buffer is kernel-written ABI; prevent
-+	 * the daemon from upgrading to writable via mprotect().
-+	 */
-+	vm_flags_clear(vma, VM_MAYWRITE);
-+
- 	end = UBLKSRV_CMD_BUF_OFFSET + ub->dev_info.nr_hw_queues * max_sz;
- 	if (phys_off < UBLKSRV_CMD_BUF_OFFSET || phys_off >= end)
- 		return -EINVAL;
--- 
-2.53.0
-
+Thanks,
+Ming Lei
