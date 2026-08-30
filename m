@@ -1,148 +1,91 @@
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A311A9FBC
-	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 18:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E959C2FD69E
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 18:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788115345; cv=none; b=U3VTIiC9tLiA4XW/e4qYANAvPBC+w7dYapMeBMcZGl+1OA9UttnPIal+NxRq6dzTZcIkn9w20jzab6weKUoYnDoyhBCSgmqU6h1cYERuBkIVMWcX/dRDfXBhzkkAswIFuUGvcumejAcAZiN/6iuNOhAhMs+2pCIhGwXOtBeFoa4=
+	t=1788115350; cv=none; b=f/6WOcnG/U4jTl3dINwEmqDyPQbPCBnp0rkf2kdGJBpIZEEny42i3w7TtJE7A4xSzXlqz38RePbBZk/d7RTpeUL107BWp2IhbwK/MuYOjuVIL+tSgQihP+vcTHJBhxihlYNtL94nhzWQJy++sjb/wu0VDY/9hQdb19NGRmvIZms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788115345; c=relaxed/simple;
-	bh=qcWikxX63RDf+q1f319g6Cdqm4MSPds23j+RGAf3Z/Q=;
-	h=Date:Message-Id:To:Content-Type:In-Reply-To:Cc:From:Subject:
-	 Mime-Version:References; b=Bu4DdJJqN2ZwDhogtmhVBW62iGW46KH7XWhPE7iOUQQnUlr4dWF6bT6HHIp/mC7/7fVHUJrupe928xW/Asw4QjWygpDilroJddn9UXHW54EaPYYlB6KQVTKlBJTKxXv87u0TMKvdlPQGYCyoKEqc40YV/Wj5Dag/YFYk3n7iZdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Er4sR+X7; arc=none smtp.client-ip=71.18.227.2
+	s=arc-20240116; t=1788115350; c=relaxed/simple;
+	bh=SrF4lGDuqb18AiYQK+XAitOgl2PdPBmmpoICN3rX6cs=;
+	h=To:Cc:Message-Id:Subject:Content-Type:From:Mime-Version:Date; b=mUWmyPc1q0RZIw56embJM9PeP2VvJkz0+1DDAfPfBbsfwujbBfai3e40cI4mfjX/zb0MCT+NlgMVPVq2y1rOBPw5ztoS4jrhKsQHJ7fL2dl/TxUMbmEChqT+dLVPM8buF6G9FP4p9Onpnh7t89ZMcmhsnxCE+35Bej+s9GuNV3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Mdb51yEm; arc=none smtp.client-ip=71.18.227.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Er4sR+X7"
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Mdb51yEm"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788115337; h=from:subject:
+ s=feishu2604220257; d=cherr.cc; t=1788115336; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=S2oGoSOjmfoakjBqcCh3/7CaRO1KAtC9csSDQBDkjrM=;
- b=Er4sR+X7V2QMJZOoY8TBjC+DM50q8AuCD3MdouvE5KKkbstSXyKN4hBm9oFXu3KQSLr07o
- AtjyAmQh3tbJYjUagjoVbEpWOiaNX2DtI3lllNuWHANx4OIz5/5cnRtszoJlvSuIwSVklv
- Q5eTWF5EfcPqNvCpwjlvZhqTA8HD2MbevkdEA0y4hFHTMCFP6mPS6rNVH9n1b/LibyuNz/
- g+T8K4l0YMMJID/GUCKKaLqqfTQbfLKArpLWgM5MO/mThA1Xc490RsJkKF6kAFUIPHAk8Q
- ZIUjbwh+SeW6T9+J7pABrbDXXDOw8WMLGoZOEXwGymp067z5M2Qeq0zNPqTOpQ==
-Date: Mon, 31 Aug 2026 02:42:12 +0800
-Message-Id: <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc>
-X-Mailer: b4 0.16.0
+ bh=bB01TT1YdOFmumjs5xBfnT0rs/gQGK8/OqDRpsjfOIg=;
+ b=Mdb51yEm8oqtUuCpxG0dp3bZ+Slgpzbj1n/xdumMF5hXj5kVtZO0ScYxEs+bJKAunMNZ6N
+ 0PGGJOIJOktrJb81/xMDud7HvozydfFTQBe0lmBW5OxdWukUHi3PU8mIRA5wzKCtpYgsVG
+ l77W4DDbOm5ZOewrWPQ+Y3qyY8ZdEcaheox4mvThdb1zSWlLTjIvKavRPAltmUzf5kCWBc
+ XS+FUQN1Txy4/a3/2z26i8/LoIaT2zuGK0JjjF2M+TR93s5Nezr644+YRZmRJ54jtT8rul
+ nEzXZzt2sshxVfCWMcaYPJcl7ytEpx0simjhzcqYqHhKZjCZCgu3FH1DB7o4rg==
 To: "Christian Lamparter" <chunkeey@googlemail.com>, 
 	"Michael Wu" <flamingice@sourmilk.net>, 
 	"David S. Miller" <davem@davemloft.net>, 
 	"John W. Linville" <linville@tuxdriver.com>
-Content-Type: text/plain; charset=UTF-8
-Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Mon, 31 Aug 2026 02:42:15 +0800
-In-Reply-To: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Lms-Return-Path: <lba+26a947987+417126+vger.kernel.org+me@cherr.cc>
-Content-Transfer-Encoding: 7bit
 Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>, 
+	"Christian Lamparter" <chunkeey@gmail.com>
+Message-Id: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
+X-Mailer: b4 0.16.0
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-B4-Tracking: v=1; b=H4sIAIN5lGoC/22NwQrCMBBEf6Xs2ZV0bVP15H9ID2mytQvShqQEp eTfjQVvHt8w82aDyEE4wrXaIHCSKMtcgA4V2MnMD0ZxhYEUaXUmjb5t0DuDyTzFmbXUsRuIL/X YWG1OUIY+8CivXXrvC08S1yW8949Uf9OfrvunSzUqHJylQemuVa2+2YlDOFoLfc75A0enJ8+zA AAA
+Subject: [PATCH v2 0/2] wifi: p54: validate PDA entry data lengths in eeprom parser
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26a947986+1fe1fb+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: 7bit
 From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH v2 1/2] wifi: p54: validate curve data length in the calibration curve converters
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
+Date: Mon, 31 Aug 2026 02:42:11 +0800
+Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Mon, 31 Aug 2026 02:42:13 +0800
+X-Change-Id: 20260826-p54-pda-validation-7b2e91f4c6a3
 
-p54_convert_rev0() and p54_convert_rev1() read calibration curve
-data from the device-supplied EEPROM entry using channel and
-points-per-channel counts taken verbatim from that same entry, so
-an entry that declares more data than it carries drives an
-out-of-bounds read past the EEPROM buffer (verified with a KASAN
-reproducer of the conversion loop). The sibling converters
-p54_convert_output_limits() and p54_convert_db() already validate
-their counts against the entry length; this path was missed.
+p54_parse_eeprom() walks PDA records supplied in the device EEPROM but
+several handlers consume entry->data without first checking that the
+entry actually carries enough bytes, so a malformed or truncated image
+makes them read past the EEPROM buffer. This series adds the missing
+length checks in two places: the PA calibration curve data and the
+interface-list records. It continues the EEPROM trust-boundary
+hardening of da1b9a55ff11 ("wifi: p54: prevent buffer-overflow in
+p54_rx_eeprom_readback()") and ebd6d37fa94b ("wifi: p54: validate RX
+frame length in p54_rx_eeprom_readback()").
 
-Reject the entry when the counts do not fit in the entry data.
+Patch 1 rejects the PA calibration curve entry when the channel and
+points-per-channel counts it advertises do not fit in the entry data,
+the same check p54_convert_output_limits() and p54_convert_db() already
+apply to their counts. Patch 2 advances the interface-list walk only
+while a full struct exp_if record still fits, instead of reading one
+from a trailing partial record.
 
-Fixes: eff1a59c48e3 ("[P54]: add mac80211-based driver for prism54 softmac hardware")
-Cc: stable@vger.kernel.org
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 ---
- drivers/net/wireless/intersil/p54/eeprom.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+Changes in v2:
+- move the curve data length checks into p54_convert_rev0() and
+  p54_convert_rev1() (Christian Lamparter)
+- collect Acked-by from Christian for the interface-list patch
+- Link to v1: https://lore.kernel.org/r/20260827-p54-pda-validation-v1-0-bdc2b0675056@cherr.cc
 
-diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
-index 95580921d933..0dc848d77c5e 100644
---- a/drivers/net/wireless/intersil/p54/eeprom.c
-+++ b/drivers/net/wireless/intersil/p54/eeprom.c
-@@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
- }
- 
- static int p54_convert_rev0(struct ieee80211_hw *dev,
--			    struct pda_pa_curve_data *curve_data)
-+			    struct pda_pa_curve_data *curve_data, size_t len)
- {
- 	struct p54_common *priv = dev->priv;
- 	struct p54_pa_curve_data_sample *dst;
- 	struct pda_pa_curve_data_sample_rev0 *src;
-+	size_t needed = curve_data->channels *
-+		(sizeof(*src) * curve_data->points_per_channel + 2);
- 	size_t cd_len = sizeof(*curve_data) +
- 		(curve_data->points_per_channel*sizeof(*dst) + 2) *
- 		 curve_data->channels;
- 	unsigned int i, j;
- 	void *source, *target;
- 
-+	if (len < sizeof(*curve_data) + needed)
-+		return -EINVAL;
-+
- 	priv->curve_data = kmalloc(sizeof(*priv->curve_data) + cd_len,
- 				   GFP_KERNEL);
- 	if (!priv->curve_data)
-@@ -466,17 +471,22 @@ static int p54_convert_rev0(struct ieee80211_hw *dev,
- }
- 
- static int p54_convert_rev1(struct ieee80211_hw *dev,
--			    struct pda_pa_curve_data *curve_data)
-+			    struct pda_pa_curve_data *curve_data, size_t len)
- {
- 	struct p54_common *priv = dev->priv;
- 	struct p54_pa_curve_data_sample *dst;
- 	struct pda_pa_curve_data_sample_rev1 *src;
-+	size_t needed = curve_data->channels *
-+		(sizeof(*src) * curve_data->points_per_channel + 3);
- 	size_t cd_len = sizeof(*curve_data) +
- 		(curve_data->points_per_channel*sizeof(*dst) + 2) *
- 		 curve_data->channels;
- 	unsigned int i, j;
- 	void *source, *target;
- 
-+	if (len < sizeof(*curve_data) + needed)
-+		return -EINVAL;
-+
- 	priv->curve_data = kzalloc(cd_len + sizeof(*priv->curve_data),
- 				   GFP_KERNEL);
- 	if (!priv->curve_data)
-@@ -763,6 +773,7 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
- 		case PDR_PRISM_PA_CAL_CURVE_DATA: {
- 			struct pda_pa_curve_data *curve_data =
- 				(struct pda_pa_curve_data *)entry->data;
-+
- 			if (data_len < sizeof(*curve_data)) {
- 				err = -EINVAL;
- 				goto err;
-@@ -770,10 +781,10 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
- 
- 			switch (curve_data->cal_method_rev) {
- 			case 0:
--				err = p54_convert_rev0(dev, curve_data);
-+				err = p54_convert_rev0(dev, curve_data, data_len);
- 				break;
- 			case 1:
--				err = p54_convert_rev1(dev, curve_data);
-+				err = p54_convert_rev1(dev, curve_data, data_len);
- 				break;
- 			default:
- 				wiphy_err(dev->wiphy,
+---
+Shengzhuo Wei (2):
+      wifi: p54: validate curve data length in the calibration curve converters
+      wifi: p54: require a full exp_if record in PDR_INTERFACE_LIST
 
--- 
-2.47.3
+ drivers/net/wireless/intersil/p54/eeprom.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+---
+base-commit: 66fb95a521110da673090294561844c9f76ebe64
+change-id: 20260826-p54-pda-validation-7b2e91f4c6a3
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
