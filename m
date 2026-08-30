@@ -1,44 +1,40 @@
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE9628FFF6;
-	Sun, 30 Aug 2026 14:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DA163CB;
+	Sun, 30 Aug 2026 15:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788101963; cv=none; b=LP+FzBv+ugc/zz/X+y39/ZHRo28uOtCOnoT67yGjLbO/K1MFt4OaDufK+xV1UWGq/iK0+TiYM88adWZ5hMwBFSPcudkSWutOqQDK4XeKrKWtnOUNiKtDiwC5dyZJVAyUoXCTqI143Wf8NkSZfLeWLkn10OddNQ10/wDdwutBe7U=
+	t=1788102061; cv=none; b=mgPW1xtA5Hx7XSLELAn1awdN5SE6ERlVHE+WWW/t65c9+SFahuVpRzlkVb9stLuwCcdqOkpQtbTS2D5EdVz3cRnCKPS20PQ5HO93TFKletiAFmU7x/+HCbtrq1SfYwPuKzrQJBDa7aOa8qg27cgt0bSt/+kKcGRztE7iCbUXpnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788101963; c=relaxed/simple;
-	bh=evJepSGuzGoWlLnAMFRPe8iRN2DWWqU6ds2d42fT4Pw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=um8JegqfpRSvMVtVVrmV9OrCAMS+2K0aT3nMf0Cbr2IEE9JsqFESV+HM2WLQWlWN1dFtQ5g9z4eliab9cXg9wzN1Ggok5CyefXuipUfqoa5sy4K8UKoMuoKlQCziPrOnHUl9fKF6tNb47Eu+us22r/KTvFt0S4vGiVXlENBeqYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=Dj+E8JwV; arc=none smtp.client-ip=83.149.199.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
+	s=arc-20240116; t=1788102061; c=relaxed/simple;
+	bh=fpmQpiLSEDu3jSABFrsjYgl+3bFlGO6oy84CsKKIgas=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jK6mq7HaWGXj23UytpOB2NFTi06tReMT9m6ed3lbxjHt6rTCjy6YcdvKg6uGmxnlhPljFf382czg0RTuuvxK7ahQKHOg7XfRWDJkfRlKl151w5TZi4AGgLVZ7eDGwel9vp/pBUQ75uQy3UzLiLw++f17kjjDHckr95g3ExueOKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=I42t/z3y; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="Dj+E8JwV"
-Received: from fedora.intra.ispras.ru (unknown [10.10.165.18])
-	by mail.ispras.ru (Postfix) with ESMTPSA id 9240540755CF;
-	Sun, 30 Aug 2026 14:53:31 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 9240540755CF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
-	s=default; t=1788101611;
-	bh=XfajMX9CbuMgDEeBVGJXZ9nzYyzLpt8bRW52v/wenZo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Dj+E8JwVwrmsti55gIlUBPmoPUzoI0lP5JpoCUyHfTCcTqkJ9kiTalNN2TcPvXRJT
-	 RMPS9uxeUfYR61BDH5DIn5GLAc4tTLgmGH13h/6lFRJzkeTj6rMbG6Pyfm348IqfDo
-	 4KWzZQZb8s4I6O99p7zElfzof5M0U8JHXGC2rVjo=
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: stable@vger.kernel.org
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>,
-	linux-usb@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="I42t/z3y"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd75fa35;
+	Sun, 30 Aug 2026 23:00:52 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: jacopo.mondi@ideasonboard.com
+Cc: kernel-list@raspberrypi.com,
+	mchehab@kernel.org,
+	florian.fainelli@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10] Revert "USB: serial: keyspan_pda: fix information leak"
-Date: Sun, 30 Aug 2026 17:53:19 +0300
-Message-ID: <20260830145321.100701-1-pchelkin@ispras.ru>
-X-Mailer: git-send-email 2.55.0
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] media: pisp_be: Initialize lock before requesting IRQ
+Date: Sun, 30 Aug 2026 23:00:45 +0800
+Message-Id: <20260830150045.2704062-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,42 +42,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa053300a6e03a1kunm4d1b7491104863
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGBhIVh4ZQx8eGh5KHUsfGVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=I42t/z3ywPRiOvfmCV2BJ84ZiUZQyXk3UmJAhvfAwrvsvGOT/4Bv6KD1kWi9NFDAM5dPGw2xYi+1J+fKtqucpwg/9ImYriMGACPLTLY8VPZlN4uWQUHVwwz1KF2vJWxYQRbPZK8I0ovJ+kuRUo23xNcyxz3WV0E+exRIpx95YLc=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=rFpzjXZ5IYHG22KLLH2bPfUNBwlnja8+59AgiXh79UA=;
+	h=date:mime-version:subject:message-id:from;
 
-This reverts commit cccef1711efbcdbe999738ac27d37b9ef6271abd which is
-commit 6bfc8d01ac4068eced509f8fc74d0cd205e4dcec upstream.
+The PiSP BE interrupt handler can schedule work that takes hw_lock. The
+lock must be initialized before devm_request_irq() makes the handler
+runnable.
 
-The 5.10 backport is incorrect - instead of keyspan_pda_write_start() it
-touches the wrong function keyspan_pda_write() which now returns an
-incorrect number of buffered bytes.
-
-It turns out that the proper fix for keyspan_pda_write_start() has been
-already incorporated into the ported version of upstream commit
-034e38e8f687 ("USB: serial: keyspan_pda: add write-fifo support"), for
-unknown reason.
-
-Other stable kernels, starting with 5.15, got proper backports.
-
-Found by Linux Verification Center (linuxtesting.org) with Svace static
-analysis tool.
-
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+Fixes: 12187bd5d4f8 ("media: raspberrypi: Add support for PiSP BE")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/usb/serial/keyspan_pda.c | 2 +-
+ drivers/media/platform/raspberrypi/pisp_be/pisp_be.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/serial/keyspan_pda.c b/drivers/usb/serial/keyspan_pda.c
-index 21dfd9bdc150..7141660d5d59 100644
---- a/drivers/usb/serial/keyspan_pda.c
-+++ b/drivers/usb/serial/keyspan_pda.c
-@@ -606,7 +606,7 @@ static int keyspan_pda_write(struct tty_struct *tty, struct usb_serial_port *por
- 	if (rc)
- 		return rc;
+diff --git a/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c b/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
+index d60d92d2f..43fca54be 100644
+--- a/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
++++ b/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
+@@ -1695,6 +1695,7 @@ static int pispbe_probe(struct platform_device *pdev)
+ 	dev_set_drvdata(&pdev->dev, pispbe);
+ 	pispbe->dev = &pdev->dev;
+ 	platform_set_drvdata(pdev, pispbe);
++	spin_lock_init(&pispbe->hw_lock);
  
--	return 0;
-+	return count;
- }
+ 	pispbe->be_reg_base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(pispbe->be_reg_base)) {
+@@ -1732,7 +1733,6 @@ static int pispbe_probe(struct platform_device *pdev)
+ 		goto pm_runtime_disable_err;
  
- static void keyspan_pda_dtr_rts(struct usb_serial_port *port, int on)
+ 	pispbe->hw_busy = false;
+-	spin_lock_init(&pispbe->hw_lock);
+ 	ret = pispbe_hw_init(pispbe);
+ 	if (ret)
+ 		goto pm_runtime_suspend_err;
 -- 
-2.55.0
+2.34.1
 
