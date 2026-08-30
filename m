@@ -1,101 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614133939A4;
-	Sun, 30 Aug 2026 18:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A311A9FBC
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 18:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788113967; cv=none; b=BqKKB3DxMl42r3jNMOM8D+Ce4kpXkEnOPI54HM5Af9TI8sV9vssU9dbcBbnR2zsaQdmCalrvU++m4PEC9tLsn0S4685HKDGSm8nNA89B8XUXokEQZnasSxQELhhE2p3E6OZa6glA7GNi4XLwcEGMNcGk3T90yvhmC6o8T4Hm3ZY=
+	t=1788115345; cv=none; b=U3VTIiC9tLiA4XW/e4qYANAvPBC+w7dYapMeBMcZGl+1OA9UttnPIal+NxRq6dzTZcIkn9w20jzab6weKUoYnDoyhBCSgmqU6h1cYERuBkIVMWcX/dRDfXBhzkkAswIFuUGvcumejAcAZiN/6iuNOhAhMs+2pCIhGwXOtBeFoa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788113967; c=relaxed/simple;
-	bh=WDnh9FKBT/dxqfhYuDlsJYFUrYvT7Sk75XTmpnN4oMI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ewdpyVPul8iz0gutxMjd9Y5JwQQHCquE5wx4SWibtEurJd/XMamdCbNx0XhMTkHJ+CP8ylWMT24tKsJBTrrgIHRTibx1FRFAFECyBbJ5uR44EH6F7Zwk0oi4YnvKmjP3QQ8J7VeaKmrGtTL/9Mk3Um9m4O3CyadNR0iADSZt/BU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9J6Lw8P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788115345; c=relaxed/simple;
+	bh=qcWikxX63RDf+q1f319g6Cdqm4MSPds23j+RGAf3Z/Q=;
+	h=Date:Message-Id:To:Content-Type:In-Reply-To:Cc:From:Subject:
+	 Mime-Version:References; b=Bu4DdJJqN2ZwDhogtmhVBW62iGW46KH7XWhPE7iOUQQnUlr4dWF6bT6HHIp/mC7/7fVHUJrupe928xW/Asw4QjWygpDilroJddn9UXHW54EaPYYlB6KQVTKlBJTKxXv87u0TMKvdlPQGYCyoKEqc40YV/Wj5Dag/YFYk3n7iZdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Er4sR+X7; arc=none smtp.client-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9J6Lw8P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01B61F000E9;
-	Sun, 30 Aug 2026 18:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788113966;
-	bh=7jy1ZWnPaxiHrahLaXjgCWS5cxp3bEGhVPgp+yEdgqI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l9J6Lw8PFf0Qbwatxu+AJWYvWKkEtVP5XYWvNymlcl8IwFuA2UcGFVLwvH1EKR+VZ
-	 F5qknpWvt/3eXbHDXbH+R2eSXv0QQffh9mm/DV/E5/QPbTaX+Td/P7D0a8Fx4XEwvV
-	 pZPfMxM7QstlHKnPyFIyWUFEQIwz+RYp17E3XvG2sOsLyOWcsBPF+cagHo9rvsvDgi
-	 9Jec2A0StZgJH8A0iDTCzb4WpLs4dFOGBR++W1mEXXoXnfAWZgTSokf/zXBOQsMYgP
-	 l2AXGAQr83dV13fdpHw4lxaYPMaffvfqIgYGSB1WrQGzrUCrjN8ycffAmIA2u2mwzl
-	 LuFlt/DPYR91Q==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Liew Rui Yan <aethernet65535@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/damon/core: fix unconditionally skip last region
-Date: Sun, 30 Aug 2026 11:19:18 -0700
-Message-ID: <20260830181918.105052-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260830181445.104859-1-sj@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Er4sR+X7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788115337; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=S2oGoSOjmfoakjBqcCh3/7CaRO1KAtC9csSDQBDkjrM=;
+ b=Er4sR+X7V2QMJZOoY8TBjC+DM50q8AuCD3MdouvE5KKkbstSXyKN4hBm9oFXu3KQSLr07o
+ AtjyAmQh3tbJYjUagjoVbEpWOiaNX2DtI3lllNuWHANx4OIz5/5cnRtszoJlvSuIwSVklv
+ Q5eTWF5EfcPqNvCpwjlvZhqTA8HD2MbevkdEA0y4hFHTMCFP6mPS6rNVH9n1b/LibyuNz/
+ g+T8K4l0YMMJID/GUCKKaLqqfTQbfLKArpLWgM5MO/mThA1Xc490RsJkKF6kAFUIPHAk8Q
+ ZIUjbwh+SeW6T9+J7pABrbDXXDOw8WMLGoZOEXwGymp067z5M2Qeq0zNPqTOpQ==
+Date: Mon, 31 Aug 2026 02:42:12 +0800
+Message-Id: <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc>
+X-Mailer: b4 0.16.0
+To: "Christian Lamparter" <chunkeey@googlemail.com>, 
+	"Michael Wu" <flamingice@sourmilk.net>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"John W. Linville" <linville@tuxdriver.com>
+Content-Type: text/plain; charset=UTF-8
+Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Mon, 31 Aug 2026 02:42:15 +0800
+In-Reply-To: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+X-Lms-Return-Path: <lba+26a947987+417126+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH v2 1/2] wifi: p54: validate curve data length in the calibration curve converters
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
 
-On Sun, 30 Aug 2026 11:14:52 -0700 SJ Park <sj@kernel.org> wrote:
+p54_convert_rev0() and p54_convert_rev1() read calibration curve
+data from the device-supplied EEPROM entry using channel and
+points-per-channel counts taken verbatim from that same entry, so
+an entry that declares more data than it carries drives an
+out-of-bounds read past the EEPROM buffer (verified with a KASAN
+reproducer of the conversion loop). The sibling converters
+p54_convert_output_limits() and p54_convert_db() already validate
+their counts against the entry length; this path was missed.
 
-> On Sun, 30 Aug 2026 14:31:50 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> 
-> > Once quota set, the charge_{target,addr}_from unconditionally skips and
-> > resets at the last region of the tracked target, so the last region can
-> > be skipped even when it has not been processed.
-> > 
-> > Example:
-> > 
-> >     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-> >     2. Quota is configured to process only 100 bytes per window.
-> >     3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-> >        addr}_from is saved at (Target, 100).
-> >     4. Window 2: The loop reaches R2.  Because R2 is
-> >        damon_last_region(t), the old code unconditionally returns true,
-> >        skipping R2 entirely and resetting the charge_{target,addr}_from.
-> > 
-> >     Result: R2 is permanently skipped even though it has never been
-> >     processed.
-> > 
-> > However, it is important to note that this is a very minor issue.  This
-> > is because it is triggered only when the previous window saved/kept
-> > charge_{target,addr}_from, and in the next window, all regions except
-> > the last region were skipped by damos_skip_charged_region().
-> > 
-> > Fix this by only resets the charge_{target,addr}_from when last region
-> > is reached, only skips when it applied or cannot split.
-> 
-> Looks good to me!
-> 
-> > 
-> > Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-> > Cc: <stable@vger.kernel.org> # v5.16.x
-> > Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-> 
-> Reviewed-by: SJ Park <sj@kernel.org>
+Reject the entry when the counts do not fit in the entry data.
 
-This patch is applied to damon/next [1] tree.  If this patch is not added to
-mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
-to pick this.  So, no action from your side is needed for now.  If it seems I
-also forgot doing that or you cannot wait for my action, please feel free to
-directly ask that to Andrew.
+Fixes: eff1a59c48e3 ("[P54]: add mac80211-based driver for prism54 softmac hardware")
+Cc: stable@vger.kernel.org
+Assisted-by: GLM:5.3
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+ drivers/net/wireless/intersil/p54/eeprom.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+index 95580921d933..0dc848d77c5e 100644
+--- a/drivers/net/wireless/intersil/p54/eeprom.c
++++ b/drivers/net/wireless/intersil/p54/eeprom.c
+@@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
+ }
+ 
+ static int p54_convert_rev0(struct ieee80211_hw *dev,
+-			    struct pda_pa_curve_data *curve_data)
++			    struct pda_pa_curve_data *curve_data, size_t len)
+ {
+ 	struct p54_common *priv = dev->priv;
+ 	struct p54_pa_curve_data_sample *dst;
+ 	struct pda_pa_curve_data_sample_rev0 *src;
++	size_t needed = curve_data->channels *
++		(sizeof(*src) * curve_data->points_per_channel + 2);
+ 	size_t cd_len = sizeof(*curve_data) +
+ 		(curve_data->points_per_channel*sizeof(*dst) + 2) *
+ 		 curve_data->channels;
+ 	unsigned int i, j;
+ 	void *source, *target;
+ 
++	if (len < sizeof(*curve_data) + needed)
++		return -EINVAL;
++
+ 	priv->curve_data = kmalloc(sizeof(*priv->curve_data) + cd_len,
+ 				   GFP_KERNEL);
+ 	if (!priv->curve_data)
+@@ -466,17 +471,22 @@ static int p54_convert_rev0(struct ieee80211_hw *dev,
+ }
+ 
+ static int p54_convert_rev1(struct ieee80211_hw *dev,
+-			    struct pda_pa_curve_data *curve_data)
++			    struct pda_pa_curve_data *curve_data, size_t len)
+ {
+ 	struct p54_common *priv = dev->priv;
+ 	struct p54_pa_curve_data_sample *dst;
+ 	struct pda_pa_curve_data_sample_rev1 *src;
++	size_t needed = curve_data->channels *
++		(sizeof(*src) * curve_data->points_per_channel + 3);
+ 	size_t cd_len = sizeof(*curve_data) +
+ 		(curve_data->points_per_channel*sizeof(*dst) + 2) *
+ 		 curve_data->channels;
+ 	unsigned int i, j;
+ 	void *source, *target;
+ 
++	if (len < sizeof(*curve_data) + needed)
++		return -EINVAL;
++
+ 	priv->curve_data = kzalloc(cd_len + sizeof(*priv->curve_data),
+ 				   GFP_KERNEL);
+ 	if (!priv->curve_data)
+@@ -763,6 +773,7 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
+ 		case PDR_PRISM_PA_CAL_CURVE_DATA: {
+ 			struct pda_pa_curve_data *curve_data =
+ 				(struct pda_pa_curve_data *)entry->data;
++
+ 			if (data_len < sizeof(*curve_data)) {
+ 				err = -EINVAL;
+ 				goto err;
+@@ -770,10 +781,10 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
+ 
+ 			switch (curve_data->cal_method_rev) {
+ 			case 0:
+-				err = p54_convert_rev0(dev, curve_data);
++				err = p54_convert_rev0(dev, curve_data, data_len);
+ 				break;
+ 			case 1:
+-				err = p54_convert_rev1(dev, curve_data);
++				err = p54_convert_rev1(dev, curve_data, data_len);
+ 				break;
+ 			default:
+ 				wiphy_err(dev->wiphy,
 
-
-Thanks,
-SJ
-
-[...]
+-- 
+2.47.3
