@@ -1,35 +1,48 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5340C3C1A;
-	Sun, 30 Aug 2026 02:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED007223323;
+	Sun, 30 Aug 2026 03:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788057179; cv=none; b=NvfUrAqIrn8BbKD64fBhCUlUpt/QYtEw/1MrNprj0AdaEKbqA+lAIwt1zcqY0kdXyASYWULcptIK/SLED44ULySLykZfox13XNzOtGrXQoo4Sdh5q6W56FIja0A5DxnXw+TZj8JaR9HeyIoMEEHVsbrv/jTAHQC5nTjiNx1e1vM=
+	t=1788058905; cv=none; b=lLQanP4YjDPXi63M7pP/c0a6xbfW3F110YS7rMbleNOQszeiXE1Q1GqVtGRIM2tC6lktcXShX7+h6QRSXpywkj2Gug6d5S/BxvUcsTlPg9gBurY1gtqwZWbeR62Vo3eGKRgwvXoP/z/rLVcyUpvR5/4CnTcDJJe7ykRiJUvs03w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788057179; c=relaxed/simple;
-	bh=CSpmp1honZHXYMftpQYMUjd716V99aaLb3g8cYykKdU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JHG3wctYjYg8FRyWiPvRUwDezjqbCkKbcufSTyZuLl4bxaDwUurlYZuGiZyvQcTjKw+tIEA5AIK1OwDEb5TJvIdbPkX8abWKqdtTsOHmivBhqdDfMBE4LfpP2Vb74SiFWTit+HxU3BrSK6flSsqI5ixqveQLuPNg9u4dSZUJRlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=ItQwSlKH; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788058905; c=relaxed/simple;
+	bh=J/fv7QqX7SSRt0D0FHPDU8uAYBh+QfS4lte7hWukXfg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rhGWdr/+2tpN8sEuJorbJ34C3SwEt5xHyVwMh66V1fal+92wgw8o8SgXzzxm5CdBJX6ErTWSd4WJt52ONwM5NU0KY56jtFzX98Ivd+P56gvy0gUyVFYYCfVBT3Wn2gKWY8LpCIEEYskJU6ZUtG/kMNRoFbLzAbWUqYgpUsaoCqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nsCTdnpC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ItQwSlKH"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd1f0987;
-	Sun, 30 Aug 2026 10:32:50 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: ehristev@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn
-Subject: [PATCH] media: microchip: isc: Initialize DMA lock before requesting IRQ
-Date: Sun, 30 Aug 2026 10:32:28 +0800
-Message-Id: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nsCTdnpC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68FB61F000E9;
+	Sun, 30 Aug 2026 03:01:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788058904;
+	bh=Q+ief/7MXRUhTKAPBX8J/VzPvrDpOiSEd5e0OdK358M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nsCTdnpCEfq5yC+vOA2Ib5EFU6dy7tqAESzY7haRckOHV7nLeo8NiNcoCaXZiLfZg
+	 /WQEKzXLg9yV01XAtWi7N4t/C0OBTrBGe8VXVmSA09PfGVZYEfBz4PKVkKpdPdL0Ih
+	 +lXclO8kzm5lxHHowobAIiHgy/644AgDa6zfAI1SEHalTTnf1iS30l5mN7iHqt+vGp
+	 gXUZlZz1VsrLa5inmhqO0T6KCazY2ejLWzNxdDNVn28nlMR/VNj5VqBHebchR5UN6F
+	 tPi8NIKaWE7Uai+x3y6y++nIn6dtXwVAGyZ/Fdcd5r3A8lpY7CQkn6qlhCkc9HaHwW
+	 Kg4HKvECpTD8A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	gregkh@linuxfoundation.org,
+	bpf@vger.kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	memxor@gmail.com,
+	tao.lyu@epfl.ch,
+	Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
+Subject: Re: [PATCH 6.6.y v2] bpf: Ensure reg is PTR_TO_STACK in process_iter_arg
+Date: Sat, 29 Aug 2026 22:56:41 -0400
+Message-ID: <20260829-stable-daily-0001-bpf-process-iter-arg-6-6@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260829032748.2324743-1-xyx2021@mail.ustc.edu.cn>
+References: <20260829032748.2324743-1-xyx2021@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,69 +50,15 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05083332f03a1kunm2e16ab45e9a05
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQkxDVhlNGh4ZGkwfSx5NHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=ItQwSlKHsxAp9Z/SmZktG7Ol6QjlZTDV3LZ1UjNnsOb8TzYokPAwO0iWW4x29DoMtu/5O3VrZi1T7PX2AePNWc3IHLLBKcrH0Du+CB9AoHQ5SPCcKOdcwPP4JlnNS8XBHI8VvhBaWswd3RiUIGuIcQ4MbS0haDJSEubfmaLbdqw=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=3Z+KrHk9I4Y9R48UeckShe886/mSEw3vwNvJjEBo1B4=;
-	h=date:mime-version:subject:message-id:from;
 
-The ISC interrupt can run before asynchronous subdevice completion, but the DMA queue lock was initialized from isc_async_complete().  Initialize it in each SoC probe before requesting the auto-enabled IRQ and remove the late initialization from the asynchronous completion path.
+On Sat, Aug 29, 2026 at 11:27:48AM +0800, Xu Yunxiang wrote:
+> [ Xu Yunxiang: Resolve the verifier.c context conflict by retaining the
+>   6.6.y BTF lookup and its regno diagnostic convention. Omit the
+>   verifier_bits_iter.c change because that selftest does not exist in
+>   6.6.y. ]
 
-Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
+Queued for 6.6, thanks.
 
-Cc: stable@vger.kernel.org
-
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/media/platform/microchip/microchip-isc-base.c    | 1 -
- drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 ++
- drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 ++
- 3 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index a7cdc743f..a2534d8eb 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -1792,7 +1792,6 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
- 
- 	/* Init video dma queues */
- 	INIT_LIST_HEAD(&isc->dma_queue);
--	spin_lock_init(&isc->dma_queue_lock);
- 	spin_lock_init(&isc->awb_lock);
- 
- 	ret = isc_set_default_fmt(isc);
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 66d3d7891..f0f7ca47f 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -432,6 +432,8 @@ static int microchip_isc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	spin_lock_init(&isc->dma_queue_lock);
-+
- 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
- 			       "microchip-sama5d2-isc", isc);
- 	if (ret < 0) {
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index 7383341ec..b1aa3fe55 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -421,6 +421,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	spin_lock_init(&isc->dma_queue_lock);
-+
- 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
- 			       "microchip-sama7g5-xisc", isc);
- 	if (ret < 0) {
 -- 
-2.34.1
-
+Thanks,
+Sasha
