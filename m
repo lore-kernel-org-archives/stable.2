@@ -1,151 +1,156 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D703B47F7
-	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 13:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B37212CDA5
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 13:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788095482; cv=none; b=AyovX6oGVYfufxtCrMlhR5bdHBxSudG53KHNK5R9kEcXn1z1pD28mE1udRblNd2ld9RE7GuDySJjuiug9fruj9AeCbGGrXCyyiwZQg2vqJWsxHjx8g4tf7TOjc81gkM2iN+ZGjoUb0aiPdr+9DjQWfFLAUrlZBS6L+Ylyx+/AQs=
+	t=1788095809; cv=none; b=ZgvwkCHR+19YhZcYu5VB4N0qdhBqggufKXoygvTG2QP2rZ6U+1dmqxQPO6GJas5rxLBOMc7xyc90MKG4LhxgaYHz/VAOs6mr1tz/nHoD8CZXsypp48lO9DVGS/v26ARkpymZaolQAuRw9n1fWu6DrFkUZUfuVhsSME+GRp+X2D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788095482; c=relaxed/simple;
-	bh=AFWMkDBvxtaZELWTnL0W8GQmXNMX2mJlaWvCner6BFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rEbMbE8PAhH7hbD8DXeW/13hIAHrWpQMLg4u/KrSURLk/lfGxPX95ERQ3c4vNE4/hKsrD84rqUTugrenxcxeODbISpdzXhLnYhWFsPBJLpfSBiciLWjrLR80ZfPV0nhDC0y9pSFJQ0uXndtFMAn9oPlgYADcgTLZzjpJX8xg0Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CxFyYfx7; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1788095809; c=relaxed/simple;
+	bh=5rfPCwxFWMkLClEWi4NYbbz1jCx27ILddopJupAIldk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d48wSVSDh2pzULdVU1qRBtn9BmSKyc8DTj3cH4NgoYo4hQDSyxAOM9i/S6THQE/4Y4nwYXmt5yGgHprmrBbRA2HxI09mMsmoq+1q+qhFMiozSuLTDELEkjtym6rUWu34VLc2A73VopzSD8kt8p+DspVHtPtKtWdwMexRfHth7qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gIJNS8Ct; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CxFyYfx7"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so2295822a12.3
-        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 06:11:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gIJNS8Ct"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-482e5733a5aso1521168f8f.0
+        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 06:16:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788095479; x=1788700279; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hBwz1JGKS6AosuLs2+eWbdC5bsNU5Uv1Qp9D4GtVYpc=;
-        b=CxFyYfx7pX0GKsc7ymaeQYPmRma1VOIv9jS1/GHFowQ5onYzvl0bjEDuRR5BpXvhQ6
-         tJDdvFtY33QTMVjp1uH0+IxZPQTB3VnPN/lzztEFhA9HeFw26WJVIqOJmprnuykmlOzT
-         FycGtRD+Y95Ck29mUpSrLnmtfG6HUxdB5Nio9TuhOwJPfTBNPNAa/+zxt1BIaVn7Td02
-         TREAWEz9wKRXqqmopu0ubrZ46dnezCaj0XRKY5HQnZ5R5pQcK+wL2N0+Lrf6MXRcO9Be
-         o7sw+mAvY+nBXYpgFdDtCa23uTeYzL7Fi8XB1YoK1oU1FtzmwThVp6Uk5HzuBa476gVv
-         HgCg==
+        d=gmail.com; s=20251104; t=1788095806; x=1788700606; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=icNPW3M/3H+DC/HtcIMTV1PUotNQMztTpBOHBNJ960w=;
+        b=gIJNS8CtACWzetGti2ErcSJIo2QvFjY8jfze1Y6sKyZz8wRdPirw/ZwB6knys0rrKB
+         XsxhmyDNukJoIGD8yBtVl8uGqbrlplR7MkBRdJQCwx6A8eIL0kkcJUAfQxpx8O2hfmgV
+         546t4SlB4MH73hKipMyBJMW4y0iaqvs5jdS27tViKOnF7xEVj5LqSAjoix0iT2QZSJht
+         1c0uTa1ld2tASj3MTbhoPPUbHzksbDUadhUCV1fr5X4E8FpY2a/BDgGrf5cozOFKyfYd
+         sRTBUAGnNRgQ7cQ1+u19eyD6vJIvUT6At7pNkb4+VY55RNUY+Ip4gaW3XVACp4KuF5jA
+         HT2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788095479; x=1788700279;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788095806; x=1788700606;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hBwz1JGKS6AosuLs2+eWbdC5bsNU5Uv1Qp9D4GtVYpc=;
-        b=n8UAVNu0sIR6HYtFGAYlDEOvKs3v/IDhqT0dsXmke3IyJsrgzQMd8bVlCZbTXpLTu0
-         oEu7AjsnAWm8To228uuqNoSVOS1Fq1E6sWN9i8S3wqlX9Mit2UK/yFKFcy0v+sH0ARnf
-         TBbWltqYLCZ0Yq0TOWGQXLdtgkQvW7PwPGD/QgYAVnq/HcxVZJNVBtangJt1WTrzKlWE
-         hAc+gOam3/NinwMSmz3rfi6aixcqmozWxYDnFtdIXvmTZiYxUfdMU762TpMIILxxom+K
-         ttQxwbkwz4bL/KYCzEwzCAajtRj6ty8vuR+GmjhbSMgidhX9g2EYQhV0MYkkVUHj7LRX
-         Hg8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzh0tVFanv8vGiXG8Hm8ZQ/CibLEnOdCdJHSJIDXZbEX4ABHQKz7B+MuPOAAx5TwCPT5QLEhIU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVsQqrnPmtgL5+9ZF4kqjCk4eYSP4GSd6CxPNmMJIhmnj+ejiv
-	p20PGd3tHYaquydNk1Andpw9fCaN6wm9NXEAetCSi+RRos7PXbLHeI0KTh9snLSs
-X-Gm-Gg: AYBFou31RK2m3GPaWSFK3kdB/7yP70MbMZ5XLCZ5I6HZucPQGjjgCgrx2TTQHL4c56v
-	kdhLMCw8n9elO8cbg3XLmTpGr17S5zse5ZwYJwmkMJp4In7DWOPqed7KUgVAh6kupEitKB+ivwG
-	uirHsyP9BpvaOJ+8Eq9a8+MCVD78/sSWfJYUFd6wSvGw0HeY96KAD4qaNdslkwy2+TRGDEYceFZ
-	+JM+YL3XOsl23mvgxbFFfPckH07sRfi5CbSjOSOB64wNyDYcRk6OFQIrC+2WufgYg72/QHFQvpj
-	ISwB4/Z2a/Q/ZUszUrowMeey8GogB0wKvIRl2BcKPZGWFUaFPXYKufDc2ZHgPAFnUUY9To1m1Cm
-	5F4apxUYvXsxxHM8Q72ZsHsUVd6zm7Ujy64zLoighk5nHSp6R6GVluzhgDoFI/lerV+n2ibUj+Y
-	PCRmwNXBInxZMtY3LlxmFPOTTmc01IfNiPp64wQ8CXMQjcKOV3Nvg2kTj6OO50XkzN0+osHMJXy
-	Wqaqj+jYW/do3XPyGYTaan7vp1SG91E6kpxapD2efA=
-X-Received: by 2002:a17:90a:da87:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-396d0d4c42fmr34049069a91.2.1788095479333;
-        Sun, 30 Aug 2026 06:11:19 -0700 (PDT)
-Received: from hnkz-ubuntu-vm1.mshome.net (flh4-125-195-69-140.tky.mesh.ad.jp. [125.195.69.140])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0fcfa3asm16265468a91.6.2026.08.30.06.11.17
+        bh=icNPW3M/3H+DC/HtcIMTV1PUotNQMztTpBOHBNJ960w=;
+        b=nbpk9HjGix4G12efSNqOfwugmK1Ka7Qxi1ozqRLvv5C5JpOTLxYVXq3E7FwL20Z+Oh
+         mMO3RUdRx75IZTq+D5F709yANDrQ9SpEvcbqxxBWoOXMeYWEiDWiT6KpzpgKh60DJxAH
+         xWZLFlX8mWyG5lCIfYnzAzz+1PYEgkR/A/JTQRo0frXsEXEqH8K9sea2Xz3dlIc8kr2y
+         p+sMDCRQQBsNOHQYUVIG24gvLfM0gDeKTDpTxt5oGROgrAvc5xzI9U/qUvxjAFk3c1Mw
+         7ws6bl5IJf7QpdZiPLaKPRYkq0lhSe1QxAM1sEL6Jk2OLEF19iz6l446iAshQqpraZgD
+         /PeA==
+X-Forwarded-Encrypted: i=1; AHgh+RpGTboHpR5TEUQftaIOrXiS4dTDeKQ0cu6WanYt17r9LcYotj47SXrNeW2qyFrUBrPfInYC9bE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYCj03aZBRH5lz71xb3vzZWE+8/ewptK5p8krnpAN/P2poXOZ4
+	RDPWSzCjPWVjXz01MLt5KLuC7tqqxCb0uLE+TUZQGDTI004B0dlWMvlp
+X-Gm-Gg: AR+sD1316n0liicazMV4kgKUPWmnuBXgxbR/YPngtFBr+4UCTMiqgl0LPpT2D0ib8uZ
+	bopogi1cQPMZr2DEqGRwSzzN4UO9JXtD6Q0/anGgUQmQukIiKzGdJ8NfAOQQzgMC8i5T+JubuSO
+	RkwMpYdv+J/hVIa6edvdPnbc4QnXjXv5Oo00h1LyQTTzd0BcSviF5pvib08mSEqeT8X1QzKD+ty
+	v6/6BlmoKWHcmlMk9VXI5N8Xcb3IgPDomUwwF81arn9kVf3kyu0ZJ/RlAzdJih9cWnhTYGEumJp
+	zfbCkCp+kCWuBsN9VmqLOIXxIjEHbsa91xdJbsS61jHCHHIsRfXQIylwrIJdH7Q76NDiBw9v/iN
+	Fv617sT/Duek/i4b/4oxMuniMiNdXOvwzomHYbtz249T3iBLHyfLuOZBnCbJOFT81AAmZ26Umvk
+	YnrGXYFhywmVEKZ817WB09wu49CCzylOEUI0Z0gFP+w/XMQWm4MZcwxBWvAecJXzLN1kfNNaDg9
+	lNzyTu40m7U5tG2SPcY34aJpBMRLfdkV55i3r+oHqGjieNx3AdtE/lpCNhR8uieCbim
+X-Received: by 2002:a05:600c:8106:b0:49b:9161:db26 with SMTP id 5b1f17b1804b1-49b91c5554bmr301653875e9.14.1788095806010;
+        Sun, 30 Aug 2026 06:16:46 -0700 (PDT)
+Received: from shift.daheim (p200300d5ff3cee0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff3c:ee00:50f4:96ff:fe46:beef])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b926874fdsm208362965e9.4.2026.08.30.06.16.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 06:11:18 -0700 (PDT)
-From: Kazuki Hanai <hnkz.64@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: hare@suse.de,
-	hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	axboe@kernel.dk,
-	linux-kernel@vger.kernel.org,
-	Kazuki Hanai <hnkz.64@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvmet-auth: Synchronize timeout work during SQ teardown
-Date: Sun, 30 Aug 2026 22:11:05 +0900
-Message-ID: <20260830131105.680566-1-hnkz.64@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sun, 30 Aug 2026 06:16:45 -0700 (PDT)
+Received: from localhost ([127.0.0.1])
+	by shift.daheim with esmtp (Exim 4.100)
+	(envelope-from <chunkeey@gmail.com>)
+	id 1x0fNx-00000001Jrt-2is5;
+	Sun, 30 Aug 2026 15:16:44 +0200
+Message-ID: <aa32505d-f756-40d2-88bb-cd31470f4eb3@gmail.com>
+Date: Sun, 30 Aug 2026 15:16:44 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] wifi: p54: validate curve data length in
+ p54_parse_eeprom()
+To: Shengzhuo Wei <me@cherr.cc>, Christian Lamparter
+ <chunkeey@googlemail.com>, Michael Wu <flamingice@sourmilk.net>,
+ "John W. Linville" <linville@tuxdriver.com>,
+ "David S. Miller" <davem@davemloft.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260827-p54-pda-validation-v1-0-bdc2b0675056@cherr.cc>
+ <20260827-p54-pda-validation-v1-1-bdc2b0675056@cherr.cc>
+Content-Language: de-DE
+From: Christian Lamparter <chunkeey@gmail.com>
+In-Reply-To: <20260827-p54-pda-validation-v1-1-bdc2b0675056@cherr.cc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-nvmet_auth_sq_free() cancels auth_expired_work with
-cancel_delayed_work(). If the work has already started, cancellation does
-not wait for the callback. Transport teardown can consequently free or
-reuse the queue containing struct nvmet_sq while
-nvmet_auth_expired_work() still accesses that SQ.
+Hi,
 
-Add a teardown-specific helper that synchronously drains the delayed work
-before freeing authentication state, and use it from nvmet_sq_destroy().
-Keep the non-synchronous helper for in-band authentication state cleanup,
-where the SQ owner remains alive.
+On 8/26/26 7:07 PM, Shengzhuo Wei wrote:
+> p54_convert_rev0() and p54_convert_rev1() walk
+> channels * (2 + points_per_channel * sizeof(sample)) bytes of the
+> curve data entry, with both counts taken verbatim from the
+> device-supplied EEPROM. An entry that declares channels=255,
+> points_per_channel=255 but carries only the 4-byte header drives a
+> ~191 KB slab-out-of-bounds read past the EEPROM buffer (verified with
+> a KASAN reproducer of the conversion loop). The sibling converters
+> p54_convert_output_limits() and p54_convert_db() already validate
+> their counts against the entry length; this path was missed.
+> 
+> Reject the entry when the counts do not fit in the entry data.
+> 
+> Fixes: eff1a59c48e3 ("[P54]: add mac80211-based driver for prism54 softmac hardware")
+> Cc: stable@vger.kernel.org
+> Assisted-by: GLM:5.3
+> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+> ---
+>   drivers/net/wireless/intersil/p54/eeprom.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+> index 95580921d933827c5eac55b79404e26bd7a57ba4..968ce9a411358e0e6b83117b1a077becc3207090 100644
+> --- a/drivers/net/wireless/intersil/p54/eeprom.c
+> +++ b/drivers/net/wireless/intersil/p54/eeprom.c
+> @@ -763,6 +763,8 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
+>   		case PDR_PRISM_PA_CAL_CURVE_DATA: {
+>   			struct pda_pa_curve_data *curve_data =
+>   				(struct pda_pa_curve_data *)entry->data;
+> +			size_t needed;
+> +
+>   			if (data_len < sizeof(*curve_data)) {
+>   				err = -EINVAL;
+>   				goto err;
+> @@ -770,9 +772,23 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
+>   
+>   			switch (curve_data->cal_method_rev) {
+>   			case 0:
+> +				needed = curve_data->channels *
+> +					(sizeof(struct pda_pa_curve_data_sample_rev0) *
+> +					 curve_data->points_per_channel + 2);
+> +				if (data_len - sizeof(*curve_data) < needed) {
+> +					err = -EINVAL;
+> +					goto err;
+> +				}
+>   				err = p54_convert_rev0(dev, curve_data);
+>   				break;
+>   			case 1:
+> +				needed = curve_data->channels *
+> +					(sizeof(struct pda_pa_curve_data_sample_rev1) *
+> +					 curve_data->points_per_channel + 3);
+> +				if (data_len - sizeof(*curve_data) < needed) {
+> +					err = -EINVAL;
+> +					goto err;
+> +				}
+>   				err = p54_convert_rev1(dev, curve_data);
 
-Fixes: 1a70200f404a ("nvmet-auth: expire authentication sessions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
----
- drivers/nvme/target/auth.c  | 6 ++++++
- drivers/nvme/target/core.c  | 2 +-
- drivers/nvme/target/nvmet.h | 2 ++
- 3 files changed, 9 insertions(+), 1 deletion(-)
+please move the checks into p54_convert_rev0 / p54_convert_rev1.
 
-diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
-index edb9627d97b09..a55319bcdbd13 100644
---- a/drivers/nvme/target/auth.c
-+++ b/drivers/nvme/target/auth.c
-@@ -238,6 +238,12 @@ void nvmet_auth_sq_free(struct nvmet_sq *sq)
- 	sq->dhchap_skey = NULL;
- }
- 
-+void nvmet_auth_sq_destroy(struct nvmet_sq *sq)
-+{
-+	cancel_delayed_work_sync(&sq->auth_expired_work);
-+	nvmet_auth_sq_free(sq);
-+}
-+
- void nvmet_destroy_auth(struct nvmet_ctrl *ctrl)
- {
- 	ctrl->shash_id = 0;
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index d74c01c98f194..4b48ca78ce5a8 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -980,7 +980,7 @@ void nvmet_sq_destroy(struct nvmet_sq *sq)
- 	wait_for_completion(&sq->confirm_done);
- 	wait_for_completion(&sq->free_done);
- 	percpu_ref_exit(&sq->ref);
--	nvmet_auth_sq_free(sq);
-+	nvmet_auth_sq_destroy(sq);
- 	nvmet_cq_put(sq->cq);
- 
- 	/*
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index e362d7913a380..dbda55895f4fb 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -924,6 +924,7 @@ u8 nvmet_setup_auth(struct nvmet_ctrl *ctrl, struct nvmet_sq *sq, bool reset);
- void nvmet_auth_sq_init(struct nvmet_sq *sq);
- void nvmet_destroy_auth(struct nvmet_ctrl *ctrl);
- void nvmet_auth_sq_free(struct nvmet_sq *sq);
-+void nvmet_auth_sq_destroy(struct nvmet_sq *sq);
- int nvmet_setup_dhgroup(struct nvmet_ctrl *ctrl, u8 dhgroup_id);
- bool nvmet_check_auth_status(struct nvmet_req *req);
- int nvmet_auth_host_hash(struct nvmet_req *req, u8 *response,
-@@ -950,6 +951,7 @@ static inline void nvmet_auth_sq_init(struct nvmet_sq *sq)
- }
- static inline void nvmet_destroy_auth(struct nvmet_ctrl *ctrl) {};
- static inline void nvmet_auth_sq_free(struct nvmet_sq *sq) {};
-+static inline void nvmet_auth_sq_destroy(struct nvmet_sq *sq) {};
- static inline bool nvmet_check_auth_status(struct nvmet_req *req)
- {
- 	return true;
+Cheers,
+Christian
