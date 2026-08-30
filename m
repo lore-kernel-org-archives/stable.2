@@ -1,108 +1,111 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414FA14F70
-	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 08:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303BE386C0D
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 08:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788078460; cv=none; b=rB1u5ACm2nlJdDhVTnCX3/3ogAiMG/sW46gzS37uF2z9LSCHPsT38J3vqqeUnxmoKSvtwW8qT4/fFuJLnhdvLX0Mq+fxVgaaiCcIViW27TtYDvWCuguMxXZy02hzhSHf37Givbuxdq7NqX/hmMAT2xrORmqFAZqqWhBCxg0bGEs=
+	t=1788078932; cv=none; b=BQT/bQNQ26TNGHUUEzvpsqjeR3xC0r5066RW/aHpre6JZVUaiojpJCmYCQetzm7VI8KMvmykps2pRkSZlR/YF4ZRzCWdlHKF1jenHhJWXN1iQTp3aTs4ESJ/1iys3xevu0IlGTw9lt0WWsMDQZjiYKw5tFyzx6GkAf0zPncz80s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788078460; c=relaxed/simple;
-	bh=YQFO4+tN0ij55N11GljdGaPyqlxxPgcRBQ2UVbyN8Po=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G4AHI1MGfiR39LAkVUSTZxrlubainp995du+eK873GpCO1n9LsmAfYJjk2KZhz4VIsI0bpdvsCesKYt/L90VGuFuu2v1s45tddBuD4L/tJ29DjYvzvKZyiFfa8eI99QiR86yHAuJmZ+oGc4p7FIu7TCPl1GqlGS8BkldVLZbMZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=XbTdVfsj; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1788078932; c=relaxed/simple;
+	bh=IwKC9arFrlo3osqzy7dK3GG/SZuNnbG9cEDyBvv53bI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KbplPGX8WZXApIDt6F5AaZRy8BEHzQsJyOig7lr6AteChn1zwNzZMXfPcOlAqAsCi9DAToJ32orLmny+IGQejVIGkrG8inFW1KH5mEM4PVqvmuTH8nxHe8iYr5TVHUbbHZg26yxZBGcyV5USM/4m0/Yir1ojzGoh312Llz0sSBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8fTlafw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="XbTdVfsj"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d7195706f1so24022355ad.0
-        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 01:27:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1788078458; x=1788683258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oAc7PD9CKcngrtLRqBe2l3ysucC3tQvC5xBBfhp7msQ=;
-        b=XbTdVfsjxaYycbQYNbBVlCimA1y36tSDtdFXHhwt8g1uDJdLUHMG6QZUm4o783ck3h
-         PT5AsXZwfeAggdVV/iAyoEzq1Ch3LikoLYMf0flV1FGXvVw/tIxdZ2pAqCGZqzbJbOjM
-         cOhrZ0LQGcTiVtFc0mL5LlLxO7jNWE5B9utHd6il1HJyaQtWZonLKwt+RNqouOgxloUq
-         foC2mhhjiNGT0iCdPGVOdRyQzN7ElDhm4IYHlqX8WsJGK4JuRf2QwJhy18utfeOpfH8H
-         gknzm6ynVn49kbS8QXy9Q7cwbwxeHqU8WVaZkCBr3+7QBbDTGzUe132EdJfCBazrKz3b
-         JUeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788078458; x=1788683258;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oAc7PD9CKcngrtLRqBe2l3ysucC3tQvC5xBBfhp7msQ=;
-        b=kcTBGrXtsJBk8smgy6s4jXwJT1XdLnXMJrI+JFGgFNfLtsGsLMvAZVgWOwGtkthyVi
-         UIYVgwDIAg94oHcMg6UXWobWPRIQu9wuDWAB6LjtXlMhwRrmNVxSwOxXcpRyMH1MO/+k
-         0MYLlEcFuIn09qh9drwtQ1NxuA1I94duW0cUgycjjBVe/k+qqxzEQ31VJaHbMjQNk+C2
-         bps/6/Z0faSsTEpbDXJiarEG1q/WTB2tnd36b1Ky/DVslOg1w1bfzlWaAHivwRhpU0rg
-         P+v0huU4pprWgIgyYWdFMh6FoBaehExc1/JWlZdN+oA7bXwmgburOYItqv09cU/S71KZ
-         eRIg==
-X-Gm-Message-State: AFuF++nA6kXsYn3sCTGoLQZIfRRwUEULb8rUWLQQEcswhUevMJbqVkbw
-	fPVBAX8CegChOrsTHwZVCm+3HyR3uM0peY7FIx6fWrQt5kFTJs5P/6d5tUCvttRYzDluth6qZUk
-	f6JLz
-X-Gm-Gg: AYBFou33CVy5M86LyqfiCOShl1mkq+dTjonRDyxRR/CEkh8FBiakNKEFgRUHzDI6ghI
-	4LjDNWGl81vjBxLRynL0u/ulxg1LRCwci5UOPD+rDGD2f+JJvguSebWlbFxA82UF+3jlj9lih46
-	EXdkfPHiRPZliW93L2+2VOa2Z9RN7Ob6PDVpVgrmWdIO8b1Wcp+E8m6KtExUSHdIgBoN+qKf5Rm
-	pJcXhW1xWxQ0UbjYH+mCqKJ8kfaQbsMyIPwAAEO+wzfe7JlE8Nr/ZWtbTMZSBmlsHnFp1bUcnL7
-	dtha2nc+qmbpsN0lS/0948NzGvakNb/2HTJJq09GK/KlJiD6knLN2G4KhaNylo2TmG+FyJgacwQ
-	QOmJPC+dPIm7CLvI1Vihf54bFWwuCo2aqtF8J8qUtmJCzRtP6NI1figvHXuhb3UgxxPWdDlLhYP
-	ZilA2lbOAkeufOBL+wO9P8O/wZT7Hut6XvaHq/7EcxufsAasJRiXQ+OwghmzmwNUEdQoijwP60r
-	B8lZtkhAhngo8fjJHh8PWJnymAocEvYZYRo7h2YiqFWuFBNxp5M/HLSpf/H
-X-Received: by 2002:a17:903:350f:b0:2d6:d3f9:d394 with SMTP id d9443c01a7336-2d74ce2d81emr221022165ad.0.1788078458530;
-        Sun, 30 Aug 2026 01:27:38 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:88da:a0f:ac8e:bea4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b4bc05416sm7254285eec.6.2026.08.30.01.27.37
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 30 Aug 2026 01:27:37 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Please consider these upstream CVE fixes for 6.6.y
-Date: Sun, 30 Aug 2026 04:27:33 -0400
-Message-ID: <20260830082733.35424-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8fTlafw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C641F00A3E
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 08:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788078930;
+	bh=B/BZcM1Q1yyTiL+u2PtZ1N/UUsr6bDlHImpT2ZOZlfs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=b8fTlafwH6UFDyGONtyr6rUiXpbbUs62Tm16Rs0gt+kRY7v3OA9AGiyfZnTd+xXwa
+	 KYt8tuSu3Icc6epTbfaWFqWfSD98F2MKVe1P47wRi2daLxQd54NMxTsoQYXtO/PKCP
+	 aK38K/JkKZOnRUvOELHQt+JlxgSayPDc16QZ/vYz1+2X8EocqN64ewOt+FwLF44haX
+	 ydIfae8uixrpGQfOOE6eJg2yT3Rih0K4Lxd7ifB9J0SNy8sJUa5KlhsY7XnyX+vC0z
+	 8nZnKmmVxiD/hXAgkEIwn5PJ8y8HAGM3rhNj5NeTlWFw6BD9JsEV4ktJnftU43/PKD
+	 3ymWwIbIAbOjw==
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-930f618435cso179577085a.3
+        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 01:35:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rom3PaMsEt0Fxoy9aPUHR56lXNdjy3bnIM5oZYLsDf8ebCV0I4ZTXCkRdnpZ0YTYzXO5rjAHY0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvRRwm2zhgI8LMDpyHr+nwtshdD/WimFjY0Dju8RdAWbcoQgFe
+	6ANb3L1UAW9KZaptK+OkdJcSNRuWslWYdVX080ksaT5AAgguPvGh8Al7MyvFoQAtFK+H8cWO8mz
+	ae5KYbgF5bPAznnzyn93ZyS4oPv48xa4=
+X-Received: by 2002:a05:620a:40cb:b0:936:cda7:554d with SMTP id
+ af79cd13be357-93913798773mr2019122985a.14.1788078930311; Sun, 30 Aug 2026
+ 01:35:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
+ <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org> <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+In-Reply-To: <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 30 Aug 2026 16:35:19 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wpUBOXKd8aGNz76U+87bwDUXZZFSW2UhNcq4qpjVvggQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XKAv-WpIMNo6BgbyKwLX6-0pyA1HhQGvJzilWFR4BrtIbEJ34mKKdkwmc
+Message-ID: <CAGsJ_4wpUBOXKd8aGNz76U+87bwDUXZZFSW2UhNcq4qpjVvggQ@mail.gmail.com>
+Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, axboe@kernel.dk, 
+	trond.myklebust@hammerspace.com, tz2294@columbia.edu, jaegeuk@kernel.org, 
+	chao@kernel.org, qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Greg and Sasha,
+On Sun, Aug 30, 2026 at 11:25=E2=80=AFAM Wenjie Qi <qwjhust@gmail.com> wrot=
+e:
+>
+> From: Wenjie Qi <qiwenjie@xiaomi.com>
+>
+> Fault-around can map ready dropbehind folios without going through the
+> normal page-cache lookup that clears dropbehind. A mapping represents a
+> competing cached user, but writeback completion can currently unmap that
+> folio. A later mmap access must then fault it back in.
 
-Thanks for carrying the earlier 6.1.y fixes into the newer trees. After
-dropping them, these four mainline fixes remain absent from 6.6.y and its
-current stable queue. Linux CNA records mark v6.6.155 affected for each
-CVE. Every newer tree has the first three fixes. The last remains absent
-from 6.12.y and 6.18.y.
+Andrew is asking for a visible user-facing impact. I think the current
+mainline code might result in an extra fault-in and extra I/O. Maybe we
+should highlight this?
+On the other hand, my gut feeling is that this patch might only be
+50% right, rather than 100% right.
+Fault-around might just end up mapping data that will never be accessed
+at all (fault-around mappings aren't really fault-mapped), while the user
+has explicitly requested "dropbehind", which seems like a strong hint
+that they don't need it :-)
 
-I applied the current 6.6.y queue to v6.6.155, then cherry-picked this set
-without changes. The x86_64 allmodconfig kernel and modules built without
-warnings with WERROR enabled. The PowerPC target compiled cleanly after I
-enabled the related config options. I did not runtime-test these fixes.
+>
+> Retain mapped folios instead. For a mapped folio,
+> folio_unmap_invalidate() can call unmap_mapping_folio(), which takes
+> i_mmap_rwsem and may sleep. Retaining the folio also avoids this path whe=
+n
+> folio_end_dropbehind() runs in non-preemptible task context.
+>
 
-Could you please queue these commits for 6.6.y?
+I'm not quite sure this can be entirely avoided. Somehow,
+`folio_launder(mapping, folio)` could also be nasty. For example, NFS
+can still be problematic today:
 
-  0f022d32c3eca477fbf79a205243a6123ed0fe11 (CVE-2024-27010)
-    net/sched: Fix mirred deadlock on device recursion
-  d7f01649f4eaf1878472d3d3f480ae1e50d98f6c (CVE-2024-39478)
-    crypto: starfive - Do not free stack buffer
-  d48e1dea3931de64c26717adc2b89743c7ab6594 (CVE-2024-50225)
-    btrfs: fix error propagation of split bios
-  dbc30a57bd8e026995e9fa8e8c31cffd18542c01 (CVE-2026-64070)
-    powerpc/hv-gpci: fix preempt count leak in sysfs show paths
+static int nfs_launder_folio(struct folio *folio)
+{
+        struct inode *inode =3D folio->mapping->host;
+        int ret;
 
-I used Codex to compare the histories and run the builds. I checked the
-final list against vulns.git, the branch history, and stable-queue.
+        dfprintk(PAGECACHE, "NFS: launder_folio(%llu, %llu)\n",
+                inode->i_ino, folio_pos(folio));
 
-Assisted-by: Codex:GPT-5.6
+        folio_wait_private_2(folio); /* [DEPRECATED] */
+        ret =3D nfs_wb_folio(inode, folio);
+        trace_nfs_launder_folio_done(inode, folio_pos(folio),
+                        folio_size(folio), ret);
+        return ret;
+}
 
-Thanks,
-Artem Dinaburg
-Trail of Bits
-
+Best Regards
+Barry
