@@ -1,77 +1,35 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4DC3B47C6
-	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 14:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2B73839AE;
+	Sun, 30 Aug 2026 14:39:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788100319; cv=none; b=VIdCKxX5aqKMF4ZRgMOCTD4EsG+I/oqjrLoeYjbuvSBzJRHlVVex/OHKsDAp/jIcTxuBAXm7ppXnMa+7OE+nXUxGrjx0aIUvGw1FlKjFilrc/J1Vgr/8raJXbaisgkqsfXbhn1c5EEZDV+Hdtu4fDokIKdnmta9uzMb47e9YGiM=
+	t=1788100801; cv=none; b=hQc/Auu1GJyzMPO2eDcktSlDaYIjQ7V9wrRkLE50IQiRAyfyqZWka/B7kFNZ0wLiex2wbZR536HM8IM9OE9Vmj37wf43IeUYSQiJXzEMOp4BZO3d6yxPdICcRMtLq6hv4uVbH+bueYvEPgaTyPWKM4fm0x4/3NDh+EeBltUS0h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788100319; c=relaxed/simple;
-	bh=iBtDbzrrA3Qi8QxtdfsPvuAnJBG8zTYXvzy5zSQWvOs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i1TwUp9L+BUJGCf7t3ZDzW5xEbLPRi8T3I+bhbHVM+VWdBfG+l+JyBG6n3s6TooSad5E+k0HYCW6hc2HtrXOdEMtXiKtcuYcyfaLxyDeZB7G0QgHtWImIf9Nc9u7zKoKAu9nQfL8NYCt9YatFMKwJk8hHqfiQtUjdrUnbrvEGhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bTyFbtz7; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788100801; c=relaxed/simple;
+	bh=xqXUMWAY5SKNN4Ajdp8I28NFr5JFFE8343fZ0Yr/8Ek=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r7mm6aHu5D+Brye86WWwNHJXzWKt/+G2VxERO6P6FRx1jUz9GzmLxPLcw6jH64bTlAgbwjU+SNDvHKOOJxqrnhFPNPS83Ju6trkEEHiy9V8vjSxDiW4pXhaUsSCF/r7+bSm+Qv9DbvvohrJ/3B3YkNdIqwvA04XcDjiczvgTcak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=NNAur5Ud; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bTyFbtz7"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso19210345e9.0
-        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 07:31:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788100316; x=1788705116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KUdIs7pWN4w8RxbVLOKOg8qp85Eaa3COSA27rxG/j3g=;
-        b=bTyFbtz7wlhFI/uzIj32F0+37cH4qLVqSnP10Njswz/4Fy3LXjopcSo8rgZirKNQ8m
-         dzpv8IhE9NU18y29wCjDFXuwOFwZX39WCwdfSK5CP8yOrWkP7u2g74LeUPKg3ufna5Uu
-         gpdSEpBDJI+7UsoaEoV9AkOWa+xlb3gN+4EQ5EPw7hmb9iqnqTr7QioGSXJkj5R6npEC
-         w7wR5UMaK5TqHqep4iA5MjKb7RspcBrMiWbKmdaMv7bJTOQwShrZDr6uWgsfqqbFY5wc
-         L3RgH6Sce6EC1/UlNlgOjxGSUcwtm5yYlca8eM+SkghpRAB78ZC3dHrlpiAOVGsE75jS
-         obwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788100316; x=1788705116;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KUdIs7pWN4w8RxbVLOKOg8qp85Eaa3COSA27rxG/j3g=;
-        b=VpEZw4b0ELtlXZjBxopDbV4n+bcV5H/vvPiZrYkRs8ES34UWK7Sfzadk6Tx4Z7Lglu
-         z9ZrOgkhJWYWG4CVhpBcdPBYhF7XGBtS01VSwtnZOtjDLe3LcIq+NGMXm+q3J3gSpnQI
-         //RSrtOfRmh0GEUXRWwby2yMMqLBpKkePfDmzpf9bBkyvC+KL+sM3ZGUyeyTGe6on9+c
-         u22gnGWOUKZDGnDq8Y4/YOopGEGgbbUQ28xp1iVIe9mjCgRIpKqD2F7s8yXj9YVLCcEY
-         OJ309pmpsJLoFA0evaAyQ/bGEb5XpL3LZQsDl0DO34KL8auzg+4EZZXXpmLXGCPCSc/y
-         hnsw==
-X-Forwarded-Encrypted: i=1; AHgh+RqJjemP1IbwPNDQ3+8GaDTQG7JT82hFwjE4mzMT/hLQfG8Atfipk/v3hXuoWMixuNqxOLtbc9M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKku8CUYrWdsBtfBwVOLe5QK3+iSOJFX4P9BjFRXJnuz35zV8U
-	wCl+ML2869/tujWmE2HeLI2shko1dSU1rbH70qh+RH0dbp5OQLOBcPZJYW6Y
-X-Gm-Gg: AR+sD121Hp8WBR/V5H8O48EfExgr0Sw9sYSSotIYn9KH1z7uqiXkp72qhUcwXtlRHwe
-	OyKt+Rq0S2u3YflAG03jBgIDm4eODvjD5MGCJ1p1XJmQtwsSMiZS7M93YFJ/g1OvLGefWRCcP6H
-	XoGmRrXkpSvkn5+FtdsVsAFBSqov2c9+SmD5mO0VFHHtGT/ZBV2Xm7qM9uFipc7wAaz85ZT6tRn
-	i4PSylceZQ4DlV0YIaCUSahGPn4tIef3zINS06TrdQmOr3y7HbmfrFg2nMwHFTQiFZPpWlYwXKL
-	VOt1tgulDNsABQr9Gn8Mbr3t6J5pQb1LEJbDAdoWlEQpz+/dbQiN2NLM3FpWPxe3NIDgwSJ7aJ/
-	JViF2YRgsehCc+p9WuFLtD5J6RdfxYoitbnDQLCgIYqCWdN66HKDx4ZYhIEVuAaL3IL7/3YndCG
-	8KfB3FO3kh8lTU77AdSpaYgTi9E7KvsA==
-X-Received: by 2002:a05:600c:1f82:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49b91c19d37mr304483175e9.2.1788100316464;
-        Sun, 30 Aug 2026 07:31:56 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ccae954f9sm146319065e9.13.2026.08.30.07.31.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 07:31:55 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Kalle Valo <kvalo@kernel.org>,
-	Po-Hao Huang <phhuang@realtek.com>,
-	Chin-Yen Lee <timlee@realtek.com>,
-	linux-wireless@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH wireless 2/2] wifi: rtw89: fix OOB read in __rtw89_wow_parse_akm()
-Date: Sun, 30 Aug 2026 14:31:53 +0000
-Message-ID: <20260830143154.1751910-2-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260830143154.1751910-1-tristmd@gmail.com>
-References: <20260830143154.1751910-1-tristmd@gmail.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="NNAur5Ud"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd75f804;
+	Sun, 30 Aug 2026 22:39:53 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: keke.li@amlogic.com
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	runyu.xiao@seu.edu.cn,
+	jianhao.xu@seu.edu.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] media: platform: c3-isp: Register IRQ after video state init
+Date: Sun, 30 Aug 2026 22:39:45 +0800
+Message-Id: <20260830143945.2700038-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,56 +37,101 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0531cd50e03a1kunm07366b50103c8e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGBpOVk1PGkkfSEpMH0MaTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=NNAur5UdY6Mlpo8TjiMDIVDQHOWvw/KcYuUVqfkP/H70FFoytchKQm31LU8nasFL0YTrNkC6C1lO29PzdSlC85rghS007/NipRdbPTcn4aElE9nTzho5XoXlyZi5A7f72WwleGC0s7lV/ewolv3/3jrpZ30kH+f+geUT3EfMiWk=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=0vQV9rUtvsRcLcvsN0sR8Ty8ET3YeX/jTGpWqL9MH2Q=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Tristan Madani <tristan@talencesecurity.com>
+c3_isp_probe() requests the shared IRQ before
+c3_isp_videos_register() initializes the capture, statistics, and
+parameter state used by the IRQ handler. request_irq() permits the
+handler to run as soon as registration completes, so a frame-end
+interrupt can acquire an uninitialized buffer lock.
 
-__rtw89_wow_parse_akm() computes a pointer to the IE area with
+Register the video state before requesting the IRQ and free the managed
+IRQ before tearing that state down. Store the IRQ number for the remove
+path and preserve the existing probe error unwinding.
 
-    ies = mgmt->u.assoc_req.variable;
-
-and then passes skb->len as the IE data length to cfg80211_find_ie():
-
-    rsn = cfg80211_find_ie(WLAN_EID_RSN, ies, skb->len);
-
-skb->len is the total frame length, not the length of the IE portion.
-The IEs in an association request start at offset 28 (24-byte header +
-4-byte fixed fields), so the correct IE length is skb->len minus that
-offset.  Passing the full frame length causes cfg80211_find_ie() to walk
-up to 28 bytes past the end of the skb data buffer, triggering a
-slab-out-of-bounds read.
-
-Fix by validating the minimum frame length and passing the correct IE
-data length to cfg80211_find_ie().
-
-Fixes: 480dd4dddfc5 ("wifi: rtw89: enter power save mode aggressively")
+Fixes: fb2e135208f3 ("media: platform: Add C3 ISP driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/net/wireless/realtek/rtw89/wow.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ .../media/platform/amlogic/c3/isp/c3-isp-common.h  |  2 ++
+ drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c | 14 +++++++++-----
+ 2 files changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw89/wow.c b/drivers/net/wireless/realtek/rtw89/wow.c
-index 8dadd8df4fc65..82b74ded68631 100644
---- a/drivers/net/wireless/realtek/rtw89/wow.c
-+++ b/drivers/net/wireless/realtek/rtw89/wow.c
-@@ -16,10 +16,16 @@ void __rtw89_wow_parse_akm(struct rtw89_dev *rtwdev, struct sk_buff *skb)
+diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h b/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h
+index cb470802e..56b7d48e1 100644
+--- a/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h
++++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h
+@@ -293,6 +293,7 @@ struct c3_isp_info {
+  * @stats: ISP stats device
+  * @params: ISP params device
+  * @caps: array of ISP capture device
++ * @irq: ISP interrupt number
+  * @frm_sequence: used to record frame id
+  * @info: version-specific ISP information
+  */
+@@ -312,6 +313,7 @@ struct c3_isp_device {
+ 	struct c3_isp_params params;
+ 	struct c3_isp_capture caps[C3_ISP_NUM_CAP_DEVS];
+ 
++	int irq;
+ 	u32 frm_sequence;
+ 	const struct c3_isp_info *info;
+ };
+diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c b/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c
+index c3b779f63..66242544e 100644
+--- a/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c
++++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c
+@@ -330,6 +330,7 @@ static int c3_isp_probe(struct platform_device *pdev)
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
++	isp->irq = irq;
+ 
+ 	ret = c3_isp_get_clocks(isp);
+ 	if (ret)
+@@ -355,18 +356,20 @@ static int c3_isp_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_resizers_unregister;
+ 
+-	ret = devm_request_irq(dev, irq,
+-			       c3_isp_irq_handler, IRQF_SHARED,
+-			       dev_driver_string(dev), isp);
++	ret = c3_isp_videos_register(isp);
+ 	if (ret)
+ 		goto err_nf_unregister;
+ 
+-	ret = c3_isp_videos_register(isp);
++	ret = devm_request_irq(dev, irq,
++			       c3_isp_irq_handler, IRQF_SHARED,
++			       dev_driver_string(dev), isp);
+ 	if (ret)
+-		goto err_nf_unregister;
++		goto err_videos_unregister;
+ 
+ 	return 0;
+ 
++err_videos_unregister:
++	c3_isp_videos_unregister(isp);
+ err_nf_unregister:
+ 	c3_isp_async_nf_unregister(isp);
+ err_resizers_unregister:
+@@ -384,6 +387,7 @@ static void c3_isp_remove(struct platform_device *pdev)
  {
- 	struct ieee80211_mgmt *mgmt = (struct ieee80211_mgmt *)skb->data;
- 	struct rtw89_wow_param *rtw_wow = &rtwdev->wow;
-+	size_t hdr_len = offsetof(struct ieee80211_mgmt, u.assoc_req.variable);
- 	const u8 *rsn, *ies = mgmt->u.assoc_req.variable;
- 	struct rtw89_rsn_ie *rsn_ie;
+ 	struct c3_isp_device *isp = platform_get_drvdata(pdev);
  
--	rsn = cfg80211_find_ie(WLAN_EID_RSN, ies, skb->len);
-+	if (skb->len < hdr_len)
-+		return;
-+
-+	rsn = cfg80211_find_ie(WLAN_EID_RSN, ies,
-+			       skb->len - hdr_len);
-+
- 	if (!rsn)
- 		return;
- 
++	devm_free_irq(isp->dev, isp->irq, isp);
+ 	c3_isp_videos_unregister(isp);
+ 	c3_isp_async_nf_unregister(isp);
+ 	c3_isp_core_unregister(isp);
 -- 
-2.47.3
-
+2.34.1
