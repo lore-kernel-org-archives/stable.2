@@ -1,90 +1,135 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F82C1514F8;
-	Sun, 30 Aug 2026 06:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9AD54763
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 06:54:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788071677; cv=none; b=jBO4Mmga9r6dwjw1eAH0m939iD5Yi9Fk2TE6OBIahRbhAhW8XdxaULPM1XiujJ97olY9uSIcrfHeHX0zjXVfbt2vDx/C8yzaVnaLoq+ZGyzffS4JQHJYZpHShVd3V/37l0a/eu6sKqLXMfxCayHHisjAh/zVEuzULs8gpoz9c+Q=
+	t=1788072862; cv=none; b=UHM4XP9PhGigNDBuHr3rBvMypmpfdyfaZ4w8YPQtggU1KGTToIy2rlnvuNvjnkuywAK5u54ju7o4P1bjSO+hlbnPvZx3s1KV4exgGL/78gVrg7vwl2vUFlIELu411pFJO98gUX6Mp7CMhvzILhYX0bBL5viFp1MBSpIHvzXpq6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788071677; c=relaxed/simple;
-	bh=T9kWFiXKAo+sURiSS6MlgZh09fNUIsoNY1iKh/NhrEU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jLl7w7lfz1u5KrlgYfPRJLomLuz0ftdJpi6w4bAP/vbAoi0F3RpNN7MfmDdXz4jOEurv54U2YowQxzEG37GC2LFAgSIJe6qJGp9iuVTyPPKTV4cCkt5IWJxZooKBkIVDjDCDzFvC3zXdtNhuOZS54iS5l1KwaQq9GriFRYDM5YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Cs1Z3gfY; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788072862; c=relaxed/simple;
+	bh=CLM1qrAWCRhxzoMBMGkElu+OPpLsLYySo03hiJpSqRM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oUqA+5zLxNVOsKHcaBPrdkWg5VhGke32toZKRq3AnCOASY3WmQvhqtVRJ4P2Xfq3Dll/y27oSYV5e04yXegC+IGf2kWwgagelOa+1T2G5GVxlatGn04EGzwzZDXChoQgZFnhSmgPsb5GCHrnJLYOXY9QWEnbVGSkAupTUN7Isd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ikAoBihI; arc=none smtp.client-ip=95.215.58.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Cs1Z3gfY"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd37c901;
-	Sun, 30 Aug 2026 14:34:21 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: tiwai@suse.de
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn
-Subject: [PATCH] ALSA: harmony: initialize locks before requesting IRQ
-Date: Sun, 30 Aug 2026 14:34:11 +0800
-Message-Id: <20260830063411.2215691-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ikAoBihI"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CLM1qrAWCRhxzoMBMGkElu+OPpLsLYySo03hiJpSqRM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788072857; v=1; x=1788677657;
+ b=ikAoBihI7pkW1+N7aDfekmTZ2TyKMr/byOK0P7j59TMkxnnaSgkgeNiDYb3IVT2eMr1Kc7ip
+ OlQm9gLx83OxYij2k8Lzz1TYBgaB8yUT7m+Xyck/wl4IeKYBQgAKH7nZCNPk/vDLUbOhbf5wpdv
+ k9CF+oPAICjHHkXina+vLqFI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c1706cd15f3f71d4;
+	Sun, 30 Aug 2026 06:54:07 +0000
+X-Mizu-Trace-ID: c1706cd15f3f71d4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <3ce53771-fceb-425e-b8e6-2ad0f886643a@linux.dev>
+Date: Sun, 30 Aug 2026 14:53:59 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] mac802154: fix data race and NULL deref on
+ local->assoc_dev
+To: Kaiwen Shi <skwkevin@mail.ustc.edu.cn>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Alexander Aring <alex.aring@gmail.com>,
+ Stefan Schmidt <stefan@datenfreihafen.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-wpan@vger.kernel.org
+References: <20260829230551.1787432-1-skwkevin@mail.ustc.edu.cn>
+From: luoxuanqiang <xuanqiang.luo@linux.dev>
+In-Reply-To: <20260829230551.1787432-1-skwkevin@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa051604e6503a1kunm075e0d95f22aa
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTEkdVk8ZQ0tMSR1OS04dSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Cs1Z3gfYBs0P9K9smAg85CiXOQIOB45+o7/cLbdZwGcXwsLhwwxFIjB2GJFqPDOvwIjeeSET+3qSofaahNsxim5N2I2In5w77AoJIc7BB0D1jEHiCz5y4cuCzL7EmD8uLNUWbp61qyPQXSRGDhWFfJUxomeSluHNo0G0FeaE3wQ=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=zTEaRl9GSNbK1NotzG3+dISpeXtzFmJDoEM07vZ5nTo=;
-	h=date:mime-version:subject:message-id:from;
 
-snd_harmony_create() registers the IRQ before initializing h->lock and
-h->mixer_lock. A pending interrupt can invoke the handler while these
-locks are uninitialized.
 
-Initialize both locks before requesting the IRQ so the handler always
-sees valid lock state.
+在 2026/8/30 07:05, Kaiwen Shi 写道:
+> local->assoc_dev is shared between the association path and the
+> association-response worker without common synchronization.
+>
+> mac802154_perform_association() stores the coordinator pointer and waits
+> for a response. Its timeout and error paths clear the pointer and return
+> to mac802154_associate(), which may then free the coordinator object.
+> Meanwhile, mac802154_rx_mac_cmd_worker() may observe the associating bit
+> and enter mac802154_process_association_resp(), which dereferences
+> assoc_dev.
+>
+> The worker's bit test and the handler's pointer dereference are not
+> atomic with respect to cleanup. Cleanup can clear assoc_dev between them,
+> causing a NULL dereference, or free the coordinator while the response
+> handler still uses the pointer.
+>
+> The recorded result is exposed to the same window. assoc_status and
+> assoc_addr are written by the handler but read by the association path
+> while the associating bit is still set, so a second response for the same
+> request - a malicious one, for instance - can replace them between those
+> reads and leave the caller with an incoherent status and address pair.
+>
+> The response handler only needs the coordinator extended address.
+> Replace assoc_dev with a cached address, removing the pointer lifetime
+> dependency. Protect the cached address and the associating bit with a
+> dedicated spinlock. A READ_ONCE()/WRITE_ONCE() pair would not guarantee
+> an atomic __le64 access on all 32-bit architectures.
+>
+> wpan_dev->association_lock cannot be reused here: nl802154_associate()
+> holds it across rdev_associate(), hence for the whole of
+> mac802154_perform_association() including the wait for the response.
+> A response handler taking that lock would only get it once the
+> association has already given up.
+>
+> Reset the completion, publish the cached address, and set the associating
+> bit while holding the lock. The response handler takes the lock, rechecks
+> the bit and the cached address, records the response, clears the bit, and
+> only then completes the waiter. Thus cleanup cannot pass the handler
+> between its state check and completion, and the cached 64-bit value
+> cannot tear.
+>
+> The handler clears the bit before completing, not the woken waiter:
+> otherwise complete() is issued under the lock and a second (e.g.
+> malicious) response can reacquire it before the waiter and replace the
+> result. So a wait that returns success implies the bit is already clear,
+> and the success and negative-response paths return directly. The
+> transmit-error and timeout paths still clear it under assoc_lock, which
+> serializes any racing response against the cleanup while the call returns
+> the error it already selected. Both paths snapshot assoc_status and
+> assoc_addr under the same lock.
+>
+> Both users run in process context, so a plain spinlock is sufficient.
+> The lock is not held while waiting for the completion.
+>
+> Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> Suggested-by: Xuanqiang Luo <xuanqiang.luo@linux.dev>
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- sound/parisc/harmony.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Thanks for the update.
 
-diff --git a/sound/parisc/harmony.c b/sound/parisc/harmony.c
-index fb40476c6..a9625aedf 100644
---- a/sound/parisc/harmony.c
-+++ b/sound/parisc/harmony.c
-@@ -868,6 +868,9 @@ snd_harmony_create(struct snd_card *card,
- 		goto free_and_ret;
- 	}
- 		
-+	spin_lock_init(&h->mixer_lock);
-+	spin_lock_init(&h->lock);
-+
- 	err = request_irq(padev->irq, snd_harmony_interrupt, 0,
- 			  "harmony", h);
- 	if (err) {
-@@ -877,9 +880,6 @@ snd_harmony_create(struct snd_card *card,
- 	}
- 	h->irq = padev->irq;
- 
--	spin_lock_init(&h->mixer_lock);
--	spin_lock_init(&h->lock);
--
- 	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, h, &ops);
- 	if (err < 0)
- 		goto free_and_ret;
--- 
-2.34.1
+I don't think my review warrants a Suggested-by tag here. I only pointed
+out a small issue, which did not alter your original approach.
+
+Other than that, the current version looks good to me. Please drop my
+Suggested-by tag and feel free to add:
+
+Reviewed-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+
+Here are some related discussions about when a Suggested-by tag is
+appropriate, for reference:
+https://docs.kernel.org/process/submitting-patches.html#using-reported-by-tested-by-reviewed-by-suggested-by-and-fixes
+https://lore.kernel.org/netdev/20260803190044.274355ea@kernel.org/
+https://lore.kernel.org/netdev/CANn89i+O5b0xfcP5GLtUopqHz2ppewK9zSr4995jsjCPM+3AFQ@mail.gmail.com/
+https://lore.kernel.org/netdev/CAAVpQUDaYX5ZQN+EYL3q4yeu0Ni2cqNODEY--Wb-2+yY650Mbw@mail.gmail.com/
+https://lore.kernel.org/netdev/20251010065515.GA3115768@horms.kernel.org/
+
+Thanks,
+Xuanqiang
+
