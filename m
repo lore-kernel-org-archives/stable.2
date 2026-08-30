@@ -1,92 +1,91 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D113BA246;
-	Sun, 30 Aug 2026 16:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788106683; cv=none; b=KRFvVPGRj6pBgmUSIM1RIDcKTa3PnQVUoeiSrDNnDTXp9u2fuQna12n8ZJpbNRRGmIS+ynO23SwFK8OiBYb6FhIlfA5F9ah1fxKOhj2xnhuMvK4oo6RW/o/Y6K0IaMwfq3FfbmBr9M3p5puXaMd/eSCr4aRHB34W3tWuK93aEZU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788106683; c=relaxed/simple;
-	bh=S6ALsO99Mf8b4MLFFIHQIICD0ef6Ggwu0gNDps+5sOk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=er+jc34NWjzcoizBsIZz8oGGwbCYKG5CFLKzDEUjx6w0/pBMkIT9roB+xYfahgDFu41vZEM2KbvkAQLj+wLi41tgDFOC5AMEwpK9wq2jb83rMCrggJtRTykRMPVTDaiyriRtLrokW8IfNRflyNi++KaVtFHgBCKL/QBz5/bBw28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=C6adnRX8; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1B13BB674;
+	Sun, 30 Aug 2026 16:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788107103; cv=pass; b=KlbUr/k/433pvX91+d1NLiElkrxI3vHVlItdu/0QImU4oxBPk2xzXOP1+DaxaqjagVpTV5r+Q4pP6MsNAMzAl1e0GCIvTvFQ4dT68zxAGMx8TjdiRLqa2S4ACmfvlzuDpwRsX0KkzmPCrvYhF2VXfQFkIQNDYIOSlv6a17Co9eM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788107103; c=relaxed/simple;
+	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LB9/3y9+WMh+8eHOLFS3gYwv0wQxXJhxW74G2rabbCNj69fcY2CvvlTxDJX+zTKz70BDQgJ3EXyJ0XCvs7u9rt6AgVKv2eQB3PuyQLyj7Ivl0l+iE+neIKZ5rALqQMUDrULD9Kp08Roh67F/SdeLNkxWWX8PvgbSVgTSt+f1N4I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=DeGxx07c; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="C6adnRX8"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd7e97c7;
-	Mon, 31 Aug 2026 00:17:54 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Dipen Patel <dipenp@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: timestamp@lists.linux.dev,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH] hte: tegra194: Initialize slice locks before registering chip
-Date: Mon, 31 Aug 2026 00:17:47 +0800
-Message-Id: <20260830161747.2719220-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="DeGxx07c"
+ARC-Seal: i=1; a=rsa-sha256; t=1788107074; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=XdGy/sr3rnNAf8bb96XvAwHAREUe3cxNcki7E02MDYhicdhOLJ282kjyglQU+XtaWx5TA06MqCm0wk7Q0B/d2OACuwrtYX2cfKlOiSYW9pL9vuP1peRUvK0dpoN34aYQocCRn9dlVG58C9u7MkgUbTiyOBHpI3Nl6NXJxKoozbI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788107074; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=; 
+	b=cjG7BqArSc+oKGncPM+El5jlT03vBF0aMBJG76ONkzviNZ3SramFZHixGtyGtn3WB42lUMyzNueS+mqXEaqBgq5/+5k/2D3ICbkN2HrgX8PeOCK+2aDt8W08potEuvX1myhZOMnymnLmtSGCvM/l+tqwL43601NJHGkqUUnnYKY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788107074;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=GmBfcRy0uBNjSyTd3QM14EIKLu45BjfLWEcmRo1I9Ms=;
+	b=DeGxx07cvLm+imNF4WG1+C4HClXhhNxqAZhzUxJm29XeW/VnL+KUtXpFXAq+lb2P
+	YhkAfbUlBj5xvj30g56/9yaKf9TRPHd7vKY8VlA2E61PA1A26xArZAM6EfUgFPgj2wb
+	3C+vm/GzQAb6jackRPdpQpYV2fyZ7JSO6/uL+bKU=
+Received: by mx.zohomail.com with SMTPS id 178810707135525.803322459182027;
+	Sun, 30 Aug 2026 09:24:31 -0700 (PDT)
+Message-ID: <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com>
+Date: Sun, 30 Aug 2026 18:24:27 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05376928703a1kunmb280507910715e
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSU1LVhlPGB5LTBodHh4ZSVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=C6adnRX8KIlM01g51zYlO58R1tJ0paYcKBbJRkU5m8eyH/dDIohFCii/CGeEnjXBDSu7Wkk+rucYsqYm4wggBz7x8rHeH17KpOztjUrFAqS2VZAI0hzkuj2Kb8IT7SfiibPRaNYV0SIG7qUNvKgHx16d9K/gh1ZAsvR2xgBE6q4=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=+bGYSb5ANbtpow/T618bsKBQwWGrOFAzrHSouwdqQFY=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Sami Tolvanen <samitolvanen@google.com>,
+ Nick Desaulniers <ndesaulniers@google.com>
+Cc: Yo'av Moshe <linux@yoavmoshe.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718111340.159896-1-linux@yoavmoshe.com>
+ <20260827194508.446733-1-linux@yoavmoshe.com>
+ <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
+ <CABCJKuc0cWWdkA7zrCcuze4AE-qTSETuUi-eRewPnn_ivHEADQ@mail.gmail.com>
+ <CAKwvOdnA7Ej_uppSL7U2xwxyUQoDMvO+RArj4HCUSOziH0rCqA@mail.gmail.com>
+ <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
+Content-Language: en-GB, sv-SE
+From: Yo'av Moshe <linux@yoavmoshe.com>
+In-Reply-To: <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Registering the HTE chip publishes its request callbacks to consumers.
-Initialize every slice lock before registration so a concurrent HTE
-request cannot use an uninitialized lock.
+On 2026-08-28 10:50 PM, Sami Tolvanen wrote:
+> Looks reasonable, but this still feels ARM-specific to me. How about
+> adding the macro to arch/arm/include/asm/linkage.h unless you have
+> other users in mind?
+I've now sent a v5 with Nick's macro added to
+arch/arm/include/asm/linkage.h as you suggested, plus the other fixes
+Nick asked for:
 
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Fixes: 09574cca6ad6 ("hte: Add Tegra194 HTE kernel provider")
-Cc: stable@vger.kernel.org
----
- drivers/hte/hte-tegra194.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+https://lore.kernel.org/all/20260830155100.1020620-1-linux@yoavmoshe.com/
 
-diff --git a/drivers/hte/hte-tegra194.c b/drivers/hte/hte-tegra194.c
-index 4a7702b32..1612812ab 100644
---- a/drivers/hte/hte-tegra194.c
-+++ b/drivers/hte/hte-tegra194.c
-@@ -910,17 +910,17 @@ static int tegra_hte_probe(struct platform_device *pdev)
- 
- 	hte_dev->chip = gc;
- 
-+	for (i = 0; i < slices; i++) {
-+		hte_dev->sl[i].flags = 0;
-+		spin_lock_init(&hte_dev->sl[i].s_lock);
-+	}
-+
- 	ret = devm_hte_register_chip(hte_dev->chip);
- 	if (ret) {
- 		dev_err(gc->dev, "hte chip register failed");
- 		return ret;
- 	}
- 
--	for (i = 0; i < slices; i++) {
--		hte_dev->sl[i].flags = 0;
--		spin_lock_init(&hte_dev->sl[i].s_lock);
--	}
--
- 	val = HTE_TECTRL_ENABLE_ENABLE |
- 	      (HTE_TECTRL_INTR_ENABLE << HTE_TECTRL_INTR_SHIFT) |
- 	      (hte_dev->itr_thrshld << HTE_TECTRL_OCCU_SHIFT);
--- 
-2.34.1
+The sashiko-bot's comment on v5 indeed pointed out that imx5, at91 and
+omap1 might suffer from the same bug: their suspend routines are also
+fncpy()'d into SRAM without a type hash and called indirectly. They're
+all ARM, so asm/linkage.h still seems like the right place for the
+macro.
+
+Do you think these need to be fixed as part of this patch, or as
+follow-ups? I only have my one imx6 device (a Kobo Clara HD), so I'm not
+sure how to test the fixes for the others.
+
+Yo'av
