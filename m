@@ -1,136 +1,208 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5421F3BA2
-	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 07:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FB12DCBE3
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 07:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788075223; cv=none; b=ZG0opdWkBuMhMvcXiPRET//pYyNv/WKeJKD4AL0OqNONJAqoK0nqC1PzbmnFbPx0ho1sp51EYY+hy4Cx+HjrU/qdd32lbDJgVO6sprY1ij83zjIw2ajDrRtFCKYp1gUBxw5GCgkwxYnbgq0p+K0RSy1CCi5fDcTpVaBr2qMOLQ8=
+	t=1788076446; cv=none; b=gJ7ccs417w45tdxk1NvnRbjjptuTkPMotFsT01e1QxX5dG68BdJhSz7JgPXewpNGRbBEqwUxO6Oe6uutrBiZk+QwEnojOEvdgc/wCGuZ+6Z+hD+Y1bwXE0o8fi81njxxXwmM5cO6sLhGWI1kAi8uV38bo4M1IRmuZyX1HFzlLyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788075223; c=relaxed/simple;
-	bh=U41QKWCb5wZVT5AgkRyZK+w6MKjpL9Tu8ac+zzjqQUE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EZDod7EzFo5MTrcI7w2iTMIJxrBxkN1/3RA5TmwM0x5b/7AwLDAepLtN7x+KHuNTyV21Rw0PxqZX2awx5wq8tdLUA23cAJSiKxMdPxFj6lst/muF2rYAZWurqEj6YH7L1ZVNDLfj29H7ywloOXgWnLaQNMWm7GR/GYcCQDEPc4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bT0hYlFS; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788076446; c=relaxed/simple;
+	bh=Hn03e+/WULF81D3yHyPxkS+4ZIZvHapTPnkx+jlSYf4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mWlECBV9vb8asvQhmkx0Pfc2peqyhsYrj3ZTn4Zh+tRVqKL0BSWrwLy6Tis38gIFZirmPcL2dfSWpZt9ssSxkyW4VdiVFKiVY1QapEucyV7XgtClsyocTRVpJ1QxPF6E1feJUF7I1Nur3Fabcsda1HpU4eLjRu47woWG4Kq6cO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocy4ylfF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bT0hYlFS"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca7c1176317so2050714a12.1
-        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 00:33:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788075221; x=1788680021; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5hgvVg90KPg9PlOfVqdnTJqeAsOm9vQLV6x0bJ/G+8U=;
-        b=bT0hYlFSkrmlQQSf7CERb2qkBx7IMOV25+c7Q5DEStmuuc/tT+BwOR4n91aMdVza+B
-         s10wPY/67LVo59mo7y56DXSfN0h1ZpgwVdaT2OILKNW+swoVuGQ7nrwRFfimoH/Kj4yU
-         pCPBM6vK+EQ18oG22YlDKj3OVgVGqGnWP+P9v7kegmnhxLF8xN/tS3VrHbr/IVu+mQrN
-         yn+hxFxCJ/8mXRAsQLhCq8lNXXdal27sSkXG4ShUAEDbJox97//da3knloAd4cc4Xx5r
-         shDJ2D2C2nlYK6UaO7DNkK3d77V1DD+Bd4z8JkLqp1rHk9NV58hY16ZDzG4lp5+WcH9K
-         4IAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788075221; x=1788680021;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5hgvVg90KPg9PlOfVqdnTJqeAsOm9vQLV6x0bJ/G+8U=;
-        b=XycAZ1yoVFt/yBcK9XH5pBo6JkzdKopluOumUXmgewYdr+Tt/3ZD5qlRG2yfdDaiHa
-         iCPXoO0jwSXzavayvegf2DbQahbsmmyEyQ9x4iIq8FJPZAbhbZCOVubctlZDDGCZyUkg
-         oXPFC2afk+JFgBIj6uWBfAim2zscId5ykefDWwsMqmmMiMS6p1/Sne4gYbb5pPXTJJid
-         go7bYcWiY+pvRcdTYZNxY7A0BEXNXqm9JIAXMksMB3apypsqOySZ8Y+lHdHgJ4FCYLVO
-         vcq4s9vUt+z3qiFwmvpPFAMBgsutyBR2cnfuzFmLGbcapNBYaQcCYcdS7p5n0H9aBgtT
-         +Crg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6oWD8TRpbEQNSZzYZ7nvO5sexMOwuBs8Gph+lmL72XnczKPpCES3F+7dGmVrM/yJNsEXNwdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mX+BMKKGxJ9Jdso06OQYjZMfSHE0ektvPIf3EHNd4KZ1KrOlFp
-	9Ls8Jd2i7BIH8Eayr+r2mExLKVoN+aVAjssA6I8ptl7tQYzbSNNUTkaw
-X-Gm-Gg: AR+sD13qGqmlN3Yl0o9rmx1+YPXxSvpbabu1J7Ji4VGLVq+OqZbSrSqf3iDwUHdUO/y
-	LvoHcOgYXyTYICUIYApq4vuF22eRQRs08wDoTcQ/3Ll63FSA9MLWJTUeZ/V50DHZutf9UYOGBh0
-	juAhQQIem80m212Kempua8/L/DU2ey+vrqP9yoITsNQYq9KFd8FkDE/ngNXhtrvIUNsaWoF2v/P
-	PAh6spMBeqcNpaseho54flLIrSJw2JCK9ZxFiGFGpkZN4WIpP13a6ZbDKOz85amT94pd3cEhSAx
-	H5xG98hbpeuTv2WSC/xiv7llYjaK218CUOAzxFSYVl8csQRlO5EBTjH84KRVnCMB3uX/z4h80uH
-	97g1Hz+eFNTg9UtmfF+sENiWhSCwBfd10ZHWOfKr1Q5E3C18rE4Qivbj2DAN0xUhuE9mEf4LyC1
-	CYILOTMko+YDKazSVMABR820Z/o48Z+CsjpWH6xJQ+aWn5tTRkAe5SrEOOzHmYZZO6B8dRPZKgu
-	tC9dEN669jTPRUgECc9SvbKyGrVYG2/x4StNC6bcN5TrDqaL+6f6LV682Z/Z62hl3Xl2aYsq2cn
-	GqVUfYaNXxQFb1ltYVim5hmGWp5M2a3x5xlWQnWD/qLVOvwLERj+/u9TBvNHAl25XKV8NFSWymj
-	uurCHpNbgMCY0zjRhKNSMA8RYYK2P6ef1yJPcFdXGWMlFrzgKJiQWoXwGOvGQZduPxnsP6J+AuY
-	ak+p6tN+w=
-X-Received: by 2002:a05:6a20:43a2:b0:3cc:f008:8125 with SMTP id adf61e73a8af0-3d265a3d2a2mr28366450637.1.1788075220885;
-        Sun, 30 Aug 2026 00:33:40 -0700 (PDT)
-Received: from HEXER.localdomain ([175.157.17.45])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e41837c6sm17293131c88.11.2026.08.30.00.33.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 00:33:40 -0700 (PDT)
-From: Kanishka De Silva <kpskanna1915@gmail.com>
-To: greg@kroah.com,
-	tom.leiming@gmail.com,
-	axboe@kernel.dk
-Cc: linux-block@vger.kernel.org,
-	security@kernel.org,
-	stable@vger.kernel.org,
-	Kanishka De Silva <kpskanna1915@gmail.com>
-Subject: [PATCH v2] ublk: clear VM_MAYWRITE on read-only ublk char device mmap
-Date: Sun, 30 Aug 2026 13:03:31 +0530
-Message-ID: <20260830073331.634-1-kpskanna1915@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083055-isotope-broiler-88e5@gregkh>
-References: <2026083055-isotope-broiler-88e5@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocy4ylfF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAADC1F00ADE
+	for <stable@vger.kernel.org>; Sun, 30 Aug 2026 07:54:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788076443;
+	bh=UeEQ5jVzcI0HkkaBYNG8dZHlQd9/ubRiXJT++zIWi7M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ocy4ylfFrWKNIBjucLRgP/bcUttjvfQaZdfmC/pHFTioFbRGlQ/BlBKtxGZvpA56x
+	 y5ImLCwoTbty6dkS6KMS89q6JBdaD+/NQTN5LkWHvvPGlmvCnDIw8/djn59ZygBqOv
+	 qpf6b1LPrGedr/UXbe+Q7ljzC/EK74Z0OZfMDyxNLvShInFyiXq22EwFZBrL7ZaP90
+	 A1o3rLatmXqkczN8qBvTranP1LLvheI1b78mbPVMICwC8PwQZ6zS3T3aK3OzuKZ781
+	 BMoERzwL+5IbTPFjHwrOp6xKzLVWu4mbxGH77VAham2ilthQ3rh/KxqQjwbVAoXHAA
+	 +v6+rbaqH2HMg==
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-930c0f9c1b1so158210885a.1
+        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 00:54:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrMh9XF88BqXGCuVxt17KpyKgU+AkbTnp9OnPH8YU+ZBIp2k+VvAez8w0wzC0+YJr/kDzVsioo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQk+RpgvVHyJ/fqZFcre9JlVjYdPQ3efe5nlvdRh1g6Lv+d8QX
+	VbxEtPmK04HUffeNDbN3au/AI/7yC1Iy3bR4ctfAfTrecnCAq2RCgNERtBJIYoZNwboDv++dRN3
+	sJlcww5gyMaMqCPDoPU8kyRuxUEw3Hko=
+X-Received: by 2002:a05:620a:6c0d:b0:938:fd60:4f9 with SMTP id
+ af79cd13be357-939138ffdc0mr2008314785a.27.1788076442846; Sun, 30 Aug 2026
+ 00:54:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828110919.1324028-1-ridong.chen@linux.dev> <20260828110919.1324028-3-ridong.chen@linux.dev>
+In-Reply-To: <20260828110919.1324028-3-ridong.chen@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 30 Aug 2026 15:53:51 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XAAY1zLhOoDIQLd7-dIIw1xCvdhjIWr8q4jSclCc3cBnbDulr35kYiJ1A
+Message-ID: <CAGsJ_4ws6edtcToqJQ0azJPTymAYj41nzdGJvBqEM+gROiJtRQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Chris Down <chris@chrisdown.name>, Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, 
+	Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ublk_ch_mmap() rejects mmap requests with VM_WRITE set, but never
-clears VM_MAYWRITE on the resulting read-only mapping. This allows
-a userspace daemon to mmap the per-queue command buffer PROT_READ,
-then upgrade it to PROT_WRITE via mprotect(), since VM_MAYWRITE was
-never cleared.
+On Fri, Aug 28, 2026 at 7:10=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
+ wrote:
+>
+> From: Ridong Chen <chenridong@xiaomi.com>
+>
+> memory.min/low is silently bypassed for MGLRU during global proactive
+> reclaim (writing to the root memory.reclaim) and global direct reclaim.
 
-The command buffer holds struct ublksrv_io_desc entries that are
-kernel-written ABI; a writable mapping lets an unprivileged daemon
-process corrupt fields such as addr, op_flags, nr_sectors, and
-start_sector.
+I guess nobody is silently bypassing anything. It's just that the
+effective min is stale data. If kswapd has run at least once, should
+the protection have been updated already?
+I guess we need to update the changelog a bit?
 
-Same bug class as the drm/panthor and drm/vc4 VM_MAYWRITE fixes, and
-the 2026-08-13 ptp/vmclock fix (a5edadbae57e).
+> It can be reproduced as follows:
+>
+>   # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>   # cd /sys/fs/cgroup
+>   # mkdir -p a/b
+>   # echo 100M > a/memory.min
+>   # echo +memory > a/cgroup.subtree_control
+>   # echo 100M > a/b/memory.min
+>   # echo $$ > a/b/cgroup.procs
+>   # dd if=3D/dev/zero of=3D/tmp/testfile bs=3D1M count=3D200
+>   # cat a/b/memory.current
+>   222650368
+>   # echo 500M > memory.reclaim
+>   -bash: echo: write error: Resource temporarily unavailable
+>   # cat a/b/memory.current
+>   6070272
+>
+> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+> protection. The traditional LRU path is not affected because
+> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+> visits during a top-down tree walk.
+>
+> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+> moved the protection computation into lru_gen_age_node(), which only
+> runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
+> lru_gen_shrink_node() -> shrink_many() without any protection
+> computation, so emin/elow remain stale or zero.
+>
+> Introduce mem_cgroup_protection_path() which computes emin/elow along
+> the root-to-target path only by iterating through the cgroup ancestors
+> array top-down. This avoids the full tree traversal that would be
+> needed with mem_cgroup_calculate_protection(), limiting the cost to
+> O(depth) per memcg - typically 3-5 levels.
+>
+> Call it from shrink_one() for the non-kswapd path so that each memcg
+> about to be shrunk has correct protection values.
+>
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
+>  include/linux/memcontrol.h | 11 ++++++++++
+>  mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
+>  mm/vmscan.c                |  8 ++++++-
+>  3 files changed, 63 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 7d1c0ce189a8..8066b798a759 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -605,6 +605,10 @@ static inline void mem_cgroup_protection(struct mem_=
+cgroup *root,
+>
+>  void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+>                                      struct mem_cgroup *memcg);
+> +#ifdef CONFIG_LRU_GEN
+> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +                               struct mem_cgroup *memcg);
+> +#endif
+>
+>  static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>                                           struct mem_cgroup *memcg)
+> @@ -1133,6 +1137,13 @@ static inline void mem_cgroup_calculate_protection=
+(struct mem_cgroup *root,
+>  {
+>  }
+>
+> +#ifdef CONFIG_LRU_GEN
+> +static inline void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +                                             struct mem_cgroup *memcg)
+> +{
+> +}
+> +#endif
+> +
 
-Verified via mprotect() PoC: before the fix, a PROT_READ mapping can
-be upgraded to PROT_READ|PROT_WRITE and a write into the command
-buffer corrupts io_desc fields (confirmed under KASAN). After the
-fix, mprotect() returns -EACCES.
+I wonder if we could follow the zswap pattern?
 
-Fixes: 3fee8d7599e1 ("ublk_drv: add io_uring based userspace block driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kanishka De Silva <kpskanna1915@gmail.com>
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
----
-v2: Cc linux-block@vger.kernel.org and Jens Axboe per get_maintainer.pl
-    (Greg KH). Added Reviewed-by from Ming Lei. No code change.
+#if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
+bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
+void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
+void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size);
+bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg);
+#else
+static inline bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
+{
+        return true;
+}
+...
+#endif
 
- drivers/block/ublk_drv.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+>  static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
+>                                           struct mem_cgroup *memcg)
+>  {
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 1271d390b617..095050d4296a 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -5198,6 +5198,51 @@ void mem_cgroup_calculate_protection(struct mem_cg=
+roup *root,
+>         page_counter_calculate_protection(&root->memory, &memcg->memory, =
+recursive_protection);
+>  }
+>
+> +#ifdef CONFIG_LRU_GEN
+> +/**
+> + * mem_cgroup_protection_path - compute protection along root->memcg pat=
+h
+> + * @root: the top ancestor of the sub-tree being checked (NULL for root_=
+mem_cgroup)
+> + * @memcg: the target memory cgroup
+> + *
+> + * Walk the ancestor path from @root down to @memcg and compute the effe=
+ctive
+> + * protection at each level.  This is safe for isolated queries because =
+it
+> + * ensures parents are computed before children.
+> + */
+> +void mem_cgroup_protection_path(struct mem_cgroup *root,
+> +                               struct mem_cgroup *memcg)
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 6c5bec7..e5ba07d 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2653,6 +2653,12 @@ static int ublk_ch_mmap(struct file *filp, struct vm_area_struct *vma)
- 	if (vma->vm_flags & VM_WRITE)
- 		return -EPERM;
- 
-+	/*
-+	 * The per-queue command buffer is kernel-written ABI; prevent
-+	 * the daemon from upgrading to writable via mprotect().
-+	 */
-+	vm_flags_clear(vma, VM_MAYWRITE);
-+
- 	end = UBLKSRV_CMD_BUF_OFFSET + ub->dev_info.nr_hw_queues * max_sz;
- 	if (phys_off < UBLKSRV_CMD_BUF_OFFSET || phys_off >= end)
- 		return -EINVAL;
--- 
-2.53.0
+Can we rename it to `mem_cgroup_calculate_protection_path()`?
 
+BTW, I see that the only caller is in vmscan and it passes NULL as
+`root`. Do we need to keep the `root` argument if the new helper is
+only used for global reclaim?
+
+Best Regards
+Barry
