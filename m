@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB01257ACF;
-	Sun, 30 Aug 2026 01:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5113D25B0B9;
+	Sun, 30 Aug 2026 01:05:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788051936; cv=none; b=RMn7WCR4nfSy+ZUHKvrSFwfa/0owb4a/Mc/a7GrY05Tpfg9VgZ7RH7deMFxLaQm+p4bkMW3iB3fg0CCK6gA5ZfyzEbtuooz3cg5z00Tyk5mGs92qJdAkDYRCWy8K3BheQyzPmQv6y7SUzpBDH93cCusJbQ4CRM9Z6hlSeibj0A4=
+	t=1788051936; cv=none; b=gwzOocG4c+xsi5A23BF1+orwMC7vCvkII9J8dLbaoJ993/y+zDHnECN4XZmCy4E3d5dVsGn9WOZUq/pPMzYJjfGKYqV/lujC75yOGv8jabFsiqUQnl3+UHdjE9CBDvcwDlLgTdVT2pbIXy2myYQaaLUMT2mKGt5cipDGQua14u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788051936; c=relaxed/simple;
-	bh=OQWyxaqu7DKBUM1SGG6Os5vGlC0Ne03Ma6gC/0wHa4g=;
+	bh=oB+KPR59cFI7eZAa9KgeABPL3A12TJ8BB5uUmES0v8c=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=Et1R4e9pwEqNB/15E/+SJroWAQvwe1DU/wrVNnOYHeEJpyAUBROC5vHGNlZENtfiLkQ01YrcmKphgG+9tdcGD9wcCDElo0gC33Q6MGNPqvpxPCmbMM0OdfofhxUPXfEgUe+85TbYmsyjGFOo56XsxgH9UBm+fsiwZWMtNZWXBFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZMU0NLJm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=E0nibuOrUQJ/RXnUYY3Oo9MzwIMQLj/qltIwIII49Vv+Ip6qZfbk3xhcTMZElR7OMDtQo+CiVDvlGzbSCPRZ7Nhp929eYatkAJRhDBhque7C2L1j1moqunvEu3gUAxb5XAiqSvKphQNQ2wjruM32ZDgfTm5b1raDe/MGhWoJxh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQFEUehx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZMU0NLJm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54E41F00A3D;
-	Sun, 30 Aug 2026 01:05:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQFEUehx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FBD71F00AC4;
+	Sun, 30 Aug 2026 01:05:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788051934;
-	bh=UYxcBK6fM1KuMpSUtPj8kSRAS7+FWYTJ6/yqMO5ljB4=;
+	s=k20260515; t=1788051935;
+	bh=iTpNiIj47HKLQsR3btqhyiB6ko64R0R8S6RSN4BlvuE=;
 	h=Date:From:To:Cc:Subject:References;
-	b=ZMU0NLJmnlx3hNphremnTG+0Amaqr19RtxgrT44wu+OJZUwgzf4tMkksbX/qRWOvm
-	 lzbuJzUwufqkyFlBa81ZibegWwIHReOoSL/NB7iwnagFXj3buPCRDwcIdxmMZddd/8
-	 39eYuRW8mW4sEn3XoPNs2ui8KmigyrZrDXEV0pkyrjlS5uHhZ6NqnqklNg8kKQfBm2
-	 +OoqXHKgwPUsXBLjKZE2S6tDgBNU3HrvgJ7EJkEh2Kbtnrecj5uo/ZPEUEMKBLBK5A
-	 ono2NVJbPwM3t1B+eIp3oWkXrHejkZzrr1ezQZfSUTfwkXKQ+7kGarI8mn3RmHtPXl
-	 g6hcq/Z1LEtMg==
+	b=OQFEUehxQLIAwJ8GlGW3M9aMmtbUf+7zh+Q0cW7Kae+fbGmr0rQDq5d0wmMSGfMnV
+	 XhfJxjFyn20IAdir+FrZMJJAdfBE9df7K9eHeJTrTxsv6Iuc2HClg1G/LEEW7CP+94
+	 421qogtk7KV5pb1EpsXBhJkX2ISWk+O92EpzrkpaZ9gx4J8XvHd7FcP4aN0uFBL/TJ
+	 ywPoLErhufIJ67udXRKZOOoqfeYaWIT36jSSPY4NLky1BZKWgPPSqrHOOuMiaohAU0
+	 5p/9aERvoIOXhz0nZIgbexYRM7shmY8v6mUxbfmxIHx6RA0lTr5rtrdbwat/dCyYV4
+	 ot7BiVl5GXI7Q==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x0U0C-0000000A490-07mR;
+	id 1x0U0C-0000000A4A0-1SRo;
 	Sat, 29 Aug 2026 21:06:28 -0400
-Message-ID: <20260830010627.875981502@kernel.org>
+Message-ID: <20260830010628.208350485@kernel.org>
 User-Agent: quilt/0.69
-Date: Sat, 29 Aug 2026 21:05:32 -0400
+Date: Sat, 29 Aug 2026 21:05:34 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -41,10 +41,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Vincent Donnefort <vdonnefort@google.com>,
  stable@vger.kernel.org,
- =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- Bradley Morgan <brads@mainlining.org>
-Subject: [for-linus][PATCH 1/3] tracing/user_events: Clear copied tracing state before fork
- duplication
+ Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
+Subject: [for-linus][PATCH 3/3] ring-buffer: Stop remote reader update when page swap fails
 References: <20260830010531.847108845@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,72 +52,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+From: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
 
-dup_task_struct() copies user_event_mm from the parent into the child,
-without grabbing a reference to it. user_event_mm_dup() should
-replace it, but it leaves that copied pointer unmodified if
-user_event_mm_alloc() fails.
+The remote swap_reader_page callback can return -EBUSY when the writer
+moves the head before the remote catches it, particularly during an event
+storm on a small buffer. __rb_get_reader_page_from_remote() currently
+warns about that failure but continues with the unchanged reader ID and
+rearranges the local page list as though the swap succeeded.
 
-When the child exits, user_event_mm_remove() decrements a reference
-the child never owned, which ultimately frees user_event_mm, while
-the parent still as a stale pointer to it. This creates a UAF, which
-KASAN reports as:
-
-    BUG: KASAN: slab-use-after-free in
-    current_user_event_mm+0x51/0x1d0 Write of size 4 at addr
-    ffff888005010d30 by task init/44
-
-    Call Trace:
-     <TASK>
-     kasan_report+0xce/0x100
-     kasan_check_range+0x10f/0x1e0
-     current_user_event_mm+0x51/0x1d0
-     user_events_ioctl+0x82e/0x15c0
-     __x64_sys_ioctl+0x139/0x1c0
-     do_syscall_64+0xce/0x450
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Allocated by task 44:
-     __kasan_kmalloc+0x8f/0xa0
-     __kmalloc_cache_noprof+0x180/0x3a0
-     user_event_mm_alloc+0x3c/0x1f0
-     current_user_event_mm+0x88/0x1d0
-
-    Freed by task 42:
-     __kasan_slab_free+0x43/0x70
-     kfree+0x13a/0x390
-     process_one_work+0x696/0xf90
-     worker_thread+0x420/0xba0
-
-The fix simply clears the copied pointer before any possible failure.
-In case of failure, the child then has nothing to free.
+Handle the callback failure as a recoverable error. Report it with
+pr_warn_ratelimited() and return NULL. Callers already handle a NULL reader
+page as a failed attempt. This avoids splicing the same page as both the
+previous and new reader without flooding the log under contention.
 
 Cc: stable@vger.kernel.org
-Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
-Link: https://patch.msgid.link/20260827184321.2964601-2-Jeremy.Jean@oss.cyber.gouv.fr
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
+Link: https://patch.msgid.link/20260825-kernel-patch-1-v2-2-bb3461807a32@gmail.com
+Assisted-by: LLM sparse
+Signed-off-by: Ivan Immanuel Shaji <ivanimmanuel1234@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_user.c | 3 +++
- 1 file changed, 3 insertions(+)
+ kernel/trace/ring_buffer.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index 2bbc89d4a266..93cda2f6f269 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -868,6 +868,9 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
- 	struct user_event_mm *mm = user_event_mm_alloc(t);
- 	struct user_event_enabler *enabler;
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 5fc009edc1ec..b7d076b6edcf 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -5805,8 +5805,11 @@ __rb_get_reader_page_from_remote(struct ring_buffer_per_cpu *cpu_buffer)
  
-+	/* On failure, do not free parent's copy */
-+	t->user_event_mm = NULL;
-+
- 	if (!mm)
- 		return;
+ 	prev_reader = cpu_buffer->subbuf_ids[cpu_buffer->meta_page->reader.id];
  
+-	WARN_ON_ONCE(cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
+-							  cpu_buffer->remote->priv));
++	if (cpu_buffer->remote->swap_reader_page(cpu_buffer->cpu,
++						 cpu_buffer->remote->priv)) {
++		pr_warn_ratelimited("Remote reader page swap failed\n");
++		return NULL;
++	}
+ 	/* nr_pages doesn't include the reader page */
+ 	if (WARN_ON_ONCE(cpu_buffer->meta_page->reader.id > cpu_buffer->nr_pages))
+ 		return NULL;
 -- 
 2.53.0
 
