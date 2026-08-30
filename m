@@ -1,123 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBF83CA491;
-	Sun, 30 Aug 2026 18:03:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7D624293C;
+	Sun, 30 Aug 2026 18:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788113001; cv=none; b=dirOIJkOBL4ABearpQtXSOYiEEMuxqrkSNFDIoD8Y11TYxghq1JKJpcw0P9TZq1DKhBdIYBRa5KFz8E+UMzkqOde+ypunqJty1qKFfRvF1zNFOgVaHLGrFGfxxspzpcQkWfVZ9uDRyiPpHQzk6mQf/WlDeFyPgPcHsqEfh5RN0c=
+	t=1788113693; cv=none; b=mSG4623KjLMiVY5epMJl+M5mBF7YlsqIKW056kdTWkk3QM+WN10Pzi0iopllrf1NgNvykRURfFLFOMNtt2Zj+PiI7xlQGm0VboqyYKYFjdPPzIr/m0nXdUfCEw6wwxhnp3mybJyVhZi5mv4X6xBFlc1Jg6qpUj7U7iT0bTVw388=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788113001; c=relaxed/simple;
-	bh=xa4QOHs1Z3S0yLpyNsGokX4rQPB+bdSKoVSJ/RXR0Dg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fVxwwcwoxpbd9IiiALG8ty6dgrh0zgr2igLtN9G47jXSHWd0/e9VqKcjDkYFZqaQ0MjiJYYWdath6xDFrOsXNxeJRQ2lsHGuMp5ap5F90b3gP7Z90ftU8scKo/lQfxqzTpcKp/IEsKPTRuZSR+FY2yeK+bg9aFO2qDmIzy7FdRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fUwwDUI2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788113693; c=relaxed/simple;
+	bh=z2eITDbHPQloaChdnAzIremnbYRTB6M5RSPRtCi+AjE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gOx4cMZTRU86Kv21OfLCNB+btoEZYQDG/PWkxoOM0teJUR/n7oBuEBmpCbTPPg5M7UJJTaoE06R+mFlDhl5XkGEentwX2da+8uQhgMIkIZVe1AnPLpmALmJQ2pnvGVICBUr9oYtKgIhP8PRAo3vGmtJryKuaoWeAXOd9owb9XVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7iC1y6H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fUwwDUI2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA771F000E9;
-	Sun, 30 Aug 2026 18:03:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7iC1y6H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D9F1F000E9;
+	Sun, 30 Aug 2026 18:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788112998;
-	bh=is8bnBNTo3ZvCgX4EDHRkiAFox35JV24PhKPu5yGWZE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fUwwDUI2R+thnnPdmQ1wNnV02hFVk2Lv0vG8XPRDlgv3nEmhw+XJMwchPmqxSWlzb
-	 JEtTYKu/SpSQqgsRR0eenVaRzqpJoH5rOhHyO9qWXIKkPmwSMm7JVQoptnaWabewNq
-	 ASms1HHtoRX5Q7G1ebKHIbH8kZ5YxjT2Sp68WckNnnCh/VjZyBQnPG0JC2xSR7HTfH
-	 ewUBIGkF+xSFwm9Uq2Z0NQy+BGBbOsIuE6JA+fJJNA7Gl+tzowFdZ0CoewffODhVAh
-	 e8CS2tbXH+X6DHtpe4UkQnbrI2du+zRCAUT6/R2S3sukkYmiSg2NdDMZaidU8DUdrF
-	 PO9F6y3yRUw7w==
-Date: Sun, 30 Aug 2026 11:03:17 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Victor Nogueira
- <victor@mojatatu.com>, vega@nebusec.ai, stable@vger.kernel.org,
- toke@redhat.com, chia-yu.chang@nokia-bell-labs.com,
- subramanian.vijay@gmail.com, petrm@nvidia.com
-Subject: Re: [PATCH net v2 8/8] net/sched: ets: clamp quantum in parse and
- fallback paths
-Message-ID: <20260830110317.3357a4ea@kernel.org>
-In-Reply-To: <20260829081229.81708-9-jhs@mojatatu.com>
-References: <all>
-	<20260829081229.81708-1-jhs@mojatatu.com>
-	<20260829081229.81708-9-jhs@mojatatu.com>
+	s=k20260515; t=1788113692;
+	bh=R/ExsJARLlh4YfLuTV4QZWOBWCnroOAl4CtLg4Wbva8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e7iC1y6H0Esa9kFZr5h4N5HEyHSq1fV4D0C028OIM5GxG2NOGDRD5QZBrxWRal5oj
+	 Q7u6kSz3IwmZRAabxKbdKnu81tpCG8WlZM8WDOVgCi1mIJg/Tg06EiVHEQqBAFag/g
+	 9nIjgX5mLSFs61vNnv2D7sxDHWqRUlbp15YQPaGen+y8vIvJdBfpblsNI8TVp1CUxd
+	 nEsxCkSR1jq5gYYSjs+DQhUg2O0IJ5fXdzKN4BznUimxYPwPaAC+PPsC8EK5L7NS55
+	 M5r50z6y1x/hh+sY7KiflyTCxFZyjmotgs6cnzax6Sd+J/IOYgPtm+amyOgyhyoRw2
+	 w0aDJDpvsKDxg==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/damon/core: fix unconditionally skip last region
+Date: Sun, 30 Aug 2026 11:14:44 -0700
+Message-ID: <20260830181445.104859-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260830063159.6347-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, 29 Aug 2026 04:12:29 -0400 Jamal Hadi Salim wrote:
-> ets_qdisc_change() falls back to psched_mtu() with no floor for bands
-> without an explicit quantum. With a crafted size table qdisc_pkt_len
-> reaches ~2 GiB, so a zero psched_mtu on a headerless device makes the
-> deficit-refill loop spin under the qdisc lock.
->=20
-> Move the floor into ets_quantum_parse() so explicitly configured quanta
-> are also clamped to [256, 1<<20], not just the fallback path.
->=20
-> Conditions to recreate the bug:
->   CONFIG_NET_SCH_ETS=3Dy. Requires CAP_NET_ADMIN (namespace-local via
->   unshare -Urn suffices).
->=20
->   tc qdisc add dev dummy0 root ets bands 3 strict 2 quanta 1 1
->=20
-> Fixes: dcc68b4d8084 ("net: sch_ets: Add a new Qdisc")
-> Reported-by: vega@nebusec.ai
-> Reviewed-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@redhat.com>
-> Tested-by: Victor Nogueira <victor@mojatatu.com>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> Cc: stable@vger.kernel.org
-> ---
->  net/sched/sch_ets.c | 12 +++++-------
->  1 file changed, 5 insertions(+), 7 deletions(-)
->=20
-> diff --git a/net/sched/sch_ets.c b/net/sched/sch_ets.c
-> index 25fcf4079fec..6cc902a03838 100644
-> --- a/net/sched/sch_ets.c
-> +++ b/net/sched/sch_ets.c
-> @@ -83,11 +83,7 @@ static int ets_quantum_parse(struct Qdisc *sch, const =
-struct nlattr *attr,
->  			     unsigned int *quantum,
->  			     struct netlink_ext_ack *extack)
->  {
-> -	*quantum =3D nla_get_u32(attr);
-> -	if (!*quantum) {
-> -		NL_SET_ERR_MSG(extack, "ETS quantum cannot be zero");
-> -		return -EINVAL;
-> -	}
-> +	*quantum =3D clamp_t(u32, nla_get_u32(attr), 256, 1 << 20);
->  	return 0;
->  }
-> =20
-> @@ -632,11 +628,13 @@ static int ets_qdisc_change(struct Qdisc *sch, stru=
-ct nlattr *opt,
->  			return err;
->  	}
->  	/* If there are more bands than strict + quanta provided, the remaining
-> -	 * ones are ETS with quantum of MTU. Initialize the missing values here.
-> +	 * ones are ETS with quantum of max(MTU, 256). Initialize the missing
-> +	 * values here.
->  	 */
->  	for (i =3D nstrict; i < nbands; i++) {
->  		if (!quanta[i])
-> -			quanta[i] =3D psched_mtu(qdisc_dev(sch));
-> +			quanta[i] =3D clamp_t(u32, (u32)psched_mtu(qdisc_dev(sch)),
-> +					    256, 1 << 20);
->  	}
-> =20
->  	/* Before commit, make sure we can allocate all new qdiscs */
+On Sun, 30 Aug 2026 14:31:50 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-Does this run afoul of one of the tdc cases?
+> Once quota set, the charge_{target,addr}_from unconditionally skips and
+> resets at the last region of the tracked target, so the last region can
+> be skipped even when it has not been processed.
+> 
+> Example:
+> 
+>     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+>     2. Quota is configured to process only 100 bytes per window.
+>     3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
+>        addr}_from is saved at (Target, 100).
+>     4. Window 2: The loop reaches R2.  Because R2 is
+>        damon_last_region(t), the old code unconditionally returns true,
+>        skipping R2 entirely and resetting the charge_{target,addr}_from.
+> 
+>     Result: R2 is permanently skipped even though it has never been
+>     processed.
+> 
+> However, it is important to note that this is a very minor issue.  This
+> is because it is triggered only when the previous window saved/kept
+> charge_{target,addr}_from, and in the next window, all regions except
+> the last region were skipped by damos_skip_charged_region().
+> 
+> Fix this by only resets the charge_{target,addr}_from when last region
+> is reached, only skips when it applied or cannot split.
 
-# not ok 39 41f5 - ETS offload where the sum of quanta wraps u32
-# Could not match regex pattern. Verify command output:
-# qdisc ets 8004: root refcnt 5 offloaded bands 3 quanta 1048576 256 256 pr=
-iomap 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2=20
+Looks good to me!
 
-https://github.com/p4tc-dev/tc-executor/blob/storage-dbg/artifacts/799938/1=
--tdc-sh/stdout
+> 
+> Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+> Cc: <stable@vger.kernel.org> # v5.16.x
+> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+
+Thanks,
+SJ
+
+[...]
