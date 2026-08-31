@@ -1,130 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FB443031A;
-	Mon, 31 Aug 2026 14:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAF8481FA1;
+	Mon, 31 Aug 2026 14:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184826; cv=none; b=e5QQjT3XIG/aw3Xx4ABC3Cqz7Wz1RPqwynwu6NQvoOMSmLLBjUXeq1GQe16yPr1JOuJwr3Y2fIh4CfYfbOY+ZN+WHe3UZWm43zzwRxwSznMY/5Zsb3otDNXNVHj9OgghB8WVj3EbJfIFSZ/HkG7i7AwVdsB6QWYrPidZNr0F+a0=
+	t=1788184827; cv=none; b=TFNGKenrzn1AoxEAlML7jMa7nGHBiq/cz3k/17VwBPmdg6mPlNcxUpOoUaMfuxDLkOtemChjuTRoWElRu1e1JkStqf+5e2gy8XflydfnE7Vsh/Uz0g/NiQtIBCHOHZY3TEnOno/48Xe9BWVnGURb0c+D9aGxcOHR/gzfOcFeb6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184826; c=relaxed/simple;
-	bh=tir5Av/jLGPySpnRf46dQuHItAlqXRWn58tywyM/1b0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J7oXD+wdHiO5SvuoaW31uHYvf/ulVxcxvKZnWNspQhi7ssZXPHSGy9YOj9QBAzas+AXW/wAzMQtlCaaN4X0+VqVTHMuo4Cg6Ns1pDqwgpN2AE8v07G3YVOrj7IaWV2YTZkVMqT32LyA4/fzRQZv89zqPNAnG3Z8lxMHLuuRZh2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rVekFSOR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788184827; c=relaxed/simple;
+	bh=cI/2g6mUL6hqQqrAMuXg7x4Fxuy4Zbt9zSvh//xoF+Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TOnLIRaQjQ2ezjlCR4WS2S0UDaYBVuksxCE9UZnPaWR3PLn0ionTnuzL1dC3Q9r/5DMD4dpBYCM/VljJq+PoNwdgbWE0sTf2KECEcDdZqonOIH57yB5lASsGd7oTbA3jqMQLLchzgcwizIfCpcAORaZw+1jD7Pz8o+VuvTonHkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gWtozdU5; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rVekFSOR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E257F1F00A3E;
-	Mon, 31 Aug 2026 14:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184823;
-	bh=w2MZRfUwKtK+uh0gILeD7NiMXwP1ygj9/rzXY3xSny8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rVekFSORAQ3gEWNTKHr/fd5AvzB1VKxNxuzXtMp3dfLPcYtaFjs1qjZfqq8nj3/Rg
-	 /+EEY9HUtcVVcWNX96gWwytURYPF7cUk1ZjZ00ETdo3lLp7Pvzl4U979586bA2NKeL
-	 zIN1QXzhOkvDMopu5OzT+3GjNuH35Joz5/m12GzA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Enrik Berkhan <Enrik.Berkhan@inka.de>,
-	Michael Zaidman <michael.zaidman@gmail.com>,
-	Jiri Kosina <jkosina@suse.cz>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 49/92] HID: ft260: improve i2c large reads performance
-Date: Mon, 31 Aug 2026 15:34:47 +0200
-Message-ID: <20260831133402.261917162@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
-References: <20260831133359.482388899@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gWtozdU5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788184825; x=1819720825;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cI/2g6mUL6hqQqrAMuXg7x4Fxuy4Zbt9zSvh//xoF+Y=;
+  b=gWtozdU5uYKW8ALJe6IXFqbMdAJJCaXct+Za8Nvf5nKppfFgMZM/hB77
+   VNYwjmNyWOADaq3+PsQ82/xkEEYM+ePWp0OTNGvoGQPOGc6wJhKvdvppN
+   fwGBchWcfgbdU2LbDk0MXV4PzD1v0KpsVSsFvT+5/3oUa/SY0yxb2r8BY
+   I6b2Xag4reTBOqYS09sXtBNz7XMWRt+17a4V2JyiJO0VHKPmZQv2T1U0h
+   3LcsLbqq6A1mNZY38YCxZzBc4RiJ0bU2f9cjkDenuK8PtkrqKGCVp6SWh
+   wTjoa5654bBd6Xgnjs5FqGK3dOLdVTYIAc78IlKdFVYmSefOjIYiPrKNd
+   Q==;
+X-CSE-ConnectionGUID: ARoJj8njRSaRbsCUglpv4A==
+X-CSE-MsgGUID: TYFAQafnRFmznfR7ZNWHVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="106114519"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="106114519"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:00:24 -0700
+X-CSE-ConnectionGUID: its6a53JSo6+tMLTdjEGGw==
+X-CSE-MsgGUID: BajDN1iAR/W1QYpYPlBp2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="272602238"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:00:15 -0700
+Date: Mon, 31 Aug 2026 17:00:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin Kepplinger <martink@posteo.de>,
+	Sean Nyekjaer <sean@geanix.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v7 7/8] iio: accel: mma8452: Fix use-after-free bug in
+ error error path
+Message-ID: <apWI7aYneejpZ-hs@ashevche-desk.local>
+References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
+ <20260831-mma8452-open-drain-v7-7-22946812c928@geanix.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-mma8452-open-drain-v7-7-22946812c928@geanix.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Aug 31, 2026 at 02:17:10PM +0200, Esben Haabendal wrote:
+> If mma8452_probe() fails in iio_device_register() or later, we could end up
+> with runtime suspend callback being called with a now freed device pointer.
 
-------------------
+> Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
 
-From: Michael Zaidman <michael.zaidman@gmail.com>
+Can this be popped up in the series? I think previous couple of patches are not
+fixes...
 
-[ Upstream commit 54410c14800ad652c77e5c6fc5c17baad6e42cb6 ]
-
-The patch increases the read buffer size to 180 bytes. It reduces
-the number of ft260_i2c_read() calls by three, improving the big
-reads performance.
-
-$ sudo i2ctransfer -y -f 13 w2@0x51 0x0 0x0 r180
-
-Before:
-
-[  +4.071878] ft260_i2c_write_read: off 0x0 rlen 180 wlen 2
-[  +0.000005] ft260_i2c_write: rep 0xd0 addr 0x51 off 0 len 2 wlen 2 flag 0x2 d[0] 0x0
-[  +0.001097] ft260_xfer_status: bus_status 0x41, clock 100
-[  +0.000175] ft260_xfer_status: bus_status 0x40, clock 100
-[  +0.000004] ft260_i2c_read: rep 0xc2 addr 0x51 len 180 rlen 60 flag 0x3
-[  +0.008579] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000208] ft260_xfer_status: bus_status 0x40, clock 100
-[  +0.000001] ft260_i2c_read: rep 0xc2 addr 0x51 len 120 rlen 60 flag 0x0
-[  +0.008794] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000181] ft260_xfer_status: bus_status 0x40, clock 100
-[  +0.000002] ft260_i2c_read: rep 0xc2 addr 0x51 len 60 rlen 60 flag 0x4
-[  +0.008817] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000223] ft260_xfer_status: bus_status 0x20, clock 100
-
-After:
-
-[ +11.611642] ft260_i2c_write_read: off 0x0 rlen 180 wlen 2
-[  +0.000005] ft260_i2c_write: rep 0xd0 addr 0x51 off 0 len 2 wlen 2 flag 0x2 d[0] 0x0
-[  +0.008001] ft260_xfer_status: bus_status 0x20, clock 100
-[  +0.000001] ft260_i2c_read: rep 0xc2 addr 0x51 len 180 rlen 180 flag 0x7
-[  +0.008994] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.007987] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.007992] ft260_raw_event: i2c resp: rep 0xde len 60
-[  +0.000206] ft260_xfer_status: bus_status 0x20, clock 100
-
-Suggested-by: Enrik Berkhan <Enrik.Berkhan@inka.de>
-Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.cz>
-Stable-dep-of: bf3e39df3a39 ("HID: ft260: fix stack-use-after-return write in I2C read race")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/hid/hid-ft260.c |   17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
---- a/drivers/hid/hid-ft260.c
-+++ b/drivers/hid/hid-ft260.c
-@@ -30,12 +30,19 @@ MODULE_PARM_DESC(debug, "Toggle FT260 de
- 
- #define FT260_REPORT_MAX_LENGTH (64)
- #define FT260_I2C_DATA_REPORT_ID(len) (FT260_I2C_REPORT_MIN + (len - 1) / 4)
-+
- /*
-- * The input report format assigns 62 bytes for the data payload, but ft260
-- * returns 60 and 2 in two separate transactions. To minimize transfer time
-- * in reading chunks mode, set the maximum read payload length to 60 bytes.
-- */
--#define FT260_RD_DATA_MAX (60)
-+ * The ft260 input report format defines 62 bytes for the data payload, but
-+ * when requested 62 bytes, the controller returns 60 and 2 in separate input
-+ * reports. To achieve better performance with the multi-report read data
-+ * transfers, we set the maximum read payload length to a multiple of 60.
-+ * With a 100 kHz I2C clock, one 240 bytes read takes about 1/27 second,
-+ * which is excessive; On the other hand, some higher layer drivers like at24
-+ * or optoe limit the i2c reads to 128 bytes. To not block other drivers out
-+ * of I2C for potentially troublesome amounts of time, we select the maximum
-+ * read payload length to be 180 bytes.
-+*/
-+#define FT260_RD_DATA_MAX (180)
- #define FT260_WR_DATA_MAX (60)
- 
- /*
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
