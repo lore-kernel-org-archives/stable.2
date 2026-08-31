@@ -1,500 +1,272 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F0B3BB110
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B713AB47A;
+	Mon, 31 Aug 2026 22:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788216268; cv=none; b=WPTiOeXbtg4L+UBYqWCPv+b+OxGoWZLCFeOwGiupCDQs+bu49SqWA/A1apZZgotOoa5dqxfZZ09IQGk1Psc4oFRF99x3dD8Uwg3lUdF5/+DABQfcQ0ucIfsP4VntcY1k+WM79cS59+e6r7NwomHfjZEsqheQpsfzaJrn5LfA+Zg=
+	t=1788216649; cv=none; b=GniHaK4x8lFm2lA2qWFVvIU09dtLGn/fZO9SSq6w54Hj21SykbYw5y7xqkzNoQsmsOqQhC/wHAIoKGZFLVcQsiIXtznu/DD4sYyfNJzV7glAWhravGiDpRs5dOa4suMCw/y+s8t0Cotluf/U3VBM2z2yvrYhjBMpVkBbBaYtXRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788216268; c=relaxed/simple;
-	bh=ZpcL3lDmGI+awDnVJAjUTFYuV1njHBgjqp9qFxrHmak=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l9hG0ACAImOAwtag5VdeB0mHBGmZ5lC0KlRSNbXNGxHanfPRtEKi9sDqvoxHvadZGwOElgut+wdf7VPSBCsdcGqgEjGpXu58ULo+eGwFEHJoH7jcCvre4aEqa82UEydYTmrf5TxucSMv62J91ghSGlb2y/sMj639/drf4P3d5z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZsq7RjU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788216649; c=relaxed/simple;
+	bh=gl2v/1L+wcPN6rQpNNQTnjg23DaQiqz2K074ashyohI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WeFkkUnTh3TmZV5OmsyCiahQ4Wc7hmTK9aHdyFZ/jUnOoMhOX/2nC72wMtDJRwWlQkyfALpxMtpLv4qhoqmNlAq/Zyn2LlQSTMPwvj7tTjquXnTvd6aO2/rZO9dNvFqHZf9a/YQR9XmffcRI2vQlTbHurJwBMWp6asuBn3ZXkSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=qCilTKkm; arc=none smtp.client-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZsq7RjU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CF31F00A3E;
-	Mon, 31 Aug 2026 22:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788216266;
-	bh=iNgBmekXUcro3p21poALmPiS9oQbAJNQcOgO7ohcCH8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QZsq7RjUYbZKN3qDsLyrNdCVlkwaWyPvA8WMIgc8iRNtQ3euEtCrE+Wfh8HXvDcfj
-	 WVHXRHyXpIsezSaFl/IgJyZhE3uRtn/4GbneLvVGK6iEXR+zGVaCPJlbsMui0+rYlb
-	 D5ggC6yqFCxKhc9FSQgQ1BPwn2zuGb9w3i51y4747j7U3ZpO/fABH+Lb6fJl7/IaeX
-	 BX3qZ6gV3hMe6OOpLpDEkAB3UYy3UD1RBTaTypVGJLGLbQR++dy8ZqWOEGqz3PGUxK
-	 BoBoReD/w8u3d5ox2bVkKxCqprv7s/TXwEFjU5uum93a52CZDMSpKW+ecycW3WBfF6
-	 1YEQTgIDDVigA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Michael Roth <michael.roth@amd.com>,
-	=?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>,
-	Fuad Tabba <tabba@google.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 8/8] KVM: SEV: Forcefully invalidate SNP VMSA if its backing gmem page is zapped
-Date: Mon, 31 Aug 2026 18:44:17 -0400
-Message-ID: <20260831224417.1903154-8-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831224417.1903154-1-sashal@kernel.org>
-References: <2026083159-request-customs-f573@gregkh>
- <20260831224417.1903154-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="qCilTKkm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1788216646; x=1819752646;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=F4AASk5pAsuqCt1k3uv39yeWLbs5DBs7DdYUaOL2uKk=;
+  b=qCilTKkmnht7vOyp0bgGWOstnRsQwRGYzlbCJIVEZcbG5H54U8d1sy6x
+   7lwO6YQSseNSC/vGq1FIQ2/GYFfpUj/7HY/VSP3bO8uDQfN6DrZIY78bR
+   stoNYTFtWhLFmshNbuLqHipnANeHYtzaDtGDmeTDwCtZueS2Cu6tq4a+C
+   BvTUAOXZ+lpFwBvZE3l6zYdqLwDoYwz6jCbHBVittuyNrWiuNLa4QDpty
+   W9JGyD6MM7ZEaSD0tMaSWWWTD6wqj2zisiONj1uYgcE/knswnnlfrCZxO
+   OIXanvSdrK3d9SCq1szspXnaXSFhHX6dBTweg65XnaR6Sm8EefYgY81HK
+   w==;
+X-CSE-ConnectionGUID: emM68SDdSm+SCPe6EuNcWA==
+X-CSE-MsgGUID: yJqCWLVLREuX1wKcmHNf8A==
+X-IronPort-AV: E=Sophos;i="6.25,254,1779148800"; 
+   d="scan'208";a="26947124"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 22:50:45 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:10815]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.234:2525] with esmtp (Farcaster)
+ id 8ef9c425-d43b-4df8-8b37-7b1ddf3e28ba; Mon, 31 Aug 2026 22:50:44 +0000 (UTC)
+X-Farcaster-Flow-ID: 8ef9c425-d43b-4df8-8b37-7b1ddf3e28ba
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Mon, 31 Aug 2026 22:50:44 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.171.29) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Mon, 31 Aug 2026 22:50:44 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: <sj@kernel.org>
+CC: <akpm@linux-foundation.org>, <baolin.wang@linux.alibaba.com>,
+	<damon@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <stable@vger.kernel.org>, <zcgao@amazon.com>
+Subject: Re: [PATCH] mm/damon: use a page-aligned sampling address
+Date: Mon, 31 Aug 2026 15:50:32 -0700
+Message-ID: <20260831225032.58045-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260829015511.74221-1-sj@kernel.org>
+References: <20260829015511.74221-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D032UWB001.ant.amazon.com (10.13.139.152) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Sean Christopherson <seanjc@google.com>
+On Fri, 28 Aug 2026 18:55:11 -0700 SJ Park <sj@kernel.org> wrote:
 
-[ Upstream commit d1a3c216233413f57f5341a9b878b7e2dde7e785 ]
+> On Fri, 28 Aug 2026 18:04:55 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+> 
+> > Hi SJ,
+> > 
+> > Thanks for your review!
+> > 
+> > On Thu, 27 Aug 2026 17:22:11 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > Hello Nathan,
+> > > 
+> > > On Thu, 27 Aug 2026 12:38:21 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+> > > 
+> > > > __damon_va_prepare_access_check() picks a random byte address within the
+> > > > region and stores it in r->sampling_addr. There are two users of
+> > > > r->sampling_addr in vaddr.c that pass it into a page table walk, and
+> > > > both use it as the address of a page.
+> > > > 
+> > > >   damon_va_mkold(mm, r->sampling_addr)
+> > > >     damon_va_walk_page_range(mm, addr, addr + 1)
+> > > >       damon_mkold_pmd_entry()
+> > > >         damon_ptep_mkold(pte, vma, addr)
+> > > >           ptep_test_and_clear_young(vma, addr, pte)
+> > > >           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+> > > > 
+> > > >   damon_va_young(mm, r->sampling_addr, &folio_sz)
+> > > >     damon_va_walk_page_range(mm, addr, addr + 1)
+> > > >       damon_young_pmd_entry()
+> > > >         ptep_get(pte)
+> > > >         mmu_notifier_test_young(walk->mm, addr)
+> > > > 
+> > > > test_and_clear_young_ptes(), which backs ptep_test_and_clear_young() on
+> > > > arm64, documents @addr as "Address the first page is mapped at".
+> > > > 
+> > > > For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+> > > > clearing of the young flag for large folios"),
+> > > 
+> > > The @addr documentation is also introduced by this commit.  This commit is
+> > > authored at 2026-02-09.
+> 
+> I was wrong.  The documentation was introduced by commit 6d7237dda44f ("mm: add
+> a batched helper to clear the young flag for large folios"), which was authored
+> by Baolin on 2026-03-06.
+> 
+> > > 
+> > > > the contpte helper walked
+> > > > exactly CONT_PTES entries from the aligned-down page table pointer and
+> > > > used @addr only to pass down to each entry, so an unaligned value was
+> > > > harmless:
+> > > > 
+> > > >         ptep = contpte_align_down(ptep);
+> > > >         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+> > > >         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+> > > 
+> > > So, there was no issue before the commit.
+> > > 
+> > 
+> > Right. Before 6f0e1142173a, unaligned addresses were tolerated but I don't
+> > think this is guaranteed.
+> > 
+> > > > 
+> > > > Align the sampled address down to a page boundary. It is the address of
+> > > > the page to sample, so this matches its intended meaning and fixes both
+> > > > users in vaddr.c.
+> > > 
+> > > This indeed sounds like can fix the issue to me.  However, was it a clear rule
+> > > that we should pass only contepte-aligned addrss to
+> > > ptep_test_and_clear_young()?  And is DAMON the only ptep_test_and_clear_young()
+> > > caller that is mistakenly passing the unaligned address?
+> > > 
+> > 
+> > It is not spelled out as an explicit rule, but the documented "Address
+> > the first page is mapped at" implies it,
+> 
+> You mean the comment on test_and_clear_young_ptes(), right?  But as I mentioned
+> above, the comment was introduced by Baolin's patch that was authored on
+> 2026-03-06.  I'd still appreciate Baolin's opinion.
+> 
 
-Wire up a gmem_invalidate_range() call for SNP VMs, and use it to force
-vCPUs to reload/recheck their guest-provided VMSA if the backing gmem
-page is being invalidated, e.g. is being PUNCH_HOLE'd.  Use the same core
-logic to handle invalidations as VMX does for the APIC-access page, as the
-two concepts are nearly identical: shove the physical address of a page
-into the vCPU's control structure:
+I think you are right. I shouldn't reference this and I dropped it in v2 commit
+message. 
 
- 1. Snapshot the invalidation sequence counter
- 2. Grab the pfn (from guest_memfd in this case)
- 3. Acquire mmu_lock for read
- 4. Re-request reload if retry is needed, otherwise commit the change.
+> > and these callers are using
+> > aligned addresses:
+> > 
+> >  mm/page_idle.c: page_idle_clear_pte_refs_one()
+> >  fs/proc/task_mmu.c: clear_refs_pte_range()
+> > 
+> > > If not, it might make sense to make contpte_test_and_clear_young_ptes() support
+> > > unaligned adress again in my opinion.  May I ask your opinion, Baolin?
+> > > 
+> > > > 
+> > > > Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+> > > 
+> > > I think 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for
+> > > large folios") would be mroe correct 'Fixes:', if there was no issue before the
+> > > commit.
+> > > 
+> > 
+> > Will use that in v2.
+> > 
+> > > > -	r->sampling_addr = damon_rand(ctx, r->ar.start, r->ar.end);
+> > > > +	r->sampling_addr = PAGE_ALIGN_DOWN(damon_rand(ctx, r->ar.start,
+> > > > +						      r->ar.end));
+> > > 
+> > > If we need to have the fix in DAMON, this kind of change would be needed.
+> > > 
+> > > However, what happens if the address is backed by large folios?
+> > > 
+> > > Before the commit 6f0e1142173a, also, it was aligning to CONT_PTE_SIZE.  Should
+> > > we do same?
+> > 
+> > Passing a page-aligned address restores the pre-6f0e1142173a behavior.
+> > Before the change, the helper aligned ptep down to the block start and
+> > walked a fixed CONT_PTES entries, regardless of addr.  After the
+> > change, the walk covers [ALIGN_DOWN(addr, CONT_PTE_SIZE),
+> > ALIGN(addr + nr * PAGE_SIZE, CONT_PTE_SIZE)).  With a sub-page offset,
+> > addr + PAGE_SIZE lands just past the block boundary, so the round-up
+> > extends the walk a whole block further.  With a page-aligned addr,
+> > addr + PAGE_SIZE is at most the block end, so the round-up lands
+> > exactly on the block end and the walk covers the same CONT_PTES
+> > entries as before the commit.
+> > 
+> > We also can't align to CONT_PTE_SIZE in DAMON since it's defined only under
+> > arch/arm64/:
+> > 
+> >   #define CONT_PTES		(1 << (CONT_PTE_SHIFT - PAGE_SHIFT))
+> >   #define CONT_PTE_SIZE		(CONT_PTES * PAGE_SIZE)
+> 
+> DAMON cares only exactly the byte of the address, so I agree this would work
+> for DAMON and be safe.  But, still the behavior is not exactly same to
+> pre-6f0e1142173a, isn't it?  I'm not really sure if this is really the correct
+> use of the function.  Again, I'd appreciate Baolin's comment.
+> 
 
-Note, the re-request action in #4 is necessary as KVM's retry logic is
-fuzzy, i.e. can get false positives.  If the guest_memfd page has been
-dropped, at some point a subsequent reload will fail to get a PFN from
-guest_memfd, and KVM will fail KVM_RUN.  If the retry was due to a false
-positive, KVM will retry until there are no relevant MMU notifier events
-(and will retry in the "outer" loop, i.e. will drop locks and resched as
-needed).
+I'd appreciate Baolin's clarification as well here.
 
-Note #2!  Take care to invalidate the VMSA when a relevant memslot is
-DELETED or MOVED, as invalidations in response to PUNCH_HOLE are predicated
-on memslot bindings (KVM doesn't know what GFN range(s) to invalidate
-without a binding).  And more importantly, the VMSA mapping requires a
-memslot, i.e. must be invalidated if its memslots disappears, regardless of
-the state of the underlying guest_memfd inode.
 
-Failure to invalidate the vCPU's control.vmsa_pa (which is checked by
-pre_sev_run()) can prevent KVM from properly freeing the page as firmware
-will reject the RMPUPDATE to reclaim the page with FAIL_INUSE if the vCPU
-is actively running, i.e. if VMSA page is in-use.  That in turn leads to an
-RMP #PF on the next use, as the page will still be assigned to the SNP VM.
+> > 
+> > 
+> > > Also, I think we should pass aligned address to only the functions that
+> > > require alignement.  Making the alignment to the sampling address in general
+> > > sounds too much to me.  Particularly, we are working on supporting new page
+> > > access check primitives other than PTE Accessed bit, like AMd IBS.  In the
+> > > case, we might support <PAGE_SIZE granularity monitoring.  Aligning sampling
+> > > address in general will make it more complicated.
+> > 
+> > Makes sense. I will keep sampling_addr as is and align inside damon_va_mkold()
+> > and damon_va_young() in v2.
+> 
+> Regardless of Baolin's comment, let's fix this issue.  So the v2 would be
+> appreciated.  In the v2, could you also add more details about how the issue
+> can be reproduced, and the user impact?  You mentioned you found memory
+> corruption from DAMON selftets.  It would be nice if you could make it more
+> detailed, such as what selftest reproduces the issue and what symptoms it
+> showed you.
 
-  SEV-SNP: RMPUPDATE failed for PFN 78d198, pg_level: 1, ret: 3
-  SEV-SNP: PFN 0x78d198, RMP entry: [0xfff0000000144001 - 0x000000000000000f]
-  CPU: 3 UID: 0 PID: 31345 Comm: sev_snp_vmsa_pu Tainted: G     U     O
-  Tainted: [U]=USER, [O]=OOT_MODULE
-  Hardware name: Google, Inc. Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x54/0x70
-   rmpupdate+0x12c/0x140
-   rmp_make_shared+0x3b/0x60
-   sev_gmem_invalidate+0xe0/0x170 [kvm_amd]
-   delete_from_page_cache_batch+0x1d8/0x220
-   truncate_inode_pages_range+0x120/0x3d0
-   kvm_gmem_fallocate+0x19a/0x270 [kvm]
-   vfs_fallocate+0x1bc/0x1f0
-   __x64_sys_fallocate+0x48/0x70
-   do_syscall_64+0x10a/0x480
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
-  RIP: 0033:0x496c7e
-   </TASK>
-  ------------[ cut here ]------------
-  SEV: Failed to update RMP entry for PFN 0x78d198 error -14
-  WARNING: arch/x86/kvm/svm/sev.c:5160 at sev_gmem_invalidate+0x126/0x170 [kvm_amd], CPU#3: sev_snp_vmsa_pu/31345
-  CPU: 3 UID: 0 PID: 31345 Comm: sev_snp_vmsa_pu Tainted: G     U     O
-  Tainted: [U]=USER, [O]=OOT_MODULE
-  Hardware name: Google, Inc. Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
-  RIP: 0010:sev_gmem_invalidate+0x12b/0x170 [kvm_amd]
-  Call Trace:
-   <TASK>
-   delete_from_page_cache_batch+0x1d8/0x220
-   truncate_inode_pages_range+0x120/0x3d0
-   kvm_gmem_fallocate+0x19a/0x270 [kvm]
-   vfs_fallocate+0x1bc/0x1f0
-   __x64_sys_fallocate+0x48/0x70
-   do_syscall_64+0x10a/0x480
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
-  RIP: 0033:0x496c7e
-   </TASK>
-  irq event stamp: 20689
-  hardirqs last  enabled at (20699): [<ffffffff8e76092c>] __console_unlock+0x5c/0x60
-  hardirqs last disabled at (20708): [<ffffffff8e760911>] __console_unlock+0x41/0x60
-  softirqs last  enabled at (20722): [<ffffffff8e6cd74e>] __irq_exit_rcu+0x7e/0x140
-  softirqs last disabled at (20717): [<ffffffff8e6cd74e>] __irq_exit_rcu+0x7e/0x140
-  ---[ end trace 0000000000000000 ]---
-  BUG: unable to handle page fault for address: ffff99a64d198000
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x80000003) - RMP violation
-  PGD 13eb001067 P4D 13eb001067 PUD 78d1d1063 PMD 1184e0063 PTE 800000078d198163
-  SEV-SNP: PFN 0x78d198, RMP entry: [0x6030000000144001 - 0x000000000000000f]
-  Oops: Oops: 0003 [#1] SMP
-  CPU: 3 UID: 0 PID: 31407 Comm: highlanderd_hea Tainted: G     U  W  O
-  Tainted: [U]=USER, [W]=WARN, [O]=OOT_MODULE
-  Hardware name: Google, Inc. Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
-  RIP: 0010:prep_new_page+0x67/0x220
-  Call Trace:
-   <TASK>
-   get_page_from_freelist+0x1c40/0x1c70
-   __alloc_frozen_pages_noprof+0xca/0x1f0
-   alloc_pages_mpol+0x10b/0x1b0
-   alloc_pages_noprof+0x81/0x90
-   pte_alloc_one+0x1b/0xd0
-   do_pte_missing+0xdf/0x1020
-   handle_mm_fault+0x7c7/0xb20
-   do_user_addr_fault+0x268/0x6b0
-   exc_page_fault+0x67/0xa0
-   asm_exc_page_fault+0x26/0x30
-  RIP: 0033:0x4a6b1e
-   </TASK>
-  gsmi: Log Shutdown Reason 0x03
-  CR2: ffff99a64d198000
-  ---[ end trace 0000000000000000 ]---
-  RIP: 0010:prep_new_page+0x67/0x220
+Added the crash stack trace and the impact to the v2 commit message:
+https://lore.kernel.org/all/20260831221151.50561-1-zcgao@amazon.com/
 
-Drop the pseudo-TODO comment about needing to pin the page if guest_memfd
-every supports migration, as integrating with invalidations events means
-KVM will Just Work if/when page migration is ever supported (assuming SNP
-hardware supports migrating VMSA pages).
+> 
+> Nevertheless I'm also wondering if supporting unaligned address again, like
+> below also works.
+> 
+> '''
+> --- a/arch/arm64/mm/contpte.c
+> +++ b/arch/arm64/mm/contpte.c
+> @@ -519,9 +519,12 @@ bool contpte_test_and_clear_young_ptes(struct vm_area_struct *vma,
+>          * of the same large folio in a single VMA and a single page table.
+>          */
+> 
+> -       unsigned long end = addr + nr * PAGE_SIZE;
+> +       unsigned long end;
+>         bool young = false;
+> 
+> +       ptep = contpte_align_down(ptep);
+> +       addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+> +       end = addr + nr * PAGE_SIZE;
+>         ptep = contpte_align_addr_ptep(&addr, &end, ptep, nr);
+>         for (; addr != end; ptep++, addr += PAGE_SIZE)
+>                 young |= __ptep_test_and_clear_young(vma, addr, ptep);
+> '''
+> 
+> Nathan, what do you think?  If it makes sense to you, could you also test this?
 
-Note #3, invalidate() and invalidate_range() have _completely_ different
-semantics; the new invalidate_range() is a true invalidation, whereas the
-existing invalidate() is really a "make shared" operation.  Ignore the
-confusing naming and poor Kconfig bundling for the moment to minimize the
-delta for LTS kernels, the mess will be cleaned up shortly.
+I think this may introduce an issue for the case that nr > 1.  If the
+address is in the middle of the block, an align like this would move it
+to the beginning of the block, so the walk would cover the wrong entries.
 
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Closes: https://lore.kernel.org/all/aimMWzAf5b3luM0b@v4bel
-Fixes: e366f92ea99e ("KVM: SEV: Support SEV-SNP AP Creation NAE event")
-Cc: stable@vger.kernel.org
-Cc: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: Michael Roth <michael.roth@amd.com>
-Cc: Jörg Rödel <joro@8bytes.org>
-Cc: Fuad Tabba <tabba@google.com>
-Cc: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Michael Roth <michael.roth@amd.com>
-Link: https://patch.msgid.link/20260709204948.1988414-11-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/include/asm/kvm-x86-ops.h |  4 ++
- arch/x86/include/asm/kvm_host.h    |  6 +++
- arch/x86/kvm/mmu/mmu.c             |  5 ++
- arch/x86/kvm/svm/sev.c             | 80 ++++++++++++++++++++++++++----
- arch/x86/kvm/svm/svm.c             |  2 +
- arch/x86/kvm/svm/svm.h             |  2 +
- arch/x86/kvm/x86.c                 |  6 +++
- include/linux/kvm_host.h           |  1 +
- virt/kvm/guest_memfd.c             |  4 ++
- 9 files changed, 99 insertions(+), 11 deletions(-)
+> 
+> 
+> Thanks,
+> SJ
+> 
+> [...]
 
-diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
-index 3776cf5382a26..89e9bfe1f6d84 100644
---- a/arch/x86/include/asm/kvm-x86-ops.h
-+++ b/arch/x86/include/asm/kvm-x86-ops.h
-@@ -135,6 +135,7 @@ KVM_X86_OP_OPTIONAL(mem_enc_unregister_region)
- KVM_X86_OP_OPTIONAL(vm_copy_enc_context_from)
- KVM_X86_OP_OPTIONAL(vm_move_enc_context_from)
- KVM_X86_OP_OPTIONAL(guest_memory_reclaimed)
-+KVM_X86_OP_OPTIONAL(reload_vmsa)
- KVM_X86_OP(get_feature_msr)
- KVM_X86_OP(check_emulate_instruction)
- KVM_X86_OP(apic_init_signal_blocked)
-@@ -149,6 +150,9 @@ KVM_X86_OP_OPTIONAL(alloc_apic_backing_page)
- KVM_X86_OP_OPTIONAL_RET0(gmem_prepare)
- KVM_X86_OP_OPTIONAL_RET0(gmem_max_mapping_level)
- KVM_X86_OP_OPTIONAL(gmem_invalidate)
-+#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
-+KVM_X86_OP_OPTIONAL(gmem_invalidate_range)
-+#endif
- #endif
- 
- #undef KVM_X86_OP
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index f14009f25a3b6..6befecff55098 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -128,6 +128,8 @@
- 	KVM_ARCH_REQ_FLAGS(31, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
- #define KVM_REQ_HV_TLB_FLUSH \
- 	KVM_ARCH_REQ_FLAGS(32, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
-+#define KVM_REQ_VMSA_PAGE_RELOAD \
-+	KVM_ARCH_REQ_FLAGS(33, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
- #define KVM_REQ_UPDATE_PROTECTED_GUEST_STATE \
- 	KVM_ARCH_REQ_FLAGS(34, KVM_REQUEST_WAIT)
- 
-@@ -1969,6 +1971,7 @@ struct kvm_x86_ops {
- 	int (*vm_copy_enc_context_from)(struct kvm *kvm, unsigned int source_fd);
- 	int (*vm_move_enc_context_from)(struct kvm *kvm, unsigned int source_fd);
- 	void (*guest_memory_reclaimed)(struct kvm *kvm);
-+	void (*reload_vmsa)(struct kvm_vcpu *vcpu);
- 
- 	int (*get_feature_msr)(u32 msr, u64 *data);
- 
-@@ -1993,6 +1996,9 @@ struct kvm_x86_ops {
- 	void *(*alloc_apic_backing_page)(struct kvm_vcpu *vcpu);
- 	int (*gmem_prepare)(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order);
- 	void (*gmem_invalidate)(kvm_pfn_t start, kvm_pfn_t end);
-+#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
-+	void (*gmem_invalidate_range)(struct kvm *kvm, struct kvm_gfn_range *range);
-+#endif
- 	int (*gmem_max_mapping_level)(struct kvm *kvm, kvm_pfn_t pfn, bool is_private);
- };
- 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 43fadc53a1b92..38812a77b0d03 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -7470,6 +7470,11 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
- 
- 	write_lock(&kvm->mmu_lock);
- 
-+#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
-+	if (slot->gmem.file)
-+		kvm_arch_gmem_invalidate_range(kvm, &range);
-+#endif
-+
- 	if (zap_all) {
- 		__kvm_mmu_zap_all_fast_front_half(kvm);
- 	} else {
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 948cc3ab8f029..f1101e56f6a9c 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -4081,19 +4081,25 @@ static int snp_begin_psc(struct vcpu_svm *svm)
- 	return snp_do_psc(svm);
- }
- 
--static void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
-+static void __sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 	struct kvm_memory_slot *slot;
-+	struct kvm *kvm = vcpu->kvm;
- 	gfn_t gfn = gpa_to_gfn(gpa);
-+	unsigned long mmu_seq;
- 	struct page *page;
- 	kvm_pfn_t pfn;
- 
- 	lockdep_assert_held(&svm->sev_es.snp_vmsa_mutex);
- 
--	/* Clear use of the VMSA. */
-+	/*
-+	 * Clear use of the VMSA.  Ensure snp_guest_vmsa_gpa is written exactly
-+	 * once, as it is read locklessly when responding to gfn invalidations.
-+	 * Pairs with the READ_ONCE() in sev_gmem_invalidate_range().
-+	 */
- 	svm->vmcb->control.vmsa_pa = INVALID_PAGE;
--	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
-+	WRITE_ONCE(svm->sev_es.snp_guest_vmsa_gpa, INVALID_PAGE);
- 
- 	/*
- 	 * When replacing the VMSA during SEV-SNP AP creation,
-@@ -4108,6 +4114,9 @@ static void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
- 	if (!slot)
- 		return;
- 
-+	mmu_seq = kvm->mmu_invalidate_seq;
-+	smp_rmb();
-+
- 	/*
- 	 * The new VMSA will be private memory guest memory, so retrieve the
- 	 * PFN from the gmem backend.
-@@ -4126,15 +4135,20 @@ static void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
- 	 */
- 	svm->sev_es.snp_has_guest_vmsa = true;
- 
--	/* Use the new VMSA */
--	svm->sev_es.snp_guest_vmsa_gpa = gpa;
--	svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
--
-+	read_lock(&kvm->mmu_lock);
- 	/*
--	 * gmem pages aren't currently migratable, but if this ever changes
--	 * then care should be taken to ensure svm->sev_es.vmsa is pinned
--	 * through some other means.
-+	 * Save the guest-provided GPA.  If retry is needed, then KVM will try
-+	 * again with the same GPA.  If the VMSA is usable, then KVM needs to
-+	 * track the GPA so that the VMSA can be reloaded if the backing page
-+	 * for the GPA is invalidated.
- 	 */
-+	svm->sev_es.snp_guest_vmsa_gpa = gpa;
-+	if (mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn))
-+		kvm_make_request(KVM_REQ_VMSA_PAGE_RELOAD, vcpu);
-+	else
-+		svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
-+	read_unlock(&kvm->mmu_lock);
-+
- 	kvm_release_page_clean(page);
- }
- 
-@@ -4160,7 +4174,7 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
- 	gpa = svm->sev_es.snp_pending_vmsa_gpa;
- 	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
- 
--	sev_snp_reload_vmsa(vcpu, gpa);
-+	__sev_snp_reload_vmsa(vcpu, gpa);
- 
- 	/*
- 	 * Mark the vCPU as runnable for CREATE requests, indicated by a valid
-@@ -4172,6 +4186,15 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
- 		kvm_set_mp_state(vcpu, KVM_MP_STATE_RUNNABLE);
- }
- 
-+void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu)
-+{
-+	struct vcpu_sev_es_state *sev_es = &to_svm(vcpu)->sev_es;
-+
-+	guard(mutex)(&sev_es->snp_vmsa_mutex);
-+
-+	__sev_snp_reload_vmsa(vcpu, sev_es->snp_guest_vmsa_gpa);
-+}
-+
- static int sev_snp_ap_creation(struct vcpu_svm *svm)
- {
- 	struct kvm_sev_info *sev = to_kvm_sev_info(svm->vcpu.kvm);
-@@ -5244,6 +5267,41 @@ void sev_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end)
- 	}
- }
- 
-+void sev_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range)
-+{
-+	struct kvm_vcpu *vcpu;
-+	unsigned long i;
-+
-+	lockdep_assert_held_write(&kvm->mmu_lock);
-+
-+	/*
-+	 * An unstable result for "is SNP" is a-ok here, thanks to mmu_lock.
-+	 * The vCPU's VMSA GPA is invalidated before the vCPU is made visible
-+	 * to other tasks, and can only become valid while holding mmu_lock,
-+	 * after the VM is fully committed to being an SNP VM.
-+	 */
-+	if (!____sev_snp_guest(kvm))
-+		return;
-+
-+	kvm_for_each_vcpu(i, vcpu, kvm) {
-+		/*
-+		 * Read snp_guest_vmsa_gpa without taking the vCPU's VMSA mutex
-+		 * (or its generic mutex) as mmu_lock is held, i.e. this task
-+		 * can't sleep.  The VMSA is invalidated outside of mmu_lock,
-+		 * but can only become valid inside of mmu_lock, i.e. the below
-+		 * can get false positives, but not false negatives.  A false
-+		 * positive is benign, as a spurious request simply forces the
-+		 * vCPU to re-establish its VMSA.
-+		 */
-+		gpa_t gpa = READ_ONCE(to_svm(vcpu)->sev_es.snp_guest_vmsa_gpa);
-+
-+		if (VALID_PAGE(gpa) &&
-+		    gpa_to_gfn(gpa) >= range->start &&
-+		    gpa_to_gfn(gpa) < range->end)
-+			kvm_make_request_and_kick(KVM_REQ_VMSA_PAGE_RELOAD, vcpu);
-+	}
-+}
-+
- int sev_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn, bool is_private)
- {
- 	int level, rc;
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 2a2679824bd7e..8fd7344319d9f 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -5397,12 +5397,14 @@ struct kvm_x86_ops svm_x86_ops __initdata = {
- 	.mem_enc_register_region = sev_mem_enc_register_region,
- 	.mem_enc_unregister_region = sev_mem_enc_unregister_region,
- 	.guest_memory_reclaimed = sev_guest_memory_reclaimed,
-+	.reload_vmsa = sev_snp_reload_vmsa,
- 
- 	.vm_copy_enc_context_from = sev_vm_copy_enc_context_from,
- 	.vm_move_enc_context_from = sev_vm_move_enc_context_from,
- 
- 	.gmem_prepare = sev_gmem_prepare,
- 	.gmem_invalidate = sev_gmem_invalidate,
-+	.gmem_invalidate_range = sev_gmem_invalidate_range,
- 	.gmem_max_mapping_level = sev_gmem_max_mapping_level,
- #endif
- 	.check_emulate_instruction = svm_check_emulate_instruction,
-diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index 954302305e750..efd69ce84f565 100644
---- a/arch/x86/kvm/svm/svm.h
-+++ b/arch/x86/kvm/svm/svm.h
-@@ -954,6 +954,7 @@ static inline struct page *snp_safe_alloc_page(void)
- {
- 	return snp_safe_alloc_page_node(numa_node_id(), GFP_KERNEL_ACCOUNT);
- }
-+void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu);
- 
- int sev_vcpu_create(struct kvm_vcpu *vcpu);
- void sev_free_vcpu(struct kvm_vcpu *vcpu);
-@@ -968,6 +969,7 @@ extern unsigned int max_sev_asid;
- void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code);
- int sev_gmem_prepare(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order);
- void sev_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end);
-+void sev_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range);
- int sev_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn, bool is_private);
- struct vmcb_save_area *sev_decrypt_vmsa(struct kvm_vcpu *vcpu);
- void sev_free_decrypted_vmsa(struct kvm_vcpu *vcpu, struct vmcb_save_area *vmsa);
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 783736130fa8b..6d9b9212e0ea0 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -11309,6 +11309,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 				goto out;
- 			}
- 		}
-+		if (kvm_check_request(KVM_REQ_VMSA_PAGE_RELOAD, vcpu))
-+			kvm_x86_call(reload_vmsa)(vcpu);
- 	}
- 
- 	if (kvm_check_request(KVM_REQ_EVENT, vcpu) || req_int_win ||
-@@ -14173,6 +14175,10 @@ void kvm_arch_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end)
- {
- 	kvm_x86_call(gmem_invalidate)(start, end);
- }
-+void kvm_arch_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range)
-+{
-+	kvm_x86_call(gmem_invalidate_range)(kvm, range);
-+}
- #endif
- #endif
- 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 5366f31e95b05..b7fe3c22823a0 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -2608,6 +2608,7 @@ long kvm_gmem_populate(struct kvm *kvm, gfn_t start_gfn, void __user *src,
- 
- #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
- void kvm_arch_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end);
-+void kvm_arch_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range);
- #endif
- 
- #ifdef CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 3694d5405a5e3..06bf35fb1040e 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -185,6 +185,10 @@ static void __kvm_gmem_invalidate_begin(struct gmem_file *f, pgoff_t start,
- 		}
- 
- 		flush |= kvm_mmu_unmap_gfn_range(kvm, &gfn_range);
-+
-+#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
-+		kvm_arch_gmem_invalidate_range(kvm, &gfn_range);
-+#endif
- 	}
- 
- 	if (flush)
--- 
-2.53.0
+Thanks,
+Nathan
 
+Sent using hkml (https://github.com/sjp38/hackermail)
