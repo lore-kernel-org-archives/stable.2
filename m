@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20A347F78A;
-	Mon, 31 Aug 2026 13:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A596147F791;
+	Mon, 31 Aug 2026 13:59:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184796; cv=none; b=Dw+N/9g10bUA2/OhmHGOnZwijGoXOJNhviIYVM4jfbcAVbISxQUHOMKWQAmz16+nES/xN9Tds4ZdHeLga2VL3tNt6J8EqoI7zsaiK1AP/kKBdcnJ2xTxJLzYfyDzGsITT69wzSLUOL1IeaQvjMLjlnqRDTMG4atamPmw+kEIzF0=
+	t=1788184798; cv=none; b=Fj+j1a2fW6c42ALGUEZc4lc7hHbqHncslfS4O9ifNx6wHvVZTzMiXkeI/P3H5cmo83SackzdEItWYdek8eMPMkHBlVtKGp2B3gZpzxMuTnUTtCDooYcBP+82Ew/Qv+LTBJm2G43Raeh8XBZGMm+qxB2Pz1OY1zQNFvfPKVBIDWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184796; c=relaxed/simple;
-	bh=BBkx0e4k4cEKOtdwtkb/vfhDtCIfPRbMPARKC7qsFhY=;
+	s=arc-20240116; t=1788184798; c=relaxed/simple;
+	bh=WvdnlEFeZlxN3/6dUT2NN3vRN+1rjd8yHbjAzXchJRI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dUWNsY8VcWu5+QbRjdnVILn06VOYaFyUZ1FE/XZrlxuV3lxapDemvCnbqb6sTmHdPENObn/CiyKWgipyJx0DbKLZJP6lNEVXtBpSEjHuHGeYLdzPsrDCX0A8TWMY83qyQWjC2cczz+/zop0ld3diefhy0oO8iVrpn091V9qMxsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uXt7oMQK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ppIWG3bRw5p1yf948V3QKekBT90xlqme5RbVqNcWnyHt/Sx3n91qwQ9LK2iasiuOgXxmPpspScyS3gBSlAXFPbUQjVLgRfkD9zAa0sCtbT3GiEEpSk4DM5kyoZQ8zVsAJfRV1ERLIm8fIGB3JOCYKhfqo4OGUEkPxfcMNXdgGZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wYaZJzZJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uXt7oMQK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 185891F000E9;
-	Mon, 31 Aug 2026 13:59:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wYaZJzZJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4F61F00A3D;
+	Mon, 31 Aug 2026 13:59:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184793;
-	bh=n+sjG4wm50d6x3jN1ZNzq9tQaIXI8xA1gCpV6v2m76I=;
+	s=korg; t=1788184796;
+	bh=EQeH7yFtN0DVK7ziO78D5TDVpGObFIgoYJTvbdLEK9w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uXt7oMQKeoLhqqboWVxZs3qNoipxG+4PMj/IRYLU5AlAk437WhlLgSMIUWIyQ9AA8
-	 VzGxI04gqmR6IhlW2t4CZK2ZD4E/GbHVEAIu7eJehTClYWXW7BSkkJvoanvn1YVwqa
-	 j59lTnlK2N+8BJzOLtVhDAdgiRZzi/V+wf8B5UfI=
+	b=wYaZJzZJX1LEBpk1i608jQAoI9YasaAK/t/xBL0Ab2NR14g2FTrGQZW0lnoSHw2q0
+	 ZJhh7atxGZTciQKtdyA7JWQQ264PDsxEQGbv1q5lDv09L/qAhyd3Q2gqeuB0p3COTr
+	 5/yzTmsfzb7A6qLwtji+jiy0N++gO/bNfwBJRwOE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bryam Vargas <hexlabsecurity@proton.me>,
-	David Heidelberg <david@ixit.cz>,
+	Andrei Fed <andfed.net@gmail.com>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 40/92] nfc: nci: add data_len bound checks to activation parameter extractors
-Date: Mon, 31 Aug 2026 15:34:38 +0200
-Message-ID: <20260831133401.787295619@linuxfoundation.org>
+Subject: [PATCH 6.1 41/92] HID: magicmouse: fix battery reporting for Bluetooth Magic Trackpad USB-C
+Date: Mon, 31 Aug 2026 15:34:39 +0200
+Message-ID: <20260831133401.845021048@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
 References: <20260831133359.482388899@linuxfoundation.org>
@@ -51,132 +51,114 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Andrei Fed <andfed.net@gmail.com>
 
-[ Upstream commit 0428fa2c22e2ba0cff766d3b80d461e149102045 ]
+[ Upstream commit a1556b48efc157fdda07b52ecc56c7bd1e1786f0 ]
 
-nci_extract_activation_params_iso_dep() and
-nci_extract_activation_params_nfc_dep() read an inner length byte from
-the NCI RF_INTF_ACTIVATED_NTF payload and use it to memcpy() into fixed
-kernel buffers, but neither function receives the caller-validated
-activation_params_len.  A crafted NCI notification with
-activation_params_len=1 and an inner length byte of up to 20 (NFC-A) or
-50 (NFC-B) causes memcpy() to read that many bytes past the one valid
-byte in the activation params region -- a slab out-of-bounds read of
-kernel memory adjacent to the NCI skb.
+The Apple Magic Trackpad 2 (USB-C) reports a wildly wrong battery
+capacity over Bluetooth, for example a constant 4% for a pack that is
+actually at 74%.
 
-The sibling nci_extract_rf_params_*() family was given equivalent
-protection by commit 571dcbeb8e63 ("net: nfc: nci: Fix parameter
-validation for packet data"), but the two activation parameter
-extractors were not updated at that time.
+The device's battery input report (0x90) is laid out as
+[report-id][status][charge]. hid-input's synchronous capacity query,
+hidinput_query_battery_capacity(), assumes the common
+[report-id][capacity] layout and returns buf[1], which for this device
+is the status byte rather than the charge (buf[2]).
 
-Add a data_len parameter to both functions, guard against an empty
-region before consuming the inner length byte, decrement the remaining
-count after consuming it, and clamp the copy length to what is actually
-available.  Update both call sites to pass ntf.activation_params_len,
-which is already validated against the skb at ntf.c:801.
+magicmouse_fetch_battery(), which requests the battery report through
+hid_hw_request() so the reply is decoded via the report descriptor at
+the correct field offset, is gated to the USB models and never runs
+over Bluetooth. The device does not push battery reports on its own
+either, except a single one at connect time, which is delivered while
+probe holds driver_input_lock and is silently dropped. All userspace
+reads therefore go through the misparsing query, and the device is
+stuck reporting its status byte as the capacity.
 
-Fixes: e8c0dacd9836 ("NFC: Update names and structs to NCI spec 1.0 d18")
+Enabling the fetch for Bluetooth is not sufficient on its own: user
+space reacts to the power_supply registration immediately, so a query
+is typically already in flight when the fetch reply is parsed.
+hidinput_get_battery_property() stores the query result and marks the
+battery as queried without rechecking whether a report arrived while
+it was waiting, clobbering the just-reported correct value with the
+misparsed one.
+
+Fix this by adding HID_BATTERY_QUIRK_AVOID_QUERY for the Bluetooth
+Magic Trackpad USB-C so the misparsing query path is never used, and
+by fetching the battery at the end of probe for this device. hidp has
+no asynchronous request() callback, so the fetch is serviced
+synchronously via __hid_request() while probe still holds
+driver_input_lock; call hid_device_io_start() first so the reply is
+processed instead of being discarded.
+
+Tested with a Magic Trackpad USB-C (004c:0324) over Bluetooth on
+6.18.37: the reported capacity now matches the device (verified against
+a raw GET_REPORT of report 0x90) and updates on reconnect.
+
+Fixes: 87a2f10395c8 ("HID: magicmouse: Apple Magic Trackpad 2 USB-C driver support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Link: https://patch.msgid.link/20260612-b4-disp-6d52d8b0-v3-1-e26221f8826d@proton.me
-Signed-off-by: David Heidelberg <david@ixit.cz>
-[ Replaced `NFC_ATS_MAXSIZE` with the literal `20` since that macro doesn't exist in this tree. ]
+Signed-off-by: Andrei Fed <andfed.net@gmail.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+[ Kept only the new quirk entry from the conflicting hunk, dropping the adjacent Magic Trackpad 1 entry absent from this tree. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/nfc/nci/ntf.c |   26 ++++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
+ drivers/hid/hid-input.c      |    3 +++
+ drivers/hid/hid-magicmouse.c |   19 ++++++++++++++++++-
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -525,15 +525,19 @@ static int nci_rf_discover_ntf_packet(st
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -358,6 +358,9 @@ static const struct hid_device_id hid_ba
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
+ 		USB_DEVICE_ID_APPLE_ALU_WIRELESS_ANSI),
+ 	  HID_BATTERY_QUIRK_PERCENT | HID_BATTERY_QUIRK_FEATURE },
++	{ HID_BLUETOOTH_DEVICE(BT_VENDOR_ID_APPLE,
++		USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC),
++	  HID_BATTERY_QUIRK_AVOID_QUERY },
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
+ 		USB_DEVICE_ID_ELECOM_BM084),
+ 	  HID_BATTERY_QUIRK_IGNORE },
+--- a/drivers/hid/hid-magicmouse.c
++++ b/drivers/hid/hid-magicmouse.c
+@@ -808,6 +808,12 @@ static bool is_usb_magictrackpad2(__u32
+ 	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
+ }
  
- static int nci_extract_activation_params_iso_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
++static bool is_bt_magictrackpad2(__u32 vendor, __u32 product)
++{
++	return vendor == BT_VENDOR_ID_APPLE &&
++	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
++}
++
+ static int magicmouse_fetch_battery(struct hid_device *hdev)
  {
- 	struct activation_params_nfca_poll_iso_dep *nfca_poll;
- 	struct activation_params_nfcb_poll_iso_dep *nfcb_poll;
+ #ifdef CONFIG_HID_BATTERY_STRENGTH
+@@ -816,7 +822,8 @@ static int magicmouse_fetch_battery(stru
  
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfca_poll = &ntf->activation_params.nfca_poll_iso_dep;
- 		nfca_poll->rats_res_len = min_t(__u8, *data++, 20);
-+		data_len--;
-+		nfca_poll->rats_res_len = min_t(__u8, nfca_poll->rats_res_len, data_len);
- 		pr_debug("rats_res_len %d\n", nfca_poll->rats_res_len);
- 		if (nfca_poll->rats_res_len > 0) {
- 			memcpy(nfca_poll->rats_res,
-@@ -542,8 +546,12 @@ static int nci_extract_activation_params
- 		break;
+ 	if (!hdev->battery ||
+ 	    (!is_usb_magicmouse2(hdev->vendor, hdev->product) &&
+-	     !is_usb_magictrackpad2(hdev->vendor, hdev->product)))
++	     !is_usb_magictrackpad2(hdev->vendor, hdev->product) &&
++	     !is_bt_magictrackpad2(hdev->vendor, hdev->product)))
+ 		return -1;
  
- 	case NCI_NFC_B_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		nfcb_poll = &ntf->activation_params.nfcb_poll_iso_dep;
- 		nfcb_poll->attrib_res_len = min_t(__u8, *data++, 50);
-+		data_len--;
-+		nfcb_poll->attrib_res_len = min_t(__u8, nfcb_poll->attrib_res_len, data_len);
- 		pr_debug("attrib_res_len %d\n", nfcb_poll->attrib_res_len);
- 		if (nfcb_poll->attrib_res_len > 0) {
- 			memcpy(nfcb_poll->attrib_res,
-@@ -562,7 +570,7 @@ static int nci_extract_activation_params
+ 	report_enum = &hdev->report_enum[hdev->battery_report_type];
+@@ -952,6 +959,16 @@ static int magicmouse_probe(struct hid_d
+ 		schedule_delayed_work(&msc->work, msecs_to_jiffies(500));
+ 	}
  
- static int nci_extract_activation_params_nfc_dep(struct nci_dev *ndev,
- 						 struct nci_rf_intf_activated_ntf *ntf,
--						 const __u8 *data)
-+						 const __u8 *data, __u8 data_len)
- {
- 	struct activation_params_poll_nfc_dep *poll;
- 	struct activation_params_listen_nfc_dep *listen;
-@@ -570,9 +578,13 @@ static int nci_extract_activation_params
- 	switch (ntf->activation_rf_tech_and_mode) {
- 	case NCI_NFC_A_PASSIVE_POLL_MODE:
- 	case NCI_NFC_F_PASSIVE_POLL_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		poll = &ntf->activation_params.poll_nfc_dep;
- 		poll->atr_res_len = min_t(__u8, *data++,
- 					  NFC_ATR_RES_MAXSIZE - 2);
-+		data_len--;
-+		poll->atr_res_len = min_t(__u8, poll->atr_res_len, data_len);
- 		pr_debug("atr_res_len %d\n", poll->atr_res_len);
- 		if (poll->atr_res_len > 0)
- 			memcpy(poll->atr_res, data, poll->atr_res_len);
-@@ -580,9 +592,13 @@ static int nci_extract_activation_params
- 
- 	case NCI_NFC_A_PASSIVE_LISTEN_MODE:
- 	case NCI_NFC_F_PASSIVE_LISTEN_MODE:
-+		if (data_len < 1)
-+			return NCI_STATUS_RF_PROTOCOL_ERROR;
- 		listen = &ntf->activation_params.listen_nfc_dep;
- 		listen->atr_req_len = min_t(__u8, *data++,
- 					    NFC_ATR_REQ_MAXSIZE - 2);
-+		data_len--;
-+		listen->atr_req_len = min_t(__u8, listen->atr_req_len, data_len);
- 		pr_debug("atr_req_len %d\n", listen->atr_req_len);
- 		if (listen->atr_req_len > 0)
- 			memcpy(listen->atr_req, data, listen->atr_req_len);
-@@ -790,12 +806,14 @@ static int nci_rf_intf_activated_ntf_pac
- 		switch (ntf.rf_interface) {
- 		case NCI_RF_INTERFACE_ISO_DEP:
- 			err = nci_extract_activation_params_iso_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_NFC_DEP:
- 			err = nci_extract_activation_params_nfc_dep(ndev,
--								    &ntf, data);
-+								    &ntf, data,
-+								    ntf.activation_params_len);
- 			break;
- 
- 		case NCI_RF_INTERFACE_FRAME:
++	/*
++	 * Query the Bluetooth Magic Trackpad USB-C battery as done for USB.
++	 * Start io first: probe holds driver_input_lock and the synchronous
++	 * GET_REPORT reply would otherwise be dropped.
++	 */
++	if (is_bt_magictrackpad2(id->vendor, id->product)) {
++		hid_device_io_start(hdev);
++		magicmouse_fetch_battery(hdev);
++	}
++
+ 	return 0;
+ err_stop_hw:
+ 	if (is_usb_magicmouse2(id->vendor, id->product) ||
 
 
