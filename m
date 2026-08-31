@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FBF3C661A
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 10:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BD13C4B89
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 10:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788173862; cv=none; b=XyPv0MN3mTZ4wVTNUFBnorvDWq5jCguV9KC1pp21MZx2MyBpz3mNH2YKgzesbDEUnOr45t26o5Ijj3Kk2gkUVh/kMi2gBpSa9IjJqJih11iHp6zZdBUB7C5L8nkvP6xqlhEzbmW60pwBVAXZDCpVsPRGAJnuRyfnhqg5GLjxf/w=
+	t=1788173864; cv=none; b=gQzRJ4N3bPiBZ3aNlZE11V35Ve1sezGuZV8LrCpxMVSNA3f1FaPN+usPzWWs5wGiQoaZGUmVNIdsb160jdK5J6FZM1HjHBWt1GoPnMBTNeEElkHL3saH/sY0G33r/TZC8xcXi7LmrZFwQwYZTVcX5KgX1zaQwDVD4ltMVBdtrTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788173862; c=relaxed/simple;
-	bh=S6WUIwD5lDg4I6gBpQ0n75HREry4d3qQam6oIEmF6xQ=;
+	s=arc-20240116; t=1788173864; c=relaxed/simple;
+	bh=VQxFOeV8iH2pt/EAMSjSR6sl3NcxNhyu5fH9S0VH15Q=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ucVHYj3Hr/DBGZinDRhAmYhguwNNFpihUQBw1YT+UPzSkfRRBB19JDmY99SFkBvzP8Lg4JQRoXO1/1UtUHMv+WM/G+ImvjJtV+H/D+/XOyx6dMHwJ8hXVVR0ciP7dVvWk7oCwnCOeS+rKKomVgttRnkLTVHD0L4uzwHjNnM1M0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jnolTZt0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bgzm2cTCqwGrhOmB8a2LCqg3Q7W6vYQoaVrMsRSu64uu5Q79i2AsV78hI8LOSbsxiCoNr2hNddh/DQRxQXhvp87O553eWO7YbUrXdJO0gi06YTVnH/UqxEoFrfgy0UjifZwNlaVrTb7xgnT8xo2yxLGIh/jlHdfkGr5o14u1Gko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NihSBrFL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jnolTZt0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6131F00A3D;
-	Mon, 31 Aug 2026 10:57:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NihSBrFL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E94E1F000E9;
+	Mon, 31 Aug 2026 10:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788173860;
-	bh=DdEtBg7QW7bsb8cADRQneMa/exWDVSVq1t+YPGiTotA=;
+	s=k20260515; t=1788173863;
+	bh=JkiBCLRgfvuAiqjvunj37Odlb82T6HTjNBy9hDZ8Awo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jnolTZt0IFjOXbHSG1HNsw2QKnHQNC1kM8gcQjtNUcWMY1LKMxYRFLgJYiJwZR6k+
-	 KlnVH80FYLMw0D5bXY97WmiBJI6ap6/u/i/g0fO9XTnSUn/syqpnshsyd868FoRM4h
-	 41TKLcxAZz8mo5ADkD2qb6dhKYJMcsi6Jivrq886KH7gA29RRJUleTvdjAVh/fNFKH
-	 jTRt99qIZUgVCw+nswWwU5jv7Njjt12BbOMAIguOYwChIx6PBQIvsFYLjm9vMPkI42
-	 yJUbpu/Bw1bJnPm46pOopT0KPSn/vvnfKu5GkWkjS4T3Or5ZsJ9fDAtfmCFqBLx0J4
-	 BTLDOz7aCuyBQ==
+	b=NihSBrFLzApeBF4Ca/V+pJbIEUPjoUFgvAPY8wmz8OE6CHupow/rj1lVkIqqtGtyz
+	 K07F7SuymO5C8SWJqMZYI84ISN01O68LEPkmSVMUa4olZoM63IpGoF/GJyGODC2wna
+	 +e2HFGlwTGeSKyegrtJxPp84UvPel850UwI1H+LlhRLLoPTEG21KWUysqC/WwtRFR8
+	 3Ggy0g4lDzCBnSUOrTiMSff9KqMBPZZ1Xuhv/eeU8BdA3UXfQ3IPZGO2f/7uB2BQAa
+	 IqQQSC20RXvMIA2cCSxKeR5Y0yPMqyh2sq458jAi1J4FhqEc9Td6b9I/BNTzTBQhCZ
+	 WCQ6tnczzbuCg==
 From: Namjae Jeon <linkinjeon@kernel.org>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -33,9 +33,9 @@ Cc: gregkh@linuxfoundation.org,
 	DaeMyung Kang <charsyam@gmail.com>,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Steve French <stfrench@microsoft.com>
-Subject: [PATCH 6.18.y] ksmbd: harden file lifetime during session teardown
-Date: Mon, 31 Aug 2026 19:57:23 +0900
-Message-Id: <20260831105724.10681-2-linkinjeon@kernel.org>
+Subject: [PATCH 6.6.y] ksmbd: harden file lifetime during session teardown
+Date: Mon, 31 Aug 2026 19:57:24 +0900
+Message-Id: <20260831105724.10681-3-linkinjeon@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260831105724.10681-1-linkinjeon@kernel.org>
 References: <20260831105724.10681-1-linkinjeon@kernel.org>
@@ -144,10 +144,10 @@ Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
  3 files changed, 164 insertions(+), 25 deletions(-)
 
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 7374422bfaf2..fac188ab767b 100644
+index 0343360b3445..d97ffe3d2a71 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -3765,8 +3765,10 @@ int smb2_open(struct ksmbd_work *work)
+@@ -3751,8 +3751,10 @@ int smb2_open(struct ksmbd_work *work)
  
  err_out2:
  	if (!rc) {
@@ -161,7 +161,7 @@ index 7374422bfaf2..fac188ab767b 100644
  	if (rc) {
  		if (rc == -EINVAL)
 diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 51e37e89d1aa..8b5f50ac61e2 100644
+index a15c42724849..12db854e4c51 100644
 --- a/fs/smb/server/vfs_cache.c
 +++ b/fs/smb/server/vfs_cache.c
 @@ -358,13 +358,13 @@ static void ksmbd_remove_durable_fd(struct ksmbd_file *fp)
@@ -385,7 +385,7 @@ index 51e37e89d1aa..8b5f50ac61e2 100644
  		id++;
  	}
  
-@@ -1071,6 +1203,9 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
+@@ -1077,6 +1209,9 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
  	if (!is_reconnectable(fp))
  		return false;
  
@@ -395,7 +395,7 @@ index 51e37e89d1aa..8b5f50ac61e2 100644
  	if (WARN_ON_ONCE(!fp->conn))
  		return false;
  
-@@ -1122,7 +1257,8 @@ void ksmbd_close_tree_conn_fds(struct ksmbd_work *work)
+@@ -1128,7 +1263,8 @@ void ksmbd_close_tree_conn_fds(struct ksmbd_work *work)
  {
  	int num = __close_file_table_ids(work->sess,
  					 work->tcon,
@@ -405,7 +405,7 @@ index 51e37e89d1aa..8b5f50ac61e2 100644
  
  	atomic_sub(num, &work->conn->stats.open_files_count);
  }
-@@ -1131,7 +1267,8 @@ void ksmbd_close_session_fds(struct ksmbd_work *work)
+@@ -1137,7 +1273,8 @@ void ksmbd_close_session_fds(struct ksmbd_work *work)
  {
  	int num = __close_file_table_ids(work->sess,
  					 work->tcon,
@@ -415,7 +415,7 @@ index 51e37e89d1aa..8b5f50ac61e2 100644
  
  	atomic_sub(num, &work->conn->stats.open_files_count);
  }
-@@ -1271,7 +1408,7 @@ void ksmbd_destroy_file_table(struct ksmbd_session *sess)
+@@ -1277,7 +1414,7 @@ void ksmbd_destroy_file_table(struct ksmbd_session *sess)
  	if (!ft->idr)
  		return;
  
@@ -425,10 +425,10 @@ index 51e37e89d1aa..8b5f50ac61e2 100644
  	kfree(ft->idr);
  	ft->idr = NULL;
 diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index 10f4172ec801..a3a9fda6de91 100644
+index 4d78ebc4ceca..7cb1c55eb0b2 100644
 --- a/fs/smb/server/vfs_cache.h
 +++ b/fs/smb/server/vfs_cache.h
-@@ -175,8 +175,8 @@ int ksmbd_close_inode_fds(struct ksmbd_work *work, struct inode *inode);
+@@ -172,8 +172,8 @@ int ksmbd_close_inode_fds(struct ksmbd_work *work, struct inode *inode);
  int ksmbd_init_global_file_table(void);
  void ksmbd_free_global_file_table(void);
  void ksmbd_set_fd_limit(unsigned long limit);
