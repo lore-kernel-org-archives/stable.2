@@ -1,44 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559974756A3
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 18:32:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A7E436BEA
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 18:32:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788201124; cv=none; b=XatxgWWR+U0W7dkQh3wx1WH1Uiu1cN9i3uNAtmDy8a5vHdWL5AfmTLFU8O8UTNHcLEg2b5eWUmkIMX664orgp1x9J7r//kjGD4uW2yF8L7En2UgPXaps2JtlZ1uQKv6COkprQhUI5Qmnf1OAu6ZA2FtRoYsklyb7wheH+iHaSuk=
+	t=1788201125; cv=none; b=ajVYYOOe9G9K9xwpr0etHpGF2hXyBRb4351tF7aTD2I4+ah3/ALShTfP04OGfrHwBS+qf+gfMJP6Sadk4viMa36pAnCYRKsYDLQ8kFz2XZec9eKKirwpWTHaik43dDkbs5L8NGTXz4iwH36f9nXvK2mdcM6qRx3OSz8emEen1+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788201124; c=relaxed/simple;
-	bh=Jw1DiHKPg0HYvBgwncOW6UYM9K0MOgq34GyYbDXmYZ0=;
+	s=arc-20240116; t=1788201125; c=relaxed/simple;
+	bh=2GLbv8bc3TuAR/OrOPMwCdjcqUpBkeZTUBcZQ/2dK/c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HdX56j+PKUrCyRmn5J8R0wBjt/HF7PrbaIsu/+wC8+Xpjd7I87C0ba3z2AIGI36tDb0O98YgPUlaAgvQj1ocWQp5WoicnuZMLuP2aaKY83s5soimgXQqldsLcMPViVjfIPmaJNf7Ct2pnaJfm0HRkSXhk44VPNN4LlIDbJuPh0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n/qDCs5O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gR/DKiq0W1XwnD7GJ6GV52yztXiEkEBgaryRaw147d5RIQCDK32McmVsSM1Rin4zRHIqY9NVdFNk4Zl4A9DOAM3eebtTnB2V9wwu15Kh9p0ccRCFOXukvfM0+lpCAxRG4EiZgFlbuR7zvncHd4nmhpvzcTm0keXRHbyYRm76H4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CI9ZSmC6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n/qDCs5O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448901F00A3D;
-	Mon, 31 Aug 2026 18:32:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CI9ZSmC6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2231F00A3E;
+	Mon, 31 Aug 2026 18:32:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788201123;
-	bh=mAUoZ0h5AFGI70r9iEY9mx7IJfQ/dSbo/uLH0YDxkZA=;
+	s=k20260515; t=1788201124;
+	bh=nPvNvrO7QeWCBE67lO31NK75h7HUWuXYjZcetB3wBjU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n/qDCs5OgVg8vpQ02ibtZ4WMGB4+Kl8XNOlRD7O80n71UbHcDtGSzP4cNdzzzBha6
-	 EDLrtV+5Oz5m/9CNgjpv5UaGaG4/GgEfIL0d01bR4iyGhVt1024vQCYjdP6nd28yiI
-	 6PdPx9FDIF/W1z2k/oXAqxb6WwtgzCDRWI/KGNyZXobGX2pHN5dKlnQwWbtm7waflq
-	 yuL6kNid8/IimZ54eJXL3YwNE6I+0o9yEnJSQ21yftTgSTZS7sn4ROxaapkBDeml+1
-	 /USDNajcIgfL+qdwT2AxKqE3u1U4kmDmDJNtyj78NhBcohzM/0WsRXFo2veET4XOsx
-	 k7mvpRrFACNLQ==
+	b=CI9ZSmC6acO+yby8SZKtGoM0lSBPxcEQAU+we5+RC8DK/7CYp4qupt8yWXs7WOMyd
+	 Tabm5jUWQq5SOKslZAv//x7Jzh4r/YkKVBJ9dRq5AwlFbrjHZZhCoc2hAh1zqPebQG
+	 qcvTM+d+ezbK4xsFd6S/7+VZo4Ez8UqwY9E/inWtz8lZ8vVvrA0h/JAKkinONPQ2K/
+	 91rnhHPzmYRL19gDhTcCJSpTlaMCKv66BM32PzihhwfwbyzRdn6vvcnBGA5kVG3765
+	 2FlnHVF/bJHS4pNjm7Dh2kG1O9lKlDEobBFVqkj2fzWnhQswmuwFVK9MmPi/7pjMJr
+	 KaXRBcuQ9WnqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ashish Kalra <ashish.kalra@amd.com>,
-	Sean Christopherson <seanjc@google.com>,
-	"Pratik R. Sampat" <prsampat@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Pankaj Gupta <pankaj.gupta@amd.com>,
-	Pavan Kumar Paluri <papaluri@amd.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Nikunj A Dadhania <nikunj@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/6] KVM: SEV: Disable SEV-SNP support on initialization failure
-Date: Mon, 31 Aug 2026 14:31:55 -0400
-Message-ID: <20260831183157.1673215-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 5/6] KVM: SVM: Move SEV-ES VMSA allocation to a dedicated sev_vcpu_create() helper
+Date: Mon, 31 Aug 2026 14:31:56 -0400
+Message-ID: <20260831183157.1673215-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831183157.1673215-1-sashal@kernel.org>
 References: <2026083106-utensil-mangy-28f5@gregkh>
@@ -51,106 +46,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ashish Kalra <ashish.kalra@amd.com>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 179a8427fcbffe36ccfed5e138d7c9b6180caff9 ]
+[ Upstream commit 34bd82aab15b8b9e8e9d923267283c84aa8c2789 ]
 
-During platform init, SNP initialization may fail for several reasons,
-such as firmware command failures and incompatible versions. However,
-the KVM capability may continue to advertise support for it.
+Add a dedicated sev_vcpu_create() helper to allocate the VMSA page for
+SEV-ES+ vCPUs, and to allow for consolidating a variety of related SEV+
+code in the near future.
 
-The platform may have SNP enabled but if SNP_INIT fails then SNP is
-not supported by KVM.
+No functional change intended.
 
-During KVM module initialization query the SNP platform status to obtain
-the SNP initialization state and use it as an additional condition to
-determine support for SEV-SNP.
-
-Co-developed-by: Sean Christopherson <seanjc@google.com>
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
+Link: https://lore.kernel.org/r/20250819234833.3080255-5-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Co-developed-by: Pratik R. Sampat <prsampat@amd.com>
-Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
-Reviewed-by: Pankaj Gupta <pankaj.gupta@amd.com>
-Reviewed-by: Pavan Kumar Paluri <papaluri@amd.com>
-Message-ID: <20250512221634.12045-1-Ashish.Kalra@amd.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Stable-dep-of: 42a39ad5d592 ("KVM: SEV: Track the GPA of the guest-controlled VMSA used for SNP guests")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/sev.c | 44 +++++++++++++++++++++++++++++++++---------
- 1 file changed, 35 insertions(+), 9 deletions(-)
+ arch/x86/kvm/svm/sev.c | 20 ++++++++++++++++++++
+ arch/x86/kvm/svm/svm.c | 25 +++++++------------------
+ arch/x86/kvm/svm/svm.h |  2 ++
+ 3 files changed, 29 insertions(+), 18 deletions(-)
 
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 7a94a5f0ca805..d4026cd634c0f 100644
+index d4026cd634c0f..ca07b2c05a4c6 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -2984,6 +2984,33 @@ void __init sev_set_cpu_caps(void)
- 	}
+@@ -4669,6 +4669,26 @@ void sev_init_vmcb(struct vcpu_svm *svm)
+ 		sev_es_init_vmcb(svm);
  }
  
-+static bool is_sev_snp_initialized(void)
++int sev_vcpu_create(struct kvm_vcpu *vcpu)
 +{
-+	struct sev_user_data_snp_status *status;
-+	struct sev_data_snp_addr buf;
-+	bool initialized = false;
-+	int ret, error = 0;
++	struct vcpu_svm *svm = to_svm(vcpu);
++	struct page *vmsa_page;
 +
-+	status = snp_alloc_firmware_page(GFP_KERNEL | __GFP_ZERO);
-+	if (!status)
-+		return false;
++	if (!sev_es_guest(vcpu->kvm))
++		return 0;
 +
-+	buf.address = __psp_pa(status);
-+	ret = sev_do_cmd(SEV_CMD_SNP_PLATFORM_STATUS, &buf, &error);
-+	if (ret) {
-+		pr_err("SEV: SNP_PLATFORM_STATUS failed ret=%d, fw_error=%d (%#x)\n",
-+		       ret, error, error);
-+		goto out;
-+	}
++	/*
++	 * SEV-ES guests require a separate (from the VMCB) VMSA page used to
++	 * contain the encrypted register state of the guest.
++	 */
++	vmsa_page = snp_safe_alloc_page();
++	if (!vmsa_page)
++		return -ENOMEM;
 +
-+	initialized = !!status->state;
-+
-+out:
-+	snp_free_firmware_page(status);
-+
-+	return initialized;
++	svm->sev_es.vmsa = page_address(vmsa_page);
++	return 0;
 +}
 +
- void __init sev_hardware_setup(void)
+ void sev_es_vcpu_reset(struct vcpu_svm *svm)
  {
- 	unsigned int eax, ebx, ecx, edx, sev_asid_count, sev_es_asid_count;
-@@ -3088,6 +3115,14 @@ void __init sev_hardware_setup(void)
- 	sev_snp_supported = sev_snp_enabled && cc_platform_has(CC_ATTR_HOST_SEV_SNP);
+ 	struct kvm_vcpu *vcpu = &svm->vcpu;
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 44819d9470dcf..c996f07b9c80a 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -1433,7 +1433,6 @@ static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_svm *svm;
+ 	struct page *vmcb01_page;
+-	struct page *vmsa_page = NULL;
+ 	int err;
  
+ 	BUILD_BUG_ON(offsetof(struct vcpu_svm, vcpu) != 0);
+@@ -1444,24 +1443,18 @@ static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+ 	if (!vmcb01_page)
+ 		goto out;
+ 
+-	if (sev_es_guest(vcpu->kvm)) {
+-		/*
+-		 * SEV-ES guests require a separate VMSA page used to contain
+-		 * the encrypted register state of the guest.
+-		 */
+-		vmsa_page = snp_safe_alloc_page();
+-		if (!vmsa_page)
+-			goto error_free_vmcb_page;
+-	}
++	err = sev_vcpu_create(vcpu);
++	if (err)
++		goto error_free_vmcb_page;
+ 
+ 	err = avic_init_vcpu(svm);
+ 	if (err)
+-		goto error_free_vmsa_page;
++		goto error_free_sev;
+ 
+ 	svm->msrpm = svm_vcpu_alloc_msrpm();
+ 	if (!svm->msrpm) {
+ 		err = -ENOMEM;
+-		goto error_free_vmsa_page;
++		goto error_free_sev;
+ 	}
+ 
+ 	svm->x2avic_msrs_intercepted = true;
+@@ -1471,16 +1464,12 @@ static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+ 	svm->vmcb01.pa = __sme_set(page_to_pfn(vmcb01_page) << PAGE_SHIFT);
+ 	svm_switch_vmcb(svm, &svm->vmcb01);
+ 
+-	if (vmsa_page)
+-		svm->sev_es.vmsa = page_address(vmsa_page);
+-
+ 	svm->guest_state_loaded = false;
+ 
+ 	return 0;
+ 
+-error_free_vmsa_page:
+-	if (vmsa_page)
+-		__free_page(vmsa_page);
++error_free_sev:
++	sev_free_vcpu(vcpu);
+ error_free_vmcb_page:
+ 	__free_page(vmcb01_page);
  out:
-+	if (sev_enabled) {
-+		init_args.probe = true;
-+		if (sev_platform_init(&init_args))
-+			sev_supported = sev_es_supported = sev_snp_supported = false;
-+		else if (sev_snp_supported)
-+			sev_snp_supported = is_sev_snp_initialized();
-+	}
-+
- 	if (boot_cpu_has(X86_FEATURE_SEV))
- 		pr_info("SEV %s (ASIDs %u - %u)\n",
- 			sev_supported ? min_sev_asid <= max_sev_asid ? "enabled" :
-@@ -3114,15 +3149,6 @@ void __init sev_hardware_setup(void)
- 	sev_supported_vmsa_features = 0;
- 	if (sev_es_debug_swap_enabled)
- 		sev_supported_vmsa_features |= SVM_SEV_FEAT_DEBUG_SWAP;
--
--	if (!sev_enabled)
--		return;
--
--	/*
--	 * Do both SNP and SEV initialization at KVM module load.
--	 */
--	init_args.probe = true;
--	sev_platform_init(&init_args);
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index c34cd7f1408fc..a595064d6a52f 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -757,6 +757,7 @@ static inline struct page *snp_safe_alloc_page(void)
+ 	return snp_safe_alloc_page_node(numa_node_id(), GFP_KERNEL_ACCOUNT);
  }
  
- void sev_hardware_unsetup(void)
++int sev_vcpu_create(struct kvm_vcpu *vcpu);
+ void sev_free_vcpu(struct kvm_vcpu *vcpu);
+ void sev_vm_destroy(struct kvm *kvm);
+ void __init sev_set_cpu_caps(void);
+@@ -781,6 +782,7 @@ static inline struct page *snp_safe_alloc_page(void)
+ 	return snp_safe_alloc_page_node(numa_node_id(), GFP_KERNEL_ACCOUNT);
+ }
+ 
++static inline int sev_vcpu_create(struct kvm_vcpu *vcpu) { return 0; }
+ static inline void sev_free_vcpu(struct kvm_vcpu *vcpu) {}
+ static inline void sev_vm_destroy(struct kvm *kvm) {}
+ static inline void __init sev_set_cpu_caps(void) {}
 -- 
 2.53.0
 
