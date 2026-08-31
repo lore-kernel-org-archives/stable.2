@@ -1,85 +1,81 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CC5B3D16EF;
-	Mon, 31 Aug 2026 08:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7943D16EF;
+	Mon, 31 Aug 2026 08:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164748; cv=none; b=KXqeetSh4WuE1Tqpf9CWajknk5vnCYEdmZBUOcy8Yehi55F4Jqd1deLuGxpJZ8GhVw2Y3dxp9dngWmAWiwi5jMW2XfxiEyGMedQTCQqHT67p9hBU041mE+GzZNs4+1wS/ohFym6g1taLQw9SoUt2ITaSmkj7LkIAz+h9jxlSSYg=
+	t=1788164762; cv=none; b=Hb3c16ah3VxVEtnaEKF8NlA4NeOObcp/j0tD69wv/OtpD7JluVa6y22DvQIS6O0X62gyVMXhiNInQMUKYgG3qUBM1wKvyGIbF7fGqFVNp+RFtozIyj0+QhQU7hvZk5rNvzW+OH+jrNimnvybs35xsQWW4/0qG8fzdpoGPdaybS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164748; c=relaxed/simple;
-	bh=xsI3jIwO/Y6Bv18OEqwIndpxG3vHdwMkYo3i4+24WFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PmeKmjW1xMWSwRpK764v3jG4EN2z4eEYCsPNWkVGyTxGtDCDJaQmG657zK7CYUAMRkTVXf54UuZo8JStFklUDdPl6dfMgyRGUkw6GVdjolvDFtGlIKCPnnO3ypIjFUUCUnXUQUzRjkZJPAOLa5tbbQjTJaipXpBaVhEGEmITjZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=BlFye806; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788164762; c=relaxed/simple;
+	bh=oi3IwRGEdFAcg1n0hcZwUHOudCsYct2I5HEiNEmL5wM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=AeN0siJQDxYpVO+dgque4X6TagST1sG69dLR3FdBUB6WTPiVl2t2UdSrJioP1XANDd6DkPcEWjXNelSuhNkuiWMx4aSJtIqukbf1XW92ssdl0dMKxGjCbFhfys9CuVTJOM19wmUB4VREM5rpHlCb5gw8Uzj93UvdLBodcLrf9Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4OuzjF+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="BlFye806"
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.18])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6C70220B710C;
-	Mon, 31 Aug 2026 01:25:08 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6C70220B710C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788164711;
-	bh=z45F0iklb5017VL+SXkncmfHBmXiRVtinzOnE76JzOU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=BlFye806KqZHS9a8yhNLe4okqEKQGfQ8Xx0pFUY6Ts+MgVXvJgoZv6WevydhlhWVu
-	 FN6t81AB7LAlULYLDvyTofZW9f6L39XfBWAfMXzOmE29K/skwrp3eCkLdvKJm6id0U
-	 O4o6Vi8B1KFIP4PwkuNjgmT+KRCgdUGUYiShNtHc=
-From: Naman Jain <namjain@linux.microsoft.com>
-To: tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org
-Cc: hpa@zytor.com,
-	decui@microsoft.com,
-	namjain@linux.microsoft.com,
-	yunhong.jiang@linux.intel.com,
-	ricardo.neri-calderon@linux.intel.com,
-	rahul.tanwar@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] x86/init: Initialize wall clock in get_rtc_noop()
-Date: Mon, 31 Aug 2026 08:25:28 +0000
-Message-ID: <20260831082528.1623843-1-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4OuzjF+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D481F000E9;
+	Mon, 31 Aug 2026 08:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788164760;
+	bh=Bkc3TtL3jy2b+pazsu82eelBxMwpygOXYf82m1fuwME=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=m4OuzjF+GoDRFdIU0nkSPpq4UhwkK4XUvNcXvhKdh+T1Ag3iPX/NPwRkw4VcZWw28
+	 QI+4nqLCPxSfL/kkan7lu71Tf/R/Lp0Z/VHitskkPXTT+HWs8NRni7U2sKENauQpwz
+	 VCeOrqAahgIwl0AFd7LVK3goPaJLDWoJm+vFDcffYIkRI5+zTWtQUmQ4Nn9GZ/APyl
+	 tX19339lrJz7zsnhU11eBH66L4RELNDsAXdThzKPZQ1N1nqdZreJOk6uR8q8WSZwSK
+	 RgVngLlEr6ga1/pFoA8NyhiD7bXUn8kUkIL0UbA/07Jb93KxuT1YbA5q7SoPcs+oxw
+	 zz+QfJBZx3QUg==
+From: Christian Brauner <brauner@kernel.org>
+To: joel.granados@kernel.org, kees@kernel.org, 
+ "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+Cc: oleg@redhat.com, mingo@redhat.com, peterz@infradead.org, 
+ akpm@linux-foundation.org, jack@suse.cz, avagin@gmail.com, 
+ ptikhomirov@virtuozzo.com, mjguzik@gmail.com, include@grrlz.net, 
+ ebiederm@xmission.com, legion@kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, AutonomousCodeSecurity@microsoft.com, 
+ tgopinath@linux.microsoft.com, kys@microsoft.com, stable@vger.kernel.org
+In-Reply-To: <20260814040944.16561-1-blbllhy@gmail.com>
+References: <20260814040944.16561-1-blbllhy@gmail.com>
+Subject: Re: [PATCH v4] reboot: fix cad_pid use-after-free race
+Message-Id: <20260831-mysterien-fachwelt-erfreuen-70b49c6e0bad@brauner>
+Date: Mon, 31 Aug 2026 10:25:51 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-362b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=863; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=oi3IwRGEdFAcg1n0hcZwUHOudCsYct2I5HEiNEmL5wM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNtZqSpfKrpOZA64TSpdmqc/dwpWw8mq/5KN2XeZuAt
+ ejM/at4OkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYSepeR4YZk+I9ZU8/r6eeG
+ skserhLoCngiIXvW+M+Hj/uqJpy795KR4f4Fh53Xn01o/r13eqPmNhOBz1WbnjteztY518/wN8P
+ 2PCcA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-get_rtc_noop() is used when an RTC is unavailable, but leaves its output
-argument untouched. When CONFIG_INIT_STACK_ALL_ZERO is not enabled,
-timekeeping_init() may therefore receive a nonzero invalid persistent
-clock value and warn:
-"Persistent clock returned invalid value"
+On Fri, 14 Aug 2026 00:09:44 -0400, Cen Zhang (Microsoft) wrote:
+> reboot: fix cad_pid use-after-free race
 
-Initialize the output to zero, the documented representation of an
-unsupported persistent clock.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Fixes: c311ed6183f4 ("x86/init: Allow DT configured systems to disable RTC at boot time")
-Cc: stable@vger.kernel.org
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
----
- arch/x86/kernel/x86_init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-diff --git a/arch/x86/kernel/x86_init.c b/arch/x86/kernel/x86_init.c
-index 252c5827d0634..3b9b41820c84c 100644
---- a/arch/x86/kernel/x86_init.c
-+++ b/arch/x86/kernel/x86_init.c
-@@ -37,7 +37,7 @@ static void iommu_shutdown_noop(void) { }
- bool __init bool_x86_init_noop(void) { return false; }
- void x86_op_int_noop(int cpu) { }
- int set_rtc_noop(const struct timespec64 *now) { return -EINVAL; }
--void get_rtc_noop(struct timespec64 *now) { }
-+void get_rtc_noop(struct timespec64 *now) { *now = (struct timespec64){0}; }
- 
- static __initconst const struct of_device_id of_cmos_match[] = {
- 	{ .compatible = "motorola,mc146818" },
--- 
-2.43.0
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] reboot: fix cad_pid use-after-free race
+      https://git.kernel.org/vfs/vfs/c/5a88f78df753
 
