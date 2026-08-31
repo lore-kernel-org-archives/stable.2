@@ -1,106 +1,161 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049813CB578;
-	Mon, 31 Aug 2026 08:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4883D9020;
+	Mon, 31 Aug 2026 08:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788164157; cv=none; b=KvjODD+7qk7UMkZWzTT8o2MK9/+GrQx+ebTjZfIilVpRTS4Qc7uhh1KKIWntRhb/1NZgcI1844QYT6p1DL0oXNksVFRg41hDu7MpOie0PZ8ifFW2nw9flCV86GSyFHgzcMW82beBSJJHvpzDMOaTaleKr+t3lTa8DeRkG0uG3sU=
+	t=1788164386; cv=none; b=vAd/DYkKyslLr8ShtQAmL1feZugaKFZ1PjMqskP1rF5ExYrtumC75WI+F/tfmqxHun51V3OmOgVkT5OL+owBNn3ch10509USUweBOcpHeKDt6Z3yNJyEtbrayo0QcEMYIVZPHRU694IJtMg5Obi0Xf6w05ItIaQ+DNy1q7bi2Ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788164157; c=relaxed/simple;
-	bh=dO1PhbbuapCDdecX8FQLDCFikf/EZ4QABFv1142fTGk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uDysd4J/rnwCBb+QUlaycqvwjZGnmh13drX+Wcr6Ufw5IVim4PJqbl+lG8P4pOusBh67qn/1PiQpr1cFdJ4t/1XxR+sLSzK1EVFHJmq7vsKhjy3P5b3MN1GSILO2ZO+jZs54s/nWFgj0bM9qWQa6CiBdSBVT+Zhw8ZA9m/27ZMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=YhcOYYWh; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788164386; c=relaxed/simple;
+	bh=JO3nZQ+VRl1L6SKbvgIjlm/szA2X0ZABCBkkPeObjJQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N3hgbKiF2xY0OvMfIJRQNgnSUKNeLKG5yKDs0PsdDWKnl8Kas8NaWscUS26hI7PpfB9KSxkHFmH9eonVkAIy56EX6/3UUZlhCNTOnxL7Z79UTwqGK9DSur6t5qiCD5ttVMMOkHmRzU7GYdolnCLEg6n/ByAfUnIYRwMg5vpJgs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UTm+JG3e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YhcOYYWh"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788164151; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=tt0yHsbfJEZ1+ZZbrMLoRaILCdqS9+900vtSCcW9og4=;
-	b=YhcOYYWhhUoS/qMw/h4airDhg5iWAPRj31tZn884Okb/7d9P2ploVnwHmeVK+KCySkQ2wco+ufh3AEkQtFZBeBx3BUtBH/4nd0e7lYRe8JVjpW7A49xTtPlKWfSHGZ50EwFxCHhJ5Cl/nhza5oCcsANCNH09HzIUyJH/QdDixM8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R681e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0X9v1.h._1788164149;
-Received: from 30.74.144.115(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X9v1.h._1788164149 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 31 Aug 2026 16:15:49 +0800
-Message-ID: <80b86bdb-9ef7-4eb8-95db-695fdae551d6@linux.alibaba.com>
-Date: Mon, 31 Aug 2026 16:15:48 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UTm+JG3e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C2641F000E9;
+	Mon, 31 Aug 2026 08:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788164383;
+	bh=cxHnScIhHfJHoR2y29MnW5qLoEsZ/nki/OaUtMHaDgo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UTm+JG3eWDTLXG6NArCPK/X08xuXmdV8frCPHlr+6nB2p60BXkeNN150Og2Z3jrHu
+	 iHoGe+lwA3siYhqI/nbZcpMaihDEqragIlngcYXYehv4hX/bnZGdPFTMIfpQiZBLhm
+	 7Kx0WCQITGP/FfmvzU9MMsIFPa8kZp/9gC71gid61pUMc7O/u93tr4j3VvDsPBvC+i
+	 7ooIPxDiz6Dt74H9w2n0hS3OReI1R3cav97CNaaoWAjIjt5twSJWrx0ioSe0rP3BrN
+	 SW77tfc7YP3mD9kJFNBzRrNqpwlBAkZM1e+r0B6bNKbLSbz03txdhSz6Z1ncWn3+SW
+	 eJztJIHWuYvsg==
+Date: Mon, 31 Aug 2026 09:19:37 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mremap: account mm->locked_vm correctly for
+ MREMAP_DONTUNMAP
+Message-ID: <apU5ErQKpDNqEuW3@gremlin>
+References: <20260828-mremap-fix-locked-vm-v1-1-c80be7505d1e@kernel.org>
+ <CAN_Opa9CZUTUyvveTnVXK7Wy9Xq-9wc=QkASceLv5hTE-NiNnw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
- mappings
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Cedric Le Goater <clg@redhat.com>, Saravanan D <saravanand@crusoe.ai>,
- stable@vger.kernel.org
-References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAN_Opa9CZUTUyvveTnVXK7Wy9Xq-9wc=QkASceLv5hTE-NiNnw@mail.gmail.com>
 
+On Sat, Aug 29, 2026 at 10:37:11PM +0800, KunWu Chan wrote:
+> Hi Lorenzo,
+>
+> Thanks for the fix. I agree this is a very clean solution.
+>
+> On Fri, Aug 28, 2026 at 7:20 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > When a VMA is mremap()'d with MREMAP_DONTUNMAP set, that results in the VMA
+> > being copied, but the source VMA not being unmapped.
+> >
+> > If the VMA is mlock()'d this is a legal operation, though the source VMA
+> > has its VMA_LOCKED_BIT cleared.
+> >
+> > However this is done in dontunmap_complete(), after mm->locked_vm was
+> > incremented via vrm_stat_account(), resulting in double-counting.
+> >
+> > Worse, this is not even corrected when source VMA is unmapped, due to
+> > the VMA_LOCKED_BIT flag having been cleared.
+> >
+> > This all works fine in the usual mremap() case (without MREMAP_DONTUNMAP),
+> > as the source VMA is unmapped with VMA_LOCKED_BIT intact, at which time
+> > mm->locked_vm is decremented accordingly.
+> >
+> > Resolve the issue by invoking vrm_stat_account() only after
+> > dontunmap_complete() has run.
+> >
+> > Note that MREMAP_DONTUNMAP requires old_len == new_len, so no need to
+> > account for a delta in size in this case.
+> >
+> > The bug was introduced by commit b714ccb02a76 ("mm/mremap: complete
+> > refactor of move_vma()") which incorrectly reordered the accounting and the
+> > clearing of the VMA_LOCKED_BIT flag.
+> >
+> > Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> > Closes: https://sashiko.dev/#/patchset/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
+> > Reported-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > Closes: https://lore.kernel.org/all/20260828094823.594279-1-kunwu.chan@linux.dev/
+> > Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  mm/mremap.c | 9 ++++-----
+> >  1 file changed, 4 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/mm/mremap.c b/mm/mremap.c
+> > index 2b4b523a86b8..7c368440fafe 100644
+> > --- a/mm/mremap.c
+> > +++ b/mm/mremap.c
+> > @@ -1355,12 +1355,11 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+> >                 if (vma_is_anonymous(vma) && !vma->vm_file)
+> >                         vma_set_pgoff(vma, pgoff_unfaulted);
+> >         }
+> > -
+> > -       /* Because we won't unmap we don't need to touch locked_vm. */
+> >  }
+> >
+> >  static unsigned long move_vma(struct vma_remap_struct *vrm)
+> >  {
+> > +       const bool is_dontunmap = vrm->flags & MREMAP_DONTUNMAP;
+> >         struct mm_struct *mm = current->mm;
+> >         struct vm_area_struct *new_vma;
+> >         unsigned long hiwater_vm;
+> > @@ -1401,10 +1400,10 @@ static unsigned long move_vma(struct vma_remap_struct *vrm)
+> >          */
+> >         hiwater_vm = mm->hiwater_vm;
+> >
+> > -       vrm_stat_account(vrm, vrm->new_len);
+> > -       if (unlikely(!err && (vrm->flags & MREMAP_DONTUNMAP)))
+> > +       if (unlikely(is_dontunmap && !err))
+> >                 dontunmap_complete(vrm, new_vma);
+> > -       else
+> > +       vrm_stat_account(vrm, vrm->new_len);
+> > +       if (!is_dontunmap || err)
+> >                 unmap_source_vma(vrm);
+> >
+> >         mm->hiwater_vm = hiwater_vm;
+> >
+> > ---
+> > base-commit: aeddb4d52acfcc5ce5e988acd48f2906fe966ca3
+> > change-id: 20260828-mremap-fix-locked-vm-b8991ffc4181
+> >
+> > Best regards,
+> > --
+> > Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >
+>
+> I tested the patch with the following tests [1]:
+> 1: test-vmlck.c — Andrew Morton's test for basic locked_vm accounting
+> with mlock()/MREMAP_DONTUNMAP.
+> 2: test_mlock_onfault_nofault.c — MLOCK_ONFAULT with no pages faulted in.
+> 3: test_mlock_onfault_fault.c — MLOCK_ONFAULT with pages faulted in.
+>
+> All three tests passed with the patch applied.
+> Tested-by:  Kunwu Chan <kunwu.chan@gmail.com>
+>
+> The fix also looks correct to me.
+> Reviewed-by:  Kunwu Chan <kunwu.chan@gmail.com>
 
+Great thanks! :)
 
-On 8/28/26 3:55 AM, Lorenzo Stoakes (ARM) wrote:
-> The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-> confusingly only control the behaviour of THP in some instances.
-> 
-> They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
-> 
-> Long-term, THP is predicated upon compaction being able to obtain large
-> folios to populate THP ranges.
-> 
-> However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-> reference count is maintained by the driver, not core mm.
-> 
-> As a consequence, the folios are not subject to reclaim nor compaction, so
-> are not truly part of the THP mechanism at all.
-> 
-> However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> introduced the ability to establish huge PFN maps, they have been subject
-> to THP tuneables.
-> 
-> This is incorrect - if a huge PFN map is available (defined by
-> vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-> should be mapped huge upon fault-in.
-> 
-> Correct this by explicitly checking for this while ensuring that smaps
-> continues to accurately report THPeligible statistics.
-> 
-> While here, abstract the entire file-backed THP check in
-> vma_can_map_huge_file(), with sensible separation of logic into helper
-> functions.
-> 
-> Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
-> maps of shmem folios, however they are marked unevictable in
-> drm_gem_get_pages(), and in any case would fail the reference check in
-> __remove_mapping() even if they weren't.
-> 
-> Failing to map huge PFN maps has resulted in significant real-world
-> performance degradation, see links for details.
-> 
-> Reported-by: Cedric Le Goater <clg@redhat.com>
-> Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-> Reported-by: Saravanan D <saravanand@crusoe.ai>
-> Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+>
+> [1] https://github.com/KunWuChan/vmlck_test
+>
+> Thanks again!
+>
+> Best,
+> Kunwu
 
-LGTM. Logic looks clearer now. Thanks.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+--
+Cheers, Lorenzo
