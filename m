@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DE934D4DE
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 01:39:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE03534C141;
+	Mon, 31 Aug 2026 01:39:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788140375; cv=none; b=JtW5MN3AfUdmP7gN7JLjd9sO8FRlqTQOkr8XuHcJUr5z7DZFXDJOMu610YXoC4NaAIL5gW14IEPu2dDQOGLy6U3NYkzly0EOThI1UVolGFVl5j+8AF13zSLWzWmoi0lWtYlHvVtnfzjipv2IKdOK530Fr0tHE1tT1g5oeTHgQJc=
+	t=1788140376; cv=none; b=HQtzfJoYmizLFyRLLTkDxR+1n5kflcjcgL5fflXNxYj9Ah5WTM1lirM7ikEK8UNkyx+S8FuuuXiI3LAfge8GP1ZL46X3p0XApCQvRCv6wZjGOigRoSSVmxoyszDMz9YSyXquzlSWxL4/XSvq7lffw4F34SCnTa8UYJ+UBjRw/CI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788140375; c=relaxed/simple;
-	bh=ZU1iJqxO/ow7/qFIs7+knUHuXrObQaV1myTSAsYD2x0=;
+	s=arc-20240116; t=1788140376; c=relaxed/simple;
+	bh=2p3lWF1Qf+EdHVZ5rrVPf3bgukvNQ/S3YW3+JuaxMMw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mYfl0rQdmYkS6QiYjH/QLyDT9Bu7oCQZz6mh+EbCi4yoDEtjKJTogKg67S2Urs3lO7btzlQ93jkTCuzD8/dz9slDJit9URy7hX/5UwkwHfTWdLDjJT7dSTkoAMDRf7O13FKtU4eNfVLUBHA3C60+BUIPKsHVrkD+XeT5uh7Gzi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5FoUXhY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=O4VjPLEdEpavQ5oSFP23qNAqAJvmZvJjtlL3F4kFkgVtZPd9mafVl2U18LWeb+xQgv48L8XnIjliOZANBEGSbR9z0fpnmGkwAWHaoo4ECzitkNbqr3iwja/vgaopLn56U/V6O7M35AMslwdPG2VCYd81XpYzNowo7k2A3T7pxhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVWDBGDm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5FoUXhY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE7E1F00A3F;
-	Mon, 31 Aug 2026 01:39:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVWDBGDm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608941F00A3E;
+	Mon, 31 Aug 2026 01:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788140374;
-	bh=VkxHAPHUJw+4BRJjyiAGZYsU1OsNMNj0jfOsMr3dGg0=;
+	s=k20260515; t=1788140375;
+	bh=xaXlGRsNvPMHvYeN92hG7Q+hVmHvfa3015wWgUvq4BA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G5FoUXhYh/fI1553D+VumCvJETKZeo3ZwHBHurWg0K8uGAsnXyLzVULk5pT5LIsrN
-	 EGhJnd+2OJcgpJyMszOmSoN4JplVw8EDo9n85TVRoXPboZd6VRqKek3PUQyKu6vDIc
-	 h2JHXL3vVqNHXZGpd4SzqtV6pqyepSrRu68rTWegS5HQpnlsbDYsLObyFMsPCcINix
-	 ji8xpHoszO1svFqwIW1jtjG0nNJOxfipA2WWsOrdxhXuh+WfiqD3vqh/95TNchkhkk
-	 lzJJFojLFJ3lB4YHklFu4SRV0C6mYDyiI9AykHf3xO/uXymZMhj0Z6+xJ6fiBa1Vha
-	 QXWTtBvhmVAuA==
+	b=HVWDBGDmsSS/igNUrEpvBDiFjwA6NzVBFqJOhc48X9Y0NJ387cGw2zHlgOy6Hhwj6
+	 52k2SOC9puOv44xL1ja5/UK3ZaCWfi8+9dZdiXowcGpmaI1aNuKw/52gAay7+k+dnu
+	 vPFLj6P6GB4X/tjhuo+vfMETLzGvWjPm4HLLNn5vPy4EEu/KrSmhOJsUCQ5mDCB2cw
+	 jWRQqCN2cCj95OIuJnVNVn5anAKUvKJsngnCkl+kxPHYf3d7QAwvSR6MwvVdfZQdAP
+	 0xxpdL43jusL5KpCgb13Kef2FW/Tg1omRi159VYqKaxO6Z4awffQ77S8Fzx1jTBQvZ
+	 waRgsGdxjIWwA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: Please consider these upstream CVE fixes for 6.6.y
-Date: Sun, 30 Aug 2026 21:39:16 -0400
-Message-ID: <20260830195500.0011-1-sashal@kernel.org>
+	gregkh@linuxfoundation.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	linux-block@vger.kernel.org,
+	syzbot+b8d61a58b7c7ebd2c8e0@syzkaller.appspotmail.com,
+	syzbot+2aca91e1d3ae43aef10c@syzkaller.appspotmail.com,
+	=?UTF-8?q?Miguel=20Garc=C3=ADa?= <miguelgarciaroman8@gmail.com>
+Subject: Re: [PATCH 6.1.y v2] block: make bio_check_eod work for zero sized devices
+Date: Sun, 30 Aug 2026 21:39:17 -0400
+Message-ID: <20260830195600.0012-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260830082733.35424-1-artem@trailofbits.com>
-References: <20260830082733.35424-1-artem@trailofbits.com>
+In-Reply-To: <20260829171918.134829-1-miguelgarciaroman8@gmail.com>
+References: <20260829171918.134829-1-miguelgarciaroman8@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,18 +50,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Thanks for carrying the earlier 6.1.y fixes into the newer trees. After
-> dropping them, these four mainline fixes remain absent from 6.6.y and its
-> current stable queue. Linux CNA records mark v6.6.155 affected for each
-> CVE. Every newer tree has the first three fixes. The last remains absent
-> from 6.12.y and 6.18.y.
+> Since the dawn of time bio_check_eod has a check for a non-zero size of
+> the device.  This doesn't really make any sense as we never want to send
+> I/O to a device that's been set to zero size, or never moved out of that.
 
-Queued the mirred deadlock fix and its noop_qdisc owner follow-up plus
-the starfive fix for 6.6.y, and the hv-gpci fix for 6.18.y, 6.12.y and
-6.6.y. Thanks.
-
-Dropped the btrfs one - it doesn't build on 6.6 riscv, 1-byte cmpxchg
-isn't supported there.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
