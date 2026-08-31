@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BC83C1083
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F036D3BFAEE
 	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:44:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788216265; cv=none; b=SjCiT0T9Zq/Kr6z51wm39poGDBZvC6FJJSarkSyPASOrURChyyNGZSrxR/SnWrQfJH6sUhH+OklTHCreLCsXIa5k4jdgf9bl75noPqoli9dtCAes9lq6Nlap7svLTkET5LLYoHEmYtSBrykteQL6F51WR/eXd17aU0xtQk0BDZI=
+	t=1788216266; cv=none; b=gzDToDrvOjVTVPwIT9K3BuIQQ2r6bzkp5ADx2xpzfMKikS6sw22uvJYKCAtpS3DwvsP9UP9kDCOpwIUmwBW/RQiS8eps5YGtkQXmc9LBLb9z5qMix8dMPkXauzjBFVAZ0stn2ONQMYzhwnhnW9nEdWF2Zvpf+Whafphkc1wyjVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788216265; c=relaxed/simple;
-	bh=/kR8qx04GaK1fozh91ZrueT9taUY09NoFMimXg43G9c=;
+	s=arc-20240116; t=1788216266; c=relaxed/simple;
+	bh=8KocehJBGbso28ztOpskdY5PgnP/KnQch27E1KeQWx0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Itch56sdSDr8N3mHTC0ajj50/Tg4iQALtQmBLs1w01su23BoxsxseuezU7IqtishM8cENjt9yDfRBhwxmXl3fCEhc7gD5Q8saytihTZbl255DySOJF41jqWFr4pKRzegJC18MStZqBJXRsDOnenX+xO/3NqA4fHAzdWAKMQB858=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zv6Wh5jz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tpMI91gsWlsN4Rlhhc849UsXT/H9Dwx7GAdp0PFEoONlH9ezIZTYW2ia7dK6I3ZdF0JGcn2rEhMZoyDSRVrZ/c8/iKTv/huBR2txDD4k6TYmLvxjjvmABHZLp0oSTtyuZkuYoVmkKDiPqWo23kLq7Py06TpKDeOizCNYAXbGTKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VtoEuD06; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zv6Wh5jz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5C01F00A3F;
-	Mon, 31 Aug 2026 22:44:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VtoEuD06"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A10B1F000E9;
+	Mon, 31 Aug 2026 22:44:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788216264;
-	bh=i/l3TsS26Qm2RgkOwjKSwq7WahiYxc5glvcqes89URg=;
+	bh=QNFS2w3OB+C83/WExP0RqiJDCIAzBzXfcvOu8YDEdGw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zv6Wh5jzPd5ZSL1/ukKpichHsVbMdiEzKe7D306hNpnKpjy4XPH/AvnxmrR5nFNRI
-	 BQx/UCD0/itOt40Ko2fACc1IjdAL+hW1HMpshG9yqy64tD+OePlFMWRzGIIcApx0t/
-	 xfes3rK3c16di/MLEXnAL71RWaFc9/S+A6fRb01UkSDJ5ZOJRct693JZJiymIfWAV4
-	 ejgQrLG4CuatfGWEJBX+X4jUT/EF/YFWpNQoC/tbuIOOsKaQNBqbV5Bu7qdUv7ovqT
-	 UjSzKR7fh5r2mR5ED5bMuPq3ZYmYrLnqUmSjXoPZq1pgJKNqnukkEauVlrwTs9C3yK
-	 HHnXi8ym54tlw==
+	b=VtoEuD06Py404/VtYenhy9WfnL328u81JXjIhSqXwUq0AE3kYXlzTUNqcfZYV/qyf
+	 tSl/bT51+RNs99RFBmcP3JP58FbTED//eQiNGbUX5aNjDslgbbdBTBmbwCFzsjetuQ
+	 Hs+trz29lmaJk22+zr9FatN5Nq9JCQLyBSiCIK731V6yNYphto08x8EeHZ8rdiBdBN
+	 33smaHFbGoXx5kVxlIupiBPqXqybUiFaIHDC5X8AxfrjXc0u8Mxj4t9GKIYpKLYzY6
+	 xSBm06WJlhKTSTwmGdKx/CHi+e8KNT67mf86NfoM43xOInuZTitXvXc6V+Urqm6TQV
+	 UO0MN2XuIDzyw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
 	Michael Roth <michael.roth@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 6/8] KVM: x86/mmu: Split kvm_mmu_zap_all_fast() into "front" and "back" halves
-Date: Mon, 31 Aug 2026 18:44:15 -0400
-Message-ID: <20260831224417.1903154-6-sashal@kernel.org>
+Subject: [PATCH 7.1.y 7/8] KVM: x86/mmu: Use split "zap all fast" helpers when invalidating memslot
+Date: Mon, 31 Aug 2026 18:44:16 -0400
+Message-ID: <20260831224417.1903154-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831224417.1903154-1-sashal@kernel.org>
 References: <2026083159-request-customs-f573@gregkh>
@@ -48,92 +48,78 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit b27622c4eeb125814081baaefe9175191be5b94d ]
+[ Upstream commit db095727ff5739f4f46ee641ee6ef450032886db ]
 
-Split kvm_mmu_zap_all_fast() into a "front half" and a "back half", where
-the front half is everything that runs with mmu_lock held for write, and
-the back half is the code that runs outside of mmu_lock.  This will allow
-putting more code inside kvm_arch_flush_shadow_memslot()'s critical section
-without having to take mmu_lock twice in quick succession.
+Manually invoke the front half and back half of the "zap all fast" flow
+when invalidating a memslot so that mmu_lock is acquired at function scope
+in kvm_arch_flush_shadow_memslot().   This will allow putting more code
+inside the critical section without having to take mmu_lock twice in quick
+succession.
+
+Opportunistically open code checking whether or not to do the fast zap, to
+discourage removing the local "zap_all" in a future cleanup, i.e. to ensure
+the SLOT_ZAP_ALL quirk is queried exactly once.  Processing the front half
+but not the back half of the fast zap (if SLOT_ZAP_ALL were disabled
+concurrently) would result in KVM unnecessarily keeping invalid TDP MMU
+roots until the VM is destroyed.
 
 No functional change intended.
 
 Cc: stable@vger.kernel.org # 6.12.x
 Reviewed-by: Michael Roth <michael.roth@amd.com>
-Link: https://patch.msgid.link/20260709204948.1988414-9-seanjc@google.com
+Link: https://patch.msgid.link/20260709204948.1988414-10-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 Stable-dep-of: d1a3c2162334 ("KVM: SEV: Forcefully invalidate SNP VMSA if its backing gmem page is zapped")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/mmu/mmu.c | 37 +++++++++++++++++++++++++------------
- 1 file changed, 25 insertions(+), 12 deletions(-)
+ arch/x86/kvm/mmu/mmu.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 73358100e0018..10c28f78bf276 100644
+index 10c28f78bf276..43fadc53a1b92 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -6802,20 +6802,11 @@ static void kvm_zap_obsolete_pages(struct kvm *kvm)
- 	kvm_mmu_commit_zap_page(kvm, &invalid_list);
+@@ -7454,12 +7454,6 @@ static void kvm_mmu_zap_memslot_pages_and_flush(struct kvm *kvm,
+ 	kvm_mmu_remote_flush_or_zap(kvm, &invalid_list, flush);
  }
  
--/*
-- * Fast invalidate all shadow pages and use lock-break technique
-- * to zap obsolete pages.
-- *
-- * It's required when memslot is being deleted or VM is being
-- * destroyed, in these cases, we should ensure that KVM MMU does
-- * not use any resource of the being-deleted slot or all slots
-- * after calling the function.
-- */
--static void kvm_mmu_zap_all_fast(struct kvm *kvm)
-+static void __kvm_mmu_zap_all_fast_front_half(struct kvm *kvm)
+-static inline bool kvm_memslot_flush_zap_all(struct kvm *kvm)
+-{
+-	return kvm->arch.vm_type == KVM_X86_DEFAULT_VM &&
+-	       kvm_check_has_quirk(kvm, KVM_X86_QUIRK_SLOT_ZAP_ALL);
+-}
+-
+ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+ 				   struct kvm_memory_slot *slot)
  {
- 	lockdep_assert_held(&kvm->slots_lock);
-+	lockdep_assert_held_write(&kvm->mmu_lock);
+@@ -7470,16 +7464,23 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+ 		.may_block = true,
+ 		.attr_filter = KVM_FILTER_PRIVATE | KVM_FILTER_SHARED,
+ 	};
++	bool zap_all = kvm->arch.vm_type == KVM_X86_DEFAULT_VM &&
++		       kvm_check_has_quirk(kvm, KVM_X86_QUIRK_SLOT_ZAP_ALL);
+ 	bool flush;
  
--	write_lock(&kvm->mmu_lock);
- 	trace_kvm_mmu_zap_all_fast(kvm);
- 
- 	/*
-@@ -6852,8 +6843,12 @@ static void kvm_mmu_zap_all_fast(struct kvm *kvm)
- 	kvm_make_all_cpus_request(kvm, KVM_REQ_MMU_FREE_OBSOLETE_ROOTS);
- 
- 	kvm_zap_obsolete_pages(kvm);
-+}
- 
--	write_unlock(&kvm->mmu_lock);
-+static void __kvm_mmu_zap_all_fast_back_half(struct kvm *kvm)
-+{
-+	lockdep_assert_held(&kvm->slots_lock);
-+	lockdep_assert_not_held(&kvm->mmu_lock);
- 
- 	/*
- 	 * Zap the invalidated TDP MMU roots, all SPTEs must be dropped before
-@@ -6867,6 +6862,24 @@ static void kvm_mmu_zap_all_fast(struct kvm *kvm)
- 		kvm_tdp_mmu_zap_invalidated_roots(kvm, true);
- }
- 
-+/*
-+ * Fast invalidate all shadow pages and use lock-break technique
-+ * to zap obsolete pages.
-+ *
-+ * It's required when memslot is being deleted or VM is being
-+ * destroyed, in these cases, we should ensure that KVM MMU does
-+ * not use any resource of the being-deleted slot or all slots
-+ * after calling the function.
-+ */
-+static void kvm_mmu_zap_all_fast(struct kvm *kvm)
-+{
+-	if (kvm_memslot_flush_zap_all(kvm)) {
+-		kvm_mmu_zap_all_fast(kvm);
 +	write_lock(&kvm->mmu_lock);
-+	__kvm_mmu_zap_all_fast_front_half(kvm);
++
++	if (zap_all) {
++		__kvm_mmu_zap_all_fast_front_half(kvm);
+ 	} else {
+-		write_lock(&kvm->mmu_lock);
+ 		flush = kvm_unmap_gfn_range(kvm, &range);
+ 		kvm_mmu_zap_memslot_pages_and_flush(kvm, slot, flush);
+-		write_unlock(&kvm->mmu_lock);
+ 	}
++
 +	write_unlock(&kvm->mmu_lock);
 +
-+	__kvm_mmu_zap_all_fast_back_half(kvm);
-+}
-+
- int kvm_mmu_init_vm(struct kvm *kvm)
- {
- 	int r, i;
++	if (zap_all)
++		__kvm_mmu_zap_all_fast_back_half(kvm);
+ }
+ 
+ void kvm_mmu_invalidate_mmio_sptes(struct kvm *kvm, u64 gen)
 -- 
 2.53.0
 
