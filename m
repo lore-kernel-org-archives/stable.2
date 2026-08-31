@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6B5372070
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 16:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169FC37267C
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 16:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194590; cv=none; b=Pw8yewiMnQ0bj0Nk/m8pEn7EEvvlKrjs4YeSAjg/Sq6xeucyK0VoLx3frorqPgk2lRlWJIEmdZjSLXLpcq7RqGfFFj0+CMImD2QvyE7buS6E42XwsL6XvNbQb7L7+7wQD/RMS1WWMW82MCddbH3X5ORc2h/UjBei/lRrH3zfaMc=
+	t=1788194597; cv=none; b=J6Oyp6s7kOKg1/ryvwnWCaBKq5fAcL6O2PUOKCWTTK9QxuZmzsmmugFIu2BK5UINrIDWDW6tPSjJcZTuWNaCVphKXJbsDm4b+9cfNMSYot2orJ1q+M8EqnmU1IJqBvn6ut1ioKjQvufFOtEyqe13VdG4LpKMdBvyzXQ+VVAhoR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194590; c=relaxed/simple;
-	bh=VSY/IgiPguB9hEWScz8PyhVEqV1XXOHO2izGl7WSZuw=;
+	s=arc-20240116; t=1788194597; c=relaxed/simple;
+	bh=pt6p2zTGYpBQO1aUgYVSHWWakm4i6onZJu0LjsZfg7A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RTJS7JpMQNAUbQSHnMPDOBfDv8N7BJ/x5/YKufn77x6ja0GYe1aUxBu+bMrKpfeFRb+I6vvJ3JNUkC3QJ42TmRBiA1Zce9Vq2shfZp1fgK9zcmzYuf0a/8DgEO93BxosiZ7wcPHRG1kTQDSvkWwO75t6txciH2aTTTaYbbjreCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuGq4dD0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p97Gu3E0yVCU7xyjlNSlcqu0eZcwRZV3pFttwFNZAsqlGfy79K3TvgcRdP/MFwCs7GrRA5yxY4Zusc6qDSDWky/pisBo5SDeF9HU6+F5+t048237Qcoc2Fb/PPDL/OenfDHjKWTIYDbkGlRmt2Yl+5syupViaBxrly1AEzmwIb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0LUcxZ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuGq4dD0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A94C1F000E9;
-	Mon, 31 Aug 2026 16:43:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0LUcxZ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86E721F000E9;
+	Mon, 31 Aug 2026 16:43:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788194589;
-	bh=gxMe28NJa+jZgEcKXB+KwkZ0/5cYtsPhwJ+GUPzzn2Y=;
+	s=k20260515; t=1788194596;
+	bh=L3dfDgSe+dffKJaoPr6iYa4nFbOoT8zzZbwRBPulCyo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UuGq4dD0fQBLWiZ3D/HjDeaZixhhIeHtUMnkq1Dte+2A/XQES0/dfe2sV8e/PtAht
-	 lZkAEe6J/KnJaIdjzRys6ajODEG7exTrNtaoMsIDW0VzVeD4BZCgaiBn3kykZCZF8/
-	 fxr5ecd5Pi1+ydQj6DNjCU4Cs+KeyTVO6E85JxJxxRFiIebQ8iH9bQVzClk2oKtcOq
-	 TkC2C245AGE9JtubXbcixsnzXPtcvOGoQtBr/IdCg/dg4h6KU/H3rWDgTwM/X61Onl
-	 HYBcL2yLbl57wjWLTT2BwEXeyYR3830a3Vv3bZuO3y9xSGzpCwrQJ5xatqtiBL9i0d
-	 0nCjX0A3QCPxw==
+	b=d0LUcxZ8ntrImb4ge4BX/00jOq2D/zN+h786nADZCmHSXsfaf3U9TxbF1UgDTbqfe
+	 AYJcQX/4vCDcZ/XnshZj2Z/HK5QYdpDmMU6nO2/nzpVGcbRb9kTVSnr8toD1X1853+
+	 U8W/0o2uhIwkKEEBKV+Jy9oZMwM/XupqbrWnfX/Ltg/mkxSbWAqSQI/YTviGfXupbi
+	 e5w4sli3Dg6wTDqrGxmBy3fP3l0Dg31EODRj3z5/CTG2HgYl00+vlY5cP8wpxijvEc
+	 0GXbFPBEu0JCQVM2QAzpi5xD3JLMawwXKsXlP7xJBx0v0r4Fn/X1S+cjuYXP4Smr4y
+	 V/HIFV8zhyRdA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] fuse: publish io-uring queues with release semantics
-Date: Mon, 31 Aug 2026 12:43:03 -0400
-Message-ID: <20260831164303.270170-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] fuse: split off fuse_args and related definitions into a separate header
+Date: Mon, 31 Aug 2026 12:43:11 -0400
+Message-ID: <20260831164313.270365-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083152-cucumber-unwieldy-2691@gregkh>
-References: <2026083152-cucumber-unwieldy-2691@gregkh>
+In-Reply-To: <2026083132-jaybird-willed-acf3@gregkh>
+References: <2026083132-jaybird-willed-acf3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,116 +44,163 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: Miklos Szeredi <mszeredi@redhat.com>
 
-[ Upstream commit 42df916e5a5f8fb4b60c8cefb54318d1ec02c580 ]
+[ Upstream commit 229f9b9b66ab5be9e015422cf30b97740cfbdc8d ]
 
-fuse_uring_create_queue() initializes a fuse_ring_queue and then
-publishes the pointer into ring->queues[qid] with WRITE_ONCE() under the
-fch->lock. There are several readers that may concurrently be fetching
-that pointer locklessly and then deferencing it.
+This is going to be used by both layers (transport and filesystem)
 
-WRITE_ONCE() doesn't ensure ordering of the queue's field
-initialization before the ring->queues[qid] pointer assignment. The
-queue must be published with smp_store_release() so the field
-initialization is guaranteed to happen before.
-
-Readers in paths where the read may happen concurrently with the store
-need to use READ_ONCE() because any race involving a plain access is
-undefined.
-
-Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
 Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ renamed `fch->lock` to `fc->lock` since this tree lacks `struct fuse_chan` ]
+Stable-dep-of: ed9c881f3b49 ("fuse: fix race between interrupt and resend")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/dev_uring.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ fs/fuse/args.h   | 65 ++++++++++++++++++++++++++++++++++++++++++++++++
+ fs/fuse/fuse_i.h | 53 +--------------------------------------
+ 2 files changed, 66 insertions(+), 52 deletions(-)
+ create mode 100644 fs/fuse/args.h
 
-diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index 6f74c345080f4..0a58f7bdc00b3 100644
---- a/fs/fuse/dev_uring.c
-+++ b/fs/fuse/dev_uring.c
-@@ -194,7 +194,7 @@ void fuse_uring_destruct(struct fuse_conn *fc)
- 		return;
+diff --git a/fs/fuse/args.h b/fs/fuse/args.h
+new file mode 100644
+index 0000000000000..12c94ece569fb
+--- /dev/null
++++ b/fs/fuse/args.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#ifndef _FS_FUSE_ARGS_H
++#define _FS_FUSE_ARGS_H
++
++#include <linux/types.h>
++
++struct fuse_mount;
++
++/** One input argument of a request */
++struct fuse_in_arg {
++	unsigned size;
++	const void *value;
++};
++
++/** One output argument of a request */
++struct fuse_arg {
++	unsigned size;
++	void *value;
++};
++
++struct fuse_args {
++	u64 nodeid;
++	u32 opcode;
++	u32 uid;
++	u32 gid;
++	u32 pid;
++	u8 in_numargs;
++	u8 out_numargs;
++	u8 ext_idx;
++	bool force:1;
++	bool noreply:1;
++	bool nocreds:1;
++	bool in_pages:1;
++	bool out_pages:1;
++	bool user_pages:1;
++	bool out_argvar:1;
++	bool page_zeroing:1;
++	bool page_replace:1;
++	bool may_block:1;
++	bool is_ext:1;
++	bool is_pinned:1;
++	bool invalidate_vmap:1;
++	bool abort_on_kill:1;
++	struct fuse_in_arg in_args[4];
++	struct fuse_arg out_args[2];
++	void (*end)(struct fuse_mount *fm, struct fuse_args *args, int error);
++	/* Used for kvec iter backed by vmalloc address */
++	void *vmap_base;
++};
++
++/** FUSE folio descriptor */
++struct fuse_folio_desc {
++	unsigned int length;
++	unsigned int offset;
++};
++
++struct fuse_args_pages {
++	struct fuse_args args;
++	struct folio **folios;
++	struct fuse_folio_desc *descs;
++	unsigned int num_folios;
++};
++
++#endif /* _FS_FUSE_ARGS_H */
+diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
+index c288f28f6c6ea..7d26159af4059 100644
+--- a/fs/fuse/fuse_i.h
++++ b/fs/fuse/fuse_i.h
+@@ -13,6 +13,7 @@
+ # define pr_fmt(fmt) "fuse: " fmt
+ #endif
  
- 	for (qid = 0; qid < ring->nr_queues; qid++) {
--		struct fuse_ring_queue *queue = ring->queues[qid];
-+		struct fuse_ring_queue *queue = READ_ONCE(ring->queues[qid]);
- 		struct fuse_ring_ent *ent, *next;
++#include "args.h"
+ #include <linux/fuse.h>
+ #include <linux/fs.h>
+ #include <linux/mount.h>
+@@ -296,58 +297,6 @@ struct fuse_file {
+ 	bool flock:1;
+ };
  
- 		if (!queue)
-@@ -213,7 +213,7 @@ void fuse_uring_destruct(struct fuse_conn *fc)
- 
- 		kfree(queue->fpq.processing);
- 		kfree(queue);
--		ring->queues[qid] = NULL;
-+		WRITE_ONCE(ring->queues[qid], NULL);
- 	}
- 
- 	kfree(ring->queues);
-@@ -307,9 +307,11 @@ static struct fuse_ring_queue *fuse_uring_create_queue(struct fuse_ring *ring,
- 	}
- 
- 	/*
--	 * write_once and lock as the caller mostly doesn't take the lock at all
-+	 * fc->lock serializes concurrent creators for this qid.
-+	 * smp_store_release() are for the lockless readers who must see a
-+	 * fully initialized queue after &ring->queues[qid] is set
- 	 */
--	WRITE_ONCE(ring->queues[qid], queue);
-+	smp_store_release(&ring->queues[qid], queue);
- 	spin_unlock(&fc->lock);
- 
- 	return queue;
-@@ -406,7 +408,7 @@ static void fuse_uring_log_ent_state(struct fuse_ring *ring)
- 	struct fuse_ring_ent *ent;
- 
- 	for (qid = 0; qid < ring->nr_queues; qid++) {
--		struct fuse_ring_queue *queue = ring->queues[qid];
-+		struct fuse_ring_queue *queue = READ_ONCE(ring->queues[qid]);
- 
- 		if (!queue)
- 			continue;
-@@ -911,7 +913,7 @@ static int fuse_uring_commit_fetch(struct io_uring_cmd *cmd, int issue_flags,
- 	if (qid >= ring->nr_queues)
- 		return -EINVAL;
- 
--	queue = ring->queues[qid];
-+	queue = READ_ONCE(ring->queues[qid]);
- 	if (!queue)
- 		return err;
- 	fpq = &queue->fpq;
-@@ -980,7 +982,7 @@ static bool is_ring_ready(struct fuse_ring *ring, int current_qid)
- 		if (current_qid == qid)
- 			continue;
- 
--		queue = ring->queues[qid];
-+		queue = READ_ONCE(ring->queues[qid]);
- 		if (!queue) {
- 			ready = false;
- 			break;
-@@ -1134,7 +1136,7 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
- 		return -EINVAL;
- 	}
- 
--	queue = ring->queues[qid];
-+	queue = READ_ONCE(ring->queues[qid]);
- 	if (!queue) {
- 		queue = fuse_uring_create_queue(ring, qid);
- 		if (!queue)
-@@ -1286,7 +1288,7 @@ static struct fuse_ring_queue *fuse_uring_task_to_queue(struct fuse_ring *ring)
- 		      ring->nr_queues))
- 		qid = 0;
- 
--	queue = ring->queues[qid];
-+	queue = READ_ONCE(ring->queues[qid]);
- 	WARN_ONCE(!queue, "Missing queue for qid %d\n", qid);
- 
- 	return queue;
+-/** One input argument of a request */
+-struct fuse_in_arg {
+-	unsigned size;
+-	const void *value;
+-};
+-
+-/** One output argument of a request */
+-struct fuse_arg {
+-	unsigned size;
+-	void *value;
+-};
+-
+-/** FUSE folio descriptor */
+-struct fuse_folio_desc {
+-	unsigned int length;
+-	unsigned int offset;
+-};
+-
+-struct fuse_args {
+-	uint64_t nodeid;
+-	uint32_t opcode;
+-	uint8_t in_numargs;
+-	uint8_t out_numargs;
+-	uint8_t ext_idx;
+-	bool force:1;
+-	bool noreply:1;
+-	bool nocreds:1;
+-	bool in_pages:1;
+-	bool out_pages:1;
+-	bool user_pages:1;
+-	bool out_argvar:1;
+-	bool page_zeroing:1;
+-	bool page_replace:1;
+-	bool may_block:1;
+-	bool is_ext:1;
+-	bool is_pinned:1;
+-	bool invalidate_vmap:1;
+-	bool abort_on_kill:1;
+-	struct fuse_in_arg in_args[4];
+-	struct fuse_arg out_args[2];
+-	void (*end)(struct fuse_mount *fm, struct fuse_args *args, int error);
+-	/* Used for kvec iter backed by vmalloc address */
+-	void *vmap_base;
+-};
+-
+-struct fuse_args_pages {
+-	struct fuse_args args;
+-	struct folio **folios;
+-	struct fuse_folio_desc *descs;
+-	unsigned int num_folios;
+-};
+-
+ struct fuse_release_args {
+ 	struct fuse_args args;
+ 	struct fuse_release_in inarg;
 -- 
 2.53.0
 
