@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7551948422B;
-	Mon, 31 Aug 2026 14:01:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CAE484239;
+	Mon, 31 Aug 2026 14:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184874; cv=none; b=YSeptRrcpCMPGH5E4VgmN01683L+QXkkjgWO9Ad5fYpvivFskAzHzHHyoIPOTkG3R1o6wIxtM+KeZdmWE9o7IA45jaJJmM85e2ka/A8dR5R5gSZp306lF42ZL3SXG/rbP+aaxvQTLokNY6MN0k1xOcg5FFrxxpxjtnZOukPIJFU=
+	t=1788184876; cv=none; b=otGZgs7kpuFvG19j7f7R3pHc1zBpllfKeJcNkRxKUfBby2zcQWZPE/wbY71eQF5sMZrZGGmn/+a0O1i0PTYxquPFod6sOldSlANEgZFg6ZPnNG4uA+YEpus0KzbixsmI0FQWicklo7RrFX85ZrMB4+EiKB2YqrlfNZ9UE0+aUHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184874; c=relaxed/simple;
-	bh=6ZCU6m+DZ9nh/Go9wbMA65XZAyOnJHSTFSQkbB7QOoE=;
+	s=arc-20240116; t=1788184876; c=relaxed/simple;
+	bh=FV580aQmYnBhqfXugdGp3NX5k69xSA8ZvvVjiYTU51I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UfTf3MgwhUmyPPFye9sCEdjxvdN+wGMWH3Tb4VJKdLa68XuYdCUxfR2FG5fosl0nyUDZ+zhAUzBzKe/+26jBbbeNWCYWTUjA0VQbDr6KBBOuZzs3uRZxWx0hDDYcBcypzrQCYtrsLzsSU5oARVKWr3uOseN84N6o1CONKLFKj5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RGolKllw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h9FPRhjZHx6j66q+xIccAyprrzUzf+MN16Q9M59U3uCxs/Ex7kOGRCiWlPpla3XUBne0wu6LntQi96g7GU4bjL1KfpSeJdriCZP5vcyhqU1OeK+xN/VnP8uHY55rhyOfdjnHyROUpuaVnYROutBzR6j+3DVhALrsfQ0ETZFsCnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=raGojp7u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RGolKllw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5CE1F000E9;
-	Mon, 31 Aug 2026 14:01:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="raGojp7u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC591F00A3D;
+	Mon, 31 Aug 2026 14:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184872;
-	bh=rjVgzoQehlmnKq24xKTzkfDx0WZ/9gdYghuhWW5UNpw=;
+	s=korg; t=1788184875;
+	bh=tBYlHlnlH9pt/g1HwdWn97/uBQFPdD5CjOmhrDu8oWg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RGolKllwOqGYyGnn9Otpi7fb0CzOBeT9KB5r8Iu24x/PMnFkIzuHcAIxCsVQyvIex
-	 GTGItMSU7WpN57mc+UhOC7KkQB6yBgEMxfuirF0uewDyBv2QWHs0yXkrxy8Bx+sw3a
-	 KePxqqeOw54lM492FF2/Wb3iFqQa7juagZDfkFvA=
+	b=raGojp7ut5kYpzKatMagS203TLIaI2mGQbCIrDWv19xomNIKNuP9AEiq1MfbbWBbJ
+	 8yamK1s9bdpaaTBvTaKxj6vsJGsTe+XHFi0pzLz37caVYb6DkOKiiOl1ixXIarY728
+	 WShQabMWDBk3Pn4K/M79qJ/Anzltqrlx+JpbSWyc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 19/92] can: j1939: add missing calls in NETDEV_UNREGISTER notification handler
-Date: Mon, 31 Aug 2026 15:34:17 +0200
-Message-ID: <20260831133400.584169403@linuxfoundation.org>
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Denis Arefev <arefev@swemel.ru>
+Subject: [PATCH 6.1 61/92] ipv4: igmp: Fix potential UAF in igmp_gq_start_timer()
+Date: Mon, 31 Aug 2026 15:34:59 +0200
+Message-ID: <20260831133402.847507498@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
 References: <20260831133359.482388899@linuxfoundation.org>
@@ -52,55 +53,92 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 93a27b5891b8194a8c083c9a80d2141d4bf47ba8 ]
+commit 7b19c0f81ed1fdaec6bc522569be367199a9edf3 upstream.
 
-Currently NETDEV_UNREGISTER event handler is not calling
-j1939_cancel_active_session() and j1939_sk_queue_drop_all().
-This will result in these calls being skipped when j1939_sk_release() is
-called. And I guess that the reason syzbot is still reporting
+A race condition exists between device teardown (inetdev_destroy) and
+incoming IGMP query processing (igmp_rcv), leading to a Use-After-Free
+in the IGMP timer callback.
 
-  unregister_netdevice: waiting for vcan0 to become free. Usage count = 2
+During device destruction, inetdev_destroy() drops the primary reference
+to in_device, which can drop its refcount to 0. The actual freeing of
+in_device memory is deferred via RCU (using call_rcu()).
 
-is caused by lack of these calls.
+Concurrently, igmp_rcv() runs under RCU read lock and obtains the
+in_device pointer. Because the memory is RCU-protected, CPU-0 can safely
+dereference in_device even if its refcount has hit 0.
 
-Calling j1939_cancel_active_session(priv, sk) from j1939_sk_release() can
-be covered by calling j1939_cancel_active_session(priv, NULL) from
-j1939_netdev_notify().
+However, if CPU-0 calls igmp_gq_start_timer() and re-arms the timer, it
+attempts to acquire a reference using in_dev_hold(). This increments the
+refcount from 0 to 1, triggering a "refcount_t: addition on 0" warning.
+Since the in_device memory is still scheduled to be freed after the RCU
+grace period (as the free callback does not check the refcount again),
+the device is freed while the timer is still armed. When the timer
+expires, it accesses the freed memory, causing a kernel panic.
 
-Calling j1939_sk_queue_drop_all() from j1939_sk_release() can be covered
-by calling j1939_sk_netdev_event_netdown() from j1939_netdev_notify().
+Fix this by using refcount_inc_not_zero() (via a new helper
+in_dev_hold_safe()) to prevent acquiring a reference if the device is
+already being destroyed. If the refcount is 0, we do not arm the timer.
 
-Therefore, we can reuse j1939_cancel_active_session(priv, NULL) and
-j1939_sk_netdev_event_netdown(priv) for NETDEV_UNREGISTER event handler.
+A similar issue in IPv6 MLD is fixed in a subsequent patch.
 
-Fixes: 7fcbe5b2c6a4 ("can: j1939: implement NETDEV_UNREGISTER notification handler")
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Tested-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Link: https://patch.msgid.link/3ad3c7f8-5a74-4b07-a193-cb0725823558@I-love.SAKURA.ne.jp
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260705181756.963063-2-edumazet@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[Denis Arefev: adapted for 6.1: keep prandom_u32_max(),
+get_random_u32_below() not used here]
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/can/j1939/main.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/inetdevice.h |    5 +++++
+ net/ipv4/igmp.c            |   14 +++++++++-----
+ 2 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/net/can/j1939/main.c b/net/can/j1939/main.c
-index 6bbe75d2211d5..21186932f8f61 100644
---- a/net/can/j1939/main.c
-+++ b/net/can/j1939/main.c
-@@ -378,6 +378,8 @@ static int j1939_netdev_notify(struct notifier_block *nb,
- 		j1939_ecu_unmap_all(priv);
- 		break;
- 	case NETDEV_UNREGISTER:
-+		j1939_cancel_active_session(priv, NULL);
-+		j1939_sk_netdev_event_netdown(priv);
- 		j1939_sk_netdev_event_unregister(priv);
- 		break;
- 	}
--- 
-2.53.0
-
+--- a/include/linux/inetdevice.h
++++ b/include/linux/inetdevice.h
+@@ -282,6 +282,11 @@ static inline void in_dev_put(struct in_
+ #define __in_dev_put(idev)  refcount_dec(&(idev)->refcnt)
+ #define in_dev_hold(idev)   refcount_inc(&(idev)->refcnt)
+ 
++static inline bool in_dev_hold_safe(struct in_device *idev)
++{
++	return refcount_inc_not_zero(&idev->refcnt);
++}
++
+ #endif /* __KERNEL__ */
+ 
+ static __inline__ __be32 inet_make_mask(int logmask)
+--- a/net/ipv4/igmp.c
++++ b/net/ipv4/igmp.c
+@@ -232,16 +232,20 @@ static void igmp_gq_start_timer(struct i
+ 		return;
+ 
+ 	in_dev->mr_gq_running = 1;
+-	if (!mod_timer(&in_dev->mr_gq_timer, exp))
+-		in_dev_hold(in_dev);
++	if (in_dev_hold_safe(in_dev)) {
++		if (mod_timer(&in_dev->mr_gq_timer, exp))
++			in_dev_put(in_dev);
++	}
+ }
+ 
+ static void igmp_ifc_start_timer(struct in_device *in_dev, int delay)
+ {
+-	int tv = prandom_u32_max(delay);
++	if (in_dev_hold_safe(in_dev)) {
++		int tv = prandom_u32_max(delay);
+ 
+-	if (!mod_timer(&in_dev->mr_ifc_timer, jiffies+tv+2))
+-		in_dev_hold(in_dev);
++		if (mod_timer(&in_dev->mr_ifc_timer, jiffies + tv + 2))
++			in_dev_put(in_dev);
++	}
+ }
+ 
+ static void igmp_mod_timer(struct ip_mc_list *im, int max_delay)
 
 
