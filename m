@@ -1,45 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407FB51D51E;
-	Mon, 31 Aug 2026 13:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158BD51E43C;
+	Mon, 31 Aug 2026 13:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183828; cv=none; b=aJgpf0GPijhf6wAoQBUPv/eM15HX8fwPc1sAA/hAmE2flG/iNOxE8TMi/2Mi41l6RXTMg6SMlpUIxhbmxYWMBi+YhlNe/ABuqPnKa4hBZdhiUNtQGmsKLD/BElooHi1UXdgl0l4ucEEbKFBdf7xwOty2DHbe3SNCLoEcELI51HU=
+	t=1788183829; cv=none; b=EIqn/FuTN58z1twtspIn/hdQLQ1LRTLZO6qfEnwOm7CTNIgrrNzY6w0tp3NzeVOqWA5O7wIxh5kBIHe8WEvGgsoJ9mdvVlOyMlPAyJ2pDWXtwvJ7rU5lMlpLzTIVyW1OAS5UqWQ6Nyu1CQkS7lH3ZT3d/QVO5UaysHCEaK0XZzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183828; c=relaxed/simple;
-	bh=dPT8heg57gsCwj1MfHCUgkmUbrdCMe7Hjkxj7ORt0yU=;
+	s=arc-20240116; t=1788183829; c=relaxed/simple;
+	bh=0YB707UxztxsX/xkAzuDdGmYNJHFkL2UvxORduJb4Gk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hw3OWydrIWjr4Fw6xmRmmvyIzlNEJmBhm4ZA4zAcaYPnw/VOO0WmSU9Lk+pIO2kLKo5iMxouB7tv6gxWvrR/wwCW9BcgwffQpGqMk41QHJPHYF9N+BD1WkIwnygCed4Uay+aA2etjx83QGklGAkEfoxV4mSVj+8qDkm/d+LfBBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jigtJEy3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DoH1jTeZkexnKpKEVbJxbhXp8HfLAv+yUnb3IvnArJHjiSZlP8kgi/1AxRB5GR8Q++tERnaBkDsHoOjPqbSM5n+S/JFtR//6pDCuXTrlGOrsJIQByE8hkBgmozn9IajdxoQR5gbZ9BU+9p+eOkCH2tVfMlYB9MO8lckPz7BAufg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=whPp72XO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jigtJEy3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC461F00A3D;
-	Mon, 31 Aug 2026 13:43:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="whPp72XO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6244A1F00ADB;
+	Mon, 31 Aug 2026 13:43:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788183825;
-	bh=DxXFEY1+7aI6P+Ek33P38GM91EVKaon/kCONjB9uoK8=;
+	s=korg; t=1788183827;
+	bh=Car5vW+6pLAj9Er86RnIfM+CPFztrLXhnb9DT2b/DYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jigtJEy3xYk4MY+FvCKzXdcDnA8Lz1EVOAiI5e3j2yzA2nD+dVN3rHzA/mOUgUlXW
-	 lNTL7DBZ/dK0ksYK/ey3qiLTyp9S68xmmwxlPVVEB0EtJBdVSrRaryfzu3muHHDeI6
-	 SiIHtT5EXmx1BduElIq2MyspvAThq+s0B5kkVU3c=
+	b=whPp72XOYIFe7JcOlBksw3fijHN3TZP2aE+FKC1J+/xAdfmRc0mtRvw5kQahcgioc
+	 5pYRjNuTWx7vKxX+Rdr0TtYal0X0I6QHjycK70kOqA0k+sNslDdz6M70awqBgl6chQ
+	 uMRCSCTP2DVNUIA9aM4UwfY4duWMLK0K0Ixt4P3A=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Eric Biggers <ebiggers@kernel.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 7.1 54/76] mm/swap: reject swapon() on filesystem-level encrypted files
-Date: Mon, 31 Aug 2026 15:34:26 +0200
-Message-ID: <20260831133402.231937790@linuxfoundation.org>
+	David Gow <david@davidgow.net>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 7.1 55/76] kunit: irq: Continue increasing hrtimer interval for longer
+Date: Mon, 31 Aug 2026 15:34:27 +0200
+Message-ID: <20260831133402.279591337@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.185608553@linuxfoundation.org>
 References: <20260831133359.185608553@linuxfoundation.org>
@@ -60,66 +53,51 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Biggers <ebiggers@kernel.org>
 
-commit c310a8932a3107c9bc8f01d473e9d085f8aa9c98 upstream.
+commit faa6c4c4e4ac69926564688a926105621295d613 upstream.
 
-ext4 and f2fs don't prevent filesystem-level encrypted files from being
-set up directly as swap files.  In this case, encryption is bypassed.
+Currently, kunit_irq_test_timer_func() stops increasing the hrtimer
+interval as soon as some forward progress is made in each of softirq and
+task context.  Update it to use a more aggressive strategy: increase the
+interval as long as the hrtimer is running significantly faster than
+either context.
 
-No one should be doing this, vs.  the methods of encrypted swap that
-actually do work (such as swapping to a dm-crypt device, or swapping to a
-loopback device on top of a filesystem-level encrypted file).
+This resolves an occasional hang in the CRC and crypto library tests
+under qemu-system-s390x.  It was exposed by the change in the default
+preemption model on s390 from NONE to LAZY.  That seems to have exposed
+the issue by allowing some forward progress to be made while the actual
+system timer tick is still starved, preventing jiffies from increasing
+or the task context from making much progress towards max_iterations.
 
-Nevertheless, to prevent user error, make swapon() explicitly reject this
-case.  Document this behavior in fscrypt.rst as well.
-
-Link: https://lore.kernel.org/20260803180426.3123-1-ebiggers@kernel.org
-Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
-Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
+Fixes: 201ceb94aa1d ("kunit: irq: Ensure timer doesn't fire too frequently")
+Cc: stable@vger.kernel.org
+Reviewed-by: David Gow <david@davidgow.net>
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Link: https://patch.msgid.link/20260803181842.44648-1-ebiggers@kernel.org
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
-Reviewed-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- Documentation/filesystems/fscrypt.rst |    4 ++++
- mm/swapfile.c                         |    7 +++++++
- 2 files changed, 11 insertions(+)
+ include/kunit/run-in-irq-context.h |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
---- a/Documentation/filesystems/fscrypt.rst
-+++ b/Documentation/filesystems/fscrypt.rst
-@@ -1238,6 +1238,10 @@ astute users may notice some differences
- 
- - DAX (Direct Access) is not supported on encrypted files.
- 
-+- Encrypted files cannot be used directly as swap files.  To swap to
-+  an encrypted file, set up a loopback device on top of it.
-+  Alternatively, encrypted swap can use a dm-crypt device.
-+
- - The maximum length of an encrypted symlink is 2 bytes shorter than
-   the maximum length of an unencrypted symlink.  For example, on an
-   EXT4 filesystem with a 4K block size, unencrypted symlinks can be up
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -3489,6 +3489,13 @@ SYSCALL_DEFINE2(swapon, const char __use
- 		error = -EBUSY;
- 		goto bad_swap_unlock_inode;
- 	}
-+	if (IS_ENCRYPTED(inode)) {
-+		pr_warn_once(
-+			"Filesystem-level encrypted swapfile '%s' is unsupported. Create a loop device over it, or use dm-crypt\n",
-+			name->name);
-+		error = -EINVAL;
-+		goto bad_swap_unlock_inode;
-+	}
+--- a/include/kunit/run-in-irq-context.h
++++ b/include/kunit/run-in-irq-context.h
+@@ -38,11 +38,13 @@ static enum hrtimer_restart kunit_irq_te
+ 	softirq_calls = atomic_read(&state->softirq_func_calls);
  
  	/*
- 	 * The swap subsystem needs a major overhaul to support this.
+-	 * If the timer is firing too often for the softirq or task to ever have
+-	 * a chance to run, increase the timer interval.  This is needed on very
+-	 * slow systems.
++	 * If the hrtimer is running much faster than the bh_work or the task,
++	 * then it is firing too fast and might be starving those contexts as
++	 * well as the actual system timer tick.  Increase the interval.
+ 	 */
+-	if (hardirq_calls >= 20 && (softirq_calls == 0 || task_calls == 0))
++	if (hardirq_calls >= 20 &&
++	    (hardirq_calls / 2 > softirq_calls ||
++	     hardirq_calls / 2 > task_calls))
+ 		state->interval = ktime_add_ns(state->interval, 250);
+ 
+ 	if (!state->func(state->test_specific_state))
 
 
