@@ -1,149 +1,165 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC6F342523
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176149; cv=pass; b=dYItLUXTmLTyE765T6+UcjOCvIc2LVo9VTXzo5W1plzBZdCDQ+sq5YlVEd30CGBpbgjFMtN+LQmVG6RcKwuQtje2kjGWDxHkIx/4J19gQ61O3zJZLJ7xoKrWS38RgdTHtJGHpVTk2NpUn8iSmWWhHIGCCl5p30xEiGrSOjXFYl8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176149; c=relaxed/simple;
-	bh=iVsFzxcjtXpLLAPWir7xOZsYFnrqAkLPip0NYRBrV0g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D0++Eszal3Gp8Fl0vOwtkw1BhmThqp9mKf1cc9WLMA4PLLDXLnz/MlMHqkbB58Gjel3V5G9dn33YQWefr2fAqK5ouByQnqifJHyYwy2+FlmKmoDy46m3Fu2Vcbysq7tabUP/89TfnXXc0dXI6oFH4558LhpOpG9v86DofHRsGAU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=F5P5uRTu; arc=pass smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFC13E4506
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788176386; cv=none; b=ebNXim+SWtzD/CGAFAigClpECoKZzwYGN4vwOe7J4Gz11/F3i5BoaQ2F+/si/ymcg0R+us3MtGFo5eEL5L9vOGAZ1rd3Ox4HD1HIO0khyQA+uHzscM4Y/eCmI/Ue+89vS2PMO9H67uzWKx0bUwxS0UXEwR0pfEoN9gON8e/VObs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788176386; c=relaxed/simple;
+	bh=uDEVvM6ZlrBdrVamGlXKpE2SalK0Jlf4Utvwh8oXWAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I1ZOWs+nInQUcyw8kiksM7EVKjIQpp2FnAG/V2iKaj74e4TC1RZ5QB8mWh3iKrzCVWmSCm8HR5ZG4QGehA70oilYjWqAT2iyDjkTj9nlSLyt6Hgb65xtIplBlaxWzA7xdrgTKvv7djZLeHO1h4sMBXSWGD+Q0KEtUgbV2pwZX6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YX1v8BxW; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="F5P5uRTu"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-848643382fcso3557184b3a.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 04:35:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788176147; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k79YK4uZbjSAO6W0HgUXJ7WJrofX3x2RvGJVDdl8679SdYzlc6MWIEv8qWTnFcIsNW
-         VkeKfKhCljFPMC7whiAEHI3NXlibYVCYvIjBvaUkfV0ydB/oTBgmAK2YI0y0VOv/YCEz
-         +Yo2znOjII/TrX4QA28NIth0bD3f06O7LtyN0U/uhYwtSJ/4WoP3EcyqW07bce95VRyK
-         /cBHi6FuHeHDgUQkeXEznN0Bb9qtcUzFc5xFw+oGoVkiLIyg65uSOVGDBov8UQb0KkUC
-         vN6kmsnM9jxv2tiP39VRcIjPpDrkdO6vsZg4/GusqXx7V+awGqV83iRFiXoYd53Z46Wf
-         cJKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v1+kYYpmqjR7YioulSNP/VCyRhVs3EIdV4wSWvdX0GY=;
-        fh=1dihsYcApKK3Yrs5UfTsT1AO2hECPJZhozUjeGf6tI4=;
-        b=rCaX9O9AbuUSQIym4RoJqdMu2T9uSecazgc1E/jrEE6zUEbT+lYmHehoYqJrrDOBlc
-         k6ie8DFKzw3wZUSCdo8dMddVtgBOF3Mjg6L+Vm5eBUIjCl8gzLi7HYPw7Nme32ineoKu
-         9wJgDLR8vFN6dujlFP1LWiC1lyqveMGF1YIDZPnPaKqkCzCqi1tmwbtt40k8f7o4MSZV
-         KHaB6XuMuV8a9GzuRphPW0FSbE+0SBaVsNITc0V1clbwY1xj/sahxWSVm8u1Kfuy+GBB
-         +zVm+qyCCDkyKM/7NIujCdL/fXASHwS6R5anOEexJKHiJz1txt/WqukRnr7VHsr+H4kK
-         9uyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YX1v8BxW"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c25099bb1fbso438037166b.3
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 04:39:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788176147; x=1788780947; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788176382; x=1788781182; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=v1+kYYpmqjR7YioulSNP/VCyRhVs3EIdV4wSWvdX0GY=;
-        b=F5P5uRTuy6Gr8DiIlS+YqcTbkx0JynRSTtPY/5B9qaEDclVB4axwWdZkjkR5INgKkZ
-         7XpD4zJi98JBjHl2Z0Fnb+23h6VLc09Vs30W/hhwmorYvAc9evyznQOlTlywqv9sDKO5
-         dQ4KIozJWrZnxq+sOiZh8Ohzl+VVMDqyQNM2I=
+        bh=GSaKvfCewxq1tw/MPDZ73QfEYniPUyq5xZzUvs3KI9Q=;
+        b=YX1v8BxWuMYkd9lKavS9GdI4e19To6XdpBUSwf5mof8l9gHhtibguP36h2o3oVI3uY
+         LncZ2F/RvjGzoeVCDf4ZAkirgbnuugsSVj3kPTuc0UH7X0rjLZWqApKcj91gAi5mXc0o
+         g05e2atLFBOOrgxPH+l9zsuwN0/4cJSlOjjKcZBTaVz1fQDavq7JqARyOkhc3SbiNDvV
+         CheLjVRPdazWBpmnhXrPSM6J5vKomqCwwo4thl6/BXA37W5V+sbXevoNpoGHDgXaBvNL
+         zWtJcEyr42cIrfKdo4Soj3H/xapnBCdwdNttYw3u03cmvvbgofbgZr7j+hpInpVc0EH+
+         Fzew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788176147; x=1788780947;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788176382; x=1788781182;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v1+kYYpmqjR7YioulSNP/VCyRhVs3EIdV4wSWvdX0GY=;
-        b=ddfj2lStECfkvL/4UqFdHmyaMk8iI5GxayCG4/x4oswIVrqcYoJxLp/UpYe5enywsL
-         qCV5bp/WsiDqcUfvjdJVr3xsd0bhzS5Csm22FfzAxYeQjvQfKyZnXIeziLMoRBAPUmHr
-         nqKSDNiYSUPmD3OtCZ7fvWP+a4MPNumZq6v3CJJPyWnHTg1huqRbJxTRbAZjHDV3qWa9
-         1C5rn3sqoPR+QZ6YZiSdsw6mUN2CvfJxgAvAjQ625aVltobAgGwvMIlQHgrOuQkNaqFe
-         XfXFsqDADNaGKwp1IoAzRu7jmpElphh7VjRdJlcDRgsrlpaL4IxI5uqpxp4dDbiXmewo
-         oqAg==
-X-Forwarded-Encrypted: i=1; AHgh+RrPG3Wklldua+sa8B03bULdnQ1W96SjJcv9Bg/e5BdcVdnz4B6OokDvb48sveQkBtTglXCNRIs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9rDREOgEexaMxHqosMQ54MI0/h7NzK/THusg3IDcfkbOEBFEQ
-	BYaof5jb2R9eU8kG95dESppy7MgFGnnBMRgsJeE8/ftegexQbIMw9TEL+W93mAiB/Uic3yXlyC6
-	ip0+/3EchHJ+H29AY2HkWjzL2HeBMdzvn6ShcFUE9
-X-Gm-Gg: AR+sD11t2nzjQm6NHq89Ab9ri4wj/OXvf8g49bBnEhO67vkH/f5NrRAzGFPmU1mQ68+
-	TV3jF6muuJbsV2XFERbRr/Po12W9bnzRdvyag1vvoitzyRQ1N3IxLVEvrsTPpA4Ss8VzIEyE5dB
-	ojBxCxy0S0d3t+iR85CS0lp3pkxhH9nV2SBPWnH229oJNa3z+RzLZ8C6XlyjJEdIt1YM9VmfVVR
-	qabYTuOZSgPpz/tMue5Nr6dJczL7yOdEYmGaUPnkkWz9hJ195uug8phIfKAqtcj8wjdi8mPso3f
-	Ehlxm8zjJF79UcZg1taqYV7cZXrEcUAF/FiS+LtCed3rW/POz9snNzkf9SGUXD/Bks03yEe+lts
-	=
-X-Received: by 2002:a05:6a00:9090:b0:853:50f2:9c03 with SMTP id
- d2e1a72fcca58-85b5a546d3amr655244b3a.11.1788176146691; Mon, 31 Aug 2026
- 04:35:46 -0700 (PDT)
+        bh=GSaKvfCewxq1tw/MPDZ73QfEYniPUyq5xZzUvs3KI9Q=;
+        b=BIpJ7hvlfpmnz2VAoBeanTpu/eET4EXRW1DTQr0HaCUP88eWzeeOkcOhJ+zc/Yh0th
+         khZCfGAkyqePbGdt2tamFBLjC51Ur4epF3oDj0GWKFF2Y573Y+7JOzM7Toj91X87D15b
+         qb4GZy8tRjdNQbwe7u/UEuD5XyEOIhqz5tE0wrff5440gnhzafSb+bmSGhD5Ns1IijTM
+         2/4Wf3VIqRmuRDXUvmTHrNj0NTy/VhzTGaMTLwJIjzdQ5YlFWuELGG22wCw/r71/78TT
+         MaJfw69Xpq3ukcgNGuwlM3nSs353CTSugk2j6Lyj54d1EnDi6oUNzJwo0A4InqaGZ5IG
+         YgRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rop85nHLVccP5wQ2iL5iVZI3O1MxHyPA45/c9ITzt/GyanordTV4AdxO00ze0Z4rvR+30JRuvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEZOwuIMn4b2cHXC69DPNviLDcIbWutkaH9AhNlHBSwibSO0RH
+	ioWWB/uiq2Olr/astW25ImWgbmh2wYGQfUd6cI2XfjJym0XH7jSZP7TpQzeVsg==
+X-Gm-Gg: AR+sD10kgVFHd4wDuIktqjcST3ik8KWcew2MRnjt+n1UV0NMs7zK1UxWB3LTHMjmjh2
+	iVPsBqzTKHkLsvavKqom39tYd0OfHuYtkN/0DA5bSFjz5dV+qWovaerLCXx5CoF2rPb6mEscyDw
+	dt+5C/kb+TSKtzy9XjwOmuegQ34ci+Ej3GR/T64mRTqE1ZiysPEaX1+nTqMsf5HogWjWav9pW50
+	pSBicETf2oJLQssGXA0kFoxMSXAiKGhH0u/mx2mSgzWNp9uZbJiGqENW9mN3HKqJVNDu5fi9OVW
+	bPcBl+pAlCMkvswsXz+ClLAvDnntDBB4NMcPu+rOYYZNIIJ3g58HFEkxtr2EkH/bRZgofv6Qa6x
+	1FIA2mPnfzvgT36hoZWjwkXXR3yHGImjthbNQ/uDb7e8a3waO4ib9qgKeTSkJRq17zWnEnueUFJ
+	kiY+bYSH3WC8V5FN7ZTz+mbmgCHnLOzJgXj/gOHPaDP3u7JTFYx/5ZIxPGkXQFAbOPIKJr5/w4R
+	QOI6dLAUBzZrg6T3Y/KSfPVXQBxw5m+lwBQQJhcoOu+exiVioWcEFL+z1mcjBu/h6fyLCMopnMY
+X-Received: by 2002:a17:907:9618:b0:c24:457b:86fc with SMTP id a640c23a62f3a-c25571d3b0dmr1534052066b.21.1788176382007;
+        Mon, 31 Aug 2026 04:39:42 -0700 (PDT)
+Received: from timur-max.localnet (20014C4E24D8F2005AA4D4F91F46DAE7.dsl.pool.telekom.hu. [2001:4c4e:24d8:f200:5aa4:d4f9:1f46:dae7])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee75a36sm413076466b.28.2026.08.31.04.39.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 04:39:41 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: christian.koenig@amd.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ stable@vger.kernel.org,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Subject:
+ Re: [PATCH] drm/amdgpu: skip the VMID 0 flush for VRAM clear-on-release
+Date: Mon, 31 Aug 2026 13:39:40 +0200
+Message-ID: <voa7PnOgTa6oSIPH4Hu9jQ@gmail.com>
+In-Reply-To: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825234545.2076049-1-jthies@google.com> <apVZVCzUEXp1Ahv2@black.igk.intel.com>
-In-Reply-To: <apVZVCzUEXp1Ahv2@black.igk.intel.com>
-From: Andrei Kuchynski <akuchynski@chromium.org>
-Date: Mon, 31 Aug 2026 13:35:35 +0200
-X-Gm-Features: AcwNN1UG8a3e-ri9A1fYCTOuTDVKemg5UPzTBUYjlI4nabQw-8x155-qLxr9oOg
-Message-ID: <CAMMMRMdiAF1Kx9CAwZrWCiLGjrzVnoQ_Rm-m-UXSAF+fhS+y2A@mail.gmail.com>
-Subject: Re: [PATCH v1] usb: typec: ucsi: displayport: Fix OOB altmode array index
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Jameson Thies <jthies@google.com>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bleung@chromium.org, gregkh@linuxfoundation.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Mon, Aug 31, 2026 at 12:37=E2=80=AFPM Heikki Krogerus
-<heikki.krogerus@linux.intel.com> wrote:
->
-> On Tue, Aug 25, 2026 at 11:45:45PM +0000, Jameson Thies wrote:
-> > The UCSI displayport driver indexes the connector's port altmode array
-> > with the GET_CURRENT_CAM response after checking it is not 0xff. The
-> > port altmode array is UCSI_MAX_ALTMODES elements long. If the PPM
-> > returns an invalid GET_CURRENT_CAM response above UCSI_MAX_ALTMODES and
-> > not equal to 0xff, the kernel may crash with an array index OOB error.
-> >
-> > Update the UCSI displayport driver to verify the current cam is less
-> > than UCSI_MAX_ALTMODES before accessing the port altmode array.
-> >
-> > Fixes: af8622f6a585 ("usb: typec: ucsi: Support for DisplayPort alt mod=
-e")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jameson Thies <jthies@google.com>
-> > ---
-> >  drivers/usb/typec/ucsi/displayport.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/u=
-csi/displayport.c
-> > index 7067f2561b84..8d2032d0762c 100644
-> > --- a/drivers/usb/typec/ucsi/displayport.c
-> > +++ b/drivers/usb/typec/ucsi/displayport.c
-> > @@ -74,7 +74,7 @@ static int ucsi_displayport_enter(struct typec_altmod=
-e *alt, u32 *vdo)
-> >               cur =3D 0xff;
->
-> Can you remove the above line while at it?
->
-> >       }
-> >
-> > -     if (cur !=3D 0xff) {
-> > +     if (cur < UCSI_MAX_ALTMODES) {
->
-> Shouldn't that be the other way around?
->
+On 2026. augusztus 28., p=C3=A9ntek 6:47:34 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=
+=C3=A1ri id=C5=91 Arunpravin=20
+Paneer Selvam wrote:
+> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
+> via its direct MC address without programming a GART window, yet the wipe
+> still forces a VMID 0 flush.
 
-Looks fine, but shouldn't we return an error if an invalid value is
-received, similar to the Thunderbolt implementation?
+Makes sense.
+We don't need the VM flush when we are not changing the page tables.
 
-        if (cur !=3D 0xff) {
-                if (cur >=3D UCSI_MAX_ALTMODES ||
-dp->con->port_altmode[cur] !=3D alt)
-                        ret =3D -EBUSY;
-                else
-                        ret =3D 0;
-                goto err_unlock;
+I agree with the patch, just would like to ask a few questions to better=20
+understand the underlying problem:
 
-Thanks,
-Andrei
+> On GFX11 (e.g. Navi33) that spurious SDMA
+> flush can wedge the engine
+
+What is happening when the SDMA engine is wedged? Can it be recovered by an=
+=20
+SDMA queue reset? Is it just a hang, or can it cause other issues such as p=
+age=20
+faults?
+
+> only flush when a GART window is actually used.
+
+Does that mean that there is still a risk of the wedge when the GART window=
+s=20
+are used? Can you remind me when/why we need the GART windows exactly?
+
+> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+> Cc: stable@vger.kernel.org
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+
+Thanks and best regards,
+Timur
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c index
+> 6c07cee8e8777..2e6c98c2f1efa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -2578,6 +2578,7 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity, struct amdgpu_device *adev =3D
+> amdgpu_ttm_adev(bo->tbo.bdev);
+>  	struct dma_fence *fence =3D NULL;
+>  	struct amdgpu_res_cursor dst;
+> +	bool vm_needs_flush;
+>  	int r;
+>=20
+>  	if (!entity)
+> @@ -2585,6 +2586,8 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity,
+>=20
+>  	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
+>=20
+> +	vm_needs_flush =3D bo->tbo.resource->start =3D=3D=20
+AMDGPU_BO_INVALID_OFFSET;
+> +
+>  	mutex_lock(&entity->lock);
+>  	while (dst.remaining) {
+>  		struct dma_fence *next;
+> @@ -2605,7 +2608,7 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity,
+>=20
+>  		r =3D amdgpu_ttm_fill_mem(adev, entity,
+>  					0, to, cur_size, resv,
+> -					&next, true,=20
+k_job_id);
+> +					&next, vm_needs_flush,=20
+k_job_id);
+>  		if (r)
+>  			goto error;
+
+
+
+
