@@ -1,50 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E9A54DAE7;
-	Mon, 31 Aug 2026 13:46:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4FE4AA3FE;
+	Mon, 31 Aug 2026 13:46:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184005; cv=none; b=m5Qjy7Z0Rij6SUlZfrHkwaMTBzKUSoPhJIYFAtcPAoTCXuNQ/hnEKUBHdyNGqYaVQJ5y99g2D9XsryxnOzN2Ft6eOriiSqim/c0KQdo80NFy1gys8Udg7DnrRLNN1spSZPHXDTbf6VK15wVumnoH5iCU2Y9oeNi749df5bwAl1M=
+	t=1788184007; cv=none; b=TY5wd8gNFDP24lzGnTzjbRywqSfSdyQfQ+qd4bLurFrpGjUM17BNY7QvbCcyQ+6lyAehhbPcJsPr/dc45ohC9t1JMi+zgPzHEzDggMHUjNh3PuBw0hLXlsriP03TCBeMjkvtHR0nUuyDViGyRzpB8I+KPTaro2ai5jKN4WIsbQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184005; c=relaxed/simple;
-	bh=2iAWs8qCol/chD+6YoW9/BtvKg6zSl5IQF4RltOx+Dk=;
+	s=arc-20240116; t=1788184007; c=relaxed/simple;
+	bh=WB+f9TzNRoGgZwon+SI33FdAdwqrZKA9RN+IbyqZCtg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ESnEcLf2k1jmcpzYHq6nFtGQ2xwZ/3e76fmJLqEIGxuImEV+mApU40Ss//6t1qEruHt+q/3pbI0RO3kziDpMsaqSZQXtND0hmKnw9HLlvRCCV3SAPDc0pBZEaUYI0cf6oedNVjfq0FyD0XP0H9A0DF8GJeh3gsYCZPtUuc9Wcwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJC/7C6t; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=YB99EY5IT8bx2DeGFLuQfRP67GffNpJjkgp4HntCHan/B/JfN8Ax3tsg7pDSMKSEWfzAEWAhfaseF2JiKTsJ5mYGwlblB9Ctf+wVJsDdAvju+IgHUlaWl6hP3IfC4nvMWnzEGIpN18rX3LQcol1ISfQMW0/hGfZ+xfHghtMYA6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJiBie8+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJC/7C6t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996931F00ADB;
-	Mon, 31 Aug 2026 13:46:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJiBie8+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F1C1F00A3E;
+	Mon, 31 Aug 2026 13:46:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184000;
-	bh=x9z6R+bGLRyvAbJrsqZMgU4J0bW9Kw89de+7a516MMM=;
+	s=k20260515; t=1788184002;
+	bh=FpXrqiS4I00ayqbEOnR9AiBOSu5k6dNYuuvgpi5JfdA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nJC/7C6thG3XzhlNAu+f5FsgFOItnq8WGTi5lZOetApJwKIBtDtoX2/c7NcEvG7dR
-	 jYoM/ZQ9sCET/KmWeDu68TJOYDzcNrwMEeDiup9Bap6+QOX6u+F6ItvKxBCHYS6ztT
-	 CX8nYwByfYEOlK+U7EnHxIz4C9CfJ5FwRSYn+Ta7Da7zdQ68c2zeDZghEJh0gr8TKK
-	 PNk2j81DCZPXVQIg3NQ6iuVyULneXpG2c5EmP7X85LDTN9QMx2f9p9BwfOui3+/tqC
-	 JNDjefxd0v6inaXajpFcp5BrRKeKQtJBJ2vg/4N8OHqzvz5GrEBRE//+bl3U19dHoV
-	 qoHBEHkNXpuRQ==
+	b=fJiBie8+vuSA1Vmt5+svmtzvD7gg7CqEdj1p6QnJmXvu4xizHREvAGwz6LFCe3SNh
+	 HD4gORi8BcwcwzWnvhqmg2w2eUlu3iNhiMgK0ZbSJHBcHfIup/RRE3+T/jrN1a5ZK1
+	 sy1hOzfRl6A5lMjaaCkiYxtDxXodMZlSQKYERg9PMsX2MJ9w+VNOEVDECOthJDv/x9
+	 ibZxQ7XP4HpXpnA637O4ZEydEvra5jDYCi/UdwLgndRci117n//rse8UxMvYi8UQZa
+	 pWmJVcHbvCltZyBjTwfsusAhBWDXzVJf+fzLRCKxoFKWzuz/kLkYtIasLMio7D1WHB
+	 iFeypU6MZkppw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Greg Patrick <gregspatrick@hotmail.com>,
-	Manuel Stocker <mensi@mensi.ch>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux@armlinux.org.uk,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] net: phy: sfp: detect presence via I2C when no MOD_DEF0 GPIO
-Date: Mon, 31 Aug 2026 09:27:38 -0400
-Message-ID: <20260831133314.4125787-430-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] wifi: iwlwifi: mvm: validate MCC header before n_channels
+Date: Mon, 31 Aug 2026 09:27:39 -0400
+Message-ID: <20260831133314.4125787-431-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -60,556 +52,456 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Greg Patrick <gregspatrick@hotmail.com>
+From: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
 
-[ Upstream commit 8ac44d24c3a148c4177bd3ad790c377279f4674f ]
+[ Upstream commit 77f33bed0cb49a11f03427f2fa368830c1cae3c2 ]
 
-An SFP cage (compatible "sff,sfp") whose MOD_DEF0 signal is not wired to a
-GPIO currently falls back to sff_gpio_get_state(), which unconditionally
-reports the module as present. An empty cage therefore fails its probe and
-is parked in SFP_MOD_ERROR forever; because SFP_F_PRESENT never deasserts
-there is no REMOVE event to recover the state machine, so a module inserted
-after boot is never detected, and empty cages spam -EIO at boot.
+MCC response parsing read n_channels from v8/v4/v3 response variants
+before ensuring the payload contained the fixed response header.
 
-This affects boards that route none of the cage presence signal to a
-software-readable input. On the NicGiga S100-0800S-M (RTL9303, 8x SFP+) the
-cage I2C bus is the switch's SMBus master; TX_DISABLE is driven via a
-PCA9534 I/O expander, but no MOD_ABS/MOD_DEF0 line reaches a readable GPIO
-(the RTL9303 gpio0 lines read stuck-low, the single PCA9534 is fully
-consumed by TX_DISABLE, and there is no RTL8231). The Horaco ZX-SW82TS-L2P
-(RTL9302D, 2x SFP+) is independently affected in the same way.
+Add a minimum payload-length check for each response version before
+reading n_channels, and keep the existing exact-size validation for the
+channels array payload.
 
-For such an SFP cage, derive presence from a throttled single-byte I2C read
-of the module EEPROM instead: a successful read asserts SFP_F_PRESENT,
-R_PROBE_ABSENT consecutive failures clear it (to ride out a transient error
-on a live module). The existing poll then emits SFP_E_INSERT / SFP_E_REMOVE
-normally, giving working hot-plug and silencing the boot-time -EIO spam on
-empty cages. Presence is re-probed every T_PROBE_PRESENT, so insertion is
-detected within that interval and removal within
-T_PROBE_PRESENT * R_PROBE_ABSENT.
-
-A soldered-down module (compatible "sff,sff") has no presence signal and is
-genuinely always present, so it continues to use sff_gpio_get_state(); the
-new path is gated on the cage type advertising SFP_F_PRESENT.
-
-Signed-off-by: Greg Patrick <gregspatrick@hotmail.com>
-Tested-by: Manuel Stocker <mensi@mensi.ch>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Link: https://patch.msgid.link/20260611175341.2223184-1-gregspatrick@hotmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: GitHub Copilot:gpt-5.3-codex
+Signed-off-by: Emmanuel Grumbach <emmanuel.grumbach@intel.com>
+Link: https://patch.msgid.link/20260714141909.cb2cef3d3e7e.Iee7b48614289da576de842157ad3730b7589a4b1@changeid
+Signed-off-by: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `net: phy: sfp: detect presence via I2C when
-no MOD_DEF0 GPIO`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
-**Commit under review:** `8ac44d24c3a14` (on `master`, **not** in
-current HEAD)
-**Verdict target:** Should this be backported to **this** 6.18.y tree?
+### Step 1.1: Parse the subject line
+**Record:** `[wifi: iwlwifi: mvm]` `[validate]` — validate MCC response
+header before reading `n_channels` from firmware MCC update responses.
 
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[net: phy: sfp]` `[detect]` — SFP cage presence detection
-via I2C when MOD_DEF0 GPIO is unwired.
-
-### Step 1.2: Tags
+### Step 1.2: Parse all commit message tags
 **Record:**
-- **Fixes:** — none (expected for manual review)
+- **Fixes:** — none
 - **Reported-by:** — none
-- **Tested-by:** Manuel Stocker `<mensi@mensi.ch>`, Maxime Chevallier
-  `<maxime.chevallier@bootlin.com>`
-- **Reviewed-by:** Maxime Chevallier `<maxime.chevallier@bootlin.com>`
-- **Link:** https://patch.msgid.link/20260611175341.2223184-1-
-  gregspatrick@hotmail.com
-- **Cc: stable:** — absent (expected, not a negative signal)
-- **Signed-off-by:** Greg Patrick (author), Jakub Kicinski (netdev
-  maintainer)
-- **Notable:** Two independent hardware testers; subsystem reviewer
-  endorsement; no syzbot/sanitizer involvement.
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:** `https://patch.msgid.link/20260714141909.cb2cef3d3e7e.Iee7b4
+  8614289da576de842157ad3730b7589a4b1@changeid`
+- **Cc: stable@vger.kernel.org:** — none (expected for manual review)
+- **Assisted-by:** GitHub Copilot:gpt-5.3-codex
+- **Signed-off-by:** Emmanuel Grumbach `<emmanuel.grumbach@intel.com>`
+- **Signed-off-by:** Miri Korenblit
+  `<miriam.rachel.korenblit@intel.com>`
 
-### Step 1.3: Body analysis
+Notable: Intel iwlwifi maintainers authored/reviewed; no syzbot or user
+bug report.
+
+### Step 1.3: Analyze commit body
 **Record:**
-- **Bug:** `sff,sfp` cages without MOD_DEF0 GPIO fall back to
-  `sff_gpio_get_state()`, which unconditionally sets `SFP_F_PRESENT`. An
-  empty cage probes EEPROM, fails, lands in `SFP_MOD_ERROR`, but
-  `SFP_F_PRESENT` never clears → no `SFP_E_REMOVE` → hot-insert after
-  boot never works; boot logs spam `-EIO`.
-- **Symptom:** SFP ports permanently broken on affected switches; boot
-  error noise on empty cages.
-- **Affected hardware:** NicGiga S100-0800S-M (RTL9303), Horaco ZX-
-  SW82TS-L2P (RTL9302D).
-- **Root cause:** Treating “no MOD_DEF0 GPIO” as “module always present”
-  is correct for soldered `sff,sff` modules but wrong for socketed
-  `sff,sfp` cages.
+- **Bug:** MCC response parsing reads `n_channels` from v8/v4/v3
+  response layouts before confirming the payload contains the fixed
+  header.
+- **Symptom:** Out-of-bounds read from `pkt->data` on
+  truncated/malformed firmware responses; subsequent `struct_size()` /
+  `kzalloc()` / `memcpy()` use an unvalidated `n_channels`.
+- **Root cause:** Validation order — field access precedes minimum-
+  length check.
+- **Version info:** Affects all three MCC response variants (v8, v4,
+  v3).
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Subject says “detect” rather than “fix”, but the
-mechanism is a functional bug fix: broken state machine + missing hot-
-plug on specific hardware. This is a hardware-workaround pattern (like
-quirks), not a new user-facing API.
+### Step 1.4: Detect hidden bug fixes
+**Record:** Not disguised as cleanup — explicit defensive validation
+fix. Same class of bug as iwlwifi “read field before payload size check”
+fixes already in this tree.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
+### Step 2.1: Inventory changes
 **Record:**
-- **File:** `drivers/net/phy/sfp.c` only (+80 / -3 lines)
-- **Functions added:** `sfp_module_present_i2c()`, `sfp_i2c_get_state()`
-- **Functions modified:** `sfp_probe()`
-- **Struct fields added:** `i2c_present`, `i2c_present_nak`,
-  `i2c_present_next`
-- **Constants added:** `T_PROBE_PRESENT` (500 ms), `R_PROBE_ABSENT` (3)
-- **Scope:** Single-file, surgical driver fix.
+- **File:** `drivers/net/wireless/intel/iwlwifi/mvm/nvm.c` (~29 lines
+  added, minor refactor)
+- **Function:** `iwl_mvm_update_mcc()`
+- **Scope:** Single-file surgical fix in one function
 
-### Step 2.2: Code flow changes
+### Step 2.2: Code flow change
 **Record:**
-
-| Hunk | Before | After |
-|------|--------|-------|
-| Probe path | No MOD_DEF0 GPIO → always `sff_gpio_get_state()` (always
-present) | `sff,sfp` cage without MOD_DEF0 → `sfp_i2c_get_state()` with
-throttled I2C EEPROM probe; `sff,sff` soldered modules unchanged |
-| Presence source | Hardcoded `SFP_F_PRESENT` bit | I2C single-byte read
-at `SFP_PHYS_ID` (0); ACK = present, NAK = absent |
-| Polling | May not poll without GPIO IRQs | Sets `need_poll = true` so
-`sfp_poll()` drives INSERT/REMOVE events |
-| Removal detection | Never on empty cage | 3 consecutive I2C failures
-clear presence (1.5 s debounce) |
+- **Before:** Cast `pkt->data`, read `n_channels`, then compare full
+  payload length to `struct_size(..., channels, n_channels)`.
+- **After:** Cache `pkt_len = iwl_rx_packet_payload_len(pkt)`; for each
+  variant, `IWL_FW_CHECK(pkt_len < sizeof(*mcc_resp_vN))` before reading
+  `n_channels`; keep exact-size check, now via `IWL_FW_CHECK` with
+  better diagnostics.
+- **Paths:** All three MCC response version branches; error path returns
+  `ERR_PTR(-EINVAL)` and jumps to `exit`.
 
 ### Step 2.3: Bug mechanism
-**Record:** **Category:** Logic/correctness fix + hardware workaround.
-
-Verified boot path in current tree:
-
-```3161:3190:drivers/net/phy/sfp.c
-        /* Modules that have no detect signal are always present */
-        if (!(sfp->gpio[GPIO_MODDEF0]))
-                sfp->get_state = sff_gpio_get_state;
-        // ...
-        sfp->state = sfp_get_state(sfp) | SFP_F_TX_DISABLE;
-        // ...
-        if (sfp->state & SFP_F_PRESENT) {
-                rtnl_lock();
-                sfp_sm_event(sfp, SFP_E_INSERT);
-                rtnl_unlock();
-        }
-```
-
-With `sff_gpio_get_state()` always OR-ing `SFP_F_PRESENT`, empty cages
-always get `SFP_E_INSERT` at probe. Probe fails → `SFP_MOD_ERROR` (line
-2602). `SFP_MOD_ERROR` is a terminal state with no recovery unless
-`SFP_F_PRESENT` deasserts (lines 2662–2664, 3020–3022).
+**Record:**
+- **Category:** Memory safety / out-of-bounds read (buffer bounds)
+- **Mechanism:** `n_channels` sits at offset 12 (v3), 16 (v4), or 20
+  (v8). Header sizes are 16/20/24 bytes respectively. A payload shorter
+  than `sizeof(*mcc_resp_vN)` causes OOB read when dereferencing
+  `mcc_resp_vN->n_channels`. Garbage `n_channels` can then drive
+  `struct_size()` and `memcpy()` logic on a still-untrusted buffer.
 
 ### Step 2.4: Fix quality
 **Record:**
-- **Correctness:** Sound. Gating on `sff->gpios & SFP_F_PRESENT`
-  distinguishes `sff,sfp` (has presence bit in `sfp_data`) from
-  `sff,sff` (no presence in `sff_data` at line 315).
-- **Minimal:** Uses existing `sfp_read()`, poll infrastructure, and
-  state machine.
-- **Regression risk:** Low — only affects `sff,sfp` + missing MOD_DEF0
-  GPIO; all other paths unchanged.
-- **Reviewer note:** Maxime Chevallier confirmed no regressions on
-  boards he tested.
+- Matches established iwlwifi pattern (`IWL_FW_CHECK` + `pkt_len`
+  caching) used in `mvm/fw.c`, `mvm/rxmq.c`, `mvm/mac-ctxt.c`, etc.
+- Minimal, obviously correct ordering fix.
+- **Regression risk:** Low — only rejects responses that were already
+  invalid; successful paths unchanged.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** Buggy always-present fallback introduced in `259c8618b0099b`
-(Russell King, 2017-12-14, “sfp: add sff module support”). Present since
-v4.15 era; long-lived generic SFP driver bug exposed by newer RTL930x
-switch boards.
+### Step 3.1: Blame changed lines
+**Record:** Current buggy code in `iwl_mvm_update_mcc()` is present at
+HEAD (`v6.18.44`). Blame points to base import `5d324e5159d9e` (shallow
+history in this checkout). All three version branches share the same
+pattern.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag. Original intent (2017) was correct for
-soldered `sff,sff` but was over-applied to socketed `sff,sfp` cages
-without MOD_DEF0.
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no `Fixes:` tag in commit message.
 
 ### Step 3.3: Related file history
-**Record:**
-- Prerequisite `bef389a210e7d` (“initialize i2c_block_size at adapter
-  configure time”) **is already in this tree** — sets `i2c_block_size`
-  in `sfp_i2c_configure()` (line 823).
-- Patch is standalone (v3 final revision); not part of a multi-commit
-  series.
-- `git apply --check` on this tree: **applies cleanly**.
+**Record:** Recent iwlwifi mvm commits in this tree include closely
+related backports:
+- `2d5dec517b539` — move field read after size check in WoWLAN wake
+  packet handler
+- `a076b0c457c71` — validate SAR GEO response payload before access
+- `dd90880eb5ec5` — OOB read fix in `iwl_mvm_nd_match_info_handler()`
+
+This MCC fix is the same bug class and same Intel batch (July 2026). The
+MCC fix itself is **not** yet in this tree (`git log --grep` found
+nothing; no `MCC v8 response too short` string in tree).
 
 ### Step 3.4: Author context
-**Record:** Greg Patrick is a hardware-focused contributor for RTL930x
-switch platforms. netdev maintainers (Kicinski) and SFP reviewer
-(Chevallier) involved.
+**Record:** Emmanuel Grumbach is iwlwifi maintainer; Miri Korenblit is
+Intel iwlwifi lead. Same review chain as other July 2026 iwlwifi stable
+backports already merged here.
 
 ### Step 3.5: Dependencies
-**Record:**
-- Depends on existing SFP driver, I2C/SMBus read path, and `SFP_PHYS_ID`
-  (defined in `include/linux/sfp.h` line 341) — all present in 6.18.44.
-- `bef389a` (i2c_block_size init) already merged; patch also seeds
-  `i2c_block_size` in probe as extra safety.
-- **Can apply standalone:** Yes.
+**Record:** Standalone — uses existing `IWL_FW_CHECK`,
+`iwl_rx_packet_payload_len()`, and MCC structs already in tree. No
+series dependencies.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://patch.msgid.link/20260611175341.2223184-1-
-  gregspatrick@hotmail.com
-- **Revisions:** v1 (2026-06-02), v2 (2026-06-04), v3 (2026-06-11,
-  committed version)
-- **Key feedback:** Maxime Chevallier Reviewed-by + Tested-by; no NAKs;
-  suggested optional follow-up dmesg warning about broken HW design (not
-  blocking).
-- **Stable nomination:** No explicit “Cc: stable” in thread; not a
-  negative signal.
+### Step 4.1: Original patch discussion
+**Record:** `b4 dig` could not match this commit (not in local git
+history). Link URL blocked by bot protection (403). No local `.mbx` for
+this patch found.
 
 ### Step 4.2: Reviewers
-**Record:** Russell King, Andrew Lunn, Heiner Kallweit,
-netdev@vger.kernel.org CC'd. Maxime Chevallier (Bootlin, SFP reviewer)
-provided Reviewed-by and Tested-by.
+**Record:** UNVERIFIED from lore; commit SOBs show Intel iwlwifi
+maintainers.
 
-### Step 4.3: Bug reports
-**Record:** No syzbot/bugzilla. Real hardware reports from NicGiga and
-Horaco board users via author and testers.
+### Step 4.3: Bug report
+**Record:** No external bug report, syzbot, or sanitizer report
+referenced.
 
-### Step 4.4: Series context
-**Record:** Standalone 1-patch series (v1→v3 refinements only).
+### Step 4.4: Related patches
+**Record:** Part of Intel iwlwifi July 2026 validation batch; sibling
+fixes (`2d5dec517b539`, `a076b0c457c71`) already backported to this
+6.18.y tree.
 
-### Step 4.5: Stable list
-**Record:** No stable@vger.kernel.org discussion found for this specific
-fix. Not searched exhaustively due to lore bot protection; b4 mbox had
-no stable nomination.
+### Step 4.5: Stable list history
+**Record:** UNVERIFIED on lore stable list; analogous iwlwifi fixes
+already accepted into this stable tree.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key functions
-**Record:** `sfp_module_present_i2c()`, `sfp_i2c_get_state()`,
-`sfp_probe()`, plus existing `sfp_check_state()`, `sfp_poll()`,
-`sfp_gpio_get_state()`, `sff_gpio_get_state()`.
+**Record:** `iwl_mvm_update_mcc()` (modified)
 
 ### Step 5.2: Callers
 **Record:**
-- `sfp_i2c_get_state()` → via `sfp->get_state` from `sfp_get_state()` →
-  `sfp_check_state()` (poll/IRQ path, `st_mutex` held) and `sfp_probe()`
-  (init path, documented as safe without mutex).
-- `sfp_poll()` runs on `system_percpu_wq` every 100 ms when `need_poll`
-  is set.
-- Impact surface: SFP platform devices with `compatible = "sff,sfp"` and
-  no MOD_DEF0 GPIO only.
+- `iwl_mvm_get_regdomain()` in `mac80211.c` (primary caller)
+- Indirect callers: `iwl_mvm_init_mcc()`,
+  `iwl_mvm_rx_chub_update_mcc()`, `iwl_mvm_apply_last_mcc()` in `nvm.c`
+  / `mac80211.c`
+- Gated by `iwl_mvm_is_lar_supported(mvm)` (LAR-capable Intel devices
+  with NVM+FW support)
 
 ### Step 5.3: Callees
-**Record:** `sfp_read()` → `sfp_i2c_read()` or `sfp_smbus_byte_read()`;
-on empty cage, I2C NAK returns negative errno,
-`sfp_module_present_i2c()` returns false.
+**Record:** `iwl_mvm_send_cmd()`, `iwl_fw_lookup_notif_ver()`,
+`iwl_rx_packet_payload_len()`, `IWL_FW_CHECK()`, `kzalloc()`,
+`memcpy()`, `iwl_free_resp()`
 
 ### Step 5.4: Reachability
-**Record:** Triggered at boot probe and ongoing poll for affected DT
-configurations. Not syscall-reachable directly, but affects network port
-availability — a primary function for switch/router users.
+**Record:** Triggered during driver init (regulatory setup), BIOS MCC
+application, and runtime Chub MCC notifications. Userspace can
+indirectly trigger regulatory/MCC paths via cfg80211 country updates on
+LAR-enabled hardware. Requires `CONFIG_IWLMVM`.
 
 ### Step 5.5: Similar patterns
-**Record:** SFP subsystem already has extensive quirk/workaround
-patterns for broken hardware. I2C-based presence is consistent with that
-philosophy.
+**Record:** Same “validate before read” pattern fixed in
+`iwl_mvm_wowlan_store_wake_pkt()` (`2d5dec517b539`) in this tree.
+`mld/mcc.c` `iwl_mld_copy_mcc_resp()` has a similar ordering issue but
+is **outside** this commit’s scope.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 6.1: Buggy code exists?
-**Record:** **Yes.** Lines 3161–3163 in current tree still use
-unconditional `sff_gpio_get_state()` when MOD_DEF0 GPIO is absent. Bug
-present since 2017 code landed in this tree.
+### Step 6.1: Does buggy code exist?
+**Record:** **YES.** Local tree is **6.18.44** (`git describe HEAD` →
+`v6.18.44-1-g2736c32da98b9`). `nvm.c` lines 442–493 read `n_channels`
+before any minimum header-length check. Fix not present.
 
 ### Step 6.2: Backport complications
-**Record:** **Clean apply** verified via `git apply --check`. No
-structural conflicts with recent `sfp.c` changes in 6.18.44.
+**Record:** Clean apply expected — same file structure, `IWL_FW_CHECK`
+exists, no conflicting recent changes to `iwl_mvm_update_mcc()`.
 
 ### Step 6.3: Related fixes already present?
-**Record:** Prerequisite `bef389a` (i2c_block_size) is present. The I2C
-presence fix itself is **not** in HEAD (`git merge-base --is-ancestor
-8ac44d24c3a14 HEAD` → NOT IN HEAD).
+**Record:** Same-category iwlwifi firmware-response validation fixes are
+already in tree; this specific MCC fix is not.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem and Maintainer Context
 
 ### Step 7.1: Subsystem criticality
-**Record:** `drivers/net/phy/sfp.c` — **IMPORTANT** (network driver
-infrastructure for SFP/SFF modules). Not core kernel, but affects
-primary connectivity on network appliances.
+**Record:** `drivers/net/wireless/intel/iwlwifi/mvm` — **IMPORTANT**
+(Intel WiFi, widely deployed on laptops; regulatory/MCC path affects
+channel legality).
 
 ### Step 7.2: Subsystem activity
-**Record:** Actively maintained — frequent quirk additions and SMBus
-support commits in 6.18.y history.
+**Record:** Active — multiple iwlwifi mvm fixes landed recently in this
+6.18.y tree.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who is affected
-**Record:** **Platform-specific** — boards with `sff,sfp` DT nodes where
-MOD_DEF0/MOD_ABS is not wired to a readable GPIO. Confirmed:
-RTL9302/9303-based managed switches. Unaffected: boards with MOD_DEF0
-GPIO, soldered `sff,sff` modules, or non-SFP configurations.
+**Record:** Users of Intel iwlwifi MVM devices with LAR support
+(`CONFIG_IWLMVM`). Not universal, but a large laptop population.
 
 ### Step 8.2: Trigger conditions
-**Record:**
-- **Trigger:** Boot with empty SFP cage, or insert module after boot on
-  affected hardware.
-- **Likelihood:** 100% on affected board designs.
-- **Unprivileged trigger:** No direct security vector; requires specific
-  hardware.
+**Record:** Truncated or malformed `MCC_UPDATE_CMD` firmware response.
+Uncommon in normal operation (requires FW bug, communication error, or
+corrupted response), but the code path runs at init and on MCC updates.
+Not directly userspace-injectable, but reachable from normal driver
+operation.
 
 ### Step 8.3: Failure mode severity
-**Record:**
-- **Failure mode:** SFP ports permanently non-functional; hot-plug
-  broken; boot `-EIO` spam on empty cages.
-- **Severity:** **HIGH** for affected users (complete loss of SFP
-  functionality), but **not CRITICAL** (no kernel panic, deadlock, data
-  corruption, or security exploit).
+**Record:** Out-of-bounds read from SKB payload; possible kernel
+oops/KASAN report; potential follow-on issues from garbage `n_channels`.
+**Severity: HIGH** (memory safety in kernel), though trigger likelihood
+is **MEDIUM-LOW**.
 
 ### Step 8.4: Risk-benefit
 **Record:**
-- **Benefit:** Restores working SFP and hot-plug on real production
-  hardware; silences boot errors.
-- **Risk:** Very low — narrow activation conditions, throttled I2C
-  polling, reviewed and hardware-tested.
-- **Ratio:** Strong benefit for affected platforms; minimal risk to
-  others.
+- **Benefit:** Prevents OOB read on a real driver path; aligns with
+  fixes already accepted for this tree.
+- **Risk:** Very low — adds early rejection of invalid packets only.
+- **Ratio:** Strong benefit, minimal risk.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 ### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Fixes a real, reproducible functional bug on shipping hardware
-  (NicGiga, Horaco).
-- Long-standing incorrect assumption since 2017, now exposed by newer
-  boards.
-- Small, single-file, applies cleanly to 6.18.44.
-- Reviewed-by + dual Tested-by on real hardware.
-- Hardware-workaround category (stable-appropriate).
-- Prerequisites already in tree.
+- Real out-of-bounds read before bounds checking
+- Small, surgical, maintainer-authored fix
+- Matches iwlwifi conventions (`IWL_FW_CHECK`)
+- Buggy code confirmed present in 6.18.44
+- Same bug pattern as `2d5dec517b539` already backported here
+- Intel iwlwifi maintainers signed off
+- Standalone, no dependencies
 
 **AGAINST backport:**
-- Not a crash/security/data-corruption issue.
-- Affects a narrow hardware subset.
-- Adds I2C polling behavior (new code path), though gated and throttled.
-- No explicit stable nomination in mailing list.
+- No syzbot/user report (defensive hardening)
+- Trigger requires malformed FW response (rare)
+- Only LAR-enabled iwlwifi hardware
 
-**Unresolved:** Whether older stable branches (e.g., 6.6.y) without
-RTL930x users would benefit — irrelevant here; decision is for **this**
-6.18.y tree only.
+**Unresolved:**
+- Full lore review thread (blocked/unavailable)
+- Exact upstream commit SHA not in local git
 
 ### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — Reviewed-by, two Tested-by,
-   clear mechanism.
-2. Fixes a real bug affecting users? **PASS** — SFP ports broken on
-   affected switches.
-3. Important issue? **PASS** — Complete functional failure on affected
-   hardware (HIGH, not CRITICAL).
-4. Small and contained? **PASS** — ~80 lines, one file.
-5. No new features/APIs? **PASS** — Fixes broken presence detection; no
-   userspace API changes.
-6. Can apply to local tree? **PASS** — Clean apply verified;
-   prerequisites present.
+1. Obviously correct and tested? **PASS** — ordering fix is standard;
+   tested implicitly by maintainer merge; no Tested-by.
+2. Fixes a real bug? **PASS** — OOB read on short payload verified by
+   struct layout.
+3. Important issue? **PASS** — memory safety / potential crash (HIGH
+   severity, medium-low likelihood).
+4. Small and contained? **PASS** — ~30 lines, one function, one file.
+5. No new features/APIs? **PASS** — validation only.
+6. Can apply to local tree? **PASS** — code exists, fix not present,
+   clean apply expected.
 
-### Step 9.3: Exception category
-**Record:** **Hardware quirk/workaround** — boards with broken/missing
-MOD_DEF0 presence wiring.
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Qualifies
+as a standard bug fix.
 
-### Step 9.4: Decision rationale
+### Step 9.4: Problem and decision
 
-For **linux 6.18.y** specifically: the buggy code is present, the fix
-applies cleanly, prerequisites are merged, and affected RTL930x switch
-platforms running 6.18 need this to get working SFP ports and hot-plug.
-The fix is conservative (only activates for `sff,sfp` without MOD_DEF0
-GPIO), well-reviewed, and hardware-tested. This is appropriate stable
-material as a driver hardware workaround fixing a real functional
-regression.
+This commit fixes an ordering bug in `iwl_mvm_update_mcc()` where
+`n_channels` is read from the firmware response before verifying the
+packet is large enough to contain the fixed MCC header (16/20/24 bytes
+for v3/v4/v8). On a truncated response, that is an out-of-bounds read.
+The existing exact-size check does not prevent the initial invalid read.
+
+For **6.18.44**, the vulnerable code is present and the fix is absent.
+The change is small, follows patterns already backported in this tree
+(`2d5dec517b539`, `a076b0c457c71`), and addresses a real memory-safety
+defect on a regulatory/MCC path used by LAR-enabled Intel WiFi hardware.
+Risk of regression is negligible.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body; no Fixes:/Reported-by/syzbot;
-  found Tested-by ×2, Reviewed-by, Link.
-- [Phase 2] Analyzed full diff from `git show 8ac44d24c3a14`; confirmed
-  +80/-3 lines in `sfp.c`.
-- [Phase 2] Read `sff_gpio_get_state()` (lines 649–651): unconditionally
-  sets `SFP_F_PRESENT`.
-- [Phase 2] Read `sfp_data` vs `sff_data` gpios masks (lines 314–340):
-  gating logic verified.
-- [Phase 2] Read `SFP_MOD_ERROR` terminal behavior (lines 2601–2602,
-  2662–2664).
-- [Phase 2] Read `sfp_check_state()` INSERT/REMOVE dispatch (lines
-  3020–3022).
-- [Phase 3] `git blame` lines 3161–3163 → `259c8618b0099b` (2017-12-14).
-- [Phase 3] `git show 259c8618b0099b`: original sff module support
-  commit.
-- [Phase 3] `git merge-base --is-ancestor 8ac44d24c3a14 HEAD` → NOT IN
-  HEAD.
-- [Phase 3] `git apply --check` → APPLIES CLEANLY.
-- [Phase 3] Verified `bef389a210e7d` in tree (i2c_block_size init at
-  line 823).
-- [Phase 4] `b4 dig -c 8ac44d24c3a14` → lore URL found.
-- [Phase 4] `b4 dig -a` → v1/v2/v3 revisions; v3 is committed version.
-- [Phase 4] `b4 dig -w` → Russell King, Andrew Lunn,
-  netdev@vger.kernel.org CC'd.
-- [Phase 4] `b4 dig -m /tmp/sfp_i2c_presence.mbox` → Maxime Chevallier
-  Reviewed-by + Tested-by, no NAKs, no stable Cc.
-- [Phase 5] Traced `sfp_get_state()` → `sfp_check_state()` →
-  `sfp_poll()` call chain.
-- [Phase 5] Verified `SFP_PHYS_ID = 0` in `include/linux/sfp.h`.
-- [Phase 5] Verified `sfp_i2c_read()` returns negative on I2C failure
-  (lines 715–717).
-- [Phase 6] `git describe HEAD` → v6.18.44; Makefile 6.18.44.
-- [Phase 6] Confirmed buggy lines 3161–3163 exist in current tree.
-- [Phase 8] Failure mode: functional SFP failure + boot -EIO spam;
-  severity HIGH for affected hardware.
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+- **[Phase 2]** Analyzed provided diff; verified `IWL_FW_CHECK` in
+  `fw/dbg.h`
+- **[Phase 2]** Computed struct sizes: v3=16, v4=20, v8=24 bytes;
+  `n_channels` offsets 12/16/20
+- **[Phase 3]** `git blame` on `nvm.c:439-495`: buggy pattern at HEAD
+- **[Phase 3]** `git log --oneline -20 --
+  drivers/net/wireless/intel/iwlwifi/mvm/`: found related backports
+- **[Phase 3]** `git show 2d5dec517b539`, `a076b0c457c71`,
+  `dd90880eb5ec5`: confirmed same fix class already in tree
+- **[Phase 3]** `git log --grep="validate MCC"` / `--grep="MCC header"`:
+  no matches (fix not applied)
+- **[Phase 4]** `b4 dig` with message-id: failed (wrong usage / no
+  match)
+- **[Phase 4]** WebFetch/curl lore + patch.msgid.link: blocked (403 /
+  bot protection)
+- **[Phase 4]** Grep `*.mbx` for patch subject: no local mbox found
+- **[Phase 5]** `grep iwl_mvm_update_mcc`: callers in `mac80211.c`,
+  `nvm.c`
+- **[Phase 5]** Read `iwl_mvm_is_lar_supported()` in `mvm.h`
+- **[Phase 5]** Grep `pkt_len < sizeof` in iwlwifi: established
+  validation pattern
+- **[Phase 6]** `git describe HEAD`: `v6.18.44-1-g2736c32da98b9`;
+  Makefile 6.18.44
+- **[Phase 6]** Read `nvm.c:439-514`: confirmed buggy code at HEAD
+- **[Phase 6]** Grep `MCC v8 response too short`: not in tree
+- **[Phase 8]** Read MCC struct definitions in `fw/api/nvm-reg.h`
 
-**YES**The background search found the commit on `master` as
-`8ac44d24c3a14` (`net: phy: sfp: detect presence via I2C when no
-MOD_DEF0 GPIO`). It is not in the current 6.18.44 tree, but it applies
-cleanly there.
+**YES**The analysis is done. For the **6.18.44** tree checked out here,
+the iwlwifi MCC validation commit should be backported.
 
-**Recommendation for this 6.18.y tree: YES** — it fixes broken SFP/hot-
-plug on boards without a MOD_DEF0 GPIO (e.g. RTL9302/9303 switches), is
-small and well-tested, and matches stable’s hardware-workaround pattern.
+**Verdict: YES**
 
- drivers/net/phy/sfp.c | 83 +++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 80 insertions(+), 3 deletions(-)
+The bug is real: `iwl_mvm_update_mcc()` reads `n_channels` from firmware
+MCC responses before checking that the payload is large enough for the
+fixed header (16/20/24 bytes for v3/v4/v8), which can cause an out-of-
+bounds read on truncated responses. The vulnerable code is present in
+this tree; the fix is not.
 
-diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
-index e242c1a1238f9..1c4340b3777f6 100644
---- a/drivers/net/phy/sfp.c
-+++ b/drivers/net/phy/sfp.c
-@@ -206,6 +206,16 @@ static const enum gpiod_flags gpio_flags[] = {
- #define T_PROBE_RETRY_SLOW	msecs_to_jiffies(5000)
- #define R_PROBE_RETRY_SLOW	12
+The patch is small, uses the existing `IWL_FW_CHECK` pattern, and
+matches similar iwlwifi validation fixes already backported here (e.g.
+wake-packet and SAR GEO payload checks). Risk is low; benefit is
+preventing a memory-safety defect on the LAR/MCC regulatory path for
+Intel WiFi hardware.
+
+ drivers/net/wireless/intel/iwlwifi/mvm/nvm.c | 43 ++++++++++++++++----
+ 1 file changed, 36 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c b/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c
+index 953218f1e025a..f76e57399c1f3 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/nvm.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+ /*
+- * Copyright (C) 2012-2014, 2018-2019, 2021-2025 Intel Corporation
++ * Copyright (C) 2012-2014, 2018-2019, 2021-2026 Intel Corporation
+  * Copyright (C) 2013-2015 Intel Mobile Communications GmbH
+  * Copyright (C) 2016-2017 Intel Deutschland GmbH
+  */
+@@ -416,6 +416,7 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
+ 	int ret, resp_ver;
+ 	u32 status;
+ 	int resp_len, n_channels;
++	unsigned int pkt_len;
+ 	u16 mcc;
  
-+/* Polling interval and consecutive-failure threshold for the I2C presence
-+ * probe used on boards without a MOD_DEF0 GPIO (see sfp_i2c_get_state()).
-+ * A single successful read asserts presence immediately; R_PROBE_ABSENT
-+ * consecutive failures are required to declare a live module removed, to ride
-+ * out a transient I2C error. Insertion is thus detected within
-+ * T_PROBE_PRESENT and removal within T_PROBE_PRESENT * R_PROBE_ABSENT.
-+ */
-+#define T_PROBE_PRESENT		msecs_to_jiffies(500)
-+#define R_PROBE_ABSENT		3
-+
- /* SFP modules appear to always have their PHY configured for bus address
-  * 0x56 (which with mdio-i2c, translates to a PHY address of 22).
-  * RollBall SFPs access phy via SFP Enhanced Digital Diagnostic Interface
-@@ -249,6 +259,13 @@ struct sfp {
+ 	if (WARN_ON_ONCE(!iwl_mvm_is_lar_supported(mvm)))
+@@ -431,6 +432,7 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
+ 		return ERR_PTR(ret);
  
- 	bool need_poll;
+ 	pkt = cmd.resp_pkt;
++	pkt_len = iwl_rx_packet_payload_len(pkt);
  
-+	/* I2C-probed presence, for boards without a MOD_DEF0 GPIO.
-+	 * Access rules: st_mutex held (updated from the poll/state machine).
-+	 */
-+	bool i2c_present;
-+	u8 i2c_present_nak;
-+	unsigned long i2c_present_next;
-+
- 	/* Access rules:
- 	 * state_hw_drive: st_mutex held
- 	 * state_hw_mask: st_mutex held
-@@ -863,6 +880,45 @@ static int sfp_read(struct sfp *sfp, bool a2, u8 addr, void *buf, size_t len)
- 	return sfp->read(sfp, a2, addr, buf, len);
- }
+ 	resp_ver = iwl_fw_lookup_notif_ver(mvm->fw, IWL_ALWAYS_LONG_GROUP,
+ 					   MCC_UPDATE_CMD, 0);
+@@ -439,9 +441,18 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
+ 	if (resp_ver >= 8) {
+ 		struct iwl_mcc_update_resp_v8 *mcc_resp_v8 = (void *)pkt->data;
  
-+/* Probe whether a module is physically present by attempting a single-byte
-+ * I2C read of the EEPROM identifier (an empty cage NAKs). Used as the presence
-+ * source on boards that do not wire MOD_DEF0 to a GPIO.
-+ */
-+static bool sfp_module_present_i2c(struct sfp *sfp)
-+{
-+	u8 id;
-+
-+	return sfp_read(sfp, false, SFP_PHYS_ID, &id, sizeof(id)) == sizeof(id);
-+}
-+
-+/* get_state variant for boards without a MOD_DEF0 GPIO. Instead of assuming
-+ * the module is always present, derive SFP_F_PRESENT from a throttled I2C
-+ * probe so that hot-insertion and removal are detected. A single ACK asserts
-+ * presence; R_PROBE_ABSENT consecutive failures clear it, to ride out a
-+ * transient I2C error on a live module.
-+ */
-+static unsigned int sfp_i2c_get_state(struct sfp *sfp)
-+{
-+	unsigned int state = sfp_gpio_get_state(sfp);
-+
-+	if (time_after_eq(jiffies, sfp->i2c_present_next)) {
-+		if (sfp_module_present_i2c(sfp)) {
-+			sfp->i2c_present = true;
-+			sfp->i2c_present_nak = 0;
-+		} else if (sfp->i2c_present &&
-+			   ++sfp->i2c_present_nak >= R_PROBE_ABSENT) {
-+			sfp->i2c_present = false;
-+			sfp->i2c_present_nak = 0;
++		if (IWL_FW_CHECK(mvm, pkt_len < sizeof(*mcc_resp_v8),
++				 "MCC v8 response too short: %u\n", pkt_len)) {
++			resp_cp = ERR_PTR(-EINVAL);
++			goto exit;
 +		}
-+		sfp->i2c_present_next = jiffies + T_PROBE_PRESENT;
-+	}
 +
-+	if (sfp->i2c_present)
-+		state |= SFP_F_PRESENT;
-+
-+	return state;
-+}
-+
- static int sfp_write(struct sfp *sfp, bool a2, u8 addr, void *buf, size_t len)
- {
- 	return sfp->write(sfp, a2, addr, buf, len);
-@@ -3168,9 +3224,30 @@ static int sfp_probe(struct platform_device *pdev)
- 	sfp->get_state = sfp_gpio_get_state;
- 	sfp->set_state = sfp_gpio_set_state;
+ 		n_channels =  __le32_to_cpu(mcc_resp_v8->n_channels);
+-		if (iwl_rx_packet_payload_len(pkt) !=
+-		    struct_size(mcc_resp_v8, channels, n_channels)) {
++		if (IWL_FW_CHECK(mvm,
++				 pkt_len !=
++				 struct_size(mcc_resp_v8, channels, n_channels),
++				 "invalid MCC v8 response size: %u (n_channels=%d)\n",
++				 pkt_len, n_channels)) {
+ 			resp_cp = ERR_PTR(-EINVAL);
+ 			goto exit;
+ 		}
+@@ -464,9 +475,18 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
+ 			       IWL_UCODE_TLV_CAPA_MCC_UPDATE_11AX_SUPPORT)) {
+ 		struct iwl_mcc_update_resp_v4 *mcc_resp_v4 = (void *)pkt->data;
  
--	/* Modules that have no detect signal are always present */
--	if (!(sfp->gpio[GPIO_MODDEF0]))
--		sfp->get_state = sff_gpio_get_state;
-+	/* An SFP cage with no MOD_DEF0 GPIO has no hardware presence signal.
-+	 * Assuming the module is always present traps an empty cage in
-+	 * MOD_ERROR and never detects hot-insertion, so derive presence from a
-+	 * throttled I2C probe and poll for changes instead. sfp_i2c_configure()
-+	 * has already set i2c_max_block_size; seed i2c_block_size so the
-+	 * presence read does not issue a zero-length transfer before the first
-+	 * EEPROM read. Seed i2c_present_next to jiffies so the first probe
-+	 * happens immediately (a zero value would be in the past relative to
-+	 * the negative INITIAL_JIFFIES at boot and delay detection).
-+	 *
-+	 * A soldered-down module (sff,sff) has no presence signal and is
-+	 * genuinely always present, so it keeps the always-present behaviour;
-+	 * the I2C probe is gated on the cage type advertising SFP_F_PRESENT.
-+	 */
-+	if (!sfp->gpio[GPIO_MODDEF0]) {
-+		if (sff->gpios & SFP_F_PRESENT) {
-+			sfp->get_state = sfp_i2c_get_state;
-+			sfp->i2c_block_size = sfp->i2c_max_block_size;
-+			sfp->i2c_present_next = jiffies;
-+			sfp->need_poll = true;
-+		} else {
-+			sfp->get_state = sff_gpio_get_state;
++		if (IWL_FW_CHECK(mvm, pkt_len < sizeof(*mcc_resp_v4),
++				 "MCC v4 response too short: %u\n", pkt_len)) {
++			resp_cp = ERR_PTR(-EINVAL);
++			goto exit;
 +		}
-+	}
++
+ 		n_channels =  __le32_to_cpu(mcc_resp_v4->n_channels);
+-		if (iwl_rx_packet_payload_len(pkt) !=
+-		    struct_size(mcc_resp_v4, channels, n_channels)) {
++		if (IWL_FW_CHECK(mvm,
++				 pkt_len !=
++				 struct_size(mcc_resp_v4, channels, n_channels),
++				 "invalid MCC v4 response size: %u (n_channels=%d)\n",
++				 pkt_len, n_channels)) {
+ 			resp_cp = ERR_PTR(-EINVAL);
+ 			goto exit;
+ 		}
+@@ -489,9 +509,18 @@ iwl_mvm_update_mcc(struct iwl_mvm *mvm, const char *alpha2,
+ 	} else {
+ 		struct iwl_mcc_update_resp_v3 *mcc_resp_v3 = (void *)pkt->data;
  
- 	device_property_read_u32(&pdev->dev, "maximum-power-milliwatt",
- 				 &sfp->max_power_mW);
++		if (IWL_FW_CHECK(mvm, pkt_len < sizeof(*mcc_resp_v3),
++				 "MCC v3 response too short: %u\n", pkt_len)) {
++			resp_cp = ERR_PTR(-EINVAL);
++			goto exit;
++		}
++
+ 		n_channels =  __le32_to_cpu(mcc_resp_v3->n_channels);
+-		if (iwl_rx_packet_payload_len(pkt) !=
+-		    struct_size(mcc_resp_v3, channels, n_channels)) {
++		if (IWL_FW_CHECK(mvm,
++				 pkt_len !=
++				 struct_size(mcc_resp_v3, channels, n_channels),
++				 "invalid MCC v3 response size: %u (n_channels=%d)\n",
++				 pkt_len, n_channels)) {
+ 			resp_cp = ERR_PTR(-EINVAL);
+ 			goto exit;
+ 		}
 -- 
 2.53.0
 
