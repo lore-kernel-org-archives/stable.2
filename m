@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3795408039
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:53:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0361540EBAE
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180811; cv=none; b=c7ZPUARk5GOE8JS8JO+dGEWz9opzmzNzaTrcUS/Qa2/W7qq0WP1uAsAVC9pL7OSlnoHScajiQoUaRHVupRUUz1iOcDZKQQwkBusGpVL2LYBJZgKY1u8CsZATeOvwNerPRvTpz+01KCfhfm4EwRxTJHHOkJoAid0We8dh5HV+wD0=
+	t=1788181064; cv=none; b=toOuBQ4vhNoHXG2H4qIJGle33QK95KWtLynPvWK8r49SnfeSJo8rIKCRHmAgD3HgIt8H8AP22i2vRMkJW+pexy8Jp0UAA6ULKcktg6XojlGtNlC308+CivCMv+TljwYx9WrzwWLqSbBAU/o00eXM9tLZtCl5wcroGrWWo4rd0Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180811; c=relaxed/simple;
-	bh=g0KDQse8mzHo/FYK4Ov6HlsIgZfEO+jM59wC0FLedUM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MI5OzRdMec5Xhftg2GJf+z6qSU8c20tHS9SyksComUkOeqOgiKMpX35kTpgkPM4CnQ2ivTWS57j8k4D4T8cxUTBU8s+HvIffsipjH3nNxnk0Y71ipTlIagv3D+7CDeRNYMnOfLFrvEXoIldy7jqNTXvOdBYPylp2fMeEFVyEOx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R/IuICEn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788181064; c=relaxed/simple;
+	bh=9L63/jupGdwjxjt0YnHwkN7FmhzZ1EGI+v0tbbMOih8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dDNgD6aMsLJiRnIl99S/kvQ4dB9liif+4e/qpP99nyrsuBOruGDXz9OSFOHA2CugKZYRgKLlrXqiz/Mx6hWxEYbhO6Bo0uOQQv4fxYKYPqCrHbMrb4jl1NkeqVOPzm78Vxa0CMu7xF2UC270872nxhwv/dTWcIJdB8Sk3vE1Rak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bOHwYThI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R/IuICEn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28E31F00A3D;
-	Mon, 31 Aug 2026 12:53:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bOHwYThI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8BB1F000E9;
+	Mon, 31 Aug 2026 12:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788180808;
-	bh=loz7QBIYTLupuSuKllfozgaizpDwulZK4JDOXZWnV6g=;
+	s=korg; t=1788181062;
+	bh=hutBEla56RrXKrI9VZntLJRNpXlHaAjIHpBxYuNVuxo=;
 	h=Subject:To:Cc:From:Date;
-	b=R/IuICEnewdz3uFO8lXkauNYDXqloAtxaDiFAUT34btbO3xhgTuzBXE7XOGthoLmt
-	 WRfEOocC6MN97P2zO7MC/lJPkOO9bo0btOhM4sGDgQ2hDmYn/EqvaZNgJ33WTLERyC
-	 HA8nHS/X7ZZ2d/85k6HFvcQhQ1CUDYfdyyCkBbzc=
-Subject: FAILED: patch "[PATCH] tcp: clamp route advmss to TCP_MIN_MSS" failed to apply to 6.1-stable tree
-To: edragain@163.com,kuba@kernel.org,vega@nebusec.ai,weir@nebusec.ai
+	b=bOHwYThIIXI0poGI8NR2TuucsKRLuXFi7rUZdmCBiI/ben0qKvn/RxCY6pNPiEgK1
+	 3JDzNBHY1MCpFjRYaTXbMAzlpsqLzl7tL8CKiM38s3b89KJSBZqAY3PUW2LZJkRHr+
+	 CNmc0UxG1rwxwGVzeE8czZQXUetK5w2gOwNGVKfo=
+Subject: FAILED: patch "[PATCH] vlan: fix skb_under_panic and races when toggling HW VLAN" failed to apply to 6.18-stable tree
+To: edumazet@google.com,kuba@kernel.org,stable@vger.kernel.org,xietangxin@h-partners.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:53:06 +0200
-Message-ID: <2026083106-glider-shiftless-2e30@gregkh>
+Date: Mon, 31 Aug 2026 14:57:17 +0200
+Message-ID: <2026083117-syrup-hardening-b7eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 870a9e42ecc6fe1b8c25d87af043cb0d9c178fe1
+git cherry-pick -x 447cbe95ebb95392b5d8f6a01c0556826919ce23
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083106-glider-shiftless-2e30@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083117-syrup-hardening-b7eb@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,118 +62,117 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 870a9e42ecc6fe1b8c25d87af043cb0d9c178fe1 Mon Sep 17 00:00:00 2001
-From: Yong Wang <edragain@163.com>
-Date: Wed, 19 Aug 2026 23:22:04 +0800
-Subject: [PATCH] tcp: clamp route advmss to TCP_MIN_MSS
+From 447cbe95ebb95392b5d8f6a01c0556826919ce23 Mon Sep 17 00:00:00 2001
+From: Eric Dumazet <edumazet@google.com>
+Date: Tue, 11 Aug 2026 08:52:46 +0000
+Subject: [PATCH] vlan: fix skb_under_panic and races when toggling HW VLAN
+ offload
 
-tcp_select_initial_window() assumes that callers never pass an MSS
-smaller than 1, but route-derived advmss values can violate that
-assumption.
+Toggling hardware VLAN TX offload (NETIF_F_HW_VLAN_CTAG_TX or
+NETIF_F_HW_VLAN_STAG_TX) on a lower device invokes vlan_transfer_features(),
+which dynamically changed vlandev->hard_header_len.
 
-A too-small explicit RTAX_ADVMSS is one way to get there, but it is not
-the only one. The same divide-by-zero can also be reached through the
-"default advmss" path when RTAX_ADVMSS is left at 0 and the effective
-advmss is later driven down by route MTU and min_adv_mss.
+This causes two issues:
+1. Lockless TX paths (e.g. packet_snd in af_packet.c, ip6_finish_output2)
+   read dev->hard_header_len without holding RTNL lock. Mutating
+   hard_header_len dynamically under RTNL creates a data race where upper
+   layers reserve insufficient headroom based on a stale hard_header_len,
+   resulting in skb_under_panic when vlan_dev_hard_header() is called.
+2. In addition, vlan_transfer_features() updated hard_header_len without
+   updating header_ops, causing a mismatch between allocated headroom
+   and header creation.
 
-Introduce a tcp_dst_advmss() helper that clamps route advmss to
-TCP_MIN_MSS before TCP consumes it, and use it in the TCP paths that
-derive advmss from dst metrics. This keeps the effective MSS from
-dropping to zero before tcp_select_initial_window() rounds the receive
-window.
+Always setting dev->hard_header_len = real_dev->hard_header_len and
+dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN unconditionally
+ensures:
+- dev->hard_header_len remains 100% static and immutable at real_dev->hard_header_len,
+  eliminating all dynamic runtime updates and data races on hard_header_len.
+- Upper layers allocating skbs via LL_RESERVED_SPACE() will always reserve
+  sufficient headroom for software VLAN tag insertion (real_dev->hard_header_len +
+  real_dev->needed_headroom + VLAN_HLEN).
+- vlandev inherits real_dev->needed_tailroom so underlying trailer/padding/ICV
+  requirements are honored.
+- AF_PACKET SOCK_RAW network header offsets remain correctly aligned at
+  real_dev->hard_header_len.
+- vlan_header_ops is used unconditionally.
+
+Note to stable teams: Make sure to backport these commits:
+
+e16e960d55a4 ("ipvlan: inherit needed_headroom and needed_tailroom from phy_dev")
+cef51860becd ("macvlan: inherit needed_headroom and needed_tailroom from lowerdev")
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Yong Wang <edragain@163.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Link: https://patch.msgid.link/251eaf8277fa7c66364c9815c5da01662d269181.1787074852.git.edragain@163.com
+Reported-by: Tangxin Xie <xietangxin@h-partners.com>
+Closes: https://lore.kernel.org/netdev/99d678ae-c7b2-4b44-b534-b8320679deb3@h-partners.com/
+Cc: <stable@vger.kernel.org> # 3.19: e16e960d55a4: ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
+Cc: <stable@vger.kernel.org> # 3.19: cef51860becd: macvlan: inherit needed_headroom and needed_tailroom from lowerdev
+Cc: <stable@vger.kernel.org> # 3.19
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260811085246.2267779-1-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 2c5b889530b5..670c20876f26 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -1782,6 +1782,11 @@ static inline int tcp_full_space(const struct sock *sk)
- 	return tcp_win_from_space(sk, READ_ONCE(sk->sk_rcvbuf));
- }
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index ec2569b3f8da..2859cbac3f26 100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -502,26 +502,6 @@ static const struct header_ops vlan_header_ops = {
+ 	.parse_protocol = vlan_parse_protocol,
+ };
  
-+static inline u32 tcp_dst_advmss(const struct dst_entry *dst)
-+{
-+	return max_t(u32, dst_metric_advmss(dst), TCP_MIN_MSS);
-+}
-+
- static inline void __tcp_adjust_rcv_ssthresh(struct sock *sk, u32 new_ssthresh)
- {
- 	int unused_mem = sk_unused_reserved_mem(sk);
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 190c7af4cf92..9f053eb8b46e 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1736,7 +1736,7 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
- 	tcp_ca_openreq_child(newsk, dst);
+-static int vlan_passthru_hard_header(struct sk_buff *skb, struct net_device *dev,
+-				     unsigned short type,
+-				     const void *daddr, const void *saddr,
+-				     unsigned int len)
+-{
+-	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
+-	struct net_device *real_dev = vlan->real_dev;
+-
+-	if (saddr == NULL)
+-		saddr = dev->dev_addr;
+-
+-	return dev_hard_header(skb, real_dev, type, daddr, saddr, len);
+-}
+-
+-static const struct header_ops vlan_passthru_header_ops = {
+-	.create	 = vlan_passthru_hard_header,
+-	.parse	 = eth_header_parse,
+-	.parse_protocol = vlan_parse_protocol,
+-};
+-
+ static const struct device_type vlan_type = {
+ 	.name	= "vlan",
+ };
+@@ -580,14 +560,10 @@ static int vlan_dev_init(struct net_device *dev)
+ 	dev->fcoe_ddp_xid = real_dev->fcoe_ddp_xid;
+ #endif
  
- 	tcp_sync_mss(newsk, dst4_mtu(dst));
--	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
-+	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
+-	dev->needed_headroom = real_dev->needed_headroom;
+-	if (vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)) {
+-		dev->header_ops      = &vlan_passthru_header_ops;
+-		dev->hard_header_len = real_dev->hard_header_len;
+-	} else {
+-		dev->header_ops      = &vlan_header_ops;
+-		dev->hard_header_len = real_dev->hard_header_len + VLAN_HLEN;
+-	}
++	dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN;
++	dev->needed_tailroom = real_dev->needed_tailroom;
++	dev->header_ops      = &vlan_header_ops;
++	dev->hard_header_len = real_dev->hard_header_len;
  
- 	tcp_initialize_rcv_mss(newsk);
+ 	dev->netdev_ops = &vlan_netdev_ops;
  
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 12254e6eb2f3..f3fa0b18eda0 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -440,7 +440,7 @@ void tcp_openreq_init_rwin(struct request_sock *req,
- 	u32 rcv_wnd;
- 	int mss;
+@@ -1029,10 +1005,9 @@ static void vlan_transfer_features(struct net_device *dev,
  
--	mss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
-+	mss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
- 	window_clamp = READ_ONCE(tp->window_clamp);
- 	/* Set this up on the first call only */
- 	req->rsk_window_clamp = window_clamp ? : dst_metric(dst, RTAX_WINDOW);
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index fcaa04e65189..f2709d585edb 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -143,7 +143,7 @@ static __u16 tcp_advertise_mss(struct sock *sk)
- 	int mss = tp->advmss;
+ 	netif_inherit_tso_max(vlandev, dev);
  
- 	if (dst) {
--		unsigned int metric = dst_metric_advmss(dst);
-+		unsigned int metric = tcp_dst_advmss(dst);
+-	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
+-		vlandev->hard_header_len = dev->hard_header_len;
+-	else
+-		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
++	vlandev->needed_headroom = dev->needed_headroom + VLAN_HLEN;
++	vlandev->needed_tailroom = dev->needed_tailroom;
++	vlandev->hard_header_len = dev->hard_header_len;
  
- 		if (metric < mss) {
- 			mss = metric;
-@@ -3972,7 +3972,7 @@ struct sk_buff *tcp_make_synack(const struct sock *sk, struct dst_entry *dst,
- 	}
- 	skb_dst_set(skb, dst);
- 
--	mss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
-+	mss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
- 
- 	memset(&opts, 0, sizeof(opts));
- 	now = tcp_clock_ns();
-@@ -4128,7 +4128,7 @@ static void tcp_connect_init(struct sock *sk)
- 
- 	if (!tp->window_clamp)
- 		WRITE_ONCE(tp->window_clamp, dst_metric(dst, RTAX_WINDOW));
--	tp->advmss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
-+	tp->advmss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
- 
- 	tcp_initialize_rcv_mss(sk);
- 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index 9e9155b1b3aa..df9c29eb5c1f 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -1487,7 +1487,7 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
- 	tcp_ca_openreq_child(newsk, dst);
- 
- 	tcp_sync_mss(newsk, dst6_mtu(dst));
--	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
-+	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
- 
- 	tcp_initialize_rcv_mss(newsk);
- 
+ #if IS_ENABLED(CONFIG_FCOE)
+ 	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
 
