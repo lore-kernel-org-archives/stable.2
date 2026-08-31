@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2771C5D72
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:23:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17561C5D72
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:23:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178994; cv=none; b=JeniAnKuY8tYaxNU6ub3VGpKFhxt8swk+nJpVBbtEnS8jJqzcrRodUcT85KvK1d2OCECVtW7ALPbkR1oTzTIw3eRObKf56t+UKkfamMLdwvXnIxh6qWRd0h+e11rtnDlqhywKA16hEy5mAkwysEL1HmItW1F600NdPtqzEuwt1A=
+	t=1788179004; cv=none; b=DqrjxwKS5QtgZZ/EBvxOMp7gFe/Moxjud8jycsgi7zRdtsz0snM29aQdSkPbjyMXyvKw4VVEE26M9Lt3czCs7l6ntETvKV/AqLoahVGLyiaU0cCI2HbXToDb2WnJ8JXDCn+t5SP+JUAEW+UsimCe7jNap0a+bMhoNSjyNrGvz4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178994; c=relaxed/simple;
-	bh=pcPitN/5mF3hX3kw6+cDZPWisjruaeXU0tIOkjwr3ng=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gKlmO8TV0dpa5iPRqn8S+dV1m74yiK8i/56A/ltRp7HvCNrpIAjnmTKYw+2ww8utsQQkZn3DHAkQhxGLDvdOY1WuXOfqgwhzze+tO2TbNlLs+qxq/BE52b09u7BUZYsBCnQPw5ReJLyN+/XsDgB6fX6ybWvNmCNHLZ65OPw0jbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HqIr4Ynn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788179004; c=relaxed/simple;
+	bh=ecor0o1ulVKwPXrDSTFt2xWxWTEdNVVjTU5xbNzTQAY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Mww+fJO1vdLCZBacYyKAPdib1jU6YlbyKojDV06HQOCXv10JGlrYF9jjNxILbXH80ywbjL6vo+197MWClgnDH3OLvCM8NGPv0Q5XJffxNoZBI7EAgHIm27Oko4J9hht/qCXErMCCzn2pLUeOkdZ4KQys+0n88Y51Alzl3YW8PVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pNgqSUk9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HqIr4Ynn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C781F000E9;
-	Mon, 31 Aug 2026 12:23:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pNgqSUk9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B0A81F000E9;
+	Mon, 31 Aug 2026 12:23:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788178993;
-	bh=+3rZemFBTqQhAynII2HECCWqIbiN6QOG3I9jiVti1LM=;
+	s=korg; t=1788179002;
+	bh=Yoe0sMfFgCs7eZF1T+TSh8XiRflRM58b+ApB+YPK3l4=;
 	h=Subject:To:Cc:From:Date;
-	b=HqIr4YnnjeBcfdkGJGDvo/VTaoyJzYZkTPCVWQsQRBLE817yNNmn8+xiz5NCasAoT
-	 bLfGkdePUW78KgecXZ7fkBenabiXIqyl80F7eaUGAXBDt84obuOZkPOvqGxvJ3Oy6U
-	 FgxOD0ga4I9sU6AxiZvRPZEnuUv2uAom8wVw/VWY=
-Subject: FAILED: patch "[PATCH] fuse: wait for FR_FINISHED on abort_on_kill to prevent" failed to apply to 6.18-stable tree
-To: rochan.avlur@gmail.com,mszeredi@redhat.com
+	b=pNgqSUk9beSOOiyo56kPURRud/EKxntqa09WpVKUSU4lg/6U3SJh268xhEkyVBQdO
+	 WAtgpT1U9bP+yT9fK3bCu83qH5Hy7upYkLzuna1snxdafiM9UxwNwYbhefI1PSvBTr
+	 gEZANnb2V+8/gr0LfFmEpWbm2vKOcyRhCDqDpD4w=
+Subject: FAILED: patch "[PATCH] fuse: fix invalidate lock leak on setattr writeback failure" failed to apply to 5.10-stable tree
+To: libaokun@linux.alibaba.com,mszeredi@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:23:01 +0200
-Message-ID: <2026083101-rimless-sadness-3898@gregkh>
+Date: Mon, 31 Aug 2026 14:23:19 +0200
+Message-ID: <2026083119-surname-nimble-f2a7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 64b0b5cacbd2fea88001464cb712c9dfc795b26e
+git cherry-pick -x 9afeca0d569c9fc89d758fe7a9339d1e8afb1546
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083101-rimless-sadness-3898@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083119-surname-nimble-f2a7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,48 +62,76 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 64b0b5cacbd2fea88001464cb712c9dfc795b26e Mon Sep 17 00:00:00 2001
-From: Rochan Avlur <rochan.avlur@gmail.com>
-Date: Wed, 12 Aug 2026 20:58:36 -0700
-Subject: [PATCH] fuse: wait for FR_FINISHED on abort_on_kill to prevent
- use-after-free
+From 9afeca0d569c9fc89d758fe7a9339d1e8afb1546 Mon Sep 17 00:00:00 2001
+From: Baokun Li <libaokun@linux.alibaba.com>
+Date: Mon, 17 Aug 2026 23:18:00 +0800
+Subject: [PATCH] fuse: fix invalidate lock leak on setattr writeback failure
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The abort_on_kill path in request_wait_answer() calls fuse_abort_conn()
-and returns without waiting for FR_FINISHED.  If fuse_dev_do_write() is
-concurrently processing the same request (FR_LOCKED set), the caller
-frees req->args while it is still being accessed, causing a
-use-after-free.
+fuse_do_setattr() takes filemap_invalidate_lock() for a DAX truncate
+(fault_blocked = true) and releases it at the out:/error: labels.  But
+when a writeback flush is also needed, a write_inode_now() failure
+returns directly and leaks the lock, so any later fault or truncate on
+the file stalls on the stale rwsem.
 
-Fix this by jumping to the existing wait_event(FR_FINISHED) instead of
-returning early.  The wait will not hang because fuse_abort_conn()
-ensures all requests are ended.
+For example, truncate(2) on a setuid file reaches fuse_do_setattr()
+with both ATTR_SIZE and ATTR_MODE set:
 
-Reported-by: syzbot+d6540a3fa1626e11360d@syzkaller.appspotmail.com
-Fixes: 204aa22a686b ("fuse: abort on fatal signal during sync init")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Rochan Avlur <rochan.avlur@gmail.com>
+  truncate(2)
+  └─ do_truncate()
+     ├─ dentry_needs_remove_privs()         # S_ISUID
+     └─ notify_change()                     # KILL_SUID -> ATTR_MODE
+        └─ fuse_setattr()                   # no killpriv:
+           │                                #   ia_valid |= ATTR_MODE
+           └─ fuse_do_setattr()
+              ├─ filemap_invalidate_lock()  # IS_DAX && is_truncate
+              └─ write_inode_now()          # is_wb && ATTR_MODE
+                 └─ if (err)                # e.g. daemon -> -EIO
+                    return err              # <- lock leaked
+
+Fix this by adding an unlock label that releases the lock before
+returning the error, and use it for the fuse_dax_break_layouts()
+failure path as well.
+
+Fixes: 6ae330cad6ef ("virtiofs: serialize truncate/punch_hole and dax fault path")
+Cc: stable@vger.kernel.org # v5.10+
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
 Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 90dceb7da571..34106f6e66a0 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -724,7 +724,7 @@ static void request_wait_answer(struct fuse_req *req)
- 
- 		if (req->args->abort_on_kill) {
- 			fuse_chan_abort(fch, false);
--			return;
-+			goto wait_for_finish;
- 		}
- 
- 		if (test_bit(FR_URING, &req->flags))
-@@ -735,6 +735,7 @@ static void request_wait_answer(struct fuse_req *req)
- 			return;
+diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+index d73e2bf65634..172261bad71e 100644
+--- a/fs/fuse/dir.c
++++ b/fs/fuse/dir.c
+@@ -2170,10 +2170,8 @@ int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		filemap_invalidate_lock(mapping);
+ 		fault_blocked = true;
+ 		err = fuse_dax_break_layouts(inode, 0, -1);
+-		if (err) {
+-			filemap_invalidate_unlock(mapping);
+-			return err;
+-		}
++		if (err)
++			goto unlock;
  	}
  
-+wait_for_finish:
- 	/*
- 	 * Either request is already in userspace, or it was forced.
- 	 * Wait it out.
+ 	if (attr->ia_valid & ATTR_OPEN) {
+@@ -2200,7 +2198,7 @@ int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 			 ATTR_TIMES_SET)) {
+ 		err = write_inode_now(inode, true);
+ 		if (err)
+-			return err;
++			goto unlock;
+ 
+ 		fuse_set_nowrite(inode);
+ 		fuse_release_nowrite(inode);
+@@ -2308,6 +2306,7 @@ int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 
+ 	clear_bit(FUSE_I_SIZE_UNSTABLE, &fi->state);
+ 
++unlock:
+ 	if (fault_blocked)
+ 		filemap_invalidate_unlock(mapping);
+ 	return err;
 
