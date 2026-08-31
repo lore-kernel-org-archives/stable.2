@@ -1,191 +1,209 @@
-Received: from mx.bauer-kirch.com (mx.bauer-kirch.com [217.11.56.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E926938239E;
-	Mon, 31 Aug 2026 12:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.11.56.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F5540B118
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180287; cv=none; b=BLV0/ww9ukaOf4T0u9rk2gac6tpc2L1UBetlr3yZXTxCUZTggaifRcdY/iBvT/QMROc/1hSfg3cZcQd4AHJxQ82tpqNZS7G3tWH8Fv1cS+b1uV3aGjufzCVUdVYJ7+yafOnxVW1zyFk1+bogBWzWoLQxZYjWH8cnNZq7mQrLDYU=
+	t=1788180746; cv=none; b=OVmRxKeUDuaL+sO3PBBddmoVEt1uuQ7Ym8PGkVn6C2pKzJAfX2Ccqf3aFMLfCjRen88h1AwXS0WIlQYVlDTYEv4XFl+03QXvUgws7PknKA+Y7Epja7L/2j7/WgT8VVsjiaw/1dSb1BGf3EfagkANWynUUea7arHMjNg/dwx/pRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180287; c=relaxed/simple;
-	bh=4YMqLEY/02rlxcwK4XS/MbUoJEdwhJKjJRK02XpYQww=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rXOGgwVKhNE2DOSh12IEPJINpCTMP0GxOOZr/DtiHda5czrXSRz+QaIKZMNzu/FbvMdoCS3VMrYGjtG9O96+8l1FUBDN0xeoBvs7xRBHkUaUFUsQt6Y7B25/TOm0EJSp7HNBcN8Jnet5hk6ot/pu8iMKkSqfnHhc7v96zZa82v0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noerenberg.de; spf=pass smtp.mailfrom=noerenberg.de; dkim=pass (2048-bit key) header.d=noerenberg.de header.i=@noerenberg.de header.b=S5kIyLPx; arc=none smtp.client-ip=217.11.56.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=noerenberg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noerenberg.de
+	s=arc-20240116; t=1788180746; c=relaxed/simple;
+	bh=LTNVJFHwB/OD3QaC3X6zFjwhqkoz9YRx0vL3s7PTmqQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tUz78/UC34ybgBm1Qm8DsrKpFD6oN72h02w10A9T80SeHk6deziBLS4jOXVaKkaE4SYuVHVgAIgsP5LZIRi9vvwzwxfVEXDaPw9chlBJyfV42qSn8eGXpI+szfIok2WD0l5B3YTUpATr3F+M+I+XOo+CqxHEjth4XjM0GIdQRBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=df2UN7i/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=noerenberg.de header.i=@noerenberg.de header.b="S5kIyLPx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=noerenberg.de; s=bauerkirch; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=MJ0i4E3zi2QieHzwj19yLMfwI8aGXPJyv1POOjDril4=; b=S5kIyLPxQv5SAL9cCXfqQGu/m5
-	wprd6IQjnSPgnVVTjxuOZrjtprRz5KwDc04rBBFShLsaG6IOfb2QPSguW10pLKDFA6CV8p1Tg2YIY
-	HXok0st9SEoljX1gSndtUkPS/ntNpr6h+levpV502v61egkarxiTA4NchG2NNI7rpVFkTQpZOhAkk
-	IA15kEMoud7sDlc1tDgrLz57KalYEW1KrSwvGE17VE/iZbMUmL+JFXsfTNp0DaGi8quoJNyF+is16
-	UMvTVZF7aYj1c+jXmrFIC8ktlUbIyLNTt4KCS1C6EcH16Cn5DdAGtfWDjrNfmQjImtfv82yADYnm3
-	Mv3+hntw==;
-Received: from xdsl-89-1-135-213.nc.de ([89.1.135.213] helo=flux.rw17.noerenberg.de)
-	by mail.bauer-kirch.de with ESMTPSA id 1x11NG-000000055Ae-3oxC
-	authenticated id <420001312>
-	(TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256);
-	Mon, 31 Aug 2026 14:44:30 +0200
-From: Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	linux-ide@vger.kernel.org
-Cc: Pali Rohar <pali@kernel.org>,
-	stable@vger.kernel.org,
-	risc4all@yahoo.com,
-	linux-kernel@vger.kernel.org,
-	Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
-Subject: [PATCH v3] ata: ahci: work around lost interrupts on Marvell 88SE61xx
-Date: Mon, 31 Aug 2026 14:43:03 +0200
-Message-Id: <20260831124303.920391-1-hajo-linux-ide@noerenberg.de>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="df2UN7i/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547011F00A3D;
+	Mon, 31 Aug 2026 12:52:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788180739;
+	bh=3nzL7wdVS+UJIIL4U4ZIOUUCswd+wg+MRf1S2+MQJsE=;
+	h=Subject:To:Cc:From:Date;
+	b=df2UN7i/wZrdbOfrc6EKrqveqsyPRObG+TphcXpcSHn2mbQ8zz53h6xlnhKWQ2FUY
+	 TvrJT5sRUITgPPKS7AyXrFQwcmosMtTWBASciS7aoWvZMU15pYLEeSrRp9/kRFKimP
+	 TAQBd1AJ3ejxCzbVBgfIo5urK7shLnGmnc8EDBmM=
+Subject: FAILED: patch "[PATCH] net: advertise TCP MSS from the configured MTU, not the" failed to apply to 6.12-stable tree
+To: jiayuan.chen@linux.dev,edumazet@google.com,kuba@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 31 Aug 2026 14:52:14 +0200
+Message-ID: <2026083114-maturing-resize-d958@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-ahci_single_level_irq_intr() services the ports first and clears the
-global HOST_IRQ_STAT afterwards, as recommended by AHCI 1.1 section
-10.6.2.  The Marvell 88SE6111/6121/6145 family stops reporting interrupts
-for a port when HOST_IRQ_STAT is cleared while PxIS still holds bits:
-PxIS keeps its content, HOST_IRQ_STAT reads back as 0, the port is never
-looked at again, and the command in flight only ends in a timeout.
 
-Measured on a Seagate Blackarmor NAS440 (Marvell 88F6281 Kirkwood,
-88SE6121 rev B2 behind PCIe) by polling the AHCI registers from userspace
-while an IDENTIFY was outstanding:
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-  t=303.046  irqs 127  PxIS 0x00000000  PxCI 0x00000001
-             IDENTIFY issued
-  t=303.057  irqs 128  PxIS 0x00000020  PxCI 0x00000000
-             CI cleared, DPS set, one interrupt taken
-             ... PxIS stays 0x00000020, HOST_IRQ_STAT stays 0 ...
-  t~308.05   qc timeout after 5000 msecs
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The command had completed - PxCI was clear and PxIS had DPS set - so
-ahci_qc_complete() would have completed it.  It never got the chance
-because the handler read HOST_IRQ_STAT as 0 and returned IRQ_NONE.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 2640e64195948a601430d230c9864f5426574cde
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083114-maturing-resize-d958@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Marvell's own driver for these chips clears the two registers in the
-opposite order and says so ("clear global before channel"), and
-ahci_xgene handles its broken edge latch the same way.  Since the
-reordering costs at most one spurious interrupt per valid one on
-conforming controllers, do it in a private interrupt handler selected for
-board_ahci_mv instead of changing libahci for everyone.
+Possible dependencies:
 
-With this applied, SATA-2 and SATA-3 disks work at 3.0 Gbps on the
-88SE6121 without the drive-side 1.5 Gbps jumper that was needed before.
-Time from link up to a successful IDENTIFY:
 
-  WDC WD5000AADS-00S9B0  port 0    7 ms  (never identified before)
-  WDC WD3202ABYS-01B7A0  port 1   28 ms
-  WDC WD30EFRX-68EUZN0   port 1  200 ms  (3 TB, HPA detection ok)
 
-Only the 88SE6121 was tested; board_ahci_mv also covers the 88SE6145,
-which Marvell's driver treats identically.
+thanks,
 
-Fixes: cd70c26617f4 ("[libata] AHCI: Add support for Marvell AHCI-like chips (initially 6145)")
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 2640e64195948a601430d230c9864f5426574cde Mon Sep 17 00:00:00 2001
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+Date: Sat, 15 Aug 2026 15:03:36 +0800
+Subject: [PATCH] net: advertise TCP MSS from the configured MTU, not the
+ learned PMTU
+
+The MSS a host puts in its SYN tells the peer how big a segment it may
+send us. Right now we can shrink it with a PMTU we learned on our own
+send path, which is the wrong direction entirely.
+
+On asymmetric paths this bites - think DSR load balancers, where the
+request side goes through a smaller-MTU overlay. We learn a small PMTU
+going out, then advertise a small MSS, and the peer stays capped for the
+whole connection even though its path back to us is wide. MSS only shows
+up in the SYN and never grows back.
+
+On symmetric paths we lose nothing by dropping it either: the peer runs
+its own PMTU discovery and usually already knows the real path MTU.
+
+So work out the advertised MSS from the configured route or device MTU
+and ignore the learned PMTU. Our send side is unchanged, still clamped by
+tcp_current_mss(). Add ip_dst_mtu_configured()/ip6_dst_mtu_configured()
+and use them from the two default_advmss() paths.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 164a5e7ad531 ("ipv4: ipv4_default_advmss() should use route mtu")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-ide/db6b48b7-d69a-564b-24f0-75fbd6a9e543@noerenberg.de/
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=216094
-Signed-off-by: Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Acked-by: Pali Rohar <pali@kernel.org>
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260815070413.294559-1-jiayuan.chen@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
----
-Niklas, sorry for the wasted round trip.  Kernel patches are not my daily
-business and I had not realised how far the tree I was working against had
-drifted - v2 was generated against 6.10-rc6.  Rebased on v7.3-rc1 now, and
-the base commit is recorded at the bottom so this cannot happen unnoticed
-again.  Thank you for taking the time to look at it anyway.
-
-v3:
- - rebase onto v7.3-rc1; v2 did not apply
- - add Fixes: and Cc: stable@vger.kernel.org, as requested
- - collect Reviewed-by from Damien and Acked-by from Pali
- - no code change
-
-v2:
- - retitle "clear HOST_IRQ_STAT before the ports" -> "work around lost
-   interrupts", per review
-
- drivers/ata/ahci.c | 49 +++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
-
-diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
---- a/drivers/ata/ahci.c
-+++ b/drivers/ata/ahci.c
-@@ -2614,6 +2614,51 @@
+diff --git a/include/net/ip.h b/include/net/ip.h
+index 7f2fe1a8401b..a8f57b4f4aa2 100644
+--- a/include/net/ip.h
++++ b/include/net/ip.h
+@@ -506,6 +506,31 @@ static inline unsigned int ip_dst_mtu_maybe_forward(const struct dst_entry *dst,
+ 	return res;
  }
- #endif
  
-+/*
-+ * The Marvell 88SE6111/6121/6145 ("Thor") family stops reporting interrupts
-+ * for a port when HOST_IRQ_STAT is cleared while PxIS still holds bits: PxIS
-+ * keeps its content, HOST_IRQ_STAT reads back as 0, the port is never looked
-+ * at again and the command in flight only ends in a timeout.  On a 88SE6121
-+ * this makes every SATA-2 or SATA-3 disk fail to IDENTIFY, while SATA-1 disks
-+ * happen to win the race often enough to work.
++/* Configured/administrative MTU of a route, for advertising the TCP MSS.
 + *
-+ * Clearing the host status before servicing the ports avoids it.  Marvell's
-+ * own driver for these chips does the same and says so ("clear global before
-+ * channel"), and ahci_xgene handles its broken edge latch the same way.  The
-+ * price is at most one spurious interrupt per valid one, which is why this is
-+ * not the generic behaviour - see AHCI 1.1 section 10.6.2.
-+ *
-+ * Link: https://bugzilla.kernel.org/show_bug.cgi?id=216094
++ * Unlike ip_dst_mtu_maybe_forward(), this deliberately ignores the
++ * ICMP-learned path MTU (rt->rt_pmtu).  The advertised MSS bounds what the
++ * peer may send to us and must reflect our receive capability (the device or
++ * route-configured MTU), not a path MTU learned on the reverse (send)
++ * direction, which may not apply to the peer->us path and outlives the fnhe
++ * for the whole connection.  See RFC 2923 section 2.3 and the comment above
++ * tcp_advertise_mss().
 + */
-+static irqreturn_t ahci_mv_irq_handler(int irq, void *dev_instance)
++static inline unsigned int ip_dst_mtu_configured(const struct dst_entry *dst)
 +{
-+	struct ata_host *host = dev_instance;
-+	struct ahci_host_priv *hpriv = host->private_data;
-+	void __iomem *mmio = hpriv->mmio;
-+	unsigned int rc;
-+	u32 irq_stat, irq_masked;
++	unsigned int mtu, res;
 +
-+	irq_stat = readl(mmio + HOST_IRQ_STAT);
-+	if (!irq_stat)
-+		return IRQ_NONE;
++	rcu_read_lock();
++	mtu = dst_metric_raw(dst, RTAX_MTU);
++	if (!mtu)
++		mtu = READ_ONCE(dst_dev_rcu(dst)->mtu);
++	mtu = min_t(unsigned int, mtu, IP_MAX_MTU);
++	res = mtu - lwtunnel_headroom(dst->lwtstate, mtu);
++	rcu_read_unlock();
 +
-+	irq_masked = irq_stat & hpriv->port_map;
-+
-+	spin_lock(&host->lock);
-+
-+	/*
-+	 * Use the unmasked value to clear the interrupt, as a spurious pending
-+	 * event on a dummy port might cause a screaming IRQ.
-+	 */
-+	writel(irq_stat, mmio + HOST_IRQ_STAT);
-+
-+	rc = ahci_handle_port_intr(host, irq_masked);
-+
-+	spin_unlock(&host->lock);
-+
-+	return IRQ_RETVAL(rc);
++	return res;
 +}
 +
- static void ahci_remap_check(struct pci_dev *pdev, int bar,
- 		struct ahci_host_priv *hpriv)
+ static inline unsigned int ip_skb_dst_mtu(struct sock *sk,
+ 					  const struct sk_buff *skb)
  {
-@@ -2917,6 +2962,10 @@
- 		return -ENOMEM;
- 	hpriv->flags |= (unsigned long)pi.private_data;
+diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
+index cc045705862d..c69f1c871922 100644
+--- a/include/net/ip6_route.h
++++ b/include/net/ip6_route.h
+@@ -387,6 +387,43 @@ static inline unsigned int ip6_dst_mtu_maybe_forward(const struct dst_entry *dst
+ 	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
+ }
  
-+	/* the Marvell "Thor" family needs HOST_IRQ_STAT cleared first */
-+	if (board_id == board_ahci_mv)
-+		hpriv->irq_handler = ahci_mv_irq_handler;
++/* Configured/administrative MTU of a route, for advertising the TCP MSS.
++ *
++ * Unlike ip6_dst_mtu_maybe_forward(), this ignores any ICMPv6-learned path
++ * MTU (which is kept on the RTF_CACHE exception route) and returns the MTU of
++ * the underlying route (fib6_pmtu) or the egress device.  The advertised MSS
++ * bounds what the peer may send to us and must reflect our receive
++ * capability, not a path MTU learned on the reverse (send) direction.  See
++ * RFC 2923 section 2.3 and the comment above tcp_advertise_mss().
++ */
++static inline unsigned int ip6_dst_mtu_configured(const struct dst_entry *dst)
++{
++	const struct rt6_info *rt = dst_rt6_info(dst);
++	const struct fib6_info *from;
++	struct inet6_dev *idev;
++	unsigned int mtu = 0;
 +
- 	/* MCP65 revision A1 and A2 can't do MSI */
- 	if (board_id == board_ahci_mcp65 &&
- 	    (pdev->revision == 0xa1 || pdev->revision == 0xa2))
++	rcu_read_lock();
++	/* IPv6 keeps the learned PMTU and the configured MTU in the same
++	 * RTAX_MTU slot: the learned value sits on this (possibly RTF_CACHE)
++	 * dst, the configured one on the underlying route.  Reach the latter
++	 * via ->from (fib6_pmtu), populated by ip6_route_info_create().
++	 */
++	from = rcu_dereference(rt->from);
++	if (from)
++		mtu = from->fib6_pmtu;
++	if (!mtu) {
++		mtu = IPV6_MIN_MTU;
++		idev = __in6_dev_get(dst_dev_rcu(dst));
++		if (idev)
++			mtu = max_t(unsigned int, mtu, READ_ONCE(idev->cnf.mtu6));
++	}
++	rcu_read_unlock();
++
++	mtu = min_t(unsigned int, mtu, IP6_MAX_MTU);
++	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
++}
++
+ u32 ip6_mtu_from_fib6(const struct fib6_result *res,
+ 		      const struct in6_addr *daddr,
+ 		      const struct in6_addr *saddr);
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 604cc51dfd9b..37674d76f90f 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -1363,8 +1363,8 @@ static unsigned int ipv4_default_advmss(const struct dst_entry *dst)
+ 
+ 	rcu_read_lock();
+ 	net = dst_dev_net_rcu(dst);
+-	advmss = max_t(unsigned int, ipv4_mtu(dst) - header_size,
+-				   net->ipv4.ip_rt_min_advmss);
++	advmss = max_t(unsigned int, ip_dst_mtu_configured(dst) - header_size,
++		       net->ipv4.ip_rt_min_advmss);
+ 	rcu_read_unlock();
+ 
+ 	return min(advmss, IPV4_MAX_PMTU - header_size);
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index 526535387512..93b4168044d9 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -3261,7 +3261,7 @@ void ip6_sk_redirect(struct sk_buff *skb, struct sock *sk)
+ 
+ static unsigned int ip6_default_advmss(const struct dst_entry *dst)
+ {
+-	unsigned int mtu = dst6_mtu(dst);
++	unsigned int mtu = ip6_dst_mtu_configured(dst);
+ 	struct net *net;
+ 
+ 	mtu -= sizeof(struct ipv6hdr) + sizeof(struct tcphdr);
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
