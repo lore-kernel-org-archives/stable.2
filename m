@@ -1,38 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAEC42E43A;
-	Mon, 31 Aug 2026 13:57:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FA442586B;
+	Mon, 31 Aug 2026 13:57:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184647; cv=none; b=VGmGVplrFx53FnIfqj7e7Ey2fP3+8Ei2gk4D4sr4pGXACkQZ5+Qb9nq/rbsiRtlhBJUMiY6jUGMtgSK7LtwMt3Wj0Vwoy6s7oBnlbFRCaS5uhZqUdpf+fIpXjPaqMOXNDSdql7oZLuDk75vFw9eEeUHIFzB6pAEiOclz87pIPrM=
+	t=1788184658; cv=none; b=PYhYG+1yLfUN8saoWD6kXfHQDFd5xQH0Rx2PIggHTn9sWiYcaos2B3HKHWG87M+zNzus2p5OAnrIoJpI15Osfo8ACOF2SFo52GNJm3Iv82rLxB0GjG9Yc8qNVnZnqrU0WO8RFVjzBg+nCb3Mm4UmoXmAHFJYX8ZtFnSKxTebNjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184647; c=relaxed/simple;
-	bh=J9M8vri8xaTJVvRhEQQE6LRvr/7eb0cCThxV2mbSyMU=;
+	s=arc-20240116; t=1788184658; c=relaxed/simple;
+	bh=FOb5EZu5HrY8bQoLuBonk5GM5W0gyXRnXDESLQ4iITk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f/chmfqdLB0Hq1o52RqGpOgxYnwejD8/gRfN8zB3HuyWYFTnQWxUNk0KhC5gEChcF8wFVKKaGEZolDbslBwQzyceQl6NDoBiWqvzZKaiStmGs8OR0r93Ld2cLw8tft57Y45HjCFnURMRBEujWsFJc4bjgSKfj5r+JMlQR2L1FY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Kb19jm0W; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SNxAc6J302tDL07l8ex82FYo9il/7SEcGIulk94aYTe3i7u8Lg4y2S/+hbnNgSy2xSOEdBFxGQRX83OLk5xJjT+BAmLIRXFNX3Mdt2U+M72HQTcxX7PUZeZ/XRteinatzPkha2EzOUCN5USz3xUy0LAiKb1slgLlNIwAlqvF2Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uu2Yum6I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Kb19jm0W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E221F000E9;
-	Mon, 31 Aug 2026 13:57:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uu2Yum6I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08D401F000E9;
+	Mon, 31 Aug 2026 13:57:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184646;
-	bh=s3fKHItI+5yd+qNBiZsWRsJpDlRBrxN3z61IQdUcY9g=;
+	s=korg; t=1788184657;
+	bh=TXUeJe3axn8SfYNniFH4equXfE0Zt4Xci1URwni33BA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kb19jm0WUQOx8XQtkebutQpIzg29ijyIXLyQxCswFTEDxuZW3b+UlymgS6g3CExg7
-	 QuSdeYgZH/1OLTOc7GWlVJMngHnBygk14el+sZDjcZe8ypUtCPGaf9AwcqxVFHW7kC
-	 VqLNTndIZHJlF2nbWCAfFY6IaQfm88UwO17a+aVg=
+	b=uu2Yum6Iyyxi+V+uOyPcr3eXEsvRih5yymjJOt6w9f3d9rgWUMpUcGLaURAB30FWV
+	 6wVO7e2PZv7MxtppPk8EGziWqeGBhQRRUvjlFT2iqnqGDyPmvqhWFbnwFOls2PRe/W
+	 N+zRtIH6cEgac885GY0Ct7d5JVTiWx41UokJ1uhc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Frank Li <Frank.Li@nxp.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: [PATCH 6.6 81/91] crypto: mxs-dcp - fix source scatterlist length access
-Date: Mon, 31 Aug 2026 15:35:09 +0200
-Message-ID: <20260831133403.777239652@linuxfoundation.org>
+	Griffin Kroah-Hartman <griffin@kroah.com>
+Subject: [PATCH 6.6 84/91] usb: core: Add lock to usb_wakeup_notification()
+Date: Mon, 31 Aug 2026 15:35:12 +0200
+Message-ID: <20260831133403.885927638@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
 References: <20260831133359.468089036@linuxfoundation.org>
@@ -51,38 +49,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+From: Griffin Kroah-Hartman <griffin@kroah.com>
 
-commit c5bcb084a9871e5b62afb5f48b60adfa13b5d9f8 upstream.
+commit e263e18a9e7b1ff3e7301f0801c6ff87c31adfb6 upstream.
 
-mxs_dcp_aes_block_crypt() uses sg_dma_len() without mapping the source
-scatterlist with dma_map_sg() first. Therefore, sg_dma_len() is invalid
-and could return zero or a stale DMA length, causing encryption and
-decryption to process the wrong number of bytes when
-CONFIG_NEED_SG_DMA_LENGTH=y.
+Add a spin lock to usb_wakeup notification to prevent a race condition
+with dereferencing freed memory. This could be hit by the xHCI driver as
+it calls this function from an IRQ and could race with the
+hub_disconnect() function, which properly grabs this lock to protect the
+state of the device.
 
-Use the original scatterlist length instead.
-
-Fixes: 15b59e7c3733 ("crypto: mxs - Add Freescale MXS DCP driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Assisted-by: gkh_clanker_t1000
+Signed-off-by: Griffin Kroah-Hartman <griffin@kroah.com>
+Link: https://patch.msgid.link/20260713-usb_core_patches_1-v1-3-7721c2b33f53@kroah.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/crypto/mxs-dcp.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/usb/core/hub.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
---- a/drivers/crypto/mxs-dcp.c
-+++ b/drivers/crypto/mxs-dcp.c
-@@ -333,7 +333,7 @@ static int mxs_dcp_aes_block_crypt(struc
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -727,10 +727,12 @@ void usb_wakeup_notification(struct usb_
+ {
+ 	struct usb_hub *hub;
+ 	struct usb_port *port_dev;
++	unsigned long flags;
  
- 	for_each_sg(req->src, src, sg_nents(req->src), i) {
- 		src_buf = sg_virt(src);
--		len = sg_dma_len(src);
-+		len = src->length;
- 		tlen += len;
- 		limit_hit = tlen > req->cryptlen;
+ 	if (!hdev)
+ 		return;
+ 
++	spin_lock_irqsave(&device_state_lock, flags);
+ 	hub = usb_hub_to_struct_hub(hdev);
+ 	if (hub) {
+ 		port_dev = hub->ports[portnum - 1];
+@@ -740,6 +742,7 @@ void usb_wakeup_notification(struct usb_
+ 		set_bit(portnum, hub->wakeup_bits);
+ 		kick_hub_wq(hub);
+ 	}
++	spin_unlock_irqrestore(&device_state_lock, flags);
+ }
+ EXPORT_SYMBOL_GPL(usb_wakeup_notification);
  
 
 
