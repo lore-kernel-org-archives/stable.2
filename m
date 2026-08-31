@@ -1,75 +1,73 @@
-Received: from va-2-56.ptr.blmpb.com (va-2-56.ptr.blmpb.com [209.127.231.56])
+Received: from mta0.migadu.com (out-125.mta0.migadu.com [91.218.175.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D2D46A60A
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 15:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7264AD4B4
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 15:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189286; cv=none; b=nRf+KkkVQ7zsrEYA+IMKTkYqbOPmqjyURPEKllyMYNpGlUlHZMH3z5JJZqs5pXKh4X/gm0MMI3l2QPfwu92XjVL6AS8yXSDIuMGx7k4dqsgCLJTUStfWdwVqWZ6jmiiicGevEMzq49+l86C1gszWInd/Viwjd+cQMYk/rs5/7jU=
+	t=1788189915; cv=none; b=T7Ruwe/TwQ5qdPMwd8pA6TzWp5/TvRmxa2J6ayvMxaynP132HPcEvkDUhDlyGa3YjgER07A2W/Lmcvkz1d91aParVOC/cyutw66OX0IkrfhTr4I3XZ5TP002GrlIb0fj0s0ixG2jYj/7V5noKxIyCwvaRiGRAb5Jl2p1hoecpKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189286; c=relaxed/simple;
-	bh=cejwt0JUMmTaEe/6hf4yPaZLkUUpL6MLW/yW+wKRMfU=;
-	h=To:Cc:From:Mime-Version:In-Reply-To:Subject:References:Date:
-	 Content-Type:Message-Id; b=TYTnT2B2zlds1TNOvQlPRyLQctYq8Rky9jhaS+lL5HLFDo8H1m8KR7AcNdB8QUs9cAKSy4dMxhLvLSjgwf2uNLW6athyruTZ1s2PWuo2LkQBvxQHanLOnVoVPnIvndNLRJHRpyz1gyMo6wwDljIJXnW9so9/oBCvz6IHL9rQH8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai; spf=pass smtp.mailfrom=moonshot.ai; dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b=DnHUuOPT; arc=none smtp.client-ip=209.127.231.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moonshot.ai
+	s=arc-20240116; t=1788189915; c=relaxed/simple;
+	bh=3H0iTty6+uTA7hGVte9Hw38VpJ2zVqDDcPHb0rPTBHk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cYqzoX498K8zxUXjZosiYkBl2ZwA2+y6dTNDPPWDx92gF4bABBexHfHq7sxUtSc07l0uuCQC566VPqv8ucrS99aGgWKpH/LOu7+g9qnLvtpdjt+9XT0DswVIHlMBdkBnc7e8/DyKrrJTCLmBjTolzu94nayLywFu7XED6sDtjCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D8lVs7Kx; arc=none smtp.client-ip=91.218.175.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b="DnHUuOPT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2510091218; d=moonshot.ai; t=1788189273; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=uxEMR+jwstlMsJAEyfB2rSIbeFQCMXEJ0slmlwOKrrs=;
- b=DnHUuOPTAVacw70CYe0UwSPIopJeiSuu6GaojBjLCDf5h6PDn/qIlglkBB05YVy3Y1I++c
- 0AyoYE/TYv75GrdR5E66P2r59JqaVD0vezZqL3yq7c8nBdRysjOB/zBSIS973uUlRrVJrI
- e3jVgPqxZ4o/Fdk/fwIacg/pJ4+eO1f1r1H9r6lQ4bQGPhQWAvXj+AAF7mudi5m635GmQ1
- cUDaokUjjrsfB+f9RsVZSo0n4oa2E7nolIEuslvCwNQHBbrnnQjG8KzcAdk1B1Y90BQWmB
- wprJwXBwya68/AxqrxgI2FxN+jXkDqVvi5ANhdpL5yMsBllK5KBvOtMNaqMJrA==
-To: <peterz@infradead.org>
-Cc: "Yilin Zhang" <yilinzhang@moonshot.ai>, <mingo@redhat.com>, 
-	<acme@kernel.org>, <namhyung@kernel.org>, <kylebot@openai.com>, 
-	<david.lee@trailofbits.com>, <stable@vger.kernel.org>, 
-	<bug-report@moonshot.ai>, <shiweiming@moonshot.ai>, 
-	<linux-perf-users@vger.kernel.org>
-From: "Yilin Zhang" <yilinzhang@moonshot.ai>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D8lVs7Kx"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3H0iTty6+uTA7hGVte9Hw38VpJ2zVqDDcPHb0rPTBHk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788189910; v=1; x=1788794710;
+ b=D8lVs7KxmziACm/IKkCgmh5EHBfuoB6LIKOF5tZdeCe0EMY9L98Usnuv+HTYTMyUM3quxP+p
+ x+AbJpxxxiAbJEBJaD3Ev62tp5mLo2j8trzOapPf+WK33lsOYRJ4PADohtA1lvj1bwB5d0Rx5os
+ ryVebwu6Aeermt3sTtTSLbcY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 94ffe132527dc845;
+	Mon, 31 Aug 2026 15:25:00 +0000
+X-Mizu-Trace-ID: 94ffe132527dc845
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <129e286f-8301-4ea7-bc12-a069df2f2ce3@linux.dev>
+Date: Mon, 31 Aug 2026 16:24:57 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <20260831133915.GH4121339@noisy.programming.kicks-ass.net>
-Subject: Re: [PATCH v3] perf: Fix use-after-free when perf mmap() revival races with the last munmap()
-References: 
-Date: Mon, 31 Aug 2026 23:13:52 +0800
-X-Lms-Return-Path: <lba+26a959a57+5003b1+vger.kernel.org+yilinzhang@moonshot.ai>
-Content-Type: text/plain; charset=UTF-8
-Message-Id: <20260831151352.1401624-1-yilinzhang@moonshot.ai>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: macb: initialize PTP lock before registering
+ clock
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, nicolas.ferre@microchip.com
+Cc: claudiu.beznea@microchip.com, richardcochran@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
+ stable@vger.kernel.org
+References: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received: from dev.msh-dev.svc.cluster.local ([117.157.206.135]) by smtp.feishu.cn with ESMTPS; Mon, 31 Aug 2026 23:14:30 +0800
-X-Mailer: git-send-email 2.34.1
-X-Original-From: Yilin Zhang <yilinzhang@moonshot.ai>
 
-Sorry for just posting v3 instead of replying to you here first. It
-is your ordering, with one refinement.
+On 30/08/2026 16:35, Runyu Xiao wrote:
+> gem_ptp_init() registers the PTP clock before initializing
+> bp->tsu_clk_lock. ptp_clock_register() publishes the PTP character
+> device, so a userspace operation can enter a PTP callback as soon as
+> registration completes. Those callbacks use tsu_clk_lock and can therefore
+> observe the lock before it has been initialized.
+> 
+> Initialize the lock before registering the PTP clock so all published
+> callbacks see valid synchronization state.
+> 
+> Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>   drivers/net/ethernet/cadence/macb_ptp.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+> 
 
-In your version the lockless refcount_dec(&rb->mmap_count) can be
-the one to drop it to 0: dec_not_one() drops event->mmap_count
-without the mutex, so a second closer can zero the event count in
-between.
-
-That warns, and detach_rest is never set, so the last mapping skips
-the detach from redirecting events. On 8 vCPU QEMU it hits within a
-minute:
-
-	refcount_t: decrement hit 0; leaking memory.
-	RIP: perf_mmap_close+0x221  (refcount_warn_saturate(REFCOUNT_DEC_LEAK))
-
-The rb drop itself now gates the teardown: rb->mmap_count == 0
-implies every event is detached already.
-
-> Also, you seem to have lost the 'helpful' comments that I drafted :-(
-
-Sorry for dropping your comments and the Suggested-by tag. v4 restores
-both and follows shortly.
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
