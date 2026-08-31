@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AD240DB34
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:57:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D7240B6C9
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:58:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181081; cv=none; b=n3US4dMZWWh63pa8H7KsWMS2zIAhIa2jAcDdcVfWcPHYqkqNel4+lTj17lF6I/gisFeThdmnY+nm0hxWy0D+WqPH7lm/lei36eSJQuAIuO+YkKJ1KuMYc5RV4K2tDIbq1xY/sjX8xd2stxVOG6ZwgZyca4JtPMV88YBephZ3tMY=
+	t=1788181083; cv=none; b=rTRsm0Z7xh/u8IQnDzBTV2QughHF/4G73YzheGvZevKkq+mY6GMH8hHWPX0L93tX0pMB3z8xt9H9RkDEXFAU5Y6Rn6dhnit+y46qlh59z72vch3uGDR47ZyYL/gh3OYBoOxosaU6x6iQBTYq1ngZDQtDC/K8K5UYICSx2MeqoIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181081; c=relaxed/simple;
-	bh=Hwxx8N0eNewB/0on/bM8Byc5d1ULsT8wGqriEglW2So=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hoA3c2q23P0oPFbQOXfYCoRVRlGaGDmtkO/FwgvWyC1zNoLadEUEjgkH914yeFJL8sXWqxBB5Cw10DAW4J1eu1T46mJWzvqBSFiT7p47jEBPPc3ymztcqE6nONJy2AImayz4lFCCTFD1+hJxdDxWeVB4/YZqimTPhmMBlN4ROvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qg4Gz6WC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788181083; c=relaxed/simple;
+	bh=cW7FcJUBxh4hqAfSctSxPtfEuWR0IwgvIO46/NmYxSE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eOIAwiCyg6LUTX2jUzssJgrP/gPRlHUu9RXLw3Z7BqKsiaYx4vlY643irWSHpd9iix0R8Wro9aA5cWs+XYS96VagbS+Z2QK9K8VL67/VIL/wUr+Aeav/745K0OMVziJDBVk8njM+DlSYKpOsYKDYVCBrp/YR5f66ZNj4k3oFN08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uio4umYY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qg4Gz6WC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0221F000E9;
-	Mon, 31 Aug 2026 12:57:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uio4umYY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1795D1F000E9;
+	Mon, 31 Aug 2026 12:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788181079;
-	bh=p1KUv6MZoeLjIyX893ZU9XSSD4I6fp54gfd/ec0KRSA=;
+	s=korg; t=1788181082;
+	bh=E8nuVKs/2wQcVwK77spUueQXohn34IB7xCPIWywPPrU=;
 	h=Subject:To:Cc:From:Date;
-	b=Qg4Gz6WCASdpV9hPQHPrK70fdVjEU6e+gv5e1rBlPj4vj3zwHjgycoZ9HlJmZu14o
-	 jLM+4q22cm8W8x3ZQiB4yR8aNhto8iAbc0CriJNsBpbG1d9uM/MrVyUrvdOCMY4y8t
-	 2vjb0E4hgrZgXc/kqK+dTFonc3gcJBQlYawtnI0o=
-Subject: FAILED: patch "[PATCH] vlan: fix skb_under_panic and races when toggling HW VLAN" failed to apply to 5.15-stable tree
-To: edumazet@google.com,kuba@kernel.org,stable@vger.kernel.org,xietangxin@h-partners.com
+	b=uio4umYYgjuoieh2MV5gqlOg1TvuEeAHPiYLbK4/m+ZgAUM7F1OLY7pGP97VFrpCJ
+	 bTPJNIRpMI39GJI2XXOOkUZmjaGg1kzqhRAVTe8WC2JtmKlXV8nWp/qDYhe2dXgdWQ
+	 FHTkuaBHNPYc8rcO1syi0wr9Op43+YTDjo+3RzBo=
+Subject: FAILED: patch "[PATCH] net/packet: defer vmalloc TX_RING free until skbs finish" failed to apply to 6.18-stable tree
+To: kylebot@openai.com,edumazet@google.com,kuba@kernel.org,willemb@google.com,willemdebruijn.kernel@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:57:20 +0200
-Message-ID: <2026083120-reunion-cadillac-38bb@gregkh>
+Date: Mon, 31 Aug 2026 14:57:39 +0200
+Message-ID: <2026083139-encroach-exemplary-64b2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 447cbe95ebb95392b5d8f6a01c0556826919ce23
+git cherry-pick -x 992cc9f94ca924089a506ba9b327caa9af797529
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083120-reunion-cadillac-38bb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083139-encroach-exemplary-64b2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,117 +62,247 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 447cbe95ebb95392b5d8f6a01c0556826919ce23 Mon Sep 17 00:00:00 2001
-From: Eric Dumazet <edumazet@google.com>
-Date: Tue, 11 Aug 2026 08:52:46 +0000
-Subject: [PATCH] vlan: fix skb_under_panic and races when toggling HW VLAN
- offload
+From 992cc9f94ca924089a506ba9b327caa9af797529 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Sun, 16 Aug 2026 16:56:46 -0700
+Subject: [PATCH] net/packet: defer vmalloc TX_RING free until skbs finish
 
-Toggling hardware VLAN TX offload (NETIF_F_HW_VLAN_CTAG_TX or
-NETIF_F_HW_VLAN_STAG_TX) on a lower device invokes vlan_transfer_features(),
-which dynamically changed vlandev->hard_header_len.
+AF_PACKET TX_RING skbs keep a raw pointer to their ring frame. The skb
+page references preserve page-backed ring blocks after pg_vec is freed,
+but they do not preserve a vmalloc mapping.
 
-This causes two issues:
-1. Lockless TX paths (e.g. packet_snd in af_packet.c, ip6_finish_output2)
-   read dev->hard_header_len without holding RTNL lock. Mutating
-   hard_header_len dynamically under RTNL creates a data race where upper
-   layers reserve insufficient headroom based on a stale hard_header_len,
-   resulting in skb_under_panic when vlan_dev_hard_header() is called.
-2. In addition, vlan_transfer_features() updated hard_header_len without
-   updating header_ops, causing a mismatch between allocated headroom
-   and header creation.
+tpacket_destruct_skb() currently drops the pending reference before
+writing the timestamp and TP_STATUS_AVAILABLE to the frame. Move the
+decrement after those stores. The smp_wmb() in __packet_set_status()
+orders the frame stores before the decrement.
 
-Always setting dev->hard_header_len = real_dev->hard_header_len and
-dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN unconditionally
-ensures:
-- dev->hard_header_len remains 100% static and immutable at real_dev->hard_header_len,
-  eliminating all dynamic runtime updates and data races on hard_header_len.
-- Upper layers allocating skbs via LL_RESERVED_SPACE() will always reserve
-  sufficient headroom for software VLAN tag insertion (real_dev->hard_header_len +
-  real_dev->needed_headroom + VLAN_HLEN).
-- vlandev inherits real_dev->needed_tailroom so underlying trailer/padding/ICV
-  requirements are honored.
-- AF_PACKET SOCK_RAW network header offsets remain correctly aligned at
-  real_dev->hard_header_len.
-- vlan_header_ops is used unconditionally.
+Also recheck pending TX frames under pg_vec_lock before non-closing
+ring replacement, so a racing send cannot add a pending skb between
+the initial check and the ring swap.
 
-Note to stable teams: Make sure to backport these commits:
+Ring allocation can produce a mixture of page-backed and vmalloc-backed
+blocks. Allocate deferred-work storage during TX ring setup when the
+first vmalloc-backed block is encountered, and keep its pointer in the
+pg_vec allocation header. If allocation fails, return -ENOMEM from ring
+setup. On socket close, a non-NULL pointer identifies a vmalloc-backed
+vector without a scan. If TX skbs remain, defer the whole vector to
+system_long_wq.
 
-e16e960d55a4 ("ipvlan: inherit needed_headroom and needed_tailroom from phy_dev")
-cef51860becd ("macvlan: inherit needed_headroom and needed_tailroom from lowerdev")
+After pg_vec is detached, a late destructor can skip the pending
+decrement. Use socket write-memory accounting as the deferred lifetime
+gate instead: an skb remains charged through its final sock_wfree(),
+after all ring-frame accesses. The delayed work retains a socket
+reference and reschedules itself until no TX skbs remain.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Tangxin Xie <xietangxin@h-partners.com>
-Closes: https://lore.kernel.org/netdev/99d678ae-c7b2-4b44-b534-b8320679deb3@h-partners.com/
-Cc: <stable@vger.kernel.org> # 3.19: e16e960d55a4: ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
-Cc: <stable@vger.kernel.org> # 3.19: cef51860becd: macvlan: inherit needed_headroom and needed_tailroom from lowerdev
-Cc: <stable@vger.kernel.org> # 3.19
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260811085246.2267779-1-edumazet@google.com
+Move pending_refcnt release to packet_sock_destruct() so late skb
+destructors and deferred cleanup can safely use it after
+packet_release(). Page-backed teardown remains synchronous, and no lock
+is added to the TX completion hot path.
+
+Fixes: b013840810c2 ("packet: use percpu mmap tx frame pending refcount")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/netdev/20260721015824.45829-1-kylebot@openai.com/
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Link: https://patch.msgid.link/20260816235646.76500-1-kylebot@openai.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index ec2569b3f8da..2859cbac3f26 100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -502,26 +502,6 @@ static const struct header_ops vlan_header_ops = {
- 	.parse_protocol = vlan_parse_protocol,
- };
- 
--static int vlan_passthru_hard_header(struct sk_buff *skb, struct net_device *dev,
--				     unsigned short type,
--				     const void *daddr, const void *saddr,
--				     unsigned int len)
--{
--	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
--	struct net_device *real_dev = vlan->real_dev;
--
--	if (saddr == NULL)
--		saddr = dev->dev_addr;
--
--	return dev_hard_header(skb, real_dev, type, daddr, saddr, len);
--}
--
--static const struct header_ops vlan_passthru_header_ops = {
--	.create	 = vlan_passthru_hard_header,
--	.parse	 = eth_header_parse,
--	.parse_protocol = vlan_parse_protocol,
--};
--
- static const struct device_type vlan_type = {
- 	.name	= "vlan",
- };
-@@ -580,14 +560,10 @@ static int vlan_dev_init(struct net_device *dev)
- 	dev->fcoe_ddp_xid = real_dev->fcoe_ddp_xid;
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 1168bd6b09cd..b22cda322136 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -88,6 +88,7 @@
+ #include <linux/errqueue.h>
+ #include <linux/net_tstamp.h>
+ #include <linux/percpu.h>
++#include <linux/workqueue.h>
+ #ifdef CONFIG_INET
+ #include <net/inet_common.h>
  #endif
+@@ -1341,6 +1342,8 @@ static void packet_sock_destruct(struct sock *sk)
+ 	WARN_ON(atomic_read(&sk->sk_rmem_alloc));
+ 	WARN_ON(refcount_read(&sk->sk_wmem_alloc));
  
--	dev->needed_headroom = real_dev->needed_headroom;
--	if (vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)) {
--		dev->header_ops      = &vlan_passthru_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len;
--	} else {
--		dev->header_ops      = &vlan_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len + VLAN_HLEN;
--	}
-+	dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN;
-+	dev->needed_tailroom = real_dev->needed_tailroom;
-+	dev->header_ops      = &vlan_header_ops;
-+	dev->hard_header_len = real_dev->hard_header_len;
++	packet_free_pending(pkt_sk(sk));
++
+ 	if (!sock_flag(sk, SOCK_DEAD)) {
+ 		pr_err("Attempt to release alive packet socket: %p\n", sk);
+ 		return;
+@@ -2534,11 +2537,11 @@ static void tpacket_destruct_skb(struct sk_buff *skb)
+ 		__u32 ts;
  
- 	dev->netdev_ops = &vlan_netdev_ops;
+ 		ph = skb_zcopy_get_nouarg(skb);
+-		packet_dec_pending(&po->tx_ring);
  
-@@ -1029,10 +1005,9 @@ static void vlan_transfer_features(struct net_device *dev,
+ 		ts = __packet_set_timestamp(po, ph, skb);
+ 		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
  
- 	netif_inherit_tso_max(vlandev, dev);
++		packet_dec_pending(&po->tx_ring);
+ 		complete(&po->skb_completion);
+ 	}
  
--	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
--		vlandev->hard_header_len = dev->hard_header_len;
--	else
--		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
-+	vlandev->needed_headroom = dev->needed_headroom + VLAN_HLEN;
-+	vlandev->needed_tailroom = dev->needed_tailroom;
-+	vlandev->hard_header_len = dev->hard_header_len;
+@@ -3207,7 +3210,6 @@ static int packet_release(struct socket *sock)
+ 	/* Purge queues */
  
- #if IS_ENABLED(CONFIG_FCOE)
- 	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
+ 	skb_queue_purge(&sk->sk_receive_queue);
+-	packet_free_pending(po);
+ 
+ 	sock_put(sk);
+ 	return 0;
+@@ -4370,11 +4372,26 @@ static const struct vm_operations_struct packet_mmap_ops = {
+ 	.close	=	packet_mm_close,
+ };
+ 
++struct packet_pg_vec {
++	struct packet_pg_vec_free *deferred;
++	unsigned int order;
++	unsigned int len;
++	struct pgv pg_vec[] __counted_by(len);
++};
++
++struct packet_pg_vec_free {
++	struct delayed_work work;
++	struct sock *sk;
++	struct packet_pg_vec *vec;
++};
++
+ static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
+ 			unsigned int len)
+ {
++	struct packet_pg_vec *vec;
+ 	int i;
+ 
++	vec = container_of_const(pg_vec, struct packet_pg_vec, pg_vec[0]);
+ 	for (i = 0; i < len; i++) {
+ 		if (likely(pg_vec[i].buffer)) {
+ 			if (is_vmalloc_addr(pg_vec[i].buffer))
+@@ -4385,7 +4402,46 @@ static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
+ 			pg_vec[i].buffer = NULL;
+ 		}
+ 	}
+-	kfree(pg_vec);
++	kfree(vec->deferred);
++	kfree(vec);
++}
++
++static void packet_free_pg_vec_work(struct work_struct *work)
++{
++	struct packet_pg_vec_free *deferred;
++	struct packet_pg_vec *vec;
++	struct sock *sk;
++
++	deferred = container_of_const(to_delayed_work(work),
++				      struct packet_pg_vec_free, work);
++	vec = deferred->vec;
++	sk = deferred->sk;
++	if (sk_wmem_alloc_get(sk)) {
++		queue_delayed_work(system_long_wq, &deferred->work, 1);
++		return;
++	}
++
++	free_pg_vec(vec->pg_vec, vec->order, vec->len);
++	sock_put(sk);
++}
++
++static void packet_free_tx_ring(struct sock *sk, struct pgv *pg_vec,
++				unsigned int order, unsigned int len)
++{
++	struct packet_pg_vec_free *deferred;
++	struct packet_pg_vec *vec;
++
++	vec = container_of_const(pg_vec, struct packet_pg_vec, pg_vec[0]);
++	deferred = vec->deferred;
++	if (!deferred || !sk_wmem_alloc_get(sk)) {
++		free_pg_vec(pg_vec, order, len);
++		return;
++	}
++
++	/* A detached ring's pending count can miss late skb destructors. */
++	deferred->sk = sk;
++	sock_hold(sk);
++	queue_delayed_work(system_long_wq, &deferred->work, 0);
+ }
+ 
+ static char *alloc_one_pg_vec_page(unsigned long order)
+@@ -4413,20 +4469,35 @@ static char *alloc_one_pg_vec_page(unsigned long order)
+ 	return NULL;
+ }
+ 
+-static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order)
++static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring)
+ {
+ 	unsigned int block_nr = req->tp_block_nr;
++	struct packet_pg_vec *vec;
+ 	struct pgv *pg_vec;
+ 	int i;
+ 
+-	pg_vec = kzalloc_objs(struct pgv, block_nr, GFP_KERNEL | __GFP_NOWARN);
+-	if (unlikely(!pg_vec))
+-		goto out;
++	vec = kzalloc_flex(*vec, pg_vec, block_nr, GFP_KERNEL | __GFP_NOWARN);
++	if (unlikely(!vec))
++		return NULL;
++	vec->order = order;
++	vec->len = block_nr;
++	pg_vec = vec->pg_vec;
+ 
+ 	for (i = 0; i < block_nr; i++) {
+ 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
+ 		if (unlikely(!pg_vec[i].buffer))
+ 			goto out_free_pgvec;
++
++		if (tx_ring && !vec->deferred &&
++		    is_vmalloc_addr(pg_vec[i].buffer)) {
++			vec->deferred = kzalloc_obj(*vec->deferred,
++						    GFP_KERNEL | __GFP_NOWARN);
++			if (!vec->deferred)
++				goto out_free_pgvec;
++			vec->deferred->vec = vec;
++			INIT_DELAYED_WORK(&vec->deferred->work,
++					  packet_free_pg_vec_work);
++		}
+ 	}
+ 
+ out:
+@@ -4509,7 +4580,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ 
+ 		err = -ENOMEM;
+ 		order = get_order(req->tp_block_size);
+-		pg_vec = alloc_pg_vec(req, order);
++		pg_vec = alloc_pg_vec(req, order, tx_ring);
+ 		if (unlikely(!pg_vec))
+ 			goto out;
+ 		switch (po->tp_version) {
+@@ -4561,6 +4632,9 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ 	err = -EBUSY;
+ 	mutex_lock(&po->pg_vec_lock);
+ 	if (closing || atomic_long_read(&po->mapped) == 0) {
++		if (tx_ring && !closing && packet_read_pending(rb))
++			goto out_unlock;
++
+ 		err = 0;
+ 		spin_lock_bh(&rb_queue->lock);
+ 		swap(rb->pg_vec, pg_vec);
+@@ -4582,6 +4656,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ 			pr_err("packet_mmap: vma is busy: %ld\n",
+ 			       atomic_long_read(&po->mapped));
+ 	}
++out_unlock:
+ 	mutex_unlock(&po->pg_vec_lock);
+ 
+ 	spin_lock(&po->bind_lock);
+@@ -4603,7 +4678,10 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ out_free_pg_vec:
+ 	if (pg_vec) {
+ 		bitmap_free(rx_owner_map);
+-		free_pg_vec(pg_vec, order, req->tp_block_nr);
++		if (tx_ring && closing)
++			packet_free_tx_ring(sk, pg_vec, order, req->tp_block_nr);
++		else
++			free_pg_vec(pg_vec, order, req->tp_block_nr);
+ 	}
+ out:
+ 	return err;
 
