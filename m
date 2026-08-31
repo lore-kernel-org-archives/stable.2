@@ -1,117 +1,137 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3915D46D56A
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 15:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788189944; cv=pass; b=SWCSrUo1fXQ0RgFtTdC47YhUzEtH56zUbAQvpU7LDF5RphpWPaSAYXbkMppYxrW1T6/JNphPGqbBKDsMjI2jj6Xt0xM5APV0gH58xxgaaPyniQzI4nVGgbLQdNHC5yCWHKzK9Av9UEDnnthiHpsIN0cj/ehyIPH6EE5GtjKhgNA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788189944; c=relaxed/simple;
-	bh=5r5lIWIE05yql962Lu66IpUSpOLRAbYoczG3Qe81sGo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=prU4vagqwW9R2rj9qkv4mz7hXOOD9HRzwwhYwk0wvfuVaxsrXWz4WQ94DVFPNl+zaUCgPOQj4fGpfi11x0Q9A5XgbJC0qGRW3tCmEf+wJ/85nwMqYRLPWVYEiF+2T6yIdwFkbjJ8fVoWDC5nc+aAc84eHi+GVcDsDcnTwwJE/Vo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y6osjXU+; arc=pass smtp.client-ip=74.125.224.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B65346EC7C
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 15:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788190105; cv=none; b=BKn9ItIAewyT2fbj7kiXu/SeoeVcUv6F/I9bdJhFzg+BlOsxzZBJsXPBnqm4HNUyS7jYLCTPA19j+43sk2ECh+EDMFJP0BwZgoqJUaRwKQse1FleaC4/1UtPUblbbc4fIH2BuuGBFBpIBSjvMVjs3Oiwi0JtHJ51J8h3ayzepNM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788190105; c=relaxed/simple;
+	bh=UVaSnAntsnidTQyQIAWkdDSWDG/mfhc9FkANFMl71lU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Vg4mvpG8nHbFg3ft2knRy5UmPq9012vXKelDNari5u3qbrsbvdyqRZG1KzzDpJLSbNkIsmDSQ3P8eG/9gfTtwwWhg10hvJuJufN4afE4RMphzGuNpA14/uGht7k3HpfBO4MlYr9MXhCla5duU4OVO3ti22u2WZ1WGW8f3rgn4lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dv+VGBAV; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y6osjXU+"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-66f88b68518so114002d50.3
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 08:25:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788189942; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fCW59vgFPhq4GcprzHBWHbg+3oWFeq932ViwVVZ7SsdAa95ewmx1hrpeBhfmuX+nd+
-         NOYM+SNuim5k4W90Mzak67/W41HAbEz7PwTiwhAefre1Hs5aa64N4UmZuU9E+I0rqfeO
-         rDJbaKBX/Qjl0eodzDrYHisNns5Gg0LCmGEnEysB8+XOaG6pc/MOxO3Ocy/ykB0v/fBK
-         JzgpE3Bg4A5p0eCLatsoXOodkmwWIbOUTKqIrstmWnoIUP5onwVgyBepzVrOlBt27o0X
-         NNb07l0RcD52x+7cLrpm6jLiErwaI/AnJN3T5wYodjrQ33DJpvYwgWypfETlLAj5Pb+G
-         p7CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2lfcBfmQY62Vm348mWM4CEGfElAKI7bW/B4d2+TFnBY=;
-        fh=Pt8U8b1MGHnGDjSEeTrFH+wBN6XOLqZdcDnTmSDcT8k=;
-        b=UYZCwvswNXWtdbvJO3BFnaZxH+BvfDkJa0qraWnxRrddqpwoiR+ypMxGow8sERqYCe
-         mk+/PYGd6e8gBc1R8agSofDxp0lmy9APpOOUekFvqa4hx7WNTMqaES0lPYd5svzPVo4T
-         UUr1QKDL130SStLgCAAqzoIgI5UJoCGCArH4Y0dcc44cfCoXZ866uiP/cSji4OE8Dj2H
-         5Dyq/nf4pfwFiDF4vA6sd95kQbelAginrNXO5phi2oFveDcvlCEM/e5O+rJ9OdZHkBcA
-         K8vvVwp6HQN6VtguiNugXspgA9v7uBwpWz41rGuaXlOr2VId8zORJCfNv8B4v8B3b6Pi
-         1tRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dv+VGBAV"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3520043a91.2
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 08:28:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788189942; x=1788794742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2lfcBfmQY62Vm348mWM4CEGfElAKI7bW/B4d2+TFnBY=;
-        b=Y6osjXU+kW6Jam4k1IzXYyj3nNibFhcTM+I5jK2qbm9mDMGLIx1hPxjDBoFcNCY3Ec
-         DAii1KiqmZyrUsr9JN2gVDNeyqCrHhp7ppAXrD3VGfMSDGE+NlVW7hnC/HL2RdaEqmlB
-         /CzW3lzSC43kheUmPJOK9NGmjyaziTpAJD/wtE2Yrtiqg3t6Dqj6DKoTcHpZ0inIA+C3
-         mJLg0xbTa5j8x3pRPmt1tG70FqySbqsYXXiIHCn7XWhPArKfZ0/aVxMdNYqukd6XlHMS
-         I5mSMCjOcM2g77EFw1hAE5CV8UUIBhzqXuWtKSnsNtvAGGm1FhjU2Spe/7fqtRiQV/tL
-         J9OA==
+        d=gmail.com; s=20251104; t=1788190104; x=1788794904; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LzXEuTigiTiPkrsvsB4lTws1Gv1eiCRXL/HMjZW3pgA=;
+        b=Dv+VGBAV+xNPvTURXvUpAquidUdVTNnjzTCKqfdp3UJJpd65cXNMzBLMld+TUnvsvl
+         3M0/jI5cJ0vlK0OvYcMcdMIhufAk84ePXu3TYpWsJznaP8cEVyf/WClCnPigPZaM5Any
+         0URwA8aZgD0LzdsRTDDZY16Za0XcuJ86s2Pcq6NjV417uBgzHnSy1OuSmZ9qa5uru/xc
+         B/Q+vXyk63e1558Jw8yUDgBGShTXpJKa0bXGhJx1zzL2Thn+AVwkePtfltOxY7D/+/g2
+         6p1j2xjRt/20Be9q2YeElAx8j5H0+HiUJ21ImopC0ZJA5WRP1EIF4cAyxhdL5XmR7JQm
+         yvpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788189942; x=1788794742;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2lfcBfmQY62Vm348mWM4CEGfElAKI7bW/B4d2+TFnBY=;
-        b=WQVR8YvrIviVOeNb4r4EXC0ycvXPYD8vEh1odZ4LwMsEo9rKhL073ptMHhsjh/qWju
-         9Z8qjfc53NsYmIKqNcIScpv7IM3yKQ7OkL5LjdxwpNPIZ0/XjWEZ5S6qIl6ZA5alI9lh
-         LcDiDbLwQGTpZUFthKWUuYIyNcfmtCtU2buqLGjGRKXweGKeQ/sTfvslBzd7fif2imWr
-         qO8ap1gVgeZM5VlYCjPBhR5VOJ0zNkYDGtOZBi+nbVyGmZLvWJBPer/OYlbmgVzLqwQn
-         9m0cyy8IVZWK6O7gZdwKrtOWbdiIwj2vOZSOX+kJDOzV7VUmjwMUpPxDx1tSD+D55odh
-         Uwzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwVa3LW1pKblSojcj+675EzPEFfnVHhy3urhmmiepkYNJ+xvF6jLa+jRYpvWLJXhojYCY7bt9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++msahSnNGw9+UfRwQ6zjAcn6YXYcG83LZBfVw0172XTgKD0Rql+
-	vsKtUeKFKddmuUIC2tDArw7JbwFQCLNuf2KAWlkrV6X/Qdcv5IqXvdvdaBAOABoz5Afe+jFZKHZ
-	q1ms7bJJremFrWu7VHEXo7YMapSbB9ZY=
-X-Gm-Gg: AYBFou2iHjSeliAShtydihGrvSWtKOryRqt+bawi13SbU3wQVEmBmsmK7ivPNFOUFsh
-	P1qcslhfzpDMAfrv34qAlb7gMpFfpt9LxINJEWCRt7BFiB7eNvo45DmtmDv/HuEWyCB+t843SK8
-	XUNNnPGtsXCyTgjLegHgq9t2vlX8xJQkBRTcxL0sm8xtY6evj0o0XzMGBeNXJSBrBAYk2e3I26q
-	SY/tyfN2/8XzTibs+2UdNHesVW9WjQIJplKnmywhmrOLU/Ltpy6ZvjVegPS9Xwyh+roGVzG/W4h
-	YfUcDXu4I9+g2C6epG7p4jDrxIiEAHtttlu97z3ElYAfUxN4+N+s8MB8Zt2GLjcPEZ8NKJkI0SV
-	Hf6ryVYL8
-X-Received: by 2002:a05:690e:480d:b0:66d:132a:875f with SMTP id
- 956f58d0204a3-66f87615f57mr469041d50.47.1788189942058; Mon, 31 Aug 2026
- 08:25:42 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788190104; x=1788794904;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LzXEuTigiTiPkrsvsB4lTws1Gv1eiCRXL/HMjZW3pgA=;
+        b=Z2qNVQ6By53wTne2NIGBzVZH5U98yJRjTHwAsaaqNB0DCIy+XG/MRgs5GAxh9tvoi6
+         7c9R4aNpHsjKvmRzvvVXGGauXPIs+MnF+F6Vod3st9cRcxZx9GDG4yxvTPd9AJfB5VN8
+         GZ1PjBaNg51eMi/J3HH+lzYoEGztMI7hi941jKTdrIPOdPlAAvM1DwK5f+OyCHmf0Ihx
+         pRt9SdUcoRYGCJeAx7X939kHOMSsDOC3TyWqa/felIPQ8pu9/aJLACTCHFdZObwvkWOD
+         T++wSu2x/mqxbCEukGnsYoN/E+4eHXVDPl99qSXhyCF/MYoeThpvC0h1qigVvGb/+j4a
+         8Yuw==
+X-Forwarded-Encrypted: i=1; AKwUvBxLdIrGFiKJq4h1fT3Uv7nHVJC+ecjHWHjJSpsByyCDzzBZm59lbwATXL9T/M14L764do+I9Eo=@vger.kernel.org
+X-Gm-Message-State: AFuF++no8DxBkDOegTaarEWHR7UxJUVB6Y166n3sjRM3gVRn4UHYGJbU
+	4cbon6H+gQ/AqpUXVjmAGreZwBOHnMZ6nq4STDO1E1k7bi4IuiFdc6wQ
+X-Gm-Gg: AYBFou3Vatk0I0oEzaGNEZsAJG9p94CbeS9THY/cNxsiaxsGQoRUXt4bMVExuie5RHb
+	QAUTQQe3hmbPizNLhsTDTXZjK4VAp+ANn6F73F5d5YAhTXZYIwZ23z6edUTgBGkR6/N743LImwl
+	jx6qWeC49qO4nGET8uTDn1MS6hVckZN6dzYHmtTTMIQQ53lhyNF1oo87yJT5958l84TxDbFGYXN
+	K/lZWDfBfsuZceSdHrJBr+XTLvzqjfUiJEV8jvlMgaJfa3Avy3qarf7jDVSWBlABy+MkH63zH0G
+	uk+YMF8NinQHvWlrPjk6rhg9U23qdax3KedlRB1WB+bJrd8iHwXxJXb4mZ3zZYF0LUeI0jPl5lA
+	KG9Er5tSw7ndemJwaGNMcfmAbYfmpFJdPdPVpLLyhrl2Ye8YW3rBMVLMwAeyKW0lpUyv77VfHec
+	qVbPkQbRrDlHbmPtxn6kXa27+O7q7AFdumPtpZyBIUi8OG31nXB4heOEdB+eFpIgXoSUh3eF6N9
+	dmczyWYSbyTCs48K/nyEaOhJ2Cqrw==
+X-Received: by 2002:a17:90b:2551:b0:37d:f983:7b5 with SMTP id 98e67ed59e1d1-396d0fe384cmr47180926a91.9.1788190103615;
+        Mon, 31 Aug 2026 08:28:23 -0700 (PDT)
+Received: from urmom.urmom ([14.170.170.155])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bcf7ca7sm8891a91.4.2026.08.31.08.28.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 08:28:23 -0700 (PDT)
+From: Lucas Sproule <lucas.sproule.42@gmail.com>
+Date: Mon, 31 Aug 2026 22:28:08 +0700
+Subject: [PATCH v2] remoteproc: qcom_wcnss: Fix error check after
+ devm_ioremap_wc() switch
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260710022854.3739558-1-michael.bommarito@gmail.com>
- <20260710022854.3739558-3-michael.bommarito@gmail.com> <20260831134023.7784374a@pumpkin>
-In-Reply-To: <20260831134023.7784374a@pumpkin>
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Mon, 31 Aug 2026 11:25:29 -0400
-X-Gm-Features: AcwNN1XCy_2Zo6asUAI6Mo_MrE5tR1bf4Mf0i1abV1r9A7R-zlEGvrG8uEVg748
-Message-ID: <CAJJ9bXzmVKLQopUHTNh7-C4WggMcBJ3s9KShA05piwm9VTMTOg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] HID: hyperv: add KUnit coverage for device info bounds
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, kys@microsoft.com, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, linux-input@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-wcnss-is-err-fix-v2-1-5520fd4c6b50@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CQAyE4VchPdMEligur0I8QB21HlbTqpAQ3
+ p0Vj98k8y/kMIVTVyxk+KrrM2WEsiC5D+kG1ks2hSocq1NT8yTJndUZZnzVmdsQJdZAbA9C+fY
+ y5HlP9ue//TM+IO9fh9Z1AzHfXE90AAAA
+X-Change-ID: 20260831-wcnss-is-err-fix-729c91ee975c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Lucas Sproule <lucas.sproule.42@gmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
 
-On Mon, Aug 31, 2026 at 8:40=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
+Commit f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region
+mapping failure") switched back from devm_ioremap_resource_wc() to
+devm_ioremap_wc(), but kept the IS_ERR() check that had been added to
+match the resource variant.
 
-> This has landed in rc1 and fails to build (with gcc 12.2) because the tes=
-ts
-> in fortify-string.h detect that is it writing beyond the end of the
-> structure.
->  module_exit(mousevsc_exit);
+devm_ioremap_wc() returns NULL on failure rather than an error pointer,
+so IS_ERR() never fires and wcnss_alloc_memory_region() returns success
+with wcnss->mem_region left NULL.  Probe completes, and every subsequent
+firmware boot then fails with a bare -EINVAL from qcom_mdt_load_no_init(),
+masking the real mapping failure.
 
-I think Juergen and Jiri already found and fixed this, but it probably
-needs to get bumped up to for-linus sooner.  Sorry again for missing
-this on the original series.
+Check for NULL instead, and return -ENOMEM to match the other remoteproc
+drivers.
 
-Thanks,
-Mike
+Fixes: f9b888599418 ("remoteproc: qcom_wcnss: Fix reserved region mapping failure")
+Cc: stable@vger.kernel.org # v7.0+
+Signed-off-by: Lucas Sproule <lucas.sproule.42@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v2:
+- Collect Konrad's Reviewed-by.
+- Resend using b4; v1 was whitespace-damaged in transit.
+---
+ drivers/remoteproc/qcom_wcnss.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
+index c856a92af43c..90747af237f7 100644
+--- a/drivers/remoteproc/qcom_wcnss.c
++++ b/drivers/remoteproc/qcom_wcnss.c
+@@ -542,9 +542,9 @@ static int wcnss_alloc_memory_region(struct qcom_wcnss *wcnss)
+ 	wcnss->mem_phys = wcnss->mem_reloc = res.start;
+ 	wcnss->mem_size = resource_size(&res);
+ 	wcnss->mem_region = devm_ioremap_wc(wcnss->dev, wcnss->mem_phys, wcnss->mem_size);
+-	if (IS_ERR(wcnss->mem_region)) {
++	if (!wcnss->mem_region) {
+ 		dev_err(wcnss->dev, "unable to map memory region: %pR\n", &res);
+-		return PTR_ERR(wcnss->mem_region);
++		return -ENOMEM;
+ 	}
+ 
+ 	return 0;
+
+---
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+change-id: 20260831-wcnss-is-err-fix-729c91ee975c
+
+Best regards,
+--  
+Lucas Sproule <lucas.sproule.42@gmail.com>
+
