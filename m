@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB952F9D98
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:02:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5774D2F9D98
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:02:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181331; cv=none; b=lNi6EuzVWaz9zW+tzctfBmQFbEtcXREtg8F8tAxEkDU7xnfUZaLGiKqPjHeQNT7eaKfweqFa87TSXp8XeZQDhmhrU+txqfYxxhH0/1AzvsbNQ5OGSPg+DI1RTL4N0JsjGNwobxuAJY77oUJp2UzuvHbM5NT63XXX1TeND3sX0bk=
+	t=1788181333; cv=none; b=FmHp76rLyAqEVd2whQgq2SVnnqCoVU1mzKwl/DMRIGuX9rTNB04juRp66AZlyp7GL+1+aNPSM1Z+OU0Gwx5QYz62E3U04pYZshG4dKULrEQl6C+n1d9if8/54dh3OHS9lx6waLOkznBS+xwbQMK7swQOBdp7qZTy2ExojZL7U3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181331; c=relaxed/simple;
-	bh=OAZx1J5KHF2AtHhPlcWrcduH4eqtTEwnOUWy4sCALgE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tHPvRdFOuNl04aafVPyl1a4/IhAJOXfR+JP3GjECAi7LmejLgVTxOvMcJMk6Uq6JU14TvSDp228HhlZI5w93bZKJnrI+HbrTnwGba2BVxQbkEqS95Kla7WhBwSHmL0ADIxKn10Z7ctZx4CHvjCUd2iFYqcoMEluBSLTA64TFi3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lyr8krLD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788181333; c=relaxed/simple;
+	bh=frTOQre+9Ji+l2HFtmQUIEzn/VC2GLdkhLPmsmVB2IA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NneKD9eFC/MzY11bbi1ia7ST0O2/QMfgK8VesRCLKxCfZxuKNRV0xFtHdw3fomKbGSKhWRi1xHT2GTW5zmXFkUN1Zsuplo1z3/cFW5vF6mHmLeKKMEOBzKZe6oRg/To251ilEBtSo9DTMGjplxp3DxEhT0YBtqUdzZalob4ACOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v+d96Puh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lyr8krLD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21571F000E9;
-	Mon, 31 Aug 2026 13:02:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v+d96Puh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A341F000E9;
+	Mon, 31 Aug 2026 13:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788181329;
-	bh=bxyAxAkgwZN0cAhq2UAIYy82yIa4RGCws8jlVkCeYV4=;
+	s=korg; t=1788181332;
+	bh=OJTV0KOnpbJbEPcERusjnW0fTI1MtjJmyIXP5fEHzso=;
 	h=Subject:To:Cc:From:Date;
-	b=lyr8krLDNlsvMIZSIVgP++BhzF/XGmAMRCtialKozh+Q28js3YVGHrWQudOahNvVN
-	 zEfsR4h6Xm0fUhT+yOudfGPA7CFTHpr2V6Xl+/xOfBoaYCuFfwLxtK1ohVuru9uaEO
-	 ZmADaDMy0QLtPXsQfpkg9AK5FFqAp7QH5GI4AyaA=
-Subject: FAILED: patch "[PATCH] crypto: sun8i-ss - Remove crypto_rng interface" failed to apply to 7.1-stable tree
+	b=v+d96PuhBcY+EH6ylO9jD8DMFDtkdygNKQ9hflkiwGt5o1h8o1CW+odkY++VRw9lS
+	 QDznCXlNFLoV0wwa1NWTF/4g4AEo55G/Va4fy4HNA24UIppLKsjAwSTnqOJsmsyQ0H
+	 +6cLj8x2bNx41ncb8LYX5IGZ1o7zMUcUQ+rOeb4A=
+Subject: FAILED: patch "[PATCH] crypto: sun8i-ss - Remove crypto_rng interface" failed to apply to 6.12-stable tree
 To: ebiggers@kernel.org,clabbe.montjoie@gmail.com,herbert@gondor.apana.org.au
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 15:01:50 +0200
-Message-ID: <2026083150-causation-climatic-2a7a@gregkh>
+Date: Mon, 31 Aug 2026 15:01:51 +0200
+Message-ID: <2026083151-computing-unvalued-8df8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x a78446ee6fae86ac8733f120e3ffce2e5d9384f5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083150-causation-climatic-2a7a@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083151-computing-unvalued-8df8@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
