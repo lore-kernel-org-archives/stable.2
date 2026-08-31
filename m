@@ -1,39 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DD8574091;
-	Mon, 31 Aug 2026 13:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D35D574080;
+	Mon, 31 Aug 2026 13:48:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184135; cv=none; b=jHUCdi6csgr0D0fOg7gj8j3G2JXfYzRZbpNA9Th+tUdJjz8/UEoaLBkxKG5SZXBdaVgCa4zl5LNb8P4blezFaMmdvH9JzdG0g2S++cOZS7jazON5TmVRR7ZnCLYeqeZ8Z9ZW7lY63fEstKUaOGNvTutXaltDw/+8nN3roxHhlYk=
+	t=1788184138; cv=none; b=XT2OZNx0rsRqq1JlUUyo8RxqJfFDHB0qIYHkzBVH6u27EXybPAulQzAri/fQdnMchONoonzhDKAA0Q6KhBC0PqGK2mhBBhtp4TyQZNxmnv/Y43/3uMcBvpQ7v+Z0a80pdEyp3mbcAnlP37nwmiWXDpj3mVgbWHFWPYiOUenBzq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184135; c=relaxed/simple;
-	bh=Z+qLyLYgglfVAt0jry9Eu1QDTx7t/YHqoOh3IB5+CHU=;
+	s=arc-20240116; t=1788184138; c=relaxed/simple;
+	bh=yI1cOqwXV3vY6Yg+U8NNS8KbWXEe73KQKMJYZ9qik3A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RzBevP1X1URqjOzmkHF3ve5dlQuEcRYEy1l6fS2YywJjeMImZlwa8xt41Laq02/GnlMMcB/IIgJGBQIj9Tb7OJH4oUgS/WfkotN+HrFAiVbbsRYE/ahcMCipYc8rZhCqeC55Lt/jvGCr4VsP4VC5MOTrH2FHD/H3iQzSZkmlEmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rHQQbFnQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p7XDzO23lIzGIU1MfCTsts1qfhKp9jeHJWP+VYnNaE0NsJejO6DTGuRSVGhwVcoC4x3ahheStA6pp2n/WSRYyRBcdEFT+UBipjUGzTf7KG2EChkn6Pn/8Rebph5cdwcVaGDJaGp1kdtgiARcarJOO5EojGSmpohZ/trUq1aAsTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SJXm5of3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rHQQbFnQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E37F01F00A3E;
-	Mon, 31 Aug 2026 13:48:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SJXm5of3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB28A1F000E9;
+	Mon, 31 Aug 2026 13:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184133;
-	bh=3pS4dbfaPcajqzTjq75JwK/8efZslqsTetVbb8BsVt8=;
+	s=korg; t=1788184136;
+	bh=MXCZr7+4fRL9hwvMXPlfPdWHW/akhdPd4hQC8Rg+cvk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rHQQbFnQXNOOhLwY0MHbEDsz73oDP5cgRrV0XZmK1Rh7ay6r87u2j6tlGsScUfd2k
-	 431vp5EoxgtEF2ni1N1sIfi7rRQycJDIgRdNHTv3w3CyvoRV0aa8E5Q/Kk64/WUcNJ
-	 PMo2xdBp7a4I460cZQl8F1D6qOnFK/ZOm6zRC79E=
+	b=SJXm5of328vhiIg754O5TSWVLCNZPZCinpyJYaVSa74AXOGEYK1TUmvf5KdurYLoA
+	 j2geCA/o+kl0iLZuA6QeLR8bhX6V4kCTgvG9mMzmJmVfnIKnR4m4FmIdZlHitVHm0N
+	 IAbgkZU78gg7Tq+vXZRmR+eJjMVzOagL4rxCo1TU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Pankaj Gupta <pankaj.gupta@amd.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Michael Roth <michael.roth@amd.com>,
 	Sean Christopherson <seanjc@google.com>
-Subject: [PATCH 6.18 40/83] KVM: SEV: Drop FOLL_WRITE for encrypted region registration
-Date: Mon, 31 Aug 2026 15:34:16 +0200
-Message-ID: <20260831133401.558326831@linuxfoundation.org>
+Subject: [PATCH 6.18 41/83] KVM: SEV: Track the GPA of the guest-controlled VMSA used for SNP guests
+Date: Mon, 31 Aug 2026 15:34:17 +0200
+Message-ID: <20260831133401.609372499@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
 References: <20260831133359.207714926@linuxfoundation.org>
@@ -52,63 +50,104 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pankaj Gupta <pankaj.gupta@amd.com>
+From: Sean Christopherson <seanjc@google.com>
 
-commit ee1a586dd1fa2f245b3b753a3e44d9263a49240b upstream.
+commit 42a39ad5d592aec87a70527a4e694f6210694482 upstream.
 
-When pinning SEV guest memory, drop FOLL_WRITE and rely on FOLL_LONGTERM
-to break CoW, as *KVM* doesn't actually to the memory using the GUP'd
-pages.  Omitting FOLL_WRITE fixes a regression when using file-backed guest
-memory that was introduced when KVM (correctly) added FOLL_LONG (e.g. to
-ensure anonymous memory is migrated out of MIGRATE_CMA/ZONE_MOVABLE before
-a long term pin).
+Track the GPA of the guest-provided VMSA used after AP_CREATION events when
+running SNP guests, instead of simply tracking whether or not the vCPU is
+using a guest-provided VMSA.  KVM needs to know the GPA of the VMSA that's
+actively being used so that it can react to MMU invalidation events, i.e.
+so that KVM can drop the VMSA if its backing guest_memfd page is punched
+out of existence.
 
-Unfortunately, as of commits:
+Opportunistically rename snp_vmsa_gpa to clarify that it tracks the pending
+VMSA GPA, whereas snp_guest_vmsa_gpa now tracks the in-use VMSA GPA.
 
-  8ac268436e6d ("mm/gup: disallow FOLL_LONGTERM GUP-nonfast writing to file-backed mappings")
-  a6e79df92e4a ("mm/gup: disallow FOLL_LONGTERM GUP-fast writing to file-backed mappings")
+Note!  Take care to track the GPA, not the GFN, as VALID_PAGE() won't
+behave correctly if an invalid GFN is converted to a GPA for checking.
 
-GUP uses FOLL_LONGTERM as a canary of sorts to detect pins that are likely
-to be problematic, and disallows WRITE+LONGTERM pins for file-backed memory.
-As a result, backing SEV+ guests with file-backed memory, e.g. virtio-pmem,
-fails due to the disallowed FOLL_LONGTERM+FOLL_WRITE combination.
+Note #2!  Keep snp_has_guest_vmsa so that switching to a guest-provided
+VMSA is sticky, even if the guest-provided VMSA becomes invalid.
 
-Note, in the past, FOLL_WRITE was required to trigger CoW unsharing, to
-prevent replacing the page in the (primary MMU's) page tables during a
-later write fault after already having pinned a (shared) page in
-MAP_PRIVATE mappings.  FOLL_LONGTERM does that nowadays, even without
-FOLL_WRITE (see gup_must_unshare()).
+No functional change intended.
 
-Fixes: 7e066cb9b71a ("KVM: SEV: Use long-term pin when registering encrypted memory regions")
-Cc: stable@vger.kernel.org
-Suggested-by: "David Hildenbrand (Arm)" <david@kernel.org>
-Link: https://lore.kernel.org/all/ad784f05-b36c-4e91-9f17-4c5b826735d0@kernel.org/
-Signed-off-by: Pankaj Gupta <pankaj.gupta@amd.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Link: https://patch.msgid.link/20260715063626.65899-1-pankaj.gupta@amd.com
-[sean: massage changelog, add comment about CoW unsharing]
+Cc: stable@vger.kernel.org # 6.12.x
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Link: https://patch.msgid.link/20260709204948.1988414-2-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/x86/kvm/svm/sev.c |    6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ arch/x86/kvm/svm/sev.c |   14 +++++++++-----
+ arch/x86/kvm/svm/svm.h |    3 ++-
+ 2 files changed, 11 insertions(+), 6 deletions(-)
 
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -2727,8 +2727,12 @@ int sev_mem_enc_register_region(struct k
- 	if (!region)
+@@ -4037,6 +4037,7 @@ static void sev_snp_init_protected_guest
+ 
+ 	/* Clear use of the VMSA */
+ 	svm->vmcb->control.vmsa_pa = INVALID_PAGE;
++	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
+ 
+ 	/*
+ 	 * When replacing the VMSA during SEV-SNP AP creation,
+@@ -4044,11 +4045,11 @@ static void sev_snp_init_protected_guest
+ 	 */
+ 	vmcb_mark_all_dirty(svm->vmcb);
+ 
+-	if (!VALID_PAGE(svm->sev_es.snp_vmsa_gpa))
++	if (!VALID_PAGE(svm->sev_es.snp_pending_vmsa_gpa))
+ 		return;
+ 
+-	gfn = gpa_to_gfn(svm->sev_es.snp_vmsa_gpa);
+-	svm->sev_es.snp_vmsa_gpa = INVALID_PAGE;
++	gfn = gpa_to_gfn(svm->sev_es.snp_pending_vmsa_gpa);
++	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
+ 
+ 	slot = gfn_to_memslot(vcpu->kvm, gfn);
+ 	if (!slot)
+@@ -4073,6 +4074,7 @@ static void sev_snp_init_protected_guest
+ 	svm->sev_es.snp_has_guest_vmsa = true;
+ 
+ 	/* Use the new VMSA */
++	svm->sev_es.snp_guest_vmsa_gpa = gfn_to_gpa(gfn);
+ 	svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
+ 
+ 	/* Mark the vCPU as runnable */
+@@ -4139,10 +4141,10 @@ static int sev_snp_ap_creation(struct vc
+ 			return -EINVAL;
+ 		}
+ 
+-		target_svm->sev_es.snp_vmsa_gpa = svm->vmcb->control.exit_info_2;
++		target_svm->sev_es.snp_pending_vmsa_gpa = svm->vmcb->control.exit_info_2;
+ 		break;
+ 	case SVM_VMGEXIT_AP_DESTROY:
+-		target_svm->sev_es.snp_vmsa_gpa = INVALID_PAGE;
++		target_svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
+ 		break;
+ 	default:
+ 		vcpu_unimpl(vcpu, "vmgexit: invalid AP creation request [%#x] from guest\n",
+@@ -4731,6 +4733,8 @@ int sev_vcpu_create(struct kvm_vcpu *vcp
  		return -ENOMEM;
  
-+	/*
-+	 * Do NOT specify FOLL_WRITE, as KVM isn't using the pinned pages to
-+	 * write memory, and FOLL_LONGTERM itself triggers CoW unshare.
-+	 */
- 	region->pages = sev_pin_memory(kvm, range->addr, range->size, &region->npages,
--				       FOLL_WRITE | FOLL_LONGTERM);
-+				       FOLL_LONGTERM);
- 	if (IS_ERR(region->pages)) {
- 		ret = PTR_ERR(region->pages);
- 		goto e_free;
+ 	svm->sev_es.vmsa = page_address(vmsa_page);
++	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
++	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
+ 
+ 	vcpu->arch.guest_tsc_protected = snp_is_secure_tsc_enabled(vcpu->kvm);
+ 
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -248,7 +248,8 @@ struct vcpu_sev_es_state {
+ 	u64 ghcb_registered_gpa;
+ 
+ 	struct mutex snp_vmsa_mutex; /* Used to handle concurrent updates of VMSA. */
+-	gpa_t snp_vmsa_gpa;
++	gpa_t snp_pending_vmsa_gpa;
++	gpa_t snp_guest_vmsa_gpa;
+ 	bool snp_ap_waiting_for_reset;
+ 	bool snp_has_guest_vmsa;
+ };
 
 
