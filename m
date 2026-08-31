@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3CB3CFF4A
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC6F279907
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180791; cv=none; b=ZXo2TdHOuuhD7FnvYF/5vPhU1cRLCjOGq09u6C+EDA/Tzj2jHpbaSyQUAjE5Dgs+4xAxEppU2AuUuNdKX8xBezqezIyiqxJNqG+5705alA7P7Sa5RjHa5+gyp5tbXlnLRXV8XnCjT7ym+bLvXvdYxqlfd6EQ8CeLv45rsst2IbA=
+	t=1788180801; cv=none; b=IYirMNlxDOI2IqkCnuFz7K0BDC+kKn4MWoUc9HLRRUlWdvjzFpqTp1Ja4AJWJtPWVrX+irMCq/qy7P8Sr/ScMqaRiMkZo1PLqv+d+bynUXPsrx/ENHGWlIzWMSBFqXPGzC3iYFB+jmojqlcjJZk/oSnBSCPbdt2hkymONgnQH5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180791; c=relaxed/simple;
-	bh=1WlMD3L+5afPd7BQznGtrTvlU+76qmRgoEC5Afcl5/Y=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JPMLSS8GA1mViepv6CRGpAAvJIK3R02ncTVZXOzesPRO6PhcM2jQHItB4WRoAcX4iKvyDQXly1SV9PPtF16QO5AMKjURDb2vTSIs7aDXlO356x9kFGKpldeyR/OhmOiXZAFk4Pe7yiXCGtw/vww8hUqwM87y8BvLxtJWsN5pGuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wvfcEiLR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788180801; c=relaxed/simple;
+	bh=czBKhBKCBrjQ57hgO2XUHkQ9Gr4jLCmHTO8t277vjvE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SkcyjHIM3e+j2ifz6NGz+v6DVwCN3J0whT52/X8QuY8IrjTHF4IY0pm60YJgQM4W8Qu5kStFGYshzdYSVNcopIgtuAD/cyUeF7RnEgooJ5R/J81S6ei85chLVK6OcEGqa3MccsuaSX7dKFc8ByIK0XaybdF7Yf+XWy8uYEKNEt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UrLEOIaV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wvfcEiLR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49801F000E9;
-	Mon, 31 Aug 2026 12:53:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UrLEOIaV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560651F000E9;
+	Mon, 31 Aug 2026 12:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788180788;
-	bh=90AW4AorfPY2/ZQ4MxsBjl3rQjAyQk8KGt+imybGSIk=;
+	s=korg; t=1788180796;
+	bh=Kd+mNAN3TWW8Wk4mO484OBq+kpS3o8RZvldUVy0QKuU=;
 	h=Subject:To:Cc:From:Date;
-	b=wvfcEiLRRhjd/X/rTQbr2TdUUkAr0aigKtzldNWe4SSQMsUdfPKgnwICCj7QDwU4f
-	 Xyo6xN1Pa9c2fY2+rYnfScxylxpwnxcDoaRiC++IdTRnw/InXHKTD3KiV2s0Y9vM88
-	 V26N5wfBhOfHWAojGlIDRz1SNjFRu1DqzygqJw9k=
-Subject: FAILED: patch "[PATCH] tcp: clamp route advmss to TCP_MIN_MSS" failed to apply to 6.18-stable tree
+	b=UrLEOIaV6p25NWsJ3tTXqo7pD2zOtOCR2i7N529p9sXUeljVgVXUOJEVJucX80g8F
+	 JNPC0iuvAKZj7OOqFocjrK6kS58t8LwFBEw5tgM+ljPWqEhSwt0vWluZE89I1j5zyq
+	 Hbd7A6F4yFwTy/eVIHVTjRUj9oUAVgg+LuGVefns=
+Subject: FAILED: patch "[PATCH] tcp: clamp route advmss to TCP_MIN_MSS" failed to apply to 6.6-stable tree
 To: edragain@163.com,kuba@kernel.org,vega@nebusec.ai,weir@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:53:04 +0200
-Message-ID: <2026083104-huddle-balancing-d57b@gregkh>
+Date: Mon, 31 Aug 2026 14:53:05 +0200
+Message-ID: <2026083105-buddhist-verdict-4f97@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 870a9e42ecc6fe1b8c25d87af043cb0d9c178fe1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083104-huddle-balancing-d57b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083105-buddhist-verdict-4f97@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
