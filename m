@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A596147F791;
-	Mon, 31 Aug 2026 13:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A901547FAFE;
+	Mon, 31 Aug 2026 14:00:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184798; cv=none; b=Fj+j1a2fW6c42ALGUEZc4lc7hHbqHncslfS4O9ifNx6wHvVZTzMiXkeI/P3H5cmo83SackzdEItWYdek8eMPMkHBlVtKGp2B3gZpzxMuTnUTtCDooYcBP+82Ew/Qv+LTBJm2G43Raeh8XBZGMm+qxB2Pz1OY1zQNFvfPKVBIDWc=
+	t=1788184805; cv=none; b=OehnJ5pW9Ot3KO4H4EYekD/YgWppa2YRogPcm6IZyUwPWcdNs98X2CQNgPfMZlk7ckbqtcFXmUUHuJoPb2NKLhIS6ZBI5xyd/IqStwIR7YTXpkNovC6VPWdOWKpvzCS4GTbeKty2cKhBYQBJvW2Mag48VGhoojpCcWFxaQbRY9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184798; c=relaxed/simple;
-	bh=WvdnlEFeZlxN3/6dUT2NN3vRN+1rjd8yHbjAzXchJRI=;
+	s=arc-20240116; t=1788184805; c=relaxed/simple;
+	bh=p+fmAQWTRWN8e3ZPqDFOVcjp99Pa6GXbFJAe087gxsU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ppIWG3bRw5p1yf948V3QKekBT90xlqme5RbVqNcWnyHt/Sx3n91qwQ9LK2iasiuOgXxmPpspScyS3gBSlAXFPbUQjVLgRfkD9zAa0sCtbT3GiEEpSk4DM5kyoZQ8zVsAJfRV1ERLIm8fIGB3JOCYKhfqo4OGUEkPxfcMNXdgGZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wYaZJzZJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MDIo3nSKgplw9zqikh5EHyzEmoWtq7oKHOG1CNuQ5OyH70FR1To68cT+xCLWh1HaGc4fs1iZs+WM5YyDVmdY3SqBzDUAlvspUGkECmEP7obDEdb2cFl1/Ps71IZ9P4Ct5FrqIBIQVGw6h4TUg78rYupmNb5UBzgYZCAQpa6w4FM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gXmU2NYK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wYaZJzZJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4F61F00A3D;
-	Mon, 31 Aug 2026 13:59:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gXmU2NYK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2181F000E9;
+	Mon, 31 Aug 2026 14:00:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184796;
-	bh=EQeH7yFtN0DVK7ziO78D5TDVpGObFIgoYJTvbdLEK9w=;
+	s=korg; t=1788184803;
+	bh=BR5lDbiy4a3VxvvOb5LwxFO5a9MmoMyMEK4azzuCNN0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wYaZJzZJX1LEBpk1i608jQAoI9YasaAK/t/xBL0Ab2NR14g2FTrGQZW0lnoSHw2q0
-	 ZJhh7atxGZTciQKtdyA7JWQQ264PDsxEQGbv1q5lDv09L/qAhyd3Q2gqeuB0p3COTr
-	 5/yzTmsfzb7A6qLwtji+jiy0N++gO/bNfwBJRwOE=
+	b=gXmU2NYKpNxicGl5atV5bGCsZ350xlDXg2YdwCgQywau1w/0PG0GM16xZDNgBXe8u
+	 Pr7KB+WfbhwxXU8TzGZsHxjYcN4s6b+h3hiKMU/YhubiHCUWqwDMrmqyYUZBfut+Dw
+	 Qmj3BHlBpRxRYWMoV+kykM6Y9oJWbCVgJ/NDCenA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Andrei Fed <andfed.net@gmail.com>,
+	Christopher Kodama <ckhordiasma@gmail.com>,
 	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 41/92] HID: magicmouse: fix battery reporting for Bluetooth Magic Trackpad USB-C
-Date: Mon, 31 Aug 2026 15:34:39 +0200
-Message-ID: <20260831133401.845021048@linuxfoundation.org>
+Subject: [PATCH 6.1 43/92] HID: magicmouse: re-enable multitouch after reset-resume
+Date: Mon, 31 Aug 2026 15:34:41 +0200
+Message-ID: <20260831133401.953051270@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
 References: <20260831133359.482388899@linuxfoundation.org>
@@ -51,114 +51,67 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Andrei Fed <andfed.net@gmail.com>
+From: Christopher Kodama <ckhordiasma@gmail.com>
 
-[ Upstream commit a1556b48efc157fdda07b52ecc56c7bd1e1786f0 ]
+[ Upstream commit 4253fe22b137c4ee68f36b707fdb1b44b191edc4 ]
 
-The Apple Magic Trackpad 2 (USB-C) reports a wildly wrong battery
-capacity over Bluetooth, for example a constant 4% for a pack that is
-actually at 74%.
+When the Apple Magic Trackpad 2 (USB) is reset across a power transition
+(e.g. resume from hibernation) it drops out of multitouch mode: it keeps
+sending report ID 0x02 on its HID_TYPE_USBMOUSE interface, but the packet
+shrinks from 21 to 8 bytes and the trackpad2 handler drops it (size < 12).
+Clicks still work but pointer motion is lost until the device is re-plugged
+or the driver reloaded.
 
-The device's battery input report (0x90) is laid out as
-[report-id][status][charge]. hid-input's synchronous capacity query,
-hidinput_query_battery_capacity(), assumes the common
-[report-id][capacity] layout and returns buf[1], which for this device
-is the status byte rather than the charge (buf[2]).
-
-magicmouse_fetch_battery(), which requests the battery report through
-hid_hw_request() so the reply is decoded via the report descriptor at
-the correct field offset, is gated to the USB models and never runs
-over Bluetooth. The device does not push battery reports on its own
-either, except a single one at connect time, which is delivered while
-probe holds driver_input_lock and is silently dropped. All userspace
-reads therefore go through the misparsing query, and the device is
-stuck reporting its status byte as the capacity.
-
-Enabling the fetch for Bluetooth is not sufficient on its own: user
-space reacts to the power_supply registration immediately, so a query
-is typically already in flight when the fetch reply is parsed.
-hidinput_get_battery_property() stores the query result and marks the
-battery as queried without rechecking whether a report arrived while
-it was waiting, clobbering the just-reported correct value with the
-misparsed one.
-
-Fix this by adding HID_BATTERY_QUIRK_AVOID_QUERY for the Bluetooth
-Magic Trackpad USB-C so the misparsing query path is never used, and
-by fetching the battery at the end of probe for this device. hidp has
-no asynchronous request() callback, so the fetch is serviced
-synchronously via __hid_request() while probe still holds
-driver_input_lock; call hid_device_io_start() first so the reply is
-processed instead of being discarded.
-
-Tested with a Magic Trackpad USB-C (004c:0324) over Bluetooth on
-6.18.37: the reported capacity now matches the device (verified against
-a raw GET_REPORT of report 0x90) and updates on reconnect.
+Re-enable multitouch from .reset_resume via the workqueue.  Only
+.reset_resume is needed; suspend-to-idle keeps the device powered and
+retains multitouch.
 
 Fixes: 87a2f10395c8 ("HID: magicmouse: Apple Magic Trackpad 2 USB-C driver support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Andrei Fed <andfed.net@gmail.com>
+Assisted-by: Claude-Code:claude-opus-4-8
+Signed-off-by: Christopher Kodama <ckhordiasma@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[ Kept only the new quirk entry from the conflicting hunk, dropping the adjacent Magic Trackpad 1 entry absent from this tree. ]
+[ kept 6.6's non-const `magicmouse_report_fixup()` signature in context instead of upstream's `static const __u8 *` ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hid/hid-input.c      |    3 +++
- drivers/hid/hid-magicmouse.c |   19 ++++++++++++++++++-
- 2 files changed, 21 insertions(+), 1 deletion(-)
+ drivers/hid/hid-magicmouse.c |   19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -358,6 +358,9 @@ static const struct hid_device_id hid_ba
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
- 		USB_DEVICE_ID_APPLE_ALU_WIRELESS_ANSI),
- 	  HID_BATTERY_QUIRK_PERCENT | HID_BATTERY_QUIRK_FEATURE },
-+	{ HID_BLUETOOTH_DEVICE(BT_VENDOR_ID_APPLE,
-+		USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC),
-+	  HID_BATTERY_QUIRK_AVOID_QUERY },
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
- 		USB_DEVICE_ID_ELECOM_BM084),
- 	  HID_BATTERY_QUIRK_IGNORE },
 --- a/drivers/hid/hid-magicmouse.c
 +++ b/drivers/hid/hid-magicmouse.c
-@@ -808,6 +808,12 @@ static bool is_usb_magictrackpad2(__u32
- 	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
+@@ -1008,6 +1008,22 @@ static void magicmouse_remove(struct hid
+ 	hid_hw_stop(hdev);
  }
  
-+static bool is_bt_magictrackpad2(__u32 vendor, __u32 product)
++#ifdef CONFIG_PM
++static int magicmouse_reset_resume(struct hid_device *hdev)
 +{
-+	return vendor == BT_VENDOR_ID_APPLE &&
-+	       product == USB_DEVICE_ID_APPLE_MAGICTRACKPAD2_USBC;
-+}
++	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
 +
- static int magicmouse_fetch_battery(struct hid_device *hdev)
- {
- #ifdef CONFIG_HID_BATTERY_STRENGTH
-@@ -816,7 +822,8 @@ static int magicmouse_fetch_battery(stru
- 
- 	if (!hdev->battery ||
- 	    (!is_usb_magicmouse2(hdev->vendor, hdev->product) &&
--	     !is_usb_magictrackpad2(hdev->vendor, hdev->product)))
-+	     !is_usb_magictrackpad2(hdev->vendor, hdev->product) &&
-+	     !is_bt_magictrackpad2(hdev->vendor, hdev->product)))
- 		return -1;
- 
- 	report_enum = &hdev->report_enum[hdev->battery_report_type];
-@@ -952,6 +959,16 @@ static int magicmouse_probe(struct hid_d
- 		schedule_delayed_work(&msc->work, msecs_to_jiffies(500));
- 	}
- 
-+	/*
-+	 * Query the Bluetooth Magic Trackpad USB-C battery as done for USB.
-+	 * Start io first: probe holds driver_input_lock and the synchronous
-+	 * GET_REPORT reply would otherwise be dropped.
++	/* The device drops out of multitouch mode on resume; re-send the
++	 * enable report.  Only the HID_TYPE_USBMOUSE interface accepts it, and
++	 * it must be deferred. Sending it inline here is too early.
 +	 */
-+	if (is_bt_magictrackpad2(id->vendor, id->product)) {
-+		hid_device_io_start(hdev);
-+		magicmouse_fetch_battery(hdev);
-+	}
++	if (msc && hdev->type == HID_TYPE_USBMOUSE)
++		schedule_delayed_work(&msc->work, msecs_to_jiffies(500));
 +
- 	return 0;
- err_stop_hw:
- 	if (is_usb_magicmouse2(id->vendor, id->product) ||
++	return 0;
++}
++#endif
++
+ static __u8 *magicmouse_report_fixup(struct hid_device *hdev, __u8 *rdesc,
+ 				     unsigned int *rsize)
+ {
+@@ -1067,6 +1083,9 @@ static struct hid_driver magicmouse_driv
+ 	.event = magicmouse_event,
+ 	.input_mapping = magicmouse_input_mapping,
+ 	.input_configured = magicmouse_input_configured,
++#ifdef CONFIG_PM
++	.reset_resume = magicmouse_reset_resume,
++#endif
+ };
+ module_hid_driver(magicmouse_driver);
+ 
 
 
