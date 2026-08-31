@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9644B37DEBF
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:20:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD62369D6D
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214812; cv=none; b=C4LD9Fb7TFpjSjND7Ebt3t0qW32yuRLC1fX0mWhol5MFN2cAdTx8uvFi2+kWvudt1X7BxK+Sd6imEYqmyML5is/uDRHZkLpumh484UMepGMkjHAcz2btXZCpf8Nb0RCiPXIYIp0Afk3QnmOZ5UQtl9OdhAxGCGtuisarBVToCyQ=
+	t=1788214813; cv=none; b=iJNId6Vy/pHh36g9hnGo2mBKc0RNAuGYN+lLT1FVx3y3NA6kYjXmgWvPNp8S6j+14NVyUcCItO9ZWhTEqu6ps+iAdBa1w9KjKgGuKRJ7VMiy6ecZnF5u1Iq2v7jUE4zat7DMFwihFP9wjQxYrBQE4JGd4OUVJDKoXiXhNDAWOmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214812; c=relaxed/simple;
-	bh=z/FtwztOSuJdPK0bTnV/eng+WVs7jvUln2NPp2JiHkU=;
+	s=arc-20240116; t=1788214813; c=relaxed/simple;
+	bh=qeqy3llel/7usSeN2RMO7JcWkr8IKe5ZNmKV/+ppWUU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S2/NDF9VLq5NbqBEOhgsFzMGIEx43ROfoqTygbeGABmhbWNlE7Y79U/oi0reTzVlXjk56TJt80ho7/Tmfm/j1VJnjQ0QUpK48PI9YuUh6Wd2zHBzDKB9t0xTAyTCgcGtsY+v6viJ5krh/jR96obY7GATgsbXCzRcURrpHN3eBYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YnQh2g3K; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DAo/DJKXjKZCfleVWBNWDckafzpML+tC+L+qMptUHnuZoch/9mMZwC8SbPXWE7PfqdQBSkMa3/QnQQ/KarveoyuXH9rCTk1eslXNeHt4tE9hHfS97UeaDMdU30I5evhQhVOdz8jXfIbuAc95M7xPCpC8LqKgxyjYzGeg+9WV+RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJ8nfmc4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YnQh2g3K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7D81F00ACA;
-	Mon, 31 Aug 2026 22:20:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJ8nfmc4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98DA1F000E9;
+	Mon, 31 Aug 2026 22:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788214811;
-	bh=pbdsYzlG5kcBLfdlXE4Rl9KLtxyDg5ixWRSQZVBCOMY=;
+	s=k20260515; t=1788214812;
+	bh=oK5NX87oXJUU5UTRxZAXCe0s+rTWy7Xim5VBo1AOSOk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YnQh2g3KK4VXqW7G2mEZ8y55fHLaFTR5uRfgbMLUSoJoiAgaiDFLpnyAy9lv4jfg0
-	 mou1b/jbf8qV4mSwMGbAdaA09RtyO3zEskl99av6GI7R2904tlvmiYOdpNvPIcSQm1
-	 TsPoqzdWbQiQPqNEkl20DARVf+IPT3pNm2bC2oqT0zJGwOEz32a+Hr30N/UXacg9I4
-	 ygyfpewyisLaa8IXg9ah6uDXPiYH5j93sfcI6+3rr/sRfA3QHZq4BUoJlBryvONCoy
-	 /lROlBy+d8902oYNc5WwZ6WG93KoxIsFTIYb4bfqV4cAAbxOyC+M92PeeO57f1PY4l
-	 C+LRGjOtJEH0g==
+	b=aJ8nfmc4/EahyKhZvyTB10tk/ueqKuGtUNrNl4bjyk4fEBfFnXD/0w9Vn6ZUalN/3
+	 KmYUtprsyMzxeRX7xOeVMAP6oPAkgrEiDS3zJDDmjwu+UI+bVuqUHspXqasZ/ASprn
+	 tRuA+jcy2ZDLSrdfU03D+2/mnNTz6YddAOEOjB7a+d8mQgh4Uu9Z+5asQiE7KInObn
+	 gYHa777uTWzFeJvfSsSeLcQRPfFwTeOe/gbYCeRLf16hyY3NL/f8tSRqS8dk2RN3xS
+	 3/9KeuZwPEKhE5JFktH1SNdDN0i9r6lJUrRgAVJhsb8rPD0TJihudlY2FmItv8o//v
+	 AtFYTLq/MQfgA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Michael Roth <michael.roth@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/6] fuse-uring: use named constants for io-uring iovec indices
+Subject: [PATCH 7.2.y 1/8] KVM: SEV: Track the GPA of the guest-controlled VMSA used for SNP guests
 Date: Mon, 31 Aug 2026 18:20:03 -0400
-Message-ID: <20260831222004.1858878-5-sashal@kernel.org>
+Message-ID: <20260831222010.1859431-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831222004.1858878-1-sashal@kernel.org>
-References: <2026083142-defile-crewmate-74f2@gregkh>
- <20260831222004.1858878-1-sashal@kernel.org>
+In-Reply-To: <2026083158-cornmeal-overhang-51bb@gregkh>
+References: <2026083158-cornmeal-overhang-51bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,94 +45,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 8bbb2ad1f687633a991839bd3efae04ccfb29e19 ]
+[ Upstream commit 42a39ad5d592aec87a70527a4e694f6210694482 ]
 
-Replace magic indices 0 and 1 for the iovec array with named constants
-FUSE_URING_IOV_HEADERS and FUSE_URING_IOV_PAYLOAD. This makes the usages
-self-documenting and prepares for buffer ring support which will also
-reference these iovec slots by index.
+Track the GPA of the guest-provided VMSA used after AP_CREATION events when
+running SNP guests, instead of simply tracking whether or not the vCPU is
+using a guest-provided VMSA.  KVM needs to know the GPA of the VMSA that's
+actively being used so that it can react to MMU invalidation events, i.e.
+so that KVM can drop the VMSA if its backing guest_memfd page is punched
+out of existence.
 
-Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-Stable-dep-of: fd10f40af314 ("fuse: copy request headers via a stack buffer for io-uring")
+Opportunistically rename snp_vmsa_gpa to clarify that it tracks the pending
+VMSA GPA, whereas snp_guest_vmsa_gpa now tracks the in-use VMSA GPA.
+
+Note!  Take care to track the GPA, not the GFN, as VALID_PAGE() won't
+behave correctly if an invalid GFN is converted to a GPA for checking.
+
+Note #2!  Keep snp_has_guest_vmsa so that switching to a guest-provided
+VMSA is sticky, even if the guest-provided VMSA becomes invalid.
+
+No functional change intended.
+
+Cc: stable@vger.kernel.org # 6.12.x
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Link: https://patch.msgid.link/20260709204948.1988414-2-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Stable-dep-of: d1a3c2162334 ("KVM: SEV: Forcefully invalidate SNP VMSA if its backing gmem page is zapped")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/dev_uring.c | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+ arch/x86/kvm/svm/sev.c | 14 +++++++++-----
+ arch/x86/kvm/svm/svm.h |  3 ++-
+ 2 files changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index 52e7580ec88fd..95c23c3499e78 100644
---- a/fs/fuse/dev_uring.c
-+++ b/fs/fuse/dev_uring.c
-@@ -18,7 +18,8 @@ MODULE_PARM_DESC(enable_uring,
- 		 "Enable userspace communication through io-uring");
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 0f0ea7896af5b..5924d739c7adb 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -4022,6 +4022,7 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
  
- #define FUSE_URING_IOV_SEGS 2 /* header and payload */
--
-+#define FUSE_URING_IOV_HEADERS 0
-+#define FUSE_URING_IOV_PAYLOAD 1
+ 	/* Clear use of the VMSA */
+ 	svm->vmcb->control.vmsa_pa = INVALID_PAGE;
++	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
  
- bool fuse_uring_enabled(void)
- {
-@@ -1103,8 +1104,8 @@ static int fuse_uring_do_register(struct fuse_ring_ent *ent,
- }
+ 	/*
+ 	 * When replacing the VMSA during SEV-SNP AP creation,
+@@ -4029,11 +4030,11 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	 */
+ 	vmcb_mark_all_dirty(svm->vmcb);
  
- /*
-- * sqe->addr is a ptr to an iovec array, iov[0] has the headers, iov[1]
-- * the payload
-+ * sqe->addr is a ptr to an iovec array, iov[FUSE_URING_IOV_HEADERS] has the
-+ * headers, iov[FUSE_URING_IOV_PAYLOAD] the payload
-  */
- static int fuse_uring_get_iovec_from_sqe(const struct io_uring_sqe *sqe,
- 					 struct iovec iov[FUSE_URING_IOV_SEGS])
-@@ -1134,8 +1135,8 @@ fuse_uring_create_ring_ent(struct io_uring_cmd *cmd,
- {
- 	struct fuse_ring *ring = queue->ring;
- 	struct fuse_ring_ent *ent;
--	size_t payload_size;
- 	struct iovec iov[FUSE_URING_IOV_SEGS];
-+	struct iovec *headers, *payload;
- 	int err;
+-	if (!VALID_PAGE(svm->sev_es.snp_vmsa_gpa))
++	if (!VALID_PAGE(svm->sev_es.snp_pending_vmsa_gpa))
+ 		return;
  
- 	err = fuse_uring_get_iovec_from_sqe(cmd->sqe, iov);
-@@ -1146,15 +1147,16 @@ fuse_uring_create_ring_ent(struct io_uring_cmd *cmd,
- 	}
+-	gfn = gpa_to_gfn(svm->sev_es.snp_vmsa_gpa);
+-	svm->sev_es.snp_vmsa_gpa = INVALID_PAGE;
++	gfn = gpa_to_gfn(svm->sev_es.snp_pending_vmsa_gpa);
++	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
  
- 	err = -EINVAL;
--	if (iov[0].iov_len < sizeof(struct fuse_uring_req_header)) {
--		pr_info_ratelimited("Invalid header len %zu\n", iov[0].iov_len);
-+	headers = &iov[FUSE_URING_IOV_HEADERS];
-+	if (headers->iov_len < sizeof(struct fuse_uring_req_header)) {
-+		pr_info_ratelimited("Invalid header len %zu\n", headers->iov_len);
- 		return ERR_PTR(err);
- 	}
+ 	slot = gfn_to_memslot(vcpu->kvm, gfn);
+ 	if (!slot)
+@@ -4058,6 +4059,7 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	svm->sev_es.snp_has_guest_vmsa = true;
  
--	payload_size = iov[1].iov_len;
--	if (payload_size < ring->max_payload_sz) {
-+	payload = &iov[FUSE_URING_IOV_PAYLOAD];
-+	if (payload->iov_len < ring->max_payload_sz) {
- 		pr_info_ratelimited("Invalid req payload len %zu\n",
--				    payload_size);
-+				    payload->iov_len);
- 		return ERR_PTR(err);
- 	}
+ 	/* Use the new VMSA */
++	svm->sev_es.snp_guest_vmsa_gpa = gfn_to_gpa(gfn);
+ 	svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
  
-@@ -1166,8 +1168,8 @@ fuse_uring_create_ring_ent(struct io_uring_cmd *cmd,
- 	INIT_LIST_HEAD(&ent->list);
+ 	/* Mark the vCPU as runnable */
+@@ -4124,10 +4126,10 @@ static int sev_snp_ap_creation(struct vcpu_svm *svm)
+ 			return -EINVAL;
+ 		}
  
- 	ent->queue = queue;
--	ent->headers = iov[0].iov_base;
--	ent->payload = iov[1].iov_base;
-+	ent->headers = headers->iov_base;
-+	ent->payload = payload->iov_base;
+-		target_svm->sev_es.snp_vmsa_gpa = svm->vmcb->control.exit_info_2;
++		target_svm->sev_es.snp_pending_vmsa_gpa = svm->vmcb->control.exit_info_2;
+ 		break;
+ 	case SVM_VMGEXIT_AP_DESTROY:
+-		target_svm->sev_es.snp_vmsa_gpa = INVALID_PAGE;
++		target_svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
+ 		break;
+ 	default:
+ 		vcpu_unimpl(vcpu, "vmgexit: invalid AP creation request [%#x] from guest\n",
+@@ -4810,6 +4812,8 @@ int sev_vcpu_create(struct kvm_vcpu *vcpu)
+ 		return -ENOMEM;
  
- 	atomic_inc(&ring->queue_refs);
- 	return ent;
+ 	svm->sev_es.vmsa = page_address(vmsa_page);
++	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
++	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
+ 
+ 	vcpu->arch.guest_tsc_protected = snp_is_secure_tsc_enabled(vcpu->kvm);
+ 
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index d63e5878988aa..88c6b784c92b9 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -272,7 +272,8 @@ struct vcpu_sev_es_state {
+ 	u64 ghcb_registered_gpa;
+ 
+ 	struct mutex snp_vmsa_mutex; /* Used to handle concurrent updates of VMSA. */
+-	gpa_t snp_vmsa_gpa;
++	gpa_t snp_pending_vmsa_gpa;
++	gpa_t snp_guest_vmsa_gpa;
+ 	bool snp_ap_waiting_for_reset;
+ 	bool snp_has_guest_vmsa;
+ };
 -- 
 2.53.0
 
