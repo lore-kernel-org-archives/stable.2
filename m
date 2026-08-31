@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C9F4854ED;
-	Mon, 31 Aug 2026 14:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B82B48988D;
+	Mon, 31 Aug 2026 14:03:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184985; cv=none; b=tbGQYDtGkDzLETII/xV+xmv+SveSNUO3cctP2z8eIK5pAYkeOWUMkuEzq3NcE1H0NEAvsapL2+9y3t8OB92cYa15TlCKFjYh20MKdZQUsWW7IP62LlZQnYlkw3AQTdsIosCgv+ZWwnvXA7qVBAIFQoSNRh8eoKjKLp5ZRoMLbJo=
+	t=1788184994; cv=none; b=ZTWRUaMY4E9q0EL74N2brNDRerlETnRmtAmae6m30BZ+bvQlouj/Xu0dmOMAnafH4leMSJ0wMPw/CVBW5bkFkOk+gFhnOJWI8RngshwKPP89OgMTMuw6ROF0EeGsm4QMx3XvOYotEmjzM4pRf4Ffn6RoanFxUG1fTuzBboCMipA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184985; c=relaxed/simple;
-	bh=6Z73CbNxQYTOYNM3TzN9z5SgCwrzw1We6fTUP5ae8l4=;
+	s=arc-20240116; t=1788184994; c=relaxed/simple;
+	bh=zTnzmJAdV3azDYkCqneNNAvhYo4yMc9ufg1CZ9IOHa8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l3TChwviR91+0nIUqjCJ1hF/M98g2QJV+wgm72qAYn6BWtQqyKsfQUQkefGtD9Hh1ioPY/p+vMhgLEfbM4CWwYtj9S1WwfEwoh5uRVqzhVtFZT7Ewy72a868JRDX4XBk5B4z+DPu69d7Z4FGnEMBOEnvsDypip6uljJeIELIt/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HxqPaCWX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ikODgscSRGW+bBtNrCcoIWpEez5UK4fKoe7b5GYjRMosf7q9liYcXmx5MQalem2Dx6C3wO/Nigkcge/QnCKLTMpiyFCqeIUAF0gmqkFeQ0gTFg4QAOduM41DeqphRmkFNNZZBvZvdJsALyVBvL1egtIeC5zvuH6PveU9BKt6pBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GSpzx0gH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HxqPaCWX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5421F00A3E;
-	Mon, 31 Aug 2026 14:03:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184984;
-	bh=SLM/iGuOERBTFxu8mql/4ATf4p59p9Me6R2GTZoj17M=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GSpzx0gH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C1F1F000E9;
+	Mon, 31 Aug 2026 14:03:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788184993;
+	bh=IKr9QPdvMrsuslKXeI248qe9YBhS69H/oM/gMkgVEtQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HxqPaCWXz36XYrXZs36tURpnzE1QQPLIHZn2GbhatQy2eK0bA553g1f0VORg84K/2
-	 5vKwVliPAEhIA0mNE2KhbbBvOjRZJYBjNDvZ+FAEBoIriAFNJBEqWG6XwvuayoWSYk
-	 9XxP809cm+ltP4wIzZn7B2EMMcRVPJXOU25t6/NDfITTCZ2HLNkqF5EVmlgZ1TSnbC
-	 dueUwMJrECkZvyiEgx7jatMUkCH0mP0AWwHQREdJstM6/nOZVMKFOFW2ZiGz/JDyTd
-	 le31dNV1yajdLVpUTGIErxG5kD0ICCh/glTX1Uq4tDo5VofEulopGIAJAMi6UnxPJt
-	 zSg9U0vHUYMMA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH v1.2 5/8] mm/damon/vaddr: respect folio end for DAMOS_MIGRATE_{HOT,COLD}
-Date: Mon, 31 Aug 2026 07:02:44 -0700
-Message-ID: <20260831140254.72004-6-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831140254.72004-1-sj@kernel.org>
-References: <20260831140254.72004-1-sj@kernel.org>
+	b=GSpzx0gHpkczkkIiM3f5VDyp2vlifCxf06TlxZSy4Mpmfc43Tk0RcMJIox/LgPenH
+	 GVPEs+qszk0xMbaVnRFoVGGawtbBmFfnEXJFsQO5mPDJRY/Gyrw0i65hrS66ZOfnVa
+	 JmFJ74LNve40tJt+CDds+C28tnma8H7ZAnF5SSDo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 17/69] Revert "smb: client: use kvzalloc() for megabyte buffer in simple fallocate"
+Date: Mon, 31 Aug 2026 15:34:50 +0200
+Message-ID: <20260831133359.326291950@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
+References: <20260831133358.601894154@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,57 +45,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For applying DAMOS_MIGRATE_{HOT,COLD} actions to a region, DAMON virtual
-address space operation set (vaddr) calls walk_page_range[_vma]() for
-the region.  The pmd walk entry function, namely
-damon_va_migrate_pmd_entry(), collects folios of addresses of the region
-in the pmd.  It starts from the walking address and advances the address
-by the size of the folio of the address until it goes out of the pmd or
-the region.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-Let's suppose it is for the first pmd of the region, and the region
-start address is in the middle of a large folio.  Also, the next folios
-are small.  Then, some of the next folios could be skipped.  Fix the
-issue by advancing the address to exactly the start address of the next
-folio.
+------------------
 
-The user impact is that DAMOS action is applied to less than expected
-amount of memory.  Given the best effort nature of DAMON, it is no big
-problem, but it is clearly a bug that is better to be fixed.
+This reverts commit d1bc345f6229412d45bab2baf81d45d0e678253a.
 
-The issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260514015053.149396-1-sj@kernel.org
-
-Fixes: 09efc56a3b1c ("mm/damon/vaddr: consistently use only pmd_entry for damos_migrate")
-Cc: <stable@vger.kernel.org> # 6.19.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/vaddr.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/cifs/smb2ops.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 4b0b5edf67952..c8c32b2ae0402 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -669,6 +669,8 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		return 0;
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 9727cb9250807..3aaa45375d8ba 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -3736,7 +3736,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 	if (rc)
+ 		goto out;
  
- 	for (; addr < next; pte += nr, addr += nr * PAGE_SIZE) {
-+		unsigned long page_idx;
-+
- 		nr = 1;
- 		ptent = ptep_get(pte);
+-	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
++	buf = kzalloc(1024 * 1024, GFP_KERNEL);
+ 	if (buf == NULL) {
+ 		rc = -ENOMEM;
+ 		goto out;
+@@ -3803,7 +3803,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
  
-@@ -681,7 +683,8 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 			continue;
- 		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
- 				migration_lists);
--		nr = folio_nr_pages(folio);
-+		page_idx = folio_page_idx(folio, pte_page(ptent));
-+		nr = folio_nr_pages(folio) - page_idx;
- 	}
- 	pte_unmap_unlock(start_pte, ptl);
- 	return 0;
+  out:
+ 	kfree(out_data);
+-	kvfree(buf);
++	kfree(buf);
+ 	return rc;
+ }
+ 
 -- 
-2.47.3
+2.53.0
+
+
+
