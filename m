@@ -1,165 +1,103 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB193AA9F8;
-	Mon, 31 Aug 2026 03:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D643C3C02
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 04:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788146881; cv=none; b=cHHc3qW6Jh9aFN0awV9kT0eKNzlWXDyBgMo/iJesZjVgHtLi5wGL9ASIma7brPeEXzoX++/d95i9jI9yt0gqrtUiOHnnaU7XNqadtzRClNtWUXZ0Qvr+DAFVhRVENbInU9ynWhw/4+oG5o3q8It9TQlPwYyY2mw1chxNRHakECw=
+	t=1788149714; cv=none; b=dzNV9GVH7vequMQojcsti13+qPdX8oJqmOdgYwgEmarL8oWp/Mm0ey43KV7m4kr86bcyQFsg+2EvgGug4uc1QcrqQy8SqGilPh/KxhEYy/wS9bgcOrQPZADI8xsjS7VmRPw6QaXzVmfXq2dkOyfS2KzYhh7HSEUq82Sf++bfTg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788146881; c=relaxed/simple;
-	bh=KNTgq+/0Kuouzn61el1yz5cV3CZE6r84n255mD/gSww=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RhRZjB5yOsEL8MHbK85j7rv7qVMg2GiyF4/xXVECTl9+tDgaR0IVZkI9+6F8qQYtYQ72d//Gw3Ng0vxLxtRHQED85Mg1wqK3RWxId6ntvrbmu0LU9KhjGdgJuLU0lkQX6bl7pzG5xz88W8iT3YzGSy4BhAoHa6bDqVlMzDpOmxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=cvRjX/dL; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788149714; c=relaxed/simple;
+	bh=JWo7qptpEQzm5VHboo67cAi1vsGRFcq3ubh3+dfJsWg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VjwAJ+7TT9eT773OAeQ6+KrMckV9Lh0n7mwUUE/vhRNGF1DGZbqitxjp+KngKAb4Cq1jfqlVLh/MTS/7Eu1O0s/a/jjFI2VKGq+wbET6t6I+9vHzUp5xtJvBjUgReR6i+tNpGH6CKWJ5JkemN2R965MamNQ1PVZgUJL57UbHlII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JsSdJZpG; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="cvRjX/dL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788146814;
-	bh=FvM3PUyvegHAq8oz4A0YkG+fZ8ENWHND2m9+xtLaGUA=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=cvRjX/dLXH95CsdVjKYhTGQCgsUrAIIBNxsSmshdVrIlWprIevufCdDMvUuJP7fbO
-	 KvbbgF70giZv9R3eHaCDeNfwpHfC6uok5GuBYJPYpwNwOFgfdjoP9bSQGhlOPS3z5F
-	 0jIptt4LjVR5svLerDEEHbBnDy19qm1KGK6yDXzg=
-X-QQ-mid: esmtpgz14t1788146807t62575c63
-X-QQ-Originating-IP: mdvl2m5PSw8hny9/qhqo0Ig0a0QY6rf0hYVmTKpGJmk=
-Received: from = ( [183.48.245.118])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 31 Aug 2026 11:26:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13306223604564133587
-EX-QQ-RecipientCnt: 20
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Mon, 31 Aug 2026 11:26:41 +0800
-Subject: [PATCH v3] clk: spacemit: k3: add 1.8 GHz PLL5 and PLL8 rates
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JsSdJZpG"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d7200b2e15so31832815ad.3
+        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 21:15:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788149711; x=1788754511; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sf/yHYtrO3MQh0Uz1YqiTDYHxqYrBGeKFLdYV/NPx7E=;
+        b=JsSdJZpGdCeI2ltUaUM/Rk32oLibhNj1jwKI23MgiLnDLnVQA0FjFNnwIW1vb4+Qjj
+         p8dga2++saDpM81nzNBIEHsiyAkdH+grOTDWaOr+6eGawBQNxTlAujEAwfqwn+bZCfYt
+         +x53SdIj1TRS0OKrRvxqaRlRisCmQfaFlz7k0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788149711; x=1788754511;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sf/yHYtrO3MQh0Uz1YqiTDYHxqYrBGeKFLdYV/NPx7E=;
+        b=e1Ez+rroEJdyykJHEw+xcX5PCIYSAdUN9hNZsRzQRop2JAW81JOO5+vcPCG7o/SuPX
+         oxDGyxk6+G8NKzJTfc7YuKJqkvf6ZXD9spNMvkTCkmiqySS4RVk1wxScpOtMrH4DP6HS
+         sfrMg/tNasOkTnI45t+t906zelZOHdP/ttTT0XI0u90L6TsRTi9ZZULJK6wD6lsRjH6N
+         Y6HCP91k7CgYIL4LqBlcIhyGKTTRH9n0gAm/hJ8BNLCnTzOx+KFFhFiOOFUcax+y6Xvp
+         HDjGVc2eWQxv4pUfBzE5EWbQqkT0fAGM7KlFCxN7lUKKGqFrBCJpAaR/hxKCPi00Eb4/
+         /sPw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnuQ/UPdslf8Ns1+r+L+ySqBHgpJlsM+RH96RyT7bCm8dqIiJNH8dgnRvXp4TV5kjZfHMtL4c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lh07uoDC9A44cRWP1sNloXhvruHXEZn+H8i+U5QqmU0XKu+Ycg
+	GgQUczBKfq+hUXaBuxum1/ofu6UgxXCNFu54MHX0a11rWT1DbcCwm/kgzA1Oz9ZxHRSW6XjBGbp
+	/jFU=
+X-Gm-Gg: AYBFou0tQOsFBfwoVSQP8pI4aINidQ2sDaSQ0UvPCCSKQtpXtUgoJEM8qkSm9duloK9
+	9Cmx2JfvQA65Ma+yoZ+WaJdq3YNXEr5MNz71SmI+mJwFoAQLy9wcCewDMmjKZx+kfaQ0x/ZSXlm
+	Y1Api1bK3c4u1rXb0Y4UAHMRmkFiIJZkXZKqHvt9eBqB/5DSdbAlNGh1RSJGjVWPM/cUrVY2uun
+	tykkQNNoW7aIxbEuiarS1BqiBMpV+bvbDlqQv+9536ioSB5oChitlcemOIEJQ8gYx5L12UAqnIf
+	vZH80ctu1D7RWuYDvQk7Z0vBCOVgGwe6cHJvKu0hX0lX5qlIuaDbDYCvYn3fvgF4U4nqYNcGwdx
+	wUL5xIez6zDQ6NnseetPHaEDpatv4hy6N9zyCYSlkAqThak9cQchbS16e1qk5Lj534kTli88Sjv
+	YKH1jo2a+UPOuzlYaDzS/4cqOlHS3pEGujot6GJyavGPpe3Nm8VB+0UcpFZUisCmLBRxlO7PEvB
+	w/FLUcizqq4G6Ww4C5+3r6x6iTq
+X-Received: by 2002:a17:903:3d07:b0:2d8:d4d7:f055 with SMTP id d9443c01a7336-2d93fa78359mr10662945ad.22.1788149711457;
+        Sun, 30 Aug 2026 21:15:11 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:6c22:caaa:530b:455d])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b6fcsm28017105ad.56.2026.08.30.21.15.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 21:15:10 -0700 (PDT)
+Date: Mon, 31 Aug 2026 13:15:06 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Jia <jiahao.kernel@gmail.com>, minchan@kernel.org, 
+	senozhatsky@chromium.org, axboe@kernel.dk, bgeffon@google.com, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, Hao Jia <jiahao1@lixiang.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
+Message-ID: <apT-ocFYDmU6iC-j@google.com>
+References: <20260828083149.45760-1-jiahao.kernel@gmail.com>
+ <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-k3-pll5-pll8-1800mhz-v3-1-530ed0978615@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V07ZBpeRVX/odxMdQiVV6hQFDCv
- 0sxJi5wM8lJ7pwzM6s7oy07ejPr9GisaeoVgoPHVEH1TYO5rswEihglCngE0JZl5I4ELhGr4gV
- KcplEhJSGIVtf207nZtq058uH7ZDdteqdyy0KY/ume27dkbvdNxHuJ0YOCBRQEsk4VjoQp9LUw
- +TblpSuTO+rpmKuNYofG8c/NgEciLI8jzhSkia7tmVZ3v3dTJohAQAA
-X-Change-ID: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Yixun Lan <dlan@kernel.org>, Inochi Amaoto <inochiama@outlook.com>, 
- Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Aurelien Jarno <aurelien@aurel32.net>, linux-clk@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2740;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=KNTgq+/0Kuouzn61el1yz5cV3CZE6r84n255mD/gSww=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlTvhQmXYxRXMqwYsvXBYvY3qyKn6B04e7Dj5IBdx71b
- zBONis82FHKwiDGxSArpsjS/YBnW4FPlG2BQKEvzBxWJpAhDFycAjARHVaGvyJHC26u5poVyfFx
- wxnHg38Lb9ar7dx+/HPTWvO7UY2ymyYyMkz6NeHtm1aptmh2rQmePIvar5fLLXq2ckU8k/EzNi1
- /Ry4A
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N+U/QWJ6RP+kQ836Kwwm3AcWBTOGOGO97xDCcr9fzZ9n080CwsqN/XxU
-	h6SMekBpdheDbOXL1G0UE4wD11kKyIDE1dYWTjbbehMLM8i+nw0qh2vGyVUiNJc4Q06POuT
-	ueUykx24wjjVZ1jFwZKdpeQdlXbaO8SHJHn6LhjMES0wFvE6MCIQhcw2x3cLUkR4ipZ0o2w
-	OT+nnaTl2MkhmUVbFLwgVODQXdyPq36T1xEanovRk64fqBKnV2nTUg9xGCQXLXiikEz2ypE
-	DvbdrFKJ0vdIMzIodq+hFoMVB4LYz6EuadmDOqUd0LeF4FBIpSSI+c0o72+lg9iOH9Pr8d+
-	naQ/YFlB/L0YNYpSGrnyppp5jkp+7ilOjicA+NwhCKbrIeRMRrctXn+eQzKFLCxWV3lM0s6
-	nxprzwxDRm7veAYuSwoic6j15WNSMEO/3dLufjHXIcNndSwMmnp7qTSU/O+2Ok1DuNcdDyg
-	XgHIlP676FpYvvOTwPyCnW44KLcMPlr+tSVoazK6XLP/dqBWtXb6O3xuV1uNS7J+gPmddyj
-	dL2Cmen7/EytKqiMeeg2hYgZbkE6N8KxlDEiYEwtkDEEAePi6n2DnA6MwqypywTQ73KShT/
-	rWxB/t2XVqebIGdC55hihYblsQ6+ZFHD0SzZOWfCKIeYhRNfL30n3ZPq4o9PxV8J2MUx4Bw
-	LCVCmQqgTLrwsDgfm0pkXB7bXeyIhws1eQ5+195kvYz002dTvSeTzt9kwVhwG6lMPTmzRqx
-	+oOgYTfXa9wO6FJWdTJqc92HZEDoFS26owdlCf/UQKcm5zT8sWY2NwQgZxg21oYuvQeCRzd
-	NsPmvDwc1RCy9rFUm2A0EGcsWK0B5hnHpuvOVpypPZIDXHSGvmBYZoGkIYzaiJYgtqXvPtA
-	PX4ALQpxLV8Bg/+v+ioOMKWhvAOd2ctgH1ET9AQ23907h7W7ZOYWwvX4oLKFk4iUKeecVtv
-	2SJJLDspXV1xgMAow2sOwKy03U2HFxD+XezDZexnmZAaGKe8PRM+RcZghWbsbyHIoei8s49
-	HBmkw1DEeFw+gVnxYc/kgwaFYcnpLXZo63+tin4ZuT+D4CpXXoRhsEtQQjXA6YMByQTv/py
-	D1ytnYIWSNdKxQM/W5m097LL+aiSyzkLw==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
 
-K3 boot firmware configures the C2 and C3 CPU clock domains at
-1.8 GHz. PLL5 feeds C2 and PLL8 feeds C3, but their rate tables
-currently contain only the 2 GHz overclocking operating point.
+On (26/08/28 10:24), Andrew Morton wrote:
+> On Fri, 28 Aug 2026 16:31:49 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
+[..]
+> 
+> Thanks.  Sashiko asked a couple of questions about this change:
+> 	https://sashiko.dev/#/patchset/20260828083149.45760-1-jiahao.kernel@gmail.com
 
-Add the nominal 1.8 GHz configuration as the first entry in both
-tables. This lets determine_rate() and set_rate() select the firmware
-operating point while retaining 2 GHz as a supported overclocking rate.
 
-Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
-Tested-by: Aurelien Jarno <aurelien@aurel32.net>
-Cc: stable@vger.kernel.org # 7.0+
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
-The related U-Boot change is available at:
-https://github.com/spacemit-com/uboot-2022.10/commit/fb95cf3d848b771c61b5a1b3e5cbbee223faf352
----
-Changes in v3:
-- Mark the change for stable kernels starting with v7.0.
-- Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
-- Rebase onto v7.3-rc1.
-- Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com
+> Does this early return prevent marking valid boot-time pages as idle?
+> When a page is accessed during the first second of system boot, its ac_time
+> would be 0.
 
-Changes in v2:
-- Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
-  will be handled in a separate series.
-- Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
-  patch.
-- Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
-- Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-0-a3a75866ce32@linux.spacemit.com
+There is no possibility for zram to hold pages during first second of
+system boot, regardless of whether zram was configured as a swap device
+or as a block device (mount-ed with real filesystem).
 
-To: Stephen Boyd <sboyd@kernel.org>
-To: Brian Masney <bmasney+clk@redhat.com>
-To: Jerome Brunet <jbrunet+clk@baylibre.com>
-To: Yixun Lan <dlan@kernel.org>
-Cc: linux-clk@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
-Cc: spacemit@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
----
- drivers/clk/spacemit/ccu-k3.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
-index 92b930d5ff30..1796236d8dc5 100644
---- a/drivers/clk/spacemit/ccu-k3.c
-+++ b/drivers/clk/spacemit/ccu-k3.c
-@@ -38,6 +38,7 @@ static const struct ccu_pll_rate_tbl pll4_rate_tbl[] = {
- };
- 
- static const struct ccu_pll_rate_tbl pll5_rate_tbl[] = {
-+	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
- 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
- };
- 
-@@ -50,6 +51,7 @@ static const struct ccu_pll_rate_tbl pll7_rate_tbl[] = {
- };
- 
- static const struct ccu_pll_rate_tbl pll8_rate_tbl[] = {
-+	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
- 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
- };
- 
+> Can the early return above bypass this zram device initialization check?
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
-
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.spacemit.com>
-
+We already do that, e.g. when kstrtouint(buf, 0, &age_sec) fails.  Apart
+from that, that's not how one checks if device was initialized.  We may
+want to consolidate those checks, just for symmetry.
