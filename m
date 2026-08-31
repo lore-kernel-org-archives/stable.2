@@ -1,462 +1,288 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC714A49A1;
-	Mon, 31 Aug 2026 13:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183814; cv=none; b=hxpfpa3dMG0Pm7XdIQKX4r2w+hxtZ7Wx+8PzdmZl9bHThDebioujbHl+Iejo0cmSyNVnYwlg/5O9iBhpuKRc2l+PUdMgCyV3kEcx7prlIbPChF5q5hZBusAwWQgOOiitc55A+nxMPniiIivh0+iK8PAx+i5kWI4R9BOVNqoR/2I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183814; c=relaxed/simple;
-	bh=sVyr8foC6HYCvrx8Cque7mZDWQkB3fi3pNelniF0yfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GhNZpXgT1hx/gtqQ6Iv+YDuyaZSys0SkjlRg6QIg+7+gKPbRZmW7Ggx8fTRUF0xEJyzFAq2oLh9k42qlbgz52l8fcoOp2A2BDXU0XSvDPfpF2jVGQqqGNQruRZhh8R6nNyeuYjQpmr7pyuhepEP6wdEtQHcHyh/uTuoFy1eW3N0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cHcWbP2R; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A8C519904
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:43:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788183815; cv=pass; b=aYn+eOUoWV9jJoPPYt33zR2S2S7vaEL9wooNTJ/Unbn17Q5GpVKyPnuRdfTCMk6P6PP8vihvIYLn5Az11UYkSu16ooTh7xZI9xkohwzqPPGwtxT5f0nRG7/nCs26lcx++EfuDlMja1qRu2xDfVFifKwCFNQMT85IzajCn5IttpU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788183815; c=relaxed/simple;
+	bh=63jl8HUhN6UU5XZEP96vbdTWi8+bDVk7ytaLginym2Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LEfK5g1a09pLyzOa/jvNlS/3Q28FfdRsxa8uGqSmkyD7SQajj/nfe+/ulS1F1WYJoVmbwen8OAm0TriexljSc1lJuHYslYY9hhKMUzonVUrNsjtOkWsNdJt1n7gTIn48eZZIs6r2dzVjfG4qsTbstPdlINTPWiarbFPK3RlG+xY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fkBXdIoR; arc=pass smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cHcWbP2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174D51F000E9;
-	Mon, 31 Aug 2026 13:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183810;
-	bh=rOKKgiKls+fMCU+mwXra6P3qUafxkT02LD6xOduHgow=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cHcWbP2RKD4r7kOfLHXlktKuMg6JH09cvIXd7/Ln0Asnlne4gwRO0fFdFi5JMOkLB
-	 Z0WD1V99wN2aaJNNiTQAgP783YYqPrNSDL4A2U+Cnp9mUJstJJl+I/Q3fwwGWt3YZV
-	 4Sgk6+ei9o19ndq5JzLbAuhJe9cfN4RGna0uq7IGfeLPq8freCSufJ2OU1Py4DU6Ya
-	 KB+plFussJl0xcS2P8x8JZwXlVpDzgQUX7VxqW+FbAKvkq15NwPKZBlUbKCbpYCGMp
-	 tAr8u27/x/Eb5/TntWjuLroAIn5+ZlCl0XFIvm+qfhb4iE7dBYuCNAs8TsRrKRbRE6
-	 zN1lujZx4fPXA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] ALSA: usb-audio: qcom: Free QMI handle
-Date: Mon, 31 Aug 2026 09:25:46 -0400
-Message-ID: <20260831133314.4125787-318-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fkBXdIoR"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7f48c750afcso2592811a34.0
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 06:43:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788183811; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PHCBqR995dR40nu6xeFo0OeQFhRvggjaIG7ieLIJ2cJkm9ejcIgENQP2wZVBsn6ZEm
+         yXvic3P2l3L9cNIxmwpTh/tGz9R8X1loVCm3JTAKWyWLoYjiHrkS66uSWs2nr9HlJDB/
+         K4vBlnr9Grul2cv5S4Wg0rTNkfsLz9N4NV4YRefEhfY/2resaEtw6Uu+/fpDky2uIYq3
+         5WZa9cn62Paxcz0vx9OUzcVxtRVenbhCFZCG7AxAJ0BVmals2cQofUTgC0rGlT//AAb7
+         u1lySOYdpa+0GoKbsP47uu6eXwL+dnHXAuYbfBPL/m1DKL6G0OQaKyEH435Qw88iS2D9
+         KWtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=b0QfUnx4HyE7jo0WaLyW7xEi+bweJvqIwr7CLSzJcWw=;
+        fh=LKYN0YsddIk3iLEplxV+h/FakPIkgjLH40Srsis9ZAM=;
+        b=TMPMrezCq/ERrihpUx4oTelFdO6EUCOL1fdzI6+2TodaIFNaf4Kk+BIIdHpeSGunHy
+         DcthjFiJONxupPMXY+/LIsDtALebARzlUDiM6HyAEeShT5kuK1mHv2LBZoUMUKRlwwNI
+         WoTis66u6ZSlvnwC1NiTATLYHrwI8iGR8aGYeUvYZFf24hpIqhQus8UdvGBfwQ85mH7e
+         UnBlkgV397S9e+FYY9RLzVYPGdrkEVQDT84Ilt/EM7Wcpyt3W/P8223qWkEuEPnHIDbi
+         OfKfUqPm4c+ITcGOcAeb3Zu3ap9DCJcc7QoLbwRmQo59cZ0Fz8z0jjtuRIafeME8P9ms
+         5VVQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788183811; x=1788788611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b0QfUnx4HyE7jo0WaLyW7xEi+bweJvqIwr7CLSzJcWw=;
+        b=fkBXdIoRuGMOn/UJZu33Wv389cQ1PW0h41SY6HK30Ky1T5nTNs4cV3SyN1qd2ToB+O
+         DQBfnuMODWYBMVY3CCiEu39zYZuxPhK+tJwJWOHy8RkNOcjp0J7S0nXaQ9YQBi5h4QjR
+         5/tp0sRkPrc3c0f8IHVfwa0kP5cOU+x6im0WpCII9C+ZTBPPAqX1Xsl3AZy2psWLFiRU
+         PIIWBfjbzvnyuw6dzo8cm0tUPjCmsRacJT4jZuq+Mwocq5ot590rtBULIbKnCqMpfCfH
+         QzOpu/RBOaeOgCkGi2L2FCVlc9qPDDTXayQQjDSlgKuZ96+EJMP7SA2OxV2wdj02Y9dC
+         Fv7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788183811; x=1788788611;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b0QfUnx4HyE7jo0WaLyW7xEi+bweJvqIwr7CLSzJcWw=;
+        b=Ug02gaHPvQgiWKNJVKAk3fm0pqeOrBfkLE/FsAfZzduvSmpLp2UWYwgnvpTrP7Emf/
+         3z7+LQeUhqivVyU6ho5sCEAc/CRi5WU0BDHnFsIHJwP/Ih7XHRqzvGP7kfNxnFEnTTMd
+         VxSGEXb3a/YxMnq135pgNbSJA9mmWkyxX8/GYHyjumMEWcTded14O4pDmFt4twFkRs3E
+         8Ic1WyF7L99G3115BHFnajCUiQeqXhKeTvyXeYiEINfgQGrWlbLkyo+9r9nw8wEB3Rwf
+         ZgPWlWMbL4+FZf1gqK4fi/tBW7Zt/uHe4eLzEChnqsPecxqR66AQk8Y5s9Fw20nRim2M
+         vFiQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp98071Z5cALvq0swTTDQG60k4F8NGxbDxs70MDpkqpQXt0XNk/BDzi5gRKqd9Eb6DAPYZxrK8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhVWvj4t/Xbl1MFD4RY6DG2aCGAPJ6Iu9ZetOj443lvIuitBVT
+	SwPUiFf2NTdDWyAm4dvhzHSmqgz4gnCEFB6Ri2h1FBZlqwzlT8cARPgWZjP/O55V5JnsiCcINyw
+	P6d/DXhUiKCOt0t+QLbC13l7tzqytZ0M=
+X-Gm-Gg: AR+sD116624Klslpr/aO/Ik+vP0r96qh3k3f1Z+2vk7nfrupZJGGXMmGz1I2oZXZQSF
+	AjbgGXTulAntfpZK6XKKbAYqrBRwdGW3V4+yE+kTJidrkz+6bZG51e2kl0C8UiDcPLYBQllRUwK
+	V1mC2yCMP/oi6Z6Sg8vz9xxlt/Ou0ke6EHrnKK4rrkbeBfSu9AJMShxEEueLQcosjpYlajvTvVp
+	RCKBLZbHhxM+PtE5qmbF/+JWTE0RYMJOYDpgs5MnR2SaZOcbFupwSlv8Jrc1Vzbe3ckKWQWXWjD
+	eLGsxwB9Hyp0gQxPQCb+0vXJT6pHh0ycnf8ZJJSM+RzrkQ==
+X-Received: by 2002:a05:6820:4d04:b0:6b1:7289:fc89 with SMTP id
+ 006d021491bc7-6b1c659cf28mr23023099eaf.8.1788183810774; Mon, 31 Aug 2026
+ 06:43:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Xu Rao <raoxu@uniontech.com>
-
-[ Upstream commit b8ff1f3578f83dedf5feb796d97a3f67c1bea58f ]
-
-qc_usb_audio_probe() allocates svc->uaudio_svc_hdl separately from the
-uaudio_qmi_svc object.
-
-qmi_handle_release() releases the resources owned by an initialized QMI
-handle, but does not free the memory containing the struct qmi_handle
-itself. The probe error path and the remove path currently release the
-handle and then free svc, losing the last pointer to the separately
-allocated handle.
-
-This leaks one struct qmi_handle on each affected probe unwind and on
-each successful probe/remove cycle.
-
-Free the handle after qmi_handle_release() in both paths.
-
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Link: https://patch.msgid.link/9108EC860F3F87DF+20260623071308.2549182-1-raoxu@uniontech.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: ALSA: usb-audio: qcom: Free QMI handle
-
-**Local tree:** `v6.18.44` (Linux 6.18.y stable)
-**Upstream fix:** `b8ff1f3578f83` (on `master`, not yet in this tree)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject line
-**Record:** `[ALSA: usb-audio: qcom]` `[Free]` — free a separately
-allocated QMI handle that was leaked on probe error and remove paths.
-
-### Step 1.2: Tags
-**Record:**
-- **Signed-off-by:** Xu Rao `<raoxu@uniontech.com>` (author)
-- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA maintainer,
-  committer)
-- **Link:** https://patch.msgid.link/9108EC860F3F87DF+20260623071308.254
-  9182-1-raoxu@uniontech.com
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`
-- Notable: maintainer (Takashi Iwai) applied and committed the patch
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** `svc->uaudio_svc_hdl` is `kzalloc()`'d separately from
-  `struct uaudio_qmi_svc`. `qmi_handle_release()` tears down handle
-  resources but does not free the `struct qmi_handle` memory. After
-  `kfree(svc)`, the handle allocation is orphaned.
-- **Symptom:** One `struct qmi_handle` leaked per probe unwind (error
-  path) and per successful probe/remove cycle.
-- **Root cause:** Mismatch between separate allocation and release API
-  semantics (`qmi_handle_release()` vs. `kfree()`).
-- **Version info:** None stated; bug present since driver introduction.
-
-### Step 1.4: Hidden bug fix?
-**Record:** No — this is an explicit, straightforward memory-leak fix,
-not disguised cleanup.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **File:** `sound/usb/qcom/qc_audio_offload.c` (+2 / -0)
-- **Functions:** `qc_usb_audio_probe()`, `qc_usb_audio_remove()`
-- **Scope:** Single-file, surgical fix (2 lines)
-
-### Step 2.2: Code flow per hunk
-
-**Hunk 1 — `release_qmi` error path in `qc_usb_audio_probe()`:**
-- **Before:** `qmi_handle_release(svc->uaudio_svc_hdl);` → `kfree(svc);`
-  — handle struct leaked
-- **After:** `qmi_handle_release()` then `kfree(svc->uaudio_svc_hdl)`
-  then `kfree(svc)`
-
-**Hunk 2 — `qc_usb_audio_remove()`:**
-- **Before:** Same leak on every module remove
-- **After:** `kfree(svc->uaudio_svc_hdl)` added after
-  `qmi_handle_release()`
-
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Error-path / resource leak (missing `kfree` on
-separately allocated object).
-**Mechanism:** `uaudio_svc_hdl` is a pointer field in `struct
-uaudio_qmi_svc` pointing to a separately `kzalloc()`'d `struct
-qmi_handle`. `qmi_handle_release()` (documented and implemented in
-`drivers/soc/qcom/qmi_interface.c`) frees internal resources
-(`recv_buf`, service list entries, etc.) but explicitly does not free
-the handle struct itself — callers must do that, as
-`drivers/slimbus/qcom-ngd-ctrl.c` does with `devm_kfree()` after
-`qmi_handle_release()`.
-
-### Step 2.4: Fix quality
-**Record:** Obviously correct; mirrors established QMI caller pattern.
-Minimal, no API changes. No meaningful regression risk — `kfree()` is
-called after full `qmi_handle_release()` and before `kfree(svc)`.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:** Buggy allocation introduced in `326bbc348298a` ("ALSA: usb-
-audio: qcom: Introduce QC USB SND offloading support", 2025-04-11).
-Driver is an ancestor of `v6.18` — bug has been present since the driver
-landed in this release series.
-
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag present.
-
-### Step 3.3: Related file history
-**Record:** Recent related fixes in this file from the same
-author/subsystem:
-- `1467ca02ddac4` — "Free sideband sg_table objects" (same leak pattern,
-  already in this 6.18.y tree)
-- `e7144a2b3ac8d` — error-path cleanup in `qc_usb_audio_probe()`
-- `5c7ef5001292d` — xfer_buf leak fix
-
-Standalone fix; original submission was `[PATCH 1/3]` but v2 was applied
-as a single patch by Takashi Iwai with no series dependencies.
-
-### Step 3.4: Author context
-**Record:** Xu Rao (Uniontech) — active contributor to Qualcomm USB
-audio offload leak fixes. Takashi Iwai (ALSA maintainer) committed the
-fix.
-
-### Step 3.5: Dependencies
-**Record:** None. Applies standalone; no prerequisite commits or
-structural assumptions beyond code already in this tree.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://lists.openwall.net/linux-kernel/2026/06/23/512
-- **Series:** Originally `[PATCH 1/3]`; v2 submitted as single patch
-- **Maintainer response:** Takashi Iwai: "Applied now. Thanks."
-  (https://lists.openwall.net/linux-kernel/2026/06/25/1001)
-- No NAKs, no stable nomination in thread
-- `b4 dig -c` could not be used (commit not in current HEAD); lore found
-  via openwall mirror
-
-### Step 4.2: Reviewers
-**Record:** CC'd: Jaroslav Kysela, Takashi Iwai, Greg Kroah-Hartman,
-Kees Cook, linux-sound, linux-kernel. Appropriate subsystem maintainers
-included.
-
-### Step 4.3: Bug report
-**Record:** No syzbot, kmemleak, or user bug report. Found via code
-review.
-
-### Step 4.4: Related patches
-**Record:** Patches 2/3 of the original series were not committed with
-this fix; the applied upstream commit is self-contained.
-
-### Step 4.5: Stable list
-**Record:** No stable-specific discussion found for this exact patch.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key functions
-**Record:** `qc_usb_audio_probe()`, `qc_usb_audio_remove()`
-
-### Step 5.2: Callers
-**Record:** Registered as `.probe`/`.remove` in
-`qc_usb_audio_offload_drv` auxiliary driver table. Invoked during
-auxiliary device probe/remove on Qualcomm platforms with
-`CONFIG_SND_USB_AUDIO_QMI`.
-
-### Step 5.3: Callees
-**Record:** `kzalloc()`, `qmi_handle_init()`, `qmi_add_server()`,
-`qmi_handle_release()`, `kfree()`, `qc_usb_audio_cleanup_qmi_dev()`,
-`snd_usb_register_platform_ops()`
-
-### Step 5.4: Reachability
-**Record:** Triggered at module/auxiliary-device load and unload on
-systems with Qualcomm USB audio offload enabled
-(`CONFIG_SND_USB_AUDIO_QMI=y/m`, requires `QCOM_QMI_HELPERS`,
-`USB_XHCI_SIDEBAND`). Not userspace-triggerable directly, but hits every
-probe error and every clean module remove.
-
-### Step 5.5: Similar patterns
-**Record:** `drivers/slimbus/qcom-ngd-ctrl.c` correctly calls
-`qfree`/`devm_kfree` after `qmi_handle_release()`. Same author's
-`1467ca02ddac4` fixed an analogous separate-allocation leak in this same
-driver.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree at
-`sound/usb/qcom/qc_audio_offload.c`:
-- Line 1968: separate `kzalloc(sizeof(*svc->uaudio_svc_hdl))`
-- Lines 1996–1998: `release_qmi` path missing
-  `kfree(svc->uaudio_svc_hdl)`
-- Lines 2020–2021: `remove` path missing `kfree(svc->uaudio_svc_hdl)`
-- Upstream fix `b8ff1f3578f83` is **not** an ancestor of HEAD (`git
-  merge-base --is-ancestor` exit 1)
-
-### Step 6.2: Backport difficulty
-**Record:** Clean apply expected — the `release_qmi` and `remove` paths
-match upstream context exactly.
-
-### Step 6.3: Related fixes already present?
-**Record:** `1467ca02ddac4` (sg_table leak, same driver/author) is
-already in this tree — strong precedent that this class of leak fix is
-accepted for 6.18.y.
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** **IMPORTANT** — ALSA USB audio driver, Qualcomm-specific
-offload path. Not core kernel, but affects real hardware (Snapdragon
-laptops/tablets with USB XHCI sideband audio offload).
-
-### Step 7.2: Activity
-**Record:** Actively maintained; multiple bug fixes in 2025–2026
-including several leak fixes backported to stable.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who is affected
-**Record:** Users with `CONFIG_SND_USB_AUDIO_QMI` on Qualcomm platforms
-using USB audio offload. Config-specific, platform-specific — not
-universal.
-
-### Step 8.2: Trigger conditions
-**Record:**
-- Every successful driver remove (module unload, device unbind)
-- Probe error after QMI init when `snd_usb_register_platform_ops()`
-  fails
-- Unprivileged users cannot directly trigger; requires platform hardware
-  and driver loaded
-- **Likelihood:** Once per boot cycle on affected systems (remove path);
-  probe error path is rarer
-
-### Step 8.3: Failure mode severity
-**Record:** **LOW** — small memory leak (~one `struct qmi_handle` per
-cycle, roughly a few hundred bytes including embedded lists already
-freed by `qmi_handle_release()`). No crash, corruption, deadlock, or
-security exposure. Would require repeated load/unload to accumulate
-meaningfully.
-
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** Eliminates a real, confirmed leak on an established code
-  path; aligns with prior stable backports in this exact driver
-- **Risk:** Very low — 2-line addition, established QMI pattern, no
-  behavior change beyond freeing leaked memory
-- **Ratio:** Moderate benefit for niche users, very low risk; precedent
-  in this tree tips toward inclusion
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence summary
-
-**FOR backport:**
-- Real, verified memory leak in code present since driver introduction
-- Obviously correct 2-line fix matching QMI subsystem conventions
-- Driver exists in v6.18; bug affects this tree
-- Same author fixed an analogous leak (`1467ca02ddac4`) already
-  backported to this 6.18.y tree by Greg Kroah-Hartman
-- ALSA maintainer reviewed and applied upstream
-- Clean apply, no dependencies
-
-**AGAINST backport:**
-- Low severity (small leak, not crash/corruption/security)
-- Niche hardware/config (`CONFIG_SND_USB_AUDIO_QMI`)
-- No fuzzer or user reports
-- Strict reading of "important issue" criterion is borderline for pure
-  leaks
-
-**Unresolved:** Whether patches 2/3 of the original `[PATCH 1/3]` series
-were ever needed — upstream committed only this standalone fix.
-
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — correct by inspection;
-   maintainer-applied upstream
-2. Fixes a real bug? **PASS** — confirmed memory leak
-3. Important issue? **PASS (borderline)** — not crash/security, but real
-   leak on remove path; same class already accepted in this tree
-4. Small and contained? **PASS** — 2 lines, 1 file
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — buggy code present, clean apply
-   expected
-
-### Step 9.3: Exception categories
-**Record:** None directly (not device ID, quirk, DT, build, or docs).
-Standard resource-leak fix.
-
-### Step 9.4: Decision rationale
-
-This is a genuine memory leak on the driver remove path and probe error
-path in `sound/usb/qcom/qc_audio_offload.c`, present in Linux 6.18 since
-the Qualcomm USB audio offload driver was introduced. The fix is
-minimal, obviously correct, and follows the established QMI handle
-lifecycle pattern used elsewhere in the Qualcomm subsystem.
-
-While the leak severity is low (one small allocation per module cycle on
-niche hardware), this 6.18.y tree has already accepted a nearly
-identical class of fix from the same author in the same file
-(`1467ca02ddac4` — "Free sideband sg_table objects"). That establishes
-clear precedent that resource-leak fixes in this driver are appropriate
-for 6.18.y stable. The fix is not yet in the local tree (`b8ff1f3578f83`
-is on `master` only) and should be backported.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Confirmed no syzbot/Reported-by; Takashi Iwai Signed-
-  off-by present
-- **[Phase 2]** Read current `qc_audio_offload.c` lines 1957–2023: leak
-  confirmed on both paths
-- **[Phase 2]** Read `qmi_handle_release()` at
-  `drivers/soc/qcom/qmi_interface.c:687-719`: does not free `struct
-  qmi_handle` itself
-- **[Phase 2]** Read `drivers/slimbus/qcom-ngd-ctrl.c:496-508`:
-  precedent for caller freeing handle after release
-- **[Phase 3]** `git describe HEAD`: `v6.18.44`
-- **[Phase 3]** `git blame` lines 1968–2021: introduced in
-  `326bbc348298a` (2025-04-11)
-- **[Phase 3]** `git merge-base --is-ancestor 326bbc348298ab v6.18`:
-  driver in v6.18 release
-- **[Phase 3]** `git merge-base --is-ancestor b8ff1f3578f83 HEAD`: exit
-  1 — fix NOT in current tree
-- **[Phase 3]** `git show 1467ca02ddac4`: analogous leak fix already in
-  this tree (committed by Greg K-H)
-- **[Phase 4]** Fetched https://lists.openwall.net/linux-
-  kernel/2026/06/23/512: original patch submission
-- **[Phase 4]** Fetched https://lists.openwall.net/linux-
-  kernel/2026/06/25/1001: Takashi Iwai "Applied now"
-- **[Phase 4]** `b4 dig -c HEAD`: not applicable (commit not in HEAD);
-  lore accessed via openwall
-- **[Phase 5]** `grep qc_usb_audio_probe`: only auxiliary driver probe
-  entry
-- **[Phase 5]** Read `include/linux/soc/qcom/qmi.h:216-238`: `struct
-  qmi_handle` definition
-- **[Phase 6]** Confirmed buggy code at lines 1996–1998 and 2020–2021 in
-  local tree
-- **[Phase 6]** `grep kfree.*uaudio_svc_hdl` in tree: no matches — fix
-  absent
-- **[Phase 6]** Read `sound/usb/Kconfig:191-197`:
-  `CONFIG_SND_USB_AUDIO_QMI` dependencies
-- **[Phase 8]** Assessed severity as LOW leak, not crash/security
-
-**YES**The background checks finished and match the earlier analysis:
-
-- **Fix location:** `b8ff1f3578f83` ("ALSA: usb-audio: qcom: Free QMI
-  handle") is on `master` but **not** in the current `v6.18.44` tree —
-  so the leak is still present locally.
-- **Author context:** Xu Rao has several similar QMI/resource-leak fixes
-  in this area, including `1467ca02ddac4` (sideband `sg_table` leak),
-  which is already in this 6.18.y tree.
-
-That supports the **YES** backport recommendation: real leak, trivial
-fix, and precedent for the same driver in this stable series.
-
- sound/usb/qcom/qc_audio_offload.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
-index da2759f2ee866..62a57b8d171b8 100644
---- a/sound/usb/qcom/qc_audio_offload.c
-+++ b/sound/usb/qcom/qc_audio_offload.c
-@@ -1994,6 +1994,7 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
- release_qmi:
- 	qc_usb_audio_cleanup_qmi_dev();
- 	qmi_handle_release(svc->uaudio_svc_hdl);
-+	kfree(svc->uaudio_svc_hdl);
- free_svc:
- 	kfree(svc);
- 
-@@ -2018,6 +2019,7 @@ static void qc_usb_audio_remove(struct auxiliary_device *auxdev)
- 	qc_usb_audio_cleanup_qmi_dev();
- 
- 	qmi_handle_release(svc->uaudio_svc_hdl);
-+	kfree(svc->uaudio_svc_hdl);
- 	kfree(svc);
- 	uaudio_svc = NULL;
- }
--- 
-2.53.0
-
+References: <20260830201157.2084730-1-tristmd@gmail.com>
+In-Reply-To: <20260830201157.2084730-1-tristmd@gmail.com>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Mon, 31 Aug 2026 09:43:19 -0400
+X-Gm-Features: AcwNN1VfSVhKpPcrG_OTElZpCYiyfwZnm2Zyppu-GmNvyyY3F714BGjKDE1UPxs
+Message-ID: <CAEjxPJ4mBLeed9hqf_miommqpLD9a=dDJ+=k0gRBSVT6DyHp-w@mail.gmail.com>
+Subject: Re: [PATCH v2] selinux: use socket SID for SCTP ASCONF permission checks
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Paul Moore <paul@paul-moore.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	Richard Haines <richard_c_haines@btinternet.com>, selinux@vger.kernel.org, 
+	stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Aug 30, 2026 at 4:12=E2=80=AFPM Tristan Madani <tristmd@gmail.com> =
+wrote:
+>
+> From: Tristan Madani <tristan@talencesecurity.com>
+>
+> __selinux_socket_bind() and selinux_socket_connect_helper() call
+> sock_has_perm() which uses current_sid() as the AVC subject.  When
+> selinux_sctp_bind_connect() is invoked from the ASCONF processing
+> path (sctp_process_asconf), current refers to whichever task was
+> interrupted, so the permission check evaluates an unrelated subject.
+>
+> Fix by extracting the sock_has_perm() call out of
+> __selinux_socket_bind() and selinux_socket_connect_helper() into
+> their callers.  The process-context wrappers (selinux_socket_bind,
+> selinux_socket_connect) call sock_has_perm() directly.
+>
+> For selinux_sctp_bind_connect(), determine the caller SID based on
+> the optname: SCTP_PARAM_SET_PRIMARY and SCTP_PARAM_ADD_IP are ASCONF
+> chunk parameter types only passed from the softirq processing path,
+> so use the socket own SID (sksec->sid), consistent with other
+> softirq-context hooks such as selinux_socket_sock_rcv_skb() and
+> selinux_sctp_assoc_request().  All other optnames originate from
+> process-context syscalls and use current_sid().
+>
+> Factor out __sock_has_perm() with an explicit subject SID parameter
+> so that sock_has_perm() remains unchanged for all other callers.
+>
+> Fixes: d452930fd3b9 ("selinux: Add SCTP support")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Paul Moore <paul@paul-moore.com>
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+
+Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+
+> ---
+> Changes in v2:
+>   - Do not use sksec->sid unconditionally; determine the caller SID
+>     based on the optname so that process-context callers (bind, connect,
+>     connectx, sendmsg) still use current_sid()  [Paul Moore, Sashiko]
+>   - Factor out __sock_has_perm() with an explicit SID parameter and keep
+>     sock_has_perm() as a thin wrapper for all other callers
+>   - Move the sock_has_perm() call out of __selinux_socket_bind() and
+>     selinux_socket_connect_helper() into their respective callers
+>     (selinux_socket_bind, selinux_socket_connect, selinux_sctp_bind_conne=
+ct)
+>  security/selinux/hooks.c | 47 ++++++++++++++++++++++++++++++----------
+>  1 file changed, 35 insertions(+), 12 deletions(-)
+>
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index 035aaf113d1da..ab9653ae06fc8 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -4918,7 +4918,7 @@ static bool sock_skip_has_perm(u32 sid)
+>  }
+>
+>
+> -static int sock_has_perm(struct sock *sk, u32 perms)
+> +static int __sock_has_perm(struct sock *sk, u32 sid, u32 perms)
+>  {
+>         struct sk_security_struct *sksec =3D selinux_sock(sk);
+>         struct common_audit_data ad;
+> @@ -4929,10 +4929,15 @@ static int sock_has_perm(struct sock *sk, u32 per=
+ms)
+>
+>         ad_net_init_from_sk(&ad, &net, sk);
+>
+> -       return avc_has_perm(current_sid(), sksec->sid, sksec->sclass, per=
+ms,
+> +       return avc_has_perm(sid, sksec->sid, sksec->sclass, perms,
+>                             &ad);
+>  }
+>
+> +static int sock_has_perm(struct sock *sk, u32 perms)
+> +{
+> +       return __sock_has_perm(sk, current_sid(), perms);
+> +}
+> +
+>  static int selinux_socket_create(int family, int type,
+>                                  int protocol, int kern)
+>  {
+> @@ -5006,11 +5011,7 @@ static int __selinux_socket_bind(struct sock *sk, =
+struct sockaddr *address, int
+>  {
+>         struct sk_security_struct *sksec =3D selinux_sock(sk);
+>         u16 family;
+> -       int err;
+> -
+> -       err =3D sock_has_perm(sk, SOCKET__BIND);
+> -       if (err)
+> -               goto out;
+> +       int err =3D 0;
+>
+>         /* If PF_INET or PF_INET6, check name_bind permission for the por=
+t. */
+>         family =3D sk->sk_family;
+> @@ -5135,6 +5136,11 @@ static int __selinux_socket_bind(struct sock *sk, =
+struct sockaddr *address, int
+>
+>  static int selinux_socket_bind(struct socket *sock, struct sockaddr *add=
+ress, int addrlen)
+>  {
+> +       int err;
+> +
+> +       err =3D sock_has_perm(sock->sk, SOCKET__BIND);
+> +       if (err)
+> +               return err;
+>         return __selinux_socket_bind(sock->sk, address, addrlen);
+>  }
+>
+> @@ -5145,11 +5151,8 @@ static int selinux_socket_connect_helper(struct so=
+ck *sk,
+>                                          struct sockaddr *address, int ad=
+drlen)
+>  {
+>         struct sk_security_struct *sksec =3D selinux_sock(sk);
+> -       int err;
+> +       int err =3D 0;
+>
+> -       err =3D sock_has_perm(sk, SOCKET__CONNECT);
+> -       if (err)
+> -               return err;
+>         if (addrlen < offsetofend(struct sockaddr, sa_family))
+>                 return -EINVAL;
+>
+> @@ -5232,6 +5235,9 @@ static int selinux_socket_connect(struct socket *so=
+ck,
+>         int err;
+>         struct sock *sk =3D sock->sk;
+>
+> +       err =3D sock_has_perm(sk, SOCKET__CONNECT);
+> +       if (err)
+> +               return err;
+>         err =3D selinux_socket_connect_helper(sk, address, addrlen);
+>         if (err)
+>                 return err;
+> @@ -5731,13 +5737,25 @@ static int selinux_sctp_bind_connect(struct sock =
+*sk, int optname,
+>                                      struct sockaddr *address,
+>                                      int addrlen)
+>  {
+> +       struct sk_security_struct *sksec =3D selinux_sock(sk);
+>         int len, err =3D 0, walk_size =3D 0;
+>         void *addr_buf;
+>         struct sockaddr *addr;
+> +       u32 caller_sid;
+>
+>         if (!selinux_policycap_extsockclass())
+>                 return 0;
+>
+> +       /* SCTP_PARAM_SET_PRIMARY and SCTP_PARAM_ADD_IP are ASCONF chunk
+> +        * parameter types passed from sctp_process_asconf() in softirq
+> +        * context where current is not meaningful. Use the socket own
+> +        * SID for permission checks in that case; all other optnames
+> +        * originate from process-context syscalls.
+> +        */
+> +       caller_sid =3D (optname =3D=3D SCTP_PARAM_SET_PRIMARY ||
+> +                     optname =3D=3D SCTP_PARAM_ADD_IP) ?
+> +                    sksec->sid : current_sid();
+> +
+>         /* Process one or more addresses that may be IPv4 or IPv6 */
+>         addr_buf =3D address;
+>
+> @@ -5767,13 +5785,18 @@ static int selinux_sctp_bind_connect(struct sock =
+*sk, int optname,
+>                 case SCTP_PRIMARY_ADDR:
+>                 case SCTP_SET_PEER_PRIMARY_ADDR:
+>                 case SCTP_SOCKOPT_BINDX_ADD:
+> -                       err =3D __selinux_socket_bind(sk, addr, len);
+> +                       err =3D __sock_has_perm(sk, caller_sid, SOCKET__B=
+IND);
+> +                       if (!err)
+> +                               err =3D __selinux_socket_bind(sk, addr, l=
+en);
+>                         break;
+>                 /* Connect checks */
+>                 case SCTP_SOCKOPT_CONNECTX:
+>                 case SCTP_PARAM_SET_PRIMARY:
+>                 case SCTP_PARAM_ADD_IP:
+>                 case SCTP_SENDMSG_CONNECT:
+> +                       err =3D __sock_has_perm(sk, caller_sid, SOCKET__C=
+ONNECT);
+> +                       if (err)
+> +                               return err;
+>                         err =3D selinux_socket_connect_helper(sk, addr, l=
+en);
+>                         if (err)
+>                                 return err;
+> --
+> 2.47.3
+>
