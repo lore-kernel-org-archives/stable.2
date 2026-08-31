@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8918E483BCB;
-	Mon, 31 Aug 2026 14:07:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA024499F21;
+	Mon, 31 Aug 2026 14:07:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185255; cv=none; b=h/0IMYNOYev8SSwPdgmJTgDpATpPc1wVVQDWu/1F2eVqXqeeax6f2Oht0TBlHkWiYrX2JG2+mSX+rbTHuZzJae+PZG9ONt5oojcY3jupTRmXXKva4nEj0JRdYWU3TrSDkyQxttrib3AB+WaNaqJF/mlW1DItUvfJaAUEkxTncsM=
+	t=1788185273; cv=none; b=CXYgXKr7U7TryPRamgPXVi1aU5ozlAF+ASGqtszct3g5stwE/rfYMonnMsOdjEaAAQBCQ+6hYHR1bwD1RRBqhwcrpLAwmNC3JVj69AwMCKjCHrSKwlrqzK2Ksm3tf+6Lqasun94fAmxTz7i9mG/giNLnjPb3b/U6dOJ9Ua0wTHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185255; c=relaxed/simple;
-	bh=gPt1lG7Z8DjD1YJYpK0QkiCUEzPDMGr/cQ8hB2lf66M=;
+	s=arc-20240116; t=1788185273; c=relaxed/simple;
+	bh=2HuIJ0n3xxda6BCcReLFd/LGnyZBdtNuNyQptrXzvi8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ov46A6qCvGl7beE39h8XDdn+IblAjGdmoxl5de0raAcVKIuAMeotMGulwlaaalBWWQgygTtFJGOlJyZFUN0msm6IKa3wovq89RnKPIo1QtGvpx5ZPGIZRdrdQMMVviRzf6pM33VVOk7GDmMvyl/3Px4fTu76Y86zXQHUCu4EJYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uhlr+ovv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SPyCzd08/ErLNP4MfO3OMZpKSRTNtIpDcdWbA2Z9DaCdfvfpXi3DOt50ue0EmlJZ4Y7ZY6DUeEq2PJ5ABZN7Wb3uUlSLBTJ8FpR1eqCkAh8rhgL7zAZW+fI+ZUPQqOK68I6JOU/XnXoGZOC7UbVsTj8jJ0HwAM6Mu3UP2XJyIq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0sFgvU5+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uhlr+ovv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2E2C1F000E9;
-	Mon, 31 Aug 2026 14:07:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0sFgvU5+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16BEC1F00A3E;
+	Mon, 31 Aug 2026 14:07:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788185254;
-	bh=zHYZQw7tPGzhvtVJxJl3P3F59dHCmDwGlPoNeIeoaeU=;
+	s=korg; t=1788185271;
+	bh=dGvCa2+wFjN8tnzc3EMG7WNTwvHxElKRVNzuL3F35bI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uhlr+ovvqyGx/rpB5Vp+2/cWsBiD8wOFtX5l+i3VXKgzqatvN4qZzWSFI8VTeLnyk
-	 nIdihx3gWinmDUdYn6nmfs6PjeEykv5uLH63ABHjN6kJM0JadQqpUHBh6ZjlQWjlxn
-	 2M3uBW6hbI1Rprt/Krip+r4vT9l50SYXv7LjlBlw=
+	b=0sFgvU5+n93N4ldSxqkiMnNe2CRWVJCoAiWLZPB0XltKp8YZCs+CEzQThafSKyTx3
+	 deWkWgzYeC/dgkkTRI74j027fK5gJFgN7T0KkLFS1WBn2HwWCPNJ2pYw8vz6zUzK7H
+	 UjLmFMjMwbMgqGpWkbA/ka+0lpZki4mUPuk83jn8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Gabriel Krisman Bertazi <krisman@suse.de>,
-	Vishnu Razdan <vrazdan@openai.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 05/43] io_uring/io-wq: fix worker accounting when canceling creation callbacks
-Date: Mon, 31 Aug 2026 15:35:13 +0200
-Message-ID: <20260831133358.788219809@linuxfoundation.org>
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>
+Subject: [PATCH 5.10 36/43] KVM: s390: vsie: zero stale crypto bits
+Date: Mon, 31 Aug 2026 15:35:44 +0200
+Message-ID: <20260831133400.345590594@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
 References: <20260831133358.571886287@linuxfoundation.org>
@@ -51,63 +50,35 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Vishnu Razdan <vrazdan@openai.com>
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-commit 297b5ccea4acacaa47c150f043bce695202afbf1 upstream.
+commit 34d5b5b646c91cfb9338d7a12c955a70ffb8c66b upstream.
 
-create_worker_cb() reserves an io-wq worker slot only after its
-task-work callback runs. If the callback is canceled before then,
-io_worker_cancel_cb() still decrements acct->nr_workers. When an
-existing worker retires with its creation callback pending, that
-worker has already decremented the same account's worker count.
+When shadowing crypto access bits from a format0 apcb (crycb 0 or 1),
+the bits 64..255 are unchanged from whatever is in the vsie page in the
+crycb and thus in the apcb. This gives a nested guest potential access
+to a device no longer available. Zero out the remaining bits.
 
-The resulting undercount permits worker creation beyond the account's
-configured limit. On an AST2600 OpenBMC system, an unchanged sensor
-daemon reached 4,291 threads with the original kernel. With an
-equivalent downstream fix, 25 passive samples under its normal
-workload showed 6-9 threads.
-
-Decrement nr_workers only when the canceled callback is not
-create_worker_cb(). Continuation callbacks still release their reserved
-slot, and both callback types retain the existing running-count,
-reference-count, and create-state cleanup.
-
-[ Backport: retain the existing worker->wqe->lock protecting worker
-  accounting. ]
-
-Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
+Fixes: 6b79de4b056e ("KVM: s390: vsie: allow guest FORMAT-1 CRYCB on host FORMAT-2")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Link: https://patch.msgid.link/20260811-vrazdan-io-wq-b4-submit-v1-1-719ced16c921@openai.com
-Signed-off-by: Vishnu Razdan <vrazdan@openai.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Message-ID: <20260811153738.206885-3-borntraeger@linux.ibm.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- io_uring/io-wq.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ arch/s390/kvm/vsie.c |    1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index edcb5af514b53..f57743d911b4c 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -195,9 +195,12 @@ static void io_worker_cancel_cb(struct io_worker *worker)
- 	struct io_wq *wq = wqe->wq;
+--- a/arch/s390/kvm/vsie.c
++++ b/arch/s390/kvm/vsie.c
+@@ -144,6 +144,7 @@ static int setup_apcb10(struct kvm_vcpu
+ 	if (read_guest_real(vcpu, apcb_o, &tmp, sizeof(struct kvm_s390_apcb0)))
+ 		return -EFAULT;
  
- 	atomic_dec(&acct->nr_running);
--	raw_spin_lock(&worker->wqe->lock);
--	acct->nr_workers--;
--	raw_spin_unlock(&worker->wqe->lock);
-+	/* create_worker_cb() has not reserved a worker slot yet. */
-+	if (worker->create_work.func != create_worker_cb) {
-+		raw_spin_lock(&worker->wqe->lock);
-+		acct->nr_workers--;
-+		raw_spin_unlock(&worker->wqe->lock);
-+	}
- 	io_worker_ref_put(wq);
- 	clear_bit_unlock(0, &worker->create_state);
- 	io_worker_release(worker);
--- 
-2.53.0
-
++	memset(apcb_s, 0, sizeof(*apcb_s));
+ 	apcb_s->apm[0] = apcb_h->apm[0] & tmp.apm[0];
+ 	apcb_s->aqm[0] = apcb_h->aqm[0] & tmp.aqm[0] & 0xffff000000000000UL;
+ 	apcb_s->adm[0] = apcb_h->adm[0] & tmp.adm[0] & 0xffff000000000000UL;
 
 
