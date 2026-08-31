@@ -1,136 +1,122 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA1033D50F
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9243451AA
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788174042; cv=none; b=GyExG168D0cubjj78+x76ph0ZuTF2Aa1wGshUEJAPiWNbknv8gZjYHi+ux7zC8S47gOLfXYx6pJmPwt3oGlfFwOJDkFRU7mPPPy6NqeYbY3H5l1YNR5lPm5l8dd+MwMjAC14Lf6I9yi25N12yfElaLVQKVWhQWEr0ecLqLupUtA=
+	t=1788174054; cv=none; b=CnMdm8SU9PRvXtJwlYeTmceJgtStLgf6DxkYOdZ5ewezlXtWvXVzEMYxvd0m1C/biDfOm1ODQmwVpADjxTjSnRRpsM0fJrteoYMb8ifdYsbFk4wrzYgFphinLWhye/lg3QHWa6J10vULWFjwWl2nSUOL6AFqPfJIqb2wDu3SU/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788174042; c=relaxed/simple;
-	bh=qLSDHmt0uiYBxN+JEkYuUN9wyR36Mq074xndRfuUSEY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j4ZqVzerv2xivJxkyOuj2WR76EH5tT4wWN7OuA+7sowCRnHUw0RaDviRY8LU4xlVKvFT8Mw8XVX9ctJ7tpV5Dh4I5O5A21248HWxyuT4L/skw2hqVju5GmKbqEAoaFrXDbvoboynlWz2ac9lsjZH6W63TGInfGZZ7+wN5bWc0c8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rs4apWVe; arc=none smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788174054; c=relaxed/simple;
+	bh=dGQbrBmhQS0x71Wh94RlSbsiKuZn5xVs6SzWfWQuRnE=;
+	h=References:Content-Type:From:To:Cc:In-Reply-To:Message-Id:
+	 Mime-Version:Subject:Date; b=ZkMhQ9zvlB3PlGbFYq7/nxZezpn+EN7FqgtqEFkl/OSMPAN4s+wvADFDpWOZXvg3mq5AVdCdc34RVkOieK/4ov9t8GNIHB9gYdeQ8nMPWORBZwcKMFjFUrz4ek5RDiIACZNU7KqbnIX7dCEQ4exAf0HUMaRwF2+IBOE/RYWFNZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=bTPIQpTN; arc=none smtp.client-ip=209.127.231.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rs4apWVe"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4aff8e8c4so2761151e87.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 04:00:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788174039; x=1788778839; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SDQLGo2eBys2v5fSX9hMlquDuFbTQ/zAGUSHKc6b0N4=;
-        b=Rs4apWVex3BlW6GpElQW9ji8J1JBjEhWZ6LH+hCJpRxTvxsFzjbenEyQDicMQZ58ZD
-         Se/uVU635dheuiCwf4yqxZSMztvOaItRZxgA+LGd66m1mgBnLVVG7HNUhvBAoqrAMcBp
-         8KKhkWEjO1hUT4f9e0iH2PV5FPUEYxMRLyNKknjoBget/G5Gv8XaemCbVC8H64QMh991
-         GNKZ9rVDx6muB1p7+MgwySqaRuGSv3arsDDF2I1rvKXAVZtdm6jL5HEUigupeNbgQed1
-         f2utOk6sKj3y+g9fc3OXBft7WESPxQRGL/DlZ6yB024dWo0Pvdho2wMY6BD05l48we3r
-         1hwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788174039; x=1788778839;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SDQLGo2eBys2v5fSX9hMlquDuFbTQ/zAGUSHKc6b0N4=;
-        b=SLGPU3Ku3f0sqLvhe+dY18Ajzj0qqGkGgIyij/tazBsm3x15otsVZHFZaTL69wutKw
-         HtCz5OqUM4mRp3CR0lj2eOGSvpFEyoW6hGGfjOx0/oSgi35JZ4pIdYSXcHGbvfkIochC
-         gbakNHgyHD2VY8cQxFpxMt3WAbMeKYV3Cql+XAT5aJQkAegRtqU/GgGmv6udO3me6NEp
-         DG5mkXuVWJyr6GApKkpSS9DHWXNqZkp79YHwu4SfUNFtKm3CpvxzSOfd6Ug8QwFLaR7x
-         fFb5PtjhvOpyDWgPnGgxV5SGITzUnGrIxPtc9opTH/xJszu/uy5aPspuqK+/uLngHlGH
-         Lq1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxTA9SrD7vDlBElucIHGTaxkN5Z6m2sae8bRNkeok73a2dc0PwXOmkqdice76GVcTh8+bxg89o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHdIxxF2ozS72qHpwFVcL5yfHgFukgGjo9iqH0wMbgimS902dQ
-	F/TkeGAg3vR2WRChb2zqLJzuaFrdgp2fO3dmmhyINlzkrfr/1veIOiKa
-X-Gm-Gg: AYBFou2lrXZtk1Yz9qYdgXWwziANXypCUPPfG+qLSzNO6uL4oubcP6ZjKcIe73aJON+
-	MsPjjottdPQ8ZIKwVXl4znRMIVAk19rkFBuGB/ma53jImkjK0PA4qt/vO0GODDuk1HY93muFhlw
-	Ua+9/vjnnNPyB9RnKnAOCVfCLxa58zAbxBofuTfcMIf2BEUaFzQ5UXb0jxbBXTjvVGZCQr/4tDF
-	4YoUMjqg6pHNAShNdpOBHx7bSVn4Mj+J8oXDcf+ynbf/Aqjw77mX94ccXKy9hLXnr3JQgwl/6do
-	MaG+KHsZjVizrmu/5rUBfKcO/qM6WWSn8CUH7XWub3S7LUPg3e8CLwrSt4dEEDg2Es89hd98uTp
-	xyZN6RQbpq09Bfj1JKYKfDKLs9qCUw6VBUr+OVskBkSSTb8OFsJCco+gQtSukqomSnrqXNt/K2k
-	ik2FU4x/ZsabHNvGySN+ZfmNHIP1LuCqEYyLzb84E95Z6lc4NNVrJEx44Mi2EyjzDxswbC2TJ51
-	Rdqs5fiRXAoeivMBNZarko0qZSSeDPUXkOpfrcbef0Jf7gdSXWI5W9WXYwAJg9o1sr+WmbLVd11
-	yJ2W/38xo8xrjzaynn0UmtWiCAbqbYE/1wu0NxOjFB8uhhbEzBG45snTGxaEsBxDuxObp4FMTZw
-	=
-X-Received: by 2002:a05:6512:2355:b0:5b5:f946:513c with SMTP id 2adb3069b0e04-5b5f94653e5mr1425845e87.17.1788174038781;
-        Mon, 31 Aug 2026 04:00:38 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl (dynamic-2a02-3100-acb9-0201-68d0-34d2-ad1a-175a.310.pool.telefonica.de. [2a02:3100:acb9:201:68d0:34d2:ad1a:175a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5b65sm2175666e87.16.2026.08.31.04.00.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 04:00:37 -0700 (PDT)
-Date: Mon, 31 Aug 2026 13:00:34 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	stable@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.6.y] arm64: mm: clear extra idmap level before use
-Message-ID: <apVbNN_gtowKWVhR@gmail.com>
-References: <20260831054247.33352-1-kmehltretter@gmail.com>
- <2026083125-upbeat-series-9565@gregkh>
- <7f744f2a-409b-454f-bdb9-fccb5031640d@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="bTPIQpTN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788174037;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=oj9pT49fkgayCGX3SEUyRMQPTGIlIhlnZO6FdcY++Ts=;
+ b=bTPIQpTNDtnkToWPcIBQfN2zhLMbnW7CzuwXSsZPP+7nJzalRaE+9MbMhXNfsF4F0SJg6O
+ RTJsHt/kyT6cygfCpXvQL7+Wx8u/eK0G64B8Qi2h8EX6eyRE+BsR5ecncWEPglg/3a990q
+ gsdztIG1T2aL0eJsJemdytKXlWh8Gg/lu0TWLaBXNBsaLykPWt45Qan3pKw6Ld+ooaSXcA
+ ynkqc9pUvW+i+939QKzXkxRPTOBUYnNCpWD3jTXtFP44N5z6/ek2o8tayK/4QwJ7RmW1yI
+ 36IU7ARPImQN0TFVOJ5RAFzIkqpWHcS7N6+KG838JqrfftMEjKzgG1v9Hi7hQg==
+X-Lms-Return-Path: <lba+26a955ed5+a79bb9+vger.kernel.org+yukuai@fygo.io>
+References: <20260831055716.773354-1-tao1.yu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+From: "yu kuai" <yukuai@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
+To: "Tao Yu" <tao1.yu@intel.com>, <tj@kernel.org>, <josef@toxicpanda.com>, 
+	<axboe@kernel.dk>, "yu kuai" <yukuai@fygo.io>
+Cc: <cgroups@vger.kernel.org>, <linux-block@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	<syzbot+144a1c0e22e53a08ef5a@syzkaller.appspotmail.com>, 
+	<stable@vger.kernel.org>
+In-Reply-To: <20260831055716.773354-1-tao1.yu@intel.com>
+Reply-To: yukuai@fygo.io
+Message-Id: <371c8526-c50f-4ca9-a9d0-7bbbd9991d63@fygo.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7f744f2a-409b-454f-bdb9-fccb5031640d@app.fastmail.com>
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Mon, 31 Aug 2026 11:00:36 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] blk-cgroup: use GFP_NOIO for radix tree preload in blkg_conf_prep
+Date: Mon, 31 Aug 2026 19:00:32 +0800
 
-On Mon, Aug 31, 2026 at 08:15:52AM +0100, Ard Biesheuvel wrote:
-> 
-> 
-> On Mon, 31 Aug 2026, at 07:54, Greg Kroah-Hartman wrote:
-> > On Mon, Aug 31, 2026 at 07:42:47AM +0200, Karl Mehltretter wrote:
-> >> The 6.6.y adaptation of commit 0e9df1c905d8 ("arm64: mm: Don't remap
-> >> pgtables for allocate vs populate") removes the clearing performed by
-> >> early_pgtable_alloc().  Its replacement clears allocations made by the
-> >> generic page-table walkers, but 6.6's create_idmap() still allocates an
-> >> extra root level directly when a sub-48-bit VA kernel is loaded
-> >> sufficiently high in physical memory.
-> >> 
-> >> memblock_phys_alloc_range() does not zero the returned memory.  The direct
-> >> caller therefore publishes an uncleared root page and passes it to
-> >> __create_pgd_mapping().  A stale nonzero entry can trip the bad-descriptor
-> >> BUG_ON or be followed as a page-table descriptor, preventing the kernel
-> >> from booting.
-> >> 
-> >> Clear the direct allocation through its linear alias before publishing it.
-> >> init_clear_pgtable() also supplies the barrier required before the table
-> >> descriptor becomes visible.
-> >> 
-> >> Mainline is not affected because commit e6128a8e523c ("arm64: mm: Use
-> >> 48-bit virtual addressing for the permanent ID map") removed the dynamic
-> >> extra level before page-table initialization moved out of the allocator.
-> >
-> > Why can't we take that change instead?
-> >
-> 
-> Nope. That relies on a massive refactoring of the arm64 startup code.
-> 
-> Can we just revert 0e9df1c905d8 (aka 54322d95309d) instead?
-> 
+Hi,
 
-Yes, that fixes the issue too.
+=E5=9C=A8 2026/8/31 13:57, Tao Yu =E5=86=99=E9=81=93:
+> blkg_conf_prep() allocates a new blkg with GFP_NOIO after dropping
+> queue_lock, but still preloads the radix tree node with GFP_KERNEL while
+> q->blkcg_mutex is held.
+>
+> GFP_KERNEL may enter direct reclaim and acquire fs_reclaim, which adds
+> the dependency
+>
+>    q->blkcg_mutex -> fs_reclaim
+>
+> This completes a circular locking dependency with the existing path
+>
+>    fs_reclaim -> q->q_usage_counter -> q->blkcg_mutex
+>
+> and triggers a lockdep warning when configuring blkcg policies.
+>
+> Use GFP_NOIO for radix_tree_preload() so that the preload context matches
+> the rest of this allocation path and does not recurse into reclaim while
+> q->blkcg_mutex is held.
+>
+> Reported-by: syzbot+144a1c0e22e53a08ef5a@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D144a1c0e22e53a08ef5a
+> Fixes: f255c19b3ab46 ("blk-cgroup: Pre-allocate tree node on blkg_conf_pr=
+ep")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tao Yu <tao1.yu@intel.com>
+> ---
 
-The commit was patch 3/3 of the following speedup series:
+This problem is already fixed by following patch, the radix_tree_preload=20
+is removed.
 
-https://lore.kernel.org/r/20240412131908.433043-1-ryan.roberts@arm.com
+[PATCH 1/3] blk-cgroup: use a request_queue rhashtable for blkg lookup -=20
+Yu Kuai=20
+<https://lore.kernel.org/all/20260823133045.970199-2-yukuai@kernel.org/>
 
-Patches 1 and 2 accounted for most of the speedup.
+>   block/blk-cgroup.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+> index 2b5c29434e426..27e00180e4cc1 100644
+> --- a/block/blk-cgroup.c
+> +++ b/block/blk-cgroup.c
+> @@ -873,7 +873,7 @@ int blkg_conf_prep(struct blkcg *blkcg, const struct =
+blkcg_policy *pol,
+>   			parent =3D blkcg_parent(parent);
+>   		}
+>  =20
+> -		/* Drop locks to do new blkg allocation with GFP_KERNEL. */
+> +		/* Drop queue_lock to do new blkg allocation with GFP_NOIO. */
+>   		spin_unlock_irq(&q->queue_lock);
+>  =20
+>   		new_blkg =3D blkg_alloc(pos, disk, GFP_NOIO);
+> @@ -882,7 +882,7 @@ int blkg_conf_prep(struct blkcg *blkcg, const struct =
+blkcg_policy *pol,
+>   			goto fail_exit;
+>   		}
+>  =20
+> -		if (radix_tree_preload(GFP_KERNEL)) {
+> +		if (radix_tree_preload(GFP_NOIO)) {
+>   			blkg_free(new_blkg);
+>   			ret =3D -ENOMEM;
+>   			goto fail_exit;
 
-I'll wait a bit to give the others a chance to comment.
-
-I can send the revert as v2, or my original patch as v2 with the
-missing "Assisted-by: LLM" and "Signed-off-by:" trailers.
-
+--=20
 Thanks,
-Karl
+Kuai
