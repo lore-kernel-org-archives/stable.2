@@ -1,103 +1,109 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C3B2D4756B8;
-	Mon, 31 Aug 2026 15:58:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB99433E7C;
+	Mon, 31 Aug 2026 16:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788191929; cv=none; b=WIC+RgxxOmSmid2Pl/9hG4nTC8uPXZnnfAPu9CZ3eQu59X3zvyBWrdxvFjc5FQq9xFn2fp33pQJbhk3BsUPyMx9ySklGqX7HuhtpwuVp5/oP3ZX5rG7sXyL2ZrkGi+oGPlyqlCQZYB0FopNdn9WfEgtgJ5NjZcMT9aG3t6HW/lY=
+	t=1788192399; cv=none; b=nR2wj8b2aP9LluRTego921sUp/aUt2dxynNi3p0OwGFVuhIpwuL0LRQDJdF8l6qBFBbWFLvHFLLd2D2NbUSJXuY8KCuGrczcYAsBwuFwuQod1TslPCBNJ0wUVa7MzokUNFOQPqeaEPtE/K/4IHeuk6KJZyu3rI41Mcg74ejNJKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788191929; c=relaxed/simple;
-	bh=T55Y4uuAJxv3WFPq9booCQyLTm0GRA0jZMZzHT3QGFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f29LWLDe71zczd6hiAWbQnWRAbR0CZBLKdChrsuFQ1IgkZCGPDmMmoPxq+gfTyA5xoOxndqTuF1x9QioNhQy1YQScqAoKCdG8gEDSDIJRlAxtVMSgGnMP+PJy7xIy5mcUPsS7qEJ0kvd639UqV/q9CsSRExcE2IjhfK8hfLr5oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=yCpJ8rTp; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	s=arc-20240116; t=1788192399; c=relaxed/simple;
+	bh=dInqbBwUod+Sa+lEygi1HhCFJ31GmSpVykqCR05UGjY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MJmTYj2z0E5f8duXQ3Ly50/fvQ/ZBLxvBrF6yRhNDhgEImzHSie7thdB+x93FhTagNhplqXkqJJdrheURq90y4KL7B8MH1tRGJNHxNNyXF87SnaMBiMgmPeeXInJh7gDyXTBHPu4fp6D4z7W2hrO9pngrnVqjbkCdG+mFLW8Hew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LP6Vpi6K; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="yCpJ8rTp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=8QKolhDVGV745+l9s8oWeKbAfzNFG57ejA
-	T33PjDnKc=; b=yCpJ8rTpJ78z1GQP1brzfNXlqaDw8fkjSnlAsYiDOd+p4CoANe
-	KYKKAjOAQNeoYNznWP4xv1uJpG8paKaXIWleMpfyHCqkYMf6q+WY6kvyxTSUTXNp
-	3YPjrHQq4s+LMd3WFHxNTC8fmimETGD1osQgWao7RbVl9fwGNoZ2Y35as=
-Received: from localhost (unknown [222.195.81.60])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnLTSnpJVqV_vCAA--.5094S2;
-	Mon, 31 Aug 2026 23:58:32 +0800 (CST)
-From: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-To: gregkh@linuxfoundation.org
-Cc: stable@vger.kernel.org,
-	bpf@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	martin.lau@linux.dev,
-	ameryhung@gmail.com,
-	joannelkoong@gmail.com,
-	sashal@kernel.org
-Subject: Re: [PATCH 6.12.y v4 0/3] bpf: fix dynptr release handling
-Date: Mon, 31 Aug 2026 23:58:14 +0800
-Message-ID: <20260831155815.70167-1-xyx2021@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026083135-hammock-bagel-3147@gregkh>
-References: <20260831001552.3223196-1-xyx2021@mail.ustc.edu.cn> <2026083135-hammock-bagel-3147@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LP6Vpi6K"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AA4461A1906;
+	Mon, 31 Aug 2026 16:06:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7CDA460231;
+	Mon, 31 Aug 2026 16:06:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6B18A11C78AC8;
+	Mon, 31 Aug 2026 18:06:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788192394; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=Iu8DxQ3dzl8wZqpvD364DVvQYiKdo2ESja+zACmBA7Q=;
+	b=LP6Vpi6K8cpGr0XmcFffIH8q5sJEkFlVjmad6wamz9RvpKEIsg2ouUm1Pn2LEDPqjW3VuW
+	EEDhaKKWOCPkAPez2zLN/n7fdDEC+JArgq5sc5ak8bil4UVk8htAqqVVYBSxOQlEtUDo8R
+	NeZFQRBWON8LKGcMGm+xhzg5UxzIMedPtLDT1JLbPl3NKDc5DWDZQSDIX/K14aUNf5lgSh
+	sGVza5M6ePqgTsolTzJIzP+s4P1BrPfhaI6Nninl4r3Xx/QHEkx716yDranwNs0KfudY5Z
+	ISlU71RT2r58TNAWCg6GJIsqi7vuCBYI21KGwKo1bauJEztiyVpvKP/hohEEZg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: [PATCH 6.6.y 0/4] ipv4: start using dst_dev_rcu()
+Date: Mon, 31 Aug 2026 18:06:19 +0200
+Message-Id: <20260831-cve-2025-40074-6-6-v1-0-027e51b162a3@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAnLTSnpJVqV_vCAA--.5094S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Xw1kGw18tFy5Wr4DXr1UWrg_yoW8JF45pr
-	WfGrWjqrsYkr48tas7ur42yFy8Wanagay7uFyFkFW7X3WkX348WF4aqryavFyxArs3uw1Y
-	qr4Yvry8GF4jyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6ryrMx
-	AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
-	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
-	xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWx
-	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
-	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUYU-PUUUUUU==
-X-CM-SenderInfo: h010jiysr6zt1loo32lwfovvfxof0/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CQAxFr0K6tqQDTFGuYlwMQ9G6QDOjREO4u
+ xXyV+8n7y2QJalk6IoFksya9TEZuEMB8Ramq6AOxlBRxXSsHcZZ0MBjQ9Q2yLYQgm/rnk7sHZj
+ 4TDLqZ4uegUsuv3DZ7/zu7xJf/yCs6w8nlO8bfQAAAA==
+X-Change-ID: 20260831-cve-2025-40074-6-6-aaa573b09651
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Martin KaFai Lau <kafai@fb.com>, 
+ Wei Wang <weiwan@google.com>, David Ahern <dsahern@kernel.org>, 
+ Steffen Klassert <steffen.klassert@secunet.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788192387; l=1484;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=dInqbBwUod+Sa+lEygi1HhCFJ31GmSpVykqCR05UGjY=;
+ b=giRQwpY7Cb5C1FPQqhu+P9zUWdAfSfC3qeQGOhiwoW1C0DnP/0cAhGJ52t9VSaBQs9U38wNUr
+ fynR1Tazx+yC6o53qu2nAbb0Zo5Ipql2Lmiik2XZXlw/h3EUzmaz9h1
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Greg,
+Three other patches are required to be able to apply cleanly the final patch.
 
-Thanks. I understand that I should drop the three stable-specific
-implementations, preserve Amery's original authorship, changelog, and
-trailer chain, and cover 6.6.y, 6.12.y, 6.18.y, and 7.1.y.
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+Eric Dumazet (4):
+      net: dst: add four helpers to annotate data-races around dst->dev
+      ipv4: adopt dst_dev, skb_dst_dev and skb_dst_dev_net[_rcu]
+      net: dst: introduce dst->dev_rcu
+      ipv4: start using dst_dev_rcu()
 
-Before rerolling, could I confirm how the prerequisite chain should be
-handled?
+ include/net/dst.h             | 34 ++++++++++++++++++++++++++++++----
+ include/net/inet_hashtables.h |  2 +-
+ include/net/ip.h              | 11 ++++++-----
+ include/net/route.h           |  2 +-
+ net/core/dst.c                |  4 ++--
+ net/core/sock.c               |  8 ++++----
+ net/ipv4/icmp.c               | 28 +++++++++++++++-------------
+ net/ipv4/igmp.c               |  2 +-
+ net/ipv4/ip_fragment.c        |  6 ++++--
+ net/ipv4/ip_output.c          |  4 ++--
+ net/ipv4/ip_vti.c             |  4 ++--
+ net/ipv4/ipmr.c               |  2 +-
+ net/ipv4/netfilter.c          |  4 ++--
+ net/ipv4/route.c              | 10 +++++-----
+ net/ipv4/tcp_fastopen.c       |  4 +++-
+ net/ipv4/tcp_ipv4.c           |  3 ++-
+ net/ipv4/tcp_metrics.c        |  8 ++++----
+ net/ipv4/xfrm4_output.c       |  2 +-
+ 18 files changed, 86 insertions(+), 52 deletions(-)
+---
+base-commit: a4a971135a2ff64382ae4235b3ae60503bb1036a
+change-id: 20260831-cve-2025-40074-6-6-aaa573b09651
 
-Commit 308c7a0ae885 ("bpf: Refactor object relationship tracking and
-fix dynptr UAF bug") is patch 5 of its upstream series and relies on
-these preceding commits:
-
-  bab08d1f70438 ("bpf: Simplify mark_stack_slot_obj_read() and callers")
-  b5c0a07eb2c23 ("bpf: Unify dynptr handling in the verifier")
-  94ac7553361f3 ("bpf: Assign reg->id when getting referenced kptr from ctx")
-  06d518a5583fa ("bpf: Preserve reg->id of pointer objects after null-check")
-
-I do not find these commits in any of the four target stable branches.
-In particular, the latter commits establish the reg->id semantics used
-by 308c7a0ae885, so applying that commit alone would not be semantically
-complete.
-
-My plan is to prepare a five-patch backport series for each stable
-branch, preserving the original authorship, changelog, and trailer chain
-of every commit, and adding only branch-specific conflict notes and my
-final Signed-off-by.
-
-Is that what you had in mind?
-
-Thanks,
-Xu
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
