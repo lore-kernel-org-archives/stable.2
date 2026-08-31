@@ -1,117 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F60569F04;
-	Mon, 31 Aug 2026 13:48:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853A242640B;
+	Mon, 31 Aug 2026 13:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184096; cv=none; b=ez2DQ7ZvMhG8CRfqdA3sIm4W2DZaCtBm/v+TO9o2GY84sYbycyqYSS4f0iHUVgjox19PoYkWxbknXS8wEMYH8tnoXJV9eF64qb2nOOZ2pXaHBqbevNzSwnIaHobjZWu33FE7v1xdDBQiVm+rSidm56IJiirYMvaSfeaixt7L4J8=
+	t=1788184098; cv=none; b=bSv1lXZl896emFKIKVeg1Nsvz3xJSFhK8B7Qr6vTlFfgKUxRjYIt4KdR0ZBPNjbjShDVqmrKlHRWImZabEeGG6o2UHAsX7ty5fCUDfjUn88lF1UfqmgMxZXCBTayNXwn/Ho5DWzUE13BzgQ5zbMK3udQcUQFUrgGH05kCeCMpz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184096; c=relaxed/simple;
-	bh=fo6imM0kOQ9b6a47jD0yh3LdiTX6ixn4JSZbN5L6+e4=;
+	s=arc-20240116; t=1788184098; c=relaxed/simple;
+	bh=2AVYrpBcMIgRdub7a8Z7bpCNI6odCrKgQQc7O3+PYpE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fjRM3BG4hRIxdG1wRWvrFJ1HUxQZHJrb0w5suOWL7uBTgHCAjuWfm4Lyqt8juB2mnX/PADfMnyVVqTh0QyJqOc/IG02mAMgIO7clAwIdT1NyLgSkllKAyzMDs/OgDpN2CEV+Tdq9qk/vWCA3X3ZVspDPDTFTQJl582AvRSIBPVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gh/4OqGl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UjwDgDnYb/Lr3reqSmHPFmtCrdVt+GtVh9CAyiUIZsz25pukuUTof7iTa2SgTjrQ0Fd8iu6bePq3EpN0Yi79kIyNGX+piF3JTauYAMzLWhiXM8pv5najG9o6OiIy0x8796E9k0J1pVAiDuy2BIq8TKOijlW3+iryNUGIKoRgLKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xtmjMyc9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gh/4OqGl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D081F000E9;
-	Mon, 31 Aug 2026 13:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184094;
-	bh=Z3tzq0qReqmXZj/+HwH5KtJrf3hrtJ1YIavqbcx2hI0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xtmjMyc9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D141F00ACA;
+	Mon, 31 Aug 2026 13:48:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788184096;
+	bh=BK2wmyE8cS3t8EwloHW6tDzH8Iju5hCJwmAHYA0Ep5Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gh/4OqGlWbGGN+p1CJcyCUByBWmU2/HIdHNsJ+S70UbZG0wkhC2TiHaWx220/SPxe
-	 lYk/r7za3tGtoq0gtyHxEgaxsJYW6QnhWZy/3GJKwdDwEMSv7HIDkQJeecJDcQVf7e
-	 qVb2iz6ZicCZ9KsagEnNhIaCutVEFIC/H/Eq3hLD6LMej9r3x3ghZ5EqZ4MEOfbktz
-	 Msgvsgk/69S+yj4sNssT38r/f6oclbLNHoc1WL/gxXvGgH9zzqzHx4GLKr4hDyzM3+
-	 /XlL96HDwPeEQbaNdvr7UYp4DIs7RphyIcZchMDMH/x15+nAx1gW+PjQ0ecqnNicNj
-	 73kXdAdlUlcdw==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] PCI/sysfs: Add CAP_SYS_ADMIN check to __resource_resize_store()
-Date: Mon, 31 Aug 2026 09:28:35 -0400
-Message-ID: <20260831133314.4125787-487-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	b=xtmjMyc9vcEW2bLVmzaqL7q/etg7oO3Bsr9Akiw0W8wcGRlhj23DWcL+DUgQqV/9H
+	 pgScQHjP4eABL1yyhrMIudTsDFlxvLK4LxKZ+1lPH8NTog8gQZzKljv5/ecKRUYXDX
+	 iAhFxc5R+EYoPJ1GidBsViDSyswYMd35QPrgyKHg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Md Sadre Alam <md.alam@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: [PATCH 6.18 71/83] crypto: qce - fix CCM AAD buffer underallocation
+Date: Mon, 31 Aug 2026 15:34:47 +0200
+Message-ID: <20260831133403.095056373@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
+References: <20260831133359.207714926@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
 Content-Transfer-Encoding: 8bit
 
-From: Krzysztof Wilczyński <kwilczynski@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 25ec7f57deceec633f27bc93b615f951e2ade814 ]
+------------------
 
-Currently, the __resource_resize_store() allows writing to the
-resourceN_resize sysfs attribute to change a BAR's size without checking
-for capabilities, currently relying only on the file access check.
+From: Md Sadre Alam <md.alam@oss.qualcomm.com>
 
-Resizing a BAR modifies PCI device configuration and can disrupt active
-drivers.  After the upcoming conversion to static attributes, it will also
-trigger resource file updates via sysfs_update_groups().
+commit 7f2345f47dd189625f657cd72437179ab4170ee1 upstream.
 
-Add a CAP_SYS_ADMIN check to prevent unprivileged users from performing BAR
-resize operations.
+The AAD buffer allocated in qce_aead_ccm_prepare_buf_assoclen()
+can be smaller than the length later programmed into the DMA
+scatterlist.
 
-Signed-off-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Tested-by: Shivaprasad G Bhat <sbhat@linux.ibm.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Link: https://patch.msgid.link/20260508043543.217179-6-kwilczynski@kernel.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The allocation size is currently calculated as:
+
+  ALIGN(assoclen, 16) + MAX_CCM_ADATA_HEADER_LEN
+
+while the DMA length is set to:
+
+  ALIGN(assoclen + adata_header_len, 16)
+
+Since ALIGN() does not distribute over addition, the allocation
+can be smaller than the DMA length. For example, when
+assoclen = 32 and adata_header_len = 2:
+
+  allocation = ALIGN(32, 16) + 6 = 38
+  DMA length = ALIGN(32 + 2, 16) = 48
+
+As a result, the QCE hardware can read beyond the allocated
+buffer while computing the CBC-MAC over the associated data.
+The extra bytes are folded into the authentication tag,
+resulting in an incorrect tag and causing CCM self-test
+failures such as:
+
+  alg: aead: ccm-aes-qce encryption test failed (wrong result)
+  on test vector 8
+
+Fix the allocation by adding the maximum possible AAD header
+length before alignment:
+
+  ALIGN(assoclen + MAX_CCM_ADATA_HEADER_LEN, 16)
+
+This guarantees that the allocated buffer is large enough
+for the fully padded AAD data for all supported header sizes.
+
+Cc: stable@vger.kernel.org
+Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
+Signed-off-by: Md Sadre Alam <md.alam@oss.qualcomm.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
+ drivers/crypto/qce/aead.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-LLM Generated explanations, may be completely bogus:
-
-The background searches finished. Here’s what they turned up:
-
-- **`b4 dig`** — Exited successfully but produced no output. The fix
-  isn’t in this checkout, and `b4 dig` needs a commit hash, so the lore
-  thread wasn’t resolved that way. Patch context came from the local v7
-  mbox and Patchwork mirrors instead.
-- **Git history (`resourceN_resize` / `__resource_resize_store`)** — In
-  this shallow 6.18.43 tree, both only surface as merge commit
-  `5d324e5159d9e`; the original introduction isn’t reachable here. The
-  ABI doc (September 2022) is the best dating we have for when the sysfs
-  interface landed.
-
-That doesn’t change the earlier conclusion: the missing `CAP_SYS_ADMIN`
-check is present in this tree, the fix is small and standalone, and the
-backport recommendation remains **YES** for 6.18.y.
-
- drivers/pci/pci-sysfs.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index edb9bc34c0c58..990994db752ab 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -1575,6 +1575,9 @@ static ssize_t __resource_resize_store(struct device *dev, int n,
- 	int ret;
- 	u16 cmd;
+--- a/drivers/crypto/qce/aead.c
++++ b/drivers/crypto/qce/aead.c
+@@ -203,7 +203,7 @@ qce_aead_ccm_prepare_buf_assoclen(struct
+ 	/* Get the msg */
+ 	msg_sg = scatterwalk_ffwd(__sg, req->src, req->assoclen);
  
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
- 	if (kstrtoul(buf, 0, &size) < 0)
- 		return -EINVAL;
- 
--- 
-2.53.0
+-	rctx->adata = kzalloc((ALIGN(assoclen, 16) + MAX_CCM_ADATA_HEADER_LEN) *
++	rctx->adata = kzalloc(ALIGN(assoclen + MAX_CCM_ADATA_HEADER_LEN, 16) *
+ 			       sizeof(unsigned char), GFP_ATOMIC);
+ 	if (!rctx->adata)
+ 		return -ENOMEM;
+
 
