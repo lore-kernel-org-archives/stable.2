@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CEE369D6D
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:20:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C72396B98
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:20:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214805; cv=none; b=B++E5WF7lKjh7BpzJGq8/7d+SO33j26bTHCSaZotvr2F8mhZnIdrOV1ih+/cCocfn4EOCWHvrWZW4vCqCeJPCTz3oEf5QiQUyf6Y3AhNRMgf0BmbdUI/DNEnJiveIePh5ruYtV4QC7wfJPjLtIHf7VQLBk9pNPk9esg0wXRROHo=
+	t=1788214806; cv=none; b=OuuLPFcvJX2Ts96KxMHdZ0mMqZCzXrgoqNIuMo9Rz/lQUgWfMWp+bVGz6gEUw4JJninSmgtM2MvCteTyidgbUnkZwd/Oh+yud++FwGGGfPz9kwZY9exdNTK8znVbzeVPdMeYlYqeHYztg7CY2oWWwfEridoEHHbbawuuV7DrV6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214805; c=relaxed/simple;
-	bh=K7d+GRTDYoCQo2eqiR3IVPc0QqvVlrhoUfvM+14mjKo=;
+	s=arc-20240116; t=1788214806; c=relaxed/simple;
+	bh=fcD36V4lppqEPaIcicjusdSrz2QUw2rbH3picjP6tJM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hcCE0ZIq2N/wipL2FYRmvBQDCq9BhHiFblVP4DZtBwKVdMiyeFD2KXe38Hv7qHwahR/YEhBXgUpBw/WLgtj0hhzoPvqMR3UsbFhMu4GtdBalZnJ+X0A/gnBZn0CAc0QUzaVdX7BPJpmw6yXSdQd2huceq5AO5yFjzM6VDCtMhhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TpXrwEe9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mH9qI3nplZQyXRJJqBO2x7Gqnb8x/j6+BPRb8jpoDoQChbOmbluLw02VzCG8T7Wnnuj0CrqTnhkb6IAihGT6PcAqhlhpApbjLrseJQzvxcDF+B0VoB3s7jDjeQ7pyp/U0tL+MPfyD+OZY74GX9pgQWSTKjkUfSGzNOnPHCoSehA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0G9AnfE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TpXrwEe9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31291F000E9;
-	Mon, 31 Aug 2026 22:20:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0G9AnfE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968E31F00A3E;
+	Mon, 31 Aug 2026 22:20:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788214804;
-	bh=FODa3Wo/kgpvL0EZ4jwMxOYkZdZjexWxDkTRlcGpIcA=;
+	s=k20260515; t=1788214805;
+	bh=w3sMr/tQdg692F7VC481afaNxajJzoqUyAaL9iQAFng=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TpXrwEe9RhUf6q9XH8g0jKM2lp8lgQtOUVlMpIIp9GmKhyisRJ5ATTHEpZss8IUQ/
-	 /2CheniI/aO1BCLNMOJw9Om1Cp5b0WMKLEPIXlqGSrpg11WAkuHrS+OBzwGStot8K1
-	 PvZ8lcGwXli5B0JGN9oM1sdra48I5Qwf9m/EBzlXUu+YKmqbZvkc8T7XqWm+/omcP/
-	 j7kXArs85zlcYvn8F3EjiOZdlD3YYfFzvHp6e0hRaxLnj74GQfO8rTZbOnq/79gi74
-	 puvKHHSqg6IfIJ3s+h67PlsI5dvlmFydtDcge6lIuSBs0sebNh2cHL0ercn+dg4AME
-	 ywWkPjSr6Wxjw==
+	b=D0G9AnfE/5XGFcbQix7Y4WDIXVKAtV5RpR8dcHk1w+gyPHDFid9uL97atBm3viUaf
+	 20Ults7t1pSc1gQSV+FsuAWy569+RdOmCLoVV6njfDqV2oiWVlI3eLk+hqwkVL5rAp
+	 6zby+gppHBcptamg3g/B2cfqF5JjvK/h2DunkOHeDcBgE0B9MgCgBYOL6G/kwf1Wzs
+	 GM772Dc93eSBYXzbdsIeWt98XEyvQ1H8hMdznjAkQ2qnjSGh5EOvBoB2j5pd43yEIF
+	 v97CucE42EP+atY6TViyJiyqSiS8OXzR7xgBb8uviQatOSdrlL0A0Zq3QmzaU+3ymD
+	 2tJGIUM8VqDiA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
 	Tom Lendacky <thomas.lendacky@amd.com>,
-	Michael Roth <michael.roth@amd.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/4] KVM: SEV: Make it more obvious when KVM is writing back the current PSC index
-Date: Mon, 31 Aug 2026 18:19:59 -0400
-Message-ID: <20260831222002.1858641-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/4] KVM: SEV: Add an anonymous "psc" struct to track current PSC metadata
+Date: Mon, 31 Aug 2026 18:20:00 -0400
+Message-ID: <20260831222002.1858641-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083120-cilantro-legacy-9d5a@gregkh>
+In-Reply-To: <20260831222002.1858641-1-sashal@kernel.org>
 References: <2026083120-cilantro-legacy-9d5a@gregkh>
+ <20260831222002.1858641-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,56 +49,179 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 17d62e0b157f262dd8c7586cb882ece72a5b10c2 ]
+[ Upstream commit 00b9744a3688758c5c492756d08a1cd599a76965 ]
 
-Increment the guest-visible "cur_entry" index outside of the for-loop
-when processing Page State Change entries, and add a comment to make it
-more obvious which code is operating on trusted data, and which code is
-touching guest-accessible data.
+Add a "psc" struct to vcpu_sev_es_state to avoid having to prefix all of
+the fields with "psc_".
+
+Take advantage of the code churn to opportunistically rename local
+variables to "guest_psc" to make it more obvious that the buffer is guest
+data, and more importantly, guest accessible!
+
+Opportunistically rename inflight => batch_size as well, because there can
+really only be one operation in-flight (per-vCPU), i.e. "inflight" _looks_
+like a boolean, but in actuality is an integer tracking how many pages are
+being handled by the current operation.
 
 No functional change intended.
 
 Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Reviewed-by: Michael Roth <michael.roth@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260501202250.2115252-12-seanjc@google.com>
+Message-ID: <20260501202250.2115252-13-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20260529183549.1104619-12-pbonzini@redhat.com>
+Message-ID: <20260529183549.1104619-13-pbonzini@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Stable-dep-of: 0060569e4f18 ("KVM: SEV: Extract loading of guest-provided VMSA to a separate helper")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/sev.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ arch/x86/kvm/svm/sev.c | 43 +++++++++++++++++++-----------------------
+ arch/x86/kvm/svm/svm.h |  8 +++++---
+ 2 files changed, 24 insertions(+), 27 deletions(-)
 
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index a6971cd236bed..e5587675cf9ec 100644
+index e5587675cf9ec..a5a4e60f85c69 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -3821,7 +3821,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+@@ -3726,17 +3726,14 @@ static int snp_begin_psc(struct vcpu_svm *svm);
+ 
+ static void snp_complete_psc(struct vcpu_svm *svm, u64 psc_ret)
+ {
+-	svm->sev_es.psc_inflight = 0;
+-	svm->sev_es.psc_idx = 0;
+-	svm->sev_es.psc_2m = false;
++	memset(&svm->sev_es.psc, 0, sizeof(svm->sev_es.psc));
+ 	ghcb_set_sw_exit_info_2(svm->sev_es.ghcb, psc_ret);
+ }
+ 
+ static void __snp_complete_one_psc(struct vcpu_svm *svm)
+ {
+-	struct psc_buffer *psc = svm->sev_es.ghcb_sa;
+-	struct psc_entry *entries = psc->entries;
+-	struct psc_hdr *hdr = &psc->hdr;
++	struct vcpu_sev_es_state *sev_es = &svm->sev_es;
++	struct psc_buffer *guest_psc = sev_es->ghcb_sa;
+ 	__u16 idx;
+ 
+ 	/*
+@@ -3744,14 +3741,14 @@ static void __snp_complete_one_psc(struct vcpu_svm *svm)
+ 	 * corresponding entries in the guest's PSC buffer and zero out the
+ 	 * count of in-flight PSC entries.
+ 	 */
+-	for (idx = svm->sev_es.psc_idx; svm->sev_es.psc_inflight;
+-	     svm->sev_es.psc_inflight--, idx++) {
+-		struct psc_entry entry = READ_ONCE(entries[idx]);
++	for (idx = sev_es->psc.cur_idx; sev_es->psc.batch_size;
++	     sev_es->psc.batch_size--, idx++) {
++		struct psc_entry entry = READ_ONCE(guest_psc->entries[idx]);
+ 
+-		entries[idx].cur_page = entry.pagesize ? 512 : 1;
++		guest_psc->entries[idx].cur_page = entry.pagesize ? 512 : 1;
  	}
  
+-	hdr->cur_entry = idx;
++	guest_psc->hdr.cur_entry = idx;
+ }
+ 
+ static int snp_complete_one_psc(struct kvm_vcpu *vcpu)
+@@ -3772,10 +3769,8 @@ static int snp_complete_one_psc(struct kvm_vcpu *vcpu)
+ static int snp_begin_psc(struct vcpu_svm *svm)
+ {
+ 	struct vcpu_sev_es_state *sev_es = &svm->sev_es;
+-	struct psc_buffer *psc = sev_es->ghcb_sa;
+-	struct psc_entry *entries = psc->entries;
++	struct psc_buffer *guest_psc = sev_es->ghcb_sa;
+ 	struct kvm_vcpu *vcpu = &svm->vcpu;
+-	struct psc_hdr *hdr = &psc->hdr;
+ 	struct psc_entry entry_start;
+ 	u16 idx, idx_start, idx_end, max_nr_entries;
+ 	int npages;
+@@ -3802,7 +3797,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 
+ next_range:
+ 	/* There should be no other PSCs in-flight at this point. */
+-	if (WARN_ON_ONCE(svm->sev_es.psc_inflight)) {
++	if (WARN_ON_ONCE(svm->sev_es.psc.batch_size)) {
+ 		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_GENERIC);
+ 		return 1;
+ 	}
+@@ -3812,8 +3807,8 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	 * validation, so take care to only use validated copies of values used
+ 	 * for things like array indexing.
+ 	 */
+-	idx_start = READ_ONCE(hdr->cur_entry);
+-	idx_end = READ_ONCE(hdr->end_entry);
++	idx_start = READ_ONCE(guest_psc->hdr.cur_entry);
++	idx_end = READ_ONCE(guest_psc->hdr.end_entry);
+ 
+ 	if (idx_end >= max_nr_entries) {
+ 		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_INVALID_HDR);
+@@ -3822,7 +3817,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 
  	/* Find the start of the next range which needs processing. */
--	for (idx = idx_start; idx <= idx_end; idx++, hdr->cur_entry++) {
-+	for (idx = idx_start; idx <= idx_end; idx++) {
- 		entry_start = READ_ONCE(entries[idx]);
+ 	for (idx = idx_start; idx <= idx_end; idx++) {
+-		entry_start = READ_ONCE(entries[idx]);
++		entry_start = READ_ONCE(guest_psc->entries[idx]);
  
  		gfn = entry_start.gfn;
-@@ -3848,6 +3848,14 @@ static int snp_begin_psc(struct vcpu_svm *svm)
- 
- 		if (npages)
- 			break;
-+
-+		/*
-+		 * Increment the guest-visible index to communicate the current
-+		 * entry back to the guest, e.g. in case of failure.  No need
-+		 * for READ_ONCE() as KVM doesn't consume the field, i.e. a
-+		 * misbehaving guest can only break itself.
-+		 */
-+		hdr->cur_entry++;
+ 		huge = entry_start.pagesize;
+@@ -3855,7 +3850,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 		 * for READ_ONCE() as KVM doesn't consume the field, i.e. a
+ 		 * misbehaving guest can only break itself.
+ 		 */
+-		hdr->cur_entry++;
++		guest_psc->hdr.cur_entry++;
  	}
  
  	if (idx > idx_end) {
+@@ -3864,9 +3859,9 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 		return 1;
+ 	}
+ 
+-	svm->sev_es.psc_2m = huge;
+-	svm->sev_es.psc_idx = idx;
+-	svm->sev_es.psc_inflight = 1;
++	sev_es->psc.is_2m = huge;
++	sev_es->psc.cur_idx = idx;
++	sev_es->psc.batch_size = 1;
+ 
+ 	/*
+ 	 * Find all subsequent PSC entries that contain adjacent GPA
+@@ -3874,14 +3869,14 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	 * KVM_HC_MAP_GPA_RANGE exit.
+ 	 */
+ 	while (++idx <= idx_end) {
+-		struct psc_entry entry = READ_ONCE(entries[idx]);
++		struct psc_entry entry = READ_ONCE(guest_psc->entries[idx]);
+ 
+ 		if (entry.operation != entry_start.operation ||
+ 		    entry.gfn != entry_start.gfn + npages ||
+ 		    entry.cur_page || !!entry.pagesize != huge)
+ 			break;
+ 
+-		svm->sev_es.psc_inflight++;
++		sev_es->psc.batch_size++;
+ 		npages += huge ? 512 : 1;
+ 	}
+ 
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index c34cd7f1408fc..c7920968a0dd5 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -231,9 +231,11 @@ struct vcpu_sev_es_state {
+ 	bool ghcb_sa_free;
+ 
+ 	/* SNP Page-State-Change buffer entries currently being processed */
+-	u16 psc_idx;
+-	u16 psc_inflight;
+-	bool psc_2m;
++	struct {
++		u16 cur_idx;
++		u16 batch_size;
++		bool is_2m;
++	} psc;
+ 
+ 	u64 ghcb_registered_gpa;
+ 
 -- 
 2.53.0
 
