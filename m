@@ -1,152 +1,136 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B664DB54B;
-	Mon, 31 Aug 2026 13:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147C94DA55D;
+	Mon, 31 Aug 2026 13:39:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183564; cv=none; b=NdxQrZFnsvDNTbsU2CfPzeMU5MUar1oyzb1KqfI+m7k9QfQ3uo8yFSubsd81/p3Zn6tn43K/3VQX7zjxsRqEz6cQ4r0L5uLjkC5qAlaTRgVBAgN5a31jybAjq38+aalDdIL17RwVFc9MQHON/zKhqHtY0v0CzY7yMIrqIqzLAZY=
+	t=1788183564; cv=none; b=p1fAey1hNctsW6PSjMZzr2egauNEmiLTf98J47vdZcBCbo27XSsYGcAo5qX3nJVQ8flxqndX3JtxffXf9Y2JV7yGdnddbL69T+aixMuazrBH0cg/NucIOFnW+3gQnIz3s0Aj7ZgZlSYPjBwJD2/TsO1FsrTmWmYlf8+Q69/73oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183564; c=relaxed/simple;
-	bh=BTOOB8n92tQTyiQl38o3xCaugY6QFTvu/rgPpOqqht8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z/cqIalFKGBts1BnpmwB6oQVW1i1xVPOWcvEz+7+cKQbsG+B6ZTTCSMx75+Mhea0H5sFAt1d65AoT8vfdJVOACzKoQp47A6rqeeeb0dHW2aTkVf1exA4tlEUIj3ReFJ4GE6qgWtOxPpCuVoMDDuRJ7uXhgws9KDRjkLA6VgQprY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=PjwOnfQj; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	bh=FSnRMFDuOduDoUX+A+1CFWwU8H+3h4vesh3ZjzxSr7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g5aVH5JXwctqSyHsYIlQONM4RgTB291QbCqR7gS70oYdUCm38HBiWD/yUOzdI4IizSbQUAH5F6tZDPwaiSRL2vjkpVm2Ga0DNGkGqMQwkWdIqXiRpEuUpE93bfPqkEySQ+cTq6KdbDQEF9rYk6R3CAGpnqC/ChWdoMuR4JBUtQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=btb/7jE7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="PjwOnfQj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zO+VV8pGvER/TXhygGNJbtUeGH8oI5huNNGYwyEb9Co=; b=PjwOnfQjb6mYm7pJcJMlPAcxew
-	o7ZdPo2i8E9ccHRjnFphtImXsfCBejL9hdsi0M6LdBdQoTNsVyqG2h8fSJc52Z2cHqL/Mjqsmh2g1
-	xRq51vNNfbcV326QWpIqlNaR2+Ilk63daurw9msS/GFyjIiqxsj55Cr8PuvusrJTUPyahxTotbUOx
-	DLXjlhh57MbWkUMt2kPUuwLOYrhvep7Px9KJahViqeghVroSUd8R2EXDAUyFUlZYd7HSXNUrL7b0F
-	agKgggqRUC1EbnUWDdPHyzrjMbvdOgfneEMN29sK/h2kStYSn19yzIludLlRXz77KV0Hjguydii5k
-	ANjgeB3g==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x12EF-00000003Jzg-2Yqw;
-	Mon, 31 Aug 2026 13:39:15 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2366F30056B; Mon, 31 Aug 2026 15:39:15 +0200 (CEST)
-Date: Mon, 31 Aug 2026 15:39:15 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Yilin Zhang <yilinzhang@moonshot.ai>
-Cc: mingo@redhat.com, acme@kernel.org, namhyung@kernel.org,
-	kylebot@openai.com, david.lee@trailofbits.com,
-	linux-perf-users@vger.kernel.org, stable@vger.kernel.org,
-	Kimi Security Team <bug-report@moonshot.ai>,
-	Weiming Shi <shiweiming@moonshot.ai>
-Subject: Re: [PATCH v3] perf: Fix use-after-free when perf mmap() revival
- races with the last munmap()
-Message-ID: <20260831133915.GH4121339@noisy.programming.kicks-ass.net>
-References: <20260831133152.1231045-1-yilinzhang@moonshot.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="btb/7jE7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC88F1F000E9;
+	Mon, 31 Aug 2026 13:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183563;
+	bh=gSEL1yWGTqhfQjP2tZMPkuQEQVJ76cy62l71kafhDjs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=btb/7jE7vgW236XRwdG/OGui5uOQ5E3m6awqcvDmYykPTVcEXJSShuHBVGIRzPpG9
+	 JXb/xUQREW98NoZ4nbOZ8cGDGuDYGmrwtDlgswhjVIrkNu/WqEopjFGLQD9FHgCN/6
+	 qNZkgGHhJvb6kooJOj/JBYmYbMSSYkWtDXQ4+8joUfZLXdypLABsgAKUfRtujhAw5r
+	 RJwJaGmbxjZGIQsnaiVjMrrZlVUadYUv6UU+Wqms3sXar1e62QhIYhkCExozywHUt3
+	 9fqj1IaXEimVUdTL13O0YE1IkjDPCzGGBKnycdJmmHXqdw3tixAX3HsyDYAYWMB2KP
+	 zDw/CGZs2c95Q==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Andrea Righi <arighi@nvidia.com>,
+	Felix Abecassis <fabecassis@nvidia.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Sasha Levin <sashal@kernel.org>,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] sched/fair: Reject misfit pulls onto busy SMT siblings on asym-capacity
+Date: Mon, 31 Aug 2026 09:23:19 -0400
+Message-ID: <20260831133314.4125787-171-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831133152.1231045-1-yilinzhang@moonshot.ai>
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 09:31:52PM +0800, Yilin Zhang wrote:
-> perf_mmap_close() drops rb->mmap_count *without* holding
-> event->mmap_mutex (the refcount_dec_and_test() right before the
-> refcount_dec_and_mutex_lock() of event->mmap_count). A concurrent
-> perf_mmap_rb() can slot its entire "revival" path into that window
-> (perf_mmap holds event->mmap_mutex for its whole duration, including
-> rb_alloc):
-> 
->   munmap side (perf_mmap_close)          mmap side (perf_mmap_rb)
->   -----------------------------------    --------------------------------
->   rb->mmap_count 1 -> 0   (no lock)      (holds event->mmap_mutex)
->                                          inc_not_zero(rb->mmap_count) fails
->                                          ring_buffer_attach(event, NULL)
->                                          rb_alloc() + attach new rb
->                                          refcount_set(&event->mmap_count, 1)
->   lock; event->mmap_count 1 -> 0
->   ring_buffer_attach(event, NULL)
->   ring_buffer_put() -> frees the *new* rb
-> 
-> The revival's refcount_set(&event->mmap_count, 1) is an invisible
-> 1 -> 1 write: the close frees the just-revived buffer although the
-> other process still has it mapped -- a page-level use-after-free
-> allowing local privilege escalation to root by any unprivileged user
-> (default kernel.perf_event_paranoid=2).
-> 
-> Swap the order of the two counter updates: event->mmap_count is
-> dropped first via refcount_dec_and_mutex_lock(), so its 1 -> 0
-> transition and the ring_buffer_attach() stay serialized with
-> perf_mmap(). rb->mmap_count == 0 then implies every event using the
-> buffer is detached already, so the result of the rb->mmap_count drop
-> can gate the remaining teardown directly and detach_rest is no longer
-> needed.
-> 
-> An earlier fix for this race from Kyle Zeng and David Lee takes
-> event->mmap_mutex around both counter updates [0]; here the not-last
-> close stays lockless.
-> 
-> Fixes: 59741451b49c ("perf: Identify the 0->1 transition for event::mmap_count")
-> Link: https://lore.kernel.org/linux-perf-users/20260804060931.711308-1-david.lee@trailofbits.com/ [0]
-> Cc: stable@vger.kernel.org # 6.18+
-> Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-> Tested-by: Weiming Shi <shiweiming@moonshot.ai>
-> Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
-> ---
-> v2: https://lore.kernel.org/linux-perf-users/91825d0335d2f7cc017ee23886ffeef44c1cc633.f061f277.0045.493a.937e.53242f19a7de@feishu.cn/T/#u
-> v3: swap the counter drop order instead of serializing both under
->     mmap_mutex; keeps the lockless fast path, drops detach_rest, and
->     references the earlier independent fix [0]
+From: Andrea Righi <arighi@nvidia.com>
 
-I presume this means you and your AI agree with my pre-wakeup-juice
-morning musings?
+[ Upstream commit bf6aa722198d3c06e4236e8c5a480f30a64e1513 ]
 
-Also, you seem to have lost the 'helpful' comments that I drafted :-(
+When SD_ASYM_CPUCAPACITY load balancing considers pulling a misfit task,
+capacity_of(dst_cpu) can overstate available compute if the SMT sibling is
+busy: the core does not deliver its full nominal capacity.
 
+If SMT is active and dst_cpu is not on a fully idle core, skip this
+destination so we do not migrate a misfit expecting a capacity upgrade we
+cannot actually provide.
 
->  kernel/events/core.c | 16 ++++++----------
->  1 file changed, 6 insertions(+), 10 deletions(-)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index a6c8e38a3110..f56f9d9e4f01 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -7029,7 +7029,6 @@ static void perf_mmap_close(struct vm_area_struct *vma)
->  	mapped_f unmapped = get_mapped(event, event_unmapped);
->  	struct perf_buffer *rb = ring_buffer_get(event);
->  	struct user_struct *mmap_user = rb->mmap_user;
-> -	bool detach_rest = false;
->  
->  	/* FIXIES vs perf_pmu_unregister() */
->  	if (unmapped)
-> @@ -7060,17 +7059,14 @@ static void perf_mmap_close(struct vm_area_struct *vma)
->  		mutex_unlock(&rb->aux_mutex);
->  	}
->  
-> -	if (refcount_dec_and_test(&rb->mmap_count))
-> -		detach_rest = true;
-> -
-> -	if (!refcount_dec_and_mutex_lock(&event->mmap_count, &event->mmap_mutex))
-> -		goto out_put;
-> -
-> -	ring_buffer_attach(event, NULL);
-> -	mutex_unlock(&event->mmap_mutex);
-> +	if (refcount_dec_and_mutex_lock(&event->mmap_count,
-> +					&event->mmap_mutex)) {
-> +		ring_buffer_attach(event, NULL);
-> +		mutex_unlock(&event->mmap_mutex);
-> +	}
->  
->  	/* If there's still other mmap()s of this buffer, we're done. */
-> -	if (!detach_rest)
-> +	if (!refcount_dec_and_test(&rb->mmap_count))
->  		goto out_put;
->  
->  	/*
-> -- 
-> 2.43.0
+Reported-by: Felix Abecassis <fabecassis@nvidia.com>
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+Link: https://patch.msgid.link/20260509180955.1840064-5-arighi@nvidia.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+
+LLM Generated explanations, may be completely bogus:
+
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+The background `git log --grep` search finished without finding this
+commit in the 6.18.43 tree — which matches what we saw in code
+(`dst_core_idle` is absent from `kernel/sched/fair.c`).
+
+**Verdict for 6.18.y: YES.** It's a small, maintainer-reviewed
+scheduling correctness fix for misfit task migration on asymmetric-
+capacity + SMT systems. The buggy logic is present in this tree and the
+patch should apply cleanly.
+
+ kernel/sched/fair.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index ac5f08cd01a83..fee58d01ae0f9 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -9395,6 +9395,7 @@ struct lb_env {
+ 
+ 	int			dst_cpu;
+ 	struct rq		*dst_rq;
++	bool			dst_core_idle;
+ 
+ 	struct cpumask		*dst_grpmask;
+ 	int			new_dst_cpu;
+@@ -10636,10 +10637,16 @@ static bool update_sd_pick_busiest(struct lb_env *env,
+ 	 * We can use max_capacity here as reduction in capacity on some
+ 	 * CPUs in the group should either be possible to resolve
+ 	 * internally or be covered by avg_load imbalance (eventually).
++	 *
++	 * When SMT is active, only pull a misfit to dst_cpu if it is on a
++	 * fully idle core; otherwise the effective capacity of the core is
++	 * reduced and we may not actually provide more capacity than the
++	 * source.
+ 	 */
+ 	if ((env->sd->flags & SD_ASYM_CPUCAPACITY) &&
+ 	    (sgs->group_type == group_misfit_task) &&
+-	    (!capacity_greater(capacity_of(env->dst_cpu), sg->sgc->max_capacity) ||
++	    (!env->dst_core_idle ||
++	     !capacity_greater(capacity_of(env->dst_cpu), sg->sgc->max_capacity) ||
+ 	     sds->local_stat.group_type != group_has_spare))
+ 		return false;
+ 
+@@ -11206,6 +11213,8 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
+ 	unsigned long sum_util = 0;
+ 	bool sg_overloaded = 0, sg_overutilized = 0;
+ 
++	env->dst_core_idle = !sched_smt_active() || is_core_idle(env->dst_cpu);
++
+ 	do {
+ 		struct sg_lb_stats *sgs = &tmp_sgs;
+ 		int local_group;
+-- 
+2.53.0
+
