@@ -1,129 +1,331 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D2049C4A4;
-	Mon, 31 Aug 2026 13:39:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5C449C4D7;
+	Mon, 31 Aug 2026 13:39:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183593; cv=none; b=Adj8XxIq0tpv+jQrRyGdOnqFtqhklR9GVKwLnFPj1KXD5uAUEjBJKjRFhvg+ZZgkr3ZPvfH6MiOhMyqnf2mL2+YjZiM557LYAFsXViMTqu0HakNauOVcHlrYIe7FpfQMsx42cA00Y5OW4dTvaKr7poFwv/jvRY4bn2lM7XvhkTk=
+	t=1788183595; cv=none; b=UL/ZKgVsNy5QWtyjhMIa4arEvCuFUkR9oOkUnaTR3EJ5CvoEwx7afsIzIHxHWaT1QmO5LMY5F3SpY/xhzzNMlp8I1/bKjGgaAQ+fpni6YHG0lolTUDfW860ARjwd00K2bd+q+zi5b97SGUec+ZDJLonwINGzjbv/CmFlwSWCKSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183593; c=relaxed/simple;
-	bh=UWE3/x+BwZ8oc5bBCLk8y333X/YVAIFJfVhZ7lMAFwo=;
+	s=arc-20240116; t=1788183595; c=relaxed/simple;
+	bh=XTLpRzoAGeP01Vv8IWoIcX3PhA06xiTKrRt+GXRf5QY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r+cgbz+uGeNcb9KXKs2FrC16qWJnWh8cJj2zblfANhSntTO9DBPFCoA0yCeDbdv/ICDFwSSgUHEORwWY4oJO6lFVlFp4kqLfPrGy3M27SR/YU6DLq8YnK7QpcO4qvITgtieFwEo05WjmYK5iq9xcGcXsQAz6bMYWIC+6GDPHjaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pdc1WjYK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JAKoMc+kX9btJQCe7kgfv6+/GarRKHZaykWB7WbNKkuG+/oEIp83Q/AXO4IIsA5XaIzWpQWjLUnquIzXA1opbqtBsBaB5GU/aM58L58dYh28uP07Wkx9ilJAUEEqoD0nMJp6uudKis+vJk8r2bBJK4Kvm5Z6P6hlmUwn/fclky0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yj0q42Nb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pdc1WjYK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3101F00ACF;
-	Mon, 31 Aug 2026 13:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183591;
-	bh=PUf6ryr4k5wygbciAqCC4GJMVIQgnWiFUIM3Fc8zmc0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yj0q42Nb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25D4C1F00A3D;
+	Mon, 31 Aug 2026 13:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788183593;
+	bh=gisH4yQ/imY7nywpvDGsGvCn9SLU3wk4d0qN6FLzpm8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pdc1WjYK/l89/5siC59YAL1Sr7s3V49zW+hckkNRh7rdSjYtnTe9q5LBfPZl68Nae
-	 F4FG334q27j6QqmOluURmITGmJF0oE0oi4P2Qj/tsO4a6wNI8+jlwhq8RTeAUzX2NI
-	 08fmRhb31nfE1RSuEGJ9yVBAL3kh6Xt0NHDf2166aStYCSJEQCaBpW8tBA0KV9xcZ7
-	 3f8saAwGcTDh4KA8ctSibvOP7JBEmUejLvW8rCS7eeNJBW47GZMSEAL7fLugAGOzZk
-	 zISA6xCEXLuXWX//G6JqlOMSn4qzElRiaTSrTyiox7NyvfOItDT4gyk4+7YGJPq09T
-	 s4RABvadMpbAg==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	catalin.marinas@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] arm64/daifflags: Make local_daif_*() helpers __always_inline
-Date: Mon, 31 Aug 2026 09:23:34 -0400
-Message-ID: <20260831133314.4125787-186-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	b=yj0q42NbRU/gBcnEtEyma3JP+NmVzak71uqUEsXOyec3PvLrFUVBMbR+6vQ9D1eH2
+	 A7e09pNrdxwJwOQlQI6l1shq++0skizjpw7qSx2+6aiAMMEzxqXoX25MLV63ySyLBt
+	 xSchOTjw+QhckOerSIcXcAvnSiZcfZlk0UbEan68=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Eric Biggers <ebiggers@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: [PATCH 7.2 51/71] crypto: qcom-rng - Remove crypto_rng interface
+Date: Mon, 31 Aug 2026 15:34:16 +0200
+Message-ID: <20260831133401.872727924@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831133359.055927882@linuxfoundation.org>
+References: <20260831133359.055927882@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
 Content-Transfer-Encoding: 8bit
 
-From: Leonardo Bras <leo.bras@arm.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 827ce94e0897a70241abf810b1d3d7d083053a39 ]
+------------------
 
-Make sure those helpers are always inlined and instrumentation safe.
+From: Eric Biggers <ebiggers@kernel.org>
 
-Suggested-by: Mark Rutland <mark.rutland@arm.com>
-Signed-off-by: Leonardo Bras <leo.bras@arm.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+commit 2ecdf5c9910e20f73639bc322f0518a3439d17c0 upstream.
+
+qcom-rng.c exposes the same hardware through two completely separate
+interfaces, crypto_rng and hwrng.  However, the implementation of this
+is buggy because it permits generation operations from these interfaces
+to run concurrently with each other, accessing the same registers.  That
+is, qcom_rng_generate() synchronizes with itself but not with
+qcom_hwrng_read().  This results in potential repetition of output from
+the RNG, output of non-random values, etc.
+
+Fortunately, there's actually no point in hardware RNG drivers
+implementing the crypto_rng interface.  It's not actually used by
+anything besides the "rng" algorithm type of AF_ALG, which in turn is
+not actually used in practice.  Other crypto_rng hardware drivers are
+likewise being phased out, leaving just the hwrng support.
+
+Thus, remove it to simplify the code and avoid conflict (and confusion)
+with the hwrng interface which is the one that actually matters.
+
+Fixes: f29cd5bb64c2 ("crypto: qcom-rng - Add hw_random interface support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
+ drivers/crypto/Kconfig    |    1 
+ drivers/crypto/qcom-rng.c |  158 +++++-----------------------------------------
+ 2 files changed, 19 insertions(+), 140 deletions(-)
 
-LLM Generated explanations, may be completely bogus:
-
-That check also confirms the fix is **not** in this tree: the latest
-`daifflags`-related commit is `8cb7eff32cc00` (PMR restore operations),
-and the `-S'__always_inline void local_daif'` search found no matches.
-Backport recommendation remains **YES**.
-
- arch/arm64/include/asm/daifflags.h | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/arch/arm64/include/asm/daifflags.h b/arch/arm64/include/asm/daifflags.h
-index 5fca480090434..795b351284673 100644
---- a/arch/arm64/include/asm/daifflags.h
-+++ b/arch/arm64/include/asm/daifflags.h
-@@ -19,7 +19,7 @@
+--- a/drivers/crypto/Kconfig
++++ b/drivers/crypto/Kconfig
+@@ -641,7 +641,6 @@ config CRYPTO_DEV_QCOM_RNG
+ 	tristate "Qualcomm Random Number Generator Driver"
+ 	depends on ARCH_QCOM || COMPILE_TEST
+ 	depends on HW_RANDOM
+-	select CRYPTO_RNG
+ 	help
+ 	  This driver provides support for the Random Number
+ 	  Generator hardware found on Qualcomm SoCs.
+--- a/drivers/crypto/qcom-rng.c
++++ b/drivers/crypto/qcom-rng.c
+@@ -3,10 +3,8 @@
+ //
+ // Based on msm-rng.c and downstream driver
  
+-#include <crypto/internal/rng.h>
+ #include <linux/acpi.h>
+ #include <linux/clk.h>
+-#include <linux/crypto.h>
+ #include <linux/hw_random.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+@@ -32,24 +30,15 @@
+ #define QCOM_TRNG_QUALITY	1024
  
- /* mask/save/unmask/restore all exceptions, including interrupts. */
--static inline void local_daif_mask(void)
-+static __always_inline void local_daif_mask(void)
+ struct qcom_rng {
+-	struct mutex lock;
+ 	void __iomem *base;
+ 	struct clk *clk;
+ 	struct hwrng hwrng;
+-	struct qcom_rng_match_data *match_data;
+-};
+-
+-struct qcom_rng_ctx {
+-	struct qcom_rng *rng;
+ };
+ 
+ struct qcom_rng_match_data {
+-	bool skip_init;
+ 	bool hwrng_support;
+ };
+ 
+-static struct qcom_rng *qcom_rng_dev;
+-
+ static int qcom_rng_read(struct qcom_rng *rng, u8 *data, unsigned int max)
  {
- 	WARN_ON(system_has_prio_mask_debugging() &&
- 		(read_sysreg_s(SYS_ICC_PMR_EL1) == (GIC_PRIO_IRQOFF |
-@@ -38,7 +38,7 @@ static inline void local_daif_mask(void)
- 	trace_hardirqs_off();
+ 	unsigned int currsize = 0;
+@@ -82,37 +71,6 @@ static int qcom_rng_read(struct qcom_rng
+ 	return currsize;
  }
  
--static inline unsigned long local_daif_save_flags(void)
-+static __always_inline unsigned long local_daif_save_flags(void)
+-static int qcom_rng_generate(struct crypto_rng *tfm,
+-			     const u8 *src, unsigned int slen,
+-			     u8 *dstn, unsigned int dlen)
+-{
+-	struct qcom_rng_ctx *ctx = crypto_rng_ctx(tfm);
+-	struct qcom_rng *rng = ctx->rng;
+-	int ret;
+-
+-	ret = clk_prepare_enable(rng->clk);
+-	if (ret)
+-		return ret;
+-
+-	mutex_lock(&rng->lock);
+-
+-	ret = qcom_rng_read(rng, dstn, dlen);
+-
+-	mutex_unlock(&rng->lock);
+-	clk_disable_unprepare(rng->clk);
+-
+-	if (ret >= 0)
+-		ret = 0;
+-
+-	return ret;
+-}
+-
+-static int qcom_rng_seed(struct crypto_rng *tfm, const u8 *seed,
+-			 unsigned int slen)
+-{
+-	return 0;
+-}
+-
+ static int qcom_hwrng_init(struct hwrng *hwrng)
  {
- 	unsigned long flags;
- 
-@@ -53,7 +53,7 @@ static inline unsigned long local_daif_save_flags(void)
- 	return flags;
+ 	struct qcom_rng *qrng = container_of(hwrng, struct qcom_rng, hwrng);
+@@ -134,74 +92,26 @@ static void qcom_hwrng_cleanup(struct hw
+ 	clk_disable_unprepare(qrng->clk);
  }
  
--static inline unsigned long local_daif_save(void)
-+static __always_inline unsigned long local_daif_save(void)
+-static int qcom_rng_enable(struct qcom_rng *rng)
+-{
+-	u32 val;
+-	int ret;
+-
+-	ret = clk_prepare_enable(rng->clk);
+-	if (ret)
+-		return ret;
+-
+-	/* Enable PRNG only if it is not already enabled */
+-	val = readl_relaxed(rng->base + PRNG_CONFIG);
+-	if (val & PRNG_CONFIG_HW_ENABLE)
+-		goto already_enabled;
+-
+-	val = readl_relaxed(rng->base + PRNG_LFSR_CFG);
+-	val &= ~PRNG_LFSR_CFG_MASK;
+-	val |= PRNG_LFSR_CFG_CLOCKS;
+-	writel(val, rng->base + PRNG_LFSR_CFG);
+-
+-	val = readl_relaxed(rng->base + PRNG_CONFIG);
+-	val |= PRNG_CONFIG_HW_ENABLE;
+-	writel(val, rng->base + PRNG_CONFIG);
+-
+-already_enabled:
+-	clk_disable_unprepare(rng->clk);
+-
+-	return 0;
+-}
+-
+-static int qcom_rng_init(struct crypto_tfm *tfm)
+-{
+-	struct qcom_rng_ctx *ctx = crypto_tfm_ctx(tfm);
+-
+-	ctx->rng = qcom_rng_dev;
+-
+-	if (!ctx->rng->match_data->skip_init)
+-		return qcom_rng_enable(ctx->rng);
+-
+-	return 0;
+-}
+-
+-static struct rng_alg qcom_rng_alg = {
+-	.generate	= qcom_rng_generate,
+-	.seed		= qcom_rng_seed,
+-	.seedsize	= 0,
+-	.base		= {
+-		.cra_name		= "stdrng",
+-		.cra_driver_name	= "qcom-rng",
+-		.cra_flags		= CRYPTO_ALG_TYPE_RNG,
+-		.cra_priority		= 300,
+-		.cra_ctxsize		= sizeof(struct qcom_rng_ctx),
+-		.cra_module		= THIS_MODULE,
+-		.cra_init		= qcom_rng_init,
+-	}
+-};
+-
+ static int qcom_rng_probe(struct platform_device *pdev)
  {
- 	unsigned long flags;
++	const struct qcom_rng_match_data *match_data;
+ 	struct qcom_rng *rng;
+ 	int ret;
  
-@@ -64,7 +64,7 @@ static inline unsigned long local_daif_save(void)
- 	return flags;
++	match_data = device_get_match_data(&pdev->dev);
++	if (match_data == NULL || !match_data->hwrng_support) {
++		dev_info(&pdev->dev, "TRNG support not detected\n");
++		/*
++		 * In this case the driver does nothing except the dev_info(),
++		 * but bind the device anyway to avoid effects on GCC state.
++		 */
++		return 0;
++	}
++
+ 	rng = devm_kzalloc(&pdev->dev, sizeof(*rng), GFP_KERNEL);
+ 	if (!rng)
+ 		return -ENOMEM;
+ 
+-	platform_set_drvdata(pdev, rng);
+-	mutex_init(&rng->lock);
+-
+ 	rng->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(rng->base))
+ 		return PTR_ERR(rng->base);
+@@ -210,55 +120,26 @@ static int qcom_rng_probe(struct platfor
+ 	if (IS_ERR(rng->clk))
+ 		return PTR_ERR(rng->clk);
+ 
+-	rng->match_data = (struct qcom_rng_match_data *)device_get_match_data(&pdev->dev);
+-
+-	qcom_rng_dev = rng;
+-	ret = crypto_register_rng(&qcom_rng_alg);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Register crypto rng failed: %d\n", ret);
+-		qcom_rng_dev = NULL;
+-		return ret;
+-	}
+-
+-	if (rng->match_data->hwrng_support) {
+-		rng->hwrng.name = "qcom_hwrng";
+-		rng->hwrng.init = qcom_hwrng_init;
+-		rng->hwrng.read = qcom_hwrng_read;
+-		rng->hwrng.cleanup = qcom_hwrng_cleanup;
+-		rng->hwrng.quality = QCOM_TRNG_QUALITY;
+-		ret = devm_hwrng_register(&pdev->dev, &rng->hwrng);
+-		if (ret) {
+-			dev_err(&pdev->dev, "Register hwrng failed: %d\n", ret);
+-			qcom_rng_dev = NULL;
+-			goto fail;
+-		}
+-	}
+-
+-	return ret;
+-fail:
+-	crypto_unregister_rng(&qcom_rng_alg);
++	rng->hwrng.name = "qcom_hwrng";
++	rng->hwrng.init = qcom_hwrng_init;
++	rng->hwrng.read = qcom_hwrng_read;
++	rng->hwrng.cleanup = qcom_hwrng_cleanup;
++	rng->hwrng.quality = QCOM_TRNG_QUALITY;
++	ret = devm_hwrng_register(&pdev->dev, &rng->hwrng);
++	if (ret)
++		dev_err(&pdev->dev, "Register hwrng failed: %d\n", ret);
+ 	return ret;
  }
  
--static inline void local_daif_restore(unsigned long flags)
-+static __always_inline void local_daif_restore(unsigned long flags)
- {
- 	bool irq_disabled = flags & PSR_I_BIT;
+-static void qcom_rng_remove(struct platform_device *pdev)
+-{
+-	crypto_unregister_rng(&qcom_rng_alg);
+-
+-	qcom_rng_dev = NULL;
+-}
+-
+ static struct qcom_rng_match_data qcom_prng_match_data = {
+-	.skip_init = false,
+ 	.hwrng_support = false,
+ };
  
-@@ -124,7 +124,7 @@ static inline void local_daif_restore(unsigned long flags)
-  * Called by synchronous exception handlers to restore the DAIF bits that were
-  * modified by taking an exception.
-  */
--static inline void local_daif_inherit(struct pt_regs *regs)
-+static __always_inline void local_daif_inherit(struct pt_regs *regs)
- {
- 	unsigned long flags = regs->pstate & DAIF_MASK;
+ static struct qcom_rng_match_data qcom_prng_ee_match_data = {
+-	.skip_init = true,
+ 	.hwrng_support = false,
+ };
  
--- 
-2.53.0
+ static struct qcom_rng_match_data qcom_trng_match_data = {
+-	.skip_init = true,
+ 	.hwrng_support = true,
+ };
+ 
+@@ -278,7 +159,6 @@ MODULE_DEVICE_TABLE(of, qcom_rng_of_matc
+ 
+ static struct platform_driver qcom_rng_driver = {
+ 	.probe = qcom_rng_probe,
+-	.remove =  qcom_rng_remove,
+ 	.driver = {
+ 		.name = KBUILD_MODNAME,
+ 		.of_match_table = qcom_rng_of_match,
+
 
