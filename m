@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11854349B1C
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:21:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36191EEA3C
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178894; cv=none; b=fJsocR77iHQOOJL1CoaO0GXwkrSMdZXv4ek/BZpqDyaARpTQMZwrRN3n6Smcv5SfeoxzfzGjg3tZN+UUFoeFw/N/MsxKXtU2p5dviSBlUDut+0Xn3Pa9yTXk+gxMtRijpuExL8lGY5Tal6NNzJAPhhL4HjuwFU15TFpa36BgItc=
+	t=1788178896; cv=none; b=nO9vYHLgWeHjGFf2dJ3/4hZLuiDi/xVyO4hGtpUOC7oo9h/eh39ZqWVkbPC09gjurwtUOSbVLZ6ZwyFiIByyk33ZrfDsXFPOCO13/1E4iETlDdd3dOX4jKMJHEHs7MObtkUt3Jr/lr23WyQUkLr3hneOqb/8zAVF0kGTRClu0UA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178894; c=relaxed/simple;
-	bh=Hk7KNqRLUAAkKLvj20RgZ/SoIV0LmzHkuv+0DhXzy+I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=S+7UlU42udv9C++qrw0kv0Y4HDt3Aboz9ev9ZjdHMsJhK++2J7a/vatt4xogihm3OcBJ5YhZPkB3ArTEsAQxm/wAokdcGPc8kp565VFZVXnByB12Vjw+qjYxyH2hKnocX4i1xq2K/OVT7PC7M4FwLMBcyxtQpNDnVE5oUievDnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XTkswLtp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788178896; c=relaxed/simple;
+	bh=6sI8W7PuRXtWL26Hue9j4G1Py917rkpuVcUBgr6Zlw8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mNaIWFcr2d0UXVArBYyOP78/I4/w2N8ZoBoUoSoXCjqnbzRfPe9Sw/0WmzzMJqsqDO12XqkZROM9badpi3inQeDD3OFbI97plzPZfpVP1I84AxfNQxUqbIGD6RJ2fmhZ4NxqMZ3sAZU/Hx8GBZ49XGdpjAz0nNY07yGRskmQjDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Sqet2pQA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XTkswLtp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8E01F000E9;
-	Mon, 31 Aug 2026 12:21:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Sqet2pQA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E505E1F000E9;
+	Mon, 31 Aug 2026 12:21:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788178892;
-	bh=Het5TUIwt/h7a1Y4PbBFFCX1HZOWxSTH2yV9cnEn0YU=;
+	s=korg; t=1788178895;
+	bh=oMCL/NGbuEtoXVZ7TnzOmIQk3E4rZv2EWUWEHiAp2m8=;
 	h=Subject:To:Cc:From:Date;
-	b=XTkswLtpDCZJVzUgUydyqCOoH0IEW2/VmT/NEff39/eouH3BNMtISG7SckWFAfNWX
-	 kbAJxuKe3FcfR2vFaEZlVdx2MTINTPmMrSFQliuWFeUWGGx9fMmRNLwt6agp0tSaGb
-	 VTjEcN+LgPe9X2jjQOTN3OUyPanI3enOcIrMhhl8=
-Subject: FAILED: patch "[PATCH] usb: xhci: bail out of setup if the controller is" failed to apply to 5.15-stable tree
+	b=Sqet2pQAtmOBigvMLqoEsnXLHSjmuvR0SyHVAILgCi4IVQnAuSHwuptCRaXZEDIc9
+	 SXbA75lvIM4/fY2VVy8U/MycCyzZRrIQsVo6zA2k+b8IiyFkmiMeCXhXgP0o9Um2yE
+	 8NWhF5x1uOsGTlMVsHEg4J/1v5gPIZ8yEuEtvYm8=
+Subject: FAILED: patch "[PATCH] usb: xhci: bail out of setup if the controller is" failed to apply to 6.1-stable tree
 To: leitao@debian.org,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 31 Aug 2026 14:21:22 +0200
-Message-ID: <2026083122-defog-carnival-2925@gregkh>
+Message-ID: <2026083122-playmaker-lubricant-1d52@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 78203d5b54a40f0e36196ebf31c9c7a380fc8811
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083122-defog-carnival-2925@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083122-playmaker-lubricant-1d52@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
