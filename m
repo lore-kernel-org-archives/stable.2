@@ -1,190 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EFF3A48D9;
-	Mon, 31 Aug 2026 23:04:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68613391E59;
+	Mon, 31 Aug 2026 23:08:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788217469; cv=none; b=IWZPPyFq91biTbrr63ddNQvhLxAW23PTjnw6qgcwOL9S/vMyMRg07OvZZyOO+dCa4sLqcjfiRsSgh1xSq1HRX4a+q+T3pMSfEMtBCF1wTtPJqaavt5AMe2iPilQnclbE/hNEHAGY1V7ycfixTFa04unOEru13uXo+i4GXswOF+8=
+	t=1788217718; cv=none; b=r6qBpSsWVe3KK1EfrpuPnllW5//znec4QDwzYEHBLAx4VnBU7/pc9JlGP8gXZ7aqAOocS7auJO8imhc4+Kib3RX1KyM0qB6LajWgt4tb9xIzYvlnWCQi1Lv/EbjTsUHvSX0cPZrtHa8H+LlafpAOBBLVU3QxzLeHaoQ61jRSLlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788217469; c=relaxed/simple;
-	bh=ThhYoNT7kYxUohsVKMpwl16OMc9yaPmm4mfRITZhV2E=;
-	h=Date:To:From:Subject:Message-Id; b=lHLaAMnwS9pt6XJ+p0r/mX5ZeqQ6v0vfmGMPNFhQy7QKJ9A+mVs7iGOqN5haszbTzu6eHKEB8OXAzP1pgt92CZZlkxM7N+0+U2ZaEQNwrzJddJV8ZvtH9zqElYynl4hJhWwNkdRJzl0LdlZJP8Nl2jt6xL8ymd5uLHnsK2iTRdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HE1Bx2si; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788217718; c=relaxed/simple;
+	bh=si4nfzQKobwAWhCHXycCi+aHA+aJpvaIwHyzrOKQLUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NRnK+LUvBx8ftQmQHYIn1uc7xYaQKSk2q4nNphhf/l30aZWw5Zk2ymqrRLOlVDEcU3/yE5Q1rGugXZ+14RbRX+we64e4traEgYZyyDhaArnAJDXQ1Vp4qjBySXcC9xtf3Pll3xCsLapHtzGyM/Q47tCIUlc/a+ty8GXTqahQbkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zg0Z/wH8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HE1Bx2si"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54C881F000E9;
-	Mon, 31 Aug 2026 23:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788217467;
-	bh=CPzFypsQlD3009E5ae/mpWYx12nyXPF3FJ03CZUAIzc=;
-	h=Date:To:From:Subject;
-	b=HE1Bx2siOgrJoGXDPnO7/wQ0ZDY15G/SmVD9PNJcKKcdSTstkDPqXGfzwiGXLtAFB
-	 F0qXnl70dQboCCuCG367yKykUqiVjyR1kdMJw0gEEN68vr7O/Ql6Jo5idcHFlEJXEH
-	 Cke5jmiTP5kws7VQN6sI6yQItPEhio7mWAjlfH8Y=
-Date: Mon, 31 Aug 2026 16:04:26 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,joe@dama.to,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch added to mm-new branch
-Message-Id: <20260831230427.54C881F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zg0Z/wH8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BF91F000E9;
+	Mon, 31 Aug 2026 23:08:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788217717;
+	bh=GtfBHxTIDD1ugdSqWBTJa3a6H0kN/BtZTPNQKhcmieY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Zg0Z/wH8uVkGp+KS1iMUzY2mCcH4Pr4RMMw0hyFTFeeDsL26hHrVIdLBjxfRFy3b6
+	 rY5j6pJSKl3MvssWqGHl4U4YrYiK85Y4SW1sfQhE2zMf2AHPTW0t5rUZVC5C1q08vf
+	 pBoSNn3Bd8BierxA2uIii7sjfNryVDFfq2OOm0xAUD6qSsxOF20g/rjGd9536OKGKE
+	 sam11ICa2awX+MSFMsT2PM/1XzLeU8OInqZhF6n1deLuVZunrW5Xc5LDGqLIcNzu88
+	 d5jkOWiNH0SHh/EbHpMjnSgxfoU4NSISmGGnBHHmiOLMLjBIckPdaUMTs6bvpDINQK
+	 OMkZ1oVulmZGQ==
+From: Jakub Kicinski <kuba@kernel.org>
+To: springbreeze@stu.pku.edu.cn
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	rust-for-linux@vger.kernel.org,
+	netdev@vger.kernel.org,
+	fujita.tomonori@gmail.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] rust: net: phy: fix off-by-one bit positions in device status accessors
+Date: Mon, 31 Aug 2026 16:08:35 -0700
+Message-ID: <20260831230835.1436976-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825111334.795732-1-springbreeze@stu.pku.edu.cn>
+References: <20260825111334.795732-1-springbreeze@stu.pku.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-
-The patch titled
-     Subject: mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
-has been added to the -mm mm-new branch.  Its filename is
-     mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Joe Damato <joe@dama.to>
-Subject: mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
-Date: Mon, 31 Aug 2026 10:48:35 -0700
-
-Charges that exceed memory.max and return through the nomem label can
-raise no event and simply return -ENOMEM.
-
-A non-blocking charge can hit the limit, get rejected, but is not visible
-in memory.events.
-
-This was noticed in a production setting where bpf_mem_alloc() attempted
-to refill its per-cpu freelists, which triggered a non-blocking charge
-while at the limit.
-
-Commit d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for
-enforced allocations") added raised_max_event to cover charges that are
-force charged without ever reaching reclaim, but charges that are rejected
-outright were left out.  Getting an allocation failure without the
-corresponding MEMCG_MAX event is unexpected and makes debugging and
-monitoring harder.
-
-Raise the event on the way out for rejected charges as well, by routing
-the -ENOMEM return through the same exit path that already covers forced
-charges.  The existing behavior of raising a MEMCG_MAX event on every
-charge/reclaim/retry iteration is left unchanged.
-
-Tested with a module that performs accounted GFP_NOWAIT page allocations
-from a task in a cgroup at its memory.max, and measures the resulting
-memory.events:max delta.  Without this patch the rejected charges raise no
-event at all; with it the delta matches the number of rejected charges
-exactly.  A GFP_KERNEL|__GFP_NORETRY control, which reaches reclaim,
-raises the same two events per failed charge before and after, confirming
-the existing charge/reclaim/retry accounting is unchanged.
-
-Link: https://lore.kernel.org/20260831174836.3102406-1-joe@dama.to
-Fixes: d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for enforced allocations")
-Signed-off-by: Joe Damato <joe@dama.to>
-Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 ---
+rust: net: phy: fix off-by-one bit positions in device status accessors
 
- mm/memcontrol.c |   28 ++++++++++++++++------------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+This replaces the hand-written bitfield offsets in is_link_up(),
+is_autoneg_enabled() and is_autoneg_completed() with the bindgen-generated
+link(), autoneg() and autoneg_complete() accessors, so the Rust side no
+longer depends on hard-coded bit numbers for struct phy_device.
 
---- a/mm/memcontrol.c~mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming
-+++ a/mm/memcontrol.c
-@@ -2669,10 +2669,11 @@ static int try_charge_memcg(struct mem_c
- 	bool raised_max_event = false;
- 	unsigned long pflags;
- 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
-+	int ret = 0;
- 
- retry:
- 	if (consume_stock(memcg, nr_pages))
--		return 0;
-+		return ret;
- 
- 	if (!allow_spinning)
- 		/* Avoid the refill and flush of the older stock */
-@@ -2783,17 +2784,12 @@ nomem:
- 	 * put the burden of reclaim on regular allocation requests
- 	 * and let these go through as privileged allocations.
- 	 */
--	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
--		return -ENOMEM;
-+	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH))) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
- force:
- 	/*
--	 * If the allocation has to be enforced, don't forget to raise
--	 * a MEMCG_MAX event.
--	 */
--	if (!raised_max_event)
--		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
--
--	/*
- 	 * The allocation either can't fail or will lead to more memory
- 	 * being freed very soon.  Allow memory usage go over the limit
- 	 * temporarily by force charging it.
-@@ -2802,7 +2798,15 @@ force:
- 	if (do_memsw_account())
- 		page_counter_charge(&memcg->memsw, nr_pages);
- 
--	return 0;
-+out:
-+	/*
-+	 * Don't forget to raise a MEMCG_MAX event for forced or rejected
-+	 * requests.
-+	 */
-+	if (!raised_max_event)
-+		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
-+
-+	return ret;
- 
- done_restock:
- 	if (batch > nr_pages)
-@@ -2861,7 +2865,7 @@ done_restock:
- 	    !(current->flags & PF_MEMALLOC) &&
- 	    gfpflags_allow_blocking(gfp_mask))
- 		__mem_cgroup_handle_over_high(gfp_mask);
--	return 0;
-+	return ret;
- }
- 
- static inline int try_charge(struct mem_cgroup *memcg, gfp_t gfp_mask,
-_
+> diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
+> index 956cda573ddba..14dd1e6cb3802 100644
+> --- a/rust/kernel/net/phy.rs
+> +++ b/rust/kernel/net/phy.rs
+> @@ -124,38 +124,30 @@ pub fn state(&self) -> DeviceState {
+>      ///
+>      /// It returns true if the link is up.
+>      pub fn is_link_up(&self) -> bool {
+> -        const LINK_IS_UP: u64 = 1;
+> -        // TODO: the code to access to the bit field will be replaced with automatically
+> -        // generated code by bindgen when it becomes possible.
+> +        let phydev = self.0.get();
+>          // SAFETY: The struct invariant ensures that we may access
+>          // this field without additional synchronization.
+> -        let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
+> -        bit_field.get(14, 1) == LINK_IS_UP
+> +        unsafe { (*phydev).link() == 1 }
+>      }
 
-Patches currently in -mm which might be from joe@dama.to are
+[Severity: Medium]
+Bindgen emits the bitfield getters with the signature
 
-mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch
+  pub fn link(&self) -> ::core::ffi::c_uint
 
+so writing (*phydev).link() auto-refs the receiver and materializes a
+&bindings::phy_device covering the whole C struct, not just the bitfield
+storage unit that the previous code projected with
+&(*self.0.get())._bitfield_1.
+
+Is forming that whole-struct shared reference allowed here? The pointer
+comes from an Opaque, whose documented contract in rust/kernel/types.rs
+says:
+
+  /// * The value is allowed to be mutated, when a `&Opaque<T>` exists on
+  ///   the Rust side.
+
+and the Opaque example reads fields through the raw pointer
+(unsafe { (*ptr).val }) instead of taking a reference.
+
+Concurrent C-side writes into the same allocation look possible while a
+PHY driver callback runs, none of them covered by phydev->lock:
+
+drivers/net/phy/phy.c:phy_interrupt() {
+	...
+		phydev->irq_rerun = 1;
+		disable_irq_nosync(irq);
+	...
+}
+
+That is a hard IRQ context write to a bitfield member without taking
+phydev->lock. In addition, the embedded state_queue delayed_work is written
+by the timer softirq and workqueue core, the embedded mdio.dev kref is
+bumped by get_device()/put_device() in phy_device.c, and the internals of
+phydev->lock itself (wait_lock, wait_list) are written by contending
+threads.
+
+Would reading the bits through a C __rust_helper accessor in rust/helpers/,
+or projecting to the bitfield unit via a raw-pointer path, keep the goal of
+dropping the hand-written offsets without forming a reference to the whole
+struct?
+
+Also, the retained SAFETY comments still say "we may access this field",
+which no longer matches what the code does. Should they be updated to
+describe the reference that is actually created?
+
+>  
+>      /// Gets the current auto-negotiation configuration.
+>      ///
+>      /// It returns true if auto-negotiation is enabled.
+>      pub fn is_autoneg_enabled(&self) -> bool {
+> -        // TODO: the code to access to the bit field will be replaced with automatically
+> -        // generated code by bindgen when it becomes possible.
+> +        let phydev = self.0.get();
+>          // SAFETY: The struct invariant ensures that we may access
+>          // this field without additional synchronization.
+> -        let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
+> -        bit_field.get(13, 1) == u64::from(bindings::AUTONEG_ENABLE)
+> +        unsafe { (*phydev).autoneg() == bindings::AUTONEG_ENABLE }
+>      }
+>  
+>      /// Gets the current auto-negotiation state.
+>      ///
+>      /// It returns true if auto-negotiation is completed.
+>      pub fn is_autoneg_completed(&self) -> bool {
+> -        const AUTONEG_COMPLETED: u64 = 1;
+> -        // TODO: the code to access to the bit field will be replaced with automatically
+> -        // generated code by bindgen when it becomes possible.
+> +        let phydev = self.0.get();
+>          // SAFETY: The struct invariant ensures that we may access
+>          // this field without additional synchronization.
+> -        let bit_field = unsafe { &(*self.0.get())._bitfield_1 };
+> -        bit_field.get(15, 1) == AUTONEG_COMPLETED
+> +        unsafe { (*phydev).autoneg_complete() == 1 }
+>      }
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but after the rewrite
+is_link_up(), is_autoneg_enabled() and is_autoneg_completed() are one-line
+forwarders to a binding call, and none of them carries #[inline].
+rust/kernel is an abstraction crate rather than a leaf driver, so the
+coding guidelines ask for #[inline] on small functions that just forward to
+a binding call.
+
+The neighbouring accessors in the same file (phy_id(), state(),
+set_speed(), set_duplex()) are equally unannotated, so this is the existing
+style of the file rather than something the patch changes. Would it be
+worth adding the annotation to the three touched functions here, or
+handling all of them in a separate cleanup?
+-- 
+pw-bot: cr
