@@ -1,190 +1,167 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068453C09F7
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178566; cv=pass; b=PC3MyTN68TV5S9NIQauVDo1IDwdyquxIFw6rXMnNdyGCyDPX6ayl584jLqiHpCJCvxHQRkqjYzdeGwTq16fZQ5KZ1plGgf8ruzD+RAZ+qY/o7eOnxYyirgMPOzc44bVY7gTIXcMcVFibbZKNJFKq/vESB+LwE6+QoJu6xUkC2Ss=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178566; c=relaxed/simple;
-	bh=mmERPczqrfVQh8tUhnvaPBll2oUM/xpRVzVN+xWRmPc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JzUqEelU4s9zAkoPl0MmRto3u8P6r47OsebsEVKEmz/E8It8l4FLF8iWi8uP8cDQRXhC0oSUFAHGQh6xavKMKEtoiIz5VnKAgf3jBY/VARG+U9E/SsR3XuI/eUzf7GLxeMXCPocJfuYCE/X4xuK9eb78XeH4sobg7h5E1bFx+a8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=YhdV+TDM; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0513E51D4
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788178637; cv=none; b=KyQHbCQEvFfZKxdMPnaH7jTRQLlg5LZ9LyI4QNxof1VSzJlh3Hkz4nGrx5A2qYGFk3ZlJTiyDN3BuGgP6drebn4VzMMRXbC7SRP4wTzoTsmOuhsHutjQWSlQij4QRHzl2WgwMzCS1nzq4lcBIytLEIBQV4eY0uu531WOlWHf9as=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788178637; c=relaxed/simple;
+	bh=M5SL/h42yWAk4NKd3VQ/etF+/h7oCMnnc0yG4sXazU4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SXuJNu97C/4kG9ND8N2gdh3Iq47LR3GYGExdFWXhurDANS7JrLnUylagUb2V+NN5MtS7nsHhJqWcj5okXCaHPZ+dBxFf9RAd8bVFgkgHDbuLOo7jnd7B++bp8O/0iIQjCWIRD0j6dHN2TEpDyBxKq4uGfBeCOWoce/Q3WgAONKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=hmWN9Yhe; arc=none smtp.client-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="YhdV+TDM"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a309f92daaso23102111fa.3
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 05:16:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788178563; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mJdrVw1gTQxgw0kx0/v2oQZBL4vLDSjxHtEAjMYSYlSfVgWbl4guWCGuhtVodSTuuG
-         +7pr57y3XtqhZV25YrajBry5NE96QP/3d8zvYTwgP2IJ33ckXUoZZpXoNgMhq8r3x+YI
-         wSuZFO5qLirNi8t+jAfquV1C2n9ZJ7UrKikmuZ27/qMhXEhJJmGeccpCRzSCQeFeN8n2
-         sFbNdTOHYxW7E+tRezAVAqOGGoq90qNMAO+4djsJB5dgBION0S9JwGgZkXXyVWLr00Iw
-         7ABvk6THzrhD+kl3c7OTqEZqPNZd4+06nwhfrJOqYHPi08jMXI+9yOch29RroKImERtm
-         u2BQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=E2fspwe7pTek3z4ZZ2gaIFnlooj5wzCDQHD2ngploqQ=;
-        fh=OsdTL4LDIKp7W8e7LJbXNKvdJpxfmWflqd2fpQY7K4w=;
-        b=mHoagrcBhTfQM6uAr4+QquxL4Ie3sznDJb3Ltp88y185G/LDNaxzA3724H9nyoye+P
-         WeeYE8Jw6ZW5QiZlSYYKJp15ume3RB6hc1UByNcmY/o2vwoxMXeKuYT5Es0cZ/yHyg9+
-         yhJOYUpBNi7pJvlYi8vAdwVePe2fEITo4rx1zN5W8/iRia81uCvBkVcWf53cbQBS2jI3
-         SOOHIwRtTF10NHxoYfdiJm9gunziIcz7E9PoU1NcOFkgzuS0jTv+Uluc15H5l/cl07WX
-         K5arYREFkw7NnIkmb6EfxgMuYdSj8k92FUJUeYnsUPSDJLpjypkGDNHBR2wDLx9AW+KD
-         H8PQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788178563; x=1788783363; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E2fspwe7pTek3z4ZZ2gaIFnlooj5wzCDQHD2ngploqQ=;
-        b=YhdV+TDMZOi2hS/Llj4tvZ9jvMK1ld9JgNg6+80IHzXcRLiualv+0rKV92iA+Wmllw
-         NcPPvumaPEm8ucBHgYYTBZBrfFgEaa9Xi1iEEr7mqt2Qs0A9efZTLOeP2Gq6v7fofVDi
-         g3TdE+oKZiHoPCJGHZpLEzTdRvkOGSnPAecNeQGagdfQb54lvQjyRgkg/Kdj8eODbGD+
-         W2fNT8o6KM7tkrX/LP+b07Sn7zz05dpPfXv1Nwf44eIheQRTK1mIosex4YfcTa4q7AXF
-         b3mlUtjQLGOFSQXRpFc5KWs5MBp5VsQrTjGvsCGzsV8nz5AhrFaKd6cnpsnM6wgScdoU
-         0O0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788178563; x=1788783363;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E2fspwe7pTek3z4ZZ2gaIFnlooj5wzCDQHD2ngploqQ=;
-        b=C88kNqt46iiyT7AsStYuW/4Yf2oVDDgfceCC/Nhi+Lj76E21Ul5g0CAxjv6euVUKXu
-         eX9o+uAHdZR2TgKaFVs3125hGHBku44maQ0IEQOuCSHQcj0o8fWgDgqrXwLwRxDWJi5m
-         xXP3o0n+UrAhMYm/wnE7Qmx8wGRLmZhV6LHUbCcsdF+9IYSSjK84VzrYY3tthk0NQ3rk
-         hBvPZ/qZi5oqhx1km7R1zqN9RLb7vZ9oj+83riUVFxPY8Ib4mNc1JeM5ePxYbb/R2OCh
-         m3kaqNNMQANPKsKY+WivGyFXfiaWu3ngL6KeaqAv73QHiNNVEnUGdguEFVxV/rISpkWf
-         zrvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzLP5nBAARelMCS3/4mFpDeHu4d4OQrrOnM1hkdwFJVw9NqskzNwfWB4QXRcJWKRMbcqF9RtV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6m15VQGBehPRoEaQBNHM1Dyjmd9sleUgGTj/hZXuK7pnbJZ1k
-	1twB82NLq1bXN6yRDJQBwUcTYRvThl2VzKech1OanK3FTxUSGeyCkU58M1uRd+R0FfrlbS1mhua
-	BoTIWEW6uQzB/jZXrykgsgipS+foekXbVPbyFODCHhZE=
-X-Gm-Gg: AYBFou1xLF8CSFOy6sIN0GFUUp34J+c9Mm425c/lCkaFrk+vDmH+m0BBywLuwafAn9P
-	gIQSCNWfXdVsaRFW0kjkjKDxNv4P5sDQDPuXoVL1yl+DLUUZzVunOCK26c3Mb7kY74bpo+OCdcQ
-	WTjcGUsIEj+pNxl6LqrTRWRKLZNOnBLz6cb1upV3eC54SkfBans7Wh3KXiR45/7TtHP5FDUkPBW
-	y9FRiTvS2ZVwB4cKbEy7ClupCrmCf16f/haAlXz0/RArB5FfaSyIbMmg1djfwsMCYjd8aposs8r
-	ks+t4J61bUcB1nuXR5JJ/clugS+61onK5XTomDRgA1uyDbBGZ9uo2OcimaveXZKMBdrTko2ySqv
-	d
-X-Received: by 2002:a2e:a550:0:b0:3a3:476:2e37 with SMTP id
- 38308e7fff4ca-3a304764657mr47943831fa.6.1788178562237; Mon, 31 Aug 2026
- 05:16:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="hmWN9Yhe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788178631; x=1788437831;
+	bh=ZY1JPctQtuxLv8PjzYWWaNHnTJKlkk+4wWRVrTLoCHg=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=hmWN9YhecnW9VX+qtqjQno79cnqOl3GdIMzIRGSihLKvMDenF+CKhNwvKnFoGZpXW
+	 JrUnPVLBlGoLivHVdBh+tHTWNuc0TwOhM307Zs3HAzMfoL+TNmlztcMe+7fvfEGM3N
+	 adA4XN2F7unGNZ+sUXMf35bYTqTNeN89j6z4S4VLQ6jkFFZ2/WPh7pFQmpAGUeeHRN
+	 l1A5qQB82bO+1WGM5GoHo+R0wGE/Gn69QHaBfWurQW5nrnNdHwnN/vOqztidvvccgn
+	 YQiEn+fxKXsS/1NRpmb8cSZBYpR3K7+KD+j/CVPpZr39o20BhIXdASvQ0oO9qfAguC
+	 CTiY5Y4xoldUQ==
+X-Pm-Submission-Id: 4hYSfX6wY5z1DDXH
+From: Esben Haabendal <esben@geanix.com>
+Subject: [PATCH v7 0/8] io: accel: mma8452: Allow open drain interrupt pin
+ configuration
+Date: Mon, 31 Aug 2026 14:17:03 +0200
+Message-Id: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1787982246.git.zihanx@nebusec.ai> <0a00492a13038b268c1e0a219c138d07cfab92b3.1787982246.git.zihanx@nebusec.ai>
- <20260831110647.GA3202627@shredder>
-In-Reply-To: <20260831110647.GA3202627@shredder>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 31 Aug 2026 20:15:49 +0800
-X-Gm-Features: AcwNN1VxMrcdoN8MorTbHscYSmLJXYJbfD7TkDzZUF5Xn6YLbbDtN9fpaNcxbz4
-Message-ID: <CAANe3eSrMbEiuBEeanOHomSGt=y+m58pwVyHGBfe4GaG0mXOCA@mail.gmail.com>
-Subject: Re: [PATCH net 1/1] ipv4: fib: avoid quadratic table ID lookup
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Ahern <dsahern@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>, stable@vger.kernel.org, 
-	Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQPWrEMBAF4KssqqMwGs/oJ1XuEVLIkryrwvJiB
+ 5Ow+O6R08TBglTDK94Hbx5iSXNOi3i5PMSc1rzkqdRgni4i3Hy5JpljzQIBGQiUHEdviVFO91R
+ knH0u0io2JpDqDAdRi7e8fEzz14+5qnre9roGo7hVX5UE2asY0RNB0PB6Tb7kz+cwjeK9eiv+b
+ 2A1HPfJDTyQcXwyul/DQtvoqqEVuYFAewJ3MuhgKGwatG8ZglccAXs+G3w0XNPgakTrPTuIJnT
+ 6ZOiDge0tev9Hj4wWKCX796fbtn0DHIjfdPkBAAA=
+X-Change-ID: 20250401-mma8452-open-drain-81577c41375c
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
+ Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
+ Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788178627; l=4328;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=M5SL/h42yWAk4NKd3VQ/etF+/h7oCMnnc0yG4sXazU4=;
+ b=f7RJGTl021HJwFLFre8rRN0A9iwzoCVvkdvGb3Gfn3a2CRNZMgeh6MXeCoMoP/QHQcGpKOGya
+ YED1Nr6dP4kDo9+15hPaAvQP8eGKI1uzienau9WfLKp/hfe/Bzexa94
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-On Mon, Aug 31, 2026 at 7:07=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wr=
-ote:
->
-> On Sat, Aug 29, 2026 at 06:24:57AM +0000, Zihan Xi wrote:
-> > fib_empty_table() probes every table ID from 1 until it finds a free
-> > one.  Since IPv4 tables are stored in a 256-bucket hash table, a dense
-> > set of IDs makes the probes repeatedly walk growing hash chains while
-> > RTNL is held.
-> >
-> > Count the existing tables once and use a bitmap for the bounded range
-> > that can contain the first free ID.  This keeps table-ID selection
-> > linear in the number of tables instead of quadratic, without changing
-> > the lowest-free-ID behavior.
->
-> TBH, I wasn't even aware of this "table 0" functionality and I'm quite
-> certain it's unused nowadays:
->
-> 1. IPv4 specific:
->
-> # ip -6 rule add from 2001:db8:1::1 table 0
-> Error: Invalid table.
->
-> 2. Not documented in ip-rule man page:
->
-> "
-> table TABLEID
->        the routing table identifier to lookup if the rule selector
->        matches. It is also possible to use lookup instead of table.
-> "
->
-> 3. No kernel selftests despite ip-rule having good coverage.
->
-> 4. Quirky. Requires dumping the rules or listening to netlink
-> notifications to discover the allocated table ID.
->
-> So, for now, I suggest bounding the maximum table ID that can be
-> automatically allocated. Something like [1]. I will add a deprecation
-> warning in net-next.
->
+Extend the mma8452 driver with support for configuration of the
+interrupt line in open-drain mode, which is needed for hardware designs
+where the interrupt line is shared with other chips.
 
-Thanks for the review and the suggested patch.
+Adding drive-open-drain property to mma8452 device-tree node for such
+designs to enable switching pin configuration to open-drain mode.
 
-I wasn't aware how unused this automatic table-0 assignment is either.
-I'll drop the bitmap rewrite and send a v2 that just caps the
-automatically allocated ID at 4096 as you proposed.
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+Changes in v7:
+- Use dev pointer directly in mma8452_runtime_suspend() also.
+- Move struct i2c_client *client definition to patch 4.
+- Drop patch 7 (Drop unneeded lock acquire on read).
+- Link to v6: https://patch.msgid.link/20260825-mma8452-open-drain-v6-0-9b252804ee80@geanix.com
 
-> FTR, I did consider storing the tables in something like xarray, but:
->
-> 1. We would still need to keep the hash table given the analysis Jakub
-> shared in commit 759ab1edb56c ("net: store netdevs in an xarray").
-> Xarray only starts being worthwhile at around 1k tables and most
-> deployments never reach this number.
->
-> 2. It requires adding per-netns xarray for a functionality that is
-> unlikely to be used today.
->
+Changes in v6:
+- Prevent interrupt storm if runtime suspend fails to set the device in
+  standby mode by not setting suspended flag to true when failing to
+  activate standby mode and by ensuring PM counter is not leaked in
+  mma8452_interrupt().
+- Don't acquire data->lock in mma8452_read_raw().
+- Add fix for use-after-free in mma8452_probe() error path when CONFIG_PM
+  is enabled.
+- Fix (brown paper bug) build error introduced in v5.
+- Renamed label in mma8452_interrupt().
+- Add patch to return -ENODATA when missing device model information.
+- Link to v5: https://patch.msgid.link/20260819-mma8452-open-drain-v5-0-d8aa590d7c36@geanix.com
 
-Agreed, bounding the auto-allocation is the simpler fix here.
+Changes in v5:
+- Squashed dev_err_probe() call to one line.
+- Fixed typo in patch 2 title.
+- Added synchronization between runtime suspend and interrupt handler.
+- Link to v4: https://patch.msgid.link/20260812-mma8452-open-drain-v4-0-bfca15d02b59@geanix.com
 
-Thanks,
-Zihan
+Changes in v4:
+- Fixed interrupt handler to check runtime PM status before trying to
+  access the chip.
+- Split open-drain support and interrupt sharing into separate patches.
+- Added new patch to reuse existing struct device * through mma8452_probe()
+  function.
+- Print warning message when irq type is not set by firmware.
+- Link to v3: https://patch.msgid.link/20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com
 
-> [1]
-> diff --git a/net/ipv4/fib_rules.c b/net/ipv4/fib_rules.c
-> index 4edb0dca7be8..2e8629df34bb 100644
-> --- a/net/ipv4/fib_rules.c
-> +++ b/net/ipv4/fib_rules.c
-> @@ -214,6 +214,8 @@ INDIRECT_CALLABLE_SCOPE int fib4_rule_match(struct fi=
-b_rule *rule,
->         return 1;
->  }
->
-> +#define FIB_MAX_AUTO_TABLE_ID  4096
-> +
->  static struct fib_table *fib_empty_table(struct net *net)
->  {
->         u32 id =3D 1;
-> @@ -222,7 +224,7 @@ static struct fib_table *fib_empty_table(struct net *=
-net)
->                 if (!fib_get_table(net, id))
->                         return fib_new_table(net, id);
->
-> -               if (id++ =3D=3D RT_TABLE_MAX)
-> +               if (id++ =3D=3D FIB_MAX_AUTO_TABLE_ID)
->                         break;
->         }
->         return NULL;
->
+Changes in v3:
+- Reordered patches, swapping #2 and #3.
+- Always add IRQF_SHARED flag.
+- New patch to change it so IQRF_TRIGGER_LOW flag is only added when no
+  trigger type is set by firmware.
+- Link to v2: https://patch.msgid.link/20260715-mma8452-open-drain-v2-0-95be9f5f4795@geanix.com
+
+Changes in v2:
+- Commit message of patch 2 updated.
+- Operator precedence bug fixed in flags argument to
+  request_threaded_irq().
+- Always check return value of mma8452_set_interrupt_pin_mode(), and just
+  check for non-zero value.
+- Added new patch with optimization of struct mma8452_data ordering.
+- Link to v1: https://patch.msgid.link/20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Martin Kepplinger <martink@posteo.de>
+To: Sean Nyekjaer <sean@geanix.com>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
+To: Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Esben Haabendal (8):
+      dt-bindings: iio: accel: mma8452: Add drive-open-drain
+      iio: accel: mma8452: Optimize struct mma8452_data member orders
+      iio: accel: mma8452: Only apply trigger type when not set by firmware
+      iio: accel: mma8452: Support interrupt sharing
+      iio: accel: mma8452: Allow open drain interrupt pin configuration
+      iio: accel: mma8452: Reuse existing dev pointer in mma8452_probe()
+      iio: accel: mma8452: Fix use-after-free bug in error error path
+      iio: accel: mma8452: Use proper error code when missing device model
+
+ .../devicetree/bindings/iio/accel/fsl,mma8452.yaml |   6 ++
+ drivers/iio/accel/mma8452.c                        | 115 ++++++++++++++++-----
+ 2 files changed, 94 insertions(+), 27 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20250401-mma8452-open-drain-81577c41375c
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
+
