@@ -1,130 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152D8348445;
-	Mon, 31 Aug 2026 01:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 10883279DB6;
+	Mon, 31 Aug 2026 01:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788139117; cv=none; b=bLezbjdKExgUyY+8U6LoIjyuUKDC5XHDPBSD/FlEL+AxzKERT/M3rg/4rHMPL8096yJ2IwDVgo1CiQK2bHzJ6PX2VAg+U1F9bJn4BwqRuuoWRVcZFnQlynl5LfP2wGWWF0xmffg8bYk615rFu5VeIWedjWijKoxPLIrciPurFzI=
+	t=1788139542; cv=none; b=ge4y5hQbLIkUwGPVhlxCnkmlBHhjYSWz4THomET1Sq9CUgq2owMsy0VIXBFiaKAoJag8/Ti9iqJc1gn4l1V/yjWF00zBFDJlG/geEUYOMrm9myAAwS5XqLFtlfL8w85XdMO5nGI9ANcZVScIZnYJmoXtMeHDkHUxF/t81MZ711I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788139117; c=relaxed/simple;
-	bh=R62aGQzTkbrTMbK+YcFb8dFuc0V81YdQHYu0jteuwFE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aFHJQPf/ynSYCogg51uPsk5dMyoF3JLMupeWLIdHDu95lhJbZCvyzt9YgFhXYEQn993/jeuC7ftawc3HjrBro8PFF7fQHSAXxFq0h6jGxeOXmGeWn6pEvH5eZ/o9OI/HLLz35XQXCSf0tH8xesFMI/6JMGpRq+co7ifKNSLpc2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LT5V5Y8l; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LT5V5Y8l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23231F000E9;
-	Mon, 31 Aug 2026 01:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788139115;
-	bh=3ErGGCNtqbH/4uyNbF/FHiXjcbOI5guPjt9Iu9717vY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LT5V5Y8lMaYuF8qUe3ksESx6pHvo6tS8TF8wZL14TQMa12XE6+66g8YLpDkrwhQfU
-	 FmJPokOE/Kd/fQUXO6vbjQk4Bkvi4CEmPDFtaDfKfYelW4ShKdrMLWjje9ie80xBBI
-	 Zxmmtt56l9BnZuRNntE1rUWlhQH/p009A8dhbad+35sp8wiYzuymXRaKFJ4aqqtacv
-	 ylkFEUWlczOt4UfozvBUtqfRcx5xTlAV6ojCUAvUbWd9mbudPW5/uYitGw8XXcJlkx
-	 toRUHVQ0jjAk7tN3ToElF+uIghLfJrWcma/5pXsXD4IC6uC4xIOisYVuwQZtRH0TGG
-	 3RHxofQj0lZYw==
-Date: Mon, 31 Aug 2026 02:18:29 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>
-Subject: Re: [PATCH] iio: inv_sensors: fix estimated value larger than
- interrupt timestamp
-Message-ID: <20260831021829.5240cba4@jic23-huawei>
-In-Reply-To: <BE1P281MB142668824B5EB8067F8E1034CEAF2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
-References: <20260824-iio-common-inv-sensors-fix-estimated-use-v1-1-6e93506e7e93@tdk.com>
-	<aoxkI3SV4IGumncy@ashevche-desk.local>
-	<BE1P281MB142668824B5EB8067F8E1034CEAF2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788139542; c=relaxed/simple;
+	bh=XaqnCwdhgDmYD/S2No8eMMChvlbE82HANc0N3Le4skM=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=j0GB8+x3yefnvUw1Rp/4iL//ILKL7efInqe8SFhC9sJnsbrA6losZ//zwCqJ4qPo98HQLX2AC2bSdUeZOXvlHXzzqepsTmxFgZ/JRqVlKRDA4nr9iGbZ6yEsdZ9Ppg/i5C3E6KKyAbmxhMOvhyNMp/p/8vNrgD52hgT2bjbePGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxvtIM2JRqZLoGAA--.18948S3;
+	Mon, 31 Aug 2026 09:25:32 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJAxX88K2JRq8+4XAA--.50431S2;
+	Mon, 31 Aug 2026 09:25:30 +0800 (CST)
+Subject: Re: [PATCH] LoongArch: KVM: Validate MSI data before routing it to
+ EIOINTC
+To: Zeng Chi <zeng_chi911@163.com>, zhaotianrui@loongson.cn,
+ chenhuacai@kernel.org
+Cc: yury.norov@gmail.com, kvm@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, zengchi@kylinos.cn, stable@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260828093604.56622-1-zeng_chi911@163.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <4acbeb32-ea18-19c6-5231-636604ab7e86@loongson.cn>
+Date: Mon, 31 Aug 2026 09:25:15 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260828093604.56622-1-zeng_chi911@163.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxX88K2JRq8+4XAA--.50431S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7tr1UJr1rGrWfGFW7Aw4rXrc_yoW8Zr1fpF
+	W5uw4DtF1rGr17JrWkW34Ut3y5Aa1fXFsagF1a9a45Crn0yF15CF18ZFsrW3Z0k3y5Kr40
+	qFnIga4Yva4UJacCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWU
+	AwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
+	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
+	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
+	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v2
+	6r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jepB-UUUUU=
 
-On Tue, 25 Aug 2026 13:31:38 +0000
-Jean-Baptiste Maneyrol <Jean-Baptiste.Maneyrol@tdk.com> wrote:
 
-> >
-> >
-> >________________________________________
-> >From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> >Sent: Monday, August 24, 2026 17:32
-> >To: Jean-Baptiste Maneyrol
-> >Cc: Jonathan Cameron; David Lechner; Nuno S=C3=A1; Andy Shevchenko; Jona=
-than Cameron; linux-iio@vger.kernel.org; linux-kernel@vger.kernel.org; stab=
-le@vger.kernel.org
-> >Subject: Re: [PATCH] iio: inv_sensors: fix estimated value larger than i=
-nterrupt timestamp
-> >
-> >On Mon, Aug 24, 2026 at 05:=E2=80=8A16:=E2=80=8A58PM +0200, Jean-Baptist=
-e Maneyrol via B4 Relay wrote: > When interrupt timestamp interval is not v=
-alid, we use an estimated value > that can in rare case be bigger than the =
-interrupt timestamp. This is >
-> >ZjQcmQRYFpfptBannerStart
-> >This Message Is From an External Sender
-> >This message came from outside your organization.
-> >
-> >ZjQcmQRYFpfptBannerEnd
-> >
-> >On Mon, Aug 24, 2026 at 05:16:58PM +0200, Jean-Baptiste Maneyrol via B4 =
-Relay wrote:
-> > =20
-> >> When interrupt timestamp interval is not valid, we use an estimated va=
-lue
-> >> that can in rare case be bigger than the interrupt timestamp. This is
-> >> obviously wrong, so better use interrupt timestamp in this case. =20
-> >
-> >...
-> > =20
-> >> -             ts->period =3D ts->mult * ts->chip_period.val;
-> >> +             ts->period =3D min(ts->mult * ts->chip_period.val, perio=
-d); =20
-> >
-> >It's u32 * u32, how is this guaranteed to be always under the u32 result=
-? =20
->=20
-> Hello Andy,
->=20
-> (ts->mult * ts->chip_period.val) is an estimation of the sampling period =
-of
-> the chip in ns. It is limited by maximum setting 8kHz (125000) and minimum
-> setting 1.5625Hz (640000000), with a 2% margin. Meaning maximum value is
-> 652800000, which is below the 32 bits limit.
->=20
-> ts->chip_period.val is an estimation of the internal frequency which is 8=
-kHz.
-> It's value will always be around 125000, with a 2% margin. Maximum value
-> being 127500.
->=20
-> ts->mult will change from 8kHz setting (1) to 1.5625Hz setting (5120).
->=20
-> Thanks,
-> JB
-Seems fine to me so applied to the fixes-togreg branch of iio.git
 
-Thanks
-
-Jonathan
-
->=20
-> >
-> >--
-> >With Best Regards,
-> >Andy Shevchenko
-> >
-> >
-> >
->  =20
+On 2026/8/28 下午5:36, Zeng Chi wrote:
+> From: Zeng Chi <zengchi@kylinos.cn>
+> 
+> pch_msi_set_irq() passes e->msi.data straight into eiointc_set_irq() as
+> the irq number.  The MSI data comes from userspace, either via a
+> KVM_IRQ_ROUTING_MSI entry set with KVM_SET_GSI_ROUTING (used by irqfd
+> and KVM_IRQ_LINE) or directly via KVM_SIGNAL_MSI, and is never checked
+> against EIOINTC_IRQS.
+> 
+> eiointc_set_irq() uses the value with __set_bit()/__clear_bit() on the
+> 256-bit isr bitmap, eiointc_update_irq() then indexes sw_coremap[] and
+> the per-cpu coreisr/sw_coreisr bitmaps with it.  A data value >= 256
+> therefore reads and writes memory past the end of those arrays, i.e.
+> any process holding a VM fd can corrupt kernel memory beyond the
+> loongarch_eiointc allocation.
+> 
+> Reject MSI data that doesn't fit in the EIOINTC irq space.  The DMSINTC
+> path is unaffected as it decodes the vector from the address and masks
+> it.
+> 
+> Fixes: 1928254c5ccb ("LoongArch: KVM: Add irqfd support")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260531140921.1B1181F00893@smtp.kernel.org/
+> Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
+> ---
+>   arch/loongarch/kvm/intc/pch_pic.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
+> index e7b77705c516..81fb534ce8dd 100644
+> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> @@ -78,6 +78,9 @@ int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int
+>   		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
+>   	}
+>   
+> +	if (e->msi.data >= EIOINTC_IRQS)
+> +		return -EINVAL;
+> +
+>   	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
+>   
+>   	return 0;
+> 
+Reviewed-by: Bibo Mao <maobibo@loongson.cn>
 
