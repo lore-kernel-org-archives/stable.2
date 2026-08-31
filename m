@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAC7559C95;
-	Mon, 31 Aug 2026 13:47:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765B94ACC84;
+	Mon, 31 Aug 2026 13:47:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184044; cv=none; b=OFvuMq+FEEQ+KP8855tuxYZufnz5d0unjdrWLAcgKEFIi3XKNK1YObEVpC3KJPpC1HUHwiQGsmjosotv86Nm6cOP9IzeuAFm+sr5jUonY8nEA0Rp9oOlOp2XSB/ltuRZhhkQAJrb6TsRUodHPpPCLENlF4xz8W0fSLpqYjDDw+0=
+	t=1788184046; cv=none; b=A/JmKCMvIajPLnQ9cKdpz+SU5hUn8arS1SmV0T6d1IwbcZpRNcMELp8Dotj8zQAwroTpfaUxpAbbcYXPTa+yTApab/+3sMJLdnBQaTLz1PkByJ5UgKxJj5BUs01p6QOYDJdT4ZzKGRjntSSwl6iAgTnxu5TrC43+rA+OHMz3gHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184044; c=relaxed/simple;
-	bh=i93HCWGA/JFobA3bYW4rbZe4fM5yYwVTI9PEUaRiFoY=;
+	s=arc-20240116; t=1788184046; c=relaxed/simple;
+	bh=0qDKHy4Dw1eEbdQk9vQ1hWXocwQ+Nhx6H+pawVgeODY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cA+9eFwMAsUmBMfscSdg4zeMQrMjhvqjvoo7aswAiwshpDdq+pTbKqoTJYcXdhiPRGA7X4fO7D559VQmp3NxMwgw3kz/OskOHcUEKytTKqv4sVTH/KikoHcBuFYaF820341etZMkZwsaWQ8ZLOLscymm+Lf0oEk7pX1ThJIGbEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efw6zRWI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ftA8NbLxVteB6ZE8terjgmhZi/S+RR9ZxoxJ1W7Su2b14qfKzRL12EOo8jj3cqMhjxdoh3KCx0reH4oPKI49SGUZ8mHWAb6g1J0iTHZOcXpokrfK+597TW0B4yuUQa6g85gDl7H3tJsiwU/ob11NqP2cUXgTDatMchrZT8fpp5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WceWIDYN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efw6zRWI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860761F00ACF;
-	Mon, 31 Aug 2026 13:47:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WceWIDYN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5908A1F00ADB;
+	Mon, 31 Aug 2026 13:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184040;
-	bh=Hdu4+GtK41jXaYYgIInfUbCFakWKJWd6HnjzDk02YUM=;
+	s=k20260515; t=1788184042;
+	bh=RH+H10X8z3esxQO/GSg8KbuJFyaYnpZsgvc6XfrgJ2w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=efw6zRWIBYpVS9PZZJoyme5DDb2RennU45+fFdCXcwKsxPkfhIIVOti3f/esxFviO
-	 JhxG1K/yYNRzP8WeYK1zid/lAnKt2qO8k5mv0H97x5DUIA64AXhpJ2AOqc1WNexxsC
-	 AbhtAx2mY2U/HH83NyV8KoRhxtOwWe5jny5oUea5KsJGrjeTmcAb7WogUfnGpGZEz/
-	 wo3FKGnDGTuPlle/F1OMM3/45LlAUO8yakKnGsQQZpB4weA6C9m8JplY6XdRlHksnc
-	 DD2utPnL24wqMK/RNE6LoX7K5tj2OH3vQOhWF2UfHYVVBMq33P0sF18tD8FRFQJlUS
-	 f+MwnfbnlRDGw==
+	b=WceWIDYNfL6goppWx47NC/A7viNPq8iy11lz+lrsHVLpcAx4LQhK1n2TF8W8GL4bY
+	 hVJtGguk12FHdpuTxO4UQWeNgbeaN70mxiJCJgi6/spI7BZhdXk0zLT1wLpcHP/CB0
+	 5pTGjrLQ1cUQX4VG/egb1hls2GeqTJUMOOq81QvXCHr2pKVjAnQlgublhnzgUjLiM3
+	 WmHFKnsh06uVUQ9pt+gYfY3Eh0vUpnqf4/6/xkCt9cYgpbPyzyn4ihZfDVltOj3meY
+	 dNUxbemrPOX/VkF9l+IcSAYZZ/jMbdegcxevYuhW/Loku/HCxiV0DUCPkNygq+M8ei
+	 Ok+U3NT6mCnSQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Tzung-Bi Shih <tzungbi@kernel.org>,
-	Gwendal Grignou <gwendal@chromium.org>,
+Cc: Ken Lin <kenlin5@quanta.corp-partner.google.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	hverkuil@kernel.org,
+	mchehab@kernel.org,
 	bleung@chromium.org,
+	linux-media@vger.kernel.org,
 	chrome-platform@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] platform/chrome: Resolve kb_wake_angle visibility race
-Date: Mon, 31 Aug 2026 09:28:04 -0400
-Message-ID: <20260831133314.4125787-456-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] media: platform: cros-ec: Add Kulnex and Moxoe to the match table
+Date: Mon, 31 Aug 2026 09:28:05 -0400
+Message-ID: <20260831133314.4125787-457-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,483 +56,358 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tzung-Bi Shih <tzungbi@kernel.org>
+From: Ken Lin <kenlin5@quanta.corp-partner.google.com>
 
-[ Upstream commit c40f5f9927b5bf6062daa1e293ae32d83afc963e ]
+[ Upstream commit e024767f90f9f50bfcce4b20bb74237ad72450f3 ]
 
-A race condition exists between the probe of cros-ec-sysfs and
-cros-ec-sensorhub.
+The Google Kulnex and Moxoe device uses the same approach as Google Brask
+which enables the HDMI CEC via the cros-ec-cec driver.
 
-The `kb_wake_angle` attribute should only be visible if the sensor hub
-detects two or more accelerometers.  If cros_ec_sysfs_probe() runs
-before cros_ec_sensorhub_register() completes sensor enumeration, the
-sysfs attributes are created while `has_kb_wake_angle` is still false,
-hiding `kb_wake_angle` incorrectly.
-
-Store the created attribute group pointer in `ec_dev->group`.  When
-the sensor hub completes sensor enumeration, it checks for this group
-and calls sysfs_update_group() to notify the sysfs core to re-evaluate
-attribute visibility.  This ensures the `kb_wake_angle` attribute
-visibility is correctly updated regardless of the driver probe order.
-
-Co-developed-by: Gwendal Grignou <gwendal@chromium.org>
-Signed-off-by: Gwendal Grignou <gwendal@chromium.org>
-Link: https://lore.kernel.org/r/20260407102615.1605317-1-tzungbi@kernel.org
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Signed-off-by: Ken Lin <kenlin5@quanta.corp-partner.google.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `platform/chrome: Resolve kb_wake_angle
-visibility race`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
+### Step 1.1: Parse the Subject Line
+**Record:** `[media: platform: cros-ec]` `[Add]` — Add Kulnex and Moxoe
+Google Chromebook board names to the CEC DMI match table so HDMI CEC can
+be enabled on those platforms.
+
+### Step 1.2: Parse All Commit Message Tags
+**Record:**
+- **Fixes:** none
+- **Reported-by:** none
+- **Tested-by:** none
+- **Reviewed-by:** none
+- **Acked-by:** none
+- **Link:** none
+- **Cc: stable:** none (expected; not a negative signal)
+- **Signed-off-by:** Ken Lin `<kenlin5@quanta.corp-partner.google.com>`
+  (author)
+- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>`
+  (media/CEC maintainer)
+
+No syzbot, bugzilla, or user crash reports. Maintainer sign-off is a
+positive quality signal.
+
+### Step 1.3: Analyze Commit Body
+**Record:**
+- **Bug description:** Google Kulnex and Moxoe Chromebooks use the same
+  HDMI CEC-over-ChromeOS-EC approach as Brask, but are missing from
+  `cec_dmi_match_table[]`.
+- **Symptom/failure mode:** `cros-ec-cec` probe fails on these boards;
+  HDMI CEC is unavailable. No crash is described.
+- **Version information:** none in the commit message.
+- **Root cause:** Driver uses an explicit DMI whitelist per Chromebook
+  model for HDMI DRM device and connector-port mapping. New boards were
+  never added.
+
+### Step 1.4: Detect Hidden Bug Fixes
+**Record:** Not a hidden crash/UAF/race fix. This is explicit hardware
+enablement: adding board identification entries so an existing driver
+can probe on two new platforms. Functionally equivalent to adding
+PCI/USB IDs or a DMI quirk entry.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 2: Diff Analysis
 
-### Step 1.1: Subject line
-**Record:** `[platform/chrome]` `[Resolve]` — fix a race affecting
-`kb_wake_angle` sysfs attribute visibility between `cros-ec-sysfs` and
-`cros-ec-sensorhub` probe paths.
-
-### Step 1.2: Commit message tags
+### Step 2.1: Inventory the Changes
 **Record:**
-| Tag | Value |
-|-----|-------|
-| Co-developed-by | Gwendal Grignou \<gwendal@chromium.org\> |
-| Signed-off-by | Gwendal Grignou, Tzung-Bi Shih \<tzungbi@kernel.org\>
-|
-| Link |
-https://lore.kernel.org/r/20260407102615.1605317-1-tzungbi@kernel.org |
+- **Files:** `drivers/media/cec/platform/cros-ec/cros-ec-cec.c` (+4
+  lines)
+- **Functions modified:** none directly; only `cec_dmi_match_table[]`
+  data
+- **Scope:** single-file, surgical, 4-line addition
 
-**Notable absences (expected, not negative):** No `Fixes:`, no `Cc:
-stable@vger.kernel.org`, no `Reported-by:`, no `Reviewed-by:`, no
-`Tested-by:`.
-
-**Notable patterns:** Co-developed by a Chromium engineer; cover letter
-says *"This is an old patch and we still need it. Revive the patch."*
-with v3 dating to August 2021.
-
-### Step 1.3: Body analysis
+### Step 2.2: Code Flow Change
 **Record:**
-- **Bug:** Race between `cros_ec_sysfs_probe()` and
-  `cros_ec_sensorhub_register()` during sensor enumeration.
-- **Symptom:** `/sys/class/chromeos/<ec>/kb_wake_angle` is permanently
-  hidden when sysfs is created while `has_kb_wake_angle` is still
-  `false`, even on hardware with ≥2 accelerometers.
-- **Root cause:** `cros_ec_ctrl_visible()` is evaluated once at
-  `sysfs_create_group()` time; later setting `has_kb_wake_angle = true`
-  does not re-evaluate visibility without `sysfs_update_group()`.
-- **Fix:** Store the attribute group pointer in `ec_dev->group`; call
-  `sysfs_update_group()` after sensor enumeration sets
-  `has_kb_wake_angle`.
+- **Hunk (DMI table):** Before — Kulnex/Moxoe unmatched →
+  `cros_ec_cec_find_hdmi_dev()` warns and returns `-ENODEV`. After —
+  boards match like Brask/Moxie, DRM HDMI device (`0000:00:02.0`) and
+  `port_b_conns` mapping are selected, probe can succeed.
 
-### Step 1.4: Hidden bug fix detection
-**Record:** Yes — despite "Resolve" rather than "fix", this is a
-synchronization/race bug fix disguised as a visibility correction.
-Permanent functional regression on affected Chromebooks.
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Change inventory
+### Step 2.3: Bug Mechanism
 **Record:**
-| File | Changes | Functions |
-|------|---------|-----------|
-| `cros_ec_sensorhub.c` | +4 lines | `cros_ec_sensorhub_register()` |
-| `cros_ec_sysfs.c` | +3/-2 lines | `cros_ec_sysfs_probe()`,
-`cros_ec_sysfs_remove()` |
-| `cros_ec_proto.h` | +2 lines | `struct cros_ec_dev` |
+- **Category:** hardware identification / platform quirk (DMI-based
+  board whitelist)
+- **Mechanism:** Without a table entry, probe path in
+  `cros_ec_cec_probe()` exits early:
 
-**Scope:** 3 files, ~10 insertions / 3 deletions — single-subsystem,
-surgical fix.
-
-### Step 2.2: Code flow per hunk
-
-**Hunk 1 — `cros_ec_sensorhub.c`:**
-- **Before:** Set `ec->has_kb_wake_angle = true` when ≥2 accelerometers
-  found; sysfs never notified.
-- **After:** Same flag set, plus if `ec->group` exists, call
-  `sysfs_update_group()` to re-run `is_visible()`.
-
-**Hunk 2 — `cros_ec_sysfs.c` probe:**
-- **Before:** `sysfs_create_group(..., &cros_ec_attr_group)` directly.
-- **After:** Store `ec_dev->group = &cros_ec_attr_group` first, then
-  create using stored pointer.
-
-**Hunk 3 — `cros_ec_sysfs.c` remove:**
-- **Before:** Remove using static `&cros_ec_attr_group`.
-- **After:** Remove using `ec_dev->group` (consistent with stored
-  pointer).
-
-**Hunk 4 — `cros_ec_proto.h`:**
-- **Before:** No `group` field in `struct cros_ec_dev`.
-- **After:** Add `const struct attribute_group *group`.
-
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Race condition / sysfs visibility lifecycle
-bug.
-
-**Mechanism:** `cros_ec_ctrl_visible()` gates `kb_wake_angle` on
-`ec->has_kb_wake_angle`:
-
-```377:384:drivers/platform/chrome/cros_ec_sysfs.c
-static umode_t cros_ec_ctrl_visible(struct kobject *kobj,
-                                    struct attribute *a, int n)
-{
-        struct device *dev = kobj_to_dev(kobj);
-        struct cros_ec_dev *ec = to_cros_ec_dev(dev);
-
-        if (a == &dev_attr_kb_wake_angle.attr && !ec->has_kb_wake_angle)
-                return 0;
+```501:503:drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+        hdmi_dev = cros_ec_cec_find_hdmi_dev(&pdev->dev, &conns);
+        if (IS_ERR(hdmi_dev))
+                return PTR_ERR(hdmi_dev);
 ```
 
-`has_kb_wake_angle` is set later in sensorhub enumeration:
+And the lookup function explicitly documents that hardware must be added
+to the table:
 
-```125:126:drivers/platform/chrome/cros_ec_sensorhub.c
-        if (sensor_type[MOTIONSENSE_TYPE_ACCEL] >= 2)
-                ec->has_kb_wake_angle = true;
+```362:365:drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+        /* Hardware support must be added in the cec_dmi_match_table */
+        dev_warn(dev, "CEC notifier not configured for this
+hardware\n");
+
+        return ERR_PTR(-ENODEV);
 ```
 
-Kernel documentation for `sysfs_update_group()` explicitly states it
-exists *"after making a change that affects group visibility"* —
-confirming the missing step in current code.
-
-### Step 2.4: Fix quality
-**Record:**
-- **Obviously correct:** Yes — standard sysfs pattern; `ec` is
-  `kzalloc()`'d so `group` starts NULL; `if (ec->group && ...)` guards
-  the update path safely.
-- **Minimal:** Yes — no unrelated changes.
-- **Regression risk:** Very low — only affects attribute visibility
-  timing; failure path logs `dev_warn` and leaves sysfs in prior state.
+### Step 2.4: Fix Quality Assessment
+**Record:** Obviously correct — copies the proven Brask/Moxie pattern
+(`port_b_conns`, same PCI DRM device name). Minimal diff. Regression
+risk is very low: only affects DMI matches for "Google"/"Kulnex" and
+"Google"/"Moxoe".
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** Shallow repository (`rev-parse --is-shallow-repository` →
-`true`). `git blame` attributes all relevant lines to `5d324e5159d9e`
-(merge base). Cannot determine exact introduction commit from local
-history. Buggy `has_kb_wake_angle` + `is_visible` logic **is present**
-in current tree.
+### Step 3.1: Blame the Changed Lines
+**Record:** The DMI table (lines 304–337) exists in this tree ending at
+Moxie; Kulnex/Moxoe are absent. Git history in this checkout is heavily
+rewritten/squashed (file history is unreliable), but the driver and full
+match table are present since at least `ac3fd01e4c1ef` (Linux 6.18-rc7).
+The "missing entry" condition is present in 6.18.43.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+### Step 3.2: Follow Fixes: Tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related file history
-**Record:** `git log --oneline -30` on modified files returns only the
-shallow merge base — insufficient local history. External evidence
-(patch v3 from August 2021) indicates the race has existed since
-conditional visibility was introduced years ago.
+### Step 3.3: File History for Related Changes
+**Record:** The driver has accumulated many Google board entries (Fizz,
+Brask, Moli, …, Moxie). This commit continues that pattern. Standalone
+one-commit change; not part of a multi-patch series.
 
-### Step 3.4: Author context
-**Record:** Tzung-Bi Shih is an active `platform/chrome` maintainer. Co-
-developer Gwendal Grignou is from Chromium. Patch cover letter
-explicitly states production need.
+### Step 3.4: Author's Other Commits
+**Record:** Ken Lin has no other commits visible in this checkout. Hans
+Verkuil is the media/CEC maintainer and signed off. No related author
+series found here.
 
-### Step 3.5: Dependencies
-**Record:** Standalone — no series dependencies, no prerequisite commits
-referenced. Applies directly to existing `has_kb_wake_angle` /
-`is_visible` infrastructure already in this tree.
+### Step 3.5: Dependent/Prerequisite Commits
+**Record:** No dependencies. Driver, `port_b_conns`, DMI/PCI
+infrastructure, and `CONFIG_CEC_CROS_EC` all exist in this tree. Applies
+standalone.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original discussion
-**Record:** Thread at https://yhbt.net/lore/chrome-
-platform/20260407102615.1605317-1-tzungbi@kernel.org/T/ (v4, April
-2026). Patch went through v1→v4 revisions. Queued in linux-next as
-`c40f5f9927b5` (May 2026). Merged to mainline via `chrome-platform-v7.2`
-pull. `b4 dig -c HEAD` could not match this commit (not in local tree).
-No explicit stable nomination found in available thread content.
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig -c 4b3f9bff6067a` failed — commit hash not in local
+repo. Lore search blocked (403/bot protection). **UNVERIFIED:** original
+thread content, reviewer stable nominations, series revisions.
 
 ### Step 4.2: Reviewers
-**Record:** Could not retrieve full recipient list (lore
-blocked/redirected). Signed-off-by from subsystem maintainer Tzung-Bi
-Shih and Chromium co-developer.
+**Record:** **UNVERIFIED** via `b4 dig -w`. Hans Verkuil SOB confirms
+maintainer involvement.
 
-### Step 4.3: Bug report
-**Record:** No external bug tracker or syzbot report. Production need
-documented by Chromium in cover letter (*"old patch... we still need
-it"*).
+### Step 4.3: Bug Report
+**Record:** N/A — no Reported-by or Link tags.
 
-### Step 4.4: Series context
-**Record:** Standalone 1-patch fix. v3 predecessor from 2021 at https://
-lore.kernel.org/all/20210804213139.4139492-2-gwendal@chromium.org/
+### Step 4.4: Related Patches/Series
+**Record:** Same pattern as prior Brask/Moxie/Kinox additions to this
+table. Standalone.
 
-### Step 4.5: Stable list history
-**Record:** No stable-list discussion found in accessible sources.
+### Step 4.5: Stable Mailing List History
+**Record:** **UNVERIFIED** — could not search lore stable archive.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** `cros_ec_sensorhub_register()`, `cros_ec_sysfs_probe()`,
-`cros_ec_ctrl_visible()`, `ec_device_probe()` (MFD parent).
+### Step 5.1: Key Functions
+**Record:** `cec_dmi_match_table[]` (data),
+`cros_ec_cec_find_hdmi_dev()`, called from `cros_ec_cec_probe()`.
 
-### Step 5.2: Callers / probe ordering
-**Record:** In `drivers/mfd/cros_ec_dev.c`:
-- Line 241–248: `cros-ec-sensorhub` MFD child registered **first** (when
-  sensors present).
-- Line 333–338: `cros-ec-sysfs` registered **last** among platform
-  cells.
+### Step 5.2: Trace Callers
+**Record:** `cros_ec_cec_probe()` is the platform driver probe path
+during boot/module load on Chromebooks with `CONFIG_CEC_CROS_EC` and
+`CONFIG_CROS_EC`. Affects only matching Google hardware.
 
-However, sensorhub probe calls `cros_ec_sensorhub_register()` which
-loops over sensors with up to 50 EBUSY retries at 5–6 ms each
-(`CROS_EC_CMD_INFO_RETRIES`). Meanwhile, numerous other MFD children are
-registered and probed between sensorhub registration and sysfs
-registration. **Sysfs probe can run while sensorhub_register() is still
-enumerating sensors** — confirmed race window.
+### Step 5.3: Trace Callees
+**Record:** `dmi_match()`, `bus_find_device_by_name()` on PCI bus,
+connector mapping via `port_b_conns`.
 
-### Step 5.3: Callees
-**Record:** `sysfs_create_group()`, `sysfs_update_group()`,
-`cros_ec_cmd_xfer_status()` — all standard, well-understood APIs.
+### Step 5.4: Call Chain / Reachability
+**Record:** Boot-time platform probe on ChromeOS EC-equipped Google
+devices. Not a syscall path. Userspace impact is missing `/dev/cec*` and
+non-functional HDMI CEC on Kulnex/Moxoe.
 
-### Step 5.4: Reachability
-**Record:** Triggered on every boot of Chromebook/ChromeOS hardware with
-`CONFIG_CROS_EC_SENSORHUB` and ≥2 accelerometers. Userspace reads/writes
-`/sys/class/chromeos/*/kb_wake_angle` (documented ABI since kernel
-4.17). Not a syscall path, but standard sysfs interface for ChromeOS
-power/tablet-mode configuration.
-
-### Step 5.5: Similar patterns
-**Record:** `sysfs_update_group()` used elsewhere for dynamic visibility
-(e.g., `drivers/usb/typec/class.c`, `fs/btrfs/sysfs.c`). Same
-established pattern.
+### Step 5.5: Similar Patterns
+**Record:** Fifteen other Google boards already use the same table
+pattern; Brask and Moxie use identical `port_b_conns` mapping, matching
+the commit message claim.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.43)
+## Phase 6: Cross-Referencing Against Local Tree (6.18.43)
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree lacks `ec_dev->group` field and
-`sysfs_update_group()` call. Full buggy race infrastructure is present
-(`has_kb_wake_angle`, `cros_ec_ctrl_visible`, sensorhub enumeration).
+### Step 6.1: Does the Buggy Code Exist?
+**Record:** **YES.** Local tree is `6.18.43`
+(`v6.18.43-1-gc7f0dac02d232`). `drivers/media/cec/platform/cros-ec/cros-
+ec-cec.c` exists (602 lines). Table ends at Moxie; Kulnex/Moxoe are
+missing. Driver has been present since 6.18-rc7 in this tree.
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected** — no conflicting refactors in these
-files; patch matches current code structure exactly.
+### Step 6.2: Backport Complications
+**Record:** **Clean apply expected.** Verified with `git apply --check`
+against current tree — applies without conflicts.
 
-### Step 6.3: Related fixes already present?
-**Record:** **No** — `grep sysfs_update_group drivers/platform/chrome/`
-returns no matches. Fix not yet applied.
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/platform/chrome/` — **PERIPHERAL** (ChromeOS EC
-platform driver). Important for Chromebook users; not core kernel.
-
-### Step 7.2: Activity
-**Record:** Actively maintained subsystem with ongoing chrome-platform
-development.
+### Step 6.3: Related Fixes Already Present?
+**Record:** No — `grep` finds no Kulnex or Moxoe anywhere in the tree.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 8.1: Who is affected
-**Record:** Chromebook/convertible devices with ChromeOS EC,
-`CONFIG_CROS_EC_SENSORHUB`, and ≥2 accelerometers. Config- and platform-
-specific, but affects a widely deployed hardware class.
+### Step 7.1: Subsystem and Criticality
+**Record:** `drivers/media/cec/` — media/CEC platform driver.
+**IMPORTANT** for affected Chromebook users, **PERIPHERAL** globally
+(CEC on two specific Google boards).
 
-### Step 8.2: Trigger conditions
-**Record:** Probe-order/timing race during boot — sysfs probes before
-sensorhub finishes enumerating accelerometers. Plausible on every boot
-when timing aligns; sensorhub EC communication can take hundreds of
-milliseconds with EBUSY retries. Not userspace-triggerable; unprivileged
-users cannot force it, but they suffer the consequence (missing sysfs
-node).
+### Step 7.2: Subsystem Activity
+**Record:** CEC subsystem is active in this tree (recent fixes for seco,
+rc race, debugfs leak). The cros-ec driver itself is mature with a
+growing DMI whitelist.
 
-### Step 8.3: Failure mode severity
-**Record:** `kb_wake_angle` sysfs attribute **permanently hidden for
-that boot** (sysfs does not re-evaluate `is_visible` without update).
-Userspace cannot read/write keyboard wake lid angle. **Severity:
-MEDIUM** — functional regression on documented ABI; no crash,
-corruption, deadlock, or security impact.
+---
 
-### Step 8.4: Risk-benefit
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users of Google Kulnex and Moxoe Chromebooks with
+`CONFIG_CEC_CROS_EC=y/m`. Config- and platform-specific; not universal.
+
+### Step 8.2: Trigger Conditions
+**Record:** Booting one of these two board models with the cros-ec-cec
+driver enabled. Deterministic on every boot. Not a security-relevant or
+unprivileged-triggered path.
+
+### Step 8.3: Failure Mode Severity
+**Record:** HDMI CEC non-functional; driver probe returns `-ENODEV` with
+a warning. **Severity: LOW** — feature absence, not crash, corruption,
+deadlock, or security issue.
+
+### Step 8.4: Risk-Benefit Ratio
 **Record:**
-- **Benefit:** MEDIUM — restores documented sysfs control on affected
-  convertibles; long-standing Chromium production issue.
-- **Risk:** VERY LOW — 10-line change using documented sysfs API.
-- **Ratio:** Favorable — low-risk fix for a real, persistent functional
-  bug.
+- **Benefit:** Enables HDMI CEC on two new Chromebook models running
+  this kernel; matches established board-enablement pattern.
+- **Risk:** Very low — 4 lines, no logic change, only new DMI strings.
+- **Ratio:** Moderate benefit for a tiny audience vs. very low risk.
+  Does not meet strict "important bug" threshold, but fits the stable
+  exception for hardware identification additions.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Compile
 
 **FOR backport:**
-- Real, verifiable race with permanent per-boot impact
-- Buggy code confirmed present in Linux 6.18.43
-- Small, surgical, obviously correct fix using standard
-  `sysfs_update_group()` API
-- Long-standing issue (known since ~2021); Chromium explicitly still
-  needs it
-- Documented userspace ABI (`Documentation/ABI/testing/sysfs-class-
-  chromeos`)
-- No dependencies; clean apply expected
+- Driver and infrastructure fully present in 6.18.43
+- Real hardware gap on Kulnex/Moxoe — CEC broken without entries
+- Tiny, obviously correct, applies cleanly
+- Follows proven Brask/Moxie `port_b_conns` mapping
+- Media maintainer (Hans Verkuil) signed off
+- Fits stable exception for hardware identification / quirk additions
+  (DMI board ID to existing driver)
 
 **AGAINST backport:**
-- Not crash/security/corruption/deadlock — functional sysfs visibility
-  only
-- ChromeOS-specific driver; limited to one hardware ecosystem
-- No syzbot report, no explicit stable nomination
-- Failure is degraded functionality, not system instability
+- Not a crash, security, corruption, or deadlock fix
+- Failure mode is missing functionality (CEC), severity LOW
+- Affects only two specific new Chromebook models
+- No user reports, syzbot, or explicit stable nomination
+- By-design whitelist: unsupported boards get `-ENODEV`, not a code
+  defect on already-supported hardware
+- Mailing list review details unverified
 
-**Unresolved:** Exact commit that introduced `has_kb_wake_angle`
-visibility (shallow clone limits local history). Full lore review thread
-not accessible.
+**UNRESOLVED:**
+- Whether Kulnex/Moxoe actually ship with 6.18.y kernels
+- Lore discussion and any stable nominations from reviewers
 
-### Step 9.2: Stable rules checklist
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — mechanical table entries;
+   maintainer SOB; pattern proven on Brask/Moxie.
+2. Fixes a real bug affecting users? **PASS (narrow)** — real hardware
+   support gap for CEC on two boards, not a kernel logic bug.
+3. Important issue (crash, security, corruption, deadlock)? **FAIL** —
+   CEC absence only; LOW severity.
+4. Small and contained? **PASS** — 4 lines, one file.
+5. No new features or APIs? **PASS** — no API change; board ID addition
+   to existing driver.
+6. Can apply to local tree? **PASS** — verified clean apply.
 
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — standard sysfs pattern;
-maintainer SOB; v4 after review |
-| 2. Fixes real bug affecting users? | **PASS** — permanent missing
-sysfs attr on affected Chromebooks |
-| 3. Important issue? | **PASS (borderline)** — functional regression on
-production hardware with documented ABI; not crash-level but persistent
-and user-visible |
-| 4. Small and contained? | **PASS** — 3 files, ~10 lines |
-| 5. No new features/APIs? | **PASS** — fixes existing attribute
-visibility only |
-| 6. Can apply to local tree? | **PASS** — buggy code present; clean
-apply |
+### Step 9.3: Exception Categories
+**Record:** **Hardware identification / quirk exception** — DMI match
+table entry for an existing platform driver, analogous to adding
+PCI/USB/ACPI IDs. Same category as prior Brask, Moxie, Kinox entries.
 
-### Step 9.3: Exception categories
-**Record:** Not a device-ID/quirk/DT/build/docs exception. Qualifies as
-a driver probe race fix for existing hardware functionality.
+### Step 9.4: Decision Rationale
 
-### Step 9.4: Decision rationale
-For **Linux 6.18.43**, the race exists today: `has_kb_wake_angle`
-conditional visibility without `sysfs_update_group()` means
-`kb_wake_angle` can be permanently hidden on convertible Chromebooks
-when sysfs probes before sensor enumeration completes. The fix is
-minimal, uses the kernel's intended API for exactly this scenario, and
-addresses a production issue Chromium has tracked since 2021. While
-severity is functional rather than catastrophic, the bug is persistent
-per boot, affects a documented userspace interface, and the backport
-risk is negligible.
+This commit does not fix a critical kernel defect. It enables HDMI CEC
+on two new Google Chromebook platforms by extending the existing DMI
+whitelist in `cros-ec-cec`. That is standard stable material under the
+hardware-identification exception: the driver already exists in 6.18.43,
+the change is trivial and low-risk, and it unblocks real hardware for
+users on those boards. It does not meet the strict "important bug"
+criterion on its own, but stable trees routinely take such board-ID
+additions when the driver is already present.
+
+For the locally checked-out **6.18.43** tree: the driver exists, the gap
+exists, and the patch applies cleanly.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message;
-  fetched v4 cover letter from ratatoskr.run
-- **[Phase 2]** Read current `cros_ec_sysfs.c`, `cros_ec_sensorhub.c`,
-  `cros_ec_proto.h`; confirmed diff matches tree structure
-- **[Phase 2]** Read `sysfs_update_group()` documentation in
-  `fs/sysfs/group.c` lines 271–287
-- **[Phase 3]** `git describe HEAD` → v6.18.43; `rev-parse --is-shallow-
-  repository` → true
-- **[Phase 3]** `git blame` on modified lines → all from shallow base
-  `5d324e5159d9e`
-- **[Phase 3]** `git log --grep=kb_wake_angle` → empty (shallow history)
-- **[Phase 4]** ratatoskr.run thread: v4, linux-next queue, v3 from
-  2021, Chromium co-developer
-- **[Phase 4]** lore.kernel.org direct fetch blocked; yhbt.net returned
-  Tor redirect
-- **[Phase 4]** `b4 dig -c HEAD` failed to match (commit not in tree)
-- **[Phase 5]** Read `ec_device_probe()` in `drivers/mfd/cros_ec_dev.c`
-  — sensorhub at 241, sysfs at 333
-- **[Phase 5]** Confirmed `CROS_EC_CMD_INFO_RETRIES 50` with 5–6ms
-  sleeps in sensorhub enumeration
-- **[Phase 5]** `grep sysfs_update_group drivers/platform/chrome/` → no
-  matches (fix absent)
-- **[Phase 6]** Confirmed `struct cros_ec_dev` lacks `group` field in
-  local tree
-- **[Phase 6]** Confirmed `has_kb_wake_angle` + `is_visible` logic
-  present (bug exists)
-- **[Phase 7]** Read `Documentation/ABI/testing/sysfs-class-chromeos` —
-  kb_wake_angle documented since 4.17
-- **[Phase 8]** Confirmed `ec = kzalloc()` in `ec_device_probe()` —
-  `group` implicitly NULL-initialized
+- **[Phase 1]** Parsed subject, tags, body: hardware enablement for
+  Kulnex/Moxoe CEC; Hans Verkuil SOB; no Fixes/Reported-
+  by/Link/Cc:stable
+- **[Phase 2]** Diff: +4 lines in `cec_dmi_match_table[]`; probe failure
+  path confirmed in source
+- **[Phase 3]** `git describe HEAD`: v6.18.43-1-gc7f0dac02d232; `make
+  kernelversion`: 6.18.43
+- **[Phase 3]** `git show ac3fd01e4c1ef:...cros-ec-cec.c`: driver
+  present since 6.18-rc7; Moxie present, Kulnex/Moxoe absent
+- **[Phase 3]** `grep Kulnex|Moxoe`: no matches in tree
+- **[Phase 3]** Git history in this repo is rewritten/unreliable for
+  blame; table content verified directly
+- **[Phase 4]** `b4 dig -c 4b3f9bff6067a`: failed (commit not in repo)
+- **[Phase 4]** Lore fetch: blocked (403/bot protection) —
+  **UNVERIFIED** mailing list discussion
+- **[Phase 5]** Read `cros_ec_cec_probe()` and
+  `cros_ec_cec_find_hdmi_dev()`: confirmed `-ENODEV` path
+- **[Phase 5]** `grep cros_ec_cec_find_hdmi_dev`: only called from probe
+- **[Phase 6]** File exists at `drivers/media/cec/platform/cros-ec/cros-
+  ec-cec.c` (602 lines)
+- **[Phase 6]** `git apply --check /tmp/kulnex.patch`: applies cleanly
+- **[Phase 6]** `grep Kulnex|Moxoe`: absent from tree
+- **[Phase 7]** `CONFIG_CEC_CROS_EC` in
+  `drivers/media/cec/platform/Kconfig`; depends on `CROS_EC`
+- **[Phase 8]** Failure mode verified: `-ENODEV` + `dev_warn`, not
+  oops/panic
 
 **YES**
 
- drivers/platform/chrome/cros_ec_sensorhub.c | 6 +++++-
- drivers/platform/chrome/cros_ec_sysfs.c     | 5 +++--
- include/linux/platform_data/cros_ec_proto.h | 2 ++
- 3 files changed, 10 insertions(+), 3 deletions(-)
+ drivers/media/cec/platform/cros-ec/cros-ec-cec.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/platform/chrome/cros_ec_sensorhub.c b/drivers/platform/chrome/cros_ec_sensorhub.c
-index 9bad8f72680ea..f938c3fc84e4f 100644
---- a/drivers/platform/chrome/cros_ec_sensorhub.c
-+++ b/drivers/platform/chrome/cros_ec_sensorhub.c
-@@ -122,8 +122,12 @@ static int cros_ec_sensorhub_register(struct device *dev,
- 		sensor_type[sensorhub->resp->info.type]++;
- 	}
+diff --git a/drivers/media/cec/platform/cros-ec/cros-ec-cec.c b/drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+index 419b9a7abcceb..4b3f9bff6067a 100644
+--- a/drivers/media/cec/platform/cros-ec/cros-ec-cec.c
++++ b/drivers/media/cec/platform/cros-ec/cros-ec-cec.c
+@@ -334,6 +334,10 @@ static const struct cec_dmi_match cec_dmi_match_table[] = {
+ 	{ "Google", "Dirks", "0000:00:02.0", port_ab_conns },
+ 	/* Google Moxie */
+ 	{ "Google", "Moxie", "0000:00:02.0", port_b_conns },
++	/* Google Kulnex */
++	{ "Google", "Kulnex", "0000:00:02.0", port_b_conns },
++	/* Google Moxoe */
++	{ "Google", "Moxoe", "0000:00:02.0", port_b_conns },
+ };
  
--	if (sensor_type[MOTIONSENSE_TYPE_ACCEL] >= 2)
-+	if (sensor_type[MOTIONSENSE_TYPE_ACCEL] >= 2) {
- 		ec->has_kb_wake_angle = true;
-+		if (ec->group && sysfs_update_group(&ec->class_dev.kobj,
-+						    ec->group))
-+			dev_warn(dev, "Unable to update sysfs");
-+	}
- 
- 	if (cros_ec_check_features(ec,
- 				   EC_FEATURE_REFINED_TABLET_MODE_HYSTERESIS)) {
-diff --git a/drivers/platform/chrome/cros_ec_sysfs.c b/drivers/platform/chrome/cros_ec_sysfs.c
-index f22e9523da3e8..9d3767ab15480 100644
---- a/drivers/platform/chrome/cros_ec_sysfs.c
-+++ b/drivers/platform/chrome/cros_ec_sysfs.c
-@@ -405,7 +405,8 @@ static int cros_ec_sysfs_probe(struct platform_device *pd)
- 	struct device *dev = &pd->dev;
- 	int ret;
- 
--	ret = sysfs_create_group(&ec_dev->class_dev.kobj, &cros_ec_attr_group);
-+	ec_dev->group = &cros_ec_attr_group;
-+	ret = sysfs_create_group(&ec_dev->class_dev.kobj, ec_dev->group);
- 	if (ret < 0)
- 		dev_err(dev, "failed to create attributes. err=%d\n", ret);
- 
-@@ -416,7 +417,7 @@ static void cros_ec_sysfs_remove(struct platform_device *pd)
- {
- 	struct cros_ec_dev *ec_dev = dev_get_drvdata(pd->dev.parent);
- 
--	sysfs_remove_group(&ec_dev->class_dev.kobj, &cros_ec_attr_group);
-+	sysfs_remove_group(&ec_dev->class_dev.kobj, ec_dev->group);
- }
- 
- static const struct platform_device_id cros_ec_sysfs_id[] = {
-diff --git a/include/linux/platform_data/cros_ec_proto.h b/include/linux/platform_data/cros_ec_proto.h
-index de14923720a53..6ed1c4c5ce2ef 100644
---- a/include/linux/platform_data/cros_ec_proto.h
-+++ b/include/linux/platform_data/cros_ec_proto.h
-@@ -228,6 +228,7 @@ struct cros_ec_platform {
- /**
-  * struct cros_ec_dev - ChromeOS EC device entry point.
-  * @class_dev: Device structure used in sysfs.
-+ * @group: sysfs attributes groups for this EC.
-  * @ec_dev: cros_ec_device structure to talk to the physical device.
-  * @dev: Pointer to the platform device.
-  * @debug_info: cros_ec_debugfs structure for debugging information.
-@@ -237,6 +238,7 @@ struct cros_ec_platform {
-  */
- struct cros_ec_dev {
- 	struct device class_dev;
-+	const struct attribute_group *group;
- 	struct cros_ec_device *ec_dev;
- 	struct device *dev;
- 	struct cros_ec_debugfs *debug_info;
+ static struct device *cros_ec_cec_find_hdmi_dev(struct device *dev,
 -- 
 2.53.0
 
