@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D494240960D
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3CB3CFF4A
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180758; cv=none; b=A6qGjneSTJLUSOlziu9SKkyLHCmaBEShu8QfifpxLhB0H9W0kilDXQPKlh0zGWYbhq/j1QFy7NRMP4JvYWIqFf9BGgBebW2BwCg1ETVgNAcoodRGnTJNI5e4W9eqlIGolmfCxz8CmvMgawDiIWkUAKvajiDypbbna7/+D/oHN3U=
+	t=1788180791; cv=none; b=ZXo2TdHOuuhD7FnvYF/5vPhU1cRLCjOGq09u6C+EDA/Tzj2jHpbaSyQUAjE5Dgs+4xAxEppU2AuUuNdKX8xBezqezIyiqxJNqG+5705alA7P7Sa5RjHa5+gyp5tbXlnLRXV8XnCjT7ym+bLvXvdYxqlfd6EQ8CeLv45rsst2IbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180758; c=relaxed/simple;
-	bh=zieSEhyqf7mp+6DyaS7qY8gVfCMFrJ75iLNl+b6FQ1c=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FP5P5O2bzT0FiFlBbC2eOs70JNv/bXZAPvnZWm1iv41ue9UhEWVZo4yH6r8H/pHiJwL1wHXDwqyD9ggX2YtGYk1vXj9Tb6U3pt+mSRnDuExQc0/0gwfAhM6Y4h6rZLD4TOXC6My6vlyjsUsXAbXjVZPKqbQ/jK6n3I6qHd0ygB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=euUmd8rV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788180791; c=relaxed/simple;
+	bh=1WlMD3L+5afPd7BQznGtrTvlU+76qmRgoEC5Afcl5/Y=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JPMLSS8GA1mViepv6CRGpAAvJIK3R02ncTVZXOzesPRO6PhcM2jQHItB4WRoAcX4iKvyDQXly1SV9PPtF16QO5AMKjURDb2vTSIs7aDXlO356x9kFGKpldeyR/OhmOiXZAFk4Pe7yiXCGtw/vww8hUqwM87y8BvLxtJWsN5pGuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wvfcEiLR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="euUmd8rV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65BB31F00A3D;
-	Mon, 31 Aug 2026 12:52:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wvfcEiLR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49801F000E9;
+	Mon, 31 Aug 2026 12:53:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788180748;
-	bh=tdoFMLCzJkCdLfQOOzh8XcgbBvWaw8dZdL/irQKBB7Y=;
+	s=korg; t=1788180788;
+	bh=90AW4AorfPY2/ZQ4MxsBjl3rQjAyQk8KGt+imybGSIk=;
 	h=Subject:To:Cc:From:Date;
-	b=euUmd8rVf7RAIpCauN+epmayS8phuz4471ghk7sejthWOLdOscaSJwyOpXFhzyylc
-	 YyYIK29Fbu6F/ROwZfAyiZz9eFk0ZATJG83C+ANYjSYaBmX+EhIbgyQszDW8tt8JBu
-	 MTwKRh/LgRxydKEHlIZR3KVD4aRN5Lhb4JB695s4=
-Subject: FAILED: patch "[PATCH] net: advertise TCP MSS from the configured MTU, not the" failed to apply to 5.15-stable tree
-To: jiayuan.chen@linux.dev,edumazet@google.com,kuba@kernel.org
+	b=wvfcEiLRRhjd/X/rTQbr2TdUUkAr0aigKtzldNWe4SSQMsUdfPKgnwICCj7QDwU4f
+	 Xyo6xN1Pa9c2fY2+rYnfScxylxpwnxcDoaRiC++IdTRnw/InXHKTD3KiV2s0Y9vM88
+	 V26N5wfBhOfHWAojGlIDRz1SNjFRu1DqzygqJw9k=
+Subject: FAILED: patch "[PATCH] tcp: clamp route advmss to TCP_MIN_MSS" failed to apply to 6.18-stable tree
+To: edragain@163.com,kuba@kernel.org,vega@nebusec.ai,weir@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:52:19 +0200
-Message-ID: <2026083119-uncoated-animal-60e3@gregkh>
+Date: Mon, 31 Aug 2026 14:53:04 +0200
+Message-ID: <2026083104-huddle-balancing-d57b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2640e64195948a601430d230c9864f5426574cde
+git cherry-pick -x 870a9e42ecc6fe1b8c25d87af043cb0d9c178fe1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083119-uncoated-animal-60e3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083104-huddle-balancing-d57b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,148 +62,118 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2640e64195948a601430d230c9864f5426574cde Mon Sep 17 00:00:00 2001
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-Date: Sat, 15 Aug 2026 15:03:36 +0800
-Subject: [PATCH] net: advertise TCP MSS from the configured MTU, not the
- learned PMTU
+From 870a9e42ecc6fe1b8c25d87af043cb0d9c178fe1 Mon Sep 17 00:00:00 2001
+From: Yong Wang <edragain@163.com>
+Date: Wed, 19 Aug 2026 23:22:04 +0800
+Subject: [PATCH] tcp: clamp route advmss to TCP_MIN_MSS
 
-The MSS a host puts in its SYN tells the peer how big a segment it may
-send us. Right now we can shrink it with a PMTU we learned on our own
-send path, which is the wrong direction entirely.
+tcp_select_initial_window() assumes that callers never pass an MSS
+smaller than 1, but route-derived advmss values can violate that
+assumption.
 
-On asymmetric paths this bites - think DSR load balancers, where the
-request side goes through a smaller-MTU overlay. We learn a small PMTU
-going out, then advertise a small MSS, and the peer stays capped for the
-whole connection even though its path back to us is wide. MSS only shows
-up in the SYN and never grows back.
+A too-small explicit RTAX_ADVMSS is one way to get there, but it is not
+the only one. The same divide-by-zero can also be reached through the
+"default advmss" path when RTAX_ADVMSS is left at 0 and the effective
+advmss is later driven down by route MTU and min_adv_mss.
 
-On symmetric paths we lose nothing by dropping it either: the peer runs
-its own PMTU discovery and usually already knows the real path MTU.
-
-So work out the advertised MSS from the configured route or device MTU
-and ignore the learned PMTU. Our send side is unchanged, still clamped by
-tcp_current_mss(). Add ip_dst_mtu_configured()/ip6_dst_mtu_configured()
-and use them from the two default_advmss() paths.
+Introduce a tcp_dst_advmss() helper that clamps route advmss to
+TCP_MIN_MSS before TCP consumes it, and use it in the TCP paths that
+derive advmss from dst metrics. This keeps the effective MSS from
+dropping to zero before tcp_select_initial_window() rounds the receive
+window.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 164a5e7ad531 ("ipv4: ipv4_default_advmss() should use route mtu")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260815070413.294559-1-jiayuan.chen@linux.dev
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Yong Wang <edragain@163.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Link: https://patch.msgid.link/251eaf8277fa7c66364c9815c5da01662d269181.1787074852.git.edragain@163.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/include/net/ip.h b/include/net/ip.h
-index 7f2fe1a8401b..a8f57b4f4aa2 100644
---- a/include/net/ip.h
-+++ b/include/net/ip.h
-@@ -506,6 +506,31 @@ static inline unsigned int ip_dst_mtu_maybe_forward(const struct dst_entry *dst,
- 	return res;
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 2c5b889530b5..670c20876f26 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -1782,6 +1782,11 @@ static inline int tcp_full_space(const struct sock *sk)
+ 	return tcp_win_from_space(sk, READ_ONCE(sk->sk_rcvbuf));
  }
  
-+/* Configured/administrative MTU of a route, for advertising the TCP MSS.
-+ *
-+ * Unlike ip_dst_mtu_maybe_forward(), this deliberately ignores the
-+ * ICMP-learned path MTU (rt->rt_pmtu).  The advertised MSS bounds what the
-+ * peer may send to us and must reflect our receive capability (the device or
-+ * route-configured MTU), not a path MTU learned on the reverse (send)
-+ * direction, which may not apply to the peer->us path and outlives the fnhe
-+ * for the whole connection.  See RFC 2923 section 2.3 and the comment above
-+ * tcp_advertise_mss().
-+ */
-+static inline unsigned int ip_dst_mtu_configured(const struct dst_entry *dst)
++static inline u32 tcp_dst_advmss(const struct dst_entry *dst)
 +{
-+	unsigned int mtu, res;
-+
-+	rcu_read_lock();
-+	mtu = dst_metric_raw(dst, RTAX_MTU);
-+	if (!mtu)
-+		mtu = READ_ONCE(dst_dev_rcu(dst)->mtu);
-+	mtu = min_t(unsigned int, mtu, IP_MAX_MTU);
-+	res = mtu - lwtunnel_headroom(dst->lwtstate, mtu);
-+	rcu_read_unlock();
-+
-+	return res;
++	return max_t(u32, dst_metric_advmss(dst), TCP_MIN_MSS);
 +}
 +
- static inline unsigned int ip_skb_dst_mtu(struct sock *sk,
- 					  const struct sk_buff *skb)
+ static inline void __tcp_adjust_rcv_ssthresh(struct sock *sk, u32 new_ssthresh)
  {
-diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
-index cc045705862d..c69f1c871922 100644
---- a/include/net/ip6_route.h
-+++ b/include/net/ip6_route.h
-@@ -387,6 +387,43 @@ static inline unsigned int ip6_dst_mtu_maybe_forward(const struct dst_entry *dst
- 	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
- }
+ 	int unused_mem = sk_unused_reserved_mem(sk);
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 190c7af4cf92..9f053eb8b46e 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -1736,7 +1736,7 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+ 	tcp_ca_openreq_child(newsk, dst);
  
-+/* Configured/administrative MTU of a route, for advertising the TCP MSS.
-+ *
-+ * Unlike ip6_dst_mtu_maybe_forward(), this ignores any ICMPv6-learned path
-+ * MTU (which is kept on the RTF_CACHE exception route) and returns the MTU of
-+ * the underlying route (fib6_pmtu) or the egress device.  The advertised MSS
-+ * bounds what the peer may send to us and must reflect our receive
-+ * capability, not a path MTU learned on the reverse (send) direction.  See
-+ * RFC 2923 section 2.3 and the comment above tcp_advertise_mss().
-+ */
-+static inline unsigned int ip6_dst_mtu_configured(const struct dst_entry *dst)
-+{
-+	const struct rt6_info *rt = dst_rt6_info(dst);
-+	const struct fib6_info *from;
-+	struct inet6_dev *idev;
-+	unsigned int mtu = 0;
-+
-+	rcu_read_lock();
-+	/* IPv6 keeps the learned PMTU and the configured MTU in the same
-+	 * RTAX_MTU slot: the learned value sits on this (possibly RTF_CACHE)
-+	 * dst, the configured one on the underlying route.  Reach the latter
-+	 * via ->from (fib6_pmtu), populated by ip6_route_info_create().
-+	 */
-+	from = rcu_dereference(rt->from);
-+	if (from)
-+		mtu = from->fib6_pmtu;
-+	if (!mtu) {
-+		mtu = IPV6_MIN_MTU;
-+		idev = __in6_dev_get(dst_dev_rcu(dst));
-+		if (idev)
-+			mtu = max_t(unsigned int, mtu, READ_ONCE(idev->cnf.mtu6));
-+	}
-+	rcu_read_unlock();
-+
-+	mtu = min_t(unsigned int, mtu, IP6_MAX_MTU);
-+	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
-+}
-+
- u32 ip6_mtu_from_fib6(const struct fib6_result *res,
- 		      const struct in6_addr *daddr,
- 		      const struct in6_addr *saddr);
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 604cc51dfd9b..37674d76f90f 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -1363,8 +1363,8 @@ static unsigned int ipv4_default_advmss(const struct dst_entry *dst)
+ 	tcp_sync_mss(newsk, dst4_mtu(dst));
+-	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
++	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
  
- 	rcu_read_lock();
- 	net = dst_dev_net_rcu(dst);
--	advmss = max_t(unsigned int, ipv4_mtu(dst) - header_size,
--				   net->ipv4.ip_rt_min_advmss);
-+	advmss = max_t(unsigned int, ip_dst_mtu_configured(dst) - header_size,
-+		       net->ipv4.ip_rt_min_advmss);
- 	rcu_read_unlock();
+ 	tcp_initialize_rcv_mss(newsk);
  
- 	return min(advmss, IPV4_MAX_PMTU - header_size);
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 526535387512..93b4168044d9 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -3261,7 +3261,7 @@ void ip6_sk_redirect(struct sk_buff *skb, struct sock *sk)
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index 12254e6eb2f3..f3fa0b18eda0 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -440,7 +440,7 @@ void tcp_openreq_init_rwin(struct request_sock *req,
+ 	u32 rcv_wnd;
+ 	int mss;
  
- static unsigned int ip6_default_advmss(const struct dst_entry *dst)
- {
--	unsigned int mtu = dst6_mtu(dst);
-+	unsigned int mtu = ip6_dst_mtu_configured(dst);
- 	struct net *net;
+-	mss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
++	mss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
+ 	window_clamp = READ_ONCE(tp->window_clamp);
+ 	/* Set this up on the first call only */
+ 	req->rsk_window_clamp = window_clamp ? : dst_metric(dst, RTAX_WINDOW);
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index fcaa04e65189..f2709d585edb 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -143,7 +143,7 @@ static __u16 tcp_advertise_mss(struct sock *sk)
+ 	int mss = tp->advmss;
  
- 	mtu -= sizeof(struct ipv6hdr) + sizeof(struct tcphdr);
+ 	if (dst) {
+-		unsigned int metric = dst_metric_advmss(dst);
++		unsigned int metric = tcp_dst_advmss(dst);
+ 
+ 		if (metric < mss) {
+ 			mss = metric;
+@@ -3972,7 +3972,7 @@ struct sk_buff *tcp_make_synack(const struct sock *sk, struct dst_entry *dst,
+ 	}
+ 	skb_dst_set(skb, dst);
+ 
+-	mss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
++	mss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
+ 
+ 	memset(&opts, 0, sizeof(opts));
+ 	now = tcp_clock_ns();
+@@ -4128,7 +4128,7 @@ static void tcp_connect_init(struct sock *sk)
+ 
+ 	if (!tp->window_clamp)
+ 		WRITE_ONCE(tp->window_clamp, dst_metric(dst, RTAX_WINDOW));
+-	tp->advmss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
++	tp->advmss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
+ 
+ 	tcp_initialize_rcv_mss(sk);
+ 
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index 9e9155b1b3aa..df9c29eb5c1f 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -1487,7 +1487,7 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
+ 	tcp_ca_openreq_child(newsk, dst);
+ 
+ 	tcp_sync_mss(newsk, dst6_mtu(dst));
+-	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
++	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
+ 
+ 	tcp_initialize_rcv_mss(newsk);
+ 
 
