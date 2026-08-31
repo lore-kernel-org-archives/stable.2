@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A02055C322;
-	Mon, 31 Aug 2026 13:47:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8374655820B;
+	Mon, 31 Aug 2026 13:47:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184034; cv=none; b=rImBxRGv+XUYMUGMyRQwXBDB+b/VV9iyrVouAVVTClzb3bTgu1QHtX2j9+US4oxxUbdLKU6pkPVKf91DFCbHc6zK17BP18CNDkGzAdTbxDGqJ06a/IaMkMLUwMY09o/UBB4SDb/lNeie7GvzmoKEkbCkm+7oMd+6yyTUQbVtZb4=
+	t=1788184036; cv=none; b=Z64RtRXsjoh6ro5RjefUbtqbHeoY4VPQYHxP8ykI+LnEjT4lAZ6JzJc+xlKWz7DkPe5w7RC5jOh8MrMvQ2ESNE0mUxAbgk05A8ZQvnJpKHWsY3GnXO/4MzDRCKjy9yrCxxf9tRy80Uf+ZBMcCGa6MbCax27gEM3NNXiaBW+mUNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184034; c=relaxed/simple;
-	bh=0Cjmk0kCgi86IxYn8tza0kbbYuon573llq5aR7LuiKc=;
+	s=arc-20240116; t=1788184036; c=relaxed/simple;
+	bh=NcK4P1CGk+aDIjSRTj+dtZpbuS52Zgf27SntGYnC+9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mUwzQAvKTD2Ucp23Spq6+63t08Ygp12SFh81mvBNrqJOnOajFY8bxCn1Jb8BLfxZ10hW4DFyQeEi4bbBTKeQq/59x97eaA9fj6MUmCTl6LJQgYFPI2ftZUwPvmNu95GFpyBbuW4n6GcEHjN9KkCO1UrgZ4DTFq/0wTdQsN0L7vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EdD8xoOU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ZQr1L2OdYNRMAAu797rIHNiLDpB5cFta9AZcUmdT/RV9CgA9fDWXhfrBASX85o3niWeqePNEeZFIrcie19jQnob3SxQebDvz+OM8+FQ1THbHSf3k6W3Bb/YF0PzGOXceKUUgGWI8tjxKCJSTuNVpG9DxPqav6RxlohX+d44dh2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/p7rej7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EdD8xoOU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FDE61F00A3E;
-	Mon, 31 Aug 2026 13:47:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/p7rej7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F3B61F00A3F;
+	Mon, 31 Aug 2026 13:47:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184032;
-	bh=5hjfVIzCYf6JQbj+yEVcByH4cLUNPP1nPkhVuvNkzF0=;
+	s=k20260515; t=1788184033;
+	bh=WbiPvEsz4cjRvtCEuN3SotjWZZ8/mhoflAbKzVEP7kg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EdD8xoOU16pJPZWGVqJQJaaF2qrPyQ3L0ninavv+vM6CZNGRQ1pIgarhhp4lkmzBj
-	 VKsG7kLfeMPhHDMc9bWrgnijjmmBkZxJvhBLRo4kR3DYfwkWUGmHXPvE4LufBz2eXX
-	 icbvvAFMUNBZev+9twtoBjcHECxfeOYTi61cdGpUOab5VrOYf8GnT7I0Xt3JIkTEk9
-	 9SkhjE5ar6/ZoQ5aq1xmzHsd+C5Z6plu9d1bleOJZWpAeR+VbVfMsrVrwl8P0kyZEF
-	 EiKbAK1CH6LWjKaYFFS72yhVUzdLasFiKU6otwn4m3Mwzq+zUWPIOdC/4MWv5uEB/k
-	 uffjuSOAYcQXQ==
+	b=R/p7rej7y/TXWVtz0VyET6fOVjxjP65ApHQCcZdVqPpI8bQeUiDyq5H6RQ7HIZ6Dn
+	 6iQ+I6M90GBT4xRk+rJmsbzPeFPK7ZtKkRUj0F4QolnFg5jGgxqwPawpBIZmypfgZn
+	 Co2QGj7MXw1WAWXhVZb08RQ7x5FQ3uNUMhNWTBmSMvgM2ze9zx/7DSirO2JdxkjWbE
+	 n9NRMAz71J381LHkfWm1IXIjdJhJLcEv04o/LcwvB4/pjel2LYbOnUfqSR++iscBDX
+	 SFbu6YjLrj5b5kEOG3Ciig1wLamPQaq9BQzZl+xbAeB0P6A+TyqoBsIIMWOWE6EZd6
+	 DHsZCjwDzvA5g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Shiji Yang <yangshiji66@outlook.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-pwm@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] pwm: mediatek: set mt7628 pwm45_fixup flag to false
-Date: Mon, 31 Aug 2026 09:27:58 -0400
-Message-ID: <20260831133314.4125787-450-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] hwmon: (adt7462) Add of_match_table to support devicetree
+Date: Mon, 31 Aug 2026 09:27:59 -0400
+Message-ID: <20260831133314.4125787-451-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -46,350 +47,406 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Shiji Yang <yangshiji66@outlook.com>
+From: Kory Maincent <kory.maincent@bootlin.com>
 
-[ Upstream commit 88c6c956fa310117638e41d4831b20074dfff2ba ]
+[ Upstream commit cd1b42617aafe01810ab7d3b9948d2f5fa9fb8af ]
 
-According to the programing guide, mt7628 has generic register layout
-like most other hardware revisions. We should not set pwm45_fixup flag
-for it.
+Add of_match_table to add support of devicetree probing.
 
-Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-Link: https://patch.msgid.link/OS7PR01MB13602B3C7E43A2E38275C73AEBC74A@OS7PR01MB13602.jpnprd01.prod.outlook.com
-Signed-off-by: Uwe Kleine-König <ukleinek@kernel.org>
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+[rgantois: Removed of_match_ptr().]
+Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+Link: https://lore.kernel.org/r/20260608-adt7462-bindings-v2-1-272982c40325@bootlin.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `hwmon: (adt7462) Add of_match_table to
+support devicetree`
 
-### Step 1.1: Subject line
-**Record:** `[pwm: mediatek]` `[set]` — Correct the `mt7628`
-`pwm45_fixup` SoC data flag from `true` to `false`.
-
-### Step 1.2: Commit message tags
-**Record:**
-- **Signed-off-by:** Shiji Yang `<yangshiji66@outlook.com>` (author)
-- **Link:** patch.msgid.link URL to original submission
-- **Signed-off-by:** Uwe Kleine-König `<ukleinek@kernel.org>` (PWM
-  maintainer, committer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable@vger.kernel.org`
-- Notable: no syzbot/user bug report; maintainer ack only
-
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** MT7628 was configured with `pwm45_fixup = true`, but the
-  programming guide says MT7628 uses the generic register layout (like
-  most MediaTek PWM revisions), not the MT7623-specific PWM4/5 offset
-  quirk.
-- **Symptom:** PWM channel 3 on MT7628 uses wrong register offsets for
-  period/duty (`0x30`/`0x34` instead of `0x2c`/`0x30`), so PWM3 output
-  is programmed incorrectly.
-- **Root cause:** Incorrect SoC table entry, likely copied from MT7623
-  when MT7628 support was added in 2018.
-- **Version info:** None in commit message.
-
-### Step 1.4: Hidden bug fix?
-**Record:** Yes. Despite the neutral wording (“set flag to false”), this
-is a hardware-specific driver bug fix, not cosmetic cleanup.
+**Local tree:** `v6.18.44` (Makefile: VERSION=6, PATCHLEVEL=18,
+SUBLEVEL=44)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Change inventory
-**Record:**
-- **Files:** `drivers/pwm/pwm-mediatek.c` only (+1/−1)
-- **Functions modified:** none (only `mt7628_pwm_data` static
-  initializer)
-- **Scope:** Single-file, one-line surgical fix
+### Step 1.1: Subject Line
+**Record:** `[hwmon/adt7462]` `[Add]` — Add `of_match_table` to enable
+Device Tree probing for the existing ADT7462 hwmon driver.
 
-### Step 2.2: Code flow change
+### Step 1.2: Tags
 **Record:**
-- **Before:** For `mediatek,mt7628-pwm`, `pwm45_fixup = true` → in
-  `pwm_mediatek_config()` and `pwm_mediatek_get_state()`, when
-  `pwm->hwpwm > 2`, driver uses `PWM45DWIDTH_FIXUP` (0x30) and
-  `PWM45THRES_FIXUP` (0x34).
-- **After:** `pwm45_fixup = false` → MT7628 always uses standard
-  `PWMDWIDTH` (0x2c) and `PWMTHRES` (0x30).
-- **Affected path:** PWM apply/get_state on MT7628 channel 3 only
-  (`num_pwms = 4`, so channels 0–2 are unaffected).
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none (Guenter Roeck committed it as hwmon
+  maintainer)
+- **Acked-by:** — none
+- **Link:** https://lore.kernel.org/r/20260608-adt7462-bindings-v2-1-
+  272982c40325@bootlin.com
+- **Cc: stable:** — none
+- **Signed-off-by:** Kory Maincent, Romain Gantois (noted removal of
+  `of_match_ptr()`), Guenter Roeck
 
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** Hardware quirk / logic correctness fix
-- **Mechanism:** MT7628 has 4 PWMs. With `pwm45_fixup = true`, channel 3
-  (`hwpwm == 3`) gets MT7623-specific register offsets that do not exist
-  on MT7628, writing period/duty to wrong registers and breaking PWM3.
+No syzbot, no user bug reports, no explicit stable nomination in commit
+message.
 
-### Step 2.4: Fix quality
+### Step 1.3: Body Analysis
 **Record:**
-- Obviously correct: aligns MT7628 with every other non-MT7623 entry
-  (`pwm45_fixup = false`).
-- Minimal and isolated; zero risk to other SoCs.
-- No deadlock/locking/API change risk.
+- **Bug described:** The ADT7462 I2C hwmon driver lacks an
+  `of_match_table`, so it cannot be probed via Device Tree even when a
+  DT node declares `compatible = "onnn,adt7462"`.
+- **Symptom:** Fan controller / temperature monitor chip is not bound on
+  DT-based platforms; hwmon sensors never appear.
+- **Root cause:** Driver was written for legacy I2C detect probing only;
+  DT binding was added separately without the corresponding driver OF
+  table.
+
+### Step 1.4: Hidden Bug Fix?
+**Record:** Not a crash/leak/race fix. This is **hardware enablement** —
+completing DT integration that was partially merged. The driver probe
+path itself is unchanged; only the matching mechanism is added.
+Classified as a functional gap, not a hidden memory-safety fix.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-### Step 3.1: Blame / introduction
+### Step 2.1: Inventory
 **Record:**
-- Buggy `pwm45_fixup = true` for MT7628 introduced in `8cdc43afbb2cb`
-  (“pwm: mediatek: Add MT7628 support”, Jul 2018).
-- Present in this tree at `drivers/pwm/pwm-mediatek.c:461`.
-- Present since at least v5.10 through v6.18 in this repo.
+- **Files:** `drivers/hwmon/adt7462.c` — +8 lines, 0 removed
+- **Functions modified:** None functionally; changes are at
+  module/driver registration level
+- **Scope:** Single-file, surgical addition
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Original buggy commit is
-`8cdc43afbb2cb`, which is in this tree’s ancestry.
-
-### Step 3.3: Related file history
+### Step 2.2: Code Flow Change
 **Record:**
-- Related fix on linux-next: `c84291ce0e09d` (“pwm: mediatek: correct
-  mt7628 clock source setting”) — patch 2/2 of the same series, adds
-  `clksel_fixup`.
-- Original `pwm45_fixup` mechanism added for MT7623 in `360cc036563db`
-  (Mar 2018, with `Cc: stable@vger.kernel.org`).
-- Fix commit `88c6c956fa310` is **not** in current HEAD (6.18.44); buggy
-  code is still present.
+- **Hunk 1 (include):** Adds `#include <linux/mod_devicetable.h>` for
+  `MODULE_DEVICE_TABLE(of, ...)`.
+- **Hunk 2 (of_match table):** Adds `adt7462_of_match[]` with `{
+  .compatible = "onnn,adt7462" }` and `MODULE_DEVICE_TABLE(of, ...)`.
+- **Hunk 3 (driver struct):** Sets `.of_match_table = adt7462_of_match`
+  in `adt7462_driver`.
+- **Before:** I2C core could only match via `id_table` or legacy
+  `.detect` on non-DT buses.
+- **After:** I2C core can match DT nodes with `compatible =
+  "onnn,adt7462"` to this driver.
 
-### Step 3.4: Author context
-**Record:** Shiji Yang is a contributor; Uwe Kleine-König is PWM
-subsystem maintainer and committed the fix.
+### Step 2.3: Bug Mechanism
+**Record:** **Category (h): Hardware/DT enablement.** On DT platforms,
+I2C devices are instantiated from the device tree at boot. Without
+`of_match_table`, the I2C subsystem has no way to associate the DT node
+with `adt7462_driver`. The `.detect` callback is not used for OF-
+instantiated devices.
+
+### Step 2.4: Fix Quality
+**Record:** Obviously correct — standard pattern used by dozens of hwmon
+drivers in this tree (e.g., `tmp108.c`, `ltc4282.c`, `sht4x.c`). Minimal
+diff. No regression risk for non-DT users (OF table is only consulted
+for DT nodes). Romain Gantois removed unnecessary `of_match_ptr()`
+wrapper per maintainer feedback.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame
+**Record:** `adt7462_driver` structure dates to 2014 (commit
+`a2cc242823399`). Driver has never had `of_match_table`. `.probe`
+updated in 2023 (`1975d167869ef`). The "bug" is longstanding absence of
+DT support, exposed when DT binding and board DTS were added in
+6.13/6.14.
+
+### Step 3.2: Fixes: Tag
+**Record:** Not applicable — no `Fixes:` tag present.
+
+### Step 3.3: Related File History
+**Record:**
+- `3d973b98d2744` (v6.13): `dt-bindings: trivial-devices: add
+  onnn,adt7462` — binding added
+- `de153911ffcb6` (v6.14): `ARM: dts: aspeed: Add device tree for
+  Ampere's Mt. Jefferson BMC` — board DTS with `compatible =
+  "onnn,adt7462"` at i2c8:0x5c
+- `cd1b42617aafe` (v7.2, NOT in this tree): driver OF table added
+- Both binding and Jefferson DTS are ancestors of HEAD (v6.18.44);
+  driver fix is NOT
+
+### Step 3.4: Author Context
+**Record:** Kory Maincent and Romain Gantois (Bootlin). Guenter Roeck
+(hwmon maintainer) committed. No prior hwmon commits from these authors
+in this tree. Maintainer-reviewed and accepted.
 
 ### Step 3.5: Dependencies
-**Record:** Patch 1/2 is standalone (one boolean). Patch 2/2 addresses a
-separate MT7628 clock-source issue and is not required for this one-line
-change to apply or make sense.
+**Record:** Standalone — no prerequisite commits. Requires only that
+`onnn,adt7462` binding exist (present since v6.13) and that `adt7462.c`
+driver exist (present since v4.x). Patch applies cleanly (`git apply
+--check` succeeded).
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
-**Record:**
-- **URL:** https://patch.msgid.link/OS7PR01MB13602B3C7E43A2E38275C73AEBC
-  74A@OS7PR01MB13602.jpnprd01.prod.outlook.com
-- **Series:** `[PATCH 0/2] pwm: mediatek: fix mt7628 register offset and
-  clock source`
-- **Revisions:** v1 only (b4 dig -a)
-- Uwe Kleine-König: “series looks reasonable”; applied without further
-  Mediatek maintainer feedback (May 2026)
-- No explicit stable nomination in thread
-- No NAKs
+### Step 4.1: Original Discussion
+**Record:** `b4 dig -c cd1b42617aafe` found thread at https://patch.msgi
+d.link/20260608-adt7462-bindings-v2-1-272982c40325@bootlin.com. Part of
+a 2-patch series (v1 added binding, v2 added driver OF table). Lore page
+blocked by bot protection — could not read review thread content.
 
 ### Step 4.2: Reviewers
-**Record:** CC’d: linux-pwm, Uwe Kleine-König, Matthias Brugger,
-AngeloGioacchino Del Regno, linux-mediatek. No formal `Reviewed-by` on
-the patch.
+**Record:** `b4 dig -w` shows CC to Guenter Roeck, Rob Herring,
+Krzysztof Kozlowski, Conor Dooley, Thomas Petazzoni, linux-hwmon@,
+devicetree@, linux-kernel@. Appropriate maintainers included.
 
-### Step 4.3: Bug reports
-**Record:** No syzbot, Bugzilla, or user crash reports. Hardware
-documentation is the evidence source.
+### Step 4.3: Bug Reports
+**Record:** No bug reports, syzbot links, or bugzilla references.
 
-### Step 4.4: Related patches
-**Record:** Patch 2/2 adds `clksel_fixup` for MT7628 clock BIT(3)
-handling — separate issue affecting all channels’ clock config; not a
-prerequisite for this register-offset fix.
+### Step 4.4: Series Context
+**Record:** v1 (2026-06-03) added DT binding; v2 (2026-06-08) added
+driver OF table. Binding portion was already merged separately in v6.13
+(`3d973b98d2744`); only the driver portion remains missing from this
+tree.
 
-### Step 4.5: Stable list history
-**Record:** Not searched on lore stable (fetch blocked). No stable
-nomination found in mbox thread.
+### Step 4.5: Stable List History
+**Record:** Not searched (lore blocked). No stable nomination found in
+commit message.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `pwm_mediatek_config()`, `pwm_mediatek_get_state()` (where
-`pwm45_fixup` is checked); `mt7628_pwm_data` (modified).
+### Step 5.1: Key Functions
+**Record:** No functions modified. Changes affect `adt7462_of_match[]`
+(new), `adt7462_driver` (registration), and module tables.
 
 ### Step 5.2: Callers
-**Record:** `pwm_mediatek_apply()` → `pwm_mediatek_config()`; PWM core
-calls `.apply`/`.get_state` when consumers configure PWM via sysfs or
-kernel drivers.
+**Record:** `adt7462_probe()` is called by I2C core during device
+binding. Currently unreachable from DT on Ampere Jefferson; after fix,
+reachable when DT node `fan-controller@5c` with `compatible =
+"onnn,adt7462"` is present.
 
 ### Step 5.3: Callees
-**Record:** `pwm_mediatek_writel()` / `pwm_mediatek_readl()` perform
-MMIO to PWM registers with computed offsets.
+**Record:** `adt7462_probe()` uses `devm_kzalloc`,
+`devm_hwmon_device_register_with_groups` — unchanged.
 
 ### Step 5.4: Reachability
-**Record:** Reachable when a board probes `mediatek,mt7628-pwm` and uses
-PWM channel 3. Driver and DT binding exist; no in-tree `mt7628-pwm` DT
-node currently, but out-of-tree/OpenWrt boards may use it.
+**Record:** On Ampere Mt. Jefferson BMC (`aspeed-bmc-ampere-
+mtjefferson.dts`), the ADT7462 fan controller at I2C bus 8, address 0x5c
+is declared in DT. Without this fix, no driver binds. With fix, probe
+runs at boot on that platform. Not reachable from userspace syscalls;
+platform-specific embedded path.
 
-### Step 5.5: Similar patterns
-**Record:** Only MT7623 has `pwm45_fixup = true`. All other SoCs,
-including MT7628’s siblings, use `false`. MT7623’s fix was explicitly
-stable-nominated in 2018.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree (6.18.44)
-
-### Step 6.1: Buggy code present?
-**Record:** Yes. `git describe HEAD` → `v6.18.44`. At line 461:
-`mt7628_pwm_data.pwm45_fixup = true`. Bug present since MT7628 support
-landed (2018).
-
-### Step 6.2: Backport complications
-**Record:** Clean one-line apply expected. File structure matches
-mainline patch context (`chanreg_base`/`chanreg_width` layout). No
-`clksel_fixup` in this tree — irrelevant to this patch.
-
-### Step 6.3: Related fixes already present?
-**Record:** No. `git merge-base --is-ancestor 88c6c956fa310 HEAD` → fix
-**not** in tree. No `clksel_fixup` either.
+### Step 5.5: Similar Patterns
+**Record:** Standard hwmon DT enablement pattern. Similar commit:
+`393de14673d60 hwmon: (sht21) Add devicetree support` (+13 lines, same
+pattern).
 
 ---
 
-## Phase 7: Subsystem Context
+## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/pwm/` — IMPORTANT, driver-specific (MediaTek MT7628
-MIPS router/IoT SoC).
+### Step 6.1: Buggy Code Exists?
+**Record:** **YES.** `drivers/hwmon/adt7462.c` in v6.18.44 lacks
+`of_match_table` (verified: no matches for `adt7462_of_match`). DT
+binding (`onnn,adt7462` in `trivial-devices.yaml`, since v6.13) and
+board DTS (`aspeed-bmc-ampere-mtjefferson.dts`, since v6.14) are both
+present. The integration is incomplete in this tree.
+
+### Step 6.2: Backport Complications
+**Record:** **Clean apply.** `git apply --check` on commit diff
+succeeded with no conflicts.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** None. `git log --grep="adt7462.*of_match"` found no matching
+commit in HEAD. Binding commit `3d973b98d2744` is present; driver OF
+table commit `cd1b42617aafe` is NOT.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem
+**Record:** `drivers/hwmon/` — **PERIPHERAL** (specific I2C sensor/fan
+controller driver). Critical for BMC thermal management on affected
+platform but not a core kernel path.
 
 ### Step 7.2: Activity
-**Record:** Driver actively maintained; MT7628 fixes landed in 7.2 cycle
-on linux-next.
+**Record:** hwmon subsystem actively maintained. adt7462 driver last
+touched for struct initialization cleanup (`d8a66f3621c28`). Low churn
+on this specific file.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** Users of MT7628/MT7688 boards using PWM channel 3 via `pwm-
-mediatek` driver. Platform-specific, config-dependent.
+### Step 8.1: Who Is Affected
+**Record:** **Platform-specific** — users of Ampere Mt. Jefferson BMC
+(ASPEED AST2600) with `CONFIG_SENSORS_ADT7462=y/m`. Currently the only
+in-tree DTS using `onnn,adt7462`. Enterprise server BMC deployments.
 
-### Step 8.2: Trigger conditions
-**Record:** Probe `mediatek,mt7628-pwm` and configure PWM index 3. Not
-security-relevant; unprivileged users can affect PWM via sysfs if
-exported.
+### Step 8.2: Trigger Conditions
+**Record:** Boot on DT platform with `compatible = "onnn,adt7462"` node.
+Deterministic — happens every boot on Jefferson BMC. Not triggerable by
+unprivileged users; embedded platform init path.
 
-### Step 8.3: Failure severity
-**Record:** Incorrect PWM waveform on channel 3 — functional hardware
-malfunction. **Severity: MEDIUM** (not crash/corruption/security;
-channels 0–2 unaffected).
+### Step 8.3: Failure Mode Severity
+**Record:** ADT7462 fan controller and temperature sensors never
+initialize. No kernel crash, oops, or data corruption. **Severity:
+MEDIUM** for affected platform (loss of fan monitoring/thermal
+management on server BMC); **LOW** globally (single known board).
 
-### Step 8.4: Risk-benefit
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** MEDIUM — restores correct PWM3 register programming on a
-  widely deployed router SoC.
-- **Risk:** VERY LOW — one boolean, MT7628-only, channels >2 only.
-- **Ratio:** Favorable; classic hardware-quirk fix.
+- **Benefit:** Enables fan/thermal monitoring on Ampere Jefferson BMC;
+  completes DT integration already shipped in this tree. Real hardware
+  fix for a real platform.
+- **Risk:** Very low — 8 lines, standard pattern, no logic changes, no
+  impact on non-DT systems.
+- **Ratio:** Moderate benefit for embedded/BMC users, very low risk.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real, long-standing hardware bug (since 2018)
-- Hardware quirk/workaround category (explicit stable exception)
-- One-line, obviously correct per programming guide
-- Same mechanism as MT7623 `pwm45_fixup` fix (which was stable-
-  nominated)
-- Bug exists in 6.18.44; patch applies cleanly
-- PWM maintainer merged it
+- DT binding and Ampere Jefferson board DTS already shipped in v6.18.44
+  without driver OF support — incomplete integration
+- Fan controller is completely non-functional on Jefferson BMC without
+  this fix
+- Tiny (8 lines), obviously correct, applies cleanly
+- Falls under stable **DT exception**: "Enabling already-supported
+  hardware on new boards"
+- Driver already exists; only adds matching glue for already-declared
+  hardware
+- Zero regression risk for existing non-DT users
 
 **AGAINST backport:**
-- No crash/corruption/security impact
-- Only PWM channel 3 on one SoC family
-- No in-tree DT board using `mediatek,mt7628-pwm`
-- Companion patch 2/2 fixes separate clock issue for all channels
-- No formal Mediatek maintainer review or user bug report
+- Not a crash, security, corruption, or deadlock fix
+- Technically adds DT probing capability (feature addition)
+- Only one in-tree board currently affected
+- No user bug reports or syzbot findings
+- Binding was merged 3 major versions before driver fix — gap has
+  existed since v6.14
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** (documentation-based,
-   maintainer-merged; no runtime Tested-by)
-2. Fixes real bug affecting users? **PASS** (PWM3 broken on MT7628 when
-   used)
-3. Important issue? **PASS** (hardware malfunction; quirk-class fix, not
-   crash-level)
-4. Small and contained? **PASS** (1 line, 1 file)
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS**
+**Unresolved:**
+- Could not read lore review thread (bot protection) — stable nomination
+  in review unverified
 
-### Step 9.3: Exception category
-**Record:** Hardware quirk/workaround — correcting wrong SoC-specific
-register-layout flag.
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — standard OF table pattern;
+   maintainer-committed; no functional logic changes
+2. Fixes real bug affecting users? **PASS** — DT-declared hardware is
+   non-functional on Jefferson BMC in this tree
+3. Important issue? **PASS (borderline)** — not crash/security, but loss
+   of fan/thermal monitoring on server BMC is operationally significant
+   for that platform
+4. Small and contained? **PASS** — 8 lines, one file
+5. No new features or APIs? **PASS with exception** — adds DT probing
+   path, but qualifies under DT exception for enabling hardware on
+   boards already in tree
+6. Can apply to local tree? **PASS** — clean apply verified
 
-### Step 9.4: Decision rationale
-This is a longstanding MT7628 driver bug: channel 3 was programmed with
-MT7623-specific register offsets. The fix is minimal, obviously correct,
-and matches the documented hardware layout. It does not crash the
-kernel, but it is the same class of hardware-specific correction that
-stable trees routinely take (mirroring the original MT7623 `pwm45_fixup`
-stable nomination). For 6.18.44, the buggy code is present and the patch
-applies cleanly as a standalone fix.
+### Step 9.3: Exception Category
+**Record:** **Device Tree update** — enabling already-supported hardware
+(ADT7462 via existing driver) on a board (Ampere Mt. Jefferson) whose
+DTS and binding are already present in v6.18.44.
+
+### Step 9.4: Decision Rationale
+
+This tree (v6.18.44) already contains the `onnn,adt7462` DT binding
+(since v6.13) and the Ampere Mt. Jefferson BMC device tree (since v6.14)
+declaring a `fan-controller@5c` node. Without the driver's
+`of_match_table`, that hardware cannot be driven — the I2C core has no
+mechanism to bind the existing driver to the DT node. The commit
+completes an integration that was partially merged into this stable
+series.
+
+While this is not a crash or security fix, it is a real functional
+defect for the Jefferson BMC platform and fits the stable exception for
+DT updates that enable hardware on boards already supported in-tree. The
+patch is minimal, standard, and applies cleanly with no regression risk.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `88c6c956fa310`: tags listed; no syzbot/Fixes
-- [Phase 2] Diff: 1-line change to `mt7628_pwm_data.pwm45_fixup`
-- [Phase 2] Read `pwm_mediatek_config()`/`get_state()`: `pwm45_fixup &&
-  hwpwm > 2` logic at lines 212–218, 273–279
-- [Phase 3] `git describe HEAD` → `v6.18.44`; Makefile 6.18.44
-- [Phase 3] `git show 8cdc43afbb2cb`: MT7628 added with `pwm45_fixup =
-  true` (2018)
-- [Phase 3] `git show 360cc036563db`: MT7623 `pwm45_fixup` introduced
-  with `Cc: stable`
-- [Phase 3] `git merge-base --is-ancestor 88c6c956fa310 HEAD` → fix NOT
-  in tree
-- [Phase 3] Verified buggy flag at v6.18, v6.12, v5.10, v5.15 tags
-- [Phase 4] `b4 dig -c 88c6c956fa310`: lore URL found; v1 only
-- [Phase 4] `b4 dig -w`: CC list includes PWM maintainer, Mediatek lists
-- [Phase 4] Mbox thread: 2-patch series; Uwe applied both; no stable Cc
-- [Phase 5] Call chain: `.apply` → `pwm_mediatek_config()` uses
-  `pwm45_fixup`
-- [Phase 6] Buggy code confirmed at `drivers/pwm/pwm-mediatek.c:461`
-- [Phase 6] `clksel_fixup` absent in tree (patch 2/2 not present)
-- [Phase 6] No in-tree DTS using `mediatek,mt7628-pwm` (grep in
-  `arch/mips/boot/dts`)
-- [Phase 6] DT binding lists `mediatek,mt7628-pwm` in
-  `Documentation/devicetree/bindings/pwm/mediatek,mt2712-pwm.yaml`
-- [Phase 8] Impact: PWM3 register misprogramming; channels 0–2
-  unaffected; severity MEDIUM
-
-**YES**The branch search finished. On `linux-next`/`master`, the fix is
-commit `88c6c956fa310` (“pwm: mediatek: set mt7628 pwm45_fixup flag to
-false”), merged via `pwm/for-7.2-rc1`. It is not in the current 6.18.44
-stable checkout; that tree still has the buggy `pwm45_fixup = true` for
-MT7628.
-
-The analysis stands: this is a one-line hardware quirk fix for PWM
-channel 3 on MT7628, and it should be backported to this tree.
+- [Phase 1] Parsed commit `cd1b42617aafe`: subject, SOBs, Link tag; no
+  Fixes/Reported-by/syzbot
+- [Phase 2] Diff analysis: +8 lines in `adt7462.c`; adds include,
+  `of_match_table`, `MODULE_DEVICE_TABLE(of)`
+- [Phase 3] `git describe HEAD`: v6.18.44
+- [Phase 3] `git blame` on driver struct: dates to 2014, never had OF
+  table
+- [Phase 3] `3d973b98d2744`: DT binding in tree since v6.13; confirmed
+  ancestor of HEAD
+- [Phase 3] `de153911ffcb6`: Jefferson DTS in tree since v6.14;
+  confirmed ancestor of HEAD
+- [Phase 3] `cd1b42617aafe`: NOT ancestor of HEAD; only on v7.2+
+  branches
+- [Phase 3] `git apply --check`: patch applies cleanly
+- [Phase 4] `b4 dig -c cd1b42617aafe`: found lore thread; v1/v2 series
+  identified
+- [Phase 4] `b4 dig -w`: Guenter Roeck, Rob Herring, Krzysztof Kozlowski
+  CC'd
+- [Phase 4] Lore fetch: blocked by Anubis bot protection — review
+  content UNVERIFIED
+- [Phase 5] Grep `onnn,adt7462`: only in `aspeed-bmc-ampere-
+  mtjefferson.dts` and binding YAML
+- [Phase 5] Read DTS lines 466-472: `fan-controller@5c` with `compatible
+  = "onnn,adt7462"`, `reg = <0x5c>`
+- [Phase 5] Grep `adt7462_of_match` in tree: no matches (fix absent)
+- [Phase 6] Read current `adt7462.c` lines 1811-1826: no
+  `of_match_table` present
+- [Phase 6] Compared with other hwmon drivers: standard `of_match_table`
+  pattern confirmed
+- [Phase 8] Failure mode: no driver binding on DT platform; fan/thermal
+  sensors absent; severity MEDIUM for platform
 
 **YES**
 
- drivers/pwm/pwm-mediatek.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hwmon/adt7462.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/pwm/pwm-mediatek.c b/drivers/pwm/pwm-mediatek.c
-index 4291072a13a7f..e87feda2e7831 100644
---- a/drivers/pwm/pwm-mediatek.c
-+++ b/drivers/pwm/pwm-mediatek.c
-@@ -458,7 +458,7 @@ static const struct pwm_mediatek_of_data mt7623_pwm_data = {
- 
- static const struct pwm_mediatek_of_data mt7628_pwm_data = {
- 	.num_pwms = 4,
--	.pwm45_fixup = true,
-+	.pwm45_fixup = false,
- 	.chanreg_base = 0x10,
- 	.chanreg_width = 0x40,
+diff --git a/drivers/hwmon/adt7462.c b/drivers/hwmon/adt7462.c
+index 174dfee47f7a7..f935c3477b364 100644
+--- a/drivers/hwmon/adt7462.c
++++ b/drivers/hwmon/adt7462.c
+@@ -12,6 +12,7 @@
+ #include <linux/hwmon.h>
+ #include <linux/hwmon-sysfs.h>
+ #include <linux/err.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/mutex.h>
+ #include <linux/log2.h>
+ #include <linux/slab.h>
+@@ -1814,10 +1815,17 @@ static const struct i2c_device_id adt7462_id[] = {
  };
+ MODULE_DEVICE_TABLE(i2c, adt7462_id);
+ 
++static const struct of_device_id adt7462_of_match[] = {
++	{ .compatible = "onnn,adt7462" },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, adt7462_of_match);
++
+ static struct i2c_driver adt7462_driver = {
+ 	.class		= I2C_CLASS_HWMON,
+ 	.driver = {
+ 		.name	= "adt7462",
++		.of_match_table = adt7462_of_match,
+ 	},
+ 	.probe		= adt7462_probe,
+ 	.id_table	= adt7462_id,
 -- 
 2.53.0
 
