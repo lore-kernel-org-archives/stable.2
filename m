@@ -1,158 +1,154 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B68649E5DC
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 17:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198905; cv=pass; b=iXtJkoDq9nZb7WVNa6YrWTxnEpbv6CNq1qEjf4CyIBpKFwIqujvXpJyCjkZa27ah1RcdHHbYq2tG9HRMnnWJGXpZzmqd7+PrQLRNLQU2aFV5OJThy/45ugAtHIqEPj47MYCevnqQnsS/bC1pDnj6/fu9/VKJfkSn307Mn0ifIBk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198905; c=relaxed/simple;
-	bh=1kCMgVeNQvSiwIL3h/DRjr4qSjOvxImZtZcvTmwnYcs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rrrb5hkp5NkDlf+m0ULxDYUBpvrZoZ1FmDRvwMSABUvgJqSc0Iq0bkOXlX9GaRIH9xGzx5V2job+7n8ARklSUekJftrGjcetJgsx368JukYWFVMEbY4IcASc6xfcopm2poRBfzv8gIvUPxJvdJRPL0cL11W4B0u7i6n9dyrNoNg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JyxmnPxN; arc=pass smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359433624CF
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 17:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788199144; cv=none; b=LY7TLR8xkkdVHJ0QOgBoHhZ8h7GJQG5Yd5/IwahnkDj7dL3/NUlPPvnFKuG3jN1PaD3Gz1IM0ZSpuMv5W23WJd6d/wxMlb7P4tJP5CKwCZII6ObuTnBptnW7iae7Y/HEZJCsOSgwSSmp0ZQNhn6ESsDxMjl8tj6s1oCHP6XWeA4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788199144; c=relaxed/simple;
+	bh=fMvS95Zokxhi4YAY/DKRZh4u0zJjTtwNe/Ad1WemONA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pzmPPhFANUrmK2yQ3ztsic3ghuEscBtx0i4Yuc/VK4/Ho+hHFh1wHMxNaRc0aSicCMppy9IrtE7SnEp247Wd5mAe530Ntzqz0rD1xPXR0HpWW3FALgV2oRF8CI2EdP3/Y2i30NonrxmJsj8dx/4W1b0i0+SjIw3JKW7ROhG/Yzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fFtXxhmG; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JyxmnPxN"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-384caf7b168so323571a91.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 10:55:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788198903; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n3q+Skrxm8UYnqPkWBNQFnuON4beToZHWY3tpozLGSBi9zjy58xt7iMqtSt7hmKF9Q
-         rjhfoFDRxaybxEER68gA76Nap5yFXImMhYzhP3BfdiNo96jIGbmBzbrJaJOZaE6YeYjG
-         chjUmYbM845O73Oy6nGh9YEEc77ESBSoPr7uqB/50kahMe1bWkhPiQY0oqg4s7GFcmio
-         AaCAKOjrwQe71Y9eU+ShCmg86rWnoB+iTt0OixhgnXvlFPThZ/A1T+SSXq3wnjbep1aJ
-         2nk2cW8jy9omXKOTax8UGKlYwVYeUNPWrIuibg04So9G8X+OhV50X4+obYsRwyRVR3rD
-         Br6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N/RETsztnDkAzUQrwJYe3M9VfKmr+8nyYXoQh9ATtTg=;
-        fh=aVu5eIqcZO64XXSOkyFJNx8ITVmBXeyt/JhqpKQtJ/g=;
-        b=ncQIwg7bywWWIHG64gVEe0oTInYRU8E3R5Dbp3bI+yAQM1ov5/WQzZc358yu11Jfdb
-         qWfwf6gYC6kpCtBEc+AlM+zOMrOyctQeUPLmRBUCVM0/b72jsh0G8R+kExjjKxuKENMB
-         AWOdjCWBiauhRwNGMSB4XeFIyEJ2LqstB2QJaBMPVclUgQKVuiFvJ4WTMskCjtYiBqqT
-         Lb1ZrEWmtENQKYmWWbULqtafG81GOSFNJCcK0DYQq9FjSq7bYWcQRntWwdtCzECTesJH
-         YIBipLoJigiMzACTCvDVqiFoUIdNrn2gOKjUwzA4nA/poy5u5+/rMVm6NGfHObAQitcP
-         Kwcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fFtXxhmG"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84e04df8c46so4081317b3a.2
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 10:59:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788198903; x=1788803703; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N/RETsztnDkAzUQrwJYe3M9VfKmr+8nyYXoQh9ATtTg=;
-        b=JyxmnPxN5h0vHaOvJhC5P6t8cXq+Wj0BtKDjm03KguwSvzW10EF6OmeMOflX7srlPA
-         1S2OSYclK92wXtzQv+mVFjdhn1oSC77IY4Z7ThcPSoCZMVY24w3Jkx7oOW2do0CZqsRN
-         INt3+vTKLAudaBycDwRJb4Gc1osw6zOyBrg2YRBdz74UlodTh2dN7pkO+d3V0caaGLE9
-         o6h81epwGhDwWtk0KUKOWN7RZxPUHnI995fwxBqlwCqMyBDtXgrWFF15ea2gVdedGXqG
-         C8xH8lzg3YsOXilevrGcyTYPGVkMk8kkh2y9I4HoMlFI2dIY+6Tn1T9Fr0MK8C9IsDvc
-         Lsgw==
+        d=gmail.com; s=20251104; t=1788199142; x=1788803942; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2ZgJ5g0NbcsQZow9nFskcMFtht0b6aFS+BcFnkpsMUc=;
+        b=fFtXxhmGbnlogy0zGaOAsEU8RfCdLAm2l2jewh7ubAP+7+Lhwf+jZd/2qaDwzMJuvp
+         6py6zEpPGn5jHIQJC+ExeWJxVnYJXVqPqBeNPUiBRA2EIswzT3FFKSB0qs1d2Bdu5Gjv
+         c/F6rvdOxg4ob6anZSk2GY637/KtOPuV9nDyMObDbM6WBnwQL6YNyQuk6U2MT+SWpakl
+         bhFcqAkopJkaYKgXs5r2T1SWy5Exxi3MGrUmv8iyApO+nCJqgk9SG/9JBnGt9KPJzNkS
+         bpDt585NE9AYOxsuQkfCW0gOXQCnB8t7Vhl8ABX4f4q/R+3/6h/HYi3giC+AxqDYMho/
+         GUQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788198903; x=1788803703;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N/RETsztnDkAzUQrwJYe3M9VfKmr+8nyYXoQh9ATtTg=;
-        b=Z73Aiy+CqgzIyehkXeKr2btxybO5T06EZOX2PDf8EJ4nKz5Ufu/r8mRgashwIE6UW9
-         D/0m4jOHd/z/1vlQNKBdEHoS6nn9RP53Hx85keaRPwZY+GwefnWI5JOxIhfW6Ds5HEKg
-         Tktq9JUH8jhXDBOQX+wrUKT/xqviS58mWcLhz+GMbOtnx6ZgWwIDA5td7skmW8p3dYHu
-         xc/COcvICUhZQXUDAioOROpwt9PsdUOjlHpI+qHLA6HXl6tfO71SJyN2xXG9FnAf0oHi
-         c+A7Wq7zS7/vcFaagQW3gSRl3lHm/qMxxW/R5hIxd+R9zmyPRlR0XeOtu2gYUiIXyiKj
-         d70g==
-X-Forwarded-Encrypted: i=1; AKwUvBxjdVtoU+bwNdfF+2mdPpzK2zlCqG9kdKZCfzQucX4yUbHwTLFvg5cwLnE7qQVwjou2di7dg28=@vger.kernel.org
-X-Gm-Message-State: AFuF++knfCYcaUeNvyFEHSTpe63N6Q8UQEnIUZF+6tyfdQyyvcSYvgEF
-	8UZCkLBcN3xKo0Mo53G8aGtcg/r5G+Dp4Egd6v7Oq1Yeza69SQ2i2EQL8HbVjnuNCgPK4TCLylL
-	+imjyUOAAIhIUPpKnUbmLkQNqga3K0l0=
-X-Gm-Gg: AYBFou11NDHv6aFtG25NKoXnKyP4RrPsffs/GBnZIeRB1DhfyTPD57aRqGMrQ6yTGg1
-	RLaHG6z14J6QJ4v5eCU5bLH+pz6H8DDBet+vD7bhmA72zGezkODLB3GeMxIbPneJ2cBcjAkR0Wg
-	nSi7rxJCCwi0Q4PdmSwoi2L4UHlMRmiXWSXEl5gt7ZQPbhf1TdBRCNvdwpy7IQhUnl/lwn68MJP
-	dvR9ndbSmdjEGtsDa/LkTx2nnr74gHhCqt+4B7X//E9OCvCA1Sy8qhpJ9rRQDhG+mrcknFOSGfO
-	lZimSa5P2kx+FF2Jc8sClmv6jKHhiO7GFz2fNfVlkYCkIN9lN7Ud6k3CzOJvtzDwmrq4N9u/nuN
-	O3cOCuQA9zjPeD6LUPiSMMgCE0QDy0i73QDvJG30M1NHG8X+8Csd4Xv+NYEgM
-X-Received: by 2002:a17:90b:4b87:b0:396:463e:2eeb with SMTP id
- 98e67ed59e1d1-398ba6dc4f0mr13662063a91.0.1788198902732; Mon, 31 Aug 2026
- 10:55:02 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788199142; x=1788803942;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2ZgJ5g0NbcsQZow9nFskcMFtht0b6aFS+BcFnkpsMUc=;
+        b=kWfcDoTUhDWshqsA1cjUJZFAjAkhy5/4aUx/j89HfV5ZDIc+LvQrahFuLsFrn8dE33
+         G8nyczCDEcNIXR7Fmfx4e0lnXZANetAa7zWsQpB1Y7fW/RGH6eWP8reSvlD69JxiLhG0
+         Bd2OPCYag2yVQx5lwDBsHc0J22Rd8uU16sLHp6RElvaHQicOW4btQxerNvOrXOEvq79X
+         fJTcfCfLirUwR2+GVHHDRgnLtxj8L0zaA14Yk1OmuSeoulhiA6Dns+sM8/LXzmoGKXt3
+         vwVQOk12gfgALQ0OTL9FBfSabXvkw+HicY9Uqa58gv2is0Uzw30jYyNrtzEMbTFSWyRH
+         ROrw==
+X-Forwarded-Encrypted: i=1; AHgh+RpIBNT8ywI3y+JyrUWd13snPNGHbCvANzwzihrDZ4OAttb3ZjHB47Dz0D0ctxR8wYFyRswCYRU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+l9nJzSEeBaVWlooz6Ok6tOynnwiFEtmbHcIY5ycnYs+5qPqe
+	52ML0WfYPgm7dnWGUTqbUOk2Il/iF8l9M5URtjqpv9h68OIXpTKhRXqX
+X-Gm-Gg: AR+sD12NJCcDtzOidGWSwqDntVeV0cYxGZL8DiYqmR3GKtdBhec+ZgddgUs3CTyl0g4
+	mRrtZRvobRTw1MO0tJLLE5zLSDNR8DaU8r6/fRG84IJrI6QfKgSRjBxUYs0YABh7UaI5VsCW78Q
+	ktNWoSVb2er2sE/QX/MF067xIQ4u+g/zGFd3ulbBK7WFbr7CV4wDIhawrDAstjyCN5DeOSsJiay
+	kI/4C+P1rKZIXTHrkCNfJevCbsv4C1VB5g7Xmo3FAieWwABFAsQKILq/WD9WCo5SsNMShYXdXAj
+	UEsimAs1PqjknvujZDR37c/poXQ7PCUEBgmPZSsqaoPuEQfx8ITHTtQgFuW+qkZQCOfXpUACYJn
+	SzsWOSUoQpOsqNxIQomOtxngZzhQWxjDCf/514TYsH2thHencSMH4PO+BxQWsarn73z1kgHVMmA
+	p8/u0ftTnwun7Qdn92PBrCSlOAGMV53GoG7Kt57y4Swq4Vm/6if5OVNIPxiTtWuhloscaZCr919
+	uYtM9pOjJyKD1l1zWRp1YlUMHgwVPCUXSj3gZCI8nOxTqZsdzec9vOFqUVxgSX7n69V
+X-Received: by 2002:a05:6a21:498a:b0:3d3:ae50:97cd with SMTP id adf61e73a8af0-3d3ae5099c5mr26881038637.26.1788199142325;
+        Mon, 31 Aug 2026 10:59:02 -0700 (PDT)
+Received: from archlinux ([2405:201:1b:20ef:268a:fa82:9f05:61a5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa37fa5sm34701575eec.29.2026.08.31.10.59.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 10:59:01 -0700 (PDT)
+Date: Mon, 31 Aug 2026 23:28:57 +0530
+From: Krishna Chomal <krishna.chomal108@gmail.com>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Arda =?utf-8?B?RG/En3U=?= Ari <arfeliousheres@gmail.com>, 
+	Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: hp-wmi: Fix board_params typo for 8DD6
+ board
+Message-ID: <apW_MbaycTf33RWu@archlinux>
+References: <20260827235139.154462-1-arfeliousheres@gmail.com>
+ <apKKuL5lh2OK-6lq@archlinux>
+ <8cc78401-cc88-3136-5d72-eaab779a8690@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826145642.43807-1-ojeda@kernel.org>
-In-Reply-To: <20260826145642.43807-1-ojeda@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 31 Aug 2026 19:54:48 +0200
-X-Gm-Features: AcwNN1UHVFX8Gn5Pcu2VxHXdKlDsBxvZVLchmQDGmj0obMMvoJmQt1OhITRIZ9g
-Message-ID: <CANiq72=TjVOxDj631gCFMKAeXYbjycmZe74ChXL=rw4H53pQzA@mail.gmail.com>
-Subject: Re: [PATCH] drm/panic: clean new `clippy::needless_range_loop` lint
- for Rust 1.100.0
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8cc78401-cc88-3136-5d72-eaab779a8690@linux.intel.com>
 
-On Wed, Aug 26, 2026 at 4:56=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
-te:
+On Mon, Aug 31, 2026 at 07:38:40PM +0300, Ilpo Järvinen wrote:
+>On Sat, 29 Aug 2026, Krishna Chomal wrote:
 >
-> Starting with Rust 1.100.0 (expected 2026-11-12), Clippy warns:
+>> On Fri, Aug 28, 2026 at 02:51:39AM +0300, Arda Doğu Ari wrote:
+>> > When adding support for board 8DD6, &omen_v1_no_ec_thermal_params
+>> > was passed as driver_data instead of &omen_v1_no_ec_board_params.
+>>
+>> Hi,
+>>
+>> When I added support for 8DD6 [1] &omen_v1_no_ec_thermal_params was
+>> indeed the correct quirk. But because Radhey Kalra's board-specific
+>> feature data patch [2] was accepted first, my patch probably lead to a
+>> merge conflict that had to be resolved manually, which is why this is
+>> subtle bug got introduced in the first place.
 >
->     warning: the loop variable `i` is only used to index `self.decimals`
->        --> drivers/gpu/drm/drm_panic_qr.rs:410:18
->         |
->     410 |         for i in 0..len {
->         |                  ^^^^^^
->         |
->     note: for this index operation
->        --> drivers/gpu/drm/drm_panic_qr.rs:411:13
->         |
->     411 |             self.decimals[i] =3D (chunk % 10) as u8;
->         |             ^^^^^^^^^^^^^^^^
->         =3D help: for further information visit https://rust-lang.github.=
-io/rust-clippy/main/index.html#needless_range_loop
->         =3D note: `-W clippy::needless-range-loop` implied by `-W clippy:=
-:all`
->         =3D help: to override `-W clippy::all` add `#[allow(clippy::needl=
-ess_range_loop)]`
->     help: consider using an iterator
->         |
->     410 -         for i in 0..len {
->     410 +         for <item> in self.decimals.iter_mut().take(len) {
->         |
->
-> The lint did not trigger here before because it could not handle arrays
-> behind a field access such as `self.decimals` -- Clippy was improved to
-> catch those cases [1][2].
->
-> Thus clean the warning by iterating over a slice rather than using
-> `take()` so that an out-of-range `len` still triggers the same bounds
-> check as the indexed loop.
->
-> Cc: stable@vger.kernel.org # Needed in 6.18.y and later.
-> Link: https://github.com/rust-lang/rust-clippy/issues/16631 [1]
-> Link: https://github.com/rust-lang/rust-clippy/pull/16634 [2]
-> Assisted-by: LLM
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-> ---
-> One may want to keep the loop in a shape similar to e.g. the one above,
-> though.
+>It's my fault for not catching it (though to my defence, I got sick around
+>the time the merge window ends so I had less time for handling the patches
+>in the first place and I only now realize compiler won't catch this
+>problem for me because the old structs are still there).
 
-Jocelyn: I will likely send another rust-fixes PR during this cycle,
-so I can put this one there if you agree with it.
+No problem, take care.
 
-Thanks!
+>> > Because active_board_params expects a pointer to struct
+>> > hp_wmi_board_params, dereferencing active_board_params->thermal_profile
+>> > results in a type confusion bug and invalid memory access. Update the entry
+>> > to point to omen_v1_no_ec_board_params.
+>>
+>> Thank you very much for observing and sending a patch for the same.
+>
+>I've queued the patch to the review-ilpo-fixes branch already. If Krishna
+>wants to give a reviewed-by tag, I can still add that to the commit.
 
-Cheers,
-Miguel
+Reviewed-by: Krishna Chomal <krishna.chomal108@gmail.com>
+
+>-- 
+> i.
+>
+>> [1]:
+>> https://lore.kernel.org/platform-driver-x86/20260623141314.33947-1-krishna.chomal108@gmail.com
+>> [2]:
+>> https://lore.kernel.org/platform-driver-x86/20260615091034.987029-1-radheykalra901@gmail.com
+>>
+>> > Fixes: a7320d6eb9c42 ("platform/x86: hp-wmi: Add support for OMEN MAX
+>> > 16-ak0xxx (8DD6)")
+>> > Cc: stable@vger.kernel.org
+>> > Signed-off-by: Arda Doğu Ari <arfeliousheres@gmail.com>
+>> > ---
+>> > drivers/platform/x86/hp/hp-wmi.c | 2 +-
+>> > 1 file changed, 1 insertion(+), 1 deletion(-)
+>> >
+>> > diff --git a/drivers/platform/x86/hp/hp-wmi.c
+>> > b/drivers/platform/x86/hp/hp-wmi.c
+>> > index b2773fc1aca4..615b4cf6fc45 100644
+>> > --- a/drivers/platform/x86/hp/hp-wmi.c
+>> > +++ b/drivers/platform/x86/hp/hp-wmi.c
+>> > @@ -337,7 +337,7 @@ static const struct dmi_system_id
+>> > hp_wmi_feature_boards[] __initconst = {
+>> > 	},
+>> > 	{
+>> > 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8DD6") },
+>> > -		.driver_data = (void *)&omen_v1_no_ec_thermal_params,
+>> > +		.driver_data = (void *)&omen_v1_no_ec_board_params,
+>> > 	},
+>> > 	{
+>> > 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8E35") },
+>> > --
+>> > 2.55.0
+>> >
+>>
+
