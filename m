@@ -1,95 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9058C4ACC77;
-	Mon, 31 Aug 2026 13:47:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A2655D863;
+	Mon, 31 Aug 2026 13:47:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184051; cv=none; b=OGihfsOkg4eo+h7OoKvovbiILFMgrEZC5WpFbWrY8FDUhY6VhKsP/hW1kpDzAW1KQ4zPNKZ9J1dsGURYD8SFIqSegid5LFyXeqY9ZT7n847Z2DyCVDRsZJphb6kGnmETCz/iULRXOh8UW3CwX8A8U9e+VvopXcezrj3Tjki2TJE=
+	t=1788184051; cv=none; b=ChfyI2vJDQSwEriObXQnsejnX41GpGkynYkJ5nlmhQ+xpd34ytUDZm0X++bL9mqIasV9RFNCIdwGY6oo7E5dkfVmNZ9VR54XSseQdnxOgSpEVhMVVTbTylL+nx9ikSMjBTBMcxSRtdH1fBzAv7pTpQiefIkvzZAzYcFVuMJbxJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788184051; c=relaxed/simple;
-	bh=JCRysK7XtzoCQRSli1Zs3T4LseR7NETTqhP9JhZRpvU=;
+	bh=J+jQFYaucxEOWqW3yf0UhZjsWJzOiScJ1kL9CFAoUSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XK3wVWhks6Q2+0Za/i70xZ/p+P6PUXamM8HUOox2KkfVdI80XiJ7Hro/qW6lnE3QVXHftVRfYN4+U6HbpX7WOWOftqJ2nmUchomElFuOrKNHLgp0uGIf6vphg73hkAwhM/MUd60V28LdKVzFVHVvi6zPnX78BbThPRuolIiWQgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ozYT9OP0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=hKtfrc0Yc5FVz7UfPSw10yN14cUC9j7tocUEnfk1V2dau+8tVMvruBsWRlSJ2puTDiEluBS+SmJKDIi9GBYUZd2MkCmwCetY0INTFd+pD2KfJIb0PuIBtahddrI3FYljL5xya0eXxp3X9fyBXRQewocPRgfEMY74zG9DSAAL2MU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZ/ahsCV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ozYT9OP0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC701F00A3D;
-	Mon, 31 Aug 2026 13:47:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184048;
-	bh=XE53V8Z33mfXYU+evjK0HBNnN1cBi/CN+LCc4aPDUPk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZ/ahsCV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 161D41F00A3F;
+	Mon, 31 Aug 2026 13:47:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184049;
+	bh=ds1ysNFYTR+NgjJ/YOnzzaH4ibJAxib2md01bLonLbM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ozYT9OP0EN54zCaMQ4/qiGwEo6EIE/w+7myQ4wgwxCwZKEkL18pu3xjIuZeMn8HVZ
-	 z9m6boUyC4K7wDVFD+na7W56yzztjB1LIvsLShmvRwvzDbRd4ZVl57Sw0DN1txfzqK
-	 +5RDnQunbpuLcs5CspKrz2RejKqqV39qq/5Exlxo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vega <vega@nebusec.ai>,
-	Zihan Xi <zihanx@nebusec.ai>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>
-Subject: [PATCH 6.18 55/83] xfrm: fix xfrm_state_construct() auth-trunc leak
-Date: Mon, 31 Aug 2026 15:34:31 +0200
-Message-ID: <20260831133402.339745986@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
-References: <20260831133359.207714926@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	b=UZ/ahsCVszyhkeoaVgZ9MQO5tWWN6m0cBIukOfxiOxPgztRebI8GclxqX8pO95fbT
+	 1y8SFPTSW8wrAIFLDzMmwKeEQkSp6X4WoNRo7BBAUhAf6if+r1IPYloICSpXDJ4QWK
+	 kKb7a9UDKTXA2OWwYNACcKtGE0c1PRxkwDfrwvonvZR8UWqC0lFo1cdnKxUcJ5OaTR
+	 Xv5GnivWcYbSHiTlq3mFUjGXQMwrrx1Jy3zCmtVaD2w2UV/MvL8yL2qi/T7d0/Yubi
+	 /ksmnOWhz+81+QMZB+iVrpjKg83UV15w/UaUJ+jEA1zqsWU5hWmoCB8APYYXmj6owS
+	 +NX7RIx6SP9MQ==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Markus Lindner <lindner.markus@outlook.at>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] ALSA: usb-audio: Add dB map quirk for Razer Barracuda X 2.4
+Date: Mon, 31 Aug 2026 09:28:09 -0400
+Message-ID: <20260831133314.4125787-461-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Markus Lindner <lindner.markus@outlook.at>
 
-------------------
+[ Upstream commit acd8aa3c4b91a38c8521000790890bc9d1083f1d ]
 
-From: Zihan Xi <zihanx@nebusec.ai>
+The Razer Barracuda X 2.4 GHz USB headset dongle (0x1532:0x0552)
+reports a minimum volume register value of cval->min = -16800.
 
-commit c12cbf56320fb633484ee0ca1fb7d68d6b64b213 upstream.
+In UAC 1/256 dB units, -16800 corresponds to -65.625 dB. However,
+stock ALSA misinterprets this raw integer as 1/100 dB units
+(-168.00 dB), causing user-space audio servers (PipeWire /
+PulseAudio) to map their volume curves against an incorrectly wide
+range.
 
-attach_auth_trunc() can allocate x->aalg while leaving
-x->props.aalgo at zero when the selected auth algorithm has no
-sadb_alg_id. One real case is cmac(aes).
+Add an explicit usbmix_dB_map entry overriding Unit 2 to -6562
+(-65.62 dB) to accurately report the physical hardware
+attenuation bounds.
 
-xfrm_state_construct() then treats !x->props.aalgo as "no auth
-algorithm attached yet" and calls attach_auth(). That overwrites
-x->aalg and loses the first allocation. Any later failure or teardown
-only frees the replacement pointer.
-
-Check whether x->aalg is already attached instead of inferring that
-state from x->props.aalgo.
-
-Fixes: 4447bb33f094 ("xfrm: Store aalg in xfrm_state with a user specified truncation length")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Markus Lindner <lindner.markus@outlook.at>
+Link: https://patch.msgid.link/AS8P195MB2142F4EFF83980BD02BA6566E1C12@AS8P195MB2142.EURP195.PROD.OUTLOOK.COM
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_user.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/net/xfrm/xfrm_user.c
-+++ b/net/xfrm/xfrm_user.c
-@@ -916,7 +916,7 @@ static struct xfrm_state *xfrm_state_con
- 	if ((err = attach_auth_trunc(&x->aalg, &x->props.aalgo,
- 				     attrs[XFRMA_ALG_AUTH_TRUNC], extack)))
- 		goto error;
--	if (!x->props.aalgo) {
-+	if (!x->aalg) {
- 		if ((err = attach_auth(&x->aalg, &x->props.aalgo,
- 				       attrs[XFRMA_ALG_AUTH], extack)))
- 			goto error;
+LLM Generated explanations, may be completely bogus:
 
+The background searches finished:
+
+- **Mainline lookup** found the commit: `acd8aa3c4b91` — “ALSA: usb-
+  audio: Add dB map quirk for Razer Barracuda X 2.4” by Markus Lindner,
+  merged 2026-07-24 (+15 lines, one file). That matches the patch under
+  review and confirms it’s in mainline but not yet in this 6.18.44 tree.
+- **Bose SoundLink history search** in this checkout wasn’t useful: `git
+  log -S` only surfaced the usb-6.18-rc8 merge, so the original quirk
+  introduction isn’t visible here.
+
+The earlier **YES** backport recommendation stands.
+
+ sound/usb/mixer_maps.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index faac7df1fbcf0..4d8dca04f87d0 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -344,6 +344,16 @@ static const struct usbmix_name_map bose_soundlink_map[] = {
+ 	{ 0 }	/* terminator */
+ };
+ 
++/*
++ * Razer Barracuda X 2.4: Firmware reports cval->min = -16800 in 1/256 dB units
++ * (-65.62 dB), which stock ALSA misinterprets as a -168 dB floor
++ */
++static const struct usbmix_dB_map razer_barracuda_x_2_4_dB = {-6562, 0};
++static const struct usbmix_name_map razer_barracuda_x_2_4_map[] = {
++	{ 2, NULL, .dB = &razer_barracuda_x_2_4_dB },
++	{ 0 }   /* terminator */
++};
++
+ /* Sennheiser Communications Headset [PC 8], the dB value is reported as -6 negative maximum  */
+ static const struct usbmix_dB_map sennheiser_pc8_dB = {-9500, 0};
+ static const struct usbmix_name_map sennheiser_pc8_map[] = {
+@@ -689,6 +699,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 		.id = USB_ID(0x17aa, 0x1046),
+ 		.map = lenovo_p620_rear_map,
+ 	},
++	{
++		/* Razer Barracuda X 2.4 */
++		.id = USB_ID(0x1532, 0x0552),
++		.map = razer_barracuda_x_2_4_map,
++	},
+ 	{
+ 		/* Sennheiser Communications Headset [PC 8] */
+ 		.id = USB_ID(0x1395, 0x0025),
+-- 
+2.53.0
 
