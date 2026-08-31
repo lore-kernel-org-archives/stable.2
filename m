@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C72396B98
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:20:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2A939A815
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214806; cv=none; b=OuuLPFcvJX2Ts96KxMHdZ0mMqZCzXrgoqNIuMo9Rz/lQUgWfMWp+bVGz6gEUw4JJninSmgtM2MvCteTyidgbUnkZwd/Oh+yud++FwGGGfPz9kwZY9exdNTK8znVbzeVPdMeYlYqeHYztg7CY2oWWwfEridoEHHbbawuuV7DrV6g=
+	t=1788214807; cv=none; b=dHJWA7zCQAW9pwhQoIlmtsVt0zsJ7WoOPck85Nv3rVdUJrVGHSBRWHg2LCJhtjHPuYY76mYzW9hfhYgRA6wvqH6mwuJg2BMVog4QglknxfeXPntCUX3P1jACgLDuZpoeJcAxa+jqVfJATq15ZzDuxDmEtblLMxW1jFFET+vH3IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214806; c=relaxed/simple;
-	bh=fcD36V4lppqEPaIcicjusdSrz2QUw2rbH3picjP6tJM=;
+	s=arc-20240116; t=1788214807; c=relaxed/simple;
+	bh=qzugCMcom3I7LQa9xUDK6vDc8XUOCXvh7+32yh1tPyY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mH9qI3nplZQyXRJJqBO2x7Gqnb8x/j6+BPRb8jpoDoQChbOmbluLw02VzCG8T7Wnnuj0CrqTnhkb6IAihGT6PcAqhlhpApbjLrseJQzvxcDF+B0VoB3s7jDjeQ7pyp/U0tL+MPfyD+OZY74GX9pgQWSTKjkUfSGzNOnPHCoSehA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0G9AnfE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=S7HGQPTosrw3pFngtIPHcSpXQKY3aum+NWIVGAeVRR4tUgQ/qHdE5Nx+WJK4yL3QPK2SdL3ju5nv2UhZDpJ6BQAcsZ+eIvNXyI66MRXGm9Cejwm6BDPA0Jrf9RXXrAXthMzeoFkRlEzmSieAYiRP6aoo74LB6M6UeRVCoEYL/jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RpIdjgwM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0G9AnfE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968E31F00A3E;
-	Mon, 31 Aug 2026 22:20:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RpIdjgwM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776451F00A3F;
+	Mon, 31 Aug 2026 22:20:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788214805;
-	bh=w3sMr/tQdg692F7VC481afaNxajJzoqUyAaL9iQAFng=;
+	s=k20260515; t=1788214806;
+	bh=D9m3F44gSC3/INu/BbLaYqEn57z3Pq6TakoWgGlK7D8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D0G9AnfE/5XGFcbQix7Y4WDIXVKAtV5RpR8dcHk1w+gyPHDFid9uL97atBm3viUaf
-	 20Ults7t1pSc1gQSV+FsuAWy569+RdOmCLoVV6njfDqV2oiWVlI3eLk+hqwkVL5rAp
-	 6zby+gppHBcptamg3g/B2cfqF5JjvK/h2DunkOHeDcBgE0B9MgCgBYOL6G/kwf1Wzs
-	 GM772Dc93eSBYXzbdsIeWt98XEyvQ1H8hMdznjAkQ2qnjSGh5EOvBoB2j5pd43yEIF
-	 v97CucE42EP+atY6TViyJiyqSiS8OXzR7xgBb8uviQatOSdrlL0A0Zq3QmzaU+3ymD
-	 2tJGIUM8VqDiA==
+	b=RpIdjgwMZQd+Z2H1/IAulOg0aJ6ZLIdqoeaOqO5anNpDoUw4yRIdES1LQk2pCCl0s
+	 LPd1AML5RxrvKVuzWbrJs6ujiHbk7gpNpCGYo/h/vAMZgb3+KwCCLejoJ0KdDjPREM
+	 DydvUg7E+fDjvTF2EBemcLHiO0pJaOh+WpvVaBh0WRwQ7oxQVqArxQ/7sg2w04ku96
+	 6HPiYJSj4pEJdyn59udr/EB9yG/zzDJMUbBVoZvvRuTuVI4sBoFJI0ZuiuMVRcTgak
+	 0rezhqIXLb5tLUdpPntoie8kbQMR8bXOkD8h89BbRr2hcWbxhXeE0YOPOrxhiSu6/k
+	 NFb6/gbHGUHMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
 	Tom Lendacky <thomas.lendacky@amd.com>,
+	Michael Roth <michael.roth@amd.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] KVM: SEV: Add an anonymous "psc" struct to track current PSC metadata
-Date: Mon, 31 Aug 2026 18:20:00 -0400
-Message-ID: <20260831222002.1858641-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] KVM: SEV: Read start/end indices of PSC requests exactly once per #VMGEXIT
+Date: Mon, 31 Aug 2026 18:20:01 -0400
+Message-ID: <20260831222002.1858641-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831222002.1858641-1-sashal@kernel.org>
 References: <2026083120-cilantro-legacy-9d5a@gregkh>
@@ -49,179 +50,474 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 00b9744a3688758c5c492756d08a1cd599a76965 ]
+[ Upstream commit ce6ea7b33e0075335b1eb3b227a21a98e3196e41 ]
 
-Add a "psc" struct to vcpu_sev_es_state to avoid having to prefix all of
-the fields with "psc_".
-
-Take advantage of the code churn to opportunistically rename local
-variables to "guest_psc" to make it more obvious that the buffer is guest
-data, and more importantly, guest accessible!
-
-Opportunistically rename inflight => batch_size as well, because there can
-really only be one operation in-flight (per-vCPU), i.e. "inflight" _looks_
-like a boolean, but in actuality is an integer tracking how many pages are
-being handled by the current operation.
-
-No functional change intended.
+Rework Page State Change (PSC) handling to read the guest-provided start
+and end indices exactly once, at the beginning of the request.  Re-reading
+the indices is "fine", _if_ the guest is well-behaved.  KVM _should_ be
+safe against concurrent guest modification of the indices, but there is
+zero reason to introduce unnecessary risk.
 
 Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Reviewed-by: Michael Roth <michael.roth@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260501202250.2115252-13-seanjc@google.com>
+Message-ID: <20260501202250.2115252-14-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <20260529183549.1104619-13-pbonzini@redhat.com>
+Message-ID: <20260529183549.1104619-14-pbonzini@redhat.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Stable-dep-of: 0060569e4f18 ("KVM: SEV: Extract loading of guest-provided VMSA to a separate helper")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/sev.c | 43 +++++++++++++++++++-----------------------
- arch/x86/kvm/svm/svm.h |  8 +++++---
- 2 files changed, 24 insertions(+), 27 deletions(-)
+ arch/x86/kvm/svm/sev.c | 223 +++++++++++++++++++++--------------------
+ arch/x86/kvm/svm/svm.c |  11 +-
+ arch/x86/kvm/svm/svm.h |   8 +-
+ 3 files changed, 125 insertions(+), 117 deletions(-)
 
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index e5587675cf9ec..a5a4e60f85c69 100644
+index a5a4e60f85c69..5bf1295844643 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -3726,17 +3726,14 @@ static int snp_begin_psc(struct vcpu_svm *svm);
+@@ -2033,7 +2033,7 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	kvm_for_each_vcpu(i, dst_vcpu, dst_kvm) {
+ 		dst_svm = to_svm(dst_vcpu);
+ 
+-		sev_init_vmcb(dst_svm);
++		sev_init_vmcb(dst_svm, false);
+ 
+ 		if (!dst->es_active)
+ 			continue;
+@@ -3722,7 +3722,17 @@ struct psc_buffer {
+ 	struct psc_entry entries[];
+ } __packed;
+ 
+-static int snp_begin_psc(struct vcpu_svm *svm);
++/* Compatibility shims for the post-6.12 VMSA helpers. */
++#define kvm_set_mp_state(vcpu, state) ((vcpu)->arch.mp_state = (state))
++#define kvm_gmem_get_pfn(kvm, slot, gfn, pfn, page, order)		\
++({									\
++	int __ret = kvm_gmem_get_pfn(kvm, slot, gfn, pfn, order);	\
++	if (!__ret)							\
++		*(page) = pfn_to_page(*(pfn));				\
++	__ret;								\
++})
++
++static int snp_do_psc(struct vcpu_svm *svm);
  
  static void snp_complete_psc(struct vcpu_svm *svm, u64 psc_ret)
  {
--	svm->sev_es.psc_inflight = 0;
--	svm->sev_es.psc_idx = 0;
--	svm->sev_es.psc_2m = false;
-+	memset(&svm->sev_es.psc, 0, sizeof(svm->sev_es.psc));
- 	ghcb_set_sw_exit_info_2(svm->sev_es.ghcb, psc_ret);
- }
- 
- static void __snp_complete_one_psc(struct vcpu_svm *svm)
- {
--	struct psc_buffer *psc = svm->sev_es.ghcb_sa;
--	struct psc_entry *entries = psc->entries;
--	struct psc_hdr *hdr = &psc->hdr;
-+	struct vcpu_sev_es_state *sev_es = &svm->sev_es;
-+	struct psc_buffer *guest_psc = sev_es->ghcb_sa;
- 	__u16 idx;
- 
- 	/*
-@@ -3744,14 +3741,14 @@ static void __snp_complete_one_psc(struct vcpu_svm *svm)
- 	 * corresponding entries in the guest's PSC buffer and zero out the
- 	 * count of in-flight PSC entries.
- 	 */
--	for (idx = svm->sev_es.psc_idx; svm->sev_es.psc_inflight;
--	     svm->sev_es.psc_inflight--, idx++) {
--		struct psc_entry entry = READ_ONCE(entries[idx]);
-+	for (idx = sev_es->psc.cur_idx; sev_es->psc.batch_size;
-+	     sev_es->psc.batch_size--, idx++) {
-+		struct psc_entry entry = READ_ONCE(guest_psc->entries[idx]);
- 
--		entries[idx].cur_page = entry.pagesize ? 512 : 1;
-+		guest_psc->entries[idx].cur_page = entry.pagesize ? 512 : 1;
+@@ -3748,6 +3758,7 @@ static void __snp_complete_one_psc(struct vcpu_svm *svm)
+ 		guest_psc->entries[idx].cur_page = entry.pagesize ? 512 : 1;
  	}
  
--	hdr->cur_entry = idx;
-+	guest_psc->hdr.cur_entry = idx;
++	sev_es->psc.cur_idx = idx;
+ 	guest_psc->hdr.cur_entry = idx;
  }
  
- static int snp_complete_one_psc(struct kvm_vcpu *vcpu)
-@@ -3772,10 +3769,8 @@ static int snp_complete_one_psc(struct kvm_vcpu *vcpu)
- static int snp_begin_psc(struct vcpu_svm *svm)
+@@ -3763,37 +3774,19 @@ static int snp_complete_one_psc(struct kvm_vcpu *vcpu)
+ 	__snp_complete_one_psc(svm);
+ 
+ 	/* Handle the next range (if any). */
+-	return snp_begin_psc(svm);
++	return snp_do_psc(svm);
+ }
+ 
+-static int snp_begin_psc(struct vcpu_svm *svm)
++static int snp_do_psc(struct vcpu_svm *svm)
  {
  	struct vcpu_sev_es_state *sev_es = &svm->sev_es;
--	struct psc_buffer *psc = sev_es->ghcb_sa;
--	struct psc_entry *entries = psc->entries;
-+	struct psc_buffer *guest_psc = sev_es->ghcb_sa;
+ 	struct psc_buffer *guest_psc = sev_es->ghcb_sa;
  	struct kvm_vcpu *vcpu = &svm->vcpu;
--	struct psc_hdr *hdr = &psc->hdr;
  	struct psc_entry entry_start;
- 	u16 idx, idx_start, idx_end, max_nr_entries;
+-	u16 idx, idx_start, idx_end, max_nr_entries;
  	int npages;
-@@ -3802,7 +3797,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	bool huge;
+ 	u64 gfn;
+-
+-	if (!(vcpu->kvm->arch.hypercall_exit_enabled & (1 << KVM_HC_MAP_GPA_RANGE))) {
+-		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_GENERIC);
+-		return 1;
+-	}
+-
+-	/*
+-	 * GHCB v2 requires the scratch area to reside within the GHCB itself,
+-	 * and PSC requests are only supported for GHCB v2+.  Thus it should be
+-	 * impossible to exceed the max PSC entry count (which is derived from
+-	 * the size of the shared GHCB buffer).
+-	 */
+-	max_nr_entries = (sev_es->ghcb_sa_len - sizeof(struct psc_hdr)) /
+-			 sizeof(struct psc_entry);
+-	if (WARN_ON_ONCE(max_nr_entries > VMGEXIT_PSC_MAX_COUNT)) {
+-		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_GENERIC);
+-		return 1;
+-	}
++	u16 idx;
  
  next_range:
  	/* There should be no other PSCs in-flight at this point. */
--	if (WARN_ON_ONCE(svm->sev_es.psc_inflight)) {
-+	if (WARN_ON_ONCE(svm->sev_es.psc.batch_size)) {
- 		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_GENERIC);
+@@ -3802,21 +3795,8 @@ static int snp_begin_psc(struct vcpu_svm *svm)
  		return 1;
  	}
-@@ -3812,8 +3807,8 @@ static int snp_begin_psc(struct vcpu_svm *svm)
- 	 * validation, so take care to only use validated copies of values used
- 	 * for things like array indexing.
- 	 */
--	idx_start = READ_ONCE(hdr->cur_entry);
--	idx_end = READ_ONCE(hdr->end_entry);
-+	idx_start = READ_ONCE(guest_psc->hdr.cur_entry);
-+	idx_end = READ_ONCE(guest_psc->hdr.end_entry);
  
- 	if (idx_end >= max_nr_entries) {
- 		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_INVALID_HDR);
-@@ -3822,7 +3817,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
- 
+-	/*
+-	 * The PSC descriptor buffer can be modified by a misbehaved guest after
+-	 * validation, so take care to only use validated copies of values used
+-	 * for things like array indexing.
+-	 */
+-	idx_start = READ_ONCE(guest_psc->hdr.cur_entry);
+-	idx_end = READ_ONCE(guest_psc->hdr.end_entry);
+-
+-	if (idx_end >= max_nr_entries) {
+-		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_INVALID_HDR);
+-		return 1;
+-	}
+-
  	/* Find the start of the next range which needs processing. */
- 	for (idx = idx_start; idx <= idx_end; idx++) {
--		entry_start = READ_ONCE(entries[idx]);
-+		entry_start = READ_ONCE(guest_psc->entries[idx]);
+-	for (idx = idx_start; idx <= idx_end; idx++) {
++	for (idx = sev_es->psc.cur_idx; idx <= sev_es->psc.end_idx; idx++) {
+ 		entry_start = READ_ONCE(guest_psc->entries[idx]);
  
  		gfn = entry_start.gfn;
- 		huge = entry_start.pagesize;
-@@ -3855,7 +3850,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
- 		 * for READ_ONCE() as KVM doesn't consume the field, i.e. a
- 		 * misbehaving guest can only break itself.
- 		 */
--		hdr->cur_entry++;
-+		guest_psc->hdr.cur_entry++;
+@@ -3853,7 +3833,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 		guest_psc->hdr.cur_entry++;
  	}
  
- 	if (idx > idx_end) {
-@@ -3864,9 +3859,9 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+-	if (idx > idx_end) {
++	if (idx > sev_es->psc.end_idx) {
+ 		/* Nothing more to process. */
+ 		snp_complete_psc(svm, 0);
  		return 1;
- 	}
- 
--	svm->sev_es.psc_2m = huge;
--	svm->sev_es.psc_idx = idx;
--	svm->sev_es.psc_inflight = 1;
-+	sev_es->psc.is_2m = huge;
-+	sev_es->psc.cur_idx = idx;
-+	sev_es->psc.batch_size = 1;
- 
- 	/*
- 	 * Find all subsequent PSC entries that contain adjacent GPA
-@@ -3874,14 +3869,14 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+@@ -3868,7 +3848,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	 * ranges/operations and can be combined into a single
  	 * KVM_HC_MAP_GPA_RANGE exit.
  	 */
- 	while (++idx <= idx_end) {
--		struct psc_entry entry = READ_ONCE(entries[idx]);
-+		struct psc_entry entry = READ_ONCE(guest_psc->entries[idx]);
+-	while (++idx <= idx_end) {
++	while (++idx <= sev_es->psc.end_idx) {
+ 		struct psc_entry entry = READ_ONCE(guest_psc->entries[idx]);
  
  		if (entry.operation != entry_start.operation ||
- 		    entry.gfn != entry_start.gfn + npages ||
- 		    entry.cur_page || !!entry.pagesize != huge)
- 			break;
+@@ -3911,63 +3891,72 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	BUG();
+ }
  
--		svm->sev_es.psc_inflight++;
-+		sev_es->psc.batch_size++;
- 		npages += huge ? 512 : 1;
+-static int __sev_snp_update_protected_guest_state(struct kvm_vcpu *vcpu)
++static int snp_begin_psc(struct vcpu_svm *svm)
+ {
+-	struct vcpu_svm *svm = to_svm(vcpu);
++	struct vcpu_sev_es_state *sev_es = &svm->sev_es;
++	struct psc_buffer *guest_psc = sev_es->ghcb_sa;
++	u16 max_nr_entries;
+ 
+-	WARN_ON(!mutex_is_locked(&svm->sev_es.snp_vmsa_mutex));
++	if (!(svm->vcpu.kvm->arch.hypercall_exit_enabled &
++	      (1 << KVM_HC_MAP_GPA_RANGE))) {
++		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_GENERIC);
++		return 1;
++	}
+ 
+-	/* Mark the vCPU as offline and not runnable */
+-	vcpu->arch.pv.pv_unhalted = false;
+-	vcpu->arch.mp_state = KVM_MP_STATE_HALTED;
++	/*
++	 * GHCB v2 requires the scratch area to reside within the GHCB itself,
++	 * and PSC requests are only supported for GHCB v2+.  Thus it should be
++	 * impossible to exceed the max PSC entry count (which is derived from
++	 * the size of the shared GHCB buffer).
++	 */
++	max_nr_entries = (sev_es->ghcb_sa_len - sizeof(struct psc_hdr)) /
++			 sizeof(struct psc_entry);
++	if (WARN_ON_ONCE(max_nr_entries > VMGEXIT_PSC_MAX_COUNT)) {
++		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_GENERIC);
++		return 1;
++	}
+ 
+-	/* Clear use of the VMSA */
+-	svm->vmcb->control.vmsa_pa = INVALID_PAGE;
++	/*
++	 * The PSC descriptor buffer can be modified by a misbehaved guest after
++	 * validation, so take care to only use validated copies of values used
++	 * for things like array indexing.
++	 */
++	sev_es->psc.cur_idx = READ_ONCE(guest_psc->hdr.cur_entry);
++	sev_es->psc.end_idx = READ_ONCE(guest_psc->hdr.end_entry);
+ 
+-	if (VALID_PAGE(svm->sev_es.snp_vmsa_gpa)) {
+-		gfn_t gfn = gpa_to_gfn(svm->sev_es.snp_vmsa_gpa);
+-		struct kvm_memory_slot *slot;
+-		kvm_pfn_t pfn;
++	if (sev_es->psc.end_idx >= max_nr_entries) {
++		snp_complete_psc(svm, VMGEXIT_PSC_ERROR_INVALID_HDR);
++		return 1;
++	}
+ 
+-		slot = gfn_to_memslot(vcpu->kvm, gfn);
+-		if (!slot)
+-			return -EINVAL;
++	return snp_do_psc(svm);
++}
+ 
+-		/*
+-		 * The new VMSA will be private memory guest memory, so
+-		 * retrieve the PFN from the gmem backend.
+-		 */
+-		if (kvm_gmem_get_pfn(vcpu->kvm, slot, gfn, &pfn, NULL))
+-			return -EINVAL;
++/*
++ * Invoked as part of svm_vcpu_reset() processing of an init event.
++ */
++static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
++{
++	struct vcpu_svm *svm = to_svm(vcpu);
++	struct kvm_memory_slot *slot;
++	struct page *page;
++	kvm_pfn_t pfn;
++	gfn_t gfn;
+ 
+-		/*
+-		 * From this point forward, the VMSA will always be a
+-		 * guest-mapped page rather than the initial one allocated
+-		 * by KVM in svm->sev_es.vmsa. In theory, svm->sev_es.vmsa
+-		 * could be free'd and cleaned up here, but that involves
+-		 * cleanups like wbinvd_on_all_cpus() which would ideally
+-		 * be handled during teardown rather than guest boot.
+-		 * Deferring that also allows the existing logic for SEV-ES
+-		 * VMSAs to be re-used with minimal SNP-specific changes.
+-		 */
+-		svm->sev_es.snp_has_guest_vmsa = true;
++	guard(mutex)(&svm->sev_es.snp_vmsa_mutex);
+ 
+-		/* Use the new VMSA */
+-		svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
++	if (!svm->sev_es.snp_ap_waiting_for_reset)
++		return;
+ 
+-		/* Mark the vCPU as runnable */
+-		vcpu->arch.pv.pv_unhalted = false;
+-		vcpu->arch.mp_state = KVM_MP_STATE_RUNNABLE;
++	svm->sev_es.snp_ap_waiting_for_reset = false;
+ 
+-		svm->sev_es.snp_vmsa_gpa = INVALID_PAGE;
++	/* Mark the vCPU as offline and not runnable */
++	vcpu->arch.pv.pv_unhalted = false;
++	kvm_set_mp_state(vcpu, KVM_MP_STATE_HALTED);
+ 
+-		/*
+-		 * gmem pages aren't currently migratable, but if this ever
+-		 * changes then care should be taken to ensure
+-		 * svm->sev_es.vmsa is pinned through some other means.
+-		 */
+-		kvm_release_pfn_clean(pfn);
+-	}
++	/* Clear use of the VMSA */
++	svm->vmcb->control.vmsa_pa = INVALID_PAGE;
++	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
+ 
+ 	/*
+ 	 * When replacing the VMSA during SEV-SNP AP creation,
+@@ -3975,38 +3964,52 @@ static int __sev_snp_update_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	 */
+ 	vmcb_mark_all_dirty(svm->vmcb);
+ 
+-	return 0;
+-}
++	if (!VALID_PAGE(svm->sev_es.snp_pending_vmsa_gpa))
++		return;
+ 
+-/*
+- * Invoked as part of svm_vcpu_reset() processing of an init event.
+- */
+-void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+-{
+-	struct vcpu_svm *svm = to_svm(vcpu);
+-	int ret;
++	gfn = gpa_to_gfn(svm->sev_es.snp_pending_vmsa_gpa);
++	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
+ 
+-	if (!sev_snp_guest(vcpu->kvm))
++	slot = gfn_to_memslot(vcpu->kvm, gfn);
++	if (!slot)
+ 		return;
+ 
+-	mutex_lock(&svm->sev_es.snp_vmsa_mutex);
++	/*
++	 * The new VMSA will be private memory guest memory, so retrieve the
++	 * PFN from the gmem backend.
++	 */
++	if (kvm_gmem_get_pfn(vcpu->kvm, slot, gfn, &pfn, &page, NULL))
++		return;
+ 
+-	if (!svm->sev_es.snp_ap_waiting_for_reset)
+-		goto unlock;
++	/*
++	 * From this point forward, the VMSA will always be a guest-mapped page
++	 * rather than the initial one allocated by KVM in svm->sev_es.vmsa. In
++	 * theory, svm->sev_es.vmsa could be free'd and cleaned up here, but
++	 * that involves cleanups like flushing caches, which would ideally be
++	 * handled during teardown rather than guest boot.  Deferring that also
++	 * allows the existing logic for SEV-ES VMSAs to be re-used with
++	 * minimal SNP-specific changes.
++	 */
++	svm->sev_es.snp_has_guest_vmsa = true;
+ 
+-	svm->sev_es.snp_ap_waiting_for_reset = false;
++	/* Use the new VMSA */
++	svm->sev_es.snp_guest_vmsa_gpa = gfn_to_gpa(gfn);
++	svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
+ 
+-	ret = __sev_snp_update_protected_guest_state(vcpu);
+-	if (ret)
+-		vcpu_unimpl(vcpu, "snp: AP state update on init failed\n");
++	/* Mark the vCPU as runnable */
++	kvm_set_mp_state(vcpu, KVM_MP_STATE_RUNNABLE);
+ 
+-unlock:
+-	mutex_unlock(&svm->sev_es.snp_vmsa_mutex);
++	/*
++	 * gmem pages aren't currently migratable, but if this ever changes
++	 * then care should be taken to ensure svm->sev_es.vmsa is pinned
++	 * through some other means.
++	 */
++	kvm_release_page_clean(page);
+ }
+ 
+ static int sev_snp_ap_creation(struct vcpu_svm *svm)
+ {
+-	struct kvm_sev_info *sev = &to_kvm_svm(svm->vcpu.kvm)->sev_info;
++	struct kvm_sev_info *sev = to_kvm_sev_info(svm->vcpu.kvm);
+ 	struct kvm_vcpu *vcpu = &svm->vcpu;
+ 	struct kvm_vcpu *target_vcpu;
+ 	struct vcpu_svm *target_svm;
+@@ -4080,10 +4083,10 @@ static int sev_snp_ap_creation(struct vcpu_svm *svm)
+ 			goto out;
+ 		}
+ 
+-		target_svm->sev_es.snp_vmsa_gpa = svm->vmcb->control.exit_info_2;
++		target_svm->sev_es.snp_pending_vmsa_gpa = svm->vmcb->control.exit_info_2;
+ 		break;
+ 	case SVM_VMGEXIT_AP_DESTROY:
+-		target_svm->sev_es.snp_vmsa_gpa = INVALID_PAGE;
++		target_svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
+ 		break;
+ 	default:
+ 		vcpu_unimpl(vcpu, "vmgexit: invalid AP creation request [%#x] from guest\n",
+@@ -4105,6 +4108,9 @@ static int sev_snp_ap_creation(struct vcpu_svm *svm)
+ 	return ret;
+ }
+ 
++#undef kvm_gmem_get_pfn
++#undef kvm_set_mp_state
++
+ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_gpa)
+ {
+ 	struct sev_data_snp_guest_request data = {0};
+@@ -4648,7 +4654,7 @@ static void sev_es_init_vmcb(struct vcpu_svm *svm)
+ 	set_msr_interception(vcpu, svm->msrpm, MSR_IA32_CR_PAT, 1, 1);
+ }
+ 
+-void sev_init_vmcb(struct vcpu_svm *svm)
++void sev_init_vmcb(struct vcpu_svm *svm, bool init_event)
+ {
+ 	svm->vmcb->control.nested_ctl |= SVM_NESTED_CTL_SEV_ENABLE;
+ 	clr_exception_intercept(svm, UD_VECTOR);
+@@ -4661,6 +4667,9 @@ void sev_init_vmcb(struct vcpu_svm *svm)
+ 
+ 	if (sev_es_guest(svm->vcpu.kvm))
+ 		sev_es_init_vmcb(svm);
++
++	if (init_event && sev_snp_guest(svm->vcpu.kvm))
++		sev_snp_init_protected_guest_state(&svm->vcpu);
+ }
+ 
+ void sev_es_vcpu_reset(struct vcpu_svm *svm)
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 44819d9470dcf..f85053b1e4bc5 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -1239,7 +1239,7 @@ static inline void init_vmcb_after_set_cpuid(struct kvm_vcpu *vcpu)
+ 	}
+ }
+ 
+-static void init_vmcb(struct kvm_vcpu *vcpu)
++static void init_vmcb(struct kvm_vcpu *vcpu, bool init_event)
+ {
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 	struct vmcb *vmcb = svm->vmcb01.ptr;
+@@ -1378,7 +1378,7 @@ static void init_vmcb(struct kvm_vcpu *vcpu)
  	}
  
+ 	if (sev_guest(vcpu->kvm))
+-		sev_init_vmcb(svm);
++		sev_init_vmcb(svm, init_event);
+ 
+ 	svm_hv_init_vmcb(vmcb);
+ 	init_vmcb_after_set_cpuid(vcpu);
+@@ -1414,10 +1414,7 @@ static void svm_vcpu_reset(struct kvm_vcpu *vcpu, bool init_event)
+ 	svm->spec_ctrl = 0;
+ 	svm->virt_spec_ctrl = 0;
+ 
+-	if (init_event)
+-		sev_snp_init_protected_guest_state(vcpu);
+-
+-	init_vmcb(vcpu);
++	init_vmcb(vcpu, init_event);
+ 
+ 	if (!init_event)
+ 		__svm_vcpu_reset(vcpu);
+@@ -1473,6 +1470,8 @@ static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+ 
+ 	if (vmsa_page)
+ 		svm->sev_es.vmsa = page_address(vmsa_page);
++	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
++	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
+ 
+ 	svm->guest_state_loaded = false;
+ 
 diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index c34cd7f1408fc..c7920968a0dd5 100644
+index c7920968a0dd5..5b390063e07ae 100644
 --- a/arch/x86/kvm/svm/svm.h
 +++ b/arch/x86/kvm/svm/svm.h
-@@ -231,9 +231,11 @@ struct vcpu_sev_es_state {
- 	bool ghcb_sa_free;
- 
+@@ -233,6 +233,7 @@ struct vcpu_sev_es_state {
  	/* SNP Page-State-Change buffer entries currently being processed */
--	u16 psc_idx;
--	u16 psc_inflight;
--	bool psc_2m;
-+	struct {
-+		u16 cur_idx;
-+		u16 batch_size;
-+		bool is_2m;
-+	} psc;
- 
+ 	struct {
+ 		u16 cur_idx;
++		u16 end_idx;
+ 		u16 batch_size;
+ 		bool is_2m;
+ 	} psc;
+@@ -240,7 +241,8 @@ struct vcpu_sev_es_state {
  	u64 ghcb_registered_gpa;
  
+ 	struct mutex snp_vmsa_mutex; /* Used to handle concurrent updates of VMSA. */
+-	gpa_t snp_vmsa_gpa;
++	gpa_t snp_pending_vmsa_gpa;
++	gpa_t snp_guest_vmsa_gpa;
+ 	bool snp_ap_waiting_for_reset;
+ 	bool snp_has_guest_vmsa;
+ };
+@@ -732,7 +734,7 @@ void avic_refresh_virtual_apic_mode(struct kvm_vcpu *vcpu);
+ /* sev.c */
+ 
+ void pre_sev_run(struct vcpu_svm *svm, int cpu);
+-void sev_init_vmcb(struct vcpu_svm *svm);
++void sev_init_vmcb(struct vcpu_svm *svm, bool init_event);
+ void sev_vcpu_after_set_cpuid(struct vcpu_svm *svm);
+ int sev_es_string_io(struct vcpu_svm *svm, int size, unsigned int port, int in);
+ void sev_es_vcpu_reset(struct vcpu_svm *svm);
+@@ -768,7 +770,6 @@ int sev_cpu_init(struct svm_cpu_data *sd);
+ int sev_dev_get_attr(u32 group, u64 attr, u64 *val);
+ extern unsigned int max_sev_asid;
+ void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code);
+-void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu);
+ int sev_gmem_prepare(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order);
+ void sev_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end);
+ int sev_private_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn);
+@@ -792,7 +793,6 @@ static inline int sev_cpu_init(struct svm_cpu_data *sd) { return 0; }
+ static inline int sev_dev_get_attr(u32 group, u64 attr, u64 *val) { return -ENXIO; }
+ #define max_sev_asid 0
+ static inline void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code) {}
+-static inline void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu) {}
+ static inline int sev_gmem_prepare(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order)
+ {
+ 	return 0;
 -- 
 2.53.0
 
