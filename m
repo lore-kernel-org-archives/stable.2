@@ -1,281 +1,213 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF9B3C456B
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:40:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5613B1CD1E4;
+	Mon, 31 Aug 2026 12:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180030; cv=none; b=hEZ3q2UacJzl8X1BJe2cztyjqVD3/1M1wXsee4cWqI9FdAgnnNdXDtJfo8ddlfOoqgBNOrslju7Yo52EBWpj25PJSGakLH028uZ3fOXeMYxYYqJdAgeyQaNy8UfQjpN8Tv6L/K6USFdNqn4FY+cpCoDie6Egz8SQeIYmuB0UQSo=
+	t=1788180230; cv=none; b=W1vdn8jtWxfy9nS+WjzKjEi5++MNcOrUkLh2mYhWgLJrXmyBnMQCcksOaS21INy4XNA/wnENpQY7EbUBj3FVPQ1EOXpANHagBpGYdorLBaRcHgGXojhs6MBXkVDMCz04R3JINbEzDZh7gQrP3GAsaaEtznZZOxhkd2fcP1qO1SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180030; c=relaxed/simple;
-	bh=S8dZjeqOYV4ek91I2r4Qov9/LVvEEgQMX8OjggbeLCI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NPOE/AsaLd49v5Je8TWMg54EwNS5lUZbpFg1WuTDN40lpjmY96Frc8bvpluXJ8alyiVEpg1zipfsBvqPfEd4Z7iGxp4LtX78E5y7Iv9LkpPd5Y5SJUqw4euxlBs/Nb0FDo1Asw9jU4e5RhhyHcCq0n5mLuBrKxlZMalPjfBxCMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hmTHClyx; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788180230; c=relaxed/simple;
+	bh=Qon2GcefADdCTNebfMC59ZmH2icWwE8zU8HWAUX9vVM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UgSNjX1G1bAiv4n+Cr/q8f64pHfyhGi0HwyqzzpPpuTPYQGbveWHyW6+AD82sab/bmYDORWuRntoOXWkUDBfFw9xlKAoT8qU2COJhWHvIuV8zCgvj9OAvEoDRH3XLfnDC7e+EuWsdJ58aGsJk7UzgyGg63p/m0Wl9GY/hcaUZHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=fNaQ1HOA; arc=none smtp.client-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hmTHClyx"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-484362f5c4aso1260770f8f.3
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 05:40:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788180026; x=1788784826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2wnfH7b7KKmDiXtn7bM9cfVe5VuHQ+7bwoAdYTm8PAY=;
-        b=hmTHClyxhl3g8IIP1y/KOI/t2FGA9hqsQcFIt3fS906aTCmPhS2X20H50m/EAlfmuv
-         QMlaQGlD2bc2o1KoqHwgKuYGpNTtMTjHZWvmsMt26Ill2vUOgBN/wUw5FWhpgIdsCl+y
-         +Dtf2Ei25rq4fInbiCwaqDojk2NLR+Tq8KS5/VLHqI3MH1w0RpiAyfZvKfmBqAXwIgAr
-         fioZsY/knH1c8Sxx8RWSOQhcPo3CZl29hrYm4j8VoLmgz4WSNcsX8I8P/HbhQdLtJZUb
-         Eg09ihGctnA4vRnwvFQ1zc6DfR82F2ptH6Kzg31hKGg4bSBtveukBd7fnNWx87bId1tQ
-         Cz+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788180026; x=1788784826;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2wnfH7b7KKmDiXtn7bM9cfVe5VuHQ+7bwoAdYTm8PAY=;
-        b=MM5jlqP3mWDVzyvM2YDf8UFK4kO5MeWxwfWQ0YeeRhC6ZAaOyedJCaKyqRU7l4FHw6
-         Cth46VEh9wQXPc3RI9dc4MHUfdD7JoUYDFs9s5xCHbltjjG0CKmw9WMS2xS2GLVwFW3+
-         vZaz41fQ+LShh1ec4ItP9RPziXeGDqY53moi5fklrWm03gcR1SWgWPdtZ4qlcL8I97qC
-         hYAxxlgcEx5cTzGBkCQtSQpUsrtYNCidVuoJdY4sbbtnMRc26KNM1598xGrkP7V50k/d
-         Pkgo5bhSN5K3RVmwKlu/AJE6reIZjf6ursAPqC2W+GEeyTQuXJG/etQEvR8kIoIQ8Vkq
-         bdPA==
-X-Forwarded-Encrypted: i=1; AHgh+RpYGIw4KYXAiXq9XZy1xUyZvhaoA30il1kWTkSUK4rKNOUF0t6LszHPbIpvoLc5ik+mXEHPhRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPLBLiz5XqeTFImcgXhv1kf5cTZlaOkv3Y6xJJYej2T6f2qXdl
-	WMVl3nkJ/y0FtvMeTEJYhPFzRzHWYlAj4X4cWZiS/eATaHX/NYuaproEw2c+2CO3
-X-Gm-Gg: AR+sD11Ndj4n8yApqghGI3z4kNrCA6ZVShIhOHVGVBR7lNPqLCIn2Nb14+8F9cGh+WY
-	cE+zIS8jYAOSrS4eYbUKo1BvT22bf1fa5c4jOTkXLodhUI3UiK9EgQ/fJqINZxqduxNw5tiAHz0
-	wY5+JfEVH6GmFOoyBIDrVp/KUgLyjLcu3H/SOwcjVMXeYLvpxDTW6phPj9rtLQJQQzfaDSiQrUM
-	oGncwKLn044uZzO6Ov0kCCdwEMw7F2JegqsaBRiT2gwgDEhWpqQfqy0AOkfHUFJ1f7HLIVItmvC
-	iXHYGO0vUCzQY5Y3FgER4A3F0mD4ifHMbYVhBGNFUzAJnQPrT47/2UQEoywqMjt77rYJBwnwiZO
-	F7mSxnoGCvoMN5wZXj0/OX1W+jCdHmGBGqtljybCNtn5TEv64ayWMTH1bUtDy8/sTlzi1SA7Hh5
-	o7ccTLGafHZlnFIgJYPDXjzWA4BICSuG9DDSXrXGSdvy1+GaOt9hXVMj4zpj2BGJekNine9Myjv
-	w536AvzFAtAPgJ0o6T4cnoyTA==
-X-Received: by 2002:a05:600c:8011:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-49cdc5660bamr4232645e9.12.1788180025820;
-        Mon, 31 Aug 2026 05:40:25 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm338783295e9.8.2026.08.31.05.40.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 05:40:25 -0700 (PDT)
-Date: Mon, 31 Aug 2026 13:40:23 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Michael Bommarito <michael.bommarito@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- kys@microsoft.com, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
- <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
- <longli@microsoft.com>, linux-input@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] HID: hyperv: add KUnit coverage for device info
- bounds
-Message-ID: <20260831134023.7784374a@pumpkin>
-In-Reply-To: <20260710022854.3739558-3-michael.bommarito@gmail.com>
-References: <20260710022854.3739558-1-michael.bommarito@gmail.com>
-	<20260710022854.3739558-3-michael.bommarito@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="fNaQ1HOA"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788180219; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=UL2vDvxzkPaK73d2MOOzUisYqdbGkPmdsXRoPyCyMUk=;
+	b=fNaQ1HOA6R2MQTP/yNnpmsjir/NQBxLpT2/hVn8PadzGn9TV0FzqOajJImJDVQrw3q0GboTEYBhUcGItHNPT9clC4lQmSyDxSfSIf0/hr5n3JY9KRpvl4Xmc9V/EwBwD4uBDXDeiagTXuND+i2u+E6mAS8lLU3K2Yn4zLEJtl/I=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0X9yvHlE_1788180217;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0X9yvHlE_1788180217 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 31 Aug 2026 20:43:38 +0800
+Date: Mon, 31 Aug 2026 20:43:37 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, alibuda@linux.alibaba.com, sidraya@linux.ibm.com,
+	hidayath@linux.ibm.com
+Cc: pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com, netdev@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net/smc: serialize clcsock teardown in
+ smc_accept_dequeue
+Message-ID: <apV2-XsGaE45KudZ@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20260824065851.1070988-1-mjambigi@linux.ibm.com>
+ <ao5bB9OCbJ5PQbEp@linux.alibaba.com>
+ <bd56d983-e5bf-4343-910e-8965c3ff57dc@linux.ibm.com>
+ <apBErK3BBw0KHd6Y@linux.alibaba.com>
+ <d2b3f465-9ebb-4963-8dcd-3ec2969e9465@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d2b3f465-9ebb-4963-8dcd-3ec2969e9465@linux.ibm.com>
 
-On Thu,  9 Jul 2026 22:28:54 -0400
-Michael Bommarito <michael.bommarito@gmail.com> wrote:
+On 2026-08-28 16:48:28, Mahanta Jambigi wrote:
+>
+>
+>On 27/08/26 7:37 pm, Dust Li wrote:
+>> On 2026-08-26 14:42:31, Mahanta Jambigi wrote:
+>>>
+>>>
+>>> On 26/08/26 8:48 am, Dust Li wrote:
+>>>> On 2026-08-24 08:58:51, Mahanta Jambigi wrote:
+>>>>> smc_accept_dequeue() open-codes clcsock teardown for SMC_CLOSED child sockets
+>>>>> without taking clcsock_release_lock:
+>>>>>
+>>>>>  new_sk->sk_prot->unhash(new_sk);
+>>>>>  if (isk->clcsock) {
+>>>>>      sock_release(isk->clcsock);
+>>>>>      isk->clcsock = NULL;
+>>>>>  }
+>>>>>
+>>>>> This bypasses the clcsock_release_lock discipline used elsewhere in SMC clcsock
+>>>>> lifetime handling. In particular, other paths serialize clcsock access and
+>>>>> updates with clcsock_release_lock, but this local teardown path does not.
+>>>>>
+>>>>> Fix it by taking clcsock_release_lock around the local teardown and by storing
+>>>>> NULL before sock_release(), matching the established ordering used by other
+>>>>> clcsock teardown paths.
+>>>>>
+>>>>> Fixes: 127f49705823 ("net/smc: release clcsock from tcp_listen_worker")
+>>>>> Reviewed-by: Hidayath Khan <hidayath@linux.ibm.com>
+>>>>> Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+>>>>> ---
+>>>>> net/smc/af_smc.c | 12 ++++++++----
+>>>>> 1 file changed, 8 insertions(+), 4 deletions(-)
+>>>>>
+>>>>> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+>>>>> index 00403175b740..bbf8269876ee 100644
+>>>>> --- a/net/smc/af_smc.c
+>>>>> +++ b/net/smc/af_smc.c
+>>>>> @@ -1833,10 +1833,14 @@ struct sock *smc_accept_dequeue(struct sock *parent,
+>>>>> 		smc_accept_unlink(new_sk);
+>>>>> 		if (new_sk->sk_state == SMC_CLOSED) {
+>>>>> 			new_sk->sk_prot->unhash(new_sk);
+>>>>> -			if (isk->clcsock) {
+>>>>> -				sock_release(isk->clcsock);
+>>>>> -				isk->clcsock = NULL;
+>>>>> -			}
+>>>>> +			mutex_lock(&isk->clcsock_release_lock);
+>>>>> +			if (isk->clcsock) {
+>>>>> +				struct socket *clcsock = isk->clcsock;
+>>>>> +
+>>>>> +				isk->clcsock = NULL;
+>>>>> +				sock_release(clcsock);
+>>>>> +			}
+>>>>> +			mutex_unlock(&isk->clcsock_release_lock);
+>>>>
+>>>> Why not call smc_clcsock_release() here ?
+>>>
+>>> I initially considered *smc_clcsock_release()*, but it unconditionally
+>>> calls cancel_work_sync() for child sockets (since listen_smc is always
+>>> set and current_work() != &smc->smc_listen_work is always true here).
+>>> Even though smc_listen_work has already completed before
+>>> smc_accept_enqueue() is called, cancel_work_sync() is not truly free on
+>>> that path — it still acquires the worker pool spinlock and scans the
+>>> executing-worker list before determining the work is idle. The inline
+>>> open-coding avoids that overhead entirely.
+>> 
+>> OK
+>
+>For this patch specifically, the smc_accept_dequeue() path is a clear
+>lock ordering violation that can cause a crash independently of the
+>broader design issue — would you prefer I withdraw this patch and
+>address everything together in the larger refactor, or keep this narrow
+>fix and do the refactor separately?
 
-> Add KUnit coverage for Hyper-V synthetic HID initial device-info parsing.
-> The tests cover zero bLength, a valid descriptor plus report descriptor,
-> and a malformed report descriptor length that exceeds the received
-> message.
-> 
-> The same-translation-unit test uses a KUnit-only ACK bypass so parser
-> coverage does not require a live VMBus channel.
+I think you can keep this one for stable tree.
 
-Breaks build - see below.
+>
+>> 
+>>>
+>>>>
+>>>> After looking deeper into this issue, I found smc_diag_msg_common_fill()/
+>>>> smc_getname() and many other branches hasn't hold lock_sock() and may also
+>>>> have the race issue ? For example, smc_getname() calling smc->clcsock->ops->getname()
+>>>> while the other workqueue is releasing the clcsock.
+>>>
+>>> I am addressing the smc_diag_msg_common_fill() issue via a separate
+>>> patch[1].
+>> 
+>> What about other places that dereference clcsock, like smc_getname()/smc_set_keepalive() ?
+>
+>Yes, smc_getname(), smc_set_keepalive(), and all other unprotected
+>clcsock dereferences would be fixed as part of this refactor, and in
+>fact they are the strongest argument for doing it.
+>
+>The reason they become safe is structural, not incremental: once
+>sock_release(clcsock) is deferred to the SMC socket destructor, clcsock
+>is guaranteed non-NULL for the entire observable lifetime of the SMC
+>socket. Any caller that holds a sock reference — whether it is a syscall
+>path, a workqueue, or a timer callback — is by definition executing
+>before the destructor runs. So smc_getname(), smc_set_keepalive(),
+>smc_poll(), smc_diag_msg_common_fill(), and every other reader can
+>dereference clcsock directly with no lock and no NULL check, and all the
+>if (smc->clcsock) guards become dead code that can be removed.
+>
+>clcsock_release_lock itself would also be removed entirely, along with
+>all its lock/unlock sites, since the mutex only exists to coordinate
+>multiple sock_release() callers — a problem that disappears when there
+>is only one.
 
-> 
-> Assisted-by: Codex:gpt-5-5-xhigh
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-> ---
->  drivers/hid/Kconfig      |  10 ++++
->  drivers/hid/hid-hyperv.c | 117 ++++++++++++++++++++++++++++++++++++---
->  2 files changed, 120 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-> index c1d9f7c6a5f23..41ca48d9adc9e 100644
-> --- a/drivers/hid/Kconfig
-> +++ b/drivers/hid/Kconfig
-> @@ -1183,6 +1183,16 @@ config HID_HYPERV_MOUSE
->  	help
->  	Select this option to enable the Hyper-V mouse driver.
->  
-> +config HID_HYPERV_MOUSE_KUNIT_TEST
-> +	bool "KUnit tests for Hyper-V mouse driver" if !KUNIT_ALL_TESTS
-> +	depends on KUNIT && HID_HYPERV_MOUSE
-> +	default KUNIT_ALL_TESTS
-> +	help
-> +	  Builds unit tests for the Hyper-V synthetic HID driver.
-> +	  These tests exercise the initial device-info parser with
-> +	  malformed host-provided HID descriptors and are only useful
-> +	  for kernel developers running KUnit.
-> +
->  config HID_SMARTJOYPLUS
->  	tristate "SmartJoy PLUS PS2/USB adapter support"
->  	help
-> diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
-> index fd90196430e29..6579bd19da13a 100644
-> --- a/drivers/hid/hid-hyperv.c
-> +++ b/drivers/hid/hid-hyperv.c
-> @@ -13,6 +13,9 @@
->  #include <linux/hiddev.h>
->  #include <linux/hyperv.h>
->  
-> +#if IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST)
-> +#include <kunit/test.h>
-> +#endif
->  
->  struct hv_input_dev_info {
->  	unsigned int size;
-> @@ -240,13 +243,18 @@ static void mousevsc_on_receive_device_info(struct mousevsc_dev *input_device,
->  	ack.ack.header.size = 1;
->  	ack.ack.reserved = 0;
->  
-> -	ret = vmbus_sendpacket(input_device->device->channel,
-> -			&ack,
-> -			sizeof(struct pipe_prt_msg) +
-> -			sizeof(struct synthhid_device_info_ack),
-> -			(unsigned long)&ack,
-> -			VM_PKT_DATA_INBAND,
-> -			VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
-> +	if (IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST) &&
-> +	    !input_device->device) {
-> +		ret = 0;
-> +	} else {
-> +		ret = vmbus_sendpacket(input_device->device->channel,
-> +				       &ack,
-> +				       sizeof(struct pipe_prt_msg) +
-> +				       sizeof(struct synthhid_device_info_ack),
-> +				       (unsigned long)&ack,
-> +				       VM_PKT_DATA_INBAND,
-> +				       VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
-> +	}
->  
->  	if (!ret)
->  		input_device->dev_info_status = 0;
-> @@ -635,5 +643,100 @@ static void __exit mousevsc_exit(void)
->  MODULE_LICENSE("GPL");
->  MODULE_DESCRIPTION("Microsoft Hyper-V Synthetic HID Driver");
->  
-> +#if IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST)
-> +static struct mousevsc_dev *mousevsc_kunit_alloc_dev(struct kunit *test)
-> +{
-> +	struct mousevsc_dev *input_dev;
-> +
-> +	input_dev = kunit_kzalloc(test, sizeof(*input_dev), GFP_KERNEL);
-> +	if (!input_dev)
-> +		return NULL;
-> +
-> +	init_completion(&input_dev->wait_event);
-> +
-> +	return input_dev;
-> +}
-> +
-> +static void mousevsc_device_info_zero_blength(struct kunit *test)
-> +{
-> +	struct synthhid_device_info *info;
-> +	struct mousevsc_dev *input_dev;
-> +
-> +	input_dev = mousevsc_kunit_alloc_dev(test);
-> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
-> +	info = kunit_kzalloc(test, sizeof(*info), GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, info);
-> +
-> +	info->hid_descriptor.bLength = 0;
-> +
-> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info));
-> +
-> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, -ENOMEM);
-> +}
-> +
-> +static void mousevsc_device_info_valid_descriptor(struct kunit *test)
-> +{
-> +	struct synthhid_device_info *info;
-> +	struct mousevsc_dev *input_dev;
-> +	u8 *report;
-> +
-> +	input_dev = mousevsc_kunit_alloc_dev(test);
-> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
-> +	info = kunit_kzalloc(test, sizeof(*info) + 4, GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, info);
-> +
-> +	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
-> +	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(4);
-> +	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
-> +	memset(report, 0x42, 4);
+Yeah, this is exactly what I expected for the refactor.
 
-This has landed in rc1 and fails to build (with gcc 12.2) because the tests
-in fortify-string.h detect that is it writing beyond the end of the
-structure.
 
-> +
-> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 4);
-> +
-> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, 0);
-> +	KUNIT_EXPECT_EQ(test, input_dev->report_desc_size, 4);
-> +	KUNIT_EXPECT_MEMEQ(test, input_dev->report_desc, report, 4);
-> +
-> +	kfree(input_dev->hid_desc);
-> +	kfree(input_dev->report_desc);
-> +}
-> +
-> +static void mousevsc_device_info_report_desc_oob(struct kunit *test)
-> +{
-> +	struct synthhid_device_info *info;
-> +	struct mousevsc_dev *input_dev;
-> +	u8 *report;
-> +
-> +	input_dev = mousevsc_kunit_alloc_dev(test);
-> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
-> +	info = kunit_kzalloc(test, sizeof(*info) + 8, GFP_KERNEL);
-> +	KUNIT_ASSERT_NOT_NULL(test, info);
-> +
-> +	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
-> +	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(64);
-> +	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
-> +	memset(report, 0x42, 8);
+>
+>>>>
+>>>> Since SMC has long been plagued by this kind of locking issue, I think we
+>>>> should consider a long-term solution to address it.
+>>>>
+>>>> What about stop releasing the clcsock early and tie its lifetime to the SMC
+>>>> socket itself. The early paths don't really need to release it ??? a
+>>>> kernel_sock_shutdown()/tcp_abort() is enough to stop it, and calling them more
+>>>> than once is safe because the TCP layer already handles that.  sock_release()
+>>>> is different: it frees the socket, so it must happen exactly once. If we move
+>>>> this single release to the final teardown of the SMC socket, no user can exist
+>>>> at that point anymore (fd users are gone after smc_release(), and every
+>>>> work/accept-queue context holds a sock reference), which makes both
+>>>> clcsock_release_lock and all the if (smc->clcsock) NULL checks removable.
+>>>>
+>>>> Ideas ?
+>>>
+>>> I agree, but it is a significant refactor touching every early-release
+>>> path in af_smc.c, smc_close.c etc & it warrants its own patch series
+>>> with careful ordering of changes.
+>> 
+>> Yes, that should be a bit refactor, are you interested in doing that ?
+>
+>Sure, I can take that up. It will need a bit of careful work — the close
+>state machine has multiple paths that currently call
+>smc_clcsock_release() early, and the smc_tcp_listen_work() error path
+>where kernel_accept() creates a clcsock that is never assigned to an SMC
+>socket will need special handling. I would plan to send it as a small
+>series rather than a single patch.
 
-Same here.
+That's perfectly fine.
 
-David
+>
+>I am currently occupied with a few other things so it may take some
+>time, but I will pick it up once I have bandwidth. If you have any
+>specific ideas on the approach or would like to co-develop it, I am very
+>happy to collaborate — feel free to share your thoughts and we can work
+>through the design together.
 
-> +
-> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 8);
-> +
-> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, -EINVAL);
-> +
-> +	kfree(input_dev->hid_desc);
-> +}
-> +
-> +static struct kunit_case mousevsc_test_cases[] = {
-> +	KUNIT_CASE(mousevsc_device_info_zero_blength),
-> +	KUNIT_CASE(mousevsc_device_info_valid_descriptor),
-> +	KUNIT_CASE(mousevsc_device_info_report_desc_oob),
-> +	{}
-> +};
-> +
-> +static struct kunit_suite mousevsc_test_suite = {
-> +	.name = "hid_hyperv_mouse",
-> +	.test_cases = mousevsc_test_cases,
-> +};
-> +
-> +kunit_test_suite(mousevsc_test_suite);
-> +#endif
-> +
->  module_init(mousevsc_init);
->  module_exit(mousevsc_exit);
+I shared my thoughts with my agent and had it implement a draft version for
+me — let me send it over so you can take a look, and we can figure out how
+to move forward together.
 
+Best regards,
+Dust
