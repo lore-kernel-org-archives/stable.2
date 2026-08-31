@@ -1,134 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300E03DDDDE;
-	Mon, 31 Aug 2026 10:09:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9733C10A4
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 10:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170983; cv=none; b=uDRBomkOg4dd8TXWW1DjY1WplV66eMbRNLlydNsa4FoVipggk/BJ2qRQRMWmr2lerO7IvL5nMiOzyia1l2Fha5JOiUbmSRjANglzGuISSmUevuoJXn98XSEjiE9E3axoLBOp5JdKCESYO+QHTQXmJYPGZAB5PoJ+ObjFctlh7qY=
+	t=1788171932; cv=none; b=ncVNUlkPfnhaeAMt50r5PeIrMAA0ey6dYtzV8N3yHee2LuoUwL6J3eEjKxCFEmi5PUq8PMyY5a64HONQ0dourYKfQsL8ZmVUzgi0DHsvZJDdgT23dqj9uAm4/gylpWcpvW9QMViWaiFfQlYofKd99Jm8+J7QWS1HqqTQ+unDD60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170983; c=relaxed/simple;
-	bh=x+8lU402WCpYO7mhIG+KCEDw/P223Qpg3y2Ef+3Lxvc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SR9k3onRa5GSo0Z4kW4YilY0xsAP9ATUokfwv5Rzw41Z4Gl34g35huRDbY7GXxDXS/3xJbGmUsuVq4+wcpyrPQ9jtCzVGMlkrxSxwpzWoKqEol59CoE9VEbG3hCrLUDThOrTX7WY8W/KbD0wnAt1teSx+pexnKLuOUrGRZMPz3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ST8rPUhj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788171932; c=relaxed/simple;
+	bh=oDdxchw+HfFAGtOiAlLwJIKnl3Z6Y/3M5kytY39eayg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KGdCZpKAZAE9/l3P5jbqJKIVdvl28BdY0Vl/ASF9fyd4RyN4zFEEY9yYZWnGt+Cy1d5eMMNJUqClW4tvkVUaffnaMtXOySO9JBaUuM3OibMDbmKgsiBtpMcQ0QvDvRjw4Phay8pd+cid/f0iokkxB8YsC8qwcvWR5XB0OVIA+eI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQmFP7wP; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ST8rPUhj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1220D1F000E9;
-	Mon, 31 Aug 2026 10:09:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788170981;
-	bh=AZV9NH3a7XWgTTIIp4Spi0yx8YwNlaofiwjwTGL5HTw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ST8rPUhjPYc7++xH1o6amwnTNVU0r4dBUYU14fe5hv/LGFEUhen7aT6yNoejdOvt+
-	 nWhfStHr8Kd4aqaNlGJ+Devp6I/A2tlKqZiuH99ZgdJSrbLfnR/wYDYFwpEHw8mFWq
-	 RyncQ9tMUiNgWIrwAhN+QI8UCALSiHwnwLW7/bzw=
-Date: Mon, 31 Aug 2026 12:09:38 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Rishabh Jain <rishabh.jain1198@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>,
-	Mario Limonciello <superm1@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: pci-quirks: always assert xHCI OS ownership
-Message-ID: <2026083129-justice-egomaniac-01cd@gregkh>
-References: <69fdc442-a4f2-42e0-80f6-6b35cbc207bf@kernel.org>
- <20260816181519.88865-1-rishabh.jain1198@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQmFP7wP"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso3153215a12.1
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 03:25:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788171931; x=1788776731; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=85h0gP4EJzGrJjTm/s6tdHc7gvUEeMEkIXjoNPcxSzc=;
+        b=lQmFP7wPAnoy0qe3XSbB/eiBM2esLl5N/USsJjhsB1gbnUEPyt7VReggrpXbcUGSgk
+         +mN+Sd9W/FzSyDu25w4DBb8hfKTyotLW8hOeIFxtloSaXyOljqfiiuFyxUzGtRpp8gDZ
+         faML/yQDfY6Cqp0jjl1x92v+F99BqzdJ5CNCr/u4Pe0GjMr3EsVmKLvsOwuG/9UqGgeS
+         MaHjoJKp69sSXClxpYS9EDQECXMD9945GgpYpTAAcFlmTyEXO7zXl82lKY7fbcG3yzCo
+         w3+S0sX4XPwDzEpEHQ+lrlsjZWn0XJVq/qXZZkq7O/tL07XQKsBrjhNWiU+tElG4xlUt
+         3imw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788171931; x=1788776731;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=85h0gP4EJzGrJjTm/s6tdHc7gvUEeMEkIXjoNPcxSzc=;
+        b=NfoJtVDODnzRTY5quNNCYguvMysuyT0n5oA5Jpb10xLVHCMfYlxWOWvc+aU4CahTXj
+         8/1JXwrL3IUYsZ2U9T4rMiY08u6rDFcnWCbx5UmwzRndaWP+oo4jZAIoxw31r2xqSmxp
+         6D0WMEazC+9LSsPTpmHPMpO6iupP4bYp+SYZh1oldE6bsvE8M/tFUFvNu+vWRVm4FVT0
+         zctn6peWFl+E3xDcqB6PKGZjV0GvL7BQeMwf0FQxQtd0I4rtqdFvF8TopsNLiRhiGpqw
+         1MFCzrzt0PFegfOQ8V4skv+mJ85DFTGo4s8MDGLH3hp7auBm3omZyZ+SI4MgSbMErXRp
+         U/Tw==
+X-Forwarded-Encrypted: i=1; AHgh+RroDFZfNEYbybVV4A06jvRxEKs8IDP9VmeOCG3MW3+sa7WGFALauwzUtL3Z1yso+tC6VsaKc0A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nle/uG+M8VLyomhKCA/e7+s5bJivk8MLNAPSP9CJYb9UAZWt9K
+	511HMn593mbYKXpfexCwgit01kFqNNjERoYdBlOKcqrAwI39Gxx6nocl
+X-Gm-Gg: AR+sD12XH7YcevBoWZ9VNw3kIkdRotDaz6Aev0JeoOnm3wD9Yn5weHgYBDUPPuA+0h0
+	XcV8sWwix8W7ZDu1E/7HljYz5DodLhgoiREd15jnL2sY5egB3i+dBO6iCMrR0BxMsEKTzPF3A2k
+	mvvGkXU9Bb+9gChliLxNBZhJ8DokbRcd1/pHCCqfJQVbOG3IcAqj5JVEoYvx5vg9pB3aZIoa+YK
+	yUsRiPy9K2t+k8oeY9DskoVStz6KEJs5OGCcC2S0HRv6SCjMiMZSrtblt3HjbNL3Tx4o37ltKN5
+	D+ENggKPxiu9ki/IZtwHW2UJgrpppGZQVi3GVhvkpjvkdrhqP5LiuYmk1A1c3iXVeTIFGOSy9UQ
+	rKPCf5AFfUlRC3t60nUwvLc7AnT2IL4hJ5X9akPxyi1Lmd3Dps1eHt0sHh25iZA2914VJ1zlJ0A
+	1tIqzTzUl6QFdgzKZmYJYny1RslpOFyQJ0V1NAFZKs6qFTbAPC0q+7KyU5abKvS7XJpw==
+X-Received: by 2002:a05:6a21:6e88:b0:3c4:46ca:334b with SMTP id adf61e73a8af0-3d267b60e7emr43957424637.9.1788171930549;
+        Mon, 31 Aug 2026 03:25:30 -0700 (PDT)
+Received: from Default ([2409:40f4:1016:5ca4:c595:44a4:9cb1:2f2f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm32800439eec.14.2026.08.31.03.25.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 03:25:29 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: i@zenithal.me,
+	jeffinphilip14@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	shuah@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
+	valentina.manea.m@gmail.com
+Subject: Re: [PATCH v3 1/2] usbip: usbip_host: fix null pointer dereference in rebind_store
+Date: Mon, 31 Aug 2026 15:55:17 +0530
+Message-ID: <20260831102517.109498-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026083141-morbidly-swiftness-9f8f@gregkh>
+References: <2026083141-morbidly-swiftness-9f8f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260816181519.88865-1-rishabh.jain1198@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 16, 2026 at 11:15:19AM -0700, Rishabh Jain wrote:
-> The xHCI ownership protocol requires the OS driver to assert the HC OS
-> Owned semaphore before using the host controller, then wait for HC BIOS
-> Owned to clear if firmware owns it.
-> 
-> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
-> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
-> while both ownership semaphores remain clear.
-> 
-> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
-> resume to terminate Controller Restore State with USBSTS 0x401. Linux
-> then reset the host controller, both root hubs and the USB Bluetooth
-> adapter.
-> 
-> The controller entered resume ready and halted with USBSTS 0x1.
-> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
-> device contexts and command, event and transfer rings were verified not
-> to cause the restore error.
-> 
-> Asserting only HC OS Owned changed USBLEGSUP from 0x00000801 to
-> 0x01000801 and eliminated the restore failure across four S3 cycles,
-> including a stock-kernel test. Clearing USBLEGCTLSTS was independently
-> verified to be unnecessary.
-> 
-> Always assert OS Owned when the xHCI Legacy Support capability is
-> present. Use the existing ownership masks with a single initial register
-> read/write, and leave a debug breadcrumb when firmware owns the
-> controller. Keep the existing BIOS handoff recovery and legacy SMI
-> cleanup unchanged.
-> 
-> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-> Tested-by: Rishabh Jain <rishabh.jain1198@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+On Mon, 31 Aug 2026 12:04:45 +0200, Greg KH wrote:
+>No one will ever notice this, just remove the sysfs file entirely if
+>you really think it is ok to remove the functionality.  That way
+>userspace will notice and handle it properly (hopefully...)
 
-Tested-by: is implied if you sign off on a patch, no need to include it.
+userspace tool atp handles this properly as it unbinds and rebinds sequentially.
+The problem is when any script tries to do this without a particular order in
+sysfs: bind, rebind then unbind causes an invalid opcode and attempting to directly
+rebind immediately after writing to match_busid causes the dereference. I think
+it is best we drop the rebind_store function and use drivers_probe(). We add 
+del_match_busid() alone to rebind_store() to stop tracking.
 
+>But, are you sure it is ok to remove this user/kernel api?  What about
+>workflows that are using it?
 
+Any scripts/user that don't use the sysfs properly can keep the broken pieces
+themselves, no? We have the newer drivers_probe() that can perform this
+much more cleaner.
 
-> ---
-> Ah, agreed, I didn't see XHCI_HC_OS_OWNED is defined! The +3 in v1 was
-> for selecting byte 3 of USBLEGSUP.
-> 
-> I've simplified v2 to use the existing ownership masks, one initial
-> read/write (makes sense to batch the writes), and the debug breadcrumb
-> you suggested.
-> 
-> Changes in v2:
-> - Use XHCI_HC_OS_OWNED instead of byte-offset access.
-> - Fold the TI/Renesas forced handoff into the ownership-register write.
-> - Add a debug breadcrumb when BIOS ownership is initially set.
-> - Make the BIOS handoff wait unconditional and gate recovery on the initial
->   BIOS ownership state.
-> 
-> Additional context:
-> 
-> * Kernel Bugzilla #216470 documents the same USBSTS 0x401/reinitialize
->   behavior and its impact on attached USB devices:
->   https://bugzilla.kernel.org/show_bug.cgi?id=216470
-> 
-> * Commit a7d57abcc8a5 ("xhci: workaround CSS timeout on AMD SNPS 3.0
->   xHC") is related workaround history: it tolerates a distinct AMD CSS
->   timeout and resets the controller on resume:
->   https://github.com/torvalds/linux/commit/a7d57abcc8a5bdeb53bbf8e87558e8e0a2c2a29d
-> 
-> The external reports do not record their ownership semaphore values but
-> are included as corroborating failure signatures that this might fix.
-> 
->  drivers/usb/host/pci-quirks.c | 30 +++++++++++++++---------------
->  1 file changed, 15 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-> index 0404489c2f6a..29e635a036a6 100644
-> --- a/drivers/usb/host/pci-quirks.c
-> +++ b/drivers/usb/host/pci-quirks.c
-> @@ -1185,31 +1185,31 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->  		dev_warn(&pdev->dev, "xHCI controller failing to respond");
->  		goto iounmap;
->  	}
-> +
->  	val = readl(base + ext_cap_offset);
-> +	if (val & XHCI_HC_BIOS_OWNED)
-> +		pci_dbg(pdev, "BIOS owns xHCI HC\n");
+Ultimately we can keep the rebind_store() function if you choose. But this is just
+my opinion.
 
-Who needs this new message?
-
-thanks,
-
-greg k-h
+Thanks,
+Jeffin.
