@@ -1,143 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A5B39D6DA;
-	Mon, 31 Aug 2026 21:23:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D800137189C;
+	Mon, 31 Aug 2026 21:27:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211402; cv=none; b=LMQAYxwzzV0f6rUaEu36aUWxEPFxq+g5RJJL7880D9BERXuQlFIM9X4YcxVxJ+G48aiPUoNqkIZRZ3k94spCDs45ZxXS1lBZII6rvHRfiSOnnuhoMqJ4b39iymdqrz2ntprpRhbP7K8Z+hZeBoUOZb421axgddzAqpvcn3wbw2E=
+	t=1788211660; cv=none; b=Ww6UHTuEV3TiSAVFtW8MK/f5BeSD+nycpu3K+0rcDyEJXK9Ums/uQjphh+MBhE7S9G8CnlM1yEnYqk9UyZCKpOAAfhHY8FwUf0qRZEvWo8U4JmVcQrLuhBM6JdRZnRk1LV57YG2RDqGAxQpzHeWELLNTe9/TeBWiJ6f6VvxHsvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211402; c=relaxed/simple;
-	bh=5QoDyQ6X4p1Atd3lG85mmroUjyxaVW/u+lq80I0PCyk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q6YhNrKjJ7DjsrTieeNtpP/doPdopjePPF/WuTmE6Ztaw74/1sE6vJf4OtPtnC+gs3gIQgL8gjy4RueBy6+tLgo5iQiL/fzare+Bd3M0A8Ph7i/SqIuwKCCsi8kkembBCnhRWofWDvN/1SSnUIckIn4kxymBuvf0o84IHoppmbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7LbKsGj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788211660; c=relaxed/simple;
+	bh=j/IL/Qt6kfJAF/KzPAMqe4zvR2J2gHo7Y7/J+EH+5qs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jzthRG+DUyDYSJLllPitRFBNYmE4fWECTm1PC7iWZWt3uOwQjLXmGUX+BthCIDWu8NMxX93ASqOoRpBMETNlODgvbLQUifnaSJTnizPBvqdIJonggmLLaR4Ld1b47sJwaJX1NpE9ZkJQbzsc87+vSW/Yn847snrUDeB6F3slIPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ij2dTxwz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7LbKsGj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF46D1F000E9;
-	Mon, 31 Aug 2026 21:23:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ij2dTxwz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170751F000E9;
+	Mon, 31 Aug 2026 21:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788211401;
-	bh=uLdv8VH0cmD7l6Ogu0tEuQONezqf9xm4zh/RAWSkMGw=;
-	h=From:To:Cc:Subject:Date;
-	b=D7LbKsGj20BbRy6TuN8/LoWJvUHj6zDmoMY39cKj1SCt2Zgh1qq++RCPZ2lsvJ9Hf
-	 fouHdwhq7ByQQj3Ay5Fg2uUAJLETLxig+nRbptMVj92qLJleY3oT+lcheb5cc+NqR6
-	 JZvxISZJDiBtmUKl1nobFkEJaZpPIAF7WpwCIWt8Oega1YUMIZCWU8TjyUbuOtaUUo
-	 q3CPKwcuHS2TyagHfKcXoeeeuzkCA/iisOTP0Z32zFv31cvJhlPDrlyzje+fAQDQJB
-	 jHbNB3MzdzisWen9ORPoN0fMd6gcIy0dP0xyWSmNrADB+qfbzll+dC/36aeBzvSQSK
-	 /P7I2pntonf/A==
-From: Eric Biggers <ebiggers@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	linux-raid@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Eric Biggers <ebiggers@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND] raid6: add missing vzeroupper to AVX-512 code
-Date: Mon, 31 Aug 2026 14:23:16 -0700
-Message-ID: <20260831212316.213896-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1788211658;
+	bh=I7WDKw282IDUYm8QytKCMKjv27yy6DDhv7SSE6iTZCg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ij2dTxwzloLkAArxcTVpzOoY+P9bW/EToJ4GL3NNYN+PflBXqlENTi5suxq1q4Wrz
+	 5LJRTJ/e1kxPZmqAvF1VKaqoteUG9FV4Et7+3URyzpZQdGLF1ikHnL6flUbWT7ZO5y
+	 SA4lXI8shw/k5Vj8P3tqmoEo4O/T0h7PcrN0B0MxGQHsCxYvSC9QWxbJZHvqAQGLvm
+	 90a2Y/t6nS963L1Ip3banSFZkjywr52kCxEtG8BQQKREOqGJ6EG519BIhZVv04sz9n
+	 XDKBYDLVf3+btDtVhhCWJIpEEECPk/DNAth65obREUBIt2sRa0QRwIzWoWIRx31G9q
+	 FRIEoTkLPFswg==
+Message-ID: <9cbebb07-28a5-4491-b23d-bf4cb453ef11@kernel.org>
+Date: Mon, 31 Aug 2026 16:27:37 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: pci-quirks: always assert xHCI OS ownership
+Content-Language: en-US
+To: Rishabh Jain <rishabh.jain1198@gmail.com>,
+ Mathias Nyman <mathias.nyman@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <2026083129-justice-egomaniac-01cd@gregkh>
+ <20260831211126.23745-1-rishabh.jain1198@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260831211126.23745-1-rishabh.jain1198@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Since the AVX-512 optimized RAID6 code uses ZMM registers, execute
-vzeroupper before returning from it.  This is needed to avoid degrading
-the performance of any later SSE code that may happen to be executed.
-
-Fixes: e0a491c12968 ("lib/raid6: Add AVX512 optimized gen_syndrome functions")
-Fixes: 13c520b2993c ("lib/raid6: Add AVX512 optimized recovery functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
-
-This didn't get taken through the x86 tree.  Andrew, it seems you're
-taking patches to lib/raid/.  Can you apply this one?
-
- lib/raid/raid6/x86/avx512.c       | 6 ++++++
- lib/raid/raid6/x86/recov_avx512.c | 2 ++
- 2 files changed, 8 insertions(+)
-
-diff --git a/lib/raid/raid6/x86/avx512.c b/lib/raid/raid6/x86/avx512.c
-index e671eb5bde63..772bfc4af6df 100644
---- a/lib/raid/raid6/x86/avx512.c
-+++ b/lib/raid/raid6/x86/avx512.c
-@@ -78,6 +78,7 @@ static void raid6_avx5121_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -137,6 +138,7 @@ static void raid6_avx5121_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -208,6 +210,7 @@ static void raid6_avx5122_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -292,6 +295,7 @@ static void raid6_avx5122_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -396,6 +400,7 @@ static void raid6_avx5124_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -529,6 +534,7 @@ static void raid6_avx5124_xor_syndrome(int disks, int start, int stop,
- 			       "m" (q[d+128]), "m" (q[d+192]));
- 	}
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- const struct raid6_calls raid6_avx512x4 = {
-diff --git a/lib/raid/raid6/x86/recov_avx512.c b/lib/raid/raid6/x86/recov_avx512.c
-index ec72d5a30c01..299a3f044d61 100644
---- a/lib/raid/raid6/x86/recov_avx512.c
-+++ b/lib/raid/raid6/x86/recov_avx512.c
-@@ -211,6 +211,7 @@ static void raid6_2data_recov_avx512(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -353,6 +354,7 @@ static void raid6_datap_recov_avx512(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-prerequisite-patch-id: ebf41d9b9e92708245f6ae0657896ff3f8ef7d0d
-prerequisite-patch-id: f85f9c7e8bdd6fcfd394edb80f2263d7189e138d
--- 
-2.55.0
+On 8/31/26 16:11, Rishabh Jain wrote:
+> The xHCI ownership protocol requires the OS driver to assert the HC OS
+> Owned semaphore before using the host controller, then wait for HC BIOS
+> Owned to clear if firmware owns it.
+> 
+> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
+> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
+> while both ownership semaphores remain clear.
+> 
+> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
+> resume to terminate Controller Restore State with USBSTS 0x401. Linux
+> then reset the host controller, both root hubs and the USB Bluetooth
+> adapter.
+> 
+> The controller entered resume ready and halted with USBSTS 0x1.
+> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
+> device contexts and command, event and transfer rings were verified not
+> to cause the restore error.
+> 
+> Asserting only HC OS Owned changed USBLEGSUP from 0x00000801 to
+> 0x01000801 and eliminated the restore failure across four S3 cycles,
+> including a stock-kernel test. Clearing USBLEGCTLSTS was independently
+> verified to be unnecessary.
+> 
+> Always assert OS Owned when the xHCI Legacy Support capability is
+> present. Use the existing ownership masks with a single initial register
+> read/write. Keep the existing BIOS handoff recovery and legacy SMI
+> cleanup unchanged.
+> 
+> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
+> Changes in v3:
+> - Drop the unnecessary BIOS ownership debug message.
+> - Drop the redundant self Tested-by tag.
+> 
+> Changes in v2:
+> - Use XHCI_HC_OS_OWNED instead of byte-offset access.
+> - Fold the TI/Renesas forced handoff into the ownership-register write.
+> - Make the BIOS handoff wait unconditional and gate recovery on the initial
+>    BIOS ownership state.
+> 
+> Additional context:
+> 
+> * Kernel Bugzilla #216470 documents the same USBSTS 0x401/reinitialize
+>    behavior and its impact on attached USB devices:
+>    https://bugzilla.kernel.org/show_bug.cgi?id=216470
+> 
+> * Commit a7d57abcc8a5 ("xhci: workaround CSS timeout on AMD SNPS 3.0
+>    xHC") is related workaround history: it tolerates a distinct AMD CSS
+>    timeout and resets the controller on resume:
+>    https://github.com/torvalds/linux/commit/a7d57abcc8a5bdeb53bbf8e87558e8e0a2c2a29d
+> 
+> The external reports do not record their ownership semaphore values but
+> are included as corroborating failure signatures that this might fix.
+> 
+>   drivers/usb/host/pci-quirks.c | 27 ++++++++++++---------------
+>   1 file changed, 12 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+> index 0404489c2f6a9..52d41ac5daa85 100644
+> --- a/drivers/usb/host/pci-quirks.c
+> +++ b/drivers/usb/host/pci-quirks.c
+> @@ -1191,25 +1191,22 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+>   	if ((pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) ||
+>   			(pdev->vendor == PCI_VENDOR_ID_RENESAS
+>   			 && pdev->device == 0x0014)) {
+> -		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
+> -		writel(val, base + ext_cap_offset);
+> +		val &= ~XHCI_HC_BIOS_OWNED;
+>   	}
+>   
+> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
+> -	if (val & XHCI_HC_BIOS_OWNED) {
+> -		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
+> +	val |= XHCI_HC_OS_OWNED;
+> +	writel(val, base + ext_cap_offset);
+>   
+> -		/* Wait for 1 second with 10 microsecond polling interval */
+> -		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
+> -				0, 1000000, 10);
+> +	/* Wait for 1 second with 10 microsecond polling interval */
+> +	timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
+> +			    0, 1000000, 10);
+>   
+> -		/* Assume a buggy BIOS and take HC ownership anyway */
+> -		if (timeout) {
+> -			dev_warn(&pdev->dev,
+> -				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+> -				 val);
+> -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
+> -		}
+> +	/* Assume a buggy BIOS and take HC ownership anyway */
+> +	if (timeout && (val & XHCI_HC_BIOS_OWNED)) {
+> +		dev_warn(&pdev->dev,
+> +			 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+> +			 val);
+> +		writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
+>   	}
+>   
+>   	val = readl(base + ext_cap_offset + XHCI_LEGACY_CONTROL_OFFSET);
 
