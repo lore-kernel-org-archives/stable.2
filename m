@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E622749E6
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 18:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C770440A34
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 18:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788201008; cv=none; b=isp8b63hkq0zVz6krvo7e3/NJqLr7RXBnd3oXjxj/QVB5fKUQP3Of5Wy9+qPVTm+Fq2l5ROxFn6IWxKjY+HI6yCmmdeho6C7xsUCfVnMYVNfFP2A7neRGUF2KwYAgM0nIp5jRhvAHm8EDSIEI88pbYBslqmDzw67jYcDm7EEosg=
+	t=1788201104; cv=none; b=APfAevON9EcOPP/bgydY91iPyJOkzB26K6uoHol00ZdbYgVUO52jZ5GF2b5CanhWeFYOcYc0it4pz+Z08J4cZ7sCjgWZgEQcJByfULd5/2x2LYlcrcSfSh7j1I5CyvdgBT5OJI20BNbWyzMz7R8C3bGb6W3+mbgoMYvfRas/qQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788201008; c=relaxed/simple;
-	bh=u1fX0oqetFtO017FD2HfXn+Gl3ycJFvUmME5hZjqCSw=;
+	s=arc-20240116; t=1788201104; c=relaxed/simple;
+	bh=Dne5C8pe3AeullQWLIS1vw/j/hpxw1JQGV/3d+C0YZ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IEB2Wpm4jDh6UMZUjM2YcA81PsweSubEUj47+Q/kmrBI/cZp9+HlRuqsNhwO6GPWS7Dps2UMnS6I1VNsR6eeRiE3DpFviRA+78qkcX4hsRSdUzSodB/yzkJcbqN3obASVxveGv7pRJHwBIA2p6rYL7MaJpCsxJKYSYkfJ7rT704=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DFHLhMMr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=j+1ot37+hAediSWCoTHT6NgoCycPR93lln7DNC5k7gAVk/CqCzRTz4sPx5U5t+VZkaIikcQ7Zxsozsh5zmkN/+FR0Q1Hbpli7Fs/AEVcF2olecgWedlGKDdPWjcMuw1JUwhU/amCsCvkdXdpvtVRMoDtSRW6pm9946aWOXH//HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oVxVHGkW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DFHLhMMr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05591F00A3E;
-	Mon, 31 Aug 2026 18:30:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oVxVHGkW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ABEE1F000E9;
+	Mon, 31 Aug 2026 18:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788201006;
-	bh=d1B/gtj24I9k5prQbH3cbo0Vy1bDv4+1L2Uq188orpk=;
+	s=k20260515; t=1788201102;
+	bh=zQtOwbqunLbRWR9jwi19/s2COB88bW0S92NDDzTTfJo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DFHLhMMrWaG66Ns26cBoRHKqQrC3SQUlv2dsgghZLjj4Ogj6+Zz2Sy67ga42Rn4Cj
-	 pOWZukBTVgK5ZeJRm0LHh4gcBO0a1chPJmhWbCg/rojXQ4tN1CgzQgqAHsj0BPV9Hg
-	 lBjBzPAHZmXsnTmUnDw8vNLkYX3heDgVN0jVlSFb6yJNjswpzBLEKcTQCtaX84S4MP
-	 iCsBSPiZv96H9jNuD5VcILC7kRcMEo2Thq57aJkcBkFvBkMALrwQk6Ob1JThuxh7j5
-	 AnThnC6UNGYpJeaY3YujxoscZrP9BG8hQQkDtq5RA3hvq58D8tk1sAw+b1vLEoAiXk
-	 tuof33FvCXmOg==
+	b=oVxVHGkWf7CpBS0vBowlQ5rajjINbH9Py1neeBa3zIM08rPxr8RC5iWYW4rTmMUJh
+	 j1yDLXY98+FmLrE3X3KC2MHcn8NihFJfSSRvWf+bMz1MzAlDHibiW79kF3+I3u45xj
+	 U0z7q3LZG5HArMH6uJRUig5ZZsGr3OMscs/wcpkgdjARsAsle3SNUjNHU8v3Av3UfT
+	 7FgYB5EqelKruMdRNOwHscRni1MGuMEou/G9D5oSU57mpL1V3p+y290+HC5h337ooN
+	 WAP+AAVGZMIqisQAN1ZqdxsAcyDkQTL5bavtXQgsPh+jJqUL81Y6c77UvwBQvkwWLP
+	 DRXpfNuu6KDXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Miklos Szeredi <mszeredi@redhat.com>,
+	zdi-disclosures@trendmicro.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] fuse: copy request headers via a stack buffer for io-uring
-Date: Mon, 31 Aug 2026 14:30:02 -0400
-Message-ID: <20260831183002.1670211-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] fuse: fix race between interrupt and resend
+Date: Mon, 31 Aug 2026 14:31:40 -0400
+Message-ID: <20260831183140.1672819-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831183002.1670211-1-sashal@kernel.org>
-References: <2026083141-juicy-elated-cee2@gregkh>
- <20260831183002.1670211-1-sashal@kernel.org>
+In-Reply-To: <2026083132-jaundice-glutinous-0a68@gregkh>
+References: <2026083132-jaundice-glutinous-0a68@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,92 +45,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xiang Mei <xmei5@asu.edu>
+From: Miklos Szeredi <mszeredi@redhat.com>
 
-[ Upstream commit fd10f40af314f07b6d6e028b1ca25c8b49903aab ]
+[ Upstream commit ed9c881f3b498383f73c42712b359419da42a7b0 ]
 
-The fuse-io-uring transport copies req->in.h out to the ring in
-fuse_uring_copy_to_ring() and req->out.h back in fuse_uring_commit().
-Both headers live inside the fuse_request slab object, whose cache
-(fuse_req_cachep) is created without a usercopy whitelist, so copying
-them directly to/from userspace trips CONFIG_HARDENED_USERCOPY and
-panics:
+After commit f8fce75fedf7 ("fuse: clear intr_entry in fuse_resend and
+fuse_remove_pending_req") the WARN_ON(!list_empty(&req->intr_entry)) in
+fuse_request_free() still triggers due to the following race:
 
-  usercopy: Kernel memory exposure attempt detected from SLUB object
-  'fuse_request' (offset 56, size 40)!
-  kernel BUG at mm/usercopy.c:102!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:usercopy_abort (mm/usercopy.c:90)
-  Call Trace:
-   __check_heap_object (mm/slub.c:8268)
-   __check_object_size (mm/usercopy.c:197 mm/usercopy.c:258 mm/usercopy.c:223)
-   copy_header_to_ring (fs/fuse/dev_uring.c:618)
-   fuse_uring_prepare_send (fs/fuse/dev_uring.c:776 fs/fuse/dev_uring.c:785)
-   fuse_uring_send_in_task (fs/fuse/dev_uring.c:1306)
-   tctx_task_work_run (io_uring/tw.c:96)
-   task_work_run (kernel/task_work.c:233)
-   io_run_task_work (io_uring/tw.h:84)
-   io_cqring_wait (io_uring/wait.c:278)
-   __do_sys_io_uring_enter (io_uring/io_uring.c:2685)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+In request_wait_answer()
+  if (test_bit(FR_SENT, &req->flags)) -> returns true
 
-Bounce both headers through an on-stack copy so the usercopy touches
-stack memory, not the slab object.
+In fuse_chan_resend()
+  clear_bit(FR_SENT, &req->flags)
 
-Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
-Cc: stable@vger.kernel.org
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+In request_wait_answer()
+  queue_interrupt(req)
+
+Fix by:
+
+ - move clearing FR_SENT inside fpq->lock
+
+ - move setting FR_PENDING inside fiq->lock
+
+ - recheck FR_SENT after acquiring fiq->lock in fuse_dev_queue_interrupt()
+
+Reported-by: zdi-disclosures@trendmicro.com
+Fixes: f8fce75fedf7 ("fuse: clear intr_entry in fuse_resend and fuse_remove_pending_req")
+Cc: stable@vger.kernel.org # 6.9
 Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ adapted context due to a pre-existing local `ring` local variable from an earlier already-backported commit shifting line numbers ]
+[ renamed upstream's fuse_chan_resend()/fuse_dev_end_requests() identifiers back to this tree's pre-refactor fuse_resend()/end_requests() names ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/dev_uring.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ fs/fuse/dev.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
-index 55e0ecdb20582..c4ec7a97a4746 100644
---- a/fs/fuse/dev_uring.c
-+++ b/fs/fuse/dev_uring.c
-@@ -743,6 +743,7 @@ static int fuse_uring_copy_to_ring(struct fuse_ring_ent *ent,
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index c3e7267517a88..cd26399b96ca3 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -267,7 +267,8 @@ static void fuse_dev_queue_forget(struct fuse_iqueue *fiq, struct fuse_forget_li
+ static void fuse_dev_queue_interrupt(struct fuse_iqueue *fiq, struct fuse_req *req)
  {
- 	struct fuse_ring_queue *queue = ent->queue;
- 	struct fuse_ring *ring = queue->ring;
-+	struct fuse_in_header in_header;
- 	int err;
+ 	spin_lock(&fiq->lock);
+-	if (list_empty(&req->intr_entry)) {
++	/* Repeat FR_SENT test after obtaining the lock to prevent race with fuse_resend() */
++	if (list_empty(&req->intr_entry) && test_bit(FR_SENT, &req->flags)) {
+ 		list_add_tail(&req->intr_entry, &fiq->interrupts);
+ 		/*
+ 		 * Pairs with smp_mb() implied by test_and_set_bit()
+@@ -1846,7 +1847,7 @@ static int fuse_notify_retrieve(struct fuse_conn *fc, unsigned int size,
+ static void fuse_resend(struct fuse_conn *fc)
+ {
+ 	struct fuse_dev *fud;
+-	struct fuse_req *req, *next;
++	struct fuse_req *req;
+ 	struct fuse_iqueue *fiq = &fc->iq;
+ 	LIST_HEAD(to_queue);
+ 	unsigned int i;
+@@ -1861,24 +1862,20 @@ static void fuse_resend(struct fuse_conn *fc)
+ 		struct fuse_pqueue *fpq = &fud->pq;
  
- 	err = -EIO;
-@@ -764,8 +765,9 @@ static int fuse_uring_copy_to_ring(struct fuse_ring_ent *ent,
+ 		spin_lock(&fpq->lock);
+-		for (i = 0; i < FUSE_PQ_HASH_SIZE; i++)
+-			list_splice_tail_init(&fpq->processing[i], &to_queue);
++		for (i = 0; i < FUSE_PQ_HASH_SIZE; i++) {
++			struct list_head *this_queue = &fpq->processing[i];
++
++			list_for_each_entry(req, this_queue, list)
++				clear_bit(FR_SENT, &req->flags);
++			list_splice_tail_init(this_queue, &to_queue);
++		}
+ 		spin_unlock(&fpq->lock);
  	}
+ 	spin_unlock(&fc->lock);
  
- 	/* copy fuse_in_header */
--	return copy_header_to_ring(ent, FUSE_URING_HEADER_IN_OUT, &req->in.h,
--				   sizeof(req->in.h));
-+	in_header = req->in.h;
-+	return copy_header_to_ring(ent, FUSE_URING_HEADER_IN_OUT, &in_header,
-+				   sizeof(in_header));
- }
- 
- static int fuse_uring_prepare_send(struct fuse_ring_ent *ent,
-@@ -870,11 +872,13 @@ static void fuse_uring_commit(struct fuse_ring_ent *ent, struct fuse_req *req,
- 			      unsigned int issue_flags)
- {
- 	struct fuse_ring *ring = ent->queue->ring;
-+	struct fuse_out_header out_header;
- 	ssize_t err = -EFAULT;
- 
--	if (copy_header_from_ring(ent, FUSE_URING_HEADER_IN_OUT, &req->out.h,
--				  sizeof(req->out.h)))
-+	if (copy_header_from_ring(ent, FUSE_URING_HEADER_IN_OUT, &out_header,
-+				  sizeof(out_header)))
- 		goto out;
-+	req->out.h = out_header;
- 
- 	err = fuse_uring_out_header_has_err(&req->out.h, req);
- 	if (err) {
+-	list_for_each_entry_safe(req, next, &to_queue, list) {
+-		set_bit(FR_PENDING, &req->flags);
+-		clear_bit(FR_SENT, &req->flags);
+-		/* mark the request as resend request */
+-		req->in.h.unique |= FUSE_UNIQUE_RESEND;
+-	}
+-
+ 	spin_lock(&fiq->lock);
+ 	if (!fiq->connected) {
+ 		spin_unlock(&fiq->lock);
+-		list_for_each_entry(req, &to_queue, list)
+-			clear_bit(FR_PENDING, &req->flags);
+ 		end_requests(&to_queue);
+ 		return;
+ 	}
+@@ -1887,6 +1884,10 @@ static void fuse_resend(struct fuse_conn *fc)
+ 	 * intr_entry on fiq->interrupts after the request is re-queued.
+ 	 */
+ 	list_for_each_entry(req, &to_queue, list) {
++		set_bit(FR_PENDING, &req->flags);
++		/* mark the request as resend request */
++		req->in.h.unique |= FUSE_UNIQUE_RESEND;
++
+ 		if (test_bit(FR_INTERRUPTED, &req->flags))
+ 			list_del_init(&req->intr_entry);
+ 	}
 -- 
 2.53.0
 
