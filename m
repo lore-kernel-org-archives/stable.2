@@ -1,144 +1,592 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7780483BCB;
-	Mon, 31 Aug 2026 14:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB76B4BD10E;
+	Mon, 31 Aug 2026 14:01:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184917; cv=none; b=REfWMyANKHjYo8iTOjwXdu8aZ5fh9pKupM+w3UjIM058H7PgH2F+Gu7CXnCX+70vS6CKCJT5eOhRxom6Jkepre9w340jGSiveeO8zV7ICpZJG4+pTuRuY1voHSPIVd9PsnSrc8AWvIV6KjHZPTowsQHHstvkJ2dn+g2z3LniztQ=
+	t=1788184918; cv=none; b=PNfbTgqySDijiQ8g5N39wKWsJKe6CIdUEM51X6qfnHx7c3aXI/Wq+027SGDzX1jUOn73uuPPhd4HJD9Y9Q5U0LHBD/oh+/lxXnTgZxr6Qvg/yAKSwu4LA23e77BwipEMuANqtkqo0K8JQPc/QOgwg8vS+7ALwTnYnB+Kl+yi2MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184917; c=relaxed/simple;
-	bh=HkkYwCXClHUHEl9NKhPLtAnjzE+iPzvTB7Iy1juXmGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gC5NqyER/EyNlXn4POEbHKdVNff2TBsUSscauJit/Lhq7ZNrD+bsdqA0MPtdmyn//oIsJ9xsiOirLnH5rR+5qxgoGlRQtS63Bx18YO/jg/ehlWb5D3cRyNEcqb9OQC7oCNjh8PhxmTvBIEzo5DvhWd9nV6Y4yO7eRNJ7h9HxtWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LP9CUsrU; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788184918; c=relaxed/simple;
+	bh=/vT07TmYAVQ1MrDEjk10YyMBlG4c1EMrlNV3omXYeuI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c4TF3eGoz2G+hb02QTFqwHBS31zgWa2nQO8OG9F4pIbVvZVq5uK13oJA8PKVCDQrh6UN2Nk8Aem7mEEqC9IKqVc/tEyWfBLJxmgyv2+86VqvP7y16/RB3qOI1g+ufiFMPFdM6m4QgaUUfE/piRgX5pyzE2LHZ3GZll/IFe5i/04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BTVQGwua; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LP9CUsrU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788184916; x=1819720916;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=HkkYwCXClHUHEl9NKhPLtAnjzE+iPzvTB7Iy1juXmGE=;
-  b=LP9CUsrUFNLJcs7A7ZH6HxhqyuqH5XdGM+QGplpdvN9JZDRpizihKE//
-   YKH45ceU9/N+uqiXgaDALOpN0WTjsyclZaUOBGJSYrZqafLVf+AEa98GX
-   csYaLQo0HKjR52AsiPKxsPn8jjpnhKbvZ7E0EQFEdKVFRTGOoPpDKUs1a
-   rvo7onHM8JBqMFCPa8gS5DFyHBVta+lnW4mM7Jr4gJzdaU4GBRsfzASjh
-   wtq+vBfv2OPTLT0UVvxtmqcnZ9t6FpFYJdlE9seoxHyrFDZJD5QXrIYZY
-   5HZFFYOPbQZEG7QrkELMA4z2MJotb909h55kRfP3h15jN3lMoGwpvE9oH
-   Q==;
-X-CSE-ConnectionGUID: FjmHSotdQGGqzS5TQwNxlA==
-X-CSE-MsgGUID: bqQ7ut9/SkiWMM/D3YlFIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="98928845"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="98928845"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:01:55 -0700
-X-CSE-ConnectionGUID: 8dUHOChJTr68s+J3q4OPoA==
-X-CSE-MsgGUID: FaXJbmESQh+RZr77UvssPg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="266220646"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.248]) ([10.125.109.248])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 07:01:53 -0700
-Message-ID: <8c86db41-9270-42c5-b2db-133865d254f7@intel.com>
-Date: Mon, 31 Aug 2026 07:01:52 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BTVQGwua"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA7A1F000E9;
+	Mon, 31 Aug 2026 14:01:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788184916;
+	bh=DRlbnnJfqWH8eIjvUhZZF/VtjX43PG1k8kZS5TpAEFI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BTVQGwua4xHM5xFohL1NuqxarBXzA1kG3j16vmG/7Ymk3TvrOyGiHANFH042pnR8z
+	 sXKqYR7TGtixLy+yboQ6lxTCUYKcajtMbMCMxSTB75ColUmS/E9lG7Yv+vckXLok3U
+	 g1pesVyhnIawzd0WXRnL67OlseuHi1RIxm4mi2hU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Eric Biggers <ebiggers@kernel.org>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: [PATCH 6.1 82/92] crypto: qce - Remove unsafe/deprecated algorithms
+Date: Mon, 31 Aug 2026 15:35:20 +0200
+Message-ID: <20260831133403.791645185@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
+References: <20260831133359.482388899@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] stacktrace: Provide arch_in_event_entry_text()
- hook
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org
-Cc: hpa@zytor.com, xin@zytor.com, luto@kernel.org, jpoimboe@kernel.org,
- peterz@infradead.org, rostedt@goodmis.org, akpm@linux-foundation.org,
- rdunlap@infradead.org, elver@google.com, andreyknvl@gmail.com,
- glider@google.com, gor@linux.ibm.com, brads@mainlining.org,
- kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260831120221.2874445-1-xiangzao@linux.alibaba.com>
- <20260831120221.2874445-2-xiangzao@linux.alibaba.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260831120221.2874445-2-xiangzao@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/31/26 05:02, Yuanhe Shu wrote:
-> +/*
-> + * Optional arch hook for event entry text which cannot be placed in
-> + * .irqentry.text.  filter_irq_stacks() uses this and the section checks
-> + * below to find where a trace entered the kernel, so the ranges are not
-> + * necessarily irq-only: on x86 they also cover the exception entry stubs,
-> + * and an architecture may deliver syscalls through the same entry text.
-> + * A caller that has to tell interrupt entry and syscall entry apart
-> + * cannot use this.  An architecture overrides it by defining a macro of
-> + * the same name in <asm/sections.h>, next to the markers it tests.
-> + */
-> +#ifndef arch_in_event_entry_text
-> +static inline bool arch_in_event_entry_text(unsigned long addr) { return false; }
-> +#endif
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-As much as I love inflicting x86-isms on generic comments, I don't think
-this comment needs to talk about x86. I find the most useful generic
-definitions to be like an instruction manual for future arch/
-maintainers. Maybe something like:
+------------------
 
-/*
- * Used to help find where a trace entered the kernel.
- *
- * Architectures use this when event entry text cannot be placed in
- * .irqentry.text alone. Architectures should define their
- * version in <asm/sections.h>.
- */
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-... and then talk about why x86 needs it in the x86 definition.
+commit 7e28b0a5c4b7d075b98ce6d8f5290a9d3deb5b92 upstream.
+
+Remove algorithms that are either unsafe or deprecated and have no
+in-kernel users that cannot be served by the ARM CE implementations.
+
+AES-ECB reveals plaintext patterns (identical plaintext blocks produce
+identical ciphertext blocks) and should not be exposed as a hardware-
+accelerated primitive. DES, Triple DES and HMAC-SHA1 have been
+deprecated for years.
+
+Remove sha1, ecb(aes), ecb(des), cbc(des), ecb(des3_ede), cbc(des3_ede),
+hmac(sha1) and all AEAD variants built on these primitives as well as
+authenc(hmac(sha256),cbc(des)). Also clean up the - now dead - code,
+flags and constants.
+
+Cc: stable@vger.kernel.org
+Acked-by: Eric Biggers <ebiggers@kernel.org>
+Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/crypto/qce/aead.c     |   56 ------------------------
+ drivers/crypto/qce/common.c   |   55 +++++------------------
+ drivers/crypto/qce/common.h   |   16 +-----
+ drivers/crypto/qce/regs-v5.h  |    4 -
+ drivers/crypto/qce/sha.c      |   30 ------------
+ drivers/crypto/qce/sha.h      |    1 
+ drivers/crypto/qce/skcipher.c |   97 ------------------------------------------
+ 7 files changed, 20 insertions(+), 239 deletions(-)
+
+--- a/drivers/crypto/qce/aead.c
++++ b/drivers/crypto/qce/aead.c
+@@ -8,8 +8,6 @@
+ #include <crypto/gcm.h>
+ #include <crypto/authenc.h>
+ #include <crypto/internal/aead.h>
+-#include <crypto/internal/des.h>
+-#include <crypto/sha1.h>
+ #include <crypto/sha2.h>
+ #include <crypto/scatterwalk.h>
+ #include "aead.h"
+@@ -597,7 +595,6 @@ static int qce_aead_setkey(struct crypto
+ 	struct qce_aead_ctx *ctx = crypto_aead_ctx(tfm);
+ 	struct crypto_authenc_keys authenc_keys;
+ 	unsigned long flags = to_aead_tmpl(tfm)->alg_flags;
+-	u32 _key[6];
+ 	int err;
+ 
+ 	err = crypto_authenc_extractkeys(&authenc_keys, key, keylen);
+@@ -608,26 +605,7 @@ static int qce_aead_setkey(struct crypto
+ 	    authenc_keys.authkeylen > QCE_MAX_KEY_SIZE)
+ 		return -EINVAL;
+ 
+-	if (IS_DES(flags)) {
+-		err = verify_aead_des_key(tfm, authenc_keys.enckey, authenc_keys.enckeylen);
+-		if (err)
+-			return err;
+-	} else if (IS_3DES(flags)) {
+-		err = verify_aead_des3_key(tfm, authenc_keys.enckey, authenc_keys.enckeylen);
+-		if (err)
+-			return err;
+-		/*
+-		 * The crypto engine does not support any two keys
+-		 * being the same for triple des algorithms. The
+-		 * verify_skcipher_des3_key does not check for all the
+-		 * below conditions. Schedule fallback in this case.
+-		 */
+-		memcpy(_key, authenc_keys.enckey, DES3_EDE_KEY_SIZE);
+-		if (!((_key[0] ^ _key[2]) | (_key[1] ^ _key[3])) ||
+-		    !((_key[2] ^ _key[4]) | (_key[3] ^ _key[5])) ||
+-		    !((_key[0] ^ _key[4]) | (_key[1] ^ _key[5])))
+-			ctx->need_fallback = true;
+-	} else if (IS_AES(flags)) {
++	if (IS_AES(flags)) {
+ 		/* No random key sizes */
+ 		if (authenc_keys.enckeylen != AES_KEYSIZE_128 &&
+ 		    authenc_keys.enckeylen != AES_KEYSIZE_192 &&
+@@ -699,38 +677,6 @@ struct qce_aead_def {
+ 
+ static const struct qce_aead_def aead_def[] = {
+ 	{
+-		.flags          = QCE_ALG_DES | QCE_MODE_CBC | QCE_HASH_SHA1_HMAC,
+-		.name           = "authenc(hmac(sha1),cbc(des))",
+-		.drv_name       = "authenc-hmac-sha1-cbc-des-qce",
+-		.blocksize      = DES_BLOCK_SIZE,
+-		.ivsize         = DES_BLOCK_SIZE,
+-		.maxauthsize	= SHA1_DIGEST_SIZE,
+-	},
+-	{
+-		.flags          = QCE_ALG_3DES | QCE_MODE_CBC | QCE_HASH_SHA1_HMAC,
+-		.name           = "authenc(hmac(sha1),cbc(des3_ede))",
+-		.drv_name       = "authenc-hmac-sha1-cbc-3des-qce",
+-		.blocksize      = DES3_EDE_BLOCK_SIZE,
+-		.ivsize         = DES3_EDE_BLOCK_SIZE,
+-		.maxauthsize	= SHA1_DIGEST_SIZE,
+-	},
+-	{
+-		.flags          = QCE_ALG_DES | QCE_MODE_CBC | QCE_HASH_SHA256_HMAC,
+-		.name           = "authenc(hmac(sha256),cbc(des))",
+-		.drv_name       = "authenc-hmac-sha256-cbc-des-qce",
+-		.blocksize      = DES_BLOCK_SIZE,
+-		.ivsize         = DES_BLOCK_SIZE,
+-		.maxauthsize	= SHA256_DIGEST_SIZE,
+-	},
+-	{
+-		.flags          = QCE_ALG_3DES | QCE_MODE_CBC | QCE_HASH_SHA256_HMAC,
+-		.name           = "authenc(hmac(sha256),cbc(des3_ede))",
+-		.drv_name       = "authenc-hmac-sha256-cbc-3des-qce",
+-		.blocksize      = DES3_EDE_BLOCK_SIZE,
+-		.ivsize         = DES3_EDE_BLOCK_SIZE,
+-		.maxauthsize	= SHA256_DIGEST_SIZE,
+-	},
+-	{
+ 		.flags          =  QCE_ALG_AES | QCE_MODE_CBC | QCE_HASH_SHA256_HMAC,
+ 		.name           = "authenc(hmac(sha256),cbc(aes))",
+ 		.drv_name       = "authenc-hmac-sha256-cbc-aes-qce",
+--- a/drivers/crypto/qce/common.c
++++ b/drivers/crypto/qce/common.c
+@@ -7,7 +7,6 @@
+ #include <linux/interrupt.h>
+ #include <linux/types.h>
+ #include <crypto/scatterwalk.h>
+-#include <crypto/sha1.h>
+ #include <crypto/sha2.h>
+ 
+ #include "cipher.h"
+@@ -114,18 +113,16 @@ static u32 qce_auth_cfg(unsigned long fl
+ 			cfg |= AUTH_KEY_SZ_AES256 << AUTH_KEY_SIZE_SHIFT;
+ 	}
+ 
+-	if (IS_SHA1(flags) || IS_SHA1_HMAC(flags))
+-		cfg |= AUTH_SIZE_SHA1 << AUTH_SIZE_SHIFT;
+-	else if (IS_SHA256(flags) || IS_SHA256_HMAC(flags))
++	if (IS_SHA256(flags) || IS_SHA256_HMAC(flags))
+ 		cfg |= AUTH_SIZE_SHA256 << AUTH_SIZE_SHIFT;
+ 	else if (IS_CMAC(flags))
+ 		cfg |= AUTH_SIZE_ENUM_16_BYTES << AUTH_SIZE_SHIFT;
+ 	else if (IS_CCM(flags))
+ 		cfg |= (auth_size - 1) << AUTH_SIZE_SHIFT;
+ 
+-	if (IS_SHA1(flags) || IS_SHA256(flags))
++	if (IS_SHA256(flags))
+ 		cfg |= AUTH_MODE_HASH << AUTH_MODE_SHIFT;
+-	else if (IS_SHA1_HMAC(flags) || IS_SHA256_HMAC(flags))
++	else if (IS_SHA256_HMAC(flags))
+ 		cfg |= AUTH_MODE_HMAC << AUTH_MODE_SHIFT;
+ 	else if (IS_CCM(flags))
+ 		cfg |= AUTH_MODE_CCM << AUTH_MODE_SHIFT;
+@@ -190,7 +187,7 @@ static int qce_setup_regs_ahash(struct c
+ 	else
+ 		qce_cpu_to_be32p_array(auth, rctx->digest, digestsize);
+ 
+-	iv_words = (IS_SHA1(rctx->flags) || IS_SHA1_HMAC(rctx->flags)) ? 5 : 8;
++	iv_words = 8;
+ 	qce_write_array(qce, REG_AUTH_IV0, (u32 *)auth, iv_words);
+ 
+ 	if (rctx->first_blk)
+@@ -242,19 +239,8 @@ static u32 qce_encr_cfg(unsigned long fl
+ 
+ 	if (IS_AES(flags))
+ 		cfg |= ENCR_ALG_AES << ENCR_ALG_SHIFT;
+-	else if (IS_DES(flags) || IS_3DES(flags))
+-		cfg |= ENCR_ALG_DES << ENCR_ALG_SHIFT;
+-
+-	if (IS_DES(flags))
+-		cfg |= ENCR_KEY_SZ_DES << ENCR_KEY_SZ_SHIFT;
+-
+-	if (IS_3DES(flags))
+-		cfg |= ENCR_KEY_SZ_3DES << ENCR_KEY_SZ_SHIFT;
+ 
+ 	switch (flags & QCE_MODE_MASK) {
+-	case QCE_MODE_ECB:
+-		cfg |= ENCR_MODE_ECB << ENCR_MODE_SHIFT;
+-		break;
+ 	case QCE_MODE_CBC:
+ 		cfg |= ENCR_MODE_CBC << ENCR_MODE_SHIFT;
+ 		break;
+@@ -339,13 +325,7 @@ static int qce_setup_regs_skcipher(struc
+ 
+ 	encr_cfg = qce_encr_cfg(flags, keylen);
+ 
+-	if (IS_DES(flags)) {
+-		enciv_words = 2;
+-		enckey_words = 2;
+-	} else if (IS_3DES(flags)) {
+-		enciv_words = 2;
+-		enckey_words = 6;
+-	} else if (IS_AES(flags)) {
++	if (IS_AES(flags)) {
+ 		if (IS_XTS(flags))
+ 			qce_xtskey(qce, ctx->enc_key, ctx->enc_keylen,
+ 				   rctx->cryptlen);
+@@ -356,14 +336,12 @@ static int qce_setup_regs_skcipher(struc
+ 
+ 	qce_write_array(qce, REG_ENCR_KEY0, (u32 *)enckey, enckey_words);
+ 
+-	if (!IS_ECB(flags)) {
+-		if (IS_XTS(flags))
+-			qce_xts_swapiv(enciv, rctx->iv, ivsize);
+-		else
+-			qce_cpu_to_be32p_array(enciv, rctx->iv, ivsize);
++	if (IS_XTS(flags))
++		qce_xts_swapiv(enciv, rctx->iv, ivsize);
++	else
++		qce_cpu_to_be32p_array(enciv, rctx->iv, ivsize);
+ 
+-		qce_write_array(qce, REG_CNTR0_IV0, (u32 *)enciv, enciv_words);
+-	}
++	qce_write_array(qce, REG_CNTR0_IV0, (u32 *)enciv, enciv_words);
+ 
+ 	if (IS_ENCRYPT(flags))
+ 		encr_cfg |= BIT(ENCODE_SHIFT);
+@@ -392,10 +370,6 @@ static int qce_setup_regs_skcipher(struc
+ #endif
+ 
+ #ifdef CONFIG_CRYPTO_DEV_QCE_AEAD
+-static const u32 std_iv_sha1[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+-	SHA1_H0, SHA1_H1, SHA1_H2, SHA1_H3, SHA1_H4, 0, 0, 0
+-};
+-
+ static const u32 std_iv_sha256[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+ 	SHA256_H0, SHA256_H1, SHA256_H2, SHA256_H3,
+ 	SHA256_H4, SHA256_H5, SHA256_H6, SHA256_H7
+@@ -472,13 +446,8 @@ static int qce_setup_regs_aead(struct cr
+ 	/* Write initial authentication IV only for HMAC algorithms */
+ 	if (IS_SHA_HMAC(rctx->flags)) {
+ 		/* Write default authentication iv */
+-		if (IS_SHA1_HMAC(rctx->flags)) {
+-			auth_ivsize = SHA1_DIGEST_SIZE;
+-			memcpy(authiv, std_iv_sha1, auth_ivsize);
+-		} else if (IS_SHA256_HMAC(rctx->flags)) {
+-			auth_ivsize = SHA256_DIGEST_SIZE;
+-			memcpy(authiv, std_iv_sha256, auth_ivsize);
+-		}
++		auth_ivsize = SHA256_DIGEST_SIZE;
++		memcpy(authiv, std_iv_sha256, auth_ivsize);
+ 		authiv_words = auth_ivsize / sizeof(u32);
+ 		qce_write_array(qce, REG_AUTH_IV0, (u32 *)authiv, authiv_words);
+ 	} else if (IS_CCM(rctx->flags)) {
+--- a/drivers/crypto/qce/common.h
++++ b/drivers/crypto/qce/common.h
+@@ -22,7 +22,7 @@
+ 
+ /* IV length in bytes */
+ #define QCE_AES_IV_LENGTH		AES_BLOCK_SIZE
+-/* max of AES_BLOCK_SIZE, DES3_EDE_BLOCK_SIZE */
++/* max of AES_BLOCK_SIZE */
+ #define QCE_MAX_IV_SIZE			AES_BLOCK_SIZE
+ 
+ /* maximum nonce bytes  */
+@@ -33,14 +33,10 @@
+ #define QCE_MAX_ALIGN_SIZE		64
+ 
+ /* cipher algorithms */
+-#define QCE_ALG_DES			BIT(0)
+-#define QCE_ALG_3DES			BIT(1)
+ #define QCE_ALG_AES			BIT(2)
+ 
+ /* hash and hmac algorithms */
+-#define QCE_HASH_SHA1			BIT(3)
+ #define QCE_HASH_SHA256			BIT(4)
+-#define QCE_HASH_SHA1_HMAC		BIT(5)
+ #define QCE_HASH_SHA256_HMAC		BIT(6)
+ #define QCE_HASH_AES_CMAC		BIT(7)
+ 
+@@ -58,21 +54,15 @@
+ #define QCE_ENCRYPT			BIT(30)
+ #define QCE_DECRYPT			BIT(31)
+ 
+-#define IS_DES(flags)			(flags & QCE_ALG_DES)
+-#define IS_3DES(flags)			(flags & QCE_ALG_3DES)
+ #define IS_AES(flags)			(flags & QCE_ALG_AES)
+ 
+-#define IS_SHA1(flags)			(flags & QCE_HASH_SHA1)
+ #define IS_SHA256(flags)		(flags & QCE_HASH_SHA256)
+-#define IS_SHA1_HMAC(flags)		(flags & QCE_HASH_SHA1_HMAC)
+ #define IS_SHA256_HMAC(flags)		(flags & QCE_HASH_SHA256_HMAC)
+ #define IS_CMAC(flags)			(flags & QCE_HASH_AES_CMAC)
+-#define IS_SHA(flags)			(IS_SHA1(flags) || IS_SHA256(flags))
+-#define IS_SHA_HMAC(flags)		\
+-		(IS_SHA1_HMAC(flags) || IS_SHA256_HMAC(flags))
++#define IS_SHA(flags)			IS_SHA256(flags)
++#define IS_SHA_HMAC(flags)		IS_SHA256_HMAC(flags)
+ 
+ #define IS_CBC(mode)			(mode & QCE_MODE_CBC)
+-#define IS_ECB(mode)			(mode & QCE_MODE_ECB)
+ #define IS_CTR(mode)			(mode & QCE_MODE_CTR)
+ #define IS_XTS(mode)			(mode & QCE_MODE_XTS)
+ #define IS_CCM(mode)			(mode & QCE_MODE_CCM)
+--- a/drivers/crypto/qce/regs-v5.h
++++ b/drivers/crypto/qce/regs-v5.h
+@@ -203,7 +203,6 @@
+ 
+ #define AUTH_SIZE_SHIFT			9
+ #define AUTH_SIZE_MASK			GENMASK(13, 9)
+-#define AUTH_SIZE_SHA1			0
+ #define AUTH_SIZE_SHA256		1
+ #define AUTH_SIZE_ENUM_1_BYTES		0
+ #define AUTH_SIZE_ENUM_2_BYTES		1
+@@ -284,15 +283,12 @@
+ 
+ #define ENCR_KEY_SZ_SHIFT		3
+ #define ENCR_KEY_SZ_MASK		GENMASK(5, 3)
+-#define ENCR_KEY_SZ_DES			0
+-#define ENCR_KEY_SZ_3DES		1
+ #define ENCR_KEY_SZ_AES128		0
+ #define ENCR_KEY_SZ_AES256		2
+ 
+ #define ENCR_ALG_SHIFT			0
+ #define ENCR_ALG_MASK			GENMASK(2, 0)
+ #define ENCR_ALG_NONE			0
+-#define ENCR_ALG_DES			1
+ #define ENCR_ALG_AES			2
+ #define ENCR_ALG_KASUMI			4
+ #define ENCR_ALG_SNOW_3G		5
+--- a/drivers/crypto/qce/sha.c
++++ b/drivers/crypto/qce/sha.c
+@@ -24,10 +24,6 @@ struct qce_sha_saved_state {
+ 
+ static LIST_HEAD(ahash_algs);
+ 
+-static const u32 std_iv_sha1[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+-	SHA1_H0, SHA1_H1, SHA1_H2, SHA1_H3, SHA1_H4, 0, 0, 0
+-};
+-
+ static const u32 std_iv_sha256[SHA256_DIGEST_SIZE / sizeof(u32)] = {
+ 	SHA256_H0, SHA256_H1, SHA256_H2, SHA256_H3,
+ 	SHA256_H4, SHA256_H5, SHA256_H6, SHA256_H7
+@@ -348,9 +344,7 @@ static int qce_ahash_hmac_setkey(struct
+ 		return 0;
+ 	}
+ 
+-	if (digestsize == SHA1_DIGEST_SIZE)
+-		alg_name = "sha1-qce";
+-	else if (digestsize == SHA256_DIGEST_SIZE)
++	if (digestsize == SHA256_DIGEST_SIZE)
+ 		alg_name = "sha256-qce";
+ 	else
+ 		return -EINVAL;
+@@ -412,15 +406,6 @@ struct qce_ahash_def {
+ 
+ static const struct qce_ahash_def ahash_def[] = {
+ 	{
+-		.flags		= QCE_HASH_SHA1,
+-		.name		= "sha1",
+-		.drv_name	= "sha1-qce",
+-		.digestsize	= SHA1_DIGEST_SIZE,
+-		.blocksize	= SHA1_BLOCK_SIZE,
+-		.statesize	= sizeof(struct qce_sha_saved_state),
+-		.std_iv		= std_iv_sha1,
+-	},
+-	{
+ 		.flags		= QCE_HASH_SHA256,
+ 		.name		= "sha256",
+ 		.drv_name	= "sha256-qce",
+@@ -430,15 +415,6 @@ static const struct qce_ahash_def ahash_
+ 		.std_iv		= std_iv_sha256,
+ 	},
+ 	{
+-		.flags		= QCE_HASH_SHA1_HMAC,
+-		.name		= "hmac(sha1)",
+-		.drv_name	= "hmac-sha1-qce",
+-		.digestsize	= SHA1_DIGEST_SIZE,
+-		.blocksize	= SHA1_BLOCK_SIZE,
+-		.statesize	= sizeof(struct qce_sha_saved_state),
+-		.std_iv		= std_iv_sha1,
+-	},
+-	{
+ 		.flags		= QCE_HASH_SHA256_HMAC,
+ 		.name		= "hmac(sha256)",
+ 		.drv_name	= "hmac-sha256-qce",
+@@ -475,9 +451,7 @@ static int qce_ahash_register_one(const
+ 	alg->halg.digestsize = def->digestsize;
+ 	alg->halg.statesize = def->statesize;
+ 
+-	if (IS_SHA1(def->flags))
+-		tmpl->hash_zero = sha1_zero_message_hash;
+-	else if (IS_SHA256(def->flags))
++	if (IS_SHA256(def->flags))
+ 		tmpl->hash_zero = sha256_zero_message_hash;
+ 
+ 	base = &alg->halg.base;
+--- a/drivers/crypto/qce/sha.h
++++ b/drivers/crypto/qce/sha.h
+@@ -7,7 +7,6 @@
+ #define _SHA_H_
+ 
+ #include <crypto/scatterwalk.h>
+-#include <crypto/sha1.h>
+ #include <crypto/sha2.h>
+ 
+ #include "common.h"
+--- a/drivers/crypto/qce/skcipher.c
++++ b/drivers/crypto/qce/skcipher.c
+@@ -10,7 +10,6 @@
+ #include <linux/types.h>
+ #include <linux/errno.h>
+ #include <crypto/aes.h>
+-#include <crypto/internal/des.h>
+ #include <crypto/internal/skcipher.h>
+ 
+ #include "cipher.h"
+@@ -208,51 +207,6 @@ static int qce_skcipher_setkey(struct cr
+ 	return ret;
+ }
+ 
+-static int qce_des_setkey(struct crypto_skcipher *ablk, const u8 *key,
+-			  unsigned int keylen)
+-{
+-	struct qce_cipher_ctx *ctx = crypto_skcipher_ctx(ablk);
+-	int err;
+-
+-	err = verify_skcipher_des_key(ablk, key);
+-	if (err)
+-		return err;
+-
+-	ctx->enc_keylen = keylen;
+-	memcpy(ctx->enc_key, key, keylen);
+-	return 0;
+-}
+-
+-static int qce_des3_setkey(struct crypto_skcipher *ablk, const u8 *key,
+-			   unsigned int keylen)
+-{
+-	struct qce_cipher_ctx *ctx = crypto_skcipher_ctx(ablk);
+-	u32 _key[6];
+-	int err;
+-
+-	err = verify_skcipher_des3_key(ablk, key);
+-	if (err)
+-		return err;
+-
+-	/*
+-	 * The crypto engine does not support any two keys
+-	 * being the same for triple des algorithms. The
+-	 * verify_skcipher_des3_key does not check for all the
+-	 * below conditions. Return -ENOKEY in case any two keys
+-	 * are the same. Revisit to see if a fallback cipher
+-	 * is needed to handle this condition.
+-	 */
+-	memcpy(_key, key, DES3_EDE_KEY_SIZE);
+-	if (!((_key[0] ^ _key[2]) | (_key[1] ^ _key[3])) ||
+-	    !((_key[2] ^ _key[4]) | (_key[3] ^ _key[5])) ||
+-	    !((_key[0] ^ _key[4]) | (_key[1] ^ _key[5])))
+-		return -ENOKEY;
+-
+-	ctx->enc_keylen = keylen;
+-	memcpy(ctx->enc_key, key, keylen);
+-	return 0;
+-}
+-
+ static int qce_skcipher_crypt(struct skcipher_request *req, int encrypt)
+ {
+ 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
+@@ -275,7 +229,7 @@ static int qce_skcipher_crypt(struct skc
+ 	 * ECB and CBC algorithms require message lengths to be
+ 	 * multiples of block size.
+ 	 */
+-	if (IS_ECB(rctx->flags) || IS_CBC(rctx->flags))
++	if (IS_CBC(rctx->flags))
+ 		if (!IS_ALIGNED(req->cryptlen, blocksize))
+ 			return -EINVAL;
+ 
+@@ -359,15 +313,6 @@ struct qce_skcipher_def {
+ 
+ static const struct qce_skcipher_def skcipher_def[] = {
+ 	{
+-		.flags		= QCE_ALG_AES | QCE_MODE_ECB,
+-		.name		= "ecb(aes)",
+-		.drv_name	= "ecb-aes-qce",
+-		.blocksize	= AES_BLOCK_SIZE,
+-		.ivsize		= 0,
+-		.min_keysize	= AES_MIN_KEY_SIZE,
+-		.max_keysize	= AES_MAX_KEY_SIZE,
+-	},
+-	{
+ 		.flags		= QCE_ALG_AES | QCE_MODE_CBC,
+ 		.name		= "cbc(aes)",
+ 		.drv_name	= "cbc-aes-qce",
+@@ -395,42 +340,6 @@ static const struct qce_skcipher_def skc
+ 		.min_keysize	= AES_MIN_KEY_SIZE * 2,
+ 		.max_keysize	= AES_MAX_KEY_SIZE * 2,
+ 	},
+-	{
+-		.flags		= QCE_ALG_DES | QCE_MODE_ECB,
+-		.name		= "ecb(des)",
+-		.drv_name	= "ecb-des-qce",
+-		.blocksize	= DES_BLOCK_SIZE,
+-		.ivsize		= 0,
+-		.min_keysize	= DES_KEY_SIZE,
+-		.max_keysize	= DES_KEY_SIZE,
+-	},
+-	{
+-		.flags		= QCE_ALG_DES | QCE_MODE_CBC,
+-		.name		= "cbc(des)",
+-		.drv_name	= "cbc-des-qce",
+-		.blocksize	= DES_BLOCK_SIZE,
+-		.ivsize		= DES_BLOCK_SIZE,
+-		.min_keysize	= DES_KEY_SIZE,
+-		.max_keysize	= DES_KEY_SIZE,
+-	},
+-	{
+-		.flags		= QCE_ALG_3DES | QCE_MODE_ECB,
+-		.name		= "ecb(des3_ede)",
+-		.drv_name	= "ecb-3des-qce",
+-		.blocksize	= DES3_EDE_BLOCK_SIZE,
+-		.ivsize		= 0,
+-		.min_keysize	= DES3_EDE_KEY_SIZE,
+-		.max_keysize	= DES3_EDE_KEY_SIZE,
+-	},
+-	{
+-		.flags		= QCE_ALG_3DES | QCE_MODE_CBC,
+-		.name		= "cbc(des3_ede)",
+-		.drv_name	= "cbc-3des-qce",
+-		.blocksize	= DES3_EDE_BLOCK_SIZE,
+-		.ivsize		= DES3_EDE_BLOCK_SIZE,
+-		.min_keysize	= DES3_EDE_KEY_SIZE,
+-		.max_keysize	= DES3_EDE_KEY_SIZE,
+-	},
+ };
+ 
+ static int qce_skcipher_register_one(const struct qce_skcipher_def *def,
+@@ -455,9 +364,7 @@ static int qce_skcipher_register_one(con
+ 	alg->ivsize			= def->ivsize;
+ 	alg->min_keysize		= def->min_keysize;
+ 	alg->max_keysize		= def->max_keysize;
+-	alg->setkey			= IS_3DES(def->flags) ? qce_des3_setkey :
+-					  IS_DES(def->flags) ? qce_des_setkey :
+-					  qce_skcipher_setkey;
++	alg->setkey			= qce_skcipher_setkey;
+ 	alg->encrypt			= qce_skcipher_encrypt;
+ 	alg->decrypt			= qce_skcipher_decrypt;
+ 
+
+
