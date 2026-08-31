@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4E4397937
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 21:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DBE39446B
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 21:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210647; cv=none; b=uZBxalhOHZTvDnH8bpkUGi55c+e206AFi0oHdNzyK7wOT/PHCtZy8uXBXWg1okjUtgYyMSwCKAvwANFq1c2/9naE6HVhsXcp/MVs6/dM7S0S1dx2jrGq2ll5sOThVYVmIzJZEjiM4lfWiG0YaMGJJKVSAcYbTSQ840Z2Us563aM=
+	t=1788210648; cv=none; b=WifujZDFTnJB5TJFDa6BkQwYBmARGBD4zG+YnSYRUF3XdXy39m6rJfEfXJovnoQPsb4GAKiW9Y7AOsdtNYLMC/hjImsMRnsf+MyfSkpmTPz1K28WYNBZqDGUWmk79cq+7B6ofFsbMtIvCxhSr8XqltL+shkUnYk7d6YKxn4ko68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210647; c=relaxed/simple;
-	bh=7DyqfneiyATJW8YulqhV4rDrcrapDpJbycrJDqbHjwE=;
+	s=arc-20240116; t=1788210648; c=relaxed/simple;
+	bh=7gnGPjk0B06W8bf98fVPXX93qiLcr9ujrZWB9uS/2ug=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JFn/EkDWQX1Ps9sHn7X33mnDNhdEO0xsihWh/BlGwV6GpC3aVC5M2Bo+UEpgpysb9FIQ/O42BY+JtqPb7fQWP3q17POTxmIcKEwav6Zng+RjQOVczabjI370SJNhsoh2tOyHe12LAUy+HDzT0gLkpVYCwDC8ZPecobUuVz4OJkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z32t7nwl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DL1pLUTwIyZYl8bsaR+iH4PmH7FVMf/Kq3V+MvofAoCwkEkSONSM/+T7j13mTrNGZs5qpuXBuNtKLGRGSV1BUcy1NLiCzafj4cOZHCRRm6PkWCZhX+TM7j0H2Qf2gmtsH6/JodmECkZtKe2G3JfED8mjpRornAPffww9DxNzxLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fl+sq7o9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z32t7nwl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70E111F00ACF;
-	Mon, 31 Aug 2026 21:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fl+sq7o9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CCC1F00A3F;
+	Mon, 31 Aug 2026 21:10:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788210645;
-	bh=w1uCuMqaMCrlNhh4tmI3mC9YBNci6gjqPisrZ+pX3ZY=;
+	s=k20260515; t=1788210643;
+	bh=89Btjg4Z30eNf9gscD1gzpz+qfmSZZaCAXjRhNbf4xk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z32t7nwlGqXLc0Xg/DQA6ALCuYqsNfl/wlkJXo4jtgoVZxIqfo6jgKoJ/TB2WuNFr
-	 h/PcGdTRVvNZmNQmIKKafpQ1bTKwg/al90Ghhk9VkQlkxqUtlqeErbmgCMV9ZJepPK
-	 fn9YiqnJXbqmRpILWl1govOvhZYbxF35pWhzpwKcp2pLhgG/oF07GCpT61q5q3AK9e
-	 wdSw0YpgH2LPstmojzBpRqltgUA1Y4GE0ff/ss4gpnx8k5NBvy/Os4LWnR8yweDv65
-	 djcSfoiM1ZNwKRGYTIJobYJ1yPjmuxouf/HqF+6GFydlXGJJHNa4191hCd4h3T3SXl
-	 scni+vAGxCRMQ==
+	b=fl+sq7o9Dfr/7L446GXpCv/cjsN3wt9mwmS6h+Oezo2y61YHxx4nnguyi2uKcr4rK
+	 +1Y5KYZnQ/hx+zL+DLuI9Fcy9CLQpnungtyYMwnN/TUWNhcqI918GPpXxF5kIVOlKp
+	 9jum893WntixinBuuTOtjCIDpFbrpajw2UQYkZTGYAKqIMQtaUsPyz9ZMQEFwzzSsi
+	 OvkNGVueDefVV/B+EHsedkyULpp/ZcqrP/ciAaQo+7al5qcxJqTG9KncZWPvmchZbK
+	 uizD3VC30vkA/YmVcMPcPNSPbjGOYGIY5vdnIRoaLj1qvOGBtUKMNWnT0TSxBXLrdX
+	 IAIVj58BDwRTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Niklas Neronin <niklas.neronin@linux.intel.com>,
 	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/7] usb: xhci: use cached HCSPARAMS1 value
-Date: Mon, 31 Aug 2026 17:10:12 -0400
-Message-ID: <20260831211039.1799106-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/7] usb: xhci: add USB Port Register Set struct
+Date: Mon, 31 Aug 2026 17:10:10 -0400
+Message-ID: <20260831211039.1799106-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831211039.1799106-1-sashal@kernel.org>
 References: <2026083121-usher-contest-f49c@gregkh>
@@ -49,40 +49,125 @@ Content-Transfer-Encoding: 8bit
 
 From: Niklas Neronin <niklas.neronin@linux.intel.com>
 
-[ Upstream commit 70651cc3f5a4c7cec529f121e36ea3b45ea84778 ]
+[ Upstream commit 377a91594e008848363641d07f51d2e48f4bdde5 ]
 
-The Structural Parameters 1 (HCSPARAMS1) register is read and cached in
-'xhci->hcs_params1' during host controller initialization. Since this
-register is read-only and its value remains constant for the lifetime of
-the controller, re-reading it later is unnecessary.
+Introduce a new struct for the Host Controller USB Port Register Set to
+enhance readability and maintainability.
 
-Replace subsequent register reads with the cached 'xhci->hcs_params1'
-value to avoid redundant MMIO access.
+The Host Controller Operational Registers (struct 'xhci_op_regs') span from
+offset 0x0 to 0x3FF and consist of fixed fields. Following these fixed
+fields are the Host Controller USB Port Register Sets, which are dynamic
+and repeat from 1 to MaxPorts, as defined by HCSPARAMS1.
+
+Currently, the struct 'xhci_op_regs' includes:
+ __le32 port_status_base;		The first PORTSC
+ __le32 port_power_base;		The first PORTPMSC
+ __le32 port_link_base;			The first PORTLI
+ __le32 reserved5;			The first PORTHLPMC, not reserved
+ __le32 reserved6[NUM_PORT_REGS*254];	Port registers 2 to MaxPorts
+
+Replace this with the simpler:
+ struct xhci_port_regs port_regs[];	Port registers 1 to MaxPorts
+
+Host Controller USB Port Register Set:
+| Offset	| Mnemonic	| Register Name
+--------------------------------------------------------------------------
+| 0x0		| PORTSC	| Port Status and Control
+| 0x4		| PORTPMSC	| Port Power Management Status and Control
+| 0x8		| PORTLI	| Port Link Info
+| 0xC		| PORTHLPMC	| Port Hardware LPM Control
 
 Signed-off-by: Niklas Neronin <niklas.neronin@linux.intel.com>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20251119142417.2820519-15-mathias.nyman@linux.intel.com
+Link: https://patch.msgid.link/20251119142417.2820519-8-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: 78203d5b54a4 ("usb: xhci: bail out of setup if the controller is inaccessible")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/usb/host/xhci-mem.c |  3 +--
+ drivers/usb/host/xhci.h     | 36 ++++++++++++++++--------------------
+ 2 files changed, 17 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 42e5b05827208..8d35b01ba0252 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4053,8 +4053,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
- 		xhci_err(xhci, "Error while assigning device slot ID: %s\n",
- 			 xhci_trb_comp_code_string(command->status));
- 		xhci_err(xhci, "Max number of devices this xHCI host supports is %u.\n",
--				HCS_MAX_SLOTS(
--					readl(&xhci->cap_regs->hcs_params1)));
-+			 HCS_MAX_SLOTS(xhci->hcs_params1));
- 		xhci_free_command(xhci, command);
- 		return 0;
- 	}
+diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
+index 264f8bbe8f9e8..b27b0861da79c 100644
+--- a/drivers/usb/host/xhci-mem.c
++++ b/drivers/usb/host/xhci-mem.c
+@@ -2182,8 +2182,7 @@ static int xhci_setup_port_arrays(struct xhci_hcd *xhci, gfp_t flags)
+ 		return -ENOMEM;
+ 
+ 	for (i = 0; i < num_ports; i++) {
+-		xhci->hw_ports[i].addr = &xhci->op_regs->port_status_base +
+-			NUM_PORT_REGS * i;
++		xhci->hw_ports[i].addr = &xhci->op_regs->port_regs[i].portsc;
+ 		xhci->hw_ports[i].hw_portnum = i;
+ 
+ 		init_completion(&xhci->hw_ports[i].rexit_done);
+diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+index 7dcdaa68c0ab1..181b557b64390 100644
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -66,14 +66,25 @@ struct xhci_cap_regs {
+ 	/* Reserved up to (CAPLENGTH - 0x1C) */
+ };
+ 
+-/* Number of registers per port */
+-#define	NUM_PORT_REGS	4
+-
+ #define PORTSC		0
+ #define PORTPMSC	1
+ #define PORTLI		2
+ #define PORTHLPMC	3
+ 
++/*
++ * struct xhci_port_regs - Host Controller USB Port Register Set. xHCI spec 5.4.8
++ * @portsc:	Port Status and Control
++ * @portpmsc:	Port Power Management Status and Control
++ * @portli:	Port Link Info
++ * @porthlmpc:	Port Hardware LPM Control
++ */
++struct xhci_port_regs {
++	__le32	portsc;
++	__le32	portpmsc;
++	__le32	portli;
++	__le32	porthlmpc;
++};
++
+ /**
+  * struct xhci_op_regs - xHCI Host Controller Operational Registers.
+  * @command:		USBCMD - xHC command register
+@@ -85,16 +96,7 @@ struct xhci_cap_regs {
+  * @cmd_ring:		CRP - 64-bit Command Ring Pointer
+  * @dcbaa_ptr:		DCBAAP - 64-bit Device Context Base Address Array Pointer
+  * @config_reg:		CONFIG - Configure Register
+- * @port_status_base:	PORTSCn - base address for Port Status and Control
+- * 			Each port has a Port Status and Control register,
+- * 			followed by a Port Power Management Status and Control
+- * 			register, a Port Link Info register, and a reserved
+- * 			register.
+- * @port_power_base:	PORTPMSCn - base address for
+- * 			Port Power Management Status and Control
+- * @port_link_base:	PORTLIn - base address for Port Link Info (current
+- * 			Link PM state and control) for USB 2.1 and USB 3.0
+- * 			devices.
++ * @port_regs:		Port Register Sets, from 1 to MaxPorts (defined by HCSPARAMS1).
+  */
+ struct xhci_op_regs {
+ 	__le32	command;
+@@ -110,13 +112,7 @@ struct xhci_op_regs {
+ 	__le32	config_reg;
+ 	/* rsvd: offset 0x3C-3FF */
+ 	__le32	reserved4[241];
+-	/* port 1 registers, which serve as a base address for other ports */
+-	__le32	port_status_base;
+-	__le32	port_power_base;
+-	__le32	port_link_base;
+-	__le32	reserved5;
+-	/* registers for ports 2-255 */
+-	__le32	reserved6[NUM_PORT_REGS*254];
++	struct xhci_port_regs port_regs[];
+ };
+ 
+ /* USBCMD - USB command - command bitmasks */
 -- 
 2.53.0
 
