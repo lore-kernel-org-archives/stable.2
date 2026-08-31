@@ -1,209 +1,79 @@
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26C05EED8;
-	Mon, 31 Aug 2026 00:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34C228315D
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 00:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135367; cv=none; b=cABgHIorPUGT8DNRw2791CAIMMT7vIeomsSgBaQuRJr5EaZWDC2gAh/zHXiEFK1jhGkQgNhyA6H4uyH6HmsK6s6CLNN8Mv/dW/l4sHeZqT1/On1R6XIbmstNTXI/WIaS2aronCuvH9wpDYjoQ5trI+smGXqOfsVz4zgfcQgPLvA=
+	t=1788136941; cv=none; b=p6GLRJe5RWbgaFfgbc5+nsnZDFE+rKIOdZUERnM7FDnaA1b+B13BJNG//ChLM+1x364V8NV9eOia+2R1JoQzCXvanBcCzUVJDj730WBOaBdWQUZmACl+72xvEYlTmu3TweC/mHXfQy+ATOzACivSAsb4RT5diXx+OZ2C5KsZwB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788135367; c=relaxed/simple;
-	bh=/PE4+6gdD88VG59cxZY/AmLGwyIdJl6ytDAyuRMZ2SY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sV/3D2ngmPjz6L3JsEO4uY8e/BoIeEgRPiSbWAvriIQ+RPum38jaMX5YA4RctuADxJJn2lHBPbMRVxxlEVcukfrh8to4QqwdZ3+ZAGURzqHwV1Ah1V7A8nLXCm/VZZ+kLN2TlhiN1pk9kERTO+oYTtQSosLoTG4HJJAicrP7hx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=Y3jPJN9k; arc=none smtp.client-ip=202.38.64.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	s=arc-20240116; t=1788136941; c=relaxed/simple;
+	bh=3Qw2fs21wkrwzl7ChAiP2vCNWpZweRNdpO1p4tzob7M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oPqyGwew1LmklTuxkCghnRJDpcC/ZAbxCGN37mcI8XmDhFI3otJxzxqooheiaDVm+GHXDGU5N3dvXjEmxG0qqrzpW2CaFOkyF6JhY8m2XW80gRKqHnkuHxQ63py6KMzjeQ0sHwIMXdqLSM5MzqLdf1av0txQhTD7GF7jtksp/N8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n3UdL8Ff; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="Y3jPJN9k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=st1mtW34SeMBeVP8tYUDOSGfgAbE2Gvlv/
-	tyArnQ9/s=; b=Y3jPJN9kHt82qLKEXUf2BBhA6D/LxVwk897WqfU/WbH6ERjUo1
-	ZY64Sj1owZ/OQ1dsjVRxYWDpMwF2pRW3xQj56lG6l68ZbegYQtf1fYOxuJxwSuxz
-	f38vk20f94KwTsaKaAAnPEmgmBfxli4EAmMJboKJrpm52EwQNv+s1gGWg=
-Received: from localhost (unknown [222.195.81.60])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBXPRS+x5Rqpae+AA--.2610S2;
-	Mon, 31 Aug 2026 08:15:58 +0800 (CST)
-From: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	bpf@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	martin.lau@linux.dev,
-	ameryhung@gmail.com,
-	joannelkoong@gmail.com,
-	sashal@kernel.org
-Subject: [PATCH 6.12.y v4 3/3] bpf: Invalidate dynptr clones in every call frame on release
-Date: Mon, 31 Aug 2026 08:15:52 +0800
-Message-ID: <20260831001552.3223196-4-xyx2021@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831001552.3223196-1-xyx2021@mail.ustc.edu.cn>
-References: <20260831001552.3223196-1-xyx2021@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n3UdL8Ff"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96F6D1F00A3F
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 00:42:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788136939;
+	bh=cwLD5MPaM5wEPEiG4IYB203rR0WWLqJ94Gf1v2xping=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=n3UdL8Ff7vYSPKFZghKggZzq0vJRXALq9Dd7AhjCvJ24p9VsMoZN6WO98qE2SqwEI
+	 cbYsrjB8hEDBqyNkU/raMT/hw5YKlTYaF88j7Rwhr059KJHGVW9FDDJXWhvFAQyJcX
+	 1ZJDQt2tfOuwPMwY7wyo+/ni/Ny9htNVxr7/XUS0sVytyIU7uHIiJiR+FVHZNg8t1N
+	 D4CUZhHQV12XBlNPaP/z5x/rfPK6ziWTHHxSCYYD4vgB/V8N9PwqNgeObkCn9KNpFk
+	 MrInbiRlLnOU814Fpx8gF7v4Rz3KUuvkVncKfunzus1KXaiWwGYygJTDf2cF/ZsqPt
+	 kKKxRk/JQZzdw==
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so1136256a12.2
+        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 17:42:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzkZMcF3mVbfUc9HNdzqjmkU1nswBXVfmYTfzFvR6ct1JQB2GN6X+w85kDP2f6lVoQd/IGcUus=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPmk9N3W0ryBj4uU55oMJFoszGhb0xEzzRK2afKlo+7Vw9JrIf
+	465QFlT24IEfqA30wTZdMcUzH5jhmQNWoKxm6RPeRrn6Hm9R9bofIF5WwhRK7NGMbEnVxFtO8mE
+	QD01YAn35K+b2PcA69kejNKY0uSse4us=
+X-Received: by 2002:a05:6402:5055:b0:6a6:32fa:cac with SMTP id
+ 4fb4d7f45d1cf-6a632fa0d07mr6252464a12.17.1788136938260; Sun, 30 Aug 2026
+ 17:42:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBXPRS+x5Rqpae+AA--.2610S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtrykKr15uF48CryxCry8Krg_yoW7Ar18pF
-	Z5Ka4agr1xXF48Kr9rJws7Gr4YgF4kXrW7GFWFy3yfJFnYvr98ZF1rKryUXr93tFWYkw43
-	Jr4SqrZxZr1UWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4
-	vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r
-	1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6w
-	1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
-	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7V
-	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5WuWtUUUUU=
-	=
-X-CM-SenderInfo: h010jiysr6zt1loo32lwfovvfxof0/
+References: <20260828231211.252093-1-pc@manguebit.org> <CAKYAXd_cR_WAd-3iRW_KJRmSBKxNiSuGvjNXXk33pG3Z_2dBvA@mail.gmail.com>
+ <ff527b2379048e28e0b2e66abdeb1aba@manguebit.org>
+In-Reply-To: <ff527b2379048e28e0b2e66abdeb1aba@manguebit.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 31 Aug 2026 09:42:05 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9V-WCNVzs3gOrQ8cPjAvpLUv65t4tub8jQuOqo9diZJA@mail.gmail.com>
+X-Gm-Features: AcwNN1X_X_OiN_At6RLiKHEGZ7PMCZKvvLGQTPCi4abYeLmXEsP_wL_myo1NJ7g
+Message-ID: <CAKYAXd9V-WCNVzs3gOrQ8cPjAvpLUv65t4tub8jQuOqo9diZJA@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: fix data corruption with concurrent writes
+ and O_TRUNC
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: linux-cifs@vger.kernel.org, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
+	Bharath SM <bharathsm@microsoft.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[ Upstream commit 308c7a0ae8859b34d9d90a3dff953b2d14242145 ]
+On Mon, Aug 31, 2026 at 1:43=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> =
+wrote:
+>
+> Namjae Jeon <linkinjeon@kernel.org> writes:
+>
+> > Should we also take filemap_invalidate_lock_shared() in the
+> > page_mkwrite path to serialize mmap writes with this truncate path?
+>
+> I don't think so.  It's serialised by the folio lock that
+> netfs_page_mkwrite() and truncate_inode_pages() take.  Also, if a new
+> writable page was added between the first unmap and
+> truncate_inode_pages(), or if a new page is about to be become writable,
+> both paths should go through filemap_fault(), which takes
+> invalidate_lock shared, so they will both serialise with invalidate_lock
+> exclusive in cifs_do_truncate().
+Agreed.
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 
-This is a 6.12.y-sized equivalent, not a cherry-pick of the upstream
-diff.
-
-unmark_stack_slots_dynptr() walked clones only in the submitting
-pointer's frame. A program that clones a ringbuf dynptr in a subprog
-and submits the clone leaves the original STACK_DYNPTR slot active in
-the caller. The caller can then pass that stale original to
-bpf_dynptr_data(), even though the shared ringbuf reference has already
-been released.
-
-Walk every frame and invalidate matching STACK_DYNPTR slots. Check the
-slot type before reading dynptr metadata: a partial stack overwrite can
-turn a pointer spill into ordinary stack data while stale union fields
-remain, and those fields must not be interpreted as a dynptr ref_obj_id.
-The preceding patch makes a repeated release an ordinary verifier
-rejection, but it does not prevent non-release uses of a stale dynptr.
-
-Depends on "bpf: Invalidate dynptr slices by dynptr_id on release"
-only for the slice helper call inside the new loop.
-
-The upstream commit is Amery Hung's parent_id refactor. It cannot be
-applied here (see the first patch). Deviations from 308c7a0ae8859:
-keep dynptr_id / ref_obj_id; walk frames with the 6.12 STACK_DYNPTR
-slot loop instead of the parent_id DFS.
-
-Fixes: 361f129f3cc1 ("bpf: Add bpf_dynptr_clone")
-Reported-by: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-Closes: https://lore.kernel.org/r/20260829033725.2365697-3-xyx2021@mail.ustc.edu.cn
-Assisted-by: Pi:GLM-5.3
-Signed-off-by: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
----
- kernel/bpf/verifier.c                         | 30 +++++++--------
- .../testing/selftests/bpf/progs/dynptr_fail.c | 37 +++++++++++++++++++
- 2 files changed, 52 insertions(+), 15 deletions(-)
-
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 65ee9afaa5ff..572437d48b7d 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -811,7 +811,7 @@ static void invalidate_slices_of_dynptr(struct bpf_verifier_env *env, int dynptr
- static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_reg_state *reg)
- {
- 	struct bpf_func_state *state = func(env, reg);
--	int spi, ref_obj_id, i, err;
-+	int spi, ref_obj_id, i, err, frm;
- 
- 	spi = dynptr_get_spi(env, reg);
- 	if (spi < 0)
-@@ -843,22 +843,22 @@ static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_re
- 		return err;
- 	invalidate_slices_of_dynptr(env, state->stack[spi].spilled_ptr.id);
- 
--	/* Invalidate any dynptr clones */
--	for (i = 1; i < state->allocated_stack / BPF_REG_SIZE; i++) {
--		if (state->stack[i].spilled_ptr.ref_obj_id != ref_obj_id)
-+	/* Invalidate any dynptr clones, including those in other frames. */
-+	for (frm = 0; frm <= env->cur_state->curframe; frm++) {
-+		struct bpf_func_state *f = env->cur_state->frame[frm];
-+
-+		if (!f)
- 			continue;
-+		for (i = 1; i < f->allocated_stack / BPF_REG_SIZE; i++) {
-+			if (f->stack[i].slot_type[0] != STACK_DYNPTR)
-+				continue;
-+			if (f->stack[i].spilled_ptr.ref_obj_id != ref_obj_id)
-+				continue;
- 
--		/* it should always be the case that if the ref obj id
--		 * matches then the stack slot also belongs to a
--		 * dynptr
--		 */
--		if (state->stack[i].slot_type[0] != STACK_DYNPTR) {
--			verbose(env, "verifier internal error: misconfigured ref_obj_id\n");
--			return -EFAULT;
--		}
--		if (state->stack[i].spilled_ptr.dynptr.first_slot) {
--			invalidate_slices_of_dynptr(env, state->stack[i].spilled_ptr.id);
--			invalidate_dynptr(env, state, i);
-+			if (f->stack[i].spilled_ptr.dynptr.first_slot) {
-+				invalidate_slices_of_dynptr(env, f->stack[i].spilled_ptr.id);
-+				invalidate_dynptr(env, f, i);
-+			}
- 		}
- 	}
- 
-diff --git a/tools/testing/selftests/bpf/progs/dynptr_fail.c b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-index 52bd7f8871c5..02defdb63ddd 100644
---- a/tools/testing/selftests/bpf/progs/dynptr_fail.c
-+++ b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-@@ -1534,6 +1534,43 @@ int clone_invalid2(struct xdp_md *xdp)
- }
- 
- /* Invalidating a dynptr should invalidate its clones */
-+static __noinline void submit_dynptr_clone(struct bpf_dynptr *ptr)
-+{
-+	struct bpf_dynptr clone;
-+
-+	bpf_dynptr_clone(ptr, &clone);
-+	bpf_ringbuf_submit_dynptr(&clone, 0);
-+}
-+
-+SEC("?raw_tp")
-+__failure __msg("Expected an initialized dynptr")
-+int clone_invalidate_cross_frame(void *ctx)
-+{
-+	struct bpf_dynptr ptr;
-+
-+	bpf_ringbuf_reserve_dynptr(&ringbuf, sizeof(struct sample), 0, &ptr);
-+	submit_dynptr_clone(&ptr);
-+	bpf_dynptr_data(&ptr, 0, sizeof(struct sample));
-+	return 0;
-+}
-+
-+SEC("?raw_tp")
-+__success
-+int clone_invalidate_cross_frame_stale_spill(void *ctx)
-+{
-+	struct bpf_dynptr ptr;
-+	void *data;
-+
-+	bpf_ringbuf_reserve_dynptr(&ringbuf, sizeof(struct sample), 0, &ptr);
-+	data = bpf_dynptr_data(&ptr, 0, sizeof(struct sample));
-+	asm volatile("*(u64 *)(r10 - 24) = %[data];"
-+		"*(u32 *)(r10 - 20) = 0x12345678;"
-+		:: [data] "r"(data) : "memory");
-+	/* A dead, scrubbed spill must not be mistaken for a dynptr slot. */
-+	submit_dynptr_clone(&ptr);
-+	return 0;
-+}
-+
- SEC("?raw_tp")
- __failure __msg("Expected an initialized dynptr as arg #2")
- int clone_invalidate1(void *ctx)
--- 
-2.43.0
-
+Thanks!
