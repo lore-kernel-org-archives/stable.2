@@ -1,41 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF321569F2C;
-	Mon, 31 Aug 2026 13:48:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CC64AD7D0;
+	Mon, 31 Aug 2026 13:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184098; cv=none; b=Clh4XcE0KYolSr/8KBtr8eYsETzzLOGTpHVv1yBHnIfe3eQB3Tg9pRRdB2E/1zvXGfrU/ff3n33dgoDkpd8lvI0MQKb1gfNfaeRm9I6IGzlv8NJmVDy8e0x0/4opKgML/go1gNXi1zom5ltMT6laZ8uwBGgwnaBL7blQTlyXRNo=
+	t=1788184101; cv=none; b=esXz4/i7u072EkIdsFPH5Bvx/1WBA+Ia4qAFh83SSYN+ia3gfav81j408dm+7cKG5CWXAeKtvmuKJYB6JCmrFmulSoXemUmxzb0iPPQ9R7Xa//dGErSXL8ATnpQP6rEEMHYZX4ETjAn3yB751xtLjW1cNd/VCsEc/xeSavVKu+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184098; c=relaxed/simple;
-	bh=pWlITHxsdaR6tNy9qB/AzeymDyMTpAtdKdFnL3D5sUA=;
+	s=arc-20240116; t=1788184101; c=relaxed/simple;
+	bh=NC3USh1yWDAno1VZRkMDZENxazEkRsJm2JtGIAQdiAE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WwqYFt/bUXKn3oBiMFhmlsz02X66TL0E3UX5nLPxdKTav+l0AIBdmNFYClbwOCV6VUOGWsC8NoBicnB1jg09NL9Wf6RLbhjWqtMX0ApfN0EtogEl9Uj0wKu33IS7P2hfz9MjE0LfGlAaBzGeDlNT8ZgkSeKUfyEKYExwEllcxRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=krVpy1ko; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QigvAG/KJewrDfEHcdU2UoK/HGQxl1v7c75+IUyT9gH25psH17eq8Kc8/iNvAEnzdZdnerVwX/SmB3AGPINfIiyqNAz4BvcMF9knBuWG3TonDm20Bi6o4JwFTeRg5aAcm+xoRuYB8/m/WJ61D9vCsOXSkSqITIJbe0P/+PVKcSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGMJhghs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="krVpy1ko"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614E11F00ADB;
-	Mon, 31 Aug 2026 13:48:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGMJhghs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7BF51F00ACF;
+	Mon, 31 Aug 2026 13:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184095;
-	bh=dpzFcOsUzknn7jzsTuxyFFmfi2Q3KDvIdInsUb0qOtE=;
+	s=k20260515; t=1788184097;
+	bh=nxW0z1+3lAtGBNK9zzpc7iWkVAh9cpA3oZ+ROWhMJrg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=krVpy1kouME1As/HCW+TEFNMYYC97E0mkxfDT48gBWYHcxzbWreigNtn6Fbmehhvz
-	 fCLwjvfE3NCETRyTTR1js4EnPqBTKkSjkg0V6NxeI0nDIpdeyfKdmBU+AmOakLzWOy
-	 q6M67txowtLF4PW2m7VKBt/r+Jz5g2G3aAOiIyCfZrccdgzMoVfv20Qub0/VeV628a
-	 iraqjbMJrU0TljrbgbPvye+E2LzqPVntzinfY9bY0Uvg1UQio92PDe8mxP9Yx5Ypfr
-	 R2j9ph+tblVQJZfhTzjLgUzf8ggXIA8ypc2v/5fWXWPlvhCB3x0oElepVYcdes730s
-	 iLMzOW/xzBRnQ==
+	b=AGMJhghsWfASSBWig9eU8tHZdTvB2kyaWwHYyJhxcVQ3TNRRwJUuNqLg0pjtLBGS3
+	 pgBKZh68Q+xY/APjHLEhrxXDPYdUz0VfgNrLYQDoBHX+/7c5jLyZ7H2j6XLaLt5rwT
+	 gFuuR3NNXRPeSj2FXNWJe6Sje77hFeL5Tn5g42BlKSYxF6JKjjB0v29Tzhbj+Q1asn
+	 u+vLOXWPb2Xa6STwnTx36ScLVcvOukZXriGcn0SU/AeZKosjg++Sh7H/nDvsUHxYmE
+	 HrSwi9qOS7xx7QJR7/56Ez10Kkq7hZSNA1vYDSsYgMkg53Tk9wElpMACaIUl7pOuq/
+	 MrALPtJKTiqnA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ping-Ke Shih <pkshih@realtek.com>,
+Cc: Ce Sun <cesun102@amd.com>,
+	Tao Zhou <tao.zhou1@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] wifi: rtw89: phy: check length before parsing PHY status IE
-Date: Mon, 31 Aug 2026 09:28:36 -0400
-Message-ID: <20260831133314.4125787-488-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: avoid integer overflow in VA range check
+Date: Mon, 31 Aug 2026 09:28:37 -0400
+Message-ID: <20260831133314.4125787-489-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -51,386 +57,392 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ping-Ke Shih <pkshih@realtek.com>
+From: Ce Sun <cesun102@amd.com>
 
-[ Upstream commit 884495c39de1a02f42bd40051b921e2311d6ac91 ]
+[ Upstream commit cc768f4dd0bb9083c813683eeec44fc23921f771 ]
 
-Hardware might report PHY status IE with unexpected length, and parser
-might access out of range. Check the length ahead.
+The original addition operation in 64-bit unsigned type may encounter
+overflow situations. To prevent such issues and safely reject invalid
+inputs, the check_add_overflow() function is used.
 
-Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
-Link: https://patch.msgid.link/20260506131000.1706298-12-pkshih@realtek.com
+Signed-off-by: Ce Sun <cesun102@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `wifi: rtw89: phy: check length before
-parsing PHY status IE`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
+### Step 1.1: Subject Line
+**Record:** `[drm/amdgpu]` `[avoid]` — prevent integer overflow in the
+`AMDGPU_GEM_VA` ioctl VA range validation (`amdgpu_gem_va_ioctl`).
+
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Ce Sun `<cesun102@amd.com>` (author)
+- **Reviewed-by:** Tao Zhou `<tao.zhou1@amd.com>`
+- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
+  (maintainer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
+  `Tested-by:`, or `Acked-by:` tags
+- Notable: reviewed by AMD developer and merged by amdgpu maintainer; no
+  fuzzer or user bug report
+
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** `args->va_address + args->map_size` uses unchecked 64-bit
+  unsigned addition in the top-reserved VA range check.
+- **Symptom/failure mode:** On overflow, the wrapped sum can be `<=
+  vm_size`, so invalid oversized VA ranges are not rejected at the ioctl
+  boundary.
+- **Root cause:** Missing overflow-safe addition before comparing
+  against `vm_size`.
+- **Version info:** None in the commit message.
+
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes. Although the subject says “avoid” rather than “fix,”
+this is an input-validation bug in a userspace-reachable DRM ioctl. It
+is not cosmetic cleanup.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 2: Diff Analysis
 
-### Step 1.1: Parse the subject line
-**Record:** `[wifi: rtw89: phy]` `[check]` — validate PHY status IE
-length before parsing; prevents out-of-range access when hardware
-reports unexpected IE lengths.
-
-### Step 1.2: Parse all commit message tags
+### Step 2.1: Inventory
 **Record:**
-- **Signed-off-by:** Ping-Ke Shih `<pkshih@realtek.com>` (author)
-- **Link:**
-  https://patch.msgid.link/20260506131000.1706298-12-pkshih@realtek.com
-- **No** Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or
-  Cc: stable tags
-- Message ID suffix `-12-` indicates patch 12 of a series (series
-  context noted; core reorder fix is still standalone)
+- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c` only (+2/-2, 4
+  lines touched)
+- **Functions:** `amdgpu_gem_va_ioctl()`
+- **Scope:** Single-file, surgical ioctl validation fix
 
-### Step 1.3: Analyze commit body
+### Step 2.2: Code Flow Change
 **Record:**
-- **Bug:** Hardware may deliver PHY status IEs with unexpected length;
-  parser can read past the skb buffer.
-- **Symptom:** Out-of-range memory access during PHY status parsing
-  (potential oops / info leak).
-- **Root cause:** `rtw89_core_process_phy_status_ie()` runs before
-  confirming `pos + ie_len <= end`.
-- **No** explicit kernel version range in the message.
+- **Before:** `if (args->va_address + args->map_size > vm_size)` —
+  overflow wraps, check may pass incorrectly.
+- **After:** `if (check_add_overflow(args->va_address, args->map_size,
+  &tmp) || tmp > vm_size)` — overflow is detected and rejected with
+  `-EINVAL`.
+- **Path affected:** Early validation in `amdgpu_gem_va_ioctl()`, before
+  GEM lookup, fence handling, and VM locking.
 
-### Step 1.4: Detect hidden bug fixes
-**Record:** Not disguised — message explicitly describes an OOB-access
-bug. The fix is reordering validation before parsing, a standard bounds-
-check pattern.
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Integer overflow / input validation bug
+- **Mechanism:** A malicious or buggy userspace caller can supply
+  `va_address` and `map_size` whose true sum exceeds `UINT64_MAX`.
+  Unchecked addition wraps to a small value, potentially bypassing the
+  reserved-top VA check. The fix uses `check_add_overflow()` to reject
+  such inputs.
+
+### Step 2.4: Fix Quality
+**Record:**
+- Fix is minimal, idiomatic, and matches existing kernel/amdgpu style
+  (`check_add_overflow` is already used elsewhere in this file and in
+  `amdgpu_vm.c`).
+- Regression risk is very low.
+- Minor note: the `dev_dbg()` on the error path still prints
+  `args->va_address + args->map_size` without overflow protection; that
+  only affects debug logging on the failure path.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 3: Git History Investigation
 
-### Step 2.1: Inventory the changes
+### Step 3.1: Blame
 **Record:**
-- **File:** `drivers/net/wireless/realtek/rtw89/core.c` (~5 lines
-  changed, reorder + minor error-path additions)
-- **Function:** `rtw89_core_rx_parse_phy_sts()`
-- **Scope:** Single-file, surgical fix in one loop body
+- Buggy check introduced in `c4aa8dff6091cc` (“drm/amdgpu: don't map BO
+  in reserved region”, Oct 2020).
+- `vm_size -= AMDGPU_VA_RESERVED_TOP` added in `00a11f977beb75` (Jan
+  2024).
+- This commit is an ancestor of the current tree; the buggy code is
+  present in v6.18.44.
 
-### Step 2.2: Code flow change
-**Record (per hunk):**
+### Step 3.2: Fixes Tag
+**Record:** N/A — no `Fixes:` tag in the commit message.
 
-**Before:**
-```c
-ie_len = rtw89_core_get_phy_status_ie_len(rtwdev, iehdr);
-rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);  // parses
-first
-pos += ie_len;
-if (pos > end || ie_len == 0)
-    return -EINVAL;
-```
+### Step 3.3: Related File History
+**Record:**
+- Related upstream commits on master: `cc768f4dd0bb9`, cherry-picked as
+  `cd7cfcdb4dd45`.
+- `98856136c485e` (“drm/amdgpu: validate the parameters of bo mapping
+  operations more clearly”, Apr 2024) added
+  `amdgpu_vm_verify_parameters()` with `check_add_overflow(saddr, size)`
+  for `amdgpu_vm_bo_map()`, `amdgpu_vm_bo_replace_map()`, and
+  `amdgpu_vm_bo_clear_mappings()`.
+- `daf5d03ddb8cc` already backported a similar integer-overflow fix in
+  the same file (`amdgpu_gem_align_pitch()`).
+- Standalone one-commit fix; not part of a series.
 
-**After:**
-```c
-ie_len = rtw89_core_get_phy_status_ie_len(rtwdev, iehdr);
-pos += ie_len;
-if (pos > end || ie_len == 0) {
-    /* clear ie09/ie10 on newer trees */
-    return -EINVAL;
-}
-rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);  // parse
-only if in-bounds
-```
-
-**Affected path:** RX PPDU status processing loop (normal + error
-paths).
-
-### Step 2.3: Bug mechanism
-**Record:** **Buffer over-read / out-of-bounds access.**
-`rtw89_core_process_phy_status_ie()` casts `iehdr` to structures like
-`rtw89_phy_sts_ie01` (24 bytes) and `rtw89_phy_sts_ie01_v2` (40 bytes,
-accesses `w8`/`w9`). If `ie_len` is wrong or the remaining buffer is
-shorter than the structure, the parser reads past `end` before the
-existing bounds check runs.
-
-### Step 2.4: Fix quality
-**Record:** Obviously correct — validate-then-use is the right pattern.
-Minimal regression risk (only skips parsing of IEs already known to be
-invalid). No API or behavioral changes for valid packets.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame changed lines
-**Record:** `rtw89_core_rx_parse_phy_sts()` and the process-before-check
-ordering are present at the v6.18 merge point (`6bda50f4333fa`,
-2025-11-29). The buggy ordering has been in this tree since at least
-**6.18.0**.
-
-### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no Fixes: tag.
-
-### Step 3.3: File history for related changes
-**Record:** Recent rtw89 fixes in this tree follow the same pattern:
-- `ebeaa3b24ba56` — validate release report before use (same author)
-- `ef7fa19809b2d` — validate TX release report sequence
-- `ad445de67359f` — bounds check on firmware `mac_id`
-
-Standalone fix; no prerequisite commits required for the reorder.
-
-### Step 3.4: Author context
-**Record:** Ping-Ke Shih is the primary Realtek rtw89 maintainer.
-Multiple rtw89 stable backports from this author are already in 6.18.y.
+### Step 3.4: Author Context
+**Record:** Ce Sun is an AMD contributor with multiple amdgpu stable-
+relevant fixes (reset, leak, PM). Tao Zhou reviewed; Alex Deucher
+merged.
 
 ### Step 3.5: Dependencies
-**Record:** The upstream diff also touches `ie09`/`ie10` fields and
-monitor-mode accept logic that **do not exist** in 6.18.43. The core
-reorder fix applies independently; backport would drop those hunks.
+**Record:** No prerequisites. `linux/overflow.h` is already included in
+`amdgpu_gem.c` in this tree. `check_add_overflow()` exists in
+`include/linux/overflow.h`. Patch should apply cleanly.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original patch discussion
-**Record:** `b4 dig -c` could not match (commit not in local tree).
-lore.kernel.org and patch.msgid.link blocked by bot protection
-(Anubis/403). **UNVERIFIED:** full review thread content.
+### Step 4.1: Original Discussion
+**Record:** `b4 dig -c cc768f4dd0bb9` and `b4 dig -c cd7cfcdb4dd45` both
+failed — no lore match found. Manual lore search blocked by bot
+protection.
 
 ### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** — `b4 dig -w` not possible without commit
-hash.
+**Record:** `b4 dig -w` unavailable due to failed match. From commit
+metadata: Reviewed-by Tao Zhou; Signed-off-by Alex Deucher.
 
-### Step 4.3: Bug report
-**Record:** No syzbot/bugzilla link. Bug is described as hardware-
-reported malformed PHY status data — plausible real-world trigger
-(firmware edge cases), not purely theoretical.
+### Step 4.3: Bug Report
+**Record:** No external bug report, syzbot report, or crash trace
+referenced.
 
-### Step 4.4: Related patches / series
-**Record:** Message ID indicates patch 12 of a series. The bounds-check
-reorder does not depend on earlier series patches for correctness in
-6.18.43.
+### Step 4.4: Related Patches
+**Record:** Not part of a multi-patch series. Related prior work:
+`98856136c485e` (downstream VA parameter validation).
 
-### Step 4.5: Stable mailing list
-**Record:** **UNVERIFIED** — could not search lore stable archive due to
-access restrictions.
+### Step 4.5: Stable List Discussion
+**Record:** Could not verify stable-list discussion; lore fetch blocked.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
-### Step 5.1: Key functions
-**Record:** `rtw89_core_rx_parse_phy_sts()`,
-`rtw89_core_process_phy_status_ie()`,
-`rtw89_core_get_phy_status_ie_len()`,
-`rtw89_core_parse_phy_status_ie01()`,
-`rtw89_core_parse_phy_status_ie01_v2()`.
+### Step 5.1: Key Functions
+**Record:** `amdgpu_gem_va_ioctl()` modified.
 
 ### Step 5.2: Callers
-**Record:**
-- `rtw89_core_rx_process_phy_sts()` → `rtw89_core_rx_parse_phy_sts()`
-- `rtw89_core_rx_process_ppdu_sts()` → `rtw89_core_rx_process_phy_sts()`
-- `rtw89_core_rx_process_report()` handles
-  `RTW89_CORE_RX_TYPE_PPDU_STAT`
-
-Called on every PPDU status report from firmware during normal WiFi RX.
+**Record:** Registered in `amdgpu_drv.c` as:
+`DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl,
+DRM_AUTH|DRM_RENDER_ALLOW)`
+Callable from authenticated DRM render clients — common userspace GPU VA
+management path.
 
 ### Step 5.3: Callees
-**Record:** IE parsers read multi-word hardware structures via
-`le32_get_bits()` at fixed offsets (e.g., `ie->w8`, `ie->w9` up to 40
-bytes into `rtw89_phy_sts_ie01_v2`).
+**Record:** After validation, ioctl may call `drm_gem_object_lookup()`,
+`amdgpu_gem_add_input_fence()`, `drm_exec_*`, `amdgpu_vm_lock_pd()`, and
+depending on operation:
+- `amdgpu_vm_bo_map()`
+- `amdgpu_vm_bo_unmap()`
+- `amdgpu_vm_bo_clear_mappings()`
+- `amdgpu_vm_bo_replace_map()`
 
-### Step 5.4: Reachability
-**Record:** Triggered by firmware RX reports on active WiFi interfaces —
-common runtime path, not init-only or debug-only.
-
-### Step 5.5: Similar patterns
-**Record:** Same driver already had multiple “validate before use”
-stable backports (`ebeaa3b`, `ef7fa198`, `ad445de`), confirming
-maintainer awareness of malformed-firmware crash class.
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.43)
-
-### Step 6.1: Does buggy code exist?
-**Record:** **YES.** Current code at lines 2024–2026 still calls
-`rtw89_core_process_phy_status_ie()` before the bounds check:
-
-```2021:2031:drivers/net/wireless/realtek/rtw89/core.c
-        while (pos < end) {
-                const struct rtw89_phy_sts_iehdr *iehdr = pos;
-
-                ie_len = rtw89_core_get_phy_status_ie_len(rtwdev,
-iehdr);
-                rtw89_core_process_phy_status_ie(rtwdev, iehdr,
-phy_ppdu);
-                pos += ie_len;
-                if (pos > end || ie_len == 0) {
-                        rtw89_debug(rtwdev, RTW89_DBG_TXRX,
-                                    "phy status parse failed\n");
-                        return -EINVAL;
-                }
-        }
-```
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply** for the reorder hunk. Upstream `ie09`/`ie10`
-clearing and monitor-mode `accept` logic are not in 6.18.43 and should
-be omitted during backport.
-
-### Step 6.3: Related fixes already present?
-**Record:** **No** — grep found no “check length before parsing” commit;
-fix not yet applied.
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/net/wireless/realtek/rtw89` — **IMPORTANT**
-(Realtek WiFi devices on PCI/USB; widely deployed on laptops and
-desktops with `CONFIG_RTW89`).
-
-### Step 7.2: Subsystem activity
-**Record:** High — 27+ rtw89 commits in this tree’s recent history;
-active maintenance and stable backports.
-
----
-
-## PHASE 8: IMPACT AND RISK
-
-### Step 8.1: Who is affected
-**Record:** Users with rtw89-supported hardware (RTL8852AE/BE,
-RTL8922AE/DE, etc.) running normal WiFi traffic.
-
-### Step 8.2: Trigger conditions
-**Record:** Malformed or unexpectedly-sized PHY status IE from
-hardware/firmware. Not every packet, but reachable during normal RX
-without special privileges. Unprivileged users can generate WiFi traffic
-that produces PPDU status reports.
-
-### Step 8.3: Failure mode severity
-**Record:** Out-of-bounds read from skb data → **HIGH** severity (kernel
-oops possible; potential info leak past buffer). Existing error return
-path does not prevent damage because parsing happens first.
-
-### Step 8.4: Risk-benefit
+### Step 5.4: Reachability / Downstream Mitigation
 **Record:**
-- **Benefit:** HIGH — prevents crash/info-leak on malformed firmware
-  data in a hot RX path
-- **Risk:** VERY LOW — ~3-line reorder, no logic change for valid IEs
-- **Ratio:** Strongly favors backport
+- **MAP / REPLACE / CLEAR:** All call `amdgpu_vm_verify_parameters()`,
+  which already rejects `saddr + size` overflow via
+  `check_add_overflow()`.
+- **UNMAP:** Uses only `va_address`; `map_size` is not used in
+  `amdgpu_vm_bo_unmap()`.
+- **Important nuance for this tree:** The downstream overflow check
+  means that for MAP/CLEAR/REPLACE, overflowed inputs would eventually
+  fail at `amdgpu_vm_verify_parameters()` rather than creating a
+  mapping. However, without this ioctl fix they still proceed through
+  GEM lookup, fence setup, and VM locking first.
+- The ioctl-level check also enforces the reserved-top region (`vm_size`
+  subtracts `AMDGPU_VA_RESERVED_TOP`), which is stricter than
+  `verify_parameters()`’s `lpfn >= max_pfn` check. Overflow cannot
+  bypass into the reserved-top region for MAP operations because
+  overflow is rejected downstream.
+
+### Step 5.5: Similar Patterns
+**Record:** `check_add_overflow()` already used in:
+- `amdgpu_gem.c` (`amdgpu_gem_align_pitch()`)
+- `amdgpu_vm.c` (`amdgpu_vm_verify_parameters()`)
+- Other amdgpu files (vcn, etc.)
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
 
-### Step 9.1: Evidence summary
+### Step 6.1: Buggy Code Present?
+**Record:** Yes. Current tree at
+`drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:845` still has:
+`if (args->va_address + args->map_size > vm_size)`
+Bug present since 2020; not introduced after the 6.18 branch.
+
+### Step 6.2: Backport Complications
+**Record:** Expected clean apply — 4-line change, `overflow.h` already
+included, no structural conflicts observed.
+
+### Step 6.3: Related Fixes Already Present?
+**Record:** Downstream mitigation `amdgpu_vm_verify_parameters()` from
+`98856136c485e` is already in this tree. The ioctl-level overflow fix
+itself is **not** yet present. Similar overflow fix `daf5d03ddb8cc` in
+the same file is already backported.
+
+---
+
+## Phase 7: Subsystem Context
+
+### Step 7.1: Subsystem / Criticality
+**Record:** `drivers/gpu/drm/amd/amdgpu` — GPU/DRM driver. **IMPORTANT**
+for AMDGPU users; not universal core-kernel code, but ioctl validation
+is security-sensitive.
+
+### Step 7.2: Activity
+**Record:** Actively maintained; recent stable-relevant amdgpu fixes in
+this tree include overflow, lock leak, and NULL-check patches.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+### Step 8.1: Who Is Affected
+**Record:** Users of AMDGPU with `CONFIG_DRM_AMDGPU` and render-node
+access (games, compute, desktop compositors, ML workloads).
+
+### Step 8.2: Trigger Conditions
+**Record:** Userspace issues `DRM_IOCTL_AMDGPU_GEM_VA` with `va_address`
+and `map_size` whose sum overflows `uint64_t`. Unprivileged users can
+trigger ioctl validation if they have DRM render access (normal for GPU
+users).
+
+### Step 8.3: Failure Mode Severity
+**Record:**
+- **Without fix in this tree:** Overflow can bypass the ioctl reserved-
+  top check; for MAP/CLEAR/REPLACE, operation later fails at
+  `amdgpu_vm_verify_parameters()`. Primary consequence is incorrect
+  early validation and unnecessary work (GEM lookup, fence handling, VM
+  locking) on malformed input.
+- **Severity:** **MEDIUM** for correctness and fail-fast behavior; **not
+  CRITICAL** for crash/corruption in this tree because downstream
+  validation already blocks dangerous MAP/CLEAR/REPLACE outcomes.
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** Correct ioctl input validation; fail-fast before
+  expensive locking; consistent with other amdgpu overflow backports
+  already in 6.18.y.
+- **Risk:** Very low — 4 lines, standard helper, no API changes.
+- **Ratio:** Moderate benefit, very low risk. Less urgent than fixes
+  with demonstrated crash/corruption, but appropriate for stable.
+
+---
+
+## Phase 9: Final Synthesis
+
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real OOB-read bug in production RX path
-- Bug confirmed present in 6.18.43
-- Small, obviously correct fix
-- Same author/maintainer pattern already accepted in this tree
-- Prevents kernel crash on malformed hardware reports
+- Real integer-overflow bug in userspace-reachable ioctl validation
+- Small, obviously correct, self-contained
+- Buggy code present since 2020 in this tree
+- `linux/overflow.h` already included; patch applies cleanly
+- Precedent: similar amdgpu integer-overflow fixes already backported to
+  this tree (`daf5d03ddb8cc` in same file)
+- Reviewed and merged by amdgpu maintainers
 
 **AGAINST backport:**
-- No syzbot/user crash report attached (weaker evidence, but mechanism
-  is clear from code)
-- Upstream patch is part of a series and includes hunks not applicable
-  to 6.18.43 (minor backport adaptation needed)
-- Mailing list review not verified
+- No user report, syzbot, or CVE cited
+- Downstream `amdgpu_vm_verify_parameters()` already catches overflow
+  for MAP/CLEAR/REPLACE
+- Practical security/corruption impact in v6.18.44 appears limited to
+  fail-late rather than fail-open mapping
+- No lore/stable discussion found to confirm maintainer intent
 
-**Unresolved:** Full lore review thread; whether a user-visible crash
-report exists.
+**Unresolved:**
+- No mailing-list thread retrieved (`b4 dig` failed; lore blocked)
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — reorder is self-evident;
-   author is driver maintainer
-2. Fixes a real bug? **PASS** — OOB read before bounds check
-3. Important issue? **PASS** — crash / memory safety in RX hot path
-   (**HIGH**)
-4. Small and contained? **PASS** — single function, few lines
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **PASS** — standard overflow helper;
+   reviewed by AMD engineer; no Tested-by.
+2. Fixes a real bug affecting users? **PASS** — real validation bug on
+   reachable ioctl path.
+3. Important issue? **PASS (moderate)** — input-validation overflow on
+   DRM ioctl; not demonstrated crash/corruption in this tree, but
+   incorrect validation on a security-sensitive path.
+4. Small and contained? **PASS** — 4 lines, one function.
 5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — reorder applies cleanly; omit
-   `ie09`/`ie10` hunks
+6. Can apply to local tree? **PASS**
 
-### Step 9.3: Exception categories
-**Record:** N/A (not device ID, quirk, DT, build, or docs — standard bug
-fix).
+### Step 9.3: Exception Category
+**Record:** None of the automatic exception categories (device ID,
+quirk, DT, build fix, docs). This is a runtime input-validation bug fix.
 
-### Step 9.4: Decision rationale
-This commit fixes a clear ordering bug: the driver parses PHY status
-information elements before verifying they fit within the received skb
-buffer. When hardware reports an unexpected IE length, parsers access
-fixed offsets (up to 40 bytes) that can extend past the buffer end,
-causing a kernel oops or information leak. The bug exists in 6.18.43,
-the fix is minimal and follows established rtw89 stable-backport
-patterns from the same maintainer, and it addresses a serious failure
-mode on a common RX path.
+### Step 9.4: Decision Rationale
+
+For **v6.18.44**, the buggy unchecked addition exists and should be
+fixed. Although `amdgpu_vm_verify_parameters()` already prevents
+overflowed MAP/CLEAR/REPLACE operations from succeeding, the ioctl
+boundary should validate inputs correctly and reject malformed VA ranges
+before acquiring VM locks and doing GEM work. The patch is tiny, low-
+risk, and consistent with other amdgpu overflow fixes already present in
+this stable tree. It does not depend on newer code and does not add
+features.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags (Signed-off-by, Link); no
-  Fixes:/Reported-by
-- **[Phase 2]** Read diff and current `core.c` lines 2007–2038;
-  confirmed process-before-check ordering
-- **[Phase 2]** Verified IE structure sizes in `txrx.h`
-  (`rtw89_phy_sts_ie01` 24B, `rtw89_phy_sts_ie01_v2` 40B with `w8`/`w9`)
-- **[Phase 3]** `git blame -L 2007,2040`: function present since
-  `6bda50f4333fa` (v6.18 merge)
-- **[Phase 3]** `git show 6bda50f4333fa:core.c`: function existed at
-  v6.18.0 with same bug pattern
-- **[Phase 3]** `git log --oneline -20 --
-  drivers/net/wireless/realtek/rtw89/`: related validation fixes present
-- **[Phase 3]** `git show ebeaa3b24ba56`, `ad445de67359f`: same
-  “validate before use” pattern already backported
-- **[Phase 4]** `b4 dig -c HEAD`: no match (commit not in tree)
-- **[Phase 4]** lore.kernel.org / patch.msgid.link: **BLOCKED** (bot
-  protection) — review thread UNVERIFIED
-- **[Phase 5]** `grep rtw89_core_rx_process_phy_sts`: call chain through
-  `rtw89_core_rx_process_ppdu_sts` → PPDU_STAT RX path
-- **[Phase 5]** Read `rtw89_core_rx_process_phy_ppdu_iter`: only uses
-  parsed data after `phy_ppdu->valid` set on success
-- **[Phase 6]** `git describe HEAD` / `make kernelversion`: tree is
-  6.18.43
-- **[Phase 6]** `grep ie09|ie10 drivers/net/wireless/realtek/rtw89/`: no
-  matches — upstream-only hunks not in this tree
-- **[Phase 6]** `grep "check length before parsing"`: not present — fix
-  not yet applied
-- **[Phase 8]** Confirmed failure mode is OOB read with HIGH severity on
-  active WiFi RX path
-
----
+- [Phase 1] Parsed subject, tags, and body from provided commit message
+  and `git show cd7cfcdb4dd45`
+- [Phase 2] Read diff and current `amdgpu_gem.c` ioctl validation code
+- [Phase 3] `git describe HEAD` → `v6.18.44`
+- [Phase 3] `git blame -L 843,850` → buggy check from `c4aa8dff6091cc`
+  (2020)
+- [Phase 3] `git merge-base --is-ancestor c4aa8dff6091cc HEAD` → buggy
+  code is in tree
+- [Phase 3] `git show 98856136c485e` → downstream
+  `amdgpu_vm_verify_parameters()` with `check_add_overflow`
+- [Phase 3] `git merge-base --is-ancestor 98856136c485e HEAD` →
+  downstream mitigation present
+- [Phase 3] `git log --oneline -20 -- amdgpu_gem.c` → related amdgpu
+  fixes in tree
+- [Phase 3] `git show daf5d03ddb8cc` → similar overflow fix already
+  backported to this tree
+- [Phase 4] `b4 dig -c cc768f4dd0bb9` → no lore match
+- [Phase 4] `b4 dig -c cd7cfcdb4dd45` → no lore match
+- [Phase 4] WebFetch lore search → blocked by bot protection
+- [Phase 5] `grep amdgpu_gem_va_ioctl` → ioctl registered with
+  `DRM_AUTH|DRM_RENDER_ALLOW`
+- [Phase 5] Read `amdgpu_vm_bo_map()`, `amdgpu_vm_bo_replace_map()`,
+  `amdgpu_vm_bo_clear_mappings()`, `amdgpu_vm_bo_unmap()` → verified
+  downstream validation behavior
+- [Phase 5] Read `struct drm_amdgpu_gem_va` → `va_address` and
+  `map_size` are `__u64`
+- [Phase 6] Confirmed current tree still has unchecked addition at line
+  845
+- [Phase 6] Confirmed `#include <linux/overflow.h>` already present at
+  line 30
+- [Phase 6] Confirmed `check_add_overflow` exists in
+  `include/linux/overflow.h`
+- [Phase 8] Assessed failure mode: downstream catches overflow for
+  MAP/CLEAR/REPLACE; primary remaining issue is incorrect early
+  validation / unnecessary work
 
 **YES**
 
- drivers/net/wireless/realtek/rtw89/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index c2bf839fd82a9..2eb992c1c2d08 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -2026,13 +2026,15 @@ static int rtw89_core_rx_parse_phy_sts(struct rtw89_dev *rtwdev,
- 		const struct rtw89_phy_sts_iehdr *iehdr = pos;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 5fc9a6b1ec722..71038f4de7f9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -818,7 +818,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	struct dma_fence_chain *timeline_chain = NULL;
+ 	struct dma_fence *fence;
+ 	struct drm_exec exec;
+-	uint64_t vm_size;
++	uint64_t vm_size, tmp;
+ 	int r = 0;
  
- 		ie_len = rtw89_core_get_phy_status_ie_len(rtwdev, iehdr);
--		rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);
- 		pos += ie_len;
- 		if (pos > end || ie_len == 0) {
- 			rtw89_debug(rtwdev, RTW89_DBG_TXRX,
- 				    "phy status parse failed\n");
-+
- 			return -EINVAL;
- 		}
-+
-+		rtw89_core_process_phy_status_ie(rtwdev, iehdr, phy_ppdu);
- 	}
+ 	/* Validate virtual address range against reserved regions. */
+@@ -842,7 +842,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
  
- 	rtw89_chip_convert_rpl_to_rssi(rtwdev, phy_ppdu);
+ 	vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
+ 	vm_size -= AMDGPU_VA_RESERVED_TOP;
+-	if (args->va_address + args->map_size > vm_size) {
++	if (check_add_overflow(args->va_address, args->map_size, &tmp) || tmp > vm_size) {
+ 		dev_dbg(dev->dev,
+ 			"va_address 0x%llx is in top reserved area 0x%llx\n",
+ 			args->va_address + args->map_size, vm_size);
 -- 
 2.53.0
 
