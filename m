@@ -1,238 +1,157 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B42385D62
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 14:49:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC7833987E;
+	Mon, 31 Aug 2026 14:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788187752; cv=none; b=KAcy2WzXfxpnH6YePl5e9pF5TVBcQtEKEKTQgtWSpigsNE0urRVv2dzdxRxmk4xWwoU/cOAlcrXO61CC8kZ6ncyjOa9y5JqAkG7bCX+hS0H+ijzPBmK33H4X7vNbnuqaapTkyHzgHhpX6kdcG4bHwp8MAWG3yzNP8py3380zyqY=
+	t=1788188278; cv=none; b=aNOy4hGvuv6Gdgh2H4G68td4Cn6JWPaVXreyf09I8hzCwEKShDHtHsZKvHxGRbIojcWDiyXXq7WMONhdTxuMyuG5xtYsk0rg+kHswVGZlXB5FiV8OlCK9k+rRUrfODFUKrpx6KPurjkKoF4O9zTuCDfqjAmsvMZh+EP115/gzps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788187752; c=relaxed/simple;
-	bh=C1lF3gn4PlZOId9Mf6TvQ4ziZitw+Q+94byOj9Hfl3w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VnL9ZMmgG3n7gUCJlIszjG5DiswPvtdwN446+XKwM6L8MqsdH9N4O1XOMw/kSnYH0ogQ8PWX0SR8tpWOqpOJs6KQL8tmEKPuZgTGUwnuIevwRNuXJZFMdfFeiPnbhGLGPJfDZe5Iqagj/jxkcUVtepuMcYYqygYKuSgIwZTekSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=osRFD/Vz; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788188278; c=relaxed/simple;
+	bh=HO5kmOtNwuKp9RdzryBYT5mTV1ZJaA3grxXdS9DNCL0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hk0iqV+von0kteDNPVHihTCNzbx+T0lTgwoRbkxxa/iGDNT9e6D2v/N+wu/4+KM/CvG1lKGySPIuAMFbg0SJ9aivHsq3xNjSlVWSNvPQNkf4ZSE9sk4Z5oIbEGKYqRP1k3kiJrzPlyBp+5rArjMqtuMSOpFxFs7a0Yhv43U5mc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=l6I71WtC; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="osRFD/Vz"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-90cd4631090so40864086d6.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 07:49:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788187750; x=1788792550; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6nJTLcyWSPxl+4itx4My99BV7MYdBXZSTbutUq6o3MY=;
-        b=osRFD/VzSmWODMiAEAy2Zwu2635ofwhLSbXSzEL9N7YTvgM36YSoa0T/n37XC+Fcfn
-         Jf7QE1tdNwP5FnACs/01iqc6Oa+3jHeAHE+8Ca03kbs6iM4Axjif08l3GJRx5RN/6oNV
-         P+gWGvctLDTsz5MYeOCq4uiBrSQV8jA9ZB+7lheGpBaqA4a64/536y/hOB6/UsYPsAHM
-         QxBIrsUESoZqCXPbXQtDb47iMcjcUcyUnpv3CLSLy1w2ALOjJoZy+RTgT/0iUY4uvu50
-         g06jWwwsbyQk4s0HqUr32DNgo08i6cw/vATsLDZKbE6VFC1sEVBKCR7R3HgbKJ/ji6wg
-         df6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788187750; x=1788792550;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6nJTLcyWSPxl+4itx4My99BV7MYdBXZSTbutUq6o3MY=;
-        b=Nj6zMTNbg4HktKwsZ1rbKWfJD3dXpqc+LNEZOXx130odXmeb5epY9iZM7XRci1vzb+
-         s274J7L4qJ5MbMCBHGAzbJHW17y9X/OeqwVZsasshiw18aqkXvSxUL0iPCMF3MXvzits
-         ZHEZSyFOVaBF+dy2dnI4DTDP0NvCFJXdX2lqHeV+e7RsfO3fdWFa8wxx3vCCANxHUDE7
-         ciPXc6nT4xhcXKLETYbjpepkR5QzvjI0VnY7oMSjEvHsltEw2N9d+qbGtpdJS8s5kwaS
-         u/h1j+PUnpfq9zyj52XtVmBK1SsvEuT9VAKupaUi0dPAuCwATTysoJ/v7zGn+/bamkov
-         SfDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzy2bBwuJlfUVeem1u1CDLjjWOep5fXN+A+zmBppNRSu9Qa2LduRuPq4B0iXWuNaIMNCMDFhB0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFCeHr8l8FNCJoLI11E4SaL1+Y6W1cKX219s7m0uSndjssZQIW
-	F0Smv2LeCeWHlbfe9atE9sHTCxyPH3S9Y1sprOhgCJT14pqcpyEKHL0nsclTqOafeQ4=
-X-Gm-Gg: AR+sD10BsFCyj2wB4AzO0HWO8vf7suBO0s8whPD+U7QdQsKPsaAVmeUMt0/1yZBDkuw
-	70jYCqho/ryK8/Fw4WKrAHCT8Lw49lnmzZgqHNIEZ3vz+SpO2mMBDms8FJ9qZZZDML+BfyT2H6d
-	FUwshVq5tQbMHuya53QCxR7PBhuwnzW9Sts82JcAJRErKOQK1A8r60/YlQ7mmMSPIoMXJNcr5HY
-	ZHBDcbNi9OvzIBnxSoLdG1c42Ti/4reoRyfT9bd3JQgQIhmwUavWBUkVYIhFVQVpPNM0kWQrZMq
-	UUP1Po22ZIbtz6PKzlXEi90W2uKN/u6rgTBe+cAe8UuimMGY6XQcyoNKYoGLWKHZuWTG0VIN0z2
-	A7/MIRed9/T2t1ItGzupPtEn8YxENjLmoGGn/FZHG2sFFTf6Zlwc34G2wzFJXstK0hm2LpliyY9
-	JuHl/sxZlGDCzH6BnlzvqKVhnxygpmN+PgjJfYS1kKuQGpNymV4dMUMZd2+GpUAEllqpe3rPxMl
-	j/qUXz3CF0/rnWYOoDHV5sT7hfx0mJmQapGy2kZ6kn4tpVDUGkN3GoLK9pqUDqvgpaIjPS+IHp/
-	T8xqX329dfIkYr8EKrX/T4FhHziEkFqbaVrchmuPYtc=
-X-Received: by 2002:a05:6214:763:b0:8ee:d9b8:8538 with SMTP id 6a1803df08f44-90e871991c8mr103911176d6.9.1788187749782;
-        Mon, 31 Aug 2026 07:49:09 -0700 (PDT)
-Received: from coder-so-so-first-ws-0.coder-so-so-first-ws.remote-dev.svc.cluster.local (ec2-54-163-97-9.compute-1.amazonaws.com. [54.163.97.9])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce44f5ad4sm85798426d6.23.2026.08.31.07.49.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 07:49:09 -0700 (PDT)
-From: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
-Date: Mon, 31 Aug 2026 14:48:44 +0000
-Subject: [PATCH] x86/cfi: Fix FineIBT hash offset in cfi_get_func_hash()
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="l6I71WtC"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VEZ9Eu2582944;
+	Mon, 31 Aug 2026 14:57:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=hZIcpU
+	H15T+9a96dE7EJP8l8tHDu5cwRhyicisjUOWw=; b=l6I71WtCmB/p7U+Ds+zf0H
+	svcttTrIyLnfU2yGLysxRVR3+acrdhK4Q7NNb9RQO0neWeLF8ir6bMVUgAhrG9PX
+	gQXNv6rw9VW8e4rjbiiIZFNEDt/gvxZd+u8RHrcJUWUJeiZTjhIkPli8Q/PlgFq2
+	RXmH9QIs3SoIL7C56GeZsMFF9vvf6WQqTAsNmIC8j/+oSj674NLG2R25iIurbgNL
+	iqNsZzn5nacPV3F9V4Y3mhS1s2hQ0gZDgrmOzn6wm5e0i7bUr5k2nCGTuzp4NEV8
+	YoV/p1DHAZnH8PKgnMEA5T5DY9I2uoSry+4AQMVdPsueXDJGqaWSvtXpoP7EhZUw
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2t1usv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:57:48 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67VEuM1Q003228;
+	Mon, 31 Aug 2026 14:57:47 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rq6nqy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 31 Aug 2026 14:57:47 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67VEvjnJ29032960
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 31 Aug 2026 14:57:46 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D8BEA5805A;
+	Mon, 31 Aug 2026 14:57:45 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 64FE458051;
+	Mon, 31 Aug 2026 14:57:40 +0000 (GMT)
+Received: from [9.124.217.200] (unknown [9.124.217.200])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2026 14:57:40 +0000 (GMT)
+Message-ID: <4f303f9f-fd20-475a-8004-1a670dfd34df@linux.ibm.com>
+Date: Mon, 31 Aug 2026 20:27:38 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ffc0af5c4ec@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEyUlWoC/3WNwQrCMBBEf6Xs2aVJlFD8FfGQrBuzKklJWi2U/
- rttPXt8M8ObGSoX4QrnZobCb6mS0wr60ABFl+6MclsZjDJWdUeN/oRTZ5GCYJDE4gcMYyKMrkZ
- kbVWwzKwMwaroCweZdv3l+uM6+gfTsDm3hXeV0ReXKG7Rq28pf3J5cmn36u8XLMsXEIxBzb0AA
- AA=
-X-Change-ID: 20260831-b4-x86-cfi-fineibt-func-hash-e160f6eee02c
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, stable@vger.kernel.org, 
- Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1788187748; l=5030;
- i=soheil.kdev@gmail.com; h=from:subject:message-id;
- bh=C1lF3gn4PlZOId9Mf6TvQ4ziZitw+Q+94byOj9Hfl3w=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgYX+H9SUmlJjsvfFMerxTO2vrcLc7N
- L+14FQr0ICkN0QAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QPlJwjp8J6gHLBPVLFJ842ln5d71SmS0Zk+tBT9s1eo/JWFavr2JqDcxe9+XE6ev7/v9OCcTVPY
- GRPMnQ4BMcAU=
-X-Developer-Key: i=soheil.kdev@gmail.com; a=openssh;
- fpr=SHA256:qCjbY5l1s4KsiNmUm70DTccyboi5PK8d/VuDVN0FDz4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 0/2] net/smc: fix diag dump lifetime races
+To: dust.li@linux.alibaba.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+        alibuda@linux.alibaba.com, sidraya@linux.ibm.com,
+        hidayath@linux.ibm.com
+Cc: pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+        guwen@linux.alibaba.com, stable@vger.kernel.org,
+        netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-rdma@vger.kernel.org
+References: <20260828065439.3582783-1-mjambigi@linux.ibm.com>
+ <apWEzobrZ3QR3IfN@linux.alibaba.com>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <apWEzobrZ3QR3IfN@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a95966d cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=neV5QV29Z2xUnIvzB3QA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX3jatAELW01r8
+ IBsHyfuWmKzKlrrsPpmLWStI0L5JzZ6mAoFqYdXrKpkY1gY5EcmnC+C89V/yvumt+nD579JoVZy
+ cd5V/I5RGFnTkZrQmmAbxPVesriFqbs=
+X-Proofpoint-ORIG-GUID: -N3OhC-74rvQlZ18lWypARTHJR5EsbdS
+X-Proofpoint-GUID: FuhQQLgOjlbMbPyeWDkx0JCxXzKpsuHu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDEyNSBTYWx0ZWRfX1BEnnsm/caeS
+ 4Zm+r+nSzbH8zYKALGBHgo4e1HUzmIy5JgZgtGiL3+qEmxQ1T4cTcv0lJDaHsGJ7uOrQgNTWsnN
+ ugNMvWZvLaXWvA7K8MOk1l+hV1lrc4/ljhNQHjEwCiJR+AqyZiOtNJ1pTm7yqxfQ4cWWmIgocrc
+ Cz7jqRw/lsLjx8zoG+BF5C9YE02KzVuZVfL1lw1PrGraErKarWCv/OXe9nEIV9atZMLyNDilNgv
+ uq7loBpuaiESTN0jnJjymaqIyO13iAantT1qdnUyyyBYBIuVXnWqxn3+USLFdZ0/yqsqEOhS3NL
+ NuzMvJz1rm/3FZJdg4102Yc/o5hQ4JDpUE4MbWSuY6BLAFbMw5ZUrmFIGJgmj8IfSolwbNTVz6C
+ 5CJst40H+KMyyZ0fKTyEHVCpIqudLQmDHiBKQ30xpS+BKTVcgzAVoDf1++C1r1dhLtRXCVILPBZ
+ im2b8U60kYMnxhDS8DA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_05,2026-08-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608310125
 
-The switch of the FineIBT preamble from "subl $hash, %r10d" to the
-shorter "subl $hash, %eax" moved the hash immediate from offset 7 to
-offset 5 of the preamble. fineibt_preamble_hash was updated to match,
-but the open-coded offset in cfi_get_func_hash() was missed and it
-still reads the hash at offset 7.
 
-cfi_get_func_hash() is used by the BPF JIT to give a struct_ops
-trampoline the CFI hash of the stub function it stands in for. With
-FineIBT the trampoline now gets the upper half of the real hash
-followed by the first two bytes of the next instruction, so the first
-indirect call from the kernel into a struct_ops program,
-tcp_init_congestion_control() calling ->init() of a BPF congestion
-control for example, fails the FineIBT check and the kernel dies with
-a CFI failure.
 
-Move the FineIBT preamble template and its offset defines above
-cfi_get_func_hash() and use fineibt_preamble_hash there, so every
-reader of the preamble shares one definition of its layout. The
-CFI_FINEIBT arm is only built with CONFIG_FINEIBT, the only
-configuration in which cfi_mode can take that value.
-cfi_get_func_arity() does not need the same treatment: the __bhi_args
-call whose displacement it reads still ends at the function address.
+On 31/08/26 7:12 pm, Dust Li wrote:
+> On 2026-08-28 08:54:37, Mahanta Jambigi wrote:
+>> This series fixes multiple lifetime races in the SMC diag dump path.
+>>
+>> The first patch adds the basic infrastructure needed to synchronize diag readers
+>> against connection-owned conn->lgr/conn->lnk updates. It introduces a
+>> per-connection spinlock and uses it in the link switch and connection free
+>> handoff paths. conn->lgr and conn->lnk are NULLed under the lock before the
+>> borrowed references are released, so a non-NULL conn->lgr seen under the lock
+>> guarantees the lgr object is alive. The diag reader can rely on this invariant
+>> without borrowing any extra reference.
+>>
+>> The second patch fixes two races in smc_diag itself:
+>>
+>> - serialize clcsock field access against smc_clcsock_release() with
+>>  mutex_trylock()
+>> - take conn->lgr_lnk_lock when reading conn->lgr and conn->lnk; use
+>>  smc_conn_lgr_valid() inside the lock to check that the connection is
+>>  still registered, then snapshot all required fields and call nla_put()
+>>  after releasing the lock
+> 
+> Hi Mahanta,
+> 
+> As discussed in the other thread, I think we should defer the release of
+> smc->clcsock and remove clcsock_release_lock.
+> 
+> In that case, we should no longer need these two patches. Also,
+> introducing more locks in SMC is the last thing I want to do :)
 
-Fixes: 85a2d4a890dc ("x86,ibt: Use UDB instead of 0xEA")
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Daniel Borkmann <daniel@iogearbox.net>
-Cc: stable@vger.kernel.org # 6.18+
-Assisted-by: LLM
-Signed-off-by: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
----
- arch/x86/kernel/alternative.c | 72 +++++++++++++++++++++++--------------------
- 1 file changed, 38 insertions(+), 34 deletions(-)
+Thanks for the new series "[RFC net-next 0/7] net/smc: tie clcsock
+lifetime to the smc socket and remove clcsock_release_lock" — once it
+lands, we can drop the mutex_trylock() fix for Race 1 (clcsock).
 
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index 91b1cdd16569..1b22062cabfe 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -1198,6 +1198,41 @@ static bool cfi_debug __ro_after_init;
- bool cfi_bhi __ro_after_init = false;
- #endif
- 
-+#ifdef CONFIG_FINEIBT
-+/*
-+ * <fineibt_preamble_start>:
-+ *  0:   f3 0f 1e fa             endbr64
-+ *  4:   2d 78 56 34 12          sub    $0x12345678, %eax
-+ *  9:   2e 0f 85 03 00 00 00    jne,pn 13 <fineibt_preamble_start+0x13>
-+ * 10:   0f 1f 40 d6             nopl   -0x2a(%rax)
-+ *
-+ * Note that the JNE target is the 0xD6 byte inside the NOPL, this decodes as
-+ * UDB on x86_64 and raises #UD.
-+ */
-+asm(	".pushsection .rodata				\n"
-+	"fineibt_preamble_start:			\n"
-+	"	endbr64					\n"
-+	"	subl	$0x12345678, %eax		\n"
-+	"fineibt_preamble_bhi:				\n"
-+	"	cs jne.d32 fineibt_preamble_start+0x13	\n"
-+	"#fineibt_func:					\n"
-+	"	nopl	-42(%rax)			\n"
-+	"fineibt_preamble_end:				\n"
-+	".popsection\n"
-+);
-+
-+extern u8 fineibt_preamble_start[];
-+extern u8 fineibt_preamble_bhi[];
-+extern u8 fineibt_preamble_end[];
-+
-+#define fineibt_preamble_size (fineibt_preamble_end - fineibt_preamble_start)
-+#define fineibt_preamble_bhi  (fineibt_preamble_bhi - fineibt_preamble_start)
-+#define fineibt_preamble_ud   0x13
-+#define fineibt_preamble_hash 5
-+
-+#define fineibt_prefix_size (fineibt_preamble_size - ENDBR_INSN_SIZE)
-+#endif /* CONFIG_FINEIBT */
-+
- #ifdef CONFIG_CFI
- u32 cfi_get_func_hash(void *func)
- {
-@@ -1205,9 +1240,11 @@ u32 cfi_get_func_hash(void *func)
- 
- 	func -= cfi_get_offset();
- 	switch (cfi_mode) {
-+#ifdef CONFIG_FINEIBT
- 	case CFI_FINEIBT:
--		func += 7;
-+		func += fineibt_preamble_hash;
- 		break;
-+#endif
- 	case CFI_KCFI:
- 		func += 1;
- 		break;
-@@ -1363,39 +1400,6 @@ early_param("cfi", cfi_parse_cmdline);
-  * anyway.
-  */
- 
--/*
-- * <fineibt_preamble_start>:
-- *  0:   f3 0f 1e fa             endbr64
-- *  4:   2d 78 56 34 12          sub    $0x12345678, %eax
-- *  9:   2e 0f 85 03 00 00 00    jne,pn 13 <fineibt_preamble_start+0x13>
-- * 10:   0f 1f 40 d6             nopl   -0x2a(%rax)
-- *
-- * Note that the JNE target is the 0xD6 byte inside the NOPL, this decodes as
-- * UDB on x86_64 and raises #UD.
-- */
--asm(	".pushsection .rodata				\n"
--	"fineibt_preamble_start:			\n"
--	"	endbr64					\n"
--	"	subl	$0x12345678, %eax		\n"
--	"fineibt_preamble_bhi:				\n"
--	"	cs jne.d32 fineibt_preamble_start+0x13	\n"
--	"#fineibt_func:					\n"
--	"	nopl	-42(%rax)			\n"
--	"fineibt_preamble_end:				\n"
--	".popsection\n"
--);
--
--extern u8 fineibt_preamble_start[];
--extern u8 fineibt_preamble_bhi[];
--extern u8 fineibt_preamble_end[];
--
--#define fineibt_preamble_size (fineibt_preamble_end - fineibt_preamble_start)
--#define fineibt_preamble_bhi  (fineibt_preamble_bhi - fineibt_preamble_start)
--#define fineibt_preamble_ud   0x13
--#define fineibt_preamble_hash 5
--
--#define fineibt_prefix_size (fineibt_preamble_size - ENDBR_INSN_SIZE)
--
- /*
-  * <fineibt_caller_start>:
-  *  0:   b8 78 56 34 12          mov    $0x12345678, %eax
+However, Race 2 remains open. Your series does not touch smc_core.c or
+smc_cdc.c, so smc_conn_free(), smc_switch_link_and_count(), and
+smc_cdc_msg_validate() still write conn->lgr/conn->lnk with no
+synchronization against the diag reader.
 
----
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-change-id: 20260831-b4-x86-cfi-fineibt-func-hash-e160f6eee02c
-
-Best regards,
---  
-Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
-
+On the lock concern — lgr_lnk_lock is a per-connection spinlock. It is
+taken in smc_conn_free() (teardown), smc_switch_link_and_count() (link
+failover), smc_cdc_msg_validate() (failover validation branch only, not
+the normal CDC data path), and the diag reader. None of these are on the
+per-message send/receive hot path. Could you explain what specifically
+concerns you — lock ordering, memory footprint, or something else? That
+would help us understand whether you have a different mechanism in mind.
