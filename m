@@ -1,37 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4893C499F3E;
-	Mon, 31 Aug 2026 14:08:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D065E4A2E1B;
+	Mon, 31 Aug 2026 14:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185282; cv=none; b=G5Fi0l+SzQBP9u86Qobu5DtzSmkyZcCuxk0og7Ec+h+xclJXT/wKwlyNEY23WtkqLhOJgaql9tONGJOeRJ1JO3dGxpn5MpVVGbvbBwDugimxROu8qGBabpZTyb/cHrM1M+HPY+grCPsle6wyAyaQ9kAyB2qAHvNcl0J714mPbi0=
+	t=1788185290; cv=none; b=A/MPl50M3YnZ/qJEavJDHHG3i4dULgbGdAy3xeBOa1e7uDeEavaOxAW4BFubPgoF97jmbtXqGwMV6GM9dOH3Xpi2XmEmW0ufEh9IdNX1e/t2MGRYpRZvlbZAY489Js2B8/P4BIpZ2d+clBmDYEZ9LZuZpraQ3ypw+DG/YK7v74w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185282; c=relaxed/simple;
-	bh=nqxeHDwACKHIiy8keSvMClqnJ6EBz0XxlPKoSKshk28=;
+	s=arc-20240116; t=1788185290; c=relaxed/simple;
+	bh=eA6zRH8O1RYINvbG6w8h4fSsT48R1wIAyzTczS4qxXo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ojmHrMs67Dx/XvUzFzCZwg55IlOkcI/Z2fC7ws4KOtjEFKZ8LTv2pUKA0E+74zPYf0FNypFeoYXZOW1Je+90/FwSfFevNDv4euRrweFf+15scmobS22IWAZSLr7znw0vdMQMCateb0nv2aNLfsEnqzaj9uzJMS5VdphRp839CF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2dorSv/b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CIV6yeJJbLLOe0B/9pXODc62sH5TxBPHjUrecdBNjLQZX6RojzOxBtVvVImNgEJfaofM2Ny1gxwAoKMO5oW1kn/3F7uvZcYm3pnoqa5AVqeQQ4ZN3m6kzy6IClA4rdn1Fd1ih8ZM/2nQeWLyw8sFAKfTs0r28T50sVmBe7TfZlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oxhkUkRX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2dorSv/b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95AA91F00A3D;
-	Mon, 31 Aug 2026 14:07:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oxhkUkRX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352B61F00A3D;
+	Mon, 31 Aug 2026 14:08:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788185280;
-	bh=XC2yRFhQChfdEewdwYwA6kfKDn2BDARRedoV+JwNsOY=;
+	s=korg; t=1788185288;
+	bh=bnin/Z9C00Uc8pUorwza9IObV+uQjyyu4OraZYA6mSg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2dorSv/b6OJO16005v2juFD7uVqpdkMf3TB2yzJOKBgRxAufkxEqsOr0y7jtTB0YM
-	 gw29ntYluGeJuDgWwObDqzKzx1IlV3nl8e6H2yVM0rBDi11LzIFVxu0ltwL7cgTJzF
-	 xj/6+NDjBKzHde+aekkPI7kkeGfVbmPpyXI2+4rE=
+	b=oxhkUkRXTDxKvr20p/vv5epUwg7eSoPq4T1rTr24Ql/dsGQbvubg5sthaDtgnezt6
+	 DTG64qjPr5SZBYJhGjNn5c8fDazkP1UltqVSGwe86bxXt9j89gcU6MZFX3m1oUfIQx
+	 LE5KY3PO0fVvBMiPJ9meV0bRKpnt/yKOBaX0qLvk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Marouane El Moufid <eun0us@espilon.net>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 5.10 39/43] ALSA: usb-audio: fix OOB write in snd_usbmidi_novation_output()
-Date: Mon, 31 Aug 2026 15:35:47 +0200
-Message-ID: <20260831133400.551906850@linuxfoundation.org>
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH 5.10 42/43] USB: c67x00: fix use-after-free in c67x00_add_iso_urb()
+Date: Mon, 31 Aug 2026 15:35:50 +0200
+Message-ID: <20260831133400.739290391@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
 References: <20260831133358.571886287@linuxfoundation.org>
@@ -50,57 +49,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Marouane El Moufid <eun0us@espilon.net>
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-commit 1035a8f63bae28e498b0e7b5ac91d749844a7158 upstream.
+commit b1e24de475bf2d66fffc9103f3444b783527d55a upstream.
 
-snd_usbmidi_novation_output() lays out a two-byte header at
-transfer_buffer[0..1] and passes &transfer_buffer[2] together with a
-length of ep->max_transfer - 2 to snd_rawmidi_transmit():
+When TD creation fails for the last packet of an isochronous URB,
+c67x00_add_iso_urb() gives the URB back before updating the endpoint
+scheduling state.
 
-	count = snd_rawmidi_transmit(ep->ports[0].substream,
-				     &transfer_buffer[2],
-				     ep->max_transfer - 2);
+c67x00_giveback_urb() frees the URB private data, and the completion
+callback may release the final URB reference. The following accesses to
+urbp->ep_data, urb->interval, and urbp->cnt can therefore use freed
+memory.
 
-ep->max_transfer comes from the output endpoint's wMaxPacketSize via
-usb_maxpacket(). A malformed or malicious device can advertise a bulk
-OUT endpoint with a wMaxPacketSize of 1 - the USB core only clamps this
-value downwards - so ep->max_transfer becomes 1 and the count argument
-becomes -1.
+Update next_frame and cnt before giving back the failed final packet,
+making the giveback the last operation that uses the URB and its private
+data.
 
-snd_rawmidi_transmit() passes the negative count on to
-__snd_rawmidi_transmit_peek(), where "if (count1 > count) count1 = count"
-leaves count1 negative; get_aligned_size() keeps it negative for a
-byte-stream substream, so the following memcpy(buffer, ..., count1) runs
-with a (size_t)-1 length and writes far past the transfer buffer, which
-was allocated with usb_alloc_coherent(ep->max_transfer).
-
-This is the same class of bug that was fixed for snd_usbmidi_akai_output()
-in commit 0970274613fb ("ALSA: usb-audio: fix OOB write in
-snd_usbmidi_akai_output()"); the novation output routine was left
-unguarded. Bail out when the endpoint cannot hold the two-byte header
-plus at least one payload byte.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: e9b29ffc519b ("USB: add Cypress c67x00 OTG controller HCD driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Marouane El Moufid <eun0us@espilon.net>
-Link: https://patch.msgid.link/178749334830.543645.13722252148340572274@espilon.net
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Link: https://patch.msgid.link/20260806013502.322067-1-shuangpeng.kernel@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/usb/midi.c |    2 ++
- 1 file changed, 2 insertions(+)
+ drivers/usb/c67x00/c67x00-sched.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -894,6 +894,8 @@ static void snd_usbmidi_novation_output(
+--- a/drivers/usb/c67x00/c67x00-sched.c
++++ b/drivers/usb/c67x00/c67x00-sched.c
+@@ -761,13 +761,13 @@ static int c67x00_add_iso_urb(struct c67
+ 				ret);
+ 			urb->iso_frame_desc[urbp->cnt].actual_length = 0;
+ 			urb->iso_frame_desc[urbp->cnt].status = ret;
+-			if (urbp->cnt + 1 == urb->number_of_packets)
+-				c67x00_giveback_urb(c67x00, urb, 0);
+ 		}
  
- 	if (!ep->ports[0].active)
- 		return;
-+	if (ep->max_transfer < 3)
-+		return;
- 	transfer_buffer = urb->transfer_buffer;
- 	count = snd_rawmidi_transmit(ep->ports[0].substream,
- 				     &transfer_buffer[2],
+ 		urbp->ep_data->next_frame =
+ 		    frame_add(urbp->ep_data->next_frame, urb->interval);
+ 		urbp->cnt++;
++		if (ret && urbp->cnt == urb->number_of_packets)
++			c67x00_giveback_urb(c67x00, urb, 0);
+ 	}
+ 	return 0;
+ }
 
 
