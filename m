@@ -1,443 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE38257845;
-	Mon, 31 Aug 2026 20:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA456380FE5
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 20:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788208480; cv=none; b=Pn5ndW3ovj0enAJPtL9F7v7L36oIKrqB2EPVhrmdluPwfTVakEY/5njYYt/ScKeOXoQX4YtEkeQ41dm5bcoG8DcDXLdpxws4M9ec8nUt0wcYFXe8OJL1kLRt3fllvuGeb/YubhsM65YOZCMoFVbBxxyzbmdbtBy3eZJ8ZOF2eng=
+	t=1788209881; cv=none; b=sswL05aQLRR15OP8Gvp+6QZMoBAoQ1vrgpTiZj9weRbp/G7CAlO37IZFAiA/I0a/dKt8d7BGrPal8mXnQ91MBlkcWS1xQTpmoV3CYK+H4ych+tw5hP3JXr01xZjnIBsLwwzm/hcb78mV29khZT1/5xvmWL75gFp2UnGLGM2/lpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788208480; c=relaxed/simple;
-	bh=+xRQ7TFDmfy+MgKxdM1gzeaY4sELtrnyqlfXDWpEhYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rXaykcRnZESJoY0RNKPM4XszBTzr4hxYvU7EZD58bwNSvbqa+zED2l8wl7yYk8JM+YoFZeN/Xlho2E2ZgCzI+BIGMPNrNIyGG5z4y65yKziSQiBfgs0NUOLJbBZtN84VaBnTi4MmNRpmTZiwcmpr5S4Frtk12FZra3RyRkqAwH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQ09bKjA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788209881; c=relaxed/simple;
+	bh=7XhoZc+d+Npz+Cabc3A0TtQ6BwVo5jOIjEe/ClwtPew=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=bOC0mtxhJ0X5DN/8+97wiaawgA4zOsDyRgj8A8r/OiIHvqa0g1nhzHbnzn25gZfSTZm5pLwNJgDc6EJg8V3Sfpny/3758Z5Mud44z1booRG95UIoRIfXgFYgAK9VwfwXn2g9G32cB99b2rUF/8idB4I88LUsZu0BHsoStsnfHtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=loOZwuEj; arc=none smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQ09bKjA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036DE1F000E9;
-	Mon, 31 Aug 2026 20:34:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788208478;
-	bh=AZ45pHJflgunSbnM2hz352Zi+OPG3uEhOvrRXH9q1+0=;
-	h=From:To:Cc:Subject:Date;
-	b=aQ09bKjAhCnOwwkvokOIR4lhRgyvP+GCrnZ66Ypxplkm/auf8wwdGclyqUr6U3dTW
-	 qsSQvxbSsCX5nB2cq1LFUfIqwbXqRY6MoJGnMiCOOTccoI86ESwpGMbiogaQ/qoAOA
-	 sIKSyrSd6W9TfdiRgmJMgmjWIrFuWamVYoaigPpwjkFYiNPTCIxAHLx93b4qrcNPOa
-	 bHsXA8lM2/UrfANbWcbdtY5bI0qNHR506F0SfoqDgBtmjds16lwduDKXAe3UmRoR7l
-	 AO9kj4uwBozEk5n6F0mzRuR/kIw6EHxKp3wOl2gmS7gR6p18Uftz9lxp6VrHMAlyXM
-	 FuSYcJ5NAeHyw==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Corentin Labbe <clabbe.montjoie@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: [PATCH 5.10] crypto: sun8i-ss - Remove crypto_rng interface
-Date: Mon, 31 Aug 2026 13:34:34 -0700
-Message-ID: <20260831203434.210230-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="loOZwuEj"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-51c2a818fc4so39335821cf.2
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:57:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788209878; x=1788814678; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ro9e2jTWieCFdtrEqKTJDij7AqVySynjSHA79dJ5Oyo=;
+        b=loOZwuEjX4fpRIRIZ/pDo/EXj5jITX5hstp8a6LQ6AqEHjKNRoFq8a1Pq8OaDsi1Ln
+         aprms2zFjjhRM0OUUjOhXtSXIi/IitKqTTKrqfpxdihjhrBaf0K4P7qQ1sFQRpTExfCA
+         CA538nxIZuqkcMsedOTgttpotn1ojegq7LSUwDD0G4RUPgspoNoy+gYbBinmEBIOPs7D
+         uf/7bcrxNssh5H1fJKHprjIdrV2PWYymLSxSgB1dlSoUJ0PdqgHf60Sl2dJt/jKeECdR
+         +8Yq8nSFKMne5LiLXdNUkl3oo8G+rPESCDamluc4QR8ma5GqPw2kkbIlKBM6wMr0+eCy
+         7/Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788209878; x=1788814678;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ro9e2jTWieCFdtrEqKTJDij7AqVySynjSHA79dJ5Oyo=;
+        b=ZJIqkM/5/T5RfB0f48sCgDJVJcYBeTKorIapRprT+GRSkNm/+rdYUdM9T9MTBDHzoX
+         /4Lq01gP2Sy1Gzv06X1cp81Zp6/jmZP8Ynz6aEQW/04hAdhrUtPsSTFImoetKYWhYbL+
+         /DYnnKic0pa8gz3o/89NYDfRC79BDzlxR5NflG0oEasxf4GBmNEg3VXOwbwor4XKTavC
+         A/SN/0rezoeUkwhPIwW0GDikMnxX2ZIf1KEDx5WkAFUyWnq6uERzhPajbNb0dlSXj6rY
+         oFak3M4DHSbAV8PV53pMJmTvOi8bSafst7YergHjXVtN2Fsup7agkLa1Jep+sIERzemX
+         Ltsg==
+X-Forwarded-Encrypted: i=1; AHgh+RowkC/cRVRla4M1HbsrGKNpnQmCV+DXO/BVcGB8zYcvXoVM/IdEo6SPUnJenvTQJraY3gJITk0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaFMYC2PxWFtQzOMDVis1GdKm+LBeo1+Q+PRhaZeOmX3ovBcar
+	wxYVLQ9FBoL3XBbgU6a8RdLE4wWcrm0pgXurhngqSEHWrZj3Aeh8hcs=
+X-Gm-Gg: AR+sD10i0xTv4/yIFMazIOVgVn94ExLJUeCBVHMYgMpvbm8ReD1P15/+quBohWxZffV
+	DLR7cupYt0CUWqWQ+OSbvKr+YbtsEPh72pVonh9Pyr9ffrExexb+M+drDQCeFICL1UgASoksFFF
+	bwYo907+t54zrdJbe0GaLbFgDPdWTxdC3m7OveA9dpwMQ7Mwr7aBqHGA635HhBUt5uQghY9FYri
+	XJxkTdyZgDREEzQcNGs4NOUQHZpra76M0Nf5eWZWOuZJNdbTdribgod2J4ljdjVjNmBJAWVab0J
+	gIBiN5KnY4N3dgRaeU4IWLwK35/7sVxa8HQ4K5xzZgy6oLiaWEe8brty5t/aGzaBJVfKmop3HnN
+	ymLHy82nA4ci9CQi3ERzJ2nNYh/YyJbDMh1vS2W3lWXiGSZLSS5fQpu46cVqldCxK9Dg3s3Gk2w
+	FEnQXRfIakHRjnGdtApvehbOONJi70B/WflwLGUpNKE81y1YNiP+XgmxX1O1YNDKyLmm4B6iE5O
+	HChJOMp/lQGBK+QfgH62kXKSw==
+X-Received: by 2002:a05:622a:e3ce:20b0:52f:c0b8:b619 with SMTP id d75a77b69052e-52fc0b928b5mr168125111cf.29.1788209873697;
+        Mon, 31 Aug 2026 13:57:53 -0700 (PDT)
+Received: from [120.7.1.23] (135-23-94-154.cpe.pppoe.ca. [135.23.94.154])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4515072sm91956876d6.36.2026.08.31.13.57.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 13:57:53 -0700 (PDT)
+Subject: Re: [PATCH 5.10 00/43] 5.10.269-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133358.571886287@linuxfoundation.org>
+From: Woody Suwalski <terraluna977@gmail.com>
+Message-ID: <ffd3fcee-cb98-0821-3544-4da490e546a8@gmail.com>
+Date: Mon, 31 Aug 2026 16:58:11 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101
+ Firefox/140.0 SeaMonkey/2.53.24
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-commit a78446ee6fae86ac8733f120e3ffce2e5d9384f5 upstream.
+Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.269 release.
+> There are 43 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+Compiled an i386 kernel, installed and booted OK on a 32-bit EeePC.
+No problems noticed.
 
-Since the crypto_rng interface for hardware PRNGs is unused and is
-redundant with hwrng and the actual Linux RNG, it's being phased out.
-Most drivers for it were already removed.  Go ahead and remove the
-sun8i-ss support which is one of the only remaining ones.
+Tested-by: Woody Suwalski <terraluna977@gmail.com>
 
-As usual for crypto_rng, this driver was also buggy: its ->generate()
-function had a use-after-free vulnerability due to using
-wait_for_completion_interruptible_timeout() without handling shutting
-down the DMA operation if a signal is sent.  Also, it had a buffer
-overread bug in the line 'memcpy(ctx->seed, d + dlen, ctx->slen);'.
-There's no point in fixing these bugs separately only to remove the code
-anyway, so this commit is marked with Fixes and Cc stable.
+PS. Should the 5.10.269 patch include the fix from pchelkin@ispras.ru
+[PATCH 5.10] Revert "USB: serial: keyspan_pda: fix information leak" ?
 
-Fixes: ac2614d721de ("crypto: sun8i-ss - Add support for the PRNG")
-Cc: stable@vger.kernel.org
-Cc: Corentin Labbe <clabbe.montjoie@gmail.com>
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
----
- drivers/crypto/allwinner/Kconfig              |   8 -
- drivers/crypto/allwinner/sun8i-ss/Makefile    |   1 -
- .../crypto/allwinner/sun8i-ss/sun8i-ss-core.c |  39 ----
- .../crypto/allwinner/sun8i-ss/sun8i-ss-prng.c | 175 ------------------
- drivers/crypto/allwinner/sun8i-ss/sun8i-ss.h  |  23 ---
- 5 files changed, 246 deletions(-)
- delete mode 100644 drivers/crypto/allwinner/sun8i-ss/sun8i-ss-prng.c
-
-diff --git a/drivers/crypto/allwinner/Kconfig b/drivers/crypto/allwinner/Kconfig
-index 54e3094c8ac5..f77d2c8e71e5 100644
---- a/drivers/crypto/allwinner/Kconfig
-+++ b/drivers/crypto/allwinner/Kconfig
-@@ -104,14 +104,6 @@ config CRYPTO_DEV_SUN8I_SS_DEBUG
- 	  This will create /sys/kernel/debug/sun8i-ss/stats for displaying
- 	  the number of requests per flow and per algorithm.
- 
--config CRYPTO_DEV_SUN8I_SS_PRNG
--	bool "Support for Allwinner Security System PRNG"
--	depends on CRYPTO_DEV_SUN8I_SS
--	select CRYPTO_RNG
--	help
--	  Select this option if you want to provide kernel-side support for
--	  the Pseudo-Random Number Generator found in the Security System.
--
- config CRYPTO_DEV_SUN8I_SS_HASH
- 	bool "Enable support for hash on sun8i-ss"
- 	depends on CRYPTO_DEV_SUN8I_SS
-diff --git a/drivers/crypto/allwinner/sun8i-ss/Makefile b/drivers/crypto/allwinner/sun8i-ss/Makefile
-index aabfd893c817..2d6458a42e58 100644
---- a/drivers/crypto/allwinner/sun8i-ss/Makefile
-+++ b/drivers/crypto/allwinner/sun8i-ss/Makefile
-@@ -1,4 +1,3 @@
- obj-$(CONFIG_CRYPTO_DEV_SUN8I_SS) += sun8i-ss.o
- sun8i-ss-y += sun8i-ss-core.o sun8i-ss-cipher.o
--sun8i-ss-$(CONFIG_CRYPTO_DEV_SUN8I_SS_PRNG) += sun8i-ss-prng.o
- sun8i-ss-$(CONFIG_CRYPTO_DEV_SUN8I_SS_HASH) += sun8i-ss-hash.o
-diff --git a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
-index 47b5828e35c3..904cbaceee1b 100644
---- a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
-+++ b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-core.c
-@@ -22,7 +22,6 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
--#include <crypto/internal/rng.h>
- #include <crypto/internal/skcipher.h>
- 
- #include "sun8i-ss.h"
-@@ -269,25 +268,6 @@ static struct sun8i_ss_alg_template ss_algs[] = {
- 		.decrypt	= sun8i_ss_skdecrypt,
- 	}
- },
--#ifdef CONFIG_CRYPTO_DEV_SUN8I_SS_PRNG
--{
--	.type = CRYPTO_ALG_TYPE_RNG,
--	.alg.rng = {
--		.base = {
--			.cra_name		= "stdrng",
--			.cra_driver_name	= "sun8i-ss-prng",
--			.cra_priority		= 300,
--			.cra_ctxsize = sizeof(struct sun8i_ss_rng_tfm_ctx),
--			.cra_module		= THIS_MODULE,
--			.cra_init		= sun8i_ss_prng_init,
--			.cra_exit		= sun8i_ss_prng_exit,
--		},
--		.generate               = sun8i_ss_prng_generate,
--		.seed                   = sun8i_ss_prng_seed,
--		.seedsize               = PRNG_SEED_SIZE,
--	}
--},
--#endif
- #ifdef CONFIG_CRYPTO_DEV_SUN8I_SS_HASH
- {	.type = CRYPTO_ALG_TYPE_AHASH,
- 	.ss_algo_id = SS_ID_HASH_MD5,
-@@ -431,12 +411,6 @@ static int sun8i_ss_debugfs_show(struct seq_file *seq, void *v)
- 				   ss_algs[i].alg.skcipher.base.cra_name,
- 				   ss_algs[i].stat_req, ss_algs[i].stat_fb);
- 			break;
--		case CRYPTO_ALG_TYPE_RNG:
--			seq_printf(seq, "%s %s reqs=%lu tsize=%lu\n",
--				   ss_algs[i].alg.rng.base.cra_driver_name,
--				   ss_algs[i].alg.rng.base.cra_name,
--				   ss_algs[i].stat_req, ss_algs[i].stat_bytes);
--			break;
- 		case CRYPTO_ALG_TYPE_AHASH:
- 			seq_printf(seq, "%s %s reqs=%lu fallback=%lu\n",
- 				   ss_algs[i].alg.hash.halg.base.cra_driver_name,
-@@ -626,14 +600,6 @@ static int sun8i_ss_register_algs(struct sun8i_ss_dev *ss)
- 				return err;
- 			}
- 			break;
--		case CRYPTO_ALG_TYPE_RNG:
--			err = crypto_register_rng(&ss_algs[i].alg.rng);
--			if (err) {
--				dev_err(ss->dev, "Fail to register %s\n",
--					ss_algs[i].alg.rng.base.cra_name);
--				ss_algs[i].ss = NULL;
--			}
--			break;
- 		case CRYPTO_ALG_TYPE_AHASH:
- 			id = ss_algs[i].ss_algo_id;
- 			ss_method = ss->variant->alg_hash[id];
-@@ -675,11 +641,6 @@ static void sun8i_ss_unregister_algs(struct sun8i_ss_dev *ss)
- 				 ss_algs[i].alg.skcipher.base.cra_name);
- 			crypto_unregister_skcipher(&ss_algs[i].alg.skcipher);
- 			break;
--		case CRYPTO_ALG_TYPE_RNG:
--			dev_info(ss->dev, "Unregister %d %s\n", i,
--				 ss_algs[i].alg.rng.base.cra_name);
--			crypto_unregister_rng(&ss_algs[i].alg.rng);
--			break;
- 		case CRYPTO_ALG_TYPE_AHASH:
- 			dev_info(ss->dev, "Unregister %d %s\n", i,
- 				 ss_algs[i].alg.hash.halg.base.cra_name);
-diff --git a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-prng.c b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-prng.c
-deleted file mode 100644
-index 3191527928e4..000000000000
---- a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss-prng.c
-+++ /dev/null
-@@ -1,175 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * sun8i-ss-prng.c - hardware cryptographic offloader for
-- * Allwinner A80/A83T SoC
-- *
-- * Copyright (C) 2015-2020 Corentin Labbe <clabbe@baylibre.com>
-- *
-- * This file handle the PRNG found in the SS
-- *
-- * You could find a link for the datasheet in Documentation/arm/sunxi.rst
-- */
--#include "sun8i-ss.h"
--#include <linux/dma-mapping.h>
--#include <linux/pm_runtime.h>
--#include <crypto/internal/rng.h>
--
--int sun8i_ss_prng_seed(struct crypto_rng *tfm, const u8 *seed,
--		       unsigned int slen)
--{
--	struct sun8i_ss_rng_tfm_ctx *ctx = crypto_rng_ctx(tfm);
--
--	if (ctx->seed && ctx->slen != slen) {
--		memzero_explicit(ctx->seed, ctx->slen);
--		kfree(ctx->seed);
--		ctx->slen = 0;
--		ctx->seed = NULL;
--	}
--	if (!ctx->seed)
--		ctx->seed = kmalloc(slen, GFP_KERNEL | GFP_DMA);
--	if (!ctx->seed)
--		return -ENOMEM;
--
--	memcpy(ctx->seed, seed, slen);
--	ctx->slen = slen;
--
--	return 0;
--}
--
--int sun8i_ss_prng_init(struct crypto_tfm *tfm)
--{
--	struct sun8i_ss_rng_tfm_ctx *ctx = crypto_tfm_ctx(tfm);
--
--	memset(ctx, 0, sizeof(struct sun8i_ss_rng_tfm_ctx));
--	return 0;
--}
--
--void sun8i_ss_prng_exit(struct crypto_tfm *tfm)
--{
--	struct sun8i_ss_rng_tfm_ctx *ctx = crypto_tfm_ctx(tfm);
--
--	memzero_explicit(ctx->seed, ctx->slen);
--	kfree(ctx->seed);
--	ctx->seed = NULL;
--	ctx->slen = 0;
--}
--
--int sun8i_ss_prng_generate(struct crypto_rng *tfm, const u8 *src,
--			   unsigned int slen, u8 *dst, unsigned int dlen)
--{
--	struct sun8i_ss_rng_tfm_ctx *ctx = crypto_rng_ctx(tfm);
--	struct rng_alg *alg = crypto_rng_alg(tfm);
--	struct sun8i_ss_alg_template *algt;
--	struct sun8i_ss_dev *ss;
--	dma_addr_t dma_iv, dma_dst;
--	unsigned int todo;
--	int err = 0;
--	int flow;
--	void *d;
--	u32 v;
--
--	algt = container_of(alg, struct sun8i_ss_alg_template, alg.rng);
--	ss = algt->ss;
--
--	if (ctx->slen == 0) {
--		dev_err(ss->dev, "The PRNG is not seeded\n");
--		return -EINVAL;
--	}
--
--	/* The SS does not give an updated seed, so we need to get a new one.
--	 * So we will ask for an extra PRNG_SEED_SIZE data.
--	 * We want dlen + seedsize rounded up to a multiple of PRNG_DATA_SIZE
--	 */
--	todo = dlen + PRNG_SEED_SIZE + PRNG_DATA_SIZE;
--	todo -= todo % PRNG_DATA_SIZE;
--
--	d = kzalloc(todo, GFP_KERNEL | GFP_DMA);
--	if (!d)
--		return -ENOMEM;
--
--	flow = sun8i_ss_get_engine_number(ss);
--
--#ifdef CONFIG_CRYPTO_DEV_SUN8I_SS_DEBUG
--	algt->stat_req++;
--	algt->stat_bytes += todo;
--#endif
--
--	v = SS_ALG_PRNG | SS_PRNG_CONTINUE | SS_START;
--	if (flow)
--		v |= SS_FLOW1;
--	else
--		v |= SS_FLOW0;
--
--	dma_iv = dma_map_single(ss->dev, ctx->seed, ctx->slen, DMA_TO_DEVICE);
--	if (dma_mapping_error(ss->dev, dma_iv)) {
--		dev_err(ss->dev, "Cannot DMA MAP IV\n");
--		err = -EFAULT;
--		goto err_free;
--	}
--
--	dma_dst = dma_map_single(ss->dev, d, todo, DMA_FROM_DEVICE);
--	if (dma_mapping_error(ss->dev, dma_dst)) {
--		dev_err(ss->dev, "Cannot DMA MAP DST\n");
--		err = -EFAULT;
--		goto err_iv;
--	}
--
--	err = pm_runtime_get_sync(ss->dev);
--	if (err < 0) {
--		pm_runtime_put_noidle(ss->dev);
--		goto err_pm;
--	}
--	err = 0;
--
--	mutex_lock(&ss->mlock);
--	writel(dma_iv, ss->base + SS_IV_ADR_REG);
--	/* the PRNG act badly (failing rngtest) without SS_KEY_ADR_REG set */
--	writel(dma_iv, ss->base + SS_KEY_ADR_REG);
--	writel(dma_dst, ss->base + SS_DST_ADR_REG);
--	writel(todo / 4, ss->base + SS_LEN_ADR_REG);
--
--	reinit_completion(&ss->flows[flow].complete);
--	ss->flows[flow].status = 0;
--	/* Be sure all data is written before enabling the task */
--	wmb();
--
--	writel(v, ss->base + SS_CTL_REG);
--
--	wait_for_completion_interruptible_timeout(&ss->flows[flow].complete,
--						  msecs_to_jiffies(todo));
--	if (ss->flows[flow].status == 0) {
--		dev_err(ss->dev, "DMA timeout for PRNG (size=%u)\n", todo);
--		err = -EFAULT;
--	}
--	/* Since cipher and hash use the linux/cryptoengine and that we have
--	 * a cryptoengine per flow, we are sure that they will issue only one
--	 * request per flow.
--	 * Since the cryptoengine wait for completion before submitting a new
--	 * one, the mlock could be left just after the final writel.
--	 * But cryptoengine cannot handle crypto_rng, so we need to be sure
--	 * nothing will use our flow.
--	 * The easiest way is to grab mlock until the hardware end our requests.
--	 * We could have used a per flow lock, but this would increase
--	 * complexity.
--	 * The drawback is that no request could be handled for the other flow.
--	 */
--	mutex_unlock(&ss->mlock);
--
--	pm_runtime_put(ss->dev);
--
--err_pm:
--	dma_unmap_single(ss->dev, dma_dst, todo, DMA_FROM_DEVICE);
--err_iv:
--	dma_unmap_single(ss->dev, dma_iv, ctx->slen, DMA_TO_DEVICE);
--
--	if (!err) {
--		memcpy(dst, d, dlen);
--		/* Update seed */
--		memcpy(ctx->seed, d + dlen, ctx->slen);
--	}
--	memzero_explicit(d, todo);
--err_free:
--	kfree(d);
--
--	return err;
--}
-diff --git a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss.h b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss.h
-index a97a790ae451..3ff0243301fb 100644
---- a/drivers/crypto/allwinner/sun8i-ss/sun8i-ss.h
-+++ b/drivers/crypto/allwinner/sun8i-ss/sun8i-ss.h
-@@ -8,7 +8,6 @@
- #include <crypto/aes.h>
- #include <crypto/des.h>
- #include <crypto/engine.h>
--#include <crypto/rng.h>
- #include <crypto/skcipher.h>
- #include <linux/atomic.h>
- #include <linux/debugfs.h>
-@@ -26,7 +25,6 @@
- #define SS_ALG_DES		(1 << 2)
- #define SS_ALG_3DES		(2 << 2)
- #define SS_ALG_MD5		(3 << 2)
--#define SS_ALG_PRNG		(4 << 2)
- #define SS_ALG_SHA1		(6 << 2)
- #define SS_ALG_SHA224		(7 << 2)
- #define SS_ALG_SHA256		(8 << 2)
-@@ -67,8 +65,6 @@
- #define SS_FLOW0	BIT(30)
- #define SS_FLOW1	BIT(31)
- 
--#define SS_PRNG_CONTINUE	BIT(18)
--
- #define MAX_SG 8
- 
- #define MAXFLOW 2
-@@ -78,9 +74,6 @@
- #define SS_DIE_ID_SHIFT	20
- #define SS_DIE_ID_MASK	0x07
- 
--#define PRNG_DATA_SIZE (160 / 8)
--#define PRNG_SEED_SIZE DIV_ROUND_UP(175, 8)
--
- /*
-  * struct ss_clock - Describe clocks used by sun8i-ss
-  * @name:       Name of clock needed by this variant
-@@ -214,16 +207,6 @@ struct sun8i_cipher_tfm_ctx {
- 	struct crypto_skcipher *fallback_tfm;
- };
- 
--/*
-- * struct sun8i_ss_prng_ctx - context for PRNG TFM
-- * @seed:	The seed to use
-- * @slen:	The size of the seed
-- */
--struct sun8i_ss_rng_tfm_ctx {
--	void *seed;
--	unsigned int slen;
--};
--
- /*
-  * struct sun8i_ss_hash_tfm_ctx - context for an ahash TFM
-  * @enginectx:		crypto_engine used by this TFM
-@@ -273,7 +256,6 @@ struct sun8i_ss_alg_template {
- 	struct sun8i_ss_dev *ss;
- 	union {
- 		struct skcipher_alg skcipher;
--		struct rng_alg rng;
- 		struct ahash_alg hash;
- 	} alg;
- #ifdef CONFIG_CRYPTO_DEV_SUN8I_SS_DEBUG
-@@ -297,11 +279,6 @@ int sun8i_ss_skencrypt(struct skcipher_request *areq);
- int sun8i_ss_get_engine_number(struct sun8i_ss_dev *ss);
- 
- int sun8i_ss_run_task(struct sun8i_ss_dev *ss, struct sun8i_cipher_req_ctx *rctx, const char *name);
--int sun8i_ss_prng_generate(struct crypto_rng *tfm, const u8 *src,
--			   unsigned int slen, u8 *dst, unsigned int dlen);
--int sun8i_ss_prng_seed(struct crypto_rng *tfm, const u8 *seed, unsigned int slen);
--int sun8i_ss_prng_init(struct crypto_tfm *tfm);
--void sun8i_ss_prng_exit(struct crypto_tfm *tfm);
- 
- int sun8i_ss_hash_crainit(struct crypto_tfm *tfm);
- void sun8i_ss_hash_craexit(struct crypto_tfm *tfm);
-
-base-commit: 38a5e4f139eb1933f8837e7e2a841810d90cd44c
-prerequisite-patch-id: e27853ab82c2c6cd4c99339565111f0c2502ab3f
--- 
-2.55.0
 
