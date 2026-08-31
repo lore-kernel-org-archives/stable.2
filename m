@@ -1,124 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1843D383333
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 21:09:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52B32EEE8A
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 21:10:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210590; cv=none; b=UmXMWqM4DrmgR+soWEvQj9HNnTX4ocNI1p4uLWKa1Czw1GCBviTuothtQmYrbUE3Kww6uIg0cIa++MDGNcWctbO+pe1U5rHbZ6guSs0uETPTmvniejBVfoTaIDJOCnar0eDNYWDP6VdGBsjTimBc5lewcM1N6rIqTwvpGPCXUHA=
+	t=1788210602; cv=none; b=DvpGdNf0WtPMP65vHMQ14Yw1VUyNWlf6ihc5LOpNvUT9OgblSzGJ3gy3bIuXaL3yqVMxwzEW0bLgSsBSYQDnkEx7hDuEf/1UCQk/E38ZPIv88qtlmrmoIS6nU1G2wzftvXQyr3O0oiRR5rDURkaFpnXtMJ1Lg/HstNkHQ16mO84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210590; c=relaxed/simple;
-	bh=vkCqt8mSgoDljan4xP5OLRXdPZMWnCccCLHMmlYxflc=;
+	s=arc-20240116; t=1788210602; c=relaxed/simple;
+	bh=jQQxneS/t6a8l4XN9aZWV2wZDsRlq+k+Bt3vAE87B4Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mOxccCqIgOeQGXy8gPnCv6V9xer8wf7DrCegB12BQBvgmdzlxx4PqGVlDwWFi2OMPeD8lezHICvJAnZK4oGQA5QVtmNLBhEQ+TnY4BNXoXWq0FTepwg6/StiWXHIqRcsn9xmn4QZD4mXV9GZYpII4gLsvqvAFQvta1PxcfqF3Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hvUCIdJp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ggZFN0VyvK+ljBjcv2iF1TmqcbrEZqEtAVhQH3IuZ6wkKgdDCvINdX0k40wWsDXGwq7JPZrGKfevqmNr9GMto819TBxN8Ygooa8PC9Ve+BrlooL3ZTu5l0vM8xjkWHxPt8XrxW37bbwMY/xZR3SUDg9xNyL28wOqxUCM4tQeP1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHSrL08h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hvUCIdJp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F361F000E9;
-	Mon, 31 Aug 2026 21:09:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHSrL08h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48F81F000E9;
+	Mon, 31 Aug 2026 21:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788210589;
-	bh=04gSYx42Z9t1RC0wNSJeZi99m4FYQ+qlOEnUVci+N64=;
+	s=k20260515; t=1788210600;
+	bh=lql+BhueGK06dm6TSjpxkXEkwY4vNuufXquF2NaZASM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hvUCIdJpamzyElIg6YLalln2yOV+4SNbNuq6ReWjBUNgrMrit5K/iWZQXWWwGV43k
-	 Xqiq6SFRgopgFTjIBGN2eBUa5oalAFQtyBRLX7MCgso8neu4JgFvZObzpFerhYjS9f
-	 oTJ5bSOjXIoeyPTU6jB1COnqn+iB/r5JQUIQC2kp4/ieVzMlHbp2OE0kkdbBVc/f4L
-	 +bI5r3Crjg7P/Lc85PchBCyHbYRcfZPyS2u5gkoD1SBqXUmQ70+/EfwZTIWID26KJ+
-	 DXpSl7SwoiEn03m/n1BWbP5GD3yhMB9LtesKKYPPLd+AoulL853jUcv9Ru0YIYL+Yo
-	 w0h8iodQu5pZQ==
+	b=SHSrL08hBdMC87KBUnYmrJk5DBgZBhfninF7C214Jc8YS3aMUnqT64RVevzSJSzv2
+	 MFKuMexmFjL1MAgoNTLDW+zxRpIYolCUsvpa6QGXzQXe7zyNTFku8IGThjy0Bi/2Nh
+	 G3o5l7jsa0KPW50yfVphk9sFNZnPj9+/QwrnBceRjM86ZSYHFuMdE2EMk1eARu7sqT
+	 mwGxnn3skSjLer7SQLRbhFaaLu7ggX8cTb1CNhylluZdfZythlcPriqF9+h+Qo8JcQ
+	 S16UKuepV0QiOfW/A7/5r15Ly+Lm1nvJ83H86+Lc0y5f7PBZ7cAu2u/h1mp9J/LOq1
+	 Wm7Y6+EhAHcvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Baokun Li <libaokun@linux.alibaba.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Ackerley Tng <ackerleytng@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] fuse: fix invalidate lock leak on setattr writeback failure
-Date: Mon, 31 Aug 2026 17:09:46 -0400
-Message-ID: <20260831210946.1798411-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: SEV: Wire up kvm_x86_ops.gmem_xxx() if and only if CONFIG_KVM_AMD_SEV=y
+Date: Mon, 31 Aug 2026 17:09:58 -0400
+Message-ID: <20260831210958.1798565-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083119-surname-nimble-f2a7@gregkh>
-References: <2026083119-surname-nimble-f2a7@gregkh>
+In-Reply-To: <2026083147-overrate-roster-23cf@gregkh>
+References: <2026083147-overrate-roster-23cf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Baokun Li <libaokun@linux.alibaba.com>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 9afeca0d569c9fc89d758fe7a9339d1e8afb1546 ]
+[ Upstream commit 01a96ff30dde5127c37497f1e098e639e7ae152f ]
 
-fuse_do_setattr() takes filemap_invalidate_lock() for a DAX truncate
-(fault_blocked = true) and releases it at the out:/error: labels.  But
-when a writeback flush is also needed, a write_inode_now() failure
-returns directly and leaks the lock, so any later fault or truncate on
-the file stalls on the stale rwsem.
+Wire up the SEV-SNP guest_memfd kvm_x86_ops hooks if and only if SEV is
+actually enabled, and drop the now-unnecessary stubs.  Leaving the hooks
+NULL allows the static call infrastructure to elide the CALL+RET, and more
+importantly, referencing the hooks if and only if SEV support is enabled
+will allow conditionally definining the hooks using their corresponding
+HAVE_KVM_ARCH_GMEM_XXX Kconfig.
 
-For example, truncate(2) on a setuid file reaches fuse_do_setattr()
-with both ATTR_SIZE and ATTR_MODE set:
+No functional change intended.
 
-  truncate(2)
-  └─ do_truncate()
-     ├─ dentry_needs_remove_privs()         # S_ISUID
-     └─ notify_change()                     # KILL_SUID -> ATTR_MODE
-        └─ fuse_setattr()                   # no killpriv:
-           │                                #   ia_valid |= ATTR_MODE
-           └─ fuse_do_setattr()
-              ├─ filemap_invalidate_lock()  # IS_DAX && is_truncate
-              └─ write_inode_now()          # is_wb && ATTR_MODE
-                 └─ if (err)                # e.g. daemon -> -EIO
-                    return err              # <- lock leaked
-
-Fix this by adding an unlock label that releases the lock before
-returning the error, and use it for the fuse_dax_break_layouts()
-failure path as well.
-
-Fixes: 6ae330cad6ef ("virtiofs: serialize truncate/punch_hole and dax fault path")
-Cc: stable@vger.kernel.org # v5.10+
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ replaced up_write(&fi->i_mmap_sem) locking and (inode, 0, 0) call site instead of the mainline filemap_invalidate_lock/(inode, 0, -1) forms ]
+Cc: stable@vger.kernel.org # 6.12.x
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Link: https://patch.msgid.link/20260709204948.1988414-5-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ adapted gmem_max_mapping_level hook to the older private_max_mapping_level API ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/dir.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ arch/x86/kvm/svm/svm.c |  8 ++++----
+ arch/x86/kvm/svm/svm.h | 10 ----------
+ 2 files changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index 4488a53a192dc..d475d19193848 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -1651,10 +1651,8 @@ int fuse_do_setattr(struct dentry *dentry, struct iattr *attr,
- 		down_write(&fi->i_mmap_sem);
- 		fault_blocked = true;
- 		err = fuse_dax_break_layouts(inode, 0, 0);
--		if (err) {
--			up_write(&fi->i_mmap_sem);
--			return err;
--		}
-+		if (err)
-+			goto unlock;
- 	}
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 44819d9470dcf..13fc10a12cb51 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -5303,6 +5303,10 @@ static struct kvm_x86_ops svm_x86_ops __initdata = {
  
- 	if (attr->ia_valid & ATTR_OPEN) {
-@@ -1681,7 +1679,7 @@ int fuse_do_setattr(struct dentry *dentry, struct iattr *attr,
- 			 ATTR_TIMES_SET)) {
- 		err = write_inode_now(inode, true);
- 		if (err)
--			return err;
-+			goto unlock;
+ 	.vm_copy_enc_context_from = sev_vm_copy_enc_context_from,
+ 	.vm_move_enc_context_from = sev_vm_move_enc_context_from,
++
++	.gmem_prepare = sev_gmem_prepare,
++	.gmem_invalidate = sev_gmem_invalidate,
++	.private_max_mapping_level = sev_private_max_mapping_level,
+ #endif
+ 	.check_emulate_instruction = svm_check_emulate_instruction,
  
- 		fuse_set_nowrite(inode);
- 		fuse_release_nowrite(inode);
-@@ -1768,6 +1766,7 @@ int fuse_do_setattr(struct dentry *dentry, struct iattr *attr,
+@@ -5314,10 +5318,6 @@ static struct kvm_x86_ops svm_x86_ops __initdata = {
+ 	.vcpu_deliver_sipi_vector = svm_vcpu_deliver_sipi_vector,
+ 	.vcpu_get_apicv_inhibit_reasons = avic_vcpu_get_apicv_inhibit_reasons,
+ 	.alloc_apic_backing_page = svm_alloc_apic_backing_page,
+-
+-	.gmem_prepare = sev_gmem_prepare,
+-	.gmem_invalidate = sev_gmem_invalidate,
+-	.private_max_mapping_level = sev_private_max_mapping_level,
+ };
  
- 	clear_bit(FUSE_I_SIZE_UNSTABLE, &fi->state);
+ /*
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index c34cd7f1408fc..387fc4ffcdeac 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -791,16 +791,6 @@ static inline int sev_dev_get_attr(u32 group, u64 attr, u64 *val) { return -ENXI
+ #define max_sev_asid 0
+ static inline void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code) {}
+ static inline void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu) {}
+-static inline int sev_gmem_prepare(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order)
+-{
+-	return 0;
+-}
+-static inline void sev_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end) {}
+-static inline int sev_private_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn)
+-{
+-	return 0;
+-}
+-
+ #endif
  
-+unlock:
- 	if (fault_blocked)
- 		up_write(&fi->i_mmap_sem);
- 	return err;
+ /* vmenter.S */
 -- 
 2.53.0
 
