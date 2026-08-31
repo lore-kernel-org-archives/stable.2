@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617D7476065;
-	Mon, 31 Aug 2026 13:35:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA134766AB;
+	Mon, 31 Aug 2026 13:35:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183333; cv=none; b=Re7UQQ5OY/MhSQ9VX21YXIhXXjBIMsSNwcnE+VSHSUlcYm4jtRK8QFj/78L3Yba4O/SoyxnogchNmDQEKk8FZgct7Jct/bhtOibGBSg1YWtJ7HweS5qOh5jxIQ0fz7jBGQWkVP7tP4Dd7IeXVyY89WAHZKHiIupoqO5HroB5JVg=
+	t=1788183336; cv=none; b=f0bUixa3HT2+FK1GB7Z2vi1+w4CoyYxD4Z36wLbp06o48BhOFhzFlqIkLtCPY+7Dhu62UgFnOT2gnuD2tUO8lC+nijD2uaX3XlQi0acsXbc+zvu7SIyhKKR8GSzgHsAAJl1eFmtJWgDDFxjqzqlr66utXl8NX3JqeTq/FfaQKxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183333; c=relaxed/simple;
-	bh=IbsbHs4PoraK6qygwABB/IBsa6zZvIB48vtV78KbKGo=;
+	s=arc-20240116; t=1788183336; c=relaxed/simple;
+	bh=Ji3iuCbt85ZOnV7oyha6glxbxHK50IsmotDAdsBlp3Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YuIcEkTk1aLXNev1Ymso/2JK9Spfn9b81d244gP80w2gxF+7XQRsG1OraR+bhqB9QSdfjUJKAZHjpReV1/LCZ7RRD6C6jFx8AGUQqzaIF2PDeRKjswdlzSahijgQzsLcKxBznGX0yi+QHLmctozKJ44LopYxvqnC0zGn2xZatlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIwN6HvL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oALOHXaQnb3FlLYPxttEyvsVBL9rBf63MXoHaCa/1vgWt0FC2iHnyc5VDlxWrDEBgZcSv6oP7g3E4Q+TQF4bwAy0zHY1e72BHpgj0SiqBCiYJdfKkH5C922dSu/AosN3NOEFHZqqMoYPm70+GnaWMXEqWKFtNujzgfAlknjb+mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dMCwncYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIwN6HvL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBC811F000E9;
-	Mon, 31 Aug 2026 13:35:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dMCwncYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F571F00A3E;
+	Mon, 31 Aug 2026 13:35:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183331;
-	bh=WdKFc/NctypBRjJC/QVzxU7l+hJdw/r7CHLMgeNoVcA=;
+	s=k20260515; t=1788183334;
+	bh=dyqWhSF0HVROorFdmbzrMiaIDT7tFT1lvgaoCfGYIDE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RIwN6HvL5CgvsfwYn0+BQgZD76wrSpnzmxw8Hm78vykPKCH8nbvwqWV4CSauJXVTX
-	 WabGOfz55xcwC/Wx6wf+NPt1dBwpA7LHz1PsY0Ch8QWHLvUKBpFFpMhNpKJKCoIj5n
-	 avVGCZE1z78qpY6yhGr6CLrkRL0ye5t2papxYBGgmRWfbd8osc/B26mGnTqZN9Iqv0
-	 0N7okhDjbPpkV2aGI+uQYL5zEFHeKRC8dj+L9/uHg8cqic62RvuQyX2qbLBS8+W+6X
-	 jJa5VgrMqkATjU4BAskkxAjo6HpIE8FWMOOVbZ1XFchsGN7XMd7hjteSzJDe+vDXeL
-	 BMkFiumRe5/pw==
+	b=dMCwncYkoez6m149pRqUKZvocUcqSDoZJRlovyFAsLUTaw0FCsV6Vi31y1zzZ3mBQ
+	 ZREMpcpw917V4z94t1lyqBZL/psIk0UxIOVfc1ckK6gJY28+UNbZkGmVAN44lI46F9
+	 j4H2G21mXFfg3Eo+zZg09HHvkl1YIhMz3giRGt+MWxQ6XC9ViPWrjo/k2ZQ3z7ynDR
+	 6XP9OvQXidj4kGiPzrY8S+2z7sDsWcwFjauxpwL8lt8QFLtAkoMWGXBn7P5WM3oLQ0
+	 gKCQr26XCO1Kk8uXHiqeAwP0HcC+55WjlfmZo6ce7z74Ix8moMTflupehQRUti2uIe
+	 da8FABIVDr/pg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pu Hu <hupu@transsion.com>,
-	Hongyan Xia <hongyan.xia@transsion.com>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Will Deacon <will@kernel.org>,
+Cc: Sanjay Chitroda <sanjayembeddedse@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	catalin.marinas@arm.com,
-	linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] arm64: kprobes: Allow reentering kprobes while single-stepping
-Date: Mon, 31 Aug 2026 09:21:52 -0400
-Message-ID: <20260831133314.4125787-84-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] iio: accel: mma8452: switch to non-devm request_threaded_irq()
+Date: Mon, 31 Aug 2026 09:21:54 -0400
+Message-ID: <20260831133314.4125787-86-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -55,499 +52,427 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pu Hu <hupu@transsion.com>
+From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 
-[ Upstream commit 23f851ac0078a908bf3422d6467ebc1db5828c46 ]
+[ Upstream commit 0a6726ec20cd4c0101f2de0ca485a11676224dea ]
 
-A kprobe can be hit while another kprobe is in KPROBE_HIT_SS state. This
-can happen when tracing or perf code runs from the debug exception path
-while the first kprobe is preparing or executing its out-of-line
-single-step instruction.
+Avoid using devm_request_threaded_irq() as the driver requires explicit
+error-handling path(s). Using devm_* API together with goto-based
+unwinding breaks the expected LIFO resource release model.
 
-Currently arm64 treats a kprobe hit in KPROBE_HIT_SS as unrecoverable,
-the same as a hit in KPROBE_REENTER. This is too strict. A hit in
-KPROBE_HIT_SS is still a one-level reentry and can be handled by saving
-the current kprobe state and setting up single-step for the new probe,
-just like reentry from KPROBE_HIT_ACTIVE or KPROBE_HIT_SSDONE.
+Add explicit IRQ cleanup in the driver teardown paths to follow kernel
+resource management conventions.
 
-The truly unrecoverable case is hitting another kprobe while already in
-KPROBE_REENTER, because the reentry save area has already been consumed.
-
-Move KPROBE_HIT_SS to the recoverable reentry cases and leave
-KPROBE_REENTER as the unrecoverable nested reentry case.
-
-This change also requires saving saved_irqflag in struct prev_kprobe.
-When a nested kprobe calls kprobes_save_local_irqflag(), it overwrites
-kcb->saved_irqflag with the currently masked DAIF value, losing the
-outer kprobe's original DAIF state. Without this fix, when the outer
-kprobe's single-step finishes, kprobes_restore_local_irqflag() applies
-the wrong DAIF mask and leaves interrupts permanently disabled.
-
-Extend struct prev_kprobe with a saved_irqflag field and save/restore it
-alongside kp and status. This ensures the outer kprobe's original
-interrupt state is preserved across reentry.
-
-This mirrors the x86 fix in commit 6a5022a56ac3
-("kprobes/x86: Allow to handle reentered kprobe on single-stepping").
-
-Signed-off-by: Pu Hu <hupu@transsion.com>
-Signed-off-by: Hongyan Xia <hongyan.xia@transsion.com>
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Will Deacon <will@kernel.org>
+Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: arm64 kprobes reentry during single-step
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (Makefile: 6.18.44)
-**Verdict target:** Should this commit be backported to **this** 6.18.y
-tree?
+**Step 1.1 — Subject line**
 
----
+Record: `[iio: accel: mma8452]` `[switch]` — Replace
+`devm_request_threaded_irq()` with manual `request_threaded_irq()` and
+explicit `free_irq()` in probe error and remove paths.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.2 — Tags**
 
-### Step 1.1: Subject line
-**Record:** `[arm64: kprobes]` `[Allow]` — Allow reentering kprobes
-while single-stepping. Subsystem: arm64 kprobes. Action: correctness fix
-for nested kprobe handling.
-
-### Step 1.2: Tags
-**Record:**
+Record:
 - **Fixes:** — none
-- **Reported-by:** — none (reproducer described in related series cover
-  letter, not in this commit)
+- **Reported-by:** — none
 - **Tested-by:** — none
-- **Reviewed-by:** Masami Hiramatsu (Google) `<mhiramat@kernel.org>` —
-  kprobes maintainer
-- **Signed-off-by:** Pu Hu, Hongyan Xia, Will Deacon `<will@kernel.org>`
-  — arm64 maintainer
-- **Cc: stable:** — none (expected for manual review)
+- **Reviewed-by:** — none
+- **Acked-by:** — none
 - **Link:** — none
-- Notable: mirrors x86 fix `6a5022a56ac3`; no syzbot report
+- **Cc: stable:** — none (expected for manual review)
+- **Signed-off-by:** Sanjay Chitroda (author), Jonathan Cameron (IIO
+  maintainer)
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** A kprobe can fire while another is in `KPROBE_HIT_SS`
-  (preparing/executing XOL single-step). arm64 treats this like
-  `KPROBE_REENTER` and calls `BUG()`.
-- **Secondary bug:** On nested reentry, `kprobes_save_local_irqflag()`
-  overwrites `kcb->saved_irqflag`, so the outer probe restores the wrong
-  DAIF mask and can leave interrupts permanently disabled.
-- **Symptom:** Kernel `BUG()` crash; or silent IRQ masking / system
-  hang.
-- **Trigger context:** Tracing/perf code in the debug-exception path
-  while a kprobe is single-stepping.
-- **Root cause:** `KPROBE_HIT_SS` incorrectly classified as
-  unrecoverable; `saved_irqflag` not preserved in `prev_kprobe` across
-  one-level reentry.
+Notable: no fuzzer report, no user bug report, no explicit stable
+nomination. Maintainer sign-off is present.
 
-### Step 1.4: Hidden bug fix?
-**Record:** No — this is an explicit bug fix, not disguised cleanup. Two
-distinct failure modes: crash (`BUG()`) and IRQ-state corruption.
+**Step 1.3 — Body analysis**
 
----
+Record:
+- **Bug:** `devm_request_threaded_irq()` combined with manual
+  `goto`-based probe unwind breaks devm’s LIFO release model; IRQ stays
+  registered while driver manually tears down buffer/trigger/other
+  resources.
+- **Symptom:** Interrupt handler can run during manual teardown (probe
+  failure or `remove()`), accessing structures being destroyed.
+- **Root cause:** devm releases IRQ only after probe returns or after
+  `remove()` completes, but the driver manually cleans up
+  buffer/trigger/regulators before that point.
 
-## PHASE 2: DIFF ANALYSIS
+**Step 1.4 — Hidden bug fix?**
 
-### Step 2.1: Inventory
-**Record:**
-| File | Change |
-|------|--------|
-| `arch/arm64/include/asm/kprobes.h` | +6 lines: `saved_irqflag` in
-`struct prev_kprobe` |
-| `arch/arm64/kernel/probes/kprobes.c` | +23/-1 lines |
-
-**Functions modified:** `save_previous_kprobe()`,
-`restore_previous_kprobe()`, `reenter_kprobe()`
-**Scope:** Single-subsystem, 2-file surgical fix (~29 lines net).
-
-### Step 2.2: Code flow per hunk
-
-**Hunk 1 — `struct prev_kprobe`:**
-- Before: only `kp` and `status` saved on reentry.
-- After: also saves outer probe's DAIF state.
-- Path: nested kprobe reentry.
-
-**Hunk 2 — `save_previous_kprobe()` / `restore_previous_kprobe()`:**
-- Before: nested reentry could clobber `kcb->saved_irqflag`.
-- After: outer `saved_irqflag` preserved and restored when unwinding
-  reentry.
-- Path: `setup_singlestep(..., reenter=1)` → `post_kprobe_handler()`
-  restore path.
-
-**Hunk 3 — `reenter_kprobe()`:**
-- Before: `KPROBE_HIT_SS` → `pr_warn` + `dump_kprobe` + `BUG()`.
-- After: `KPROBE_HIT_SS` handled like `KPROBE_HIT_ACTIVE` /
-  `KPROBE_HIT_SSDONE` (recoverable one-level reentry).
-- `KPROBE_REENTER` remains the only unrecoverable nested case.
-
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category (a):** IRQ-flag resource/state leak on error/nested path.
-- **Category (g):** Logic correctness — wrong classification of
-  recoverable reentry.
-- **Specific mechanism:** One-level reentry from `KPROBE_HIT_SS` is safe
-  (save area unused); only true double-reentry (`KPROBE_REENTER`) is
-  fatal. Without `saved_irqflag` preservation, nested
-  `kprobes_save_local_irqflag()` destroys outer DAIF state.
-
-### Step 2.4: Fix quality
-**Record:** Fix is minimal and mirrors the proven x86 pattern
-(`arch/x86/kernel/kprobes/core.c` already treats `KPROBE_HIT_SS` as
-recoverable and saves flags in `prev_kprobe`). Low regression risk: only
-changes nested-kprobe path; `KPROBE_REENTER` still `BUG()`s. Reviewed by
-kprobes and arm64 maintainers.
+Record: **Yes.** Despite “switch”/“conventions” wording, this is a real
+teardown-order bug fix, not style-only cleanup.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 2: Diff Analysis
 
-### Step 3.1: Blame
-**Record:** `git blame` on `reenter_kprobe()` only attributes to merge
-commit `5d324e5159d9e` (history is flattened in this checkout).
-Copyright in `kprobes.h` dates to 2013; arm64 kprobes and
-`KPROBE_HIT_SS` unrecoverable handling have been present for many
-releases. Bug is long-standing, not a recent-mainline-only regression.
+**Step 2.1 — Inventory**
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag. Referenced x86 fix `6a5022a56ac3` is
-already reflected in this tree's x86 kprobes code (lines 943–947 of
-`arch/x86/kernel/kprobes/core.c`).
+Record:
+- **File:** `drivers/iio/accel/mma8452.c` (+12 / −7)
+- **Functions:** `mma8452_probe()`, `mma8452_remove()`
+- **Scope:** Single-file surgical fix
 
-### Step 3.3: Related file history
-**Record:** `git log -- arch/arm64/kernel/probes/kprobes.c` shows only
-the merge commit in this checkout's history view. Related RFC series
-(`[RFC v2/v3 0/3] arm64: kprobes: Fix single-step fault and reentry
-handling`) has 3 patches; **this commit combines patches 2+3**. Patch 1
-("Only handle faults originating from XOL slot") is a separate fix and
-is **not** in this tree.
+**Step 2.2 — Code flow changes**
 
-### Step 3.4: Author context
-**Record:** Pu Hu / Hongyan Xia (Transsion). Will Deacon (arm64
-maintainer) merged. Masami Hiramatsu (kprobes maintainer) reviewed.
-Author not found in local `git log --author` (commit not yet in this
-tree).
+Record:
+- **Hunk 1 (probe IRQ registration):** `devm_request_threaded_irq()` →
+  `request_threaded_irq()` — IRQ no longer tied to devm.
+- **Hunk 2 (probe error paths):** After IRQ registration,
+  `pm_runtime_set_active()` / `iio_device_register()` failures now `goto
+  free_irq` instead of `goto buffer_cleanup`.
+- **Hunk 3 (new `free_irq:` label):** Calls `free_irq(client->irq,
+  indio_dev)` before `buffer_cleanup`.
+- **Hunk 4 (`remove()`):** Adds explicit `free_irq()` before
+  `iio_triggered_buffer_cleanup()`.
 
-### Step 3.5: Dependencies
-**Record:** Self-contained for the reentry + IRQ-flag bugs. Patch 1 from
-the same series addresses `kprobe_fault_handler()` fault-PC filtering —
-related reproducer scenario but **not a structural prerequisite** for
-this diff. No `noinstr` kprobes rework exists in this tree (later RFC to
-drop this case is future work, not present here).
+**Before → after on probe failure after IRQ setup:**
+- Before: IRQ remains active through `buffer_cleanup` /
+  `trigger_cleanup`
+- After: IRQ freed first, then buffer/trigger cleanup
 
----
+**Before → after on `remove()`:**
+- Before: IRQ active for entire `remove()`; devm frees only after
+  `remove()` returns
+- After: IRQ freed before buffer/trigger teardown
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+**Step 2.3 — Bug mechanism**
 
-### Step 4.1: Original discussion
-**Record:** Found via openwall.org (lore.kernel.org blocked by bot
-protection):
-- Series cover: https://lists.openwall.net/linux-kernel/2026/07/09/1808
-- RFC v3 patch matching this diff: https://lists.openwall.net/linux-
-  kernel/2026/07/10/390
-- Reproducer documented: `simpleperf record` with `preemptirq`
-  tracepoints + dwarf callgraphs while kprobe active on hot kernel
-  function.
-- Before full 3-patch series: crash reproduced frequently; after all 3
-  patches: no longer reproduced.
-- `b4 dig -c <sha>`: **not run** — upstream commit SHA not available in
-  this checkout.
+Record: **Category:** teardown race / potential UAF in interrupt
+context.
 
-### Step 4.2: Reviewers
-**Record:** CC list included `mhiramat@kernel.org`, `will@kernel.org`,
-`catalin.marinas@arm.com`, `linux-trace-kernel@`, `linux-arm-kernel@`.
-Appropriate maintainers were included.
+`mma8452_interrupt()` (lines 1053–1083) can call
+`iio_trigger_poll_nested(indio_dev->trig)` and `iio_push_event()`. With
+devm, IRQ stays live while `iio_triggered_buffer_cleanup()` and
+`mma8452_trigger_cleanup()` run in probe error and remove paths.
 
-### Step 4.3: Bug report
-**Record:** No formal bugzilla/syzbot link. Real-world reproducer from
-Transsion team using simpleperf on arm64. Severity from reporter:
-frequent crashes during perf + kprobes workloads.
+**Step 2.4 — Fix quality**
 
-### Step 4.4: Related patches
-**Record:** Same series includes:
-1. `arm64: kprobes: Only handle faults originating from XOL slot` —
-   separate fault-handler fix, not in this tree
-2. This commit (reentry + saved_irqflag)
-Later RFC (Jiazi Li, Jul 2026) proposes dropping `KPROBE_HIT_SS` reentry
-handling after making debug paths `noinstr` — **not applicable to this
-6.18.44 tree**, which has no such rework.
-
-### Step 4.5: Stable list
-**Record:** No stable-list discussion found. UNVERIFIED for lore stable
-archive (bot blocked).
+Record: Fix is minimal, obviously correct, and matches standard non-devm
+IRQ pattern. Low regression risk; no API changes.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 3: Git History Investigation
 
-### Step 5.1: Key functions
-**Record:** `reenter_kprobe()`, `save_previous_kprobe()`,
-`restore_previous_kprobe()`, `setup_singlestep()`,
-`kprobe_brk_handler()`.
+**Step 3.1 — Blame**
 
-### Step 5.2: Callers
-**Record:**
-- `reenter_kprobe()` ← `kprobe_brk_handler()` when `kprobe_running()` is
-  non-NULL
-- `kprobe_brk_handler()` ← `call_el1_break_hook()` in `debug-monitors.c`
-- `call_el1_break_hook()` ← `do_el1_brk64()` ← `entry-common.c` (kernel
-  BRK exception path)
+Record: `devm_request_threaded_irq()` introduced in `28e3427824ccc8`
+(2015-06-01, “iio: mma8452: Basic support for transient events”). Bug
+present since v4.1 era; definitely present in this 6.18.y tree.
 
-Reachable from kernel debug exceptions during active kprobes — common in
-perf/ftrace workloads.
+**Step 3.2 — Fixes: tag**
 
-### Step 5.3: Callees
-**Record:** `setup_singlestep()` → `kprobes_save_local_irqflag()` (masks
-DAIF, saves to `kcb->saved_irqflag`); `kprobes_restore_local_irqflag()`
-on completion via `kprobe_ss_brk_handler()`.
+Record: N/A — no Fixes: tag.
 
-### Step 5.4: Reachability
-**Record:**
-```
-BRK exception → do_el1_brk64() → kprobe_brk_handler()
-  → [kprobe already running] → reenter_kprobe()
-```
-Triggered when perf/trace instrumentation in the debug-exception window
-hits another kprobe while the first is in `KPROBE_HIT_SS`. Not directly
-a syscall path, but reachable from normal perf tracing on arm64 servers
-and Android devices.
+**Step 3.3 — Related file history**
 
-### Step 5.5: Similar patterns
-**Record:** x86 `reenter_kprobe()` in `arch/x86/kernel/kprobes/core.c`
-already includes `KPROBE_HIT_SS` in recoverable cases and saves
-`old_flags`/`saved_flags` in `prev_kprobe`. arm64 was missing the
-equivalent fix.
+Record: Part of v3 series “iio: accel: mma8452: improve coding style, pm
+and resource cleanup” (10 patches). Sibling patch `5bdff291d20c3`
+(“handle I2C read error(s)”) **is already in this tree** as stable
+commit `1cddef80a180a`. IRQ fix (`0a6726ec20cd4`) is **not** in this
+tree.
+
+**Step 3.4 — Author context**
+
+Record: Sanjay Chitroda; Jonathan Cameron committed. Same author has
+another teardown fix already backported here: `04a4d98222109`
+(“ssp_sensors: cancel delayed work_refresh on remove”).
+
+**Step 3.5 — Dependencies**
+
+Record: **Standalone.** Does not depend on other series patches
+(codestyle/header-sort patches are independent). `git apply --check` on
+current tree: **clean apply**.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+## Phase 4: Mailing List and External Research
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Current tree at `v6.18.44` has:
-- `KPROBE_HIT_SS` in unrecoverable branch with `BUG()` (lines 246–250 of
-  `kprobes.c`)
-- `struct prev_kprobe` without `saved_irqflag` (lines 26–29 of
-  `kprobes.h`)
-- Fix is **not** already applied.
+**Step 4.1 — Original discussion**
 
-### Step 6.2: Backport complications
-**Record:** `git apply --check` on the provided diff: **applies
-cleanly**. No `noinstr` refactor or structural divergence in these
-files. Expected difficulty: **clean apply**.
+Record: `b4 dig -c 0a6726ec20cd4` → [PATCH v3 02/10](https://patch.msgid
+.link/20260505174640.3998281-3-sanjayembedded@gmail.com). Series v2 and
+v3 found. Lore fetch blocked by bot protection; could not read thread
+replies.
 
-### Step 6.3: Related fixes already present?
-**Record:** x86 equivalent fix is present. arm64 companion patch 1 (XOL
-fault filtering) is **not** present. No duplicate arm64 fix found via
-`git log --grep`.
+**Step 4.2 — Reviewers**
 
----
+Record: `b4 dig -w` — CC’d: `jic23@kernel.org`, `linux-
+iio@vger.kernel.org`, and other IIO maintainers/reviewers.
 
-## PHASE 7: SUBSYSTEM CONTEXT
+**Step 4.3 — Bug reports**
 
-### Step 7.1: Subsystem and criticality
-**Record:** `arch/arm64` / kprobes — **PERIPHERAL** (requires
-`CONFIG_KPROBES`), but **IMPORTANT** for tracing, perf, BPF/kprobe users
-on arm64 (servers, mobile, embedded).
+Record: None found.
 
-### Step 7.2: Activity
-**Record:** Active development area; this is a correctness gap vs. x86,
-not churn-induced breakage.
+**Step 4.4 — Series context**
+
+Record: 10-patch series; this is patch 02/10. I2C read-error fix from
+same series already backported to 6.18.y; IRQ fix was not.
+
+**Step 4.5 — Stable list**
+
+Record: UNVERIFIED — lore stable search inaccessible.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 5: Code Semantic Analysis
 
-### Step 8.1: Who is affected
-**Record:** arm64 systems with `CONFIG_KPROBES` running
-perf/ftrace/kprobes concurrently — developers, CI systems, Android
-simpleperf users, server observability stacks.
+**Step 5.1 — Key functions**
 
-### Step 8.2: Trigger conditions
-**Record:** Kprobe active on frequently executed function + perf/trace
-events (e.g., `preemptirq:preempt_disable/enable`) in debug-exception
-path. Reproducible per series cover letter. Requires root/capability for
-kprobes/perf, but this is a normal admin/debug workflow, not an obscure
-corner.
+Record: `mma8452_probe()`, `mma8452_remove()`, `mma8452_interrupt()`
 
-### Step 8.3: Failure mode severity
-**Record:**
-| Failure | Severity |
-|---------|----------|
-| `BUG()` in `reenter_kprobe()` | **CRITICAL** — kernel crash |
-| Wrong DAIF restore → IRQs permanently masked | **CRITICAL** — soft
-lockup / hung system |
+**Step 5.2 — Callers**
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for kprobes+perf users — prevents crash and IRQ
-  corruption
-- **Risk:** LOW — ~29 lines, mirrors proven x86 fix, only affects
-  nested-kprobe path
-- **Ratio:** Strongly favors backport
+Record: `mma8452_probe()` — I2C driver probe during device enumeration.
+`mma8452_remove()` — device unbind/module unload. `mma8452_interrupt()`
+— hardware IRQ thread.
+
+**Step 5.3 — Callees in interrupt path**
+
+Record: `i2c_smbus_read_byte_data()`, `iio_trigger_poll_nested()`,
+`iio_push_event()` — all touch live IIO/trigger state.
+
+**Step 5.4 — Reachability**
+
+Record: Triggered when `client->irq` is non-zero (interrupt-capable
+board config). Probe error path reachable on `iio_device_register()`
+failure etc. Remove path runs on every unbind/unload.
+
+**Step 5.5 — Similar patterns**
+
+Record: Same devm+goto anti-pattern exists in other IIO drivers; this
+fix is driver-specific.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree
 
-### Step 9.1: Evidence summary
+**Step 6.1 — Buggy code present?**
 
-**FOR backport:**
-- Fixes real, reproducible `BUG()` crash
-- Fixes IRQ permanently-disabled bug (serious stability issue)
-- Small, surgical, maintainer-reviewed
-- Mirrors x86 fix already in this tree
-- Buggy code confirmed present in v6.18.44
-- Applies cleanly
+Record: **Yes.** Local tree is **Linux 6.18.44** (`git describe HEAD` →
+`v6.18.44`). `drivers/iio/accel/mma8452.c` still uses
+`devm_request_threaded_irq()` at line 1685 with `goto buffer_cleanup` on
+later failures; `remove()` has no `free_irq()`.
 
-**AGAINST backport:**
-- Only affects `CONFIG_KPROBES` (not all kernels)
-- Full simpleperf reproducer series also has patch 1 (fault handler) —
-  companion fix, not a blocker for this commit's correctness
-- Future `noinstr` rework may obsolete this path in later mainline —
-  irrelevant to this tree today
+**Step 6.2 — Backport complications**
 
-**Unresolved:** Upstream commit SHA unavailable for `b4 dig`; stable-
-list nomination not verified.
+Record: **Clean apply** verified with `git apply --check`. No conflicts
+expected.
 
-### Step 9.2: Stable rules checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — mirrors x86; maintainer-
-reviewed; reproducer in series |
-| 2. Fixes real user-affecting bug? | **PASS** — crash + IRQ corruption
-with documented reproducer |
-| 3. Important issue? | **PASS** — CRITICAL severity |
-| 4. Small and contained? | **PASS** — 2 files, ~29 lines |
-| 5. No new features/APIs? | **PASS** — internal struct extension for
-bug fix |
-| 6. Applies to local tree? | **PASS** — clean apply verified |
+**Step 6.3 — Related fixes already present?**
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug-fix backport.
+Record: `1cddef80a180a` (I2C read error propagation) is present. IRQ
+teardown fix is **not** present.
 
-### Step 9.4: Decision rationale
+---
 
-For **linux 6.18.44**, the buggy `KPROBE_HIT_SS` handling and missing
-`saved_irqflag` preservation are both present. The fix is small, well-
-reviewed, proven on x86, and prevents kernel crashes and interrupt-state
-corruption in a realistic perf+kprobes workload. The companion patch 1
-from the same RFC series may also warrant backport separately, but does
-not invalidate this fix.
+## Phase 7: Subsystem Context
+
+**Step 7.1 — Subsystem**
+
+Record: `drivers/iio/accel/` — IIO accelerometer driver. **Criticality:
+PERIPHERAL** (hardware-specific, not core kernel).
+
+**Step 7.2 — Activity**
+
+Record: Moderately active; several accel driver fixes backported to
+6.18.y recently.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+
+Record: Systems with Freescale/NXP MMA8452-family accelerometer on I2C
+**and** IRQ line configured (embedded/phone-class boards). Config-
+dependent (`CONFIG_MMA8452` or module).
+
+**Step 8.2 — Trigger conditions**
+
+Record:
+- **Probe failure** after IRQ registration (e.g. `iio_device_register()`
+  OOM) — uncommon
+- **Driver remove/unbind** with IRQ configured and hardware generating
+  interrupts — more realistic
+- Unprivileged users cannot directly trigger; requires device
+  presence/removal
+
+**Step 8.3 — Failure mode severity**
+
+Record: IRQ handler may access buffer/trigger/device state during
+teardown → possible kernel oops/UAF in interrupt context. **Severity:
+HIGH** (crash potential), but **low likelihood** (narrow race window, no
+reports in ~11 years).
+
+**Step 8.4 — Risk-benefit**
+
+Record:
+- **Benefit:** Prevents teardown race on probe error and remove; correct
+  resource ordering
+- **Risk:** Very low (12-line, localized change)
+- **Ratio:** Moderate benefit, very low risk
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence**
+
+**FOR:**
+- Real bug: IRQ active during manual teardown in probe error and remove
+  paths
+- Interrupt handler touches IIO buffer/trigger state that is being
+  destroyed
+- Small, surgical, maintainer-committed fix
+- Applies cleanly to 6.18.y
+- Bug present since 2015 in this driver
+- Same author’s teardown fixes have been backported to this tree before
+
+**AGAINST:**
+- No crash reports, syzbot, or Fixes: tag
+- Peripheral driver; only IRQ-enabled MMA8452 hardware
+- Bug latent ~11 years without reported incidents
+- Stable already took sibling I2C-read fix from same series but not this
+  one
+- Framed as resource-management correctness rather than demonstrated
+  crash
+
+**UNRESOLVED:**
+- Lore thread review comments inaccessible
+- No confirmation of real-world crash reproduction
+
+**Step 9.2 — Stable rules checklist**
+
+1. Obviously correct and tested? **PASS** — logic is sound; no Tested-by
+   but maintainer committed
+2. Fixes a real bug? **PASS** — verified teardown ordering bug in code
+3. Important issue? **PASS (borderline)** — crash/UAF potential on
+   remove, but unreported and hardware-specific
+4. Small and contained? **PASS** — 19 lines, one file
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — verified clean apply
+
+**Step 9.3 — Exception categories**
+
+Record: None (not quirk/DT/build/docs).
+
+**Step 9.4 — Decision rationale**
+
+This is a legitimate teardown-order bug: with
+`devm_request_threaded_irq()`, the IRQ remains registered while
+`mma8452_remove()` and probe error paths manually destroy the triggered
+buffer and trigger that `mma8452_interrupt()` uses. The fix is minimal,
+correct, and applies cleanly to 6.18.44. Severity is borderline for
+stable — no reported crashes, niche hardware — but the failure mode
+(oops/UAF in IRQ context during driver removal) meets the conservative
+stable bar for teardown races, especially given very low backport risk.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-- **[Phase 1]** Confirmed Reviewed-by Masami Hiramatsu, Signed-off-by
-  Will Deacon
-- **[Phase 2]** Read current `arch/arm64/kernel/probes/kprobes.c` lines
-  173–371 and `arch/arm64/include/asm/kprobes.h`
-- **[Phase 2]** Confirmed `KPROBE_HIT_SS` triggers `BUG()` at lines
-  246–250 (buggy)
-- **[Phase 2]** Confirmed `struct prev_kprobe` lacks `saved_irqflag`
-  (buggy)
-- **[Phase 3]** `git describe HEAD` → `v6.18.44-2-g1b9e1abadee04`
-- **[Phase 3]** `git blame` on `reenter_kprobe()` — only merge commit
-  visible
-- **[Phase 3]** x86 equivalent: `arch/x86/kernel/kprobes/core.c:943-947`
-  has `KPROBE_HIT_SS` recoverable; `prev_kprobe` saves flags at lines
-  820-823
-- **[Phase 4]** Fetched series cover at lists.openwall.net/linux-
-  kernel/2026/07/09/1808 — reproducer and 3-patch context
-- **[Phase 4]** Fetched RFC v3 patch at lists.openwall.net/linux-
-  kernel/2026/07/10/390 — diff matches analyzed commit
-- **[Phase 4]** UNVERIFIED: `b4 dig` (no commit SHA in tree)
-- **[Phase 4]** UNVERIFIED: lore stable archive (bot blocked)
-- **[Phase 5]** Traced call chain: `entry-common.c` → `do_el1_brk64` →
-  `kprobe_brk_handler` → `reenter_kprobe`
-- **[Phase 5]** `grep` confirmed no `noinstr` kprobes in arm64 tree
-- **[Phase 6]** `git apply --check` on provided diff → **clean apply**
-- **[Phase 6]** Confirmed fix not present; buggy code at HEAD
-- **[Phase 6]** Patch 1 from series not in tree (`kprobe_fault_handler`
-  unchanged)
-- **[Phase 8]** Failure modes verified by reading `reenter_kprobe()`,
-  `setup_singlestep()`, `kprobes_save/restore_local_irqflag()`
-
----
+- [Phase 1] `git show 0a6726ec20cd4 --format=fuller`: parsed message,
+  tags, no Fixes/Reported-by
+- [Phase 2] `git show 0a6726ec20cd4`: confirmed +12/−7 diff in
+  probe/remove
+- [Phase 2] Read `mma8452_interrupt()` at lines 1053–1083: handler uses
+  trigger/events during teardown
+- [Phase 3] `git blame -L 1680,1720`: devm IRQ from `28e3427824ccc8`
+  (2015)
+- [Phase 3] `git log all-next -- drivers/iio/accel/mma8452.c`: found
+  commit `0a6726ec20cd4`, series context
+- [Phase 3] `git show 1cddef80a180a`: sibling I2C fix already in stable
+  6.18.y
+- [Phase 3] `git apply --check` on patch: clean apply to HEAD
+- [Phase 4] `b4 dig -c 0a6726ec20cd4`: lore URL found
+- [Phase 4] `b4 dig -c 0a6726ec20cd4 -a`: v2/v3 series revisions found
+- [Phase 4] `b4 dig -c 0a6726ec20cd4 -w`: maintainers CC’d
+- [Phase 4] WebFetch lore URL: **FAILED** (bot protection)
+- [Phase 5] Grep/read `mma8452.c`: confirmed interrupt →
+  `iio_trigger_poll_nested()` / `iio_push_event()`
+- [Phase 6] `git describe HEAD`: v6.18.44
+- [Phase 6] Grep `devm_request_threaded_irq` in tree: still present (bug
+  not fixed)
+- [Phase 6] `git branch --contains 0a6726ec20cd4`: not in stable branch
+- [Phase 7] `git log -20 -- drivers/iio/accel/`: subsystem activity
+  assessed
+- [Phase 8] Read probe/remove error paths: confirmed `goto
+  buffer_cleanup` with active IRQ before fix
 
 **YES**
 
- arch/arm64/include/asm/kprobes.h   |  6 ++++++
- arch/arm64/kernel/probes/kprobes.c | 23 ++++++++++++++++++++++-
- 2 files changed, 28 insertions(+), 1 deletion(-)
+ drivers/iio/accel/mma8452.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kprobes.h b/arch/arm64/include/asm/kprobes.h
-index f2782560647be..35ce2c94040ef 100644
---- a/arch/arm64/include/asm/kprobes.h
-+++ b/arch/arm64/include/asm/kprobes.h
-@@ -26,6 +26,12 @@
- struct prev_kprobe {
- 	struct kprobe *kp;
- 	unsigned int status;
-+
-+	/*
-+	 * The original DAIF state of the outer kprobe, saved here before
-+	 * a nested kprobe overwrites kcb->saved_irqflag during reentry.
-+	 */
-+	unsigned long saved_irqflag;
- };
+diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+index cefc7cf4bd835..279a9b3648860 100644
+--- a/drivers/iio/accel/mma8452.c
++++ b/drivers/iio/accel/mma8452.c
+@@ -1682,18 +1682,16 @@ static int mma8452_probe(struct i2c_client *client)
+ 		goto trigger_cleanup;
  
- /* per-cpu kprobe control block */
-diff --git a/arch/arm64/kernel/probes/kprobes.c b/arch/arm64/kernel/probes/kprobes.c
-index 43a0361a8bf04..7133da1653964 100644
---- a/arch/arm64/kernel/probes/kprobes.c
-+++ b/arch/arm64/kernel/probes/kprobes.c
-@@ -174,12 +174,27 @@ static void __kprobes save_previous_kprobe(struct kprobe_ctlblk *kcb)
- {
- 	kcb->prev_kprobe.kp = kprobe_running();
- 	kcb->prev_kprobe.status = kcb->kprobe_status;
-+
-+	/*
-+	 * Save the outer kprobe's original DAIF flags before the nested
-+	 * kprobe calls kprobes_save_local_irqflag() and overwrites
-+	 * kcb->saved_irqflag. Without this, the outer kprobe will restore
-+	 * the wrong DAIF state and leave interrupts permanently masked.
-+	 */
-+	kcb->prev_kprobe.saved_irqflag = kcb->saved_irqflag;
- }
+ 	if (client->irq) {
+-		ret = devm_request_threaded_irq(&client->dev,
+-						client->irq,
+-						NULL, mma8452_interrupt,
+-						IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+-						client->name, indio_dev);
++		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
++					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
++					   client->name, indio_dev);
+ 		if (ret)
+ 			goto buffer_cleanup;
+ 	}
  
- static void __kprobes restore_previous_kprobe(struct kprobe_ctlblk *kcb)
- {
- 	__this_cpu_write(current_kprobe, kcb->prev_kprobe.kp);
- 	kcb->kprobe_status = kcb->prev_kprobe.status;
-+
-+	/*
-+	 * Restore the outer kprobe's saved_irqflag so that when its
-+	 * single-step completes, kprobes_restore_local_irqflag() uses
-+	 * the correct original DAIF value.
-+	 */
-+	kcb->saved_irqflag = kcb->prev_kprobe.saved_irqflag;
- }
+ 	ret = pm_runtime_set_active(&client->dev);
+ 	if (ret < 0)
+-		goto buffer_cleanup;
++		goto free_irq;
  
- static void __kprobes set_current_kprobe(struct kprobe *p)
-@@ -240,10 +255,16 @@ static int __kprobes reenter_kprobe(struct kprobe *p,
- 	switch (kcb->kprobe_status) {
- 	case KPROBE_HIT_SSDONE:
- 	case KPROBE_HIT_ACTIVE:
-+	case KPROBE_HIT_SS:
-+		/*
-+		 * A probe can be hit while another kprobe is preparing or
-+		 * executing its XOL single-step instruction. This is still a
-+		 * recoverable one-level reentry, so handle it in the same way as
-+		 * reentry from KPROBE_HIT_ACTIVE or KPROBE_HIT_SSDONE.
-+		 */
- 		kprobes_inc_nmissed_count(p);
- 		setup_singlestep(p, regs, kcb, 1);
- 		break;
--	case KPROBE_HIT_SS:
- 	case KPROBE_REENTER:
- 		pr_warn("Failed to recover from reentered kprobes.\n");
- 		dump_kprobe(p);
+ 	pm_runtime_enable(&client->dev);
+ 	pm_runtime_set_autosuspend_delay(&client->dev,
+@@ -1702,7 +1700,7 @@ static int mma8452_probe(struct i2c_client *client)
+ 
+ 	ret = iio_device_register(indio_dev);
+ 	if (ret < 0)
+-		goto buffer_cleanup;
++		goto free_irq;
+ 
+ 	ret = mma8452_set_freefall_mode(data, false);
+ 	if (ret < 0)
+@@ -1713,6 +1711,10 @@ static int mma8452_probe(struct i2c_client *client)
+ unregister_device:
+ 	iio_device_unregister(indio_dev);
+ 
++free_irq:
++	if (client->irq)
++		free_irq(client->irq, indio_dev);
++
+ buffer_cleanup:
+ 	iio_triggered_buffer_cleanup(indio_dev);
+ 
+@@ -1738,6 +1740,9 @@ static void mma8452_remove(struct i2c_client *client)
+ 	pm_runtime_disable(&client->dev);
+ 	pm_runtime_set_suspended(&client->dev);
+ 
++	if (client->irq)
++		free_irq(client->irq, indio_dev);
++
+ 	iio_triggered_buffer_cleanup(indio_dev);
+ 	mma8452_trigger_cleanup(indio_dev);
+ 	mma8452_standby(iio_priv(indio_dev));
 -- 
 2.53.0
 
