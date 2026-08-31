@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9DC493621;
-	Mon, 31 Aug 2026 14:05:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBB749365B;
+	Mon, 31 Aug 2026 14:05:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185144; cv=none; b=UQcTSrSNIwyMbpfqNfXVNK0rGteVqZDGfqwYpKOog0HIy44QbxZrjod4GRL9YA5FAoJZCL8QGnugHCNsViAMRbh2JaTT3wOb18N0JdussA0aToFWFxufbAaHdEzLyqUzuImALTV0L6LCdzrtqHP0BJDlmrN4Rx4T18DSs7FSOGA=
+	t=1788185152; cv=none; b=lRbg8xlEG3HcvhWYlxNJ3coPlPU/TeFD1mofYeKuQ5CsMhpOQBP5jt7Ls22hqJB0sP3h2KRrsupzlx6y0tu6MOm2M5gpw+7F3VBFv0582cauV74Re9B2FfLs//S/pkjj0ztSNeJ8bhaDYvhCrkUI7tN86oOfuoixO/M2J+bkAgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185144; c=relaxed/simple;
-	bh=+ahqRwc6Vn7XqoJOx9bee3jH73A4YuffxQcD6nAYaHc=;
+	s=arc-20240116; t=1788185152; c=relaxed/simple;
+	bh=97zoGd7XE4Ifl40KSvjHmtnfMv8Vjn9dhX70/Tc3U2g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mP2ioxe1hKVD1jkJi/XpxdqVmtnLeNJ/guXA/UC77sNgPAd+HwcsftC3AYyra2PVM2TYJCqw99yMCOOI9vKJhm3UHbVawzRtTQgLY8J27a6eQiUJ9Mg/u/WGNR1FNHDXmjB5zB09fdjahdtkS1/cy4qYQTCF5oQbq1WifpUWgRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OSlH+gEg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rMem0lHBvKitV4J/3cUJHtXApdPGqpMAwR9Whp8NAoS/Aq9IIBCDxci42UxR9+gwcSKpAWnwzPsuCAq79vFUBXuNPiR9i6iCaqDu5hzfNc0WLrr3G6GzoeBPjmriggTmwPChptJQJumkv8iowGwhXyrGpFhaubY/m2ym5OYp1l8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KPbXiPqT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OSlH+gEg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1E41F000E9;
-	Mon, 31 Aug 2026 14:05:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KPbXiPqT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B493E1F000E9;
+	Mon, 31 Aug 2026 14:05:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788185141;
-	bh=1kkY3nwQJUB09HsFy/XhRVN0LSYgCAlhh/FeXTSTOHM=;
+	s=korg; t=1788185150;
+	bh=lbfaA4nEDSLM0VHK+D0KC198UIqnr7W2p+4uD/hviQY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OSlH+gEgB9n/pEYyNpdExD7+X1ZWJnYPOQEgGgaRy3Bs/kmMsYB7+BdwZW9Cbo36B
-	 1+fJDr0UlyoHAfzTiV1JuDSaSga2rje2FUXPrm+NG+pUSOZHz2kIDLAOJKCOvBQdNv
-	 CMteRXn0NSTRg9AFh8UDtPm/yXnDucIvCMXCOWwo=
+	b=KPbXiPqT12YIRPOcyc2XRBH7fk11pkEur/bZigVlzKAOkFYRasrac7mZYb/GH//c8
+	 eVcpfvFY+byDrh0YGTNUVA5XxKG1qeCCjwkQzse9LiOblPtXv6+OaObc9pO4zb+DjU
+	 bsauKQ6/7J07gSfOg0//22ZeTgQjoHpn8QK0A8eo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Weiwen Hu <huweiwen@linux.alibaba.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+	Michael Zaidman <michael.zaidman@gmail.com>,
+	Germain Hebert <germain.hebert@ca.abb.com>,
+	Jiri Kosina <jkosina@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 30/69] nvme: rename CDR/MORE/DNR to NVME_STATUS_*
-Date: Mon, 31 Aug 2026 15:35:03 +0200
-Message-ID: <20260831133359.981948530@linuxfoundation.org>
+Subject: [PATCH 5.15 33/69] HID: ft260: fix i2c probing for hwmon devices
+Date: Mon, 31 Aug 2026 15:35:06 +0200
+Message-ID: <20260831133400.161575428@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
 References: <20260831133358.601894154@linuxfoundation.org>
@@ -54,953 +52,90 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Weiwen Hu <huweiwen@linux.alibaba.com>
+From: Michael Zaidman <michael.zaidman@gmail.com>
 
-[ Upstream commit dd0b0a4a2c5d7209457dc172997d1243ad269cfa ]
+[ Upstream commit a94f61e63f337d95001e1a976ab701100fa1d666 ]
 
-CDR/MORE/DNR fields are not belonging to SC in the NVMe spec, rename
-them to NVME_STATUS_* to avoid confusion.
+The below scenario causes the kernel NULL pointer dereference failure:
+1. sudo insmod hid-ft260.ko
+2. sudo modprobe lm75
+3. unplug USB hid-ft260
+4. plug USB hid-ft260
 
-Signed-off-by: Weiwen Hu <huweiwen@linux.alibaba.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Stable-dep-of: 4a3f00262a04 ("nvmet-tcp: bound SGL data length before allocating command buffers")
+[  +0.000006] Call Trace:
+[  +0.000004]  __i2c_smbus_xfer.part.0+0xd1/0x310
+[  +0.000007]  ? ft260_smbus_write+0x140/0x140 [hid_ft260]
+[  +0.000005]  __i2c_smbus_xfer+0x2b/0x80
+[  +0.000004]  i2c_smbus_xfer+0x61/0xf0
+[  +0.000005]  i2c_default_probe+0xf9/0x130
+[  +0.000004]  i2c_detect_address+0x84/0x160
+[  +0.000004]  ? kmem_cache_alloc_trace+0xf6/0x200
+[  +0.000009]  ? i2c_detect.isra.0+0x69/0x130
+[  +0.000005]  i2c_detect.isra.0+0xbf/0x130
+[  +0.000004]  ? __process_new_driver+0x30/0x30
+[  +0.000004]  __process_new_adapter+0x18/0x20
+[  +0.000004]  bus_for_each_drv+0x84/0xd0
+[  +0.000003]  i2c_register_adapter+0x1e4/0x400
+[  +0.000005]  i2c_add_adapter+0x5c/0x80
+[  +0.000004]  ft260_probe.cold+0x222/0x2e2 [hid_ft260]
+[  +0.000006]  hid_device_probe+0x10e/0x170 [hid]
+[  +0.000009]  really_probe+0xff/0x460
+[  +0.000004]  driver_probe_device+0xe9/0x160
+[  +0.000003]  __device_attach_driver+0x71/0xd0
+[  +0.000004]  ? driver_allows_async_probing+0x50/0x50
+[  +0.000004]  bus_for_each_drv+0x84/0xd0
+[  +0.000002]  __device_attach+0xde/0x1e0
+[  +0.000004]  device_initial_probe+0x13/0x20
+[  +0.000004]  bus_probe_device+0x8f/0xa0
+[  +0.000003]  device_add+0x333/0x5f0
+
+It happened when i2c core probed for the devices associated with the lm75
+driver by invoking 2c_detect()-->..-->ft260_smbus_write() from within the
+ft260_probe before setting the adapter data with i2c_set_adapdata().
+
+Moving the i2c_set_adapdata() before i2c_add_adapter() fixed the failure.
+
+Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
+Signed-off-by: Germain Hebert <germain.hebert@ca.abb.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.cz>
+Stable-dep-of: bf3e39df3a39 ("HID: ft260: fix stack-use-after-return write in I2C read race")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/nvme/host/core.c          |   12 +++++-----
- drivers/nvme/host/fabrics.c       |    8 +++----
- drivers/nvme/host/fault_inject.c  |    2 -
- drivers/nvme/host/fc.c            |    8 +++----
- drivers/nvme/target/admin-cmd.c   |   20 +++++++++---------
- drivers/nvme/target/core.c        |   42 +++++++++++++++++++-------------------
- drivers/nvme/target/discovery.c   |   14 ++++++------
- drivers/nvme/target/fabrics-cmd.c |   32 ++++++++++++++--------------
- drivers/nvme/target/io-cmd-bdev.c |   12 +++++-----
- drivers/nvme/target/nvmet.h       |    2 -
- drivers/nvme/target/passthru.c    |   10 ++++-----
- drivers/nvme/target/rdma.c        |   10 ++++-----
- drivers/nvme/target/tcp.c         |    4 +--
- drivers/nvme/target/zns.c         |   30 +++++++++++++--------------
- include/linux/nvme.h              |    4 +--
- 15 files changed, 105 insertions(+), 105 deletions(-)
+ drivers/hid/hid-ft260.c |   11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -308,7 +308,7 @@ static void nvme_retry_req(struct reques
- 	u16 crd;
+--- a/drivers/hid/hid-ft260.c
++++ b/drivers/hid/hid-ft260.c
+@@ -969,24 +969,23 @@ static int ft260_probe(struct hid_device
+ 	mutex_init(&dev->lock);
+ 	init_completion(&dev->wait);
  
- 	/* The mask and shift result must be <= 3 */
--	crd = (nvme_req(req)->status & NVME_SC_CRD) >> 11;
-+	crd = (nvme_req(req)->status & NVME_STATUS_CRD) >> 11;
- 	if (crd)
- 		delay = nvme_req(req)->ctrl->crdt[crd - 1] * 100;
- 
-@@ -329,7 +329,7 @@ static inline enum nvme_disposition nvme
- 		return COMPLETE;
- 
- 	if (blk_noretry_request(req) ||
--	    (nvme_req(req)->status & NVME_SC_DNR) ||
-+	    (nvme_req(req)->status & NVME_STATUS_DNR) ||
- 	    nvme_req(req)->retries >= nvme_max_retries)
- 		return COMPLETE;
- 
-@@ -1519,7 +1519,7 @@ static int nvme_identify_ns(struct nvme_
- 		goto out_free_id;
++	ret = ft260_xfer_status(dev);
++	if (ret)
++		ft260_i2c_reset(hdev);
++
++	i2c_set_adapdata(&dev->adap, dev);
+ 	ret = i2c_add_adapter(&dev->adap);
+ 	if (ret) {
+ 		hid_err(hdev, "failed to add i2c adapter\n");
+ 		goto err_hid_close;
  	}
  
--	error = NVME_SC_INVALID_NS | NVME_SC_DNR;
-+	error = NVME_SC_INVALID_NS | NVME_STATUS_DNR;
- 	if ((*id)->ncap == 0) /* namespace not allocated or attached */
- 		goto out_free_id;
- 
-@@ -4015,7 +4015,7 @@ static void nvme_ns_remove_by_nsid(struc
- static void nvme_validate_ns(struct nvme_ns *ns, struct nvme_ns_ids *ids)
- {
- 	struct nvme_id_ns *id;
--	int ret = NVME_SC_INVALID_NS | NVME_SC_DNR;
-+	int ret = NVME_SC_INVALID_NS | NVME_STATUS_DNR;
- 
- 	if (test_bit(NVME_NS_DEAD, &ns->flags))
- 		goto out;
-@@ -4024,7 +4024,7 @@ static void nvme_validate_ns(struct nvme
- 	if (ret)
- 		goto out;
- 
--	ret = NVME_SC_INVALID_NS | NVME_SC_DNR;
-+	ret = NVME_SC_INVALID_NS | NVME_STATUS_DNR;
- 	if (!nvme_ns_ids_equal(&ns->head->ids, ids)) {
- 		dev_err(ns->ctrl->device,
- 			"identifiers changed for nsid %d\n", ns->head->ns_id);
-@@ -4042,7 +4042,7 @@ out:
- 	 *
- 	 * TODO: we should probably schedule a delayed retry here.
- 	 */
--	if (ret > 0 && (ret & NVME_SC_DNR))
-+	if (ret > 0 && (ret & NVME_STATUS_DNR))
- 		nvme_ns_remove(ns);
- }
- 
---- a/drivers/nvme/host/fabrics.c
-+++ b/drivers/nvme/host/fabrics.c
-@@ -161,7 +161,7 @@ int nvmf_reg_read32(struct nvme_ctrl *ct
- 	if (unlikely(ret != 0))
- 		dev_err(ctrl->device,
- 			"Property Get error: %d, offset %#x\n",
--			ret > 0 ? ret & ~NVME_SC_DNR : ret, off);
-+			ret > 0 ? ret & ~NVME_STATUS_DNR : ret, off);
- 
- 	return ret;
- }
-@@ -207,7 +207,7 @@ int nvmf_reg_read64(struct nvme_ctrl *ct
- 	if (unlikely(ret != 0))
- 		dev_err(ctrl->device,
- 			"Property Get error: %d, offset %#x\n",
--			ret > 0 ? ret & ~NVME_SC_DNR : ret, off);
-+			ret > 0 ? ret & ~NVME_STATUS_DNR : ret, off);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(nvmf_reg_read64);
-@@ -249,7 +249,7 @@ int nvmf_reg_write32(struct nvme_ctrl *c
- 	if (unlikely(ret))
- 		dev_err(ctrl->device,
- 			"Property Set error: %d, offset %#x\n",
--			ret > 0 ? ret & ~NVME_SC_DNR : ret, off);
-+			ret > 0 ? ret & ~NVME_STATUS_DNR : ret, off);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(nvmf_reg_write32);
-@@ -284,7 +284,7 @@ static void nvmf_log_connect_error(struc
- 		int errval, int offset, struct nvme_command *cmd,
- 		struct nvmf_connect_data *data)
- {
--	int err_sctype = errval & ~NVME_SC_DNR;
-+	int err_sctype = errval & ~NVME_STATUS_DNR;
- 
- 	switch (err_sctype) {
- 	case (NVME_SC_CONNECT_INVALID_PARAM):
---- a/drivers/nvme/host/fault_inject.c
-+++ b/drivers/nvme/host/fault_inject.c
-@@ -75,7 +75,7 @@ void nvme_should_fail(struct request *re
- 		/* inject status code and DNR bit */
- 		status = fault_inject->status;
- 		if (fault_inject->dont_retry)
--			status |= NVME_SC_DNR;
-+			status |= NVME_STATUS_DNR;
- 		nvme_req(req)->status =	status;
- 	}
- }
---- a/drivers/nvme/host/fc.c
-+++ b/drivers/nvme/host/fc.c
-@@ -3108,7 +3108,7 @@ nvme_fc_create_association(struct nvme_f
- 	if (ctrl->ctrl.icdoff) {
- 		dev_err(ctrl->ctrl.device, "icdoff %d is not supported!\n",
- 				ctrl->ctrl.icdoff);
--		ret = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		ret = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out_disconnect_admin_queue;
- 	}
- 
-@@ -3116,7 +3116,7 @@ nvme_fc_create_association(struct nvme_f
- 	if (!nvme_ctrl_sgl_supported(&ctrl->ctrl)) {
- 		dev_err(ctrl->ctrl.device,
- 			"Mandatory sgls are not supported!\n");
--		ret = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		ret = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out_disconnect_admin_queue;
- 	}
- 
-@@ -3287,7 +3287,7 @@ nvme_fc_reconnect_or_delete(struct nvme_
- 		dev_info(ctrl->ctrl.device,
- 			"NVME-FC{%d}: reset: Reconnect attempt failed (%d)\n",
- 			ctrl->cnum, status);
--		if (status > 0 && (status & NVME_SC_DNR))
-+		if (status > 0 && (status & NVME_STATUS_DNR))
- 			recon = false;
- 	} else if (time_after_eq(jiffies, rport->dev_loss_end))
- 		recon = false;
-@@ -3304,7 +3304,7 @@ nvme_fc_reconnect_or_delete(struct nvme_
- 		queue_delayed_work(nvme_wq, &ctrl->connect_work, recon_delay);
- 	} else {
- 		if (portptr->port_state == FC_OBJSTATE_ONLINE) {
--			if (status > 0 && (status & NVME_SC_DNR))
-+			if (status > 0 && (status & NVME_STATUS_DNR))
- 				dev_warn(ctrl->ctrl.device,
- 					 "NVME-FC{%d}: reconnect failure\n",
- 					 ctrl->cnum);
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -342,7 +342,7 @@ static void nvmet_execute_get_log_page(s
- 	pr_debug("unhandled lid %d on qid %d\n",
- 	       req->cmd->get_log_page.lid, req->sq->qid);
- 	req->error_loc = offsetof(struct nvme_get_log_page_command, lid);
--	nvmet_req_complete(req, NVME_SC_INVALID_FIELD | NVME_SC_DNR);
-+	nvmet_req_complete(req, NVME_SC_INVALID_FIELD | NVME_STATUS_DNR);
- }
- 
- static void nvmet_execute_identify_ctrl(struct nvmet_req *req)
-@@ -491,7 +491,7 @@ static void nvmet_execute_identify_ns(st
- 
- 	if (le32_to_cpu(req->cmd->identify.nsid) == NVME_NSID_ALL) {
- 		req->error_loc = offsetof(struct nvme_identify, nsid);
--		status = NVME_SC_INVALID_NS | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_NS | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -657,7 +657,7 @@ static void nvmet_execute_identify_descl
- 
- 	if (sg_zero_buffer(req->sg, req->sg_cnt, NVME_IDENTIFY_DATA_SIZE - off,
- 			off) != NVME_IDENTIFY_DATA_SIZE - off)
--		status = NVME_SC_INTERNAL | NVME_SC_DNR;
-+		status = NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 
- out:
- 	nvmet_req_complete(req, status);
-@@ -814,7 +814,7 @@ u16 nvmet_set_feat_async_event(struct nv
- 
- 	if (val32 & ~mask) {
- 		req->error_loc = offsetof(struct nvme_common_command, cdw11);
--		return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- 
- 	WRITE_ONCE(req->sq->ctrl->aen_enabled, val32);
-@@ -840,7 +840,7 @@ void nvmet_execute_set_features(struct n
- 		ncqr = (cdw11 >> 16) & 0xffff;
- 		nsqr = cdw11 & 0xffff;
- 		if (ncqr == 0xffff || nsqr == 0xffff) {
--			status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+			status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 			break;
- 		}
- 		nvmet_set_result(req,
-@@ -853,14 +853,14 @@ void nvmet_execute_set_features(struct n
- 		status = nvmet_set_feat_async_event(req, NVMET_AEN_CFG_ALL);
- 		break;
- 	case NVME_FEAT_HOST_ID:
--		status = NVME_SC_CMD_SEQ_ERROR | NVME_SC_DNR;
-+		status = NVME_SC_CMD_SEQ_ERROR | NVME_STATUS_DNR;
- 		break;
- 	case NVME_FEAT_WRITE_PROTECT:
- 		status = nvmet_set_feat_write_protect(req);
- 		break;
- 	default:
- 		req->error_loc = offsetof(struct nvme_common_command, cdw10);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		break;
- 	}
- 
-@@ -946,7 +946,7 @@ void nvmet_execute_get_features(struct n
- 		if (!(req->cmd->common.cdw11 & cpu_to_le32(1 << 0))) {
- 			req->error_loc =
- 				offsetof(struct nvme_common_command, cdw11);
--			status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+			status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 			break;
- 		}
- 
-@@ -959,7 +959,7 @@ void nvmet_execute_get_features(struct n
- 	default:
- 		req->error_loc =
- 			offsetof(struct nvme_common_command, cdw10);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		break;
- 	}
- 
-@@ -976,7 +976,7 @@ void nvmet_execute_async_event(struct nv
- 	mutex_lock(&ctrl->lock);
- 	if (ctrl->nr_async_event_cmds >= NVMET_ASYNC_EVENTS) {
- 		mutex_unlock(&ctrl->lock);
--		nvmet_req_complete(req, NVME_SC_ASYNC_LIMIT | NVME_SC_DNR);
-+		nvmet_req_complete(req, NVME_SC_ASYNC_LIMIT | NVME_STATUS_DNR);
- 		return;
- 	}
- 	ctrl->async_event_cmds[ctrl->nr_async_event_cmds++] = req;
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -53,18 +53,18 @@ inline u16 errno_to_nvme_status(struct n
- 		return NVME_SC_SUCCESS;
- 	case -ENOSPC:
- 		req->error_loc = offsetof(struct nvme_rw_command, length);
--		return NVME_SC_CAP_EXCEEDED | NVME_SC_DNR;
-+		return NVME_SC_CAP_EXCEEDED | NVME_STATUS_DNR;
- 	case -EREMOTEIO:
- 		req->error_loc = offsetof(struct nvme_rw_command, slba);
--		return  NVME_SC_LBA_RANGE | NVME_SC_DNR;
-+		return  NVME_SC_LBA_RANGE | NVME_STATUS_DNR;
- 	case -EOPNOTSUPP:
- 		req->error_loc = offsetof(struct nvme_common_command, opcode);
- 		switch (req->cmd->common.opcode) {
- 		case nvme_cmd_dsm:
- 		case nvme_cmd_write_zeroes:
--			return NVME_SC_ONCS_NOT_SUPPORTED | NVME_SC_DNR;
-+			return NVME_SC_ONCS_NOT_SUPPORTED | NVME_STATUS_DNR;
- 		default:
--			return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+			return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 		}
- 		break;
- 	case -ENODATA:
-@@ -74,7 +74,7 @@ inline u16 errno_to_nvme_status(struct n
- 		fallthrough;
- 	default:
- 		req->error_loc = offsetof(struct nvme_common_command, opcode);
--		return NVME_SC_INTERNAL | NVME_SC_DNR;
-+		return NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 	}
- }
- 
-@@ -84,7 +84,7 @@ u16 nvmet_report_invalid_opcode(struct n
- 		 req->sq->qid);
- 
- 	req->error_loc = offsetof(struct nvme_common_command, opcode);
--	return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+	return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- }
- 
- static struct nvmet_subsys *nvmet_find_get_subsys(struct nvmet_port *port,
-@@ -95,7 +95,7 @@ u16 nvmet_copy_to_sgl(struct nvmet_req *
- {
- 	if (sg_pcopy_from_buffer(req->sg, req->sg_cnt, buf, len, off) != len) {
- 		req->error_loc = offsetof(struct nvme_common_command, dptr);
--		return NVME_SC_SGL_INVALID_DATA | NVME_SC_DNR;
-+		return NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
- 	}
- 	return 0;
- }
-@@ -104,7 +104,7 @@ u16 nvmet_copy_from_sgl(struct nvmet_req
- {
- 	if (sg_pcopy_to_buffer(req->sg, req->sg_cnt, buf, len, off) != len) {
- 		req->error_loc = offsetof(struct nvme_common_command, dptr);
--		return NVME_SC_SGL_INVALID_DATA | NVME_SC_DNR;
-+		return NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
- 	}
- 	return 0;
- }
-@@ -113,7 +113,7 @@ u16 nvmet_zero_sgl(struct nvmet_req *req
- {
- 	if (sg_zero_buffer(req->sg, req->sg_cnt, len, off) != len) {
- 		req->error_loc = offsetof(struct nvme_common_command, dptr);
--		return NVME_SC_SGL_INVALID_DATA | NVME_SC_DNR;
-+		return NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
- 	}
- 	return 0;
- }
-@@ -143,7 +143,7 @@ static void nvmet_async_events_failall(s
- 	while (ctrl->nr_async_event_cmds) {
- 		req = ctrl->async_event_cmds[--ctrl->nr_async_event_cmds];
- 		mutex_unlock(&ctrl->lock);
--		nvmet_req_complete(req, NVME_SC_INTERNAL | NVME_SC_DNR);
-+		nvmet_req_complete(req, NVME_SC_INTERNAL | NVME_STATUS_DNR);
- 		mutex_lock(&ctrl->lock);
- 	}
- 	mutex_unlock(&ctrl->lock);
-@@ -427,7 +427,7 @@ u16 nvmet_req_find_ns(struct nvmet_req *
- 	req->ns = xa_load(&nvmet_req_subsys(req)->namespaces, nsid);
- 	if (unlikely(!req->ns)) {
- 		req->error_loc = offsetof(struct nvme_common_command, nsid);
--		return NVME_SC_INVALID_NS | NVME_SC_DNR;
-+		return NVME_SC_INVALID_NS | NVME_STATUS_DNR;
- 	}
- 
- 	percpu_ref_get(&req->ns->ref);
-@@ -942,7 +942,7 @@ bool nvmet_req_init(struct nvmet_req *re
- 	/* no support for fused commands yet */
- 	if (unlikely(flags & (NVME_CMD_FUSE_FIRST | NVME_CMD_FUSE_SECOND))) {
- 		req->error_loc = offsetof(struct nvme_common_command, flags);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto fail;
- 	}
- 
-@@ -953,7 +953,7 @@ bool nvmet_req_init(struct nvmet_req *re
- 	 */
- 	if (unlikely((flags & NVME_CMD_SGL_ALL) != NVME_CMD_SGL_METABUF)) {
- 		req->error_loc = offsetof(struct nvme_common_command, flags);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto fail;
- 	}
- 
-@@ -971,7 +971,7 @@ bool nvmet_req_init(struct nvmet_req *re
- 	trace_nvmet_req_init(req, req->cmd);
- 
- 	if (unlikely(!percpu_ref_tryget_live(&sq->ref))) {
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto fail;
- 	}
- 
-@@ -998,7 +998,7 @@ bool nvmet_check_transfer_len(struct nvm
- {
- 	if (unlikely(len != req->transfer_len)) {
- 		req->error_loc = offsetof(struct nvme_common_command, dptr);
--		nvmet_req_complete(req, NVME_SC_SGL_INVALID_DATA | NVME_SC_DNR);
-+		nvmet_req_complete(req, NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR);
- 		return false;
- 	}
- 
-@@ -1010,7 +1010,7 @@ bool nvmet_check_data_len_lte(struct nvm
- {
- 	if (unlikely(data_len > req->transfer_len)) {
- 		req->error_loc = offsetof(struct nvme_common_command, dptr);
--		nvmet_req_complete(req, NVME_SC_SGL_INVALID_DATA | NVME_SC_DNR);
-+		nvmet_req_complete(req, NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR);
- 		return false;
- 	}
- 
-@@ -1275,13 +1275,13 @@ u16 nvmet_check_ctrl_status(struct nvmet
- 	if (unlikely(!(req->sq->ctrl->cc & NVME_CC_ENABLE))) {
- 		pr_err("got cmd %d while CC.EN == 0 on qid = %d\n",
- 		       req->cmd->common.opcode, req->sq->qid);
--		return NVME_SC_CMD_SEQ_ERROR | NVME_SC_DNR;
-+		return NVME_SC_CMD_SEQ_ERROR | NVME_STATUS_DNR;
- 	}
- 
- 	if (unlikely(!(req->sq->ctrl->csts & NVME_CSTS_RDY))) {
- 		pr_err("got cmd %d while CSTS.RDY == 0 on qid = %d\n",
- 		       req->cmd->common.opcode, req->sq->qid);
--		return NVME_SC_CMD_SEQ_ERROR | NVME_SC_DNR;
-+		return NVME_SC_CMD_SEQ_ERROR | NVME_STATUS_DNR;
- 	}
- 	return 0;
- }
-@@ -1355,7 +1355,7 @@ u16 nvmet_alloc_ctrl(const char *subsysn
- 	int ret;
- 	u16 status;
- 
--	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
-+	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
- 	if (!subsys) {
- 		pr_warn("connect request for invalid subsystem %s!\n",
-@@ -1371,7 +1371,7 @@ u16 nvmet_alloc_ctrl(const char *subsysn
- 			hostnqn, subsysnqn);
- 		req->cqe->result.u32 = IPO_IATTR_CONNECT_DATA(hostnqn);
- 		up_read(&nvmet_config_sem);
--		status = NVME_SC_CONNECT_INVALID_HOST | NVME_SC_DNR;
-+		status = NVME_SC_CONNECT_INVALID_HOST | NVME_STATUS_DNR;
- 		req->error_loc = offsetof(struct nvme_common_command, dptr);
- 		goto out_put_subsystem;
- 	}
-@@ -1417,7 +1417,7 @@ u16 nvmet_alloc_ctrl(const char *subsysn
- 			     subsys->cntlid_min, subsys->cntlid_max,
- 			     GFP_KERNEL);
+-	i2c_set_adapdata(&dev->adap, dev);
+-
+ 	ret = sysfs_create_group(&hdev->dev.kobj, &ft260_attr_group);
  	if (ret < 0) {
--		status = NVME_SC_CONNECT_CTRL_BUSY | NVME_SC_DNR;
-+		status = NVME_SC_CONNECT_CTRL_BUSY | NVME_STATUS_DNR;
- 		goto out_free_sqs;
- 	}
- 	ctrl->cntlid = ret;
---- a/drivers/nvme/target/discovery.c
-+++ b/drivers/nvme/target/discovery.c
-@@ -178,7 +178,7 @@ static void nvmet_execute_disc_get_log_p
- 	if (req->cmd->get_log_page.lid != NVME_LOG_DISC) {
- 		req->error_loc =
- 			offsetof(struct nvme_get_log_page_command, lid);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out;
+ 		hid_err(hdev, "failed to create sysfs attrs\n");
+ 		goto err_i2c_free;
  	}
  
-@@ -186,7 +186,7 @@ static void nvmet_execute_disc_get_log_p
- 	if (offset & 0x3) {
- 		req->error_loc =
- 			offsetof(struct nvme_get_log_page_command, lpo);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -251,7 +251,7 @@ static void nvmet_execute_disc_identify(
- 
- 	if (req->cmd->identify.cns != NVME_ID_CNS_CTRL) {
- 		req->error_loc = offsetof(struct nvme_identify, cns);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -313,7 +313,7 @@ static void nvmet_execute_disc_set_featu
- 	default:
- 		req->error_loc =
- 			offsetof(struct nvme_common_command, cdw10);
--		stat = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		stat = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		break;
- 	}
- 
-@@ -338,7 +338,7 @@ static void nvmet_execute_disc_get_featu
- 	default:
- 		req->error_loc =
- 			offsetof(struct nvme_common_command, cdw10);
--		stat = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		stat = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		break;
- 	}
- 
-@@ -354,7 +354,7 @@ u16 nvmet_parse_discovery_cmd(struct nvm
- 		       cmd->common.opcode);
- 		req->error_loc =
- 			offsetof(struct nvme_common_command, opcode);
--		return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+		return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 	}
- 
- 	switch (cmd->common.opcode) {
-@@ -379,7 +379,7 @@ u16 nvmet_parse_discovery_cmd(struct nvm
- 	default:
- 		pr_debug("unhandled cmd %d\n", cmd->common.opcode);
- 		req->error_loc = offsetof(struct nvme_common_command, opcode);
--		return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+		return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 	}
- 
- }
---- a/drivers/nvme/target/fabrics-cmd.c
-+++ b/drivers/nvme/target/fabrics-cmd.c
-@@ -18,7 +18,7 @@ static void nvmet_execute_prop_set(struc
- 	if (req->cmd->prop_set.attrib & 1) {
- 		req->error_loc =
- 			offsetof(struct nvmf_property_set_command, attrib);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -29,7 +29,7 @@ static void nvmet_execute_prop_set(struc
- 	default:
- 		req->error_loc =
- 			offsetof(struct nvmf_property_set_command, offset);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- out:
- 	nvmet_req_complete(req, status);
-@@ -50,7 +50,7 @@ static void nvmet_execute_prop_get(struc
- 			val = ctrl->cap;
- 			break;
- 		default:
--			status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+			status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 			break;
- 		}
- 	} else {
-@@ -65,7 +65,7 @@ static void nvmet_execute_prop_get(struc
- 			val = ctrl->csts;
- 			break;
- 		default:
--			status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+			status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 			break;
- 		}
- 	}
-@@ -97,7 +97,7 @@ u16 nvmet_parse_fabrics_cmd(struct nvmet
- 		pr_debug("received unknown capsule type 0x%x\n",
- 			cmd->fabrics.fctype);
- 		req->error_loc = offsetof(struct nvmf_common_command, fctype);
--		return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+		return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 	}
- 
+-	ret = ft260_xfer_status(dev);
+-	if (ret)
+-		ft260_i2c_reset(hdev);
+-
  	return 0;
-@@ -116,14 +116,14 @@ static u16 nvmet_install_queue(struct nv
- 		pr_warn("queue size zero!\n");
- 		req->error_loc = offsetof(struct nvmf_connect_command, sqsize);
- 		req->cqe->result.u32 = IPO_IATTR_CONNECT_SQE(sqsize);
--		ret = NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
-+		ret = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 		goto err;
- 	}
  
- 	if (ctrl->sqs[qid] != NULL) {
- 		pr_warn("qid %u has already been created\n", qid);
- 		req->error_loc = offsetof(struct nvmf_connect_command, qid);
--		return NVME_SC_CMD_SEQ_ERROR | NVME_SC_DNR;
-+		return NVME_SC_CMD_SEQ_ERROR | NVME_STATUS_DNR;
- 	}
- 
- 	if (sqsize > mqes) {
-@@ -131,14 +131,14 @@ static u16 nvmet_install_queue(struct nv
- 				sqsize, mqes, ctrl->cntlid);
- 		req->error_loc = offsetof(struct nvmf_connect_command, sqsize);
- 		req->cqe->result.u32 = IPO_IATTR_CONNECT_SQE(sqsize);
--		return NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
-+		return NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	}
- 
- 	old = cmpxchg(&req->sq->ctrl, NULL, ctrl);
- 	if (old) {
- 		pr_warn("queue already connected!\n");
- 		req->error_loc = offsetof(struct nvmf_connect_command, opcode);
--		return NVME_SC_CONNECT_CTRL_BUSY | NVME_SC_DNR;
-+		return NVME_SC_CONNECT_CTRL_BUSY | NVME_STATUS_DNR;
- 	}
- 
- 	/* note: convert queue size from 0's-based value to 1's-based value */
-@@ -191,14 +191,14 @@ static void nvmet_execute_admin_connect(
- 		pr_warn("invalid connect version (%d).\n",
- 			le16_to_cpu(c->recfmt));
- 		req->error_loc = offsetof(struct nvmf_connect_command, recfmt);
--		status = NVME_SC_CONNECT_FORMAT | NVME_SC_DNR;
-+		status = NVME_SC_CONNECT_FORMAT | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
- 	if (unlikely(d->cntlid != cpu_to_le16(0xffff))) {
- 		pr_warn("connect attempt for invalid controller ID %#x\n",
- 			d->cntlid);
--		status = NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
-+		status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 		req->cqe->result.u32 = IPO_IATTR_CONNECT_DATA(cntlid);
- 		goto out;
- 	}
-@@ -255,7 +255,7 @@ static void nvmet_execute_io_connect(str
- 	if (c->recfmt != 0) {
- 		pr_warn("invalid connect version (%d).\n",
- 			le16_to_cpu(c->recfmt));
--		status = NVME_SC_CONNECT_FORMAT | NVME_SC_DNR;
-+		status = NVME_SC_CONNECT_FORMAT | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -264,13 +264,13 @@ static void nvmet_execute_io_connect(str
- 	ctrl = nvmet_ctrl_find_get(d->subsysnqn, d->hostnqn,
- 				   le16_to_cpu(d->cntlid), req);
- 	if (!ctrl) {
--		status = NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
-+		status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
- 	if (unlikely(qid > ctrl->subsys->max_qid)) {
- 		pr_warn("invalid queue id (%d)\n", qid);
--		status = NVME_SC_CONNECT_INVALID_PARAM | NVME_SC_DNR;
-+		status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 		req->cqe->result.u32 = IPO_IATTR_CONNECT_SQE(qid);
- 		goto out_ctrl_put;
- 	}
-@@ -303,13 +303,13 @@ u16 nvmet_parse_connect_cmd(struct nvmet
- 		pr_debug("invalid command 0x%x on unconnected queue.\n",
- 			cmd->fabrics.opcode);
- 		req->error_loc = offsetof(struct nvme_common_command, opcode);
--		return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+		return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 	}
- 	if (cmd->fabrics.fctype != nvme_fabrics_type_connect) {
- 		pr_debug("invalid capsule type 0x%x on unconnected queue.\n",
- 			cmd->fabrics.fctype);
- 		req->error_loc = offsetof(struct nvmf_common_command, fctype);
--		return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+		return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 	}
- 
- 	if (cmd->connect.qid == 0)
---- a/drivers/nvme/target/io-cmd-bdev.c
-+++ b/drivers/nvme/target/io-cmd-bdev.c
-@@ -124,11 +124,11 @@ u16 blk_to_nvme_status(struct nvmet_req
- 	 */
- 	switch (blk_sts) {
- 	case BLK_STS_NOSPC:
--		status = NVME_SC_CAP_EXCEEDED | NVME_SC_DNR;
-+		status = NVME_SC_CAP_EXCEEDED | NVME_STATUS_DNR;
- 		req->error_loc = offsetof(struct nvme_rw_command, length);
- 		break;
- 	case BLK_STS_TARGET:
--		status = NVME_SC_LBA_RANGE | NVME_SC_DNR;
-+		status = NVME_SC_LBA_RANGE | NVME_STATUS_DNR;
- 		req->error_loc = offsetof(struct nvme_rw_command, slba);
- 		break;
- 	case BLK_STS_NOTSUPP:
-@@ -136,10 +136,10 @@ u16 blk_to_nvme_status(struct nvmet_req
- 		switch (req->cmd->common.opcode) {
- 		case nvme_cmd_dsm:
- 		case nvme_cmd_write_zeroes:
--			status = NVME_SC_ONCS_NOT_SUPPORTED | NVME_SC_DNR;
-+			status = NVME_SC_ONCS_NOT_SUPPORTED | NVME_STATUS_DNR;
- 			break;
- 		default:
--			status = NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+			status = NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 		}
- 		break;
- 	case BLK_STS_MEDIUM:
-@@ -148,7 +148,7 @@ u16 blk_to_nvme_status(struct nvmet_req
- 		break;
- 	case BLK_STS_IOERR:
- 	default:
--		status = NVME_SC_INTERNAL | NVME_SC_DNR;
-+		status = NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 		req->error_loc = offsetof(struct nvme_common_command, opcode);
- 	}
- 
-@@ -339,7 +339,7 @@ static void nvmet_bdev_execute_flush(str
- u16 nvmet_bdev_flush(struct nvmet_req *req)
- {
- 	if (blkdev_issue_flush(req->ns->bdev))
--		return NVME_SC_INTERNAL | NVME_SC_DNR;
-+		return NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 	return 0;
- }
- 
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -653,7 +653,7 @@ static inline void nvmet_req_cns_error_c
- 	pr_debug("unhandled identify cns %d on qid %d\n",
- 	       req->cmd->identify.cns, req->sq->qid);
- 	req->error_loc = offsetof(struct nvme_identify, cns);
--	nvmet_req_complete(req, NVME_SC_INVALID_FIELD | NVME_SC_DNR);
-+	nvmet_req_complete(req, NVME_SC_INVALID_FIELD | NVME_STATUS_DNR);
- }
- 
- static inline void nvmet_req_bio_put(struct nvmet_req *req, struct bio *bio)
---- a/drivers/nvme/target/passthru.c
-+++ b/drivers/nvme/target/passthru.c
-@@ -243,7 +243,7 @@ static void nvmet_passthru_execute_cmd(s
- 		ns = nvme_find_get_ns(ctrl, nsid);
- 		if (unlikely(!ns)) {
- 			pr_err("failed to get passthru ns nsid:%u\n", nsid);
--			status = NVME_SC_INVALID_NS | NVME_SC_DNR;
-+			status = NVME_SC_INVALID_NS | NVME_STATUS_DNR;
- 			goto out;
- 		}
- 
-@@ -362,7 +362,7 @@ u16 nvmet_parse_passthru_io_cmd(struct n
- 		 * emulated in the future if regular targets grow support for
- 		 * this feature.
- 		 */
--		return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+		return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 	}
- 
- 	return nvmet_setup_passthru_command(req);
-@@ -414,7 +414,7 @@ static u16 nvmet_passthru_get_set_featur
- 	case NVME_FEAT_RESV_PERSIST:
- 		/* No reservations, see nvmet_parse_passthru_io_cmd() */
- 	default:
--		return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+		return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 	}
- }
- 
-@@ -482,7 +482,7 @@ u16 nvmet_parse_passthru_admin_cmd(struc
- 				req->p.use_workqueue = true;
- 				return NVME_SC_SUCCESS;
- 			}
--			return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+			return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 		case NVME_ID_CNS_NS:
- 			req->execute = nvmet_passthru_execute_cmd;
- 			req->p.use_workqueue = true;
-@@ -494,7 +494,7 @@ u16 nvmet_parse_passthru_admin_cmd(struc
- 				req->p.use_workqueue = true;
- 				return NVME_SC_SUCCESS;
- 			}
--			return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
-+			return NVME_SC_INVALID_OPCODE | NVME_STATUS_DNR;
- 		default:
- 			return nvmet_setup_passthru_command(req);
- 		}
---- a/drivers/nvme/target/rdma.c
-+++ b/drivers/nvme/target/rdma.c
-@@ -852,12 +852,12 @@ static u16 nvmet_rdma_map_sgl_inline(str
- 	if (!nvme_is_write(rsp->req.cmd)) {
- 		rsp->req.error_loc =
- 			offsetof(struct nvme_common_command, opcode);
--		return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- 
- 	if (off + len > rsp->queue->dev->inline_data_size) {
- 		pr_err("invalid inline data offset!\n");
--		return NVME_SC_SGL_INVALID_OFFSET | NVME_SC_DNR;
-+		return NVME_SC_SGL_INVALID_OFFSET | NVME_STATUS_DNR;
- 	}
- 
- 	/* no data command? */
-@@ -921,7 +921,7 @@ static u16 nvmet_rdma_map_sgl(struct nvm
- 			pr_err("invalid SGL subtype: %#x\n", sgl->type);
- 			rsp->req.error_loc =
- 				offsetof(struct nvme_common_command, dptr);
--			return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+			return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		}
- 	case NVME_KEY_SGL_FMT_DATA_DESC:
- 		switch (sgl->type & 0xf) {
-@@ -933,12 +933,12 @@ static u16 nvmet_rdma_map_sgl(struct nvm
- 			pr_err("invalid SGL subtype: %#x\n", sgl->type);
- 			rsp->req.error_loc =
- 				offsetof(struct nvme_common_command, dptr);
--			return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+			return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		}
- 	default:
- 		pr_err("invalid SGL type: %#x\n", sgl->type);
- 		rsp->req.error_loc = offsetof(struct nvme_common_command, dptr);
--		return NVME_SC_SGL_INVALID_TYPE | NVME_SC_DNR;
-+		return NVME_SC_SGL_INVALID_TYPE | NVME_STATUS_DNR;
- 	}
- }
- 
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -397,10 +397,10 @@ static int nvmet_tcp_map_data(struct nvm
- 	if (sgl->type == ((NVME_SGL_FMT_DATA_DESC << 4) |
- 			  NVME_SGL_FMT_OFFSET)) {
- 		if (!nvme_is_write(cmd->req.cmd))
--			return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+			return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 
- 		if (len > cmd->req.port->inline_data_size)
--			return NVME_SC_SGL_INVALID_OFFSET | NVME_SC_DNR;
-+			return NVME_SC_SGL_INVALID_OFFSET | NVME_STATUS_DNR;
- 		cmd->pdu_len = len;
- 	}
- 	cmd->req.transfer_len += len;
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -104,7 +104,7 @@ void nvmet_execute_identify_cns_cs_ns(st
- 
- 	if (le32_to_cpu(req->cmd->identify.nsid) == NVME_NSID_ALL) {
- 		req->error_loc = offsetof(struct nvme_identify, nsid);
--		status = NVME_SC_INVALID_NS | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_NS | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -125,7 +125,7 @@ void nvmet_execute_identify_cns_cs_ns(st
- 	}
- 
- 	if (!bdev_is_zoned(req->ns->bdev)) {
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		req->error_loc = offsetof(struct nvme_identify, nsid);
- 		goto out;
- 	}
-@@ -162,17 +162,17 @@ static u16 nvmet_bdev_validate_zone_mgmt
- 
- 	if (sect >= get_capacity(req->ns->bdev->bd_disk)) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_recv_cmd, slba);
--		return NVME_SC_LBA_RANGE | NVME_SC_DNR;
-+		return NVME_SC_LBA_RANGE | NVME_STATUS_DNR;
- 	}
- 
- 	if (out_bufsize < sizeof(struct nvme_zone_report)) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_recv_cmd, numd);
--		return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- 
- 	if (req->cmd->zmr.zra != NVME_ZRA_ZONE_REPORT) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_recv_cmd, zra);
--		return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- 
- 	switch (req->cmd->zmr.pr) {
-@@ -181,7 +181,7 @@ static u16 nvmet_bdev_validate_zone_mgmt
- 		break;
- 	default:
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_recv_cmd, pr);
--		return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- 
- 	switch (req->cmd->zmr.zrasf) {
-@@ -197,7 +197,7 @@ static u16 nvmet_bdev_validate_zone_mgmt
- 	default:
- 		req->error_loc =
- 			offsetof(struct nvme_zone_mgmt_recv_cmd, zrasf);
--		return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- 
- 	return NVME_SC_SUCCESS;
-@@ -346,7 +346,7 @@ static u16 blkdev_zone_mgmt_errno_to_nvm
- 		return NVME_SC_SUCCESS;
- 	case -EINVAL:
- 	case -EIO:
--		return NVME_SC_ZONE_INVALID_TRANSITION | NVME_SC_DNR;
-+		return NVME_SC_ZONE_INVALID_TRANSITION | NVME_STATUS_DNR;
- 	default:
- 		return NVME_SC_INTERNAL;
- 	}
-@@ -470,7 +470,7 @@ static u16 nvmet_bdev_execute_zmgmt_send
- 	default:
- 		/* this is needed to quiet compiler warning */
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, zsa);
--		return NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 	}
- 
- 	return NVME_SC_SUCCESS;
-@@ -488,7 +488,7 @@ static void nvmet_bdev_zmgmt_send_work(s
- 
- 	if (op == REQ_OP_LAST) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, zsa);
--		status = NVME_SC_ZONE_INVALID_TRANSITION | NVME_SC_DNR;
-+		status = NVME_SC_ZONE_INVALID_TRANSITION | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -500,13 +500,13 @@ static void nvmet_bdev_zmgmt_send_work(s
- 
- 	if (sect >= get_capacity(bdev->bd_disk)) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, slba);
--		status = NVME_SC_LBA_RANGE | NVME_SC_DNR;
-+		status = NVME_SC_LBA_RANGE | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
- 	if (sect & (zone_sectors - 1)) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, slba);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -557,13 +557,13 @@ void nvmet_bdev_execute_zone_append(stru
- 
- 	if (sect >= get_capacity(req->ns->bdev->bd_disk)) {
- 		req->error_loc = offsetof(struct nvme_rw_command, slba);
--		status = NVME_SC_LBA_RANGE | NVME_SC_DNR;
-+		status = NVME_SC_LBA_RANGE | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
- 	if (sect & (bdev_zone_sectors(req->ns->bdev) - 1)) {
- 		req->error_loc = offsetof(struct nvme_rw_command, slba);
--		status = NVME_SC_INVALID_FIELD | NVME_SC_DNR;
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
- 		goto out;
- 	}
- 
-@@ -597,7 +597,7 @@ void nvmet_bdev_execute_zone_append(stru
- 	}
- 
- 	if (total_len != nvmet_rw_data_len(req)) {
--		status = NVME_SC_INTERNAL | NVME_SC_DNR;
-+		status = NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 		goto out_put_bio;
- 	}
- 
---- a/include/linux/nvme.h
-+++ b/include/linux/nvme.h
-@@ -1622,8 +1622,8 @@ enum {
- 	NVME_SC_HOST_PATH_ERROR		= 0x370,
- 	NVME_SC_HOST_ABORTED_CMD	= 0x371,
- 
--	NVME_SC_CRD			= 0x1800,
--	NVME_SC_DNR			= 0x4000,
-+	NVME_STATUS_CRD			= 0x1800,
-+	NVME_STATUS_DNR			= 0x4000,
- };
- 
- struct nvme_completion {
+ err_i2c_free:
 
 
