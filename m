@@ -1,71 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2102E06EF;
-	Mon, 31 Aug 2026 07:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF533C3F56;
+	Mon, 31 Aug 2026 07:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788160412; cv=none; b=qwfGUeYrl8ErLBkYWMQNi+bvvlFggexG8qz9VAyw94su6V3LRYI3fajhKLzsn1tcdfylcAg+X+og9OlEBPvv+HwKLyTKTvQIsQa6aAroOG6UwhyDNMtRyjTw+1e6dD60OATjwauKyrAo7jLzoJXu9HvxTIxmOT1BBBdJRn+S1bw=
+	t=1788160563; cv=none; b=MORur13l4gxYFHdnE747SOXz2yHY9AaGgbo6Gl+A8cwH590Qla9CfMQqWJJ+hE9zc3Yg6erPjxTt2zvP9uUX1vc3ryszKK/hxsCL5uvWL0afwgGORAeXY1hsuatsJ+rks7Ad/84eR+vkMrb1qblLYy55c4V7C+hEnOHsQhrbxFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788160412; c=relaxed/simple;
-	bh=0nrB+sIhXkE6Qo4QsY5geIk3e97a/henQLSCAduykuk=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=f36xgFovRXYCFuq0rnQ0YZ3rg72k8zpgSgY4fw98wdy0NTMMD8fzAKRyohOUh424YtgX6+oq5WdCD3pEvJLlv8LkOqpGRaF+3FwIpxba2d7PIMNCMX52P4Gy8xaPnZDhsb5bqp43EeGO5yC2sLvZqNuSpYY+CmJ/AfEZSLueNOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3b7Dl9c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788160563; c=relaxed/simple;
+	bh=/hoUMFCaauEhjFwUBFMBWHHPovsKQSacc+fhwjP7M2U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UYxRssizd4hIaOoxpJMoEMf009Ma+EmSAuIdnH7Hem14oOf1q4VWOgqDe3LyrUs3Ie8HX5ZdmcmwA0wT2+OLGNBUysJESKIt4Ze7v/bTURVovZXhUnFzeNvfjd+RFrTG/lCAsZWTLpusP2k5QMUvYTKh2gJEWNXBH+9A23/F8b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MpJCoqpJ; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3b7Dl9c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8A61F00A3E;
-	Mon, 31 Aug 2026 07:13:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788160410;
-	bh=DXM8OoP4+1xGpALJBlph/aL9bZdqRRLPBGuhhtyRrnU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=B3b7Dl9crSE763uBiFKi+LIV5ayBfFijE+7gcdry1bgveNK7AtsdmbSKkPSGEsGJ+
-	 LSDcca4HyxnIiY/XlnAt0/vHzSa3el5nSPfUAKQ94pQPnzNAsQGpALyNltl2iQXVmo
-	 2QgJTHilpNUG6ZPv/bOa3DnhzGKDTqF6tVAPC7xhwdnfZpd3fv6n5nysPPAbSqKhBx
-	 ElU75Rqi2wbYr2lxQcdn6qun+T1MiTiWlQ+mYQKKMhF4vMES9PfB8+29KbSb8SJfv5
-	 vPnk+pEupgUx3AlM+aPd/oTb9d/nzKVhTcV80OGCp3SoEj2dMWQvcyvQ0tZzvXtE7u
-	 R2BUTntshQ0Qw==
-Content-Type: multipart/mixed; boundary="===============4659053659008186715=="
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MpJCoqpJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788160560; x=1819696560;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=/hoUMFCaauEhjFwUBFMBWHHPovsKQSacc+fhwjP7M2U=;
+  b=MpJCoqpJcpYO8s2w/qDDvNresV12syu0wq2lvqutav7yjtSiKitC/ZDL
+   f3gVEH0BV9tvzKvQlsjtgNSLB0qNYH/8MjJeZNBX2m2sMFM+FdEL6osHC
+   7/i7HuL5qjZ7071SYdKIHcoTtr7wiqLWvsrtdaEWmjrd/o1WwBPjk6DKC
+   QLE2vn0YzmaNaPIYsEJ71KKU3CAQawJMO+W1zJTi9t9TOIILtaGQzlpFQ
+   ZAYL79jJgTj+HSWsIq0yM4n9Fm21XfshuTh2jAMeZgpgVl5ps43dFIa1J
+   XCR4zs6mU1V38ghCcM+nuD9acBglksqwYhdPVP9QFGVqPgp/LbVop8Ed6
+   g==;
+X-CSE-ConnectionGUID: UP7RsrTgR+6+TqPbVZ/Vog==
+X-CSE-MsgGUID: DTMriQGkTG68CQlsdMSKDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88683393"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="88683393"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:15:58 -0700
+X-CSE-ConnectionGUID: o5TIfp7KSZ6jh/FNa2mDmg==
+X-CSE-MsgGUID: ZO4a12Q7QBaX6yOaRId11Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="264433046"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.60])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 00:15:55 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 41C4A11F7F5;
+	Mon, 31 Aug 2026 10:15:54 +0300 (EEST)
+Date: Mon, 31 Aug 2026 10:15:54 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Cc: Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Pavel Machek <pavel@ucw.cz>, kernel@puri.sm,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: hi846: Improve the power on sequence
+Message-ID: <apUqKhktiQR4gRMN@kekkonen.localdomain>
+References: <20260831-hi846-poweronseq-v1-1-1091cf78cac3@puri.sm>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <45e008c5a0a1521235a9a5f593bab46cf21a73196c50ebcdb800d039d4cf97f3@mail.kernel.org>
-In-Reply-To: <20260831063226.621309-2-chenyuan_fl@163.com>
-References: <20260831063226.621309-2-chenyuan_fl@163.com>
-Subject: Re: [PATCH bpf v5 1/2] bpf: Fix queue/stack map u32 index overflow
-From: bot+bpf-ci@kernel.org
-To: chenyuan_fl@163.com,bpf@vger.kernel.org
-Cc: ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,chenyuan@kylinos.cn,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Mon, 31 Aug 2026 07:13:30 +0000 (UTC)
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831-hi846-poweronseq-v1-1-1091cf78cac3@puri.sm>
 
---===============4659053659008186715==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Sebastian,
 
-> The queue/stack map addresses elements[] with the product of a u32
-> head/tail index and value_size, but the storage itself is allocated in
-> 64-bit arithmetic.  When max_entries * value_size reaches or exceeds
-> U32_MAX, the product wraps and push/peek/pop operate on the wrong
-> element, corrupting map data and leaking stale values to user space.
+Thanks for the patch.
 
-This isn't a bug, but would it read more precisely to say the product
-wraps once it exceeds U32_MAX (at 2^32) rather than "reaches or exceeds
-U32_MAX"?
+On Mon, Aug 31, 2026 at 12:13:32AM +0200, Sebastian Krzyszkowiak wrote:
+> Section 4.2 of YACG4D0C9SHC(Hi-846) datasheet specifies the time
+> between XSHUTDOWN rising and RESETB rising (t3-1) and RESETB rising
+> to the first I2C transaction (t3-2) to be both at least 2400 MCLK
+> cycles. This driver currently requires the MCLK rate to be set to
+> 25 MHz, so t3-1 and t3-2 need to be at least 96 µs.
 
-A product of exactly U32_MAX is still represented exactly in u32 - the
-wrap happens one byte later. The new check is deliberately more
-conservative (rejecting when element storage would reach U32_MAX), so
-the code is safe either way.
+Could you calculate the required delay instead of usign static value? The
+minimum external clock frequency for the sensor appears to be 10 MHz.
 
+-- 
+Regards,
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33365692838
---===============4659053659008186715==--
+Sakari Ailus
