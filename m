@@ -1,231 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7843C0A02
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254ED3C0A02
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181158; cv=none; b=twO2LOlAF6gCCBl6fkj5oImqGTOnmgNkx4a+gu8T18i8DSgbEyEQvIzhu4vyyglFnnK+YDNLZAbL1+63cKdPPWp4Sluj5OoS06vT0HMnCtDspIcWoOHHt6UyJp4HRYlkrIPWemMZ+8VKlWFc0AuO74WdtL5AxQ01+iHfnRT9MJU=
+	t=1788181161; cv=none; b=Toydze+MvyOqEemrSocj0LLp72+41iPmW0ktGMSd4Nq+6xOpmUV8NDUa7JauaP6pMu1alSs6FQxnD4JFKLxwLjagfbf3phhUlXymb2MIUukhxXWUgTFNGCGMGnsljgIEVY16fdPN5KeUNim4YgKlTbl/I3YKU89V5WLga7Fid/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181158; c=relaxed/simple;
-	bh=RTarVoLtSJA1TUu9G0qSSkX2QJhwlmumajtosfD7KTI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bj0ily1LiwOCFq2XbBRUeqDtsieukzxqycn1d5Sxg0te3wyBE1XqBsmLzKXgpSC5WLeqpg88ShIFgpurGVLTdot+cPmbHd4XYJIfN1E5TgFQ+3B3inks6YjV6M7EJIFZsOSKlxGhhiSaBcJ8HveuYrGA+0PQGaYT+kDpkkytyP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aho9IzY5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788181161; c=relaxed/simple;
+	bh=zVEJj7+DOFqq3G4kfRULfJzpt0z5m/Aci+3/3kIYD6Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AWC0letUnsuLwdSrsMZoSTM29HPFm2v8nwsBSGC4VWsciBUegKUcQ8L1GPHA3MbxoIb8R7ROQYWRHatGKSsgYGwpWmPMqwdx4C3HGmqojEea6OkmqxdOEEdipHEWqVF8ObgDUkeSlWcjz9w5XS6lB2k+q7Qdo6q34UQTZCLxa9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AHXOh1dX; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aho9IzY5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77921F000E9;
-	Mon, 31 Aug 2026 12:59:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788181157;
-	bh=N7ajmpkS8XbJ+KFX3k1W7j81h1P+h5/p8R+RFMlLnHw=;
-	h=Subject:To:Cc:From:Date;
-	b=aho9IzY59jGviEbReRWWeWtUXiHPpMGHoNqZHoVEavo2iY5hEYaqXRnO3LMW8KK6s
-	 i6+Oiybi/8H3uNlPXv5OquRjab68QCDl0Q0zjWJtUtqaeVFH63A+c8hQ7oZj8wxTNk
-	 YKRtMVgdAWPpIVqbc7ZxdzpY+6ipGiZk29Dlt3pA=
-Subject: FAILED: patch "[PATCH] netfilter: nf_tables: don't queue packet path object" failed to apply to 5.10-stable tree
-To: littleddfu@gmail.com,corvus@tencent.com,fouriezhang@tencent.com,pablo@netfilter.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:58:59 +0200
-Message-ID: <2026083159-bullion-crease-8e08@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AHXOh1dX"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 64DE34E41475;
+	Mon, 31 Aug 2026 12:59:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 363C160231;
+	Mon, 31 Aug 2026 12:59:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EFA6A11C78B96;
+	Mon, 31 Aug 2026 14:59:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788181152; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=DvoFRyhjcm47mL/nWaDF/hyrkQJFbxdaBV/oadudDZg=;
+	b=AHXOh1dXUwQD7BFxAzoGpwkblevqTwsMQhwEnatvi7qExftuK6WWzn3JCrM4VSp26Ja/3V
+	07TamZcXjHxysACS4EFW1pnsauqiU9KgM0HKuAX3LdiMyhp5Be3O2yZKE2YhUgm7fgkPmz
+	lD5Pfeg9CsiyZBlc+XzqOHvLOV7LuYMP5ruryktxihQwvhgpim/6wDd3z+RU9WAyZRnF/+
+	nXfjT/zDW35EdRPTjsWWaHH9x4aXyHpy85Qptk4JicGlYnu2IuBBotx0cCQJhH2Ighl6H9
+	1X9m0622sNgz2E+wbsnmaCNHB11qzXUtptONA8sgNq7g5xfU+nnZ3ODle1RAnw==
+Date: Mon, 31 Aug 2026 14:59:02 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Linus Walleij <linusw@kernel.org>, Frieder
+ Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, Dmitry
+ Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
+Message-ID: <20260831145902.5177d91d@bootlin.com>
+In-Reply-To: <20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
+References: <20260831-ti-sn65dsi83-fixes-v5-0-e712765d6c4f@geanix.com>
+	<20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi Esben,
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+On Mon, 31 Aug 2026 14:21:32 +0200
+Esben Haabendal <esben@geanix.com> wrote:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> The error handling of sn65dsi83_reset_pipe() in sn65dsi83_reset_work() has
+> seen a couple of changes that seems to cause a bit of confusion.
+> 
+> While sn65dsi83_reset_work() has implemented an early exit if
+> sn65dsi83_reset_pipe() fails since it was added, when a commit from Maxime
+> Ripard switched to use drm_bridge_helper_reset_crtc() [1] the
+> sn65dsi83_reset_pipe() function would no longer return an error code, so
+> the early exit was then a no-op, and even on sn65dsi83_reset_pipe()
+> failure, enable_irq() has been called.
+> 
+> When drm_bridge_enter()/drm_bridge_exit() resource protection was added,
+> the drm_bridge_exit() incidentally was always called, which is the correct
+> approach. But only because the early exit in sn65dsi83_reset_pipe() was
+> never hit because sn65dsi83_reset_pipe() always returns 0.
+> 
+> In order get back to a situation where enable_irq() is not called on
+> sn65dsi83_reset_pipe() failure, which should help protect against irq
+> storms, we need to reintroduce a non-zero return value from
+> sn65dsi83_reset_pipe() on error, and fix sn65dsi83_reset_work() so that we
+> always exit the DRM bridge critical section with drm_bridge_exit().
+> 
+> [1] commit e17fadff7ab9 ("drm/bridge: ti-sn65dsi83: Switch to drm_bridge_helper_reset_crtc")
+> [2] commit d2e8d1bc840b ("drm/bridge: ti-sn65dsi83: protect device resources on unplug")
+> 
+> Fixes: e17fadff7ab9 ("drm/bridge: ti-sn65dsi83: Switch to drm_bridge_helper_reset_crtc")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> ---
+>  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 7904b94768e983bcb2be34a8d6d1f3450f5b838b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083159-bullion-crease-8e08@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+LGTM.
 
-Possible dependencies:
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 7904b94768e983bcb2be34a8d6d1f3450f5b838b Mon Sep 17 00:00:00 2001
-From: Fourie Zhang <littleddfu@gmail.com>
-Date: Mon, 10 Aug 2026 19:35:01 +0800
-Subject: [PATCH] netfilter: nf_tables: don't queue packet path object
- notifications
-
-All file:line references below are against v7.2-rc4 (ac5b0e5651b1). The
-trace was captured on 7.2.0-rc6-kasan72rc6 (075b74841bd0), where the same
-lines apply.
-
-nft_obj_notify() is exported and reached from the packet path. Its only
-in-tree caller is nft_quota_obj_eval() (net/netfilter/nft_quota.c:68),
-which notifies with GFP_ATOMIC while evaluating a rule for a transiting
-packet, holding no mutex.
-
-Since commit 67cc570edaa0 ("netfilter: nf_tables: coalesce multiple
-notifications into one skbuff") that notification is no longer sent
-immediately. __nft_obj_notify() queues it onto nft_net->notify_list via
-nft_notify_enqueue() (net/netfilter/nf_tables_api.c:1211), which is a bare
-list_add_tail(). notify_list has no lock of its own
-(include/net/netfilter/nf_tables.h:1951), it is serialised by commit_mutex:
-the six other enqueue sites all run inside a netlink transaction, and the
-drain in nft_commit_notify() (net/netfilter/nf_tables_api.c:10746) does
-list_del() + kfree_skb() from nf_tables_commit() with commit_mutex held.
-
-Sending packets through a chain that references a depleted quota object
-therefore races an unlocked list_add_tail() against list_del() +
-kfree_skb() on another CPU. The WRITE_ONCE(prev->next, new) in __list_add()
-then stores through an sk_buff that has already been freed:
-
-  BUG: KASAN: slab-use-after-free in __nft_obj_notify+0x2c5/0x2d0
-  Write of size 8 at addr ff110001047183c0 by task poc/76
-  CPU: 0 UID: 1000 PID: 76 Comm: poc Tainted: G  W  7.2.0-rc6-kasan72rc6 #4
-  Call Trace:
-   <IRQ>
-   __nft_obj_notify (include/linux/list.h:164 include/linux/list.h:191
-                     net/netfilter/nf_tables_api.c:1211
-                     net/netfilter/nf_tables_api.c:8743)
-   nft_quota_obj_eval (net/netfilter/nft_quota.c:68)
-   nft_do_chain_inet
-   nf_hook_slow
-   __ip_local_out
-   ip_push_pending_frames
-   udp_send_skb
-   udp_sendmsg
-   __x64_sys_sendto
-
-  Allocated by task 77:
-   __alloc_skb (net/core/skbuff.c:704)
-   __nft_obj_notify (include/net/netlink.h:1055
-                     net/netfilter/nf_tables_api.c:8731)
-   nft_quota_obj_eval (net/netfilter/nft_quota.c:68)
-   nft_do_chain
-
-  Freed by task 79:
-   nf_tables_commit (include/linux/skbuff.h:1332
-                     net/netfilter/nf_tables_api.c:10759
-                     net/netfilter/nf_tables_api.c:11185)
-   nfnetlink_rcv_batch (net/netfilter/nfnetlink.c:574)
-   netlink_unicast
-   netlink_sendmsg
-
-  The buggy address belongs to the cache skbuff_head_cache of size 232
-
-Queueing from the packet path is wrong even leaving the race aside:
-notify_list is only drained by nft_commit_notify() from nf_tables_commit()
-(:11185), so a notification enqueued outside a transaction is not sent
-until some later netlink batch commits, if one ever does.
-
-The gfp argument that nft_obj_notify() still takes is a leftover of the
-pre-67cc570edaa0 behaviour, where this path called nfnetlink_send()
-directly. Restore that: split the message construction out into
-nft_obj_notify_alloc() and let each caller decide what to do with the skb.
-nft_obj_notify(), the exported one reached from the packet path, sends it
-straight away; nf_tables_obj_notify(), which runs under commit_mutex, keeps
-queueing it, so transaction notifications are still coalesced.
-
-Fixes: 67cc570edaa0 ("netfilter: nf_tables: coalesce multiple notifications into one skbuff")
-Cc: stable@kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Assisted-by: tencentos-corvus-ai:kimi-k3
-Signed-off-by: Fourie Zhang <fouriezhang@tencent.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index af357f6c5070..3a7c8f7a6304 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -8715,18 +8715,17 @@ static int nf_tables_delobj(struct sk_buff *skb, const struct nfnl_info *info,
- 	return nft_delobj(&ctx, obj);
- }
- 
--static void
--__nft_obj_notify(struct net *net, const struct nft_table *table,
--		 struct nft_object *obj, u32 portid, u32 seq, int event,
--		 u16 flags, int family, int report, gfp_t gfp)
-+static struct sk_buff *
-+nft_obj_notify_alloc(struct net *net, const struct nft_table *table,
-+		     struct nft_object *obj, u32 portid, u32 seq, int event,
-+		     u16 flags, int family, int report, gfp_t gfp)
- {
--	struct nftables_pernet *nft_net = nft_pernet(net);
- 	struct sk_buff *skb;
- 	int err;
- 
- 	if (!report &&
- 	    !nfnetlink_has_listeners(net, NFNLGRP_NFTABLES))
--		return;
-+		return NULL;
- 
- 	skb = nlmsg_new(NLMSG_GOODSIZE, gfp);
- 	if (skb == NULL)
-@@ -8740,10 +8739,10 @@ __nft_obj_notify(struct net *net, const struct nft_table *table,
- 		goto err;
- 	}
- 
--	nft_notify_enqueue(skb, report, &nft_net->notify_list);
--	return;
-+	return skb;
- err:
- 	nfnetlink_set_err(net, portid, NFNLGRP_NFTABLES, -ENOBUFS);
-+	return NULL;
- }
- 
- void nft_obj_notify(struct net *net, const struct nft_table *table,
-@@ -8752,6 +8751,7 @@ void nft_obj_notify(struct net *net, const struct nft_table *table,
- {
- 	char *buf = kasprintf(gfp, "%s:%u",
- 			      table->name, nft_base_seq(net));
-+	struct sk_buff *skb;
- 
- 	audit_log_nfcfg(buf,
- 			family,
-@@ -8762,17 +8762,27 @@ void nft_obj_notify(struct net *net, const struct nft_table *table,
- 			gfp);
- 	kfree(buf);
- 
--	__nft_obj_notify(net, table, obj, portid, seq, event,
--			 flags, family, report, gfp);
-+	/* Called from the packet path, holding no mutex: notify_list is
-+	 * serialised by commit_mutex, so send this notification directly.
-+	 */
-+	skb = nft_obj_notify_alloc(net, table, obj, portid, seq, event,
-+				   flags, family, report, gfp);
-+	if (skb)
-+		nfnetlink_send(skb, net, portid, NFNLGRP_NFTABLES, report, gfp);
- }
- EXPORT_SYMBOL_GPL(nft_obj_notify);
- 
- static void nf_tables_obj_notify(const struct nft_ctx *ctx,
- 				 struct nft_object *obj, int event)
- {
--	__nft_obj_notify(ctx->net, ctx->table, obj, ctx->portid,
--			 ctx->seq, event, ctx->flags, ctx->family,
--			 ctx->report, GFP_KERNEL);
-+	struct nftables_pernet *nft_net = nft_pernet(ctx->net);
-+	struct sk_buff *skb;
-+
-+	skb = nft_obj_notify_alloc(ctx->net, ctx->table, obj, ctx->portid,
-+				   ctx->seq, event, ctx->flags, ctx->family,
-+				   ctx->report, GFP_KERNEL);
-+	if (skb)
-+		nft_notify_enqueue(skb, ctx->report, &nft_net->notify_list);
- }
- 
- /*
-
+Best regards,
+Hervé
