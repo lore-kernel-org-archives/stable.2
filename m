@@ -1,122 +1,194 @@
-Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013066.outbound.protection.outlook.com [40.93.196.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9243451AA
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.57
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788174054; cv=none; b=CnMdm8SU9PRvXtJwlYeTmceJgtStLgf6DxkYOdZ5ewezlXtWvXVzEMYxvd0m1C/biDfOm1ODQmwVpADjxTjSnRRpsM0fJrteoYMb8ifdYsbFk4wrzYgFphinLWhye/lg3QHWa6J10vULWFjwWl2nSUOL6AFqPfJIqb2wDu3SU/E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788174054; c=relaxed/simple;
-	bh=dGQbrBmhQS0x71Wh94RlSbsiKuZn5xVs6SzWfWQuRnE=;
-	h=References:Content-Type:From:To:Cc:In-Reply-To:Message-Id:
-	 Mime-Version:Subject:Date; b=ZkMhQ9zvlB3PlGbFYq7/nxZezpn+EN7FqgtqEFkl/OSMPAN4s+wvADFDpWOZXvg3mq5AVdCdc34RVkOieK/4ov9t8GNIHB9gYdeQ8nMPWORBZwcKMFjFUrz4ek5RDiIACZNU7KqbnIX7dCEQ4exAf0HUMaRwF2+IBOE/RYWFNZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=bTPIQpTN; arc=none smtp.client-ip=209.127.231.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540B53B14CE;
+	Mon, 31 Aug 2026 11:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788174422; cv=fail; b=FjZY1HGJmdVTrOlgXxiNHmNdjVqHTvacOf5YsnCn1gAX4VQ3p6N4qOfXu6wRf+mjx3p+ReV6h4gXyACxsB4szqK67SKF6YrGGm1nwHvdQjsuknpYhPXMhap3udULR4lydywSzRg2YLYzAutETStCUaSZACSF7IjymPTEXGu5iAU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788174422; c=relaxed/simple;
+	bh=NknlPhbuBD3l+3GHvDBRaonYX1IC7usUDqJXPtSy6HA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bfQrE49bVx7tDlC3NZVzIzv+tX/p7Lf3cfVXdzw7G5TiDsbYjcmdQNXZ0KGFsUB+3DO8ZQuZJIbPIg8pbf4ljP0LDRfNKSWyHUn1XsXdo2LiEmD7/FKR8uTmw6QjH9z5BYM89hiQfv+Ppr6+XYBCsfna0t8yFuDdLDYjNGI4H6A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Aoaea9Kd; arc=fail smtp.client-ip=40.93.196.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="bTPIQpTN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788174037;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=oj9pT49fkgayCGX3SEUyRMQPTGIlIhlnZO6FdcY++Ts=;
- b=bTPIQpTNDtnkToWPcIBQfN2zhLMbnW7CzuwXSsZPP+7nJzalRaE+9MbMhXNfsF4F0SJg6O
- RTJsHt/kyT6cygfCpXvQL7+Wx8u/eK0G64B8Qi2h8EX6eyRE+BsR5ecncWEPglg/3a990q
- gsdztIG1T2aL0eJsJemdytKXlWh8Gg/lu0TWLaBXNBsaLykPWt45Qan3pKw6Ld+ooaSXcA
- ynkqc9pUvW+i+939QKzXkxRPTOBUYnNCpWD3jTXtFP44N5z6/ek2o8tayK/4QwJ7RmW1yI
- 36IU7ARPImQN0TFVOJ5RAFzIkqpWHcS7N6+KG838JqrfftMEjKzgG1v9Hi7hQg==
-X-Lms-Return-Path: <lba+26a955ed5+a79bb9+vger.kernel.org+yukuai@fygo.io>
-References: <20260831055716.773354-1-tao1.yu@intel.com>
-Content-Type: text/plain; charset=UTF-8
-From: "yu kuai" <yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
-To: "Tao Yu" <tao1.yu@intel.com>, <tj@kernel.org>, <josef@toxicpanda.com>, 
-	<axboe@kernel.dk>, "yu kuai" <yukuai@fygo.io>
-Cc: <cgroups@vger.kernel.org>, <linux-block@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	<syzbot+144a1c0e22e53a08ef5a@syzkaller.appspotmail.com>, 
-	<stable@vger.kernel.org>
-In-Reply-To: <20260831055716.773354-1-tao1.yu@intel.com>
-Reply-To: yukuai@fygo.io
-Message-Id: <371c8526-c50f-4ca9-a9d0-7bbbd9991d63@fygo.io>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Aoaea9Kd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AMgdAlYcP0ZzhEU0ckpO5z3RDYfLrc1Vra8ASC3mffyxruewoLe2jTHTaodCZJ7ciiJvD5fp32ZWknq2u82/rstBa92VCxTWY/SUddtA+DhPM+FD6zfK0VYpmJwft+DQDZkNx/zM/hMLqGf0YvCIIVUJXO2NzIz4efGuX6C9SpDOC5uUsxsKWmTFwHvXDuMsjitUGBI2JUhwT8qGD8qbxStcYAGXSo9GYz57Q/nsKTnHMiGdwSb8xT4LyZHRZAMOwDUr4jrrtiL2CsuGSaFkyfqouwBmVfLxXbkOPpwwfA0RvumN5QtItOiS8ete8h5mKvI0tSZOqotUgHzrd5iG/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=94TldNeMmEuWmjKt2/LhugFGgxirPJsL2MwCJnO+GIE=;
+ b=d5JEGx5O+QoV9w0w/Gbf6g30WBbgU0v9IzuIqJ4kFKFuyeXj3IY5+dB4OOM8zkUr3A9yAQQZb8VWOIrs4EjsI9arDndVWEuKMjj01TFoX4LviIGO9H4m5Rv7BJbXwpdr0Lx3U88VJaMrEiMtt+H4kx2KNTjO8hK3KhuljRalv997XlnEnFKtJgx6eXKYeWKMAqfj4THa/vzJg8EuicR7IdydpFUzrjwOPK30PmeCIcKKNgzzjd73KMc0L6KET6Mk1KqsDFRKyJwmKLlyRnDUYfwcslSUnpclfQb+WB/lvWCPCG70VOqzuKxe2cctsGxbH5AegP+J0l09ml5XLqsSpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=94TldNeMmEuWmjKt2/LhugFGgxirPJsL2MwCJnO+GIE=;
+ b=Aoaea9KdDxNDCgm6JdQqtljmd6v37vzc2t+lCDY5SV1qBW4TzIsKqRxLqkGukey74sh7d8aSYijH0b2/pm5SbxSA+E6S0IN+k1AgtwRD0BbefrU1T0/G2xQTSWpbIix55Tlpk4ysOUkaYU6qDGo8qtUZWccF5EA0jXjWcr8RXsw+dEZlZtBfeAwCW1La52Wy9yf6SUw8qfDAdu7DFJli21YCQNZXkpB2QHgEmTGG8L2IwwZPc+wqSVXeFfB8I6Il7pSup5eZU4dpAidPSCBpXQscBwx8hg95y8R5r7SkL8O5wEfvCbbTubtoCUv9JEXgdSxNCEqCVtIPyuWe2kPpJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by SA3PR12MB7805.namprd12.prod.outlook.com (2603:10b6:806:319::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 11:06:58 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 11:06:56 +0000
+Date: Mon, 31 Aug 2026 14:06:47 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	David Ahern <dsahern@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>,
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Subject: Re: [PATCH net 1/1] ipv4: fib: avoid quadratic table ID lookup
+Message-ID: <20260831110647.GA3202627@shredder>
+References: <cover.1787982246.git.zihanx@nebusec.ai>
+ <0a00492a13038b268c1e0a219c138d07cfab92b3.1787982246.git.zihanx@nebusec.ai>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0a00492a13038b268c1e0a219c138d07cfab92b3.1787982246.git.zihanx@nebusec.ai>
+X-ClientProxiedBy: FR4P281CA0195.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ca::20) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Received: from [192.168.1.104] ([39.182.0.178]) by smtp.larksuite.com with ESMTPS; Mon, 31 Aug 2026 11:00:36 +0000
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] blk-cgroup: use GFP_NOIO for radix tree preload in blkg_conf_prep
-Date: Mon, 31 Aug 2026 19:00:32 +0800
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|SA3PR12MB7805:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3a5985d-139a-455f-221c-08df074ff8a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|18002099003|22082099003|56012099006|6133799003|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	9MFyhKxr76srEGdBfs6y51sNMXy97hQRqrVu5JWZOh4uenGW2o34mdxl7VIojHDT4/vpWMEbr+A1Xf2b4eC2j1p5dzw3Fm7KwsKdbCf47UPUPRjBdfiq70A+F7ROuRL+FkEjpFx9I6W73EZeOXTpCdNHqs0iiGbZMql64IJiioSMP9cfqiPeAC3/WvCuJhsFLq2PTYrVXIo+1Vtk8ZAOTcvtIvAT5jg43Vz/d2S7su+Hx95SlmLbv19tnbK0JDSkJPLE/6RPF8UGtqV9YledGqEm+JL6d4PlUhLhginZjll8at+Xr9t2sKJP/eQ+ls39efZNUIOAt8AIqfB3LhV4AeREdN9PZeglv0BWEM8xEl0rUdaZgGiaUPXGGIArSvTRaSF6YmmieWLMiuUOXFr3irpb0XjEalOWg7yF4wu8sBqjVWRoHnU1gto+Gj+2sk56AS7O50kqSKVcXEyynFhjBeZinTRAkMKmkEXVxQ3ssJL0m25bJSeOTeW7iEIbHVRPqW4gxwZC9pQo8Yx/GwX7RrsDYYVbxblfQbjIPunvvEKvoexyZvENKwdiTB+6gTMWlpaAPY0YIRl+6sZhdd6NmmsAbrmdBpYjOgEpFHS4lADWvkHUeyxYFV9W5ObaR8smG4vmUfg1DLosdUcG2YmVgibycoRDFuOtGldPKcUARsI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(18002099003)(22082099003)(56012099006)(6133799003)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kcIaSWuJowD6AIl6CZ8P4ppvdGOsJ15YbKeiov9CtlxLWdH+vLHzn7KqqV28?=
+ =?us-ascii?Q?/1dx+mJE3UlN5OJcYaxQjXPt+Zzlo+S92KJPu/fFPhcbyMnCZVzGOHJ0VN/I?=
+ =?us-ascii?Q?3TzVk0WJJ+SzD8Zc/bYUJxfjpPf4qa/eOTz36R6NWW9bqtgqUuVvwjz026yZ?=
+ =?us-ascii?Q?litQj2G7BTNZTUnv7eAnT5eDmXNRlRq1WIvoh4QLbH20mbgljaKOdVSQCUzr?=
+ =?us-ascii?Q?XJhxV0sBnbfr7R+Hb23gwwg/MY5UZtX+P2bg7UzOZbWsUYKp5x6AQo1luG0r?=
+ =?us-ascii?Q?7WOafoNLcuTLSo4WerL7M3AV9zeVuoVTJJkNcr7NGoAszCsdoMOUxLmJ43Xo?=
+ =?us-ascii?Q?9EPhWiwLbcdLG3nk6ZwQy4bwVYzaWN6HH9S+d0DBQb/DnjXfa3j7Lp/l/e+q?=
+ =?us-ascii?Q?pZJ7qMVJdIkhV3VbElBsRuLVJ4ksHIiW3qTUjKxsFPb7bGXjWE7A9/FtBSUJ?=
+ =?us-ascii?Q?+tpjQ5E7vkg6Mk/ByocjHow5Xg8BE3gZXy8F/wnLG/3660lneLiviZoQQg8N?=
+ =?us-ascii?Q?QZ4dPqq8WukxzUZPNY2E7vdX4jEsPNWTf3hXtEmny7xMoDR7ie2NNgVWfhFT?=
+ =?us-ascii?Q?OzkmCXPapZmImfQvV5c8rPIB/wjJ5+oP1kKGtRsxYrxMj0zXXp1T9KLNuNJ/?=
+ =?us-ascii?Q?nsUX1Wq+D4xvdK6z9v3fuFMSAc9sfD6l1nSpMPh1lPNxWfxKd406PaN7TDsj?=
+ =?us-ascii?Q?iCO/2TiFmZ39tNiPAsC7c26YqIHFTTPqIDgbO2TQuXDNMVNUNjYeWNecwVxO?=
+ =?us-ascii?Q?Otmg1mLgPatMC0EolHLESO9xmnSVJrezTgHPGKq4tq2iiCs/BoDd1W/mlHKz?=
+ =?us-ascii?Q?yjL4JaiVSr5cqGFGGiSJCSB4vOhjnsEM+ZxZ/87XgVg1YeHoFEOaD/JAvKLO?=
+ =?us-ascii?Q?W6n903Ge+MA+/1EOP2H9R4TjHqmzDEDywnc5oMpoSHcE2j1n+4pyiMjAxXV8?=
+ =?us-ascii?Q?BGBCryhVzUi/8jzPwCm+WlcOLJRM/gEDxw3Qitfv16ZBSVEPlKQ7B92e87yI?=
+ =?us-ascii?Q?Ip+f8EzNQWPm4hM5KgvlDhI0iueZ6j5S09ecpsqVXppIfab/Gun+DYbqB6zZ?=
+ =?us-ascii?Q?odJRs2baUOwglKRwl6hLXysgi6n8CxU3913h6g5G5LbPGP3yLigU3GTianyq?=
+ =?us-ascii?Q?bpiut+K7yAH+tB301bZp3ueS7JUq356WNVpC999tcMcS11eVCPQ0nAqFyQDq?=
+ =?us-ascii?Q?nqMIkg+poqFCnY0ToKGG1NM+AFkPRAQT/lhikiYQ2pI8187VKq8Rt+pbHlwr?=
+ =?us-ascii?Q?yPuQ8RH/IeY9abUHvkhzVdlQTqtFYTJmA6bH3cvvwz4Ca4yvNBn05hyRxb8i?=
+ =?us-ascii?Q?TyU2kpmbeCLyDSeGXnKx37P111hkr5KLFVHJeQ0fwRtrco/YAhQZAdmXbHnD?=
+ =?us-ascii?Q?t/I57oAB3teDPxhGZEnzFD42YEJ2TtWMAXiQskmx0hcj8dxWsHb6U6DpLNtk?=
+ =?us-ascii?Q?UBdloZb4v5YsEbmQwTz4W5Lx6rFPthI7e91ELXZL3ygszgNV22Y7mCwb5seo?=
+ =?us-ascii?Q?dz6Bo6fu7+058SzGubwKhQKOYWx83SpiTXjcZgsSl2SMH0BI+6D6Oq/WsCYb?=
+ =?us-ascii?Q?uLFr2cdytNNbAg1JSfIjftBcX79kVRxOFRD2xiIhbZiJ6Nogl7QCqWJ4Jk2z?=
+ =?us-ascii?Q?JffBvMMNbl3xc1cPz0VVDeGK46f+yEiZHKqR232q38YoWtjtPlY8MzGS86Ao?=
+ =?us-ascii?Q?a3fz4XHaRWyJzs0WP1Z1TLduYcJXeycWQaPaP09KZ8Yd3Eh+?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3a5985d-139a-455f-221c-08df074ff8a1
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 11:06:56.6801
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MoWH9Z/yesE6wPpzA30IdyXYwLX6y44H6JwzqevGaPFhp0F85SZVasAKEWbOhT91p+FGrYp5HUEvKCxbJGXBxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7805
 
-Hi,
+On Sat, Aug 29, 2026 at 06:24:57AM +0000, Zihan Xi wrote:
+> fib_empty_table() probes every table ID from 1 until it finds a free
+> one.  Since IPv4 tables are stored in a 256-bucket hash table, a dense
+> set of IDs makes the probes repeatedly walk growing hash chains while
+> RTNL is held.
+> 
+> Count the existing tables once and use a bitmap for the bounded range
+> that can contain the first free ID.  This keeps table-ID selection
+> linear in the number of tables instead of quadratic, without changing
+> the lowest-free-ID behavior.
 
-=E5=9C=A8 2026/8/31 13:57, Tao Yu =E5=86=99=E9=81=93:
-> blkg_conf_prep() allocates a new blkg with GFP_NOIO after dropping
-> queue_lock, but still preloads the radix tree node with GFP_KERNEL while
-> q->blkcg_mutex is held.
->
-> GFP_KERNEL may enter direct reclaim and acquire fs_reclaim, which adds
-> the dependency
->
->    q->blkcg_mutex -> fs_reclaim
->
-> This completes a circular locking dependency with the existing path
->
->    fs_reclaim -> q->q_usage_counter -> q->blkcg_mutex
->
-> and triggers a lockdep warning when configuring blkcg policies.
->
-> Use GFP_NOIO for radix_tree_preload() so that the preload context matches
-> the rest of this allocation path and does not recurse into reclaim while
-> q->blkcg_mutex is held.
->
-> Reported-by: syzbot+144a1c0e22e53a08ef5a@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D144a1c0e22e53a08ef5a
-> Fixes: f255c19b3ab46 ("blk-cgroup: Pre-allocate tree node on blkg_conf_pr=
-ep")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tao Yu <tao1.yu@intel.com>
-> ---
+TBH, I wasn't even aware of this "table 0" functionality and I'm quite
+certain it's unused nowadays:
 
-This problem is already fixed by following patch, the radix_tree_preload=20
-is removed.
+1. IPv4 specific:
 
-[PATCH 1/3] blk-cgroup: use a request_queue rhashtable for blkg lookup -=20
-Yu Kuai=20
-<https://lore.kernel.org/all/20260823133045.970199-2-yukuai@kernel.org/>
+# ip -6 rule add from 2001:db8:1::1 table 0
+Error: Invalid table.
 
->   block/blk-cgroup.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
-> index 2b5c29434e426..27e00180e4cc1 100644
-> --- a/block/blk-cgroup.c
-> +++ b/block/blk-cgroup.c
-> @@ -873,7 +873,7 @@ int blkg_conf_prep(struct blkcg *blkcg, const struct =
-blkcg_policy *pol,
->   			parent =3D blkcg_parent(parent);
->   		}
->  =20
-> -		/* Drop locks to do new blkg allocation with GFP_KERNEL. */
-> +		/* Drop queue_lock to do new blkg allocation with GFP_NOIO. */
->   		spin_unlock_irq(&q->queue_lock);
->  =20
->   		new_blkg =3D blkg_alloc(pos, disk, GFP_NOIO);
-> @@ -882,7 +882,7 @@ int blkg_conf_prep(struct blkcg *blkcg, const struct =
-blkcg_policy *pol,
->   			goto fail_exit;
->   		}
->  =20
-> -		if (radix_tree_preload(GFP_KERNEL)) {
-> +		if (radix_tree_preload(GFP_NOIO)) {
->   			blkg_free(new_blkg);
->   			ret =3D -ENOMEM;
->   			goto fail_exit;
+2. Not documented in ip-rule man page:
 
---=20
-Thanks,
-Kuai
+"
+table TABLEID
+       the routing table identifier to lookup if the rule selector
+       matches. It is also possible to use lookup instead of table.
+"
+
+3. No kernel selftests despite ip-rule having good coverage.
+
+4. Quirky. Requires dumping the rules or listening to netlink
+notifications to discover the allocated table ID.
+
+So, for now, I suggest bounding the maximum table ID that can be
+automatically allocated. Something like [1]. I will add a deprecation
+warning in net-next.
+
+FTR, I did consider storing the tables in something like xarray, but:
+
+1. We would still need to keep the hash table given the analysis Jakub
+shared in commit 759ab1edb56c ("net: store netdevs in an xarray").
+Xarray only starts being worthwhile at around 1k tables and most
+deployments never reach this number.
+
+2. It requires adding per-netns xarray for a functionality that is
+unlikely to be used today.
+
+[1]
+diff --git a/net/ipv4/fib_rules.c b/net/ipv4/fib_rules.c
+index 4edb0dca7be8..2e8629df34bb 100644
+--- a/net/ipv4/fib_rules.c
++++ b/net/ipv4/fib_rules.c
+@@ -214,6 +214,8 @@ INDIRECT_CALLABLE_SCOPE int fib4_rule_match(struct fib_rule *rule,
+ 	return 1;
+ }
+ 
++#define FIB_MAX_AUTO_TABLE_ID	4096
++
+ static struct fib_table *fib_empty_table(struct net *net)
+ {
+ 	u32 id = 1;
+@@ -222,7 +224,7 @@ static struct fib_table *fib_empty_table(struct net *net)
+ 		if (!fib_get_table(net, id))
+ 			return fib_new_table(net, id);
+ 
+-		if (id++ == RT_TABLE_MAX)
++		if (id++ == FIB_MAX_AUTO_TABLE_ID)
+ 			break;
+ 	}
+ 	return NULL;
+
