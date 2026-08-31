@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBE44921AC;
-	Mon, 31 Aug 2026 14:05:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E1E49250D;
+	Mon, 31 Aug 2026 14:05:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185137; cv=none; b=SaJwppTc/ZRDV9lHvPY2Dy3eLNcXiL3Kgq7JkYwWVmgxJgncvj0A/EtX56tLhCAtud+ScOOQzypWo8Q9icYg/pZV1Ik3O+dBCX7+brWEfFtb3JSJ1brcnczt+U0hOFSg3Ys8b0UEF631c9naWEB/RpxnIK9QMIsM2E4+ZXai70U=
+	t=1788185140; cv=none; b=NZmYwqBX7q3ykV/FYDkM6evBl3b+YWf/QrVSbKek1sZzX4+4QT9fwG0ma4rQtbVG//5tt4S6G9ND7VWRwZXrLlbZNqC0hYlj8wZ9UYA27PieVUIhsXAlmgZqopFZ+0yOJkHYiwQ+uPaAYNUs9rpjaHeHyuhql3LWANetdJj1S3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185137; c=relaxed/simple;
-	bh=GebjLC5fZ6r2iSHwjgzBW6g6ZsW5nDW5/8x+Hu35gCw=;
+	s=arc-20240116; t=1788185140; c=relaxed/simple;
+	bh=yfgz/HqECoALibfpggqBGKwtsMKRmVpRj8DPhUPtf6s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qw34q9gSdQI+jRyUp54E77F03ir5LSQiaH9hlbGImeBRrvYv9ebNsagTAhwRgxaaT/hrhU1uRZs/hCNDB6mN0raEDPrLz85XnavUVRi7ETwLnHgXwB0Lio+hZWWTVEaqhOLT7M9w+JbEjy8KjyUjGO3u2O5fHvKS4+f9VS4OY0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rgoZOfFg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KTMWh84x5pklKEbWXqI04zNjQ2iXnUArxKfAyYvoAwVIN/w9Om/Lhjw3eiEunJZzS2RQ5vnFUbul01v5ah83qw3rkJ3jyQS8C35HHh3Ce+UYM+RiL/DLlQ5+v3Ns1ubk3Y9uE4lAfNZceOXU6uUDhGZxfVTXpTrylfUJ3EYwsiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GS5EhOqu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rgoZOfFg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B041F000E9;
-	Mon, 31 Aug 2026 14:05:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GS5EhOqu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA8C1F000E9;
+	Mon, 31 Aug 2026 14:05:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788185135;
-	bh=lDwpyA5Rhfh8BO2gEoJ8JJW9VrZXCW/ZaSBpvYfx86Y=;
+	s=korg; t=1788185138;
+	bh=hHEvLFSsXbNm56+kPrErcWdN7Cm17+nSLAHpAY0J0uc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rgoZOfFgv17KtG0edhNUpggKKO47tn9mS4waa7cnvxRaHcVzwHeR7v+ZTq7Fk3hvd
-	 YjgT+YTPOrMz7Ch8w6wxqwyuY9JOlmX1+0nFpwgt7BCi1X0IVY/N9t5s/+6jOu7oBe
-	 CBOpIA/4AMhbA+RjOKGhArgSmCnCJKPfMPuc/Sss=
+	b=GS5EhOquvcf8ea9Ldgs8eiPUgUJjZYa3tDAUKmLIC9JSd4Ae7aFWsWY1c34qj1vIT
+	 /kFVEdeJH+n6pUIjiQC1yXkk/4tF42JcaA6WjtimbOS8s1r0wlwhAMbbahZVbNwQnm
+	 bxWZSRw4dh3DgW8Kk0iHM1oezXVSjC8aorEsE6+o=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Marouane El Moufid <eun0us@espilon.net>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 5.15 64/69] ALSA: usb-audio: fix OOB write in snd_usbmidi_novation_output()
-Date: Mon, 31 Aug 2026 15:35:37 +0200
-Message-ID: <20260831133401.936807793@linuxfoundation.org>
+	=?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>,
+	Alec Hall <signshop.alec@gmail.com>,
+	Jiri Kosina <jkosina@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 29/69] HID: magicmouse: prevent unbounded recursion in magicmouse_raw_event()
+Date: Mon, 31 Aug 2026 15:35:02 +0200
+Message-ID: <20260831133359.924903425@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
 References: <20260831133358.601894154@linuxfoundation.org>
@@ -44,63 +46,101 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.15-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Marouane El Moufid <eun0us@espilon.net>
+From: Jose Villaseñor Montfort <pepemontfort@gmail.com>
 
-commit 1035a8f63bae28e498b0e7b5ac91d749844a7158 upstream.
+[ Upstream commit db8d634128d2ba88d79c0b601e983ebe14bb0519 ]
 
-snd_usbmidi_novation_output() lays out a two-byte header at
-transfer_buffer[0..1] and passes &transfer_buffer[2] together with a
-length of ep->max_transfer - 2 to snd_rawmidi_transmit():
+magicmouse_raw_event() handles DOUBLE_REPORT_ID (0xf7) packets, which pack
+two touch reports into one, by splitting the packet and calling itself on
+each half. The only guard against runaway recursion is a "size < 1" check,
+which stops zero-sized calls but does not bound the recursion depth.
 
-	count = snd_rawmidi_transmit(ep->ports[0].substream,
-				     &transfer_buffer[2],
-				     ep->max_transfer - 2);
+A malicious HID device that matches this driver can send a report starting
+with DOUBLE_REPORT_ID and filled with the sequence [0xf7, 0x00]. Each level
+consumes two bytes and recurses on the remainder, so an incoming report of
+up to HID_MAX_BUFFER_SIZE (16 KiB) drives roughly 8000 nested calls. That
+easily exhausts the 16 KiB kernel stack, leading to a stack overflow: a
+panic with CONFIG_VMAP_STACK, or memory corruption without it.
 
-ep->max_transfer comes from the output endpoint's wMaxPacketSize via
-usb_maxpacket(). A malformed or malicious device can advertise a bulk
-OUT endpoint with a wMaxPacketSize of 1 - the USB core only clamps this
-value downwards - so ep->max_transfer becomes 1 and the count argument
-becomes -1.
+A double report only ever wraps two normal reports; it is never
+legitimately nested. Refuse to re-enter the DOUBLE_REPORT_ID case from a
+recursive call so the recursion depth is bounded to two, while all valid
+packets keep being parsed exactly as before.
 
-snd_rawmidi_transmit() passes the negative count on to
-__snd_rawmidi_transmit_peek(), where "if (count1 > count) count1 = count"
-leaves count1 negative; get_aligned_size() keeps it negative for a
-byte-stream substream, so the following memcpy(buffer, ..., count1) runs
-with a (size_t)-1 length and writes far past the transfer buffer, which
-was allocated with usb_alloc_coherent(ep->max_transfer).
-
-This is the same class of bug that was fixed for snd_usbmidi_akai_output()
-in commit 0970274613fb ("ALSA: usb-audio: fix OOB write in
-snd_usbmidi_akai_output()"); the novation output routine was left
-unguarded. Bail out when the endpoint cannot hold the two-byte header
-plus at least one payload byte.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: a462230e16ac ("HID: magicmouse: enable Magic Trackpad support")
+Link: https://lore.kernel.org/linux-input/20260706181347.700DB1F00A3F@smtp.kernel.org/
 Cc: stable@vger.kernel.org
-Signed-off-by: Marouane El Moufid <eun0us@espilon.net>
-Link: https://patch.msgid.link/178749334830.543645.13722252148340572274@espilon.net
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
+Reviewed-by: Alec Hall <signshop.alec@gmail.com>
+Tested-by: Alec Hall <signshop.alec@gmail.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/usb/midi.c |    2 ++
- 1 file changed, 2 insertions(+)
+ drivers/hid/hid-magicmouse.c |   25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -878,6 +878,8 @@ static void snd_usbmidi_novation_output(
+--- a/drivers/hid/hid-magicmouse.c
++++ b/drivers/hid/hid-magicmouse.c
+@@ -368,8 +368,8 @@ static void magicmouse_emit_touch(struct
+ 	}
+ }
  
- 	if (!ep->ports[0].active)
- 		return;
-+	if (ep->max_transfer < 3)
-+		return;
- 	transfer_buffer = urb->transfer_buffer;
- 	count = snd_rawmidi_transmit(ep->ports[0].substream,
- 				     &transfer_buffer[2],
+-static int magicmouse_raw_event(struct hid_device *hdev,
+-		struct hid_report *report, u8 *data, int size)
++static int __magicmouse_raw_event(struct hid_device *hdev,
++		struct hid_report *report, u8 *data, int size, bool nested)
+ {
+ 	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
+ 	struct input_dev *input = msc->input;
+@@ -480,6 +480,15 @@ static int magicmouse_raw_event(struct h
+ 		 * packet.
+ 		 */
+ 
++		/*
++		 * A double report only ever wraps two normal reports, so it is
++		 * never nested. Refuse to recurse a second time; otherwise a
++		 * malicious device could chain DOUBLE_REPORT_ID packets to drive
++		 * unbounded recursion and overflow the kernel stack.
++		 */
++		if (nested)
++			return 0;
++
+ 		/* Ensure that we have at least 2 elements (report type and size) */
+ 		if (size < 2)
+ 			return 0;
+@@ -491,9 +500,9 @@ static int magicmouse_raw_event(struct h
+ 			return 0;
+ 		}
+ 
+-		magicmouse_raw_event(hdev, report, data + 2, data[1]);
+-		magicmouse_raw_event(hdev, report, data + 2 + data[1],
+-			size - 2 - data[1]);
++		__magicmouse_raw_event(hdev, report, data + 2, data[1], true);
++		__magicmouse_raw_event(hdev, report, data + 2 + data[1],
++			size - 2 - data[1], true);
+ 		return 0;
+ 	default:
+ 		return 0;
+@@ -516,6 +525,12 @@ static int magicmouse_raw_event(struct h
+ 	return 1;
+ }
+ 
++static int magicmouse_raw_event(struct hid_device *hdev,
++		struct hid_report *report, u8 *data, int size)
++{
++	return __magicmouse_raw_event(hdev, report, data, size, false);
++}
++
+ static int magicmouse_event(struct hid_device *hdev, struct hid_field *field,
+ 		struct hid_usage *usage, __s32 value)
+ {
 
 
