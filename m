@@ -1,128 +1,119 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1996E21255A;
-	Mon, 31 Aug 2026 09:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764593DDDB1
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 09:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788169010; cv=none; b=phnvVv3iM3FzNWWr5iCVqSMsAbWBV1S7gVF2EXp2y2KD6c37Lc0rSdDqcwkYr0/Q76dR1hUzEcpUlMqV4ZuzUNum1QEEfV8vSwguBuDrsEH6wr8qf3J3P3ZaPqhac8e3EywDOr8jRvz0t0xMgBimbaDFnNrwYP9Sd2sJ5GGvcM4=
+	t=1788169096; cv=none; b=pvn734kCX2gf5/VNl5C4U6sjRbgNH+8KfjJMFb9c2abkai22bbqp2r33j6NuFx20zNoe6ATZwhAzKSpKQgXJLrxnI0rf0kpV+hDNG1CMLmFCDH2hoomTRN2yZadfAp6O+LR9fy/HruIV8swZyRo6lF7Fymz+mKSbz6aRU0lxflo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788169010; c=relaxed/simple;
-	bh=byJBOBt/tR2tYDXtPyEeunwPUn6CVenvRXOn8is+8AE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rukOGvJHoMCDtjUsAlZjTNW6i+91qIvHlaL/Mst/cUK40aSG5snjLEIBx4v7vb7SEjawNZh58otoKWT5PHJM0N8b2IF7foMxF3InrpXNoGxAsC6H3fzr0ulwRhphM5CEZB1TMGXYVfsRLfhPNy1e7MMI0h1DtZVkwLn5DaYii6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=SMt2VOTu; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788169096; c=relaxed/simple;
+	bh=8CU9lUBSr36Vnjtnh3nf3UPr4d8FKMwSks35Tl01xaU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oPj3o015qB52BAqPojp1+JdHiQwFnLxRPMJbcdSZp3aH6K6mXcVkbfhwBijxsIcjpEA4NVznpd9qjRv8mdt+KHyl6vUEvOp06FR+JetT0a/GUpufcsy7TXQlgS2JCNAHKWr1QfTVmw5flYjpBfUdGT2/Hcfo8plvmbYifmGy4EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Wd18PPwR; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="SMt2VOTu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788169000;
-	bh=v9/UAjiuPxVgMyeedaks9B3wmR8pswsO8wt+LHQBfXk=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=SMt2VOTuaNbLp9m9GGzlM0dF4/o+MFpsukfiZpaUwPb7d+EWwm/czqpPPLFgLKHH4
-	 fKnDSUGssxvyaMu/0pEvrmVteuUI7gRkQyjpoCXaKVRKRT2pkciNXqtCz80XdMB4I8
-	 PWfkLw5eI8aedtlI5JSJ7MSID82ylw5a2N0nQgGk=
-X-QQ-mid: zesmtpgz7t1788168983te1bde3d2
-X-QQ-Originating-IP: im5pLOGF9MTXPq6UNTUPnnQx+ZPtpYKJcihSEfObd8g=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 31 Aug 2026 17:36:20 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9484404449190021099
-EX-QQ-RecipientCnt: 14
-From: raoxu <raoxu@uniontech.com>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	kuniyu@google.com,
-	maciej.fijalkowski@intel.com,
-	raoxu@uniontech.com,
-	diego@giagio.com,
-	agimenez@sysvalve.es,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] net: usb: ipheth: stop data URBs on ndo_stop
-Date: Mon, 31 Aug 2026 17:36:19 +0800
-Message-ID: <8DB5FB95051A2E5A+20260831093619.838403-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Wd18PPwR"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-85590c5aeabso2382189b3a.3
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 02:38:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788169095; x=1788773895; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d4945ExoKdc+YvBa/novL6lrWieQR91OCgBEeo72O9E=;
+        b=Wd18PPwR4XaqHg6klvQWxvmWR5iS0hdAFo+vhFQgVTIjTDyqi5SkkwMTicx2balH6c
+         AuZ9l44emh5yim/pLpXkelkhHPgwSYm7cvgB140ZGqgsF+gLuXUPnraYRywOxYi/CKNZ
+         ST3v9oKyczyjiytesUWG+IGxQ9OrX2Qu/zIXE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788169095; x=1788773895;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d4945ExoKdc+YvBa/novL6lrWieQR91OCgBEeo72O9E=;
+        b=cZwSZs2leLNIt6EXUxBoTWkX/xm0f6q67ddrFHFHT0c0U/A2FYrAPn/DtZpGpaKN3v
+         w/7E5b+9HcLDCZkOeUCG2d5jcf+6XKDsDg0hlkzJKVdAQ1nyVvAiageT5aLBoZ0ut7Fl
+         Y/1N5eQEOsjogzEXYoRfnev+U6Fci3fvKFglwqPfxKeNOXSWu540sv77XNw8qtiaPHRf
+         RdXK3MclPsY1SXohy6zgQCVb9fqBwAsY45wjSxuxPSkJfcAZ5i3lp/aZaUTFNc6S2i03
+         5UM2lNcSIMg72pSWshBN6s+zCOU9aNFSURDgcjvOmCvB+iqOVICcv5UFoCfK1YfK4WsF
+         ltaw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro29dg7nwtZO4JJEmGbbymtFPOVJysYywrDY3RkVFXHQnJptfvlHxT3kfxqmGLz//cqaYgtKTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kURlYoArrRv3oRRcpFxqZZDukOU2C3/dALHUs/Sdql67h0Z7mf
+	Ng0lHIU+hVIHe1PX1EgRs6K0M4CpDCSyeUKzsjH2U5pGitTcC6lZC5tpypeRKcSIiACRkJzSjGl
+	iWQU=
+X-Gm-Gg: AR+sD122T2v9Ry/2AX0kOxs8qMvuxQENyULjk2P3POyOJ+4fE6hFapvD5K26jKtTcVh
+	+7GDQ3gX5D0gFUUySHacV1YKgnbN7/POzP1do2BhVkOWJ1ZsEPhOW2t8I8LqYmioI4hikNEtkMa
+	DNnBxv/PJpwW0RppEMS1scV3GF4PAYjiaoCKkM1nonE+GTtR/V5gzFLXvvqyXKBnAhbXZQMlPEt
+	1U62RcZcDlHb4fxqq9CxA2Go6toyH3po/IzXpARArMn87OWv7uNrxzfN25i6Qex3L3RcdD0eYEp
+	IB7VquIDOd3u7C8xbGrnEu2HaPjy6TlkJnYITb39BnaJ122dIoUF9yjP5kSILzqLWGgW6vNOOxk
+	cVEYlB++hbOD2T6a1mcwh5NzU8F4V3VzgRGnKv+Nb0iPI7VrEjMvGGrUtHXz9RTZrywvppklzW5
+	KYXlZLNqNJoX+5eot3OkuPvMHYaJf622ldIK5DYGh7y1LGHhD7CZV9Qejdo6Zz0RREHVxAjgeiI
+	D9yNumUTlmtIFfS4PANvu5v5Ice
+X-Received: by 2002:a05:6a00:9508:b0:857:74ae:ad76 with SMTP id d2e1a72fcca58-85774aeb840mr22077655b3a.26.1788169094792;
+        Mon, 31 Aug 2026 02:38:14 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:8dd2:2971:8401:7686])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-856a3d689ccsm3376995b3a.58.2026.08.31.02.38.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 02:38:13 -0700 (PDT)
+Date: Mon, 31 Aug 2026 18:38:09 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Hao Jia <jiahao.kernel@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, minchan@kernel.org, axboe@kernel.dk, bgeffon@google.com, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
+Message-ID: <apVK4g2ikVJe_Hcg@google.com>
+References: <20260828083149.45760-1-jiahao.kernel@gmail.com>
+ <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
+ <apT-ocFYDmU6iC-j@google.com>
+ <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: N61MakLYUF4qMbA4om/qpif2/WVkjzW3g93I+fZkOkWFRzNQh+9Ks06A
-	jwggMfvG7voENy1opiKNMqRGDSAIsOFeyD9f7KfFCoow96i8oQkmS5BoPOIRZTfXD3421bI
-	prxhmWzRCs6GxY3ebmVn4ymtojQXfzXwsQ8A4vitgAbxUWdYxRRTC+whOknhImdZcwQaYRC
-	ylnWJwESXG7AqJQ8ultxeNoho+Xs0UGy6f5MfUoW9/MVRHp6EyJC2mHvVc5+h3GWgEiX/WF
-	huf4SC/tUps/8pwDcLPocDn4f1zJFC2I/m0zfowglsf8vS5HrdyjDai6fbIcQfsqUmfwOlh
-	UV0ZSAjqF64rL/gLn4v7YYP3ygAGqvf7+a0IhELZrvFJZaCvHUy0Ai/v34l9toA2of8haxw
-	cejLpt/MbVNY49EP31J+sV+5gZJSCnmlUL7ysCxgvqkJOXRq8Ze1EOORfA2xdY3hS+7ZVCF
-	qbglt2Sdv726oEU3tuWNcD7HdAQD4MWqJ7Zy6iSYIGelCxd217nwzzMAgBlwGxe6lZbX0AV
-	Qs3PT7+4HmYBB501x0+iv1I9iwfWh4YvNglQqaei0DCHiVvdpXaTd7uKgZUpE3jQlHcOyjC
-	PXoVR82gczoIf8XUN/CRv2wNNHTTpXmy3pjOEW8etc/1OQ4OtWn/1JcE/Ue5bXjRha8AUHm
-	MUEQhbO/8g752Y2HN1jXnit//NpssyPdcUbGUEAZCK2p5X07oBmI6Hgfk4x0YLrzMRdwyQy
-	R89D1BMeb6DAuBtKJSJzxuKCbR+WkJYFgSAHP7qrMxKGmuNAdCKvfzpiVzDekybKwYiMyZG
-	LpP9CxkC20tfs7F9V3XCxMAhDQg0LcQiTRX2Aji5TjhWocOYPGuzakKfb0EPXz6Hd0Tnpss
-	Ac1wDSPO7HHjppCqgNMqh4LpUbn2V6qWhRxDhnmxlVmnU7JyLiObwudO5VIVVWP1nLq1qH8
-	iikiMsmQEncY6gfgRRG0eymqrWAeCMxdkyWyqQyB5XvMDEr/4DFfM3N1FXK61KCB9/iOmbg
-	EFMPKx1NQNi9Y9+FsX7wNyN3KQ1FKBgCwAweCyVm8vOBqXTGXxq3fvHxFmWoXHe3zzx93L8
-	x1YSof3P7Zn+z/a7B2knZIfOI/pDdUugYvPeJrrwQGqVXattZFKC2o=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
 
-From: Xu Rao <raoxu@uniontech.com>
+On (26/08/31 16:37), Hao Jia wrote:
+> On 2026/8/31 12:15, Sergey Senozhatsky wrote:
+> > On (26/08/28 10:24), Andrew Morton wrote:
+> > > On Fri, 28 Aug 2026 16:31:49 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
+> > [..]
+> > > 
+> > > Thanks.  Sashiko asked a couple of questions about this change:
+> > > 	https://sashiko.dev/#/patchset/20260828083149.45760-1-jiahao.kernel@gmail.com
+> > 
+> > 
+> > > Does this early return prevent marking valid boot-time pages as idle?
+> > > When a page is accessed during the first second of system boot, its ac_time
+> > > would be 0.
+> > 
+> > There is no possibility for zram to hold pages during first second of
+> > system boot, regardless of whether zram was configured as a swap device
+> > or as a block device (mount-ed with real filesystem).
+> > 
+> > 
+> > > Can the early return above bypass this zram device initialization check?
+> > 
+> > We already do that, e.g. when kstrtouint(buf, 0, &age_sec) fails.  Apart
+> > from that, that's not how one checks if device was initialized.  We may
+> > want to consolidate those checks, just for symmetry.
+> 
+> Agreed on both points -- the early return is not a new "bypass", and
+> the write() return value was never a way to probe init state.
+> 
+> How about moving the init_done() check to the top, so all the early
+> returns sit behind the same device-state check?
 
-ipheth_open() submits the RX URB and ipheth_tx() can submit the TX URB
-while the netdev is running.  A successful RX completion resubmits the
-RX URB from ipheth_rcvbulk_callback(), so the receive path remains
-active until the URB is explicitly stopped.
-
-ipheth_close() stops the netdev queue and disables the carrier work, but
-it leaves any submitted data URBs running.  After an administrative link
-down, an already submitted RX URB can therefore complete successfully,
-account the received packet and pass it to the networking stack, and
-then submit the RX URB again even though the interface has been stopped.
-
-The disconnect path already kills the URBs after unregister_netdev(), so
-unplug testing eventually quiesces the data path.  The gap is therefore
-specific to an administrative close while the USB device remains
-connected.
-
-Kill the data URBs from ndo_stop as well.  Do this after disabling
-carrier_work: ipheth_sndbulk_callback() schedules the work on TX URB
-errors, while disable_delayed_work_sync() prevents a completion caused by
-usb_kill_urb() from re-arming it.  usb_kill_urb() also waits for pending
-completion handlers and prevents the RX completion from successfully
-resubmitting its URB.
-
-Fixes: a19259c3d589 ("drivers/net/usb: Add new driver ipheth")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/net/usb/ipheth.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/usb/ipheth.c b/drivers/net/usb/ipheth.c
-index 2b490114d232..f127aeab7031 100644
---- a/drivers/net/usb/ipheth.c
-+++ b/drivers/net/usb/ipheth.c
-@@ -505,6 +505,7 @@ static int ipheth_close(struct net_device *net)
- 	 * it, so that such a schedule_delayed_work() is a no-op.
- 	 */
- 	disable_delayed_work_sync(&dev->carrier_work);
-+	ipheth_kill_urbs(dev);
- 	return 0;
- }
- 
--- 
-2.50.1
-
+Yeah, I don't know...  Moving it under device lock doesn't buy us
+anything.  We don't need device lock to validate integer rangers,
+etc.  There are validations that we need to do under device lock
+because those require a consistent device state.  But things like
+"is system uptime less than supplied sysfs data" don't logically
+require a device lock.
