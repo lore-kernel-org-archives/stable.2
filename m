@@ -1,45 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB4E494811;
-	Mon, 31 Aug 2026 14:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E4E442105;
+	Mon, 31 Aug 2026 14:06:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185174; cv=none; b=F10dj0aPaAUWlK0yAfeLXlUKhk/uVMPSDfqb/a/PYkTmLSw9zxSQ0eaeh55iKBrRHm/6rQvf23IbsEhnNxJrc/8D0PoJAdkwjkv320UnQJD0bvZPKSNok4vKD1s/Ujft1sJgF/Wu3PX0s8gD0RlL0iU+q+4dkixwktpLaaQfSjg=
+	t=1788185162; cv=none; b=Uv5W4MJkI2yzKC7WHUc6yYkOCaYRb6WSqiGYVj3sx1O6O0X6GlgmIMuvnUg2tZWuLqnPUtrAJJBDmUZVlwPJI15fCgNrgs7Zo+NtDJTKkkm5my9p83lFC35Bgx05Nl39IsTj8wLaObNIydYqyvhWgqi2qCcNsjIK1w1cvxp1Gos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185174; c=relaxed/simple;
-	bh=dYaFDCIGkZIkA5lnBDuuNftQ+60bgt0s5bH27rxs57c=;
+	s=arc-20240116; t=1788185162; c=relaxed/simple;
+	bh=/GEoG17JKLoAnlm0rdVGuUhqHnCtjtVjB6YecmRrDfs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GuXyTbFRzqF3rGljj4eFHvVceiMrtVMOBUvxeR6T7pi+J26BWrdFvn2ZwqX9o07kGFUdkpAcV8/A3xQuHp/qE6K6YLB3OD3TSBNmNDg6669RK+cM15t8oNSvVkNT23wckw4eZ1pPTQftNG0nAcT70xRD9en8D7An75h+QrQk9ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SMVFp9kq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mYpOHUAGxWonSwfgVdhXixHQNR06H4FQ5E3ENX4kkZ1LUjkcXwH+Lh1ZX6s/S24Lgq9GJI63WHTojZU2uWaSI9SxvGNejUl2OsgosAWttibRWxewkYLfGmBzb0EOSqY3nWOKxmVvI5ha4jkpZj21ctYzGNqujEYgi2qp5CfkCwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SG+4vX+P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SMVFp9kq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730D01F000E9;
-	Mon, 31 Aug 2026 14:06:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SG+4vX+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29F8B1F000E9;
+	Mon, 31 Aug 2026 14:06:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788185173;
-	bh=NVHQyc9Os580lQnPu7lVrRehGZSgGrR0pVvtfzszGao=;
+	s=korg; t=1788185161;
+	bh=zD4JEXgJkzFH6BtMMjWFyuoj1UnJOt80evzgbXxVmpY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SMVFp9kqHmo0VIDBxOar5YRyRmGDQ8FeQQ24L7fkTP4vh0m7KZLvVnjBdG27onK6d
-	 bgzhfJu0hf3yF22MeJWwfbygHFAwef+vUOQLWV39U+5gtF6KQpUUlPcyY1AuQAcQr6
-	 m4uY6+HogORNb1KoPSdsNTUMX3wWwMc35R+HYPQM=
+	b=SG+4vX+P7Sj+HW0fSzPvIi6kI/x4M6OZAuiexXRiCnrlM1aGnIuxTefc/bLFhhg74
+	 3Fw/XZ6hkVh4xdvhy+hiOZq4/qawbkjgMvEccyi2RRmTCalXepTMo436G8AXiGJJ1E
+	 +aiafnO3su8ZQ8XSvJXBh/wyIgF/G5zD9K4ZZy3M=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yinhao Hu <dddddd@hust.edu.cn>,
-	Kaiyan Mei <M202472210@hust.edu.cn>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 10/43] bpf: Fix use-after-free in offloaded map/prog info fill
-Date: Mon, 31 Aug 2026 15:35:18 +0200
-Message-ID: <20260831133358.998190580@linuxfoundation.org>
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Subject: [PATCH 5.15 68/69] USB: c67x00: fix use-after-free in c67x00_add_iso_urb()
+Date: Mon, 31 Aug 2026 15:35:41 +0200
+Message-ID: <20260831133402.146378444@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
-References: <20260831133358.571886287@linuxfoundation.org>
+In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
+References: <20260831133358.601894154@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -51,76 +45,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-[ Upstream commit a0c584fc18056709c8e047a82a6045d6c209f4ce ]
+commit b1e24de475bf2d66fffc9103f3444b783527d55a upstream.
 
-When querying info for an offloaded BPF map or program,
-bpf_map_offload_info_fill_ns() and bpf_prog_offload_info_fill_ns()
-obtain the network namespace with get_net(dev_net(offmap->netdev)).
-However, the associated netdev's netns may be racing with teardown
-during netns destruction. If the netns refcount has already reached 0,
-get_net() performs a refcount_t increment on 0, triggering:
+When TD creation fails for the last packet of an isochronous URB,
+c67x00_add_iso_urb() gives the URB back before updating the endpoint
+scheduling state.
 
-  refcount_t: addition on 0; use-after-free.
+c67x00_giveback_urb() frees the URB private data, and the completion
+callback may release the final URB reference. The following accesses to
+urbp->ep_data, urb->interval, and urbp->cnt can therefore use freed
+memory.
 
-Although rtnl_lock and bpf_devs_lock ensure the netdev pointer remains
-valid, they cannot prevent the netns refcount from reaching zero.
+Update next_frame and cnt before giving back the failed final packet,
+making the giveback the last operation that uses the URB and its private
+data.
 
-Fix this by using maybe_get_net() instead of get_net(). maybe_get_net()
-uses refcount_inc_not_zero() and returns NULL if the refcount is already
-zero, which causes ns_get_path_cb() to fail and the caller to return
--ENOENT -- the correct behavior when the netns is being destroyed.
-
-Fixes: 675fc275a3a2d ("bpf: offload: report device information for offloaded programs")
-Fixes: 52775b33bb507 ("bpf: offload: report device information about offloaded maps")
-Reported-by: Yinhao Hu <dddddd@hust.edu.cn>
-Reported-by: Kaiyan Mei <M202472210@hust.edu.cn>
-Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
-Closes: https://lore.kernel.org/bpf/f0aa3678-79c9-47ae-9e8c-02a3d1df160a@hust.edu.cn/
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Acked-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20260409023733.168050-1-jiayuan.chen@linux.dev
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: e9b29ffc519b ("USB: add Cypress c67x00 OTG controller HCD driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Link: https://patch.msgid.link/20260806013502.322067-1-shuangpeng.kernel@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/bpf/offload.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/usb/c67x00/c67x00-sched.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/bpf/offload.c b/kernel/bpf/offload.c
-index bd09290e36484..bfd2ce6733692 100644
---- a/kernel/bpf/offload.c
-+++ b/kernel/bpf/offload.c
-@@ -277,9 +277,8 @@ static struct ns_common *bpf_prog_offload_info_fill_ns(void *private_data)
+--- a/drivers/usb/c67x00/c67x00-sched.c
++++ b/drivers/usb/c67x00/c67x00-sched.c
+@@ -761,13 +761,13 @@ static int c67x00_add_iso_urb(struct c67
+ 				ret);
+ 			urb->iso_frame_desc[urbp->cnt].actual_length = 0;
+ 			urb->iso_frame_desc[urbp->cnt].status = ret;
+-			if (urbp->cnt + 1 == urb->number_of_packets)
+-				c67x00_giveback_urb(c67x00, urb, 0);
+ 		}
  
- 	if (aux->offload) {
- 		args->info->ifindex = aux->offload->netdev->ifindex;
--		net = dev_net(aux->offload->netdev);
--		get_net(net);
--		ns = &net->ns;
-+		net = maybe_get_net(dev_net(aux->offload->netdev));
-+		ns = net ? &net->ns : NULL;
- 	} else {
- 		args->info->ifindex = 0;
- 		ns = NULL;
-@@ -504,9 +503,8 @@ static struct ns_common *bpf_map_offload_info_fill_ns(void *private_data)
- 
- 	if (args->offmap->netdev) {
- 		args->info->ifindex = args->offmap->netdev->ifindex;
--		net = dev_net(args->offmap->netdev);
--		get_net(net);
--		ns = &net->ns;
-+		net = maybe_get_net(dev_net(args->offmap->netdev));
-+		ns = net ? &net->ns : NULL;
- 	} else {
- 		args->info->ifindex = 0;
- 		ns = NULL;
--- 
-2.53.0
-
+ 		urbp->ep_data->next_frame =
+ 		    frame_add(urbp->ep_data->next_frame, urb->interval);
+ 		urbp->cnt++;
++		if (ret && urbp->cnt == urb->number_of_packets)
++			c67x00_giveback_urb(c67x00, urb, 0);
+ 	}
+ 	return 0;
+ }
 
 
