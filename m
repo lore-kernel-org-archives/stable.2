@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E6347D442;
-	Mon, 31 Aug 2026 13:58:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0B043E087;
+	Mon, 31 Aug 2026 13:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184706; cv=none; b=pCl5Q+Ul+WrFw7XPfXRJS7npgwTknsII//ASCmRQ+4NrvPszh9xKxWKWjJyfSycs46R7hBdm1Hc3bxbOtLsyZlya9IZSaRtH0KTGTEFmHpEid5AuVIkRFoCVFcqB93vGMb9IDbDVyOVLrmWbgWwnGmLQtDWeQbgNumgUEFnM/9Q=
+	t=1788184695; cv=none; b=gg65+83NFWkKbGFi0DzqFGZaDn/uxz8Eg1JST+qREaqdUtX0syMh7isjjy4zlDNlRtXHRdWJftxw2bLme2ayStFz2qqu7P/WmOUwi1FzWwzRmtR1LZgXbQ80VmMKeT/8GDV3rT03yRo2sQGZDSFMBFqxl1nevACP4cW3yZra0Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184706; c=relaxed/simple;
-	bh=e/OQrEkR1D9RQwn8cvaNi/qZbjvGJ0o5eBU8cR32dKU=;
+	s=arc-20240116; t=1788184695; c=relaxed/simple;
+	bh=XO8X99ZDPqKQogTh5yud8vW74tKkOZe7S7GNY+NzglI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hxnKlyyMuvmr1afYh1oq9+m77CdGE4gTbzem3SKJtfvm+cjPMlxOdynu6atlifRkXXsxRPKhe2+qNSCokiVrTXoU3XpqvmgwjY0ttnHYFcKbIFkmK/XBkyt5lIwbWiFYFzfCkWQsw97b80ZfN5wX3WGhEfJu/yDoCL4yTuZLQ2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tQhH9f0j; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d4sX3lQ41QzXBShhW90uzeNjqrj9gY5vx6UzXmhRXqZ1pSGyQ72enyuGCelcHx98fQEVIsKSz1XEcdZGCR7n7uJOFGbgxbALLEcD7Dsz98H8y7ByTDROeGRLbb1UtZoDKa4Rwg/stY+aBwW1QeA4Htmlgpg3umIfgixRHSkPgbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WItjIIgZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tQhH9f0j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20FDA1F000E9;
-	Mon, 31 Aug 2026 13:58:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WItjIIgZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76771F00A3D;
+	Mon, 31 Aug 2026 13:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184705;
-	bh=A3VIGYL9NWj9xR8ANx/laWdS+UJBxRwdA/wfF9R1tYw=;
+	s=korg; t=1788184694;
+	bh=LveKPUMVAd6MTUN78ylQjyJGsMFnyrBCzNivNpNbbnU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tQhH9f0j9sMgJA+BZ9BiZiARyPSKlbZJnzu52NXlL0/x2mPhLX3tBCdF3EPf10sjg
-	 J1oDFvi0GYXBA+5j4AFPOew8mleRL4aeYZXesCDgf/S0BEUZnsjQGDi+C3FqQykqZC
-	 2HJKED/KnL9iSlhEyEOg88fZceVebVXgc5OSQhbI=
+	b=WItjIIgZDgSwWiVm2YRuO7l5AU8hKZVvNUIcAaz3N8pkZf9Jun7kMxN7cQe5gna+4
+	 uEDI08Cu8NNkn7XvXcK3eohkiua6Uq3wVg+D1l2PGugATw3RsSU4eAYKexALncAjg8
+	 RpI/EufmWSMjK/SguXC6wIT5zYSi6fQU9srwkvus=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	syzbot+608a2acde8c5a101d07d@syzkaller.appspotmail.com,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Martin KaFai Lau <martin.lau@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 10/92] bpf: Remove tst_run from lwt_seg6local_prog_ops.
-Date: Mon, 31 Aug 2026 15:34:08 +0200
-Message-ID: <20260831133400.026645696@linuxfoundation.org>
+	zdi-disclosures@trendmicro.com,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Breno Leitao <leitao@debian.org>,
+	Steffen Klassert <steffen.klassert@secunet.com>
+Subject: [PATCH 6.6 72/91] xfrm: espintcp: fix UAF during close
+Date: Mon, 31 Aug 2026 15:35:00 +0200
+Message-ID: <20260831133403.363562313@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
-References: <20260831133359.482388899@linuxfoundation.org>
+In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
+References: <20260831133359.468089036@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -50,53 +48,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+From: Sabrina Dubroca <sd@queasysnail.net>
 
-[ Upstream commit c13fda93aca118b8e5cd202e339046728ee7dddb ]
+commit deb232e884877bf10b4ce2580909eedec986c284 upstream.
 
-The syzbot reported that the lwt_seg6 related BPF ops can be invoked
-via bpf_test_run() without without entering input_action_end_bpf()
-first.
+ZDI reported and analyzed a race condition during close for espintcp
+sockets:
 
-Martin KaFai Lau said that self test for BPF_PROG_TYPE_LWT_SEG6LOCAL
-probably didn't work since it was introduced in commit 04d4b274e2a
-("ipv6: sr: Add seg6local action End.BPF"). The reason is that the
-per-CPU variable seg6_bpf_srh_states::srh is never assigned in the self
-test case but each BPF function expects it.
+    espintcp_close() frees emsg->skb via kfree_skb() without holding
+    any socket lock. Concurrently, the xfrm_trans_reinject work queue
+    invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
+    espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
+    same skb as a data source.
 
-Remove test_run for BPF_PROG_TYPE_LWT_SEG6LOCAL.
+Fix this by adding a synchronize_rcu() call after resetting sk_prot,
+since esp_output_tcp_finish() runs under RCU and won't use a socket
+with sk_prot == &tcp_prot.  Simply taking the socket lock in
+espintcp_close() could lead to leaks, if esp_output_tcp_finish()
+re-adds an skb in the slot we just freed. After this, the existing
+barrier() is no longer needed.
 
-Suggested-by: Martin KaFai Lau <martin.lau@linux.dev>
-Reported-by: syzbot+608a2acde8c5a101d07d@syzkaller.appspotmail.com
-Fixes: d1542d4ae4df ("seg6: Use nested-BH locking for seg6_bpf_srh_states.")
-Fixes: 004d4b274e2a ("ipv6: sr: Add seg6local action End.BPF")
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20240710141631.FbmHcQaX@linutronix.de
-Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+Reported-by: zdi-disclosures@trendmicro.com
+Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/core/filter.c | 1 -
- 1 file changed, 1 deletion(-)
+ net/xfrm/espintcp.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 91d337252fc90..e2fd25d9e3580 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -11041,7 +11041,6 @@ const struct bpf_verifier_ops lwt_seg6local_verifier_ops = {
- };
+--- a/net/xfrm/espintcp.c
++++ b/net/xfrm/espintcp.c
+@@ -516,7 +516,8 @@ static void espintcp_close(struct sock *
+ 	strp_stop(&ctx->strp);
  
- const struct bpf_prog_ops lwt_seg6local_prog_ops = {
--	.test_run		= bpf_prog_test_run_skb,
- };
+ 	sk->sk_prot = &tcp_prot;
+-	barrier();
++
++	synchronize_rcu();
  
- const struct bpf_verifier_ops cg_sock_verifier_ops = {
--- 
-2.53.0
-
+ 	cancel_work_sync(&ctx->work);
+ 	strp_done(&ctx->strp);
 
 
