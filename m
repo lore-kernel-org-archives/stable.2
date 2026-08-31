@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7836E3F65F6
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:25:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7557F2FBDE0
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:26:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179153; cv=none; b=RFJn0EeqGEIBdEXhf+llIS5vVbUJnebLfU5CJTmo3nozTb1NwLwyDD+7fyCnHvKGJpB3Bk7nFRnGeC9J4+m2facyZsUJxXXC3TPqnio9D/jwEVGUUadUfuNRkhbkn+ihM5mgJH2khOG/GtCCqXcf233CZXkNs1PGcAQ5FrjvOnM=
+	t=1788179164; cv=none; b=JGyneMfSBRR/6/HdY6dCAMAXSlJqNMmH39AxZvKOIcenIykXGt8HaKEzks1w6W4i1YSrnv628wNjADIOGgKTyzN7y1zQvNGvveKRT+/yElI8AHa7aOlx3nRTOKhznKA3FxBSenuyJKUaTkK9OT0qpC7U4VaFNLVtomaftoFbbYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179153; c=relaxed/simple;
-	bh=ElyA1zAbFnHcsw5iF1rn0S11QD0Dd5TbhNC6mJaUEcc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j5AdbtbMnJVnJx01MMbu1WVAVvxaHMjxfrOXbqoM/PA/1bQXq4iRICB7L7Lud3mvD+XgxlRbuHGDKSFW/ozKe9+cfei4pU/LHKtmzjIxf9CXQ0U53AAvt3ftwkEqRTfPhsrIweae/XmwdlFZZnQraTcwMdUsapDgvBROTlSMEUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k2T7FfT8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788179164; c=relaxed/simple;
+	bh=V1mvx6oIbUrd2CF+8rlN+vLWY95XTnfVcGwa2onrcyg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fbvil9ZE7hIrYJDAgLmIAIMBcbfTkbfEkDeRTGfOJ3ciA3v9ED+/Cgd7nKFRuygAvYLTUh1ul+D41zKqZPls5XJkPa1RX8b0rPewQDCRgz4V2h9xuZoe06W2j88wukOHi+drRn0lutvNaxCVLUk/epy+bukUFT47rGZczeoRMIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lwN0Kw1Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k2T7FfT8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3BEF1F000E9;
-	Mon, 31 Aug 2026 12:25:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lwN0Kw1Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19061F000E9;
+	Mon, 31 Aug 2026 12:26:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788179151;
-	bh=D9wELGVEUfIc/UwSq9NwbFqYUAL1nB/XAlQTALYjUPI=;
+	s=korg; t=1788179162;
+	bh=yRL6MjGLobCKDxFZdUnJRUiDE13HPyH2KRj6IhDwWnA=;
 	h=Subject:To:Cc:From:Date;
-	b=k2T7FfT8cgZ3PKXSb+3drfbOU/yJaDOQU/gm3ZrpETEqGmJajCStGt6rKPJhuKqUk
-	 18TtL52qBWytxvWvYR+3pTYxqf0ZZg7ZbFhb73hOGuzCSVV/i6q/+Euj3vvZsOS7Cd
-	 V2MFMfx4dqsEgrORc5cWO89UC89BeIpN9Onu6uAA=
-Subject: FAILED: patch "[PATCH] KVM: SEV: Wire up kvm_x86_ops.gmem_xxx() if and only if" failed to apply to 6.12-stable tree
-To: seanjc@google.com,ackerleytng@google.com
+	b=lwN0Kw1Ydu586+UPaAK3ACEmoBSTFHuES6ZxI26oI/9SmEOZZKh3Agu2bVKWt/o6n
+	 VgNLOQ4ToJOUEflf/J1zZA0wZeu+prj1dmSjr30CSFc1UjPhzGdPXa1DFVDh1ZmoyU
+	 RX/KPPKHN8GaX1fv8OMHAh9hmblcSt4/u/f3Y0fc=
+Subject: FAILED: patch "[PATCH] KVM: SEV: Forcefully invalidate SNP VMSA if its backing gmem" failed to apply to 7.2-stable tree
+To: seanjc@google.com,ackerleytng@google.com,imv4bel@gmail.com,joro@8bytes.org,michael.roth@amd.com,tabba@google.com,thomas.lendacky@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:25:47 +0200
-Message-ID: <2026083147-overrate-roster-23cf@gregkh>
+Date: Mon, 31 Aug 2026 14:25:58 +0200
+Message-ID: <2026083158-cornmeal-overhang-51bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 01a96ff30dde5127c37497f1e098e639e7ae152f
+git cherry-pick -x d1a3c216233413f57f5341a9b878b7e2dde7e785
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083147-overrate-roster-23cf@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083158-cornmeal-overhang-51bb@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,71 +62,440 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 01a96ff30dde5127c37497f1e098e639e7ae152f Mon Sep 17 00:00:00 2001
+From d1a3c216233413f57f5341a9b878b7e2dde7e785 Mon Sep 17 00:00:00 2001
 From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 9 Jul 2026 13:49:34 -0700
-Subject: [PATCH] KVM: SEV: Wire up kvm_x86_ops.gmem_xxx() if and only if
- CONFIG_KVM_AMD_SEV=y
+Date: Thu, 9 Jul 2026 13:49:40 -0700
+Subject: [PATCH] KVM: SEV: Forcefully invalidate SNP VMSA if its backing gmem
+ page is zapped
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Wire up the SEV-SNP guest_memfd kvm_x86_ops hooks if and only if SEV is
-actually enabled, and drop the now-unnecessary stubs.  Leaving the hooks
-NULL allows the static call infrastructure to elide the CALL+RET, and more
-importantly, referencing the hooks if and only if SEV support is enabled
-will allow conditionally definining the hooks using their corresponding
-HAVE_KVM_ARCH_GMEM_XXX Kconfig.
+Wire up a gmem_invalidate_range() call for SNP VMs, and use it to force
+vCPUs to reload/recheck their guest-provided VMSA if the backing gmem
+page is being invalidated, e.g. is being PUNCH_HOLE'd.  Use the same core
+logic to handle invalidations as VMX does for the APIC-access page, as the
+two concepts are nearly identical: shove the physical address of a page
+into the vCPU's control structure:
 
-No functional change intended.
+ 1. Snapshot the invalidation sequence counter
+ 2. Grab the pfn (from guest_memfd in this case)
+ 3. Acquire mmu_lock for read
+ 4. Re-request reload if retry is needed, otherwise commit the change.
 
-Cc: stable@vger.kernel.org # 6.12.x
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
-Link: https://patch.msgid.link/20260709204948.1988414-5-seanjc@google.com
+Note, the re-request action in #4 is necessary as KVM's retry logic is
+fuzzy, i.e. can get false positives.  If the guest_memfd page has been
+dropped, at some point a subsequent reload will fail to get a PFN from
+guest_memfd, and KVM will fail KVM_RUN.  If the retry was due to a false
+positive, KVM will retry until there are no relevant MMU notifier events
+(and will retry in the "outer" loop, i.e. will drop locks and resched as
+needed).
+
+Note #2!  Take care to invalidate the VMSA when a relevant memslot is
+DELETED or MOVED, as invalidations in response to PUNCH_HOLE are predicated
+on memslot bindings (KVM doesn't know what GFN range(s) to invalidate
+without a binding).  And more importantly, the VMSA mapping requires a
+memslot, i.e. must be invalidated if its memslots disappears, regardless of
+the state of the underlying guest_memfd inode.
+
+Failure to invalidate the vCPU's control.vmsa_pa (which is checked by
+pre_sev_run()) can prevent KVM from properly freeing the page as firmware
+will reject the RMPUPDATE to reclaim the page with FAIL_INUSE if the vCPU
+is actively running, i.e. if VMSA page is in-use.  That in turn leads to an
+RMP #PF on the next use, as the page will still be assigned to the SNP VM.
+
+  SEV-SNP: RMPUPDATE failed for PFN 78d198, pg_level: 1, ret: 3
+  SEV-SNP: PFN 0x78d198, RMP entry: [0xfff0000000144001 - 0x000000000000000f]
+  CPU: 3 UID: 0 PID: 31345 Comm: sev_snp_vmsa_pu Tainted: G     U     O
+  Tainted: [U]=USER, [O]=OOT_MODULE
+  Hardware name: Google, Inc. Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x54/0x70
+   rmpupdate+0x12c/0x140
+   rmp_make_shared+0x3b/0x60
+   sev_gmem_invalidate+0xe0/0x170 [kvm_amd]
+   delete_from_page_cache_batch+0x1d8/0x220
+   truncate_inode_pages_range+0x120/0x3d0
+   kvm_gmem_fallocate+0x19a/0x270 [kvm]
+   vfs_fallocate+0x1bc/0x1f0
+   __x64_sys_fallocate+0x48/0x70
+   do_syscall_64+0x10a/0x480
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  RIP: 0033:0x496c7e
+   </TASK>
+  ------------[ cut here ]------------
+  SEV: Failed to update RMP entry for PFN 0x78d198 error -14
+  WARNING: arch/x86/kvm/svm/sev.c:5160 at sev_gmem_invalidate+0x126/0x170 [kvm_amd], CPU#3: sev_snp_vmsa_pu/31345
+  CPU: 3 UID: 0 PID: 31345 Comm: sev_snp_vmsa_pu Tainted: G     U     O
+  Tainted: [U]=USER, [O]=OOT_MODULE
+  Hardware name: Google, Inc. Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
+  RIP: 0010:sev_gmem_invalidate+0x12b/0x170 [kvm_amd]
+  Call Trace:
+   <TASK>
+   delete_from_page_cache_batch+0x1d8/0x220
+   truncate_inode_pages_range+0x120/0x3d0
+   kvm_gmem_fallocate+0x19a/0x270 [kvm]
+   vfs_fallocate+0x1bc/0x1f0
+   __x64_sys_fallocate+0x48/0x70
+   do_syscall_64+0x10a/0x480
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  RIP: 0033:0x496c7e
+   </TASK>
+  irq event stamp: 20689
+  hardirqs last  enabled at (20699): [<ffffffff8e76092c>] __console_unlock+0x5c/0x60
+  hardirqs last disabled at (20708): [<ffffffff8e760911>] __console_unlock+0x41/0x60
+  softirqs last  enabled at (20722): [<ffffffff8e6cd74e>] __irq_exit_rcu+0x7e/0x140
+  softirqs last disabled at (20717): [<ffffffff8e6cd74e>] __irq_exit_rcu+0x7e/0x140
+  ---[ end trace 0000000000000000 ]---
+  BUG: unable to handle page fault for address: ffff99a64d198000
+  #PF: supervisor write access in kernel mode
+  #PF: error_code(0x80000003) - RMP violation
+  PGD 13eb001067 P4D 13eb001067 PUD 78d1d1063 PMD 1184e0063 PTE 800000078d198163
+  SEV-SNP: PFN 0x78d198, RMP entry: [0x6030000000144001 - 0x000000000000000f]
+  Oops: Oops: 0003 [#1] SMP
+  CPU: 3 UID: 0 PID: 31407 Comm: highlanderd_hea Tainted: G     U  W  O
+  Tainted: [U]=USER, [W]=WARN, [O]=OOT_MODULE
+  Hardware name: Google, Inc. Arcadia_IT_80/Arcadia_IT_80, BIOS 34.86.0-102 01/25/2026
+  RIP: 0010:prep_new_page+0x67/0x220
+  Call Trace:
+   <TASK>
+   get_page_from_freelist+0x1c40/0x1c70
+   __alloc_frozen_pages_noprof+0xca/0x1f0
+   alloc_pages_mpol+0x10b/0x1b0
+   alloc_pages_noprof+0x81/0x90
+   pte_alloc_one+0x1b/0xd0
+   do_pte_missing+0xdf/0x1020
+   handle_mm_fault+0x7c7/0xb20
+   do_user_addr_fault+0x268/0x6b0
+   exc_page_fault+0x67/0xa0
+   asm_exc_page_fault+0x26/0x30
+  RIP: 0033:0x4a6b1e
+   </TASK>
+  gsmi: Log Shutdown Reason 0x03
+  CR2: ffff99a64d198000
+  ---[ end trace 0000000000000000 ]---
+  RIP: 0010:prep_new_page+0x67/0x220
+
+Drop the pseudo-TODO comment about needing to pin the page if guest_memfd
+every supports migration, as integrating with invalidations events means
+KVM will Just Work if/when page migration is ever supported (assuming SNP
+hardware supports migrating VMSA pages).
+
+Note #3, invalidate() and invalidate_range() have _completely_ different
+semantics; the new invalidate_range() is a true invalidation, whereas the
+existing invalidate() is really a "make shared" operation.  Ignore the
+confusing naming and poor Kconfig bundling for the moment to minimize the
+delta for LTS kernels, the mess will be cleaned up shortly.
+
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Closes: https://lore.kernel.org/all/aimMWzAf5b3luM0b@v4bel
+Fixes: e366f92ea99e ("KVM: SEV: Support SEV-SNP AP Creation NAE event")
+Cc: stable@vger.kernel.org
+Cc: Tom Lendacky <thomas.lendacky@amd.com>
+Cc: Michael Roth <michael.roth@amd.com>
+Cc: Jörg Rödel <joro@8bytes.org>
+Cc: Fuad Tabba <tabba@google.com>
+Cc: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Link: https://patch.msgid.link/20260709204948.1988414-11-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 
+diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
+index 83dc5086138b..ccf23b3f0e1c 100644
+--- a/arch/x86/include/asm/kvm-x86-ops.h
++++ b/arch/x86/include/asm/kvm-x86-ops.h
+@@ -134,6 +134,7 @@ KVM_X86_OP_OPTIONAL(mem_enc_unregister_region)
+ KVM_X86_OP_OPTIONAL(vm_copy_enc_context_from)
+ KVM_X86_OP_OPTIONAL(vm_move_enc_context_from)
+ KVM_X86_OP_OPTIONAL(guest_memory_reclaimed)
++KVM_X86_OP_OPTIONAL(reload_vmsa)
+ KVM_X86_OP(get_feature_msr)
+ KVM_X86_OP(check_emulate_instruction)
+ KVM_X86_OP(apic_init_signal_blocked)
+@@ -148,6 +149,9 @@ KVM_X86_OP_OPTIONAL(alloc_apic_backing_page)
+ KVM_X86_OP_OPTIONAL_RET0(gmem_prepare)
+ KVM_X86_OP_OPTIONAL_RET0(gmem_max_mapping_level)
+ KVM_X86_OP_OPTIONAL(gmem_invalidate)
++#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
++KVM_X86_OP_OPTIONAL(gmem_invalidate_range)
++#endif
+ #endif
+ 
+ #undef KVM_X86_OP
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index b517257a6315..1c598b40e0c3 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -122,6 +122,8 @@
+ 	KVM_ARCH_REQ_FLAGS(31, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
+ #define KVM_REQ_HV_TLB_FLUSH \
+ 	KVM_ARCH_REQ_FLAGS(32, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
++#define KVM_REQ_VMSA_PAGE_RELOAD \
++	KVM_ARCH_REQ_FLAGS(33, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
+ #define KVM_REQ_UPDATE_PROTECTED_GUEST_STATE \
+ 	KVM_ARCH_REQ_FLAGS(34, KVM_REQUEST_WAIT)
+ 
+@@ -1878,6 +1880,7 @@ struct kvm_x86_ops {
+ 	int (*vm_copy_enc_context_from)(struct kvm *kvm, unsigned int source_fd);
+ 	int (*vm_move_enc_context_from)(struct kvm *kvm, unsigned int source_fd);
+ 	void (*guest_memory_reclaimed)(struct kvm *kvm);
++	void (*reload_vmsa)(struct kvm_vcpu *vcpu);
+ 
+ 	int (*get_feature_msr)(u32 msr, u64 *data);
+ 
+@@ -1902,6 +1905,9 @@ struct kvm_x86_ops {
+ 	void *(*alloc_apic_backing_page)(struct kvm_vcpu *vcpu);
+ 	int (*gmem_prepare)(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order);
+ 	void (*gmem_invalidate)(kvm_pfn_t start, kvm_pfn_t end);
++#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
++	void (*gmem_invalidate_range)(struct kvm *kvm, struct kvm_gfn_range *range);
++#endif
+ 	int (*gmem_max_mapping_level)(struct kvm *kvm, kvm_pfn_t pfn, bool is_private);
+ };
+ 
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 3eb1f86593b1..e2978e9a1731 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -7589,6 +7589,11 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
+ 
+ 	write_lock(&kvm->mmu_lock);
+ 
++#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
++	if (slot->gmem.file)
++		kvm_arch_gmem_invalidate_range(kvm, &range);
++#endif
++
+ 	if (zap_all) {
+ 		__kvm_mmu_zap_all_fast_front_half(kvm);
+ 	} else {
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 30792adcfc8e..62c6126d52c0 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -3979,19 +3979,25 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	return snp_do_psc(svm);
+ }
+ 
+-static void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
++static void __sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
+ {
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 	struct kvm_memory_slot *slot;
++	struct kvm *kvm = vcpu->kvm;
+ 	gfn_t gfn = gpa_to_gfn(gpa);
++	unsigned long mmu_seq;
+ 	struct page *page;
+ 	kvm_pfn_t pfn;
+ 
+ 	lockdep_assert_held(&svm->sev_es.snp_vmsa_mutex);
+ 
+-	/* Clear use of the VMSA. */
++	/*
++	 * Clear use of the VMSA.  Ensure snp_guest_vmsa_gpa is written exactly
++	 * once, as it is read locklessly when responding to gfn invalidations.
++	 * Pairs with the READ_ONCE() in sev_gmem_invalidate_range().
++	 */
+ 	svm->vmcb->control.vmsa_pa = INVALID_PAGE;
+-	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
++	WRITE_ONCE(svm->sev_es.snp_guest_vmsa_gpa, INVALID_PAGE);
+ 
+ 	/*
+ 	 * When replacing the VMSA during SEV-SNP AP creation,
+@@ -4006,6 +4012,9 @@ static void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
+ 	if (!slot)
+ 		return;
+ 
++	mmu_seq = kvm->mmu_invalidate_seq;
++	smp_rmb();
++
+ 	/*
+ 	 * The new VMSA will be private memory guest memory, so retrieve the
+ 	 * PFN from the gmem backend.
+@@ -4024,15 +4033,20 @@ static void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
+ 	 */
+ 	svm->sev_es.snp_has_guest_vmsa = true;
+ 
+-	/* Use the new VMSA */
+-	svm->sev_es.snp_guest_vmsa_gpa = gpa;
+-	svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
+-
++	read_lock(&kvm->mmu_lock);
+ 	/*
+-	 * gmem pages aren't currently migratable, but if this ever changes
+-	 * then care should be taken to ensure svm->sev_es.vmsa is pinned
+-	 * through some other means.
++	 * Save the guest-provided GPA.  If retry is needed, then KVM will try
++	 * again with the same GPA.  If the VMSA is usable, then KVM needs to
++	 * track the GPA so that the VMSA can be reloaded if the backing page
++	 * for the GPA is invalidated.
+ 	 */
++	svm->sev_es.snp_guest_vmsa_gpa = gpa;
++	if (mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn))
++		kvm_make_request(KVM_REQ_VMSA_PAGE_RELOAD, vcpu);
++	else
++		svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
++	read_unlock(&kvm->mmu_lock);
++
+ 	kvm_release_page_clean(page);
+ }
+ 
+@@ -4058,7 +4072,7 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	gpa = svm->sev_es.snp_pending_vmsa_gpa;
+ 	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
+ 
+-	sev_snp_reload_vmsa(vcpu, gpa);
++	__sev_snp_reload_vmsa(vcpu, gpa);
+ 
+ 	/*
+ 	 * Mark the vCPU as runnable for CREATE requests, indicated by a valid
+@@ -4070,6 +4084,15 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 		kvm_set_mp_state(vcpu, KVM_MP_STATE_RUNNABLE);
+ }
+ 
++void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu)
++{
++	struct vcpu_sev_es_state *sev_es = &to_svm(vcpu)->sev_es;
++
++	guard(mutex)(&sev_es->snp_vmsa_mutex);
++
++	__sev_snp_reload_vmsa(vcpu, sev_es->snp_guest_vmsa_gpa);
++}
++
+ static int sev_snp_ap_creation(struct vcpu_svm *svm)
+ {
+ 	struct kvm_sev_info *sev = to_kvm_sev_info(svm->vcpu.kvm);
+@@ -5199,6 +5222,41 @@ void sev_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end)
+ 	}
+ }
+ 
++void sev_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range)
++{
++	struct kvm_vcpu *vcpu;
++	unsigned long i;
++
++	lockdep_assert_held_write(&kvm->mmu_lock);
++
++	/*
++	 * An unstable result for "is SNP" is a-ok here, thanks to mmu_lock.
++	 * The vCPU's VMSA GPA is invalidated before the vCPU is made visible
++	 * to other tasks, and can only become valid while holding mmu_lock,
++	 * after the VM is fully committed to being an SNP VM.
++	 */
++	if (!____sev_snp_guest(kvm))
++		return;
++
++	kvm_for_each_vcpu(i, vcpu, kvm) {
++		/*
++		 * Read snp_guest_vmsa_gpa without taking the vCPU's VMSA mutex
++		 * (or its generic mutex) as mmu_lock is held, i.e. this task
++		 * can't sleep.  The VMSA is invalidated outside of mmu_lock,
++		 * but can only become valid inside of mmu_lock, i.e. the below
++		 * can get false positives, but not false negatives.  A false
++		 * positive is benign, as a spurious request simply forces the
++		 * vCPU to re-establish its VMSA.
++		 */
++		gpa_t gpa = READ_ONCE(to_svm(vcpu)->sev_es.snp_guest_vmsa_gpa);
++
++		if (VALID_PAGE(gpa) &&
++		    gpa_to_gfn(gpa) >= range->start &&
++		    gpa_to_gfn(gpa) < range->end)
++			kvm_make_request_and_kick(KVM_REQ_VMSA_PAGE_RELOAD, vcpu);
++	}
++}
++
+ int sev_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn, bool is_private)
+ {
+ 	int level, rc;
 diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index ef69a51ab27f..79c818d91dda 100644
+index 79c818d91dda..dd51df74c2dc 100644
 --- a/arch/x86/kvm/svm/svm.c
 +++ b/arch/x86/kvm/svm/svm.c
-@@ -5448,6 +5448,10 @@ struct kvm_x86_ops svm_x86_ops __initdata = {
+@@ -5445,12 +5445,14 @@ struct kvm_x86_ops svm_x86_ops __initdata = {
+ 	.mem_enc_register_region = sev_mem_enc_register_region,
+ 	.mem_enc_unregister_region = sev_mem_enc_unregister_region,
+ 	.guest_memory_reclaimed = sev_guest_memory_reclaimed,
++	.reload_vmsa = sev_snp_reload_vmsa,
  
  	.vm_copy_enc_context_from = sev_vm_copy_enc_context_from,
  	.vm_move_enc_context_from = sev_vm_move_enc_context_from,
-+
-+	.gmem_prepare = sev_gmem_prepare,
-+	.gmem_invalidate = sev_gmem_invalidate,
-+	.gmem_max_mapping_level = sev_gmem_max_mapping_level,
+ 
+ 	.gmem_prepare = sev_gmem_prepare,
+ 	.gmem_invalidate = sev_gmem_invalidate,
++	.gmem_invalidate_range = sev_gmem_invalidate_range,
+ 	.gmem_max_mapping_level = sev_gmem_max_mapping_level,
  #endif
  	.check_emulate_instruction = svm_check_emulate_instruction,
- 
-@@ -5459,10 +5463,6 @@ struct kvm_x86_ops svm_x86_ops __initdata = {
- 	.vcpu_deliver_sipi_vector = svm_vcpu_deliver_sipi_vector,
- 	.vcpu_get_apicv_inhibit_reasons = avic_vcpu_get_apicv_inhibit_reasons,
- 	.alloc_apic_backing_page = svm_alloc_apic_backing_page,
--
--	.gmem_prepare = sev_gmem_prepare,
--	.gmem_invalidate = sev_gmem_invalidate,
--	.gmem_max_mapping_level = sev_gmem_max_mapping_level,
- };
- 
- /*
 diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-index d077783c287e..effca6372e15 100644
+index effca6372e15..130205defffa 100644
 --- a/arch/x86/kvm/svm/svm.h
 +++ b/arch/x86/kvm/svm/svm.h
-@@ -1035,16 +1035,6 @@ static inline int sev_cpu_init(struct svm_cpu_data *sd) { return 0; }
- static inline int sev_dev_get_attr(u32 group, u64 attr, u64 *val) { return -ENXIO; }
- #define max_sev_asid 0
- static inline void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code) {}
--static inline int sev_gmem_prepare(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order)
--{
--	return 0;
--}
--static inline void sev_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end) {}
--static inline int sev_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn, bool is_private)
--{
--	return 0;
--}
--
- static inline struct vmcb_save_area *sev_decrypt_vmsa(struct kvm_vcpu *vcpu)
+@@ -996,6 +996,7 @@ static inline struct page *snp_safe_alloc_page(void)
  {
- 	return NULL;
+ 	return snp_safe_alloc_page_node(numa_node_id(), GFP_KERNEL_ACCOUNT);
+ }
++void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu);
+ 
+ int sev_vcpu_create(struct kvm_vcpu *vcpu);
+ void sev_free_vcpu(struct kvm_vcpu *vcpu);
+@@ -1010,6 +1011,7 @@ extern unsigned int max_sev_asid;
+ void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code);
+ int sev_gmem_prepare(struct kvm *kvm, kvm_pfn_t pfn, gfn_t gfn, int max_order);
+ void sev_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end);
++void sev_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range);
+ int sev_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn, bool is_private);
+ struct vmcb_save_area *sev_decrypt_vmsa(struct kvm_vcpu *vcpu);
+ void sev_free_decrypted_vmsa(struct kvm_vcpu *vcpu, struct vmcb_save_area *vmsa);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 8abd733d5173..5a5fd6211d23 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -8170,6 +8170,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
+ 				goto out;
+ 			}
+ 		}
++		if (kvm_check_request(KVM_REQ_VMSA_PAGE_RELOAD, vcpu))
++			kvm_x86_call(reload_vmsa)(vcpu);
+ 	}
+ 
+ 	if (kvm_check_request(KVM_REQ_EVENT, vcpu) || req_int_win ||
+@@ -10599,6 +10601,10 @@ void kvm_arch_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end)
+ {
+ 	kvm_x86_call(gmem_invalidate)(start, end);
+ }
++void kvm_arch_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range)
++{
++	kvm_x86_call(gmem_invalidate_range)(kvm, range);
++}
+ #endif
+ #endif
+ 
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index ab8cfaec82d3..c00fc1740ce5 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2608,6 +2608,7 @@ long kvm_gmem_populate(struct kvm *kvm, gfn_t start_gfn, void __user *src,
+ 
+ #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
+ void kvm_arch_gmem_invalidate(kvm_pfn_t start, kvm_pfn_t end);
++void kvm_arch_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range);
+ #endif
+ 
+ #ifdef CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 86690683b2fe..659b8dbe0b30 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -185,6 +185,10 @@ static void __kvm_gmem_invalidate_start(struct gmem_file *f, pgoff_t start,
+ 		}
+ 
+ 		flush |= kvm_mmu_unmap_gfn_range(kvm, &gfn_range);
++
++#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
++		kvm_arch_gmem_invalidate_range(kvm, &gfn_range);
++#endif
+ 	}
+ 
+ 	if (flush)
 
