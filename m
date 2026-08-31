@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B830639D6CA
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:22:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AFB3CF69F
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788178976; cv=none; b=kaods67pbsE/MQIu1AEpV8HeOzK1Uw7kNNKdxeAc/QrQALYcItGlqHXfKmtrw0PmS8dCX5G8yks/eJSZeDIsKaAZapfxc4ZFS1DM0WPhFP+lr0jr+7CxDnCjBpJ+fSZCCq5dAp3FUZV4ltYFmOKsSP0VM01D5JOEhUrpX+stRKE=
+	t=1788178983; cv=none; b=qJS04yu3HmgLp1Ua8RlhPZ4oEPE6jvtInj3egIQSaXzpZvPuYkLi0P9byDA2BmSd5y75CcLw/ZP55IeYJqzjAaGl38nh9ohJYZOJ2FLQLdVASCk6pR5y6Nnelm1o/NDAR9buIAaM8xmRl/0gVYlWdBZAm6jVjK8s+BQFyPoaSBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788178976; c=relaxed/simple;
-	bh=oUQMulW3fHDwkVB30ShBQ8lzjEWLIR+PunKo2aQH/qU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=M99l0uOboEqCCBMUfeJHtVB2xR02g7LZ3qFtrbbkkZ/1zWwJt0Mx7W54MOBTGo5GjpWQAJ2bxv5qwuIpjrGx863mqTHsB6ox1N8Oqv+4h4a4x5yGL35LsdmX4TAwnpBdtCRsIIsRPcX9oRQrK6h2FqKBLIvZuar6YcjF95qvxBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xzqnL0wI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788178983; c=relaxed/simple;
+	bh=WWPGu6w0e+Rih7f+dTzEp/SO5XIAMKb1Q1G6YCZiRsQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=l3ti5MHGKr1Nog/jGogpej7KP0diUrCTETmECo0N3zhcMfgCqSluR1NvUGSYoR1wa6bclG4fZdpZg7pHfof6gDOKe3+630eJS4l7OHTJ5448d8Kir2jMMf3igEGB7DOczb0cO6dbjcpqsaain++Irqn3l40bW4fRk0VF4BgBreg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ixDls2mk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xzqnL0wI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A381F000E9;
-	Mon, 31 Aug 2026 12:22:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ixDls2mk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E591F000E9;
+	Mon, 31 Aug 2026 12:23:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788178975;
-	bh=eMUpJwhEwZ3nkAicLBhXjU3yFRZI9M86qwIhlMpD7Eo=;
+	s=korg; t=1788178982;
+	bh=G6pPOzvOXsjhmyM8XgG6rrMUXqm9+0Aw7ovSHjyWGA0=;
 	h=Subject:To:Cc:From:Date;
-	b=xzqnL0wIv/8UEwr0rnD4D0HyI/XUptWWBUs8uf+br/mtIrBSEG/42rCVpiNMuErSE
-	 +AhdrTl3oqf61u6EkxJGWMHq9MbLccdF6IirtU4WLm6ch5qIaZlaIlW2MaAJkOQnPA
-	 4kBWuAKQ5X3pwhq2v5w3GlqvvfjgCYOx3HITli5c=
-Subject: FAILED: patch "[PATCH] fuse: fix missing barrier when checking io-uring readiness" failed to apply to 7.1-stable tree
+	b=ixDls2mkfucDl+kbdwc+IGcun+62m3qRJF359KSwTtVFT2unEJHq8vCv5Aijjv4MA
+	 JeHkzrfyKf5ndmgnU1faAStKnKmegr0SL69eI8tUWnWjA7L4IEna+sbeJl7N9VNNVO
+	 JZYh/kb4SlfHNOYCQtXCcBKNX90Vl/xYsktPr1TQ=
+Subject: FAILED: patch "[PATCH] fuse: publish io-uring queues with release semantics" failed to apply to 7.1-stable tree
 To: joannelkoong@gmail.com,bernd@bsbernd.com,mszeredi@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:22:42 +0200
-Message-ID: <2026083142-mossy-turtle-dc44@gregkh>
+Date: Mon, 31 Aug 2026 14:22:51 +0200
+Message-ID: <2026083151-suing-repackage-8ff5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x edb310bc27f0ad83e7fd558a3caf1a94ca511654
+git cherry-pick -x 42df916e5a5f8fb4b60c8cefb54318d1ec02c580
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083142-mossy-turtle-dc44@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083151-suing-repackage-8ff5@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,110 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From edb310bc27f0ad83e7fd558a3caf1a94ca511654 Mon Sep 17 00:00:00 2001
+From 42df916e5a5f8fb4b60c8cefb54318d1ec02c580 Mon Sep 17 00:00:00 2001
 From: Joanne Koong <joannelkoong@gmail.com>
-Date: Thu, 16 Jul 2026 11:31:42 -0700
-Subject: [PATCH] fuse: fix missing barrier when checking io-uring readiness
+Date: Thu, 16 Jul 2026 11:31:44 -0700
+Subject: [PATCH] fuse: publish io-uring queues with release semantics
 
-fuse_block_alloc() reads fch->initialized and then fch->io_uring.
-fch->io_uring is set before fch->initialized, ordered by the smp_wmb()
-in fuse_chan_set_intialized(), but fuse_block_alloc() has no matching
-read barrier between the two loads.
+fuse_uring_create_queue() initializes a fuse_ring_queue and then
+publishes the pointer into ring->queues[qid] with WRITE_ONCE() under the
+fch->lock. There are several readers that may concurrently be fetching
+that pointer locklessly and then deferencing it.
 
-This may lead a CPU to observe fch->initialized=1 but fch->io_uring=0,
-and skip the check that blocks request allocation until the io-uring
-queues are ready. This can reintroduce the lock-order inversion deadlock
-that commit 3393ff964e0f prevents.
+WRITE_ONCE() doesn't ensure ordering of the queue's field
+initialization before the ring->queues[qid] pointer assignment. The
+queue must be published with smp_store_release() so the field
+initialization is guaranteed to happen before.
 
-Add an smp_rmb() barrier to pair with the smp_wmb() in
-fuse_chan_set_initialized() to prevent this.
+Readers in paths where the read may happen concurrently with the store
+need to use READ_ONCE() because any race involving a plain access is
+undefined.
 
-Fixes: 3393ff964e0f ("fuse: block request allocation until io-uring init is complete")
+Fixes: 24fe962c86f5 ("fuse: {io-uring} Handle SQEs - register commands")
 Cc: stable@vger.kernel.org
 Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
 Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
 Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 7e81dea4f1c7..a27ea64d763a 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -85,7 +85,13 @@ void fuse_chan_set_initialized(struct fuse_chan *fch, struct fuse_chan_param *pa
+diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+index 51f985154aa1..c8488ebc1d1f 100644
+--- a/fs/fuse/dev_uring.c
++++ b/fs/fuse/dev_uring.c
+@@ -204,7 +204,7 @@ void fuse_uring_destruct(struct fuse_chan *fch)
+ 		return;
  
- static bool fuse_block_alloc(struct fuse_chan *fch, bool for_background)
- {
--	return !fch->initialized || (for_background && fch->blocked) ||
-+	if (!fch->initialized)
-+		return true;
-+
-+	/* Pairs with smp_wmb() in fuse_chan_set_initialized() */
-+	smp_rmb();
-+
-+	return (for_background && fch->blocked) ||
- 	       (fch->io_uring && fch->connected && !fuse_uring_ready(fch));
- }
+ 	for (qid = 0; qid < ring->nr_queues; qid++) {
+-		struct fuse_ring_queue *queue = ring->queues[qid];
++		struct fuse_ring_queue *queue = READ_ONCE(ring->queues[qid]);
+ 		struct fuse_ring_ent *ent, *next;
  
-@@ -120,9 +126,6 @@ static struct fuse_req *fuse_get_req(struct fuse_chan *fch, bool for_background)
- 			goto out;
+ 		if (!queue)
+@@ -223,7 +223,7 @@ void fuse_uring_destruct(struct fuse_chan *fch)
+ 
+ 		kfree(queue->fpq.processing);
+ 		kfree(queue);
+-		ring->queues[qid] = NULL;
++		WRITE_ONCE(ring->queues[qid], NULL);
  	}
  
--	/* Matches smp_wmb() in fuse_chan_set_initialized() */
--	smp_rmb();
--
- 	err = -ENOTCONN;
- 	if (!fch->connected)
- 		goto out;
+ 	kfree(ring->queues);
+@@ -321,9 +321,11 @@ static struct fuse_ring_queue *fuse_uring_create_queue(struct fuse_ring *ring,
+ 	}
+ 
+ 	/*
+-	 * write_once and lock as the caller mostly doesn't take the lock at all
++	 * fch->lock serializes concurrent creators for this qid.
++	 * smp_store_release() are for the lockless readers who must see a
++	 * fully initialized queue after &ring->queues[qid] is set
+ 	 */
+-	WRITE_ONCE(ring->queues[qid], queue);
++	smp_store_release(&ring->queues[qid], queue);
+ 	spin_unlock(&fch->lock);
+ 
+ 	return queue;
+@@ -434,7 +436,7 @@ static void fuse_uring_log_ent_state(struct fuse_ring *ring)
+ 	struct fuse_ring_ent *ent;
+ 
+ 	for (qid = 0; qid < ring->nr_queues; qid++) {
+-		struct fuse_ring_queue *queue = ring->queues[qid];
++		struct fuse_ring_queue *queue = READ_ONCE(ring->queues[qid]);
+ 
+ 		if (!queue)
+ 			continue;
+@@ -967,7 +969,7 @@ static int fuse_uring_commit_fetch(struct io_uring_cmd *cmd, int issue_flags,
+ 	if (qid >= ring->nr_queues)
+ 		return -EINVAL;
+ 
+-	queue = ring->queues[qid];
++	queue = READ_ONCE(ring->queues[qid]);
+ 	if (!queue)
+ 		return err;
+ 	fpq = &queue->fpq;
+@@ -1035,7 +1037,7 @@ static bool is_ring_ready(struct fuse_ring *ring, int current_qid)
+ 		if (current_qid == qid)
+ 			continue;
+ 
+-		queue = ring->queues[qid];
++		queue = READ_ONCE(ring->queues[qid]);
+ 		if (!queue) {
+ 			ready = false;
+ 			break;
+@@ -1191,7 +1193,7 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
+ 		return -EINVAL;
+ 	}
+ 
+-	queue = ring->queues[qid];
++	queue = READ_ONCE(ring->queues[qid]);
+ 	if (!queue) {
+ 		queue = fuse_uring_create_queue(ring, qid);
+ 		if (!queue)
+@@ -1332,7 +1334,7 @@ static struct fuse_ring_queue *fuse_uring_task_to_queue(struct fuse_ring *ring)
+ 		      ring->nr_queues))
+ 		qid = 0;
+ 
+-	queue = ring->queues[qid];
++	queue = READ_ONCE(ring->queues[qid]);
+ 	WARN_ONCE(!queue, "Missing queue for qid %d\n", qid);
+ 
+ 	return queue;
 
