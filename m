@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DBE39446B
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 21:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0271F39AD5E
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 21:10:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788210648; cv=none; b=WifujZDFTnJB5TJFDa6BkQwYBmARGBD4zG+YnSYRUF3XdXy39m6rJfEfXJovnoQPsb4GAKiW9Y7AOsdtNYLMC/hjImsMRnsf+MyfSkpmTPz1K28WYNBZqDGUWmk79cq+7B6ofFsbMtIvCxhSr8XqltL+shkUnYk7d6YKxn4ko68=
+	t=1788210649; cv=none; b=G/5AlJBXG7fyyHtv4Mw4fIBSjoQ7T+RXazJray8ES0uG4qeXeM9ebgXWcUGN+OoCcWfH1ayBu5q0ktahxeNVyXq/zEoh2wbL7a15mj0fHKEIb38Ug8BwPRD/CyDzFE+tGI1kMADWibZYV3qXCvbjSW9tENd+PZIABYdKN5HRPKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788210648; c=relaxed/simple;
-	bh=7gnGPjk0B06W8bf98fVPXX93qiLcr9ujrZWB9uS/2ug=;
+	s=arc-20240116; t=1788210649; c=relaxed/simple;
+	bh=lNd04Jf+eNUs+sWTkRGTFYe0UufJfgmhjvcD2xWPLMg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DL1pLUTwIyZYl8bsaR+iH4PmH7FVMf/Kq3V+MvofAoCwkEkSONSM/+T7j13mTrNGZs5qpuXBuNtKLGRGSV1BUcy1NLiCzafj4cOZHCRRm6PkWCZhX+TM7j0H2Qf2gmtsH6/JodmECkZtKe2G3JfED8mjpRornAPffww9DxNzxLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fl+sq7o9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qUUFf8ghxKTC+aIj/CeTBu3x2X5QULC9/4+iVtX8hQ4Z8/DCoEyjn+kg1vooAxCC5SRlej0Jr6Zryc0rZYnCX/xxN37ajkK3mRdAg9qK2Gt0vZHdux/XmexoYcRpU2eq6KqvAHZHjgJ5p850Ujt0ff94vFbREATqPLXq0ezQ98E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HkXGgIwG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fl+sq7o9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CCC1F00A3F;
-	Mon, 31 Aug 2026 21:10:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HkXGgIwG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3159F1F000E9;
+	Mon, 31 Aug 2026 21:10:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788210643;
-	bh=89Btjg4Z30eNf9gscD1gzpz+qfmSZZaCAXjRhNbf4xk=;
+	s=k20260515; t=1788210646;
+	bh=ZzffyKKGy/4rRcZgKbumF4R32Ze5YvVfWcNghreGPGQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fl+sq7o9Dfr/7L446GXpCv/cjsN3wt9mwmS6h+Oezo2y61YHxx4nnguyi2uKcr4rK
-	 +1Y5KYZnQ/hx+zL+DLuI9Fcy9CLQpnungtyYMwnN/TUWNhcqI918GPpXxF5kIVOlKp
-	 9jum893WntixinBuuTOtjCIDpFbrpajw2UQYkZTGYAKqIMQtaUsPyz9ZMQEFwzzSsi
-	 OvkNGVueDefVV/B+EHsedkyULpp/ZcqrP/ciAaQo+7al5qcxJqTG9KncZWPvmchZbK
-	 uizD3VC30vkA/YmVcMPcPNSPbjGOYGIY5vdnIRoaLj1qvOGBtUKMNWnT0TSxBXLrdX
-	 IAIVj58BDwRTQ==
+	b=HkXGgIwGgEsqWwa+LELvb0b0Z6aBfVAbSdDyPwVOoKtWPtY7X78EKursZxLnn3Egh
+	 S6G9XBfwb+qn+oH3J9e0Crtx/O4GiHiZiQI4Ege9y2BOdOCx0iEVPUuUY1Yti+BSyA
+	 tD7aQt0w6Ygjkywtp+NGSB0jN2eyIMU9NhbZ8hTbsDzggS7/YE4yxIcChGqx/Es9KJ
+	 CACamHY0xvWo/iskEWebYtmrZydH7+DwFues5e2hpVck6nSxum3AYuVuD0pzXdtAvO
+	 LV60+ArcXOaQjU/mzf4nvHtr9TVJUbMjFRMydJO/oQeG/Slfk4rpl1WE5FU+Pj3r+3
+	 pIaFrRh5T0ahg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Niklas Neronin <niklas.neronin@linux.intel.com>,
+Cc: Breno Leitao <leitao@debian.org>,
 	Mathias Nyman <mathias.nyman@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/7] usb: xhci: add USB Port Register Set struct
-Date: Mon, 31 Aug 2026 17:10:10 -0400
-Message-ID: <20260831211039.1799106-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 7/7] usb: xhci: bail out of setup if the controller is inaccessible
+Date: Mon, 31 Aug 2026 17:10:14 -0400
+Message-ID: <20260831211039.1799106-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831211039.1799106-1-sashal@kernel.org>
 References: <2026083121-usher-contest-f49c@gregkh>
@@ -47,127 +47,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Neronin <niklas.neronin@linux.intel.com>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 377a91594e008848363641d07f51d2e48f4bdde5 ]
+[ Upstream commit 78203d5b54a40f0e36196ebf31c9c7a380fc8811 ]
 
-Introduce a new struct for the Host Controller USB Port Register Set to
-enhance readability and maintainability.
+xhci_gen_setup() locates the operational registers using the capability
+length read from the very first register:
 
-The Host Controller Operational Registers (struct 'xhci_op_regs') span from
-offset 0x0 to 0x3FF and consist of fixed fields. Following these fixed
-fields are the Host Controller USB Port Register Sets, which are dynamic
-and repeat from 1 to MaxPorts, as defined by HCSPARAMS1.
+	xhci->op_regs = hcd->regs +
+		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
 
-Currently, the struct 'xhci_op_regs' includes:
- __le32 port_status_base;		The first PORTSC
- __le32 port_power_base;		The first PORTPMSC
- __le32 port_link_base;			The first PORTLI
- __le32 reserved5;			The first PORTHLPMC, not reserved
- __le32 reserved6[NUM_PORT_REGS*254];	Port registers 2 to MaxPorts
+If the controller is dead or has dropped off the bus, that read returns
+~0, HC_LENGTH() truncates it to 0xff, and op_regs ends up 0xff bytes
+past the page-aligned MMIO base, i.e. unaligned. The first access
+through it, xhci_halt() -> xhci_handshake() reading op_regs->status, is
+then an unaligned readl() on device memory. arm64 faults on unaligned
+device accesses, so instead of xhci_handshake() catching the all-ones
+value and returning -ENODEV, setup oopses:
 
-Replace this with the simpler:
- struct xhci_port_regs port_regs[];	Port registers 1 to MaxPorts
+  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+  Unable to handle kernel paging request at virtual address ffff80030a770103
+    ESR = 0x0000000096000021
+    FSC = 0x21: alignment fault
+  Internal error: Oops: 0000000096000021 [#1]  SMP
+  pc : xhci_halt [xhci_hcd]
+  Call trace:
+   xhci_halt
+   xhci_gen_setup
+   xhci_pci_setup
+   usb_add_hcd
+   usb_hcd_pci_probe
+   xhci_pci_common_probe
+   xhci_pci_renesas_probe
 
-Host Controller USB Port Register Set:
-| Offset	| Mnemonic	| Register Name
---------------------------------------------------------------------------
-| 0x0		| PORTSC	| Port Status and Control
-| 0x4		| PORTPMSC	| Port Power Management Status and Control
-| 0x8		| PORTLI	| Port Link Info
-| 0xC		| PORTHLPMC	| Port Hardware LPM Control
+This was hit with a Renesas uPD720201 that failed to power up ("Unable
+to change power state from D3cold to D0, device inaccessible") yet still
+reached the HCD probe path.
 
-Signed-off-by: Niklas Neronin <niklas.neronin@linux.intel.com>
+Read the capability register once, and if it reads back the all-ones
+value (as xhci_handshake() and xhci_reset() already test for), abort
+setup with -ENODEV before op_regs is derived from it. Reading it once
+also avoids re-reading a register that may change under a concurrent
+hot-removal.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20251119142417.2820519-8-mathias.nyman@linux.intel.com
+Link: https://patch.msgid.link/20260806142113.2436238-11-mathias.nyman@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 78203d5b54a4 ("usb: xhci: bail out of setup if the controller is inaccessible")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-mem.c |  3 +--
- drivers/usb/host/xhci.h     | 36 ++++++++++++++++--------------------
- 2 files changed, 17 insertions(+), 22 deletions(-)
+ drivers/usb/host/xhci.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index 264f8bbe8f9e8..b27b0861da79c 100644
---- a/drivers/usb/host/xhci-mem.c
-+++ b/drivers/usb/host/xhci-mem.c
-@@ -2182,8 +2182,7 @@ static int xhci_setup_port_arrays(struct xhci_hcd *xhci, gfp_t flags)
- 		return -ENOMEM;
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 7d192bc9b6403..7fb93501bbcdd 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -5245,6 +5245,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	struct device		*dev = hcd->self.sysdev;
+ 	int			retval;
+ 	u32			hcs_params1;
++	u32			hc_capbase;
  
- 	for (i = 0; i < num_ports; i++) {
--		xhci->hw_ports[i].addr = &xhci->op_regs->port_status_base +
--			NUM_PORT_REGS * i;
-+		xhci->hw_ports[i].addr = &xhci->op_regs->port_regs[i].portsc;
- 		xhci->hw_ports[i].hw_portnum = i;
- 
- 		init_completion(&xhci->hw_ports[i].rexit_done);
-diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-index 7dcdaa68c0ab1..181b557b64390 100644
---- a/drivers/usb/host/xhci.h
-+++ b/drivers/usb/host/xhci.h
-@@ -66,14 +66,25 @@ struct xhci_cap_regs {
- 	/* Reserved up to (CAPLENGTH - 0x1C) */
- };
- 
--/* Number of registers per port */
--#define	NUM_PORT_REGS	4
--
- #define PORTSC		0
- #define PORTPMSC	1
- #define PORTLI		2
- #define PORTHLPMC	3
- 
-+/*
-+ * struct xhci_port_regs - Host Controller USB Port Register Set. xHCI spec 5.4.8
-+ * @portsc:	Port Status and Control
-+ * @portpmsc:	Port Power Management Status and Control
-+ * @portli:	Port Link Info
-+ * @porthlmpc:	Port Hardware LPM Control
-+ */
-+struct xhci_port_regs {
-+	__le32	portsc;
-+	__le32	portpmsc;
-+	__le32	portli;
-+	__le32	porthlmpc;
-+};
-+
- /**
-  * struct xhci_op_regs - xHCI Host Controller Operational Registers.
-  * @command:		USBCMD - xHC command register
-@@ -85,16 +96,7 @@ struct xhci_cap_regs {
-  * @cmd_ring:		CRP - 64-bit Command Ring Pointer
-  * @dcbaa_ptr:		DCBAAP - 64-bit Device Context Base Address Array Pointer
-  * @config_reg:		CONFIG - Configure Register
-- * @port_status_base:	PORTSCn - base address for Port Status and Control
-- * 			Each port has a Port Status and Control register,
-- * 			followed by a Port Power Management Status and Control
-- * 			register, a Port Link Info register, and a reserved
-- * 			register.
-- * @port_power_base:	PORTPMSCn - base address for
-- * 			Port Power Management Status and Control
-- * @port_link_base:	PORTLIn - base address for Port Link Info (current
-- * 			Link PM state and control) for USB 2.1 and USB 3.0
-- * 			devices.
-+ * @port_regs:		Port Register Sets, from 1 to MaxPorts (defined by HCSPARAMS1).
-  */
- struct xhci_op_regs {
- 	__le32	command;
-@@ -110,13 +112,7 @@ struct xhci_op_regs {
- 	__le32	config_reg;
- 	/* rsvd: offset 0x3C-3FF */
- 	__le32	reserved4[241];
--	/* port 1 registers, which serve as a base address for other ports */
--	__le32	port_status_base;
--	__le32	port_power_base;
--	__le32	port_link_base;
--	__le32	reserved5;
--	/* registers for ports 2-255 */
--	__le32	reserved6[NUM_PORT_REGS*254];
-+	struct xhci_port_regs port_regs[];
- };
- 
- /* USBCMD - USB command - command bitmasks */
+ 	/* Accept arbitrarily long scatter-gather lists */
+ 	hcd->self.sg_tablesize = ~0;
+@@ -5265,15 +5266,19 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	mutex_init(&xhci->mutex);
+ 	xhci->main_hcd = hcd;
+ 	xhci->cap_regs = hcd->regs;
+-	xhci->op_regs = hcd->regs +
+-		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
++	hc_capbase = readl(&xhci->cap_regs->hc_capbase);
++	if (hc_capbase == U32_MAX) {
++		xhci_warn(xhci, "Host controller not accessible, removed?\n");
++		return -ENODEV;
++	}
++	xhci->op_regs = hcd->regs + HC_LENGTH(hc_capbase);
+ 	xhci->run_regs = hcd->regs +
+ 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+ 	/* Cache read-only capability registers */
+ 	hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
+ 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
+ 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
+-	xhci->hci_version = HC_VERSION(readl(&xhci->cap_regs->hc_capbase));
++	xhci->hci_version = HC_VERSION(hc_capbase);
+ 	xhci->hcc_params = readl(&xhci->cap_regs->hcc_params);
+ 	if (xhci->hci_version > 0x100)
+ 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
 -- 
 2.53.0
 
