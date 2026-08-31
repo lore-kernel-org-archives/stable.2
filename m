@@ -1,40 +1,33 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48A84B53E5;
-	Mon, 31 Aug 2026 16:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F4C4B66C0;
+	Mon, 31 Aug 2026 16:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192494; cv=none; b=qcdkzWOFBhDmf7gItco9sk0Bmw02JCucD5w05X8qw/mAh2CL4YW6+sKYLkkSATWXc5Ft4b1oyv7G06xzu14D34fCsGkfi6hGrsUdo8oTkPUrFgOm5GutHtEoCV0aex7iu583IbWcxhCED90nmLXAwbFVzUqndtOfLusxNkqP+Ls=
+	t=1788192500; cv=none; b=dr3AZWaCXmZ+S2wAKULeZEk9gSQmnqhcdA+KfGM4lP+mStFVtInvRSrm1APsMNIxgt9NV5WMwbQ2Vc0e7iqzROcboaF1iF79FR04GH9LhSdJMZlY6irLR08+XGPLibILu1O/87i31dIRJGGhCQ5THSxXKXuN/+rEWWhFd2iiq6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192494; c=relaxed/simple;
-	bh=WHOQNZF3WUFg0mYJDCKbEeNUeeXEiQebbyFdkqK7PBU=;
+	s=arc-20240116; t=1788192500; c=relaxed/simple;
+	bh=g2MWSvgJvrHUzfntfew8lZZFVuCLmWFpnGqNc5dkZnQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZAwf/KzaAZgSTRn/dwwuWWR1EDaNlvitxds7ePV4f8jMJSiZYpNiVxuKTwMQgBd/dlpX9IFnyilj+wvITbhuMqfV1n9xcZlO5DplLZrdQ6Hxh+IwisWn8tlFTTR4puw2LcT/jdprtgNMRoKFt9XzMlvizyUw6xqk6tXqPECB0W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tyFKKIfZ; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=aTEt2hbZQVJJnHUfELkEloFwwl7GfAkqhX8NO88iaeugiYuaphEe7SbwZ4a+dyvaA3ECF3tjORD4mbPxEKojxuZ7jVPlZk1BNdDaXnL2Zc8KS5n36PGDpw5Qs5IjrLAvWLWYyIAb2/K45MuwJA3r+xxV2Zt3ZlYn3ffqxC9VUxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jB0K7jLA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tyFKKIfZ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 519A91A1906;
-	Mon, 31 Aug 2026 16:08:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 266D360231;
-	Mon, 31 Aug 2026 16:08:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 04B7411C791E9;
-	Mon, 31 Aug 2026 18:08:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788192489; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=+8ZebgPAjuIHcgT3bCLdV3LtzjyA0gL3LmHxoQrhx+A=;
-	b=tyFKKIfZYtSmHbB6SRGVddmbIWu4KlkYfzUm/ZI2B1ma+cge5AYk8BUQSvQWjBihB06cKO
-	7w9p/nW3GyfTL36vc0dF/x0Y/y/K6m5UASja3v+Ocja8lCvnUd5i2nCo3J3O0Sk77gTIVQ
-	7gsN6+Y/oPsj1I+xfUyupgxFglmDjR87mDEQCc6SqymXfSTleH/de6puRt329aaYHFs0dF
-	J2SqYyhjyhE6S5TiFBFTtfDNl2fFOxv+jdbB9zftCyuIjqjE4tyHvG+yC1f1eansSxt0ex
-	NAezWFPnePq8tVUGtkvoZDYUHZ+NUDPc9nRhY4jSynn3zDZpfUm+7ayqfzSqXg==
-Message-ID: <2d335ef9-baeb-4672-bcb3-c00bd988c83a@bootlin.com>
-Date: Mon, 31 Aug 2026 18:08:05 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jB0K7jLA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1431F00A3F;
+	Mon, 31 Aug 2026 16:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788192498;
+	bh=g0pH1l1rU3YbRFeShfY4wk3U3HqcGAKn/fA6tlZNaT0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jB0K7jLAWxn+ZauhusyY00+9E7LfQBFWIMV86Gp7LrehHLUieXfteqjVEnQqgYG6H
+	 +ojF//piOKCjTfjR4tXN0Ck/zFqUZYrF1cC6cz19llE4oHTHQAqVAIellULpmjKpgK
+	 WagCKTeo/JYdqc332H7afVZiXOxAKQoOhjGRERvrfk2+S8R+NEtdmPtJmlgMXj0cd3
+	 UIqFfAS/HXbHh9m3+I+AY3aMvIev8+46fAyy1kHqx7MpH82dl12L1XRYA32oSNVP7V
+	 LIZWfCJlU3grNuxgTlKLckibI595v49ySbQiDmSXDy5Ij3NP02+KXTfVioiI+47Xze
+	 Sj5qRWl/taxZg==
+Message-ID: <7f2bbcf7-ed00-4872-bdef-c07010f5dfad@kernel.org>
+Date: Mon, 31 Aug 2026 11:08:17 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,48 +35,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6.1.y 4/4] ipv4: start using dst_dev_rcu()
-To: Greg KH <greg@kroah.com>
-Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Wei Wang <weiwan@google.com>,
- Martin KaFai Lau <kafai@fb.com>, Hideaki YOSHIFUJI
- <yoshfuji@linux-ipv6.org>, David Ahern <dsahern@kernel.org>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Pablo Neira Ayuso <pablo@netfilter.org>,
- Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org
-References: <20260821-cve-2025-40074-6-1-v1-0-cad5cf499b76@bootlin.com>
- <20260821-cve-2025-40074-6-1-v1-4-cad5cf499b76@bootlin.com>
- <2026082454-jacket-gravity-6ddc@gregkh>
+Subject: Re: [PATCH v2] crypto: ccp: Initialize DBC ioctl mutex before
+ registering device
 Content-Language: en-US
-From: Miguel Gazquez <miguel.gazquez@bootlin.com>
-In-Reply-To: <2026082454-jacket-gravity-6ddc@gregkh>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: thomas.lendacky@amd.com, john.allen@amd.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+References: <20260829133410.1708684-1-runyu.xiao@seu.edu.cn>
+ <20260830015104.2040153-1-runyu.xiao@seu.edu.cn>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260830015104.2040153-1-runyu.xiao@seu.edu.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-Hi.
 
-Le 24/08/2026 à 15:47, Greg KH a écrit :
+
+On 8/29/26 20:51, Runyu Xiao wrote:
+> dbc_dev_init() registers the DBC misc device before initializing
+> ioctl_mutex. Once misc_register() publishes the device, userspace can
+> open it and invoke dbc_ioctl() while the mutex is still uninitialized.
 > 
-> We need a working 6.6.y version first, before we can take this one.
-
-I sent the backport for the 6.6.y version
-
+> Initialize ioctl_mutex before calling misc_register() so the published
+> ioctl callback always sees an initialized mutex.
 > 
-> thanks,
+> Fixes: c04cf9e14f10 ("crypto: ccp - Add support for fetching a nonce for dynamic boost control")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/all/20260829133410.1708684-1-runyu.xiao@seu.edu.cn/
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Assisted-by: Codex:GPT-5
+I mean my tag to come here, I didn't realize this was threaded with V1 
+and V2 together.
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
+> v2:
+> - Move mutex initialization before setting up the misc device, as suggested
+>    by Tom Lendacky.
 > 
-> greg k-h
-
-
-Thanks,
-Miguel Gazquez
--- 
-Miguel Gazquez, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>   drivers/crypto/ccp/dbc.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/crypto/ccp/dbc.c b/drivers/crypto/ccp/dbc.c
+> index 410084a9039c..4db49a14550c 100644
+> --- a/drivers/crypto/ccp/dbc.c
+> +++ b/drivers/crypto/ccp/dbc.c
+> @@ -235,6 +235,8 @@ int dbc_dev_init(struct psp_device *psp)
+>   		goto cleanup_mbox;
+>   	}
+>   
+> +	mutex_init(&dbc_dev->ioctl_mutex);
+> +
+>   	dbc_dev->char_dev.minor = MISC_DYNAMIC_MINOR;
+>   	dbc_dev->char_dev.name = "dbc";
+>   	dbc_dev->char_dev.fops = &dbc_fops;
+> @@ -243,8 +245,6 @@ int dbc_dev_init(struct psp_device *psp)
+>   	if (ret)
+>   		goto cleanup_mbox;
+>   
+> -	mutex_init(&dbc_dev->ioctl_mutex);
+> -
+>   	return 0;
+>   
+>   cleanup_mbox:
 
