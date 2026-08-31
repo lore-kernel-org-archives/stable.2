@@ -1,39 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E1E49250D;
-	Mon, 31 Aug 2026 14:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7AD43E064;
+	Mon, 31 Aug 2026 14:05:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185140; cv=none; b=NZmYwqBX7q3ykV/FYDkM6evBl3b+YWf/QrVSbKek1sZzX4+4QT9fwG0ma4rQtbVG//5tt4S6G9ND7VWRwZXrLlbZNqC0hYlj8wZ9UYA27PieVUIhsXAlmgZqopFZ+0yOJkHYiwQ+uPaAYNUs9rpjaHeHyuhql3LWANetdJj1S3s=
+	t=1788185154; cv=none; b=hBqPUj+gq23Uty228ygltG99kcVX/+EYMQE2bvKIMTanl3B6YbW4cHKuynf+UZbTs7CI22G4eNBoWaxJQEC77tn3gQtz1SE+G4Xi6FfpOXkKSIhiXNEbNWh7vmi9xTaivoTVQvxjbnl/nbyyCfNdCWrvxhE5Z/2Nke7K8m3zD0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185140; c=relaxed/simple;
-	bh=yfgz/HqECoALibfpggqBGKwtsMKRmVpRj8DPhUPtf6s=;
+	s=arc-20240116; t=1788185154; c=relaxed/simple;
+	bh=GW85gerdPtE6os28Spk74Bz3FOHE8BwREvCLDEnl6HU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KTMWh84x5pklKEbWXqI04zNjQ2iXnUArxKfAyYvoAwVIN/w9Om/Lhjw3eiEunJZzS2RQ5vnFUbul01v5ah83qw3rkJ3jyQS8C35HHh3Ce+UYM+RiL/DLlQ5+v3Ns1ubk3Y9uE4lAfNZceOXU6uUDhGZxfVTXpTrylfUJ3EYwsiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GS5EhOqu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TY7/GcoLnHMB+3YKxMurBEAppeKS7Hp+wArQx8z0Q8pOvTDjG5rwcV2znR0j6joELTQs+RgNTKLpAMteqle7hUV8LJrgM4waZ1aqr+yxbeBzEuJCUawirzSzUC5BnDdxoTW7Tc8OgpATbbkomjbOyfJTEKNcpE3WoJpsrAOXBZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ea0B0a37; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GS5EhOqu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA8C1F000E9;
-	Mon, 31 Aug 2026 14:05:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ea0B0a37"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BB601F00A3D;
+	Mon, 31 Aug 2026 14:05:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788185138;
-	bh=hHEvLFSsXbNm56+kPrErcWdN7Cm17+nSLAHpAY0J0uc=;
+	s=korg; t=1788185153;
+	bh=m/DqbASBrNSbtkPPmGF2SGLcLidUUz19VZ2X+qS8yJs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GS5EhOquvcf8ea9Ldgs8eiPUgUJjZYa3tDAUKmLIC9JSd4Ae7aFWsWY1c34qj1vIT
-	 /kFVEdeJH+n6pUIjiQC1yXkk/4tF42JcaA6WjtimbOS8s1r0wlwhAMbbahZVbNwQnm
-	 bxWZSRw4dh3DgW8Kk0iHM1oezXVSjC8aorEsE6+o=
+	b=ea0B0a37oC2Hupn5biAqMi4lxmGk4PpIbhVgSPjiiNAzGKS59oob22NjpA1x6DAaw
+	 D4ib0aHYVksxydlX2bJm0wD6Img533RfwFeDuHjVB4/+hFIu39RzlEC40JxQWcrmwa
+	 VFR0WJPvbGfS9ESHzqz8ILwoMjwGhNAmQ2qec6y0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?Jose=20Villase=C3=B1or=20Montfort?= <pepemontfort@gmail.com>,
-	Alec Hall <signshop.alec@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
+	syzbot+3f51ad7ac3ae57a6fdcc@syzkaller.appspotmail.com,
+	syzbot+47cf95ca1f9dcca872c8@syzkaller.appspotmail.com,
+	syzbot+8a173e13208949931dc7@syzkaller.appspotmail.com,
+	syzbot+90984d3713722683112e@syzkaller.appspotmail.com,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	Alexander Potapenko <glider@google.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	Clark Williams <williams@redhat.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Marco Elver <elver@google.com>,
+	Mark Brown <broonie@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 29/69] HID: magicmouse: prevent unbounded recursion in magicmouse_raw_event()
-Date: Mon, 31 Aug 2026 15:35:02 +0200
-Message-ID: <20260831133359.924903425@linuxfoundation.org>
+Subject: [PATCH 5.15 24/69] kcov: fix data corruption and race conditions on PREEMPT_RT
+Date: Mon, 31 Aug 2026 15:34:57 +0200
+Message-ID: <20260831133359.643794276@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
 References: <20260831133358.601894154@linuxfoundation.org>
@@ -46,101 +59,300 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 5.15-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Jose Villaseñor Montfort <pepemontfort@gmail.com>
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 
-[ Upstream commit db8d634128d2ba88d79c0b601e983ebe14bb0519 ]
+[ Upstream commit 2eed77fdcb0cc48e8eccb2bcd4b7f2c6d650e84c ]
 
-magicmouse_raw_event() handles DOUBLE_REPORT_ID (0xf7) packets, which pack
-two touch reports into one, by splitting the packet and calling itself on
-each half. The only guard against runaway recursion is a "size < 1" check,
-which stops zero-sized calls but does not bound the recursion depth.
+syzbot is reporting KCOV state corruption on PREEMPT_RT kernels, for the
+temporary storage used for saving/restoring remote KCOV state is currently
+allocated as the per-CPU area.
 
-A malicious HID device that matches this driver can send a report starting
-with DOUBLE_REPORT_ID and filled with the sequence [0xf7, 0x00]. Each level
-consumes two bytes and recurses on the remainder, so an incoming report of
-up to HID_MAX_BUFFER_SIZE (16 KiB) drives roughly 8000 nested calls. That
-easily exhausts the 16 KiB kernel stack, leading to a stack overflow: a
-panic with CONFIG_VMAP_STACK, or memory corruption without it.
+On PREEMPT_RT kernels, softirq handlers run as preemptible task threads
+(e.g., ksoftirqd). If a softirq context preempts a task running a remote
+KCOV session, it safely saves the task's state into the per-CPU area.
+However, if that softirq thread is subsequently preempted by a higher-
+priority softirq thread on the same CPU, the second softirq will overwrite
+the same per-CPU area, permanently destroying the original task's KCOV
+state.
 
-A double report only ever wraps two normal reports; it is never
-legitimately nested. Refuse to re-enter the DOUBLE_REPORT_ID case from a
-recursive call so the recursion depth is bounded to two, while all valid
-packets keep being parsed exactly as before.
+Fix this data corruption by moving the temporary storage from the per-CPU
+area to the per-thread area. Since each softirq thread now owns its own
+task context, nested softirq preemption no longer causes data overwrites.
 
-Fixes: a462230e16ac ("HID: magicmouse: enable Magic Trackpad support")
-Link: https://lore.kernel.org/linux-input/20260706181347.700DB1F00A3F@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jose Villaseñor Montfort <pepemontfort@gmail.com>
-Reviewed-by: Alec Hall <signshop.alec@gmail.com>
-Tested-by: Alec Hall <signshop.alec@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Note that while the temporary storage is now on a per-thread basis, the
+per-CPU kcov_percpu_data.lock must be retained, for we need to ensure that
+kcov_remote_start() and kcov_remote_stop() operate atomically without
+racing against asynchronous interrupts that manipulate the current task's
+KCOV state.
+
+It is likely that GFP_KERNEL allocation by vmalloc_node() in kcov_init()
+has already called panic() before returning NULL, for there will be no
+OOM-killable userspace processes when __init function of built-in module
+runs. But this patch also fixes crashing the kernel when vmalloc_node()
+in kcov_init() returned NULL, for kcov_init() left per-CPU irq_area == NULL
+but kcov_remote_start() depends on per-CPU irq_area != NULL, resulting in
+
+  (1) doing vmalloc() in kcov_remote_start() despite !in_task() context
+
+  (2) out-of-array-bounds access if (1) succeeded but
+      kcov->remote_size < CONFIG_KCOV_IRQ_AREA_SIZE
+
+  (3) always leak memory allocated by (1), eventually killing all
+      OOM-killable userspace processes
+
+problems.
+
+Link: https://lore.kernel.org/43552d09-2ce2-4b19-b0d3-a2d1ab952145@I-love.SAKURA.ne.jp
+Reported-by: syzbot+3f51ad7ac3ae57a6fdcc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3f51ad7ac3ae57a6fdcc
+Reported-by: syzbot+47cf95ca1f9dcca872c8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=47cf95ca1f9dcca872c8
+Reported-by: syzbot+8a173e13208949931dc7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8a173e13208949931dc7
+Reported-by: syzbot+90984d3713722683112e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=90984d3713722683112e
+Analyzed-by: AI Mode in Google Search (no mail address)
+Fixes: 5ff3b30ab57d ("kcov: collect coverage from interrupts")
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Reviewed-by: Alexander Potapenko <glider@google.com>
+Cc: Alan Stern <stern@rowland.harvard.edu>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Christoph Hellwig <hch@infradead.org>
+Cc: Clark Williams <williams@redhat.com>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Marco Elver <elver@google.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ Adjusted the `kcov_init()` deletion context to plain `vmalloc()` since 5.15 lacks the `vmalloc_node()`/`cpu_to_node()` conversion. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hid/hid-magicmouse.c |   25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ include/linux/sched.h |    8 ++++
+ kernel/kcov.c         |   90 ++++++++++++++++++++++++++------------------------
+ lib/Kconfig.debug     |    5 +-
+ 3 files changed, 58 insertions(+), 45 deletions(-)
 
---- a/drivers/hid/hid-magicmouse.c
-+++ b/drivers/hid/hid-magicmouse.c
-@@ -368,8 +368,8 @@ static void magicmouse_emit_touch(struct
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1398,6 +1398,14 @@ struct task_struct {
+ 
+ 	/* Collect coverage from softirq context: */
+ 	unsigned int			kcov_softirq;
++
++	/* Temporary storage for preempting remote coverage collection: */
++	unsigned int			kcov_saved_mode;
++	unsigned int			kcov_saved_size;
++	void				*kcov_saved_area;
++	struct kcov			*kcov_saved_kcov;
++	int				kcov_saved_sequence;
++
+ #endif
+ 
+ #ifdef CONFIG_MEMCG
+--- a/kernel/kcov.c
++++ b/kernel/kcov.c
+@@ -84,17 +84,12 @@ struct kcov_remote {
+ 
+ static DEFINE_SPINLOCK(kcov_remote_lock);
+ static DEFINE_HASHTABLE(kcov_remote_map, 4);
+-static struct list_head kcov_remote_areas = LIST_HEAD_INIT(kcov_remote_areas);
++static struct list_head kcov_remote_areas[2] = {
++	LIST_HEAD_INIT(kcov_remote_areas[0]), LIST_HEAD_INIT(kcov_remote_areas[1])
++};
+ 
+ struct kcov_percpu_data {
+-	void			*irq_area;
+ 	local_lock_t		lock;
+-
+-	unsigned int		saved_mode;
+-	unsigned int		saved_size;
+-	void			*saved_area;
+-	struct kcov		*saved_kcov;
+-	int			saved_sequence;
+ };
+ 
+ static DEFINE_PER_CPU(struct kcov_percpu_data, kcov_percpu_data) = {
+@@ -130,12 +125,13 @@ static struct kcov_remote *kcov_remote_a
+ }
+ 
+ /* Must be called with kcov_remote_lock locked. */
+-static struct kcov_remote_area *kcov_remote_area_get(unsigned int size)
++static struct kcov_remote_area *kcov_remote_area_get(unsigned int size, bool irq)
+ {
+ 	struct kcov_remote_area *area;
+ 	struct list_head *pos;
++	struct list_head *list = &kcov_remote_areas[irq];
+ 
+-	list_for_each(pos, &kcov_remote_areas) {
++	list_for_each(pos, list) {
+ 		area = list_entry(pos, struct kcov_remote_area, list);
+ 		if (area->size == size) {
+ 			list_del(&area->list);
+@@ -147,11 +143,11 @@ static struct kcov_remote_area *kcov_rem
+ 
+ /* Must be called with kcov_remote_lock locked. */
+ static void kcov_remote_area_put(struct kcov_remote_area *area,
+-					unsigned int size)
++				 unsigned int size, bool irq)
+ {
+ 	INIT_LIST_HEAD(&area->list);
+ 	area->size = size;
+-	list_add(&area->list, &kcov_remote_areas);
++	list_add(&area->list, &kcov_remote_areas[irq]);
+ }
+ 
+ /*
+@@ -369,6 +365,12 @@ void kcov_task_init(struct task_struct *
+ {
+ 	kcov_task_reset(t);
+ 	t->kcov_handle = current->kcov_handle;
++	t->kcov_softirq = 0;
++	t->kcov_saved_mode = 0;
++	t->kcov_saved_size = 0;
++	t->kcov_saved_area = NULL;
++	t->kcov_saved_kcov = NULL;
++	t->kcov_saved_sequence = 0;
+ }
+ 
+ static void kcov_reset(struct kcov *kcov)
+@@ -790,34 +792,31 @@ static inline bool kcov_mode_enabled(uns
+ 
+ static void kcov_remote_softirq_start(struct task_struct *t)
+ {
+-	struct kcov_percpu_data *data = this_cpu_ptr(&kcov_percpu_data);
+ 	unsigned int mode;
+ 
+ 	mode = READ_ONCE(t->kcov_mode);
+ 	barrier();
+ 	if (kcov_mode_enabled(mode)) {
+-		data->saved_mode = mode;
+-		data->saved_size = t->kcov_size;
+-		data->saved_area = t->kcov_area;
+-		data->saved_sequence = t->kcov_sequence;
+-		data->saved_kcov = t->kcov;
++		t->kcov_saved_mode = mode;
++		t->kcov_saved_size = t->kcov_size;
++		t->kcov_saved_area = t->kcov_area;
++		t->kcov_saved_sequence = t->kcov_sequence;
++		t->kcov_saved_kcov = t->kcov;
+ 		kcov_stop(t);
  	}
  }
  
--static int magicmouse_raw_event(struct hid_device *hdev,
--		struct hid_report *report, u8 *data, int size)
-+static int __magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size, bool nested)
+ static void kcov_remote_softirq_stop(struct task_struct *t)
  {
- 	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
- 	struct input_dev *input = msc->input;
-@@ -480,6 +480,15 @@ static int magicmouse_raw_event(struct h
- 		 * packet.
- 		 */
- 
-+		/*
-+		 * A double report only ever wraps two normal reports, so it is
-+		 * never nested. Refuse to recurse a second time; otherwise a
-+		 * malicious device could chain DOUBLE_REPORT_ID packets to drive
-+		 * unbounded recursion and overflow the kernel stack.
-+		 */
-+		if (nested)
-+			return 0;
-+
- 		/* Ensure that we have at least 2 elements (report type and size) */
- 		if (size < 2)
- 			return 0;
-@@ -491,9 +500,9 @@ static int magicmouse_raw_event(struct h
- 			return 0;
- 		}
- 
--		magicmouse_raw_event(hdev, report, data + 2, data[1]);
--		magicmouse_raw_event(hdev, report, data + 2 + data[1],
--			size - 2 - data[1]);
-+		__magicmouse_raw_event(hdev, report, data + 2, data[1], true);
-+		__magicmouse_raw_event(hdev, report, data + 2 + data[1],
-+			size - 2 - data[1], true);
- 		return 0;
- 	default:
- 		return 0;
-@@ -516,6 +525,12 @@ static int magicmouse_raw_event(struct h
- 	return 1;
+-	struct kcov_percpu_data *data = this_cpu_ptr(&kcov_percpu_data);
+-
+-	if (data->saved_kcov) {
+-		kcov_start(t, data->saved_kcov, data->saved_size,
+-				data->saved_area, data->saved_mode,
+-				data->saved_sequence);
+-		data->saved_mode = 0;
+-		data->saved_size = 0;
+-		data->saved_area = NULL;
+-		data->saved_sequence = 0;
+-		data->saved_kcov = NULL;
++	if (t->kcov_saved_kcov) {
++		kcov_start(t, t->kcov_saved_kcov, t->kcov_saved_size,
++			   t->kcov_saved_area, t->kcov_saved_mode,
++			   t->kcov_saved_sequence);
++		t->kcov_saved_mode = 0;
++		t->kcov_saved_size = 0;
++		t->kcov_saved_area = NULL;
++		t->kcov_saved_sequence = 0;
++		t->kcov_saved_kcov = NULL;
+ 	}
  }
  
-+static int magicmouse_raw_event(struct hid_device *hdev,
-+		struct hid_report *report, u8 *data, int size)
-+{
-+	return __magicmouse_raw_event(hdev, report, data, size, false);
-+}
-+
- static int magicmouse_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
+@@ -878,17 +877,17 @@ void kcov_remote_start(u64 handle)
+ 	sequence = kcov->sequence;
+ 	if (in_task()) {
+ 		size = kcov->remote_size;
+-		area = kcov_remote_area_get(size);
++		area = kcov_remote_area_get(size, false);
+ 	} else {
+ 		size = CONFIG_KCOV_IRQ_AREA_SIZE;
+-		area = this_cpu_ptr(&kcov_percpu_data)->irq_area;
++		area = kcov_remote_area_get(size, true);
+ 	}
+ 	spin_unlock(&kcov_remote_lock);
+ 
+-	/* Can only happen when in_task(). */
++	/* Allocate new buffer if we can sleep. */
+ 	if (!area) {
+ 		local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
+-		area = vmalloc(size * sizeof(unsigned long));
++		area = in_task() ? vmalloc(size * sizeof(unsigned long)) : NULL;
+ 		if (!area) {
+ 			kcov_put(kcov);
+ 			return;
+@@ -1021,11 +1020,9 @@ void kcov_remote_stop(void)
+ 		kcov_move_area(kcov->mode, kcov->area, kcov->size, area);
+ 	spin_unlock(&kcov->lock);
+ 
+-	if (in_task()) {
+-		spin_lock(&kcov_remote_lock);
+-		kcov_remote_area_put(area, size);
+-		spin_unlock(&kcov_remote_lock);
+-	}
++	spin_lock(&kcov_remote_lock);
++	kcov_remote_area_put(area, size, !in_task());
++	spin_unlock(&kcov_remote_lock);
+ 
+ 	local_unlock_irqrestore(&kcov_percpu_data.lock, flags);
+ 
+@@ -1045,14 +1042,21 @@ EXPORT_SYMBOL(kcov_common_handle);
+ 
+ static int __init kcov_init(void)
  {
+-	int cpu;
++	int cpu = num_possible_cpus();
++
++#ifdef CONFIG_PREEMPT_RT
++	/* Allocate some extra buffers in order to prepare for softirq preemption. */
++	cpu = cpu >= 4 ? cpu * 2 : cpu + 4;
++#endif
++	while (cpu--) {
++		void *area = vmalloc(CONFIG_KCOV_IRQ_AREA_SIZE * sizeof(unsigned long));
++		unsigned long flags;
+ 
+-	for_each_possible_cpu(cpu) {
+-		void *area = vmalloc(CONFIG_KCOV_IRQ_AREA_SIZE *
+-				sizeof(unsigned long));
+ 		if (!area)
+ 			return -ENOMEM;
+-		per_cpu_ptr(&kcov_percpu_data, cpu)->irq_area = area;
++		spin_lock_irqsave(&kcov_remote_lock, flags);
++		kcov_remote_area_put(area, CONFIG_KCOV_IRQ_AREA_SIZE, true);
++		spin_unlock_irqrestore(&kcov_remote_lock, flags);
+ 	}
+ 
+ 	/*
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2032,10 +2032,11 @@ config KCOV_INSTRUMENT_ALL
+ config KCOV_IRQ_AREA_SIZE
+ 	hex "Size of interrupt coverage collection area in words"
+ 	depends on KCOV
++	range 0x80 0x1000000
+ 	default 0x40000
+ 	help
+-	  KCOV uses preallocated per-cpu areas to collect coverage from
+-	  soft interrupts. This specifies the size of those areas in the
++	  KCOV uses preallocated areas to collect coverage from soft
++	  interrupts. This specifies the size of those areas in the
+ 	  number of unsigned long words.
+ 
+ menuconfig RUNTIME_TESTING_MENU
 
 
