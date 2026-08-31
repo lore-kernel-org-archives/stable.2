@@ -1,116 +1,109 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A203B14BC
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 17:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A584137A2;
+	Mon, 31 Aug 2026 17:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788195694; cv=none; b=Ni71bd7VCXAdXkL5+lL56LT7zXTOjK/QCBwophzqd/E3v0wCuDz3rXjtGX9L4rk2CRlPpriSSPYqm5L1MVsfZ1t9WB4p5nNaiawFTXwqfU1cx9+ay1J6ALkdL8LLgvKz4777Yu6UpEMHj83uGkS4FakdbAYnpXoy7fk0nxnGqLU=
+	t=1788195818; cv=none; b=jieEUeaWqfErd0Z4ryCQn+cMy+p5Fu3ho9wUcUTlJs2ldLmg1m5fyqIk+3x6CLE6cuOrZbLuLDjmZ+lU8yokTrzu4wR8odT1fy3deVOS1rjPfJoFpKCC0GAMqlaIP6lRjCJ4u80OLY/3nylOr/tMJ6yEQJNPg56gqfD0xFlJFm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788195694; c=relaxed/simple;
-	bh=yq3sAt1weRagllmnbj8GWuHou+5wuA4UeE2rWNk0/Hw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qBXeHMZDSJLi1Q2APQyt3BYCzFjp481hj33jtOgpnimdzbZ9r57JkktfwtnkPFBbsJ7e+jsxfbLMpYJj9irHr/HHqQaEwM/M2uYl5U0o2aoDwBZqVMiXtjU3Hv7IXGjvExiEldKHtllKAya+CTEQarKBdPGDR2Q9OnogKDkHZNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ASrt7BFH; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788195818; c=relaxed/simple;
+	bh=BaABlxggLMZzgS/KXVgnrNLnp21C2gp9jNxbzD990jg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=MVlKXvi+Jxjeyu01Mb73Hg/LRcjXu2rS31bngJncmQek2pey82ibU7dJ9Yq8MM7h7m5SUerUNwj8RjM+Y1+eimLwlWssIxD+G1JsnwHu0kWszDGDSzS+pVI9yeMkDFXllJ9zllvAxAskBrqN48afvTH1ID6gqKK8bPea330uf8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=O5TBCbXr; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ASrt7BFH"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso53835a12.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 10:01:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788195692; x=1788800492; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=awVImKUzcLY0/XtG0S5LJamAqn3OfyX50g+7J1OI4Wo=;
-        b=ASrt7BFHVe7ceSoYNaaNisfasAOlX+OfJjnhBW9M6o/hELrQctWdosYgA17XCPuVnN
-         DEnkih+M63jruMl/33QYA5XymSA0cuUSOkncXvOBcrCDRyTt2iBPR0DeCx8d4upVAm7/
-         z7uJlqfXWBCo8wMUzf23DAkRro+m/KPb+54nA/IicRXgxbXthDcBRoLMrEGvIKLtw8PD
-         N5ih6uzSLOFn0+dl7Y3WVk6qeIW1qR6I7gBkEi/e45hXAw07kr3kMVrI1f46fSQSzozO
-         x23ebu1ZiA1vj5HL0DsLMdkHMCvYCdvslxjQ3Ipr5AXA+/nE+gDgWdvti1xb3e5cPUl0
-         vzbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788195692; x=1788800492;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=awVImKUzcLY0/XtG0S5LJamAqn3OfyX50g+7J1OI4Wo=;
-        b=I+LlEQeX/jP9QYOH0IE44+yKPeO1ecemJ7MkbWnaUSol8AOj3O5dwvwrsTBySdOwvE
-         fTzrcRh3kVtEMKXHl9/ljhq70CO1DYKJxhFkQ2pnvl+rOloeEs9xddYJQjuFGRcDoO+0
-         nGubxRlAlwatnCDFsGP3bzyL8JXlxwKeH0QLC99Y9x/36fUItIIiIJ6/WBoFRxGgm6BV
-         61LPJ3/mX+RKq8NI7Ab0Uy7EgGo4HBYUMGcFpVWVpK2xBpU0BF3MWrvTy9hbRd9uiCb8
-         6z7Lh7moAcORNLIA7iaipcTF5n6pjvF95KvJ3kA86W04RGt/TzljZWlQE7a7AX1VURNc
-         E3Tg==
-X-Forwarded-Encrypted: i=1; AKwUvByokcJx0l9LFVa4C0WzYug3ZKmeEwm378SyOt1VOq2n61xP/PcgRmv6tJAgA0C2LXfHRuPDYgw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQeE4jx1tAoMu8GKvRTMt57fkrE+pIpE11beRkICWvNWwLQMgS
-	zwzPHAB92BxRq0uHvq/pNQtpamBo48t+jslvIls+QLxXhRoDtWlJMjlz
-X-Gm-Gg: AYBFou2ksTCJzMFMna/YlAuES4xtcAVw2JCqDWqoM/AIBySL2Qka1hbYL4qdqFYgNrl
-	YWqGtAqZ/7J3js8D8ZjyG0GMo+k2wTFJh7oQrXdz7Z6t26iHHOfrxB84d8p9MFUx5wprkR3BAGd
-	D05B+brklqCuKFcPn8VA2pb0AXE1YpKUP+nxe/odTC4CmZzDOWaTQHEbip6OVxtILHqHmPFd6qe
-	HPS9GdeuyweAuJYRLX+Eo0k3IcRaPQlJz364wcR37gcj3vya4Vo7WfqTD7H/xtmAqfzOSe0m2qn
-	4jopiSKnqMNoPvmUUIHJsMvpv8gSTZPDGcvErkJ8H3stH1KVKo0DXZ9uXQ9/MIZ0BV+LoWKU9Er
-	ghMIGQQF3bQE8mdgMUWHJbu81G48I7QAwuhLA+XqhcnAg1yukvS3t7R8oPTEi1SERITUQNx+cQW
-	iIKH6dS6/w638XnaHFgjLPNy+QdyqdLW7h+zum7Ro2AUv7pLx/ndAGNGjyy5qY9DpNpm/FSXf9v
-	NKZEh8uHm32g5F+77/MiQOvGQMFtA==
-X-Received: by 2002:a17:90b:4fc7:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-398da5e8fa5mr9325730a91.5.1788195691825;
-        Mon, 31 Aug 2026 10:01:31 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286fa37fa5sm34437702eec.29.2026.08.31.10.01.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 10:01:30 -0700 (PDT)
-Message-ID: <bbf4711c-f12c-42d8-95f7-0f21df214b71@gmail.com>
-Date: Mon, 31 Aug 2026 10:01:35 -0700
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="O5TBCbXr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788195733;
+	bh=cRWp6rE6+iSZYDooVR19JCEDuPops+QtHdtTxPGhOxA=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=O5TBCbXrgGQ36adAsraS2UXVXy/9fyFQLGJMEQMqRUCXTwcCOY6dsU3BX0qsqf654
+	 QrY/JecfcwRfqkvS/INnIRKqyJPapioMgO2rOTWvToTQHdzAHzgVeqsH3SlTJNK7JE
+	 lp6CyZBy1X2Vfl8t+UF07KYNtW0AnXks80OIa7Oc=
+X-QQ-mid: esmtpsz20t1788195727t89f28530
+X-QQ-Originating-IP: ZRgqizws9JxGfhks9sC3a4p6dV2Vwc4A9ulyPLuItas=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 01 Sep 2026 01:02:03 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 10943433325430212063
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 00/83] 6.18.49-rc1 review
+Date: Tue,  1 Sep 2026 01:02:00 +0800
+Message-Id: <20260831170200.709901-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
+References: <20260831133359.207714926@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 00/43] 5.10.269-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260831133358.571886287@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NOIkHYnr7VzdkL58UGilhGhRX9W4nderSzANfZUR+D22EiMryKmqRfWz
+	x27MqoO8tX/hhkk1/ORiwzeM/3bwWneWQ7fLCGk/S0ccd83xALMS3O0rxOUtEVrEXcFCtdm
+	xzWwZJGmorudcPjrTAgP+mFPBLq0ObkqR3BN4pjJCUKvz8QQJxwbhu7nFKkwDCA16pthHG4
+	7Jt24dYOTCaNrlksQLEB45c8rtXKyfOhxD9Ist9DKCjC0ZXv0iS5+Y/H6j9FOi8h62+uU1V
+	LSBHlnYeWJ1jkuFPGAir+KmX/VUkNNOwRkha7kqPYitilGwrgZyjHiSyaypCeafMcUy7OQS
+	znXRdWexNlKXXjr9nxHVVa5lgFrU1JqEMj3ztU7V/ZDTt52pi4d7cTyCk0zEqtMyiz8NEVo
+	BKZXXa0p3fePrKpAqaC4taidnhO/PuzYQVsxdZ+f9vxDtUPEDpMR7h4sOqxtUGG/upCZ6no
+	gLVps+aKN2EXkUfFREnAbEU9D4zTurML+Uvmsq4vPoe6bUwEyOcKKbpvcFWzs35R04FjYL9
+	sreKeuh9sR0KgfOUYRxE78JuHkNGYd3qOOnV1SKqPFYd+LOsDoBpcSQWUaZakIDw9Ta5Hxa
+	dgH+9o3EJZ7BeWu2onzV6ZBPNLRbuhkPx4Yj6eD7Ddjm7lItpYLMvt0xtWzYPH5f24l65xr
+	deaL2KkCJLsxJ1/WUNO2YZaUAozKFZqT35eMM29QKNH+i6f1Exb0ZzXQrgyIN43mU5TiQ8y
+	CHCgwNq9KxHnuGTapZ4Bif1a5eFaDSTxbQA4ENS2jKrpFacQb1v1INJlugDevx4APT9G9MP
+	DF959kddep5c9b9bgUxXJ9OaWm+978Dzk4OUYHzQ/5/mF/ypLSbczSt/hvB5lpmFbq2wj6p
+	K1rqCWA786SfkGznnJTe7H8h9ymo9csw9TkwMYHNosUIYiplKP5g3/5ZLF+hOBDvyfDjtiM
+	jaNQQxdqPBFeJ04KrKWqp/535mnefbRNSESHc+LlCHgqhYmWjOb/cja7mKlmsIuLg0MQv+T
+	YbYOyYpsTX+7ZihsY82/Lt+atQC9ALmvThVABD2ANS8+4M4qGxWutT8vKOhCU=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
+Hi,
 
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-On 8/31/2026 6:35 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.269 release.
-> There are 43 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.269-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+Best Regards
+Wentao Guan
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+Log:
+Linux version 6.18.49-rc1-g52d189f2c6b3 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.49-rc1-g52d189f2c6b3 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Tue Sep  1 00:20:48 CST 2026
+Linux version 6.18.49-rc1-g52d189f2c6b3 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.49-rc1-g52d189f2c6b3 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Tue Sep  1 00:37:39 CST 2026
+Linux version 6.18.49-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.18.49-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Tue Sep  1 00:54:32 CST 2026
+Linux version 6.18.49-rc1-g52d189f2c6b3 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.49-rc1-g52d189f2c6b3 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Mon Aug 31 23:58:15 CST 2026
 
