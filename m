@@ -1,81 +1,65 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC2B374A05
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 19:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066FF3D994;
+	Mon, 31 Aug 2026 19:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788203234; cv=none; b=bd/HwqsH1IhoS7MA/2IOdBJhhfxzkdJyoURbhg4hnTcbhQndneTEuDyz3rKHJFz2YkxOAhrG9vpfZS8eXuJZqPPhkloCgMTdOndni2pPm67SXgxklwaEh8UCrJIe+enVLWUm1Np2fz50nOTmxt6hc9SL0horM5kI4D5f1Kwn2JY=
+	t=1788203328; cv=none; b=EL5MBtT+VrqDSxSw+7kJpJZItM+jTIG0DVpiDQyaZD4C53m8tPwi2BFR8qGCH5R8TE74npGU5W59GDFRHRW8C6Ud2VIFVEZQCP0yBx04uWqGeql0Tb91GqtkpqNKf6QsCx5X2HYUX7bSPw/65grRQcdhrkcZ9OB/hF+P7z1HHBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788203234; c=relaxed/simple;
-	bh=YfZqeRZrcJPBWry4Smdt/KH6SXG+19VL5sgSi8beNLI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DC9yUUSrLCWhB7SaOkot6fVNnpx1QC5Y4TX66cATTfR+PzCOo7p+Ai7/JbHMPoA7oLP+9iVgtNQxpR1Z5CnVldsmz6jL1QZKDCI3+mr0I8zGb/6lABCGTGC0nqn7erygT0giV60pd0Z5hwVt5k6hTVoJ1vBh1rnTWcN8M4cYfb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aVxOY1im; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788203328; c=relaxed/simple;
+	bh=O/OvX2JNj/PMLwb6Dl3P1RdjxL2cow2pKxyZ0z+Cp4Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZjkCSFlPYvfp67LrJ6GXzZXyEk5bOxRS9V+arm2M8ZOmvr5fCcTwL4BVrL6lfB1gNBBNBtYPwFCeLdjK3hI2zXz8JgbujQKpxVyVnuhIfPrV47DNAFeCtcmRQeof+yIPh3uH5RyWTuIJtmMeY/ZKPjGnjfMYuhFnEEEOQU4JpkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=A4VSd6w7; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aVxOY1im"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so117427a91.2
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:07:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788203232; x=1788808032; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hhr6N2Xsb/i2x+PD9jyfBlndkAPLcSMGtFPyBSSzCz0=;
-        b=aVxOY1imqlB8dB0UcfYnOn/zmcm7xzkdt5r5jxzay3eBVTLPs+WmcUddQE0DAkWbNQ
-         uO3T6Ts0Rg5cktaCbamw8HUamRy8QiESAfk5KwepDoKJuZ0sjVQ0Wl49nnchOhWLYkgq
-         5a5XDWnWW0ZG031ldKyUJYe1fWfkgyLeanqYEqCFxiqh7XjFRO8FvPnVPW89JOps8oL9
-         9Ng8/shhxcAiONr3Reni3kjlVcXMEDO12Yhrb7bDUvHTaZ+IKE2+pl2Q2n0FNjS4dAZW
-         gqV23SEFdIRrOf6bb0LLb67Ehz/y7WaHGEiN++pzFY7CD9n4JxwJPm5FOODktr+Xp6+j
-         A6lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788203232; x=1788808032;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hhr6N2Xsb/i2x+PD9jyfBlndkAPLcSMGtFPyBSSzCz0=;
-        b=rot8d9pRi7900zYfF7DHRjySBK/5vrF8KXFeaK+ARqcl+RU9AdiKEh6eb05JjiwYNG
-         5wXz7wRBfgv0lMi0vV3nwQ7j+pqh+54oTDmU43YGt6aE8pCuBqRtt1nw2/sguOhHfnzs
-         GXgkcyqaPHfkQxvmhGlffG0LoqrGOZj/VdIWnoFa2Wci/KrawlEeMiG0wt0s++gH2pzf
-         ANjCFaIWikJ3Ajtvlhhttf1er/t8GZFXl2B9jQweZ3S/GbdVTgpj4KcckaJcCY/q3icn
-         OOIydyM2QxkGdQdwsWPp379CDeQ35jjH7L9IoN7YKd7QBfE/s0TGpfeAPKWRBovxbXF+
-         0f1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxVpDDUhb5GomczTySe2UV9QfhHMpjxnfv6/Q5UH9ZWS70hIifnF8oX+i25w7mR/DF27ZS8/c8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNwRxVutpV7hkpC+oyqgD0Dx3H1dXTl+q8oeJzE9TIgweRpdD+
-	6JsMBT0Pt94ie/t7UiJmSZv+eECdvYpHJT8Zm7wizK16jE5lsRFtiV5r
-X-Gm-Gg: AYBFou3MaJGmYgwXvRH/6rU3rN67CrkIuydtpulJOtxgnCMKWK/VD1axFBGBAq4bU6/
-	IINREZED1QN703tThs9WWO6PIcQCNkclXaKfQnqsy53YG0rncOw+thrrvCXmcYNhm8J3Zo4zHCF
-	NBO+kfJg5h+QvnmhFVJg/ADeCG9HmjrvM7wmJR8F1/ycgSTm2SAYLRsLud3j2MKgjegnGRcrV+I
-	cS53tQMNaQeWbF+gTJdMFomYhhpCIa1GPYupFuJd/Y5rVmzyaIDtRDh2+PEh4rq6fwb3GI4WzS4
-	hW15VUz3J1y7m1qJs+Lan8Scff+Vs8+oKoyhmK2qYFKrZhF+DaDO+4sAU0gIl69rT4oMs3q25wj
-	et9t/RHHTUYEAC3U1QYBOiIjFdYVw5jTnwvJcpqc6mlHqvLuKZWoiEFEhTB/LADur/uBk3JR3tU
-	PBIQhGwY8UCaJBBdoiFWD2dxTJ4Nnvo1PQZNt8U8AezQqv+bhIhmTv8t7tcFc7jYe+muejxtUuF
-	YKwWkZuHb0d0tkgp+zitZTy4EHAHSHpTF4jnLE=
-X-Received: by 2002:a17:90a:e7cd:b0:395:f0e8:9e13 with SMTP id 98e67ed59e1d1-396d0e71ad7mr40889615a91.7.1788203231598;
-        Mon, 31 Aug 2026 12:07:11 -0700 (PDT)
-Received: from localhost ([2409:40c4:13b:7a31:95ce:ef4b:57cf:6fd])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm46219699c88.4.2026.08.31.12.07.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 12:07:11 -0700 (PDT)
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Michal Pecio <michal.pecio@gmail.com>,
-	Mathieu Fluhr <mathieu.fluhr@gmail.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	regressions@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="A4VSd6w7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788203244;
+	bh=4v5YqYy2bS2ns0Ll6WPVVeRfEriqH7bIUiTlWEzjnYQ=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=A4VSd6w7mA0v30fpXDcXD4y+d17H+9FcjgcXiBa3KZT8W8aPF7i+B3wr4rcD2EYc1
+	 iV+FWLgjFDy3fyMzm4PRBdlXaa5fgyOJIZZGugc1ZO0ipSDqDiazQw6pXcL5JsW6qR
+	 SjzHHDLFhDSYGYj7k/sFLZR+Oqyz/3sAcvesvXbk=
+X-QQ-mid: esmtpsz16t1788203238tbfcbbdb1
+X-QQ-Originating-IP: si/9pfdW12dT98S78z4TeK+EbcNEtA7KSwJddDE1Two=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 01 Sep 2026 03:07:15 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 16190420279150086281
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
 	stable@vger.kernel.org,
-	Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Subject: [PATCH 2/2] xhci: drop 120ms U3 LFPS wake retry wait from runtime resume
-Date: Tue,  1 Sep 2026 00:33:49 +0530
-Message-ID: <20260831190349.29590-2-lovekeshsolanki00@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
-References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
+Date: Tue,  1 Sep 2026 03:07:12 +0800
+Message-Id: <20260831190712.722297-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
+References: <20260831133359.468089036@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,55 +67,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MXigUJMenSZJUQ5RoZAtfFjZ+MtI7KIqcHGhFGvYZka5lnC2RAwrf01r
+	50svXwYszjnv2pUMmpiVnix/08WzkSEJ5+haLHwWr7nDfTnZ9SVrV4ivpQRlAK+bKI/qxWg
+	ZSk8+kKAlBoOz/epXiU+tJwcoWGzPx3p6IrHGAwIeruu8rlXEs+PJu9iSyQm6SRtO7LHys1
+	bFVV0K/DJUvSrdReqpcOEZfwOoRiwOIg4/0wqRxjy5OWwDM/jm/0zqKAQd2I2nm82sDJ4Fb
+	84yKU+JvQM51mixSw4otkltnXgOCkHs0Aymf5xJhr8hEsFFW5vEa+vADCFdh8hyiAO6D/T1
+	t8Gvt0G8OrIfebSxE/dMSTyNI1PBUuJvCtA2ffcHIC3Y5K3hNWqCUoD3blY+9ySjnoqA02f
+	z+Lr6wLnWrVFxek7aWxnh9l4y4jBSczPenKbT/Di3WJxLIRg7SyNmiuNE3INojyIrd7hL6B
+	fh4OGNBsnCC9wrwNw6o4SEofzEBkn3pTnjIDqClYANdrcsM0QEs0n1ZDn4mIMq4agWQ4uol
+	hIR7rm7vd7nlBr14VBuPCR4/ukAK5TvlcJSOV1zhhH/SsfRUGp/FH0hOFSCORsPPwUcF4Q2
+	f11LL+5fJe+KlZPHoWmmUIzjqHr2pJkQqPOk4WUulDD11UDdtgq98Nn1HglZ6ogR+jMlIrs
+	V2TqgviYD5bKIkOSAYBbYetgbAuPpRifbjpFdGdaeyjCaRaHTv0lED0dy7mgjo7yooh4uOj
+	JfHWg0Dw0ToQBzm5JdrnlMwCZnwBiyIFr/GcVBHoeEsNqY8I2sRtZpxaWTwUj95pzCn4lEh
+	SB7qvpG7dfkPzHj8WzmfHe5o7QFFitaKo5QSOiseMzY4lRcXnHTjca3Hpy+xDUTXYanM/yr
+	V7Tt9o6NeKsjWSYD7BKjPWvWVRKBUF5kkse7M28NmFAlSc8sSKjl9DV6ziJU/KmBvtVzkrZ
+	xFkBoLMC4XCv4Lv84YlfW3CocBQACfvbeV8WqbOYittqcBsvlVNRau+yYXSO/nOjU/CZUs1
+	bCCQzWMMJiy+pyYdkuTl8AmD6KEnzOKfv/m4Awij1zvblSbOvbfbitldCYipDoUCuujrSnd
+	hkgzlkQqkm5uc3b7G7ac8w=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On auto resume (is_auto_resume), xhci_resume() used to msleep(120)
-when there were suspended USB3 devices and no pending port event,
-to give USB3 devices time to resend their U3 LFPS wake (at 100ms
-intervals) if the first wake signalling failed.
+Hi,
 
-The hub driver now holds the SS root hub awake for
-USB_SS_ROOT_HUB_U0_WAKE_TIME (120ms) after a resume, which covers that
-same window and lets the pending port event be picked up through the
-normal hub event path. Therefore, this legacy wait in xhci_resume()
-is redundant and can be removed.
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
----
- drivers/usb/host/xhci.c | 11 -----------
- 1 file changed, 11 deletions(-)
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index a9e47e178c28..b0caba8ebf18 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -1083,7 +1083,6 @@ int xhci_resume(struct xhci_hcd *xhci, bool power_lost, bool is_auto_resume)
- 	struct xhci_segment	*seg;
- 	int			retval = 0;
- 	bool			pending_portevent = false;
--	bool			suspended_usb3_devs = false;
- 	bool			reset_registers = false;
- 
- 	if (!hcd->state)
-@@ -1245,18 +1244,8 @@ int xhci_resume(struct xhci_hcd *xhci, bool power_lost, bool is_auto_resume)
- 
- 	/*
- 	 * Resume roothubs only if there are pending events.
--	 * USB 3 devices resend U3 LFPS wake after a 100ms delay if
--	 * the first wake signalling failed, give it that chance if
--	 * there are suspended USB 3 devices.
- 	 */
--	if (xhci->usb3_rhub.bus_state.suspended_ports || xhci->usb3_rhub.bus_state.bus_suspended)
--		suspended_usb3_devs = true;
--
- 	pending_portevent = xhci_pending_portevent(xhci);
--	if (suspended_usb3_devs && !pending_portevent && is_auto_resume) {
--		msleep(120);
--		pending_portevent = xhci_pending_portevent(xhci);
--	}
- 
- 	if (pending_portevent) {
- 		if (xhci->shared_hcd)
--- 
-2.55.0
+Best Regards
+Wentao Guan
+
+Log:
+Linux version 6.6.156-rc1-arm64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.6.156-rc1-arm64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Tue Sep  1 01:40:37 CST 2026
+Linux version 6.6.156-rc1-loong64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.6.156-rc1-loong64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Tue Sep  1 01:56:17 CST 2026
+Linux version 6.6.156-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP 
+Linux version 6.6.156-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Tue Sep  1 02:11:55 CST 2026
+Linux version 6.6.156-rc1-amd64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.6.156-rc1-amd64-desktop-hwe-g658884b4c6d2 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Tue Sep  1 01:25:21 CST 2026
+
 
