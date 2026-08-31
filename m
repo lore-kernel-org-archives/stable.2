@@ -1,143 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CE0439F7F
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A7B3F1ADA
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182840; cv=none; b=bc2nPJssMjAJnoozZs6qPrh1CCsDO/QI8kKb5hNkceytxDI2HQUEVaUp2P27Gs7MM5n1iA/C3GzkBVCUJVDUHaeF0Acxoarc3uHKXAjhF+qtLqTlcr4WSRr/xI6TUDpTvWcHpPVdrQT+T7oyV5j7r+vr3IB6MKjngKX6TucxOBk=
+	t=1788182887; cv=none; b=TJ2HFVE48HG6VyNFNQ/b3ZrX0rew5mj/9bnCWAw5rdQ5lPYTxNBj56VnwcNkE+zcsC/T4Zk4ZkX/UwlBVNXrU1acQm3ljlXt2Bjdt7jWGu4v+M7TS/TarxHxqBZCFVQdoZpcsLR2a5dj17+CVj7nIyncy1KbPibggbRQT5kOk1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182840; c=relaxed/simple;
-	bh=A92yPj72YzPNkDNA+QQlmogmUP8xqvSUMfICjWKwnjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E2GdyNCkilrDqHieCv9yDZCHwIYaMXFxO+ON+wz0z+xqzssN2Ia2QQjWSItwYA1sfOlUBJH7RgPYbzsXbDAeDx4Nr+5bUjZ64nZQ2nhdMtXf6McljXCyVyudkR0NZgM662hJ6Pq42i132/xG7BCyxdVdg5VaRsxWKaGuDce4uiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SO+v5XKU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788182887; c=relaxed/simple;
+	bh=/bLvlYLVzYKa8dr8mwlM3algYzuLPgYV2ydoxEptCkg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pb23AK6oy0QpjFQyWDro4cy8bECDm656ZiaLpI/BveSpSsW/PvwzeMViAb/tKwwG9Ot3Vj8sV9h6j4nQAKJIE+sHa0IzvdTeIiz38+UxWL9G1VRdn2rQxtPB0hNTGQlDcikj9C2p/MfJP2ByVX/vgbYiyhMbNwBEbPDTJ0KBiCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=fnVMgMaK; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SO+v5XKU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 767EC1F00A3E;
-	Mon, 31 Aug 2026 13:27:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788182839;
-	bh=VQYChJAGGURhtJKL4V+3zJxeviwFQWxvxWNgogZSwA8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SO+v5XKUkglBq6wY4bqR97CHBbvdLkGU28DISm2KTb/OxV28E3C/gDqtsHPQSK6YU
-	 tnTdxCdl4TKhvKxDVY8XatsWnMjo1wGVPG3nNXi03SkaKbQxGtQ9oehhALG9yW5ZAU
-	 SyYb8ryMDXRojYdWOG/gxHE+zgdoDUj+hnfeAS+J4oRXUtjhq9miewv65ZsqnVnkLx
-	 46ItChFdgJDVAOCsupCRA9oXILDRXWvWXQLH/ZuSRj8MP/4nb/c9xJlWbbS6dWnNpB
-	 qHt3fz5hl6cnIwdptVY0J1QtXDvuwvA6KPeQVzetaBMKlZtTXP5eCsauEBJ9nh91my
-	 HsbVEKG+sNsIQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 7/7] usb: xhci: bail out of setup if the controller is inaccessible
-Date: Mon, 31 Aug 2026 09:27:09 -0400
-Message-ID: <20260831132711.4043116-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831132711.4043116-1-sashal@kernel.org>
-References: <2026083120-hatchling-fade-cf8e@gregkh>
- <20260831132711.4043116-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="fnVMgMaK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788182880; x=1788442080;
+	bh=m3XXQ4PRUOBQ1QkgQNZUZzV0arhK7ELWxV2Q/hoH5jg=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=fnVMgMaKKw0QIlHGu+8gNdEuC5SE2HnEZX85CzzKdr/p5KPFh3Mtue2F63kV6wEWh
+	 wvpn8FSV0y3oV1Mmn0pi06bWIdDCKHChKRxG0uS8niz2gdq5AvU4N2PfrN+pAtQ6iF
+	 p5ZeDKjmN23cG4u38wEvvIPZp7ofa7ZLFj8VTVidASaRtc20WK4Zo5eQHpuJShczg7
+	 qCwho7bgSn8qA612IM1ty7njp2aVaGhG47A4d1WmQXcn6CL77z3Sqj1XN8V/nnayc/
+	 L96Jw99p5ON0tBHoTCnsiUVIbPBKOrdItMji4t+3KEyVaOyl7dBnmWimpyM00qaZNR
+	 Hr5FeUmJqFKHg==
+X-Pm-Submission-Id: 4hYVDB3fC5z2Schm
+From: Esben Haabendal <esben@geanix.com>
+Subject: [PATCH v4 0/4] drm/bridge: nwl-dsi: Various fixes
+Date: Mon, 31 Aug 2026 15:27:42 +0200
+Message-Id: <20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNzRKCIBQF4FdxWEcDqIiteo+mBcJVaQobMbJxf
+ PfAFv04Lc/c8507IQe9AYd2yYR68MaZzoaQbRKkWmkbwEaHjBhhnBSUYHs/Y+0Mrs0IDiuaiYp
+ IXXGRo2CuPSyHQA7HV3a36gRqiCOx0Ro3dP1jeehp7P3b9hQTXLJCl1RIwaXeNyCtGbequ6A47
+ tmbC5L+chY4FaSURKosT+sVTz/4+nsaOMu5lqXmBQP6xed5fgIev5cJOwEAAA==
+X-Change-ID: 20260710-nwl-dsi-fixes-c148b0adb685
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
+ Sam Ravnborg <sam@ravnborg.org>
+Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ "Oliver F. Brown" <oliver.brown@oss.nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182874; l=2866;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=/bLvlYLVzYKa8dr8mwlM3algYzuLPgYV2ydoxEptCkg=;
+ b=FFTQkGGFUYAoRidnkDgVA7gUqZ7Hp2uc6so4Wj9R5GUhcoTkrHOwEZtKgc6e3P/jPrFxoVqnj
+ j8p4mwbGDEfBcq8MOs5cuHzz9TdL24OiwZ/KEwEKYDpGaft1mApWOzU
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-From: Breno Leitao <leitao@debian.org>
+This series brings a few patches fixing horizontal sync timing, EOTP packet
+behavior and hsync/vsync polarity selection when using DCSS endpoint, as
+well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
 
-[ Upstream commit 78203d5b54a40f0e36196ebf31c9c7a380fc8811 ]
+The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly from
+NXP vendor tree, so I have kept Author unchanged, although I have modified
+the commit message. Let me know if I should change Author for that.
 
-xhci_gen_setup() locates the operational registers using the capability
-length read from the very first register:
-
-	xhci->op_regs = hcd->regs +
-		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
-
-If the controller is dead or has dropped off the bus, that read returns
-~0, HC_LENGTH() truncates it to 0xff, and op_regs ends up 0xff bytes
-past the page-aligned MMIO base, i.e. unaligned. The first access
-through it, xhci_halt() -> xhci_handshake() reading op_regs->status, is
-then an unaligned readl() on device memory. arm64 faults on unaligned
-device accesses, so instead of xhci_handshake() catching the all-ones
-value and returning -ENODEV, setup oopses:
-
-  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
-  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
-  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
-  Unable to handle kernel paging request at virtual address ffff80030a770103
-    ESR = 0x0000000096000021
-    FSC = 0x21: alignment fault
-  Internal error: Oops: 0000000096000021 [#1]  SMP
-  pc : xhci_halt [xhci_hcd]
-  Call trace:
-   xhci_halt
-   xhci_gen_setup
-   xhci_pci_setup
-   usb_add_hcd
-   usb_hcd_pci_probe
-   xhci_pci_common_probe
-   xhci_pci_renesas_probe
-
-This was hit with a Renesas uPD720201 that failed to power up ("Unable
-to change power state from D3cold to D0, device inaccessible") yet still
-reached the HCD probe path.
-
-Read the capability register once, and if it reads back the all-ones
-value (as xhci_handshake() and xhci_reset() already test for), abort
-setup with -ENODEV before op_regs is derived from it. Reading it once
-also avoids re-reading a register that may change under a concurrent
-hot-removal.
-
-Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20260806142113.2436238-11-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/usb/host/xhci.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Changes in v4:
+- Change calculation of hfp/hbp/hsa to use the raw clock rates directly to
+  eliminate intermediate rounding errors.
+- Drop patch 4 (will be included in follow-up patch series, together with
+  a patch addressing the unblanced resource teardown and PM runtime
+  underflow problems in the error path).
+- Link to v3: https://patch.msgid.link/20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 351550f21a67b..72f7da2ed5c47 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -5435,6 +5435,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	struct device		*dev = hcd->self.sysdev;
- 	int			retval;
- 	u32			hcs_params1;
-+	u32			hc_capbase;
- 
- 	/* Accept arbitrarily long scatter-gather lists */
- 	hcd->self.sg_tablesize = ~0;
-@@ -5455,15 +5456,19 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	mutex_init(&xhci->mutex);
- 	xhci->main_hcd = hcd;
- 	xhci->cap_regs = hcd->regs;
--	xhci->op_regs = hcd->regs +
--		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
-+	hc_capbase = readl(&xhci->cap_regs->hc_capbase);
-+	if (hc_capbase == U32_MAX) {
-+		xhci_warn(xhci, "Host controller not accessible, removed?\n");
-+		return -ENODEV;
-+	}
-+	xhci->op_regs = hcd->regs + HC_LENGTH(hc_capbase);
- 	xhci->run_regs = hcd->regs +
- 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
- 	/* Cache read-only capability registers */
- 	hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
- 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
- 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
--	xhci->hci_version = HC_VERSION(readl(&xhci->cap_regs->hc_capbase));
-+	xhci->hci_version = HC_VERSION(hc_capbase);
- 	xhci->hcc_params = readl(&xhci->cap_regs->hcc_params);
- 	if (xhci->hci_version > 0x100)
- 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
--- 
-2.53.0
+Changes in v3:
+- Added Fixes and Cc: stable tags.
+- Split patch 1 into two, with change of endpoint mux control in a separate
+  patch.
+- Fixed mux_control_try_select() state argument.
+- Link to v2: https://patch.msgid.link/20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com
+
+Changes in v2:
+- Added safeguard against small horizontal sync timings, protecting against
+  division by zero and integer underflow.
+- Added error handling of nwl_dsi_mode_set() call.
+- Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com
+
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Guido Günther <agx@sigxcpu.org>
+To: Fabio Estevam <festevam@gmail.com>
+To: Robert Chiras <robert.chiras@nxp.com>
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Esben Haabendal (3):
+      drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
+      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+      drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
+
+Robert Chiras (1):
+      drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
+
+ drivers/gpu/drm/bridge/nwl-dsi.c | 87 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 74 insertions(+), 13 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260710-nwl-dsi-fixes-c148b0adb685
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
