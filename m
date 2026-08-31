@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2DC47ACF1;
-	Mon, 31 Aug 2026 13:55:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A84843785D;
+	Mon, 31 Aug 2026 13:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184538; cv=none; b=mr6d+trpMS5qdU0utI0ZSm+a32RLHOouEidygSBoQJGkGW7EZXzuIIoGygDnqBQla7zB5dk3LbhNLsPma4ws624NNgtKwRkHJLZCSwLvoFzhHjH+ooxv//apR04UbgU6r0lcdbDkHHf4QdwfaJLVAnDbwFJ9Kn+lqzAMU6isTds=
+	t=1788184557; cv=none; b=lduQJsrSWBCh0ylc27LI99f4cNDOTycWaWIgr4IkXBayQgl/cRQ3eFcLYWf0b5D2M2mKTDFIMzH+SjYMH5Z5DL+uonh1TkaSBtfIT0fXlFKbGFQ1ZriGWQXfvu2R42SaHgzxjRs7Zwswt6ESqqRntA1jnQM2sGuFzPR1XDOSnDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184538; c=relaxed/simple;
-	bh=z2ckaUxiqhMwGJJm1j54eMrOwuQh4LgZpopd41r2C/w=;
+	s=arc-20240116; t=1788184557; c=relaxed/simple;
+	bh=EDk/iesbCJS7k60tQ4SdQ/+uPyBa6X5Bld5+GIj6TDY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MZHzQqibRnnmGGtcRl7acBj93//38NA5WQelDa189/ntNHz5fDYDPDbBoLrQKa/PdYRWPPkBeReZNaRttqfj2VnjWx5qUtLciiXasWefISy9QfelfeILLqEQmM8UG/ex0EeCMsYTGY69/16Si9WI6Ws4UIqZiDmII8bNsIDs+3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O3F7E/W5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GhiEaWc9eOdqOKd4/N6RxciezouZymQ0SjPONWv6ZkQSh7flxo99uRW5Ik9MW8PzKc5gmaMXmKNZErzjWNIzdJhBZ0ByZlK76y6FiTj08Av8AzBhhNVsGPsXR73SYjJO+d+Z1CI62mf8OF8SUmTYHE1uHeJ1T+6n06a0Ev9SF28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NI8uvLO4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O3F7E/W5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16D1D1F000E9;
-	Mon, 31 Aug 2026 13:55:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NI8uvLO4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F0A1F00A3D;
+	Mon, 31 Aug 2026 13:55:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184536;
-	bh=MM+YxIjI7HJhe1q0aPYSkqAbx2BJAXJgvK4t2GKwiyQ=;
+	s=korg; t=1788184556;
+	bh=nYXp7ab/dewx1tq9LnfJ1Skwwi0Tydu8BlsnrcgUtg0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O3F7E/W5pn0mi7qPjmpxdz5pMoL3iH/PpYCi1LC/K8h5ieJZD+WUT1vMBYEU682gg
-	 LrTVjvW3JARIBhpMEpAGcQf1uqDWNwrUXlLTkWig45daB9Is1MsglCcWIsYA/6mrKU
-	 Ox/jpbKcUlpKcWlFYF8c22cocciiqYd8BdrbNMNk=
+	b=NI8uvLO4f+4lsRpN6icv4nsQ9eOA16yMMTw+/GUDaJJM/IKl7fQ+g7J2UqMT5ZD7y
+	 nM1YBR3Z2MadGnwkRubO9XrpS2S7cf08Lt5X8w4yDjd5bm/qcee1oeCCG+yo1S5WdQ
+	 b+X3dj0Z5rTSZ4w9BrDNznYqWQnnHou+2sovTwAs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Weiwen Hu <huweiwen@linux.alibaba.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+	Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>,
+	Michael Zaidman <michael.zaidman@gmail.com>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 43/91] nvme: rename nvme_sc_to_pr_err to nvme_status_to_pr_err
-Date: Mon, 31 Aug 2026 15:34:31 +0200
-Message-ID: <20260831133401.971314347@linuxfoundation.org>
+Subject: [PATCH 6.6 49/91] HID: ft260: fix stack-use-after-return write in I2C read race
+Date: Mon, 31 Aug 2026 15:34:37 +0200
+Message-ID: <20260831133402.281734417@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
 References: <20260831133359.468089036@linuxfoundation.org>
@@ -54,61 +52,148 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Weiwen Hu <huweiwen@linux.alibaba.com>
+From: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
 
-[ Upstream commit 22f19a584d7045e0509f103dbc5c0acfd6415163 ]
+[ Upstream commit bf3e39df3a397fd82967a31d17c4e02c7feab221 ]
 
-This should better match its semantic.  "sc" is used in the NVMe spec to
-specifically refer to the last 8 bits in the status field. We should not
-reuse "sc" here.
+ft260_i2c_read() points dev->read_buf at a caller-supplied buffer
+(often an on-stack variable), arms a completion and waits up to five
+seconds for the device to return the data. The HID input callback
+ft260_raw_event() runs in the input/IRQ path, independent of the
+dev->lock mutex held by the read path, and copies the device-supplied
+payload into dev->read_buf after a plain NULL check.
 
-Signed-off-by: Weiwen Hu <huweiwen@linux.alibaba.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Stable-dep-of: 4a3f00262a04 ("nvmet-tcp: bound SGL data length before allocating command buffers")
+These two paths share read_buf, read_idx and read_len with no
+serialization. If the device delays its response until the read
+times out, ft260_i2c_read() resets the controller, clears read_buf
+and returns, unwinding the stack frame the buffer lived in. A
+response that arrives at that moment lets ft260_raw_event() pass the
+NULL check and then memcpy() the device-controlled payload into the
+now-freed stack location, a bounded but attacker-influenced
+stack-use-after-return write triggerable by malicious or
+malfunctioning hardware.
+
+Add a dedicated spinlock that serializes every access to read_buf,
+read_idx and read_len. ft260_raw_event() now holds it across the
+NULL check, the memcpy and the index update, while the read path
+takes it when arming and when clearing the buffer, so the teardown
+can no longer slip between the check and the copy.
+
+Fixes: 6a82582d9fa4 ("HID: ft260: add usb hid to i2c host bridge driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>
+Reviewed-by: Michael Zaidman <michael.zaidman@gmail.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/nvme/host/pr.c |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/hid/hid-ft260.c |   25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
---- a/drivers/nvme/host/pr.c
-+++ b/drivers/nvme/host/pr.c
-@@ -72,12 +72,12 @@ static int nvme_send_ns_pr_command(struc
- 	return nvme_submit_sync_cmd(ns->queue, c, data, data_len);
+--- a/drivers/hid/hid-ft260.c
++++ b/drivers/hid/hid-ft260.c
+@@ -240,6 +240,8 @@ struct ft260_device {
+ 	struct mutex lock;
+ 	u8 write_buf[FT260_REPORT_MAX_LENGTH];
+ 	unsigned long need_wakeup_at;
++	/* Protects read_buf, read_idx and read_len against ft260_raw_event() */
++	spinlock_t read_lock;
+ 	u8 *read_buf;
+ 	u16 read_idx;
+ 	u16 read_len;
+@@ -501,6 +503,7 @@ static int ft260_i2c_read(struct ft260_d
+ 	int timeout, ret = 0;
+ 	struct ft260_i2c_read_request_report rep;
+ 	struct hid_device *hdev = dev->hdev;
++	unsigned long irqflags;
+ 	u8 bus_busy = 0;
+ 
+ 	if ((flag & FT260_FLAG_START_REPEATED) == FT260_FLAG_START_REPEATED)
+@@ -526,9 +529,11 @@ static int ft260_i2c_read(struct ft260_d
+ 
+ 		reinit_completion(&dev->wait);
+ 
++		spin_lock_irqsave(&dev->read_lock, irqflags);
+ 		dev->read_idx = 0;
+ 		dev->read_buf = data;
+ 		dev->read_len = rd_len;
++		spin_unlock_irqrestore(&dev->read_lock, irqflags);
+ 
+ 		ret = ft260_hid_output_report(hdev, (u8 *)&rep, sizeof(rep));
+ 		if (ret < 0) {
+@@ -543,7 +548,9 @@ static int ft260_i2c_read(struct ft260_d
+ 			goto ft260_i2c_read_exit;
+ 		}
+ 
++		spin_lock_irqsave(&dev->read_lock, irqflags);
+ 		dev->read_buf = NULL;
++		spin_unlock_irqrestore(&dev->read_lock, irqflags);
+ 
+ 		if (flag & FT260_FLAG_STOP)
+ 			bus_busy = FT260_I2C_STATUS_BUS_BUSY;
+@@ -562,7 +569,9 @@ static int ft260_i2c_read(struct ft260_d
+ 	} while (len > 0);
+ 
+ ft260_i2c_read_exit:
++	spin_lock_irqsave(&dev->read_lock, irqflags);
+ 	dev->read_buf = NULL;
++	spin_unlock_irqrestore(&dev->read_lock, irqflags);
+ 	return ret;
  }
  
--static int nvme_sc_to_pr_err(int nvme_sc)
-+static int nvme_status_to_pr_err(int status)
+@@ -1018,6 +1027,7 @@ static int ft260_probe(struct hid_device
+ 		 "FT260 usb-i2c bridge");
+ 
+ 	mutex_init(&dev->lock);
++	spin_lock_init(&dev->read_lock);
+ 	init_completion(&dev->wait);
+ 
+ 	ret = ft260_xfer_status(dev, FT260_I2C_STATUS_BUS_BUSY);
+@@ -1067,6 +1077,7 @@ static int ft260_raw_event(struct hid_de
  {
--	if (nvme_is_path_error(nvme_sc))
-+	if (nvme_is_path_error(status))
- 		return PR_STS_PATH_FAILED;
+ 	struct ft260_device *dev = hid_get_drvdata(hdev);
+ 	struct ft260_i2c_input_report *xfer = (void *)data;
++	unsigned long irqflags;
  
--	switch (nvme_sc & 0x7ff) {
-+	switch (status & 0x7ff) {
- 	case NVME_SC_SUCCESS:
- 		return PR_STS_SUCCESS;
- 	case NVME_SC_RESERVATION_CONFLICT:
-@@ -122,7 +122,7 @@ static int nvme_pr_command(struct block_
- 	if (ret < 0)
- 		return ret;
+ 	if (size < offsetof(struct ft260_i2c_input_report, data)) {
+ 		hid_err(hdev, "short report %d\n", size);
+@@ -1075,6 +1086,8 @@ static int ft260_raw_event(struct hid_de
  
--	return nvme_sc_to_pr_err(ret);
-+	return nvme_status_to_pr_err(ret);
- }
+ 	if (xfer->report >= FT260_I2C_REPORT_MIN &&
+ 	    xfer->report <= FT260_I2C_REPORT_MAX) {
++		bool complete_read;
++
+ 		ft260_dbg("i2c resp: rep %#02x len %d size %d\n",
+ 			  xfer->report, xfer->length, size);
  
- static int nvme_pr_register(struct block_device *bdev, u64 old,
-@@ -197,7 +197,7 @@ retry:
- 	if (ret < 0)
- 		return ret;
+@@ -1085,8 +1098,15 @@ static int ft260_raw_event(struct hid_de
+ 			return -1;
+ 		}
  
--	return nvme_sc_to_pr_err(ret);
-+	return nvme_status_to_pr_err(ret);
- }
++		/*
++		 * Hold read_lock so a timed-out ft260_i2c_read() cannot
++		 * clear read_buf between the NULL check and the memcpy.
++		 */
++		spin_lock_irqsave(&dev->read_lock, irqflags);
++
+ 		if ((dev->read_buf == NULL) ||
+ 		    (xfer->length > dev->read_len - dev->read_idx)) {
++			spin_unlock_irqrestore(&dev->read_lock, irqflags);
+ 			hid_err(hdev, "unexpected report %#02x, length %d\n",
+ 				xfer->report, xfer->length);
+ 			return -1;
+@@ -1095,8 +1115,11 @@ static int ft260_raw_event(struct hid_de
+ 		memcpy(&dev->read_buf[dev->read_idx], &xfer->data,
+ 		       xfer->length);
+ 		dev->read_idx += xfer->length;
++		complete_read = dev->read_idx == dev->read_len;
++
++		spin_unlock_irqrestore(&dev->read_lock, irqflags);
  
- static int nvme_pr_read_keys(struct block_device *bdev,
+-		if (dev->read_idx == dev->read_len)
++		if (complete_read)
+ 			complete(&dev->wait);
+ 
+ 	} else {
 
 
