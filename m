@@ -1,30 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CB83A7820;
-	Mon, 31 Aug 2026 21:23:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A5B39D6DA;
+	Mon, 31 Aug 2026 21:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788211394; cv=none; b=n/EZPkpMUV+8z03YAKodK5jZ84ULKcRzPf1Vp0sqqt7dxYINmO+wiJ0ZcwG9sbVr78iH8aFavTyJqeQkzm0v4tvymzBKS/WZJSkY285LCUTN1gaiwVHxLCBccholEPUGi3+CRA54XibwM/aiWFLM14YInOto58NllBv+CJyHCDo=
+	t=1788211402; cv=none; b=LMQAYxwzzV0f6rUaEu36aUWxEPFxq+g5RJJL7880D9BERXuQlFIM9X4YcxVxJ+G48aiPUoNqkIZRZ3k94spCDs45ZxXS1lBZII6rvHRfiSOnnuhoMqJ4b39iymdqrz2ntprpRhbP7K8Z+hZeBoUOZb421axgddzAqpvcn3wbw2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788211394; c=relaxed/simple;
-	bh=3ABV5KcEfFa2ZdOhHx8K14Lh7h5cAr9u8by4VIcYCMM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PcqevqgQ5ZlYyjk/CDMi8sHONdEjZMWvUjz6UyaBZD/RyPdrAscdDQcCbX+5/VriO5yseDe8ApNXMLkQkk3tyxShv1aoovp4UO2JN068nN280jpOiFaPUhGf/O+BnNkCabY8gdUjq9grnEEcZb3npP8gSOWajRF5PQ2SIUfH0wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TjkyHJXw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788211402; c=relaxed/simple;
+	bh=5QoDyQ6X4p1Atd3lG85mmroUjyxaVW/u+lq80I0PCyk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q6YhNrKjJ7DjsrTieeNtpP/doPdopjePPF/WuTmE6Ztaw74/1sE6vJf4OtPtnC+gs3gIQgL8gjy4RueBy6+tLgo5iQiL/fzare+Bd3M0A8Ph7i/SqIuwKCCsi8kkembBCnhRWofWDvN/1SSnUIckIn4kxymBuvf0o84IHoppmbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7LbKsGj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TjkyHJXw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE8C1F000E9;
-	Mon, 31 Aug 2026 21:23:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7LbKsGj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF46D1F000E9;
+	Mon, 31 Aug 2026 21:23:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788211393;
-	bh=y9PqaJ5DVVcgmOYCx46GRAI8694oBDYtVILplF7R5I4=;
+	s=k20260515; t=1788211401;
+	bh=uLdv8VH0cmD7l6Ogu0tEuQONezqf9xm4zh/RAWSkMGw=;
 	h=From:To:Cc:Subject:Date;
-	b=TjkyHJXw0oPPnn7uxpHVcSaLOqPwbsysf/jsMDaCnn7KCwrx544M02vBdqmiRsne1
-	 P+9I/i/hAif3RUdx5eftrCDiJLx/QvGHYHVbN/FJWZiy67CF2LS7JWuJRuinuFtTWx
-	 /rA0s6jHdWyPYU2DtpBIJ3wrADGlwiT7DbFbEuDRtuAlX39fDFzvvc2ljqVvi7aWSC
-	 rS/UlwaYwwbxbTt5n5uubuh50e9Pehq7SYEMVtjH4dGGVOA1bMGp3nqW/6Du8JbpOt
-	 yxVLOMGtN8grSWj9minqr+GFKM8VYmBsIXnC1GVXwZcSPsiF7UfRyHLP4jmhPWpCb9
-	 4EbZYNbyMibFg==
+	b=D7LbKsGj20BbRy6TuN8/LoWJvUHj6zDmoMY39cKj1SCt2Zgh1qq++RCPZ2lsvJ9Hf
+	 fouHdwhq7ByQQj3Ay5Fg2uUAJLETLxig+nRbptMVj92qLJleY3oT+lcheb5cc+NqR6
+	 JZvxISZJDiBtmUKl1nobFkEJaZpPIAF7WpwCIWt8Oega1YUMIZCWU8TjyUbuOtaUUo
+	 q3CPKwcuHS2TyagHfKcXoeeeuzkCA/iisOTP0Z32zFv31cvJhlPDrlyzje+fAQDQJB
+	 jHbNB3MzdzisWen9ORPoN0fMd6gcIy0dP0xyWSmNrADB+qfbzll+dC/36aeBzvSQSK
+	 /P7I2pntonf/A==
 From: Eric Biggers <ebiggers@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	linux-raid@vger.kernel.org
@@ -33,9 +33,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Christoph Hellwig <hch@lst.de>,
 	Eric Biggers <ebiggers@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH RESEND] raid6: add missing vzeroupper to AVX2 code
-Date: Mon, 31 Aug 2026 14:23:08 -0700
-Message-ID: <20260831212308.213855-1-ebiggers@kernel.org>
+Subject: [PATCH RESEND] raid6: add missing vzeroupper to AVX-512 code
+Date: Mon, 31 Aug 2026 14:23:16 -0700
+Message-ID: <20260831212316.213896-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -45,12 +45,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since the AVX2 optimized RAID6 code uses YMM registers, execute
+Since the AVX-512 optimized RAID6 code uses ZMM registers, execute
 vzeroupper before returning from it.  This is needed to avoid degrading
 the performance of any later SSE code that may happen to be executed.
 
-Fixes: 2c935842bdb4 ("lib/raid6: Add AVX2 optimized gen_syndrome functions")
-Fixes: 7056741fd9fc ("lib/raid6: Add AVX2 optimized recovery functions")
+Fixes: e0a491c12968 ("lib/raid6: Add AVX512 optimized gen_syndrome functions")
+Fixes: 13c520b2993c ("lib/raid6: Add AVX512 optimized recovery functions")
 Cc: stable@vger.kernel.org
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
@@ -58,15 +58,15 @@ Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 This didn't get taken through the x86 tree.  Andrew, it seems you're
 taking patches to lib/raid/.  Can you apply this one?
 
- lib/raid/raid6/x86/avx2.c       | 6 ++++++
- lib/raid/raid6/x86/recov_avx2.c | 2 ++
+ lib/raid/raid6/x86/avx512.c       | 6 ++++++
+ lib/raid/raid6/x86/recov_avx512.c | 2 ++
  2 files changed, 8 insertions(+)
 
-diff --git a/lib/raid/raid6/x86/avx2.c b/lib/raid/raid6/x86/avx2.c
-index 7d829c669ea7..3cc2fe7ac42c 100644
---- a/lib/raid/raid6/x86/avx2.c
-+++ b/lib/raid/raid6/x86/avx2.c
-@@ -67,6 +67,7 @@ static void raid6_avx21_gen_syndrome(int disks, size_t bytes, void **ptrs)
+diff --git a/lib/raid/raid6/x86/avx512.c b/lib/raid/raid6/x86/avx512.c
+index e671eb5bde63..772bfc4af6df 100644
+--- a/lib/raid/raid6/x86/avx512.c
++++ b/lib/raid/raid6/x86/avx512.c
+@@ -78,6 +78,7 @@ static void raid6_avx5121_gen_syndrome(int disks, size_t bytes, void **ptrs)
  	}
  
  	asm volatile("sfence" : : : "memory");
@@ -74,7 +74,7 @@ index 7d829c669ea7..3cc2fe7ac42c 100644
  	kernel_fpu_end();
  }
  
-@@ -115,6 +116,7 @@ static void raid6_avx21_xor_syndrome(int disks, int start, int stop,
+@@ -137,6 +138,7 @@ static void raid6_avx5121_xor_syndrome(int disks, int start, int stop,
  	}
  
  	asm volatile("sfence" : : : "memory");
@@ -82,7 +82,7 @@ index 7d829c669ea7..3cc2fe7ac42c 100644
  	kernel_fpu_end();
  }
  
-@@ -175,6 +177,7 @@ static void raid6_avx22_gen_syndrome(int disks, size_t bytes, void **ptrs)
+@@ -208,6 +210,7 @@ static void raid6_avx5122_gen_syndrome(int disks, size_t bytes, void **ptrs)
  	}
  
  	asm volatile("sfence" : : : "memory");
@@ -90,7 +90,7 @@ index 7d829c669ea7..3cc2fe7ac42c 100644
  	kernel_fpu_end();
  }
  
-@@ -243,6 +246,7 @@ static void raid6_avx22_xor_syndrome(int disks, int start, int stop,
+@@ -292,6 +295,7 @@ static void raid6_avx5122_xor_syndrome(int disks, int start, int stop,
  	}
  
  	asm volatile("sfence" : : : "memory");
@@ -98,7 +98,7 @@ index 7d829c669ea7..3cc2fe7ac42c 100644
  	kernel_fpu_end();
  }
  
-@@ -334,6 +338,7 @@ static void raid6_avx24_gen_syndrome(int disks, size_t bytes, void **ptrs)
+@@ -396,6 +400,7 @@ static void raid6_avx5124_gen_syndrome(int disks, size_t bytes, void **ptrs)
  	}
  
  	asm volatile("sfence" : : : "memory");
@@ -106,19 +106,19 @@ index 7d829c669ea7..3cc2fe7ac42c 100644
  	kernel_fpu_end();
  }
  
-@@ -444,6 +449,7 @@ static void raid6_avx24_xor_syndrome(int disks, int start, int stop,
- 		asm volatile("vmovntdq %%ymm14,%0" : "=m" (q[d+96]));
+@@ -529,6 +534,7 @@ static void raid6_avx5124_xor_syndrome(int disks, int start, int stop,
+ 			       "m" (q[d+128]), "m" (q[d+192]));
  	}
  	asm volatile("sfence" : : : "memory");
 +	asm volatile("vzeroupper");
  	kernel_fpu_end();
  }
- 
-diff --git a/lib/raid/raid6/x86/recov_avx2.c b/lib/raid/raid6/x86/recov_avx2.c
-index a714a780a2d8..820871046e30 100644
---- a/lib/raid/raid6/x86/recov_avx2.c
-+++ b/lib/raid/raid6/x86/recov_avx2.c
-@@ -176,6 +176,7 @@ static void raid6_2data_recov_avx2(int disks, size_t bytes, int faila,
+ const struct raid6_calls raid6_avx512x4 = {
+diff --git a/lib/raid/raid6/x86/recov_avx512.c b/lib/raid/raid6/x86/recov_avx512.c
+index ec72d5a30c01..299a3f044d61 100644
+--- a/lib/raid/raid6/x86/recov_avx512.c
++++ b/lib/raid/raid6/x86/recov_avx512.c
+@@ -211,6 +211,7 @@ static void raid6_2data_recov_avx512(int disks, size_t bytes, int faila,
  #endif
  	}
  
@@ -126,7 +126,7 @@ index a714a780a2d8..820871046e30 100644
  	kernel_fpu_end();
  }
  
-@@ -293,6 +294,7 @@ static void raid6_datap_recov_avx2(int disks, size_t bytes, int faila,
+@@ -353,6 +354,7 @@ static void raid6_datap_recov_avx512(int disks, size_t bytes, int faila,
  #endif
  	}
  
@@ -137,6 +137,7 @@ index a714a780a2d8..820871046e30 100644
 
 base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 prerequisite-patch-id: ebf41d9b9e92708245f6ae0657896ff3f8ef7d0d
+prerequisite-patch-id: f85f9c7e8bdd6fcfd394edb80f2263d7189e138d
 -- 
 2.55.0
 
