@@ -1,172 +1,281 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F29409280
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF9B3C456B
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179833; cv=none; b=NyLurufkc+D+TlrLaEbCWp3gcO+KX48lqRdis17QpHRZ+kvL2ADofzz+hWjmhrZ5vo/WVXvQhl79ez1lk4SdQEnGth7gQcLBCybfuo+hKimhxjMIsohevWE9iSSspwazLc1cybVzJCHmfGq65QdrV3V0hBZ5ZXQZK83yFxe8x6w=
+	t=1788180030; cv=none; b=hEZ3q2UacJzl8X1BJe2cztyjqVD3/1M1wXsee4cWqI9FdAgnnNdXDtJfo8ddlfOoqgBNOrslju7Yo52EBWpj25PJSGakLH028uZ3fOXeMYxYYqJdAgeyQaNy8UfQjpN8Tv6L/K6USFdNqn4FY+cpCoDie6Egz8SQeIYmuB0UQSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179833; c=relaxed/simple;
-	bh=vU5Pm5j/kRRP83h0uEZ8fm34t1t9ZA6JsaLkvTmcYuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fTuD6uQUOWrAt7Gj9+sIndHqa2rjOJW5n4AgHonn4uDrD+eH6pPWzj3pOLbaDnaqw0FMjzy1d6NSW0onglnzOwvC0Rp2mB4cvW3iJ8sx76kq/5ugIDbBL7zcLSxl4V3ThtHleC94AayC54Ci5sdZh63Uz0/Wld1hpRK44ujqyyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=Wn99pHxP; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	s=arc-20240116; t=1788180030; c=relaxed/simple;
+	bh=S8dZjeqOYV4ek91I2r4Qov9/LVvEEgQMX8OjggbeLCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NPOE/AsaLd49v5Je8TWMg54EwNS5lUZbpFg1WuTDN40lpjmY96Frc8bvpluXJ8alyiVEpg1zipfsBvqPfEd4Z7iGxp4LtX78E5y7Iv9LkpPd5Y5SJUqw4euxlBs/Nb0FDo1Asw9jU4e5RhhyHcCq0n5mLuBrKxlZMalPjfBxCMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hmTHClyx; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="Wn99pHxP"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so33849375e9.2
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 05:37:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hmTHClyx"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-484362f5c4aso1260770f8f.3
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 05:40:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1788179828; x=1788784628; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bcg00jdxBoVgvjWMidECdjzP3FFCwSJCVtYTTaC2+bg=;
-        b=Wn99pHxPlhXCJlkvMLXUCSJWukCpDSef0b1okPiHSsfXIdEIAwMOKynyJ3+UpydvHE
-         nADaCp0zZ2idTUciid4cE2CxBip2ujUp6JkS32tnXaWlNk7CJwa1q1873dFaiA+sVepn
-         nHhXonu4sC0MR5wBVGckTvxeM7gD7Pmx6WbXzsB5Ah7CBftRR7QdWcElQUcfr+bwRc/x
-         +xamQ+Fce/6WQTgrr85yGgQrz/VRq01E2YdR7F1ATzchT2wTfeNl2r8/aenfvquNBaw4
-         MCFoAiy6M2lWzr5yuHoXkngHdQ0zs0qxruercc40lt1c1XjU7k/FnFf6MgoV2abDdC/l
-         Zfew==
+        d=gmail.com; s=20251104; t=1788180026; x=1788784826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2wnfH7b7KKmDiXtn7bM9cfVe5VuHQ+7bwoAdYTm8PAY=;
+        b=hmTHClyxhl3g8IIP1y/KOI/t2FGA9hqsQcFIt3fS906aTCmPhS2X20H50m/EAlfmuv
+         QMlaQGlD2bc2o1KoqHwgKuYGpNTtMTjHZWvmsMt26Ill2vUOgBN/wUw5FWhpgIdsCl+y
+         +Dtf2Ei25rq4fInbiCwaqDojk2NLR+Tq8KS5/VLHqI3MH1w0RpiAyfZvKfmBqAXwIgAr
+         fioZsY/knH1c8Sxx8RWSOQhcPo3CZl29hrYm4j8VoLmgz4WSNcsX8I8P/HbhQdLtJZUb
+         Eg09ihGctnA4vRnwvFQ1zc6DfR82F2ptH6Kzg31hKGg4bSBtveukBd7fnNWx87bId1tQ
+         Cz+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788179828; x=1788784628;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bcg00jdxBoVgvjWMidECdjzP3FFCwSJCVtYTTaC2+bg=;
-        b=PDu3WWcMlA2TqOdxWJdrhkCukUDbHa50Tvs00Hnc8pOl1qynxN2csf49ebIYk8Gk4F
-         YNeN/90MHHTIQ6MqrS76F4s8d/PPqe/QgDE2u48XCNRJzJSlvitSmehZRULHzKUmuBMB
-         pfwcDJD3kuzZ/n4Bgu4R1oCQjd1oSVgEFZaO3CXjXPkfgwbyaAxF1SyTQcZdaBfLeTY7
-         pOH+IoaAnHIWBFy8HPFaGHIADzSTVx1PLiDNpLclnuYdP84i7Jk/PorH51y9m7EwblJI
-         UDvG4V/KOFDHPdz0fmZRuYbRiHHHcdc4rbsXHJTZH8+FUMqkxNsLtqKA8D/g4zieFhl7
-         0wQg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2e6mGc63gkpSL63WU5ElXYJSDUruO8fBaOTGoey4PyW/LaCwp6sFFUz2vz9v1bTUjeO6xcoc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDGJBzPnUl2XWpO7RPzY7fpnKacbKL1sWS+nzX4tdLYNLXJpAB
-	lo2ahDkkfObwZazyjSoSZKrYzCAAKNOmLrc+r91keN2Pk1oQKB7QVZWigOaKpxgDAUM=
-X-Gm-Gg: AR+sD13J6v8F4HX4aDueJVIcK5Xr6Oo5YTiBmUcBzf+FQFgvpzD5kUg2ii6whZMrXOW
-	/O5l0CTt85qjYami6RfADSJ1Fjsv0/PeBJaa8G9lNyS5xPv1JbqTN8tIk2KQZUOKBiUhG57n6Oy
-	b2bSBJ1JnAAbRXk3cYaBOtDLRYN9mhzPy3YgnA9nrZV9wN8JlebAqRdcLZ4BHpUVf/5eVNhzK6H
-	cEvBORw9TnvqHv308aMrlYespqlO1BoDXoV0PS/iM0EuhcE+zTmauiOst+rTWy81JmFas/b9Ms7
-	R/UXLSDQjQaCADCr9cuUsX1UJVm4jCpwC41l4bHTqFSelMveOe3yqJzxbtjJbYojpr5hJak8Bg2
-	ggtoI7vI2eDsRJl2R5faTLpFi/TZbB8gBr7Mm85Yncpwma+Kp5HiCet8IgL3HBPqqNkx/3mo3QB
-	NcZwhFy+Llxx05RzUYhlpOO1TvkiBnvypLiiE21uK7dUMnsakdMgf5768Cl3yAAFGm2d3OhhJLI
-	wVMjiXtRblEt6VMWbw=
-X-Received: by 2002:a05:600c:34d2:b0:49c:cbad:1c44 with SMTP id 5b1f17b1804b1-49ccbad1cf1mr290301455e9.6.1788179827630;
-        Mon, 31 Aug 2026 05:37:07 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48436e2af3asm12016571f8f.12.2026.08.31.05.37.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 05:37:06 -0700 (PDT)
-Message-ID: <e9dfedbf-b49c-436e-b01b-cd9cc02618cc@blackwall.org>
-Date: Mon, 31 Aug 2026 15:37:05 +0300
+        d=1e100.net; s=20251104; t=1788180026; x=1788784826;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2wnfH7b7KKmDiXtn7bM9cfVe5VuHQ+7bwoAdYTm8PAY=;
+        b=MM5jlqP3mWDVzyvM2YDf8UFK4kO5MeWxwfWQ0YeeRhC6ZAaOyedJCaKyqRU7l4FHw6
+         Cth46VEh9wQXPc3RI9dc4MHUfdD7JoUYDFs9s5xCHbltjjG0CKmw9WMS2xS2GLVwFW3+
+         vZaz41fQ+LShh1ec4ItP9RPziXeGDqY53moi5fklrWm03gcR1SWgWPdtZ4qlcL8I97qC
+         hYAxxlgcEx5cTzGBkCQtSQpUsrtYNCidVuoJdY4sbbtnMRc26KNM1598xGrkP7V50k/d
+         Pkgo5bhSN5K3RVmwKlu/AJE6reIZjf6ursAPqC2W+GEeyTQuXJG/etQEvR8kIoIQ8Vkq
+         bdPA==
+X-Forwarded-Encrypted: i=1; AHgh+RpYGIw4KYXAiXq9XZy1xUyZvhaoA30il1kWTkSUK4rKNOUF0t6LszHPbIpvoLc5ik+mXEHPhRs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPLBLiz5XqeTFImcgXhv1kf5cTZlaOkv3Y6xJJYej2T6f2qXdl
+	WMVl3nkJ/y0FtvMeTEJYhPFzRzHWYlAj4X4cWZiS/eATaHX/NYuaproEw2c+2CO3
+X-Gm-Gg: AR+sD11Ndj4n8yApqghGI3z4kNrCA6ZVShIhOHVGVBR7lNPqLCIn2Nb14+8F9cGh+WY
+	cE+zIS8jYAOSrS4eYbUKo1BvT22bf1fa5c4jOTkXLodhUI3UiK9EgQ/fJqINZxqduxNw5tiAHz0
+	wY5+JfEVH6GmFOoyBIDrVp/KUgLyjLcu3H/SOwcjVMXeYLvpxDTW6phPj9rtLQJQQzfaDSiQrUM
+	oGncwKLn044uZzO6Ov0kCCdwEMw7F2JegqsaBRiT2gwgDEhWpqQfqy0AOkfHUFJ1f7HLIVItmvC
+	iXHYGO0vUCzQY5Y3FgER4A3F0mD4ifHMbYVhBGNFUzAJnQPrT47/2UQEoywqMjt77rYJBwnwiZO
+	F7mSxnoGCvoMN5wZXj0/OX1W+jCdHmGBGqtljybCNtn5TEv64ayWMTH1bUtDy8/sTlzi1SA7Hh5
+	o7ccTLGafHZlnFIgJYPDXjzWA4BICSuG9DDSXrXGSdvy1+GaOt9hXVMj4zpj2BGJekNine9Myjv
+	w536AvzFAtAPgJ0o6T4cnoyTA==
+X-Received: by 2002:a05:600c:8011:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-49cdc5660bamr4232645e9.12.1788180025820;
+        Mon, 31 Aug 2026 05:40:25 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b945816f2sm338783295e9.8.2026.08.31.05.40.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 05:40:25 -0700 (PDT)
+Date: Mon, 31 Aug 2026 13:40:23 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ kys@microsoft.com, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
+ <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
+ <longli@microsoft.com>, linux-input@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] HID: hyperv: add KUnit coverage for device info
+ bounds
+Message-ID: <20260831134023.7784374a@pumpkin>
+In-Reply-To: <20260710022854.3739558-3-michael.bommarito@gmail.com>
+References: <20260710022854.3739558-1-michael.bommarito@gmail.com>
+	<20260710022854.3739558-3-michael.bommarito@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3] net: bridge: mcast: don't truncate the port group
- walk on teardown
-Content-Language: en-US, bg
-To: Jun Yang <littleddfu@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, stable@vger.kernel.org,
- TencentOS Corvus AI <corvus@tencent.com>, bridge@lists.linux.dev,
- netdev@vger.kernel.org, Jun Yang <junvyyang@tencent.com>
-References: <20260831111330.199543-1-junvyyang@tencent.com>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20260831111330.199543-1-junvyyang@tencent.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 31/08/2026 14:13, Jun Yang wrote:
-> __br_multicast_disable_port_ctx() and br_multicast_del_port() walk
-> port->mglist with hlist_for_each_entry_safe(). However,
-> br_multicast_find_del_pg() can also delete other entries from the same
-> list through br_multicast_fwd_src_remove() or __fwd_del_star_excl().
+On Thu,  9 Jul 2026 22:28:54 -0400
+Michael Bommarito <michael.bommarito@gmail.com> wrote:
+
+> Add KUnit coverage for Hyper-V synthetic HID initial device-info parsing.
+> The tests cover zero bLength, a valid descriptor plus report descriptor,
+> and a malformed report descriptor length that exceeds the received
+> message.
 > 
-> If such an entry is the iterator's saved next node, hlist_del_init()
-> clears its ->next and terminates the walk early. The reproducer triggers
-> this in both teardown walks, leaving port groups in the bridge mdb with
-> a dangling ->key.port after del_nbp() frees the port:
+> The same-translation-unit test uses a KUnit-only ACK bypass so parser
+> coverage does not require a live VMBus channel.
+
+Breaks build - see below.
+
 > 
->    BUG: KASAN: slab-use-after-free in __mdb_fill_info+0x1191/0x1320
->     __mdb_fill_info+0x1191/0x1320
->     br_mdb_dump+0x594/0xe40
->     rtnl_mdb_dump+0x1cf/0x5d0
-> 
-> Use hlist_del_init_rcu() to unlink the group while preserving ->next.
-> br_multicast_del_pg() and the teardown walks run under
-> br->multicast_lock. The GC worker must acquire the same lock before
-> detaching the group for destruction, so the node remains alive while
-> the walk uses the preserved pointer.
-> 
-> Preserving ->next means a walk can now reach a group that an earlier
-> iteration already deleted as a side effect. That group is off mp->ports,
-> so br_multicast_find_del_pg() would fall through its port scan and hit
-> the trailing WARN_ON(1). Skip such groups at the top of that helper: a
-> port group is put on port->mglist when it is created and only unlinked
-> when it is deleted, so hlist_unhashed() identifies exactly this case.
-> 
-> Fixes: b08123684bd5 ("net: bridge: mcast: install S,G entries automatically based on reports")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
-> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-> Assisted-by: tencentos-corvus-ai:kimi-k3
-> Signed-off-by: Jun Yang <junvyyang@tencent.com>
+> Assisted-by: Codex:gpt-5-5-xhigh
+> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
 > ---
-> v3: skip already-unlinked groups at the top of br_multicast_find_del_pg()
->      instead of in each teardown walk, per Nikolay's suggestion, so the
->      preserved ->next no longer leads to the trailing WARN_ON(1).
+>  drivers/hid/Kconfig      |  10 ++++
+>  drivers/hid/hid-hyperv.c | 117 ++++++++++++++++++++++++++++++++++++---
+>  2 files changed, 120 insertions(+), 7 deletions(-)
 > 
-> v2: https://lore.kernel.org/netdev/20260826014200.362304-1-littleddfu@gmail.com/
->      Use hlist_del_init_rcu() to preserve ->next, as suggested by Nikolay,
->      instead of restarting the walks.
-> 
-> v1: https://lore.kernel.org/all/20260812113435.1854275-1-junvyyang@tencent.com/
-> 
->   net/bridge/br_multicast.c | 13 ++++++++++++-
->   1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
-> index 00aa9b2879d6..ea0a50eb8b77 100644
-> --- a/net/bridge/br_multicast.c
-> +++ b/net/bridge/br_multicast.c
-> @@ -808,7 +808,11 @@ void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
->   	struct hlist_node *tmp;
->   
->   	rcu_assign_pointer(*pp, pg->next);
-> -	hlist_del_init(&pg->mglist);
-> +	/* Keep ->next (held under multicast_lock, freed later by the GC work):
-> +	 * a port->mglist teardown walk may have latched this node as its next,
-> +	 * and deleting other groups of the same port must not truncate it.
-> +	 */
-> +	hlist_del_init_rcu(&pg->mglist);
->   	br_multicast_eht_clean_sets(pg);
->   	hlist_for_each_entry_safe(ent, tmp, &pg->src_list, node)
->   		br_multicast_del_group_src(ent, false);
-> @@ -835,6 +839,13 @@ static void br_multicast_find_del_pg(struct net_bridge *br,
->   	struct net_bridge_mdb_entry *mp;
->   	struct net_bridge_port_group *p;
->   
-> +	/* A teardown walk over port->mglist can reach a group that an earlier
-> +	 * iteration already deleted as a side effect. It is off mp->ports by
-> +	 * now, so skip it instead of falling through to the WARN_ON() below.
-> +	 */
-> +	if (hlist_unhashed(&pg->mglist))
-> +		return;
+> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+> index c1d9f7c6a5f23..41ca48d9adc9e 100644
+> --- a/drivers/hid/Kconfig
+> +++ b/drivers/hid/Kconfig
+> @@ -1183,6 +1183,16 @@ config HID_HYPERV_MOUSE
+>  	help
+>  	Select this option to enable the Hyper-V mouse driver.
+>  
+> +config HID_HYPERV_MOUSE_KUNIT_TEST
+> +	bool "KUnit tests for Hyper-V mouse driver" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT && HID_HYPERV_MOUSE
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  Builds unit tests for the Hyper-V synthetic HID driver.
+> +	  These tests exercise the initial device-info parser with
+> +	  malformed host-provided HID descriptors and are only useful
+> +	  for kernel developers running KUnit.
 > +
->   	mp = br_mdb_ip_get(br, &pg->key.addr);
->   	if (WARN_ON(!mp))
->   		return;
+>  config HID_SMARTJOYPLUS
+>  	tristate "SmartJoy PLUS PS2/USB adapter support"
+>  	help
+> diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
+> index fd90196430e29..6579bd19da13a 100644
+> --- a/drivers/hid/hid-hyperv.c
+> +++ b/drivers/hid/hid-hyperv.c
+> @@ -13,6 +13,9 @@
+>  #include <linux/hiddev.h>
+>  #include <linux/hyperv.h>
+>  
+> +#if IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST)
+> +#include <kunit/test.h>
+> +#endif
+>  
+>  struct hv_input_dev_info {
+>  	unsigned int size;
+> @@ -240,13 +243,18 @@ static void mousevsc_on_receive_device_info(struct mousevsc_dev *input_device,
+>  	ack.ack.header.size = 1;
+>  	ack.ack.reserved = 0;
+>  
+> -	ret = vmbus_sendpacket(input_device->device->channel,
+> -			&ack,
+> -			sizeof(struct pipe_prt_msg) +
+> -			sizeof(struct synthhid_device_info_ack),
+> -			(unsigned long)&ack,
+> -			VM_PKT_DATA_INBAND,
+> -			VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
+> +	if (IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST) &&
+> +	    !input_device->device) {
+> +		ret = 0;
+> +	} else {
+> +		ret = vmbus_sendpacket(input_device->device->channel,
+> +				       &ack,
+> +				       sizeof(struct pipe_prt_msg) +
+> +				       sizeof(struct synthhid_device_info_ack),
+> +				       (unsigned long)&ack,
+> +				       VM_PKT_DATA_INBAND,
+> +				       VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
+> +	}
+>  
+>  	if (!ret)
+>  		input_device->dev_info_status = 0;
+> @@ -635,5 +643,100 @@ static void __exit mousevsc_exit(void)
+>  MODULE_LICENSE("GPL");
+>  MODULE_DESCRIPTION("Microsoft Hyper-V Synthetic HID Driver");
+>  
+> +#if IS_ENABLED(CONFIG_HID_HYPERV_MOUSE_KUNIT_TEST)
+> +static struct mousevsc_dev *mousevsc_kunit_alloc_dev(struct kunit *test)
+> +{
+> +	struct mousevsc_dev *input_dev;
+> +
+> +	input_dev = kunit_kzalloc(test, sizeof(*input_dev), GFP_KERNEL);
+> +	if (!input_dev)
+> +		return NULL;
+> +
+> +	init_completion(&input_dev->wait_event);
+> +
+> +	return input_dev;
+> +}
+> +
+> +static void mousevsc_device_info_zero_blength(struct kunit *test)
+> +{
+> +	struct synthhid_device_info *info;
+> +	struct mousevsc_dev *input_dev;
+> +
+> +	input_dev = mousevsc_kunit_alloc_dev(test);
+> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
+> +	info = kunit_kzalloc(test, sizeof(*info), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, info);
+> +
+> +	info->hid_descriptor.bLength = 0;
+> +
+> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info));
+> +
+> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, -ENOMEM);
+> +}
+> +
+> +static void mousevsc_device_info_valid_descriptor(struct kunit *test)
+> +{
+> +	struct synthhid_device_info *info;
+> +	struct mousevsc_dev *input_dev;
+> +	u8 *report;
+> +
+> +	input_dev = mousevsc_kunit_alloc_dev(test);
+> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
+> +	info = kunit_kzalloc(test, sizeof(*info) + 4, GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, info);
+> +
+> +	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+> +	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(4);
+> +	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+> +	memset(report, 0x42, 4);
 
+This has landed in rc1 and fails to build (with gcc 12.2) because the tests
+in fortify-string.h detect that is it writing beyond the end of the
+structure.
 
-This should be fine, let's also see what sashiko thinks. :)
+> +
+> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 4);
+> +
+> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, 0);
+> +	KUNIT_EXPECT_EQ(test, input_dev->report_desc_size, 4);
+> +	KUNIT_EXPECT_MEMEQ(test, input_dev->report_desc, report, 4);
+> +
+> +	kfree(input_dev->hid_desc);
+> +	kfree(input_dev->report_desc);
+> +}
+> +
+> +static void mousevsc_device_info_report_desc_oob(struct kunit *test)
+> +{
+> +	struct synthhid_device_info *info;
+> +	struct mousevsc_dev *input_dev;
+> +	u8 *report;
+> +
+> +	input_dev = mousevsc_kunit_alloc_dev(test);
+> +	KUNIT_ASSERT_NOT_NULL(test, input_dev);
+> +	info = kunit_kzalloc(test, sizeof(*info) + 8, GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, info);
+> +
+> +	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+> +	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(64);
+> +	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+> +	memset(report, 0x42, 8);
 
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Same here.
+
+David
+
+> +
+> +	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 8);
+> +
+> +	KUNIT_EXPECT_EQ(test, input_dev->dev_info_status, -EINVAL);
+> +
+> +	kfree(input_dev->hid_desc);
+> +}
+> +
+> +static struct kunit_case mousevsc_test_cases[] = {
+> +	KUNIT_CASE(mousevsc_device_info_zero_blength),
+> +	KUNIT_CASE(mousevsc_device_info_valid_descriptor),
+> +	KUNIT_CASE(mousevsc_device_info_report_desc_oob),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite mousevsc_test_suite = {
+> +	.name = "hid_hyperv_mouse",
+> +	.test_cases = mousevsc_test_cases,
+> +};
+> +
+> +kunit_test_suite(mousevsc_test_suite);
+> +#endif
+> +
+>  module_init(mousevsc_init);
+>  module_exit(mousevsc_exit);
 
