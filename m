@@ -1,123 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E8030FF1D;
-	Mon, 31 Aug 2026 10:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990203E714C;
+	Mon, 31 Aug 2026 10:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170691; cv=none; b=F6lh5n8WlRww7p802rags2yix7S64lZSWCk75k5ic7r269zMUpR6z2BJVctUqZ+JxmPlMZ3XmMnNe8fDB2i38EvPfiymt9enUrryyzFOjATOxa8bkh5Y3Lvj+nsl8KHrw/Y994nF409/n4SbH7MlAuhXzw3JqyRBgb7RMFwufN8=
+	t=1788170852; cv=none; b=aKXSYP9D9FYnWj+typf9rRBTOmLmc1yGb4tr7zN8YsKKXLCaFrwCgS2KRy5KQ3BVNSo44ySBBwR3a/dJZJgXkrAjkw5lTDgM6oe/s3Yqa+zIjOWNATAOrKyZjqWFOBM1uNX1zvXUxut6C/Z1KeiKlhi/yc7ckTrJrJdf9WHOV+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170691; c=relaxed/simple;
-	bh=qRtxFABuXVR+lfXJle7mIINfLcyyQn2W0MSmLBiu0jU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pQWzqye5gt5l1bzlhAKDWfTDG8hJgNsTjuxu3RvxVH1YYa0EGq2UCcg1gi7QhkJK5kqS5rtRryoXOXcCQxPUI8mYig0ImoNpel8R8lFg4ixiNXaHhuJxuvHlYw99KVQ9iDDUv8ypZsTpkbyPaRMAWRDaEL+TbSQm8YNeXziuNHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TfmGxr7V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788170852; c=relaxed/simple;
+	bh=CKDvWF0ui5pn13nr7UoA/5PU88Wqt9/Kw0pgq4FBRGg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=pxRvXs0dhVvYJ6CrZKHUI3rK2nKUAP/AmRApNd17iwXakpjB9qdgFq9BRKeBf/PY8MageTDJ9rujgw+/urCs3ZBMzrR295ULSrUK0y+xwhYfQaiGqncgr4ouSc5tAHaN5ogJc+xZyUvylfO16DnxRbttJmQLU14RujYSPnYs3ZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SmH/N28A; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TfmGxr7V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4163C1F000E9;
-	Mon, 31 Aug 2026 10:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788170689;
-	bh=m/Rc6H+Wu7UQgFEA5w/PiZ+tl8YoSd9dAGuLIERz6ZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TfmGxr7VyuRAMWItPIuYvUlHv+4vddKh88bRd1/abi/oSyhG4p5YCVNQ4ePYXx5wM
-	 xbmohvtiK0zZ2ThRaifyDtwZbBIjYpIPRQwBKwlUc/U0pQSpvqqpHXRW3JK5i2M5w5
-	 zoYn8QmxuGpcCjmr9VaUTjmU4j/l/sZYuuc14bZE=
-Date: Mon, 31 Aug 2026 12:04:45 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: valentina.manea.m@gmail.com, shuah@kernel.org, i@zenithal.me,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3 1/2] usbip: usbip_host: fix null pointer dereference
- in rebind_store
-Message-ID: <2026083141-morbidly-swiftness-9f8f@gregkh>
-References: <20260811160541.29461-1-jeffinphilip14@gmail.com>
- <20260811160541.29461-2-jeffinphilip14@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SmH/N28A"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D32F14E41441;
+	Mon, 31 Aug 2026 10:07:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 92FDD60231;
+	Mon, 31 Aug 2026 10:07:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 77FB811C78AE2;
+	Mon, 31 Aug 2026 12:07:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788170846; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=CKDvWF0ui5pn13nr7UoA/5PU88Wqt9/Kw0pgq4FBRGg=;
+	b=SmH/N28AQE63Hm6ogNyKsBeYnuoP6ubOF4PGCw6JN3UQTBFwOd3eftodZ2zmVIgZqjfgXW
+	hdt9NfomvtbQxGUSEPPcrGWfnpsYLV5J5MzgDYfgRPbVrhzvUH4hRfZxWnSqvU5FC9sJRt
+	GHVLldzFj+AkULkiTa0l/no2pq0tbiQSTNI58o9n1R7810wmpywpH8mkH8IvJmAkOtuAKo
+	o0d/FaobeVvwhF0tE31edMK1n+MN0G+7sP6mF8F3aLKPFtIldVu3oORxon5yxBnRIPrZZz
+	YIIDjyu/+OxEBWuxdoelW3tDS6FWuDEBFqzPB0vigfHEUxb+sdyQhYBAzf/kPQ==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811160541.29461-2-jeffinphilip14@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 31 Aug 2026 12:07:22 +0200
+Message-Id: <DL31NSK4T9VI.1CM5I9PRKJLCS@bootlin.com>
+Subject: Re: [PATCH] mips: select CONFIG_WEAK_REORDERING_BEYOND_LLSC from
+ CONFIG_EYEQ
+Cc: "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Vladimir Kondratiev"
+ <vladimir.kondratiev@mobileye.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, "Rahul Bedarkar" <rahulbedarkar89@gmail.com>,
+ "Paul Burton" <paulburton@kernel.org>
+To: "Jiaxun Yang" <jiaxun.yang@flygoat.com>, "Thomas Bogendoerfer"
+ <tsbogend@alpha.franken.de>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "David S . Miller" <davem@davemloft.net>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Jesper Dangaard Brouer"
+ <hawk@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>, "Stanislav
+ Fomichev" <sdf@fomichev.me>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260828-eyeq-reordering-llsc-v1-1-0c5a69fc5124@bootlin.com>
+ <DL0P7NCKVU0I.ARBMN6GAMMBS@bootlin.com>
+ <cea78eaa-aea0-4d1a-9695-8a6d73750216@app.fastmail.com>
+In-Reply-To: <cea78eaa-aea0-4d1a-9695-8a6d73750216@app.fastmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Aug 11, 2026 at 09:35:40PM +0530, Jeffin Philip wrote:
-> rebind_store drops locks to execute do_rebind which sleeps
-> during which time udev may become NULL due to physical disconnect.
-> Since this cannot be prevented and spinlocks cannot be obtained
-> in do_rebind, we turn towards the function that performs the
-> same action, drivers_probe, safely. Remove rebind_store and print a
-> warning to the user to use drivers_probe instead as a safer
-> alternative.
-> 
-> Reported-by: syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
-> Fixes: 4bfb141bc013 ("usbip: usbip_host: fix to hold parent lock for device_attach() calls")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
-> ---
-> Changes in v3:
->  - Addressed the race condition proposed by Greg KH in v2
->    discussion.
-> Changes in v2:
->  - Addressed concerns raised by the Greg KH in v1 discussion
->    - Added usb_get_dev() to get a reference to udev preventing
->      it from becoming null after the null check. Drop the reference
->      after using it in do_rebind()
-> v1:
->  - Initial patch with a udev null check that returns -ENODEV if udev
->    is null.
-> ---
->  drivers/usb/usbip/stub_main.c | 27 +--------------------------
->  1 file changed, 1 insertion(+), 26 deletions(-)
-> 
-> diff --git a/drivers/usb/usbip/stub_main.c b/drivers/usb/usbip/stub_main.c
-> index 79110a69d697..013f1563b1e9 100644
-> --- a/drivers/usb/usbip/stub_main.c
-> +++ b/drivers/usb/usbip/stub_main.c
-> @@ -242,32 +242,7 @@ static void stub_device_rebind(void)
->  static ssize_t rebind_store(struct device_driver *dev, const char *buf,
->  				 size_t count)
->  {
-> -	int ret;
-> -	int len;
-> -	struct bus_id_priv *bid;
-> -
-> -	/* buf length should be less that BUSID_SIZE */
-> -	len = strnlen(buf, BUSID_SIZE);
-> -
-> -	if (!(len < BUSID_SIZE))
-> -		return -EINVAL;
-> -
-> -	bid = get_busid_priv(buf);
-> -	if (!bid)
-> -		return -ENODEV;
-> -
-> -	/* mark the device for deletion so probe ignores it during rescan */
-> -	bid->status = STUB_BUSID_OTHER;
-> -	/* release the busid lock */
-> -	put_busid_priv(bid);
-> -
-> -	ret = do_rebind((char *) buf, bid);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	/* delete device from busid_table */
-> -	del_match_busid((char *) buf);
-> -
-> +	pr_warn("rebind node is deprecated, consider using drivers_probe instead\n");
+Hello Jiaxun,
 
-No one will ever notice this, just remove the sysfs file entirely if
-you really think it is ok to remove the functionality.  That way
-userspace will notice and handle it properly (hopefully...)
+On Sun Aug 30, 2026 at 5:05 AM CEST, Jiaxun Yang wrote:
+> On Fri, 28 Aug 2026, at 11:56 PM, Th=C3=A9o Lebrun wrote:
+>> First off, sorry to net maintainers for being in Cc of this patch.
+>> get_maintainer.pl added you and the MLs because the commit message
+>> containing "xdp". I deleted the MLs in Cc but forgot the individuals.
+>
+> Reviewed-by: Jiaxun Yang <jiaxun.yang@flygoat.com>
 
-But, are you sure it is ok to remove this user/kernel api?  What about
-workflows that are using it?
+Thanks for the review.
 
-thanks,
+> Can confirm weak ordering beyond LLSC is necessary for all MTI cores with=
+ CM.
 
-greg k-h
+Only CPU_LOONGSON64 has "select ..." upstream, so I wondered if any
+board apart from Mobileye ones were missing the flag. An LLM pointed me
+to img/pistachio_marduk.dts and img/boston.dts which looks correct.
+I CCed the board maintainers.
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
