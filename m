@@ -1,148 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458F23FBB44;
-	Mon, 31 Aug 2026 12:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F29409280
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179461; cv=none; b=mBg2NONQ6SNPcaodl3mIU8DL0DwN/JXOV/TxQlK0lOR9EiLAGkcn++UuAxO6ux7xGbbyQRn1eMUCCsbMkQ+p3bKw9xx+CpkF+Opz5+lVwtf2L2ObIANQcBlgri4MZ7OG9RqTNGm5szjsoFkRbtNlG3AlU35MvZuu+654NkdW6XE=
+	t=1788179833; cv=none; b=NyLurufkc+D+TlrLaEbCWp3gcO+KX48lqRdis17QpHRZ+kvL2ADofzz+hWjmhrZ5vo/WVXvQhl79ez1lk4SdQEnGth7gQcLBCybfuo+hKimhxjMIsohevWE9iSSspwazLc1cybVzJCHmfGq65QdrV3V0hBZ5ZXQZK83yFxe8x6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179461; c=relaxed/simple;
-	bh=8kESiFRNnkEyqsmqiEeTAtwD/twPIyY5fNwDn00OYEY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BuhhQWc9DmUQWunNPGit7T1CzSqucMOykKHPh1eqSenj5dQbTca8czDLLdJi94EysLUE/O8koYucxbs91i3OJGt1ZtMxlqeEfHcNMkcCmpGRj4Cu/zzyiVpcsHatq81woxKWX++ozqtu6i78G0pzLSoynfqyycCSMlrUxfEzkCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrJf7jzC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788179833; c=relaxed/simple;
+	bh=vU5Pm5j/kRRP83h0uEZ8fm34t1t9ZA6JsaLkvTmcYuY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fTuD6uQUOWrAt7Gj9+sIndHqa2rjOJW5n4AgHonn4uDrD+eH6pPWzj3pOLbaDnaqw0FMjzy1d6NSW0onglnzOwvC0Rp2mB4cvW3iJ8sx76kq/5ugIDbBL7zcLSxl4V3ThtHleC94AayC54Ci5sdZh63Uz0/Wld1hpRK44ujqyyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=Wn99pHxP; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrJf7jzC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E2641C2BCB8;
-	Mon, 31 Aug 2026 12:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788179460;
-	bh=8kESiFRNnkEyqsmqiEeTAtwD/twPIyY5fNwDn00OYEY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=nrJf7jzCqO8Juaw8ag7xft6eHX1Aerh16Ysoq3vc2Awgkw/1NOq4gWiHG6r9MGxdc
-	 cfuaL20QK2CFZcRkiInZNHHU79Guge9y0wXq2rs7G/FdVa+jHNODeNhLzrRVfuTlUw
-	 cR8O3GM6OdytbEOaYM9y7BHXMsB4nFO8Zj9QAJQpQclDiX7dPuIreb9vTI2vxDz8gm
-	 WgtRl69kZ3jMyjNOjP1ckITC4kLe0XI67/TM+3+k/Khdw7IXdWfg8nX/1EhbrHkFue
-	 b/E5Z/iPg9kuHFutSTxGw0QyFFwWdj/548ShsqX+kvOOQsBL2gXtkrICM8omTw/zMM
-	 SwobR34RWf0ag==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8969C624A4;
-	Mon, 31 Aug 2026 12:31:00 +0000 (UTC)
-From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
-Date: Mon, 31 Aug 2026 20:30:58 +0800
-Subject: [PATCH] RDMA/ucma: Serialize join and leave on copy_to_user
- failure
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="Wn99pHxP"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so33849375e9.2
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 05:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blackwall.org; s=google; t=1788179828; x=1788784628; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bcg00jdxBoVgvjWMidECdjzP3FFCwSJCVtYTTaC2+bg=;
+        b=Wn99pHxPlhXCJlkvMLXUCSJWukCpDSef0b1okPiHSsfXIdEIAwMOKynyJ3+UpydvHE
+         nADaCp0zZ2idTUciid4cE2CxBip2ujUp6JkS32tnXaWlNk7CJwa1q1873dFaiA+sVepn
+         nHhXonu4sC0MR5wBVGckTvxeM7gD7Pmx6WbXzsB5Ah7CBftRR7QdWcElQUcfr+bwRc/x
+         +xamQ+Fce/6WQTgrr85yGgQrz/VRq01E2YdR7F1ATzchT2wTfeNl2r8/aenfvquNBaw4
+         MCFoAiy6M2lWzr5yuHoXkngHdQ0zs0qxruercc40lt1c1XjU7k/FnFf6MgoV2abDdC/l
+         Zfew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788179828; x=1788784628;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bcg00jdxBoVgvjWMidECdjzP3FFCwSJCVtYTTaC2+bg=;
+        b=PDu3WWcMlA2TqOdxWJdrhkCukUDbHa50Tvs00Hnc8pOl1qynxN2csf49ebIYk8Gk4F
+         YNeN/90MHHTIQ6MqrS76F4s8d/PPqe/QgDE2u48XCNRJzJSlvitSmehZRULHzKUmuBMB
+         pfwcDJD3kuzZ/n4Bgu4R1oCQjd1oSVgEFZaO3CXjXPkfgwbyaAxF1SyTQcZdaBfLeTY7
+         pOH+IoaAnHIWBFy8HPFaGHIADzSTVx1PLiDNpLclnuYdP84i7Jk/PorH51y9m7EwblJI
+         UDvG4V/KOFDHPdz0fmZRuYbRiHHHcdc4rbsXHJTZH8+FUMqkxNsLtqKA8D/g4zieFhl7
+         0wQg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2e6mGc63gkpSL63WU5ElXYJSDUruO8fBaOTGoey4PyW/LaCwp6sFFUz2vz9v1bTUjeO6xcoc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDGJBzPnUl2XWpO7RPzY7fpnKacbKL1sWS+nzX4tdLYNLXJpAB
+	lo2ahDkkfObwZazyjSoSZKrYzCAAKNOmLrc+r91keN2Pk1oQKB7QVZWigOaKpxgDAUM=
+X-Gm-Gg: AR+sD13J6v8F4HX4aDueJVIcK5Xr6Oo5YTiBmUcBzf+FQFgvpzD5kUg2ii6whZMrXOW
+	/O5l0CTt85qjYami6RfADSJ1Fjsv0/PeBJaa8G9lNyS5xPv1JbqTN8tIk2KQZUOKBiUhG57n6Oy
+	b2bSBJ1JnAAbRXk3cYaBOtDLRYN9mhzPy3YgnA9nrZV9wN8JlebAqRdcLZ4BHpUVf/5eVNhzK6H
+	cEvBORw9TnvqHv308aMrlYespqlO1BoDXoV0PS/iM0EuhcE+zTmauiOst+rTWy81JmFas/b9Ms7
+	R/UXLSDQjQaCADCr9cuUsX1UJVm4jCpwC41l4bHTqFSelMveOe3yqJzxbtjJbYojpr5hJak8Bg2
+	ggtoI7vI2eDsRJl2R5faTLpFi/TZbB8gBr7Mm85Yncpwma+Kp5HiCet8IgL3HBPqqNkx/3mo3QB
+	NcZwhFy+Llxx05RzUYhlpOO1TvkiBnvypLiiE21uK7dUMnsakdMgf5768Cl3yAAFGm2d3OhhJLI
+	wVMjiXtRblEt6VMWbw=
+X-Received: by 2002:a05:600c:34d2:b0:49c:cbad:1c44 with SMTP id 5b1f17b1804b1-49ccbad1cf1mr290301455e9.6.1788179827630;
+        Mon, 31 Aug 2026 05:37:07 -0700 (PDT)
+Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48436e2af3asm12016571f8f.12.2026.08.31.05.37.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 05:37:06 -0700 (PDT)
+Message-ID: <e9dfedbf-b49c-436e-b01b-cd9cc02618cc@blackwall.org>
+Date: Mon, 31 Aug 2026 15:37:05 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3] net: bridge: mcast: don't truncate the port group
+ walk on teardown
+Content-Language: en-US, bg
+To: Jun Yang <littleddfu@gmail.com>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, stable@vger.kernel.org,
+ TencentOS Corvus AI <corvus@tencent.com>, bridge@lists.linux.dev,
+ netdev@vger.kernel.org, Jun Yang <junvyyang@tencent.com>
+References: <20260831111330.199543-1-junvyyang@tencent.com>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <20260831111330.199543-1-junvyyang@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-rdma-ucma-mc-uaf-v1-1-b8eeb7046aff@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC2ND3aKU3ETd0mQgkZusW5qYpmuZZJ5oYGGZZGmQaKwE1FZQlJqWWQE
- 2MjoWwi8uTcpKTS4BmaNUWwsAh1Te03QAAAA=
-X-Change-ID: 20260831-rdma-ucma-mc-uaf-9b7a089b90a3
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Avihai Horon <avihaih@nvidia.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+a6ffe86390c8a6afc818@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Quanye Yang <quanyeyang@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788179458; l=2901;
- i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
- bh=N3XkbQXD0jkOovzK5vafwV1Ou+3QGRVYe0LDvdcx34w=;
- b=IxVh3gAhyL0mBxvWCrkT21TIG7bhE4/cOXVYVi7bUaf+5wjESyYMnZDFcznT1819Fj+uxfp9U
- QB9yZwh8dm/CzZryGy83ptOgevddwWJSAupMaSBNI5RcNPTl2H4xYNp
-X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
- pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
-X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
- auth_id=963
-X-Original-From: Quanye Yang <quanyeyang@proton.me>
-Reply-To: quanyeyang@proton.me
 
-From: Quanye Yang <quanyeyang@proton.me>
+On 31/08/2026 14:13, Jun Yang wrote:
+> __br_multicast_disable_port_ctx() and br_multicast_del_port() walk
+> port->mglist with hlist_for_each_entry_safe(). However,
+> br_multicast_find_del_pg() can also delete other entries from the same
+> list through br_multicast_fwd_src_remove() or __fwd_del_star_excl().
+> 
+> If such an entry is the iterator's saved next node, hlist_del_init()
+> clears its ->next and terminates the walk early. The reproducer triggers
+> this in both teardown walks, leaving port groups in the bridge mdb with
+> a dangling ->key.port after del_nbp() frees the port:
+> 
+>    BUG: KASAN: slab-use-after-free in __mdb_fill_info+0x1191/0x1320
+>     __mdb_fill_info+0x1191/0x1320
+>     br_mdb_dump+0x594/0xe40
+>     rtnl_mdb_dump+0x1cf/0x5d0
+> 
+> Use hlist_del_init_rcu() to unlink the group while preserving ->next.
+> br_multicast_del_pg() and the teardown walks run under
+> br->multicast_lock. The GC worker must acquire the same lock before
+> detaching the group for destruction, so the node remains alive while
+> the walk uses the preserved pointer.
+> 
+> Preserving ->next means a walk can now reach a group that an earlier
+> iteration already deleted as a side effect. That group is off mp->ports,
+> so br_multicast_find_del_pg() would fall through its port scan and hit
+> the trailing WARN_ON(1). Skip such groups at the top of that helper: a
+> port group is put on port->mglist when it is created and only unlinked
+> when it is deleted, so hlist_unhashed() identifies exactly this case.
+> 
+> Fixes: b08123684bd5 ("net: bridge: mcast: install S,G entries automatically based on reports")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
+> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+> Assisted-by: tencentos-corvus-ai:kimi-k3
+> Signed-off-by: Jun Yang <junvyyang@tencent.com>
+> ---
+> v3: skip already-unlinked groups at the top of br_multicast_find_del_pg()
+>      instead of in each teardown walk, per Nikolay's suggestion, so the
+>      preserved ->next no longer leads to the trailing WARN_ON(1).
+> 
+> v2: https://lore.kernel.org/netdev/20260826014200.362304-1-littleddfu@gmail.com/
+>      Use hlist_del_init_rcu() to preserve ->next, as suggested by Nikolay,
+>      instead of restarting the walks.
+> 
+> v1: https://lore.kernel.org/all/20260812113435.1854275-1-junvyyang@tencent.com/
+> 
+>   net/bridge/br_multicast.c | 13 ++++++++++++-
+>   1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+> index 00aa9b2879d6..ea0a50eb8b77 100644
+> --- a/net/bridge/br_multicast.c
+> +++ b/net/bridge/br_multicast.c
+> @@ -808,7 +808,11 @@ void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
+>   	struct hlist_node *tmp;
+>   
+>   	rcu_assign_pointer(*pp, pg->next);
+> -	hlist_del_init(&pg->mglist);
+> +	/* Keep ->next (held under multicast_lock, freed later by the GC work):
+> +	 * a port->mglist teardown walk may have latched this node as its next,
+> +	 * and deleting other groups of the same port must not truncate it.
+> +	 */
+> +	hlist_del_init_rcu(&pg->mglist);
+>   	br_multicast_eht_clean_sets(pg);
+>   	hlist_for_each_entry_safe(ent, tmp, &pg->src_list, node)
+>   		br_multicast_del_group_src(ent, false);
+> @@ -835,6 +839,13 @@ static void br_multicast_find_del_pg(struct net_bridge *br,
+>   	struct net_bridge_mdb_entry *mp;
+>   	struct net_bridge_port_group *p;
+>   
+> +	/* A teardown walk over port->mglist can reach a group that an earlier
+> +	 * iteration already deleted as a side effect. It is off mp->ports by
+> +	 * now, so skip it instead of falling through to the WARN_ON() below.
+> +	 */
+> +	if (hlist_unhashed(&pg->mglist))
+> +		return;
+> +
+>   	mp = br_mdb_ip_get(br, &pg->key.addr);
+>   	if (WARN_ON(!mp))
+>   		return;
 
-rdma_join_multicast() queues RoCE work that later reads the ucma_multicast
-through event->param.ud.private_data, then list_add()s the CMA multicast
-at the head of id_priv->mc_list. rdma_leave_multicast() matches only by
-sockaddr and destroys the first hit.
 
-ucma_process_join() used to drop ctx->mutex after a successful join and
-retake it only if copy_to_user() failed. Two concurrent JOIN_MCAST calls
-with the same address can therefore insert a second CMA entry before the
-first thread's leave. leave then cancels the newer work and the older
-worker still dereferences the ucma_multicast that the first thread frees.
+This should be fine, let's also see what sashiko thinks. :)
 
-Keep ctx->mutex held from rdma_join_multicast() through copy_to_user() and,
-on -EFAULT, through rdma_leave_multicast() so leave cannot miss this join.
-Do not leave if join itself failed: that path never published this address
-on mc_list, and a leave-by-addr would destroy an earlier successful join.
-
-Reported-by: syzbot+a6ffe86390c8a6afc818@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a6ffe86390c8a6afc818
-Fixes: fe454dc31e84 ("RDMA/ucma: Fix use-after-free bug in ucma_create_uevent")
-Cc: stable@vger.kernel.org
-Signed-off-by: Quanye Yang <quanyeyang@proton.me>
----
-KASAN + rxe, virtme-ng. The syzbot C repro (two concurrent JOIN_MCAST
-with response=0) no longer reports slab-use-after-free in
-ucma_create_uevent.
-
-Based on linus/master
----
- drivers/infiniband/core/ucma.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/infiniband/core/ucma.c b/drivers/infiniband/core/ucma.c
-index 4929636f7c53..c3611e2f3248 100644
---- a/drivers/infiniband/core/ucma.c
-+++ b/drivers/infiniband/core/ucma.c
-@@ -1556,27 +1556,27 @@ static ssize_t ucma_process_join(struct ucma_file *file,
- 	mutex_lock(&ctx->mutex);
- 	ret = rdma_join_multicast(ctx->cm_id, (struct sockaddr *)&mc->addr,
- 				  join_state, mc);
--	mutex_unlock(&ctx->mutex);
--	if (ret)
-+	if (ret) {
-+		mutex_unlock(&ctx->mutex);
- 		goto err_xa_erase;
-+	}
- 
- 	resp.id = mc->id;
- 	if (copy_to_user(u64_to_user_ptr(cmd->response),
- 			 &resp, sizeof(resp))) {
- 		ret = -EFAULT;
--		goto err_leave_multicast;
-+		rdma_leave_multicast(ctx->cm_id, (struct sockaddr *)&mc->addr);
-+		mutex_unlock(&ctx->mutex);
-+		ucma_cleanup_mc_events(mc);
-+		goto err_xa_erase;
- 	}
-+	mutex_unlock(&ctx->mutex);
- 
- 	xa_store(&multicast_table, mc->id, mc, 0);
- 
- 	ucma_put_ctx(ctx);
- 	return 0;
- 
--err_leave_multicast:
--	mutex_lock(&ctx->mutex);
--	rdma_leave_multicast(ctx->cm_id, (struct sockaddr *) &mc->addr);
--	mutex_unlock(&ctx->mutex);
--	ucma_cleanup_mc_events(mc);
- err_xa_erase:
- 	xa_lock(&multicast_table);
- 	list_del(&mc->list);
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260831-rdma-ucma-mc-uaf-9b7a089b90a3
-
-Best regards,
---  
-Quanye Yang <quanyeyang@proton.me>
-
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
 
