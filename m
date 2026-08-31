@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2143B2FF8
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:26:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C673E51D4
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:27:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788179212; cv=none; b=NYFHd02P/3RGqZHhEXIXqq+cKcOyLNb36ckEtrq8zQtHevtxiRTDCCM3VY5D1NVGT3NajCIDjz0vkEOBSkWZQ1tJopvGah3RdOCbbXW/BbEgw5BrUGPs5SGkGegYBq/ATzsXClR8/TPWx4c1RiQnG8SfApOhkMH81SohMFQn+wM=
+	t=1788179224; cv=none; b=QvGlXtyULkzqObRGTt8BpMsMeW1kBgyd6PXFRMHCieFqrttrH/4I8w7j13dseErYSLD4yM1VmnW6RBxGWUMo0lmFQdFk/VZygd6tOrl3wf9WgHzwijTnWeyoIrwU7pxuw9B9SmU39dF9IKlKmFDVdNsZ1AUJkKrjP0SrS8cL/SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788179212; c=relaxed/simple;
-	bh=Ma3cnSY3HnE/umYsOyFbQ5RiZpPOqnl0cXxY5JLV3vw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=L3hW84FZgq8eN5ODxDHn7UC9tEf2haFW5VNuRjWrfVJm4UiZSmt++rMGNtEA+2TSkprNfDs5xJ+Z+lwqJQN1hjq4zStM5P7iNCk0lOz5t9kAPG04iIIme+BnKua8y+i7nERa6gsRSKBnpqgACo5HlEiM9lidsaDZXfjCC9ruveA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K2zRVEGN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788179224; c=relaxed/simple;
+	bh=dpaLiWD2kZ2b94nDDv0FUpQC9YtMDicn/mfkg0QF/7I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Dr60guPKLevfoPADNk9x75ImAm0ETIn0eJcxsfvB+LLM13hLtU7qb+nRhw5WHYx6SWvhRJ1wbk4WNs96rP8htz0u9bFH0Ta359IS+HEyhOzm3rH6s2i7FodnTrhSe7/IdmgbRCUK20EPTG8CbaUGcKmNw/l/YDxitejilIWA7s0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PfnaE3gp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K2zRVEGN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2681F000E9;
-	Mon, 31 Aug 2026 12:26:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PfnaE3gp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2931F000E9;
+	Mon, 31 Aug 2026 12:27:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788179211;
-	bh=cfam7ZFxqJZibA8U11I6n1IOO2EZr1/a5tFDK10U0Fk=;
+	s=korg; t=1788179223;
+	bh=8fTceV9l147o22HX6Y5RoIkrPB6LGzfpAoVM/7q29hY=;
 	h=Subject:To:Cc:From:Date;
-	b=K2zRVEGNRtvD86Ov5LvpbBnycmLgsVGzOPVmbzbx81ekX04GcVhaAOPHLCnx2b/hL
-	 hcp/kPxHQHNxjGwScuzBw7wOWtpnLxA7ipFZaHMzY3ZFGj/tnScbBU5G351tvjdnWH
-	 SJZsxTvaJFuTl0gJpDSFIX2FDHmDtmf6fv8WTawk=
-Subject: FAILED: patch "[PATCH] tls: device: fix out-of-bounds write in tls_append_frag()" failed to apply to 5.10-stable tree
-To: jiayuan.chen@linux.dev,pabeni@redhat.com
+	b=PfnaE3gp8vgJXb4IXvfQj8Ywy6KNm/GjKJk1UHjEO+QkOIZJaqfamzACY4JvZib/b
+	 ZEq+vgr/Hyz+9gQkuH5YALPa7MZTwG9IeUdAiLsBeB4uepp+jtxPhIgWkUs/+ti06c
+	 pVDeJSUrX8fLRmx+ZbQtyBuMkYTVsW+dGsPLnYFc=
+Subject: FAILED: patch "[PATCH] gtp: serialize PDP context updates" failed to apply to 6.6-stable tree
+To: a0yami@mailbox.org,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:26:39 +0200
-Message-ID: <2026083139-catnap-donator-d5bc@gregkh>
+Date: Mon, 31 Aug 2026 14:26:59 +0200
+Message-ID: <2026083159-appetizer-scanning-c174@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x b17cf742eaad70ae29ac558cefb3aa9bbeea03d4
+git cherry-pick -x 498386b6d402737db1e2eeed4c385acbf0ef9e34
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083139-catnap-donator-d5bc@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083159-appetizer-scanning-c174@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,100 +62,142 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b17cf742eaad70ae29ac558cefb3aa9bbeea03d4 Mon Sep 17 00:00:00 2001
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-Date: Sun, 23 Aug 2026 16:47:56 +0800
-Subject: [PATCH] tls: device: fix out-of-bounds write in tls_append_frag()
+From 498386b6d402737db1e2eeed4c385acbf0ef9e34 Mon Sep 17 00:00:00 2001
+From: Qing Ming <a0yami@mailbox.org>
+Date: Tue, 18 Aug 2026 23:00:00 +0800
+Subject: [PATCH] gtp: serialize PDP context updates
 
-Found with syzkaller and a local syzbot instance running on top of a
-netdevsim TLS offload emulation; tls_device.c is otherwise only reachable
-on a machine with a NIC that implements the offload.
+PDP contexts can be deleted through GTP_CMD_DELPDP or while the GTP
+network device is being unregistered. The latter is serialized by RTNL,
+but the generic-netlink delete path only holds RCU.
 
-tls_push_data() only checks whether the open record still has room for
-another frag at the bottom of its loop, and the MSG_MORE early break
-skips that check.  The record survives to the next syscall with the frag
-count it already had, and tls_append_frag() does not check either, so
-with TLS_TX_ZEROCOPY_RO every splice(SPLICE_F_MORE) of a byte or two adds
-a non-coalescing pipe page and num_frags walks off the end of
-tls_record_info.frags[MAX_SKB_FRAGS].  Once the record is pushed,
-tls_push_record() runs the same index over sg_tx_data[MAX_SKB_FRAGS] and
-the sg_set_page() writes land on the destruct_work that follows it, which
-the workqueue then calls.
+Running both paths concurrently can therefore make both paths delete the
+same PDP context. The issue was found through static analysis and
+reproduced on a KASAN-enabled kernel by a simple two-thread program
+racing GTP_CMD_DELPDP against RTM_DELLINK:
 
-The byte limit is fine because copy drops to 0 and the loop falls through
-to the same check; the frag count has no such feedback.
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: maybe wild-memory-access in range
+         [0xdead000000000120-0xdead000000000127]
+  RIP: gtp_genl_del_pdp+0x1c1/0x420 [gtp]
+  RBP: dead000000000122
 
-Push the record rather than keep a full one open, which is what a plain
-TCP socket does - tcp_sendmsg_locked() uses tcp_mark_push() and
-new_segment in both the copy and the MSG_SPLICE_PAGES paths, and tls_sw
-already sets full_record when the sk_msg ring fills up, MSG_MORE or not.
+The second deletion dereferenced the poisoned hlist pprev pointer.
 
-  BUG: KASAN: slab-out-of-bounds in tls_append_frag ( net/tls/tls_device.c:269)
-  Write of size 8 at addr ffff8881104d1530 by task tls_oob/450
+Serialize gtp_pdp_add(), gtp_genl_del_pdp(), and gtp_dellink() with a
+shared mutex. Keep the mutex held until the final use of a PDP context in
+the NEWPDP path, and keep the RCU read-side section around the complete
+PDP context use in the DELPDP path.
 
-  CPU: 2 UID: 0 PID: 450 Comm: tls_oob Not tainted 7.2.0-rc7+ #329 PREEMPT
-  Call Trace:
-   <TASK>
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   tls_append_frag (net/tls/tls_device.c:269)
-   tls_push_data (net/tls/tls_device.c:518)
-   tls_device_sendmsg (net/tls/tls_device.c:583)
-   inet_sendmsg (net/ipv4/af_inet.c:865)
-   sock_sendmsg (net/socket.c:775 net/socket.c:790 net/socket.c:813)
-   splice_to_socket (fs/splice.c:884)
-   do_splice (fs/splice.c:936 fs/splice.c:1349)
-   __do_splice (fs/splice.c:1431)
-   __x64_sys_splice (fs/splice.c:1634 fs/splice.c:1616)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-   </TASK>
-
-and, once the record is pushed:
-
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:300:24
-  index 18 is out of range for type 'skb_frag_t [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:301:41
-  index 18 is out of range for type 'scatterlist [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:302:39
-  index 18 is out of range for type 'scatterlist [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:307:38
-  index 26 is out of range for type 'scatterlist [17]'
-
-  kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
-  BUG: unable to handle page fault for address: ffffea000411a680
-  #PF: supervisor instruction fetch in kernel mode
-  #PF: error_code(0x0011) - permissions violation
-  Oops: Oops: 0011 [#1] SMP KASAN PTI
-  Workqueue: ktls_device_destruct 0xffffea000411a680
-  RIP: 0010:0xffffea000411a680
-  Call Trace:
-   <TASK>
-   worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-   </TASK>
-
-Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+Fixes: 459aa660eb1d ("gtp: add initial driver for datapath of GPRS Tunneling Protocol (GTP-U)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Link: https://patch.msgid.link/20260823084758.20936-1-jiayuan.chen@linux.dev
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
+Link: https://patch.msgid.link/20260818150000.7670-1-a0yami@mailbox.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-index 37bb06a8e8f5..f11d0528fc43 100644
---- a/net/tls/tls_device.c
-+++ b/net/tls/tls_device.c
-@@ -531,7 +531,8 @@ static int tls_push_data(struct sock *sk,
- 		if (!size) {
- last_record:
- 			tls_push_record_flags = flags;
--			if (flags & MSG_MORE) {
-+			if ((flags & MSG_MORE) &&
-+			    record->num_frags < MAX_SKB_FRAGS - 1) {
- 				more = true;
- 				break;
- 			}
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 9a12cc53da00..2f6e77cce385 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -12,6 +12,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/skbuff.h>
+ #include <linux/udp.h>
+ #include <linux/rculist.h>
+@@ -108,6 +109,7 @@ struct gtp_net {
+ };
+ 
+ static u32 gtp_h_initval;
++static DEFINE_MUTEX(gtp_pdp_lock);
+ 
+ static struct genl_family gtp_genl_family;
+ 
+@@ -151,7 +153,8 @@ static struct pdp_ctx *gtp0_pdp_find(struct gtp_dev *gtp, u64 tid, u16 family)
+ 
+ 	head = &gtp->tid_hash[gtp0_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V0 &&
+ 		    pdp->u.v0.tid == tid)
+@@ -168,7 +171,8 @@ static struct pdp_ctx *gtp1_pdp_find(struct gtp_dev *gtp, u32 tid, u16 family)
+ 
+ 	head = &gtp->tid_hash[gtp1u_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V1 &&
+ 		    pdp->u.v1.i_tei == tid)
+@@ -185,7 +189,8 @@ static struct pdp_ctx *ipv4_pdp_find(struct gtp_dev *gtp, __be32 ms_addr)
+ 
+ 	head = &gtp->addr_hash[ipv4_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET &&
+ 		    pdp->ms.addr.s_addr == ms_addr)
+ 			return pdp;
+@@ -220,7 +225,8 @@ static struct pdp_ctx *ipv6_pdp_find(struct gtp_dev *gtp,
+ 
+ 	head = &gtp->addr_hash[ipv6_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET6 &&
+ 		    ipv6_pdp_addr_equal(&pdp->ms.addr6, ms_addr))
+ 			return pdp;
+@@ -1555,9 +1561,11 @@ static void gtp_dellink(struct net_device *dev, struct list_head *head)
+ 	struct pdp_ctx *pctx;
+ 	int i;
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	for (i = 0; i < gtp->hash_size; i++)
+ 		hlist_for_each_entry_safe(pctx, next, &gtp->tid_hash[i], hlist_tid)
+ 			pdp_context_delete(pctx);
++	mutex_unlock(&gtp_pdp_lock);
+ 
+ 	list_del(&gtp->list);
+ 	unregister_netdevice_queue(dev, head);
+@@ -2053,6 +2061,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
+ 		goto out_unlock;
+ 	}
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	pctx = gtp_pdp_add(gtp, sk, info);
+ 	if (IS_ERR(pctx)) {
+ 		err = PTR_ERR(pctx);
+@@ -2060,6 +2069,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
+ 		gtp_tunnel_notify(pctx, GTP_CMD_NEWPDP, GFP_KERNEL);
+ 		err = 0;
+ 	}
++	mutex_unlock(&gtp_pdp_lock);
+ 
+ out_unlock:
+ 	rtnl_unlock();
+@@ -2134,6 +2144,8 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
+ 	if (!info->attrs[GTPA_VERSION])
+ 		return -EINVAL;
+ 
++	mutex_lock(&gtp_pdp_lock);
++
+ 	rcu_read_lock();
+ 
+ 	pctx = gtp_find_pdp(sock_net(skb->sk), info->attrs);
+@@ -2154,6 +2166,7 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
+ 
+ out_unlock:
+ 	rcu_read_unlock();
++	mutex_unlock(&gtp_pdp_lock);
+ 	return err;
+ }
+ 
 
