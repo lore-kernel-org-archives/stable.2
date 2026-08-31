@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5787440DB55
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:58:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E63B40E8C5
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:58:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181089; cv=none; b=c2Wkql3rELkVbv0//QqY0mTml4EUiqYfbPuRKjW17ZLdPA0RD602e/J7RYu1xr1sO3gN2MgiMl4emISjPCaZf3VxCvkHylFUgi7mQhO3vaSGKfOX+iE6W7VSq6LKZwJbzSr39ibllvhcvfdIuzW1pDEhZsqTwpazfwJarPjffsg=
+	t=1788181092; cv=none; b=kgsyJy4hE3jA5jVTs/+Q03xM1OJVxX++0hAYf5ZrgaDSWQV2Tk55FKL6stRdHmKOPeof2gyU5CKGkSeO5G28OKMLBDNoKfcbZ+8lJ+RWApiNpILHwf9LvWJo1ODtJbWZ65+Ef87uK7Ol2RJHmhTHAiPEWT3FTb/P/q82i/fwVg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181089; c=relaxed/simple;
-	bh=MX4OmGtQGxfgMeomt5/pf9+BhZiVADhmMPR9Vu2AddU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=U+04u3Q/3vGb8oZqtkqEAHNXfNMqKueEZVVrzaX/M63HOpTCSWFw5alupjs8MVyPJhBpj4ZxeucYaPJDvCAneKOM97G2KH35zxhfBaZDH6PXChi+itgIqm4J9EwfbFBgU3r5BIOX2u36tj7fS9BbjDW9VChy9yyf4Bc7WO0sNR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CbnJarOD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788181092; c=relaxed/simple;
+	bh=yZjFJ3RDV2xHmVpKuMSZfEsMuvmMFgo6i4TDTbPfqlA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ADtT/24xMFOBQ4oUn4SVNMI0KwZbmaVHpft0lD1QZEZOLcBFLphKXbFq+7d2EpeTeC33lrLMnTXgETviSN7cTkxu+NlfCXU2PKax2+4c6oKLe+3dwNCvyZwan/D3zAdLuZ2oL95QDM5ZRDC8JD5cYR+sUPZAn2sZwpDR0V35ieU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vx9bz2xK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CbnJarOD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33491F000E9;
-	Mon, 31 Aug 2026 12:58:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vx9bz2xK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F63E1F000E9;
+	Mon, 31 Aug 2026 12:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788181088;
-	bh=x9hroR6/4zllYD4/vY5iRlCv17GQEFREJw7yA175klU=;
+	s=korg; t=1788181091;
+	bh=xKbsStPrlxV6hIxAvKAS5IERj3j0rDctVkf5EbIlOFo=;
 	h=Subject:To:Cc:From:Date;
-	b=CbnJarODInnWsutJcRE+zDCW4Ciii7g4jSI30AKiOxmNEEqdaEHF9WgZEBjHukPGh
-	 ncjTFZEITuZk/57G9HcaLa1yzBUPCfRGmwtcdBSiLB8fDWIBedcvm3BgZBA7Bqiv01
-	 UuvNA1YgMaYKUsbXqoHZJzp+a52BrBS/h54uQnUc=
-Subject: FAILED: patch "[PATCH] net/packet: defer vmalloc TX_RING free until skbs finish" failed to apply to 6.1-stable tree
+	b=vx9bz2xKwP5gKBCEDqNZjj7byOgse+DDfDFp0CTPnsfokpNQdYceqAbTm7ikCaFg2
+	 mFu9doRHUIMIlhBLmzL9KIdC8x/Nhte1OB5rKXPpXpLz+FlWK/I3jyPqO4B/ou90RA
+	 pQm65tlnEkdTX+3Fa/7qnBTsD2fPnNh8DDS1UkWU=
+Subject: FAILED: patch "[PATCH] net/packet: defer vmalloc TX_RING free until skbs finish" failed to apply to 6.6-stable tree
 To: kylebot@openai.com,edumazet@google.com,kuba@kernel.org,willemb@google.com,willemdebruijn.kernel@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 31 Aug 2026 14:57:40 +0200
-Message-ID: <2026083140-shrubbery-charbroil-06f1@gregkh>
+Message-ID: <2026083140-resisting-vascular-2012@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 992cc9f94ca924089a506ba9b327caa9af797529
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083140-shrubbery-charbroil-06f1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083140-resisting-vascular-2012@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
