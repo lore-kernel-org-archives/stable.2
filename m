@@ -1,110 +1,190 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E2B31A07F
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 23:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EFF3A48D9;
+	Mon, 31 Aug 2026 23:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788217411; cv=none; b=qXN3BV53Xt/yv0yoCUAe6NqY11GgSU3ILyF944aMHPu4EMK67FN6b4j10YjvGZWWyztTCljDwSE0WsCo9q44oKVo1ir3zvBuBiBex7ZNXyNA1iPmIONkDHeTXbqlVXzzISFIwliYjeMRJKr9/psJaCWDyO7b9R7K3Q8mAa9DV44=
+	t=1788217469; cv=none; b=IWZPPyFq91biTbrr63ddNQvhLxAW23PTjnw6qgcwOL9S/vMyMRg07OvZZyOO+dCa4sLqcjfiRsSgh1xSq1HRX4a+q+T3pMSfEMtBCF1wTtPJqaavt5AMe2iPilQnclbE/hNEHAGY1V7ycfixTFa04unOEru13uXo+i4GXswOF+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788217411; c=relaxed/simple;
-	bh=bMygoBzo7zb8McpuYeDordv+b6crymIVPjEpvtSxkRA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ezyu3DFRH559HEOqN2z4mEnA+L1jwVwKVIvFyBkfNmlg1XhsBWocwQF6GPfLAB//nPIruvJKh7r/OY3wtNc+9E4WWlUgsBzRi/fVz1F7pB15cuxzeIptp4/n3ZaCuKK6TnuDVS9AYJMQ54tTDMG+bPEqINOo2cnwMQpVS3Gu9/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=DF4FQoPw; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1788217469; c=relaxed/simple;
+	bh=ThhYoNT7kYxUohsVKMpwl16OMc9yaPmm4mfRITZhV2E=;
+	h=Date:To:From:Subject:Message-Id; b=lHLaAMnwS9pt6XJ+p0r/mX5ZeqQ6v0vfmGMPNFhQy7QKJ9A+mVs7iGOqN5haszbTzu6eHKEB8OXAzP1pgt92CZZlkxM7N+0+U2ZaEQNwrzJddJV8ZvtH9zqElYynl4hJhWwNkdRJzl0LdlZJP8Nl2jt6xL8ymd5uLHnsK2iTRdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HE1Bx2si; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="DF4FQoPw"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b96837ca3so22895925e9.3
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 16:03:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HE1Bx2si"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54C881F000E9;
+	Mon, 31 Aug 2026 23:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1788217408; x=1788822208; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gHSzoevZ1MFID9XrLurw2Vtq2FQQH1mFe/gQnt2xYdc=;
-        b=DF4FQoPw5a2orIpbaWVBawge+5bcwwOnJguyQD42gs3Kn+gPI3e5IqgVeuSrFnYt98
-         Mco1ZnrSWZwfEkHycLuJnBLpbn/iIf9Q+7fd1ZstHc+1Nwj/09Zb8X2m2Z6W/qzPeAL0
-         6h1xUIwvO2tU4mR5PTlVRuocpc4R8IquKTxFsPOdzWbfIr+48ik36IVYC4lB0J5tB2QT
-         EXWNRu4m3X2ACPZGKEWOFapi3lgNvmf1gVnJ6zMHYAeitiUjcpI7Eyaif++Te6Gh5iIK
-         Us6JPISxBJh/FW7MkPi1kBrCMAELNTQy4dUT3fGtN5eFThFQQbBL1cacWJx/9lzeoj20
-         Xl2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788217408; x=1788822208;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gHSzoevZ1MFID9XrLurw2Vtq2FQQH1mFe/gQnt2xYdc=;
-        b=NLJMWVDhDRhz4xVB7sdwv+ricH2rmzhSqENoc9cEYfXGaADn/x2IrOyrZiknE5g65o
-         Je1HEMpTAU5ItsdouPTbJQ9CmOUs82SWZzD8JKkIBXsHIBPW/iYsES1N6n55DLrvjOg+
-         QlIXw7A16+G+fIAHA/9VN4gAGrISn6HLkpdblm55mk+fNgIhuniekcQmfEbpEWwAlDSO
-         OECgX6UobqKAkmpBtAA2QJ3HhqoIgIdfdBc2hl4jxnS76aMwjqxAhQlW20ZCUssK/M1p
-         93FEH2sgphiidfkxsYwtw9ZewVScIntSbIZULmDWUU839d/BE2mBPDOjJT++jk1ujDHG
-         IENw==
-X-Forwarded-Encrypted: i=1; AHgh+RqJ6AugHPuz89cyhXpxghG9fKqitH24mpgI1emHh107jsoSksVpD81lGT2zkz8Eg/uKZgasGIk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nM0Um19K+0UqxH37CjXARANPZBv+FdhyFVh7AJXON+RJmgWjZv
-	j4CCYKtJrlgnlQIlQxye2WxMkYtS2M4dVM2wO2J8V4TQ9hORZ5RGyR3gIwjG
-X-Gm-Gg: AR+sD11wcGdnPy2SIpPtWb653KNPnzp9rICh7zb7yYQ8W4BFw67ETMrSxTB98lt16Jv
-	aVJ0w/7sWep5sGIpOC5iJpzKI8JYl7cvOhmxY0PkjC5KmMJwdqSiHpNRDZDtpddUhXRQsMoZK5r
-	j9QUGPXSxyvoKIAKfkTQxfvLm2IPwX5ywqW4bOEUXZRoUkGNbbFgoEiAU5ryj9zCQ3bst+zX7jl
-	ag+83kS9a2Mh8RRCD+varKuYgdFQ4Us7BkQx8oaqe3kgI7HiCnCWiBNx6bz9fY9ZU0fCH2Ua/t5
-	X6RRAIVaT2W21paLGHNQSZ8eyzq36BPnNlcj/5MDmBTaMJC0uUNY1bANPag1RlkwxNqmBd82vIM
-	mSddl+tFfoVPwykHrwE64S9jR2AfsmzxV/eIbZp3UopI8fur9p9LHvyv1yAtty6d8tuESe1aSjE
-	k6M4Snr9LWGcCaA5MjBsVCd6d278QEElXd1y+7xO9Cr4YwWALBiUE8MvoeQ9caWJ2F6MHtiTMjx
-	XKwOlgW0Dp6Fne1VGZFcpTuF21YlvRS5ILKFGk=
-X-Received: by 2002:a05:600c:c4ac:b0:499:a5fc:2087 with SMTP id 5b1f17b1804b1-49b91c20e36mr437781415e9.6.1788217407897;
-        Mon, 31 Aug 2026 16:03:27 -0700 (PDT)
-Received: from [192.168.1.3] (p5b057bfe.dip0.t-ipconnect.de. [91.5.123.254])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd8b9a2efsm118147125e9.3.2026.08.31.16.03.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 16:03:27 -0700 (PDT)
-Message-ID: <6496880e-6d1b-451b-b374-209f856883d9@googlemail.com>
-Date: Tue, 1 Sep 2026 01:03:26 +0200
+	d=linux-foundation.org; s=korg; t=1788217467;
+	bh=CPzFypsQlD3009E5ae/mpWYx12nyXPF3FJ03CZUAIzc=;
+	h=Date:To:From:Subject;
+	b=HE1Bx2siOgrJoGXDPnO7/wQ0ZDY15G/SmVD9PNJcKKcdSTstkDPqXGfzwiGXLtAFB
+	 F0qXnl70dQboCCuCG367yKykUqiVjyR1kdMJw0gEEN68vr7O/Ql6Jo5idcHFlEJXEH
+	 Cke5jmiTP5kws7VQN6sI6yQItPEhio7mWAjlfH8Y=
+Date: Mon, 31 Aug 2026 16:04:26 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,joe@dama.to,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch added to mm-new branch
+Message-Id: <20260831230427.54C881F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.18 00/83] 6.18.49-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.207714926@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 31.08.2026 um 15:33 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.18.49 release.
-> There are 83 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
-
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-Beste Grüße,
-Peter Schneider
+The patch titled
+     Subject: mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
+has been added to the -mm mm-new branch.  Its filename is
+     mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joe Damato <joe@dama.to>
+Subject: mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
+Date: Mon, 31 Aug 2026 10:48:35 -0700
+
+Charges that exceed memory.max and return through the nomem label can
+raise no event and simply return -ENOMEM.
+
+A non-blocking charge can hit the limit, get rejected, but is not visible
+in memory.events.
+
+This was noticed in a production setting where bpf_mem_alloc() attempted
+to refill its per-cpu freelists, which triggered a non-blocking charge
+while at the limit.
+
+Commit d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for
+enforced allocations") added raised_max_event to cover charges that are
+force charged without ever reaching reclaim, but charges that are rejected
+outright were left out.  Getting an allocation failure without the
+corresponding MEMCG_MAX event is unexpected and makes debugging and
+monitoring harder.
+
+Raise the event on the way out for rejected charges as well, by routing
+the -ENOMEM return through the same exit path that already covers forced
+charges.  The existing behavior of raising a MEMCG_MAX event on every
+charge/reclaim/retry iteration is left unchanged.
+
+Tested with a module that performs accounted GFP_NOWAIT page allocations
+from a task in a cgroup at its memory.max, and measures the resulting
+memory.events:max delta.  Without this patch the rejected charges raise no
+event at all; with it the delta matches the number of rejected charges
+exactly.  A GFP_KERNEL|__GFP_NORETRY control, which reaches reclaim,
+raises the same two events per failed charge before and after, confirming
+the existing charge/reclaim/retry accounting is unchanged.
+
+Link: https://lore.kernel.org/20260831174836.3102406-1-joe@dama.to
+Fixes: d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for enforced allocations")
+Signed-off-by: Joe Damato <joe@dama.to>
+Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/memcontrol.c |   28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
+
+--- a/mm/memcontrol.c~mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming
++++ a/mm/memcontrol.c
+@@ -2669,10 +2669,11 @@ static int try_charge_memcg(struct mem_c
+ 	bool raised_max_event = false;
+ 	unsigned long pflags;
+ 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
++	int ret = 0;
+ 
+ retry:
+ 	if (consume_stock(memcg, nr_pages))
+-		return 0;
++		return ret;
+ 
+ 	if (!allow_spinning)
+ 		/* Avoid the refill and flush of the older stock */
+@@ -2783,17 +2784,12 @@ nomem:
+ 	 * put the burden of reclaim on regular allocation requests
+ 	 * and let these go through as privileged allocations.
+ 	 */
+-	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+-		return -ENOMEM;
++	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH))) {
++		ret = -ENOMEM;
++		goto out;
++	}
+ force:
+ 	/*
+-	 * If the allocation has to be enforced, don't forget to raise
+-	 * a MEMCG_MAX event.
+-	 */
+-	if (!raised_max_event)
+-		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+-
+-	/*
+ 	 * The allocation either can't fail or will lead to more memory
+ 	 * being freed very soon.  Allow memory usage go over the limit
+ 	 * temporarily by force charging it.
+@@ -2802,7 +2798,15 @@ force:
+ 	if (do_memsw_account())
+ 		page_counter_charge(&memcg->memsw, nr_pages);
+ 
+-	return 0;
++out:
++	/*
++	 * Don't forget to raise a MEMCG_MAX event for forced or rejected
++	 * requests.
++	 */
++	if (!raised_max_event)
++		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
++
++	return ret;
+ 
+ done_restock:
+ 	if (batch > nr_pages)
+@@ -2861,7 +2865,7 @@ done_restock:
+ 	    !(current->flags & PF_MEMALLOC) &&
+ 	    gfpflags_allow_blocking(gfp_mask))
+ 		__mem_cgroup_handle_over_high(gfp_mask);
+-	return 0;
++	return ret;
+ }
+ 
+ static inline int try_charge(struct mem_cgroup *memcg, gfp_t gfp_mask,
+_
+
+Patches currently in -mm which might be from joe@dama.to are
+
+mm-memcontrol-raise-memcg_max-for-charges-that-fail-without-reclaiming.patch
+
