@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17E63D9DCC
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:59:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73CA3D8900
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 12:59:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181142; cv=none; b=RxAhbe5qyVptKQrlhE77AkRq8Zq23Hi2y3BpWhuVozv6s1Gffl1TtyzB8P9vG8aTutffihYVmxXo+/7QVm47DnWB6seA6PaNl558U09gIoEYqb7it33/uVhoE+fa2QXTFELEUW9RZjiMvRgl4rMPloprgpDKb6kYWf3RlblXCzo=
+	t=1788181150; cv=none; b=oTFwpdmFEEUno0wma6u77dDRdcEIrKy4x2Ou5z+2tYdhsUiAjdOiTzIxiedpPHB//bsPSxHdnBXaPtRGq7Wkqn2QbkmVmWd6PJAxPPstTXotRPf8MoI7z5GWh2k5MbIScf0P0DoUGEgzw+PWrONuURIeWx0YidYVMrO2HfuS8yU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181142; c=relaxed/simple;
-	bh=eClz0jqrIB1vUSiEXlx8tn9/w/P1f+BATZopqgCVeEQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eV6fJOz7VAEkqnBKy9zR52KYT3XwHbKYKnheMsrLms6RcyxjFPK9szuSw4yuXezVs11BnjMi3yJNMqDjfJhXAYprP1AprtjBQCGFUz+RHkhn0ojJLm+P8Bb7xR4gG6k2Pfe11Yndnb2iOOEntgAEfSHUJPy4qCmtPJsML5V0FU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NeSVeqfO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788181150; c=relaxed/simple;
+	bh=A3w2CFkpf/gz1Q1JfnegHn1E7PJYpRkFQsyUflt8pWk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MGScPlJO3MX81vuGli3F4nQu7PZyzvn96FVW2IvzFTxVB1Wdr5CVzO6sOjR7RNF6oXLA/CNTqogdpTQBU/X+s0OPcKK3rLc/ESRqgmZj/zn+uy6gxLR+vnTIFjJlRz0elpff9qlrMwOt6IHL5ZQJCV4xUE29Dlb82rouwxcxzF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g0g7X1D1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NeSVeqfO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6BE1F000E9;
-	Mon, 31 Aug 2026 12:59:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g0g7X1D1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7301F000E9;
+	Mon, 31 Aug 2026 12:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788181140;
-	bh=lbnSBQn7yrBcAnZE2Fz4eiF1R0GZEgItisDFd2Fn9Jo=;
+	s=korg; t=1788181148;
+	bh=Tdm7UtUik54B+Y+eNVbumNzuhF8dGiDCmC/RDRQ1dYI=;
 	h=Subject:To:Cc:From:Date;
-	b=NeSVeqfOfHCyuGuYNJt0/FsEz6Nc+3k5uJa7Pmw2cCEkdcc67Eqv/GQi0Hqj9VLYt
-	 031OkFSt6XTRnaZ/rARv65VtGYa49nV4S6WLlPPkW1bhy8unvfh/c+XhUpNhR5tPrm
-	 2LDdI04TuVB+cE5EjtsmrVxGgeXgNc7sh0WnA72k=
-Subject: FAILED: patch "[PATCH] netfilter: nft_set_pipapo_avx2: add missing vzeroupper" failed to apply to 6.1-stable tree
-To: ebiggers@kernel.org,pablo@netfilter.org,sbrivio@redhat.com
+	b=g0g7X1D1YTWFS+Wgbq4szZaRkAIPXDosao0S0WFXtOR8xfgCfBoASDI03eNnx2rfK
+	 6ZtKBvFSJMvNIvkXvNzZ8eSJ9Y+WekHnKdAyI48QR+4clgj1KlbCQ6tb25ZzlNk/W+
+	 2+LvW5pU0tPwyjqx4OkWQuTzk9wCZ8YZLzJqF1YE=
+Subject: FAILED: patch "[PATCH] netfilter: nf_tables: don't queue packet path object" failed to apply to 6.1-stable tree
+To: littleddfu@gmail.com,corvus@tencent.com,fouriezhang@tencent.com,pablo@netfilter.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 31 Aug 2026 14:58:41 +0200
-Message-ID: <2026083141-handwork-doormat-6d4e@gregkh>
+Date: Mon, 31 Aug 2026 14:58:57 +0200
+Message-ID: <2026083157-plexiglas-pouring-6a0f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 55dd20f0f4b1be5c9c8a0275d8d763c86563eac2
+git cherry-pick -x 7904b94768e983bcb2be34a8d6d1f3450f5b838b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083141-handwork-doormat-6d4e@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083157-plexiglas-pouring-6a0f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,73 +62,170 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 55dd20f0f4b1be5c9c8a0275d8d763c86563eac2 Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Sat, 15 Aug 2026 13:57:50 -0700
-Subject: [PATCH] netfilter: nft_set_pipapo_avx2: add missing vzeroupper
+From 7904b94768e983bcb2be34a8d6d1f3450f5b838b Mon Sep 17 00:00:00 2001
+From: Fourie Zhang <littleddfu@gmail.com>
+Date: Mon, 10 Aug 2026 19:35:01 +0800
+Subject: [PATCH] netfilter: nf_tables: don't queue packet path object
+ notifications
 
-Since pipapo_get_avx2() uses YMM registers, execute vzeroupper before
-returning from it.  This is needed to avoid degrading the performance of
-any later SSE code that may happen to be executed.
+All file:line references below are against v7.2-rc4 (ac5b0e5651b1). The
+trace was captured on 7.2.0-rc6-kasan72rc6 (075b74841bd0), where the same
+lines apply.
 
-Fixes: 7400b063969b ("nft_set_pipapo: Introduce AVX2-based lookup implementation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Reviewed-by: Stefano Brivio <sbrivio@redhat.com>
+nft_obj_notify() is exported and reached from the packet path. Its only
+in-tree caller is nft_quota_obj_eval() (net/netfilter/nft_quota.c:68),
+which notifies with GFP_ATOMIC while evaluating a rule for a transiting
+packet, holding no mutex.
+
+Since commit 67cc570edaa0 ("netfilter: nf_tables: coalesce multiple
+notifications into one skbuff") that notification is no longer sent
+immediately. __nft_obj_notify() queues it onto nft_net->notify_list via
+nft_notify_enqueue() (net/netfilter/nf_tables_api.c:1211), which is a bare
+list_add_tail(). notify_list has no lock of its own
+(include/net/netfilter/nf_tables.h:1951), it is serialised by commit_mutex:
+the six other enqueue sites all run inside a netlink transaction, and the
+drain in nft_commit_notify() (net/netfilter/nf_tables_api.c:10746) does
+list_del() + kfree_skb() from nf_tables_commit() with commit_mutex held.
+
+Sending packets through a chain that references a depleted quota object
+therefore races an unlocked list_add_tail() against list_del() +
+kfree_skb() on another CPU. The WRITE_ONCE(prev->next, new) in __list_add()
+then stores through an sk_buff that has already been freed:
+
+  BUG: KASAN: slab-use-after-free in __nft_obj_notify+0x2c5/0x2d0
+  Write of size 8 at addr ff110001047183c0 by task poc/76
+  CPU: 0 UID: 1000 PID: 76 Comm: poc Tainted: G  W  7.2.0-rc6-kasan72rc6 #4
+  Call Trace:
+   <IRQ>
+   __nft_obj_notify (include/linux/list.h:164 include/linux/list.h:191
+                     net/netfilter/nf_tables_api.c:1211
+                     net/netfilter/nf_tables_api.c:8743)
+   nft_quota_obj_eval (net/netfilter/nft_quota.c:68)
+   nft_do_chain_inet
+   nf_hook_slow
+   __ip_local_out
+   ip_push_pending_frames
+   udp_send_skb
+   udp_sendmsg
+   __x64_sys_sendto
+
+  Allocated by task 77:
+   __alloc_skb (net/core/skbuff.c:704)
+   __nft_obj_notify (include/net/netlink.h:1055
+                     net/netfilter/nf_tables_api.c:8731)
+   nft_quota_obj_eval (net/netfilter/nft_quota.c:68)
+   nft_do_chain
+
+  Freed by task 79:
+   nf_tables_commit (include/linux/skbuff.h:1332
+                     net/netfilter/nf_tables_api.c:10759
+                     net/netfilter/nf_tables_api.c:11185)
+   nfnetlink_rcv_batch (net/netfilter/nfnetlink.c:574)
+   netlink_unicast
+   netlink_sendmsg
+
+  The buggy address belongs to the cache skbuff_head_cache of size 232
+
+Queueing from the packet path is wrong even leaving the race aside:
+notify_list is only drained by nft_commit_notify() from nf_tables_commit()
+(:11185), so a notification enqueued outside a transaction is not sent
+until some later netlink batch commits, if one ever does.
+
+The gfp argument that nft_obj_notify() still takes is a leftover of the
+pre-67cc570edaa0 behaviour, where this path called nfnetlink_send()
+directly. Restore that: split the message construction out into
+nft_obj_notify_alloc() and let each caller decide what to do with the skb.
+nft_obj_notify(), the exported one reached from the packet path, sends it
+straight away; nf_tables_obj_notify(), which runs under commit_mutex, keeps
+queueing it, so transaction notifications are still coalesced.
+
+Fixes: 67cc570edaa0 ("netfilter: nf_tables: coalesce multiple notifications into one skbuff")
+Cc: stable@kernel.org
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Assisted-by: tencentos-corvus-ai:kimi-k3
+Signed-off-by: Fourie Zhang <fouriezhang@tencent.com>
 Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 
-diff --git a/net/netfilter/nft_set_pipapo_avx2.c b/net/netfilter/nft_set_pipapo_avx2.c
-index b3f105520a85..21f5be68c703 100644
---- a/net/netfilter/nft_set_pipapo_avx2.c
-+++ b/net/netfilter/nft_set_pipapo_avx2.c
-@@ -1134,6 +1134,7 @@ struct nft_pipapo_elem *pipapo_get_avx2(const struct nft_pipapo_match *m,
- 	struct nft_pipapo_scratch *scratch;
- 	const struct nft_pipapo_field *f;
- 	unsigned long *res, *fill, *map;
-+	struct nft_pipapo_elem *e;
- 	bool map_index;
- 	int ret = 0;
- 	int i;
-@@ -1207,14 +1208,11 @@ struct nft_pipapo_elem *pipapo_get_avx2(const struct nft_pipapo_match *m,
- next_match:
- 		if (ret < 0) {
- 			scratch->map_index = map_index;
--			kernel_fpu_end();
--			__local_unlock_nested_bh(&scratch->bh_lock);
--			return NULL;
-+			e = NULL;
-+			goto out;
- 		}
- 
- 		if (last) {
--			struct nft_pipapo_elem *e;
--
- 			e = f->mt[ret].e;
- 			if (unlikely(__nft_set_elem_expired(&e->ext, tstamp) ||
- 				     !nft_set_elem_active(&e->ext, genmask))) {
-@@ -1224,9 +1222,7 @@ struct nft_pipapo_elem *pipapo_get_avx2(const struct nft_pipapo_match *m,
- 			}
- 
- 			scratch->map_index = map_index;
--			kernel_fpu_end();
--			__local_unlock_nested_bh(&scratch->bh_lock);
--			return e;
-+			goto out;
- 		}
- 
- 		map_index = !map_index;
-@@ -1234,9 +1230,12 @@ struct nft_pipapo_elem *pipapo_get_avx2(const struct nft_pipapo_match *m,
- 		data += NFT_PIPAPO_GROUPS_PADDED_SIZE(f);
- 	}
- 
-+	e = NULL;
-+out:
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- 	__local_unlock_nested_bh(&scratch->bh_lock);
--	return NULL;
-+	return e;
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index af357f6c5070..3a7c8f7a6304 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -8715,18 +8715,17 @@ static int nf_tables_delobj(struct sk_buff *skb, const struct nfnl_info *info,
+ 	return nft_delobj(&ctx, obj);
  }
  
- /**
+-static void
+-__nft_obj_notify(struct net *net, const struct nft_table *table,
+-		 struct nft_object *obj, u32 portid, u32 seq, int event,
+-		 u16 flags, int family, int report, gfp_t gfp)
++static struct sk_buff *
++nft_obj_notify_alloc(struct net *net, const struct nft_table *table,
++		     struct nft_object *obj, u32 portid, u32 seq, int event,
++		     u16 flags, int family, int report, gfp_t gfp)
+ {
+-	struct nftables_pernet *nft_net = nft_pernet(net);
+ 	struct sk_buff *skb;
+ 	int err;
+ 
+ 	if (!report &&
+ 	    !nfnetlink_has_listeners(net, NFNLGRP_NFTABLES))
+-		return;
++		return NULL;
+ 
+ 	skb = nlmsg_new(NLMSG_GOODSIZE, gfp);
+ 	if (skb == NULL)
+@@ -8740,10 +8739,10 @@ __nft_obj_notify(struct net *net, const struct nft_table *table,
+ 		goto err;
+ 	}
+ 
+-	nft_notify_enqueue(skb, report, &nft_net->notify_list);
+-	return;
++	return skb;
+ err:
+ 	nfnetlink_set_err(net, portid, NFNLGRP_NFTABLES, -ENOBUFS);
++	return NULL;
+ }
+ 
+ void nft_obj_notify(struct net *net, const struct nft_table *table,
+@@ -8752,6 +8751,7 @@ void nft_obj_notify(struct net *net, const struct nft_table *table,
+ {
+ 	char *buf = kasprintf(gfp, "%s:%u",
+ 			      table->name, nft_base_seq(net));
++	struct sk_buff *skb;
+ 
+ 	audit_log_nfcfg(buf,
+ 			family,
+@@ -8762,17 +8762,27 @@ void nft_obj_notify(struct net *net, const struct nft_table *table,
+ 			gfp);
+ 	kfree(buf);
+ 
+-	__nft_obj_notify(net, table, obj, portid, seq, event,
+-			 flags, family, report, gfp);
++	/* Called from the packet path, holding no mutex: notify_list is
++	 * serialised by commit_mutex, so send this notification directly.
++	 */
++	skb = nft_obj_notify_alloc(net, table, obj, portid, seq, event,
++				   flags, family, report, gfp);
++	if (skb)
++		nfnetlink_send(skb, net, portid, NFNLGRP_NFTABLES, report, gfp);
+ }
+ EXPORT_SYMBOL_GPL(nft_obj_notify);
+ 
+ static void nf_tables_obj_notify(const struct nft_ctx *ctx,
+ 				 struct nft_object *obj, int event)
+ {
+-	__nft_obj_notify(ctx->net, ctx->table, obj, ctx->portid,
+-			 ctx->seq, event, ctx->flags, ctx->family,
+-			 ctx->report, GFP_KERNEL);
++	struct nftables_pernet *nft_net = nft_pernet(ctx->net);
++	struct sk_buff *skb;
++
++	skb = nft_obj_notify_alloc(ctx->net, ctx->table, obj, ctx->portid,
++				   ctx->seq, event, ctx->flags, ctx->family,
++				   ctx->report, GFP_KERNEL);
++	if (skb)
++		nft_notify_enqueue(skb, ctx->report, &nft_net->notify_list);
+ }
+ 
+ /*
 
