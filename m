@@ -1,62 +1,62 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FAC3D45EF;
-	Mon, 31 Aug 2026 09:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1E93E2756;
+	Mon, 31 Aug 2026 09:57:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788170220; cv=none; b=j2rGZHoAGCOeRm9yowJqaRTkKpZQ+jBE2A9fIXYwqeqpvk6EX9z1NSrgIpta83JowLXmZFl/BbyzJpWMH3Zri9RR53sTNNNNsfclg+mWDyq/No3E9e3lXk1z3orGywaak4nCi7Z4s/uTyOCfI37FJP1ESX7wv/pLEMAtGzfkIJM=
+	t=1788170280; cv=none; b=l1qMcd1Rw1kHmFmcNtUpuoCv4XfYZpSx+/5O5yUNHdT56y+oRPRmc6mBhllaksGURNb9X07O1w26hOakXhuL8vTcWHkmqAvxd/EC5ZZcxmAVUMPD7RYfsFSUy6D7KRIcBnPGJTaUziyiQWQiEVwt91S1TUBZIXkWLQKU95WRno0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788170220; c=relaxed/simple;
-	bh=7kSEl7dXRVSFOZzvngXyGnu7tMh/NV3u41UV4V06ztE=;
+	s=arc-20240116; t=1788170280; c=relaxed/simple;
+	bh=ggP8rmDJ1VI0kO6CwY54v3jJgVBsVzO2YmkvwuOCfh0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EJWxxcLJxxos6FokipI69/jwwegjcmwK+bxgfaW9Fa08EOy6xxhAhZgqg04+xqbneGgnz4eij4bWOprJr7+MKN0RB6Ok9Bjlz2gylgzs0NCsglYGRLgXRo5PM1ooaMN3GT6ImdtnWbDDO4uooYaLuoL2MEjS0YVQLOyMp1hNRxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iw7VLvbz; arc=none smtp.client-ip=192.198.163.12
+	 Content-Type:Content-Disposition:In-Reply-To; b=YxMMjvpiJPsS8emyWcBchs9HwwxNsV8IUaaNoQI9Mna2SZOaoEi9iIiFJmHnD29WAcbJ2k4sdOQ+McYQx1pS6qMPgNYN8NUQq0PeAmmrOFNmpNFMBLV4WSxQMx6ojv5TilJAjPmxENCdBbxbJ2+fT8PlWTzk2mgTalt1HIh2aY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YhHn9yVv; arc=none smtp.client-ip=192.198.163.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iw7VLvbz"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YhHn9yVv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788170218; x=1819706218;
+  t=1788170277; x=1819706277;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=7kSEl7dXRVSFOZzvngXyGnu7tMh/NV3u41UV4V06ztE=;
-  b=iw7VLvbzNrZffiWB6evD3LSL/IPDTk/CVEvspAIbT8RH/+j5f/f0xRHk
-   XV0ztY7Nbn1ijb2IQM0EmMaXvSiu4M7O0Ke8HDNe1q4d2tVMANk+S86z6
-   8Z+VKjG/bpr5pGLgVzkdYBUNYRebdOVuBYC+VrvaKHFb8zwDRYvlgc1Hg
-   b/3zwK6MCC2MY+D3yYahxhrzTKsEn8Qz50BuGmIAp0TmvQhYaJpONNi95
-   SRwbab3TKmak4BFdYOWrMmOD+KiagWPDuqYIZr/7oYkl92pxx6jXnJPK9
-   U89ptQtD/q1BoweIj457HEaaMNOpNLj3NMusR2YV/YXkM0MJad7P5/sh8
+  bh=ggP8rmDJ1VI0kO6CwY54v3jJgVBsVzO2YmkvwuOCfh0=;
+  b=YhHn9yVvVb5OyXwbuoyDYyQ8pouc2GXZ7P/2mSesuZIbjT2nwvLX0L2+
+   oXKK5hYX5S0MJIX4NClNPnfPRuzqbcsKePGOAddjy/9+dX0d9BvXkCoKd
+   33MsnWNxSJyJQ2RbyVrBDznshxnOP1k/eQw2pPUD/wf1cuZiHgFder/X4
+   ujv68dQlOjzkcT9/XMlE0EV2IP+bWSGpbAG7fSJooZY5kslJkp1Y3DzEX
+   j+DgSFfJvPFF+ssyMlHBpK24LGwixbqu4BJhbUq0vl0wpRozbtcx5fa3D
+   18gjC8zsOYOGArZgrx26TMnfyoXzcvZXs7TwEAO9jXl2ZNkMWtYTEB2pb
    A==;
-X-CSE-ConnectionGUID: G4D4VkuQQfGQMC/UVSGVqg==
-X-CSE-MsgGUID: 3Fg2CyGTR9OMD+X3cYXnhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92383851"
+X-CSE-ConnectionGUID: sSdrWjiYRFmp5V51XMT/zQ==
+X-CSE-MsgGUID: TVoAIvrFRa2n0czYXQbTvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92384045"
 X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="92383851"
+   d="scan'208";a="92384045"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:56:57 -0700
-X-CSE-ConnectionGUID: JXvBaMSLR3uT4fHbNVgeqw==
-X-CSE-MsgGUID: 1WM8K0xtTBitmPWFKpaOrg==
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:57:49 -0700
+X-CSE-ConnectionGUID: wwftChZCTKmAw2rKA26LuA==
+X-CSE-MsgGUID: GrDlps4HT6OVhQupKCKsdg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="272265346"
+   d="scan'208";a="272265513"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 31 Aug 2026 02:56:54 -0700
+  by orviesa003.jf.intel.com with ESMTP; 31 Aug 2026 02:57:47 -0700
 Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 1399099; Mon, 31 Aug 2026 11:56:53 +0200 (CEST)
-Date: Mon, 31 Aug 2026 11:56:53 +0200
+	id 3786399; Mon, 31 Aug 2026 11:57:46 +0200 (CEST)
+Date: Mon, 31 Aug 2026 11:57:46 +0200
 From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 To: Fan Wu <fanwu01@zju.edu.cn>
 Cc: linux-usb@vger.kernel.org, bryan.odonoghue@linaro.org,
 	gregkh@linuxfoundation.org, linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] usb: typec: qcom-pmic-typec: disable
- cc_debounce_dwork on stop
-Message-ID: <apVP5VM_CCDmH6BS@black.igk.intel.com>
+Subject: Re: [PATCH v2 2/2] usb: typec: qcom-pmic-typec: drain
+ cc_debounce_dwork if port_start() fails
+Message-ID: <apVQGgz5iSu1Krws@black.igk.intel.com>
 References: <20260819161950.77858-1-fanwu01@zju.edu.cn>
  <20260820135307.153773-1-fanwu01@zju.edu.cn>
- <20260820135307.153773-2-fanwu01@zju.edu.cn>
+ <20260820135307.153773-3-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,46 +65,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260820135307.153773-2-fanwu01@zju.edu.cn>
+In-Reply-To: <20260820135307.153773-3-fanwu01@zju.edu.cn>
 
-On Thu, Aug 20, 2026 at 01:53:06PM +0000, Fan Wu wrote:
-> cc_debounce_dwork is queued from the set_cc() and start_toggling()
-> callbacks, which run from TCPM's kthread worker.  port_stop() returns
-> before tcpm_unregister_port() destroys that worker.  Flushing the worker
-> during unregister may therefore run a callback which queues the delayed
-> work after port_stop() has returned.
+On Thu, Aug 20, 2026 at 01:53:07PM +0000, Fan Wu wrote:
+> cc_debounce_dwork can be queued before port_start() fails:
+> tcpm_register_port() runs first, and its state machine may invoke
+> set_cc() or start_toggling() from the TCPM worker.  The error path then
+> calls tcpm_unregister_port(), whose worker flush may queue the delayed
+> work before devres frees pmic_typec_port.
 > 
-> The delayed work can then run after devres has freed pmic_typec_port.
-> 
-> Use disable_delayed_work_sync() in port_stop() to cancel a pending
-> instance and prevent the TCPM callbacks from queueing another one.
+> Disable and drain the delayed work directly at port_start()'s error
+> exit.  Do not use port_stop() for this path: its IRQs use IRQF_NO_AUTOEN
+> and are enabled only after a successful port_start().
 > 
 > This issue was found by an in-house static analysis tool.
 > 
 > Fixes: a4422ff22142 ("usb: typec: qcom: Add Qualcomm PMIC Type-C driver")
 > Cc: stable@vger.kernel.org # v6.10+
+> Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > Assisted-by: Codex:gpt-5.6
 > Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
 Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
 > ---
->  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
 > diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> index 429bd42a0..fdc379fc4 100644
+> index fdc379fc4..53c143364 100644
 > --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
 > +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
-> @@ -694,6 +694,8 @@ static void qcom_pmic_typec_port_stop(struct pmic_typec *tcpm)
+> @@ -684,6 +684,9 @@ static int qcom_pmic_typec_port_start(struct pmic_typec *tcpm,
+>  		enable_irq(pmic_typec_port->irq_data[i].irq);
 >  
->  	for (i = 0; i < pmic_typec_port->nr_irqs; i++)
->  		disable_irq(pmic_typec_port->irq_data[i].irq);
+>  done:
+> +	if (ret)
+> +		disable_delayed_work_sync(&pmic_typec_port->cc_debounce_dwork);
 > +
-> +	disable_delayed_work_sync(&pmic_typec_port->cc_debounce_dwork);
+>  	return ret;
 >  }
 >  
->  int qcom_pmic_typec_port_probe(struct platform_device *pdev,
 
 -- 
 heikki
