@@ -1,29 +1,29 @@
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D5F0EED8;
-	Mon, 31 Aug 2026 00:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49C95EED8;
+	Mon, 31 Aug 2026 00:16:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788135359; cv=none; b=X8rlKDeswL/jD2IbNro9MOUHdVVpr+zP9KubOdc3wPkvZdztfWA4sWOLW2UKWU0CryezVSzMEtuHN+jlqcwt0sg7HtqXE5JYr0WuTWdW9Jw1lo0j7G9xOu8OI1m3JQO7sAvUhq5sZPumQ/4yJC4SWqvGi+K54OoUXEJqSwdh0kM=
+	t=1788135363; cv=none; b=SpDSyEyFQ4SifLWxQxq7FJww5xt1RuxYA53aTEONcqA0AGsxaVdmVIFtjCUMTSWiqNpUpeXv3tO51+0wUUeMPgnUJ8BjGI4V22G8Q3RjD4rLUdBtmv7OczIK+OhgYdg4z+g/pgg0wOMx1iZAIM/vgyUNolhMi92CZas49jIFc1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788135359; c=relaxed/simple;
-	bh=bYmwagc4OGc+Cw6b8mGr0pNSY+Ij4NYDSTeCS9S8zFk=;
+	s=arc-20240116; t=1788135363; c=relaxed/simple;
+	bh=jtp2Oyf7eurf/iPiQ3wrmY2VMZRgUht8jVDCH0HtfRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B3SjaBsIiACpgyjeULjazcZqukIHBg7fvi2AN5SgtEkZWW6CIwagINxGxJM5ZFa2uaD6xUM4bKYNJR59rN8nz8hwg17DYa3pyYd1INvSelppmTw4L9i3A53Yu8KvkUORN0/3lGGZjWcFDSUVMg0mfrd1U/A2JSxhrqQn3VT4tSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=hBwFySRP; arc=none smtp.client-ip=202.38.64.46
+	 MIME-Version; b=O/YnfYtP2GrZaYLmKAQfBUztbIMyySHkMlZ3XvqXNPtLY2ctw8KxNl5HdcuVRyklJifUznZM6/M0ZKCMflfNdozlU841DhJ45xH7sGnqrfKOSZxBO5RXcdL8ZFheK10MZ9iwlRGbBQ4F2XZC93MhfchFYwl4VR+QIbcuaI6JK1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=KHILNMSq; arc=none smtp.client-ip=202.38.64.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="hBwFySRP"
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="KHILNMSq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=JfXN9Gkxkasy4rTfsGLXGqEADzTtnQJS9S
-	2yZexdiYE=; b=hBwFySRPQs0KvzBKll0fkLSTZ9Dl4LSk4t1C37jsM6EajiaZza
-	2DYc8v1PPmj33PlO+lmi1hxD8JjBebasaeV6lNHGf+i+xqQYcaeTuomKX/JQ9o2Q
-	hA7LOIcWx3w40GDy8EH1zwMHLX11XkWUVY3ban3SNjwzWplkrXgdA6bJo=
+	Content-Transfer-Encoding; bh=/AZvS8MNnez61mUadbF0DErN15Y7MnUhIB
+	5xCAzFrGU=; b=KHILNMSqyi0w0Fk2wX2O/AVxsWsey0MDAY2XXhuri3mLpziHlf
+	Q8+KunneNHg+roFdCCrSsKgXeQW1zvJW9rPpBNriAk3eMpyccRJfSVVfj9Sd+UgR
+	xn5u+/wQKxl8AxtseFydtzPxeF9o6BTS1QPZ/HtdPPBZtxev6AbyiqnN8=
 Received: from localhost (unknown [222.195.81.60])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgB3Yxqqx5RqWKe+AA--.2654S2;
-	Mon, 31 Aug 2026 08:15:38 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB3biW7x5Rqmae+AA--.2579S2;
+	Mon, 31 Aug 2026 08:15:55 +0800 (CST)
 From: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -36,12 +36,12 @@ Cc: gregkh@linuxfoundation.org,
 	ameryhung@gmail.com,
 	joannelkoong@gmail.com,
 	sashal@kernel.org
-Subject: [PATCH 6.6.y v3 3/3] bpf: Invalidate dynptr clones in every call frame on release
-Date: Mon, 31 Aug 2026 08:15:24 +0800
-Message-ID: <20260831001524.3223134-4-xyx2021@mail.ustc.edu.cn>
+Subject: [PATCH 6.12.y v4 1/3] bpf: Invalidate dynptr slices by dynptr_id on release
+Date: Mon, 31 Aug 2026 08:15:50 +0800
+Message-ID: <20260831001552.3223196-2-xyx2021@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831001524.3223134-1-xyx2021@mail.ustc.edu.cn>
-References: <20260831001524.3223134-1-xyx2021@mail.ustc.edu.cn>
+In-Reply-To: <20260831001552.3223196-1-xyx2021@mail.ustc.edu.cn>
+References: <20260831001552.3223196-1-xyx2021@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,160 +49,168 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgB3Yxqqx5RqWKe+AA--.2654S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtrykKr15uF48CryxCFy5twb_yoW7Ar18pF
-	Z5K34agr1xXF48Kr9rJws7GF4YgF4kXrW7GFWFy3yfJFnYvr98ZF18KryUXr9xtFWYkw43
-	Jw4fXFZxZw4UWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBCb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+X-CM-TRANSID:3pYKCgB3biW7x5Rqmae+AA--.2579S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Wr1kuF18Kr45Ary3JF4xZwb_yoW7KF48pF
+	s5K3sFgF18XF4xKFsrXFs7AFW5KF4kX3y3CFWrt34xJFnYqr98ZF1kKryUXwnIyFyFkr47
+	Aw1aqrZxZr4UWrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
 	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
 	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4
 	vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r
-	17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r
+	1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
 	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6w
 	1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
 	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7V
-	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
-	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUyOtIUUUUU
+	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5WuWtUUUUU=
+	=
 X-CM-SenderInfo: h010jiysr6zt1loo32lwfovvfxof0/
 
 [ Upstream commit 308c7a0ae8859b34d9d90a3dff953b2d14242145 ]
 
-This is a 6.6.y-sized equivalent, not a cherry-pick of the upstream
+This is a 6.12.y-sized equivalent, not a cherry-pick of the upstream
 diff.
 
-unmark_stack_slots_dynptr() walked clones only in the submitting
-pointer's frame. A program that clones a ringbuf dynptr in a subprog
-and submits the clone leaves the original STACK_DYNPTR slot active in
-the caller. The caller can then pass that stale original to
-bpf_dynptr_data(), even though the shared ringbuf reference has already
-been released.
+unmark_stack_slots_dynptr() comments say it invalidates slices of the
+released dynptr, but it only calls release_reference(ref_obj_id).
+bpf_dynptr_slice() and bpf_dynptr_slice_rdwr() stamp dynptr_id and
+leave ref_obj_id at 0, so LDX/STX through those slices remains allowed
+after bpf_ringbuf_submit_dynptr() / bpf_ringbuf_discard_dynptr().
+bpf_dynptr_data() slices already carry ref_obj_id.
 
-Walk every frame and invalidate matching STACK_DYNPTR slots. Check the
-slot type before reading dynptr metadata: a partial stack overwrite can
-turn a pointer spill into ordinary stack data while stale union fields
-remain, and those fields must not be interpreted as a dynptr ref_obj_id.
-The preceding patch makes a repeated release an ordinary verifier
-rejection, but it does not prevent non-release uses of a stale dynptr.
+Walk registers with a matching dynptr_id, the same way
+destroy_if_dynptr_stack_slot() already does when a dynptr stack slot is
+overwritten. Do this for the released dynptr, for each clone, and for
+the non-refcounted path.
 
-Depends on "bpf: Invalidate dynptr slices by dynptr_id on release"
-only for the slice helper call inside the new loop.
+Check the register base type before reading dynptr_id because the field
+shares a union with other register metadata. Use base_type() rather than
+an exact type match so slices carrying DYNPTR_TYPE_* flags remain covered.
 
-The upstream commit is Amery Hung's parent_id refactor. It cannot be
-applied here (see the first patch). Deviations from 308c7a0ae8859:
-keep dynptr_id / ref_obj_id; walk frames with the 6.6 STACK_DYNPTR
-slot loop instead of the parent_id DFS.
+The upstream commit is Amery Hung's parent_id refactor (Fixes:
+870c28588afa, qdisc kfuncs). It cannot be applied here:
 
-Fixes: 361f129f3cc1 ("bpf: Add bpf_dynptr_clone")
+- It is an 11-file bpf-next change, well over the 100-line stable
+  limit, and it removes dynptr_id / ref_obj_id.
+- 6.12.y still uses dynptr_id and does not have the qdisc kfuncs in
+  that Fixes: tag, so AUTOSEL never pulled it.
+
+Deviations from 308c7a0ae8859: keep dynptr_id and ref_obj_id; do not
+introduce parent_id; only add slice invalidation on
+unmark_stack_slots_dynptr().
+
+Fixes: 66e3a13e7c2c ("bpf: Add bpf_dynptr_slice and bpf_dynptr_slice_rdwr")
 Reported-by: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
-Closes: https://lore.kernel.org/r/20260829033701.2365648-1-xyx2021@mail.ustc.edu.cn
+Closes: https://lore.kernel.org/r/20260829033725.2365697-2-xyx2021@mail.ustc.edu.cn
 Assisted-by: Pi:GLM-5.3
 Signed-off-by: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
 ---
- kernel/bpf/verifier.c                         | 30 +++++++--------
- .../testing/selftests/bpf/progs/dynptr_fail.c | 37 +++++++++++++++++++
- 2 files changed, 52 insertions(+), 15 deletions(-)
+ kernel/bpf/verifier.c                         | 27 +++++++++++++++++--
+ .../testing/selftests/bpf/progs/dynptr_fail.c | 20 ++++++++++++++
+ 2 files changed, 45 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index c9e3856bb59f..a2df5bbf9ab8 100644
+index 99b3f539e431..dbc9cfcffcd6 100644
 --- a/kernel/bpf/verifier.c
 +++ b/kernel/bpf/verifier.c
-@@ -996,7 +996,7 @@ static void invalidate_slices_of_dynptr(struct bpf_verifier_env *env, int dynptr
+@@ -805,6 +805,9 @@ static void invalidate_dynptr(struct bpf_verifier_env *env, struct bpf_func_stat
+ 	state->stack[spi - 1].spilled_ptr.live |= REG_LIVE_WRITTEN;
+ }
+ 
++static void mark_reg_invalid(const struct bpf_verifier_env *env, struct bpf_reg_state *reg);
++static void invalidate_slices_of_dynptr(struct bpf_verifier_env *env, int dynptr_id);
++
  static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_reg_state *reg)
  {
  	struct bpf_func_state *state = func(env, reg);
--	int spi, ref_obj_id, i, err;
-+	int spi, ref_obj_id, i, err, frm;
+@@ -815,6 +818,7 @@ static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_re
+ 		return spi;
  
- 	spi = dynptr_get_spi(env, reg);
- 	if (spi < 0)
-@@ -1028,22 +1028,22 @@ static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_re
- 		return err;
- 	invalidate_slices_of_dynptr(env, state->stack[spi].spilled_ptr.id);
+ 	if (!dynptr_type_refcounted(state->stack[spi].spilled_ptr.dynptr.type)) {
++		invalidate_slices_of_dynptr(env, state->stack[spi].spilled_ptr.id);
+ 		invalidate_dynptr(env, state, spi);
+ 		return 0;
+ 	}
+@@ -828,8 +832,14 @@ static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_re
+ 	 * 2) Any slices derived from this dynptr.
+ 	 */
  
--	/* Invalidate any dynptr clones */
--	for (i = 1; i < state->allocated_stack / BPF_REG_SIZE; i++) {
--		if (state->stack[i].spilled_ptr.ref_obj_id != ref_obj_id)
-+	/* Invalidate any dynptr clones, including those in other frames. */
-+	for (frm = 0; frm <= env->cur_state->curframe; frm++) {
-+		struct bpf_func_state *f = env->cur_state->frame[frm];
-+
-+		if (!f)
- 			continue;
-+		for (i = 1; i < f->allocated_stack / BPF_REG_SIZE; i++) {
-+			if (f->stack[i].slot_type[0] != STACK_DYNPTR)
-+				continue;
-+			if (f->stack[i].spilled_ptr.ref_obj_id != ref_obj_id)
-+				continue;
+-	/* Invalidate any slices associated with this dynptr */
++	/* Invalidate any slices associated with this dynptr.
++	 * release_reference() only walks registers that carry ref_obj_id;
++	 * slices are PTR_TO_MEM with dynptr_id set and ref_obj_id left 0.
++	 * Mirror destroy_if_dynptr_stack_slot(), which already invalidates
++	 * slices by dynptr_id.
++	 */
+ 	WARN_ON_ONCE(release_reference(env, ref_obj_id));
++	invalidate_slices_of_dynptr(env, state->stack[spi].spilled_ptr.id);
  
--		/* it should always be the case that if the ref obj id
--		 * matches then the stack slot also belongs to a
--		 * dynptr
--		 */
--		if (state->stack[i].slot_type[0] != STACK_DYNPTR) {
--			verbose(env, "verifier internal error: misconfigured ref_obj_id\n");
--			return -EFAULT;
--		}
--		if (state->stack[i].spilled_ptr.dynptr.first_slot) {
--			invalidate_slices_of_dynptr(env, state->stack[i].spilled_ptr.id);
--			invalidate_dynptr(env, state, i);
-+			if (f->stack[i].spilled_ptr.dynptr.first_slot) {
-+				invalidate_slices_of_dynptr(env, f->stack[i].spilled_ptr.id);
-+				invalidate_dynptr(env, f, i);
-+			}
+ 	/* Invalidate any dynptr clones */
+ 	for (i = 1; i < state->allocated_stack / BPF_REG_SIZE; i++) {
+@@ -844,8 +854,10 @@ static int unmark_stack_slots_dynptr(struct bpf_verifier_env *env, struct bpf_re
+ 			verbose(env, "verifier internal error: misconfigured ref_obj_id\n");
+ 			return -EFAULT;
  		}
+-		if (state->stack[i].spilled_ptr.dynptr.first_slot)
++		if (state->stack[i].spilled_ptr.dynptr.first_slot) {
++			invalidate_slices_of_dynptr(env, state->stack[i].spilled_ptr.id);
+ 			invalidate_dynptr(env, state, i);
++		}
  	}
  
-diff --git a/tools/testing/selftests/bpf/progs/dynptr_fail.c b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-index 3d431e583c49..99a791ddfefc 100644
---- a/tools/testing/selftests/bpf/progs/dynptr_fail.c
-+++ b/tools/testing/selftests/bpf/progs/dynptr_fail.c
-@@ -1509,6 +1509,43 @@ int clone_invalid2(struct xdp_md *xdp)
+ 	return 0;
+@@ -862,6 +874,17 @@ static void mark_reg_invalid(const struct bpf_verifier_env *env, struct bpf_reg_
+ 		__mark_reg_unknown(env, reg);
  }
  
- /* Invalidating a dynptr should invalidate its clones */
-+static __noinline void submit_dynptr_clone(struct bpf_dynptr *ptr)
++static void invalidate_slices_of_dynptr(struct bpf_verifier_env *env, int dynptr_id)
 +{
-+	struct bpf_dynptr clone;
++	struct bpf_func_state *fstate;
++	struct bpf_reg_state *dreg;
 +
-+	bpf_dynptr_clone(ptr, &clone);
-+	bpf_ringbuf_submit_dynptr(&clone, 0);
++	bpf_for_each_reg_in_vstate(env->cur_state, fstate, dreg, ({
++		if (base_type(dreg->type) == PTR_TO_MEM && dreg->dynptr_id == dynptr_id)
++			mark_reg_invalid(env, dreg);
++	}));
 +}
 +
+ static int destroy_if_dynptr_stack_slot(struct bpf_verifier_env *env,
+ 				        struct bpf_func_state *state, int spi)
+ {
+diff --git a/tools/testing/selftests/bpf/progs/dynptr_fail.c b/tools/testing/selftests/bpf/progs/dynptr_fail.c
+index dfd817d0348c..61bd3f7c946f 100644
+--- a/tools/testing/selftests/bpf/progs/dynptr_fail.c
++++ b/tools/testing/selftests/bpf/progs/dynptr_fail.c
+@@ -316,6 +316,26 @@ int data_slice_use_after_release1(void *ctx)
+ 	return 0;
+ }
+ 
++/* Releasing a dynptr must invalidate slices that only carry dynptr_id. */
 +SEC("?raw_tp")
-+__failure __msg("Expected an initialized dynptr")
-+int clone_invalidate_cross_frame(void *ctx)
++__failure __msg("invalid mem access 'scalar'")
++int slice_kfunc_use_after_submit(void *ctx)
 +{
 +	struct bpf_dynptr ptr;
++	struct sample *sample;
 +
-+	bpf_ringbuf_reserve_dynptr(&ringbuf, sizeof(struct sample), 0, &ptr);
-+	submit_dynptr_clone(&ptr);
-+	bpf_dynptr_data(&ptr, 0, sizeof(struct sample));
++	bpf_ringbuf_reserve_dynptr(&ringbuf, sizeof(*sample), 0, &ptr);
++	sample = bpf_dynptr_slice(&ptr, 0, NULL, sizeof(*sample));
++	if (!sample) {
++		bpf_ringbuf_discard_dynptr(&ptr, 0);
++		return 0;
++	}
++	bpf_ringbuf_submit_dynptr(&ptr, 0);
++	/* this should fail */
++	val = sample->pid;
 +	return 0;
 +}
 +
-+SEC("?raw_tp")
-+__success
-+int clone_invalidate_cross_frame_stale_spill(void *ctx)
-+{
-+	struct bpf_dynptr ptr;
-+	void *data;
-+
-+	bpf_ringbuf_reserve_dynptr(&ringbuf, sizeof(struct sample), 0, &ptr);
-+	data = bpf_dynptr_data(&ptr, 0, sizeof(struct sample));
-+	asm volatile("*(u64 *)(r10 - 24) = %[data];"
-+		"*(u32 *)(r10 - 20) = 0x12345678;"
-+		:: [data] "r"(data) : "memory");
-+	/* A dead, scrubbed spill must not be mistaken for a dynptr slot. */
-+	submit_dynptr_clone(&ptr);
-+	return 0;
-+}
-+
- SEC("?raw_tp")
- __failure __msg("Expected an initialized dynptr as arg #3")
- int clone_invalidate1(void *ctx)
+ /* A data slice can't be used after it has been released.
+  *
+  * This tests the case where the data slice tracks a dynptr (ptr2)
 -- 
 2.43.0
 
