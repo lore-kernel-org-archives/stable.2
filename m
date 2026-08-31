@@ -1,45 +1,44 @@
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D7D27E1DC;
-	Mon, 31 Aug 2026 07:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDD13CEB99;
+	Mon, 31 Aug 2026 07:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163040; cv=none; b=aBHQLtccpzdb97tRvVNZ3pGp72t4WcKyXf42owAWwOWJFS2AKKNoSS5TG0s+GEVToEcjFIFLfsf6MxStCqgAU/jpofhoW3oRAIZ6Vzf/5j0SxfLP/VHcnCXcZP13Pa2/9+hMaq2FkIeNxAUI8uVmulRWuoah8xdk8vpO+FUjuWg=
+	t=1788163135; cv=none; b=nyVqStdAWG44lQ5V8VVy/JJT7J1d8dGNptPrVPobQBCvpzw3NPn5YUg7Vwx8uDjeDEt81AR6PrSMh4NKXtdC1o5xpzEaBRG4aZyM8hVP9no96E0g7AFEg8vqlXecI4771ePtLUkbKTcKrEO72YHLTD2fMtaRjaFRygMrAvYz1fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163040; c=relaxed/simple;
-	bh=kbOF8Xis1+b3XyY1U0EPpoTHxr+rl9dG1JOmrg5VWT8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fUJxWz2eh7f8D9FpPdbtPxIe9XTVaCy3O/f6tCPkw/aMODhpONZHlLYl+p/w19Ww9ezGnyWzD72o/TPgid2dgbNykGb5eg1ek/ObxXytzv/AGbP9SLfMGFKQjLgPhADu3rB0fzW2fmiCQfzD4r8vpJJGhmaCwOtxv6tQzhtJ0bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=JI1zsoy9; arc=none smtp.client-ip=95.143.211.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
+	s=arc-20240116; t=1788163135; c=relaxed/simple;
+	bh=lsZwcvFJ6DYatuuXsPT8MW0GHN2pbYxU6wvTG0VjDFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ah/nA5Y+QELYneTT58XK/Rct0V5gKCVqsM/aoJgUbDpTyj20Y2/THoeZukdn2WtYpcew1ywBMeyah3ICH3GPluB8IMt53maDm8R5KB0YRwfKBkdyX39PswiRD4uw0rwAWILKEzlCoA1LPU9zxNXj4WX5N3RU4WCr92VplQOSEog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=ObiRXBs8; arc=none smtp.client-ip=83.149.199.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="JI1zsoy9"
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1788163034;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Xcfx++QT4NbKdTFPwcuiqKtrJuKRl9bSwmn5aqpMsu4=;
-	b=JI1zsoy94682tqy5LLnIsCiRyKhBnAEVE0MOBBzgAu9EgvA8U+ZwZcL9mx7cDLLVJLa2Oy
-	51IRllwWyg/u+eVe8Gp57qef/0vyoYXvFKjTeNPmGAc0vA6462a/mnHw/aREQ9op5/beK8
-	PWRJcDlrOk+6QLLaT72w2mEFHv05yVQ=
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>,
-	David Ahern <dsahern@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="ObiRXBs8"
+Received: from fedora (unknown [79.139.241.61])
+	by mail.ispras.ru (Postfix) with ESMTPSA id DCC2E407672E;
+	Mon, 31 Aug 2026 07:58:47 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru DCC2E407672E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+	s=default; t=1788163128;
+	bh=JUgrRmOxgoqrS39FwlG/0IiuRy0INCd2KDkj4TL48UI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ObiRXBs8BoGwWZyvjOySncqfJDPPX4u5W2fzCqaYOuEklg292BnANLNcxgnZBBTuh
+	 h7QCujDuR/fw/TMAg1B/SYlBqls2RPXeyzAMNniHvQlHDRroiQgHhei4+9gXHGuCgF
+	 qNvqFebgCNEGAcnenEsaVw0+g9PgACMsSm/f4uRM=
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: Mika Westerberg <westeri@kernel.org>,
+	linux-usb@vger.kernel.org
+Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
-	Ido Schimmel <idosch@nvidia.com>
-Subject: [PATCH 6.1] ipv4: igmp: Fix potential UAF in igmp_gq_start_timer()
-Date: Mon, 31 Aug 2026 10:57:12 +0300
-Message-ID: <20260831075714.23091-1-arefev@swemel.ru>
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH] thunderbolt: fix NULL dereference in tb_remove_work()
+Date: Mon, 31 Aug 2026 10:58:09 +0300
+Message-ID: <20260831075836.16038-1-pchelkin@ispras.ru>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,99 +47,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+There is a slight race between tb_remove_work() and tb_domain_remove()
+which leads to dereferencing a NULL tb->root_switch pointer inside
+tb_free_unplugged_xdomains():
 
-commit 7b19c0f81ed1fdaec6bc522569be367199a9edf3 upstream.
+        Thread A                            Thread B
 
-A race condition exists between device teardown (inetdev_destroy) and
-incoming IGMP query processing (igmp_rcv), leading to a Use-After-Free
-in the IGMP timer callback.
+  tb_remove_work()
+                                    tb_domain_remove()
+                                      mutex_lock(&tb->lock)
+                                      tb_stop()
+                                        /* doesn't cancel a running callback */
+                                        cancel_delayed_work(&tcm->remove_work)
+                                        ...
+                                        tb_switch_remove(tb->root_switch)
+                                        tb->root_switch = NULL
+                                      mutex_unlock(&tb->lock)
+    mutex_lock(&tb->lock)
+    ...
+    /* without checking ->root_switch */
+    tb_free_unplugged_xdomains(tb->root_switch)
+    mutex_unlock(&tb->lock)
 
-During device destruction, inetdev_destroy() drops the primary reference
-to in_device, which can drop its refcount to 0. The actual freeing of
-in_device memory is deferred via RCU (using call_rcu()).
+Commit a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without
+holding tb->lock") doesn't seem right to move tb_free_unplugged_xdomains()
+out of the &tb->lock section and the check for tb->root_switch, in
+particular.  It states:
 
-Concurrently, igmp_rcv() runs under RCU read lock and obtains the
-in_device pointer. Because the memory is RCU-protected, CPU-0 can safely
-dereference in_device even if its refcount has hit 0.
+  For this reason separate removing the XDomain from the topology data
+  structures (where we need the lock) from unregistering the device from
+  the bus (where remove callbacks of the drivers are being called).
 
-However, if CPU-0 calls igmp_gq_start_timer() and re-arms the timer, it
-attempts to acquire a reference using in_dev_hold(). This increments the
-refcount from 0 to 1, triggering a "refcount_t: addition on 0" warning.
-Since the in_device memory is still scheduled to be freed after the RCU
-grace period (as the free callback does not check the refcount again),
-the device is freed while the timer is still armed. When the timer
-expires, it accesses the freed memory, causing a kernel panic.
+tb_free_unplugged_xdomains() belongs to the former group of functions
+requiring the lock.  And it also calls tb_xdomain_remove() which should
+only be called with &tb->lock held.
 
-Fix this by using refcount_inc_not_zero() (via a new helper
-in_dev_hold_safe()) to prevent acquiring a reference if the device is
-already being destroyed. If the refcount is 0, we do not arm the timer.
+Found by Linux Verification Center (linuxtesting.org) with Svace static
+analysis tool.
 
-A similar issue in IPv6 MLD is fixed in a subsequent patch.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20260705181756.963063-2-edumazet@google.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[Denis Arefev: adapted for 6.1: keep prandom_u32_max(),
-get_random_u32_below() not used here]
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Fixes: a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without holding tb->lock")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
 ---
-Backport fix for CVE-2026-72323 
-Link: https://nvd.nist.gov/vuln/detail/CVE-2026-72323 
----
- include/linux/inetdevice.h |  5 +++++
- net/ipv4/igmp.c            | 14 +++++++++-----
- 2 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/inetdevice.h b/include/linux/inetdevice.h
-index ddb27fc0ee8c..c846c5e4be00 100644
---- a/include/linux/inetdevice.h
-+++ b/include/linux/inetdevice.h
-@@ -282,6 +282,11 @@ static inline void in_dev_put(struct in_device *idev)
- #define __in_dev_put(idev)  refcount_dec(&(idev)->refcnt)
- #define in_dev_hold(idev)   refcount_inc(&(idev)->refcnt)
+Reproducedd under QEMU with a passthrough'ed USB4/Thunderbolt NHI
+controller.  Not sure if this trace gives something extra-helpful for the
+commit message, I'll just place it here for now.
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000009b: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x00000000000004d8-0x00000000000004df]
+CPU: 7 UID: 0 PID: 866 Comm: kworker/u32:50 Not tainted 7.2.0+ #16 PREEMPT(full)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-9.fc43 06/10/2025
+Workqueue: thunderbolt0 tb_remove_work
+RIP: 0010:tb_free_unplugged_xdomains+0x39/0x4e0
+Call Trace:
+ <TASK>
+ process_one_work+0xa3e/0x1a10
+ worker_thread+0x70c/0x1040
+ kthread+0x3de/0x4e0
+ ret_from_fork+0x6c2/0xb00
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+Modules linked in:
+RIP: 0010:tb_free_unplugged_xdomains+0x39/0x4e0
+
+ drivers/thunderbolt/tb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+index 47753a5c0f2e..f2e53feff5a6 100644
+--- a/drivers/thunderbolt/tb.c
++++ b/drivers/thunderbolt/tb.c
+@@ -3274,11 +3274,11 @@ static void tb_remove_work(struct work_struct *work)
+ 	struct tb *tb = tcm_to_tb(tcm);
  
-+static inline bool in_dev_hold_safe(struct in_device *idev)
-+{
-+	return refcount_inc_not_zero(&idev->refcnt);
-+}
-+
- #endif /* __KERNEL__ */
- 
- static __inline__ __be32 inet_make_mask(int logmask)
-diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-index fd12b256e05d..ede991885b1f 100644
---- a/net/ipv4/igmp.c
-+++ b/net/ipv4/igmp.c
-@@ -232,16 +232,20 @@ static void igmp_gq_start_timer(struct in_device *in_dev)
- 		return;
- 
- 	in_dev->mr_gq_running = 1;
--	if (!mod_timer(&in_dev->mr_gq_timer, exp))
--		in_dev_hold(in_dev);
-+	if (in_dev_hold_safe(in_dev)) {
-+		if (mod_timer(&in_dev->mr_gq_timer, exp))
-+			in_dev_put(in_dev);
+ 	mutex_lock(&tb->lock);
+-	if (tb->root_switch)
++	if (tb->root_switch) {
+ 		tb_free_unplugged_children(tb->root_switch);
++		tb_free_unplugged_xdomains(tb->root_switch);
 +	}
+ 	mutex_unlock(&tb->lock);
+-
+-	tb_free_unplugged_xdomains(tb->root_switch);
  }
  
- static void igmp_ifc_start_timer(struct in_device *in_dev, int delay)
- {
--	int tv = prandom_u32_max(delay);
-+	if (in_dev_hold_safe(in_dev)) {
-+		int tv = prandom_u32_max(delay);
- 
--	if (!mod_timer(&in_dev->mr_ifc_timer, jiffies+tv+2))
--		in_dev_hold(in_dev);
-+		if (mod_timer(&in_dev->mr_ifc_timer, jiffies + tv + 2))
-+			in_dev_put(in_dev);
-+	}
- }
- 
- static void igmp_mod_timer(struct ip_mc_list *im, int max_delay)
+ static int tb_runtime_resume(struct tb *tb)
 -- 
-2.43.0
+2.55.0
 
