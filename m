@@ -1,87 +1,88 @@
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0C320E030;
-	Mon, 31 Aug 2026 08:07:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898503C1974;
+	Mon, 31 Aug 2026 08:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788163672; cv=none; b=IKI34recWynTIGHoWokHZsT6oXnequ6na0UPKlFOBQCBuqo+pVI6AB1KYkR/PZK8G94kMJjaB+uM8jia4GbkIXHGRzzJNuS85slrvSOyMPJUSeyiH7SMTfBVB4UELlHuEt7ATDn/qRVpqwf8+FW3e8xfWEvKyPn1no0prleoWlY=
+	t=1788163881; cv=none; b=lkhOwcSwkLh4YKZz2JA5NGNP9nRfkLoxKPx+vVb+EduqzGF5iNZ2lGpTmC1KGAnJF5cdE1t1XUnmB4ZKDFi9J00tYwt9qFzbXKvtv8A5NbbgNPTFpQNJRooFDYz5GuzQiah/eLoPTwH29x/LZ9LMWykIJHqwcLH6ZL+zjZ3xsRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788163672; c=relaxed/simple;
-	bh=6/cLM5g/WJtoVYtFL4iQi5aHQ/XQuWJSmCt3KKsQUq0=;
+	s=arc-20240116; t=1788163881; c=relaxed/simple;
+	bh=Bmyq0qDOT7DxHyaxetz1ss5JfOWjJd1G2k9FC0+7nCk=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tHD8U5QnFJ+4uJEk5tSQJn43qsihIM1Y8AiGBGVzdAa94AI1a3dutGRSiLNJV5KkAvQBqGFtrO0Y+L3Axsq3hVSb1EBSfXsjGjw0vVkH51NHifZv8yZmeupPnkDcQS9lBBlAwruJGhizzLLsxn+4TYDBnjVJlXImJ/NN2MpCvoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VluFJj+f; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=UdxE+aJk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wTCdp06O; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=roSde+xp; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version:Content-Type; b=oanLJKi0e0KbsFJKCb1+xcCdZCSBmCUFFKvd76agPpFeObdXNar48PG5b2wX6dd4OwWolpWwrvXLmZTrOlXWK+rkVsub9hu1vj7Fh3Yb2oTgahjWgVuiiZGanUQvDY9bYREOxsdpuYBMPoRpwjg/iYIt1e2wzpsn/EUZKQI1zT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=I79Ymh0j; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=knD3xvzi; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HlUqUR8g; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=j1ArBW5W; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VluFJj+f";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UdxE+aJk";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wTCdp06O";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="roSde+xp"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="I79Ymh0j";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="knD3xvzi";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HlUqUR8g";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="j1ArBW5W"
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C46521B98;
-	Mon, 31 Aug 2026 08:07:40 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 41BE7224CB;
+	Mon, 31 Aug 2026 08:11:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788163664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1788163873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=VluFJj+fAcN3mXs5NEh52I5dWSF0oNQvNqDqNV79b8Tr92a91RklZpyHa+MSHNXctpmcEK
-	Ts6wOBGW5gSLvjll3ZP63UCX3F0T5dyAopsDDIKJBkF8Vw1BCUKF/xr0f5LxG/ruAd8wI4
-	ytQFUhxlqb4CFBo5zz14scAsqTNUJ3E=
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=I79Ymh0j2B+LpmI+mX5nYJZHxda36UX5OnioDZn+1UyatkmClf9r0eeM3eS3hOP/TCr2+i
+	yv6EOi8F1JYz895alWu6oXnzqMO+K/2To6q6tYF+5D3MUR6I9IUtI+bH66/EAncFupxPoA
+	PIUw5IR6PFsLMSndMgX5HVypgXSxnCk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788163664;
+	s=susede2_ed25519; t=1788163873;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=UdxE+aJkc30cYDxPwquM5B24X/iZrtVTE4UBdh7eDpKju8cUkkEz4p0S7RoeBisuqKnQhI
-	h0z+e2RDW3M6pNCw==
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=knD3xvzidfqhdTSblQar5MHDNQnWYvg4y3MbwWkXbBGTN8GvcnPrxV6LE/Hjdy3uZaD0MH
+	5w5nYEMXtI9v8fCg==
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=wTCdp06O;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=roSde+xp
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HlUqUR8g;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=j1ArBW5W
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788163660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1788163869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=wTCdp06Ov80WEksnOri+bmCyUKoZxspEObMWnSHKhIHMdi/qlly3/EJxhuE2zAnRcL4WAd
-	5xb1Of7RJ7/xGrr8e8RiC6rPwKabqpuE8k5vGX81PWBvmBqRRIngnE/i33d01Nu+u5mOuB
-	GI5IUyJJtOixaDgBeK7ZtvefDHPCBhI=
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=HlUqUR8g9Ve/UhWSSSJDK5I9WHbSo1wdzfERngc8Bnzn5Gr8PpJ2UrdRUxKJxDX4HLX6hg
+	BWQybm/u+4sb32tvfITN0J//d7JNZHAB2qGkGTax5xwl1OtrMshXpFZiP8GGK+frg9hnsq
+	vGCxR8JsZHpvaK3FRzh58crdALH19Hg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788163660;
+	s=susede2_ed25519; t=1788163869;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Bh1K3xCV332i7tHch/0JGEeOZf6yxFo27FgjHyV/hZ0=;
-	b=roSde+xpPOWHfVfLbnKq29zVCK4YK3m3fsDpL36JgjmePXY1QbilzoW+zff6diBO+TdJJv
-	DvB7AkZfnJsc/qAA==
+	bh=EX18xwSWw91y/0T4BOJt/V1QzJ0inCFeMn+lOvupHpU=;
+	b=j1ArBW5WJ/zjCWC7bQCo2y7bVOAaKXIMAywsYw0/eHyo8+SboXuEIPut2EMheAAj7RVRIg
+	nZ9QRYIbogaCOIBQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 441A613515;
-	Mon, 31 Aug 2026 08:07:40 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ED97A13515;
+	Mon, 31 Aug 2026 08:11:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fDpDD0w2lWo+fQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 31 Aug 2026 08:07:40 +0000
-Date: Mon, 31 Aug 2026 10:07:39 +0200
-Message-ID: <87bjaisofo.wl-tiwai@suse.de>
+	id 1mvKOBw3lWrxAQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 31 Aug 2026 08:11:08 +0000
+Date: Mon, 31 Aug 2026 10:11:08 +0200
+Message-ID: <87a4q2so9v.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: tiwai@suse.de,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH] ALSA: harmony: initialize locks before requesting IRQ
-In-Reply-To: <20260830063411.2215691-1-runyu.xiao@seu.edu.cn>
-References: <20260830063411.2215691-1-runyu.xiao@seu.edu.cn>
+To: "Yilin Zhang" <yilinzhang@moonshot.ai>
+Cc: <tiwai@suse.com>,
+	<perex@perex.cz>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>,
+	"Kimi Security Team" <bug-report@moonshot.ai>
+Subject: Re: [PATCH] ALSA: pcm: Serialize PCM mmap with buffer reallocation to fix page UAF
+In-Reply-To: <20260831045506.889070-1-yilinzhang@moonshot.ai>
+References: <20260831045506.889070-1-yilinzhang@moonshot.ai>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -91,48 +92,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 X-Spam-Score: -3.51
-X-Rspamd-Queue-Id: 8C46521B98
+X-Rspamd-Queue-Id: 41BE7224CB
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Level: 
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-3.51 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	RCVD_TLS_ALL(0.00)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
 	DKIM_TRACE(0.00)[suse.de:+]
 X-Spam-Flag: NO
 
-On Sun, 30 Aug 2026 08:34:11 +0200,
-Runyu Xiao wrote:
+On Mon, 31 Aug 2026 06:55:06 +0200,
+Yilin Zhang wrote:
 > 
-> snd_harmony_create() registers the IRQ before initializing h->lock and
-> h->mixer_lock. A pending interrupt can invoke the handler while these
-> locks are uninitialized.
+> snd_pcm_hw_params() and snd_pcm_hw_free() guard buffer reallocation
+> with an mmap_count check performed under the PCM stream lock, but the
+> lock is released long before the buffer is actually freed:
+> snd_pcm_sync_stop(), constraint refinement and do_free_pages() all
+> happen in between.  snd_pcm_mmap_data(), on the other hand, takes no
+> lock at all: it validates against the old buffer's state and
+> dma_bytes, remaps its pages into the VMA, and only then increments
+> mmap_count.
 > 
-> Initialize both locks before requesting the IRQ so the handler always
-> sees valid lock state.
+> A concurrent mmap() can therefore slip in between the check and the
+> free.  remap_pfn_range() installs writable PTEs for the old buffer's
+> pages without taking page references, and the subsequent
+> do_free_pages() returns those pages to the page allocator while the
+> VMA still maps them.  This leaves a stale, writable mapping of freed
+> pages: a page-level use-after-free that can be leveraged for local
+> privilege escalation.
 > 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Make snd_pcm_mmap_data() participate in the buffer-access scheme
+> introduced for hw_params/hw_free: acquire runtime->buffer_accessing
+> before validating and remapping, and release it afterwards.  Buffer
+> reallocation already fails with -EBUSY while accessors are active,
+> and the mmap side now fails with -EBUSY while a reallocation is in
+> progress, so the validate/remap sequence and the check/free sequence
+> can no longer interleave.
+> 
+> A reproducer that turns this race into a stale writable mapping of
+> the freed DMA buffer pages is available on request.
+> 
+> Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+> Fixes: 92ee3c60ec9f ("ALSA: pcm: Fix races among concurrent hw_params and hw_free calls")
+> Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
 
 Applied now.  Thanks.
 
