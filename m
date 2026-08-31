@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C143F43F091;
-	Mon, 31 Aug 2026 13:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC0543CEFE;
+	Mon, 31 Aug 2026 13:58:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184723; cv=none; b=dwO5iA5EXF85wMqSWQ8Ppe+F4dxyN9krSkBniyhPI8dpNgb6LPT3+moNnkc3R0eAHcP1Z4cEN2cRqjQGcE3F73s+OQ1aQR2mCi5jdqlfKJPxqtlSjWEmzab1mlUI7Pq/mr6PcPv+C4xs0uyOwi3VkEsbNgoRW+8zJRFjIclHaBA=
+	t=1788184726; cv=none; b=fUGdcHvcvjRJce7cDqXRPY/erkDdz4flPzJ+CJ2NXf+2NRPCuVpXkezi7wYltcI/8YI5gxq/bK124cSo7cz1rzENV9jc8BEBeas6u7g+TPPjtRJSTRBKNv+Uw5Q/vNPO1OBT6S0E/5WgInZTKgHVffpZrBEPcts2Yem7eiqXoYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184723; c=relaxed/simple;
-	bh=QFZatLp85OM61i5l+Ga9ixJaQUR0viK7Z4DJwTsDxXQ=;
+	s=arc-20240116; t=1788184726; c=relaxed/simple;
+	bh=AeJduwk+cYrlYgAMaUkFCkZNK8qbBSBxmi4vm4IBrdM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HpteoqSk/bstzyLShBa65uh471Br6J58zi//wVGOWfnYZlzeLPPJNyFCf0r3P3OMQBoJTCSr+X4axcTAbvV55YmBtaMBaySfIB3f/sR2TnxZvOW+pBK0f/EB+MNVkxK9sPMtSh3ZPWrzUDXduvdwa3elPDPtG07jD+0/Me7HYt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Px3Y6p24; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Prm9ErpsNjdzkzwoxv1VCj9MGIwg8R0SZ8Lx1BBWYa8KJLrd5bYYrEmrjNEfiIA15UnZwwEkoGxRw+ZlKhn+v/18kNZDu+S63cCgcboo6zopvrxFLdcHIMKsn8Z+vHKGfEa/9pNiFaIzThSuGtuOxtWIcsB9Mb2TwZA7zmFX/d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l833gyTO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Px3Y6p24"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27AE61F00A3D;
-	Mon, 31 Aug 2026 13:58:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l833gyTO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECA1A1F000E9;
+	Mon, 31 Aug 2026 13:58:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184722;
-	bh=C+Xyd7Wn/CfF0oX0xEQaWbPwOeNSBd+UI3OiQYz1U+w=;
+	s=korg; t=1788184725;
+	bh=RRCESsZ/88ki+ym2HkOQJz8o5q7oXVFQGcWWz8LQ6Gg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Px3Y6p24h5rnCcUDabXAdNGyCbr3x8ffwGTJEsqU9tws1ZVWBLEpfSlDZN/7GYDmq
-	 oECwV9Wwz1ExoFs/9YcFAiL/bwn9cHEMfHGjcAv8tMnqbC9GlQVp5umXyuOs1iYSMX
-	 g1slSxOPjOOS41CzPgU0tmIAEKuzF5lE2+imMrn4=
+	b=l833gyTOjpLBzXT2PlYKoV754WqlAECHHG3VSCwDyn/LAg17F90pxbxZy4AzOHeTc
+	 J0UncsfjcRbCnDGrH0xd6/5RyssGduUyfyHEJKoWPbyUciG3obQ8iZOn0OKNII5foK
+	 i9YKMLcXUl2W/TpG4I80gmARZVRdWpoMyTRJCxJM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
+	Vladimir Riabchun <ferr.lambarginio@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 16/92] media: platform: exynos4-is: Add hardware sync wait to fimc_is_hw_change_mode()
-Date: Mon, 31 Aug 2026 15:34:14 +0200
-Message-ID: <20260831133400.381439986@linuxfoundation.org>
+Subject: [PATCH 6.1 17/92] mISDN: hfcpci: Fix warning when deleting uninitialized timer
+Date: Mon, 31 Aug 2026 15:34:15 +0200
+Message-ID: <20260831133400.467896933@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
 References: <20260831133359.482388899@linuxfoundation.org>
@@ -51,36 +51,102 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Vladimir Riabchun <ferr.lambarginio@gmail.com>
 
-[ Upstream commit bd9f6ce7d512fa21249415c16af801a4ed5d97b6 ]
+[ Upstream commit 97766512a9951b9fd6fc97f1b93211642bb0b220 ]
 
-In fimc_is_hw_change_mode(), the function changes camera modes without
-waiting for hardware completion, risking corrupted data or system hangs
-if subsequent operations proceed before the hardware is ready.
+With CONFIG_DEBUG_OBJECTS_TIMERS unloading hfcpci module leads
+to the following splat:
 
-Add fimc_is_hw_wait_intmsr0_intmsd0() after mode configuration, ensuring
-hardware state synchronization and stable interrupt handling.
+[  250.215892] ODEBUG: assert_init not available (active state 0) object: ffffffffc01a3dc0 object type: timer_list hint: 0x0
+[  250.217520] WARNING: CPU: 0 PID: 233 at lib/debugobjects.c:612 debug_print_object+0x1b6/0x2c0
+[  250.218775] Modules linked in: hfcpci(-) mISDN_core
+[  250.219537] CPU: 0 UID: 0 PID: 233 Comm: rmmod Not tainted 6.17.0-rc2-g6f713187ac98 #2 PREEMPT(voluntary)
+[  250.220940] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  250.222377] RIP: 0010:debug_print_object+0x1b6/0x2c0
+[  250.223131] Code: fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 75 4f 41 56 48 8b 14 dd a0 4e 01 9f 48 89 ee 48 c7 c7 20 46 01 9f e8 cb 84d
+[  250.225805] RSP: 0018:ffff888015ea7c08 EFLAGS: 00010286
+[  250.226608] RAX: 0000000000000000 RBX: 0000000000000005 RCX: ffffffff9be93a95
+[  250.227708] RDX: 1ffff1100d945138 RSI: 0000000000000008 RDI: ffff88806ca289c0
+[  250.228993] RBP: ffffffff9f014a00 R08: 0000000000000001 R09: ffffed1002bd4f39
+[  250.230043] R10: ffff888015ea79cf R11: 0000000000000001 R12: 0000000000000001
+[  250.231185] R13: ffffffff9eea0520 R14: 0000000000000000 R15: ffff888015ea7cc8
+[  250.232454] FS:  00007f3208f01540(0000) GS:ffff8880caf5a000(0000) knlGS:0000000000000000
+[  250.233851] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  250.234856] CR2: 00007f32090a7421 CR3: 0000000004d63000 CR4: 00000000000006f0
+[  250.236117] Call Trace:
+[  250.236599]  <TASK>
+[  250.236967]  ? trace_irq_enable.constprop.0+0xd4/0x130
+[  250.237920]  debug_object_assert_init+0x1f6/0x310
+[  250.238762]  ? __pfx_debug_object_assert_init+0x10/0x10
+[  250.239658]  ? __lock_acquire+0xdea/0x1c70
+[  250.240369]  __try_to_del_timer_sync+0x69/0x140
+[  250.241172]  ? __pfx___try_to_del_timer_sync+0x10/0x10
+[  250.242058]  ? __timer_delete_sync+0xc6/0x120
+[  250.242842]  ? lock_acquire+0x30/0x80
+[  250.243474]  ? __timer_delete_sync+0xc6/0x120
+[  250.244262]  __timer_delete_sync+0x98/0x120
+[  250.245015]  HFC_cleanup+0x10/0x20 [hfcpci]
+[  250.245704]  __do_sys_delete_module+0x348/0x510
+[  250.246461]  ? __pfx___do_sys_delete_module+0x10/0x10
+[  250.247338]  do_syscall_64+0xc1/0x360
+[  250.247924]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Hans Verkuil <hverkuil@xs4all.nl>
+Fix this by initializing hfc_tl timer with DEFINE_TIMER macro.
+Also, use mod_timer instead of manual timeout update.
+
+Fixes: 87c5fa1bb426 ("mISDN: Add different different timer settings for hfc-pci")
+Fixes: 175302f6b79e ("mISDN: hfcpci: Fix use-after-free bug in hfcpci_softirq")
+Signed-off-by: Vladimir Riabchun <ferr.lambarginio@gmail.com>
+Link: https://patch.msgid.link/aKiy2D_LiWpQ5kXq@vova-pc
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/samsung/exynos4-is/fimc-is-regs.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/isdn/hardware/mISDN/hfcpci.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-is-regs.c b/drivers/media/platform/samsung/exynos4-is/fimc-is-regs.c
-index 366e6393817d2..5f9c44e825a5f 100644
---- a/drivers/media/platform/samsung/exynos4-is/fimc-is-regs.c
-+++ b/drivers/media/platform/samsung/exynos4-is/fimc-is-regs.c
-@@ -164,6 +164,7 @@ int fimc_is_hw_change_mode(struct fimc_is *is)
- 	if (WARN_ON(is->config_index >= ARRAY_SIZE(cmd)))
- 		return -EINVAL;
+diff --git a/drivers/isdn/hardware/mISDN/hfcpci.c b/drivers/isdn/hardware/mISDN/hfcpci.c
+index fe391de1aba32..bdf2fa5ee11be 100644
+--- a/drivers/isdn/hardware/mISDN/hfcpci.c
++++ b/drivers/isdn/hardware/mISDN/hfcpci.c
+@@ -39,12 +39,13 @@
  
-+	fimc_is_hw_wait_intmsr0_intmsd0(is);
- 	mcuctl_write(cmd[is->config_index], is, MCUCTL_REG_ISSR(0));
- 	mcuctl_write(is->sensor_index, is, MCUCTL_REG_ISSR(1));
- 	mcuctl_write(is->setfile.sub_index, is, MCUCTL_REG_ISSR(2));
+ #include "hfc_pci.h"
+ 
++static void hfcpci_softirq(struct timer_list *unused);
+ static const char *hfcpci_revision = "2.0";
+ 
+ static int HFC_cnt;
+ static uint debug;
+ static uint poll, tics;
+-static struct timer_list hfc_tl;
++static DEFINE_TIMER(hfc_tl, hfcpci_softirq);
+ static unsigned long hfc_jiffies;
+ 
+ MODULE_AUTHOR("Karsten Keil");
+@@ -2304,8 +2305,7 @@ hfcpci_softirq(struct timer_list *unused)
+ 		hfc_jiffies = jiffies + 1;
+ 	else
+ 		hfc_jiffies += tics;
+-	hfc_tl.expires = hfc_jiffies;
+-	add_timer(&hfc_tl);
++	mod_timer(&hfc_tl, hfc_jiffies);
+ }
+ 
+ static int __init
+@@ -2331,10 +2331,8 @@ HFC_init(void)
+ 	if (poll != HFCPCI_BTRANS_THRESHOLD) {
+ 		printk(KERN_INFO "%s: Using alternative poll value of %d\n",
+ 		       __func__, poll);
+-		timer_setup(&hfc_tl, hfcpci_softirq, 0);
+-		hfc_tl.expires = jiffies + tics;
+-		hfc_jiffies = hfc_tl.expires;
+-		add_timer(&hfc_tl);
++		hfc_jiffies = jiffies + tics;
++		mod_timer(&hfc_tl, hfc_jiffies);
+ 	} else
+ 		tics = 0; /* indicate the use of controller's timer */
+ 
 -- 
 2.53.0
 
