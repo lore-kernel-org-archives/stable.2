@@ -1,255 +1,149 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E403C1F57
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175985; cv=none; b=SI+01xaJXV0kAEfCMyeRPrmUtosC6YnLU8ErjWkAFFqTzJEZ8kVzanKzH9rMfl8EpG4dxeWCfIiNsnYFIqNW4uYwk4yjQoNV9PVFugFyjoDK3FuGQ9dJUfNueKPZmH4HogP4Zv363rMDtczN/N8ucmN9l/vMoLYVV+ahAkfe46Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175985; c=relaxed/simple;
-	bh=ascRG5pgZW5X6OzJL9JLsIzANbi9ZIYVvg93XFQr0YE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lY3oucM85rCPANli/cqKIaTjHhwcW8wUHNObK8E3HlpGhFDDCj+mwMHyDMdtCv74ZLMWvGBDJGs5fWFHiO6JEyZe8XsE0q7mMgFwU6YSfVUgrekDRn5ClkZzJEraWS+iqe5dhPU+/BDryqqm1pjNbMlg7Ga6+0YKHs/GolVMtrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=U84S5nyj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VKdIRX6u; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC6F342523
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788176149; cv=pass; b=dYItLUXTmLTyE765T6+UcjOCvIc2LVo9VTXzo5W1plzBZdCDQ+sq5YlVEd30CGBpbgjFMtN+LQmVG6RcKwuQtje2kjGWDxHkIx/4J19gQ61O3zJZLJ7xoKrWS38RgdTHtJGHpVTk2NpUn8iSmWWhHIGCCl5p30xEiGrSOjXFYl8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788176149; c=relaxed/simple;
+	bh=iVsFzxcjtXpLLAPWir7xOZsYFnrqAkLPip0NYRBrV0g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D0++Eszal3Gp8Fl0vOwtkw1BhmThqp9mKf1cc9WLMA4PLLDXLnz/MlMHqkbB58Gjel3V5G9dn33YQWefr2fAqK5ouByQnqifJHyYwy2+FlmKmoDy46m3Fu2Vcbysq7tabUP/89TfnXXc0dXI6oFH4558LhpOpG9v86DofHRsGAU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=F5P5uRTu; arc=pass smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="U84S5nyj";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VKdIRX6u"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id E4EB41D0013D;
-	Mon, 31 Aug 2026 07:33:01 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Mon, 31 Aug 2026 07:33:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1788175981; x=1788262381; bh=VqTxGxWMRu
-	v6iB2zhIKsmb7ISX/2UjY2TKjZPES3o6g=; b=U84S5nyjynz6bReEIpCcXg7g0E
-	IeEetnhQk0vVoEptXvh38DXLm7S+t+JlGRaIFFIq/hHm14czaEFh4ZXn26D0mLkl
-	G5SV9Sb4wQfvhRuyyE5/SIRGNkJT2rYLE4WIYpAJk990hza4OvAnbxCdLCI1Gnft
-	tvVZv9k5iIw9oe5yTkgb/UYkRq7J+hL2zc/v5+N+3LbI0wVVENKXhhlvYoTp4R4K
-	wihLIFJ7j/QHztfn46Mxuk51p1vFdPei9Djj+pYlIRPeweP8aA4CjcelyGpIDMX1
-	wGBmmqYHQZn3qrMqvivoOz5wYBR7ayb7wZUb3y9GgCd8x/C/joiULD6K+ozQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1788175981; x=1788262381; bh=VqTxGxWMRuv6iB2zhIKsmb7ISX/2UjY2TKj
-	ZPES3o6g=; b=VKdIRX6uvUicWIM/5KQLHXki3njnLsKJT+rrBZUS5lwiktpt72N
-	rBMvVLajlnnU2fmSq4zL2R+uLHSAN7/uCiBjdtYtRRH2af9FyVecOmmNVLG5ccvg
-	B+z1WHMe9zSuEd1u3Dga28EPQa/6N/Kbs4Q++MdTAwChmXleGx+HvBBCMT6/w3GD
-	u6+SRBDVSt60Dlmt6X7Nr2F6M5JsI7/M6Vn/jRm/0NtStY2jOisHjGRk8iH4YJWj
-	Fwi3PwoW/83y2tUIHGGBChP4U5WlE//K9/Pv9LGJ9PiqUk5WU4VfBj5NbfdjXTnN
-	vYI2Iag9dWA3ODyx6Wgl7ew4x3nj0gjSC5w==
-X-ME-Sender: <xms:bGaVaqhWW_lkOEkRZFjD_jG5GxsyhEqx9n7MdQLkC6sYQQpGH-M40A>
-    <xme:bGaVareLQOAQC-WEwkBlsUV8ymwzu8qpe2MOKCav2RitzuDx_l3jpuzfAuDf8bHL-
-    836h34EvOsCh823H1dVmvWZoWJvy6KCED88t-JSMFti4R-YUw>
-X-ME-Received: <xmr:bGaVaizjvMC7Ar1LPqRDqrJ8ZB9JTvmfq33ihheG7wG-xlbT2WbWyTnyITMV3XRTHfyGDQZGKqr50CIUEf9h2YKZ2aIEMzPvOH2CErhY7hY>
-X-ME-Proxy-Cause: dmFkZTGnVr3sdLm1HSHto00NkwYUZdWmlHZPkUQ8KexjbSkYaDJA+/CLVJU3WytnXfIxe2
-    KGJkA/doBVmcJ2XfM7i7hw6ronr3xEZJ4D0ejq5JA8Yn2ZAS7SRG+VDrhGk1rbbYhmYV6M
-    xuRGwJiKTLP4GVtkaF89tQ4GNhi86HFAOUhthiQmiYcYi8SwHcwHoPwOCkDgH+NDadDmMD
-    ZXcWgh6BLzS1Gt/m30Y1BYJMQWXMOPToGPzzQ/ZKCZ60z3651mKv4q/j5lId5ZrqgJz5JG
-    +x1rkm0A2tor1RDollnh0Huor4S3haR5dRp5TbDZtA+LWgfiIsnEyuPt4B99tbgpQmSYPS
-    PeTVhgFDCkmd9Slg5D3M8CbiTJVw+GwIYx+nQlai74G1TmsSPOlYK8YgJu0vXxBexwzkyA
-    oVzuvrMTOCiJaLQzQ6fNmH3k3bPLglIV6X3QbgKIn1VXeCKKHQodXbXcMXnXxLn1T9fM76
-    oJ/tZDbPwTer4z310QrxF3UluPF3M68xYHNkErgg9/vGupssVA6APANovejO+Rqc2xvXLG
-    T/wkYKl2GC1dG4ltpJmERpkQuSrNy8IU44aRrnZNF8lBbJnkwBAIOPRXJvBBc8VYv2rJPs
-    AzbG/C1WWTtmnVYQoD8YUL7NWqfhoBpkLpVdBnHhc5v1Yg9BbrdCeKZ8sF9w
-X-ME-Proxy: <xmx:bGaVaq0o4tACS2qbEhGKL9jy2wbHT6rKJ-_LcXmfWIJjNzdrQw17xQ>
-    <xmx:bGaVaoz4-Bl8cAgzRLGylDETst3bgc4y7SHrJ1nF0ja9noNcV5O1jg>
-    <xmx:bGaVavWc1HcPW4w_Yqox8k5HgH88s3W1ULTToc5tDjUm6kX_jUN5IQ>
-    <xmx:bGaVak_KhI5W2gOHLlNJcsqPpQxI0N2Xa6IDWk2AxPLXmLf7QMQQow>
-    <xmx:bWaVah6PgySYGW34lGjzeiM-9muoRDN-YR7YS2lJCke7NQj8flQL86qO>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Aug 2026 07:33:00 -0400 (EDT)
-Date: Mon, 31 Aug 2026 13:32:57 +0200
-From: Greg KH <greg@kroah.com>
-To: Zhu Yanjun <yanjun.zhu@linux.dev>
-Cc: stable@vger.kernel.org, Peiyang He <peiyang_he@smail.nju.edu.cn>,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: Re: [PATCH 7.1.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
-Message-ID: <2026083114-framing-dried-c03c@gregkh>
-References: <2026082517-sitter-shriek-9502@gregkh>
- <20260825181727.887465-1-yanjun.zhu@linux.dev>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="F5P5uRTu"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-848643382fcso3557184b3a.1
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 04:35:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788176147; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k79YK4uZbjSAO6W0HgUXJ7WJrofX3x2RvGJVDdl8679SdYzlc6MWIEv8qWTnFcIsNW
+         VkeKfKhCljFPMC7whiAEHI3NXlibYVCYvIjBvaUkfV0ydB/oTBgmAK2YI0y0VOv/YCEz
+         +Yo2znOjII/TrX4QA28NIth0bD3f06O7LtyN0U/uhYwtSJ/4WoP3EcyqW07bce95VRyK
+         /cBHi6FuHeHDgUQkeXEznN0Bb9qtcUzFc5xFw+oGoVkiLIyg65uSOVGDBov8UQb0KkUC
+         vN6kmsnM9jxv2tiP39VRcIjPpDrkdO6vsZg4/GusqXx7V+awGqV83iRFiXoYd53Z46Wf
+         cJKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=v1+kYYpmqjR7YioulSNP/VCyRhVs3EIdV4wSWvdX0GY=;
+        fh=1dihsYcApKK3Yrs5UfTsT1AO2hECPJZhozUjeGf6tI4=;
+        b=rCaX9O9AbuUSQIym4RoJqdMu2T9uSecazgc1E/jrEE6zUEbT+lYmHehoYqJrrDOBlc
+         k6ie8DFKzw3wZUSCdo8dMddVtgBOF3Mjg6L+Vm5eBUIjCl8gzLi7HYPw7Nme32ineoKu
+         9wJgDLR8vFN6dujlFP1LWiC1lyqveMGF1YIDZPnPaKqkCzCqi1tmwbtt40k8f7o4MSZV
+         KHaB6XuMuV8a9GzuRphPW0FSbE+0SBaVsNITc0V1clbwY1xj/sahxWSVm8u1Kfuy+GBB
+         +zVm+qyCCDkyKM/7NIujCdL/fXASHwS6R5anOEexJKHiJz1txt/WqukRnr7VHsr+H4kK
+         9uyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788176147; x=1788780947; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v1+kYYpmqjR7YioulSNP/VCyRhVs3EIdV4wSWvdX0GY=;
+        b=F5P5uRTuy6Gr8DiIlS+YqcTbkx0JynRSTtPY/5B9qaEDclVB4axwWdZkjkR5INgKkZ
+         7XpD4zJi98JBjHl2Z0Fnb+23h6VLc09Vs30W/hhwmorYvAc9evyznQOlTlywqv9sDKO5
+         dQ4KIozJWrZnxq+sOiZh8Ohzl+VVMDqyQNM2I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788176147; x=1788780947;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v1+kYYpmqjR7YioulSNP/VCyRhVs3EIdV4wSWvdX0GY=;
+        b=ddfj2lStECfkvL/4UqFdHmyaMk8iI5GxayCG4/x4oswIVrqcYoJxLp/UpYe5enywsL
+         qCV5bp/WsiDqcUfvjdJVr3xsd0bhzS5Csm22FfzAxYeQjvQfKyZnXIeziLMoRBAPUmHr
+         nqKSDNiYSUPmD3OtCZ7fvWP+a4MPNumZq6v3CJJPyWnHTg1huqRbJxTRbAZjHDV3qWa9
+         1C5rn3sqoPR+QZ6YZiSdsw6mUN2CvfJxgAvAjQ625aVltobAgGwvMIlQHgrOuQkNaqFe
+         XfXFsqDADNaGKwp1IoAzRu7jmpElphh7VjRdJlcDRgsrlpaL4IxI5uqpxp4dDbiXmewo
+         oqAg==
+X-Forwarded-Encrypted: i=1; AHgh+RrPG3Wklldua+sa8B03bULdnQ1W96SjJcv9Bg/e5BdcVdnz4B6OokDvb48sveQkBtTglXCNRIs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9rDREOgEexaMxHqosMQ54MI0/h7NzK/THusg3IDcfkbOEBFEQ
+	BYaof5jb2R9eU8kG95dESppy7MgFGnnBMRgsJeE8/ftegexQbIMw9TEL+W93mAiB/Uic3yXlyC6
+	ip0+/3EchHJ+H29AY2HkWjzL2HeBMdzvn6ShcFUE9
+X-Gm-Gg: AR+sD11t2nzjQm6NHq89Ab9ri4wj/OXvf8g49bBnEhO67vkH/f5NrRAzGFPmU1mQ68+
+	TV3jF6muuJbsV2XFERbRr/Po12W9bnzRdvyag1vvoitzyRQ1N3IxLVEvrsTPpA4Ss8VzIEyE5dB
+	ojBxCxy0S0d3t+iR85CS0lp3pkxhH9nV2SBPWnH229oJNa3z+RzLZ8C6XlyjJEdIt1YM9VmfVVR
+	qabYTuOZSgPpz/tMue5Nr6dJczL7yOdEYmGaUPnkkWz9hJ195uug8phIfKAqtcj8wjdi8mPso3f
+	Ehlxm8zjJF79UcZg1taqYV7cZXrEcUAF/FiS+LtCed3rW/POz9snNzkf9SGUXD/Bks03yEe+lts
+	=
+X-Received: by 2002:a05:6a00:9090:b0:853:50f2:9c03 with SMTP id
+ d2e1a72fcca58-85b5a546d3amr655244b3a.11.1788176146691; Mon, 31 Aug 2026
+ 04:35:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825181727.887465-1-yanjun.zhu@linux.dev>
+References: <20260825234545.2076049-1-jthies@google.com> <apVZVCzUEXp1Ahv2@black.igk.intel.com>
+In-Reply-To: <apVZVCzUEXp1Ahv2@black.igk.intel.com>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Mon, 31 Aug 2026 13:35:35 +0200
+X-Gm-Features: AcwNN1UG8a3e-ri9A1fYCTOuTDVKemg5UPzTBUYjlI4nabQw-8x155-qLxr9oOg
+Message-ID: <CAMMMRMdiAF1Kx9CAwZrWCiLGjrzVnoQ_Rm-m-UXSAF+fhS+y2A@mail.gmail.com>
+Subject: Re: [PATCH v1] usb: typec: ucsi: displayport: Fix OOB altmode array index
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Jameson Thies <jthies@google.com>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bleung@chromium.org, gregkh@linuxfoundation.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 25, 2026 at 08:17:27PM +0200, Zhu Yanjun wrote:
-> From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> 
-> free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
-> Updating max_dest_rd_atomic before freeing the old array can make the
-> free path walk past the old allocation and trigger a slab out-of-bounds
-> write catched by KASAN:
-> ==================================================================
-> BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
-> BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
-> BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
-> BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
-> Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
-> 
-> CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
-> Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> Call Trace:
->  <TASK>
->  __dump_stack lib/dump_stack.c:94 [inline]
->  dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
->  print_address_description mm/kasan/report.c:378 [inline]
->  print_report+0xf7/0x600 mm/kasan/report.c:482
->  kasan_report+0xe4/0x120 mm/kasan/report.c:595
->  free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
->  free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
->  free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
->  rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
->  rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
->  ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
->  _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
->  modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
->  ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
->  ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
->  vfs_write+0x2aa/0x1070 fs/read_write.c:686
->  ksys_write+0x1f8/0x250 fs/read_write.c:740
->  do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
->  do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x7fefc75a70cd
-> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-> RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
-> RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
-> RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-> R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
->  </TASK>
-> 
-> Allocated by task 11063:
->  kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
->  kasan_save_track+0x14/0x30 mm/kasan/common.c:78
->  poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
->  __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
->  kasan_kmalloc include/linux/kasan.h:263 [inline]
->  __do_kmalloc_node mm/slub.c:5296 [inline]
->  __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
->  kmalloc_noprof include/linux/slab.h:954 [inline]
->  kzalloc_noprof include/linux/slab.h:1188 [inline]
->  alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
->  rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
->  rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
->  ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
->  _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
->  modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
->  ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
->  ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
->  vfs_write+0x2aa/0x1070 fs/read_write.c:686
->  ksys_write+0x1f8/0x250 fs/read_write.c:740
->  do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
->  do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> The buggy address belongs to the object at ffff88802b8ddd80
->  which belongs to the cache kmalloc-64 of size 64
-> The buggy address is located 0 bytes to the right of
->  allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
-> 
-> The buggy address belongs to the physical page:
-> page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
-> flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-> page_type: f5(slab)
-> raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
-> raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
-> page dumped because: kasan: bad access detected
-> page_owner tracks the page as allocated
-> page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
->  set_page_owner include/linux/page_owner.h:32 [inline]
->  post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
->  prep_new_page mm/page_alloc.c:1861 [inline]
->  get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
->  __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
->  alloc_slab_page mm/slub.c:3278 [inline]
->  allocate_slab mm/slub.c:3467 [inline]
->  new_slab+0xa6/0x670 mm/slub.c:3525
->  refill_objects+0x278/0x420 mm/slub.c:7272
->  refill_sheaf mm/slub.c:2816 [inline]
->  __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
->  alloc_from_pcs mm/slub.c:4750 [inline]
->  slab_alloc_node mm/slub.c:4884 [inline]
->  __do_kmalloc_node mm/slub.c:5295 [inline]
->  __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
->  kmalloc_noprof include/linux/slab.h:954 [inline]
->  kzalloc_noprof include/linux/slab.h:1188 [inline]
->  tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
->  tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
->  tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
->  tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
->  tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
->  tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
->  security_file_open+0x7a/0x1b0 security/security.c:2739
->  do_dentry_open+0x57e/0x1690 fs/open.c:924
->  vfs_open+0x82/0x3f0 fs/open.c:1079
->  do_open fs/namei.c:4699 [inline]
->  path_openat+0x218a/0x3190 fs/namei.c:4858
-> page last free pid 1 tgid 1 stack trace:
->  reset_page_owner include/linux/page_owner.h:25 [inline]
->  __free_pages_prepare mm/page_alloc.c:1397 [inline]
->  __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
->  selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
->  inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
->  selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
->  security_d_instantiate+0x123/0x190 security/security.c:3704
->  d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
->  kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
->  lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
->  open_last_lookups fs/namei.c:4611 [inline]
->  path_openat+0x17dd/0x3190 fs/namei.c:4855
->  do_file_open+0x20c/0x430 fs/namei.c:4887
->  do_sys_openat2+0x101/0x1d0 fs/open.c:1364
->  do_sys_open fs/open.c:1370 [inline]
->  __do_sys_openat fs/open.c:1386 [inline]
->  __se_sys_openat fs/open.c:1381 [inline]
->  __x64_sys_openat+0x141/0x200 fs/open.c:1381
->  do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
->  do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> Memory state around the buggy address:
->  ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
->  ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-> >ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
->                                         ^
->  ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
->  ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
-> 
-> Fix the OOB by moving the assignment after free_rd_atomic_resources()
-> so the old array is freed using the old bound. This matches the original
-> ordering in commit 8700e3e7c485 ("Soft RoCE driver").
-> 
-> Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
-> Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> (cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
+On Mon, Aug 31, 2026 at 12:37=E2=80=AFPM Heikki Krogerus
+<heikki.krogerus@linux.intel.com> wrote:
+>
+> On Tue, Aug 25, 2026 at 11:45:45PM +0000, Jameson Thies wrote:
+> > The UCSI displayport driver indexes the connector's port altmode array
+> > with the GET_CURRENT_CAM response after checking it is not 0xff. The
+> > port altmode array is UCSI_MAX_ALTMODES elements long. If the PPM
+> > returns an invalid GET_CURRENT_CAM response above UCSI_MAX_ALTMODES and
+> > not equal to 0xff, the kernel may crash with an array index OOB error.
+> >
+> > Update the UCSI displayport driver to verify the current cam is less
+> > than UCSI_MAX_ALTMODES before accessing the port altmode array.
+> >
+> > Fixes: af8622f6a585 ("usb: typec: ucsi: Support for DisplayPort alt mod=
+e")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jameson Thies <jthies@google.com>
+> > ---
+> >  drivers/usb/typec/ucsi/displayport.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/u=
+csi/displayport.c
+> > index 7067f2561b84..8d2032d0762c 100644
+> > --- a/drivers/usb/typec/ucsi/displayport.c
+> > +++ b/drivers/usb/typec/ucsi/displayport.c
+> > @@ -74,7 +74,7 @@ static int ucsi_displayport_enter(struct typec_altmod=
+e *alt, u32 *vdo)
+> >               cur =3D 0xff;
+>
+> Can you remove the above line while at it?
+>
+> >       }
+> >
+> > -     if (cur !=3D 0xff) {
+> > +     if (cur < UCSI_MAX_ALTMODES) {
+>
+> Shouldn't that be the other way around?
+>
 
-Ok, that's the upstream commit, but:
+Looks fine, but shouldn't we return an error if an invalid value is
+received, similar to the Thunderbolt implementation?
 
-> [This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
+        if (cur !=3D 0xff) {
+                if (cur >=3D UCSI_MAX_ALTMODES ||
+dp->con->port_altmode[cur] !=3D alt)
+                        ret =3D -EBUSY;
+                else
+                        ret =3D 0;
+                goto err_unlock;
 
-What does that mean here?
-
-Why isn't the original backported properly instead?
-
-thanks,
-
-greg k-h
+Thanks,
+Andrei
