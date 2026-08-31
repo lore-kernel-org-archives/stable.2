@@ -1,30 +1,30 @@
 Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E834F27E1DC;
-	Mon, 31 Aug 2026 07:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D7D27E1DC;
+	Mon, 31 Aug 2026 07:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788162916; cv=none; b=mVG6LNEBeuAe3WnGGColk4Haxpi/hqUvCdsvMgCXjkfjTLWHiTzSrXnwRI8pBpmhz1udKf/QP+nh2Iqf1vmPC8cfCCj46d7WSdrAh3mVR+KnVfGFG8Ew0hlkU3mw89Ae8KeTLqn+XT1GnN3rL0Bfgeedai7d+eJW8KyeIIeBBU8=
+	t=1788163040; cv=none; b=aBHQLtccpzdb97tRvVNZ3pGp72t4WcKyXf42owAWwOWJFS2AKKNoSS5TG0s+GEVToEcjFIFLfsf6MxStCqgAU/jpofhoW3oRAIZ6Vzf/5j0SxfLP/VHcnCXcZP13Pa2/9+hMaq2FkIeNxAUI8uVmulRWuoah8xdk8vpO+FUjuWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788162916; c=relaxed/simple;
-	bh=3BWAK6Evoz16e0emRVdrO0Y1UlyWZz0rq4ElYHd/Bz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A06mm1sdwRr6S7I8CyJbtt7UCGoDdC3bX9lRTIJq0zvHni4jR2mvdguO4vW6orgt8m7+E8zc709QskXl3iKibVsJiK7p5umwNg0fKsRXQrE+YAHMr1h6UgXcFMXSbPtdSMvwqNrEZMSZgnXS46CNaagEKovQVJWoJ6UWNuqrJ9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=q6rJEfgB; arc=none smtp.client-ip=95.143.211.150
+	s=arc-20240116; t=1788163040; c=relaxed/simple;
+	bh=kbOF8Xis1+b3XyY1U0EPpoTHxr+rl9dG1JOmrg5VWT8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fUJxWz2eh7f8D9FpPdbtPxIe9XTVaCy3O/f6tCPkw/aMODhpONZHlLYl+p/w19Ww9ezGnyWzD72o/TPgid2dgbNykGb5eg1ek/ObxXytzv/AGbP9SLfMGFKQjLgPhADu3rB0fzW2fmiCQfzD4r8vpJJGhmaCwOtxv6tQzhtJ0bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=JI1zsoy9; arc=none smtp.client-ip=95.143.211.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="q6rJEfgB"
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="JI1zsoy9"
 From: Denis Arefev <arefev@swemel.ru>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1788162901;
+	t=1788163034;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=DjjLFNmX/3fOBgo42kROds31DvH6tjSBbxlxYWmoLIE=;
-	b=q6rJEfgBeeA6xeLCF/qVZgA5U12XkuvnhtnztSSKW7oik9esBxQL5eODGlRr/AbXMhNFCT
-	HUBMUsUXugJSGgv/b849kFq/NU0+kuZC1AoT1inHP8OVNQH8DIg96226thoaKfFiHP0Rg8
-	aN3r32ulJU/kMzK6Ist7GAuRwwoejEU=
+	bh=Xcfx++QT4NbKdTFPwcuiqKtrJuKRl9bSwmn5aqpMsu4=;
+	b=JI1zsoy94682tqy5LLnIsCiRyKhBnAEVE0MOBBzgAu9EgvA8U+ZwZcL9mx7cDLLVJLa2Oy
+	51IRllwWyg/u+eVe8Gp57qef/0vyoYXvFKjTeNPmGAc0vA6462a/mnHw/aREQ9op5/beK8
+	PWRJcDlrOk+6QLLaT72w2mEFHv05yVQ=
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -37,9 +37,9 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	linux-kernel@vger.kernel.org,
 	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
 	Ido Schimmel <idosch@nvidia.com>
-Subject: [PATCH 5.10/5.15] ipv4: igmp: Fix potential UAF in igmp_gq_start_timer()
-Date: Mon, 31 Aug 2026 10:55:00 +0300
-Message-ID: <20260831075501.23006-1-arefev@swemel.ru>
+Subject: [PATCH 6.1] ipv4: igmp: Fix potential UAF in igmp_gq_start_timer()
+Date: Mon, 31 Aug 2026 10:57:12 +0300
+Message-ID: <20260831075714.23091-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,7 +84,7 @@ Signed-off-by: Eric Dumazet <edumazet@google.com>
 Reviewed-by: Ido Schimmel <idosch@nvidia.com>
 Link: https://patch.msgid.link/20260705181756.963063-2-edumazet@google.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[Denis Arefev: adapted for 5.10/5.15: keep prandom_u32(),
+[Denis Arefev: adapted for 6.1: keep prandom_u32_max(),
 get_random_u32_below() not used here]
 Signed-off-by: Denis Arefev <arefev@swemel.ru>
 ---
@@ -96,10 +96,10 @@ Link: https://nvd.nist.gov/vuln/detail/CVE-2026-72323
  2 files changed, 14 insertions(+), 5 deletions(-)
 
 diff --git a/include/linux/inetdevice.h b/include/linux/inetdevice.h
-index 3088d94684c1..6174930ae654 100644
+index ddb27fc0ee8c..c846c5e4be00 100644
 --- a/include/linux/inetdevice.h
 +++ b/include/linux/inetdevice.h
-@@ -277,6 +277,11 @@ static inline void in_dev_put(struct in_device *idev)
+@@ -282,6 +282,11 @@ static inline void in_dev_put(struct in_device *idev)
  #define __in_dev_put(idev)  refcount_dec(&(idev)->refcnt)
  #define in_dev_hold(idev)   refcount_inc(&(idev)->refcnt)
  
@@ -112,7 +112,7 @@ index 3088d94684c1..6174930ae654 100644
  
  static __inline__ __be32 inet_make_mask(int logmask)
 diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-index d2ea0d8e7a2f..5d87e912e1f2 100644
+index fd12b256e05d..ede991885b1f 100644
 --- a/net/ipv4/igmp.c
 +++ b/net/ipv4/igmp.c
 @@ -232,16 +232,20 @@ static void igmp_gq_start_timer(struct in_device *in_dev)
@@ -129,9 +129,9 @@ index d2ea0d8e7a2f..5d87e912e1f2 100644
  
  static void igmp_ifc_start_timer(struct in_device *in_dev, int delay)
  {
--	int tv = prandom_u32() % delay;
+-	int tv = prandom_u32_max(delay);
 +	if (in_dev_hold_safe(in_dev)) {
-+		int tv = prandom_u32() % delay;
++		int tv = prandom_u32_max(delay);
  
 -	if (!mod_timer(&in_dev->mr_ifc_timer, jiffies+tv+2))
 -		in_dev_hold(in_dev);
