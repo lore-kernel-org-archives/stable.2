@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A2E36B93B
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 16:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF70E36F917
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 16:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788194559; cv=none; b=FzWc/yZWQIAXY04FJhji6z+oWyrs918czwu04ynGMRifppDk2gDJgfGCK/7oLwhH3Jh/qJsTZvUSP8Dn7PnzNkwpjY8ftFBy7URfaHK245oddh8DbPG+iMFnvZZPEPd9elWVRUyaIJ4LstksW7VG/YJpxxKQIpSW/IRuePIR3H4=
+	t=1788194567; cv=none; b=XsedEdh9xGeIdnAuM1RWqhHXfoYHfsvJCwROgY3XJ1Ly5FQIqb85Dw/A6zosQ3+QakyS7OjiosbayMgzSXTy5SHylD0QuasT7vKik3ImS1EjitZKY3Wzota2OFTRZ4Rtt1dcC6uJEDCntd/SXWdcgnLACgk8JnuY0Yn2YMoCEZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788194559; c=relaxed/simple;
-	bh=6WOlm8OsLfGwDK5bh1FMwvRz+Ma8FdcYnNlpQc+pLac=;
+	s=arc-20240116; t=1788194567; c=relaxed/simple;
+	bh=Z/Hax0purXBnhY0/Sx6yym1mU9ul3AourHLxNt1sw7w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bu9xai1PaFpqMWR4vZjL5dciXzP7F6UTPDpBaTmMrMHUZbrNrKKVBahJ3vDf/+VjVyjJBo+SVg4rcUyX0JNt/BfXLdpzg5m3WnUF40JBqNPdSzGOX9TLXvwlnFglFKJHZ5NIf0AVmW9uudNJIoDqoaj3dQkDjdur95m1S2dc8zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYZv35nA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sdJJ68Tat9yGibklwC7gHpaaFPh9bsS0bkSKBs5DVU5VZj5jH2VQwZ2v8Kxe06CCWB5MghPYX/CNtwivJOg2nU3svod4wH1jbo8NnZZJtM9/Omz2nsfmH719MzO+shz4rPjIbjwhOcop7zTKWOUl8KU/RMdhG0IAfVZDQoqg5cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+l5x0Yv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYZv35nA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71BED1F00A3E;
-	Mon, 31 Aug 2026 16:42:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+l5x0Yv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4113C1F000E9;
+	Mon, 31 Aug 2026 16:42:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788194558;
-	bh=DZdZmUDadWTvWRxsdPghLt45GwWahNScFZu1PpwuF14=;
+	s=k20260515; t=1788194565;
+	bh=MVGcNLApYBcYaD3rfWkIkr/9qxzBC/GUODc/r5cUC2M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oYZv35nAq2gNjgsPKF36hNzc4UVZC/mc0csQzyquca9pKjxAOzl8VrqoIC/z3tKkF
-	 Lkgw1oanPOuSLovTL3sMqRRUASxQdRigv8Sb2++jj5zbUf4IhGjJwbuWH1/jFEayty
-	 ggMrFMbGHZ6SYIiZ3x9vg31LdBX/Ry9O54BGtv8xSslg7/Jvq/3YFN/b9gd0PMeK5J
-	 0eHCe3vYYhIS7FlcViIOvMJI2x0VNe97V+lxjt+OiZQxVV2AO+eyEt7hJhtAOx0Cq/
-	 5lDgBT0DclUaadOl+JSO1944DIvdL9gE2EaUR1xvmjE2ZWmnGngASxSy7ZIeJ3PRmk
-	 3CEYJ/IjOmDMQ==
+	b=a+l5x0YvKYhYT7fpdJ+xaWhcmGl7YNaGi2Jpe13w9Vo8OJXJNrfZgRkbLT/FKdyAI
+	 VDJdBRvtVuW+enA0kVvCfJooieAsnBHH6DBiAfvYb1j19cTle9wvxnHembAgb8JmYb
+	 SsGFm921mOzhXS5jM/LMwA4LNap3p64W6p6UYFwHXUwyzz8VoZvkPWs1RgnZdOqIds
+	 PiV5q4iyO00wvKe8Jk3yuJh5ZJNotNXfL/JvvO8Gp+6lAx7RdS5V48o607YmAMv4JV
+	 ZvX+MqBSDBLWKU3LM4NBqxwwO+Z8tSvBBSTuVJjOUlmzaNiucdgNgwe+9lcVon6nNy
+	 WrLZTWyuNGK8w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
+Cc: Jiri Slaby <jslaby@suse.cz>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] usb: xhci: bail out of setup if the controller is inaccessible
-Date: Mon, 31 Aug 2026 12:42:33 -0400
-Message-ID: <20260831164233.269066-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/5] tty: make tty_set_operations an inline
+Date: Mon, 31 Aug 2026 12:42:39 -0400
+Message-ID: <20260831164243.269282-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831164233.269066-1-sashal@kernel.org>
-References: <2026083120-autism-gerbil-efbb@gregkh>
- <20260831164233.269066-1-sashal@kernel.org>
+In-Reply-To: <2026083142-everyday-fifteen-2ae3@gregkh>
+References: <2026083142-everyday-fifteen-2ae3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,97 +45,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Jiri Slaby <jslaby@suse.cz>
 
-[ Upstream commit 78203d5b54a40f0e36196ebf31c9c7a380fc8811 ]
+[ Upstream commit cb9ea618ee60313d9278b2ba75f56da2531c8cac ]
 
-xhci_gen_setup() locates the operational registers using the capability
-length read from the very first register:
+Since commit f34d7a5b7010 (tty: The big operations rework) in 2008,
+tty_set_operations() is a simple one-line assignment. There is no reason
+for this to be an exported function, hence move it to a header and make
+an inline from that.
 
-	xhci->op_regs = hcd->regs +
-		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
-
-If the controller is dead or has dropped off the bus, that read returns
-~0, HC_LENGTH() truncates it to 0xff, and op_regs ends up 0xff bytes
-past the page-aligned MMIO base, i.e. unaligned. The first access
-through it, xhci_halt() -> xhci_handshake() reading op_regs->status, is
-then an unaligned readl() on device memory. arm64 faults on unaligned
-device accesses, so instead of xhci_handshake() catching the all-ones
-value and returning -ENODEV, setup oopses:
-
-  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
-  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
-  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
-  Unable to handle kernel paging request at virtual address ffff80030a770103
-    ESR = 0x0000000096000021
-    FSC = 0x21: alignment fault
-  Internal error: Oops: 0000000096000021 [#1]  SMP
-  pc : xhci_halt [xhci_hcd]
-  Call trace:
-   xhci_halt
-   xhci_gen_setup
-   xhci_pci_setup
-   usb_add_hcd
-   usb_hcd_pci_probe
-   xhci_pci_common_probe
-   xhci_pci_renesas_probe
-
-This was hit with a Renesas uPD720201 that failed to power up ("Unable
-to change power state from D3cold to D0, device inaccessible") yet still
-reached the HCD probe path.
-
-Read the capability register once, and if it reads back the all-ones
-value (as xhci_handshake() and xhci_reset() already test for), abort
-setup with -ENODEV before op_regs is derived from it. Reading it once
-also avoids re-reading a register that may change under a concurrent
-hot-removal.
-
-Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20260806142113.2436238-11-mathias.nyman@linux.intel.com
+Signed-off-by: Jiri Slaby <jslaby@suse.cz>
+Link: https://lore.kernel.org/r/20210723074317.32690-7-jslaby@suse.cz
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: a916fa66a43e ("xhci: dbgtty: Fix unregister on tty_register_driver() failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/tty/tty_io.c       | 7 -------
+ include/linux/tty_driver.h | 8 ++++++--
+ 2 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 1c414b89b099c..ac80a0e363ee6 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -5225,6 +5225,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	struct device		*dev = hcd->self.sysdev;
- 	int			retval;
- 	u32			hcs_params1;
-+	u32			hc_capbase;
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 984e3098e6317..e3ac7d084528f 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -3393,13 +3393,6 @@ void tty_driver_kref_put(struct tty_driver *driver)
+ }
+ EXPORT_SYMBOL(tty_driver_kref_put);
  
- 	/* Accept arbitrarily long scatter-gather lists */
- 	hcd->self.sg_tablesize = ~0;
-@@ -5245,15 +5246,19 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	mutex_init(&xhci->mutex);
- 	xhci->main_hcd = hcd;
- 	xhci->cap_regs = hcd->regs;
--	xhci->op_regs = hcd->regs +
--		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
-+	hc_capbase = readl(&xhci->cap_regs->hc_capbase);
-+	if (hc_capbase == U32_MAX) {
-+		xhci_warn(xhci, "Host controller not accessible, removed?\n");
-+		return -ENODEV;
-+	}
-+	xhci->op_regs = hcd->regs + HC_LENGTH(hc_capbase);
- 	xhci->run_regs = hcd->regs +
- 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
- 	/* Cache read-only capability registers */
- 	hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
- 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
- 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
--	xhci->hci_version = HC_VERSION(readl(&xhci->cap_regs->hc_capbase));
-+	xhci->hci_version = HC_VERSION(hc_capbase);
- 	xhci->hcc_params = readl(&xhci->cap_regs->hcc_params);
- 	if (xhci->hci_version > 0x100)
- 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
+-void tty_set_operations(struct tty_driver *driver,
+-			const struct tty_operations *op)
+-{
+-	driver->ops = op;
+-};
+-EXPORT_SYMBOL(tty_set_operations);
+-
+ void put_tty_driver(struct tty_driver *d)
+ {
+ 	tty_driver_kref_put(d);
+diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
+index 2f719b471d524..05c1013aae94b 100644
+--- a/include/linux/tty_driver.h
++++ b/include/linux/tty_driver.h
+@@ -329,8 +329,6 @@ extern struct list_head tty_drivers;
+ extern struct tty_driver *__tty_alloc_driver(unsigned int lines,
+ 		struct module *owner, unsigned long flags);
+ extern void put_tty_driver(struct tty_driver *driver);
+-extern void tty_set_operations(struct tty_driver *driver,
+-			const struct tty_operations *op);
+ extern struct tty_driver *tty_find_polling_driver(char *name, int *line);
+ 
+ extern void tty_driver_kref_put(struct tty_driver *driver);
+@@ -357,6 +355,12 @@ static inline struct tty_driver *tty_driver_kref_get(struct tty_driver *d)
+ 	return d;
+ }
+ 
++static inline void tty_set_operations(struct tty_driver *driver,
++		const struct tty_operations *op)
++{
++	driver->ops = op;
++}
++
+ /* tty driver magic number */
+ #define TTY_DRIVER_MAGIC		0x5402
+ 
 -- 
 2.53.0
 
