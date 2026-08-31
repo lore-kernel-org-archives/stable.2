@@ -1,39 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E66435514;
-	Mon, 31 Aug 2026 13:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24B4474258;
+	Mon, 31 Aug 2026 13:53:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184424; cv=none; b=stfAp8KmeJyHxt62H9xsrCbj9t3thEz31ACqPXmI1WWoN2HGGaH7DID+oCsKiH9tkKg9uQBbpC5fbJP/j/gbRDYTwm+Svl5mEArMFwu1txdeV2+8GhT218sqGuPRiFju9Y5BJdok3ekdlu/Fm3GZhhNU0QDsuEsWAWl4LM+LtK0=
+	t=1788184441; cv=none; b=hy56+P0+K+oodHpqsmGVYnMYLZH4b7Sp/o6HZidIk4i/YB7IQVpfzLIrFzsd9wWYCDyrLtqKO3enk1W03oTp5QJDHZL480/S9zEdG66PlM8e01jtRBTgZ7dw4ZFg8pS+V5sP+g1XusxE58OqasCE++HdBvIibQgma+3avG1NOKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184424; c=relaxed/simple;
-	bh=WixoY4aSza0eR+3/VSUQdFKgXtgDGE317uBoo/VNbBs=;
+	s=arc-20240116; t=1788184441; c=relaxed/simple;
+	bh=4Cl9Xy988uRbl7xNAnlOYdFZfPdM1uv0oFMnbu7qJiQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=laziPYldq/CLtg+HRtn2AAdZkY9Fqfa3eS4QUUdb56AMHnn5FKGeOrk+F1fR1hT48y932Ikgn/NfRBSVr/6KVDTRjWp95n3RgS8JFur6dAKfBxtzecDLqcLVvc7tlSM9OzvA1NhMYlGif1UUFkVtcZHaJ11iwOc4wHUi8Nt7W6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cQZRkczt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KP1cQxKKxhRcavS2ypITnN8kMGYrmTNjd+vKxNiJlJI0E5smxAVm+yIsFYGF2R6FO9Gpp5sjGmaJJuoYzY96i4WG+B0hSeGSg6o4oEcrYe3cOgi3E35hSV2gslvyxMc98wuADXEP1r/ZaQdX0x/jexM4JbBhorn1ik2Ek2SP2dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2MS01W5o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cQZRkczt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31FBB1F00A3D;
-	Mon, 31 Aug 2026 13:53:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2MS01W5o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D67F1F000E9;
+	Mon, 31 Aug 2026 13:53:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184422;
-	bh=VGpZRhAMNvm0F4e6QSWMBKB0Nu7HJEaIf1lsk2WOERQ=;
+	s=korg; t=1788184439;
+	bh=ZBIP80JbjT62Nia1ncwL1nhn/kIofNmVrHaOFlC6fic=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cQZRkcztTUaObakDbLbSLxfJTwTY5U+aNJ2v/2HRUOQ3HGIHw3iQfr4GrMmUEtQZY
-	 I3eAiX53YHHydJQz/IH/959TRFuUcDIZTYaORbqG8m/AusdLtiOSdVmBvGIT/qfJd0
-	 WYMaDHCLWkp3uln9lB+LRc/3zOehr/TlC3r6JZLw=
+	b=2MS01W5oHAPzEzafsHNau3I2OG823M6GFGvUU+S1IExs/Mu0zBhYZwwiDDXKyXvaC
+	 kubMsB2X0tcu0JXfMZ7TV7sb76I//H49AGsiEZ/GIfWEun/8Buh+3ZGsnLpxgjkD7F
+	 Hz4s7b1Rp22Np7+YpVB0skWnL3r/4remVRK67zT8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH 6.12 64/99] usb: gadget: f_tcm: keep port count until LUN teardown completes
-Date: Mon, 31 Aug 2026 15:34:33 +0200
-Message-ID: <20260831133403.193330535@linuxfoundation.org>
+	Peiyang He <peiyang_he@smail.nju.edu.cn>,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 01/91] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+Date: Mon, 31 Aug 2026 15:33:49 +0200
+Message-ID: <20260831133359.532551216@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
-References: <20260831133359.740409777@linuxfoundation.org>
+In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
+References: <20260831133359.468089036@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -45,84 +48,192 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
 
-commit c39d0916da47d94909391876c9e5bd429ea7b1b9 upstream.
+commit de329533792a373186d79dca1ca120f8fa0afd05 upstream.
 
-tcm_usbg_drop_nexus() permits session removal once tpg_port_count
-reaches zero. However, usbg_port_unlink() currently decrements that
-count from the fabric_pre_unlink() callback, before core_dev_del_lun()
-waits for active se_lun references to drain.
+free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
+Updating max_dest_rd_atomic before freeing the old array can make the
+free path walk past the old allocation and trigger a slab out-of-bounds
+write catched by KASAN:
+==================================================================
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
 
-If removal of the last LUN races a nexus removal, the latter can observe
-a zero port count and call target_remove_session(). This frees
-sess_cmd_map while an in-flight struct usbg_cmd, including its work item,
-can still be accessed.
+CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xf7/0x600 mm/kasan/report.c:482
+ kasan_report+0xe4/0x120 mm/kasan/report.c:595
+ free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+ free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+ rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fefc75a70cd
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
+RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
+RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
+ </TASK>
 
-Overlapping the last-LUN unlink with nexus removal reproduces this
-lifetime violation as a DEBUG_OBJECTS "free active" warning for
-usbg_cmd_work, followed by a target-core BUG/Oops.
+Allocated by task 11063:
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5296 [inline]
+ __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
+ rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
+ rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+ ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+ _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+ modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+ ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+ ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+ vfs_write+0x2aa/0x1070 fs/read_write.c:686
+ ksys_write+0x1f8/0x250 fs/read_write.c:740
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-The generic target-core unlink path has no callback after
-core_dev_del_lun() completes. Add an optional fabric_post_unlink()
-callback and use it for the f_tcm port count. The count now remains
-nonzero until core_dev_del_lun() has finished draining active LUN
-references, preventing nexus removal from freeing the session during
-command completion.
+The buggy address belongs to the object at ffff88802b8ddd80
+ which belongs to the cache kmalloc-64 of size 64
+The buggy address is located 0 bytes to the right of
+ allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
 
-Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
+flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
+ set_page_owner include/linux/page_owner.h:32 [inline]
+ post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
+ prep_new_page mm/page_alloc.c:1861 [inline]
+ get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
+ __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
+ alloc_slab_page mm/slub.c:3278 [inline]
+ allocate_slab mm/slub.c:3467 [inline]
+ new_slab+0xa6/0x670 mm/slub.c:3525
+ refill_objects+0x278/0x420 mm/slub.c:7272
+ refill_sheaf mm/slub.c:2816 [inline]
+ __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
+ alloc_from_pcs mm/slub.c:4750 [inline]
+ slab_alloc_node mm/slub.c:4884 [inline]
+ __do_kmalloc_node mm/slub.c:5295 [inline]
+ __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
+ kmalloc_noprof include/linux/slab.h:954 [inline]
+ kzalloc_noprof include/linux/slab.h:1188 [inline]
+ tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
+ tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
+ tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
+ tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+ security_file_open+0x7a/0x1b0 security/security.c:2739
+ do_dentry_open+0x57e/0x1690 fs/open.c:924
+ vfs_open+0x82/0x3f0 fs/open.c:1079
+ do_open fs/namei.c:4699 [inline]
+ path_openat+0x218a/0x3190 fs/namei.c:4858
+page last free pid 1 tgid 1 stack trace:
+ reset_page_owner include/linux/page_owner.h:25 [inline]
+ __free_pages_prepare mm/page_alloc.c:1397 [inline]
+ __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
+ selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
+ inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
+ selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
+ security_d_instantiate+0x123/0x190 security/security.c:3704
+ d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
+ kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
+ lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
+ open_last_lookups fs/namei.c:4611 [inline]
+ path_openat+0x17dd/0x3190 fs/namei.c:4855
+ do_file_open+0x20c/0x430 fs/namei.c:4887
+ do_sys_openat2+0x101/0x1d0 fs/open.c:1364
+ do_sys_open fs/open.c:1370 [inline]
+ __do_sys_openat fs/open.c:1386 [inline]
+ __se_sys_openat fs/open.c:1381 [inline]
+ __x64_sys_openat+0x141/0x200 fs/open.c:1381
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
+                                        ^
+ ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+
+Fix the OOB by moving the assignment after free_rd_atomic_resources()
+so the old array is freed using the old bound. This matches the original
+ordering in commit 8700e3e7c485 ("Soft RoCE driver").
+
+Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
+Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Link: https://patch.msgid.link/20260807060733.3186624-1-shuangpeng.kernel@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+(cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
+[This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
+Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/target/target_core_fabric_configfs.c |    8 ++++++++
- drivers/usb/gadget/function/f_tcm.c          |    2 +-
- include/target/target_core_fabric.h          |    2 ++
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/infiniband/sw/rxe/rxe_qp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
---- a/drivers/target/target_core_fabric_configfs.c
-+++ b/drivers/target/target_core_fabric_configfs.c
-@@ -690,6 +690,14 @@ static void target_fabric_port_unlink(
- 	}
+diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+index 8426c261c263a..1d6c8eb1f97d9 100644
+--- a/drivers/infiniband/sw/rxe/rxe_qp.c
++++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+@@ -664,10 +664,9 @@ int rxe_qp_from_attr(struct rxe_qp *qp, struct ib_qp_attr *attr, int mask,
+ 		int max_dest_rd_atomic = attr->max_dest_rd_atomic ?
+ 			roundup_pow_of_two(attr->max_dest_rd_atomic) : 0;
  
- 	core_dev_del_lun(se_tpg, lun);
-+
-+	if (tf->tf_ops->fabric_post_unlink) {
-+		/*
-+		 * Allow fabrics to release state that must remain valid until
-+		 * core_dev_del_lun() has drained all active LUN references.
-+		 */
-+		tf->tf_ops->fabric_post_unlink(se_tpg, lun);
-+	}
- }
+-		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+-
+ 		free_rd_atomic_resources(qp);
  
- static void target_fabric_port_release(struct config_item *item)
---- a/drivers/usb/gadget/function/f_tcm.c
-+++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -1678,7 +1678,7 @@ static const struct target_core_fabric_o
- 	.fabric_enable_tpg		= usbg_enable_tpg,
- 	.fabric_drop_tpg		= usbg_drop_tpg,
- 	.fabric_post_link		= usbg_port_link,
--	.fabric_pre_unlink		= usbg_port_unlink,
-+	.fabric_post_unlink		= usbg_port_unlink,
- 	.fabric_init_nodeacl		= usbg_init_nodeacl,
- 
- 	.tfc_wwn_attrs			= usbg_wwn_attrs,
---- a/include/target/target_core_fabric.h
-+++ b/include/target/target_core_fabric.h
-@@ -95,6 +95,8 @@ struct target_core_fabric_ops {
- 				struct se_lun *);
- 	void (*fabric_pre_unlink)(struct se_portal_group *,
- 				struct se_lun *);
-+	void (*fabric_post_unlink)(struct se_portal_group *se_tpg,
-+				   struct se_lun *lun);
- 	struct se_tpg_np *(*fabric_make_np)(struct se_portal_group *,
- 				struct config_group *, const char *);
- 	void (*fabric_drop_np)(struct se_tpg_np *);
++		qp->attr.max_dest_rd_atomic = max_dest_rd_atomic;
+ 		err = alloc_rd_atomic_resources(qp, max_dest_rd_atomic);
+ 		if (err)
+ 			return err;
+-- 
+2.53.0
+
 
 
