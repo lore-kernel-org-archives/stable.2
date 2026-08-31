@@ -1,106 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9998352E055;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E451E52E060;
 	Mon, 31 Aug 2026 13:44:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183890; cv=none; b=Qvj1mJN49YO7xAJNQuhz32WBTpNgOr1y990N9BYeLGecwx84lWTozAmG50hMDWuhZY6SbqdB/4C3DaEAQi9Sc525b47a/4wpHuIRWnd7cxobf8KgMF0BQSTrkD3eYccaZWvONg8kAcUQ+00ALJrCSPITT/A+AvaBGrkXPT2zi20=
+	t=1788183890; cv=none; b=IYQyLr9r6egLbgXzGknySRf2BobrHPczU6aVBaTs2mD7MEW3wan/vnog9ji+9D39/k6PlwT2/1DKMvZ62tt/1t1FYKYeQTKy39+GUJ5aK2XBZwBuerxKiQu8wIBAv5jsOFpaFiXx/PzymJehIgXnpIqqv+jGZkCy1mXwF9m2HBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788183890; c=relaxed/simple;
-	bh=DbQFXFAIlpYKtYjrAzEPNukv2yIRqLCvEUOVF0qDQXw=;
+	bh=ntv7cv85TVWDYXBdIzAM54B+na37kjHdh7HCBieWqTU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I6XAYmoyZxV/SrDsT0PmzIivhssYj/OjTtV4oxG331gvJX1w2x3KLfTD8pLa4qjNyn7xkFYBsGBB7E/Q/Eck1hGGsfBuOEPJVJxw20oGZuFTx66coEe3zx0pr3AY6LoU7Bi9xbJAkU4dbPe3JnEhksxMMWL7P0j+xFPqFMNNSQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xNyiKgib; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=r2hyqF5Q89BvRkmOkZ9ydT2d8n5TuDBRxopHfZvyAqFavLrM5SPAiIvRImmhOj7yepUl1A6EstLp8fuDkHU7vSfVwlF7mbT45vE3j2hgAFkE9I59yLkUwOEciqfGzINVk+1A1C/w4ibgd+w8164VEN0vPYQ6/BD5IaJkKlzxolU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jy9v83Tz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xNyiKgib"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 683D31F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jy9v83Tz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930961F00ACA;
 	Mon, 31 Aug 2026 13:44:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788183888;
-	bh=r18u8tw9lybLkAczU2oe03cvpenlorLHnLh8S3KVuyE=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788183888;
+	bh=NCWZk6dZ1ueJ1e40gID5CgJryX+YizT3Gr0eJprDoaA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xNyiKgib923XT5qLJF6jjV2z/hzdGVk0piKhT/qG5RxAyt3uL4Gt3oNjfOYvxzE8D
-	 qXcECd729E0mmNXEyEgMPS4EBt+YsF0/H2hjmKZAcrzH0aRlgZM3y731y6p50E41lh
-	 f1DQaaDJDQp0LgwtMhNZs6zPwW8CWzk2yT/lQLz4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Marouane El Moufid <eun0us@espilon.net>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 7.1 70/76] ALSA: usb-audio: fix OOB write in snd_usbmidi_novation_output()
-Date: Mon, 31 Aug 2026 15:34:42 +0200
-Message-ID: <20260831133403.036816842@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133359.185608553@linuxfoundation.org>
-References: <20260831133359.185608553@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	b=Jy9v83Tz0MW54PhWC7rnE0qNW0UKPhBt/jxKV/t51bu/oRuHb3ldAfzhCgFwwjZKP
+	 JqOFh4RyvM/PnoUQ6LiAvCjsTCapoUhu3fdCO13x3T3kRwZKQwa+EtfzFwcQgD18Jc
+	 fQ22EpietQOjpOKJRZJN82JOOcN+0/O4R/7CPVg8c5dLcM0VfmspidWRU3xbi2bTf3
+	 Km81RTob0+xsK+ICDM8nwdnJ/2hJccEdpKEfcgWnG7wd4pYUyfgZp4YYOX7ZZ96Bn7
+	 3+OxgE+mccCrw5DJGxK8gj0Fm9CPkhl9+nKX6cL+b+pi4pEd0DXMruO5/IlYCe537i
+	 QHlZhLr5Om/ww==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Sascha Bischoff <sascha.bischoff@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	lpieralisi@kernel.org,
+	tglx@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] irqchip/gic-v5: Immediately exec priority drop following activate
+Date: Mon, 31 Aug 2026 09:26:31 -0400
+Message-ID: <20260831133314.4125787-363-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
+References: <20260831133314.4125787-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.48
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Sascha Bischoff <sascha.bischoff@arm.com>
 
-------------------
+[ Upstream commit abf60331ebe9a9a7937a72aac7699c2907ab9307 ]
 
-From: Marouane El Moufid <eun0us@espilon.net>
+With GICv5 an interrupt of equal or lower priority cannot be signalled
+until there has been a priority drop. This is done via the GIC CDEOI
+system instruction. Once this has been executed, the hardware is able
+to signal the next interrupt if there is one.
 
-commit 1035a8f63bae28e498b0e7b5ac91d749844a7158 upstream.
+As all interrupts are programmed to have the same priority, no new
+interrupts can be signalled until the priority drop has happened. This
+can cause issues when, for example, an interrupt remains active while
+a long running process takes place, such as when injecting a physical
+interrupt into a guest VM in software.
 
-snd_usbmidi_novation_output() lays out a two-byte header at
-transfer_buffer[0..1] and passes &transfer_buffer[2] together with a
-length of ep->max_transfer - 2 to snd_rawmidi_transmit():
+The GICv5 driver has so far done the priority drop as part of
+irq_eoi(), i.e., at the same time as deactivating the interrupt. This
+means that any long running process (or VM) could block incoming
+interrupts, effectively causing a denial of service for all other
+interrupts.
 
-	count = snd_rawmidi_transmit(ep->ports[0].substream,
-				     &transfer_buffer[2],
-				     ep->max_transfer - 2);
+Rather than doing the EOI as part of irq_eoi() (which the name would
+suggest would be a good place for it), move it to happen immediately
+after acknowledging an interrupt in the main GICv5 interrupt
+handler. The deactivation of interrupts (GIC CDDI) remains implemented
+as part of irq_eoi(), which means that the same interrupt cannot be
+signalled a second time until deactivated by software.
 
-ep->max_transfer comes from the output endpoint's wMaxPacketSize via
-usb_maxpacket(). A malformed or malicious device can advertise a bulk
-OUT endpoint with a wMaxPacketSize of 1 - the USB core only clamps this
-value downwards - so ep->max_transfer becomes 1 and the count argument
-becomes -1.
-
-snd_rawmidi_transmit() passes the negative count on to
-__snd_rawmidi_transmit_peek(), where "if (count1 > count) count1 = count"
-leaves count1 negative; get_aligned_size() keeps it negative for a
-byte-stream substream, so the following memcpy(buffer, ..., count1) runs
-with a (size_t)-1 length and writes far past the transfer buffer, which
-was allocated with usb_alloc_coherent(ep->max_transfer).
-
-This is the same class of bug that was fixed for snd_usbmidi_akai_output()
-in commit 0970274613fb ("ALSA: usb-audio: fix OOB write in
-snd_usbmidi_akai_output()"); the novation output routine was left
-unguarded. Bail out when the endpoint cannot hold the two-byte header
-plus at least one payload byte.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marouane El Moufid <eun0us@espilon.net>
-Link: https://patch.msgid.link/178749334830.543645.13722252148340572274@espilon.net
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+Link: https://lore.kernel.org/r/20260520091949.542365-18-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/midi.c |    2 ++
- 1 file changed, 2 insertions(+)
 
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -875,6 +875,8 @@ static void snd_usbmidi_novation_output(
+LLM Generated explanations, may be completely bogus:
+
+The follow-up git searches finished and match the earlier analysis:
+
+- No commit on `stable/linux-6.18.y` or `HEAD` backports this GICv5
+  priority-drop fix.
+- `git log --grep="priority drop"` only turned up unrelated older GICv3
+  commits, not `abf60331ebe9a`.
+- `git log --grep="stable" -- drivers/irqchip/irq-gic-v5.c` shows no
+  stable nomination for this change.
+
+So the fix is still missing from `v6.18.44`, and the backport
+recommendation stays **YES**.
+
+ drivers/irqchip/irq-gic-v5.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/irqchip/irq-gic-v5.c b/drivers/irqchip/irq-gic-v5.c
+index fa86dd03e307c..f5341522658ba 100644
+--- a/drivers/irqchip/irq-gic-v5.c
++++ b/drivers/irqchip/irq-gic-v5.c
+@@ -207,17 +207,13 @@ static void gicv5_hwirq_eoi(u32 hwirq_id, u8 hwirq_type)
+ 	       FIELD_PREP(GICV5_GIC_CDDI_TYPE_MASK, hwirq_type);
  
- 	if (!ep->ports[0].active)
+ 	gic_insn(cddi, CDDI);
+-
+-	gic_insn(0, CDEOI);
+ }
+ 
+ static void gicv5_ppi_irq_eoi(struct irq_data *d)
+ {
+ 	/* Skip deactivate for forwarded PPI interrupts */
+-	if (irqd_is_forwarded_to_vcpu(d)) {
+-		gic_insn(0, CDEOI);
++	if (irqd_is_forwarded_to_vcpu(d))
  		return;
-+	if (ep->max_transfer < 3)
-+		return;
- 	transfer_buffer = urb->transfer_buffer;
- 	count = snd_rawmidi_transmit(ep->ports[0].substream,
- 				     &transfer_buffer[2],
-
+-	}
+ 
+ 	gicv5_hwirq_eoi(d->hwirq, GICV5_HWIRQ_TYPE_PPI);
+ }
+@@ -914,6 +910,13 @@ static void __exception_irq_entry gicv5_handle_irq(struct pt_regs *regs)
+ 	 */
+ 	isb();
+ 
++	/*
++	 * Ensure that we can receive the next interrupts in the event that we
++	 * have a long running handler or directly enter a guest by doing the
++	 * priority drop immediately.
++	 */
++	gic_insn(0, CDEOI);
++
+ 	hwirq = FIELD_GET(GICV5_HWIRQ_INTID, ia);
+ 
+ 	handle_irq_per_domain(hwirq);
+-- 
+2.53.0
 
