@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0B043E087;
-	Mon, 31 Aug 2026 13:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F745417BE9;
+	Mon, 31 Aug 2026 13:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184695; cv=none; b=gg65+83NFWkKbGFi0DzqFGZaDn/uxz8Eg1JST+qREaqdUtX0syMh7isjjy4zlDNlRtXHRdWJftxw2bLme2ayStFz2qqu7P/WmOUwi1FzWwzRmtR1LZgXbQ80VmMKeT/8GDV3rT03yRo2sQGZDSFMBFqxl1nevACP4cW3yZra0Ag=
+	t=1788184712; cv=none; b=eXUczSX/jCMiXqf8gxWQCBv6d9oXARaRHF68xmjO3LRqwdzUToXEnZcuTZPxvtwvATynYb5wEKWckI76G6ZOBpq9sP4UXqqTl7VEwAs0iV/qqOkzxeAV8IEnkC7Udf1ZaLqr1Vwu42GB21rMnbylCSv/ECCwRYNz5iUdECkDC+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184695; c=relaxed/simple;
-	bh=XO8X99ZDPqKQogTh5yud8vW74tKkOZe7S7GNY+NzglI=;
+	s=arc-20240116; t=1788184712; c=relaxed/simple;
+	bh=xqMs2of7Z8heKqSgTZm0zmcsoZzNcpAc5fJW6ioI59Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d4sX3lQ41QzXBShhW90uzeNjqrj9gY5vx6UzXmhRXqZ1pSGyQ72enyuGCelcHx98fQEVIsKSz1XEcdZGCR7n7uJOFGbgxbALLEcD7Dsz98H8y7ByTDROeGRLbb1UtZoDKa4Rwg/stY+aBwW1QeA4Htmlgpg3umIfgixRHSkPgbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WItjIIgZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BCcj3v5y69kvtAQzBbgl7e0yQaZuIBkt7jdR1qu2ighiHnxxnIG8CPbOUG0f0dclSmTcR1vgi8vOpjlRIQ+vKvPtp2lBrXEzrEe70zXs/3fGpQGskaeleGuPLWYodAgCll+FawqBoYMAy3SE7n5btkDf4FAzTyjJLwyXN2CutWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hnOKGB06; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WItjIIgZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76771F00A3D;
-	Mon, 31 Aug 2026 13:58:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hnOKGB06"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9E981F000E9;
+	Mon, 31 Aug 2026 13:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184694;
-	bh=LveKPUMVAd6MTUN78ylQjyJGsMFnyrBCzNivNpNbbnU=;
+	s=korg; t=1788184711;
+	bh=VFh71lTkeWhmb7zpCJvWuUKP/i0ReJLV/c3smC9jPlI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WItjIIgZDgSwWiVm2YRuO7l5AU8hKZVvNUIcAaz3N8pkZf9Jun7kMxN7cQe5gna+4
-	 uEDI08Cu8NNkn7XvXcK3eohkiua6Uq3wVg+D1l2PGugATw3RsSU4eAYKexALncAjg8
-	 RpI/EufmWSMjK/SguXC6wIT5zYSi6fQU9srwkvus=
+	b=hnOKGB06FzrFiI9fkpugNIdTAl8M2IHKsks1bUUfsHH0hTxpexyll1wfN4t+I/iia
+	 islmUW6CN/cIuhMpri92yg6ArsPrIAVJS+pjYLH/tOzonYJ4jiKznkrsiKm4igcmo8
+	 ozmuW4qR7NHMhhPt81mrVDWaW+54Q72euJFSqMSU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	zdi-disclosures@trendmicro.com,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Breno Leitao <leitao@debian.org>,
-	Steffen Klassert <steffen.klassert@secunet.com>
-Subject: [PATCH 6.6 72/91] xfrm: espintcp: fix UAF during close
-Date: Mon, 31 Aug 2026 15:35:00 +0200
-Message-ID: <20260831133403.363562313@linuxfoundation.org>
+	syzbot+4e89b5368baba8324e07@syzkaller.appspotmail.com,
+	Vasiliy Kovalev <kovalev@altlinux.org>,
+	Dave Kleikamp <dave.kleikamp@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 12/92] jfs: add check read-only before txBeginAnon() call
+Date: Mon, 31 Aug 2026 15:34:10 +0200
+Message-ID: <20260831133400.132427168@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-References: <20260831133359.468089036@linuxfoundation.org>
+In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
+References: <20260831133359.482388899@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -48,52 +48,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Sabrina Dubroca <sd@queasysnail.net>
+From: Vasiliy Kovalev <kovalev@altlinux.org>
 
-commit deb232e884877bf10b4ce2580909eedec986c284 upstream.
+[ Upstream commit 0176e69743ecc02961f2ae1ea42439cd2bf9ed58 ]
 
-ZDI reported and analyzed a race condition during close for espintcp
-sockets:
+Added a read-only check before calling `txBeginAnon` in `extAlloc`
+and `extRecord`. This prevents modification attempts on a read-only
+mounted filesystem, avoiding potential errors or crashes.
 
-    espintcp_close() frees emsg->skb via kfree_skb() without holding
-    any socket lock. Concurrently, the xfrm_trans_reinject work queue
-    invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
-    espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
-    same skb as a data source.
+Call trace:
+ txBeginAnon+0xac/0x154
+ extAlloc+0xe8/0xdec fs/jfs/jfs_extent.c:78
+ jfs_get_block+0x340/0xb98 fs/jfs/inode.c:248
+ __block_write_begin_int+0x580/0x166c fs/buffer.c:2128
+ __block_write_begin fs/buffer.c:2177 [inline]
+ block_write_begin+0x98/0x11c fs/buffer.c:2236
+ jfs_write_begin+0x44/0x88 fs/jfs/inode.c:299
 
-Fix this by adding a synchronize_rcu() call after resetting sk_prot,
-since esp_output_tcp_finish() runs under RCU and won't use a socket
-with sk_prot == &tcp_prot.  Simply taking the socket lock in
-espintcp_close() could lead to leaks, if esp_output_tcp_finish()
-re-adds an skb in the slot we just freed. After this, the existing
-barrier() is no longer needed.
-
-Cc: stable@vger.kernel.org
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Reported-by: zdi-disclosures@trendmicro.com
-Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+4e89b5368baba8324e07@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=4e89b5368baba8324e07
+Signed-off-by: Vasiliy Kovalev <kovalev@altlinux.org>
+Signed-off-by: Dave Kleikamp <dave.kleikamp@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/espintcp.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/jfs/jfs_extent.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
---- a/net/xfrm/espintcp.c
-+++ b/net/xfrm/espintcp.c
-@@ -516,7 +516,8 @@ static void espintcp_close(struct sock *
- 	strp_stop(&ctx->strp);
+diff --git a/fs/jfs/jfs_extent.c b/fs/jfs/jfs_extent.c
+index a82751e6c47f9..12bd89b5bd0c3 100644
+--- a/fs/jfs/jfs_extent.c
++++ b/fs/jfs/jfs_extent.c
+@@ -74,6 +74,11 @@ extAlloc(struct inode *ip, s64 xlen, s64 pno, xad_t * xp, bool abnr)
+ 	int rc;
+ 	int xflag;
  
- 	sk->sk_prot = &tcp_prot;
--	barrier();
++	if (isReadOnly(ip)) {
++		jfs_error(ip->i_sb, "read-only filesystem\n");
++		return -EIO;
++	}
 +
-+	synchronize_rcu();
+ 	/* This blocks if we are low on resources */
+ 	txBeginAnon(ip->i_sb);
  
- 	cancel_work_sync(&ctx->work);
- 	strp_done(&ctx->strp);
+@@ -253,6 +258,11 @@ int extRecord(struct inode *ip, xad_t * xp)
+ {
+ 	int rc;
+ 
++	if (isReadOnly(ip)) {
++		jfs_error(ip->i_sb, "read-only filesystem\n");
++		return -EIO;
++	}
++
+ 	txBeginAnon(ip->i_sb);
+ 
+ 	mutex_lock(&JFS_IP(ip)->commit_mutex);
+-- 
+2.53.0
+
 
 
