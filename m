@@ -1,140 +1,122 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57BB3D6CD8
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 08:38:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB403C09EA
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 08:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165491; cv=none; b=PjwnVCd9hz8nZs5qJ4fIhfLJJr+/XQLcZFasvDypEXSOtwJMShd8nFj6cbZIY6yXePnuTmht/OP7OAJORgLoLVFxfV9orWwH3+s6avs4dPbedWLtqP1G0YnqDSt3Ty/gcDTSSolstXd6ExuGKnlIceKR745qG5Wg3jNe7HTtsqQ=
+	t=1788166262; cv=none; b=sg+Bp3bhbZiVGEOs70CrmIrnCSw/ieLzSI9DVXnugWnhC1fu4eCPowifiKsUYoPEzF0vtsytyakPHjbbIz9TWjohkshEmyLKt8RpL5tCVGnoty9KC/C0LB5WVZVgdJQ9LdI+eSpoP9RbcB3wrw3zUtrMKuMn2knqYRAJdWVqFQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165491; c=relaxed/simple;
-	bh=WLtm+GBjS4mENbZdWq6ft2W9jH1OWPirkpQ5szhajHM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OGYxGZEMOZ8NytCqDrM8sj+Qzu5/Ap/r1agRm9TA6n3XMmt80PiJbvIc4L/zFVymcwB78Op68AJ1ysRUqNpYtEpIcPxqf9oJMfcgRPY2HBnDh+40eaPFCI2c/adJpFS4PqCfKSYr3SVARCg6zBdkbuauqtF9xOTIGe/LEp6HbXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AtcOLTG/; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788166262; c=relaxed/simple;
+	bh=ae99JVlXv8KhBJcW3GLb3yVSwMLBNmASVYdzcho21RY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FhmopsqWsmJmhi2TOZFCyMdvGJ3ylMOkR4D2EcXVvPVQoth0fgRGoZkdprBpLPPAlO9o5cA3W69M8g175H5HGBhBkZALVSrgwgfzw5tMYKZuxUTJbqiXGJQriRWw0Sb9wcLfzG5yFjzV4JPG71i2QPUUVFvj5ZuqlQEmIFUt88A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=lvKF+Zzp; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AtcOLTG/"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so3326996a12.0
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 01:38:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="lvKF+Zzp"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b15dcaca31so2524623e87.0
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 01:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788165485; x=1788770285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wvmBjNWujEmlSCyP5EP6vmyuBGO/nrT24KCWQT1TNSQ=;
-        b=AtcOLTG/e8e8yduYS9tgCC1O5Dqgq0qNkM9FL6xjE+z6VAdoOOHzBkQvXfy536lN4H
-         KlOpYy8g+kAF5aMzcCYu3ATuVbOOi95u3G9MccHKVVsLEMjXdLYt3C8LpebdjTYCT0sB
-         lIgaw5TAPQ0JMhrtLE7VDI5UYHqT/VMC7U2Tt813tnxF2itGXWMQ0WU8V+r12UaAG88S
-         Y3NvcOXzlssbXOmpeKQydrDGPpd1oghGf+ZbkLuF5HBS0v/n9RB4dPNnybWQdYjD7Nkh
-         JrMc0VzVShlD5oZw5zi5YbJj6VPCstqab7kGYXLhCSkP+RGbmURurLP7EDKNBEkFVJhF
-         WTvQ==
+        d=chromium.org; s=google; t=1788166259; x=1788771059; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w6f5zaTCHzRQgmPEKk5TD/UO+zjNwknfFQgnjXHiDpE=;
+        b=lvKF+Zzp5mthVG5jA5pr/U8mwndGEtjOqIWlZvVooatzqnmUnhZdWD4D/I24j13GF4
+         4SUnzfoqaizwGSqbk7PewlypBUmOGzqGsiFqgtt539Z5Hp2MRKAlo2edmKWaJLqYKD9I
+         1wfVVz8XFvK4q3YRd/4OuK2eJURiwEOX0HEHQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788165485; x=1788770285;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wvmBjNWujEmlSCyP5EP6vmyuBGO/nrT24KCWQT1TNSQ=;
-        b=gTtLKcNn7yvnClo7NeKULaYtjHbfLtIAN9Kfqx8Y+ACVxJwPY7JJxCI1y0XaZcswI9
-         v/nWvVm8B4xf0XxFaexIJT6SA9Je+k3WnC6iJ2zEMy/Drt22aTj0DtzK5UTtsijhs0Fj
-         GuWcYD4vdMlqukaUB4XUwWvitAE+mmmLCMCojQUF5rc96RIeH8galhJ1BjmnawyD/pIK
-         MyyKJKRyKV5p7lTvniWdAjD6EUFXWldUYlCqw2BvXm+vPm1aJVPy6HEVwSXJNKrOtffu
-         M9Ze2aCnu8s4pFckqbz2OGGOa0qLngQQrbXox+6q7vvuyLwkaNLRxJge3X1trI6Xmemt
-         2qvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZzgG6sY/ngEbwLyjk9O22+D/8si9GLrZIqw1hUdxwWq4QvwLN+Z5kCy4M6jPa03DpohtL23Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNRZfVv0I5l9n98EjJJWuvOMR34XnCLhbwX855N6EQPIW1A177
-	cxyiyNAN0g8tEdA40ne7GuoKjsuFjYiCmafpbiKSP87IY2u8ByXwa4Id
-X-Gm-Gg: AYBFou2bneW19r3U8bZ1lCzjeg7nb3Axzk8CJK0EmYo1Qry5R4jNgdFwyUIEqn33AoH
-	yUyPoIcOiYgOU2lpPhcIUhqGM5UHfwfi+z/PEyfKFgmlxHA1VKev9760z2Lv6tAk7iCSewaiRY1
-	YAfslIYmSBT5TXTMv+F4vijEKd89MumU30GQagfx3r/VkWvMUj7ypfo8ESaj8ffq313EgJSmbQw
-	c45SBRL2T+WYnDk9AIfd5Iwv9f37uqntFjhS5z5U8Z/LUwH10RRb9zsoyRfH5RP71XMFP/XcZQs
-	OK4hcpQ1xIcYc1ZpnInjCD6Ial0lyN586l2WhmOnuIuuEZ6rVzqS98GLbd+8E54LcWQoqjc43BI
-	4JcZ+3meRq/J+PBhuKdpTjiI1VfbBLXuHORPXli3AJCsK4X800AFKH+SD/1Ie0oCMNmlbURyq2+
-	+wiRp8K/d4/V7u3xYlxK52P9hB8l/vYBTN0WexF2JMdrGriShPr0lOwZX5OoIwNSSmFC5sdMSE/
-	Q7TqBv6XxV48kJSK+E=
-X-Received: by 2002:a17:90b:388a:b0:398:ceef:edde with SMTP id 98e67ed59e1d1-398da8cf414mr5021997a91.15.1788165484692;
-        Mon, 31 Aug 2026 01:38:04 -0700 (PDT)
-Received: from [10.125.192.112] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d7853da8sm5066022a91.4.2026.08.31.01.37.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 01:38:04 -0700 (PDT)
-Message-ID: <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
-Date: Mon, 31 Aug 2026 16:37:55 +0800
+        d=1e100.net; s=20251104; t=1788166259; x=1788771059;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=w6f5zaTCHzRQgmPEKk5TD/UO+zjNwknfFQgnjXHiDpE=;
+        b=jtwC/khPQFGS75/HmafibyrazOgCeyE1WHmspxU0SxdtVoSZ6uceGdEDK5TLioA5pp
+         I1cxCevZRe8V/OouGr06D3XFatcvERgN3rN6kWasrfZy/6UNf+9NIGYUZUSRAkaqCDeB
+         gF62HjDmx213UuSzZvczsMbIRnvVGZt/C1danq7QWiYj5vTayVNdQIGJnOIOWq73DOTt
+         zOkdk+qjTx3JSoiSDMg3jDydptWYIQVxjMlI4FCyoUUhU9GH59cDK2ZbO1FZ24ZIA5lL
+         /txur7N59CYLXbfXwbpwp1UpdmegfsjwO91MHyOYi+cNNOMx6neOeeLw2SPjE2YsFqpB
+         SkGw==
+X-Forwarded-Encrypted: i=1; AKwUvBxJmEXLbut40RlciLBzsoka6oRGVmf/1Wri8P2+NvORLOdTqzFM/WwyLHuxR4X+8zfy/lqGN6U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnq5XhXwrk9ccvNVXZUXbFGxfAhaVs/2yUIA6nUPyzx544QUOL
+	MVTF4ZCJwQeq3S9/PuQXWsHt30HIAbzOcH3WhlUhx89mvLnNtLO2lZxj6WoE+f7ceA==
+X-Gm-Gg: AYBFou2JrOhcjwnEhhL5HSx7O1bmLKwqW1yRQ6MzIY7CZin82peDg0q/v460Sm3RLtK
+	aoTUNT53NdN6ElgyPEftFogDtMz8DEbtPbMzR6Sw9D8plFzoVdTYW6bs9JC562ekT+Omi1/N6qd
+	BsKazl8nHr8y3JiW9stb5TiEFzYYUqK0EZiNF4mnqD1OfIIFjOcjxVgHMCHTFbhfXly+me75qmV
+	SBm9OdfoQYn8qNpibYi7Ia9NHo2IvRsYn+zXyfOSSd+hM64e5xPEEHpw0RH4gD2T6yP5jETew0i
+	vIrR++QQNLygK55ScaMHFUi96vOaEeISwy8TYtfiu97keeRVrspSmh0g2KEfQkJhnuYDz/M+uaf
+	aZk8Cm1h28G68S7C7Ki9Xhn2q9biJPwYoHpQyT/B3PGxqm2dV8lKgLnFgBdpN8awTqW9YLU/gJ3
+	s65JJnlSIglsBCjTkVjQEww1FtrnO6w54TpccK1clEX7bXcHoZiddlhzn8hbXE4tfHDWIck2h3F
+	gDhFzZeE6h0mOmLegpCFJHmpVucnNj10UKNY2E=
+X-Received: by 2002:a05:6512:31d0:b0:5b5:e092:c3ee with SMTP id 2adb3069b0e04-5b5fa595f40mr922875e87.1.1788166258698;
+        Mon, 31 Aug 2026 01:50:58 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e8a1cb7dsm1992003e87.78.2026.08.31.01.50.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 01:50:58 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 31 Aug 2026 08:50:56 +0000
+Subject: [PATCH] clk: mediatek: Add missing depend for COMMON_CLK_MT8173
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.15.0
-Subject: Re: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
-To: Sergey Senozhatsky <senozhatsky@chromium.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Jia <jiahao.kernel@gmail.com>, minchan@kernel.org, axboe@kernel.dk,
- bgeffon@google.com, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, stable@vger.kernel.org
-References: <20260828083149.45760-1-jiahao.kernel@gmail.com>
- <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
- <apT-ocFYDmU6iC-j@google.com>
-From: Hao Jia <jiahao.kernel@gmail.com>
-In-Reply-To: <apT-ocFYDmU6iC-j@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260831-common_clk_mt8173-v1-1-2d7241f70379@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAG9AlWoC/x3MQQqAIBBA0avErBPUsKSrRETZWEOpoRFBdPek5
+ Vv8/0DCSJigLR6IeFGi4DNEWYBZR78gozkbJJc115VgJjgX/GD2bXCnFk3FuEKprJFqUgJyd0S
+ 0dP/Prn/fD+cuZUBjAAAA
+X-Change-ID: 20260831-common_clk_mt8173-05e25fc25b51
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: Brian Masney <bmasney@redhat.com>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, stable@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
+PM_GENERIC_DOMAINS_OF depends on OF, by adding a select to it without
+adding a depend on OF, the following warning is triggered:
 
+WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
+  Depends on [n]: PM_GENERIC_DOMAINS [=y] && OF [=n]
+  Selected by [y]:
+  - COMMON_CLK_MT8173_MFGTOP [=y] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=y] && PM [=y]
 
-On 2026/8/31 12:15, Sergey Senozhatsky wrote:
-> On (26/08/28 10:24), Andrew Morton wrote:
->> On Fri, 28 Aug 2026 16:31:49 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
-> [..]
->>
->> Thanks.  Sashiko asked a couple of questions about this change:
->> 	https://sashiko.dev/#/patchset/20260828083149.45760-1-jiahao.kernel@gmail.com
-> 
-> 
->> Does this early return prevent marking valid boot-time pages as idle?
->> When a page is accessed during the first second of system boot, its ac_time
->> would be 0.
-> 
-> There is no possibility for zram to hold pages during first second of
-> system boot, regardless of whether zram was configured as a swap device
-> or as a block device (mount-ed with real filesystem).
-> 
-> 
->> Can the early return above bypass this zram device initialization check?
-> 
-> We already do that, e.g. when kstrtouint(buf, 0, &age_sec) fails.  Apart
-> from that, that's not how one checks if device was initialized.  We may
-> want to consolidate those checks, just for symmetry.
+This patch explicitly adds a dependency on OF to solve this issue.
 
-Agreed on both points -- the early return is not a new "bypass", and
-the write() return value was never a way to probe init state.
+Cc: stable@vger.kernel.org
+Fixes: ebd0b73d2137 ("clk: mediatek: Add mt8173-mfgtop driver")
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/clk/mediatek/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-How about moving the init_done() check to the top, so all the early
-returns sit behind the same device-state check?
+diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
+index b059d44577f1..ba1ca9c90dbf 100644
+--- a/drivers/clk/mediatek/Kconfig
++++ b/drivers/clk/mediatek/Kconfig
+@@ -541,6 +541,7 @@ config COMMON_CLK_MT8173_MFGTOP
+ 	tristate "Clock and power driver for MediaTek MT8173 mfgtop"
+ 	depends on COMMON_CLK_MT8173
+ 	depends on PM
++	depends on OF
+ 	default COMMON_CLK_MT8173
+ 	select PM_GENERIC_DOMAINS
+ 	select PM_GENERIC_DOMAINS_OF
 
-static ssize_t idle_store(...)
-{
-    struct zram *zram = dev_to_zram(dev);
-    time64_t cutoff = 0;
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-common_clk_mt8173-05e25fc25b51
 
-    guard(rwsem_read)(&zram->dev_lock);
-    if (!init_done(zram))
-            return -EINVAL;
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
-    if (!sysfs_streq(buf, "all")) {
-            ...
-    }
-
-    mark_idle(zram, cutoff);
-    return len;
-}
-
-The read lock then also covers the parsing, but that is non-sleeping
-and its cost is negligible.
-
-Thanks,
-Hao
