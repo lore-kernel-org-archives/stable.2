@@ -1,34 +1,34 @@
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0C5395D98;
-	Mon, 31 Aug 2026 18:15:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B35945FFB0;
+	Mon, 31 Aug 2026 18:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200111; cv=none; b=VWSvx8mNQoS2GjYReIWYJaZPW67QFb5VvW1ITP8fcxVNjXzdvOmxz8cBZRgS4PE6QmabPOFBRd3Zu7SiIdtZqf6iWyTyXqHVlI6hPFpfTU2FlaSJaf6fZjbSV5wnNB9inP+mLnHd0LHNjSogxrOx8WC5xwWVJZdXka29zd6ZjbI=
+	t=1788200161; cv=none; b=pom1IOlMR4yQD8ZS/oXqR2jYg6J+KqnysvRY9CNieC2cXRBdVJHQ+pM6VKkPm0TIWdOhMFHxpgRoR1g4lR7TOGKgnOPw/MUVzCScyXmlOJ064sXTamMs2uHMveP1rC61MpJaB8qY9UyOxJqkpHh4R9DsKihu5ii8MtcwW6ZyU70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200111; c=relaxed/simple;
-	bh=E1qN9DH8Ee4RdtW5tvDpU6m23+dulZWUA/HYxpmaacY=;
+	s=arc-20240116; t=1788200161; c=relaxed/simple;
+	bh=6ehLjiWbn9QAPPuVQZvIPbWphJSz5JnpQn8Ko+ndaKY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jza0t8SvUmRSTchs6QvM8FnutfPPAOnhAqh2ZRHiCzMF77PS2H2voUDPDv/0y+5mIk7pTve74iw/VUO+AEugi1i6miW+Dg/9pXChdgHARauji3ZxPR8z/bFnFNR46+Lh1F7Pn5D9CVyqJVyzLM5YtvXZ3ba0nrojrk/TXoW4Huo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=vxj4dT32; arc=none smtp.client-ip=217.194.8.81
+	 Content-Type:Content-Disposition:In-Reply-To; b=XbtPj/Tg2zPmFZp3AUN0siczdtWtPauq/aM+y2tQTsNULrRFGg9UaLzNGG8t7ypbgY+gzz7VTKeQIvXMH9wP/BB/7jzKlZ22FO6I36Bmu6v3X45fz6YmG023JgbUwRWceB0deCyP2Wypi9BA7N7+gXK2lAXNyZcFfF8Nw7fcprU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=ZT0YSSvc; arc=none smtp.client-ip=217.194.8.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="vxj4dT32"
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="ZT0YSSvc"
 Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id A505A1F95D;
-	Mon, 31 Aug 2026 20:15:04 +0200 (CEST)
+	by mail11.truemail.it (Postfix) with ESMTPA id 876FA21E5D;
+	Mon, 31 Aug 2026 20:15:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788200105;
-	bh=54DWobeU3TiYUqKhR2D+PC/HtPzaoe/TNQkclMgxpHU=; h=From:To:Subject;
-	b=vxj4dT32+J9U9+Dhlu1sQaXOXTshZh6C1uijymEmdTbU0RmnsdvgptMw4IbcHKbX8
-	 NhV0Au1d2P9IXjAt2U71ztX4V6P3q33WKhSrynjSedmNYK3DZPq6ueePx1Be+HHwfz
-	 OG6gMzClo8+4Khn3jNqFnB1GJWQsh4UQ8kOIx9heO/emC000oSYbYW7Dm9/l29sqK7
-	 Xa2qzp0/mo8u8ldYjiVWsLR/VGpr87zsND+vAkr2zphlHlsSmwmoTinqXKMPsfCHz8
-	 1vi+BRL04Z0Ps85J7k0I8G++J7zN8CfPmEnQCIjK7dSeBS7C4xhwPick3dID3a2ob3
-	 Lh5X1mlMtAvXw==
-Date: Mon, 31 Aug 2026 20:15:00 +0200
+	s=default; t=1788200157;
+	bh=CjBQBtgXdZMeKJGXXRCl/ut1ypHvjslBrnTtfGTjdH0=; h=From:To:Subject;
+	b=ZT0YSSvcFKA6jJRPPSxlLDQ+i55NP30E9chmIOPTGmLphSXWi8yWxAqsSevpArRox
+	 8ax5s2SabApvoGls8QMMS4jRQhBPwiY/MbyRcG0De7bRWO030yy0Lf2GKfdffx1Hmi
+	 yBSPVE2kXey5eD7IK7ulvjRT9pVM2vJUEnDPwAEiQQeWGO6ZpVD3AmlIIdyK0RT6vn
+	 f6HZiWf1CKx314aO4IcTYPHc5K4lyEKfK/2g+1CLmxtUCaKC2ZBLEJgVGfukbuvQ8m
+	 zrDmb9NU1i81tyFE6Zp1XB0CGGpJpBRflcARpFCjMvUCiX+P7ul8K/SbfB9IBa7CXw
+	 8sIaRZF/38tWA==
+Date: Mon, 31 Aug 2026 20:15:54 +0200
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: stable@vger.kernel.org, patches@lists.linux.dev,
@@ -39,9 +39,9 @@ Cc: stable@vger.kernel.org, patches@lists.linux.dev,
 	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
 	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
 	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 00/99] 6.12.108-rc1 review
-Message-ID: <20260831181500.GA124452@francesco-nb>
-References: <20260831133359.740409777@linuxfoundation.org>
+Subject: Re: [PATCH 6.1 00/92] 6.1.187-rc1 review
+Message-ID: <20260831181554.GB124452@francesco-nb>
+References: <20260831133359.482388899@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,11 +50,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
+In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
 
-On Mon, Aug 31, 2026 at 03:33:29PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.108 release.
-> There are 99 patches in this series, all will be posted as a response
+On Mon, Aug 31, 2026 at 03:33:58PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.187 release.
+> There are 92 patches in this series, all will be posted as a response
 > to this one.  If anyone has any issues with these being applied, please
 > let me know.
 
