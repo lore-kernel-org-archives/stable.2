@@ -1,77 +1,71 @@
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21B24DA547
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 14:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE7B44AB81;
+	Mon, 31 Aug 2026 14:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788186343; cv=none; b=HLrdHZrqdVnRnfDmGdF49ZG8xDxSl/FWejAutZpj1bcHJRKCiNj9+IdKkLYLZJ3GZ9Z4SplxCR/+fKZzJYSztpm0mF6Zv3hDOiaDBw8LSiVnz6LV97aSBfamVxBl5MTQM38YJ9FCvSi06cRzBfDcUgPQwX0u3FQOA8WUFg0c8xw=
+	t=1788186464; cv=none; b=kEvrf72S6AznfegWA19tXukKiqEszKBmTuJGSMloKNNE7sZulQJgtiilfggbBickd9dixJidWj09BHmql8IdaD5/J9QtLXbJf4slUaYttzfuMP3AxoAj9Dh+X7DNLgTLNr0nhP6LcsUPly9KCENBd0qruVD3E0EBnDD18DK/iQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788186343; c=relaxed/simple;
-	bh=vZw0hLL4dSeqV3jSVMA6jvCgpb5+g5wnq9JcTayBwm4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HLRdSCjxcRt65dYluP7qD1ZQLBa7BPqXp03TBR6EnsnSt3AEnfTNyFvqMWSAvRlQlKfMHGV97V9fdEEXmAZNjRYLefRr6d5lVu2qQQc6kcdDW4MrV5ArPaPdrTiYcRYH85muBRUBUYKdIrDatYEi9X89iI+JdJDv+U3wYMzwYBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=fpCt/fdg; arc=none smtp.client-ip=79.135.106.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788186464; c=relaxed/simple;
+	bh=N7ntS6/a1BJleRWibV0tA5ZsQcTNaVz31IVjeKiAO1A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ICPQP6wcpP3N+whtvjIYR2AhXhkS43/VbOT5EI8OG6Jfk9MoMjPQxbeOTKFPK793sLvUTKeqZgkI/2KNVWA4oHbG61/kamFdXkbNrFFiJIzQ1k3WvNHXa0XRF7N76mEspYD5kv9myOiNwsknorp116oTR066dAbdlJVcSkVxWu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXzVQERp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="fpCt/fdg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788186333; x=1788445533;
-	bh=Am4U/GdbWSNMOv42LsGji8ij2jzfV8TWsw2TXnhE03I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=fpCt/fdgDy4/Qye6+As96aJ/KQKYVB5hKdoBlWvpBDgcbiuMU8mgG5UlKlVSTrjIO
-	 XAvfUA2B0sIfgkMQA7hdJpDROCvaheLLycNXMTZ5SlONidGSggHzvpGa0aJB0SalYl
-	 822Zi13vlO7spldtmnd5eQIsw+cHdwxMT8uH9xrdn9vM0pK5vyAWL3d0uskcah0Slb
-	 7yz2MUriPFDbHGxkDgbpGNjBM/VMbw2p8mHrnyP8GF3x8L4WkK2aRaTyyz55OXFgC/
-	 Rr7LrrKyN333FFAfn8gJE/9Ldslu5WJUlM+VP51P/LdmFRJxNU713khO7Nbb+Q6f80
-	 p+TsjwW4As23Q==
-Date: Mon, 31 Aug 2026 14:25:30 +0000
-To: Sasha Levin <sashal@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: stable@vger.kernel.org, Mark Brown <broonie@kernel.org>, patches@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18] ASoC: rt1320: run the initialisation preset on the first hardware init
-Message-ID: <20260831142522.85439-1-lsa.uz@pm.me>
-In-Reply-To: <20260831133314.4125787-601-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org> <20260831133314.4125787-601-sashal@kernel.org>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 67733ea88f02bf58460191b0df5284c8101e7578
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXzVQERp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD0EF1F00A3D;
+	Mon, 31 Aug 2026 14:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788186463;
+	bh=DBrEplS9tEm0O1i1zVQFrY1jf2Qns4axU8H/tgkbP1s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JXzVQERpNVxdm7PtnwuTnkFebaCOX7e2iKTx7n282+kD3Us9ZkSfBQqf1i3nCROVI
+	 IpRx4NRRSMw0BBsoh9dFvsSzRFrd75IBQTDF+01gwDQ2vYs4JWJbv2MaZXAGyVyThi
+	 OY05JiXqGzluqsUW89DO1J8EGQKZO5kEUW6XOk/GH/BZRFm6728K/4zfit+TW3wmM0
+	 vs1jOjnW8VZWlg8WaGsOEx0lDsxI84WKy/BZ42bhPgta88vSoX9N1AyHZEL5oXqv4e
+	 6evDUGp2qty08QQHhYjmimJzY1bcY+pe1d84thcVk2dZkhW0VpGc11CTfVmcj6iVS0
+	 UsVFe6ptQ0/SA==
+From: Niklas Cassel <cassel@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	linux-ide@vger.kernel.org,
+	Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
+Cc: Niklas Cassel <cassel@kernel.org>,
+	Pali Rohar <pali@kernel.org>,
+	stable@vger.kernel.org,
+	risc4all@yahoo.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] ata: ahci: work around lost interrupts on Marvell 88SE61xx
+Date: Mon, 31 Aug 2026 16:27:24 +0200
+Message-ID: <178818641418.216562.3155723702033731494.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831124303.920391-1-hajo-linux-ide@noerenberg.de>
+References: <20260831124303.920391-1-hajo-linux-ide@noerenberg.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=709; i=cassel@kernel.org; h=from:subject:message-id; bh=N7ntS6/a1BJleRWibV0tA5ZsQcTNaVz31IVjeKiAO1A=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLKm9vt2L5qwX/XqliOvtmb5HmyYyt/zes217dzTt7r6l W7Yc3o6Q0cpC4MYF4OsmCKL7w+X/cXd7lOOK96xgZnDygQyhIGLUwAmsuw3wz8t66b++88//eHL X5Dt/dQmw1PGvGOf0pWWGerfNp/9ctmY4Z8an8iOoqIXP+bt5Nuw6HzUyt/MM+dazZHV+lB2T3n hj/ucAA==
+X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
+Content-Transfer-Encoding: 8bit
 
-Author's ack for the AUTOSEL 6.18 pick of
+On Mon, 31 Aug 2026 14:43:03 +0200, Hajo Noerenberg wrote:
+> ahci_single_level_irq_intr() services the ports first and clears the
+> global HOST_IRQ_STAT afterwards, as recommended by AHCI 1.1 section
+> 10.6.2.  The Marvell 88SE6111/6121/6145 family stops reporting interrupts
+> for a port when HOST_IRQ_STAT is cleared while PxIS still holds bits:
+> PxIS keeps its content, HOST_IRQ_STAT reads back as 0, the port is never
+> looked at again, and the command in flight only ends in a timeout.
+> 
+> [...]
 
-  ASoC: rt1320: run the initialisation preset on the first hardware init
-  upstream 9b30521074f01aff856f539c1241a48342b69f7c
+Applied to libata/linux.git (for-7.4), thanks!
 
-Appropriate for stable, and the reason is narrow enough to state precisely.
+[1/1] ata: ahci: work around lost interrupts on Marvell 88SE61xx
+      https://git.kernel.org/libata/linux/c/22f2ba34
 
-Without it the RT1320 on the Microsoft Surface Pro 11 is left unprogrammed =
-on
-every boot: its SDCA function status reads 0x41 (NEWLY_ATTACHED |
-FUNCTION_HAS_BEEN_RESET) and never sets FUNCTION_NEEDS_INITIALIZATION, so
-rt1320_vc_preset() and the MCU patch load are skipped. rt712-sdca and
-rt722-sdca already carry the first_hw_init fallback this adds.
-
-On the risk side, which is what matters for a backport: the added condition=
- can
-only cause the preset to run where it would otherwise not have run at all. =
-On
-hardware that does set FUNCTION_NEEDS_INITIALIZATION the behaviour is
-unchanged, so a later board revision carrying a different RT1320 -- which B=
-ard
-Liao noted is possible for this SKU -- is not exposed to anything new.
-
-Tested on the affected hardware. With the patch the amplifier reports
-RT1320_KR0_INT_READY=3D0x1f where it previously did not, and audio works.
-
-Sergey Lebedev
-
+Kind regards,
+Niklas
