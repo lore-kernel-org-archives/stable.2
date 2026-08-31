@@ -1,98 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9312E7396;
-	Sun, 30 Aug 2026 23:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEEF12E1DC
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 00:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788134256; cv=none; b=JrhXwML7M89iKrLCxz7dWLoIaO26gk5HzEBXn1K6ixVUvJt4VbjjlYBny1sYVJyQh0Ko4l/uYgU6fmrT/+PnRhs3bTeU+HXizeHUv/jrgHcFm/XzKxWKEELvUbQCkSH39eGjlsuAOjaS7gom3c7uNliA8WEOFy7+dnIEKi/ls7k=
+	t=1788135242; cv=none; b=rYUUtsPXqKgYCorOLshPPB+LYiOUavluOwI+Y+f4sZU4n1k8vBm0PybIy2nLS1mNzm8E7RH9aLKlYPXvYy794ez0q8CBDPJHvRhDBt3XDX0ZyJQ0eUO3wKzPIY/p3i7+0pFzfW/HoLqDrypKNhz0vwxslhLuYlBl1LXQofqHgp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788134256; c=relaxed/simple;
-	bh=u6uVkbROqgEmpkePXpsow92Di9+pPZesG4KZe0CvZP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rQw+s/k6d6iFAYshTb5IdNCZ+9IudGieH1PEWW0UDHNqHHNEwCPJ0yM5p+gmrWPDGuHtTBM1zSTJ0pTukc5IU8uEpU7RLkiZ3u3LVXIV2U1/rZhcIUNLQpZMHwnxPzJIGYIrLYyWGlg1Q9c1tZx3821vmNcVwg7UVjs0Fy/FvPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IpnmjXXO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788135242; c=relaxed/simple;
+	bh=0rjnHHDdTC8ssXKpL/DGKwYQeYfI2LwYwBxMucf9uPE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=QIcCbkWdxWgPTgN3C1ZIhZwY+SVJNIvHwo0oZw2jXqiBG8ltVnUPS6olZqW+5udyMs0F647iy+c0S6e8gg5jSZwP36yBYtd7fHfeVO1KxcApIA8psHTk3GyvTpw0BG1z9it36RR0ONBIxKudHJW7d92eeheOL05WTjXe+M1govk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dDDBCs4l; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IpnmjXXO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5209A1F000E9;
-	Sun, 30 Aug 2026 23:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788134255;
-	bh=ZK5RX3djCBeW83wImVahZU6spUvB3gHUKmlbJ6W1v0s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IpnmjXXOXbWKrOtujXOtuS25+aMIMguPd8OtT1hduYwLN4Jg+KgokhvK8uTlBlHPu
-	 ZLldHjJtKWPqkGPe2yiNLyNjSZEWNXTd5hnreRkovyY1Fsi7wpYn6kZHLQx+x7wx7s
-	 jcuaMv06o+SQXnexDboQdOQN9L9tGX6OiBE+5HmaF2+Oz4WQg72nY0qI9OOdGxfMrL
-	 GRqp+6mWrf29sL+1mRr8lrGBtsxEDpo5gzctld3z7Fu9KZ64MFzO60Om5eZ5gO2fgI
-	 22UCrOnmqSs59G8BYpk7OnWw8VtxXrFx3fwLxXiY1sJd3rojwtudOM0EGazhbQD8Hh
-	 iXYTsVyWC1Oug==
-Date: Mon, 31 Aug 2026 00:57:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: ade9000: fix NULL pointer dereference in
- clkout registration
-Message-ID: <20260831005728.4c2b80b9@jic23-huawei>
-In-Reply-To: <20260826083156.2287106-1-lilinmao@kylinos.cn>
-References: <20260826083156.2287106-1-lilinmao@kylinos.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dDDBCs4l"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9390f8a1c9eso187636185a.3
+        for <stable@vger.kernel.org>; Sun, 30 Aug 2026 17:14:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788135240; x=1788740040; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KeqftXhgmq02BoO6G1HLtpAULPLshwJFEBqpXSiTygQ=;
+        b=dDDBCs4lx0tam2Czn3STuTYRw43h0/BUodcBP8hQ6HXxRSyHUNExCv0WkO58tP5WPs
+         cw3eMb5Y4qfss7bjTl1pfgRKs5lFTbFROmhthMvqTNqKGB5m/QotcwJ8rVPhNl0cAaM0
+         sVE/h7NItHobzzk115kRyPQNoZR7S60Wu2qqQlWwgOdLK8KY5O+o44jA+/etpGgRE0ha
+         Zi1gRIABRHbd8cbFKWOr/+UFY+ywhjC/ZP2pRxV4a0z+w+OEYX8H6CBfDmsKuGbwU8lw
+         OSwwC35ZXJ17ZPVhnnSvf3rcbVWGIKKKyppY1KtoH3KNDXBRsacH0MRNUFLKUCDjtZ8d
+         27xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788135240; x=1788740040;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KeqftXhgmq02BoO6G1HLtpAULPLshwJFEBqpXSiTygQ=;
+        b=A7lVurwhbVswnn+Fkah7b/0gLssr1jGBYkHAJHlx/a3TjhNyIyX0yu3Jpr0aiqiVt/
+         z3ZNwX57r68SkTpVSaRWDo0JgbB6pmYRtsObEYxjNFbr9WJg/g8AR8ecaw7+ZULaG/VJ
+         Lqyij31jnogR3crxd+0goe3lJxsdm4BTXNcxLKBEFEXZoR20KA+6VaOBC+wNFgR5RxjK
+         2/Cij31FQnDSqIDG6r9d9CCgqvJWOyJ8j5RqTdJ+RhEWukZ7nJ3vpKlkFjsMeubvGaw9
+         ui9JmD7HR1N44XHiD4tqGRuzmTRtyGHX78R0O15HffsazwynUzUOPVsevwz1QMkKmScs
+         Azsw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2TgOXt6FfIYZviCRjZ4cpoGrM2J6fkyxibanCpwornjIBlGwfQj5K4Vuw9nZGVwU+x4sNzlQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAdC/xt0SnEvLFJ8ea+x/XemBLzTIh5onj8tI0gyrlpHKHJqG0
+	4vkJBmIBlGhjM7KLS/2jI62asF2gdzcQcXjBZYITXUD4i/M+j/Njzc3g
+X-Gm-Gg: AR+sD12XC8+O2qpNNSxOkg1OnIW0R/74vqM5hX0yzvQQzq40MclLgeW8Dej96slhNFY
+	LI5rD2Lg98i2zcfmSKKM5/13ROQU+gGuK63XUdHUUrtDlBic4cFIjwFCVzGpegh07aKIfBcJXXN
+	OOGHCNgpeQGtAJAHfb5SjBDOrKIO3S7gySTQkHTUqQI0lVgFdlzwUGNS49Ik1RTUNQQKimULOa/
+	1+eCB9zCMfihEZigHJNv5Uha+U89JYmaGZ84r0ez5EcHe1rQmbhqOtyhLOW2+JQ++Dp08e4vZhX
+	b3nzumBQauHj77awtQyNJcN6bA1Mqq9NnRFP31TbKB4o6m312wdWpEA6rwkCSlGmby1QzJ7wZHv
+	ubBPUHcRTbekUz4vV5p0WTVZNq42pjYF0NCYPCXcRjdb3xSVAHmoiX2z1b8nXYZSBMfGv/a+b2G
+	7aCyiCiMkOTMNK8Ux84oLF7jCMriWS6IdDSiJWgzo5I+HCJcPCggKGsttXdx+OyAMVkXYcolWwL
+	8l/YwdElqV/wqTF5f6wzoRT4+vN+g==
+X-Received: by 2002:a05:620a:4556:b0:939:28ab:e90 with SMTP id af79cd13be357-93928ab142emr1090242685a.0.1788135240228;
+        Sun, 30 Aug 2026 17:14:00 -0700 (PDT)
+Received: from smtpclient.apple ([199.30.143.73])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391703a49asm665449285a.11.2026.08.30.17.13.59
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 30 Aug 2026 17:13:59 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH] drm/i915/gt: Fix request use-after-free in heartbeat()
+From: Shuangpeng <shuangpeng.kernel@gmail.com>
+In-Reply-To: <apSwfmDiwsuyQT6I@zenone.zhora.eu>
+Date: Sun, 30 Aug 2026 20:13:28 -0400
+Cc: intel-gfx@lists.freedesktop.org,
+ jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com,
+ tursulin@ursulin.net,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BA6527E9-BF25-4EAC-AD11-7B2F92A3A01F@gmail.com>
+References: <20260808184302.1509585-1-shuangpeng.kernel@gmail.com>
+ <apSwfmDiwsuyQT6I@zenone.zhora.eu>
+To: Andi Shyti <andi.shyti@kernel.org>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-On Wed, 26 Aug 2026 16:31:56 +0800
-Linmao Li <lilinmao@kylinos.cn> wrote:
+Hi Andi,
 
-> ade9000_setup_clkout() passes NULL as the register address when
-> registering a divider clock. During clock registration, the common
-> clock framework calls clk_divider_recalc_rate(), which dereferences
-> the address through readl(). As a result, probing an ADE9000 configured
-> as a clock provider with an external input clock crashes.
-> 
-> CLKOUT passes CLKIN through without changing its rate. Register it as
-> a 1:1 fixed-factor clock, which does not require register access.
-> 
-> This change does not affect the configuration using the internal clock,
-> for which the driver does not register a clock provider.
-> 
-> Fixes: 81de7b4619fc ("iio: adc: add ade9000 support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 
-Looking for a tag from Antoniu for this one.
+> On Aug 30, 2026, at 18:44, Andi Shyti <andi.shyti@kernel.org> wrote:
+>=20
+> Hi Shuangpeng,
+>=20
+> On Sat, Aug 08, 2026 at 02:43:02PM -0400, Shuangpeng Bai wrote:
+>> heartbeat() detaches engine->heartbeat.systole with xchg() before
+>> checking whether the request has completed. If the request is =
+complete,
+>> dropping the detached systole reference may free it. Concurrently,
+>> idle_pulse() can observe the empty slot and publish a newer request.
+>>=20
+>> The worker then sees a non-NULL engine->heartbeat.systole, but =
+continues
+>> to dereference its stale local rq. The newer request can therefore =
+make
+>> the shared-slot check succeed after the old request has been freed,
+>> causing use-after-free accesses to emitted_jiffies, submit, and =
+sched.
+>>=20
+>> If the detached request is incomplete, heartbeat() can also overwrite =
+a
+>> newer request published by idle_pulse() when it unconditionally =
+restores
+>> the old pointer.
+>>=20
+>> Use cmpxchg() both when idle_pulse() publishes a request and when
+>> heartbeat() restores the detached request. Drop the detached =
+reference
+>> when restoration loses the race, and reload rq from the shared slot
+>> before dereferencing it.
+>>=20
+>> A KASAN-enabled i915 mock selftest reproduces the use-after-free =
+before
+>> this change and completes without a report after the fix.
+>>=20
+>> Fixes: bf9bd6a5128a ("drm/i915/gt: Track the most recent pulse for =
+the heartbeat")
+>> Cc: stable@vger.kernel.org # v5.11+
+>=20
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+>=20
 
-> ---
-> Changes in v2:
-> - Clarify that the configuration using the internal clock is unaffected.
-> 
->  drivers/iio/adc/ade9000.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
-> index e57e24b6acdf7..4e96cc37fbedf 100644
-> --- a/drivers/iio/adc/ade9000.c
-> +++ b/drivers/iio/adc/ade9000.c
-> @@ -1647,8 +1647,9 @@ static int ade9000_setup_clkout(struct device *dev, struct ade9000_state *st)
->  		return 0;
->  
->  	/* CLKOUT passes through CLKIN with divider of 1 */
-> -	clkout_hw = devm_clk_hw_register_divider(dev, "clkout", __clk_get_name(st->clkin),
-> -						 CLK_SET_RATE_PARENT, NULL, 0, 1, 0, NULL);
-> +	clkout_hw = devm_clk_hw_register_fixed_factor(dev, "clkout",
-> +						      __clk_get_name(st->clkin),
-> +						      CLK_SET_RATE_PARENT, 1, 1);
->  	if (IS_ERR(clkout_hw))
->  		return dev_err_probe(dev, PTR_ERR(clkout_hw), "Failed to register clkout");
->  
-> 
-> base-commit: 6b9f23b5460818aaf199dda90210d5fc08d66c8f
+> Your patch looks correct, although I don't think the Fixes tag
+> is.  I believe the actual fix is:
+>=20
+> Fixes: 4c71fd099513 ("drm/i915/gt: fix refcount underflow in =
+intel_engine_park_heartbeat")
+> Cc: <stable@vger.kernel.org> # v7.0+
+>=20
+> That commit introduced the early xchg() which hides the old
+> request from idle_pulse() and replaces it with a new one.
+>=20
 
+Thanks for the review and for correcting the Fixes tag.=20
+
+> I'm going to resend the patch so that it can be picked up by our
+> CI.
+>=20
+
+Thanks for resending it.
+
+> Thanks,
+> Andi
+
+
+Best,
+Shuangpeng=
