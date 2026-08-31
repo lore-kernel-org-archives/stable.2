@@ -1,116 +1,123 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3BB4AE12D
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 17:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE433F1AAD;
+	Mon, 31 Aug 2026 17:35:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788197116; cv=none; b=kOayr//eDuIss+hn7k/OeL0ssYDTtBzxDQOfLOkZriwZOF2nN+MzVqWIBNBxQX4kTuKZhkkXxAB9aC4eteH8+M2Fc47oahUcu+N2dIaa4Hzhd+9Qb8dPP5qphLlrfnn7LeypHgSg/UJ7OVCYhfBzdvlOC6MK3vY/+DlbY8s0lcM=
+	t=1788197739; cv=none; b=XVoReEV3AIAoFhnv4nBKO3RT1oGph9TI5NmOCu/9dxxOvYoqrgFWzcx06b9D3V1dTgMFHsO4Lvp2e+fXcVUHWUilxvrsOzUcJ78IcbOVNf0SEYstjpLa7/0oRzHax5Jp4uai2Pp3MT3nRanaQgplRY3goQXo8Baroz1HrU54hwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788197116; c=relaxed/simple;
-	bh=AHbx0/i7Pgt9YZiuONnuRmcHvLJTE+va4kW7G4fKV+M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ya3cuTCEuI+/4Z3bdTCaNJA86lMTbsDen6UhJIYaokHn2sarXjj5AYroLygeR1yY8KXFMkTpCgthl/NNeuzqnXjSziXWw9SkzLTw4MRWApiFMDec4hIzizmzq0RQEgnrE6aBYTSJnBEVD14BoyhaoHSM6QvaHlagt0dnHIeqAfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZKuaFdQ; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788197739; c=relaxed/simple;
+	bh=2qVC5yoQBquWe6LLwPrlx9oakMBqorOlsrR2KF1e3Jc=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=dvFlnbV3MGsOVum3rEpciZR0EIDxzvFbmxi761nSxRYk8kl8yLEDoXI8AjTh/XlGIym/Q/hvAZ/MTKmaMYsf8P8qnXa7dB+YhWRWhnfKQ0ObAxMbGpv6DwwNcvQfXREe4xKhbyvOdClXheuy0XhOdEfFCqR53RnrcijwDAJMCkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qJPoO2d9; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uAUN7GQ2; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZKuaFdQ"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d712281f8bso42747855ad.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 10:25:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788197113; x=1788801913; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XK77W5HmajvK4RgjL9G18trFUO/IP7eMuuZI6UF8qGs=;
-        b=dZKuaFdQGBVg0RM2DFlUP2u1rNto8vnfy6argN7oKH5JQ82YvZxDoyJBAFw9O9JZOn
-         AeuRUFa3AnpiRG47GGMv/IjzWbVNV/cxPJMJumB0ng4uEteKm4RKgAFCRVK1YJIoydmq
-         yR15gsgpCVjIfUQYeGfTNInniWlt3qQI9ikVZ6X7UuFoJIfIbILI7vLVlMbYp2kVlgnj
-         SoKaMF1G+3JlV/x/5dPdXoP5TWfSrZ+W5Q03KlcWeUKHSPHsBl+Kyym2M6k63Z+otqs9
-         +hCDRbSloNWeeIpL46FUet6TpeaJSmSK/BU2NGUCYv/qMrMKa2Sn87R3ShXvEe6mtm0e
-         bpXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788197113; x=1788801913;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XK77W5HmajvK4RgjL9G18trFUO/IP7eMuuZI6UF8qGs=;
-        b=S64L2VtAzeeLWFFhwjcEiVe0FqBGchLOmkNX+iIm+KR3sz8IuMeTkIFRxQYEQu8ZzL
-         uPBkmNCUuwJtyzHzPHmEUhDUolXE6X9uvoDeOfM5A/sOZ2ahx2EsaqFG3Cu6CY0VAKLM
-         U4pfG0Tyw3aGc+t+wNDrGk0bMtr+vJqQMp+dz3TGDpeqxbPCQaZloLD2g8s7Msr6Whx+
-         bIsZ48JCuP28ldwRAhT3MBIJ13oKpQHc4b2EmTl0wmsW/uesDht5/uQ3NU5F3zOxEgok
-         ykN5QOA9WnVYZuiAldNJ+ADWCE0U2+roB20IYmBx/tG66YRPD2nQOPfsHc5ggcmvKbaN
-         /jsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwb0mY3Wj0LmMdnNaKVK4XnwsHTXcoAbKaxGPCa/0SBUOD/H1cju6512PWBa1dGKOpl1cpqTpg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/wDFgfA11Eqz7tjRyZ6JKbESyl+QDCxqhgkfkIYyNvwcaFSRD
-	qlB3Huflt1ywhOJWyvIgLKRma5AUiO4S7923Y529bAL2NNhTRtalgBkF
-X-Gm-Gg: AYBFou3Od4q/7pRL6PnEUFipcx/6WOptYHYIkooZldbIU+RfGtd1to1maCt4QK5CME+
-	xmfzBty78VtdmuU7F/8EQ/Nu/I9SuFUUfKbuV/AS8n1wpKEM7X2ELGpVwbNtPxq6e1FZZyjfe08
-	A+QgsSJhoGgyzT/yaY05JRQxNUxSDAMT+3HYpx3mAp40753yedY3vgVc1wzeGLL7ei5mjlMYdEn
-	710dueCjMw9l4si2/gAAUlAd8FDPed1v47VtSa7MjLnKb1OVihd3e/AlSzvFDkNL+HdMDs3Woha
-	TGFKEqy+0PuGK2wLFM+H1WViUbHD1BsenYXEa0TLqWaUFmdWRV9Lymk8ehSJbl/iQAm7D3XKWt2
-	1SeXroMPanbcSm75ZnwYUNtL7qCqeJ3yQ+tNphCtRvhWD2r6XuZlA7R4YbMYEIZGa1legAd+WjS
-	qpc3SCe5IBuVA18OglBEAcDD5acxv6D/WOUVvPEG5IxipyoUezHryxJWqLwW7kp+W0pkXxXJQLL
-	f+3ngFNplYwsSD7h5WvnHHMsYqfQQ==
-X-Received: by 2002:a17:903:324e:b0:2c9:deec:f564 with SMTP id d9443c01a7336-2d94a8d59acmr32476955ad.13.1788197112756;
-        Mon, 31 Aug 2026 10:25:12 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b28ab0571sm23256193eec.4.2026.08.31.10.25.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 10:25:11 -0700 (PDT)
-Message-ID: <5893399d-bef6-4888-acaa-3bb4ca3ffc01@gmail.com>
-Date: Mon, 31 Aug 2026 10:25:19 -0700
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qJPoO2d9";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uAUN7GQ2"
+Date: Mon, 31 Aug 2026 17:35:34 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788197736;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n8Dx2ZMejgOo8yw+tVY8+elR2md2Nj5Pg4EyNxccHG4=;
+	b=qJPoO2d9w32upNZrOE2RiXOgBnPcCm7UNJaAi+9b8Go4sNy4kSwMVZso1Jtu+GHf7ZAxcY
+	zSaVC2OUNIfeWomu5keX48ALGxrU26+XW06f56FmPUTxT76EJbKBDh+v4Cs6au7EgwrR+Q
+	xQY/qGjH/vg5hSFajzNsc030NLvATsSgN7ywGT0J2PbH9OWjVkxFLYGaBFq/Gr3p5/6EDv
+	VdSwdirqj4Qn5kfywWh1wFr5chv/iaKjSi1v9kGDyyHIOo9Q8iji0vuyBBv0uX6zK7AF87
+	l32Ct508DonjtTHN4HUhqckVw2uZF83qJkn2fXB6Ptf1XVsWFQ8iCxvIEXYlcg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788197736;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n8Dx2ZMejgOo8yw+tVY8+elR2md2Nj5Pg4EyNxccHG4=;
+	b=uAUN7GQ25ascWtQPuFVfw5GNklnNgydUcbK6hT5r30yvgbXUPW7ZdbCAa5+3V90E9Ckyc8
+	zILzpYba4I0NqEBA==
+From: "tip-bot2 for Jason Andryuk" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/urgent] x86/amd_node: Avoid divide by zero on virtualized systems
+Cc: Borislav Petkov <bp@alien8.de>, Jason Andryuk <jason.andryuk@amd.com>,
+ Yazen Ghannam <yazen.ghannam@amd.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260825214805.39148-2-jason.andryuk@amd.com>
+References: <20260825214805.39148-2-jason.andryuk@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 00/69] 5.15.220-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260831133358.601894154@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <178819773427.3717435.17649146675219220348.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the x86/urgent branch of tip:
 
+Commit-ID:     72bd92bd8190d7869ecb462649ca40f297822a33
+Gitweb:        https://git.kernel.org/tip/72bd92bd8190d7869ecb462649ca40f2978=
+22a33
+Author:        Jason Andryuk <jason.andryuk@amd.com>
+AuthorDate:    Tue, 25 Aug 2026 17:48:02 -04:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Sun, 30 Aug 2026 18:25:42 -07:00
 
-On 8/31/2026 6:34 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.220 release.
-> There are 69 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.220-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+x86/amd_node: Avoid divide by zero on virtualized systems
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+On a virtualized system, the number of nodes does not have a relationship to
+the number of roots.  A Xen PVH dom0 can calculate roots_per_node as 0, which
+crashes with a divide by zero in:
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+  if (count++ % roots_per_node)
 
+because the underlying topology code on Xen ends up making num_nodes
+2 and num_roots 1 and the integer division result is 0.
+
+The issue is seen with Xen, but it could affect other systems.
+
+Set roots_per_node to 1 in this case. Print a firmware bug when this is
+performed for non-virtualized systems.
+
+  [ bp: Massage commit message. ]
+
+Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+Suggested-by: Borislav Petkov <bp@alien8.de>
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260825214805.39148-2-jason.andryuk@amd.com
+---
+ arch/x86/kernel/amd_node.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+index 0be0172..408b9fd 100644
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -287,6 +287,11 @@ static int __init amd_smn_init(void)
+ 		return -ENOMEM;
+=20
+ 	roots_per_node =3D num_roots / num_nodes;
++	if (!roots_per_node) {
++		if (!cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
++			pr_warn(FW_BUG "Error detecting roots per node.\n");
++		roots_per_node =3D 1;
++	}
+=20
+ 	count =3D 0;
+ 	node =3D 0;
