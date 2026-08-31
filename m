@@ -1,116 +1,246 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF5C4A3D31
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 18:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDD23BB9F3
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 18:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200475; cv=none; b=lwu2BNTeGzpppawMEQPR8mMsYYGKcxJIVz6ewMFRFFAmqglQPE8Bcc6yeajxFNcFdyilnXy/0J1PIYaaPm3PhndMAas7cSKuTNtINyT2v5uNry6rwpORqlf7CwQ2CpMVHJ4LSb6HuQrSuKoUIYFbbJYsEq55cJWoak3nGYEAK64=
+	t=1788201007; cv=none; b=KI5jRt3JXXJPq6M7Ys87ULilJlx9I6kknxTkSOAzz5q0I/P4wBusrjVfX6g3Mk6bM/MdwbSYh21AHQSfVMNcQApsArb5iBEM2lCLbiItrGVKH+MrhW8+362i3R7N7SKrUe2EPl4W1uVc/X/ecGKZ58trZr4KqcXD0raNKN7IG+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200475; c=relaxed/simple;
-	bh=CTe7x0uus5Jyh61aGiyKsb0esjA18qPPL2GDz+sMqHg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PDwGAi0KTQAzhnNFE6JvdwQzvIOSxbdc13UtI4M9F9RiYRyxlUfhjehKqJOeGNCzQqWnNlWgqMKaC7P360F/hYUfJ4nGsO5Ymj9O4u/GUtjTmxFiswsaujea+jUzGZJO0DOn4+porYnOj2AwCeqkyFPbKfag74eb15TyquCL1A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bu7OG3Em; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788201007; c=relaxed/simple;
+	bh=M7wvg3m5W+10SWmBXFSMNSrargExtq6wC7CsCshS1SQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pAYuSPDc9WLy0T6naqWInS2H3BXyWlAk/I+5PgNIhNfjG3zwQmoqHS392U1oYdH83guot5brFfS5j8dyJK7+qaBQE4wguKcIyC2jOlGS8VTtMxFH9SLuSENaI4IPSZzHwkD+PlLe48Cxf9/s26/rJCrLBadeujU1+8Oao0Laq34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ol8sMBhh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bu7OG3Em"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-382ef647e20so3907416a91.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:21:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200473; x=1788805273; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2C8d9Mw5d8wycdXLHEiB7Z81VhrXXtSb8zZr7GQsQHI=;
-        b=Bu7OG3EmLNxUgEc1ZAZ6Yz2G2lLiJvtGbQUEDiSYmYsEALwOVeJvPB7P7Hd7NuSEDz
-         Tp0K9BMdmEXFeFL2qQzk9RCGyd43cy7PhiIsc8VX157NobeVrmgytmAsFdRg45F9UOzk
-         FNfQbTRSIA6BL8LF4a1BunrrST8gwwSlgejZnhQAtqXTZejhOfzVJwD28VcZkd70YCLp
-         CFNIuonkqjagzKj4BJIkKb7cRd74+mSU4op+XFYENlQncCgPmvm4SAIn2HTzD4bmoaCn
-         DoTMjAXbmwSBSsxrGSYfTMMB6hjHUFLN2kpNU4o6y6vQyXMDhZqwiBnnfZY/nazB6JQg
-         xnkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200473; x=1788805273;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2C8d9Mw5d8wycdXLHEiB7Z81VhrXXtSb8zZr7GQsQHI=;
-        b=Qqf62GRWokSSD+6Q8r+yM4XSR3J0eUZuWYUKLfRimTlmwfhkE4fEw/gzC49ZzVvPmG
-         jFBI63/cfzryMWqeiR/aQ1u/BFGyKgJ0cIh0dwJIKakgp2oQAgZUfHd+ZzH0C2C9bsgv
-         LKj7XqXdx+yZUj1ia0pZdjMqRNbkNvbxI+CP8btyqnuk8r2EeaCumqMsxe/Mc1Q67s7t
-         cVcgv8nUE+9UEBZKfbkwjaUa2FsAEIZf5TOQpvs9H7SK1uAaIT4bAOSoJVg5g3ts8R2X
-         /YjpNLCSy/udXz4QDYcQIkzrBNPyaPhGhQzXK+DWUADXwKa2CiKQRcK5s4WXg7GAojSs
-         K6PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbX3/MtGl5jW6Gn0UuTFl0NkfV+UOQ7W5aeha8dTTVjS9WdVxOIupVpM/uSj+p77UOusVmOPE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kR5cPEYqKTsd0H2I6nl0onRXbUtDidTbAfm7oXIzsJB1zF9Td9
-	xWm59MBpSkjq83L9ZcS7If7arPM4XVMSM4wJOCUxgUpapV7mlKBvxCNh
-X-Gm-Gg: AYBFou0Tu83EasL2zo7GiUsb3qbVj7nn3XrnoVbAbyFRRcpKbItfYjvklkW88zEhjNR
-	R06t8Odg2DypfZAWweaySZWWLIiXT7ueIPehjF8Yl1LSXE1Ebulb0QqDg6UVAzXlG6n/ircIEpG
-	ZpBB/92l2n/tfe0ya747byfhqt2d2S5eAw3+xYIvjEXMCi5Rlp5vpE9llrCtR/S5fFo31OFpO2u
-	V5a1XYVSA4Pm4Ygn2T6UhxntPzxMYb71xf+Wn/K3Qjwb5QX5Vp/JH4E9DTnvwOEWb3/bys2dR2p
-	UtUf+woT+Hcn10LmV3k4vaJIEjQIEhmBtDKgVDsJ4pP+rxO0UhVw2AAyJn8P5xowLyO5GGD6n2H
-	KDRjjOlEcitOin0UtwuJTU0brPpJownF0yyR7Bgkt/FhXhL1PyWgFOG459Kcz79s+agWUfgi3af
-	cdTsoGKuB7gHKN6Qb2fD1mJ0Bs7/aVz1MHIWeahzbN8eaP8g/oTpVYC4sbJPmup3vTZbyRnLc6g
-	h7FgkqxNJ1xbfGicpFHllR6kjeLrQ==
-X-Received: by 2002:a17:90b:5890:b0:392:e5b1:d833 with SMTP id 98e67ed59e1d1-396d0f1a83fmr43783255a91.13.1788200473351;
-        Mon, 31 Aug 2026 11:21:13 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0de4d92sm27298588c88.13.2026.08.31.11.21.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 11:21:12 -0700 (PDT)
-Message-ID: <e741bab6-782e-4e82-a7fb-7bcf526a93ec@gmail.com>
-Date: Mon, 31 Aug 2026 11:21:20 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ol8sMBhh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF2ED1F000E9;
+	Mon, 31 Aug 2026 18:30:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788201005;
+	bh=dgJjHhe4Fz/zBeIwS3RW4EUTx8Yn4UxWhvXPuJojrmc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ol8sMBhhUm6IxMnfcf8ngvHSHtO5ObEdACM4oXgyfjPxxXvTHXVVwSGevJT1OIeOR
+	 I1+ApwbmHuV8W3By5lLA1w7wfLk2/925KTUcBMzKrvh5XZkQZAE6B2S5lnwfEuxOL/
+	 17nIwNeCgOqhNqaFMxNgDIdsaT+WVA+k0r9xVciThj5mvhRbR544TiXW80TlJn5TgL
+	 Yq2IfAAkEEgQ5+bt96z5yeOAU7JyVOqk6VjuslMzDll7kyoxyA5ns7g0gMdPxmYdOi
+	 10/xVie37317WHLl2k/uE0vGnDP3h4X4EA1ajKsLKRkcUv5fwcnWrbfYZplpMxPSIV
+	 7JipYkgjWlsJg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Joanne Koong <joannelkoong@gmail.com>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] fuse: decouple fuse_ring creation from ent registration
+Date: Mon, 31 Aug 2026 14:30:01 -0400
+Message-ID: <20260831183002.1670211-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083141-juicy-elated-cee2@gregkh>
+References: <2026083141-juicy-elated-cee2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260831133359.468089036@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Joanne Koong <joannelkoong@gmail.com>
 
+[ Upstream commit 6330b1f61ed1d17850fc61bdb8920ca1056e2cf9 ]
 
-On 8/31/2026 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.156 release.
-> There are 91 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.156-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Currently, the connection's fuse_ring is created lazily on the first
+FUSE_IO_URING_CMD_REGISTER command. A server registers entries from one
+thread per queue (one per CPU) and those threads issue their first
+REGISTER command concurrently. They then race to create the single
+per-connection fuse_ring, which required open-coded handling in
+fuse_uring_create() to detect and protect against concurrent creations.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+Decouple fuse_ring creation from ent registration and move it to
+FUSE_INIT reply processing after a server has negotiated and set
+FUSE_OVER_IO_URING. The ring is published before the connection is
+marked initialized. fuse_uring_register() no longer creates the ring and
+it instead uses the ring set up at init time.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Reviewed-by: Bernd Schubert <bernd@bsbernd.com>
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Stable-dep-of: fd10f40af314 ("fuse: copy request headers via a stack buffer for io-uring")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/fuse/dev.c         |  8 +++-----
+ fs/fuse/dev.h         |  2 +-
+ fs/fuse/dev_uring.c   | 26 ++++++++++----------------
+ fs/fuse/dev_uring_i.h |  5 +++++
+ fs/fuse/inode.c       |  4 +++-
+ 5 files changed, 22 insertions(+), 23 deletions(-)
+
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 5763a7cd3b37f..9ab1f1f551ce0 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -75,6 +75,9 @@ void fuse_chan_set_initialized(struct fuse_chan *fch, struct fuse_chan_param *pa
+ 		fch->minor = param->minor;
+ 		fch->max_write = param->max_write;
+ 		fch->max_pages = param->max_pages;
++
++		if (param->io_uring_enabled)
++			fuse_uring_conn_init(fch);
+ 	}
+ 
+ 	/* Make sure stores before this are seen on another CPU */
+@@ -411,11 +414,6 @@ void fuse_chan_set_fc(struct fuse_chan *fch, struct fuse_conn *fc)
+ 	fch->conn = fc;
+ }
+ 
+-void fuse_chan_io_uring_enable(struct fuse_chan *fch)
+-{
+-	fch->io_uring = 1;
+-}
+-
+ void fuse_pqueue_init(struct fuse_pqueue *fpq)
+ {
+ 	spin_lock_init(&fpq->lock);
+diff --git a/fs/fuse/dev.h b/fs/fuse/dev.h
+index aed69fd14c41d..8d25378c09183 100644
+--- a/fs/fuse/dev.h
++++ b/fs/fuse/dev.h
+@@ -22,6 +22,7 @@ struct fuse_chan_param {
+ 	unsigned int minor;
+ 	unsigned int max_write;
+ 	unsigned int max_pages;
++	bool io_uring_enabled;
+ };
+ 
+ struct fuse_chan *fuse_chan_new(void);
+@@ -34,7 +35,6 @@ void fuse_chan_max_background_set(struct fuse_chan *fch, unsigned int val);
+ unsigned int fuse_chan_num_waiting(struct fuse_chan *fch);
+ void fuse_chan_set_fc(struct fuse_chan *fch, struct fuse_conn *fc);
+ void fuse_chan_set_initialized(struct fuse_chan *fch, struct fuse_chan_param *param);
+-void fuse_chan_io_uring_enable(struct fuse_chan *fch);
+ ssize_t fuse_chan_send(struct fuse_chan *fch, struct fuse_args *args);
+ int fuse_chan_send_bg(struct fuse_chan *fch, struct fuse_args *args, gfp_t gfp_flags);
+ int fuse_chan_send_notify_reply(struct fuse_chan *fch, struct fuse_args *args, u64 unique);
+diff --git a/fs/fuse/dev_uring.c b/fs/fuse/dev_uring.c
+index 77c8cec43d9c6..55e0ecdb20582 100644
+--- a/fs/fuse/dev_uring.c
++++ b/fs/fuse/dev_uring.c
+@@ -238,7 +238,6 @@ static struct fuse_ring *fuse_uring_create(struct fuse_chan *fch)
+ {
+ 	struct fuse_ring *ring;
+ 	size_t nr_queues = num_possible_cpus();
+-	struct fuse_ring *res = NULL;
+ 	size_t max_payload_size;
+ 
+ 	ring = kzalloc_obj(*ring, GFP_KERNEL_ACCOUNT);
+@@ -258,12 +257,6 @@ static struct fuse_ring *fuse_uring_create(struct fuse_chan *fch)
+ 		spin_unlock(&fch->lock);
+ 		goto out_err;
+ 	}
+-	if (fch->ring) {
+-		/* race, another thread created the ring in the meantime */
+-		spin_unlock(&fch->lock);
+-		res = fch->ring;
+-		goto out_err;
+-	}
+ 
+ 	init_waitqueue_head(&ring->stop_waitq);
+ 
+@@ -278,7 +271,13 @@ static struct fuse_ring *fuse_uring_create(struct fuse_chan *fch)
+ out_err:
+ 	kfree(ring->queues);
+ 	kfree(ring);
+-	return res;
++	return NULL;
++}
++
++void fuse_uring_conn_init(struct fuse_chan *fch)
++{
++	if (fuse_uring_create(fch))
++		fch->io_uring = 1;
+ }
+ 
+ static struct fuse_ring_queue *fuse_uring_create_queue(struct fuse_ring *ring,
+@@ -1176,15 +1175,10 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
+ 	struct fuse_ring *ring = smp_load_acquire(&fch->ring);
+ 	struct fuse_ring_queue *queue;
+ 	struct fuse_ring_ent *ent;
+-	int err;
+ 	unsigned int qid = READ_ONCE(cmd_req->qid);
+ 
+-	err = -ENOMEM;
+-	if (!ring) {
+-		ring = fuse_uring_create(fch);
+-		if (!ring)
+-			return err;
+-	}
++	if (!ring)
++		return -EINVAL;
+ 
+ 	if (qid >= ring->nr_queues) {
+ 		pr_info_ratelimited("fuse: Invalid ring qid %u\n", qid);
+@@ -1195,7 +1189,7 @@ static int fuse_uring_register(struct io_uring_cmd *cmd,
+ 	if (!queue) {
+ 		queue = fuse_uring_create_queue(ring, qid);
+ 		if (!queue)
+-			return err;
++			return -ENOMEM;
+ 	}
+ 
+ 	/*
+diff --git a/fs/fuse/dev_uring_i.h b/fs/fuse/dev_uring_i.h
+index 55f8d04e4b0b2..d721a4fc0215c 100644
+--- a/fs/fuse/dev_uring_i.h
++++ b/fs/fuse/dev_uring_i.h
+@@ -135,6 +135,7 @@ struct fuse_ring {
+ 	bool ready;
+ };
+ 
++void fuse_uring_conn_init(struct fuse_chan *fch);
+ void fuse_uring_stop_queues(struct fuse_ring *ring);
+ void fuse_uring_abort_end_requests(struct fuse_ring *ring);
+ int fuse_uring_cmd(struct io_uring_cmd *cmd, unsigned int issue_flags);
+@@ -174,6 +175,10 @@ static inline bool fuse_uring_ready(struct fuse_chan *fch)
+ 
+ #else /* CONFIG_FUSE_IO_URING */
+ 
++static inline void fuse_uring_conn_init(struct fuse_chan *fch)
++{
++}
++
+ static inline void fuse_uring_abort(struct fuse_chan *fch)
+ {
+ }
+diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
+index d975073c60296..ce4891a04a378 100644
+--- a/fs/fuse/inode.c
++++ b/fs/fuse/inode.c
+@@ -1272,6 +1272,7 @@ static void process_init_reply(struct fuse_args *args, int error)
+ 	struct fuse_mount *fm = ia->fm;
+ 	struct fuse_conn *fc = fm->fc;
+ 	struct fuse_init_out *arg = &ia->out;
++	bool io_uring_enabled = false;
+ 	bool ok = true;
+ 
+ 	if (error || arg->major != FUSE_KERNEL_VERSION)
+@@ -1402,7 +1403,7 @@ static void process_init_reply(struct fuse_args *args, int error)
+ 					ok = false;
+ 			}
+ 			if (flags & FUSE_OVER_IO_URING && fuse_uring_enabled())
+-				fuse_chan_io_uring_enable(fc->chan);
++				io_uring_enabled = true;
+ 
+ 			if (flags & FUSE_REQUEST_TIMEOUT)
+ 				timeout = arg->request_timeout;
+@@ -1432,6 +1433,7 @@ static void process_init_reply(struct fuse_args *args, int error)
+ 			.minor = fc->minor,
+ 			.max_write = fc->max_write,
+ 			.max_pages = fc->max_pages,
++			.io_uring_enabled = io_uring_enabled,
+ 		};
+ 		fuse_chan_set_initialized(fc->chan, &cp);
+ 	}
 -- 
-Florian
+2.53.0
 
