@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9BE4BA9FD;
-	Mon, 31 Aug 2026 14:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213F648424A;
+	Mon, 31 Aug 2026 14:03:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788185024; cv=none; b=BckXJ5jK4BJy8agcX76t2nayb1oCj4OxGPQJLAg1xCfrMckWHKs6EgDO0Ie12UtWwUaXfXg9vR106uwWdi0wtgb3c6kLcmgw5tU3QpeS4+Bo6k9dXhe6lAbu8/W9ds7bYIjye6YsRRxb9ZjxB+PKWMavKJTHgYebbIpvCX0z0C0=
+	t=1788184984; cv=none; b=FCHhqD+U2cyxffX1b94eHoCW2/yiPRaXXQydyjBUSbyhc2kowBcpp2aiKpnVG+pzKHJXNoVPqVh3a3eeSYQ3wjmoBhV6bxbhwm1aC+d5zYHg/STCOqciuXzLEoF9TzfnSBmqJG8SkMtGy2JeNmeBvP+w/XmNdCKJs+s+lP2/MvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788185024; c=relaxed/simple;
-	bh=GPQzxsynSK1hoMpp/yc4dEvqm1TaPPEpa8Wq0Gz+Elg=;
+	s=arc-20240116; t=1788184984; c=relaxed/simple;
+	bh=c8YnLYM9gCkCamNMX4Ifu9ihjCO2crXUFIBol3Mz1aU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UY83vJhN5Mt0QCbi1/NfbHwmt1jfmgZpoCK9d+MkvzQqOwtOsW6UdDXcc2eWn6nD8uRBjdjMTMi7afQZ8yCYNpFEbjtApkoBdIMPXnfBK5TQcZVMJ9FEjZHo9fnPIP243X9qkJwlJQQmDRVQ4cO86cx2kMbmyTqD/L0WqUaMajo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sKRw1ccg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mgTZRnUGfaKuSxI7fqh94XJEi1GZ0aiKRPDaw+xnc83Cj6GqcvuDxzT4jg111Cw0rNBl79njakJN+gj6tW/s5yS/kQbz5fULibghHUQJrzj9jRfNCID8mddrui5p35ewNFR1QmmcyPsLjcEV0UEe2Pp4lZXAD/pCMWFF2O455hQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h+1eIXDe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sKRw1ccg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316C51F00A3F;
-	Mon, 31 Aug 2026 14:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788185021;
-	bh=UZ+od4i2Oa3xnHgnBNeEES6iDBgm4qIc4RDBGDnpJ5s=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h+1eIXDe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6771F00A3F;
+	Mon, 31 Aug 2026 14:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788184983;
+	bh=ccJR9KUzvn7k6BzhoDEjN3sQrL1C2MxY/yOiNOzvC90=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=sKRw1ccgGXBWUu/kKYcHyIILnBDBnC4Q4AKN0KSmpGvM3TjGh5hLEL9IO7oAnmOx1
-	 Bxr1heNs5pOJS9qprD+ws0/vlpcusgkeNXvoqyRIHkR1R2s/DGH1gBZAgp5pcfHzBX
-	 TMedR3piFjo8tzSxPig5FQHPeXAdwh/ytWD+NAtc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	syzbot+608a2acde8c5a101d07d@syzkaller.appspotmail.com,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Martin KaFai Lau <martin.lau@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 05/69] bpf: Remove tst_run from lwt_seg6local_prog_ops.
-Date: Mon, 31 Aug 2026 15:34:38 +0200
-Message-ID: <20260831133358.815784209@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
-References: <20260831133358.601894154@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	b=h+1eIXDeQBAQUEQT+BHPoIt3p/SRP8E+YgRQDpNx0ek9JHPXbuwO0QBybw+PfjfrZ
+	 hHRD5xsWcY4EoIhMgDT5cKTMNKxOib1aMBeU16mcgv74zbIVZWmtnqNJN7V06osC1H
+	 fGo60DV1jRBKLrPXpVjoq7fpmZQixJNKqZrtZiyfvmDTetdnUjdoTkurf8aSfVAOC8
+	 6R5+j/oVhpV9iY6JWJzQf9zH4CJCLSG+WS3q2Qyshrnr6PK/kv41ElGi8FUn6W/3lq
+	 0CHnlRxIWF45bMsV6ZfHPw9oroitEgD6q9hNcqHfNa5f4YCvca5kLlfldmIZyoXVe6
+	 oBDRf+zfa/ZXg==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v1.2 1/8] mm/damon/core: skip applying scheme if region split for quota fails
+Date: Mon, 31 Aug 2026 07:02:40 -0700
+Message-ID: <20260831140254.72004-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260831140254.72004-1-sj@kernel.org>
+References: <20260831140254.72004-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,53 +48,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+damos_apply_scheme() splits a region and apply the action to the
+subregion if it is needed for not violating the quota.  The split
+operation (damon_split_region_at()) could fail for allocation failure.
+In the case, the quota could be violated.  From the user's perspective,
+DAMOS becomes more aggressive than expected under the extreme situation.
+Handle the failure.
 
-------------------
+The user impact is not critical.  The failure of damon_split_region_at()
+is unlikely since it is arguably too small to fail.  Also DAMOS being
+aggressive is limited to the single region.  Users can set
+min_nr_regions to set the maximum size of each region.  If it is
+reasonably set, the transient overhead shouldn't be critical.
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+The issue was discovered [1] by Sashiko.
 
-[ Upstream commit c13fda93aca118b8e5cd202e339046728ee7dddb ]
+[1] https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org
 
-The syzbot reported that the lwt_seg6 related BPF ops can be invoked
-via bpf_test_run() without without entering input_action_end_bpf()
-first.
-
-Martin KaFai Lau said that self test for BPF_PROG_TYPE_LWT_SEG6LOCAL
-probably didn't work since it was introduced in commit 04d4b274e2a
-("ipv6: sr: Add seg6local action End.BPF"). The reason is that the
-per-CPU variable seg6_bpf_srh_states::srh is never assigned in the self
-test case but each BPF function expects it.
-
-Remove test_run for BPF_PROG_TYPE_LWT_SEG6LOCAL.
-
-Suggested-by: Martin KaFai Lau <martin.lau@linux.dev>
-Reported-by: syzbot+608a2acde8c5a101d07d@syzkaller.appspotmail.com
-Fixes: d1542d4ae4df ("seg6: Use nested-BH locking for seg6_bpf_srh_states.")
-Fixes: 004d4b274e2a ("ipv6: sr: Add seg6local action End.BPF")
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20240710141631.FbmHcQaX@linutronix.de
-Signed-off-by: Martin KaFai Lau <martin.lau@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
+Cc: <stable@vger.kernel.org> # 5.16.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- net/core/filter.c | 1 -
- 1 file changed, 1 deletion(-)
+ mm/damon/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index af34e922836ce..6c81daf9efc9d 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -10419,7 +10419,6 @@ const struct bpf_verifier_ops lwt_seg6local_verifier_ops = {
- };
- 
- const struct bpf_prog_ops lwt_seg6local_prog_ops = {
--	.test_run		= bpf_prog_test_run_skb,
- };
- 
- const struct bpf_verifier_ops cg_sock_verifier_ops = {
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 644daf5a16560..e2900d0c984c9 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2613,7 +2613,8 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
+ 					c->min_region_sz);
+ 			if (!sz)
+ 				goto update_stat;
+-			damon_split_region_at(t, r, sz);
++			if (damon_split_region_at(t, r, sz))
++				goto update_stat;
+ 		}
+ 		if (damos_core_filter_out(c, t, r, s))
+ 			return;
 -- 
-2.53.0
-
-
-
+2.47.3
