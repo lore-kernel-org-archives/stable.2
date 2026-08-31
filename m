@@ -1,141 +1,100 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344863368BF
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 11:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5723E51CC;
+	Mon, 31 Aug 2026 11:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788176743; cv=none; b=RiPVupTpTp0DyLhQ+Kyj1w7CkXnQwb0irSzByzq3iQRkYIausDp1CYBXptb+vq6hbPrVU9ISJql+6jLMq5wqnqorWJpHY4N5RzRos468dOu+I/+IdbJh34UMbknd9pG8M9/PHeH9CwgmSkLjWfMV2ayMbPih3dIEapLC+EgLy8c=
+	t=1788176883; cv=none; b=qnhIA1anNxaaNGLUdAf74KXSrIHKWBcdNtXFIDpmQ//joStkifqKJHp1KBOmpHTDJAT7fWLduj9Dcx7gUfpK6bEK5mav3LNtvivkdZ64i0Bw6tQa866oBxc+JHWIw+Lmko4V4u0gTMQN0j184ACnq7HSI41pWaNKGrn5LTTWqG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788176743; c=relaxed/simple;
-	bh=BEeQAQ40I0LV0aGncVgyaQlkRdikCzo4unT8jnz0Nbk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S9hklooPZtRvMgJeJuCyXsGQpItIuLzKmppsNw63GaaigZSbK33RgWvXWA8uZUmYzL8icpyfpWk9LwwZu1Ti0BQajUiSQuHIVVy/CXjB/rRu4q9Ke1Uza4KtOYLJhuZRZDWN04QZn/VB9nNa00EbxFv9i0eNzbs7UJGMiDBfN8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=K9Vl2qw2; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788176883; c=relaxed/simple;
+	bh=ybxxMyix51xqvrqBGYhUS6IMU27DX79vaaLno+VWho4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FnZARtUNY+EaQwbS0zDjWTkkPKHYTUoKgG3ivEbSeDbgKVP8En5H58mqz49r6S9oiOy7VblxuCZtSpH4crKWJBFYaSFgklL8u2xCxuBuMh3Mgyjx0fYVBhzj2wh9o5NxmlJ8yTrgw9dKvm135bFWJpxOlFOG/6bjJTwJVVLcQKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UHxa2HoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="K9Vl2qw2"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d5335cf904so31651175ad.2
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 04:45:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788176741; x=1788781541; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GIGBSwlzLQ3JNiD8igYqt5VspQFX9U8fXgxj4FZ+S/0=;
-        b=K9Vl2qw2aTOSN3FVyf9BuTBo+zuZImLZJAb83gzT4uS35gzC/9a/VG9ZaKJgHhmHho
-         T1A1SbolXQN6g8aoP77yaQa7stTkGPlrBuRpMv134h8AfBfgzjigjY4dZe/A/WPWkI++
-         MGKmF8Dxi+SfPV3ej4wEaQBlTqle5+lhZw3+c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788176741; x=1788781541;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GIGBSwlzLQ3JNiD8igYqt5VspQFX9U8fXgxj4FZ+S/0=;
-        b=O1GkAWwPDFB52BMZ41ZlXE5PQdjTd195Y6Zmho291Xoo9B6uJaNQJfsdEBzybQ+qw+
-         U3H+Lgo0bqJAXXQi9tRf44/bhaO4XynBTzaE2NU3YTsHxOVwz5wSH7EACZ8cmZ+VKKNL
-         +8Bk2q0gm7tPm+84hsm3Jwt9PsqKTPPH7DpFBhmHku9ccAnoo8gyiyCfg9wrVMYRFDui
-         7gaOrCfO2mYEzaEjiakuMhDNt0wUAhHfvif+ulVHMx/wFlt7k+7u2coZbxiEYr+zgk2m
-         7/sqL1a7+dlqiSXURC/w5nOQbsYf/DZOBlGw1yFV6+DKfdIZNm0hgPl6thmL2WamClVh
-         BeOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIMSQaoo3Mre0uzpL7OiT7RFWb9HojD5UtOrRJFdMwpQqmZRbZ4rSdNDp1zjRjsTXIkMgK1cY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0Jz/M3lm4v2ntQaRVIpW3riOPjvOc9G/4LtgO3mRpYy0s7LFi
-	lQL5yteNAmpp8FbIqoDQWlaV99t3SGmphBrg68sCjEi+SCVnS04K956tUb6zcjen2V4i17qdgik
-	GRmQewTfE
-X-Gm-Gg: AYBFou0/T8GMe0kTMngs18Yt5IEjQNt+NFCNyyCOUFzHeIPh7TdmtLvV4ThwnUumVAp
-	GGN6dualKrqUUl7ir2dTaoaTurwb1fdVmqkmTQTgt1W23jHstNxmY0PJZqjvGRR3Ytwmcti3RN9
-	tIjl46DhWklEoiIV2cUhs6UPYVJUSaLQs9LviDp2ZPTgi5He7Chysg23IGkKwV1GISKW6LZB+s2
-	WGmVEAaz1Ulh07BWiT7E2tIX9UflklXWtqIEGvJcKLUtsTOIT7dYBY12NlakSbQaoA1JJzP1QI+
-	6NqPQ2BSmFDSpTlSxVIydXzT6KfK59/eADjjjkMYhc6oxDH9CJMMfUh+ebCZQoVuQsHJdXUrnlq
-	N8cFkn1WJPW3OQkbN59DKDREI35s9y4DoO78GI4rJOl43JkPczfhd/YG9z3731096SZj2dA9qWz
-	VK6jlOsig/0x7PHoMadwdcZf1VE44QRGE/o2dNmCqwrTbWxAovMqjDfXLHC4cdvnE8Yo5mpmPGN
-	boGrxOx0E4SrwkK4S10LDECWe8S1Q==
-X-Received: by 2002:a17:902:ce8d:b0:2d8:d4cc:be63 with SMTP id d9443c01a7336-2d93fa2fc9bmr37179985ad.16.1788176741529;
-        Mon, 31 Aug 2026 04:45:41 -0700 (PDT)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com. [209.85.215.181])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d759869e3fsm33804865ad.44.2026.08.31.04.45.40
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 04:45:41 -0700 (PDT)
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so3641831a12.0
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 04:45:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz3Hm0YvubdDOxRC/7WQuIm5nCPjTXx+C9ACNTk3oz6CkZfBmYo1+tHvbokM7i/iyFgG4hGtyM=@vger.kernel.org
-X-Received: by 2002:a17:90a:d887:b0:392:b509:b1a5 with SMTP id
- 98e67ed59e1d1-39907e0f87bmr182688a91.14.1788176739296; Mon, 31 Aug 2026
- 04:45:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UHxa2HoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523D91F000E9;
+	Mon, 31 Aug 2026 11:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788176881;
+	bh=ZplZYncnRKFZipftv7wfZbHiyWAoIb0g/sXD3GATNRI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UHxa2HoVnTkRM9dXAL4NlPRAfXc44P7fjNSKtyf2HRLbEz4v2On+DWypCl44RJlC3
+	 Cx6JCPXv9NPqa/RXFI3Q5+46AACLKpTG2gkyIKi7bQiAQweXLk6GwCcCrmRI8+3xz+
+	 1qqouYAqKauRD1DvD9+IBwTri70T0Xabk6xHAe/E=
+Date: Mon, 31 Aug 2026 13:47:57 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, stable@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.6.y] arm64: mm: clear extra idmap level before use
+Message-ID: <2026083151-mascot-unshaken-5f46@gregkh>
+References: <20260831054247.33352-1-kmehltretter@gmail.com>
+ <2026083125-upbeat-series-9565@gregkh>
+ <7f744f2a-409b-454f-bdb9-fccb5031640d@app.fastmail.com>
+ <apVbNN_gtowKWVhR@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260822112256.12346-1-jeffinphilip14@gmail.com> <20260827035155.10725-1-jeffinphilip14@gmail.com>
-In-Reply-To: <20260827035155.10725-1-jeffinphilip14@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 31 Aug 2026 13:45:24 +0200
-X-Gmail-Original-Message-ID: <CANiDSCvPSF85ztR7XOvOmhRN_i52etjS36+jXmUAE1ci04mXgQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WLAz6VN8qw8vpP77AnvuGLGadWRBZtJh28ci9mCBTda2OW0XvkaTo8pN0
-Message-ID: <CANiDSCvPSF85ztR7XOvOmhRN_i52etjS36+jXmUAE1ci04mXgQ@mail.gmail.com>
-Subject: Re: [PATCH] media: dvbdev: fix uaf in dvb_remove_device()
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: hverkuil+cisco@kernel.org, kees@kernel.org, linma@zju.edu.cn, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, mchehab@kernel.org, 
-	sakari.ailus@linux.intel.com, stable@vger.kernel.org, 
-	syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apVbNN_gtowKWVhR@gmail.com>
 
-On Thu, 27 Aug 2026 at 05:52, Jeffin Philip <jeffinphilip14@gmail.com> wrote:
->
-> On Sat, 22 Aug 2026 16:52:56 +0530, Jeffin Philip wrote:
-> >In dvb_remove_device(), dvb_media_device_free(), device_destroy()
-> >and list_del() all dereference dvbdev regardless of its refcount.
-> >Thus, if refcount for dvbdev is 1, it can be freed and we
-> >operate on freed memory causing a UAF. Fix this by moving
-> >dvb_device_put() at the end of dvb_remove_device() so dvbdev
-> >members can be safely freed and assigned NULL when dvbdev is alive.
-> >
+On Mon, Aug 31, 2026 at 01:00:34PM +0200, Karl Mehltretter wrote:
+> On Mon, Aug 31, 2026 at 08:15:52AM +0100, Ard Biesheuvel wrote:
+> > 
+> > 
+> > On Mon, 31 Aug 2026, at 07:54, Greg Kroah-Hartman wrote:
+> > > On Mon, Aug 31, 2026 at 07:42:47AM +0200, Karl Mehltretter wrote:
+> > >> The 6.6.y adaptation of commit 0e9df1c905d8 ("arm64: mm: Don't remap
+> > >> pgtables for allocate vs populate") removes the clearing performed by
+> > >> early_pgtable_alloc().  Its replacement clears allocations made by the
+> > >> generic page-table walkers, but 6.6's create_idmap() still allocates an
+> > >> extra root level directly when a sub-48-bit VA kernel is loaded
+> > >> sufficiently high in physical memory.
+> > >> 
+> > >> memblock_phys_alloc_range() does not zero the returned memory.  The direct
+> > >> caller therefore publishes an uncleared root page and passes it to
+> > >> __create_pgd_mapping().  A stale nonzero entry can trip the bad-descriptor
+> > >> BUG_ON or be followed as a page-table descriptor, preventing the kernel
+> > >> from booting.
+> > >> 
+> > >> Clear the direct allocation through its linear alias before publishing it.
+> > >> init_clear_pgtable() also supplies the barrier required before the table
+> > >> descriptor becomes visible.
+> > >> 
+> > >> Mainline is not affected because commit e6128a8e523c ("arm64: mm: Use
+> > >> 48-bit virtual addressing for the permanent ID map") removed the dynamic
+> > >> extra level before page-table initialization moved out of the allocator.
+> > >
+> > > Why can't we take that change instead?
+> > >
+> > 
+> > Nope. That relies on a massive refactoring of the arm64 startup code.
+> > 
+> > Can we just revert 0e9df1c905d8 (aka 54322d95309d) instead?
+> > 
+> 
+> Yes, that fixes the issue too.
+> 
+> The commit was patch 3/3 of the following speedup series:
+> 
+> https://lore.kernel.org/r/20240412131908.433043-1-ryan.roberts@arm.com
+> 
+> Patches 1 and 2 accounted for most of the speedup.
+> 
+> I'll wait a bit to give the others a chance to comment.
+> 
+> I can send the revert as v2, or my original patch as v2 with the
+> missing "Assisted-by: LLM" and "Signed-off-by:" trailers.
 
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+REvert would be great, thanks!
 
-> >Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-> >Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
-> >Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-> >Cc: stable@vger.kernel.org
-> >Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
-> >---
-> > drivers/media/dvb-core/dvbdev.c | 3 ++-
-> > 1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> >diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-> >index d753d329502a..9aa4b8fd7379 100644
-> >--- a/drivers/media/dvb-core/dvbdev.c
-> >+++ b/drivers/media/dvb-core/dvbdev.c
-> >@@ -598,7 +598,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> >
-> >       down_write(&minor_rwsem);
-> >       dvb_minors[dvbdev->minor] = NULL;
-> >-      dvb_device_put(dvbdev);
-> >       up_write(&minor_rwsem);
-> >
-> >       dvb_media_device_free(dvbdev);
-> >@@ -606,6 +605,8 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> >       device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
-> >
-> >       list_del(&dvbdev->list_head);
-> >+
-> >+      dvb_device_put(dvbdev);
-> > }
-> > EXPORT_SYMBOL(dvb_remove_device);
-> >
-> >--
->
-> Friendly ping, let me know if you want me to fix anything.
->
-> Thanks,
-> Jeffin.
-
-
-
--- 
-Ricardo Ribalda
+greg k-h
