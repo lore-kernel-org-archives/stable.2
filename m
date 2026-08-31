@@ -1,149 +1,109 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367283264D7
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:03:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70B731E856
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788181435; cv=none; b=h1U06QnUc06ZkiT+VxDXL2OdvlZBYBeyZMdxxSLyTg3aEjYS4YecRdzZbrJN8c5peWG0RACBw+iaIaF19m0lOsRHH/XSRhh8Lyh3AZXcB/ZlVSnX7MKBpgc687kWuR1B8RRnUtCRnCseNFVBUzP2PLIb/Ep2Od+MA0oUZD8OZsw=
+	t=1788181766; cv=none; b=JySLxNDqC/TlYmHTHZfEKfY9l6KNBQKfi7dyG3QnFaLgdgfYDfCSNxaCoUJJiOxZ86pcX1Q/x9YDzu1RqmXkomivsMI/Hipwpuwfxu11sHFDEGgrfXQIl6M8HIpR06WH/CRg0qWsqnKQO4/ApK4tbEg8dm+XESUyHhQDMfXfZZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788181435; c=relaxed/simple;
-	bh=V//q0jtU9XTTbMl5NPi6UcTLSaqr0Evx37P5sMiaSJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=drVw/BD6p2m/ktjwkTJHLwil9aIjOZjTdzm1oEAR5TfIn2RvwACODuLs2A28IJl0dXhbxSJTtRsiYxIM8FXFJFZ+fR3Y71caNblWRvJ6Yqd6yUjR6kbMkTREjjIT7fc5iFLBSheW2IaRMg13EDcpsKAYitaGvIHAYFcqc4ApXEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DxKPQpjb; arc=none smtp.client-ip=209.85.214.174
+	s=arc-20240116; t=1788181766; c=relaxed/simple;
+	bh=wEk/CSduIDy3y77BOhVW/7T7N3x8NruFyaCJSoC/otQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jIzup/LEKVsBOmJtO9IsNXmZfSG4PCwV157k3Phk9nV7fKG94A/MJrGHbsa4ulq7Ir+2k2RhiTErLM0zsCb0ZgQ2WxyntTshRZF5x1N3xYZxouYyUZdSiLio/0tbkaNYCN7ltWxJxpVqJvxlRTYfuW/3cMwp5jrqz1KunxCbOIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l1lS+LTN; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DxKPQpjb"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d900ac39ffso1713055ad.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 06:03:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l1lS+LTN"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so25056075e9.3
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 06:09:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788181430; x=1788786230; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RIkEaTsAou/6x2ZpYenzr6Kjhqg+r06MkNAF+XMgBd8=;
-        b=DxKPQpjbegPTpugshIwSDtMDpy+IWy8STxYwpvacmGquHLR3FStiBIvcOAovzr1eXB
-         84RtL43V9rcMH5cSz93AMxFIwjgHMntKi6hGF+++1uO6e+UuwAvwkt0Le8ROMDNTH3Jd
-         uXBueXeEjQu9qegDp0KfqwLsuEm/kleGtLwizmlEHYBQwUAWpy/IB5dicayxU13Ywi+h
-         lmV+Q7N/CsZ9JYKvBF14qR0GrZ4DA2MlLqLcka86xOCbelviVNEDIbshSa1yF2bpaTvs
-         cchAMIdPx92qiC9OhTWLzk+chWiTiW31dQ/62pqnrzguWGAQ9WrAvAjIscy8DKEj/aba
-         tQ6g==
+        d=gmail.com; s=20251104; t=1788181763; x=1788786563; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AMImnaz5ozXUWY8puoivAmaKF1Q7q8KDEeU/7MhVTEE=;
+        b=l1lS+LTNsFDonqNbTGDKjYk4QZMzAuRXQWM4G1flipAOiMQhzkXUphzj2fu1E/vj36
+         ar1Vi2xwGaogpdY5tDzRCaqL0hjv3rZxCFpp9MOhQGLE58fGpFIrx6AQSnFzEGhzk3IF
+         k7a0gN2dWvtpse4JHSRNLuTnspQ33EpyOSuCA+CWKdZvSTfc3ADQ/Q7GUiO+ishSW5/+
+         zSAvFHDLFwzgH5FFfGIvHhpHIET1dlcNwgkvMbu6ccHXjjwwhGDm5puVkat1xxOfvNGz
+         TpQ+EIY0ntVt7FoFrSW40oPng5nBvHKKbChQPckjxfJ807RiG6lplufxQlUY2FPyoMWl
+         wtgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788181430; x=1788786230;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RIkEaTsAou/6x2ZpYenzr6Kjhqg+r06MkNAF+XMgBd8=;
-        b=s6heXZ5umfdoZfmnR+0lp66wiAgSi3aaVLexENiA2AjfHvlmk58/amUi02YWyXtiPv
-         fABiy69CBZq8rmxtUDpleigo3EWDXqXTJgtNW/cVxGlGY4RRtV8WZoUEOzNm8tceE7p2
-         H2tJma6Z7KmtrdNbc+hiVs7OrX3C/FWOhLtj8AfTZ81I1a2Qi8lIzMNdLl57EVx8f6/m
-         RHJ0Q0qhmVjVsDsuStz63yea6iOPbR29wZHsFuA8IasHIJrGnReSDOJJfRp+NLSE114s
-         RH7bCbgTAbd1umS4cmsxf40dE3RcMPjwKhvlKhli5whMTQZTgua9EkMNLN8x98woMkeS
-         /m9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxwdVkUDm6egvWVXyqMWBf+7uk5fBimd+A82kOkt60BXz2rf3AQnRlvXO41Jo1IqRWs2vW5J70=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWgwt66GkkmgWE6cYpqAJOUdV92M4yGhconAihYZnkAT/b14Ac
-	Y1Wb/YX97KiQtTGeBxVsZxOumZKYZ4EIpSAvGYdJKSxsux0I4IvQZh7q
-X-Gm-Gg: AYBFou2596rdJVDayQXDbIp+bIkdqC92efLbMdhBGbbtX1zyaToF0NgJHK8ewIJGEjn
-	MHFbAvvhMNoUElHnRk81mGASSCVuv1C12ObCwZANjJEbzLJ1WZBvorIQ6B0FUsw7mLVidrTMY5s
-	/qFKz0rMQ16TPkJmXy+Qv9wltGnuDyn4TiGIizzbyrEYhMm1hT2QtLptQFM5vcPjmpUiC8wLryu
-	u/cKEIMEHShA8oNYcn89O495Pai0jrbRyse8ke3JU7Nwz2ToWT8gJgvDVuFB9ysRGSttW8uMHeD
-	gYQvJsJ3XQbvKbTgVq9VJ0834Qky74R2X2E7tGlGzH7Y1ieyGWd+FEqRusCnIYaIuAuBwm4x5CD
-	pL7ybVzt4WqsrdDh/42omYvTRBdfGDXpyNb7SAdfOXbgxymrCk8jU/Qi3N02rDigeUFEU6py1Oj
-	WxTgFKYRNxmWU4oBwDWxdsxAThzhTo3+dP67Yr1dwZhWfUbf7vuuEPsQ87cp4RJXTt76eH7tonc
-	9fJ6tvVgQdsKnEDTToif3mWzMLg
-X-Received: by 2002:a17:903:1106:b0:2d6:f09a:da1f with SMTP id d9443c01a7336-2d74e0bab6emr217965675ad.4.1788181429982;
-        Mon, 31 Aug 2026 06:03:49 -0700 (PDT)
-Received: from cachyos-aura ([45.112.149.37])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f7bf283sm32567749eec.8.2026.08.31.06.03.45
+        d=1e100.net; s=20251104; t=1788181763; x=1788786563;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AMImnaz5ozXUWY8puoivAmaKF1Q7q8KDEeU/7MhVTEE=;
+        b=JLGCQINnSoHlZ6R7b1Mo9hOk8Qg/ArtNbs6b86rVMfWcsYjDwYPDKWBCCOc6UO0dGR
+         wz3ff9Cv/u+4Vfw5raxda8EqHsv/VOmxwq3MExzmZLG3UjUQFKcz/L9hrn4QfrjnRL1K
+         uV069Si+F2a+nwYrzVtuGNajeYwYpcgwdXJ3tfyK46uKe85CzpIcxgObg3ZDeH+CfQQi
+         2JOEWmdaGTdmv7CJeezusKS8GnmgDKh3nw5aIsFlFmFEiff28V/5ZbyzABfrxXVXBeHy
+         S2V/y9/gPZZxb8aHv1PdNb3smq+UzvYxbxMrPjLvicuibH8PKy0s/j5j0DJn2YJKbk2/
+         HT0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoZyJ104DFOBKqQ4uzWMp4Qh4rUBy126MbtKCm4KIYs4ReGJpge+mDuS99vvbPO2IH3iKVByz4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNZ2xmpE6SfMsI9JcJGEg39JGCemBkn2xAR6FpiBTbGIKTazSR
+	NYkK26UuhoasovcInG6FLuk3bDoyo1trb2+yPF1/SNjq10TmvvQ8OfTo
+X-Gm-Gg: AR+sD11H4jciO/WiIaVm1CVFvLrHa8NLGwHvVbhjAveARxhuhacl3Jgm1ok+xj8dmh9
+	kbYp50ERIa87HBKrj0C0zyG50ok9p/hnTX+s+b8xtI79TlN+w1rc+TExtLHSVobZ/E5GwWLdWEp
+	T/tWDdpjFM9+pwNJA3yVUa09KOrtVN0mMQTuNnQaPScviA6rc3Xkp3pPkYClqoOQvETGAdhMyFS
+	TCT9h9UiO381hR+tDRB8oYDgTlXRv3iCMWqQD7HibY8oAsSPYrC+PtipJzJBT4Gw+ID36Kl7P8K
+	dwJ6RsBwNxS9XtqPAyxmR4N7aLzL6y87SUuSF7GFVQpK3NlgtN5dRf0uXXSSwF/Hs6xgjdYIiNR
+	sgHpq8YuMobwDhQGGV/dcuMqNpRFmvMLZQ+f7PFeKu772JgH/hDHQDpsc5BFS7RIZLEVuJrCaYH
+	9VgN3YKHXBn/Yf8NtbOrEWNjOOgYPKfhDtn3rZPGnIgiV3tLHvIHnsAQZaxs9TfKqQx/Cp7cdrl
+	zyIZlXKy1MZ8sGNr044/4eNB8rchP9xkQjBlT6NQef1eIUJ/Q5IrGONir/XGpgd6eZ/r5r+27vA
+	m2NRyuy4LCskxnI1YQBM5A2np4sltkpwb3IDTeJY+Q34ILvz1LYARL0vSSmDw2Wo3PTMmwPa3gj
+	f6w+PWufPhSisx2Uo7olL0+6bdQ/5KQWDWuBxp1hYEnHXY8gnqtVSYMHeqpVPA/2S3JWZbg==
+X-Received: by 2002:a05:600c:3542:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49cdc422c19mr9272375e9.3.1788181762855;
+        Mon, 31 Aug 2026 06:09:22 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b94dc0f57sm318698485e9.2.2026.08.31.06.09.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 06:03:49 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	linux-wireless@vger.kernel.org
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Nika Krasnova <nika@nikableh.moe>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Mark Pearson <markpearson@lenovo.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless v2 2/3] wifi: iwlwifi: pcie: deselect the product reset mode at probe
-Date: Mon, 31 Aug 2026 18:33:31 +0530
-Message-ID: <20260831130332.323549-3-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831130332.323549-1-navonjohnlukose@gmail.com>
-References: <20260831130332.323549-1-navonjohnlukose@gmail.com>
+        Mon, 31 Aug 2026 06:09:22 -0700 (PDT)
+Date: Mon, 31 Aug 2026 15:09:19 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen
+ <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger
+ <martink@posteo.de>, Sean Nyekjaer <sean@geanix.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Martin Kepplinger
+ <martin.kepplinger@theobroma-systems.com>, Christoph Muellner
+ <christoph.muellner@theobroma-systems.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v7 7/8] iio: accel: mma8452: Fix use-after-free bug in
+ error error path
+Message-ID: <20260831150919.000048d7@gmail.com>
+In-Reply-To: <20260831-mma8452-open-drain-v7-7-22946812c928@geanix.com>
+References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
+	<20260831-mma8452-open-drain-v7-7-22946812c928@geanix.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The mode that iwl_trans_pcie_set_product_reset() selects lives in the
-platform's ACPI namespace, not in the device, and nothing deselects it on
-the product-reset path. iwl_trans_pcie_removal_wk() selects it, evaluates
-_RST via _PRR and removes the device; the rescan re-probes, and probe only
-reads the mode back for the log rather than clearing it, so it is still
-selected. (A later removal with a lesser mode does pass enable=false, but
-that is the path that does not need it.) It is plain namespace state - on
-the platform I have it is a named integer written by the vendor DSM and
-read back by the reset method - so it survives S3 and s2idle. Neither the
-driver nor _RST clears it.
+On Mon, 31 Aug 2026 14:17:10 +0200
+Esben Haabendal <esben@geanix.com> wrote:
 
-That has a consequence. _RST branches on the mode variable, does not
-clear it, and iwl_trans_pcie_reset() takes the caller's word for which
-reset to run. So after any product reset the next escalation can do the
-wrong thing: iwl_trans_determine_restart_mode() asks for
-IWL_RESET_MODE_FUNC_RESET on rung four of the ladder, no CSME involved,
-iwl_trans_pcie_removal_wk() skips the Bluetooth teardown because the
-mode it was passed is not IWL_RESET_MODE_PROD_RESET, tries to deselect,
-and if the device has stopped answering by then that deselect fails
-silently - the DSM is gated on AML reading the device's PCI ID out of
-config space. iwl_trans_pcie_call_reset() then runs a full product reset,
-Bluetooth kill GPIO and all, with the Bluetooth function still bound.
+> If mma8452_probe() fails in iio_device_register() or later, we could end up
+> with runtime suspend callback being called with a now freed device pointer.
+> 
+> Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> ---
 
-Deselect at probe, after the two calls that already read the mode and
-the previous reset's status back for the log - so the inherited mode is
-still what gets logged. That bounds the window to a single driver
-lifetime.
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-Note that on discrete devices this is not literally a write of zero:
-iwl_trans_pcie_set_product_reset() also sets EN_WIFI_FLR and EN_BT_OFF_ON
-unconditionally for !integrated, so the write is 0x6. EN_PROD_RESET is the
-bit the platform's reset method branches on, and that is the one being
-cleared.
-
-Cc: stable@vger.kernel.org
-Fixes: 9673c35486d4 ("wifi: iwlwifi: implement product reset for TOP errors")
-Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
----
-Patch 3 also depends on this: it is the only thing that clears the mode if
-the rescan after a recovery reset does not bring the device back. That
-dependency runs patch 3 -> patch 2, not the other way about, so this one
-stands alone as a fix and is tagged for stable while patch 3 is not.
-
- drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-index c6a771e..df89fb3 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
-@@ -4256,6 +4256,8 @@ int iwl_pci_gen1_2_probe(struct pci_dev *pdev,
- 
- 	iwl_trans_pcie_check_product_reset_status(pdev);
- 	iwl_trans_pcie_check_product_reset_mode(pdev);
-+	/* a previous trans may have left the mode selected */
-+	iwl_trans_pcie_set_product_reset(pdev, false, mac_cfg->integrated);
- 
- 	/* set the things we know so far for the grab NIC access */
- 	iwl_trans_set_info(iwl_trans, &info);
 -- 
-2.55.0
-
+Kind regards,
+Joshua Crofts
