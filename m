@@ -1,113 +1,104 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9F53AAF54;
-	Mon, 31 Aug 2026 22:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CEE369D6D
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788214537; cv=none; b=l/O38lzApTXhGhMMJym2h++zzTG1N3qW5PwabEFoSf6XzqcRePLwZYsbYQf4BxU9vxCukV3QQ1C8WDsB1Oh669cDwQspoG/z2JfnHRyWgvCOZjfi4MXcymZZ7h7gvdziNxAd1pyvrtlEChFANgIHLRoj6EbYQyqH6tWU++urkts=
+	t=1788214805; cv=none; b=B++E5WF7lKjh7BpzJGq8/7d+SO33j26bTHCSaZotvr2F8mhZnIdrOV1ih+/cCocfn4EOCWHvrWZW4vCqCeJPCTz3oEf5QiQUyf6Y3AhNRMgf0BmbdUI/DNEnJiveIePh5ruYtV4QC7wfJPjLtIHf7VQLBk9pNPk9esg0wXRROHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788214537; c=relaxed/simple;
-	bh=4yKnuwdJTs/MCj8545ryyc60qDLh2x3b913oTnd3rS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JtZWd70hQShnbn3hTl3jQ/V/in6W+0wecxF8KG/gUTzgTJIAXPOLh8x1orPD9QiO3RqBuDRMwkwuLqCvPwyMoL7RzmloAr3u4ZZxCUyb2qRFsf9y1Co6KNYq3ugoJavxyiZergeRyf6m4yNgUbrzyAb07Bptc2wqPyagWR3iypA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=YI8jhpql; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1788214805; c=relaxed/simple;
+	bh=K7d+GRTDYoCQo2eqiR3IVPc0QqvVlrhoUfvM+14mjKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hcCE0ZIq2N/wipL2FYRmvBQDCq9BhHiFblVP4DZtBwKVdMiyeFD2KXe38Hv7qHwahR/YEhBXgUpBw/WLgtj0hhzoPvqMR3UsbFhMu4GtdBalZnJ+X0A/gnBZn0CAc0QUzaVdX7BPJpmw6yXSdQd2huceq5AO5yFjzM6VDCtMhhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TpXrwEe9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="YI8jhpql"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1788214532;
-	bh=GsPYj8syF9cXFIOMiBnw0dzRxeZ391I8EKIeN74tGG8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YI8jhpql3750ckYzT2dPJ1KrVdimmCMg5ujBrIlMJZwud9kAUy9tWgg/Y5tkP9bQL
-	 QqOo4R0q5NMTHvqDFKdWR4xwNTHBN1VkLVW+rXdYd2Kf86c5asve9/L6gbGc855L4G
-	 9+VlQcIztBCEk1AcwFZGtsnBSHWXGkFgimENMh+O9ie7DvBpj8RKEuVmC0pw6qzmTT
-	 FMPAE/evoVRVfqlnRCeNmluyQg1k0ix3VREb2PttpnHdfBAUNM+auY6BpliWOv2Xty
-	 T/szbyxUo95kanrZi/PNxZrim0E+mTb2s3pFZrSuUKFC6dcLrGOUzTD01yHLBKBYD4
-	 oBZGXBWJVXcFA==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id C563A60244;
-	Tue,  1 Sep 2026 00:15:31 +0200 (CEST)
-Date: Tue, 1 Sep 2026 00:15:29 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: stable@vger.kernel.org, Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mukul Sikka <mukul.sikka@broadcom.com>,
-	Keerthana K <keerthana.kalyanasundaram@broadcom.com>,
-	Stefano Brivio <sbrivio@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	Bin Lan <lanbincn@139.com>, XiaoHua Wang <561399680@139.com>,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.1.y 6.6.y] netfilter: nft_set_pipapo: restore cloned
- mapping table memcg accounting
-Message-ID: <apX9AZoNkpVrBMIE@chamomile>
-References: <20260831194905.45045-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TpXrwEe9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31291F000E9;
+	Mon, 31 Aug 2026 22:20:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788214804;
+	bh=FODa3Wo/kgpvL0EZ4jwMxOYkZdZjexWxDkTRlcGpIcA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TpXrwEe9RhUf6q9XH8g0jKM2lp8lgQtOUVlMpIIp9GmKhyisRJ5ATTHEpZss8IUQ/
+	 /2CheniI/aO1BCLNMOJw9Om1Cp5b0WMKLEPIXlqGSrpg11WAkuHrS+OBzwGStot8K1
+	 PvZ8lcGwXli5B0JGN9oM1sdra48I5Qwf9m/EBzlXUu+YKmqbZvkc8T7XqWm+/omcP/
+	 j7kXArs85zlcYvn8F3EjiOZdlD3YYfFzvHp6e0hRaxLnj74GQfO8rTZbOnq/79gi74
+	 puvKHHSqg6IfIJ3s+h67PlsI5dvlmFydtDcge6lIuSBs0sebNh2cHL0ercn+dg4AME
+	 ywWkPjSr6Wxjw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Michael Roth <michael.roth@amd.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] KVM: SEV: Make it more obvious when KVM is writing back the current PSC index
+Date: Mon, 31 Aug 2026 18:19:59 -0400
+Message-ID: <20260831222002.1858641-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083120-cilantro-legacy-9d5a@gregkh>
+References: <2026083120-cilantro-legacy-9d5a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831194905.45045-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 09:49:05PM +0200, Karl Mehltretter wrote:
-> The 6.1.y and 6.6.y backports of commit 69e687cea79f
-> ("netfilter: nf_tables: missing objects with no memcg accounting")
-> changed the pipapo_clone() mapping-table allocation to
-> GFP_KERNEL_ACCOUNT.
-> 
-> Later stable backports of commit 07ace0bbe03b ("netfilter:
-> nft_set_pipapo: do not rely on ZERO_SIZE_PTR") rewrote this allocation
-> and changed the flag back to GFP_KERNEL. Upstream applied the
-> ZERO_SIZE_PTR change before the memcg accounting change and retains
-> GFP_KERNEL_ACCOUNT after both.
-> 
-> nft_pipapo_deactivate() clones a populated set before looking up an
-> element to delete. If the element is absent, priv->dirty remains false
-> and the clone is retained. Its mapping tables therefore remain allocated
-> without being charged to the requesting memory cgroup.
-> 
-> Restore GFP_KERNEL_ACCOUNT for the cloned mapping table.
-> 
-> For a 32,768-element two-field concatenation set, A/B tests on 6.1.186
-> and 6.6.155 measured exactly 524,288 additional bytes charged to the
-> memory cgroup after restoring the flag. An unmodified 6.12.107 control
-> already accounted the corresponding allocation and showed the same
-> accounting behavior.
-> 
-> Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
-> Fixes: 32bad10de347 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
+From: Sean Christopherson <seanjc@google.com>
 
-This two Fixes: tag do not make any sense to me.
+[ Upstream commit 17d62e0b157f262dd8c7586cb882ece72a5b10c2 ]
 
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  net/netfilter/nft_set_pipapo.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-> index 7c8d28a031ad..4c3bb5d61a3b 100644
-> --- a/net/netfilter/nft_set_pipapo.c
-> +++ b/net/netfilter/nft_set_pipapo.c
-> @@ -1465,7 +1465,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
->  				goto out_mt;
->  
->  			dst->mt = kvmalloc_array(src->rules, sizeof(*src->mt),
-> -						 GFP_KERNEL);
-> +						 GFP_KERNEL_ACCOUNT);
->  			if (!dst->mt)
->  				goto out_mt;
->  
-> -- 
-> 2.39.5 (Apple Git-154)
-> 
+Increment the guest-visible "cur_entry" index outside of the for-loop
+when processing Page State Change entries, and add a comment to make it
+more obvious which code is operating on trusted data, and which code is
+touching guest-accessible data.
+
+No functional change intended.
+
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20260501202250.2115252-12-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <20260529183549.1104619-12-pbonzini@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 0060569e4f18 ("KVM: SEV: Extract loading of guest-provided VMSA to a separate helper")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/svm/sev.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index a6971cd236bed..e5587675cf9ec 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -3821,7 +3821,7 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	}
+ 
+ 	/* Find the start of the next range which needs processing. */
+-	for (idx = idx_start; idx <= idx_end; idx++, hdr->cur_entry++) {
++	for (idx = idx_start; idx <= idx_end; idx++) {
+ 		entry_start = READ_ONCE(entries[idx]);
+ 
+ 		gfn = entry_start.gfn;
+@@ -3848,6 +3848,14 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 
+ 		if (npages)
+ 			break;
++
++		/*
++		 * Increment the guest-visible index to communicate the current
++		 * entry back to the guest, e.g. in case of failure.  No need
++		 * for READ_ONCE() as KVM doesn't consume the field, i.e. a
++		 * misbehaving guest can only break itself.
++		 */
++		hdr->cur_entry++;
+ 	}
+ 
+ 	if (idx > idx_end) {
+-- 
+2.53.0
+
