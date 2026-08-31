@@ -1,42 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7360478E51;
-	Mon, 31 Aug 2026 13:54:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB82435504;
+	Mon, 31 Aug 2026 13:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184443; cv=none; b=eDtJ7GaOzKYaWkX4LgMNvAkJ1a5ysT4dvixSipsd+9xsnd7jeFNgxOI5esBYjbQGa3OkhnqNUqC+qRVc4f9HTcqcplQE1UAw9GG0DZW70ANq9+b+h6zgxds0v8fFGt/4iin2H+Vt+29oUbbPtvbxUpqbGw7I6fwWU00vDuLsFQU=
+	t=1788184429; cv=none; b=PszkWmZEbDk1jG72AWYYKUrC7GL9YRCAltwYYAXvSRLYrKa6IyRwx9KRQScg+JFNk834LfJ9mZWgCN07FPdWtUlMzmeqkOAKATidrqqumwTDA/71FcEYEUdNmuvpsuOldfjtOs4IjI9WuEUnxXG/EYOQ5+F5S4vVu+ldBfU0yHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184443; c=relaxed/simple;
-	bh=ljQIYO3FKXtTtPef/20b/WW8uhQTTV9Ys3bwE5cNduY=;
+	s=arc-20240116; t=1788184429; c=relaxed/simple;
+	bh=tkVgBAgjtGPJFjFd9dTQ3d24n122omPCmnaNvceYLQo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yjzj3C5jM/gaMeu9pqJV3jyPsridcYyiOr1RzzHRYfmCnhywl9bVZCV88Rxa3tSQdjuIelOuDQNJtjKgqFp0k/AkjSy1Dc9cxzDkFCYe7JFfIBCmCRDbRH5HPcXMGzzLoqe5dmLpzsas+0vNYovXwsbw10RH8Fsv55jTj3+niZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pen+Ztsr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZjIuwBLkRPaTyEsJrD32/9M4uW01+8AQu+pnMDev9c9A3DAVNKDFtjXn0PZoSLNSYACISauLCKPD9YslsShGo600YozKS8OpFuptbSGtfR9exsSPbGDVzRxsgj8zHe4R1aP/yyXuCJRIFqIqSnLSWfMh567YHCfhaz+dfoXqjDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HzTtsqFX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pen+Ztsr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B2D1F000E9;
-	Mon, 31 Aug 2026 13:54:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HzTtsqFX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF0B1F000E9;
+	Mon, 31 Aug 2026 13:53:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788184442;
-	bh=11TEHtnzhjBmEZM2dfZPjWtTHUSScEYR/qLr21Hkbn8=;
+	s=korg; t=1788184428;
+	bh=M5pObhBjxKY2PC1ClRTj0e5suBOl/To7wbqVb3dFZ7c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pen+ZtsrdvkmvI2q7nD9vCh1+4m6cHAT7bDquisQpwTbdQ6eJRf4f9yLTrihQgMdr
-	 TuQ4FpYmn8o1+N+/nCezOQcTkiSvzjOq4tQ3uiIVhagem4FmX5hhWiF+mgc54eLiMK
-	 aOQphsAzxATTL3H1LT1ik2zNwYasukILANpkuy+I=
+	b=HzTtsqFX/CcAIWRd9pJRVzib6DwlEeF6rXJ0Lcy0e7+5VP0/dwWVPxMlvNj1KwE9r
+	 hkri6T/7p5YB7Cga2TEZDGSLVV1xqwbX1Rypt5pWQe2RkZxWodmaDFwVG3cug90wMX
+	 oypSJxNWzJPS3Y90t29hk3nL1yEAeG0I5irIGCfs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+4e89b5368baba8324e07@syzkaller.appspotmail.com,
-	Vasiliy Kovalev <kovalev@altlinux.org>,
-	Dave Kleikamp <dave.kleikamp@oracle.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 10/91] jfs: add check read-only before txBeginAnon() call
-Date: Mon, 31 Aug 2026 15:33:58 +0200
-Message-ID: <20260831133400.052147753@linuxfoundation.org>
+	Qing Ming <a0yami@mailbox.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.12 66/99] gtp: serialize PDP context updates
+Date: Mon, 31 Aug 2026 15:34:35 +0200
+Message-ID: <20260831133403.283665209@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-References: <20260831133359.468089036@linuxfoundation.org>
+In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
+References: <20260831133359.740409777@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -48,67 +46,148 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Vasiliy Kovalev <kovalev@altlinux.org>
+From: Qing Ming <a0yami@mailbox.org>
 
-[ Upstream commit 0176e69743ecc02961f2ae1ea42439cd2bf9ed58 ]
+commit 498386b6d402737db1e2eeed4c385acbf0ef9e34 upstream.
 
-Added a read-only check before calling `txBeginAnon` in `extAlloc`
-and `extRecord`. This prevents modification attempts on a read-only
-mounted filesystem, avoiding potential errors or crashes.
+PDP contexts can be deleted through GTP_CMD_DELPDP or while the GTP
+network device is being unregistered. The latter is serialized by RTNL,
+but the generic-netlink delete path only holds RCU.
 
-Call trace:
- txBeginAnon+0xac/0x154
- extAlloc+0xe8/0xdec fs/jfs/jfs_extent.c:78
- jfs_get_block+0x340/0xb98 fs/jfs/inode.c:248
- __block_write_begin_int+0x580/0x166c fs/buffer.c:2128
- __block_write_begin fs/buffer.c:2177 [inline]
- block_write_begin+0x98/0x11c fs/buffer.c:2236
- jfs_write_begin+0x44/0x88 fs/jfs/inode.c:299
+Running both paths concurrently can therefore make both paths delete the
+same PDP context. The issue was found through static analysis and
+reproduced on a KASAN-enabled kernel by a simple two-thread program
+racing GTP_CMD_DELPDP against RTM_DELLINK:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+4e89b5368baba8324e07@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=4e89b5368baba8324e07
-Signed-off-by: Vasiliy Kovalev <kovalev@altlinux.org>
-Signed-off-by: Dave Kleikamp <dave.kleikamp@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: maybe wild-memory-access in range
+         [0xdead000000000120-0xdead000000000127]
+  RIP: gtp_genl_del_pdp+0x1c1/0x420 [gtp]
+  RBP: dead000000000122
+
+The second deletion dereferenced the poisoned hlist pprev pointer.
+
+Serialize gtp_pdp_add(), gtp_genl_del_pdp(), and gtp_dellink() with a
+shared mutex. Keep the mutex held until the final use of a PDP context in
+the NEWPDP path, and keep the RCU read-side section around the complete
+PDP context use in the DELPDP path.
+
+Fixes: 459aa660eb1d ("gtp: add initial driver for datapath of GPRS Tunneling Protocol (GTP-U)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
+Link: https://patch.msgid.link/20260818150000.7670-1-a0yami@mailbox.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/jfs/jfs_extent.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/net/gtp.c |   21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/fs/jfs/jfs_extent.c b/fs/jfs/jfs_extent.c
-index 63d21822d309b..46529bcc8297e 100644
---- a/fs/jfs/jfs_extent.c
-+++ b/fs/jfs/jfs_extent.c
-@@ -74,6 +74,11 @@ extAlloc(struct inode *ip, s64 xlen, s64 pno, xad_t * xp, bool abnr)
- 	int rc;
- 	int xflag;
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -12,6 +12,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
  
-+	if (isReadOnly(ip)) {
-+		jfs_error(ip->i_sb, "read-only filesystem\n");
-+		return -EIO;
-+	}
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/skbuff.h>
+ #include <linux/udp.h>
+ #include <linux/rculist.h>
+@@ -105,6 +106,7 @@ struct gtp_net {
+ };
+ 
+ static u32 gtp_h_initval;
++static DEFINE_MUTEX(gtp_pdp_lock);
+ 
+ static struct genl_family gtp_genl_family;
+ 
+@@ -148,7 +150,8 @@ static struct pdp_ctx *gtp0_pdp_find(str
+ 
+ 	head = &gtp->tid_hash[gtp0_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V0 &&
+ 		    pdp->u.v0.tid == tid)
+@@ -165,7 +168,8 @@ static struct pdp_ctx *gtp1_pdp_find(str
+ 
+ 	head = &gtp->tid_hash[gtp1u_hashfn(tid) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == family &&
+ 		    pdp->gtp_version == GTP_V1 &&
+ 		    pdp->u.v1.i_tei == tid)
+@@ -182,7 +186,8 @@ static struct pdp_ctx *ipv4_pdp_find(str
+ 
+ 	head = &gtp->addr_hash[ipv4_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET &&
+ 		    pdp->ms.addr.s_addr == ms_addr)
+ 			return pdp;
+@@ -217,7 +222,8 @@ static struct pdp_ctx *ipv6_pdp_find(str
+ 
+ 	head = &gtp->addr_hash[ipv6_hashfn(ms_addr) % gtp->hash_size];
+ 
+-	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
++	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
++				 lockdep_is_held(&gtp_pdp_lock)) {
+ 		if (pdp->af == AF_INET6 &&
+ 		    ipv6_pdp_addr_equal(&pdp->ms.addr6, ms_addr))
+ 			return pdp;
+@@ -1550,9 +1556,11 @@ static void gtp_dellink(struct net_devic
+ 	struct pdp_ctx *pctx;
+ 	int i;
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	for (i = 0; i < gtp->hash_size; i++)
+ 		hlist_for_each_entry_safe(pctx, next, &gtp->tid_hash[i], hlist_tid)
+ 			pdp_context_delete(pctx);
++	mutex_unlock(&gtp_pdp_lock);
+ 
+ 	list_del(&gtp->list);
+ 	unregister_netdevice_queue(dev, head);
+@@ -2051,6 +2059,7 @@ static int gtp_genl_new_pdp(struct sk_bu
+ 		goto out_unlock;
+ 	}
+ 
++	mutex_lock(&gtp_pdp_lock);
+ 	pctx = gtp_pdp_add(gtp, sk, info);
+ 	if (IS_ERR(pctx)) {
+ 		err = PTR_ERR(pctx);
+@@ -2058,6 +2067,7 @@ static int gtp_genl_new_pdp(struct sk_bu
+ 		gtp_tunnel_notify(pctx, GTP_CMD_NEWPDP, GFP_KERNEL);
+ 		err = 0;
+ 	}
++	mutex_unlock(&gtp_pdp_lock);
+ 
+ out_unlock:
+ 	rtnl_unlock();
+@@ -2135,6 +2145,8 @@ static int gtp_genl_del_pdp(struct sk_bu
+ 	if (!info->attrs[GTPA_VERSION])
+ 		return -EINVAL;
+ 
++	mutex_lock(&gtp_pdp_lock);
 +
- 	/* This blocks if we are low on resources */
- 	txBeginAnon(ip->i_sb);
+ 	rcu_read_lock();
  
-@@ -253,6 +258,11 @@ int extRecord(struct inode *ip, xad_t * xp)
- {
- 	int rc;
+ 	pctx = gtp_find_pdp(sock_net(skb->sk), info->attrs);
+@@ -2155,6 +2167,7 @@ static int gtp_genl_del_pdp(struct sk_bu
  
-+	if (isReadOnly(ip)) {
-+		jfs_error(ip->i_sb, "read-only filesystem\n");
-+		return -EIO;
-+	}
-+
- 	txBeginAnon(ip->i_sb);
+ out_unlock:
+ 	rcu_read_unlock();
++	mutex_unlock(&gtp_pdp_lock);
+ 	return err;
+ }
  
- 	mutex_lock(&JFS_IP(ip)->commit_mutex);
--- 
-2.53.0
-
 
 
