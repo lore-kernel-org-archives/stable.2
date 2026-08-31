@@ -1,70 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F4A308F39
-	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 20:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788206779; cv=none; b=Ylrtl6gY5AY9MfOQhbKEboZ+1nLaFdKu6xzrWFyqk5YHfLNPnOl82qYQuRzMXRqhi9Yra6e3YRCC0a8PEF09agGInLDPzViELsG1ud4NNCFp6KFZbNpEV7dXTSxv3CIlGdVURwob2+8MO1GevtOo5HD1MR5cN1v6l6JSWMMy6rA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788206779; c=relaxed/simple;
-	bh=dPPmbZJFJxzrWYSDuXE7kGzcSYpHD4ORg0AHFTCWQ0A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F6MqZ1I7AgXpCvZLTrZ0XqECmlxL649EhGg2tvBjDGbtqWx8GiUHJCLjeU378dTJXiXSpAirsyiLMcxgfiCB79WDAT4clq2NjsEeCwnLnCaIiIUZkQT903+lVdsF22Zh6E0KniRwjawJaz/U8bTeWLE/dSzpKUNDSlpg4OPAeYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T98839EH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F945387585
+	for <stable@vger.kernel.org>; Mon, 31 Aug 2026 20:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788207330; cv=pass; b=TD5vf+mFuF1tBz/kD7UexXc80yUpZ5M4HepouZGhRDd7z0Y4wPAA7rnyOIm1fcKBFpSiwbXbmojDMPqngz8VjQA6UMX3cToSLY5JfTYNw/ZiK84T2kvpOhJP5bTZmvQncQ6lBXreOap2b94kstdwl7V1N8ZmvxY7bTvVRDfF7Fc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788207330; c=relaxed/simple;
+	bh=ufZLh+kfW1UEdEikHsgtDF5Qa2HBFc1dj6ImUClbn4w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=drURgtiCmuGaYw5FXnrBDIq/6dAPO0NfZanDe0Ov/VwsWeAnZU6FAspsTep8ytZOCxWUJI9aX/XKaGdVvjia1IMmRf51vvzenxs6BDlJoRmHIqCK3Mc0q+42+1aTPWMlMvuW80iFDJ5+d3no2WNCKgzNKhEfn+qXUP5ykCjS7A4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ez5OIpyn; arc=pass smtp.client-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T98839EH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3169F1F000E9;
-	Mon, 31 Aug 2026 20:06:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788206778;
-	bh=iwyqnNP5Y/Wz+bMIA97jmI11l80IXqTUWKtdOJQ32PI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T98839EHa49kysVpJ9Xb97ObglTnVznVKjqIiUpTgyEEO5dvawxqPockgtz+MaZQ6
-	 l0OoV7IaWFTTYZ9omKrVO1Ojekzs++OWrxlGIRF+fLJqqOOFh8/chHAMHBi+861vrx
-	 j6Rk3WuPeypiuNuSoxIHMQzW/UbXA2bc04L+EXTbiwjIPtmm58EPIqa+oZgF7hqsHE
-	 JIxzyklPEujrbp+TasWlpuks1zkyJY/H07vdKc6CYrHgs4Wwyj5PyE/DWyWJp9soa7
-	 UEgxxf1p6rz/Q0+7Sh5BKZzYGuIhRVdLSmaPOZJ6OPQ854OM1bZVB7IhgIu7E+utvy
-	 s0R9KPrN8AS+g==
-Date: Mon, 31 Aug 2026 13:06:15 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: dmitry.baryshkov@oss.qualcomm.com, herbert@gondor.apana.org.au,
-	stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] crypto: qcom-rng - Remove crypto_rng
- interface" failed to apply to 6.12-stable tree
-Message-ID: <20260831200615.GC86114@quark>
-References: <2026083146-squatted-debug-8f6e@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ez5OIpyn"
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4a451915d8aso77492b6e.2
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 13:15:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788207328; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UI+YQJR6gTpjHMkvPmnI82KIS05ES4hcnQnls8H0UA+g2WNGpGfQNPFA7HI7Mf07jo
+         JZMHsp3adOAhaSAjB7tE8KYpzRh6VBNbRfLR5AqUKSfvoUFsjysfZKfrBGHWuWoQx7PQ
+         A9cR3IGGQ9CfusosAbQnQ6b5vnVXX+enycBZZDynRzTarowg+xLdfgPMb6ihvu3W82jq
+         7invWqhIYvA+SA8hDMnMGivO88TYeehGZtkQka2O+cDmtlT6F3PBkK3rfj99S/G/oD0y
+         qrTjmgH5jL0guMWu40CGCdXfAcUp7QY0JzcnzyOJAPB7beklIdhNuY49D/qxm1wHIGHc
+         N5+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ONLbdtQwNTYemip0icTWZK5Zr5wKg4+l2c1pjkTBBwE=;
+        fh=5b0i/R5moK0gg2R3eP8WsGJgUJrggPnpM2UtXiGDeIk=;
+        b=OYgOysT8LYCYpOHr73m7jTasuMJvqreZqkQcZILE35Kaa0w4GWs/HttsjxmyX8gViD
+         Bs7fhBaQ9p45WR+K3JLwq8lrCrLQe2ihYyulJVCNxmmaaj18Ho5gkt0NJrnhyi54teuE
+         1ABEM/VJgpi1VZzfD/oG8//Sevlpxpdb57+GfVMCNRUMFjpPYH9oBgh9uwZo16n8tNia
+         YYlHyNxTAMlQZ15T2yJIOQ51FoilbKaXi5tRd8/2UaW+SaY5vbM3MVyB8u0VCqdlggAt
+         Fewni7QV/JY30OeoDCfdfRivnWNZ4SduBAmJYkt+mnVTkitZk+F/A/sPYmLUlkzquX7X
+         J8/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788207328; x=1788812128; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ONLbdtQwNTYemip0icTWZK5Zr5wKg4+l2c1pjkTBBwE=;
+        b=Ez5OIpyngqpTRWdskTdFtngPLQ7P87jiNFpMebUtFH2tmLUTMLjKZQNydXmCoUvUXE
+         27rd+EC8MjtOewRJ+UkY7xbaIa/y4YTxiF4EsLh3XF7LipjWxKxBso+q2jlHXGe0iHMV
+         /xwxFcKL4GiRhDDMqJQZRVkIl4OeJ0OFZLlBMAztBKbUnm1hbyofM9zrt9OXhPVHPvQB
+         R5zz40GMEgKwjt+aOP8e9YcFblsVPDthrGnK8vb3tmmCpABM+ofPGZsD5MW6jd00XW7B
+         Y8mJyOu2BzWYc6kdvzSJwd+SLcKb//KF87Rx9r1OJhPJGiNDFR5axqhnGTYaKOX0rNid
+         H1+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788207328; x=1788812128;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ONLbdtQwNTYemip0icTWZK5Zr5wKg4+l2c1pjkTBBwE=;
+        b=JmHZcRB6/PcHy07J5nXRe6aA015LwWwyDfb9K/vggWFQXO95IekqintwW8nzE0HiBW
+         6zpaatnKbITFSiXnIghAf7jFyCunUh5tMNIeoSnS4YvJKjevrOgXjRqiNFurHpPSdeIk
+         XOymt1xdIqe6EWqPTNEedzxgKo80O78lfQIAiRPDbPCuewIAZ0/29LbiG8zsuUaI0WBb
+         jzO/KXiXDZNZMuBCA3eiFTGsTW27sr+T6MEOeYF13hX5LbbFvz4my/DwMWrxhqWZl2iU
+         /EHhOUc60FohqVJDxSHgWAEtgOT8Fimpxs6XDPDB2pJ6fWqZX2R1vuPizeVful5uoTAV
+         6+vA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9OBdh401O+OdrcacN9wk7iqUM1yYvp3zaVBdwZ7wgZZM3t0QnkJ1Dwf/YTwxrIY6686H/ZpY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRT8oILbN3KJ0omNtHGp1F3LPLqyddzlG6ZSi65zeE3UZKGOoV
+	D96MS7ea/dpl5FXUApaBt7uqWCG2UmjdN5/VFxH7CIIAclIq6RPABdy8NorV37IVUh02aN5Bmn1
+	HnrdStbI7buQ7+CFEyHqSjgpTEqbfVm7wZWqZ
+X-Gm-Gg: AR+sD129bj5XFIpTMtfSWT9wIp3yDQ5AtXdcc7GBAI+gBD1Re4yLB1QuXB28NuFpf0J
+	xGguJkDPTzkud9JOxSmmaWQxdFRbZExMyXekBqhbsU9ezyjjLaGispT+HVvH3aeP7IB+BeXjtR4
+	SH9HvLdB8iKTysqwWXtgwu0oPf01ENyDYvCoqJ29yTs33WVo2LImTF4HgkiNKUw0FGsFu/ihvSt
+	GoEb0l1ljcLLIwiCJNzv6rKZltKukOmkNeTKS08Kg7KH74SD77xvIqZLI1qBZEr9vMrtNt6GpXc
+	1uUXBFwPAVGk0e/zglCmE8ZVkL6MOJwsh1nlmJz2prZ2tJLDUl5jZ8Hte1Q=
+X-Received: by 2002:a05:6808:1926:b0:4a4:866:c395 with SMTP id
+ 5614622812f47-4b3981be305mr28057591b6e.13.1788207327565; Mon, 31 Aug 2026
+ 13:15:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026083146-squatted-debug-8f6e@gregkh>
+References: <20260831001552.3223196-1-xyx2021@mail.ustc.edu.cn>
+ <2026083135-hammock-bagel-3147@gregkh> <20260831155815.70167-1-xyx2021@mail.ustc.edu.cn>
+In-Reply-To: <20260831155815.70167-1-xyx2021@mail.ustc.edu.cn>
+From: Amery Hung <ameryhung@gmail.com>
+Date: Mon, 31 Aug 2026 13:15:13 -0700
+X-Gm-Features: AcwNN1XcvPJ3Lcft98Uo-XEUwiY2jq19J4JKDFgADciBwgFZGA6iPM4vM5_26tA
+Message-ID: <CAMB2axP4dbiTLNStUZ=6D2p-MtjW2Wg4Sfbp3KSuv+DByAC8xw@mail.gmail.com>
+Subject: Re: [PATCH 6.12.y v4 0/3] bpf: fix dynptr release handling
+To: Xu Yunxiang <xyx2021@mail.ustc.edu.cn>
+Cc: gregkh@linuxfoundation.org, stable@vger.kernel.org, bpf@vger.kernel.org, 
+	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	martin.lau@linux.dev, joannelkoong@gmail.com, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 03:00:46PM +0200, gregkh@linuxfoundation.org wrote:
-> 
-> The patch below does not apply to the 6.12-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-> 
-> To reproduce the conflict and resubmit, you may use the following commands:
-> 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 2ecdf5c9910e20f73639bc322f0518a3439d17c0
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026083146-squatted-debug-8f6e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-> 
-> Possible dependencies:
+On Mon, Aug 31, 2026 at 8:58=E2=80=AFAM Xu Yunxiang <xyx2021@mail.ustc.edu.=
+cn> wrote:
+>
+> Hi Greg,
+>
+> Thanks. I understand that I should drop the three stable-specific
+> implementations, preserve Amery's original authorship, changelog, and
+> trailer chain, and cover 6.6.y, 6.12.y, 6.18.y, and 7.1.y.
+>
+> Before rerolling, could I confirm how the prerequisite chain should be
+> handled?
+>
+> Commit 308c7a0ae885 ("bpf: Refactor object relationship tracking and
+> fix dynptr UAF bug") is patch 5 of its upstream series and relies on
+> these preceding commits:
+>
+>   bab08d1f70438 ("bpf: Simplify mark_stack_slot_obj_read() and callers")
+>   b5c0a07eb2c23 ("bpf: Unify dynptr handling in the verifier")
+>   94ac7553361f3 ("bpf: Assign reg->id when getting referenced kptr from c=
+tx")
+>   06d518a5583fa ("bpf: Preserve reg->id of pointer objects after null-che=
+ck")
 
-This seems to have been added to the stable queue anyway, despite the
-FAILED email.  So it seems there's nothing more to do.  Also, please Cc
-the subsystem mailing list.
+This patchset is too complex to backport properly, so let's not do
+this. This is also not a security issue as dynptr is gated by CAP_BPF.
 
-- Eric
+
+
+>
+> I do not find these commits in any of the four target stable branches.
+> In particular, the latter commits establish the reg->id semantics used
+> by 308c7a0ae885, so applying that commit alone would not be semantically
+> complete.
+>
+> My plan is to prepare a five-patch backport series for each stable
+> branch, preserving the original authorship, changelog, and trailer chain
+> of every commit, and adding only branch-specific conflict notes and my
+> final Signed-off-by.
+>
+> Is that what you had in mind?
+>
+> Thanks,
+> Xu
+>
