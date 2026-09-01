@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2513939023A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A331B32A3E5;
 	Tue,  1 Sep 2026 13:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268416; cv=none; b=IQYpHPjbjJ8OKzF8Be3QEj3OoTzEZVjZx0uLYYsO60dfcXSW2SSHPzP1x8Rlx0RaXGSMiaEwKXnXMTPp7HNkr4ZjaOxJAb+lexMTd6BN4NJS17U6NSFxiBAWqSy6e6+v/1B7tPJMfL7s4O/55MKeAW4BQdEFxJlmJhfi14tyHt8=
+	t=1788268416; cv=none; b=Kf+aq63iFov8pJPm6frFt6bYeqL9ZrX4+056OzFPDKR4xgkhQ51H7GP716hMznAnQXoT9pj7HUiCkehT+yi6MfWocjLS7BA0aKoESEUqn9xiKUL8iwSa5KW5p1Ek1BRXFQwq3DTPG8oFwiM9u+3R/hg2kWvvdCL5pbcmz+s1IL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788268416; c=relaxed/simple;
-	bh=DvkDdHq4iHzr8I4BpnauinuiWMfL9IXhZr+IdV54oVQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JVyQ74X5o0TiAgbZ60etRcK//SNALB8K726Gm10TaS79t31FDrLnkRT/gCE6UD5/SRgRqlSs76OD51JMr4IMrAwx9KLz6siz1VqFi0qcKXSmchf93S+1k/0uOOkJupLnSnVoxCIJWWmeH4gI85dQB/Yl3pi6+ZAQmRko+XE6Y1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YMO3erO1; arc=none smtp.client-ip=100.103.45.18
+	bh=35/yin/QF8t3Kqfg+UAOrsmVX85pqU2Iyl2wuXO5t+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nnYVlEccAO1Aj/EnEovq79oBT3jX8yHMA2rvBf26LEWQjJprn7zBwVF6/McbyAGvkaM2BVg92XmTdW6v6lY7nU9wYsiiC7No0tCCI638+5cUNuSulFJSCnJMDsVfFptQ6vSuuiOKEgLQ76xGl3dGJFmhLCVHI5dc6aAYmI5ma5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VmCJP86o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YMO3erO1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DD61F000E9;
-	Tue,  1 Sep 2026 13:13:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VmCJP86o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266FF1F00A3E;
+	Tue,  1 Sep 2026 13:13:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788268415;
-	bh=bvNMg4+ohXrFj0RX6YNja673VETP6Qf2VRqwotq06F4=;
-	h=From:To:Cc:Subject:Date;
-	b=YMO3erO1hgqSNyjhZpaWKn6S/jtbTPvOqsAd1zgh2s/4gKJthLl4cJJmmS3oQUTPA
-	 kS1WDuVwssqIByTypa31c8WlRKjzRfgMsTCu5r7KQIiJJvFk2xsq0n3No49nr1DRsK
-	 rEWtEvCxwPOzm6Z2UI+81nrd7gv7SmAHYOiqS1+eO63I6d9E5Tcl3GPxU8pyLnIRIr
-	 04hqNgBf28sx2e/OblVrdm+EWccJvG1c7hVpW6BER1uXUZ97zjiOU6RfN0snC2hcq4
-	 UIo0ag50bu9/nE/BWDi5pecqeH5GwA9jaZ8yTvJNuQaszUkZrCqjge+uwNralc0fhS
-	 UfQTKswq3bv7g==
+	bh=7ZB1yfEGzN5K33ID0e3bcOFkHhvifJ8hhhrNtAvrugg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VmCJP86oeHn76JzQLhDmTScTgW+IQItKLl9s/BVtCWN6+31Zv3FKqrjnmL/GHP6Y0
+	 7NyPgN784/d/zfr6IaXQ1Q7G6hghehkfC5yVy/ucrAlz22jveR89bO60RfJ81n7roT
+	 5QYT8W1WRaCLjfJAeCdOt0aEdfS1E1ctnkyf1uNNbeP6ibbaHWJKcARxSDDMqq2zlU
+	 wKCmnJuNfkB/JOmC7LlU9MTTu13WvDmPXIyh/6mciXcvapOcaeAv9U/2jVHTwBFVtL
+	 0oPMdpW3BGL9Fs1d+ZzPsipWp/kjLfHZrHrHA26yrV3TuY7WenMcHdKe0LS6x17Lnf
+	 lA0opfQpWCzfA==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
 	Usama Arif <usamaarif642@gmail.com>,
-	Yueyang Pan <pyyjason@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 0/7] damos_apply_scheme() splits a region and apply the action to the
-Date: Tue,  1 Sep 2026 06:13:17 -0700
-Message-ID: <20260901131326.97615-1-sj@kernel.org>
+Subject: [PATCH 1/7] mm/damon/paddr: respect folio end for DAMOS_STAT
+Date: Tue,  1 Sep 2026 06:13:18 -0700
+Message-ID: <20260901131326.97615-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901131326.97615-1-sj@kernel.org>
+References: <20260901131326.97615-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,31 +48,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The user impact is not critical.  The failure of damon_split_region_at()
-is unlikely since it is arguably too small to fail.  Also DAMOS being
-aggressive is limited to the single region.  Users can set
-min_nr_regions to set the maximum size of each region.  If it is
-reasonably set, the transient overhead shouldn't be critical.
+The function for applying DAMOS_STAT in DAMON physical address space
+operation set (paddr), namely damon_pa_stat(), applies DAMOS filters to
+folios of the given region.  For that, it gets folios of addresses in
+the region.  It starts from the region start address and advances the
+address by the size of the folio of the address until it goes out of the
+region.  If the start address is in the middle of a large folio, and if
+the next folios are small, some of the next folios could be skipped. Fix
+the issue by advancing the address to exactly the start address of the
+next folio.
 
-The issue was discovered [1] by Sashiko.
+The user impact is that the DAMOS_STAT-based page level monitoring
+results become inaccurate.  Since the page level monitoring is supposed
+to provide relatively high precision, this is definitely a problem.  It
+is arguably not critical since it is only monitoring quality
+degradation.
 
-[1] https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org
+Fixes: bdbe1d7bc325 ("mm/damon/paddr: increment pa_stat damon address range by folio size")
+Cc: <stable@vger.kernel.org> # 6.14.x
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/paddr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-SJ Park (7):
-  mm/damon/paddr: respect folio end for DAMOS_STAT
-  mm/damon/paddr: respect folio end for DAMOS actions except STAT
-  mm/damon/vaddr: respect folio end for DAMOS_STAT
-  mm/damon/vaddr: respect folio end for DAMOS_MIGRATE_{HOT,COLD}
-  mm/damon/core: handle extreme memory state in damon_get_node_mem_bp()
-  mm/damon/core: handle extreme memory state in get_node_memcg_used_bp()
-  mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
-
- mm/damon/core.c  | 15 ++++++++++++++-
- mm/damon/paddr.c |  8 ++++----
- mm/damon/vaddr.c | 10 ++++++++--
- 3 files changed, 26 insertions(+), 7 deletions(-)
-
-
-base-commit: d93d8b0181065f8375af61e3a18bbc7c066a8159
+diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
+index 5c6c3a597fd0b..2ab7b3842701e 100644
+--- a/mm/damon/paddr.c
++++ b/mm/damon/paddr.c
+@@ -379,7 +379,7 @@ static unsigned long damon_pa_stat(struct damon_region *r,
+ 
+ 		if (!damos_pa_filter_out(s, folio))
+ 			*sz_filter_passed += folio_size(folio) / addr_unit;
+-		addr += folio_size(folio);
++		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
+ 		folio_put(folio);
+ 	}
+ 	s->last_applied = folio;
 -- 
 2.47.3
