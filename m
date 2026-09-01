@@ -1,202 +1,209 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6333F47CA8B
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 18:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFE4549B1F8;
+	Tue,  1 Sep 2026 18:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286393; cv=none; b=s5ixy7OU40WXpsy+OqhTnm83glu0TKDzBv1HsDNWKmSU8AhknzaTRNEKrZY6Fl/7W0kXlfm/Anq1V1g//cJPx/U7w1WkoO7dSH1LgXKCbfAGuJTny0QOalsLJ5rvsa3ookNR+x5wDBd5sE5zcXGocMhCv/GOvH4D/H4c1m9WGwM=
+	t=1788286918; cv=none; b=iAqV1QeXfjz81e+15JGidU7zjjK3LMmupZFqUkqMJJdwPqtM1c7a2jSnzCLTFkLscwmTL3ydP3zPXQBki35mXc+rf2z/7+o2yr+lR9d+zL3swGKE8MjwpI85o9F0M3EjSaX79daEP6cFpnxns4GZopFeXuvixswiTFxDPNcVjKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286393; c=relaxed/simple;
-	bh=PocB4P27jdGujQgIIueGuqZrjaFeukOWvQWH14eJ2ho=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PIDXCOnEl9UCt+Ijr5dn42WXegCjrywlC+Ob+NArYXmXoXtl9L3VHQUqNrLm+4cZgV+JhMcXch9q080SD+tH/yMa/vfASxtXrz/zw3YApybnz/A8SsKkop2m/1hoIo2WEntZ+3M/oZI8DKW9hG4fT0Wgn5PqXpsDBSuBjcrAbhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=ZNCNhJMC; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1788286918; c=relaxed/simple;
+	bh=qcbqwjo8PQ6HOaFe+HESTBjYFEM7Qgci90O8hxG6YPo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NVcRlfJs1vzRLhvns68R1D7zI0jStvWIkz6beFFYHXi1xCcMdp7YuLNcBfosB54+sLXaPD1YTmMOICQV2qrli7AESLoeGO1wR1lN1+JhHvr80kPSJPfyUscnnjz6B35Wa5lxf4WpFNxKz43NHu+ACMhPjGTP7Vux6WAx4XW6JnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=pP1dPX9x; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="ZNCNhJMC"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-86a29a48ed9so3472697b3.2
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 11:13:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788286390; x=1788891190; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZyoyQfcFhkFa+qLmL5+6VXjoy/t7IJxmOM8cjoY61I8=;
-        b=ZNCNhJMCy8wv66RfGrAzvtoUsC+BVnkn00JtDjlRo0qbZ7vYPc9zWeFkI6qABUgWcm
-         tnz3lS2vTyRhe6U1Az0P+GXxjlHHK2HmzYJ7RA0JuSNO036f8215NOpyebPl3ba9PrzP
-         1b8PCms0yhVF3sP7Inh9jCP3yyZZryzBwtiqnefYSq/XJ/jJVyc5loafh+JOoQcLpant
-         oVIBeT3mKAsGM7aTTjPHzvTIWa0AEn+O6SSkb3TZhlemUeV78n9TV72hX1IVkcvXppAu
-         CdVpuDpH7q9KafATQ81wCn8feLKwy3tbdn8EjoeGFnxngdOkLgHhU+wEbHNGaFiZrF2N
-         Iilg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788286390; x=1788891190;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZyoyQfcFhkFa+qLmL5+6VXjoy/t7IJxmOM8cjoY61I8=;
-        b=e37RC5BezJdM5t45KRNH57La6TRqykXaStzbeiACgLJeLD4fxLCayjVK3tTQ5A4nUX
-         sy1s3PtxE8KKWD/Nv5zvSboRr7wOHrVeriZDah0Hx8VSgZXbpZxzwSoyBO4k3qLaDs38
-         lnDtFp2WnlZDXx+/owEwdnFNBd13uhfzNwEZeSLPLG+2Qi/mVCNPMjPlPB8DVj4mCeIT
-         WInEXxF3nc8is839fbIPoQ7LivluVse6tFdi1G4KQt6fRyMSgJswBopDGtyxr1oDSRIF
-         dJzLsDb1vEx6/pR5zqrM7V+nTIMx6AayJuGAtAOcWvjxrqkqVsXZS50jC1DvBNVOJN5f
-         vBvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxI6YpVcBP/rykh9rbeojB0GCZzt8Y/RmZV+Xdms6S/tKGTP4qPV/9two/re8KxdchQmtUWVEQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/oDhAP4LVV1fT2dpPPBPE8xvL3rAaP0OH9/L227vqQAb4RGnY
-	dIwT7toDI9DRaUoz7v4IQEoD41xm6Dcz2actQicu5Xd3Dr/8s5aA8Z472fNkF4Vp2zU=
-X-Gm-Gg: AYBFou3jHjgcOMDVt4cSBkP/jtYwgVPzva2sUdK+OB7WwNoqo0nPlcySNziJl8XOS1W
-	p3KjHN+FMO3fND59gsM5ZOIDS2XQmNJdYTN88IkwKulH4tmSEsWTJEqEIwzyJTst6IcWR5t7fin
-	53+ilerxg+F31nTNWh8Wucev3ri2b3iPprh4PsAGBlt116sOVD0FZjg8TwVah8ktipW/xih3CBn
-	0k8NQBYLbVoyT+TyA4YKAJWF9RqwgHdw1o2mtpZrZKQjgNe9qT152uAGnUWbbRM3PH4z6+O1QSr
-	GrTjanyWLNL88VzdyMTW7mlqQTwsKfZz09mBAzfxFmS66+GEwYKuq1Mtm+tbon0K6hCOJs5csD9
-	t4dq5JFf79ifpTFyDElaBmjF2ixPIlSnG7DrvbrNMSovUJ9q/AxGw8dsWZHGFUIavrRDKSCQOug
-	1J99VG0lt21HSIPNIDhAepA2bx+/6/VILBoyvNXT2e85zkViFYaTS6MO1+7RV2/r5FdKpZrJbpE
-	8kPV22KkmBR4zyhTFsLxVclPqgsB7HCyjsyoMd5fEmdPsSAhxOirJlYzzfxfV026QK8egvO0PAn
-	spbcwc8uUbuIySF4ng==
-X-Received: by 2002:a05:690c:12:b0:81f:2403:9e70 with SMTP id 00721157ae682-86874be3a5cmr43415917b3.19.1788286390284;
-        Tue, 01 Sep 2026 11:13:10 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:bedd:8cbb:d030:f70c])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-867841e3cafsm38330727b3.24.2026.09.01.11.13.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 11:13:09 -0700 (PDT)
-Message-ID: <8472de4405ebe1459a4177c25bd08c2bfcd1b6b2.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: clear folio dirty flag when copying back from
- the shadow map
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Jiaming Zhang <r772577952@gmail.com>, konishi.ryusuke@gmail.com, 
-	linux-nilfs@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 01 Sep 2026 11:13:08 -0700
-In-Reply-To: <20260901134430.1292467-1-r772577952@gmail.com>
-References: <20260901134430.1292467-1-r772577952@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="pP1dPX9x"
+Received: from localhost.localdomain (unknown [52.172.102.219])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 4993E20B7166;
+	Tue,  1 Sep 2026 11:21:10 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4993E20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788286880;
+	bh=j8p0fHYDQhDNXEvnAW4cKjXCyIpdjeOjWC3CDthUOCI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=pP1dPX9xSEtbkNo1feR0YamEim4twVmOSp3MMncT84klmhFJ361Z+m/HWkY3EZI0C
+	 PiDXdO4tSifA4gQibyRa0ilQS5FLI+bMZZJzMKbatsrr4GtEyd0y7Nv75pidixxk36
+	 awCu+lfk9Tg5HMLrwcDSM5iODkqAMPKzGnxm85Qk=
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+To: linkinjeon@kernel.org,
+	smfrench@gmail.com
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	nicholas@carlini.com,
+	bahubali.bg@samsung.com,
+	kees@kernel.org,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	xmei5@asu.edu,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Subject: [PATCH] ksmbd: fix tree connection use-after-free in smb2_tree_connect()
+Date: Tue,  1 Sep 2026 14:21:36 -0400
+Message-ID: <20260901182136.13745-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-01 at 21:44 +0800, Jiaming Zhang wrote:
-> While garbage collection runs, nilfs2 keeps a shadow copy of the DAT
-> metadata file's page cache so that it can roll the file back if GC
-> fails.=C2=A0 The rollback has two steps: nilfs_clear_dirty_pages() drops
-> the
-> dirty state of the folios in the DAT cache, then
-> nilfs_copy_back_pages()
-> overwrites them with the saved contents.=C2=A0 The second step warns if i=
-t
-> still finds a dirty folio, because the first step is supposed to have
-> cleared every one of them:
->=20
-> 	/* overwrite existing folio in the destination cache */
-> 	WARN_ON(folio_test_dirty(dfolio));
->=20
-> Clearing has been best-effort since commit ca76bb226bf4 ("nilfs2: do
-> not
-> force clear folio if buffer is referenced"):
-> nilfs_clear_folio_dirty()
-> leaves a folio dirty if a buffer head under it is still busy.=C2=A0
-> Reading
-> metadata creates such buffers.=C2=A0 nilfs_mdt_read_block() submits
-> read-ahead for the blocks following the one it was asked for and
-> waits
-> only for that one, so the read-ahead buffers are still locked when it
-> returns.=C2=A0 When the block size is smaller than the page size, several
-> metadata blocks share a folio, so a single folio can hold both a
-> dirty
-> block and a locked read-ahead buffer.=C2=A0 Such a folio survives the
-> clearing step, and the copy-back warns on it.
->=20
-> Use __nilfs_clear_folio_dirty() to clear the dirty flag of the
-> destination folio before overwriting it, rather than making
-> nilfs_clear_folio_dirty() force-clear busy buffer heads again.
->=20
-> Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is
-> referenced")
-> Closes:
-> https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5=
-yY0dTtg@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code:claude-opus-5
-> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-> ---
-> =C2=A0fs/nilfs2/page.c | 3 ++-
-> =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
-> index cf4f1c6798f5..b26d9c3bda6d 100644
-> --- a/fs/nilfs2/page.c
-> +++ b/fs/nilfs2/page.c
-> @@ -328,7 +328,8 @@ void nilfs_copy_back_pages(struct address_space
-> *dmap,
-> =C2=A0		dfolio =3D filemap_lock_folio(dmap, index);
-> =C2=A0		if (!IS_ERR(dfolio)) {
-> =C2=A0			/* overwrite existing folio in the
-> destination cache */
-> -			WARN_ON(folio_test_dirty(dfolio));
-> +			if (unlikely(folio_test_dirty(dfolio)))
-> +				__nilfs_clear_folio_dirty(dfolio);
+ksmbd_tree_conn_connect() publishes a new tree connection in
+sess->tree_conns with a single reference and returns its pointer to
+smb2_tree_connect(). The handler continues to initialize the object and
+build the response after publication. A concurrent session logoff can
+erase the connection and drop that reference, freeing the object while
+the handler still uses it.
 
-Maybe, I am missing something. But the main point of this WARN() if we
-have found that folio is dirty, then potentially we are trying to re-
-write already modified data by already obsolete state. How can we
-distinguish that folio has been survived the clearing step or it can be
-somehow modified in the background? Even if it is survived the
-clearing, then it sounds that something is wrong in another logic. What
-do you think?
+BUG: KASAN: slab-use-after-free in smb2_tree_connect+0xe3d/0xf90
+  smb2_tree_connect (fs/smb/server/smb2pdu.c:2872)
+  handle_ksmbd_work
+  process_one_work
+  worker_thread
+  kthread
 
-Thanks,
-Slava.
+After xa_store() succeeds, take a second reference before releasing
+tree_conns_lock. The original reference belongs to the xarray entry and
+the second belongs to the creating smb2_tree_connect() handler.
 
-> =C2=A0			nilfs_copy_folio(dfolio, folio, false);
-> =C2=A0			folio_unlock(dfolio);
-> =C2=A0			folio_put(dfolio);
+Keep the references balanced in every path:
+
+- On normal exit or an error after publication, smb2_tree_connect()
+  drops its creator reference. Error cleanup also calls
+  ksmbd_tree_conn_disconnect(), which drops the xarray reference only if
+  it removes the exact entry.
+- SMB2 TREE_DISCONNECT uses the same helper to remove the entry and drop
+  its xarray reference. The request's existing lookup reference remains
+  owned by the request and is released by the existing cleanup.
+- Session LOGOFF removes each entry and drops its xarray reference. If
+  it wins the race, later cleanup sees that the entry is gone and does
+  not drop that reference again.
+
+To enforce this ownership, claim the disconnected state and erase the
+exact entry atomically under tree_conns_lock. This guarantees one drop
+for the xarray reference and one drop by each in-flight user, regardless
+of which teardown path wins. If logoff removes the entry before
+initialization completes, fail the connect instead of marking the
+detached object TREE_CONNECTED.
+
+Fixes: 33b235a6e6eb ("ksmbd: fix race condition between tree conn lookup and disconnect")
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Cc: AutonomousCodeSecurity@microsoft.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
+---
+ fs/smb/server/mgmt/tree_connect.c |  8 ++++++++
+ fs/smb/server/smb2pdu.c           | 28 +++++++++++++---------------
+ 2 files changed, 21 insertions(+), 15 deletions(-)
+
+diff --git a/fs/smb/server/mgmt/tree_connect.c b/fs/smb/server/mgmt/tree_connect.c
+index 5f63e236267a..dd1db3554cae 100644
+--- a/fs/smb/server/mgmt/tree_connect.c
++++ b/fs/smb/server/mgmt/tree_connect.c
+@@ -82,6 +82,8 @@ ksmbd_tree_conn_connect(struct ksmbd_work *work, const char *share_name)
+ 	down_write(&sess->tree_conns_lock);
+ 	ret = xa_err(xa_store(&sess->tree_conns, tree_conn->id, tree_conn,
+ 			      KSMBD_DEFAULT_GFP));
++	if (!ret)
++		atomic_inc(&tree_conn->refcount);
+ 	up_write(&sess->tree_conns_lock);
+ 	if (ret) {
+ 		status.ret = -ENOMEM;
+@@ -129,6 +131,12 @@ int ksmbd_tree_conn_disconnect(struct ksmbd_session *sess,
+ 			       struct ksmbd_tree_connect *tree_conn)
+ {
+ 	down_write(&sess->tree_conns_lock);
++	if (tree_conn->t_state == TREE_DISCONNECTED ||
++	    xa_load(&sess->tree_conns, tree_conn->id) != tree_conn) {
++		up_write(&sess->tree_conns_lock);
++		return -ENOENT;
++	}
++	tree_conn->t_state = TREE_DISCONNECTED;
+ 	xa_erase(&sess->tree_conns, tree_conn->id);
+ 	up_write(&sess->tree_conns_lock);
+ 
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 903ffffdd187..e7c965e7b068 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2804,6 +2804,7 @@ int smb2_tree_connect(struct ksmbd_work *work)
+ 	struct ksmbd_session *sess = work->sess;
+ 	char *treename = NULL, *name = NULL;
+ 	struct ksmbd_tree_conn_status status;
++	struct ksmbd_tree_connect *tree_conn = NULL;
+ 	struct ksmbd_share_config *share = NULL;
+ 	int rc = -EINVAL;
+ 
+@@ -2831,6 +2832,7 @@ int smb2_tree_connect(struct ksmbd_work *work)
+ 
+ 	status = ksmbd_tree_conn_connect(work, name);
+ 	if (status.ret == KSMBD_TREE_CONN_STATUS_OK) {
++		tree_conn = status.tree_conn;
+ 		rsp->hdr.Id.SyncId.TreeId = cpu_to_le32(status.tree_conn->id);
+ 		share = status.tree_conn->share_conf;
+ 
+@@ -2874,8 +2876,15 @@ int smb2_tree_connect(struct ksmbd_work *work)
+ 		status.tree_conn->posix_extensions = true;
+ 
+ 	down_write(&sess->tree_conns_lock);
+-	status.tree_conn->t_state = TREE_CONNECTED;
++	if (status.tree_conn->t_state == TREE_DISCONNECTED) {
++		status.ret = KSMBD_TREE_CONN_STATUS_ERROR;
++		share = NULL;
++	} else {
++		status.tree_conn->t_state = TREE_CONNECTED;
++	}
+ 	up_write(&sess->tree_conns_lock);
++	if (status.ret != KSMBD_TREE_CONN_STATUS_OK)
++		goto out_err1;
+ 	rsp->StructureSize = cpu_to_le16(16);
+ out_err1:
+ 	/*
+@@ -2902,9 +2911,6 @@ int smb2_tree_connect(struct ksmbd_work *work)
+ 	rc = ksmbd_iov_pin_rsp(work, rsp, sizeof(struct smb2_tree_connect_rsp));
+ 	if (rc) {
+ 		if (status.ret == KSMBD_TREE_CONN_STATUS_OK) {
+-			down_write(&sess->tree_conns_lock);
+-			status.tree_conn->t_state = TREE_DISCONNECTED;
+-			up_write(&sess->tree_conns_lock);
+ 			ksmbd_tree_conn_disconnect(sess, status.tree_conn);
+ 			status.tree_conn = NULL;
+ 		}
+@@ -2945,6 +2951,9 @@ int smb2_tree_connect(struct ksmbd_work *work)
+ 	if (status.ret != KSMBD_TREE_CONN_STATUS_OK)
+ 		smb2_set_err_rsp(work);
+ 
++	if (tree_conn)
++		ksmbd_tree_connect_put(tree_conn);
++
+ 	return rc;
+ }
+ 
+@@ -3048,17 +3057,6 @@ int smb2_tree_disconnect(struct ksmbd_work *work)
+ 
+ 	ksmbd_close_tree_conn_fds(work);
+ 
+-	down_write(&sess->tree_conns_lock);
+-	if (tcon->t_state == TREE_DISCONNECTED) {
+-		up_write(&sess->tree_conns_lock);
+-		rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
+-		err = -ENOENT;
+-		goto err_out;
+-	}
+-
+-	tcon->t_state = TREE_DISCONNECTED;
+-	up_write(&sess->tree_conns_lock);
+-
+ 	err = ksmbd_tree_conn_disconnect(sess, tcon);
+ 	if (err) {
+ 		rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
+
+base-commit: f7e5381fe0e2956317075a6d24aad1f56d6ce382
+-- 
+2.55.0
+
